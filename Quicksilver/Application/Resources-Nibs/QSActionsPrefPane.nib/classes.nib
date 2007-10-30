@@ -1,0 +1,67 @@
+{
+    IBClasses = (
+        {
+            CLASS = DNDArrayController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {tableView = NSTableView; }; 
+            SUPERCLASS = NSArrayController; 
+        }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            CLASS = NSPreferencePane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "_firstKeyView" = NSView; 
+                "_initialKeyView" = NSView; 
+                "_lastKeyView" = NSView; 
+                "_window" = NSWindow; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {selectType = id; setFilterText = id; }; 
+            CLASS = QSActionsPrefPane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {actionController = NSArrayController; groupController = NSArrayController; }; 
+            SUPERCLASS = QSPreferencePane; 
+        }, 
+        {CLASS = QSAdvancedPrefPane; LANGUAGE = ObjC; SUPERCLASS = QSPreferencePane; }, 
+        {
+            ACTIONS = {resetColors = id; setCommandInterface = id; }; 
+            CLASS = QSAppearancePrefPane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {interfacePopUp = NSPopUpButton; }; 
+            SUPERCLASS = QSPreferencePane; 
+        }, 
+        {
+            ACTIONS = {checkNow = id; }; 
+            CLASS = QSApplicationPrefPane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                featureLevelMatrix = NSMatrix; 
+                hideDockIconSwitch = NSButton; 
+                hideStatusMenuSwitch = NSButton; 
+            }; 
+            SUPERCLASS = QSPreferencePane; 
+        }, 
+        {
+            ACTIONS = {search = id; }; 
+            CLASS = QSFilteringArrayController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {newObj = id; }; 
+            SUPERCLASS = NSArrayController; 
+        }, 
+        {CLASS = QSImageCell; LANGUAGE = ObjC; SUPERCLASS = NSImageCell; }, 
+        {CLASS = QSImageView; LANGUAGE = ObjC; SUPERCLASS = NSImageView; }, 
+        {CLASS = QSMenuButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
+        {CLASS = QSPreferencePane; LANGUAGE = ObjC; SUPERCLASS = NSPreferencePane; }, 
+        {
+            ACTIONS = {changeHotkey = id; }; 
+            CLASS = QSSearchPrefPane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {hotKeyButton = NSButton; }; 
+            SUPERCLASS = QSPreferencePane; 
+        }
+    ); 
+    IBVersion = 1; 
+}

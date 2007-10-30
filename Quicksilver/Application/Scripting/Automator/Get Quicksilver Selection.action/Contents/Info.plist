@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AMApplication</key>
+	<string>Quicksilver</string>
+	<key>AMCanShowSelectedItemsWhenRun</key>
+	<false/>
+	<key>AMCanShowWhenRun</key>
+	<false/>
+	<key>AMCategory</key>
+	<string>Find</string>
+	<key>AMDefaultParameters</key>
+	<dict/>
+	<key>AMDescription</key>
+	<dict>
+		<key>AMDSummary</key>
+		<string>Gets the currently selected items from Quicksiver</string>
+	</dict>
+	<key>AMIconName</key>
+	<string>Action</string>
+	<key>AMKeywords</key>
+	<array/>
+	<key>AMName</key>
+	<string>Get Quicksilver Selection</string>
+	<key>AMProvides</key>
+	<dict>
+		<key>Container</key>
+		<string>List</string>
+		<key>Types</key>
+		<array>
+			<string>com.apple.applescript.object</string>
+			<string>com.apple.applescript.text-object
+
+</string>
+			<string>com.apple.applescript.data-object</string>
+		</array>
+	</dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>Get Quicksilver Selection</string>
+	<key>CFBundleGetInfoString</key>
+	<string>Get Quicksilver Selection version 1.0, Copyright (c) 2005, Blacktree.</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.blacktree.Quicksilver.AutomatorGet</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Get Quicksilver Selection</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+	<key>NSPrincipalClass</key>
+	<string>QSAutomatorGet</string>
+</dict>
+</plist>

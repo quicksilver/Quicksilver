@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AppLaunchAction</key>
+	<integer>2</integer>
+	<key>AppOpenFileAction</key>
+	<real>0.25</real>
+	<key>AppReopenAction</key>
+	<integer>2</integer>
+	<key>AppleScriptOpenFilesAction</key>
+	<integer>4</integer>
+	<key>AppleScriptOpenTextAction</key>
+	<integer>4</integer>
+	<key>AppleScriptRunAction</key>
+	<integer>4</integer>
+	<key>ContactShowAction</key>
+	<real>0.5</real>
+	<key>FileGetPathAction</key>
+	<real>-0.5</real>
+	<key>FileMakeLinkInAction</key>
+	<real>-0.5</real>
+	<key>FileOpenAction</key>
+	<integer>1</integer>
+	<key>FileOpenWithAction</key>
+	<real>0.10000000000000001</real>
+	<key>FileRevealAction</key>
+	<real>0.10000000000000001</real>
+	<key>PasteboardPasteAction</key>
+	<real>-0.5</real>
+	<key>QSCLExecuteAction</key>
+	<integer>2</integer>
+	<key>QSCLExecuteWithArgsAction</key>
+	<real>2.5</real>
+	<key>QSEmailItemAction</key>
+	<integer>0</integer>
+	<key>QSEmailItemReverseAction</key>
+	<real>-0.20000000000000001</real>
+	<key>QSLargeTypeAction</key>
+	<integer>1</integer>
+	<key>QSPutOnShelfAction</key>
+	<real>-0.5</real>
+	<key>QSSherlockChannelShowAction</key>
+	<integer>5</integer>
+	<key>QSUserSwitchAction</key>
+	<integer>2</integer>
+	<key>QSiPhotoAlbumShowAction</key>
+	<real>0.5</real>
+	<key>QSiTunesAppendItemAction</key>
+	<integer>3</integer>
+	<key>QSiTunesPlayItemAction</key>
+	<real>3.5</real>
+	<key>URLOpenAction</key>
+	<integer>2</integer>
+	<key>URLSearchAction</key>
+	<integer>-10</integer>
+	<key>URLSearchForAction</key>
+	<integer>3</integer>
+</dict>
+</plist>

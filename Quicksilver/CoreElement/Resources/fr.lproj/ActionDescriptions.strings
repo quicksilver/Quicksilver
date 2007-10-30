@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AppActivateAction</key>
+	<string>Activer</string>
+	<key>AppHideAction</key>
+	<string>Enlever</string>
+	<key>AppLaunchAction</key>
+	<string>Lancer l'application</string>
+	<key>AppLaunchAgainAction</key>
+	<string>Lancer un autre exemple d'application</string>
+	<key>AppOpenFileAction</key>
+	<string>Choisir le fichier a ouvrir</string>
+	<key>AppQuitAction</key>
+	<string>Quitter l'application</string>
+	<key>AppReopenAction</key>
+	<string>Réouvrir l'application</string>
+	<key>AppRootLaunchAction</key>
+	<string>Lancer une application en tant que administrateur</string>
+	<key>AppleScriptRunAction</key>
+	<string>Executer un AppleScript</string>
+	<key>ContactEditAction</key>
+	<string>Editer l'élément</string>
+	<key>ContactEmailAction</key>
+	<string>Envoyer un message à un contact</string>
+	<key>ContactIMAction</key>
+	<string>Envoyer un message à un contact par messagerie instantanée</string>
+	<key>ContactSendItemEmailAction</key>
+	<string>Envoyer l'élément à un contact...</string>
+	<key>ContactSendItemIMAction</key>
+	<string>Envoie l'élément à un contact par messagerie instantanée...</string>
+	<key>ContactSendTextEmailAction</key>
+	<string>Envoyer le texte à un contact</string>
+	<key>ContactShowAction</key>
+	<string>Afficher le contact dans le carnet d'adresse</string>
+	<key>DiskEjectAction</key>
+	<string>Éjecter un disque</string>
+	<key>DiskForceEjectAction</key>
+	<string>Forcer un disque à s'éjecter</string>
+	<key>FileCompressAction</key>
+	<string>Compression de fichiers</string>
+	<key>FileCopyToAction</key>
+	<string>Copier dans un autre endroit</string>
+	<key>FileDecompressAction</key>
+	<string>Décompression du fichier</string>
+	<key>FileDeleteAction</key>
+	<string>Effacer l'élément</string>
+	<key>FileGetPathAction</key>
+	<string>Montrer le chemin des répertoires</string>
+	<key>FileMakeLinkInAction</key>
+	<string>Créer un lien dans un autre endroit</string>
+	<key>FileMoveToAction</key>
+	<string>Déplacer vers un autre répertoire</string>
+	<key>FileOpenAction</key>
+	<string>Ouvrir</string>
+	<key>FileOpenWithAction</key>
+	<string>Ouvrir avec une application</string>
+	<key>FileRevealAction</key>
+	<string>Afficher l'élément au premier plan</string>
+	<key>FileToTrashAction</key>
+	<string>Mettre à la corbeille</string>
+	<key>ItemSendToContactEmailAction</key>
+	<string>Envoyer l'élément à un contact</string>
+	<key>ItemSendToContactIMAction</key>
+	<string>Envoyer l'élément à un contact par Messagerie instantanée</string>
+	<key>PasteboardPasteAction</key>
+	<string>Coller cet objet avec l'application en cours</string>
+	<key>ProcessKillAction</key>
+	<string>Forcer un application à quitter</string>
+	<key>ProcessLowerPriorityAction</key>
+	<string>Abaissez la priorité</string>
+	<key>ProcessRaisePriorityAction</key>
+	<string>Augmenter la priorité</string>
+	<key>ProcessResumeAction</key>
+	<string>Reprendre un processus suspendu</string>
+	<key>ProcessSuspendAction</key>
+	<string>Suspendre l'exécution d'un processus</string>
+	<key>QSComposeEmailItemAction</key>
+	<string>Écrire un message avec l'élément joint</string>
+	<key>QSComposeEmailItemReverseAction</key>
+	<string>Écrire un message avec l'élément joint à...</string>
+	<key>QSDialNumberAction</key>
+	<string>Composer un numéro</string>
+	<key>QSEditAction</key>
+	<string>Edition</string>
+	<key>QSEmailAction</key>
+	<string>Envoyer par Messagerie</string>
+	<key>QSEmailItemAction</key>
+	<string>Envoyer l'élément...</string>
+	<key>QSEmailItemReverseAction</key>
+	<string>Envoyer l'élément à...</string>
+	<key>QSHFSLockAction</key>
+	<string>Interdire l'écriture à ce fichier</string>
+	<key>QSHFSMakeInvisibleAction</key>
+	<string>Rendre l'élément invisible au Finder</string>
+	<key>QSHFSMakeVisibleAction</key>
+	<string>Rendre l'élément visible au Finder</string>
+	<key>QSHFSUnlockAction</key>
+	<string>Autoriser l'écriture à ce fichier</string>
+	<key>QSUserSwitchAction</key>
+	<string>Commuter vers un autre utilisateur</string>
+	<key>QSiTunesPlaylistPlayAction</key>
+	<string>Écouter les pistes de la librairie d'iTunes</string>
+	<key>QSiTunesTrackPlayAction</key>
+	<string>Écouter la piste d'iTunes</string>
+	<key>ShellScriptRunAction</key>
+	<string>Executer l'outil de Script</string>
+	<key>URLFindWithAction</key>
+	<string>Recherche avec...</string>
+	<key>URLJSAction</key>
+	<string>Executer Javascript</string>
+	<key>URLOpenAction</key>
+	<string>Ouvrir un URL</string>
+	<key>URLSearchAction</key>
+	<string>Rechercher un URL de requête</string>
+	<key>URLSearchForAction</key>
+	<string>Recherche de texte à un URL de requête</string>
+</dict>
+</plist>

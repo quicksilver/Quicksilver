@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>abbreviation</key>
+	<dict>
+		<key>QSActionMnemonic:NSFilenamesPboardType</key>
+		<array>
+			<string>AppLaunchAction</string>
+			<string>AppReopenAction</string>
+		</array>
+	</dict>
+	<key>implied</key>
+	<dict>
+		<key>/Applications/Internet Explorer.app</key>
+		<dict>
+			<key>ie</key>
+			<integer>2</integer>
+		</dict>
+		<key>/Applications/Mail.app</key>
+		<dict>
+			<key>m</key>
+			<integer>2</integer>
+			<key>mail</key>
+			<integer>2</integer>
+		</dict>
+		<key>/Applications/Safari.app</key>
+		<dict>
+			<key>s</key>
+			<integer>2</integer>
+			<key>safari</key>
+			<integer>2</integer>
+		</dict>
+		<key>/Applications/iTunes.app</key>
+		<dict>
+			<key>it</key>
+			<integer>2</integer>
+			<key>itunes</key>
+			<integer>2</integer>
+		</dict>
+	</dict>
+</dict>
+</plist>

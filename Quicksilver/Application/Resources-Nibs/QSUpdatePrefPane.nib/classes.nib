@@ -1,0 +1,35 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {checkForUpdate = id; }; 
+            CLASS = FirstResponder; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            CLASS = NSPreferencePane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "_firstKeyView" = NSView; 
+                "_initialKeyView" = NSView; 
+                "_lastKeyView" = NSView; 
+                "_window" = NSWindow; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            CLASS = QSPlugInsPrefPane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {plugInTable = id; }; 
+            SUPERCLASS = NSPreferencePane; 
+        }, 
+        {
+            ACTIONS = {checkNow = id; install = id; }; 
+            CLASS = QSUpdatePrefPane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {installButton = NSButton; plugInTable = id; }; 
+            SUPERCLASS = NSPreferencePane; 
+        }
+    ); 
+    IBVersion = 1; 
+}

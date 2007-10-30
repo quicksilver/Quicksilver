@@ -1,0 +1,492 @@
+<element id="com.blacktree.Quicksilver" name="Quicksilver" version="1.0.0">
+    <info>
+        <image/>
+    </info>
+    <requirements/>
+    <extensions xmlns:qs="com.blacktree">
+        <extension point="QSPasteboardTypeHandlers">
+            <extension id="NSFilenamesPboardType" class="QSFileSystemObjectHandler"/>
+            <extension id="NSStringPboardType" class="QSStringObjectHandler"/>
+            <extension id="Apple URL pasteboard type" class="QSURLObjectHandler"/>
+        </extension>
+        <extension point="QSProxies">
+            <object-proxy name="Visible Applications" id="QSVisibleApplicationsProxy">
+                <plist version="1.0">
+                    <dict>
+                        <key>icon</key>
+                        <string>GenericApplicationIcon</string>
+                        <key>name</key>
+                        <string>Visible Applications</string>
+                        <key>providerClass</key>
+                        <string>QSProcessMonitor</string>
+                        <key>types</key>
+                        <array>
+                            <string>NSFilenamesPboardType</string>
+                            <string>qs.process</string>
+                        </array>
+                    </dict>
+                </plist>
+            </object-proxy>
+            <object-proxy name="Hidden Applications" id="QSHiddenApplicationsProxy">
+                <plist version="1.0">
+                    <dict>
+                        <key>icon</key>
+                        <string>GenericApplicationIcon</string>
+                        <key>name</key>
+                        <string>Hidden Applications</string>
+                        <key>providerClass</key>
+                        <string>QSProcessMonitor</string>
+                        <key>types</key>
+                        <array>
+                            <string>NSFilenamesPboardType</string>
+                            <string>qs.process</string>
+                        </array>
+                    </dict>
+                </plist>
+            </object-proxy>
+            <object-proxy name="Current Selection" id="QSGlobalSelectionProxy">
+                <plist version="1.0">
+                    <dict>
+                        <key>icon</key>
+                        <string>Object</string>
+                        <key>name</key>
+                        <string>Current Selection</string>
+                        <key>providerClass</key>
+                        <string>QSGlobalSelectionProvider</string>
+                    </dict>
+                </plist>
+            </object-proxy>
+            <object-proxy name="Droplet Item" id="QSDropletItemProxy">
+                <plist version="1.0">
+                    <dict>
+                        <key>icon</key>
+                        <string>Quicksilver</string>
+                        <key>name</key>
+                        <string>Droplet Item</string>
+                        <key>providerClass</key>
+                        <string>QSController</string>
+                        <key>types</key>
+                        <array>
+                            <string>NSFilenamesPboardType</string>
+                            <string>NSStringPboardType</string>
+                            <string>NSURLPboardType</string>
+                        </array>
+                    </dict>
+                </plist>
+            </object-proxy>
+            <object-proxy name="Previous Application" id="QSPreviousApplicationProxy">
+                <plist version="1.0">
+                    <dict>
+                        <key>icon</key>
+                        <string>GenericApplicationIcon</string>
+                        <key>name</key>
+                        <string>Previous Application</string>
+                        <key>providerClass</key>
+                        <string>QSProcessMonitor</string>
+                        <key>types</key>
+                        <array>
+                            <string>NSFilenamesPboardType</string>
+                            <string>qs.process</string>
+                        </array>
+                    </dict>
+                </plist>
+            </object-proxy>
+            <object-proxy name="Current Application" id="QSCurrentApplicationProxy">
+                <plist version="1.0">
+                    <dict>
+                        <key>icon</key>
+                        <string>GenericApplicationIcon</string>
+                        <key>name</key>
+                        <string>Current Application</string>
+                        <key>providerClass</key>
+                        <string>QSProcessMonitor</string>
+                        <key>types</key>
+                        <array>
+                            <string>NSFilenamesPboardType</string>
+                            <string>qs.process</string>
+                        </array>
+                    </dict>
+                </plist>
+            </object-proxy>
+        </extension>
+        <extension point="QSPlugInInfoHandlers">
+            <extension id="QSTriggerAdditions" class="QSTriggerCenter"/>
+            <extension id="QSLocalization" class="QSResourceManager"/>
+            <extension id="QSActions" class="QSExecutor"/>
+            <extension id="QSPresetAdditions" class="QSLibrarian"/>
+            <extension id="QSResourceAdditions" class="QSResourceManager"/>
+            <extension id="QSDefaults" class="QSDefaultsManager"/>
+            <extension id="QSCommandAdditions" class="QSCommandObjectHandler"/>
+        </extension>
+        <extension point="QSInternalURLHandlers">
+            <extension id="install" class="QSResourceManager"/>
+            <extension id="preferences" class="QSPreferencesController"/>
+            <extension id="triggers" class="QSTriggersPrefPane"/>
+            <extension id="catalog" class="QSCatalogPrefPane"/>
+            <extension id="plugins" class="QSPlugInsPrefPane"/>
+            <extension id="update" class="QSUpdateController"/>
+        </extension>
+        <extension point="QSPreferencePanes">
+            <preference-pane name="Guide" id="QSMainMenuPrefPane" class="QSMainMenuPrefPane">
+                <plist version="1.0">
+                    <dict>
+                        <key>class</key>
+                        <string>QSMainMenuPrefPane</string>
+                        <key>description</key>
+                        <string>Welcome to Quicksilver</string>
+                        <key>icon</key>
+                        <string>Quicksilver</string>
+                        <key>name</key>
+                        <string>Guide</string>
+                        <key>type</key>
+                        <string>Toolbar</string>
+                    </dict>
+                </plist>
+            </preference-pane>
+            <preference-pane name="Appearance" id="QSAppearancePrefPane" class="QSAppearancePrefPane">
+                <plist version="1.0">
+                    <dict>
+                        <key>class</key>
+                        <string>QSAppearancePrefPane</string>
+                        <key>description</key>
+                        <string>Color and visual settings</string>
+                        <key>icon</key>
+                        <string>appearanceIcon</string>
+                        <key>name</key>
+                        <string>Appearance</string>
+                        <key>type</key>
+                        <string>Main</string>
+                    </dict>
+                </plist>
+            </preference-pane>
+            <preference-pane name="Catalog" id="QSCatalogPrefPane" class="QSCatalogPrefPane">
+                <plist version="1.0">
+                    <dict>
+                        <key>class</key>
+                        <string>QSCatalogPrefPane</string>
+                        <key>color</key>
+                        <data>
+	BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMChARm
+	ZmZmgz8yZ2oBgz8urq8Bhg==
+	</data>
+                        <key>description</key>
+                        <string>Modify the list of searchable items</string>
+                        <key>icon</key>
+                        <string>Pref-Catalog</string>
+                        <key>name</key>
+                        <string>Catalog</string>
+                        <key>type</key>
+                        <string>Toolbar</string>
+                    </dict>
+                </plist>
+            </preference-pane>
+            <preference-pane name="Application" id="QSApplicationPrefPane" class="QSApplicationPrefPane">
+                <plist version="1.0">
+                    <dict>
+                        <key>class</key>
+                        <string>QSApplicationPrefPane</string>
+                        <key>description</key>
+                        <string>Launch, visibility, and update settings </string>
+                        <key>icon</key>
+                        <string>ToolbarAppsFolderIcon</string>
+                        <key>name</key>
+                        <string>Application</string>
+                        <key>priority</key>
+                        <integer>10</integer>
+                        <key>type</key>
+                        <string>Main</string>
+                    </dict>
+                </plist>
+            </preference-pane>
+            <preference-pane name="Command" id="QSSearchPrefPane" class="QSSearchPrefPane">
+                <plist version="1.0">
+                    <dict>
+                        <key>class</key>
+                        <string>QSSearchPrefPane</string>
+                        <key>description</key>
+                        <string>Activation and Matching options</string>
+                        <key>icon</key>
+                        <string>Find</string>
+                        <key>name</key>
+                        <string>Command</string>
+                        <key>type</key>
+                        <string>Main</string>
+                    </dict>
+                </plist>
+            </preference-pane>
+            <preference-pane name="Plug-ins" id="QSPlugInsPrefPane" class="QSPlugInsPrefPane">
+                <plist version="1.0">
+                    <dict>
+                        <key>class</key>
+                        <string>QSPlugInsPrefPane</string>
+                        <key>color</key>
+                        <data>
+	BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMBhARm
+	ZmZmgz9XjNiDPzZRtoM/bRvtAYY=
+	</data>
+                        <key>description</key>
+                        <string>Find and install plug-ins</string>
+                        <key>icon</key>
+                        <string>Pref-PlugIns</string>
+                        <key>name</key>
+                        <string>Plug-ins</string>
+                        <key>type</key>
+                        <string>Toolbar</string>
+                    </dict>
+                </plist>
+            </preference-pane>
+            <preference-pane name="Handlers" id="QSHelpersPrefPane" class="QSHelpersPrefPane">
+                <plist version="1.0">
+                    <dict>
+                        <key>class</key>
+                        <string>QSHelpersPrefPane</string>
+                        <key>description</key>
+                        <string>Choose the helpers for specific tasks</string>
+                        <key>icon</key>
+                        <string>Quicksilver</string>
+                        <key>name</key>
+                        <string>Handlers</string>
+                    </dict>
+                </plist>
+            </preference-pane>
+            <preference-pane name="Actions" id="QSActionsPrefPane" class="QSActionsPrefPane">
+                <plist version="1.0">
+                    <dict>
+                        <key>autosize</key>
+                        <true/>
+                        <key>class</key>
+                        <string>QSActionsPrefPane</string>
+                        <key>description</key>
+                        <string>Modify the list and ordering of actions</string>
+                        <key>feature</key>
+                        <integer>0</integer>
+                        <key>icon</key>
+                        <string>defaultAction</string>
+                        <key>name</key>
+                        <string>Actions</string>
+                    </dict>
+                </plist>
+            </preference-pane>
+            <preference-pane name="Extras" id="QSAdvancedPrefPane" class="QSAdvancedPrefPane">
+                <plist version="1.0">
+                    <dict>
+                        <key>class</key>
+                        <string>QSAdvancedPrefPane</string>
+                        <key>description</key>
+                        <string>The Kitchen Sink</string>
+                        <key>feature</key>
+                        <integer>1</integer>
+                        <key>icon</key>
+                        <string>ToolbarCustomizeIcon</string>
+                        <key>name</key>
+                        <string>Extras</string>
+                        <key>type</key>
+                        <string>Main</string>
+                    </dict>
+                </plist>
+            </preference-pane>
+        </extension>
+        <extension point="QSObjectHandlers">
+            <object-handler id="qs.proxy" class="QSProxyObjectSource"/>
+            <object-handler id="qs.command" class="QSCommandObjectHandler"/>
+            <object-handler id="qs.action" class="QSActionHandler"/>
+        </extension>
+        <extension point="QSClasses">
+            <extension id="QSLibrarian" class="QSLibrarian"/>
+            <extension id="QSPreferencesController" class="QSPreferencesController"/>
+            <extension id="QSRegistry" class="QSRegistry"/>
+            <extension id="QSGlobalSelectionProvider" class="QSGlobalSelectionProvider"/>
+        </extension>
+        <extension point="QSTriggerManagers">
+            <trigger-manager id="QSGroupTrigger" class="QSGroupTriggerManager"/>
+        </extension>
+        <extension point="QSActionProviders">
+            <action-provider id="QSProcessActionProvider" class="QSProcessActionProvider"/>
+            <action-provider id="ClipboardActions" class="ClipboardActions"/>
+            <action-provider id="QSObjCMessageSource" class="QSObjCMessageSource"/>
+            <action-provider id="AppActions" class="AppActions"/>
+            <action-provider id="QSShelfSource" class="QSShelfSource"/>
+            <action-provider id="QSObjectActions" class="QSObjectActions"/>
+        </extension>
+        <extension point="QSStringRankers">
+            <extension id="QSDefaultStringRanker" class="QSDefaultStringRanker"/>
+        </extension>
+        <extension point="QSTriggerSets">
+            <trigger-set name="Quicksilver" id="com.blacktree.Quicksilver">
+                <plist version="1.0">
+                    <dict>
+                        <key>icon</key>
+                        <string>Quicksilver</string>
+                        <key>name</key>
+                        <string>Quicksilver</string>
+                    </dict>
+                </plist>
+            </trigger-set>
+        </extension>
+        <extension-point name="String Ranker" id="QSStringRankers">
+            <plist version="1.0">
+                <dict>
+                    <key>classTable</key>
+                    <true/>
+                    <key>defaultPermitted</key>
+                    <true/>
+                    <key>feature</key>
+                    <integer>0</integer>
+                    <key>name</key>
+                    <string>String Ranker</string>
+                    <key>requiresRelaunch</key>
+                    <true/>
+                    <key>type</key>
+                    <string>mediator</string>
+                </dict>
+            </plist>
+        </extension-point>
+        <extension-point name="Missing Object Selector" id="QSUnidentifiedObjectSelector">
+            <plist version="1.0">
+                <dict>
+                    <key>classTable</key>
+                    <true/>
+                    <key>feature</key>
+                    <integer>1</integer>
+                    <key>name</key>
+                    <string>Missing Object Selector</string>
+                    <key>type</key>
+                    <string>mediator</string>
+                </dict>
+            </plist>
+        </extension-point>
+        <extension point="QSNotifiers">
+            <extension id="com.apple.Console" class="QSConsoleNotifier"/>
+            <extension id="com.blacktree.Quicksilver" class="QSSilverNotifier"/>
+        </extension>
+        <extension point="QSUnidentifiedObjectSelector">
+            <extension id="QSCommandWindowObjectSelector" class="QSController"/>
+        </extension>
+        <extension point="QSInternalMessages">
+            <internal-message name="QS Command Window with Text" id="QSInterfaceShowTransmogrifiedMessage">
+                <plist version="1.0">
+                    <dict>
+                        <key>actionClass</key>
+                        <string>QSController</string>
+                        <key>actionSelector</key>
+                        <string>activateInterfaceTransmogrified:</string>
+                        <key>icon</key>
+                        <string>Quicksilver</string>
+                        <key>name</key>
+                        <string>QS Command Window with Text</string>
+                        <key>runInMainThread</key>
+                        <true/>
+                    </dict>
+                </plist>
+            </internal-message>
+            <internal-message name="Catalog Rescan" id="QSRescanCatalogMessage">
+                <plist version="1.0">
+                    <dict>
+                        <key>actionClass</key>
+                        <string>QSController</string>
+                        <key>actionSelector</key>
+                        <string>rescanItems:</string>
+                        <key>icon</key>
+                        <string>Quicksilver</string>
+                        <key>name</key>
+                        <string>Catalog Rescan</string>
+                    </dict>
+                </plist>
+            </internal-message>
+            <internal-message name="QS Triggers" id="QSTriggersShowMessage">
+                <plist version="1.0">
+                    <dict>
+                        <key>actionClass</key>
+                        <string>QSController</string>
+                        <key>actionSelector</key>
+                        <string>showTriggers:</string>
+                        <key>icon</key>
+                        <string>Quicksilver</string>
+                        <key>name</key>
+                        <string>QS Triggers</string>
+                        <key>runInMainThread</key>
+                        <true/>
+                    </dict>
+                </plist>
+            </internal-message>
+            <internal-message name="QS Command Window" id="QSInterfaceShowMessage">
+                <plist version="1.0">
+                    <dict>
+                        <key>actionClass</key>
+                        <string>QSController</string>
+                        <key>actionSelector</key>
+                        <string>activateInterface:</string>
+                        <key>icon</key>
+                        <string>Quicksilver</string>
+                        <key>name</key>
+                        <string>QS Command Window</string>
+                        <key>runInMainThread</key>
+                        <true/>
+                    </dict>
+                </plist>
+            </internal-message>
+            <internal-message name="QS Preferences" id="QSPreferencesShowMessage">
+                <plist version="1.0">
+                    <dict>
+                        <key>actionClass</key>
+                        <string>QSPreferencesController</string>
+                        <key>actionSelector</key>
+                        <string>showPrefs</string>
+                        <key>classMethod</key>
+                        <true/>
+                        <key>icon</key>
+                        <string>Quicksilver</string>
+                        <key>name</key>
+                        <string>QS Preferences</string>
+                    </dict>
+                </plist>
+            </internal-message>
+            <internal-message name="QS Catalog" id="QSCatalogShowMessage">
+                <plist version="1.0">
+                    <dict>
+                        <key>actionClass</key>
+                        <string>QSController</string>
+                        <key>actionSelector</key>
+                        <string>showCatalog:</string>
+                        <key>icon</key>
+                        <string>Quicksilver</string>
+                        <key>name</key>
+                        <string>QS Catalog</string>
+                        <key>runInMainThread</key>
+                        <true/>
+                    </dict>
+                </plist>
+            </internal-message>
+            <internal-message name="QS Check for Update" id="QSCheckForUpdateMessage">
+                <plist version="1.0">
+                    <dict>
+                        <key>actionClass</key>
+                        <string>QSUpdateController</string>
+                        <key>actionSelector</key>
+                        <string>threadedRequestedCheckForUpdate:</string>
+                        <key>icon</key>
+                        <string>Quicksilver</string>
+                        <key>name</key>
+                        <string>QS Check for Update</string>
+                        <key>runInMainThread</key>
+                        <true/>
+                    </dict>
+                </plist>
+            </internal-message>
+            <internal-message name="Force Catalog Rescan" id="QSForceRescanCatalogMessage">
+                <plist version="1.0">
+                    <dict>
+                        <key>actionClass</key>
+                        <string>QSController</string>
+                        <key>actionSelector</key>
+                        <string>forceRescanItems:</string>
+                        <key>icon</key>
+                        <string>Quicksilver</string>
+                        <key>name</key>
+                        <string>Force Catalog Rescan</string>
+                    </dict>
+                </plist>
+            </internal-message>
+        </extension>
+    </extensions>
+</element>

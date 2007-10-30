@@ -1,0 +1,233 @@
+// !$*UTF8*$!
+{
+	0259C573FE90428111CA0C5A /* Project object */ = {
+		activeBuildConfigurationName = Release;
+		activeExecutable = 7FFA8ECD0816CDED00A858CD /* Quicksilver */;
+		activeTarget = 8D1AC9600486D14A00FE50C9 /* Triggers */;
+		addToTargets = (
+			8D1AC9600486D14A00FE50C9 /* Triggers */,
+		);
+		codeSenseManager = 7FFA8ED90816CE0200A858CD /* Code sense */;
+		executables = (
+			7FFA8ECD0816CDED00A858CD /* Quicksilver */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXExecutablesDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXExecutablesDataSource_NameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					22,
+					300,
+					130,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXExecutablesDataSource_ActiveFlagID,
+					PBXExecutablesDataSource_NameID,
+					PBXExecutablesDataSource_CommentsID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					243,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					200,
+					63,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 202438852;
+			PBXWorkspaceStateSaveDate = 202438852;
+		};
+		perUserProjectItems = {
+			7F6E34DC0C110A0D00303BFE /* PBXTextBookmark */ = 7F6E34DC0C110A0D00303BFE /* PBXTextBookmark */;
+			7F6E34FF0C110F1B00303BFE /* PBXTextBookmark */ = 7F6E34FF0C110F1B00303BFE /* PBXTextBookmark */;
+		};
+		sourceControlManager = 7FFA8ED80816CE0200A858CD /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	7F6E34DC0C110A0D00303BFE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F8D39C80BF0BE86008935FA /* QSTriggersPrefPane.m */;
+		name = populate;
+		rLen = 8;
+		rLoc = 3207;
+		rType = 0;
+		vrLen = 1456;
+		vrLoc = 3302;
+	};
+	7F6E34FF0C110F1B00303BFE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F8D39C80BF0BE86008935FA /* QSTriggersPrefPane.m */;
+		name = objectValue;
+		rLen = 11;
+		rLoc = 30530;
+		rType = 0;
+		vrLen = 2116;
+		vrLoc = 29554;
+	};
+	7F8D39C10BF0BE86008935FA /* QSTrigger.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {453, 574}}";
+			sepNavSelRange = "{154, 0}";
+			sepNavVisRect = "{{0, 0}, {453, 186}}";
+			sepNavWindowFrame = "{{19, -2}, {974, 875}}";
+		};
+	};
+	7F8D39C20BF0BE86008935FA /* QSTrigger.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {752, 4424}}";
+			sepNavSelRange = "{5294, 0}";
+			sepNavVisRect = "{{0, 2880}, {713, 749}}";
+			sepNavWindowFrame = "{{614, 0}, {758, 878}}";
+		};
+	};
+	7F8D39C40BF0BE86008935FA /* QSTriggerCenter.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {980, 3108}}";
+			sepNavSelRange = "{121, 0}";
+			sepNavVisRect = "{{0, 0}, {453, 186}}";
+		};
+	};
+	7F8D39C60BF0BE86008935FA /* QSTriggerManager.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1052, 1750}}";
+			sepNavSelRange = "{162, 82}";
+			sepNavVisRect = "{{0, 0}, {453, 186}}";
+		};
+	};
+	7F8D39C70BF0BE86008935FA /* QSTriggersPrefPane.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {929, 1316}}";
+			sepNavSelRange = "{2337, 4}";
+			sepNavVisRect = "{{0, 560}, {929, 746}}";
+			sepNavWindowFrame = "{{19, 698}, {974, 875}}";
+		};
+	};
+	7F8D39C80BF0BE86008935FA /* QSTriggersPrefPane.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1874, 15288}}";
+			sepNavSelRange = "{30530, 11}";
+			sepNavVisRect = "{{0, 12752}, {929, 746}}";
+			sepNavWindowFrame = "{{435, -655}, {974, 875}}";
+		};
+	};
+	7F8D3BF50BF0BF94008935FA /* Quicksilver.app */ = {
+		isa = PBXFileReference;
+		explicitFileType = wrapper.application;
+		name = Quicksilver.app;
+		path = /Users/Shared/build/Release/Quicksilver.app;
+		sourceTree = "<absolute>";
+	};
+	7F8D3C120BF0BFF2008935FA /* element.xml */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {929, 746}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 0}, {929, 746}}";
+			sepNavWindowFrame = "{{19, -2}, {974, 875}}";
+		};
+	};
+	7FFA8ECD0816CDED00A858CD /* Quicksilver */ = {
+		isa = PBXExecutable;
+		activeArgIndex = 2147483647;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		configStateDict = {
+			"PBXLSLaunchAction-0" = {
+				PBXLSLaunchAction = 0;
+				PBXLSLaunchStartAction = 1;
+				PBXLSLaunchStdioStyle = 2;
+				PBXLSLaunchStyle = 0;
+				class = PBXLSRunLaunchConfig;
+				displayName = "Executable Runner";
+				identifier = com.apple.Xcode.launch.runConfig;
+				remoteHostInfo = "";
+				startActionInfo = "";
+			};
+		};
+		customDataFormattersEnabled = 1;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+			{
+				active = YES;
+				name = NSDebugEnabled;
+				value = YES;
+			},
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		launchableReference = 7F8D3BF50BF0BF94008935FA /* Quicksilver.app */;
+		libgmallocEnabled = 0;
+		name = Quicksilver;
+		savedGlobals = {
+		};
+		sourceDirectories = (
+		);
+		variableFormatDictionary = {
+		};
+	};
+	7FFA8ED80816CE0200A858CD /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+		};
+		scmType = "";
+	};
+	7FFA8ED90816CE0200A858CD /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	8D1AC9600486D14A00FE50C9 /* Triggers */ = {
+		activeExec = 0;
+	};
+	8D1AC9730486D14A00FE50C9 /* Info.plist */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {929, 2030}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 0}, {929, 746}}";
+			sepNavWindowFrame = "{{19, -2}, {974, 875}}";
+		};
+	};
+}

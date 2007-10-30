@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>QSDirectoryParser</key>
+	<string>Ordnerinhalte</string>
+	<key>QSHTMLLinkParser</key>
+	<string>HTML-Links</string>
+	<key>QSSafariBookmarksParser</key>
+	<string>Safari Lesezeichen</string>
+	<key>QSSafariHistoryParser</key>
+	<string>Safari Verlauf</string>
+</dict>
+</plist>

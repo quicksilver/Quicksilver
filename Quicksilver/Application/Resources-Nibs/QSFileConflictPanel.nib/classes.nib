@@ -1,0 +1,19 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = QSBackgroundView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {
+            ACTIONS = {cancel = id; replace = id; }; 
+            CLASS = QSFileConflictPanel; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                dontReplaceButton = NSButton; 
+                nameTable = NSTableView; 
+                replaceButton = NSButton; 
+                smartReplaceButton = NSButton; 
+            }; 
+            SUPERCLASS = NSPanel; 
+        }
+    ); 
+    IBVersion = 1; 
+}

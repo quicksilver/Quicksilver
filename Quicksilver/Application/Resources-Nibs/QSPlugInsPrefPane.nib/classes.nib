@@ -1,0 +1,85 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = NSObject; LANGUAGE = ObjC; }, 
+        {
+            CLASS = NSPreferencePane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "_firstKeyView" = NSView; 
+                "_initialKeyView" = NSView; 
+                "_lastKeyView" = NSView; 
+                "_window" = NSWindow; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = QSFancyOutlineView; LANGUAGE = ObjC; SUPERCLASS = QSOutlineView; }, 
+        {CLASS = QSFancyTableView; LANGUAGE = ObjC; SUPERCLASS = QSTableView; }, 
+        {
+            ACTIONS = {search = id; }; 
+            CLASS = QSFilteringArrayController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {newObj = id; }; 
+            SUPERCLASS = NSArrayController; 
+        }, 
+        {CLASS = QSGlossyBarButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
+        {CLASS = QSGlossyBarMenuButton; LANGUAGE = ObjC; SUPERCLASS = QSMenuButton; }, 
+        {CLASS = QSGlossyBarView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {CLASS = QSImageAndTextCell; LANGUAGE = ObjC; SUPERCLASS = NSTextFieldCell; }, 
+        {CLASS = QSImageCell; LANGUAGE = ObjC; SUPERCLASS = NSImageCell; }, 
+        {CLASS = QSImageView; LANGUAGE = ObjC; SUPERCLASS = NSImageView; }, 
+        {CLASS = QSMenuButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
+        {CLASS = QSOutlineView; LANGUAGE = ObjC; SUPERCLASS = NSOutlineView; }, 
+        {
+            ACTIONS = {
+                copyInstallURL = id; 
+                deleteSelection = id; 
+                downloadInBrowser = id; 
+                getInfo = id; 
+                installSelectedPlugIns = id; 
+                reloadPlugIns = id; 
+                showHelp = id; 
+                showPlugInsFolder = id; 
+                showPlugInsRSS = id; 
+                updatePlugIns = id; 
+            }; 
+            CLASS = QSPlugInsPrefPane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                arrayController = NSArrayController; 
+                categoryPopUp = NSPopUpButton; 
+                infoDrawer = NSDrawer; 
+                plugInTable = id; 
+                plugInText = id; 
+                pluginSetsTable = NSTableView; 
+                pluginTable = NSTableView; 
+                searchField = NSSearchField; 
+                setsArrayController = NSController; 
+                sidebar = NSView; 
+                statusField = NSTextField; 
+                viewPopUp = NSPopUpButton; 
+            }; 
+            SUPERCLASS = QSPreferencePane; 
+        }, 
+        {
+            ACTIONS = {showPaneHelp = id; }; 
+            CLASS = QSPreferencePane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "_firstKeyView" = NSView; 
+                "_initialKeyView" = NSView; 
+                "_lastKeyView" = NSView; 
+                "_window" = NSWindow; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            CLASS = QSSplitHandleView; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {splitView = QSHandledSplitView; }; 
+            SUPERCLASS = NSView; 
+        }, 
+        {CLASS = QSTableView; LANGUAGE = ObjC; SUPERCLASS = NSTableView; }
+    ); 
+    IBVersion = 1; 
+}

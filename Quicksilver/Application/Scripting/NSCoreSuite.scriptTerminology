@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Classes</key>
+	<dict>
+		<key>AbstractObject</key>
+		<dict>
+			<key>Attributes</key>
+			<dict>
+				<key>classCode</key>
+				<dict>
+					<key>Description</key>
+					<string>The class of the object.</string>
+					<key>Name</key>
+					<string>class</string>
+				</dict>
+				<key>scriptingProperties</key>
+				<dict>
+					<key>Description</key>
+					<string>All of the object's properties.</string>
+					<key>Name</key>
+					<string>properties</string>
+				</dict>
+			</dict>
+			<key>Description</key>
+			<string>A scriptable object.</string>
+			<key>Name</key>
+			<string>item</string>
+			<key>PluralName</key>
+			<string>items</string>
+		</dict>
+		<key>NSApplication</key>
+		<dict>
+			<key>Attributes</key>
+			<dict>
+				<key>isActive</key>
+				<dict>
+					<key>Description</key>
+					<string>Is this the frontmost (active) application?</string>
+					<key>Name</key>
+					<string>frontmost</string>
+				</dict>
+				<key>name</key>
+				<dict>
+					<key>Description</key>
+					<string>The name of the application.</string>
+					<key>Name</key>
+					<string>name</string>
+				</dict>
+				<key>version</key>
+				<dict>
+					<key>Description</key>
+					<string>The version of the application.</string>
+					<key>Name</key>
+					<string>version</string>
+				</dict>
+			</dict>
+			<key>Description</key>
+			<string>An application's top level scripting object.</string>
+			<key>Name</key>
+			<string>application</string>
+			<key>PluralName</key>
+			<string>applications</string>
+		</dict>
+		<key>NSColor</key>
+		<dict>
+			<key>Description</key>
+			<string>A color.</string>
+			<key>Name</key>
+			<string>color</string>
+			<key>PluralName</key>
+			<string>colors</string>
+		</dict>
+		<key>NSDocument</key>
+		<dict>
+			<key>Attributes</key>
+			<dict>
+				<key>fileName</key>
+				<dict>
+					<key>Description</key>
+					<string>The document's path.</string>
+					<key>Name</key>
+					<string>path</string>
+				</dict>
+				<key>isDocumentEdited</key>
+				<dict>
+					<key>Description</key>
+					<string>Has the document been modified since the last save?</string>
+					<key>Name</key>
+					<string>modified</string>
+				</dict>
+				<key>lastComponentOfFileName</key>
+				<dict>
+					<key>Description</key>
+					<string>The document's name.</string>
+					<key>Name</key>
+					<string>name</string>
+				</dict>
+			</dict>
+			<key>Description</key>
+			<string>A document.</string>
+			<key>Name</key>
+			<string>document</string>
+			<key>PluralName</key>
+			<string>documents</string>
+		</dict>
+		<key>NSWindow</key>
+		<dict>
+			<key>Attributes</key>
+			<dict>
+				<key>boundsAsQDRect</key>
+				<dict>
+					<key>Description</key>
+					<string>The bounding rectangle of the window.</string>
+					<key>Name</key>
+					<string>bounds</string>
+				</dict>
+				<key>document</key>
+				<dict>
+					<key>Description</key>
+					<string>The document whose contents are being displayed in the window.</string>
+					<key>Name</key>
+					<string>document</string>
+				</dict>
+				<key>hasCloseBox</key>
+				<dict>
+					<key>Description</key>
+					<string>Whether the window has a close box.</string>
+					<key>Name</key>
+					<string>closeable</string>
+				</dict>
+				<key>hasTitleBar</key>
+				<dict>
+					<key>Description</key>
+					<string>Whether the window has a title bar.</string>
+					<key>Name</key>
+					<string>titled</string>
+				</dict>
+				<key>isFloatingPanel</key>
+				<dict>
+					<key>Description</key>
+					<string>Whether the window floats.</string>
+					<key>Name</key>
+					<string>floating</string>
+				</dict>
+				<key>isMiniaturizable</key>
+				<dict>
+					<key>Description</key>
+					<string>Whether the window can be miniaturized.</string>
+					<key>Name</key>
+					<string>miniaturizable</string>
+				</dict>
+				<key>isMiniaturized</key>
+				<dict>
+					<key>Description</key>
+					<string>Whether the window is currently miniaturized.</string>
+					<key>Name</key>
+					<string>miniaturized</string>
+				</dict>
+				<key>isModalPanel</key>
+				<dict>
+					<key>Description</key>
+					<string>Whether the window is the application's current modal window.</string>
+					<key>Name</key>
+					<string>modal</string>
+				</dict>
+				<key>isResizable</key>
+				<dict>
+					<key>Description</key>
+					<string>Whether the window can be resized.</string>
+					<key>Name</key>
+					<string>resizable</string>
+				</dict>
+				<key>isVisible</key>
+				<dict>
+					<key>Description</key>
+					<string>Whether the window is currently visible.</string>
+					<key>Name</key>
+					<string>visible</string>
+				</dict>
+				<key>isZoomable</key>
+				<dict>
+					<key>Description</key>
+					<string>Whether the window can be zoomed.</string>
+					<key>Name</key>
+					<string>zoomable</string>
+				</dict>
+				<key>isZoomed</key>
+				<dict>
+					<key>Description</key>
+					<string>Whether the window is currently zoomed.</string>
+					<key>Name</key>
+					<string>zoomed</string>
+				</dict>
+				<key>orderedIndex</key>
+				<dict>
+					<key>Description</key>
+					<string>The index of the window in the back-to-front window ordering.</string>
+					<key>Name</key>
+					<string>index</string>
+				</dict>
+				<key>title</key>
+				<dict>
+					<key>Description</key>
+					<string>The full title of the window.</string>
+					<key>Name</key>
+					<string>name</string>
+				</dict>
+				<key>uniqueID</key>
+				<dict>
+					<key>Description</key>
+					<string>The unique identifier of the window.</string>
+					<key>Name</key>
+					<string>id</string>
+				</dict>
+			</dict>
+			<key>Description</key>
+			<string>A window.</string>
+			<key>Name</key>
+			<string>window</string>
+			<key>PluralName</key>
+			<string>windows</string>
+		</dict>
+	</dict>
+	<key>Commands</key>
+	<dict>
+		<key>Close</key>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>File</key>
+				<dict>
+					<key>Description</key>
+					<string>The file in which to save the object.</string>
+					<key>Name</key>
+					<string>saving in</string>
+				</dict>
+				<key>SaveOptions</key>
+				<dict>
+					<key>Description</key>
+					<string>Specifies whether changes should be saved before closing.</string>
+					<key>Name</key>
+					<string>saving</string>
+				</dict>
+			</dict>
+			<key>Description</key>
+			<string>Close an object.</string>
+			<key>Name</key>
+			<string>close</string>
+		</dict>
+		<key>Copy</key>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>ToLocation</key>
+				<dict>
+					<key>Description</key>
+					<string>The location for the new object(s).</string>
+					<key>Name</key>
+					<string>to</string>
+				</dict>
+				<key>WithProperties</key>
+				<dict>
+					<key>Description</key>
+					<string>Properties to be set in the new duplicated object(s).</string>
+					<key>Name</key>
+					<string>with properties</string>
+				</dict>
+			</dict>
+			<key>Description</key>
+			<string>Copy object(s) and put the copies at a new location.</string>
+			<key>Name</key>
+			<string>duplicate</string>
+		</dict>
+		<key>Count</key>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>ObjectClass</key>
+				<dict>
+					<key>Description</key>
+					<string>The class of objects to be counted.</string>
+					<key>Name</key>
+					<string>each</string>
+				</dict>
+			</dict>
+			<key>Description</key>
+			<string>Return the number of elements of a particular class within an object.</string>
+			<key>Name</key>
+			<string>count</string>
+		</dict>
+		<key>Create</key>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>KeyDictionary</key>
+				<dict>
+					<key>Description</key>
+					<string>The initial values for properties of the object.</string>
+					<key>Name</key>
+					<string>with properties</string>
+				</dict>
+				<key>Location</key>
+				<dict>
+					<key>Description</key>
+					<string>The location at which to insert the object.</string>
+					<key>Name</key>
+					<string>at</string>
+				</dict>
+				<key>ObjectClass</key>
+				<dict>
+					<key>Description</key>
+					<string>The class of the new object.</string>
+					<key>Name</key>
+					<string>new</string>
+				</dict>
+				<key>ObjectData</key>
+				<dict>
+					<key>Description</key>
+					<string>The initial data for the object.</string>
+					<key>Name</key>
+					<string>with data</string>
+				</dict>
+			</dict>
+			<key>Description</key>
+			<string>Make a new object.</string>
+			<key>Name</key>
+			<string>make</string>
+		</dict>
+		<key>Delete</key>
+		<dict>
+			<key>Description</key>
+			<string>Delete an object.</string>
+			<key>Name</key>
+			<string>delete</string>
+		</dict>
+		<key>Exists</key>
+		<dict>
+			<key>Description</key>
+			<string>Verify if an object exists.</string>
+			<key>Name</key>
+			<string>exists</string>
+		</dict>
+		<key>Get</key>
+		<dict>
+			<key>Description</key>
+			<string>Get the data for an object.</string>
+			<key>Name</key>
+			<string>get</string>
+		</dict>
+		<key>Move</key>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>ToLocation</key>
+				<dict>
+					<key>Description</key>
+					<string>The new location for the object(s).</string>
+					<key>Name</key>
+					<string>to</string>
+				</dict>
+			</dict>
+			<key>Description</key>
+			<string>Move object(s) to a new location.</string>
+			<key>Name</key>
+			<string>move</string>
+		</dict>
+		<key>Open</key>
+		<dict>
+			<key>Description</key>
+			<string>Open an object.</string>
+			<key>Name</key>
+			<string>open</string>
+			<key>UnnamedArgument</key>
+			<dict>
+				<key>Description</key>
+				<string>The file(s) to be opened.</string>
+			</dict>
+		</dict>
+		<key>Print</key>
+		<dict>
+			<key>Description</key>
+			<string>Print an object.</string>
+			<key>Name</key>
+			<string>print</string>
+			<key>UnnamedArgument</key>
+			<dict>
+				<key>Description</key>
+				<string>The file(s) or document(s) to be printed.</string>
+			</dict>
+		</dict>
+		<key>Quit</key>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>SaveOptions</key>
+				<dict>
+					<key>Description</key>
+					<string>Specifies whether changes should be saved before quitting.</string>
+					<key>Name</key>
+					<string>saving</string>
+				</dict>
+			</dict>
+			<key>Description</key>
+			<string>Quit an application.</string>
+			<key>Name</key>
+			<string>quit</string>
+		</dict>
+		<key>Save</key>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>File</key>
+				<dict>
+					<key>Description</key>
+					<string>The file in which to save the object.</string>
+					<key>Name</key>
+					<string>in</string>
+				</dict>
+				<key>FileType</key>
+				<dict>
+					<key>Description</key>
+					<string>The file type in which to save the data.</string>
+					<key>Name</key>
+					<string>as</string>
+				</dict>
+			</dict>
+			<key>Description</key>
+			<string>Save an object.</string>
+			<key>Name</key>
+			<string>save</string>
+		</dict>
+		<key>Set</key>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>Value</key>
+				<dict>
+					<key>Description</key>
+					<string>The new value.</string>
+					<key>Name</key>
+					<string>to</string>
+				</dict>
+			</dict>
+			<key>Description</key>
+			<string>Set an object's data.</string>
+			<key>Name</key>
+			<string>set</string>
+		</dict>
+	</dict>
+	<key>Description</key>
+	<string>Common classes and commands for most applications.</string>
+	<key>Enumerations</key>
+	<dict>
+		<key>SaveOptions</key>
+		<dict>
+			<key>Ask</key>
+			<dict>
+				<key>Description</key>
+				<string>Ask the user whether or not to save the file.</string>
+				<key>Name</key>
+				<string>ask</string>
+			</dict>
+			<key>No</key>
+			<dict>
+				<key>Description</key>
+				<string>Do not save the file.</string>
+				<key>Name</key>
+				<string>no</string>
+			</dict>
+			<key>Yes</key>
+			<dict>
+				<key>Description</key>
+				<string>Save the file.</string>
+				<key>Name</key>
+				<string>yes</string>
+			</dict>
+		</dict>
+	</dict>
+	<key>Name</key>
+	<string>Standard Suite</string>
+</dict>
+</plist>

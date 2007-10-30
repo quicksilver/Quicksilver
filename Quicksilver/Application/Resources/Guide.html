@@ -1,0 +1,147 @@
+<html>
+<head>
+<style type="text/css" title="text/css">
+body{
+	margin:0;
+	padding:0;
+	font-family:lucida grande;
+	font-size: 11px;
+}
+div.prefsections{
+	float:right;
+	padding-top:8px;
+	width:266;
+	padding-left:8px;
+}	
+div.quicklinks {
+	margin-top:0;
+	margin-right:278px;
+	margin-bottom:0px;
+	padding: 0; 
+	border-right: 1px solid #eee;
+	background:#f6f6f6;
+	height:100%;
+	}
+	div.quicklinks div.content{
+		padding:8px;
+		}
+ul{
+	margin:0;
+	padding:0;
+	list-style:none;
+	list-style:none;
+
+}
+
+ul li {
+
+
+	/*float:left;*/
+	margin:0;
+	padding:0;
+
+}
+
+ul li a
+{
+	display: block;
+	min-height: 32px;
+	padding: 4px 20 4px 4px;
+	margin-bottom: 8px;
+	text-decoration: none;
+	color: #666;
+	background-color: white;
+	border-color: white;
+	border-width: 1px 0 1px 1px;
+	border-style: solid;
+}
+ul li a b{
+	color:black;
+}
+ul li a:hover { background-color: #EEE6CD; }
+
+ul li a:hover#settings
+{
+	background-color: #F2F2F2;
+	border-color: #9D9D9D;
+}
+ul li a:hover#triggers
+{
+	background-color: #FAF8E1;
+	border-color: #FBC050;
+}
+ul li a:hover#plugins
+{
+	background-color: #EBDFF8;
+	border-color: #A36DD9;
+}
+ul li a:hover#catalog
+{
+	background-color: #E6ECF7;
+	border-color: #3874D6;
+}
+
+ul li a img{
+	width:32px;
+	height:32px;
+	float:left;
+
+	margin-right:4px;
+}
+
+
+.tipoftheday
+{
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	width: 100%;
+	height: 108;
+	overflow: auto;
+}
+
+</style>
+</head>
+<body><div class="prefsections">
+		
+			<h3>Preferences</h3>
+		<ul>
+			<li><a id="settings" href="qs://preferences#QSSettingsPanePlaceholder">
+				<img src="resource:Pref-Settings.png"><b>Preferences</b><br>Options for the application's behavior
+			</a></li>
+
+			<li><a id="triggers" href="qs://preferences#QSTriggersPrefPane">
+				<img src="resource:Pref-Triggers.png"><b>Triggers</b><br>Define hot keys or other input types
+			</a></li>
+
+			<li><a id="catalog" href="qs://preferences#QSCatalogPrefPane">
+				<img src="resource:Pref-Catalog.png"><b>Catalog</b><br>Define the items included in a search
+			</a></li>
+
+			<li><a id="plugins" href="qs://preferences#QSPlugInsPrefPane">
+				<img src="resource:Pref-PlugIns.png"><b>Plug-ins</b><br>Install plug-ins to extend Quicksilver
+			</a></li>
+		</ul>
+	</div>
+	<div class="quicklinks">
+		<div class="content">
+		<h3>Resources</h3>
+		<p/><b><a href="http://docs.blacktree.com/quicksilver/quicksilver">Documentation</a></b> of Quicksilver's features
+
+		<p/><b><a href="http://forums.blacktree.com/">Forums</a></b> offering hints, help, and ideas from other users. 
+		Suggestions and comments are welcome.
+
+
+		<p/><b><a href="irc://irc.freenode.net/quicksilver">IRC Chat</a></b> with developers and users. Requires a <a href="http://docs.blacktree.com/quicksilver/irc_chat">client</a>.
+		
+		<p/><b><a href="qs://update">Check For Updates</a></b></a> to Quicksilver
+		
+	</div>
+	</div>
+
+
+	<iframe class="tipoftheday" scrolling="no" src="http://quicksilver.blacktree.com/totd/"></iframe>
+
+</body>
+</html>

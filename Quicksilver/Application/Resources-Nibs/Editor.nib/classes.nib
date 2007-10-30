@@ -1,0 +1,22 @@
+{
+    IBClasses = (
+        {CLASS = BLTRResizeView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = InertButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
+        {CLASS = QSBackgroundView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {
+            ACTIONS = {saveDocument = id; }; 
+            CLASS = QSEditorController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {textView = NSTextView; titleField = NSTextField; }; 
+            SUPERCLASS = NSWindowController; 
+        }, 
+        {
+            ACTIONS = {hideThreaded = id; showThreaded = id; }; 
+            CLASS = QSWindow; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSPanel; 
+        }
+    ); 
+    IBVersion = 1; 
+}

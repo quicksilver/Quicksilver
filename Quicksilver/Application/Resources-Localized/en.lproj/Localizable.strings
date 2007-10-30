@@ -1,0 +1,9 @@
+"QSPlugInsPrefPane" = "Plug-ins";
+"QSUpdatePrefPane" = "Update";
+"QSHelpersPrefPane" = "Helpers";
+"QSTriggerEditor" = "Triggers";
+"QSApplicationPrefPane" = "Application";
+"QSCatalogController" = "Catalog";
+"QSSilverNotifier" = "Quicksilver (Built-in)";
+"QSDefaultStringRanker" = "Default (Built-in)";
+

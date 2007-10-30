@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>QSSearchObjectView</key>
+	<dict>
+		<key> </key>
+		<string>insertSpace:</string>
+		<key>"</key>
+		<string>conditionalTransmogrify:</string>
+		<key>$</key>
+		<string>executeCommandAndContinue:</string>
+		<key>$ </key>
+		<string>insertSpace:</string>
+		<key>$?</key>
+		<string>moveLeft:</string>
+		<key>'</key>
+		<string>conditionalTransmogrify:</string>
+		<key>,</key>
+		<string>collect:</string>
+		<key>.</key>
+		<string>transmogrify:</string>
+		<key>/</key>
+		<string>moveRight:</string>
+		<key>;</key>
+		<string>combine:</string>
+		<key>=</key>
+		<string>calculate:</string>
+		<key>@[</key>
+		<string>goBackward:</string>
+		<key>@]</key>
+		<string>goForward:</string>
+		<key>@g</key>
+		<string>grabSelection:</string>
+		<key>^</key>
+		<string>encapsulateCommand:</string>
+		<key>^@[</key>
+		<string>showHistoryObjects</string>
+		<key>^@d</key>
+		<string>defineMnemonic:</string>
+		<key>^~@d</key>
+		<string>removeMnemonic:</string>
+		<key>~,</key>
+		<string>uncollect:</string>
+		<key>~/</key>
+		<string>selectRoot:</string>
+		<key>~@g</key>
+		<string>dropSelection:</string>
+		<key>~@v</key>
+		<string>dropClipboard:</string>
+	</dict>
+</dict>
+</plist>

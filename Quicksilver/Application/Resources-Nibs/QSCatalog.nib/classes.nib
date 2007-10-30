@@ -1,0 +1,164 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            CLASS = NSPreferencePane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "_firstKeyView" = NSView; 
+                "_initialKeyView" = NSView; 
+                "_lastKeyView" = NSView; 
+                "_window" = NSWindow; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = NSSegmentedControl; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
+        {CLASS = QSAdvancedPrefPane; LANGUAGE = ObjC; SUPERCLASS = QSPreferencePane; }, 
+        {
+            ACTIONS = {accept = id; quit = id; }; 
+            CLASS = QSAgreementController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {agreement = id; }; 
+            SUPERCLASS = NSWindowController; 
+        }, 
+        {
+            ACTIONS = {resetColors = id; setCommandInterface = id; }; 
+            CLASS = QSAppearancePrefPane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {interfacePopUp = NSPopUpButton; }; 
+            SUPERCLASS = QSPreferencePane; 
+        }, 
+        {
+            ACTIONS = {checkNow = id; }; 
+            CLASS = QSApplicationPrefPane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                featureLevelMatrix = NSMatrix; 
+                hideDockIconSwitch = NSButton; 
+                hideStatusMenuSwitch = NSButton; 
+            }; 
+            SUPERCLASS = QSPreferencePane; 
+        }, 
+        {CLASS = QSBackgroundView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {CLASS = QSBorderlessWindow; LANGUAGE = ObjC; SUPERCLASS = QSWindow; }, 
+        {
+            ACTIONS = {
+                addSource = id; 
+                applySettings = id; 
+                copyPreset = id; 
+                removeItem = id; 
+                rescanCurrentItem = id; 
+                restoreDefaultCatalog = id; 
+                saveItem = id; 
+                setValueForSenderForCatalogEntry = id; 
+                tableViewAction = id; 
+                toggleCatalogOptions = id; 
+            }; 
+            CLASS = QSCatalogController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                catalogSplitView = NSSplitView; 
+                currentItemAddButton = NSButton; 
+                currentItemDeleteButton = NSButton; 
+                itemAddButton = NSButton; 
+                itemAddGroupButton = NSButton; 
+                itemContentsDrawer = NSDrawer; 
+                itemContentsTable = NSTableView; 
+                itemDeleteButton = NSButton; 
+                itemIconField = NSImageView; 
+                itemNameField = NSTextField; 
+                itemOptionsTabView = NSTabView; 
+                itemOptionsView = NSBox; 
+                itemTabView = NSTabViewItem; 
+                itemTable = NSOutlineView; 
+                itemViewSwitcher = NSPopUpButton; 
+                messageTextField = NSTextField; 
+                messageView = NSView; 
+                prefsController = QSPrefsController; 
+                sourcePopUp = NSPopUpButton; 
+            }; 
+            SUPERCLASS = NSPreferencePane; 
+        }, 
+        {
+            ACTIONS = {
+                addSource = id; 
+                applySettings = id; 
+                copyPreset = id; 
+                rescanCurrentItem = id; 
+                restoreDefaultCatalog = id; 
+                saveItem = id; 
+                setValueForSenderForCatalogEntry = id; 
+            }; 
+            CLASS = QSCatalogPrefPane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                catalogSetsController = NSArrayController; 
+                catalogSetsTable = NSTableView; 
+                catalogSplitView = NSSplitView; 
+                contentsController = NSArrayController; 
+                currentItemAddButton = NSButton; 
+                currentItemDeleteButton = NSButton; 
+                itemAddButton = NSButton; 
+                itemAddGroupButton = NSButton; 
+                itemContentsDrawer = NSDrawer; 
+                itemContentsTable = NSTableView; 
+                itemDeleteButton = NSButton; 
+                itemIconField = NSImageView; 
+                itemNameField = NSTextField; 
+                itemOptionsTabView = NSTabView; 
+                itemOptionsView = NSBox; 
+                itemTabView = NSTabViewItem; 
+                itemTable = NSOutlineView; 
+                itemViewSwitcher = NSPopUpButton; 
+                messageTextField = NSTextField; 
+                messageView = NSView; 
+                sidebar = NSView; 
+                sourcePopUp = NSPopUpButton; 
+                treeController = NSTreeController; 
+            }; 
+            SUPERCLASS = QSPreferencePane; 
+        }, 
+        {
+            CLASS = QSCatalogSwitchButtonCell; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSButtonCell; 
+        }, 
+        {CLASS = QSFancyTableView; LANGUAGE = ObjC; SUPERCLASS = QSTableView; }, 
+        {CLASS = QSGlossyBarButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
+        {CLASS = QSGlossyBarMenuButton; LANGUAGE = ObjC; SUPERCLASS = QSMenuButton; }, 
+        {CLASS = QSGlossyBarView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {CLASS = QSImageAndTextCell; LANGUAGE = ObjC; SUPERCLASS = NSTextFieldCell; }, 
+        {CLASS = QSImageCell; LANGUAGE = ObjC; SUPERCLASS = NSImageCell; }, 
+        {
+            CLASS = QSImageTextCountCell; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = QSImageAndTextCell; 
+        }, 
+        {CLASS = QSMenuButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
+        {CLASS = QSObjectCell; LANGUAGE = ObjC; SUPERCLASS = NSButtonCell; }, 
+        {CLASS = QSOutlineView; LANGUAGE = ObjC; SUPERCLASS = NSOutlineView; }, 
+        {CLASS = QSPreferencePane; LANGUAGE = ObjC; SUPERCLASS = NSPreferencePane; }, 
+        {
+            ACTIONS = {changeHotkey = id; }; 
+            CLASS = QSSearchPrefPane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {hotKeyButton = NSButton; }; 
+            SUPERCLASS = QSPreferencePane; 
+        }, 
+        {
+            CLASS = QSSplitHandleView; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {splitView = QSHandledSplitView; }; 
+            SUPERCLASS = NSView; 
+        }, 
+        {CLASS = QSTableView; LANGUAGE = ObjC; SUPERCLASS = NSTableView; }, 
+        {CLASS = QSTreeController; LANGUAGE = ObjC; SUPERCLASS = NSTreeController; }, 
+        {
+            ACTIONS = {hideThreaded = id; showThreaded = id; }; 
+            CLASS = QSWindow; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSPanel; 
+        }
+    ); 
+    IBVersion = 1; 
+}

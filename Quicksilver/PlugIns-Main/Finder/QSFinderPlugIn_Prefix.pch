@@ -1,0 +1,12 @@
+//
+// Prefix header for all source files of the 'QSFinderPlugIn' target in the 'QSFinderPlugIn' project
+//
+
+#ifdef __OBJC__
+#import <Cocoa/Cocoa.h>
+#import <QSElements/QSElements.h>
+#import <QSBase/QSBase.h>
+#endif
+
+
+#define kQSFinderPlugInType @"QSFinderPlugInType"

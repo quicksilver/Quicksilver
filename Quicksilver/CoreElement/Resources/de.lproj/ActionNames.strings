@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AppActivateAction</key>
+	<string>Nach Vorne</string>
+	<key>AppHideAction</key>
+	<string>Ausblenden</string>
+	<key>AppLaunchAction</key>
+	<string>Starten</string>
+	<key>AppLaunchAgainAction</key>
+	<string>Nochmal Starten</string>
+	<key>AppOpenFileAction</key>
+	<string>Datei Öffnen...</string>
+	<key>AppQuitAction</key>
+	<string>Beenden</string>
+	<key>AppReopenAction</key>
+	<string>Starten</string>
+	<key>AppRootLaunchAction</key>
+	<string>Als Root Starten</string>
+	<key>AppleScriptRunAction</key>
+	<string>Ausführen</string>
+	<key>ContactEditAction</key>
+	<string>Bearbeiten</string>
+	<key>ContactEmailAction</key>
+	<string>Email</string>
+	<key>ContactIMAction</key>
+	<string>Telegramm</string>
+	<key>ContactSendItemEmailAction</key>
+	<string>Objekt Mailen...</string>
+	<key>ContactSendItemIMAction</key>
+	<string>Telegramm mit Objekt...</string>
+	<key>ContactSendTextEmailAction</key>
+	<string>Text Mailen...</string>
+	<key>ContactShowAction</key>
+	<string>Zeigen</string>
+	<key>DiskEjectAction</key>
+	<string>Auswerfen</string>
+	<key>DiskForceEjectAction</key>
+	<string>Auswerfen Erzwingen</string>
+	<key>FileCompressAction</key>
+	<string>Archiv Erstellen</string>
+	<key>FileCopyToAction</key>
+	<string>Kopieren Nach...</string>
+	<key>FileDecompressAction</key>
+	<string>Entpacken</string>
+	<key>FileDeleteAction</key>
+	<string>Löschen</string>
+	<key>FileGetPathAction</key>
+	<string>Pfad Davon</string>
+	<key>FileMakeLinkInAction</key>
+	<string>Alias Erzeugen In...</string>
+	<key>FileMoveToAction</key>
+	<string>Bewegen Nach...</string>
+	<key>FileOpenAction</key>
+	<string>Öffnen</string>
+	<key>FileOpenWithAction</key>
+	<string>Öffnen Mit...</string>
+	<key>FileRevealAction</key>
+	<string>Zeigen</string>
+	<key>FileToTrashAction</key>
+	<string>In Papierkorb</string>
+	<key>ItemSendToContactEmailAction</key>
+	<string>Mailen an...</string>
+	<key>ItemSendToContactIMAction</key>
+	<string>Telegramm An...</string>
+	<key>PasteboardPasteAction</key>
+	<string>Einsetzen</string>
+	<key>ProcessKillAction</key>
+	<string>Sofort Beenden</string>
+	<key>ProcessLowerPriorityAction</key>
+	<string>Priorität Senken</string>
+	<key>ProcessRaisePriorityAction</key>
+	<string>Priorität Erhöhen</string>
+	<key>ProcessResumeAction</key>
+	<string>Fortsetzen</string>
+	<key>ProcessSuspendAction</key>
+	<string>Pausieren</string>
+	<key>QSABLargeTypeAction</key>
+	<string>Große Schrift</string>
+	<key>QSCatalogEntryRescanAction</key>
+	<string>Katalogeintrag Aktualisieren</string>
+	<key>QSCatalogEntryShowAction</key>
+	<string>Katalogeintrag zeigen</string>
+	<key>QSEditAction</key>
+	<string>Bearbeiten</string>
+	<key>QSHFSLockAction</key>
+	<string>Schützen</string>
+	<key>QSHFSMakeInvisibleAction</key>
+	<string>Verstecken</string>
+	<key>QSHFSMakeVisibleAction</key>
+	<string>Sichtbar Machen</string>
+	<key>QSHFSUnlockAction</key>
+	<string>Entschützen</string>
+	<key>QSNUTDContactShowAction</key>
+	<string>Kontakt Zeigen</string>
+	<key>QSNetworkLocationSelectAction</key>
+	<string>Umgebung Wechseln</string>
+	<key>QSiPhotoAlbumSlideShowAction</key>
+	<string>Diashow Abspielen</string>
+	<key>QSiTunesPlaylistPlayAction</key>
+	<string>Wiedergabeliste Abspielen</string>
+	<key>QSiTunesTrackPlayAction</key>
+	<string>Abspielen</string>
+	<key>ShellScriptRunAction</key>
+	<string>Shellskript Ausführen</string>
+	<key>URLEmailAction</key>
+	<string>Mailen</string>
+	<key>URLFindWithAction</key>
+	<string>Suchen Mit...</string>
+	<key>URLJSAction</key>
+	<string>Javascript Ausführen</string>
+	<key>URLOpenAction</key>
+	<string>Öffnen</string>
+	<key>URLSearchAction</key>
+	<string>Suchen</string>
+	<key>URLSearchForAction</key>
+	<string>Suche Nach Objekt...</string>
+</dict>
+</plist>

@@ -1,0 +1,64 @@
+{
+    IBClasses = (
+        {CLASS = BLTRResizeView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = InertButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
+        {CLASS = ListView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {CLASS = NSLevelIndicator; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
+        {CLASS = NSObject; LANGUAGE = ObjC; }, 
+        {
+            ACTIONS = {flare = id; fold = id; pulse = id; shrink = id; }; 
+            CLASS = NSWindow; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSResponder; 
+        }, 
+        {
+            CLASS = QSActivityController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {tableView = NSTableView; }; 
+            SUPERCLASS = NSWindowController; 
+        }, 
+        {CLASS = QSBackgroundView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {CLASS = QSBorderlessWindow; LANGUAGE = ObjC; SUPERCLASS = QSWindow; }, 
+        {
+            ACTIONS = {
+                hide = id; 
+                orderFrontHidden = id; 
+                show = id; 
+                toggle = id; 
+                updateTrackingRect = id; 
+            }; 
+            CLASS = QSDockingWindow; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = QSBorderlessWindow; 
+        }, 
+        {CLASS = QSMenuButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
+        {CLASS = QSTableView; LANGUAGE = ObjC; SUPERCLASS = NSTableView; }, 
+        {
+            ACTIONS = {hideWindow = id; showWindow = id; }; 
+            CLASS = QSTaskViewer; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {controller = NSArrayController; tasksView = NSView; }; 
+            SUPERCLASS = NSWindowController; 
+        }, 
+        {
+            ACTIONS = {
+                hideThreaded = id; 
+                reallyOrderFront = id; 
+                reallyOrderOut = id; 
+                showThreaded = id; 
+            }; 
+            CLASS = QSWindow; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSPanel; 
+        }, 
+        {
+            CLASS = WebDynamicScrollBarsView; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSScrollView; 
+        }, 
+        {CLASS = iTableHeaderView; LANGUAGE = ObjC; SUPERCLASS = NSTableHeaderView; }, 
+        {CLASS = iTableView; LANGUAGE = ObjC; SUPERCLASS = NSTableView; }
+    ); 
+    IBVersion = 1; 
+}

@@ -1,0 +1,34 @@
+<element id="com.blacktree.Quicksilver.QSCubeInterfacePlugIn" name="Cube Interface" version="153">
+    <info>
+        <category>Interfaces</category>
+        <image></image>
+    </info>
+    <requirements></requirements>
+    <extensions xmlns:qs="com.blacktree">
+        <extension point="QSPreferencePanes">
+            <preference-pane id="QSCubeInterfacePrefPane" class="QSPreferencePane">
+                <plist version="1.0">
+                    <dict>
+                        <key>class</key>
+                        <string>QSPreferencePane</string>
+                        <key>description</key>
+                        <string>Cube Interface preferences</string>
+                        <key>icon</key>
+                        <string>Quicksilver</string>
+                        <key>name</key>
+                        <string>Cube Interface</string>
+                        <key>nibBundle</key>
+                        <string>com.blacktree.Quicksilver.QSCubeInterfacePlugIn</string>
+                        <key>nibName</key>
+                        <string>QSCubeInterfacePrefPane</string>
+                        <key>type</key>
+                        <string>hidden</string>
+                    </dict>
+                </plist>
+            </preference-pane>
+        </extension>
+        <extension point="QSCommandInterfaceControllers">
+            <command-interface id="QSCubeInterface" class="QSCubeInterface"></command-interface>
+        </extension>
+    </extensions>
+</element>

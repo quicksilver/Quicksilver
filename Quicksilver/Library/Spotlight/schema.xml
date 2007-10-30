@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<schema version="1.0" xmlns="http://www.apple.com/metadata"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xsi:schemaLocation="http://www.apple.com/metadata file:///System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Resources/MetadataSchema.xsd">
+    <!--
+            The 'attributes' section defines custom attributes that this metadata importer supports.  
+            Below is an example of a multivalued string attribute.  Uncomment this part 
+            of the file if you need to define a custom attribute.
+     
+            'multivalued' indicates whether the attribute is an array type or not.
+     
+            'type' indicates the data type of the attribute.   
+                        Available types are CFString, CFNumber, CFDate, CFBoolean and CFData.  
+     
+            If you don't need to define a custom attribute, it is safe to remove this section.
+            
+    <attributes>
+        <attribute name="com_Foo_YourAttrName" multivalued="true" type="CFString"/>
+    </attributes>
+     
+            
+            To see the system's definitions for the builtin attributes and file types, look at the system schema,
+            /System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Resources/schema.xml
+    -->
+
+    <types>
+        <type name="com.blacktree.silver">  <!-- add one <type>...</type> entry for each UTI that you need to define.
+         
+            <!-- 'allattrs' is a whitespace separated list of all of the attributes that this UTI type normally has.
+                 It does not have to be exhaustive. -->
+            <allattrs> 
+            </allattrs>
+            <!-- 'displayattrs' is a whitespace separated list of the attributes that should normally be displayed when previewing files of this UTI type. -->
+            <displayattrs>
+            </displayattrs>
+            
+        </type>
+    </types>
+</schema>
+

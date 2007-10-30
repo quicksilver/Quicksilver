@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>QSApplicationFileTypes</key>
+	<array>
+		<string>app</string>
+		<string>'APPL'</string>
+	</array>
+	<key>QSCompressedFileTypes</key>
+	<array>
+		<string>zip</string>
+		<string>gzip</string>
+		<string>sit</string>
+		<string>sitx</string>
+		<string>sea</string>
+	</array>
+	<key>QSDiskImageFileTypes</key>
+	<array>
+		<string>dmg</string>
+		<string>sparseimage</string>
+	</array>
+	<key>QSDocumentationFileTypes</key>
+	<array>
+		<string>pdf</string>
+		<string>html</string>
+		<string>rtf</string>
+	</array>
+	<key>QSImageFileTypes</key>
+	<string>*</string>
+	<key>QSMicrosoftOfficeFileTypes</key>
+	<array>
+		<string>doc</string>
+		<string>dot</string>
+		<string>ppt</string>
+		<string>pot</string>
+		<string>xls</string>
+	</array>
+	<key>QSMovieFileTypes</key>
+	<string>*</string>
+	<key>QSSoundFileTypes</key>
+	<string>*</string>
+	<key>QSTextFileTypes</key>
+	<array>
+		<string>txt</string>
+	</array>
+</dict>
+</plist>

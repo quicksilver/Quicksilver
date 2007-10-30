@@ -1,0 +1,462 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3305D5480BC94F9D0096E476 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD92D38A0106425D02CA0E72 /* Cocoa.framework */; };
+		332EA7DB0B99E35500614E3D /* element.xml in Resources */ = {isa = PBXBuildFile; fileRef = 332EA7DA0B99E35500614E3D /* element.xml */; };
+		337357660BAC7B56000A47E2 /* QSCubeInterface.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F01498D0A401DDE006AF239 /* QSCubeInterface.nib */; };
+		337357670BAC7B56000A47E2 /* QSCubeInterfacePrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F5208B80A50100F00A6671F /* QSCubeInterfacePrefPane.nib */; };
+		337357680BAC7B56000A47E2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F73BBA50A51E9C500F854AB /* Localizable.strings */; };
+		337357690BAC7B56000A47E2 /* element.xml in Resources */ = {isa = PBXBuildFile; fileRef = 332EA7DA0B99E35500614E3D /* element.xml */; };
+		3373576B0BAC7B56000A47E2 /* QSCubeInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0149810A401C87006AF239 /* QSCubeInterface.m */; };
+		3373576C0BAC7B56000A47E2 /* QSCubeInterfaceBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F03F74F0A42C50B00B57270 /* QSCubeInterfaceBackgroundView.m */; };
+		3373576D0BAC7B56000A47E2 /* QSShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F520AD50A50B20900A6671F /* QSShadowView.m */; };
+		3373576F0BAC7B56000A47E2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD92D38A0106425D02CA0E72 /* Cocoa.framework */; };
+		337357D40BAC7BE6000A47E2 /* QSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3373569D0BAC7B2C000A47E2 /* QSCore.framework */; };
+		337357D50BAC7BE6000A47E2 /* QSEffects.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3373569E0BAC7B2C000A47E2 /* QSEffects.framework */; };
+		337357D60BAC7BE6000A47E2 /* QSFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3373569F0BAC7B2C000A47E2 /* QSFoundation.framework */; };
+		337357D70BAC7BE6000A47E2 /* QSInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 337356A00BAC7B2C000A47E2 /* QSInterface.framework */; };
+		337357DA0BAC7BEB000A47E2 /* QSBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3373578F0BAC7BCA000A47E2 /* QSBase.framework */; };
+		337357DB0BAC7BEB000A47E2 /* QSElements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 337357900BAC7BCA000A47E2 /* QSElements.framework */; };
+		7F0149820A401C87006AF239 /* QSCubeInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0149810A401C87006AF239 /* QSCubeInterface.m */; };
+		7F01498E0A401DDF006AF239 /* QSCubeInterface.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F01498D0A401DDE006AF239 /* QSCubeInterface.nib */; };
+		7F03F7500A42C50B00B57270 /* QSCubeInterfaceBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F03F74F0A42C50B00B57270 /* QSCubeInterfaceBackgroundView.m */; };
+		7F5208B90A50100F00A6671F /* QSCubeInterfacePrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F5208B80A50100F00A6671F /* QSCubeInterfacePrefPane.nib */; };
+		7F520AD60A50B20900A6671F /* QSShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F520AD50A50B20900A6671F /* QSShadowView.m */; };
+		7F73BBA70A51E9C500F854AB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F73BBA50A51E9C500F854AB /* Localizable.strings */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		32DBCF980370C29C00C91783 /* QSCubeInterfacePlugIn_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCubeInterfacePlugIn_Prefix.pch; sourceTree = "<group>"; };
+		332EA7DA0B99E35500614E3D /* element.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = element.xml; sourceTree = "<group>"; };
+		3373569D0BAC7B2C000A47E2 /* QSCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSCore.framework; sourceTree = QSFrameworks; };
+		3373569E0BAC7B2C000A47E2 /* QSEffects.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSEffects.framework; sourceTree = QSFrameworks; };
+		3373569F0BAC7B2C000A47E2 /* QSFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSFoundation.framework; sourceTree = QSFrameworks; };
+		337356A00BAC7B2C000A47E2 /* QSInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSInterface.framework; sourceTree = QSFrameworks; };
+		337357780BAC7B56000A47E2 /* Cube Interface.element */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Cube Interface.element"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3373578F0BAC7BCA000A47E2 /* QSBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QSBase.framework; path = ../../../../Volumes/Lux/Developer/Build/Release/QSBase.framework; sourceTree = QSFrameworks; };
+		337357900BAC7BCA000A47E2 /* QSElements.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QSElements.framework; path = ../../../../Volumes/Lux/Developer/Build/Release/QSElements.framework; sourceTree = QSFrameworks; };
+		337357E60BAC7C76000A47E2 /* QSElement_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = QSElement_Prefix.pch; path = "../../../../Volumes/Lux/Alchemy/blacktree-plugins-private/Common/QSElement_Prefix.pch"; sourceTree = QSFrameworks; };
+		7F0149800A401C87006AF239 /* QSCubeInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCubeInterface.h; sourceTree = "<group>"; };
+		7F0149810A401C87006AF239 /* QSCubeInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCubeInterface.m; sourceTree = "<group>"; };
+		7F01498D0A401DDE006AF239 /* QSCubeInterface.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSCubeInterface.nib; sourceTree = "<group>"; };
+		7F03F74E0A42C50B00B57270 /* QSCubeInterfaceBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCubeInterfaceBackgroundView.h; sourceTree = "<group>"; };
+		7F03F74F0A42C50B00B57270 /* QSCubeInterfaceBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCubeInterfaceBackgroundView.m; sourceTree = "<group>"; };
+		7F35FF3D07F9ACD90056051D /* QSEffects.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSEffects.framework; sourceTree = QSFrameworks; };
+		7F35FF3F07F9ACD90056051D /* QSInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSInterface.framework; sourceTree = QSFrameworks; };
+		7F5208B80A50100F00A6671F /* QSCubeInterfacePrefPane.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSCubeInterfacePrefPane.nib; sourceTree = "<group>"; };
+		7F520AD40A50B20900A6671F /* QSShadowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSShadowView.h; sourceTree = "<group>"; };
+		7F520AD50A50B20900A6671F /* QSShadowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSShadowView.m; sourceTree = "<group>"; };
+		7F73BBA60A51E9C500F854AB /* en */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8D1AC9730486D14A00FE50C9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8D1AC9740486D14A00FE50C9 /* Cube Interface.qsplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Cube Interface.qsplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD92D38A0106425D02CA0E72 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3373576E0BAC7B56000A47E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3373576F0BAC7B56000A47E2 /* Cocoa.framework in Frameworks */,
+				337357DA0BAC7BEB000A47E2 /* QSBase.framework in Frameworks */,
+				337357DB0BAC7BEB000A47E2 /* QSElements.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D1AC96E0486D14A00FE50C9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				337357D40BAC7BE6000A47E2 /* QSCore.framework in Frameworks */,
+				337357D50BAC7BE6000A47E2 /* QSEffects.framework in Frameworks */,
+				337357D60BAC7BE6000A47E2 /* QSFoundation.framework in Frameworks */,
+				337357D70BAC7BE6000A47E2 /* QSInterface.framework in Frameworks */,
+				3305D5480BC94F9D0096E476 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0259C574FE90428111CA0C5A /* QSCubeInterfacePlugIn */ = {
+			isa = PBXGroup;
+			children = (
+				32DBCF9E0370C38000C91783 /* Classes */,
+				32DBCF9F0370C38200C91783 /* Other Sources */,
+				0259C582FE90428111CA0C5A /* Resources */,
+				1ED78706FE9D4A0611CA0C5A /* Products */,
+				2E58F364FFB232C311CA0CBA /* Frameworks */,
+			);
+			name = QSCubeInterfacePlugIn;
+			sourceTree = "<group>";
+		};
+		0259C582FE90428111CA0C5A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				332EA7DA0B99E35500614E3D /* element.xml */,
+				7F73BBA50A51E9C500F854AB /* Localizable.strings */,
+				7F5208B80A50100F00A6671F /* QSCubeInterfacePrefPane.nib */,
+				7F01498D0A401DDE006AF239 /* QSCubeInterface.nib */,
+				8D1AC9730486D14A00FE50C9 /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		1ED78706FE9D4A0611CA0C5A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D1AC9740486D14A00FE50C9 /* Cube Interface.qsplugin */,
+				337357780BAC7B56000A47E2 /* Cube Interface.element */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E58F364FFB232C311CA0CBA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DD92D38A0106425D02CA0E72 /* Cocoa.framework */,
+				3373569D0BAC7B2C000A47E2 /* QSCore.framework */,
+				3373569E0BAC7B2C000A47E2 /* QSEffects.framework */,
+				3373569F0BAC7B2C000A47E2 /* QSFoundation.framework */,
+				337356A00BAC7B2C000A47E2 /* QSInterface.framework */,
+				7FC20C8107FB741700FDD3CA /* Other Frameworks */,
+				3373578F0BAC7BCA000A47E2 /* QSBase.framework */,
+				337357900BAC7BCA000A47E2 /* QSElements.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		32DBCF9E0370C38000C91783 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				7F0149800A401C87006AF239 /* QSCubeInterface.h */,
+				7F0149810A401C87006AF239 /* QSCubeInterface.m */,
+				7F03F74E0A42C50B00B57270 /* QSCubeInterfaceBackgroundView.h */,
+				7F03F74F0A42C50B00B57270 /* QSCubeInterfaceBackgroundView.m */,
+				7F520AD40A50B20900A6671F /* QSShadowView.h */,
+				7F520AD50A50B20900A6671F /* QSShadowView.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		32DBCF9F0370C38200C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				337357E60BAC7C76000A47E2 /* QSElement_Prefix.pch */,
+				32DBCF980370C29C00C91783 /* QSCubeInterfacePlugIn_Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		7FC20C8107FB741700FDD3CA /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7F35FF3D07F9ACD90056051D /* QSEffects.framework */,
+				7F35FF3F07F9ACD90056051D /* QSInterface.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		337357640BAC7B56000A47E2 /* Cube Interface Element */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 337357750BAC7B56000A47E2 /* Build configuration list for PBXNativeTarget "Cube Interface Element" */;
+			buildPhases = (
+				337357650BAC7B56000A47E2 /* Resources */,
+				3373576A0BAC7B56000A47E2 /* Sources */,
+				3373576E0BAC7B56000A47E2 /* Frameworks */,
+				337357740BAC7B56000A47E2 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Cube Interface Element";
+			productInstallPath = "$(HOME)/Developer/Palettes";
+			productName = QSCubeInterfacePlugIn;
+			productReference = 337357780BAC7B56000A47E2 /* Cube Interface.element */;
+			productType = "com.apple.product-type.bundle";
+		};
+		8D1AC9600486D14A00FE50C9 /* Cube Interface */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7F6B3EEB085CE8DF000735A8 /* Build configuration list for PBXNativeTarget "Cube Interface" */;
+			buildPhases = (
+				8D1AC9660486D14A00FE50C9 /* Resources */,
+				8D1AC96A0486D14A00FE50C9 /* Sources */,
+				8D1AC96E0486D14A00FE50C9 /* Frameworks */,
+				E1022B2806B3475D00299BEC /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Cube Interface";
+			productInstallPath = "$(HOME)/Developer/Palettes";
+			productName = QSCubeInterfacePlugIn;
+			productReference = 8D1AC9740486D14A00FE50C9 /* Cube Interface.qsplugin */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0259C573FE90428111CA0C5A /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 7F6B3EEF085CE8DF000735A8 /* Build configuration list for PBXProject "QSCubeInterfacePlugIn" */;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+				en,
+			);
+			mainGroup = 0259C574FE90428111CA0C5A /* QSCubeInterfacePlugIn */;
+			projectDirPath = "";
+			targets = (
+				8D1AC9600486D14A00FE50C9 /* Cube Interface */,
+				337357640BAC7B56000A47E2 /* Cube Interface Element */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		337357650BAC7B56000A47E2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				337357660BAC7B56000A47E2 /* QSCubeInterface.nib in Resources */,
+				337357670BAC7B56000A47E2 /* QSCubeInterfacePrefPane.nib in Resources */,
+				337357680BAC7B56000A47E2 /* Localizable.strings in Resources */,
+				337357690BAC7B56000A47E2 /* element.xml in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D1AC9660486D14A00FE50C9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F01498E0A401DDF006AF239 /* QSCubeInterface.nib in Resources */,
+				7F5208B90A50100F00A6671F /* QSCubeInterfacePrefPane.nib in Resources */,
+				7F73BBA70A51E9C500F854AB /* Localizable.strings in Resources */,
+				332EA7DB0B99E35500614E3D /* element.xml in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		337357740BAC7B56000A47E2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/bltrversion $INFOPLIST_FILE";
+		};
+		E1022B2806B3475D00299BEC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/bltrversion $INFOPLIST_FILE";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3373576A0BAC7B56000A47E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3373576B0BAC7B56000A47E2 /* QSCubeInterface.m in Sources */,
+				3373576C0BAC7B56000A47E2 /* QSCubeInterfaceBackgroundView.m in Sources */,
+				3373576D0BAC7B56000A47E2 /* QSShadowView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D1AC96A0486D14A00FE50C9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F0149820A401C87006AF239 /* QSCubeInterface.m in Sources */,
+				7F03F7500A42C50B00B57270 /* QSCubeInterfaceBackgroundView.m in Sources */,
+				7F520AD60A50B20900A6671F /* QSShadowView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		7F73BBA50A51E9C500F854AB /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7F73BBA60A51E9C500F854AB /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		337357760BAC7B56000A47E2 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(QSFrameworks)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../Developer/Build/Release\"";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ../Common/QSElement_Prefix.pch;
+				INFOPLIST_FILE = "/Volumes/Lux/Alchemy/blacktree-plugins-private/CubeInterface/Info copy.plist";
+				OTHER_LDFLAGS = "-bundle";
+				PRODUCT_NAME = "Cube Interface";
+				WRAPPER_EXTENSION = qsplugin;
+				ZERO_LINK = YES;
+			};
+			name = Development;
+		};
+		337357770BAC7B56000A47E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(QSFrameworks)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../Developer/Build/Release\"";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ../Common/QSElement_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				OTHER_LDFLAGS = "-bundle";
+				PRODUCT_NAME = "Cube Interface";
+				WRAPPER_EXTENSION = element;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		7F6B3EEC085CE8DF000735A8 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(QSFrameworks)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../Developer/Build/Release\"";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = QSCubeInterfacePlugIn_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				OTHER_LDFLAGS = "-bundle";
+				PRODUCT_NAME = "Cube Interface";
+				WRAPPER_EXTENSION = qsplugin;
+				ZERO_LINK = YES;
+			};
+			name = Development;
+		};
+		7F6B3EED085CE8DF000735A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(QSFrameworks)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../Developer/Build/Release\"";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = QSCubeInterfacePlugIn_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				OLDQS = 1;
+				OTHER_LDFLAGS = "-bundle";
+				PRODUCT_NAME = "Cube Interface";
+				WRAPPER_EXTENSION = qsplugin;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		7F6B3EF0085CE8DF000735A8 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Development;
+		};
+		7F6B3EF1085CE8DF000735A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				GCC_MODEL_TUNING = G5;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		337357750BAC7B56000A47E2 /* Build configuration list for PBXNativeTarget "Cube Interface Element" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				337357760BAC7B56000A47E2 /* Development */,
+				337357770BAC7B56000A47E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7F6B3EEB085CE8DF000735A8 /* Build configuration list for PBXNativeTarget "Cube Interface" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7F6B3EEC085CE8DF000735A8 /* Development */,
+				7F6B3EED085CE8DF000735A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7F6B3EEF085CE8DF000735A8 /* Build configuration list for PBXProject "QSCubeInterfacePlugIn" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7F6B3EF0085CE8DF000735A8 /* Development */,
+				7F6B3EF1085CE8DF000735A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0259C573FE90428111CA0C5A /* Project object */;
+}

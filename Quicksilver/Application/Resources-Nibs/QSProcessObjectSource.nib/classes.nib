@@ -1,0 +1,34 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            CLASS = QSAddressBookObjectSource; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = QSObjectSource; 
+        }, 
+        {
+            CLASS = QSAllApplicationsObjectSource; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = QSObjectSource; 
+        }, 
+        {
+            ACTIONS = {setValueForSender = id; }; 
+            CLASS = QSDefaultsObjectSource; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                bundleIDField = NSTextField; 
+                entryTypePopUp = NSPopUpButton; 
+                keyField = NSTextField; 
+            }; 
+            SUPERCLASS = QSObjectSource; 
+        }, 
+        {
+            CLASS = QSObjectSource; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {settingsView = NSView; }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = QSVolumesObjectSource; LANGUAGE = ObjC; SUPERCLASS = QSObjectSource; }
+    ); 
+    IBVersion = 1; 
+}

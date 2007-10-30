@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AppActivateAction</key>
+	<string>Attiva</string>
+	<key>AppHideAction</key>
+	<string>Nascondi</string>
+	<key>AppLaunchAction</key>
+	<string>Avvia</string>
+	<key>AppLaunchAgainAction</key>
+	<string>Avvia una Copia</string>
+	<key>AppOpenFileAction</key>
+	<string>Apri File...</string>
+	<key>AppQuitAction</key>
+	<string>Esci</string>
+	<key>AppReopenAction</key>
+	<string>Apri</string>
+	<key>AppRootLaunchAction</key>
+	<string>Esegui come Root</string>
+	<key>AppleScriptOpenFilesAction</key>
+	<string>Apri File...</string>
+	<key>AppleScriptOpenTextAction</key>
+	<string>Elabora Testo...</string>
+	<key>AppleScriptRunAction</key>
+	<string>Esegui</string>
+	<key>AppleScriptRunTextAction</key>
+	<string>Esegui come AppleScript</string>
+	<key>ContactEditAction</key>
+	<string>Modifica</string>
+	<key>ContactEmailAction</key>
+	<string>E-mail</string>
+	<key>ContactIMAction</key>
+	<string>IM</string>
+	<key>ContactSendItemEmailAction</key>
+	<string>Invia Elemento via E-mail...</string>
+	<key>ContactSendItemIMAction</key>
+	<string>Invia Testo via IM...</string>
+	<key>ContactSendTextEmailAction</key>
+	<string>Invia Testo...</string>
+	<key>ContactShowAction</key>
+	<string>Mostra</string>
+	<key>DiskEjectAction</key>
+	<string>Espelli</string>
+	<key>DiskForceEjectAction</key>
+	<string>Espulsione Forzata</string>
+	<key>FileCompressAction</key>
+	<string>Comprimi</string>
+	<key>FileCopyToAction</key>
+	<string>Copia Su...</string>
+	<key>FileDecompressAction</key>
+	<string>Decomprimi</string>
+	<key>FileDeleteAction</key>
+	<string>Elimina (Cancella)</string>
+	<key>FileGetInfoAction</key>
+	<string>Ottieni Info</string>
+	<key>FileGetPathAction</key>
+	<string>Ottieni Percorso</string>
+	<key>FileMakeLinkInAction</key>
+	<string>Crea Alias In...</string>
+	<key>FileMoveToAction</key>
+	<string>Sposta In...</string>
+	<key>FileOpenAction</key>
+	<string>Apri</string>
+	<key>FileOpenWithAction</key>
+	<string>Apri Con...</string>
+	<key>FileRenameAction</key>
+	<string>Rinomina...</string>
+	<key>FileRevealAction</key>
+	<string>Mostra</string>
+	<key>FileToTrashAction</key>
+	<string>Sposta nel Cestino</string>
+	<key>ItemSendToContactEmailAction</key>
+	<string>Invia E-mail A...</string>
+	<key>ItemSendToContactIMAction</key>
+	<string>Invia IM A...</string>
+	<key>PasteboardPasteAction</key>
+	<string>Incolla</string>
+	<key>ProcessKillAction</key>
+	<string>Termina</string>
+	<key>ProcessLowerPriorityAction</key>
+	<string>Abbassa Priorità</string>
+	<key>ProcessRaisePriorityAction</key>
+	<string>Innalza Priorità</string>
+	<key>ProcessResumeAction</key>
+	<string>Continua Esecuzione (Riprendi)</string>
+	<key>ProcessSuspendAction</key>
+	<string>Interrompi Esecuzione (Sospendi)</string>
+	<key>QSAIMSMSAction</key>
+	<string>Invia SMS (AIM/iChat)</string>
+	<key>QSAirPortNetworkSelectAction</key>
+	<string>Passa ad altro Airport</string>
+	<key>QSCLExecuteAction</key>
+	<string>Esegui</string>
+	<key>QSCLExecuteTextAction</key>
+	<string>Esegui in Shell</string>
+	<key>QSCLExecuteWithArgsAction</key>
+	<string>Esegui [...]</string>
+	<key>QSCLTermExecuteTextAction</key>
+	<string>Esegui in Terminale</string>
+	<key>QSCLTermExecuteWithArgsAction</key>
+	<string>Esegui in Terminale [...]</string>
+	<key>QSCLTermShowDirectoryAction</key>
+	<string>Vai a in Terminale</string>
+	<key>QSCLTermShowManPageAction</key>
+	<string>Mostra Pagina Man</string>
+	<key>QSCatalogEntryRescanAction</key>
+	<string>Ricarica Elemento nel Catalogo</string>
+	<key>QSCatalogEntryShowAction</key>
+	<string>Mostra Elemento in Catalogo</string>
+	<key>QSComposeEmailItemAction</key>
+	<string>Invia Elemento via E-mail... (Componi)</string>
+	<key>QSComposeEmailItemReverseAction</key>
+	<string>Invia E-mail A... (Componi)</string>
+	<key>QSDialNumberAction</key>
+	<string>Componi Numero</string>
+	<key>QSEditAction</key>
+	<string>Modifica</string>
+	<key>QSEmailAction</key>
+	<string>E-mail</string>
+	<key>QSEmailItemAction</key>
+	<string>Invia Elemento via E-mail... (Spedisci)</string>
+	<key>QSEmailItemReverseAction</key>
+	<string>Invia E-mail A... (Spedisci)</string>
+	<key>QSHFSLockAction</key>
+	<string>Blocca</string>
+	<key>QSHFSMakeInvisibleAction</key>
+	<string>Rendi Invisibile</string>
+	<key>QSHFSMakeVisibleAction</key>
+	<string>Rendi Visibile</string>
+	<key>QSHFSUnlockAction</key>
+	<string>Sblocca</string>
+	<key>QSLargeTypeAction</key>
+	<string>Tipo Grande</string>
+	<key>QSNUTDContactShowAction</key>
+	<string>Mostra Contatto</string>
+	<key>QSNetworkLocationSelectAction</key>
+	<string>Passa a Postazione</string>
+	<key>QSPutOnShelfAction</key>
+	<string>Metti sullo Shelf</string>
+	<key>QSShelfShowAction</key>
+	<string>Mostra</string>
+	<key>QSSherlockChannelShowAction</key>
+	<string>Mostra Canale</string>
+	<key>QSTextAppendAction</key>
+	<string>Aggiungi Testo In Coda A...</string>
+	<key>QSTextDiffAction</key>
+	<string>Differenze Da...</string>
+	<key>QSTextPrependAction</key>
+	<string>Aggiungi Testo In Testa A...</string>
+	<key>QSTextTypeAction</key>
+	<string>Digita Testo</string>
+	<key>QSUserSwitchAction</key>
+	<string>Cambia Utente</string>
+	<key>QSiPhotoAlbumShowAction</key>
+	<string>Mostra Album</string>
+	<key>QSiPhotoAlbumSlideShowAction</key>
+	<string>Riproduci Presentazione</string>
+	<key>QSiTunesAppendItemAction</key>
+	<string>Accoda</string>
+	<key>QSiTunesPlayItemAction</key>
+	<string>Riproduci</string>
+	<key>ShellScriptRunAction</key>
+	<string>Esegui Script Shell</string>
+	<key>URLEmailAction</key>
+	<string>E-mail</string>
+	<key>URLFindWithAction</key>
+	<string>Cerca sul Sito...</string>
+	<key>URLJSAction</key>
+	<string>Esegui Javascript</string>
+	<key>URLOpenAction</key>
+	<string>Apri</string>
+	<key>URLOpenWithAction</key>
+	<string>Apri Con...</string>
+	<key>URLSearchAction</key>
+	<string>Cerca</string>
+	<key>URLSearchForAction</key>
+	<string>Cerca...</string>
+</dict>
+</plist>

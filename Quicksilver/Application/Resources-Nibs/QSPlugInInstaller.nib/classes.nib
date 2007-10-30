@@ -1,0 +1,19 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {cancel = id; install = id; installLocationDidChange = id; }; 
+            CLASS = QSPlugInInstaller; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                mAssistantWindow = NSWindow; 
+                mCaptionText = NSTextField; 
+                mInstallLocationMatrix = NSMatrix; 
+                mNoteText = NSTextField; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = "java.lang.Object"; LANGUAGE = Java; }
+    ); 
+    IBVersion = 1; 
+}

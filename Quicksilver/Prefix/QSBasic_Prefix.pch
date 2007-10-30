@@ -1,0 +1,16 @@
+//
+// Prefix header for all source files of the 'QuicksilverCore' target in the 'QuicksilverCore' project.
+//
+
+#ifdef __OBJC__
+#import <Cocoa/Cocoa.h>
+
+#import <QSElements/QSElements.h>
+#import "QSKeys.h"
+#import "QSDefines.h"
+#import "QSMacros.h"
+#import "QSBuildOptions.h"
+#import "QSFeatureLevel.h"
+#import "QSDebug.h"
+#import "../Code-QuickStepBase/QSPaths.h"
+#endif

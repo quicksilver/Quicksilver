@@ -1,0 +1,131 @@
+<element id="com.blacktree.Quicksilver.QSFinderPlugIn" name="Finder Module" version="145D">
+    <info>
+        <image>com.apple.finder</image>
+    </info>
+    <requirements/>
+    <extensions xmlns:qs="com.blacktree">
+        <extension point="com.blacktree.catalog.presets">
+            <catalog-preset name="Finder" id="QSPresetFinderGroup">
+                <plist version="1.0">
+                    <dict>
+                        <key>ID</key>
+                        <string>QSPresetFinderGroup</string>
+                        <key>children</key>
+                        <array>
+                            <dict>
+                                <key>ID</key>
+                                <string>QSPresetSidebarItems</string>
+                                <key>icon</key>
+                                <string>SidebarIcon</string>
+                                <key>name</key>
+                                <string>Finder Sidebar Items</string>
+                                <key>settings</key>
+                                <dict>
+                                    <key>bundle</key>
+                                    <string>com.apple.sidebarlists</string>
+                                    <key>keypath</key>
+                                    <array>
+                                        <string>useritems</string>
+                                        <string>CustomListItems</string>
+                                        <string>*</string>
+                                        <string>Alias</string>
+                                    </array>
+                                    <key>type</key>
+                                    <integer>3</integer>
+                                </dict>
+                                <key>source</key>
+                                <string>QSDefaultsObjectSource</string>
+                            </dict>
+                            <dict>
+                                <key>ID</key>
+                                <string>QSPresetFinderToolbarItems</string>
+                                <key>name</key>
+                                <string>Finder Toolbar Items</string>
+                                <key>settings</key>
+                                <dict>
+                                    <key>bundle</key>
+                                    <string>com.apple.finder</string>
+                                    <key>keypath</key>
+                                    <array>
+                                        <string>FXToolbarItems</string>
+                                        <string>*</string>
+                                        <string>file-data</string>
+                                    </array>
+                                    <key>type</key>
+                                    <integer>5</integer>
+                                </dict>
+                                <key>source</key>
+                                <string>QSDefaultsObjectSource</string>
+                            </dict>
+                            <dict>
+                                <key>ID</key>
+                                <string>QSPresetFinderSpecificSearchPlaces</string>
+                                <key>name</key>
+                                <string>Finder Search Locations</string>
+                                <key>settings</key>
+                                <dict>
+                                    <key>bundle</key>
+                                    <string>com.apple.finder</string>
+                                    <key>keypath</key>
+                                    <array>
+                                        <string>FXSpecificSearchPlaces</string>
+                                        <string>*</string>
+                                        <string>file-data</string>
+                                    </array>
+                                    <key>type</key>
+                                    <integer>5</integer>
+                                </dict>
+                                <key>source</key>
+                                <string>QSDefaultsObjectSource</string>
+                            </dict>
+                        </array>
+                        <key>icon</key>
+                        <string>FinderIcon</string>
+                        <key>name</key>
+                        <string>Finder</string>
+                        <key>source</key>
+                        <string>QSGroupObjectSource</string>
+                    </dict>
+                </plist>
+            </catalog-preset>
+        </extension>
+        <extension point="QSProxies">
+            <object-proxy name="Finder Selection" id="com.apple.finder" class="QSFinderProxy">
+                <plist version="1.0">
+                    <dict>
+                        <key>icon</key>
+                        <string>FinderIcon</string>
+                        <key>name</key>
+                        <string>Finder Selection</string>
+                        <key>providerClass</key>
+                        <string>QSFinderProxy</string>
+                        <key>types</key>
+                        <array>
+                            <string>NSFilenamesPboardType</string>
+                        </array>
+                    </dict>
+                </plist>
+            </object-proxy>
+        </extension>
+        <extension point="QSInternalObjects">
+            <extension name="Trash" id="QSTrashObject">
+                <plist version="1.0">
+                    <dict>
+                        <key>handler</key>
+                        <string>QSFinderProxy</string>
+                        <key>icon</key>
+                        <string>Trash</string>
+                        <key>name</key>
+                        <string>Trash</string>
+                    </dict>
+                </plist>
+            </extension>
+        </extension>
+        <extension point="QSFSBrowserMediators">
+            <extension id="com.apple.finder" class="QSFinderProxy"/>
+        </extension>
+        <extension point="QSBundleChildHandlers">
+            <bundle-child-handler id="com.apple.finder" class="QSFinderProxy"/>
+        </extension>
+    </extensions>
+</element>

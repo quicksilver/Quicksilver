@@ -1,0 +1,29 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {orderFrontProgressPanel = id; }; 
+            CLASS = NSApplication; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSResponder; 
+        }, 
+        {
+            ACTIONS = {doProgressThing = id; }; 
+            CLASS = ProgressAppDelegate; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {orderFront = id; }; 
+            CLASS = UKProgressPanel; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                taskContentView = NSView; 
+                taskListWindow = NSWindow; 
+                taskStatus = NSTextField; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}
