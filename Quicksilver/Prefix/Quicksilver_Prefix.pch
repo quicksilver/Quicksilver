@@ -1,0 +1,4 @@
+#ifdef __OBJC__
+#import "QSBasic_Prefix.pch"
+#import <QSFoundation/QSFoundation.h>
+#endif

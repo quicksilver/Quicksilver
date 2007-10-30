@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AppActivateAction</key>
+	<string>Attiva un'applicazione</string>
+	<key>AppHideAction</key>
+	<string>Nascondi un'applicazione</string>
+	<key>AppLaunchAction</key>
+	<string>Avvia un'applicazione</string>
+	<key>AppLaunchAgainAction</key>
+	<string>Avvia un'altra copia di un'applicazione</string>
+	<key>AppOpenFileAction</key>
+	<string>Scegli un file da aprire</string>
+	<key>AppQuitAction</key>
+	<string>Esci da un'applicazione</string>
+	<key>AppReopenAction</key>
+	<string>Riapri un'applicazione</string>
+	<key>AppRootLaunchAction</key>
+	<string>Esegui un'applicazione come Root</string>
+	<key>AppleScriptRunAction</key>
+	<string>Esegui un AppleScript</string>
+	<key>ContactEditAction</key>
+	<string>Modifica elemento</string>
+	<key>ContactEmailAction</key>
+	<string>Invia E-mail ad un contatto</string>
+	<key>ContactIMAction</key>
+	<string>Invia IM ad un contatto</string>
+	<key>ContactSendItemEmailAction</key>
+	<string>Invia elemento via E-mail ad un contatto</string>
+	<key>ContactSendItemIMAction</key>
+	<string>Invia elemento via IM ad un contatto</string>
+	<key>ContactShowAction</key>
+	<string>Mostra contatto in Rubrica Indirizzi</string>
+	<key>DiskEjectAction</key>
+	<string>Espelli un Disco</string>
+	<key>DiskForceEjectAction</key>
+	<string>Espulsione Forzata di un Disco</string>
+	<key>FileCompressAction</key>
+	<string>Comprimi file</string>
+	<key>FileCopyToAction</key>
+	<string>Copia in un'altra posizione</string>
+	<key>FileDecompressAction</key>
+	<string>Decomprimi file</string>
+	<key>FileMakeLinkInAction</key>
+	<string>Crea alias in un'altra posizione</string>
+	<key>FileMoveToAction</key>
+	<string>Sposta in un'altra cartella</string>
+	<key>FileOpenAction</key>
+	<string>Apri</string>
+	<key>FileOpenWithAction</key>
+	<string>Apri con un'applicazione</string>
+	<key>FileRevealAction</key>
+	<string>Mostra documento</string>
+	<key>ItemSendToContactEmailAction</key>
+	<string>Invia elemento via E-mail ad un contatto</string>
+	<key>ItemSendToContactIMAction</key>
+	<string>Invia elemento via IM ad un contatto</string>
+	<key>PasteboardPasteAction</key>
+	<string>Incolla questo oggetto nell'applicazione corrente</string>
+	<key>ProcessKillAction</key>
+	<string>Uscita forzata da un'applicazione</string>
+	<key>ProcessResumeAction</key>
+	<string>Riprendi un processo sospeso</string>
+	<key>ProcessSuspendAction</key>
+	<string>Sospendi un processo in esecuzione</string>
+	<key>QSDialNumberAction</key>
+	<string>Componi un numero</string>
+	<key>QSEditAction</key>
+	<string>Modifica</string>
+	<key>QSUserSwitchAction</key>
+	<string>Passa all'Utente</string>
+	<key>QSiTunesPlaylistPlayAction</key>
+	<string>Riproduci musica da una Playlist di iTunes</string>
+	<key>QSiTunesTrackPlayAction</key>
+	<string>Riproduci un brano di iTunes</string>
+	<key>ShellScriptRunAction</key>
+	<string>Esegui Script Shell</string>
+	<key>URLFindWithAction</key>
+	<string>Cerca Con...</string>
+	<key>URLJSAction</key>
+	<string>Esegui Javascript</string>
+	<key>URLOpenAction</key>
+	<string>Apri una URL</string>
+	<key>URLSearchAction</key>
+	<string>Cerca con una URL di Ricerca</string>
+	<key>URLSearchForAction</key>
+	<string>Cerca testo su una URL di Ricerca</string>
+</dict>
+</plist>

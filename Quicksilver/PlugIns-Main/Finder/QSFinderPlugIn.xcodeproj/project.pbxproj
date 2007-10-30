@@ -1,0 +1,283 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7F2817B207B6F4EB007D4010 /* QSFinderProxy.h in Resources */ = {isa = PBXBuildFile; fileRef = 7F2817B007B6F4EB007D4010 /* QSFinderProxy.h */; };
+		7F2817B307B6F4EB007D4010 /* QSFinderProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2817B107B6F4EB007D4010 /* QSFinderProxy.m */; };
+		7F2817B707B6F4FC007D4010 /* Finder.scpt in Resources */ = {isa = PBXBuildFile; fileRef = 7F2817B607B6F4FC007D4010 /* Finder.scpt */; };
+		7FE895F0085D32830016C421 /* QSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FE895EE085D32830016C421 /* QSCore.framework */; };
+		7FE895F1085D32830016C421 /* QSFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FE895EF085D32830016C421 /* QSFoundation.framework */; };
+		8D1AC9700486D14A00FE50C9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD92D38A0106425D02CA0E72 /* Cocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		32DBCF980370C29C00C91783 /* QSFinderPlugIn_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSFinderPlugIn_Prefix.pch; sourceTree = "<group>"; };
+		7F07AAE9085E3A4F00E2AFC4 /* QSFSBrowserMediator.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = QSFSBrowserMediator.h; path = ../QSCorePlugIn/Code/QSFSBrowserMediator.h; sourceTree = SOURCE_ROOT; };
+		7F2817B007B6F4EB007D4010 /* QSFinderProxy.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSFinderProxy.h; sourceTree = "<group>"; };
+		7F2817B107B6F4EB007D4010 /* QSFinderProxy.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSFinderProxy.m; sourceTree = "<group>"; };
+		7F2817B607B6F4FC007D4010 /* Finder.scpt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.scpt; path = Finder.scpt; sourceTree = "<group>"; };
+		7FE895EE085D32830016C421 /* QSCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FE895EF085D32830016C421 /* QSFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1AC9730486D14A00FE50C9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8D1AC9740486D14A00FE50C9 /* Finder Module.qsplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Finder Module.qsplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD92D38A0106425D02CA0E72 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D1AC96E0486D14A00FE50C9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D1AC9700486D14A00FE50C9 /* Cocoa.framework in Frameworks */,
+				7FE895F0085D32830016C421 /* QSCore.framework in Frameworks */,
+				7FE895F1085D32830016C421 /* QSFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0259C574FE90428111CA0C5A /* QSFinderPlugIn */ = {
+			isa = PBXGroup;
+			children = (
+				32DBCF9E0370C38000C91783 /* Classes */,
+				32DBCF9F0370C38200C91783 /* Other Sources */,
+				0259C582FE90428111CA0C5A /* Resources */,
+				1ED78706FE9D4A0611CA0C5A /* Products */,
+				2E58F364FFB232C311CA0CBA /* Frameworks */,
+			);
+			name = QSFinderPlugIn;
+			sourceTree = "<group>";
+		};
+		0259C582FE90428111CA0C5A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7F2817B607B6F4FC007D4010 /* Finder.scpt */,
+				8D1AC9730486D14A00FE50C9 /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		1ED78706FE9D4A0611CA0C5A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D1AC9740486D14A00FE50C9 /* Finder Module.qsplugin */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E58F364FFB232C311CA0CBA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7FE895EE085D32830016C421 /* QSCore.framework */,
+				7FE895EF085D32830016C421 /* QSFoundation.framework */,
+				DD92D38A0106425D02CA0E72 /* Cocoa.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		32DBCF9E0370C38000C91783 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				7F2817B007B6F4EB007D4010 /* QSFinderProxy.h */,
+				7F2817B107B6F4EB007D4010 /* QSFinderProxy.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		32DBCF9F0370C38200C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				7F07AAE9085E3A4F00E2AFC4 /* QSFSBrowserMediator.h */,
+				32DBCF980370C29C00C91783 /* QSFinderPlugIn_Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D1AC9600486D14A00FE50C9 /* Finder Module */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7FE8955C085D305D0016C421 /* Build configuration list for PBXNativeTarget "Finder Module" */;
+			buildPhases = (
+				8D1AC9660486D14A00FE50C9 /* Resources */,
+				8D1AC96A0486D14A00FE50C9 /* Sources */,
+				8D1AC96E0486D14A00FE50C9 /* Frameworks */,
+				E1022B2806B3475D00299BEC /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Finder Module";
+			productInstallPath = "$(HOME)/Developer/Palettes";
+			productName = QSFinderPlugIn;
+			productReference = 8D1AC9740486D14A00FE50C9 /* Finder Module.qsplugin */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0259C573FE90428111CA0C5A /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 7FE89560085D305D0016C421 /* Build configuration list for PBXProject "QSFinderPlugIn" */;
+			compatibilityVersion = "Xcode 2.4";
+			hasScannedForEncodings = 1;
+			mainGroup = 0259C574FE90428111CA0C5A /* QSFinderPlugIn */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D1AC9600486D14A00FE50C9 /* Finder Module */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D1AC9660486D14A00FE50C9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F2817B207B6F4EB007D4010 /* QSFinderProxy.h in Resources */,
+				7F2817B707B6F4FC007D4010 /* Finder.scpt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E1022B2806B3475D00299BEC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/bltrversion $INFOPLIST_FILE";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D1AC96A0486D14A00FE50C9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F2817B307B6F4EB007D4010 /* QSFinderProxy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		7FE8955D085D305D0016C421 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_DIR = "$(SYMROOT)/Embedded/PlugIns";
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = QSFinderPlugIn_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				OTHER_LDFLAGS = "-bundle";
+				PRODUCT_NAME = "Finder Module";
+				WRAPPER_EXTENSION = qsplugin;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		7FE8955E085D305D0016C421 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = QSFinderPlugIn_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				OTHER_LDFLAGS = "-bundle";
+				PRODUCT_NAME = "Finder Module";
+				WRAPPER_EXTENSION = qsplugin;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		7FE8955F085D305D0016C421 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_DIR = "$(SYMROOT)/Embedded/PlugIns";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = QSFinderPlugIn_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Developer/Palettes";
+				OTHER_LDFLAGS = "-bundle";
+				PRODUCT_NAME = "Finder Module";
+				WRAPPER_EXTENSION = qsplugin;
+			};
+			name = Default;
+		};
+		7FE89561085D305D0016C421 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Debug;
+		};
+		7FE89562085D305D0016C421 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Release;
+		};
+		7FE89563085D305D0016C421 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Default;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7FE8955C085D305D0016C421 /* Build configuration list for PBXNativeTarget "Finder Module" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7FE8955D085D305D0016C421 /* Debug */,
+				7FE8955E085D305D0016C421 /* Release */,
+				7FE8955F085D305D0016C421 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		7FE89560085D305D0016C421 /* Build configuration list for PBXProject "QSFinderPlugIn" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7FE89561085D305D0016C421 /* Debug */,
+				7FE89562085D305D0016C421 /* Release */,
+				7FE89563085D305D0016C421 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0259C573FE90428111CA0C5A /* Project object */;
+}

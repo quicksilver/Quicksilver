@@ -1,0 +1,50 @@
+{
+    IBClasses = (
+        {CLASS = BLTRResizeView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = InertButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
+        {CLASS = QSBackgroundView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {CLASS = QSMenuButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
+        {CLASS = QSObjectView; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
+        {
+            ACTIONS = {
+                assignAbbreviation = id; 
+                clearMnemonics = id; 
+                defineMnemonic = id; 
+                omitItem = id; 
+                setScore = id; 
+                setSearchMode = id; 
+                sortByName = id; 
+                sortByScore = id; 
+                tableViewDoubleAction = id; 
+            }; 
+            CLASS = QSResultController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                resultChildTable = NSTableView; 
+                resultCountField = NSTextField; 
+                resultTable = NSTableView; 
+                searchModeMenu = NSMenu; 
+                searchStringField = NSTextField; 
+                selectionView = NSView; 
+                splitView = NSSplitView; 
+            }; 
+            SUPERCLASS = NSWindowController; 
+        }, 
+        {
+            ACTIONS = {hide = id; show = id; }; 
+            CLASS = QSResultWindow; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSWindow; 
+        }, 
+        {CLASS = QSSearchObjectView; LANGUAGE = ObjC; SUPERCLASS = QSObjectView; }, 
+        {CLASS = QSTableView; LANGUAGE = ObjC; SUPERCLASS = NSTableView; }, 
+        {
+            ACTIONS = {hide = id; show = id; }; 
+            CLASS = QSWindow; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSPanel; 
+        }
+    ); 
+    IBVersion = 1; 
+}

@@ -1,0 +1,19 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            CLASS = QSAboutWindowController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {creditsView = id; imageView = NSImageView; }; 
+            SUPERCLASS = NSWindowController; 
+        }, 
+        {CLASS = QSBackgroundView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {
+            ACTIONS = {hideThreaded = id; showThreaded = id; }; 
+            CLASS = QSWindow; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSPanel; 
+        }
+    ); 
+    IBVersion = 1; 
+}

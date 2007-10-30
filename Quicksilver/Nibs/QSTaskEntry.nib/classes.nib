@@ -1,0 +1,19 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {cancel = id; startTask = id; stopTask = id; }; 
+            CLASS = QSTask; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {cancelTarget = id; delegate = id; }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            CLASS = QSTaskView; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {progress = NSProgressIndicator; task = QSTask; }; 
+            SUPERCLASS = NSView; 
+        }
+    ); 
+    IBVersion = 1; 
+}

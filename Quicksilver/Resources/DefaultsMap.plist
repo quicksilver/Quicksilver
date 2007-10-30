@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>category</key>
+		<string>Task Viewer</string>
+		<key>default</key>
+		<string>QSShowTaskViewerAutomatically</string>
+		<key>title</key>
+		<string>Show Task Viewer Automatically</string>
+		<key>type</key>
+		<string>checkbox</string>
+	</dict>
+	<dict>
+		<key>category</key>
+		<string>App Switching</string>
+		<key>default</key>
+		<string>Hide Other Apps When Switching</string>
+		<key>title</key>
+		<string>Hide other applications when switching (shift prevents)</string>
+		<key>type</key>
+		<string>checkbox</string>
+	</dict>
+	<dict>
+		<key>category</key>
+		<string>Tasks</string>
+		<key>default</key>
+		<string>Multithreaded Execute</string>
+		<key>title</key>
+		<string>Run tasks in background</string>
+		<key>type</key>
+		<string>checkbox</string>
+	</dict>
+	<dict>
+		<key>category</key>
+		<string>App Switching</string>
+		<key>default</key>
+		<string>QSActionAppReopenBehavior</string>
+		<key>items</key>
+		<dict>
+			<key>0</key>
+			<string>activates</string>
+			<key>1</key>
+			<string>shows front window</string>
+			<key>2</key>
+			<string>shows all windows</string>
+		</dict>
+		<key>pretext</key>
+		<string>Reopening an application</string>
+		<key>subtext</key>
+		<string>Reopening the current application shows all windows</string>
+		<key>title</key>
+		<string>Application reopen behavior</string>
+		<key>type</key>
+		<string>popupTag</string>
+	</dict>
+	<dict>
+		<key>category</key>
+		<string>Update</string>
+		<key>default</key>
+		<string>QSNewUpdateReleaseLevel</string>
+		<key>image</key>
+		<string>Quicksilver</string>
+		<key>items</key>
+		<dict>
+			<key>0</key>
+			<string>Final Releases</string>
+			<key>1</key>
+			<string>Prerelease Candidates</string>
+		</dict>
+		<key>requestRelaunch</key>
+		<true/>
+		<key>title</key>
+		<string>Application Update Type</string>
+		<key>type</key>
+		<string>popupTag</string>
+	</dict>
+	<dict>
+		<key>category</key>
+		<string>Command</string>
+		<key>default</key>
+		<string>QSUseGlobalSelectionForGrab</string>
+		<key>title</key>
+		<string>Pull selection from front application instead of Finder</string>
+		<key>type</key>
+		<string>checkbox</string>
+	</dict>
+	<dict>
+		<key>category</key>
+		<string>Command</string>
+		<key>default</key>
+		<string>Shift Actions</string>
+		<key>title</key>
+		<string>Capitalized keys modify action in command window</string>
+		<key>type</key>
+		<string>checkbox</string>
+	</dict>
+	<dict>
+		<key>category</key>
+		<string>Command</string>
+		<key>default</key>
+		<string>Suppress HotKeys in Command</string>
+		<key>title</key>
+		<string>Suppress HotKeys while command window is open</string>
+		<key>type</key>
+		<string>checkbox</string>
+	</dict>
+</array>
+</plist>

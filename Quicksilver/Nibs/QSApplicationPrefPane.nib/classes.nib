@@ -1,0 +1,42 @@
+{
+    IBClasses = (
+        {
+            CLASS = NSPreferencePane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "_firstKeyView" = id; 
+                "_initialKeyView" = id; 
+                "_lastKeyView" = id; 
+                "_window" = id; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {resetColors = id; setCommandInterface = id; }; 
+            CLASS = QSAppearancePrefPane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {interfacePopUp = NSPopUpButton; }; 
+            SUPERCLASS = QSPreferencePane; 
+        }, 
+        {
+            ACTIONS = {checkNow = id; resetQS = id; runSetup = id; uninstallQS = id; }; 
+            CLASS = QSApplicationPrefPane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                featureLevelMatrix = NSMatrix; 
+                hideDockIconSwitch = NSButton; 
+                hideStatusMenuSwitch = NSButton; 
+            }; 
+            SUPERCLASS = QSPreferencePane; 
+        }, 
+        {CLASS = QSPreferencePane; LANGUAGE = ObjC; SUPERCLASS = NSPreferencePane; }, 
+        {
+            ACTIONS = {changeHotkey = id; }; 
+            CLASS = QSSearchPrefPane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {hotKeyButton = NSButton; }; 
+            SUPERCLASS = QSPreferencePane; 
+        }
+    ); 
+    IBVersion = 1; 
+}

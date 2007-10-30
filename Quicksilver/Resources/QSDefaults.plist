@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Capture Pasteboard History</key>
+	<false/>
+	<key>Capture Pasteboard History Count</key>
+	<integer>9</integer>
+	<key>Check for Update Frequency</key>
+	<integer>7</integer>
+	<key>Delay Before Quitting</key>
+	<false/>
+	<key>QSAccentColor</key>
+	<data>
+	BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANA
+	QECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYFHNlbGVjdGVkQ29udHJvbENvbG9y
+	hoSTlQOEAmZmAQGGhg==
+	</data>
+	<key>QSActionAppReopenBehavior</key>
+	<integer>0</integer>
+	<key>QSActivationHotKey</key>
+	<dict>
+		<key>keyCode</key>
+		<integer>49</integer>
+		<key>modifiers</key>
+		<integer>262401</integer>
+	</dict>
+	<key>QSAlwaysInstallPrerequisites</key>
+	<true/>
+	<key>QSAppearance1A</key>
+	<data>
+	BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMBhARm
+	ZmZmAQEBgz6ZmZqG
+	</data>
+	<key>QSAppearance1B</key>
+	<data>
+	BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMBhARm
+	ZmZmgz4HtDaDPcv0R4M+SlKUgz9MzM2G
+	</data>
+	<key>QSAppearance1T</key>
+	<data>
+	BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANA
+	QECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYIWFsdGVybmF0ZVNlbGVjdGVkQ29u
+	dHJvbFRleHRDb2xvcoaEk5UDhAJmZgEBhoY=
+	</data>
+	<key>QSAppearance2A</key>
+	<data>
+	BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANA
+	QECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYG3NlbGVjdGVkVGV4dEJhY2tncm91
+	bmRDb2xvcoaEk5UDhAJmZoM/KqqrAYaG
+	</data>
+	<key>QSAppearance2B</key>
+	<data>
+	BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANA
+	QECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYFWNvbnRyb2xIaWdobGlnaHRDb2xv
+	coaEk5UDhAJmZgEBhoY=
+	</data>
+	<key>QSAppearance2T</key>
+	<data>
+	BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANA
+	QECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYFHdpbmRvd0ZyYW1lVGV4dENvbG9y
+	hoSTlQOEAmZmAQGGhg==
+	</data>
+	<key>QSAppearance3A</key>
+	<data>
+	BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANA
+	QECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYG3NlbGVjdGVkVGV4dEJhY2tncm91
+	bmRDb2xvcoaEk5UDhAJmZoM/KqqrAYaG
+	</data>
+	<key>QSAppearance3B</key>
+	<data>
+	BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANA
+	QECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYE3RleHRCYWNrZ3JvdW5kQ29sb3KG
+	hJOVA4QCZmYBAYaG
+	</data>
+	<key>QSAppearance3T</key>
+	<data>
+	BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANA
+	QECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYCXRleHRDb2xvcoaEk5UDhAJmZgAB
+	hoY=
+	</data>
+	<key>QSBezelHasShadow</key>
+	<false/>
+	<key>QSCatalogRescanFrequency</key>
+	<integer>10</integer>
+	<key>QSChatMediators</key>
+	<string>com.apple.iChat</string>
+	<key>QSCommandInterfaceControllers</key>
+	<string>QSPrimerInterfaceController</string>
+	<key>QSFSBrowserMediators</key>
+	<string>com.apple.finder</string>
+	<key>QSInterfaceReactivationDeactivates</key>
+	<true/>
+	<key>QSNotifiers</key>
+	<string>com.blacktree.Quicksilver</string>
+	<key>QSResultViewRowHeight</key>
+	<string>34</string>
+	<key>QSSearchSpaceBarBehavior</key>
+	<integer>1</integer>
+	<key>QSUpdateReleaseLevel</key>
+	<integer>0</integer>
+	<key>Reset Delay</key>
+	<real>0.80000000000000004</real>
+	<key>Result Window Behavior</key>
+	<integer>1</integer>
+	<key>Search Delay</key>
+	<real>0.10000000000000001</real>
+	<key>Show Icons</key>
+	<true/>
+	<key>Show Release Notes on Upgrade</key>
+	<false/>
+	<key>Use Effects</key>
+	<true/>
+</dict>
+</plist>

@@ -1,0 +1,88 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {
+                addTrigger = id; 
+                defineMnemonic = id; 
+                dropClipboard = id; 
+                dropSelection = id; 
+                encapsulateCommand = id; 
+                goBackward = id; 
+                goForward = id; 
+                grabSelection = id; 
+                newFile = id; 
+                newFolder = id; 
+                openFile = id; 
+                removeMnemonic = id; 
+                rescanItems = id; 
+                showAbout = id; 
+                showBugReporter = id; 
+                showPreferences = id; 
+                showShelf = id; 
+                showTaskViewer = id; 
+                transmogrify = id; 
+            }; 
+            CLASS = FirstResponder; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = InertButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
+        {CLASS = MenuButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
+        {CLASS = NSMenuView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {
+            ACTIONS = {relaunch = id; }; 
+            CLASS = QSApp; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {hiddenMenu = NSMenu; }; 
+            SUPERCLASS = NSApplication; 
+        }, 
+        {
+            ACTIONS = {
+                activateInterface = id; 
+                donate = id; 
+                forceRescanItems = id; 
+                getMorePlugIns = id; 
+                openIRCChannel = id; 
+                reportABug = id; 
+                rescanItems = id; 
+                runSetupAssistant = id; 
+                setupAssistantCompleted = id; 
+                showAbout = id; 
+                showAgreement = id; 
+                showCatalog = id; 
+                showForums = id; 
+                showGuide = id; 
+                showHelp = id; 
+                showPreferences = id; 
+                showReleaseNotes = id; 
+                showSettings = id; 
+                showSplash = id; 
+                showTaskViewer = id; 
+                showTriggers = id; 
+                unsureQuit = id; 
+            }; 
+            CLASS = QSController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                aboutWindow = NSWindow; 
+                preferencesMenu = NSMenuItem; 
+                statusMenu = NSMenu; 
+                versionField = NSTextField; 
+            }; 
+            SUPERCLASS = NSWindowController; 
+        }, 
+        {
+            CLASS = QSKeyboardTriggerReferenceView; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSView; 
+        }, 
+        {CLASS = QSShelfView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {
+            ACTIONS = {checkForUpdates = id; }; 
+            CLASS = SUUpdater; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

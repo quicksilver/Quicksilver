@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>QSABMailRecentsObjectSource</key>
+	<string>Destinatari E-mail Precedenti</string>
+	<key>QSAddressBookObjectSource</key>
+	<string>Rubrica Indirizzi</string>
+	<key>QSAirPortNetworkObjectSource</key>
+	<string>Network AirPort</string>
+	<key>QSAllApplicationsObjectSource</key>
+	<string>Tutte Le Applicazioni</string>
+	<key>QSCatalogEntrySource</key>
+	<string>Elementi Catalogo</string>
+	<key>QSDefaultsObjectSource</key>
+	<string>Lettore Default</string>
+	<key>QSFileSystemObjectSource</key>
+	<string>Scanner File e Cartelle</string>
+	<key>QSGroupObjectSource</key>
+	<string>Gruppo</string>
+	<key>QSMachineSource</key>
+	<string>Computer Quicksilver</string>
+	<key>QSNUDCSource</key>
+	<string>Now Up-To-Date e Contact</string>
+	<key>QSNetworkLocationObjectSource</key>
+	<string>Postazione Network</string>
+	<key>QSProcessObjectSource</key>
+	<string>Processi In Esecuzione</string>
+	<key>QSVolumesObjectSource</key>
+	<string>Volumi Attivati</string>
+	<key>QSiPhotoObjectSource</key>
+	<string>Libreria iPhoto</string>
+	<key>QSiTunesObjectSource</key>
+	<string>Libreria Musica iTunes</string>
+</dict>
+</plist>

@@ -1,0 +1,54 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            CLASS = NSPreferencePane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "_firstKeyView" = id; 
+                "_initialKeyView" = id; 
+                "_lastKeyView" = id; 
+                "_window" = id; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {setValue = id; }; 
+            CLASS = QSAdvancedPrefPane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                descriptionField = NSTextField; 
+                posttextField = NSTextField; 
+                prefSetsController = NSArrayController; 
+                prefSetsTable = NSTableView; 
+                pretextField = NSTextField; 
+                settingsBox = NSBox; 
+                titleField = NSTextField; 
+                valueField = NSTextField; 
+                valuePopUp = NSPopUpButton; 
+                valueSlider = NSSlider; 
+                valueSwitch = NSButton; 
+            }; 
+            SUPERCLASS = QSPreferencePane; 
+        }, 
+        {
+            CLASS = QSDelegatingTableColumn; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSTableColumn; 
+        }, 
+        {CLASS = QSImageAndTextCell; LANGUAGE = ObjC; SUPERCLASS = NSTextFieldCell; }, 
+        {
+            ACTIONS = {showPaneHelp = id; }; 
+            CLASS = QSPreferencePane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "_firstKeyView" = NSView; 
+                "_initialKeyView" = NSView; 
+                "_lastKeyView" = NSView; 
+                "_window" = NSWindow; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

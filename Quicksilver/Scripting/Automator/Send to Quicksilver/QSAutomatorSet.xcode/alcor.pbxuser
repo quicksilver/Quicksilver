@@ -1,0 +1,1166 @@
+// !$*UTF8*$!
+{
+	089C1669FE841209C02AAC07 = {
+		activeBuildStyle = 014CEA420018CDE011CA2923;
+		activeExecutable = 658A2E03067AB99300421F51;
+		activeTarget = 8D5B49AC048680CD000E48DA;
+		breakpoints = (
+			7F35F95007F8B0940056051D,
+		);
+		codeSenseManager = 658A2DD0067AB96600421F51;
+		executables = (
+			658A2E03067AB99300421F51,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXBookmarksDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXBookmarksDataSource_NameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					200,
+					200,
+					57.5835,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXBookmarksDataSource_LocationID,
+					PBXBookmarksDataSource_NameID,
+					PBXBookmarksDataSource_CommentsID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXErrorsWarningsDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXErrorsWarningsDataSource_LocationID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					300,
+					133,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXErrorsWarningsDataSource_TypeID,
+					PBXErrorsWarningsDataSource_MessageID,
+					PBXErrorsWarningsDataSource_LocationID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXExecutablesDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXExecutablesDataSource_NameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					22,
+					300,
+					131,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXExecutablesDataSource_ActiveFlagID,
+					PBXExecutablesDataSource_NameID,
+					PBXExecutablesDataSource_CommentsID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					243,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFindDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFindDataSource_LocationID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					200,
+					120,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFindDataSource_MessageID,
+					PBXFindDataSource_LocationID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.XCSCMDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					20,
+					219,
+					20,
+					48.1626,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_SCM_ColumnID,
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					200,
+					63,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 133995298;
+			PBXWorkspaceStateSaveDate = 133995298;
+		};
+		sourceControlManager = 658A2DCF067AB96600421F51;
+		userBuildSettings = {
+			SYMROOT = /Volumes/Lore/Forge/Quicksilver/Application/Scripting/Automator;
+		};
+	};
+	089C167EFE841241C02AAC07 = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1046, 480}}";
+			sepNavSelRange = "{172, 0}";
+			sepNavVisRect = "{{0, 0}, {740, 480}}";
+			sepNavWindowFrame = "{{157, 6}, {785, 609}}";
+		};
+	};
+	6518174F067A8D39005BD953 = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {740, 480}}";
+			sepNavSelRange = "{134, 0}";
+			sepNavVisRect = "{{0, 0}, {740, 480}}";
+			sepNavWindowFrame = "{{65, 90}, {785, 609}}";
+		};
+	};
+	65181750067A8D39005BD953 = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {722, 658}}";
+			sepNavSelRange = "{640, 0}";
+			sepNavVisRect = "{{0, 265}, {647, 187}}";
+			sepNavWindowFrame = "{{340, 1}, {785, 609}}";
+		};
+	};
+	658A2DCF067AB96600421F51 = {
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		isa = PBXSourceControlManager;
+		scmConfiguration = {
+		};
+		scmType = "";
+	};
+	658A2DD0067AB96600421F51 = {
+		indexTemplatePath = "";
+		isa = PBXCodeSenseManager;
+	};
+	658A2E03067AB99300421F51 = {
+		activeArgIndex = 0;
+		activeArgIndices = (
+			YES,
+		);
+		argumentStrings = (
+			"-action \"Send to Quicksilver.action\"",
+		);
+		configStateDict = {
+		};
+		cppStopOnCatchEnabled = 0;
+		cppStopOnThrowEnabled = 0;
+		customDataFormattersEnabled = 1;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		isa = PBXExecutable;
+		launchableReference = 658A2E04067AB99300421F51;
+		libgmallocEnabled = 0;
+		name = Automator;
+		savedGlobals = {
+		};
+		shlibInfoDictList = (
+		);
+		shlibInfoDictList_v2 = (
+			{
+				level = 0;
+				path = /usr/lib/system/libmathCommon.A.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /usr/lib/libSystem.B.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /usr/lib/libicucore.A.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /usr/lib/libauto.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /usr/lib/libobjc.A.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /usr/lib/libz.1.2.2.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/SystemConfiguration.framework/Versions/A/SystemConfiguration;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/IOKit.framework/Versions/A/IOKit;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Security.framework/Versions/A/Security;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/DiskArbitration.framework/Versions/A/DiskArbitration;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/CarbonCore;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/OSServices.framework/Versions/A/OSServices;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CFNetwork.framework/Versions/A/CFNetwork;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/WebServicesCore.framework/Versions/A/WebServicesCore;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/SearchKit.framework/Versions/A/SearchKit;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Metadata;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/CoreAudio.framework/Versions/A/CoreAudio;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/CarbonSound.framework/Versions/A/CarbonSound;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /usr/lib/libbsm.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/AE.framework/Versions/A/AE;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ATS.framework/Versions/A/ATS;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /usr/lib/libcrypto.0.9.7.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/LaunchServices;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ColorSync.framework/Versions/A/ColorSync;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/CoreText.framework/Versions/A/CoreText;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/QD.framework/Versions/A/QD;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /usr/lib/libcups.2.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/PrintCore.framework/Versions/A/PrintCore;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/HIServices.framework/Versions/A/HIServices;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/LangAnalysis.framework/Versions/A/LangAnalysis;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/FindByContent.framework/Versions/A/FindByContent;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/SpeechSynthesis.framework/Versions/A/SpeechSynthesis;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/Resources/libJPEG.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/Resources/libJP2.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/Resources/libGIF.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/Resources/libRaw.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/Resources/libTIFF.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/Resources/libPng.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/Resources/libRadiance.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /usr/lib/libmx.A.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vImage.framework/Versions/A/vImage;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libvMisc.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libvDSP.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libLAPACK.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/vecLib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Accelerate.framework/Versions/A/Accelerate;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ImageIO.framework/Versions/A/ImageIO;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/ApplicationServices.framework/Versions/A/ApplicationServices;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /usr/lib/libiconv.2.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /usr/lib/libxml2.2.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Foundation.framework/Versions/C/Foundation;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/PrivateFrameworks/DesktopServicesPriv.framework/Versions/A/DesktopServicesPriv;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/HIToolbox.framework/Versions/A/HIToolbox;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/ImageCapture.framework/Versions/A/ImageCapture;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/SpeechRecognition.framework/Versions/A/SpeechRecognition;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/SecurityHI.framework/Versions/A/SecurityHI;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/Ink.framework/Versions/A/Ink;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/Help.framework/Versions/A/Help;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/OpenScripting.framework/Versions/A/OpenScripting;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/Print.framework/Versions/A/Print;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/HTMLRendering.framework/Versions/A/HTMLRendering;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/NavigationServices.framework/Versions/A/NavigationServices;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/CommonPanels.framework/Versions/A/CommonPanels;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Carbon.framework/Versions/A/Carbon;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/AudioUnit.framework/Versions/A/AudioUnit;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /usr/lib/libsqlite3.0.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/CoreData.framework/Versions/A/CoreData;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGLU.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/OpenGL.framework/Versions/A/OpenGL;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGLImage.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/AppKit.framework/Versions/C/AppKit;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Cocoa.framework/Versions/A/Cocoa;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/vecLib.framework/Versions/A/vecLib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/QuickTime.framework/Versions/A/QuickTime;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Automator.framework/Frameworks/MediaBrowser.framework/Versions/A/MediaBrowser;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/WebKit.framework/Versions/A/Frameworks/JavaScriptCore.framework/Versions/A/JavaScriptCore;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /usr/lib/libxslt.1.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/WebKit.framework/Versions/A/Frameworks/WebCore.framework/Versions/A/WebCore;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/WebKit.framework/Versions/A/WebKit;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/OSAKit.framework/Versions/A/OSAKit;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/AppleScriptKit.framework/Versions/A/AppleScriptKit;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Automator.framework/Versions/A/Automator;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /Applications/Automator.app/Contents/MacOS/Automator;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/Volumes/Lore/Library/Automator/Send to Quicksilver.action/Contents/MacOS/Send to Quicksilver";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /Volumes/Lore/Library/Automator/AutomatorLogAction.action/Contents/MacOS/AutomatorLogAction;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/Volumes/Lore/Library/Automator/Get Quicksilver Selection.action/Contents/MacOS/Get Quicksilver Selection";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Add Grid to PDF Files.action/Contents/MacOS/Add Grid to PDF Files";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Apply ColorSync Profile to Images.action/Contents/MacOS/Apply ColorSync Profile to Images";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/PrivateFrameworks/QuartzFilters.framework/Versions/A/QuartzFilters;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Apply Quartz Filter to PDF Documents.action/Contents/MacOS/Apply Quartz Filter to PDF Documents";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Apply SQL.action/Contents/MacOS/Apply SQL";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Ask for Movies.action/Contents/MacOS/Ask for Movies";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Ask for Photos.action/Contents/MacOS/Ask for Photos";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Ask for Songs.action/Contents/MacOS/Ask for Songs";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/DiscRecording.framework/Versions/A/Frameworks/DiscRecordingEngine.framework/Versions/A/DiscRecordingEngine;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/DiscRecording.framework/Versions/A/Frameworks/DiscRecordingContent.framework/Versions/A/DiscRecordingContent;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/DiscRecording.framework/Versions/A/DiscRecording;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/DiscRecordingUI.framework/Versions/A/DiscRecordingUI;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Burn A Disc.action/Contents/MacOS/Burn A Disc";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Combine PDF Pages.action/Contents/MacOS/Combine PDF Pages";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Compress Images in PDF Document.action/Contents/MacOS/Compress Images in PDF Document";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Convert CSV to SQL.action/Contents/MacOS/Convert CSV to SQL";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Copy Finder Items.action/Contents/MacOS/Copy Finder Items";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/PrivateFrameworks/Bom.framework/Versions/A/Bom;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Create Archive.action/Contents/MacOS/Create Archive";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Create Package.action/Contents/MacOS/Create Package";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Download Pictures.action/Contents/MacOS/Download Pictures";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Download URLs.action/Contents/MacOS/Download URLs";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Encrypt PDF Document.action/Contents/MacOS/Encrypt PDF Document";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Execute SQL.action/Contents/MacOS/Execute SQL";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Extract Odd & Even Pages.action/Contents/MacOS/Extract Odd & Even Pages";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Filter Finder Items.action/Contents/MacOS/Filter Finder Items";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Filter Items.action/Contents/MacOS/Filter Items";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Filter URLs.action/Contents/MacOS/Filter URLs";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Find Finder Items.action/Contents/MacOS/Find Finder Items";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Find Items.action/Contents/MacOS/Find Items";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Get Folder Contents.action/Contents/MacOS/Get Folder Contents";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Get Selected Items.action/Contents/MacOS/Get Selected Items";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/DirectoryService.framework/Versions/A/DirectoryService;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /usr/lib/libsasl2.2.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /usr/lib/libssl.0.9.7.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /usr/lib/libresolv.9.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/LDAP.framework/Versions/A/LDAP;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/PrivateFrameworks/DSObjCWrappers.framework/Versions/A/DSObjCWrappers;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/AddressBook.framework/Versions/A/AddressBook;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Get Specified Address Book Items.action/Contents/MacOS/Get Specified Address Book Items";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Get Specified Finder Items.action/Contents/MacOS/Get Specified Finder Items";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Get Specified iCal Items.action/Contents/MacOS/Get Specified iCal Items";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Get Specified iPhoto Items.action/Contents/MacOS/Get Specified iPhoto Items";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Get Specified iTunes Items.action/Contents/MacOS/Get Specified iTunes Items";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Get Specified Mail Items.action/Contents/MacOS/Get Specified Mail Items";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Get Specified Movies.action/Contents/MacOS/Get Specified Movies";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Get Specified Servers.action/Contents/MacOS/Get Specified Servers";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Get Text from Webpage.action/Contents/MacOS/Get Text from Webpage";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Move Finder Items.action/Contents/MacOS/Move Finder Items";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/New Folder.action/Contents/MacOS/New Folder";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/New Mail Message.action/Contents/MacOS/New Mail Message";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Rename PDF Document.action/Contents/MacOS/Rename PDF Document";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Render PDF Pages as Images.action/Contents/MacOS/Render PDF Pages as Images";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Run AppleScript.action/Contents/MacOS/Run AppleScript";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Run Shell Script.action/Contents/MacOS/Run Shell Script";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Run Workflow.action/Contents/MacOS/Run Workflow";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/QTKit.framework/Versions/A/QTKit;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Quartz.framework/Versions/A/Frameworks/QuartzComposer.framework/Versions/A/QuartzComposer;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Quartz.framework/Versions/A/Frameworks/PDFKit.framework/Versions/A/PDFKit;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Quartz.framework/Versions/A/Quartz;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/PrivateFrameworks/Slideshow.framework/Versions/A/Slideshow;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Automator/Spotlight.action/Contents/MacOS/Spotlight;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Take Picture.action/Contents/MacOS/Take Picture";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Take Screenshot.action/Contents/MacOS/Take Screenshot";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/View Results.action/Contents/MacOS/View Results";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Watermark PDF.action/Contents/MacOS/Watermark PDF";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/CoreGraphics.framework/Versions/A/Resources/libCSync.A.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Convert Spotlight item to Alias object.caction/Contents/MacOS/Convert Spotlight item to Alias object";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Convert Spotlight item to Mail message.caction/Contents/MacOS/Convert Spotlight item to Mail message";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Convert Spotlight object to Address Book object.caction/Contents/MacOS/Convert Spotlight object to Address Book object";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Convert Spotlight object to Font file.caction/Contents/MacOS/Convert Spotlight object to Font file";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Convert Spotlight object to iCal event.caction/Contents/MacOS/Convert Spotlight object to iCal event";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Convert Spotlight object to Image file.caction/Contents/MacOS/Convert Spotlight object to Image file";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Convert Spotlight object to iTunes song.caction/Contents/MacOS/Convert Spotlight object to iTunes song";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Convert Spotlight object to Movie file.caction/Contents/MacOS/Convert Spotlight object to Movie file";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/Automator/Convert Spotlight object to PDF file.caction/Contents/MacOS/Convert Spotlight object to PDF file";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/CoreGraphics.framework/Versions/A/Resources/libCGATS.A.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/CoreGraphics.framework/Versions/A/Resources/libRIP.A.dylib;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/PrivateFrameworks/AppleScript.framework/Versions/A/AppleScript;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Components/AppleScript.component/Contents/MacOS/AppleScript;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/TextEncodings/Unicode Encodings.bundle/Contents/MacOS/Unicode Encodings";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = "/System/Library/ScriptingAdditions/Digital Hub Scripting.osax/Contents/MacOS/Digital Hub Scripting";
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/PrivateFrameworks/URLMount.framework/Versions/A/URLMount;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/AppleTalk.framework/Versions/A/AppleTalk;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/Kerberos.framework/Versions/A/Kerberos;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/AppleShareClientCore.framework/Versions/A/AppleShareClientCore;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Frameworks/AppleShareClient.framework/Versions/A/AppleShareClient;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/ScriptingAdditions/StandardAdditions.osax/Contents/MacOS/StandardAdditions;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Components/DictionaryService.component/Contents/MacOS/DictionaryService;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Components/CoreAudio.component/Contents/MacOS/CoreAudio;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /System/Library/Extensions/IOAudioFamily.kext/Contents/PlugIns/AOAHALPlugin.bundle/Contents/MacOS/AOAHALPlugin;
+				whenToLoad = 0;
+			},
+			{
+				level = 0;
+				path = /Developer/Applications/Xcode.app/Contents/PlugIns/GDBMIDebugging.xcplugin/Contents/Resources/PBGDBIntrospectionSupport.A.dylib;
+				whenToLoad = 0;
+			},
+		);
+		sourceDirectories = (
+		);
+	};
+	658A2E04067AB99300421F51 = {
+		isa = PBXFileReference;
+		lastKnownFileType = wrapper.application;
+		name = Automator.app;
+		path = /Applications/Automator.app;
+		refType = 0;
+		sourceTree = "<absolute>";
+	};
+	7F35F95007F8B0940056051D = {
+		fileReference = 65181750067A8D39005BD953;
+		functionName = "-runWithInput:fromAction:error:";
+		isa = PBXFileBreakpoint;
+		lineNumber = 26;
+		state = 1;
+	};
+	8D5B49AC048680CD000E48DA = {
+		activeExec = 0;
+	};
+	8D5B49B7048680CD000E48DA = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {740, 882}}";
+			sepNavSelRange = "{350, 0}";
+			sepNavVisRect = "{{0, 0}, {740, 480}}";
+			sepNavWindowFrame = "{{111, 48}, {785, 609}}";
+		};
+	};
+}

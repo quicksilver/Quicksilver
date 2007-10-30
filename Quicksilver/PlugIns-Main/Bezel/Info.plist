@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>Bezel Interface</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.blacktree.Quicksilver.BezelInterfacePlugIn</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Bezel Interface</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleVersion</key>
+	<string>12E8</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2004, Blacktree, Inc.</string>
+	<key>QSModulePreview</key>
+	<string>BezelInterfacePreview</string>
+	<key>QSPlugIn</key>
+	<dict>
+		<key>author</key>
+		<string>Blacktree, Inc.</string>
+		<key>categories</key>
+		<array>
+			<string>Interfaces</string>
+		</array>
+		<key>description</key>
+		<string>Provides a Bezel Interface</string>
+	</dict>
+	<key>QSRegistration</key>
+	<dict>
+		<key>QSCommandInterfaceControllers</key>
+		<dict>
+			<key>QSBezelInterfaceController</key>
+			<string>QSBezelInterfaceController</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

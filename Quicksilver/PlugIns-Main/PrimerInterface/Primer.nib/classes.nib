@@ -1,0 +1,91 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = QSBackgroundView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {CLASS = QSBezelBackgroundView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {CLASS = QSBorderlessWindow; LANGUAGE = ObjC; SUPERCLASS = QSWindow; }, 
+        {
+            ACTIONS = {emptyCollection = id; }; 
+            CLASS = QSCollectingSearchObjectView; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = QSSearchObjectView; 
+        }, 
+        {CLASS = QSFadingView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {
+            ACTIONS = {
+                activate = id; 
+                executeCommand = id; 
+                hideIndirectSelector = id; 
+                hideMainWindow = id; 
+                hideWindows = id; 
+                shortCircuit = id; 
+                showIndirectSelector = id; 
+                showMainWindow = id; 
+                showTasks = id; 
+            }; 
+            CLASS = QSInterfaceController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                aSelector = QSSearchObjectView; 
+                commandView = id; 
+                dSelector = QSSearchObjectView; 
+                iSelector = QSSearchObjectView; 
+                menuButton = QSMenuButton; 
+                progressIndicator = NSProgressIndicator; 
+            }; 
+            SUPERCLASS = NSWindowController; 
+        }, 
+        {CLASS = QSMenuButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
+        {CLASS = QSObjectView; LANGUAGE = ObjC; SUPERCLASS = NSImageView; }, 
+        {
+            CLASS = QSPrimerInterfaceController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                aSearchCount = NSTextField; 
+                aSearchResultDisclosure = NSButton; 
+                aSearchText = NSTextField; 
+                dSearchCount = NSTextField; 
+                dSearchResultDisclosure = NSButton; 
+                dSearchText = NSTextField; 
+                executeButton = NSButton; 
+                iSearchCount = NSTextField; 
+                iSearchResultDisclosure = NSButton; 
+                iSearchText = NSTextField; 
+                indirectView = NSView; 
+            }; 
+            SUPERCLASS = QSResizingInterfaceController; 
+        }, 
+        {
+            ACTIONS = {adjustWindow = id; contractWindow = id; expandWindow = id; }; 
+            CLASS = QSResizingInterfaceController; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = QSInterfaceController; 
+        }, 
+        {
+            ACTIONS = {
+                defineMnemonic = id; 
+                hideResultView = id; 
+                removeImpliedMnemonic = id; 
+                removeMnemonic = id; 
+                reset = id; 
+                showResultView = id; 
+                sortByName = id; 
+                sortByScore = id; 
+                toggleResultView = id; 
+                transmogrify = id; 
+                updateResultView = id; 
+            }; 
+            CLASS = QSSearchObjectView; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {editor = id; selectedObject = id; }; 
+            SUPERCLASS = QSObjectView; 
+        }, 
+        {
+            ACTIONS = {hideThreaded = id; showThreaded = id; }; 
+            CLASS = QSWindow; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSPanel; 
+        }
+    ); 
+    IBVersion = 1; 
+}

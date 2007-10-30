@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>DisplayName</key>
+	<string>Quicksilver</string>
+	<key>Entities</key>
+	<dict>
+		<key>com.blacktree.QuicksilverSync.trigger</key>
+		<array>
+			<string>id</string>
+			<string>content</string>
+		</array>
+	</dict>
+	<key>Type</key>
+	<string>app</string>
+</dict>
+</plist>

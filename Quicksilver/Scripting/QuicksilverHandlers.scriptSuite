@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AppleEventCode</key>
+	<string>DAEH</string>
+	<key>Commands</key>
+	<dict>
+		<key>ProcessText</key>
+		<dict>
+			<key>AppleEventClassCode</key>
+			<string>DAED</string>
+			<key>AppleEventCode</key>
+			<string>opnt</string>
+			<key>CommandClass</key>
+			<string>NSScriptCommand</string>
+			<key>ResultAppleEventCode</key>
+			<string>****</string>
+			<key>Type</key>
+			<string>NSObject</string>
+			<key>UnnamedArgument</key>
+			<dict>
+				<key>Type</key>
+				<string>NSString</string>
+			</dict>
+		</dict>
+	</dict>
+	<key>Name</key>
+	<string>QuicksilverHandlers</string>
+	<key>UsedFeatures</key>
+	<array>
+		<string>UnnamedArguments</string>
+	</array>
+</dict>
+</plist>

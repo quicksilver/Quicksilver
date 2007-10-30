@@ -1,0 +1,268 @@
+<?xml version="1.0"?>
+<!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
+<!--
+	This is Foundation Kit's NSCoreSuite terminology recast as an sdef.  NSCoreSuite
+	is itself AppleScript's Standard Suite recast as a plist instead of the original
+	aete.  There are several differences between the original Standard Suite and
+	Cocoa's version of it, and not all of them are correct: these places are noted
+	with "supposed to" comments.
+-->
+<dictionary title="Standard Terminology">
+	<suite name="Standard Suite" code="????" description="Common classes and commands for most applications.">
+		<cocoa name="NSCoreSuite"/>
+		<enumeration name="save options" code="savo">
+			<enumerator name="yes" code="yes " description="Save the file."/>
+			<enumerator name="no" code="no  " description="Do not save the file."/>
+			<enumerator name="ask" code="ask " description="Ask the user whether or not to save the file."/>
+		</enumeration>
+		<class name="item" code="cobj" description="A scriptable object.">
+			<cocoa class="AbstractObject"/>
+			<property name="class" code="pcls" type="type" access="r" description="The class of the object.">
+				<cocoa key="classCode"/>
+			</property>
+			<property name="properties" code="pALL" type="record" description="All of the object's properties.">
+				<cocoa key="scriptingProperties"/>
+			</property>
+<!--
+						The blank method declarations are needed to emulate the existing
+						NSCoreSuite.scriptSuite.framework.  Ordinarily, you wouldn't do this.
+					-->
+			<responds-to name="count">
+				<cocoa method=""/>
+			</responds-to>
+			<responds-to name="delete">
+				<cocoa method=""/>
+			</responds-to>
+			<responds-to name="duplicate">
+				<cocoa method=""/>
+			</responds-to>
+			<responds-to name="exists">
+				<cocoa method=""/>
+			</responds-to>
+			<responds-to name="get">
+				<cocoa method=""/>
+			</responds-to>
+			<responds-to name="move">
+				<cocoa method=""/>
+			</responds-to>
+			<responds-to name="set">
+				<cocoa method=""/>
+			</responds-to>
+		</class>
+		<class name="application" code="capp" description="An application's top level scripting object.">
+			<cocoa class="NSApplication"/>
+			<element type="document" access="r">
+				<cocoa key="orderedDocuments"/>
+			</element>
+			<element type="window" access="r">
+				<cocoa key="orderedWindows"/>
+			</element>
+			<property name="name" code="pnam" type="text" access="r" description="The name of the application."/>
+			<property name="frontmost" code="pisf" type="boolean" access="r" description="Is this the frontmost (active) application?">
+				<cocoa key="isActive"/>
+			</property>
+			<property name="version" code="vers" type="text" access="r" description="The version of the application."/>
+			<responds-to name="open">
+				<cocoa method="handleOpenScriptCommand:"/>
+			</responds-to>
+			<responds-to name="print">
+				<cocoa method="handlePrintScriptCommand:"/>
+			</responds-to>
+			<responds-to name="quit">
+				<cocoa method="handleQuitScriptCommand:"/>
+			</responds-to>
+		</class>
+		<class name="color" code="colr" description="A color.">
+			<cocoa class="NSColor"/>
+		</class>
+		<class name="document" code="docu" description="A document.">
+			<cocoa class="NSDocument"/>
+			<property name="path" code="ppth" type="text" description="The document's path.">
+				<cocoa key="fileName"/>
+			</property>
+			<property name="modified" code="imod" type="boolean" access="r" description="Has the document been modified since the last save?">
+				<cocoa key="isDocumentEdited"/>
+			</property>
+			<property name="name" code="pnam" type="text" description="The document's name.">
+				<cocoa key="lastComponentOfFileName"/>
+			</property>
+			<responds-to name="close">
+				<cocoa method="handleCloseScriptCommand:"/>
+			</responds-to>
+			<responds-to name="print">
+				<cocoa method="handlePrintScriptCommand:"/>
+			</responds-to>
+			<responds-to name="save">
+				<cocoa method="handleSaveScriptCommand:"/>
+			</responds-to>
+		</class>
+		<class name="window" code="cwin" description="A window.">
+			<cocoa class="NSWindow"/>
+			<property name="name" code="pnam" type="text" description="The full title of the window.">
+				<cocoa key="title"/>
+			</property>
+			<property name="id" code="ID  " type="number" access="r" description="The unique identifier of the window.">
+				<cocoa key="uniqueID"/>
+			</property>
+			<property name="bounds" code="pbnd" type="rectangle" description="The bounding rectangle of the window.">
+				<cocoa key="boundsAsQDRect"/>
+			</property>
+			<property name="document" code="docu" type="document" access="r" description="The document whose contents are being displayed in the window."/>
+			<property name="closeable" code="hclb" type="boolean" access="r" description="Whether the window has a close box.">
+				<cocoa key="hasCloseBox"/>
+			</property>
+			<property name="titled" code="ptit" type="boolean" access="r" description="Whether the window has a title bar.">
+				<cocoa key="hasTitleBar"/>
+			</property>
+			<property name="index" code="pidx" type="number" description="The index of the window in the back-to-front window ordering.">
+<!-- the type is supposed to be "integer" -->
+				<cocoa key="orderedIndex"/>
+			</property>
+			<property name="floating" code="isfl" type="boolean" access="r" description="Whether the window floats.">
+				<cocoa key="isFloatingPanel"/>
+			</property>
+			<property name="miniaturizable" code="ismn" type="boolean" access="r" description="Whether the window can be miniaturized.">
+				<cocoa key="isMiniaturizable"/>
+			</property>
+			<property name="miniaturized" code="pmnd" type="boolean" description="Whether the window is currently miniaturized.">
+				<cocoa key="isMiniaturized"/>
+			</property>
+			<property name="modal" code="pmod" type="boolean" access="r" description="Whether the window is the application's current modal window.">
+				<cocoa key="isModalPanel"/>
+			</property>
+			<property name="resizable" code="prsz" type="boolean" access="r" description="Whether the window can be resized.">
+				<cocoa key="isResizable"/>
+			</property>
+			<property name="visible" code="pvis" type="boolean" description="Whether the window is currently visible.">
+				<cocoa key="isVisible"/>
+			</property>
+			<property name="zoomable" code="iszm" type="boolean" access="r" description="Whether the window can be zoomed.">
+				<cocoa key="isZoomable"/>
+			</property>
+			<property name="zoomed" code="pzum" type="boolean" description="Whether the window is currently zoomed.">
+				<cocoa key="isZoomed"/>
+			</property>
+			<responds-to name="close">
+				<cocoa method="handleCloseScriptCommand:"/>
+			</responds-to>
+			<responds-to name="print">
+				<cocoa method="handlePrintScriptCommand:"/>
+			</responds-to>
+			<responds-to name="save">
+				<cocoa method="handleSaveScriptCommand:"/>
+			</responds-to>
+		</class>
+<!-- The old Standard Suite: run, reopen, open, print, and quit. -->
+		<command name="open" code="aevtodoc" description="Open an object.">
+			<direct-parameter type="file" description="The file(s) to be opened."/>
+		</command>
+<!-- NSCoreSuite doesn't define these.
+			<command name="run" code="aevtoapp" description="Run an application.  Most applications will open an empty, untitled window."/>
+			<command name="reopen" code="aevtrapp" description="Reactivate a running application.  Some applications will open a new untitled window if no window is open."/>
+			-->
+		<command name="print" description="Print an object." code="aevtpdoc">
+<!-- type would be better written as "file | document". -->
+			<direct-parameter type="file" description="The file(s) or document(s) to be printed."/>
+		</command>
+		<command name="quit" code="aevtquit" description="Quit an application.">
+			<cocoa class="NSQuitCommand"/>
+			<parameter name="saving" code="savo" type="save options" optional="yes" description="Specifies whether changes should be saved before quitting.">
+				<cocoa key="SaveOptions"/>
+			</parameter>
+		</command>
+<!-- The old Core Suite: the object model commands, plus a few more. -->
+		<command name="close" code="coreclos" description="Close an object.">
+			<cocoa class="NSCloseCommand"/>
+			<direct-parameter type="specifier" description="the object to close"/>
+			<parameter name="saving" code="savo" type="save options" optional="yes" description="Specifies whether changes should be saved before closing.">
+				<cocoa key="SaveOptions"/>
+			</parameter>
+			<parameter name="saving in" code="kfil" type="file" optional="yes" description="The file in which to save the object.">
+				<cocoa key="File"/>
+			</parameter>
+		</command>
+		<command name="count" code="corecnte" description="Return the number of elements of a particular class within an object.">
+			<cocoa class="NSCountCommand"/>
+			<direct-parameter type="specifier" description="the object whose elements are to be counted"/>
+			<result type="integer" description="the number of elements"/>
+			<parameter name="each" code="kocl" type="type" optional="yes" description="The class of objects to be counted.">
+				<cocoa key="ObjectClass"/>
+			</parameter>
+		</command>
+		<command name="delete" code="coredelo" description="Delete an object.">
+			<cocoa class="NSDeleteCommand"/>
+			<direct-parameter type="specifier" description="the object to delete"/>
+		</command>
+		<command name="duplicate" code="coreclon" description="Copy object(s) and put the copies at a new location.">
+			<cocoa name="Copy" class="NSCloneCommand"/>
+			<direct-parameter type="specifier" description="the object(s) to duplicate"/>
+<!-- "duplicate" is supposed to return the new objects.
+				<result type="object" description="to the duplicated object(s)"/>
+				-->
+			<parameter name="to" code="insh" type="location specifier" description="The location for the new object(s).">
+<!-- "to" is supposed to be optional. -->
+				<cocoa key="ToLocation"/>
+			</parameter>
+			<parameter name="with properties" code="prdt" type="record" description="Properties to be set in the new duplicated object(s)." optional="yes">
+				<cocoa key="WithProperties"/>
+			</parameter>
+		</command>
+		<command name="exists" code="coredoex" description="Verify if an object exists.">
+			<cocoa class="NSExistsCommand"/>
+			<direct-parameter type="specifier" description="the object in question"/>
+			<result type="boolean" description="true if it exists, false if not"/>
+		</command>
+<!-- "get" is supposed to be hidden. -->
+		<command name="get" code="coregetd" description="Get the data for an object.">
+			<cocoa class="NSGetCommand"/>
+			<direct-parameter type="specifier"/>
+			<result type="any"/>
+		</command>
+		<command name="make" code="corecrel" description="Make a new object.">
+			<cocoa name="Create" class="NSCreateCommand"/>
+			<result type="specifier" description="to the new object"/>
+			<parameter name="new" code="kocl" type="type" description="The class of the new object.">
+				<cocoa key="ObjectClass"/>
+			</parameter>
+			<parameter name="at" code="insh" type="location specifier" optional="yes" description="The location at which to insert the object.">
+				<cocoa key="Location"/>
+			</parameter>
+			<parameter name="with data" code="data" type="any" optional="yes" description="The initial data for the object.">
+				<cocoa key="ObjectData"/>
+			</parameter>
+			<parameter name="with properties" code="prdt" type="record" optional="yes" description="The initial values for properties of the object.">
+				<cocoa key="KeyDictionary"/>
+			</parameter>
+		</command>
+		<command name="move" code="coremove" description="Move object(s) to a new location.">
+			<cocoa class="NSMoveCommand"/>
+			<direct-parameter type="specifier" description="the object(s) to move"/>
+<!-- "move" is supposed to return the relocated objects.
+				<result type="object" description="to the object(s) after they have been moved"/>
+				-->
+			<parameter name="to" code="insh" type="location specifier" description="The new location for the object(s).">
+				<cocoa key="ToLocation"/>
+			</parameter>
+		</command>
+		<command name="save" code="coresave" description="Save an object.">
+			<direct-parameter type="specifier" description="the object to save, usually a document or window"/>
+			<parameter name="in" code="kfil" type="file" optional="yes" description="The file in which to save the object.">
+				<cocoa key="File"/>
+			</parameter>
+			<parameter name="as" code="fltp" type="text" optional="yes" description="The file type in which to save the data.">
+				<cocoa key="FileType"/>
+			</parameter>
+		</command>
+<!-- "set" is supposed to be hidden. -->
+		<command name="set" code="coresetd" description="Set an object's data.">
+			<cocoa class="NSSetCommand"/>
+			<direct-parameter type="specifier"/>
+<!-- "set" is supposed to return the fully evaluated "to" data.
+				<result type="any"/>
+				-->
+			<parameter name="to" code="data" type="any" description="The new value.">
+				<cocoa key="Value"/>
+			</parameter>
+		</command>
+	</suite>
+</dictionary>

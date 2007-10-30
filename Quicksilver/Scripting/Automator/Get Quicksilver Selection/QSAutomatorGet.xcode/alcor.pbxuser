@@ -1,0 +1,183 @@
+// !$*UTF8*$!
+{
+	089C1669FE841209C02AAC07 = {
+		activeBuildStyle = 014CEA430018CDE011CA2923;
+		activeExecutable = 658A2E03067AB99300421F51;
+		activeTarget = 8D5B49AC048680CD000E48DA;
+		codeSenseManager = 658A2DD0067AB96600421F51;
+		executables = (
+			658A2E03067AB99300421F51,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXErrorsWarningsDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXErrorsWarningsDataSource_LocationID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					300,
+					133,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXErrorsWarningsDataSource_TypeID,
+					PBXErrorsWarningsDataSource_MessageID,
+					PBXErrorsWarningsDataSource_LocationID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXExecutablesDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXExecutablesDataSource_NameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					22,
+					300,
+					131,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXExecutablesDataSource_ActiveFlagID,
+					PBXExecutablesDataSource_NameID,
+					PBXExecutablesDataSource_CommentsID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					243,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFindDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFindDataSource_LocationID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					200,
+					120,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFindDataSource_MessageID,
+					PBXFindDataSource_LocationID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					200,
+					63,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 137956765;
+			PBXWorkspaceStateSaveDate = 137956765;
+		};
+		sourceControlManager = 658A2DCF067AB96600421F51;
+		userBuildSettings = {
+			SYMROOT = /Volumes/Lore/Forge/Quicksilver/Application/Scripting/Automator/;
+		};
+	};
+	089C167EFE841241C02AAC07 = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1046, 480}}";
+			sepNavSelRange = "{470, 0}";
+			sepNavVisRect = "{{0, 0}, {740, 480}}";
+			sepNavWindowFrame = "{{88, 69}, {785, 609}}";
+		};
+	};
+	65181750067A8D39005BD953 = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {740, 532}}";
+			sepNavSelRange = "{338, 85}";
+			sepNavVisRect = "{{0, 0}, {740, 480}}";
+			sepNavWindowFrame = "{{42, 111}, {785, 609}}";
+		};
+	};
+	658A2DCF067AB96600421F51 = {
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		isa = PBXSourceControlManager;
+		scmConfiguration = {
+		};
+		scmType = "";
+	};
+	658A2DD0067AB96600421F51 = {
+		indexTemplatePath = "";
+		isa = PBXCodeSenseManager;
+	};
+	658A2E03067AB99300421F51 = {
+		activeArgIndex = 0;
+		activeArgIndices = (
+			YES,
+		);
+		argumentStrings = (
+			"-action \"Get Quicksilver Selection.action\"",
+		);
+		configStateDict = {
+		};
+		cppStopOnCatchEnabled = 0;
+		cppStopOnThrowEnabled = 0;
+		customDataFormattersEnabled = 1;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		isa = PBXExecutable;
+		launchableReference = 658A2E04067AB99300421F51;
+		libgmallocEnabled = 0;
+		name = Automator;
+		shlibInfoDictList = (
+		);
+		shlibInfoDictList_v2 = (
+		);
+		sourceDirectories = (
+		);
+	};
+	658A2E04067AB99300421F51 = {
+		isa = PBXFileReference;
+		lastKnownFileType = wrapper.application;
+		name = Automator.app;
+		path = /Applications/Automator.app;
+		refType = 0;
+		sourceTree = "<absolute>";
+	};
+	8D5B49AC048680CD000E48DA = {
+		activeExec = 0;
+	};
+	8D5B49B7048680CD000E48DA = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {740, 910}}";
+			sepNavSelRange = "{1821, 0}";
+			sepNavVisRect = "{{0, 430}, {740, 480}}";
+			sepNavWindowFrame = "{{65, 90}, {785, 609}}";
+		};
+	};
+}

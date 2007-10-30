@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AppActivateAction</key>
+	<string>Programm nach vorne bringen</string>
+	<key>AppHideAction</key>
+	<string>Programm ausblenden</string>
+	<key>AppLaunchAction</key>
+	<string>Programm starten</string>
+	<key>AppLaunchAgainAction</key>
+	<string>Neue Instanz eines Programmes starten</string>
+	<key>AppOpenFileAction</key>
+	<string>Datei zum öffnen wählen...</string>
+	<key>AppQuitAction</key>
+	<string>Programm beenden</string>
+	<key>AppReopenAction</key>
+	<string>Programm aktivieren</string>
+	<key>AppRootLaunchAction</key>
+	<string>Programm als Root starten</string>
+	<key>AppleScriptRunAction</key>
+	<string>Applescript ausführen</string>
+	<key>ContactEditAction</key>
+	<string>Visitenkarte bearbeiten</string>
+	<key>ContactEmailAction</key>
+	<string>Email senden</string>
+	<key>ContactIMAction</key>
+	<string>Jemandem ein Telegramm senden</string>
+	<key>ContactSendItemEmailAction</key>
+	<string>Objekt per Email versenden</string>
+	<key>ContactSendItemIMAction</key>
+	<string>Objekt per Telegramm versenden</string>
+	<key>ContactSendTextEmailAction</key>
+	<string>Jemandem einen Text mailen</string>
+	<key>ContactShowAction</key>
+	<string>Visitenkarte im Adressbuch zeigen</string>
+	<key>DiskEjectAction</key>
+	<string>Volume auswerfen</string>
+	<key>DiskForceEjectAction</key>
+	<string>Auswerfen des Volumes erzwingen</string>
+	<key>FileCompressAction</key>
+	<string>Archiv von Dateien erstellen</string>
+	<key>FileCopyToAction</key>
+	<string>An einen anderen Ort kopieren</string>
+	<key>FileDecompressAction</key>
+	<string>Archiv entpacken</string>
+	<key>FileDeleteAction</key>
+	<string>Datei Löschen</string>
+	<key>FileGetPathAction</key>
+	<string>Mit Pfad des Objekts weiterarbeiten</string>
+	<key>FileMakeLinkInAction</key>
+	<string>Alias an einem anderen Ort erzeugen</string>
+	<key>FileMoveToAction</key>
+	<string>In anderen Ordner bewegen</string>
+	<key>FileOpenAction</key>
+	<string>Öffnen</string>
+	<key>FileOpenWithAction</key>
+	<string>Mit einem Programm öffnen</string>
+	<key>FileRevealAction</key>
+	<string>Objekt zeigen</string>
+	<key>FileToTrashAction</key>
+	<string>In den Papierkorb bewegen</string>
+	<key>ItemSendToContactEmailAction</key>
+	<string>Objekt per Email versenden</string>
+	<key>ItemSendToContactIMAction</key>
+	<string>Objekt per Telegramm versenden</string>
+	<key>PasteboardPasteAction</key>
+	<string>Dieses Objekt in aktuellem Programm einsetzen</string>
+	<key>ProcessKillAction</key>
+	<string>Erzwingt das Beenden eines Programms</string>
+	<key>ProcessLowerPriorityAction</key>
+	<string>Prozess mehr Prozessorlast zubilligen</string>
+	<key>ProcessRaisePriorityAction</key>
+	<string>Prozess weniger Prozessorlast zubilligen</string>
+	<key>ProcessResumeAction</key>
+	<string>Setzt ein pausiertes Programm fort</string>
+	<key>ProcessSuspendAction</key>
+	<string>Pausiert ein laufendes Programm</string>
+	<key>QSABLargeTypeAction</key>
+	<string>Große Schrift</string>
+	<key>QSCatalogEntryRescanAction</key>
+	<string>Katalogeintrag auf den neuesten Stand bringen</string>
+	<key>QSCatalogEntryShowAction</key>
+	<string>Katalogeintrag zeigen</string>
+	<key>QSEditAction</key>
+	<string>Bearbeiten</string>
+	<key>QSHFSLockAction</key>
+	<string>Schützt ein Dokument vor Veränderung</string>
+	<key>QSHFSMakeInvisibleAction</key>
+	<string>Versteckt eine Datei</string>
+	<key>QSHFSMakeVisibleAction</key>
+	<string>Macht eine versteckte Datei Sichtbar</string>
+	<key>QSHFSUnlockAction</key>
+	<string>Hebt Schutz vor Veränderung auf</string>
+	<key>QSNUTDContactShowAction</key>
+	<string>Zeigt einen Kontakt</string>
+	<key>QSNetworkLocationSelectAction</key>
+	<string>Wechselt die Umgebung des Rechners</string>
+	<key>QSiPhotoAlbumSlideShowAction</key>
+	<string>Spielt iPhoto-Album als Diashow ab</string>
+	<key>QSiTunesPlaylistPlayAction</key>
+	<string>Spielt iTunes-Wiedergabeliste ab</string>
+	<key>QSiTunesTrackPlayAction</key>
+	<string>Spielt iTunes-Musikstück</string>
+	<key>ShellScriptRunAction</key>
+	<string>Führt Shellskript-Programm aus</string>
+	<key>URLEmailAction</key>
+	<string>Internetadresse per Mail versenden</string>
+	<key>URLFindWithAction</key>
+	<string>Suchen mit...</string>
+	<key>URLJSAction</key>
+	<string>Führt Javascript-Programm aus</string>
+	<key>URLOpenAction</key>
+	<string>Öffnet Internetadresse</string>
+	<key>URLSearchAction</key>
+	<string>Sucht auf Internet-Suchseite</string>
+	<key>URLSearchForAction</key>
+	<string>Sucht auf Internet-Suchseite nach einem Objektnamen</string>
+</dict>
+</plist>

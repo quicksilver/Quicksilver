@@ -1,0 +1,72 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = NSObject; LANGUAGE = ObjC; }, 
+        {
+            ACTIONS = {flare = id; pulse = id; shrink = id; }; 
+            CLASS = NSWindow; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSResponder; 
+        }, 
+        {CLASS = QSBackgroundView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {CLASS = QSBorderlessWindow; LANGUAGE = ObjC; SUPERCLASS = QSWindow; }, 
+        {CLASS = QSHotKeyCell; LANGUAGE = ObjC; SUPERCLASS = NSTextFieldCell; }, 
+        {CLASS = QSHotKeyControl; LANGUAGE = ObjC; SUPERCLASS = NSTextField; }, 
+        {
+            ACTIONS = {set = id; }; 
+            CLASS = QSHotKeyField; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {setButton = NSButton; }; 
+            SUPERCLASS = NSTextField; 
+        }, 
+        {
+            CLASS = QSHotKeyFieldEditor; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {oldWindowDelegate = id; }; 
+            SUPERCLASS = NSTextView; 
+        }, 
+        {CLASS = QSImageCell; LANGUAGE = ObjC; SUPERCLASS = NSImageCell; }, 
+        {CLASS = QSImageView; LANGUAGE = ObjC; SUPERCLASS = NSImageView; }, 
+        {
+            ACTIONS = {
+                cancelPlugInInstall = id; 
+                downloadPlugIns = id; 
+                finish = id; 
+                nextSection = id; 
+                prevSection = id; 
+                setHotKey = id; 
+            }; 
+            CLASS = QSSetupAssistant; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                agreementView = NSView; 
+                backButton = NSButton; 
+                continueButton = NSButton; 
+                gettingStartedView = WebView; 
+                gettingSupportView = WebView; 
+                hotKeyField = NSTextField; 
+                installProgress = NSProgressIndicator; 
+                installTextField = NSTextField; 
+                plugInLoadProgress = NSProgressIndicator; 
+                plugInLoadTabView = NSTabView; 
+                plugInsController = NSArrayController; 
+                pluginStatusField = NSTextField; 
+                pluginStatusPanel = NSPanel; 
+                pluginStatusProgress = NSProgressIndicator; 
+                scanProgress = NSProgressIndicator; 
+                scanStatusField = NSTextField; 
+                scanTextField = NSTextField; 
+                setupTabView = NSTabView; 
+            }; 
+            SUPERCLASS = NSWindowController; 
+        }, 
+        {CLASS = QSUndraggableWebView; LANGUAGE = ObjC; SUPERCLASS = WebView; }, 
+        {
+            ACTIONS = {hideThreaded = id; reallyOrderFront = id; showThreaded = id; }; 
+            CLASS = QSWindow; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSPanel; 
+        }
+    ); 
+    IBVersion = 1; 
+}

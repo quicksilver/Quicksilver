@@ -1,0 +1,29 @@
+{
+    IBClasses = (
+        {CLASS = BLTRResizeView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = InertButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
+        {CLASS = QSBackgroundView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {
+            ACTIONS = {serviceClicked = id; }; 
+            CLASS = QSNetworkBrowser; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {machineTable = NSTableView; }; 
+            SUPERCLASS = NSWindowController; 
+        }, 
+        {
+            ACTIONS = {hide = id; show = id; }; 
+            CLASS = QSResultWindow; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSWindow; 
+        }, 
+        {CLASS = QSTableView; LANGUAGE = ObjC; SUPERCLASS = NSTableView; }, 
+        {
+            ACTIONS = {hideThreaded = id; showThreaded = id; }; 
+            CLASS = QSWindow; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSPanel; 
+        }
+    ); 
+    IBVersion = 1; 
+}

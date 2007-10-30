@@ -1,0 +1,12 @@
+//
+// Prefix header for all source files of the 'QSBezelInterfacePlugIn' target in the 'QSBezelInterfacePlugIn' project
+//
+
+#ifdef __OBJC__
+#import <Cocoa/Cocoa.h>
+#import <QSFoundation/QSFoundation.h>
+#import <QSCore/QSCore.h>
+#endif
+
+
+#define kQSBezelInterfacePlugInType @"QSBezelInterfacePlugInType"

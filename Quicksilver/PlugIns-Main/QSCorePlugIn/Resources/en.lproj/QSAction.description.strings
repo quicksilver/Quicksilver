@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AppActivateAction</key>
+	<string>Activate an application</string>
+	<key>AppHideAction</key>
+	<string>Hide an application</string>
+	<key>AppLaunchAction</key>
+	<string>Launch an application</string>
+	<key>AppLaunchAgainAction</key>
+	<string>Launch another instance of an application</string>
+	<key>AppOpenFileAction</key>
+	<string>Choose a file to open</string>
+	<key>AppQuitAction</key>
+	<string>Quit an application</string>
+	<key>AppReopenAction</key>
+	<string>Reopen an application</string>
+	<key>AppRootLaunchAction</key>
+	<string>Launch an application as Root</string>
+	<key>AppleScriptRunAction</key>
+	<string>Run an AppleScript</string>
+	<key>ContactEditAction</key>
+	<string>Edit item</string>
+	<key>ContactEmailAction</key>
+	<string>Email a contact</string>
+	<key>ContactIMAction</key>
+	<string>Send IM to a contact</string>
+	<key>ContactSendItemEmailAction</key>
+	<string>Email item to a contact</string>
+	<key>ContactSendItemIMAction</key>
+	<string>IM item to a contact</string>
+	<key>ContactShowAction</key>
+	<string>Show contact in Address Book</string>
+	<key>DiskEjectAction</key>
+	<string>Eject a Disk</string>
+	<key>DiskForceEjectAction</key>
+	<string>Force a Disk to Eject</string>
+	<key>FileCompressAction</key>
+	<string>Compress files</string>
+	<key>FileCopyToAction</key>
+	<string>Copy to another location</string>
+	<key>FileDecompressAction</key>
+	<string>Decompress file</string>
+	<key>FileMakeLinkInAction</key>
+	<string>Make link in another location</string>
+	<key>FileMoveToAction</key>
+	<string>Move to another folder</string>
+	<key>FileOpenAction</key>
+	<string>Open</string>
+	<key>FileOpenWithAction</key>
+	<string>Open with an application</string>
+	<key>FileRevealAction</key>
+	<string>Reveal item</string>
+	<key>ItemSendToContactEmailAction</key>
+	<string>Email item to a contact</string>
+	<key>ItemSendToContactIMAction</key>
+	<string>IM item to a contact</string>
+	<key>PasteboardPasteAction</key>
+	<string>Paste this object to the current application</string>
+	<key>ProcessKillAction</key>
+	<string>Force an application to quit</string>
+	<key>ProcessResumeAction</key>
+	<string>Resumes a suspended process</string>
+	<key>ProcessSuspendAction</key>
+	<string>Suspends a running process</string>
+	<key>QSDialNumberAction</key>
+	<string>Dial a number</string>
+	<key>QSEditAction</key>
+	<string>Edit</string>
+	<key>QSUserSwitchAction</key>
+	<string>Switch to User</string>
+	<key>QSiTunesPlaylistPlayAction</key>
+	<string>Plays music from an iTunes Playlist</string>
+	<key>QSiTunesTrackPlayAction</key>
+	<string>Plays an iTunes Track</string>
+	<key>ShellScriptRunAction</key>
+	<string>Run Shell Script</string>
+	<key>URLFindWithAction</key>
+	<string>Find With...</string>
+	<key>URLJSAction</key>
+	<string>Run Javascript</string>
+	<key>URLOpenAction</key>
+	<string>Open a URL</string>
+	<key>URLSearchAction</key>
+	<string>Search a Query URL</string>
+	<key>URLSearchForAction</key>
+	<string>Search for text at a Query URL</string>
+</dict>
+</plist>

@@ -1,0 +1,37 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            CLASS = NSPreferencePane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "_firstKeyView" = NSView; 
+                "_initialKeyView" = NSView; 
+                "_lastKeyView" = NSView; 
+                "_window" = NSWindow; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            CLASS = QSHelpersPrefPane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {helperTable = NSTableView; }; 
+            SUPERCLASS = NSPreferencePane; 
+        }, 
+        {CLASS = QSMenuButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
+        {
+            ACTIONS = {
+                copyInstallURL = id; 
+                getInfo = id; 
+                getMorePlugIns = id; 
+                showPlugInsFolder = id; 
+                updatePlugIns = id; 
+            }; 
+            CLASS = QSPlugInsPrefPane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {plugInTable = id; }; 
+            SUPERCLASS = NSPreferencePane; 
+        }
+    ); 
+    IBVersion = 1; 
+}

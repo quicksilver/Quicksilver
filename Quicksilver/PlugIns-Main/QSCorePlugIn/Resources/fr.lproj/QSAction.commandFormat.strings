@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AppActivateAction</key>
+	<string>Activer %@</string>
+	<key>AppHideAction</key>
+	<string>Enlever %@</string>
+	<key>AppLaunchAction</key>
+	<string>Lancer %@</string>
+	<key>AppLaunchAgainAction</key>
+	<string>Lancer un autre exemple de %@</string>
+	<key>AppOpenFileAction</key>
+	<string>Ouvrir %@ avec %@</string>
+	<key>AppQuitAction</key>
+	<string>Quitter %@</string>
+	<key>AppReopenAction</key>
+	<string>Réouvrir %@</string>
+	<key>AppRootLaunchAction</key>
+	<string>Lancer %@ en tant que administrateur</string>
+	<key>AppleScriptRunAction</key>
+	<string>Exécuter %@</string>
+	<key>ContactEditAction</key>
+	<string>Editer %@</string>
+	<key>ContactEmailAction</key>
+	<string>Envoyer %@</string>
+	<key>ContactIMAction</key>
+	<string>Envoyer %@ par messagerie instantanée</string>
+	<key>ContactSendItemEmailAction</key>
+	<string>Envoyer %@ à %@</string>
+	<key>ContactSendItemIMAction</key>
+	<string>M.I. %@ à %@</string>
+	<key>ContactShowAction</key>
+	<string>Monter %@ dans le carnet d'adresse</string>
+	<key>DiskEjectAction</key>
+	<string>Ejecter %@</string>
+	<key>DiskForceEjectAction</key>
+	<string>Forcer %@ à s'ejecter</string>
+	<key>FileCompressAction</key>
+	<string>Compresser %@</string>
+	<key>FileCopyToAction</key>
+	<string>Copier %@ dans %@</string>
+	<key>FileDecompressAction</key>
+	<string>Décompresser %@</string>
+	<key>FileMakeLinkInAction</key>
+	<string>Créer un lien de %@ dans %@</string>
+	<key>FileMoveToAction</key>
+	<string>Déplacer %@ vers un autre %@</string>
+	<key>FileOpenAction</key>
+	<string>Ouvier %@</string>
+	<key>FileOpenWithAction</key>
+	<string>Ouvrir %@ avec %@</string>
+	<key>FileRevealAction</key>
+	<string>Resortir %@</string>
+	<key>ItemSendToContactEmailAction</key>
+	<string>Envoyer %@ à un %@</string>
+	<key>ItemSendToContactIMAction</key>
+	<string>M.I. %@ à %@</string>
+	<key>PasteboardPasteAction</key>
+	<string>Coller %@ avec l'application en cours</string>
+	<key>ProcessKillAction</key>
+	<string>Forcer %@ à quitter</string>
+	<key>ProcessResumeAction</key>
+	<string>Reprendre %@</string>
+	<key>ProcessSuspendAction</key>
+	<string>Suspendre %@</string>
+	<key>QSDialNumberAction</key>
+	<string>Connecter %@</string>
+	<key>QSEditAction</key>
+	<string>Edition %@</string>
+	<key>QSUserSwitchAction</key>
+	<string>Commuter vers %@</string>
+	<key>QSiTunesPlaylistPlayAction</key>
+	<string>Jouer une piste de %@</string>
+	<key>QSiTunesTrackPlayAction</key>
+	<string>Jouer %@</string>
+	<key>ShellScriptRunAction</key>
+	<string>Exécuter %@</string>
+	<key>URLFindWithAction</key>
+	<string>Retrouver %@ avec %@</string>
+	<key>URLJSAction</key>
+	<string>Retrouver %@</string>
+	<key>URLOpenAction</key>
+	<string>Ouvrir %@</string>
+	<key>URLSearchAction</key>
+	<string>Rechercher %@</string>
+	<key>URLSearchForAction</key>
+	<string>Recherche de % %@ sur %@</string>
+</dict>
+</plist>

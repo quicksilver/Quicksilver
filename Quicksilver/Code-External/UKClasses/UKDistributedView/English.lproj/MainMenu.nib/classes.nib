@@ -1,0 +1,40 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {
+                deselectAll = id; 
+                positionAllItems = id; 
+                rescrollItems = id; 
+                snapAllItemsToGrid = id; 
+                toggleDrawsGrid = id; 
+                toggleSnapToGrid = id; 
+            }; 
+            CLASS = FirstResponder; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            CLASS = MyDataSource; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {distView = UKDistributedView; }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = NSObject; LANGUAGE = ObjC; }, 
+        {
+            ACTIONS = {
+                deselectAll = id; 
+                positionAllItems = id; 
+                rescrollItems = id; 
+                selectAll = id; 
+                snapAllItemsToGrid = id; 
+                toggleDrawsGrid = id; 
+                toggleSnapToGrid = id; 
+            }; 
+            CLASS = UKDistributedView; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {dataSource = id; delegate = id; }; 
+            SUPERCLASS = NSView; 
+        }
+    ); 
+    IBVersion = 1; 
+}

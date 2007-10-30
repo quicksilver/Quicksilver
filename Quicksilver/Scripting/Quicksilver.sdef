@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
+<dictionary title="Quicksilver">
+	<suite name="Quicksilver" code="DAED" description="commands and classes for Quicksilver scripting.">
+	
+	
+			<class name="application" code="capp">
+				<cocoa class="NSApplication"/>
+				<properties>
+					<property name="selection" code="sele" description="current selection" type="any" access="rw">
+						<cocoa key="AESelection"/>
+					</property>
+				</properties>
+			</class>
+<!-- 					<class name="task" code="qtsk" description="quicksilver task" plural="tasks" inherits="item"> -->
+<!-- 							<cocoa class="QSTask"/> -->
+<!-- 							<elements> -->
+<!-- 								<element description="object data by types" type="record" access="r"> -->
+<!-- 									<cocoa method="dataDictionary"/> -->
+<!-- 									<accessor style="id"/> -->
+<!-- 								</element> -->
+<!-- 							</elements> -->
+<!-- 							<properties> -->
+<!-- 								<property name="name" code="name" type="string"/> -->
+<!-- 								<property name="status" code="stat" type="string"/> -->
+<!-- 								<property name="identifier" code="idnt" description="unique identifier for this task" type="string"/> -->
+<!-- 							</properties> -->
+<!-- 							<responds-to-commands> -->
+<!-- 								<responds-to name="singleFilePath"> -->
+<!-- 									<cocoa method="singleFilePath"/> -->
+<!-- 								</responds-to> -->
+<!-- 							</responds-to-commands> -->
+<!-- 						</class> -->
+<!--
+			<class name="object" code="qsob" description="quicksilver object" plural="objects" inherits="item">
+					<cocoa class="QSObject"/>
+					<elements>
+						<element description="object data by types" type="record" access="r">
+							<cocoa method="dataDictionary"/>
+							<accessor style="id"/>
+						</element>
+					</elements>
+					<properties>
+						<property name="name" code="name" type="string"/>
+						<property name="identifier" code="idnt" description="unique identifier for this object" type="string"/>
+						<property name="icon" code="icon" type="image"/>
+						<property name="primary data" code="pdat" description="data for the primary type" type="any" access="r"/>
+						<property name="descriptor" code="aeds" description="applescript value" type="any" access="r"/>
+						<property name="details" code="deta" type="string"/>
+					</properties>
+					<responds-to-commands>
+						<responds-to name="singleFilePath">
+							<cocoa method="singleFilePath"/>
+						</responds-to>
+					</responds-to-commands>
+				</class>
+-->/
+			<command name="open URL" code="GURLGURL" description="Opens or selects a URL">
+				<cocoa class="QSGetURLScriptCommand"/>
+				<direct-parameter type="string" description="the URL to open"/>
+			</command>
+			<command name="show notification" code="DAEDntfy" description="Display a notification">
+				<cocoa class="QSNotifyScriptCommand"/>
+				<direct-parameter type="text" description="title of notification"/>
+				<parameter name="text" code="nTxt" description="text of notification" type="text" optional="optional"/>
+				<parameter name="image name" code="imgN" description="image name for notification" type="text" optional="optional"/>
+				<parameter name="image data" code="imgP" description="image data for notification" type="picture" optional="optional"/>
+			</command>
+			<command name="show large type" code="DAEDlarg" description="display text in large type">
+				<cocoa class="QSLargeTypeScriptCommand"/>
+				<direct-parameter type="text" description="text to display"/>
+			</command>
+			<value-type name="picture" code="PICT">
+				<cocoa class="NSData" name="Picture"/>
+			</value-type>
+			<value name="picture" code="PICT">
+				<cocoa class="NSData" name="Picture"/>
+			</value>
+			<value name="image" code="TIFF">
+				<cocoa class="NSData" name="Image"/>
+			</value>
+	</suite>
+		
+	<suite name="Script Handlers" code="DAEH" description="handlers for actions and other scripts.">
+		<cocoa name="QuicksilverHandlers"/>
+			<command name="process text" code="DAEDopnt" description="process some text. Scripts with this handler gain a &apos;Process Text&apos; action">
+				<cocoa class="NSScriptCommand"/>
+				<direct-parameter type="text" description="text to process"/>
+				<result type="any" description="value to return to Quicksilver"/>
+			</command>
+
+	</suite>
+</dictionary>

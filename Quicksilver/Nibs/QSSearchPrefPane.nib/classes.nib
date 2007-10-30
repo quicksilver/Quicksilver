@@ -1,0 +1,61 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = NDHotKeyControl; LANGUAGE = ObjC; SUPERCLASS = NSTextField; }, 
+        {
+            CLASS = NSPreferencePane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "_firstKeyView" = id; 
+                "_initialKeyView" = id; 
+                "_lastKeyView" = id; 
+                "_window" = id; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = QSAdvancedPrefPane; LANGUAGE = ObjC; SUPERCLASS = QSPreferencePane; }, 
+        {
+            ACTIONS = {resetColors = id; }; 
+            CLASS = QSAppearancePrefPane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {interfacePopUp = NSPopUpButton; }; 
+            SUPERCLASS = QSPreferencePane; 
+        }, 
+        {
+            ACTIONS = {checkNow = id; }; 
+            CLASS = QSApplicationPrefPane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                featureLevelMatrix = NSMatrix; 
+                hideDockIconSwitch = NSButton; 
+                hideStatusMenuSwitch = NSButton; 
+            }; 
+            SUPERCLASS = QSPreferencePane; 
+        }, 
+        {CLASS = QSHotKeyCell; LANGUAGE = ObjC; SUPERCLASS = NSTextFieldCell; }, 
+        {CLASS = QSHotKeyControl; LANGUAGE = ObjC; SUPERCLASS = NSTextField; }, 
+        {
+            ACTIONS = {set = id; }; 
+            CLASS = QSHotKeyField; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {setButton = NSButton; }; 
+            SUPERCLASS = NSTextField; 
+        }, 
+        {
+            CLASS = QSHotKeyFieldEditor; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {oldWindowDelegate = id; }; 
+            SUPERCLASS = NSTextView; 
+        }, 
+        {CLASS = QSHotKeyFormatter; LANGUAGE = ObjC; SUPERCLASS = NSFormatter; }, 
+        {CLASS = QSPreferencePane; LANGUAGE = ObjC; SUPERCLASS = NSPreferencePane; }, 
+        {
+            ACTIONS = {changeHotkey = id; }; 
+            CLASS = QSSearchPrefPane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {hotKeyButton = NSButton; }; 
+            SUPERCLASS = QSPreferencePane; 
+        }
+    ); 
+    IBVersion = 1; 
+}

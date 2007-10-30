@@ -1,0 +1,12 @@
+//
+// Prefix header for all source files of the 'QSHotKeyTriggers' target in the 'QSHotKeyTriggers' project
+//
+
+#ifdef __OBJC__
+#import <Cocoa/Cocoa.h>
+#import <QSFoundation/QSFoundation.h>
+#import <QSCore/QSCore.h>
+#endif
+
+
+#define kQSHotKeyTriggersType @"QSHotKeyTriggersType"

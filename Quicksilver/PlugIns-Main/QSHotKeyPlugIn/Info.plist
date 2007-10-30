@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>HotKey Triggers</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.blacktree.Quicksilver.QSHotKeyTriggerPlugIn</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>HotKey Triggers</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleVersion</key>
+	<string>133E</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2004, Blacktree, Inc.</string>
+	<key>QSPlugIn</key>
+	<dict>
+		<key>author</key>
+		<string>Blacktree, Inc.</string>
+		<key>categories</key>
+		<array>
+			<string>Quicksilver</string>
+		</array>
+		<key>description</key>
+		<string>Allows HotKey triggering of actions</string>
+		<key>icon</key>
+		<string>CommandKey</string>
+	</dict>
+	<key>QSRegistration</key>
+	<dict>
+		<key>QSTriggerManagers</key>
+		<dict>
+			<key>QSHotKeyTrigger</key>
+			<string>QSHotKeyTriggerManager</string>
+		</dict>
+	</dict>
+</dict>
+</plist>
