@@ -63,7 +63,7 @@
 				PBXFileTableDataSourceColumnWidthsKey = (
 					22,
 					300,
-					425,
+					342,
 				);
 				PBXFileTableDataSourceColumnsKey = (
 					PBXExecutablesDataSource_ActiveFlagID,
@@ -76,7 +76,7 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					671,
+					454,
 					20,
 					48,
 					43,
@@ -98,7 +98,7 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXTargetDataSource_PrimaryAttribute;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					631,
+					414,
 					60,
 					20,
 					48,
@@ -115,8 +115,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 215449831;
-			PBXWorkspaceStateSaveDate = 215449831;
+			PBXPerProjectTemplateStateSaveDate = 215889796;
+			PBXWorkspaceStateSaveDate = 215889796;
 		};
 		sourceControlManager = 7F9A7A520C49584F00B5912D /* Source Control */;
 		userBuildSettings = {
@@ -560,9 +560,10 @@
 	};
 	7F5D23530C49C3B700812049 /* QSUpdateController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {974, 7434}}";
-			sepNavSelRange = "{491, 36}";
-			sepNavVisRange = "{215, 610}";
+			sepNavIntBoundsRect = "{{0, 0}, {1046, 7546}}";
+			sepNavSelRange = "{4587, 18}";
+			sepNavVisRange = "{3584, 1572}";
+			sepNavWindowFrame = "{{42, 102}, {614, 750}}";
 		};
 	};
 	7F5D23540C49C3B700812049 /* QSUpdatePrefPane.h */ = {
@@ -644,7 +645,7 @@
 		argumentStrings = (
 		);
 		autoAttachOnCrash = 1;
-		breakpointsEnabled = 1;
+		breakpointsEnabled = 0;
 		configStateDict = {
 		};
 		customDataFormattersEnabled = 1;
@@ -1274,17 +1275,17 @@
 	};
 	7F9A884B0C497AF000B5912D /* QSPaths.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {800, 445}}";
-			sepNavSelRange = "{437, 0}";
+			sepNavIntBoundsRect = "{{0, 0}, {800, 423}}";
+			sepNavSelRange = "{936, 0}";
 			sepNavVisRange = "{0, 1508}";
 			sepNavWindowFrame = "{{65, 313}, {859, 518}}";
 		};
 	};
 	7F9A88500C497AF000B5912D /* QSPlugInManager.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {770, 15134}}";
-			sepNavSelRange = "{4538, 0}";
-			sepNavVisRange = "{3760, 1992}";
+			sepNavIntBoundsRect = "{{0, 0}, {884, 15302}}";
+			sepNavSelRange = "{4157, 56}";
+			sepNavVisRange = "{2305, 1320}";
 			sepNavWindowFrame = "{{19, 197}, {691, 676}}";
 		};
 	};
@@ -1692,6 +1693,13 @@
 			sepNavIntBoundsRect = "{{0, 0}, {2288, 4228}}";
 			sepNavSelRange = "{0, 0}";
 			sepNavVisRange = "{0, 1737}";
+		};
+	};
+	7F9A8C430C4982F200B5912D /* NTViewLocalizer.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {787, 2576}}";
+			sepNavSelRange = "{2020, 74}";
+			sepNavVisRange = "{1892, 403}";
 		};
 	};
 	7F9A8C600C4983F900B5912D /* NSString+CarbonUtilities.h */ = {
