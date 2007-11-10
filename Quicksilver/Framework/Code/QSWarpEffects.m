@@ -3,7 +3,7 @@
 //  Quicksilver
 //
 //  Created by Alcor on 10/3/04.
-//  Copyright 2004 Blacktree. All rights reserved.
+
 //
 
 #import "QSWarpEffects.h"

@@ -3,7 +3,7 @@
 //  Quicksilver
 //
 //  Created by Alcor on Thu Apr 03 2003.
-//  Copyright (c) 2003 Blacktree, Inc. All rights reserved.
+
 //
 
 #import "NSFileManager_BLTRExtensions.h"

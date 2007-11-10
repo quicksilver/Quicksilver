@@ -3,7 +3,7 @@
 //  QSSpotlightPlugIn
 //
 //  Created by Alcor on 5/6/05.
-//  Copyright 2005 Blacktree, Inc. All rights reserved.
+
 //
 
 #import "QSMDPredicate.h"

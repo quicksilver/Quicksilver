@@ -3,7 +3,7 @@
 //  Quicksilver
 //
 //  Created by Nicholas Jitkoff on 12/20/05.
-//  Copyright 2005 __MyCompanyName__. All rights reserved.
+
 //
 
 #import "QSFileTemplateManager.h"

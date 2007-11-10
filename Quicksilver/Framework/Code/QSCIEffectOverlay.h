@@ -3,7 +3,7 @@
 //  Quicksilver
 //
 //  Created by Nicholas Jitkoff on 11/20/05.
-//  Copyright 2005 __MyCompanyName__. All rights reserved.
+
 //
 
 #import <Cocoa/Cocoa.h>

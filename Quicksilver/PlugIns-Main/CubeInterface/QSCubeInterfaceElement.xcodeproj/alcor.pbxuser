@@ -123,8 +123,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 212773578;
-			PBXWorkspaceStateSaveDate = 212773578;
+			PBXPerProjectTemplateStateSaveDate = 216404221;
+			PBXWorkspaceStateSaveDate = 216404221;
 		};
 		sourceControlManager = 7FFA8ED80816CE0200A858CD /* Source Control */;
 		userBookmarkGroup = 7F0B98DE0C6E24290056AEA1 /* PBXBookmarkGroup */;
@@ -167,13 +167,6 @@
 			sepNavVisRange = "{3, 1338}";
 			sepNavVisRect = "{{0, 65}, {744, 136}}";
 			sepNavWindowFrame = "{{19, 251}, {1215, 746}}";
-		};
-	};
-	7F0947900C55B57900F720B5 /* QSTableView.h */ = {
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1112, 611}}";
-			sepNavSelRange = "{492, 0}";
-			sepNavVisRange = "{0, 1075}";
 		};
 	};
 	7F0B98DE0C6E24290056AEA1 /* PBXBookmarkGroup */ = {
@@ -387,6 +380,14 @@
 			sepNavVisRange = "{0, 245}";
 			sepNavVisRect = "{{0, 0}, {708, 463}}";
 			sepNavWindowFrame = "{{19, 0}, {714, 878}}";
+		};
+	};
+	7FFFF7860C0FCF7700DC50A7 /* QSElement.xcconfig */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {749, 736}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 730}";
+			sepNavWindowFrame = "{{65, 23}, {808, 808}}";
 		};
 	};
 	8D1AC9730486D14A00FE50C9 /* Info.plist */ = {

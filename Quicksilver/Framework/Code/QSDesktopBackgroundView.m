@@ -3,7 +3,7 @@
 //  Doomsday
 //
 //  Created by Alcor on Fri Nov 22 2002.
-//  Copyright (c) 2002 Blacktree. All rights reserved.
+
 //
 
 #import "QSDesktopBackgroundView.h"

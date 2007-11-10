@@ -3,7 +3,7 @@
 //  Quicksilver
 //
 //  Created by Alcor on Thu Aug 28 2003.
-//  Copyright (c) 2003 Blacktree. All rights reserved.
+
 //
 
 #import "NSAppleEventDescriptor+QSTranslation.h"

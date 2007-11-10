@@ -3,7 +3,7 @@
 //  Quicksilver
 //
 //  Created by Alcor on 8/30/04.
-//  Copyright 2004 Blacktree. All rights reserved.
+
 //
 
 #import "QSObject+ColorHandling.h"

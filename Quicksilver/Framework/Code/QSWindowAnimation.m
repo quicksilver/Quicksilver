@@ -3,7 +3,7 @@
 //  Quicksilver
 //
 //  Created by Nicholas Jitkoff on 10/24/05.
-//  Copyright 2005 __MyCompanyName__. All rights reserved.
+
 //
 
 #import "QSWindowAnimation.h"

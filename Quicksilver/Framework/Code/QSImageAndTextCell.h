@@ -1,7 +1,7 @@
 //
 //  QSImageAndTextCell.h
 //
-//  Copyright (c) 2001 Apple. All rights reserved.
+
 //
 
 #import <Cocoa/Cocoa.h>

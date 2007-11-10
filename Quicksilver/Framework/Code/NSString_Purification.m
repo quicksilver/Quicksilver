@@ -3,7 +3,7 @@
 //  Quicksilver
 //
 //  Created by Alcor on Fri May 14 2004.
-//  Copyright (c) 2004 Blacktree. All rights reserved.
+
 //
 
 #import "NSString_Purification.h"

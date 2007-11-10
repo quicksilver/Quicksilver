@@ -3,7 +3,7 @@
 //  Quicksilver
 //
 //  Created by Alcor on 5/27/05.
-//  Copyright 2005 Blacktree, Inc. All rights reserved.
+
 //
 
 #import "QSSimpleWebWindowController.h"

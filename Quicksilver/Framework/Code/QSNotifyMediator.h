@@ -3,7 +3,7 @@
 //  Quicksilver
 //
 //  Created by Alcor on 6/24/04.
-//  Copyright 2004 Blacktree. All rights reserved.
+
 //
 
 #define QSNotifierStyle @"style"

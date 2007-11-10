@@ -3,7 +3,7 @@
 //  Quicksilver
 //
 //  Created by Nicholas Jitkoff on 9/24/05.
-//  Copyright 2005 __MyCompanyName__. All rights reserved.
+
 //
 
 #import "QSHandledObjectHandler.h"

@@ -3,7 +3,7 @@
 //  Searchling
 //
 //  Created by Alcor on Thu Jan 16 2003.
-//  Copyright (c) 2003 Blacktree, Inc. All rights reserved.
+
 //
 
 #import "QSObjectView.h"

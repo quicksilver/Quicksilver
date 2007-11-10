@@ -3,7 +3,7 @@
 //  Quicksilver
 //
 //  Created by Nicholas Jitkoff on 6/29/05.
-//  Copyright 2005 __MyCompanyName__. All rights reserved.
+
 //
 
 #import "QSTask.h"

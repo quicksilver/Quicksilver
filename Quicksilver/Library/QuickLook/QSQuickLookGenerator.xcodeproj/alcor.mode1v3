@@ -233,8 +233,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -344,6 +342,8 @@
 							<string>0pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -380,9 +380,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>7F2A3BEC0CAECB5200B4EFB7</string>
+				<string>7FB66B6C0CE610E40057DA0F</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>7F2A3BED0CAECB5200B4EFB7</string>
+				<string>7FB66B6D0CE610E40057DA0F</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -516,7 +516,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>/Volumes/Lux/Alchemy/Alchemy-svn/Quicksilver1/Library/QuickLook/QSQuickLookGenerator.xcodeproj</string>
+		<string>/Volumes/Lux/Alchemy/Alchemy-svn/trunk/Quicksilver/Library/QuickLook/QSQuickLookGenerator.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>261 458 690 397 0 0 1440 878 </string>

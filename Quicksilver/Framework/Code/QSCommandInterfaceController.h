@@ -3,7 +3,7 @@
 //  QSCubeInterfaceElement
 //
 //  Created by Nicholas Jitkoff on 6/24/07.
-//  Copyright 2007 Google Inc. All rights reserved.
+
 //
 
 #import <Cocoa/Cocoa.h>

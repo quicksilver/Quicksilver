@@ -3,7 +3,7 @@
 //  Quicksilver
 //
 //  Created by Alcor on 8/12/04.
-//  Copyright 2004 Blacktree. All rights reserved.
+
 //
 
 #import "QSKeyCodeTranslator.h"

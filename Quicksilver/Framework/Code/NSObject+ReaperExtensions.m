@@ -3,7 +3,7 @@
 //  Quicksilver
 //
 //  Created by Alcor on 9/13/04.
-//  Copyright 2004 Blacktree. All rights reserved.
+
 //
 
 #import "NSObject+ReaperExtensions.h"

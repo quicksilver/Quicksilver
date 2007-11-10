@@ -3,7 +3,7 @@
 //  Quicksilver
 //
 //  Created by Alcor on Thu May 06 2004.
-//  Copyright (c) 2004 Blacktree. All rights reserved.
+
 //
 
 #import "NSCursor_InformExtensions.h"

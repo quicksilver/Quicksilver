@@ -3,7 +3,7 @@
 //  Quicksilver
 //
 //  Created by Nicholas Jitkoff on 1/27/06.
-//  Copyright 2006 __MyCompanyName__. All rights reserved.
+
 //
 
 #import "QSLog.h"

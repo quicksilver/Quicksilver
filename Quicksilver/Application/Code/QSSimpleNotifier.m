@@ -3,7 +3,7 @@
 //  QSGrowlNotifier
 //
 //  Created by Alcor on 7/12/04.
-//  Copyright Blacktree 2004. All rights reserved.
+
 //
 
 #import "QSNotifyMediator.h"

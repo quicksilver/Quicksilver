@@ -3,7 +3,7 @@
 //  1.0
 //
 //  Created by Alcor on Thu Nov 28 2002.
-//  Copyright (c) 2002 Blacktree, Inc. All rights reserved.
+
 //
 
 #import "NSGeometry_BLTRExtensions.h"

@@ -3,7 +3,7 @@
 //  Quicksilver
 //
 //  Created by Alcor on 7/28/04.
-//  Copyright 2004 Blacktree. All rights reserved.
+
 //
 
 #import "QSInterfaceMediator.h"

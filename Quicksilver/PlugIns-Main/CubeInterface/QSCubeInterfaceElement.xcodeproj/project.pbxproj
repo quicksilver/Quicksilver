@@ -67,7 +67,6 @@
 		7F03F74E0A42C50B00B57270 /* QSCubeInterfaceBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCubeInterfaceBackgroundView.h; sourceTree = "<group>"; };
 		7F03F74F0A42C50B00B57270 /* QSCubeInterfaceBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCubeInterfaceBackgroundView.m; sourceTree = "<group>"; };
 		7F0947880C55B4E000F720B5 /* QSBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QSBase.framework; path = ../../../Lore/Developer/build/Release/QSBase.framework; sourceTree = QSElementSourceDirectory; };
-		7F0947900C55B57900F720B5 /* QSTableView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = QSTableView.h; path = ../../../Lore/Developer/build/Release/QSBase.framework/Headers/QSTableView.h; sourceTree = QSElementSourceDirectory; };
 		7F5208B80A50100F00A6671F /* QSCubeInterfacePrefPane.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSCubeInterfacePrefPane.nib; sourceTree = "<group>"; };
 		7F520AD40A50B20900A6671F /* QSShadowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSShadowView.h; sourceTree = "<group>"; };
 		7F520AD50A50B20900A6671F /* QSShadowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSShadowView.m; sourceTree = "<group>"; };
@@ -88,8 +87,8 @@
 		7F9A78300C49290000B5912D /* QSSearchFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSearchFieldCell.m; sourceTree = "<group>"; };
 		7F9A78540C4945DC00B5912D /* QSSpotlightSearchProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSpotlightSearchProvider.h; sourceTree = "<group>"; };
 		7F9A78550C4945DC00B5912D /* QSSpotlightSearchProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSpotlightSearchProvider.m; sourceTree = "<group>"; };
-		7FFFF7850C0FCF7700DC50A7 /* QSElement_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = QSElement_Prefix.pch; path = Common/QSElement_Prefix.pch; sourceTree = QSElementSourceDirectory; };
-		7FFFF7860C0FCF7700DC50A7 /* QSElement.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; name = QSElement.xcconfig; path = Common/QSElement.xcconfig; sourceTree = QSElementSourceDirectory; };
+		7FFFF7850C0FCF7700DC50A7 /* QSElement_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = QSElement_Prefix.pch; path = ../../../Common/QSElement_Prefix.pch; sourceTree = SOURCE_ROOT; };
+		7FFFF7860C0FCF7700DC50A7 /* QSElement.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; name = QSElement.xcconfig; path = ../../../Common/QSElement.xcconfig; sourceTree = SOURCE_ROOT; };
 		8D1AC9730486D14A00FE50C9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DD92D38A0106425D02CA0E72 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -181,7 +180,6 @@
 		32DBCF9F0370C38200C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				7F0947900C55B57900F720B5 /* QSTableView.h */,
 				7FFFF7850C0FCF7700DC50A7 /* QSElement_Prefix.pch */,
 				7FFFF7860C0FCF7700DC50A7 /* QSElement.xcconfig */,
 			);

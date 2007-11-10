@@ -3,7 +3,7 @@
 //  Quicksilver
 //
 //  Created by Alcor on 8/6/04.
-//  Copyright 2004 Blacktree. All rights reserved.
+
 //
 
 #import "QSCollection.h"

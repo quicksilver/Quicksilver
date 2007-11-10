@@ -3,7 +3,7 @@
 //  Quicksilver
 //
 //  Created by Alcor on Fri May 09 2003.
-//  Copyright (c) 2003 Blacktree, Inc. All rights reserved.
+
 //
 
 #import <Foundation/Foundation.h>

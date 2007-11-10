@@ -3,7 +3,7 @@
 //  Quicksilver
 //
 //  Created by Alcor on 11/2/04.
-//  Copyright 2004 Blacktree. All rights reserved.
+
 //
 
 #import "QSMainPreferencePanes.h"
