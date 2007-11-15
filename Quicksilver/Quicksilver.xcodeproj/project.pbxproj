@@ -627,6 +627,7 @@
 		7FE0BC820C4998610012249C /* ResourceLocations.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0BC1E0C4998610012249C /* ResourceLocations.plist */; };
 		7FE0BC830C4998610012249C /* version.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0BC200C4998610012249C /* version.plist */; };
 		7FE0BC840C4998610012249C /* wildcard.* in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0BC210C4998610012249C /* wildcard.* */; };
+		7FE1D2F50CEC8D9900E19D9E /* QSElements.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 7F69D8860CDE367E002B6B3E /* QSElements.framework */; };
 		7FE82E720C4A7FA400A321E0 /* NSAppleScript+QSSubroutineDiscovery.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE82E6A0C4A7FA400A321E0 /* NSAppleScript+QSSubroutineDiscovery.m */; };
 		7FE82E730C4A7FA400A321E0 /* NSAppleEventDescriptor+QSTranslation.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FE82E6B0C4A7FA400A321E0 /* NSAppleEventDescriptor+QSTranslation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FE82E740C4A7FA400A321E0 /* NSAppleEventDescriptor+QSTranslation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE82E6C0C4A7FA400A321E0 /* NSAppleEventDescriptor+QSTranslation.m */; };
@@ -702,6 +703,13 @@
 			remoteGlobalIDString = 8D57630D048677EA00EA77CD;
 			remoteInfo = Quicksilver;
 		};
+		7FE1D3190CEC8DAE00E19D9E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F9A8BCD0C497EBB00B5912D /* Elements.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216 /* QSElements */;
+			remoteInfo = QSElements;
+		};
 		7FF21FB40C4990220022C0E1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -729,6 +737,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				7FE1D2F50CEC8D9900E19D9E /* QSElements.framework in Copy Frameworks */,
 				7F88246D0C498A4F00631170 /* QSBase.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
@@ -2640,6 +2649,7 @@
 			);
 			dependencies = (
 				7FF21FB50C4990220022C0E1 /* PBXTargetDependency */,
+				7FE1D31A0CEC8DAE00E19D9E /* PBXTargetDependency */,
 				7F5D22570C49C1D900812049 /* PBXTargetDependency */,
 				7F8B81B20C49C657007FC200 /* PBXTargetDependency */,
 				7FA7DB240C5CF12B00A27607 /* PBXTargetDependency */,
@@ -3230,6 +3240,11 @@
 			isa = PBXTargetDependency;
 			name = Quicksilver;
 			targetProxy = 7FA7DB250C5CF12B00A27607 /* PBXContainerItemProxy */;
+		};
+		7FE1D31A0CEC8DAE00E19D9E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = QSElements;
+			targetProxy = 7FE1D3190CEC8DAE00E19D9E /* PBXContainerItemProxy */;
 		};
 		7FF21FB50C4990220022C0E1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

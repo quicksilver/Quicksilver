@@ -245,7 +245,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier){
         NSURL *fileURL = [NSURL fileURLWithPath:path];
         NSDictionary *options = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger: 128] 
                                                             forKey:kQLThumbnailOptionIconModeKey];
-        CGSize iconSize = {256.0, 256.0};
+        CGSize iconSize = {512.0, 512.0};
         
         QLThumbnailRef thumbnail = QLThumbnailCreate(NULL, (CFURLRef)fileURL, iconSize, (CFDictionaryRef)options);
         if (thumbnail) {
