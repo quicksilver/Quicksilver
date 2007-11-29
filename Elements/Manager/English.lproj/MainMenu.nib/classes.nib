@@ -1,0 +1,14 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {clearAllCaches = id; clearOldCaches = id; saveAction = id; }; 
+            CLASS = BRegistry; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = ManagerAppDelegate; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = QSRegistry; LANGUAGE = ObjC; SUPERCLASS = BRegistry; }
+    ); 
+    IBVersion = 1; 
+}

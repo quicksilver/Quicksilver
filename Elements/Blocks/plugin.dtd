@@ -1,0 +1,29 @@
+<?xml encoding="UTF-8"?>
+
+<!ELEMENT plugin (requirements?, extension-point*, extension*)>
+<!ATTLIST plugin
+ name		    CDATA #REQUIRED
+ id				CDATA #REQUIRED
+ version	    CDATA #REQUIRED
+ provider-name	CDATA #IMPLIED
+>
+
+<!ELEMENT requires (requirements+)>
+<!ELEMENT requirement EMPTY>
+<!ATTLIST requirement
+ plugin		    CDATA #REQUIRED
+ version	    CDATA #IMPLIED
+ optional	    (true | false) "false"
+>
+
+<!ELEMENT extension-point EMPTY>
+<!ATTLIST extension-point
+ id				CDATA #REQUIRED
+ protocol	    CDATA #IMPLIED
+>
+
+<!ELEMENT extension ANY>
+<!ATTLIST extension
+ point		    CDATA #REQUIRED
+ class		    CDATA #REQUIRED
+>
