@@ -77,12 +77,11 @@
 - (void)drawBackgroundInClipRect:(NSRect)clipRect{
 	if (!drawsBackground){
 		return;
-	}else if (opaque){
-		[super drawBackgroundInClipRect:clipRect];
-	}else{
-		//QSLog(@"draw");
+	}else if ([self backgroundColor]){
 		[[self backgroundColor]set];
-		NSRectFillUsingOperation(clipRect,NSCompositeSourceOver);
+		NSRectFillUsingOperation(clipRect,NSCompositeCopy);
+	} else {
+		[super drawBackgroundInClipRect:clipRect];
 	}
 	
 }

@@ -32,7 +32,7 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					666,
+					245,
 					20,
 					46,
 					43,
@@ -71,7 +71,7 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 207438603;
+			PBXPerProjectTemplateStateSaveDate = 217922857;
 			PBXPrepackagedSmartGroups_v2 = (
 				{
 					PBXTransientLocationAtTop = bottom;
@@ -248,15 +248,7 @@
 					};
 				},
 			);
-			PBXWorkspaceStateSaveDate = 207438603;
-		};
-		perUserProjectItems = {
-			7F0947650C55B28800F720B5 /* PBXTextBookmark */ = 7F0947650C55B28800F720B5 /* PBXTextBookmark */;
-			7F4BD01B0BEE4C0400FA53E2 /* PBXTextBookmark */ = 7F4BD01B0BEE4C0400FA53E2 /* PBXTextBookmark */;
-			7F4BD01F0BEE4C0400FA53E2 /* PBXTextBookmark */ = 7F4BD01F0BEE4C0400FA53E2 /* PBXTextBookmark */;
-			7F4BD02E0BEE4C5300FA53E2 /* PBXTextBookmark */ = 7F4BD02E0BEE4C5300FA53E2 /* PBXTextBookmark */;
-			7FADF3CD0BEE4DC400CF3E3C /* PBXTextBookmark */ = 7FADF3CD0BEE4DC400CF3E3C /* PBXTextBookmark */;
-			7FDAF9E80C5D433200A26742 /* PBXTextBookmark */ = 7FDAF9E80C5D433200A26742 /* PBXTextBookmark */;
+			PBXWorkspaceStateSaveDate = 217922857;
 		};
 		sourceControlManager = 7F28178707B6F4AA007D4010 /* Source Control */;
 		userBuildSettings = {
@@ -270,22 +262,20 @@
 			sepNavWindowFrame = "{{203, 242}, {1046, 463}}";
 		};
 	};
+	332EA7DF0B99E3B700614E3D /* element.xml */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {997, 1834}}";
+			sepNavSelRange = "{4704, 16}";
+			sepNavVisRange = "{3840, 1585}";
+			sepNavWindowFrame = "{{156, 304}, {1056, 574}}";
+		};
+	};
 	7F07AAE9085E3A4F00E2AFC4 /* QSFSBrowserMediator.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {856, 374}}";
 			sepNavSelRange = "{0, 0}";
 			sepNavVisRect = "{{0, 0}, {856, 374}}";
 		};
-	};
-	7F0947650C55B28800F720B5 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 7F2817B107B6F4EB007D4010 /* QSFinderProxy.m */;
-		name = "QSFinderProxy.m: 4";
-		rLen = 0;
-		rLoc = 72;
-		rType = 0;
-		vrLen = 817;
-		vrLoc = 0;
 	};
 	7F28178707B6F4AA007D4010 /* Source Control */ = {
 		isa = PBXSourceControlManager;
@@ -309,9 +299,9 @@
 	};
 	7F2817B107B6F4EB007D4010 /* QSFinderProxy.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1016, 1722}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1016, 2814}}";
 			sepNavSelRange = "{72, 0}";
-			sepNavVisRange = "{0, 817}";
+			sepNavVisRange = "{0, 1307}";
 			sepNavVisRect = "{{0, 647}, {729, 205}}";
 			sepNavWindowFrame = "{{345, 258}, {815, 620}}";
 		};
@@ -361,36 +351,6 @@
 		sourceDirectories = (
 		);
 	};
-	7F4BD01B0BEE4C0400FA53E2 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 8D1AC9730486D14A00FE50C9 /* Info.plist */;
-		name = "Info.plist: 161";
-		rLen = 0;
-		rLoc = 4066;
-		rType = 0;
-		vrLen = 244;
-		vrLoc = 0;
-	};
-	7F4BD01F0BEE4C0400FA53E2 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 8D1AC9730486D14A00FE50C9 /* Info.plist */;
-		name = "Info.plist: 161";
-		rLen = 0;
-		rLoc = 4066;
-		rType = 0;
-		vrLen = 244;
-		vrLoc = 0;
-	};
-	7F4BD02E0BEE4C5300FA53E2 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 32DBCF980370C29C00C91783 /* QSFinderPlugIn_Prefix.pch */;
-		name = "QSFinderPlugIn_Prefix.pch: 6";
-		rLen = 0;
-		rLoc = 147;
-		rType = 0;
-		vrLen = 266;
-		vrLoc = 0;
-	};
 	7F4BD0310BEE4C6000FA53E2 /* QSElement.xcconfig */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {856, 374}}";
@@ -404,26 +364,6 @@
 		name = Quicksilver.app;
 		path = /Volumes/Lore/Forge/build/Quicksilver.app;
 		sourceTree = "<absolute>";
-	};
-	7FADF3CD0BEE4DC400CF3E3C /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 32DBCF980370C29C00C91783 /* QSFinderPlugIn_Prefix.pch */;
-		name = "QSFinderPlugIn_Prefix.pch: 12";
-		rLen = 0;
-		rLoc = 266;
-		rType = 0;
-		vrLen = 266;
-		vrLoc = 0;
-	};
-	7FDAF9E80C5D433200A26742 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 7F2817B107B6F4EB007D4010 /* QSFinderProxy.m */;
-		name = "QSFinderProxy.m: 4";
-		rLen = 0;
-		rLoc = 72;
-		rType = 0;
-		vrLen = 817;
-		vrLoc = 0;
 	};
 	8D1AC9600486D14A00FE50C9 /* Finder Module */ = {
 		activeExec = 0;

@@ -13,6 +13,7 @@
     BOOL moving;
 	BOOL locked;
     
+  BOOL allowKey;
     NSString *autosaveName;
 	QSTrackingWindow *trackingWindow;
 }

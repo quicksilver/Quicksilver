@@ -152,7 +152,7 @@
 		[[self window] center];
 	[[self window] setFrameAutosaveName:@"CubeInterfaceWindow"];
   [[self window] setFrame:constrainRectToRect([[self window] frame] , [[[self window] screen] visibleFrame]) display:NO];
-	
+  [[dSelector cell] setIconSize:NSMakeSize(256,256)];
 	standardRect = centerRectInRect([[self window] frame] , [[NSScreen mainScreen] frame]);
 	positionC = [dSelector frame];
 	positionL = [aSelector frame];

@@ -12,7 +12,7 @@
 @implementation QSRegistry (QSCommandInterface)
 - (NSString *)preferredCommandInterfaceID{
 	NSString *key=[[NSUserDefaults standardUserDefaults] stringForKey:kQSCommandInterfaceControllers];
-	if (![self elementForPointID:kQSCommandInterfaceControllers withID:key]) key=@"QSCubeInterface";
+	if (![self elementForPointID:kQSCommandInterfaceControllers withID:key]) key = @"QSCubeInterface";
 	return key;
 }
 

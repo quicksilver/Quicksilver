@@ -119,7 +119,7 @@
 }
 
 -(BOOL)canBecomeKeyWindow{
-    return !hidden;
+  return !hidden && allowKey;
 }
 
 -(BOOL)hidden{return hidden;};
@@ -131,6 +131,12 @@
 	} else{
 		[self hide:self];
 	}	
+}
+
+- (void)makeKeyAndOrderFront:(id)sender {
+  allowKey = YES;
+  [super makeKeyAndOrderFront:sender];  
+  allowKey = NO;
 }
 
 - (IBAction) toggle:(id)sender{

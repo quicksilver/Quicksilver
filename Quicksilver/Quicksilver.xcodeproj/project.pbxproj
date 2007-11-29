@@ -23,6 +23,10 @@
 		7F17F1940C4F1FE6001ADE1A /* QSCatalogSwitchButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D23190C49C3B700812049 /* QSCatalogSwitchButtonCell.m */; };
 		7F2577AE0C80769C00CE3BDE /* NSApplication+ServicesModification.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F17F05C0C4F16F0001ADE1A /* NSApplication+ServicesModification.m */; };
 		7F2BF09D0C5BA15700E80ABF /* QSURLExtractor.pl in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0BC1C0C4998610012249C /* QSURLExtractor.pl */; };
+		7F3EF7A60CF6105E007A043A /* NSImage+QuickLook.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F3EF7A30CF6105E007A043A /* NSImage+QuickLook.h */; };
+		7F3EF7A70CF6105E007A043A /* NSImage+QuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3EF7A40CF6105E007A043A /* NSImage+QuickLook.m */; };
+		7F3EF7A80CF6105E007A043A /* README.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7F3EF7A50CF6105E007A043A /* README.rtf */; };
+		7F3EF7AA0CF61068007A043A /* QLUIPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F3EF7A90CF61068007A043A /* QLUIPrivate.h */; };
 		7F5D22590C49C21300812049 /* QSShellScriptRunAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE0BCC10C499F2E0012249C /* QSShellScriptRunAction.m */; };
 		7F5D225A0C49C21300812049 /* QSObject+ColorHandling.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE0BCBD0C499F2E0012249C /* QSObject+ColorHandling.m */; };
 		7F5D225B0C49C21300812049 /* QSDefaultsObjectSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE0BCAD0C499F2E0012249C /* QSDefaultsObjectSource.m */; };
@@ -647,6 +651,13 @@
 			remoteGlobalIDString = 7F5D22460C49C18400812049;
 			remoteInfo = Core;
 		};
+		7F66DB8F0CEF3D4B0033C03D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F9A8BCD0C497EBB00B5912D /* Elements.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = QSElements;
+		};
 		7F69D8850CDE367E002B6B3E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7F9A8BCD0C497EBB00B5912D /* Elements.xcodeproj */;
@@ -707,7 +718,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 7F9A8BCD0C497EBB00B5912D /* Elements.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216 /* QSElements */;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = QSElements;
 		};
 		7FF21FB40C4990220022C0E1 /* PBXContainerItemProxy */ = {
@@ -768,6 +779,10 @@
 		7F17F16E0C4F1983001ADE1A /* QSTitleToolbarItem.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSTitleToolbarItem.h; sourceTree = "<group>"; };
 		7F17F16F0C4F1983001ADE1A /* QSTitleToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSTitleToolbarItem.m; sourceTree = "<group>"; };
 		7F2BF2E50C5BAE5500E80ABF /* QSSpotlightImporter.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QSSpotlightImporter.xcodeproj; path = Library/Spotlight/QSSpotlightImporter.xcodeproj; sourceTree = "<group>"; };
+		7F3EF7A30CF6105E007A043A /* NSImage+QuickLook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+QuickLook.h"; sourceTree = "<group>"; };
+		7F3EF7A40CF6105E007A043A /* NSImage+QuickLook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+QuickLook.m"; sourceTree = "<group>"; };
+		7F3EF7A50CF6105E007A043A /* README.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = README.rtf; sourceTree = "<group>"; };
+		7F3EF7A90CF61068007A043A /* QLUIPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QLUIPrivate.h; sourceTree = "<group>"; };
 		7F5D22470C49C18400812049 /* Core.element */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Core.element; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F5D23000C49C3B700812049 /* AppKitPrivate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AppKitPrivate.h; sourceTree = "<group>"; };
 		7F5D23030C49C3B700812049 /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -1574,6 +1589,16 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
+		7F3EF7A20CF6105E007A043A /* NSImageQuickLook */ = {
+			isa = PBXGroup;
+			children = (
+				7F3EF7A30CF6105E007A043A /* NSImage+QuickLook.h */,
+				7F3EF7A40CF6105E007A043A /* NSImage+QuickLook.m */,
+				7F3EF7A50CF6105E007A043A /* README.rtf */,
+			);
+			path = NSImageQuickLook;
+			sourceTree = "<group>";
+		};
 		7F5D22FF0C49C3B700812049 /* Code */ = {
 			isa = PBXGroup;
 			children = (
@@ -1677,6 +1702,8 @@
 		7F9A82530C49786A00B5912D /* External */ = {
 			isa = PBXGroup;
 			children = (
+				7F3EF7A90CF61068007A043A /* QLUIPrivate.h */,
+				7F3EF7A20CF6105E007A043A /* NSImageQuickLook */,
 				7F9A8C5F0C4983F900B5912D /* UKDirectoryEnumerator */,
 				7F9A8C3B0C4982F200B5912D /* NTLocalization */,
 				7F9A893B0C497D5C00B5912D /* ND */,
@@ -2611,6 +2638,8 @@
 				7FE82E790C4A7FA400A321E0 /* NSAppleScript+QSSubroutineDiscovery.h in Headers */,
 				7F17F1720C4F199D001ADE1A /* QSTitleToolbarItem.h in Headers */,
 				7F17F1740C4F199D001ADE1A /* QSCaseInsensitiveStringKey.h in Headers */,
+				7F3EF7A60CF6105E007A043A /* NSImage+QuickLook.h in Headers */,
+				7F3EF7AA0CF61068007A043A /* QLUIPrivate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2672,6 +2701,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7F66DB900CEF3D4B0033C03D /* PBXTargetDependency */,
 			);
 			name = QSBase;
 			productInstallPath = "$(HOME)/Library/Frameworks";
@@ -2954,6 +2984,7 @@
 				7F9A7F0A0C4972A500B5912D /* QSBase-Info.plist in Resources */,
 				7F9A7F0C0C4972A500B5912D /* DefaultBindings.qskeys in Resources */,
 				7F9A8C670C4983F900B5912D /* UKDirectoryEnumerator Readme.txt in Resources */,
+				7F3EF7A80CF6105E007A043A /* README.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3215,6 +3246,7 @@
 				7F17F1730C4F199D001ADE1A /* QSTitleToolbarItem.m in Sources */,
 				7F17F1750C4F199D001ADE1A /* QSCaseInsensitiveStringKey.m in Sources */,
 				7F2577AE0C80769C00CE3BDE /* NSApplication+ServicesModification.m in Sources */,
+				7F3EF7A70CF6105E007A043A /* NSImage+QuickLook.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3225,6 +3257,11 @@
 			isa = PBXTargetDependency;
 			target = 7F5D22460C49C18400812049 /* Core */;
 			targetProxy = 7F5D22560C49C1D900812049 /* PBXContainerItemProxy */;
+		};
+		7F66DB900CEF3D4B0033C03D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = QSElements;
+			targetProxy = 7F66DB8F0CEF3D4B0033C03D /* PBXContainerItemProxy */;
 		};
 		7F8B81B20C49C657007FC200 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

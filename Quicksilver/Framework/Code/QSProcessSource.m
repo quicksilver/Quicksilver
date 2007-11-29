@@ -19,19 +19,19 @@
 #import "QSMacros.h"
 
 @implementation QSProcessObjectSource
-- (BOOL)usesGlobalSettings{return YES;}
+- (BOOL)usesGlobalSettings {return YES;}
 
 
-- (NSView *) settingsView{
-    if (![super settingsView]){
+- (NSView *)settingsView {
+    if (![super settingsView]) {
         [NSBundle loadNibNamed:NSStringFromClass([self class]) owner:self];
 	}
     return [super settingsView];
 }
-- (id) init{
-    if (self=[super init]){
-        processScanDate=[NSDate timeIntervalSinceReferenceDate];
-        processes=[[NSMutableArray arrayWithCapacity:1]retain];
+- (id)init {
+    if (self = [super init]) {
+        processScanDate = [NSDate timeIntervalSinceReferenceDate];
+        processes = [[NSMutableArray arrayWithCapacity:1] retain];
         
         [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(appTerminated:) name:NSWorkspaceDidTerminateApplicationNotification object: nil];
         [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(appLaunched:) name:NSWorkspaceDidLaunchApplicationNotification object: nil];
@@ -39,29 +39,29 @@
     return self;
 }
 
-- (void)invalidateSelf{ 
-    processScanDate=[NSDate timeIntervalSinceReferenceDate];
+- (void)invalidateSelf { 
+    processScanDate = [NSDate timeIntervalSinceReferenceDate];
     [super invalidateSelf];
 }
 
-- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry{
-    return ([indexDate timeIntervalSinceReferenceDate]>processScanDate);
+- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry {
+    return ([indexDate timeIntervalSinceReferenceDate] >processScanDate);
 }
 
-- (NSImage *) iconForEntry:(NSDictionary *)dict{
+- (NSImage *)iconForEntry:(NSDictionary *)dict {
     return [QSResourceManager imageNamed:@"ExecutableBinaryIcon"];
 }
 
-- (NSArray *) objectsForEntry:(NSDictionary *)theEntry{
-    return [[QSProcessMonitor sharedInstance]allProcesses];
+- (NSArray *)objectsForEntry:(NSDictionary *)theEntry {
+    return [[QSProcessMonitor sharedInstance] allProcesses];
 }
 
-- (void)appTerminated:(NSNotification *)notif{
+- (void)appTerminated:(NSNotification *)notif {
     [self invalidateSelf];
 }
 
-- (void)appLaunched:(NSNotification *)notif{
-	//	QSLog(@"notif %@",notif);
+- (void)appLaunched:(NSNotification *)notif {
+	//	QSLog(@"notif %@", notif);
     [self invalidateSelf];
 }
 @end
@@ -73,51 +73,51 @@
 
 @implementation QSProcessActionProvider
 
-- (QSObject *) activateApplication:(QSObject *)dObject{
-	NSArray *array=[dObject arrayForType:QSProcessType];
+- (QSObject *)activateApplication:(QSObject *)dObject {
+	NSArray *array = [dObject arrayForType:QSProcessType];
 	[[NSWorkspace sharedWorkspace] performSelector:@selector(activateApplication:) onObjectsInArray:array];
     return nil;
 }
 
 
-- (QSObject *) switchToApplication:(QSObject *)dObject{
-    NSArray *array=[dObject arrayForType:QSProcessType];
-    NSWorkspace *workspace=[NSWorkspace sharedWorkspace];
+- (QSObject *)switchToApplication:(QSObject *)dObject {
+    NSArray *array = [dObject arrayForType:QSProcessType];
+    NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
     
 	
-	if (!array){
-		array=[dObject arrayForType:QSFilePathType];
+	if (!array) {
+		array = [dObject arrayForType:QSFilePathType];
 		
-		foreach(app,array){
+		foreach(app, array) {
 			[workspace openFile:app];
 		}
 		return nil;
 	}
 	
 	
-    if ([[NSApp currentEvent]type]==NSKeyDown && [[NSApp currentEvent]modifierFlags] & NSAlternateKeyMask)
+    if ([[NSApp currentEvent] type] == NSKeyDown && [[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)
         [workspace hideOtherApplications:array];
 	
 	
 	
     NSDictionary *procDict;
 	
-	for(procDict in array){
+	for(procDict in array) {
 		
-		if (!procDict ){
+		if (!procDict ) {
 			[workspace launchApplication:[procDict objectForKey:@"NSApplicationPath"]];
-			continue;         
+			continue;  
 		}
-		BOOL frontmost=[workspace applicationIsFrontmost:procDict];
-		int behavior=[[NSUserDefaults standardUserDefaults]integerForKey:@"QSActionAppReopenBehavior"];
-		if (frontmost) behavior=2;
+		BOOL frontmost = [workspace applicationIsFrontmost:procDict];
+		int behavior = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSActionAppReopenBehavior"];
+		if (frontmost) behavior = 2;
 		
-		switch (behavior){
+		switch (behavior) {
 			case 0:
 				[workspace reopenApplication:procDict];
 				break;
 			case 1:
-				[[NSWorkspace sharedWorkspace]activateApplication:procDict];
+				[[NSWorkspace sharedWorkspace] activateApplication:procDict];
 				break;
 			case 2:
 				[workspace reopenApplication:procDict];
@@ -130,50 +130,50 @@
 }
 
 
-- (QSObject *) toggleApplication:(QSObject *)dObject{
+- (QSObject *)toggleApplication:(QSObject *)dObject {
 	
-	NSArray *array=[dObject arrayForType:QSProcessType];
-	//QSLog(@"arr %@",array);
-	if (array){
-		if ([[NSWorkspace sharedWorkspace]applicationIsHidden:[array lastObject]]){
+	NSArray *array = [dObject arrayForType:QSProcessType];
+	//QSLog(@"arr %@", array);
+	if (array) {
+		if ([[NSWorkspace sharedWorkspace] applicationIsHidden:[array lastObject]]) {
 		//	QSLog(@"showing");
 			[[NSWorkspace sharedWorkspace] performSelector:@selector(activateApplication:) onObjectsInArray:array 
 											  returnValues:NO];
-		}else{
+		} else {
 			[[NSWorkspace sharedWorkspace] performSelector:@selector(hideApplication:) onObjectsInArray:array 
 											  returnValues:NO];
 		}
-	}else{
-		array=[dObject validPaths];
+	} else {
+		array = [dObject validPaths];
 		[[NSWorkspace sharedWorkspace] performSelector:@selector(openFile:) onObjectsInArray:array returnValues:NO];
 	}
 	return nil;
 }
 
-- (QSObject *) hideApplication:(QSObject *)dObject{
-	NSArray *array=[dObject arrayForType:QSProcessType];
+- (QSObject *)hideApplication:(QSObject *)dObject {
+	NSArray *array = [dObject arrayForType:QSProcessType];
 	[[NSWorkspace sharedWorkspace] performSelector:@selector(hideApplication:) onObjectsInArray:array returnValues:NO];
     return nil;
 }
 
-- (QSObject *) hideOtherApplications:(QSObject *)dObject{
-	NSArray *array=[dObject arrayForType:QSProcessType];
-    [[NSWorkspace sharedWorkspace]hideOtherApplications:array];
+- (QSObject *)hideOtherApplications:(QSObject *)dObject {
+	NSArray *array = [dObject arrayForType:QSProcessType];
+    [[NSWorkspace sharedWorkspace] hideOtherApplications:array];
     return nil;
 }
-- (QSObject *) quitOtherApplications:(QSObject *)dObject{
-	NSArray *array=[dObject arrayForType:QSProcessType];
-    [[NSWorkspace sharedWorkspace]quitOtherApplications:array];
+- (QSObject *)quitOtherApplications:(QSObject *)dObject {
+	NSArray *array = [dObject arrayForType:QSProcessType];
+    [[NSWorkspace sharedWorkspace] quitOtherApplications:array];
     return nil;
 }
-- (QSObject *) quitApplication:(QSObject *)dObject{
-	NSArray *array=[dObject arrayForType:QSProcessType];
+- (QSObject *)quitApplication:(QSObject *)dObject {
+	NSArray *array = [dObject arrayForType:QSProcessType];
 	[[NSWorkspace sharedWorkspace] performSelector:@selector(quitApplication:) onObjectsInArray:array  returnValues:NO];
     return nil;
 }
 
-- (QSObject *) relaunchApplication:(QSObject *)dObject{
-	NSArray *array=[dObject arrayForType:QSProcessType];
+- (QSObject *)relaunchApplication:(QSObject *)dObject {
+	NSArray *array = [dObject arrayForType:QSProcessType];
 	[[NSWorkspace sharedWorkspace] performSelector:@selector(relaunchApplication:) onObjectsInArray:array returnValues:NO];
     return nil;
 }

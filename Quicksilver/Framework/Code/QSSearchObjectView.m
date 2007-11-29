@@ -971,9 +971,8 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 }
 
 
-- (BOOL)performKeyEquivalent:(NSEvent *)theEvent {	
-	
-	if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"\r"]) {
+- (BOOL)performKeyEquivalent:(NSEvent *)theEvent{	
+	if ([[theEvent charactersIgnoringModifiers]isEqualToString:@"\r"] && ([theEvent modifierFlags] & NSCommandKeyMask) > 0){
 		[self insertNewline:nil];
 		return YES;
 	}
