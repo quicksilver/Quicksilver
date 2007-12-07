@@ -620,12 +620,6 @@ NSSize QSMaxIconSize;
     
     if ([handler loadChildrenForObject:self]){
       //		QSLog(@"xload %@",self);
-      flags.childrenLoaded=YES;
-			[self setChildrenLoadedDate:[NSDate timeIntervalSinceReferenceDate]];
-			lastAccess=[NSDate timeIntervalSinceReferenceDate];
-			globalLastAccess=lastAccess;
-			
-			[childLoadedSet addObject:self];
 		}
   }
   
@@ -730,7 +724,15 @@ NSSize QSMaxIconSize;
 }
 
 - (void)setChildren:(NSArray *)newChildren {
-	if (newChildren) [[self cache]setObject:newChildren forKey:kQSObjectChildren];
+	if (newChildren) {
+    [[self cache]setObject:newChildren forKey:kQSObjectChildren];
+    flags.childrenLoaded=YES;
+    [self setChildrenLoadedDate:[NSDate timeIntervalSinceReferenceDate]];
+    lastAccess=[NSDate timeIntervalSinceReferenceDate];
+    globalLastAccess=lastAccess;
+    
+    [childLoadedSet addObject:self];
+  }
 	//    [children release];
 	//   children = [newChildren retain];
 }

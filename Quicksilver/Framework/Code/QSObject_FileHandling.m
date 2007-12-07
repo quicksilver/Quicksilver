@@ -536,7 +536,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		newChildren = [QSObject fileObjectsWithPathArray:[object arrayForType:QSFilePathType]];
 	}
 	
-	if (newChildren) [object setChildren:newChildren];
+	if (newChildren)
+    [object setChildren:newChildren];
 	
 	return YES;
 }
