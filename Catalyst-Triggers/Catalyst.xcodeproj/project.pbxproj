@@ -1,0 +1,609 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3300F20B0BD19DF000E549F7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3300F20A0BD19DF000E549F7 /* Carbon.framework */; };
+		3300F20E0BD19E1B00E549F7 /* QSElements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3300F20D0BD19E1B00E549F7 /* QSElements.framework */; };
+		3357A2110BB8D01700DECE19 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3357A20C0BB8D01700DECE19 /* InfoPlist.strings */; };
+		3357A2120BB8D01700DECE19 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3357A20E0BB8D01700DECE19 /* MainMenu.nib */; };
+		3357A2130BB8D01700DECE19 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3357A2100BB8D01700DECE19 /* main.m */; };
+		3357A2260BB8D0AC00DECE19 /* Catalyst.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3357A1F90BB8CFDD00DECE19 /* Catalyst.icns */; };
+		3357A2270BB8D0AC00DECE19 /* Catalyst.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3357A1F90BB8CFDD00DECE19 /* Catalyst.icns */; };
+		3357A2320BB8D15B00DECE19 /* QSTriggersPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 3357A1F70BB8CFDD00DECE19 /* QSTriggersPrefPane.m */; };
+		3357A2330BB8D15B00DECE19 /* QSTriggersPrefPane.h in Headers */ = {isa = PBXBuildFile; fileRef = 3357A1F60BB8CFDD00DECE19 /* QSTriggersPrefPane.h */; };
+		3357A2520BB8D23500DECE19 /* QSTriggerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3357A1E80BB8CFDD00DECE19 /* QSTriggerManager.m */; };
+		3357A2540BB8D23600DECE19 /* QSTriggerCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 3357A1E50BB8CFDD00DECE19 /* QSTriggerCenter.h */; };
+		3357A2550BB8D23700DECE19 /* QSTriggerCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3357A1E60BB8CFDD00DECE19 /* QSTriggerCenter.m */; };
+		3357A2560BB8D23800DECE19 /* QSTriggerManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 3357A1E70BB8CFDD00DECE19 /* QSTriggerManager.h */; };
+		3357A2570BB8D23800DECE19 /* QSTrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3357A1E40BB8CFDD00DECE19 /* QSTrigger.m */; };
+		3357A2580BB8D23800DECE19 /* QSTrigger.h in Headers */ = {isa = PBXBuildFile; fileRef = 3357A1E30BB8CFDD00DECE19 /* QSTrigger.h */; };
+		3357A25E0BB8D2A700DECE19 /* QSBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357A25D0BB8D2A700DECE19 /* QSBase.framework */; };
+		3357A3500BB8D41300DECE19 /* Catalyst.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 3357A34F0BB8D41300DECE19 /* Catalyst.xcdatamodel */; };
+		7F8D391F0BF0B9EE008935FA /* QSTrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3357A1E40BB8CFDD00DECE19 /* QSTrigger.m */; };
+		7F8D39200BF0B9EF008935FA /* QSTriggerCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3357A1E60BB8CFDD00DECE19 /* QSTriggerCenter.m */; };
+		7F8D39210BF0B9F1008935FA /* QSTriggerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3357A1E80BB8CFDD00DECE19 /* QSTriggerManager.m */; };
+		7F8D392E0BF0BA3C008935FA /* QSBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357A25D0BB8D2A700DECE19 /* QSBase.framework */; };
+		7F8D392F0BF0BA3C008935FA /* QSElements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3300F20D0BD19E1B00E549F7 /* QSElements.framework */; };
+		7F8D393E0BF0BA9F008935FA /* QSTriggerAgentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8D393C0BF0BA9F008935FA /* QSTriggerAgentController.m */; };
+		8D202CEA0486D31800D8A456 /* Catalyst_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 32DBCFA20370C41700C91783 /* Catalyst_Prefix.pch */; };
+		8D202CF30486D31800D8A456 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		8D202CF40486D31800D8A456 /* PreferencePanes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F506C035013D953901CA16C8 /* PreferencePanes.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3357A2420BB8D1D900DECE19 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3357A1AF0BB8CBE500DECE19 /* Elements.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = QSElements;
+		};
+		3357A2440BB8D1D900DECE19 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3357A1AF0BB8CBE500DECE19 /* Elements.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7FD829920B670EBD001934E0;
+			remoteInfo = "Elements Manager";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		32DBCFA20370C41700C91783 /* Catalyst_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Catalyst_Prefix.pch; sourceTree = "<group>"; };
+		3300F20A0BD19DF000E549F7 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		3300F20D0BD19E1B00E549F7 /* QSElements.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSElements.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3357A1AF0BB8CBE500DECE19 /* Elements.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Elements.xcodeproj; path = "../elements-framework/Elements.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		3357A1C60BB8CCB000DECE19 /* Catalyst Agent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Catalyst Agent.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3357A1E10BB8CFDD00DECE19 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
+		3357A1E30BB8CFDD00DECE19 /* QSTrigger.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSTrigger.h; sourceTree = "<group>"; };
+		3357A1E40BB8CFDD00DECE19 /* QSTrigger.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSTrigger.m; sourceTree = "<group>"; };
+		3357A1E50BB8CFDD00DECE19 /* QSTriggerCenter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSTriggerCenter.h; sourceTree = "<group>"; };
+		3357A1E60BB8CFDD00DECE19 /* QSTriggerCenter.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSTriggerCenter.m; sourceTree = "<group>"; };
+		3357A1E70BB8CFDD00DECE19 /* QSTriggerManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSTriggerManager.h; sourceTree = "<group>"; };
+		3357A1E80BB8CFDD00DECE19 /* QSTriggerManager.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSTriggerManager.m; sourceTree = "<group>"; };
+		3357A1EB0BB8CFDD00DECE19 /* hotkeys-plugin.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = "hotkeys-plugin.xml"; sourceTree = "<group>"; };
+		3357A1F00BB8CFDD00DECE19 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/CatalystPref.nib; sourceTree = "<group>"; };
+		3357A1F20BB8CFDD00DECE19 /* English */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3357A1F40BB8CFDD00DECE19 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/QSTriggersPrefPane.nib; sourceTree = "<group>"; };
+		3357A1F50BB8CFDD00DECE19 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
+		3357A1F60BB8CFDD00DECE19 /* QSTriggersPrefPane.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSTriggersPrefPane.h; sourceTree = "<group>"; };
+		3357A1F70BB8CFDD00DECE19 /* QSTriggersPrefPane.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSTriggersPrefPane.m; sourceTree = "<group>"; };
+		3357A1F90BB8CFDD00DECE19 /* Catalyst.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Catalyst.icns; sourceTree = "<group>"; };
+		3357A20D0BB8D01700DECE19 /* English */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = English; path = InfoPlist.strings; sourceTree = "<group>"; };
+		3357A20F0BB8D01700DECE19 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = MainMenu.nib; sourceTree = "<group>"; };
+		3357A2100BB8D01700DECE19 /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3357A25D0BB8D2A700DECE19 /* QSBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSBase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3357A34F0BB8D41300DECE19 /* Catalyst.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = Catalyst.xcdatamodel; sourceTree = "<group>"; };
+		7F8D393C0BF0BA9F008935FA /* QSTriggerAgentController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSTriggerAgentController.m; sourceTree = "<group>"; };
+		7F8D393D0BF0BA9F008935FA /* QSTriggerAgentController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSTriggerAgentController.h; sourceTree = "<group>"; };
+		8D202CF80486D31800D8A456 /* Catalyst.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Catalyst.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
+		F506C035013D953901CA16C8 /* PreferencePanes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PreferencePanes.framework; path = /System/Library/Frameworks/PreferencePanes.framework; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3357A1C40BB8CCB000DECE19 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F8D392E0BF0BA3C008935FA /* QSBase.framework in Frameworks */,
+				7F8D392F0BF0BA3C008935FA /* QSElements.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D202CF20486D31800D8A456 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D202CF30486D31800D8A456 /* Cocoa.framework in Frameworks */,
+				8D202CF40486D31800D8A456 /* PreferencePanes.framework in Frameworks */,
+				3357A25E0BB8D2A700DECE19 /* QSBase.framework in Frameworks */,
+				3300F20B0BD19DF000E549F7 /* Carbon.framework in Frameworks */,
+				3300F20E0BD19E1B00E549F7 /* QSElements.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* Catalyst */ = {
+			isa = PBXGroup;
+			children = (
+				3357A1AF0BB8CBE500DECE19 /* Elements.xcodeproj */,
+				3357A1E00BB8CFDD00DECE19 /* Agent */,
+				3357A1E20BB8CFDD00DECE19 /* Framework */,
+				3357A1E90BB8CFDD00DECE19 /* Plugins */,
+				3357A1EC0BB8CFDD00DECE19 /* PrefPane */,
+				3357A1F80BB8CFDD00DECE19 /* Resources */,
+				32DBCFA10370C40200C91783 /* Other Sources */,
+				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
+				19C28FB8FE9D52D311CA2CBB /* Products */,
+			);
+			name = Catalyst;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */,
+				1058C7AEFEA557BF11CA2CBB /* Other Frameworks */,
+			);
+			name = "Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3300F20A0BD19DF000E549F7 /* Carbon.framework */,
+				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
+				F506C035013D953901CA16C8 /* PreferencePanes.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7AEFEA557BF11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				089C1672FE841209C02AAC07 /* Foundation.framework */,
+				089C167FFE841241C02AAC07 /* AppKit.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FB8FE9D52D311CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D202CF80486D31800D8A456 /* Catalyst.prefPane */,
+				3357A1C60BB8CCB000DECE19 /* Catalyst Agent.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		32DBCFA10370C40200C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32DBCFA20370C41700C91783 /* Catalyst_Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		3357A1E00BB8CFDD00DECE19 /* Agent */ = {
+			isa = PBXGroup;
+			children = (
+				3357A20B0BB8D01700DECE19 /* English.lproj */,
+				3357A2100BB8D01700DECE19 /* main.m */,
+				3357A1E10BB8CFDD00DECE19 /* Info.plist */,
+				7F8D393C0BF0BA9F008935FA /* QSTriggerAgentController.m */,
+				7F8D393D0BF0BA9F008935FA /* QSTriggerAgentController.h */,
+			);
+			path = Agent;
+			sourceTree = "<group>";
+		};
+		3357A1E20BB8CFDD00DECE19 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				3357A1E30BB8CFDD00DECE19 /* QSTrigger.h */,
+				3357A1E40BB8CFDD00DECE19 /* QSTrigger.m */,
+				3357A1E50BB8CFDD00DECE19 /* QSTriggerCenter.h */,
+				3357A1E60BB8CFDD00DECE19 /* QSTriggerCenter.m */,
+				3357A1E70BB8CFDD00DECE19 /* QSTriggerManager.h */,
+				3357A1E80BB8CFDD00DECE19 /* QSTriggerManager.m */,
+			);
+			path = Framework;
+			sourceTree = "<group>";
+		};
+		3357A1E90BB8CFDD00DECE19 /* Plugins */ = {
+			isa = PBXGroup;
+			children = (
+				3357A1EA0BB8CFDD00DECE19 /* hotkey */,
+			);
+			path = Plugins;
+			sourceTree = "<group>";
+		};
+		3357A1EA0BB8CFDD00DECE19 /* hotkey */ = {
+			isa = PBXGroup;
+			children = (
+				3357A1EB0BB8CFDD00DECE19 /* hotkeys-plugin.xml */,
+			);
+			path = hotkey;
+			sourceTree = "<group>";
+		};
+		3357A1EC0BB8CFDD00DECE19 /* PrefPane */ = {
+			isa = PBXGroup;
+			children = (
+				3300F20D0BD19E1B00E549F7 /* QSElements.framework */,
+				3357A25D0BB8D2A700DECE19 /* QSBase.framework */,
+				3357A1F60BB8CFDD00DECE19 /* QSTriggersPrefPane.h */,
+				3357A1F70BB8CFDD00DECE19 /* QSTriggersPrefPane.m */,
+				3357A1F30BB8CFDD00DECE19 /* QSTriggersPrefPane.nib */,
+				3357A1EF0BB8CFDD00DECE19 /* CatalystPref.nib */,
+				3357A1F10BB8CFDD00DECE19 /* InfoPlist.strings */,
+				3357A1F50BB8CFDD00DECE19 /* Info.plist */,
+				3357A34F0BB8D41300DECE19 /* Catalyst.xcdatamodel */,
+			);
+			path = PrefPane;
+			sourceTree = "<group>";
+		};
+		3357A1F80BB8CFDD00DECE19 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3357A1F90BB8CFDD00DECE19 /* Catalyst.icns */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		3357A20B0BB8D01700DECE19 /* English.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				3357A20C0BB8D01700DECE19 /* InfoPlist.strings */,
+				3357A20E0BB8D01700DECE19 /* MainMenu.nib */,
+			);
+			path = English.lproj;
+			sourceTree = "<group>";
+		};
+		3357A23E0BB8D1D900DECE19 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3357A2430BB8D1D900DECE19 /* QSElements.framework */,
+				3357A2450BB8D1D900DECE19 /* Elements Manager.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8D202CE90486D31800D8A456 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D202CEA0486D31800D8A456 /* Catalyst_Prefix.pch in Headers */,
+				3357A2330BB8D15B00DECE19 /* QSTriggersPrefPane.h in Headers */,
+				3357A2540BB8D23600DECE19 /* QSTriggerCenter.h in Headers */,
+				3357A2560BB8D23800DECE19 /* QSTriggerManager.h in Headers */,
+				3357A2580BB8D23800DECE19 /* QSTrigger.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		3357A1C50BB8CCB000DECE19 /* Catalyst Agent */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3357A1C90BB8CCB000DECE19 /* Build configuration list for PBXNativeTarget "Catalyst Agent" */;
+			buildPhases = (
+				3357A1C20BB8CCB000DECE19 /* Resources */,
+				3357A1C30BB8CCB000DECE19 /* Sources */,
+				3357A1C40BB8CCB000DECE19 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Catalyst Agent";
+			productName = "Catalyst Agent";
+			productReference = 3357A1C60BB8CCB000DECE19 /* Catalyst Agent.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8D202CE80486D31800D8A456 /* Catalyst */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DBD214808BA80EA00186707 /* Build configuration list for PBXNativeTarget "Catalyst" */;
+			buildPhases = (
+				8D202CE90486D31800D8A456 /* Headers */,
+				8D202CEC0486D31800D8A456 /* Resources */,
+				8D202CF00486D31800D8A456 /* Sources */,
+				8D202CF20486D31800D8A456 /* Frameworks */,
+				8D202CF50486D31800D8A456 /* Rez */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Catalyst;
+			productInstallPath = "$(HOME)/Library/PreferencePanes";
+			productName = Catalyst;
+			productReference = 8D202CF80486D31800D8A456 /* Catalyst.prefPane */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DBD214C08BA80EA00186707 /* Build configuration list for PBXProject "Catalyst" */;
+			hasScannedForEncodings = 1;
+			mainGroup = 089C166AFE841209C02AAC07 /* Catalyst */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 3357A23E0BB8D1D900DECE19 /* Products */;
+					ProjectRef = 3357A1AF0BB8CBE500DECE19 /* Elements.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				8D202CE80486D31800D8A456 /* Catalyst */,
+				3357A1C50BB8CCB000DECE19 /* Catalyst Agent */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		3357A2430BB8D1D900DECE19 /* QSElements.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = QSElements.framework;
+			remoteRef = 3357A2420BB8D1D900DECE19 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3357A2450BB8D1D900DECE19 /* Elements Manager.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Elements Manager.app";
+			remoteRef = 3357A2440BB8D1D900DECE19 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3357A1C20BB8CCB000DECE19 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3357A2110BB8D01700DECE19 /* InfoPlist.strings in Resources */,
+				3357A2120BB8D01700DECE19 /* MainMenu.nib in Resources */,
+				3357A2270BB8D0AC00DECE19 /* Catalyst.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D202CEC0486D31800D8A456 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3357A2260BB8D0AC00DECE19 /* Catalyst.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		8D202CF50486D31800D8A456 /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3357A1C30BB8CCB000DECE19 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3357A2130BB8D01700DECE19 /* main.m in Sources */,
+				7F8D391F0BF0B9EE008935FA /* QSTrigger.m in Sources */,
+				7F8D39200BF0B9EF008935FA /* QSTriggerCenter.m in Sources */,
+				7F8D39210BF0B9F1008935FA /* QSTriggerManager.m in Sources */,
+				7F8D393E0BF0BA9F008935FA /* QSTriggerAgentController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D202CF00486D31800D8A456 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3357A2320BB8D15B00DECE19 /* QSTriggersPrefPane.m in Sources */,
+				3357A2520BB8D23500DECE19 /* QSTriggerManager.m in Sources */,
+				3357A2550BB8D23700DECE19 /* QSTriggerCenter.m in Sources */,
+				3357A2570BB8D23800DECE19 /* QSTrigger.m in Sources */,
+				3357A3500BB8D41300DECE19 /* Catalyst.xcdatamodel in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		3357A1EF0BB8CFDD00DECE19 /* CatalystPref.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3357A1F00BB8CFDD00DECE19 /* English */,
+			);
+			name = CatalystPref.nib;
+			sourceTree = "<group>";
+		};
+		3357A1F10BB8CFDD00DECE19 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3357A1F20BB8CFDD00DECE19 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		3357A1F30BB8CFDD00DECE19 /* QSTriggersPrefPane.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3357A1F40BB8CFDD00DECE19 /* English */,
+			);
+			name = QSTriggersPrefPane.nib;
+			sourceTree = "<group>";
+		};
+		3357A20C0BB8D01700DECE19 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3357A20D0BB8D01700DECE19 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		3357A20E0BB8D01700DECE19 /* MainMenu.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3357A20F0BB8D01700DECE19 /* English */,
+			);
+			name = MainMenu.nib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DBD214908BA80EA00186707 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../Developer/Build/Release\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../Developer/Build/Release\"";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Catalyst_Prefix.pch;
+				INFOPLIST_FILE = PrefPane/Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/PreferencePanes";
+				PRODUCT_NAME = Catalyst;
+				WRAPPER_EXTENSION = prefPane;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		1DBD214A08BA80EA00186707 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../Developer/Build/Release\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../Developer/Build/Release\"";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Catalyst_Prefix.pch;
+				INFOPLIST_FILE = PrefPane/Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/PreferencePanes";
+				PRODUCT_NAME = Catalyst;
+				WRAPPER_EXTENSION = prefPane;
+			};
+			name = Release;
+		};
+		1DBD214D08BA80EA00186707 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Debug;
+		};
+		1DBD214E08BA80EA00186707 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Release;
+		};
+		3357A1CA0BB8CCB000DECE19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Catalyst_Prefix.pch;
+				INFOPLIST_FILE = Agent/Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "Catalyst Agent";
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		3357A1CB0BB8CCB000DECE19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Catalyst_Prefix.pch;
+				INFOPLIST_FILE = Agent/Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "Catalyst Agent";
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DBD214808BA80EA00186707 /* Build configuration list for PBXNativeTarget "Catalyst" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DBD214908BA80EA00186707 /* Debug */,
+				1DBD214A08BA80EA00186707 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DBD214C08BA80EA00186707 /* Build configuration list for PBXProject "Catalyst" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DBD214D08BA80EA00186707 /* Debug */,
+				1DBD214E08BA80EA00186707 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3357A1C90BB8CCB000DECE19 /* Build configuration list for PBXNativeTarget "Catalyst Agent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3357A1CA0BB8CCB000DECE19 /* Debug */,
+				3357A1CB0BB8CCB000DECE19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}
