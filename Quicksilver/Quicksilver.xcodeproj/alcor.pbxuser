@@ -4,7 +4,7 @@
 		activeArchitecture = i386;
 		activeBuildConfigurationName = Release;
 		activeExecutable = 7F9A7A650C49595900B5912D /* Quicksilver */;
-		activeTarget = 8DC2EF4F0486A6940098B216 /* QSBase */;
+		activeTarget = 7F9A7A630C49595900B5912D /* Quicksilver */;
 		addToTargets = (
 			8DC2EF4F0486A6940098B216 /* QSBase */,
 		);
@@ -118,6 +118,14 @@
 			};
 			PBXPerProjectTemplateStateSaveDate = 218825405;
 			PBXWorkspaceStateSaveDate = 218825405;
+		};
+		perUserProjectItems = {
+			7F787FD20D0B03E900C607CE /* PBXTextBookmark */ = 7F787FD20D0B03E900C607CE /* PBXTextBookmark */;
+			7F787FD40D0B03E900C607CE /* PBXTextBookmark */ = 7F787FD40D0B03E900C607CE /* PBXTextBookmark */;
+			7F787FD50D0B03E900C607CE /* PBXTextBookmark */ = 7F787FD50D0B03E900C607CE /* PBXTextBookmark */;
+			7F787FD60D0B03E900C607CE /* PBXTextBookmark */ = 7F787FD60D0B03E900C607CE /* PBXTextBookmark */;
+			7F787FD80D0B03E900C607CE /* PBXTextBookmark */ = 7F787FD80D0B03E900C607CE /* PBXTextBookmark */;
+			7F787FEE0D0B047900C607CE /* PBXTextBookmark */ = 7F787FEE0D0B047900C607CE /* PBXTextBookmark */;
 		};
 		sourceControlManager = 7F9A7A520C49584F00B5912D /* Source Control */;
 		userBuildSettings = {
@@ -630,6 +638,76 @@
 		modificationTime = 217985275.254849;
 		state = 0;
 		symbolName = "[NSTableColumn valueForUndefinedKey:]";
+	};
+	7F787FD20D0B03E900C607CE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F787FD30D0B03E900C607CE /* QSCubeInterface.h */;
+		name = "QSCubeInterface.h: 12";
+		rLen = 41;
+		rLoc = 237;
+		rType = 0;
+		vrLen = 340;
+		vrLoc = 0;
+	};
+	7F787FD30D0B03E900C607CE /* QSCubeInterface.h */ = {
+		isa = PBXFileReference;
+		name = QSCubeInterface.h;
+		path = "/Volumes/Lux/Alchemy/Alchemy-svn/trunk/Quicksilver/PlugIns-Main/CubeInterface/QSCubeInterface.h";
+		sourceTree = "<absolute>";
+	};
+	7F787FD40D0B03E900C607CE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "error: QSBase.h: No such file or directory";
+		fRef = 7F9A7DC10C4972A500B5912D /* QSBase_Prefix.pch */;
+		rLen = 1;
+		rLoc = 3;
+		rType = 1;
+	};
+	7F787FD50D0B03E900C607CE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9A7DC10C4972A500B5912D /* QSBase_Prefix.pch */;
+		name = "QSBase_Prefix.pch: 4";
+		rLen = 19;
+		rLoc = 74;
+		rType = 0;
+		vrLen = 99;
+		vrLoc = 0;
+	};
+	7F787FD60D0B03E900C607CE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F787FD70D0B03E900C607CE /* QSCubeInterface.h */;
+		name = "QSCubeInterface.h: 12";
+		rLen = 41;
+		rLoc = 237;
+		rType = 0;
+		vrLen = 340;
+		vrLoc = 0;
+	};
+	7F787FD70D0B03E900C607CE /* QSCubeInterface.h */ = {
+		isa = PBXFileReference;
+		name = QSCubeInterface.h;
+		path = "/Volumes/Lux/Alchemy/Alchemy-svn/trunk/Quicksilver/PlugIns-Main/CubeInterface/QSCubeInterface.h";
+		sourceTree = "<absolute>";
+	};
+	7F787FD80D0B03E900C607CE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9A7DC10C4972A500B5912D /* QSBase_Prefix.pch */;
+		name = "QSBase_Prefix.pch: 4";
+		rLen = 19;
+		rLoc = 74;
+		rType = 0;
+		vrLen = 99;
+		vrLoc = 0;
+	};
+	7F787FEE0D0B047900C607CE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F9A7DC10C4972A500B5912D /* QSBase_Prefix.pch */;
+		name = "QSBase_Prefix.pch: 4";
+		rLen = 19;
+		rLoc = 74;
+		rType = 0;
+		vrLen = 99;
+		vrLoc = 0;
 	};
 	7F7F963A0C49FB6600DE6B89 /* element.xml */ = {
 		uiCtxt = {
