@@ -300,7 +300,7 @@
 							<real>186</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>1733 1054 690 397 0 0 2560 1578 </string>
+						<string>695 432 690 397 0 0 1440 878 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -337,7 +337,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {482, 0}}</string>
 								<key>RubberWindowFrame</key>
-								<string>1733 1054 690 397 0 0 2560 1578 </string>
+								<string>695 432 690 397 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -359,7 +359,7 @@
 								<key>Frame</key>
 								<string>{{0, 5}, {482, 351}}</string>
 								<key>RubberWindowFrame</key>
-								<string>1733 1054 690 397 0 0 2560 1578 </string>
+								<string>695 432 690 397 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -383,9 +383,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>7F787D580D08C8DC00C607CE</string>
+				<string>7F787F8F0D0AFC4200C607CE</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>7F787D590D08C8DC00C607CE</string>
+				<string>7F787F900D0AFC4200C607CE</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -522,7 +522,7 @@
 		<string>/Volumes/Lux/Alchemy/Alchemy-svn/trunk/Quicksilver/Library/QuickLook/QSQuickLookGenerator.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>1733 1054 690 397 0 0 2560 1578 </string>
+	<string>695 432 690 397 0 0 1440 878 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>

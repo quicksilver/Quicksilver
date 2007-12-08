@@ -4,7 +4,7 @@
 		activeArchitecture = i386;
 		activeBuildConfigurationName = Release;
 		activeExecutable = 7F9A7A650C49595900B5912D /* Quicksilver */;
-		activeTarget = 7F9A7A630C49595900B5912D /* Quicksilver */;
+		activeTarget = 8DC2EF4F0486A6940098B216 /* QSBase */;
 		addToTargets = (
 			8DC2EF4F0486A6940098B216 /* QSBase */,
 		);
@@ -99,7 +99,7 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXTargetDataSource_PrimaryAttribute;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					148,
+					297,
 					60,
 					20,
 					48,
@@ -116,8 +116,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 217998099;
-			PBXWorkspaceStateSaveDate = 217998099;
+			PBXPerProjectTemplateStateSaveDate = 218825405;
+			PBXWorkspaceStateSaveDate = 218825405;
 		};
 		sourceControlManager = 7F9A7A520C49584F00B5912D /* Source Control */;
 		userBuildSettings = {
@@ -598,7 +598,7 @@
 		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 1;
-		modificationTime = 217985270.625983;
+		modificationTime = 218742211.221127;
 		state = 1;
 	};
 	7F66DB440CEF38FC0033C03D /* -[QSRegistry tableNamed:] */ = {
@@ -655,6 +655,7 @@
 		fallbackIsa = XCSourceControlManager;
 		isSCMEnabled = 0;
 		scmConfiguration = {
+			repositoryName = Alchemy;
 		};
 	};
 	7F9A7A530C49584F00B5912D /* Code sense */ = {
@@ -698,7 +699,7 @@
 	7F9A7DC10C4972A500B5912D /* QSBase_Prefix.pch */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {787, 202}}";
-			sepNavSelRange = "{40, 34}";
+			sepNavSelRange = "{74, 19}";
 			sepNavVisRange = "{0, 99}";
 			sepNavWindowFrame = "{{19, 9}, {650, 864}}";
 		};
@@ -1756,9 +1757,10 @@
 	};
 	7F9A89550C497D5C00B5912D /* NSString+CarbonUtilities.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1154, 1176}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1292, 1316}}";
 			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 1624}";
+			sepNavVisRange = "{1328, 2697}";
+			sepNavWindowFrame = "{{19, -5}, {1206, 878}}";
 		};
 	};
 	7F9A89560C497D5C00B5912D /* NSString+CarbonUtilities.m */ = {
@@ -1791,9 +1793,10 @@
 	};
 	7F9A8C600C4983F900B5912D /* NSString+CarbonUtilities.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {525, 547}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1147, 806}}";
 			sepNavSelRange = "{0, 0}";
 			sepNavVisRange = "{0, 1008}";
+			sepNavWindowFrame = "{{19, -5}, {1206, 878}}";
 		};
 	};
 	7F9A8C610C4983F900B5912D /* NSString+CarbonUtilities.m */ = {

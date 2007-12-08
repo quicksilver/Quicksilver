@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 42;
+	objectVersion = 44;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -286,7 +286,6 @@
 		7F8824A40C498A7A00631170 /* NSSortDescriptor+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A877F0C497AEF00B5912D /* NSSortDescriptor+BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F8824A50C498A7A00631170 /* NSStatusItem_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A87810C497AEF00B5912D /* NSStatusItem_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F8824A60C498A7A00631170 /* NSString+CarbonUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A89550C497D5C00B5912D /* NSString+CarbonUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7F8824A70C498A7A00631170 /* NSString+CarbonUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A8C600C4983F900B5912D /* NSString+CarbonUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F8824A80C498A7A00631170 /* NSString+NDCarbonUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A89570C497D5C00B5912D /* NSString+NDCarbonUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F8824A90C498A7A00631170 /* NSString+NDUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A89590C497D5C00B5912D /* NSString+NDUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F8824AA0C498A7A00631170 /* NSString_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A87830C497AEF00B5912D /* NSString_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -840,8 +839,8 @@
 		7F5D23530C49C3B700812049 /* QSUpdateController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSUpdateController.m; sourceTree = "<group>"; };
 		7F5D23540C49C3B700812049 /* QSUpdatePrefPane.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSUpdatePrefPane.h; sourceTree = "<group>"; };
 		7F5D23550C49C3B700812049 /* QSUpdatePrefPane.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSUpdatePrefPane.m; sourceTree = "<group>"; };
-		7F5D24210C49C44200812049 /* QSOutlineView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = QSOutlineView.m; path = Framework/Code/QSOutlineView.m; sourceTree = SOURCE_ROOT; };
-		7F5D24220C49C44200812049 /* QSOutlineView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = QSOutlineView.h; path = Framework/Code/QSOutlineView.h; sourceTree = SOURCE_ROOT; };
+		7F5D24210C49C44200812049 /* QSOutlineView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSOutlineView.m; sourceTree = "<group>"; };
+		7F5D24220C49C44200812049 /* QSOutlineView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSOutlineView.h; sourceTree = "<group>"; };
 		7F7F963A0C49FB6600DE6B89 /* element.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = element.xml; sourceTree = "<group>"; };
 		7F82E9740C4FADF9002B3A54 /* en */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ActionCommandFormats.strings; sourceTree = "<group>"; };
 		7F82E9760C4FADF9002B3A54 /* en */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = en; path = en.lproj/ActionDescriptions.strings; sourceTree = "<group>"; };
@@ -1534,7 +1533,7 @@
 			isa = PBXGroup;
 			children = (
 				7F9A85220C497A8A00B5912D /* Application */,
-				7F9A7C770C4972A500B5912D /* Framework */,
+				7F9A7C770C4972A500B5912D /* Crucible */,
 				7FE0BC9F0C499F2E0012249C /* CoreElement */,
 				7F9A8BCD0C497EBB00B5912D /* Elements.xcodeproj */,
 				7F8B81980C49C639007FC200 /* QSCubeInterfaceElement.xcodeproj */,
@@ -1679,7 +1678,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7F9A7C770C4972A500B5912D /* Framework */ = {
+		7F9A7C770C4972A500B5912D /* Crucible */ = {
 			isa = PBXGroup;
 			children = (
 				7F9A874B0C497AEF00B5912D /* Code */,
@@ -1688,7 +1687,8 @@
 				7F9A7DC10C4972A500B5912D /* QSBase_Prefix.pch */,
 				7F9A7DC20C4972A500B5912D /* Resources */,
 			);
-			path = Framework;
+			name = Crucible;
+			path = ../Crucible;
 			sourceTree = "<group>";
 		};
 		7F9A7DC20C4972A500B5912D /* Resources */ = {
@@ -1799,6 +1799,8 @@
 		7F9A874B0C497AEF00B5912D /* Code */ = {
 			isa = PBXGroup;
 			children = (
+				7F5D24220C49C44200812049 /* QSOutlineView.h */,
+				7F5D24210C49C44200812049 /* QSOutlineView.m */,
 				7F17F16E0C4F1983001ADE1A /* QSTitleToolbarItem.h */,
 				7F17F16F0C4F1983001ADE1A /* QSTitleToolbarItem.m */,
 				7F17F0640C4F1795001ADE1A /* QSCaseInsensitiveStringKey.h */,
@@ -2357,8 +2359,6 @@
 			isa = PBXGroup;
 			children = (
 				7FE0BCCA0C499F2E0012249C /* QSCoreElement-Info.plist */,
-				7F5D24210C49C44200812049 /* QSOutlineView.m */,
-				7F5D24220C49C44200812049 /* QSOutlineView.h */,
 				7FE0BCA10C499F2E0012249C /* DirectoryAccess.h */,
 				7FE0BCA20C499F2E0012249C /* QSActionProvider_EmbeddedProviders.h */,
 				7FE0BCA30C499F2E0012249C /* QSActionProvider_EmbeddedProviders.m */,
@@ -2476,7 +2476,6 @@
 				7F8824A40C498A7A00631170 /* NSSortDescriptor+BLTRExtensions.h in Headers */,
 				7F8824A50C498A7A00631170 /* NSStatusItem_BLTRExtensions.h in Headers */,
 				7F8824A60C498A7A00631170 /* NSString+CarbonUtilities.h in Headers */,
-				7F8824A70C498A7A00631170 /* NSString+CarbonUtilities.h in Headers */,
 				7F8824A80C498A7A00631170 /* NSString+NDCarbonUtilities.h in Headers */,
 				7F8824A90C498A7A00631170 /* NSString+NDUtilities.h in Headers */,
 				7F8824AA0C498A7A00631170 /* NSString_BLTRExtensions.h in Headers */,
@@ -2714,8 +2713,11 @@
 /* Begin PBXProject section */
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "Quicksilver" */;
-			compatibilityVersion = "Xcode 2.4";
+			compatibilityVersion = "Xcode 3.0";
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -3494,8 +3496,8 @@
 				FRAMEWORK_VERSION = A;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Framework/QSBase_Prefix.pch;
-				INFOPLIST_FILE = "Framework/QSBase-Info.plist";
+				GCC_PREFIX_HEADER = ../Crucible/QSBase_Prefix.pch;
+				INFOPLIST_FILE = "../Crucible/QSBase-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = QSBase;
 				WRAPPER_EXTENSION = framework;
@@ -3511,7 +3513,7 @@
 				GCC_WARN_UNKNOWN_PRAGMAS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
 			};
 			name = Debug;
 		};
@@ -3522,7 +3524,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
 			};
 			name = Release;
 		};
