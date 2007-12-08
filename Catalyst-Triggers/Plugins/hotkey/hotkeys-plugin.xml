@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin
+	id="com.blacktree.QSHotKeyTriggers"
+	name="HotKey Triggers"
+	version="1.0.0"
+	provider-name="Blacktree">
+
+	<requirements>
+		<requirement bundle="com.blacktree.Catalyst"/>
+		<requirement bundle="com.blacktree.HotKeys"/>
+	</requirements>
+
+	<extension point="com.blacktree.Catalyst.triggerEditor" class="QSHotKeyTriggerManager"/>
+	<extension point="com.blacktree.Catalyst.triggerManager" class="QSHotKeyTriggerManager"/>
+</plugin>

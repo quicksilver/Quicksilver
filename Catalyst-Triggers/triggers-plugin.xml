@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin
+	id="com.blacktree.Catalyst"
+	name="Catalyst"
+	version="1.0.0"
+	provider-name="Blacktree">
+
+	<requirements>
+		<requirement bundle="com.blacktree.Catalyst"/>
+	</requirements>
+
+	<extension-point id="triggerEditor" protocol="QSTriggerManagerProtocol"/>
+	<extension-point id="triggerManager" protocol="QSTriggerEditorProtocol"/>
+	
+	<extension point="com.blacktree.main" class="BKLifecyleMainExtension"/>
+</plugin>
