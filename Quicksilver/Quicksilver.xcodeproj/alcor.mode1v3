@@ -233,6 +233,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -274,17 +276,12 @@
 								<string>7FE0BC9F0C499F2E0012249C</string>
 								<string>7F9A8BCD0C497EBB00B5912D</string>
 								<string>1C37FBAC04509CD000000102</string>
-								<string>7F7880F70D0B189300C607CE</string>
-								<string>7F7880F80D0B189300C607CE</string>
-								<string>7F7880F90D0B189300C607CE</string>
-								<string>7F7880FA0D0B189300C607CE</string>
 								<string>1C37FABC05509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>28</integer>
-									<integer>26</integer>
+									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
@@ -307,7 +304,7 @@
 							<real>268</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>55 73 912 805 0 0 1440 878 </string>
+						<string>456 -146 912 805 0 0 1440 878 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -344,7 +341,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {622, 0}}</string>
 								<key>RubberWindowFrame</key>
-								<string>55 73 912 805 0 0 1440 878 </string>
+								<string>456 -146 912 805 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -352,8 +349,6 @@
 							<string>0pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -366,7 +361,7 @@
 								<key>Frame</key>
 								<string>{{0, 5}, {622, 759}}</string>
 								<key>RubberWindowFrame</key>
-								<string>55 73 912 805 0 0 1440 878 </string>
+								<string>456 -146 912 805 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -390,9 +385,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>7F787FCE0D0B037E00C607CE</string>
+				<string>7F78815C0D0B27B800C607CE</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>7F787FCF0D0B037E00C607CE</string>
+				<string>7F78815D0D0B27B800C607CE</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -526,17 +521,11 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>7F7880180D0B15B300C607CE</string>
-		<string>7F7880030D0B061E00C607CE</string>
-		<string>7F7880040D0B061E00C607CE</string>
-		<string>7F7880050D0B061E00C607CE</string>
-		<string>1C78EAAD065D492600B07095</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>7FCCA23C0C8002B800A3CD14</string>
 		<string>/Volumes/Lux/Alchemy/Alchemy-svn/trunk/Quicksilver/Quicksilver.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>55 73 912 805 0 0 1440 878 </string>
+	<string>456 -146 912 805 0 0 1440 878 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
@@ -557,7 +546,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>&lt;No Editor&gt;</string>
+								<string></string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -574,8 +563,6 @@
 							<string>234pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXBuildLogShowsTranscriptDefaultKey</key>
@@ -617,7 +604,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>7FCCA23C0C8002B800A3CD14</string>
-				<string>7F787FD00D0B037E00C607CE</string>
+				<string>7F7881630D0B2A4800C607CE</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>

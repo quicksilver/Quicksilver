@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleVersion</key>
-	<string>814</string>
+	<string>816</string>
 	<key>QSDefaults</key>
 	<dict>
 		<key>interface.backdropColor</key>
