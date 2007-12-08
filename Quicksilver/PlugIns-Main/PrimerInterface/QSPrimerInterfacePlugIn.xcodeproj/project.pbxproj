@@ -137,6 +137,7 @@
 		0259C573FE90428111CA0C5A /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 7F07AB81085E3B0F00E2AFC4 /* Build configuration list for PBXProject "QSPrimerInterfacePlugIn" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,

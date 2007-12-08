@@ -1,4 +1,7 @@
 Changes
 =======
 
-Fixes a plugin-check bug
+  * Corrects some visual glitches on Leopard
+  * Fixes shelf/clipboard behavior in Leopard
+  * Fixes For Plug-ins and App update
+

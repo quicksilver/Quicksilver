@@ -405,7 +405,7 @@ UInt64 QSGetPrimaryMACAddressInt();
 	if (selection==1){
 		NSFileManager *manager=[NSFileManager defaultManager];
 		
-		NSString *tempDirectory=[NSTemporaryDirectory() stringByAppendingPathComponent:[NSString uniqueString]];
+		NSString *tempDirectory=[NSTemporaryDirectory() stringByAppendingPathComponent:@"QSUpdate"];
 		[manager createDirectoryAtPath:tempDirectory attributes:nil];
 		
 		[updateTask setProgress:-1.0];
@@ -418,7 +418,7 @@ UInt64 QSGetPrimaryMACAddressInt();
 		[task waitUntilExit];	
 		
 		NSArray *extracted=[[manager directoryContentsAtPath:tempDirectory]pathsMatchingExtensions:[NSArray arrayWithObject:@"app"]];
-		//NSLog(@"extract %@",extracted);
+		//NSLog(@"extract %@ %@ %@",extracted, tempDirectory, [task arguments]);
 		if ([extracted count]!=1){
 			NSLog(@"App Update Error");
 			return nil;

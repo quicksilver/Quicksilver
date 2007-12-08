@@ -1,6 +1,7 @@
 // !$*UTF8*$!
 {
 	0259C573FE90428111CA0C5A /* Project object */ = {
+		activeArchitecture = i386;
 		activeBuildConfigurationName = Release;
 		activeExecutable = E1127E9F0695F106008AE6A3 /* Quicksilver */;
 		activeTarget = 8D1AC9600486D14A00FE50C9 /* Primer Interface */;
@@ -11,7 +12,6 @@
 			E15A3313078280B80011E4EA /* -[QSSearchObjectView drawRect:] */,
 			E15A336E078287250011E4EA /* -[NSImageView drawRect:] */,
 		);
-		breakpointsGroup = 7F4DB7A10A890FD900A3CC50 /* XCBreakpointsBucket */;
 		codeSenseManager = E17A9EAF067F490900A75272 /* Code sense */;
 		executables = (
 			E1127E9F0695F106008AE6A3 /* Quicksilver */,
@@ -117,7 +117,7 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 178830895;
+			PBXPerProjectTemplateStateSaveDate = 216403954;
 			PBXPrepackagedSmartGroups_v2 = (
 				{
 					PBXTransientLocationAtTop = bottom;
@@ -294,37 +294,11 @@
 					};
 				},
 			);
-			PBXWorkspaceStateSaveDate = 178830895;
-		};
-		perUserProjectItems = {
-			7FDB7A1E0AA8BE5300CCE360 /* PBXBookmark */ = 7FDB7A1E0AA8BE5300CCE360 /* PBXBookmark */;
-			7FDB7A1F0AA8BE5300CCE360 /* PBXTextBookmark */ = 7FDB7A1F0AA8BE5300CCE360 /* PBXTextBookmark */;
+			PBXWorkspaceStateSaveDate = 216403954;
 		};
 		sourceControlManager = E17A9EAE067F490900A75272 /* Source Control */;
 		userBuildSettings = {
 		};
-	};
-	7F4DB7A10A890FD900A3CC50 /* XCBreakpointsBucket */ = {
-		isa = XCBreakpointsBucket;
-		name = QSPrimerInterfacePlugIn;
-		objects = (
-			E15A3313078280B80011E4EA /* -[QSSearchObjectView drawRect:] */,
-			E15A336E078287250011E4EA /* -[NSImageView drawRect:] */,
-		);
-	};
-	7FDB7A1E0AA8BE5300CCE360 /* PBXBookmark */ = {
-		isa = PBXBookmark;
-		fRef = 8D1AC9730486D14A00FE50C9 /* Info.plist */;
-	};
-	7FDB7A1F0AA8BE5300CCE360 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 8D1AC9730486D14A00FE50C9 /* Info.plist */;
-		name = "Info.plist: 49";
-		rLen = 0;
-		rLoc = 1323;
-		rType = 0;
-		vrLen = 153;
-		vrLoc = 1099;
 	};
 	8D1AC9600486D14A00FE50C9 /* Primer Interface */ = {
 		activeExec = 0;
@@ -339,12 +313,12 @@
 	};
 	E1127E9F0695F106008AE6A3 /* Quicksilver */ = {
 		isa = PBXExecutable;
-		activeArgIndex = 2147483647;
 		activeArgIndices = (
 		);
 		argumentStrings = (
 		);
 		autoAttachOnCrash = 1;
+		breakpointsEnabled = 1;
 		configStateDict = {
 			"PBXLSLaunchAction-0" = {
 				PBXLSLaunchAction = 0;
@@ -396,8 +370,10 @@
 		isa = PBXSymbolicBreakpoint;
 		breakpointStyle = 0;
 		continueAfterActions = 0;
+		countType = 0;
 		delayBeforeContinue = 0;
 		hitCount = 0;
+		ignoreCount = 0;
 		modificationTime = 0;
 		state = 2;
 		symbolName = "-[QSSearchObjectView drawRect:]";
@@ -406,8 +382,10 @@
 		isa = PBXSymbolicBreakpoint;
 		breakpointStyle = 0;
 		continueAfterActions = 0;
+		countType = 0;
 		delayBeforeContinue = 0;
 		hitCount = 0;
+		ignoreCount = 0;
 		modificationTime = 176746358.947375;
 		state = 2;
 		symbolName = "-[NSImageView drawRect:]";

@@ -312,20 +312,15 @@
 		[self loadWebPlugInInfo];
 	}
 	//	NSLog(@"%f last",-[plugInWebDownloadDate timeIntervalSinceNow]);
-	if (!plugInWebDownloadDate || (-[plugInWebDownloadDate timeIntervalSinceNow]>3*HOURS)){
-    
-    if (lastCheck - [NSDate timeIntervalSinceReferenceDate] < 3*HOURS || errorCount > 20) {
-      //NSLog(@"bailing because we checked recently");
-      // bail if we have had too many download errors
-      return nil;
+	if (!plugInWebDownloadDate || (-[plugInWebDownloadDate timeIntervalSinceNow] > 3*HOURS)) {
+    if (errorCount < 20 && lastCheck - [NSDate timeIntervalSinceReferenceDate] > 3*HOURS ) {
+      if ([knownPlugIns count]<30){
+        [self downloadWebPlugInInfoIgnoringDate];
+      }else{
+        [self downloadWebPlugInInfo];
+      }
+      lastCheck = [NSDate timeIntervalSinceReferenceDate];
     }
-    if ([knownPlugIns count]<30){
-			[self downloadWebPlugInInfoIgnoringDate];
-		}else{
-			[self downloadWebPlugInInfo];
-		}
-    lastCheck = [NSDate timeIntervalSinceReferenceDate];
-    
 	}
 	
 	//	NSLog(@"knownPlugIns %@",knownPlugIns);

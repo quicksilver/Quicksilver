@@ -92,7 +92,7 @@
 		[(QSWindow *)[((QSSearchObjectView *)theControl)->resultController window]setHideOffset:NSMakePoint(0,NSMinY([iSelector frame]))];
 		[(QSWindow *)[((QSSearchObjectView *)theControl)->resultController window]setShowOffset:NSMakePoint(0,NSMinY([dSelector frame]))];
 		
-        [(QSObjectCell *)theCell setShowDetails:YES];
+        [(QSObjectCell *)theCell setShowDetails:NO];
         [(QSObjectCell *)theCell setTextColor:[NSColor whiteColor]];
         [(QSObjectCell *)theCell setState:NSOnState];
 		

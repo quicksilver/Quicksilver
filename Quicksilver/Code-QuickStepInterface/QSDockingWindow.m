@@ -151,7 +151,7 @@ addObserver:self selector:@selector(unlock) name:@"com.apple.HIToolbox.endMenuTr
 }
 
 -(BOOL)canBecomeKeyWindow{
-    return !hidden;
+  return !hidden && allowKey;
 }
 
 -(BOOL)hidden{return hidden;};
@@ -163,6 +163,12 @@ addObserver:self selector:@selector(unlock) name:@"com.apple.HIToolbox.endMenuTr
 	} else{
 		[self hide:self];
 	}	
+}
+
+- (void)makeKeyAndOrderFront:(id)sender {
+  allowKey = YES;
+  [super makeKeyAndOrderFront:sender];  
+  allowKey = NO;
 }
 
 - (IBAction) toggle:(id)sender{

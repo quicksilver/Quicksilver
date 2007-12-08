@@ -213,6 +213,7 @@
 - (void)reloadPlugInsList:(NSNotification *)notif{
 	QSPlugInManager *manager=[QSPlugInManager sharedInstance];
 	NSArray *newPlugIns=[manager knownPlugInsWithWebInfo];
+  NSLog(@"loaded %d", [newPlugIns count]);
 	[self setPlugins:(NSMutableArray *)newPlugIns];
 }
 

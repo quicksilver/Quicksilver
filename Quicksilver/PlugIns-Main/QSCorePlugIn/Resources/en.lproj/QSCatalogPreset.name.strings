@@ -6,6 +6,8 @@
 	<string>Mail Previous Recipients</string>
 	<key>QSPresetUserGroup</key>
 	<string>User</string>
+	<key>QSPresetDownloads</key>
+	<string>Downloads</string>
 	<key>QSPresetDocuments</key>
 	<string>Documents</string>
 	<key>QSPresetAccounts</key>
