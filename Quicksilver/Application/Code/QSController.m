@@ -591,7 +591,7 @@ static id _sharedInstance;
 }
 
 - (IBAction)getMorePlugIns:(id)sender {
-	[QSPlugInsPrefPane getMorePlugIns];
+	[NSClassFromString(@"QSPlugInsPrefPane") getMorePlugIns];
 	//	NSString *baseURL = @"http://quicksilver.blacktree.com/plugins.php?feature = ";
 	//	int feature = [NSApp featureLevel];
 	//	switch (feature) {

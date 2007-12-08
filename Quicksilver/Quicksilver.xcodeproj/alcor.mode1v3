@@ -197,7 +197,48 @@
 	<key>Notifications</key>
 	<array/>
 	<key>OpenEditors</key>
-	<array/>
+	<array>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
+				<string>7F7880000D0B061E00C607CE</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>QSController.m</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>7F7880010D0B061E00C607CE</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>QSController.m</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>7F7880020D0B061E00C607CE</string>
+						<key>history</key>
+						<array>
+							<string>7F787FFE0D0B05F700C607CE</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1206, 837}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>19 -5 1206 878 0 0 1440 878 </string>
+			</dict>
+		</dict>
+	</array>
 	<key>PerspectiveWidths</key>
 	<array>
 		<integer>-1</integer>
@@ -269,6 +310,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateExpansionKey</key>
 							<array>
 								<string>0867D691FE84028FC02AAC07</string>
+								<string>7F9A85220C497A8A00B5912D</string>
 								<string>7F9A7C770C4972A500B5912D</string>
 								<string>7FE0BC9F0C499F2E0012249C</string>
 								<string>7F9A8BCD0C497EBB00B5912D</string>
@@ -278,7 +320,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>16</integer>
+									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -521,10 +563,14 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>7F7880030D0B061E00C607CE</string>
+		<string>7F7880040D0B061E00C607CE</string>
+		<string>7F7880050D0B061E00C607CE</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>7FCCA23C0C8002B800A3CD14</string>
 		<string>/Volumes/Lux/Alchemy/Alchemy-svn/trunk/Quicksilver/Quicksilver.xcodeproj</string>
 		<string>1C78EAAD065D492600B07095</string>
+		<string>7F7880000D0B061E00C607CE</string>
 	</array>
 	<key>WindowString</key>
 	<string>55 259 866 619 0 0 1440 878 </string>
@@ -619,7 +665,7 @@
 			<key>WindowToolGUID</key>
 			<string>7FCCA23C0C8002B800A3CD14</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

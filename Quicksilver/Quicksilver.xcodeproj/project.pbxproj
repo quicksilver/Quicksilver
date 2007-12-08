@@ -19,7 +19,6 @@
 		7F17F1900C4F1FE6001ADE1A /* QSHelpersPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D23250C49C3B700812049 /* QSHelpersPrefPane.m */; };
 		7F17F1910C4F1FE6001ADE1A /* QSMainMenuPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D23290C49C3B700812049 /* QSMainMenuPrefPane.m */; };
 		7F17F1920C4F1FE6001ADE1A /* QSMainPreferencePanes.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D232B0C49C3B700812049 /* QSMainPreferencePanes.m */; };
-		7F17F1930C4F1FE6001ADE1A /* QSPlugInsPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D23330C49C3B700812049 /* QSPlugInsPrefPane.m */; };
 		7F17F1940C4F1FE6001ADE1A /* QSCatalogSwitchButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D23190C49C3B700812049 /* QSCatalogSwitchButtonCell.m */; };
 		7F2577AE0C80769C00CE3BDE /* NSApplication+ServicesModification.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F17F05C0C4F16F0001ADE1A /* NSApplication+ServicesModification.m */; };
 		7F2BF09D0C5BA15700E80ABF /* QSURLExtractor.pl in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0BC1C0C4998610012249C /* QSURLExtractor.pl */; };
@@ -481,7 +480,6 @@
 		7F9A86A50C497A8B00B5912D /* QSMainMenuPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F9A85980C497A8A00B5912D /* QSMainMenuPrefPane.nib */; };
 		7F9A86A60C497A8B00B5912D /* QSNetworkingPrefs.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F9A85990C497A8A00B5912D /* QSNetworkingPrefs.nib */; };
 		7F9A86A70C497A8B00B5912D /* QSPlugInInstaller.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F9A859A0C497A8A00B5912D /* QSPlugInInstaller.nib */; };
-		7F9A86A80C497A8B00B5912D /* QSPlugInsPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F9A859B0C497A8A00B5912D /* QSPlugInsPrefPane.nib */; };
 		7F9A86A90C497A8B00B5912D /* QSPreferences.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F9A859C0C497A8A00B5912D /* QSPreferences.nib */; };
 		7F9A86AA0C497A8B00B5912D /* QSProcessObjectSource.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F9A859D0C497A8A00B5912D /* QSProcessObjectSource.nib */; };
 		7F9A86AB0C497A8B00B5912D /* QSSearchPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F9A859E0C497A8A00B5912D /* QSSearchPrefPane.nib */; };
@@ -2859,7 +2857,6 @@
 				7F9A86A50C497A8B00B5912D /* QSMainMenuPrefPane.nib in Resources */,
 				7F9A86A60C497A8B00B5912D /* QSNetworkingPrefs.nib in Resources */,
 				7F9A86A70C497A8B00B5912D /* QSPlugInInstaller.nib in Resources */,
-				7F9A86A80C497A8B00B5912D /* QSPlugInsPrefPane.nib in Resources */,
 				7F9A86A90C497A8B00B5912D /* QSPreferences.nib in Resources */,
 				7F9A86AA0C497A8B00B5912D /* QSProcessObjectSource.nib in Resources */,
 				7F9A86AB0C497A8B00B5912D /* QSSearchPrefPane.nib in Resources */,
@@ -3051,7 +3048,6 @@
 				7F17F1900C4F1FE6001ADE1A /* QSHelpersPrefPane.m in Sources */,
 				7F17F1910C4F1FE6001ADE1A /* QSMainMenuPrefPane.m in Sources */,
 				7F17F1920C4F1FE6001ADE1A /* QSMainPreferencePanes.m in Sources */,
-				7F17F1930C4F1FE6001ADE1A /* QSPlugInsPrefPane.m in Sources */,
 				7F17F1940C4F1FE6001ADE1A /* QSCatalogSwitchButtonCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
