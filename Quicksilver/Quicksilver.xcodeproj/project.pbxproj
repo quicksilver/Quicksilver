@@ -224,8 +224,8 @@
 		7F5D24240C49C44200812049 /* QSOutlineView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F5D24220C49C44200812049 /* QSOutlineView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F5D24E70C49C48600812049 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9A89910C497DD400B5912D /* Carbon.framework */; };
 		7F69D88A0CDE36DE002B6B3E /* QSElements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F69D8860CDE367E002B6B3E /* QSElements.framework */; };
-		7F69D88B0CDE36E4002B6B3E /* QSElements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F69D8860CDE367E002B6B3E /* QSElements.framework */; };
 		7F69D88C0CDE36EB002B6B3E /* QSElements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F69D8860CDE367E002B6B3E /* QSElements.framework */; };
+		7F7880ED0D0B17EF00C607CE /* QSElements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F69D8860CDE367E002B6B3E /* QSElements.framework */; };
 		7F7F963B0C49FB6600DE6B89 /* element.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7F7F963A0C49FB6600DE6B89 /* element.xml */; };
 		7F82E98B0C4FADF9002B3A54 /* ActionCommandFormats.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F82E9730C4FADF9002B3A54 /* ActionCommandFormats.strings */; };
 		7F82E98C0C4FADF9002B3A54 /* ActionDescriptions.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F82E9750C4FADF9002B3A54 /* ActionDescriptions.strings */; };
@@ -1500,7 +1500,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F69D88B0CDE36E4002B6B3E /* QSElements.framework in Frameworks */,
+				7F7880ED0D0B17EF00C607CE /* QSElements.framework in Frameworks */,
 				7F9A89970C497DD400B5912D /* QuickLookUI.framework in Frameworks */,
 				7F9A89980C497DD400B5912D /* Message.framework in Frameworks */,
 				7F9A89990C497DD400B5912D /* Security.framework in Frameworks */,
