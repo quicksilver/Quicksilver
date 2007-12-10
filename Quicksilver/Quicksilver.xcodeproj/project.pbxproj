@@ -641,6 +641,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		339FA7170D0DEFEC00906492 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F9A8BCD0C497EBB00B5912D /* Elements.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216 /* QSElements */;
+			remoteInfo = QSElements;
+		};
 		7F5D22560C49C1D900812049 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -2654,6 +2661,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				339FA7180D0DEFEC00906492 /* PBXTargetDependency */,
 			);
 			name = Core;
 			productName = Core;
@@ -2759,7 +2767,7 @@
 					ProjectRef = 7F2BF2E50C5BAE5500E80ABF /* QSSpotlightImporter.xcodeproj */;
 				},
 			);
-			projectRoot = "";
+			projectRoot = ..;
 			targets = (
 				7F9A7A630C49595900B5912D /* Quicksilver */,
 				8DC2EF4F0486A6940098B216 /* QSBase */,
@@ -3251,6 +3259,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		339FA7180D0DEFEC00906492 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = QSElements;
+			targetProxy = 339FA7170D0DEFEC00906492 /* PBXContainerItemProxy */;
+		};
 		7F5D22570C49C1D900812049 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7F5D22460C49C18400812049 /* Core */;
@@ -3516,6 +3529,7 @@
 		1DEB91B308733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
