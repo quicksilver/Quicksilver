@@ -304,7 +304,7 @@
 							<real>268</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>456 -146 912 805 0 0 1440 878 </string>
+						<string>455 73 912 805 0 0 2560 1578 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -341,7 +341,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {622, 0}}</string>
 								<key>RubberWindowFrame</key>
-								<string>456 -146 912 805 0 0 1440 878 </string>
+								<string>455 73 912 805 0 0 2560 1578 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -361,7 +361,7 @@
 								<key>Frame</key>
 								<string>{{0, 5}, {622, 759}}</string>
 								<key>RubberWindowFrame</key>
-								<string>456 -146 912 805 0 0 1440 878 </string>
+								<string>455 73 912 805 0 0 2560 1578 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -385,9 +385,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>7F78815C0D0B27B800C607CE</string>
+				<string>7F7881C80D0DFCF700C607CE</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>7F78815D0D0B27B800C607CE</string>
+				<string>7F7881C90D0DFCF700C607CE</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -525,7 +525,7 @@
 		<string>/Volumes/Lux/Alchemy/Alchemy-svn/trunk/Quicksilver/Quicksilver.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>456 -146 912 805 0 0 1440 878 </string>
+	<string>455 73 912 805 0 0 2560 1578 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
@@ -555,7 +555,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {848, 234}}</string>
 								<key>RubberWindowFrame</key>
-								<string>302 304 848 574 0 0 1440 878 </string>
+								<string>302 304 848 574 0 0 2560 1578 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -581,7 +581,7 @@
 								<key>Frame</key>
 								<string>{{0, 239}, {848, 294}}</string>
 								<key>RubberWindowFrame</key>
-								<string>302 304 848 574 0 0 1440 878 </string>
+								<string>302 304 848 574 0 0 2560 1578 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXBuildResultsModule</string>
@@ -604,14 +604,14 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>7FCCA23C0C8002B800A3CD14</string>
-				<string>7F7881630D0B2A4800C607CE</string>
+				<string>7F7881CA0D0DFCF700C607CE</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.buildV3</string>
 			<key>WindowString</key>
-			<string>302 304 848 574 0 0 1440 878 </string>
+			<string>302 304 848 574 0 0 2560 1578 </string>
 			<key>WindowToolGUID</key>
 			<string>7FCCA23C0C8002B800A3CD14</string>
 			<key>WindowToolIsVisible</key>
@@ -646,8 +646,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {493, 279}}</string>
-											<string>{{493, 0}, {497, 279}}</string>
+											<string>{{0, 0}, {493, 286}}</string>
+											<string>{{493, 0}, {497, 286}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -662,8 +662,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {990, 279}}</string>
-											<string>{{0, 279}, {990, 272}}</string>
+											<string>{{0, 0}, {990, 286}}</string>
+											<string>{{0, 286}, {990, 265}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -696,7 +696,7 @@
 										<real>267</real>
 									</array>
 									<key>Frame</key>
-									<string>{{493, 0}, {497, 279}}</string>
+									<string>{{493, 0}, {497, 286}}</string>
 									<key>RubberWindowFrame</key>
 									<string>47 100 990 592 0 0 1440 878 </string>
 								</dict>
@@ -724,13 +724,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>7F787FD90D0B03E900C607CE</string>
+				<string>7F7881650D0B2AEC00C607CE</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>7F787FDA0D0B03E900C607CE</string>
-				<string>7F787FDB0D0B03E900C607CE</string>
-				<string>7F787FDC0D0B03E900C607CE</string>
-				<string>7F787FDD0D0B03E900C607CE</string>
-				<string>7F787FDE0D0B03E900C607CE</string>
+				<string>7F7881660D0B2AEC00C607CE</string>
+				<string>7F7881670D0B2AEC00C607CE</string>
+				<string>7F7881680D0B2AEC00C607CE</string>
+				<string>7F7881690D0B2AEC00C607CE</string>
+				<string>7F78816A0D0B2AEC00C607CE</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -884,7 +884,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>7F787FEF0D0B048400C607CE</string>
+				<string>7F78816B0D0B2AEC00C607CE</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>
