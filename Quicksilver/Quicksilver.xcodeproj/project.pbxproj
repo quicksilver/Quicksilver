@@ -1682,7 +1682,7 @@
 		7F8B81990C49C639007FC200 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7F8B81A10C49C639007FC200 /* Cube Interface.bundle */,
+				7F8B81A10C49C639007FC200 /* Cube Interface.element */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2795,10 +2795,10 @@
 			remoteRef = 7F69D8870CDE367E002B6B3E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		7F8B81A10C49C639007FC200 /* Cube Interface.bundle */ = {
+		7F8B81A10C49C639007FC200 /* Cube Interface.element */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "Cube Interface.bundle";
+			path = "Cube Interface.element";
 			remoteRef = 7F8B81A00C49C639007FC200 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -3522,7 +3522,10 @@
 					i386,
 				);
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)";
+				FRAMEWORK_SEARCH_PATHS = (
+					/System/Library/PrivateFrameworks,
+					"$(BUILT_PRODUCTS_DIR)",
+				);
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
