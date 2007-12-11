@@ -59,7 +59,7 @@
 
 /* Begin PBXFileReference section */
 		332EA7DA0B99E35500614E3D /* element.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = element.xml; sourceTree = "<group>"; };
-		337357780BAC7B56000A47E2 /* Cube Interface.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Cube Interface.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		337357780BAC7B56000A47E2 /* Cube Interface.element */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Cube Interface.element"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F0149800A401C87006AF239 /* QSCubeInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCubeInterface.h; sourceTree = "<group>"; };
 		7F0149810A401C87006AF239 /* QSCubeInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCubeInterface.m; sourceTree = "<group>"; };
 		7F03F74E0A42C50B00B57270 /* QSCubeInterfaceBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCubeInterfaceBackgroundView.h; sourceTree = "<group>"; };
@@ -131,7 +131,7 @@
 		1ED78706FE9D4A0611CA0C5A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				337357780BAC7B56000A47E2 /* Cube Interface.bundle */,
+				337357780BAC7B56000A47E2 /* Cube Interface.element */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -210,7 +210,7 @@
 			name = "Cube Interface";
 			productInstallPath = "$(HOME)/Developer/Palettes";
 			productName = QSCubeInterfacePlugIn;
-			productReference = 337357780BAC7B56000A47E2 /* Cube Interface.bundle */;
+			productReference = 337357780BAC7B56000A47E2 /* Cube Interface.element */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -340,14 +340,8 @@
 /* Begin XCBuildConfiguration section */
 		337357760BAC7B56000A47E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7F6B29440CEC03B200267105 /* QSElement.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
-				);
-				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../../../Lore/Developer/build/Release\"";
-				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../../../Lore/Developer/build/Release\"";
 				PRODUCT_NAME = "Cube Interface";
 			};
 			name = Debug;
@@ -356,14 +350,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7F6B29440CEC03B200267105 /* QSElement.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
-				);
-				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../../../Lore/Developer/build/Release\"";
-				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../../../Lore/Developer/build/Release\"";
-				GCC_PREFIX_HEADER = ../../../Common/QSElement_Prefix.pch;
 				PRODUCT_NAME = "Cube Interface";
 			};
 			name = Release;
