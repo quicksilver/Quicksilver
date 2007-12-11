@@ -15,7 +15,6 @@
 		3373576D0BAC7B56000A47E2 /* QSShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F520AD50A50B20900A6671F /* QSShadowView.m */; };
 		3373576F0BAC7B56000A47E2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD92D38A0106425D02CA0E72 /* Cocoa.framework */; };
 		7F6B29450CEC03B200267105 /* QSElement.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7F6B29440CEC03B200267105 /* QSElement.xcconfig */; };
-		7F6B29560CEC041200267105 /* QSBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6B29550CEC041200267105 /* QSBase.framework */; };
 		7F7F19380C30B4A60074ECC3 /* QSCommandInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F19370C30B4A60074ECC3 /* QSCommandInterfaceController.m */; };
 		7F7F19830C30B9F30074ECC3 /* QSSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F19820C30B9F30074ECC3 /* QSSearchController.m */; };
 		7F7F1A210C30C7810074ECC3 /* QSCatalogSearchProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F1A200C30C7810074ECC3 /* QSCatalogSearchProvider.m */; };
@@ -60,8 +59,7 @@
 
 /* Begin PBXFileReference section */
 		332EA7DA0B99E35500614E3D /* element.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = element.xml; sourceTree = "<group>"; };
-		337357780BAC7B56000A47E2 /* Cube Interface.element */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Cube Interface.element"; sourceTree = BUILT_PRODUCTS_DIR; };
-		337357900BAC7BCA000A47E2 /* QSElements.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSElements.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		337357780BAC7B56000A47E2 /* Cube Interface.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Cube Interface.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F0149800A401C87006AF239 /* QSCubeInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCubeInterface.h; sourceTree = "<group>"; };
 		7F0149810A401C87006AF239 /* QSCubeInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCubeInterface.m; sourceTree = "<group>"; };
 		7F03F74E0A42C50B00B57270 /* QSCubeInterfaceBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCubeInterfaceBackgroundView.h; sourceTree = "<group>"; };
@@ -71,7 +69,6 @@
 		7F520AD50A50B20900A6671F /* QSShadowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSShadowView.m; sourceTree = "<group>"; };
 		7F6B29430CEC03B200267105 /* QSElement_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSElement_Prefix.pch; path = ../../../Common/QSElement_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		7F6B29440CEC03B200267105 /* QSElement.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = QSElement.xcconfig; path = ../../../Common/QSElement.xcconfig; sourceTree = SOURCE_ROOT; };
-		7F6B29550CEC041200267105 /* QSBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QSBase.framework; path = /Volumes/Lore/Developer/build/Release/QSBase.framework; sourceTree = "<absolute>"; };
 		7F73BBA60A51E9C500F854AB /* en */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7F7F19360C30B4A60074ECC3 /* QSCommandInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = QSCommandInterfaceController.h; path = ../../../Crucible/Code/QSCommandInterfaceController.h; sourceTree = SOURCE_ROOT; };
 		7F7F19370C30B4A60074ECC3 /* QSCommandInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = QSCommandInterfaceController.m; path = ../../../Crucible/Code/QSCommandInterfaceController.m; sourceTree = SOURCE_ROOT; };
@@ -100,7 +97,6 @@
 			files = (
 				3373576F0BAC7B56000A47E2 /* Cocoa.framework in Frameworks */,
 				7F8B81CD0C49C6A1007FC200 /* QSBase.framework in Frameworks */,
-				7F6B29560CEC041200267105 /* QSBase.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,7 +131,7 @@
 		1ED78706FE9D4A0611CA0C5A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				337357780BAC7B56000A47E2 /* Cube Interface.element */,
+				337357780BAC7B56000A47E2 /* Cube Interface.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -143,9 +139,7 @@
 		2E58F364FFB232C311CA0CBA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7F6B29550CEC041200267105 /* QSBase.framework */,
 				DD92D38A0106425D02CA0E72 /* Cocoa.framework */,
-				337357900BAC7BCA000A47E2 /* QSElements.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -216,7 +210,7 @@
 			name = "Cube Interface";
 			productInstallPath = "$(HOME)/Developer/Palettes";
 			productName = QSCubeInterfacePlugIn;
-			productReference = 337357780BAC7B56000A47E2 /* Cube Interface.element */;
+			productReference = 337357780BAC7B56000A47E2 /* Cube Interface.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -377,8 +371,18 @@
 		7F6B3EF0085CE8DF000735A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/$(CONFIGURATION_BUILD_DIR)\"";
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_ENABLE_OBJC_GC = supported;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ../../../Crucible/QSBase_Prefix.pch;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				PREBINDING = NO;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				SYMROOT = ../../../build;
+				WARNING_CFLAGS = "-Wall";
 			};
 			name = Debug;
 		};
@@ -389,10 +393,17 @@
 					ppc,
 					i386,
 				);
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/$(CONFIGURATION_BUILD_DIR)\"";
 				GCC_ENABLE_OBJC_GC = supported;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ../../../Crucible/QSBase_Prefix.pch;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				PREBINDING = NO;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
 				SYMROOT = ../../../build;
+				WARNING_CFLAGS = "-Wall";
 			};
 			name = Release;
 		};

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D9A1DAE0D0EA6600072DE55 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9A89950C497DD400B5912D /* Cocoa.framework */; };
+		4D9A1E240D0ED0C20072DE55 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9A89950C497DD400B5912D /* Cocoa.framework */; };
 		7F17F0620C4F172A001ADE1A /* DNDArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F17F0610C4F172A001ADE1A /* DNDArrayController.m */; };
 		7F17F1720C4F199D001ADE1A /* QSTitleToolbarItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F17F16E0C4F1983001ADE1A /* QSTitleToolbarItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F17F1730C4F199D001ADE1A /* QSTitleToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F17F16F0C4F1983001ADE1A /* QSTitleToolbarItem.m */; };
@@ -645,7 +647,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 7F9A8BCD0C497EBB00B5912D /* Elements.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216 /* QSElements */;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = QSElements;
 		};
 		7F5D22560C49C1D900812049 /* PBXContainerItemProxy */ = {
@@ -1483,6 +1485,7 @@
 				7F69D88C0CDE36EB002B6B3E /* QSElements.framework in Frameworks */,
 				7F5D22730C49C27500812049 /* QSBase.framework in Frameworks */,
 				7F5D24E70C49C48600812049 /* Carbon.framework in Frameworks */,
+				4D9A1DAE0D0EA6600072DE55 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1500,6 +1503,7 @@
 				7F8827720C498E7D00631170 /* Quartz.framework in Frameworks */,
 				7F8827730C498E7D00631170 /* QuartzCore.framework in Frameworks */,
 				7F88286A0C498F1C00631170 /* WebKit.framework in Frameworks */,
+				4D9A1E240D0ED0C20072DE55 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1678,7 +1682,7 @@
 		7F8B81990C49C639007FC200 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7F8B81A10C49C639007FC200 /* Cube Interface.element */,
+				7F8B81A10C49C639007FC200 /* Cube Interface.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2791,10 +2795,10 @@
 			remoteRef = 7F69D8870CDE367E002B6B3E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		7F8B81A10C49C639007FC200 /* Cube Interface.element */ = {
+		7F8B81A10C49C639007FC200 /* Cube Interface.bundle */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "Cube Interface.element";
+			path = "Cube Interface.bundle";
 			remoteRef = 7F8B81A00C49C639007FC200 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -3464,46 +3468,24 @@
 		1DEB91AE08733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-				);
-				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"";
 				FRAMEWORK_VERSION = A;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Framework/QSBase_Prefix.pch;
-				INFOPLIST_FILE = "Framework/QSBase-Info.plist";
+				GCC_PREFIX_HEADER = ../Crucible/QSBase_Prefix.pch;
+				INFOPLIST_FILE = "../Crucible/QSBase-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = QSBase;
 				WRAPPER_EXTENSION = framework;
-				ZERO_LINK = YES;
 			};
 			name = Debug;
 		};
 		1DEB91AF08733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
-				);
-				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"";
 				FRAMEWORK_VERSION = A;
-				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ../Crucible/QSBase_Prefix.pch;
 				INFOPLIST_FILE = "../Crucible/QSBase-Info.plist";
@@ -3516,123 +3498,84 @@
 		1DEB91B208733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					/System/Library/PrivateFrameworks,
+					"\"$(SRCROOT)/$(CONFIGURATION_BUILD_DIR)\"",
+				);
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_FOUR_CHARACTER_CONSTANTS = YES;
-				GCC_WARN_UNKNOWN_PRAGMAS = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PREBINDING = NO;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				SYMROOT = ../build;
+				WARNING_CFLAGS = "-Wall";
 			};
 			name = Debug;
 		};
 		1DEB91B308733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)";
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PREBINDING = NO;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				SYMROOT = ../build;
+				WARNING_CFLAGS = "-Wall";
 			};
 			name = Release;
 		};
 		7F5D224B0C49C18500812049 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Application/Quicksilver_Prefix.pch;
 				INFOPLIST_FILE = "CoreElement/QSCoreElement-Info.plist";
-				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = Core;
 				WRAPPER_EXTENSION = element;
-				ZERO_LINK = YES;
 			};
 			name = Debug;
 		};
 		7F5D224C0C49C18500812049 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Application/Quicksilver_Prefix.pch;
 				INFOPLIST_FILE = "CoreElement/QSCoreElement-Info.plist";
-				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = Core;
 				WRAPPER_EXTENSION = element;
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
 		7F9A7A670C49595900B5912D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Application/Quicksilver_Prefix.pch;
 				INFOPLIST_FILE = "Application/Quicksilver-Info.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = Quicksilver;
 				WRAPPER_EXTENSION = app;
-				ZERO_LINK = YES;
 			};
 			name = Debug;
 		};
 		7F9A7A680C49595900B5912D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Application/Quicksilver_Prefix.pch;
 				INFOPLIST_FILE = "Application/Quicksilver-Info.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = Quicksilver;
 				WRAPPER_EXTENSION = app;
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
