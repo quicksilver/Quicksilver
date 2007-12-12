@@ -38,13 +38,12 @@
 	BOOL external = NO;
 	NSURL *url = [request URL];
 	if ([[url scheme] isEqualToString:@"http"]) {
-		if ([[url host] hasPrefix:@"docs.blacktree.com"]) {
+		if ([[url host] hasPrefix:@"docs.blacktree.com"])
 			external = NO;
-		} else if ([[url host] hasPrefix:@"qs0.blacktree.com"]) {
-				external = NO;
-		} else {
-				external = YES;
-		}
+		else if ([[url host] hasPrefix:@"qs0.blacktree.com"])
+			external = NO;
+		else
+			external = YES;
 	} else if ([[url scheme] isEqualToString:@"file"]) {
 		external = NO;
 	} else {
