@@ -6,11 +6,31 @@
 	objectVersion = 44;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		4DF635410D10685700910FC0 /* Build All */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 4DF6354A0D10689000910FC0 /* Build configuration list for PBXAggregateTarget "Build All" */;
+			buildPhases = (
+				4DF635490D10689000910FC0 /* CopyFiles */,
+			);
+			dependencies = (
+				4DF635450D10685D00910FC0 /* PBXTargetDependency */,
+				4DF635470D10686200910FC0 /* PBXTargetDependency */,
+			);
+			name = "Build All";
+			productName = "Build All";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		4D7093B70D101CED008498FD /* QSBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7093B30D101CCE008498FD /* QSBase.framework */; };
 		4D7094C70D10215D008498FD /* QSBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7093B30D101CCE008498FD /* QSBase.framework */; };
 		4D9A1DAE0D0EA6600072DE55 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9A89950C497DD400B5912D /* Cocoa.framework */; };
 		4D9A1E240D0ED0C20072DE55 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9A89950C497DD400B5912D /* Cocoa.framework */; };
+		4DF635570D106A8000910FC0 /* QSBase.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7093B30D101CCE008498FD /* QSBase.framework */; };
+		4DF6357B0D10767E00910FC0 /* Apple Address Book.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4DF6353E0D10684300910FC0 /* Apple Address Book.bundle */; };
+		4DF6359D0D10777500910FC0 /* Cube Interface.element in Copy Main Plugins */ = {isa = PBXBuildFile; fileRef = 4DF635330D10682700910FC0 /* Cube Interface.element */; };
+		4DF6359E0D10777500910FC0 /* Core.element in Copy Main Plugins */ = {isa = PBXBuildFile; fileRef = 7F5D22470C49C18400812049 /* Core.element */; };
 		7F17F18C0C4F1FE6001ADE1A /* QSActionsPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D23090C49C3B700812049 /* QSActionsPrefPane.m */; };
 		7F17F18D0C4F1FE6001ADE1A /* QSAdvancedPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D230B0C49C3B700812049 /* QSAdvancedPrefPane.m */; };
 		7F17F18E0C4F1FE6001ADE1A /* QSCatalogPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D23170C49C3B700812049 /* QSCatalogPrefPane.m */; };
@@ -258,6 +278,41 @@
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = QSBase;
 		};
+		4DF635320D10682700910FC0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F8B81980C49C639007FC200 /* QSCubeInterfaceElement.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 337357780BAC7B56000A47E2 /* Cube Interface.element */;
+			remoteInfo = "Cube Interface";
+		};
+		4DF6353D0D10684300910FC0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DF635360D10684300910FC0 /* QSAddressBookElement.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D1AC9740486D14A00FE50C9 /* Apple Address Book.bundle */;
+			remoteInfo = "Apple Address Book";
+		};
+		4DF635440D10685D00910FC0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7F9A7A630C49595900B5912D /* Quicksilver */;
+			remoteInfo = Quicksilver;
+		};
+		4DF635460D10686200910FC0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DF635360D10684300910FC0 /* QSAddressBookElement.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D1AC9600486D14A00FE50C9 /* Apple Address Book */;
+			remoteInfo = "Apple Address Book";
+		};
+		4DF6359F0D10778400910FC0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F8B81980C49C639007FC200 /* QSCubeInterfaceElement.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 337357640BAC7B56000A47E2 /* Cube Interface */;
+			remoteInfo = "Cube Interface";
+		};
 		7F5D22560C49C1D900812049 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -278,20 +333,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 7FD829920B670EBD001934E0;
 			remoteInfo = "Elements Manager";
-		};
-		7F8B81A00C49C639007FC200 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7F8B81980C49C639007FC200 /* QSCubeInterfaceElement.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 337357780BAC7B56000A47E2;
-			remoteInfo = "Cube Interface";
-		};
-		7F8B81B10C49C657007FC200 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7F8B81980C49C639007FC200 /* QSCubeInterfaceElement.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 337357640BAC7B56000A47E2;
-			remoteInfo = "Cube Interface";
 		};
 		7FA7DB090C5CF0DB00A27607 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -331,6 +372,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		4DF635490D10689000910FC0 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Quicksilver.app/Contents/PlugIns;
+			dstSubfolderSpec = 16;
+			files = (
+				4DF6357B0D10767E00910FC0 /* Apple Address Book.bundle in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4DF6359C0D10777200910FC0 /* Copy Main Plugins */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				4DF6359D0D10777500910FC0 /* Cube Interface.element in Copy Main Plugins */,
+				4DF6359E0D10777500910FC0 /* Core.element in Copy Main Plugins */,
+			);
+			name = "Copy Main Plugins";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7F2BF3C70C5BAF3600E80ABF /* Copy Spotlight Importer */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -348,6 +411,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				4DF635570D106A8000910FC0 /* QSBase.framework in Copy Frameworks */,
 				7FE1D2F50CEC8D9900E19D9E /* QSElements.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
@@ -383,6 +447,7 @@
 		4DE9903D0D0F165C00593B3B /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
 		4DE9903E0D0F165C00593B3B /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		4DE9903F0D0F165C00593B3B /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		4DF635360D10684300910FC0 /* QSAddressBookElement.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QSAddressBookElement.xcodeproj; path = Plugins/com.apple.AddressBook/QSAddressBookElement.xcodeproj; sourceTree = "<group>"; };
 		7F2BF2E50C5BAE5500E80ABF /* QSSpotlightImporter.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QSSpotlightImporter.xcodeproj; path = Library/Spotlight/QSSpotlightImporter.xcodeproj; sourceTree = "<group>"; };
 		7F5D22470C49C18400812049 /* Core.element */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Core.element; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F5D23000C49C3B700812049 /* AppKitPrivate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AppKitPrivate.h; sourceTree = "<group>"; };
@@ -461,7 +526,7 @@
 		7F8827700C498E7D00631170 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
 		7F8827710C498E7D00631170 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		7F8828690C498F1C00631170 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
-		7F8B81980C49C639007FC200 /* QSCubeInterfaceElement.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QSCubeInterfaceElement.xcodeproj; path = "PlugIns-Main/CubeInterface/QSCubeInterfaceElement.xcodeproj"; sourceTree = "<group>"; };
+		7F8B81980C49C639007FC200 /* QSCubeInterfaceElement.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QSCubeInterfaceElement.xcodeproj; path = Plugins/CubeInterface/QSCubeInterfaceElement.xcodeproj; sourceTree = "<group>"; };
 		7F917AA90C5BEBBE00BF5B28 /* SilverDoc.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = SilverDoc.icns; sourceTree = "<group>"; };
 		7F9A7A640C49595900B5912D /* Quicksilver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quicksilver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F9A85830C497A8A00B5912D /* About.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = About.nib; sourceTree = "<group>"; };
@@ -731,6 +796,7 @@
 				7F8B81980C49C639007FC200 /* QSCubeInterfaceElement.xcodeproj */,
 				7FA7DB0B0C5CF0F100A27607 /* QSQuickLookGenerator.xcodeproj */,
 				7F2BF2E50C5BAE5500E80ABF /* QSSpotlightImporter.xcodeproj */,
+				4DF635350D10683100910FC0 /* Plugins */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
 			);
@@ -808,6 +874,30 @@
 			path = ../Configuration;
 			sourceTree = SOURCE_ROOT;
 		};
+		4DF6352F0D10682700910FC0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4DF635330D10682700910FC0 /* Cube Interface.element */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4DF635350D10683100910FC0 /* Plugins */ = {
+			isa = PBXGroup;
+			children = (
+				4DF635360D10684300910FC0 /* QSAddressBookElement.xcodeproj */,
+			);
+			name = Plugins;
+			sourceTree = "<group>";
+		};
+		4DF635370D10684300910FC0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4DF6353E0D10684300910FC0 /* Apple Address Book.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		7F5D22FF0C49C3B700812049 /* Code */ = {
 			isa = PBXGroup;
 			children = (
@@ -876,14 +966,6 @@
 			children = (
 				7F69D8860CDE367E002B6B3E /* QSElements.framework */,
 				7F69D8880CDE367E002B6B3E /* Elements Manager.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		7F8B81990C49C639007FC200 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7F8B81A10C49C639007FC200 /* Cube Interface.element */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1199,6 +1281,7 @@
 				7F9A8BDF0C497F1500B5912D /* Copy Frameworks */,
 				7F2BF3C70C5BAF3600E80ABF /* Copy Spotlight Importer */,
 				7FA7DB2F0C5CF13E00A27607 /* Copy Quick Look Generator */,
+				4DF6359C0D10777200910FC0 /* Copy Main Plugins */,
 				7F9A7A610C49595900B5912D /* Sources */,
 				7F9A7A620C49595900B5912D /* Frameworks */,
 			);
@@ -1208,9 +1291,9 @@
 				7FE1D31A0CEC8DAE00E19D9E /* PBXTargetDependency */,
 				4D7094D30D10223E008498FD /* PBXTargetDependency */,
 				7F5D22570C49C1D900812049 /* PBXTargetDependency */,
-				7F8B81B20C49C657007FC200 /* PBXTargetDependency */,
 				7FA7DB240C5CF12B00A27607 /* PBXTargetDependency */,
 				7FA7DB260C5CF12B00A27607 /* PBXTargetDependency */,
+				4DF635A00D10778400910FC0 /* PBXTargetDependency */,
 			);
 			name = Quicksilver;
 			productName = Quicksilver;
@@ -1262,7 +1345,11 @@
 					ProjectRef = 7F9A8BCD0C497EBB00B5912D /* Elements.xcodeproj */;
 				},
 				{
-					ProductGroup = 7F8B81990C49C639007FC200 /* Products */;
+					ProductGroup = 4DF635370D10684300910FC0 /* Products */;
+					ProjectRef = 4DF635360D10684300910FC0 /* QSAddressBookElement.xcodeproj */;
+				},
+				{
+					ProductGroup = 4DF6352F0D10682700910FC0 /* Products */;
 					ProjectRef = 7F8B81980C49C639007FC200 /* QSCubeInterfaceElement.xcodeproj */;
 				},
 				{
@@ -1278,6 +1365,7 @@
 			targets = (
 				7F9A7A630C49595900B5912D /* Quicksilver */,
 				7F5D22460C49C18400812049 /* Core */,
+				4DF635410D10685700910FC0 /* Build All */,
 			);
 		};
 /* End PBXProject section */
@@ -1288,6 +1376,20 @@
 			fileType = wrapper.framework;
 			path = QSBase.framework;
 			remoteRef = 4D7093B20D101CCE008498FD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4DF635330D10682700910FC0 /* Cube Interface.element */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Cube Interface.element";
+			remoteRef = 4DF635320D10682700910FC0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4DF6353E0D10684300910FC0 /* Apple Address Book.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Apple Address Book.bundle";
+			remoteRef = 4DF6353D0D10684300910FC0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7F69D8860CDE367E002B6B3E /* QSElements.framework */ = {
@@ -1302,13 +1404,6 @@
 			fileType = wrapper.application;
 			path = "Elements Manager.app";
 			remoteRef = 7F69D8870CDE367E002B6B3E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7F8B81A10C49C639007FC200 /* Cube Interface.element */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Cube Interface.element";
-			remoteRef = 7F8B81A00C49C639007FC200 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7FA7DB0A0C5CF0DB00A27607 /* Quicksilver.mdimporter */ = {
@@ -1579,15 +1674,25 @@
 			name = QSBase;
 			targetProxy = 4D7094D50D10225B008498FD /* PBXContainerItemProxy */;
 		};
+		4DF635450D10685D00910FC0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7F9A7A630C49595900B5912D /* Quicksilver */;
+			targetProxy = 4DF635440D10685D00910FC0 /* PBXContainerItemProxy */;
+		};
+		4DF635470D10686200910FC0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Apple Address Book";
+			targetProxy = 4DF635460D10686200910FC0 /* PBXContainerItemProxy */;
+		};
+		4DF635A00D10778400910FC0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Cube Interface";
+			targetProxy = 4DF6359F0D10778400910FC0 /* PBXContainerItemProxy */;
+		};
 		7F5D22570C49C1D900812049 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7F5D22460C49C18400812049 /* Core */;
 			targetProxy = 7F5D22560C49C1D900812049 /* PBXContainerItemProxy */;
-		};
-		7F8B81B20C49C657007FC200 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Cube Interface";
-			targetProxy = 7F8B81B10C49C657007FC200 /* PBXContainerItemProxy */;
 		};
 		7FA7DB240C5CF12B00A27607 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1780,6 +1885,20 @@
 			};
 			name = Release;
 		};
+		4DF635420D10685700910FC0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "Build All";
+			};
+			name = Debug;
+		};
+		4DF635430D10685700910FC0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "Build All";
+			};
+			name = Release;
+		};
 		7F5D224B0C49C18500812049 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D7094EE0D1026CC008498FD /* QSElement_Debug.xcconfig */;
@@ -1829,6 +1948,15 @@
 			buildConfigurations = (
 				1DEB91B208733DA50010E9CD /* Debug */,
 				1DEB91B308733DA50010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		4DF6354A0D10689000910FC0 /* Build configuration list for PBXAggregateTarget "Build All" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4DF635420D10685700910FC0 /* Debug */,
+				4DF635430D10685700910FC0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
