@@ -371,7 +371,6 @@
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		4D7093AE0D101CCE008498FD /* Crucible.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Crucible.xcodeproj; path = ../Crucible/Crucible.xcodeproj; sourceTree = SOURCE_ROOT; };
 		4D7094910D101E5E008498FD /* Quicksilver-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Quicksilver-Info.plist"; sourceTree = "<group>"; };
-		4D7094920D101E5E008498FD /* Quicksilver_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quicksilver_Prefix.pch; sourceTree = "<group>"; };
 		4D7094E90D102638008498FD /* QSElement_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSElement_Prefix.pch; sourceTree = "<group>"; };
 		4D7094EB0D102638008498FD /* QSPlugIn_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPlugIn_Prefix.pch; sourceTree = "<group>"; };
 		4D7094EE0D1026CC008498FD /* QSElement_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSElement_Debug.xcconfig; sourceTree = "<group>"; };
@@ -893,7 +892,6 @@
 			isa = PBXGroup;
 			children = (
 				4D7094910D101E5E008498FD /* Quicksilver-Info.plist */,
-				4D7094920D101E5E008498FD /* Quicksilver_Prefix.pch */,
 				7F7F963A0C49FB6600DE6B89 /* element.xml */,
 				7F5D22FF0C49C3B700812049 /* Code */,
 				7FE0BBBC0C4998610012249C /* Resources */,
