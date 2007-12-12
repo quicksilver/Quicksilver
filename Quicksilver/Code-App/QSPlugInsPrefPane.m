@@ -356,7 +356,7 @@
 			case 4: //UnInstalled
 				[predicates addObject:[NSPredicate predicateWithFormat:@"isInstalled <= 0"]];
 				break;
-			case 5: //New
+//			case 5: //New
 			default:
 				break;
 		}

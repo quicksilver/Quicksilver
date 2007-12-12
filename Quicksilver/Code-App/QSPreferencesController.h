@@ -1,12 +1,10 @@
-/* QSPreferencesController */
-
 #import <Cocoa/Cocoa.h>
 
 #import "QSPreferencePane.h"
 #include <PreferencePanes/PreferencePanes.h>
 #define kQSPreferencesSplitWidth @"QSPreferencesSplitWidth"
-@interface QSPreferencesController : NSWindowController
-{
+
+@interface QSPreferencesController : NSWindowController {
 	IBOutlet NSTextField *descView;
 	IBOutlet NSTableView *externalPrefsTable;
 	IBOutlet NSButton *helpButton;
@@ -46,7 +44,7 @@
 }
 //- (IBAction)back:(id)sender;
 //- (IBAction)next:(id)sender;
-- (IBAction)selectModule:(id)sender;
+//- (IBAction)selectModule:(id)sender;
 + (QSPreferencePane *)showPaneWithIdentifier:(NSString *)identifier;
 + (void)showPrefs;
 - (NSMutableArray *)modules;

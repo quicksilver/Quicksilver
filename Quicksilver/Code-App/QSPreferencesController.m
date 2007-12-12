@@ -57,14 +57,12 @@ id QSPrefs;
 	self = [super initWithWindowNibName:@"QSPreferences"];
 	if (self) {
 		modulesByID = [[NSMutableDictionary alloc] init];
-		modules = [[NSMutableArray arrayWithCapacity:1] retain];
-		[[NSNotificationCenter defaultCenter] addObserver:self
-												selector:@selector(applicationWillRelaunch:)
-													name:QSApplicationWillRelaunchNotification
-												 object:nil];
+		modules = [[NSMutableArray alloc] init];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillRelaunch:) name:QSApplicationWillRelaunchNotification object:nil];
 	}
 	return self;
 }
+
 - (void)applicationWillRelaunch:(NSNotification *)notif {
 	id theID;
 	if (theID = [[[moduleController selectedObjects] lastObject] objectForKey:kItemID])
@@ -86,13 +84,11 @@ id QSPrefs;
 	[settingsSplitView addSubview:settingsView];
 	[settingsSplitView adjustSubviews];
 	[self setShowSettings:YES];
-
 }
+
 - (void)preventEmptySelection {
-//	NSLog(@"avoid %d", 	[moduleController selectionIndex]);
 	[externalPrefsTable setAllowsEmptySelection:NO];
 	[moduleController setAvoidsEmptySelection:YES];
-
 	if ([moduleController selectionIndex] == NSNotFound)
 		[moduleController setSelectionIndex:0];
 }
@@ -102,7 +98,6 @@ id QSPrefs;
 }
 
 - (QSPreferencePane *)showPaneWithIdentifier:(NSString *)identifier {
-
 	[NSApp activateIgnoringOtherApps:YES];
 	[self showWindow:nil];
 	[self selectPaneWithIdentifier:identifier];
@@ -123,6 +118,7 @@ id QSPrefs;
 	[self loadPlugInInfo:notif];
 	reloading = NO;
 }
+
 - (void)loadPlugInInfo:(NSNotification *)notif {
 	//	NSString *currentPaneID = nil;
 	//	if ([modules count] && [internalPrefsTable selectedRow] >= 0)
@@ -146,27 +142,26 @@ id QSPrefs;
 		if ([[paneInfo objectForKey:@"feature"] intValue] >[NSApp featureLevel]) continue;
 
 		NSString *imageName = [paneInfo objectForKey:@"icon"];
-		NSImage *image = [[[QSResourceManager imageNamed:imageName] copy] autorelease];
+		NSImage *image = [[QSResourceManager imageNamed:imageName] copy];
 		if (image) {
 			[image createIconRepresentations];
 			[paneInfo setObject:image forKey:@"image"];
 		}
+		[image release];
 		if ([paneInfo objectForKey:@"name"])
-		[paneInfo setObject:[paneInfo objectForKey:@"name"] forKey:@"text"];
+			[paneInfo setObject:[paneInfo objectForKey:@"name"] forKey:@"text"];
 		[paneInfo setObject:paneKey forKey:kItemID];
 		//	NSPreferencePane * obj = [QSReg getClassInstance:paneClass];
-
 		if (paneInfo) {
 			[modulesByID setObject:paneInfo forKey:paneKey];
 			//[newModules addObject:paneInfo];
 		}
 	}
 
-	//NSLog(@"modules: %@", modulesByID);
-	NSSortDescriptor *nameDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)] autorelease];
-	NSSortDescriptor *orderDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"priority" ascending:NO] autorelease];
-
+	NSSortDescriptor *nameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)];
+	NSSortDescriptor *orderDescriptor = [[NSSortDescriptor alloc] initWithKey:@"priority" ascending:NO];
 	NSMutableArray *sidebarModules = (NSMutableArray *)[[modulesByID allValues] sortedArrayUsingDescriptors:[NSArray arrayWithObjects:orderDescriptor, nameDescriptor, nil]];
+	[nameDescriptor release]; [orderDescriptor release];
 	[sidebarModules filterUsingPredicate:[NSPredicate predicateWithFormat:@"not type like[cd] 'toolbar'"]];
 	[sidebarModules filterUsingPredicate:[NSPredicate predicateWithFormat:@"not type like[cd] 'hidden'"]];
 	NSArray *plugInModules = [sidebarModules filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"not type like[cd] 'main'"]];
@@ -174,8 +169,9 @@ id QSPrefs;
 
 	[sidebarModules addObject:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"separator"]];
 	[sidebarModules addObjectsFromArray:plugInModules];
-
-	[self setModules:[[sidebarModules mutableCopy] autorelease]];
+	id mSidebarModules = [sidebarModules mutableCopy];
+	[self setModules:mSidebarModules];
+	[mSidebarModules release];
 	//	int index = [[modules valueForKey:kItemID] indexOfObject:currentPaneID];
 	//	if (index != NSNotFound) [internalPrefsTable selectRow:index byExtendingSelection:NO];
 	//
@@ -196,6 +192,7 @@ id QSPrefs;
 	[[NSUserDefaults standardUserDefaults] synchronize];
 	return YES;
 }
+
 - (void)setWindowTitleWithInfo:(NSDictionary *)info {
 	NSImage *image = info?[QSResourceManager imageNamed:[info objectForKey:kItemIcon]]:nil;
 	NSString *string = [info objectForKey:kItemName];
@@ -203,27 +200,23 @@ id QSPrefs;
 	if (!string) string = @"Preferences";
 	if (!image) image = [QSResourceManager imageNamed:@"prefsGeneral"];
 	if (!path) path = @"~/Library/Preferences/com.blacktree.Quicksilver.plist";
-
 	[[self window] setTitle:string];
-		[[self window] setRepresentedFilename:[path stringByStandardizingPath]];
+	[[self window] setRepresentedFilename:[path stringByStandardizingPath]];
 	[[[self window] standardWindowButton:NSWindowDocumentIconButton] setImage:[image duplicateOfSize:QSSize16]];
-
 }
 
 - (void)windowDidLoad {
-	[[self window] center];
-	[[self window] setFrameAutosaveName:@"preferences"];
+	NSWindow *win = [self window];
+	[win center];
+	[win setFrameAutosaveName:@"preferences"];
 
-	[[self window] setFrame:constrainRectToRect([[self window] frame] , [[[self window] screen] frame]) display:YES];
-	NSRect frame = [[self window] frame];
-	frame = constrainRectToRect(frame, [[[self window] screen] visibleFrame]);
-	[[self window] setFrame:frame display:YES];
+	[win setFrame:constrainRectToRect([win frame], [[win screen] frame]) display:YES];
+	NSRect frame = [win frame];
+	frame = constrainRectToRect(frame, [[win screen] visibleFrame]);
+	[win setFrame:frame display:YES];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadPlugInInfo:) name:QSPlugInLoadedNotification object:nil];
-	[moduleController addObserver:self
-					  forKeyPath:@"selectedObjects"
-						 options:0
-						 context:nil];
+	[moduleController addObserver:self forKeyPath:@"selectedObjects" options:0 context:nil];
 
 	[self loadPlugInInfo:nil];
 
@@ -237,16 +230,14 @@ id QSPrefs;
 	// if ([[toolbar class] instancesRespondToSelector:@selector(setSelectedItemIdentifier:)])
 	//	 [toolbar performSelector:@selector(setSelectedItemIdentifier:) withObject:[[toolbarTabView selectedTabViewItem] identifier]];
 
-	[[self window] setToolbar:toolbar];
-
-	//	[self selectModule:nil];
+	[win setToolbar:toolbar];
 	if (defaultBool(@"QSSkipGuide") ) {
-	//	[toolbar setSelectedItemIdentifier:@"QSSettingsPanePlaceholder"];
 		[self selectPaneWithIdentifier:@"QSSettingsPanePlaceholder"];
 	} else {
 		[toolbar setSelectedItemIdentifier:@"QSMainMenuPrefPane"];
 		[self selectPaneWithIdentifier:@"QSMainMenuPrefPane"];
 	}
+	[toolbar release];
 }
 
 - (BOOL)relaunchRequested {
@@ -275,26 +266,25 @@ id QSPrefs;
 //	}
 //	return nil;
 //}
-	- (float) tableView:(NSTableView *)tableView heightOfRow:(int)row {
-	if ([[modules objectAtIndex:row] objectForKey:@"separator"]) return 8;
-	return 16; //return [[[modules objectAtIndex:row] objectForKey:@"type"] isEqualToString:@"Main"] ?32:16;
-	}
-- (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(int)rowIndex {
-	if (aTableView == internalPrefsTable) {
-		return ![self tableView:aTableView rowIsSeparator:rowIndex];
-	}
-	return NO;
-}
-- (BOOL)tableView:(NSTableView *)aTableView rowIsSeparator:(int)rowIndex {
 
-	if (aTableView == internalPrefsTable) {
+- (float) tableView:(NSTableView *)tableView heightOfRow:(int)row {
+	return ([[modules objectAtIndex:row] objectForKey:@"separator"]) ? 8 : 16;
+	//return [[[modules objectAtIndex:row] objectForKey:@"type"] isEqualToString:@"Main"] ?32:16;
+}
+
+- (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(int)rowIndex {
+	return (aTableView == internalPrefsTable) ? ![self tableView:aTableView rowIsSeparator:rowIndex] : NO;
+}
+
+- (BOOL)tableView:(NSTableView *)aTableView rowIsSeparator:(int)rowIndex {
+	if (aTableView == internalPrefsTable)
 		return nil != [[modules objectAtIndex:rowIndex] objectForKey:@"separator"];
-	}
-	return NO;
+	else
+		return NO;
 }
 
 - (BOOL)tableView:(NSTableView *)tableView shouldShowCellExpansionForTableColumn:(NSTableColumn *)tableColumn row:(int)row {
- return NO;
+	return NO;
 }
 
 //- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
@@ -323,19 +313,16 @@ id QSPrefs;
 	return view;
 }
 
-- (IBAction)selectModule:(id)sender {
+//- (IBAction)selectModule:(id)sender {}
 
-}
 - (NSRect) windowWillUseStandardFrame:(NSWindow *)sender defaultFrame:(NSRect)defaultFrame {
 	return NSMakeRect(16, 16, 536, NSHeight(defaultFrame) -32);
 }
 
 - (id)windowWillReturnFieldEditor:(NSWindow *)sender toObject:(id)anObject {
-	if ([currentPane respondsToSelector:@selector(windowWillReturnFieldEditor:toObject:)])
-		return [currentPane windowWillReturnFieldEditor:sender toObject:anObject];
-	return nil;
-
+	return ([currentPane respondsToSelector:@selector(windowWillReturnFieldEditor:toObject:)]) ? [currentPane windowWillReturnFieldEditor:sender toObject:anObject] : nil;
 }
+
 - (NSMutableArray *)modules { return modules;  }
 - (void)setModules:(NSMutableArray *)newModules {
 	if(newModules != modules){
@@ -346,29 +333,23 @@ id QSPrefs;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	NSArray *selection = [object selectedObjects];
-	//NSLog(@"change %@", selection);
 	if (!reloading) {
-	[self setPaneForInfo:[selection count] ?[selection lastObject] :nil switchSection:NO];
+		[self setPaneForInfo:[selection count] ? [selection lastObject] : nil switchSection:NO];
 	}
 }
 
 //Toolbar
 - (void)selectPane:(id)sender {
-	NSString * identifier = [sender itemIdentifier];
-	//BOOL shouldShowSettings = NO;
 //	NSMutableDictionary *info = [modulesByID objectForKey:identifier];
-
-	[self selectPaneWithIdentifier:identifier];
-
+	[self selectPaneWithIdentifier:[sender itemIdentifier]];
 }
+
 - (void)selectPaneWithIdentifier:(NSString *)identifier {
 	NSMutableDictionary *info = [modulesByID objectForKey:identifier];
 	if (info) {
 		[self setPaneForInfo:info switchSection:YES];
 	} else if ([identifier isEqualToString:@"QSSettingsPanePlaceholder"]) {
-
 		[self selectSettingsPane:nil];
-		//NSLog(@"back");
 		[toolbar setSelectedItemIdentifier:@"QSSettingsPanePlaceholder"];
 		[self preventEmptySelection];
 	}
@@ -376,13 +357,11 @@ id QSPrefs;
 
 - (void)selectSettingsPane:(id)sender {
 	NSArray *selection = [moduleController selectedObjects];
-	NSString *identifier = nil;
 	if (![selection count]) {
 		[moduleController setSelectionIndex:0];
-selection = [moduleController selectedObjects];
+		selection = [moduleController selectedObjects];
 	}
-		identifier = [[selection lastObject] objectForKey:kItemID];
-	[self selectPaneWithIdentifier:identifier];
+	[self selectPaneWithIdentifier:[[selection lastObject] objectForKey:kItemID]];
 }
 
 - (void)setPaneForInfo:(NSMutableDictionary *)info switchSection:(BOOL)switchSection {
@@ -407,7 +386,6 @@ selection = [moduleController selectedObjects];
 	id instance = [info objectForKey:@"instance"];
 	if (!instance) {
 		instance = [[[[QSReg getClass:[info objectForKey:@"class"]]alloc] init] autorelease];
-//		NSLog(@"instance %@", instance);
 		if (instance) {
 			if ([instance respondsToSelector:@selector(setInfo:)])
 				[instance setInfo:info];
@@ -429,7 +407,7 @@ selection = [moduleController selectedObjects];
 	[newPane willSelect];
 	[oldPane willUnselect];
 
-	[[self window] _hideAllDrawers] ;
+	[[self window] _hideAllDrawers];
 
 // Help button
 	[helpButton setEnabled:[newPane respondsToSelector:@selector(showPaneHelp:)]];
@@ -454,7 +432,7 @@ selection = [moduleController selectedObjects];
 
 	}
 
-	float height = [[newPane mainView] frame] .size.height;
+	float height = [[newPane mainView] frame].size.height;
 	BOOL dynamicSize = height >= 384;
 
 	[prefsBox setContentView:nil];
@@ -511,11 +489,9 @@ selection = [moduleController selectedObjects];
 	[toolbarTitleView display];
 	[loadingProgress stopAnimation:nil];
 }
+
 - (void)matchSplitView:(NSSplitView *)split {
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											selector:@selector(splitViewDidResizeSubviews:)
-												name:NSSplitViewDidResizeSubviewsNotification
-											 object:split];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(splitViewDidResizeSubviews:) name:NSSplitViewDidResizeSubviewsNotification object:split];
 
 	NSArray *subviews = [split subviews];
 	NSRect frame0 = [[subviews objectAtIndex:0] frame];
@@ -553,24 +529,19 @@ selection = [moduleController selectedObjects];
 }
 
 - (BOOL)respondsToSelector:(SEL)aSelector {
-	if ([super respondsToSelector:aSelector])
-		return YES;
-	//NSLog(@"selector %@", NSStringFromSelector(aSelector) );
-	return [currentPane respondsToSelector:aSelector];
+	return ([super respondsToSelector:aSelector]) ? YES : [currentPane respondsToSelector:aSelector];
 }
 
 - (void)forwardInvocation:(NSInvocation *)invocation {
-	// NSLog(@"forward %@", invocation);
 	if ([currentPane respondsToSelector:[invocation selector]])
 		[invocation invokeWithTarget:currentPane];
 	else
 		[self doesNotRecognizeSelector:[invocation selector]];
 }
-//
+
 - (NSMethodSignature*)methodSignatureForSelector:(SEL)sel {
 	NSMethodSignature *sig = [[self class] instanceMethodSignatureForSelector:sel];
-	if (sig) return sig;
-	return [currentPane methodSignatureForSelector:sel];
+	return (sig) ? sig : [currentPane methodSignatureForSelector:sel];
 }
 
 - (NSMutableDictionary *)currentPaneInfo { return currentPaneInfo;  }
@@ -586,7 +557,7 @@ selection = [moduleController selectedObjects];
 	if (!showingSettings) { // show them
 		//NSLog(@"show %d", flag);
 		[mainBox setContentView:settingsSplitView];
-			[self matchSplitView:settingsSplitView];
+		[self matchSplitView:settingsSplitView];
 		showingSettings = YES;
 	} else { // hide them
 		  //			NSLog(@"hide %d", flag);
@@ -594,19 +565,18 @@ selection = [moduleController selectedObjects];
 		[mainBox setContentView:nil]; //settingsPrefsBox];
 		showingSettings = NO;
 	}
-
 }
 
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag {
 	if ([itemIdentifier isEqualToString:@"QSSettingsPanePlaceholder"]) {
-		NSToolbarItem *newItem = [[[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier] autorelease];
+		NSToolbarItem *newItem = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
 		[newItem setLabel:@"Preferences"];
 		[newItem setPaletteLabel:@"Preferences"];
 		[newItem setImage:[QSResourceManager imageNamed:@"Pref-Settings"]];
 		[newItem setToolTip:@"Application and Plug-in Preferences"];
 		[newItem setTarget:self];
 		[newItem setAction:@selector(selectSettingsPane:)];
-		return newItem;
+		return [newItem autorelease];
 	}
 //	if ([itemIdentifier isEqualToString:@"QSToolbarHistoryView"]) {
 //		NSToolbarItem *newItem = [[[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier] autorelease];
@@ -617,20 +587,16 @@ selection = [moduleController selectedObjects];
 //		[newItem setEnabled:YES];
 //		return newItem;
 //	}
-	if ([itemIdentifier isEqualToString:@"QSToolbarTitleView"]) {
-		QSTitleToolbarItem *newItem = [[[QSTitleToolbarItem alloc] initWithItemIdentifier:itemIdentifier] autorelease];
+	else if ([itemIdentifier isEqualToString:@"QSToolbarTitleView"]) {
+		QSTitleToolbarItem *newItem = [[QSTitleToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
 		[newItem setLabel:@"Title"];
 		[newItem setPaletteLabel:@"Location"];
 		[newItem setView:toolbarTitleView];
 		[newItem setMinSize:NSMakeSize(128, 32)];
-
 		[newItem setMaxSize:NSMakeSize(512, 48)];
 		[newItem setEnabled:YES];
-	//	NSLog(@"ident %@", [toolbarTitleView subviews]);
-
 		//[toolbarTitleView setColor:[NSColor whiteColor]];
-		return newItem;
-
+		return [newItem autorelease];
 	}
 
 	NSDictionary *info = [modulesByID objectForKey:itemIdentifier];
@@ -638,37 +604,35 @@ selection = [moduleController selectedObjects];
 	//if (index == NSNotFound) return nil;
 	//NSTabViewItem *tabViewItem = [toolbarTabView tabViewItemAtIndex:index];
 	//NSLog(@"tool %@", info);
-	NSToolbarItem *newItem = [[[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier] autorelease];
+	NSToolbarItem *newItem = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
 	[newItem setLabel:[info objectForKey:@"name"]];
 	[newItem setPaletteLabel:[info objectForKey:@"name"]];
 	[newItem setImage:[QSResourceManager imageNamed:[info objectForKey:@"icon"]]];
 	[newItem setToolTip:[info objectForKey:@"description"]];
 	[newItem setTarget:self];
 	[newItem setAction:@selector(selectPane:)];
-	return newItem;
-	return nil;
+	return [newItem autorelease];
 }
 
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)toolbar {
 	return [NSArray arrayWithObjects:@"QSToolbarTitleView", @"QSMainMenuPrefPane", NSToolbarSeparatorItemIdentifier, @"QSSettingsPanePlaceholder", @"QSTriggersPrefPane", @"QSCatalogPrefPane", @"QSPlugInsPrefPane", nil];
 //	return [self toolbarAllowedItemIdentifiers:toolbar];
 }
+
 - (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)theToolbar {
 	return [self toolbarAllowedItemIdentifiers:theToolbar];
 }
+
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar {
 	NSMutableArray *array = [NSMutableArray array];
-	NSArray *theModules = [[modulesByID allValues] filteredArrayUsingPredicate:
-	[NSPredicate predicateWithFormat:@"type like[cd] 'toolbar'"]];
+	NSArray *theModules = [[modulesByID allValues] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"type like[cd] 'toolbar'"]];
 	//[array addObject:@"QSToolbarHistoryView"];
 	[array addObject:@"QSSettingsPanePlaceholder"];
 	[array addObject:@"QSToolbarTitleView"];
 	[array addObjectsFromArray:[theModules valueForKey:kItemID]];
-
 	[array addObject:NSToolbarFlexibleSpaceItemIdentifier];
 	[array addObject:NSToolbarSeparatorItemIdentifier];
 	[array addObject:NSToolbarSpaceItemIdentifier];
-
 	return array;
 }
 
@@ -679,18 +643,12 @@ selection = [moduleController selectedObjects];
 //- (void)splitView:(NSSplitView *)sender resizeSubviewsWithOldSize:(NSSize)oldSize;
 
 - (float) splitView:(NSSplitView *)sender constrainMaxCoordinate:(float)proposedMax ofSubviewAt:(int)offset {
-//	NSLog(@"constrainMax: %f, %d", proposedMax, offset);
 	// return proposedMax-36;
 	return proposedMax - 384;
 }
 
 - (float) splitView:(NSSplitView *)sender constrainMinCoordinate:(float)proposedMin ofSubviewAt:(int)offset {
-  // NSLog(@"constrainMin: %f, %d", proposedMin, offset);
-
-	if (offset)
-		return NSWidth([sender frame]) /2;
-	return 160;
-//	return proposedMin;
+	return (offset) ? NSWidth([sender frame]) / 2 : 160;
 }
 
 - (void)splitView:(NSSplitView *)sender resizeSubviewsWithOldSize:(NSSize)oldSize {
