@@ -8,16 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 
-
 @interface QSCatalogEntry : NSObject {
 	NSDate *indexDate;
 	BOOL isPreset;
-	
+
 	NSString *name;
 
 	id parent;
 	NSMutableArray *children;
-	
+
 	NSMutableDictionary *info;
 	NSMutableArray *contents;
 	NSBundle *bundle;
@@ -37,8 +36,8 @@
 - (BOOL)isPreset;
 - (BOOL)isSeparator;
 - (BOOL)isGroup;
-- (int)state;
-- (int)hasEnabledChildren;
+- (int) state;
+- (int) hasEnabledChildren;
 - (BOOL)isEnabled;
 - (void)setEnabled:(BOOL)enabled;
 - (void)setDeepEnabled:(BOOL)enabled;
@@ -46,11 +45,11 @@
 - (NSArray *)leafIDs;
 - (NSArray *)leafEntries;
 - (NSArray *)deepChildrenWithGroups:(BOOL)groups leaves:(BOOL)leaves disabled:(BOOL)disabled;
-- (NSString *) identifier;
+- (NSString *)identifier;
 - (NSArray *)ancestors;
-- (NSString *) name;
-- (NSImage *) icon;
-- (int)deepObjectCount;
+- (NSString *)name;
+- (NSImage *)icon;
+- (int) deepObjectCount;
 - (BOOL)loadIndex;
 - (void)saveIndex;
 - (BOOL)indexIsValid;
@@ -77,5 +76,8 @@
 - (NSMutableDictionary *)info;
 - (BOOL)isScanning;
 - (void)setIsScanning:(BOOL)flag;
-- (NSString *)countString;
+//- (NSString *)countString;
+
+- (int) count;
+- (NSIndexPath *)catalogSetIndexPath;
 @end

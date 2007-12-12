@@ -5,8 +5,8 @@
 #import "QSInterfaceController.h"
 
 @interface QSResizingInterfaceController : QSInterfaceController {
-    BOOL expanded;
-    NSTimer *expandTimer;
+	BOOL expanded;
+	NSTimer *expandTimer;
 }
 - (void)resetAdjustTimer;
 - (void)expandWindow:(id)sender;

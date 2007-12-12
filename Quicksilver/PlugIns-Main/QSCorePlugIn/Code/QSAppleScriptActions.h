@@ -19,7 +19,7 @@
 #define kQSOpenTextScriptCommand 'opnt'
 
 
-@interface QSAppleScriptActions : QSActionProvider 
+@interface QSAppleScriptActions : QSActionProvider
 - (void)runAppleScript:(NSString *)scriptPath withArguments:(QSObject *)iObject;
 @end
 

@@ -10,18 +10,18 @@
 
 /* Window ordering mode. */
 enum {
-    NSLeftStatusItemPriority		=  0,  		//  Status item is to left of others
-    NSNormalStatusItemPriority		=  1000,  	//  Status item ordered normally
-    NSRightStatusItemPriority		=  8001,  	//  Status item is to right of others
-	NSFarRightStatusItemPriority	=  INT_MAX 	//  Status item is to right of menu extras
+	NSLeftStatusItemPriority		 = 0, 		//  Status item is to left of others
+	NSNormalStatusItemPriority		 = 1000, 	//  Status item ordered normally
+	NSRightStatusItemPriority		 = 8001, 	//  Status item is to right of others
+	NSFarRightStatusItemPriority	 = INT_MAX 	//  Status item is to right of menu extras
 };
-
-
 
 @interface NSStatusBar (Priority)
 - (id)_statusItemWithLength:(float)length withPriority:(int)priority;
 @end
 
+#if 0
 @interface NSStatusItem (Priority)
-- (int)priority;
+- (int) priority;
 @end
+#endif

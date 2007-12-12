@@ -9,17 +9,17 @@
 @interface QSImageAndTextCell : NSTextFieldCell {
 	BOOL editing;
 	@private
-    NSImage	*image;
+	NSImage	*image;
 	NSSize imageSize;
 }
 
 - (void)setImage:(NSImage *)anImage;
 - (NSImage *)image;
-- (float)imageWidthForFrame:(NSRect)frame;
+- (float) imageWidthForFrame:(NSRect)frame;
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView;
-- (NSSize)cellSize;
-- (NSRect)textRectForFrame:(NSRect)frame;
+- (NSSize) cellSize;
+- (NSRect) textRectForFrame:(NSRect)frame;
 - (NSSize) imageSize;
-- (void) setImageSize: (NSSize) newImageSize;
+- (void)setImageSize: (NSSize) newImageSize;
 
 @end

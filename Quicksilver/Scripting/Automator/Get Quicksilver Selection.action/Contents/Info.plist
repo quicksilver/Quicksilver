@@ -10,6 +10,8 @@
 	<false/>
 	<key>AMCategory</key>
 	<string>Find</string>
+	<key>AMDSummary</key>
+	<string>Returns the items currently selected in Quicksilver</string>
 	<key>AMDefaultParameters</key>
 	<dict/>
 	<key>AMDescription</key>
@@ -56,6 +58,8 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>© 2005 Blacktree, Inc.</string>
 	<key>NSPrincipalClass</key>
 	<string>QSAutomatorGet</string>
 </dict>

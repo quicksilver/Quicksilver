@@ -1,9 +1,9 @@
 //
-//  QSProxyObjectSource.m
-//  Quicksilver
+// QSProxyObjectSource.m
+// Quicksilver
 //
-//  Created by Alcor on 1/16/05.
-//  Copyright 2005 Blacktree. All rights reserved.
+// Created by Alcor on 1/16/05.
+// Copyright 2005 Blacktree. All rights reserved.
 //
 
 #import "QSProxyObjectSource.h"
@@ -12,52 +12,50 @@
 #import "QSObject.h"
 #import "QSResourceManager.h"
 
-
 @implementation QSProxyObjectSource
 
-
-- (BOOL)entryCanBeIndexed:(NSDictionary *)theEntry{return NO;}
-- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry{
+- (BOOL)entryCanBeIndexed:(NSDictionary *)theEntry {return NO;}
+- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry {
 	return NO;
 }
 
-- (NSImage *) iconForEntry:(NSDictionary *)dict{
-    return [QSResourceManager imageNamed:@"Object"];
-	
+- (NSImage *)iconForEntry:(NSDictionary *)dict {
+	return [QSResourceManager imageNamed:@"Object"];
+
 }
-- (NSString *)detailsOfObject:(QSObject *)object{
+- (NSString *)detailsOfObject:(QSObject *)object {
 	return @"Proxy Object";
 }
-- (NSArray *) objectsForEntry:(NSDictionary *)theEntry{
-	//if (VERBOSE)NSLog(@"rescanning proxies");
-	NSDictionary *messages=[QSReg tableNamed:@"QSProxies"];
-	NSMutableArray *array=[NSMutableArray arrayWithCapacity:[messages count]];
-	NSEnumerator *ke=[messages keyEnumerator];
+- (NSArray *)objectsForEntry:(NSDictionary *)theEntry {
+	//if (VERBOSE) NSLog(@"rescanning proxies");
+	NSDictionary *messages = [QSReg tableNamed:@"QSProxies"];
+	NSMutableArray *array = [NSMutableArray arrayWithCapacity:[messages count]];
+	NSEnumerator *ke = [messages keyEnumerator];
 	NSString *key;
 	QSObject *proxyObject;
 	NSDictionary *info;
 	NSString *name;
-	while (key=[ke nextObject]){
-		info=[messages objectForKey:key];
-		if ([info objectForKey:@"enabled"] && ![[info objectForKey:@"enabled"]boolValue])continue;
-		proxyObject=[QSProxyObject makeObjectWithIdentifier:key];
+	while (key = [ke nextObject]) {
+		info = [messages objectForKey:key];
+		if ([info objectForKey:@"enabled"] && ![[info objectForKey:@"enabled"] boolValue]) continue;
+		proxyObject = [QSProxyObject makeObjectWithIdentifier:key];
 		[proxyObject setObject:info forType:QSProxyType];
-		if (name=[info objectForKey:@"name"])
+		if (name = [info objectForKey:@"name"])
 			[proxyObject setName:name];
-		if (name=[info objectForKey:@"icon"])
+		if (name = [info objectForKey:@"icon"])
 			[proxyObject setObject:name forMeta:kQSObjectIconName];
 		[proxyObject setPrimaryType:QSProxyType];
-		
-	//	NSLog(@"key %@ %@",key,NSStproxyObject);
+
+	//	NSLog(@"key %@ %@", key, NSStproxyObject);
 		if (proxyObject)
 			[array addObject:proxyObject];
 	}
 	return array;
 }
-- (BOOL)loadChildrenForObject:(QSObject *)object{
+- (BOOL)loadChildrenForObject:(QSObject *)object {
 
-	id proxyTarget=[object proxyObject];
-	if (proxyTarget){
+	id proxyTarget = [object proxyObject];
+	if (proxyTarget) {
 		[object setChildren:[NSArray arrayWithObject:proxyTarget]];
 		return YES;
 	}

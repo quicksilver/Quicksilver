@@ -17,9 +17,9 @@
 
 #import "QSObject.h"
 @protocol QSProxyObjectProvider
--(id)resolveProxyObject:(id)proxy;
--(NSArray *)typesForProxyObject:(id)proxy;
--(NSTimeInterval)cacheTimeForProxy:(id)proxy;
+- (id)resolveProxyObject:(id)proxy;
+- (NSArray *)typesForProxyObject:(id)proxy;
+- (NSTimeInterval) cacheTimeForProxy:(id)proxy;
 @end
 
 @interface QSProxyObject : QSObject
@@ -30,7 +30,7 @@
 - (id)_safeObjectForType:(id)aKey;
 
 
--(BOOL)bypassValidation;
+- (BOOL)bypassValidation;
 @end
 
 @interface QSObject (QSProxyObject)

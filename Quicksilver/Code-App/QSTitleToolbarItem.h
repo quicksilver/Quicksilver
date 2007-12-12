@@ -1,5 +1,5 @@
 //
-//  QSTitleToolbarView.h
+//  QSTitleToolbarItem.h
 //  Quicksilver
 //
 //  Created by Nicholas Jitkoff on 4/25/06.

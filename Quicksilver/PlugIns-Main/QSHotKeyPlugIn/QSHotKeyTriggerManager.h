@@ -6,11 +6,16 @@
 //  Copyright (c) 2004 __MyCompanyName__. All rights reserved.
 //
 
+#import <Cocoa/Cocoa.h>
+#import <QSFoundation/QSFoundation.h>
+#import <QSCore/QSCore.h>
 #import <Foundation/Foundation.h>
 #import <QSCore/QSTriggerManager.h>
+
 @class QSHotKeyField;
 @interface QSHotKeyTriggerManager : QSTriggerManager {
 	IBOutlet QSHotKeyField *hotKeyField;
 }
-- (IBAction)setHotKeyFromSender:(id)sender;
+- (NSEvent *)nextHotKeyUpEventUntilDate:(NSDate *)date;
+- (void)setHotKey:(NSDictionary *)dict;
 @end

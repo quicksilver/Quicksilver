@@ -1,33 +1,17 @@
-
-
 #import <Foundation/Foundation.h>
-
 #import "QSObjectSource.h"
 
-@interface QSEncapsulatedTextCell : NSTextFieldCell 
-
-@end
+#if 0
+@interface QSEncapsulatedTextCell : NSTextFieldCell @end
+#endif
 
 @interface QSFileSystemObjectSource : QSObjectSource {
-    IBOutlet NSButton *itemSkipItemSwitch;
-    IBOutlet NSTextField *itemLocationField;
-    IBOutlet NSButton *itemLocationChooseButton;
-    IBOutlet NSButton *itemLocationShowButton;
-    
-    IBOutlet NSPopUpButton *itemParserPopUp;
-    IBOutlet NSBox *itemOptionsView;
-    IBOutlet NSView *itemFolderOptions;
-    IBOutlet NSTextView *typesTextView;
-    
-    IBOutlet NSTextField *typesTextField;
-    IBOutlet NSSlider *itemFolderDepthSlider;
-    IBOutlet NSPopUpButton *typeSetsPopUp;
-    
-    
-    IBOutlet NSPanel *typeSetsPanel;
-    IBOutlet NSTableView *typeSetsTable;
-    IBOutlet NSButton *addSetButton;
-    IBOutlet NSButton *removeSetButton;
+	IBOutlet NSButton *itemSkipItemSwitch, *itemLocationChooseButton, *itemLocationShowButton;
+	IBOutlet NSTextField *itemLocationField;
+	IBOutlet NSPopUpButton *itemParserPopUp;
+	IBOutlet NSBox *itemOptionsView;
+	IBOutlet NSView *itemFolderOptions;
+	IBOutlet NSSlider *itemFolderDepthSlider;
 }
 + (NSMenu *)parserMenuForPath:(NSString *)path;
 - (void)populateFields;
@@ -37,12 +21,6 @@
 - (BOOL)chooseFile;
 
 - (NSString *)fullPathForSettings:(NSDictionary *)settings;
-- (IBAction)editSets:(id)sender;
-- (IBAction)addSet:(id)sender;
-- (IBAction)removeSet:(id)sender;
 - (IBAction)endContainingSheet:(id)sender;
 
 @end
-
-
-

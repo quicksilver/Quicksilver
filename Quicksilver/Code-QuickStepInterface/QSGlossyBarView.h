@@ -9,24 +9,15 @@
 #import <Cocoa/Cocoa.h>
 #import "QSMenuButton.h"
 
-@interface QSGlossyBarView : NSView {
-	
-}
-
+@interface QSGlossyBarView : NSView {}
 @end
-
-
 
 @interface QSGlossyBarButtonCell : NSButtonCell
-
 @end
 
 
-
-@interface QSGlossyBarButton : NSButton 
-
+@interface QSGlossyBarButton : NSButton
 @end
 
-@interface QSGlossyBarMenuButton : QSMenuButton 
-
+@interface QSGlossyBarMenuButton : QSMenuButton
 @end

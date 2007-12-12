@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface NSView (Mirroring)
--(void)flipSubviewsOnAxis:(bool)vertical;
--(BOOL)containsEvent:(NSEvent *)event;
+- (void)flipSubviewsOnAxis:(bool)vertical;
+- (BOOL)containsEvent:(NSEvent *)event;
 @end

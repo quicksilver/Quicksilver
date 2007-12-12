@@ -1,5 +1,3 @@
-
-
 #import "QSCatalogEntrySource.h"
 #import "QSCatalogPrefPane.h"
 
@@ -9,7 +7,6 @@
 #import "QSNotifications.h"
 #import "QSObject.h"
 #import "QSAction.h"
-//#import "QSPrefsController.h"
 #import "QSController.h"
 
 #import "QSRegistry.h"
@@ -21,161 +18,130 @@
 #define kQSCatalogEntryShowAction @"QSCatalogEntryShowAction"
 #define kQSCatalogEntryRescanAction @"QSCatalogEntryRescanAction"
 
-
-static BOOL firstCheck=NO;
+static BOOL firstCheck = NO;
 
 @implementation QSCatalogEntrySource
 
-
-+ (void)initialize{
-    [[QSResourceManager imageNamed:@"prefsCatalog"]retain];
-    [[QSResourceManager imageNamed:@"prefsCatalog"]createIconRepresentations];
++ (void)initialize {
+	[[QSResourceManager imageNamed:@"prefsCatalog"] retain];
+	[[QSResourceManager imageNamed:@"prefsCatalog"] createIconRepresentations];
 }
 
-
--(id)init{
-	if (self=[super init]){
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invalidateSelf) name:QSCatalogStructureChanged object:nil];
+- (id)init {
+	if((self = [super init])) {
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invalidateSelf) name:QSCatalogStructureChanged object:nil];
 	}
-return self;	
+	return self;
 }
-- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry{
-//	if (VERBOSE)NSLog(@"rescan catalog %d",firstCheck);
-	if (!firstCheck){
-		
-		firstCheck=YES;
+
+- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry {
+	if (!firstCheck) {
+		firstCheck = YES;
 		return NO;
 	}
-    return YES;
+	return YES;
 }
 
-- (BOOL)entryCanBeIndexed:(NSDictionary *)theEntry{
-	return NO;	
-}
-- (NSImage *) iconForEntry:(NSDictionary *)dict{
-    return [QSResourceManager imageNamed:@"prefsCatalog"];
-}
-- (NSArray *) objectsForEntry:(NSDictionary *)theEntry{
-	NSArray *theEntries=[[QSLib catalog] deepChildrenWithGroups:YES leaves:YES disabled:YES];
-    return [self objectsFromCatalogEntries:theEntries];
+- (BOOL)entryCanBeIndexed:(NSDictionary *)theEntry { return NO; }
+
+- (NSImage *)iconForEntry:(NSDictionary *)dict { return [QSResourceManager imageNamed:@"prefsCatalog"]; }
+
+- (NSArray *)objectsForEntry:(NSDictionary *)theEntry {
+	return [self objectsFromCatalogEntries:[[QSLib catalog] deepChildrenWithGroups:YES leaves:YES disabled:YES]];
 }
 
-- (void)showCatalog:(id)sender{
-	NSLog(@"show");	
-}
+// FIXME: What is this meant for?
+- (void)showCatalog:(id)sender { NSLog(@"show"); }
 
-- (NSArray *)objectsFromCatalogEntries:(NSArray *)catalogObjects{
-    NSMutableArray *objects=[NSMutableArray arrayWithCapacity:1];
-	
-    QSObject *newObject;
+- (NSArray *)objectsFromCatalogEntries:(NSArray *)catalogObjects {
+	NSMutableArray *objects = [NSMutableArray arrayWithCapacity:1];
 
-	//newObject=[QSObject messageObjectWithTargetClass:NSStringFromClass([self class]) selectorString:@"showCatalog:"];
-	//[newObject setName:@"Show Catalog"];
-	
-	//[objects addObject:newObject];
-	
-	    QSCatalogEntry *thisEntry;
-    NSEnumerator *objectEnumerator=[catalogObjects objectEnumerator];
-    NSString *name;
-    NSString *theID;
-    while(thisEntry=[objectEnumerator nextObject]){
-        name=[thisEntry name];
-        theID=[thisEntry identifier];
-        if (!theID) continue;
-        if ([theID isEqualToString:@"QSSeparator"]) continue;
-        if ([name isEqualToString:@"QSCATALOGROOT"])
-            name=@"Quicksilver Catalog";
-        else
-            name=[NSString stringWithFormat:@"%@ (Catalog)",name];
-        newObject=[QSObject objectWithName:name];
-        [newObject setObject:theID forType:QSCatalogEntryPboardType];
-        [newObject setPrimaryType:QSCatalogEntryPboardType];
-        [newObject setIdentifier:theID];
-        [objects addObject:newObject];
-    }
-    return objects;
+	QSObject *newObject;
+	QSCatalogEntry *thisEntry;
+	NSEnumerator *objectEnumerator = [catalogObjects objectEnumerator];
+	NSString *name;
+	NSString *theID;
+	while(thisEntry = [objectEnumerator nextObject]) {
+		name = [thisEntry name];
+		theID = [thisEntry identifier];
+		if (!theID || [theID isEqualToString:@"QSSeparator"])
+			continue;
+		if ([name isEqualToString:@"QSCATALOGROOT"])
+			name = @"Quicksilver Catalog";
+		else
+			name = [NSString stringWithFormat:@"%@ (Catalog) ", name];
+		newObject = [QSObject objectWithName:name];
+		[newObject setObject:theID forType:QSCatalogEntryPboardType];
+		[newObject setPrimaryType:QSCatalogEntryPboardType];
+		[newObject setIdentifier:theID];
+		[objects addObject:newObject];
+	}
+	return objects;
 }
 
 // Object Handler Methods
 
-- (BOOL)loadIconForObject:(QSObject *)object{
-
-    QSCatalogEntry *theEntry=[QSLib entryForID:[object objectForType:QSCatalogEntryPboardType]];
-	
-    //NSLog(@"%@",[object objectForType:QSCatalogEntryPboardType]);
-    [object setIcon:[theEntry icon]];
-    return YES;
+- (BOOL)loadIconForObject:(QSObject *)object {
+	[object setIcon:[[QSLib entryForID:[object objectForType:QSCatalogEntryPboardType]] icon]];
+	return YES;
 }
 
-- (BOOL)objectHasChildren:(QSBasicObject *)object{
-    return YES;
-}
-- (BOOL)objectHasValidChildren:(QSBasicObject *)object{
-    return YES;
-}
-- (BOOL)loadChildrenForObject:(QSObject *)object{
-    NSArray *children=[self childrenForObject:object];
-    
-    if (children){
-        [object setChildren:children];
-        return YES;   
-    }
-    return NO;
-}
-- (NSString *)identifierForObject:(QSBasicObject *)object{
-    return [object objectForType:QSCatalogEntryPboardType];
-}
-- (NSArray *)childrenForObject:(QSBasicObject *)object{
-    QSLibrarian *librarian=QSLib;
-    QSCatalogEntry *theEntry=[librarian entryForID:[object objectForType:QSCatalogEntryPboardType]];
+- (BOOL)objectHasChildren:(QSBasicObject *)object { return YES; }
 
-    if ([theEntry isGroup])
-        return [self objectsFromCatalogEntries:[theEntry contents]];
-    else
-        return [theEntry contentsScanIfNeeded:YES];
-    return NO;
+- (BOOL)objectHasValidChildren:(QSBasicObject *)object { return YES; }
+
+- (BOOL)loadChildrenForObject:(QSObject *)object {
+	NSArray *children = [self childrenForObject:object];
+	if (children) {
+		[object setChildren:children];
+		return YES;
+	} else
+		return NO;
 }
 
+- (NSString *)identifierForObject:(QSBasicObject *)object { return [object objectForType:QSCatalogEntryPboardType]; }
 
+- (NSArray *)childrenForObject:(QSBasicObject *)object {
+	QSCatalogEntry *theEntry = [QSLib entryForID:[object objectForType:QSCatalogEntryPboardType]];
 
+	if ([theEntry isGroup])
+		return [self objectsFromCatalogEntries:[theEntry contents]];
+	else
+		return [theEntry contentsScanIfNeeded:YES];
+}
 
 // Action Provider Methods
-- (NSArray *) types{
-    return [NSArray arrayWithObject:QSCatalogEntryPboardType];
-}
-- (NSArray *) actions{
-    
-    QSAction *action=[QSAction actionWithIdentifier:kQSCatalogEntryShowAction];
-    [action setIcon:[QSResourceManager imageNamed:@"prefsCatalog"]];
-    [action setProvider:self];
-    [action setAction:@selector(show:)];
-    [action setArgumentCount:1];
-    
-    QSAction *action2=[QSAction actionWithIdentifier:kQSCatalogEntryRescanAction];
-    [action2 setIcon:[QSResourceManager imageNamed:@"prefsCatalog"]];
-    [action2 setProvider:self];
-    [action2 setAction:@selector(rescan:)];
-    [action2 setArgumentCount:1];
-    
-    return [NSArray arrayWithObjects:action,action2,nil];
+- (NSArray *)types { return [NSArray arrayWithObject:QSCatalogEntryPboardType]; }
+
+- (NSArray *)actions {
+	QSAction *action = [QSAction actionWithIdentifier:kQSCatalogEntryShowAction];
+	[action setIcon:[QSResourceManager imageNamed:@"prefsCatalog"]];
+	[action setProvider:self];
+	[action setAction:@selector(show:)];
+	QSAction *action2 = [QSAction actionWithIdentifier:kQSCatalogEntryRescanAction];
+	[action2 setIcon:[QSResourceManager imageNamed:@"prefsCatalog"]];
+	[action2 setProvider:self];
+	[action2 setAction:@selector(rescan:)];
+	return [NSArray arrayWithObjects:action, action2, nil];
 }
 
-- (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject{
-    return [NSArray arrayWithObjects:kQSCatalogEntryShowAction,kQSCatalogEntryRescanAction,nil];
+- (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
+	return [NSArray arrayWithObjects:kQSCatalogEntryShowAction, kQSCatalogEntryRescanAction, nil];
 }
 
-- (QSObject *) show:(QSObject *)dObject{
-    QSLibrarian *librarian=QSLib;
-    QSCatalogEntry *theEntry=[librarian entryForID:[dObject objectForType:QSCatalogEntryPboardType]];
-    [NSClassFromString(@"QSCatalogPrefPane") showEntryInCatalog:theEntry];
-    return nil;
+- (QSObject *)show:(QSObject *)dObject {
+	[NSClassFromString(@"QSCatalogPrefPane") showEntryInCatalog:[QSLib entryForID:[dObject objectForType:QSCatalogEntryPboardType]]];
+	return nil;
 }
 
-- (QSObject *) rescan:(QSObject *)dObject{
-    QSLibrarian *librarian=QSLib;
-    QSCatalogEntry *theEntry=[librarian entryForID:[dObject objectForType:QSCatalogEntryPboardType]];
-    [theEntry scanForced:YES];
-    return nil;
+- (QSObject *)rescan:(QSObject *)dObject {
+	[[QSLib entryForID:[dObject objectForType:QSCatalogEntryPboardType]] scanForced:YES];
+	return nil;
+}
+
+- (void) dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[super dealloc];
 }
 
 

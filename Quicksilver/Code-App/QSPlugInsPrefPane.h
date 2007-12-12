@@ -1,42 +1,33 @@
-/* QSPlugInsPrefPane */
-
 #import <Cocoa/Cocoa.h>
-
 #import <PreferencePanes/PreferencePanes.h>
-#import "QSFilteringArrayController.h"
+#import <QSInterface/QSPreferencePane.h>
+#import "QSPlugIn.h"
 
-#import "QSPreferencePane.h"
-
-@interface QSPlugInsPrefPane : QSPreferencePane
-{
+@interface QSPlugInsPrefPane : QSPreferencePane {
 	IBOutlet NSTableView *pluginSetsTable;
-    IBOutlet id plugInTable;
-    IBOutlet id plugInText;
+	IBOutlet NSTableView *plugInTable;
+	IBOutlet id plugInText;
 	IBOutlet NSTextField *statusField;
 	IBOutlet NSDrawer *infoDrawer;
-	IBOutlet NSPopUpButton *viewPopUp;
-	IBOutlet NSPopUpButton *categoryPopUp;
-	IBOutlet NSSearchField *searchField;
 	IBOutlet NSArrayController *arrayController;
 	IBOutlet NSController *setsArrayController;
 	NSMutableArray *plugInArray;
 	NSMutableArray *plugins;
 	NSMutableSet *disabledPlugIns;
 	int viewMode;
-	
+
 	NSString *search;
 	NSString *category;
-	
+
 	IBOutlet NSView *sidebar;
 }
 + (void)getMorePlugIns;
-- (int)viewMode;
+- (int) viewMode;
 - (void)setViewMode:(int)newViewMode;
 
 
 - (IBAction)showPlugInsFolder:(id)sender;
 - (IBAction)updatePlugIns:(id)sender;
-- (IBAction)showPlugInsRSS:(id)sender;
 - (IBAction)reloadPlugIns:(id)sender;
 - (IBAction)copyInstallURL:(id)sender;
 - (IBAction)downloadInBrowser:(id)sender;
@@ -47,7 +38,7 @@
 - (IBAction)deleteSelection:(id)sender;
 
 - (void)reloadPlugInsList:(NSNotification *)notif;
-- (BOOL)showInfoForPlugIn:(NSBundle *)bundle;
+- (BOOL)showInfoForPlugIn:(QSPlugIn *)aPlugin;
 
 - (NSMutableArray *)plugins;
 - (void)setPlugins:(NSMutableArray *)newPlugins;
@@ -64,4 +55,6 @@
 
 - (void)setViewMode:(int)newViewMode;
 - (void)reloadFiltersIgnoringViewMode:(BOOL)ignoreView;
+
+- (id)preferencesSplitView;
 @end

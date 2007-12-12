@@ -6,34 +6,34 @@
 
 @class QSSearchObjectView;
 @interface QSResultController : NSWindowController {
-    @public
-    IBOutlet NSTextField *	searchStringField;
-    IBOutlet NSView *	selectionView;
-    IBOutlet NSSplitView *	splitView;
+	@public
+	IBOutlet NSTextField *	searchStringField;
+	IBOutlet NSView *	selectionView;
+	IBOutlet NSSplitView *	splitView;
 
-    IBOutlet NSTableView *	resultTable;
-    IBOutlet NSTableView *	resultChildTable;
+	IBOutlet NSTableView *	resultTable;
+	IBOutlet NSTableView *	resultChildTable;
 	QSIconLoader *resultIconLoader;
 	QSIconLoader *resultChildIconLoader;
-    IBOutlet NSTextField *	resultCountField;
-    IBOutlet NSMenu *searchModeMenu;
-    int selectedResult;
-    QSObject *selectedItem;
-    BOOL browsing;
-    BOOL needsReload;
+	IBOutlet NSTextField *	resultCountField;
+	IBOutlet NSMenu *searchModeMenu;
+	int selectedResult;
+	QSObject *selectedItem;
+	BOOL browsing;
+	BOOL needsReload;
 	NSRange loadingRange;
-    NSArray *currentResults;
-    QSSearchObjectView *focus;
+	NSArray *currentResults;
+	QSSearchObjectView *focus;
 	int scrollViewTrackingRect;
 
-//    NSArray **sourceArrayPointer;
-    NSTimer *iconTimer;
-    NSTimer *childrenLoadTimer;
-    BOOL hideChildren;
-    BOOL loadingIcons;
-    BOOL loadingChildIcons;
-    BOOL iconLoadValid;
-    BOOL childIconLoadValid;
+//	NSArray **sourceArrayPointer;
+	NSTimer *iconTimer;
+	NSTimer *childrenLoadTimer;
+	BOOL hideChildren;
+	BOOL loadingIcons;
+	BOOL loadingChildIcons;
+	BOOL iconLoadValid;
+	BOOL childIconLoadValid;
 
   //  NSRange visibleRange;
    // NSRange visibleChildRange;
@@ -48,9 +48,9 @@
 
 - (id)initWithFocus:(id)myFocus;
 
-//- (void) setSplitLocation;
+//- (void)setSplitLocation;
 
--(void)loadChildren;
+- (void)loadChildren;
 - (IBAction)setSearchMode:(id)sender;
 - (void)arrayChanged:(NSNotification*)notif;
 - (void)bump:(int)i;
@@ -66,7 +66,7 @@
 
 - (QSIconLoader *)resultChildIconLoader;
 - (void)setResultChildIconLoader:(QSIconLoader *)aResultChildIconLoader;
-- (void) setSplitLocation;
+- (void)setSplitLocation;
 
 //- (IBAction)sortByName:(id)sender;
 //- (IBAction)sortByScore:(id)sender;

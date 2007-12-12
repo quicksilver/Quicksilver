@@ -12,14 +12,14 @@
 @end
 
 @interface QSTriggerCenter : NSObject {
-    NSMutableArray *triggers;
-    NSMutableDictionary *triggersDict;
-    NSMutableDictionary *commands;
+	NSMutableArray *triggers;
+	NSMutableDictionary *triggersDict;
+	NSMutableDictionary *commands;
 
-    
+
 }
 + (id)sharedInstance;
-- (id) init;
+- (id)init;
 //+ (QSCommand *)commandForTrigger:(QSTrigger *)trigger;
 - (void)addTrigger:(QSTrigger *)trigger;
 - (void)removeTrigger:(QSTrigger *)trigger;
@@ -28,8 +28,8 @@
 //-(BOOL)disableTrigger:(QSTrigger *)entry;
 - (void)triggerChanged:(QSTrigger *)trigger;
 - (void)activateTriggers;
--(BOOL)executeTrigger:(QSTrigger *)trigger;
--(BOOL)executeTriggerID:(NSString *)triggerID;
+- (BOOL)executeTrigger:(QSTrigger *)trigger;
+- (BOOL)executeTriggerID:(NSString *)triggerID;
 - (QSTrigger *)triggerWithID:(NSString *)ident;
 - (void)writeTriggers;
 - (NSMutableDictionary *)triggersDict;
@@ -38,4 +38,5 @@
 //+ (NSString *)nameForTrigger:(QSTrigger *)trigger;
 //- (void)setName:(NSString *)name forTrigger:(QSTrigger *)trigger;
 
+- (NSArray *)triggersWithParentID:(NSString *)ident;
 @end

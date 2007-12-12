@@ -24,7 +24,7 @@
 - (NSString *)componentsJoinedByStrings:(NSArray *)strings;
 - (id)head;
 - (NSArray *)tail;
-	
+
 - (NSArray *)arrayByPerformingSelector:(SEL)aSelector;
 - (NSArray *)arrayByPerformingSelector:(SEL)aSelector withObject:(id)object;
 - (id)objectWithValue:(id)value forKey:(NSString *)key;

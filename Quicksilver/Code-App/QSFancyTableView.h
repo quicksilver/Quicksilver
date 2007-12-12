@@ -11,14 +11,8 @@
 #import "QSTableView.h"
 #import "QSOutlineView.h"
 
-@interface QSFancyTableView : QSTableView {
-	
-}
-
+@interface QSFancyTableView : QSTableView {}
 @end
 
-@interface QSFancyOutlineView : QSOutlineView {
-
-}
-
+@interface QSFancyOutlineView : QSOutlineView {}
 @end

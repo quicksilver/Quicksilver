@@ -11,21 +11,21 @@
 - (NSArray *)types;
 - (NSArray *)fileTypes;
 - (NSArray *)actions;
-- (NSString *) titleForAction:(NSString *)action;
-- (int)argumentCountForAction:(NSString *)action;
-- (NSImage *) iconForAction:(NSString *)action;
+- (NSString *)titleForAction:(NSString *)action;
+- (int) argumentCountForAction:(NSString *)action;
+- (NSImage *)iconForAction:(NSString *)action;
 - (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject;
-- (QSObject *) performAction:(QSAction *)action directObject:(QSBasicObject *)dObject indirectObject:(QSBasicObject *)iObject;
+- (QSObject *)performAction:(QSAction *)action directObject:(QSBasicObject *)dObject indirectObject:(QSBasicObject *)iObject;
 
-- (QSAction *) initializeAction:(QSAction *)action;
+- (QSAction *)initializeAction:(QSAction *)action;
 
 @end
 
-@interface QSActionProvider : NSObject <QSActionProvider>{
-//    NSArray *actions;
+@interface QSActionProvider : NSObject <QSActionProvider> {
+//	NSArray *actions;
 }
-+ (id) provider;
++ (id)provider;
 //- (NSArray *)actions;
 //- (void)setActions:(NSArray *)newActions;
 @end

@@ -28,11 +28,11 @@
 BOOL QSShowNotifierWithAttributes(NSDictionary *attributes);
 
 @protocol QSNotifier
-- (void) displayNotificationWithAttributes:(NSDictionary *)attributes;
+- (void)displayNotificationWithAttributes:(NSDictionary *)attributes;
 @end
 
 @interface QSRegistry (QSNotifier)
-- (id <QSNotifier>)preferredNotifier;
+- (id <QSNotifier>) preferredNotifier;
 @end
 
 

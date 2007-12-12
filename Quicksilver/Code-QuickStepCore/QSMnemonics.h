@@ -4,10 +4,10 @@
 
 
 @interface QSMnemonics : NSObject {
-    NSMutableDictionary *mnemonics;
-    NSMutableDictionary *abbrevMnemonics;
-    NSMutableDictionary *objectMnemonics;
-    NSMutableDictionary *recentMnemonics;
+	NSMutableDictionary *mnemonics;
+	NSMutableDictionary *abbrevMnemonics;
+	NSMutableDictionary *objectMnemonics;
+	NSMutableDictionary *recentMnemonics;
 	NSTimer *writeTimer;
 }
 + (id)sharedInstance;
@@ -24,6 +24,6 @@
 - (void)removeObjectMnemonic:(NSString *)mnem forID:(NSString *)key;
 - (void)addObjectMnemonic:(NSString *)mnem forID:(NSString *)key;
 
-- (void) writeItems:(id)sender;
+- (void)writeItems:(id)sender;
 
 @end

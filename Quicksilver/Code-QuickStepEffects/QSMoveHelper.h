@@ -4,14 +4,14 @@
 
 @interface QSAnimationHelper : NSObject {
 	NSTimer *_timer;
-	
+
 	NSTimeInterval _startTime;
 	NSTimeInterval _totalTime;
 	float _percent;
-	
+
 	id target;
 	SEL endAction;
-	
+
 	BOOL _done;
 	BOOL usesThreadedAnimation;
 }
@@ -20,15 +20,15 @@
 - (void)setTarget:(id)anObject;
 - (id)target;
 - (void)setAction:(SEL)aSelector;
-- (SEL)action;
+- (SEL) action;
 - (BOOL)usesThreadedAnimation;
 - (void)setUsesThreadedAnimation:(BOOL)flag;
 - (void)_threadAnimation;
 
-- (NSTimeInterval)startTime;
+- (NSTimeInterval) startTime;
 - (void)setStartTime:(NSTimeInterval)aStartTime;
 
-- (NSTimeInterval)totalTime;
+- (NSTimeInterval) totalTime;
 - (void)setTotalTime:(NSTimeInterval)aTotalTime;
 @end
 

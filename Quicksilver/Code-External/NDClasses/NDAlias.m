@@ -18,62 +18,52 @@
 /*
  * aliasWithURL:
  */
-+ (id)aliasWithURL:(NSURL *)aURL
-{
++ (id)aliasWithURL:(NSURL *)aURL {
 	return [[[self alloc] initWithURL:aURL] autorelease];
 }
 
 /*
  * aliasWithURL:fromURL:
  */
-+ (id)aliasWithURL:(NSURL *)aURL fromURL:(NSURL *)aFromURL
-{
++ (id)aliasWithURL:(NSURL *)aURL fromURL:(NSURL *)aFromURL {
 	return [[[self alloc] initWithURL:aURL fromURL:aFromURL] autorelease];
 }
 
 /*
  * aliasWithPath:
  */
-+ (id)aliasWithPath:(NSString *)aPath
-{
++ (id)aliasWithPath:(NSString *)aPath {
 	return [[[self alloc] initWithPath:aPath] autorelease];
 }
 
 /*
  * aliasWithPath:fromPath:
  */
-+ (id)aliasWithPath:(NSString *)aPath fromPath:(NSString *)aFromPath
-{
++ (id)aliasWithPath:(NSString *)aPath fromPath:(NSString *)aFromPath {
 	return [[[self alloc] initWithPath:aPath fromPath:aFromPath] autorelease];
 }
 
-+ (id)aliasWithData:(NSData *)aData
-{
++ (id)aliasWithData:(NSData *)aData {
 	return [[[self alloc] initWithData:aData] autorelease];
 }
 
 /*
  * initWithPath:fromPath:
  */
-- (id)initWithPath:(NSString *)aPath
-{
+- (id)initWithPath:(NSString *)aPath {
 	return [self initWithPath:aPath fromPath:nil];
 }
 
 /*
  * initWithPath:fromPath:
  */
-- (id)initWithPath:(NSString *)aPath fromPath:(NSString *)aFromPath
-{
-	if( aPath && [[NSFileManager defaultManager] fileExistsAtPath:aPath] )
-	{
-		if( aFromPath && [[NSFileManager defaultManager] fileExistsAtPath:aFromPath] )
+- (id)initWithPath:(NSString *)aPath fromPath:(NSString *)aFromPath {
+	if ( aPath && [[NSFileManager defaultManager] fileExistsAtPath:aPath] ) {
+		if ( aFromPath && [[NSFileManager defaultManager] fileExistsAtPath:aFromPath] )
 			return [self initWithURL:[NSURL fileURLWithPath:aPath] fromURL:[NSURL fileURLWithPath:aFromPath]];
 		else
 			return [self initWithURL:[NSURL fileURLWithPath:aPath] fromURL:nil];
-	}
-	else
-	{
+	} else {
 		[self release];
 		return nil;
 	}
@@ -82,51 +72,39 @@
 /*
  * initWithURL:
  */
-- (id)initWithURL:(NSURL *)aURL
-{
+- (id)initWithURL:(NSURL *)aURL {
 	return [self initWithURL:aURL fromURL:nil];
 }
 
 /*
  * initWithURL:fromURL:
  */
-- (id)initWithURL:(NSURL *)aURL fromURL:(NSURL *)aFromURL
-{
-	if( self = [super init] )
-	{
-		if( aURL && [self createAliasRecordFor:aURL fromURL:aFromURL] )
-		{
+- (id)initWithURL:(NSURL *)aURL fromURL:(NSURL *)aFromURL {
+	if ( self = [super init] ) {
+		if ( aURL && [self createAliasRecordFor:aURL fromURL:aFromURL] ) {
 			changed = false;
-		}
-		else
-		{
+		} else {
 			[self release];
 			self = nil;
 		}
 	}
-	
+
 	return self;
 }
 
 /*
  * initWithCoder:
  */
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
+- (id)initWithCoder:(NSCoder *)aDecoder {
 	return [self initWithData:[aDecoder decodeDataObject]];
 }
 
 
-- (id)initWithData:(NSData *)aData
-{
-	if( self = [super init] )
-	{
-		if( aData && PtrToHand( [aData bytes], (Handle*)&aliasHandle, [aData length] ) == noErr )
-		{
+- (id)initWithData:(NSData *)aData {
+	if ( self = [super init] ) {
+		if ( aData && PtrToHand( [aData bytes] , (Handle*)&aliasHandle, [aData length] ) == noErr ) {
 			changed = false;
-		}
-		else
-		{
+		} else {
 			[self release];
 			self = nil;
 		}
@@ -138,30 +116,26 @@
 /*
  * encodeWithCoder:
  */
-- (void)encodeWithCoder:(NSCoder *)anEncoder
-{
-	[anEncoder encodeDataObject:[self data]];	
+- (void)encodeWithCoder:(NSCoder *)anEncoder {
+	[anEncoder encodeDataObject:[self data]];
 }
 
 /*
  * dealloc
  */
-- (void)dealloc
-{
-	DisposeHandle( (Handle)aliasHandle );
+- (void)dealloc {
+	DisposeHandle( (Handle) aliasHandle );
 	[super dealloc];
 }
 
 /*
  * url
  */
-- (NSURL *)url
-{
+- (NSURL *)url {
 	id					theURL = nil;
 	FSRef				theTarget;
 	OSErr				theError;
-	if( (theError = FSResolveAlias( NULL, aliasHandle, &theTarget, &changed )) == noErr )
-	{
+	if ( (theError = FSResolveAlias( NULL, aliasHandle, &theTarget, &changed ) ) == noErr ) {
 		theURL = [NSURL URLWithFSRef:&theTarget];
 	}
 	return theURL;
@@ -170,39 +144,34 @@
 /*
  * path
  */
-- (NSString *)path
-{
+- (NSString *)path {
 	return [[self url] path];
 }
 
 /*
  * changed
  */
-- (BOOL)changed
-{
+- (BOOL)changed {
 	return changed != false;
 }
 
 /*
  * setURL:
  */
-- (BOOL)setURL:(NSURL *)aURL
-{
+- (BOOL)setURL:(NSURL *)aURL {
 	return [self setURL:aURL fromURL:nil];
 }
 
 /*
  * setURL:
  */
-- (BOOL)setURL:(NSURL *)aURL fromURL:(NSURL *)aFromURL
-{
+- (BOOL)setURL:(NSURL *)aURL fromURL:(NSURL *)aFromURL {
 	OSErr					theError = !noErr;
 	FSRef					theReference,
 							theFromReference;
-	
-	if( aURL != nil && [aURL isFileURL] && [aURL getFSRef:&theReference] )
-	{
-		if( aFromURL != nil && [aFromURL isFileURL] && [aFromURL getFSRef:&theFromReference] )
+
+	if ( aURL != nil && [aURL isFileURL] && [aURL getFSRef:&theReference] ) {
+		if ( aFromURL != nil && [aFromURL isFileURL] && [aFromURL getFSRef:&theFromReference] )
 			theError = FSUpdateAlias( &theFromReference, &theReference, aliasHandle, &changed );
 		else
 			theError = FSUpdateAlias( NULL, &theReference, aliasHandle, &changed );
@@ -214,20 +183,17 @@
 /*
  * setPath:
  */
-- (BOOL)setPath:(NSString *)aPath
-{
+- (BOOL)setPath:(NSString *)aPath {
 	return [self setPath:aPath fromPath:nil];
 }
 
 /*
  * setPath:fromPath:
  */
-- (BOOL)setPath:(NSString *)aPath fromPath:(NSString *)aFromPath
-{
-	BOOL		theSuccess = NO;;
-	if( [[NSFileManager defaultManager] fileExistsAtPath:aPath] )
-	{
-		if( [[NSFileManager defaultManager] fileExistsAtPath:aFromPath] )
+- (BOOL)setPath:(NSString *)aPath fromPath:(NSString *)aFromPath {
+	BOOL		theSuccess = NO; ;
+	if ( [[NSFileManager defaultManager] fileExistsAtPath:aPath] ) {
+		if ( [[NSFileManager defaultManager] fileExistsAtPath:aFromPath] )
 			theSuccess = [self setURL:[NSURL fileURLWithPath:aPath] fromURL:[NSURL fileURLWithPath:aFromPath]];
 		else
 			theSuccess = [self setURL:[NSURL fileURLWithPath:aPath] fromURL:nil];
@@ -239,19 +205,16 @@
 /*
  * description
  */
-- (NSString *)description
-{
+- (NSString *)description {
 	return [self path];
 }
 
-- (NSData *)data
-{
-	NSData		* theData=nil;
-	if( aliasHandle != NULL )
-	{
-		HLock((Handle)aliasHandle);
+- (NSData *)data {
+	NSData		* theData = nil;
+	if ( aliasHandle != NULL ) {
+		HLock((Handle) aliasHandle);
 		theData = [NSData dataWithBytes:*aliasHandle length:GetHandleSize((Handle) aliasHandle)];
-		HUnlock((Handle)aliasHandle);
+		HUnlock((Handle) aliasHandle);
 	}
 
 	return theData;
@@ -264,20 +227,15 @@
 /*
  * createAliasRecordFor:fromURL:
  */
-- (BOOL)createAliasRecordFor:(NSURL *)aURL fromURL:(NSURL *)aFromURL
-{
+- (BOOL)createAliasRecordFor:(NSURL *)aURL fromURL:(NSURL *)aFromURL {
 	OSErr					theError = noErr;
 	FSRef					theReference,
 							theFromReference;
 
-	if( aURL != nil && [aURL isFileURL] && [aURL getFSRef:&theReference] )
-	{
-		if( aFromURL != nil && [aFromURL isFileURL] && [aFromURL getFSRef:&theFromReference] )
-		{
+	if ( aURL != nil && [aURL isFileURL] && [aURL getFSRef:&theReference] ) {
+		if ( aFromURL != nil && [aFromURL isFileURL] && [aFromURL getFSRef:&theFromReference] ) {
 			theError = FSNewAlias( &theFromReference, &theReference, &aliasHandle );
-		}
-		else
-		{
+		} else {
 			theError = FSNewAliasMinimal( &theReference, &aliasHandle );
 		}
 	}

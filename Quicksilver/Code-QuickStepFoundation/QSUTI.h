@@ -9,4 +9,4 @@
 
 
 NSString *QSUTIForAnyTypeString(NSString *type);
-NSString *QSUTIForExtensionOrType(NSString *extension,OSType filetype);
+NSString *QSUTIForExtensionOrType(NSString *extension, OSType filetype);

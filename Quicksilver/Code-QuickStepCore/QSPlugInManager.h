@@ -14,22 +14,22 @@
 @class QSPlugIn;
 @interface QSPlugInManager : NSObject {
 	BOOL startupLoadComplete;
-	
-	NSMutableDictionary 			*localPlugIns;  	// Most recent version of every plugin on this machine. Includes restricted.
-	NSMutableDictionary 			*knownPlugIns;  	// Local plugins + visible web plugins. Includes restricted.
+
+	NSMutableDictionary 			*localPlugIns; 	// Most recent version of every plugin on this machine. Includes restricted.
+	NSMutableDictionary 			*knownPlugIns; 	// Local plugins + visible web plugins. Includes restricted.
 	NSMutableDictionary				*loadedPlugIns; 	// All plugins that have been loaded
-	
+
 	NSMutableArray 					*oldPlugIns; 		// Plugins with newer versions overriding, these are not included in local plugins
 	NSMutableDictionary 			*dependingPlugIns; 	// Dictionary of dependencies -> array of waiting
-	
+
 	NSMutableData *receivedData;
 	NSMutableDictionary *plugInWebData;
 	NSDate 				*plugInWebDownloadDate;
-	
+
 	BOOL showNotifications;
 	BOOL updatingPlugIns;
 	BOOL warnedOfRelaunch;
-	
+
 	NSMutableArray *updatedPlugIns;
 	int downloadsCount;
 	NSMutableArray *downloadsQueue;
@@ -45,8 +45,8 @@
 + (id)sharedInstance;
 
 
-- (BOOL) showNotifications;
-- (void) setShowNotifications: (BOOL) flag;
+- (BOOL)showNotifications;
+- (void)setShowNotifications: (BOOL)flag;
 
 - (QSPlugIn *)plugInWithBundle:(NSBundle *)bundle;
 - (QSPlugIn *)plugInWithID:(NSString *)identifier;
@@ -55,7 +55,7 @@
 - (BOOL)plugInMeetsDependencies:(QSPlugIn *)plugIn;
 - (void)downloadWebPlugInInfoFromDate:(NSDate *)date forUpdateVersion:(NSString *)version synchronously:(BOOL)synchro;
 - (NSMutableDictionary *)loadedPlugIns;
-- (NSMutableDictionary *)oldPlugIns;
+- (NSMutableArray *)oldPlugIns;
 
 - (BOOL)startupLoadComplete;
 
@@ -90,7 +90,7 @@
 
 - (NSString *)installStatus;
 - (void)setInstallStatus:(NSString *)newInstallStatus;
-- (float)installProgress;
+- (float) installProgress;
 - (void)setInstallProgress:(float)newInstallProgress;
 - (BOOL)isInstalling;
 - (void)setIsInstalling:(BOOL)flag;
@@ -104,12 +104,14 @@
 - (void)downloadWebPlugInInfo;
 - (void)downloadWebPlugInInfoIgnoringDate;
 - (BOOL)updatePlugInsForNewVersion:(NSString *)version;
-- (float)downloadProgress;
+- (float) downloadProgress;
 - (NSMutableArray *)updatedPlugIns;
--(BOOL)handleInstallURL:(NSURL *)url;
--(BOOL)installPlugInsFromFiles:(NSArray *)fileList;
+- (BOOL)handleInstallURL:(NSURL *)url;
+- (BOOL)installPlugInsFromFiles:(NSArray *)fileList;
 
 - (NSURLDownload *)currentDownload;
 - (void)setCurrentDownload:(NSURLDownload *)newCurrentDownload;
 - (void)cancelPlugInInstall;
+
+- (void)loadPlugInInfo:(NSArray *)array;
 @end

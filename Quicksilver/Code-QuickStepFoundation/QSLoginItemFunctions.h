@@ -9,4 +9,4 @@
 #import <Cocoa/Cocoa.h>
 
 BOOL QSItemShouldLaunchAtLogin(NSString *path);
-void QSSetItemShouldLaunchAtLogin(NSString *path,BOOL launch,BOOL includeAlias);	
+void QSSetItemShouldLaunchAtLogin(NSString *path, BOOL launch, BOOL includeAlias);

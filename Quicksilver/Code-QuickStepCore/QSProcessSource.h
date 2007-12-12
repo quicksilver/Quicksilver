@@ -9,12 +9,12 @@
 
 
 
-@interface QSProcessObjectSource : QSObjectSource{
-    NSTimeInterval processScanDate;
-    NSMutableArray *processes;
+@interface QSProcessObjectSource : QSObjectSource {
+	NSTimeInterval processScanDate;
+	NSMutableArray *processes;
 }
 //- (void)reloadProcesses;
-//- (NSArray *) getAllProcesses;
+//- (NSArray *)getAllProcesses;
 //- (QSObject *)imbuedFileProcessForDict:(NSDictionary *)dict;
 @end
 
@@ -43,9 +43,9 @@
 # define kAppActivateAction @"AppActivateAction"
 # define kAppReopenAction @"AppReopenAction"
 
-@interface QSProcessActionProvider : QSActionProvider{
+@interface QSProcessActionProvider : QSActionProvider {
 }
-//- (int)pidOfProcess:(QSObject *)dObject;
+//- (int) pidOfProcess:(QSObject *)dObject;
 //- (BOOL)setPriority:(int)priority ofPID:(int)pid;
 //- (void)setPriority:(int)priority ofProcess:(QSObject *)dObject;
 //- (void)sendSignal:(int)signal toProcess:(QSObject *)dObject;

@@ -4,10 +4,10 @@
 
 
 @interface QSMenuButton : NSButton {
-    NSPoint menuOffset;
+	NSPoint menuOffset;
 	BOOL drawBackground;
 }
-- (NSPoint)menuOffset;
+- (NSPoint) menuOffset;
 - (void)setMenuOffset:(NSPoint)newMenuOffset;
 
 - (BOOL)drawBackground;

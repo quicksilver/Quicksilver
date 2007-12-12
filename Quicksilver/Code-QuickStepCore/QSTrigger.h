@@ -21,21 +21,25 @@
 - (id)initWithInfo:(NSDictionary *)dict;
 - (BOOL)isPreset;
 - (BOOL)enabled;
--(void)setEnabled:(BOOL)enabled;
--(void)disable;
+- (void)setEnabled:(BOOL)enabled;
+- (void)disable;
 - (id)manager;
 - (BOOL)usesPresetCommand;
 - (id)objectForKey:(NSString *)key;
 - (NSDictionary *)dictionaryRepresentation;
--(void)reactivate;
+- (void)reactivate;
 - (void)setObject:(id)object forKey:(NSString *)key;
 - (void)setType:(NSString *)type;
-- (NSArray *)path;
+- (NSString *)path;
 - (NSString *)type;
--(NSString *)parentID;
-- (NSArray *)parent;
-- (BOOL) activated;
-- (void) setActivated: (BOOL) flag;
+- (NSString *)parentID;
+- (QSTrigger *)parent;
+- (BOOL)activated;
+- (void)setActivated: (BOOL)flag;
 
-
+- (BOOL)isGroup;
+- (NSString *)triggerDescription;
+- (NSString *)triggerSet;
+- (NSMutableDictionary *)info;
+- (BOOL)execute;
 @end

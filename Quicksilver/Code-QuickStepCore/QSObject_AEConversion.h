@@ -10,7 +10,7 @@
 #import "QSObject.h"
 
 @interface QSObject (AEConversion)
--(NSAppleEventDescriptor *)AEDescriptor;
+- (NSAppleEventDescriptor *)AEDescriptor;
 + (QSObject *)objectWithAEDescriptor:(NSAppleEventDescriptor *)desc types:(NSArray *)types;
 
 @end

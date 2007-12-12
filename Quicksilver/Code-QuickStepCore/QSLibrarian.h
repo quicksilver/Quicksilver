@@ -18,44 +18,44 @@ extern id QSLib; // Shared Instance
 
 
 @interface QSLibrarian : NSObject {
-    QSCatalogEntry *catalog; //Root Catalog Entry
-    
-    NSMutableDictionary *enabledPresetsDictionary;
-    NSMutableSet *defaultSearchSet; 
-    NSMutableSet *omittedIDs; 
-    QSTask *scanTask;
-    QSTaskController *activityController;
-    
-    NSMutableDictionary *catalogArrays; // Arrays for each leaf catalog entry (Entry)
-    NSMutableDictionary *typeArrays; // Type arrays (Type / Entry)
-    
-    NSArray *defaultSearchArrays; // (Entry)
-    NSMutableDictionary *appSearchArrays; //Default Arrays for a given application (AppName / Entry)
-    
-    NSMutableDictionary *shelfArrays; //Arrays for User Shelves
-  
-    NSMutableArray *actionObjects;
-    NSMutableDictionary *actionIdentifiers;
-    
-    NSMutableDictionary *objectSources;
-    NSMutableDictionary *entriesBySource;
-    NSMutableDictionary *entriesByID;
-	
+	QSCatalogEntry *catalog; //Root Catalog Entry
+
+	NSMutableDictionary *enabledPresetsDictionary;
+	NSMutableSet *defaultSearchSet;
+	NSMutableSet *omittedIDs;
+	QSTask *scanTask;
+	QSTaskController *activityController;
+
+	NSMutableDictionary *catalogArrays; // Arrays for each leaf catalog entry (Entry)
+	NSMutableDictionary *typeArrays; // Type arrays (Type / Entry)
+
+	NSArray *defaultSearchArrays; // (Entry)
+	NSMutableDictionary *appSearchArrays; //Default Arrays for a given application (AppName / Entry)
+
+	NSMutableDictionary *shelfArrays; //Arrays for User Shelves
+
+	NSMutableArray *actionObjects;
+	NSMutableDictionary *actionIdentifiers;
+
+	NSMutableDictionary *objectSources;
+	NSMutableDictionary *entriesBySource;
+	NSMutableDictionary *entriesByID;
+
 	NSMutableArray *invalidIndexes;
 	int scannerCount;
 }
 
 + (id)sharedInstance;
-+ (void) removeIndexes;
++ (void)removeIndexes;
 
-- (void) loadDefaultCatalog;
-- (id) init;
-- (void) assignCustomAbbreviationForItem:(QSObject *)item;
+- (void)loadDefaultCatalog;
+- (id)init;
+- (void)assignCustomAbbreviationForItem:(QSObject *)item;
 //- (void)saveCatalogArrays;
 - (void)registerPresets:(NSArray *)newPresets inBundle:(NSBundle *)bundle scan:(BOOL)scan;
 //- (void)loadCatalog;
-- (void) dealloc;
-- (void) writeCatalog:(id)sender;
+- (void)dealloc;
+- (void)writeCatalog:(id)sender;
 //- (NSArray *)entriesForSource:(NSString *)source;
 - (void)reloadSource:(NSNotification *)notif;
 - (void)reloadEntrySources:(NSNotification *)notif;
@@ -79,7 +79,7 @@ extern id QSLib; // Shared Instance
 - (void)scanCatalogWithDelay:(id)sender;
 - (BOOL)itemIsOmitted:(QSBasicObject *)item;
 - (void)setItem:(QSBasicObject *)item isOmitted:(BOOL)omit;
-- (float)estimatedTimeForSearchInSet:(id)set;
+- (float) estimatedTimeForSearchInSet:(id)set;
 - (NSMutableArray *)scoreTest:(id)sender;
 - (NSMutableArray *)scoredArrayForString:(NSString *)string;
 - (NSMutableArray *)scoredArrayForString:(NSString *)string inNamedSet:(NSString *)setName;
@@ -110,16 +110,11 @@ extern id QSLib; // Shared Instance
 - (void)setShelfArrays:(NSMutableDictionary *)newShelfArrays ;
 - (NSNumber *)presetIsEnabled:(QSCatalogEntry *)preset;
 - (void)setPreset:(QSCatalogEntry *)preset isEnabled:(BOOL)flag;
-- (QSCatalogEntry *) entryForID:(NSString *)theID;
-- (void) pruneInvalidChildren:(id)sender;
+- (QSCatalogEntry *)entryForID:(NSString *)theID;
+- (void)pruneInvalidChildren:(id)sender;
 - (void)loadCatalogInfo;
 - (void)initCatalog;
 - (QSTask *)scanTask;
 - (void)setScanTask:(QSTask *)value;
 
-
 @end
-
-
-
-

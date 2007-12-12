@@ -19,6 +19,7 @@
 - (void)setCurrentTrigger:(QSTrigger *)value;
 
 - (QSTrigger *)settingsSelection;
+- (NSWindow *)triggerDisplayWindowWithTrigger:(QSTrigger *)trigger;
 @end
 
 @interface QSGroupTriggerManager : QSTriggerManager

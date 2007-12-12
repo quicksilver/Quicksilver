@@ -12,5 +12,5 @@
 @interface NSURL (Keychain)
 
 - (NSString *)keychainPassword;
--(NSURL *)URLByInjectingPasswordFromKeychain;
+- (NSURL *)URLByInjectingPasswordFromKeychain;
 @end

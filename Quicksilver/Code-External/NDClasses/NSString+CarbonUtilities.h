@@ -11,7 +11,7 @@
 /*!
 	@category NSString(CarbonUtilitiesPaths)
 	@abstract Provides method for interacting with Carbon APIs.
-	@discussion Methods for dealing with <TT>FSRef</TT>&rsquo;s and methods for dealing with pascal string as well as making some other core foundation methods accessable in Objective-C syntax.
+	@discussion Methods for dealing with <TT>FSRef</TT>&rsquo; s and methods for dealing with pascal string as well as making some other core foundation methods accessable in Objective-C syntax.
  */
 @interface NSString (CarbonUtilitiesPaths)
 
@@ -88,6 +88,6 @@
 	@discussion Returns a new <TT>NSString</TT> equivelent to the receveiver but without any white space (return, new line, space, tab) at the begining or end of the string.
 	@result A new <TT>NSString</TT>.
  */
-- (NSString *)trimWhitespace;
+//- (NSString *)trimWhitespace;
 
 @end

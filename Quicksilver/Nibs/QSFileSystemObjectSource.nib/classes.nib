@@ -2,30 +2,15 @@
     IBClasses = (
         {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
         {
-            CLASS = QSAddressBookObjectSource; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = QSObjectSource; 
-        }, 
-        {CLASS = QSBackgroundView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
-        {
-            CLASS = QSEncapsulatedTextCell; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSTextFieldCell; 
-        }, 
-        {
             ACTIONS = {
-                addSet = id; 
                 chooseFile = id; 
-                editSets = id; 
                 endContainingSheet = id; 
-                removeSet = id; 
                 setValueForSender = id; 
                 showFile = id; 
             }; 
             CLASS = QSFileSystemObjectSource; 
             LANGUAGE = ObjC; 
             OUTLETS = {
-                addSetButton = NSButton; 
                 itemFolderDepthSlider = NSSlider; 
                 itemFolderOptions = NSView; 
                 itemLocationChooseButton = NSButton; 
@@ -34,12 +19,6 @@
                 itemOptionsView = NSBox; 
                 itemParserPopUp = NSPopUpButton; 
                 itemSkipItemSwitch = NSButton; 
-                removeSetButton = NSButton; 
-                typeSetsPanel = NSPanel; 
-                typeSetsPopUp = NSPopUpButton; 
-                typeSetsTable = NSTableView; 
-                typesTextField = NSTextField; 
-                typesTextView = NSTextView; 
             }; 
             SUPERCLASS = QSObjectSource; 
         }, 

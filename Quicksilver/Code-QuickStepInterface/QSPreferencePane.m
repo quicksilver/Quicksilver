@@ -1,9 +1,9 @@
 //
-//  QSPreferencePane.m
-//  Quicksilver
+// QSPreferencePane.m
+// Quicksilver
 //
-//  Created by Alcor on 11/2/04.
-//  Copyright 2004 Blacktree. All rights reserved.
+// Created by Alcor on 11/2/04.
+// Copyright 2004 Blacktree. All rights reserved.
 //
 
 #import "QSPreferencePane.h"
@@ -26,121 +26,118 @@
 #import "NSBundle_BLTRExtensions.h"
 
 //@implementation NSPreferencePane (QSPrefPaneInformal)
-//- (NSImage *)  paneIcon{
-//	NSImage *image=[QSResourceManager imageNamed:NSStringFromClass([self class])];
-//	if (!image)image=[QSResourceManager imageNamed:@"DocPrefs"];
+//- (NSImage *)paneIcon {
+//	NSImage *image = [QSResourceManager imageNamed:NSStringFromClass([self class])];
+//	if (!image) image = [QSResourceManager imageNamed:@"DocPrefs"];
 //	return image;
 //}
-//- (NSString *) paneName{
-//	NSString *paneClass=NSStringFromClass([self class]);
-//	NSString *locName=[[QSReg bundleForClassName:paneClass]safeLocalizedStringForKey:paneClass value:paneClass table:nil];
+//- (NSString *)paneName {
+//	NSString *paneClass = NSStringFromClass([self class]);
+//	NSString *locName = [[QSReg bundleForClassName:paneClass] safeLocalizedStringForKey:paneClass value:paneClass table:nil];
 //	return locName;
 //}
-//- (NSNumber *) panePriority{
-//	return nil;	
+//- (NSNumber *)panePriority {
+//	return nil;
 //}
-//- (NSString *) paneDescription{
+//- (NSString *)paneDescription {
 //	return @"Preferences";
 //}
-//- (int)featureLevel{
-//	return 1;	
+//- (int) featureLevel {
+//	return 1;
 //}
-//- (NSString *)identifier{
+//- (NSString *)identifier {
 //	return NSStringFromClass([self class]);
 //}
 //
-//- (void)paneLoadedByController:(id)controller{}
+//- (void)paneLoadedByController:(id)controller {}
 //@end
 
 @implementation QSPreferencePane
 - (id)initWithInfo:(NSDictionary *)info {
-    self = [self init];
-    if (self) {
-		_info=[info retain];
+	self = [self init];
+	if (self) {
+		_info = [info retain];
 	}
-    return self;
+	return self;
 }
 - (id)initWithBundle:(NSBundle *)bundle {
 	return [super init];
 }
 
-- (void)setInfo:(NSDictionary *)info{
-	if (_info!=info){
+- (void)setInfo:(NSDictionary *)info {
+	if (_info != info) {
 		[info autorelease];
-		_info=[info retain];
+		_info = [info retain];
 	}
 }
 - (void)dealloc {
-    [_info release];
-	_info=nil;
+	[_info release];
+//	_info = nil;
 	[_mainView release];
-	_mainView=nil;
-    [super dealloc];
+//	_mainView = nil;
+	[super dealloc];
 }
 
-//- (id)icon{return [self paneIcon];}
+//- (id)icon {return [self paneIcon];}
 
-- (NSString *) mainNibName{
-	NSString *nibName=[_info objectForKey:@"nibName"];
-	if (!nibName)nibName=NSStringFromClass([self class]);
+- (NSString *)mainNibName {
+	NSString *nibName = [_info objectForKey:@"nibName"];
+	if (!nibName) nibName = NSStringFromClass([self class]);
 	return nibName;
 }
-- (NSBundle *)mainNibBundle{
-	NSString *bundleID=[_info objectForKey:@"nibBundle"];
-	NSBundle *bundle=nil;
+- (NSBundle *)mainNibBundle {
+	NSString *bundleID = [_info objectForKey:@"nibBundle"];
+	NSBundle *bundle = nil;
 	if (bundleID)
-		bundle=[NSBundle bundleWithIdentifier:bundleID];
-	//NSLog(@"%@ %@",bundleID, _info);
+		bundle = [NSBundle bundleWithIdentifier:bundleID];
+	//NSLog(@"%@ %@", bundleID, _info);
 	if (!bundle)
-		bundle=[NSBundle bundleForClass:[self class]];
+		bundle = [NSBundle bundleForClass:[self class]];
 	return bundle;
 }
 
-- (NSView *)mainView{
+- (NSView *)mainView {
 	return _mainView;
 }
 
-- (NSView *)loadMainView{
-	
-	//[[self mainNibBundle]loadNibFile:[self mainNibName] 
-//				   externalNameTable:[NSDictionary dictionaryWithObject:self forKey:@"NSOwner"] 
-//							withZone:[self zone]];
-	NSNib *nib=[[NSNib alloc] initWithNibNamed:[self mainNibName] bundle:[self mainNibBundle]];
-	NSArray *objects=nil;
-	[nib instantiateNibWithOwner:self topLevelObjects:&objects];
-	//NSLog(@"objects %@",objects);
-	//NSLog(@"window %@",_window);
-	_mainView=[[_window contentView]retain];
-	if (QSIsLocalized)
-		[NTViewLocalizer localizeView:_mainView 
-							table:[[self mainNibName]stringByAppendingPathExtension:@"nib"]
-						   bundle:[self mainNibBundle]];
+- (NSView *)loadMainView {
 
+	//[[self mainNibBundle] loadNibFile:[self mainNibName]
+//				  externalNameTable:[NSDictionary dictionaryWithObject:self forKey:@"NSOwner"]
+//							withZone:[self zone]];
+	NSNib *nib = [[NSNib alloc] initWithNibNamed:[self mainNibName] bundle:[self mainNibBundle]];
+	NSArray *objects = nil;
+	[nib instantiateNibWithOwner:self topLevelObjects:&objects];
+	//NSLog(@"objects %@", objects);
+	//NSLog(@"window %@", _window);
+	_mainView = [[_window contentView] retain];
+	if (QSIsLocalized)
+		[NTViewLocalizer localizeView:_mainView table:[[self mainNibName] stringByAppendingPathExtension:@"nib"] bundle:[self mainNibBundle]];
 	[_window release];
-	_window=nil;
+	_window = nil;
 	[nib release];
 	[self mainViewDidLoad];
 	return _mainView;
 }
 
-- (IBAction) showPaneHelp:(id)sender{
+- (IBAction)showPaneHelp:(id)sender {
 	QSShowHelpPage([self helpPage]);
 }
 
-- (NSString *)helpPage{return [@"quicksilver/preferences/" stringByAppendingString:NSStringFromClass([self class])];}
+- (NSString *)helpPage {return [@"quicksilver/preferences/" stringByAppendingString:NSStringFromClass([self class])];}
 
-- (void)paneWillMoveToWindow:(NSWindow *)newWindow{}
-- (void)paneDidMoveToWindow:(NSWindow *)newWindow{}
+- (void)paneWillMoveToWindow:(NSWindow *)newWindow {}
+- (void)paneDidMoveToWindow:(NSWindow *)newWindow {}
 
-- (void) mainViewDidLoad{}
-- (void) willSelect{}
-- (void) didSelect{}
+- (void)mainViewDidLoad {}
+- (void)willSelect {}
+- (void)didSelect {}
 
-- (void) willUnselect{}
-- (void) didUnselect{}
-- (void) didReselect{}
-- (void)paneLoadedByController:(id)controller{}
-- (void)requestRelaunch{
+- (void)willUnselect {}
+- (void)didUnselect {}
+- (void)didReselect {}
+- (void)paneLoadedByController:(id)controller {}
+- (void)requestRelaunch {
 	[NSApp requestRelaunch:nil];
 }
 @end

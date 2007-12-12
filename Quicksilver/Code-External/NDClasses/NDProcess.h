@@ -1,8 +1,8 @@
 /*!
 	@header NDProcess.h
 	@abstract Header file for the class <tt>NDProcess</tt> and categories of <tt>NDProcess</tt>
-	@discussion <p><tt>NDProcess</tt> is a cocoa wrapper for Apples Process Manager</p>
- 
+	@discussion <p >< tt>NDProcess</tt> is a cocoa wrapper for Apples Process Manager</p>
+
 	<p>Created by Nathan Day on Mon May 27 2002.<br>
 	Copyright &copy; 2002 Nathan Day. All rights reserved.</p>
  */
@@ -40,7 +40,7 @@
 	@discussion Returns the process serial number for the recevier
 	@result A process serial number.
  */
-- (ProcessSerialNumber)processSerialNumber;
+- (ProcessSerialNumber) processSerialNumber;
 
 /*!
 	@method isFrontProcess
@@ -62,7 +62,7 @@
 	@method makeFrontProcess
 	@abstract Bring the process to front.
 	@discussion Attempts to bring the process to front.
-	@result Returns <tt>YES</tt> if the process did come to front. 
+	@result Returns <tt>YES</tt> if the process did come to front.
  */
 - (BOOL)makeFrontProcess;
 
@@ -70,7 +70,7 @@
 	@method wakeUpProcess
 	@abstract Wake up the process.
 	@discussion Wakes up the process.
-	@result Returns <tt>YES</tt> if the process did wakr up.. 
+	@result Returns <tt>YES</tt> if the process did wakr up..
  */
 - (BOOL)wakeUpProcess;
 
@@ -260,15 +260,15 @@
 	@discussion The file type of the application, generally <tt>'APPL'</tt> for applications and <tt>'appe'</tt> for background-only applications launched at startup.
 	@result A four char code.
  */
-- (OSType)type;
+- (OSType) type;
 
 /*!
 	@method signature
 	@abstract Process signature
-	@discussion The signature of the file containing the process (for example, the signature of the TeachText application is <tt>'ttxt'</tt>).
+	@discussion The signature of the file containing the process (for example, the signature of the TeachText application is <tt>'ttxt'</tt>) .
 	@result A four char code.
  */
-- (OSType)signature;
+- (OSType) signature;
 
 /*!
 	@method mode
@@ -295,7 +295,7 @@
 	@result A combination of the previously list values.
  */
 
-- (UInt32)mode;
+- (UInt32) mode;
 
 /*!
 	@method launcher
@@ -309,9 +309,9 @@
 	@method launchTime
 	@abstract Launch time in seconds
 	@discussion The value of the Ticks global variable in secods at the time that the process was launched.
-	@result The time in <tt>NSTimeInterval</tt> (seconds).
+	@result The time in <tt>NSTimeInterval</tt> (seconds) .
  */
-- (NSTimeInterval)launchTime;
+- (NSTimeInterval) launchTime;
 
 /*!
 	@method url

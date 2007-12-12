@@ -1,18 +1,17 @@
 
 
 #import <Foundation/Foundation.h>
-#import "QSCell.h"
 
 @class QSObject;
-@interface QSObjectCell : NSButtonCell <NSTextAttachmentCell>{
-    BOOL selected;
-    NSTextAttachment *attachment;
-    BOOL showDetails;
-    BOOL autosize;
-    NSColor *textColor;
-    NSColor *highlightColor;
-    NSSize iconSize;
-    NSSize padding;
+@interface QSObjectCell : NSButtonCell <NSTextAttachmentCell> {
+	BOOL selected;
+	NSTextAttachment *attachment;
+	BOOL showDetails;
+	BOOL autosize;
+	NSColor *textColor;
+	NSColor *highlightColor;
+	NSSize iconSize;
+	NSSize padding;
  //   NSString *abbreviationString;
 	NSDictionary *nameAttributes;
 	NSDictionary *detailsAttributes;
@@ -29,7 +28,7 @@
 - (NSColor *)highlightColor;
 - (void)setHighlightColor:(NSColor *)aHighlightColor;
 - (NSMenu *)menuForObject:(id)object;
-- (NSSize)iconSize;
+- (NSSize) iconSize;
 - (void)setIconSize:(NSSize)anIconSize;
 //- (BOOL)objectIsInCollection:(QSObject *)thisObject;
 - (void)drawTextForObject:(QSObject *)drawObject withFrame:(NSRect)cellFrame inView:(NSView *)controlView;

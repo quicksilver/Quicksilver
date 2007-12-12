@@ -18,7 +18,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		32DBCF980370C29C00C91783 /* QSHotKeyTriggers_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHotKeyTriggers_Prefix.pch; sourceTree = "<group>"; };
 		7F59402B085E51D100746E02 /* QSCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSCore.framework; sourceTree = QSFrameworks; };
 		7F59402C085E51D100746E02 /* QSEffects.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSEffects.framework; sourceTree = QSFrameworks; };
 		7F59402D085E51D100746E02 /* QSFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSFoundation.framework; sourceTree = QSFrameworks; };
@@ -100,7 +99,6 @@
 		32DBCF9F0370C38200C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				32DBCF980370C29C00C91783 /* QSHotKeyTriggers_Prefix.pch */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -166,7 +164,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "$SRCROOT/bltrversion $INFOPLIST_FILE";
+			shellScript = "\"$SRCROOT/../bltrversion\" $INFOPLIST_FILE";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -185,13 +183,31 @@
 		7F07B01C085E433200E2AFC4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../../Build/Release\"";
+				DEAD_CODE_STRIPPING = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(QSFrameworks)";
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_ENABLE_PASCAL_STRINGS = NO;
+				GCC_FAST_MATH = YES;
+				GCC_FAST_OBJC_DISPATCH = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = QSHotKeyTriggers_Prefix.pch;
+				GCC_PREFIX_HEADER = "";
+				GCC_THREADSAFE_STATICS = NO;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VALUE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = Info.plist;
+				OBJROOT = "$(BUILD_DIR)";
 				OTHER_LDFLAGS = "-bundle";
+				PREBINDING = NO;
+				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_NAME = "HotKey Triggers";
+				STRIP_INSTALLED_PRODUCT = YES;
+				SYMROOT = ../../build;
 				WRAPPER_EXTENSION = qsplugin;
 			};
 			name = Release;
@@ -208,6 +224,32 @@
 			};
 			name = Release;
 		};
+		92DC5A060CFD347A005C8442 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(QSFrameworks)";
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				INFOPLIST_FILE = Info.plist;
+				OTHER_LDFLAGS = "-bundle";
+				PRODUCT_NAME = "HotKey Triggers";
+				SYMROOT = "$(PROJECT_DIR)/build";
+				WRAPPER_EXTENSION = qsplugin;
+			};
+			name = Debug;
+		};
+		92DC5A070CFD347A005C8442 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -215,6 +257,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7F07B01C085E433200E2AFC4 /* Release */,
+				92DC5A060CFD347A005C8442 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -223,6 +266,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7F07B020085E433200E2AFC4 /* Release */,
+				92DC5A070CFD347A005C8442 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

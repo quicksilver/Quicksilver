@@ -8,8 +8,8 @@
 @class QSTask;
 #import <Cocoa/Cocoa.h>
 @interface QSUpdateController : NSObject {
-    NSTimer *updateTimer;
-	BOOL doStartupCheck;	
+	NSTimer *updateTimer;
+	BOOL doStartupCheck;
 	NSURLDownload *appDownload;
 	NSString *newVersion;
 	NSString *tempPath;
@@ -28,12 +28,12 @@
 //- (BOOL)installPlugInsFromFiles:(NSArray *)fileList;
 //- (NSString *)installPlugInFromFile:(NSString *)path;
 //- (NSArray *)installPlugInFromCompressedFile:(NSString *)path;
-//-(float)downloadProgress;
+//-(float) downloadProgress;
 - (void)forceStartupCheck;
 - (NSURLDownload *)appDownload;
 - (void)setAppDownload:(NSURLDownload *)anAppDownload;
 - (NSArray *)installAppFromCompressedFile:(NSString *)path;
--(NSArray *)extractFilesFromQSPkg:(NSString *)path toPath:(NSString *)tempDirectory;
+- (NSArray *)extractFilesFromQSPkg:(NSString *)path toPath:(NSString *)tempDirectory;
 - (IBAction)threadedRequestedCheckForUpdate:(id)sender;
 - (void)finishAppInstall;
 - (NSArray *)installAppFromDiskImage:(NSString *)path;

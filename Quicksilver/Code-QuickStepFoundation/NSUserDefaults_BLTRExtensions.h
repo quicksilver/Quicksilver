@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-
 @interface NSUserDefaults (BLTRExtensions)
 - (NSColor *)colorForKey:(NSString *)key;
 @end

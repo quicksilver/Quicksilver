@@ -1,12 +1,12 @@
 /*!
 	@header NDHotKeyEvent.h
 	@abstract Header file for the class <tt>NDHotKeyEvent</tt>
-	@discussion <p><tt>NDHotKeyEvent</tt> provides a thread safe Objective-C interface to HotKey events as well as some aditional feature to key track of all the hot keys in your application.</p>
+	@discussion <p >< tt>NDHotKeyEvent</tt> provides a thread safe Objective-C interface to HotKey events as well as some aditional feature to key track of all the hot keys in your application.</p>
 
-	<p><h4>Thread Saftey</h4>By default the class object <tt>NDHotKeyEvent</tt> is not thread safe as the underlying functions that it relies on are not thread safe and the mechanism for keeping track of all of the <tt>NDHotKeyEvent</tt> instances is not thread safe either. Thread saftey can be enable be defining the flag <tt>NDHotKeyEventThreadSafe</tt> before compiling.</p>
+	<p >< h4>Thread Saftey</h4>By default the class object <tt>NDHotKeyEvent</tt> is not thread safe as the underlying functions that it relies on are not thread safe and the mechanism for keeping track of all of the <tt>NDHotKeyEvent</tt> instances is not thread safe either. Thread saftey can be enable be defining the flag <tt>NDHotKeyEventThreadSafe</tt> before compiling.</p>
 	<p>Even with the flag <tt>NDHotKeyEventThreadSafe</tt> defined instances of <tt>NDHotKeyEvent</tt> will still not be thread safe, that is, it is safe to invoke methods of different instance with different threads as well as class methods, but it is not safe to invoke methods of the same instance with different threads.</p>
 	<p>The functions <tt>stringForKeyCodeAndModifierFlags</tt> and <tt>unicharForKeyCode</tt> are never thread safe.</p>
- 
+
 	<p>Created by Nathan Day on Wed Feb 26 2003.<br>
 	Copyright &copy; 2002 Nathan Day. All rights reserved.</p>
  */
@@ -23,23 +23,23 @@ enum
 {
 /*!
 	@const NDHotKeyNoEvent
-	@abstract A value returned from the method <tt>-[NDHotKeyEvent currentEventType]</tt>
+	@abstract A value returned from the method <tt>-[NDHotKeyEvent currentEventType] </tt>
 	@discussion This value is returned if the hot key has not been pressed yet.
  */
  	NDHotKeyNoEvent = 0,
 /*!
 	@const NDHotKeyPressedEvent
-	@abstract A value returned from the method <tt>-[NDHotKeyEvent currentEventType]</tt>
+	@abstract A value returned from the method <tt>-[NDHotKeyEvent currentEventType] </tt>
 	@discussion This value is returned if hot key was pressed last.
  */
  	NDHotKeyPressedEvent,
 /*!
 	@const NDHotKeyReleasedEvent
-	@abstract A value returned from the method <tt>-[NDHotKeyEvent currentEventType]</tt>
+	@abstract A value returned from the method <tt>-[NDHotKeyEvent currentEventType] </tt>
 	@discussion This value is returned if hot key was released last.
  */
 	NDHotKeyReleasedEvent
-};
+} ;
 
 /*!
 	@const NDHotKeyDefaultSignature
@@ -51,8 +51,8 @@ extern const OSType			NDHotKeyDefaultSignature;
 /*!
 	@class NDHotKeyEvent
 	@abstract Class to represent a HotKey
-	@discussion <p>This class is a wrapper for Carbon Event HotKeys and provides some feature to key track of all the hot keys in your application. It can be used to be notified of key down as well as key up evernts and when a hot key is being taken by another object (see the protocol <tt>NDHotKeyEventTragetWillChange</tt>)</p>
- 
+	@discussion <p>This class is a wrapper for Carbon Event HotKeys and provides some feature to key track of all the hot keys in your application. It can be used to be notified of key down as well as key up evernts and when a hot key is being taken by another object (see the protocol <tt>NDHotKeyEventTragetWillChange</tt>) </p>
+
  */
 @interface NDHotKeyEvent : NSObject <NSCoding>
 {
@@ -66,16 +66,16 @@ extern const OSType			NDHotKeyDefaultSignature;
 	SEL					selectorReleased,
 							selectorPressed;
 	struct
-	{
+	 {
 		unsigned			individual		: 1;
 		unsigned			collective		: 1;
-	}						isEnabled;
+	} 						isEnabled;
 }
 
 /*!
 	@method install
 	@abstract Install the event key handler
-	@discussion <tt>install</tt> is called before hot keys can be used. You normally don't need to invoke this method your self but in a multithreaded you might want to invoke this method before creating any threads. <tt>install</tt> is designed to be thread safe but the effects of calling Apples <tt>InstallEventHandler()</tt> funtion from anything other than the main thread is unknown.
+	@discussion <tt>install</tt> is called before hot keys can be used. You normally don't need to invoke this method your self but in a multithreaded you might want to invoke this method before creating any threads. <tt>install</tt> is designed to be thread safe but the effects of calling Apples <tt>InstallEventHandler() </tt> funtion from anything other than the main thread is unknown.
 	@result Returns true if <tt>install</tt> succeeded.
  */
 + (BOOL)install;
@@ -94,7 +94,7 @@ extern const OSType			NDHotKeyDefaultSignature;
 	@discussion Used to identify the hot key handler for this application.
 	@result The four char code signature.
  */
-+ (OSType)signature;
++ (OSType) signature;
 
 /*!
 	@method setAllEnabled:
@@ -110,7 +110,7 @@ extern const OSType			NDHotKeyDefaultSignature;
 	@abstract Is hot key combination enabled.
 	@abstract Test to see if a key code and modifier flaf combination are enabled.
 	@param keyCode The key code used by the keyboard, can vary across hardware.
-	@param modifierFlags The modifer flags, ( <tt>NSCommandKeyMask</tt>, <tt>NSControlKeyMask</tt>, <tt>NSAlternateKeyMask</tt>, <tt>NSShiftKeyMask</tt> ).
+	@param modifierFlags The modifer flags, ( <tt>NSCommandKeyMask</tt>, <tt>NSControlKeyMask</tt>, <tt>NSAlternateKeyMask</tt>, <tt>NSShiftKeyMask</tt> ) .
 	@result Returns <tt>YES</tt> if enabled.
  */
 + (BOOL)isEnabledKeyCode:(unsigned short)keyCode modifierFlags:(unsigned int)modifierFlags;
@@ -121,19 +121,19 @@ extern const OSType			NDHotKeyDefaultSignature;
 	@discussion Gets a <tt>NDHotKeyEvent</tt> for the supplied key code and modifer flags by either finding one that has already been created or by creating a new one..
 	@param keyCode The key code used by the keyboard, can vary across hardware.
 	@param aChar The character, used for display purposes only.
-	@param modifierFlags The modifer flags, ( <tt>NSCommandKeyMask</tt>, <tt>NSControlKeyMask</tt>, <tt>NSAlternateKeyMask</tt>, <tt>NSShiftKeyMask</tt> ).
+	@param modifierFlags The modifer flags, ( <tt>NSCommandKeyMask</tt>, <tt>NSControlKeyMask</tt>, <tt>NSAlternateKeyMask</tt>, <tt>NSShiftKeyMask</tt> ) .
 	@result The <tt>NDHotKeyEvent</tt> obejct or nil if failure.
  */
-+ (NDHotKeyEvent *)getHotKeyForKeyCode:(unsigned short)keyCode character:(unichar)aChar modifierFlags:(unsigned int)modifierFlags;
++ (id)getHotKeyForKeyCode:(unsigned short)keyCode character:(unichar)aChar modifierFlags:(unsigned int)modifierFlags;
 /*!
 	@method findHotKeyForKeyCode:modifierFlags:
 	@abstract Find an <tt>NDHotKeyEvent</tt>
 	@discussion Finds the <tt>NDHotKeyEvent</tt> for the supplied key code and modifer flags.
 	@param keyCode The key code used by the keyboard, can vary across hardware.
-	@param modifierFlags The modifer flags, ( <tt>NSCommandKeyMask</tt>, <tt>NSControlKeyMask</tt>, <tt>NSAlternateKeyMask</tt>, <tt>NSShiftKeyMask</tt> ).
+	@param modifierFlags The modifer flags, ( <tt>NSCommandKeyMask</tt>, <tt>NSControlKeyMask</tt>, <tt>NSAlternateKeyMask</tt>, <tt>NSShiftKeyMask</tt> ) .
 	@result The <tt>NDHotKeyEvent</tt> obejct or nil if none found.
  */
-+ (NDHotKeyEvent *)findHotKeyForKeyCode:(unsigned short)keyCode modifierFlags:(unsigned int)modifierFlags;
++ (id)findHotKeyForKeyCode:(unsigned short)keyCode modifierFlags:(unsigned int)modifierFlags;
 
 /*!
 	@method hotKeyWithKeyCode:character:modifierFlags:
@@ -141,7 +141,7 @@ extern const OSType			NDHotKeyDefaultSignature;
 	@discussion Returns a new hot key for the supplied hot key combination, if there is already a hot key for the supplied key code and modifer flags then nil is returned.
 	@param keyCode The key code used by the keyboard, can vary across hardware.
 	@param aChar The character, used for display purposes only.
-	@param modifierFlags The modifer flags, ( <tt>NSCommandKeyMask</tt>, <tt>NSControlKeyMask</tt>, <tt>NSAlternateKeyMask</tt>, <tt>NSShiftKeyMask</tt> ).
+	@param modifierFlags The modifer flags, ( <tt>NSCommandKeyMask</tt>, <tt>NSControlKeyMask</tt>, <tt>NSAlternateKeyMask</tt>, <tt>NSShiftKeyMask</tt> ) .
 	@result An new <tt>NDHotKeyEvent</tt> or nil if failure.
  */
 + (id)hotKeyWithKeyCode:(unsigned short)keyCode character:(unichar)aChar modifierFlags:(unsigned int)modifer;
@@ -152,7 +152,7 @@ extern const OSType			NDHotKeyDefaultSignature;
 	@discussion Returns a new hot key for the supplied hot key combination and target object and selector, if there is already a hot key for the supplied key code and modifer flags then nil is returned.
 	@param keyCode The key code used by the keyboard, can vary across hardware.
 	@param aChar The character, used for display purposes only.
-	@param modifierFlags The modifer flags, ( <tt>NSCommandKeyMask</tt>, <tt>NSControlKeyMask</tt>, <tt>NSAlternateKeyMask</tt>, <tt>NSShiftKeyMask</tt> ).
+	@param modifierFlags The modifer flags, ( <tt>NSCommandKeyMask</tt>, <tt>NSControlKeyMask</tt>, <tt>NSAlternateKeyMask</tt>, <tt>NSShiftKeyMask</tt> ) .
 	@param target The target of hot key event.
 	@param selector The selector sent when hot key is released
 	@result A new <tt>NDHotKeyEvent</tt>
@@ -173,7 +173,7 @@ extern const OSType			NDHotKeyDefaultSignature;
 	@discussion Initialize the reciever with the supplied hot key combination and target object and selector, if there is already a hot key for the supplied key code and modifer flags then nil is returned.
 	@param keyCode The key code used by the keyboard, can vary across hardware.
 	@param aChar The character, used for display purposes only.
-	@param modifierFlags The modifer flags, ( <tt>NSCommandKeyMask</tt>, <tt>NSControlKeyMask</tt>, <tt>NSAlternateKeyMask</tt>, <tt>NSShiftKeyMask</tt> ).
+	@param modifierFlags The modifer flags, ( <tt>NSCommandKeyMask</tt>, <tt>NSControlKeyMask</tt>, <tt>NSAlternateKeyMask</tt>, <tt>NSShiftKeyMask</tt> ) .
 	@param target The target of hot key event.
 	@param selector The selector sent when hot key is released
 	@result A initialized <tt>NDHotKeyEvent</tt>
@@ -186,7 +186,7 @@ extern const OSType			NDHotKeyDefaultSignature;
 	@discussion Initialize the reciever with the supplied hot key combination, if there is already a hot key for the supplied key code and modifer flags then nil is returned.
 	@param keyCode The key code used by the keyboard, can vary across hardware.
 	@param aChar The character, used for display purposes only.
-	@param modifierFlags The modifer flags, ( <tt>NSCommandKeyMask</tt>, <tt>NSControlKeyMask</tt>, <tt>NSAlternateKeyMask</tt>, <tt>NSShiftKeyMask</tt> ).
+	@param modifierFlags The modifer flags, ( <tt>NSCommandKeyMask</tt>, <tt>NSControlKeyMask</tt>, <tt>NSAlternateKeyMask</tt>, <tt>NSShiftKeyMask</tt> ) .
 	@result A initialized <tt>NDHotKeyEvent</tt>
  */
 - (id)initWithKeyCode:(unsigned short)keyCode character:(unichar)aChar modifierFlags:(unsigned int)modifer;
@@ -282,18 +282,18 @@ extern const OSType			NDHotKeyDefaultSignature;
 /*!
 	@method selector
 	@abstract The selector for a key released event.
-	@discussion This is the selector sent when the hot key combination for the reciever is released. This is the same selector has returned from the method <tt>[NDHotKeyEvent selectorReleased]</tt>
+	@discussion This is the selector sent when the hot key combination for the reciever is released. This is the same selector has returned from the method <tt>[NDHotKeyEvent selectorReleased] </tt>
 	@result The method selector.
  */
-- (SEL)selector;
+- (SEL) selector;
 
 /*!
 	@method selectorReleased
 	@abstract The selector for a key released event.
-	@discussion This is the selector sent when the hot key combination for the reciever is released. This is the same selector has returned from the method <tt>[NDHotKeyEvent selector]</tt>
+	@discussion This is the selector sent when the hot key combination for the reciever is released. This is the same selector has returned from the method <tt>[NDHotKeyEvent selector] </tt>
 	@result The method selector.
  */
-- (SEL)selectorReleased;
+- (SEL) selectorReleased;
 
 /*!
 	@method selectorPressed
@@ -301,7 +301,7 @@ extern const OSType			NDHotKeyDefaultSignature;
 	@discussion This is the selector sent when the hot key combination for the reciever is pressed.
 	@result The method selector.
  */
-- (SEL)selectorPressed;
+- (SEL) selectorPressed;
 
 /*!
 	@method currentEventType
@@ -309,15 +309,15 @@ extern const OSType			NDHotKeyDefaultSignature;
 	@discussion This value returns what event last occured. Can be used in your target when it is sent a event message to find out what event occured, possible values are
 	<blockquote>
 		<table border = "1"  width = "90%">
-			<thead><tr><th>Value</th><th>Description</th></tr></thead>
-			<tr><td align = "center"><tt>NDHotKeyNoEvent</tt></td><td>The hot key has not been pressed yet.</td></tr>
-			<tr><td align = "center"><tt>NDHotKeyPressedEvent</tt></td><td>The hot key was pressed last.</td></tr>
-			<tr><td align = "center"><tt>NDHotKeyReleasedEvent</tt></td><td>The hot key was released last.</td></tr>
+			<thead >< tr >< th>Value</th >< th>Description</th >< /tr >< /thead>
+			<tr >< td align = "center" >< tt>NDHotKeyNoEvent</tt >< /td >< td>The hot key has not been pressed yet.</td >< /tr>
+			<tr >< td align = "center" >< tt>NDHotKeyPressedEvent</tt >< /td >< td>The hot key was pressed last.</td >< /tr>
+			<tr >< td align = "center" >< tt>NDHotKeyReleasedEvent</tt >< /td >< td>The hot key was released last.</td >< /tr>
 		</table>
 	</blockquote>
 	@result The last event type.
  */
-- (int)currentEventType;
+- (int) currentEventType;
 
 /*!
 	@method setTarget:selector:
@@ -360,7 +360,7 @@ extern const OSType			NDHotKeyDefaultSignature;
 	@discussion The key code for the hot key, this is hardware specific.
 	@result The key code.
  */
-- (unsigned short)keyCode;
+- (unsigned short) keyCode;
 
 /*!
 	@method character
@@ -368,7 +368,7 @@ extern const OSType			NDHotKeyDefaultSignature;
 	@discussion This is the character for the key code, without modifier keys. The character is for display purposes only and dose not determine the key code.
 	@result A uni code character.
  */
-- (unichar)character;
+- (unichar) character;
 
 /*!
 	@method modifierFlags
@@ -376,7 +376,7 @@ extern const OSType			NDHotKeyDefaultSignature;
 	@discussion The <tt>modifierFlags</tt> can be a bitwise and combination of <tt>NSControlKeyMask</tt>, <tt>NSAlternateKeyMask</tt>, <tt>NSShiftKeyMask</tt>, and <tt>NSCommandKeyMask</tt>.
 	@result The modifer key flags.
  */
-- (unsigned int)modifierFlags;
+- (unsigned int) modifierFlags;
 
 /*!
 	@method stringValue
@@ -413,7 +413,7 @@ extern const OSType			NDHotKeyDefaultSignature;
 	@discussion Returns a string representation of the passed in hot key values.
 	@param keyCode A key code.
 	@param aChar A character representation of the key code.
-	@param modifierFlags modifer flags, comman, option, shift and control. 
+	@param modifierFlags modifer flags, comman, option, shift and control.
 	@result A <tt>NSString</tt> representing the hot key combination.
  */
 NSString * stringForKeyCodeAndModifierFlags( unsigned short keyCode, unichar aChar, unsigned int modifierFlags );
@@ -421,7 +421,7 @@ NSString * stringForKeyCodeAndModifierFlags( unsigned short keyCode, unichar aCh
 	@function unicharForKeyCode
 	@abstract Get a unicode charater for the key combination.
 	@discussion The uncode chararter for the key combination.
-	@param keyCode The key code used by the keyboard, can vary across hardware. 
+	@param keyCode The key code used by the keyboard, can vary across hardware.
 	@result A <tt>unichar</tt>
  */
 unichar unicharForKeyCode( unsigned short keyCode );

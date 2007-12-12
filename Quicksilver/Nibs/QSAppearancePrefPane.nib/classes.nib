@@ -12,7 +12,6 @@
             }; 
             SUPERCLASS = NSObject; 
         }, 
-        {CLASS = QSAdvancedPrefPane; LANGUAGE = ObjC; SUPERCLASS = QSPreferencePane; }, 
         {
             ACTIONS = {customize = id; preview = id; resetColors = id; setCommandInterface = id; }; 
             CLASS = QSAppearancePrefPane; 
@@ -20,26 +19,7 @@
             OUTLETS = {customizeButton = NSButton; interfacePopUp = NSPopUpButton; }; 
             SUPERCLASS = QSPreferencePane; 
         }, 
-        {
-            ACTIONS = {checkNow = id; resetQS = id; runSetup = id; uninstallQS = id; }; 
-            CLASS = QSApplicationPrefPane; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {
-                featureLevelMatrix = NSMatrix; 
-                hideDockIconSwitch = NSButton; 
-                hideStatusMenuSwitch = NSButton; 
-            }; 
-            SUPERCLASS = QSPreferencePane; 
-        }, 
-        {CLASS = QSBezelBackgroundView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
-        {CLASS = QSPreferencePane; LANGUAGE = ObjC; SUPERCLASS = NSPreferencePane; }, 
-        {
-            ACTIONS = {changeHotkey = id; }; 
-            CLASS = QSSearchPrefPane; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {hotKeyButton = NSButton; }; 
-            SUPERCLASS = QSPreferencePane; 
-        }
+        {CLASS = QSPreferencePane; LANGUAGE = ObjC; SUPERCLASS = NSPreferencePane; }
     ); 
     IBVersion = 1; 
 }

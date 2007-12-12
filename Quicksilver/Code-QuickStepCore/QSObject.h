@@ -1,4 +1,4 @@
- 
+
 #import <Foundation/Foundation.h>
 #import <AddressBook/AddressBook.h>
 
@@ -26,7 +26,7 @@ extern NSSize QSMaxIconSize;
 
 @protocol QSObjectHierarchy
 - (QSBasicObject *)parent;
-- (bool)hasChildren;
+- (bool) hasChildren;
 - (NSArray *)children;
 - (NSArray *)altChildren;
 - (NSArray *)siblings;
@@ -34,7 +34,7 @@ extern NSSize QSMaxIconSize;
 @end
 
 @class QSBasicObject;
-@interface QSRankInfo : NSObject{
+@interface QSRankInfo : NSObject {
 	@public
 	NSString *identifier;
 	NSString *name;
@@ -43,7 +43,7 @@ extern NSSize QSMaxIconSize;
 	BOOL omitted;
 }
 +(id)rankDataWithObject:(QSBasicObject *)object;
--(id)initWithObject:(QSBasicObject *)object;
+- (id)initWithObject:(QSBasicObject *)object;
 - (NSString *)identifier;
 - (void)setIdentifier:(NSString *)anIdentifier;
 - (NSString *)name;
@@ -56,36 +56,36 @@ extern NSSize QSMaxIconSize;
 - (void)setOmitted:(BOOL)flag;
 @end
 
-@interface QSBasicObject : NSObject <QSObject,QSObjectHierarchy>{
+@interface QSBasicObject : NSObject <QSObject, QSObjectHierarchy> {
 	@public
 	QSRankInfo *			rankData;
 	NSObject <QSObjectRanker> *ranker;
 }
-- (int)primaryCount;
+- (int) primaryCount;
 - (BOOL)loadIcon;
 - (NSImage *)icon;
 - (NSString *)displayName;
 - (NSString *)details;
 - (NSString *)toolTip;
-- (float)score;
-- (int)order;
+- (float) score;
+- (int) order;
 - (NSString *)description;
-- (float)rankModification;
+//- (float) rankModification;
 - (NSString *)identifier;
 - (NSEnumerator *)enumeratorForType:(NSString *)aKey;
-- (NSComparisonResult)nameCompare:(QSBasicObject *)object;
+- (NSComparisonResult) nameCompare:(QSBasicObject *)object;
 - (BOOL)putOnPasteboard:(NSPasteboard *)pboard;
 - (BOOL)putOnPasteboard:(NSPasteboard *)pboard includeDataForTypes:(NSArray *)includeTypes;
 - (BOOL)putOnPasteboard:(NSPasteboard *)pboard declareTypes:(NSArray *)types includeDataForTypes:(NSArray *)includeTypes;
 - (QSRankInfo *)getRankData;
-- (id <QSObjectRanker>)getRanker;
-- (id <QSObjectRanker>)ranker;
+- (id <QSObjectRanker>) getRanker;
+- (id <QSObjectRanker>) ranker;
 - (void)setOmitted:(BOOL)flag;
 - (void)updateMnemonics;
 - (BOOL)drawIconInRect:(NSRect)rect flipped:(BOOL)flipped;
 - (NSString *)kind;
 - (void)setOmitted:(BOOL)flag ;
-- (BOOL) containsType:(NSString *)aType;
+- (BOOL)containsType:(NSString *)aType;
 - (QSBasicObject *)resolvedObject;
 - (void)becameSelected;
 @end
@@ -102,7 +102,7 @@ extern NSSize QSMaxIconSize;
 - (NSString *)detailsOfObject:(QSObject *)object;
 - (NSString *)identifierForObject:(QSObject *)object;
 - (BOOL)drawIconForObject:(QSObject *)object inRect:(NSRect)rect flipped:(BOOL)flipped;
-- (NSDragOperation)operationForDrag:(id <NSDraggingInfo>)sender ontoObject:(QSObject *)dObject withObject:(QSBasicObject *)iObject;
+- (NSDragOperation) operationForDrag:(id <NSDraggingInfo>)sender ontoObject:(QSObject *)dObject withObject:(QSBasicObject *)iObject;
 - (NSString *)actionForDragMask:(NSDragOperation)operation ontoObject:(QSObject *)dObject withObject:(QSBasicObject *)iObject;
 - (BOOL)loadChildrenForObject:(QSObject *)object;
 - (NSString *)kindOfObject:(id <QSObject>)object;
@@ -147,32 +147,32 @@ extern NSSize QSMaxIconSize;
 #define kQSObjectComponents @"QSObjectComponents"
 
 typedef struct _QSObjectFlags {
-    unsigned int        multiTyped:1;
-    unsigned int        iconLoaded:1;
-    unsigned int        childrenLoaded:1;
-    unsigned int        contentsLoaded:1;
-    unsigned int        noIdentifier:1;
-    unsigned int        isProxy:1;
-    unsigned int        retainsIcon:1;
-	//  NSCellType          type:2;
+	unsigned int		multiTyped:1;
+	unsigned int		iconLoaded:1;
+	unsigned int		childrenLoaded:1;
+	unsigned int		contentsLoaded:1;
+	unsigned int		noIdentifier:1;
+	unsigned int		isProxy:1;
+	unsigned int		retainsIcon:1;
+	//  NSCellType		  type:2;
 } QSObjectFlags;
 
 
 
 extern NSSize QSMaxIconSize;
-@interface QSObject : QSBasicObject <NSCopying>{
+@interface QSObject : QSBasicObject <NSCopying> {
 	NSString *name;
 	NSString *label;
 	NSString *identifier;
 	NSImage *icon;
 	NSString *primaryType;
 	id primaryObject;
-	
-	NSMutableDictionary *	meta;		//Name, Label, Type, Identifier, Source, embedded details
-	NSMutableDictionary *	data;		//Data or typed dictionary (multiTyped Object)
-	NSMutableDictionary *	cache;		//Icons, children, alias data, 
+
+	NSMutableDictionary *	meta; 		//Name, Label, Type, Identifier, Source, embedded details
+	NSMutableDictionary *	data; 		//Data or typed dictionary (multiTyped Object)
+	NSMutableDictionary *	cache; 		//Icons, children, alias data,
 	QSObjectFlags			flags;
-    NSTimeInterval			lastAccess;
+	NSTimeInterval			lastAccess;
 }
 + (void)cleanObjectDictionary;
 + (void)purgeOldImagesAndChildren;
@@ -180,21 +180,21 @@ extern NSSize QSMaxIconSize;
 + (void)purgeImagesAndChildrenOlderThan:(NSTimeInterval)interval;
 + (void)purgeIdentifiers;
 + (void)initialize;
-+ (void) registerObject:(QSBasicObject *)object withIdentifier:(NSString *)anIdentifier;
++ (void)registerObject:(QSBasicObject *)object withIdentifier:(NSString *)anIdentifier;
 - (NSMutableDictionary *)cache;
 - (void)setCache:(NSMutableDictionary *)aCache;
 
 
 
-- (id) init;
-- (void) dealloc;
+- (id)init;
+- (void)dealloc;
 - (BOOL)isEqual:(id)anObject;
 - (NSString *)guessPrimaryType;
-+ (id) objectWithName:(NSString *)aName;
-+ (id) objectWithIdentifier:(NSString *)anIdentifier;
-+ (id) makeObjectWithIdentifier:(NSString *)anIdentifier;
-+ (id) objectByMergingObjects:(NSArray *)objects;
-+ (id) objectByMergingObjects:(NSArray *)objects withObject:(QSObject *)object;
++ (id)objectWithName:(NSString *)aName;
++ (id)objectWithIdentifier:(NSString *)anIdentifier;
++ (id)makeObjectWithIdentifier:(NSString *)anIdentifier;
++ (id)objectByMergingObjects:(NSArray *)objects;
++ (id)objectByMergingObjects:(NSArray *)objects withObject:(QSObject *)object;
 - (NSArray *)splitObjects;
 - (NSString *)displayName ;
 - (NSString *)toolTip;
@@ -202,13 +202,13 @@ extern NSSize QSMaxIconSize;
 - (NSString *)details;
 - (id)primaryObject;
 
-- (int)count;
-- (int)primaryCount;
+- (int) count;
+- (int) primaryCount;
 - (NSArray *)allKeys;
 - (void)forwardInvocation:(NSInvocation *)invocation;
 - (NSArray *)types;
 - (NSArray *)decodedTypes;
-- (int)primaryCount;
+- (int) primaryCount;
 - (id)copyWithZone:(NSZone *)zone;
 - (id)handler;
 - (id)handlerForType:(NSString *)type selector:(SEL)selector;
@@ -231,12 +231,12 @@ extern NSSize QSMaxIconSize;
 @end
 
 @interface QSObject (Hierarchy)
-- (QSBasicObject * )parent;
-- (void) setParentID:(NSString *)parentID;
+- (QSBasicObject * ) parent;
+- (void)setParentID:(NSString *)parentID;
 - (BOOL)childrenValid;
 - (BOOL)unloadChildren;
 - (void)loadChildren;
--(BOOL)hasChildren;
+- (BOOL)hasChildren;
 @end
 
 @interface QSObject (Archiving)
@@ -281,7 +281,7 @@ extern NSSize QSMaxIconSize;
 - (void)setChildrenLoaded:(BOOL)flag ;
 - (BOOL)contentsLoaded ;
 - (void)setContentsLoaded:(BOOL)flag ;
-- (NSTimeInterval)childrenLoadedDate;
+- (NSTimeInterval) childrenLoadedDate;
 - (void)setChildrenLoadedDate:(NSTimeInterval)newChildrenLoadedDate; //- (NSTimeInterval)lastUseDate;
 //- (void)setLastUseDate:(NSTimeInterval)newLastUseDate;
 @end

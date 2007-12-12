@@ -9,6 +9,6 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface NSObject (BLTRExtensions) 
+@interface NSObject (BLTRExtensions)
 - (NSBundle *)classBundle;
 @end

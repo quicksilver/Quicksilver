@@ -17,20 +17,6 @@
             LANGUAGE = ObjC; 
             OUTLETS = {helperTable = NSTableView; }; 
             SUPERCLASS = NSPreferencePane; 
-        }, 
-        {CLASS = QSMenuButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
-        {
-            ACTIONS = {
-                copyInstallURL = id; 
-                getInfo = id; 
-                getMorePlugIns = id; 
-                showPlugInsFolder = id; 
-                updatePlugIns = id; 
-            }; 
-            CLASS = QSPlugInsPrefPane; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {plugInTable = id; }; 
-            SUPERCLASS = NSPreferencePane; 
         }
     ); 
     IBVersion = 1; 

@@ -6,57 +6,21 @@
             LANGUAGE = ObjC; 
             SUPERCLASS = NSObject; 
         }, 
-        {CLASS = HideableButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
-        {
-            CLASS = HideableProgressBar; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSProgressIndicator; 
-        }, 
-        {CLASS = HideableTextField; LANGUAGE = ObjC; SUPERCLASS = NSTextField; }, 
-        {CLASS = InertButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
         {CLASS = NSObject; LANGUAGE = ObjC; }, 
-        {
-            CLASS = NSPreferencePane; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {
-                "_firstKeyView" = id; 
-                "_initialKeyView" = id; 
-                "_lastKeyView" = id; 
-                "_window" = id; 
-            }; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {CLASS = NSSegmentedControl; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
         {
             ACTIONS = {flare = id; pulse = id; shrink = id; }; 
             CLASS = NSWindow; 
             LANGUAGE = ObjC; 
             SUPERCLASS = NSResponder; 
         }, 
-        {
-            ACTIONS = {checkNow = id; }; 
-            CLASS = QSApplicationPrefPane; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {
-                featureLevelMatrix = NSMatrix; 
-                hideDockIconSwitch = NSButton; 
-                hideStatusMenuSwitch = NSButton; 
-            }; 
-            SUPERCLASS = QSPreferencePane; 
-        }, 
         {CLASS = QSBackgroundView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
-        {CLASS = QSBezelBackgroundView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
-        {CLASS = QSBorderlessWindow; LANGUAGE = ObjC; SUPERCLASS = QSWindow; }, 
         {CLASS = QSFancyTableView; LANGUAGE = ObjC; SUPERCLASS = QSTableView; }, 
         {CLASS = QSGlossyBarView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
         {CLASS = QSHandledSplitView; LANGUAGE = ObjC; SUPERCLASS = NSSplitView; }, 
         {CLASS = QSImageAndTextCell; LANGUAGE = ObjC; SUPERCLASS = NSTextFieldCell; }, 
-        {CLASS = QSImageCell; LANGUAGE = ObjC; SUPERCLASS = NSImageCell; }, 
         {CLASS = QSImageView; LANGUAGE = ObjC; SUPERCLASS = NSImageView; }, 
-        {CLASS = QSOutlineView; LANGUAGE = ObjC; SUPERCLASS = NSOutlineView; }, 
-        {CLASS = QSPreferencePane; LANGUAGE = ObjC; SUPERCLASS = NSPreferencePane; }, 
         {
-            ACTIONS = {back = id; next = id; selectModule = id; }; 
+            ACTIONS = {selectModule = id; }; 
             CLASS = QSPreferencesController; 
             LANGUAGE = ObjC; 
             OUTLETS = {
@@ -64,11 +28,9 @@
                 externalPrefsTable = NSTableView; 
                 fillerBox = NSBox; 
                 helpButton = NSButton; 
-                historyView = NSSegmentedControl; 
                 iconView = NSImageView; 
                 internalPrefsTable = NSTableView; 
                 loadingProgress = NSProgressIndicator; 
-                loadingView = NSView; 
                 mainBox = NSBox; 
                 moduleController = NSArrayController; 
                 nameView = NSTextField; 
@@ -89,7 +51,6 @@
             SUPERCLASS = NSView; 
         }, 
         {CLASS = QSTableView; LANGUAGE = ObjC; SUPERCLASS = NSTableView; }, 
-        {CLASS = QSTitleToolbarView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
         {
             ACTIONS = {hideThreaded = id; reallyOrderFront = id; showThreaded = id; }; 
             CLASS = QSWindow; 

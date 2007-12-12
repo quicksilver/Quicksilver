@@ -10,7 +10,7 @@
 #import "QSHandledSplitView.h"
 
 @interface QSSplitHandleView : NSView {
-    IBOutlet QSHandledSplitView *splitView;
+	IBOutlet QSHandledSplitView *splitView;
 }
 
 @end

@@ -4,13 +4,13 @@
 @class QSObject;
 
 @interface QSProcessMonitor : NSObject {
-    NSMutableArray *processes;
+	NSMutableArray *processes;
 	NSDictionary *currentApplication;
 	NSDictionary *previousApplication;
 }
 + (id)sharedInstance;
--(NSArray *)visibleProcesses;
--(NSArray *)allProcesses;
+- (NSArray *)visibleProcesses;
+- (NSArray *)allProcesses;
 - (void)reloadProcesses;
 - (QSObject *)imbuedFileProcessForDict:(NSDictionary *)dict;
 
@@ -27,8 +27,8 @@
 - (void)appLaunched:(NSNotification *)notif;
 - (void)addProcessWithDict:(NSDictionary *)info;
 
-- (NSArray *) getAllProcesses;
-- (NSArray *) getVisibleProcesses;
+- (NSArray *)getAllProcesses;
+- (NSArray *)getVisibleProcesses;
 - (QSObject *)imbuedFileProcessForDict:(NSDictionary *)dict;
 - (void)reloadProcesses;
 

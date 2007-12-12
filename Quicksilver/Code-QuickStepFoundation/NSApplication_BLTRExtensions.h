@@ -12,29 +12,29 @@
 @interface NSApplication (Info)
 - (BOOL)wasLaunchedAtLogin;
 - (NSString *)versionString;
-- (int)featureLevel;
+- (int) featureLevel;
 - (NSDictionary *)processInformation;
 - (NSDictionary *)parentProcessInformation;
 @end
 
 @interface NSApplication (Focus)
-- (BOOL) stealKeyFocus;
-- (BOOL) releaseKeyFocus;
+- (BOOL)stealKeyFocus;
+- (BOOL)releaseKeyFocus;
 @end
 
 
 @interface NSApplication (Relaunching)
--(IBAction)relaunch:(id)sender;
+- (IBAction)relaunch:(id)sender;
 - (void)requestRelaunch:(id)sender;
--(void)relaunchFromPath:(NSString *)path;
--(void)relaunchAfterMovingFromPath:(NSString *)newPath;
--(void)relaunchAtPath:(NSString *)launchPath movedFromPath:(NSString *)newPath;
--(void)replaceWithUpdateFromPath:(NSString *)newPath;
+- (void)relaunchFromPath:(NSString *)path;
+- (void)relaunchAfterMovingFromPath:(NSString *)newPath;
+- (void)relaunchAtPath:(NSString *)launchPath movedFromPath:(NSString *)newPath;
+- (void)replaceWithUpdateFromPath:(NSString *)newPath;
 @end
 
 @interface NSApplication (LSUIElementManipulation)
--(BOOL)shouldBeUIElement;
--(BOOL)setShouldBeUIElement:(BOOL)hidden;
+- (BOOL)shouldBeUIElement;
+- (BOOL)setShouldBeUIElement:(BOOL)hidden;
 @end
 
 
@@ -49,8 +49,8 @@ typedef enum {
 #define kLastUsedLocation @"Last Used Location"
 
 @interface NSApplication (LaunchStatus)
--(int)checkLaunchStatus;
--(void)updateLaunchStatusInfo;
+- (int) checkLaunchStatus;
+- (void)updateLaunchStatusInfo;
 @end
 
 

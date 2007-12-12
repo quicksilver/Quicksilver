@@ -17,6 +17,6 @@ void QSShowLargeType(NSString *string);
 @end
 
 
-@interface QSLargeTypeView : NSTextField{
+@interface QSLargeTypeView : NSTextField {
 }
 @end

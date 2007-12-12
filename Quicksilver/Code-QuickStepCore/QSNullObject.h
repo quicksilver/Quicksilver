@@ -9,12 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import "QSObject.h"
 
-@interface QSNullObject : QSBasicObject {
-	
-}
-
+@interface QSNullObject : QSBasicObject {}
 @end
-
 
 @interface QSBasicObject (NullObject)
 +(QSBasicObject *)nullObject;

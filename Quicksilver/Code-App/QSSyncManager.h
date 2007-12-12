@@ -15,4 +15,6 @@
 }
 - (void)registerSchema;
 - (ISyncClient *)getSyncClient;
++ (id)sharedInstance;
+- (void)setup;
 @end

@@ -12,13 +12,7 @@
             LANGUAGE = ObjC; 
             SUPERCLASS = NSObject; 
         }, 
-        {CLASS = InertButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
-        {CLASS = MenuButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
-        {CLASS = QSActionMatrix; LANGUAGE = ObjC; SUPERCLASS = NSMatrix; }, 
-        {CLASS = QSActionPopUp; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
         {CLASS = QSBackgroundView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
-        {CLASS = QSBezelBackgroundView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
-        {CLASS = QSBorderlessWindow; LANGUAGE = ObjC; SUPERCLASS = QSWindow; }, 
         {
             ACTIONS = {emptyCollection = id; }; 
             CLASS = QSCollectingSearchObjectView; 
@@ -31,11 +25,6 @@
             LANGUAGE = ObjC; 
             OUTLETS = {iFrame = id; }; 
             SUPERCLASS = QSInterfaceController; 
-        }, 
-        {
-            CLASS = QSFloatingInterfaceController; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = QSResizingInterfaceController; 
         }, 
         {
             ACTIONS = {
@@ -60,26 +49,8 @@
             }; 
             SUPERCLASS = NSWindowController; 
         }, 
-        {CLASS = QSMenuButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
         {CLASS = QSObjectView; LANGUAGE = ObjC; SUPERCLASS = NSImageView; }, 
-        {
-            ACTIONS = {contractWindow = id; expandWindow = id; }; 
-            CLASS = QSResizingInterfaceController; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = QSInterfaceController; 
-        }, 
-        {CLASS = QSSearchObjectView; LANGUAGE = ObjC; SUPERCLASS = QSObjectView; }, 
-        {
-            ACTIONS = {hideThreaded = id; showThreaded = id; }; 
-            CLASS = QSWindow; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSPanel; 
-        }, 
-        {
-            CLASS = QSWindowInterfaceController; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = QSResizingInterfaceController; 
-        }
+        {CLASS = QSSearchObjectView; LANGUAGE = ObjC; SUPERCLASS = QSObjectView; }
     ); 
     IBVersion = 1; 
 }

@@ -1,5 +1,3 @@
-
-
 #import <Foundation/Foundation.h>
 
 @class QSBasicObject;
@@ -10,17 +8,17 @@
 @class QSTaskController;
 
 @protocol QSFileActionProvider
--(NSArray *) fileActionsFromPaths:(NSArray *)paths;
+- (NSArray *)fileActionsFromPaths:(NSArray *)paths;
 @end
 
 @interface QSExecutor : NSObject {
-    NSMutableArray *oldActionObjects;
-    NSMutableDictionary *actionIdentifiers;
+	NSMutableArray *oldActionObjects;
+	NSMutableDictionary *actionIdentifiers;
 	NSMutableDictionary *directObjectTypes;
 	NSMutableDictionary *directObjectFileTypes;
-	
+
 	NSMutableDictionary *actionSources;
-	
+
 	NSMutableArray *actionRanking;
 	NSMutableDictionary *actionPrecedence;
 	NSMutableDictionary *actionActivation;
@@ -34,6 +32,7 @@
 - (void)addActions:(NSArray *)actions;
 - (void)addAction:(QSAction *)action;
 - (NSArray *)rankedActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
+- (NSArray *)rankedActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject shouldBypass:(BOOL)bypass;
 //- (void)registerActions:(id)actionObject;
 - (QSAction *)actionForIdentifier:(NSString *)identifier;
 - (QSObject *)performAction:(NSString *)action directObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
@@ -56,6 +55,3 @@
 @end
 
 extern QSExecutor *QSExec; // Shared Instance
-
-
-

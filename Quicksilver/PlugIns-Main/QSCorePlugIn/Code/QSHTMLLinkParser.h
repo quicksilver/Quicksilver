@@ -10,7 +10,5 @@
 
 #import "QSCore.h"
 
-//#import "ekhtml.h"
-
 @interface QSHTMLLinkParser : QSParser
 @end

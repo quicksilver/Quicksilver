@@ -8,9 +8,5 @@
 
 #import <Cocoa/Cocoa.h>
 
-
-@interface QSDefaultsManager : NSObject {
-
-}
-
+@interface QSDefaultsManager : NSObject {}
 @end

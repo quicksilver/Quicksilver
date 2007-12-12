@@ -13,35 +13,23 @@
             }; 
             SUPERCLASS = NSObject; 
         }, 
-        {CLASS = NSSegmentedControl; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
         {
             ACTIONS = {flare = id; pulse = id; shrink = id; }; 
             CLASS = NSWindow; 
             LANGUAGE = ObjC; 
             SUPERCLASS = NSResponder; 
         }, 
-        {CLASS = QSBackgroundView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
-        {CLASS = QSBorderlessWindow; LANGUAGE = ObjC; SUPERCLASS = QSWindow; }, 
         {
             CLASS = QSDelegatingCell; 
             LANGUAGE = ObjC; 
             OUTLETS = {delegate = id; }; 
             SUPERCLASS = NSTextFieldCell; 
         }, 
-        {
-            CLASS = QSDelegatingTableColumn; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSTableColumn; 
-        }, 
-        {CLASS = QSFancyTableView; LANGUAGE = ObjC; SUPERCLASS = QSTableView; }, 
         {CLASS = QSGlossyBarButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
         {CLASS = QSGlossyBarButtonCell; LANGUAGE = ObjC; SUPERCLASS = NSButtonCell; }, 
         {CLASS = QSGlossyBarMenuButton; LANGUAGE = ObjC; SUPERCLASS = QSMenuButton; }, 
         {CLASS = QSGlossyBarView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
-        {CLASS = QSHandledSplitView; LANGUAGE = ObjC; SUPERCLASS = NSSplitView; }, 
         {CLASS = QSImageAndTextCell; LANGUAGE = ObjC; SUPERCLASS = NSTextFieldCell; }, 
-        {CLASS = QSImageCell; LANGUAGE = ObjC; SUPERCLASS = NSImageCell; }, 
-        {CLASS = QSImageView; LANGUAGE = ObjC; SUPERCLASS = NSImageView; }, 
         {
             ACTIONS = {goHome = id; search = id; showInBrowser = id; }; 
             CLASS = QSMainMenuPrefPane; 
@@ -54,7 +42,6 @@
             SUPERCLASS = QSPreferencePane; 
         }, 
         {CLASS = QSMenuButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
-        {CLASS = QSOutlineView; LANGUAGE = ObjC; SUPERCLASS = NSOutlineView; }, 
         {
             ACTIONS = {showPaneHelp = id; }; 
             CLASS = QSPreferencePane; 
@@ -67,14 +54,6 @@
             }; 
             SUPERCLASS = NSObject; 
         }, 
-        {
-            CLASS = QSSplitHandleView; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {splitView = QSHandledSplitView; }; 
-            SUPERCLASS = NSView; 
-        }, 
-        {CLASS = QSTableView; LANGUAGE = ObjC; SUPERCLASS = NSTableView; }, 
-        {CLASS = QSTreeController; LANGUAGE = ObjC; SUPERCLASS = NSTreeController; }, 
         {
             ACTIONS = {addTrigger = id; removeTrigger = id; }; 
             CLASS = QSTriggerEditor; 

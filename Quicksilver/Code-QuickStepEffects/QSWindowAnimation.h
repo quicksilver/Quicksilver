@@ -7,12 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "QSMoveHelper.h"
 #import "QSEmbeddedEffects.h"
 
 #import "CGSPrivate.h"
-#import "CGSPrivate+QSMods.h"
-
 
 #define kQSGSTransformF @"transformFn"
 #define kQSGSBrightF @"brightnessFn"
@@ -20,34 +17,31 @@
 #define kQSGSAlphaF @"alphaFn"
 #define kQSGSType @"type"
 #define kQSGSDuration @"duration"
-#define kQSEffectsID (CFStringRef)@"com.blacktree.QSEffects"
+#define kQSEffectsID (CFStringRef) @"com.blacktree.QSEffects"
 #define kQSGSBrightA @"brightnessA"
 #define kQSGSAlphaA @"alphaA"
 #define kQSGSBrightB @"brightnessB"
 #define kQSGSAlphaB @"alphaB"
-
-
-
 
 @interface QSWindowAnimation : NSAnimation {
 	@public
 	NSWindow *_window;
 	int wid;
 	CGSConnection cgs;
-	
-	void (*effectFt)(QSWindowAnimation *);
-	
-	CGPointWarp *(*warpFt)(QSWindowAnimation *,float,int *,int *);
-	
-	CGAffineTransform (*transformFt)(QSWindowAnimation *,float);
+
+	void (*effectFt) (QSWindowAnimation *);
+
+	CGPointWarp *(*warpFt) (QSWindowAnimation *, float, int *, int *);
+
+	CGAffineTransform (*transformFt) (QSWindowAnimation *, float);
 	struct CGAffineTransform _transformA;
 	struct CGAffineTransform _transformB;
-	
-	float (*alphaFt)(QSWindowAnimation *,float);
+
+	float (*alphaFt) (QSWindowAnimation *, float);
 	float _alphaA;
 	float _alphaB;
-	
-	float (*brightFt)(QSWindowAnimation *,float);
+
+	float (*brightFt) (QSWindowAnimation *, float);
 	float _brightA;
 	float _brightB;
 	NSDictionary *attributes;

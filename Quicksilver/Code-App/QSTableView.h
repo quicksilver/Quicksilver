@@ -19,7 +19,7 @@
 @end
 
 @interface QSTableView : NSTableView {
-    int drawingRowIsSelected;
+	int drawingRowIsSelected;
 	NSColor *highlightColor;
 	id draggingDelegate;
 	BOOL opaque;
@@ -32,7 +32,7 @@
 - (void)setOpaque:(BOOL)flag;
 @end
 
-@interface NSTableView (MenuExtensions) 
+@interface NSTableView (MenuExtensions)
 
--(NSMenu*)menuForEvent:(NSEvent*)evt;
+- (NSMenu*)menuForEvent:(NSEvent*)evt;
 @end

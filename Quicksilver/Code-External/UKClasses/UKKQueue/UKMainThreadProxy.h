@@ -1,20 +1,20 @@
-/* =============================================================================
+/* == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ===
 	FILE:		UKMainThreadProxy.h
 	PROJECT:	UKMainThreadProxy
-    
-    PURPOSE:    Send a message to object theObject to [theObject mainThreadProxy]
-                instead and the message will be received on the main thread by
-                theObject.
 
-    COPYRIGHT:  (c) 2004 M. Uli Kusterer, all rights reserved.
-    
+	PURPOSE:	Send a message to object theObject to [theObject mainThreadProxy]
+				instead and the message will be received on the main thread by
+				theObject.
+
+	COPYRIGHT:  (c) 2004 M. Uli Kusterer, all rights reserved.
+
 	AUTHORS:	M. Uli Kusterer - UK
-    
-    LICENSES:   GPL, Modified BSD
+
+	LICENSES:   GPL, Modified BSD
 
 	REVISIONS:
 		2004-10-14	UK	Created.
-   ========================================================================== */
+   = == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == = */
 
 // -----------------------------------------------------------------------------
 //  Headers:
@@ -29,8 +29,8 @@
 
 @interface NSObject (UKMainThreadProxy)
 
--(id)	mainThreadProxy;		// You can't init or release this object.
--(id)	copyMainThreadProxy;	// Gives you a retained version.
+- (id)	mainThreadProxy; 		// You can't init or release this object.
+- (id)	copyMainThreadProxy; 	// Gives you a retained version.
 
 @end
 
@@ -50,6 +50,6 @@
 	IBOutlet id		target;
 }
 
--(id)	initWithTarget: (id)targ;
+- (id)	initWithTarget: (id)targ;
 
 @end

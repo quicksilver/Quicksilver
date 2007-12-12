@@ -2,7 +2,7 @@
 	@header NDComponentInstance
 	@abstract Header file for <tt>NDComponentInstance</tt>.
 	@discussion Declare the class <tt>NDComponentInstance</tt> which is used with <tt>NDAppleScriptObject</tt>
- 
+
 	Created by Nathan Day on Tue May 20 2003.
 	Copyright &#169; 2002 Nathan Day. All rights reserved.
  */
@@ -49,7 +49,7 @@
 	@discussion Can be used by init methods that take a component parameter so that a script can be connected to it own OSA component. This is useful if you want to execute AppleScripts within separate threads as each OSA component is not thread safe.
 	@result  Returns a OSA component.
  */
-+ (Component)findNextComponent;
++ (Component) findNextComponent;
 
 /*!
 	@method componentInstance
@@ -93,7 +93,7 @@
 	@method setDefaultTarget:
 	@abstract  sets the default target for any AppleEvents.
 	@discussion any AppleEvents not enclosed in a tell statement by default go to the current
-				process (your application). With this method you can provide a different default target.
+				process (your application) . With this method you can provide a different default target.
 	@param  defaultTarget an <tt>NSAppleEventDescriptor</tt> containing the target descriptor
  */
 - (void)setDefaultTarget:(NSAppleEventDescriptor *)defaultTarget;
@@ -118,7 +118,7 @@
 	@discussion See the method <tt>setAppleEventSendTarget: </tt>for a discussion.
 	@result the AppleEvent send target.
  */
-- (id<NDAppleScriptObjectSendEvent>)appleEventSendTarget;
+- (id<NDAppleScriptObjectSendEvent>) appleEventSendTarget;
 
 /*!
 	@method setActiveTarget:
@@ -133,6 +133,6 @@
 	@abstract returns the active target as set by the method <tt>setActiveTarget:</tt>
 	@discussion See the method <tt>setActiveTarget:</tt> for a discussion.
  */
-- (id<NDAppleScriptObjectActive>)activeTarget;
+- (id<NDAppleScriptObjectActive>) activeTarget;
 
 @end

@@ -8,10 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-
-@interface QSDropletApplication : NSApplication {
-
-}
+@interface QSDropletApplication : NSApplication {}
 - (BOOL)executeCommandWithPasteboard:(NSPasteboard *)pb;
 - (void)resetTerminateDelay;
 @end

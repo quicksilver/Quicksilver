@@ -8,11 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import <Carbon/Carbon.h>
-#import "QSToolbarView.h"
-
-
-int main(int argc, const char *argv[]){
-	//NSLog(@"Quicksilver");
+int main(int argc, const char *argv[]) {
 	return NSApplicationMain(argc, argv);
 }

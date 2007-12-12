@@ -1,6 +1,9 @@
 
-
+#import <Cocoa/Cocoa.h>
 #import <Foundation/Foundation.h>
+#import <QSFoundation/QSFoundation.h>
+#import <QSCore/QSCore.h>
+
 
 #import "QSFSBrowserMediator.h"
 
@@ -13,7 +16,7 @@ NSAppleScript *finderScript;
 - (NSArray *)selection;
 - (NSArray *)copyFiles:(NSArray *)files toFolder:(NSString *)destination;
 - (NSArray *)moveFiles:(NSArray *)files toFolder:(NSString *)destination;
-- (NSArray *)moveFiles:(NSArray *)files toFolder:(NSString *)destination shouldCopy:(BOOL)copy;    
+- (NSArray *)moveFiles:(NSArray *)files toFolder:(NSString *)destination shouldCopy:(BOOL)copy;
 - (NSArray *)deleteFiles:(NSArray *)files;
 
 - (NSAppleScript *)finderScript;

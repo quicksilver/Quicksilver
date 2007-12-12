@@ -21,6 +21,6 @@
 
 
 @interface NSEvent (BLTRExtensions)
-+ (NSTimeInterval)doubleClickTime;
-- (int)standardModifierFlags;
++ (NSTimeInterval) doubleClickTime;
+- (int) standardModifierFlags;
 @end

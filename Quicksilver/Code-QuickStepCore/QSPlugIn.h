@@ -18,10 +18,10 @@
 @interface QSPlugIn : NSObject {
 	NSBundle *bundle;
 	NSMutableDictionary *data;
-	
+
 	NSImage *icon;
 	NSImage *smallIcon;
-	
+
 	BOOL installing;
 	BOOL loading;
 	BOOL loaded;
@@ -31,7 +31,7 @@
 }
 + (id)plugInWithBundle:(NSBundle *)aBundle;
 + (id)plugInWithWebInfo:(NSDictionary *)webInfo;
-- (int)isInstalled;
+- (int) isInstalled;
 - (NSString *)name;
 - (NSString *)status;
 - (NSString *)statusBullet;
@@ -47,7 +47,7 @@
 
 - (NSData *)attributedDescription;
 - (NSImage *)icon;
-- (int)enabled;
+- (int) enabled;
 - (BOOL)canBeDisabled;
 - (BOOL)needsUpdate;
 - (NSString *)identifier;
@@ -56,7 +56,7 @@
 
 - (NSString *)bundleIdentifier;
 - (NSString *)bundlePath;
-- (int)isLoaded;
+- (int) isLoaded;
 - (BOOL)meetsFeature;
 - (NSDictionary *)info;
 - (BOOL)isUniversal;

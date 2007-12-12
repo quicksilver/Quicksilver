@@ -7,11 +7,11 @@
 }
 
 // Action called by the "Test" button:
--(IBAction)	doProgressThing: (id)sender;
+- (IBAction)	doProgressThing: (id)sender;
 
 // Actions dispatched in a thread by doProgressThing:
--(IBAction)	doFirstProgressThing: (id)sender;
--(IBAction)	doSecondProgressThing: (id)sender;
--(IBAction)	doThirdProgressThing: (id)sender;
+- (IBAction)	doFirstProgressThing: (id)sender;
+- (IBAction)	doSecondProgressThing: (id)sender;
+- (IBAction)	doThirdProgressThing: (id)sender;
 
 @end

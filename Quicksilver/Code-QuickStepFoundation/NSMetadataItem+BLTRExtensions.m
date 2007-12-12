@@ -1,24 +1,15 @@
 //
-//  NSMetadataItem+BLTRExtensions.m
-//  Quicksilver
+// NSMetadataItem+BLTRExtensions.m
+// Quicksilver
 //
-//  Created by Alcor on 5/26/05.
-//  Copyright 2005 Blacktree, Inc. All rights reserved.
+// Created by Alcor on 5/26/05.
+// Copyright 2005 Blacktree, Inc. All rights reserved.
 //
 
 #import "NSMetadataItem+BLTRExtensions.h"
 
-
 @implementation NSMetadataItem (BLTRExtensions)
-- (NSImage *)icon {
-    NSString *path = [self valueForKey:(id)kMDItemPath];
-    return [[NSWorkspace sharedWorkspace] iconForFile:path];
-}
-- (NSString *)displayName{
-	return [self valueForAttribute:(NSString *)kMDItemDisplayName];
-}
-+ (NSMetadataItem *)itemWithPath:(NSString *)path{
-	MDItemRef ref=MDItemCreate(NULL,(CFStringRef)path);
-	return [[[self alloc]_init:ref]autorelease];
-}
+- (NSImage *)icon { return [[NSWorkspace sharedWorkspace] iconForFile:[self valueForKey:(id)kMDItemPath]]; }
+- (NSString *)displayName { return [self valueForAttribute:(NSString *)kMDItemDisplayName]; }
++ (NSMetadataItem *)itemWithPath:(NSString *)path { return [[[self alloc] _init:MDItemCreate(NULL, (CFStringRef) path)] autorelease]; }
 @end

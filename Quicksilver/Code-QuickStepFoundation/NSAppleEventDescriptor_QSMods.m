@@ -1,9 +1,9 @@
 //
-//  NSAppleEventDescriptor+NDAppleScriptObject_QSMods.m
-//  Quicksilver
+// NSAppleEventDescriptor+NDAppleScriptObject_QSMods.m
+// Quicksilver
 //
-//  Created by Alcor on 8/19/04.
-//  Copyright 2004 Blacktree. All rights reserved.
+// Created by Alcor on 8/19/04.
+// Copyright 2004 Blacktree. All rights reserved.
 //
 
 #import "NSAppleEventDescriptor_QSMods.h"
@@ -11,29 +11,26 @@
 
 @implementation NSAppleEventDescriptor (NDAppleScriptObject_QSMods)
 
-+ (NSAppleEventDescriptor *)targetDescriptorWithTypeSignature:(OSType)type{
++ (NSAppleEventDescriptor *)targetDescriptorWithTypeSignature:(OSType)type {
 	return [NSAppleEventDescriptor descriptorWithDescriptorType:typeApplSignature bytes:(void*)&type length:sizeof(type)];
 }
 
-
--(NSAppleEventDescriptor *)AESend{
+- (NSAppleEventDescriptor *)AESend {
 	[self AESendWithSendMode:kAENoReply priority:kAENormalPriority timeout:100];
 	return nil;
 }
 
--(NSAppleEventDescriptor *)AESendWithSendMode:(AESendMode)sendMode priority:(AESendPriority)priority timeout:(long)timeout{
+- (NSAppleEventDescriptor *)AESendWithSendMode:(AESendMode)sendMode priority:(AESendPriority)priority timeout:(long)timeout {
 	AppleEvent reply;
-	OSStatus err=AESend([self aeDesc],&reply,sendMode,priority,timeout,NULL,NULL);
-	if (err){
-		NSLog(@"sendAppleEventError %d",err);
-	}else{
+	OSStatus err = AESend([self aeDesc] , &reply, sendMode, priority, timeout, NULL, NULL);
+	if (err) {
+		NSLog(@"sendAppleEventError %d", err);
+		return nil;
+	} else {
 		AEDisposeDesc(&reply);
 		return [NSAppleEventDescriptor descriptorWithAEDescNoCopy:&reply];
-    }	
-	return nil;
+	}
 }
 
 //[self appleEventWithEventClass:kCoreEventClass eventID:kAEQuitApplication targetDescriptor:aTargetDescriptor returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID] : nil;
-
-
 @end

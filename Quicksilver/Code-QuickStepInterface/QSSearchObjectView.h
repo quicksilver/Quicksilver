@@ -8,79 +8,77 @@
 @end
 
 typedef enum QSSearchMode {
-    SearchFilterAll = 1,
-    SearchFilter = 2,
-    SearchSnap = 3,
-    SearchShuffle = 4,
+	SearchFilterAll = 1,
+	SearchFilter = 2,
+	SearchSnap = 3,
+	SearchShuffle = 4,
 } QSSearchMode;
 
 
 @class QSResultController;
 @interface QSSearchObjectView : QSObjectView <NSTextInput> {
-	NSArrayController *resultArrayController;
-	
 
-    
-    NSMutableString *partialString;
-    NSString 		*matchedString;
+	NSArrayController *resultArrayController;
+
+	NSMutableString *partialString;
+	NSString 		*matchedString;
 	NSString 		*visibleString;
-	
-    BOOL validSearch;
-    
-    NSTimer *resetTimer;
-    NSTimer *searchTimer;
-    NSTimer *resultTimer;
-    
-    
-    NSTimeInterval lastTime;
-    NSTimeInterval lastProc;
-	
+
+	BOOL validSearch;
+
+	NSTimer *resetTimer;
+	NSTimer *searchTimer;
+	NSTimer *resultTimer;
+
+
+	NSTimeInterval lastTime;
+	NSTimeInterval lastProc;
+
 	float resultsPadding;
-    NSRectEdge preferredEdge;
-    NSRectEdge lastEdge;
-    
-    BOOL shouldResetSearchString;
-    BOOL shouldResetSearchArray;
-    BOOL showsResultsWhenSelected;
-    
-    id selectedObject;
-    
-    NSUserDefaults *defaults;
+	NSRectEdge preferredEdge;
+	NSRectEdge lastEdge;
+
+	BOOL shouldResetSearchString;
+	BOOL shouldResetSearchArray;
+	BOOL showsResultsWhenSelected;
+
+	id selectedObject;
+
 	id editor;
-	
+
 	BOOL hFlip;
 	BOOL vFlip;
 	NSText *currentEditor;
-	
-	BOOL 			recordsHistory; //ACC 
+
+	BOOL 			recordsHistory; //ACC
 	NSMutableArray *historyArray;
 	int 			historyIndex;
 	NSMutableArray *parentStack; // The parents for the current browse session
 	NSMutableArray *childStack; // The children for the current browse session
-	
-	
-	
-	
+
+
+
+
 	@public
-		
+
 	QSResultController *resultController;
-    QSSearchMode searchMode;
-	
+	QSSearchMode searchMode;
+
 	NSMutableArray *sourceArray; // The original source array for searches
-    NSMutableArray *searchArray; // Interim array for searching smaller and smaller pieces
-    NSMutableArray *resultArray; // Final filtered array for current search string
-	
-    NSData *scoreData;
-    unsigned selection;
-    BOOL browsing;
+	NSMutableArray *searchArray; // Interim array for searching smaller and smaller pieces
+	NSMutableArray *resultArray; // Final filtered array for current search string
+
+	NSData *scoreData;
+	unsigned selection;
+	BOOL browsing;
 	BOOL validMnemonic;
-    BOOL hasHistory;
-    BOOL moreComing;
-    BOOL allowText;
-    BOOL allowNonActions;
+	BOOL hasHistory;
+	BOOL moreComing;
+	BOOL allowText;
+	BOOL allowNonActions;
 }
 
--(void)clearSearch;
+- (void)clearSearch;
 
 - (void)clearObjectValue;
 - (void)moveSelectionBy:(int)d;
@@ -103,7 +101,7 @@ typedef enum QSSearchMode {
 - (NSData *)scoreData;
 - (void)setScoreData:(NSData *)newScoreData;
 
-- (IBAction) toggleResultView:sender;
+- (IBAction)toggleResultView:sender;
 - (void)selectIndex:(int)index;
 - (void)selectObject:(QSBasicObject *)obj;
 - (void)resetString;
@@ -116,11 +114,11 @@ typedef enum QSSearchMode {
 - (IBAction)removeMnemonic:(id)sender;
 - (void)rescoreSelectedItem;
 
-- (IBAction) showResultView:sender;
+- (IBAction)showResultView:sender;
 
-- (void) dropObject:(QSBasicObject *)newSelection;
+- (void)dropObject:(QSBasicObject *)newSelection;
 
-- (IBAction) transmogrify:sender;
+- (IBAction)transmogrify:sender;
 
 - (IBAction)sortByScore:(id)sender;
 - (IBAction)sortByName:(id)sender;
@@ -128,15 +126,15 @@ typedef enum QSSearchMode {
 - (BOOL)executeText:(NSEvent *)theEvent;
 - (void)selectIndex:(int)index;
 - (void)performSearchFor:(NSString *)string from:(id)sender;
-- (IBAction) hideResultView:sender;
+- (IBAction)hideResultView:sender;
 - (BOOL)handleBoundKey:(NSEvent *)theEvent;
-- (IBAction) updateResultView:sender;
+- (IBAction)updateResultView:sender;
 
 - (void)partialStringChanged;
 - (void)reset:(id)sender;
-- (NSRectEdge)preferredEdge;
+- (NSRectEdge) preferredEdge;
 - (void)setPreferredEdge:(NSRectEdge)newPreferredEdge;
-- (QSSearchMode)searchMode;
+- (QSSearchMode) searchMode;
 - (void)setSearchMode:(QSSearchMode)newSearchMode;
 
 - (id)selectedObject;
@@ -163,12 +161,12 @@ typedef enum QSSearchMode {
 
 	//TextInputMethods
 - (NSAttributedString *)attributedSubstringFromRange:(NSRange)theRange;
-- (unsigned int)characterIndexForPoint:(NSPoint)thePoint;
-- (long)conversationIdentifier;
-- (NSRect)firstRectForCharacterRange:(NSRange)theRange;
+- (unsigned int) characterIndexForPoint:(NSPoint)thePoint;
+- (long) conversationIdentifier;
+- (NSRect) firstRectForCharacterRange:(NSRange)theRange;
 - (BOOL)hasMarkedText;
-- (NSRange)markedRange;
-- (NSRange)selectedRange;
+- (NSRange) markedRange;
+- (NSRange) selectedRange;
 - (void)setMarkedText:(id)aString selectedRange:(NSRange)selRange;
 - (void)unmarkText;
 - (NSArray *)validAttributesForMarkedText;
@@ -177,8 +175,8 @@ typedef enum QSSearchMode {
 - (NSString *)visibleString;
 - (void)setVisibleString:(NSString *)newVisibleString;
 
--(BOOL) handleShiftedKeyEvent:(NSEvent *)theEvent;
--(BOOL)handleSlashEvent:(NSEvent *)theEvent;
+- (BOOL)handleShiftedKeyEvent:(NSEvent *)theEvent;
+- (BOOL)handleSlashEvent:(NSEvent *)theEvent;
 - (BOOL)handleTildeEvent:(NSEvent *)theEvent;
 - (BOOL)handleRepeaterEvent:(NSEvent *)theEvent;
 @end

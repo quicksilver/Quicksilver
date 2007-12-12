@@ -10,8 +10,8 @@
 - (NSData *)fileRepresentationForObject:(QSObject *)object;
 - (NSString *)filenameForObject:(QSObject *)object;
 @end
-@interface QSFileSystemObjectHandler : NSObject{
-	NSMutableDictionary *applicationIcons;	
+@interface QSFileSystemObjectHandler : NSObject {
+	NSMutableDictionary *applicationIcons;
 }
 @end
 
@@ -20,7 +20,7 @@
 - (NSString *)validSingleFilePath;
 - (NSArray *)validPaths;
 - (NSArray *)validPathsResolvingAliases:(BOOL)resolve;
-- (int)fileCount;
+- (int) fileCount;
 @end
 
 @interface NSObject (QSFilePreviewProvider)
@@ -34,11 +34,11 @@
 + (NSMutableArray *)fileObjectsWithURLArray:(NSArray *)pathArray;
 - (id)initWithArray:(NSArray *)paths;
 - (void)getNameFromFiles;
--(NSString *)kindOfFile:(NSString *)path;
-    //        NSLog(@"name %@ %@ %@",newName, newLabel,[path lastPathComponent]);
+- (NSString *)kindOfFile:(NSString *)path;
+	//		NSLog(@"name %@ %@ %@", newName, newLabel, [path lastPathComponent]);
 - (NSString *)filesContainer;
 - (NSString *)filesType;
-- (QSObject *)fileObjectByMergingWith:(QSObject *)mergeObject;
+//- (QSObject *)fileObjectByMergingWith:(QSObject *)mergeObject;
 - (BOOL)isApplication;
 - (BOOL)isFolder;
 - (NSString *)singleFileType;

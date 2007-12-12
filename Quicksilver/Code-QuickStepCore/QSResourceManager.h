@@ -8,7 +8,7 @@
 extern id QSRez;
 
 @interface QSResourceManager : NSObject {
-    NSMutableDictionary *resourceDict;
+	NSMutableDictionary *resourceDict;
 	NSString *resourceOverrideFolder;
 	NSDictionary *resourceOverrideList;
 }
@@ -18,10 +18,12 @@ extern id QSRez;
 
 + (NSImage *)imageNamed:(NSString *)name inBundle:(NSBundle *)bundle;
 - (NSImage *)imageNamed:(NSString *)name;
--(NSImage *)imageWithLocatorInformation:(id)locator;
+- (NSImage *)imageWithLocatorInformation:(id)locator;
 
 - (void)addResourcesFromDictionary:(NSDictionary *)dict;
--(NSString *)pathWithLocatorInformation:(id)locator;
+- (NSString *)pathWithLocatorInformation:(id)locator;
 - (NSImage *)imageWithExactName:(NSString *)name;
-- (NSImage *)daedalusImage;
+//- (NSImage *)daedalusImage;
+
+- (NSString *)pathForImageNamed:(NSString *)name;
 @end

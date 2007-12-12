@@ -12,7 +12,7 @@
 @interface QSImageView : NSImageView
 @end
 
-@interface QSImageCell : NSImageCell{
-	BOOL adjustResolution;	
+@interface QSImageCell : NSImageCell {
+	BOOL adjustResolution;
 }
 @end

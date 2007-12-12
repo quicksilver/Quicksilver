@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "QSNotifyMediator.h"
 
-@interface QSConsoleNotifier : NSObject <QSNotifier>{
+@interface QSConsoleNotifier : NSObject <QSNotifier> {
 
 }
 

@@ -6,8 +6,6 @@
             LANGUAGE = ObjC; 
             SUPERCLASS = NSObject; 
         }, 
-        {CLASS = NDHotKeyControl; LANGUAGE = ObjC; SUPERCLASS = NSTextField; }, 
-        {CLASS = QSHotKeyEditor; LANGUAGE = ObjC; SUPERCLASS = NSTextView; }, 
         {
             ACTIONS = {set = id; }; 
             CLASS = QSHotKeyField; 
@@ -16,34 +14,11 @@
             SUPERCLASS = NSTextField; 
         }, 
         {
-            ACTIONS = {setHotKeyFromSender = id; }; 
             CLASS = QSHotKeyTriggerManager; 
             LANGUAGE = ObjC; 
             OUTLETS = {hotKeyField = QSHotKeyField; }; 
             SUPERCLASS = QSTriggerManager; 
         }, 
-        {
-            ACTIONS = {
-                setMouseTriggerAnchorMask = id; 
-                setMouseTriggerModifierFlag = id; 
-                setMouseTriggerType = id; 
-                setMouseTriggerValueForSender = id; 
-            }; 
-            CLASS = QSMouseTriggerManager; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {
-                anchorView = NSView; 
-                modifiersView = NSView; 
-                mouseTriggerClickCountField = NSTextField; 
-                mouseTriggerClickCountStepper = NSStepper; 
-                mouseTriggerDelayField = NSTextField; 
-                mouseTriggerDelaySwitch = NSButton; 
-                mouseTriggerType = NSPopUpButton; 
-                settingsView = NSView; 
-            }; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {CLASS = QSMouseTriggerSettings; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
         {
             CLASS = QSTriggerManager; 
             LANGUAGE = ObjC; 

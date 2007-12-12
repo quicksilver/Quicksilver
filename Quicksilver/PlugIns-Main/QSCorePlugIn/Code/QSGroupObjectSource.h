@@ -9,8 +9,5 @@
 #import <Cocoa/Cocoa.h>
 #import <QSCore/QSObjectSource.h>
 
-@interface QSGroupObjectSource : QSObjectSource {
-
-}
-
+@interface QSGroupObjectSource : QSObjectSource {}
 @end

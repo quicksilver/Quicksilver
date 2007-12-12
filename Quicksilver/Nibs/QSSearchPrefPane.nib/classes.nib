@@ -13,25 +13,6 @@
             }; 
             SUPERCLASS = NSObject; 
         }, 
-        {CLASS = QSAdvancedPrefPane; LANGUAGE = ObjC; SUPERCLASS = QSPreferencePane; }, 
-        {
-            ACTIONS = {resetColors = id; }; 
-            CLASS = QSAppearancePrefPane; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {interfacePopUp = NSPopUpButton; }; 
-            SUPERCLASS = QSPreferencePane; 
-        }, 
-        {
-            ACTIONS = {checkNow = id; }; 
-            CLASS = QSApplicationPrefPane; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {
-                featureLevelMatrix = NSMatrix; 
-                hideDockIconSwitch = NSButton; 
-                hideStatusMenuSwitch = NSButton; 
-            }; 
-            SUPERCLASS = QSPreferencePane; 
-        }, 
         {CLASS = QSHotKeyCell; LANGUAGE = ObjC; SUPERCLASS = NSTextFieldCell; }, 
         {CLASS = QSHotKeyControl; LANGUAGE = ObjC; SUPERCLASS = NSTextField; }, 
         {
@@ -50,10 +31,10 @@
         {CLASS = QSHotKeyFormatter; LANGUAGE = ObjC; SUPERCLASS = NSFormatter; }, 
         {CLASS = QSPreferencePane; LANGUAGE = ObjC; SUPERCLASS = NSPreferencePane; }, 
         {
-            ACTIONS = {changeHotkey = id; }; 
+            ACTIONS = {}; 
             CLASS = QSSearchPrefPane; 
             LANGUAGE = ObjC; 
-            OUTLETS = {hotKeyButton = NSButton; }; 
+            OUTLETS = {}; 
             SUPERCLASS = QSPreferencePane; 
         }
     ); 

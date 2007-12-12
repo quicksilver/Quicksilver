@@ -9,4 +9,4 @@
 #import <Cocoa/Cocoa.h>
 
 
-float QSScoreForAbbreviation(CFStringRef string,CFStringRef abbr,id hitMask);
+float QSScoreForAbbreviation(CFStringRef string, CFStringRef abbr, id hitMask);

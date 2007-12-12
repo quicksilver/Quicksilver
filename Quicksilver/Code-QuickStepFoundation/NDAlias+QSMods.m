@@ -8,23 +8,10 @@
 
 #import "NDAlias+QSMods.h"
 
-
 @implementation NDAlias (QSMods)
-- (NSString *)quickPath
-{
-    
-    CFStringRef pathString=nil;
-    FSCopyAliasInfo (
-                     aliasHandle,
-                     NULL,NULL,
-                     &pathString,
-                     NULL,
-                     NULL
-                     );
-    
-    // NSLog(@"alias %@",pathString);
-    return [(NSString *)pathString autorelease];
+- (NSString *)quickPath {
+	CFStringRef pathString = nil;
+	FSCopyAliasInfo(aliasHandle, NULL, NULL, &pathString, NULL, NULL);
+	return [(NSString *)pathString autorelease];
 }
 @end
-
-

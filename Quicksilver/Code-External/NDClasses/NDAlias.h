@@ -15,7 +15,7 @@
 
 /*!
 	@class NDAlias
-	@abstract A class to access the Alias Manager from Cocoa 
+	@abstract A class to access the Alias Manager from Cocoa
 	@discussion Your application can use a <TT>NDAlias</TT> to refere to file system objects (that is, files, directories, and volumes) in a way that does expect the file system objects path to be maintained. The user then can move or rename the file system object with out your program lossing track of it. This behaviour is not always desirable, for intance with library resources. But for file system objects like documents of user folders, it is what Mac OS users have come to expect
  */
 @interface NDAlias : NSObject <NSCoding>
@@ -122,7 +122,7 @@
 	@discussion  The <TT>url</TT> method performs a fast search for the target of the receiver. If the resolution is successful, <TT>url</TT> returns a file <TT>NSURL</TT> for the target file system object, updates the receiver if necessary, and reports (through the method <TT>changed</TT>) whether the receiver was updated. If the target is on an unmounted AppleShare volume, <TT>url</TT> automatically mounts the volume. If the target is on an unmounted ejectable volume, <TT>url</TT> asks the user to insert the volume.
 	<P>After it identifies a target, <TT>url</TT> compares some key information about the target with the information in the receiver. If the information differs, <TT>url</TT> updates the receiver to match the target.</P>
 	<P>The <TT>url</TT> method displays the standard dialog boxes when it needs input from the user, such as a name and password for mounting a remote volume. The user can cancel the resolution through these dialog boxes.</P>
-	@result A file <TT>NSURL</TT> to the target of the receiver. <TT>nil</TT> is returned if no target could be found. 
+	@result A file <TT>NSURL</TT> to the target of the receiver. <TT>nil</TT> is returned if no target could be found.
   */
 - (NSURL *)url;
 /*!
@@ -137,7 +137,7 @@
 /*!
 	@method changed
 	@abstract Reports whether the receiver was updated.
-	@discussion The method <TT>changed</TT> indicates whether the receiver was updated because it contained some outdated information about the target. If it the receiver is updated, <TT>YES</TT> is returned. Otherwise, it return <TT>NO</TT>. (<TT>url</TT> and <TT>path</TT> never update a <TT>NDAlias</TT> that was created with no relative path.) 
+	@discussion The method <TT>changed</TT> indicates whether the receiver was updated because it contained some outdated information about the target. If it the receiver is updated, <TT>YES</TT> is returned. Otherwise, it return <TT>NO</TT>. (<TT>url</TT> and <TT>path</TT> never update a <TT>NDAlias</TT> that was created with no relative path.)
 	@result <TT>YES</TT> if the receiver was updated, <TT>NO</TT> if it was not updated.
   */
 - (BOOL)changed;

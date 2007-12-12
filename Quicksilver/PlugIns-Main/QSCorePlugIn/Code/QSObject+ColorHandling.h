@@ -1,5 +1,5 @@
 //
-//  QSObject (ColorHandling).h
+//  QSObject (ColorHandling) .h
 //  Quicksilver
 //
 //  Created by Alcor on 8/30/04.

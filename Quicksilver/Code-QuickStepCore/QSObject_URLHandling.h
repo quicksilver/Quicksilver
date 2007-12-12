@@ -8,7 +8,7 @@
 - (NSImage *)faviconForURL:(NSURL *)url;
 @end
 
-@interface QSURLObjectHandler : NSObject 
+@interface QSURLObjectHandler : NSObject
 @end
 @interface QSObject (URLHandling)
 + (QSObject *)URLObjectWithURL:(NSString *)url title:(NSString *)title;

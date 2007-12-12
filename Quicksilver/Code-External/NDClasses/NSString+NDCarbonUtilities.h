@@ -1,8 +1,8 @@
 /*!
 	@header NSString+NDCarbonUtilities
-	@abstract Decalres the category <tt>NSString (NDCarbonUtilities)</tt>
+	@abstract Decalres the category <tt>NSString (NDCarbonUtilities) </tt>
 	@discussion Provides method for interacting with Carbon APIs.
- 
+
 	Created by Nathan Day on Sat Aug 03 2002.
 	Copyright &#169; 2002 Nathan Day. All rights reserved.
  */
@@ -13,7 +13,7 @@
 /*!
 	@category NSString(NDCarbonUtilitiesPaths)
 	@abstract Provides method for interacting with Carbon APIs.
-	@discussion Methods for dealing with <tt>FSRef</tt>&rsquo;s and pascal string as well as making some other core foundation methods accessable in Objective-C syntax.
+	@discussion Methods for dealing with <tt>FSRef</tt>&rsquo; s and pascal string as well as making some other core foundation methods accessable in Objective-C syntax.
  */
 @interface NSString (NDCarbonUtilitiesPaths)
 
@@ -90,6 +90,6 @@
 	@discussion Returns a new <tt>NSString</tt> equivelent to the receveiver but without any white space (return, new line, space, tab) at the begining or end of the string.
 	@result A new <tt>NSString</tt>.
  */
-- (NSString *)trimWhitespace;
+//- (NSString *)trimWhitespace;
 
 @end

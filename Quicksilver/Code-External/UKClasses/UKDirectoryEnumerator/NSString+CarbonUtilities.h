@@ -1,16 +1,16 @@
-/* =============================================================================
-    PROJECT:    Filie
-    FILE:       NSString+CarbonUtilities.h
-    
-    COPYRIGHT:  (c) 2002 by Nathan Day, all rights reserved.
-    
-    AUTHORS:    Nathan Day - ND
-    
-    LICENSES:   GNU GPL, Modified BSD
-    
-    REVISIONS:
-        2002-08-03  ND  Created.
-   ========================================================================== */
+/* == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ===
+	PROJECT:	Filie
+	FILE:	   NSString+CarbonUtilities.h
+
+	COPYRIGHT:  (c) 2002 by Nathan Day, all rights reserved.
+
+	AUTHORS:	Nathan Day - ND
+
+	LICENSES:   GNU GPL, Modified BSD
+
+	REVISIONS:
+		2002-08-03  ND  Created.
+   = == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == = */
 
 // -----------------------------------------------------------------------------
 //  Headers:
@@ -26,9 +26,9 @@
 
 @interface NSString (CarbonUtilities)
 
-+(NSString*)    stringWithFSRef:(const FSRef *)aFSRef;
--(BOOL)         getFSRef:(FSRef *)aFSRef;
++(NSString*)   stringWithFSRef:(const FSRef *)aFSRef;
+- (BOOL)		getFSRef:(FSRef *)aFSRef;
 
--(NSString*)    resolveAliasFile;
+- (NSString*)   resolveAliasFile;
 
 @end

@@ -1,12 +1,9 @@
-
-
 #import <Foundation/Foundation.h>
-
 #import <QSCore/QSRegistry.h>
 
-
 #define kQSFSBrowserMediators @"QSFSBrowserMediators"
-#define mQSFSBrowser (id <QSFSBrowserMediator>)[QSReg getMediator:kQSFSBrowserMediators]
+#define mQSFSBrowser (id <QSFSBrowserMediator>) [QSReg getMediator:kQSFSBrowserMediators]
+
 @protocol QSFSBrowserMediator
 - (NSImage *)icon;
 - (void)revealFile:(NSString *)path;
@@ -19,5 +16,5 @@
 
 @interface QSRegistry (QSFSBrowserMediator)
 - (NSString *)FSBrowserMediatorID;
-- (id <QSFSBrowserMediator>)FSBrowserMediator;
+- (id <QSFSBrowserMediator>) FSBrowserMediator;
 @end

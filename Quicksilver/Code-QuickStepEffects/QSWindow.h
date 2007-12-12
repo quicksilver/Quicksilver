@@ -24,18 +24,18 @@
 #define kQSWindowCancelEffect @"cancelEffect"
 
 @interface QSWindow : NSPanel {
-    NSRect trueRect;
-    bool resizing;
-    bool hidden;
-    NSPoint mouseDownPoint;
-    NSPoint hideOffset;
-    NSPoint showOffset;
-    bool fastShow;
-    bool animationInvalid;
-    bool isMoving;
-    bool hadShadow;
-    bool liesAboutKey;
-    bool delegatesEvents;
+	NSRect trueRect;
+	bool resizing;
+	bool hidden;
+	NSPoint mouseDownPoint;
+	NSPoint hideOffset;
+	NSPoint showOffset;
+	bool fastShow;
+	bool animationInvalid;
+	bool isMoving;
+	bool hadShadow;
+	bool liesAboutKey;
+	bool delegatesEvents;
 	QSMoveHelper *helper;
 	NSMutableDictionary *properties;
 	NSMutableArray *eventDelegates;
@@ -45,22 +45,22 @@
 - (void)setProperties:(NSMutableDictionary *)newProperties;
 
 
-- (IBAction) hideThreaded:(id)sender;
-- (IBAction) showThreaded:(id)sender;
+- (IBAction)hideThreaded:(id)sender;
+- (IBAction)showThreaded:(id)sender;
 
 
-- (NSPoint)hideOffset;
+- (NSPoint) hideOffset;
 - (void)setHideOffset:(NSPoint)newHideOffset;
 
-- (NSPoint)showOffset;
+- (NSPoint) showOffset;
 - (void)setShowOffset:(NSPoint)newShowOffset;
 - (void)reallyOrderFront:(id)sender;
--(void)fakeResignKey;
-- (bool)liesAboutKey;
+- (void)fakeResignKey;
+- (bool) liesAboutKey;
 - (void)setLiesAboutKey:(bool)flag;
-- (bool)delegatesEvents;
+- (bool) delegatesEvents;
 - (void)setDelegatesEvents:(bool)flag;
-- (bool)fastShow;
+- (bool) fastShow;
 - (void)setFastShow:(bool)flag;
 
 - (QSMoveHelper *)helper;
@@ -75,11 +75,13 @@
 - (void)hideWithEffect:(id)hideEffect;
 - (void)performEffect:(NSDictionary *)effect;
 - (void)finishHide:(id)sender;
+
+- (void)setWindowProperty:(id)prop forKey:(NSString *)key;
 @end
 
 @interface QSBorderlessWindow : QSWindow
 @end
 
 @interface NSWindow (CGSTransitionRedraw)
-- (void) displayWithTransition:(CGSTransitionType)type option:(CGSTransitionOption)option duration:(float)duration;
+- (void)displayWithTransition:(CGSTransitionType) type option:(CGSTransitionOption)option duration:(float)duration;
 @end

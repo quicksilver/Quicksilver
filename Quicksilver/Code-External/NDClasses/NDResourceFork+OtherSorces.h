@@ -26,7 +26,7 @@
 	@method iconFamilyDataForURL:
 	@abstract Gets a files or directories Icon Family Data.
 	@discussion <TT>iconFamilyDataForURL:</TT> returns the Icon Family Data for any file or directory. The file does not have to have an actual resource fork with the Icon Family Data in it, neither does a directory have to have an Icon/r file with the Icon Family Data.
-	@param aURL The file url for which the Icon Family Data is required. 
+	@param aURL The file url for which the Icon Family Data is required.
 	@result A <TT>NSData</TT> contain the Icon Family Data, returns <TT>nil</TT> if <TT>iconFamilyDataForURL:</TT> failed.
   */
 + (NSData *)iconFamilyDataForURL:(NSURL *)aURL;

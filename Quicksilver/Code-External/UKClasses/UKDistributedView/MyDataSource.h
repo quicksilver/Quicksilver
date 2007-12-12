@@ -12,10 +12,10 @@
 
 @interface MyDataSource : NSObject
 {
-	NSMutableArray*				subCells;		// List of cells in this view, plus their positions etc.
-	IBOutlet UKDistributedView*	distView;		// The UKDistributedView we display our data in.
+	NSMutableArray*				subCells; 		// List of cells in this view, plus their positions etc.
+	IBOutlet UKDistributedView*	distView; 		// The UKDistributedView we display our data in.
 }
 
--(void)	addCellWithTitle: (NSString*)title andImage: (NSImage*)img;	// Utility method for adding a new cell.
+- (void)	addCellWithTitle: (NSString*)title andImage: (NSImage*)img; 	// Utility method for adding a new cell.
 
 @end

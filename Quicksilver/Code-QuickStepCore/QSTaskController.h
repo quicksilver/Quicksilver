@@ -19,13 +19,13 @@
 extern QSTaskController *QSTasks; // Shared Instance
 
 @interface QSTaskController : NSObject {
-    NSMutableArray *tasks;	
+	NSMutableArray *tasks;
 }
-+ (QSTaskController * )sharedInstance;
++ (QSTaskController * ) sharedInstance;
 + (void)hideViewer;
 + (void)showViewer;
--(void) updateTask:(NSString *)taskKey status:(NSString *)status progress:(float)progress;
--(void) removeTask:(NSString *)string;
+- (void)updateTask:(NSString *)taskKey status:(NSString *)status progress:(float)progress;
+- (void)removeTask:(NSString *)string;
 - (void)taskStarted:(QSTask *)task;
 - (void)taskStopped:(QSTask *)task;
 - (NSMutableArray *)tasks;

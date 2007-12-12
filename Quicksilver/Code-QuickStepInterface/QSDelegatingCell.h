@@ -14,14 +14,10 @@
 }
 - (NSObject *)delegate;
 - (void)setDelegate:(NSObject *)newDelegate;
-
 - (id)userInfo;
 - (void)setUserInfo:(id)newUserInfo;
-
-
 @end
 
 @interface NSObject (QSDelegatingCellProto)
 - (void)drawCell:(NSCell *)cell withFrame:(NSRect)cellFrame inView:(NSView *)controlView;
 @end
-

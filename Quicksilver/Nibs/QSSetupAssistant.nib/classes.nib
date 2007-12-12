@@ -9,9 +9,6 @@
             SUPERCLASS = NSResponder; 
         }, 
         {CLASS = QSBackgroundView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
-        {CLASS = QSBorderlessWindow; LANGUAGE = ObjC; SUPERCLASS = QSWindow; }, 
-        {CLASS = QSHotKeyCell; LANGUAGE = ObjC; SUPERCLASS = NSTextFieldCell; }, 
-        {CLASS = QSHotKeyControl; LANGUAGE = ObjC; SUPERCLASS = NSTextField; }, 
         {
             ACTIONS = {set = id; }; 
             CLASS = QSHotKeyField; 
@@ -19,13 +16,6 @@
             OUTLETS = {setButton = NSButton; }; 
             SUPERCLASS = NSTextField; 
         }, 
-        {
-            CLASS = QSHotKeyFieldEditor; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {oldWindowDelegate = id; }; 
-            SUPERCLASS = NSTextView; 
-        }, 
-        {CLASS = QSImageCell; LANGUAGE = ObjC; SUPERCLASS = NSImageCell; }, 
         {CLASS = QSImageView; LANGUAGE = ObjC; SUPERCLASS = NSImageView; }, 
         {
             ACTIONS = {
@@ -34,7 +24,6 @@
                 finish = id; 
                 nextSection = id; 
                 prevSection = id; 
-                setHotKey = id; 
             }; 
             CLASS = QSSetupAssistant; 
             LANGUAGE = ObjC; 
@@ -44,7 +33,6 @@
                 continueButton = NSButton; 
                 gettingStartedView = WebView; 
                 gettingSupportView = WebView; 
-                hotKeyField = NSTextField; 
                 installProgress = NSProgressIndicator; 
                 installTextField = NSTextField; 
                 plugInLoadProgress = NSProgressIndicator; 
@@ -55,7 +43,6 @@
                 pluginStatusProgress = NSProgressIndicator; 
                 scanProgress = NSProgressIndicator; 
                 scanStatusField = NSTextField; 
-                scanTextField = NSTextField; 
                 setupTabView = NSTabView; 
             }; 
             SUPERCLASS = NSWindowController; 

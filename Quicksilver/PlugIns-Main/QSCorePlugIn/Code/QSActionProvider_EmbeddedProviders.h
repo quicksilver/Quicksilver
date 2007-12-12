@@ -7,7 +7,7 @@
 # define kFileOpenAction @"FileOpenAction"
 # define kFileOpenWithAction @"FileOpenWithAction"
 # define kFileAlwaysOpenWithAction @"FileAlwaysOpenWithAction"
- 
+
 
 # define kAppOpenFileAction @"AppOpenFileAction"
 # define kFileRevealAction @"FileRevealAction"
@@ -22,21 +22,21 @@
 # define kFileGetPathAction @"FileGetPathAction"
 # define kFileGetInfoAction @"FileGetInfoAction"
 
-@interface FSActions : QSActionProvider{
-	NSArray *universalApps;	
+@interface FSActions : QSActionProvider {
+	NSArray *universalApps;
 }
 - (NSArray *)universalApps;
 - (void)setUniversalApps:(NSArray *)anUniversalApps;
 - (BOOL)filesExist:(NSArray *)paths;
-- (QSObject *) moveFiles:(QSObject *)dObject toFolder:(QSObject *)iObject;
-- (QSObject *) copyFiles:(QSObject *)dObject toFolder:(QSObject *)iObject;
-- (QSObject *) moveFiles:(QSObject *)dObject toFolder:(QSObject *)iObject shouldCopy:(BOOL)copy;
+- (QSObject *)moveFiles:(QSObject *)dObject toFolder:(QSObject *)iObject;
+- (QSObject *)copyFiles:(QSObject *)dObject toFolder:(QSObject *)iObject;
+- (QSObject *)moveFiles:(QSObject *)dObject toFolder:(QSObject *)iObject shouldCopy:(BOOL)copy;
 @end
 @interface FSDiskActions : QSActionProvider
 @end
 @interface URLActions : QSActionProvider
 
-- (void) performJavaScript:(NSString *)jScript;
+- (void)performJavaScript:(NSString *)jScript;
 @end
 
 @interface EditorActions : QSActionProvider

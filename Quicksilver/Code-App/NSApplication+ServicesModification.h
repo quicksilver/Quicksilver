@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface NSApplication (ServicesModification) 
+@interface NSApplication (ServicesModification)
 - (void)setKeyEquivalent:(NSString *)equiv forService:(NSString *)serviceName;
 - (NSString *)keyEquivalentForService:(NSString *)serviceName;
 - (NSDictionary *)servicesDictionaryForService:(NSString *)serviceName;

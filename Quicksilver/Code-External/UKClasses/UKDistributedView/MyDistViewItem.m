@@ -11,51 +11,51 @@
 
 @implementation MyDistViewItem
 
--(id)	initWithTitle: (NSString*)theTitle andImage: (NSImage*)img
+- (id)	initWithTitle: (NSString*)theTitle andImage: (NSImage*)img
 {
-	if( self = [super init] )
-	{
+	if ( self = [super init] )
+	 {
 		title = [theTitle retain];
 		image = [img retain];
-		position = NSMakePoint( 0,0 );
+		position = NSMakePoint( 0, 0 );
 	}
-	
+
 	return self;
 }
 
--(NSString*)	title
+- (NSString*)	title
 {
 	return title;
 }
 
 
--(void)	setTitle: (NSString*)theTitle
+- (void)	setTitle: (NSString*)theTitle
 {
 	[theTitle retain];
 	[title release];
 	title = theTitle;
 }
 
--(NSImage*)		image
+- (NSImage*)		image
 {
 	return image;
 }
 
 
--(void)	setImage: (NSImage*)img
+- (void)	setImage: (NSImage*)img
 {
 	[img retain];
 	[image release];
 	image = img;
 }
 
--(NSPoint)		position
+- (NSPoint) 		position
 {
 	return position;
 }
 
 
--(void)	setPosition: (NSPoint)pos
+- (void)	setPosition: (NSPoint)pos
 {
 	position = pos;
 }

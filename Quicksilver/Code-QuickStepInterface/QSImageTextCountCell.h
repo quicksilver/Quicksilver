@@ -13,7 +13,7 @@
 @interface QSImageTextCountCell : QSImageAndTextCell {
 	NSString *count;
 }
-- (NSString *) count;
-- (void) setCount: (NSString *) newCount;
+- (NSString *)count;
+- (void)setCount: (NSString *)newCount;
 
 @end

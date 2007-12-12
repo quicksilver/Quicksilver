@@ -9,11 +9,11 @@
 #import <QSCore/QSObject.h>
 #import "QSSimpleNotifier.h"
 
-@interface QSSilverNotifier : NSWindowController{
+@interface QSSilverNotifier : NSWindowController {
 	NSTimer *curTimer;
 	IBOutlet NSTextView *textView;
 	IBOutlet NSImageView *imageView;
-	
+
 	NSString *thisTitle;
 	NSString *lastTitle;
 }

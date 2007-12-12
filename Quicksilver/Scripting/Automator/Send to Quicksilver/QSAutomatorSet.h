@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <Automator/AMBundleAction.h>
 
-@interface QSAutomatorSet : AMBundleAction 
+@interface QSAutomatorSet : AMBundleAction
 {
 }
 

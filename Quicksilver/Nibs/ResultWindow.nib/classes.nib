@@ -2,10 +2,16 @@
     IBClasses = (
         {CLASS = BLTRResizeView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
         {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
-        {CLASS = InertButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
+        {CLASS = NSObject; LANGUAGE = ObjC; }, 
+        {
+            ACTIONS = {flare = id; fold = id; pulse = id; shrink = id; }; 
+            CLASS = NSWindow; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSResponder; 
+        }, 
         {CLASS = QSBackgroundView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {CLASS = QSBorderlessWindow; LANGUAGE = ObjC; SUPERCLASS = QSWindow; }, 
         {CLASS = QSMenuButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
-        {CLASS = QSObjectView; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
         {
             ACTIONS = {
                 assignAbbreviation = id; 
@@ -31,16 +37,16 @@
             }; 
             SUPERCLASS = NSWindowController; 
         }, 
-        {
-            ACTIONS = {hide = id; show = id; }; 
-            CLASS = QSResultWindow; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSWindow; 
-        }, 
-        {CLASS = QSSearchObjectView; LANGUAGE = ObjC; SUPERCLASS = QSObjectView; }, 
+        {CLASS = QSResultWindow; LANGUAGE = ObjC; SUPERCLASS = QSBorderlessWindow; }, 
         {CLASS = QSTableView; LANGUAGE = ObjC; SUPERCLASS = NSTableView; }, 
         {
-            ACTIONS = {hide = id; show = id; }; 
+            ACTIONS = {
+                finishHide = id; 
+                hideThreaded = id; 
+                reallyOrderFront = id; 
+                reallyOrderOut = id; 
+                showThreaded = id; 
+            }; 
             CLASS = QSWindow; 
             LANGUAGE = ObjC; 
             SUPERCLASS = NSPanel; 

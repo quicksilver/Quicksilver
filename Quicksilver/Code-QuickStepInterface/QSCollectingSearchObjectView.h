@@ -19,13 +19,13 @@
 	float			collectionSpace;
 }
 
--(IBAction) emptyCollection:(id)sender;
+- (IBAction)emptyCollection:(id)sender;
 - (BOOL)objectIsInCollection:(QSObject *)thisObject;
 
-- (NSRectEdge)collectionEdge;
+- (NSRectEdge) collectionEdge;
 - (void)setCollectionEdge:(NSRectEdge)value;
 
-- (float)collectionSpace;
+- (float) collectionSpace;
 - (void)setCollectionSpace:(float)value;
 
 

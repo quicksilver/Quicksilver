@@ -21,25 +21,25 @@
 
 - (id)runWithInput:(id)input fromAction:(AMAction *)anAction error:(NSDictionary **)errorInfo
 {
-	NSBundle *bundle=[anAction respondsToSelector:@selector(bundle)]?[anAction bundle]:nil;
-//	NSLog(@"Bundle %@",bundle);
+	NSBundle *bundle = [anAction respondsToSelector:@selector(bundle)] ?[anAction bundle] :nil;
+//	NSLog(@"Bundle %@", bundle);
 
-	NSArray *types=[[anAction providesDictionary] objectForKey:@"Types"];
-	
-//	if ([[types objectAtIndex:0]isEqualToString:@"*"])
-//		NSDictionary *param=[anAction parameters];
+	NSArray *types = [[anAction providesDictionary] objectForKey:@"Types"];
+
+//	if ([[types objectAtIndex:0] isEqualToString:@"*"])
+//		NSDictionary *param = [anAction parameters];
 //		param objectForKey @"fromApplication"
 
 	// Add your code here, returning the data to be passed to the next action.
-	NSConnection *connection=[NSConnection connectionWithRegisteredName:@"QuicksilverControllerConnection" host:nil];
-	id proxy=[connection rootProxy];
-	if (proxy){
+	NSConnection *connection = [NSConnection connectionWithRegisteredName:@"QuicksilverControllerConnection" host:nil];
+	id proxy = [connection rootProxy];
+	if (proxy) {
 		[proxy setProtocolForProxy:@protocol(QSController)];
 		[proxy setAESelection:input types:types];
-	}else{
+	} else {
 		NSLog(@"Unable to connect to Quicksilver");
-	}  
-	
+	}
+
 	return input;
 }
 

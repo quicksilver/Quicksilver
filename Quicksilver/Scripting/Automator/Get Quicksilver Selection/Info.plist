@@ -10,6 +10,8 @@
 	<false/>
 	<key>AMCategory</key>
 	<string>Find</string>
+	<key>AMDSummary</key>
+	<string>Returns the items currently selected in Quicksilver</string>
 	<key>AMDefaultParameters</key>
 	<dict/>
 	<key>AMDescription</key>
@@ -41,9 +43,7 @@
 	<key>CFBundleExecutable</key>
 	<string>Get Quicksilver Selection</string>
 	<key>CFBundleGetInfoString</key>
-	<string>Get Quicksilver Selection version 1.0, Copyright (c) 2005, __MyCompanyName__.</string>
-	<key>CFBundleIconFile</key>
-	<string></string>
+	<string>Get Quicksilver Selection version 1.0, Copyright (c) 2005, Blacktree.</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.blacktree.Quicksilver.AutomatorGet</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -58,6 +58,8 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>© 2005 Blacktree, Inc.</string>
 	<key>NSPrincipalClass</key>
 	<string>QSAutomatorGet</string>
 </dict>

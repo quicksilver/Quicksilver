@@ -10,8 +10,8 @@
 
 @interface NTViewLocalizer : NSObject
 {
-    NSString* _table;
-    NSBundle* _bundle;
+	NSString* _table;
+	NSBundle* _bundle;
 }
 
 + (void)localizeWindow:(NSWindow*)window table:(NSString*)table bundle:(NSBundle*)bundle;

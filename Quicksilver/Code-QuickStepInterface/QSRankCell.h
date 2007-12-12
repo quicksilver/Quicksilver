@@ -7,8 +7,8 @@
 	float score;
 	int order;
 }
-- (float)score;
+- (float) score;
 - (void)setScore:(float)newScore;
-- (int)order;
+- (int) order;
 - (void)setOrder:(int)newOrder;
 @end

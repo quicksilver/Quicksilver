@@ -32,39 +32,39 @@
 
 @interface UKFinderIconCell : NSActionCell
 {
-	NSString*			title;			// Title text to display under image.
-	BOOL				selected;		// Is this cell currently selected?
-	NSColor*			nameColor;		// Color to use for name. Defaults to white.
-	NSColor*			boxColor;		// Color to use for the box around the icon (when highlighted). Defaults to grey.
+	NSString*			title; 			// Title text to display under image.
+	BOOL				selected; 		// Is this cell currently selected?
+	NSColor*			nameColor; 		// Color to use for name. Defaults to white.
+	NSColor*			boxColor; 		// Color to use for the box around the icon (when highlighted) . Defaults to grey.
 	NSColor*			selectionColor; // Color to use for background of the highlighted name. Defaults to blue.
-	NSCellImagePosition imagePosition;  // Image position relative to title.
+	NSCellImagePosition imagePosition; // Image position relative to title.
 }
 
--(id)		init;
--(id)		initImageCell: (NSImage*)img;	// Designated initializer.
+- (id)		init;
+- (id)		initImageCell: (NSImage*)img; 	// Designated initializer.
 
--(void)		setHighlighted: (BOOL)isSelected;
--(void)		drawWithFrame: (NSRect)box inView: (NSView*)aView;
+- (void)		setHighlighted: (BOOL)isSelected;
+- (void)		drawWithFrame: (NSRect)box inView: (NSView*)aView;
 
--(void)		setNameColor: (NSColor*)col;
--(NSColor*) nameColor;
+- (void)		setNameColor: (NSColor*)col;
+- (NSColor*)nameColor;
 
--(void)		setBoxColor: (NSColor*)col;
--(NSColor*) boxColor;
+- (void)		setBoxColor: (NSColor*)col;
+- (NSColor*)boxColor;
 
--(void)		setSelectionColor: (NSColor*)col;
--(NSColor*) selectionColor;
+- (void)		setSelectionColor: (NSColor*)col;
+- (NSColor*)selectionColor;
 
--(void)		resetColors;
+- (void)		resetColors;
 
 // Accessing image:
 //setImage: and image are inherited from NSCell.
--(NSCellImagePosition)  imagePosition;
--(void)					setImagePosition: (NSCellImagePosition)newImagePosition;	// Currently, only "above" and "below" work.
+- (NSCellImagePosition)  imagePosition;
+- (void)					setImagePosition: (NSCellImagePosition)newImagePosition; 	// Currently, only "above" and "below" work.
 
 // Get/set title in table views etc.:
--(id)   objectValue;
--(void) setObjectValue:(id <NSCopying>)obj;
+- (id)  objectValue;
+- (void)setObjectValue:(id <NSCopying>) obj;
 
 
 @end

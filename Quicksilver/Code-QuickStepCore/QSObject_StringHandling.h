@@ -9,6 +9,10 @@
 #import <Cocoa/Cocoa.h>
 #import "QSObject.h"
 
+@interface NSString (Trimming)
+- (NSString *)trimWhitespace;
+@end
+
 @interface QSStringObjectHandler : NSObject
 @end
 

@@ -1,71 +1,59 @@
 //
-//  QSGlossyBarView.m
-//  Quicksilver
+// QSGlossyBarView.m
+// Quicksilver
 //
-//  Created by Nicholas Jitkoff on 4/25/06.
-//  Copyright 2006 __MyCompanyName__. All rights reserved.
+// Created by Nicholas Jitkoff on 4/25/06.
+// Copyright 2006 __MyCompanyName__. All rights reserved.
 //
+
+#import <QSEffects/QSShading.h>
+
+@interface NSButtonCell (TakeAttributes)
+- (void)takeAttributesOfCell:(NSButtonCell *)cell;
+@end
+
 @implementation NSButtonCell (TakeAttributes)
-- (void)takeAttributesOfCell:(NSButtonCell *)cell{
-	//[self setBezeled:[cell isBezeled]];
+- (void)takeAttributesOfCell:(NSButtonCell *)cell {
 	[self setImage:[cell image]];
 	[self setTitle:[cell title]];
 	[self setImagePosition:[cell imagePosition]];
-	//	[self setBordered:[cell isBordered]];
-	//	[self setHighlightsBy:[cell highlightsBy]];
 }
 @end
 
-void QSDrawGlossyRect(NSRect rect,BOOL topOnly, BOOL lightSides, BOOL flipped){
-	
-	[[NSColor colorWithCalibratedWhite:0.9 alpha:1.0]set];
-	//	[[NSColor blueColor]set];
+void QSDrawGlossyRect(NSRect rect, BOOL topOnly, BOOL lightSides, BOOL flipped) {
+	[[NSColor colorWithCalibratedWhite:0.9 alpha:1.0] set];
 	NSRectFill(rect);
-	NSRect gradientRect,borderRect,highlightRect,rest;
+	NSRect gradientRect, borderRect, highlightRect, rest;
+	NSDivideRect(rect, &gradientRect, &rest, NSHeight(rect)/2, flipped?NSMinYEdge:NSMaxYEdge);
+	QSFillRectWithGradientFromEdge(rest, [NSColor colorWithCalibratedWhite:0.89 alpha:1.0], [NSColor colorWithCalibratedWhite:0.95 alpha:1.0], flipped?NSMinYEdge:NSMaxYEdge);
+	QSFillRectWithGradientFromEdge(gradientRect, [NSColor colorWithCalibratedWhite:1.0 alpha:1.0], [NSColor colorWithCalibratedWhite:0.94 alpha:1.0], flipped?NSMinYEdge:NSMaxYEdge);
 
-	NSDivideRect(rect,&gradientRect,&rest,NSHeight(rect)/2,flipped?NSMinYEdge:NSMaxYEdge);
-	
-	QSFillRectWithGradientFromEdge(rest,[NSColor colorWithCalibratedWhite:0.89 alpha:1.0],
-								   [NSColor colorWithCalibratedWhite:0.95 alpha:1.0],flipped?NSMinYEdge:NSMaxYEdge);
-	
-	QSFillRectWithGradientFromEdge(gradientRect,[NSColor colorWithCalibratedWhite:1.0 alpha:1.0],
-								   [NSColor colorWithCalibratedWhite:0.94 alpha:1.0],flipped?NSMinYEdge:NSMaxYEdge);
-	
-	
-	if (lightSides){
-		NSRect innerRect=topOnly?rect:NSInsetRect(rect,1,0);
-		[[NSColor colorWithCalibratedWhite:1.0 alpha:0.5]set];
-		NSDivideRect(innerRect,&highlightRect,&rest,1,NSMinXEdge);
-		NSRectFillUsingOperation(highlightRect,NSCompositeSourceOver);
-		NSDivideRect(innerRect,&highlightRect,&rest,1,NSMaxXEdge);
-		NSRectFillUsingOperation(highlightRect,NSCompositeSourceOver);
-		
+	if (lightSides) {
+		NSRect innerRect = topOnly?rect:NSInsetRect(rect, 1, 0);
+		[[NSColor colorWithCalibratedWhite:1.0 alpha:0.5] set];
+		NSDivideRect(innerRect, &highlightRect, &rest, 1, NSMinXEdge);
+		NSRectFillUsingOperation(highlightRect, NSCompositeSourceOver);
+		NSDivideRect(innerRect, &highlightRect, &rest, 1, NSMaxXEdge);
+		NSRectFillUsingOperation(highlightRect, NSCompositeSourceOver);
+
 	}
-	
-	if (topOnly){
-		NSDivideRect(rect,&borderRect,&rest,1,flipped?NSMinYEdge:NSMaxYEdge);
-	}else{
-		borderRect=rect;
+	if (topOnly) {
+		NSDivideRect(rect, &borderRect, &rest, 1, flipped?NSMinYEdge:NSMaxYEdge);
+	} else {
+		borderRect = rect;
 		borderRect.size.height++;
 		if (!flipped)
 			borderRect.origin.y--;
 	}
-	
-	[[NSColor colorWithCalibratedWhite:0.0 alpha:0.2]set];
-
-	NSFrameRectWithWidthUsingOperation(borderRect,1.0,NSCompositeSourceOver);
-	
-    // Drawing code here.
-	
+	[[NSColor colorWithCalibratedWhite:0.0 alpha:0.2] set];
+	NSFrameRectWithWidthUsingOperation(borderRect, 1.0, NSCompositeSourceOver);
 }
+
 #import "QSGlossyBarView.h"
 
-
 @implementation QSGlossyBarButtonCell
-- (id)initTextCell:(NSString *)aString{
-	self = [super initTextCell:(NSString *)aString];
-	if (self != nil) {
-		//[self setBezelStyle:NSSmallSquareBezelStyle];
+- (id)initTextCell:(NSString *)aString {
+	if ((self = [super initTextCell:(NSString *)aString])) {
 		[self setBordered:NO];
 		[self setBezeled:NO];
 		[self setHighlightsBy:NSNoCellMask];
@@ -73,83 +61,73 @@ void QSDrawGlossyRect(NSRect rect,BOOL topOnly, BOOL lightSides, BOOL flipped){
 	return self;
 }
 
-- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView{
-
-
-
-//- (void)drawInteriorWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {	
-//- (void)drawBezelWithFrame:(NSRect)cellFrame inView:(NSView*)controlView{
-	QSDrawGlossyRect(cellFrame,FALSE,TRUE,[controlView isFlipped]);
-	//NSLog(@"fillframe %d",[controlView isFlipped]);
-	if ([self isHighlighted]){
-		[[NSColor colorWithCalibratedWhite:0.0 alpha:0.333]set];
-		NSRectFillUsingOperation(cellFrame,NSCompositeSourceOver);
+- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
+//- (void)drawInteriorWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
+//- (void)drawBezelWithFrame:(NSRect)cellFrame inView:(NSView*)controlView {
+	QSDrawGlossyRect(cellFrame, FALSE, TRUE, [controlView isFlipped]);
+	if ([self isHighlighted]) {
+		[[NSColor colorWithCalibratedWhite:0.0 alpha:0.333] set];
+		NSRectFillUsingOperation(cellFrame, NSCompositeSourceOver);
 	}
-	cellFrame.size.height-=1;
+	cellFrame.size.height -= 1;
 	[super drawInteriorWithFrame:cellFrame inView:controlView];
 }
 @end
 
-
 @implementation QSGlossyBarButton
-+ (Class)cellClass{
++ (Class) cellClass {
 	return [QSGlossyBarButtonCell class];
 }
-- (void)mouseDown:(NSEvent *)event{
-	[[self superview]addSubview:self
-					  positioned:NSWindowAbove relativeTo:nil];
-		[super mouseDown:event];
+- (void)mouseDown:(NSEvent *)event {
+	[[self superview] addSubview:self positioned:NSWindowAbove relativeTo:nil];
+	[super mouseDown:event];
 }
-- (BOOL)isFlipped{return NO;}
+- (BOOL)isFlipped {return NO;}
 - (id)initWithCoder:(NSCoder *)decoder {
 	if ( self = [super initWithCoder:decoder] ) {
-		NSCell *oldCell=[self cell];
-		NSCell *newCell=[[[QSGlossyBarButtonCell alloc] initTextCell:[self title]]autorelease];
-		[newCell takeAttributesOfCell:oldCell];
-		
+		NSCell *oldCell = [self cell];
+		NSCell *newCell = [[QSGlossyBarButtonCell alloc] initTextCell:[self title]];
+		[(NSButtonCell*)newCell takeAttributesOfCell:(NSButtonCell*)oldCell];
 		[self setCell:newCell];
-		
-		
+		[newCell release];
 	}
 	return self;
 }
 @end
+
 @implementation QSGlossyBarMenuButton
-- (void)mouseDown:(NSEvent *)event{
-	[[self superview]addSubview:self
-					  positioned:NSWindowAbove relativeTo:nil];
-		[super mouseDown:event];
+- (void)mouseDown:(NSEvent *)event {
+	[[self superview] addSubview:self positioned:NSWindowAbove relativeTo:nil];
+	[super mouseDown:event];
 }
-+ (Class)cellClass{
++ (Class) cellClass {
 	return [QSGlossyBarButtonCell class];
 }
-//- (BOOL)isFlipped{return NO;}
 - (id)initWithCoder:(NSCoder *)decoder {
 	if ( self = [super initWithCoder:decoder] ) {
-		NSCell *oldCell=[self cell];
-		NSCell *newCell=[[[QSGlossyBarButtonCell alloc] initTextCell:[self title]]autorelease];
-		[newCell takeAttributesOfCell:oldCell];
+		NSCell *oldCell = [self cell];
+		NSCell *newCell = [[QSGlossyBarButtonCell alloc] initTextCell:[self title]];
+		[(NSButtonCell*)newCell takeAttributesOfCell:(NSButtonCell*)oldCell];
 		[self setCell:newCell];
-		
+		[newCell release];
 	}
 	return self;
 }
 @end
 
 @implementation QSGlossyBarView
-
 - (id)initWithFrame:(NSRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code here.
-    }
-    return self;
+	self = [super initWithFrame:frame];
+#if 0
+	if (self) {
+		// Initialization code here.
+	}
+#endif
+	return self;
 }
-
 - (void)drawRect:(NSRect)rect {
-	NSRect frame=[self frame];
-	frame.origin=NSZeroPoint;
-	QSDrawGlossyRect(frame,TRUE,TRUE,[self isFlipped]);
+	NSRect frame = [self frame];
+	frame.origin = NSZeroPoint;
+	QSDrawGlossyRect(frame, TRUE, TRUE, [self isFlipped]);
 }
-
 @end

@@ -20,7 +20,7 @@
 	QSObject *result;
 	NSImage *icon;
 	id delegate;
-	
+
 	SEL cancelAction;
 	id cancelTarget;
 	BOOL running;
@@ -44,13 +44,13 @@
 - (NSString *)status;
 - (void)setStatus:(NSString *)value;
 
-- (float)progress;
+- (float) progress;
 - (void)setProgress:(float)value;
 
 - (QSObject *)result;
 - (void)setResult:(QSObject *)value;
 
-- (SEL)cancelAction;
+- (SEL) cancelAction;
 - (void)setCancelAction:(SEL)value;
 
 - (id)cancelTarget;

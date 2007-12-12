@@ -1,9 +1,9 @@
 //
-//  QSPreferencePane.m
-//  Quicksilver
+// QSPreferencePane.m
+// Quicksilver
 //
-//  Created by Alcor on 11/2/04.
-//  Copyright 2004 Blacktree. All rights reserved.
+// Created by Alcor on 11/2/04.
+// Copyright 2004 Blacktree. All rights reserved.
 //
 
 #import "QSMainPreferencePanes.h"
@@ -14,9 +14,7 @@
 #import "QSHelp.h"
 #import "QSUpdateController.h"
 #import "QSNotifications.h"
-#import "QSModifierKeyEvents.h"
 #import "QSController.h"
-
 
 #import "NSApplication+ServicesModification.h"
 #import "QSLoginItemFunctions.h"
@@ -25,63 +23,43 @@
 
 #import "NSBundle_BLTRExtensions.h"
 
-
-
 #import "NDHotKeyEvent_QSMods.h"
 
+#import "QSModifierKeyEvents.h"
 
 typedef int CGSConnection;
 typedef enum {
-    CGSGlobalHotKeyEnable = 0,
-    CGSGlobalHotKeyDisable = 1,
+	CGSGlobalHotKeyEnable = 0,
+	CGSGlobalHotKeyDisable = 1,
 } CGSGlobalHotKeyOperatingMode;
 
 extern CGSConnection _CGSDefaultConnection(void);
-
-extern CGError CGSGetGlobalHotKeyOperatingMode(
-                                               CGSConnection connection, CGSGlobalHotKeyOperatingMode *mode);
-
-extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, 
-                                               CGSGlobalHotKeyOperatingMode mode);
-
-
+extern CGError CGSGetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlobalHotKeyOperatingMode *mode);
+extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlobalHotKeyOperatingMode mode);
 
 @implementation QSSearchPrefPane
 
--(void) awakeFromNib{
-	NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
-	
-	NDHotKeyEvent *activationKey=[NDHotKeyEvent getHotKeyForKeyCode:[[defaults objectForKey:kHotKeyCode] unsignedShortValue]
-														  character:0
-												  modifierFlags:[[defaults objectForKey:kHotKeyModifiers] unsignedIntValue]];
-	[hotKeyButton setTitle:[activationKey stringValue]];	
-	
-//	[[NSNotificationCenter defaultCenter]addObserver:self 
-//											selector:@selector(updateInterfacePopUp) name:QSPlugInLoadedNotification object:nil];
-	
-	NSUserDefaultsController *defaultsController=[NSUserDefaultsController sharedUserDefaultsController];
-	
-	[defaultsController addObserver:self
-						 forKeyPath:@"values.QSModifierActivationCount"
-							options:0
-							context:nil];
-	
-	[defaultsController addObserver:self
-						 forKeyPath:@"values.QSModifierActivationKey"
-							options:0
-							context:nil];
-	
-	
+- (void)awakeFromNib {
+#if 0
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NDHotKeyEvent *activationKey = [NDHotKeyEvent getHotKeyForKeyCode:[[defaults objectForKey:kHotKeyCode] unsignedShortValue] character:0 modifierFlags:[[defaults objectForKey:kHotKeyModifiers] unsignedIntValue]];
+	[hotKeyButton setTitle:[activationKey stringValue]];
+#endif
+	NSUserDefaultsController *defaultsController = [NSUserDefaultsController sharedUserDefaultsController];
+	[defaultsController addObserver:self forKeyPath:@"values.QSModifierActivationCount" options:0 context:nil];
+	[defaultsController addObserver:self forKeyPath:@"values.QSModifierActivationKey" options:0 context:nil];
 }
 
+- (void)dealloc {
+	[[NSUserDefaultsController sharedUserDefaultsController] removeObserver:self];
+	[super dealloc];
+}
 
-
-- (void)setModifier:(int)modifier count:(int)count{
-	QSModifierKeyEvent *event=[QSModifierKeyEvent eventWithIdentifier:@"QSModKeyActivation"];
+- (void)setModifier:(int)modifier count:(int)count {
+	QSModifierKeyEvent *event = [QSModifierKeyEvent eventWithIdentifier:@"QSModKeyActivation"];
 	[event disable];
-	//NSLog(@"setmod %d %d",modifier,count);
-	if (count){
-		event=[[[QSModifierKeyEvent alloc]init]autorelease];
+	if (count) {
+		event = [[[QSModifierKeyEvent alloc] init] autorelease];
 		[event setModifierActivationMask:modifier];
 		[event setModifierActivationCount:count];
 		[event setTarget:[NSApp delegate]];
@@ -90,285 +68,205 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
 		[event enable];
 	}
 }
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
-	NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
-	[self setModifier:[defaults integerForKey:@"QSModifierActivationKey"]
-				count:[defaults integerForKey:@"QSModifierActivationCount"]];
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[self setModifier:[defaults integerForKey:@"QSModifierActivationKey"] count:[defaults integerForKey:@"QSModifierActivationCount"]];
 }
 
-
-- (IBAction)changeHotkey:(id)sender {
-	// KeyCombo* keyCombo=[KeyCombo keyComboWithKeyCode:[[defaults objectForKey:kHotKeyCode] shortValue]
-	//                                   andModifiers:[[defaults objectForKey:kHotKeyModifiers] shortValue]];
-	NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
-	NDHotKeyEvent *activationKey=[QSHotKeyEvent getHotKeyForKeyCode:[[defaults objectForKey:kHotKeyCode] unsignedShortValue]
-														  character:0
-												  safeModifierFlags:[[defaults objectForKey:kHotKeyModifiers] unsignedIntValue]];
-	[hotKeyButton setTitle:[activationKey stringValue]];
-	
-    CGSConnection conn = _CGSDefaultConnection();
-    CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyDisable);
-    NSEvent *theEvent=[NSApp nextEventMatchingMask:NSKeyDownMask untilDate:[NSDate dateWithTimeIntervalSinceNow:10.0] inMode:NSDefaultRunLoopMode dequeue:YES];
-    CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyEnable);
-    
-    //[[HotKeyCenter sharedCenter] removeHotKey:kActivationHotKey];
-    
-    if (theEvent){
-      //  if (VERBOSE) NSLog(@"got event: %@",theEvent);
-        BOOL success;
-        
-		// NSLog(@"[%c]",KeyCodeToAscii([theEvent keyCode])); //
-        //keyCombo=nil;
-        if(1){
-            activationKey=[QSHotKeyEvent getHotKeyForKeyCode:[theEvent keyCode]
-												   character:0
-											   modifierFlags:[theEvent modifierFlags]];
-			
-            [hotKeyButton setTitle:[activationKey stringValue]];
-			
-            [hotKeyButton setState:NSOffState];
-            [hotKeyButton setNeedsDisplay:YES];
-		//	NSLog(@"%d %d %d %d %@",[theEvent keyCode],[theEvent modifierFlags],[activationKey keyCode],[activationKey modifierFlags],[NSNumber numberWithShort:[activationKey modifierFlags]]);
-            [defaults setObject:[NSNumber numberWithUnsignedShort:[activationKey keyCode]] forKey:kHotKeyCode];
-            [defaults setObject:[NSNumber numberWithUnsignedInt:[activationKey modifierFlags]] forKey:kHotKeyModifiers];
-            
-			[[QSHotKeyEvent hotKeyWithIdentifier:kActivationHotKey]setEnabled:NO];
-			
-			
-			[activationKey setTarget:[NSApp delegate] selector:@selector(activateInterface:)];
-			success=[activationKey setEnabled:YES];
-			[(QSHotKeyEvent *)activationKey setIdentifier:kActivationHotKey];
-			
-			
-            if (success) {
-			//	if (VERBOSE) NSLog(@"success");
-            }
-            else {
-                NSLog(@"Error: couldn't register hot key!");
-                [hotKeyButton setTitle:@"Error!"];
-            }
-        }     
-    }
-}     
-
-- (NSString *)serviceMenuKeyEquivalent{
+- (NSString *)serviceMenuKeyEquivalent {
 	return [NSApp keyEquivalentForService:@"Quicksilver/Send to Quicksilver"];
 }
 
-- (void)setServiceMenuKeyEquivalent:(NSString *)string{
-	[[NSUserDefaults standardUserDefaults]setObject:string forKey:@"QSServiceMenuKeyEquivalent"];
+- (void)setServiceMenuKeyEquivalent:(NSString *)string {
+	[[NSUserDefaults standardUserDefaults] setObject:string forKey:@"QSServiceMenuKeyEquivalent"];
 	[NSApp setKeyEquivalent:string forService:@"Quicksilver/Send to Quicksilver"];
 }
 
 @end
 
-
 @implementation QSAppearancePrefPane
-- (IBAction)customize:(id)sender{
-	
+- (IBAction)customize:(id)sender {
 	[[QSReg preferredCommandInterface] customize:sender];
 }
-- (IBAction)preview:(id)sender{
-//	[[QSReg preferredCommandInterface]setPreview:[sender state]];
-	if ([[[QSReg preferredCommandInterface] window]isVisible]){
-		[[[QSReg preferredCommandInterface] window] orderOut:sender];
-	}else{
-		[[[QSReg preferredCommandInterface] window] orderFront:sender];
-	}
-	   
+- (IBAction)preview:(id)sender {
+	id win = [[QSReg preferredCommandInterface] window];
+	if ([win isVisible])
+		[win orderOut:sender];
+	else
+		[win orderFront:sender];
 }
-- (void)mainViewDidLoad{
+- (void)mainViewDidLoad {
 	[self updateInterfacePopUp];
-	
-	[[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateInterfacePopUp) name:QSPlugInLoadedNotification object:nil];
-	
-	[customizeButton setHidden:![[QSReg preferredCommandInterface]respondsToSelector:@selector(customize:)]];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateInterfacePopUp) name:QSPlugInLoadedNotification object:nil];
+	[customizeButton setHidden:![[QSReg preferredCommandInterface] respondsToSelector:@selector(customize:)]];
 }
 
-- (void)selectItemInPopUp:(NSPopUpButton *)popUp representedObject:(id)object{
-	
-	int index=[popUp indexOfItemWithRepresentedObject:object];
-	if(index==-1 && [popUp numberOfItems])index=0;
-	//NSLog(@"index %d",index);
+- (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[super dealloc];
+}
+
+- (void)selectItemInPopUp:(NSPopUpButton *)popUp representedObject:(id)object {
+	int index = [popUp indexOfItemWithRepresentedObject:object];
+	if (index == -1 && [popUp numberOfItems]) index = 0;
 	[popUp selectItemAtIndex:index];
-	
-	
 }
 
-- (void)updateInterfacePopUp{
+- (void)updateInterfacePopUp {
 	NSMenuItem *item;
 	[interfacePopUp removeAllItems];
-	
-	NSMutableDictionary *interfaces=[QSReg tableNamed:kQSCommandInterfaceControllers];
-	NSEnumerator *keyEnum=[interfaces keyEnumerator];
+	NSMutableDictionary *interfaces = [QSReg tableNamed:kQSCommandInterfaceControllers];
+	NSEnumerator *keyEnum = [interfaces keyEnumerator];
 	NSString *key, *title;
-	while(key=[keyEnum nextObject]){
-		title=[[QSReg bundleForClassName:[interfaces objectForKey:key]]safeLocalizedStringForKey:key value:key table:nil];
-		item=(NSMenuItem *)[[interfacePopUp menu] addItemWithTitle:title action:nil keyEquivalent:@""];
+	while(key = [keyEnum nextObject]) {
+		title = [[QSReg bundleForClassName:[interfaces objectForKey:key]] safeLocalizedStringForKey:key value:key table:nil];
+		item = (NSMenuItem *)[[interfacePopUp menu] addItemWithTitle:title action:nil keyEquivalent:@""];
 		[item setRepresentedObject:key];
 	}
-	
 	[self selectItemInPopUp:interfacePopUp representedObject:[QSReg preferredCommandInterfaceID]];
 }
 
-
-
-- (NSString *)commandInterface{
+- (NSString *)commandInterface {
 	return [QSReg preferredCommandInterfaceID];
 }
 
-- (IBAction)setCommandInterface:(id)sender{
-	NSString *newInterface=[[sender selectedItem]representedObject];
-	//NSLog(newInterface);
-	[[NSUserDefaults standardUserDefaults] setObject:newInterface forKey:kQSCommandInterfaceControllers];
+- (IBAction)setCommandInterface:(id)sender {
+	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString *newInterface = [[sender selectedItem] representedObject];
+	[defaults setObject:newInterface forKey:kQSCommandInterfaceControllers];
 	[self setValue:newInterface forMediator:kQSCommandInterfaceControllers];
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSReleaseAllCachesNotification object:self];
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSInterfaceChangedNotification object:self];
-	[[NSUserDefaults standardUserDefaults] synchronize];
-	
-	[customizeButton setHidden:![[QSReg preferredCommandInterface]respondsToSelector:@selector(customize:)]];
+	[nc postNotificationName:QSReleaseAllCachesNotification object:self];
+	[nc postNotificationName:QSInterfaceChangedNotification object:self];
+	[defaults synchronize];
+	[customizeButton setHidden:![[QSReg preferredCommandInterface] respondsToSelector:@selector(customize:)]];
 }
 
-
-- (BOOL)setValue:(NSString *)newMediator forMediator:(NSString *)mediatorType{
+- (BOOL)setValue:(NSString *)newMediator forMediator:(NSString *)mediatorType {
 	[[NSUserDefaults standardUserDefaults] setObject:newMediator forKey:mediatorType];
 	[QSReg removePreferredInstanceOfTable:mediatorType];
 	return YES;
 }
 
-
-- (IBAction)resetColors:(id)sender{
-	//NSLog(@"Resetting colors");
-	
-	NSArray *colorDefaults=[NSArray arrayWithObjects:
-		kQSAppearance1B,kQSAppearance1A,kQSAppearance1T,
-		kQSAppearance2B,kQSAppearance2A,kQSAppearance2T,
-		kQSAppearance3B,kQSAppearance3A,kQSAppearance3T,
-		nil];
-	NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
-	foreach(key,colorDefaults){
+- (IBAction)resetColors:(id)sender {
+#if 0
+	NSArray *colorDefaults = [NSArray arrayWithObjects:kQSAppearance1B, kQSAppearance1A, kQSAppearance1T, kQSAppearance2B, kQSAppearance2A, kQSAppearance2T, kQSAppearance3B, kQSAppearance3A, kQSAppearance3T, nil];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	foreach(key, colorDefaults) {
 		[defaults willChangeValueForKey:key];
 		[defaults removeObjectForKey:key];
 		[defaults didChangeValueForKey:key];
 	}
+#endif
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString *keys[] = { kQSAppearance1B, kQSAppearance1A, kQSAppearance1T, kQSAppearance2B, kQSAppearance2A, kQSAppearance2T, kQSAppearance3B, kQSAppearance3A, kQSAppearance3T };
+	int i;
+	for(i = 0; i < sizeof(keys) / sizeof(keys[0]); i++){
+		[defaults willChangeValueForKey:keys[i]];
+		[defaults removeObjectForKey:keys[i]];
+		[defaults didChangeValueForKey:keys[i]];		
+	}
 	[defaults synchronize];
-	
-	//[self populateFields];
 }
-
 
 @end
 
-
-
 @implementation QSApplicationPrefPane
 
-- (NSNumber *)  panePriority{
-	return [NSNumber numberWithInt:10];	
+- (NSNumber *)panePriority {
+	return [NSNumber numberWithInt:10];
 }
 
-
--(BOOL)shouldLaunchAtLogin{
-	return QSItemShouldLaunchAtLogin([[NSBundle mainBundle] bundlePath]);  
+- (BOOL)shouldLaunchAtLogin {
+	return QSItemShouldLaunchAtLogin([[NSBundle mainBundle] bundlePath]);
 }
 
--(void)setShouldLaunchAtLogin:(BOOL)launch{
-	QSSetItemShouldLaunchAtLogin([[NSBundle mainBundle] bundlePath],launch,NO);  
+- (void)setShouldLaunchAtLogin:(BOOL)launch {
+	QSSetItemShouldLaunchAtLogin([[NSBundle mainBundle] bundlePath] ,launch, NO);
 }
 
-
-- (BOOL)appPlistIsEditable{
-	return [[NSFileManager defaultManager] isWritableFileAtPath:[[[NSBundle mainBundle]bundlePath]stringByAppendingPathComponent:@"Contents/Info.plist"]];
-	
+- (BOOL)appPlistIsEditable {
+	return [[NSFileManager defaultManager] isWritableFileAtPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/Info.plist"]];
 }
 
-- (BOOL)dockIconIsHidden{
+- (BOOL)dockIconIsHidden {
 	return [NSApp shouldBeUIElement];
 }
 
-- (void)setDockIconIsHidden:(BOOL)flag{
-  [NSApp setShouldBeUIElement:flag];
-	//  [hideDockIconSwitch setState:[(QSApp *)NSApp shouldBeUIElement]];
-	// [self populateFields];
-	if (flag){
-		NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
-		
+- (void)setDockIconIsHidden:(BOOL)flag {
+	[NSApp setShouldBeUIElement:flag];
+	if (flag) {
+		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		if (![defaults objectForKey:@"QSShowMenuIcon"])
 			[defaults setInteger:1 forKey:@"QSShowMenuIcon"];
 	}
-  if ([NSApp isUIElement]!=flag)
-    [NSApp requestRelaunch:nil];	   
+	if ([NSApp isUIElement] != flag)
+		[NSApp requestRelaunch:nil];
 }
 
-
-
-
-- (int)featureLevel{
+- (int) featureLevel {
 	if (newFeatureLevel) return newFeatureLevel;
-	return [NSApp featureLevel];
+	else return [NSApp featureLevel];
 }
 
-- (void)setFeatureLevel:(id)level{
-	
-	int newLevel=[level intValue];
-	newFeatureLevel=newLevel;
-	if (newLevel==2 && (GetCurrentKeyModifiers() & (optionKey | rightOptionKey))){
+- (void)setFeatureLevel:(id)level {
+	int newLevel = [level intValue];
+	newFeatureLevel = newLevel;
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	if (newLevel == 2 && (GetCurrentKeyModifiers() & (optionKey | rightOptionKey) )) {
 		newLevel++;
 		NSBeep();
-		
-		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kCuttingEdgeFeatures];
+		[defaults setBool:YES forKey:kCuttingEdgeFeatures];
 	}
-	
-	[[NSUserDefaults standardUserDefaults] setInteger:newLevel forKey:kFeatureLevel];
-	[[NSUserDefaults standardUserDefaults] synchronize];
-	if (newLevel!=[NSApp featureLevel])
+	[defaults setInteger:newLevel forKey:kFeatureLevel];
+	[defaults synchronize];
+	if (newLevel != [NSApp featureLevel])
 		[NSApp requestRelaunch:nil];
-	
 }
 
--(IBAction)checkNow:(id)sender{
-	[[QSUpdateController sharedInstance]threadedRequestedCheckForUpdate:sender];	
+- (IBAction)checkNow:(id)sender {
+	[[QSUpdateController sharedInstance] threadedRequestedCheckForUpdate:sender];
 }
-- (void)deleteSupportFiles{
-	NSFileManager *fm=[NSFileManager defaultManager];
-	[fm removeFileAtPath:QSApplicationSupportSubPath(@"Actions.plist",NO) handler:self];
-	[fm removeFileAtPath:QSApplicationSupportSubPath(@"Catalog.plist",NO) handler:self];
+
+- (void)deleteSupportFiles {
+	NSFileManager *fm = [NSFileManager defaultManager];
+	[fm removeFileAtPath:QSApplicationSupportSubPath(@"Actions.plist", NO) handler:self];
+	[fm removeFileAtPath:QSApplicationSupportSubPath(@"Catalog.plist", NO) handler:self];
 	[fm removeFileAtPath:pIndexLocation handler:self];
-	[fm removeFileAtPath:QSApplicationSupportSubPath(@"Mnemonics.plist",NO) handler:self];
-	[fm removeFileAtPath:QSApplicationSupportSubPath(@"PlugIns",NO) handler:self];
-	[fm removeFileAtPath:QSApplicationSupportSubPath(@"PlugIns.plist",NO) handler:self];
-	[fm removeFileAtPath:QSApplicationSupportSubPath(@"Shelves",NO) handler:self];
+	[fm removeFileAtPath:QSApplicationSupportSubPath(@"Mnemonics.plist", NO) handler:self];
+	[fm removeFileAtPath:QSApplicationSupportSubPath(@"PlugIns", NO) handler:self];
+	[fm removeFileAtPath:QSApplicationSupportSubPath(@"PlugIns.plist", NO) handler:self];
+	[fm removeFileAtPath:QSApplicationSupportSubPath(@"Shelves", NO) handler:self];
 	[fm removeFileAtPath:[@"~/Library/Caches/Quicksilver" stringByStandardizingPath] handler:self];
-	[[NSUserDefaults standardUserDefaults]synchronize];
+	[[NSUserDefaults standardUserDefaults] synchronize];
 	[fm removeFileAtPath:[@"~/Library/Preferences/com.blacktree.Quicksilver.plist" stringByStandardizingPath] handler:self];
 }
-- (void)deleteApplication{
-	NSFileManager *fm=[NSFileManager defaultManager];
-	[fm removeFileAtPath:[[NSBundle mainBundle]bundlePath] handler:self];
+
+- (void)deleteApplication {
+	[[NSFileManager defaultManager] removeFileAtPath:[[NSBundle mainBundle] bundlePath] handler:self];
 }
 
-- (BOOL)fileManager:(NSFileManager *)manager shouldProceedAfterError:(NSDictionary *)errorInfo{
-	NSLog(@"error: %@",errorInfo);
+- (BOOL)fileManager:(NSFileManager *)manager shouldProceedAfterError:(NSDictionary *)errorInfo {
+	NSLog(@"error: %@", errorInfo);
 	return YES;
 }
--(IBAction)resetQS:(id)sender{
-	if (!NSRunAlertPanel(@"Reset Quicksilver", @"Would you like to delete all preferences and application support files, returning Quicksilver to the default state? This operation cannot be undone and requires a relaunch", @"Cancel", @"Reset and Relaunch", nil)){
-        [self deleteSupportFiles];
+
+- (IBAction)resetQS:(id)sender {
+	if (!NSRunAlertPanel(@"Reset Quicksilver", @"Would you like to delete all preferences and application support files, returning Quicksilver to the default state? This operation cannot be undone and requires a relaunch", @"Cancel", @"Reset and Relaunch", nil) ) {
+		[self deleteSupportFiles];
 		[NSApp relaunch:self];
 	}
 }
 
--(IBAction)runSetup:(id)sender{
-	[[NSApp delegate]runSetupAssistant:nil];
+- (IBAction)runSetup:(id)sender {
+	[[NSApp delegate] runSetupAssistant:nil];
 }
--(IBAction)uninstallQS:(id)sender{
-	if (!NSRunAlertPanel(@"Uninstall Quicksilver", @"Would you like to delete Quicksilver, all its preferences, and application support files? This operation cannot be undone.", @"Cancel", @"Uninstall", nil)){
-		
+- (IBAction)uninstallQS:(id)sender {
+	if (!NSRunAlertPanel(@"Uninstall Quicksilver", @"Would you like to delete Quicksilver, all its preferences, and application support files? This operation cannot be undone.", @"Cancel", @"Uninstall", nil) ) {
 		[self deleteSupportFiles];
 		[self deleteApplication];
 		[NSApp terminate:self];
 	}
-	
 }
 
 @end

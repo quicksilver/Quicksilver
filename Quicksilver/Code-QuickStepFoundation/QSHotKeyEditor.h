@@ -11,7 +11,7 @@
 	//	BOOL isObservingFocus;
 	//	BOOL shouldSelectNextKeyView;
 	//	int isDiscarding;
-	//	
+	//
 	@private
 	unsigned short		keyCode;
 	unichar				character;
@@ -45,13 +45,13 @@
 @interface QSHotKeyFieldEditor : NSTextView
 {
    // ConfigurableKeysMgr *mMaster;
-    NSNumber *mVirtualKey;
-    unsigned int mModifiers;
- 
-    BOOL mOperationModeEnabled;
-    unsigned int mSavedHotKeyOperatingMode;
-    BOOL validCombo;
-	
+	NSNumber *mVirtualKey;
+	unsigned int mModifiers;
+
+	BOOL mOperationModeEnabled;
+	unsigned int mSavedHotKeyOperatingMode;
+	BOOL validCombo;
+
 //	unsigned short		keyCode;
 	unichar				character;
 	unsigned long		modifierFlags;

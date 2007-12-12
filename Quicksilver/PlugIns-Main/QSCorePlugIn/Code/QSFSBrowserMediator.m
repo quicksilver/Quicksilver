@@ -1,26 +1,17 @@
-
-
 #import "QSFSBrowserMediator.h"
 
-
 @implementation QSRegistry (QSFSBrowserMediator)
-- (NSString *)FSBrowserMediatorID{
-	NSString *key=[[NSUserDefaults standardUserDefaults] stringForKey:kQSFSBrowserMediators];
-	//if (!key)key=defaultMailClientID();
-	return key;
+- (NSString *)FSBrowserMediatorID {
+	return [[NSUserDefaults standardUserDefaults] stringForKey:kQSFSBrowserMediators];
 }
-- (id <QSFSBrowserMediator>)FSBrowserMediator{
-	id <QSFSBrowserMediator> mediator=[prefInstances objectForKey:kQSFSBrowserMediators];
-	
-	if (!mediator){
-		mediator=[self instanceForKey:[self FSBrowserMediatorID]
-					 inTable:kQSFSBrowserMediators];
+- (id <QSFSBrowserMediator>)FSBrowserMediator {
+	id <QSFSBrowserMediator> mediator = [prefInstances objectForKey:kQSFSBrowserMediators];
+	if (!mediator) {
+		mediator = [self instanceForKey:[self FSBrowserMediatorID] inTable:kQSFSBrowserMediators];
 		if (mediator)
 			[prefInstances setObject:mediator forKey:kQSFSBrowserMediators];
-		//else NSLog(@"Mediator not found %@",[[NSUserDefaults standardUserDefaults] stringForKey:kQSFSBrowserMediators]);
+		//else NSLog(@"Mediator not found %@", [[NSUserDefaults standardUserDefaults] stringForKey:kQSFSBrowserMediators]);
 	}
 	return mediator;
 }
-
-
 @end

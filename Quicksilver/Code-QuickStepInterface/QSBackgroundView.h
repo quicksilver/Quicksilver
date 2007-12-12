@@ -1,10 +1,7 @@
-
-
 #import <AppKit/AppKit.h>
 
-
 @interface QSBackgroundView : NSView {
-    NSButtonCell *background;
+//	NSButtonCell *background;
 	NSColor *backgroundColor;
 	float depth;
 }

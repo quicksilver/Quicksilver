@@ -10,5 +10,5 @@
 
 
 @interface NSData (RangeExtensions)
-- (unsigned)offsetOfData:(NSData *)data;
+- (unsigned) offsetOfData:(NSData *)data;
 @end

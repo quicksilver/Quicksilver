@@ -18,15 +18,15 @@
 	NSPoint			position;
 }
 
--(id)	initWithTitle: (NSString*)theTitle andImage: (NSImage*)img;
+- (id)	initWithTitle: (NSString*)theTitle andImage: (NSImage*)img;
 
--(NSString*)	title;
--(void)			setTitle: (NSString*)theTitle;
+- (NSString*)	title;
+- (void)			setTitle: (NSString*)theTitle;
 
--(NSImage*)		image;
--(void)			setImage: (NSImage*)img;
+- (NSImage*)		image;
+- (void)			setImage: (NSImage*)img;
 
--(NSPoint)		position;
--(void)			setPosition: (NSPoint)pos;
+- (NSPoint) 		position;
+- (void)			setPosition: (NSPoint)pos;
 
 @end

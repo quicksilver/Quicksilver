@@ -10,5 +10,5 @@
 	NSColor *highlightColor;
 }
 - (NSColor *)highlightColor;
-
+- (void)setHighlightColor:(NSColor *)aHighlightColor;
 @end

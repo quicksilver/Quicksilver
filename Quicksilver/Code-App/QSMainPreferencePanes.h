@@ -7,18 +7,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
 #import "QSPreferencePane.h"
 
-@interface QSSearchPrefPane : QSPreferencePane{
-    IBOutlet NSButton *hotKeyButton;
-    
-}
-- (IBAction)changeHotkey:(id)sender;
+@interface QSSearchPrefPane : QSPreferencePane {}
 @end
 
-@interface QSAppearancePrefPane : QSPreferencePane{
-    IBOutlet NSPopUpButton *interfacePopUp;
+@interface QSAppearancePrefPane : QSPreferencePane {
+	IBOutlet NSPopUpButton *interfacePopUp;
 	IBOutlet NSButton *customizeButton;
 }
 - (IBAction)setCommandInterface:(id)sender;
@@ -30,17 +25,12 @@
 @end
 
 
-@interface QSApplicationPrefPane : QSPreferencePane{
-    //General
-
-    IBOutlet NSButton *hideDockIconSwitch;
-    IBOutlet NSButton *hideStatusMenuSwitch;
-    IBOutlet NSMatrix *featureLevelMatrix;
+@interface QSApplicationPrefPane : QSPreferencePane {
+	IBOutlet NSMatrix *featureLevelMatrix;
 	int newFeatureLevel;
-    
 }
--(IBAction)checkNow:(id)sender;
--(IBAction)resetQS:(id)sender;
--(IBAction)uninstallQS:(id)sender;
--(IBAction)runSetup:(id)sender;
+- (IBAction)checkNow:(id)sender;
+- (IBAction)resetQS:(id)sender;
+- (IBAction)uninstallQS:(id)sender;
+- (IBAction)runSetup:(id)sender;
 @end

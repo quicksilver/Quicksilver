@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-
 @interface QSAboutWindowController : NSWindowController {
 	IBOutlet id creditsView;
 	BOOL showCredits;

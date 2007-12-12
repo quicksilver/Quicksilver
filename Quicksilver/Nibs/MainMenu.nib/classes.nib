@@ -26,9 +26,6 @@
             LANGUAGE = ObjC; 
             SUPERCLASS = NSObject; 
         }, 
-        {CLASS = InertButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
-        {CLASS = MenuButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
-        {CLASS = NSMenuView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
         {
             ACTIONS = {relaunch = id; }; 
             CLASS = QSApp; 
@@ -39,7 +36,6 @@
         {
             ACTIONS = {
                 activateInterface = id; 
-                donate = id; 
                 forceRescanItems = id; 
                 getMorePlugIns = id; 
                 openIRCChannel = id; 
@@ -63,25 +59,8 @@
             }; 
             CLASS = QSController; 
             LANGUAGE = ObjC; 
-            OUTLETS = {
-                aboutWindow = NSWindow; 
-                preferencesMenu = NSMenuItem; 
-                statusMenu = NSMenu; 
-                versionField = NSTextField; 
-            }; 
+            OUTLETS = {statusMenu = NSMenu; }; 
             SUPERCLASS = NSWindowController; 
-        }, 
-        {
-            CLASS = QSKeyboardTriggerReferenceView; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSView; 
-        }, 
-        {CLASS = QSShelfView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
-        {
-            ACTIONS = {checkForUpdates = id; }; 
-            CLASS = SUUpdater; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSObject; 
         }
     ); 
     IBVersion = 1; 

@@ -12,7 +12,7 @@ extern int NSAllModifierKeysMask;
 
 unsigned int lastModifiers;
 @interface NSApplication (QSModifierKeyEvents)
--(BOOL)checkForModifierEvent:(NSEvent *)theEvent;
+- (BOOL)checkForModifierEvent:(NSEvent *)theEvent;
 @end
 
 @interface QSModifierKeyEvent : NSObject {
@@ -21,8 +21,8 @@ unsigned int lastModifiers;
 	NSString *identifier;
 	id target;
 	SEL action;
-	
-	
+
+
 	@private
 		int keyCode;
 }
@@ -32,17 +32,17 @@ unsigned int lastModifiers;
 - (void)enable;
 - (void)disable;
 +(BOOL)alphaShiftReleased;
--(BOOL)checkForModifierTap;
+- (BOOL)checkForModifierTap;
 +(BOOL)modifierToggled:(unsigned int)modifierKeysMask;
-- (unsigned int)modifierActivationMask;
+- (unsigned int) modifierActivationMask;
 - (void)setModifierActivationMask:(unsigned int)newModifierActivationMask;
-- (int)modifierActivationCount;
+- (int) modifierActivationCount;
 - (void)setModifierActivationCount:(int)newModifierActivationCount;
 - (id)target;
 - (void)setTarget:(id)newTarget;
-- (SEL)action;
+- (SEL) action;
 - (void)setAction:(SEL)newAction;
 - (NSString *)identifier;
 - (void)setIdentifier:(NSString *)newIdentifier;
--(void)sendAction;
+- (void)sendAction;
 @end

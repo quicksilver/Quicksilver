@@ -17,13 +17,11 @@
             CLASS = QSAdvancedPrefPane; 
             LANGUAGE = ObjC; 
             OUTLETS = {
-                descriptionField = NSTextField; 
                 posttextField = NSTextField; 
                 prefSetsController = NSArrayController; 
                 prefSetsTable = NSTableView; 
                 pretextField = NSTextField; 
                 settingsBox = NSBox; 
-                titleField = NSTextField; 
                 valueField = NSTextField; 
                 valuePopUp = NSPopUpButton; 
                 valueSlider = NSSlider; 

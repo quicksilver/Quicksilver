@@ -6,13 +6,13 @@
 @interface QSCommandObjectHandler : NSObject
 @end
 @class QSAction;
-@interface QSCommand : QSBasicObject{
-    NSMutableDictionary *oDict;
+@interface QSCommand : QSBasicObject {
+	NSMutableDictionary *oDict;
 }
 +(id)commandWithDirectObject:(QSBasicObject *)dObject actionObject:(QSBasicObject *)aObject indirectObject:(QSBasicObject *)iObject;
--(id)initWithDirectObject:(QSBasicObject *)dObject actionObject:(QSBasicObject *)aObject indirectObject:(QSBasicObject *)iObject;
+- (id)initWithDirectObject:(QSBasicObject *)dObject actionObject:(QSBasicObject *)aObject indirectObject:(QSBasicObject *)iObject;
 +(id)commandWithDictionary:(NSDictionary *)newDict;
--(id)initWithDictionary:(NSDictionary *)newDict;
+- (id)initWithDictionary:(NSDictionary *)newDict;
 
 + (QSCommand *)commandWithInfo:(id)command;
 - (QSObject *)execute;
@@ -26,4 +26,6 @@
 - (NSArray *)validIndirects;
 - (void)setDObject:(id)dObject;
 - (QSObject *)executeIgnoringModifiers;
+
++(id)commandWithFile:(NSString *)path;
 @end

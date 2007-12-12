@@ -4,44 +4,41 @@
 
 @class WebView;
 @interface QSSetupAssistant : NSWindowController {
-    IBOutlet NSTabView *setupTabView;
+	IBOutlet NSTabView *setupTabView;
 
-    IBOutlet NSButton *continueButton;
-    IBOutlet NSButton *backButton;
-    
+	IBOutlet NSButton *continueButton;
+	IBOutlet NSButton *backButton;
+
 	IBOutlet NSView *agreementView;
-    IBOutlet NSProgressIndicator *scanProgress;
-    
-    IBOutlet NSTextField *scanTextField;
-    IBOutlet NSTextField *scanStatusField;
-    IBOutlet NSTextField *hotKeyField;
+	IBOutlet NSProgressIndicator *scanProgress;
+
+	IBOutlet NSTextField *scanStatusField;
 	int plugInInfoStatus;
-    int step;
-    BOOL scanComplete;
-    BOOL setupComplete;
+	int step;
+	BOOL scanComplete;
+	BOOL setupComplete;
 	NSDictionary *identifiers;
-    IBOutlet NSProgressIndicator *installProgress;
-    IBOutlet NSTextField *installTextField;
+	IBOutlet NSProgressIndicator *installProgress;
+	IBOutlet NSTextField *installTextField;
 	BOOL downloadComplete;
 	NSMutableDictionary *plugInsToInstall;
 	NSMutableDictionary *installedPlugIns;
 	NSArray *recommendedPlugIns;
-	
-    IBOutlet NSArrayController *plugInsController;
+
+	IBOutlet NSArrayController *plugInsController;
 	IBOutlet NSPanel *pluginStatusPanel;
 	IBOutlet NSProgressIndicator *pluginStatusProgress;
 	IBOutlet NSTextField *pluginStatusField;
-	
+
 	IBOutlet WebView *gettingStartedView;
 	IBOutlet WebView *gettingSupportView;
-	
+
 	IBOutlet NSTabView *plugInLoadTabView;
 	IBOutlet NSProgressIndicator *plugInLoadProgress;
 }
 + (id)sharedInstance;
-- (BOOL)run:(id)sender;
+- (void)run:(id)sender;
 
-- (IBAction)setHotKey:(id)sender;
 - (IBAction)downloadPlugIns:(id)sender;
 - (IBAction)nextSection:(id)sender;
 - (IBAction)prevSection:(id)sender;

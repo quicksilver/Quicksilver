@@ -14,7 +14,7 @@
 	IBOutlet WebView *guideView;
 	IBOutlet NSProgressIndicator *progressIndicator;
 	IBOutlet NSTextField *progressField;
-	
+
 }
 - (IBAction)goHome:(id)sender;
 - (IBAction)showInBrowser:(id)sender;

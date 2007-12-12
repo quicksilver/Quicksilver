@@ -1,48 +1,14 @@
-/* QSController */
-
-
-//#import <Cocoa/Cocoa.h>
-
-@class QSObjectView;
-@class QSActionMatrix;
-
-@class QSWindow;
-@class QSMenuWindow;
-//@class QSPrefsController;
 @class QSObject;
-
 @class QSInterfaceController;
-@class QSCatalogController;
-//@class QSProcessSwitcher;
 
-
-@interface QSController : NSWindowController{
-    QSInterfaceController *interfaceController;
-   // QSProcessSwitcher *switcherController;
-    //QSPrefsController *prefsController;
-    QSCatalogController *catalogController;
-    NSWindowController *aboutWindowController;
-    NSWindowController *quitWindowController;
-    NSWindowController *triggerEditor;
-    
-    NSStatusItem *statusItem;
-    IBOutlet NSMenu *statusMenu;
-    IBOutlet NSMenuItem *preferencesMenu;
-    IBOutlet NSWindow *aboutWindow;
-    IBOutlet NSTextField *versionField;
-    
-    NSConnection *controllerConnection; 
-    NSConnection *contextConnection;
-    NSWindow *splashWindow;
-	
-    BOOL newVersion;
-    BOOL runningSetupAssistant;
-    
-    NSColor *iconColor;
-	NSImage *activatedImage;
-	NSImage *runningImage;
-	NSConnection *dropletConnection;
-	
+@interface QSController : NSWindowController {
+	QSInterfaceController *interfaceController;
+	NSWindowController *aboutWindowController, *quitWindowController;
+	NSWindow *splashWindow;
+	NSStatusItem *statusItem;
+	IBOutlet NSMenu *statusMenu;
+	NSConnection *controllerConnection, *dropletConnection;
+	BOOL newVersion, runningSetupAssistant;
 	NSObject *dropletProxy;
 }
 - (IBAction)runSetupAssistant:(id)sender;
@@ -55,8 +21,6 @@
 - (IBAction)showAbout:(id)sender;
 - (IBAction)showForums:(id)sender;
 - (IBAction)openIRCChannel:(id)sender;
-- (IBAction)donate:(id)sender;
-//- (IBAction)showClipboards:(id)sender;
 - (IBAction)showTaskViewer:(id)sender;
 - (IBAction)showReleaseNotes:(id)sender;
 
@@ -66,57 +30,33 @@
 - (void)openURL:(NSURL *)url;
 - (void)showSplash:sender;
 
-- (void)recompositeIconImages;
-    //- (IBAction)showReadMe:(id)sender;
-//- (void)selectInterface:(NSString *)interfaceClassString;
-
-
-//- (void)selectFinderProxy:(NSString *)finderProxyClassString;
-- (NSImage *)daedalusImage;
 - (void)activateDebugMenu;
 
-- (NSMenu *)statusMenu;
-
-
 - (NSMenu *)statusMenuWithQuit;
-//- (void)activateStatusMenu;
-//- (void)deactivateStatusMenu;
--(void) activateInterface:(id)sender;
--(void)checkForFirstRun;
-- (IBAction) rescanItems:sender;
-- (IBAction) forceRescanItems:sender;
-//- (QSPrefsController *)prefsController;
-//- (QSCatalogController *)catalogController;
+- (void)activateInterface:(id)sender;
+- (void)checkForFirstRun;
+- (IBAction)rescanItems:sender;
+- (IBAction)forceRescanItems:sender;
 - (void)receiveObject:(QSObject *)object;
 - (IBAction)unsureQuit:(id)sender;
 - (QSInterfaceController *)interfaceController;
 - (void)setInterfaceController:(QSInterfaceController *)newInterfaceController;
-//- (QSProcessSwitcher *)switcherController;
-//- (void)setSwitcherController:(QSProcessSwitcher *)newSwitcherController;
-- (NSMenu *)statusMenu;
-- (NSColor *)iconColor;
-- (void)setIconColor:(NSColor *)newIconColor;
 
 - (void)startMenuExtraConnection;
-- (IBAction)showAgreement:(id)sender;
 - (void)setupAssistantCompleted:(id)sender;
 
-- (IBAction)runSetupAssistant:(id)sender;
 - (IBAction)reportABug:(id)sender;
-- (NSImage *)activatedImage;
-- (void)setActivatedImage:(NSImage *)newActivatedImage;
-- (NSImage *)runningImage;
-- (void)setRunningImage:(NSImage *)newRunningImage;
+
 - (NSObject *)dropletProxy;
 - (void)setDropletProxy:(NSObject *)newDropletProxy;
 
+- (void)executeCommandAtPath:(NSString *)path;
 @end
 
-
+#if 0
 @interface QSController (ErrorHandling)
 - (void)registerForErrors;
 @end
-
-
+#endif
 
 extern QSController *QSCon;

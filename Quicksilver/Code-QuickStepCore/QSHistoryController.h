@@ -16,7 +16,7 @@ extern id QSHist; // Shared Instance
 	NSMutableArray *commandHistory;
 	NSMutableArray *objectHistory;
 	NSMutableArray *actionHistory;
-	
+
 }
 + (id)sharedInstance;
 

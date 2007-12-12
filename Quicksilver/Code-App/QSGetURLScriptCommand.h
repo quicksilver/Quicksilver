@@ -1,10 +1,4 @@
-
-
 #import <Foundation/Foundation.h>
 
-
-@interface QSGetURLScriptCommand : NSScriptCommand {
-
-}
-
+@interface QSGetURLScriptCommand : NSScriptCommand {}
 @end

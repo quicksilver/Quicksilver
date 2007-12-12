@@ -1,8 +1,3 @@
-
-
-
-
-
 #define kItemAlias @"alias"
 #define kItemPath @"path"
 #define kItemBaseBundle @"baseBundle"
@@ -16,7 +11,6 @@
 #define kItemSettings @"settings"
 #define kItemSource @"source"
 #define kItemIcon @"icon"
-
 
 #define kItemFileContents @"fileContents"
 #define kItemFolderTypes @"folderTypes"

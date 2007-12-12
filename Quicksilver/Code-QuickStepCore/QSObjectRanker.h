@@ -9,13 +9,13 @@
 #import <Cocoa/Cocoa.h>
 #import "QSStringRanker.h"
 
-@class QSBasicObject,QSRankedObject;
+@class QSBasicObject, QSRankedObject;
 
 @protocol QSObjectRanker
 - (id)initWithObject:(QSBasicObject *)object;
-- (double)scoreForAbbreviation:(NSString*)anAbbreviation inContext:(NSString *)context;
+- (double) scoreForAbbreviation:(NSString*)anAbbreviation inContext:(NSString *)context;
 //- (NSIndexSet*)maskForAbbreviation:(NSString*)anAbbreviation inContext:(NSString *)context;
-- (int)matchedStringForAbbreviation:(NSString*)anAbbreviation hitmask:(NSIndexSet **)hitmask inContext:(NSString *)context;
+- (int) matchedStringForAbbreviation:(NSString*)anAbbreviation hitmask:(NSIndexSet **)hitmask inContext:(NSString *)context;
 + (NSMutableArray *)rankedObjectsForObjects:(NSArray *)objects withAbbreviation:(NSString*)anAbbreviation inContext:(NSString *)context;
 - (QSRankedObject *)rankedObject:(QSBasicObject *)object forAbbreviation:(NSString*)anAbbreviation inContext:(NSString *)context withMnemonics:(NSDictionary *)mnemonics;
 - (void)setOmitted:(BOOL)flag;

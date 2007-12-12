@@ -2,11 +2,11 @@
 
 #import <Foundation/Foundation.h>
 @interface NSObject (QSObjectSourceInformal)
-	- (NSImage *) iconForEntry:(NSDictionary *)theEntry;
-	//- (NSString *) nameForEntry:(NSDictionary *)theEntry;
-	- (NSArray *) objectsForEntry:(NSDictionary *)theEntry;
+	- (NSImage *)iconForEntry:(NSDictionary *)theEntry;
+	//- (NSString *)nameForEntry:(NSDictionary *)theEntry;
+	- (NSArray *)objectsForEntry:(NSDictionary *)theEntry;
 	- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry;
-	- (void) populateFields;
+	- (void)populateFields;
 	- (NSMutableDictionary *)currentEntry;
 	- (void)setCurrentEntry:(NSMutableDictionary *)newCurrentEntry;
 	- (NSView *)settingsView;
@@ -18,18 +18,18 @@
 
 @class QSCatalogEntry;
 @interface QSObjectSource : NSObject {
-    IBOutlet NSView *settingsView;
+	IBOutlet NSView *settingsView;
 	QSCatalogEntry *selection;
-    NSMutableDictionary *currentEntry;
+	NSMutableDictionary *currentEntry;
 }
 - (void)invalidateSelf;
-- (NSImage *) iconForEntry:(NSDictionary *)theEntry;
-//- (NSString *) nameForEntry:(NSDictionary *)theEntry;
-- (NSArray *) objectsForEntry:(NSDictionary *)theEntry;
+- (NSImage *)iconForEntry:(NSDictionary *)theEntry;
+//- (NSString *)nameForEntry:(NSDictionary *)theEntry;
+- (NSArray *)objectsForEntry:(NSDictionary *)theEntry;
 - (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry;
-- (void) populateFields;
+- (void)populateFields;
 
-- (void) updateCurrentEntryModificationDate;
+- (void)updateCurrentEntryModificationDate;
 - (NSMutableDictionary *)currentEntry;
 //- (void)setCurrentEntry:(NSMutableDictionary *)newCurrentEntry;
 - (NSView *)settingsView;

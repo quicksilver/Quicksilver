@@ -10,7 +10,7 @@
 
 
 #import <QSCore/QSObjectSource.h>
-@interface QSVolumesObjectSource : QSObjectSource{
-    NSTimeInterval lastMountDate;
+@interface QSVolumesObjectSource : QSObjectSource {
+	NSTimeInterval lastMountDate;
 }
 @end

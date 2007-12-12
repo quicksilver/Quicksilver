@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface NSBezierPath(RoundRect)
-- (void) appendBezierPathWithRoundedRectangle:(NSRect)aRect withRadius:(float) radius;
-- (void) appendBezierPathWithRoundedRectangle:(NSRect)aRect withRadius:(float) radius indent:(int)indent;
+- (void)appendBezierPathWithRoundedRectangle:(NSRect) aRect withRadius:(float) radius;
+- (void)appendBezierPathWithRoundedRectangle:(NSRect) aRect withRadius:(float) radius indent:(int)indent;
 @end

@@ -19,18 +19,18 @@
 - (id)runWithInput:(id)input fromAction:(AMAction *)anAction error:(NSDictionary **)errorInfo
 {
 	// Add your code here, returning the data to be passed to the next action.
-	NSConnection *connection=[NSConnection connectionWithRegisteredName:@"QuicksilverControllerConnection" host:nil];
-	id proxy=[connection rootProxy];
-	if (proxy){
+	NSConnection *connection = [NSConnection connectionWithRegisteredName:@"QuicksilverControllerConnection" host:nil];
+	id proxy = [connection rootProxy];
+	if (proxy) {
 		[proxy setProtocolForProxy:@protocol(QSController)];
-		
-		id selection=[proxy AESelection];
-		NSLog(@"recieved selection %@",selection);
+
+		id selection = [proxy AESelection];
+		NSLog(@"recieved selection %@", selection);
 		return selection;
-	}else{
+	} else {
 		NSLog(@"Unable to connect to Quicksilver");
-	}  
-	
+	}
+
 	return input;
 }
 

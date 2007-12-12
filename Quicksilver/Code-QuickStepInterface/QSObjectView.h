@@ -12,35 +12,32 @@ typedef enum {
 	QSActionDropMode = 2, // Can perform actions, but not change selection
 	QSFullDropMode = 3 // Actions as well as change selection
 } QSObjectDropMode;
-	
+
 
 @interface QSObjectView : NSControl {
-        
-    NSString *searchString;
-    QSInterfaceController *controller;
-    BOOL dragImageDraw;
-    BOOL dragAcceptDraw;
-    
-    BOOL performingDrag;
-    NSDictionary *nameAttributes;
-    NSDictionary *detailAttributes,*liteDetailAttributes;
 
-    NSTimer *iconLoadTimer;
-    
-    
+	NSString *searchString;
+	QSInterfaceController *controller;
+	BOOL dragImageDraw;
+	BOOL dragAcceptDraw;
+
+	BOOL performingDrag;
+	NSDictionary *nameAttributes;
+	NSDictionary *detailAttributes, *liteDetailAttributes;
+
+	NSTimer *iconLoadTimer;
+
+
 	QSObjectDropMode dropMode;
-	
-    QSObject *draggedObject;
-    NSString *dragAction;
-    NSDragOperation lastDragMask;
-	
-    BOOL initiatesDrags;
-    NSPoint draggingLocation;
-    NSTimer *springTimer;
-    BOOL shouldSpring;
-	NSEvent *springDrag;
+
+	QSObject *draggedObject;
+	NSString *dragAction;
+	NSDragOperation lastDragMask;
+
+	BOOL initiatesDrags;
+	BOOL shouldSpring;
 	NSImage *draggedImage;
-    }
+	}
 - (QSObject *)draggedObject;
 - (void)setDraggedObject:(QSObject *)newDraggedObject;
 
@@ -50,7 +47,7 @@ typedef enum {
 - (id)objectValue;
 - (void)setObjectValue:(QSBasicObject *)newObject;
 
-- (QSObjectDropMode)dropMode;
+- (QSObjectDropMode) dropMode;
 - (void)setDropMode:(QSObjectDropMode)aDropMode;
 
 - (BOOL)acceptsDrags;
@@ -61,6 +58,6 @@ typedef enum {
 - (void)setDragAction:(NSString *)aDragAction;
 
 - (QSInterfaceController *)controller;
-- (NSSize)cellSize;
+- (NSSize) cellSize;
 - (void)mouseClicked:(NSEvent *)theEvent;
 @end

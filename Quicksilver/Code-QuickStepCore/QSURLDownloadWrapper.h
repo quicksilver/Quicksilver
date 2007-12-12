@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface QSURLDownload : NSURLDownload{
+@interface QSURLDownload : NSURLDownload {
 	long long expectedContentLength;
 	long long currentContentLength;
 	id userInfo;
@@ -17,10 +17,10 @@
 }
 - (NSURL *)url;
 - (NSString *)destination;
-- (double)progress;
+- (double) progress;
 - (id)userInfo;
 - (void)setUserInfo:(id)value;
-- (long long)expectedContentLength;
-- (long long)currentContentLength;
+- (long long) expectedContentLength;
+- (long long) currentContentLength;
 @end
 

@@ -112,7 +112,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleGetInfoString</key>
-	<string>Copyright ©2000-2005 Blacktree, Inc.</string>
+	<string>Quicksilver β54, Copyright © 2000-2006 Blacktree, Inc.</string>
 	<key>CFBundleHelpBookFolder</key>
 	<string>QSHelp</string>
 	<key>CFBundleHelpBookName</key>
@@ -123,6 +123,8 @@
 	<string>com.blacktree.Quicksilver</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>β54</string>
 	<key>CFBundleName</key>
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundlePackageType</key>
@@ -165,7 +167,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>SVN_REVISION</string>
+	<string>3814</string>
 	<key>LSHasLocalizedDisplayName</key>
 	<integer>1</integer>
 	<key>LSUIElement</key>
@@ -261,18 +263,6 @@
 	</array>
 	<key>QSReleaseStatus</key>
 	<integer>0</integer>
-	<key>SUAllowsAutomaticUpdates</key>
-	<true/>
-	<key>SUCheckAtStartup</key>
-	<false/>
-	<key>SUFeedURL</key>
-	<string></string>
-	<key>SUShowReleaseNotes</key>
-	<true/>
-	<key>XSmartCrashReports_CompanyName</key>
-	<string>Blacktree</string>
-	<key>XSmartCrashReports_EmailTicket</key>
-	<string>SCR-E91B5AACA3</string>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>

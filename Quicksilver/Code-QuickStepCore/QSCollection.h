@@ -11,9 +11,7 @@
 
 @interface QSCollection : QSBasicObject {
 	NSMutableArray *array;
-	QSObject *objectValue;
+//	QSObject *objectValue;
 }
-
--(unsigned)count;
-
+- (unsigned) count;
 @end
