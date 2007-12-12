@@ -1,8 +1,5 @@
 /* QSPlugInsPrefPane */
 
-#import <Cocoa/Cocoa.h>
-
-#import "QSPreferencePane.h"
 @interface QSUpdatePrefPane : QSPreferencePane
 {
     IBOutlet id plugInTable;

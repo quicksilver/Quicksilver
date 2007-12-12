@@ -6,10 +6,6 @@
 
 //
 
-#import <Cocoa/Cocoa.h>
-
-#import "QSPreferencePane.h"
-
 @interface QSSearchPrefPane : QSPreferencePane{
     IBOutlet NSButton *hotKeyButton;
     

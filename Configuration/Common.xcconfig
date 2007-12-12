@@ -1,0 +1,17 @@
+#include "Developer.xcconfig"
+
+SDKROOT = $(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk
+
+SYMROOT = $(QS_SOURCE_ROOT)/build
+
+MACOSX_DEPLOYMENT_TARGET = 10.5
+PREBINDING = NO
+
+FRAMEWORK_SEARCH_PATHS = /System/Library/PrivateFrameworks $(BUILT_PRODUCTS_DIR)
+
+GCC_ENABLE_OBJC_GC = supported
+
+GCC_C_LANGUAGE_STANDARD = c99
+
+WARNING_CFLAGS = -Wall -Wextra
+

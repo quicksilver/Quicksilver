@@ -7,13 +7,6 @@
 //
 
 #import "QSHelpersPrefPane.h"
-#import "QSResourceManager.h"
-
-#import "QSMacros.h"
-
-
-
-#import "NSBundle_BLTRExtensions.h"
 
 #define NAME @"name"
 #define IDENT @"ident"

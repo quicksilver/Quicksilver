@@ -6,29 +6,17 @@
 
 //
 
-#import "QSMainPreferencePanes.h"
+#import <QSBase/NDHotKeyEvent.h>
+#import <QSBase/NDHotKeyEvent_QSMods.h>
 
-#import "QSResourceManager.h"
-#import "QSMacros.h"
 #import "QSApp.h"
-#import "QSHelp.h"
+
 #import "QSUpdateController.h"
-#import "QSNotifications.h"
+
 #import "QSModifierKeyEvents.h"
 #import "QSController.h"
 
-
-#import "NSApplication+ServicesModification.h"
-#import "QSLoginItemFunctions.h"
-#import "QSInterfaceMediator.h"
-#import "QSPreferenceKeys.h"
-
-#import "NSBundle_BLTRExtensions.h"
-
-
-
-#import "NDHotKeyEvent_QSMods.h"
-
+#import "QSMainPreferencePanes.h"
 
 //typedef int CGSConnection;
 typedef enum {

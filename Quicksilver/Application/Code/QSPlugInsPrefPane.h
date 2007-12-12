@@ -5,7 +5,7 @@
 #import <PreferencePanes/PreferencePanes.h>
 //#import "QSFilteringArrayController.h"
 
-#import "QSPreferencePane.h"
+//#import "QSPreferencePane.h"
 
 @interface QSPlugInsPrefPane : QSPreferencePane
 {

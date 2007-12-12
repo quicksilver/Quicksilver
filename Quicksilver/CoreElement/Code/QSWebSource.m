@@ -5,16 +5,10 @@
 //  Created by Alcor on 7/9/04.
 
 //
+#import "QSHTMLLinkParser.h"
 
 #import "QSWebSource.h"
-//#import "QSFaviconManager.h"
 
-#import "QSKeys.h"
-
-
-#import "QSParser.h" 
-#import "QSHTMLLinkParser.h" 
-#import "QSFoundation.h"
 @implementation QSWebSource
 
 - (NSImage *) iconForEntry:(NSDictionary *)entry{

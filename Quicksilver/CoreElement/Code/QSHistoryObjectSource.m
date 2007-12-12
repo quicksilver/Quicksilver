@@ -7,11 +7,7 @@
 //
 
 #import "QSHistoryObjectSource.h"
-#import "QSHistoryController.h"
 
-#import "QSObject_FileHandling.h"
-//#import <QSBase/QSObject.h>
-//#import <QSBase/QSResourceManager.h>
 @implementation QSHistoryObjectSource
 
 - (id) init{

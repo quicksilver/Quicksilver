@@ -1,18 +1,11 @@
+#import <WebKit/WebKit.h>
+#import <QSBase/QSPlugInManager.h>
 
-#import "QSPreferenceKeys.h"
-#import "QSSetupAssistant.h"
 #import "QSController.h"
-#import "QSLibrarian.h"
+
 #import "QSUpdateController.h"
 
-
-#import "QSLibrarian.h"
-
-#import "QSNotifications.h"
-#import "QSWindow.h"
-#import "QSPlugInManager.h"
-#import <WebKit/WebKit.h>
-#import "QSCGSTransition.h"
+#import "QSSetupAssistant.h"
 
 @implementation QSSetupAssistant
 + (id)sharedInstance {

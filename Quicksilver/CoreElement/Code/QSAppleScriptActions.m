@@ -7,18 +7,6 @@
 //
 
 #import "QSAppleScriptActions.h"
-#import "QSTaskController.h"
-#import "QSObject_PropertyList.h"
-#import "QSObject_FileHandling.h"
-#import "QSObject_StringHandling.h"
-#import "QSTextProxy.h"
-#import "QSTypes.h"
-#import "QSExecutor.h"
-
-
-#import "NSAppleEventDescriptor+NDAppleScriptObject.h"
-
-
 
 @implementation QSAppleScriptActions
 + (void)loadPlugIn{

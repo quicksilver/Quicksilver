@@ -7,7 +7,6 @@
 
 #import "QSLibrarian.h"
 #import "QSExecutor.h"
-#import "QSController.h"
 #import "QSInterfaceController.h"
 #import "NSImage_BLTRExtensions.h"
 #import "QSTextProxy.h"
@@ -321,7 +320,8 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString){
 		return [aObject performOnDirectObject:dObject indirectObject:iObject];
 	}else if (argumentCount==2){
 		if ([iObject objectForType:QSTextProxyType]){
-			[[(QSController *)[NSApp delegate]interfaceController]executePartialCommand:[NSArray arrayWithObjects:dObject,aObject,iObject,nil]];
+#warning Make QSController Protocol ?
+			[[/*(QSController *)*/[NSApp delegate]interfaceController]executePartialCommand:[NSArray arrayWithObjects:dObject,aObject,iObject,nil]];
 		}else if (iObject){
 			return [aObject performOnDirectObject:dObject indirectObject:iObject];
 		}else{
@@ -334,7 +334,8 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString){
 					return nil;
 				}
 			}
-			[[(QSController *)[NSApp delegate]interfaceController]executePartialCommand:[NSArray arrayWithObjects:dObject,aObject,iObject,nil]];
+#warning Make QSController Protocol ?
+			[[/*(QSController *)*/[NSApp delegate]interfaceController]executePartialCommand:[NSArray arrayWithObjects:dObject,aObject,iObject,nil]];
 		}
 		return nil;
 	}
@@ -348,8 +349,10 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString){
 	//QSLog(@"sender %@",NSStringFromClass([sender class]));	
 	QSObject *object=[self execute];
 	if (object){
-		[[(QSController *)[NSApp delegate]interfaceController]selectObject:object];
-		[[(QSController *)[NSApp delegate]interfaceController]actionActivate:nil];		
+#warning Make QSController Protocol ?
+		[[/*(QSController *)*/[NSApp delegate]interfaceController]selectObject:object];
+#warning Make QSController Protocol ?
+		[[/*(QSController *)*/[NSApp delegate]interfaceController]actionActivate:nil];		
 	}	
 }
 

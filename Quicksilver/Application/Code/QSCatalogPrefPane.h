@@ -1,10 +1,10 @@
 
 
 #import <Cocoa/Cocoa.h>
-#import "QSLibrarian.h"
+//#import "QSLibrarian.h"
 
 
-#import "QSPreferencePane.h"
+//#import "QSPreferencePane.h"
 
 #define QSCodedCatalogEntryPasteboardType @"QSCatalogEntry"
 

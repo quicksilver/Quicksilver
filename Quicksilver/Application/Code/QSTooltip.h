@@ -2,8 +2,6 @@
 
 #import <AppKit/AppKit.h>
 
-#import "QSWindow.h"
-
 @interface NSToolTipPanel : NSPanel
 @end
 @interface NSToolTipPanel (TopRightCornerPlacementPatch)

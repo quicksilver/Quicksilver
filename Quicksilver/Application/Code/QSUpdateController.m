@@ -6,23 +6,14 @@
 
 //
 
-#import "QSUpdateController.h"
-#import "QSTask.h"
-#import "QSTaskController.h"
+#import <QSBase/QSPlugInManager.h>
+#import <QSBase/QSURLDownloadWrapper.h>
 
-#import "QSBuildOptions.h"
-#import "QSNotifyMediator.h"
 #import "QSApp.h"
 
-#import "QSPlugInManager.h"
+#import "QSUpdateController.h"
 
-#import "QSPlugIn.h"
-
-#import "NSArray_BLTRExtensions.h"
 #import <SystemConfiguration/SystemConfiguration.h>
-
-#import "QSURLDownloadWrapper.h"
-#import "QSPreferenceKeys.h"
 
 NSString *QSGetPrimaryMACAddress();
 UInt64 QSGetPrimaryMACAddressInt();

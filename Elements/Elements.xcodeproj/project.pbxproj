@@ -79,6 +79,10 @@
 		335984C50BA1FB9000D3F323 /* NSBundle+ExtendedLoading.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NSBundle+ExtendedLoading.h"; sourceTree = "<group>"; };
 		335984C60BA1FB9000D3F323 /* NSBundle+ExtendedLoading.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+ExtendedLoading.m"; sourceTree = "<group>"; };
 		435C4345080AFD6100A190B8 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		4D70952A0D102869008498FD /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
+		4D70952B0D102869008498FD /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		4D7095340D102869008498FD /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		4D7095990D102EBD008498FD /* Developer.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Developer.xcconfig; path = "/Volumes/myHD/Sources/Utilities/blacktree-alchemy-trunk/Configuration/Developer.xcconfig"; sourceTree = "<absolute>"; };
 		7F11D6420B8A18FB0092B7F9 /* BElement.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = BElement.h; sourceTree = "<group>"; };
 		7F11D6430B8A18FB0092B7F9 /* BElement.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = BElement.m; sourceTree = "<group>"; };
 		7F11D6440B8A18FB0092B7F9 /* BExtension.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = BExtension.h; sourceTree = "<group>"; };
@@ -143,6 +147,7 @@
 		0867D691FE84028FC02AAC07 /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
+				4D7095290D102869008498FD /* Configuration */,
 				331B68A70B993A2A00B49812 /* Framework */,
 				7F11D6410B8A18FB0092B7F9 /* Elements-Base */,
 				7F11D67E0B8A1A730092B7F9 /* Manager */,
@@ -195,6 +200,18 @@
 			);
 			path = Framework;
 			sourceTree = "<group>";
+		};
+		4D7095290D102869008498FD /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				4D7095990D102EBD008498FD /* Developer.xcconfig */,
+				4D70952A0D102869008498FD /* Common.xcconfig */,
+				4D70952B0D102869008498FD /* Debug.xcconfig */,
+				4D7095340D102869008498FD /* Release.xcconfig */,
+			);
+			name = Configuration;
+			path = ../Configuration;
+			sourceTree = SOURCE_ROOT;
 		};
 		7F11D6410B8A18FB0092B7F9 /* Elements-Base */ = {
 			isa = PBXGroup;
@@ -449,38 +466,15 @@
 		};
 		43CBA85F0854FD520077C2AE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D70952B0D102869008498FD /* Debug.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_ENABLE_OBJC_GC = unsupported;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				PREBINDING = NO;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
-				SYMROOT = ../build;
-				WARNING_CFLAGS = "-Wall";
 			};
 			name = Debug;
 		};
 		43CBA8600854FD520077C2AE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D7095340D102869008498FD /* Release.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					i386,
-					ppc,
-				);
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_ENABLE_OBJC_GC = unsupported;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				PREBINDING = NO;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
-				SYMROOT = ../build;
-				WARNING_CFLAGS = "-Wall";
 			};
 			name = Release;
 		};

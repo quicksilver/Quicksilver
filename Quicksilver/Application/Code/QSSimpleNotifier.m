@@ -6,16 +6,7 @@
 
 //
 
-#import "QSNotifyMediator.h"
 #import "QSSimpleNotifier.h"
-#import "QSBackgroundView.h"
-#import "QSWindow.h"
-#import "NSColor_QSModifications.h"
-#import "QSCGSTransition.h"
-
-
-#import "QSWindowAnimation.h"
-
 
 @implementation QSSilverNotifier
 

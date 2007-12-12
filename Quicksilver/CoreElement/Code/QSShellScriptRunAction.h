@@ -7,8 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "QSObject.h"
-#import "QSAction.h"
+
 NSString *QSGetShebangPathForScript(NSString *path);
 
 #define kQSShellScriptRunAction @"QSShellScriptRunAction"

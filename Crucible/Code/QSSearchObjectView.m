@@ -28,7 +28,6 @@
 #import "NSString_Purification.h"
 #import "QSObject_PropertyList.h"
 #import "QSBackgroundView.h"
-#import "QSController.h"
 
 #import "QSGlobalSelectionProvider.h"
 

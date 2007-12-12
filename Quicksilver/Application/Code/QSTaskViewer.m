@@ -1,10 +1,8 @@
+#import <QSBase/QSDockingWindow.h>
 
-#import "QSPreferenceKeys.h"
 #import "QSTaskViewer.h"
-#import "QSDockingWindow.h"
 #import "QSTaskView.h"
 
-#import "NSObject+ReaperExtensions.h"
 
 #define HIDE_TIME 0.2
 @implementation QSTaskViewer

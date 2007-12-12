@@ -6,10 +6,9 @@
 
 //
 
+#import <QSBase/QSSliderTextCell.h>
+
 #import "QSAdvancedPrefPane.h"
-#import "QSSliderTextCell.h"
-#import "NSString_BLTRExtensions.h"
-//#import "QSTextAndImageCell.h"
 
 @implementation QSAdvancedPrefPane
 - (void)awakeFromNib {

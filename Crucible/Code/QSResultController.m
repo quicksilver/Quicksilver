@@ -17,7 +17,6 @@
 //#import "FSNodeInfo.h"
 //#import "FSBrowserCell.h"
 
-#import "AppKitPrivate.h"
 #import "QSImageAndTextCell.h"
 #import "QSRankCell.h"
 #import "QSObjectCell.h"

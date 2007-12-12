@@ -1,9 +1,6 @@
 
 
 #import <Foundation/Foundation.h>
-#import "QSObject.h"
-
-#import "QSObjectSource.h"
 
 @interface QSCatalogEntrySource : QSObjectSource {
 

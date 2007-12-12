@@ -1,62 +1,18 @@
-
-
-#import "NSPasteboard_BLTRExtensions.h"
-#import "QSActionProvider_EmbeddedProviders.h"
-#import "NSString+NDCarbonUtilities.h"
-#import "NSAppleEventDescriptor+NDAppleScriptObject.h"
-#import "QSObject.h"
-#import "QSObject_FileHandling.h"
-
-#import "NDAlias+AliasFile.h"
 #import <Carbon/Carbon.h>
+#import <QSBase/NDAlias.h>
+#import <QSBase/QSFileConflictPanel.h>
 
 #import "QSController.h"
-#import "NDAlias.h"
+#import "QSFSBrowserMediator.h"
 
 #import "QSSimpleWebWindowController.h"
 
-#import "QSLoginItemFunctions.h"
-#import "QSFSBrowserMediator.h"
-#import "QSNullObject.h"
-#import "QSObject_PropertyList.h"
-#import "QSObject_StringHandling.h"
-//#import "QSWebSearchController.h"
-#import "QSTaskController.h"
-
-#import "NDAppleScriptObject.h"
-//#import "QSEditorController.h"
-//#import "InstantMessaging.h"
-
-#import "QSAlertManager.h"
-#import "QSTypes.h"
-#import "QSMacros.h"
-
-#import "NSPasteboard_BLTRExtensions.h"
-#import "QSFileConflictPanel.h"
-#import "QSProcessSource.h"
-#import "QSResourceManager.h"
-
-#import "NSObject+ReaperExtensions.h"
-#import <Carbon/Carbon.h>
-
-#import "QSTextProxy.h"
-
-#import "QSLibrarian.h"
-
-#include <Security/Authorization.h>
-#include <Security/AuthorizationTags.h>
-
-
-#import "NSURL_BLTRExtensions.h"
+#import "QSActionProvider_EmbeddedProviders.h"
 
 # define kURLOpenAction @"URLOpenAction"
 # define kURLOpenWithAction @"URLOpenWithAction"
 # define kURLJSAction @"URLJSAction"
 # define kURLEmailAction @"URLEmailAction"
-
-#import "NSPasteboard_BLTRExtensions.h"
-
-#import "QSLSTools.h"
 
 @implementation URLActions
 - (NSString *) defaultWebClient{

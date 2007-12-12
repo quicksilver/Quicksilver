@@ -2,7 +2,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "QSPreferencePane.h" 
+//#import "QSPreferencePane.h" 
 #include <PreferencePanes/PreferencePanes.h>
 #define kQSPreferencesSplitWidth @"QSPreferencesSplitWidth"
 @interface QSPreferencesController : NSWindowController

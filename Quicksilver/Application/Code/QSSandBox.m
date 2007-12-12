@@ -7,23 +7,15 @@
  *
  */
 
-#include "QSSandBox.h"
-#include "QSWindow.h"
-//#include "QSShelfView.h"
-
-#include "QSTooltip.h"
-#include "QSUpdateController.h"
-
-#include "QSSimpleWebWindowController.h"
-
 #import <Carbon/Carbon.h>
 
-//#import "QSKeyCodeTranslator.h"
-//#import "BTConnection.h"//
-//#import "BTDialer.h"
-#import "QSIdleWatcher.h"
-#import <SecurityFoundation/SFAuthorization.h>
-#import <Security/Security.h>
+#import "QSTooltip.h"
+#import "QSUpdateController.h"
+
+#import "QSSimpleWebWindowController.h"
+
+#import "QSSandBox.h"
+
 void listEncodings() {
 	//  int i = 0;
     const CFStringEncoding *encodings;
@@ -36,12 +28,6 @@ void listEncodings() {
     }
 }
 
-////#import <QSBase/QSTextViewer.h>
-//#import "QSDirectoryParser.h"
-#import "QSObject.h"
-
-#import "QSFileSystemMonitor.h"
-#import "QSTask.h"
 NSString *QSGetPrimaryMACAddress();
 UInt64 QSGetPrimaryMACAddressInt();
 

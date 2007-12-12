@@ -1,23 +1,11 @@
+#import <QSBAse/NDAlias.h>
+
 #import "QSDefaultsObjectSource.h"
-
-#import "QSObject.h"
-
-#import "QSObject_FileHandling.h"
-#import "QSObject_URLHandling.h"
-#import "QSObject_PropertyList.h"
-
-#import "QSCatalogEntry.h"
-
-#import "QSObject_StringHandling.h"
-#import "NDAlias.h"
-#import "NDAlias+QSMods.h"
-
-#import "QSResourceManager.h"
 
 #define kDefaultsObjectSourceBundleID @"bundle"
 #define kDefaultsObjectSourceKeyList @"keypath"
 #define kDefaultsObjectSourceType @"type"
-#import "QSVoyeur.h"
+
 @implementation QSDefaultsObjectSource
 /*
  - (id) init{

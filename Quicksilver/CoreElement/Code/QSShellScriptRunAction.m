@@ -8,11 +8,6 @@
 
 #import "QSShellScriptRunAction.h"
 
-#import "QSCore.h"
-#import "QSMacros.h"
-
-#import "QSTextViewer.h"
-
 #define SCRIPT_EXT [NSArray arrayWithObjects:@"sh",@"pl",@"command",@"php",@"py",@"rb",nil]
 NSString *QSGetShebangPathForScript(NSString *path){	
 	   NSString *taskPath=nil;

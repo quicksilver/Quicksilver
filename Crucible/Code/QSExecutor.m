@@ -11,8 +11,6 @@
 
 #import "QSObjectSource.h"
 
-#import "QSController.h"
-
 #import "NSObject+ReaperExtensions.h"
 #import "QSObject_FileHandling.h"
 #import "QSObject_PropertyList.h"

@@ -6,10 +6,6 @@
 
 //
 
-#import <Cocoa/Cocoa.h>
-#import "QSObject.h"
-
-
 @interface QSObject (ColorHandling)
 - (NSColor *)colorValue;
 

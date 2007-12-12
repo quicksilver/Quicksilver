@@ -7,7 +7,6 @@
 //
 
 #import "QSSimpleWebWindowController.h"
-#import "QSWindow.h"
 
 
 #import <WebKit/WebKit.h>

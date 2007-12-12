@@ -1,17 +1,11 @@
-#import "QSActionsPrefPane.h"
-#import "QSExecutor.h"
-#import "QSResourceManager.h"
-
-#import "QSLibrarian.h"
-#import "QSTableView.h"
-
 #import <Carbon/Carbon.h>
+
+#import <QSBase/QSPlugInManager.h>
+
+#import "QSActionsPrefPane.h"
+
 #define QSTableRowsType @"QSTableRowsType"
 
-#import "NSSortDescriptor+BLTRExtensions.h"
-#import "NSIndexSet+Extensions.h"
-#import "QSPlugInManager.h"
-#import "QSPlugIn.h"
 @implementation QSActionsPrefPane
 
 - (NSString *)mainNibName {

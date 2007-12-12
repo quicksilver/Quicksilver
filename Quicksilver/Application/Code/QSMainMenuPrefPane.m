@@ -7,7 +7,6 @@
 //
 
 #import "QSMainMenuPrefPane.h"
-#import "QSResourceManager.h"
 
 @implementation QSMainMenuPrefPane
 - (NSString *)mainNibName {

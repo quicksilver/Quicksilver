@@ -1,18 +1,7 @@
 
 
 #import "QSTextSource.h"
-#import "QSTypes.h"
-#import "QSObject_FileHandling.h"
-#import "QSObject_StringHandling.h"
-#import "QSObject_PropertyList.h"
 
-#import "NSUserDefaults_BLTRExtensions.h"
-#import "QSLargeTypeDisplay.h"
-#import "QSFoundation.h"
-
-#import "QSTextProxy.h"
-
-#import "QSObject_PropertyList.h"
 #define textTypes [NSArray arrayWithObjects:@"'TEXT'",@"txt",@"html",@"htm",nil]
 
 #define kQSTextTypeAction @"QSTextTypeAction"

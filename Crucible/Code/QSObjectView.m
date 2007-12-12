@@ -8,7 +8,6 @@
 
 #import "QSObjectView.h"
 #import "QSObjectCell.h"
-#import "QSController.h"
 #import "QSLibrarian.h"
 #import "QSInterfaceController.h"
 

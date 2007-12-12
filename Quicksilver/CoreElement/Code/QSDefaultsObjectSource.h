@@ -1,8 +1,5 @@
 /* QSDefaultsObjectSource */
 
-#import <Cocoa/Cocoa.h>
-#import "QSObjectSource.h"
-
 
 typedef enum QSDefaultsType {
     DefaultsPathEntry = 1,

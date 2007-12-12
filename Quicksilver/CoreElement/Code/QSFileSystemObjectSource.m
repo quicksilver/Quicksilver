@@ -1,24 +1,7 @@
-
+#import <QSBase/QSLocalization.h>
 
 #import "QSFileSystemObjectSource.h"
-#import "QSParser.h"
-#import "QSObject.h"
-#import "QSObjectCell.h"
 
-#import "QSLibrarian.h"
-
-#import "QSLocalization.h"
-
-#import "QSNotifications.h"
-#import "QSVoyeur.h"
-
-#import "QSObject_FileHandling.h"
-
-#import "QSUTI.h"
-#import "UKKQueue.h"
-
-
-#import "NSBundle_BLTRExtensions.h"
 @implementation QSEncapsulatedTextCell
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView{
     BOOL isFirstResponder=[[controlView window]firstResponder]==controlView && ![controlView isKindOfClass:[NSTableView class]];

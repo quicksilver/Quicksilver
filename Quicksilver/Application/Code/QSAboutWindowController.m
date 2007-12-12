@@ -6,13 +6,12 @@
 
 //
 
-#import "QSAboutWindowController.h"
+
 #import <Carbon/Carbon.h>
 #import <Quartz/Quartz.h>
 #import <WebKit/WebKit.h>
-#import "QSResourceManager.h"
 
-#import "NSScreen_BLTRExtensions.h"
+#import "QSAboutWindowController.h"
 
 @interface QCView (Private)
 - (void)setClearsBackground:(BOOL)flag;

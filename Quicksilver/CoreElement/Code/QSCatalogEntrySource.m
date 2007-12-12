@@ -3,18 +3,8 @@
 #import "QSCatalogEntrySource.h"
 #import "QSCatalogPrefPane.h"
 
-#import "QSLibrarian.h"
-
-#import "QSResourceManager.h"
-#import "QSNotifications.h"
-#import "QSObject.h"
-#import "QSAction.h"
 //#import "QSPrefsController.h"
 #import "QSController.h"
-
-
-
-#import "QSObjCMessageSource.h"
 
 #define QSCatalogEntryPboardType @"qs.catalogentry"
 

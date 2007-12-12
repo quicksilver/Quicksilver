@@ -6,102 +6,45 @@
 //#import "NSString_CompletionExtensions.h"
 //#import "QSObject_ContactHandling.h"
 //#import "AppKitPrivate.h"
+#include <stdio.h>
+#include <unistd.h>
 
-#import "QSShading.h"
-
-#import "QSBuildOptions.h"
-#import "NSScreen_BLTRExtensions.h"
-
-#import "NSApplication+ServicesModification.h"
-
-
-#import "NDHotKeyEvent_QSMods.h"
-//#import "DRColorPermutator.h"
-#import "NDAlias+AliasFile.h"
-#import "NDHotKeyEvent_QSMods.h"
-#import "NDHotKeyEvent_QSMods.h"
-#import <Quartz/Quartz.h>
-#import "QSCGSTransition.h"
-#import "NDHotKeyEvent.h"
-#import "NDProcess.h"
-#import "QSProxyObject.h"
-#import "NSApplication_BLTRExtensions.h"
-#import "NSException_TraceExtensions.h"
-#import "NSException_TraceExtensions.h"
-#import "NSFileManager_BLTRExtensions.h"
-#import "NSImage_BLTRExtensions.h"
-#import "NSStatusItem_BLTRExtensions.h"
-#import "QSAboutWindowController.h"
-#import "QSAgreementController.h"
-#import "QSApp.h"
-#import "QSAppearanceController.h"
-//#import "QSAppWindowController.h"
-#import "QSBackgroundView.h"
-//#import "QSCatalogEntrySource.h"
-#import "QSCatalogPrefPane.h"
-#import "QSWindowAnimation.h"
-#import "QSWindowAnimation.h"
-#import "QSCommandBuilder.h"
-#import "QSController.h"
-//#import "QSDefaultsObjectSource.h"
-
-#import "QSDonationManager.h"
-#import "QSExecutor.h"
-#import "QSFileConflictPanel.h"
-//#import "QSFileSystemObjectSource.h"
-//#import "QSFSBrowserMediator.h"
-//#import "QSFSBrowserMediator.h"
-#import "QSImageAndTextCell.h"
-#import "QSInterfaceController.h"
-#import "QSInterfaceMediator.h"
-#import "QSLibrarian.h"
-#import "QSMacros.h"
-//#import "QSMenuExtraView.h"
-#import "QSMnemonics.h"
-#import "QSModifierKeyEvents.h"
-#import "QSNotifications.h"
-#import "QSObject_AEConversion.h"
-#import "QSObject_FileHandling.h"
-#import "QSObject_StringHandling.h"
-#import "QSObject_URLHandling.h"
-//#import "QSObjectView.h"
-#import "QSPlugIn.h"
-#import "QSPlugInManager.h"
-#import "QSPlugInsPrefPane.h"
-#import "QSPreferenceKeys.h"
-#import "QSPreferencesController.h"
-#import "QSProcessMonitor.h"
-#import "QSProcessSource.h"
-
-#import "QSResourceManager.h"
-#import "QSSearchObjectView.h"
-#import "QSSetupAssistant.h"
-#import "QSTaskController.h"
-#import "QSTaskViewer.h"
-#import "QSTask.h"
-
-#import "QSUpdateController.h"
-#import "QSVoyeur.h"
-#import "QSWindow.h"
 #import <ApplicationServices/ApplicationServices.h>
 #import <Carbon/Carbon.h>
 #import <ExceptionHandling/NSExceptionHandler.h>
-#import <IOKit/IOCFBundle.h>
-////#import <QSBase/QSObject.h>
-////#import <QSBase/QSObject.h> 
+#import <IOKit/IOCFBundle.h> 
+#import <Quartz/Quartz.h>
 #import <QuartzCore/QuartzCore.h>
-#import <stdio.h>
-#include "QSSandBox.h"
-#include <unistd.h>
 
-//#import "QSSyncManager.h"
+#import <QSBase/NDHotKeyEvent.h>
+#import <QSBase/NDHotKeyEvent_QSMods.h>
+#import <QSBase/NSStatusItem_BLTRExtensions.h>
+#import <QSBase/QSPlugInManager.h>
+#import <QSBase/QSWindowAnimation.h>
+#import <QSBase/QSProxyObject.h>
+#import <QSBase/NDAlias.h>
+
+#import "QSAboutWindowController.h"
+#import "QSAgreementController.h"
+#import "QSApp.h"
+#import "QSController.h"
+#import "QSDonationManager.h"
+#import "QSModifierKeyEvents.h"
+#import "QSPlugInsPrefPane.h"
+#import "QSPreferencesController.h"
+#import "QSSetupAssistant.h"
+#import "QSTaskViewer.h"
+#import "QSUpdateController.h"
+#import "QSCatalogPrefPane.h"
+
+#include "QSSandBox.h"
 
 #define EXPIREDATE [NSCalendarDate dateWithYear:2004 month:8 day:1 hour:0 minute:0 second:0 timeZone:nil]
 #define DEVEXPIRE 180.0f
 #define DEPEXPIRE 365.24219878f
 
 
-#include "QSLocalization.h"
+//#include "QSLocalization.h"
 
 extern char** environ;  
 
@@ -356,7 +299,6 @@ static id _sharedInstance;
 	//	QSLog(@"hue %f sat %f", hue, saturation);
 	//saturation = 0.5;
 	hue -= 20.0/360;
-	//FIXME
 	NSImage *newActivated = [activatedIcon imageByAdjustingHue:hue saturation:saturation];
 	NSImage *newRunning = [runningIcon imageByAdjustingHue:hue saturation:saturation];
 	
@@ -468,7 +410,7 @@ static id _sharedInstance;
 - (void)keyDown:(NSEvent *)theEvent {
 	NSBeep();
 	//QSLog(@"theEvent: %@", theEvent);
-} ;
+}
 
 // Menu Actions
 

@@ -1,0 +1,4 @@
+// QS_SOURCE_ROOT should always point to the root of the Quicksilver source tree.
+// Please quote (") this if there are spaces in the path.
+
+QS_SOURCE_ROOT=

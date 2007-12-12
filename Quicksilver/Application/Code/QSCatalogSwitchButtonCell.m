@@ -1,7 +1,7 @@
 
 
 #import "QSCatalogSwitchButtonCell.h"
-#import "QSWindow.h"
+
 @implementation QSCatalogSwitchButtonCell
 //- (void)setObjectValue:(NSNumber *)newState {
 //	QSLog(@"xstate %@", newState); 	

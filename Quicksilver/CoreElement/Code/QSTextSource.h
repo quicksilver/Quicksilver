@@ -1,9 +1,4 @@
 
-
-#import <Foundation/Foundation.h>
-
-#import "QSActionProvider.h"
-
 typedef struct {
     short kchrID;
     Str255 KCHRname;

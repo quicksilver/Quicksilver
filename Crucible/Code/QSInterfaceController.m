@@ -20,10 +20,8 @@
 
 #import "QSObject_FileHandling.h"
 
-#import "QSTaskViewer.h"
 #import "QSNullObject.h"
 #import "QSTaskController.h"
-#import "QSController.h"
 #import "QSInterfaceController.h"
 //#import "QSTriggerCenter.h"
 
@@ -142,7 +140,8 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
 	//[self hideIndirectSelector:nil];
 	
 	[[self window] setHidesOnDeactivate:NO];
-    [[self menuButton] setMenu:[(QSController *)[NSApp delegate] statusMenuWithQuit]];
+#warning Make QSController Protocol ?
+    [[self menuButton] setMenu:[/*(QSController *)*/[NSApp delegate] statusMenuWithQuit]];
     
 	QSObjectCell *attachmentCell = [[QSObjectCell alloc] initTextCell:@""];
     [attachmentCell setRepresentedObject:[QSObject fileObjectWithPath:@"/Volumes/Lore/"]];

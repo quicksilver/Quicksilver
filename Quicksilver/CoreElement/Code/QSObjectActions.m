@@ -7,16 +7,8 @@
 //
 
 #import "QSObjectActions.h"
-#import "QSObject_StringHandling.h"
-#import "QSObject_FileHandling.h"
-#import "QSMnemonics.h"
 
-#import "QSInterfaceController.h"
 #import "QSController.h"
-
-#import "QSProxyObject.h"
-
-#import "QSObject_Menus.h"
 
 #import "QSCatalogPrefPane.h"
 
@@ -26,9 +18,6 @@
 # define kQSObjectShowSourceAction @"QSObjectShowSourceAction"
 # define kQSObjectOmitAction @"QSObjectOmitAction"
 # define kQSObjectAssignLabelAction @"QSObjectAssignLabelAction"
-
-#import "QSTextProxy.h"
-#import "QSWindowAnimation.h"
 
 @implementation QSObjectActions    
 

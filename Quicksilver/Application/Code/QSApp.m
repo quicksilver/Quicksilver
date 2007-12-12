@@ -1,20 +1,12 @@
 
-#import "QSPreferenceKeys.h"
-#import "QSApp.h"
-#import "QSController.h"
+#import <QSBase/NSEvent+BLTRExtensions.h>
+#import <QSBase/QSProcessMonitor.h>
 
-#import "QSInterfaceController.h"
-#import "NSApplication_BLTRExtensions.h"
-//#import "HotKeyCenter.h"
-//#import "ScreenSaverController.h"
-#import <unistd.h>
+#import "QSController.h"
 
 #import "QSModifierKeyEvents.h"
 
-#import "QSProcessMonitor.h"
-#import "NSEvent+BLTRExtensions.h"
-
-
+#import "QSApp.h"
 
 BOOL QSApplicationCompletedLaunch = NO;
 @interface NSObject (QSAppDelegateProtocols)

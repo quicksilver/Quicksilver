@@ -7,9 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "QSTypes.h"
-#import "QSActionProvider.h"
-
 
 @interface QSObjectActions : QSActionProvider {
 

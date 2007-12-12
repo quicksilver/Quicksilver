@@ -21,6 +21,10 @@
 		08FB77B6FE84183AC02AAC07 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		0AA1909FFE8422F4C02AAC07 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
 		2C05A19B06CAA52B00D84F6F /* GetMetadataForFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetMetadataForFile.m; sourceTree = "<group>"; };
+		4D0F0D860D1031A300B36DEF /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
+		4D0F0D870D1031A300B36DEF /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		4D0F0D880D1031A300B36DEF /* Developer.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Developer.xcconfig; path = "/Volumes/myHD/Sources/Utilities/blacktree-alchemy-trunk/Configuration/Developer.xcconfig"; sourceTree = "<absolute>"; };
+		4D0F0D910D1031A300B36DEF /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		7F2BF1E40C5BA8CF00E80ABF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		7F2BF2B70C5BAAD000E80ABF /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		8D576316048677EA00EA77CD /* Quicksilver.mdimporter */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Quicksilver.mdimporter; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,6 +52,7 @@
 		089C166AFE841209C02AAC07 /* QSSpotlightImporter */ = {
 			isa = PBXGroup;
 			children = (
+				4D0F0D850D1031A300B36DEF /* Configuration */,
 				08FB77AFFE84173DC02AAC07 /* Source */,
 				089C167CFE841241C02AAC07 /* Resources */,
 				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
@@ -94,6 +99,18 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		4D0F0D850D1031A300B36DEF /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				4D0F0D860D1031A300B36DEF /* Common.xcconfig */,
+				4D0F0D870D1031A300B36DEF /* Debug.xcconfig */,
+				4D0F0D880D1031A300B36DEF /* Developer.xcconfig */,
+				4D0F0D910D1031A300B36DEF /* Release.xcconfig */,
+			);
+			name = Configuration;
+			path = ../../../Configuration;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -236,31 +253,15 @@
 		};
 		70138C890896BE9A00968C2F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D0F0D870D1031A300B36DEF /* Debug.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PREBINDING = NO;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
-				SYMROOT = ../../../build;
-				WARNING_CFLAGS = "-Wall";
 			};
 			name = Debug;
 		};
 		70138C8A0896BE9A00968C2F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D0F0D910D1031A300B36DEF /* Release.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				PREBINDING = NO;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
-				SYMROOT = ../../../build;
-				WARNING_CFLAGS = "-Wall";
 			};
 			name = Release;
 		};

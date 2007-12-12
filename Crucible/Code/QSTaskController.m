@@ -1,7 +1,6 @@
 
 #import "QSPreferenceKeys.h"
 #import "QSTaskController.h"
-#import "QSTaskViewer.h"
 #import "QSTask.h"
 
 

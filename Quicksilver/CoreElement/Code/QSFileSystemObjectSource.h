@@ -1,9 +1,5 @@
 
 
-#import <Foundation/Foundation.h>
-
-#import "QSObjectSource.h"
-
 @interface QSEncapsulatedTextCell : NSTextFieldCell 
 
 @end

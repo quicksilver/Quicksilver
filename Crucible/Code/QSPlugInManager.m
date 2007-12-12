@@ -10,8 +10,6 @@
 #import "QSNotifyMediator.h"
 
 
-
-#import "QSUpdateController.h"
 #import "QSPlugIn.h"
 
 #import "QSTaskController.h"

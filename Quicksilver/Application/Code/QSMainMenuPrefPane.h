@@ -6,10 +6,8 @@
 
 //
 
-#import <Cocoa/Cocoa.h>
-
-#import "QSPreferencePane.h"
 #import <WebKit/WebKit.h>
+
 @interface QSMainMenuPrefPane : QSPreferencePane {
 	IBOutlet WebView *guideView;
 	IBOutlet NSProgressIndicator *progressIndicator;

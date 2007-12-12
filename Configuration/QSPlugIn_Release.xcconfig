@@ -1,0 +1,3 @@
+#include "Release.xcconfig"
+
+#include "QSPlugin_Debug.xcconfig"

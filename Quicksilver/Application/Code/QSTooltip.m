@@ -1,9 +1,6 @@
 
 
 #import "QSTooltip.h"
-#import "QSBackgroundView.h"
-
-
 
 @implementation NSToolTipPanel (TopRightCornerPlacementPatch)
 - (void)orderFront:(id)sender{

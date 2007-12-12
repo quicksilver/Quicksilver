@@ -1,0 +1,7 @@
+WRAPPER_EXTENSION = qsplugin
+INFOPLIST_PREPROCESS = YES
+GCC_PRECOMPILE_PREFIX_HEADER = YES
+GCC_PREFIX_HEADER = QSPlugIn_Prefix.pch
+OTHER_LDFLAGS = -bundle -framework QSFoundation -framework QSEffects -framework QSCore -framework QSInterface -undefined dynamic_lookup
+
+

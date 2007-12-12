@@ -1,31 +1,17 @@
-#import "QSPreferencesController.h"
-#import "QSKeys.h"
-#import "QSObject.h"
+#include <unistd.h>
 
-#import "QSObjectSource.h"
-#import "QSResourceManager.h"
+#import <QSBase/QSTableView.h>
+#import <QSBase/QSTitleToolbarItem.h>
+
 #import "QSController.h"
-#import "QSImageAndTextCell.h"
+#import "QSPreferencesController.h"
+
 #define COLUMNID_NAME		@"name"
 #define COLUMNID_TYPE	 	@"TypeColumn"
 #define COLUMNID_STATUS	 	@"StatusColumn"
 #define UNSTABLE_STRING		@"(Unstable Entry) "
 #define QSPasteboardType @"QSPastebardType"
-#import "QSTitleToolbarItem.h"
-#import "QSNotifications.h"
-//#import "NTViewLocalizer.h"
-#import "QSCGSTransition.h"
-#import "QSMacros.h"
-
-#import "QSTableView.h"
-
 #import "QSApp.h"
-#import "QSBackgroundView.h"
-#include <PreferencePanes/PreferencePanes.h>
-
-#import "QSPreferencePane.h"
-#import "NSBundle_BLTRExtensions.h"
-#include <unistd.h>
 
 @interface NSWindow (NSTrackingRectsPrivate)
 - (void)_hideAllDrawers;

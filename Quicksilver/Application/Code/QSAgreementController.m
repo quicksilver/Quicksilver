@@ -7,7 +7,6 @@
 //
 
 #import "QSAgreementController.h"
-#import "QSWindow.h"
 
 @implementation QSAgreementController
 + (void)showAgreement:(id)sender {

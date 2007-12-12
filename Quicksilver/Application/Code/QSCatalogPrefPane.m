@@ -1,49 +1,17 @@
+#import <QSBase/QSHandledSplitView.h>
 
-
-#import "NSBundle_BLTRExtensions.h"
-
+#import "QSApp.h"
+#import "QSController.h"
+#import "QSPreferencesController.h"
+#import "QSCatalogSwitchButtonCell.h"
 
 #import "QSCatalogPrefPane.h"
-#import "QSPreferenceKeys.h"
-#import "QSPreferencesController.h"
 
-#import "QSObject.h"
-#import "QSNotifications.h"
-#import "QSObjectCell.h"
-
-#import "QSObjectSource.h"
-#import "QSResourceManager.h"
-#import "QSController.h"
-#import "QSImageAndTextCell.h"
-
-
-#import "QSNotifications.h"
-
-#import "QSHandledSplitView.h"
 #define COLUMNID_NAME		@"name"
-#define COLUMNID_ENABLED		@"enabled"
+#define COLUMNID_ENABLED	@"enabled"
 #define COLUMNID_TYPE	 	@"TypeColumn"
 #define COLUMNID_STATUS	 	@"StatusColumn"
 #define UNSTABLE_STRING		@"(Unstable Entry) "
-
-//#import "KeyBroadcaster.h"
-
-#import "QSTaskController.h"
-
-
-
-#import "QSCatalogSwitchButtonCell.h"
-//#import "QSFileSystemObjectSource.h"
-#import "QSApp.h"
-//#import "HotKeyCenter.h"
-
-//#import "QSToolbarView.h"
-#import "QSBackgroundView.h"
-
-#include <Security/Authorization.h>
-#include <Security/AuthorizationTags.h>
-
-#include <unistd.h>
 
 @interface QSObject (NSTreeNodePrivate)
 - (NSIndexPath *)indexPath;

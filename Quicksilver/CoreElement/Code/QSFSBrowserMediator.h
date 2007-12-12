@@ -1,10 +1,4 @@
 
-
-#import <Foundation/Foundation.h>
-
-#import <QSElements/QSElements.h>
-
-
 #define kQSFSBrowserMediators @"QSFSBrowserMediators"
 #define mQSFSBrowser (id <QSFSBrowserMediator>)[QSReg getMediator:kQSFSBrowserMediators]
 @protocol QSFSBrowserMediator

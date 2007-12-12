@@ -1,7 +1,5 @@
 /* QSActionsPrefPane */
 
-#import <Cocoa/Cocoa.h>
-#import "QSPreferencePane.h"
 @interface QSActionsPrefPane : QSPreferencePane{
 	
 	NSMutableArray *actions;

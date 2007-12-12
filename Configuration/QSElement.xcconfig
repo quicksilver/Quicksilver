@@ -1,0 +1,5 @@
+WRAPPER_EXTENSION = element
+GCC_PRECOMPILE_PREFIX_HEADER = YES
+GCC_PREFIX_HEADER = $(QS_SOURCE_ROOT)/Configuration/QSElement_Prefix.pch
+INFOPLIST_PREPROCESS = YES
+OTHER_LDFLAGS = -bundle -framework QSBase -framework QSElements -undefined dynamic_lookup

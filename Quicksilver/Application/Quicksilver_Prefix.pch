@@ -1,5 +1,0 @@
-#ifdef __OBJC__
-#import <Cocoa/Cocoa.h>
-#import <QSElements/QSElements.h>
-#import "QSBase.h"
-#endif

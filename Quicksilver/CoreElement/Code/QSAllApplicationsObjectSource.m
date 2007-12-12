@@ -6,7 +6,6 @@
 
 //
 
-#import "QSObject_FileHandling.h"
 #import "QSAllApplicationsObjectSource.h"
 
 //#import <QSBase/QSObject.h>

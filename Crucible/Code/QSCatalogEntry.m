@@ -14,7 +14,7 @@
 #import "QSResourceManager.h"
 #import "QSObjectSource.h"
 #import "QSNotifications.h"
-#import "QSApp.h"
+//#import "QSApp.h"
 #import "QSTaskController.h"
 #import "QSObject_PropertyList.h"
 

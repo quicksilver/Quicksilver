@@ -6,13 +6,11 @@
 
 //
 
-#import <Cocoa/Cocoa.h>
-# define kAppleScriptOpenTextAction @"AppleScriptProcessTextAction"
-# define kAppleScriptOpenFilesAction @"AppleScriptOpenFilesAction"
-# define kAppleScriptRunAction @"AppleScriptRunAction"
+#define kAppleScriptOpenTextAction @"AppleScriptProcessTextAction"
+#define kAppleScriptOpenFilesAction @"AppleScriptOpenFilesAction"
+#define kAppleScriptRunAction @"AppleScriptRunAction"
 
-# define kAppleScriptRunTextAction @"AppleScriptRunTextAction"
-#import "QSActionProvider.h"
+#define kAppleScriptRunTextAction @"AppleScriptRunTextAction"
 
 
 #define kQSScriptSuite 'DAED'

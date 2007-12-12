@@ -10,9 +10,7 @@
 
 #import "QSResourceManager.h"
 #import "QSMacros.h"
-#import "QSApp.h"
 #import "QSHelp.h"
-#import "QSUpdateController.h"
 #import "NTViewLocalizer.h"
 #import "QSNotifications.h"
 

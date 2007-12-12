@@ -12,7 +12,6 @@
 #import "QSMnemonics.h"
 #import "QSObject_PropertyList.h"
 
-#import "QSApp.h"
 #import "QSTask.h"
 
 #import "QSTaskController.h"
@@ -926,7 +925,8 @@ static float searchSpeed=0.0;
 
 @implementation QSLibrarian (QSPlugInInfo)
 - (BOOL)handleInfo:(id)info ofType:(NSString *)type fromBundle:(NSBundle *)bundle{
-	[self registerPresets:info inBundle: bundle scan:[(QSApp *)NSApp completedLaunch]];
+#warning Make QSApp Protocol ?
+	[self registerPresets:info inBundle: bundle scan:[/*(QSApp *)*/NSApp completedLaunch]];
 	if ([NSApp completedLaunch]){
 		[self reloadIDDictionary:nil];
 		[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogStructureChanged object:nil];

@@ -7,7 +7,6 @@
 
 #import "QSObject_PropertyList.h"
 #import "QSLibrarian.h"
-#import "QSController.h"
 
 #import "QSStringRanker.h"
 #import "QSNotifications.h"
@@ -27,8 +26,8 @@
 
 
 #import "NSString_Purification.h"
-
-static QSController *controller;
+#warning Make QSController Protocol ?
+static id /*QSController*/ *controller;
 static NSMutableDictionary *objectDictionary;
 
 static NSMutableSet *iconLoadedSet;
