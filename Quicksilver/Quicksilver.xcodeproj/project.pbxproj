@@ -1803,7 +1803,6 @@
 		};
 		7F9A7A670C49595900B5912D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4DE9903D0D0F165C00593B3B /* Common.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(QS_SOURCE_ROOT)/Configuration/QSElement_Prefix.pch";
@@ -1815,7 +1814,6 @@
 		};
 		7F9A7A680C49595900B5912D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4DE9903D0D0F165C00593B3B /* Common.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(QS_SOURCE_ROOT)/Configuration/QSElement_Prefix.pch";
