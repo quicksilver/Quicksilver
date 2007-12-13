@@ -106,8 +106,7 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
 	if ([scriptPath hasPrefix:@"/"] || [scriptPath hasPrefix:@"~"])
 		scriptPath = [scriptPath stringByStandardizingPath];
 	else
-		scriptPath = [[action bundle] pathForResource:[scriptPath stringByDeletingPathExtension]
-											ofType:[scriptPath pathExtension]];
+		scriptPath = [[action bundle] pathForResource:[scriptPath stringByDeletingPathExtension] ofType:[scriptPath pathExtension]];
 
 	NSArray *arguments = [dObject arrayForType:QSFilePathType];
 	if (!arguments) arguments = [dObject arrayForType:QSTextType];

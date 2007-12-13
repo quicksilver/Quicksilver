@@ -7,9 +7,9 @@
 //
 
 #import "QSVolumesObjectSource.h"
-
 #import "QSObject_FileHandling.h"
 #import <QSCore/QSObject.h>
+
 @implementation QSVolumesObjectSource
 
 - (id)init {
@@ -20,6 +20,14 @@
 	}
 	return self;
 }
+
+- (void)dealloc {
+	if(DEBUG_MEMORY) NSLog(@"QSVolumesObjectSource dealloc");
+	[[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self];
+	[super dealloc];
+}
+
+
 - (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry {
 	return ([indexDate timeIntervalSinceReferenceDate] >lastMountDate);
 }
@@ -28,9 +36,6 @@
 	lastMountDate = [NSDate timeIntervalSinceReferenceDate];
 	[super invalidateSelf];
 }
-
-//NSWorkspaceDidMountNotification
-//NSWorkspaceDidUnmountNotification
 
 - (NSImage *)iconForEntry:(NSDictionary *)dict {return [[NSWorkspace sharedWorkspace] iconForFile:@"/"];}
 

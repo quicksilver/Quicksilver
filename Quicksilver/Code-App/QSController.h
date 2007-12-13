@@ -1,7 +1,11 @@
 @class QSObject;
 @class QSInterfaceController;
 
-@interface QSController : NSWindowController {
+@protocol QSDropletHandling
+- (void)handlePasteboardDrop:(NSPasteboard *)pb commandPath:(NSString *)path;
+@end
+
+@interface QSController : NSWindowController <QSDropletHandling> {
 	QSInterfaceController *interfaceController;
 	NSWindowController *aboutWindowController, *quitWindowController;
 	NSWindow *splashWindow;

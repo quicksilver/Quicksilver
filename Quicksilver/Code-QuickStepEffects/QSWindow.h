@@ -1,9 +1,7 @@
-
-
 #import <Foundation/Foundation.h>
-
 #import "CGSPrivate.h"
 #import "QSMoveHelper.h"
+
 @interface NSObject (QSWindowDelegate)
 - (void)firstResponderChanged:(NSResponder *)aResponder;
 - (BOOL)shouldSendEvent:(NSEvent *)theEvent;

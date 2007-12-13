@@ -6,6 +6,10 @@
 // Copyright 2004 Blacktree. All rights reserved.
 //
 
+// Ankur, Dec 12:
+//	update task is now cancelled on "connection error".
+//	networkIsReachable returning YES. commented out.
+
 #import "QSUpdateController.h"
 #import "QSTask.h"
 #import "QSTaskController.h"
@@ -23,10 +27,6 @@
 #import "QSURLDownloadWrapper.h"
 #import "QSPreferenceKeys.h"
 
-//NSString *QSGetPrimaryMACAddress();
-#if 0
-UInt64 QSGetPrimaryMACAddressInt();
-#endif
 @implementation QSUpdateController
 
 + (id)sharedInstance {
@@ -36,10 +36,6 @@ UInt64 QSGetPrimaryMACAddressInt();
 }
 
 - (id)init {
-#if 0
-	if (self = [super init]) {
-	}
-#endif
 	self = [super init];
 	return self;
 }
@@ -51,43 +47,29 @@ UInt64 QSGetPrimaryMACAddressInt();
 
 - (void)setUpdateTimer {
 	// ***warning  * fix me
-
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-
 	if (DEVELOPMENTVERSION ? ![defaults boolForKey:@"QSPreventAutomaticUpdate"] : [defaults boolForKey:kCheckForUpdates]) {
 		NSDate *lastCheck = [defaults objectForKey:kLastUpdateCheck];
 		int frequency = [defaults integerForKey:kCheckForUpdateFrequency];
-
 		int versionType = [defaults integerForKey:@"QSUpdateReleaseLevel"];
-
 	//	if (DEVELOPMENTVERSION && frequency>7)
 //			frequency = 7;
 		if ((versionType>0 || PRERELEASEVERSION) && frequency>1)
 			frequency = 1;
-
 		BOOL shouldRepeat = (frequency>0);
-
 		NSTimeInterval checkInterval = frequency*24*60*60;
-
 		//NSLog(@"Last Version Check at : %@", [lastCheck description]);
-
 		NSDate *nextCheck = [[NSDate alloc] initWithTimeInterval:checkInterval sinceDate:lastCheck];
-
 		//if (DEVELOPMENTVERSION)
 		//nextCheck = [NSDate distantPast];
-
 		//nextCheck = [NSDate dateWithTimeIntervalSinceNow: 20.0];
-
 		if (updateTimer) {
 			[updateTimer invalidate];
 			[updateTimer release];
 		}
 		updateTimer = [[NSTimer scheduledTimerWithTimeInterval:checkInterval target:self selector:@selector(threadedCheckForUpdate:) userInfo:nil repeats:shouldRepeat] retain];
-
 		[updateTimer setFireDate:doStartupCheck?[NSDate dateWithTimeIntervalSinceNow:33.333f] :nextCheck];
-
 		if (VERBOSE) NSLog(@"Next Version Check at : %@", [[updateTimer fireDate] description]);
-
 	}
 }
 
@@ -104,8 +86,8 @@ UInt64 QSGetPrimaryMACAddressInt();
 	[NSThread detachNewThreadSelector:@selector(checkForUpdate:) toTarget:self withObject:mOptionKeyIsDown?@"Force":@"Requested"];
 }
 
+#if 0
 - (BOOL)networkIsReachable {
-	return YES;
 	BOOL success = NO;
 	SCNetworkConnectionFlags reachabilityStatus;
 	success = SCNetworkCheckReachabilityByName("www.apple.com", &reachabilityStatus);
@@ -113,6 +95,8 @@ UInt64 QSGetPrimaryMACAddressInt();
 	if (VERBOSE) NSLog(@"Blacktree reachable: %d", reachabilityStatus);
 	return success;
 }
+#endif
+
 - (IBAction)checkForUpdate:(id)sender {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
@@ -121,20 +105,19 @@ UInt64 QSGetPrimaryMACAddressInt();
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 
 	BOOL quiet = !sender || sender == self || [sender isKindOfClass:[NSTimer class]];
-	BOOL success = [self networkIsReachable];
+	BOOL success = YES;
+/*	BOOL success = [self networkIsReachable];
 	if (!success) {
 		NSLog(@"Blacktree unreacheable");
-
 		[[QSTaskController sharedInstance] removeTask:@"Check for Update"];
 		if (quiet) {
 			return;
 		} else {
 			int result = NSRunInformationalAlertPanel(@"Connection Error", @"Your internet connection does not appear to be active.", @"Cancel", @"Check Anyway", nil);
 			if (result == NSAlertDefaultReturn) return;
-
 		}
 	}
-
+*/
 	NSString *thisVersionString = (NSString *)CFBundleGetValueForInfoDictionaryKey(CFBundleGetMainBundle(), kCFBundleVersionKey);
 
 	//NSLog(@"%@", sender);
@@ -153,13 +136,8 @@ UInt64 QSGetPrimaryMACAddressInt();
 
 	if (VERBOSE) NSLog(@"Version URL, %@", versionURL);
 	BOOL newVersionAvailable = NO;
-	//int newPlugInsAvailable = 0;
 
 	versionURL = [NSString stringWithFormat:@"%@&current=%@", versionURL, thisVersionString];
-#if 0
-	versionURL = [NSString stringWithFormat:@"%@&uid=%qu", versionURL, QSGetPrimaryMACAddressInt()];
-#endif
-	//	NSLog(@"%@ %qu", uniqueID, QSGetPrimaryMACAddressInt() );
 
 	NSString *testVersionString = nil;
 	if (success) {
@@ -170,7 +148,6 @@ UInt64 QSGetPrimaryMACAddressInt();
 		NSLog(@"Version: %@", testVersionString);
 	}
 
-	//NSLog(@"Version Check \"%@\" %@", testVersionString, versionURL);
 	[defaults setObject:[NSDate date] forKey:kLastUpdateCheck];
 	if ([testVersionString length] && [testVersionString length] <10) {
 		if (VERBOSE) NSLog(@"Current Version:%d Installed Version:%d", [testVersionString hexIntValue] , [thisVersionString hexIntValue]);
@@ -179,8 +156,10 @@ UInt64 QSGetPrimaryMACAddressInt();
 			newVersion = [testVersionString retain];
 	} else {
 		NSLog(@"Unable to check for new version.");
+		[[QSTaskController sharedInstance] removeTask:@"Check for Update"];
 		if (!quiet)
 			NSRunInformationalAlertPanel(@"Connection Error", @"Unable to check for updates.", @"OK", nil, nil);
+		[pool release];
 		return;
 	}
 
@@ -193,15 +172,13 @@ UInt64 QSGetPrimaryMACAddressInt();
 		if (defaultBool(@"QSDownloadUpdatesInBackground") ) {
 			[self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
 		} else {
-			int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"New Version", nil] ,
-													  @"A new version of Quicksilver is available; would you like to download it now? (%@) ", @"Get New Version", @"Cancel", nil, newVersion); //, @"More Info");
+			int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"New Version", nil], @"A new version of Quicksilver is available; would you like to download it now? (%@) ", @"Get New Version", @"Cancel", nil, newVersion); //, @"More Info");
 			if (selection == 1) {
 				[self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
 			} else if (selection == -1) {  //Go to web site
 				[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kDownloadUpdateURL]];
 			}
 		}
-
 	} else {
 		BOOL updated = [[QSPlugInManager sharedInstance] checkForPlugInUpdates];
 		if (!updated) {
@@ -210,7 +187,6 @@ UInt64 QSGetPrimaryMACAddressInt();
 			if (!quiet) NSRunInformationalAlertPanel(@"No Updates Available", [NSString stringWithFormat:@"You already have the latest version of Quicksilver (v%@) and all installed plug-ins", thisVersionString] , @"OK", nil, nil);
 		}
 	}
-
 	[[QSTaskController sharedInstance] removeTask:@"Check for Update"];
 	//  [self setUpdateTimer];
 	[pool release];
@@ -219,7 +195,7 @@ UInt64 QSGetPrimaryMACAddressInt();
 - (void)installAppUpdate {
 	if (updateTask) return;
 
-	NSString *fileURL = @"http://download.blacktree.com/download.php?id = com.blacktree.Quicksilver&type=dmg&new=yes";
+	NSString *fileURL = @"http://download.blacktree.com/download.php?id=com.blacktree.Quicksilver&type=dmg&new=yes";
 	//header("Location: http://download.blacktree.com/download.php?versionlevel=dev&new=yes&id=com.blacktree.Quicksilver&type=dmg");
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 
@@ -233,44 +209,39 @@ UInt64 QSGetPrimaryMACAddressInt();
 	else if (versionType == 1 || PRERELEASEVERSION)
 		fileURL = [fileURL stringByAppendingString:@"&pre=1"];
 
-	//	if (fDEV)
-	//		fileURL = @"http://localhost/QS.2FEE.dmg";
 	NSString *altURL = [[[NSProcessInfo processInfo] environment] objectForKey:@"QSUpdateSource"];
 	if (altURL)
 		fileURL = altURL;
 	if (VERBOSE) NSLog(@"Downloading update from %@", fileURL);
-	if (1) {
-		NSURL *url = [NSURL URLWithString:fileURL];
-		NSURLRequest *theRequest = [NSURLRequest requestWithURL:url
-												 cachePolicy:NSURLRequestUseProtocolCachePolicy
-											 timeoutInterval:20.0];
+#if 1
+	NSURL *url = [NSURL URLWithString:fileURL];
+	NSURLRequest *theRequest = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0];
 
-		// NSLog(@"app %@", theRequest);
-		// create the connection with the request
-		// and start loading the data
-		NSURLDownload *theDownload = [[QSURLDownload alloc] initWithRequest:theRequest
-																 delegate:self];
-		if (theDownload) {
-			updateTask = [[QSTask taskWithIdentifier:@"QSAppUpdateInstalling"] retain];
-			[updateTask setName:@"Downloading Update"];
-			[updateTask setProgress:-1];
+	// NSLog(@"app %@", theRequest);
+	// create the connection with the request
+	// and start loading the data
+	NSURLDownload *theDownload = [[QSURLDownload alloc] initWithRequest:theRequest delegate:self];
+	if (theDownload) {
+		updateTask = [[QSTask taskWithIdentifier:@"QSAppUpdateInstalling"] retain];
+		[updateTask setName:@"Downloading Update"];
+		[updateTask setProgress:-1];
 
-		[updateTask setCancelAction:@selector(cancelUpdate:)];
-			[updateTask setCancelTarget:self];
+	[updateTask setCancelAction:@selector(cancelUpdate:)];
+		[updateTask setCancelTarget:self];
 
-			//			[[QSTaskController sharedInstance] updateTask:@"QSAppUpdateInstalling" status:@"Downloading Update" progress:-1];
-			[QSTaskController showViewer];
-			[updateTask startTask:nil];
-			// set the destination file now
-			NSString *destination = NSTemporaryDirectory();
-			destination = [destination stringByAppendingPathComponent:[NSString uniqueString]];
-			destination = [destination stringByAppendingPathExtension:@"qspkg"];
-			[theDownload setDestination:destination allowOverwrite:YES];
-			[self setAppDownload:theDownload];
-		}
-	} else {
-		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:fileURL]];
+		//			[[QSTaskController sharedInstance] updateTask:@"QSAppUpdateInstalling" status:@"Downloading Update" progress:-1];
+		[QSTaskController showViewer];
+		[updateTask startTask:nil];
+		// set the destination file now
+		NSString *destination = NSTemporaryDirectory();
+		destination = [destination stringByAppendingPathComponent:[NSString uniqueString]];
+		destination = [destination stringByAppendingPathExtension:@"qspkg"];
+		[theDownload setDestination:destination allowOverwrite:YES];
+		[self setAppDownload:theDownload];
 	}
+#else
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:fileURL]];
+#endif
 
 }
 - (NSURLDownload *)appDownload { return appDownload; }
@@ -296,12 +267,12 @@ UInt64 QSGetPrimaryMACAddressInt();
 - (void)download:(QSURLDownload *)download didFailWithError:(NSError *)error {
 	NSLog(@"Download Failed");
 	//	[[QSTaskController sharedInstance] removeTask:@"QSAppUpdateInstalling"];
-				[updateTask stopTask:nil];
-				[updateTask release];
-				updateTask = nil;
-				NSRunInformationalAlertPanel(@"Download Failed", @"An error occured while updating: %@", @"OK", nil, nil, [error localizedDescription] );
-				[self setAppDownload:nil];
-				[download release];
+	[updateTask stopTask:nil];
+	[updateTask release];
+	updateTask = nil;
+	NSRunInformationalAlertPanel(@"Download Failed", @"An error occured while updating: %@", @"OK", nil, nil, [error localizedDescription] );
+	[self setAppDownload:nil];
+	[download release];
 }
 
 - (void)downloadDidFinish:(QSURLDownload *)download {

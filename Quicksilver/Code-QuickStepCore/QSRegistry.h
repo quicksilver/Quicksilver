@@ -1,11 +1,7 @@
-
-
 #import <Foundation/Foundation.h>
 
 #define QSPlugInLoadedNotification @"QSPlugInLoaded"
 #define QSPlugInInstalledNotification @"QSPlugInInstalled"
-
-
 
 #define kQSActionProviders @"QSActionProviders"
 #define kQSFSParsers @"QSFSParsers"
@@ -68,7 +64,6 @@ extern id QSReg; // Registry shared instance
 //- (BOOL)registerBundle:(NSBundle *)bundle;
 - (NSMutableArray *)allBundles;
 //- (BOOL)shouldLoadPlugIn:(NSBundle *)bundle inLoadGroup:(NSDictionary *)loadingBundles;
-- (void)instantiatePlugIns;
 //- (void)registerPlugIns;
 - (void)bundleInstalled:(NSBundle *)bundle;
 - (BOOL)handleRegistration:(NSBundle *)bundle;

@@ -44,11 +44,14 @@
 	float (*brightFt) (QSWindowAnimation *, float);
 	float _brightA;
 	float _brightB;
-	NSDictionary *attributes;
+
+	NSString *animType;
 	BOOL restoreTransform;
 }
-- (NSDictionary *)attributes;
 - (void)setAttributes:(NSDictionary *)value;
+
+- (NSString *)type;
+- (void)setType:(NSString *)aType;
 
 - (NSWindow *)window;
 - (void)setWindow:(NSWindow *)aWindow;

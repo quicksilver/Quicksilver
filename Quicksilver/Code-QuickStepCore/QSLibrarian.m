@@ -11,7 +11,7 @@
 #import "QSTask.h"
 
 #import "QSTaskController.h"
-#define compGT(a, b) (a < b)
+//#define compGT(a, b) (a < b)
 #import "UKMainThreadProxy.h"
 
 float gMinScore = 0.333333;
@@ -88,12 +88,12 @@ static float searchSpeed = 0.0;
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadIDDictionary:) name:QSCatalogStructureChanged object:nil];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSets:) name:QSCatalogEntryIndexed object:nil];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSource:) name:QSCatalogSourceInvalidated object:nil];
-
+#if 0
 		//Create proxy Images
 		[(NSImage *)[[NSImage alloc] initWithSize:NSZeroSize] setName:@"QSDirectProxyImage"];
 		[(NSImage *)[[NSImage alloc] initWithSize:NSZeroSize] setName:@"QSDefaultAppProxyImage"];
 		[(NSImage *)[[NSImage alloc] initWithSize:NSZeroSize] setName:@"QSIndirectProxyImage"];
-
+#endif
 		[self loadShelfArrays];
 	}
 

@@ -6,6 +6,8 @@
 // Copyright 2005 __MyCompanyName__. All rights reserved.
 //
 
+// Ankur, Dec 13: No longer retaining "attributes" dict. Just retain the individual values.
+
 #import "QSWindowAnimation.h"
 
 @implementation QSWindowAnimation
@@ -33,14 +35,14 @@
 }
 
 - (void)dealloc {
-	//	NSLog(@"help dealloc");
-	[self setWindow:nil];
+	if(DEBUG_MEMORY) NSLog(@"qswindowanimation dealloc");
+	[_window release];
+	[animType release];
 	[super dealloc];
 }
 
 - (void)setAttributes:(NSDictionary *)attr {
 	id value;
-
 	if (value = [attr objectForKey:kQSGSTransformF])
 		transformFt = CFBundleGetFunctionPointerForName (CFBundleGetBundleWithIdentifier(kQSEffectsID), (CFStringRef) value);
 	if (value = [attr objectForKey:kQSGSBrightF])
@@ -49,11 +51,10 @@
 		warpFt = CFBundleGetFunctionPointerForName (CFBundleGetBundleWithIdentifier(kQSEffectsID), (CFStringRef) value);
 	if (value = [attr objectForKey:kQSGSAlphaF])
 		alphaFt = CFBundleGetFunctionPointerForName (CFBundleGetBundleWithIdentifier(kQSEffectsID), (CFStringRef) value);
-	if (value = [attr objectForKey:kQSGSAlphaF])
-		alphaFt = CFBundleGetFunctionPointerForName (CFBundleGetBundleWithIdentifier(kQSEffectsID), (CFStringRef) value);
 	if (value = [attr objectForKey:kQSGSDuration])
 		[self setDuration:[value floatValue]];
 	if (value = [attr objectForKey:kQSGSType]) {
+		[self setType:value];
 		if ([value isEqualToString:@"show"]) {
 			_alphaA = 0.0;
 			_alphaB = 1.0;
@@ -74,14 +75,6 @@
 		_alphaA = [value floatValue];
 	if (value = [attr objectForKey:kQSGSAlphaB])
 		_alphaB = [value floatValue];
-
-	if (attributes != attr) {
-		[attributes release];
-		attributes = [attr retain];
-	}
-}
-- (NSDictionary *)attributes {
-	return attributes;
 }
 
 - (void)setCurrentProgress:(NSAnimationProgress)progress {
@@ -141,11 +134,20 @@
 
 
 - (NSWindow *)window { return _window;  }
-
 - (void)setWindow:(NSWindow *)aWindow {
-	[_window autorelease];
-	_window = [aWindow retain];
-	wid = [aWindow windowNumber];
+	if(_window != aWindow){
+		[_window release];
+		_window = [aWindow retain];
+		wid = [aWindow windowNumber];
+	}
+}
+
+- (NSString *)type { return animType;  }
+- (void)setType:(NSString *)aType {
+	if(aType != animType){
+		[animType release];
+		animType = [aType retain];
+	}
 }
 
 - (void)setAlphaFt:(void *)anAlphaFt {alphaFt = anAlphaFt;}

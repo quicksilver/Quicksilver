@@ -17,9 +17,10 @@ id QSReg = nil;
 
 + (NSBundle *)bundleWithIdentifier:(NSString *)identifier {
 	NSBundle *bundle = [[self sharedInstance] bundleWithIdentifier:identifier];
-	if (!bundle)
+	return (bundle) ? bundle : [NSBundle bundleWithIdentifier:identifier];
+/*	if (!bundle)
 		bundle = [NSBundle bundleWithIdentifier:identifier];
-	return bundle;
+	return bundle;*/
 }
 
 + (void)initialize {
@@ -28,26 +29,22 @@ id QSReg = nil;
 
 + (id)sharedInstance {
 	if (!QSReg) QSReg = [[[self class] allocWithZone:[self zone]] init];
-	//NSLog(@"lib instance:%@", _sharedInstance);
 	return QSReg;
 }
 
 - (id)init {
 	if (self = [super init]) {
-		//stringclassRegistry = [[NSMutableDictionary dictionaryWithCapacity:1] retain];
 		classRegistry = [[NSMutableDictionary alloc] init];
 		tableInstances = [[NSMutableDictionary alloc] init];
 		classInstances = [[NSMutableDictionary alloc] init];
 		classBundles = [[NSMutableDictionary alloc] init];
 		identifierBundles = [[NSMutableDictionary alloc] init];
 		prefInstances = [[NSMutableDictionary alloc] init];
-
 		infoRegistry = [[NSMutableDictionary alloc] init];
-
 		[self objectSources];
 		[self objectHandlers];
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bundleDidLoad:) name:NSBundleDidLoadNotification object:nil];
-
+		if (DEBUG_PLUGINS)
+			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bundleDidLoad:) name:NSBundleDidLoadNotification object:nil];
 		//	[self retainedTableNamed:kQSFSParsers];
 	}
 	return self;
@@ -86,19 +83,14 @@ id QSReg = nil;
 	NSMutableDictionary *table = [tableInstances objectForKey:key];
 	if (!table) {
 		table = [NSMutableDictionary dictionaryWithCapacity:1];
-
 		[tableInstances setObject:table forKey:key];
-
-		//	NSLog(@"regist %@", [classRegistry objectForKey:key]);
 	}
-
 	return table;
 }
 
 - (void)retainItemsInTable:(NSString *)table {
 	NSDictionary *sourceTable = [self tableNamed:table];
 	NSMutableDictionary *retainedItems = [self retainedTableNamed:table];
-
 	NSString *entry;
 	NSEnumerator *e = [sourceTable keyEnumerator];
 	id instance;
@@ -110,13 +102,11 @@ id QSReg = nil;
 - (NSBundle *)bundleForClassName:(NSString *)className {
 	return [classBundles objectForKey:className];
 }
-
 - (void)registerBundle:(NSBundle *)bundle {
 	[identifierBundles setObject:bundle forKey:[bundle bundleIdentifier]];
 }
 
 - (NSBundle *)bundleWithIdentifier:(NSString *)ident {
-	//	NSLog(@"%@", identifierBundles);
 	return [identifierBundles objectForKey:ident];
 }
 
@@ -136,7 +126,6 @@ id QSReg = nil;
 }
 
 - (id)getClassInstance:(NSString *)className {
-
 	if (!className) {
 		NSLog(@"Null class requested");
 		return nil;
@@ -147,19 +136,15 @@ id QSReg = nil;
 	Class providerClass = NSClassFromString(className);
 	//NSLog(@"Class <%@>", NSStringFromClass(providerClass) );
 	if (!providerClass) {
-
 		[[classBundles objectForKey:className] load]; //performSelectorOnMainThread:@selector(load) withObject:nil waitUntilDone:YES];
-
 		providerClass = NSClassFromString(className);
 	}
 	if (providerClass) {
 		if ([providerClass respondsToSelector:@selector(sharedInstance)])
-
 			instance = [providerClass sharedInstance];
 		else
 			instance = [[[providerClass alloc] init] autorelease];
 		[classInstances setObject:instance forKey:className];
-		//NSLog(@"get instance %@", instance);
 		return instance;
 	} else {
 		if (VERBOSE) NSLog(@"Can't find class %@ %@", className, [classBundles objectForKey:className]);
@@ -175,8 +160,7 @@ id QSReg = nil;
 }
 - (id)valueForKey:(NSString *)key inTable:(NSString *)table {
 	if (key == nil) return nil;
-	NSDictionary *nameTable = [self tableNamed:table];
-	return [nameTable objectForKey:key];
+	return [[self tableNamed:table] objectForKey:key];
 }
 
 - (id)instanceForKey:(NSString *)key inTable:(NSString *)table {
@@ -185,13 +169,12 @@ id QSReg = nil;
 	id entry = [nameTable objectForKey:key];
 	if ([entry isKindOfClass:[NSDictionary class]])
 		entry = [entry objectForKey:@"class"];
-	if (!entry) {
-		//if (VERBOSE) NSLog(@"Can't get instance of \"%@\" in \"%@\"", key, table);
-
-	} else {
+	if (entry) {
 		return [self getClassInstance:entry];
+	} else {
+		//if (VERBOSE) NSLog(@"Can't get instance of \"%@\" in \"%@\"", key, table);
+		return nil;
 	}
-	return nil;
 }
 
 + (void)registerClassName:(NSString *)className inTable:(NSString *)table {[[self sharedInstance] registerClassName:(NSString *)className inTable:(NSString *)table];} ;
@@ -202,13 +185,13 @@ id QSReg = nil;
 + (void)registerHandler:(id)handler forType:(NSString *)type {[[self sharedInstance] registerHandler:(id)handler forType:(NSString *)type];} ;
 - (void)registerHandler:(id)handler forType:(NSString *)type {
 	NSMutableDictionary *typeHandlers = [self tableNamed:kQSObjectHandlers];
-	if (!type) return;
-
-	[[self retainedTableNamed:kQSObjectHandlers] setObject:[self getClassInstance:handler] forKey:type];
-	if (handler)
-		[typeHandlers setObject:handler forKey:type];
-	else
-		[typeHandlers removeObjectForKey:type];
+	if (type){
+		[[self retainedTableNamed:kQSObjectHandlers] setObject:[self getClassInstance:handler] forKey:type];
+		if (handler)
+			[typeHandlers setObject:handler forKey:type];
+		else
+			[typeHandlers removeObjectForKey:type];
+	}
 }
 
 - (void)printRegistry:(id)sender {
@@ -220,12 +203,9 @@ id QSReg = nil;
 	return [prefInstances objectForKey:table];
 }
 - (void)removePreferredInstanceOfTable:table {
-
-	id object = [prefInstances objectForKey:table];
-	NSString *className = NSStringFromClass([object class]);
+	NSString *className = NSStringFromClass([[prefInstances objectForKey:table] class]);
 	if (className)
-	[classInstances removeObjectForKey:className];
-	//NSLog(@"class %@", [classInstances allKeys]);
+		[classInstances removeObjectForKey:className];
 	if (table)
 		[prefInstances removeObjectForKey:table];
 }
@@ -234,65 +214,51 @@ id QSReg = nil;
 @implementation NSBundle (QSRegistryAdditions)
 - (NSDictionary *)qsRequirementsDictionary {
 	NSString *path = [[self bundlePath] stringByAppendingPathComponent:@"Contents/QSRequirements.plist"];
-	return [[NSFileManager defaultManager] fileExistsAtPath:path] ?
-		[NSDictionary dictionaryWithContentsOfFile:path] :[self objectForInfoDictionaryKey:@"QSRequirements"];
+	return [[NSFileManager defaultManager] fileExistsAtPath:path] ? [NSDictionary dictionaryWithContentsOfFile:path] : [self objectForInfoDictionaryKey:@"QSRequirements"];
 }
 - (NSDictionary *)qsPlugInDictionary {
 	NSString *path = [[self bundlePath] stringByAppendingPathComponent:@"Contents/QSPlugIn.plist"];
-	return [[NSFileManager defaultManager] fileExistsAtPath:path] ?
-		[NSDictionary dictionaryWithContentsOfFile:path] :[self objectForInfoDictionaryKey:@"QSPlugIn"];
+	return [[NSFileManager defaultManager] fileExistsAtPath:path] ? [NSDictionary dictionaryWithContentsOfFile:path] : [self objectForInfoDictionaryKey:@"QSPlugIn"];
 }
 - (NSDictionary *)qsRegistrationDictionary {
 	NSString *path = [[self bundlePath] stringByAppendingPathComponent:@"Contents/QSRegistration.plist"];
-	return [[NSFileManager defaultManager] fileExistsAtPath:path] ?
-		[NSDictionary dictionaryWithContentsOfFile:path] :[self objectForInfoDictionaryKey:@"QSRegistration"];
+	return [[NSFileManager defaultManager] fileExistsAtPath:path] ? [NSDictionary dictionaryWithContentsOfFile:path] : [self objectForInfoDictionaryKey:@"QSRegistration"];
 }
-- (NSDictionary *)qsActionsDictionary {return[self dictionaryForFileOrPlistKey:@"QSActions"];}
+- (NSDictionary *)qsActionsDictionary {return [self dictionaryForFileOrPlistKey:@"QSActions"];}
 
 - (NSDictionary *)dictionaryForFileOrPlistKey:(NSString *)key {
 	NSString *path = [[self bundlePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"Contents/%@.plist", key]];
-	return [[NSFileManager defaultManager] fileExistsAtPath:path] ?
-		[NSDictionary dictionaryWithContentsOfFile:path] :[self objectForInfoDictionaryKey:key];
+	return [[NSFileManager defaultManager] fileExistsAtPath:path] ? [NSDictionary dictionaryWithContentsOfFile:path] : [self objectForInfoDictionaryKey:key];
 }
 
 - (NSDictionary *)qsPresetAdditionsDictionary {
 	NSString *path = [[self bundlePath] stringByAppendingPathComponent:@"Contents/QSPresetAdditions.plist"];
-	return [[NSFileManager defaultManager] fileExistsAtPath:path] ?
-		[NSDictionary dictionaryWithContentsOfFile:path] :[self objectForInfoDictionaryKey:@"QSPresetAdditions"];
+	return [[NSFileManager defaultManager] fileExistsAtPath:path] ? [NSDictionary dictionaryWithContentsOfFile:path] : [self objectForInfoDictionaryKey:@"QSPresetAdditions"];
 }
 @end
 
 @implementation QSRegistry (PlugIns)
 
 - (void)bundleDidLoad:(NSNotification *)aNotif {
-	if (DEBUG_PLUGINS)
 	NSLog(@"Loaded Bundle: %@ Classes: %@", [[[aNotif object] bundlePath] lastPathComponent] , [[[aNotif userInfo] objectForKey:@"NSLoadedClasses"] componentsJoinedByString:@", "]);
 }
 
 - (BOOL)handleRegistration:(NSBundle *)bundle {
 	NSDictionary *registration = [bundle dictionaryForFileOrPlistKey:@"QSRegistration"];
-//NSLog(@"register %@", bundle);
 	if (!registration) return NO;
 	//if (![registration isKindOfClass:[NSDictionary class]]) [NSException exceptionWithName:@"Invalid registration" reason: @"Registration is not a dictionary" userInfo:nil];
 	//	[bundle load];
 	NSEnumerator *keynum = [registration keyEnumerator];
 	NSString *table;
-
 	while (table = [keynum nextObject]) {
-
 		NSDictionary *providers = [registration objectForKey:table];
 		if (![providers isKindOfClass:[NSDictionary class]]) [NSException raise:@"Invalid registration" format:@"%@ invalid", table];
-
 		[[self tableNamed:table] addEntriesFromDictionary:providers];
-
 		NSString *provider;
 		NSEnumerator *e = [providers keyEnumerator];
-
 		NSMutableDictionary *retainedInstances = [tableInstances objectForKey:table];
-
 		while(provider = [e nextObject]) {
 			id entry = [providers objectForKey:provider];
-
 			NSString *className = entry;
 			if ([entry isKindOfClass:[NSDictionary class]])
 				className = [entry objectForKey:@"class"];
@@ -304,7 +270,6 @@ id QSReg = nil;
 					[[self retainedTableNamed:table] setObject:instance forKey:provider];
 			}
 		}
-
 	}
 	return YES;
 }
@@ -316,9 +281,6 @@ id QSReg = nil;
 
 }
 
-- (void)instantiatePlugIns {
-
-}
 //- (void)registerPlugIns {
 //	NSMutableDictionary *validBundles = [NSMutableDictionary dictionary];
 //	NSEnumerator *enumerator;
@@ -388,14 +350,15 @@ id QSReg = nil;
 #define appSupportSubpath @"Application Support/Quicksilver/PlugIns"
 
 - (NSMutableArray *)allBundles {
-
+	NSBundle *appBundle = [NSBundle mainBundle];
+	NSFileManager *fm = [NSFileManager defaultManager];
 	NSEnumerator *searchPathEnum;
 	NSString *currPath;
 	NSMutableSet *bundleSearchPaths = [NSMutableSet set];
 	NSMutableArray *allBundles = [NSMutableArray array];
-	[allBundles addObject:[[NSBundle mainBundle] bundlePath]];
 
-	[bundleSearchPaths addObject:[[NSBundle mainBundle] builtInPlugInsPath]];
+	[allBundles addObject:[appBundle bundlePath]];
+	[bundleSearchPaths addObject:[appBundle builtInPlugInsPath]];
 
 	if ((int) getenv("QSDisableExternalPlugIns")) {
 		NSLog(@"External PlugIns Disabled");
@@ -404,24 +367,19 @@ id QSReg = nil;
 		searchPathEnum = [librarySearchPaths objectEnumerator];
 		while(currPath = [searchPathEnum nextObject])
 			[bundleSearchPaths addObject:[currPath stringByAppendingPathComponent:appSupportSubpath]];
-		[bundleSearchPaths addObject:[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent]];
-		[bundleSearchPaths addObject:[[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"PlugIns"]];
-		[bundleSearchPaths addObject:[[NSFileManager defaultManager] currentDirectoryPath]];
-		[bundleSearchPaths addObject:[[[NSFileManager defaultManager] currentDirectoryPath] stringByAppendingPathComponent:@"PlugIns"]];
-		//[bundleSearchPaths addObject:[[[NSFileManager defaultManager] currentDirectoryPath] stringByAppendingPathComponent:@"PrivatePlugIns"]];
-
-		NSArray *paths = [[NSUserDefaults standardUserDefaults] arrayForKey:@"QSAdditionalPlugInPaths"];
-		paths = [paths valueForKey:@"stringByStandardizingPath"];
-		[bundleSearchPaths addObjectsFromArray:paths];
-
-		[bundleSearchPaths addObject:[[[NSFileManager defaultManager] currentDirectoryPath] stringByAppendingPathComponent:@"PrivatePlugIns"]];
+		[bundleSearchPaths addObject:[[appBundle bundlePath] stringByDeletingLastPathComponent]];
+		[bundleSearchPaths addObject:[[[appBundle bundlePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"PlugIns"]];
+		[bundleSearchPaths addObject:[fm currentDirectoryPath]];
+		[bundleSearchPaths addObject:[[fm currentDirectoryPath] stringByAppendingPathComponent:@"PlugIns"]];
+		[bundleSearchPaths addObjectsFromArray:[[[NSUserDefaults standardUserDefaults] arrayForKey:@"QSAdditionalPlugInPaths"] valueForKey:@"stringByStandardizingPath"]];
+		[bundleSearchPaths addObject:[[fm currentDirectoryPath] stringByAppendingPathComponent:@"PrivatePlugIns"]];
 	}
 
 	searchPathEnum = [bundleSearchPaths objectEnumerator];
 	while(currPath = [searchPathEnum nextObject]) {
 		NSEnumerator *bundleEnum;
 		NSString *curBundlePath;
-		bundleEnum = [[[NSFileManager defaultManager] directoryContentsAtPath:currPath] objectEnumerator];
+		bundleEnum = [[fm directoryContentsAtPath:currPath] objectEnumerator];
 		if (bundleEnum) {
 			while(curBundlePath = [bundleEnum nextObject]) {
 				if ([[curBundlePath pathExtension] caseInsensitiveCompare:@"qsplugin"] == NSOrderedSame) {
@@ -430,7 +388,6 @@ id QSReg = nil;
 			}
 		}
 	}
-
 	return allBundles;
 }
 
@@ -449,26 +406,18 @@ id QSReg = nil;
 	 [[self tableNamed:] setObject:source forKey:source];
  }
  */
-+ (id)sourceNamed:(NSString *)name {return[[self sharedInstance] sourceNamed:(NSString *)name];} ;
-- (id)sourceNamed:(NSString *)name {
-	return [self instanceForKey:name inTable:kQSObjectSources];
-}
++ (id)sourceNamed:(NSString *)name {return[[self sharedInstance] sourceNamed:name];}
+- (id)sourceNamed:(NSString *)name {return [self instanceForKey:name inTable:kQSObjectSources];}
 
 @end
 
 @implementation QSRegistry (ObjectHandlers)
-
 + (NSMutableDictionary *)objectHandlers {return[[self sharedInstance] objectHandlers];}
-- (NSMutableDictionary *)objectHandlers {
-	return [self retainedTableNamed:kQSObjectHandlers];
-}
+- (NSMutableDictionary *)objectHandlers {return [self retainedTableNamed:kQSObjectHandlers];}
 @end
 
 @implementation NSObject (InstancePerform)
-
-+ (id)performSelectorWithInstance:(SEL)selector {
-	return [[QSReg getClassInstance:NSStringFromClass([self class])] performSelector:selector];
-}
++ (id)performSelectorWithInstance:(SEL)selector {return [[QSReg getClassInstance:NSStringFromClass([self class])] performSelector:selector];}
 @end
 
 @implementation QSRegistry (Mediators)
@@ -478,10 +427,7 @@ id QSReg = nil;
 	NSBundle *bundle = [NSBundle bundleWithIdentifier:[header objectForKey:@"bundle"]];
 	if (bundle && ![bundle isLoaded]) [bundle load];
 	SEL sel = NSSelectorFromString(selector);
-	if (sel)
-	return [self performSelector:sel withObject:name];
-	else
-		return nil;
+	return (sel) ? [self performSelector:sel withObject:name] : nil;
 }
 - (id)getMediatorID:(NSString *)name {
 	NSDictionary *header = [[self tableNamed:@"QSRegistryHeaders"] objectForKey:name];
@@ -489,10 +435,6 @@ id QSReg = nil;
 	NSBundle *bundle = [NSBundle bundleWithIdentifier:[header objectForKey:@"bundle"]];
 	if (bundle && ![bundle isLoaded]) [bundle load];
 	SEL sel = NSSelectorFromString(selector);
-	if (sel)
-		return [self performSelector:sel withObject:name];
-	else
-		return nil;
+	return (sel) ? [self performSelector:sel withObject:name] : nil;
 }
 @end
-

@@ -34,6 +34,7 @@
 	[pboard declareTypes:[NSArray arrayWithObject:NSFilenamesPboardType] owner:nil];
 	[pboard setPropertyList:filenames forType:NSFilenamesPboardType];
 	[self executeCommandWithPasteboard:pboard];
+	NSLog(@"got over execute");
 	[pboard releaseGlobally];
 	[self resetTerminateDelay];
 }
@@ -46,8 +47,8 @@
 	id proxy = [NSConnection rootProxyForConnectionWithRegisteredName:@"Quicksilver Droplet" host:nil];
 	if (proxy) {
 		[proxy setProtocolForProxy:@protocol(QSDropletHandling)];
-		NSString *path = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/Command.qscommand"];
-		[proxy handlePasteboardDrop:pb commandPath:path];
+		[proxy handlePasteboardDrop:pb commandPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/Command.qscommand"]];
+		NSLog(@"handled pb drop");
 	} else {
 		fprintf(stderr, "Unable to connect to Quicksilver\n");
 		return 1;

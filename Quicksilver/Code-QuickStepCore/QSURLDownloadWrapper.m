@@ -22,15 +22,14 @@
 
 
 - (void)sendDidReceiveResponse:(id)cfres {
- NSURLResponse *response = [NSURLResponse _responseWithCFURLResponse:cfres];
+	NSURLResponse *response = [NSURLResponse _responseWithCFURLResponse:cfres];
   	expectedContentLength += [response expectedContentLength];
-  [super sendDidReceiveResponse:response];
+	[super sendDidReceiveResponse:response];
 }
 
 - (void)sendDidReceiveData:(long)length {
-
- 	currentContentLength += length;
- [super sendDidReceiveData:length];
+	currentContentLength += length;
+	[super sendDidReceiveData:length];
 }
 
 //- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data lengthReceived:(long long)length {
@@ -43,13 +42,14 @@
 }
 
 - (void)setDestination:(NSString *)path allowOverwrite:(BOOL)allowOverwrite {
- [destination release];
- destination = [path retain];
- [super setDestination:path allowOverwrite:allowOverwrite];
+	[destination release];
+	destination = [path retain];
+	[super setDestination:path allowOverwrite:allowOverwrite];
 }
+
 - (void)dealloc {
- [destination release];
- [super dealloc];
+	[destination release];
+	[super dealloc];
 }
 
 - (NSString *)destination {
@@ -57,21 +57,24 @@
 }
 - (double) progress {
 	if (!expectedContentLength) return 0.0;
-	double progress = (double) currentContentLength/expectedContentLength;
-	return progress;
+	return (double) currentContentLength/expectedContentLength;
 }
+
 - (id)userInfo {
 	return userInfo;
 }
+
 - (void)setUserInfo:(id)value {
 	if (userInfo != value) {
 		[userInfo release];
 		userInfo = [value retain];
 	}
 }
+
 - (long long) expectedContentLength {
 	return expectedContentLength;
 }
+
 - (long long) currentContentLength {
 	return currentContentLength;
 }

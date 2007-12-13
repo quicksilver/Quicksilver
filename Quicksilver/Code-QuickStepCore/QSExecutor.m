@@ -30,7 +30,7 @@
 #import "QSNullObject.h"
 #import "NSException_TraceExtensions.h"
 
-#define compGT(a, b) (a < b)
+//#define compGT(a, b) (a < b)
 
 #define pQSActionsLocation QSApplicationSupportSubPath(@"Actions.plist", NO)
 
@@ -76,10 +76,11 @@ QSExecutor *QSExec;
 			actionNames = [[NSMutableDictionary alloc] init];
 
 		//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(writeCatalog:) name:QSCatalogEntryChanged object:nil];
-
+#if 0
 		[(NSImage *)[[[NSImage alloc] initWithSize:NSZeroSize] autorelease] setName:@"QSDirectProxyImage"];
 		[(NSImage *)[[[NSImage alloc] initWithSize:NSZeroSize] autorelease] setName:@"QSDefaultAppProxyImage"];
 		[(NSImage *)[[[NSImage alloc] initWithSize:NSZeroSize] autorelease] setName:@"QSIndirectProxyImage"];
+#endif
 	}
 	return self;
 }
@@ -103,7 +104,6 @@ QSExecutor *QSExec;
 - (void)loadFileActions {
 	NSString *rootPath = QSApplicationSupportSubPath(@"Actions/", NO);
 	NSArray *files = [rootPath performSelector:@selector(stringByAppendingPathComponent:) onObjectsInArray:[[NSFileManager defaultManager] directoryContentsAtPath:rootPath]];
-
 	NSEnumerator *e = [[QSReg instancesForTable:@"QSFileActionCreators"] objectEnumerator];
 	id <QSFileActionProvider> creator;
 	while(creator = [e nextObject]) {
@@ -248,8 +248,9 @@ QSExecutor *QSExec;
 }
 
 - (NSMutableArray *)getArrayForSource:(NSString *)sourceid {
-	NSMutableArray *array = [actionSources objectForKey:sourceid];
-	return array;
+	return [actionSources objectForKey:sourceid];
+//	NSMutableArray *array = [actionSources objectForKey:sourceid];
+//	return array;
 }
 
 - (NSMutableArray *)makeArrayForSource:(NSString *)sourceid {
@@ -272,7 +273,6 @@ QSExecutor *QSExec;
 //			[actionIdentifiers setObject:action forKey:[action identifier]];
 //	}
 //}
-
 
 
 - (NSArray *)actions {
@@ -299,7 +299,6 @@ QSExecutor *QSExec;
 	return [self rankedActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject shouldBypass:NO];
 }
 - (NSArray *)rankedActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject shouldBypass:(BOOL)bypass {
-////	NSString *type = [NSString stringWithFormat:@"QSActionMnemonic:%@", [dObject primaryType]];
 	NSMutableArray *actions = nil;
 	if ([[dObject handler] respondsToSelector:@selector(actionsForDirectObject:indirectObject:)])
 		actions = (NSMutableArray *)[[dObject handler] actionsForDirectObject:dObject indirectObject:iObject];
@@ -317,7 +316,6 @@ QSExecutor *QSExec;
 	if (!actions)
 		actions = (NSMutableArray *)[self validActionsForDirectObject:dObject indirectObject:iObject];
 
-
 	NSString *preferredActionID = [dObject objectForMeta:kQSObjectDefaultAction];
 
 	id preferredAction = nil;
@@ -326,32 +324,26 @@ QSExecutor *QSExec;
 	else if (preferredActionID)
 		preferredAction = [self actionForIdentifier:preferredActionID];
 
-
 	//	NSLog(@"prefer \"%@\"", preferredActionID);
 	//	NSLog(@"actions %d", [actions count]);
 #if 1
-	NSSortDescriptor *rankDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"rank" ascending:YES] autorelease];
+	NSSortDescriptor *rankDescriptor = [[NSSortDescriptor alloc] initWithKey:@"rank" ascending:YES];
 	[actions sortUsingDescriptors:[NSArray arrayWithObject:rankDescriptor]];
+	[rankDescriptor release];
 #else
-	actions = [QSLib scoredArrayForString:type inSet:actions mnemonicsOnly:YES];
+	actions = [QSLib scoredArrayForString:[NSString stringWithFormat:@"QSActionMnemonic:%@", [dObject primaryType]] inSet:actions mnemonicsOnly:YES];
 #endif
-
-	//	NSLog(@"actions %@", actions);
-	//[self actionForIdentifier:preferredAction];
 
 	if (preferredAction)
 		actions = [NSArray arrayWithObjects:preferredAction, actions, nil];
-
 	return actions;
 }
 
 - (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject fromSource:(id)aObject types:(NSSet *)dTypes fileType:(NSString *)fileType {
-
 	if (dTypes) {
 		NSMutableSet *aTypes = [NSMutableSet setWithArray:[aObject types]];
 
 		if ([aTypes count]) {
-			//NSLog(@"a, [%@] ", aTypes);
 			[aTypes intersectSet:dTypes];
 			if (![aTypes count]) return nil;
 			if ([aTypes containsObject:QSFilePathType] && [aObject fileTypes] && ([aTypes count] == 1 || [[dObject primaryType] isEqualToString:QSFilePathType]) ) {
@@ -360,22 +352,18 @@ QSExecutor *QSExec;
 		}
 	}
 	NSArray *actions = nil;
-
 	NS_DURING
 		actions = [aObject validActionsForDirectObject:dObject indirectObject:nil];
 	NS_HANDLER
 		;
 	NS_ENDHANDLER
-
 	return actions;
 }
 
 - (void)logActions {}
 
 - (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
-	//NSLog(@"valid? %@", dObject);
 	if (!dObject) return nil;
-
 	NSMutableArray *actions = [NSMutableArray arrayWithCapacity:1];
 	// unsigned i;
 	id aObject = nil;
@@ -516,21 +504,21 @@ QSExecutor *QSExec;
 	[self performSelector:@selector(writeActionsInfoNow) withObject:nil afterDelay:3.0 extend:YES];
 }
 - (void)writeActionsInfoNow {
+#if 1
+	[[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:actionPrecedence, actionRanking, actionActivation, actionMenuActivation, actionIndirects, actionNames, nil] forKeys:[NSArray arrayWithObjects:@"actionPrecedence", @"actionRanking", @"actionActivation", @"actionMenuActivation", @"actionIndirects", @"actionNames", nil]] writeToFile:pQSActionsLocation atomically:YES];
+#else
 	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 	[dict setObject:actionPrecedence forKey:@"actionPrecedence"];
 	[dict setObject:actionRanking forKey:@"actionRanking"];
 	[dict setObject:actionActivation forKey:@"actionActivation"];
 	[dict setObject:actionMenuActivation forKey:@"actionMenuActivation"];
-
 	[dict setObject:actionIndirects forKey:@"actionIndirects"];
 	[dict setObject:actionNames forKey:@"actionNames"];
-
 	[dict writeToFile:pQSActionsLocation atomically:YES];
+#endif
 	if (VERBOSE) NSLog(@"Wrote Actions Info");
 }
 @end
-
-
 
 
 @implementation QSExecutor (QSPlugInInfo)

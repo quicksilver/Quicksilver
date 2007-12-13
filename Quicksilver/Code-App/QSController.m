@@ -535,6 +535,7 @@ QSController *QSCon;
 
 - (void)handlePasteboardDrop:(NSPasteboard *)pb commandPath:(NSString *)path {
 	QSObject *drop = [QSObject objectWithPasteboard:pb];
+	NSLog(@"got droplet item");
 	[self setDropletProxy:drop];
 	[self executeCommandAtPath:path];
 	[self setDropletProxy:nil];
@@ -963,7 +964,7 @@ QSController *QSCon;
 		[[QSSyncManager sharedInstance] setup];
 
 	[NSThread detachNewThreadSelector:@selector(delayedStartup) toTarget:self withObject:nil];
-//	[self startDropletConnection];
+	[self startDropletConnection];
 }
 
 - (id)activationHotKey { return nil;  }

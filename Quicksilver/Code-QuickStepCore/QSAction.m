@@ -172,11 +172,9 @@ static BOOL gModifiersAreIgnored;
 	NSMenu *menu = [[NSMenu alloc] initWithTitle:@"RankMenu"];
 
 	NSMenuItem *item;
-
 	item = (NSMenuItem *)[menu addItemWithTitle:[NSString stringWithFormat:@"Rank: %d", [self rank] +1] action:NULL keyEquivalent:@""];
 	[item setTarget:nil];
 	[menu addItem:[NSMenuItem separatorItem]];
-
 	item = (NSMenuItem *)[menu addItemWithTitle:@"Make Default" action:@selector(promoteAction:) keyEquivalent:@""];
 	[item setTarget:target];
 #if 0

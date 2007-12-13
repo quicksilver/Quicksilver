@@ -24,10 +24,10 @@
 - (NSArray *)objectsForEntry:(NSDictionary *)theEntry {
 	NSMutableDictionary *settings = [theEntry objectForKey:kItemSettings];
 	NSString *location = [settings objectForKey:kItemPath];
-	if (location) {
+	if (location)
 		return [(QSHTMLLinkParser *)[QSReg getClassInstance:@"QSHTMLLinkParser"] objectsFromURL:[NSURL URLWithString:location] withSettings:settings];
-	}
-	return nil;
+	else
+		return nil;
 }
 
 - (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry {

@@ -28,14 +28,10 @@ NSString *QSUTIForExtensionOrType(NSString *extension, OSType filetype) {
 	NSString *itemUTI = NULL;
 	//NSLog(@"type %@ %@", extension, UTCreateStringForOSType(filetype) );
 	if ( extension != NULL ) {
-		itemUTI = (NSString *)UTTypeCreatePreferredIdentifierForTag (kUTTagClassFilenameExtension,
-														 (CFStringRef) extension,
-														 NULL );
+		itemUTI = (NSString *)UTTypeCreatePreferredIdentifierForTag (kUTTagClassFilenameExtension, (CFStringRef) extension, NULL);
 	} else {
 		if (filetype == 'fold') return @"public.folder";
-		itemUTI = (NSString *)UTTypeCreatePreferredIdentifierForTag (kUTTagClassOSType,
-														 (CFStringRef) [(NSString *)UTCreateStringForOSType(filetype) autorelease] ,
-														 NULL );
+		itemUTI = (NSString *)UTTypeCreatePreferredIdentifierForTag (kUTTagClassOSType, (CFStringRef) [(NSString *)UTCreateStringForOSType(filetype) autorelease], NULL );
 	}
 	return [itemUTI autorelease];
 }
@@ -44,13 +40,9 @@ NSString *QSUTIForInfoRec(NSString *extension, OSType filetype) {
 	NSString *itemUTI = NULL;
 	//NSLog(@"type %@ %@", extension, UTCreateStringForOSType(filetype) );
 	if ( extension != NULL ) {
-		itemUTI = (NSString *)UTTypeCreatePreferredIdentifierForTag (kUTTagClassFilenameExtension,
-														 (CFStringRef) extension,
-														 NULL );
+		itemUTI = (NSString *)UTTypeCreatePreferredIdentifierForTag (kUTTagClassFilenameExtension, (CFStringRef) extension, NULL);
 	} else {
-		itemUTI = (NSString *)UTTypeCreatePreferredIdentifierForTag (kUTTagClassOSType,
-														 (CFStringRef) [(NSString *)UTCreateStringForOSType(filetype) autorelease] ,
-														 NULL );
+		itemUTI = (NSString *)UTTypeCreatePreferredIdentifierForTag (kUTTagClassOSType, (CFStringRef)[(NSString *)UTCreateStringForOSType(filetype) autorelease], NULL );
 	}
 	return [itemUTI autorelease];
 }
