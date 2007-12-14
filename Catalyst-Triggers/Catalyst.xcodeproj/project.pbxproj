@@ -25,6 +25,8 @@
 		4D508B200D1348C800A9B360 /* QSElements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D508AFC0D1347BA00A9B360 /* QSElements.framework */; };
 		4D508B210D1348CB00A9B360 /* QSCrucible.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D508B1F0D1348BD00A9B360 /* QSCrucible.framework */; };
 		4D508B230D1348D900A9B360 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		4D508B3D0D134B7D00A9B360 /* QSElements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D508AFC0D1347BA00A9B360 /* QSElements.framework */; };
+		4D508B3E0D134B8000A9B360 /* QSCrucible.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D508B1F0D1348BD00A9B360 /* QSCrucible.framework */; };
 		7F8D391F0BF0B9EE008935FA /* QSTrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3357A1E40BB8CFDD00DECE19 /* QSTrigger.m */; };
 		7F8D39200BF0B9EF008935FA /* QSTriggerCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3357A1E60BB8CFDD00DECE19 /* QSTriggerCenter.m */; };
 		7F8D39210BF0B9F1008935FA /* QSTriggerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3357A1E80BB8CFDD00DECE19 /* QSTriggerManager.m */; };
@@ -122,6 +124,8 @@
 				8D202CF30486D31800D8A456 /* Cocoa.framework in Frameworks */,
 				8D202CF40486D31800D8A456 /* PreferencePanes.framework in Frameworks */,
 				3300F20B0BD19DF000E549F7 /* Carbon.framework in Frameworks */,
+				4D508B3D0D134B7D00A9B360 /* QSElements.framework in Frameworks */,
+				4D508B3E0D134B8000A9B360 /* QSCrucible.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
