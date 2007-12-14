@@ -269,6 +269,13 @@
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = QSElements;
 		};
+		4D5088A50D13294A00A9B360 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7F9A7A630C49595900B5912D /* Quicksilver */;
+			remoteInfo = Quicksilver;
+		};
 		4D7093B20D101CCE008498FD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4D7093AE0D101CCE008498FD /* Crucible.xcodeproj */;
@@ -1277,6 +1284,7 @@
 			dependencies = (
 				339FA7180D0DEFEC00906492 /* PBXTargetDependency */,
 				4D7094D60D10225B008498FD /* PBXTargetDependency */,
+				4D5088A60D13294A00A9B360 /* PBXTargetDependency */,
 			);
 			name = Core;
 			productName = Core;
@@ -1672,6 +1680,11 @@
 			isa = PBXTargetDependency;
 			name = QSElements;
 			targetProxy = 339FA7170D0DEFEC00906492 /* PBXContainerItemProxy */;
+		};
+		4D5088A60D13294A00A9B360 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7F9A7A630C49595900B5912D /* Quicksilver */;
+			targetProxy = 4D5088A50D13294A00A9B360 /* PBXContainerItemProxy */;
 		};
 		4D7094D30D10223E008498FD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
