@@ -16,6 +16,7 @@
 			dependencies = (
 				4DC820E10D12EA220039BD1B /* PBXTargetDependency */,
 				4DC820E30D12EA2A0039BD1B /* PBXTargetDependency */,
+				4D5089020D132B7100A9B360 /* PBXTargetDependency */,
 			);
 			name = "Build Quicksilver";
 			productName = "Build Quicksilver";
@@ -36,6 +37,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		4D5088E00D132B6200A9B360 /* Core.element in Copy Main Plugins */ = {isa = PBXBuildFile; fileRef = 7F5D22470C49C18400812049 /* Core.element */; };
+		4D5088E30D132B6700A9B360 /* Cube Interface.element in Copy Main Plugins */ = {isa = PBXBuildFile; fileRef = 4DF635330D10682700910FC0 /* Cube Interface.element */; };
 		4D7093B70D101CED008498FD /* QSCrucible.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7093B30D101CCE008498FD /* QSCrucible.framework */; };
 		4D7094C70D10215D008498FD /* QSCrucible.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7093B30D101CCE008498FD /* QSCrucible.framework */; };
 		4D9A1DAE0D0EA6600072DE55 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9A89950C497DD400B5912D /* Cocoa.framework */; };
@@ -276,6 +279,13 @@
 			remoteGlobalIDString = 7F9A7A630C49595900B5912D /* Quicksilver */;
 			remoteInfo = Quicksilver;
 		};
+		4D5089010D132B7100A9B360 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F8B81980C49C639007FC200 /* QSCubeInterfaceElement.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 337357640BAC7B56000A47E2 /* Cube Interface */;
+			remoteInfo = "Cube Interface";
+		};
 		4D7093B20D101CCE008498FD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4D7093AE0D101CCE008498FD /* Crucible.xcodeproj */;
@@ -397,6 +407,8 @@
 			dstPath = "$(QS_APP_CONTENTS_FOLDER)/PlugIns";
 			dstSubfolderSpec = 0;
 			files = (
+				4D5088E30D132B6700A9B360 /* Cube Interface.element in Copy Main Plugins */,
+				4D5088E00D132B6200A9B360 /* Core.element in Copy Main Plugins */,
 			);
 			name = "Copy Main Plugins";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -754,8 +766,6 @@
 		7FE0BCCA0C499F2E0012249C /* QSCoreElement-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = "QSCoreElement-Info.plist"; path = "../QSCoreElement-Info.plist"; sourceTree = "<group>"; };
 		7FE0BCE00C499F2E0012249C /* element.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = element.xml; sourceTree = "<group>"; };
 		7FE0BD0D0C499F2E0012249C /* Rocket.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rocket.png; sourceTree = "<group>"; };
-		7FE0BD390C499F720012249C /* QSElement_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = QSElement_Prefix.pch; path = ../Common/QSElement_Prefix.pch; sourceTree = SOURCE_ROOT; };
-		7FE0BD3A0C499F720012249C /* QSElement.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; name = QSElement.xcconfig; path = ../Common/QSElement.xcconfig; sourceTree = SOURCE_ROOT; };
 		7FE82FDB0C4A83CE00A321E0 /* ResultWindow.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = ResultWindow.nib; sourceTree = "<group>"; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -1190,8 +1200,6 @@
 		7FE0BC9F0C499F2E0012249C /* CoreElement */ = {
 			isa = PBXGroup;
 			children = (
-				7FE0BD390C499F720012249C /* QSElement_Prefix.pch */,
-				7FE0BD3A0C499F720012249C /* QSElement.xcconfig */,
 				7FE0BCA00C499F2E0012249C /* Code */,
 				7FE0BCCB0C499F2E0012249C /* Resources */,
 			);
@@ -1685,6 +1693,11 @@
 			isa = PBXTargetDependency;
 			target = 7F9A7A630C49595900B5912D /* Quicksilver */;
 			targetProxy = 4D5088A50D13294A00A9B360 /* PBXContainerItemProxy */;
+		};
+		4D5089020D132B7100A9B360 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Cube Interface";
+			targetProxy = 4D5089010D132B7100A9B360 /* PBXContainerItemProxy */;
 		};
 		4D7094D30D10223E008498FD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
