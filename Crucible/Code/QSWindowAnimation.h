@@ -20,7 +20,7 @@
 #define kQSGSAlphaF @"alphaFn"
 #define kQSGSType @"type"
 #define kQSGSDuration @"duration"
-#define kQSEffectsID (CFStringRef)@"com.blacktree.QSBase"
+#define kQSEffectsID (CFStringRef)@"com.blacktree.QSCrucible"
 #define kQSGSBrightA @"brightnessA"
 #define kQSGSAlphaA @"alphaA"
 #define kQSGSBrightB @"brightnessB"
