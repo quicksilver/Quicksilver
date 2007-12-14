@@ -19,9 +19,6 @@
 #define kQSPreferencePanes @"QSPreferencePanes"
 #define pRegistryStoreLocation QSApplicationSupportSubPath(@"Registry.plist",NO);
 
-
-//extern id QSReg; // Registry shared instance
-
 @interface QSRegistry (Convenience)
 
 - (NSMutableDictionary *)tableNamed:(NSString *)key;

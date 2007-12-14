@@ -105,7 +105,7 @@
 		7F11D6800B8A1A730092B7F9 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		7F11D6810B8A1A730092B7F9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
 		7F11D6820B8A1A730092B7F9 /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		7F11D6D70B8A1C720092B7F9 /* Blocks_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = Blocks_Prefix.pch; path = Blocks/Blocks_Prefix.pch; sourceTree = "<group>"; };
+		7F11D6D70B8A1C720092B7F9 /* QSElements_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSElements_Prefix.pch; sourceTree = "<group>"; };
 		7F11D76B0B8A25870092B7F9 /* NSXMLElement+BExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSXMLElement+BExtensions.h"; sourceTree = "<group>"; };
 		7F11D76C0B8A25870092B7F9 /* NSXMLElement+BExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSXMLElement+BExtensions.m"; sourceTree = "<group>"; };
 		7F11EBE70B8D54570092B7F9 /* ManagerAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ManagerAppDelegate.h; sourceTree = "<group>"; };
@@ -257,7 +257,7 @@
 		7F11D6DB0B8A1C840092B7F9 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				7F11D6D70B8A1C720092B7F9 /* Blocks_Prefix.pch */,
+				7F11D6D70B8A1C720092B7F9 /* QSElements_Prefix.pch */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -440,7 +440,7 @@
 				DYLIB_CURRENT_VERSION = 7;
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Blocks/Blocks_Prefix.pch;
+				GCC_PREFIX_HEADER = QSElements_Prefix.pch;
 				INFOPLIST_FILE = Framework/Info.plist;
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = QSElements;
@@ -456,7 +456,7 @@
 				DYLIB_CURRENT_VERSION = 7;
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Blocks/Blocks_Prefix.pch;
+				GCC_PREFIX_HEADER = QSElements_Prefix.pch;
 				INFOPLIST_FILE = Framework/Info.plist;
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = QSElements;

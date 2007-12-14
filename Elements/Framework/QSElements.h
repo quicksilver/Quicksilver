@@ -9,4 +9,6 @@
 
 #import "Blocks.h"
 #import "QSRegistry.h"
+#import "QSRegistry+Convenience.h"
 #import "QSLog.h"
+#import "NSBundle+ExtendedLoading.h"
