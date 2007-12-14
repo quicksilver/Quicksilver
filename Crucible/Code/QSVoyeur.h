@@ -11,5 +11,4 @@
 }
 
 + (id)sharedInstance;
-- (void)setDelegate:(id)delegate;
 @end

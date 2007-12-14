@@ -6,8 +6,6 @@
 
 //
 
-#import <Cocoa/Cocoa.h>
-
 @interface NSScreen (BLTRExtensions)
 -(int)screenNumber;
 -(NSString *)deviceName;
