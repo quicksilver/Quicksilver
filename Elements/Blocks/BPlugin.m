@@ -124,7 +124,7 @@ static int BPluginLoadSequenceNumbers = 0;
 	return loadSequenceNumber;
 }
 - (NSString *)author {
-	[[self info] firstValueForName:@"author"];	
+	return [[self info] firstValueForName:@"author"];	
 }
 
 - (NSString *)xmlPath {
@@ -163,13 +163,9 @@ static int BPluginLoadSequenceNumbers = 0;
 }
 
 
-- (NSManagedObject *)scanElement:(NSXMLElement *)elementInfo forPoint:(NSString *)point{
-	NSString *name = [elementInfo name];
-	
+- (NSManagedObject *)scanElement:(NSXMLElement *)elementInfo forPoint:(NSString *)point {
 	NSManagedObject *element = [NSEntityDescription insertNewObjectForEntityForName:@"element"
 															 inManagedObjectContext:[self managedObjectContext]];
-	
-	//NSMutableDictionary *attributeDict = [NSMutableDictionary dictionaryWithDictionary:inheritedAttributes];
 	
 	[element setValuesForKeysWithDictionary:[elementInfo attributesAsDictionary]];
 	[element setValue:self forKey:@"plugin"];
@@ -284,17 +280,17 @@ static int BPluginLoadSequenceNumbers = 0;
 	NSXMLDocument *document = [self pluginXMLDocument];
 	NSXMLElement *root = [document rootElement];
 	
-	NSArray *requirements = [[root firstElementWithName:@"requirements"] elementsForName:@"requirement"];
+//	NSArray *requirements = [[root firstElementWithName:@"requirements"] elementsForName:@"requirement"];
 	NSEnumerator *enumerator = [[self requirements] objectEnumerator];
 	id element;
-	while (element = [enumerator nextObject]) {
+	while ((element = [enumerator nextObject])) {
 		NSManagedObject *requirement = [NSEntityDescription insertNewObjectForEntityForName:@"requirement"
 																	 inManagedObjectContext:[self managedObjectContext]];
 		NSDictionary *attributeDict = [element attributesAsDictionary];
 		[requirement setValuesForKeysWithDictionary:attributeDict];
 	}
-	
-	NSXMLElement *infoChildren = [root firstElementWithName:@"info"];
+//FIXME tiennou: Is this correct ?
+//	NSXMLElement *infoChildren = [root firstElementWithName:@"info"];
 	[self setValue:info forKey:@"info"];
 	
 	NSXMLElement *extensionsChildren = [root firstElementWithName:@"extensions"];
@@ -325,7 +321,7 @@ static int BPluginLoadSequenceNumbers = 0;
 		NSEnumerator *enumerator = [[self requirements] objectEnumerator];
 		BRequirement *eachImport;
 		
-		while (eachImport = [enumerator nextObject]) {
+		while ((eachImport = [enumerator nextObject])) {
 			if (![eachImport isLoaded]) {
 				if ([eachImport load]) {
 					BLogInfo(([NSString stringWithFormat:@"Loaded code for requirement %@ by plugin %@", eachImport, [self identifier]]));
@@ -365,7 +361,7 @@ static int BPluginLoadSequenceNumbers = 0;
 		NSString *infoString = [self primitiveValueForKey:@"info"];
 		if (!infoString) return nil;
 		info = [[[[NSXMLDocument alloc] initWithXMLString:infoString
-												  options:nil
+												  options:0
 													error:nil] autorelease] rootElement];
 		[info retain];
 	}

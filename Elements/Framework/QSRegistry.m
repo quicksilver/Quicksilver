@@ -50,7 +50,7 @@
   NSEnumerator *searchPathEnumerator = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSAllDomainsMask - NSSystemDomainMask, YES) objectEnumerator];
   NSString *eachSearchPath;
   
-  while(eachSearchPath = [searchPathEnumerator nextObject]) {
+  while((eachSearchPath = [searchPathEnumerator nextObject])) {
 		[pluginSearchPaths addObject:[eachSearchPath stringByAppendingPathComponent:applicationSupportSubpath]];
   }
   [pluginSearchPaths addObject:[[NSFileManager defaultManager] currentDirectoryPath]];
@@ -67,7 +67,7 @@
 	NSEnumerator *bundleEnumerator = [[NSBundle allBundles] objectEnumerator];
 	NSBundle *eachBundle;
 	
-	while (eachBundle = [bundleEnumerator nextObject]) {
+	while ((eachBundle = [bundleEnumerator nextObject])) {
 		[pluginSearchPaths addObject:[eachBundle builtInPlugInsPath]];
 	}
 	//BLogDebug(@"pluginSearchPaths %@", pluginSearchPaths);

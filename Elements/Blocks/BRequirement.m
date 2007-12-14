@@ -17,7 +17,7 @@
 #pragma mark init
 
 - (id)initWithIdentifier:(NSString *)identifier version:(NSString *)version optional:(BOOL)isOptional {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 	[self setValue:identifier forKey:@"identifier"];
 	[self setValue:version forKey:@"version"];
 	[self setValue:[NSNumber numberWithBool:isOptional] forKey:@"optional"];

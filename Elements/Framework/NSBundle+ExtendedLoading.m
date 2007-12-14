@@ -19,5 +19,6 @@
 		
 		// TODO: load applescript stuff
 	}
+    return YES;
 }
 @end

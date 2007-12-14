@@ -35,7 +35,6 @@ static BLoggingLevel LoggingLevel = BLoggingWarn;
 															   NULL, 
 															   (CFStringRef)format, 
 															   args);
-	size_t len = strlen(functionName);
 
 	NSLog(@"%@ %-32s %@", [self typeStringForLevel:level], functionName, message);
   CFRelease(message);

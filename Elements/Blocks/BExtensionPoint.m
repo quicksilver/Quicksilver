@@ -127,9 +127,9 @@
 		
 		loadedElements = [[NSMutableArray alloc] init];
 		
-		while (each = [enumerator nextObject]) {
+		while ((each = [enumerator nextObject])) {
 			if ([[each plugin] enabled]) {
-				Class elementClass = [each elementClass];
+//				Class elementClass = [each elementClass];
 				if (1) { // [elementClass conformsToProtocol:protocol]) {
 					[loadedElements addObject:each];
 				} else {
