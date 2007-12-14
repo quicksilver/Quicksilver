@@ -94,7 +94,6 @@
 		4D7095890D102D8B008498FD /* QSElement.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSElement.xcconfig; sourceTree = "<group>"; };
 		4D7095C90D103061008498FD /* Elements.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Elements.xcodeproj; path = ../../../Elements/Elements.xcodeproj; sourceTree = SOURCE_ROOT; };
 		4D7095D20D103079008498FD /* Crucible.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Crucible.xcodeproj; path = ../../../Crucible/Crucible.xcodeproj; sourceTree = SOURCE_ROOT; };
-		4DC81F380D12BC270039BD1B /* QSPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSPreferencesController.h; path = ../../Application/Code/QSPreferencesController.h; sourceTree = SOURCE_ROOT; };
 		4DC821070D12ED1B0039BD1B /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		7F0149800A401C87006AF239 /* QSCubeInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCubeInterface.h; sourceTree = "<group>"; };
 		7F0149810A401C87006AF239 /* QSCubeInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCubeInterface.m; sourceTree = "<group>"; };
@@ -211,7 +210,6 @@
 		32DBCF9F0370C38200C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				4DC81F380D12BC270039BD1B /* QSPreferencesController.h */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
