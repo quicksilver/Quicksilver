@@ -1993,10 +1993,10 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = QSBase_Prefix.pch;
-				INFOPLIST_FILE = "QSBase-Info.plist";
+				GCC_PREFIX_HEADER = QSCrucible_Prefix.pch;
+				INFOPLIST_FILE = "QSCrucible-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
-				PRODUCT_NAME = QSBase;
+				PRODUCT_NAME = QSCrucible;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
