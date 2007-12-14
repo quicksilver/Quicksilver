@@ -18,7 +18,7 @@
 	IBOutlet NSPopUpButton *categoryPopUp;
 	IBOutlet NSSearchField *searchField;
 	IBOutlet NSArrayController *arrayController;
-	IBOutlet NSController *setsArrayController;
+	IBOutlet NSArrayController *setsArrayController;
 	NSMutableArray *plugInArray;
 	NSMutableArray *plugins;
 	NSMutableSet *disabledPlugIns;

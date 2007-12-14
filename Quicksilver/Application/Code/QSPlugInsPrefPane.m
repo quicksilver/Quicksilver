@@ -1,26 +1,28 @@
 
+#import <WebKit/WebKit.h>
+#import <QSBase/QSPlugInManager.h>
 
-#import "QSPlugInsPrefPane.h"
+#import <QSBase/QSHelp.h>
+#import <QSBase/QSPlugIn.h>
+#import <QSBase/QSHandledSplitView.h>
+
 #import "QSUpdateController.h"
 
 #import "QSPreferencesController.h"
 
 #import "QSApp.h"
 
-#import "QSHelp.h"
-#import "QSPlugIn.h"
-#import "QSHandledSplitView.h"
+#import "QSPlugInsPrefPane.h"
+
 ////#import <QSBase/QSResourceManager.h>
 
-#import <WebKit/WebKit.h>
-#import "QSPlugInManager.h"
 //static int bundleNameSort(id item1, id item2, void *self) {
 //	return [[item1 objectForInfoDictionaryKey:@"CFBundleName"] caseInsensitiveCompare:[item2 objectForInfoDictionaryKey:@"CFBundleName"]];
 //}
 
 @implementation QSPlugInsPrefPane
 
-- (void)preferencesSplitView {
+- (NSView*)preferencesSplitView {
 	return [sidebar superview];
 }
 
@@ -317,7 +319,7 @@
 	NSBundle *bundle;
 	
 	BOOL filesOpened = NO;
-	while (bundle = [e nextObject]) {
+	while ((bundle = [e nextObject])) {
 		filesOpened |= [self showInfoForPlugIn:bundle];
 	}
 	if (!filesOpened) NSBeep();
@@ -342,44 +344,6 @@
 //            row:(int) rowIndex {
 ////	NSBundle *bundle = [plugInArray objectAtIndex:rowIndex];
 //}
-
-
-- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
-	if ([[aTableColumn identifier] isEqualToString:@"enabled"]) {
-		NSArray *array = [arrayController arrangedObjects];
-		//if ([array count] <rowIndex) return;
-		id object = [array objectAtIndex:rowIndex];
-		//	QSLog(@"%d!!!", [object canBeDisabled]);
-		[aCell setEnabled:[object canBeDisabled]];
-		
-	}
-	if ([[aTableColumn identifier] isEqualToString:@"CFBundleName"] || [[aTableColumn identifier] isEqualToString:@"CFBundleName"]) {
-		BOOL selected = [[aTableView selectedRowIndexes] containsIndex:rowIndex];
-		//if (!selected) {
-		NSArray *array = [arrayController arrangedObjects];
-		id object = [array objectAtIndex:rowIndex];
-		
-		
-		
-		if (selected)
-			[aCell setTextColor:[NSColor textColor]];
-		else if ([object isHidden])
-			[aCell setTextColor:[NSColor redColor]];
-		else if ([object isInstalled])
-			[aCell setTextColor:[NSColor textColor]];
-		else 
-			[aCell setTextColor:[NSColor grayColor]];
-		
-		}
-	}
-
-
-
-//- (int) numberOfRowsInTableView:(NSTableView *)tableView {
-////	return [plugInArray count];
-//    return 0;
-//}
-
 
 - (NSMutableArray *)plugins { return [[plugins retain] autorelease];  }
 - (void)setPlugins:(NSMutableArray *)newPlugins
@@ -412,7 +376,6 @@
 	[self reloadFiltersIgnoringViewMode:NO];
 }
 
-
 - (NSMutableArray *)plugInSets { 
 
 	NSMutableArray *setDicts = [NSMutableArray array];
@@ -425,10 +388,6 @@
 		[NSNumber numberWithInt:1] , @"viewMode",
 		@"Installed Plug-ins", @"text",
 		[NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
-//	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-//		[NSNumber numberWithInt:4] , @"viewMode",
-//		@"Other Plug-ins", @"text",
-//		[NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
 
 	NSArray *categories = [NSArray arrayWithObjects:
 		@"Applications",
@@ -455,13 +414,6 @@
 		@"All Plug-ins", @"text",
 		[NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
 	
-	
-//	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-//		@"Categories", @"text",
-//		categoryDicts, @"children",
-//		[QSResourceManager imageNamed:@"Quicksilver"] , @"image",
-//		nil]];
-	
 	foreach(categoryName, categories) {
 		[categoryDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys: 
 			[NSNumber numberWithInt:3] , @"viewMode",
@@ -470,36 +422,11 @@
 			@"category", @"type",
 			nil]];
 	}
-		
-
-		
-		
-//		QSLog(@"sets %@", setDicts);
-		return setDicts;
+    
+    return setDicts;
 	
 }
 
-- (float) tableView:(NSTableView *)tableView heightOfRow:(int)row {
-//	if (tableView == pluginSetsTable) {
-//		id item = nil;
-//		if ([[setsArrayController arrangedObjects] count] >row)
-//			item = [[setsArrayController arrangedObjects] objectAtIndex:row];
-//		if ([[item objectForKey:@"type"] isEqualToString:@"category"])
-//			return 16; 	
-//		
-//		return 32;
-//	}
-	return 16;
-}
-
-- (BOOL)isItemExpanded:(id)item {return YES;}
-- (float) outlineView:(NSOutlineView *)outlineView heightOfRowByItem:(id)item {
-
-	//QSLog(@"item %@", [item representedObject]);
-	if ([[[item representedObject] objectForKey:@"type"] isEqualToString:@"category"])
-		return 16; 	
-	return 32;
-}
 - (void)reloadFiltersIgnoringViewMode:(BOOL)ignoreView {
 	NSMutableArray *predicates = [NSMutableArray arrayWithCapacity:3];
 	
@@ -515,9 +442,8 @@
 				[predicates addObject:[NSPredicate predicateWithFormat:@"meetsFeature == YES"]];
 				break;
 			case 4: //UnInstalled
-//				[predicates addObject:[NSPredicate predicateWithFormat:@"isInstalled <= 0"]];
-
-//				break;
+				[predicates addObject:[NSPredicate predicateWithFormat:@"isInstalled <= 0"]];
+				break;
 			case 5: //New
 			default:
 				break;
@@ -533,8 +459,6 @@
 	if (!mOptionKeyIsDown)
 		[predicates addObject:[NSPredicate predicateWithFormat:@"isHidden == 0"]];
 	
-	
-	
 	NSPredicate *filterPredicate = nil;
 	if ([predicates count])
 		filterPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicates];
@@ -546,5 +470,45 @@
 	}
 }
 
+#pragma mark -
+#pragma mark NSTableView Delegate
+- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
+	if ([[aTableColumn identifier] isEqualToString:@"enabled"]) {
+		NSArray *array = [arrayController arrangedObjects];
+		id object = [array objectAtIndex:rowIndex];
+		[aCell setEnabled:[object canBeDisabled]];
+	}
+    
+	if ([[aTableColumn identifier] isEqualToString:@"CFBundleName"] || [[aTableColumn identifier] isEqualToString:@"CFBundleName"]) {
+		BOOL selected = [[aTableView selectedRowIndexes] containsIndex:rowIndex];
+		NSArray *array = [arrayController arrangedObjects];
+		id object = [array objectAtIndex:rowIndex];
+		
+		if (selected)
+			[aCell setTextColor:[NSColor textColor]];
+		else if ([object isHidden])
+			[aCell setTextColor:[NSColor redColor]];
+		else if ([object isInstalled])
+			[aCell setTextColor:[NSColor textColor]];
+		else 
+			[aCell setTextColor:[NSColor grayColor]];
+		
+    }
+}
+
+- (float) tableView:(NSTableView *)tableView heightOfRow:(int)row {
+	return 16;
+}
+
+- (BOOL)isItemExpanded:(id)item {return YES;}
+
+#pragma mark -
+#pragma mark NSOutlineView Delegate
+- (float) outlineView:(NSOutlineView *)outlineView heightOfRowByItem:(id)item {
+
+	if ([[[item representedObject] objectForKey:@"type"] isEqualToString:@"category"])
+		return 16; 	
+	return 32;
+}
 
 @end
