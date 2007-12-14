@@ -16,13 +16,13 @@
 #import <Quartz/Quartz.h>
 #import <QuartzCore/QuartzCore.h>
 
-#import <QSBase/NDHotKeyEvent.h>
-#import <QSBase/NDHotKeyEvent_QSMods.h>
-#import <QSBase/NSStatusItem_BLTRExtensions.h>
-#import <QSBase/QSPlugInManager.h>
-#import <QSBase/QSWindowAnimation.h>
-#import <QSBase/QSProxyObject.h>
-#import <QSBase/NDAlias.h>
+#import <QSCrucible/NDHotKeyEvent.h>
+#import <QSCrucible/NDHotKeyEvent_QSMods.h>
+#import <QSCrucible/NSStatusItem_BLTRExtensions.h>
+#import <QSCrucible/QSPlugInManager.h>
+#import <QSCrucible/QSWindowAnimation.h>
+#import <QSCrucible/QSProxyObject.h>
+#import <QSCrucible/NDAlias.h>
 
 #import "QSAboutWindowController.h"
 #import "QSAgreementController.h"

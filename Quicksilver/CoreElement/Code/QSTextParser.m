@@ -8,8 +8,6 @@
 
 #import "QSTextParser.h"
 
-////#import <QSBase/QSCore.h>
-
 @implementation QSTextLineParser
 - (BOOL)validParserForPath:(NSString *)path{
     NSFileManager *manager=[NSFileManager defaultManager];

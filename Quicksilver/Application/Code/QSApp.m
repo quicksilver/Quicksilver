@@ -1,6 +1,6 @@
 
-#import <QSBase/NSEvent+BLTRExtensions.h>
-#import <QSBase/QSProcessMonitor.h>
+#import <QSCrucible/NSEvent+BLTRExtensions.h>
+#import <QSCrucible/QSProcessMonitor.h>
 
 #import "QSController.h"
 

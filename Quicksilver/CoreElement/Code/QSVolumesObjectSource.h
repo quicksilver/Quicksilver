@@ -8,8 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-
-////#import <QSBase/QSObjectSource.h>
 @interface QSVolumesObjectSource : QSObjectSource{
     NSTimeInterval lastMountDate;
 }

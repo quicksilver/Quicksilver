@@ -6,7 +6,6 @@
 
 //
 
-////#import <QSBase/QSObject.h>
 #import "QSSimpleNotifier.h"
 
 @interface QSSilverNotifier : NSWindowController{

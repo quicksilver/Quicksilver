@@ -1,4 +1,4 @@
-#import <QSBase/QSDockingWindow.h>
+#import <QSCrucible/QSDockingWindow.h>
 
 #import "QSTaskViewer.h"
 #import "QSTaskView.h"

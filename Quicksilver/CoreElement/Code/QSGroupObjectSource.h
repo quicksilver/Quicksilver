@@ -7,7 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-//#import <QSBase/QSObjectSource.h>
 
 @interface QSGroupObjectSource : QSObjectSource {
 

@@ -2,5 +2,5 @@ WRAPPER_EXTENSION = element
 GCC_PRECOMPILE_PREFIX_HEADER = YES
 GCC_PREFIX_HEADER = $(QS_SOURCE_ROOT)/Configuration/QSElement_Prefix.pch
 INFOPLIST_PREPROCESS = YES
-OTHER_LDFLAGS = -framework QSBase -framework QSElements 
+OTHER_LDFLAGS = -framework QSCrucible -framework QSElements 
 BUNDLE_LOADER = $(QS_APP_CONTENTS_FOLDER)/MacOS/Quicksilver

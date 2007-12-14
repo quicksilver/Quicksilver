@@ -1,6 +1,6 @@
 #import <Carbon/Carbon.h>
 
-#import <QSBase/QSPlugInManager.h>
+#import <QSCrucible/QSPlugInManager.h>
 
 #import "QSActionsPrefPane.h"
 

@@ -8,8 +8,6 @@
 
 #import "QSFileTemplateManager.h"
 
-////#import <QSBase/QSObject.h>
-////#import <QSBase/QSObject_FileHandling.h>
 @implementation QSFileTemplateManager
 - (QSObject *)instantiateTemplate:(QSObject *)dObject inDirectory:(QSObject *)iObject{
 	NSString *template=[dObject singleFilePath];

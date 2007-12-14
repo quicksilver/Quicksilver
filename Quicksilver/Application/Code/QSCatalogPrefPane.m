@@ -1,4 +1,4 @@
-#import <QSBase/QSHandledSplitView.h>
+#import <QSCrucible/QSHandledSplitView.h>
 
 #import "QSApp.h"
 #import "QSController.h"

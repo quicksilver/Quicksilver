@@ -1,6 +1,6 @@
 #import <Carbon/Carbon.h>
-#import <QSBase/NDAlias.h>
-#import <QSBase/QSFileConflictPanel.h>
+#import <QSCrucible/NDAlias.h>
+#import <QSCrucible/QSFileConflictPanel.h>
 
 #import "QSController.h"
 #import "QSFSBrowserMediator.h"

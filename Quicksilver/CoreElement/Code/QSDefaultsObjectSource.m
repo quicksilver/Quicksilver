@@ -1,4 +1,4 @@
-#import <QSBAse/NDAlias.h>
+#import <QSCrucible/NDAlias.h>
 
 #import "QSDefaultsObjectSource.h"
 

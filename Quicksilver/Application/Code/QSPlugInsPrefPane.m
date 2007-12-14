@@ -1,10 +1,10 @@
 
 #import <WebKit/WebKit.h>
-#import <QSBase/QSPlugInManager.h>
+#import <QSCrucible/QSPlugInManager.h>
 
-#import <QSBase/QSHelp.h>
-#import <QSBase/QSPlugIn.h>
-#import <QSBase/QSHandledSplitView.h>
+#import <QSCrucible/QSHelp.h>
+#import <QSCrucible/QSPlugIn.h>
+#import <QSCrucible/QSHandledSplitView.h>
 
 #import "QSUpdateController.h"
 
@@ -13,8 +13,6 @@
 #import "QSApp.h"
 
 #import "QSPlugInsPrefPane.h"
-
-////#import <QSBase/QSResourceManager.h>
 
 //static int bundleNameSort(id item1, id item2, void *self) {
 //	return [[item1 objectForInfoDictionaryKey:@"CFBundleName"] caseInsensitiveCompare:[item2 objectForInfoDictionaryKey:@"CFBundleName"]];

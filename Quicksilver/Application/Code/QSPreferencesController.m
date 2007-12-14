@@ -1,7 +1,7 @@
 #include <unistd.h>
 
-#import <QSBase/QSTableView.h>
-#import <QSBase/QSTitleToolbarItem.h>
+#import <QSCrucible/QSTableView.h>
+#import <QSCrucible/QSTitleToolbarItem.h>
 
 #import "QSController.h"
 #import "QSPreferencesController.h"

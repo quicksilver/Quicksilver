@@ -8,9 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-
-
-//#import <QSBase/QSParser.h>
 @interface QSDirectoryParser : QSParser
 
 - (NSArray *)objectsFromPath:(NSString *)path depth:(int)depth types:(NSArray *)types;

@@ -4,7 +4,7 @@
 
 
 #import "QSUpdateController.h"
-////#import <QSBase/QSResourceManager.h>
+
 static int bundleNameSort(id item1, id item2, void *self) {
 	return [[item1 objectForInfoDictionaryKey:@"CFBundleName"] caseInsensitiveCompare:[item2 objectForInfoDictionaryKey:@"CFBundleName"]];
 }

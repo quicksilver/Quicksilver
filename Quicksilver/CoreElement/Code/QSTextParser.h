@@ -8,7 +8,5 @@
 
 #import <Cocoa/Cocoa.h>
 
-////#import <QSBase/QSParser.h>
-
 @interface QSTextLineParser : QSParser
 @end

@@ -36,12 +36,12 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		4D7093B70D101CED008498FD /* QSBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7093B30D101CCE008498FD /* QSBase.framework */; };
-		4D7094C70D10215D008498FD /* QSBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7093B30D101CCE008498FD /* QSBase.framework */; };
+		4D7093B70D101CED008498FD /* QSCrucible.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7093B30D101CCE008498FD /* QSCrucible.framework */; };
+		4D7094C70D10215D008498FD /* QSCrucible.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7093B30D101CCE008498FD /* QSCrucible.framework */; };
 		4D9A1DAE0D0EA6600072DE55 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9A89950C497DD400B5912D /* Cocoa.framework */; };
 		4D9A1E240D0ED0C20072DE55 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9A89950C497DD400B5912D /* Cocoa.framework */; };
 		4DC81F040D12B3B50039BD1B /* QSPlugInsPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D23330C49C3B700812049 /* QSPlugInsPrefPane.m */; };
-		4DF635570D106A8000910FC0 /* QSBase.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7093B30D101CCE008498FD /* QSBase.framework */; };
+		4DF635570D106A8000910FC0 /* QSCrucible.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7093B30D101CCE008498FD /* QSCrucible.framework */; };
 		4DF6357B0D10767E00910FC0 /* Apple Address Book.element in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4DF6353E0D10684300910FC0 /* Apple Address Book.element */; };
 		7F17F18C0C4F1FE6001ADE1A /* QSActionsPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D23090C49C3B700812049 /* QSActionsPrefPane.m */; };
 		7F17F18D0C4F1FE6001ADE1A /* QSAdvancedPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D230B0C49C3B700812049 /* QSAdvancedPrefPane.m */; };
@@ -332,13 +332,6 @@
 			remoteGlobalIDString = 8D1AC9600486D14A00FE50C9;
 			remoteInfo = "Apple Address Book";
 		};
-		4DF6359F0D10778400910FC0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7F8B81980C49C639007FC200 /* QSCubeInterfaceElement.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 337357640BAC7B56000A47E2;
-			remoteInfo = "Cube Interface";
-		};
 		7F69D8850CDE367E002B6B3E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7F9A8BCD0C497EBB00B5912D /* Elements.xcodeproj */;
@@ -428,7 +421,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				4DF635570D106A8000910FC0 /* QSBase.framework in Copy Frameworks */,
+				4DF635570D106A8000910FC0 /* QSCrucible.framework in Copy Frameworks */,
 				7FE1D2F50CEC8D9900E19D9E /* QSElements.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
@@ -768,7 +761,7 @@
 				7F69D88C0CDE36EB002B6B3E /* QSElements.framework in Frameworks */,
 				7F5D24E70C49C48600812049 /* Carbon.framework in Frameworks */,
 				4D9A1DAE0D0EA6600072DE55 /* Cocoa.framework in Frameworks */,
-				4D7093B70D101CED008498FD /* QSBase.framework in Frameworks */,
+				4D7093B70D101CED008498FD /* QSCrucible.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -786,7 +779,7 @@
 				7F8827730C498E7D00631170 /* QuartzCore.framework in Frameworks */,
 				7F88286A0C498F1C00631170 /* WebKit.framework in Frameworks */,
 				4D9A1E240D0ED0C20072DE55 /* Cocoa.framework in Frameworks */,
-				4D7094C70D10215D008498FD /* QSBase.framework in Frameworks */,
+				4D7094C70D10215D008498FD /* QSCrucible.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -866,7 +859,7 @@
 		4D7093AF0D101CCE008498FD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4D7093B30D101CCE008498FD /* QSBase.framework */,
+				4D7093B30D101CCE008498FD /* QSCrucible.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1308,7 +1301,6 @@
 				4D7094D30D10223E008498FD /* PBXTargetDependency */,
 				7FA7DB240C5CF12B00A27607 /* PBXTargetDependency */,
 				7FA7DB260C5CF12B00A27607 /* PBXTargetDependency */,
-				4DF635A00D10778400910FC0 /* PBXTargetDependency */,
 			);
 			name = Quicksilver;
 			productName = Quicksilver;
@@ -1387,10 +1379,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		4D7093B30D101CCE008498FD /* QSBase.framework */ = {
+		4D7093B30D101CCE008498FD /* QSCrucible.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = QSBase.framework;
+			path = QSCrucible.framework;
 			remoteRef = 4D7093B20D101CCE008498FD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1710,11 +1702,6 @@
 			isa = PBXTargetDependency;
 			name = "Apple Address Book";
 			targetProxy = 4DF635460D10686200910FC0 /* PBXContainerItemProxy */;
-		};
-		4DF635A00D10778400910FC0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Cube Interface";
-			targetProxy = 4DF6359F0D10778400910FC0 /* PBXContainerItemProxy */;
 		};
 		7FA7DB240C5CF12B00A27607 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

@@ -6,8 +6,8 @@
 
 //
 
-#import <QSBase/QSPlugInManager.h>
-#import <QSBase/QSURLDownloadWrapper.h>
+#import <QSCrucible/QSPlugInManager.h>
+#import <QSCrucible/QSURLDownloadWrapper.h>
 
 #import "QSApp.h"
 

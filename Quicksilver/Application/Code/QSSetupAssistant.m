@@ -1,5 +1,5 @@
 #import <WebKit/WebKit.h>
-#import <QSBase/QSPlugInManager.h>
+#import <QSCrucible/QSPlugInManager.h>
 
 #import "QSController.h"
 

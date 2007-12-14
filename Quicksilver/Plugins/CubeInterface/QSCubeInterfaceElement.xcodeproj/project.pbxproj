@@ -26,6 +26,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4D03FB5C0D1325F000AD14C6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D03FB550D1325F000AD14C6 /* Quicksilver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7F9A7A640C49595900B5912D /* Quicksilver.app */;
+			remoteInfo = Quicksilver;
+		};
+		4D03FB5E0D1325F000AD14C6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D03FB550D1325F000AD14C6 /* Quicksilver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7F5D22470C49C18400812049 /* Core.element */;
+			remoteInfo = Core;
+		};
+		4D03FB750D1325FD00AD14C6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D03FB550D1325F000AD14C6 /* Quicksilver.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 7F9A7A630C49595900B5912D /* Quicksilver */;
+			remoteInfo = Quicksilver;
+		};
 		4D7095CE0D103061008498FD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4D7095C90D103061008498FD /* Elements.xcodeproj */;
@@ -66,6 +87,7 @@
 /* Begin PBXFileReference section */
 		332EA7DA0B99E35500614E3D /* element.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = element.xml; sourceTree = "<group>"; };
 		337357780BAC7B56000A47E2 /* Cube Interface.element */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Cube Interface.element"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D03FB550D1325F000AD14C6 /* Quicksilver.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Quicksilver.xcodeproj; path = ../../Quicksilver.xcodeproj; sourceTree = SOURCE_ROOT; };
 		4D7095700D102C3A008498FD /* QSElement_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSElement_Debug.xcconfig; sourceTree = "<group>"; };
 		4D7095710D102C3A008498FD /* QSElement_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSElement_Prefix.pch; sourceTree = "<group>"; };
 		4D7095720D102C3A008498FD /* QSElement_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSElement_Release.xcconfig; sourceTree = "<group>"; };
@@ -123,6 +145,7 @@
 				0259C582FE90428111CA0C5A /* Resources */,
 				4D7095C90D103061008498FD /* Elements.xcodeproj */,
 				4D7095D20D103079008498FD /* Crucible.xcodeproj */,
+				4D03FB550D1325F000AD14C6 /* Quicksilver.xcodeproj */,
 				1ED78706FE9D4A0611CA0C5A /* Products */,
 				2E58F364FFB232C311CA0CBA /* Frameworks */,
 			);
@@ -193,6 +216,15 @@
 			name = "Other Sources";
 			sourceTree = "<group>";
 		};
+		4D03FB560D1325F000AD14C6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4D03FB5D0D1325F000AD14C6 /* Quicksilver.app */,
+				4D03FB5F0D1325F000AD14C6 /* Core.element */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		4D70956C0D102C3A008498FD /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -217,7 +249,7 @@
 		4D7095D30D103079008498FD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4D7095D70D103079008498FD /* QSBase.framework */,
+				4D7095D70D103079008498FD /* QSCrucible.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -239,6 +271,7 @@
 			dependencies = (
 				4D7095D90D103094008498FD /* PBXTargetDependency */,
 				4D7095DB0D103094008498FD /* PBXTargetDependency */,
+				4D03FB760D1325FD00AD14C6 /* PBXTargetDependency */,
 			);
 			name = "Cube Interface";
 			productInstallPath = "$(HOME)/Developer/Palettes";
@@ -272,6 +305,10 @@
 					ProductGroup = 4D7095CA0D103061008498FD /* Products */;
 					ProjectRef = 4D7095C90D103061008498FD /* Elements.xcodeproj */;
 				},
+				{
+					ProductGroup = 4D03FB560D1325F000AD14C6 /* Products */;
+					ProjectRef = 4D03FB550D1325F000AD14C6 /* Quicksilver.xcodeproj */;
+				},
 			);
 			projectRoot = ../../..;
 			targets = (
@@ -281,6 +318,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		4D03FB5D0D1325F000AD14C6 /* Quicksilver.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = Quicksilver.app;
+			remoteRef = 4D03FB5C0D1325F000AD14C6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4D03FB5F0D1325F000AD14C6 /* Core.element */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Core.element;
+			remoteRef = 4D03FB5E0D1325F000AD14C6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		4D7095CF0D103061008498FD /* QSElements.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -295,10 +346,10 @@
 			remoteRef = 4D7095D00D103061008498FD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4D7095D70D103079008498FD /* QSBase.framework */ = {
+		4D7095D70D103079008498FD /* QSCrucible.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = QSBase.framework;
+			path = QSCrucible.framework;
 			remoteRef = 4D7095D60D103079008498FD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -355,6 +406,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4D03FB760D1325FD00AD14C6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Quicksilver;
+			targetProxy = 4D03FB750D1325FD00AD14C6 /* PBXContainerItemProxy */;
+		};
 		4D7095D90D103094008498FD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = QSElements;

@@ -1,6 +1,6 @@
 
 
-#import <QSBase/QSActionProvider.h>
+#import <QSCrucible/QSActionProvider.h>
 
 # define kFileOpenAction @"FileOpenAction"
 # define kFileOpenWithAction @"FileOpenWithAction"

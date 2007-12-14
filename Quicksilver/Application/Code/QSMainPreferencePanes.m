@@ -6,8 +6,8 @@
 
 //
 
-#import <QSBase/NDHotKeyEvent.h>
-#import <QSBase/NDHotKeyEvent_QSMods.h>
+#import <QSCrucible/NDHotKeyEvent.h>
+#import <QSCrucible/NDHotKeyEvent_QSMods.h>
 
 #import "QSApp.h"
 

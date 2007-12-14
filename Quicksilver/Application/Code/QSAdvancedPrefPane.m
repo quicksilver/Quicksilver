@@ -6,7 +6,7 @@
 
 //
 
-#import <QSBase/QSSliderTextCell.h>
+#import <QSCrucible/QSSliderTextCell.h>
 
 #import "QSAdvancedPrefPane.h"
 

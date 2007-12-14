@@ -1,4 +1,4 @@
-#import <QSBase/QSLocalization.h>
+#import <QSCrucible/QSLocalization.h>
 
 #import "QSFileSystemObjectSource.h"
 

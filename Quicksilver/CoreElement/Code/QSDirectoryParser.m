@@ -8,8 +8,8 @@
 
 #import "QSDirectoryParser.h"
 
-#import <QSBase/NDAlias.h>
-#import <QSBase/NDAlias+AliasFile.h>
+#import <QSCrucible/NDAlias.h>
+#import <QSCrucible/NDAlias+AliasFile.h>
 
 @implementation UKDirectoryEnumerator (QSFinderInfo) 
 - (FSCatalogInfo *)currInfo{
