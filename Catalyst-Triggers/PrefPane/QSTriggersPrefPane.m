@@ -1,27 +1,8 @@
 #import "QSTriggersPrefPane.h"
 #import "QSTriggerCenter.h"
-#import <Carbon/Carbon.h>
-#import <QSElements/QSElements.h>
 
-#import <QSBase/QSCore.h>
-#import <QSBase/QSFoundation.h>
-#import <QSBase/QSHandledSplitView.h>
-#import <QSBase/NSEvent+BLTRExtensions.h>
-//#import "QSCommandBuilder.h"
-//#import "QSLibrarian.h"
-//#import "QSAction.h"
-//
-//
-//#import "QSObject.h"
 #import "QSTrigger.h"
-//#import "QSCommand.h"
-//#import "QSInterfaceController.h"
-//#import "QSBackgroundView.h"
-//#import "QSController.h"
-//#import "QSImageAndTextCell.h"
-//#import "QSResourceManager.h"
-//#import "QSHandledSplitView.h"
-//
+
 @implementation QSTriggersArrayController
 - (void)prepareContent{
 	

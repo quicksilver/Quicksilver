@@ -2,8 +2,6 @@
 
 #import <PreferencePanes/PreferencePanes.h>
 
-
-#import <Cocoa/Cocoa.h>
 @class QSCommandBuilder,QSTrigger;
 
 @interface NSObject (QSTriggerManager)

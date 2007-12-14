@@ -7,11 +7,6 @@
 //
 
 #import "QSTriggerManager.h"
-#import <QSBase/QSWindow.h>
-#import <QSBase/QSBezelBackgroundView.h>
-#import <QSBase/NSGeometry_BLTRExtensions.h>
-#import <QSBase/NSImage_BLTRExtensions.h>
-#import <QSBase/QSDefines.h>
 
 @implementation QSTriggerManager
 - (NSView *) settingsView{

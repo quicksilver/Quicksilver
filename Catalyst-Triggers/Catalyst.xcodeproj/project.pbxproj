@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3300F20B0BD19DF000E549F7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3300F20A0BD19DF000E549F7 /* Carbon.framework */; };
-		3300F20E0BD19E1B00E549F7 /* QSElements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3300F20D0BD19E1B00E549F7 /* QSElements.framework */; };
 		3357A2110BB8D01700DECE19 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3357A20C0BB8D01700DECE19 /* InfoPlist.strings */; };
 		3357A2120BB8D01700DECE19 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3357A20E0BB8D01700DECE19 /* MainMenu.nib */; };
 		3357A2130BB8D01700DECE19 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3357A2100BB8D01700DECE19 /* main.m */; };
@@ -22,13 +21,13 @@
 		3357A2560BB8D23800DECE19 /* QSTriggerManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 3357A1E70BB8CFDD00DECE19 /* QSTriggerManager.h */; };
 		3357A2570BB8D23800DECE19 /* QSTrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3357A1E40BB8CFDD00DECE19 /* QSTrigger.m */; };
 		3357A2580BB8D23800DECE19 /* QSTrigger.h in Headers */ = {isa = PBXBuildFile; fileRef = 3357A1E30BB8CFDD00DECE19 /* QSTrigger.h */; };
-		3357A25E0BB8D2A700DECE19 /* QSBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357A25D0BB8D2A700DECE19 /* QSBase.framework */; };
 		3357A3500BB8D41300DECE19 /* Catalyst.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 3357A34F0BB8D41300DECE19 /* Catalyst.xcdatamodel */; };
+		4D508B200D1348C800A9B360 /* QSElements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D508AFC0D1347BA00A9B360 /* QSElements.framework */; };
+		4D508B210D1348CB00A9B360 /* QSCrucible.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D508B1F0D1348BD00A9B360 /* QSCrucible.framework */; };
+		4D508B230D1348D900A9B360 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		7F8D391F0BF0B9EE008935FA /* QSTrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3357A1E40BB8CFDD00DECE19 /* QSTrigger.m */; };
 		7F8D39200BF0B9EF008935FA /* QSTriggerCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3357A1E60BB8CFDD00DECE19 /* QSTriggerCenter.m */; };
 		7F8D39210BF0B9F1008935FA /* QSTriggerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3357A1E80BB8CFDD00DECE19 /* QSTriggerManager.m */; };
-		7F8D392E0BF0BA3C008935FA /* QSBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3357A25D0BB8D2A700DECE19 /* QSBase.framework */; };
-		7F8D392F0BF0BA3C008935FA /* QSElements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3300F20D0BD19E1B00E549F7 /* QSElements.framework */; };
 		7F8D393E0BF0BA9F008935FA /* QSTriggerAgentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8D393C0BF0BA9F008935FA /* QSTriggerAgentController.m */; };
 		8D202CEA0486D31800D8A456 /* Catalyst_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 32DBCFA20370C41700C91783 /* Catalyst_Prefix.pch */; };
 		8D202CF30486D31800D8A456 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
@@ -36,19 +35,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		3357A2420BB8D1D900DECE19 /* PBXContainerItemProxy */ = {
+		4D508AFB0D1347BA00A9B360 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 3357A1AF0BB8CBE500DECE19 /* Elements.xcodeproj */;
+			containerPortal = 4D508AF60D1347BA00A9B360 /* Elements.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216 /* QSElements.framework */;
 			remoteInfo = QSElements;
 		};
-		3357A2440BB8D1D900DECE19 /* PBXContainerItemProxy */ = {
+		4D508AFD0D1347BA00A9B360 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 3357A1AF0BB8CBE500DECE19 /* Elements.xcodeproj */;
+			containerPortal = 4D508AF60D1347BA00A9B360 /* Elements.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 7FD829920B670EBD001934E0;
+			remoteGlobalIDString = 7FD829920B670EBD001934E0 /* Elements Manager.app */;
 			remoteInfo = "Elements Manager";
+		};
+		4D508B1E0D1348BD00A9B360 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D508B1A0D1348BD00A9B360 /* Crucible.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216 /* QSCrucible.framework */;
+			remoteInfo = QSCrucible;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -58,8 +64,6 @@
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		32DBCFA20370C41700C91783 /* Catalyst_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Catalyst_Prefix.pch; sourceTree = "<group>"; };
 		3300F20A0BD19DF000E549F7 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
-		3300F20D0BD19E1B00E549F7 /* QSElements.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSElements.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3357A1AF0BB8CBE500DECE19 /* Elements.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Elements.xcodeproj; path = "../elements-framework/Elements.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		3357A1C60BB8CCB000DECE19 /* Catalyst Agent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Catalyst Agent.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3357A1E10BB8CFDD00DECE19 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
 		3357A1E30BB8CFDD00DECE19 /* QSTrigger.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSTrigger.h; sourceTree = "<group>"; };
@@ -79,8 +83,21 @@
 		3357A20D0BB8D01700DECE19 /* English */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = English; path = InfoPlist.strings; sourceTree = "<group>"; };
 		3357A20F0BB8D01700DECE19 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = MainMenu.nib; sourceTree = "<group>"; };
 		3357A2100BB8D01700DECE19 /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		3357A25D0BB8D2A700DECE19 /* QSBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSBase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3357A34F0BB8D41300DECE19 /* Catalyst.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = Catalyst.xcdatamodel; sourceTree = "<group>"; };
+		4D508AF60D1347BA00A9B360 /* Elements.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Elements.xcodeproj; path = ../Elements/Elements.xcodeproj; sourceTree = SOURCE_ROOT; };
+		4D508B000D1347C200A9B360 /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
+		4D508B010D1347C200A9B360 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		4D508B020D1347C200A9B360 /* Developer.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Developer.xcconfig; path = "/Volumes/myHD/Sources/Utilities/blacktree-alchemy-trunk/Configuration/Developer.xcconfig"; sourceTree = "<absolute>"; };
+		4D508B030D1347C200A9B360 /* QSElement.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSElement.xcconfig; sourceTree = "<group>"; };
+		4D508B040D1347C200A9B360 /* QSElement_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSElement_Debug.xcconfig; sourceTree = "<group>"; };
+		4D508B050D1347C200A9B360 /* QSElement_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSElement_Prefix.pch; sourceTree = "<group>"; };
+		4D508B060D1347C200A9B360 /* QSElement_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSElement_Release.xcconfig; sourceTree = "<group>"; };
+		4D508B070D1347C200A9B360 /* QSPlugIn.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn.xcconfig; sourceTree = "<group>"; };
+		4D508B080D1347C200A9B360 /* QSPlugIn_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Debug.xcconfig; sourceTree = "<group>"; };
+		4D508B090D1347C200A9B360 /* QSPlugIn_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPlugIn_Prefix.pch; sourceTree = "<group>"; };
+		4D508B0A0D1347C200A9B360 /* QSPlugIn_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Release.xcconfig; sourceTree = "<group>"; };
+		4D508B0B0D1347C200A9B360 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		4D508B1A0D1348BD00A9B360 /* Crucible.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Crucible.xcodeproj; path = ../Crucible/Crucible.xcodeproj; sourceTree = SOURCE_ROOT; };
 		7F8D393C0BF0BA9F008935FA /* QSTriggerAgentController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSTriggerAgentController.m; sourceTree = "<group>"; };
 		7F8D393D0BF0BA9F008935FA /* QSTriggerAgentController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSTriggerAgentController.h; sourceTree = "<group>"; };
 		8D202CF80486D31800D8A456 /* Catalyst.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Catalyst.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,8 +109,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F8D392E0BF0BA3C008935FA /* QSBase.framework in Frameworks */,
-				7F8D392F0BF0BA3C008935FA /* QSElements.framework in Frameworks */,
+				4D508B200D1348C800A9B360 /* QSElements.framework in Frameworks */,
+				4D508B210D1348CB00A9B360 /* QSCrucible.framework in Frameworks */,
+				4D508B230D1348D900A9B360 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,9 +121,7 @@
 			files = (
 				8D202CF30486D31800D8A456 /* Cocoa.framework in Frameworks */,
 				8D202CF40486D31800D8A456 /* PreferencePanes.framework in Frameworks */,
-				3357A25E0BB8D2A700DECE19 /* QSBase.framework in Frameworks */,
 				3300F20B0BD19DF000E549F7 /* Carbon.framework in Frameworks */,
-				3300F20E0BD19E1B00E549F7 /* QSElements.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,7 +131,9 @@
 		089C166AFE841209C02AAC07 /* Catalyst */ = {
 			isa = PBXGroup;
 			children = (
-				3357A1AF0BB8CBE500DECE19 /* Elements.xcodeproj */,
+				4D508AFF0D1347C200A9B360 /* Configuration */,
+				4D508AF60D1347BA00A9B360 /* Elements.xcodeproj */,
+				4D508B1A0D1348BD00A9B360 /* Crucible.xcodeproj */,
 				3357A1E00BB8CFDD00DECE19 /* Agent */,
 				3357A1E20BB8CFDD00DECE19 /* Framework */,
 				3357A1E90BB8CFDD00DECE19 /* Plugins */,
@@ -217,8 +235,6 @@
 		3357A1EC0BB8CFDD00DECE19 /* PrefPane */ = {
 			isa = PBXGroup;
 			children = (
-				3300F20D0BD19E1B00E549F7 /* QSElements.framework */,
-				3357A25D0BB8D2A700DECE19 /* QSBase.framework */,
 				3357A1F60BB8CFDD00DECE19 /* QSTriggersPrefPane.h */,
 				3357A1F70BB8CFDD00DECE19 /* QSTriggersPrefPane.m */,
 				3357A1F30BB8CFDD00DECE19 /* QSTriggersPrefPane.nib */,
@@ -247,11 +263,39 @@
 			path = English.lproj;
 			sourceTree = "<group>";
 		};
-		3357A23E0BB8D1D900DECE19 /* Products */ = {
+		4D508AF70D1347BA00A9B360 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3357A2430BB8D1D900DECE19 /* QSElements.framework */,
-				3357A2450BB8D1D900DECE19 /* Elements Manager.app */,
+				4D508AFC0D1347BA00A9B360 /* QSElements.framework */,
+				4D508AFE0D1347BA00A9B360 /* Elements Manager.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4D508AFF0D1347C200A9B360 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				4D508B000D1347C200A9B360 /* Common.xcconfig */,
+				4D508B010D1347C200A9B360 /* Debug.xcconfig */,
+				4D508B020D1347C200A9B360 /* Developer.xcconfig */,
+				4D508B030D1347C200A9B360 /* QSElement.xcconfig */,
+				4D508B040D1347C200A9B360 /* QSElement_Debug.xcconfig */,
+				4D508B050D1347C200A9B360 /* QSElement_Prefix.pch */,
+				4D508B060D1347C200A9B360 /* QSElement_Release.xcconfig */,
+				4D508B070D1347C200A9B360 /* QSPlugIn.xcconfig */,
+				4D508B080D1347C200A9B360 /* QSPlugIn_Debug.xcconfig */,
+				4D508B090D1347C200A9B360 /* QSPlugIn_Prefix.pch */,
+				4D508B0A0D1347C200A9B360 /* QSPlugIn_Release.xcconfig */,
+				4D508B0B0D1347C200A9B360 /* Release.xcconfig */,
+			);
+			name = Configuration;
+			path = ../Configuration;
+			sourceTree = SOURCE_ROOT;
+		};
+		4D508B1B0D1348BD00A9B360 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4D508B1F0D1348BD00A9B360 /* QSCrucible.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -299,7 +343,6 @@
 				8D202CEC0486D31800D8A456 /* Resources */,
 				8D202CF00486D31800D8A456 /* Sources */,
 				8D202CF20486D31800D8A456 /* Frameworks */,
-				8D202CF50486D31800D8A456 /* Rez */,
 			);
 			buildRules = (
 			);
@@ -317,13 +360,18 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 1DBD214C08BA80EA00186707 /* Build configuration list for PBXProject "Catalyst" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 089C166AFE841209C02AAC07 /* Catalyst */;
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 3357A23E0BB8D1D900DECE19 /* Products */;
-					ProjectRef = 3357A1AF0BB8CBE500DECE19 /* Elements.xcodeproj */;
+					ProductGroup = 4D508B1B0D1348BD00A9B360 /* Products */;
+					ProjectRef = 4D508B1A0D1348BD00A9B360 /* Crucible.xcodeproj */;
+				},
+				{
+					ProductGroup = 4D508AF70D1347BA00A9B360 /* Products */;
+					ProjectRef = 4D508AF60D1347BA00A9B360 /* Elements.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -335,18 +383,25 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		3357A2430BB8D1D900DECE19 /* QSElements.framework */ = {
+		4D508AFC0D1347BA00A9B360 /* QSElements.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = QSElements.framework;
-			remoteRef = 3357A2420BB8D1D900DECE19 /* PBXContainerItemProxy */;
+			remoteRef = 4D508AFB0D1347BA00A9B360 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		3357A2450BB8D1D900DECE19 /* Elements Manager.app */ = {
+		4D508AFE0D1347BA00A9B360 /* Elements Manager.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = "Elements Manager.app";
-			remoteRef = 3357A2440BB8D1D900DECE19 /* PBXContainerItemProxy */;
+			remoteRef = 4D508AFD0D1347BA00A9B360 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4D508B1F0D1348BD00A9B360 /* QSCrucible.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = QSCrucible.framework;
+			remoteRef = 4D508B1E0D1348BD00A9B360 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -371,16 +426,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXRezBuildPhase section */
-		8D202CF50486D31800D8A456 /* Rez */ = {
-			isa = PBXRezBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXRezBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3357A1C30BB8CCB000DECE19 /* Sources */ = {
@@ -456,44 +501,18 @@
 		1DBD214908BA80EA00186707 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
-				);
-				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../Developer/Build/Release\"";
-				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../Developer/Build/Release\"";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Catalyst_Prefix.pch;
 				INFOPLIST_FILE = PrefPane/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/PreferencePanes";
 				PRODUCT_NAME = Catalyst;
 				WRAPPER_EXTENSION = prefPane;
-				ZERO_LINK = YES;
 			};
 			name = Debug;
 		};
 		1DBD214A08BA80EA00186707 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
-				);
-				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../Developer/Build/Release\"";
-				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../../Developer/Build/Release\"";
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Catalyst_Prefix.pch;
 				INFOPLIST_FILE = PrefPane/Info.plist;
@@ -505,71 +524,39 @@
 		};
 		1DBD214D08BA80EA00186707 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D508B010D1347C200A9B360 /* Debug.xcconfig */;
 			buildSettings = {
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Debug;
 		};
 		1DBD214E08BA80EA00186707 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D508B0B0D1347C200A9B360 /* Release.xcconfig */;
 			buildSettings = {
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Release;
 		};
 		3357A1CA0BB8CCB000DECE19 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Catalyst_Prefix.pch;
 				INFOPLIST_FILE = Agent/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "Catalyst Agent";
 				WRAPPER_EXTENSION = app;
-				ZERO_LINK = YES;
 			};
 			name = Debug;
 		};
 		3357A1CB0BB8CCB000DECE19 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Catalyst_Prefix.pch;
 				INFOPLIST_FILE = Agent/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "Catalyst Agent";
 				WRAPPER_EXTENSION = app;
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};

@@ -8,15 +8,6 @@
 //
 //
 #import "QSTrigger.h"
-#import <QSBase/QSPaths.h>
-#import <QSBase/QSMacros.h>
-#import <QSBase/QSDefines.h>
-#import <QSBase/QSKeys.h>
-
-#import <QSBase/QSMacros.h>
-#import <QSBase/QSDebug.h>
-//#import "QSObject.h"
-//#import "QSCommand.h"
 
 //#import "QSTriggersPrefPane.h"
 #define pTriggerSettings	@"~/Library/Application Support/Quicksilver/Triggers.plist"
