@@ -14,6 +14,7 @@
 		3373576C0BAC7B56000A47E2 /* QSCubeInterfaceBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F03F74F0A42C50B00B57270 /* QSCubeInterfaceBackgroundView.m */; };
 		3373576D0BAC7B56000A47E2 /* QSShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F520AD50A50B20900A6671F /* QSShadowView.m */; };
 		3373576F0BAC7B56000A47E2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD92D38A0106425D02CA0E72 /* Cocoa.framework */; };
+		4DC821080D12ED1B0039BD1B /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC821070D12ED1B0039BD1B /* Carbon.framework */; };
 		7F7F19380C30B4A60074ECC3 /* QSCommandInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F19370C30B4A60074ECC3 /* QSCommandInterfaceController.m */; };
 		7F7F19830C30B9F30074ECC3 /* QSSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F19820C30B9F30074ECC3 /* QSSearchController.m */; };
 		7F7F1A210C30C7810074ECC3 /* QSCatalogSearchProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F1A200C30C7810074ECC3 /* QSCatalogSearchProvider.m */; };
@@ -71,6 +72,8 @@
 		4D7095890D102D8B008498FD /* QSElement.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSElement.xcconfig; sourceTree = "<group>"; };
 		4D7095C90D103061008498FD /* Elements.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Elements.xcodeproj; path = ../../../Elements/Elements.xcodeproj; sourceTree = SOURCE_ROOT; };
 		4D7095D20D103079008498FD /* Crucible.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Crucible.xcodeproj; path = ../../../Crucible/Crucible.xcodeproj; sourceTree = SOURCE_ROOT; };
+		4DC81F380D12BC270039BD1B /* QSPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSPreferencesController.h; path = ../../Application/Code/QSPreferencesController.h; sourceTree = SOURCE_ROOT; };
+		4DC821070D12ED1B0039BD1B /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		7F0149800A401C87006AF239 /* QSCubeInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCubeInterface.h; sourceTree = "<group>"; };
 		7F0149810A401C87006AF239 /* QSCubeInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCubeInterface.m; sourceTree = "<group>"; };
 		7F03F74E0A42C50B00B57270 /* QSCubeInterfaceBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCubeInterfaceBackgroundView.h; sourceTree = "<group>"; };
@@ -104,6 +107,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3373576F0BAC7B56000A47E2 /* Cocoa.framework in Frameworks */,
+				4DC821080D12ED1B0039BD1B /* Carbon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,12 +117,12 @@
 		0259C574FE90428111CA0C5A /* QSCubeInterfacePlugIn */ = {
 			isa = PBXGroup;
 			children = (
+				4D70956C0D102C3A008498FD /* Configuration */,
 				32DBCF9E0370C38000C91783 /* Classes */,
 				32DBCF9F0370C38200C91783 /* Other Sources */,
 				0259C582FE90428111CA0C5A /* Resources */,
 				4D7095C90D103061008498FD /* Elements.xcodeproj */,
 				4D7095D20D103079008498FD /* Crucible.xcodeproj */,
-				4D70956C0D102C3A008498FD /* Configuration */,
 				1ED78706FE9D4A0611CA0C5A /* Products */,
 				2E58F364FFB232C311CA0CBA /* Frameworks */,
 			);
@@ -148,6 +152,7 @@
 		2E58F364FFB232C311CA0CBA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4DC821070D12ED1B0039BD1B /* Carbon.framework */,
 				DD92D38A0106425D02CA0E72 /* Cocoa.framework */,
 			);
 			name = Frameworks;
@@ -183,6 +188,7 @@
 		32DBCF9F0370C38200C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				4DC81F380D12BC270039BD1B /* QSPreferencesController.h */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
