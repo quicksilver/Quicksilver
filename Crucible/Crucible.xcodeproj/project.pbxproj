@@ -450,7 +450,7 @@
 		4D7095360D102871008498FD /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
 		4D7095370D102871008498FD /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		4D7095400D102871008498FD /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
-		4D7095AB0D102EFE008498FD /* Developer.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Developer.xcconfig; path = "/Volumes/myHD/Sources/Utilities/blacktree-alchemy-trunk/Configuration/Developer.xcconfig"; sourceTree = "<absolute>"; };
+		4D7095AB0D102EFE008498FD /* Developer.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Developer.xcconfig; path = ../Configuration/Developer.xcconfig; sourceTree = SOURCE_ROOT; };
 		7F17F05B0C4F16F0001ADE1A /* NSApplication+ServicesModification.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NSApplication+ServicesModification.h"; sourceTree = "<group>"; };
 		7F17F05C0C4F16F0001ADE1A /* NSApplication+ServicesModification.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NSApplication+ServicesModification.m"; sourceTree = "<group>"; };
 		7F17F0600C4F172A001ADE1A /* DNDArrayController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DNDArrayController.h; sourceTree = "<group>"; };
