@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		4DC820DD0D12EA180039BD1B /* Build Quicksilver */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 4DC820EC0D12EA4D0039BD1B /* Build configuration list for PBXAggregateTarget "Build Quicksilver" */;
+			buildPhases = (
+				4DC820FA0D12EC0F0039BD1B /* Copy Main Plugins */,
+			);
+			dependencies = (
+				4DC820E10D12EA220039BD1B /* PBXTargetDependency */,
+				4DC820E30D12EA2A0039BD1B /* PBXTargetDependency */,
+			);
+			name = "Build Quicksilver";
+			productName = "Build Quicksilver";
+		};
 		4DF635410D10685700910FC0 /* Build All */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 4DF6354A0D10689000910FC0 /* Build configuration list for PBXAggregateTarget "Build All" */;
@@ -14,7 +27,7 @@
 				4DF635490D10689000910FC0 /* CopyFiles */,
 			);
 			dependencies = (
-				4DF635450D10685D00910FC0 /* PBXTargetDependency */,
+				4DC820E50D12EA330039BD1B /* PBXTargetDependency */,
 				4DF635470D10686200910FC0 /* PBXTargetDependency */,
 			);
 			name = "Build All";
@@ -27,10 +40,9 @@
 		4D7094C70D10215D008498FD /* QSBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7093B30D101CCE008498FD /* QSBase.framework */; };
 		4D9A1DAE0D0EA6600072DE55 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9A89950C497DD400B5912D /* Cocoa.framework */; };
 		4D9A1E240D0ED0C20072DE55 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9A89950C497DD400B5912D /* Cocoa.framework */; };
+		4DC81F040D12B3B50039BD1B /* QSPlugInsPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D23330C49C3B700812049 /* QSPlugInsPrefPane.m */; };
 		4DF635570D106A8000910FC0 /* QSBase.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7093B30D101CCE008498FD /* QSBase.framework */; };
-		4DF6357B0D10767E00910FC0 /* Apple Address Book.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4DF6353E0D10684300910FC0 /* Apple Address Book.bundle */; };
-		4DF6359D0D10777500910FC0 /* Cube Interface.element in Copy Main Plugins */ = {isa = PBXBuildFile; fileRef = 4DF635330D10682700910FC0 /* Cube Interface.element */; };
-		4DF6359E0D10777500910FC0 /* Core.element in Copy Main Plugins */ = {isa = PBXBuildFile; fileRef = 7F5D22470C49C18400812049 /* Core.element */; };
+		4DF6357B0D10767E00910FC0 /* Apple Address Book.element in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4DF6353E0D10684300910FC0 /* Apple Address Book.element */; };
 		7F17F18C0C4F1FE6001ADE1A /* QSActionsPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D23090C49C3B700812049 /* QSActionsPrefPane.m */; };
 		7F17F18D0C4F1FE6001ADE1A /* QSAdvancedPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D230B0C49C3B700812049 /* QSAdvancedPrefPane.m */; };
 		7F17F18E0C4F1FE6001ADE1A /* QSCatalogPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D23170C49C3B700812049 /* QSCatalogPrefPane.m */; };
@@ -278,47 +290,54 @@
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = QSBase;
 		};
+		4DC820E00D12EA220039BD1B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7F9A7A630C49595900B5912D;
+			remoteInfo = Quicksilver;
+		};
+		4DC820E20D12EA2A0039BD1B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7F5D22460C49C18400812049;
+			remoteInfo = Core;
+		};
+		4DC820E40D12EA330039BD1B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4DC820DD0D12EA180039BD1B;
+			remoteInfo = "Build Quicksilver";
+		};
 		4DF635320D10682700910FC0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7F8B81980C49C639007FC200 /* QSCubeInterfaceElement.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 337357780BAC7B56000A47E2 /* Cube Interface.element */;
+			remoteGlobalIDString = 337357780BAC7B56000A47E2;
 			remoteInfo = "Cube Interface";
 		};
 		4DF6353D0D10684300910FC0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4DF635360D10684300910FC0 /* QSAddressBookElement.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8D1AC9740486D14A00FE50C9 /* Apple Address Book.bundle */;
+			remoteGlobalIDString = 8D1AC9740486D14A00FE50C9;
 			remoteInfo = "Apple Address Book";
-		};
-		4DF635440D10685D00910FC0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7F9A7A630C49595900B5912D /* Quicksilver */;
-			remoteInfo = Quicksilver;
 		};
 		4DF635460D10686200910FC0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4DF635360D10684300910FC0 /* QSAddressBookElement.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 8D1AC9600486D14A00FE50C9 /* Apple Address Book */;
+			remoteGlobalIDString = 8D1AC9600486D14A00FE50C9;
 			remoteInfo = "Apple Address Book";
 		};
 		4DF6359F0D10778400910FC0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7F8B81980C49C639007FC200 /* QSCubeInterfaceElement.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 337357640BAC7B56000A47E2 /* Cube Interface */;
+			remoteGlobalIDString = 337357640BAC7B56000A47E2;
 			remoteInfo = "Cube Interface";
-		};
-		7F5D22560C49C1D900812049 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7F5D22460C49C18400812049;
-			remoteInfo = Core;
 		};
 		7F69D8850CDE367E002B6B3E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -372,26 +391,24 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		4DC820FA0D12EC0F0039BD1B /* Copy Main Plugins */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(QS_APP_CONTENTS_FOLDER)/PlugIns";
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			name = "Copy Main Plugins";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4DF635490D10689000910FC0 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = Quicksilver.app/Contents/PlugIns;
-			dstSubfolderSpec = 16;
+			dstPath = "$(QS_APP_CONTENTS_DIR)/PlugIns";
+			dstSubfolderSpec = 0;
 			files = (
-				4DF6357B0D10767E00910FC0 /* Apple Address Book.bundle in CopyFiles */,
+				4DF6357B0D10767E00910FC0 /* Apple Address Book.element in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4DF6359C0D10777200910FC0 /* Copy Main Plugins */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				4DF6359D0D10777500910FC0 /* Cube Interface.element in Copy Main Plugins */,
-				4DF6359E0D10777500910FC0 /* Core.element in Copy Main Plugins */,
-			);
-			name = "Copy Main Plugins";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		7F2BF3C70C5BAF3600E80ABF /* Copy Spotlight Importer */ = {
@@ -893,7 +910,7 @@
 		4DF635370D10684300910FC0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4DF6353E0D10684300910FC0 /* Apple Address Book.bundle */,
+				4DF6353E0D10684300910FC0 /* Apple Address Book.element */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1281,7 +1298,6 @@
 				7F9A8BDF0C497F1500B5912D /* Copy Frameworks */,
 				7F2BF3C70C5BAF3600E80ABF /* Copy Spotlight Importer */,
 				7FA7DB2F0C5CF13E00A27607 /* Copy Quick Look Generator */,
-				4DF6359C0D10777200910FC0 /* Copy Main Plugins */,
 				7F9A7A610C49595900B5912D /* Sources */,
 				7F9A7A620C49595900B5912D /* Frameworks */,
 			);
@@ -1290,7 +1306,6 @@
 			dependencies = (
 				7FE1D31A0CEC8DAE00E19D9E /* PBXTargetDependency */,
 				4D7094D30D10223E008498FD /* PBXTargetDependency */,
-				7F5D22570C49C1D900812049 /* PBXTargetDependency */,
 				7FA7DB240C5CF12B00A27607 /* PBXTargetDependency */,
 				7FA7DB260C5CF12B00A27607 /* PBXTargetDependency */,
 				4DF635A00D10778400910FC0 /* PBXTargetDependency */,
@@ -1363,6 +1378,7 @@
 			);
 			projectRoot = ..;
 			targets = (
+				4DC820DD0D12EA180039BD1B /* Build Quicksilver */,
 				7F9A7A630C49595900B5912D /* Quicksilver */,
 				7F5D22460C49C18400812049 /* Core */,
 				4DF635410D10685700910FC0 /* Build All */,
@@ -1385,10 +1401,10 @@
 			remoteRef = 4DF635320D10682700910FC0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4DF6353E0D10684300910FC0 /* Apple Address Book.bundle */ = {
+		4DF6353E0D10684300910FC0 /* Apple Address Book.element */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "Apple Address Book.bundle";
+			path = "Apple Address Book.element";
 			remoteRef = 4DF6353D0D10684300910FC0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1653,6 +1669,7 @@
 				7F17F1910C4F1FE6001ADE1A /* QSMainMenuPrefPane.m in Sources */,
 				7F17F1920C4F1FE6001ADE1A /* QSMainPreferencePanes.m in Sources */,
 				7F17F1940C4F1FE6001ADE1A /* QSCatalogSwitchButtonCell.m in Sources */,
+				4DC81F040D12B3B50039BD1B /* QSPlugInsPrefPane.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1674,10 +1691,20 @@
 			name = QSBase;
 			targetProxy = 4D7094D50D10225B008498FD /* PBXContainerItemProxy */;
 		};
-		4DF635450D10685D00910FC0 /* PBXTargetDependency */ = {
+		4DC820E10D12EA220039BD1B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7F9A7A630C49595900B5912D /* Quicksilver */;
-			targetProxy = 4DF635440D10685D00910FC0 /* PBXContainerItemProxy */;
+			targetProxy = 4DC820E00D12EA220039BD1B /* PBXContainerItemProxy */;
+		};
+		4DC820E30D12EA2A0039BD1B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7F5D22460C49C18400812049 /* Core */;
+			targetProxy = 4DC820E20D12EA2A0039BD1B /* PBXContainerItemProxy */;
+		};
+		4DC820E50D12EA330039BD1B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4DC820DD0D12EA180039BD1B /* Build Quicksilver */;
+			targetProxy = 4DC820E40D12EA330039BD1B /* PBXContainerItemProxy */;
 		};
 		4DF635470D10686200910FC0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1688,11 +1715,6 @@
 			isa = PBXTargetDependency;
 			name = "Cube Interface";
 			targetProxy = 4DF6359F0D10778400910FC0 /* PBXContainerItemProxy */;
-		};
-		7F5D22570C49C1D900812049 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7F5D22460C49C18400812049 /* Core */;
-			targetProxy = 7F5D22560C49C1D900812049 /* PBXContainerItemProxy */;
 		};
 		7FA7DB240C5CF12B00A27607 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1885,6 +1907,27 @@
 			};
 			name = Release;
 		};
+		4DC820DE0D12EA180039BD1B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Build Quicksilver";
+			};
+			name = Debug;
+		};
+		4DC820DF0D12EA180039BD1B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Build Quicksilver";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		4DF635420D10685700910FC0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1948,6 +1991,15 @@
 			buildConfigurations = (
 				1DEB91B208733DA50010E9CD /* Debug */,
 				1DEB91B308733DA50010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		4DC820EC0D12EA4D0039BD1B /* Build configuration list for PBXAggregateTarget "Build Quicksilver" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4DC820DE0D12EA180039BD1B /* Debug */,
+				4DC820DF0D12EA180039BD1B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

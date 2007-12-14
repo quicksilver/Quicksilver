@@ -1,4 +1,4 @@
 // QS_SOURCE_ROOT should always point to the root of the Quicksilver source tree.
-// Please quote (") this if there are spaces in the path.
+// Please quote ("") this if there are spaces in the path, and no ending '/'.
 
-QS_SOURCE_ROOT=
+QS_SOURCE_ROOT = /Volumes/myHD/Sources/Utilities/blacktree-alchemy-trunk
