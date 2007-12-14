@@ -346,7 +346,7 @@
 
 - (void)draggingEnded:(id <NSDraggingInfo>)sender {}
 
-- (void)drawRect:(NSRect)rect { [[self cell] drawWithFrame:rectFromSize([self frame] .size) inView:self];  }
+- (void)drawRect:(NSRect)rect { [[self cell] drawWithFrame:rectFromSize([self frame].size) inView:self];  }
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
 	NSString *action = [[self objectValue] actionForDragOperation:lastDragMask withObject:draggedObject];

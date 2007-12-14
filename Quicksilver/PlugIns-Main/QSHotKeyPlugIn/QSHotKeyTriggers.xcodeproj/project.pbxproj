@@ -227,14 +227,24 @@
 		92DC5A060CFD347A005C8442 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(QSFrameworks)";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(NATIVE_ARCH)";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(BUILD_DIR)",
+					"$(QSFrameworks)",
+				);
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				INFOPLIST_FILE = Info.plist;
 				OTHER_LDFLAGS = "-bundle";
+				PREBINDING = NO;
 				PRODUCT_NAME = "HotKey Triggers";
-				SYMROOT = "$(PROJECT_DIR)/build";
+				SYMROOT = ../../build;
 				WRAPPER_EXTENSION = qsplugin;
+				ZERO_LINK = YES;
 			};
 			name = Debug;
 		};

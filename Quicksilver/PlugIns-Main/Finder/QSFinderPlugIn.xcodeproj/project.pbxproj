@@ -178,22 +178,24 @@
 		7FE8955D085D305D0016C421 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				BUILD_DIR = "$(SYMROOT)/Embedded/PlugIns";
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(QSFrameworks)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(BUILD_DIR)",
+					"$(QSFrameworks)",
+				);
+				GCC_CW_ASM_SYNTAX = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = QSFinderPlugIn_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				OTHER_LDFLAGS = "-bundle";
+				PREBINDING = NO;
 				PRODUCT_NAME = "Finder Module";
+				SYMROOT = ../../build;
 				WRAPPER_EXTENSION = qsplugin;
 				ZERO_LINK = YES;
 			};

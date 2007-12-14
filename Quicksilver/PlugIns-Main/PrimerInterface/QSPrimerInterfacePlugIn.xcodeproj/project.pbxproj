@@ -206,17 +206,20 @@
 		7F07AB7E085E3B0F00E2AFC4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(QSFrameworks)";
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(BUILD_DIR)",
+					"$(QSFrameworks)",
+				);
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
 				INFOPLIST_FILE = Info.plist;
 				OTHER_LDFLAGS = "-bundle";
+				PREBINDING = NO;
 				PRODUCT_NAME = "Primer Interface";
-				SYMROOT = "$(PROJECT_DIR)/build";
+				SYMROOT = ../../build;
 				WRAPPER_EXTENSION = qsplugin;
 				ZERO_LINK = YES;
 			};
@@ -254,24 +257,6 @@
 			};
 			name = Release;
 		};
-		7F07AB80085E3B0F00E2AFC4 /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUILD_DIR = "$(SYMROOT)/Embedded/PlugIns";
-				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../../Build/Release\"";
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = QSPrimerInterfacePlugIn_Prefix.pch;
-				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Developer/Palettes";
-				OBJROOT = "$(BUILD_DIR)";
-				OTHER_LDFLAGS = "-bundle";
-				PRODUCT_NAME = "Primer Interface";
-				SYMROOT = ../../build;
-				WRAPPER_EXTENSION = qsplugin;
-			};
-			name = Default;
-		};
 		7F07AB82085E3B0F00E2AFC4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -292,14 +277,6 @@
 			};
 			name = Release;
 		};
-		7F07AB84085E3B0F00E2AFC4 /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
-			};
-			name = Default;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -308,20 +285,18 @@
 			buildConfigurations = (
 				7F07AB7E085E3B0F00E2AFC4 /* Debug */,
 				7F07AB7F085E3B0F00E2AFC4 /* Release */,
-				7F07AB80085E3B0F00E2AFC4 /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Debug;
 		};
 		7F07AB81085E3B0F00E2AFC4 /* Build configuration list for PBXProject "QSPrimerInterfacePlugIn" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7F07AB82085E3B0F00E2AFC4 /* Debug */,
 				7F07AB83085E3B0F00E2AFC4 /* Release */,
-				7F07AB84085E3B0F00E2AFC4 /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
