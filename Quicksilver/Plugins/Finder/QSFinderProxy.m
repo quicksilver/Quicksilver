@@ -1,7 +1,6 @@
 
 
 #import "QSFinderProxy.h"
-#import <QSBase/NSObject+ReaperExtensions.h>
 
 
 
@@ -158,7 +157,7 @@ target:
 		if (path)
 			finderScript=[[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:nil];
 	}
-	[self doomSelector:@selector(setFinderScript:) delay:10*MINUTES extend:YES];
+	[self performSelector:@selector(setFinderScript:) withObject:nil afterDelay:10*MINUTES extend:YES];
 	return finderScript;
 }
 
@@ -184,12 +183,19 @@ target:
 	// Trash Object
 	NSMutableArray *array=[NSMutableArray array];
 	[array addObject:[QSAction actionWithDictionary:[NSDictionary dictionaryWithObjectsAndKeys:
-															 self,kActionProvider,@"openTrash:",kActionSelector,nil]
-										 identifier:@"FinderOpenTrashAction" bundle:[self bundle]]];
+                                                     self,          kActionProvider,
+                                                     @"openTrash:", kActionSelector,
+                                                     nil]
+										 identifier:@"FinderOpenTrashAction"
+                                             bundle:[NSBundle bundleForClass:[self class]]]];
 	[array addObject:[QSAction actionWithDictionary:[NSDictionary dictionaryWithObjectsAndKeys:
-															 self,kActionProvider,@"emptyTrash:",kActionSelector,nil]
-										 identifier:@"FinderEmptyTrashAction" bundle:[self bundle]]];
-	id handler=[self handlerForObject:dObject];
+                                                     self,          kActionProvider,
+                                                     @"emptyTrash:",kActionSelector,
+                                                     nil]
+										 identifier:@"FinderEmptyTrashAction"
+                                             bundle:[NSBundle bundleForClass:[self class]]]];
+    
+	id handler = [self handlerForObject:dObject];
 	if ([handler respondsToSelector:@selector(actionsForDirectObject:indirectObject:)])
 		return [handler actionsForDirectObject:dObject indirectObject:nil];
 	return [NSMutableArray array];

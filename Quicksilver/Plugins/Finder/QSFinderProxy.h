@@ -1,7 +1,4 @@
 
-
-#import <Foundation/Foundation.h>
-
 #import "QSFSBrowserMediator.h"
 
 @interface QSFinderProxy : NSObject <QSFSBrowserMediator> {
