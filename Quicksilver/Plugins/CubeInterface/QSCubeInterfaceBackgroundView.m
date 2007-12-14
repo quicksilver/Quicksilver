@@ -7,7 +7,6 @@
 //
 
 #import "QSCubeInterfaceBackgroundView.h"
-#import <QSBase/QSShading.h>
 
 @implementation QSCubeInterfaceBackgroundView
 

@@ -30,21 +30,21 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 4D03FB550D1325F000AD14C6 /* Quicksilver.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 7F9A7A640C49595900B5912D /* Quicksilver.app */;
+			remoteGlobalIDString = 7F9A7A640C49595900B5912D;
 			remoteInfo = Quicksilver;
 		};
 		4D03FB5E0D1325F000AD14C6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4D03FB550D1325F000AD14C6 /* Quicksilver.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 7F5D22470C49C18400812049 /* Core.element */;
+			remoteGlobalIDString = 7F5D22470C49C18400812049;
 			remoteInfo = Core;
 		};
 		4D03FB750D1325FD00AD14C6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4D03FB550D1325F000AD14C6 /* Quicksilver.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 7F9A7A630C49595900B5912D /* Quicksilver */;
+			remoteGlobalIDString = 7F9A7A630C49595900B5912D;
 			remoteInfo = Quicksilver;
 		};
 		4D7095CE0D103061008498FD /* PBXContainerItemProxy */ = {

@@ -6,8 +6,6 @@
 //  Copyright 2007 Google Inc. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-#import <QSBase/QSResultController.h>
 //typedef enum QSSearchMode {
 //  SearchFilterAll = 1,
 //  SearchFilter = 2,

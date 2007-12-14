@@ -6,10 +6,6 @@
 //  Copyright 2006 __MyCompanyName__. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-
-
-#import <QSBase/QSBackgroundView.h>
 @interface QSCubeInterfaceBackgroundView : QSBackgroundView {
 	NSColor *startColor;
 	NSColor *endColor;
