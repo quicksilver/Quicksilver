@@ -114,7 +114,6 @@
 		7F5D23E20C49C3CB00812049 /* NSArray_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A875C0C497AEF00B5912D /* NSArray_BLTRExtensions.m */; };
 		7F5D23E30C49C3CB00812049 /* QSObjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A883D0C497AF000B5912D /* QSObjectCell.m */; };
 		7F5D23E40C49C3CB00812049 /* QSLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A88090C497AF000B5912D /* QSLog.m */; };
-		7F5D23E50C49C3CB00812049 /* QSCGSEffectHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A87AE0C497AF000B5912D /* QSCGSEffectHelper.m */; };
 		7F5D23E60C49C3CB00812049 /* QSImageAndTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A87F30C497AF000B5912D /* QSImageAndTextCell.m */; };
 		7F5D23E70C49C3CB00812049 /* QSDelegatingTableColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A87C80C497AF000B5912D /* QSDelegatingTableColumn.m */; };
 		7F5D23E80C49C3CB00812049 /* NSSortDescriptor+BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A87800C497AEF00B5912D /* NSSortDescriptor+BLTRExtensions.m */; };
@@ -240,12 +239,11 @@
 		7F8824BC0C498A7A00631170 /* QSAppearanceController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A879E0C497AEF00B5912D /* QSAppearanceController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F8824BD0C498A7A00631170 /* QSBackgroundView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A87A00C497AEF00B5912D /* QSBackgroundView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F8824BE0C498A7A00631170 /* QSBadgeImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A87A20C497AEF00B5912D /* QSBadgeImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7F8824BF0C498A7A00631170 /* QSBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A87A40C497AEF00B5912D /* QSBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7F8824BF0C498A7A00631170 /* QSCrucible.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A87A40C497AEF00B5912D /* QSCrucible.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F8824C00C498A7A00631170 /* QSBezelBackgroundView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A87A50C497AEF00B5912D /* QSBezelBackgroundView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F8824C10C498A7A00631170 /* QSBuildOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A87A80C497AEF00B5912D /* QSBuildOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F8824C20C498A7A00631170 /* QSCatalogEntry.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A87A90C497AEF00B5912D /* QSCatalogEntry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F8824C30C498A7A00631170 /* QSCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A87AB0C497AF000B5912D /* QSCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7F8824C40C498A7A00631170 /* QSCGSEffectHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A87AD0C497AF000B5912D /* QSCGSEffectHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F8824C50C498A7A00631170 /* QSCGSTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A87AF0C497AF000B5912D /* QSCGSTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F8824C60C498A7A00631170 /* QSCIEffectOverlay.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A87B10C497AF000B5912D /* QSCIEffectOverlay.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F8824C70C498A7A00631170 /* QSCollectingSearchObjectView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A87B30C497AF000B5912D /* QSCollectingSearchObjectView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -371,7 +369,7 @@
 		7F8825400C498A7A00631170 /* UKFNSubscribeFileWatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A82580C49786A00B5912D /* UKFNSubscribeFileWatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F8825410C498A7A00631170 /* UKKQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A825B0C49786A00B5912D /* UKKQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F8825420C498A7A00631170 /* UKMainThreadProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A825D0C49786A00B5912D /* UKMainThreadProxy.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7F9A7F0A0C4972A500B5912D /* QSBase-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F9A7DC00C4972A500B5912D /* QSBase-Info.plist */; };
+		7F9A7F0A0C4972A500B5912D /* QSCrucible-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F9A7DC00C4972A500B5912D /* QSCrucible-Info.plist */; };
 		7F9A7F0C0C4972A500B5912D /* DefaultBindings.qskeys in Resources */ = {isa = PBXBuildFile; fileRef = 7F9A7DC30C4972A500B5912D /* DefaultBindings.qskeys */; };
 		7F9A82610C49786A00B5912D /* UKFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A82570C49786A00B5912D /* UKFileWatcher.m */; };
 		7F9A82630C49786A00B5912D /* UKFNSubscribeFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A82590C49786A00B5912D /* UKFNSubscribeFileWatcher.m */; };
@@ -472,8 +470,8 @@
 		7F8827700C498E7D00631170 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
 		7F8827710C498E7D00631170 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		7F8828690C498F1C00631170 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
-		7F9A7DC00C4972A500B5912D /* QSBase-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = "QSBase-Info.plist"; sourceTree = "<group>"; };
-		7F9A7DC10C4972A500B5912D /* QSBase_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSBase_Prefix.pch; sourceTree = "<group>"; };
+		7F9A7DC00C4972A500B5912D /* QSCrucible-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "QSCrucible-Info.plist"; sourceTree = "<group>"; };
+		7F9A7DC10C4972A500B5912D /* QSCrucible_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSCrucible_Prefix.pch; sourceTree = "<group>"; };
 		7F9A7DC30C4972A500B5912D /* DefaultBindings.qskeys */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = DefaultBindings.qskeys; sourceTree = "<group>"; };
 		7F9A82540C49786A00B5912D /* CGSPrivate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CGSPrivate.h; sourceTree = "<group>"; };
 		7F9A82560C49786A00B5912D /* UKFileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = UKFileWatcher.h; sourceTree = "<group>"; };
@@ -571,7 +569,7 @@
 		7F9A87A10C497AEF00B5912D /* QSBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSBackgroundView.m; sourceTree = "<group>"; };
 		7F9A87A20C497AEF00B5912D /* QSBadgeImage.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSBadgeImage.h; sourceTree = "<group>"; };
 		7F9A87A30C497AEF00B5912D /* QSBadgeImage.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSBadgeImage.m; sourceTree = "<group>"; };
-		7F9A87A40C497AEF00B5912D /* QSBase.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSBase.h; sourceTree = "<group>"; };
+		7F9A87A40C497AEF00B5912D /* QSCrucible.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSCrucible.h; sourceTree = "<group>"; };
 		7F9A87A50C497AEF00B5912D /* QSBezelBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSBezelBackgroundView.h; sourceTree = "<group>"; };
 		7F9A87A60C497AEF00B5912D /* QSBezelBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSBezelBackgroundView.m; sourceTree = "<group>"; };
 		7F9A87A80C497AEF00B5912D /* QSBuildOptions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSBuildOptions.h; sourceTree = "<group>"; };
@@ -579,8 +577,6 @@
 		7F9A87AA0C497AF000B5912D /* QSCatalogEntry.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSCatalogEntry.m; sourceTree = "<group>"; };
 		7F9A87AB0C497AF000B5912D /* QSCell.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSCell.h; sourceTree = "<group>"; };
 		7F9A87AC0C497AF000B5912D /* QSCell.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSCell.m; sourceTree = "<group>"; };
-		7F9A87AD0C497AF000B5912D /* QSCGSEffectHelper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSCGSEffectHelper.h; sourceTree = "<group>"; };
-		7F9A87AE0C497AF000B5912D /* QSCGSEffectHelper.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSCGSEffectHelper.m; sourceTree = "<group>"; };
 		7F9A87AF0C497AF000B5912D /* QSCGSTransition.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSCGSTransition.h; sourceTree = "<group>"; };
 		7F9A87B00C497AF000B5912D /* QSCGSTransition.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSCGSTransition.m; sourceTree = "<group>"; };
 		7F9A87B10C497AF000B5912D /* QSCIEffectOverlay.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSCIEffectOverlay.h; sourceTree = "<group>"; };
@@ -874,7 +870,7 @@
 		7FE82E6F0C4A7FA400A321E0 /* NSAppleScript+QSSubroutine.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NSAppleScript+QSSubroutine.h"; sourceTree = "<group>"; };
 		7FE82E700C4A7FA400A321E0 /* NSAppleScript+QSSubroutine.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NSAppleScript+QSSubroutine.m"; sourceTree = "<group>"; };
 		7FE82E710C4A7FA400A321E0 /* NSAppleScript+QSSubroutineDiscovery.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NSAppleScript+QSSubroutineDiscovery.h"; sourceTree = "<group>"; };
-		8DC2EF5B0486A6940098B216 /* QSBase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QSBase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DC2EF5B0486A6940098B216 /* QSCrucible.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QSCrucible.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -903,7 +899,7 @@
 		034768DFFF38A50411DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8DC2EF5B0486A6940098B216 /* QSBase.framework */,
+				8DC2EF5B0486A6940098B216 /* QSCrucible.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -914,8 +910,8 @@
 				4D7095350D102871008498FD /* Configuration */,
 				7F9A874B0C497AEF00B5912D /* Code */,
 				7F9A82530C49786A00B5912D /* External */,
-				7F9A7DC00C4972A500B5912D /* QSBase-Info.plist */,
-				7F9A7DC10C4972A500B5912D /* QSBase_Prefix.pch */,
+				7F9A7DC00C4972A500B5912D /* QSCrucible-Info.plist */,
+				7F9A7DC10C4972A500B5912D /* QSCrucible_Prefix.pch */,
 				7F9A7DC20C4972A500B5912D /* Resources */,
 				7F9A8BCD0C497EBB00B5912D /* Elements.xcodeproj */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
@@ -1143,7 +1139,7 @@
 				7F9A87A10C497AEF00B5912D /* QSBackgroundView.m */,
 				7F9A87A20C497AEF00B5912D /* QSBadgeImage.h */,
 				7F9A87A30C497AEF00B5912D /* QSBadgeImage.m */,
-				7F9A87A40C497AEF00B5912D /* QSBase.h */,
+				7F9A87A40C497AEF00B5912D /* QSCrucible.h */,
 				7F9A87A50C497AEF00B5912D /* QSBezelBackgroundView.h */,
 				7F9A87A60C497AEF00B5912D /* QSBezelBackgroundView.m */,
 				7F9A87A80C497AEF00B5912D /* QSBuildOptions.h */,
@@ -1151,8 +1147,6 @@
 				7F9A87AA0C497AF000B5912D /* QSCatalogEntry.m */,
 				7F9A87AB0C497AF000B5912D /* QSCell.h */,
 				7F9A87AC0C497AF000B5912D /* QSCell.m */,
-				7F9A87AD0C497AF000B5912D /* QSCGSEffectHelper.h */,
-				7F9A87AE0C497AF000B5912D /* QSCGSEffectHelper.m */,
 				7F9A87AF0C497AF000B5912D /* QSCGSTransition.h */,
 				7F9A87B00C497AF000B5912D /* QSCGSTransition.m */,
 				7F9A87B10C497AF000B5912D /* QSCIEffectOverlay.h */,
@@ -1526,12 +1520,11 @@
 				7F8824BC0C498A7A00631170 /* QSAppearanceController.h in Headers */,
 				7F8824BD0C498A7A00631170 /* QSBackgroundView.h in Headers */,
 				7F8824BE0C498A7A00631170 /* QSBadgeImage.h in Headers */,
-				7F8824BF0C498A7A00631170 /* QSBase.h in Headers */,
+				7F8824BF0C498A7A00631170 /* QSCrucible.h in Headers */,
 				7F8824C00C498A7A00631170 /* QSBezelBackgroundView.h in Headers */,
 				7F8824C10C498A7A00631170 /* QSBuildOptions.h in Headers */,
 				7F8824C20C498A7A00631170 /* QSCatalogEntry.h in Headers */,
 				7F8824C30C498A7A00631170 /* QSCell.h in Headers */,
-				7F8824C40C498A7A00631170 /* QSCGSEffectHelper.h in Headers */,
 				7F8824C50C498A7A00631170 /* QSCGSTransition.h in Headers */,
 				7F8824C60C498A7A00631170 /* QSCIEffectOverlay.h in Headers */,
 				7F8824C70C498A7A00631170 /* QSCollectingSearchObjectView.h in Headers */,
@@ -1672,9 +1665,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8DC2EF4F0486A6940098B216 /* QSBase */ = {
+		8DC2EF4F0486A6940098B216 /* QSCrucible */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "QSBase" */;
+			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "QSCrucible" */;
 			buildPhases = (
 				8DC2EF500486A6940098B216 /* Headers */,
 				8DC2EF520486A6940098B216 /* Resources */,
@@ -1686,10 +1679,10 @@
 			dependencies = (
 				7F66DB900CEF3D4B0033C03D /* PBXTargetDependency */,
 			);
-			name = QSBase;
+			name = QSCrucible;
 			productInstallPath = "$(HOME)/Library/Frameworks";
 			productName = QSBase;
-			productReference = 8DC2EF5B0486A6940098B216 /* QSBase.framework */;
+			productReference = 8DC2EF5B0486A6940098B216 /* QSCrucible.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -1735,7 +1728,7 @@
 			);
 			projectRoot = ..;
 			targets = (
-				8DC2EF4F0486A6940098B216 /* QSBase */,
+				8DC2EF4F0486A6940098B216 /* QSCrucible */,
 			);
 		};
 /* End PBXProject section */
@@ -1762,7 +1755,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F9A7F0A0C4972A500B5912D /* QSBase-Info.plist in Resources */,
+				7F9A7F0A0C4972A500B5912D /* QSCrucible-Info.plist in Resources */,
 				7F9A7F0C0C4972A500B5912D /* DefaultBindings.qskeys in Resources */,
 				7F9A8C670C4983F900B5912D /* UKDirectoryEnumerator Readme.txt in Resources */,
 				7F3EF7A80CF6105E007A043A /* README.rtf in Resources */,
@@ -1900,7 +1893,6 @@
 				7F5D23E20C49C3CB00812049 /* NSArray_BLTRExtensions.m in Sources */,
 				7F5D23E30C49C3CB00812049 /* QSObjectCell.m in Sources */,
 				7F5D23E40C49C3CB00812049 /* QSLog.m in Sources */,
-				7F5D23E50C49C3CB00812049 /* QSCGSEffectHelper.m in Sources */,
 				7F5D23E60C49C3CB00812049 /* QSImageAndTextCell.m in Sources */,
 				7F5D23E70C49C3CB00812049 /* QSDelegatingTableColumn.m in Sources */,
 				7F5D23E80C49C3CB00812049 /* NSSortDescriptor+BLTRExtensions.m in Sources */,
@@ -1986,10 +1978,10 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = QSBase_Prefix.pch;
-				INFOPLIST_FILE = "QSBase-Info.plist";
+				GCC_PREFIX_HEADER = QSCrucible_Prefix.pch;
+				INFOPLIST_FILE = "QSCrucible-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
-				PRODUCT_NAME = QSBase;
+				PRODUCT_NAME = QSCrucible;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -2026,7 +2018,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "QSBase" */ = {
+		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "QSCrucible" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB91AE08733DA50010E9CD /* Debug */,
