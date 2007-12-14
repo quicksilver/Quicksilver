@@ -370,9 +370,12 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			id handler = [QSReg instanceForPointID:@"QSBundleChildHandlers" withID:bundleIdentifier];
 			
 			if (handler) {
+        NSLog(@"valid?");
 				if ([handler respondsToSelector:@selector(objectHasValidChildren:)])
 					return [handler objectHasValidChildren:object];
-				return NO;
+        
+// TODO: This should return YES only if loaded in last 10 min or something
+				return YES;
 			}
 			
 			return YES;
