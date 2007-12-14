@@ -16,3 +16,5 @@ GCC_C_LANGUAGE_STANDARD = c99
 WARNING_CFLAGS = -Wall // Disabled for now. Too picky ;-) -Wextra
 
 QS_APP_CONTENTS_FOLDER = $(CONFIGURATION_BUILD_DIR)/Quicksilver.app/Contents
+
+QS_PLUGINS_FOLDER = $(QS_SOURCE_ROOT)/Quicksilver/Plugins

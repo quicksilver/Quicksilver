@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		4D508AD20D13468000A9B360 /* Get Plugins */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 4D508ADC0D1346BE00A9B360 /* Build configuration list for PBXAggregateTarget "Get Plugins" */;
+			buildPhases = (
+				4D508AD60D13468A00A9B360 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Get Plugins";
+			productName = "Get Plugins";
+		};
 		4DC820DD0D12EA180039BD1B /* Build Quicksilver */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 4DC820EC0D12EA4D0039BD1B /* Build configuration list for PBXAggregateTarget "Build Quicksilver" */;
@@ -17,6 +28,7 @@
 				4DC820E10D12EA220039BD1B /* PBXTargetDependency */,
 				4DC820E30D12EA2A0039BD1B /* PBXTargetDependency */,
 				4D5089020D132B7100A9B360 /* PBXTargetDependency */,
+				4D508A740D13421300A9B360 /* PBXTargetDependency */,
 			);
 			name = "Build Quicksilver";
 			productName = "Build Quicksilver";
@@ -29,6 +41,7 @@
 			);
 			dependencies = (
 				4DC820E50D12EA330039BD1B /* PBXTargetDependency */,
+				4D508AD80D13469E00A9B360 /* PBXTargetDependency */,
 				4DF635470D10686200910FC0 /* PBXTargetDependency */,
 			);
 			name = "Build All";
@@ -39,6 +52,7 @@
 /* Begin PBXBuildFile section */
 		4D5088E00D132B6200A9B360 /* Core.element in Copy Main Plugins */ = {isa = PBXBuildFile; fileRef = 7F5D22470C49C18400812049 /* Core.element */; };
 		4D5088E30D132B6700A9B360 /* Cube Interface.element in Copy Main Plugins */ = {isa = PBXBuildFile; fileRef = 4DF635330D10682700910FC0 /* Cube Interface.element */; };
+		4D508A850D13424500A9B360 /* Finder Module.bundle in Copy Main Plugins */ = {isa = PBXBuildFile; fileRef = 4D508A0A0D133E6A00A9B360 /* Finder Module.bundle */; };
 		4D7093B70D101CED008498FD /* QSCrucible.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7093B30D101CCE008498FD /* QSCrucible.framework */; };
 		4D7094C70D10215D008498FD /* QSCrucible.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7093B30D101CCE008498FD /* QSCrucible.framework */; };
 		4D9A1DAE0D0EA6600072DE55 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9A89950C497DD400B5912D /* Cocoa.framework */; };
@@ -286,6 +300,27 @@
 			remoteGlobalIDString = 337357640BAC7B56000A47E2 /* Cube Interface */;
 			remoteInfo = "Cube Interface";
 		};
+		4D508A090D133E6A00A9B360 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D508A020D133E6A00A9B360 /* QSFinderPlugIn.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D1AC9740486D14A00FE50C9 /* Finder Module.bundle */;
+			remoteInfo = "Finder Module";
+		};
+		4D508A730D13421300A9B360 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D508A020D133E6A00A9B360 /* QSFinderPlugIn.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D1AC9600486D14A00FE50C9 /* Finder Module */;
+			remoteInfo = "Finder Module";
+		};
+		4D508AD70D13469E00A9B360 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D508AD20D13468000A9B360 /* Get Plugins */;
+			remoteInfo = "Get Plugins";
+		};
 		4D7093B20D101CCE008498FD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4D7093AE0D101CCE008498FD /* Crucible.xcodeproj */;
@@ -407,6 +442,7 @@
 			dstPath = "$(QS_APP_CONTENTS_FOLDER)/PlugIns";
 			dstSubfolderSpec = 0;
 			files = (
+				4D508A850D13424500A9B360 /* Finder Module.bundle in Copy Main Plugins */,
 				4D5088E30D132B6700A9B360 /* Cube Interface.element in Copy Main Plugins */,
 				4D5088E00D132B6200A9B360 /* Core.element in Copy Main Plugins */,
 			);
@@ -462,6 +498,8 @@
 /* Begin PBXFileReference section */
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		4D508A020D133E6A00A9B360 /* QSFinderPlugIn.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QSFinderPlugIn.xcodeproj; path = Plugins/Finder/QSFinderPlugIn.xcodeproj; sourceTree = "<group>"; };
+		4D508ABC0D1344F300A9B360 /* get-plugins.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "get-plugins.sh"; path = "Plugins/get-plugins.sh"; sourceTree = "<group>"; };
 		4D7093AE0D101CCE008498FD /* Crucible.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Crucible.xcodeproj; path = ../Crucible/Crucible.xcodeproj; sourceTree = SOURCE_ROOT; };
 		4D7094910D101E5E008498FD /* Quicksilver-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Quicksilver-Info.plist"; sourceTree = "<group>"; };
 		4D7094E90D102638008498FD /* QSElement_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSElement_Prefix.pch; sourceTree = "<group>"; };
@@ -820,7 +858,6 @@
 				7FE0BC9F0C499F2E0012249C /* CoreElement */,
 				7F9A8BCD0C497EBB00B5912D /* Elements.xcodeproj */,
 				4D7093AE0D101CCE008498FD /* Crucible.xcodeproj */,
-				7F8B81980C49C639007FC200 /* QSCubeInterfaceElement.xcodeproj */,
 				7FA7DB0B0C5CF0F100A27607 /* QSQuickLookGenerator.xcodeproj */,
 				7F2BF2E50C5BAE5500E80ABF /* QSSpotlightImporter.xcodeproj */,
 				4DF635350D10683100910FC0 /* Plugins */,
@@ -873,6 +910,14 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
+		4D508A030D133E6A00A9B360 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4D508A0A0D133E6A00A9B360 /* Finder Module.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		4D7093AF0D101CCE008498FD /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -912,6 +957,9 @@
 		4DF635350D10683100910FC0 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				4D508ABC0D1344F300A9B360 /* get-plugins.sh */,
+				7F8B81980C49C639007FC200 /* QSCubeInterfaceElement.xcodeproj */,
+				4D508A020D133E6A00A9B360 /* QSFinderPlugIn.xcodeproj */,
 				4DF635360D10684300910FC0 /* QSAddressBookElement.xcodeproj */,
 			);
 			name = Plugins;
@@ -1376,6 +1424,10 @@
 					ProjectRef = 7F8B81980C49C639007FC200 /* QSCubeInterfaceElement.xcodeproj */;
 				},
 				{
+					ProductGroup = 4D508A030D133E6A00A9B360 /* Products */;
+					ProjectRef = 4D508A020D133E6A00A9B360 /* QSFinderPlugIn.xcodeproj */;
+				},
+				{
 					ProductGroup = 7FA7DB0C0C5CF0F100A27607 /* Products */;
 					ProjectRef = 7FA7DB0B0C5CF0F100A27607 /* QSQuickLookGenerator.xcodeproj */;
 				},
@@ -1390,11 +1442,19 @@
 				7F9A7A630C49595900B5912D /* Quicksilver */,
 				7F5D22460C49C18400812049 /* Core */,
 				4DF635410D10685700910FC0 /* Build All */,
+				4D508AD20D13468000A9B360 /* Get Plugins */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		4D508A0A0D133E6A00A9B360 /* Finder Module.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Finder Module.bundle";
+			remoteRef = 4D508A090D133E6A00A9B360 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		4D7093B30D101CCE008498FD /* QSCrucible.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1618,6 +1678,23 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4D508AD60D13468A00A9B360 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+				"$(QS_PLUGINS_FOLDER)/com.apple.AddressBook/QSAddressBookElement.xcodeproj",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "Plugins/get-plugins.sh";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		7F5D22440C49C18400812049 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -1698,6 +1775,16 @@
 			isa = PBXTargetDependency;
 			name = "Cube Interface";
 			targetProxy = 4D5089010D132B7100A9B360 /* PBXContainerItemProxy */;
+		};
+		4D508A740D13421300A9B360 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Finder Module";
+			targetProxy = 4D508A730D13421300A9B360 /* PBXContainerItemProxy */;
+		};
+		4D508AD80D13469E00A9B360 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D508AD20D13468000A9B360 /* Get Plugins */;
+			targetProxy = 4D508AD70D13469E00A9B360 /* PBXContainerItemProxy */;
 		};
 		4D7094D30D10223E008498FD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1920,6 +2007,27 @@
 			};
 			name = Release;
 		};
+		4D508AD30D13468000A9B360 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Get Plugins";
+			};
+			name = Debug;
+		};
+		4D508AD40D13468000A9B360 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Get Plugins";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		4DC820DE0D12EA180039BD1B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2004,6 +2112,15 @@
 			buildConfigurations = (
 				1DEB91B208733DA50010E9CD /* Debug */,
 				1DEB91B308733DA50010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		4D508ADC0D1346BE00A9B360 /* Build configuration list for PBXAggregateTarget "Get Plugins" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D508AD30D13468000A9B360 /* Debug */,
+				4D508AD40D13468000A9B360 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
