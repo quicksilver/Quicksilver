@@ -44,6 +44,7 @@
 				4D508AD80D13469E00A9B360 /* PBXTargetDependency */,
 				4DF635470D10686200910FC0 /* PBXTargetDependency */,
 				4DB839CB0D13F6A000A0CA18 /* PBXTargetDependency */,
+				4DB83C8B0D143CD800A0CA18 /* PBXTargetDependency */,
 			);
 			name = "Build All";
 			productName = "Build All";
@@ -59,6 +60,7 @@
 		4D9A1DAE0D0EA6600072DE55 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9A89950C497DD400B5912D /* Cocoa.framework */; };
 		4D9A1E240D0ED0C20072DE55 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9A89950C497DD400B5912D /* Cocoa.framework */; };
 		4DB839D60D13F6DE00A0CA18 /* Calculator Module.qsplugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4DB839BA0D13F55800A0CA18 /* Calculator Module.qsplugin */; };
+		4DB83C8C0D143CDD00A0CA18 /* Find Module.element in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4DB83C870D143CC800A0CA18 /* Find Module.element */; };
 		4DC81F040D12B3B50039BD1B /* QSPlugInsPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D23330C49C3B700812049 /* QSPlugInsPrefPane.m */; };
 		4DF635570D106A8000910FC0 /* QSCrucible.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7093B30D101CCE008498FD /* QSCrucible.framework */; };
 		4DF6357B0D10767E00910FC0 /* Apple Address Book.element in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4DF6353E0D10684300910FC0 /* Apple Address Book.element */; };
@@ -358,6 +360,20 @@
 			remoteGlobalIDString = 8D5B49AC048680CD000E48DA /* Calculator Module */;
 			remoteInfo = "Calculator Module";
 		};
+		4DB83C860D143CC800A0CA18 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DB83C820D143CC800A0CA18 /* FindModule.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D1AC9740486D14A00FE50C9 /* Find Module.element */;
+			remoteInfo = "Find Module";
+		};
+		4DB83C8A0D143CD800A0CA18 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DB83C820D143CC800A0CA18 /* FindModule.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D1AC9600486D14A00FE50C9 /* Find Module */;
+			remoteInfo = "Find Module";
+		};
 		4DC820E00D12EA220039BD1B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -471,6 +487,7 @@
 			dstPath = "$(QS_APP_CONTENTS_DIR)/PlugIns";
 			dstSubfolderSpec = 0;
 			files = (
+				4DB83C8C0D143CDD00A0CA18 /* Find Module.element in CopyFiles */,
 				4DB839D60D13F6DE00A0CA18 /* Calculator Module.qsplugin in CopyFiles */,
 				4DF6357B0D10767E00910FC0 /* Apple Address Book.element in CopyFiles */,
 			);
@@ -529,6 +546,7 @@
 		4D7094F80D10274E008498FD /* QSPlugIn.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn.xcconfig; sourceTree = "<group>"; };
 		4D7095920D102E4D008498FD /* Developer.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Developer.xcconfig; path = "/Volumes/myHD/Sources/Utilities/blacktree-alchemy-trunk/Configuration/Developer.xcconfig"; sourceTree = "<absolute>"; };
 		4DB839B50D13F55800A0CA18 /* CalculatorPlugin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CalculatorPlugin.xcodeproj; path = Plugins/com.apple.calculator/CalculatorPlugin.xcodeproj; sourceTree = "<group>"; };
+		4DB83C820D143CC800A0CA18 /* FindModule.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FindModule.xcodeproj; path = Plugins/FindModule/FindModule.xcodeproj; sourceTree = "<group>"; };
 		4DE9903D0D0F165C00593B3B /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
 		4DE9903E0D0F165C00593B3B /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		4DE9903F0D0F165C00593B3B /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
@@ -952,6 +970,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		4DB83C830D143CC800A0CA18 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4DB83C870D143CC800A0CA18 /* Find Module.element */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		4DE9903C0D0F165C00593B3B /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -988,6 +1014,7 @@
 				4D508A020D133E6A00A9B360 /* QSFinderPlugIn.xcodeproj */,
 				4DF635360D10684300910FC0 /* QSAddressBookElement.xcodeproj */,
 				4DB839B50D13F55800A0CA18 /* CalculatorPlugin.xcodeproj */,
+				4DB83C820D143CC800A0CA18 /* FindModule.xcodeproj */,
 			);
 			name = Plugins;
 			sourceTree = "<group>";
@@ -1447,6 +1474,10 @@
 					ProjectRef = 7F9A8BCD0C497EBB00B5912D /* Elements.xcodeproj */;
 				},
 				{
+					ProductGroup = 4DB83C830D143CC800A0CA18 /* Products */;
+					ProjectRef = 4DB83C820D143CC800A0CA18 /* FindModule.xcodeproj */;
+				},
+				{
 					ProductGroup = 4DF635370D10684300910FC0 /* Products */;
 					ProjectRef = 4DF635360D10684300910FC0 /* QSAddressBookElement.xcodeproj */;
 				},
@@ -1498,6 +1529,13 @@
 			fileType = wrapper.cfbundle;
 			path = "Calculator Module.qsplugin";
 			remoteRef = 4DB839B90D13F55800A0CA18 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4DB83C870D143CC800A0CA18 /* Find Module.element */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Find Module.element";
+			remoteRef = 4DB83C860D143CC800A0CA18 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		4DF635330D10682700910FC0 /* Cube Interface.element */ = {
@@ -1838,6 +1876,11 @@
 			isa = PBXTargetDependency;
 			name = "Calculator Module";
 			targetProxy = 4DB839CA0D13F6A000A0CA18 /* PBXContainerItemProxy */;
+		};
+		4DB83C8B0D143CD800A0CA18 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Find Module";
+			targetProxy = 4DB83C8A0D143CD800A0CA18 /* PBXContainerItemProxy */;
 		};
 		4DC820E10D12EA220039BD1B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
