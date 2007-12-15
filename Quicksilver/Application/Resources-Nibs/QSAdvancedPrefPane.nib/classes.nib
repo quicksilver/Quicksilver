@@ -5,6 +5,29 @@
 	<key>IBClasses</key>
 	<array>
 		<dict>
+			<key>CLASS</key>
+			<string>QSAdvancedPrefPane</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>prefSetsController</key>
+				<string>NSArrayController</string>
+				<key>prefSetsTable</key>
+				<string>NSTableView</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>QSPreferencePane</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>NSView</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSResponder</string>
+		</dict>
+		<dict>
 			<key>ACTIONS</key>
 			<dict>
 				<key>relaunch</key>
@@ -18,6 +41,14 @@
 			<string>ObjC</string>
 			<key>SUPERCLASS</key>
 			<string>NSResponder</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>FirstResponder</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
 		</dict>
 		<dict>
 			<key>CLASS</key>
@@ -69,58 +100,12 @@
 			<string>NSResponder</string>
 		</dict>
 		<dict>
-			<key>ACTIONS</key>
-			<dict>
-				<key>setValue</key>
-				<string>id</string>
-			</dict>
 			<key>CLASS</key>
-			<string>QSAdvancedPrefPane</string>
-			<key>LANGUAGE</key>
-			<string>ObjC</string>
-			<key>OUTLETS</key>
-			<dict>
-				<key>descriptionField</key>
-				<string>NSTextField</string>
-				<key>posttextField</key>
-				<string>NSTextField</string>
-				<key>prefSetsController</key>
-				<string>NSArrayController</string>
-				<key>prefSetsTable</key>
-				<string>NSTableView</string>
-				<key>pretextField</key>
-				<string>NSTextField</string>
-				<key>settingsBox</key>
-				<string>NSBox</string>
-				<key>titleField</key>
-				<string>NSTextField</string>
-				<key>valueField</key>
-				<string>NSTextField</string>
-				<key>valuePopUp</key>
-				<string>NSPopUpButton</string>
-				<key>valueSlider</key>
-				<string>NSSlider</string>
-				<key>valueSwitch</key>
-				<string>NSButton</string>
-			</dict>
-			<key>SUPERCLASS</key>
-			<string>QSPreferencePane</string>
-		</dict>
-		<dict>
-			<key>CLASS</key>
-			<string>NSView</string>
+			<string>NSButton</string>
 			<key>LANGUAGE</key>
 			<string>ObjC</string>
 			<key>SUPERCLASS</key>
-			<string>NSResponder</string>
-		</dict>
-		<dict>
-			<key>CLASS</key>
-			<string>FirstResponder</string>
-			<key>LANGUAGE</key>
-			<string>ObjC</string>
-			<key>SUPERCLASS</key>
-			<string>NSObject</string>
+			<string>NSControl</string>
 		</dict>
 		<dict>
 			<key>CLASS</key>
@@ -129,14 +114,6 @@
 			<string>ObjC</string>
 			<key>SUPERCLASS</key>
 			<string>NSTextFieldCell</string>
-		</dict>
-		<dict>
-			<key>CLASS</key>
-			<string>NSButton</string>
-			<key>LANGUAGE</key>
-			<string>ObjC</string>
-			<key>SUPERCLASS</key>
-			<string>NSControl</string>
 		</dict>
 		<dict>
 			<key>CLASS</key>
