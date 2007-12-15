@@ -5,14 +5,7 @@
 #ifdef __OBJC__
 #import <Cocoa/Cocoa.h>
 
-#import <QSFoundation/QSFoundation.h>
-
-#import <QSCore/QSCore.h> 
-#import <QSCore/QSNotifyMediator.h>
-
-#import <QSEffects/QSEffects.h> 
-
-#import <QSInterface/QSInterface.h> 
-#import <QSInterface/QSPreferencePane.h> 
+#import <QSElements/QSElements.h>
+#import <QSCrucible/QSCrucible.h>
 
 #endif 
