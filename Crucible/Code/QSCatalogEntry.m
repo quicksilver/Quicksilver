@@ -54,7 +54,7 @@ NSDictionary *enabledPresetDictionary;
 	return [NSString stringWithFormat:@"[%@] ", [self name]]; 	
 }
 - (QSCatalogEntry *)initWithDictionary:(NSDictionary *)dict {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		info = [dict retain];
 		children = nil;
 		contents = nil;
@@ -113,7 +113,7 @@ NSDictionary *enabledPresetDictionary;
 	NSEnumerator *e = [[path pathComponents] objectEnumerator];
 	NSString *s;
 	QSCatalogEntry *object = self;
-	while(s = [e nextObject]) {
+	while((s = [e nextObject])) {
 		object = [object childWithID:s];
 	}
 	return object;
@@ -218,9 +218,9 @@ NSDictionary *enabledPresetDictionary;
 	//NSString *theID = [self identifier];
 	if ([self isPreset]) {
 		NSNumber *value = nil;
-		if (value = [QSLib presetIsEnabled:self])
+		if ((value = [QSLib presetIsEnabled:self]))
 			return [value boolValue];
-		if (value = [info objectForKey:kItemEnabled])
+		if ((value = [info objectForKey:kItemEnabled]))
 			return [value boolValue];  
 		// ***warning   * this is just a little silly...
 		

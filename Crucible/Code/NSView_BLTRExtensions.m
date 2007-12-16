@@ -41,7 +41,7 @@ unsigned int flipMask(unsigned int mask,int axis){
     NSSize parentSize=[self frame].size;
     NSEnumerator *subviewEnumerator=[[self subviews]objectEnumerator];
     NSView *thisView;
-    while (thisView=[subviewEnumerator nextObject]){
+    while ((thisView=[subviewEnumerator nextObject])){
         NSRect frame=[thisView frame];
         if (vertical==0)
         [thisView setFrameOrigin:NSMakePoint(parentSize.width-NSMaxX(frame),frame.origin.y)];

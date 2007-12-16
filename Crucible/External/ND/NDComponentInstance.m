@@ -99,7 +99,7 @@ static NDComponentInstance		* sharedComponentInstance = nil;
  */
 - (id)initWithComponent:(Component)aComponent
 {
-	if( self = [super init] )
+	if(( self = [super init] ))
 	{
 		if( aComponent == NULL )
 		{

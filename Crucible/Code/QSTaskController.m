@@ -15,7 +15,7 @@ QSTaskController *QSTasks;
 + (void)hideViewer{ [[NSClassFromString(@"QSTaskViewer")  sharedInstance] hideWindow:self]; }
 
 - (id)init {
-	if (self = [super init]) {
+	if ((self = [super init])) {
         tasks=[[NSMutableArray alloc]initWithCapacity:1];
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSShowTaskViewerAutomatically"]){
 			[NSClassFromString(@"QSTaskViewer")  sharedInstance];

@@ -61,7 +61,7 @@
 	NSEnumerator *keyEnum = [mediators keyEnumerator];
 	NSString *path, *key, *title;
 	NSMenuItem *item = nil;
-	while(key = [keyEnum nextObject]) {
+	while((key = [keyEnum nextObject])) {
 		title = nil;
 		path = [workspace absolutePathForAppBundleWithIdentifier:key];
 		BElement *element = [mediators objectForKey:key];

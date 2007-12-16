@@ -49,7 +49,7 @@ QSExecutor *QSExec;
 }
 
 - (id) init{
-    if (self=[super init]){
+    if ((self=[super init])){
         actionSources=[[NSMutableDictionary alloc]initWithCapacity:1];
 	    oldActionObjects=[[NSMutableArray alloc] initWithCapacity:1];
         actionIdentifiers=[[NSMutableDictionary alloc] initWithCapacity:1];
@@ -136,7 +136,7 @@ QSExecutor *QSExec;
 //	NSMutableSet *set=[NSMutableSet set];
 //	NSEnumerator *e=[types objectEnumerator];
 //	NSString *type;
-//	while (type=[e nextObject])
+//	while ((type=[e nextObject]))
 //		[set addObjectsFromArray:[directObjectTypes objectForKey:type]];
 //	[set addObjectsFromArray:[directObjectTypes objectForKey:@"*"]];
 //	return [set allObjects];
@@ -156,7 +156,7 @@ QSExecutor *QSExec;
 	//NSMutableArray *actions=[NSMutableArray array];
 	NSEnumerator *e=[[QSReg loadedInstancesForPointID:@"QSFileActionCreators"]objectEnumerator];
 	id <QSFileActionProvider> creator;
-	while(creator=[e nextObject]){
+	while((creator=[e nextObject])){
 		[self addActions:[creator fileActionsFromPaths:files]];
 	}
 }
@@ -262,7 +262,7 @@ QSExecutor *QSExec;
 	if (![directTypes count])directTypes=[NSArray arrayWithObject:@"*"];
 	NSEnumerator *e=[directTypes objectEnumerator];
 	NSString *type;
-	while (type=[e nextObject])
+	while ((type=[e nextObject]))
 		[[self actionsArrayForType:type]addObject:action];
 	
 	if ([directTypes containsObject:QSFilePathType]){
@@ -292,7 +292,7 @@ QSExecutor *QSExec;
 	NSEnumerator *e=[actionsDictionary keyEnumerator];
     NSDictionary *actionDict;
 	NSString *key;
-    while (key=[e nextObject]){ 
+    while ((key=[e nextObject])){ 
 		actionDict=[actionsDictionary objectForKey:key];
 		
 		if ([[actionDict objectForKey:@"disabled"]boolValue])continue;
@@ -332,7 +332,7 @@ QSExecutor *QSExec;
 //- (void)loadActionsForObject:(id)actionObject{
 //	NSEnumerator *actionEnumerator=[[actionObject actions] objectEnumerator];
 //    id action;
-//    while (action=[actionEnumerator nextObject]){
+//    while ((action=[actionEnumerator nextObject])){
 //		if([action identifier])
 //            [actionIdentifiers setObject:action forKey:[action identifier]];
 //    }	

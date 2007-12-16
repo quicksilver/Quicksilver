@@ -596,7 +596,7 @@
 
 	for( theIndex = 1; theIndex <= theNumOfItems; theIndex++)
 	{
-		if( theDescriptor = [self descriptorAtIndex:theIndex] )
+		if(( theDescriptor = [self descriptorAtIndex:theIndex] ))
 		{
 			[theArray addObject:[theDescriptor objectValue]];
 		}
@@ -1077,7 +1077,7 @@
  */
 - (id)initWithSubroutineName:(NSString *)aRoutineName labelsAndArguments:(AEKeyword)aKeyWord arguments:(va_list)anArgList
 {
-	if( self = [self initWithEventClass:kASAppleScriptSuite eventID:kASPrepositionalSubroutine targetDescriptor:[NSAppleEventDescriptor currentProcessDescriptor] returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID] )
+	if(( self = [self initWithEventClass:kASAppleScriptSuite eventID:kASPrepositionalSubroutine targetDescriptor:[NSAppleEventDescriptor currentProcessDescriptor] returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID] ))
 	{
 		[self setParamDescriptor:[NSAppleEventDescriptor descriptorWithCString:[[aRoutineName lowercaseString] lossyCString]] forKeyword:keyASSubroutineName];
 		do

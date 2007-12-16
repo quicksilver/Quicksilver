@@ -17,7 +17,7 @@
 	return [[[self alloc]initWithName:newName]autorelease];
 }
 -(id)initWithName:(NSString *)newName{
-	if (self=[super init]){
+	if ((self=[super init])){
 		name=[newName retain];
 	}
 	return self;

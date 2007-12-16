@@ -375,7 +375,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
 }
 
 - (id)init {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		
 		[self loadWindow];
 	}

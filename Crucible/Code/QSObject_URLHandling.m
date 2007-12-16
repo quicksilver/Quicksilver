@@ -173,7 +173,7 @@
 		[self release];
 		return nil;
 	}
-	if (self = [self init]) {
+	if ((self = [self init])) {
 		
 		url = [self cleanQueryURL:url];
 		[self setName:(title?title:url)];

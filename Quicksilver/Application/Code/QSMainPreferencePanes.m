@@ -190,7 +190,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
 	NSMutableDictionary *interfaces=[QSReg elementsByIDForPointID:kQSCommandInterfaceControllers];
 	NSEnumerator *keyEnum=[interfaces keyEnumerator];
 	NSString *key, *title;
-	while(key=[keyEnum nextObject]){
+	while((key=[keyEnum nextObject])){
 		id interface = [interfaces objectForKey:key];
 		title=[[[interface plugin] bundle] safeLocalizedStringForKey:key value:key table:nil];
 		item=(NSMenuItem *)[[interfacePopUp menu] addItemWithTitle:title action:nil keyEquivalent:@""];

@@ -102,7 +102,7 @@ void QSDrawGlossyRect(NSRect rect,BOOL topOnly, BOOL lightSides, BOOL flipped){
 }
 - (BOOL)isFlipped{return NO;}
 - (id)initWithCoder:(NSCoder *)decoder {
-	if ( self = [super initWithCoder:decoder] ) {
+	if (( self = [super initWithCoder:decoder] )) {
 		NSCell *oldCell=[self cell];
 		NSCell *newCell=[[[QSGlossyBarButtonCell alloc] initTextCell:[self title]]autorelease];
 		[newCell takeAttributesOfCell:oldCell];
@@ -125,7 +125,7 @@ void QSDrawGlossyRect(NSRect rect,BOOL topOnly, BOOL lightSides, BOOL flipped){
 }
 //- (BOOL)isFlipped{return NO;}
 - (id)initWithCoder:(NSCoder *)decoder {
-	if ( self = [super initWithCoder:decoder] ) {
+	if (( self = [super initWithCoder:decoder] )) {
 		NSCell *oldCell=[self cell];
 		NSCell *newCell=[[[QSGlossyBarButtonCell alloc] initTextCell:[self title]]autorelease];
 		[newCell takeAttributesOfCell:oldCell];

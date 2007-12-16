@@ -149,7 +149,7 @@ const NSString			* NDAppleScriptPartialResult = @"Error Partial Result";
  */
 - (id)init
 {
-	if( self = [super init] )
+	if(( self = [super init] ))
 	{
 		componentInstance = nil;
 		scriptSource = nil;
@@ -694,7 +694,7 @@ const NSString			* NDAppleScriptPartialResult = @"Error Partial Result";
 {
 	NSAppleEventDescriptor		* theStringDesc;
 
-	if ( theStringDesc = [NSAppleEventDescriptor descriptorWithString:aString] )
+	if (( theStringDesc = [NSAppleEventDescriptor descriptorWithString:aString] ))
 	{				
 		OSACompile([self scriptingComponent], [theStringDesc aeDesc], aModeFlags, &aCompiledScript);
 	}
@@ -710,7 +710,7 @@ const NSString			* NDAppleScriptPartialResult = @"Error Partial Result";
 	OSAID								theCompiledScript = kOSANullScript;
 	NSAppleEventDescriptor		* theDataDesc;
 
-	if( theDataDesc = [NSAppleEventDescriptor descriptorWithDescriptorType:typeOSAGenericStorage data:aData] )
+	if(( theDataDesc = [NSAppleEventDescriptor descriptorWithDescriptorType:typeOSAGenericStorage data:aData] ))
 	{
 		OSALoad([self scriptingComponent], [theDataDesc aeDesc], kOSAModeCompileIntoContext, &theCompiledScript);
 	}
@@ -779,7 +779,7 @@ const NSString			* NDAppleScriptPartialResult = @"Error Partial Result";
  */
 - (id)initWithSource:(NSString *)aSource
 {
-	if( self = [self init] )
+	if(( self = [self init] ))
 	{
 		componentInstance = [[NDComponentInstance sharedComponentInstance] retain];
 		scriptSource = [aSource retain];

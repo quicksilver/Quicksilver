@@ -29,7 +29,7 @@
 
 - (id)proxyObject{
 	id proxy=nil;
-	if (proxy=[self objectForCache:QSProxyTargetCache]){
+	if ((proxy=[self objectForCache:QSProxyTargetCache])){
 		
 		return proxy;
 	
@@ -65,7 +65,7 @@
 	return [self identifier];
 }
 - (id)init{
-	if (self=[super init]){
+	if ((self=[super init])){
 		
 		//	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(releaseProxy) name:QSReleaseOldCachesNotification object:nil];
 		

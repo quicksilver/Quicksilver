@@ -9,7 +9,7 @@
 @implementation QSDefaultsObjectSource
 /*
  - (id) init{
-	 if (self=[super init]){
+	 if ((self=[super init])){
 		 defaultsModifiedDate=[NSDate timeIntervalSinceReferenceDate];
 		 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invalidateSelf) name:kABDatabaseChangedExternallyNotification object:nil];
 	 }

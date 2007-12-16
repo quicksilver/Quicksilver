@@ -27,7 +27,7 @@ mSHARED_INSTANCE_CLASS_METHOD
 	//QSLog(@"tested idler%@",obj);	
 }
 - (id)init{
-	if (self=[super init]){
+	if ((self=[super init])){
 		callbacks=[[NSMutableArray alloc]init];
 		lastIdle=0.0;
 		idleDate=[[NSDate alloc]initWithTimeIntervalSinceNow:0.0];

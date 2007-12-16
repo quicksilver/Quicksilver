@@ -24,7 +24,7 @@
 @implementation QSWindowAnimation
 
 - (id)init{
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		cgs = _CGSDefaultConnection();
 		[self setDuration:0.3333f];
 		alphaFt=QSStandardAlphaBlending;
@@ -38,7 +38,7 @@
 }
 
 - (id)initWithWindow:(NSWindow *)window{
-	if (self = [self init]) {
+	if ((self = [self init])) {
 		[self setWindow:window];
 		CGSGetWindowTransform(cgs,wid, &_transformA); 
 	}
@@ -56,17 +56,17 @@
 	if ((value = [attr objectForKey:kQSGSTransformF]) != nil) {
 		transformFt=CFBundleGetFunctionPointerForName (CFBundleGetBundleWithIdentifier(kQSEffectsID),(CFStringRef)value);
   }
-	if (value=[attr objectForKey:kQSGSBrightF])
+	if ((value=[attr objectForKey:kQSGSBrightF]))
 		brightFt=CFBundleGetFunctionPointerForName (CFBundleGetBundleWithIdentifier(kQSEffectsID),(CFStringRef)value);
-	if (value=[attr objectForKey:kQSGSWarpF])
+	if ((value=[attr objectForKey:kQSGSWarpF]))
 		warpFt=CFBundleGetFunctionPointerForName (CFBundleGetBundleWithIdentifier(kQSEffectsID),(CFStringRef)value);
-	if (value=[attr objectForKey:kQSGSAlphaF])
+	if ((value=[attr objectForKey:kQSGSAlphaF]))
 		alphaFt=CFBundleGetFunctionPointerForName (CFBundleGetBundleWithIdentifier(kQSEffectsID),(CFStringRef)value);
-	if (value=[attr objectForKey:kQSGSAlphaF])
+	if ((value=[attr objectForKey:kQSGSAlphaF]))
 		alphaFt=CFBundleGetFunctionPointerForName (CFBundleGetBundleWithIdentifier(kQSEffectsID),(CFStringRef)value);
-	if (value=[attr objectForKey:kQSGSDuration])
+	if ((value=[attr objectForKey:kQSGSDuration]))
 		[self setDuration:[value floatValue]];
-	if (value=[attr objectForKey:kQSGSType]){
+	if ((value=[attr objectForKey:kQSGSType])){
 		if ([value isEqualToString:@"show"]){
 			_alphaA=0.0;
 			_alphaB=1.0;
@@ -79,13 +79,13 @@
 			restoreTransform=NO;
 		}
 	}
-	if (value=[attr objectForKey:kQSGSBrightA])
+	if ((value=[attr objectForKey:kQSGSBrightA]))
 		_brightA=[value floatValue];
-	if (value=[attr objectForKey:kQSGSBrightB])
+	if ((value=[attr objectForKey:kQSGSBrightB]))
 		_brightB=[value floatValue];
-	if (value=[attr objectForKey:kQSGSAlphaA])
+	if ((value=[attr objectForKey:kQSGSAlphaA]))
 		_alphaA=[value floatValue];
-	if (value=[attr objectForKey:kQSGSAlphaB])
+	if ((value=[attr objectForKey:kQSGSAlphaB]))
 		_alphaB=[value floatValue];
 	
 	if (attributes != attr) {

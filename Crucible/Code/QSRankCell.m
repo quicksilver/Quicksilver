@@ -8,7 +8,7 @@
 
 @implementation QSRankCell
 - (id)initImageCell:(NSImage *)anImage{
-    if (self=[super initImageCell:anImage]){
+    if ((self=[super initImageCell:anImage])){
         
     }
     return self;

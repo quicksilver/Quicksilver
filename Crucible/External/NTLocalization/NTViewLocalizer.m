@@ -79,7 +79,7 @@
 			NSEnumerator *enumerator = [[menu itemArray] objectEnumerator];
 			NSMenuItem* item;
 			
-			while (item = [enumerator nextObject])
+			while ((item = [enumerator nextObject]))
 				[item setTitle:[self localizedString:[item title]]];
 		}
 		else

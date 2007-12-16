@@ -12,10 +12,10 @@
 		7F17F1740C4F199D001ADE1A /* QSCaseInsensitiveStringKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F17F0640C4F1795001ADE1A /* QSCaseInsensitiveStringKey.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F17F1750C4F199D001ADE1A /* QSCaseInsensitiveStringKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F17F0650C4F1795001ADE1A /* QSCaseInsensitiveStringKey.m */; };
 		7F2577AE0C80769C00CE3BDE /* NSApplication+ServicesModification.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F17F05C0C4F16F0001ADE1A /* NSApplication+ServicesModification.m */; };
-		7F3EF7A60CF6105E007A043A /* NSImage+QuickLook.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F3EF7A30CF6105E007A043A /* NSImage+QuickLook.h */; };
+		7F3EF7A60CF6105E007A043A /* NSImage+QuickLook.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F3EF7A30CF6105E007A043A /* NSImage+QuickLook.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F3EF7A70CF6105E007A043A /* NSImage+QuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3EF7A40CF6105E007A043A /* NSImage+QuickLook.m */; };
 		7F3EF7A80CF6105E007A043A /* README.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7F3EF7A50CF6105E007A043A /* README.rtf */; };
-		7F3EF7AA0CF61068007A043A /* QLUIPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F3EF7A90CF61068007A043A /* QLUIPrivate.h */; };
+		7F3EF7AA0CF61068007A043A /* QLUIPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F3EF7A90CF61068007A043A /* QLUIPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F5D22FA0C49C35B00812049 /* QSTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A888B0C497AF100B5912D /* QSTypes.m */; };
 		7F5D23810C49C3CB00812049 /* QSPopUpTextButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A88520C497AF000B5912D /* QSPopUpTextButtonCell.m */; };
 		7F5D23820C49C3CB00812049 /* QSHotKeyEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A87ED0C497AF000B5912D /* QSHotKeyEditor.m */; };
@@ -408,6 +408,8 @@
 		7F9A8C660C4983F900B5912D /* NSString+CarbonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A8C610C4983F900B5912D /* NSString+CarbonUtilities.m */; };
 		7F9A8C670C4983F900B5912D /* UKDirectoryEnumerator Readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7F9A8C620C4983F900B5912D /* UKDirectoryEnumerator Readme.txt */; };
 		7F9A8C690C4983F900B5912D /* UKDirectoryEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A8C640C4983F900B5912D /* UKDirectoryEnumerator.m */; };
+		7FC847040D1598FF005E1C6B /* NSApplication+ServicesModification.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F17F05B0C4F16F0001ADE1A /* NSApplication+ServicesModification.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7FC847050D15990B005E1C6B /* DNDArrayController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F17F0600C4F172A001ADE1A /* DNDArrayController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FE82E720C4A7FA400A321E0 /* NSAppleScript+QSSubroutineDiscovery.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE82E6A0C4A7FA400A321E0 /* NSAppleScript+QSSubroutineDiscovery.m */; };
 		7FE82E730C4A7FA400A321E0 /* NSAppleEventDescriptor+QSTranslation.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FE82E6B0C4A7FA400A321E0 /* NSAppleEventDescriptor+QSTranslation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FE82E740C4A7FA400A321E0 /* NSAppleEventDescriptor+QSTranslation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE82E6C0C4A7FA400A321E0 /* NSAppleEventDescriptor+QSTranslation.m */; };
@@ -1659,6 +1661,8 @@
 				7F17F1740C4F199D001ADE1A /* QSCaseInsensitiveStringKey.h in Headers */,
 				7F3EF7A60CF6105E007A043A /* NSImage+QuickLook.h in Headers */,
 				7F3EF7AA0CF61068007A043A /* QLUIPrivate.h in Headers */,
+				7FC847040D1598FF005E1C6B /* NSApplication+ServicesModification.h in Headers */,
+				7FC847050D15990B005E1C6B /* DNDArrayController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

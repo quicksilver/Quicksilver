@@ -364,7 +364,7 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 		NSDate *absorbDate = [NSDate dateWithTimeIntervalSinceNow:0.5];
 		
 		
-		if (nextEvent = [NSApp nextEventMatchingMask:NSKeyUpMask untilDate:absorbDate inMode:NSDefaultRunLoopMode dequeue:NO]) {
+		if ((nextEvent = [NSApp nextEventMatchingMask:NSKeyUpMask untilDate:absorbDate inMode:NSDefaultRunLoopMode dequeue:NO])) {
 			
 			if (VERBOSE)    QSLog(@"discarding events till  %@", nextEvent);  
 			[NSApp discardEventsMatchingMask:NSAnyEventMask beforeEvent:nextEvent];
@@ -773,7 +773,7 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 	if (currentTimeDouble/1000000-[theEvent timestamp] >0.25) return;
 	
 	
-	while (theEvent = [NSApp nextEventMatchingMask: NSScrollWheelMask untilDate:[NSDate date] inMode:NSDefaultRunLoopMode dequeue:YES]) {
+	while ((theEvent = [NSApp nextEventMatchingMask: NSScrollWheelMask untilDate:[NSDate date] inMode:NSDefaultRunLoopMode dequeue:YES])) {
 		delta += [theEvent deltaY];
 	}
 	
@@ -1105,7 +1105,7 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 	// QSLog(@"Searched for \"%@\" in %3fms (%d items) ", string, 1000 * -[date timeIntervalSinceNow] , [newResultArray count]);
   // QSLog (@"search for %@", string);
 	//QSLog(@"%d valid", validSearch);
-	if (validSearch = [newResultArray count] >0) {
+	if ((validSearch = [newResultArray count] >0)) {
 		[self setMatchedString:string];
 		//        [self setScoreData:scores];
 		validMnemonic = YES;

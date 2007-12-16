@@ -29,7 +29,7 @@
     return [super settingsView];
 }
 - (id)init {
-    if (self = [super init]) {
+    if ((self = [super init])) {
         processScanDate = [NSDate timeIntervalSinceReferenceDate];
         processes = [[NSMutableArray arrayWithCapacity:1] retain];
         

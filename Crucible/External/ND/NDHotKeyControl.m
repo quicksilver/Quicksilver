@@ -19,7 +19,7 @@
  */
 - (id)initWithFrame:(NSRect)aFrame
 {
-    if ( self = [super initWithFrame:aFrame] )
+    if (( self = [super initWithFrame:aFrame] ))
 	 {
 		 [self setEditable:NO];
     }
@@ -31,7 +31,7 @@
  */
 - (id)initWithCoder:(NSCoder *)aCoder
 {
-	if ( self = [super initWithCoder:aCoder] )
+	if (( self = [super initWithCoder:aCoder] ))
 	{
 		[self setEditable:NO];
 	}

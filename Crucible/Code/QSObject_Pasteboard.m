@@ -89,7 +89,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
     NSString *thisType;
     NSMutableArray *typeArray = [NSMutableArray arrayWithCapacity:1];
     NSArray *ignoreTypes = [NSArray arrayWithObjects:@"QSObjectAddress", @"CorePasteboardFlavorType 0x4D555246", @"CorePasteboardFlavorType 0x54455854", nil];
-    while(thisType = [typesEnumerator nextObject]) {
+    while((thisType = [typesEnumerator nextObject])) {
         if ([[pasteboard types] containsObject:thisType] && ![ignoreTypes containsObject:thisType]) {
             id theObject = objectForPasteboardType(pasteboard, thisType);
             if (theObject && thisType) [self setObject:theObject forType:thisType];  
@@ -112,7 +112,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 
 
 - (id)initWithPasteboard:(NSPasteboard *)pasteboard types:(NSArray *)types {
-    if (self = [self init]) {
+    if ((self = [self init])) {
         //QSLog(@"new pasteboard object:%d", self);
         if (!types) types = [pasteboard types];
         //pasteboard = [NSPasteboard pasteboardByFilteringTypesInPasteboard:pasteboard];
@@ -138,7 +138,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
         
         // if (VERBOSE) QSLog(@"Created object with types:\r%@", [typeArray componentsJoinedByString:@", "]);
         id value;
-		if (value = [self objectForType:NSRTFPboardType]) {
+		if ((value = [self objectForType:NSRTFPboardType])) {
 			value = [[[NSAttributedString alloc] initWithRTF:value documentAttributes:nil] string];
 			[self setObject:value forType:QSTextType];
 		}
@@ -166,7 +166,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 }
 - (id)initWithClipping:(NSString *)clippingFile {
 	NSPasteboard *pasteboard = [NSPasteboard pasteboardByFilteringClipping:clippingFile];
-    if (self = [self initWithPasteboard:pasteboard]) {
+    if ((self = [self initWithPasteboard:pasteboard])) {
 		[self setLabel:[clippingFile lastPathComponent]];
     }
 	[pasteboard releaseGlobally];

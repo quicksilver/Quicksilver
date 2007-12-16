@@ -13,7 +13,7 @@
 }
 
 - (id)initWithString:(NSString *)string name:(NSString *)aName type:(NSString *)aType {
-    if (self = [self init]) {         
+    if ((self = [self init])) {         
         [self setName:aName];
         [self setPrimaryType:aType];
         [data setObject:string forKey:aType];
@@ -27,7 +27,7 @@
     return[[(QSObject *)[QSObject alloc]initWithType:(NSString *)type value:(id)value name:(NSString *)newName]autorelease];
 }
 - (id)initWithType:(NSString *)type value:(id)value name:(NSString *)newName{
-    if (self = [self init]){
+    if ((self = [self init])){
         [data setObject:value forKey:type];
         [self setName:newName];
         [self setPrimaryType:type];
@@ -67,7 +67,7 @@
 		[self release];
 		return nil;
 	}
-	if (self = [self init]){
+	if ((self = [self init])){
 		
 		if ([dictionary objectForKey:kData]){
 			[data setDictionary:[dictionary objectForKey:kData]];

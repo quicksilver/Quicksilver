@@ -11,7 +11,7 @@
 @implementation QSVolumesObjectSource
 
 - (id) init{
-    if (self=[super init]){
+    if ((self=[super init])){
         lastMountDate=[NSDate timeIntervalSinceReferenceDate];
         [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(invalidateSelf) name:NSWorkspaceDidMountNotification object: nil];
         [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(invalidateSelf) name:NSWorkspaceDidUnmountNotification object: nil];

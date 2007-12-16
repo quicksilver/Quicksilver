@@ -165,7 +165,7 @@ return version;
 -(BOOL)setShouldBeUIElement:(BOOL)hidden{
 	NSString * plistPath = nil;
     NSFileManager *manager=[NSFileManager defaultManager];
-	if (plistPath = [[[NSBundle mainBundle]bundlePath]stringByAppendingPathComponent:@"Contents/Info.plist"]) {
+	if ((plistPath = [[[NSBundle mainBundle]bundlePath]stringByAppendingPathComponent:@"Contents/Info.plist"])) {
 		if ([manager isWritableFileAtPath:plistPath]){
 			NSMutableDictionary *infoDict=[NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
 			[infoDict setObject:[NSNumber numberWithInt:hidden] forKey:@"LSUIElement"];

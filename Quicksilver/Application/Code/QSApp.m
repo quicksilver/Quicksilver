@@ -56,7 +56,7 @@ BOOL QSApplicationCompletedLaunch = NO;
 	}
 	
 	
-    if (self = [super init]) {
+    if ((self = [super init])) {
 		
 		
 		// Prevent Pre-Tiger Systems
@@ -207,7 +207,7 @@ BOOL QSApplicationCompletedLaunch = NO;
 	NSEnumerator *windowEnumerator = [[self windows] objectEnumerator];
 	NSWindow *thisWindow;
 	NSWindow *clickWindow = nil;
-	while (thisWindow = [windowEnumerator nextObject])
+	while ((thisWindow = [windowEnumerator nextObject]))
 		if ([thisWindow isVisible]
 			 && [thisWindow level] > [clickWindow level] 
 			 && [thisWindow styleMask] & NSNonactivatingPanelMask

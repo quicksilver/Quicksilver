@@ -44,14 +44,14 @@ NSMutableDictionary *plugInBundlePaths=nil;
 		[self release];
 		return [dup retain];
 	}
-	if (self=[super init]){
+	if ((self=[super init])){
 		[self setBundle:aBundle];
 	}
 	return self;
 }
 
 - (id)initWithWebInfo:(NSDictionary *)webInfo{
-	if (self=[super init]){
+	if ((self=[super init])){
 		data=[webInfo retain];
 		bundle=nil;
 	}
@@ -621,7 +621,7 @@ if (DEBUG && [self isSecret]){
 //- (BOOL)loadOldActionProviders:(NSArray *)providerClasses{
 //	NSEnumerator *e=[providerClasses objectEnumerator];
 //	NSString *className;
-//	while(className=[e nextObject]){
+//	while((className=[e nextObject])){
 //		id instance=[QSReg getClassInstance:className];
 //		[QSExec registerActions:instance];
 //	}	

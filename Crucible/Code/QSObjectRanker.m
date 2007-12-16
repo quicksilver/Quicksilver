@@ -53,7 +53,7 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 	return [[[self alloc]initWithObject:object]autorelease];
 }
 -(id)initWithObject:(QSBasicObject *)object{
-	if (self=[super init]){
+	if ((self=[super init])){
 		nameRanker=nil;
 		labelRanker=nil;
 		if ([object name])
@@ -190,7 +190,7 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 		if (newScore){ // Add modifiers
 			if (mnemonics)
 				newOrder=[mnemonics indexOfObject:[object identifier]];
-//			if (!=NSNotFound)
+//			if ((!=NSNotFound))
 //				modifier+=10.0f;
 //			newScore+=modifier;
 			

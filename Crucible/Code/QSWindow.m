@@ -580,7 +580,7 @@
 
 @implementation QSBorderlessWindow
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(unsigned int)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag{
-    if (self = [super initWithContentRect:contentRect styleMask:NSNonactivatingPanelMask|NSBorderlessWindowMask | NSClosableWindowMask backing:bufferingType defer:YES]){
+    if ((self = [super initWithContentRect:contentRect styleMask:NSNonactivatingPanelMask|NSBorderlessWindowMask | NSClosableWindowMask backing:bufferingType defer:YES])){
    
 		[self setBackgroundColor: [NSColor clearColor]];
         [self setOpaque:NO];

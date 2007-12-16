@@ -11,7 +11,7 @@
 @implementation QSHistoryObjectSource
 
 - (id) init{
-    if (self=[super init]){
+    if ((self=[super init])){
 		[QSHistoryController sharedInstance];
 	}
 	return self;

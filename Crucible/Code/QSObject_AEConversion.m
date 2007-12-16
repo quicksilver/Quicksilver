@@ -14,7 +14,7 @@
 @implementation QSObject (AEConversion)
 
 - (QSObject *)initWithAEDescriptor:(NSAppleEventDescriptor *)desc{
-	if (self=[self init]){
+	if ((self=[self init])){
 		[self setName:@"AEObject"];
 		
 		

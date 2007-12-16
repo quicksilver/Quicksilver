@@ -24,7 +24,7 @@ static BOOL firstCheck=NO;
 
 
 -(id)init{
-	if (self=[super init]){
+	if ((self=[super init])){
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invalidateSelf) name:QSCatalogStructureChanged object:nil];
 	}
 return self;	

@@ -9,7 +9,7 @@
 
 
 - (id)initWithFrame:(NSRect)frame{
-	if (self=[super initWithFrame:frame]){
+	if ((self=[super initWithFrame:frame])){
 		[self bindColors];	
 		depth=1.0;
 	}

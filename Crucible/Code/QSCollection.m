@@ -11,7 +11,7 @@
 
 @implementation QSCollection
 - (id)init{
-    if (self=[super init]){
+    if ((self=[super init])){
         array=[[NSMutableArray alloc]init];
     }
     return self;

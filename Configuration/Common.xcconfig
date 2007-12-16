@@ -9,7 +9,8 @@ PREBINDING = NO
 
 FRAMEWORK_SEARCH_PATHS = /System/Library/PrivateFrameworks $(BUILT_PRODUCTS_DIR)
 
-GCC_ENABLE_OBJC_GC = supported
+// Disabled for now, plugins get angry
+//GCC_ENABLE_OBJC_GC = supported
 
 GCC_C_LANGUAGE_STANDARD = c99
 

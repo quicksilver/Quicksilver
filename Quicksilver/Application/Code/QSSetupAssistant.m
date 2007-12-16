@@ -40,7 +40,7 @@
 //		
 //		installedPlugIns = [[NSMutableDictionary alloc] init];
 //		
-//		while(theID = [e nextObject]) {
+//		while((theID = [e nextObject])) {
 //			[installedPlugIns setObject:[NSNumber numberWithBool:YES] forKey:[[identifiers allKeysForObject:theID] lastObject]];
 //			[plugInsToInstall setObject:[NSNumber numberWithBool:YES] forKey:[[identifiers allKeysForObject:theID] lastObject]];
 //			

@@ -56,7 +56,7 @@ id QSRez;
 	return [[self sharedInstance]imageNamed:name inBundle:bundle];
 }
 - (id) init{
-    if (self=[super init]){
+    if ((self=[super init])){
         resourceDict=[[NSMutableDictionary dictionaryWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"ResourceLocations" ofType:@"plist"]]retain];
 		
 		resourceOverrideList=nil;
@@ -156,7 +156,7 @@ id QSRez;
 		
 		NSEnumerator *bundEnumer=[[NSBundle allBundles]objectEnumerator];
 		NSBundle *bundle;
-		while (bundle=[bundEnumer nextObject]){
+		while ((bundle=[bundEnumer nextObject])){
 			NSString *path=[bundle pathForImageResource:name];
 			if (path){
 				image=[[[NSImage alloc]initByReferencingFile:path]autorelease];

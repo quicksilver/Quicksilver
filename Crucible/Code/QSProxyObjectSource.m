@@ -37,14 +37,14 @@
 	QSObject *proxyObject;
 	NSDictionary *info;
 	NSString *name;
-	while (key=[ke nextObject]){
+	while ((key=[ke nextObject])){
 		info=[[messages objectForKey:key] plistContent];
 		if ([info objectForKey:@"enabled"] && ![[info objectForKey:@"enabled"]boolValue])continue;
 		proxyObject=[QSProxyObject makeObjectWithIdentifier:key];
 		[proxyObject setObject:info forType:QSProxyType];
-		if (name=[info objectForKey:@"name"])
+		if ((name=[info objectForKey:@"name"]))
 			[proxyObject setName:name];
-		if (name=[info objectForKey:@"icon"])
+		if ((name=[info objectForKey:@"icon"]))
 			[proxyObject setObject:name forMeta:kQSObjectIconName];
 		[proxyObject setPrimaryType:QSProxyType];
 		

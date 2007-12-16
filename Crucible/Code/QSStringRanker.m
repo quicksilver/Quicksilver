@@ -15,7 +15,7 @@
 	if (!string){
 		[self release];
 		return nil;
-	}else if (self=[super init]){
+	}else if ((self=[super init])){
 		normString=[[string purifiedString]retain];
 	}
 	return self;

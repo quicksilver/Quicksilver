@@ -51,7 +51,7 @@
     return [[(QSObject *)[QSObject alloc]initWithString:string]autorelease];
 }
 - (id)initWithString:(NSString *)string{
-    if (self = [self init]){
+    if ((self = [self init])){
         [data setObject:string forKey:QSTextType];
         [self setName:string];
         [self setPrimaryType:QSTextType];
@@ -71,7 +71,7 @@
 - (void)sniffString{
     NSString *stringValue=[self objectForType:QSTextType];
     
-	if ([stringValue hasPrefix:@"="]){
+	if (([stringValue hasPrefix:@"="])){
 		[self setObject:stringValue forType:QSFormulaType];
 		[self setObject:nil forType:QSTextType];
 		[self setPrimaryType:QSFormulaType];

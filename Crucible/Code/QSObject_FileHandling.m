@@ -468,7 +468,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		
 		NSString *file;
 		NSEnumerator *enumerator = [[manager directoryContentsAtPath:path] objectEnumerator];
-		while (file = [enumerator nextObject]) {
+		while ((file = [enumerator nextObject])) {
 			file = [path stringByAppendingPathComponent:file];
 			[fileChildren addObject:file];
 			if ([manager isVisible:file])
@@ -662,7 +662,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     NSMutableArray *fileObjectArray = [NSMutableArray arrayWithCapacity:1];
 	id object;
     for (id loopItem in pathArray) {
-		if (object = [QSObject fileObjectWithPath:loopItem])
+		if ((object = [QSObject fileObjectWithPath:loopItem]))
 			[fileObjectArray addObject:object];
 	}
     return fileObjectArray;
@@ -680,7 +680,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 
 - (id)initWithArray:(NSArray *)paths { //**this function could create dups
-    if (self = [self init]) {
+    if ((self = [self init])) {
         NSString *thisIdentifier = identifierForPaths(paths);
 		
         if ([paths count] == 1) {

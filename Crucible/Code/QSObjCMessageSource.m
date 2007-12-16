@@ -19,7 +19,7 @@
 
 
 -(id)init{
-	if (self=[super init]){
+	if ((self=[super init])){
 	}
 	return self;	
 }
@@ -55,7 +55,7 @@
 	NSString *key;
 	QSObject *messageObject;
 	NSDictionary *info;
-	while (key=[ke nextObject]){
+	while ((key=[ke nextObject])){
 		info=[messages objectForKey:key];
 		messageObject=[QSObject messageObjectWithInfo:info identifier:key];
 //		[messageObject setIdentifier:key];
@@ -112,13 +112,13 @@
 		//if (VERBOSE) QSLog(@"Old style message object used:%@",[dictionary objectForKey:@"name"]);
 		
 		id value;
-		if (value=[mDict objectForKey:kQSObjCMessageAction])
+		if ((value=[mDict objectForKey:kQSObjCMessageAction]))
 			[mDict setObject:value forKey:kActionSelector];
 		
-		if (value=[mDict objectForKey:kQSObjCMessageTargetClass])
+		if ((value=[mDict objectForKey:kQSObjCMessageTargetClass]))
 			[mDict setObject:value forKey:kActionClass];
 		
-		if (value=[mDict objectForKey:kQSObjCMessageSendToClass])
+		if ((value=[mDict objectForKey:kQSObjCMessageSendToClass]))
 			[mDict setObject:value forKey:kActionSendMessageToClass];
 
 	return	[QSObject actionWithDictionary:mDict

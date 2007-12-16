@@ -219,7 +219,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path,LSItemInfoRecord *infoRec){
     NSEnumerator *enumer=[[[[sourcePath stringByStandardizingPath]stringByResolvingSymlinksInPath] pathComponents]objectEnumerator];
     NSString *thisComponent;
     NSString *path=@"";
-    while(thisComponent=[enumer nextObject]){
+    while((thisComponent=[enumer nextObject])){
         path=[path stringByAppendingPathComponent:thisComponent];
         
         if (![self fileExistsAtPath:path])continue;
@@ -308,7 +308,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path,LSItemInfoRecord *infoRec){
     LSItemInfoRecord infoRec;
     OSStatus status;
     NSEnumerator *enumerator = [[manager directoryContentsAtPath:path] objectEnumerator];
-    while (file = [enumerator nextObject]){
+    while ((file = [enumerator nextObject])){
         file=[path stringByAppendingPathComponent:file];
         type=[self typeOfFile:file];
         
@@ -350,7 +350,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path,LSItemInfoRecord *infoRec){
 	NSDate *newDate=nil;
 	NSString *child;
     [enumerator setDesiredInfo:kFSCatInfoContentMod | kFSCatInfoNodeFlags];
-	while (child = [enumerator nextObjectFullPath]){
+	while ((child = [enumerator nextObjectFullPath])){
 		fileDate=[enumerator fileModificationDate];
 		if ([date compare:fileDate]==NSOrderedAscending && [date compare:[NSDate date]]==NSOrderedAscending){	
 			newDate=fileDate;
@@ -364,7 +364,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path,LSItemInfoRecord *infoRec){
 				//QSLog(@"skipping %@",child);
 				continue;
 			}
-			if (fileDate=[self bulkPath:child wasModifiedAfter:date depth:depth--]){
+			if ((fileDate=[self bulkPath:child wasModifiedAfter:date depth:depth--])){
 				//QSLog(@"date of %@ %@ %@ %d",date,fileDate,child,[enumerator isDirectory]);
 				newDate=fileDate;
 				break;
@@ -392,7 +392,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path,LSItemInfoRecord *infoRec){
 	}
     if (isDirectory){
         NSEnumerator *enumerator = [[self directoryContentsAtPath:path] objectEnumerator];
-        while (file = [enumerator nextObject]){
+        while ((file = [enumerator nextObject])){
             file=[path stringByAppendingPathComponent:file];
             if (![self fileExistsAtPath:file isDirectory:&isDirectory]) continue;
             
@@ -425,7 +425,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path,LSItemInfoRecord *infoRec){
         moddate=[NSDate distantPast];
     if (isDirectory){
         NSEnumerator *enumerator = [[self directoryContentsAtPath:path] objectEnumerator];
-        while (file = [enumerator nextObject]){
+        while ((file = [enumerator nextObject])){
             file=[path stringByAppendingPathComponent:file];
             if (![self fileExistsAtPath:file isDirectory:&isDirectory]) continue;
             

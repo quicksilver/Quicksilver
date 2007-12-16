@@ -126,7 +126,7 @@ NSSize QSMaxIconSize;
 
 
 - (id)init {
-  if (self = [super init]) {
+  if ((self = [super init])) {
 		
 		data = nil;
     [self setDataDictionary:[NSMutableDictionary dictionaryWithCapacity:0]];
@@ -149,7 +149,7 @@ NSSize QSMaxIconSize;
     return [[self primaryObject]isEqual:[anObject primaryObject]];
   NSEnumerator *typesEnumerator=[data keyEnumerator];
   NSString *key;
-  while(key=[typesEnumerator nextObject]){
+  while((key=[typesEnumerator nextObject])){
     if (![[data objectForKey:key]isEqual:[anObject objectForType:key]])return NO;
   }
   return YES;
@@ -204,7 +204,7 @@ NSSize QSMaxIconSize;
 	
 	NSMutableArray *splitObjects=[NSMutableArray array];
 	
-	while(key=[ke nextObject]){
+	while((key=[ke nextObject])){
 		value=[dataDict objectForKey:key];
 		if ([value isKindOfClass:[NSArray class]]){
 			while([splitObjects count]<[value count])
@@ -241,7 +241,7 @@ NSSize QSMaxIconSize;
 	}
 	
 	e=[combinedData keyEnumerator];
-	while(type=[e nextObject]){
+	while((type=[e nextObject])){
 		if (![typesSet containsObject:type])
 			[combinedData removeObjectForKey:type];
 	}
@@ -543,7 +543,7 @@ NSSize QSMaxIconSize;
   NSMutableArray *decodedTypes=[NSMutableArray arrayWithCapacity:[data count]];
   NSEnumerator *typesEnumerator=[data keyEnumerator];
   NSString *thisType;
-  while(thisType=[typesEnumerator nextObject]){
+  while((thisType=[typesEnumerator nextObject])){
     [decodedTypes addObject:[thisType decodedPasteboardType]];
   }
   return decodedTypes;
@@ -554,7 +554,7 @@ NSSize QSMaxIconSize;
 		NSEnumerator *e=[[[self dataDictionary] allValues]objectEnumerator];
 		id value;
 		int count=1;
-		while(value=[e nextObject]){
+		while((value=[e nextObject])){
 			if ([value isKindOfClass:[NSArray class]]) count=MAX([(NSArray *)value count],count);
 		}
 		return count;
@@ -869,7 +869,7 @@ return data; }
   return [[[self alloc]initFromFile:path]autorelease];
 }
 - (id)initFromFile:(NSString *)path{
-  if (self = [self init]){
+  if ((self = [self init])){
     NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:path];
     NSDictionary *newData = [dictionary objectForKey:kData];
     NSDictionary *newMeta = [dictionary objectForKey:kMeta];
@@ -971,7 +971,7 @@ return data; }
 	return [[[self alloc]initWithObject:object]autorelease];
 }
 -(id)initWithObject:(QSBasicObject *)object{
-	if (self=[super init]){
+	if ((self=[super init])){
 		NSString *theIdentifier=[object identifier];
 		name=[[QSDefaultStringRanker alloc]initWithString:[object name]];
 		label=[[QSDefaultStringRanker alloc]initWithString:[object label]];
@@ -1040,7 +1040,7 @@ return data; }
 @implementation QSBasicObject
 
 - (id) init{
-  if (self=[super init]){
+  if ((self=[super init])){
 		rankData=nil;
 		ranker=nil;
   }

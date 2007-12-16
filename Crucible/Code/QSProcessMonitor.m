@@ -76,7 +76,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 }
 
 - (id) init{
-    if (self=[super init]){
+    if ((self=[super init])){
 		[self regisiterForAppChangeNotifications];
 		processes=[[NSMutableArray arrayWithCapacity:1]retain];
         
@@ -238,7 +238,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 	//ProcessSerialNumber psn;
 	for(thisProcess in newProcesses){
 		newObject=nil;
-		if (newObject=[self imbuedFileProcessForDict:[thisProcess processInfo]])
+		if ((newObject=[self imbuedFileProcessForDict:[thisProcess processInfo]]))
 			[objects addObject:newObject];
 		else
 			QSLog(@"ignoring process id %d",pid); 
@@ -255,7 +255,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 	NSDictionary *thisProcess;
 	for(thisProcess in newProcesses){
 		
-		if (newObject=[self imbuedFileProcessForDict:thisProcess])
+		if ((newObject=[self imbuedFileProcessForDict:thisProcess]))
 			[objects addObject:newObject];
 		// else
 		//   QSLog(@"ignoring process id %d",pid); 
@@ -279,7 +279,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 		if (hidden && [thisProcess isVisible])continue;
 		else if ([thisProcess isBackground])continue;
 			
-		if (newObject=[self imbuedFileProcessForDict:[thisProcess processInfo]])
+		if ((newObject=[self imbuedFileProcessForDict:[thisProcess processInfo]]))
 			[objects addObject:newObject];
 	}
 	

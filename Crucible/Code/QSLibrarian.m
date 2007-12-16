@@ -136,7 +136,7 @@ static float searchSpeed=0.0;
 }
 
 - (id) init{
-    if (self=[super init]){
+    if ((self=[super init])){
 		NSNumber *minScore=[[NSUserDefaults standardUserDefaults]objectForKey:@"QSMinimumScore"];
 		if (minScore){
 			gMinScore=[minScore floatValue];
@@ -215,7 +215,7 @@ static float searchSpeed=0.0;
 //	NSString *key;
 //	//NSArray *dictionaryArray;
 //	//NSData *data;
-//	while(key=[catalogEnumerator nextObject])
+//	while((key=[catalogEnumerator nextObject]))
 //		[self saveCatalogArray:key];
 //	if (DEBUG_CATALOG)  QSLog(@"Saved Catalog in %f seconds",-[date timeIntervalSinceNow]);
 //}
@@ -259,7 +259,7 @@ static float searchSpeed=0.0;
 	NSEnumerator *e=[newPresets objectEnumerator];
 	NSMutableDictionary *dict;
 
-	while(dict=[e nextObject]){
+	while((dict=[e nextObject])){
 		[self registerPreset:dict inBundle:bundle scan:scan];
 	}
 	//[catalogChildren replaceObjectsInRange:NSMakeRange(0,0) withObjectsFromArray:newPresets];
@@ -534,7 +534,7 @@ static float searchSpeed=0.0;
     NSEnumerator *typeEntryEnumerator=[[typeArrays objectForKey:string] objectEnumerator];
     NSArray *typeEntry;
     NSMutableSet *typeSet=[NSMutableSet setWithCapacity:1];
-    while(typeEntry=[typeEntryEnumerator nextObject])
+    while((typeEntry=[typeEntryEnumerator nextObject]))
         [typeSet addObjectsFromArray:typeEntry];
     
     // QSLog(@"found %d objects for type %@\r%@",[typeSet count],string,[typeArrays objectForKey:string]);
@@ -798,7 +798,7 @@ static float searchSpeed=0.0;
 //    QSRankedObject *rankedObject;
 //    float scoreModifier=0.0;
 //    NSDate *date=[NSDate date];
-//    while (thisObject=[enumer nextObject]){
+//    while ((thisObject=[enumer nextObject])){
 //        rankedObject=makeRankObject(searchString,thisObject,scoreModifier,mnemonicsOnly,definedMnemonics);
 //        if (rankedObject)
 //            [rankObjects addObject:rankedObject];

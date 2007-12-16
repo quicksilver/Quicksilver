@@ -74,7 +74,7 @@
 }
 
 - (id)initWithObject:(id)newObject matchString:(NSString *)matchString order:(int)newOrder score:(float)newScore{
-    if (self=[super init]){
+    if ((self=[super init])){
         object=[newObject retain];
 		order=newOrder;
         score=newScore;

@@ -110,7 +110,7 @@ void cycleDock(){
 	//QSLog(@"p%@",path);
     NSEnumerator *appEnumerator=[[self launchedApplications]objectEnumerator];
     NSDictionary *theApp;
-    while(theApp=[appEnumerator nextObject]){
+    while((theApp=[appEnumerator nextObject])){
 		//	QSLog(@"n%@",[theApp objectForKey:@"NSApplicationName"]);
         if ([[theApp objectForKey:@"NSApplicationPath"]isEqualToString:path]||[[theApp objectForKey:@"NSApplicationName"]isEqualToString:path])
             return theApp;
@@ -121,7 +121,7 @@ void cycleDock(){
 - (NSDictionary *)dictForApplicationIdentifier:(NSString *)ident{
     NSEnumerator *appEnumerator=[[self launchedApplications]objectEnumerator];
     NSDictionary *theApp;
-    while(theApp=[appEnumerator nextObject]){
+    while((theApp=[appEnumerator nextObject])){
 		if ([[theApp objectForKey:@"NSApplicationBundleIdentifier"]isEqualToString:ident])
             return theApp;
 	}

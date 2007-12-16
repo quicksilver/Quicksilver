@@ -89,7 +89,7 @@ BOOL QSPathCanBeExecuted(NSString *path,BOOL allowApps){
 	NSString *path;
 	NSMutableArray *array=[NSMutableArray array];
 	
-	while(path=[e nextObject]){
+	while((path=[e nextObject])){
 		QSAction *action=[self scriptActionForPath:path];
 		[array addObject:action];
 	}

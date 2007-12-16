@@ -12,7 +12,7 @@
 	return [[[self alloc]initWithArray:newArray] autorelease];
 }	
 - (id)initWithArray:(NSArray *)newArray{
-    if (self=[super init]){
+    if ((self=[super init])){
 		//loadRange={0,0};	
 		array=[newArray retain];
 		loaderValid=YES;

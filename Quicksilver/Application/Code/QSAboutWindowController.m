@@ -45,7 +45,7 @@
 	if (![NSFont fontWithName:@"HiraKakuPro-W3" size:10.0]) {
 		QSLog(@"HiraKakuPro-W3 not found. Removing chinese characters");
 		NSView *subview;
-		while (subview = [contentView viewWithTag:1])
+		while ((subview = [contentView viewWithTag:1]))
 			[subview removeFromSuperview];
 	}
 	NSString *path = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/SharedSupport/Credits.html"];
@@ -57,7 +57,7 @@
 	
 	BOOL supportsQuartzExtreme = [[NSScreen mainScreen] usesOpenGLAcceleration];
 	
-	if (1 || fDEV && supportsQuartzExtreme) {
+	if (1 || (fDEV && supportsQuartzExtreme)) {
 		NSRect r = [imageView frame];
 		
 		r.origin = [[self window] convertBaseToScreen:r.origin];

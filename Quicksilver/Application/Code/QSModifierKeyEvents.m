@@ -157,7 +157,7 @@ BOOL modifierEventsEnabled = YES;
 
 //- (id)init {
 //	
-//	if (self = [super init]) {
+//	if ((self = [super init])) {
 //		NSUserDefaultsController *defaultsController = [NSUserDefaultsController sharedUserDefaultsController];
 //		
 //		[self bind:@"modifierActivationMask" toObject:defaultsController

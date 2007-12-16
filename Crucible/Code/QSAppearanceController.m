@@ -19,7 +19,7 @@ id QSAppearance=nil;
 }
 
 - (id)init{
-	if (self=[super init]){
+	if ((self=[super init])){
 	[self  bind:@"accentColor"
 				 toObject:[NSUserDefaultsController sharedUserDefaultsController]
 			  withKeyPath:@"values.QSAppearance1A"

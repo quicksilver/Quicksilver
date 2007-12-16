@@ -74,7 +74,7 @@ int eCount=0;
   QSObject *obj;
 	//FSCatalogInfoBitmap infoBitmap=kFSCatInfoGettableInfo;
   [enumerator setDesiredInfo:kFSCatInfoGettableInfo|kFSCatInfoFinderInfo];
-	while (file = [enumerator nextObjectFullPath]){
+	while ((file = [enumerator nextObjectFullPath])){
 		FSCatalogInfo*			currInfo = [enumerator currInfo];
 		type=[manager UTIOfFile:file];
 		

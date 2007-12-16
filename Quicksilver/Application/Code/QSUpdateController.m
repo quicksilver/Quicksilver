@@ -26,7 +26,7 @@ UInt64 QSGetPrimaryMACAddressInt();
 
 
 - (id)init {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		
 		
 	}
@@ -292,7 +292,7 @@ UInt64 QSGetPrimaryMACAddressInt();
 //	NSEnumerator *e = [[self downloadsQueue] objectEnumerator];
 //	
 //	NSMutableDictionary *info; 	
-//	while(info = [e nextObject]) {
+//	while((info = [e nextObject])) {
 //		if ([[info objectForKey:@"download"] isEqual:download]) break;
 //	}
 //	return info;

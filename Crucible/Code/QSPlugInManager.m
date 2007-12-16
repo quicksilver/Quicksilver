@@ -30,7 +30,7 @@
     return _sharedInstance;
 }
 - (id)init{
-	if (self=[super init]){
+	if ((self=[super init])){
 		//	plugIns=[[NSMutableDictionary alloc]init];
 		localPlugIns=[[NSMutableDictionary alloc]init];
 		knownPlugIns=[[NSMutableDictionary alloc]init];
@@ -97,7 +97,7 @@
 	//	NSEnumerator *ke=[dict keyEnumerator];
 	//	NSString *key;
 	//	id value;
-	//	while(key=[ke nextObject]){
+	//	while((key=[ke nextObject])){
 	//		value=[dict objectForKey:key];
 	//		if (value==[NSBundle mainBundle]) continue;
 	//		[plugIns setObject:[QSPlugIn plugInWithBundle:value] forKey:key];
@@ -213,7 +213,7 @@
 		key=[value objectForKey:@"CFBundleIdentifier"];
 		if (!key) continue;
 		[plugInWebData setObject:value forKey:key];
-		if (plugin=[knownPlugIns objectForKey:key]){
+		if ((plugin=[knownPlugIns objectForKey:key])){
 			[plugin setData:value];
 			//[availablePlugIns addObject:plugin];
 			//if (VERBOSE)QSLog(@"Bind Old %@ to %@",key,[plugin bundle]);
@@ -445,7 +445,7 @@
 	// load all valid plugins
 	NSArray *plugInsToLoad=[plugInsToLoadByID allValues];
 	e=[[localPlugIns allValues] objectEnumerator];
-	while(plugin=[e nextObject]){
+	while((plugin=[e nextObject])){
 		if ([plugInsToLoad containsObject:plugin]) [plugin registerPlugIn];
 	}
 	
@@ -504,7 +504,7 @@
 		NSString *curPlugInPath;
 		bundleEnum = [[[NSFileManager defaultManager]directoryContentsAtPath:currPath]objectEnumerator];
 		if(bundleEnum){
-			while(curPlugInPath = [bundleEnum nextObject]){
+			while((curPlugInPath = [bundleEnum nextObject])){
 				if([[curPlugInPath pathExtension] caseInsensitiveCompare:@"qsplugin"]==NSOrderedSame){
 					[allBundles addObject:[currPath stringByAppendingPathComponent:curPlugInPath]];
 				}
@@ -557,7 +557,7 @@
 	//NSString *error;
 	
 #warning should detect installation of a disabled plugin	
-	if (dupPlugIn=[loadedPlugIns objectForKey:ident]){// check if the bundle is already loaded. if so need to restart.
+	if ((dupPlugIn=[loadedPlugIns objectForKey:ident])){// check if the bundle is already loaded. if so need to restart.
 													  //QSLog(@"Bundle already loaded: %@",dupPlugIn);
 		return NO;
 		
@@ -654,7 +654,7 @@
 	
 	NSEnumerator *e=[knownPlugIns objectEnumerator];
 	QSPlugIn *thisPlugIn;
-	while(thisPlugIn=[e nextObject]){
+	while((thisPlugIn=[e nextObject])){
 		if ([thisPlugIn needsUpdate]){
 			[updatedPlugIns addObject:thisPlugIn];
 			newPlugInsAvailable++;	
@@ -868,7 +868,7 @@
 	NSEnumerator *e=[bundleIDs objectEnumerator];
 	NSString *ident=nil;
 	if (!version)version=[NSApp buildVersion];
-	while(ident=[e nextObject]){
+	while((ident=[e nextObject])){
 		NSString *url=[self urlStringForPlugIn:ident version:version];
 		NSDictionary *dict=[NSDictionary dictionaryWithObjectsAndKeys:
 			ident,@"id",

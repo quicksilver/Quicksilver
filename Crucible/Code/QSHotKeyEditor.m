@@ -109,7 +109,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
 }
 
 - (id)init{
-    if (self=[super init]){
+    if ((self=[super init])){
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cancel) name:NSApplicationWillResignActiveNotification object:nil];
 		//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cancel) name:NSWindowDidResignKeyNotification object:nil];
 		[self setFieldEditor:YES];
@@ -256,7 +256,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
  */
 - (id)initWithFrame:(NSRect)aFrame
 {
-    if ( self = [super initWithFrame:aFrame] )
+    if (( self = [super initWithFrame:aFrame] ))
 	{
 		[self setEditable:NO];
     }
@@ -268,7 +268,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
  */
 - (id)initWithCoder:(NSCoder *)aCoder
 {
-	if ( self = [super initWithCoder:aCoder] )
+	if (( self = [super initWithCoder:aCoder] ))
 	{
 		[self setEditable:NO];
 	}

@@ -350,28 +350,28 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 4DB839B50D13F55800A0CA18 /* CalculatorPlugin.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8D5B49B6048680CD000E48DA /* Calculator Module.qsplugin */;
+			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
 			remoteInfo = "Calculator Module";
 		};
 		4DB839CA0D13F6A000A0CA18 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4DB839B50D13F55800A0CA18 /* CalculatorPlugin.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 8D5B49AC048680CD000E48DA /* Calculator Module */;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
 			remoteInfo = "Calculator Module";
 		};
 		4DB83C860D143CC800A0CA18 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4DB83C820D143CC800A0CA18 /* FindModule.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8D1AC9740486D14A00FE50C9 /* Find Module.element */;
+			remoteGlobalIDString = 8D1AC9740486D14A00FE50C9;
 			remoteInfo = "Find Module";
 		};
 		4DB83C8A0D143CD800A0CA18 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4DB83C820D143CC800A0CA18 /* FindModule.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 8D1AC9600486D14A00FE50C9 /* Find Module */;
+			remoteGlobalIDString = 8D1AC9600486D14A00FE50C9;
 			remoteInfo = "Find Module";
 		};
 		4DC820E00D12EA220039BD1B /* PBXContainerItemProxy */ = {
@@ -1411,6 +1411,7 @@
 				7FA7DB2F0C5CF13E00A27607 /* Copy Quick Look Generator */,
 				7F9A7A610C49595900B5912D /* Sources */,
 				7F9A7A620C49595900B5912D /* Frameworks */,
+				7FC847990D159A08005E1C6B /* Sign Code */,
 			);
 			buildRules = (
 			);
@@ -1768,6 +1769,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "Plugins/get-plugins.sh";
+		};
+		7FC847990D159A08005E1C6B /* Sign Code */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Sign Code";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "codesign -f -s Blacktree,\\ Inc. $CONFIGURATION_BUILD_DIR/$FULL_PRODUCT_NAME\ncodesign -v $CONFIGURATION_BUILD_DIR/$FULL_PRODUCT_NAME;\nexit 0";
 		};
 /* End PBXShellScriptBuildPhase section */
 

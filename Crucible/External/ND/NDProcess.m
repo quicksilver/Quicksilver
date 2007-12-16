@@ -40,7 +40,7 @@ NSString			* kBundleExecutableKey = @"CFBundleExecutable";
  */
 - (id)initWithProcessSerialNumber:(ProcessSerialNumber)aProcessSerialNumber
 {
-	if( self = [self init] )
+	if(( self = [self init] ))
 	{
 		[self setProcessSerialNumber:aProcessSerialNumber];
 	}
@@ -371,7 +371,7 @@ NDProcess * reusableInstance();
 	NDProcess			* theProcess;
 
 	theEnumerator = [self processesEnumerater];
-	while( theProcess = [theEnumerator nextObject] )
+	while(( theProcess = [theEnumerator nextObject] ))
 	{
 		if( [[theProcess url] isEqual:aURL] )
 			return theProcess;						// RETURN found process
@@ -433,7 +433,7 @@ NDProcess * reusableInstance();
 	theFoundProcesses = [NSMutableArray array];
 	theEnumerator = [self processesEnumerater];
 
-	while( theProcess = [theEnumerator nextObject] )
+	while(( theProcess = [theEnumerator nextObject] ))
 	{
 		if( [[[theProcess url] absoluteString] isEqualToString:[aURL absoluteString]] )
 			[theFoundProcesses addObject:theProcess];
@@ -454,7 +454,7 @@ NDProcess * reusableInstance();
 	theFoundProcesses = [NSMutableArray array];
 	theEnumerator = [self processesEnumerater];
 
-	while( theProcess = [theEnumerator nextObject] )
+	while(( theProcess = [theEnumerator nextObject] ))
 	{
 		if( [[theProcess path] isEqualToString:aPath] )
 			[theFoundProcesses addObject:theProcess];
@@ -653,7 +653,7 @@ NDProcess * reusableInstance()
  */
 - (id)init
 {
-	if( self = [super init] )
+	if(( self = [super init] ))
 	{
 		currentProcessSerialNumber.highLongOfPSN = kNoProcess;
 		currentProcessSerialNumber.lowLongOfPSN = 0;

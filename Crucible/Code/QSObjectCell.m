@@ -66,7 +66,7 @@ NSRect alignRectInRect(NSRect innerRect,NSRect outerRect,int quadrant);
 }
 - (id)initTextCell:(NSString *)aString{
     
-    if (self=[super initTextCell:aString]){
+    if ((self=[super initTextCell:aString])){
         [self setTitle:@"Test"];
         
 		// [self _setNeedsHighlightedTextHint:YES];

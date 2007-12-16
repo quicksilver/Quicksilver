@@ -27,7 +27,7 @@ NSRect QSBlendRects(NSRect start, NSRect end,float b){
 
 
 - (id)init{
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		_timer=nil;
 	}
 	return self;	
@@ -155,7 +155,7 @@ NSRect QSBlendRects(NSRect start, NSRect end,float b){
 /*
 @implementation QSWarpEffectHelper
 - (id)init{
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		_timer=nil;
 		alphaFt=QSStandardAlphaBlending;
 		effectFt=QSStandardTransformBlending;

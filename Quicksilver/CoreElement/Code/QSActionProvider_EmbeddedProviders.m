@@ -53,7 +53,7 @@
 	
 	NSEnumerator *e=[[dObject arrayForType:QSURLType]objectEnumerator];
 	
-	while (urlString=[e nextObject]){
+	while ((urlString=[e nextObject])){
 		NSURL *url=[NSURL URLWithString:urlString];
 		
 		if ([urlString rangeOfString:QUERY_KEY].location!=NSNotFound){
@@ -364,7 +364,7 @@
 	NSString *thisFile;
 	NSFileManager *manager=[NSFileManager defaultManager];
 	LSItemInfoRecord infoRec;
-	while(thisFile=[files nextObject]){
+	while((thisFile=[files nextObject])){
 		
 		LSCopyItemInfoForURL((CFURLRef)[NSURL fileURLWithPath:thisFile],
 							 kLSRequestBasicFlagsOnly, &infoRec);
@@ -428,7 +428,7 @@
 	}
 	
 	NSString *thisApp=[iObject singleFilePath];
-	while(thisFile=[files nextObject])
+	while((thisFile=[files nextObject]))
 		[[NSWorkspace sharedWorkspace] openFile:thisFile withApplication:thisApp];
 	return nil;
 }
@@ -450,7 +450,7 @@
 	NSEnumerator *files=[[dObject validPaths]objectEnumerator]; 
 	// ***warning   * should resolve aliases
 	NSString *thisFile; //=[dObject singleFilePath];
-	while(thisFile=[files nextObject])
+	while((thisFile=[files nextObject]))
 		//QSLog(@"thisfile %@",thisFile);
 		//if (thisFile)
 		[mQSFSBrowser revealFile:thisFile];   
@@ -474,7 +474,7 @@
 	if (choice==1){
 		NSEnumerator *files=[dObject enumeratorForType:QSFilePathType];
 		NSString *thisFile;
-		while(thisFile=[files nextObject]){
+		while((thisFile=[files nextObject])){
 			if ([[NSFileManager defaultManager] removeFileAtPath:thisFile handler:nil])
 				[[NSWorkspace sharedWorkspace] noteFileSystemChanged:[thisFile stringByDeletingLastPathComponent]];
 			else
@@ -487,7 +487,7 @@
 - (QSBasicObject *) trashFile:(QSObject *)dObject{
 	NSEnumerator *files=[[dObject arrayForType:QSFilePathType]objectEnumerator];
 	NSString *thisFile;
-	while(thisFile=[files nextObject]){
+	while((thisFile=[files nextObject])){
 		[[NSWorkspace sharedWorkspace] performFileOperation:NSWorkspaceRecycleOperation
 													 source:[thisFile stringByDeletingLastPathComponent]
 												destination:@"" files:[NSArray arrayWithObject:[thisFile lastPathComponent]] tag:nil];
@@ -582,7 +582,7 @@
 			{
 				NSString *file;
 				NSEnumerator *enumerator=[[conflicts allValues]objectEnumerator];
-				while(file=[enumerator nextObject]){
+				while((file=[enumerator nextObject])){
 					QSLog(file);
 					[manager removeFileAtPath:file handler:nil];
 				}
@@ -652,7 +652,7 @@
 	NSString *destination=[iObject singleFilePath];
 	NSEnumerator *files=[dObject enumeratorForType:QSFilePathType];
 	NSString *thisFile, *destinationFile;
-	while(thisFile=[files nextObject]){
+	while((thisFile=[files nextObject])){
 		destinationFile=[destination stringByAppendingPathComponent:[thisFile lastPathComponent]];
 		if ([(NDAlias *)[NDAlias aliasWithPath:thisFile]writeToFile:destinationFile]){
 			[[NSWorkspace sharedWorkspace] noteFileSystemChanged:destination];
@@ -670,7 +670,7 @@
 	NSEnumerator *files=[dObject enumeratorForType:QSFilePathType];
 	NSString *thisFile, *destinationFile;
 	
-	while(thisFile=[files nextObject]){
+	while((thisFile=[files nextObject])){
 		destinationFile=[destination stringByAppendingPathComponent:[thisFile lastPathComponent]];
 		
 		if ([[NSFileManager defaultManager] createSymbolicLinkAtPath:destinationFile pathContent:thisFile]){
@@ -689,7 +689,7 @@
 	NSEnumerator *files=[dObject enumeratorForType:QSFilePathType];
 	NSString *thisFile, *destinationFile;
 	
-	while(thisFile=[files nextObject]){
+	while((thisFile=[files nextObject])){
 		destinationFile=[destination stringByAppendingPathComponent:[thisFile lastPathComponent]];
 		
 		if ([[NSFileManager defaultManager] linkPath:destinationFile toPath:thisFile handler:nil]){

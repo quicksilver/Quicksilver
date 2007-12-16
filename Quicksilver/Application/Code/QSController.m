@@ -175,7 +175,7 @@ static id _sharedInstance;
 
 
 - (id)init {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		
 		_sharedInstance = self;
 		if (DEBUG_STARTUP) QSLog(@"Controller Init");

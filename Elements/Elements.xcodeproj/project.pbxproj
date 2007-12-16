@@ -15,7 +15,7 @@
 		331B68B00B993A2A00B49812 /* QSRegistry.h in Headers */ = {isa = PBXBuildFile; fileRef = 331B68AB0B993A2A00B49812 /* QSRegistry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		331B68B10B993A2A00B49812 /* QSRegistry.m in Sources */ = {isa = PBXBuildFile; fileRef = 331B68AC0B993A2A00B49812 /* QSRegistry.m */; };
 		333320980B99692900CEA65A /* QSLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 333320970B99692900CEA65A /* QSLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		335984C70BA1FB9000D3F323 /* NSBundle+ExtendedLoading.h in Headers */ = {isa = PBXBuildFile; fileRef = 335984C50BA1FB9000D3F323 /* NSBundle+ExtendedLoading.h */; };
+		335984C70BA1FB9000D3F323 /* NSBundle+ExtendedLoading.h in Headers */ = {isa = PBXBuildFile; fileRef = 335984C50BA1FB9000D3F323 /* NSBundle+ExtendedLoading.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		335984C80BA1FB9000D3F323 /* NSBundle+ExtendedLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = 335984C60BA1FB9000D3F323 /* NSBundle+ExtendedLoading.m */; };
 		7F11D6830B8A1A730092B7F9 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F11D67F0B8A1A730092B7F9 /* MainMenu.nib */; };
 		7F11D6850B8A1A730092B7F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F11D6820B8A1A730092B7F9 /* main.m */; };

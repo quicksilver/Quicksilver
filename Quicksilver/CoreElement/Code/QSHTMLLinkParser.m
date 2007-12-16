@@ -27,7 +27,7 @@
 
 
 - (id)init{
-	if (self = [super init]){
+	if ((self = [super init])){
 		//		ekparser = ekhtml_parser_new(NULL);
 		//		ekhtml_parser_datacb_set(ekparser, handle_data);
 		//		ekhtml_parser_startcb_add(ekparser, NULL, handle_starttag);
@@ -51,14 +51,14 @@
 	//QSLog(@"data %d %@, settings %@, source %@",[data length],string,settings,source);
 	
 	 NSString *prefix;
-	 if (prefix=[settings objectForKey:@"contentPrefix"]){
+	 if ((prefix=[settings objectForKey:@"contentPrefix"])){
 		 NSRange prefixRange=[string rangeOfString:prefix];
 		 if (prefixRange.location!=NSNotFound){
 			 string=[string substringFromIndex:NSMaxRange(prefixRange)+1];
 		 }
 	 }
 	 NSString *suffix;
-	 if (suffix=[settings objectForKey:@"contentSuffix"]){
+	 if ((suffix=[settings objectForKey:@"contentSuffix"])){
 		 NSRange suffixRange=[string rangeOfString:suffix];
 		 if (suffixRange.location!=NSNotFound){
 			 string=[string substringToIndex:suffixRange.location];
@@ -299,14 +299,14 @@
 //    NSString *string=[NSString stringWithContentsOfURL:url];
 //	
 //	NSString *prefix;
-//	if (prefix=[settings objectForKey:@"contentPrefix"]){
+//	if ((prefix=[settings objectForKey:@"contentPrefix"])){
 //		NSRange prefixRange=[string rangeOfString:prefix];
 //		if (prefixRange.location!=NSNotFound){
 //			string=[string substringFromIndex:NSMaxRange(prefixRange)+1];
 //		}
 //	}
 //	NSString *suffix;
-//	if (suffix=[settings objectForKey:@"contentSuffix"]){
+//	if ((suffix=[settings objectForKey:@"contentSuffix"])){
 //		NSRange suffixRange=[string rangeOfString:suffix];
 //		if (suffixRange.location!=NSNotFound){
 //			string=[string substringToIndex:suffixRange.location];

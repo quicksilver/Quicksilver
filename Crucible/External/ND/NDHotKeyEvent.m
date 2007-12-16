@@ -290,7 +290,7 @@ struct HotKeyMappingEntry
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-	if( self = [super init] )
+	if(( self = [super init] ))
 	{
 		if( [aDecoder allowsKeyedCoding] )
 		{

@@ -85,7 +85,7 @@ BOOL operateOnResourceUsingFunction( short int afileRef, ResType aType, NSString
 	FSRef			theFsRef,
 					theParentFsRef;
 
-	if( self = [self init] )
+	if(( self = [self init] ))
 	{
 		/*
 		 * if write permission then create resource fork

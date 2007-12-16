@@ -229,7 +229,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString){
 
 
 -(id)init{
-    if (self=[super init]){
+    if ((self=[super init])){
         oDict=[[NSMutableDictionary alloc]initWithCapacity:2]; 
     }
     return self;
@@ -240,7 +240,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString){
     return nil;
 }
 -(id)initWithDirectObject:(QSBasicObject *)dObject actionObject:(QSBasicObject *)aObject indirectObject:(QSBasicObject *)iObject{
-    if (self=[self init]){
+    if ((self=[self init])){
         if (dObject)[oDict setObject:dObject forKey:@"directObject"];
         if (aObject)[oDict setObject:aObject  forKey:@"actionObject"];
         if (iObject)[oDict setObject:iObject forKey:@"indirectObject"];
@@ -277,7 +277,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString){
 	if ([dObject identifier])[oDict setObject:[dObject identifier] forKey:@"directID"];
 }
 -(id)initWithDictionary:(NSDictionary *)newDict{
-    if (self=[self init]){
+    if ((self=[self init])){
         [oDict addEntriesFromDictionary:newDict];
     }
     return self;

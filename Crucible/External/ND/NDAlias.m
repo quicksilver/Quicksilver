@@ -92,7 +92,7 @@
  */
 - (id)initWithURL:(NSURL *)aURL fromURL:(NSURL *)aFromURL
 {
-	if( self = [super init] )
+	if(( self = [super init] ))
 	{
 		if( aURL && [self createAliasRecordFor:aURL fromURL:aFromURL] )
 		{
@@ -119,7 +119,7 @@
 
 - (id)initWithData:(NSData *)aData
 {
-	if( self = [super init] )
+	if(( self = [super init] ))
 	{
 		if( aData && PtrToHand( [aData bytes], (Handle*)&aliasHandle, [aData length] ) == noErr )
 		{

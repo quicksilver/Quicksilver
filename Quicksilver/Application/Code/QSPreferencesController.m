@@ -126,7 +126,7 @@ id QSPrefs;
 	NSEnumerator *e = [plugInPanes objectEnumerator];
 	NSString *paneKey = nil;
 	id pane;
-	while(pane = [e nextObject]) {
+	while((pane = [e nextObject])) {
 		paneKey = [pane valueForKey:@"id"];
 		if ([modulesByID objectForKey:paneKey]) continue;
 		//if ([loadedPanes containsObject:paneKey]) continue;

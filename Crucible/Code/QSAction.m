@@ -54,7 +54,7 @@ static BOOL gModifiersAreIgnored;
 }
 
 - (id)initWithIdentifier:(NSString *)newIdentifier bundle:(NSBundle *)newBundle{
-    if (self=[super init]){
+    if ((self=[super init])){
 		[self setObject:[NSMutableDictionary dictionary] forType:QSActionType];
         [self setIdentifier:newIdentifier];
         [self setName:[newBundle safeLocalizedStringForKey:newIdentifier value:newIdentifier table:@"QSAction-name"]];
@@ -365,7 +365,7 @@ static BOOL gModifiersAreIgnored;
 		[self release];
 		return nil;
 	}
-	if (self = [self init]){
+	if ((self = [self init])){
 		dict=[[dict mutableCopy]autorelease];
 		//[self setName:[dict object];
 		[self setObject:dict forType:QSActionType];

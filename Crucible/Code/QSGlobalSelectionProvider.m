@@ -28,7 +28,7 @@
 
 @implementation QSTemporaryServiceProvider
 - (id)init{
-	if (self=[super init]){
+	if ((self=[super init])){
 		resultPboard=nil;		
 	}
 	return self;

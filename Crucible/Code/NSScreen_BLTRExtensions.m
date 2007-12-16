@@ -97,7 +97,7 @@ CFStringRef QSGetLocalDisplayName(CGDirectDisplayID display)
 +(NSScreen *)screenWithNumber:(int)number{
 	NSEnumerator *e=[[self screens]objectEnumerator];
 	NSScreen *screen;
-	while(screen=[e nextObject]){
+	while((screen=[e nextObject])){
 		if ([screen screenNumber]==number){
 			return screen;
 		}
