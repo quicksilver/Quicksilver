@@ -20,8 +20,6 @@
 //}
 
 - (void)didTurnIntoFault {
-  
-  NSLog(@"fault point");
   [elements release];
   [elementsByID release];
   [super didTurnIntoFault];

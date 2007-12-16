@@ -12,6 +12,8 @@
 		7F17F1740C4F199D001ADE1A /* QSCaseInsensitiveStringKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F17F0640C4F1795001ADE1A /* QSCaseInsensitiveStringKey.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F17F1750C4F199D001ADE1A /* QSCaseInsensitiveStringKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F17F0650C4F1795001ADE1A /* QSCaseInsensitiveStringKey.m */; };
 		7F2577AE0C80769C00CE3BDE /* NSApplication+ServicesModification.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F17F05C0C4F16F0001ADE1A /* NSApplication+ServicesModification.m */; };
+		7F350C4D0D15A4FB00B2B814 /* QSObject+QSIconLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F350C4B0D15A4FB00B2B814 /* QSObject+QSIconLoader.h */; };
+		7F350C4E0D15A4FB00B2B814 /* QSObject+QSIconLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F350C4C0D15A4FB00B2B814 /* QSObject+QSIconLoader.m */; };
 		7F3EF7A60CF6105E007A043A /* NSImage+QuickLook.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F3EF7A30CF6105E007A043A /* NSImage+QuickLook.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F3EF7A70CF6105E007A043A /* NSImage+QuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3EF7A40CF6105E007A043A /* NSImage+QuickLook.m */; };
 		7F3EF7A80CF6105E007A043A /* README.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7F3EF7A50CF6105E007A043A /* README.rtf */; };
@@ -459,6 +461,8 @@
 		7F17F0650C4F1795001ADE1A /* QSCaseInsensitiveStringKey.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSCaseInsensitiveStringKey.m; sourceTree = "<group>"; };
 		7F17F16E0C4F1983001ADE1A /* QSTitleToolbarItem.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSTitleToolbarItem.h; sourceTree = "<group>"; };
 		7F17F16F0C4F1983001ADE1A /* QSTitleToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSTitleToolbarItem.m; sourceTree = "<group>"; };
+		7F350C4B0D15A4FB00B2B814 /* QSObject+QSIconLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QSObject+QSIconLoader.h"; sourceTree = "<group>"; };
+		7F350C4C0D15A4FB00B2B814 /* QSObject+QSIconLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "QSObject+QSIconLoader.m"; path = "Code/QSObject+QSIconLoader.m"; sourceTree = SOURCE_ROOT; };
 		7F3EF7A30CF6105E007A043A /* NSImage+QuickLook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+QuickLook.h"; sourceTree = "<group>"; };
 		7F3EF7A40CF6105E007A043A /* NSImage+QuickLook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+QuickLook.m"; sourceTree = "<group>"; };
 		7F3EF7A50CF6105E007A043A /* README.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = README.rtf; sourceTree = "<group>"; };
@@ -1037,6 +1041,8 @@
 		7F9A874B0C497AEF00B5912D /* Code */ = {
 			isa = PBXGroup;
 			children = (
+				7F350C4B0D15A4FB00B2B814 /* QSObject+QSIconLoader.h */,
+				7F350C4C0D15A4FB00B2B814 /* QSObject+QSIconLoader.m */,
 				7F5D24220C49C44200812049 /* QSOutlineView.h */,
 				7F5D24210C49C44200812049 /* QSOutlineView.m */,
 				7F17F16E0C4F1983001ADE1A /* QSTitleToolbarItem.h */,
@@ -1663,6 +1669,7 @@
 				7F3EF7AA0CF61068007A043A /* QLUIPrivate.h in Headers */,
 				7FC847040D1598FF005E1C6B /* NSApplication+ServicesModification.h in Headers */,
 				7FC847050D15990B005E1C6B /* DNDArrayController.h in Headers */,
+				7F350C4D0D15A4FB00B2B814 /* QSObject+QSIconLoader.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1961,6 +1968,7 @@
 				7F17F1750C4F199D001ADE1A /* QSCaseInsensitiveStringKey.m in Sources */,
 				7F2577AE0C80769C00CE3BDE /* NSApplication+ServicesModification.m in Sources */,
 				7F3EF7A70CF6105E007A043A /* NSImage+QuickLook.m in Sources */,
+				7F350C4E0D15A4FB00B2B814 /* QSObject+QSIconLoader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -37,7 +37,7 @@ NSString *identifierForPaths(NSArray *paths) {
 }
 
 
-static NSDictionary *bundlePresetChildren;
+static NSDictionary *bundlePresetChildren = nil;
 static BOOL useSmallIcons = NO;
 NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
   if (!bundleIdentifier) return nil;
@@ -493,7 +493,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 				return [handler loadChildrenForObject:object];
 			} else {
 				if (!bundlePresetChildren) {
-					bundlePresetChildren = [QSReg elementsByIDForPointID:@"QSBundleChildPresets"];
+          QSLog(@"preset load");
+					bundlePresetChildren = [[QSReg elementsByIDForPointID:@"QSBundleChildPresets"] retain];
 					//[[NSDictionary dictionaryWithContentsOfFile:
 					//	[[NSBundle mainBundle] pathForResource:@"BundleChildPresets" ofType:@"plist"]]retain];
 				}

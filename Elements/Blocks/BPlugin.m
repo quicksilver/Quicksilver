@@ -102,7 +102,7 @@ static int BPluginLoadSequenceNumbers = 0;
 	}
 }
 - (void)didTurnIntoFault {
-	BLogDebug(@"faulted %@", self);
+	//BLogDebug(@"faulted %@", self);
 }
 - (NSString *)description {
     return [NSString stringWithFormat:@"id: %@ loadSequence: %i", [self identifier], [self loadSequenceNumber]];
@@ -188,7 +188,7 @@ static int BPluginLoadSequenceNumbers = 0;
 	}
 	[point setValuesForKeysWithDictionary:pointAttributes];
 	
-	BLog(@"[extensionPointInfo XMLString] %@", [extensionPointInfo XMLString]);
+	//BLog(@"[extensionPointInfo XMLString] %@", [extensionPointInfo XMLString]);
 	[point setValue:[extensionPointInfo XMLString] forKey:@"content"];
 	
 	NSMutableSet *points = [self mutableSetValueForKey:@"extensionPoints"];

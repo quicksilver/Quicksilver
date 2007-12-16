@@ -10,6 +10,6 @@
 
 
 @interface QSObject (QSIconLoader) 
-- (NSImage *) iconTriggeringLoad;
+- (NSImage *) delayedIcon;
 
 @end

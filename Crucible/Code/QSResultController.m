@@ -593,7 +593,7 @@ valueForKeyPath:@"values.QSAppearance3B"];
 //Table Methods
 
 - (void)setupResultTable{
-    QSLog(@"setup result");
+
     NSTableColumn *tableColumn = nil;
 	//   QSImageAndTextCell *imageAndTextCell = nil;
     //NSImageCell *imageCell = nil;
@@ -647,7 +647,6 @@ valueForKeyPath:@"values.QSAppearance3B"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewChanged:) name:NSViewBoundsDidChangeNotification object:[[resultTable enclosingScrollView] contentView]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(childViewChanged:) name:NSViewBoundsDidChangeNotification object:[[resultChildTable enclosingScrollView] contentView]];
   
-  QSLog(@"setup result");
 }
 
 - (int)numberOfRowsInTableView:(NSTableView *)tableView{

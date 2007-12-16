@@ -299,7 +299,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 		if ([[bundlePath lastPathComponent]isEqualToString:@"Contents"]){
 			bundlePath=[bundlePath stringByDeletingLastPathComponent];
 			newObject=[QSObject fileObjectWithPath:bundlePath];
-				QSLog(@"%@ %@",bundlePath,newObject);
+			
 			
 		}
 	}
