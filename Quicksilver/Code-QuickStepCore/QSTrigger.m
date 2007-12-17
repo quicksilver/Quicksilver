@@ -15,7 +15,6 @@
 
 @implementation QSTrigger
 + (void)initialize {
-
 	[self setKeys:[NSArray arrayWithObject:@"command"] triggerChangeNotificationsForDependentKey:@"name"];
 	[self setKeys:[NSArray arrayWithObjects:@"name", @"icon", nil] triggerChangeNotificationsForDependentKey:@"imageAndText"];
 }
@@ -45,20 +44,16 @@
 - (void)dealloc {
 	NSLog(@"dealloc %@", self);
 	[info release];
-	info = nil;
 	[children release];
-	children = nil;
 	[super dealloc];
 }
 - (BOOL)isGroup {
 	return [[self type] isEqualToString:@"QSGroupTrigger"];
 }
 - (NSImage *)smallIcon {
-
 	if ([[self type] isEqualToString:@"QSGroupTrigger"]) {
 		return [[self manager] image];
 	} else {
-
 		[[self command] loadIcon];
 		NSImage *icon = [[self command] icon];
 		[icon setFlipped:NO];
@@ -69,18 +64,16 @@
 
 - (NSString *)name {
 	NSString *name = [info objectForKey:@"name"];
-	if (!name) {
-		QSCommand *command = [self command];
-		name = [command description];
-	}
+	if (!name)
+		name = [[self command] description];
 	return name;
 }
 - (BOOL)hasCustomName {
 	if ([self isPreset]) return NO;
 	return [info objectForKey:@"name"] != nil;
 }
+
 - (void)setName:(NSString *)name {
-	//NSLog(@"setName %@", name);
 	if (![name length]) {
 		[info removeObjectForKey:@"name"];
 	} else if (name) {
@@ -94,6 +87,7 @@
 	[self setType:@"QSHotKeyTrigger"];
 	return @"QSHotKeyTrigger";
 }
+
 - (void)setType:(NSString *)type {
 	BOOL wasEnabled = [self enabled];
 	if (wasEnabled)
@@ -104,8 +98,8 @@
 	if (wasEnabled)
 		[self setEnabled:YES];
 }
+
 - (void)initializeTrigger {
-//	id manager = [QSReg instanceForKey:type inTable:QSTriggerManagers];
 	[[self manager] initializeTrigger:self];
 }
 
@@ -120,25 +114,19 @@
 }
 
 - (BOOL)execute {
-
-//	if (![self zScope]) return;
-
-[[self command] executeIgnoringModifiers];
+	[[self command] executeIgnoringModifiers];
 	if ([info objectForKey:@"oneshot"]) {
-		//if (VERBOSE) NSLog(@"disabling one shot trigger");
 		[self disable];
 	}
 	return YES;
 }
 - (QSCommand *)command {
-	//	NSLog(@"command %@", command);
 	id command = [info objectForKey:@"command"];
 	if ([command isKindOfClass:[NSDictionary class]]) {
 		command = [QSCommand commandWithDictionary:command];
 		[info setObject:command forKey:@"command"];
 	} else if ([command isKindOfClass:[NSString class]]) {
 		NSDictionary *commandInfo = [QSReg valueForKey:command inTable:@"QSCommands"];
-
 		//NSLog(@"looking up command %@ %@", command, commandInfo );
 		command = [QSCommand commandWithDictionary:[commandInfo objectForKey:@"command"]];
 	}
@@ -159,14 +147,14 @@
 - (NSDictionary *)dictionaryRepresentation {
 	id command = [info objectForKey:@"command"];
 	if ([command isKindOfClass:[QSCommand class]]) {
-		NSMutableDictionary *dict = [[info mutableCopy] autorelease];
+		NSMutableDictionary *dict = [info mutableCopy];
 		[dict setObject:[command dictionaryRepresentation] forKey:@"command"];
-		return dict;
+		return [dict autorelease];
 	}
 	return info;
 }
+
 - (NSString *)triggerDescription {
-//	NSLog(@"descript");
 	return [[self manager] descriptionForTrigger:self];
 }
 - (void)setTriggerDescription:(NSString *)description {
@@ -177,7 +165,6 @@
 }
 
 - (id)manager {
-
 	return [QSReg instanceForKey:[info objectForKey:@"type"] inTable:QSTriggerManagers];
 }
 
@@ -189,17 +176,12 @@
 	if (activated == flag) return;
 	if (![[info objectForKey:@"enabled"] boolValue])
 		return;
-		//NSLog(@"%@ %d", self, flag);
-
 	if (flag) {
-
 		[[self manager] enableTrigger:(QSTrigger *)self];
 	} else {
 		[[self manager] disableTrigger:(QSTrigger *)self];
 	}
-
 	activated = flag;
-
 }
 
 - (BOOL)enabled {
@@ -207,18 +189,14 @@
 }
 - (void)disable {
 	[self setEnabled:NO];
-	//[info setObject:[NSNumber numberWithBool:NO] forKey:@"enabled"];
 	[[QSTriggerCenter sharedInstance] writeTriggers];
 }
 
 - (void)reactivate {
-	//NSLog(@"reactivating %@", self);
 	[self setActivated:NO];
 	[self setActivated:YES];
 }
 - (void)setEnabled:(BOOL)enabled {
-	//	NSLog(@"Set Enabled %d %@", enabled, self);
-
 	[info setObject:[NSNumber numberWithBool:enabled] forKey:@"enabled"];
 	[self setActivated:enabled];
 	[[QSTriggerCenter sharedInstance] triggerChanged:self];

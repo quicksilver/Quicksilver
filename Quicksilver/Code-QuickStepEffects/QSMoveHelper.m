@@ -1,27 +1,23 @@
-
-
 #import "QSMoveHelper.h"
-
 #import "QSEffects.h"
 #import "NSGeometry_BLTRExtensions.h"
 
 #include <unistd.h>
 
 NSRect QSBlendRects(NSRect start, NSRect end, float b) {
-
-	return NSMakeRect( round(NSMinX(start) *(1-b) + NSMinX(end)*b),
+	return NSMakeRect(	round(NSMinX(start) *(1-b) + NSMinX(end)*b),
 						round(NSMinY(start) *(1-b) + NSMinY(end)*b),
 						round(NSWidth(start) *(1-b) + NSWidth(end)*b),
 						round(NSHeight(start) *(1-b) + NSHeight(end)*b));
 }
+
 @implementation QSAnimationHelper
 + (float) _windowAnimationVelocity {
 	return 0.1;
 }
 
 + (id)helper {
-	id helper = [[[self alloc] init] autorelease];
-	return helper;
+	return [[[self alloc] init] autorelease];
 }
 
 - (id)init {
@@ -29,6 +25,12 @@ NSRect QSBlendRects(NSRect start, NSRect end, float b) {
 		_timer = nil;
 	}
 	return self;
+}
+
+- (void)dealloc {
+	[_timer invalidate];
+	[_timer release];
+	[super dealloc];
 }
 
 - (void)_startAnimation {
@@ -52,7 +54,6 @@ NSRect QSBlendRects(NSRect start, NSRect end, float b) {
 	if (_percent>1.0) _percent = 1.0f;
 
 	[self _doAnimationStep];
-	//NSLog(@"percent %f", _percent);
 	if (_percent == 1.0f) {
 		[self _stopAnimation];
 		[self _finishAnimation];
@@ -76,7 +77,7 @@ NSRect QSBlendRects(NSRect start, NSRect end, float b) {
 	}
 }
 
-- (SEL) action { return endAction;  }
+- (SEL)action { return endAction;  }
 - (void)setAction:(SEL)anAction {
 	endAction = anAction;
 }
@@ -101,14 +102,14 @@ NSRect QSBlendRects(NSRect start, NSRect end, float b) {
 @implementation QSMoveHelper
 - (void)_doAnimation {
 	_percent = ([NSDate timeIntervalSinceReferenceDate] -_startTime) /_totalTime;
-	//	NSLog(@"self %@", self);
 	if (_percent>1.0) {
 		[_window setAlphaValue:_endAlpha];
 		[_window setFrame:_endFrame display:YES];
 		[self _stopAnimation];
+		[_window release];
 		[[self target] performSelector:[self action]];
 	} else {
-		[_window setFrame: QSBlendRects(_startFrame, _endFrame, _percent) display:NO];
+		[_window setFrame:QSBlendRects(_startFrame, _endFrame, _percent) display:NO];
 		[_window setAlphaValue: _startAlpha+_percent*(_endAlpha-_startAlpha)];
 	}
 }

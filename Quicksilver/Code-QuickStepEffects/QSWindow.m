@@ -435,8 +435,11 @@
 }
 
 - (QSMoveHelper *)helper {
-	if (!helper)
-		[self setHelper:[[[QSMoveHelper alloc] init] autorelease]];
+	if (!helper){
+		id h = [[QSMoveHelper alloc] init];
+		[self setHelper:h];
+		[h release];
+	}
 	return helper;
 }
 
