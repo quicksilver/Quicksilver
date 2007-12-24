@@ -1,88 +1,154 @@
-{
-    IBClasses = (
-        {
-            ACTIONS = {
-                addTrigger = id; 
-                defineMnemonic = id; 
-                dropClipboard = id; 
-                dropSelection = id; 
-                encapsulateCommand = id; 
-                goBackward = id; 
-                goForward = id; 
-                grabSelection = id; 
-                newFile = id; 
-                newFolder = id; 
-                openFile = id; 
-                removeMnemonic = id; 
-                rescanItems = id; 
-                showAbout = id; 
-                showBugReporter = id; 
-                showPreferences = id; 
-                showShelf = id; 
-                showTaskViewer = id; 
-                transmogrify = id; 
-            }; 
-            CLASS = FirstResponder; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {CLASS = InertButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
-        {CLASS = MenuButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
-        {CLASS = NSMenuView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
-        {
-            ACTIONS = {relaunch = id; }; 
-            CLASS = QSApp; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {hiddenMenu = NSMenu; }; 
-            SUPERCLASS = NSApplication; 
-        }, 
-        {
-            ACTIONS = {
-                activateInterface = id; 
-                donate = id; 
-                forceRescanItems = id; 
-                getMorePlugIns = id; 
-                openIRCChannel = id; 
-                reportABug = id; 
-                rescanItems = id; 
-                runSetupAssistant = id; 
-                setupAssistantCompleted = id; 
-                showAbout = id; 
-                showAgreement = id; 
-                showCatalog = id; 
-                showForums = id; 
-                showGuide = id; 
-                showHelp = id; 
-                showPreferences = id; 
-                showReleaseNotes = id; 
-                showSettings = id; 
-                showSplash = id; 
-                showTaskViewer = id; 
-                showTriggers = id; 
-                unsureQuit = id; 
-            }; 
-            CLASS = QSController; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {
-                aboutWindow = NSWindow; 
-                preferencesMenu = NSMenuItem; 
-                statusMenu = NSMenu; 
-                versionField = NSTextField; 
-            }; 
-            SUPERCLASS = NSWindowController; 
-        }, 
-        {
-            CLASS = QSKeyboardTriggerReferenceView; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSView; 
-        }, 
-        {CLASS = QSShelfView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
-        {
-            ACTIONS = {checkForUpdates = id; }; 
-            CLASS = SUUpdater; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSObject; 
-        }
-    ); 
-    IBVersion = 1; 
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>CLASS</key>
+			<string>NSApplication</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSResponder</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>activateInterface</key>
+				<string>id</string>
+				<key>donate</key>
+				<string>id</string>
+				<key>forceRescanItems</key>
+				<string>id</string>
+				<key>getMorePlugIns</key>
+				<string>id</string>
+				<key>openIRCChannel</key>
+				<string>id</string>
+				<key>reportABug</key>
+				<string>id</string>
+				<key>rescanItems</key>
+				<string>id</string>
+				<key>runSetupAssistant</key>
+				<string>id</string>
+				<key>setupAssistantCompleted</key>
+				<string>id</string>
+				<key>showAbout</key>
+				<string>id</string>
+				<key>showAgreement</key>
+				<string>id</string>
+				<key>showCatalog</key>
+				<string>id</string>
+				<key>showElementsViewer</key>
+				<string>id</string>
+				<key>showForums</key>
+				<string>id</string>
+				<key>showGuide</key>
+				<string>id</string>
+				<key>showHelp</key>
+				<string>id</string>
+				<key>showPreferences</key>
+				<string>id</string>
+				<key>showReleaseNotes</key>
+				<string>id</string>
+				<key>showSettings</key>
+				<string>id</string>
+				<key>showSplash</key>
+				<string>id</string>
+				<key>showTaskViewer</key>
+				<string>id</string>
+				<key>showTriggers</key>
+				<string>id</string>
+				<key>unsureQuit</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>QSController</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>aboutWindow</key>
+				<string>NSWindow</string>
+				<key>preferencesMenu</key>
+				<string>NSMenuItem</string>
+				<key>statusMenu</key>
+				<string>NSMenu</string>
+				<key>versionField</key>
+				<string>NSTextField</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSWindowController</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>addTrigger</key>
+				<string>id</string>
+				<key>defineMnemonic</key>
+				<string>id</string>
+				<key>dropClipboard</key>
+				<string>id</string>
+				<key>dropSelection</key>
+				<string>id</string>
+				<key>encapsulateCommand</key>
+				<string>id</string>
+				<key>goBackward</key>
+				<string>id</string>
+				<key>goForward</key>
+				<string>id</string>
+				<key>grabSelection</key>
+				<string>id</string>
+				<key>newFile</key>
+				<string>id</string>
+				<key>newFolder</key>
+				<string>id</string>
+				<key>openFile</key>
+				<string>id</string>
+				<key>removeMnemonic</key>
+				<string>id</string>
+				<key>rescanItems</key>
+				<string>id</string>
+				<key>showAbout</key>
+				<string>id</string>
+				<key>showBugReporter</key>
+				<string>id</string>
+				<key>showPreferences</key>
+				<string>id</string>
+				<key>showShelf</key>
+				<string>id</string>
+				<key>showTaskViewer</key>
+				<string>id</string>
+				<key>transmogrify</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>FirstResponder</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>relaunch</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>QSApp</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>hiddenMenu</key>
+				<string>NSMenu</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSApplication</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>

@@ -53,8 +53,8 @@
 
 /* Begin PBXBuildFile section */
 		4D5088E00D132B6200A9B360 /* Core.element in Copy Main Plugins */ = {isa = PBXBuildFile; fileRef = 7F5D22470C49C18400812049 /* Core.element */; };
-		4D5088E30D132B6700A9B360 /* Cube Interface.element in Copy Main Plugins */ = {isa = PBXBuildFile; fileRef = 4DF635330D10682700910FC0 /* Cube Interface.element */; };
-		4D508A850D13424500A9B360 /* Finder Module.element in Copy Main Plugins */ = {isa = PBXBuildFile; fileRef = 4D508A0A0D133E6A00A9B360 /* Finder Module.element */; };
+		4D5088E30D132B6700A9B360 /* Cube Interface.bundle in Copy Main Plugins */ = {isa = PBXBuildFile; fileRef = 4DF635330D10682700910FC0 /* Cube Interface.bundle */; };
+		4D508A850D13424500A9B360 /* Finder Module.bundle in Copy Main Plugins */ = {isa = PBXBuildFile; fileRef = 4D508A0A0D133E6A00A9B360 /* Finder Module.bundle */; };
 		4D7093B70D101CED008498FD /* QSCrucible.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7093B30D101CCE008498FD /* QSCrucible.framework */; };
 		4D7094C70D10215D008498FD /* QSCrucible.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7093B30D101CCE008498FD /* QSCrucible.framework */; };
 		4D9A1DAE0D0EA6600072DE55 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9A89950C497DD400B5912D /* Cocoa.framework */; };
@@ -63,7 +63,7 @@
 		4DB83C8C0D143CDD00A0CA18 /* Find Module.element in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4DB83C870D143CC800A0CA18 /* Find Module.element */; };
 		4DC81F040D12B3B50039BD1B /* QSPlugInsPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D23330C49C3B700812049 /* QSPlugInsPrefPane.m */; };
 		4DF635570D106A8000910FC0 /* QSCrucible.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7093B30D101CCE008498FD /* QSCrucible.framework */; };
-		4DF6357B0D10767E00910FC0 /* Apple Address Book.element in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4DF6353E0D10684300910FC0 /* Apple Address Book.element */; };
+		4DF6357B0D10767E00910FC0 /* Apple Address Book.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4DF6353E0D10684300910FC0 /* Apple Address Book.bundle */; };
 		7F17F18C0C4F1FE6001ADE1A /* QSActionsPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D23090C49C3B700812049 /* QSActionsPrefPane.m */; };
 		7F17F18D0C4F1FE6001ADE1A /* QSAdvancedPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D230B0C49C3B700812049 /* QSAdvancedPrefPane.m */; };
 		7F17F18E0C4F1FE6001ADE1A /* QSCatalogPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D23170C49C3B700812049 /* QSCatalogPrefPane.m */; };
@@ -226,7 +226,6 @@
 		7FE0BC4C0C4998610012249C /* ContactEmail.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0BBE80C4998610012249C /* ContactEmail.icns */; };
 		7FE0BC4D0C4998610012249C /* ContactPhone.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0BBE90C4998610012249C /* ContactPhone.icns */; };
 		7FE0BC4E0C4998610012249C /* defaultAction.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0BBEA0C4998610012249C /* defaultAction.icns */; };
-		7FE0BC4F0C4998610012249C /* DefaultBookmarkIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0BBEB0C4998610012249C /* DefaultBookmarkIcon.icns */; };
 		7FE0BC500C4998610012249C /* DocPrefs.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0BBEC0C4998610012249C /* DocPrefs.png */; };
 		7FE0BC510C4998610012249C /* Dot.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0BBED0C4998610012249C /* Dot.png */; };
 		7FE0BC520C4998610012249C /* Find.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0BBEE0C4998610012249C /* Find.icns */; };
@@ -257,7 +256,6 @@
 		7FE0BC6B0C4998610012249C /* QuicksilverMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0BC070C4998610012249C /* QuicksilverMenu.png */; };
 		7FE0BC6C0C4998610012249C /* QuicksilverMenuLight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0BC080C4998610012249C /* QuicksilverMenuLight.png */; };
 		7FE0BC6D0C4998610012249C /* QuicksilverMenuPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0BC090C4998610012249C /* QuicksilverMenuPressed.png */; };
-		7FE0BC6E0C4998610012249C /* Recent.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0BC0A0C4998610012249C /* Recent.icns */; };
 		7FE0BC6F0C4998610012249C /* Remove.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0BC0B0C4998610012249C /* Remove.png */; };
 		7FE0BC700C4998610012249C /* Remove_p.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0BC0C0C4998610012249C /* Remove_p.png */; };
 		7FE0BC710C4998610012249C /* Rescan.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0BC0D0C4998610012249C /* Rescan.png */; };
@@ -275,7 +273,6 @@
 		7FE0BC7D0C4998610012249C /* QSRegistration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0BC190C4998610012249C /* QSRegistration.plist */; };
 		7FE0BC7E0C4998610012249C /* QSSplash.qtz in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0BC1A0C4998610012249C /* QSSplash.qtz */; };
 		7FE0BC7F0C4998610012249C /* QSStyle.css in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0BC1B0C4998610012249C /* QSStyle.css */; };
-		7FE0BC820C4998610012249C /* ResourceLocations.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0BC1E0C4998610012249C /* ResourceLocations.plist */; };
 		7FE0BC830C4998610012249C /* version.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0BC200C4998610012249C /* version.plist */; };
 		7FE0BC840C4998610012249C /* wildcard.* in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0BC210C4998610012249C /* wildcard.* */; };
 		7FE1D2F50CEC8D9900E19D9E /* QSElements.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 7F69D8860CDE367E002B6B3E /* QSElements.framework */; };
@@ -474,8 +471,8 @@
 			dstPath = "$(QS_APP_CONTENTS_FOLDER)/PlugIns";
 			dstSubfolderSpec = 0;
 			files = (
-				4D508A850D13424500A9B360 /* Finder Module.element in Copy Main Plugins */,
-				4D5088E30D132B6700A9B360 /* Cube Interface.element in Copy Main Plugins */,
+				4D508A850D13424500A9B360 /* Finder Module.bundle in Copy Main Plugins */,
+				4D5088E30D132B6700A9B360 /* Cube Interface.bundle in Copy Main Plugins */,
 				4D5088E00D132B6200A9B360 /* Core.element in Copy Main Plugins */,
 			);
 			name = "Copy Main Plugins";
@@ -489,7 +486,7 @@
 			files = (
 				4DB83C8C0D143CDD00A0CA18 /* Find Module.element in CopyFiles */,
 				4DB839D60D13F6DE00A0CA18 /* Calculator Module.qsplugin in CopyFiles */,
-				4DF6357B0D10767E00910FC0 /* Apple Address Book.element in CopyFiles */,
+				4DF6357B0D10767E00910FC0 /* Apple Address Book.bundle in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -742,7 +739,6 @@
 		7FE0BBE80C4998610012249C /* ContactEmail.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ContactEmail.icns; sourceTree = "<group>"; };
 		7FE0BBE90C4998610012249C /* ContactPhone.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ContactPhone.icns; sourceTree = "<group>"; };
 		7FE0BBEA0C4998610012249C /* defaultAction.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = defaultAction.icns; sourceTree = "<group>"; };
-		7FE0BBEB0C4998610012249C /* DefaultBookmarkIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DefaultBookmarkIcon.icns; sourceTree = "<group>"; };
 		7FE0BBEC0C4998610012249C /* DocPrefs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DocPrefs.png; sourceTree = "<group>"; };
 		7FE0BBED0C4998610012249C /* Dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dot.png; sourceTree = "<group>"; };
 		7FE0BBEE0C4998610012249C /* Find.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Find.icns; sourceTree = "<group>"; };
@@ -773,7 +769,6 @@
 		7FE0BC070C4998610012249C /* QuicksilverMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuicksilverMenu.png; sourceTree = "<group>"; };
 		7FE0BC080C4998610012249C /* QuicksilverMenuLight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuicksilverMenuLight.png; sourceTree = "<group>"; };
 		7FE0BC090C4998610012249C /* QuicksilverMenuPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuicksilverMenuPressed.png; sourceTree = "<group>"; };
-		7FE0BC0A0C4998610012249C /* Recent.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Recent.icns; sourceTree = "<group>"; };
 		7FE0BC0B0C4998610012249C /* Remove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Remove.png; sourceTree = "<group>"; };
 		7FE0BC0C0C4998610012249C /* Remove_p.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Remove_p.png; sourceTree = "<group>"; };
 		7FE0BC0D0C4998610012249C /* Rescan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rescan.png; sourceTree = "<group>"; };
@@ -792,7 +787,6 @@
 		7FE0BC1A0C4998610012249C /* QSSplash.qtz */ = {isa = PBXFileReference; lastKnownFileType = file; path = QSSplash.qtz; sourceTree = "<group>"; };
 		7FE0BC1B0C4998610012249C /* QSStyle.css */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = QSStyle.css; sourceTree = "<group>"; };
 		7FE0BC1C0C4998610012249C /* QSURLExtractor.pl */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.perl; path = QSURLExtractor.pl; sourceTree = "<group>"; };
-		7FE0BC1E0C4998610012249C /* ResourceLocations.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = ResourceLocations.plist; sourceTree = "<group>"; };
 		7FE0BC1F0C4998610012249C /* System Events.scpt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.scpt; path = "System Events.scpt"; sourceTree = "<group>"; };
 		7FE0BC200C4998610012249C /* version.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = version.plist; sourceTree = "<group>"; };
 		7FE0BC210C4998610012249C /* wildcard.* */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = "wildcard.*"; sourceTree = "<group>"; };
@@ -949,7 +943,7 @@
 		4D508A030D133E6A00A9B360 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4D508A0A0D133E6A00A9B360 /* Finder Module.element */,
+				4D508A0A0D133E6A00A9B360 /* Finder Module.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1001,7 +995,7 @@
 		4DF6352F0D10682700910FC0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4DF635330D10682700910FC0 /* Cube Interface.element */,
+				4DF635330D10682700910FC0 /* Cube Interface.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1022,7 +1016,7 @@
 		4DF635370D10684300910FC0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4DF6353E0D10684300910FC0 /* Apple Address Book.element */,
+				4DF6353E0D10684300910FC0 /* Apple Address Book.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1210,7 +1204,6 @@
 				7FE0BC1A0C4998610012249C /* QSSplash.qtz */,
 				7FE0BC1B0C4998610012249C /* QSStyle.css */,
 				7FE0BC1C0C4998610012249C /* QSURLExtractor.pl */,
-				7FE0BC1E0C4998610012249C /* ResourceLocations.plist */,
 				7FE0BC1F0C4998610012249C /* System Events.scpt */,
 				7FE0BC200C4998610012249C /* version.plist */,
 				7FE0BC210C4998610012249C /* wildcard.* */,
@@ -1256,7 +1249,6 @@
 				7FE0BBE80C4998610012249C /* ContactEmail.icns */,
 				7FE0BBE90C4998610012249C /* ContactPhone.icns */,
 				7FE0BBEA0C4998610012249C /* defaultAction.icns */,
-				7FE0BBEB0C4998610012249C /* DefaultBookmarkIcon.icns */,
 				7FE0BBEC0C4998610012249C /* DocPrefs.png */,
 				7FE0BBED0C4998610012249C /* Dot.png */,
 				7FE0BBEE0C4998610012249C /* Find.icns */,
@@ -1287,7 +1279,6 @@
 				7FE0BC070C4998610012249C /* QuicksilverMenu.png */,
 				7FE0BC080C4998610012249C /* QuicksilverMenuLight.png */,
 				7FE0BC090C4998610012249C /* QuicksilverMenuPressed.png */,
-				7FE0BC0A0C4998610012249C /* Recent.icns */,
 				7FE0BC0B0C4998610012249C /* Remove.png */,
 				7FE0BC0C0C4998610012249C /* Remove_p.png */,
 				7FE0BC0D0C4998610012249C /* Rescan.png */,
@@ -1511,10 +1502,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		4D508A0A0D133E6A00A9B360 /* Finder Module.element */ = {
+		4D508A0A0D133E6A00A9B360 /* Finder Module.bundle */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "Finder Module.element";
+			path = "Finder Module.bundle";
 			remoteRef = 4D508A090D133E6A00A9B360 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1539,17 +1530,17 @@
 			remoteRef = 4DB83C860D143CC800A0CA18 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4DF635330D10682700910FC0 /* Cube Interface.element */ = {
+		4DF635330D10682700910FC0 /* Cube Interface.bundle */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "Cube Interface.element";
+			path = "Cube Interface.bundle";
 			remoteRef = 4DF635320D10682700910FC0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4DF6353E0D10684300910FC0 /* Apple Address Book.element */ = {
+		4DF6353E0D10684300910FC0 /* Apple Address Book.bundle */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "Apple Address Book.element";
+			path = "Apple Address Book.bundle";
 			remoteRef = 4DF6353D0D10684300910FC0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1694,7 +1685,6 @@
 				7FE0BC4C0C4998610012249C /* ContactEmail.icns in Resources */,
 				7FE0BC4D0C4998610012249C /* ContactPhone.icns in Resources */,
 				7FE0BC4E0C4998610012249C /* defaultAction.icns in Resources */,
-				7FE0BC4F0C4998610012249C /* DefaultBookmarkIcon.icns in Resources */,
 				7FE0BC500C4998610012249C /* DocPrefs.png in Resources */,
 				7FE0BC510C4998610012249C /* Dot.png in Resources */,
 				7FE0BC520C4998610012249C /* Find.icns in Resources */,
@@ -1725,7 +1715,6 @@
 				7FE0BC6B0C4998610012249C /* QuicksilverMenu.png in Resources */,
 				7FE0BC6C0C4998610012249C /* QuicksilverMenuLight.png in Resources */,
 				7FE0BC6D0C4998610012249C /* QuicksilverMenuPressed.png in Resources */,
-				7FE0BC6E0C4998610012249C /* Recent.icns in Resources */,
 				7FE0BC6F0C4998610012249C /* Remove.png in Resources */,
 				7FE0BC700C4998610012249C /* Remove_p.png in Resources */,
 				7FE0BC710C4998610012249C /* Rescan.png in Resources */,
@@ -1743,7 +1732,6 @@
 				7FE0BC7D0C4998610012249C /* QSRegistration.plist in Resources */,
 				7FE0BC7E0C4998610012249C /* QSSplash.qtz in Resources */,
 				7FE0BC7F0C4998610012249C /* QSStyle.css in Resources */,
-				7FE0BC820C4998610012249C /* ResourceLocations.plist in Resources */,
 				7FE0BC830C4998610012249C /* version.plist in Resources */,
 				7FE0BC840C4998610012249C /* wildcard.* in Resources */,
 				7F7F963B0C49FB6600DE6B89 /* element.xml in Resources */,

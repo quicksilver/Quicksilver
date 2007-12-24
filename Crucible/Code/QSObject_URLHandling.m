@@ -31,7 +31,7 @@
 	else if ([url hasPrefix:@"ftp:"])
         [object setIcon:[QSResourceManager imageNamed:@"AFPClient"]];
 	else
-		[object setIcon:[NSImage imageNamed:@"DefaultBookmarkIcon"]];
+		[object setIcon:[QSResourceManager imageNamed:@"DefaultBookmarkIcon"]];
 	
 }
 
@@ -41,7 +41,7 @@
 	//QSLog(@"drawurl %@", url);
 	if (NSWidth(rect) <= 32 ) return NO;
 	
-	NSImage *image = [NSImage imageNamed:@"DefaultBookmarkIcon"];
+	NSImage *image = [QSResourceManager imageNamed:@"DefaultBookmarkIcon"];
 	
 	BOOL isQuery = [url rangeOfString:QUERY_KEY] .location != NSNotFound;
 	if (![url hasPrefix:@"http:"] && !isQuery) return NO;

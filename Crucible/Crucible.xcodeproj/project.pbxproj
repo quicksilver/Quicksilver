@@ -18,6 +18,8 @@
 		7F3EF7A70CF6105E007A043A /* NSImage+QuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3EF7A40CF6105E007A043A /* NSImage+QuickLook.m */; };
 		7F3EF7A80CF6105E007A043A /* README.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7F3EF7A50CF6105E007A043A /* README.rtf */; };
 		7F3EF7AA0CF61068007A043A /* QLUIPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F3EF7A90CF61068007A043A /* QLUIPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7F40842D0D16C70E00E15BB0 /* ResourceLocations.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F40842C0D16C70E00E15BB0 /* ResourceLocations.plist */; };
+		7F40B8490D1822E300BD12E2 /* ResizeWidget.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F40B8480D1822E300BD12E2 /* ResizeWidget.png */; };
 		7F5D22FA0C49C35B00812049 /* QSTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A888B0C497AF100B5912D /* QSTypes.m */; };
 		7F5D23810C49C3CB00812049 /* QSPopUpTextButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A88520C497AF000B5912D /* QSPopUpTextButtonCell.m */; };
 		7F5D23820C49C3CB00812049 /* QSHotKeyEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A87ED0C497AF000B5912D /* QSHotKeyEditor.m */; };
@@ -467,6 +469,8 @@
 		7F3EF7A40CF6105E007A043A /* NSImage+QuickLook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+QuickLook.m"; sourceTree = "<group>"; };
 		7F3EF7A50CF6105E007A043A /* README.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = README.rtf; sourceTree = "<group>"; };
 		7F3EF7A90CF61068007A043A /* QLUIPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QLUIPrivate.h; sourceTree = "<group>"; };
+		7F40842C0D16C70E00E15BB0 /* ResourceLocations.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ResourceLocations.plist; sourceTree = "<group>"; };
+		7F40B8480D1822E300BD12E2 /* ResizeWidget.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ResizeWidget.png; sourceTree = "<group>"; };
 		7F5D24210C49C44200812049 /* QSOutlineView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSOutlineView.m; sourceTree = "<group>"; };
 		7F5D24220C49C44200812049 /* QSOutlineView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSOutlineView.h; sourceTree = "<group>"; };
 		7F8825B60C498DF100631170 /* ExceptionHandling.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExceptionHandling.framework; path = /System/Library/Frameworks/ExceptionHandling.framework; sourceTree = "<absolute>"; };
@@ -1003,6 +1007,8 @@
 		7F9A7DC20C4972A500B5912D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7F40B8480D1822E300BD12E2 /* ResizeWidget.png */,
+				7F40842C0D16C70E00E15BB0 /* ResourceLocations.plist */,
 				7F9A7DC30C4972A500B5912D /* DefaultBindings.qskeys */,
 			);
 			path = Resources;
@@ -1770,6 +1776,8 @@
 				7F9A7F0C0C4972A500B5912D /* DefaultBindings.qskeys in Resources */,
 				7F9A8C670C4983F900B5912D /* UKDirectoryEnumerator Readme.txt in Resources */,
 				7F3EF7A80CF6105E007A043A /* README.rtf in Resources */,
+				7F40842D0D16C70E00E15BB0 /* ResourceLocations.plist in Resources */,
+				7F40B8490D1822E300BD12E2 /* ResizeWidget.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>AFPClient</key>
@@ -35,6 +35,8 @@
 	<string>iMac</string>
 	<key>ComputerIcon</key>
 	<string>iMac</string>
+	<key>DefaultBookmarkIcon</key>
+	<string>ToolbarSitesFolderIcon</string>
 	<key>DockIcon</key>
 	<string>/System/Library/CoreServices/Dock.app/Contents/Resources/Dock.icns</string>
 	<key>DriveIcon</key>
@@ -71,6 +73,8 @@
 	<string>/Applications/System Preferences.app/Contents/Resources/PrefFile.icns</string>
 	<key>PrintCenterIcon</key>
 	<string>/Applications/Utilities/Printer Setup Utility.app/Contents/Resources/PrintCenter.icns</string>
+	<key>Recent</key>
+	<string>Clock</string>
 	<key>RecentItemsIcon</key>
 	<string>Recent</string>
 	<key>SafariHistoryIcon</key>

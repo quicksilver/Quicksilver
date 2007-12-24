@@ -427,6 +427,11 @@ static id _sharedInstance;
 	
 }
 
+- (IBAction)showElementsViewer:(id)sender {
+  QSElementsViewController *viewer = [QSElementsViewController sharedController];
+  [viewer showWindow:nil];
+}
+
 - (IBAction)showAbout:(id)sender {
 	[NSApp activateIgnoringOtherApps:YES];
 	if (!aboutWindowController) {

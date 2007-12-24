@@ -36,6 +36,9 @@
 		7F11E41C0B8C0D8E0092B7F9 /* BExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F11D6440B8A18FB0092B7F9 /* BExtension.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F11E41D0B8C0D8E0092B7F9 /* BElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F11D6420B8A18FB0092B7F9 /* BElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F11EBEA0B8D54570092B7F9 /* ManagerAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F11EBE80B8D54570092B7F9 /* ManagerAppDelegate.m */; };
+		7F69A3D30D1F140F00D5C99E /* QSElementsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F69A3D10D1F140F00D5C99E /* QSElementsViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7F69A3D40D1F140F00D5C99E /* QSElementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F69A3D20D1F140F00D5C99E /* QSElementsViewController.m */; };
+		7F69A42B0D1F15DB00D5C99E /* ElementsManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F69A4290D1F15DB00D5C99E /* ElementsManager.xib */; };
 		7FD829B40B670EF0001934E0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 		7FD829BD0B670EF9001934E0 /* QSElements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* QSElements.framework */; };
 		7FD829C40B670F0B001934E0 /* QSElements.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* QSElements.framework */; };
@@ -110,6 +113,9 @@
 		7F11D76C0B8A25870092B7F9 /* NSXMLElement+BExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSXMLElement+BExtensions.m"; sourceTree = "<group>"; };
 		7F11EBE70B8D54570092B7F9 /* ManagerAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ManagerAppDelegate.h; sourceTree = "<group>"; };
 		7F11EBE80B8D54570092B7F9 /* ManagerAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ManagerAppDelegate.m; sourceTree = "<group>"; };
+		7F69A3D10D1F140F00D5C99E /* QSElementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSElementsViewController.h; sourceTree = "<group>"; };
+		7F69A3D20D1F140F00D5C99E /* QSElementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSElementsViewController.m; sourceTree = "<group>"; };
+		7F69A42A0D1F15DB00D5C99E /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ElementsManager.xib; sourceTree = "<group>"; };
 		7FD829920B670EBD001934E0 /* Elements Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Elements Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DC2EF5B0486A6940098B216 /* QSElements.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QSElements.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -189,6 +195,8 @@
 			isa = PBXGroup;
 			children = (
 				331B68A80B993A2A00B49812 /* Info.plist */,
+				7F69A3D10D1F140F00D5C99E /* QSElementsViewController.h */,
+				7F69A3D20D1F140F00D5C99E /* QSElementsViewController.m */,
 				331B68A90B993A2A00B49812 /* QSRegistry+Convenience.h */,
 				331B68AA0B993A2A00B49812 /* QSRegistry+Convenience.m */,
 				331B68AB0B993A2A00B49812 /* QSRegistry.h */,
@@ -197,6 +205,7 @@
 				333320970B99692900CEA65A /* QSLog.h */,
 				335984C50BA1FB9000D3F323 /* NSBundle+ExtendedLoading.h */,
 				335984C60BA1FB9000D3F323 /* NSBundle+ExtendedLoading.m */,
+				7F69A4290D1F15DB00D5C99E /* ElementsManager.xib */,
 			);
 			path = Framework;
 			sourceTree = "<group>";
@@ -282,6 +291,7 @@
 				330504710B9959B100CBB4E8 /* QSElements.h in Headers */,
 				333320980B99692900CEA65A /* QSLog.h in Headers */,
 				335984C70BA1FB9000D3F323 /* NSBundle+ExtendedLoading.h in Headers */,
+				7F69A3D30D1F140F00D5C99E /* QSElementsViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +370,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3305FF590B9945F100CBB4E8 /* plugin.dtd in Resources */,
+				7F69A42B0D1F15DB00D5C99E /* ElementsManager.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +418,7 @@
 				331B68B10B993A2A00B49812 /* QSRegistry.m in Sources */,
 				3305FF5A0B9945F300CBB4E8 /* NSXMLElement+BExtensions.m in Sources */,
 				335984C80BA1FB9000D3F323 /* NSBundle+ExtendedLoading.m in Sources */,
+				7F69A3D40D1F140F00D5C99E /* QSElementsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,6 +440,15 @@
 			);
 			name = MainMenu.nib;
 			sourceTree = "<group>";
+		};
+		7F69A4290D1F15DB00D5C99E /* ElementsManager.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7F69A42A0D1F15DB00D5C99E /* English */,
+			);
+			name = ElementsManager.xib;
+			path = Framework;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXVariantGroup section */
 

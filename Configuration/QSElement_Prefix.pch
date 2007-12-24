@@ -7,3 +7,5 @@
 #import <QSElements/QSElements.h>
 #import <QSCrucible/QSCrucible.h>
 #endif
+
+#define QSAlchemy TRUE

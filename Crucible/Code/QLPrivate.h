@@ -7,8 +7,8 @@
  *
  */
 
-extern NSString *kQLThumbnailOptionContentTypeUTI;
-extern NSString *kQLThumbnailOptionIconModeKey;
+extern const NSString *kQLThumbnailOptionContentTypeUTI;
+//extern const NSString *kQLThumbnailOptionIconModeKey;
 
 typedef void *QLThumbnailRef;
 extern QLThumbnailRef QLThumbnailCreate(void *unknownNULL, CFURLRef fileURL, CGSize iconSize, CFDictionaryRef options);

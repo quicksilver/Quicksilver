@@ -594,7 +594,6 @@ NSDictionary *enabledPresetDictionary;
     thisName = [thisName stringByReplacing:@":" with:@"_"];
     NSString *thisPath = [path stringByAppendingPathComponent:thisName];
     [item writeToFile:thisPath];
-    NSLog(@"writing %@", thisPath);
   }
 }
 

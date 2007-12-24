@@ -42,8 +42,10 @@ NSOperationQueue *iconLoadQueue = nil;
 
 
 - (void)loadIconInQueue {
+  
+  [self willChangeValueForKey:@"delayedIcon"];
+  
   if ([self loadIcon]) {
-    [self willChangeValueForKey:@"delayedIcon"];
     [self didChangeValueForKey:@"delayedIcon"];
   }
 }

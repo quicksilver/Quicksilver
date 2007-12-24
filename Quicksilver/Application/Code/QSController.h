@@ -45,6 +45,8 @@
 	
 	NSObject *dropletProxy;
 }
+
+- (IBAction)showElementsViewer:(id)sender;
 - (IBAction)runSetupAssistant:(id)sender;
 - (NSProgressIndicator *)progressIndicator;
 - (IBAction)showPreferences:(id)sender;

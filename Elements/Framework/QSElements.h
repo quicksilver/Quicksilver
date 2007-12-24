@@ -12,3 +12,4 @@
 #import "QSRegistry+Convenience.h"
 #import "QSLog.h"
 #import "NSBundle+ExtendedLoading.h"
+#import "QSElementsViewController.h"

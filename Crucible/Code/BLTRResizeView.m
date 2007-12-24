@@ -34,7 +34,7 @@
     }
     [transform concat];
     
-    [[NSImage imageNamed:@"ResizeWidget"]drawInRect:rect fromRect:rect operation:NSCompositeSourceOver fraction:1.0];
+    [[[NSBundle bundleForClass:[self class]] imageNamed:@"ResizeWidget"]drawInRect:rect fromRect:rect operation:NSCompositeSourceOver fraction:1.0];
 }
 
 

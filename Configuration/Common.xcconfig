@@ -7,7 +7,7 @@ SYMROOT = $(QS_SOURCE_ROOT)/build
 MACOSX_DEPLOYMENT_TARGET = 10.5
 PREBINDING = NO
 
-FRAMEWORK_SEARCH_PATHS = /System/Library/PrivateFrameworks $(BUILT_PRODUCTS_DIR)
+FRAMEWORK_SEARCH_PATHS = /System/Library/PrivateFrameworks ~/Library/Frameworks $(BUILT_PRODUCTS_DIR)
 
 // Disabled for now, plugins get angry
 //GCC_ENABLE_OBJC_GC = supported
