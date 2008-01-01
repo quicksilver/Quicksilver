@@ -1,45 +1,6 @@
 /*
-	ImageAndTextCell.m
-	Copyright (c) 2001 by Apple Computer, Inc., all rights reserved.
-	Author: Chuck Pisula
- 
-	Milestones:
-	Initially created 3/1/01
- 
- Subclass of NSTextFieldCell which can display text and an image simultaneously.
- */
-
-/* 
-IMPORTANT:  This Apple software is supplied to you by Apple Computer, Inc. ("Apple") in
- consideration of your agreement to the following terms, and your use, installation, 
- modification or redistribution of this Apple software constitutes acceptance of these 
- terms.  If you do not agree with these terms, please do not use, install, modify or 
- redistribute this Apple software.
- 
- In consideration of your agreement to abide by the following terms, and subject to these 
- terms, Apple grants you a personal, non-exclusive license, under AppleÕs copyrights in 
- this original Apple software (the "Apple Software"), to use, reproduce, modify and 
- redistribute the Apple Software, with or without modifications, in source and/or binary 
- forms; provided that if you redistribute the Apple Software in its entirety and without 
- modifications, you must retain this notice and the following text and disclaimers in all 
- such redistributions of the Apple Software.  Neither the name, trademarks, service marks 
- or logos of Apple Computer, Inc. may be used to endorse or promote products derived from 
- the Apple Software without specific prior written permission from Apple. Except as expressly
- stated in this notice, no other rights or licenses, express or implied, are granted by Apple
- herein, including but not limited to any patent rights that may be infringed by your 
- derivative works or by other works in which the Apple Software may be incorporated.
- 
- The Apple Software is provided by Apple on an "AS IS" basis.  APPLE MAKES NO WARRANTIES, 
- EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION THE IMPLIED WARRANTIES OF NON-INFRINGEMENT, 
- MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, REGARDING THE APPLE SOFTWARE OR ITS 
- USE AND OPERATION ALONE OR IN COMBINATION WITH YOUR PRODUCTS.
- 
- IN NO EVENT SHALL APPLE BE LIABLE FOR ANY SPECIAL, INDIRECT, INCIDENTAL OR CONSEQUENTIAL 
- DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS 
-		  OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) ARISING IN ANY WAY OUT OF THE USE, 
- REPRODUCTION, MODIFICATION AND/OR DISTRIBUTION OF THE APPLE SOFTWARE, HOWEVER CAUSED AND 
- WHETHER UNDER THEORY OF CONTRACT, TORT (INCLUDING NEGLIGENCE), STRICT LIABILITY OR 
- OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ QSImageAndTextCell.m
+ ALCHEMY
  */
 
 #import "QSImageAndTextCell.h"
@@ -47,168 +8,194 @@ IMPORTANT:  This Apple software is supplied to you by Apple Computer, Inc. ("App
 @implementation QSImageAndTextCell
 
 - (void)dealloc {
-    [image release];
-    image = nil;
-    [super dealloc];
+  [image_ release];
+  image_ = nil;
+  [super dealloc];
 }
-
 - (id)copyWithZone:(NSZone *)zone {
-    QSImageAndTextCell *cell = (QSImageAndTextCell *)[super copyWithZone:zone];
-    cell->image = nil;
-	[cell setImage:image];
-    return cell;
+  QSImageAndTextCell *cell = (QSImageAndTextCell *)[super copyWithZone:zone];
+  cell->image_ = nil;
+	[cell setImage:image_];
+  return cell;
 }
 
 - (void)setImage:(NSImage *)anImage {
-    if (anImage != image) {
-        [image release];
-        image = [anImage retain];
-    }
+  if (anImage != image_) {
+    [image_ release];
+    image_ = [anImage retain];
+  }
 }
 
 - (NSImage *)image {
-    return image;
+  return image_;
 }
 
-- (NSRect)imageFrameForCellFrame:(NSRect)cellFrame {
-    if (image != nil) {
-        NSRect imageFrame;
-        imageFrame.size = [image size];
-        imageFrame.origin = cellFrame.origin;
-        imageFrame.origin.x += 3;
-        imageFrame.origin.y += ceil((cellFrame.size.height - imageFrame.size.height) / 2);
-        return imageFrame;
-    }
-    else
-        return NSZeroRect;
+- (NSRect) imageFrameForCellFrame:(NSRect)cellFrame {
+  if (image_ != nil) {
+    NSRect imageFrame;
+    imageFrame.size = [image_ size];
+    imageFrame.origin = cellFrame.origin;
+    imageFrame.origin.x += 3;
+    imageFrame.origin.y += ceil((cellFrame.size.height - imageFrame.size.height) / 2);
+    return imageFrame;
+  }
+  else
+    return NSZeroRect;
 }
-- (void)setObjectValue:(id)object{
+
+- (NSString *)overrideForKey:(NSString *)key {
+  NSString *override = [keys_ objectForKey:key];
+  if (override) return override;
+  return key;
+}
+
+
+
+- (void)setObjectValue:(id)object {
 	
-	if ([object isKindOfClass:[NSString class]]){
+	if ([object isKindOfClass:[NSString class]] || [object isKindOfClass:[NSAttributedString class]]) {
 		[super setObjectValue:object];
-	}else{
-		NS_DURING
+	} else {
+    @try {
 			id value;
-			value=[object valueForKey:@"text"];
+			value=[object valueForKey:[self overrideForKey:@"text"]];
 			[super setObjectValue:value?value:@""];
-			value=[object valueForKey:@"image"];
+			value=[object valueForKey:[self overrideForKey:@"image"]];
 			[self setImage:value];
-			
-		NS_HANDLER
-			[super setObjectValue:@""];
-			QSLog(@"Error %@",localException);
-		NS_ENDHANDLER
+    }
+    @catch (NSException * e) {
+      QSLog(@"Error %@", e);
+      [super setObjectValue:@""];
+    }
 	}
 }
 
-- (float)imageWidthForFrame:(NSRect)frame{
-	if (imageSize.width){
-		return imageSize.width;
-	}else {
+- (float) imageWidthForFrame:(NSRect)frame {
+	if (imageSize_.width) {
+		return imageSize_.width;
+	} else {
 		return  NSHeight(frame);
 	}
 	
 }
-- (NSRect)textRectForFrame:(NSRect)frame{
+- (NSRect) textRectForFrame:(NSRect)frame {
 	NSRect textFrame, imageFrame;
-    NSDivideRect (frame, &imageFrame, &textFrame,1+[self imageWidthForFrame:frame]*1.125, NSMinXEdge);
+  NSDivideRect (frame, &imageFrame, &textFrame, 1+[self imageWidthForFrame:frame] *1.125, NSMinXEdge);
 	return textFrame;
 }
+
 - (void)editWithFrame:(NSRect)aRect inView:(NSView *)controlView editor:(NSText *)textObj delegate:(id)anObject event:(NSEvent *)theEvent {
-	editing=YES;
-    NSRect textFrame=[self textRectForFrame:aRect];
+	editing = YES;
+  NSRect textFrame = [self textRectForFrame:aRect];
 	[super editWithFrame: textFrame inView: controlView editor:textObj delegate:anObject event: theEvent];
 }
-- (void)endEditing:(NSText *)textObj{
-	editing=NO;
+
+- (void)endEditing:(NSText *)textObj {
+	editing = NO;
 	[super endEditing:textObj];
 	
 }
-//- (NSText *)setUpFieldEditorAttributes:(NSText *)textObj{
+//- (NSText *)setUpFieldEditorAttributes:(NSText *)textObj {
 //	[super setUpFieldEditorAttributes:textObj];
 //	[textObj setTextColor:[NSColor controlTextColor]];
 //	return textObj;
 //	
 //}
 - (void)selectWithFrame:(NSRect)aRect inView:(NSView *)controlView editor:(NSText *)textObj delegate:(id)anObject start:(int)selStart length:(int)selLength {
-	NSRect textFrame=[self textRectForFrame:aRect];
-    [super selectWithFrame: textFrame inView: controlView editor:textObj delegate:anObject start:selStart length:selLength];
+	NSRect textFrame = [self textRectForFrame:aRect];
+  [super selectWithFrame: textFrame inView: controlView editor:textObj delegate:anObject start:selStart length:selLength];
 }
 
-- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
-    if (image != nil) {
-        NSSize	imageSize;
-        NSRect	imageFrame;
-		
-		if (NSHeight(cellFrame)<=18){
-			imageSize = NSMakeSize(16,16); //NSMakeSize(NSHeight(cellFrame),NSHeight(cellFrame));
-		}else{
-			imageSize = NSMakeSize(NSHeight(cellFrame),NSHeight(cellFrame));
-		}
+- (void)drawImage:(NSImage*)image withFrame:(NSRect)frame inView:(NSView*)controlView {  
+  if ([controlView isFlipped]){
+    [image setFlipped:YES];
+  }
+  NSImageRep *bestRep=[image bestRepresentationForSize:imageSize_];
+  [image setSize:[bestRep size]];
+  //float opacity=[self isEnabled]?1.0:0.5;
+  NSSize size = [image size];
+  
+  //NSLog(@"image, %@", NSStringFromRect(frame));
+  [[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
+  [image drawInRect:frame 
+           fromRect:NSMakeRect(0, 0, size.width, size.height)
+          operation:NSCompositeSourceOver
+           fraction:1.0];
+  
+  [image setFlipped:NO];
+  
+}
 
-		NSRect rest;
-		NSDivideRect(cellFrame, &imageFrame, &rest, 1+[self imageWidthForFrame:cellFrame]*1.125, NSMinXEdge);
-        if ([self drawsBackground]) {
-            [[self backgroundColor] set];
-            NSRectFill(imageFrame);
-        }
-        imageFrame.origin.x += 3;
-        imageFrame.size = imageSize;
-        
-		//  [image setScalesWhenResized:NO];
-        if ([controlView isFlipped]){
-            [image setFlipped:YES];
-            // imageFrame.origin.y += ceil((cellFrame.size.height + imageFrame.size.height) / 2);
-        } else{
-            
-			//  [image setFlipped:NO];
-            //  imageFrame.origin.y += ceil((cellFrame.size.height - imageFrame.size.height) / 2);
-        }
-        
+
+- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
+  if (image_ != nil) {
+    NSSize	size = imageSize_;
+    NSRect	imageFrame;
 		
-		NSImageRep *bestRep=[image bestRepresentationForSize:imageSize];
-		[image setSize:[bestRep size]];
-		float opacity=[self isEnabled]?1.0:0.5;
-		
-		
-        [image drawInRect:imageFrame fromRect:rectFromSize([image size]) operation:NSCompositeSourceOver fraction:opacity];
-        
-        [image setFlipped:NO];
+    if (NSEqualSizes(size,NSZeroSize)) {
+      if (NSHeight(cellFrame) <= 18){
+        size = NSMakeSize(16, 16);
+      }else{
+        size = NSMakeSize(NSHeight(cellFrame),NSHeight(cellFrame));
+      }
     }
+    
+		NSRect rest;
+		NSDivideRect(cellFrame, &imageFrame, &rest, 1+[self imageWidthForFrame:cellFrame] *1.125, NSMinXEdge);
+    if ([self drawsBackground]) {
+      [[self backgroundColor] set];
+      NSRectFill(imageFrame);
+    }
+    imageFrame.origin.x += 3;
+    imageFrame.size = size;
+    
+		[self drawImage:image_ withFrame:imageFrame inView:controlView];
+  }
 	
-	cellFrame=[self textRectForFrame:cellFrame];
-	NSRect textCellFrame=cellFrame;
- 
-	textCellFrame.size.height=[super cellSizeForBounds:textCellFrame].height;
-	textCellFrame=centerRectInRect(textCellFrame,cellFrame);
+	cellFrame = [self textRectForFrame:cellFrame];
+	NSRect textCellFrame = cellFrame;
+  
+	textCellFrame.size.height = [super cellSizeForBounds:textCellFrame] .height;
+	textCellFrame = centerRectInRect(textCellFrame, cellFrame);
 	
-	[self setTextColor:[self isHighlighted]&&!editing?[NSColor alternateSelectedControlTextColor]:[NSColor selectedControlTextColor]];
-    [super drawWithFrame:textCellFrame inView:controlView];
+	[self setTextColor:[self isHighlighted] && !editing?[NSColor alternateSelectedControlTextColor] :[NSColor selectedControlTextColor]];
+  [super drawWithFrame:cellFrame inView:controlView];
 	
 	[self setTextColor:[NSColor controlTextColor]];
 }
 
 // This caused the bug with huge table tooltips
-//- (NSSize)cellSizeForBounds:(NSRect)bounds{
-//	bounds.size.width-=1+[self imageWidthForFrame:bounds]*1.125;
-//	NSSize cellSize=[super cellSizeForBounds:bounds]; 
-//	cellSize.width+=1+[self imageWidthForFrame:bounds]*1.125;
+//- (NSSize) cellSizeForBounds:(NSRect)bounds {
+//	bounds.size.width -= 1+[self imageWidthForFrame:bounds] *1.125;
+//	NSSize cellSize = [super cellSizeForBounds:bounds];  
+//	cellSize.width += 1+[self imageWidthForFrame:bounds] *1.125;
 //	return cellSize;
 //}
 
-- (NSSize)cellSize {
-    NSSize cellSize = [super cellSize];
-    cellSize.width += 1+[self imageWidthForFrame:NSZeroRect]*1.125;
-    return cellSize;
+- (NSSize) cellSize {
+  NSSize cellSize = [super cellSize];
+  cellSize.width += 1+[self imageWidthForFrame:NSZeroRect] *1.125;
+  return cellSize;
 }
 
-
-
-- (NSSize) imageSize { return imageSize; }
-- (void) setImageSize: (NSSize) newImageSize
+- (NSSize) imageSize { return imageSize_;  }
+- (void)setImageSize: (NSSize) newImageSize
 {
-    imageSize = newImageSize;
+  imageSize_ = newImageSize;
 }
+
+
+- (NSDictionary *)keys {
+  return [[keys_ retain] autorelease];
+}
+
+- (void)setKeys:(NSDictionary *)value {
+  if (keys_ != value) {
+    [keys_ release];
+    keys_ = [value copy];
+  }
+}
+
 
 
 @end

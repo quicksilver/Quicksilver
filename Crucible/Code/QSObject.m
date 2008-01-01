@@ -431,7 +431,9 @@ NSSize QSMaxIconSize;
 	
 	return nil;
 }
-
+- (NSImage *)image {
+  return [self loadedIcon];
+}
 - (BOOL)loadIcon {
   if ([self iconLoaded]) return NO;
   [self setIconLoaded:YES];
@@ -1103,6 +1105,12 @@ return data;  }
 
 - (NSString *)kind {
 	return @"Object";
+}
+- (NSImage *)image {
+  return [self icon];
+}
+- (NSString *)text {
+  return [self displayName];
 }
 
 - (NSString *)label {return nil;}

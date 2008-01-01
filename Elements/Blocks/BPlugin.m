@@ -38,13 +38,13 @@ static int BPluginLoadSequenceNumbers = 0;
 		return nil;
 	}
 	NSEntityDescription *entity = [NSEntityDescription entityForName:@"plugin" inManagedObjectContext:context];
-    self = [self initWithEntity:entity insertIntoManagedObjectContext:context];
+  self = [self initWithEntity:entity insertIntoManagedObjectContext:context];
 	if (self) {
     [self setPluginURL:url];
 		[self setBundle:aBundle];
 		
 		[self setValue:[NSNumber numberWithInt: ([bundle isLoaded] ? BPluginLoadSequenceNumbers++ : NSNotFound)]
-				forKey:@"loadSequenceNumber"];
+            forKey:@"loadSequenceNumber"];
 		
 		BLogInfo(@"Loading Plugin [%@]", [(bundle ? [bundle bundlePath] : [url path]) lastPathComponent]);
 		
@@ -82,16 +82,25 @@ static int BPluginLoadSequenceNumbers = 0;
 #pragma mark dealloc
 
 - (void)dealloc {
-    [bundle release];
-    [info release];
-    [super dealloc];
+  [bundle release];
+  [info release];
+  [super dealloc];
 }
 
 #pragma mark accessors
 - (void)awakeFromFetch {
 	[super awakeFromFetch];
-	
-	// Find our bundle, if possible
+	[self bundle]; // Find the bundle
+}
+- (void)didTurnIntoFault {
+	//BLogDebug(@"faulted %@", self);
+}
+- (NSString *)description {
+  return [NSString stringWithFormat:@"id: %@ loadSequence: %i", [self identifier], [self loadSequenceNumber]];
+}
+
+- (NSBundle *)bundle {
+  // Find our bundle, if possible
 	if (!bundle) {
 		NSString *path = [[self pluginURL] path];
 		int location = [path rangeOfString:@"Contents/" options:NSBackwardsSearch|NSLiteralSearch].location;
@@ -100,25 +109,16 @@ static int BPluginLoadSequenceNumbers = 0;
 			[self setBundle:[NSBundle bundleWithPath:path]];
 		}
 	}
-}
-- (void)didTurnIntoFault {
-	//BLogDebug(@"faulted %@", self);
-}
-- (NSString *)description {
-    return [NSString stringWithFormat:@"id: %@ loadSequence: %i", [self identifier], [self loadSequenceNumber]];
-}
-
-- (NSBundle *)bundle {
 	return bundle;
 }
 
 - (void)setBundle:(NSBundle *)value {
-    if (bundle != value) {
-        [bundle autorelease];
-        bundle = [value retain];
+  if (bundle != value) {
+    [bundle autorelease];
+    bundle = [value retain];
 		[self setPrimitiveValue:[value bundleIdentifier]
-						 forKey:@"id"];
-    }
+                     forKey:@"id"];
+  }
 }
 - (unsigned)loadSequenceNumber {
 	return loadSequenceNumber;
@@ -139,7 +139,7 @@ static int BPluginLoadSequenceNumbers = 0;
 
 - (NSString *)identifier { return [self primitiveValueForKey:@"id"]; }
 
-	// Primitive Accessors 
+// Primitive Accessors 
 #define PRIMITIVE_VALUE [self primitiveValueForKey:NSStringFromSelector(_cmd)]
 
 - (NSString *)name { return PRIMITIVE_VALUE; }
@@ -153,7 +153,7 @@ static int BPluginLoadSequenceNumbers = 0;
 }
 
 - (void)setPluginURL:(NSURL *)url {
-		[self setValue:[url absoluteString] forKey:@"url"];
+  [self setValue:[url absoluteString] forKey:@"url"];
 }
 
 - (NSURL *)pluginURL {
@@ -165,7 +165,7 @@ static int BPluginLoadSequenceNumbers = 0;
 
 - (NSManagedObject *)scanElement:(NSXMLElement *)elementInfo forPoint:(NSString *)point {
 	NSManagedObject *element = [NSEntityDescription insertNewObjectForEntityForName:@"element"
-															 inManagedObjectContext:[self managedObjectContext]];
+                                                           inManagedObjectContext:[self managedObjectContext]];
 	
 	[element setValuesForKeysWithDictionary:[elementInfo attributesAsDictionary]];
 	[element setValue:self forKey:@"plugin"];
@@ -184,7 +184,7 @@ static int BPluginLoadSequenceNumbers = 0;
 	if (point) BLogDebug(@"using existing point %@", identifier);
 	if (!point) {
 		point = [NSEntityDescription insertNewObjectForEntityForName:@"extensionPoint"
-											  inManagedObjectContext:[self managedObjectContext]];
+                                          inManagedObjectContext:[self managedObjectContext]];
 	}
 	[point setValuesForKeysWithDictionary:pointAttributes];
 	
@@ -203,7 +203,7 @@ static int BPluginLoadSequenceNumbers = 0;
 - (BOOL)scanExtension:(NSXMLElement *)extensionInfo {
 	//BLog(@"extension %@", extensionInfo);
 	NSManagedObject *extension = [NSEntityDescription insertNewObjectForEntityForName:@"extension"
-															   inManagedObjectContext:[self managedObjectContext]];
+                                                             inManagedObjectContext:[self managedObjectContext]];
 	
 	NSMutableSet *extensions = [self mutableSetValueForKey:@"extensions"];
 	[extensions addObject:extension];
@@ -224,15 +224,15 @@ static int BPluginLoadSequenceNumbers = 0;
 	extensionPoint = [[BRegistry sharedInstance] extensionPointWithID:point];
 	if (!extensionPoint) {
 		extensionPoint = [NSEntityDescription insertNewObjectForEntityForName:@"extensionPoint"
-								  inManagedObjectContext:[self managedObjectContext]];
+                                                   inManagedObjectContext:[self managedObjectContext]];
 		[extensionPoint setValue:point forKey:@"id"];
 	}
 	//BLog(@"point %@", extensionPoint);
 	//
-//	
+  //	
 	for (int i = 0,  count = [extensionInfo childCount]; i < count; i++) {
 		NSManagedObject *element = [self scanElement:(NSXMLElement *)[extensionInfo childAtIndex:i]
-											forPoint:point];
+                                        forPoint:point];
 		
 		[pluginElements addObject:element];
 		[extensionElements addObject:element];
@@ -253,8 +253,8 @@ static int BPluginLoadSequenceNumbers = 0;
 		}
 		NSError *error = nil;
 		pluginXMLDocument = [[NSXMLDocument alloc] initWithContentsOfURL:pluginURL
-																 options:NSXMLDocumentValidate
-																   error: &error];
+                                                             options:NSXMLDocumentValidate
+                                                               error: &error];
 		
 		
 		if (!pluginXMLDocument) {
@@ -280,17 +280,17 @@ static int BPluginLoadSequenceNumbers = 0;
 	NSXMLDocument *document = [self pluginXMLDocument];
 	NSXMLElement *root = [document rootElement];
 	
-//	NSArray *requirements = [[root firstElementWithName:@"requirements"] elementsForName:@"requirement"];
+  //	NSArray *requirements = [[root firstElementWithName:@"requirements"] elementsForName:@"requirement"];
 	NSEnumerator *enumerator = [[self requirements] objectEnumerator];
 	id element;
 	while ((element = [enumerator nextObject])) {
 		NSManagedObject *requirement = [NSEntityDescription insertNewObjectForEntityForName:@"requirement"
-																	 inManagedObjectContext:[self managedObjectContext]];
+                                                                 inManagedObjectContext:[self managedObjectContext]];
 		NSDictionary *attributeDict = [element attributesAsDictionary];
 		[requirement setValuesForKeysWithDictionary:attributeDict];
 	}
-//FIXME tiennou: Is this correct ?
-//	NSXMLElement *infoChildren = [root firstElementWithName:@"info"];
+  //FIXME tiennou: Is this correct ?
+  //	NSXMLElement *infoChildren = [root firstElementWithName:@"info"];
 	[self setValue:info forKey:@"info"];
 	
 	NSXMLElement *extensionsChildren = [root firstElementWithName:@"extensions"];
@@ -312,7 +312,7 @@ static int BPluginLoadSequenceNumbers = 0;
 }
 
 - (BOOL)load {
-    if (![bundle isLoaded]) {
+  if (![bundle isLoaded]) {
 		if (![self enabled]) {
 			BLogError(([NSString stringWithFormat:@"Failed to load plugin %@ because it isn't enabled.", [self identifier]]));
 			return NO;
@@ -351,7 +351,7 @@ static int BPluginLoadSequenceNumbers = 0;
 		}
     
     [self didChangeValueForKey:@"isLoaded"];
-    }
+  }
   
   return YES;
 }
@@ -361,18 +361,18 @@ static int BPluginLoadSequenceNumbers = 0;
 		NSString *infoString = [self primitiveValueForKey:@"info"];
 		if (!infoString) return nil;
 		info = [[[[NSXMLDocument alloc] initWithXMLString:infoString
-												  options:0
-													error:nil] autorelease] rootElement];
+                                              options:0
+                                                error:nil] autorelease] rootElement];
 		[info retain];
 	}
-    return [[info retain] autorelease];
+  return [[info retain] autorelease];
 }
 
 - (void)setInfo:(NSXMLElement *)value {
-    if (info != value) {
-        [info release];
-        info = [value copy];
-    }
+  if (info != value) {
+    [info release];
+    info = [value copy];
+  }
 }
 
 - (id)valueForUndefinedKey:(NSString *)key {

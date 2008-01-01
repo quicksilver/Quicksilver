@@ -16,7 +16,7 @@
 	self = [super initTextCell:aString];
 	if (self != nil) {
 		count=nil;
-		//QSLog(@"init");
+		QSLog(@"initdeta");
 	}
 	return self;
 }

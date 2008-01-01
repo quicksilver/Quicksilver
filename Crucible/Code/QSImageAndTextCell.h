@@ -8,9 +8,9 @@
 
 @interface QSImageAndTextCell : NSTextFieldCell {
 	BOOL editing;
-	@private
-    NSImage	*image;
-	NSSize imageSize;
+  NSImage	*image_;
+	NSSize imageSize_;
+  NSDictionary *keys_;
 }
 
 - (void)setImage:(NSImage *)anImage;
@@ -21,5 +21,7 @@
 - (NSRect)textRectForFrame:(NSRect)frame;
 - (NSSize) imageSize;
 - (void) setImageSize: (NSSize) newImageSize;
-
+- (NSDictionary *)keys;
+- (void)setKeys:(NSDictionary *)value;
+- (NSString *)overrideForKey:(NSString *)key;
 @end

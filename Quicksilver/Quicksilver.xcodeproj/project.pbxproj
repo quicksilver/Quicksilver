@@ -42,9 +42,6 @@
 			dependencies = (
 				4DC820E50D12EA330039BD1B /* PBXTargetDependency */,
 				4D508AD80D13469E00A9B360 /* PBXTargetDependency */,
-				4DF635470D10686200910FC0 /* PBXTargetDependency */,
-				4DB839CB0D13F6A000A0CA18 /* PBXTargetDependency */,
-				4DB83C8B0D143CD800A0CA18 /* PBXTargetDependency */,
 			);
 			name = "Build All";
 			productName = "Build All";
@@ -59,11 +56,8 @@
 		4D7094C70D10215D008498FD /* QSCrucible.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7093B30D101CCE008498FD /* QSCrucible.framework */; };
 		4D9A1DAE0D0EA6600072DE55 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9A89950C497DD400B5912D /* Cocoa.framework */; };
 		4D9A1E240D0ED0C20072DE55 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9A89950C497DD400B5912D /* Cocoa.framework */; };
-		4DB839D60D13F6DE00A0CA18 /* Calculator Module.qsplugin in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4DB839BA0D13F55800A0CA18 /* Calculator Module.qsplugin */; };
-		4DB83C8C0D143CDD00A0CA18 /* Find Module.element in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4DB83C870D143CC800A0CA18 /* Find Module.element */; };
 		4DC81F040D12B3B50039BD1B /* QSPlugInsPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D23330C49C3B700812049 /* QSPlugInsPrefPane.m */; };
 		4DF635570D106A8000910FC0 /* QSCrucible.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7093B30D101CCE008498FD /* QSCrucible.framework */; };
-		4DF6357B0D10767E00910FC0 /* Apple Address Book.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4DF6353E0D10684300910FC0 /* Apple Address Book.bundle */; };
 		7F17F18C0C4F1FE6001ADE1A /* QSActionsPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D23090C49C3B700812049 /* QSActionsPrefPane.m */; };
 		7F17F18D0C4F1FE6001ADE1A /* QSAdvancedPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D230B0C49C3B700812049 /* QSAdvancedPrefPane.m */; };
 		7F17F18E0C4F1FE6001ADE1A /* QSCatalogPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5D23170C49C3B700812049 /* QSCatalogPrefPane.m */; };
@@ -343,34 +337,6 @@
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = QSBase;
 		};
-		4DB839B90D13F55800A0CA18 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4DB839B50D13F55800A0CA18 /* CalculatorPlugin.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8D5B49B6048680CD000E48DA;
-			remoteInfo = "Calculator Module";
-		};
-		4DB839CA0D13F6A000A0CA18 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4DB839B50D13F55800A0CA18 /* CalculatorPlugin.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
-			remoteInfo = "Calculator Module";
-		};
-		4DB83C860D143CC800A0CA18 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4DB83C820D143CC800A0CA18 /* FindModule.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8D1AC9740486D14A00FE50C9;
-			remoteInfo = "Find Module";
-		};
-		4DB83C8A0D143CD800A0CA18 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4DB83C820D143CC800A0CA18 /* FindModule.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D1AC9600486D14A00FE50C9;
-			remoteInfo = "Find Module";
-		};
 		4DC820E00D12EA220039BD1B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -398,20 +364,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 337357780BAC7B56000A47E2;
 			remoteInfo = "Cube Interface";
-		};
-		4DF6353D0D10684300910FC0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4DF635360D10684300910FC0 /* QSAddressBookElement.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8D1AC9740486D14A00FE50C9;
-			remoteInfo = "Apple Address Book";
-		};
-		4DF635460D10686200910FC0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4DF635360D10684300910FC0 /* QSAddressBookElement.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D1AC9600486D14A00FE50C9;
-			remoteInfo = "Apple Address Book";
 		};
 		7F69D8850CDE367E002B6B3E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -484,9 +436,6 @@
 			dstPath = "$(QS_APP_CONTENTS_DIR)/PlugIns";
 			dstSubfolderSpec = 0;
 			files = (
-				4DB83C8C0D143CDD00A0CA18 /* Find Module.element in CopyFiles */,
-				4DB839D60D13F6DE00A0CA18 /* Calculator Module.qsplugin in CopyFiles */,
-				4DF6357B0D10767E00910FC0 /* Apple Address Book.bundle in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,24 +479,18 @@
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		4D508A020D133E6A00A9B360 /* QSFinderPlugIn.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QSFinderPlugIn.xcodeproj; path = Plugins/Finder/QSFinderPlugIn.xcodeproj; sourceTree = "<group>"; };
-		4D508ABC0D1344F300A9B360 /* get-plugins.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "get-plugins.sh"; path = "Plugins/get-plugins.sh"; sourceTree = "<group>"; };
 		4D7093AE0D101CCE008498FD /* Crucible.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Crucible.xcodeproj; path = ../Crucible/Crucible.xcodeproj; sourceTree = SOURCE_ROOT; };
 		4D7094910D101E5E008498FD /* Quicksilver-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Quicksilver-Info.plist"; sourceTree = "<group>"; };
 		4D7094E90D102638008498FD /* QSElement_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSElement_Prefix.pch; sourceTree = "<group>"; };
 		4D7094EB0D102638008498FD /* QSPlugIn_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPlugIn_Prefix.pch; sourceTree = "<group>"; };
-		4D7094EE0D1026CC008498FD /* QSElement_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSElement_Debug.xcconfig; sourceTree = "<group>"; };
-		4D7094EF0D1026CC008498FD /* QSElement_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSElement_Release.xcconfig; sourceTree = "<group>"; };
 		4D7094F00D1026CC008498FD /* QSPlugIn_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Debug.xcconfig; sourceTree = "<group>"; };
 		4D7094F10D1026CC008498FD /* QSPlugIn_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Release.xcconfig; sourceTree = "<group>"; };
 		4D7094F30D102708008498FD /* QSElement.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSElement.xcconfig; sourceTree = "<group>"; };
 		4D7094F80D10274E008498FD /* QSPlugIn.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn.xcconfig; sourceTree = "<group>"; };
 		4D7095920D102E4D008498FD /* Developer.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Developer.xcconfig; path = "/Volumes/myHD/Sources/Utilities/blacktree-alchemy-trunk/Configuration/Developer.xcconfig"; sourceTree = "<absolute>"; };
-		4DB839B50D13F55800A0CA18 /* CalculatorPlugin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CalculatorPlugin.xcodeproj; path = Plugins/com.apple.calculator/CalculatorPlugin.xcodeproj; sourceTree = "<group>"; };
-		4DB83C820D143CC800A0CA18 /* FindModule.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FindModule.xcodeproj; path = Plugins/FindModule/FindModule.xcodeproj; sourceTree = "<group>"; };
 		4DE9903D0D0F165C00593B3B /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
 		4DE9903E0D0F165C00593B3B /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		4DE9903F0D0F165C00593B3B /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
-		4DF635360D10684300910FC0 /* QSAddressBookElement.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QSAddressBookElement.xcodeproj; path = Plugins/com.apple.AddressBook/QSAddressBookElement.xcodeproj; sourceTree = "<group>"; };
 		7F2BF2E50C5BAE5500E80ABF /* QSSpotlightImporter.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QSSpotlightImporter.xcodeproj; path = Library/Spotlight/QSSpotlightImporter.xcodeproj; sourceTree = "<group>"; };
 		7F5D22470C49C18400812049 /* Core.element */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Core.element; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F5D23000C49C3B700812049 /* AppKitPrivate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AppKitPrivate.h; sourceTree = "<group>"; };
@@ -735,9 +678,9 @@
 		7FE0BBE40C4998610012249C /* Catalog.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Catalog.icns; sourceTree = "<group>"; };
 		7FE0BBE50C4998610012249C /* CatalogGroup.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CatalogGroup.icns; sourceTree = "<group>"; };
 		7FE0BBE60C4998610012249C /* ChildArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChildArrow.png; sourceTree = "<group>"; };
-		7FE0BBE70C4998610012249C /* ContactAddress.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ContactAddress.icns; sourceTree = "<group>"; };
-		7FE0BBE80C4998610012249C /* ContactEmail.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ContactEmail.icns; sourceTree = "<group>"; };
-		7FE0BBE90C4998610012249C /* ContactPhone.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ContactPhone.icns; sourceTree = "<group>"; };
+		7FE0BBE70C4998610012249C /* ContactAddress.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = ContactAddress.icns; path = ../../Application/Resources/Images/ContactAddress.icns; sourceTree = "<group>"; };
+		7FE0BBE80C4998610012249C /* ContactEmail.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = ContactEmail.icns; path = ../../Application/Resources/Images/ContactEmail.icns; sourceTree = "<group>"; };
+		7FE0BBE90C4998610012249C /* ContactPhone.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = ContactPhone.icns; path = ../../Application/Resources/Images/ContactPhone.icns; sourceTree = "<group>"; };
 		7FE0BBEA0C4998610012249C /* defaultAction.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = defaultAction.icns; sourceTree = "<group>"; };
 		7FE0BBEC0C4998610012249C /* DocPrefs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DocPrefs.png; sourceTree = "<group>"; };
 		7FE0BBED0C4998610012249C /* Dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dot.png; sourceTree = "<group>"; };
@@ -890,7 +833,8 @@
 				4D7093AE0D101CCE008498FD /* Crucible.xcodeproj */,
 				7FA7DB0B0C5CF0F100A27607 /* QSQuickLookGenerator.xcodeproj */,
 				7F2BF2E50C5BAE5500E80ABF /* QSSpotlightImporter.xcodeproj */,
-				4DF635350D10683100910FC0 /* Plugins */,
+				7F8B81980C49C639007FC200 /* QSCubeInterfaceElement.xcodeproj */,
+				4D508A020D133E6A00A9B360 /* QSFinderPlugIn.xcodeproj */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
 			);
@@ -956,28 +900,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4DB839B60D13F55800A0CA18 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				4DB839BA0D13F55800A0CA18 /* Calculator Module.qsplugin */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		4DB83C830D143CC800A0CA18 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				4DB83C870D143CC800A0CA18 /* Find Module.element */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		4DE9903C0D0F165C00593B3B /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
 				4D7094F30D102708008498FD /* QSElement.xcconfig */,
-				4D7094EE0D1026CC008498FD /* QSElement_Debug.xcconfig */,
-				4D7094EF0D1026CC008498FD /* QSElement_Release.xcconfig */,
 				4D7094F80D10274E008498FD /* QSPlugIn.xcconfig */,
 				4D7094F00D1026CC008498FD /* QSPlugIn_Debug.xcconfig */,
 				4D7094F10D1026CC008498FD /* QSPlugIn_Release.xcconfig */,
@@ -996,27 +922,6 @@
 			isa = PBXGroup;
 			children = (
 				4DF635330D10682700910FC0 /* Cube Interface.bundle */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		4DF635350D10683100910FC0 /* Plugins */ = {
-			isa = PBXGroup;
-			children = (
-				4D508ABC0D1344F300A9B360 /* get-plugins.sh */,
-				7F8B81980C49C639007FC200 /* QSCubeInterfaceElement.xcodeproj */,
-				4D508A020D133E6A00A9B360 /* QSFinderPlugIn.xcodeproj */,
-				4DF635360D10684300910FC0 /* QSAddressBookElement.xcodeproj */,
-				4DB839B50D13F55800A0CA18 /* CalculatorPlugin.xcodeproj */,
-				4DB83C820D143CC800A0CA18 /* FindModule.xcodeproj */,
-			);
-			name = Plugins;
-			sourceTree = "<group>";
-		};
-		4DF635370D10684300910FC0 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				4DF6353E0D10684300910FC0 /* Apple Address Book.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1245,9 +1150,6 @@
 				7FE0BBE40C4998610012249C /* Catalog.icns */,
 				7FE0BBE50C4998610012249C /* CatalogGroup.icns */,
 				7FE0BBE60C4998610012249C /* ChildArrow.png */,
-				7FE0BBE70C4998610012249C /* ContactAddress.icns */,
-				7FE0BBE80C4998610012249C /* ContactEmail.icns */,
-				7FE0BBE90C4998610012249C /* ContactPhone.icns */,
 				7FE0BBEA0C4998610012249C /* defaultAction.icns */,
 				7FE0BBEC0C4998610012249C /* DocPrefs.png */,
 				7FE0BBED0C4998610012249C /* Dot.png */,
@@ -1351,6 +1253,9 @@
 		7FE0BCCB0C499F2E0012249C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7FE0BBE70C4998610012249C /* ContactAddress.icns */,
+				7FE0BBE80C4998610012249C /* ContactEmail.icns */,
+				7FE0BBE90C4998610012249C /* ContactPhone.icns */,
 				7F82E9730C4FADF9002B3A54 /* ActionCommandFormats.strings */,
 				7F82E9750C4FADF9002B3A54 /* ActionDescriptions.strings */,
 				7F82E9770C4FADF9002B3A54 /* ActionNames.strings */,
@@ -1454,24 +1359,12 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 4DB839B60D13F55800A0CA18 /* Products */;
-					ProjectRef = 4DB839B50D13F55800A0CA18 /* CalculatorPlugin.xcodeproj */;
-				},
-				{
 					ProductGroup = 4D7093AF0D101CCE008498FD /* Products */;
 					ProjectRef = 4D7093AE0D101CCE008498FD /* Crucible.xcodeproj */;
 				},
 				{
 					ProductGroup = 7F69D8810CDE367E002B6B3E /* Products */;
 					ProjectRef = 7F9A8BCD0C497EBB00B5912D /* Elements.xcodeproj */;
-				},
-				{
-					ProductGroup = 4DB83C830D143CC800A0CA18 /* Products */;
-					ProjectRef = 4DB83C820D143CC800A0CA18 /* FindModule.xcodeproj */;
-				},
-				{
-					ProductGroup = 4DF635370D10684300910FC0 /* Products */;
-					ProjectRef = 4DF635360D10684300910FC0 /* QSAddressBookElement.xcodeproj */;
 				},
 				{
 					ProductGroup = 4DF6352F0D10682700910FC0 /* Products */;
@@ -1516,32 +1409,11 @@
 			remoteRef = 4D7093B20D101CCE008498FD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4DB839BA0D13F55800A0CA18 /* Calculator Module.qsplugin */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Calculator Module.qsplugin";
-			remoteRef = 4DB839B90D13F55800A0CA18 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4DB83C870D143CC800A0CA18 /* Find Module.element */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Find Module.element";
-			remoteRef = 4DB83C860D143CC800A0CA18 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		4DF635330D10682700910FC0 /* Cube Interface.bundle */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = "Cube Interface.bundle";
 			remoteRef = 4DF635320D10682700910FC0 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4DF6353E0D10684300910FC0 /* Apple Address Book.bundle */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Apple Address Book.bundle";
-			remoteRef = 4DF6353D0D10684300910FC0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7F69D8860CDE367E002B6B3E /* QSElements.framework */ = {
@@ -1875,16 +1747,6 @@
 			name = QSBase;
 			targetProxy = 4D7094D50D10225B008498FD /* PBXContainerItemProxy */;
 		};
-		4DB839CB0D13F6A000A0CA18 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Calculator Module";
-			targetProxy = 4DB839CA0D13F6A000A0CA18 /* PBXContainerItemProxy */;
-		};
-		4DB83C8B0D143CD800A0CA18 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Find Module";
-			targetProxy = 4DB83C8A0D143CD800A0CA18 /* PBXContainerItemProxy */;
-		};
 		4DC820E10D12EA220039BD1B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7F9A7A630C49595900B5912D /* Quicksilver */;
@@ -1899,11 +1761,6 @@
 			isa = PBXTargetDependency;
 			target = 4DC820DD0D12EA180039BD1B /* Build Quicksilver */;
 			targetProxy = 4DC820E40D12EA330039BD1B /* PBXContainerItemProxy */;
-		};
-		4DF635470D10686200910FC0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Apple Address Book";
-			targetProxy = 4DF635460D10686200910FC0 /* PBXContainerItemProxy */;
 		};
 		7FA7DB240C5CF12B00A27607 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2154,7 +2011,6 @@
 		};
 		7F5D224B0C49C18500812049 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D7094EE0D1026CC008498FD /* QSElement_Debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "CoreElement/QSCoreElement-Info.plist";
 				PRODUCT_NAME = Core;
@@ -2164,7 +2020,6 @@
 		};
 		7F5D224C0C49C18500812049 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D7094EF0D1026CC008498FD /* QSElement_Release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "CoreElement/QSCoreElement-Info.plist";
 				PRODUCT_NAME = Core;

@@ -15,7 +15,7 @@
 - (NSDate *)fileModificationDate;
 @end
 #import "Carbon/Carbon.h"
-#define HIDDENROOT [NSArray arrayWithObjects:@"automount",@"bin",@"cores",@"dev",@"etc",@"mach",@"mach.sym",@"mach_kernel",@"private",@"sbin",@"sbin",@"tmp",@"usr",@"var",nil]
+#define HIDDENROOT [NSArray arrayWithObjects:@"home", @"net", @"automount",@"bin",@"cores",@"dev",@"etc",@"mach",@"mach.sym",@"mach_kernel",@"private",@"sbin",@"sbin",@"tmp",@"usr",@"var",nil]
 @implementation NSFileManager (Carbon)
 
 - (bool) isVisible:(NSString *)path{

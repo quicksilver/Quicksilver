@@ -112,7 +112,7 @@ NSTimeInterval ti;
         BOOL isValid = [(NSDate *)[plugin valueForKey:@"registrationDate"] compare: modDate] != NSOrderedAscending;	
 
         if (isValid) {
-            BLogDebug(@"Using cache for %@", [(bundle!=nil ? [bundle bundlePath] : [url absoluteString]) stringByAbbreviatingWithTildeInPath]);
+            BLogDebug(@"Using cache for %p %@", plugin, [(bundle!=nil ? [bundle bundlePath] : [url absoluteString]) stringByAbbreviatingWithTildeInPath]);
             return;
         }
         
@@ -162,7 +162,7 @@ NSTimeInterval ti;
     while((thisPlugin = [pluginEnumerator nextObject])) {
         NSString *path = [[thisPlugin pluginURL] path];
         if (![fileManager fileExistsAtPath:path]) {
-            NSLog(@"Deleting plugin at path %@", path);
+            QSLogDebug(@"Deleting plugin at path %@", path);
 			[[self managedObjectContext] deleteObject:thisPlugin];  
         }
     }

@@ -14,7 +14,6 @@
 @synthesize searchText, resultArray, sourceArray, searchType, matchedString, objectValue;
 
 - (void)awakeFromNib {
-  NSLog(@"awake"); 
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sourceArrayChanged:) name:@"QSSourceArrayUpdated" object:nil];
 
   qsSearch = [[QSCatalogSearchProvider alloc] init];
@@ -47,7 +46,6 @@
   
   [self willChangeValueForKey:@"test"];
   [self didChangeValueForKey:@"test"];
-  NSLog(@"selector %s", commandSelector ); 
 //  return YES;
   BOOL retval = NO;
   if ([self respondsToSelector:commandSelector]) {

@@ -93,7 +93,7 @@
   
   if (element) {
     [elementsByID setValue:element forKey:elementID];
-    BLogDebug(@"Fetched %@/%@ %@", extensionPointID, elementID, element);
+    BLog(@"Fetched %@/%@ %@", extensionPointID, elementID, element);
   } else {
     [elementsByID setValue:[NSNull null] forKey:elementID];
     BLogDebug(@"Could not find %@/%@", extensionPointID, elementID);

@@ -8,6 +8,36 @@
 NSString *gSysIconBundle = nil;
 id QSRez;
 
+
+//#import </usr/include/objc/objc-class.h>
+//
+//@implementation NSImage (QSResourceManager) 
+//+ (void) initialize {
+//  method_exchangeImplementations (class_getClassMethod(self, @selector(imageNamed:)),
+//                                  class_getClassMethod(self, @selector(QSImageNamed:)));
+//}                                  
+//+ (NSImage *)QSImageNamed:(NSString *)name {
+//  NSParameterAssert(_cmd == @selector(imageNamed:));
+//  NSImage *image = [NSImage QSImageNamed:name]; // This is the original method
+//  if (!image) image = [QSResourceManager imageNamed:name];
+//  return image;
+//}
+//@end
+
+//@implementation NSCustomResource (QSResourceManager) 
+//+ (void) initialize {
+//  method_exchangeImplementations (class_getClassMethod(self, @selector(loadImageWithName:)),
+//                                  class_getClassMethod(self, @selector(QSLoadImageWithName:)));
+//}                                  
+//+ (NSImage *)QSLoadImageWithName:(NSString *)name {
+//  NSParameterAssert(_cmd == @selector(loadImageWithName:));
+//  NSImage *image = [NSCustomResource QSLoadImageWithName:name]; // This is the original method
+//  if (!image) image = [QSResourceManager imageNamed:name];
+//  return image;
+//}
+//@end
+
+
 @implementation QSResourceManager
 
 - (NSImage *)daedalusImage {
@@ -109,10 +139,10 @@ id QSRez;
 
 
 - (NSImage *)imageNamed:(NSString *)name inBundle:(NSBundle *)bundle {
-	
 	if (!name) return nil;
 	
-    NSImage *image = [NSImage imageNamed:name];
+  NSImage *image = [NSImage imageNamed:name];
+  if (image) return image;
 	if (!image && resourceOverrideList) {
 		NSString *file = [resourceOverrideList objectForKey:name];
 		if (file)

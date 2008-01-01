@@ -91,9 +91,8 @@ static id _sharedInstance;
 + (void)initialize {
   
   BOOL runningFromXcode = [[[NSProcessInfo processInfo] environment] valueForKey:@"NSUnbufferedIO"];
-
-  int level = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSLoggingLevel"];
-	[BLogManager setLoggingLevel:level];
+  NSNumber *level = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSLoggingLevel"];
+	if (level) [BLogManager setLoggingLevel:[level intValue]];
 	
 	if (DEBUG_STARTUP) QSLog(@"Controller Initialize");
 	

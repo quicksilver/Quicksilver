@@ -22,12 +22,14 @@ NSOperationQueue *iconLoadQueue = nil;
   return iconLoadQueue;
 }
 + (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-  if ([[iconLoadQueue operations] count] == 0) {
-    [iconLoadQueue release];
-    iconLoadQueue = nil;
-  }
+//  if ([[iconLoadQueue operations] count] == 0) {
+//    [iconLoadQueue release];
+//    iconLoadQueue = nil;
+//  }
 }
-
+- (id) delayedSelf {
+  return self; 
+}
 - (NSImage *) delayedIcon {
 
   if (![self iconLoaded]) {
@@ -44,9 +46,12 @@ NSOperationQueue *iconLoadQueue = nil;
 - (void)loadIconInQueue {
   
   [self willChangeValueForKey:@"delayedIcon"];
+  [self willChangeValueForKey:@"self"];
   
   if ([self loadIcon]) {
     [self didChangeValueForKey:@"delayedIcon"];
+    
+    [self didChangeValueForKey:@"self"];
   }
 }
 @end
