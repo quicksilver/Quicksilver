@@ -90,7 +90,7 @@ static id _sharedInstance;
 
 + (void)initialize {
   
-  BOOL runningFromXcode = [[[NSProcessInfo processInfo] environment] valueForKey:@"NSUnbufferedIO"];
+//  BOOL runningFromXcode = [[[NSProcessInfo processInfo] environment] valueForKey:@"NSUnbufferedIO"];
   NSNumber *level = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSLoggingLevel"];
 	if (level) [BLogManager setLoggingLevel:[level intValue]];
 	
@@ -353,7 +353,7 @@ static id _sharedInstance;
 	
 	NSMenu *debugMenu = [[[NSMenu alloc] initWithTitle:@"Debug"] autorelease];
 	
-	id <NSMenuItem > theItem;
+	NSMenuItem *theItem;
 	
 	
 	
@@ -427,8 +427,8 @@ static id _sharedInstance;
 }
 
 - (IBAction)showElementsViewer:(id)sender {
-  QSElementsViewController *viewer = [QSElementsViewController sharedController];
-  [viewer showWindow:nil];
+    QSElementsViewController *viewer = [QSElementsViewController sharedController];
+    [viewer showWindow:nil];
 }
 
 - (IBAction)showAbout:(id)sender {
@@ -727,7 +727,7 @@ static id _sharedInstance;
 	 [NSApp setServicesMenu:[serviceItem submenu]];
 	 
 	 */
-	NSMenu *modulesItem = [[NSApp mainMenu] itemWithTag:128];
+	NSMenuItem *modulesItem = [[NSApp mainMenu] itemWithTag:128];
 	
 	[newMenu addItem:[[modulesItem copy] autorelease]];
 	
@@ -815,10 +815,10 @@ static id _sharedInstance;
 	
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSImage *splashImage = [NSImage imageNamed:@"QSLigature"];
-	if (fALPHA && OneIn(1000) || (fDEV && OneIn(20) )) splashImage = [self daedalusImage];
-	//NSNumber* screenNum = [[theScreen deviceDescription] objectForKey: @"NSScreenNumber"];
+	if ((fALPHA && OneIn(1000)) || ((fDEV && OneIn(20) ))) splashImage = [self daedalusImage];
+//  NSNumber* screenNum = [[theScreen deviceDescription] objectForKey: @"NSScreenNumber"];
 	
-	BOOL supportsQuartzExtreme = [[NSScreen mainScreen] usesOpenGLAcceleration];
+//	BOOL supportsQuartzExtreme = [[NSScreen mainScreen] usesOpenGLAcceleration];
 	if (0) { // && fDEV && supportsQuartzExtreme) {
 		
 		//splashWindow = [NSWindow windowWithImage:splashImage];
@@ -948,6 +948,11 @@ static id _sharedInstance;
 	[dropletConnection setRootObject:self];
 }
 
+- (void)executeCommandAtPath:(NSString *)path {
+	QSCommand *command = [QSCommand commandWithFile:path];
+	[command execute];
+}
+
 - (void)handlePasteboardDrop:(NSPasteboard *)pb commandPath:(NSString *)path {
 	QSObject *drop = [QSObject objectWithPasteboard:pb];
 	//QSLog(@"pb %@ %@", drop, path);
@@ -956,10 +961,6 @@ static id _sharedInstance;
 	[self setDropletProxy:nil];
 }
 
-- (void)executeCommandAtPath:(NSString *)path {
-	QSCommand *command = [QSCommand commandWithFile:path];
-	[command execute];
-}
 - (void)performService:(NSPasteboard *)pboard
 			  userData:(NSString *)userData
 				 error:(NSString **)error
@@ -967,6 +968,7 @@ static id _sharedInstance;
 	if (VERBOSE) QSLog(@"Perform Service: %@ %d", userData, [userData characterAtIndex:0]);
 	[self receiveObject:[[[QSObject alloc] initWithPasteboard:pboard] autorelease]];
 }
+
 - (void)getSelection:(NSPasteboard *)pboard
 			userData:(NSString *)userData
 			   error:(NSString **)error
@@ -1059,7 +1061,7 @@ static id _sharedInstance;
 	[self setAESelection:desc types:nil];
 }
 - (NSAppleEventDescriptor *)AESelection {	
-	QSObject *selection = [[self interfaceController] selection];
+	QSObject *selection = (QSObject*)[[self interfaceController] selection];
 	QSLog(@"object %@", selection);
 	id desc = [selection AEDescriptor];
 	if (!desc) desc = [NSAppleEventDescriptor descriptorWithString:[selection stringValue]];
@@ -1276,7 +1278,7 @@ static id _sharedInstance;
 - (void)activated:(NSNotification *)aNotification {
 	//  QSLog(@"m");
 	// BOOL easterEgg = (int) (100*(double)random()/(double)0x7fffffff) == 0;
-	if ( (fALPHA && OneIn(100) ) || fDEV && OneIn(10))
+	if ( (fALPHA && OneIn(100) ) || (fDEV && OneIn(10)))
 		[NSApp setApplicationIconImage:[self daedalusImage]];
 	else
 		[NSApp setApplicationIconImage: [NSImage imageNamed:@"Quicksilver-Activated"]];
@@ -1320,9 +1322,9 @@ static id _sharedInstance;
 	size_t len;
 	char cmd[32] , buf[512];
 	snprintf(cmd, sizeof(cmd), "/usr/bin/leaks %d", getpid() );
-	if (fp = popen(cmd, "r") )
+	if ((fp = popen(cmd, "r") ))
 	 {
-		while( len = fread(buf, 1, sizeof(buf), fp) )
+		while(( len = fread(buf, 1, sizeof(buf), fp) ))
 			fwrite(buf, 1, len, stderr);
 		pclose(fp);
 	}

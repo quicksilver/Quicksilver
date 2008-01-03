@@ -17,14 +17,18 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
   NSDictionary *dataDict = [dictionary objectForKey:@"data"];
   
   NSArray *types = [NSArray arrayWithObjects: 
-                    kUTTypeImage, kUTTypePNG, kUTTypeTIFF,
-                    kUTTypePDF,
-                    kUTTypeHTML,
-                    kUTTypeXML,
-                    kUTTypePlainText, kUTTypeUTF16PlainText,
-                    kUTTypeRTF, 
-                    kUTTypeMovie, 
-                    kUTTypeAudio, nil];
+                    (NSString*)kUTTypeImage,
+                    (NSString*)kUTTypePNG,
+                    (NSString*)kUTTypeTIFF,
+                    (NSString*)kUTTypePDF,
+                    (NSString*)kUTTypeHTML,
+                    (NSString*)kUTTypeXML,
+                    (NSString*)kUTTypePlainText, 
+                    (NSString*)kUTTypeUTF16PlainText,
+                    (NSString*)kUTTypeRTF, 
+                    (NSString*)kUTTypeMovie, 
+                    (NSString*)kUTTypeAudio,
+                    nil];
   
   for (NSString *type in types) {
     NSData *data = [dataDict objectForKey:type];

@@ -15,12 +15,6 @@
 		3373576D0BAC7B56000A47E2 /* QSShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F520AD50A50B20900A6671F /* QSShadowView.m */; };
 		3373576F0BAC7B56000A47E2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD92D38A0106425D02CA0E72 /* Cocoa.framework */; };
 		4DC821080D12ED1B0039BD1B /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC821070D12ED1B0039BD1B /* Carbon.framework */; };
-		7F4996C10D2A9B1A00EDA932 /* Common.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7F4996B90D2A9B1A00EDA932 /* Common.xcconfig */; };
-		7F4996C20D2A9B1A00EDA932 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7F4996BA0D2A9B1A00EDA932 /* Debug.xcconfig */; };
-		7F4996C30D2A9B1A00EDA932 /* Developer.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7F4996BB0D2A9B1A00EDA932 /* Developer.xcconfig */; };
-		7F4996C40D2A9B1A00EDA932 /* QSElement.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7F4996BC0D2A9B1A00EDA932 /* QSElement.xcconfig */; };
-		7F4996C50D2A9B1A00EDA932 /* QSPlugIn.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7F4996BE0D2A9B1A00EDA932 /* QSPlugIn.xcconfig */; };
-		7F4996C60D2A9B1A00EDA932 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7F4996C00D2A9B1A00EDA932 /* Release.xcconfig */; };
 		7F7F19380C30B4A60074ECC3 /* QSCommandInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F19370C30B4A60074ECC3 /* QSCommandInterfaceController.m */; };
 		7F7F19830C30B9F30074ECC3 /* QSSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F19820C30B9F30074ECC3 /* QSSearchController.m */; };
 		7F7F1A210C30C7810074ECC3 /* QSCatalogSearchProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F1A200C30C7810074ECC3 /* QSCatalogSearchProvider.m */; };
@@ -103,7 +97,7 @@
 		7F03F74F0A42C50B00B57270 /* QSCubeInterfaceBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCubeInterfaceBackgroundView.m; sourceTree = "<group>"; };
 		7F4996B90D2A9B1A00EDA932 /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
 		7F4996BA0D2A9B1A00EDA932 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
-		7F4996BB0D2A9B1A00EDA932 /* Developer.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Developer.xcconfig; path = "/Volumes/Lux/Alchemy/Alchemy-svn/trunk/Configuration/Developer.xcconfig"; sourceTree = "<absolute>"; };
+		7F4996BB0D2A9B1A00EDA932 /* Developer.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Developer.xcconfig; sourceTree = "<group>"; };
 		7F4996BC0D2A9B1A00EDA932 /* QSElement.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSElement.xcconfig; sourceTree = "<group>"; };
 		7F4996BD0D2A9B1A00EDA932 /* QSElement_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSElement_Prefix.pch; sourceTree = "<group>"; };
 		7F4996BE0D2A9B1A00EDA932 /* QSPlugIn.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn.xcconfig; sourceTree = "<group>"; };
@@ -376,12 +370,6 @@
 				337357680BAC7B56000A47E2 /* Localizable.strings in Resources */,
 				337357690BAC7B56000A47E2 /* element.xml in Resources */,
 				7F9A780D0C491AAD00B5912D /* QSCubeInterface.xib in Resources */,
-				7F4996C10D2A9B1A00EDA932 /* Common.xcconfig in Resources */,
-				7F4996C20D2A9B1A00EDA932 /* Debug.xcconfig in Resources */,
-				7F4996C30D2A9B1A00EDA932 /* Developer.xcconfig in Resources */,
-				7F4996C40D2A9B1A00EDA932 /* QSElement.xcconfig in Resources */,
-				7F4996C50D2A9B1A00EDA932 /* QSPlugIn.xcconfig in Resources */,
-				7F4996C60D2A9B1A00EDA932 /* Release.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

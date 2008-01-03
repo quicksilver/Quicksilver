@@ -16,15 +16,16 @@ extern BOOL QSApplicationCompletedLaunch;
 	NSResponder *globalKeyEquivalentTarget;
 	NSMutableArray *eventDelegates;
 }
--(int)featureLevel;
 
--(BOOL)isUIElement;
--(BOOL)setShouldBeUIElement:(BOOL)hidden; //Returns YES if successful
-- (void)forwardWindowlessRightClick:(NSEvent *) theEvent;
-- (BOOL)completedLaunch;
-- (BOOL)isPrerelease;
-- (NSResponder *)globalKeyEquivalentTarget;
-- (void)setGlobalKeyEquivalentTarget:(NSResponder *)value;
-- (void)addEventDelegate:(id)eDelegate;
-	-(void)removeEventDelegate:(id)eDelegate;
+- (int) featureLevel;
+
+- (BOOL) isUIElement;
+- (BOOL) setShouldBeUIElement:(BOOL)hidden; //Returns YES if successful
+- (void) forwardWindowlessRightClick:(NSEvent *) theEvent;
+- (BOOL) completedLaunch;
+- (BOOL) isPrerelease;
+- (NSResponder *) globalKeyEquivalentTarget;
+- (void) setGlobalKeyEquivalentTarget:(NSResponder *)value;
+- (void) addEventDelegate:(id)eDelegate;
+- (void) removeEventDelegate:(id)eDelegate;
 @end

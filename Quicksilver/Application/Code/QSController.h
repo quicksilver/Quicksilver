@@ -16,7 +16,7 @@
 //@class QSProcessSwitcher;
 
 
-@interface QSController : NSWindowController{
+@interface QSController : NSWindowController {
     QSInterfaceController *interfaceController;
    // QSProcessSwitcher *switcherController;
     //QSPrefsController *prefsController;
@@ -69,17 +69,12 @@
 - (void)showSplash:sender;
 
 - (void)recompositeIconImages;
-    
-
-
-
 
 - (NSImage *)daedalusImage;
+
 - (void)activateDebugMenu;
 
 - (NSMenu *)statusMenu;
-
-
 - (NSMenu *)statusMenuWithQuit;
 
 

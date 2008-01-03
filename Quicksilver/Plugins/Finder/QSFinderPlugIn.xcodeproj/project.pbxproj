@@ -40,11 +40,8 @@
 
 /* Begin PBXFileReference section */
 		332EA7DF0B99E3B700614E3D /* element.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = element.xml; sourceTree = "<group>"; };
-		4D508A1C0D133E8600A9B360 /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
 		4D508A1F0D133E8600A9B360 /* QSElement.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSElement.xcconfig; sourceTree = "<group>"; };
-		4D508A200D133E8600A9B360 /* QSElement_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSElement_Debug.xcconfig; sourceTree = "<group>"; };
 		4D508A210D133E8600A9B360 /* QSElement_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSElement_Prefix.pch; sourceTree = "<group>"; };
-		4D508A220D133E8600A9B360 /* QSElement_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSElement_Release.xcconfig; sourceTree = "<group>"; };
 		4D508B660D134CC200A9B360 /* Quicksilver.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Quicksilver.xcodeproj; path = ../../Quicksilver.xcodeproj; sourceTree = SOURCE_ROOT; };
 		7F07AAE9085E3A4F00E2AFC4 /* QSFSBrowserMediator.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = QSFSBrowserMediator.h; path = ../../CoreElement/Code/QSFSBrowserMediator.h; sourceTree = SOURCE_ROOT; };
 		7F2817B007B6F4EB007D4010 /* QSFinderProxy.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSFinderProxy.h; sourceTree = "<group>"; };
@@ -127,11 +124,8 @@
 		4D508A1B0D133E8600A9B360 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
-				4D508A1C0D133E8600A9B360 /* Common.xcconfig */,
 				4D508A1F0D133E8600A9B360 /* QSElement.xcconfig */,
-				4D508A200D133E8600A9B360 /* QSElement_Debug.xcconfig */,
 				4D508A210D133E8600A9B360 /* QSElement_Prefix.pch */,
-				4D508A220D133E8600A9B360 /* QSElement_Release.xcconfig */,
 			);
 			name = Configuration;
 			path = ../../../Configuration;
@@ -260,6 +254,7 @@
 /* Begin XCBuildConfiguration section */
 		7FE8955D085D305D0016C421 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D508A1F0D133E8600A9B360 /* QSElement.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = "Finder Module";
@@ -268,6 +263,7 @@
 		};
 		7FE8955E085D305D0016C421 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D508A1F0D133E8600A9B360 /* QSElement.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = "Finder Module";
@@ -276,14 +272,12 @@
 		};
 		7FE89561085D305D0016C421 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D508A200D133E8600A9B360 /* QSElement_Debug.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		7FE89562085D305D0016C421 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D508A220D133E8600A9B360 /* QSElement_Release.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;

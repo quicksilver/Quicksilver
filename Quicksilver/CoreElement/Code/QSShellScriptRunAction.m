@@ -25,13 +25,13 @@ BOOL QSPathCanBeExecuted(NSString *path,BOOL allowApps){
 	if (isDirectory)
 		return NO;
 	BOOL executable=[[NSFileManager defaultManager] isExecutableFileAtPath:path];
-	if (!executable){
+	if (!executable) {
 		NSString *contents=[NSString stringWithContentsOfFile:path];
-		if ([contents hasPrefix:@"#!"])executable=YES;
+		if ([contents hasPrefix:@"#!"]) executable=YES;
 		else if (VERBOSE) QSLog(@"No Shebang found");
-	}else if (!allowApps){
+	} else if (!allowApps) {
 		LSItemInfoRecord infoRec;
-		LSCopyItemInfoForURL((CFURLRef)[NSURL fileURLWithPath:path],kLSRequestBasicFlagsOnly, &infoRec);
+		LSCopyItemInfoForURL((CFURLRef)[NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);
 		if (infoRec.flags & kLSItemInfoIsApplication) // Ignore applications
 			return NO;
 	}

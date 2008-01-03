@@ -27,8 +27,8 @@
 			dependencies = (
 				4DC820E10D12EA220039BD1B /* PBXTargetDependency */,
 				4DC820E30D12EA2A0039BD1B /* PBXTargetDependency */,
-				4D5089020D132B7100A9B360 /* PBXTargetDependency */,
 				4D508A740D13421300A9B360 /* PBXTargetDependency */,
+				4D4361390D2D74780043B92D /* PBXTargetDependency */,
 			);
 			name = "Build Quicksilver";
 			productName = "Build Quicksilver";
@@ -49,9 +49,9 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		4D4361160D2D74090043B92D /* Cube Interface.element in Copy Main Plugins */ = {isa = PBXBuildFile; fileRef = 4DF635330D10682700910FC0 /* Cube Interface.element */; };
 		4D5088E00D132B6200A9B360 /* Core.element in Copy Main Plugins */ = {isa = PBXBuildFile; fileRef = 7F5D22470C49C18400812049 /* Core.element */; };
-		4D5088E30D132B6700A9B360 /* Cube Interface.bundle in Copy Main Plugins */ = {isa = PBXBuildFile; fileRef = 4DF635330D10682700910FC0 /* Cube Interface.bundle */; };
-		4D508A850D13424500A9B360 /* Finder Module.bundle in Copy Main Plugins */ = {isa = PBXBuildFile; fileRef = 4D508A0A0D133E6A00A9B360 /* Finder Module.bundle */; };
+		4D508A850D13424500A9B360 /* Finder Module.element in Copy Main Plugins */ = {isa = PBXBuildFile; fileRef = 4D508A0A0D133E6A00A9B360 /* Finder Module.element */; };
 		4D7093B70D101CED008498FD /* QSCrucible.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7093B30D101CCE008498FD /* QSCrucible.framework */; };
 		4D7094C70D10215D008498FD /* QSCrucible.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D7093B30D101CCE008498FD /* QSCrucible.framework */; };
 		4D9A1DAE0D0EA6600072DE55 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9A89950C497DD400B5912D /* Cocoa.framework */; };
@@ -281,19 +281,19 @@
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = QSElements;
 		};
+		4D4361380D2D74780043B92D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F8B81980C49C639007FC200 /* QSCubeInterfaceElement.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 337357640BAC7B56000A47E2 /* Cube Interface */;
+			remoteInfo = "Cube Interface";
+		};
 		4D5088A50D13294A00A9B360 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 7F9A7A630C49595900B5912D;
 			remoteInfo = Quicksilver;
-		};
-		4D5089010D132B7100A9B360 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7F8B81980C49C639007FC200 /* QSCubeInterfaceElement.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 337357640BAC7B56000A47E2;
-			remoteInfo = "Cube Interface";
 		};
 		4D508A090D133E6A00A9B360 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -423,8 +423,8 @@
 			dstPath = "$(QS_APP_CONTENTS_FOLDER)/PlugIns";
 			dstSubfolderSpec = 0;
 			files = (
-				4D508A850D13424500A9B360 /* Finder Module.bundle in Copy Main Plugins */,
-				4D5088E30D132B6700A9B360 /* Cube Interface.bundle in Copy Main Plugins */,
+				4D4361160D2D74090043B92D /* Cube Interface.element in Copy Main Plugins */,
+				4D508A850D13424500A9B360 /* Finder Module.element in Copy Main Plugins */,
 				4D5088E00D132B6200A9B360 /* Core.element in Copy Main Plugins */,
 			);
 			name = "Copy Main Plugins";
@@ -433,7 +433,7 @@
 		4DF635490D10689000910FC0 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(QS_APP_CONTENTS_DIR)/PlugIns";
+			dstPath = "$(QS_APP_CONTENTS_FOLDER)/PlugIns";
 			dstSubfolderSpec = 0;
 			files = (
 			);
@@ -483,8 +483,6 @@
 		4D7094910D101E5E008498FD /* Quicksilver-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Quicksilver-Info.plist"; sourceTree = "<group>"; };
 		4D7094E90D102638008498FD /* QSElement_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSElement_Prefix.pch; sourceTree = "<group>"; };
 		4D7094EB0D102638008498FD /* QSPlugIn_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPlugIn_Prefix.pch; sourceTree = "<group>"; };
-		4D7094F00D1026CC008498FD /* QSPlugIn_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Debug.xcconfig; sourceTree = "<group>"; };
-		4D7094F10D1026CC008498FD /* QSPlugIn_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Release.xcconfig; sourceTree = "<group>"; };
 		4D7094F30D102708008498FD /* QSElement.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSElement.xcconfig; sourceTree = "<group>"; };
 		4D7094F80D10274E008498FD /* QSPlugIn.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn.xcconfig; sourceTree = "<group>"; };
 		4D7095920D102E4D008498FD /* Developer.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Developer.xcconfig; path = "/Volumes/myHD/Sources/Utilities/blacktree-alchemy-trunk/Configuration/Developer.xcconfig"; sourceTree = "<absolute>"; };
@@ -612,7 +610,7 @@
 		7F9A86170C497A8B00B5912D /* en */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7F9A86180C497A8B00B5912D /* es */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Placeholder.strings; sourceTree = "<group>"; };
 		7F9A86190C497A8B00B5912D /* fi */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Placeholder.strings; sourceTree = "<group>"; };
-		7F9A861B0C497A8B00B5912D /* fr */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/About.strings; sourceTree = "<group>"; };
+		7F9A861B0C497A8B00B5912D /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/About.strings; sourceTree = "<group>"; };
 		7F9A861D0C497A8B00B5912D /* fr */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Catalog.strings; sourceTree = "<group>"; };
 		7F9A861F0C497A8B00B5912D /* fr */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Preferences.strings; sourceTree = "<group>"; };
 		7F9A86200C497A8B00B5912D /* it */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Placeholder.strings; sourceTree = "<group>"; };
@@ -887,7 +885,7 @@
 		4D508A030D133E6A00A9B360 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4D508A0A0D133E6A00A9B360 /* Finder Module.bundle */,
+				4D508A0A0D133E6A00A9B360 /* Finder Module.element */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -905,8 +903,6 @@
 			children = (
 				4D7094F30D102708008498FD /* QSElement.xcconfig */,
 				4D7094F80D10274E008498FD /* QSPlugIn.xcconfig */,
-				4D7094F00D1026CC008498FD /* QSPlugIn_Debug.xcconfig */,
-				4D7094F10D1026CC008498FD /* QSPlugIn_Release.xcconfig */,
 				4D7094E90D102638008498FD /* QSElement_Prefix.pch */,
 				4D7094EB0D102638008498FD /* QSPlugIn_Prefix.pch */,
 				4DE9903D0D0F165C00593B3B /* Common.xcconfig */,
@@ -921,7 +917,7 @@
 		4DF6352F0D10682700910FC0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4DF635330D10682700910FC0 /* Cube Interface.bundle */,
+				4DF635330D10682700910FC0 /* Cube Interface.element */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1395,10 +1391,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		4D508A0A0D133E6A00A9B360 /* Finder Module.bundle */ = {
+		4D508A0A0D133E6A00A9B360 /* Finder Module.element */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "Finder Module.bundle";
+			path = "Finder Module.element";
 			remoteRef = 4D508A090D133E6A00A9B360 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1409,10 +1405,10 @@
 			remoteRef = 4D7093B20D101CCE008498FD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4DF635330D10682700910FC0 /* Cube Interface.bundle */ = {
+		4DF635330D10682700910FC0 /* Cube Interface.element */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "Cube Interface.bundle";
+			path = "Cube Interface.element";
 			remoteRef = 4DF635320D10682700910FC0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1717,15 +1713,15 @@
 			name = QSElements;
 			targetProxy = 339FA7170D0DEFEC00906492 /* PBXContainerItemProxy */;
 		};
+		4D4361390D2D74780043B92D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Cube Interface";
+			targetProxy = 4D4361380D2D74780043B92D /* PBXContainerItemProxy */;
+		};
 		4D5088A60D13294A00A9B360 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7F9A7A630C49595900B5912D /* Quicksilver */;
 			targetProxy = 4D5088A50D13294A00A9B360 /* PBXContainerItemProxy */;
-		};
-		4D5089020D132B7100A9B360 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Cube Interface";
-			targetProxy = 4D5089010D132B7100A9B360 /* PBXContainerItemProxy */;
 		};
 		4D508A740D13421300A9B360 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

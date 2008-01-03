@@ -31,7 +31,7 @@
 }
 - (BOOL)wantsToTrackMouse{
     
-    return nil;
+    return NO;
 }
 /*
  - (NSSize)cellSize{
@@ -60,13 +60,13 @@ static NSMutableDictionary *typeSets;
     
     [_parserMenu addItemWithTitle:@"None" action:nil keyEquivalent:@""];
     [_parserMenu addItem:[NSMenuItem separatorItem]];
-    NSMutableDictionary *parsers=[QSReg loadedInstancesByIDForPointID:kQSFSParsers];
+    NSDictionary *parsers=[QSReg loadedInstancesByIDForPointID:kQSFSParsers];
 	
     NSMenuItem *item;
     NSEnumerator *keyEnum=[parsers keyEnumerator];
     NSString *key;
     while((key=[keyEnum nextObject])){
-        if (![[parsers objectForKey:key]validParserForPath:path])continue;
+        if (![[parsers objectForKey:key] validParserForPath:path]) continue;
 		
 		NSString *title=[[NSBundle bundleForClass:NSClassFromString(key)]safeLocalizedStringForKey:key value:key table:@"QSParser.name"];
 		if ([title isEqualToString:key])title=[[NSBundle mainBundle]safeLocalizedStringForKey:key value:key table:@"QSParser.name"];

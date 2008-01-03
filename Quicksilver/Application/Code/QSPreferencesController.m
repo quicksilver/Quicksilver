@@ -18,6 +18,14 @@
 @end
 
 id QSPrefs;
+
+@interface QSPreferencesController (Private)
+- (void)setWindowTitleWithInfo:(NSDictionary *)info;
+- (void)setShowSettings:(BOOL)flag;
+- (void)loadPlugInInfo:(NSNotification *)notif;
+
+@end
+
 @implementation QSPreferencesController
 + (id)sharedInstance {
     if (!QSPrefs) QSPrefs = [[[self class] allocWithZone:[self zone]] init];
@@ -121,7 +129,7 @@ id QSPrefs;
 	
 	//	NSArray *loadedPanes = [modules valueForKey:kItemID];
 //	[QSReg printRegistry:nil];
-	NSDictionary *plugInPanes = [QSReg elementsForPointID:kQSPreferencePanes];
+	NSDictionary *plugInPanes = [QSReg elementsByIDForPointID:kQSPreferencePanes];
 //	QSLog(@"plug %@", plugInPanes);
 	NSEnumerator *e = [plugInPanes objectEnumerator];
 	NSString *paneKey = nil;
@@ -162,13 +170,13 @@ id QSPrefs;
     NSSortDescriptor *nameDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)] autorelease];
     NSSortDescriptor *orderDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"priority" ascending:NO] autorelease];
 	
-	NSMutableArray *sidebarModules = (NSMutableArray *)[[[[modulesByID allValues] sortedArrayUsingDescriptors:[NSArray arrayWithObjects:orderDescriptor, nameDescriptor, nil]]
+	NSMutableArray *sidebarModules = [[[[modulesByID allValues] sortedArrayUsingDescriptors:[NSArray arrayWithObjects:orderDescriptor, nameDescriptor, nil]]
                                                      mutableCopy] autorelease];
 
 	[sidebarModules filterUsingPredicate:[NSPredicate predicateWithFormat:@"not type like[cd] 'toolbar'"]];
 	[sidebarModules filterUsingPredicate:[NSPredicate predicateWithFormat:@"not type like[cd] 'hidden'"]];
 
-  NSMutableArray *plugInModules = [sidebarModules filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"not type like[cd] 'main'"]];
+    NSArray *plugInModules = [sidebarModules filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"not type like[cd] 'main'"]];
 	[sidebarModules removeObjectsInArray:plugInModules];
 
 	[sidebarModules addObject:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"separator"]];
@@ -190,11 +198,13 @@ id QSPrefs;
 	//[self mainViewDidLoad];
 	
 }
+
 - (BOOL)windowShouldClose:(id)sender {
 	//		QSLog(@"shouldClose"); 	
 	[[NSUserDefaults standardUserDefaults] synchronize];
 	return YES;
 }
+
 - (void)setWindowTitleWithInfo:(NSDictionary *)info {
 	NSImage *image = info?[QSResourceManager imageNamed:[info objectForKey:kItemIcon]]:nil;
 	NSString *string = [info objectForKey:kItemName];
@@ -384,9 +394,9 @@ id QSPrefs;
 //	NSMutableDictionary *info = [modulesByID objectForKey:identifier];
 
 	
-	[self selectPaneWithIdentifier:identifier]; 	
-	
+	[self selectPaneWithIdentifier:identifier];
 }
+
 - (void)selectPaneWithIdentifier:(NSString *)identifier {
 	NSMutableDictionary *info = [modulesByID objectForKey:identifier];
 	if (info) {
@@ -457,7 +467,7 @@ selection = [moduleController selectedObjects];
 	id oldPane = currentPane;
 	
 	if (oldPane == newPane) {
-			[newPane didReselect];
+        [newPane didReselect];
 		return;
 	}
 	[newPane willSelect];
@@ -624,11 +634,6 @@ selection = [moduleController selectedObjects];
 		//QSLog(@"info %@", newCurrentPaneInfo);
     }
 }
-
-
-
-
-
 
 - (void)setShowSettings:(BOOL)flag {
 	if (showingSettings == flag) return;

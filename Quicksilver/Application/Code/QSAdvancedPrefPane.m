@@ -38,7 +38,7 @@
 - (NSArray *)prefSets {
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"DefaultsMap" ofType:@"plist"];
 	NSArray *array = [NSArray arrayWithContentsOfFile:path];
-    NSLog(@"%@", array);
+    
 	return array;
 }
 
@@ -57,7 +57,6 @@
  * (no title, and a value spanning both columns.
  * I tried switching to a NSValueTransformer, but you can't output NSCells :(
  */
-#if 0
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
 	if ([[aTableColumn identifier] isEqualToString:@"value"]) {
 		id thisInfo = [[prefSetsController arrangedObjects] objectAtIndex:rowIndex]; 	
@@ -78,10 +77,9 @@
 		[defaults synchronize];
 	}
 }
-#endif
+
 #pragma mark -
 #pragma mark NSTableView Delegate
-#if 0
 - (float) tableView:(NSTableView *)tableView heightOfRow:(int)row {
     id thisInfo = [[prefSetsController arrangedObjects] objectAtIndex:row];
     if (!thisInfo) return 24;
@@ -92,58 +90,60 @@
 	NSSize size = [cell cellSizeForBounds:NSMakeRect(0, 0, [column width], MAXFLOAT)]; 		
 	return MAX(24, size.height+4);
 }
-#endif
 
 - (NSCell *)tableView:(NSTableView *)aTableView dataCellForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
-	id thisInfo = [[prefSetsController arrangedObjects] objectAtIndex:rowIndex];
-	NSString *type = [thisInfo objectForKey:@"type"];
-	NSCell *cell;
+    NSCell *cell;
+    id thisInfo = [[prefSetsController arrangedObjects] objectAtIndex:rowIndex];
     
-	if ([type isEqualToString:@"checkbox"]) {
-        cell = [[[NSButtonCell alloc] init] autorelease];
-		[(NSButtonCell*)cell setButtonType:NSSwitchButton];
-		[cell setTitle:@""];
-	} else if ([type hasPrefix:@"popup"]) {
-        cell = [[[NSPopUpButtonCell alloc] init] autorelease];
-		
-		[(NSPopUpButtonCell *)cell setBordered:YES];
-		
-		[(NSPopUpButtonCell *)cell removeAllItems];
-		NSDictionary *items = [thisInfo objectForKey:@"items"];
-		NSArray *keys = [[items allKeys] sortedArrayUsingSelector:@selector(compare:)];
-		
-		foreach(key, keys) {
-			id option = [items objectForKey:key];
-			id item = [[cell menu] addItemWithTitle:option
-                                             action:nil
-                                      keyEquivalent:@""];
-            [item setRepresentedObject:key];
-		}
-		
-	} else if ([type isEqualToString:@"slider"]) {
-        cell = [[[QSSliderTextCell alloc] init] autorelease];
-		[cell setTitle:@"0.0"];
-	} else if ([type isEqualToString:@"text"]) {
+    if ([[aTableColumn identifier] isEqualToString:@"title"]) {
         cell = [[[NSTextFieldCell alloc] init] autorelease];
-		[(NSTextFieldCell *)cell setPlaceholderString:@"text"];
-	}
-    //	QSLog(@"cell %@", cell);
-	[cell setControlSize:NSSmallControlSize];
-	[cell setFont:[NSFont systemFontOfSize:11]];
-	[cell setEditable:YES];
-	return cell;
+        [cell setStringValue:[thisInfo objectForKey:@"title"]];
+        [cell setFont:[NSFont systemFontOfSize:11]];
+        [cell setControlSize:NSSmallControlSize];
+    } else if ([[aTableColumn identifier] isEqualToString:@"value"]) {
+        NSString *type = [thisInfo objectForKey:@"type"];
+        
+        if ([type isEqualToString:@"checkbox"]) {
+            cell = [[[NSButtonCell alloc] init] autorelease];
+            [(NSButtonCell*)cell setButtonType:NSSwitchButton];
+            [cell setTitle:@""];
+        } else if ([type hasPrefix:@"popup"]) {
+            cell = [[[NSPopUpButtonCell alloc] init] autorelease];
+            
+            [(NSPopUpButtonCell *)cell setBordered:YES];
+            
+            [(NSPopUpButtonCell *)cell removeAllItems];
+            NSDictionary *items = [thisInfo objectForKey:@"items"];
+            NSArray *keys = [[items allKeys] sortedArrayUsingSelector:@selector(compare:)];
+            
+            foreach(key, keys) {
+                id option = [items objectForKey:key];
+                id item = [[cell menu] addItemWithTitle:option
+                                                 action:nil
+                                          keyEquivalent:@""];
+                [item setRepresentedObject:key];
+            }
+            
+        } else if ([type isEqualToString:@"slider"]) {
+            cell = [[[QSSliderTextCell alloc] init] autorelease];
+            [cell setTitle:@"0.0"];
+        } else if ([type isEqualToString:@"text"]) {
+            cell = [[[NSTextFieldCell alloc] init] autorelease];
+            [(NSTextFieldCell *)cell setPlaceholderString:@"text"];
+        }
+        //	QSLog(@"cell %@", cell);
+        [cell setControlSize:NSSmallControlSize];
+        [cell setFont:[NSFont systemFontOfSize:11]];
+        [cell setEditable:YES];
+    } else {
+        // Special case for cells that span a whole row. Return nil for normal behavior.
+        cell = nil;
+    }
+    return cell;
 }
-#if 0
+
 - (BOOL)tableView:(NSTableView *)tableView shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)row {
 	return [[tableColumn identifier] isEqualToString:@"value"]; 	
 }
 
-- (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(int)row {
-	if ([[tableColumn identifier] isEqualToString:@"value"]) {
-        //	id thisInfo = [[prefSetsController arrangedObjects] objectAtIndex:row]; 	
-		//NSString *type = [thisInfo objectForKey:@"type"];
-        
-    }
-}
-#endif
 @end

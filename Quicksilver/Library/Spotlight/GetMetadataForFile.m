@@ -63,20 +63,20 @@ Boolean GetMetadataForFile(void* thisInterface,
     NSDictionary *dataDict = [tempDict objectForKey:@"data"];
     
     // set the kMDItemTitle attribute to the Title
-    if (value = [metadata objectForKey:@"QSObjectName"])
+    if ((value = [metadata objectForKey:@"QSObjectName"]))
       [attributes setObject:value forKey:(NSString *)kMDItemTitle];
    
     
     [(NSMutableDictionary *)attributes setObject:[NSArray arrayWithObject:@"test"]
                                           forKey:(NSString *)@"kMDItemContentTypeTree"];
     
-    if (value = [dataDict objectForKey:kMDItemContentType]) {
+    if ((value = [dataDict objectForKey:(NSString*)kMDItemContentType])) {
  
       NSMutableArray *array = [NSMutableArray array];
       while (value) {
         [array addObject:value];
-        NSDictionary *declaration = [UTTypeCopyDeclaration(value) autorelease];
-        NSArray *parents = [declaration objectForKey:kUTTypeConformsToKey];
+        NSDictionary *declaration = [(NSDictionary*)UTTypeCopyDeclaration((CFStringRef)value) autorelease];
+        NSArray *parents = [declaration objectForKey:(NSString*)kUTTypeConformsToKey];
         if (![parents count]) break;
         value = [parents lastObject];
       }
@@ -86,12 +86,12 @@ Boolean GetMetadataForFile(void* thisInterface,
                                             forKey:(NSString *)@"kMDItemContentTypeTree"];
     }
     
-    if (value = [dataDict objectForKey:NSURLPboardType]) {
+    if ((value = [dataDict objectForKey:NSURLPboardType])) {
       [attributes setObject:[NSArray arrayWithObject:value]
                      forKey:(NSString *)kMDItemWhereFroms];
     }
 
-    if (value = [dataDict objectForKey:NSStringPboardType]) {
+    if ((value = [dataDict objectForKey:NSStringPboardType])) {
       [(NSMutableDictionary *)attributes setObject:value
                                             forKey:(NSString *)kMDItemTextContent];
     }
