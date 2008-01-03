@@ -15,8 +15,6 @@
 
 #import "BElement.h"
 
-
-
 @interface BRegistry (BPrivate)
 - (NSMutableArray *)pluginSearchPaths;
 - (void)validatePluginConnections;
@@ -26,15 +24,7 @@
 
 @implementation BRegistry
 
-#pragma mark class methods
-
-static id sharedInstance = nil;
-+ (id)sharedInstance {
-    if (sharedInstance == nil) {
-        sharedInstance = [[self alloc] init];
-    }
-    return sharedInstance;
-}
+#pragma mark Class Methods
 
 NSTimeInterval ti;
 + (void)initialize {
@@ -46,19 +36,13 @@ NSTimeInterval ti;
 	[self setKeys:[NSArray arrayWithObject:@"plugins"] triggerChangeNotificationsForDependentKey:@"extensionPoints"];
 }
 
-- (id) init {
-	self = [super init];
-	if (self != nil) {
-		BLogInfo(@"Registry loaded with %d plugin(s) from %@", [[self plugins] count], [self applicationSupportFolder]);
-        extensionPointCache = [[NSMutableDictionary alloc] init];
-	}
-	return self;
+static id sharedInstance = nil;
++ (id)sharedInstance {
+    if (sharedInstance == nil) {
+        sharedInstance = [[self alloc] init];
+    }
+    return sharedInstance;
 }
-
-- (void)awakeFromNib{
-	if (!sharedInstance) sharedInstance = self;	
-}
-
 
 + (void)performSelector:(SEL)selector forExtensionPoint:(NSString *)extensionPointID protocol:(Protocol *)protocol {
     BRegistry *pluginRegistry = [BRegistry sharedInstance];
@@ -74,8 +58,33 @@ NSTimeInterval ti;
     }
 }
 
-#pragma mark init
+#pragma mark -
+#pragma mark Lifetime
+- (id) init {
+	self = [super init];
+	if (self != nil) {
+		BLogInfo(@"Registry loaded with %d plugin(s) from %@", [[self plugins] count], [self applicationSupportFolder]);
+        extensionPointCache = [[NSMutableDictionary alloc] init];
+	}
+	return self;
+}
 
+- (void)awakeFromNib {
+	if (!sharedInstance) sharedInstance = self;	
+}
+
+- (void)dealloc {
+    [self saveAction:self];
+    
+    [managedObjectContext release], managedObjectContext = nil;
+    [persistentStoreCoordinator release], persistentStoreCoordinator = nil;
+    [managedObjectModel release], managedObjectModel = nil;
+    [extensionPointCache release], extensionPointCache = nil;
+    
+    [super dealloc];
+}
+
+#pragma mark Plugin loading
 
 - (NSArray *) pluginPathExtensions {
 	return [NSArray arrayWithObject:@"plugin"];
@@ -87,7 +96,6 @@ NSTimeInterval ti;
 	if (!path) return nil;
 	return [NSURL fileURLWithPath:path];
 }
-
 
 - (void)registerPluginWithPath:(NSString *)thisPath {
     [self willChangeValueForKey:@"plugins"];
@@ -241,18 +249,8 @@ NSTimeInterval ti;
     //  [mainElement elementInstance];
 }
 
-#pragma mark dealloc
-
-//- (void)dealloc {
-////    [pluginIDsToPlugins release];
-////    [extensionPointIDsToExtensionPoints release];
-////    [extensionPointIDsToExtensions release];
-////	[extensionPointIDsToLoadedValidOrderedExtensions release];
-//    [super dealloc];
-//}
-
-#pragma mark accessors
-
+#pragma mark -
+#pragma mark Accessors
 - (NSArray *)objectsForEntityName:(NSString *)name {
 	NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
 	[request setEntity:[NSEntityDescription entityForName:name inManagedObjectContext:[self managedObjectContext]]];
@@ -262,6 +260,7 @@ NSTimeInterval ti;
     //BLog(error);
 	return array;
 }
+
 - (id)objectForEntityName:(NSString *)name identifier:(NSString *)identifier{
 	NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
 	[request setEntity:[NSEntityDescription entityForName:name inManagedObjectContext:[self managedObjectContext]]];
@@ -282,33 +281,28 @@ NSTimeInterval ti;
     //BLog(@"plugins %d", [plugins count]);
 	return plugins;
 }
+
 - (NSArray *)extensionPoints {
 	return [self objectsForEntityName:@"extensionPoint"];
 }
+
 - (NSArray *)extensions {
 	return [self objectsForEntityName:@"extension"];
 }
+
 - (NSArray *)elements {
 	return [self objectsForEntityName:@"element"];
 }
 
-//- (BPlugin *)mainPlugin {
-//    NSArray *mainExtensions = [self extensionsFor:@"com.hogbaysoftware.BBlocks.main"];
-//    BExtension *mainExtension = [mainExtensions lastObject];
-//	return [mainExtension plugin];
-//}
-
-
 - (void)logRegistry {
+    // FIXME ?
     //	NSLog(@"Plugins %@", [self plugins]);
     //	NSLog(@"Points %@", [self extensionPoints]);	
     //	NSLog(@"Elements %@", [self elements]);	
-	
 }
 
 
-#pragma mark lookup
-
+#pragma mark Registry Lookup
 - (BPlugin *)pluginWithID:(NSString *)pluginID {
     return [self objectForEntityName:@"plugin" identifier:pluginID];
 }
@@ -323,6 +317,7 @@ NSTimeInterval ti;
 	if ([array count]) return [array lastObject];
 	return nil;
 }
+
 - (void)fetchExtensionPoint:(NSString *)extensionPointID {
     BExtensionPoint *point = [self objectForEntityName:@"extensionPoint" identifier:extensionPointID];
     [extensionPointCache setValue:point forKey:extensionPointID];
@@ -349,50 +344,35 @@ NSTimeInterval ti;
     BExtensionPoint *point = [self extensionPointWithID:extensionPointID];
     BElement *element = [point elementWithID:elementID];
     return element;
-    
-    //	NSManagedObjectContext *moc = [self managedObjectContext];
-    //	NSEntityDescription *entityDescription = [NSEntityDescription
-    //    entityForName:@"element" inManagedObjectContext:moc];
-    //	
-    //	NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
-    //	[request setEntity:entityDescription];
-    //	// Set example predicate and sort orderings...
-    //	NSPredicate *predicate = [NSPredicate predicateWithFormat:
-    //		@"point == %@ && id == %@", extensionPointID, elementID];
-    //	[request setFetchLimit:1];
-    //	[request setPredicate:predicate];
-    //	NSError *error = nil;
-    //	NSArray *array = [moc executeFetchRequest:request error:&error];
-    ////	BLog(@"array %@ %@, predicate %@", array, error, predicate);
-    //	
-    //	BElement *element = nil;
-    //	if ([array count]) element = [array lastObject];
-    //	if (!element)
-    //		BLogInfo(@"Could not find element %@/%@", extensionPointID, elementID);
-    //	return element;
 }
 
-- (BElement *)instanceForPointID:(NSString *)extensionPointID 
-                          withID:(NSString *)elementID {
+- (BElement *)instanceForPointID:(NSString *)extensionPointID withID:(NSString *)elementID {
     BElement *element = [self elementForPointID:extensionPointID withID:elementID];
 	return [element elementInstance];
 }
 
-- (NSArray *)loadedValidOrderedExtensionsFor:(NSString *)extensionPointID 
-                                    protocol:(Protocol *)protocol {
+- (NSArray *)loadedValidOrderedExtensionsFor:(NSString *)extensionPointID protocol:(Protocol *)protocol {
 	return [self loadedElementsForPointID:(NSString *)extensionPointID];
 }
 
 - (NSArray *)loadedInstancesForPointID:(NSString *)extensionPointID {
 	return [[self loadedElementsForPointID:extensionPointID] valueForKey:@"elementInstance"];
 }
+
 - (NSArray *)loadedElementsForPointID:(NSString *)extensionPointID {
 	return [[self extensionPointWithID:extensionPointID] loadedElements];
 }
+
+- (NSArray *)loadedElementsByIDForPointID:(NSString *)extensionPointID{
+    NSArray *elements = [self loadedElementsForPointID:extensionPointID];
+    
+	return [NSDictionary dictionaryWithObjects:elements forKeys:[elements valueForKey:@"id"]];
+}
+
 - (NSDictionary *)loadedInstancesByIDForPointID:(NSString *)extensionPointID {
-	
 	NSArray *elements = [self loadedElementsForPointID:extensionPointID];
 	NSArray *instances = [elements valueForKey:@"elementInstance"];
+    
 	return [NSDictionary dictionaryWithObjects:instances forKeys:[elements valueForKey:@"id"]];
 }
 
@@ -403,8 +383,8 @@ NSTimeInterval ti;
             nil];
 }
 
-#pragma mark private
-
+#pragma mark -
+#pragma mark Private
 - (NSMutableArray *)pluginSearchPaths {
     NSMutableArray *pluginSearchPaths = [NSMutableArray array];
     NSString *applicationSupportSubpath = [NSString stringWithFormat:@"Application Support/%@/PlugIns", [[NSProcessInfo processInfo] processName]];
@@ -424,51 +404,6 @@ NSTimeInterval ti;
     
     return pluginSearchPaths;
 }
-
-//- (void)registerPlugin:(BPlugin *)plugin {
-//    if ([pluginIDsToPlugins objectForKey:[plugin identifier]] != nil) {
-//		BLogWarn(([NSString stringWithFormat:@"plugin id %@ not unique, replacing old with new", [plugin identifier]]));
-//    }
-//	
-//    [pluginIDsToPlugins setObject:plugin forKey:[plugin identifier]];
-//    
-//  //  [self registerExtensionPointsFor:plugin];
-//  //  [self registerExtensionsFor:plugin];
-//}
-
-//- (void)registerExtensionPointsFor:(BPlugin *)plugin {
-//    NSEnumerator *extensionPointsEnumerator = [[plugin extensionPoints] objectEnumerator];
-//    BExtensionPoint *eachExtensionPoint;
-//    
-//    while (eachExtensionPoint = [extensionPointsEnumerator nextObject]) {
-//		NSString *identifier = [eachExtensionPoint identifier];
-//		if ([extensionPointIDsToExtensionPoints objectForKey:identifier]) {
-//			BLogWarn(([NSString stringWithFormat:@"extension point id %@ not unique, replacing old with new", [eachExtensionPoint identifier]]));
-//		}
-//		if (identifier) {
-//		[extensionPointIDsToExtensionPoints setObject:eachExtensionPoint forKey:identifier];
-//		} else {
-//			BLog(@"ident %@", identifier);	
-//		}
-//    }
-//}
-//
-//- (void)registerExtensionsFor:(BPlugin *)plugin {
-//    NSEnumerator *extensionsEnumerator = [[plugin extensions] objectEnumerator];
-//    BExtension *eachExtension;
-//    
-//    while (eachExtension = [extensionsEnumerator nextObject]) {
-//		NSString *extensionPointID = [eachExtension extensionPointID];
-//		
-//		NSMutableArray *extensions = [extensionPointIDsToExtensions objectForKey:extensionPointID];
-//		if (!extensions && extensionPointID) {
-//			extensions = [NSMutableArray array];
-//			[extensionPointIDsToExtensions setObject:extensions forKey:extensionPointID];
-//		}
-//		
-//		[extensions addObject:eachExtension];
-//    }
-//}
 
 - (void)validatePluginConnections {
     NSEnumerator *pluginEnumerator = [[self plugins] objectEnumerator];
@@ -499,35 +434,15 @@ NSTimeInterval ti;
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#pragma mark -
 #pragma mark Core Data
 
-
-
-
-
-
 /**
- Returns the support folder for the application, used to store the Core Data
- store file.  This code uses a folder named "coredata" for
- the content, either in the NSApplicationSupportDirectory location or (if the
- former cannot be found), the system's temporary directory.
+ *  Returns the support folder for the application, used to store the Core Data
+ *  store file.  This code uses a folder named "coredata" for
+ *  the content, either in the NSApplicationSupportDirectory location or (if the
+ *  former cannot be found), the system's temporary directory.
  */
-
 - (NSString *)applicationSupportFolder {
 	
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
@@ -535,13 +450,11 @@ NSTimeInterval ti;
     return [basePath stringByAppendingPathComponent:[[[[NSBundle mainBundle] bundlePath] lastPathComponent] stringByDeletingPathExtension]];
 }
 
-
-/**
- Creates, retains, and returns the managed object model for the application 
- by merging all of the models found in the application bundle and all of the 
- framework bundles.
+/*
+ *  Creates, retains, and returns the managed object model for the application 
+ *  by merging all of the models found in the application bundle and all of the 
+ *  framework bundles.
  */
-
 - (NSManagedObjectModel *)managedObjectModel {
 	
     if (managedObjectModel != nil) {
@@ -560,12 +473,11 @@ NSTimeInterval ti;
 
 
 /**
- Returns the persistent store coordinator for the application.  This 
- implementation will create and return a coordinator, having added the 
- store for the application to it.  (The folder for the store is created, 
- if necessary.)
+ *  Returns the persistent store coordinator for the application.  This 
+ *  implementation will create and return a coordinator, having added the 
+ *  store for the application to it.  (The folder for the store is created, 
+ *  if necessary.)
  */
-
 - (NSPersistentStoreCoordinator *) persistentStoreCoordinator {
 	
     if (persistentStoreCoordinator != nil) {
@@ -599,12 +511,6 @@ NSTimeInterval ti;
     return persistentStoreCoordinator;
 }
 
-
-/**
- Returns the managed object context for the application (which is already
- bound to the persistent store coordinator for the application.) 
- */
-
 - (NSManagedObjectContext *) managedObjectContext {
 	
     if (managedObjectContext != nil) {
@@ -622,20 +528,13 @@ NSTimeInterval ti;
 
 
 /**
- Returns the NSUndoManager for the application.  In this case, the manager
- returned is that of the managed object context for the application.
+ *  Returns the NSUndoManager for the application.  In this case, the manager
+ *  returned is that of the managed object context for the application.
  */
 
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window {
     return [[self managedObjectContext] undoManager];
 }
-
-
-/**
- Performs the save action for the application, which is to send the save:
- message to the application's managed object context.  Any encountered errors
- are presented to the user.
- */
 
 - (IBAction) saveAction:(id)sender {
 	
@@ -648,11 +547,10 @@ NSTimeInterval ti;
 
 
 /**
- Implementation of the applicationShouldTerminate: method, used here to
- handle the saving of changes in the application managed object context
- before the application terminates.
+ *  Implementation of the applicationShouldTerminate: method, used here to
+ *  handle the saving of changes in the application managed object context
+ *  before the application terminates.
  */
-
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
 	
     NSError *error;
@@ -705,19 +603,5 @@ NSTimeInterval ti;
 - (IBAction) clearOldCaches:(id)sender {
     [[extensionPointCache allValues] makeObjectsPerformSelector:@selector(clearOldCaches:)];
 }
-
-
-/**
- Implementation of dealloc, to release the retained variables.
- */
-
-//- (void) dealloc {
-//	
-//    [managedObjectContext release], managedObjectContext = nil;
-//    [persistentStoreCoordinator release], persistentStoreCoordinator = nil;
-//    [managedObjectModel release], managedObjectModel = nil;
-//    [super dealloc];
-//}
-
 
 @end

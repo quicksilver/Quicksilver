@@ -8,7 +8,6 @@
 
 #import "BLog.h"
 
-
 @implementation BLogManager
 
 static BLoggingLevel LoggingLevel = BLoggingWarn;
@@ -20,6 +19,7 @@ static BLoggingLevel LoggingLevel = BLoggingWarn;
 + (void)setLoggingLevel:(BLoggingLevel)level {
 	LoggingLevel = level;
 }
+
 + (NSString *)typeStringForLevel:(BLoggingLevel)level {
 	if (level >= BLoggingFatal) return @"F";
 	else if (level >= BLoggingError) return @"E";
@@ -35,9 +35,9 @@ static BLoggingLevel LoggingLevel = BLoggingWarn;
 															   NULL, 
 															   (CFStringRef)format, 
 															   args);
-
+    
 	NSLog(@"%@ %-32s %@", [self typeStringForLevel:level], functionName, message);
-  CFRelease(message);
+    CFRelease(message);
 }
 
 + (void)logWithLevel:(BLoggingLevel)level lineNumber:(int)lineNumber fileName:(char *)fileName function:(char *)functionName message:(NSString *)message, ... {
@@ -69,6 +69,5 @@ static BLoggingLevel LoggingLevel = BLoggingWarn;
 	va_end(args);	
 	
 }
-
 
 @end

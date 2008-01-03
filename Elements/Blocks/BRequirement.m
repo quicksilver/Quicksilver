@@ -14,7 +14,7 @@
 
 @implementation BRequirement
 
-#pragma mark init
+#pragma mark Lifetime
 
 - (id)initWithIdentifier:(NSString *)identifier version:(NSString *)version optional:(BOOL)isOptional {
 	if ((self = [super init])) {
@@ -25,7 +25,7 @@
 	return self;
 }
 
-#pragma mark accessors
+#pragma mark Accessors
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"bundleIdentifier: %@ optional: %i", [self valueForKey:@"bundle"], [self valueForKey:@"optional"]];
@@ -43,7 +43,7 @@
 	BLog(@"Requirement %@ could not set value %@ to %@", self,  key, value);	
 }
 
-#pragma mark loading
+#pragma mark Loading
 
 - (BOOL)isLoaded {
 	BPlugin *plugin = [self requiredPlugin];

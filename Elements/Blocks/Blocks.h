@@ -1,7 +1,11 @@
-/*
- *  Blocks.h
- *  Blocks
+/**
+ *  @file Blocks.h
+ *  @brief The main header for the Blocks framework
+ *  The macros declared therein are designed to help localization of Blocks plugins.
+ *  @see NSLocalizedString
  *
+ *  Blocks
+ *  
  *  Created by Jesse Grosjean on 12/3/04.
  *  Copyright 2004 Blocks. All rights reserved.
  *
