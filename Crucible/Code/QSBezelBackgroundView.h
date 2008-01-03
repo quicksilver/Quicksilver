@@ -19,8 +19,8 @@
 - (BOOL)isGlass;
 - (void)setIsGlass:(NSNumber *)flag;
 
-
 - (QSGlossStyle)glassStyle;
 - (void)setGlassStyle:(QSGlossStyle)aGlassStyle;
 
+- (void)bindColors;
 @end

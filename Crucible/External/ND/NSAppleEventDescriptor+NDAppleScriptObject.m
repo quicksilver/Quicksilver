@@ -1013,10 +1013,12 @@
  */
 - (id)initWithSubroutineName:(NSString *)aRoutineName argumentsListDescriptor:(NSAppleEventDescriptor *)aParam
 {
-	if( self = [self initWithEventClass:kASAppleScriptSuite eventID:kASSubroutineEvent
-									 targetDescriptor:[NSAppleEventDescriptor currentProcessDescriptor] returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID] )
+	if ((self = [self initWithEventClass:kASAppleScriptSuite eventID:kASSubroutineEvent
+                        targetDescriptor:[NSAppleEventDescriptor currentProcessDescriptor]
+                                returnID:kAutoGenerateReturnID
+                           transactionID:kAnyTransactionID]))
 	{
-		[self setParamDescriptor:[NSAppleEventDescriptor descriptorWithCString:[[aRoutineName lowercaseString] lossyCString]] forKeyword:keyASSubroutineName];
+		[self setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:[aRoutineName lowercaseString]] forKeyword:keyASSubroutineName];
 		[self setParamDescriptor:aParam ? aParam : [NSAppleEventDescriptor listDescriptor] forKeyword:keyDirectObject];
 	}
 
@@ -1028,11 +1030,13 @@
  */
 - (id)initWithSubroutineName:(NSString *)aRoutineName labels:(AEKeyword*)aLabels arguments:(id *)anObjects count:(unsigned int)aCount
 {
-	if( self = [self initWithEventClass:kASAppleScriptSuite eventID:kASPrepositionalSubroutine
-														 targetDescriptor:[NSAppleEventDescriptor currentProcessDescriptor] returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID] )
+	if((self = [self initWithEventClass:kASAppleScriptSuite eventID:kASPrepositionalSubroutine
+                       targetDescriptor:[NSAppleEventDescriptor currentProcessDescriptor]
+                               returnID:kAutoGenerateReturnID
+                          transactionID:kAnyTransactionID]))
 	{
 		unsigned int		theIndex;
-		[self setParamDescriptor:[NSAppleEventDescriptor descriptorWithCString:[[aRoutineName lowercaseString] lossyCString]] forKeyword:keyASSubroutineName];
+		[self setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:[aRoutineName lowercaseString]] forKeyword:keyASSubroutineName];
 		for( theIndex = 0; theIndex < aCount; theIndex++ )
 		{
 			if( aLabels[theIndex] == keyASPrepositionGiven
@@ -1060,11 +1064,13 @@
  */
 - (id)initWithSubroutineName:(NSString *)aRoutineName labels:(AEKeyword*)aLabels argumentDescriptors:(NSAppleEventDescriptor **)aParam count:(unsigned int)aCount
 {
-	if( self = [self initWithEventClass:kASAppleScriptSuite eventID:kASPrepositionalSubroutine
-												  targetDescriptor:[NSAppleEventDescriptor currentProcessDescriptor] returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID] )
+	if((self = [self initWithEventClass:kASAppleScriptSuite eventID:kASPrepositionalSubroutine
+                       targetDescriptor:[NSAppleEventDescriptor currentProcessDescriptor]
+                               returnID:kAutoGenerateReturnID
+                          transactionID:kAnyTransactionID]))
 	{
 		unsigned int		theIndex;
-		[self setParamDescriptor:[NSAppleEventDescriptor descriptorWithCString:[[aRoutineName lowercaseString] lossyCString]] forKeyword:keyASSubroutineName];
+		[self setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:[aRoutineName lowercaseString]] forKeyword:keyASSubroutineName];
 		for( theIndex = 0; theIndex < aCount; theIndex++ )
 			[self setParamDescriptor:aParam[theIndex] forKeyword:aLabels[theIndex]];
 	}
@@ -1079,7 +1085,7 @@
 {
 	if(( self = [self initWithEventClass:kASAppleScriptSuite eventID:kASPrepositionalSubroutine targetDescriptor:[NSAppleEventDescriptor currentProcessDescriptor] returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID] ))
 	{
-		[self setParamDescriptor:[NSAppleEventDescriptor descriptorWithCString:[[aRoutineName lowercaseString] lossyCString]] forKeyword:keyASSubroutineName];
+		[self setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:[aRoutineName lowercaseString]] forKeyword:keyASSubroutineName];
 		do
 		{
 			id		theObject = va_arg( anArgList, id );

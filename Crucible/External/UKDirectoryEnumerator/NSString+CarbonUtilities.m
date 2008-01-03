@@ -30,7 +30,7 @@
 {
 	UInt8			thePath[PATH_MAX + 1];		// plus 1 for \0 terminator
 	
-	return (FSRefMakePath ( aFSRef, thePath, PATH_MAX ) == noErr) ? [NSString stringWithUTF8String:thePath] : nil;
+	return ( ( FSRefMakePath ( aFSRef, thePath, PATH_MAX ) == noErr) ? [NSString stringWithUTF8String:(const char*)thePath] : nil );
 }
 
 /*

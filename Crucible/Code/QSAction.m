@@ -109,10 +109,10 @@ static BOOL gModifiersAreIgnored;
 
 
 - (float)precedence{
-	NSNumber *num=[[self actionDict]objectForKey:kActionPrecedence];
-	if (!num)num=[[self actionDict]objectForKey:@"rankModification"];
+	NSNumber *num = [[self actionDict] objectForKey:kActionPrecedence];
+	if (!num) num = [[self actionDict] objectForKey:@"rankModification"];
 #warning remove
-	return num?[num floatValue]:0.0;
+	return num ? [num floatValue] : 0.0;
 }
 - (float)rankModification{
 	return [self precedence];
@@ -398,42 +398,42 @@ static BOOL gModifiersAreIgnored;
 
 
 - (QSObject *) performOnDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject{
-	NSDictionary *dict=[self objectForType:QSActionType];
+	NSDictionary *dict = [self objectForType:QSActionType];
 	
-	NSString *class=[dict objectForKey:kActionClass];
-	QSActionProvider *provider=[dict objectForKey:kActionProvider];
+	NSString *class = [dict objectForKey:kActionClass];
+	QSActionProvider *provider = [dict objectForKey:kActionProvider];
 	//	QSLog(@"provider %@",self);
-	if (class || provider){
+	if (class || provider) {
 		if (!provider)
-			provider = [QSReg instanceForPointID:kQSActionProviders withID:class];
+			provider = (QSActionProvider*)[QSReg instanceForPointID:kQSActionProviders withID:class];
 		
 		
-		BOOL reverseArgs=[[dict objectForKey:kActionReverseArguments]boolValue];
+		BOOL reverseArgs = [[dict objectForKey:kActionReverseArguments] boolValue];
 		
-		BOOL splitPlural=[[dict objectForKey:kActionSplitPluralArguments]boolValue];
+		BOOL splitPlural = [[dict objectForKey:kActionSplitPluralArguments] boolValue];
 		
-		if (splitPlural && [dObject count]>1){
-			NSArray *objects=[dObject splitObjects];
+		if (splitPlural && [dObject count] > 1) {
+			NSArray *objects = [dObject splitObjects];
 			id object;
 			id result;
 			//QSLog(@"split %@",objects);
-			for (object in objects){
+			for (object in objects) {
 				//	QSLog(@"split %@",object);
-				result=[self performOnDirectObject:object indirectObject:iObject];
+				result = [self performOnDirectObject:object indirectObject:iObject];
 			}
 			return nil;
 		}
 		
-		SEL selector=NSSelectorFromString([dict objectForKey:kActionSelector]);
+		SEL selector = NSSelectorFromString([dict objectForKey:kActionSelector]);
 		if (!selector)
 			return [provider performAction:(QSAction *)self directObject:dObject indirectObject:iObject];
-		else if ([self argumentCount]==2)
-			return [provider performSelector:selector withObject:(reverseArgs?iObject:dObject) withObject:(reverseArgs?dObject:iObject)];
-		else if ([self argumentCount]==1)
+		else if ([self argumentCount] == 2)
+			return [provider performSelector:selector withObject:(reverseArgs ? iObject : dObject) withObject:(reverseArgs ? dObject : iObject)];
+		else if ([self argumentCount] == 1)
 			return [provider performSelector:selector withObject:dObject];
 		else
 			return [provider performSelector:selector];
-	}else{
+	} else {
 		
 	}
 	

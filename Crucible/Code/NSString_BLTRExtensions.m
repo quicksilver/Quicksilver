@@ -285,7 +285,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	char aChar;
 	short index = 0;
 	
-	for (; index < [self cStringLength]; index++) {
+	for (; index < [self lengthOfBytesUsingEncoding:NSASCIIStringEncoding]; index++) {
 		aChar = [self characterAtIndex:index];
 		[myHexString appendFormat:@"%x", aChar];
 	}
@@ -303,8 +303,8 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 @implementation NSString (Replacement)
 - (NSArray *)lines {
 	NSMutableString *mut = [NSMutableString stringWithString:self];
-	[mut replaceOccurrencesOfString:@"\r\n" withString:@"\n" options:nil range:NSMakeRange(0, [mut length])];
-	[mut replaceOccurrencesOfString:@"\r" withString:@"\n" options:nil range:NSMakeRange(0, [mut length])];
+	[mut replaceOccurrencesOfString:@"\r\n" withString:@"\n" options:0 range:NSMakeRange(0, [mut length])];
+	[mut replaceOccurrencesOfString:@"\r" withString:@"\n" options:0 range:NSMakeRange(0, [mut length])];
 	return [mut componentsSeparatedByString:@"\n"]; 	
 }
 - (NSString *)stringByReplacing:(NSString *)search with:(NSString *)replacement {

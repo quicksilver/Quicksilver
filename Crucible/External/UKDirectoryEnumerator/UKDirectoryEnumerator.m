@@ -472,7 +472,7 @@ void            UKFSCatInfoFromDictionary( NSDictionary* attrs, FSCatalogInfo* c
 }
 
 
--(BOOL)         changeCarbonFileAttributes: (NSDictionary*)attrs atPath: (NSString*)path
+- (BOOL) changeCarbonFileAttributes: (NSDictionary*)attrs atPath: (NSString*)path
 {
     FSCatalogInfo       info;
     FSRef               fileRef;
@@ -480,7 +480,7 @@ void            UKFSCatInfoFromDictionary( NSDictionary* attrs, FSCatalogInfo* c
     FSCatalogInfoBitmap whichInfo = kFSCatInfoNone;
     
     if( ![path getFSRef: &fileRef] )
-        return nil;
+        return NO;
     
     UKFSCatInfoFromDictionary( attrs, &info, &whichInfo );
     

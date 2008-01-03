@@ -220,7 +220,7 @@ BOOL operateOnResourceUsingFunction( short int afileRef, ResType aType, NSString
 /*
  * dataForType:Id:
  */
- 	static BOOL getDataFunction( Handle aResHandle, ResType aType, short int anId, NSString * aName, void * aContext )
+ 	static BOOL getDataFunction( Handle aResHandle, ResType aType, NSString * aName, short int anId, void * aContext )
 	{
 		NSData	** theData = (NSData**)aContext;
 		*theData = dataFromResourceHandle( aResHandle );
@@ -292,7 +292,7 @@ BOOL operateOnResourceUsingFunction( short int afileRef, ResType aType, NSString
 /*
  * removeType: Id:
  */
- 	static BOOL removeResourceFunction( Handle aResHandle, ResType aType, short int anId, NSString * aName, void * aContext )
+ 	static BOOL removeResourceFunction( Handle aResHandle, ResType aType, NSString * aName, short int anId, void * aContext )
 	{
 		if( aResHandle )
 			RemoveResource( aResHandle );		// Disposed of in current resource file
@@ -341,7 +341,7 @@ BOOL operateOnResourceUsingFunction( short int afileRef, ResType aType, NSString
 /*
  * getId:OfResourceType:Id:
  */
-	static BOOL getIdFunction( Handle aResHandle, ResType aType, short int anId, NSString * aName, void * aContext  )
+	static BOOL getIdFunction( Handle aResHandle, ResType aType, NSString * aName, short int anId, void * aContext  )
 	{
 		Str255		thePName;
 	

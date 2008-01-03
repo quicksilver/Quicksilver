@@ -119,8 +119,8 @@
     score = newScore;
 }
 
-- (BOOL)enabled{
-	return [object enabled];	
+- (BOOL) enabled {
+	return [(QSObject*)object enabled];	
 }
 
 - (id)object { return object; }

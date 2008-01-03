@@ -6,68 +6,13 @@
 
 //
 
-////#import <QSBase/QSBase.h>
-
-//#import "QSInterfaceController.h"
-//#import "QSAppWindowController.h"
-//#import "QSHistoryController.h"
-////#import "QSShelfController.h"
-////#import "HotKeyCenter.h"
-//#import <Carbon/Carbon.h>
-//#import "QSObject.h"
-//
-//#import "QSActionProvider.h"
-//
-
-//#import "QSTaskController.h"
-//#import "QSNotifications.h"
-//
-//#import "DRColorPermutator.h"
-//#import "QSObjectCell.h"
-//#import "QSCommand.h"
-//#import "QSInterfaceController.h"
-//
-//#import "QSObject_FileHandling.h"
-//
-//#import "QSTaskViewer.h"
-//#import "QSNullObject.h"
-//#import "QSTaskController.h"
-//#import "QSController.h"
-//#import "QSInterfaceController.h"
-////#import "QSTriggerCenter.h"
-//
-//#import "QSAction.h" 
-//#import "QSWindow.h"
-//#import "QSSearchObjectView.h"
-////#import "QSPrefsController.h"
-////#import "QSWebSearchController.h"
-//#import "QSMnemonics.h"
-//#import "QSLibrarian.h"
-////#import <QSBase/QSExecutor.h>
-//#import <IOKit/IOCFBundle.h>
-//#import <ApplicationServices/ApplicationServices.h>
-//
-//#import "QSTextProxy.h"
-//#import "QSMenuButton.h"
-
 #define KeyShift                0x38
-#define KeyControl              0x3b
+#define KeyControl              0x3B
 #define KeyOption               0x3A
 #define KeyCommand              0x37
 #define KeyCapsLock             0x39
 #define KeySpace                0x31
 #define KeyTabs                 0x30
-
-////#import <QSBase/CGSPrivate.h>
-//int IsKeyPressed(unsigned short);
-
-//int IsKeyPressed(unsigned short key)
-//{
-//  unsigned char km[16];
-//  
-//  GetKeys((unsigned long *)km);
-//  return ((km[key >> 3] >> (key & 7) ) & 1) ? 1 : 0;
-//}
 
 typedef enum {
   CGSGlobalHotKeyEnable = 0,
@@ -76,33 +21,27 @@ typedef enum {
 
 extern CGSConnection _CGSDefaultConnection(void);
 
-extern CGError CGSGetGlobalHotKeyOperatingMode(
-                                               CGSConnection connection, CGSGlobalHotKeyOperatingMode *mode);
+extern CGError CGSGetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlobalHotKeyOperatingMode *mode);
 
-extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,  
-                                               CGSGlobalHotKeyOperatingMode mode);
-
-
+extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlobalHotKeyOperatingMode mode);
 
 #import "QSCommandInterfaceController.h"
 
 @implementation QSCommandInterfaceController
-- (void)firstResponderChanged:(NSResponder *)aResponder{}
+- (void) firstResponderChanged:(NSResponder *)aResponder {}
 
-+ (void)initialize {
-  static BOOL initialized = NO;
-  /* Make sure code only gets executed once. */
-  if (initialized == YES) return;
-  initialized = YES;
-  [NSApp registerServicesMenuSendTypes:[NSArray arrayWithObjects:NSStringPboardType, NSRTFPboardType, nil]
-                           returnTypes:[NSArray arrayWithObjects:NSStringPboardType, NSRTFPboardType, nil]];
-  return;
++ (void) initialize {
+    static BOOL initialized = NO;
+    /* Make sure code only gets executed once. */
+    if (initialized == YES) return;
+    initialized = YES;
+    [NSApp registerServicesMenuSendTypes:[NSArray arrayWithObjects:NSStringPboardType, NSRTFPboardType, nil]
+                             returnTypes:[NSArray arrayWithObjects:NSStringPboardType, NSRTFPboardType, nil]];
+    return;
 }
 
-- (void)awakeFromNib {
+- (void) awakeFromNib {
   //NSLog(@"pselect %@", pSelector);
-
-  
   [dSelector bind:@"objectValue" toObject:pSelector withKeyPath:@"objectValue" options:nil];
   [aSelector bind:@"objectValue" toObject:sSelector withKeyPath:@"objectValue" options:nil];
 }
@@ -111,25 +50,24 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
 {
 //  if (context == pSelector) {
     NSLog(@"charge %@ %@ %@", keyPath, object, change);
-  [dSelector setObjectValue:[pSelector objectValue]];
+    [dSelector setObjectValue:[pSelector objectValue]];
 //  }
 }
 
-+ (NSString *)name {
++ (NSString *) name {
 	return @"DefaultInterface";
 }
 
-- (id)initWithWindow:(NSWindow *)window {
-  if (!(self = [super initWithWindow:window]) ) return nil;
-  //[[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(appLaunched:) name:NSWorkspaceDidLaunchApplicationNotification object:nil];
-  //  [[NSImage imageNamed:@"DefaultBookmarkIcon"] setScalesWhenResized:YES];
-  //  [QSPasteboardMonitor sharedInstance];
-  //  QSLib;
+- (id) initWithWindow:(NSWindow *)window {
+    self = [super initWithWindow:window];
+    if (!self) return nil;
+//  [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(appLaunched:) name:NSWorkspaceDidLaunchApplicationNotification object:nil];
+//  [[NSImage imageNamed:@"DefaultBookmarkIcon"] setScalesWhenResized:YES];
+//  [QSPasteboardMonitor sharedInstance];
+//  QSLib;
   
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidBecomeKey:) name:NSWindowDidBecomeKeyNotification object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidResignKey:) name:NSWindowDidResignKeyNotification object:nil];
-  
-  
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectModified:) name:@"ObjectModified" object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchObjectChanged:) name:@"SearchObjectChanged" object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appChanged:) name:@"QSActiveApplicationChanged" object:nil];
@@ -149,46 +87,45 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
   return NSMakeSize(128, 128);
 }
 - (void)windowDidLoad {
-  //Restore Main Window
-  //if (![[self window] setFrameUsingName:[self window] Key]) [[self window] center];
-  [progressIndicator stopAnimation:self];
-  [progressIndicator setDisplayedWhenStopped:NO];
-  [aSelector setEnabled:NO];
-  [aSelector setAllowText:NO];
-	// [aSelector setInitiatesDrags:NO];
-  [aSelector setDropMode:QSRejectDropMode];
+    // Restore Main Window
+//  if (![[self window] setFrameUsingName:[self window] Key]) [[self window] center];
+    [progressIndicator stopAnimation:self];
+    [progressIndicator setDisplayedWhenStopped:NO];
+    [aSelector setEnabled:NO];
+    [aSelector setAllowText:NO];
+//  [aSearchView setInitiatesDrags:NO];
+    [aSelector setDropMode:QSRejectDropMode];
 	
-  [aSelector setSearchMode:SearchFilter];
+    [aSelector setSearchMode:SearchFilter];
 	[aSelector setAllowNonActions:NO];
-  
+    
 	[iSelector retain];
-	[self hideIndirectSelector:nil];
-	//[self hideIndirectSelector:nil];
+//  [self hideIndirectSelector:nil];
 	
 	[[self window] setHidesOnDeactivate:NO];
-  // TODO: [[self menuButton] setMenu:[(QSController *)[NSApp delegate] statusMenuWithQuit]];
-  
+    [[self menuButton] setMenu:[[NSApp delegate] statusMenuWithQuit]];
+    
 	QSObjectCell *attachmentCell = [[QSObjectCell alloc] initTextCell:@""];
-  [attachmentCell setRepresentedObject:[QSObject fileObjectWithPath:@"/Volumes/Lore/"]];
-  [[attachmentCell representedObject] loadIcon];
-  
-  NSTextAttachment *attachment = [[[NSTextAttachment alloc] init] autorelease];
-  [attachment setAttachmentCell: attachmentCell];
-  
-	// NSAttributedString *attributedString = [NSAttributedString attributedStringWithAttachment: attachment];
-  //[[commandView textStorage] appendAttributedString:attributedString];
-  [self searchObjectChanged:nil];
+    [attachmentCell setRepresentedObject:[QSObject fileObjectWithPath:@"/Volumes/Lore/"]];
+    [[attachmentCell representedObject] loadIcon];
+    
+    NSTextAttachment *attachment = [[[NSTextAttachment alloc] init] autorelease];
+    [attachment setAttachmentCell: attachmentCell];
+    
+//  NSAttributedString *attributedString = [NSAttributedString attributedStringWithAttachment: attachment];
+//  [[commandView textStorage] appendAttributedString:attributedString];
+    [self searchObjectChanged:nil];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:progressIndicator selector:@selector(startAnimation:) name:QSTasksStartedNotification object:nil];
-  [[NSNotificationCenter defaultCenter] addObserver:progressIndicator selector:@selector(stopAnimation:) name:QSTasksEndedNotification object:nil];
-  
+    [[NSNotificationCenter defaultCenter] addObserver:progressIndicator selector:@selector(stopAnimation:) name:QSTasksEndedNotification object:nil];
+    
 }
 
 - (IBAction)hideWindows:(id)sender {
-  [self hideMainWindow:self];
-  
-  [[NSNotificationCenter defaultCenter] postNotificationName:QSReleaseOldCachesNotification object:self];
-  [self setClearTimer];
+    [self hideMainWindow:self];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:QSReleaseOldCachesNotification object:self];
+    [self setClearTimer];
 }
 
 // Menu Actions
@@ -268,15 +205,15 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
 - (void)fireActionUpdateTimer {
 	[actionsUpdateTimer fire]; 	
 }
+
 - (void)updateControl:(QSSearchObjectView *)control withArray:(NSArray *)array {
 	id defaultSelection = nil;
-  if ([array count]) {
+    if ([array count]) {
 		if ([[array lastObject] isKindOfClass:[NSArray class]]) {
 			defaultSelection = [array objectAtIndex:0];
 			if ([defaultSelection isKindOfClass:[NSNull class]])
 				defaultSelection = nil;
 			array = [array lastObject];
-			
 		} else {
 			defaultSelection = [array objectAtIndex:0];
 		}
@@ -285,51 +222,54 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
 	}
 	[control clearSearch];
 	[control setSourceArray:(NSMutableArray *)array];
-  [control setResultArray:(NSMutableArray *)array];
+    [control setResultArray:(NSMutableArray *)array];
 	
-  [control selectObject:defaultSelection];
+    [control selectObject:defaultSelection];
 }
 
-- (NSMutableArray *)rankedActions {
+- (NSArray *)rankedActions {
 	return [QSExec rankedActionsForDirectObject:[dSelector objectValue] indirectObject:[iSelector objectValue]];
 }
 - (void)updateActionsNow {
 	[actionsUpdateTimer invalidate]; 	
 	
 	//QSLog(@"act on %@", [dSelector objectValue]);
-  [aSelector setEnabled:YES];
-  NSString *type = [NSString stringWithFormat:@"QSActionMnemonic:%@", [[dSelector objectValue] primaryType]];
-  NSArray *actions = [self rankedActions];
-	
+    [aSelector setEnabled:YES];
+    NSString *type = [NSString stringWithFormat:@"QSActionMnemonic:%@", [[dSelector objectValue] primaryType]];
+    NSArray *actions = [self rankedActions];
 	
 	//QSLog(@"actions %@", actions);
+    // FIXME: This is incorrect, but the correct one below doesn't work...
 	[self updateControl:sSelector withArray:actions];
 	[self updateControl:aSelector withArray:actions];
-	[self updateControl:sSelector withArray:actions];
+    [self updateControl:sSelector withArray:actions];
+    /*[self updateControl:dSelector withArray:actions];
+     *[self updateControl:aSelector withArray:actions];
+     * [self updateControl:iSelector withArray:actions];*/
 	
-	
-  [aSelector setMatchedString:type];
+    [aSelector setMatchedString:type];
 	[aSelector setSearchString:nil];
 	
-	//	[iSelector setSearchMode:SearchFilter];
-	//  if ([actions count])
-	//     [aSelector selectIndex:0];
-	// else
-  //    [aSelector clearObjectValue];
-  //[aSelector setNeedsDisplay:YES];
-  //    [aSelector performSearchFor:nil from:self];
+//  [iSelector setSearchMode:SearchFilter];
+//  if ([actions count])
+//      [aSelector selectIndex:0];
+//  else
+//      [aSelector clearObjectValue];
+//  [aSelector setNeedsDisplay:YES];
+//      [aSelector performSearchFor:nil from:self];
 }
+
 - (void)updateIndirectObjects {
   NSArray *indirects = [[[aSelector objectValue] provider] validIndirectObjectsForAction:[[aSelector objectValue] identifier] directObject:[dSelector objectValue]];  
 	[self updateControl:iSelector withArray:indirects];
-	[iSelector setSearchMode:(indirects?SearchFilter:SearchFilterAll)];
+	[iSelector setSearchMode:(indirects ? SearchFilter : SearchFilterAll)];
 }
 
 - (void)clearObjectView:(QSSearchObjectView *)view {
 	[view setResultArray:nil];  
 	[view setSourceArray:nil];
-  [view setMatchedString:nil];
-  [view setSearchString:nil];
+    [view setMatchedString:nil];
+    [view setSearchString:nil];
 	[view clearObjectValue]; 	
 }
 
@@ -673,71 +613,71 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
 
 
 - (void)setCommandWithArray:(NSArray *)array {
-  [dSelector setObjectValue:[array objectAtIndex:0]];
+    [dSelector setObjectValue:[array objectAtIndex:0]];
 	[actionsUpdateTimer invalidate];
-  [aSelector setObjectValue:[array objectAtIndex:1]];
-  if ([array count] >2)
-    [iSelector setObjectValue:[array objectAtIndex:2]];
-  else 
-    [iSelector setObjectValue:nil];
+    [aSelector setObjectValue:[array objectAtIndex:1]];
+    if ([array count] >2)
+        [iSelector setObjectValue:[array objectAtIndex:2]];
+    else 
+        [iSelector setObjectValue:nil];
 }
 - (void)executePartialCommand:(NSArray *)array {
-	//  QSLog(@"partial %@", array);
-  // [self activate:self];
-  [dSelector setObjectValue:[array objectAtIndex:0]];
+//  QSLog(@"partial %@", array);
+// [self activate:self];
+    [dSelector setObjectValue:[array objectAtIndex:0]];
 	
-  if ([array count] == 1) {
-    [self updateActionsNow];
-    [[self window] makeFirstResponder:aSelector];  
-  } else {
+    if ([array count] == 1) {
+        [self updateActionsNow];
+        [[self window] makeFirstResponder:aSelector];  
+    } else {
 		[actionsUpdateTimer invalidate];
-    [aSelector setObjectValue:[array objectAtIndex:1]];
-    if ([array count] >2) {
-      [iSelector setObjectValue:[array objectAtIndex:2]];
+        [aSelector setObjectValue:[array objectAtIndex:1]];
+        if ([array count] >2) {
+            [iSelector setObjectValue:[array objectAtIndex:2]];
+        }
+        [[self window] makeFirstResponder:iSelector];  
     }
-    [[self window] makeFirstResponder:iSelector];  
-  }
-  
-  [self updateViewLocations];
+    
+    [self updateViewLocations];
 	
 	[self showInterface:self];
 }
 
 - (IBAction)executeCommand:(id)sender cont:(BOOL)cont encapsulate:(BOOL)encapsulate {
-	//QSLog(@"execute");
+//QSLog(@"execute");
 	if ([actionsUpdateTimer isValid]) {
 		[actionsUpdateTimer fire];
 	}
-  if (![aSelector objectValue]) {
-    NSBeep();
-    return;
-  }
-  int argumentCount = [(QSAction *)[aSelector objectValue] argumentCount]; 	
-  if (argumentCount == 2) {
-    BOOL indirectIsRequired = ![[[[aSelector objectValue] actionDict] objectForKey:kActionIndirectOptional] boolValue];
-    BOOL indirectIsInvalid = ![iSelector objectValue];
-    BOOL indirectIsTextProxy = [[[iSelector objectValue] primaryType] isEqual:QSTextProxyType];
-    
-    if (indirectIsRequired && (indirectIsInvalid || indirectIsTextProxy) ) {
-      if (![iSelector objectValue]) NSBeep();
-      [[self window] makeFirstResponder:iSelector];
-      return;
+    if (![aSelector objectValue]) {
+        NSBeep();
+        return;
     }
+    int argumentCount = [(QSAction *)[aSelector objectValue] argumentCount]; 	
+    if (argumentCount == 2) {
+        BOOL indirectIsRequired = ![[[[aSelector objectValue] actionDict] objectForKey:kActionIndirectOptional] boolValue];
+        BOOL indirectIsInvalid = ![iSelector objectValue];
+        BOOL indirectIsTextProxy = [[[iSelector objectValue] primaryType] isEqual:QSTextProxyType];
+        
+        if (indirectIsRequired && (indirectIsInvalid || indirectIsTextProxy) ) {
+            if (![iSelector objectValue]) NSBeep();
+            [[self window] makeFirstResponder:iSelector];
+            return;
+        }
 		[QSExec noteIndirect:[iSelector objectValue] forAction:[aSelector objectValue]];
-  }
+    }
 	if (encapsulate) {
 		[self encapsulateCommand]; 	
 		return;
 	}
 	
 	if (!cont) [self hideMainWindowFromExecution:self]; 
-  // *** this should only hide if no result comes in like 2 seconds
-  BOOL shouldThread = [[NSUserDefaults standardUserDefaults] boolForKey:kExecuteInThread];
+    // *** this should only hide if no result comes in like 2 seconds
+    BOOL shouldThread = [[NSUserDefaults standardUserDefaults] boolForKey:kExecuteInThread];
 	
-  if (shouldThread && [[aSelector objectValue] canThread])
-    [NSThread detachNewThreadSelector:@selector(executeCommandThreaded) toTarget:self withObject:nil];
-  else
-    [self executeCommandThreaded];
+    if (shouldThread && [[aSelector objectValue] canThread])
+        [NSThread detachNewThreadSelector:@selector(executeCommandThreaded) toTarget:self withObject:nil];
+    else
+        [self executeCommandThreaded];
 	
 	if (fALPHA)
 		[QSHist addCommand:[self currentCommand]];
@@ -745,7 +685,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
  	[aSelector saveMnemonic];
 	if (argumentCount == 2) [iSelector saveMnemonic];
 	if (cont) [[self window] makeFirstResponder:aSelector]; 	
-    }
+}
 
 
 - (void)encapsulateCommand:(id)sender {
@@ -759,29 +699,22 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
 	[self executeCommand:(id)sender cont:NO encapsulate:NO];
 }
 
-
-
-
-//- (IBAction)encapsulateCommand:(id)sender {
-//    [[QSTriggerCenter sharedInstance] addTriggerForCommand:[self currentCommand]];
-//}
-//- (IBAction)addTrigger:(id)sender {
-//    [[QSTriggerCenter sharedInstance] addTriggerForCommand:[self currentCommand]];
-//}
 - (QSCommand *)currentCommand {
   return [QSCommand commandWithDirectObject:[dSelector objectValue] actionObject:[aSelector objectValue] indirectObject:[iSelector objectValue]];
 }
-- (void)setCommand:(QSCommand *)command {
+
+- (void)setCommand:(QSCommand *)aCommand {
 	[self window];
-  [dSelector setObjectValue:[command dObject]];
-  [aSelector setObjectValue:[command aObject]];
-  [iSelector setObjectValue:[command iObject]];
+    [dSelector setObjectValue:[aCommand dObject]];
+    [aSelector setObjectValue:[aCommand aObject]];
+    [iSelector setObjectValue:[aCommand iObject]];
 }
+
 - (void)encapsulateCommand {
 	if (VERBOSE) QSLog(@"Encapsulating Command");
-	QSCommand *command = [self currentCommand];
-	QSObject *commandObject = [QSObject objectWithName:[command description]];
-	[commandObject setObject:command forType:QSCommandType];
+	QSCommand *currentCommand = [self currentCommand];
+	QSObject *commandObject = [QSObject objectWithName:[currentCommand description]];
+	[commandObject setObject:currentCommand forType:QSCommandType];
 	
 	[commandObject setPrimaryType:QSCommandType];
 	[self selectObject:commandObject];

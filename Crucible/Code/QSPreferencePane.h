@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface QSPreferencePane : NSObject{
+@interface QSPreferencePane : NSObject {
 	IBOutlet NSWindow *_window;
 	IBOutlet NSView *_initialKeyView;
 	IBOutlet NSView *_firstKeyView;
@@ -19,7 +19,7 @@
 }
 - (id)initWithInfo:(NSDictionary *)info;
 - (void)requestRelaunch;
-- (IBAction) showPaneHelp:(id)sender;
+- (IBAction)showPaneHelp:(id)sender;
 - (void)paneWillMoveToWindow:(NSWindow *)newWindow;
 - (void)paneDidMoveToWindow:(NSWindow *)newWindow;
 - (id)initWithBundle:(NSBundle *)bundle;
@@ -27,6 +27,6 @@
 - (void)paneLoadedByController:(id)controller;
 - (NSView *)loadMainView;
 - (NSString *)helpPage;
-- (void) mainViewDidLoad;
+- (void)mainViewDidLoad;
 - (void)setInfo:(NSDictionary *)info;
 @end

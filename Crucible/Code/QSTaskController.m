@@ -11,8 +11,8 @@ QSTaskController *QSTasks;
     if (!QSTasks) QSTasks = [[[self class] allocWithZone:[self zone]] init];
     return QSTasks;
 }
-+ (void)showViewer{ [[NSClassFromString(@"QSTaskViewer")  sharedInstance] showWindow:self]; }
-+ (void)hideViewer{ [[NSClassFromString(@"QSTaskViewer")  sharedInstance] hideWindow:self]; }
++ (void)showViewer{ [[NSClassFromString(@"QSTaskViewer") sharedInstance] showWindow:self]; }
++ (void)hideViewer{ [[NSClassFromString(@"QSTaskViewer") sharedInstance] hideWindow:self]; }
 
 - (id)init {
 	if ((self = [super init])) {

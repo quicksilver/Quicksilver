@@ -176,59 +176,59 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 
 
 - (void)guessName {
+    NSString * newName = nil;
     //QSLog(@"webtitl %@", [pasteboard propertyListForType:@"WebURLsWithTitlesPboardType"]);
     if (itemForKey(NSFilenamesPboardType)) {
         [self setPrimaryType:NSFilenamesPboardType];
         [self getNameFromFiles];
     }
     else if (itemForKey(NSStringPboardType)) {
-        NSString *newName = [itemForKey(NSStringPboardType) stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-      [self setName:newName];
+        newName = [itemForKey(NSStringPboardType) stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        [self setName:newName];
     } else {
-      NSString *newName;
-      if (itemForKey(NSPDFPboardType))
-        newName = @"PDF Image";
-      else if (itemForKey([@"'icns'" encodedPasteboardType]))
-        newName = @"Finder Icon";
-      else if (itemForKey(NSPICTPboardType))
-        newName = @"PICT Image";
-      else if (itemForKey(NSPostScriptPboardType))
-        newName = @"PostScript Image";
-      else if (itemForKey(NSTIFFPboardType))
-        newName = @"TIFF Image";
-      else if (itemForKey(NSTIFFPboardType))
-        newName = @"TIFF Image";
-      else if (itemForKey(NSTIFFPboardType))
-        newName = @"TIFF Image";  
-      else if (itemForKey(NSColorPboardType))
-        newName = @"Color Data";
-      else if (itemForKey(NSFileContentsPboardType))
-        newName = @"File Contents";
-      else if (itemForKey(NSFontPboardType))
-        newName = @"Font Information";
-      else if (itemForKey(NSHTMLPboardType))
-        newName = @"HTML Data";
-      else if (itemForKey(NSRulerPboardType))
-        newName = @"Paragraph formatting";
-      else if (itemForKey(NSHTMLPboardType))
-        newName = @"HTML Data";
-      else if (itemForKey(NSTabularTextPboardType))
-        newName = @"Tabular Text";
-      else if (itemForKey(NSVCardPboardType))
-        newName = @"VCard data";
-      else if (itemForKey(NSFilesPromisePboardType))
-        newName = @"Promised Files";  
-      
-      NSString *source = [self objectForMeta:kQSObjectSource];
-      if (source) {
-        NSString *appName = [[NSFileManager defaultManager] displayNameAtPath:
-         [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:source]];
-        if (!appName) appName = source;
-        newName = [newName stringByAppendingFormat: @" - %@", appName];
-      }
-      [self setName:newName];
+        if (itemForKey(NSPDFPboardType))
+            newName = @"PDF Image";
+        else if (itemForKey([@"'icns'" encodedPasteboardType]))
+            newName = @"Finder Icon";
+        else if (itemForKey(NSPICTPboardType))
+            newName = @"PICT Image";
+        else if (itemForKey(NSPostScriptPboardType))
+            newName = @"PostScript Image";
+        else if (itemForKey(NSTIFFPboardType))
+            newName = @"TIFF Image";
+        else if (itemForKey(NSTIFFPboardType))
+            newName = @"TIFF Image";
+        else if (itemForKey(NSTIFFPboardType))
+            newName = @"TIFF Image";  
+        else if (itemForKey(NSColorPboardType))
+            newName = @"Color Data";
+        else if (itemForKey(NSFileContentsPboardType))
+            newName = @"File Contents";
+        else if (itemForKey(NSFontPboardType))
+            newName = @"Font Information";
+        else if (itemForKey(NSHTMLPboardType))
+            newName = @"HTML Data";
+        else if (itemForKey(NSRulerPboardType))
+            newName = @"Paragraph formatting";
+        else if (itemForKey(NSHTMLPboardType))
+            newName = @"HTML Data";
+        else if (itemForKey(NSTabularTextPboardType))
+            newName = @"Tabular Text";
+        else if (itemForKey(NSVCardPboardType))
+            newName = @"VCard data";
+        else if (itemForKey(NSFilesPromisePboardType))
+            newName = @"Promised Files";  
+        
+        NSString *source = [self objectForMeta:kQSObjectSource];
+        if (source) {
+            NSString *appName = [[NSFileManager defaultManager] displayNameAtPath:
+                                 [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:source]];
+            if (!appName) appName = source;
+            newName = [newName stringByAppendingFormat: @" - %@", appName];
+        }
+        [self setName:newName];
     }
-  
+    
     /*
      also
      

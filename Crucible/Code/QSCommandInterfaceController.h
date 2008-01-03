@@ -8,16 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class QSSearchController;
-
 @interface QSCommandInterfaceController : NSWindowController {
   IBOutlet NSController *pSelector;
   IBOutlet NSController *sSelector;
   QSCommand *command;
   IBOutlet NSTextField *searchField;
-  
-  
-  
   
   IBOutlet QSSearchObjectView *		dSelector;
   IBOutlet QSSearchObjectView *		aSelector;
@@ -86,9 +81,6 @@
 - (void)encapsulateCommand:(id)sender;
 - (void)executeCommandAndContinue:(id)sender;
 - (IBAction)executeCommand:(id)sender;
-
-
-
 
 - (IBAction)searchForString:(id)sender;
   

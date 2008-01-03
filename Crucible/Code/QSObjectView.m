@@ -515,7 +515,7 @@
 	
 	
 	[self dragImage:[[self draggedObject] icon] at:[self convertPoint:[[self window] mouseLocationOutsideOfEventStream] fromView:nil] offset:NSZeroSize
-			  event:[NSEvent mouseEventWithType:NSLeftMouseDown location:NSZeroPoint modifierFlags:nil timestamp:0  windowNumber:[[self window] windowNumber] context:nil eventNumber:nil clickCount:0 pressure:0]
+			  event:[NSEvent mouseEventWithType:NSLeftMouseDown location:NSZeroPoint modifierFlags:0 timestamp:0  windowNumber:[[self window] windowNumber] context:nil eventNumber:0 clickCount:0 pressure:0]
 	     pasteboard:pboard source:self slideBack:NO];
 	
 }

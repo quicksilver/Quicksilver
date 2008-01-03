@@ -1462,8 +1462,6 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 		//QSLog(@"index %d %@", index, obj);
 		if (index == NSNotFound) {
 			//if (VERBOSE) QSLog(@"Unable To Select Object : %@ in \r %@", [obj identifier] , resultArray);
-			
-			index = nil;
 			return;
 		}
 	} else {

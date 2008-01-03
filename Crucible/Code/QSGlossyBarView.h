@@ -9,6 +9,10 @@
 #import <Cocoa/Cocoa.h>
 #import "QSMenuButton.h"
 
+@interface NSButtonCell (TakeAttributes)
+- (void) takeAttributesOfCell:(NSButtonCell *)cell;
+@end
+
 @interface QSGlossyBarView : NSView {
 	
 }

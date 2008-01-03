@@ -108,7 +108,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		if (infoRec.flags & kLSItemInfoIsApplication) {
 			NSString *bundleIdentifier = [[NSBundle bundleWithPath:path] bundleIdentifier];
 			
-			NSString *handlerName = [[QSReg elementsForPointID:@"QSBundleDrawingHandlers"] objectForKey:bundleIdentifier];
+			NSString *handlerName = [[QSReg elementsByIDForPointID:@"QSBundleDrawingHandlers"] objectForKey:bundleIdentifier];
 			if (handlerName) {
 				id handler = [QSReg getClassInstance:handlerName];
 				if (handler) {
@@ -215,21 +215,20 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 - (BOOL)loadIconForObject:(QSObject *)object {
-  NSImage *theImage = nil;
-  NSArray *theFiles = [object arrayForType:QSFilePathType];
-  if (!theFiles) return NO;
-  NSString *firstFile = [theFiles objectAtIndex:0];  
+    NSImage *theImage = nil;
+    NSArray *theFiles = [object arrayForType:QSFilePathType];
+    if (!theFiles) return NO;
 	NSFileManager *manager = [NSFileManager defaultManager];
-  if ([theFiles count] == 1) {
-    NSString *path = [theFiles lastObject];
-    if ([manager fileExistsAtPath:path]) {
-      LSItemInfoRecord infoRec;
-      //OSStatus status=
-      LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
+    if ([theFiles count] == 1) {
+        NSString *path = [theFiles lastObject];
+        if ([manager fileExistsAtPath:path]) {
+            LSItemInfoRecord infoRec;
+            //OSStatus status=
+            LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
 			
-      if (infoRec.flags & kLSItemInfoIsPackage) {
-        NSBundle *bundle = [NSBundle bundleWithPath:firstFile];
-        NSString *bundleImageName = nil;
+            if (infoRec.flags & kLSItemInfoIsPackage) {
+//        NSBundle *bundle = [NSBundle bundleWithPath:firstFile];
+//        NSString *bundleImageName = nil;
         //if ([[firstFile pathExtension] isEqualToString:@"prefPane"]) {
         //          bundleImageName = [[bundle infoDictionary] objectForKey:@"NSPrefPaneIconFile"];
         //					
@@ -239,9 +238,9 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
         //						theImage = [[[NSImage alloc] initWithContentsOfFile:bundleImagePath] autorelease];
         //					}
         //				}
-      }
-      if (!theImage && 1) {
-        theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:NSMakeSize(512, 512) asIcon:YES];
+            }
+            if (!theImage && 1) {
+                theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:NSMakeSize(512, 512) asIcon:YES];
         //        NSURL *fileURL = [NSURL fileURLWithPath:path];
         //        NSDictionary *options = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger: 128] 
         //                                                            forKey:kQLThumbnailOptionIconModeKey];
@@ -258,28 +257,28 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
         //          }
         //          CFRelease(thumbnail);
         //        }
-        
-      }
-      if (!theImage && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
-        NSString *type = [manager typeOfFile:path];
-        
-        
-        if ([[NSImage imageUnfilteredFileTypes] containsObject:type]) {
-          theImage = [[[NSImage alloc] initWithContentsOfFile:path] autorelease];
-        } else {
-          id provider = [QSReg instanceForKey:type inTable:@"QSFSFileTypePreviewers"];
-          //QSLog(@"provider %@", [QSReg elementsForPointID:@"QSFSFileTypePreviewers"]);
-          theImage = [provider iconForFile:path ofType:type];
-        }
-      }
-      if (!theImage)
-        theImage = [[NSWorkspace sharedWorkspace] iconForFile:path];
+                
+            }
+            if (!theImage && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
+                NSString *type = [manager typeOfFile:path];
+                
+                
+                if ([[NSImage imageUnfilteredFileTypes] containsObject:type]) {
+                    theImage = [[[NSImage alloc] initWithContentsOfFile:path] autorelease];
+                } else {
+                    id provider = [QSReg instanceForKey:type inTable:@"QSFSFileTypePreviewers"];
+                    //QSLog(@"provider %@", [QSReg elementsForPointID:@"QSFSFileTypePreviewers"]);
+                    theImage = [provider iconForFile:path ofType:type];
+                }
+            }
+            if (!theImage)
+                theImage = [[NSWorkspace sharedWorkspace] iconForFile:path];
 			
-      
+            
 			// ***warning * This caused a crash?
-    }
-    
-  } else {
+        }
+        
+    } else {
 		NSMutableSet *set = [NSMutableSet set];
 		NSWorkspace *w = [NSWorkspace sharedWorkspace];
 		NSString *theFile;
@@ -341,8 +340,9 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			//NSString *bundleIdentifier = CFBundleGetIdentifier(bundle);
 			
 			if (!bundleIdentifier) return NO;
-  		NSString *handlerName = [QSReg elementForPointID:@"QSBundleChildHandlers" withID:bundleIdentifier];
-			if (handlerName) return YES;
+            BElement *handler = [QSReg elementForPointID:@"QSBundleChildHandlers"
+                                                  withID:bundleIdentifier];
+			if (handler) return YES;
 			
 			NSArray *recentDocuments = (NSArray *)CFPreferencesCopyValue((CFStringRef) @"NSRecentDocumentRecords", (CFStringRef) bundleIdentifier, kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
 			[recentDocuments autorelease];
@@ -394,50 +394,51 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 
 - (NSDragOperation) operationForDrag:(id <NSDraggingInfo>)sender ontoObject:(QSObject *)dObject withObject:(QSBasicObject *)iObject {
-  if (![iObject arrayForType:QSFilePathType]) return nil;
+    if (![iObject arrayForType:QSFilePathType]) return NSDragOperationNone;
 	if ([dObject fileCount] >1) return NSDragOperationGeneric;
-  
-  NSDragOperation sourceDragMask = [sender draggingSourceOperationMask];
-  if ([dObject isApplication]) {
+    
+    NSDragOperation sourceDragMask = [sender draggingSourceOperationMask];
+    if ([dObject isApplication]) {
 		return NSDragOperationPrivate;
-    if (sourceDragMask&NSDragOperationPrivate) return NSDragOperationPrivate;
-  } else if ([dObject isFolder]) {
-    NSFileManager *manager = [NSFileManager defaultManager];
-    NSDragOperation defaultOp = [manager defaultDragOperationForMovingPaths:[dObject validPaths] toDestination:[(QSObject *)iObject singleFilePath]];
-    if (defaultOp == NSDragOperationMove) {
-      if (sourceDragMask&NSDragOperationMove) return NSDragOperationMove;
-      if (sourceDragMask&NSDragOperationCopy) return NSDragOperationCopy;
-    } else if  (defaultOp == NSDragOperationCopy) {
-      return NSDragOperationCopy;
+        if (sourceDragMask&NSDragOperationPrivate) return NSDragOperationPrivate;
+    } else if ([dObject isFolder]) {
+        NSFileManager *manager = [NSFileManager defaultManager];
+        NSDragOperation defaultOp = [manager defaultDragOperationForMovingPaths:[dObject validPaths] toDestination:[(QSObject *)iObject singleFilePath]];
+        if (defaultOp == NSDragOperationMove) {
+            if (sourceDragMask&NSDragOperationMove) return NSDragOperationMove;
+            if (sourceDragMask&NSDragOperationCopy) return NSDragOperationCopy;
+        } else if  (defaultOp == NSDragOperationCopy) {
+            return NSDragOperationCopy;
+        }
     }
-  }
-  return sourceDragMask&NSDragOperationGeneric;
+    return sourceDragMask&NSDragOperationGeneric;
 }
-- (NSString *)actionForDragMask:(NSDragOperation)operation ontoObject:(QSObject *)dObject withObject:(QSBasicObject *)iObject {
-	if ([dObject fileCount] >1) return nil;
+
+- (NSString *) actionForDragMask:(NSDragOperation)operation ontoObject:(QSObject *)dObject withObject:(QSBasicObject *)iObject {
+	if ([dObject fileCount] > 1) return nil;
   
-  NSDragOperation sourceDragMask = operation;
-  if ([dObject isApplication]) {
+    NSDragOperation sourceDragMask = operation;
+    if ([dObject isApplication]) {
     //if (sourceDragMask&NSDragOperationPrivate)
 		return  @"FileOpenWithAction";
-  } else if ([dObject isFolder]) {
+    } else if ([dObject isFolder]) {
     //  NSFileManager *manager = [NSFileManager defaultManager];
     if (sourceDragMask&NSDragOperationMove)
-      return @"FileMoveToAction";
+        return @"FileMoveToAction";
     else if (sourceDragMask&NSDragOperationCopy)
-      return @"FileCopyToAction";
-    
+        return @"FileCopyToAction";
   }
   return nil;
 }
 
-- (NSAppleEventDescriptor *)AEDescriptorForObject:(QSObject *)object {
+- (NSAppleEventDescriptor *) AEDescriptorForObject:(QSObject *)object {
 	return [NSAppleEventDescriptor aliasListDescriptorWithArray:[object validPaths]];
 }
 
-- (NSString *)identifierForObject:(id <QSObject>)object {
+- (NSString *) identifierForObject:(id <QSObject>)object {
   return identifierForPaths([object arrayForType:QSFilePathType]);
 }
+
 - (BOOL)loadChildrenForObject:(QSObject *)object {
   NSArray *newChildren = nil;
   NSArray *newAltChildren = nil;
@@ -615,8 +616,6 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 @end
 
 
-
-#define clippingTypes [NSSet setWithObjects:@"textClipping", @"pictClipping", @"'clpp'", @"textClipping", @"'clpt'", @"webloc", @"inetloc", @"'ilht'", @"'ilaf'", nil]
 
 @implementation QSObject (FileHandling)
 

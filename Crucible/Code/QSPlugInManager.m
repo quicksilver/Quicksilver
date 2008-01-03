@@ -366,9 +366,9 @@
 		[plugin setEnabled:YES];
 	}
 	
-	if (![self plugInIsMostRecent:plugin inGroup:nil])return NO;	//Skip if not most recent
-	if (![self plugInMeetsRequirements:plugin]) return NO;						//Skip if does not meet requirements
-	if (![self plugInMeetsDependencies:plugin]) return NO;						//Skip if does not meet dependencies
+	if (![self plugInIsMostRecent:plugin inGroup:nil]) return NO;   // Skip if not most recent
+	if (![self plugInMeetsRequirements:plugin]) return NO;          // Skip if does not meet requirements
+	if (![self plugInMeetsDependencies:plugin]) return NO;          // Skip if does not meet dependencies
 	
 	return [plugin registerPlugIn];
 }
@@ -468,7 +468,6 @@
 
 - (NSMutableArray *)allBundles{
 	
-	NSEnumerator *searchPathEnum;
 	NSString *currPath;
 	NSMutableSet *bundleSearchPaths = [NSMutableSet set];
 	NSMutableArray *allBundles = [NSMutableArray array];

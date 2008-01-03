@@ -128,29 +128,30 @@
 
 
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
-  if (image_ != nil) {
-    NSSize	size = imageSize_;
-    NSRect	imageFrame;
-		
-    if (NSEqualSizes(size,NSZeroSize)) {
-      if (NSHeight(cellFrame) <= 18){
-        size = NSMakeSize(16, 16);
-      }else{
-        size = NSMakeSize(NSHeight(cellFrame),NSHeight(cellFrame));
-      }
-    }
-    
+    if (image_ != nil) {
+        NSSize	size = imageSize_;
+        NSRect	imageFrame;
+        
+        if (NSEqualSizes(size,NSZeroSize)) {
+            if (NSHeight(cellFrame) <= 18){
+                size = NSMakeSize(16, 16);
+            }else{
+                size = NSMakeSize(NSHeight(cellFrame),NSHeight(cellFrame));
+            }
+        }
+        
+        
 		NSRect rest;
-		NSDivideRect(cellFrame, &imageFrame, &rest, 1+[self imageWidthForFrame:cellFrame] *1.125, NSMinXEdge);
-    if ([self drawsBackground]) {
-      [[self backgroundColor] set];
-      NSRectFill(imageFrame);
-    }
-    imageFrame.origin.x += 3;
-    imageFrame.size = size;
-    
+        NSDivideRect(cellFrame, &imageFrame, &rest, 1+[self imageWidthForFrame:cellFrame] *1.125, NSMinXEdge);
+        if ([self drawsBackground]) {
+            [[self backgroundColor] set];
+            NSRectFill(imageFrame);
+        }
+        imageFrame.origin.x += 3;
+        imageFrame.size = size;
+        
 		[self drawImage:image_ withFrame:imageFrame inView:controlView];
-  }
+    }
 	
 	cellFrame = [self textRectForFrame:cellFrame];
 	NSRect textCellFrame = cellFrame;
@@ -158,8 +159,9 @@
 	textCellFrame.size.height = [super cellSizeForBounds:textCellFrame] .height;
 	textCellFrame = centerRectInRect(textCellFrame, cellFrame);
 	
+
 	[self setTextColor:[self isHighlighted] && !editing?[NSColor alternateSelectedControlTextColor] :[NSColor selectedControlTextColor]];
-  [super drawWithFrame:cellFrame inView:controlView];
+    [super drawWithFrame:cellFrame inView:controlView];
 	
 	[self setTextColor:[NSColor controlTextColor]];
 }
@@ -172,20 +174,19 @@
 //	return cellSize;
 //}
 
-- (NSSize) cellSize {
-  NSSize cellSize = [super cellSize];
-  cellSize.width += 1+[self imageWidthForFrame:NSZeroRect] *1.125;
-  return cellSize;
+- (NSSize)cellSize {
+    NSSize cellSize = [super cellSize];
+    cellSize.width += 1 + [self imageWidthForFrame:NSZeroRect] * 1.125;
+    return cellSize;
 }
 
 - (NSSize) imageSize { return imageSize_;  }
-- (void)setImageSize: (NSSize) newImageSize
+- (void) setImageSize: (NSSize) newImageSize
 {
   imageSize_ = newImageSize;
 }
 
-
-- (NSDictionary *)keys {
+- (NSDictionary *) keys {
   return [[keys_ retain] autorelease];
 }
 
@@ -195,7 +196,5 @@
     keys_ = [value copy];
   }
 }
-
-
 
 @end

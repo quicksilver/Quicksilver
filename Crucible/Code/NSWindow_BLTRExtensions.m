@@ -18,15 +18,14 @@
     
     wid = [self windowNumber ];
     cid = _CGSDefaultConnection();
-    int tags[2];
-    tags[0] = tags[1] = 0;
-    OSStatus retVal = CGSGetWindowTags(cid, wid, tags, 32);
+    CGSWindowTag tags = 0;
+    OSStatus retVal = CGSGetWindowTags(cid, wid, &tags, 32);
     if(!retVal) {
         if (flag)
-            tags[0] = tags[0] | 0x00000800;
+            tags = tags | 0x00000800;
         else
-            tags[0] = tags[0] & 0x00000800;
-        retVal = CGSSetWindowTags(cid, wid, tags, 32);
+            tags = tags & 0x00000800;
+        retVal = CGSSetWindowTags(cid, wid, &tags, 32);
     }
 }
 

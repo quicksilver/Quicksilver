@@ -2,14 +2,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class QSSearchObjectView;
-@class QSActionMatrix;
+/* tiennou: Is this a duplicate of QSCommandInterfaceController ? */
 
-@class QSWindow;
-@class QSMenuButton;
-//@class QSPrefsController;
-@class QSObject, QSBasicObject;
-@class QSCommand;
 @interface QSInterfaceController : NSWindowController {
     IBOutlet QSSearchObjectView *		dSelector;
     IBOutlet QSSearchObjectView *		aSelector;

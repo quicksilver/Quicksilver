@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D8912E50D28288C006060ED /* QSController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D8912E30D28288C006060ED /* QSController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D8913230D282997006060ED /* QSApp.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D8913220D282997006060ED /* QSApp.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F17F1720C4F199D001ADE1A /* QSTitleToolbarItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F17F16E0C4F1983001ADE1A /* QSTitleToolbarItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F17F1730C4F199D001ADE1A /* QSTitleToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F17F16F0C4F1983001ADE1A /* QSTitleToolbarItem.m */; };
 		7F17F1740C4F199D001ADE1A /* QSCaseInsensitiveStringKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F17F0640C4F1795001ADE1A /* QSCaseInsensitiveStringKey.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -457,6 +459,8 @@
 		4D7095370D102871008498FD /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		4D7095400D102871008498FD /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		4D7095AB0D102EFE008498FD /* Developer.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Developer.xcconfig; path = ../Configuration/Developer.xcconfig; sourceTree = SOURCE_ROOT; };
+		4D8912E30D28288C006060ED /* QSController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSController.h; sourceTree = "<group>"; };
+		4D8913220D282997006060ED /* QSApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSApp.h; sourceTree = "<group>"; };
 		7F17F05B0C4F16F0001ADE1A /* NSApplication+ServicesModification.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NSApplication+ServicesModification.h"; sourceTree = "<group>"; };
 		7F17F05C0C4F16F0001ADE1A /* NSApplication+ServicesModification.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NSApplication+ServicesModification.m"; sourceTree = "<group>"; };
 		7F17F0600C4F172A001ADE1A /* DNDArrayController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DNDArrayController.h; sourceTree = "<group>"; };
@@ -466,7 +470,7 @@
 		7F17F16E0C4F1983001ADE1A /* QSTitleToolbarItem.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSTitleToolbarItem.h; sourceTree = "<group>"; };
 		7F17F16F0C4F1983001ADE1A /* QSTitleToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSTitleToolbarItem.m; sourceTree = "<group>"; };
 		7F350C4B0D15A4FB00B2B814 /* QSObject+QSIconLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QSObject+QSIconLoader.h"; sourceTree = "<group>"; };
-		7F350C4C0D15A4FB00B2B814 /* QSObject+QSIconLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "QSObject+QSIconLoader.m"; path = "Code/QSObject+QSIconLoader.m"; sourceTree = SOURCE_ROOT; };
+		7F350C4C0D15A4FB00B2B814 /* QSObject+QSIconLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "QSObject+QSIconLoader.m"; sourceTree = "<group>"; };
 		7F3EF7A30CF6105E007A043A /* NSImage+QuickLook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+QuickLook.h"; sourceTree = "<group>"; };
 		7F3EF7A40CF6105E007A043A /* NSImage+QuickLook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+QuickLook.m"; sourceTree = "<group>"; };
 		7F3EF7A50CF6105E007A043A /* README.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = README.rtf; sourceTree = "<group>"; };
@@ -989,159 +993,9 @@
 			path = ../Configuration;
 			sourceTree = SOURCE_ROOT;
 		};
-		7F3EF7A20CF6105E007A043A /* NSImageQuickLook */ = {
+		4DEF6A470D2A917800FDF605 /* Crucible */ = {
 			isa = PBXGroup;
 			children = (
-				7F3EF7A30CF6105E007A043A /* NSImage+QuickLook.h */,
-				7F3EF7A40CF6105E007A043A /* NSImage+QuickLook.m */,
-				7F3EF7A50CF6105E007A043A /* README.rtf */,
-			);
-			path = NSImageQuickLook;
-			sourceTree = "<group>";
-		};
-		7F69D8810CDE367E002B6B3E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7F69D8860CDE367E002B6B3E /* QSElements.framework */,
-				7F69D8880CDE367E002B6B3E /* Elements Manager.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		7F9A7DC20C4972A500B5912D /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				7F40B8480D1822E300BD12E2 /* ResizeWidget.png */,
-				7F40842C0D16C70E00E15BB0 /* ResourceLocations.plist */,
-				7F9A7DC30C4972A500B5912D /* DefaultBindings.qskeys */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		7F9A82530C49786A00B5912D /* External */ = {
-			isa = PBXGroup;
-			children = (
-				7F3EF7A90CF61068007A043A /* QLUIPrivate.h */,
-				7F3EF7A20CF6105E007A043A /* NSImageQuickLook */,
-				7F9A8C5F0C4983F900B5912D /* UKDirectoryEnumerator */,
-				7F9A8C3B0C4982F200B5912D /* NTLocalization */,
-				7F9A893B0C497D5C00B5912D /* ND */,
-				7F9A82540C49786A00B5912D /* CGSPrivate.h */,
-				7F9A82B90C49797C00B5912D /* CPSPrivate.h */,
-				7F9A82550C49786A00B5912D /* UKKQueue */,
-			);
-			path = External;
-			sourceTree = "<group>";
-		};
-		7F9A82550C49786A00B5912D /* UKKQueue */ = {
-			isa = PBXGroup;
-			children = (
-				7F9A82560C49786A00B5912D /* UKFileWatcher.h */,
-				7F9A82570C49786A00B5912D /* UKFileWatcher.m */,
-				7F9A82580C49786A00B5912D /* UKFNSubscribeFileWatcher.h */,
-				7F9A82590C49786A00B5912D /* UKFNSubscribeFileWatcher.m */,
-				7F9A825B0C49786A00B5912D /* UKKQueue.h */,
-				7F9A825C0C49786A00B5912D /* UKKQueue.m */,
-				7F9A825D0C49786A00B5912D /* UKMainThreadProxy.h */,
-				7F9A825E0C49786A00B5912D /* UKMainThreadProxy.m */,
-			);
-			path = UKKQueue;
-			sourceTree = "<group>";
-		};
-		7F9A874B0C497AEF00B5912D /* Code */ = {
-			isa = PBXGroup;
-			children = (
-				7F350C4B0D15A4FB00B2B814 /* QSObject+QSIconLoader.h */,
-				7F350C4C0D15A4FB00B2B814 /* QSObject+QSIconLoader.m */,
-				7F5D24220C49C44200812049 /* QSOutlineView.h */,
-				7F5D24210C49C44200812049 /* QSOutlineView.m */,
-				7F17F16E0C4F1983001ADE1A /* QSTitleToolbarItem.h */,
-				7F17F16F0C4F1983001ADE1A /* QSTitleToolbarItem.m */,
-				7F17F0640C4F1795001ADE1A /* QSCaseInsensitiveStringKey.h */,
-				7F17F0650C4F1795001ADE1A /* QSCaseInsensitiveStringKey.m */,
-				7F17F0600C4F172A001ADE1A /* DNDArrayController.h */,
-				7F17F0610C4F172A001ADE1A /* DNDArrayController.m */,
-				7F17F05B0C4F16F0001ADE1A /* NSApplication+ServicesModification.h */,
-				7F17F05C0C4F16F0001ADE1A /* NSApplication+ServicesModification.m */,
-				7F9A874C0C497AEF00B5912D /* BLTRResizeView.h */,
-				7F9A874D0C497AEF00B5912D /* BLTRResizeView.m */,
-				7F9A874E0C497AEF00B5912D /* CGSPrivate+QSMods.h */,
-				7F9A874F0C497AEF00B5912D /* InertButton.h */,
-				7F9A87500C497AEF00B5912D /* InertButton.m */,
-				7F9A87510C497AEF00B5912D /* NDAlias+QSMods.h */,
-				7F9A87520C497AEF00B5912D /* NDAlias+QSMods.m */,
-				7F9A87530C497AEF00B5912D /* NDProcess+QSMods.h */,
-				7F9A87540C497AEF00B5912D /* NDProcess+QSMods.m */,
-				7F9A87550C497AEF00B5912D /* NSAppleEventDescriptor_QSMods.h */,
-				7F9A87560C497AEF00B5912D /* NSAppleEventDescriptor_QSMods.m */,
-				7FE82E6A0C4A7FA400A321E0 /* NSAppleScript+QSSubroutineDiscovery.m */,
-				7FE82E6B0C4A7FA400A321E0 /* NSAppleEventDescriptor+QSTranslation.h */,
-				7FE82E6C0C4A7FA400A321E0 /* NSAppleEventDescriptor+QSTranslation.m */,
-				7FE82E6D0C4A7FA400A321E0 /* NSAppleScript+QSStorage.h */,
-				7FE82E6E0C4A7FA400A321E0 /* NSAppleScript+QSStorage.m */,
-				7FE82E6F0C4A7FA400A321E0 /* NSAppleScript+QSSubroutine.h */,
-				7FE82E700C4A7FA400A321E0 /* NSAppleScript+QSSubroutine.m */,
-				7FE82E710C4A7FA400A321E0 /* NSAppleScript+QSSubroutineDiscovery.h */,
-				7F9A87590C497AEF00B5912D /* NSApplication_BLTRExtensions.h */,
-				7F9A875A0C497AEF00B5912D /* NSApplication_BLTRExtensions.m */,
-				7F9A875B0C497AEF00B5912D /* NSArray_BLTRExtensions.h */,
-				7F9A875C0C497AEF00B5912D /* NSArray_BLTRExtensions.m */,
-				7F9A875D0C497AEF00B5912D /* NSBezierPath_BLTRExtensions.h */,
-				7F9A875E0C497AEF00B5912D /* NSBezierPath_BLTRExtensions.m */,
-				7F9A875F0C497AEF00B5912D /* NSBundle_BLTRExtensions.h */,
-				7F9A87600C497AEF00B5912D /* NSBundle_BLTRExtensions.m */,
-				7F9A87610C497AEF00B5912D /* NSColor_QSModifications.h */,
-				7F9A87620C497AEF00B5912D /* NSColor_QSModifications.m */,
-				7F9A87630C497AEF00B5912D /* NSCursor_InformExtensions.h */,
-				7F9A87640C497AEF00B5912D /* NSCursor_InformExtensions.m */,
-				7F9A87650C497AEF00B5912D /* NSData_RangeExtensions.h */,
-				7F9A87660C497AEF00B5912D /* NSData_RangeExtensions.m */,
-				7F9A87670C497AEF00B5912D /* NSDictionary+BLTRExtensions.h */,
-				7F9A87680C497AEF00B5912D /* NSDictionary+BLTRExtensions.m */,
-				7F9A87690C497AEF00B5912D /* NSEvent+BLTRExtensions.h */,
-				7F9A876A0C497AEF00B5912D /* NSEvent+BLTRExtensions.m */,
-				7F9A876B0C497AEF00B5912D /* NSException_TraceExtensions.h */,
-				7F9A876C0C497AEF00B5912D /* NSException_TraceExtensions.m */,
-				7F9A876D0C497AEF00B5912D /* NSFileManager_BLTRExtensions.h */,
-				7F9A876E0C497AEF00B5912D /* NSFileManager_BLTRExtensions.m */,
-				7F9A876F0C497AEF00B5912D /* NSGeometry_BLTRExtensions.h */,
-				7F9A87700C497AEF00B5912D /* NSGeometry_BLTRExtensions.m */,
-				7F9A87710C497AEF00B5912D /* NSImage_BLTRExtensions.h */,
-				7F9A87720C497AEF00B5912D /* NSImage_BLTRExtensions.m */,
-				7F9A87730C497AEF00B5912D /* NSIndexSet+Extensions.h */,
-				7F9A87740C497AEF00B5912D /* NSIndexSet+Extensions.m */,
-				7F9A87750C497AEF00B5912D /* NSMetadataItem+BLTRExtensions.h */,
-				7F9A87760C497AEF00B5912D /* NSMetadataItem+BLTRExtensions.m */,
-				7F9A87770C497AEF00B5912D /* NSObject+BLTRExtensions.h */,
-				7F9A87780C497AEF00B5912D /* NSObject+BLTRExtensions.m */,
-				7F9A87790C497AEF00B5912D /* NSObject+ReaperExtensions.h */,
-				7F9A877A0C497AEF00B5912D /* NSObject+ReaperExtensions.m */,
-				7F9A877B0C497AEF00B5912D /* NSPasteboard_BLTRExtensions.h */,
-				7F9A877C0C497AEF00B5912D /* NSPasteboard_BLTRExtensions.m */,
-				7F9A877D0C497AEF00B5912D /* NSScreen_BLTRExtensions.h */,
-				7F9A877E0C497AEF00B5912D /* NSScreen_BLTRExtensions.m */,
-				7F9A877F0C497AEF00B5912D /* NSSortDescriptor+BLTRExtensions.h */,
-				7F9A87800C497AEF00B5912D /* NSSortDescriptor+BLTRExtensions.m */,
-				7F9A87810C497AEF00B5912D /* NSStatusItem_BLTRExtensions.h */,
-				7F9A87820C497AEF00B5912D /* NSStatusItem_BLTRExtensions.m */,
-				7F9A87830C497AEF00B5912D /* NSString_BLTRExtensions.h */,
-				7F9A87840C497AEF00B5912D /* NSString_BLTRExtensions.m */,
-				7F9A87850C497AEF00B5912D /* NSString_Purification.h */,
-				7F9A87860C497AEF00B5912D /* NSString_Purification.m */,
-				7F9A87870C497AEF00B5912D /* NSTableView_BLTRExtensions.h */,
-				7F9A87880C497AEF00B5912D /* NSTableView_BLTRExtensions.m */,
-				7F9A87890C497AEF00B5912D /* NSTask+BLTRExtensions.h */,
-				7F9A878A0C497AEF00B5912D /* NSTask+BLTRExtensions.m */,
-				7F9A878B0C497AEF00B5912D /* NSURL_BLTRExtensions.h */,
-				7F9A878C0C497AEF00B5912D /* NSURL_BLTRExtensions.m */,
-				7F9A878D0C497AEF00B5912D /* NSUserDefaults_BLTRExtensions.h */,
-				7F9A878E0C497AEF00B5912D /* NSUserDefaults_BLTRExtensions.m */,
-				7F9A878F0C497AEF00B5912D /* NSView_BLTRExtensions.h */,
-				7F9A87900C497AEF00B5912D /* NSView_BLTRExtensions.m */,
-				7F9A87910C497AEF00B5912D /* NSWindow_BLTRExtensions.h */,
-				7F9A87920C497AEF00B5912D /* NSWindow_BLTRExtensions.m */,
-				7F9A87930C497AEF00B5912D /* NSWorkspace_BLTRExtensions.h */,
-				7F9A87940C497AEF00B5912D /* NSWorkspace_BLTRExtensions.m */,
 				7F9A87950C497AEF00B5912D /* QLPrivate.h */,
 				7F9A87960C497AEF00B5912D /* QSAccessibility.h */,
 				7F9A87970C497AEF00B5912D /* QSAccessibility.m */,
@@ -1395,6 +1249,174 @@
 				7F9A88970C497AF100B5912D /* QSWindowAnimation.m */,
 				7F9A88980C497AF100B5912D /* QSWorkspaceMediatior.h */,
 				7F9A88990C497AF100B5912D /* QSWorkspaceMediatior.m */,
+				4D8912E30D28288C006060ED /* QSController.h */,
+				4D8913220D282997006060ED /* QSApp.h */,
+				7F350C4B0D15A4FB00B2B814 /* QSObject+QSIconLoader.h */,
+				7F350C4C0D15A4FB00B2B814 /* QSObject+QSIconLoader.m */,
+				7F5D24220C49C44200812049 /* QSOutlineView.h */,
+				7F5D24210C49C44200812049 /* QSOutlineView.m */,
+				7F17F16E0C4F1983001ADE1A /* QSTitleToolbarItem.h */,
+				7F17F16F0C4F1983001ADE1A /* QSTitleToolbarItem.m */,
+				7F17F0640C4F1795001ADE1A /* QSCaseInsensitiveStringKey.h */,
+				7F17F0650C4F1795001ADE1A /* QSCaseInsensitiveStringKey.m */,
+			);
+			name = Crucible;
+			sourceTree = "<group>";
+		};
+		4DEF6A480D2A917F00FDF605 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				7F17F0600C4F172A001ADE1A /* DNDArrayController.h */,
+				7F17F0610C4F172A001ADE1A /* DNDArrayController.m */,
+				7F17F05B0C4F16F0001ADE1A /* NSApplication+ServicesModification.h */,
+				7F17F05C0C4F16F0001ADE1A /* NSApplication+ServicesModification.m */,
+				7F9A874C0C497AEF00B5912D /* BLTRResizeView.h */,
+				7F9A874D0C497AEF00B5912D /* BLTRResizeView.m */,
+				7F9A874E0C497AEF00B5912D /* CGSPrivate+QSMods.h */,
+				7F9A874F0C497AEF00B5912D /* InertButton.h */,
+				7F9A87500C497AEF00B5912D /* InertButton.m */,
+				7F9A87510C497AEF00B5912D /* NDAlias+QSMods.h */,
+				7F9A87520C497AEF00B5912D /* NDAlias+QSMods.m */,
+				7F9A87530C497AEF00B5912D /* NDProcess+QSMods.h */,
+				7F9A87540C497AEF00B5912D /* NDProcess+QSMods.m */,
+				7F9A87550C497AEF00B5912D /* NSAppleEventDescriptor_QSMods.h */,
+				7F9A87560C497AEF00B5912D /* NSAppleEventDescriptor_QSMods.m */,
+				7FE82E6A0C4A7FA400A321E0 /* NSAppleScript+QSSubroutineDiscovery.m */,
+				7FE82E6B0C4A7FA400A321E0 /* NSAppleEventDescriptor+QSTranslation.h */,
+				7FE82E6C0C4A7FA400A321E0 /* NSAppleEventDescriptor+QSTranslation.m */,
+				7FE82E6D0C4A7FA400A321E0 /* NSAppleScript+QSStorage.h */,
+				7FE82E6E0C4A7FA400A321E0 /* NSAppleScript+QSStorage.m */,
+				7FE82E6F0C4A7FA400A321E0 /* NSAppleScript+QSSubroutine.h */,
+				7FE82E700C4A7FA400A321E0 /* NSAppleScript+QSSubroutine.m */,
+				7FE82E710C4A7FA400A321E0 /* NSAppleScript+QSSubroutineDiscovery.h */,
+				7F9A87590C497AEF00B5912D /* NSApplication_BLTRExtensions.h */,
+				7F9A875A0C497AEF00B5912D /* NSApplication_BLTRExtensions.m */,
+				7F9A875B0C497AEF00B5912D /* NSArray_BLTRExtensions.h */,
+				7F9A875C0C497AEF00B5912D /* NSArray_BLTRExtensions.m */,
+				7F9A875D0C497AEF00B5912D /* NSBezierPath_BLTRExtensions.h */,
+				7F9A875E0C497AEF00B5912D /* NSBezierPath_BLTRExtensions.m */,
+				7F9A875F0C497AEF00B5912D /* NSBundle_BLTRExtensions.h */,
+				7F9A87600C497AEF00B5912D /* NSBundle_BLTRExtensions.m */,
+				7F9A87610C497AEF00B5912D /* NSColor_QSModifications.h */,
+				7F9A87620C497AEF00B5912D /* NSColor_QSModifications.m */,
+				7F9A87630C497AEF00B5912D /* NSCursor_InformExtensions.h */,
+				7F9A87640C497AEF00B5912D /* NSCursor_InformExtensions.m */,
+				7F9A87650C497AEF00B5912D /* NSData_RangeExtensions.h */,
+				7F9A87660C497AEF00B5912D /* NSData_RangeExtensions.m */,
+				7F9A87670C497AEF00B5912D /* NSDictionary+BLTRExtensions.h */,
+				7F9A87680C497AEF00B5912D /* NSDictionary+BLTRExtensions.m */,
+				7F9A87690C497AEF00B5912D /* NSEvent+BLTRExtensions.h */,
+				7F9A876A0C497AEF00B5912D /* NSEvent+BLTRExtensions.m */,
+				7F9A876B0C497AEF00B5912D /* NSException_TraceExtensions.h */,
+				7F9A876C0C497AEF00B5912D /* NSException_TraceExtensions.m */,
+				7F9A876D0C497AEF00B5912D /* NSFileManager_BLTRExtensions.h */,
+				7F9A876E0C497AEF00B5912D /* NSFileManager_BLTRExtensions.m */,
+				7F9A876F0C497AEF00B5912D /* NSGeometry_BLTRExtensions.h */,
+				7F9A87700C497AEF00B5912D /* NSGeometry_BLTRExtensions.m */,
+				7F9A87710C497AEF00B5912D /* NSImage_BLTRExtensions.h */,
+				7F9A87720C497AEF00B5912D /* NSImage_BLTRExtensions.m */,
+				7F9A87730C497AEF00B5912D /* NSIndexSet+Extensions.h */,
+				7F9A87740C497AEF00B5912D /* NSIndexSet+Extensions.m */,
+				7F9A87750C497AEF00B5912D /* NSMetadataItem+BLTRExtensions.h */,
+				7F9A87760C497AEF00B5912D /* NSMetadataItem+BLTRExtensions.m */,
+				7F9A87770C497AEF00B5912D /* NSObject+BLTRExtensions.h */,
+				7F9A87780C497AEF00B5912D /* NSObject+BLTRExtensions.m */,
+				7F9A87790C497AEF00B5912D /* NSObject+ReaperExtensions.h */,
+				7F9A877A0C497AEF00B5912D /* NSObject+ReaperExtensions.m */,
+				7F9A877B0C497AEF00B5912D /* NSPasteboard_BLTRExtensions.h */,
+				7F9A877C0C497AEF00B5912D /* NSPasteboard_BLTRExtensions.m */,
+				7F9A877D0C497AEF00B5912D /* NSScreen_BLTRExtensions.h */,
+				7F9A877E0C497AEF00B5912D /* NSScreen_BLTRExtensions.m */,
+				7F9A877F0C497AEF00B5912D /* NSSortDescriptor+BLTRExtensions.h */,
+				7F9A87800C497AEF00B5912D /* NSSortDescriptor+BLTRExtensions.m */,
+				7F9A87810C497AEF00B5912D /* NSStatusItem_BLTRExtensions.h */,
+				7F9A87820C497AEF00B5912D /* NSStatusItem_BLTRExtensions.m */,
+				7F9A87830C497AEF00B5912D /* NSString_BLTRExtensions.h */,
+				7F9A87840C497AEF00B5912D /* NSString_BLTRExtensions.m */,
+				7F9A87850C497AEF00B5912D /* NSString_Purification.h */,
+				7F9A87860C497AEF00B5912D /* NSString_Purification.m */,
+				7F9A87870C497AEF00B5912D /* NSTableView_BLTRExtensions.h */,
+				7F9A87880C497AEF00B5912D /* NSTableView_BLTRExtensions.m */,
+				7F9A87890C497AEF00B5912D /* NSTask+BLTRExtensions.h */,
+				7F9A878A0C497AEF00B5912D /* NSTask+BLTRExtensions.m */,
+				7F9A878B0C497AEF00B5912D /* NSURL_BLTRExtensions.h */,
+				7F9A878C0C497AEF00B5912D /* NSURL_BLTRExtensions.m */,
+				7F9A878D0C497AEF00B5912D /* NSUserDefaults_BLTRExtensions.h */,
+				7F9A878E0C497AEF00B5912D /* NSUserDefaults_BLTRExtensions.m */,
+				7F9A878F0C497AEF00B5912D /* NSView_BLTRExtensions.h */,
+				7F9A87900C497AEF00B5912D /* NSView_BLTRExtensions.m */,
+				7F9A87910C497AEF00B5912D /* NSWindow_BLTRExtensions.h */,
+				7F9A87920C497AEF00B5912D /* NSWindow_BLTRExtensions.m */,
+				7F9A87930C497AEF00B5912D /* NSWorkspace_BLTRExtensions.h */,
+				7F9A87940C497AEF00B5912D /* NSWorkspace_BLTRExtensions.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		7F3EF7A20CF6105E007A043A /* NSImageQuickLook */ = {
+			isa = PBXGroup;
+			children = (
+				7F3EF7A30CF6105E007A043A /* NSImage+QuickLook.h */,
+				7F3EF7A40CF6105E007A043A /* NSImage+QuickLook.m */,
+				7F3EF7A50CF6105E007A043A /* README.rtf */,
+			);
+			path = NSImageQuickLook;
+			sourceTree = "<group>";
+		};
+		7F69D8810CDE367E002B6B3E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7F69D8860CDE367E002B6B3E /* QSElements.framework */,
+				7F69D8880CDE367E002B6B3E /* Elements Manager.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7F9A7DC20C4972A500B5912D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7F40B8480D1822E300BD12E2 /* ResizeWidget.png */,
+				7F40842C0D16C70E00E15BB0 /* ResourceLocations.plist */,
+				7F9A7DC30C4972A500B5912D /* DefaultBindings.qskeys */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		7F9A82530C49786A00B5912D /* External */ = {
+			isa = PBXGroup;
+			children = (
+				7F3EF7A90CF61068007A043A /* QLUIPrivate.h */,
+				7F3EF7A20CF6105E007A043A /* NSImageQuickLook */,
+				7F9A8C5F0C4983F900B5912D /* UKDirectoryEnumerator */,
+				7F9A8C3B0C4982F200B5912D /* NTLocalization */,
+				7F9A893B0C497D5C00B5912D /* ND */,
+				7F9A82540C49786A00B5912D /* CGSPrivate.h */,
+				7F9A82B90C49797C00B5912D /* CPSPrivate.h */,
+				7F9A82550C49786A00B5912D /* UKKQueue */,
+			);
+			path = External;
+			sourceTree = "<group>";
+		};
+		7F9A82550C49786A00B5912D /* UKKQueue */ = {
+			isa = PBXGroup;
+			children = (
+				7F9A82560C49786A00B5912D /* UKFileWatcher.h */,
+				7F9A82570C49786A00B5912D /* UKFileWatcher.m */,
+				7F9A82580C49786A00B5912D /* UKFNSubscribeFileWatcher.h */,
+				7F9A82590C49786A00B5912D /* UKFNSubscribeFileWatcher.m */,
+				7F9A825B0C49786A00B5912D /* UKKQueue.h */,
+				7F9A825C0C49786A00B5912D /* UKKQueue.m */,
+				7F9A825D0C49786A00B5912D /* UKMainThreadProxy.h */,
+				7F9A825E0C49786A00B5912D /* UKMainThreadProxy.m */,
+			);
+			path = UKKQueue;
+			sourceTree = "<group>";
+		};
+		7F9A874B0C497AEF00B5912D /* Code */ = {
+			isa = PBXGroup;
+			children = (
+				4DEF6A480D2A917F00FDF605 /* Categories */,
+				4DEF6A470D2A917800FDF605 /* Crucible */,
 			);
 			path = Code;
 			sourceTree = "<group>";
@@ -1682,6 +1704,8 @@
 				7FC847040D1598FF005E1C6B /* NSApplication+ServicesModification.h in Headers */,
 				7FC847050D15990B005E1C6B /* DNDArrayController.h in Headers */,
 				7F350C4D0D15A4FB00B2B814 /* QSObject+QSIconLoader.h in Headers */,
+				4D8912E50D28288C006060ED /* QSController.h in Headers */,
+				4D8913230D282997006060ED /* QSApp.h in Headers */,
 				7FDE8CBB0D28A299004C6AB1 /* QSImageTextDetailCell.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,4 +1,4 @@
-#import "QSPreferenceKeys.h"
+/*#import "QSPreferenceKeys.h"
 #import "QSInterfaceController.h"
 //#import "QSAppWindowController.h"
 #import "QSHistoryController.h"
@@ -37,7 +37,7 @@
 #import <ApplicationServices/ApplicationServices.h>
 
 #import "QSTextProxy.h"
-#import "QSMenuButton.h"
+#import "QSMenuButton.h"*/
 
 #define KeyShift                0x38
 #define KeyControl              0x3b
@@ -54,7 +54,7 @@ int IsKeyPressed(unsigned short key)
 {
     unsigned char km[16];
     
-    GetKeys((unsigned long *)km);
+    GetKeys((unsigned long*)km);
     return ((km[key >> 3] >> (key & 7) ) & 1) ? 1 : 0;
 }
 
@@ -140,8 +140,8 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
 	//[self hideIndirectSelector:nil];
 	
 	[[self window] setHidesOnDeactivate:NO];
-#warning Make QSController Protocol ?
-    [[self menuButton] setMenu:[/*(QSController *)*/[NSApp delegate] statusMenuWithQuit]];
+    
+    [[self menuButton] setMenu:[[NSApp delegate] statusMenuWithQuit]];
     
 	QSObjectCell *attachmentCell = [[QSObjectCell alloc] initTextCell:@""];
     [attachmentCell setRepresentedObject:[QSObject fileObjectWithPath:@"/Volumes/Lore/"]];
@@ -265,7 +265,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
     [control selectObject:defaultSelection];
 }
 
-- (NSMutableArray *)rankedActions {
+- (NSArray *)rankedActions {
 	return [QSExec rankedActionsForDirectObject:[dSelector objectValue] indirectObject:[iSelector objectValue]];
 }
 - (void)updateActionsNow {

@@ -37,7 +37,7 @@
 }
 
 - (BOOL)isHiddenFile:(NSString *)path{
-  	NSRange slashRange=[path rangeOfString:@"/" options:nil range:NSMakeRange(1,[path length]-1)];
+  	NSRange slashRange=[path rangeOfString:@"/" options:0 range:NSMakeRange(1,[path length]-1)];
 	if (slashRange.location==NSNotFound || NSMaxRange(slashRange) == [path length]){
 		// if ([[path stringByDeletingLastPathComponent] isEqualToString:@"/"]){
 		QSLog(@"hidden?");
@@ -255,8 +255,8 @@ NSString *QSUTIWithLSInfoRec(NSString *path,LSItemInfoRecord *infoRec){
     if (FSResolveAliasFileWithMountFlags(&aliasRef, true, &targetIsFolder, &wasAliased,kResolveAliasFileNoUI) != noErr)
         return nil;
     
-    if (url = (NSURL *) CFURLCreateFromFSRef(kCFAllocatorDefault, &aliasRef)){
-        outString=[url path];
+    if ((url = (NSURL *) CFURLCreateFromFSRef(kCFAllocatorDefault, &aliasRef))) {
+        outString = [url path];
         CFRelease(url);
         return outString;
     }
@@ -279,8 +279,8 @@ NSString *QSUTIWithLSInfoRec(NSString *path,LSItemInfoRecord *infoRec){
     if (FSResolveAliasFileWithMountFlags(&aliasRef, true, &targetIsFolder, &wasAliased,0) != noErr)
         return nil;
     
-    if (url = (NSURL *) CFURLCreateFromFSRef(kCFAllocatorDefault, &aliasRef)){
-        outString=[url path];
+    if ((url = (NSURL *) CFURLCreateFromFSRef(kCFAllocatorDefault, &aliasRef))) {
+        outString = [url path];
         CFRelease(url);
         return outString;
     }

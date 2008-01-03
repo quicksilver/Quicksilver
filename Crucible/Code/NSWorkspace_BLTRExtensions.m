@@ -157,10 +157,11 @@ void cycleDock(){
 - (void)switchToApplication:(NSDictionary *)theApp frontWindowOnly:(BOOL)frontOnly{
     ProcessSerialNumber psn;
     if ([self PSN:&psn forApplication:theApp])
-        SetFrontProcessWithOptions (&psn,frontOnly?kSetFrontProcessFrontWindowOnly:nil);
+        SetFrontProcessWithOptions (&psn, (frontOnly ? kSetFrontProcessFrontWindowOnly : 0) );
     else
         [self activateApplication:theApp];
 }
+
 - (void)activateFrontWindowOfApplication:(NSDictionary *)theApp{
     ProcessSerialNumber psn;
     if ([self PSN:&psn forApplication:theApp])

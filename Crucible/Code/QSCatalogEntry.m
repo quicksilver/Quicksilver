@@ -244,7 +244,7 @@ NSDictionary *enabledPresetDictionary;
 	if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) { 
 		NSArray *deepChildren = [self deepChildrenWithGroups:YES leaves:YES disabled:YES];
 		foreach(child, deepChildren)
-			[child setEnabled:enabled];
+			[(QSCatalogEntry*)child setEnabled:enabled];
 		
 	}
 }
@@ -288,14 +288,13 @@ NSDictionary *enabledPresetDictionary;
 
 - (NSArray *)leafEntries {
 	//QSLog(@"deep %@", self);
-	
-	
 	return [self deepChildrenWithGroups:NO leaves:YES disabled:NO];
 }
 
 - (NSMutableDictionary *)info {
 	return info;
 }
+
 - (NSArray *)deepChildrenWithGroups:(BOOL)groups leaves:(BOOL)leaves disabled:(BOOL)disabled {
 	//	if (!self) self = catalog;
 	
@@ -310,8 +309,6 @@ NSDictionary *enabledPresetDictionary;
 			[childObjects addObjectsFromArray:[child deepChildrenWithGroups:groups leaves:leaves disabled:disabled]];
 		}
 		//	QSLog(@"deep %@ %d", self, [childObjects count]);
-		
-		
 		return childObjects;
 	} else if (leaves) {
 		return [NSArray arrayWithObject:self];
@@ -346,6 +343,7 @@ NSDictionary *enabledPresetDictionary;
 	
 	return p;
 }
+
 - (NSIndexPath *)catalogSetIndexPath {
 	
 	NSArray *anc = [self ancestors];
@@ -387,11 +385,12 @@ NSDictionary *enabledPresetDictionary;
 	}
 	//		QSLog(@"anc %@", entryChain); 	
 	return entryChain;
-	return nil;
 }
+
 - (NSComparisonResult) compare:(QSCatalogEntry *)other {
 	return [[self name] compare:[other name]]; 	
 }
+
 - (NSString *)name {
 	NSString *ID = [self identifier];
 	if (!name)
@@ -407,16 +406,22 @@ NSDictionary *enabledPresetDictionary;
 	
 	return name;
 }
+
 - (void)setName:(NSString *)newName {
 	[info setObject:newName forKey:kItemName];
 	name = newName;
 }
+
 - (id)imageAndText {return self;}
-- (id)this {return [[self retain] autorelease];}
+
 - (void)setImageAndText:(id)object {[self setName:object];}
+
+- (id)this {return [[self retain] autorelease];}
+
 - (NSImage *)image {
 	return [self icon];
 }
+
 - (NSString *)text {
 	return [self name]; 	
 }
@@ -435,20 +440,22 @@ NSDictionary *enabledPresetDictionary;
 	return image;
 }
 
-- (NSString *)getCount {
-	int num = [self count];
-	if (!num) return nil;
-	return [NSString stringWithFormat:@"%d", num];
-}
 - (int) count {
 	return [self deepObjectCount]; 	
 }
+
 - (int) deepObjectCount {
 	NSArray *leaves = [self deepChildrenWithGroups:NO leaves:YES disabled:NO];
-	int i, count = 0;
+	int count = 0;
 	for (id loopItem in leaves)
 		count += [[loopItem contents] count];
 	return count;
+}
+
+- (NSString *)countString {
+	int num = [self count];
+	if (!num) return nil;
+	return [NSString stringWithFormat:@"%d", num];
 }
 
 - (NSString *)indexLocation {
@@ -489,8 +496,30 @@ NSDictionary *enabledPresetDictionary;
 		return YES;
 }
 
-
-
+- (void)writeContentsToCache {
+    NSString *path = nil;
+    
+    for (QSObject *item in [self contents]) {
+        if ([item isKindOfClass:NSClassFromString(@"QSProxyObject")]) continue; // Don't write proxies
+        if ([item singleFilePath]) continue; // Don't write real files
+        
+        if (!path) {
+            path = [pIndexLocation stringByDeletingLastPathComponent];
+            path = [path stringByAppendingPathComponent:@"Contents"];
+            
+            path = [path stringByStandardizingPath];
+            path = [path stringByAppendingPathComponent:[self identifier]]; 	
+            [[NSFileManager defaultManager] createDirectoriesForPath:path];
+        }
+        
+        NSString *thisName = [item.name stringByAppendingPathExtension:@"qs"];
+        
+        thisName = [thisName stringByReplacing:@"/" with:@"_"];
+        thisName = [thisName stringByReplacing:@":" with:@"_"];
+        NSString *thisPath = [path stringByAppendingPathComponent:thisName];
+        [item writeToFile:thisPath];
+    }
+}
 
 - (void)saveIndex {
 	if (DEBUG_CATALOG) QSLog(@"saving index for %@", self);
@@ -569,32 +598,6 @@ NSDictionary *enabledPresetDictionary;
 - (BOOL)canBeIndexed {
 	QSObjectSource *source = [self source];
 	return ![source respondsToSelector:@selector(entryCanBeIndexed:)] || [source entryCanBeIndexed:[self info]];
-}
-
-
-- (void)writeContentsToCache {
-  NSString *path = nil;
-  
-  for (QSObject *item in [self contents]) {
-    if ([item isKindOfClass:NSClassFromString(@"QSProxyObject")]) continue; // Don't write proxies
-    if ([item singleFilePath]) continue; // Don't write real files
-      
-    if (!path) {
-      path = [pIndexLocation stringByDeletingLastPathComponent];
-      path = [path stringByAppendingPathComponent:@"Contents"];
-      
-      path = [path stringByStandardizingPath];
-      path = [path stringByAppendingPathComponent:[self identifier]]; 	
-      [[NSFileManager defaultManager] createDirectoriesForPath:path];
-    }
-    
-    NSString *thisName = [item.name stringByAppendingPathExtension:@"qs"];
-  
-    thisName = [thisName stringByReplacing:@"/" with:@"_"];
-    thisName = [thisName stringByReplacing:@":" with:@"_"];
-    NSString *thisPath = [path stringByAppendingPathComponent:thisName];
-    [item writeToFile:thisPath];
-  }
 }
 
 - (void)updateItemContents {

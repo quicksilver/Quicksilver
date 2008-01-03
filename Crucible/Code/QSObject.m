@@ -26,8 +26,8 @@
 
 
 #import "NSString_Purification.h"
-#warning Make QSController Protocol ?
-static id /*QSController*/ *controller;
+
+static id *controller;
 static NSMutableDictionary *objectDictionary;
 
 static NSMutableSet *iconLoadedSet;
@@ -889,15 +889,15 @@ return data;  }
 - (void)writeToFile:(NSString *)path {
   
   
-  NSString *uti = [UTTypeCreatePreferredIdentifierForTag(kUTTagClassNSPboardType,
-                                                         [self primaryType] ,
+  NSString *uti = [(NSString*)UTTypeCreatePreferredIdentifierForTag(kUTTagClassNSPboardType,
+                                                         (CFStringRef)[self primaryType] ,
                                                          NULL) autorelease];
   
   if (uti) [meta setObject:uti forKey:(NSString *)kMDItemContentType];
   if (uti) [meta setObject:uti forKey:(NSString *)kMDItemCopyright];
   
   
-  NSDictionary *dictionary = [NSMutableDictionary dictionary];
+  NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
   [dictionary setObject:data forKey:kData];
   [dictionary setObject:meta forKey:kMeta];
   

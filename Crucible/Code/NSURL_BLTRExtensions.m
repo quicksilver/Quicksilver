@@ -51,16 +51,16 @@ NSString *QSPasswordForHostUserType(NSString *host,NSString *user,SecProtocolTyp
 	UInt32 			length = 0;
 	OSErr			err;
 	
-	if (err=SecKeychainFindInternetPassword(NULL,
-											[host length], [host UTF8String],
-											0, NULL,
-											[user length], [user UTF8String],
-											0, NULL,
-											0,
-											type,
-											0,
-											&length, (void**)&buffer,
-											NULL));
+	if ((err = SecKeychainFindInternetPassword(NULL,
+                                               [host length], [host UTF8String],
+                                               0, NULL,
+                                               [user length], [user UTF8String],
+                                               0, NULL,
+                                               0,
+                                               type,
+                                               0,
+                                               &length, (void**)&buffer,
+                                               NULL)));
 	
 	if (err==noErr){
 		NSString *password = [[[NSString alloc] initWithCString:buffer length:length] autorelease];
@@ -92,23 +92,22 @@ NSString *QSPasswordForHostUserType(NSString *host,NSString *user,SecProtocolTyp
 	
 	SecKeychainItemRef existing=NULL;
 		
-	if (err=SecKeychainFindInternetPassword(NULL,
-											[host length], [host UTF8String],
-											0, NULL,
-											[user length], [user UTF8String],
-											0, NULL,
-											0,
-											type,
-											0,
-											NULL,NULL,
-											&existing));
+	if ((err = SecKeychainFindInternetPassword(NULL,
+                                               [host length], [host UTF8String],
+                                               0, NULL,
+                                               [user length], [user UTF8String],
+                                               0, NULL,
+                                               0,
+                                               type,
+                                               0,
+                                               NULL,NULL,
+                                               &existing)));
 	//if (err) return err;
 	
-	if (!err){
+	if (!err) {
 		err = SecKeychainItemModifyContent(existing, NULL, [pass length], [pass UTF8String]);
 			CFRelease(existing);
-	}
-	else {
+	} else {
 		err=SecKeychainAddInternetPassword(NULL,
 										   [host length], [host UTF8String],
 										   0, NULL,
@@ -118,7 +117,8 @@ NSString *QSPasswordForHostUserType(NSString *host,NSString *user,SecProtocolTyp
 										   type,
 										   0,
 										   [pass length], [pass UTF8String],
-										   NULL);}
+										   NULL);
+    }
 	
 	
 	
