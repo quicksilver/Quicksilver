@@ -2,7 +2,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface QSTriggerAgentController : NSObject
-{
+@interface QSTriggerAgentController : NSObject {
 }
+
 @end

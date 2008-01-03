@@ -27,6 +27,10 @@
 		4D508B230D1348D900A9B360 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		4D508B3D0D134B7D00A9B360 /* QSElements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D508AFC0D1347BA00A9B360 /* QSElements.framework */; };
 		4D508B3E0D134B8000A9B360 /* QSCrucible.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D508B1F0D1348BD00A9B360 /* QSCrucible.framework */; };
+		4DBC09900D2736F60082136B /* Catalyst Agent.app in Resources */ = {isa = PBXBuildFile; fileRef = 3357A1C60BB8CCB000DECE19 /* Catalyst Agent.app */; };
+		4DBC0A160D2748660082136B /* QSElements.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4D508AFC0D1347BA00A9B360 /* QSElements.framework */; };
+		4DBDECC20D27DE11007BCC7A /* QSCrucible.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4D508B1F0D1348BD00A9B360 /* QSCrucible.framework */; };
+		4DC97A200D2AA9F3007D8887 /* Catalyst.prefPane in Install Preference Pane */ = {isa = PBXBuildFile; fileRef = 8D202CF80486D31800D8A456 /* Catalyst.prefPane */; };
 		7F8D391F0BF0B9EE008935FA /* QSTrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3357A1E40BB8CFDD00DECE19 /* QSTrigger.m */; };
 		7F8D39200BF0B9EF008935FA /* QSTriggerCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 3357A1E60BB8CFDD00DECE19 /* QSTriggerCenter.m */; };
 		7F8D39210BF0B9F1008935FA /* QSTriggerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3357A1E80BB8CFDD00DECE19 /* QSTriggerManager.m */; };
@@ -41,24 +45,85 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 4D508AF60D1347BA00A9B360 /* Elements.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8DC2EF5B0486A6940098B216 /* QSElements.framework */;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
 			remoteInfo = QSElements;
 		};
 		4D508AFD0D1347BA00A9B360 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4D508AF60D1347BA00A9B360 /* Elements.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 7FD829920B670EBD001934E0 /* Elements Manager.app */;
+			remoteGlobalIDString = 7FD829920B670EBD001934E0;
 			remoteInfo = "Elements Manager";
 		};
 		4D508B1E0D1348BD00A9B360 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4D508B1A0D1348BD00A9B360 /* Crucible.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8DC2EF5B0486A6940098B216 /* QSCrucible.framework */;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = QSCrucible;
+		};
+		4DBC098E0D2736F00082136B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3357A1C50BB8CCB000DECE19;
+			remoteInfo = "Catalyst Agent";
+		};
+		4DBC09D40D273F910082136B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D508AF60D1347BA00A9B360 /* Elements.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = QSElements;
+		};
+		4DBC09D60D273F990082136B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D508AF60D1347BA00A9B360 /* Elements.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = QSElements;
+		};
+		4DBDECB80D27DDEA007BCC7A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D508B1A0D1348BD00A9B360 /* Crucible.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = QSCrucible;
+		};
+		4DBDECBA0D27DDFB007BCC7A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D508B1A0D1348BD00A9B360 /* Crucible.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = QSCrucible;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4DBC0A260D27486B0082136B /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4DBDECC20D27DE11007BCC7A /* QSCrucible.framework in Copy Frameworks */,
+				4DBC0A160D2748660082136B /* QSElements.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4DC97A2A0D2AAA0D007D8887 /* Install Preference Pane */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "${HOME}/Library/PreferencePanes";
+			dstSubfolderSpec = 0;
+			files = (
+				4DC97A200D2AA9F3007D8887 /* Catalyst.prefPane in Install Preference Pane */,
+			);
+			name = "Install Preference Pane";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -81,7 +146,7 @@
 		3357A1F50BB8CFDD00DECE19 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
 		3357A1F60BB8CFDD00DECE19 /* QSTriggersPrefPane.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSTriggersPrefPane.h; sourceTree = "<group>"; };
 		3357A1F70BB8CFDD00DECE19 /* QSTriggersPrefPane.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSTriggersPrefPane.m; sourceTree = "<group>"; };
-		3357A1F90BB8CFDD00DECE19 /* Catalyst.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Catalyst.icns; sourceTree = "<group>"; };
+		3357A1F90BB8CFDD00DECE19 /* Catalyst.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Catalyst.icns; path = ../Resources/Catalyst.icns; sourceTree = "<group>"; };
 		3357A20D0BB8D01700DECE19 /* English */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = English; path = InfoPlist.strings; sourceTree = "<group>"; };
 		3357A20F0BB8D01700DECE19 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = MainMenu.nib; sourceTree = "<group>"; };
 		3357A2100BB8D01700DECE19 /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -91,15 +156,13 @@
 		4D508B010D1347C200A9B360 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		4D508B020D1347C200A9B360 /* Developer.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Developer.xcconfig; path = "/Volumes/myHD/Sources/Utilities/blacktree-alchemy-trunk/Configuration/Developer.xcconfig"; sourceTree = "<absolute>"; };
 		4D508B030D1347C200A9B360 /* QSElement.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSElement.xcconfig; sourceTree = "<group>"; };
-		4D508B040D1347C200A9B360 /* QSElement_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSElement_Debug.xcconfig; sourceTree = "<group>"; };
 		4D508B050D1347C200A9B360 /* QSElement_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSElement_Prefix.pch; sourceTree = "<group>"; };
-		4D508B060D1347C200A9B360 /* QSElement_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSElement_Release.xcconfig; sourceTree = "<group>"; };
 		4D508B070D1347C200A9B360 /* QSPlugIn.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn.xcconfig; sourceTree = "<group>"; };
-		4D508B080D1347C200A9B360 /* QSPlugIn_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Debug.xcconfig; sourceTree = "<group>"; };
 		4D508B090D1347C200A9B360 /* QSPlugIn_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPlugIn_Prefix.pch; sourceTree = "<group>"; };
-		4D508B0A0D1347C200A9B360 /* QSPlugIn_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Release.xcconfig; sourceTree = "<group>"; };
 		4D508B0B0D1347C200A9B360 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		4D508B1A0D1348BD00A9B360 /* Crucible.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Crucible.xcodeproj; path = ../Crucible/Crucible.xcodeproj; sourceTree = SOURCE_ROOT; };
+		4DBC0A320D2749A80082136B /* CatalystPref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CatalystPref.h; sourceTree = "<group>"; };
+		4DBC0A330D2749A80082136B /* CatalystPref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CatalystPref.m; sourceTree = "<group>"; };
 		7F8D393C0BF0BA9F008935FA /* QSTriggerAgentController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSTriggerAgentController.m; sourceTree = "<group>"; };
 		7F8D393D0BF0BA9F008935FA /* QSTriggerAgentController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSTriggerAgentController.h; sourceTree = "<group>"; };
 		8D202CF80486D31800D8A456 /* Catalyst.prefPane */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Catalyst.prefPane; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -142,7 +205,6 @@
 				3357A1E20BB8CFDD00DECE19 /* Framework */,
 				3357A1E90BB8CFDD00DECE19 /* Plugins */,
 				3357A1EC0BB8CFDD00DECE19 /* PrefPane */,
-				3357A1F80BB8CFDD00DECE19 /* Resources */,
 				32DBCFA10370C40200C91783 /* Other Sources */,
 				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
 				19C28FB8FE9D52D311CA2CBB /* Products */,
@@ -239,6 +301,9 @@
 		3357A1EC0BB8CFDD00DECE19 /* PrefPane */ = {
 			isa = PBXGroup;
 			children = (
+				4DBC0A320D2749A80082136B /* CatalystPref.h */,
+				4DBC0A330D2749A80082136B /* CatalystPref.m */,
+				3357A1F90BB8CFDD00DECE19 /* Catalyst.icns */,
 				3357A1F60BB8CFDD00DECE19 /* QSTriggersPrefPane.h */,
 				3357A1F70BB8CFDD00DECE19 /* QSTriggersPrefPane.m */,
 				3357A1F30BB8CFDD00DECE19 /* QSTriggersPrefPane.nib */,
@@ -248,14 +313,6 @@
 				3357A34F0BB8D41300DECE19 /* Catalyst.xcdatamodel */,
 			);
 			path = PrefPane;
-			sourceTree = "<group>";
-		};
-		3357A1F80BB8CFDD00DECE19 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				3357A1F90BB8CFDD00DECE19 /* Catalyst.icns */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		3357A20B0BB8D01700DECE19 /* English.lproj */ = {
@@ -283,13 +340,9 @@
 				4D508B010D1347C200A9B360 /* Debug.xcconfig */,
 				4D508B020D1347C200A9B360 /* Developer.xcconfig */,
 				4D508B030D1347C200A9B360 /* QSElement.xcconfig */,
-				4D508B040D1347C200A9B360 /* QSElement_Debug.xcconfig */,
 				4D508B050D1347C200A9B360 /* QSElement_Prefix.pch */,
-				4D508B060D1347C200A9B360 /* QSElement_Release.xcconfig */,
 				4D508B070D1347C200A9B360 /* QSPlugIn.xcconfig */,
-				4D508B080D1347C200A9B360 /* QSPlugIn_Debug.xcconfig */,
 				4D508B090D1347C200A9B360 /* QSPlugIn_Prefix.pch */,
-				4D508B0A0D1347C200A9B360 /* QSPlugIn_Release.xcconfig */,
 				4D508B0B0D1347C200A9B360 /* Release.xcconfig */,
 			);
 			name = Configuration;
@@ -333,6 +386,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				4DBC09D50D273F910082136B /* PBXTargetDependency */,
+				4DBDECBB0D27DDFB007BCC7A /* PBXTargetDependency */,
 			);
 			name = "Catalyst Agent";
 			productName = "Catalyst Agent";
@@ -346,11 +401,16 @@
 				8D202CE90486D31800D8A456 /* Headers */,
 				8D202CEC0486D31800D8A456 /* Resources */,
 				8D202CF00486D31800D8A456 /* Sources */,
+				4DBC0A260D27486B0082136B /* Copy Frameworks */,
 				8D202CF20486D31800D8A456 /* Frameworks */,
+				4DC97A2A0D2AAA0D007D8887 /* Install Preference Pane */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4DBC098F0D2736F00082136B /* PBXTargetDependency */,
+				4DBC09D70D273F990082136B /* PBXTargetDependency */,
+				4DBDECB90D27DDEA007BCC7A /* PBXTargetDependency */,
 			);
 			name = Catalyst;
 			productInstallPath = "$(HOME)/Library/PreferencePanes";
@@ -426,6 +486,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3357A2260BB8D0AC00DECE19 /* Catalyst.icns in Resources */,
+				4DBC09900D2736F60082136B /* Catalyst Agent.app in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,6 +518,34 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4DBC098F0D2736F00082136B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3357A1C50BB8CCB000DECE19 /* Catalyst Agent */;
+			targetProxy = 4DBC098E0D2736F00082136B /* PBXContainerItemProxy */;
+		};
+		4DBC09D50D273F910082136B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = QSElements;
+			targetProxy = 4DBC09D40D273F910082136B /* PBXContainerItemProxy */;
+		};
+		4DBC09D70D273F990082136B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = QSElements;
+			targetProxy = 4DBC09D60D273F990082136B /* PBXContainerItemProxy */;
+		};
+		4DBDECB90D27DDEA007BCC7A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = QSCrucible;
+			targetProxy = 4DBDECB80D27DDEA007BCC7A /* PBXContainerItemProxy */;
+		};
+		4DBDECBB0D27DDFB007BCC7A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = QSCrucible;
+			targetProxy = 4DBDECBA0D27DDFB007BCC7A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		3357A1EF0BB8CFDD00DECE19 /* CatalystPref.nib */ = {

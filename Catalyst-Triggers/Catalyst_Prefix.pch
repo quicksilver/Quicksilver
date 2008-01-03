@@ -6,4 +6,7 @@
 #import <Cocoa/Cocoa.h>
 #import <QSElements/QSElements.h>
 #import <QSCrucible/QSCrucible.h>
+#import "QSTrigger.h"
+#import "QSTriggerCenter.h"
+#import "QSTriggerManager.h"
 #endif

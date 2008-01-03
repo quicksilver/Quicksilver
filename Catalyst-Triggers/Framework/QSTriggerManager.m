@@ -9,14 +9,16 @@
 #import "QSTriggerManager.h"
 
 @implementation QSTriggerManager
-- (NSView *) settingsView{
+- (NSView *) settingsView {
     if (!settingsView){
         [NSBundle loadNibNamed:NSStringFromClass([self class]) owner:self];		
 	}
     return [[settingsView retain] autorelease];
 }
 
-- (QSTrigger *)selection { return [self currentTrigger]; }
+- (QSTrigger *)selection {
+    return [self currentTrigger];
+}
 
 - (QSTrigger *)currentTrigger {
     return [[currentTrigger retain] autorelease];
@@ -28,58 +30,61 @@
         currentTrigger = [value retain];
     }
 }
-- (QSTrigger *)settingsSelection{return currentTrigger;}
-- (void)populateInfoFields{};
 
-- (NSWindow *)triggerDisplayWindowWithTrigger:(QSTrigger *)trigger{
-	NSImage *image=[[trigger command]icon];
+- (QSTrigger *)settingsSelection {
+    return currentTrigger;
+}
+
+- (void)populateInfoFields {};
+
+- (NSWindow *)triggerDisplayWindowWithTrigger:(QSTrigger *)trigger {
+	NSImage *image = [[trigger command] icon];
 	
-	
-	int quadrant=[[NSUserDefaults standardUserDefaults]integerForKey:@"QSNotifierDefaultQuadrant"];
+	int quadrant = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSNotifierDefaultQuadrant"];
 	NSImage *splashImage = image;
 	[splashImage createRepresentationOfSize:NSMakeSize(128,128)];
 	[splashImage setSize:NSMakeSize(128,128)];
 	[splashImage setFlipped:NO];
-	NSRect screenRect=[[NSScreen mainScreen] frame];
+	NSRect screenRect = [[NSScreen mainScreen] frame];
 	
-	NSRect windowRect=NSMakeRect(0,0,178,188);
-	NSWindow *splashWindow = [[NSClassFromString(@"QSWindow") alloc] initWithContentRect:windowRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+	NSRect windowRect = NSMakeRect(0,0,178,188);
+	QSWindow *splashWindow = [[QSWindow alloc] initWithContentRect:windowRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
 	[splashWindow setIgnoresMouseEvents:YES];
-	NSRect centeredRect=NSOffsetRect(windowRect,NSMidX(screenRect)-NSMidX(windowRect),NSMidY(screenRect)-NSMidY(windowRect)); //-NSHeight(screenRect)/4);
+	NSRect centeredRect = NSOffsetRect(windowRect, NSMidX(screenRect) - NSMidX(windowRect), NSMidY(screenRect) - NSMidY(windowRect)); //-NSHeight(screenRect)/4);
 	if (quadrant)
-		centeredRect=alignRectInRect(centeredRect,NSInsetRect([[NSScreen mainScreen]visibleFrame],6,6),oppositeQuadrant(quadrant));
+		centeredRect = alignRectInRect(centeredRect, NSInsetRect([[NSScreen mainScreen] visibleFrame], 6, 6), oppositeQuadrant(quadrant));
 	
 	[splashWindow setFrame:centeredRect display:YES]; 
-	[splashWindow setBackgroundColor: [NSColor clearColor]];
+	[splashWindow setBackgroundColor:[NSColor clearColor]];
 	[splashWindow setOpaque:NO];
 	[splashWindow setLevel:NSFloatingWindowLevel];
-	[splashWindow setContentView:[[[NSClassFromString(@"QSBezelBackgroundView") alloc]init]autorelease]];
-	[(QSBezelBackgroundView *)[splashWindow contentView]setRadius:16.0];	
-	[(QSBezelBackgroundView *)[splashWindow contentView]setGlassStyle:QSGlossUpArc];
-	[(QSBezelBackgroundView *)[splashWindow contentView]bindColors];
+	[splashWindow setContentView:[[[QSBezelBackgroundView alloc] init] autorelease]];
+	[(QSBezelBackgroundView *)[splashWindow contentView] setRadius:16.0];	
+	[(QSBezelBackgroundView *)[splashWindow contentView] setGlassStyle:QSGlossUpArc];
+	[(QSBezelBackgroundView *)[splashWindow contentView] bindColors];
 	[[splashWindow contentView] display];
 	
 	//[splashWindow setContentView:[[[QSBackgroundView alloc]init]autorelease]];
-	[(QSWindow *)splashWindow setShowOffset:NSMakePoint(0,-NSHeight(screenRect)/8)];
+	[splashWindow setShowOffset:NSMakePoint(0, -NSHeight(screenRect) / 8)];
 	[splashWindow setHidesOnDeactivate:NO];	
 	[splashWindow setSticky:YES];
 	[splashWindow setReleasedWhenClosed:YES];
 	
-	//NSBox *boxView=[[[NSBox alloc]initWithFrame:NSMakeRect(18,36,140,140)]autorelease];
+	//NSBox *boxView = [[[NSBox alloc] initWithFrame:NSMakeRect(18, 36, 140, 140)] autorelease];
 	//[boxView setTitlePosition:NSNoTitle];
 	//[[splashWindow contentView] addSubview:boxView];
 	
-	NSImageView *imageView=[[[NSImageView alloc]initWithFrame:NSMakeRect(24,42,128,128)]autorelease];
+	NSImageView *imageView = [[[NSImageView alloc] initWithFrame:NSMakeRect(24,42,128,128)] autorelease];
 	[imageView setImage:splashImage];
 	[imageView setImageFrameStyle:NSImageFrameNone];	
 	[imageView setImageScaling:NSScaleNone];	
 	[[splashWindow contentView] addSubview:imageView];
 	
-	//NSString *titleString=[attributes objectForKey:QSNotifierTitle];
+//  NSString *titleString = [attributes objectForKey:QSNotifierTitle];
 //
-//	NSColor *textColor=[[[splashWindow contentView]backgroundColor]readableTextColor];
+//	NSColor *textColor=[[[splashWindow contentView] backgroundColor] readableTextColor];
 //	if (titleString){
-//		NSTextField *titleField=[[[NSTextField alloc]initWithFrame:NSMakeRect(2,(textString?20:14),174,12)]autorelease];
+//		NSTextField *titleField = [[[NSTextField alloc] initWithFrame:NSMakeRect(2,(textString ? 20 : 14), 174, 12)] autorelease];
 //		[titleField setStringValue:titleString];
 //		[titleField setBezeled:NO];	
 //		[titleField setDrawsBackground:NO];
@@ -89,34 +94,33 @@
 //		[titleField setTextColor:textColor];
 //		[[splashWindow contentView] addSubview:titleField];
 //	}
-	
+    
 	return splashWindow;
 }
 @end
 
 @implementation QSGroupTriggerManager
-- (void)initializeTrigger:(NSMutableDictionary *)trigger{
+- (void) initializeTrigger:(NSMutableDictionary *)trigger {
 	if (![trigger objectForKey:@"name"])
-		
 		[trigger setObject:@"untitled" forKey:@"name"];
 }
-- (NSImage *)image{
-	
-	return [[NSImage imageNamed:@"CatalogGroup"]duplicateOfSize:QSSize16];
+
+- (NSImage *) image {
+	return [[NSImage imageNamed:@"CatalogGroup"] duplicateOfSize:QSSize16];
 }
-- (NSString *)name{
+- (NSString *) name {
 	return @"Group";
 }
--(BOOL)enableTrigger:(QSTrigger *)trigger{
+- (BOOL) enableTrigger:(QSTrigger *)trigger {
     return YES;
 }
 
--(BOOL)disableTrigger:(QSTrigger *)trigger{
+- (BOOL) disableTrigger:(QSTrigger *)trigger {
     return YES;
 }
 
-- (NSString *)descriptionForTrigger:(QSTrigger *)trigger{
-return @"";	
+- (NSString *) descriptionForTrigger:(QSTrigger *)trigger {
+    return @"";
 }
 
 @end

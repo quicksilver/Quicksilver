@@ -8,93 +8,92 @@
 
 #import "QSTrigger.h"
 #import "QSTriggerCenter.h"
-
-
-
-
 #import "QSTriggersPrefPane.h"
 
 @implementation QSTrigger
-+ (void)initialize{
-	
+
++ (void)initialize {
 	[self setKeys:[NSArray arrayWithObject:@"command"] triggerChangeNotificationsForDependentKey:@"name"];
-	[self setKeys:[NSArray arrayWithObjects:@"name",@"icon",nil] triggerChangeNotificationsForDependentKey:@"imageAndText"];
+	[self setKeys:[NSArray arrayWithObjects:@"name", @"icon",nil] triggerChangeNotificationsForDependentKey:@"imageAndText"];
 }
 
-
-+ (id)triggerWithInfo:(NSDictionary *)dict{
-	return [[[self alloc]initWithInfo:dict]autorelease];
++ (id)triggerWithInfo:(NSDictionary *)dict {
+	return [[[self alloc] initWithInfo:dict] autorelease];
 }
 
-- (NSString *)identifier{
+- (NSString *)identifier {
 	return [info objectForKey:kItemID];	
 }
-- (id)initWithInfo:(NSDictionary *)dict{
+
+- (id)initWithInfo:(NSDictionary *)dict {
 	self = [super init];
 	if (self != nil) {
-		info=[dict mutableCopy];
+		info = [dict mutableCopy];
 	}
 	return self;
 }
+
 - (id) init {
 	self = [super init];
 	if (self != nil) {
-		info=[[NSMutableDictionary alloc]init];
+		info = [[NSMutableDictionary alloc] init];
 	}
 	return self;
 }
 
-- (void)dealloc{
+- (void)dealloc {
 	QSLog(@"dealloc %@",self);
 	[info release];
-	info=nil;
+	info = nil;
 	[children release];
-	children=nil;
+	children = nil;
 	[super dealloc];	
 }
-- (BOOL)isGroup{
-	return [[self type]isEqualToString:@"QSGroupTrigger"];
+- (BOOL)isGroup {
+	return [[self type] isEqualToString:@"QSGroupTrigger"];
 }
-- (NSImage *)smallIcon{
-	
-	
-	if ([[self type]isEqualToString:@"QSGroupTrigger"]){
-		return [[self manager]image];
-	}else{
-		
-		[[self command]loadIcon];
-		NSImage *icon=[[self command]icon];
+- (NSImage *)smallIcon {
+	if ([[self type] isEqualToString:@"QSGroupTrigger"]) {
+		return [[self manager] image];
+	} else {
+		[[self command] loadIcon];
+		NSImage *icon = [[self command] icon];
 		[icon setFlipped:NO];
 		[icon setSize:QSSize16];
 		return icon;
 	}
+    return nil;
 }
 
-- (NSString *)name{
-	NSString *name=[info objectForKey:@"name"];
-	if (!name){
-		QSCommand *command=[self command];
-		name=[command description];
+- (NSString *)name {
+	NSString *name = [info objectForKey:@"name"];
+	if (!name) {
+		name = [[self command] description];
 	}
 	return name;	
 }
-- (BOOL)hasCustomName{
-	if ([self isPreset])return NO;
-	return [info objectForKey:@"name"]!=nil;
+
+- (BOOL)hasCustomName {
+	if ([self isPreset])
+        return NO;
+	return ([info objectForKey:@"name"] != nil);
 }
-- (void)setName:(NSString *)name{
+
+- (void)setName:(NSString *)name {
 	//QSLog(@"setName %@",name);
-	if (![name length]){
+	if (![name length]) {
 		[info removeObjectForKey:@"name"];
-	}else if (name){
+	} else if (name) {
 		[info setObject:name forKey:@"name"];
 	}
 }
+
 - (NSString *)type{
 	return [info objectForKey:@"type"];	
 }
-- (void)setType:(NSString *)type{
-	BOOL wasEnabled=[self enabled];
+
+- (void)setType:(NSString *)type {
+	BOOL wasEnabled = [self enabled];
 	if (wasEnabled)
 		[self setEnabled:NO];
 	[info setObject:type forKey:@"type"];
@@ -104,124 +103,123 @@
 		[self setEnabled:YES];
 	
 }
+
 - (void)initializeTrigger{
 //	id manager=[QSReg instanceForKey:type inTable:QSTriggerManagers];
 	[[self manager] initializeTrigger:self];
 }
 
-- (BOOL)rescope:(NSString *)ident{
-	int scoped=[[info objectForKey:@"applicationScopeType"]intValue];
-	if (!scoped)return;
-	NSArray *apps=[info objectForKey:@"applicationScope"];
-	BOOL shouldActivate=[apps containsObject:ident];	
-	if(scoped<0) shouldActivate=!shouldActivate;	
-
+- (BOOL)rescope:(NSString *)ident {
+	int scoped = [[info objectForKey:@"applicationScopeType"] intValue];
+	if (!scoped) return NO;
+	NSArray *apps = [info objectForKey:@"applicationScope"];
+	BOOL shouldActivate = [apps containsObject:ident];	
+	if(scoped < 0) shouldActivate = !shouldActivate;	
 
 	[self setActivated:shouldActivate];
+    return YES;
 }
 
-- (BOOL)execute{
-	
-//	if (![self zScope])return;
-	
-[[self command]executeIgnoringModifiers];	
-	if ([info objectForKey:@"oneshot"]){
+- (BOOL)execute {	
+    [[self command] executeIgnoringModifiers];	
+	if ([info objectForKey:@"oneshot"]) {
 		//if (VERBOSE) QSLog(@"disabling one shot trigger");
 		[self disable];
 	}
 	return YES;
 }
-- (QSCommand *)command{
+
+- (QSCommand *)command {
 	//	QSLog(@"command %@",command);
-    id command=[info objectForKey:@"command"];
-    if ([command isKindOfClass:[NSDictionary class]]){
-		command=[QSCommand commandWithDictionary:command];
+    id command = [info objectForKey:@"command"];
+    if ([command isKindOfClass:[NSDictionary class]]) {
+		command = [QSCommand commandWithDictionary:command];
 		[info setObject:command forKey:@"command"];
-	}else if([command isKindOfClass:[NSString class]]){
-		NSDictionary *commandInfo=[QSReg valueForKey:command inTable:@"QSCommands"];
+	} else if ([command isKindOfClass:[NSString class]]) {
+		NSDictionary *commandInfo = [QSReg valueForKey:command inTable:@"QSCommands"];
 		
 		//QSLog(@"looking up command %@ %@",command, commandInfo );
-		command=[QSCommand commandWithDictionary:[commandInfo objectForKey:@"command"]];
+		command = [QSCommand commandWithDictionary:[commandInfo objectForKey:@"command"]];
 	}
 	return command;
 }
 
-- (NSArray *)commands{
+- (NSArray *)commands {
 	return [NSArray arrayWithObject:[self command]];	
 }
-- (BOOL)isPreset{
+- (BOOL)isPreset {
 	return [[info objectForKey:kItemID]hasPrefix:@"QS"];	
 }
 
-- (BOOL)usesPresetCommand{
+- (BOOL)usesPresetCommand {
 	return ([[info objectForKey:@"command"] isKindOfClass:[NSString class]]);
 }
 
-- (NSDictionary *)dictionaryRepresentation{
+- (NSDictionary *)dictionaryRepresentation {
 	id command=[info objectForKey:@"command"];
-	if ([command isKindOfClass:[QSCommand class]]){
-		NSMutableDictionary *dict=[[info mutableCopy]autorelease];
+	if ([command isKindOfClass:[QSCommand class]]) {
+		NSMutableDictionary *dict = [[info mutableCopy]autorelease];
 		[dict setObject:[command dictionaryRepresentation]forKey:@"command"];
 		return dict;
 	}
 	return info;
 }
-- (NSString *)triggerDescription{
+
+- (NSString *)triggerDescription {
 //	QSLog(@"descript");
 	return [[self manager] descriptionForTrigger:self];
 }
-- (void)setTriggerDescription:(NSString *)description{
-	[[self manager]trigger:self setTriggerDescription:description];
+
+- (void)setTriggerDescription:(NSString *)description {
+	[[self manager] trigger:self setTriggerDescription:description];
 }
-- (NSString *)description{
+
+- (NSString *)description {
 	return [[self command] description];	
 }
 
-
-- (id)manager{
-
+- (id)manager {
 	return [QSReg instanceForKey:[info objectForKey:@"type"] inTable:QSTriggerManagers];
 }
 
-- (void)tryToActivate{
+- (void)tryToActivate {
 	[self setActivated:YES];
 }
+
 - (BOOL) activated { return activated; }
 - (void) setActivated: (BOOL) flag
 {
-	if (activated==flag)return;
-	if (![[info objectForKey:@"enabled"]boolValue])
+	if (activated == flag) return;
+	if (![[info objectForKey:@"enabled"] boolValue])
 		return;
-		//QSLog(@"%@ %d",self,flag);
+    //QSLog(@"%@ %d",self,flag);
 		
-	if (flag){
-
+	if (flag) {
 		[[self manager] enableTrigger:(QSTrigger *)self];
-	}else {
+	} else {
 		[[self manager] disableTrigger:(QSTrigger *)self];
 	}
-	
+    
     activated = flag;
-	
 }
 
-
-
-- (BOOL)enabled{
+- (BOOL)enabled {
 	return [[info objectForKey:@"enabled"]boolValue];
 }
--(void)disable{
+
+- (void)disable {
 	[self setEnabled:NO];
 	//[info setObject:[NSNumber numberWithBool:NO] forKey:@"enabled"];
-	[[QSTriggerCenter sharedInstance]writeTriggers];
+	[[QSTriggerCenter sharedInstance] writeTriggers];
 }
 
--(void)reactivate{	
+- (void)reactivate {
 	//QSLog(@"reactivating %@",self);
 	[self setActivated:NO];
 	[self setActivated:YES];
 }
--(void)setEnabled:(BOOL)enabled{
+
+- (void)setEnabled:(BOOL)enabled{
 	//	QSLog(@"Set Enabled %d %@",enabled,self);
 	
 	[info setObject:[NSNumber numberWithBool:enabled] forKey:@"enabled"];
@@ -278,14 +276,16 @@
 	else
 		[info setObject:ident forKey:@"parent"];
 }
-- (NSArray *)path{
+
+- (NSArray *) path {
 	if ([self parent])
-		return [[[self parent]path]stringByAppendingPathComponent:[self identifier]];
+		return [[[self parent] path] stringByAppendingPathComponent:[self identifier]];
 	else
 		return [NSArray arrayWithObject:[self identifier]];
 }
-- (NSArray *)parent{
-	return 	[[QSTriggerCenter sharedInstance] triggerWithID:[self parentID]];
+
+- (NSArray *) parent {
+	return 	[[QSTriggerCenter sharedInstance] triggersWithParentID:[self parentID]];
 }
 
 
@@ -293,11 +293,11 @@
     return [[self name] compare:[compareObject name]];
 }
 
-- (BOOL) isLeaf{
-	if ([[self type]isEqualToString:@"QSGroupTrigger"]) return NO;
-	return YES;
+- (BOOL) isLeaf {
+    return ![[self type] isEqualToString:@"QSGroupTrigger"];
 }
-- (NSMutableArray *)children{
+
+- (NSArray *)children {
 	if (![[self type]isEqualToString:@"QSGroupTrigger"]) return nil;
 	return 	[[QSTriggerCenter sharedInstance] triggersWithParentID:[self identifier]];
 }

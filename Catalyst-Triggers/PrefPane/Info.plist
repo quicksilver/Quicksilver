@@ -29,6 +29,6 @@
 	<key>NSPrefPaneIconLabel</key>
 	<string>Catalyst</string>
 	<key>NSPrincipalClass</key>
-	<string>CatalystPref</string>
+	<string>QSTriggersPrefPane</string>
 </dict>
 </plist>

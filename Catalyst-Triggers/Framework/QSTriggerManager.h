@@ -14,12 +14,15 @@
 	IBOutlet NSView *settingsView;
 	QSTrigger *currentTrigger;
 }
-- (void)populateInfoFields;
-- (QSTrigger *)currentTrigger;
-- (void)setCurrentTrigger:(QSTrigger *)value;
 
-- (QSTrigger *)settingsSelection;
+- (void) populateInfoFields;
+- (QSTrigger *) currentTrigger;
+- (void) setCurrentTrigger:(QSTrigger *)value;
+- (QSTrigger *) settingsSelection;
 @end
 
-@interface QSGroupTriggerManager : QSTriggerManager
+@interface QSGroupTriggerManager : QSTriggerManager {
+}
+
+- (NSString *) descriptionForTrigger:(QSTrigger *)trigger;
 @end
