@@ -1104,7 +1104,6 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 	//if (DEBUG_RANKING)
 	// QSLog(@"Searched for \"%@\" in %3fms (%d items) ", string, 1000 * -[date timeIntervalSinceNow] , [newResultArray count]);
   // QSLog (@"search for %@", string);
-	//QSLog(@"%d valid", validSearch);
 	if ((validSearch = [newResultArray count] >0)) {
 		[self setMatchedString:string];
 		//        [self setScoreData:scores];
@@ -1459,9 +1458,10 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 	//[self updateHistory];
 	if (obj) {
 		index = [resultArray indexOfObject:obj];
-		//QSLog(@"index %d %@", index, obj);
+//		NSLog(@"index %d %@ %@", index, obj, [resultArray valueForKey:@"name"]);
 		if (index == NSNotFound) {
-			//if (VERBOSE) QSLog(@"Unable To Select Object : %@ in \r %@", [obj identifier] , resultArray);
+			
+      NSLog(@"Unable To Select Object : %@ in \r %@", obj , [resultArray valueForKey:@"name"]);
 			return;
 		}
 	} else {

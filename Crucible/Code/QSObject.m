@@ -143,6 +143,10 @@ NSSize QSMaxIconSize;
 
 
 - (BOOL)isEqual:(id)anObject {
+  if (self != anObject && [anObject isKindOfClass:[QSRankedObject class]]) {
+    anObject = [anObject object];
+  }
+  
 	if (self == anObject) return YES;
   if (![[self identifier] isEqualToString:[anObject identifier]]) return NO;
   if ([self primaryObject])

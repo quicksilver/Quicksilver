@@ -285,7 +285,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 7F8B81980C49C639007FC200 /* QSCubeInterfaceElement.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 337357640BAC7B56000A47E2 /* Cube Interface */;
+			remoteGlobalIDString = 337357640BAC7B56000A47E2;
 			remoteInfo = "Cube Interface";
 		};
 		4D5088A50D13294A00A9B360 /* PBXContainerItemProxy */ = {
