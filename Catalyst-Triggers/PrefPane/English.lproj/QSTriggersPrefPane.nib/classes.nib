@@ -30,19 +30,19 @@
 		</dict>
 		<dict>
 			<key>CLASS</key>
-			<string>QSMenuButton</string>
-			<key>LANGUAGE</key>
-			<string>ObjC</string>
-			<key>SUPERCLASS</key>
-			<string>NSButton</string>
-		</dict>
-		<dict>
-			<key>CLASS</key>
 			<string>QSTreeController</string>
 			<key>LANGUAGE</key>
 			<string>ObjC</string>
 			<key>SUPERCLASS</key>
 			<string>NSTreeController</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>QSMenuButton</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSButton</string>
 		</dict>
 		<dict>
 			<key>ACTIONS</key>

@@ -1,7 +1,8 @@
-
-@interface QSTriggerCenter (Private)
+#import "QSTriggerCenter.h"
+@interface QSTriggerCenter ()
 - (BOOL) enableTrigger:(NSDictionary *)entry;
 @end
+
 
 @implementation QSTriggerCenter
 

@@ -13,6 +13,7 @@
 
 - (void) mainViewDidLoad
 {
+  NSLog(@"didload");
 }
 
 @end

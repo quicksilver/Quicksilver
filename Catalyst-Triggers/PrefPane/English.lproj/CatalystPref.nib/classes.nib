@@ -1,142 +1,217 @@
-{
-    IBClasses = (
-        {
-            ACTIONS = {
-                alignCenter = id; 
-                alignJustified = id; 
-                alignLeft = id; 
-                alignRight = id; 
-                arrangeInFront = id; 
-                centerSelectionInVisibleArea = id; 
-                changeFont = id; 
-                checkSpelling = id; 
-                clear = id; 
-                clearRecentDocuments = id; 
-                complete = id; 
-                copy = id; 
-                copyFont = id; 
-                copyRuler = id; 
-                cut = id; 
-                delete = id; 
-                deminiaturize = id; 
-                fax = id; 
-                hide = id; 
-                hideOtherApplications = id; 
-                loosenKerning = id; 
-                lowerBaseline = id; 
-                makeKeyAndOrderFront = id; 
-                miniaturize = id; 
-                newDocument = id; 
-                openDocument = id; 
-                orderBack = id; 
-                orderFront = id; 
-                orderFrontColorPanel = id; 
-                orderFrontHelpPanel = id; 
-                orderOut = id; 
-                outline = id; 
-                paste = id; 
-                pasteAsPlainText = id; 
-                pasteAsRichText = id; 
-                pasteFont = id; 
-                pasteRuler = id; 
-                pause = id; 
-                performClose = id; 
-                performFindPanelAction = id; 
-                performMiniaturize = id; 
-                performZoom = id; 
-                play = id; 
-                print = id; 
-                printDocument = id; 
-                raiseBaseline = id; 
-                record = id; 
-                redo = id; 
-                resume = id; 
-                revertDocumentToSaved = id; 
-                run = id; 
-                runPageLayout = id; 
-                runToolbarCustomizationPalette = id; 
-                saveAllDocuments = id; 
-                saveDocument = id; 
-                saveDocumentAs = id; 
-                saveDocumentTo = id; 
-                selectAll = id; 
-                selectText = id; 
-                showGuessPanel = id; 
-                showHelp = id; 
-                start = id; 
-                startSpeaking = id; 
-                stop = id; 
-                stopSpeaking = id; 
-                subscript = id; 
-                superscript = id; 
-                terminate = id; 
-                tightenKerning = id; 
-                toggleContinuousSpellChecking = id; 
-                toggleRuler = id; 
-                toggleToolbarShown = id; 
-                turnOffKerning = id; 
-                turnOffLigatures = id; 
-                underline = id; 
-                undo = id; 
-                unhideAllApplications = id; 
-                unscript = id; 
-                useAllLigatures = id; 
-                useStandardKerning = id; 
-                useStandardLigatures = id; 
-            }; 
-            CLASS = FirstResponder; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {
-            CLASS = IBInspector; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {inspectorView = NSView; }; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {
-            CLASS = IBLibraryObjectTemplate; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {draggedView = NSView; representedObject = NSObject; }; 
-            SUPERCLASS = NSView; 
-        }, 
-        {CLASS = NSDateFormatter; LANGUAGE = ObjC; SUPERCLASS = NSFormatter; }, 
-        {CLASS = NSFormatter; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
-        {CLASS = NSNumberFormatter; LANGUAGE = ObjC; SUPERCLASS = NSFormatter; }, 
-        {
-            CLASS = NSPreferencePane; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {
-                "_firstKeyView" = id; 
-                "_initialKeyView" = id; 
-                "_lastKeyView" = id; 
-                "_window" = id; 
-            }; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {
-            CLASS = PDFThumbnailView; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {pdfView = PDFView; }; 
-            SUPERCLASS = NSView; 
-        }, 
-        {
-            ACTIONS = {
-                goBack = id; 
-                goForward = id; 
-                goToFirstPage = id; 
-                goToLastPage = id; 
-                goToNextPage = id; 
-                goToPreviousPage = id; 
-                selectAll = id; 
-                takeBackgroundColorFrom = id; 
-                zoomIn = id; 
-                zoomOut = id; 
-            }; 
-            CLASS = PDFView; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSView; 
-        }
-    ); 
-    IBVersion = 1; 
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>CLASS</key>
+			<string>NSFormatter</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>alignCenter</key>
+				<string>id</string>
+				<key>alignJustified</key>
+				<string>id</string>
+				<key>alignLeft</key>
+				<string>id</string>
+				<key>alignRight</key>
+				<string>id</string>
+				<key>arrangeInFront</key>
+				<string>id</string>
+				<key>centerSelectionInVisibleArea</key>
+				<string>id</string>
+				<key>changeFont</key>
+				<string>id</string>
+				<key>checkSpelling</key>
+				<string>id</string>
+				<key>clear</key>
+				<string>id</string>
+				<key>clearRecentDocuments</key>
+				<string>id</string>
+				<key>complete</key>
+				<string>id</string>
+				<key>copy</key>
+				<string>id</string>
+				<key>copyFont</key>
+				<string>id</string>
+				<key>copyRuler</key>
+				<string>id</string>
+				<key>cut</key>
+				<string>id</string>
+				<key>delete</key>
+				<string>id</string>
+				<key>deminiaturize</key>
+				<string>id</string>
+				<key>fax</key>
+				<string>id</string>
+				<key>hide</key>
+				<string>id</string>
+				<key>hideOtherApplications</key>
+				<string>id</string>
+				<key>loosenKerning</key>
+				<string>id</string>
+				<key>lowerBaseline</key>
+				<string>id</string>
+				<key>makeKeyAndOrderFront</key>
+				<string>id</string>
+				<key>miniaturize</key>
+				<string>id</string>
+				<key>newDocument</key>
+				<string>id</string>
+				<key>openDocument</key>
+				<string>id</string>
+				<key>orderBack</key>
+				<string>id</string>
+				<key>orderFront</key>
+				<string>id</string>
+				<key>orderFrontColorPanel</key>
+				<string>id</string>
+				<key>orderFrontHelpPanel</key>
+				<string>id</string>
+				<key>orderOut</key>
+				<string>id</string>
+				<key>outline</key>
+				<string>id</string>
+				<key>paste</key>
+				<string>id</string>
+				<key>pasteAsPlainText</key>
+				<string>id</string>
+				<key>pasteAsRichText</key>
+				<string>id</string>
+				<key>pasteFont</key>
+				<string>id</string>
+				<key>pasteRuler</key>
+				<string>id</string>
+				<key>pause</key>
+				<string>id</string>
+				<key>performClose</key>
+				<string>id</string>
+				<key>performFindPanelAction</key>
+				<string>id</string>
+				<key>performMiniaturize</key>
+				<string>id</string>
+				<key>performZoom</key>
+				<string>id</string>
+				<key>play</key>
+				<string>id</string>
+				<key>print</key>
+				<string>id</string>
+				<key>printDocument</key>
+				<string>id</string>
+				<key>raiseBaseline</key>
+				<string>id</string>
+				<key>record</key>
+				<string>id</string>
+				<key>redo</key>
+				<string>id</string>
+				<key>resume</key>
+				<string>id</string>
+				<key>revertDocumentToSaved</key>
+				<string>id</string>
+				<key>run</key>
+				<string>id</string>
+				<key>runPageLayout</key>
+				<string>id</string>
+				<key>runToolbarCustomizationPalette</key>
+				<string>id</string>
+				<key>saveAllDocuments</key>
+				<string>id</string>
+				<key>saveDocument</key>
+				<string>id</string>
+				<key>saveDocumentAs</key>
+				<string>id</string>
+				<key>saveDocumentTo</key>
+				<string>id</string>
+				<key>selectAll</key>
+				<string>id</string>
+				<key>selectText</key>
+				<string>id</string>
+				<key>showGuessPanel</key>
+				<string>id</string>
+				<key>showHelp</key>
+				<string>id</string>
+				<key>start</key>
+				<string>id</string>
+				<key>startSpeaking</key>
+				<string>id</string>
+				<key>stop</key>
+				<string>id</string>
+				<key>stopSpeaking</key>
+				<string>id</string>
+				<key>subscript</key>
+				<string>id</string>
+				<key>superscript</key>
+				<string>id</string>
+				<key>terminate</key>
+				<string>id</string>
+				<key>tightenKerning</key>
+				<string>id</string>
+				<key>toggleContinuousSpellChecking</key>
+				<string>id</string>
+				<key>toggleRuler</key>
+				<string>id</string>
+				<key>toggleToolbarShown</key>
+				<string>id</string>
+				<key>turnOffKerning</key>
+				<string>id</string>
+				<key>turnOffLigatures</key>
+				<string>id</string>
+				<key>underline</key>
+				<string>id</string>
+				<key>undo</key>
+				<string>id</string>
+				<key>unhideAllApplications</key>
+				<string>id</string>
+				<key>unscript</key>
+				<string>id</string>
+				<key>useAllLigatures</key>
+				<string>id</string>
+				<key>useStandardKerning</key>
+				<string>id</string>
+				<key>useStandardLigatures</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>FirstResponder</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>NSObject</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>NSPreferencePane</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>_firstKeyView</key>
+				<string>id</string>
+				<key>_initialKeyView</key>
+				<string>id</string>
+				<key>_lastKeyView</key>
+				<string>id</string>
+				<key>_window</key>
+				<string>id</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>

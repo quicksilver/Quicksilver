@@ -1,6 +1,5 @@
+#import "QSTrigger.h"
 
-
-#import <Foundation/Foundation.h>
 #define QSTriggerManagers @"QSTriggerManagers"
 #define QSTriggerChangedNotification @"QSTriggerChanged"
 

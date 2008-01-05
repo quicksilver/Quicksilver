@@ -6,14 +6,14 @@
 	<string>English</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
-    <key>CFBundleName</key>
-    <string>${PRODUCT_NAME}</string>
 	<key>CFBundleIconFile</key>
-	<string>Catalyst.icns</string>
+	<string></string>
 	<key>CFBundleIdentifier</key>
-	<string>com.apple.prefpanel</string>
+	<string>com.blacktree.Catalyst</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>${PRODUCT_NAME}</string>
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
@@ -23,12 +23,12 @@
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>NSMainNibFile</key>
-	<string>QSTriggersPrefPane</string>
+	<string>QSCatalystPref</string>
 	<key>NSPrefPaneIconFile</key>
 	<string>Catalyst.icns</string>
 	<key>NSPrefPaneIconLabel</key>
 	<string>Catalyst</string>
 	<key>NSPrincipalClass</key>
-	<string>QSTriggersPrefPane</string>
+	<string>QSCatalystPref</string>
 </dict>
 </plist>
