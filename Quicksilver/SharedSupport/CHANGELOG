@@ -1,7 +1,5 @@
 Changes
 =======
 
-  * Corrects some visual glitches on Leopard
-  * Fixes shelf/clipboard behavior in Leopard
-  * Fixes For Plug-ins and App update
-
+  * Fixes searching within results (iTunes tracks)
+  * Many fixes by Ankur

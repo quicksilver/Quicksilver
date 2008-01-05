@@ -18,6 +18,10 @@
 //static void KeyArrayCallback(const void *key, const void *value, void *context) { CFArrayAppendValue(context, key);  }
 
 @implementation NSScreen (BLTRExtensions)
+-(int)screenNumber{
+	return _screenNumber;//[[[self deviceDescription]objectForKey:@"NSScreenNumber"]intValue]; 
+} 
+
 - (BOOL)usesOpenGLAcceleration {
 	return (BOOL)CGDisplayUsesOpenGLAcceleration((CGDirectDisplayID)_screenNumber);
 }

@@ -405,15 +405,15 @@ resource 'aete' (0, "Quicksilver") {
 			{
 				"text", 'nTxt', 'TEXT',
 				"text of notification",
-				optional,
+				required,
 				singleItem, notEnumerated, Reserved13,
 				"image name", 'imgN', 'TEXT',
 				"image name for notification",
-				optional,
+				required,
 				singleItem, notEnumerated, Reserved13,
 				"image data", 'imgP', 'PICT',
 				"image data for notification",
-				optional,
+				required,
 				singleItem, notEnumerated, Reserved13
 			},
 
@@ -435,9 +435,6 @@ resource 'aete' (0, "Quicksilver") {
 			"application", 'capp',
 			"",
 			{
-				"selection", 'sele', '****',
-				"current selection",
-				reserved, singleItem, notEnumerated, readWrite, Reserved12
 			},
 			{
 			},
@@ -448,8 +445,7 @@ resource 'aete' (0, "Quicksilver") {
 			{
 			},
 			{
-			},
-			"pictures", 'PICT', plural__
+			}
 		},
 		{
 			/* Comparisons */

@@ -112,7 +112,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleGetInfoString</key>
-	<string>Quicksilver β54, Copyright © 2000-2006 Blacktree, Inc.</string>
+	<string>Quicksilver β55, Copyright © 2000-2008 Blacktree, Inc.</string>
 	<key>CFBundleHelpBookFolder</key>
 	<string>QSHelp</string>
 	<key>CFBundleHelpBookName</key>
@@ -124,7 +124,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>β54</string>
+	<string>β55</string>
 	<key>CFBundleName</key>
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundlePackageType</key>
