@@ -29,11 +29,9 @@
 	return [QSObjectCell class];
 }
 
-- (id)validRequestorForSendType:(NSString *)sendType
-					 returnType:(NSString *)returnType {
-	// NSLog(@"validate %@", [self objectValue]);
+- (id)validRequestorForSendType:(NSString *)sendType returnType:(NSString *)returnType {
 	id object = [self objectValue];
-	if ([object respondsToSelector:@selector(dataDictionary)] && [[[object dataDictionary] allKeys] containsObject: sendType])
+	if ([object respondsToSelector:@selector(dataDictionary)] && [[[object dataDictionary] allKeys] containsObject:sendType])
 		return self;
 	return nil;
 }
@@ -53,8 +51,8 @@
 }
 
 - (void)awakeFromNib {
-	[self viewDidMoveToWindow];
-	[self registerForDraggedTypes:[NSArray arrayWithObjects:@"Apple URL pasteboard type", NSColorPboardType, NSFileContentsPboardType, NSFilenamesPboardType, NSFontPboardType, NSHTMLPboardType, NSPDFPboardType, NSPICTPboardType, NSPostScriptPboardType, NSRulerPboardType, NSRTFPboardType, NSRTFDPboardType, NSStringPboardType, NSTabularTextPboardType, NSTIFFPboardType, NSURLPboardType, NSVCardPboardType, NSFilesPromisePboardType, nil]];
+////	[self viewDidMoveToWindow];
+	[self registerForDraggedTypes:[NSArray arrayWithObjects:NSURLPboardType, NSColorPboardType, NSFileContentsPboardType, NSFilenamesPboardType, NSFontPboardType, NSHTMLPboardType, NSPDFPboardType, NSPICTPboardType, NSPostScriptPboardType, NSRulerPboardType, NSRTFPboardType, NSRTFDPboardType, NSStringPboardType, NSTabularTextPboardType, NSTIFFPboardType, NSURLPboardType, NSVCardPboardType, NSFilesPromisePboardType, nil]];
 	if (!controller && [self window])
 		controller = [[self window] delegate];
 	// [self setToolTip:@"No Selection"];
@@ -83,8 +81,7 @@
 	return NO;
 }
 
-- (void)setImage:(NSImage *)image {
-}
+- (void)setImage:(NSImage *)image {}
 
 - (void)mouseDown:(NSEvent *)theEvent {
 	BOOL isInside = YES;
@@ -105,54 +102,41 @@
 				[dragImage lockFocus];
 				[[self cell] drawInteriorWithFrame:NSMakeRect(0, 0, [dragImage size] .width, [dragImage size] .height) inView:self];
 				[dragImage unlockFocus];
-				NSSize dragOffset = NSMakeSize(0.0, 0.0);
-
+//				NSSize dragOffset = NSMakeSize(0.0, 0.0); // Just use NSZeroSize: Ankur, 21 Dec
 				if (!([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) ) {
 					NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSDragPboard];
 					[[self objectValue] putOnPasteboard:pboard includeDataForTypes:nil];
-					[self dragImage:[dragImage imageWithAlphaComponent:0.5] at:NSZeroPoint offset:dragOffset
-							 event:theEvent pasteboard:pboard source:self slideBack:!([[NSApp currentEvent] modifierFlags] & NSCommandKeyMask)];
-
+					[self dragImage:[dragImage imageWithAlphaComponent:0.5] at:NSZeroPoint offset:NSZeroSize event:theEvent pasteboard:pboard source:self slideBack:!([[NSApp currentEvent] modifierFlags] & NSCommandKeyMask)];
 				} else {
 					NSPoint dragPosition;
 					NSRect imageLocation;
-
-					dragPosition = [self convertPoint:[theEvent locationInWindow]
-											 fromView:nil];
+					dragPosition = [self convertPoint:[theEvent locationInWindow] fromView:nil];
 					dragPosition.x -= 16;
 					dragPosition.y -= 16;
 					imageLocation.origin = dragPosition;
 					imageLocation.size = NSMakeSize(32, 32);
-
-					[self dragPromisedFilesOfTypes:[NSArray arrayWithObject:@"silver"]
-										 fromRect:imageLocation
-											source:self
-										 slideBack:YES
-											 event:theEvent];
+					[self dragPromisedFilesOfTypes:[NSArray arrayWithObject:@"silver"] fromRect:imageLocation source:self slideBack:YES event:theEvent];
 				}
 
 			}
-				break;
+		break;
 		case NSLeftMouseUp:
-			//if (isInside)
-			// NSLog(@"mouseUp");
 			[self mouseClicked:theEvent];
-			break;
+		break;
 		default:
-			break;
+		break;
 	}
 
 	return;
 }
-- (void)mouseClicked:(NSEvent *)theEvent {
 
-}
+- (void)mouseClicked:(NSEvent *)theEvent {}
 
 - (BOOL)needsPanelToBecomeKey {
 	return YES;
 }
 
-- (void)paste:(id)sender {[self readSelectionFromPasteboard:[NSPasteboard generalPasteboard]];} ;
+- (void)paste:(id)sender {[self readSelectionFromPasteboard:[NSPasteboard generalPasteboard]];}
 
 - (void)cut:(id)sender {
 	[[self objectValue] putOnPasteboard:[NSPasteboard generalPasteboard] includeDataForTypes:nil];
@@ -164,9 +148,7 @@
 }
 
 - (BOOL)readSelectionFromPasteboard:(NSPasteboard *)pboard {
-	QSObject *entry;
-	entry = [QSObject objectWithPasteboard:pboard];
-	[self setObjectValue:entry];
+	[self setObjectValue:[QSObject objectWithPasteboard:pboard]];
 	return YES;
 }
 
@@ -178,12 +160,9 @@
 - (NSArray *)namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination {
 	NSLog(@"write to %@", [dropDestination path]);
 	NSString *name = [[[self objectValue] name] stringByAppendingPathExtension:@"silver"];
-
 	name = [name stringByReplacing:@"/" with:@"_"];
 	name = [name stringByReplacing:@":" with:@"_"];
 	NSString *file = [[dropDestination path] stringByAppendingPathComponent:name];
-
-	//NSLog(file);
 	[(QSObject *)[self objectValue] writeToFile:file];
 	return [NSArray arrayWithObject:name];
 }
@@ -191,14 +170,10 @@
 - (NSSize) cellSize {
 	return [[self cell] cellSize];
 }
+
 - (NSMenu *)mxenu {
-	// NSLog(@"Menu");
 	NSMenu *menu = [[[NSMenu alloc] initWithTitle:@"ContextMenu"] autorelease];
-
 	NSArray *actions = [[QSLibrarian sharedInstance] validActionsForDirectObject:[self objectValue] indirectObject:nil];
-
-	// actions = [actions sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
-
 	NSMenuItem *item;
 	int i;
 	for (i = 0; i<[actions count]; i++) {
@@ -227,13 +202,10 @@
 
 		}
 	}
-
 	[menu addItem:[NSMenuItem separatorItem]];
 	[menu addItemWithTitle:@"Copy" action:@selector(copy:) keyEquivalent:@""];
 	[menu addItemWithTitle:@"Remove" action:@selector(delete:) keyEquivalent:@""];
-
 	return menu;
-
 }
 
 - (void)performMenuAction:(NSMenuItem *)item {
@@ -354,7 +326,7 @@
 	if (fDEV && [[NSApp currentEvent] modifierFlags] & NSControlKeyMask) {
 		[NSMenu popUpContextMenu:[[[self objectValue] resolvedObject] actionsMenu] withEvent:[NSApp currentEvent] forView:self];
 	} else if (action && [self dropMode] != QSSelectDropMode) {
-		[NSThread detachNewThreadSelector:@selector(concludeDragWithAction:) toTarget:self withObject:[[QSLib actionForIdentifier:action] retain]];
+		[NSThread detachNewThreadSelector:@selector(concludeDragWithAction:) toTarget:self withObject:[QSLib actionForIdentifier:action]]; // Ankur, 21 Dec: Action retained in selector, not here
 	} else if (lastDragMask & NSDragOperationGeneric) {
 		id winController = [[self window] windowController];
 		if ([winController isKindOfClass:[QSInterfaceController class]] ) {
@@ -374,15 +346,15 @@
 }
 
 - (void)concludeDragOperation:(id <NSDraggingInfo>)sender {
-	//	NSLog(@"conclude");
-//	NSLog(@"%@", [[NSRunLoop currentRunLoop] currentMode]);
 	[self setDragAction:nil];
 }
 
 - (void)concludeDragWithAction:(QSAction *)actionObject {
+	[actionObject retain];
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	[actionObject performOnDirectObject:[self draggedObject] indirectObject:[self objectValue]];
 	[pool release];
+	[actionObject release];
 }
 
 - (NSString *)dragAction { return dragAction;  }

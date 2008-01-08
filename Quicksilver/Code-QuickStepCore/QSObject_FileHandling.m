@@ -1,7 +1,4 @@
-
-
 #import "QSObject_FileHandling.h"
-
 #import "QSObject_Pasteboard.h"
 #import "QSParser.h"
 #import "QSComputerSource.h"
@@ -19,20 +16,20 @@
 #import "QSExecutor.h"
 #import "QSMacros.h"
 #import "QSAction.h"
-
 #import "QSObject_PropertyList.h"
-
 #import "NSAppleEventDescriptor+NDAppleScriptObject.h"
 #include "QSLocalization.h"
 
-NSString *identifierForPaths(NSArray *paths) {
+// Ankur, 21 Dec: useSmallIcons not used anywhere. Commented out.
 
+NSString *identifierForPaths(NSArray *paths) {
 	if ([paths count] == 1) return [[paths lastObject] stringByResolvingSymlinksInPath];
 	return [paths componentsJoinedByString:@" "];
 }
 
 static NSDictionary *bundlePresetChildren;
-static BOOL useSmallIcons = NO;
+//static BOOL useSmallIcons = NO;
+
 NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	NSArray *recentDocuments = [(NSArray *)CFPreferencesCopyValue((CFStringRef) @"NSRecentDocumentRecords", (CFStringRef) bundleIdentifier, kCFPreferencesCurrentUser, kCFPreferencesAnyHost) autorelease];
 
@@ -44,9 +41,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	for (i = 0; i<[recentDocuments count]; i++) {
 		aliasData = [[[recentDocuments objectAtIndex:i] objectForKey:@"_NSLocator"] objectForKey:@"_NSAlias"];
 		path = [[NDAlias aliasWithData:aliasData] quickPath];
-
 		// ***warning * eventually include aliases
-
 		if (path && [manager fileExistsAtPath:path]) [documentsArray addObject:path];
 	}
 	return documentsArray;
@@ -54,9 +49,9 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 @implementation QSFileSystemObjectHandler
 // Object Handler Methods
-+(void)initialize {
+/*+(void)initialize {
 	useSmallIcons = [[NSUserDefaults standardUserDefaults] boolForKey:kUseSmallIcons];
-}
+}*/
 - (id)init {
 	self = [super init];
 	if (self != nil) {
@@ -78,7 +73,6 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 - (id)dataForObject:(QSObject *)object pasteboardType:(NSString *)type {
 	return [object arrayForType:type];
-	return nil;
 }
 
 - (BOOL)drawIconForObject:(QSObject *)object inRect:(NSRect)rect flipped:(BOOL)flipped {

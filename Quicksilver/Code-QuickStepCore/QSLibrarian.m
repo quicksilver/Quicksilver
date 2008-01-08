@@ -493,15 +493,17 @@ static float searchSpeed = 0.0;
 - (void)scanCatalogIgnoringIndexes:(BOOL)force {
 	if (scannerCount >= 1) {
 		NSLog(@"Multiple Scans Attempted");
+#if 0
 		if (scannerCount>2) {
 			//[NSException raise:@"Multiple Scans Attempted" format:@""]
 			return;
 		}
+#endif
 		return;
 	}
 
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-		QSTask *mtScanTask = [scanTask mainThreadProxy];
+	QSTask *mtScanTask = [scanTask mainThreadProxy];
 	[mtScanTask setStatus:@"Catalog Rescan"];
 	[mtScanTask startTask:self];
 	[mtScanTask setProgress:-1];
@@ -516,7 +518,6 @@ static float searchSpeed = 0.0;
 	}
 
 	[mtScanTask setProgress:1.0];
-
 	[mtScanTask stopTask:self];
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogIndexingCompleted object:nil];

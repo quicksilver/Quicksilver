@@ -144,7 +144,7 @@
 	if (edge < 0)
 		return;
 	NSArray *screens = [NSScreen screens];
-	NSRect hideRect = expelRectFromRectOnEdge([self frame], [[self screen] frame], edge, 1.0);
+	NSRect hideRect = expelRectFromRectOnEdge([self frame], [[self screen] frame], edge, 1.0); // TESTING: not peeking?
 	if ([screens count]) {
 		int i;
 		for (i = 0; i<[screens count]; i++) {

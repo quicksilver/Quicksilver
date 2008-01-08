@@ -1,5 +1,3 @@
-
-
 #import "QSObject.h"
 #import "QSObject_Pasteboard.h"
 #import "QSObject_FileHandling.h"
@@ -23,7 +21,7 @@
 
 #import "NSString_Purification.h"
 
-static QSController *controller;
+//static QSController *controller;
 static NSMutableDictionary *objectDictionary;
 
 static NSMutableSet *iconLoadedArray;
@@ -42,28 +40,30 @@ NSSize QSMaxIconSize;
 @implementation QSObject
 + (void)initialize {
 	if (!QSObjectInitialized) {
-	QSMaxIconSize = NSMakeSize(128, 128);
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceChanged) name:QSInterfaceChangedNotification object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(purgeOldImagesAndChildren) name:QSReleaseOldCachesNotification object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cleanObjectDictionary) name:QSReleaseOldCachesNotification object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(purgeAllImagesAndChildren) name:QSReleaseAllCachesNotification object:nil];
+		QSMaxIconSize = NSMakeSize(128, 128);
+		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+		[nc addObserver:self selector:@selector(interfaceChanged) name:QSInterfaceChangedNotification object:nil];
+		[nc addObserver:self selector:@selector(purgeOldImagesAndChildren) name:QSReleaseOldCachesNotification object:nil];
+		[nc addObserver:self selector:@selector(cleanObjectDictionary) name:QSReleaseOldCachesNotification object:nil];
+		[nc addObserver:self selector:@selector(purgeAllImagesAndChildren) name:QSReleaseAllCachesNotification object:nil];
 
-	controller = [NSApp delegate];
+	//	controller = [NSApp delegate];
 
-	objectDictionary = [[NSMutableDictionary alloc] initWithCapacity:100];
-	iconLoadedArray = [[NSMutableSet alloc] initWithCapacity:100];
-	childLoadedArray = [[NSMutableSet alloc] initWithCapacity:100];
+		objectDictionary = [[NSMutableDictionary alloc] init]; // initWithCapacity:100]; formerly for these three
+		iconLoadedArray = [[NSMutableSet alloc] init];
+		childLoadedArray = [[NSMutableSet alloc] init];
 
-	typeHandlers = [[QSReg objectHandlers] retain];
+		typeHandlers = [[QSReg objectHandlers] retain];
+/*
+		[[NSImage imageNamed:@"Question"] createIconRepresentations];
 
-	[[NSImage imageNamed:@"Question"] createIconRepresentations];
+		[[NSImage imageNamed:@"ContactAddress"] createRepresentationOfSize:NSMakeSize(16, 16)];
+		[[NSImage imageNamed:@"ContactPhone"] createRepresentationOfSize:NSMakeSize(16, 16)];
+		[[NSImage imageNamed:@"ContactEmail"] createRepresentationOfSize:NSMakeSize(16, 16)];
 
-	[[NSImage imageNamed:@"ContactAddress"] createRepresentationOfSize:NSMakeSize(16, 16)];
-	[[NSImage imageNamed:@"ContactPhone"] createRepresentationOfSize:NSMakeSize(16, 16)];
-	[[NSImage imageNamed:@"ContactEmail"] createRepresentationOfSize:NSMakeSize(16, 16)];
-
-	[[NSImage imageNamed:@"defaultAction"] createIconRepresentations];
-	QSObjectInitialized = YES;
+		[[NSImage imageNamed:@"defaultAction"] createIconRepresentations];
+*/
+		QSObjectInitialized = YES;
 	}
 }
 

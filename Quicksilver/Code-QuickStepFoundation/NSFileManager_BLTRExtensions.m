@@ -23,8 +23,9 @@
 - (bool)isVisible:(NSString *)path {
 	LSItemInfoRecord infoRec;
 	OSStatus status = LSCopyItemInfoForURL((CFURLRef)[NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);
-	BOOL result = ! ( (infoRec.flags & kLSItemInfoIsInvisible) || ([[path stringByDeletingLastPathComponent] isEqualToString:@"/"] && [HIDDENROOT containsObject:[path lastPathComponent]]) || (status && [[path lastPathComponent] hasPrefix:@"."]) );
-	return result;
+/*	BOOL result = ! ( (infoRec.flags & kLSItemInfoIsInvisible) || ([[path stringByDeletingLastPathComponent] isEqualToString:@"/"] && [HIDDENROOT containsObject:[path lastPathComponent]]) || (status && [[path lastPathComponent] hasPrefix:@"."]) );
+	return result;*/
+	return ! ( (infoRec.flags & kLSItemInfoIsInvisible) || (status && [[path lastPathComponent] hasPrefix:@"."]) );
 }
 
 #if 0
