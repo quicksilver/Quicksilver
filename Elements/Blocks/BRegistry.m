@@ -272,16 +272,6 @@ static id sharedInstance = nil;
 	return nil;
 }
 
-- (NSArray *)plugins {
-	
-	//BLog(@"startPlug %f", ti - (ti = [NSDate timeIntervalSinceReferenceDate]));
-	NSArray *plugins = [self objectsForEntityName:@"plugin"];
-	
-    // BLog(@"stupPlug %f", ti - (ti = [NSDate timeIntervalSinceReferenceDate]));
-    //BLog(@"plugins %d", [plugins count]);
-	return plugins;
-}
-
 - (NSArray *)extensionPoints {
 	return [self objectsForEntityName:@"extensionPoint"];
 }
@@ -292,6 +282,10 @@ static id sharedInstance = nil;
 
 - (NSArray *)elements {
 	return [self objectsForEntityName:@"element"];
+}
+
+- (NSArray *)plugins {
+    return [self objectsForEntityName:@"plugin"];
 }
 
 - (void)logRegistry {

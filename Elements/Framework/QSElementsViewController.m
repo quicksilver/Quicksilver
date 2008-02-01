@@ -26,6 +26,11 @@ static id sharedInstance = nil;
     return self;
 }
 
+- (id) registry
+{
+    return QSReg;
+}
+
 - (void) showWindow:(id)sender {
     [self loadView]; 
     [[[self view] window] makeKeyAndOrderFront:nil];

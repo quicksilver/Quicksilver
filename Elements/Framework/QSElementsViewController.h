@@ -18,8 +18,6 @@
 /**
  *  @brief A QSElementsViewController singleton
  *  Returns a singleton.
- *  
- *
  */
 + (id) sharedController;
 /**
