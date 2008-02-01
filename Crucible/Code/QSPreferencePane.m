@@ -80,7 +80,7 @@
 
 - (NSString *) mainNibName{
 	NSString *nibName=[_info objectForKey:@"nibName"];
-	if (!nibName)nibName=NSStringFromClass([self class]);
+	if (!nibName)nibName = NSStringFromClass([self class]);
 	return nibName;
 }
 - (NSBundle *)mainNibBundle{

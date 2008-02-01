@@ -18,27 +18,8 @@
     if (!table)
         table = @"default";
     
+    // FIXME: I'm not sure this is used right now, and it looks broken to me...
     return NSLocalizedStringFromTableInBundle(str, table, [self bundle], @"");
-}
-
-+ (void)localizeWindow:(NSWindow*)window;
-{
-    [NTViewLocalizer localizeWindow:window table:@"default" bundle:[self bundle]];
-}
-
-+ (void)localizeWindow:(NSWindow*)window table:(NSString*)table;
-{
-    [NTViewLocalizer localizeWindow:window table:table bundle:[self bundle]];
-}
-
-+ (void)localizeView:(NSView*)view;
-{
-    [NTViewLocalizer localizeView:view table:@"default" bundle:[self bundle]];
-}
-
-+ (void)localizeView:(NSView*)view table:(NSString*)table;
-{
-    [NTViewLocalizer localizeView:view table:table bundle:[self bundle]];
 }
 
 @end

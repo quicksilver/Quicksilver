@@ -5,7 +5,7 @@
 //  Created by Alcor on Fri May 09 2003.
 
 //
-#import "NSString+CarbonUtilities.h"
+
 #import "NSWorkspace_BLTRExtensions.h"
 #import "NSApplication_BLTRExtensions.h"
 //#import "QSApp.h"

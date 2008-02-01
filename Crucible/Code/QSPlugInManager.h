@@ -42,7 +42,6 @@
 
 + (id)sharedInstance;
 
-
 - (BOOL) showNotifications;
 - (void) setShowNotifications: (BOOL) flag;
 
@@ -52,12 +51,12 @@
 - (BOOL)plugInMeetsRequirements:(QSPlugIn *)plugIn;
 - (BOOL)plugInMeetsDependencies:(QSPlugIn *)plugIn;
 - (void)downloadWebPlugInInfoFromDate:(NSDate *)date forUpdateVersion:(NSString *)version synchronously:(BOOL)synchro;
-- (NSMutableDictionary *)loadedPlugIns;
-- (NSMutableDictionary *)oldPlugIns;
+- (NSDictionary *)loadedPlugIns;
+- (NSDictionary *)oldPlugIns;
 
 - (BOOL)startupLoadComplete;
 
-- (NSMutableArray *)allBundles;
+- (NSArray *)allBundles;
 - (void)loadPlugInsAtLaunch;
 - (void)suggestOldPlugInRemoval;
 - (BOOL)liveLoadPlugIn:(QSPlugIn *)plugin;
@@ -69,8 +68,6 @@
 //- (NSMutableDictionary *)validPlugIns;
 //- (void)setValidPlugIns:(NSMutableDictionary *)newValidPlugIns;
 
-
-
 //- (NSString *)installPlugInFromFile:(NSString *)path;
 - (BOOL)installPlugInsForIdentifiers:(NSArray *)bundleIDs;
 - (BOOL)installPlugInsForIdentifiers:(NSArray *)bundleIDs version:(NSString *)version;
@@ -78,13 +75,12 @@
 - (BOOL)checkForPlugInUpdates;
 - (BOOL)checkForPlugInUpdatesForVersion:(NSString *)version;
 
-- (NSMutableDictionary *)localPlugIns;
-- (void)setLocalPlugIns:(NSMutableDictionary *)newLocalPlugIns;
-- (NSMutableDictionary *)knownPlugIns;
-- (void)setKnownPlugIns:(NSMutableDictionary *)newKnownPlugIns;
-- (NSMutableDictionary *)loadedPlugIns;
-- (void)setLoadedPlugIns:(NSMutableDictionary *)newLoadedPlugIns;
-
+- (NSDictionary *)localPlugIns;
+- (void)setLocalPlugIns:(NSDictionary *)newLocalPlugIns;
+- (NSDictionary *)knownPlugIns;
+- (void)setKnownPlugIns:(NSDictionary *)newKnownPlugIns;
+- (NSDictionary *)loadedPlugIns;
+- (void)setLoadedPlugIns:(NSDictionary *)newLoadedPlugIns;
 
 - (NSString *)installStatus;
 - (void)setInstallStatus:(NSString *)newInstallStatus;
@@ -96,16 +92,15 @@
 - (NSString *)urlStringForPlugIn:(NSString *)ident version:(NSString *)version;
 - (BOOL)supressRelaunchMessage;
 - (void)setSupressRelaunchMessage:(BOOL)flag;
-//- (NSMutableArray *)downloadsQueue ;
-- (NSMutableArray *)downloadsQueue ;
+- (NSArray *)downloadsQueue;
 - (NSString *)installPlugInFromFile:(NSString *)path;
 - (void)downloadWebPlugInInfo;
 - (void)downloadWebPlugInInfoIgnoringDate;
 - (BOOL)updatePlugInsForNewVersion:(NSString *)version;
 - (float)downloadProgress;
-- (NSMutableArray *)updatedPlugIns;
--(BOOL)handleInstallURL:(NSURL *)url;
--(BOOL)installPlugInsFromFiles:(NSArray *)fileList;
+- (NSArray *)updatedPlugIns;
+- (BOOL)handleInstallURL:(NSURL *)url;
+- (BOOL)installPlugInsFromFiles:(NSArray *)fileList;
 
 - (NSURLDownload *)currentDownload;
 - (void)setCurrentDownload:(NSURLDownload *)newCurrentDownload;

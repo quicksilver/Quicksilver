@@ -10,7 +10,6 @@
 #import "QSObject_StringHandling.h"
 #import "QSTypes.h"
 #import "QSObject_URLHandling.h"
-#import "NSString+CarbonUtilities.h"
 
 @implementation QSStringObjectHandler
 

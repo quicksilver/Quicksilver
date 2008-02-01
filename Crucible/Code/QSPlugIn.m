@@ -722,7 +722,8 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 
 - (BOOL) registerPlugIn {
-
+    [QSPlugInManager sharedInstance];
+    
 	NS_DURING
 		[self _registerPlugIn];
 	NS_HANDLER

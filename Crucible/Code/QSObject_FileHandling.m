@@ -22,8 +22,6 @@
 #import "QSMacros.h"
 #import "QSAction.h"
 
-#import "QLPrivate.h"
-
 #import "QSObject_PropertyList.h"
 
 #import "NSAppleEventDescriptor+NDAppleScriptObject.h"

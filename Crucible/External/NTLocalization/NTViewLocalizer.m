@@ -84,45 +84,45 @@
 		}
 		else
 		{
-			[view setTitle:[self localizedString:[view title]]];
-			[view setAlternateTitle:[self localizedString:[view alternateTitle]]];
+			[(NSButton*)view setTitle:[self localizedString:[(NSButton*)view title]]];
+			[(NSButton*)view setAlternateTitle:[self localizedString:[(NSButton*)view alternateTitle]]];
 			
 			// resize to fit if a checkbox
-			if ([view isSwitchButton])
-				[view sizeToFit];
+			if ([(NSButton*)view isSwitchButton])
+				[(NSButton*)view sizeToFit];
 		}
 	}
 	else if ([view isKindOfClass:[NSBox class]])
 	{
-		[view setTitle:[self localizedString:[view title]]];
+		[(NSBox*)view setTitle:[self localizedString:[(NSBox*)view title]]];
 	}
 	else if ([view isKindOfClass:[NSMatrix class]])
 	{
 		NSButtonCell* cell;
 		
 		// localize permission matrix
-		items = [view cells];
+		items = [(NSMatrix*)view cells];
 		
 		cnt = [items count];
-		for (i=0;i<cnt;i++)
+		for( i = 0; i < cnt; i++ )
 		{
 			cell = [items objectAtIndex:i];
 			[cell setTitle:[self localizedString:[cell title]]];
 			
-			if ([cell isKindOfClass:[NSButtonCell class]])
+			if( [cell isKindOfClass:[NSButtonCell class]] )
 				[cell setAlternateTitle:[self localizedString:[cell alternateTitle]]];
 		}
 		
 		// matrix needs to be resized when the strings are changed
-		[view setValidateSize:NO];
+		[(NSMatrix*)view setValidateSize:NO];
 	}
 	else if ([view isKindOfClass:[NSTabView class]])
 	{
 		// localize the tabs
-		items = [view tabViewItems];
+		items = [(NSTabView*)view tabViewItems];
 		
 		cnt = [items count];
-		for (i=0;i<cnt;i++)
+		for( i = 0; i < cnt; i++ )
 		{
 			tabViewItem = [items objectAtIndex:i];
 			[tabViewItem setLabel:[self localizedString:[tabViewItem label]]];
@@ -133,18 +133,18 @@
 	else if ([view isKindOfClass:[NSTextField class]])
 	{
 		// handles NSTextFields and other non button NSControls
-		[view setStringValue:[self localizedString:[view stringValue]]];
+		[(NSTextField*)view setStringValue:[self localizedString:[(NSTextField*)view stringValue]]];
 		
 		// localize place holder string
-		[[view cell] setPlaceholderString:[self localizedString:[[view cell] placeholderString]]];
+		[[(NSTextField*)view cell] setPlaceholderString:[self localizedString:[[(NSTextField*)view cell] placeholderString]]];
 	}
 	else if ([view isKindOfClass:[NSTableView class]])
 	{
 		NSTableColumn *column;
-		items = [view tableColumns];
+		items = [(NSTableView*)view tableColumns];
 		
 		cnt = [items count];
-		for (i=0;i<cnt;i++)
+		for( i = 0; i < cnt; i++ )
 		{
 			column = [items objectAtIndex:i];
 			
@@ -157,11 +157,11 @@
 	[view setToolTip:[self localizedString:[view toolTip]]];
 	
 	// if has subviews, localize them too
-	if ([[view subviews] count]){
+	if ([[view subviews] count]) {
 		NSArray *subviews = [view subviews];
 		int x, xcnt = [subviews count];
 		
-		for (x=0;x<xcnt;x++)
+		for( x = 0; x < xcnt; x++ )
 		{
 			[self localizeView:[subviews objectAtIndex:x]];
 		}
