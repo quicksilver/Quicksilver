@@ -18,6 +18,7 @@
 - (id)representedObject;
 - (id)objectAtIndexPath:(NSIndexPath *)path;
 @end
+
 @implementation QSObject (NSTreeNodePrivate)
 - (id)representedObject {return self;}
 @end
@@ -35,7 +36,7 @@ static id _sharedInstance;
     if (!_sharedInstance) _sharedInstance = [[[self class] allocWithZone:[self zone]] init];
     return _sharedInstance;
 }
-- (void)preferencesSplitView {
+- (NSView*)preferencesSplitView {
 	return [sidebar superview];
 }
 
@@ -106,8 +107,8 @@ static id _sharedInstance;
 	
 	   
    [catalogSetsTable setHighlightColor:highlightColor];
-	   [itemTable setHighlightColor:highlightColor];
-	   [itemContentsTable setHighlightColor:highlightColor];
+    [itemTable setHighlightColor:highlightColor];
+    [itemContentsTable setHighlightColor:highlightColor];
 	   
 	   
 	   
@@ -121,7 +122,7 @@ static id _sharedInstance;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(catalogCacheChanged:) name:@"CatalogCacheChanged" object:nil];
 	
 	//  [[itemViewSwitcher cell]setControlSize:NSSmallControlSize];
-    NSMutableArray *sourceElements = [QSReg elementsForPointID:kQSObjectSources];
+    NSArray *sourceElements = [QSReg elementsForPointID:kQSObjectSources];
     
 	
     // [NSArray arrayWithObjects:@"QSFileSystemObjectSource", kRecentAppsPreset, kRecentDocsPreset, kDockAppsPreset, kDockOthersPreset, kAddressBookPreset, kAllApplicationsPreset, nil];
@@ -138,14 +139,12 @@ static id _sharedInstance;
     NSMenuItem *item;
     NSImage *icon;
 
-	[itemAddButton setMenu:[[[NSMenu alloc]initWithTitle:@"Sources"]autorelease]];
+	[itemAddButton setMenu:[[[NSMenu alloc] initWithTitle:@"Sources"] autorelease]];
 
     for (BElement *element in sourceElements) {
 		
 		id source = [element elementInstance];
         NSString *theID = [element identifier];
-		
-		
 		
 		BOOL validSource = [source respondsToSelector:@selector(isVisibleSource)]
 			 && [source isVisibleSource];
@@ -360,7 +359,7 @@ static id _sharedInstance;
 //    [itemTable scrollRowToVisible:row];
 //    
     if ([sourceString isEqualToString:@"QSFileSystemObjectSource"]) {
-        if (![(id)[QSReg sourceNamed:sourceString] chooseFile]) {
+        if (![[QSReg sourceNamed:sourceString] chooseFile]) {
             [[parentEntry children]removeObject:childEntry];  
 			
 			[treeController rearrangeObjects];

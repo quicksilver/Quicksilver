@@ -10,7 +10,7 @@
     IBOutlet NSTableView *externalPrefsTable;
     IBOutlet NSButton *helpButton;
     IBOutlet NSImageView *iconView;
-    IBOutlet NSTableView *internalPrefsTable;
+    IBOutlet QSTableView *internalPrefsTable;
     IBOutlet NSView *loadingView;
     IBOutlet NSTextField *nameView;
     IBOutlet NSProgressIndicator *loadingProgress;

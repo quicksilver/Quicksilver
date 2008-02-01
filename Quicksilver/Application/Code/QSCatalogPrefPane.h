@@ -15,7 +15,7 @@
 //@class QSPrefsController;
 @interface QSCatalogPrefPane : QSPreferencePane {
 	
-    IBOutlet NSTableView *catalogSetsTable;
+    IBOutlet QSTableView *catalogSetsTable;
     //NSMutableArray *itemArray;
 	
     IBOutlet NSArrayController *catalogSetsController;
@@ -30,8 +30,8 @@
     
     //Item
     IBOutlet NSPopUpButton *sourcePopUp;
-    IBOutlet NSOutlineView *itemTable;
-    IBOutlet NSTableView *itemContentsTable;
+    IBOutlet QSOutlineView *itemTable;
+    IBOutlet QSTableView *itemContentsTable;
     IBOutlet NSTextField *itemNameField;
     IBOutlet NSImageView *itemIconField;
     IBOutlet NSButton *itemAddButton;

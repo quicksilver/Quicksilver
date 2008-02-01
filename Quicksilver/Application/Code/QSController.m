@@ -91,9 +91,6 @@ static id _sharedInstance;
 + (void)initialize {
   
 //  BOOL runningFromXcode = [[[NSProcessInfo processInfo] environment] valueForKey:@"NSUnbufferedIO"];
-  NSNumber *level = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSLoggingLevel"];
-	if (level) [BLogManager setLoggingLevel:[level intValue]];
-	
 	if (DEBUG_STARTUP) QSLog(@"Controller Initialize");
 	
 	static BOOL initialized = NO;
@@ -177,6 +174,10 @@ static id _sharedInstance;
 	if ((self = [super init])) {
 		
 		_sharedInstance = self;
+        
+        NSNumber *level = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSLoggingLevel"];
+        if (level) [BLogManager setLoggingLevel:[level intValue]];
+        
 		if (DEBUG_STARTUP) QSLog(@"Controller Init");
 		
 		// Enforce Expiration Date

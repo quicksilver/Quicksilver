@@ -6,11 +6,11 @@
 
 //
 
-@interface QSHelpersPrefPane : QSPreferencePane{
+@interface QSHelpersPrefPane : QSPreferencePane {
 	NSMutableArray *helperInfo;
 	IBOutlet NSTableView *helperTable;
 }
-- (NSMutableArray *)helperInfo;
-- (void)setHelperInfo:(NSMutableArray *)aHelperInfo;
+- (NSArray *)helperInfo;
+- (void)setHelperInfo:(NSArray *)aHelperInfo;
 - (void)reloadHelpersList:(id)sender;
 @end

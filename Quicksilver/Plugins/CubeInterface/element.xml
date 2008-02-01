@@ -28,7 +28,7 @@
             </preference-pane>
         </extension>
         <extension point="QSCommandInterfaceControllers">
-            <command-interface id="QSCubeInterface" class="QSCubeInterface"></command-interface>
+            <command-interface id="QSCubeInterface" class="QSCubeInterface"/>
         </extension>
     </extensions>
 </element>

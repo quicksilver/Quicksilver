@@ -807,7 +807,7 @@
             </trigger-preset>
         </extension>
         <extension point="com.blacktree.resources.images">
-            <image-resource name="" id="Rocket">
+            <image-resource name="Rocket" id="Rocket">
                 <plist version="1.0">
                     <dict>
                         <key>bundle</key>
@@ -819,7 +819,7 @@
             </image-resource>
         </extension>
         <extension point="com.blacktree.actions">
-            <action name="" id="AppHideOthersAction">
+            <action name="Hide Others" id="AppHideOthersAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -939,7 +939,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="QSObjectSearchChildrenAction">
+            <action name="Search Children" id="QSObjectSearchChildrenAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -959,7 +959,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="QSObjCSendMessageAction">
+            <action name="Send Message..." id="QSObjCSendMessageAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -979,7 +979,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="FileOpenAction">
+            <action name="Open" id="FileOpenAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1003,7 +1003,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="QSLargeTypeAction">
+            <action name="Show large" id="QSLargeTypeAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1021,7 +1021,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="FileDeleteAction">
+            <action name="Delete" id="FileDeleteAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1037,7 +1037,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="QSTextTypeAction">
+            <action name="Type with keyboard" id="QSTextTypeAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1077,7 +1077,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="FileRenameAction">
+            <action name="Rename..." id="FileRenameAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1139,7 +1139,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="AppQuitAction">
+            <action name="Quit" id="AppQuitAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1157,7 +1157,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="FileRevealAction">
+            <action name="Reveal" id="FileRevealAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1173,7 +1173,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="URLOpenWithAction">
+            <action name="Open..." id="URLOpenWithAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1213,7 +1213,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="FileGetInfoAction">
+            <action name="Get Info..." id="FileGetInfoAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1293,7 +1293,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="AppOpenFileAction">
+            <action name="Open with..." id="AppOpenFileAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1316,7 +1316,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="QSObjectAssignLabelAction">
+            <action name="Label object with..." id="QSObjectAssignLabelAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1334,7 +1334,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="DiskEjectAction">
+            <action name="Eject" id="DiskEjectAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1348,7 +1348,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="URLEmailAction">
+            <action name="Email" id="URLEmailAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1364,7 +1364,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="AppHideAction">
+            <action name="Hide" id="AppHideAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1587,7 +1587,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="AppleScriptOpenFilesAction">
+            <action name="Run AppleScrip With Files..." id="AppleScriptOpenFilesAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1633,7 +1633,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="AppActivateAction">
+            <action name="Activate" id="AppActivateAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1677,7 +1677,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="FileOpenWithAction">
+            <action name="Open With..." id="FileOpenWithAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1699,7 +1699,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="QSObjectShowChildrenAction">
+            <action name="Show Children" id="QSObjectShowChildrenAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1746,7 +1746,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="QSObjectOmitAction">
+            <action name="Omit" id="QSObjectOmitAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1762,7 +1762,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="Run" id="QSShellScriptRunAction">
+            <action name="Run as Shell Script" id="QSShellScriptRunAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1796,7 +1796,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="FileCopyToAction">
+            <action name="Copy To..." id="FileCopyToAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1812,7 +1812,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="QSCatalogEntryRescanAction">
+            <action name="Rescan" id="QSCatalogEntryRescanAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1830,7 +1830,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="FileMoveToAction">
+            <action name="Move To..." id="FileMoveToAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1870,7 +1870,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="QSCatalogEntryShowAction">
+            <action name="Show In Catalog..." id="QSCatalogEntryShowAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1910,7 +1910,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="QSTextDiffAction">
+            <action name="Diff With..." id="QSTextDiffAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1928,7 +1928,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="URLJSAction">
+            <action name="Run As JavaScript" id="URLJSAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1951,7 +1951,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="AppleScriptRunTextAction">
+            <action name="Run As AppleScript..." id="AppleScriptRunTextAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1969,7 +1969,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="FileToTrashAction">
+            <action name="Move To Trash" id="FileToTrashAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -1983,7 +1983,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="URLOpenAction">
+            <action name="Open..." id="URLOpenAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -2091,7 +2091,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="AppleScriptRunAction">
+            <action name="Run AppleScript" id="AppleScriptRunAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -2119,7 +2119,7 @@
                     </dict>
                 </plist>
             </action>
-            <action name="" id="AppRelaunchAction">
+            <action name="Relaunch" id="AppRelaunchAction">
                 <plist version="1.0">
                     <dict>
                         <key>actionClass</key>
@@ -2196,7 +2196,7 @@
             </action>
         </extension>
         <extension point="QSCommands">
-            <command name="Show Command Window " id="QSActivateTextModeCommand">
+            <command name="Show Command Window" id="QSActivateTextModeCommand">
                 <plist version="1.0">
                     <dict>
                         <key>command</key>
@@ -2230,7 +2230,7 @@
                     </dict>
                 </plist>
             </command>
-            <command name="Show Command Window " id="QSGetGlobalSelectionCommand">
+            <command name="Current Selection" id="QSGetGlobalSelectionCommand">
                 <plist version="1.0">
                     <dict>
                         <key>command</key>
@@ -2519,7 +2519,7 @@
                     <key>name</key>
                     <string>Web Browser</string>
                     <key>type</key>
-                    <string>xmediator</string>
+                    <string>mediator</string>
                 </dict>
             </plist>
         </extension-point>

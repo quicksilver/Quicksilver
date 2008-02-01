@@ -111,7 +111,7 @@
 	
 	switch (displayMode) {
 		case 0:
-		 {
+        {
 			NSDictionary *infoTable = [QSReg elementsByIDForPointID:@"QSTypeDefinitions"];
 			QSLog(@"infoTable %@", infoTable);
 			NSArray *newGroups = [infoTable allKeys];
@@ -122,37 +122,38 @@
 				NSString *name = [info objectForKey:@"name"];
 				if (!name) name = group;
 				[array addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-					group, @"group", name, @"name", [QSResourceManager imageNamed:[info objectForKey:@"icon"]], @"icon", nil]]; 	
+                                  group, @"group", name, @"name", [QSResourceManager imageNamed:[info objectForKey:@"icon"]], @"icon", nil]]; 	
 			}
 			NSSortDescriptor *desc = [[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES] autorelease];
 			[array sortUsingDescriptors:[NSArray arrayWithObject:desc]];
 			[array insertObject:[NSDictionary dictionaryWithObjectsAndKeys:
-				kQSAllActionsCategory, @"group", @"All Actions", @"name", [QSResourceManager imageNamed:@"Quicksilver"] , @"icon", nil] atIndex:0]; 	
+                                 kQSAllActionsCategory, @"group", @"All Actions", @"name", [QSResourceManager imageNamed:@"Quicksilver"] , @"icon", nil] atIndex:0]; 	
 			[array insertObject:[NSDictionary dictionaryWithObjectsAndKeys:
-				@"*", @"group", @"Any Type", @"name", [QSResourceManager imageNamed:@"Quicksilver"] , @"icon", nil] atIndex:1]; 	
+                                 @"*", @"group", @"Any Type", @"name", [QSResourceManager imageNamed:@"Quicksilver"] , @"icon", nil] atIndex:1]; 	
 			break;
 		}
 		case 1:
-		 {
-			
-			foreach(plugin, [[QSPlugInManager sharedInstance] loadedPlugIns]) {
-				NSString *name = [plugin shortName];
-				if (!name) name = [plugin identifier];
-				NSArray *actionsArray = [QSExec getArrayForSource:[plugin identifier]];
+        {
+            
+			foreach ( plugin, [QSReg plugins] ) {// [[QSPlugInManager sharedInstance] loadedPlugIns] ) {
+                QSPlugIn *qsPlugin = [QSPlugIn plugInWithBundle:[plugin bundle]];
+				NSString *name = [qsPlugin name];
+				if (!name) name = [qsPlugin identifier];
+				NSArray *actionsArray = [QSExec getArrayForSource:[qsPlugin identifier]];
 				if ([actionsArray count]) {
 					name = [name stringByAppendingFormat:@" - %d", [actionsArray count]];
 					[array addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-						[plugin identifier] , @"group", name, @"name", [plugin icon] , @"icon", nil]];
+                                      [qsPlugin identifier] , @"group", name, @"name", [qsPlugin icon] , @"icon", nil]];
 				}
 			}
 			NSSortDescriptor *desc = [[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES] autorelease];
 			[array sortUsingDescriptors:[NSArray arrayWithObject:desc]];
 			[array insertObject:[NSDictionary dictionaryWithObjectsAndKeys:
-				kQSAllActionsCategory, @"group", @"All Plug-ins", @"name", [QSResourceManager imageNamed:@"Quicksilver"] , @"icon", nil] atIndex:0]; 	
+                                 kQSAllActionsCategory, @"group", @"All Plug-ins", @"name", [QSResourceManager imageNamed:@"Quicksilver"] , @"icon", nil] atIndex:0]; 	
 			break;
 		}
 		case 2:
-		 {
+        {
 			break; 	
 		}
 		default:

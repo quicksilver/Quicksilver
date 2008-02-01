@@ -18,12 +18,6 @@
 - (id)init {
     self = [super initWithBundle:[NSBundle bundleForClass:[QSHelpersPrefPane class]]];
     if (self) {
-		
-		//	plugInArray = [[NSMutableArray alloc] init];
-		///		disabledPlugIns = [[NSMutableSet alloc] init];
-		//	[disabledPlugIns addObjectsFromArray:[[NSUserDefaults standardUserDefaults] arrayForKey:@"QSDisabledPlugIns"]];
-		
-		//	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadPlugInsList:) name:QSPlugInInstalledNotification object:nil]; 	
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadHelpersList:) name:QSPlugInLoadedNotification object:nil];
     }
     return self;
@@ -31,11 +25,6 @@
 
 - (void)awakeFromNib {
 	[self reloadHelpersList:nil];
-	
-	//	[self populatePopUp:chatMediatorsPopUp table:[QSReg elementsForPointID:kQSChatMediators] includeDefault:NO];
-	//	[self populatePopUp:mailMediatorsPopUp table:[QSReg elementsForPointID:kQSMailMediators] includeDefault:YES];
-	//	[self populatePopUp:finderProxyPopUp table:[QSReg elementsForPointID:kQSFSBrowserMediators] includeDefault:NO];
-	//	[self populatePopUp:notifierMediatorsPopUp table:[QSReg elementsForPointID:kQSNotifiers] includeDefault:NO];
 }
 
 - (void)selectItemInPopUp:(NSPopUpButton *)popUp representedObject:(id)object {
@@ -49,10 +38,9 @@
 - (NSMenu *)menuForTable:(NSString *)table includeDefault:(BOOL)includeDefault {
 	NSDictionary *mediators = [QSReg elementsByIDForPointID:table];
 	NSMenu *menu = [[[NSMenu alloc] initWithTitle:@"popUp"] autorelease];
-	//QSLog(@"%@ %@", table, mediators);
+    
 	if (![mediators count]) {
 		if (!DEBUG) return nil;
-		//[popUp insertItemWithTitle:@"None Installed" atIndex:0];
 		[menu addItemWithTitle:@"None Available" action:nil keyEquivalent:@""];
 		return menu;
 	}
@@ -105,15 +93,19 @@
 }
 
 - (void)reloadHelpersList:(id)sender {
-	//[NSMutableArray arrayWithObjects:@"Command Line", @"Email", @"Notification", @"Instant Messaging", @"File Managment", nil];
 	NSMutableArray *helpers = [NSMutableArray array];
-	//QSLog(@"helper %@", [QSReg elementsForPointID:@"QSRegistryHeaders"]);
 	
-	foreachkey(key, header, [QSReg elementsByIDForPointID:@"QSRegistryHeaders"]) {
+    NSDictionary    *headers = [QSReg elementsByIDForPointID:@"QSRegistryHeaders"];
+    id header = nil;
+    NSString    *key = nil;
+    NSEnumerator *keyEnum = [headers keyEnumerator];
+    
+    while ( ( key = [keyEnum nextObject] ) && ( header = [headers objectForKey:key] ) ) {
+//	foreachkey(key, header, [QSReg elementsByIDForPointID:@"QSRegistryHeaders"]) {
 		header = [header plistContent];
 		if ([[header objectForKey:@"type"] isEqual:@"mediator"]) {
 			NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObject:header forKey:INFO];
-			if ([[header objectForKey:@"feature"] intValue] >[NSApp featureLevel]) continue;
+			if ([[header objectForKey:@"feature"] intValue] > [NSApp featureLevel]) continue;
 		
 			NSMenu *menu = [self menuForTable:key includeDefault:[[header objectForKey:@"allowDefault"] boolValue]];
 			//QSLog(@"helper %@ %@", key, menu);
@@ -125,10 +117,8 @@
 		}
 	}
 	
-	
 	[self setHelperInfo:helpers];
 	[helperTable reloadData];
-	
 }
 
 - (int) numberOfRowsInTableView:(NSTableView *)aTableView {
@@ -139,9 +129,7 @@
 	if ([[aTableColumn identifier] isEqual:@"helper"]) {
 		return nil;
 	} else {
-		
 		return [[[helperInfo objectAtIndex:rowIndex] objectForKey:INFO] objectForKey:NAME];
-		
 	}
 }
 
@@ -166,15 +154,11 @@
 	}
 }
 
-- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
-	
+- (void) tableView:(NSTableView *)aTableView willDisplayCell:(NSCell*)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
+	QSLog(@"cell %@", aCell);
 	if ([[aTableColumn identifier] isEqual:@"helper"]) {
-		//	QSLog(@"cell %@", aCell);
 		NSDictionary *info = [helperInfo objectAtIndex:rowIndex];
-		//NSString *regSelector = ;
-		
 		id object = nil;
-		
 		
 		object = [QSReg getMediatorID:[info objectForKey:IDENT]];
 		
@@ -182,20 +166,14 @@
 			object = [[NSUserDefaults standardUserDefaults] objectForKey:[info objectForKey:IDENT]];
 		
 		NSMenu *menu = [[helperInfo objectAtIndex:rowIndex] objectForKey:MENU];
-		
-		//		[aCell setUsesItemFromMenu:menu];
-		
-		
-		[aCell setEnabled:[menu numberOfItems] >1];
+        
+		[aCell setEnabled:[menu numberOfItems] > 1];
 		[aCell setMenu:menu];
 		
-		
 		int index = [aCell indexOfItemWithRepresentedObject:object];
-		if (index == -1 && [aCell numberOfItems]) index = 0;
-		//QSLog(@"index %d", index);
+		if (index == -1 && [aCell numberOfItems])
+            index = 0;
 		[aCell selectItemAtIndex:index];
-		
-		
 		
 		//	if (![mediators count]) {
 		//			//[popUp insertItemWithTitle:@"None Installed" atIndex:0];
@@ -205,11 +183,12 @@
 	}
 }
 
+- (NSArray *) helperInfo {
+    return [[helperInfo copy] autorelease];
+}
 
-
-- (NSMutableArray *)helperInfo { return [[helperInfo retain] autorelease];  }
-- (void)setHelperInfo:(NSMutableArray *)aHelperInfo {
+- (void) setHelperInfo:(NSArray *)aHelperInfo {
     [helperInfo autorelease];
-    helperInfo = [aHelperInfo retain];
+    helperInfo = [aHelperInfo mutableCopy];
 }
 @end

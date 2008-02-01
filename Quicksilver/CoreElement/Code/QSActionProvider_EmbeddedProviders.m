@@ -78,7 +78,7 @@
 	}else{
 		NSString *urlHandler=[dObject objectForMeta:@"QSPreferredApplication"];
 		
-		[[NSWorkspace sharedWorkspace] openURLs:urlArray withAppBundleIdentifier:urlHandler options:nil additionalEventParamDescriptor:nil launchIdentifiers:nil];		
+		[[NSWorkspace sharedWorkspace] openURLs:urlArray withAppBundleIdentifier:urlHandler options:0 additionalEventParamDescriptor:nil launchIdentifiers:nil];		
 		
 	}
 	
@@ -99,7 +99,7 @@
 	if (ident)
 		[[NSWorkspace sharedWorkspace]openURLs:[NSArray arrayWithObject:url]
 					   withAppBundleIdentifier:ident
-									   options:nil
+									   options:0
 				additionalEventParamDescriptor:nil
 							 launchIdentifiers:nil
 			];
@@ -458,7 +458,7 @@
 }
 
 - (QSObject *) getInfo:(QSObject *)dObject{
-	[[QSReg getMediator:kQSFSBrowserMediators]getInfoForFiles:[dObject validPaths]];   
+	[[QSReg getMediator:kQSFSBrowserMediators] getInfoForFiles:[dObject validPaths]];   
 	return nil;
 }
 
@@ -654,7 +654,7 @@
 	NSString *thisFile, *destinationFile;
 	while((thisFile=[files nextObject])){
 		destinationFile=[destination stringByAppendingPathComponent:[thisFile lastPathComponent]];
-		if ([(NDAlias *)[NDAlias aliasWithPath:thisFile]writeToFile:destinationFile]){
+		if ([[NDAlias aliasWithPath:thisFile] writeToFile:destinationFile]){
 			[[NSWorkspace sharedWorkspace] noteFileSystemChanged:destination];
 		}
 	}

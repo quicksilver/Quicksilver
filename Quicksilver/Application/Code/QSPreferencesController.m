@@ -397,6 +397,18 @@ id QSPrefs;
 	[self selectPaneWithIdentifier:identifier];
 }
 
+
+- (void)selectSettingsPane:(id)sender {
+	NSArray *selection = [moduleController selectedObjects];
+	NSString *identifier = nil;
+	if (![selection count]) {
+		[moduleController setSelectionIndex:0];
+        selection = [moduleController selectedObjects];
+	}
+    identifier = [[selection lastObject] objectForKey:kItemID];
+	[self selectPaneWithIdentifier:identifier];
+}
+
 - (void)selectPaneWithIdentifier:(NSString *)identifier {
 	NSMutableDictionary *info = [modulesByID objectForKey:identifier];
 	if (info) {
@@ -411,21 +423,34 @@ id QSPrefs;
 	}
 }
 
-- (void)selectSettingsPane:(id)sender {
-	NSArray *selection = [moduleController selectedObjects];
-	NSString *identifier = nil;
-	if (![selection count]) {
-		[moduleController setSelectionIndex:0];
-selection = [moduleController selectedObjects];
+- (void)matchSplitView:(NSSplitView *)split {
+	[[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(splitViewDidResizeSubviews:)
+                                                 name:NSSplitViewDidResizeSubviewsNotification
+                                               object:split];
+	
+	NSArray *subviews = [split subviews];
+	NSRect frame0 = [[subviews objectAtIndex:0] frame];
+	NSRect frame1 = [[subviews objectAtIndex:1] frame];
+	float width = 160; //[[NSUserDefaults standardUserDefaults] floatForKey:kQSPreferencesSplitWidth];
+	if (width>0) {
+        float change = width-NSWidth(frame0);
+		//QSLog(@"setWidth %f %f %f %f", width, NSWidth(frame0), NSWidth(frame1), change);
+        
+        NSRect newFrame0 = frame0;
+        NSRect newFrame1 = frame1;
+        newFrame0.size.width += change;
+        
+        newFrame1.size.width -= change;
+        newFrame1.origin.x += change;
+        
+        //newFrame0.size.width = MIN(MAX(newFrame0.size.width, min), max);
+        
+        [[subviews objectAtIndex:0] setFrame:newFrame0];
+        [[subviews objectAtIndex:1] setFrame:newFrame1];
+        //[split adjustSubviews]; 	
 	}
-		identifier = [[selection lastObject] objectForKey:kItemID];
-	[self selectPaneWithIdentifier:identifier];
 }
-
-
-
-
-
 
 - (void)setPaneForInfo:(NSMutableDictionary *)info switchSection:(BOOL)switchSection {
 	[self setCurrentPaneInfo:info];
@@ -438,7 +463,6 @@ selection = [moduleController selectedObjects];
 	if (isToolbar) {
 		[toolbar setSelectedItemIdentifier:[info objectForKey:kItemID]];
 	} else {
-		
 		[toolbar setSelectedItemIdentifier:@"QSSettingsPanePlaceholder"];
 		[moduleController setSelectedObjects:[NSArray arrayWithObject:info]];
 	}
@@ -458,13 +482,12 @@ selection = [moduleController selectedObjects];
 		}
 	}
 	
-	prefsBox = isToolbar?toolbarPrefsBox:settingsPrefsBox;
+	prefsBox = ( isToolbar ? toolbarPrefsBox : settingsPrefsBox );
 	
 	[[NSUserDefaults standardUserDefaults] synchronize];
 	
-	
-	id newPane = instance;
-	id oldPane = currentPane;
+	QSPreferencePane *newPane = instance;
+	QSPreferencePane *oldPane = currentPane;
 	
 	if (oldPane == newPane) {
         [newPane didReselect];
@@ -543,7 +566,7 @@ selection = [moduleController selectedObjects];
 	
 	[prefsBox setContentView:newView];
 	if ([newPane respondsToSelector:@selector(preferencesSplitView)]) {
-		NSSplitView *split = [newPane preferencesSplitView];
+		NSSplitView *split = [newPane performSelector:@selector(preferencesSplitView)];
 		[self matchSplitView:split];
 		[split setDelegate:self];
 	}
@@ -561,37 +584,15 @@ selection = [moduleController selectedObjects];
 	[toolbarTitleView display];
 	[loadingProgress stopAnimation:nil];
 }
-- (void)matchSplitView:(NSSplitView *)split {
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											selector:@selector(splitViewDidResizeSubviews:)
-												name:NSSplitViewDidResizeSubviewsNotification
-											  object:split];
-	
-	NSArray *subviews = [split subviews];
-	NSRect frame0 = [[subviews objectAtIndex:0] frame];
-	NSRect frame1 = [[subviews objectAtIndex:1] frame];
-	float width = 160; //[[NSUserDefaults standardUserDefaults] floatForKey:kQSPreferencesSplitWidth];
-	if (width>0) {
-	float change = width-NSWidth(frame0);
-		//QSLog(@"setWidth %f %f %f %f", width, NSWidth(frame0), NSWidth(frame1), change);
 
-	NSRect newFrame0 = frame0;
-	NSRect newFrame1 = frame1;
-	newFrame0.size.width += change;
-	
-	newFrame1.size.width -= change;
-	newFrame1.origin.x += change;
-	
-	//newFrame0.size.width = MIN(MAX(newFrame0.size.width, min), max);
-	
-	[[subviews objectAtIndex:0] setFrame:newFrame0];
-	[[subviews objectAtIndex:1] setFrame:newFrame1];
-	//[split adjustSubviews]; 	
-	}
-}
 - (IBAction)next:(id)sender {
-	
+	// TODO
 }
+
+- (IBAction)back:(id)sender {
+    // TODO
+}
+
 - (void)handleURL:(NSURL *)url {
 	[self showPaneWithIdentifier:[url fragment]];
 	//QSLog(@"frag %@", [url fragment]);
@@ -709,18 +710,17 @@ selection = [moduleController selectedObjects];
 	return [NSArray arrayWithObjects:@"QSToolbarTitleView", @"QSMainMenuPrefPane", NSToolbarSeparatorItemIdentifier, @"QSSettingsPanePlaceholder", @"QSTriggersPrefPane", @"QSCatalogPrefPane", @"QSPlugInsPrefPane", nil];
 //	return [self toolbarAllowedItemIdentifiers:toolbar]; 	
 }
-- (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar {
-	return [self toolbarAllowedItemIdentifiers:toolbar];
+- (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)aToolbar {
+	return [self toolbarAllowedItemIdentifiers:aToolbar];
 }
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar {
 	NSMutableArray *array = [NSMutableArray array]; 	
-	NSArray *modules = [[modulesByID allValues] filteredArrayUsingPredicate:
+	NSArray *someModules = [[modulesByID allValues] filteredArrayUsingPredicate:
 	[NSPredicate predicateWithFormat:@"type like[cd] 'toolbar'"]];
 	//[array addObject:@"QSToolbarHistoryView"];
 	[array addObject:@"QSSettingsPanePlaceholder"];
 	[array addObject:@"QSToolbarTitleView"];
-	[array addObjectsFromArray:[modules valueForKey:kItemID]];
-	
+	[array addObjectsFromArray:[someModules valueForKey:kItemID]];
 	
 	[array addObject:NSToolbarFlexibleSpaceItemIdentifier];
 	[array addObject:NSToolbarSeparatorItemIdentifier];
