@@ -283,15 +283,26 @@
 }
 
 
-
+- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+  [self setNeedsDisplay:YES];
+}
 //Standard Accessors
+
 
 - (id)objectValue { return [[[[self cell] representedObject] retain] autorelease];  }
 - (void)setObjectValue:(QSBasicObject *)newObject {
+//  [[[[self cell] representedObject] object] removeObserver:self forKeyPath:@"delayedIcon"];
 	[newObject loadIcon];
+//	[newObject urgentIcon];
 	[newObject becameSelected];
 	// [self setToolTip:[newObject toolTip]];
 	[[self cell] setRepresentedObject:newObject];
+  
+//  [[newObject object] addObserver:self
+//              forKeyPath:@"delayedIcon"
+//                 options:0
+//                 context:nil];
+   
 	[self setNeedsDisplay:YES];
 }
 

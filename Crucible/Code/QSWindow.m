@@ -2,7 +2,6 @@
 
 #import "QSWindow.h"
 
-#import "CGSPrivate+QSMods.h"
 
 #import "QSWindowAnimation.h"
 #import "QSPreferenceKeys.h"

@@ -8,7 +8,6 @@
 
 #import "QSCGSTransition.h"
 #import "unistd.h"
-#import "CGSPrivate+QSMods.h"
 
 @implementation QSCGSTransition
 + (id)transitionWithType:(CGSTransitionType)type option:(CGSTransitionOption)option duration:(float)duration;{

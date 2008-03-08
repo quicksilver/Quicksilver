@@ -1184,5 +1184,6 @@ return data;  }
   return NO;
 }
 - (QSBasicObject *)resolvedObject {return self;}
+- (QSBasicObject *)object {return self;}
 @end
 

@@ -30,16 +30,33 @@ NSOperationQueue *iconLoadQueue = nil;
 - (id) delayedSelf {
   return self; 
 }
-- (NSImage *) delayedIcon {
 
+
+- (NSImage *) urgentIcon {
+  if (![self iconLoaded]) {
+    NSOperationQueue *queue = [[self class] iconLoadQueue];
+    NSInvocationOperation *operation = [[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadIconInQueue) object:nil] autorelease];
+    [[queue operations] setValue:[NSNumber numberWithInt:NSOperationQueuePriorityNormal] forKey:@"queuePriority"];
+    
+    [queue addOperation:operation];
+    [operation setQueuePriority:NSOperationQueuePriorityHigh];
+    
+  }
+	return [self icon];
+  
+}
+
+
+- (NSImage *) delayedIcon {
+  
   if (![self iconLoaded]) {
     NSOperationQueue *queue = [[self class] iconLoadQueue];
     NSInvocationOperation *operation = [[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadIconInQueue) object:nil] autorelease];
     [queue addOperation:operation];
-
+    
   }
 	return [self icon];
-
+  
 }
 
 
@@ -48,10 +65,8 @@ NSOperationQueue *iconLoadQueue = nil;
   [self willChangeValueForKey:@"delayedIcon"];
   [self willChangeValueForKey:@"self"];
   
-  if ([self loadIcon]) {
+  [self loadIcon];
     [self didChangeValueForKey:@"delayedIcon"];
-    
     [self didChangeValueForKey:@"self"];
-  }
 }
 @end

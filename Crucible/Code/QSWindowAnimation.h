@@ -10,8 +10,7 @@
 #import "QSMoveHelper.h"
 #import "QSEmbeddedEffects.h"
 
-#import "CGSPrivate.h"
-#import "CGSPrivate+QSMods.h"
+#import "CGSPrivate2.h"
 
 
 #define kQSGSTransformF @"transformFn"

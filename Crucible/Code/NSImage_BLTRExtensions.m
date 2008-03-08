@@ -152,54 +152,89 @@ static inline int get_bit(unsigned char *arr, unsigned long bit_num)
 
 - (BOOL)createRepresentationOfSize:(NSSize)newSize { 
 	// ***warning   * !? should this be done on the main thread?
-  //NSDate *date = [NSDate date];
+  //
   
   if ([self representationOfSize:newSize]) return NO;
   
   
   
-	NSBitmapImageRep *bestRep = [self bestRepresentationForSize:newSize];
+	NSBitmapImageRep *bestRep = (NSBitmapImageRep *)[self bestRepresentationForSize:newSize];
+  if ([bestRep respondsToSelector:@selector(CGImage)]) {
+    CGImageRef imageRef = [bestRep CGImage];
   
-  NSData *data = [(NSBitmapImageRep *)bestRep TIFFRepresentation];
+    CGColorSpaceRef cspace        = CGColorSpaceCreateDeviceRGB();    
+    CGContextRef    smallContext        = CGBitmapContextCreate(NULL,
+                                                                newSize.width,
+                                                                newSize.height,
+                                                                8,            // bits per component
+                                                                newSize.width * 4, // bytes per pixel
+                                                                cspace,
+                                                                kCGBitmapByteOrder32Host | kCGImageAlphaPremultipliedLast);
+    CFRelease(cspace);
+    
+    if (!smallContext) return NO;
+    
+    NSRect drawRect = fitRectInRect(rectFromSize([bestRep size]), rectFromSize(newSize), NO);
+    
+        CGContextDrawImage(smallContext, NSRectToCGRect(drawRect), imageRef);
+    
+    CGImageRef smallImage = CGBitmapContextCreateImage(smallContext);
+    if (smallImage) {
+      NSBitmapImageRep *cgRep = [[[NSBitmapImageRep alloc] initWithCGImage:smallImage] autorelease];
+      [self addRepresentation:cgRep];      
+    }
+    CGImageRelease(smallImage);
+    CGContextRelease(smallContext);
+    
+    return YES;
+  }
   
-	CGDataProviderRef provider = CGDataProviderCreateWithCFData((CFDataRef)data);  
-  CGImageSourceRef isrc = CGImageSourceCreateWithDataProvider (provider, NULL);
-	CGDataProviderRelease( provider );
   
-  NSDictionary* thumbOpts = [NSDictionary dictionaryWithObjectsAndKeys:
-                             (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailWithTransform,
-                             (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailFromImageIfAbsent,
-                             [NSNumber numberWithInt:newSize.width], (id)kCGImageSourceThumbnailMaxPixelSize,
-                             nil];
-  CGImageRef thumbnail = CGImageSourceCreateThumbnailAtIndex (isrc, 0, (CFDictionaryRef)thumbOpts);
-  if (isrc) CFRelease(isrc);
   
-  NSBitmapImageRep *cgRep = [[[NSBitmapImageRep alloc] initWithCGImage:thumbnail] autorelease];
-  CGImageRelease(thumbnail);
+  //
+//  {
+//    NSDate *date = [NSDate date];
+//    NSData *data = [(NSBitmapImageRep *)bestRep TIFFRepresentation];
+//    
+//    CGDataProviderRef provider = CGDataProviderCreateWithCFData((CFDataRef)data);  
+//    CGImageSourceRef isrc = CGImageSourceCreateWithDataProvider (provider, NULL);
+//    CGDataProviderRelease( provider );
+//    
+//    NSDictionary* thumbOpts = [NSDictionary dictionaryWithObjectsAndKeys:
+//                               (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailWithTransform,
+//                               (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailFromImageIfAbsent,
+//                               [NSNumber numberWithInt:newSize.width], (id)kCGImageSourceThumbnailMaxPixelSize,
+//                               nil];
+//    CGImageRef thumbnail = CGImageSourceCreateThumbnailAtIndex (isrc, 0, (CFDictionaryRef)thumbOpts);
+//    if (isrc) CFRelease(isrc);
+//    
+//    NSBitmapImageRep *cgRep = [[[NSBitmapImageRep alloc] initWithCGImage:thumbnail] autorelease];
+//    CGImageRelease(thumbnail);
+//    NSLog(@"time1 %f", -[date timeIntervalSinceNow]);
+//  }
+//
+//  
+//
+//  
+//  {
+//    NSDate *date = [NSDate date];
+//    NSImage* scaledImage = [[[NSImage alloc] initWithSize:newSize] autorelease];
+//    [scaledImage lockFocus];
+//    NSGraphicsContext *graphicsContext = [NSGraphicsContext currentContext];
+//    [graphicsContext setImageInterpolation:NSImageInterpolationHigh];
+//    [graphicsContext setShouldAntialias:YES];
+//    NSRect drawRect = fitRectInRect(rectFromSize([bestRep size]), rectFromSize(newSize), NO);
+//    [bestRep drawInRect:drawRect];
+//    NSBitmapImageRep* nsRep = [[[NSBitmapImageRep alloc] initWithFocusedViewRect:NSMakeRect(0, 0, newSize.width, newSize.height)] autorelease];
+//    [scaledImage unlockFocus];
+//    
+//    NSLog(@"time3 %f", -[date timeIntervalSinceNow]);
+//  }
+  //  [self addRepresentation:rep];
   
-  [self addRepresentation:cgRep];
   return YES;
-//  NSTimeInterval t1 = -[date timeIntervalSinceNow];
-//  date = [NSDate date];
-//  
-//  
-//  NSImage* scaledImage = [[[NSImage alloc] initWithSize:newSize] autorelease];
-//  [scaledImage lockFocus];
-//  NSGraphicsContext *graphicsContext = [NSGraphicsContext currentContext];
-//  [graphicsContext setImageInterpolation:NSImageInterpolationHigh];
-//  [graphicsContext setShouldAntialias:YES];
-//  NSRect drawRect = fitRectInRect(rectFromSize([bestRep size]), rectFromSize(newSize), NO);
-//  [bestRep drawInRect:drawRect];
-//  NSBitmapImageRep* nsRep = [[[NSBitmapImageRep alloc] initWithFocusedViewRect:NSMakeRect(0, 0, newSize.width, newSize.height)] autorelease];
-//  [scaledImage unlockFocus];
-//  
-//  NSTimeInterval t2 = -[date timeIntervalSinceNow];
-//  NSLog(@"time %f", t2 - t1);
-//  //  [self addRepresentation:rep];
-//  
-//  return YES;
-//  
   
+
   
   //  
   //  
