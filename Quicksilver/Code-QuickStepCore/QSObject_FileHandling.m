@@ -20,7 +20,8 @@
 #import "NSAppleEventDescriptor+NDAppleScriptObject.h"
 #include "QSLocalization.h"
 
-// Ankur, 21 Dec: useSmallIcons not used anywhere. Commented out.
+// Ankur, 21 Dec 07: 'useSmallIcons' not used anywhere. Commented out.
+// Ankur, 12 Feb 08: as above for 'applicationIcons'
 
 NSString *identifierForPaths(NSArray *paths) {
 	if ([paths count] == 1) return [[paths lastObject] stringByResolvingSymlinksInPath];
@@ -52,6 +53,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 /*+(void)initialize {
 	useSmallIcons = [[NSUserDefaults standardUserDefaults] boolForKey:kUseSmallIcons];
 }*/
+#if 0
 - (id)init {
 	self = [super init];
 	if (self != nil) {
@@ -62,6 +64,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 - (NSMutableDictionary *)applicationIcons {
 	return applicationIcons;
 }
+#endif
 - (QSObject *)parentOfObject:(QSObject *)object {
 	QSObject * parent = nil;
 	if ([object singleFilePath]) {
@@ -729,11 +732,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 - (NSString *)kindOfFile:(NSString *)path {
-	if (!path) return nil;
 	NSString *kind;
-	OSStatus err = LSCopyKindStringForURL((CFURLRef) [NSURL fileURLWithPath:path] , (CFStringRef *)&kind);
-	if (err) return nil;
-	else return [kind autorelease];
+	return (!path || LSCopyKindStringForURL((CFURLRef) [NSURL fileURLWithPath:path], (CFStringRef *)&kind)) ? nil : [kind autorelease];
 }
 
 #if 0

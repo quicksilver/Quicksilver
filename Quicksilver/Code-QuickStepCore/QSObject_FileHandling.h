@@ -11,7 +11,7 @@
 - (NSString *)filenameForObject:(QSObject *)object;
 @end
 @interface QSFileSystemObjectHandler : NSObject {
-	NSMutableDictionary *applicationIcons;
+//	NSMutableDictionary *applicationIcons;
 }
 @end
 

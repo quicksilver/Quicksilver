@@ -552,7 +552,7 @@ QSController *QSCon;
 }
 
 - (BOOL)readSelectionFromPasteboard:(NSPasteboard *)pboard {
-	[self receiveObject:[[QSObject alloc] initWithPasteboard:pboard]];
+	[self receiveObject:[[[QSObject alloc] initWithPasteboard:pboard] autorelease]];
 	return YES;
 }
 

@@ -122,9 +122,7 @@
 @implementation NSApplication (LSUIElementManipulation)
 
 - (BOOL)shouldBeUIElement {
-	return [[[NSDictionary dictionaryWithContentsOfFile:
-		[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/Info.plist"]]
-		objectForKey:@"LSUIElement"] boolValue];
+	return [[[[NSBundle mainBundle] infoDictionary] objectForKey:@"LSUIElement"] boolValue];
 }
 
 - (BOOL)setShouldBeUIElement:(BOOL)hidden {

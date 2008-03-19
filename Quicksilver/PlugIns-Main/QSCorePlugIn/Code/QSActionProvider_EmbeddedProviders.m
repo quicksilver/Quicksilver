@@ -451,7 +451,7 @@
 			case QSDontReplaceFilesResolution:
 				otherFiles = [[filePaths mutableCopy] autorelease];
 				[otherFiles removeObjectsInArray:[conflicts allKeys]];
-				if (DEBUG) NSLog(@"Only moving %@", otherFiles);
+//				if (DEBUG) NSLog(@"Only moving %@", otherFiles);
 					filePaths = otherFiles;
 				break;
 			case QSSmartReplaceFilesResolution: {
@@ -474,7 +474,7 @@
 	}
 
 	if (!resultPaths) {
-		if (DEBUG) NSLog(@"Using NSFileManager");
+//		if (DEBUG) NSLog(@"Using NSFileManager");
 		NSMutableArray *newPaths = [NSMutableArray arrayWithCapacity:[filePaths count]];
 		int i;
 		for(i = 0; i<[filePaths count]; i++) {
