@@ -183,7 +183,7 @@
 		7F7880ED0D0B17EF00C607CE /* QSElements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F69D8860CDE367E002B6B3E /* QSElements.framework */; };
 		7F88247A0C498A7A00631170 /* BLTRResizeView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A874C0C497AEF00B5912D /* BLTRResizeView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F88247B0C498A7A00631170 /* CGSPrivate+QSMods.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A874E0C497AEF00B5912D /* CGSPrivate+QSMods.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7F88247C0C498A7A00631170 /* CGSPrivate2.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A82540C49786A00B5912D /* CGSPrivate2.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7F88247C0C498A7A00631170 /* CGSPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A82540C49786A00B5912D /* CGSPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F88247D0C498A7A00631170 /* CPSPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A82B90C49797C00B5912D /* CPSPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F88247E0C498A7A00631170 /* InertButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A874F0C497AEF00B5912D /* InertButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F88247F0C498A7A00631170 /* NDAlias+AliasFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A893C0C497D5C00B5912D /* NDAlias+AliasFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -491,7 +491,7 @@
 		7F9A7DC00C4972A500B5912D /* QSCrucible-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "QSCrucible-Info.plist"; sourceTree = "<group>"; };
 		7F9A7DC10C4972A500B5912D /* QSCrucible_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSCrucible_Prefix.pch; sourceTree = "<group>"; };
 		7F9A7DC30C4972A500B5912D /* DefaultBindings.qskeys */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = DefaultBindings.qskeys; sourceTree = "<group>"; };
-		7F9A82540C49786A00B5912D /* CGSPrivate2.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CGSPrivate2.h; path = CoreGraphics/CGSPrivate2.h; sourceTree = "<group>"; };
+		7F9A82540C49786A00B5912D /* CGSPrivate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CGSPrivate.h; path = CoreGraphics/CGSPrivate.h; sourceTree = "<group>"; };
 		7F9A82560C49786A00B5912D /* UKFileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = UKFileWatcher.h; sourceTree = "<group>"; };
 		7F9A82570C49786A00B5912D /* UKFileWatcher.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = UKFileWatcher.m; sourceTree = "<group>"; };
 		7F9A82580C49786A00B5912D /* UKFNSubscribeFileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = UKFNSubscribeFileWatcher.h; sourceTree = "<group>"; };
@@ -1392,7 +1392,7 @@
 				7F9A8C5F0C4983F900B5912D /* UKDirectoryEnumerator */,
 				7F9A8C3B0C4982F200B5912D /* NTLocalization */,
 				7F9A893B0C497D5C00B5912D /* ND */,
-				7F9A82540C49786A00B5912D /* CGSPrivate2.h */,
+				7F9A82540C49786A00B5912D /* CGSPrivate.h */,
 				7F9A82B90C49797C00B5912D /* CPSPrivate.h */,
 				7F9A82550C49786A00B5912D /* UKKQueue */,
 			);
@@ -1494,7 +1494,7 @@
 			files = (
 				7F88247A0C498A7A00631170 /* BLTRResizeView.h in Headers */,
 				7F88247B0C498A7A00631170 /* CGSPrivate+QSMods.h in Headers */,
-				7F88247C0C498A7A00631170 /* CGSPrivate2.h in Headers */,
+				7F88247C0C498A7A00631170 /* CGSPrivate.h in Headers */,
 				7F88247D0C498A7A00631170 /* CPSPrivate.h in Headers */,
 				7F88247E0C498A7A00631170 /* InertButton.h in Headers */,
 				7F88247F0C498A7A00631170 /* NDAlias+AliasFile.h in Headers */,
