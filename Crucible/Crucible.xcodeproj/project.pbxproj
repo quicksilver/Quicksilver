@@ -182,7 +182,6 @@
 		7F5D24240C49C44200812049 /* QSOutlineView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F5D24220C49C44200812049 /* QSOutlineView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F7880ED0D0B17EF00C607CE /* QSElements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F69D8860CDE367E002B6B3E /* QSElements.framework */; };
 		7F88247A0C498A7A00631170 /* BLTRResizeView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A874C0C497AEF00B5912D /* BLTRResizeView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7F88247B0C498A7A00631170 /* CGSPrivate+QSMods.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A874E0C497AEF00B5912D /* CGSPrivate+QSMods.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F88247C0C498A7A00631170 /* CGSPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A82540C49786A00B5912D /* CGSPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F88247D0C498A7A00631170 /* CPSPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A82B90C49797C00B5912D /* CPSPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F88247E0C498A7A00631170 /* InertButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9A874F0C497AEF00B5912D /* InertButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -503,7 +502,6 @@
 		7F9A82B90C49797C00B5912D /* CPSPrivate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CPSPrivate.h; sourceTree = "<group>"; };
 		7F9A874C0C497AEF00B5912D /* BLTRResizeView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = BLTRResizeView.h; sourceTree = "<group>"; };
 		7F9A874D0C497AEF00B5912D /* BLTRResizeView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = BLTRResizeView.m; sourceTree = "<group>"; };
-		7F9A874E0C497AEF00B5912D /* CGSPrivate+QSMods.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "CGSPrivate+QSMods.h"; sourceTree = "<group>"; };
 		7F9A874F0C497AEF00B5912D /* InertButton.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = InertButton.h; sourceTree = "<group>"; };
 		7F9A87500C497AEF00B5912D /* InertButton.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = InertButton.m; sourceTree = "<group>"; };
 		7F9A87510C497AEF00B5912D /* NDAlias+QSMods.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NDAlias+QSMods.h"; sourceTree = "<group>"; };
@@ -1269,7 +1267,6 @@
 				7F17F05C0C4F16F0001ADE1A /* NSApplication+ServicesModification.m */,
 				7F9A874C0C497AEF00B5912D /* BLTRResizeView.h */,
 				7F9A874D0C497AEF00B5912D /* BLTRResizeView.m */,
-				7F9A874E0C497AEF00B5912D /* CGSPrivate+QSMods.h */,
 				7F9A874F0C497AEF00B5912D /* InertButton.h */,
 				7F9A87500C497AEF00B5912D /* InertButton.m */,
 				7F9A87510C497AEF00B5912D /* NDAlias+QSMods.h */,
@@ -1493,7 +1490,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F88247A0C498A7A00631170 /* BLTRResizeView.h in Headers */,
-				7F88247B0C498A7A00631170 /* CGSPrivate+QSMods.h in Headers */,
 				7F88247C0C498A7A00631170 /* CGSPrivate.h in Headers */,
 				7F88247D0C498A7A00631170 /* CPSPrivate.h in Headers */,
 				7F88247E0C498A7A00631170 /* InertButton.h in Headers */,

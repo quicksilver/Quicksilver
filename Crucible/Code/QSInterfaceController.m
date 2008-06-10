@@ -47,7 +47,6 @@
 #define KeySpace                0x31
 #define KeyTabs                 0x30
 
-#import "CGSPrivate2.h"
 //int IsKeyPressed(unsigned short);
 
 int IsKeyPressed(unsigned short key)

@@ -10,8 +10,6 @@
 #import "QSMoveHelper.h"
 #import "QSEmbeddedEffects.h"
 
-#import "CGSPrivate2.h"
-
 
 #define kQSGSTransformF @"transformFn"
 #define kQSGSBrightF @"brightnessFn"

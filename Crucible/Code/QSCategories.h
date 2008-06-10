@@ -9,7 +9,6 @@
 
 #import "QSExternals.h"
 #import "NSApplication+ServicesModification.h"
-#import "CGSPrivate+QSMods.h"
 #import "InertButton.h"
 #import "NDAlias+QSMods.h"
 #import "NDHotKeyEvent_QSMods.h"

@@ -8,7 +8,5 @@
 
 #import <Cocoa/Cocoa.h>
 
-
-#import "CGSPrivate2.h"
 @class QSWindowAnimation;
 CGPointWarp *QSTestMeshEffect(QSWindowAnimation *h,float f,int *width, int*height);

@@ -8,8 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-
-#import "CGSPrivate2.h"
 @interface QSCGSTransition : NSObject {
 	int handle;
 	CGSTransitionSpec spec;

@@ -7,7 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "CGSPrivate2.h"
 
 @interface QSCIEffectOverlay : NSObject {
 	CGSWindow wid;
