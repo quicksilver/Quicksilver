@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		4D2772030DFF029C002A960F /* NDLaunchServicesObject+Paths.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D2771FA0DFF029C002A960F /* NDLaunchServicesObject+Paths.h */; };
 		4D2772040DFF029C002A960F /* NDLaunchServicesObject+Paths.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2771FB0DFF029C002A960F /* NDLaunchServicesObject+Paths.m */; };
-		4D2772050DFF029C002A960F /* NDSDKCompatibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D2771FC0DFF029C002A960F /* NDSDKCompatibility.h */; };
+		4D2772050DFF029C002A960F /* NDSDKCompatibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D2771FC0DFF029C002A960F /* NDSDKCompatibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D2772060DFF029C002A960F /* NSOpenPanel+NDAlias.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D2771FD0DFF029C002A960F /* NSOpenPanel+NDAlias.h */; };
 		4D2772070DFF029C002A960F /* NSOpenPanel+NDAlias.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2771FE0DFF029C002A960F /* NSOpenPanel+NDAlias.m */; };
 		4D2772080DFF029C002A960F /* NSPathControl+NDAlias.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D2771FF0DFF029C002A960F /* NSPathControl+NDAlias.h */; };
