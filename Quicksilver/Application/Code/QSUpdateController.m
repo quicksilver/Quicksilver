@@ -318,11 +318,11 @@ UInt64 QSGetPrimaryMACAddressInt();
 	if (plugInUpdates) {
 		[[NSNotificationCenter defaultCenter] addObserver:self
 												selector:@selector(finishAppInstall)
-													name:@"QSPlugInUpdatesFinished"
+													name:QSPlugInUpdatesFinishedNotification
 												  object:nil]; 	
 		[[NSNotificationCenter defaultCenter] addObserver:self
 												selector:@selector(finishAppInstall)
-													name:@"QSPlugInUpdatesFailed"
+													name:QSPlugInUpdatesFailedNotification
 												  object:nil]; 	
 	} else {
 		QSLog(@"Plug-ins don't need update");
@@ -417,7 +417,7 @@ UInt64 QSGetPrimaryMACAddressInt();
 
 //		[updateTask:@"Installing Update" progress:-1];
 		
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWasMoved:) name:@"QSApplicationWillRelaunch" object:self];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWasMoved:) name:QSApplicationWillRelaunchNotification object:self];
 		NSString *newAppVersionPath = [tempDirectory stringByAppendingPathComponent:[extracted lastObject]];
 		if (newAppVersionPath) {
 			[updateTask setStatus:@"Copying Application"];

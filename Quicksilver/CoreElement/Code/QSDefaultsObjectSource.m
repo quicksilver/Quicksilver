@@ -186,7 +186,7 @@
     }
     [[self currentEntry] setObject:[NSNumber numberWithFloat:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate]; 
     [self populateFields];    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"CatalogEntryChanged" object:[self currentEntry]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChanged object:[self currentEntry]];
 }
 
 @end

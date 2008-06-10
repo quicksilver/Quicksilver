@@ -25,7 +25,7 @@
 -(void)awakeFromNib{
     [self center];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hide:) name:@"QSActiveApplicationChanged" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hide:) name:QSActiveApplicationChangedNotification object:nil];
 	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(lock) name:@"com.apple.HIToolbox.beginMenuTrackingNotification" object:nil];
 	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(unlock) name:@"com.apple.HIToolbox.endMenuTrackingNotification" object:nil];
 }

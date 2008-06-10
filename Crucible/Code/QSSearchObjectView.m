@@ -70,7 +70,8 @@ NSMutableDictionary *bindingsDict = nil;
   
 	searchMode = SearchFilterAll;
 	moreComing = NO;
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideResultView:) name:@"NSWindowDidResignKeyNotification" object:[self window]];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideResultView:) name:NSWindowDidResignKeyNotification object:[self window]];
+#warning FIXME: No QSSourceArrayUpdated notification
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sourceArrayChanged:) name:@"QSSourceArrayUpdated" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearAll) name:QSReleaseAllNotification object:nil];
 	
@@ -1296,7 +1297,7 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 		// if (newObject) QSLog(@"%p set value %@", self, newObject);
 		// [newObject loadIcon];
 		[super setObjectValue:newObject];
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
+		[[NSNotificationCenter defaultCenter] postNotificationName:QSSearchObjectChangedNotification object:self];
 	}
 }
 
@@ -1310,7 +1311,7 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 	[self setResultArray:[NSArray arrayWithObjects:newObject, nil]];  
 	[super setObjectValue:newObject];
 	
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSSearchObjectChangedNotification object:self];
 }
 
 - (BOOL)resignFirstResponder {

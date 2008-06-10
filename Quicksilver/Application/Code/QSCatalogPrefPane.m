@@ -119,6 +119,7 @@ static id _sharedInstance;
     //[[self window] setRepresentedFilename:[pCatalogSettings stringByStandardizingPath]];
     //[[[self window]standardWindowButton:NSWindowDocumentIconButton]setImage:[NSImage imageNamed:@"DocCatalog"]];
     
+#warning FIXME: There's no CatalogCacheChanged notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(catalogCacheChanged:) name:@"CatalogCacheChanged" object:nil];
 	
 	//  [[itemViewSwitcher cell]setControlSize:NSSmallControlSize];

@@ -148,7 +148,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 			[self removeProcessWithPSN:psn];
 			break;
 		case NSFrontProcessSwitched:
-			[[NSNotificationCenter defaultCenter] postNotificationName:@"QSActiveApplicationChanged" object: processInfo];
+			[[NSNotificationCenter defaultCenter] postNotificationName:QSActiveApplicationChangedNotification object: processInfo];
 			[self appChanged:nil];
 			break;
     default:
@@ -175,8 +175,8 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 - (void)processTerminated:(QSObject *)thisProcess{
 	//QSLog(@"Terminate:%@",thisProcess);
 	[[thisProcess dataDictionary]removeObjectForKey:QSProcessType];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"ObjectModified" object:thisProcess];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"processesChanged" object:nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSObjectModifiedNotification object:thisProcess];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSProcessesChangedNotification object:nil];
 	[processes removeObject:thisProcess];
 }
 
@@ -204,7 +204,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 		[self addProcessWithDict:[notif userInfo]];
 	//    [self invalidateSelf];
 	
-	[[NSNotificationCenter defaultCenter]postNotificationName:@"QSEventNotification" object:@"QSApplicationLaunchEvent" userInfo:[NSDictionary dictionaryWithObject:[self imbuedFileProcessForDict:[notif userInfo]] forKey:@"object"]];
+	[[NSNotificationCenter defaultCenter]postNotificationName:QSEventNotification object:QSApplicationLaunchEvent userInfo:[NSDictionary dictionaryWithObject:[self imbuedFileProcessForDict:[notif userInfo]] forKey:@"object"]];
 	
 }
 
@@ -224,8 +224,8 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 	QSObject *thisProcess=[self imbuedFileProcessForDict:info];
 //	QSLog(@"process %@",thisProcess);
 	[processes addObject:thisProcess];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"ObjectModified" object:thisProcess];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"processesChanged" object:nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSObjectModifiedNotification object:thisProcess];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSProcessesChangedNotification object:nil];
 }
 
 - (NSArray *) getAllProcesses{
@@ -317,7 +317,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 		[processes setArray:[self getAllProcesses]];
 	else
 		[processes setArray:[self getVisibleProcesses]];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"processesChanged" object:nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSProcessesChangedNotification object:nil];
 	
 	//[self invalidateSelf];
 }

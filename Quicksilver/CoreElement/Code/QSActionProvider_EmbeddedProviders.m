@@ -798,7 +798,7 @@
 }
 - (QSObject *) pasteObject:(QSObject *)dObject{
 	if([dObject putOnPasteboard:[NSPasteboard generalPasteboard]]){
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"WindowsShouldHide" object:self];
+		[[NSNotificationCenter defaultCenter] postNotificationName:QSWindowsShouldHideNotification object:self];
 		[[NSApp keyWindow]orderOut:self];
 		
 		QSForcePaste();

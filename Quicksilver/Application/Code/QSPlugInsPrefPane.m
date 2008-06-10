@@ -56,7 +56,7 @@
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadPlugInsList:) name:QSPlugInInstalledNotification object:nil]; 	
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadPlugInsList:) name:QSPlugInLoadedNotification object:nil];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadPlugInsList:) name:QSPlugInInfoLoadedNotification object:nil];
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(installStatusChanged:) name:@"QSUpdateControllerStatusChanged" object:nil];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(installStatusChanged:) name:QSUpdateControllerStatusChangedNotification object:nil];
 		
 		[self reloadPlugInsList:nil];
 	}

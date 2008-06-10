@@ -15,6 +15,8 @@
 @class QSCatalogController;
 //@class QSProcessSwitcher;
 
+extern NSString * QSWindowsShouldHideNotification;
+
 
 @interface QSController : NSWindowController {
     QSInterfaceController *interfaceController;

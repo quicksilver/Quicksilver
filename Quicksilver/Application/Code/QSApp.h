@@ -6,6 +6,7 @@
 #import <Cocoa/Cocoa.h>
 #import <Carbon/Carbon.h>
 
+extern NSString * QSApplicationDidFinishLaunchingNotification;
 extern BOOL QSApplicationCompletedLaunch;
 
 @interface QSApp : NSApplication {

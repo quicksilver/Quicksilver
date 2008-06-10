@@ -8,6 +8,7 @@
 
 #import "QSApp.h"
 
+NSString * QSApplicationDidFinishLaunchingNotification = @"QSApplicationDidFinishLaunching";
 BOOL QSApplicationCompletedLaunch = NO;
 @interface NSObject (QSAppDelegateProtocols)
 - (BOOL)shouldSendEvent:(NSEvent *)event;
@@ -113,7 +114,7 @@ BOOL QSApplicationCompletedLaunch = NO;
 
 - (void)_sendFinishLaunchingNotification {
 	[super _sendFinishLaunchingNotification];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"QSApplicationDidFinishLaunchingNotification" object:self];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSApplicationDidFinishLaunchingNotification object:self];
 	QSApplicationCompletedLaunch = YES;
 }
 

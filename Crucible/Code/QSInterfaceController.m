@@ -103,9 +103,9 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidResignKey:) name:NSWindowDidResignKeyNotification object:nil];
     
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectModified:) name:@"ObjectModified" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchObjectChanged:) name:@"SearchObjectChanged" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appChanged:) name:@"QSActiveApplicationChanged" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectModified:) name:QSObjectModifiedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchObjectChanged:) name:QSSearchObjectChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appChanged:) name:QSActiveApplicationChangedNotification object:nil];
    if (fALPHA)
 	   [QSHistoryController sharedInstance];
     return self;
@@ -342,7 +342,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
 
 - (void)showInterface:(id)sender {
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"InterfaceActivated" object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:QSInterfaceActivatedNotification object:self];
 	[self showMainWindow:self];
 }
 
@@ -363,7 +363,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
 		return; 	
 	}
 	
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"InterfaceActivated" object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:QSInterfaceActivatedNotification object:self];
     
     [hideTimer invalidate];
     [dSelector reset:self];
@@ -411,7 +411,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,
     
     if ([[self window] isVisible] && ![[self window] attachedSheet]) {
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"InterfaceDeactivated" object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:QSInterfaceDeactivatedNotification object:self];
         [[self window] makeFirstResponder:nil];
         
     }

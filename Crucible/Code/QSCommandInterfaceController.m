@@ -68,9 +68,9 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
   
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidBecomeKey:) name:NSWindowDidBecomeKeyNotification object:nil];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidResignKey:) name:NSWindowDidResignKeyNotification object:nil];
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectModified:) name:@"ObjectModified" object:nil];
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchObjectChanged:) name:@"SearchObjectChanged" object:nil];
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appChanged:) name:@"QSActiveApplicationChanged" object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectModified:) name:QSObjectModifiedNotification object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchObjectChanged:) name:QSSearchObjectChangedNotification object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appChanged:) name:QSActiveApplicationChangedNotification object:nil];
   
   // TODO: [QSHistoryController sharedInstance];
   return self;
@@ -310,7 +310,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 
 - (void)showInterface:(id)sender {
   
-  [[NSNotificationCenter defaultCenter] postNotificationName:@"InterfaceActivated" object:self];
+  [[NSNotificationCenter defaultCenter] postNotificationName:QSInterfaceActivatedNotification object:self];
 	[self showMainWindow:self];
 }
 
@@ -333,7 +333,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 		return; 	
 	}
 	
-  [[NSNotificationCenter defaultCenter] postNotificationName:@"InterfaceActivated" object:self];
+  [[NSNotificationCenter defaultCenter] postNotificationName:QSInterfaceActivatedNotification object:self];
   
   [hideTimer invalidate];
   [dSelector reset:self];
@@ -381,7 +381,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
   
   if ([[self window] isVisible] && ![[self window] attachedSheet]) {
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"InterfaceDeactivated" object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:QSInterfaceDeactivatedNotification object:self];
     [[self window] makeFirstResponder:nil];
     
   }

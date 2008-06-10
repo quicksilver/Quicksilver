@@ -709,7 +709,7 @@
 - (void) updateDownloadCount {
 	if ( ![[self downloadsQueue] count] ) {
 		//if (downloadsCount){
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"QSPlugInUpdatesFinished" object:self];
+		[[NSNotificationCenter defaultCenter] postNotificationName:QSPlugInUpdatesFinishedNotification object:self];
 		//}
 		downloadsCount = 0;
 		[self setInstallStatus:nil];
@@ -724,7 +724,7 @@
 		[[QSTaskController sharedInstance] updateTask:@"QSPlugInInstalling" status:status progress:-1];
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"QSUpdateControllerStatusChanged" object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:QSUpdateControllerStatusChangedNotification object:self];
 }
 
 - (BOOL) plugInWasInstalled:(NSString *)plugInPath {	
@@ -828,7 +828,7 @@
 	[[QSTaskController sharedInstance] updateTask:@"QSPlugInInstalling" status:status progress:-1];
 	[self setInstallStatus:status];
 	[self setIsInstalling:YES];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"QSUpdateControllerStatusChanged" object:self];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSUpdateControllerStatusChangedNotification object:self];
 	[self performSelectorOnMainThread:@selector(startDownloadQueue) withObject:nil waitUntilDone:YES];
 	return YES;
 }

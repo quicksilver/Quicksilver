@@ -46,11 +46,17 @@
 
 //#include "QSLocalization.h"
 
-extern char** environ;  
+extern char** environ;
 
 #define OneIn(i) ((int) (i*(double)random()/(double)0x7fffffff) == 0)
 
+#pragma mark Notifications
+NSString * QSWindowsShouldHideNotification = @"QSWindowsShouldHide";
 
+#pragma mark Events
+NSString * QSQuicksilverWillQuitEvent = @"QSQuicksilverWillQuitEvent";
+NSString * QSQuicksilverLaunchedAtLoginEvent = @"QSQuicksilverLaunchedAtLoginEvent";
+NSString * QSQuicksilverLaunchedEvent = @"QSQuicksilverLaunchedEvent";
 
 QSVoyeur *voy;
 QSController *QSCon;
@@ -448,7 +454,7 @@ static id _sharedInstance;
 
 - (IBAction)showPreferences:(id)sender {
 	[NSApp activateIgnoringOtherApps:YES];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"WindowsShouldHide" object:self];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSWindowsShouldHideNotification object:self];
 	//[[[self prefsController] window] makeKeyAndOrderFront:self];
 	[QSPreferencesController showPrefs];
 }
@@ -1096,7 +1102,7 @@ static id _sharedInstance;
 	
 	NSString *currentApp = [[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationName"];
 	if (![currentApp isEqualToString:@"Quicksilver"])
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"WindowsShouldHide" object:self];
+		[[NSNotificationCenter defaultCenter] postNotificationName:QSWindowsShouldHideNotification object:self];
 }
 
 - (IBAction)rescanItems:sender {
@@ -1305,14 +1311,14 @@ static id _sharedInstance;
 	//  QSLog(@"%@", [NSImage imageNamed:@"NSApplicationIcon"])
 	[NSApp setApplicationIconImage: [NSImage imageNamed:@"NSApplicationIcon"]];
 	
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSQuicksilverWillQuitEvent" userInfo:nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSEventNotification object:QSQuicksilverWillQuitEvent userInfo:nil];
 	//QSLog(@"notif");
 	return YES;
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
 	
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"WindowsShouldHide" object:self];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSWindowsShouldHideNotification object:self];
 	[[NSUserDefaults standardUserDefaults] synchronize];
 	
 	//	if (DEBUG) [self writeLeaks];
@@ -1628,9 +1634,9 @@ static id _sharedInstance;
 	[[self interfaceController] window];
 
 	if (atLogin)
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSQuicksilverLaunchedAtLoginEvent" userInfo:nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSEventNotification object:QSQuicksilverLaunchedAtLoginEvent userInfo:nil];
 
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSQuicksilverLaunchedEvent" userInfo:nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSEventNotification object:QSQuicksilverLaunchedEvent userInfo:nil];
 
 //	if (defaultBool(@"QSEnableISync") )
 //	[[QSSyncManager sharedInstance] setup];
