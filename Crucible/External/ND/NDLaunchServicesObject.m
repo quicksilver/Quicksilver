@@ -42,16 +42,20 @@ static NDLaunchServicesObject		* defaultLaunchServices = nil;
  */
 - initWithFlags:(LSInitializeFlags)aFlags
 {
+#if 0
 	if( ( self = [self init] ) != nil )
 	{
-	//	if( LSInit( aFlags ) != noErr )
-//		{
-//			[self release];
-//			self = nil;
-//		}
+		if( LSInit( aFlags ) != noErr )
+		{
+			[self release];
+			self = nil;
+		}
 	}
 
 	return self;
+#else
+	return [self init];
+#endif
 }
 
 /*
@@ -61,7 +65,9 @@ static NDLaunchServicesObject		* defaultLaunchServices = nil;
 {
 	if( self == defaultLaunchServices )
 	{
-//		LSTerm();
+#if 0
+		LSTerm();
+#endif
 		defaultLaunchServices = nil;
 	}
 
@@ -364,4 +370,5 @@ static NDLaunchServicesObject		* defaultLaunchServices = nil;
 }
 
 @end
+
 

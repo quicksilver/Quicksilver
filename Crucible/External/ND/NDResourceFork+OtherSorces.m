@@ -3,7 +3,7 @@
  *  NDResourceFork
  *
  *  Created by Nathan Day on Thu Dec 05 2002.
- *  Copyright (c) 2002 Nathan Day. All rights reserved.
+ *  Copyright 2002-2007 Nathan Day. All rights reserved.
  */
 
 #import "NDResourceFork+OtherSorces.h"
@@ -20,7 +20,7 @@
 + (NSData *)iconFamilyDataForURL:(NSURL *)aURL
 {
 	NSData					* theIconFamilyData = nil;
-	FSRef						theFSRef;
+	FSRef					theFSRef;
 	IconRef					theIconRef;
 	SInt16					theOutLabel;
 	IconFamilyHandle		theIconFamilyHandle;
@@ -35,7 +35,7 @@
 				theIconFamilyData = [NSData dataWithBytes:*theIconFamilyHandle length:GetHandleSize( (Handle)theIconFamilyHandle )];
 				HUnlock( (Handle)theIconFamilyHandle );
 				
-            DisposeHandle( (Handle)theIconFamilyHandle );
+            	DisposeHandle( (Handle)theIconFamilyHandle );
 			}
 
 			ReleaseIconRef( theIconRef );

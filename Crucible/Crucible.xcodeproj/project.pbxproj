@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D2772030DFF029C002A960F /* NDLaunchServicesObject+Paths.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D2771FA0DFF029C002A960F /* NDLaunchServicesObject+Paths.h */; };
+		4D2772040DFF029C002A960F /* NDLaunchServicesObject+Paths.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2771FB0DFF029C002A960F /* NDLaunchServicesObject+Paths.m */; };
+		4D2772050DFF029C002A960F /* NDSDKCompatibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D2771FC0DFF029C002A960F /* NDSDKCompatibility.h */; };
+		4D2772060DFF029C002A960F /* NSOpenPanel+NDAlias.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D2771FD0DFF029C002A960F /* NSOpenPanel+NDAlias.h */; };
+		4D2772070DFF029C002A960F /* NSOpenPanel+NDAlias.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2771FE0DFF029C002A960F /* NSOpenPanel+NDAlias.m */; };
+		4D2772080DFF029C002A960F /* NSPathControl+NDAlias.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D2771FF0DFF029C002A960F /* NSPathControl+NDAlias.h */; };
+		4D2772090DFF029C002A960F /* NSPathControl+NDAlias.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2772000DFF029C002A960F /* NSPathControl+NDAlias.m */; };
 		4D7543B50D3539AC004190BE /* NDExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D7543B40D3539AC004190BE /* NDExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D7544150D353F9F004190BE /* QSExternals.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D7544140D353F9F004190BE /* QSExternals.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D7544360D354327004190BE /* QSCategories.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D7544350D354327004190BE /* QSCategories.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -387,7 +394,7 @@
 		7F9A89620C497D5C00B5912D /* NDAppleScriptObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A89410C497D5C00B5912D /* NDAppleScriptObject.m */; };
 		7F9A89650C497D5C00B5912D /* NDComponentInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A89440C497D5C00B5912D /* NDComponentInstance.m */; };
 		7F9A89670C497D5C00B5912D /* NDHotKeyControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A89460C497D5C00B5912D /* NDHotKeyControl.m */; };
-		7F9A89690C497D5C00B5912D /* NDHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A89480C497D5C00B5912D /* NDHotKeyEvent.m */; };
+		7F9A89690C497D5C00B5912D /* NDHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A89480C497D5C00B5912D /* NDHotKeyEvent.m */; settings = {COMPILER_FLAGS = "-fnested-functions"; }; };
 		7F9A896B0C497D5C00B5912D /* NDHotKeyEvent_QSMods.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A894A0C497D5C00B5912D /* NDHotKeyEvent_QSMods.m */; };
 		7F9A896D0C497D5C00B5912D /* NDLaunchServicesObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A894C0C497D5C00B5912D /* NDLaunchServicesObject.m */; };
 		7F9A896F0C497D5C00B5912D /* NDProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9A894E0C497D5C00B5912D /* NDProcess.m */; };
@@ -453,6 +460,13 @@
 /* Begin PBXFileReference section */
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		4D2771FA0DFF029C002A960F /* NDLaunchServicesObject+Paths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NDLaunchServicesObject+Paths.h"; sourceTree = "<group>"; };
+		4D2771FB0DFF029C002A960F /* NDLaunchServicesObject+Paths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NDLaunchServicesObject+Paths.m"; sourceTree = "<group>"; };
+		4D2771FC0DFF029C002A960F /* NDSDKCompatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDSDKCompatibility.h; sourceTree = "<group>"; };
+		4D2771FD0DFF029C002A960F /* NSOpenPanel+NDAlias.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSOpenPanel+NDAlias.h"; sourceTree = "<group>"; };
+		4D2771FE0DFF029C002A960F /* NSOpenPanel+NDAlias.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSOpenPanel+NDAlias.m"; sourceTree = "<group>"; };
+		4D2771FF0DFF029C002A960F /* NSPathControl+NDAlias.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPathControl+NDAlias.h"; sourceTree = "<group>"; };
+		4D2772000DFF029C002A960F /* NSPathControl+NDAlias.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPathControl+NDAlias.m"; sourceTree = "<group>"; };
 		4D7095360D102871008498FD /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
 		4D7095370D102871008498FD /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		4D7095400D102871008498FD /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
@@ -1423,6 +1437,13 @@
 		7F9A893B0C497D5C00B5912D /* ND */ = {
 			isa = PBXGroup;
 			children = (
+				4D2771FA0DFF029C002A960F /* NDLaunchServicesObject+Paths.h */,
+				4D2771FB0DFF029C002A960F /* NDLaunchServicesObject+Paths.m */,
+				4D2771FC0DFF029C002A960F /* NDSDKCompatibility.h */,
+				4D2771FD0DFF029C002A960F /* NSOpenPanel+NDAlias.h */,
+				4D2771FE0DFF029C002A960F /* NSOpenPanel+NDAlias.m */,
+				4D2771FF0DFF029C002A960F /* NSPathControl+NDAlias.h */,
+				4D2772000DFF029C002A960F /* NSPathControl+NDAlias.m */,
 				7F9A893C0C497D5C00B5912D /* NDAlias+AliasFile.h */,
 				7F9A893D0C497D5C00B5912D /* NDAlias+AliasFile.m */,
 				7F9A893E0C497D5C00B5912D /* NDAlias.h */,
@@ -1701,6 +1722,10 @@
 				4D7543B50D3539AC004190BE /* NDExtensions.h in Headers */,
 				4D7544150D353F9F004190BE /* QSExternals.h in Headers */,
 				4D7544360D354327004190BE /* QSCategories.h in Headers */,
+				4D2772030DFF029C002A960F /* NDLaunchServicesObject+Paths.h in Headers */,
+				4D2772050DFF029C002A960F /* NDSDKCompatibility.h in Headers */,
+				4D2772060DFF029C002A960F /* NSOpenPanel+NDAlias.h in Headers */,
+				4D2772080DFF029C002A960F /* NSPathControl+NDAlias.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2001,6 +2026,9 @@
 				7F3EF7A70CF6105E007A043A /* NSImage+QuickLook.m in Sources */,
 				7F350C4E0D15A4FB00B2B814 /* QSObject+QSIconLoader.m in Sources */,
 				7FDE8CBA0D28A299004C6AB1 /* QSImageTextDetailCell.m in Sources */,
+				4D2772040DFF029C002A960F /* NDLaunchServicesObject+Paths.m in Sources */,
+				4D2772070DFF029C002A960F /* NSOpenPanel+NDAlias.m in Sources */,
+				4D2772090DFF029C002A960F /* NSPathControl+NDAlias.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

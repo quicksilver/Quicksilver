@@ -1,10 +1,7 @@
 /*!
-	@header NDProcess.h
+	@header NDProcess
 	@abstract Header file for the class <tt>NDProcess</tt> and categories of <tt>NDProcess</tt>
 	@discussion <p><tt>NDProcess</tt> is a cocoa wrapper for Apples Process Manager</p>
- 
-	<p>Created by Nathan Day on Mon May 27 2002.<br>
-	Copyright &copy; 2002 Nathan Day. All rights reserved.</p>
  */
 
 
@@ -19,8 +16,8 @@
 @interface NDProcess : NSObject
 {
 @private
-	ProcessSerialNumber	processSerialNumber;
-	ProcessInfoRec			infoRec;
+	ProcessSerialNumber			processSerialNumber;
+	ProcessInfoRec				infoRec;
 	NSString					* name;
 	NSURL						* url;
 }
@@ -28,7 +25,7 @@
 /*!
 	@method initWithProcessSerialNumber:
 	@abstract Initialises a <tt>NDProcess</tt>.
-	@discussion Intializes a the recevier with a process serial number.
+	@discussion Initialises a the recevier with a process serial number.
 	@param processSerialNumber The process serial number.
 	@result A initialised <tt>NDProcess</tt>
  */
@@ -57,6 +54,15 @@
 	@result Returns <tt>YES</tt> if the process is current.
  */
 - (BOOL)isCurrentProcess;
+
+/*!
+	@method makeFrontProcessFrontWindowOnly:
+	@abstract Bring the process to front.
+	@discussion Attempts to bring the process to front. If the <tt>flag</tt> is set then only the front most window of the process is made front.
+	@param flag If <tt>YES</tt> then only the front most window of the process is brought to front, if <tt>NO</tt> then all of the window for the process are made front.
+	@result Returns <tt>YES</tt> if the process did come to front. 
+ */
+- (BOOL)makeFrontProcessFrontWindowOnly:(BOOL)flag;
 
 /*!
 	@method makeFrontProcess
@@ -100,6 +106,15 @@
  */
 - (id)initWithFrontProcess;
 
+	/*!
+	@method initWithProcessID:
+	@abstract Initialises a <tt>NDProcess</tt>.
+	@discussion Initialises a the recevier with the process ID <tt><i>pid</i></tt>.
+	@param pid The process ID.
+	@result A initialised <tt>NDProcess</tt>
+	 */
+- (id)initWithProcessID:(pid_t)pid;
+
 /*!
 	@method everyProcess
 	@abstract Get every process.
@@ -121,7 +136,7 @@
 /*!
 	@method processWithProcessSerialNumber:
 	@abstract Returns a new <tt>NDProcess</tt>.
-	@discussion Returns a <tt>NDProcess</tt> for the process with the given process serial number. WARNING: this method returns an instance that will be reused unless you retain it.
+	@discussion Returns a <tt>NDProcess</tt> for the process with the given process serial number.
 	@param processSerialNumber A valid process serial number.
 	@result A <tt>NDProcess</tt> object.
  */
@@ -130,7 +145,7 @@
 /*!
 	@method currentProcess
 	@abstract Returns a new <tt>NDProcess</tt>.
-	@discussion Returns a <tt>NDProcess</tt> for the current process. WARNING: this method returns an instance that will be reused unless you retain it.
+	@discussion Returns a <tt>NDProcess</tt> for the current process.
 	@result A <tt>NDProcess</tt> object.
  */
 + (NDProcess *)currentProcess;
@@ -138,15 +153,23 @@
 /*!
 	@method frontProcess
 	@abstract Returns a new <tt>NDProcess</tt>.
-	@discussion Returns a <tt>NDProcess</tt> for the front process. WARNING: this method returns an instance that will be reused unless you retain it.
+	@discussion Returns a <tt>NDProcess</tt> for the front process.
 	@result A <tt>NDProcess</tt> object.
  */
 + (NDProcess *)frontProcess;
 
 /*!
+	@method processWithProcessID
+	@abstract Returns a new <tt>NDProcess</tt>.
+	@discussion Returns a <tt>NDProcess</tt> for the process with the UNIX process ID <tt><i>pid</i></tt>.
+	@result A <tt>NDProcess</tt> object.
+ */
++ (NDProcess *)processWithProcessID:(pid_t)pid;
+
+/*!
 	@method firstProcessNamed:
 	@abstract Returns a new <tt>NDProcess</tt>.
-	@discussion Returns a <tt>NDProcess</tt> for the first process with the supplied name. WARNING: this method returns an instance that will be reused unless you retain it.
+	@discussion Returns a <tt>NDProcess</tt> for the first process with the supplied name.
 	@param name The name to look for.
 	@result A <tt>NDProcess</tt> object.
  */
@@ -155,7 +178,7 @@
 /*!
 	@method processForURL:
 	@abstract Returns a new <tt>NDProcess</tt>.
-	@discussion Returns a <tt>NDProcess</tt> for the process with the supplied url, the url can be to the executable file within an appication package. WARNING: this method returns an instance that will be reused unless you retain it.
+	@discussion Returns a <tt>NDProcess</tt> for the process with the supplied url, the url can be to the executable file within an appication package.
 	@param URL The url of the process to return.
 	@result A <tt>NDProcess</tt> object.
  */
@@ -164,7 +187,7 @@
 /*!
 	@method processForPath:
 	@abstract Returns a new <tt>NDProcess</tt>.
-	@discussion Returns a <tt>NDProcess</tt> for the process with the supplied path, the path can be to the executable file within an appication package. WARNING: this method returns an instance that will be reused unless you retain it.
+	@discussion Returns a <tt>NDProcess</tt> for the process with the supplied path, the path can be to the executable file within an appication package.
 	@param path The path of the process to return.
 	@result A <tt>NDProcess</tt> object.
  */
@@ -173,7 +196,7 @@
 /*!
 	@method processForApplicationURL:
 	@abstract Returns a new <tt>NDProcess</tt>.
-	@discussion Returns a <tt>NDProcess</tt> for the process with the supplied url, if the url is to an application package then the <tt>NDProcess</tt> returned is for the file identified by the <tt>CFBundleExecutable</tt> key int the <tt>Info.plist</tt> file. WARNING: this method returns an instance that will be reused unless you retain it.
+	@discussion Returns a <tt>NDProcess</tt> for the process with the supplied url, if the url is to an application package then the <tt>NDProcess</tt> returned is for the file identified by the <tt>CFBundleExecutable</tt> key int the <tt>Info.plist</tt> file.
 	@param URL The url of the process to return.
 	@result A <tt>NDProcess</tt> object.
  */
@@ -182,7 +205,7 @@
 /*!
 	@method processForApplicationPath:
 	@abstract Returns a new <tt>NDProcess</tt>.
-	@discussion Returns a <tt>NDProcess</tt> for the process with the supplied path, if the path is to an application package then the <tt>NDProcess</tt> returned is for the file identified by the <tt>CFBundleExecutable</tt> key int the <tt>Info.plist</tt> file. WARNING: this method returns an instance that will be reused unless you retain it.
+	@discussion Returns a <tt>NDProcess</tt> for the process with the supplied path, if the path is to an application package then the <tt>NDProcess</tt> returned is for the file identified by the <tt>CFBundleExecutable</tt> key int the <tt>Info.plist</tt> file.
 	@result A <tt>NDProcess</tt> object.
  */
 + (NDProcess *)processForApplicationPath:(NSString *)path;
@@ -329,5 +352,12 @@
  */
 - (NSString *)path;
 
+/*!
+	@method processID
+	@abstract Obtains the preocess ID
+	@discussion Returns the UNIX ocess ID for the reciever.
+	@result A <tt>pid_t</tt> for the reciever or -1 if an error occurs.
+ */
+- (pid_t)processID;
 
 @end

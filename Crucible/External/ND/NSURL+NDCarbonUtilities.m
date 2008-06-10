@@ -3,7 +3,7 @@
  *  AppleScriptObjectProject
  *
  *  Created by nathan on Wed Dec 05 2001.
- *  Copyright (c) 2001 __CompanyName__. All rights reserved.
+ *  Copyright 2001-2007 Nathan Day. All rights reserved.
  */
 
 #import "NSURL+NDCarbonUtilities.h"
@@ -14,23 +14,43 @@
 @implementation NSURL (NDCarbonUtilities)
 
 /*
- * +URLWithFSRef:
+	+ URLWithFSRef:
  */
 + (NSURL *)URLWithFSRef:(const FSRef *)aFsRef
 {
-	return [(NSURL *)CFURLCreateFromFSRef( kCFAllocatorDefault, aFsRef ) autorelease];
+	CFURLRef theURL = CFURLCreateFromFSRef( kCFAllocatorDefault, aFsRef );
+
+	/* With garbage collection, toll free bridging is not so perfect; must always match CFCreate...() and CFRelease().
+	Put another way, don't autorelease objects created by CFCreate...() functions */
+#ifndef __OBJC_GC__
+	[(NSURL *)theURL autorelease];
+#else
+	CFMakeCollectable( theURL );
+#endif
+
+	return (NSURL*)theURL;
 }
 
 /*
- * +URLWithFileSystemPathHFSStyle:
+	+ URLWithFileSystemPathHFSStyle:
  */
 + (NSURL *)URLWithFileSystemPathHFSStyle:(NSString *)aHFSString
 {
-	return [(NSURL *)CFURLCreateWithFileSystemPath( kCFAllocatorDefault, (CFStringRef)aHFSString, kCFURLHFSPathStyle, [aHFSString hasSuffix:@":"] ) autorelease];
+	CFURLRef theURL = CFURLCreateWithFileSystemPath( kCFAllocatorDefault, (CFStringRef)aHFSString, kCFURLHFSPathStyle, [aHFSString hasSuffix:@":"] );
+
+	/* With garbage collection, toll free bridging is not so perfect; must always match CFCreate...() and CFRelease().
+	Put another way, don't autorelease objects created by CFCreate...() functions */
+#ifndef __OBJC_GC__
+	[(NSURL *)theURL autorelease];
+#else
+	CFMakeCollectable( theURL );
+#endif
+
+	return (NSURL*)theURL;
 }
 
 /*
- * -getFSRef:
+	- getFSRef:
  */
 - (BOOL)getFSRef:(FSRef *)aFsRef
 {
@@ -38,33 +58,55 @@
 }
 
 /*
- * -getFSRef:
+	- getFSRef:
  */
 - (BOOL)getFSSpec:(FSSpec *)aFSSpec
 {
+#if defined(__LP64__) && __LP64__
+	(void)aFSSpec;
+	return NO;
+#else
 	FSRef			aFSRef;
 
 	return [self getFSRef:&aFSRef] && (FSGetCatalogInfo( &aFSRef, kFSCatInfoNone, NULL, NULL, aFSSpec, NULL ) == noErr);
+#endif
 }
 
 /*
- * -URLByDeletingLastPathComponent
+	- URLByDeletingLastPathComponent
  */
 - (NSURL *)URLByDeletingLastPathComponent
 {
-	return [(NSURL *)CFURLCreateCopyDeletingLastPathComponent( kCFAllocatorDefault, (CFURLRef)self) autorelease];
+	CFURLRef theURL = CFURLCreateCopyDeletingLastPathComponent( kCFAllocatorDefault, (CFURLRef)self);
+
+	/* With garbage collection, toll free bridging is not so perfect; must always match CFCreate...() and CFRelease().
+	Put another way, don't autorelease objects created by CFCreate...() functions */
+#ifndef __OBJC_GC__
+	[(NSURL *)theURL autorelease];
+#else
+	CFMakeCollectable( theURL );
+#endif
+
+	return (NSURL*)theURL;
 }
 
 /*
- * -fileSystemPathHFSStyle
+	- fileSystemPathHFSStyle
  */
 - (NSString *)fileSystemPathHFSStyle
 {
-    return [(NSString *)CFURLCopyFileSystemPath((CFURLRef)self, kCFURLHFSPathStyle) autorelease];
+	CFStringRef	theString = CFURLCopyFileSystemPath((CFURLRef)self, kCFURLHFSPathStyle);
+#ifndef __OBJC_GC__
+	[(NSString *)theString autorelease];
+#else
+	CFMakeCollectable( theString );
+#endif
+
+	return (NSString*)theString;
 }
 
 /*
- * -resolveAliasFile
+	- resolveAliasFile
  */
 - (NSURL *)resolveAliasFile
 {
@@ -77,25 +119,26 @@
 
 	if( (FSResolveAliasFile ( &theRef, YES, &theIsTargetFolder, &theWasAliased ) == noErr) )
 	{
-		theResolvedAlias = (theWasAliased) ? [NSURL URLWithFSRef:&theRef] : nil;
+		theResolvedAlias = (theWasAliased) ? [NSURL URLWithFSRef:&theRef] : self;
 	}
 
 	return theResolvedAlias;
 }
 
 /*
- * -finderInfoFlags:type:creator:
+	- finderInfoFlags:type:creator:
  */
 - (BOOL)finderInfoFlags:(UInt16*)aFlags type:(OSType*)aType creator:(OSType*)aCreator
 {
-	FSSpec			theFSSpec;
-	struct FInfo	theInfo;
+	FSRef			theFSRef;
+	FSCatalogInfo	theInfo;
 
-	if( [self getFSSpec:&theFSSpec] && FSpGetFInfo( &theFSSpec, &theInfo) == noErr )
+	if( [self getFSRef:&theFSRef] && FSGetCatalogInfo( &theFSRef, kFSCatInfoFinderInfo, &theInfo, NULL, NULL, NULL) == noErr )
 	{
-		if( aFlags ) *aFlags = theInfo.fdFlags;
-		if( aType ) *aType = theInfo.fdType;
-		if( aCreator ) *aCreator = theInfo.fdCreator;
+		FileInfo*	theFileInfo = (FileInfo*)(&theInfo.finderInfo);
+		if( aFlags ) *aFlags = theFileInfo->finderFlags;
+		if( aType ) *aType = theFileInfo->fileType;
+		if( aCreator ) *aCreator = theFileInfo->fileCreator;
 
 		return YES;
 	}
@@ -104,58 +147,61 @@
 }
 
 /*
- * -finderLocation
+	- finderLocation
  */
 - (NSPoint)finderLocation
 {
-	FSSpec			theFSSpec;
-	struct FInfo	theInfo;
+	FSRef			theFSRef;
+	FSCatalogInfo	theInfo;
 	NSPoint			thePoint = NSMakePoint( 0, 0 );
 
-	if( [self getFSSpec:&theFSSpec] && FSpGetFInfo( &theFSSpec, &theInfo) == noErr )
+	if( [self getFSRef:&theFSRef] && FSGetCatalogInfo( &theFSRef, kFSCatInfoFinderInfo, &theInfo, NULL, NULL, NULL) == noErr )
 	{
-		thePoint = NSMakePoint(theInfo.fdLocation.h, theInfo.fdLocation.v );
+		FileInfo*	theFileInfo = (FileInfo*)(&theInfo.finderInfo);
+		thePoint = NSMakePoint(theFileInfo->location.h, theFileInfo->location.v );
  	}
 
 	return thePoint;
 }
 
 /*
- * -setFinderInfoFlags:mask:type:creator:
+	- setFinderInfoFlags:mask:type:creator:
  */
 - (BOOL)setFinderInfoFlags:(UInt16)aFlags mask:(UInt16)aMask type:(OSType)aType creator:(OSType)aCreator
 {
 	BOOL				theResult = NO;
-	FSSpec			theFSSpec;
-	struct FInfo	theInfo = { 0 };
+	FSRef			theFSRef;
+	FSCatalogInfo	theInfo;
 
-	if( [self getFSSpec:&theFSSpec] && FSpGetFInfo( &theFSSpec, &theInfo) == noErr )
+	if( [self getFSRef:&theFSRef] && FSGetCatalogInfo( &theFSRef, kFSCatInfoFinderInfo, &theInfo, NULL, NULL, NULL) == noErr )
 	{
-		theInfo.fdFlags = (aFlags & aMask) | (theInfo.fdFlags & !aMask);
-		theInfo.fdType = aType;
-		theInfo.fdCreator = aCreator;
+		FileInfo*	theFileInfo = (FileInfo*)(&theInfo.finderInfo);
+		theFileInfo->finderFlags = ((aFlags & aMask) | (theFileInfo->finderFlags & ~aMask)) & ~kHasBeenInited;
+		theFileInfo->fileType = aType;
+		theFileInfo->fileCreator = aCreator;
 
-		theResult = FSpSetFInfo( &theFSSpec, &theInfo) == noErr;
+		theResult = FSSetCatalogInfo( &theFSRef, kFSCatInfoFinderInfo, &theInfo) == noErr;
 	}
 
 	return theResult;
 }
 
 /*
- * -setFinderLocation:
+	- setFinderLocation:
  */
 - (BOOL)setFinderLocation:(NSPoint)aLocation
 {
 	BOOL				theResult = NO;
-	FSSpec			theFSSpec;
-	struct FInfo	theInfo = { 0 };
+	FSRef			theFSRef;
+	FSCatalogInfo	theInfo;
 
-	if( [self getFSSpec:&theFSSpec] && FSpGetFInfo( &theFSSpec, &theInfo) == noErr )
+	if( [self getFSRef:&theFSRef] && FSGetCatalogInfo( &theFSRef, kFSCatInfoFinderInfo, &theInfo, NULL, NULL, NULL) == noErr )
 	{
-		theInfo.fdLocation.h = aLocation.x;
-		theInfo.fdLocation.v = aLocation.y;
+		FileInfo*	theFileInfo = (FileInfo*)(&theInfo.finderInfo);
+		theFileInfo->location.h = aLocation.x;
+		theFileInfo->location.v = aLocation.y;
 
-		theResult = FSpSetFInfo( &theFSSpec, &theInfo) == noErr;
+		theResult = FSSetCatalogInfo( &theFSRef, kFSCatInfoFinderInfo, &theInfo) == noErr;
 	}
 
 	return theResult;

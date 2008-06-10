@@ -2,20 +2,20 @@
 	@header NSString+NDCarbonUtilities
 	@abstract Decalres the category <tt>NSString (NDCarbonUtilities)</tt>
 	@discussion Provides method for interacting with Carbon APIs.
- 
-	Created by Nathan Day on Sat Aug 03 2002.
-	Copyright &#169; 2002 Nathan Day. All rights reserved.
+	@author Nathan Day
+	@copyright &#169; 2002-2007 Nathan Day. All rights reserved.
  */
 
 #import <Cocoa/Cocoa.h>
 #import <Carbon/Carbon.h>
+#import "NDSDKCompatibility.h"
 
 /*!
-	@category NSString(NDCarbonUtilitiesPaths)
+	@category NSString(NDCarbonUtilities)
 	@abstract Provides method for interacting with Carbon APIs.
 	@discussion Methods for dealing with <tt>FSRef</tt>&rsquo;s and pascal string as well as making some other core foundation methods accessable in Objective-C syntax.
  */
-@interface NSString (NDCarbonUtilitiesPaths)
+@interface NSString (NDCarbonUtilities)
 
 /*!
 	@method stringWithFSRef:
@@ -36,12 +36,13 @@
 
 /*!
 	@method getFSSpec:
-	 @abstract Get a <tt>FSSpec</tt>.
-	 @discussion Obtain a <tt>FSSpec</tt> for a POSIX path.
-	 @param fsSpec A pointer to a <tt>FSSpec</tt> struct, to be filled by the method.
-	 @result Returns <tt>YES</tt> if successful, if the method returns <tt>NO</tt> then <tt>fsSpec</tt> contains garbage.
+	@abstract Get a <tt>FSSpec</tt>.
+	@discussion Obtain a <tt>FSSpec</tt> for a POSIX path.
+	@deprecated in version 10.5
+	@param fsSpec A pointer to a <tt>FSSpec</tt> struct, to be filled by the method.
+	@result Returns <tt>YES</tt> if successful, if the method returns <tt>NO</tt> then <tt>fsSpec</tt> contains garbage.
  */
-- (BOOL)getFSSpec:(FSSpec *)fsSpec;
+- (BOOL)getFSSpec:(FSSpec *)fsSpec AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER_BUT_DEPRECATED;
 
 /*!
 	@method fileSystemPathHFSStyle
@@ -75,14 +76,23 @@
 + (NSString *)stringWithPascalString:(ConstStr255Param)pStr;
 
 /*!
-	@method pascalString:length:
+	@method getPascalString:length:
 	@abstract Obtain a pascal string equivelent to the receveiver.
 	@discussion Fill the <tt>StringPtr</tt> with a pascal string equivelent to the receveiver.
 	@param buffer A <tt>StringPtr</tt> that contains the pascal string on completion.
 	@param length The maximum length the string can be. Pascal string can be no longer than <tt>255</tt> bytes long, <tt>256</tt> if you include the first length byte.
 	@result Returns <tt>YES</tt> if the method was successful, if <tt>NO</tt> is returns then <tt>buffer</tt> contains garbage.
  */
-- (BOOL)pascalString:(StringPtr)buffer length:(short)length;
+- (BOOL)getPascalString:(StringPtr)buffer length:(short)length;
+
+/*!
+	@method pascalString
+	@abstract Obtain a pascal string equivelent to the receveiver.
+	@discussion  Returns a representation of the receiver as a pascal string. The returned pascal string will be automatically freed just as a returned object would be released; your code should copy the pascal string or use <tt>getPascalString:length:</tt> if it needs to store the pascal string outside of the autorelease context in which the pascal string is create.
+	@deprecated in version 10.5
+	@result A pointer to a pascal string.
+ */
+- (const char *)pascalString AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER_BUT_DEPRECATED;
 
 /*!
 	@method trimWhitespace
@@ -91,5 +101,177 @@
 	@result A new <tt>NSString</tt>.
  */
 - (NSString *)trimWhitespace;
+/*!
+	@method finderInfoFlags:type:creator:
+	@abstract Get finder info flags creator and type.
+	@discussion The bits of the finder info flag are
+	<blockquote>
+		<table border = "1"  width = "90%">
+			<thead><tr><th>Name</th><th>Description</th></tr></thead>
+			<tr><td align = "center"><tt>kIsOnDesk</tt></td><td>Files and folders (System 6)</td><tr>
+			<tr><td align = "center"><tt>kColor</tt></td><td>Files and folders</td><tr>
+			<tr><td align = "center"><tt>kIsShared</tt></td><td>Files only (Applications only)<br>
+					If clear, the application needs to write to its resource fork, and therefore cannot be shared on a server</td><tr>
+			<tr><td align = "center"><tt>kHasNoINITs</tt></td><td>Files only (Extensions/Control Panels only)<br>
+					This file contains no INIT resource</td><tr>
+			<tr><td align = "center"><tt>kHasBeenInited</tt></td><td>Files only<br>
+					Clear if the file contains desktop database resources ('BNDL', 'FREF', 'open', 'kind'...) that have not been added yet. Set only by the Finder</td><tr>
+			<tr><td align = "center"><tt>kHasCustomIcon</tt></td><td>Files and folders</td><tr>
+			<tr><td align = "center"><tt>kIsStationery</tt></td><td>Files only</td><tr>
+			<tr><td align = "center"><tt>kNameLocked</tt></td><td>Files and folders</td><tr>
+			<tr><td align = "center"><tt>kHasBundle</tt></td><td>Files only</td><tr>
+			<tr><td align = "center"><tt>kIsInvisible</tt></td><td>Files and folders</td><tr>
+			<tr><td align = "center"><tt>kIsAlias</tt></td><td>Files only.</td><tr>
+		</table>
+	</blockquote>
+	@param flags Contains finder flags on return.
+	@param type Contains finder type on return.
+	@param creator Contains creator on return.
+	@result Return <tt>YES</tt> if successful, otherwise <tt>NO</tt> and the returned values are invalid.
+ */
+- (BOOL)finderInfoFlags:(UInt16*)flags type:(OSType*)type creator:(OSType*)creator;
+
+/*!
+	@method finderLocation
+	@abstract Return a finder items location.
+	@discussion Returns a finder items location within its parent window.
+	@result A <tt>NSPoint</tt>
+ */
+- (NSPoint)finderLocation;
+
+/*!
+	@method setFinderInfoFlags:mask:type:creator:
+	@abstract Set finder info flags, creator and type.
+	@discussion The bits of the finder info flag are
+	<blockquote>
+		<table border = "1"  width = "90%">
+			<thead><tr><th>Name</th><th>Description</th></tr></thead>
+			<tr><td align = "center"><tt>kIsOnDesk</tt></td><td>Files and folders (System 6)</td><tr>
+			<tr><td align = "center"><tt>kColor</tt></td><td>Files and folders</td><tr>
+			<tr><td align = "center"><tt>kIsShared</tt></td><td>Files only (Applications only)<br>
+					If clear, the application needs to write to its resource fork, and therefore cannot be shared on a server</td><tr>
+			<tr><td align = "center"><tt>kHasNoINITs</tt></td><td>Files only (Extensions/Control Panels only)<br>
+					This file contains no INIT resource</td><tr>
+			<tr><td align = "center"><tt>kHasBeenInited</tt></td><td>Files only<br>
+					Clear if the file contains desktop database resources ('BNDL', 'FREF', 'open', 'kind'...) that have not been added yet. Set only by the Finder</td><tr>
+			<tr><td align = "center"><tt>kHasCustomIcon</tt></td><td>Files and folders</td><tr>
+			<tr><td align = "center"><tt>kIsStationery</tt></td><td>Files only</td><tr>
+			<tr><td align = "center"><tt>kNameLocked</tt></td><td>Files and folders</td><tr>
+			<tr><td align = "center"><tt>kHasBundle</tt></td><td>Files only</td><tr>
+			<tr><td align = "center"><tt>kIsInvisible</tt></td><td>Files and folders</td><tr>
+			<tr><td align = "center"><tt>kIsAlias</tt></td><td>Files only.</td><tr>
+		</table>
+	</blockquote>
+	@param flags Finder flags.
+	@param aMask Mask for Finder flags
+	@param type The Finder file type
+	@param creator The application creator code
+	@result Returns <tt>YES</tt> if successful.
+ */
+- (BOOL)setFinderInfoFlags:(UInt16)flags mask:(UInt16)aMask type:(OSType)type creator:(OSType)creator;
+
+/*!
+	@method setFinderLocation:
+	@abstract Sets the location a finder item.
+	@discussion Set the location of a finder item within in container.
+	@param location The location
+	@result Returns <tt>YES</tt> if successful.
+ */
+- (BOOL)setFinderLocation:(NSPoint)location;
+
+@end
+
+@interface NSString (NDCarbonUtilitiesFinderInfoFlags)
+
+/*!
+	@method hasCustomIconFinderInfoFlag
+	@abstract <#abstract#>
+	@discussion <#discussion#>
+	@result <#result#>
+ */
+- (BOOL)hasCustomIconFinderInfoFlag;
+/*!
+	@method isStationeryFinderInfoFlag
+	@abstract <#abstract#>
+	@discussion <#discussion#>
+	@result <#result#>
+ */
+- (BOOL)isStationeryFinderInfoFlag;
+/*!
+	@method hasNameLockedFinderInfoFlag
+	@abstract <#abstract#>
+	@discussion <#discussion#>
+	@result <#result#>
+ */
+- (BOOL)hasNameLockedFinderInfoFlag;
+/*!
+	@method hasBundleFinderInfoFlag
+	@abstract <#abstract#>
+	@discussion <#discussion#>
+	@result <#result#>
+ */
+- (BOOL)hasBundleFinderInfoFlag;
+/*!
+	@method isInvisibleFinderInfoFlag
+	@abstract <#abstract#>
+	@discussion <#discussion#>
+	@result <#result#>
+ */
+- (BOOL)isInvisibleFinderInfoFlag;
+/*!
+	@method isAliasFinderInfoFlag
+	@abstract <#abstract#>
+	@discussion <#discussion#>
+	@result <#result#>
+ */
+- (BOOL)isAliasFinderInfoFlag;
+
+/*!
+	@method setHasCustomIconFinderInfoFlag:
+	@abstract <#abstract#>
+	@discussion <#discussion#>
+	@result <#result#>
+ */
+- (BOOL)setHasCustomIconFinderInfoFlag:(BOOL)aFlag;
+/*!
+	@method setIsStationeryFinderInfoFlag:
+	@abstract <#abstract#>
+	@discussion <#discussion#>
+	@param flag <#discussion#>
+	@result <#result#>
+ */
+- (BOOL)setIsStationeryFinderInfoFlag:(BOOL)aFlag;
+/*!
+	@method setHasNameLockedFinderInfoFlag:
+	@abstract <#abstract#>
+	@discussion <#discussion#>
+	@param flag <#discussion#>
+	@result <#result#>
+ */
+- (BOOL)setHasNameLockedFinderInfoFlag:(BOOL)aFlag;
+/*!
+	@method setHasBundleFinderInfoFlag:
+	@abstract <#abstract#>
+	@discussion <#discussion#>
+	@param flag <#discussion#>
+	@result <#result#>
+ */
+- (BOOL)setHasBundleFinderInfoFlag:(BOOL)aFlag;
+/*!
+	@method setIsInvisibleFinderInfoFlag:
+	@abstract <#abstract#>
+	@discussion <#discussion#>
+	@param flag <#discussion#>
+	@result <#result#>
+ */
+- (BOOL)setIsInvisibleFinderInfoFlag:(BOOL)aFlag;
+/*!
+	@method setIsAliasFinderInfoFlag:
+	@abstract <#abstract#>
+	@discussion <#discussion#>
+	@param flag <#discussion#>
+	@result <#result#>
+ */
+- (BOOL)setIsAliasFinderInfoFlag:(BOOL)aFlag;
 
 @end

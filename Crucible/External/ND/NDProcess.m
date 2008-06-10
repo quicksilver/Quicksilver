@@ -9,8 +9,7 @@
 #import "NDProcess.h"
 #import "NSURL+NDCarbonUtilities.h"
 
-NDProcess		* reusedInstance = nil;
-NSString			* kBundleExecutableKey = @"CFBundleExecutable";
+NSString		* kBundleExecutableKey = @"CFBundleExecutable";
 
 /*
  * category interface NDProcess (Private)
@@ -40,7 +39,7 @@ NSString			* kBundleExecutableKey = @"CFBundleExecutable";
  */
 - (id)initWithProcessSerialNumber:(ProcessSerialNumber)aProcessSerialNumber
 {
-	if(( self = [self init] ))
+	if( (self = [self init]) != nil )
 	{
 		[self setProcessSerialNumber:aProcessSerialNumber];
 	}
@@ -48,6 +47,7 @@ NSString			* kBundleExecutableKey = @"CFBundleExecutable";
 	return self;
 }
 
+#ifndef __OBJC_GC__
 /*
  * -dealloc
  */
@@ -57,6 +57,7 @@ NSString			* kBundleExecutableKey = @"CFBundleExecutable";
 	[url release];
 	[super dealloc];
 }
+#endif
 
 /*
  * -processSerialNumber
@@ -72,11 +73,11 @@ NSString			* kBundleExecutableKey = @"CFBundleExecutable";
 - (BOOL)isFrontProcess
 {
 	Boolean						theResult = FALSE;
-	ProcessSerialNumber		theProccessSerialNumber;
+	ProcessSerialNumber		theProcessSerialNumber;
 
-	if( GetFrontProcess( &theProccessSerialNumber ) == noErr )
+	if( GetFrontProcess( &theProcessSerialNumber ) == noErr )
 	{
-		if( SameProcess( &theProccessSerialNumber, &processSerialNumber, &theResult ) != noErr )
+		if( SameProcess( &theProcessSerialNumber, &processSerialNumber, &theResult ) != noErr )
 		{
 			theResult = FALSE;
 		}
@@ -91,11 +92,11 @@ NSString			* kBundleExecutableKey = @"CFBundleExecutable";
 - (BOOL)isCurrentProcess
 {
 	Boolean						theResult = FALSE;
-	ProcessSerialNumber		theProccessSerialNumber;
+	ProcessSerialNumber		theProcessSerialNumber;
 
-	if( GetCurrentProcess( &theProccessSerialNumber ) == noErr )
+	if( GetCurrentProcess( &theProcessSerialNumber ) == noErr )
 	{
-		if( SameProcess( &theProccessSerialNumber, &processSerialNumber, &theResult ) != noErr )
+		if( SameProcess( &theProcessSerialNumber, &processSerialNumber, &theResult ) != noErr )
 		{
 			theResult = FALSE;
 		}
@@ -105,12 +106,21 @@ NSString			* kBundleExecutableKey = @"CFBundleExecutable";
 }
 
 /*
+ * -makeFrontProcessFrontWindowOnly:
+ */
+- (BOOL)makeFrontProcessFrontWindowOnly:(BOOL)aFlag
+{
+	return SetFrontProcessWithOptions( &processSerialNumber, aFlag ? kSetFrontProcessFrontWindowOnly : 0 ) == noErr;
+}
+
+/*
  * -makeFrontProcess
  */
 - (BOOL)makeFrontProcess
 {
 	return SetFrontProcess( &processSerialNumber ) == noErr;
 }
+
 
 /*
  * -wakeUpProcess
@@ -128,11 +138,11 @@ NSString			* kBundleExecutableKey = @"CFBundleExecutable";
 	Boolean						theResult = FALSE;
 	if( [anObject isKindOfClass:[self class]] )
 	{
-		ProcessSerialNumber		theProccessSerialNumber;
+		ProcessSerialNumber		theProcessSerialNumber;
 		
-		theProccessSerialNumber = [anObject processSerialNumber];
+		theProcessSerialNumber = [anObject processSerialNumber];
 
-		if( SameProcess( &processSerialNumber, &theProccessSerialNumber, &theResult ) != noErr )
+		if( SameProcess( &processSerialNumber, &theProcessSerialNumber, &theResult ) != noErr )
 			theResult = FALSE;
 	}
 
@@ -146,8 +156,8 @@ NSString			* kBundleExecutableKey = @"CFBundleExecutable";
 {
 	OSType			theOSType;
 	UInt32			theSignature;
-	NSString			* theOSTypeString,
-						* theSignatureString;
+	NSString		* theOSTypeString,
+					* theSignatureString;
 	NSTimeInterval	theLaunchTime;
 
 	if( [self isNoProcess] )
@@ -163,22 +173,8 @@ NSString			* kBundleExecutableKey = @"CFBundleExecutable";
 		theSignatureString = (theSignature) ? [NSString stringWithCString:(char*)&theSignature length:4] : @"NULL";
 
 		theLaunchTime = [self launchTime];
-		return [NSString stringWithFormat:@"name:\"%@\"\ttime:[%ih %im %.1fs]\ttype:'%@'\tsignature:'%@'", [self name], (int)theLaunchTime/3600,((int)theLaunchTime/60)%60,fmod(theLaunchTime, 60), theOSTypeString, theSignatureString];
+		return [NSString stringWithFormat:@"name:\"%@\", procces ID: %i, time:[%ih %im %.1fs], type:'%@', signature:'%@'", [self name], [self processID], (int)theLaunchTime/3600,((int)theLaunchTime/60)%60,fmod(theLaunchTime, 60.0), theOSTypeString, theSignatureString];
 	}
-}
-
-/*
- * -retain
- */
-- (id)retain
-{
-	if( self == reusedInstance )
-	{
-		reusedInstance = nil;
-		[self autorelease];		// autorelease since not kept with reusedInstance
-	}
-
-	return [super retain];
 }
 
 /*
@@ -235,14 +231,12 @@ NSString			* kBundleExecutableKey = @"CFBundleExecutable";
  */
 @implementation NDProcess (Constructors)
 
-NDProcess * reusableInstance();
-
 /*
  * +processWithProcessSerialNumber:
  */
 + (NDProcess *)processWithProcessSerialNumber: (ProcessSerialNumber)aProcessSerialNumber
 {
-	NDProcess  * theInstance = reusableInstance();
+	NDProcess  * theInstance = [[[NDProcess alloc] init] autorelease];
 	[theInstance setProcessSerialNumber:aProcessSerialNumber];
 	return theInstance;
 }
@@ -253,12 +247,12 @@ NDProcess * reusableInstance();
 + (NDProcess *)currentProcess
 {
 	NDProcess					* theInstance = nil;
-	ProcessSerialNumber		theProccessSerialNumber;
+	ProcessSerialNumber		theProcessSerialNumber;
 
-	if( GetCurrentProcess( &theProccessSerialNumber ) == noErr )
+	if( GetCurrentProcess( &theProcessSerialNumber ) == noErr )
 	{
-		theInstance = reusableInstance();
-		[theInstance setProcessSerialNumber:theProccessSerialNumber];
+		theInstance = [[[NDProcess alloc] init] autorelease];
+		[theInstance setProcessSerialNumber:theProcessSerialNumber];
 	}
 
 	return theInstance;
@@ -270,14 +264,31 @@ NDProcess * reusableInstance();
 + (NDProcess *)frontProcess
 {
 	NDProcess					* theInstance = nil;
-	ProcessSerialNumber		theProccessSerialNumber;
+	ProcessSerialNumber		theProcessSerialNumber;
 
-	if( GetFrontProcess( &theProccessSerialNumber ) == noErr )
+	if( GetFrontProcess( &theProcessSerialNumber ) == noErr )
 	{
-		theInstance = reusableInstance();
-		[theInstance setProcessSerialNumber:theProccessSerialNumber];
+		theInstance = [[[NDProcess alloc] init] autorelease];
+		[theInstance setProcessSerialNumber:theProcessSerialNumber];
 	}
 
+	return theInstance;
+}
+
+/*
+ * +processWithProcessID:
+ */
++ (NDProcess *)processWithProcessID:(pid_t)aPid
+{
+	NDProcess					* theInstance = nil;
+	ProcessSerialNumber		theProcessSerialNumber;
+	
+	if( GetProcessForPID( aPid, &theProcessSerialNumber) == noErr )
+	{
+		theInstance = [[[NDProcess alloc] init] autorelease];
+		[theInstance setProcessSerialNumber:theProcessSerialNumber];
+	}
+	
 	return theInstance;
 }
 
@@ -286,12 +297,17 @@ NDProcess * reusableInstance();
  */
 - (id)initWithCurrentProcess;
 {
-	ProcessSerialNumber		theProccessSerialNumber;
+	ProcessSerialNumber		theProcessSerialNumber;
 
-	if( GetCurrentProcess( &theProccessSerialNumber ) == noErr )
-		return [self initWithProcessSerialNumber:theProccessSerialNumber];
+	if( GetCurrentProcess( &theProcessSerialNumber ) == noErr )
+		self = [self initWithProcessSerialNumber:theProcessSerialNumber];
 	else
-		return nil;
+	{
+		[self release];
+		self = nil;
+	}
+	
+	return self;
 }
 
 /*
@@ -299,13 +315,35 @@ NDProcess * reusableInstance();
  */
 - (id)initWithFrontProcess
 {
-	id								theInstance = nil;
-	ProcessSerialNumber		theProccessSerialNumber;
+	ProcessSerialNumber		theProcessSerialNumber;
 
-	if( GetFrontProcess( &theProccessSerialNumber ) == noErr )
-		theInstance = [self initWithProcessSerialNumber:theProccessSerialNumber];
+	if( GetFrontProcess( &theProcessSerialNumber ) == noErr )
+		self = [self initWithProcessSerialNumber:theProcessSerialNumber];
+	else
+	{
+		[self release];
+		self = nil;
+	}
+	
+	return self;
+}
 
-	return theInstance;
+/*
+ * -initWithProcessID:
+ */
+- (id)initWithProcessID:(pid_t)aPid
+{
+	ProcessSerialNumber		theProcessSerialNumber;
+
+	if( GetProcessForPID( aPid, &theProcessSerialNumber) == noErr )
+		self = [self initWithProcessSerialNumber:theProcessSerialNumber];
+	else
+	{
+		[self release];
+		self = nil;
+	}
+
+	return self;
 }
 
 /*
@@ -371,7 +409,7 @@ NDProcess * reusableInstance();
 	NDProcess			* theProcess;
 
 	theEnumerator = [self processesEnumerater];
-	while(( theProcess = [theEnumerator nextObject] ))
+	while( (theProcess = [theEnumerator nextObject]) != nil )
 	{
 		if( [[theProcess url] isEqual:aURL] )
 			return theProcess;						// RETURN found process
@@ -433,7 +471,7 @@ NDProcess * reusableInstance();
 	theFoundProcesses = [NSMutableArray array];
 	theEnumerator = [self processesEnumerater];
 
-	while(( theProcess = [theEnumerator nextObject] ))
+	while( (theProcess = [theEnumerator nextObject]) != nil )
 	{
 		if( [[[theProcess url] absoluteString] isEqualToString:[aURL absoluteString]] )
 			[theFoundProcesses addObject:theProcess];
@@ -454,7 +492,7 @@ NDProcess * reusableInstance();
 	theFoundProcesses = [NSMutableArray array];
 	theEnumerator = [self processesEnumerater];
 
-	while(( theProcess = [theEnumerator nextObject] ))
+	while( (theProcess = [theEnumerator nextObject]) != nil)
 	{
 		if( [[theProcess path] isEqualToString:aPath] )
 			[theFoundProcesses addObject:theProcess];
@@ -464,30 +502,17 @@ NDProcess * reusableInstance();
 }
 
 /*
- * getReusedInstance()
- */
-NDProcess * reusableInstance()
-{
-	if( reusedInstance == nil)
-	{
-		reusedInstance = [[NDProcess alloc] init];
-	}
-
-	return reusedInstance;
-}
-
-/*
  * -isNoProcess
  */
 - (BOOL)isNoProcess
 {
-	Boolean						theResult = FALSE;
-	ProcessSerialNumber		theProccessSerialNumber;
+	Boolean					theResult = FALSE;
+	ProcessSerialNumber		theProcessSerialNumber;
 
-	theProccessSerialNumber.highLongOfPSN = 0;
-	theProccessSerialNumber.lowLongOfPSN = kNoProcess;
+	theProcessSerialNumber.highLongOfPSN = 0;
+	theProcessSerialNumber.lowLongOfPSN = kNoProcess;
 
-	if( SameProcess( &processSerialNumber, &theProccessSerialNumber, &theResult ) != noErr )
+	if( SameProcess( &processSerialNumber, &theProcessSerialNumber, &theResult ) != noErr )
 		theResult = FALSE;
 
 	return theResult != FALSE;
@@ -499,12 +524,12 @@ NDProcess * reusableInstance()
 - (BOOL)isSystemProcess
 {
 	Boolean						theResult = FALSE;
-	ProcessSerialNumber		theProccessSerialNumber;
+	ProcessSerialNumber		theProcessSerialNumber;
 
-	theProccessSerialNumber.highLongOfPSN = 0;
-	theProccessSerialNumber.lowLongOfPSN = kSystemProcess;
+	theProcessSerialNumber.highLongOfPSN = 0;
+	theProcessSerialNumber.lowLongOfPSN = kSystemProcess;
 
-	if( SameProcess( &processSerialNumber, &theProccessSerialNumber, &theResult ) != noErr )
+	if( SameProcess( &processSerialNumber, &theProcessSerialNumber, &theResult ) != noErr )
 		theResult = FALSE;
 
 	return theResult != FALSE;
@@ -537,20 +562,22 @@ NDProcess * reusableInstance()
 		{
 			name = @"no process";
 		}
+#if MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_5
 		else if( [self isSystemProcess] )
 		{
 			name = @"system process";
 		}
+#endif
 		else
 		{
-			char			theProcessName[32];
+			unsigned char			theProcessName[32];
 		
 			infoRec.processInfoLength = 0;			// set to zero to force retireve process info
 			infoRec.processName = theProcessName;
 		
 			if( [self fillProcessInfoRec] && infoRec.processName != NULL )
 			{
-				name = [[NSString alloc] initWithCString:(theProcessName + 1) length:*theProcessName];
+				name = [[NSString alloc] initWithCString:(const char *)(theProcessName + 1) length:*theProcessName];
 				infoRec.processName = NULL;		// not valid after this method call
 			}
 		}
@@ -606,6 +633,16 @@ NDProcess * reusableInstance()
 {
 	if( url == nil )
 	{
+#if __LP64__
+		FSRef			theRef;
+		infoRec.processInfoLength = 0;			// set to zero to force retireve process info
+		infoRec.processAppRef = &theRef;
+
+		if( [self fillProcessInfoRec] && infoRec.processAppRef != NULL )
+			url = [[NSURL URLWithFSRef:&theRef] retain];
+		
+		infoRec.processAppRef = NULL;		// not valid after method call
+#else
 		FSSpec				theSpec;
 
 		infoRec.processInfoLength = 0;			// set to zero to force retireve process info
@@ -615,11 +652,12 @@ NDProcess * reusableInstance()
 		{
 			FSRef			theRef;
 
-			FSpMakeFSRef ( &theSpec, &theRef );
+			FSpMakeFSRef ( &theSpec, &theRef );			// I known this is deprecated, but that is because FSSpec is deprecated, so I have no choice but to use this
 			url = [[NSURL URLWithFSRef:&theRef] retain];
 		}
 		
 		infoRec.processAppSpec = NULL;		// not valid after method call
+#endif
 	}
 	
 	return url;
@@ -631,6 +669,16 @@ NDProcess * reusableInstance()
 - (NSString *)path
 {
 	return [[self url] path];
+}
+
+/*
+ * -processID
+ */
+- (pid_t)processID
+{
+	pid_t pid = -1;
+	
+	return GetProcessPID(&processSerialNumber, &pid) == noErr ? pid : -1;
 }
 
 @end
@@ -653,7 +701,7 @@ NDProcess * reusableInstance()
  */
 - (id)init
 {
-	if(( self = [super init] ))
+	if( (self = [super init]) != nil)
 	{
 		currentProcessSerialNumber.highLongOfPSN = kNoProcess;
 		currentProcessSerialNumber.lowLongOfPSN = 0;

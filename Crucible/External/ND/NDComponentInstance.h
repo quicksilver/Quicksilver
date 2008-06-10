@@ -2,9 +2,6 @@
 	@header NDComponentInstance
 	@abstract Header file for <tt>NDComponentInstance</tt>.
 	@discussion Declare the class <tt>NDComponentInstance</tt> which is used with <tt>NDAppleScriptObject</tt>
- 
-	Created by Nathan Day on Tue May 20 2003.
-	Copyright &#169; 2002 Nathan Day. All rights reserved.
  */
 
 #import <Cocoa/Cocoa.h>

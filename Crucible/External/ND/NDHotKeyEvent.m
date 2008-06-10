@@ -32,11 +32,11 @@ static OSStatus	switchHotKey( NDHotKeyEvent * self, BOOL aFlag );
 
 #ifdef NDHotKeyEventThreadSafe
 	static NSLock				* hotKeysLock = NULL;
-	// ***warning   Thread saftey has been enabled for NDHotKeyEvent class methods
+	#warning Thread safety has been enabled for NDHotKeyEvent class methods
 	#define	NDHotKeyEventLock [hotKeysLock lock]
 	#define	NDHotKeyEventUnlock [hotKeysLock unlock]
 #else
-	// ***warning   The NDHotKeyEvent class methods are NOT thread safe
+	#warning The NDHotKeyEvent class methods are NOT thread safe
 	#define	NDHotKeyEventLock // lock
 	#define	NDHotKeyEventUnlock // unlock
 #endif
@@ -83,7 +83,7 @@ struct HotKeyMappingEntry
 				}
 				else
 				{
-					QSLog(@"Could not install Event handler");
+					NSLog(@"Could not install Event handler");
 				}
 			}
 		NDHotKeyEventUnlock;
@@ -102,7 +102,7 @@ struct HotKeyMappingEntry
 	{
 		NSLock		* theInstance = [[NSLock alloc] init];
 
-		if( !CompareAndSwap( nil, (long int)theInstance, (long int*)&hotKeysLock) )
+		if( !CompareAndSwap( 0, (unsigned long int)theInstance, (unsigned long int*)&hotKeysLock) )
 			[theInstance release];			// did not use instance
 	}
 }
@@ -260,7 +260,7 @@ struct HotKeyMappingEntry
  */
 - (id)initWithKeyCode:(unsigned short)aKeyCode character:(unichar)aChar modifierFlags:(unsigned int)aModifierFlags target:(id)aTarget selector:(SEL)aSelector
 {
-	if( (self = [super init]) )
+	if( (self = [super init]) != nil )
 	{
 		keyCode = aKeyCode;
 		character = aChar;
@@ -278,9 +278,6 @@ struct HotKeyMappingEntry
 	}
 	else
 	{
-		if( aModifierFlags == 0 )
-			QSLog(@"All hot keys must have at least one modifer key");
-		
 		[self release];
 		self = nil;
 	}
@@ -290,7 +287,7 @@ struct HotKeyMappingEntry
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-	if(( self = [super init] ))
+	if( (self = [super init]) != nil)
 	{
 		if( [aDecoder allowsKeyedCoding] )
 		{
@@ -401,6 +398,7 @@ struct HotKeyMappingEntry
 			theDummyEntry.hotKeyEvent = nil;
 
 			NDHotKeyEventLock;
+				switchHotKey( self, NO );
 				if( [self retainCount] == 1 )		// check again because it might have changed
 				{
 					id		theHotKeyEvent = NSHashGet( theHashTable, (void*)&theDummyEntry );
@@ -410,14 +408,14 @@ struct HotKeyMappingEntry
 			NDHotKeyEventUnlock;
 		}
 	}
-	else
-		[super release];
+//	else
+	[super release];
 }
 
 - (void)dealloc
 {
 	if( UnregisterEventHotKey( reference ) != noErr )	// in lock from release
-		QSLog( @"Failed to unregister hot key %@", self );
+		NSLog( @"Failed to unregister hot key %@", self );
 	[super dealloc];
 }
 
@@ -447,7 +445,7 @@ struct HotKeyMappingEntry
 		if( theResult )
 			isEnabled.individual = aFlag;
 		else
-			QSLog(@"%s failed ", aFlag ? "enable" : "disable" );
+			NSLog(@"%s failed ", aFlag ? "enable" : "disable" );
 	}
 	else
 		theResult = NO;
@@ -627,9 +625,8 @@ struct HotKeyMappingEntry
  */
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"{\n\tKey Combination: %@,\n\tEnabled: %s\n\tTarget: %@\n\tKey Press Selector: %@\n\tKey Release Selector: %@\n}\n", [self stringValue],
+	return [NSString stringWithFormat:@"{\n\tKey Combination: %@,\n\tEnabled: %s\n\tKey Press Selector: %@\n\tKey Release Selector: %@\n}\n", [self stringValue],
 					[self isEnabled] ? "yes" : "no",
-					[self target],
 					NSStringFromSelector([self selectorPressed]),
 					NSStringFromSelector([self selectorReleased])];
 }
@@ -835,7 +832,7 @@ NSString * describeHashFunction( NSHashTable * aTable, const void * aHotKeyEntry
 		if( theResult )
 			isEnabled.collective = aFlag;
 		else
-			QSLog(@"%s %@ failed", aFlag ? "enable" : "disable",self );
+			NSLog(@"%s failed", aFlag ? "enable" : "disable" );
 	}
 	else
 		theResult = NO;
@@ -891,14 +888,12 @@ NSString * stringForKeyCodeAndModifierFlags( unsigned short aKeyCode, unichar aC
 	return [stringForModifiers(aModifierFlags) stringByAppendingString:stringForCharacter( aKeyCode, aChar )];
 }
 
-
- unichar unicodeForFunctionKey( UInt32 aKeyCode );	
-
 /*
  * unicharForKeyCode()
  */
 unichar unicharForKeyCode( unsigned short aKeyCode )
 {
+	auto unichar unicodeForFunctionKey( UInt32 aKeyCode );	
 
 	static UInt32			theState = 0;
 	const void				* theKeyboardLayoutData;
@@ -943,41 +938,31 @@ unichar unicharForKeyCode( unsigned short aKeyCode )
 	}
 	
 	return theChar;
-}
 
-unichar unicodeForFunctionKey( UInt32 aKeyCode )
-{
-	switch( aKeyCode )
+	unichar unicodeForFunctionKey( UInt32 aKeyCode )
 	{
-		case 0x7A: return NSF1FunctionKey;
-		case 0x78: return NSF2FunctionKey;
-		case 0x63: return NSF3FunctionKey;
-		case 0x76: return NSF4FunctionKey;
-		case 0x60: return NSF5FunctionKey;
-		case 0x61: return NSF6FunctionKey;
-		case 0x62: return NSF7FunctionKey;
-		case 0x64: return NSF8FunctionKey;
-		case 0x65: return NSF9FunctionKey;
-		case 0x6D: return NSF10FunctionKey;
-		case 0x67: return NSF11FunctionKey;
-		case 0x6F: return NSF12FunctionKey;
-			// BLTRMod				
-			
-		case 0x69: return NSF13FunctionKey;
-		case 0x6B: return NSF14FunctionKey;
-		case 0x71: return NSF15FunctionKey;				
-			// BLTRModEnd 
-			
-		default: return 0x00;
+		switch( aKeyCode )
+		{
+			case 0x7A: return NSF1FunctionKey;
+			case 0x78: return NSF2FunctionKey;
+			case 0x63: return NSF3FunctionKey;
+			case 0x76: return NSF4FunctionKey;
+			case 0x60: return NSF5FunctionKey;
+			case 0x61: return NSF6FunctionKey;
+			case 0x62: return NSF7FunctionKey;
+			case 0x64: return NSF8FunctionKey;
+			case 0x65: return NSF9FunctionKey;
+			case 0x6D: return NSF10FunctionKey;
+			case 0x67: return NSF11FunctionKey;
+			case 0x6F: return NSF12FunctionKey;
+			default: return 0x00;
+		}
 	}
 }
 
 NSString * stringForCharacter( const unsigned short aKeyCode, unichar aCharacter )
 {
 	NSString		* theString = nil;
-	
-	if (!aCharacter)
-		aCharacter = unicharForKeyCode(aKeyCode);
 	switch( aCharacter )
 	{
 		case NSUpArrowFunctionKey:

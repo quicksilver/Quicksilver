@@ -31,7 +31,7 @@ static NDComponentInstance		* sharedComponentInstance = nil;
 + (id)sharedComponentInstance
 {
 	if( sharedComponentInstance == nil && (sharedComponentInstance = [[self alloc] init]) == NULL)
-		QSLog(@"Could not create shared Component Instance");
+		NSLog(@"Could not create shared Component Instance");
 
 	return sharedComponentInstance;
 }
@@ -108,14 +108,14 @@ static NDComponentInstance		* sharedComponentInstance = nil;
 			{
 				[self release];
 				self = nil;
-				QSLog(@"Could not open connection with default AppleScript component");
+				NSLog(@"Could not open connection with default AppleScript component");
 			}
 		}
 		else if( (scriptingComponent = OpenComponent( aComponent )) == NULL )
 		{
 			[self release];
 			self = nil;
-			QSLog(@"Could not open connection with component");
+			NSLog(@"Could not open connection with component");
 		}
 	}
 	return self;
@@ -143,7 +143,7 @@ static NDComponentInstance		* sharedComponentInstance = nil;
 - (void)setDefaultTarget:(NSAppleEventDescriptor *)aDefaultTarget
 {
 	if( OSASetDefaultTarget( [self scriptingComponent], [aDefaultTarget aeDesc] ) != noErr )
-		QSLog( @"Could not set default target" );
+		NSLog( @"Could not set default target" );
 }
 
 /*

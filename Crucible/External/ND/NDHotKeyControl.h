@@ -22,6 +22,7 @@
 	unsigned short		keyCode;
 	unichar				character;
 	unsigned long		modifierFlags;
+	BOOL					requiresModifierKeys;
 }
 
 /*!
@@ -55,5 +56,21 @@
 	@result A <tt>NDHotKeyEvent</tt> for the hot key event.
  */
 - (NDHotKeyEvent *)hotKeyEvent;
+
+/*!
+	@method setRequiresModifierKeys:
+	@abstract Set whether hot keys entered need modifiers keys.
+	@discussion This does not include function key which do not require modifier keys no matter what the value you pass for the argument <tt><i>flag</i></tt>
+	@param flag If <tt>NO</tt> then the reciever only accepts hot keys combination containing modifer keys.
+ */
+- (void)setRequiresModifierKeys:(BOOL)flag;
+
+/*!
+	@method requiresModifierKeys
+	@abstract Returns whether hot keys entered need modifiers keys.
+	@discussion This does not include key which do not require modifier keys no matter what the value is returned.
+	@result If <tt>NO</tt> then the reciever only accepts hot keys combination containing modifer keys.
+ */
+- (BOOL)requiresModifierKeys;
 
 @end

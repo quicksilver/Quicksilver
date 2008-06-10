@@ -2,9 +2,6 @@
 	@header NDAppleScriptObject
 	@abstract Header file for <tt>NDAppleScriptObject</tt>.
 	@discussion <tt>NDAppleScriptObject</tt> is used to represent compiled AppleScripts within Cocoa. The only restriction for use of this code is that you keep the comments with the head files especial my name. Use of this code is at your own risk yada yada yada...
- 
-	Created by nathan on Thu Nov 29 2001.
-	Copyright &#169; 2001 Nathan Day. All rights reserved.
  */
 
 
@@ -331,6 +328,7 @@ extern const NSString	* NDAppleScriptPartialResult;
 	@result  returns an <tt>NSArray</tt> of event identifier <tt>NSDictionary</tt>s.
  */
 - (NSArray *)arrayOfEventIdentifier;
+
 /*!
 	@method respondsToEventClass:eventID:
 	@abstract Tests whether the script responds to an AppleEvent.
@@ -349,6 +347,53 @@ extern const NSString	* NDAppleScriptPartialResult;
 	@result  returns true if the script reponds to the subroutine call.
  */
 - (BOOL)respondsToSubroutine:(NSString *)name;
+
+/*!
+	@method arrayOfPropertyNames
+	@abstract Get array of property names.
+	@discussion Returns an array of string for every property contained within the receiver.
+	@result An <tt>NSArray</tt> of <tt>NSStrings</tt>
+ */
+- (NSArray *)arrayOfPropertyNames;
+
+/*!
+	@method descriptorForPropertyNamed:
+	@abstract <#Abstract#>
+	@discussion <#Discussion#>
+	@param variableName <#disc#>
+	@result <#result#>
+ */
+- (NSAppleEventDescriptor *)descriptorForPropertyNamed:(NSString *)variableName;
+
+/*!
+	@method descriptorForPropertyNamed:
+	@abstract <#Abstract#>
+	@discussion <#Discussion#>
+	@param variableName <#disc#>
+	@result <#result#>
+ */
+- (id)valueForPropertyNamed:(NSString *)variableName;
+
+/*!
+	@method setPropertyNamed:toDescriptor:define:
+	@abstract Sets the value of a script property.
+	@discussion Sets the value of a script property within the recievers script.
+	@param variableName Name of the property to set. The variable name is case-sensitive and must exactly match the case of the variable name as supplied by the OSAGetPropertyNames function or the OSAGetSource function.
+	@param descriptor A descriptor whose associated data should be used to set the value for the property specified by <tt><i>variableName</i></tt>.
+	@param define If yes and then property name does not exist then it is added to the receiver.
+	@result Return <tt>YES</tt> if successful.
+ */
+- (BOOL)setPropertyNamed:(NSString *)variableName toDescriptor:(NSAppleEventDescriptor *)descriptor  define:(BOOL)define;
+/*!
+	@method setPropertyNamed:toValue:define:
+	@abstract Sets the value of a script property.
+	@discussion Sets the value of a script property within the recievers script.
+	@param variableName Name of the property to set. The variable name is case-sensitive and must exactly match the case of the variable name as supplied by the OSAGetPropertyNames function or the OSAGetSource function.
+	@param value An object which should be used to set the value for the property specified by <tt><i>variableName</i></tt>.
+	@param define If yes and then property name does not exist then it is added to the receiver.
+	@result Return <tt>YES</tt> if successful.
+ */
+- (BOOL)setPropertyNamed:(NSString *)variableName toValue:(id)value define:(BOOL)define;
 
 /*!
 	@method resultAppleEventDescriptor

@@ -1,19 +1,18 @@
 /*!
-	@header NSURL+NDCarbonUtilities.h
+	@header NSURL+NDCarbonUtilities
 	@abstract Provides method for interacting with Carbon APIs.
-	@discussion The methods in <tt>NSURL(NDCarbonUtilities)</tt> are simply wrappers for functions that can bew found within the carbon API.
- 
-	Created by nathan on Wed Dec 05 2001.
-	Copyright &#169; 2001 Nathan Day. All rights reserved.
+	@discussion The methods in <tt>NSURL(NDCarbonUtilities)</tt> are simply wrappers for functions that can bew found within the Carbon API.
+	@copyright &#169; 2007 Nathan Day. All rights reserved.
  */
 
 #import <Foundation/Foundation.h>
 #import <Carbon/Carbon.h>
+#import "NDSDKCompatibility.h"
 
 /*!
 	@category NSURL(NDCarbonUtilities)
 	@abstract Provides method for interacting with Carbon APIs.
-	@discussion Methods for dealing with <tt>FSRef</tt>&rsquo;s, <tt>FSSpec</tt> and other useful carbon stuff.
+	@discussion Methods for dealing with <tt>FSRef</tt>&rsquo;s and other useful Carbon stuff.
  */
 @interface NSURL (NDCarbonUtilities)
 
@@ -26,13 +25,13 @@
  */
 + (NSURL *)URLWithFSRef:(const FSRef *)fsRef;
 
-	/*!
-@method URLWithFileSystemPathHFSStyle:
-	 @abstract Alloc and intialize a <tt>NSURL</tt>.
-	 @discussion Returns a file url for the file refered to by a HFS style path.
-	 @param hfsString A <tt>NSString</tt> containing a HFS style path.
-	 @result A <tt>NSURL</tt> containing a file url.
-	 */
+/*!
+	@method URLWithFileSystemPathHFSStyle:
+	@abstract Alloc and intialize a <tt>NSURL</tt>.
+	@discussion Returns a file url for the file refered to by a HFS style path.
+	@param hfsString A <tt>NSString</tt> containing a HFS style path.
+	@result A <tt>NSURL</tt> containing a file url.
+ */
 + (NSURL *)URLWithFileSystemPathHFSStyle:(NSString *)hfsString;
 	/*!
 	@method getFSRef:
@@ -47,10 +46,11 @@
 	@method getFSSpec:
 	@abstract Get a <tt>FSSpec</tt>.
 	@discussion Obtain a <tt>FSSpec</tt> for a file url.
+	@deprecated in version 10.5
 	@param fsSpec A pointer to a <tt>FSSpec</tt> struct, to be filled by the method.
 	@result Returns <tt>YES</tt> if successful, if the method returns <tt>NO</tt> then <tt>fsSpec</tt> contains garbage.
  */
-- (BOOL)getFSSpec:(FSSpec *)fsSpec;
+- (BOOL)getFSSpec:(FSSpec *)fsSpec AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER_BUT_DEPRECATED;
 
 /*!
 	@method URLByDeletingLastPathComponent
@@ -81,23 +81,23 @@
 	@abstract Get finder info flags creator and type.
 	@discussion The bits of the finder info flag are
 	<blockquote>
-	<table border = "1"  width = "90%">
-		<thead><tr><th>Name</th><th>Description</th></tr></thead>
-		<tr><td align = "center"><tt>kIsOnDesk</tt></td><td>Files and folders (System 6)</td><tr>
-		<tr><td align = "center"><tt>kColor</tt></td><td>Files and folders</td><tr>
-		<tr><td align = "center"><tt>kIsShared</tt></td><td>Files only (Applications only)<br>
-					If clear, the application needs to write to its resource fork, and therefore cannot be shared on a server</td><tr>
-		<tr><td align = "center"><tt>kHasNoINITs</tt></td><td>Files only (Extensions/Control Panels only)<br>
-					This file contains no INIT resource</td><tr>
-		<tr><td align = "center"><tt>kHasBeenInited</tt></td><td>Files only<br>
-					Clear if the file contains desktop database resources ('BNDL', 'FREF', 'open', 'kind'...) that have not been added yet. Set only by the Finder</td><tr>
-		<tr><td align = "center"><tt>kHasCustomIcon</tt></td><td>Files and folders</td><tr>
-		<tr><td align = "center"><tt>kIsStationery</tt></td><td>Files only</td><tr>
-		<tr><td align = "center"><tt>kNameLocked</tt></td><td>Files and folders</td><tr>
-		<tr><td align = "center"><tt>kHasBundle</tt></td><td>Files only</td><tr>
-		<tr><td align = "center"><tt>kIsInvisible</tt></td><td>Files and folders</td><tr>
-		<tr><td align = "center"><tt>kIsAlias</tt></td><td>Files only.</td><tr>
-	</table>
+		<table border = "1"  width = "90%">
+			<thead><tr><th>Name</th><th>Description</th></tr></thead>
+			<tr><td align = "center"><tt>kIsOnDesk</tt></td><td>Files and folders (System 6)</td><tr>
+			<tr><td align = "center"><tt>kColor</tt></td><td>Files and folders</td><tr>
+			<tr><td align = "center"><tt>kIsShared</tt></td><td>Files only (Applications only)<br>
+						If clear, the application needs to write to its resource fork, and therefore cannot be shared on a server</td><tr>
+			<tr><td align = "center"><tt>kHasNoINITs</tt></td><td>Files only (Extensions/Control Panels only)<br>
+						This file contains no INIT resource</td><tr>
+			<tr><td align = "center"><tt>kHasBeenInited</tt></td><td>Files only<br>
+						Clear if the file contains desktop database resources ('BNDL', 'FREF', 'open', 'kind'...) that have not been added yet. Set only by the Finder</td><tr>
+			<tr><td align = "center"><tt>kHasCustomIcon</tt></td><td>Files and folders</td><tr>
+			<tr><td align = "center"><tt>kIsStationery</tt></td><td>Files only</td><tr>
+			<tr><td align = "center"><tt>kNameLocked</tt></td><td>Files and folders</td><tr>
+			<tr><td align = "center"><tt>kHasBundle</tt></td><td>Files only</td><tr>
+			<tr><td align = "center"><tt>kIsInvisible</tt></td><td>Files and folders</td><tr>
+			<tr><td align = "center"><tt>kIsAlias</tt></td><td>Files only.</td><tr>
+		</table>
 	</blockquote>
 	@param flags Contains finder flags on return.
 	@param type Contains finder type on return.
@@ -120,21 +120,21 @@
 	@discussion The bits of the finder info flag are
 	<blockquote>
 		<table border = "1"  width = "90%">
-		<thead><tr><th>Name</th><th>Description</th></tr></thead>
-		<tr><td align = "center"><tt>kIsOnDesk</tt></td><td>Files and folders (System 6)</td><tr>
-		<tr><td align = "center"><tt>kColor</tt></td><td>Files and folders</td><tr>
-		<tr><td align = "center"><tt>kIsShared</tt></td><td>Files only (Applications only)<br>
-		If clear, the application needs to write to its resource fork, and therefore cannot be shared on a server</td><tr>
-		<tr><td align = "center"><tt>kHasNoINITs</tt></td><td>Files only (Extensions/Control Panels only)<br>
-		This file contains no INIT resource</td><tr>
-		<tr><td align = "center"><tt>kHasBeenInited</tt></td><td>Files only<br>
-		Clear if the file contains desktop database resources ('BNDL', 'FREF', 'open', 'kind'...) that have not been added yet. Set only by the Finder</td><tr>
-		<tr><td align = "center"><tt>kHasCustomIcon</tt></td><td>Files and folders</td><tr>
-		<tr><td align = "center"><tt>kIsStationery</tt></td><td>Files only</td><tr>
-		<tr><td align = "center"><tt>kNameLocked</tt></td><td>Files and folders</td><tr>
-		<tr><td align = "center"><tt>kHasBundle</tt></td><td>Files only</td><tr>
-		<tr><td align = "center"><tt>kIsInvisible</tt></td><td>Files and folders</td><tr>
-		<tr><td align = "center"><tt>kIsAlias</tt></td><td>Files only.</td><tr>
+			<thead><tr><th>Name</th><th>Description</th></tr></thead>
+			<tr><td align = "center"><tt>kIsOnDesk</tt></td><td>Files and folders (System 6)</td><tr>
+			<tr><td align = "center"><tt>kColor</tt></td><td>Files and folders</td><tr>
+			<tr><td align = "center"><tt>kIsShared</tt></td><td>Files only (Applications only)<br>
+			If clear, the application needs to write to its resource fork, and therefore cannot be shared on a server</td><tr>
+			<tr><td align = "center"><tt>kHasNoINITs</tt></td><td>Files only (Extensions/Control Panels only)<br>
+			This file contains no INIT resource</td><tr>
+			<tr><td align = "center"><tt>kHasBeenInited</tt></td><td>Files only<br>
+			Clear if the file contains desktop database resources ('BNDL', 'FREF', 'open', 'kind'...) that have not been added yet. Set only by the Finder</td><tr>
+			<tr><td align = "center"><tt>kHasCustomIcon</tt></td><td>Files and folders</td><tr>
+			<tr><td align = "center"><tt>kIsStationery</tt></td><td>Files only</td><tr>
+			<tr><td align = "center"><tt>kNameLocked</tt></td><td>Files and folders</td><tr>
+			<tr><td align = "center"><tt>kHasBundle</tt></td><td>Files only</td><tr>
+			<tr><td align = "center"><tt>kIsInvisible</tt></td><td>Files and folders</td><tr>
+			<tr><td align = "center"><tt>kIsAlias</tt></td><td>Files only.</td><tr>
 		</table>
 	</blockquote>
 	@param flags Finder flags.

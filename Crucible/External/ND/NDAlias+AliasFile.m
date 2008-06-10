@@ -1,9 +1,9 @@
 /*
  *  NDAlias+AliasFile.m category
- *  NDAliasProject
+ *  NDAlias
  *
  *  Created by Nathan Day on Tue Dec 03 2002.
- *  Copyright (c) 2002 Nathan Day. All rights reserved.
+ *  Copyright 2002-2007 Nathan Day. All rights reserved.
  */
 
 #import "NDAlias+AliasFile.h"
@@ -12,7 +12,7 @@
 #import "NDResourceFork+OtherSorces.h"
 
 //const ResType	aliasResourceType = 'alis';
-const OSType	finderCreatorCode = 'MACS';
+const OSType	finderCreatorCode = 0x4D414353; // 'MACS'
 const short		aliasRecordId = 0;
 //					customIconID = -16496;
 
@@ -56,12 +56,22 @@ OSType aliasOSTypeFor( NSURL * aURL );
 
 - (BOOL)writeToFile:(NSString *)aPath
 {
-	return [self writeToURL:[NSURL fileURLWithPath:aPath]];
+	return [self writeToURL:[NSURL fileURLWithPath:aPath] includeCustomIcon:YES];
+}
+
+- (BOOL)writeToFile:(NSString *)aPath includeCustomIcon:(BOOL)aCustomIcon
+{
+	return [self writeToURL:[NSURL fileURLWithPath:aPath] includeCustomIcon:aCustomIcon];
 }
 
 - (BOOL)writeToURL:(NSURL *)aURL
 {
-	BOOL					theSuccess;
+	return [self writeToURL:(NSURL *)aURL includeCustomIcon:YES];
+}
+
+- (BOOL)writeToURL:(NSURL *)aURL includeCustomIcon:(BOOL)aCustomIcon
+{
+	BOOL				theSuccess;
 	NDResourceFork		* theResourcFork;
 	
 	theResourcFork = [[NDResourceFork alloc] initForWritingAtURL:aURL];
@@ -76,9 +86,9 @@ OSType aliasOSTypeFor( NSURL * aURL );
 						theTargetCreator;
 		NSURL			* theTargetURL;
 
-		theTargetURL = [self url];
+		theTargetURL = [self URL];
 
-		[[self url] finderInfoFlags:&theFlags type:&theTargetType creator:&theTargetCreator];
+		[[self URL] finderInfoFlags:&theFlags type:&theTargetType creator:&theTargetCreator];
 
 		theAliasType = aliasOSTypeFor( theTargetURL );	// get the alias type
 
@@ -93,7 +103,7 @@ OSType aliasOSTypeFor( NSURL * aURL );
 		}
 
 		// item with custom icon as well as apps need to have a custoime icon for the alias
-		if( (theAliasType == 0 ) || (theFlags & kHasCustomIcon) || (theAliasType == kAppPackageAliasType) || (theAliasType == kApplicationAliasType) )
+		if( aCustomIcon && ((theAliasType == 0 ) || (theFlags & kHasCustomIcon) || (theAliasType == kAppPackageAliasType) || (theAliasType == kApplicationAliasType)) )
 		{
 			NSData		* theIconFamilyData;
 			

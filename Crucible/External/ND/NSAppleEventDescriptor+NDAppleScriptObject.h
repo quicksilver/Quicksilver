@@ -2,9 +2,6 @@
 	@header NSAppleEventDescriptor+NDAppleScriptObject
 	@abstract Declares the category <tt>NSAppleEventDescriptor (NDAppleScriptObject)</tt>
 	@discussion Additional methods initially created for use with <tt>NDAppleScriptObject</tt> but could have other applications especially with Cocoa's <tt>NSAppleScript</tt>.
-
-	Created by Nathan Day on Fri Dec 14 2001.
-	Copyright &#169; 2001 Nathan Day. All rights reserved.
  */
 
 #import <Foundation/Foundation.h>
@@ -772,10 +769,19 @@
 	 @abstract Returns a <tt>NSAppleEventDescriptor</tt> for calling an AppleScript subroutine with positional arguments.
 	@discussion <tt>descriptorWithSubroutineName:argumentsDescriptor:</tt> returns a <tt>NSAppleEventDescriptor</tt> to call a AppleScript subroutine with positional arguments. AppleScript routines are case insensitive so <tt><i>routineName</i></tt> is converted to all lower case.
 	@param routineName The rountine name to be called.
-	@param paramArray A <tt>NSArray</tt> of Objective-C class that are converted into <tt>NSAppleEventDescriptor</tt> using the function <tt>descriptorWithObject:</tt.
+	@param paramArray A <tt>NSArray</tt> of Objective-C class that are converted into <tt>NSAppleEventDescriptor</tt> using the function <tt>descriptorWithObject:</tt>.
 	@result A <tt>NSAppleEventDescriptor</tt> for a subroutine with positional arguments.
  */
 + (id)descriptorWithSubroutineName:(NSString *)routineName argumentsArray:(NSArray *)paramArray;
+/*!
+	@method descriptorWithSubroutineName:arguments:...
+	@abstract Returns a <tt>NSAppleEventDescriptor</tt> for calling an AppleScript subroutine with positional arguments.
+	@discussion <tt>descriptorWithSubroutineName:arguments:</tt> returns a <tt>NSAppleEventDescriptor</tt> to call a AppleScript subroutine with positional arguments. AppleScript routines are case insensitive so <tt><i>routineName</i></tt> is converted to all lower case.
+	@param routineName The rountine name to be called.
+	@param firstArg The first object of a nil terminated list of objects that are converted into <tt>NSAppleEventDescriptor</tt> using the function <tt>descriptorWithObject:</tt>.
+	@result A <tt>NSAppleEventDescriptor</tt> for a subroutine with positional arguments.
+ */
++ (id)descriptorWithSubroutineName:(NSString *)routineName arguments:(id)firstArg, ...;
 
 /*!
 	@method descriptorWithSubroutineName:labels:argumentObjects:count:
@@ -821,7 +827,7 @@
 	<p>To find out the rules for use of the key words see the AppleScript language documentation.</p>
 	@param routineName The rountine name to be called.
 	@param labels A c array of keywords
-	@param objects A c array of Objective-C class that are converted into <tt>NSAppleEventDescriptor</tt> using the function <tt>descriptorWithObject:</tt.
+	@param objects A c array of Objective-C class that are converted into <tt>NSAppleEventDescriptor</tt> using the function <tt>descriptorWithObject:</tt>.
 	@param count The number of labels and objects
 	@result A <tt>NSAppleEventDescriptor</tt> for a subroutine with labled arguments.
  */

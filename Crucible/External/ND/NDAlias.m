@@ -1,22 +1,25 @@
 /*
- *  NDAlias.m
- *  NDAliasProject
- *
- *  Created by Nathan Day on Thu Feb 07 2002.
- *  Copyright (c) 2002 Nathan Day. All rights reserved.
+	NDAlias.m
+	NDAlias
+
+	Created by Nathan Day on Thu Feb 07 2002.
+ *  Copyright 2002-2008 Nathan Day. All rights reserved.
  */
 
 #import "NDAlias.h"
 #import "NSURL+NDCarbonUtilities.h"
 
 @interface NDAlias (Private)
-- (BOOL)createAliasRecordFor:(NSURL *)aURL fromURL:(NSURL *)aFromURL;
+- (NSUInteger)hash;
+- (BOOL)isEqual:(id)otherObject;
+- (NSData *)dataForAliasHandle:(AliasHandle)anAliasHandle;
+- (NSData *)createAliasRecordDataForURL:(NSURL *)aURL fromURL:(NSURL *)aFromURL;
 @end
 
 @implementation NDAlias
 
 /*
- * aliasWithURL:
+	aliasWithURL:
  */
 + (id)aliasWithURL:(NSURL *)aURL
 {
@@ -24,7 +27,7 @@
 }
 
 /*
- * aliasWithURL:fromURL:
+	aliasWithURL:fromURL:
  */
 + (id)aliasWithURL:(NSURL *)aURL fromURL:(NSURL *)aFromURL
 {
@@ -32,7 +35,7 @@
 }
 
 /*
- * aliasWithPath:
+	aliasWithPath:
  */
 + (id)aliasWithPath:(NSString *)aPath
 {
@@ -40,7 +43,7 @@
 }
 
 /*
- * aliasWithPath:fromPath:
+	aliasWithPath:fromPath:
  */
 + (id)aliasWithPath:(NSString *)aPath fromPath:(NSString *)aFromPath
 {
@@ -52,8 +55,13 @@
 	return [[[self alloc] initWithData:aData] autorelease];
 }
 
++ (id)aliasWithFSRef:(FSRef *)aFSRef
+{
+	return [[[self alloc] initWithFSRef:aFSRef] autorelease];
+}
+
 /*
- * initWithPath:fromPath:
+	initWithPath:fromPath:
  */
 - (id)initWithPath:(NSString *)aPath
 {
@@ -61,7 +69,7 @@
 }
 
 /*
- * initWithPath:fromPath:
+	initWithPath:fromPath:
  */
 - (id)initWithPath:(NSString *)aPath fromPath:(NSString *)aFromPath
 {
@@ -80,7 +88,7 @@
 }
 
 /*
- * initWithURL:
+	initWithURL:
  */
 - (id)initWithURL:(NSURL *)aURL
 {
@@ -88,15 +96,22 @@
 }
 
 /*
- * initWithURL:fromURL:
+	initWithURL:fromURL:
  */
 - (id)initWithURL:(NSURL *)aURL fromURL:(NSURL *)aFromURL
 {
-	if(( self = [super init] ))
+	if( (self = [super init]) != nil )
 	{
-		if( aURL && [self createAliasRecordFor:aURL fromURL:aFromURL] )
+		NSData* aliasData = nil;
+		if( aURL )
 		{
-			changed = false;
+			aliasData = [self createAliasRecordDataForURL:aURL fromURL:aFromURL];
+		}
+		
+		if ( aliasData )
+		{
+			// Call the designated initializer
+			self = [self initWithData:aliasData];
 		}
 		else
 		{
@@ -109,19 +124,24 @@
 }
 
 /*
- * initWithCoder:
+	initWithCoder:
  */
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
+	// Call the designated initializer
 	return [self initWithData:[aDecoder decodeDataObject]];
 }
 
-
+/*
+	initWithData: - the designated initializer!
+ */
 - (id)initWithData:(NSData *)aData
 {
-	if(( self = [super init] ))
+	if( (self = [super init]) != nil )
 	{
-		if( aData && PtrToHand( [aData bytes], (Handle*)&aliasHandle, [aData length] ) == noErr )
+		const void* dataBytes = [aData bytes];
+		NSUInteger dataLength = [aData length];
+		if( dataBytes && (dataLength > 0) && PtrToHand( dataBytes, (Handle*)&aliasHandle, dataLength ) == noErr )
 		{
 			changed = false;
 		}
@@ -136,15 +156,46 @@
 }
 
 /*
- * encodeWithCoder:
+	initWithFSRef:
+ */
+- (id)initWithFSRef:(FSRef *)aFSRef
+{
+	NSData* aliasData = nil;
+	
+	AliasHandle anAliasHandle = nil;
+	OSErr theError = FSNewAlias( NULL, aFSRef, &anAliasHandle );
+	if ( !theError && anAliasHandle )
+	{
+		aliasData = [self dataForAliasHandle:anAliasHandle];
+	}
+	
+	if ( aliasData )
+	{
+		// Call the designated initializer
+		self = [self initWithData:aliasData];
+	}
+	else
+	{
+		[self release];
+		self = nil;
+	}
+
+	return self;
+}
+
+
+/*
+	encodeWithCoder:
  */
 - (void)encodeWithCoder:(NSCoder *)anEncoder
 {
 	[anEncoder encodeDataObject:[self data]];	
 }
 
+#ifndef __OBJC_GC__
+
 /*
- * dealloc
+	dealloc
  */
 - (void)dealloc
 {
@@ -152,15 +203,77 @@
 	[super dealloc];
 }
 
+#else
+
 /*
- * url
+	finalize
  */
-- (NSURL *)url
+- (void)finalize
+{
+	/* Important: finalize methods must be thread-safe!  DisposeHandle() is threadsafe since 10.3. */
+	DisposeHandle( (Handle)aliasHandle );
+	[super finalize];
+}
+
+#endif
+
+/*
+	-setAllowUserInteraction:
+ */
+- (void)setAllowUserInteraction:(BOOL)aFlag
+{
+	mountFlags = aFlag ? (mountFlags & ~kResolveAliasFileNoUI) : (mountFlags | kResolveAliasFileNoUI);
+}
+
+/*
+	-allowUserInteraction
+ */
+- (BOOL)allowUserInteraction
+{
+	return mountFlags & kResolveAliasFileNoUI ? NO : YES;
+}
+
+/*
+	-setTryFileIDFirst:
+ */
+- (void)setTryFileIDFirst:(BOOL)aFlag
+{
+	mountFlags = aFlag ? (mountFlags | kResolveAliasTryFileIDFirst) : (mountFlags & ~kResolveAliasTryFileIDFirst);
+}
+
+/*
+	-tryFileIDFirst
+ */
+- (BOOL)tryFileIDFirst
+{
+	return mountFlags & kResolveAliasTryFileIDFirst ? YES : NO;
+}
+
+/*
+	-getFSRef:
+ */
+- (BOOL)getFSRef:(FSRef *)aFsRef
+{
+	BOOL		success = NO;
+	if ( aFsRef )
+	{
+		OSErr				theError;
+		theError = FSResolveAliasWithMountFlags( NULL, aliasHandle, aFsRef, &changed, mountFlags );
+		success = theError == noErr;
+	}
+	return success;
+}
+
+/*
+	URL
+ */
+- (NSURL *)URL
 {
 	id					theURL = nil;
+	BOOL				success;
 	FSRef				theTarget;
-	OSErr				theError;
-	if( (theError = FSResolveAlias( NULL, aliasHandle, &theTarget, &changed )) == noErr )
+	success = [self getFSRef:&theTarget];
+	if( success )
 	{
 		theURL = [NSURL URLWithFSRef:&theTarget];
 	}
@@ -168,15 +281,23 @@
 }
 
 /*
- * path
+	url - deprecated method.  Use -URL instead.
  */
-- (NSString *)path
+- (NSURL *)url
 {
-	return [[self url] path];
+	return [self URL];
 }
 
 /*
- * changed
+	path
+ */
+- (NSString *)path
+{
+	return [[self URL] path];
+}
+
+/*
+	changed
  */
 - (BOOL)changed
 {
@@ -184,7 +305,7 @@
 }
 
 /*
- * setURL:
+	setURL:
  */
 - (BOOL)setURL:(NSURL *)aURL
 {
@@ -192,7 +313,7 @@
 }
 
 /*
- * setURL:
+	setURL:
  */
 - (BOOL)setURL:(NSURL *)aURL fromURL:(NSURL *)aFromURL
 {
@@ -212,7 +333,7 @@
 }
 
 /*
- * setPath:
+	setPath:
  */
 - (BOOL)setPath:(NSString *)aPath
 {
@@ -220,7 +341,7 @@
 }
 
 /*
- * setPath:fromPath:
+	setPath:fromPath:
  */
 - (BOOL)setPath:(NSString *)aPath fromPath:(NSString *)aFromPath
 {
@@ -237,24 +358,110 @@
 }
 
 /*
- * description
+	description
  */
 - (NSString *)description
 {
 	return [self path];
 }
 
+/*
+	data
+ */
 - (NSData *)data
 {
-	NSData		* theData=nil;
+	NSData		* theData = nil;
 	if( aliasHandle != NULL )
 	{
-		HLock((Handle)aliasHandle);
-		theData = [NSData dataWithBytes:*aliasHandle length:GetHandleSize((Handle) aliasHandle)];
-		HUnlock((Handle)aliasHandle);
+		theData = [self dataForAliasHandle:aliasHandle];
 	}
 
 	return theData;
+}
+
+/*
+	displayName
+ */
+- (NSString *)displayName
+{
+	return [[NSFileManager defaultManager] displayNameAtPath:[self path]];
+}
+
+
+/*
+	lastKnownPath
+ */
+- (NSString *)lastKnownPath
+{
+	CFStringRef path = nil;
+	HFSUniStr255 name;
+	OSStatus err = FSCopyAliasInfo (aliasHandle, &name, NULL, NULL, NULL, NULL);
+	if ( !err )
+	{
+		path = FSCreateStringFromHFSUniStr (NULL, &name);
+	}
+
+	/* To support GC and non-GC, we need this contortion. */
+	return [NSMakeCollectable(path) autorelease];
+}
+
+/*
+	lastKnownName
+ */
+- (NSString *)lastKnownName
+{
+	CFStringRef path = nil;
+	(void)FSCopyAliasInfo (aliasHandle, NULL, NULL, &path, NULL, NULL);
+
+	/* To support GC and non-GC, we need this contortion. */
+	return [NSMakeCollectable(path) autorelease];
+}
+
+/*
+	resolveIfIsAliasFile:
+ */
+- (NDAlias *)resolveIfIsAliasFile:(BOOL *)wasSuccessful
+{
+	// Assume failure
+	BOOL success = NO;
+	
+	// Return self unless we are later able to resolve to something else
+	NDAlias * aliasToReturn = self;
+	
+	FSRef fsRef;
+	if ( [self getFSRef:&fsRef] )
+	{
+		Boolean isAliasFile, isFolder;
+		OSErr err = FSIsAliasFile (&fsRef, &isAliasFile, &isFolder);
+		if ( !err )
+		{
+			if ( isAliasFile )
+			{
+				Boolean isTargetFolder, wasAliased;
+				err = FSResolveAliasFile (&fsRef, true, &isTargetFolder, &wasAliased);
+				if ( !err )
+				{
+					NDAlias * aliasToOriginal = [NDAlias aliasWithFSRef:&fsRef];
+					if (aliasToOriginal)
+					{
+						aliasToReturn = aliasToOriginal;
+						success = YES;
+					}
+				}
+			}
+			else
+			{
+				success = YES;
+			}
+		}
+	}
+	
+	if ( wasSuccessful )
+	{
+		*wasSuccessful = success;
+	}
+	
+	return aliasToReturn;
 }
 
 @end
@@ -262,27 +469,73 @@
 @implementation NDAlias (Private)
 
 /*
- * createAliasRecordFor:fromURL:
+	hash
  */
-- (BOOL)createAliasRecordFor:(NSURL *)aURL fromURL:(NSURL *)aFromURL
+- (NSUInteger)hash
 {
-	OSErr					theError = noErr;
-	FSRef					theReference,
-							theFromReference;
+	// TODO It is very important that if two object are equal according to isEqual:
+	// that they have the same hash value.  I think we may have a bug here.
+	return [[self path] hash];
+}
+
+/*
+	isEqual:
+ */
+- (BOOL)isEqual:(id)anOtherObject
+{
+	/* Two NDAliases are defined as equal if and only if they resolve to equal FSRefs */
+	BOOL		theEqual = NO;
+	if ([anOtherObject isKindOfClass:[NDAlias class]])
+	{ 
+		FSRef		theFSRef1,
+					theFSRef2;
+
+		if ( [self getFSRef:&theFSRef1] )
+		{
+			if ( [anOtherObject getFSRef:&theFSRef2] )
+				theEqual = (FSCompareFSRefs (&theFSRef1, &theFSRef2) == noErr);
+		}
+	}
+
+	return theEqual;
+}
+
+/*
+	dataForAliasHandle: - create an NSData representation of an AliasHandle
+ */
+- (NSData *)dataForAliasHandle:(AliasHandle)anAliasHandle
+{
+	// TODO: consider switching from GetHandleSize() to GetAliasSize() ?
+	NSData* aliasData = [NSData dataWithBytes:*anAliasHandle length:GetHandleSize((Handle) anAliasHandle)];
+ 
+	return aliasData;
+}
+
+/*
+	createAliasRecordDataForURL:fromURL:
+ */
+- (NSData *)createAliasRecordDataForURL:(NSURL *)aURL fromURL:(NSURL *)aFromURL
+{
+	AliasHandle		anAliasHandle = NULL;
+	OSErr			theError = noErr;
+	FSRef			theReference,
+					theFromReference;
 
 	if( aURL != nil && [aURL isFileURL] && [aURL getFSRef:&theReference] )
 	{
 		if( aFromURL != nil && [aFromURL isFileURL] && [aFromURL getFSRef:&theFromReference] )
-		{
-			theError = FSNewAlias( &theFromReference, &theReference, &aliasHandle );
-		}
+			theError = FSNewAlias( &theFromReference, &theReference, &anAliasHandle );
 		else
-		{
-			theError = FSNewAliasMinimal( &theReference, &aliasHandle );
-		}
+			theError = FSNewAliasMinimal( &theReference, &anAliasHandle );
 	}
 
-	return theError == noErr;
+	NSData* aliasData = nil;
+	if ( !theError && anAliasHandle )
+	{
+		aliasData = [self dataForAliasHandle:anAliasHandle];
+	}
+	
+	return aliasData;
 }
 
 @end

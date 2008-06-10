@@ -22,7 +22,8 @@
     if (( self = [super initWithFrame:aFrame] ))
 	 {
 		 [self setEditable:NO];
-    }
+		 requiresModifierKeys = YES;
+   }
     return self;
 }
 
@@ -34,6 +35,7 @@
 	if (( self = [super initWithCoder:aCoder] ))
 	{
 		[self setEditable:NO];
+		requiresModifierKeys = YES;
 	}
 	return self;
 }
@@ -80,7 +82,7 @@
 	unichar				theChar = [[theEvent charactersIgnoringModifiers] characterAtIndex:0];
 	theModifierFlags &= (NSShiftKeyMask|NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask);
 
-	if( theModifierFlags != 0 && theChar != 0 )
+	if( (theModifierFlags != 0 || !requiresModifierKeys || theChar > 255) && theChar != 0 )
 	{
 		keyCode = [theEvent keyCode];
 		modifierFlags = theModifierFlags;
@@ -98,6 +100,16 @@
 {
 	return [NDHotKeyEvent getHotKeyForKeyCode:[self keyCode] character:[self character] modifierFlags:[self modifierFlags]];
 
+}
+
+- (void)setRequiresModifierKeys:(BOOL)aFlag
+{
+	requiresModifierKeys = aFlag;
+}
+
+- (BOOL)requiresModifierKeys
+{
+	return requiresModifierKeys;
 }
 
 @end

@@ -1,7 +1,7 @@
 /*!
 	@header NDHotKeyEvent.h
 	@abstract Header file for the class <tt>NDHotKeyEvent</tt>
-	@discussion <p><tt>NDHotKeyEvent</tt> provides a thread safe Objective-C interface to HotKey events as well as some aditional feature to key track of all the hot keys in your application.</p>
+	@discussion <p><tt>NDHotKeyEvent</tt> provides a thread safe Objective-C interface to HotKey events as well as some additional feature to key track of all the hot keys in your application.</p>
 
 	<p><h4>Thread Saftey</h4>By default the class object <tt>NDHotKeyEvent</tt> is not thread safe as the underlying functions that it relies on are not thread safe and the mechanism for keeping track of all of the <tt>NDHotKeyEvent</tt> instances is not thread safe either. Thread saftey can be enable be defining the flag <tt>NDHotKeyEventThreadSafe</tt> before compiling.</p>
 	<p>Even with the flag <tt>NDHotKeyEventThreadSafe</tt> defined instances of <tt>NDHotKeyEvent</tt> will still not be thread safe, that is, it is safe to invoke methods of different instance with different threads as well as class methods, but it is not safe to invoke methods of the same instance with different threads.</p>

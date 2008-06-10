@@ -1,10 +1,7 @@
 /*!
 	@header NDAppleScriptObject_Protocols
 	@abstract Header file for the protocols <tt>NDAppleScriptObjectSendEvent</tt> and <tt>NDAppleScriptObjectActive</tt>
-	@discussion The protocols <tt>NDAppleScriptObjectSendEvent</tt> and <tt>NDAppleScriptObjectActive</tt> are used by <tt><a href="../NDAppleScriptObject/index.html" target="_top">NDAppleScriptObject</a></tt>
- 
-	Created by Nathan Day on Sat Feb 16 2002.
-	Copyright &#169; 2001 Nathan Day. All rights reserved.
+	@discussion The protocols <tt>NDAppleScriptObjectSendEvent</tt> and <tt>NDAppleScriptObjectActive</tt> are used by <tt>NDAppleScriptObject</tt>
  */
 
 #import <Foundation/Foundation.h>
@@ -19,7 +16,7 @@
 /*!
 	@method sendAppleEvent:sendMode:sendPriority:timeOutInTicks:idleProc:filterProc:
 	@abstract Passes an event to be executed by a AppleScript to the receiver
-	@discussion Called every time the AppleScript is about to send an AppleEvent. The method <tt>sendAppleEvent:sendMode:sendPriority:timeOutInTicks:idleProc:filterProc:</tt> can be used to intercept every AppleEvent that the AppleScript would send so that it can be modified or redirected. For example AppleEvent for GUI interaction like &ldquo;display dialog&rdquo; need to be sent within the main run loop and thread. The class <tt><a href="../../../../NDAppleScriptObject/index.html" target="_top">NDAppleScriptObject</a></tt> implements this protocol it&rsquo;s self and so you can pass this message onto your <tt><a href="../../../../NDAppleScriptObject/index.html" target="_top">NDAppleScriptObject</a></tt> object.
+	@discussion Called every time the AppleScript is about to send an AppleEvent. The method <tt>sendAppleEvent:sendMode:sendPriority:timeOutInTicks:idleProc:filterProc:</tt> can be used to intercept every AppleEvent that the AppleScript would send so that it can be modified or redirected. For example AppleEvent for GUI interaction like &ldquo;display dialog&rdquo; need to be sent within the main run loop and thread. The class <tt>NDAppleScriptObject</tt> implements this protocol it&rsquo;s self and so you can pass this message onto your <tt>NDAppleScriptObject</tt> object.
 	@param appleEventDescriptor An <tt>NSAppleEventDescriptor</tt> containing the event to be sent.
 	@param sendMode Specifies various options for how the server application should handle the Apple event. To obtain a value for this parameter, you add together constants to set bits that specify the reply mode, the interaction level, the application switch mode, the reconnection mode, and the return receipt mode. The constants are described in <tt>AESendMode</tt> . 
 	@param sendPriority A value that specifies the priority for processing the Apple event. You can specify normal or high priority, using the constants described in <tt>AESendMode</tt> . 

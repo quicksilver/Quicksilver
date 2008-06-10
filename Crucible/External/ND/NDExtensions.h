@@ -11,6 +11,7 @@
 #import "NDAlias+AliasFile.h"
 #import "NDAppleScriptObject_Protocols.h"
 #import "NDAppleScriptObject.h"
+#define NDHotKeyEventThreadSafe
 #import "NDHotKeyControl.h"
 #import "NDHotKeyEvent.h"
 #import "NDLaunchServicesObject.h"

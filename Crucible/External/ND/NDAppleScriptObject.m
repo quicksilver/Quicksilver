@@ -59,7 +59,7 @@ const NSString			* NDAppleScriptPartialResult = @"Error Partial Result";
 	OSAID							theResultID;
 	AEDesc						theResultDesc = { typeNull, NULL };
 	NSAppleEventDescriptor	* theDescString,
-									* theResult=NULL;
+									* theResult = nil;
 
 	theDescString = [NSAppleEventDescriptor descriptorWithString:aString];
 
@@ -73,7 +73,7 @@ const NSString			* NDAppleScriptPartialResult = @"Error Partial Result";
 		}
 		else
 		{
-			QSLog(@"Could not coerc result");
+			NSLog(@"Could not coerc result");
 		}
 	}
 
@@ -354,6 +354,11 @@ const NSString			* NDAppleScriptPartialResult = @"Error Partial Result";
  */
 - (BOOL)execute
 {
+	if( resultingValueID != kOSANullScript )
+	{
+		OSADispose( [self scriptingComponent], resultingValueID );
+		resultingValueID = kOSANullScript;
+	}
 	return [self isCompiled] && OSAExecute([self scriptingComponent], compiledScriptID, kOSANullScript, [self executionModeFlags], &resultingValueID) == noErr;
 }
 
@@ -373,6 +378,11 @@ const NSString			* NDAppleScriptPartialResult = @"Error Partial Result";
  */
 - (BOOL)executeEvent:(NSAppleEventDescriptor *)anEvent
 {
+	if( resultingValueID != kOSANullScript )
+	{
+		OSADispose( [self scriptingComponent], resultingValueID );
+		resultingValueID = kOSANullScript;
+	}
 	return [self isCompiled] && OSAExecuteEvent([self scriptingComponent], [anEvent aeDesc], [self compiledScriptID], [self executionModeFlags], &resultingValueID) == noErr;
 }
 
@@ -444,6 +454,54 @@ const NSString			* NDAppleScriptPartialResult = @"Error Partial Result";
 - (BOOL)respondsToSubroutine:(NSString *)aName
 {
 	return [[self arrayOfEventIdentifier] containsObject:[aName lowercaseString]];
+}
+
+- (NSArray *)arrayOfPropertyNames
+{
+	AEDescList		thePropertyNamesList;
+	NSArray			* theArray = nil;
+
+	if( [self isCompiled] && OSAGetPropertyNames ( [self scriptingComponent], kOSAModeNull, [self compiledScriptID], &thePropertyNamesList ) == noErr )
+	{
+		theArray = [[[[NSAppleEventDescriptor  alloc] initWithAEDescNoCopy:&thePropertyNamesList] autorelease] arrayValue];
+	}
+	return theArray;
+}
+
+- (NSAppleEventDescriptor *)descriptorForPropertyNamed:(NSString *)aVariableName
+{
+	AEDesc						theDesc = { typeNull, NULL };
+	OSAID							theResultID = 0;
+	NSAppleEventDescriptor	* theResultDesc = nil,
+									* theNameDescriptor = [NSAppleEventDescriptor descriptorWithString:aVariableName];
+	OSAError						theErr;
+
+	if( OSAGetProperty( [self scriptingComponent], kOSAModeNull, [self compiledScriptID], [theNameDescriptor aeDesc], &theResultID ) == noErr )
+	{
+		if( (theErr = OSACoerceToDesc ( [self scriptingComponent], theResultID, typeWildCard, kOSAModeNull, &theDesc )) == noErr )
+			theResultDesc = [NSAppleEventDescriptor descriptorWithAEDescNoCopy:&theDesc];
+	}
+
+	return theResultDesc;
+}
+
+- (id)valueForPropertyNamed:(NSString *)aVariableName
+{
+	return [[self descriptorForPropertyNamed:aVariableName] objectValue];
+}
+
+- (BOOL)setPropertyNamed:(NSString *)aVariableName toDescriptor:(NSAppleEventDescriptor *)aDescriptor  define:(BOOL)aFlag
+{
+	OSAID		theScriptValue = kOSANullScript;
+	NSAppleEventDescriptor	* theNameDescriptor = [NSAppleEventDescriptor descriptorWithString:aVariableName];
+	return OSACoerceFromDesc( [self scriptingComponent], [aDescriptor aeDesc], kOSAModeNull, &theScriptValue) == noErr
+		&& OSASetProperty ( [self scriptingComponent], aFlag ? kOSAModeNull : kOSAModeDontDefine, compiledScriptID, [theNameDescriptor aeDesc], theScriptValue ) == noErr;
+	
+}
+
+- (BOOL)setPropertyNamed:(NSString *)aVariableName toValue:(id)aValue define:(BOOL)aFlag
+{
+	return [self setPropertyNamed:aVariableName toDescriptor:[NSAppleEventDescriptor descriptorWithObject:aValue] define:aFlag];
 }
 
 /*
