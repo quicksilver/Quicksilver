@@ -20,6 +20,7 @@
 #define kForumsURL              @"http://forums.blacktree.com/index.php?c=2"
 #define kBugsURL                @"http://bugs.blacktree.com/"
 #define kHelpURL                @"http://docs.blacktree.com/"
+#define kIRCURL                 @"irc://irc.freenode.net/quicksilver"
 
 NSString *QSApplicationSupportPath( void );
 NSString *QSApplicationSupportSubPath( NSString *subpath, BOOL create );
