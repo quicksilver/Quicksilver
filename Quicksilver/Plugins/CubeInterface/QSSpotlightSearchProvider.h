@@ -16,4 +16,5 @@
 }
 @property(copy) NSString *searchText;
 @property(retain) NSArray *resultArray;
+- (void) startSearch;
 @end

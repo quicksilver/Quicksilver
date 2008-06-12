@@ -14,7 +14,7 @@
 - (NSText *)setUpFieldEditorAttributes:(NSText *)textObj {
   
   textObj = [super setUpFieldEditorAttributes:textObj];
-  [textObj setSelectedTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSColor colorWithDeviceWhite:1.0 alpha:1.0], NSBackgroundColorAttributeName, nil]];
+  [(NSTextView*)textObj setSelectedTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSColor colorWithDeviceWhite:1.0 alpha:1.0], NSBackgroundColorAttributeName, nil]];
   [textObj setDelegate:self];
   return textObj;
 }
@@ -27,7 +27,7 @@
   NSBezierPath *path = [NSBezierPath bezierPathWithRoundedRect:rect
                                                        xRadius:NSHeight(rect)/2 yRadius:NSHeight(rect)/2];
 
-	NSArray *colorArray = [NSArray arrayWithObjects: [NSColor blueColor], [NSColor yellowColor], [NSColor orangeColor], nil];
+//	NSArray *colorArray = [NSArray arrayWithObjects: [NSColor blueColor], [NSColor yellowColor], [NSColor orangeColor], nil];
 	NSGradient *gradient = [[[NSGradient alloc] initWithStartingColor:[NSColor colorWithDeviceWhite:1.0 alpha:0.5]
                                                        endingColor:[NSColor colorWithDeviceWhite:1.0 alpha:0.25]] autorelease];
 	[gradient drawInBezierPath: path angle: 270];

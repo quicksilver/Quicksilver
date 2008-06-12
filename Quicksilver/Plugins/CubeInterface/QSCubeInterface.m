@@ -273,7 +273,7 @@
 	//	[[self window] setFrame:[self rectForState:[self expanded]]  display:YES];
 	if ([[self window] isVisible]) [[self window] pulse:self];
 	
-	[(QSShadowView*)[[self shadowWindow] contentView] updatePosition];
+	[[[self shadowWindow] contentView] updatePosition];
 	//		[[self shadowWindow] setFrame:frame display:YES];
     
 	[[self shadowWindow] setAlphaValue:0.0];

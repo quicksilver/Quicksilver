@@ -22,4 +22,6 @@
 @property (retain) NSMutableArray *sourceArray;
 @property (copy) NSString *matchedString;
 @property (copy) NSString *searchString;
+
+- (void)performSearchFor:(NSString *)string from:(id)sender;
 @end

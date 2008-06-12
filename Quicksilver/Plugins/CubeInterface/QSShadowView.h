@@ -18,7 +18,6 @@
 	float expand;
 }
 
-- (NSSize)preferredSize;
 - (NSRect)paddedFrameForFrame:(NSRect)frame;
 
 

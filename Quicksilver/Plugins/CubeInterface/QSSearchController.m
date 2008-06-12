@@ -24,7 +24,7 @@
 //  
   [resultArrayController addObserver:self 
                           forKeyPath:@"selection"
-                 options:nil
+                             options:0
                              context:nil];
   
 
@@ -78,7 +78,7 @@
     self.resultArray = spotSearch.resultArray;
     NSLog(@"spotsearch");
   } else if ([self.searchType isEqualToString:@"Refine"]) {
-    qsSearch.sourceArray = self.sourceArray;
+    qsSearch.sourceArray = self.sourceArray.copy;
     [qsSearch performSearchFor:self.searchText from:nil];
     [resultArrayController setSelectedObjects:nil];
     
@@ -1250,7 +1250,6 @@
 - (IBAction)showResultView:sender {
   NSLog(@"show result view");
   
-  return nil; 
 }//	if ([[self window] firstResponder] != self) [[self window] makeFirstResponder:self];
 //	if ([[resultController window] isVisible]) return; //[resultController->resultTable reloadData];
 //	
@@ -1354,7 +1353,7 @@
 		[self updateHistory];
 		// if (newObject) QSLog(@"%p set value %@", self, newObject);
 		// [newObject loadIcon];
-		[super setObjectValue:newObject];
+		[self setObjectValue:newObject];
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
 	}
 }
@@ -1523,8 +1522,6 @@
 		//QSLog(@"index %d %@", index, obj);
 		if (index == NSNotFound) {
 			//if (VERBOSE) QSLog(@"Unable To Select Object : %@ in \r %@", [obj identifier] , resultArray);
-			
-			index = nil;
 			return;
 		}
 	} else {
