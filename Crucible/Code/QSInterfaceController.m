@@ -17,17 +17,6 @@ int IsKeyPressed(unsigned short key)
     return ((km[key >> 3] >> (key & 7) ) & 1) ? 1 : 0;
 }
 
-typedef enum {
-    CGSGlobalHotKeyEnable = 0,
-    CGSGlobalHotKeyDisable = 1,
-} CGSGlobalHotKeyOperatingMode;
-
-extern CGSConnection _CGSDefaultConnection(void);
-
-extern CGError CGSGetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlobalHotKeyOperatingMode *mode);
-
-extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlobalHotKeyOperatingMode mode);
-
 @implementation QSInterfaceController
 
 

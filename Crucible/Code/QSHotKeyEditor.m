@@ -65,23 +65,6 @@ NSString * stringForModifiers( unsigned int aModifierFlags );
 
 
 //#import "KeyCombo.h"
-//typedef int CGSConnection;
-typedef enum {
-    CGSGlobalHotKeyEnable = 0,
-    CGSGlobalHotKeyDisable = 1,
-} CGSGlobalHotKeyOperatingMode;
-
-extern CGSConnection _CGSDefaultConnection(void);
-
-extern CGError CGSGetGlobalHotKeyOperatingMode(
-                                               CGSConnection connection, CGSGlobalHotKeyOperatingMode *mode);
-
-extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, 
-                                               CGSGlobalHotKeyOperatingMode mode);
-
-
-
-
 @implementation QSHotKeyFieldEditor
 + (id)sharedInstance{
 	static NSWindowController *_sharedInstance = nil;

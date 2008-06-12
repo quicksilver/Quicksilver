@@ -14,17 +14,6 @@
 #define KeySpace                0x31
 #define KeyTabs                 0x30
 
-typedef enum {
-  CGSGlobalHotKeyEnable = 0,
-  CGSGlobalHotKeyDisable = 1,
-} CGSGlobalHotKeyOperatingMode;
-
-extern CGSConnection _CGSDefaultConnection(void);
-
-extern CGError CGSGetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlobalHotKeyOperatingMode *mode);
-
-extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlobalHotKeyOperatingMode mode);
-
 #import "QSCommandInterfaceController.h"
 
 @implementation QSCommandInterfaceController
