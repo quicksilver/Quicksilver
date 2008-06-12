@@ -28,7 +28,7 @@
 	[self setRepresentedCommand:[self currentCommand]];
 }
 
-- (NSMutableArray *)rankedActions {
+- (NSArray *)rankedActions {
 	return [QSExec rankedActionsForDirectObject:[dSelector objectValue] indirectObject:[iSelector objectValue] shouldBypass:YES];
 }
 

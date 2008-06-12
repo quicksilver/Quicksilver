@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-
 @interface QSCatalogEntry : NSObject {
 	NSDate *indexDate;
 	BOOL isPreset;
@@ -68,7 +67,7 @@
 - (void)setContents:(NSArray *)newContents;
 - (NSIndexPath *)catalogIndexPath;
 - (NSMutableDictionary *)info;
-	- (QSCatalogEntry *)uniqueCopy;
+- (QSCatalogEntry *)uniqueCopy;
 - (NSString *)indexLocation;
 - (void)setName:(NSString *)newName;
 

@@ -15,10 +15,10 @@
 	NSTimer *clearTimer;
 	BOOL hidingWindow;
 	BOOL preview;
-  }
+}
+
 - (BOOL)preview;
 - (void)setPreview: (BOOL)flag;
-
 
 - (NSSize) maxIconSize;
 - (IBAction)hideWindows:(id)sender;

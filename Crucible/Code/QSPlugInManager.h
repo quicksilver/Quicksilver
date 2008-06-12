@@ -20,7 +20,7 @@
 	NSMutableDictionary				*loadedPlugIns; 	// All plugins that have been loaded
 	
 	NSMutableArray 					*oldPlugIns; 		// Plugins with newer versions overriding, these are not included in local plugins
-	NSMutableDictionary 			*dependingPlugIns; 	// Dictionary of dependencies -> array of waiting
+	NSMutableDictionary 			*dependingPlugIns; 	// Dictionary of dependencies -> array of waiting identifiers
 	
 	NSMutableData *receivedData;
 	NSMutableDictionary *plugInWebData;

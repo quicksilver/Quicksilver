@@ -2,9 +2,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "QSAction.h"
-#import "QSObject.h"
-
 @protocol QSActionProvider
 //- (NSString *)identifier;
 //- (NSString *)label;

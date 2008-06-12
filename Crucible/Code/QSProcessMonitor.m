@@ -204,8 +204,9 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 		[self addProcessWithDict:[notif userInfo]];
 	//    [self invalidateSelf];
 	
-	[[NSNotificationCenter defaultCenter]postNotificationName:QSEventNotification object:QSApplicationLaunchEvent userInfo:[NSDictionary dictionaryWithObject:[self imbuedFileProcessForDict:[notif userInfo]] forKey:@"object"]];
-	
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSEventNotification
+                                                        object:QSApplicationLaunchEvent
+                                                      userInfo:[NSDictionary dictionaryWithObject:[self imbuedFileProcessForDict:[notif userInfo]] forKey:@"object"]];
 }
 
 - (void)addObserverForEvent:(NSString *)event trigger:(NSDictionary *)trigger{

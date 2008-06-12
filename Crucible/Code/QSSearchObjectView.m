@@ -1,38 +1,7 @@
 
 
-#import "QSPreferenceKeys.h"
 #import "QSSearchObjectView.h"
-#import "QSLibrarian.h"
-#import "QSResultController.h"
-#import "QSInterfaceController.h"
-//#import "QSFSBrowserMediator.h"
-#import "QSMnemonics.h"
-#import "QSWindow.h"
-#import <QSElements/QSElements.h>
-#import "QSExecutor.h"
-#import "QSHistoryController.h"
 
-
-#import "QSNotifications.h"
-
-#import "QSObject.h"
-#import "QSObject_Drag.h"
-#import "QSAction.h"
-#import "QSObject_FileHandling.h"
-#import "QSObject_StringHandling.h"
-
-#import "QSSeparatorObject.h"
-
-
-#import "QSObject_Pasteboard.h"
-#import "NSString_Purification.h"
-#import "QSObject_PropertyList.h"
-#import "QSBackgroundView.h"
-
-#import "QSGlobalSelectionProvider.h"
-
-
-#import "QSTextProxy.h"
 #define pUserKeyBindingsPath QSApplicationSupportSubPath(@"KeyBindings.qskeys", NO)
 #define MAX_HISTORY_COUNT 20
 
@@ -1472,9 +1441,9 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 	[self selectIndex:index];
 }
 
-- (void)setResultArray:(NSMutableArray *)newResultArray {
+- (void)setResultArray:(NSArray *)newResultArray {
 	[resultArray release];
-	resultArray = [newResultArray retain];
+	resultArray = [newResultArray copy];
 	
 	if ([[resultController window] isVisible])
 		[self reloadResultTable];
@@ -1515,35 +1484,32 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 }
 
 
-- (NSMutableArray *)resultArray { return [[resultArray retain] autorelease];  }
+- (NSArray *)resultArray { return [[resultArray copy] autorelease];  }
 
-
-- (NSArray *)searchArray { return [[searchArray retain] autorelease];  }
+- (NSArray *)searchArray { return [[searchArray copy] autorelease];  }
 
 - (void)setSearchArray:(NSArray *)newSearchArray {
-	// QSLog(@"searcharray:%d %d %d", self, newSearchArray, [newSearchArray count]);
-	
 	[searchArray autorelease];
 	// QSLog(@"searcharray:%d %d %d", self, newSearchArray, [newSearchArray count]);
-	searchArray = [newSearchArray retain];
+	searchArray = [newSearchArray copy];
 }
 
-- (NSMutableArray *)sourceArray {
-  return [[sourceArray retain] autorelease];  
+- (NSArray *)sourceArray {
+  return [[sourceArray copy] autorelease];  
 }
-- (void)setSourceArray:(NSMutableArray *)newSourceArray {
-  if (sourceArray != newSourceArray) {
-    [sourceArray release];
-    sourceArray = [newSourceArray retain];
+
+- (void)setSourceArray:(NSArray *)newSourceArray {
+    if (sourceArray != newSourceArray) {
+        [sourceArray release];
+        sourceArray = [newSourceArray copy];
 		[self setSearchArray:sourceArray];
-  }
+    }
 }
 
 - (BOOL)shouldResetSearchString { return shouldResetSearchString;  }
 - (void)setShouldResetSearchString:(BOOL)flag {
 	shouldResetSearchString = flag;
 }
-
 
 - (BOOL)shouldResetSearchArray { return shouldResetSearchArray;  }
 - (void)setShouldResetSearchArray:(BOOL)flag {

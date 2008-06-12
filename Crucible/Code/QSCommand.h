@@ -10,8 +10,8 @@
     NSMutableDictionary *oDict;
 }
 +(id)commandWithDirectObject:(QSBasicObject *)dObject actionObject:(QSBasicObject *)aObject indirectObject:(QSBasicObject *)iObject;
--(id)initWithDirectObject:(QSBasicObject *)dObject actionObject:(QSBasicObject *)aObject indirectObject:(QSBasicObject *)iObject;
 +(id)commandWithDictionary:(NSDictionary *)newDict;
+-(id)initWithDirectObject:(QSBasicObject *)dObject actionObject:(QSBasicObject *)aObject indirectObject:(QSBasicObject *)iObject;
 -(id)initWithDictionary:(NSDictionary *)newDict;
 
 + (QSCommand *)commandWithInfo:(id)command;

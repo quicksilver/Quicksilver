@@ -120,7 +120,7 @@
 }
 
 - (BOOL)enabled {
-	return [(QSObject*)object enabled]; 	
+	return [object enabled]; 	
 }
 
 - (id)object { return object;  }
