@@ -8,6 +8,7 @@
 - (NSString *) FSBrowserMediatorID {
 	NSString *key = [[NSUserDefaults standardUserDefaults] stringForKey:kQSFSBrowserMediators];
 	//if ( !key ) key = defaultMailClientID();
+    if( !key ) key = @"com.apple.finder";
 	return key;
 }
 
@@ -19,8 +20,6 @@
                                 inTable:kQSFSBrowserMediators];
 		if ( mediator )
 			[prefInstances setObject:mediator forKey:kQSFSBrowserMediators];
-		//else
-        //    QSLog(@"Mediator not found %@", [[NSUserDefaults standardUserDefaults] stringForKey:kQSFSBrowserMediators]);
 	}
 	return mediator;
 }
