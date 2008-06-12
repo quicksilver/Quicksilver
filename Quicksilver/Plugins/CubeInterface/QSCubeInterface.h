@@ -8,10 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-//#import <QSBase/QSResizingInterfaceController.h>
-#import "QSCommandInterfaceController.h"
-
-
 @interface QSCubeInterface : QSCommandInterfaceController {
 	NSRect standardRect;
 	IBOutlet NSTextField *detailsTextField;
@@ -24,5 +20,11 @@
 	NSWindow *backdropWindow;
 }
 
+- (NSWindow *)shadowWindow;
+- (NSWindow *)backdropWindow;
+
+- (BOOL)useBackdrop;
+
 - (NSRect)rectForState:(BOOL)expanded;
+- (void)updateSearchViewsForTarget:(NSResponder *)responder;
 @end

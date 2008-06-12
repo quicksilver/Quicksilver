@@ -43,10 +43,8 @@
 - (NSMutableDictionary *)properties;
 - (void)setProperties:(NSMutableDictionary *)newProperties;
 
-
 - (IBAction) hideThreaded:(id)sender;
 - (IBAction) showThreaded:(id)sender;
-
 
 - (NSPoint)hideOffset;
 - (void)setHideOffset:(NSPoint)newHideOffset;
@@ -54,7 +52,7 @@
 - (NSPoint)showOffset;
 - (void)setShowOffset:(NSPoint)newShowOffset;
 - (void)reallyOrderFront:(id)sender;
--(void)fakeResignKey;
+- (void)fakeResignKey;
 - (bool)liesAboutKey;
 - (void)setLiesAboutKey:(bool)flag;
 - (bool)delegatesEvents;
@@ -74,6 +72,9 @@
 - (void)hideWithEffect:(id)hideEffect;
 - (void)performEffect:(NSDictionary *)effect;
 - (void)finishHide:(id)sender;
+
+- (id)windowPropertyForKey:(NSString *)key;
+- (void)setWindowProperty:(id)prop forKey:(NSString *)key;
 @end
 
 @interface QSBorderlessWindow : QSWindow

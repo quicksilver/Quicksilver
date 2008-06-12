@@ -6,5 +6,6 @@ GCC_PREFIX_HEADER = $(QS_SOURCE_ROOT)/Configuration/QSElement_Prefix.pch
 INFOPLIST_PREPROCESS = YES
 OTHER_LDFLAGS = -framework QSCrucible -framework QSElements 
 BUNDLE_LOADER = $(QS_APP_CONTENTS_FOLDER)/MacOS/Quicksilver
+HEADER_SEARCH_PATHS = $(QS_SOURCE_ROOT)/Quicksilver/Application/Code/
 PRODUCT_NAME = $(TARGET_NAME);
 INFOPLIST_FILE = Info.plist;
