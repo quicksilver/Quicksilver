@@ -9,7 +9,7 @@
 
 @interface QSPlugInsPrefPane : QSPreferencePane
 {
-	IBOutlet NSTableView *pluginSetsTable;
+	IBOutlet QSTableView *pluginSetsTable;
     IBOutlet id plugInTable;
     IBOutlet id plugInText;
 	IBOutlet NSTextField *statusField;

@@ -470,7 +470,7 @@
 
 #pragma mark -
 #pragma mark NSTableView Delegate
-- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
+- (void)tableView:(NSTableView *)aTableView willDisplayCell:(NSCell*)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
 	if ([[aTableColumn identifier] isEqualToString:@"enabled"]) {
 		NSArray *array = [arrayController arrangedObjects];
 		id object = [array objectAtIndex:rowIndex];
@@ -483,13 +483,13 @@
 		id object = [array objectAtIndex:rowIndex];
 		
 		if (selected)
-			[aCell setTextColor:[NSColor textColor]];
+			[(NSTextFieldCell*)aCell setTextColor:[NSColor textColor]];
 		else if ([object isHidden])
-			[aCell setTextColor:[NSColor redColor]];
+			[(NSTextFieldCell*)aCell setTextColor:[NSColor redColor]];
 		else if ([object isInstalled])
-			[aCell setTextColor:[NSColor textColor]];
+			[(NSTextFieldCell*)aCell setTextColor:[NSColor textColor]];
 		else 
-			[aCell setTextColor:[NSColor grayColor]];
+			[(NSTextFieldCell*)aCell setTextColor:[NSColor grayColor]];
 		
     }
 }

@@ -37,12 +37,12 @@
                             type:NSLikePredicateOperatorType
                             options:options];
   NSPredicate *predicate2 = [NSComparisonPredicate
-                             predicateWithLeftExpression:[NSExpression expressionForKeyPath:kMDItemTextContent]
+                             predicateWithLeftExpression:[NSExpression expressionForKeyPath:(NSString*)kMDItemTextContent]
                              rightExpression:[NSExpression expressionForConstantValue:self.searchText]
                              modifier:NSDirectPredicateModifier
                              type:NSLikePredicateOperatorType
                              options:options];
-  predicate = [NSCompoundPredicate orPredicateWithSubpredicates:[NSArray arrayWithObjects:predicate, predicate2]];
+  predicate = [NSCompoundPredicate orPredicateWithSubpredicates:[NSArray arrayWithObjects:predicate, predicate2, nil]];
   //[NSPredicate predicateWithFormat:@"* like[cd] %@ || kMDItemTextContent like[cd] %@*", self.searchText, self.searchText];
   // To watch results send by the query, add an observer to the NSNotificationCenter
   
@@ -55,7 +55,7 @@
     [query setGroupingAttributes:[NSArray arrayWithObject:@"_kMDItemGroupId"]];
     [query setSortDescriptors:[NSArray arrayWithObjects:
                                [[[NSSortDescriptor alloc] initWithKey:NSMetadataQueryResultContentRelevanceAttribute ascending:NO] autorelease],
-                               [[[NSSortDescriptor alloc] initWithKey:kMDItemContentModificationDate ascending:NO] autorelease],
+                               [[[NSSortDescriptor alloc] initWithKey:(NSString*)kMDItemContentModificationDate ascending:NO] autorelease],
                                nil]];
     [query setDelegate:self];
   }
@@ -109,8 +109,8 @@
 }
 
 - (id)metadataQuery:(NSMetadataQuery *)query replacementObjectForResultObject:(NSMetadataItem *)result{
-  QSObject *object = [QSObject fileObjectWithPath:[result valueForAttribute:kMDItemPath]];
-  [object setName:[result valueForAttribute:kMDItemDisplayName]];
+  QSObject *object = [QSObject fileObjectWithPath:[result valueForAttribute:(NSString*)kMDItemPath]];
+  [object setName:[result valueForAttribute:(NSString*)kMDItemDisplayName]];
   return object;
 }
 

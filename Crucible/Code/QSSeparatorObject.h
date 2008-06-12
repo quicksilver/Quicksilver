@@ -13,4 +13,5 @@
 	NSString *name;	
 }
 +(id)separator;
++(id)separatorWithName:(NSString *)newName;
 @end
