@@ -370,7 +370,7 @@
 							 kLSRequestBasicFlagsOnly, &infoRec);
 		
 		
-		if (!(infoRec.flags & kLSItemInfoIsContainer) || (infoRec.flags & kLSItemInfoIsPackage)  ||  ![mQSFSBrowser openFile:thisFile]){
+		if (!(infoRec.flags & kLSItemInfoIsContainer) || (infoRec.flags & kLSItemInfoIsPackage)  ||  ![[QSReg FSBrowserMediator] openFile:thisFile]){
 			
 			
 			if (infoRec.flags & kLSItemInfoIsAliasFile){ 
@@ -453,12 +453,12 @@
 	while((thisFile=[files nextObject]))
 		//QSLog(@"thisfile %@",thisFile);
 		//if (thisFile)
-		[mQSFSBrowser revealFile:thisFile];   
+		[[QSReg FSBrowserMediator] revealFile:thisFile];   
 	return nil;
 }
 
 - (QSObject *) getInfo:(QSObject *)dObject{
-	[[QSReg getMediator:kQSFSBrowserMediators] getInfoForFiles:[dObject validPaths]];   
+	[[QSReg FSBrowserMediator] getInfoForFiles:[dObject validPaths]];   
 	return nil;
 }
 
@@ -604,9 +604,9 @@
 	
 	
 	if (copy)
-		resultPaths=[mQSFSBrowser copyFiles:filePaths toFolder:destination]; 
+		resultPaths=[[QSReg FSBrowserMediator] copyFiles:filePaths toFolder:destination]; 
 	else
-		resultPaths=[mQSFSBrowser moveFiles:filePaths toFolder:destination];
+		resultPaths=[[QSReg FSBrowserMediator] moveFiles:filePaths toFolder:destination];
 	
 	if (resultPaths){
 		if ([resultPaths count]<[filePaths count])

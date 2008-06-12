@@ -2,6 +2,7 @@
 
 #import "QSFSBrowserMediator.h"
 
+#define kQSFSBrowserMediators @"QSFSBrowserMediators"
 
 @implementation QSRegistry (QSFSBrowserMediator)
 - (NSString *) FSBrowserMediatorID {
