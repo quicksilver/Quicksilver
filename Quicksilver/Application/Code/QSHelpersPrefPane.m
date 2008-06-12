@@ -30,7 +30,8 @@
 - (void)selectItemInPopUp:(NSPopUpButton *)popUp representedObject:(id)object {
 	
 	int index = [popUp indexOfItemWithRepresentedObject:object];
-	if (index == -1 && [popUp numberOfItems]) index = 0;
+	if (index == -1 && [popUp numberOfItems])
+        index = 0;
 	//QSLog(@"index %d", index);
 	[popUp selectItemAtIndex:index];
 }
@@ -40,7 +41,6 @@
 	NSMenu *menu = [[[NSMenu alloc] initWithTitle:@"popUp"] autorelease];
     
 	if (![mediators count]) {
-		if (!DEBUG) return nil;
 		[menu addItemWithTitle:@"None Available" action:nil keyEquivalent:@""];
 		return menu;
 	}
@@ -147,7 +147,8 @@
 			[[NSUserDefaults standardUserDefaults] setObject:anObject forKey:mediatorType];
 			[QSReg removePreferredInstanceOfTable:mediatorType];
 			
-			if ([settings objectForKey:@"requiresRelaunch"]) [NSApp requestRelaunch:self];
+			if ([settings objectForKey:@"requiresRelaunch"])
+                [NSApp requestRelaunch:self];
 		}
 	}
 }
