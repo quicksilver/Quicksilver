@@ -19,7 +19,6 @@ NSString *QSApplicationSupportPath( void ) {
     applicationSupportFolder = [[NSString stringWithUTF8String:(char *)path] stringByStandardizingPath];
     applicationSupportFolder = [applicationSupportFolder stringByAppendingPathComponent:@"Quicksilver"];  
     
-    NSLog( @"QSApplicationSupportPath: %@", applicationSupportFolder );
     return applicationSupportFolder;
 }
 
@@ -30,6 +29,5 @@ NSString *QSApplicationSupportSubPath( NSString *subpath, BOOL createFolder ) {
     if ( createFolder && ![manager fileExistsAtPath:path isDirectory:NULL] )
  		[manager createDirectoriesForPath:path];
     
-    NSLog( @"QSApplicationSupportPath: %@", path );
  	return path;
 }
