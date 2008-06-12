@@ -77,6 +77,7 @@ extern NSSize QSMaxIconSize;
 - (QSRankInfo *)getRankData;
 - (id <QSObjectRanker>)getRanker;
 - (id <QSObjectRanker>)ranker;
+- (BOOL)enabled;
 - (void)setOmitted:(BOOL)flag;
 - (void)updateMnemonics;
 - (BOOL)drawIconInRect:(NSRect)rect flipped:(BOOL)flipped;

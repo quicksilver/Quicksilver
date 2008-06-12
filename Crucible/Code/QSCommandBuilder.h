@@ -1,6 +1,6 @@
 
 @interface QSCommandBuilder : QSInterfaceController {
-    IBOutlet id	iFrame;
+    IBOutlet NSCell * iFrame;
 	QSCommand *representedCommand;
 }
 

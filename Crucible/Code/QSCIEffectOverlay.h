@@ -14,6 +14,6 @@
 	CGSConnection cid;
 }
 - (void)setFilter:(NSString *)filter;
--(void)setLevel:(int)level;
-- (void)createOverlayInRect:(CGRect) r;
+- (void)setLevel:(int)level;
+- (void)createOverlayInRect:(CGRect)r;
 @end

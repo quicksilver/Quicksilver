@@ -36,7 +36,7 @@ void QSEnableAccessibility() {
 												  [auth authorizationRef],
                                                   "/usr/bin/touch",
                                                   kAuthorizationFlagDefaults,
-                                                  &myArguments,          //15
+                                                  myArguments,          //15
 												  &myCommunicationsPipe
                                                   );         //16
 	

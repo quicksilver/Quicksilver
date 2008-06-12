@@ -55,9 +55,16 @@ QSExecutor *QSExec;
         //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(writeCatalog:) name:QSCatalogEntryChanged object:nil];
 		
         //Create proxy Images
-        [[[NSImage alloc] initWithSize:NSZeroSize] setName:@"QSDirectProxyImage"];
-        [[[NSImage alloc] initWithSize:NSZeroSize] setName:@"QSDefaultAppProxyImage"];
-        [[[NSImage alloc] initWithSize:NSZeroSize] setName:@"QSIndirectProxyImage"];
+        NSString* imageName;
+        NSArray* imageNames = [[NSArray alloc] initWithObjects:
+                               @"QSDirectProxyImage",
+                               @"QSDefaultAppProxyImage",
+                               @"QSIndirectProxyImage",
+                               nil];
+        for( imageName in imageNames ) {
+            NSImage * image = [[NSImage alloc] initWithSize:NSZeroSize];
+            [image setName:imageName];
+        }
         
 		[self loadActions];
     }

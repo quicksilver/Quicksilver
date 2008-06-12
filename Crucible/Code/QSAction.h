@@ -1,10 +1,5 @@
 
-
-#import <Foundation/Foundation.h>
 #import "QSObject.h"
-
-
-
 
 #define kActionClass @"actionClass" // String
 #define kActionProvider @"actionProvider" // String
@@ -43,7 +38,6 @@
 
 #define kSourceBundleMeta @"sourceBundle"
 #define kUserDataMeta @"userData"
-
 
 @interface QSAction : QSObject {
 	int rank;

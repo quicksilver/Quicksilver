@@ -1,43 +1,3 @@
-/*#import "QSPreferenceKeys.h"
-#import "QSInterfaceController.h"
-//#import "QSAppWindowController.h"
-#import "QSHistoryController.h"
-//#import "QSShelfController.h"
-//#import "HotKeyCenter.h"
-#import <Carbon/Carbon.h>
-#import "QSObject.h"
-
-#import "QSActionProvider.h"
-
-#import "QSTypes.h"
-#import "QSTaskController.h"
-#import "QSNotifications.h"
-
-//#import "DRColorPermutator.h"
-#import "QSObjectCell.h"
-#import "QSCommand.h"
-#import "QSInterfaceController.h"
-
-#import "QSObject_FileHandling.h"
-
-#import "QSNullObject.h"
-#import "QSTaskController.h"
-#import "QSInterfaceController.h"
-//#import "QSTriggerCenter.h"
-
-#import "QSAction.h" 
-#import "QSWindow.h"
-#import "QSSearchObjectView.h"
-//#import "QSPrefsController.h"
-//#import "QSWebSearchController.h"
-#import "QSMnemonics.h"
-#import "QSLibrarian.h"
-////#import <QSBase/QSExecutor.h>
-#import <IOKit/IOCFBundle.h>
-#import <ApplicationServices/ApplicationServices.h>
-
-#import "QSTextProxy.h"
-#import "QSMenuButton.h"*/
 
 #define KeyShift                0x38
 #define KeyControl              0x3b
@@ -64,15 +24,9 @@ typedef enum {
 
 extern CGSConnection _CGSDefaultConnection(void);
 
-extern CGError CGSGetGlobalHotKeyOperatingMode(
-                                               CGSConnection connection, CGSGlobalHotKeyOperatingMode *mode);
+extern CGError CGSGetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlobalHotKeyOperatingMode *mode);
 
-extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection,  
-                                               CGSGlobalHotKeyOperatingMode mode);
-
-
-
-
+extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlobalHotKeyOperatingMode mode);
 
 @implementation QSInterfaceController
 

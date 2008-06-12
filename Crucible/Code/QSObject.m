@@ -1,33 +1,10 @@
 
-
-
 #import "QSObject.h"
 #import "QSObject_Pasteboard.h"
 #import "QSObject_FileHandling.h"
 
 #import "QSObject_PropertyList.h"
-#import "QSLibrarian.h"
 
-#import "QSStringRanker.h"
-#import "QSNotifications.h"
-//#import "QSFaviconManager.h"
-#import "QSResourceManager.h"
-#import "QSTypes.h"
-
-#import "QSInterfaceController.h"
-#import "QSDebug.h"
-
-#import "QSObjectRanker.h"
-
-
-#import "QSPreferenceKeys.h"
-
-#import "QSMnemonics.h"
-
-
-#import "NSString_Purification.h"
-
-static id *controller;
 static NSMutableDictionary *objectDictionary;
 
 static NSMutableSet *iconLoadedSet;
@@ -52,8 +29,6 @@ NSSize QSMaxIconSize;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(purgeOldImagesAndChildren) name:QSReleaseOldCachesNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cleanObjectDictionary) name:QSReleaseOldCachesNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(purgeAllImagesAndChildren) name:QSReleaseAllCachesNotification object:nil];
-    
-    controller = [NSApp delegate];
     
     objectDictionary = [[NSMutableDictionary alloc] initWithCapacity:100];
     iconLoadedSet = [[NSMutableSet alloc] initWithCapacity:100];
@@ -115,15 +90,13 @@ NSSize QSMaxIconSize;
 		QSLog(@"Released %i images and %i children  (items before %d) ", imagecount, childcount, (int)interval);
   
 }
+
 + (void)interfaceChanged {
-  QSMaxIconSize = [(QSInterfaceController *)[[NSApp delegate] interfaceController] maxIconSize];
+    QSMaxIconSize = [(QSInterfaceController *)[[NSApp delegate] interfaceController] maxIconSize];
 	[self purgeAllImagesAndChildren];
 }
+
 + (void)purgeIdentifiers {[objectDictionary removeAllObjects];}
-
-
-
-
 
 - (id)init {
   if ((self = [super init]) ) {
@@ -1090,6 +1063,7 @@ return data;  }
 - (void)setEnabled:(BOOL)flag {
 	[QSLib setItem:self isOmitted:!flag]; 	
 }
+
 - (BOOL)enabled {
 	return (BOOL)![QSLib itemIsOmitted:self]; 	
 }
