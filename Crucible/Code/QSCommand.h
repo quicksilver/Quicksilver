@@ -11,6 +11,7 @@
 }
 +(id)commandWithDirectObject:(QSBasicObject *)dObject actionObject:(QSBasicObject *)aObject indirectObject:(QSBasicObject *)iObject;
 +(id)commandWithDictionary:(NSDictionary *)newDict;
++ (id)commandWithFile:(NSString *)path;
 -(id)initWithDirectObject:(QSBasicObject *)dObject actionObject:(QSBasicObject *)aObject indirectObject:(QSBasicObject *)iObject;
 -(id)initWithDictionary:(NSDictionary *)newDict;
 
