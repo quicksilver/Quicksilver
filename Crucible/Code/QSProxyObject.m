@@ -75,9 +75,9 @@
 	return [self proxyTypes];
 }
 - (NSImage *)icon {
-  NSImage *icon = [[self proxyObject] icon]; 
-  NSLog(@"proxy icon %@", icon);
-  return icon;
+  NSImage *pIcon = [[self proxyObject] icon]; 
+  NSLog(@"proxy icon %@", pIcon);
+  return pIcon;
 }
 
 - (void)releaseProxy {
