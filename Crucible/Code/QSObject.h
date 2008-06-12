@@ -1,13 +1,11 @@
- 
+
 #import <Foundation/Foundation.h>
 #import <AddressBook/AddressBook.h>
 
 @class QSObject, QSBasicObject;
 @protocol QSObjectRanker;
 
-
 extern NSSize QSMaxIconSize;
-
 
 // QSObject Protocols -  right now these aren't sufficient. QSBasicObject must be subclassed
 @protocol QSObject
@@ -33,16 +31,16 @@ extern NSSize QSMaxIconSize;
 @end
 
 @class QSBasicObject;
-@interface QSRankInfo : NSObject{
-	@public
+@interface QSRankInfo : NSObject {
+@public
 	NSString *identifier;
 	NSString *name;
 	NSString *label;
 	NSDictionary *mnemonics;
 	BOOL omitted;
 }
-+(id)rankDataWithObject:(QSBasicObject *)object;
--(id)initWithObject:(QSBasicObject *)object;
++ (id)rankDataWithObject:(QSBasicObject *)object;
+- (id)initWithObject:(QSBasicObject *)object;
 - (NSString *)identifier;
 - (void)setIdentifier:(NSString *)anIdentifier;
 - (NSString *)name;
@@ -55,8 +53,8 @@ extern NSSize QSMaxIconSize;
 - (void)setOmitted:(BOOL)flag;
 @end
 
-@interface QSBasicObject : NSObject <QSObject,QSObjectHierarchy>{
-	@public
+@interface QSBasicObject : NSObject <QSObject, QSObjectHierarchy> {
+@public
 	QSRankInfo *			rankData;
 	NSObject <QSObjectRanker> *ranker;
 }
@@ -108,11 +106,6 @@ extern NSSize QSMaxIconSize;
 - (id)dataForObject:(QSObject *)object pasteboardType:(NSString *)type;
 @end
 
-
-
-
-
-
 #define itemForKey(k) [data objectForKey:k]
 
 // meta dictionary keys
@@ -136,7 +129,6 @@ extern NSSize QSMaxIconSize;
 #define kMeta @"metadata"
 #define kData @"data"
 
-
 // cache dictionary keys
 #define kQSObjectIcon @"QSObjectIcon"
 #define kQSObjectChildren @"QSObjectChildren"
@@ -156,10 +148,8 @@ typedef struct _QSObjectFlags {
 	//  NSCellType          type:2;
 } QSObjectFlags;
 
-
-
 extern NSSize QSMaxIconSize;
-@interface QSObject : QSBasicObject <NSCopying>{
+@interface QSObject : QSBasicObject <NSCopying> {
 	NSString *name;
 	NSString *label;
 	NSString *identifier;
@@ -179,7 +169,7 @@ extern NSSize QSMaxIconSize;
 + (void)purgeImagesAndChildrenOlderThan:(NSTimeInterval)interval;
 + (void)purgeIdentifiers;
 + (void)initialize;
-+ (void) registerObject:(QSBasicObject *)object withIdentifier:(NSString *)anIdentifier;
++ (void)registerObject:(QSBasicObject *)object withIdentifier:(NSString *)anIdentifier;
 - (NSMutableDictionary *)cache;
 - (void)setCache:(NSMutableDictionary *)aCache;
 
@@ -293,15 +283,15 @@ extern NSSize QSMaxIconSize;
 //PasteboardDataForType:
 
 /*
-- (id)handler;
-- (id)handlerForType:(NSString *)type selector:(SEL)selector;
-- (id)valueForFlavor:(id)aKey;
-- (void)setValue:(id)object forFlavor:(id)aKey;
-- (id)objectForCache:(id)aKey;
-- (void)setObject:(id)object forCache:(id)aKey;
-- (id)objectForMeta:(id)aKey;
-- (void)setObject:(id)object forMeta:(id)aKey;
-
-*/
+ - (id)handler;
+ - (id)handlerForType:(NSString *)type selector:(SEL)selector;
+ - (id)valueForFlavor:(id)aKey;
+ - (void)setValue:(id)object forFlavor:(id)aKey;
+ - (id)objectForCache:(id)aKey;
+ - (void)setObject:(id)object forCache:(id)aKey;
+ - (id)objectForMeta:(id)aKey;
+ - (void)setObject:(id)object forMeta:(id)aKey;
+ 
+ */
 
 

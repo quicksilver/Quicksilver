@@ -435,16 +435,14 @@ NSSize QSMaxIconSize;
 	
 	return nil;
 }
-- (NSImage *)image {
-  return [self loadedIcon];
-}
+
 - (BOOL)loadIcon {
-  if ([self iconLoaded]) return NO;
-  [self setIconLoaded:YES];
+    if ([self iconLoaded]) return NO;
+    [self setIconLoaded:YES];
 	
 	lastAccess = [NSDate timeIntervalSinceReferenceDate];
 	globalLastAccess = lastAccess;
-  [iconLoadedSet addObject:self];
+    [iconLoadedSet addObject:self];
 	
 	NSString *namedIcon = [self objectForMeta:kQSObjectIconName];
 	if (namedIcon) {
@@ -455,45 +453,38 @@ NSSize QSMaxIconSize;
 		}
 	}
 	
-	
 	NSString *bestType = [self primaryType];
   
-	
-  id handler = [typeHandlers objectForKey:bestType];
-  if ([handler respondsToSelector:@selector(loadIconForObject:)])
+    id handler = [typeHandlers objectForKey:bestType];
+    if ([handler respondsToSelector:@selector(loadIconForObject:)])
     return [handler loadIconForObject:self];
   
-	
-  
-  //// if ([primaryType hasPrefix:@"QSCsontact"])
-  //     return NO;
-  
+    //// if ([primaryType hasPrefix:@"QSCsontact"])
+    //     return NO;
   
 	if ([IMAGETYPES intersectsSet:[NSSet setWithArray:[data allKeys]]]) {
-    [self setIcon:[[[NSImage alloc] initWithPasteboard:(NSPasteboard *)self] autorelease]];
+        [self setIcon:[[[NSImage alloc] initWithPasteboard:(NSPasteboard *)self] autorelease]];
 		[[self icon] createIconRepresentations];
-		
 		[[self icon] createRepresentationOfSize:NSMakeSize(128, 128)];
-    
-  }
+    }
   
-  // file type for sound clipping: clps
-  if (![self icon]) {
-    [self setIcon:[QSResourceManager imageNamed:@"GenericQuestionMarkIcon"]];
+    // file type for sound clipping: clps
+    if (![self icon]) {
+        [self setIcon:[QSResourceManager imageNamed:@"GenericQuestionMarkIcon"]];
+        return NO;
+    }
+  
     return NO;
-  }
-  
-  return NO;
 }
 
 - (BOOL)unloadIcon {
-  if (![self iconLoaded]) return NO;
+    if (![self iconLoaded]) return NO;
 	if ([self retainsIcon]) return NO;
 	
 	[self setIcon:nil];
 	[self setIconLoaded:NO];
 	[iconLoadedSet removeObject:self];
-  return YES;
+    return YES;
 }
 
 - (NSImage *)icon {
@@ -1132,14 +1123,14 @@ return data;  }
 	return [NSImage imageNamed:@"Object"]; 	
 }
 - (NSComparisonResult) compare:(id)other {
-	return [[self name] 	compare:[other name]];
+	return [[self name] compare:[other name]];
 }
-
 
 - (NSImage *)loadedIcon {
 	if (![self iconLoaded]) [self loadIcon];
 	return [self icon];
 }
+
 - (void)becameSelected { return;}
 
 - (BOOL)iconLoaded { return YES;  }
