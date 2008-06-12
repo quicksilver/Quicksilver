@@ -47,6 +47,7 @@
 #import "NSWorkspace_BLTRExtensions.h"
 
 #import "NSException_TraceExtensions.h"
+#import "NSColor+QSCGColorRef.h"
 #import "NSColor_QSModifications.h"
 #import "NSCursor_InformExtensions.h"
 #import "NSIndexSet+Extensions.h"

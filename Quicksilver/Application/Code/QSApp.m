@@ -71,7 +71,6 @@ BOOL QSApplicationCompletedLaunch = NO;
 			[self terminate:self];
 		}
         
-        
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         
         // Honor dock hidden preference if new version
@@ -87,7 +86,7 @@ BOOL QSApplicationCompletedLaunch = NO;
                 [self relaunch:nil];
             else
                 [defaults setBool:NO forKey:kHideDockIcon];
-            }
+        }
         if (isUIElement) {
             ProcessSerialNumber psn = { 0, kCurrentProcess } ;
             TransformProcessType( & psn, kProcessTransformToForegroundApplication);

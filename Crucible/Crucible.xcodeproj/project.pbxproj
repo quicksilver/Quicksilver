@@ -14,6 +14,10 @@
 		4D2772070DFF029C002A960F /* NSOpenPanel+NDAlias.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2771FE0DFF029C002A960F /* NSOpenPanel+NDAlias.m */; };
 		4D2772080DFF029C002A960F /* NSPathControl+NDAlias.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D2771FF0DFF029C002A960F /* NSPathControl+NDAlias.h */; };
 		4D2772090DFF029C002A960F /* NSPathControl+NDAlias.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2772000DFF029C002A960F /* NSPathControl+NDAlias.m */; };
+		4D4EE9C30E0180B400857804 /* NSColor+QSCGColorRef.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D4EE9BD0E0180B400857804 /* NSColor+QSCGColorRef.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D4EE9C40E0180B400857804 /* NSColor+QSCGColorRef.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4EE9BE0E0180B400857804 /* NSColor+QSCGColorRef.m */; };
+		4D4EE9C70E0180B400857804 /* QSTitleToolbarView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D4EE9C10E0180B400857804 /* QSTitleToolbarView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D4EE9C80E0180B400857804 /* QSTitleToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4EE9C20E0180B400857804 /* QSTitleToolbarView.m */; };
 		4D7543B50D3539AC004190BE /* NDExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D7543B40D3539AC004190BE /* NDExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D7544150D353F9F004190BE /* QSExternals.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D7544140D353F9F004190BE /* QSExternals.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D7544360D354327004190BE /* QSCategories.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D7544350D354327004190BE /* QSCategories.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -467,6 +471,10 @@
 		4D2771FE0DFF029C002A960F /* NSOpenPanel+NDAlias.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSOpenPanel+NDAlias.m"; sourceTree = "<group>"; };
 		4D2771FF0DFF029C002A960F /* NSPathControl+NDAlias.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPathControl+NDAlias.h"; sourceTree = "<group>"; };
 		4D2772000DFF029C002A960F /* NSPathControl+NDAlias.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPathControl+NDAlias.m"; sourceTree = "<group>"; };
+		4D4EE9BD0E0180B400857804 /* NSColor+QSCGColorRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+QSCGColorRef.h"; sourceTree = "<group>"; };
+		4D4EE9BE0E0180B400857804 /* NSColor+QSCGColorRef.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+QSCGColorRef.m"; sourceTree = "<group>"; };
+		4D4EE9C10E0180B400857804 /* QSTitleToolbarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTitleToolbarView.h; sourceTree = "<group>"; };
+		4D4EE9C20E0180B400857804 /* QSTitleToolbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSTitleToolbarView.m; sourceTree = "<group>"; };
 		4D7095360D102871008498FD /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
 		4D7095370D102871008498FD /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		4D7095400D102871008498FD /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
@@ -1275,6 +1283,10 @@
 		4DEF6A480D2A917F00FDF605 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				4D4EE9BD0E0180B400857804 /* NSColor+QSCGColorRef.h */,
+				4D4EE9BE0E0180B400857804 /* NSColor+QSCGColorRef.m */,
+				4D4EE9C10E0180B400857804 /* QSTitleToolbarView.h */,
+				4D4EE9C20E0180B400857804 /* QSTitleToolbarView.m */,
 				7F17F0600C4F172A001ADE1A /* DNDArrayController.h */,
 				7F17F0610C4F172A001ADE1A /* DNDArrayController.m */,
 				7F17F05B0C4F16F0001ADE1A /* NSApplication+ServicesModification.h */,
@@ -1726,6 +1738,8 @@
 				4D2772050DFF029C002A960F /* NDSDKCompatibility.h in Headers */,
 				4D2772060DFF029C002A960F /* NSOpenPanel+NDAlias.h in Headers */,
 				4D2772080DFF029C002A960F /* NSPathControl+NDAlias.h in Headers */,
+				4D4EE9C30E0180B400857804 /* NSColor+QSCGColorRef.h in Headers */,
+				4D4EE9C70E0180B400857804 /* QSTitleToolbarView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2029,6 +2043,8 @@
 				4D2772040DFF029C002A960F /* NDLaunchServicesObject+Paths.m in Sources */,
 				4D2772070DFF029C002A960F /* NSOpenPanel+NDAlias.m in Sources */,
 				4D2772090DFF029C002A960F /* NSPathControl+NDAlias.m in Sources */,
+				4D4EE9C40E0180B400857804 /* NSColor+QSCGColorRef.m in Sources */,
+				4D4EE9C80E0180B400857804 /* QSTitleToolbarView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
