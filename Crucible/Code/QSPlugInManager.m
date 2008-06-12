@@ -34,7 +34,7 @@
 	return self;
 }
 
-- (QSPlugIn *) plugInWithBundle:(NSBundle *)bundle {
+/*- (QSPlugIn *) plugInWithBundle:(NSBundle *)bundle {
 	QSPlugIn *plugin = [knownPlugIns objectForKey:[bundle bundleIdentifier]];
 	if ( plugin ) {
 		[plugin setBundle:bundle];	
@@ -43,18 +43,24 @@
 		[knownPlugIns setObject:plugin forKey:[bundle bundleIdentifier]];
 	}
 	return plugin;
-}
+}*/
 
 - (QSPlugIn *) plugInWithID:(NSString *)identifier {
 	return [knownPlugIns objectForKey:identifier];
 }
 
 - (QSPlugIn *) plugInBundleWasInstalled:(NSBundle *)bundle {
-#warning should check if this plugin is already installed?
-	QSPlugIn *plugin = [self plugInWithBundle:bundle];
-	[localPlugIns setObject:plugin forKey:[plugin identifier]];
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSPlugInInstalledNotification object:plugin];
-	return plugin;
+    QSPlugIn * plugin = [knownPlugIns objectForKey:[bundle bundleIdentifier]];
+    if( plugin != nil ) {
+        QSLog( @"Plugin %@ already known at path %@", [bundle bundlePath], [plugin path] );
+#warning TODO : Compare versions
+        return nil;
+    }
+    plugin = [QSPlugIn plugInWithBundle:bundle];
+    [knownPlugIns setObject:plugin forKey:[bundle bundleIdentifier]];
+    [localPlugIns setObject:plugin forKey:[plugin identifier]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:QSPlugInInstalledNotification object:plugin];
+	return plugin;    
 }
 
 - (void) plugInDidLoad:(NSNotification *)notif {
@@ -69,10 +75,6 @@
 	}
 	[dependingPlugIns removeObjectForKey:[plugin identifier]];
 }
-
-
-
-
 
 - (NSDictionary *) oldPlugIns { return [[oldPlugIns copy] autorelease]; }
 
@@ -351,6 +353,13 @@
 	if ( ![self plugInMeetsDependencies:plugin] ) return NO;          // Skip if does not meet dependencies
 	
 	return [plugin registerPlugIn];
+}
+
+- (BOOL) deletePlugin:(QSPlugIn*)plugin {
+	[localPlugIns removeObjectForKey:[plugin bundleIdentifier]];
+	[knownPlugIns removeObjectForKey:[plugin bundleIdentifier]];
+    
+	return [[NSFileManager defaultManager] removeFileAtPath:[plugin bundlePath] handler:nil];
 }
 
 - (void) checkForUnmetDependencies {
@@ -661,7 +670,6 @@
 
 - (NSArray *) installPlugInFromCompressedFile:(NSString *)path {
 	NSFileManager *manager = [NSFileManager defaultManager];
-	NSString *destination = psMainPlugInsLocation;
 	NSString *tempDirectory = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString uniqueString]];
 	[manager createDirectoryAtPath:tempDirectory attributes:nil];
 	
@@ -676,7 +684,6 @@
 		if ( destination ) [installedPlugIns addObject:destination];
 	}
 	//QSLog(@"installed %@",installedPlugIns);
-	[[NSWorkspace sharedWorkspace] noteFileSystemChanged:destination];
 	[manager removeFileAtPath:tempDirectory handler:nil];
 	return installedPlugIns;
 }
@@ -688,7 +695,7 @@
 	NSString *destinationPath = [destinationFolder stringByAppendingPathComponent: [path lastPathComponent]];	
 	if ( ![destinationPath isEqualToString:path] ) {
 		if ( ![manager removeFileAtPath:destinationPath handler:nil] )
-            QSLog(@"remove failed, %@, %@", path, destinationPath);;
+            QSLog(@"remove failed, %@, %@", path, destinationPath);
 	}
 	if ( ![manager movePath:path toPath:destinationPath handler:nil] )
         QSLog(@"move failed, %@, %@", path, destinationPath);

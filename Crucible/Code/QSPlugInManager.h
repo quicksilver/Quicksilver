@@ -45,7 +45,7 @@
 - (BOOL) showNotifications;
 - (void) setShowNotifications: (BOOL) flag;
 
-- (QSPlugIn *)plugInWithBundle:(NSBundle *)bundle;
+//- (QSPlugIn *)plugInWithBundle:(NSBundle *)bundle;
 - (QSPlugIn *)plugInWithID:(NSString *)identifier;
 - (BOOL)plugInIsMostRecent:(QSPlugIn *)plugIn inGroup:(NSDictionary *)loadingBundles;
 - (BOOL)plugInMeetsRequirements:(QSPlugIn *)plugIn;
@@ -105,4 +105,6 @@
 - (NSURLDownload *)currentDownload;
 - (void)setCurrentDownload:(NSURLDownload *)newCurrentDownload;
 - (void)cancelPlugInInstall;
+
+- (BOOL)deletePlugin:(QSPlugIn*)bundle;
 @end

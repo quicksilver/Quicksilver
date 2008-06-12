@@ -159,7 +159,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
     if ([self isLoaded])
         return [NSString stringWithFormat:@"%C", ([bundle isLoaded] ? 0x25C6 : 0x25C7)];
         
-    // FIXME: return "" or "*" ?
+#warning FIXME: return "" or "*" ?
     return @"";
 	return @"*";
 }
@@ -487,9 +487,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 }
 
 - (BOOL) delete {
-	[[[QSPlugInManager sharedInstance] localPlugIns] removeObjectForKey:[bundle bundleIdentifier]];
-	[[[QSPlugInManager sharedInstance] knownPlugIns] removeObjectForKey:[bundle bundleIdentifier]];
-	return [[NSFileManager defaultManager] removeFileAtPath:[bundle bundlePath] handler:nil];
+    return [[QSPlugInManager sharedInstance] deletePlugin:self];
 }
 
 - (NSBundle *) bundle {
