@@ -302,40 +302,7 @@
                 </plist>
             </trigger-set>
         </extension>
-        <extension-point name="String Ranker" id="QSStringRankers">
-            <plist version="1.0">
-                <dict>
-                    <key>classTable</key>
-                    <true/>
-                    <key>defaultPermitted</key>
-                    <true/>
-                    <key>feature</key>
-                    <integer>0</integer>
-                    <key>name</key>
-                    <string>String Ranker</string>
-                    <key>requiresRelaunch</key>
-                    <true/>
-                    <key>type</key>
-                    <string>mediator</string>
-                </dict>
-            </plist>
-        </extension-point>
-        <extension-point name="Missing Object Selector" id="QSUnidentifiedObjectSelector">
-            <plist version="1.0">
-                <dict>
-                    <key>classTable</key>
-                    <true/>
-                    <key>feature</key>
-                    <integer>1</integer>
-                    <key>name</key>
-                    <string>Missing Object Selector</string>
-                    <key>type</key>
-                    <string>mediator</string>
-                </dict>
-            </plist>
-        </extension-point>
         <extension point="QSNotifiers">
-            <extension id="com.apple.Console" class="QSConsoleNotifier"/>
             <extension id="com.blacktree.Quicksilver" class="QSSilverNotifier"/>
         </extension>
         <extension point="QSUnidentifiedObjectSelector">
