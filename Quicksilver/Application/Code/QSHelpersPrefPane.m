@@ -101,7 +101,6 @@
     NSEnumerator *keyEnum = [headers keyEnumerator];
     
     while ( ( key = [keyEnum nextObject] ) && ( header = [headers objectForKey:key] ) ) {
-//	foreachkey(key, header, [QSReg elementsByIDForPointID:@"QSRegistryHeaders"]) {
 		header = [header plistContent];
 		if ([[header objectForKey:@"type"] isEqual:@"mediator"]) {
 			NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObject:header forKey:INFO];
@@ -143,8 +142,7 @@
 		anObject = [[menu itemAtIndex:index] representedObject];
 		NSString *mediatorType = [info objectForKey:IDENT];
 		
-		if (![anObject isEqual:
-			[[NSUserDefaults standardUserDefaults] objectForKey:mediatorType]]) {
+		if (![anObject isEqual:[[NSUserDefaults standardUserDefaults] objectForKey:mediatorType]]) {
 			//QSLog(@"%@ %@", anObject, mediatorType);
 			[[NSUserDefaults standardUserDefaults] setObject:anObject forKey:mediatorType];
 			[QSReg removePreferredInstanceOfTable:mediatorType];
@@ -170,10 +168,10 @@
 		[aCell setEnabled:[menu numberOfItems] > 1];
 		[aCell setMenu:menu];
 		
-		int index = [aCell indexOfItemWithRepresentedObject:object];
-		if (index == -1 && [aCell numberOfItems])
+		int index = [(NSPopUpButtonCell*)aCell indexOfItemWithRepresentedObject:object];
+		if (index == -1 && [(NSPopUpButtonCell*)aCell numberOfItems])
             index = 0;
-		[aCell selectItemAtIndex:index];
+		[(NSPopUpButtonCell*)aCell selectItemAtIndex:index];
 		
 		//	if (![mediators count]) {
 		//			//[popUp insertItemWithTitle:@"None Installed" atIndex:0];
