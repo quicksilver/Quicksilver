@@ -429,8 +429,8 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 }
 
 - (void)setObjectValue:(id)value {
-	if (value);
-	[self setRepresentedObject:value]; 	
+	if (value)
+        [self setRepresentedObject:value]; 	
 }
 
 - (void)drawInteriorWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
