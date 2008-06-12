@@ -418,7 +418,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	return [[[self info] valueForKeyPath:@"QSRequirements.feature"] intValue] <= [NSApp featureLevel];
 }
 
-- (int) isLoaded {
+- (BOOL) isLoaded {
     return loaded;
 }
 
@@ -444,9 +444,9 @@ NSMutableDictionary *plugInBundlePaths = nil;
     return [bundle bundlePath];
 }
 
-- (int) enabled {
+- (BOOL) enabled {
 	if (!bundle)
-		return (installing ? -1 : 0);
+        return (installing ? NO : YES);
 	return ![disabledPlugIns containsObject:[bundle bundleIdentifier]];
 }
     
@@ -684,7 +684,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 		[[NSScriptSuiteRegistry sharedScriptSuiteRegistry] loadSuitesFromBundle:bundle];
 	
 	if (DEBUG_PLUGINS)
-		QSLog(@"Loading PlugIn: %@ (%@)", [[[bundle bundlePath]lastPathComponent] stringByDeletingPathExtension], [bundle objectForInfoDictionaryKey:@"CFBundleVersion"]);		
+		QSLog(@"Loading PlugIn: %@ (%@)", [[[bundle bundlePath] lastPathComponent] stringByDeletingPathExtension], [bundle objectForInfoDictionaryKey:@"CFBundleVersion"]);		
 	BOOL loadNow = ![QSReg handleRegistration:bundle]; 
 	
 	id value;
@@ -711,8 +711,8 @@ NSMutableDictionary *plugInBundlePaths = nil;
 			if ([currPrincipalClass respondsToSelector:@selector(loadPlugIn)])
 				[currPrincipalClass loadPlugIn];
 		}
-	}	
-	
+	}
+#warning FIXME: We are saying we are loaded even if we are not ?
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSPlugInLoadedNotification object:self];
 	loaded = YES;
 	return YES;

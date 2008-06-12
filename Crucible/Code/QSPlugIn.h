@@ -47,7 +47,7 @@
 
 - (NSData *)attributedDescription;
 - (NSImage *)icon;
-- (int)enabled;
+- (BOOL)enabled;
 - (BOOL)canBeDisabled;
 - (BOOL)needsUpdate;
 - (NSString *)identifier;
@@ -56,7 +56,7 @@
 
 - (NSString *)bundleIdentifier;
 - (NSString *)bundlePath;
-- (int)isLoaded;
+- (BOOL)isLoaded;
 - (BOOL)meetsFeature;
 - (NSDictionary *)info;
 - (BOOL)isUniversal;
