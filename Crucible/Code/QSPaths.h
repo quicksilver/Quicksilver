@@ -16,10 +16,10 @@
 #define kCurrentDevVersionURL	@"http://quicksilver.blacktree.com/versioncheck.php?type=dev"
 #define kCurrentPreVersionURL	@"http://quicksilver.blacktree.com/versioncheck.php?type=pre"
 #define kDownloadUpdateExactURL @"http://quicksilver.blacktree.com/versiondownloadurl.txt"
-#define kDownloadUpdateURL @"http://quicksilver.blacktree.com/"
-#define kForumsURL @"http://forums.blacktree.com/index.php?c=2"
-#define kBugsURL @"http://bugs.blacktree.com/"
-#define kHelpURL @"http://docs.blacktree.com/"
+#define kDownloadUpdateURL      @"http://quicksilver.blacktree.com/"
+#define kForumsURL              @"http://forums.blacktree.com/index.php?c=2"
+#define kBugsURL                @"http://bugs.blacktree.com/"
+#define kHelpURL                @"http://docs.blacktree.com/"
 
-extern NSString *QSApplicationSupportPath;
-NSString *QSApplicationSupportSubPath(NSString *subpath,BOOL create);
+NSString *QSApplicationSupportPath( void );
+NSString *QSApplicationSupportSubPath( NSString *subpath, BOOL create );

@@ -162,20 +162,6 @@ static id _sharedInstance;
 		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kDownloadUpdateURL]]; 	
 }
 
-
-- (NSString *)applicationSupportFolder {
-    NSString *applicationSupportFolder = nil;
-    FSRef foundRef;
-	// OSErr err =
-	FSFindFolder(kUserDomain, kApplicationSupportFolderType, kDontCreateFolder, & foundRef); 	
-	unsigned char path[1024];
-	FSRefMakePath( & foundRef, path, sizeof(path) );
-	applicationSupportFolder = [NSString stringWithUTF8String:(char *)path];
-	applicationSupportFolder = [applicationSupportFolder stringByAppendingPathComponent:@"Quicksilver"];  
-    return applicationSupportFolder;
-}
-
-
 - (id)init {
 	if ((self = [super init])) {
 		
@@ -213,13 +199,7 @@ static id _sharedInstance;
 		[self setIconColor:[NSColor blueColor]];
 		
 		if (DEBUG_STARTUP) QSLog(@"Images loaded");
-		[self startMenuExtraConnection]; 	
-		
-		QSApplicationSupportPath = [[[[NSUserDefaults standardUserDefaults] stringForKey:@"QSApplicationSupportPath"] stringByStandardizingPath] retain];
-		
-		if (![QSApplicationSupportPath length])
-			QSApplicationSupportPath = [[self applicationSupportFolder] retain];
-		//	QSLog(@"App Support: %@", QSApplicationSupportPath);
+		[self startMenuExtraConnection];
 	}
 	return self;
 }

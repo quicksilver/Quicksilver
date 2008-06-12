@@ -8,11 +8,28 @@
 
 #import "QSPaths.h"
 
-NSString *QSApplicationSupportPath;
-NSString *QSApplicationSupportSubPath(NSString *subpath,BOOL createFolder){
-	NSString *path=[QSApplicationSupportPath stringByAppendingPathComponent:subpath];
-	NSFileManager *manager=[NSFileManager defaultManager];
-	if (createFolder && ![manager fileExistsAtPath:path isDirectory:nil])
-		[manager createDirectoriesForPath:path];
-	return path;
+NSString *QSApplicationSupportPath( void ) {
+    FSRef foundRef;
+    unsigned char path[1024];
+    
+    FSFindFolder( kUserDomain, kApplicationSupportFolderType, kDontCreateFolder, &foundRef );
+    FSRefMakePath( &foundRef, path, sizeof(path) );
+    
+    NSString * applicationSupportFolder;
+    applicationSupportFolder = [[NSString stringWithUTF8String:(char *)path] stringByStandardizingPath];
+    applicationSupportFolder = [applicationSupportFolder stringByAppendingPathComponent:@"Quicksilver"];  
+    
+    NSLog( @"QSApplicationSupportPath: %@", applicationSupportFolder );
+    return applicationSupportFolder;
+}
+
+NSString *QSApplicationSupportSubPath( NSString *subpath, BOOL createFolder ) {
+    NSString *path = [QSApplicationSupportPath() stringByAppendingPathComponent:subpath];
+    NSFileManager *manager = [NSFileManager defaultManager];
+    
+    if ( createFolder && ![manager fileExistsAtPath:path isDirectory:NULL] )
+ 		[manager createDirectoriesForPath:path];
+    
+    NSLog( @"QSApplicationSupportPath: %@", path );
+ 	return path;
 }
