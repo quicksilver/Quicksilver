@@ -98,14 +98,13 @@ UInt64 QSGetPrimaryMACAddressInt();
 }
 
 - (BOOL)networkIsReachable {
-	return YES;
 	BOOL success = NO;
 	SCNetworkConnectionFlags reachabilityStatus;
-	success = SCNetworkCheckReachabilityByName("www.apple.com", &reachabilityStatus);
-	success = (success && (reachabilityStatus & 3) );
-	if (VERBOSE) QSLog(@"Blacktree reachable: %d", reachabilityStatus);
+	success = SCNetworkCheckReachabilityByName( [kDownloadUpdateURL cString], &reachabilityStatus );
+	success = ( ( reachabilityStatus & kSCNetworkFlagsReachable ) && success );
 	return success;
 }
+
 - (IBAction)checkForUpdate:(id)sender {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
@@ -115,8 +114,8 @@ UInt64 QSGetPrimaryMACAddressInt();
 	
 	BOOL quiet = !sender || sender == self || [sender isKindOfClass:[NSTimer class]];
 	BOOL success = [self networkIsReachable];
-	if (!success) {
-		QSLog(@"Blacktree unreacheable");
+	if ( !success ) {
+		if ( VERBOSE ) QSLog(@"Blacktree unreacheable");
 		
 		[[QSTaskController sharedInstance] removeTask:@"Check for Update"];
 		if (quiet) {
@@ -124,11 +123,10 @@ UInt64 QSGetPrimaryMACAddressInt();
 		} else {
 			int result = NSRunInformationalAlertPanel(@"Connection Error", @"Your internet connection does not appear to be active.", @"Cancel", @"Check Anyway", nil);
 			if (result == NSAlertDefaultReturn) return;
-			
 		} 	
 	}
 	
-
+    if ( VERBOSE ) QSLog(@"Blacktree reacheable");
 	NSString *thisVersionString = (NSString *)CFBundleGetValueForInfoDictionaryKey(CFBundleGetMainBundle(), kCFBundleVersionKey);
 	
 	//QSLog(@"%@", sender); 	
@@ -164,12 +162,8 @@ UInt64 QSGetPrimaryMACAddressInt();
 		
 		NSData *data = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:nil error:nil];
 		testVersionString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-		QSLog(@"Version: %@", testVersionString);
 	}
 	
-	
-	
-	//QSLog(@"Version Check \"%@\" %@", testVersionString, versionURL);
 	[defaults setObject:[NSDate date] forKey:kLastUpdateCheck];  
 	if ([testVersionString length] && [testVersionString length] <10) {
 		if (VERBOSE) QSLog(@"Current Version:%d Installed Version:%d", [testVersionString hexIntValue] , [thisVersionString hexIntValue]);
