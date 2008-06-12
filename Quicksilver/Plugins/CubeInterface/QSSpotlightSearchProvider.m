@@ -93,7 +93,7 @@
     }
     
     
-    [self.resultArray setArray:groupedResults]; //[query results];
+    [self setResultArray:groupedResults]; //[query results];
     NSLog(@"array %@", resultArray);
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"QSSourceArrayUpdated" object:resultArray];

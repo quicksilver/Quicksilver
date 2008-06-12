@@ -15,7 +15,6 @@
 		3373576D0BAC7B56000A47E2 /* QSShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F520AD50A50B20900A6671F /* QSShadowView.m */; };
 		3373576F0BAC7B56000A47E2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD92D38A0106425D02CA0E72 /* Cocoa.framework */; };
 		4DC821080D12ED1B0039BD1B /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC821070D12ED1B0039BD1B /* Carbon.framework */; };
-		7F7F19380C30B4A60074ECC3 /* QSCommandInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F19370C30B4A60074ECC3 /* QSCommandInterfaceController.m */; };
 		7F7F19830C30B9F30074ECC3 /* QSSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F19820C30B9F30074ECC3 /* QSSearchController.m */; };
 		7F7F1A210C30C7810074ECC3 /* QSCatalogSearchProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7F1A200C30C7810074ECC3 /* QSCatalogSearchProvider.m */; };
 		7F99956D0C578EEF004E824B /* QSSearchProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F99956C0C578EEF004E824B /* QSSearchProvider.m */; };
@@ -399,7 +398,6 @@
 				3373576B0BAC7B56000A47E2 /* QSCubeInterface.m in Sources */,
 				3373576C0BAC7B56000A47E2 /* QSCubeInterfaceBackgroundView.m in Sources */,
 				3373576D0BAC7B56000A47E2 /* QSShadowView.m in Sources */,
-				7F7F19380C30B4A60074ECC3 /* QSCommandInterfaceController.m in Sources */,
 				7F7F19830C30B9F30074ECC3 /* QSSearchController.m in Sources */,
 				7F7F1A210C30C7810074ECC3 /* QSCatalogSearchProvider.m in Sources */,
 				7F9A78290C49269000B5912D /* QSSearchField.m in Sources */,
