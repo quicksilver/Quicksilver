@@ -613,7 +613,7 @@ NSDictionary *enabledPresetDictionary;
   QSObjectSource *source = [self source];
   //QSLogDebug(@"scanning %@ on main thread %d", self, [source respondsToSelector:@selector(scanInMainThread)]);
   
-  if ([source respondsToSelector:@selector(scanInMainThread)] && [source scanInMainThread]) {
+  if ([source respondsToSelector:@selector(shouldScanOnMainThread)] && [source shouldScanOnMainThread]) {
     QSLogDebug(@"scanning %@ on main thread", self);
     [self performSelectorOnMainThread:@selector(updateItemContents) withObject:nil waitUntilDone:YES];
   } else {

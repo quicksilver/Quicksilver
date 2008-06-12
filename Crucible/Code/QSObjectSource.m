@@ -55,6 +55,7 @@
     [settingsView release];
     settingsView = [newSettingsView retain];
 }
+- (BOOL)shouldScanOnMainThread { return NO; }
 @end
 
 
