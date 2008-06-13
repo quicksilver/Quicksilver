@@ -126,7 +126,7 @@
 		7F4FD81E0D2FE11C003266B0 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = MainMenu.xib; sourceTree = "<group>"; };
 		7F4FD87C0D2FE309003266B0 /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
 		7F4FD87D0D2FE309003266B0 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
-		7F4FD87E0D2FE309003266B0 /* Developer.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Developer.xcconfig; path = "/Volumes/Lux/Alchemy/Alchemy-svn/trunk/Configuration/Developer.xcconfig"; sourceTree = "<absolute>"; };
+		7F4FD87E0D2FE309003266B0 /* Developer.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Developer.xcconfig; sourceTree = "<group>"; };
 		7F4FD8830D2FE309003266B0 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		7F4FD8940D2FE4F8003266B0 /* Catalyst.graffle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Catalyst.graffle; sourceTree = "<group>"; };
 		7F4FD8960D2FE507003266B0 /* QSTrigger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTrigger.h; sourceTree = "<group>"; };
