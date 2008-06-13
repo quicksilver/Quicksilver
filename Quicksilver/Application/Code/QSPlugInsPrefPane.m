@@ -168,9 +168,6 @@
 		//if ([dict objectForKey:@"category"]) {
 			[self setCategory:[dict objectForKey:@"category"]]; 				
 		//}
-		
-		
-		
 	} else {
 		NSArray *selection = [arrayController selectedObjects];
 		//QSLog(@"change %@", selection);
@@ -422,7 +419,6 @@
 	}
     
     return setDicts;
-	
 }
 
 - (void)reloadFiltersIgnoringViewMode:(BOOL)ignoreView {

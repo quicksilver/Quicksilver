@@ -880,7 +880,6 @@ static id _sharedInstance;
 				}
 			}
 			
-			
 			if ([defaults boolForKey:kShowReleaseNotesOnUpgrade] && (!DEBUG) ) {
 				[NSApp activateIgnoringOtherApps:YES];
 				int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"Quicksilver has been updated", nil] , @"You are using a new version of Quicksilver. Would you like to see the Release Notes?", @"Show Release Notes", @"Ignore", nil);
@@ -894,7 +893,6 @@ static id _sharedInstance;
 			if (lastVersion < [@"2000" hexIntValue]) {
 				[[NSFileManager defaultManager] movePath:QSApplicationSupportSubPath(@"PlugIns", NO) toPath:QSApplicationSupportSubPath(@"PlugIns (B40 Incompatible) ", NO) handler:nil]; 				
 				[[NSFileManager defaultManager] movePath:@"/Library/Application Support/Quicksilver/PlugIns" toPath:@"/Library/Application Support/Quicksilver/PlugIns (B40 Incompatible) " handler:nil]; 				
-				
 			}
 				newVersion = YES;
 			break;
@@ -913,7 +911,6 @@ static id _sharedInstance;
 			BOOL shouldInstall = [containerPath isEqualToString:@"/Volumes/Quicksilver"] || [containerPath isEqualToString:[self internetDownloadLocation]];
 			
 			if (shouldInstall) {
-				
 				//New version in new location.
 				[NSApp activateIgnoringOtherApps:YES];
 				int selection = NSRunAlertPanel(@"Would you like to install Quicksilver?", @"Quicksilver was launched from a download location.\rWould you like to copy Quicksilver to your applications folder?", @"Install in \"Applications\"", @"Quit", @"Choose Location...");
@@ -946,7 +943,6 @@ static id _sharedInstance;
 	}
 	if (![defaults boolForKey:kSetupAssistantCompleted] || lastVersion <= [@"3694" hexIntValue] || ![[NSUserDefaults standardUserDefaults] boolForKey:@"QSAgreementAccepted"]) { //Never Run Before
 		runningSetupAssistant = YES;
-		
 	} 	
 	[NSApp updateLaunchStatusInfo];
 }
@@ -1088,7 +1084,7 @@ static id _sharedInstance;
 }
 
 - (IBAction)getMorePlugIns:(id)sender {
-	[NSClassFromString(@"QSPlugInsPrefPane") getMorePlugIns];
+	[QSPlugInsPrefPane getMorePlugIns];
 	//	NSString *baseURL = @"http://quicksilver.blacktree.com/plugins.php?feature = ";
 	//	int feature = [NSApp featureLevel];
 	//	switch (feature) {
@@ -1376,7 +1372,6 @@ static id _sharedInstance;
 		QSLog(@"Catalog loaded");
 	
 	[QSObject purgeIdentifiers];
-	
 	
 	if (newVersion && (!DEBUG) ) {
 		if (!runningSetupAssistant) {

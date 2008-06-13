@@ -51,11 +51,10 @@
 
 - (QSPlugIn *) plugInBundleWasInstalled:(NSBundle *)bundle {
     QSPlugIn * plugin = [knownPlugIns objectForKey:[bundle bundleIdentifier]];
-    if( plugin != nil ) {
-        QSLog( @"Plugin %@ already known at path %@", [bundle bundlePath], [plugin path] );
-#warning TODO : Compare versions
-        return nil;
+    if( plugin == nil ) {
+        // This is an unknown plugin, meaning it's not listed on the blacktree website.
     }
+    
     plugin = [QSPlugIn plugInWithBundle:bundle];
     [knownPlugIns setObject:plugin forKey:[bundle bundleIdentifier]];
     [localPlugIns setObject:plugin forKey:[plugin identifier]];
@@ -194,20 +193,20 @@
 }
 
 - (void) loadPlugInInfo:(NSArray *)array {
-	id value;
+	id pluginDict;
 	NSString *key;
 	QSPlugIn *plugin;
-	for(value in array) {
-		key = [value objectForKey:@"CFBundleIdentifier"];
+	for(pluginDict in array) {
+		key = [pluginDict objectForKey:@"CFBundleIdentifier"];
 		if ( !key )
             continue;
-		[plugInWebData setObject:value forKey:key];
+		[plugInWebData setObject:pluginDict forKey:key];
 		if ( ( plugin = [knownPlugIns objectForKey:key] ) ) {
-			[plugin setData:value];
+			[plugin setData:pluginDict];
 			//[availablePlugIns addObject:plugin];
 			//if (VERBOSE)QSLog(@"Bind Old %@ to %@",key,[plugin bundle]);
 		} else {
-			plugin = [QSPlugIn plugInWithWebInfo:value];
+			plugin = [QSPlugIn plugInWithWebInfo:pluginDict];
 			[knownPlugIns setObject:plugin forKey:key];
 			//if (VERBOSE)QSLog(@"Created New %@",key);
 			//		QSLog(@"known %@",knownPlugIns);
@@ -339,8 +338,9 @@
 
 - (BOOL) liveLoadPlugIn:(QSPlugIn *)plugin {
 	if ( [plugin isKindOfClass:[NSBundle class]] ) {
-		QSLog( @"asked to load bundle instead of plugin" );
-		plugin = [QSPlugIn plugInWithBundle:(NSBundle *)plugin];
+        [NSException raise:NSInternalInconsistencyException
+                    format:@"Asked to load an NSBundle while expecting a QSPlugin"];
+        return NO;
 	}
     
 	if ( ![plugin enabled] ) {
@@ -737,7 +737,6 @@
 - (BOOL) plugInWasInstalled:(NSString *)plugInPath {	
 	NSBundle *bundle = [NSBundle bundleWithPath:plugInPath];
 	
-	NSString *name = [bundle objectForInfoDictionaryKey:@"CFBundleName"];
 	QSPlugInManager *manager = [QSPlugInManager sharedInstance];
 	
 	QSPlugIn *plugin = [manager plugInBundleWasInstalled:bundle];
@@ -746,7 +745,6 @@
 	
 	if ( ![downloadsQueue count] )
 		[manager checkForUnmetDependencies];
-	//[self updateDownloadCount];
 	
 	if ( !liveLoaded && ( updatingPlugIns || !warnedOfRelaunch ) && ![downloadsQueue count] && !supressRelaunchMessage ) {
 		int selection = NSRunInformationalAlertPanel( @"Install complete", @"Some plug-ins will not be available until Quicksilver is relaunched.", @"Relaunch", @"Later", nil );
@@ -758,7 +756,7 @@
 		warnedOfRelaunch = YES;
 		return YES;
 	}
-	NSString *title = [NSString stringWithFormat:@"%@ Installed", ( name ? name : @"Plug-in" ) ];
+	NSString *title = [NSString stringWithFormat:@"%@ Installed", [plugin name]];
 	
 	NSImage *image = [NSImage imageNamed:@"QSPlugIn"];
 	[image setSize:NSMakeSize( 128, 128 )];

@@ -41,8 +41,9 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 - (id) initWithBundle:(NSBundle *)aBundle {
 	id dup = [plugInBundlePaths valueForKey:[aBundle bundlePath]];
-	
+    
 	if (dup) {
+        if(DEBUG) QSLog( @"Duplicate plugin, ignoring" );
 		[self release];
 		return [dup retain];
 	}
@@ -87,7 +88,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 - (void) install {
 	installing = YES;
-	NSString *identifier = [data objectForKey:@"CFBundleIdentifier"];
+	NSString *identifier = [[self info] objectForKey:@"CFBundleIdentifier"];
 	[[QSPlugInManager sharedInstance] installPlugInsForIdentifiers:[NSArray arrayWithObject:identifier]];
 	[self willChangeValueForKey:@"enabled"];
 	[self didChangeValueForKey:@"enabled"];
@@ -106,9 +107,8 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	NSString *name = nil;
 	if (bundle) name = [bundle objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
 	if (!name) name = [data objectForKey:(NSString *)kCFBundleNameKey];
-	
+    
 	int feature = [[[self info] valueForKeyPath:@"QSRequirements.feature"] intValue];
-	if (DEBUG && [name hasSuffix:@" Module"]) name = [name substringToIndex:[name length] - 7];
 	if (feature == 1) {
 		name = [name stringByAppendingFormat:@" (+)" , 0x25B8];
 	} else if (feature == 2) {
@@ -444,9 +444,9 @@ NSMutableDictionary *plugInBundlePaths = nil;
     return [bundle bundlePath];
 }
 
-- (BOOL) enabled {
+- (int) enabled {
 	if (!bundle)
-        return (installing ? NO : YES);
+        return (installing ? NSMixedState : NSOffState);
 	return ![disabledPlugIns containsObject:[bundle bundleIdentifier]];
 }
     
@@ -470,7 +470,9 @@ NSMutableDictionary *plugInBundlePaths = nil;
 		if (flag) {
 			[[QSPlugInManager sharedInstance] liveLoadPlugIn:self];
 			[[QSPlugInManager sharedInstance] checkForUnmetDependencies];
-		}
+		} else {
+#warning TODO: Unloading !
+        }
 	}
 }
 

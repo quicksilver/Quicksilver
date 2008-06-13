@@ -47,7 +47,7 @@
 
 - (NSData *)attributedDescription;
 - (NSImage *)icon;
-- (BOOL)enabled;
+- (int)enabled;
 - (BOOL)canBeDisabled;
 - (BOOL)needsUpdate;
 - (NSString *)identifier;

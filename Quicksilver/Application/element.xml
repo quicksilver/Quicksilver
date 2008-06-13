@@ -264,6 +264,27 @@
                     </dict>
                 </plist>
             </preference-pane>
+            <preference-pane name="Plugins" id="QSPlugInsPrefPane" class="QSPlugInsPrefPane">
+                <plist version="1.0">
+                    <dict>
+                        <key>class</key>
+                        <string>QSPlugInsPrefPane</string>
+                        <key>color</key>
+                        <data>
+                            BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2Jq
+                            ZWN0AIWEAWMBhARmZmZmgz9XjNiDPzZRtoM/bRvtAYY=
+                            </data>
+                        <key>description</key>
+                        <string>Find and install plug-ins</string>
+                        <key>icon</key>
+                        <string>Pref-PlugIns</string>
+                        <key>name</key>
+                        <string>Plug-ins</string>
+                        <key>type</key>
+                        <string>Toolbar</string>
+                        </dict>
+                    </plist>
+                </preference-pane>
         </extension>
         <extension point="QSObjectHandlers">
             <object-handler id="qs.proxy" class="QSProxyObjectSource"/>
