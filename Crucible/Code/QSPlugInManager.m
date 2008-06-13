@@ -710,11 +710,11 @@
 
 	//-(float)downloadProgress{
 	//	if (!downloadsCount) return 1.0;
-	//	return 	(float)(downloadsCount-[[self downloadsQueue]count])/(float)downloadsCount;
+	//	return 	(float)(downloadsCount-[downloadsQueue count])/(float)downloadsCount;
 	//}
 
 - (void) updateDownloadCount {
-	if ( ![[self downloadsQueue] count] ) {
+	if ( ![downloadsQueue count] ) {
 		//if (downloadsCount){
 		[[NSNotificationCenter defaultCenter] postNotificationName:QSPlugInUpdatesFinishedNotification object:self];
 		//}
@@ -724,8 +724,8 @@
 		
 		[self setIsInstalling:NO];
 	} else {
-		NSString *status = [NSString stringWithFormat:@"Installing %d Plug-in(s)", [[self downloadsQueue] count]];
-		//NSString *status=[NSString stringWithFormat:@"Installing %@ (%d of %d)",[[self currentDownload]name],[[self downloadsQueue]count],downloadsCount];
+		NSString *status = [NSString stringWithFormat:@"Installing %d Plug-in(s)", [downloadsQueue count]];
+		//NSString *status=[NSString stringWithFormat:@"Installing %@ (%d of %d)",[[self currentDownload]name], [downloadsQueue count], downloadsCount];
 		[self setInstallStatus:status];
 		//[self setInstallProgress:[self downloadProgress]];
 		[[QSTaskController sharedInstance] updateTask:@"QSPlugInInstalling" status:status progress:-1];
@@ -744,11 +744,11 @@
 	
 	BOOL liveLoaded = [manager liveLoadPlugIn:plugin];
 	
-	if ( ![[self downloadsQueue] count] )
+	if ( ![downloadsQueue count] )
 		[manager checkForUnmetDependencies];
 	//[self updateDownloadCount];
 	
-	if ( !liveLoaded && ( updatingPlugIns || !warnedOfRelaunch ) && ![[self downloadsQueue] count] && !supressRelaunchMessage ) {
+	if ( !liveLoaded && ( updatingPlugIns || !warnedOfRelaunch ) && ![downloadsQueue count] && !supressRelaunchMessage ) {
 		int selection = NSRunInformationalAlertPanel( @"Install complete", @"Some plug-ins will not be available until Quicksilver is relaunched.", @"Relaunch", @"Later", nil );
 		
 		if ( selection == 1 ) {
@@ -831,7 +831,7 @@
 		[self performSelectorOnMainThread:@selector(installPlugInWithInfo:) withObject:dict waitUntilDone:YES];
 	}
 	
-	NSString *status = [NSString stringWithFormat:@"Installing %d Plug-in(s)", [[self downloadsQueue] count]];
+	NSString *status = [NSString stringWithFormat:@"Installing %d Plug-in(s)", [downloadsQueue count]];
 	[[QSTaskController sharedInstance] updateTask:@"QSPlugInInstalling" status:status progress:-1];
 	[self setInstallStatus:status];
 	[self setIsInstalling:YES];
@@ -864,8 +864,8 @@
 }
 
 - (void) startDownloadQueue {
-	if ( ![self currentDownload] && [[self downloadsQueue] count] ) {
-		QSURLDownload *download = [[self downloadsQueue] objectAtIndex:0];
+	if ( ![self currentDownload] && [downloadsQueue count] ) {
+		QSURLDownload *download = [downloadsQueue objectAtIndex:0];
 		
 		[self startDownloadToTemp:download];
 		[self setCurrentDownload:download];
@@ -914,12 +914,12 @@
 }
 
 - (NSString *) currentStatus{
-	return [NSString stringWithFormat:@"%d remaining", [[self downloadsQueue] count]];
+	return [NSString stringWithFormat:@"%d remaining", [downloadsQueue count]];
 }
 
 - (void) updateDownloadProgressInfo {
-	//QSLog(@"count %d %d %f",[[self downloadsQueue]count],downloadsCount,[[[self downloadsQueue]objectAtIndex:0]progress]);
-	float progress = downloadsCount - [[self downloadsQueue] count] + [(QSURLDownload *)[self currentDownload] progress];
+	//QSLog(@"count %d %d %f",[downloadsQueue count],downloadsCount,[[downloadsQueue objectAtIndex:0] progress]);
+	float progress = downloadsCount - [downloadsQueue count] + [(QSURLDownload *)[self currentDownload] progress];
 	progress /= downloadsCount;
 	[self setInstallProgress:progress];	
 }
@@ -934,8 +934,8 @@
 
 - (NSArray *)downloadsQueue { 	
 	if ( !downloadsQueue )
-		downloadsQueue = [[NSArray alloc] init];
-	return downloadsQueue;
+		downloadsQueue = [[NSMutableArray alloc] init];
+	return [[downloadsQueue copy] autorelease];
 }
 
 - (void) download:(QSURLDownload *)download didFailWithError:(NSError *)error {
