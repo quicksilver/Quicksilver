@@ -10,7 +10,6 @@
     id object;
     NSString *rankedString;
 }
-//+ (NSMutableArray *)rankedArrayWithObjects:(id *)objects scores:(float *)scores count:(int)count;
 + (id)rankedObjectWithObject:(id)newObject matchString:(NSString *)matchString order:(int)order score:(float)newScore;
 
 - (id)initWithObject:(id)newObject matchString:(NSString *)matchString order:(int)newOrder score:(float)newScore;

@@ -2,23 +2,43 @@
 
 #import "QSRankedObject.h" 
 
-@implementation QSRankedObject 
-/*
- + (NSMutableArray *)rankedArrayWithObjects:(id *)objects scores:(float *)scores strings:(id *)strings count:(int)count {
- NSMutableArray *rankedArray = [NSMutableArray arrayWithCapacity:count];
- int i;
- for (i = 0; i<count; i++) {
- NSString *matched = strings[i];
- QSLog(@"rai %@ %@", objects[i] , [matched retain]);
- [rankedArray addObject: [[QSRankedObject alloc] initWithObject:objects[i] score:scores[i] string:nil]];
- }
- [rankedArray makeObjectsPerformSelector:@selector(release)];
- return rankedArray;
- }
- 
- */
+@implementation QSRankedObject
+
 + (id)rankedObjectWithObject:(id)newObject matchString:(NSString *)matchString order:(int)newOrder score:(float)newScore {
-    return [[[QSRankedObject alloc] initWithObject:(id)newObject matchString:matchString order:(int)newOrder score:(float)newScore] autorelease];
+    return [[[QSRankedObject alloc] initWithObject:newObject matchString:matchString order:newOrder score:newScore] autorelease];
+}
+
+
+- (id)initWithObject:(id)newObject matchString:(NSString *)matchString order:(int)newOrder score:(float)newScore {
+    self = [super init];
+    if ( self ) {
+        object = [newObject retain];
+		order = newOrder;
+        score = newScore;
+        rankedString = [matchString retain];  
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)coder {
+    return [self initWithObject:[coder decodeObjectForKey:@"object"]
+                    matchString:[coder decodeObjectForKey:@"string"]
+                          order:[coder decodeIntForKey:@"order"]
+                          score:[coder decodeFloatForKey:@"score"]];
+    
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeObject:object forKey:@"object"];
+    [coder encodeObject:rankedString forKey:@"string"];
+    [coder encodeInt:order forKey:@"order"];
+    [coder encodeFloat:score forKey:@"score"];
+}
+
+- (void)dealloc {
+    [object release];
+	[rankedString release];
+    [super dealloc];
 }
 
 - (NSComparisonResult) scoreCompare:(QSRankedObject *)compareObject {
@@ -50,8 +70,7 @@
     return NO;
 }
 
-- (void)forwardInvocation:(NSInvocation *)invocation
-{
+- (void)forwardInvocation:(NSInvocation *)invocation {
 	//  QSLog(@"forward %@", invocation);
     if ([object respondsToSelector:[invocation selector]])
         [invocation invokeWithTarget:object];
@@ -65,39 +84,6 @@
     return [object methodSignatureForSelector:sel];
 }
 
-- (id)initWithObject:(id)newObject matchString:(NSString *)matchString order:(int)newOrder score:(float)newScore {
-    if ((self = [super init]) ) {
-        object = [newObject retain];
-		order = newOrder;
-        score = newScore;
-        rankedString = [matchString retain];  
-		
-    }
-    return self;
-}
-
-- (id)initWithCoder:(NSCoder *)coder {
-    self = [self initWithObject:[coder decodeObjectForKey:@"object"]
-                    matchString:[coder decodeObjectForKey:@"string"]
-                          order:[coder decodeIntForKey:@"order"]
-                          score:[coder decodeFloatForKey:@"score"]];
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)coder {
-    [coder encodeObject:object forKey:@"object"];
-    [coder encodeObject:rankedString forKey:@"string"];
-    [coder encodeInt:order forKey:@"order"];
-    [coder encodeFloat:score forKey:@"score"];
-}
-
-
-
-- (void)dealloc {
-    [object release];
-	[rankedString release];
-    [super dealloc];
-}
 - (NSString *)displayName {
 	// if (rankedString) QSLog(@"rao %@", rankedString);
     if (rankedString) return rankedString;
@@ -122,11 +108,9 @@
 }
 
 - (int) order { return order;  }
-- (void)setOrder:(int)newOrder
-{
+- (void)setOrder:(int)newOrder {
     order = newOrder;
 }
-
 
 - (NSString *)rankedString { return rankedString;  }
 
@@ -149,26 +133,24 @@
     NSMenuItem *item;
 	
 	int myOrder = [self order];
-	NSString *title = [NSString stringWithFormat:@"Score: %.0f", [self score] *100];
+	NSString *title = [NSString stringWithFormat:@"Score: %.0f", [self score] * 100];
 	if (myOrder != NSNotFound)
 		title = [NSString stringWithFormat:@"Rank: %d, %@", myOrder+1, title];
 	
-	item = (NSMenuItem *)[menu addItemWithTitle:title action:NULL keyEquivalent:@""];
+	item = [menu addItemWithTitle:title action:NULL keyEquivalent:@""];
 	[item setTarget:nil];
 	[menu addItem:[NSMenuItem separatorItem]];
 	
 	if (myOrder != 0) {
-		item = (NSMenuItem *)[menu addItemWithTitle:@"Make Default" action:@selector(defineMnemonicImmediately:) keyEquivalent:@""];
+		item = [menu addItemWithTitle:@"Make Default" action:@selector(defineMnemonicImmediately:) keyEquivalent:@""];
 		[item setTarget:target];
 	} else {
-		item = (NSMenuItem *)[menu addItemWithTitle:@"Remove Default" action:@selector(removeMnemonic:) keyEquivalent:@""];
+		item = [menu addItemWithTitle:@"Remove Default" action:@selector(removeMnemonic:) keyEquivalent:@""];
 		[item setTarget:target];
 	}
-	//[self mnemo
-	item = (NSMenuItem *)[menu addItemWithTitle:@"Decrease Score" action:@selector(clearMnemonics:) keyEquivalent:@""];
+
+	item = [menu addItemWithTitle:@"Decrease Score" action:@selector(clearMnemonics:) keyEquivalent:@""];
 	[item setTarget:target];
-	
-	
 	
 	return menu;
 }
