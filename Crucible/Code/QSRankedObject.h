@@ -2,7 +2,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 @interface QSRankedObject : NSObject {
     @public
 	
