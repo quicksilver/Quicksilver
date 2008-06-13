@@ -1,0 +1,135 @@
+// !$*UTF8*$!
+{
+	089C1669FE841209C02AAC07 /* Project object */ = {
+		activeArchitecture = i386;
+		activeBuildConfigurationName = Debug;
+		activeExecutable = 4D68BC120E01EA6300640EF1 /* System Preferences */;
+		activeTarget = 4DDE6DC50E01E73E00EEC65F /* Install */;
+		codeSenseManager = 4D68BC110E01EA4400640EF1 /* Code sense */;
+		executables = (
+			4D68BBFA0E01EA1900640EF1 /* Catalyst Agent */,
+			4D68BC120E01EA6300640EF1 /* System Preferences */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXExecutablesDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXExecutablesDataSource_NameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					22,
+					300,
+					131,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXExecutablesDataSource_ActiveFlagID,
+					PBXExecutablesDataSource_NameID,
+					PBXExecutablesDataSource_CommentsID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					243,
+					20,
+					48.16259765625,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 235006490;
+			PBXWorkspaceStateSaveDate = 235006490;
+		};
+		sourceControlManager = 4D68BC100E01EA4400640EF1 /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	4D68BBFA0E01EA1900640EF1 /* Catalyst Agent */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 1;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = "Catalyst Agent";
+		sourceDirectories = (
+		);
+	};
+	4D68BC100E01EA4400640EF1 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+		};
+	};
+	4D68BC110E01EA4400640EF1 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	4D68BC120E01EA6300640EF1 /* System Preferences */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 1;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		launchableReference = 4D68BC130E01EA6300640EF1 /* System Preferences.app */;
+		libgmallocEnabled = 0;
+		name = "System Preferences";
+		sourceDirectories = (
+		);
+	};
+	4D68BC130E01EA6300640EF1 /* System Preferences.app */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = wrapper.application;
+		name = "System Preferences.app";
+		path = "/Applications/System Preferences.app";
+		sourceTree = "<absolute>";
+	};
+	4DDE6DC50E01E73E00EEC65F /* Install */ = {
+		activeExec = 0;
+	};
+	7F4FD78B0D2FDC3E003266B0 /* Catalyst Agent */ = {
+		activeExec = 0;
+		executables = (
+			4D68BBFA0E01EA1900640EF1 /* Catalyst Agent */,
+		);
+	};
+	8D202CE80486D31800D8A456 /* CatalystPref */ = {
+		activeExec = 0;
+	};
+}
