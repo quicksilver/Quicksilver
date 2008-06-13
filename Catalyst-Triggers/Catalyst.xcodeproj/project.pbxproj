@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4DDE6D8B0E01E10E00EEC65F /* Catalyst.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 4DDE6D810E01E10E00EEC65F /* Catalyst.xcdatamodel */; };
-		4DDE6D8C0E01E10E00EEC65F /* CatalystPref.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDE6D820E01E10E00EEC65F /* CatalystPref.h */; };
-		4DDE6D8D0E01E10E00EEC65F /* CatalystPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDE6D830E01E10E00EEC65F /* CatalystPref.m */; };
 		4DDE6D8E0E01E10E00EEC65F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DDE6D850E01E10E00EEC65F /* InfoPlist.strings */; };
 		4DDE6D8F0E01E10E00EEC65F /* QSCatalystPref.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DDE6D870E01E10E00EEC65F /* QSCatalystPref.xib */; };
 		4DDE6D900E01E10E00EEC65F /* QSTriggersPrefPane.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDE6D890E01E10E00EEC65F /* QSTriggersPrefPane.h */; };
@@ -119,8 +117,6 @@
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		32DBCFA20370C41700C91783 /* Catalyst_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Catalyst_Prefix.pch; sourceTree = "<group>"; };
 		4DDE6D810E01E10E00EEC65F /* Catalyst.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = Catalyst.xcdatamodel; sourceTree = "<group>"; };
-		4DDE6D820E01E10E00EEC65F /* CatalystPref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CatalystPref.h; sourceTree = "<group>"; };
-		4DDE6D830E01E10E00EEC65F /* CatalystPref.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CatalystPref.m; sourceTree = "<group>"; };
 		4DDE6D860E01E10E00EEC65F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = InfoPlist.strings; sourceTree = "<group>"; };
 		4DDE6D880E01E10E00EEC65F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = QSCatalystPref.xib; sourceTree = "<group>"; };
 		4DDE6D890E01E10E00EEC65F /* QSTriggersPrefPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTriggersPrefPane.h; sourceTree = "<group>"; };
@@ -208,8 +204,6 @@
 			isa = PBXGroup;
 			children = (
 				4DDE6D810E01E10E00EEC65F /* Catalyst.xcdatamodel */,
-				4DDE6D820E01E10E00EEC65F /* CatalystPref.h */,
-				4DDE6D830E01E10E00EEC65F /* CatalystPref.m */,
 				4DDE6D840E01E10E00EEC65F /* English.lproj */,
 				4DDE6D890E01E10E00EEC65F /* QSTriggersPrefPane.h */,
 				4DDE6D8A0E01E10E00EEC65F /* QSTriggersPrefPane.m */,
@@ -341,7 +335,6 @@
 				7F4FD89C0D2FE507003266B0 /* QSTrigger.h in Headers */,
 				7F4FD89E0D2FE507003266B0 /* QSTriggerCenter.h in Headers */,
 				7F4FD8A00D2FE507003266B0 /* QSTriggerManager.h in Headers */,
-				4DDE6D8C0E01E10E00EEC65F /* CatalystPref.h in Headers */,
 				4DDE6D900E01E10E00EEC65F /* QSTriggersPrefPane.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -501,7 +494,6 @@
 				7F4FD89F0D2FE507003266B0 /* QSTriggerCenter.m in Sources */,
 				7F4FD8A10D2FE507003266B0 /* QSTriggerManager.m in Sources */,
 				4DDE6D8B0E01E10E00EEC65F /* Catalyst.xcdatamodel in Sources */,
-				4DDE6D8D0E01E10E00EEC65F /* CatalystPref.m in Sources */,
 				4DDE6D910E01E10E00EEC65F /* QSTriggersPrefPane.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
