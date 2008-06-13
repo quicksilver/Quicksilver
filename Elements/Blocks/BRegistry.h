@@ -99,7 +99,7 @@
 /**
  *  @brief Returns all loaded elements for a specific extension point ID keyed by element ID
  */
-- (NSArray *)loadedElementsByIDForPointID:(NSString *)extensionPointID;
+- (NSDictionary *)loadedElementsByIDForPointID:(NSString *)extensionPointID;
 
 /**
  *  @brief Returns all loaded instances for a specific extension point ID
