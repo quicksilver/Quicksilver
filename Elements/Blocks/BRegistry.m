@@ -357,7 +357,7 @@ static id sharedInstance = nil;
 	return [[self extensionPointWithID:extensionPointID] loadedElements];
 }
 
-- (NSArray *)loadedElementsByIDForPointID:(NSString *)extensionPointID{
+- (NSDictionary *)loadedElementsByIDForPointID:(NSString *)extensionPointID{
     NSArray *elements = [self loadedElementsForPointID:extensionPointID];
     
 	return [NSDictionary dictionaryWithObjects:elements forKeys:[elements valueForKey:@"id"]];
