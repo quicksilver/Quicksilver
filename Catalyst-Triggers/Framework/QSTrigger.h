@@ -29,10 +29,10 @@
 - (void) reactivate;
 - (void) setObject:(id)object forKey:(NSString *)key;
 - (void) setType:(NSString *)type;
-- (NSArray *) path;
+- (NSArray *) paths;
 - (NSString *) type;
 - (NSString *) parentID;
-- (NSArray *) parent;
+- (NSArray *) parents;
 - (BOOL) activated;
 - (void) setActivated: (BOOL) flag;
 - (void) reactivate;

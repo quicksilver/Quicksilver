@@ -6,17 +6,32 @@
 	objectVersion = 44;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		4DDE6DC50E01E73E00EEC65F /* Install */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 4DDE6DC90E01E76700EEC65F /* Build configuration list for PBXAggregateTarget "Install" */;
+			buildPhases = (
+				4DDE6DC40E01E73E00EEC65F /* ShellScript */,
+			);
+			dependencies = (
+				4DDE6DCC0E01E7C400EEC65F /* PBXTargetDependency */,
+			);
+			name = Install;
+			productName = Install;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		4DDE6D8B0E01E10E00EEC65F /* Catalyst.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 4DDE6D810E01E10E00EEC65F /* Catalyst.xcdatamodel */; };
 		4DDE6D8E0E01E10E00EEC65F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DDE6D850E01E10E00EEC65F /* InfoPlist.strings */; };
 		4DDE6D8F0E01E10E00EEC65F /* QSCatalystPref.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DDE6D870E01E10E00EEC65F /* QSCatalystPref.xib */; };
 		4DDE6D900E01E10E00EEC65F /* QSTriggersPrefPane.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDE6D890E01E10E00EEC65F /* QSTriggersPrefPane.h */; };
 		4DDE6D910E01E10E00EEC65F /* QSTriggersPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDE6D8A0E01E10E00EEC65F /* QSTriggersPrefPane.m */; };
+		4DDE6D9C0E01E31200EEC65F /* QSTriggerCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4FD8990D2FE507003266B0 /* QSTriggerCenter.m */; };
+		4DDE6DA70E01E40900EEC65F /* QSTrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4FD8970D2FE507003266B0 /* QSTrigger.m */; };
 		7F4FD7140D2FD8DD003266B0 /* Catalyst.prefPane in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8D202CF80486D31800D8A456 /* Catalyst.prefPane */; };
 		7F4FD7430D2FDA60003266B0 /* QSCatalystPref.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F4FD7410D2FDA60003266B0 /* QSCatalystPref.xib */; };
 		7F4FD7530D2FDB30003266B0 /* Catalyst.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7F4FD7520D2FDB30003266B0 /* Catalyst.icns */; };
-		7F4FD7670D2FDBA6003266B0 /* QSCatalystPref.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F4FD7650D2FDBA6003266B0 /* QSCatalystPref.h */; };
-		7F4FD7680D2FDBA6003266B0 /* QSCatalystPref.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4FD7660D2FDBA6003266B0 /* QSCatalystPref.m */; };
 		7F4FD7A80D2FDD47003266B0 /* Catalyst Agent.app in Resources */ = {isa = PBXBuildFile; fileRef = 7F4FD78C0D2FDC3E003266B0 /* Catalyst Agent.app */; };
 		7F4FD7C60D2FDE04003266B0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F4FD7C00D2FDE04003266B0 /* InfoPlist.strings */; };
 		7F4FD7C80D2FDE04003266B0 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F4FD7C40D2FDE04003266B0 /* Info.plist */; };
@@ -41,6 +56,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4DDE6DCB0E01E7C400EEC65F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D202CE80486D31800D8A456;
+			remoteInfo = CatalystPref;
+		};
 		7F4FD7A40D2FDD25003266B0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
@@ -121,6 +143,7 @@
 		4DDE6D880E01E10E00EEC65F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = QSCatalystPref.xib; sourceTree = "<group>"; };
 		4DDE6D890E01E10E00EEC65F /* QSTriggersPrefPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTriggersPrefPane.h; sourceTree = "<group>"; };
 		4DDE6D8A0E01E10E00EEC65F /* QSTriggersPrefPane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSTriggersPrefPane.m; sourceTree = "<group>"; };
+		4DDE6D9E0E01E35700EEC65F /* QSElement.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSElement.xcconfig; sourceTree = "<group>"; };
 		7F4FD7420D2FDA60003266B0 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/QSCatalystPref.xib; sourceTree = "<group>"; };
 		7F4FD7520D2FDB30003266B0 /* Catalyst.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Catalyst.icns; sourceTree = "<group>"; };
 		7F4FD7650D2FDBA6003266B0 /* QSCatalystPref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCatalystPref.h; sourceTree = "<group>"; };
@@ -301,6 +324,7 @@
 		7F4FD87B0D2FE309003266B0 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				4DDE6D9E0E01E35700EEC65F /* QSElement.xcconfig */,
 				7F4FD87C0D2FE309003266B0 /* Common.xcconfig */,
 				7F4FD87D0D2FE309003266B0 /* Debug.xcconfig */,
 				7F4FD87E0D2FE309003266B0 /* Developer.xcconfig */,
@@ -331,7 +355,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D202CEA0486D31800D8A456 /* Catalyst_Prefix.pch in Headers */,
-				7F4FD7670D2FDBA6003266B0 /* QSCatalystPref.h in Headers */,
 				7F4FD89C0D2FE507003266B0 /* QSTrigger.h in Headers */,
 				7F4FD89E0D2FE507003266B0 /* QSTriggerCenter.h in Headers */,
 				7F4FD8A00D2FE507003266B0 /* QSTriggerManager.h in Headers */,
@@ -409,6 +432,7 @@
 			);
 			projectRoot = "";
 			targets = (
+				4DDE6DC50E01E73E00EEC65F /* Install */,
 				8D202CE80486D31800D8A456 /* CatalystPref */,
 				7F4FD78B0D2FDC3E003266B0 /* Catalyst Agent */,
 			);
@@ -475,6 +499,22 @@
 		};
 /* End PBXRezBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4DDE6DC40E01E73E00EEC65F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here\nopen ${BUILT_PRODUCTS_DIR}/Catalyst.prefPane";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		7F4FD7890D2FDC3E003266B0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -482,6 +522,8 @@
 			files = (
 				7F4FD7C90D2FDE04003266B0 /* main.m in Sources */,
 				7F4FD8170D2FE0E1003266B0 /* QSCatalystAgent.m in Sources */,
+				4DDE6D9C0E01E31200EEC65F /* QSTriggerCenter.m in Sources */,
+				4DDE6DA70E01E40900EEC65F /* QSTrigger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,7 +531,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F4FD7680D2FDBA6003266B0 /* QSCatalystPref.m in Sources */,
 				7F4FD89D0D2FE507003266B0 /* QSTrigger.m in Sources */,
 				7F4FD89F0D2FE507003266B0 /* QSTriggerCenter.m in Sources */,
 				7F4FD8A10D2FE507003266B0 /* QSTriggerManager.m in Sources */,
@@ -501,6 +542,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4DDE6DCC0E01E7C400EEC65F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D202CE80486D31800D8A456 /* CatalystPref */;
+			targetProxy = 4DDE6DCB0E01E7C400EEC65F /* PBXContainerItemProxy */;
+		};
 		7F4FD7A50D2FDD25003266B0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7F4FD78B0D2FDC3E003266B0 /* Catalyst Agent */;
@@ -575,26 +621,18 @@
 		1DBD214908BA80EA00186707 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Catalyst_Prefix.pch;
 				INFOPLIST_FILE = PrefPane/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/PreferencePanes";
 				PRODUCT_NAME = Catalyst;
 				WRAPPER_EXTENSION = prefPane;
-				ZERO_LINK = YES;
 			};
 			name = Debug;
 		};
 		1DBD214A08BA80EA00186707 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Catalyst_Prefix.pch;
 				INFOPLIST_FILE = PrefPane/Info.plist;
@@ -618,51 +656,41 @@
 			};
 			name = Release;
 		};
-		7F4FD7910D2FDC3F003266B0 /* Debug */ = {
+		4DDE6DC60E01E73E00EEC65F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				PRODUCT_NAME = Install;
+			};
+			name = Debug;
+		};
+		4DDE6DC70E01E73E00EEC65F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = Install;
+			};
+			name = Release;
+		};
+		7F4FD7910D2FDC3F003266B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DDE6D9E0E01E35700EEC65F /* QSElement.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "";
 				INFOPLIST_FILE = Agent/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-undefined",
-					dynamic_lookup,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "Catalyst Agent";
 				WRAPPER_EXTENSION = app;
-				ZERO_LINK = YES;
 			};
 			name = Debug;
 		};
 		7F4FD7920D2FDC3F003266B0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DDE6D9E0E01E35700EEC65F /* QSElement.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				BUNDLE_LOADER = "";
 				INFOPLIST_FILE = Agent/Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					AppKit,
-				);
-				PREBINDING = NO;
 				PRODUCT_NAME = "Catalyst Agent";
 				WRAPPER_EXTENSION = app;
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
@@ -683,6 +711,15 @@
 			buildConfigurations = (
 				1DBD214D08BA80EA00186707 /* Debug */,
 				1DBD214E08BA80EA00186707 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4DDE6DC90E01E76700EEC65F /* Build configuration list for PBXAggregateTarget "Install" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4DDE6DC60E01E73E00EEC65F /* Debug */,
+				4DDE6DC70E01E73E00EEC65F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

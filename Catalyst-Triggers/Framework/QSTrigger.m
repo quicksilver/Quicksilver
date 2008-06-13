@@ -277,14 +277,15 @@
 		[info setObject:ident forKey:@"parent"];
 }
 
-- (NSArray *) path {
-	if ([self parent])
-		return [[[self parent] path] stringByAppendingPathComponent:[self identifier]];
-	else
-		return [NSArray arrayWithObject:[self identifier]];
+- (NSArray *) paths {
+#warning DEBUG: Should remove assert if no problems arise.
+    NSArray * array = [[[self parents] arrayByPerformingSelector:@selector(paths)]
+                       arrayByPerformingSelector:@selector(stringByAppendingPathComponent:) withObject:[self identifier]];
+    assert( array != nil );
+    return array;
 }
 
-- (NSArray *) parent {
+- (NSArray *) parents {
 	return 	[[QSTriggerCenter sharedInstance] triggersWithParentID:[self parentID]];
 }
 
