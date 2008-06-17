@@ -24,7 +24,8 @@
 	string = [string stringByReplacing:@"\n" with:@"\r"];
 	NSArray *lines = [string componentsSeparatedByString:@"\r"];
 	NSString *line;
-	for (int i = 0; i<[lines count]; i++) {
+    int i;
+	for (i = 0; i<[lines count]; i++) {
 		line = [lines objectAtIndex:i];
 		if (lineType)
 			newObject = [QSObject objectWithType:lineType value:line name:line];

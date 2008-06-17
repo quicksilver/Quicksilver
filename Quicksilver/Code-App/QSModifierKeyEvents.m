@@ -43,7 +43,8 @@ void KeyMapInvert(char *keymap) {
 		keymap[i] = ~keymap[i];
 }
 void KeyMapInit(char *keymap) {
-	for (int i = 0; i<16; i++) keymap[i] = 0;
+    int i;
+	for (i = 0; i<16; i++) keymap[i] = 0;
 }
 
 BOOL KeyMapAND(char *keymap, char *keymap2) {
