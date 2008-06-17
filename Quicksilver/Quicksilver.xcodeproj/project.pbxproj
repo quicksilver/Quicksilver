@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		7F039992080EE210001A9FA3 /* Quicksliver Distribution */ = {
+		7F039992080EE210001A9FA3 /* Quicksilver Distribution */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 7F6B3E6D085CE68E000735A8 /* Build configuration list for PBXAggregateTarget "Quicksliver Distribution" */;
+			buildConfigurationList = 7F6B3E6D085CE68E000735A8 /* Build configuration list for PBXAggregateTarget "Quicksilver Distribution" */;
 			buildPhases = (
 				7F2F820908A97A440022178B /* Install */,
 			);
@@ -17,7 +17,7 @@
 				7F0399FB080EE5D7001A9FA3 /* PBXTargetDependency */,
 				7F039994080EE21A001A9FA3 /* PBXTargetDependency */,
 			);
-			name = "Quicksliver Distribution";
+			name = "Quicksilver Distribution";
 			productName = Distribution;
 		};
 		7F0399E9080EE58D001A9FA3 /* Preflight */ = {
@@ -53,7 +53,6 @@
 /* Begin PBXBuildFile section */
 		4DFE7DA20E081A3B000B9AA3 /* NSImage+QuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DFE7DA00E081A30000B9AA3 /* NSImage+QuickLook.m */; };
 		4DFE7DA30E081A3C000B9AA3 /* NSImage+QuickLook.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DFE7D9F0E081A30000B9AA3 /* NSImage+QuickLook.h */; };
-		4DFE7DAE0E081BFD000B9AA3 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DFE7DAD0E081BFD000B9AA3 /* QuickLook.framework */; };
 		4DFE7DC70E082132000B9AA3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		4DFE7DC90E082160000B9AA3 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97324FDCFA39411CA2CEA /* AppKit.framework */; };
 		4DFE7DD20E082199000B9AA3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
@@ -1546,7 +1545,6 @@
 				7F686DDE080C1CD900449DEF /* QuartzCore.framework in Frameworks */,
 				7FBF16FC099F8F7600FFCF0B /* Security.framework in Frameworks */,
 				7FBF1749099F937900FFCF0B /* SecurityFoundation.framework in Frameworks */,
-				4DFE7DAE0E081BFD000B9AA3 /* QuickLook.framework in Frameworks */,
 				4DFE7DC70E082132000B9AA3 /* Foundation.framework in Frameworks */,
 				4DFE7DC90E082160000B9AA3 /* AppKit.framework in Frameworks */,
 			);
@@ -2881,7 +2879,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				7F039992080EE210001A9FA3 /* Quicksliver Distribution */,
+				7F039992080EE210001A9FA3 /* Quicksilver Distribution */,
 				8D1107260486CEB800E47090 /* Quicksilver */,
 				E1A5676506FFDD8700BAD045 /* QSScriptingDictionary */,
 				E1E5F97107B1FCFC0044D6EF /* QuickStep Foundation */,
@@ -3660,6 +3658,10 @@
 				GCC_PREFIX_HEADER = Prefix/QSBasic_Prefix.pch;
 				INFOPLIST_FILE = "PropertyLists/QSCore-Info copy.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				OTHER_LDFLAGS = (
+					"-weak_framework",
+					QuickLook,
+				);
 				PRODUCT_NAME = QSFoundation;
 			};
 			name = Debug;
@@ -3674,6 +3676,10 @@
 				GCC_PREFIX_HEADER = Prefix/QSBasic_Prefix.pch;
 				INFOPLIST_FILE = "PropertyLists/QSCore-Info copy.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				OTHER_LDFLAGS = (
+					"-weak_framework",
+					QuickLook,
+				);
 				PRODUCT_NAME = QSFoundation;
 			};
 			name = Release;
@@ -3981,7 +3987,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7F6B3E6D085CE68E000735A8 /* Build configuration list for PBXAggregateTarget "Quicksliver Distribution" */ = {
+		7F6B3E6D085CE68E000735A8 /* Build configuration list for PBXAggregateTarget "Quicksilver Distribution" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7F6B3E6E085CE68E000735A8 /* Debug */,
