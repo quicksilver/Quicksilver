@@ -14,10 +14,7 @@
 @implementation QSAdvancedPrefPane
 
 - (void)awakeFromNib {
-//	[(NSArrayController*)prefSetsController addObserver:self forKeyPath:@"selectedObjects" options:nil context:nil];
 	[prefSetsTable setSortDescriptors:[NSSortDescriptor descriptorArrayWithKey:@"title" ascending:YES]];
-//	[self refreshView];
-//	NSTableColumn *titleColumn = [prefSetsTable tableColumnWithIdentifier:@"title"];
 	[(QSImageAndTextCell *)[[prefSetsTable tableColumnWithIdentifier:@"title"] dataCell] setImageSize:QSSize16];
 //	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(columnResized:) name:NSTableViewColumnDidResizeNotification object:titleColumn];
 }
@@ -62,35 +59,47 @@
 //}
 - (NSCell *)tableView:(NSTableView *)aTableView dataCellForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
 	id thisInfo = [[prefSetsController arrangedObjects] objectAtIndex:rowIndex];
-	NSString *type = [thisInfo objectForKey:@"type"];
 	NSCell *cell;
-	if ([type isEqualToString:@"checkbox"]) {
-		 cell = [[NSButtonCell alloc] init];
-		[(NSButtonCell*)cell setButtonType:NSSwitchButton];
-		[cell setTitle:@""];
-	}
-	if ([type hasPrefix:@"popup"]) {
-		 cell = [[NSPopUpButtonCell alloc] init];
-		[(NSPopUpButtonCell *)cell setBordered:YES];
-		[(NSPopUpButtonCell *)cell removeAllItems];
-		NSDictionary *items = [thisInfo objectForKey:@"items"];
-		NSArray *keys = [[items allKeys] sortedArrayUsingSelector:@selector(compare:)];
-		foreach(key, keys) {
-			id option = [items objectForKey:key];
-			id item = [[cell menu] addItemWithTitle:option action:nil keyEquivalent:@""];
-				[item setRepresentedObject:key];
-		//		[item setTarget:self];
-		//		[item setAction:@selector(setValueFromMenu:)];
-		}
-	}
-	if ([type isEqualToString:@"text"]) {
-		 cell = [[NSTextFieldCell alloc] init];
-		[(NSTextFieldCell *)cell setPlaceholderString:@"text"];
-	}
-	[cell setControlSize:NSSmallControlSize];
-	[cell setFont:[NSFont systemFontOfSize:11]];
-	[cell setEditable:YES];
-	return [cell autorelease];
+    
+    if ([[aTableColumn identifier] isEqualToString:@"title"]) {
+        cell = [[[NSTextFieldCell alloc] init] autorelease];
+        [cell setStringValue:[thisInfo objectForKey:@"title"]];
+        [cell setFont:[NSFont systemFontOfSize:11]];
+        [cell setControlSize:NSSmallControlSize];
+    } else if ([[aTableColumn identifier] isEqualToString:@"value"]) {
+        NSString *type = [thisInfo objectForKey:@"type"];
+        
+        if ([type isEqualToString:@"checkbox"]) {
+            cell = [[NSButtonCell alloc] init];
+            [(NSButtonCell*)cell setButtonType:NSSwitchButton];
+            [cell setTitle:@""];
+        } else if ([type hasPrefix:@"popup"]) {
+            cell = [[NSPopUpButtonCell alloc] init];
+            
+            [(NSPopUpButtonCell *)cell setBordered:YES];
+            [(NSPopUpButtonCell *)cell removeAllItems];
+            
+            NSDictionary *items = [thisInfo objectForKey:@"items"];
+            NSArray *keys = [[items allKeys] sortedArrayUsingSelector:@selector(compare:)];
+            foreach(key, keys) {
+                id option = [items objectForKey:key];
+                id item = [[cell menu] addItemWithTitle:option action:nil keyEquivalent:@""];
+                [item setRepresentedObject:key];
+            }
+            
+        } else if ([type isEqualToString:@"text"]) {
+            cell = [[NSTextFieldCell alloc] init];
+            [(NSTextFieldCell *)cell setPlaceholderString:@"text"];
+        }
+        [cell setControlSize:NSSmallControlSize];
+        [cell setFont:[NSFont systemFontOfSize:11]];
+        [cell setEditable:YES];
+    } else {
+        // Special case for cells that span a whole row. Return nil for normal behavior.
+        cell = nil;
+    }
+    
+    return cell;
 }
 
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
