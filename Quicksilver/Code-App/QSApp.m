@@ -103,13 +103,16 @@ BOOL QSApplicationCompletedLaunch = NO;
 - (BOOL)alphaLevel {return featureLevel>1;}
 - (BOOL)devLevel {return featureLevel>2;}
 
-#if 0
 - (BOOL)isTiger {
 	SInt32 version;
 	Gestalt (gestaltSystemVersion, &version);
 	return (version >= 0x1040);
 }
-#endif
+- (BOOL)isLeopard {
+	SInt32 version;
+	Gestalt (gestaltSystemVersion, &version);
+	return (version >= 0x1050);
+}
 
 - (BOOL)_handleKeyEquivalent:(NSEvent *)event {
 	if ([[self globalKeyEquivalentTarget] performKeyEquivalent:event])

@@ -134,7 +134,7 @@ NSSize QSMaxIconSize;
 		icon = nil;
 		identifier = nil;
 		primaryType = nil;
-		lastAccess = nil;
+		lastAccess = 0;
 	}
 	return self;
 }
@@ -583,7 +583,7 @@ return nil;
 	[self setChildren:nil];
 	[self setAltChildren:nil];
 	flags.childrenLoaded = NO;
-	[self setChildrenLoadedDate:nil];
+	[self setChildrenLoadedDate:0];
 	[childLoadedArray removeObject:self];
 	return YES;
 }

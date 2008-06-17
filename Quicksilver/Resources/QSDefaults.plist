@@ -27,6 +27,8 @@
 	</dict>
 	<key>QSAlwaysInstallPrerequisites</key>
 	<true/>
+  <key>QSLoadImagePreviews</key>
+	<true/>
 	<key>QSAppearance1A</key>
 	<data>
 	BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMBhARm
@@ -86,7 +88,7 @@
 	<key>QSChatMediators</key>
 	<string>com.apple.iChat</string>
 	<key>QSCommandInterfaceControllers</key>
-	<string>QSPrimerInterfaceController</string>
+	<string>QSBezelInterfaceController</string>
 	<key>QSFSBrowserMediators</key>
 	<string>com.apple.finder</string>
 	<key>QSInterfaceReactivationDeactivates</key>
@@ -100,7 +102,7 @@
 	<key>QSUpdateReleaseLevel</key>
 	<integer>0</integer>
 	<key>Reset Delay</key>
-	<real>0.80000000000000004</real>
+	<real>2.0000000000000004</real>
 	<key>Result Window Behavior</key>
 	<integer>1</integer>
 	<key>Search Delay</key>

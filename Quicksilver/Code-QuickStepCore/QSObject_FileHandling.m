@@ -105,6 +105,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		}
 	}
 #endif
+  return NO;
+  
 	if (!path || [[path pathExtension] caseInsensitiveCompare:@"prefpane"] != NSOrderedSame)
 		return NO;
 
@@ -200,7 +202,13 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			//OSStatus status=
 			LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
 
-			if (infoRec.flags & kLSItemInfoIsPackage) {
+      
+      if (!theImage && [NSApp isLeopard] && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
+        theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSMaxIconSize asIcon:YES];
+      }
+        
+        
+			if (!theImage && infoRec.flags & kLSItemInfoIsPackage) {
 				NSBundle *bundle = [NSBundle bundleWithPath:firstFile];
 				NSString *bundleImageName = nil;
 				if ([[firstFile pathExtension] isEqualToString:@"prefPane"]) {
@@ -289,7 +297,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 			NSString *handlerName = [[QSReg tableNamed:@"QSBundleChildHandlers"] objectForKey:bundleIdentifier];
 			if (handlerName) return YES;
-
+      if (!bundleIdentifier) return NO;
 			NSArray *recentDocuments = (NSArray *)CFPreferencesCopyValue((CFStringRef) @"NSRecentDocumentRecords", (CFStringRef) bundleIdentifier, kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
 			[recentDocuments autorelease];
 			if (recentDocuments) return YES;

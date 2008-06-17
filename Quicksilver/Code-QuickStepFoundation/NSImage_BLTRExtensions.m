@@ -141,12 +141,46 @@ static inline int get_bit(unsigned char *arr, unsigned long bit_num) {
 	// ***warning  * !? should this be done on the main thread?
 	if ([self representationOfSize:newSize])
 		return NO;
+  
+  
+	NSBitmapImageRep *bestRep = (NSBitmapImageRep *)[self bestRepresentationForSize:newSize];
+  if ([bestRep respondsToSelector:@selector(CGImage)]) {
+    CGImageRef imageRef = [bestRep CGImage];
+    
+    CGColorSpaceRef cspace        = CGColorSpaceCreateDeviceRGB();    
+    CGContextRef    smallContext        = CGBitmapContextCreate(NULL,
+                                                                newSize.width,
+                                                                newSize.height,
+                                                                8,            // bits per component
+                                                                newSize.width * 4, // bytes per pixel
+                                                                cspace,
+                                                                kCGBitmapByteOrder32Host | kCGImageAlphaPremultipliedLast);
+    CFRelease(cspace);
+    
+    if (!smallContext) return NO;
+    
+    NSRect drawRect = fitRectInRect(rectFromSize([bestRep size]), rectFromSize(newSize), NO);
+
+#define NSRectToCGRect(r) CGRectMake(r.origin.x, r.origin.y, r.size.width, r.size.height)
+    CGContextDrawImage(smallContext, NSRectToCGRect(drawRect), imageRef);
+    
+    CGImageRef smallImage = CGBitmapContextCreateImage(smallContext);
+    if (smallImage) {
+      NSBitmapImageRep *cgRep = [[[NSBitmapImageRep alloc] initWithCGImage:smallImage] autorelease];
+      [self addRepresentation:cgRep];      
+    }
+    CGImageRelease(smallImage);
+    CGContextRelease(smallContext);
+    
+    return YES;
+  }
+  
+
 	NSImage* scaledImage = [[NSImage alloc] initWithSize:newSize];
 	[scaledImage lockFocus];
 	NSGraphicsContext *graphicsContext = [NSGraphicsContext currentContext];
 	[graphicsContext setImageInterpolation:NSImageInterpolationHigh];
 	[graphicsContext setShouldAntialias:YES];
-	NSImageRep *bestRep = [self bestRepresentationForSize:newSize];
 	NSRect drawRect = fitRectInRect(rectFromSize([bestRep size]), rectFromSize(newSize), NO);
 	[bestRep drawInRect:drawRect];
 	NSBitmapImageRep* iconRep = [[NSBitmapImageRep alloc] initWithFocusedViewRect:NSMakeRect(0, 0, newSize.width, newSize.height)];

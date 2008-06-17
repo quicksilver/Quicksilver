@@ -1501,7 +1501,7 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 - (void)partialStringChanged {
 	[self setSearchString:[[partialString copy] autorelease]];
 
-	float searchDelay = nil;
+	float searchDelay = 0;
 	if (fALPHA)
 		searchDelay *= [[QSLibrarian sharedInstance] estimatedTimeForSearchInSet:searchArray] *0.9;
 	else
