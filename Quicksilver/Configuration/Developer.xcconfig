@@ -1,0 +1,5 @@
+// QS_SOURCE_ROOT should always point to the root of the Quicksilver source tree.
+// You can set this by editing the value here or by setting a value for QS_SOURCE_ROOT in Xcode's Source Trees Preferences
+// Please quote ("") this if there are spaces in the path, and no ending '/'.
+
+QS_SOURCE_ROOT = /Volumes/myHD/Projects/Quicksilver/quicksilver-b5x/Quicksilver

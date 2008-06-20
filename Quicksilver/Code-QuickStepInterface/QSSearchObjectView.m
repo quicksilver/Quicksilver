@@ -1314,8 +1314,6 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 		//NSLog(@"index %d %@", index, obj);
 		if (index == NSNotFound) {
 			//if (VERBOSE) NSLog(@"Unable To Select Object : %@ in \r %@", [obj identifier] , resultArray);
-
-			index = nil;
 			return;
 		}
 	} else {

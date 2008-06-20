@@ -16,6 +16,8 @@
 
 #import "NSBundle_BLTRExtensions.h"
 
+#import "QSFeatureLevel.h"
+
 #if 0
 @implementation QSEncapsulatedTextCell
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {

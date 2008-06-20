@@ -117,7 +117,7 @@ valueForKeyPath:@"values.QSAppearance3B"];
 
 	[[NSUserDefaultsController sharedUserDefaultsController] addObserver:self
 															 forKeyPath:@"values.QSAppearance3B"
-																options:nil
+																options:0
 																context:nil];
 
 	[resultTable bind:@"backgroundColor"

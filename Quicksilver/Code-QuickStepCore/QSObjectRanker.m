@@ -114,7 +114,7 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 - (int) matchedStringForAbbreviation:(NSString*)anAbbreviation hitmask:(NSIndexSet **)hitmask inContext:(NSString *)context {
 //- (NSIndexSet*)maskForAbbreviation:(NSString*)anAbbreviation inContext:(NSString *)context {
 //- (NSIndexSet*)hitMaskForObject:(QSBasicObject *)object abbreviation:(NSString *)anAbbreviation index:(int *)index {
-	if (!anAbbreviation) return nil;
+	if (!anAbbreviation) return -1;
 
 	float nameScore = [nameRanker scoreForAbbreviation:anAbbreviation];
 	if (labelRanker && [labelRanker scoreForAbbreviation:anAbbreviation] >nameScore) {

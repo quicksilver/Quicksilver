@@ -59,7 +59,7 @@
 //}
 - (NSCell *)tableView:(NSTableView *)aTableView dataCellForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
 	id thisInfo = [[prefSetsController arrangedObjects] objectAtIndex:rowIndex];
-	NSCell *cell;
+	NSCell *cell = nil;
     
     if ([[aTableColumn identifier] isEqualToString:@"title"]) {
         cell = [[[NSTextFieldCell alloc] init] autorelease];

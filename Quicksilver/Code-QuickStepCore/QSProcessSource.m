@@ -110,7 +110,7 @@
 				break;
 			case 2:
 				[workspace reopenApplication:procDict];
-				[workspace switchToApplication:procDict frontWindowOnly:nil];
+				[workspace switchToApplication:procDict frontWindowOnly:NO];
 				break;
 		}
 	}

@@ -99,7 +99,7 @@
 		[(QSSimpleWebWindowController *)cont openURL:[urlArray lastObject]];
 		[[cont window] makeKeyAndOrderFront:nil];
 	} else {*/
-		[[NSWorkspace sharedWorkspace] openURLs:urlArray withAppBundleIdentifier:[dObject objectForMeta:@"QSPreferredApplication"] options:nil additionalEventParamDescriptor:nil launchIdentifiers:nil];
+		[[NSWorkspace sharedWorkspace] openURLs:urlArray withAppBundleIdentifier:[dObject objectForMeta:@"QSPreferredApplication"] options:0 additionalEventParamDescriptor:nil launchIdentifiers:nil];
 //	}
 	return nil;
 }
@@ -110,7 +110,7 @@
 	if ([iObject isApplication]){
 		ident = [[NSBundle bundleWithPath:[iObject singleFilePath]] bundleIdentifier];
 		if (ident)
-			[[NSWorkspace sharedWorkspace] openURLs:[NSArray arrayWithObject:url] withAppBundleIdentifier:ident options:nil additionalEventParamDescriptor:nil launchIdentifiers:nil];
+			[[NSWorkspace sharedWorkspace] openURLs:[NSArray arrayWithObject:url] withAppBundleIdentifier:ident options:0 additionalEventParamDescriptor:nil launchIdentifiers:nil];
 	}
 	return nil;
 }

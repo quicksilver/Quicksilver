@@ -222,7 +222,7 @@
 
 	[triggerSetsController addObserver:self
 							forKeyPath:@"selection"
-							   options:nil
+							   options:0
 							   context:triggerSetsController];
 }
 //- (int) numberOfRowsInTableView:(NSTableView *)aTableView {

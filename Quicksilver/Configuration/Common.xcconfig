@@ -1,0 +1,26 @@
+#include "Developer.xcconfig"
+
+SDKROOT = $(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk
+
+SYMROOT = $(QS_SOURCE_ROOT)/build
+
+MACOSX_DEPLOYMENT_TARGET = 10.4
+PREBINDING = NO
+
+INFOPLIST_PREPROCESS = YES
+
+FRAMEWORK_SEARCH_PATHS = /System/Library/PrivateFrameworks ~/Library/Frameworks $(BUILT_PRODUCTS_DIR)
+
+// Disabled for now, plugins get angry
+//GCC_ENABLE_OBJC_GC = supported
+
+GCC_C_LANGUAGE_STANDARD = c99
+
+GCC_ENABLE_OBJC_EXCEPTIONS = YES
+
+WARNING_CFLAGS = -Wall -Wno-parentheses // Disabled for now. Too picky ;-) -Wextra
+
+QS_APP_CONTENTS_FOLDER = $(CONFIGURATION_BUILD_DIR)/Quicksilver.app/Contents
+
+GCC_WARN_ABOUT_RETURN_TYPE = YES
+GCC_WARN_UNUSED_VARIABLE = YES

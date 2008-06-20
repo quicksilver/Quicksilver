@@ -7,27 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7F59402F085E51D100746E02 /* QSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F59402B085E51D100746E02 /* QSCore.framework */; };
-		7F594030085E51D100746E02 /* QSEffects.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F59402C085E51D100746E02 /* QSEffects.framework */; };
-		7F594031085E51D100746E02 /* QSFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F59402D085E51D100746E02 /* QSFoundation.framework */; };
-		7F594032085E51D100746E02 /* QSInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F59402E085E51D100746E02 /* QSInterface.framework */; };
 		7FEF24BB07D53BCB005BC984 /* QSHotKeyTrigger.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7FEF24BA07D53BCB005BC984 /* QSHotKeyTrigger.nib */; };
 		7FEF24C107D53BD7005BC984 /* QSHotKeyTriggerManager.h in Resources */ = {isa = PBXBuildFile; fileRef = 7FEF24BF07D53BD7005BC984 /* QSHotKeyTriggerManager.h */; };
 		7FEF24C207D53BD7005BC984 /* QSHotKeyTriggerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FEF24C007D53BD7005BC984 /* QSHotKeyTriggerManager.m */; };
-		8D1AC9700486D14A00FE50C9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD92D38A0106425D02CA0E72 /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7F59402B085E51D100746E02 /* QSCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSCore.framework; sourceTree = QSFrameworks; };
-		7F59402C085E51D100746E02 /* QSEffects.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSEffects.framework; sourceTree = QSFrameworks; };
-		7F59402D085E51D100746E02 /* QSFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSFoundation.framework; sourceTree = QSFrameworks; };
-		7F59402E085E51D100746E02 /* QSInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSInterface.framework; sourceTree = QSFrameworks; };
+		4DF062570E0BB87B0000EB16 /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
+		4DF062580E0BB87B0000EB16 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		4DF062590E0BB87B0000EB16 /* Developer.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Developer.xcconfig; path = "/Volumes/myHD/Projects/Quicksilver/quicksilver-b5x/Quicksilver/Configuration/Developer.xcconfig"; sourceTree = "<absolute>"; };
+		4DF0625A0E0BB87B0000EB16 /* QSPlugIn.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn.xcconfig; sourceTree = "<group>"; };
+		4DF0625B0E0BB87B0000EB16 /* QSPlugIn_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPlugIn_Prefix.pch; sourceTree = "<group>"; };
+		4DF0625C0E0BB87B0000EB16 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		7FEF24BA07D53BCB005BC984 /* QSHotKeyTrigger.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSHotKeyTrigger.nib; sourceTree = "<group>"; };
 		7FEF24BF07D53BD7005BC984 /* QSHotKeyTriggerManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSHotKeyTriggerManager.h; sourceTree = "<group>"; };
 		7FEF24C007D53BD7005BC984 /* QSHotKeyTriggerManager.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSHotKeyTriggerManager.m; sourceTree = "<group>"; };
 		8D1AC9730486D14A00FE50C9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D1AC9740486D14A00FE50C9 /* HotKey Triggers.qsplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HotKey Triggers.qsplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DD92D38A0106425D02CA0E72 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,11 +31,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D1AC9700486D14A00FE50C9 /* Cocoa.framework in Frameworks */,
-				7F59402F085E51D100746E02 /* QSCore.framework in Frameworks */,
-				7F594030085E51D100746E02 /* QSEffects.framework in Frameworks */,
-				7F594031085E51D100746E02 /* QSFoundation.framework in Frameworks */,
-				7F594032085E51D100746E02 /* QSInterface.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -49,6 +40,7 @@
 		0259C574FE90428111CA0C5A /* QSHotKeyTriggers */ = {
 			isa = PBXGroup;
 			children = (
+				4DF062560E0BB87B0000EB16 /* Configuration */,
 				32DBCF9E0370C38000C91783 /* Classes */,
 				32DBCF9F0370C38200C91783 /* Other Sources */,
 				0259C582FE90428111CA0C5A /* Resources */,
@@ -78,11 +70,6 @@
 		2E58F364FFB232C311CA0CBA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7F59402B085E51D100746E02 /* QSCore.framework */,
-				7F59402C085E51D100746E02 /* QSEffects.framework */,
-				7F59402D085E51D100746E02 /* QSFoundation.framework */,
-				7F59402E085E51D100746E02 /* QSInterface.framework */,
-				DD92D38A0106425D02CA0E72 /* Cocoa.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -102,6 +89,20 @@
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
+		};
+		4DF062560E0BB87B0000EB16 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				4DF062570E0BB87B0000EB16 /* Common.xcconfig */,
+				4DF062580E0BB87B0000EB16 /* Debug.xcconfig */,
+				4DF062590E0BB87B0000EB16 /* Developer.xcconfig */,
+				4DF0625A0E0BB87B0000EB16 /* QSPlugIn.xcconfig */,
+				4DF0625B0E0BB87B0000EB16 /* QSPlugIn_Prefix.pch */,
+				4DF0625C0E0BB87B0000EB16 /* Release.xcconfig */,
+			);
+			name = Configuration;
+			path = ../../Configuration;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -135,6 +136,7 @@
 			hasScannedForEncodings = 1;
 			mainGroup = 0259C574FE90428111CA0C5A /* QSHotKeyTriggers */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				8D1AC9600486D14A00FE50C9 /* HotKey Triggers */,
 			);
@@ -183,81 +185,31 @@
 /* Begin XCBuildConfiguration section */
 		7F07B01C085E433200E2AFC4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DF0625A0E0BB87B0000EB16 /* QSPlugIn.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEAD_CODE_STRIPPING = YES;
-				DEPLOYMENT_POSTPROCESSING = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(QSFrameworks)";
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_ENABLE_CPP_EXCEPTIONS = NO;
-				GCC_ENABLE_CPP_RTTI = NO;
-				GCC_ENABLE_PASCAL_STRINGS = NO;
-				GCC_FAST_MATH = YES;
-				GCC_FAST_OBJC_DISPATCH = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "";
-				GCC_THREADSAFE_STATICS = NO;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VALUE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = Info.plist;
-				OBJROOT = "$(BUILD_DIR)";
-				OTHER_LDFLAGS = "-bundle";
-				PREBINDING = NO;
-				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_NAME = "HotKey Triggers";
-				STRIP_INSTALLED_PRODUCT = YES;
-				SYMROOT = ../../build;
-				WRAPPER_EXTENSION = qsplugin;
 			};
 			name = Release;
 		};
 		7F07B020085E433200E2AFC4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DF0625C0E0BB87B0000EB16 /* Release.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Release;
 		};
 		92DC5A060CFD347A005C8442 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DF0625A0E0BB87B0000EB16 /* QSPlugIn.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(NATIVE_ARCH)";
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(BUILD_DIR)",
-					"$(QSFrameworks)",
-				);
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_ENABLE_CPP_EXCEPTIONS = NO;
-				GCC_ENABLE_CPP_RTTI = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				INFOPLIST_FILE = Info.plist;
-				OTHER_LDFLAGS = "-bundle";
-				PREBINDING = NO;
 				PRODUCT_NAME = "HotKey Triggers";
-				SYMROOT = ../../build;
-				WRAPPER_EXTENSION = qsplugin;
-				ZERO_LINK = YES;
 			};
 			name = Debug;
 		};
 		92DC5A070CFD347A005C8442 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DF062580E0BB87B0000EB16 /* Debug.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Debug;
 		};

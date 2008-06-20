@@ -18,6 +18,7 @@
 #define kDefaultsObjectSourceKeyList @"keypath"
 #define kDefaultsObjectSourceType @"type"
 #import "QSVoyeur.h"
+#import "QSFeatureLevel.h"
 
 @implementation QSDefaultsObjectSource
 

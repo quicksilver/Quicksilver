@@ -22,7 +22,7 @@
 - (NSArray *)objectsFromPath:(NSString *)path withSettings:(NSDictionary *)settings {
 	path = [path stringByStandardizingPath];
 	NSData *data = [NSData dataWithContentsOfFile:path];
-	return [self objectsFromData:data encoding:nil settings:settings source:[NSURL fileURLWithPath:path]];
+	return [self objectsFromData:data encoding:0 settings:settings source:[NSURL fileURLWithPath:path]];
 }
 
 - (NSArray *)objectsFromURL:(NSURL *)url withSettings:(NSDictionary *)settings {

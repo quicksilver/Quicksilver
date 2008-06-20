@@ -1,6 +1,5 @@
 /* QSController */
 
-
 #import <Cocoa/Cocoa.h>
 #import <QSFoundation/QSFoundation.h>
 #import <QSCore/QSCore.h>

@@ -444,7 +444,7 @@ void			UKFSCatInfoFromDictionary( NSDictionary* attrs, FSCatalogInfo* currInfo, 
 	FSCatalogInfoBitmap whichInfo = kFSCatInfoNone;
 
 	if ( ![path getFSRef: &fileRef] )
-		return nil;
+		return NO;
 
 	UKFSCatInfoFromDictionary( attrs, &info, &whichInfo );
 

@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7FA41FC40976B44A0074597B /* QSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FA41FC00976B44A0074597B /* QSCore.framework */; };
-		7FA41FC50976B44A0074597B /* QSEffects.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FA41FC10976B44A0074597B /* QSEffects.framework */; };
-		7FA41FC60976B44A0074597B /* QSFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FA41FC20976B44A0074597B /* QSFoundation.framework */; };
-		7FA41FC70976B44A0074597B /* QSInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FA41FC30976B44A0074597B /* QSInterface.framework */; };
 		8D1AC9700486D14A00FE50C9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD92D38A0106425D02CA0E72 /* Cocoa.framework */; };
 		E131FA0B07B4493B00D0E4AC /* QSBezelInterfaceController.h in Resources */ = {isa = PBXBuildFile; fileRef = E131FA0907B4493B00D0E4AC /* QSBezelInterfaceController.h */; };
 		E131FA0C07B4493B00D0E4AC /* QSBezelInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = E131FA0A07B4493B00D0E4AC /* QSBezelInterfaceController.m */; };
@@ -19,10 +15,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7FA41FC00976B44A0074597B /* QSCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSCore.framework; sourceTree = QSFrameworks; };
-		7FA41FC10976B44A0074597B /* QSEffects.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSEffects.framework; sourceTree = QSFrameworks; };
-		7FA41FC20976B44A0074597B /* QSFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSFoundation.framework; sourceTree = QSFrameworks; };
-		7FA41FC30976B44A0074597B /* QSInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QSInterface.framework; sourceTree = QSFrameworks; };
+		4DA1CCC70E0BB53B00CA6002 /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
+		4DA1CCC80E0BB53B00CA6002 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		4DA1CCC90E0BB53B00CA6002 /* QSPlugIn.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn.xcconfig; sourceTree = "<group>"; };
+		4DA1CCCA0E0BB53B00CA6002 /* QSPlugIn_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPlugIn_Prefix.pch; sourceTree = "<group>"; };
+		4DA1CCCB0E0BB53B00CA6002 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		4DA1CCD80E0BB65E00CA6002 /* Developer.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Developer.xcconfig; path = "/Volumes/myHD/Projects/Quicksilver/quicksilver-b5x/Quicksilver/Configuration/Developer.xcconfig"; sourceTree = "<absolute>"; };
 		8D1AC9730486D14A00FE50C9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D1AC9740486D14A00FE50C9 /* Bezel Interface.qsplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bezel Interface.qsplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD92D38A0106425D02CA0E72 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
@@ -38,10 +36,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D1AC9700486D14A00FE50C9 /* Cocoa.framework in Frameworks */,
-				7FA41FC40976B44A0074597B /* QSCore.framework in Frameworks */,
-				7FA41FC50976B44A0074597B /* QSEffects.framework in Frameworks */,
-				7FA41FC60976B44A0074597B /* QSFoundation.framework in Frameworks */,
-				7FA41FC70976B44A0074597B /* QSInterface.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +45,7 @@
 		0259C574FE90428111CA0C5A /* QSBezelInterfacePlugIn */ = {
 			isa = PBXGroup;
 			children = (
+				4DA1CCC60E0BB53B00CA6002 /* Configuration */,
 				32DBCF9E0370C38000C91783 /* Classes */,
 				32DBCF9F0370C38200C91783 /* Other Sources */,
 				0259C582FE90428111CA0C5A /* Resources */,
@@ -81,10 +76,6 @@
 		2E58F364FFB232C311CA0CBA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7FA41FC00976B44A0074597B /* QSCore.framework */,
-				7FA41FC10976B44A0074597B /* QSEffects.framework */,
-				7FA41FC20976B44A0074597B /* QSFoundation.framework */,
-				7FA41FC30976B44A0074597B /* QSInterface.framework */,
 				DD92D38A0106425D02CA0E72 /* Cocoa.framework */,
 			);
 			name = Frameworks;
@@ -105,6 +96,20 @@
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
+		};
+		4DA1CCC60E0BB53B00CA6002 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				4DA1CCD80E0BB65E00CA6002 /* Developer.xcconfig */,
+				4DA1CCC70E0BB53B00CA6002 /* Common.xcconfig */,
+				4DA1CCC80E0BB53B00CA6002 /* Debug.xcconfig */,
+				4DA1CCC90E0BB53B00CA6002 /* QSPlugIn.xcconfig */,
+				4DA1CCCA0E0BB53B00CA6002 /* QSPlugIn_Prefix.pch */,
+				4DA1CCCB0E0BB53B00CA6002 /* Release.xcconfig */,
+			);
+			name = Configuration;
+			path = ../../Configuration;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -134,6 +139,7 @@
 		0259C573FE90428111CA0C5A /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 7FE899C1085D4ADF0016C421 /* Build configuration list for PBXProject "QSBezelInterfacePlugIn" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -205,115 +211,33 @@
 /* Begin XCBuildConfiguration section */
 		7FE899BE085D4ADF0016C421 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DA1CCC90E0BB53B00CA6002 /* QSPlugIn.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(NATIVE_ARCH)";
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(BUILD_DIR)",
-					"$(QSFrameworks)",
-				);
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_CPP_EXCEPTIONS = NO;
-				GCC_ENABLE_CPP_RTTI = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				INFOPLIST_FILE = Info.plist;
-				OTHER_LDFLAGS = "-bundle";
-				PREBINDING = NO;
 				PRODUCT_NAME = "Bezel Interface";
-				SYMROOT = ../../build;
-				WRAPPER_EXTENSION = qsplugin;
-				ZERO_LINK = YES;
 			};
 			name = Debug;
 		};
 		7FE899BF085D4ADF0016C421 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DA1CCC90E0BB53B00CA6002 /* QSPlugIn.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEAD_CODE_STRIPPING = YES;
-				DEPLOYMENT_POSTPROCESSING = YES;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_ENABLE_CPP_EXCEPTIONS = NO;
-				GCC_ENABLE_CPP_RTTI = NO;
-				GCC_ENABLE_PASCAL_STRINGS = NO;
-				GCC_FAST_MATH = YES;
-				GCC_FAST_OBJC_DISPATCH = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "";
-				GCC_THREADSAFE_STATICS = NO;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VALUE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = Info.plist;
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				OBJROOT = "$(BUILD_DIR)";
-				OTHER_LDFLAGS = "-bundle";
-				PREBINDING = NO;
-				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_NAME = "Bezel Interface";
-				STRIPFLAGS = "-S";
-				STRIP_INSTALLED_PRODUCT = YES;
-				SYMROOT = ../../build;
-				WRAPPER_EXTENSION = qsplugin;
 			};
 			name = Release;
 		};
-		7FE899C0085D4ADF0016C421 /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUILD_DIR = "$(SYMROOT)/PlugIns";
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = QSBezelInterfacePlugIn_Prefix.pch;
-				INFOPLIST_FILE = Info.plist;
-				OTHER_LDFLAGS = "-bundle";
-				PRODUCT_NAME = "Bezel Interface";
-				SYMROOT = /Volumes/Lore/Developer/Build;
-				WRAPPER_EXTENSION = qsplugin;
-			};
-			name = Default;
-		};
 		7FE899C2085D4ADF0016C421 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DA1CCC80E0BB53B00CA6002 /* Debug.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
-				SYMROOT = /Volumes/Lore/Developer/Build;
 			};
 			name = Debug;
 		};
 		7FE899C3085D4ADF0016C421 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DA1CCCB0E0BB53B00CA6002 /* Release.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				FRAMEWORK_SEARCH_PATHS = "$(QSFrameworks)";
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Release;
-		};
-		7FE899C4085D4ADF0016C421 /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
-				SYMROOT = /Volumes/Lore/Developer/Build;
-			};
-			name = Default;
 		};
 /* End XCBuildConfiguration section */
 
@@ -323,7 +247,6 @@
 			buildConfigurations = (
 				7FE899BE085D4ADF0016C421 /* Debug */,
 				7FE899BF085D4ADF0016C421 /* Release */,
-				7FE899C0085D4ADF0016C421 /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -333,7 +256,6 @@
 			buildConfigurations = (
 				7FE899C2085D4ADF0016C421 /* Debug */,
 				7FE899C3085D4ADF0016C421 /* Release */,
-				7FE899C4085D4ADF0016C421 /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
