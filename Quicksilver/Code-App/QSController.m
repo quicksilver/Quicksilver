@@ -87,6 +87,10 @@ QSController *QSCon;
 - (void)handleURL:(NSURL *)url;
 @end
 
+@interface QSController (ErrorHandling)
+- (void)registerForErrors;
+@end
+
 @implementation QSController
 - (void)awakeFromNib { if (!QSCon) QSCon = [self retain];  }
 + (id)sharedInstance {
@@ -225,7 +229,7 @@ QSController *QSCon;
 	NSLog(@"debug menu");
 	NSMenu *debugMenu = [[[NSMenu alloc] initWithTitle:@"Debug"] autorelease];
 
-	id <NSMenuItem>theItem;
+	NSMenuItem *theItem;
 
 	theItem = [debugMenu addItemWithTitle:@"Log Object to Console" action:@selector(logObjectDictionary:) keyEquivalent:@""];
 
@@ -414,7 +418,7 @@ QSController *QSCon;
 
 	NSMenu *newMenu = [[statusMenu copy] autorelease];
 
-	NSMenu *modulesItem = [[NSApp mainMenu] itemWithTag:128];
+	NSMenuItem *modulesItem = [[NSApp mainMenu] itemWithTag:128];
 	[newMenu addItem:[[modulesItem copy] autorelease]];
 
 	[newMenu addItem:[NSMenuItem separatorItem]];
@@ -790,6 +794,7 @@ QSController *QSCon;
 	}
 }
 #endif
+
 - (void)setupSplash {
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:kUseEffects]) {
 		[self showSplash:nil];
@@ -1020,9 +1025,6 @@ QSController *QSCon;
 
 @end
 
-
-
-
 #if 0
 void QSSignalHandler(int i) {
 	printf("signal %d", i);
@@ -1034,9 +1036,9 @@ void QSSignalHandler(int i) {
 		[NSApp relaunch:nil];
 	exit(-1);
 }
+
 @implementation QSController (ErrorHandling)
 - (void)registerForErrors {
-				return;
 	signal(SIGBUS, QSSignalHandler);
 	signal(SIGSEGV, QSSignalHandler);
 

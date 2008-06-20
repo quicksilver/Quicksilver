@@ -320,8 +320,8 @@
 - (NSMutableArray *)plugInSets {
 	NSMutableArray *setDicts = [NSMutableArray array];
 	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:2] , @"viewMode", @"Recommended", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
-	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:1] , @"viewMode", @"Installed Plug-ins", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
-	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:4] , @"viewMode", @"Uninstalled Plug-ins", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
+	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:1] , @"viewMode", @"Installed", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
+	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:4] , @"viewMode", @"Uninstalled", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
 	NSArray *categories = [NSArray arrayWithObjects:@"Applications", @"Calendar", @"Contacts", @"Development", @"Files", @"Images", @"Interfaces", @"Mail & Chat", @"Miscellaneous", @"Music", @"Quicksilver", @"Search", @"System", @"Text", @"Web", nil];
 	NSMutableArray *categoryDicts = [NSMutableArray array];
 	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:3] , @"viewMode", categoryDicts, @"children", @"All Plug-ins", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
