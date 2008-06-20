@@ -69,17 +69,22 @@ NSSize QSMaxIconSize;
 
 + (void)cleanObjectDictionary {
 	unsigned count = 0;
-	NSEnumerator *keyEnum = [objectDictionary keyEnumerator];
 	NSString *thisKey = nil;
 	QSObject *thisObject;
+    NSMutableArray * keysToDeleteFromObjectDict = [[NSMutableArray alloc] init];
+    NSEnumerator *keyEnum = [objectDictionary keyEnumerator];
 	while (thisKey = [keyEnum nextObject]) {
 		thisObject = [objectDictionary objectForKey:thisKey];
-		if ([thisObject retainCount] <2) {
-			count++;
-			[objectDictionary removeObjectForKey:thisKey];
+		if ([thisObject retainCount] < 2) {
+            [keysToDeleteFromObjectDict addObject:thisKey];
 		}
 		//NSLog(@"%d %@", [thisObject retainCount] , [thisObject name]);
 	}
+    keyEnum = [keysToDeleteFromObjectDict objectEnumerator];
+    while( thisKey = [keyEnum nextObject] ) {
+        count++;
+        [objectDictionary removeObjectForKey:thisKey];
+    }
 	if (DEBUG_MEMORY && count)
 		NSLog(@"Released %i objects", count);
 }
@@ -94,23 +99,29 @@ NSSize QSMaxIconSize;
 
 	QSObject *thisObject;
 
+    NSMutableArray * unloadedImagesArray = [[NSMutableArray alloc] init];
 	e = [iconLoadedArray objectEnumerator];
-		while (thisObject = [e nextObject]) {
+    while (thisObject = [e nextObject]) {
 		//	NSLog(@"i%@ %f", thisObject, thisObject->lastAccess);
-			if (thisObject->lastAccess && thisObject->lastAccess<(globalLastAccess-interval) ) {
-				if ([thisObject unloadIcon])
-					imagecount++;
-			}
-		}
-
-		e = [childLoadedArray objectEnumerator];
-		while (thisObject = [e nextObject]) {
+        if (thisObject->lastAccess && thisObject->lastAccess<(globalLastAccess-interval) ) {
+            [unloadedImagesArray addObject:thisObject];
+        }
+    }
+    
+    e = [unloadedImagesArray objectEnumerator];
+    while( thisObject = [e nextObject] ) {
+        if ([thisObject unloadIcon])
+            imagecount++;
+    }
+    
+    e = [childLoadedArray objectEnumerator];
+    while (thisObject = [e nextObject]) {
 		//	NSLog(@"c%@ %f", thisObject, thisObject->lastAccess);
-			if (thisObject->lastAccess && thisObject->lastAccess<(globalLastAccess-interval) ) {
-				if ([thisObject unloadChildren])
-					childcount++;
-			}
-		}
+        if (thisObject->lastAccess && thisObject->lastAccess<(globalLastAccess-interval) ) {
+            if ([thisObject unloadChildren])
+                childcount++;
+        }
+    }
 
 	if (DEBUG_MEMORY && (imagecount || childcount) )
 		NSLog(@"Released %i images and %i children (items before %d) ", imagecount, childcount, (int)interval);
