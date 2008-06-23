@@ -7,8 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
-#import "QSPreferencePane.h"
+#import <QSInterface/QSPreferencePane.h>
 
 @interface QSAdvancedPrefPane : QSPreferencePane {
 	IBOutlet NSTableView *prefSetsTable;

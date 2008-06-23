@@ -56,8 +56,14 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		4DB49FFD0E1005C20010C540 /* QSDelegatingTableColumn.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F4F93E10A0D8CCA00BCF88E /* QSDelegatingTableColumn.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DB49FFE0E1005C30010C540 /* QSDelegatingTableColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4F93E20A0D8CCA00BCF88E /* QSDelegatingTableColumn.m */; };
+		4DB4A0210E1007EA0010C540 /* QSKeyCodeTranslator.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FADD07B205950044D6EF /* QSKeyCodeTranslator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DB4A0220E1007EB0010C540 /* QSKeyCodeTranslator.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FADE07B205950044D6EF /* QSKeyCodeTranslator.m */; };
+		4DB4A03D0E100B020010C540 /* QSImageAndTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E103EE5C06471DDE00447FE0 /* QSImageAndTextCell.m */; };
+		4DB4A03E0E100B020010C540 /* QSImageAndTextCell.h in Headers */ = {isa = PBXBuildFile; fileRef = E103EE5B06471DDE00447FE0 /* QSImageAndTextCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DFE7DA20E081A3B000B9AA3 /* NSImage+QuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DFE7DA00E081A30000B9AA3 /* NSImage+QuickLook.m */; };
-		4DFE7DA30E081A3C000B9AA3 /* NSImage+QuickLook.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DFE7D9F0E081A30000B9AA3 /* NSImage+QuickLook.h */; };
+		4DFE7DA30E081A3C000B9AA3 /* NSImage+QuickLook.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DFE7D9F0E081A30000B9AA3 /* NSImage+QuickLook.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DFE7DC70E082132000B9AA3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		4DFE7DC90E082160000B9AA3 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97324FDCFA39411CA2CEA /* AppKit.framework */; };
 		4DFE7DD20E082199000B9AA3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
@@ -65,7 +71,7 @@
 		4DFE7DDA0E0821C0000B9AA3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		4DFE7DDE0E0821DB000B9AA3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
 		4DFE7DE00E0821E3000B9AA3 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97324FDCFA39411CA2CEA /* AppKit.framework */; };
-		7F05F1E20852441C00A8EC0C /* NSObject+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F05F1E00852441C00A8EC0C /* NSObject+BLTRExtensions.h */; };
+		7F05F1E20852441C00A8EC0C /* NSObject+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F05F1E00852441C00A8EC0C /* NSObject+BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F05F1E30852441C00A8EC0C /* NSObject+BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F05F1E10852441C00A8EC0C /* NSObject+BLTRExtensions.m */; };
 		7F0843CE098ACB2F00F136CC /* QSLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F0843CC098ACB2F00F136CC /* QSLog.h */; };
 		7F0843CF098ACB2F00F136CC /* QSLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0843CD098ACB2F00F136CC /* QSLog.m */; };
@@ -82,9 +88,9 @@
 		7F24FA2108AFC326009DB343 /* QSURLExtractor.pl in Resources */ = {isa = PBXBuildFile; fileRef = 7F9769B408AE8366003FD75E /* QSURLExtractor.pl */; };
 		7F257BD6090DB26F00045D08 /* QSWindowAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F257BD4090DB26F00045D08 /* QSWindowAnimation.h */; };
 		7F257BD7090DB26F00045D08 /* QSWindowAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F257BD5090DB26F00045D08 /* QSWindowAnimation.m */; };
-		7F26503408DB09B20076E4E6 /* NSString+CarbonUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F26503008DB09B20076E4E6 /* NSString+CarbonUtilities.h */; };
+		7F26503408DB09B20076E4E6 /* NSString+CarbonUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F26503008DB09B20076E4E6 /* NSString+CarbonUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F26503508DB09B20076E4E6 /* NSString+CarbonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F26503108DB09B20076E4E6 /* NSString+CarbonUtilities.m */; settings = {COMPILER_FLAGS = "-w"; }; };
-		7F26503608DB09B20076E4E6 /* UKDirectoryEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F26503208DB09B20076E4E6 /* UKDirectoryEnumerator.h */; };
+		7F26503608DB09B20076E4E6 /* UKDirectoryEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F26503208DB09B20076E4E6 /* UKDirectoryEnumerator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F26503708DB09B20076E4E6 /* UKDirectoryEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F26503308DB09B20076E4E6 /* UKDirectoryEnumerator.m */; };
 		7F35FC7D07F8D8BB0056051D /* QSPaths.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F35FC7C07F8D8BB0056051D /* QSPaths.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F3DB4BB0926D1620062EDFD /* NSEvent+BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3DB4BA0926D1620062EDFD /* NSEvent+BLTRExtensions.m */; };
@@ -104,8 +110,6 @@
 		7F4E4B390A3CD83D0070336A /* QSMainMenuPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4E4B370A3CD83D0070336A /* QSMainMenuPrefPane.m */; };
 		7F4E4B4D0A3CDA7A0070336A /* QSMainMenuPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F4E4B4C0A3CDA7A0070336A /* QSMainMenuPrefPane.nib */; };
 		7F4E725909682F4200FBA4F7 /* QSSetupAssistant.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F4E725409682F4200FBA4F7 /* QSSetupAssistant.nib */; };
-		7F4F93E30A0D8CCA00BCF88E /* QSDelegatingTableColumn.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F4F93E10A0D8CCA00BCF88E /* QSDelegatingTableColumn.h */; };
-		7F4F93E40A0D8CCA00BCF88E /* QSDelegatingTableColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4F93E20A0D8CCA00BCF88E /* QSDelegatingTableColumn.m */; };
 		7F515D4E07B533D3003EA91C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F515D3907B533D2003EA91C /* Localizable.strings */; };
 		7F515D4F07B533D3003EA91C /* About.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F515D3D07B533D2003EA91C /* About.strings */; };
 		7F515D5007B533D3003EA91C /* Catalog.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F515D3F07B533D2003EA91C /* Catalog.strings */; };
@@ -119,15 +123,15 @@
 		7F686DDE080C1CD900449DEF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F686D90080C151100449DEF /* QuartzCore.framework */; };
 		7F6F524908906AA7009007DF /* QSHotKeyEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F6F524708906AA7009007DF /* QSHotKeyEditor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F6F524A08906AA7009007DF /* QSHotKeyEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6F524808906AA7009007DF /* QSHotKeyEditor.m */; };
-		7F712FE707BF4DEB00895313 /* QSImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F712FE507BF4DEB00895313 /* QSImageView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7F712FE707BF4DEB00895313 /* QSImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F712FE507BF4DEB00895313 /* QSImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F712FE807BF4DEB00895313 /* QSImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F712FE607BF4DEB00895313 /* QSImageView.m */; };
-		7F73BC3908468B8A00D01BDB /* NSMetadataItem+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F73BC3708468B8A00D01BDB /* NSMetadataItem+BLTRExtensions.h */; };
+		7F73BC3908468B8A00D01BDB /* NSMetadataItem+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F73BC3708468B8A00D01BDB /* NSMetadataItem+BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F73BC3A08468B8A00D01BDB /* NSMetadataItem+BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F73BC3808468B8A00D01BDB /* NSMetadataItem+BLTRExtensions.m */; };
 		7F73BC66084787A500D01BDB /* QSStyle.css in Resources */ = {isa = PBXBuildFile; fileRef = 7F73BC65084787A500D01BDB /* QSStyle.css */; };
 		7F73BD46084794CB00D01BDB /* QSSimpleWebWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F73BD44084794CB00D01BDB /* QSSimpleWebWindowController.h */; };
 		7F73BD47084794CB00D01BDB /* QSSimpleWebWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F73BD45084794CB00D01BDB /* QSSimpleWebWindowController.m */; };
 		7F75744B07BC3B4400F6AD87 /* QSActionsPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F75744A07BC3B4400F6AD87 /* QSActionsPrefPane.nib */; };
-		7F7AB61B07F0761400ACBA8A /* QSCollectingSearchObjectView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F7AB61907F0761400ACBA8A /* QSCollectingSearchObjectView.h */; };
+		7F7AB61B07F0761400ACBA8A /* QSCollectingSearchObjectView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F7AB61907F0761400ACBA8A /* QSCollectingSearchObjectView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F7AB61C07F0761400ACBA8A /* QSCollectingSearchObjectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7AB61A07F0761400ACBA8A /* QSCollectingSearchObjectView.m */; };
 		7F8401D109690F00006E6F0E /* ClientDescription.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F8401D009690F00006E6F0E /* ClientDescription.plist */; };
 		7F84021209691035006E6F0E /* SyncServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F84020609691035006E6F0E /* SyncServices.framework */; };
@@ -155,14 +159,14 @@
 		7F8C65A50811728E0051113C /* Credits.html in Copy SharedSupport */ = {isa = PBXBuildFile; fileRef = 7F8C659E081171DB0051113C /* Credits.html */; };
 		7F8C65C1081172E30051113C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8C65C0081172E30051113C /* WebKit.framework */; };
 		7F8D135F09187AE20062C966 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8D135E09187AE20062C966 /* Quartz.framework */; };
-		7F93148D07E8B627009B3C06 /* NSIndexSet+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F93148B07E8B626009B3C06 /* NSIndexSet+Extensions.h */; };
+		7F93148D07E8B627009B3C06 /* NSIndexSet+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F93148B07E8B626009B3C06 /* NSIndexSet+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F93148E07E8B627009B3C06 /* NSIndexSet+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F93148C07E8B627009B3C06 /* NSIndexSet+Extensions.m */; };
-		7F943F6508033961007EDC31 /* QSUTI.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F943F6308033961007EDC31 /* QSUTI.h */; };
+		7F943F6508033961007EDC31 /* QSUTI.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F943F6308033961007EDC31 /* QSUTI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F943F6608033961007EDC31 /* QSUTI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F943F6408033961007EDC31 /* QSUTI.m */; };
 		7F9441C60803AB2D007EDC31 /* QSGroupObjectSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9441C40803AB2D007EDC31 /* QSGroupObjectSource.m */; };
 		7F9441E80803ABB1007EDC31 /* QSVolumesObjectSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9441E60803ABB1007EDC31 /* QSVolumesObjectSource.m */; };
 		7F9442990803B48A007EDC31 /* QSAllApplicationsObjectSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9442970803B48A007EDC31 /* QSAllApplicationsObjectSource.m */; };
-		7F9553200A25DC4A0004FCC3 /* QSLoginItemFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F95531E0A25DC4A0004FCC3 /* QSLoginItemFunctions.h */; };
+		7F9553200A25DC4A0004FCC3 /* QSLoginItemFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F95531E0A25DC4A0004FCC3 /* QSLoginItemFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F9553210A25DC4B0004FCC3 /* QSLoginItemFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F95531F0A25DC4A0004FCC3 /* QSLoginItemFunctions.m */; };
 		7F9703E209AFEFB100E9EA77 /* QSDropletApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9703E109AFEFB100E9EA77 /* QSDropletApplication.m */; };
 		7F9703E309AFEFCB00E9EA77 /* QSDropletApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9703E109AFEFB100E9EA77 /* QSDropletApplication.m */; };
@@ -175,9 +179,9 @@
 		7F9BAA590886DA54003CB3A1 /* SecurityFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9BAA570886DA54003CB3A1 /* SecurityFoundation.framework */; };
 		7F9BAAAE0886E5EB003CB3A1 /* SecurityFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9BAA570886DA54003CB3A1 /* SecurityFoundation.framework */; };
 		7F9BAAAF0886E5ED003CB3A1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9BAA560886DA54003CB3A1 /* Security.framework */; };
-		7F9BDB2F09F86D25004F6E7A /* QSHandledSplitView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9BDB2D09F86D25004F6E7A /* QSHandledSplitView.h */; };
+		7F9BDB2F09F86D25004F6E7A /* QSHandledSplitView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9BDB2D09F86D25004F6E7A /* QSHandledSplitView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F9BDB3009F86D25004F6E7A /* QSHandledSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9BDB2E09F86D25004F6E7A /* QSHandledSplitView.m */; };
-		7F9BDBD609F9C40D004F6E7A /* QSSplitHandleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9BDBD409F9C40D004F6E7A /* QSSplitHandleView.h */; };
+		7F9BDBD609F9C40D004F6E7A /* QSSplitHandleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9BDBD409F9C40D004F6E7A /* QSSplitHandleView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F9BDBD709F9C40D004F6E7A /* QSSplitHandleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9BDBD509F9C40D004F6E7A /* QSSplitHandleView.m */; };
 		7FA4ED4809132402007DB407 /* UKFileWatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FA4ED4009132402007DB407 /* UKFileWatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FA4ED4C09132402007DB407 /* UKKQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FA4ED4409132402007DB407 /* UKKQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -204,14 +208,14 @@
 		7FC20B5607FB589C00FDD3CA /* QuicksilverHandlers.scriptTerminology in Resources */ = {isa = PBXBuildFile; fileRef = 7F60F27707FA2C5300922645 /* QuicksilverHandlers.scriptTerminology */; };
 		7FC6AD770A0996E200D5B2C3 /* Button-Rescan.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC6AD760A0996E200D5B2C3 /* Button-Rescan.png */; };
 		7FC6AD780A0996E200D5B2C3 /* Button-Rescan.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC6AD760A0996E200D5B2C3 /* Button-Rescan.png */; };
-		7FD49DDB09967F3100517F3A /* QSDelegatingCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FD49DD909967F3100517F3A /* QSDelegatingCell.h */; };
+		7FD49DDB09967F3100517F3A /* QSDelegatingCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FD49DD909967F3100517F3A /* QSDelegatingCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FD49DDC09967F3100517F3A /* QSDelegatingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD49DDA09967F3100517F3A /* QSDelegatingCell.m */; };
 		7FD547100872DB8600661F70 /* QSTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FD5470E0872DB8600661F70 /* QSTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FD547110872DB8600661F70 /* QSTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD5470F0872DB8600661F70 /* QSTask.m */; };
 		7FD6F9EC09B0D7DA00F706F9 /* QSDroplet.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7FD6F9EB09B0D7DA00F706F9 /* QSDroplet.icns */; };
 		7FD7C95E0877C2C70022FA3B /* QSTextViewer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FD7C95C0877C2C70022FA3B /* QSTextViewer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FD7C95F0877C2C70022FA3B /* QSTextViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD7C95D0877C2C70022FA3B /* QSTextViewer.m */; };
-		7FDBC1850A010C6400E496FF /* QSImageTextCountCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FDBC1830A010C6400E496FF /* QSImageTextCountCell.h */; };
+		7FDBC1850A010C6400E496FF /* QSImageTextCountCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FDBC1830A010C6400E496FF /* QSImageTextCountCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FDBC1860A010C6400E496FF /* QSImageTextCountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDBC1840A010C6400E496FF /* QSImageTextCountCell.m */; };
 		7FDBC3120A0153CA00E496FF /* Button-Info.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDBC30D0A0153CA00E496FF /* Button-Info.png */; };
 		7FDBC3130A0153CA00E496FF /* Button-Remove.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDBC30E0A0153CA00E496FF /* Button-Remove.png */; };
@@ -223,17 +227,17 @@
 		7FDBC51F0A02DB0700E496FF /* DefaultsMap.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FDBC51E0A02DB0700E496FF /* DefaultsMap.plist */; };
 		7FDE06E909B1FFB900D394DF /* QSDroplet.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F9703DD09AFEF8900E9EA77 /* QSDroplet.nib */; };
 		7FDF328A07F7B11800594789 /* QSObjectActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDF328807F7B11800594789 /* QSObjectActions.m */; };
-		7FDF341807F7D59E00594789 /* NSDictionary+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FDF341607F7D59E00594789 /* NSDictionary+BLTRExtensions.h */; };
+		7FDF341807F7D59E00594789 /* NSDictionary+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FDF341607F7D59E00594789 /* NSDictionary+BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FDF341907F7D59E00594789 /* NSDictionary+BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDF341707F7D59E00594789 /* NSDictionary+BLTRExtensions.m */; };
-		7FDF342507F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FDF342307F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.h */; };
+		7FDF342507F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FDF342307F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FDF342607F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDF342407F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.m */; };
 		7FE008070A1587E30014197D /* QSTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E180020707B2BBB900010DB0 /* QSTableView.m */; };
-		7FE008080A1587E40014197D /* QSTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = E180020607B2BBB900010DB0 /* QSTableView.h */; };
+		7FE008080A1587E40014197D /* QSTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = E180020607B2BBB900010DB0 /* QSTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FE008090A1587E40014197D /* QSFancyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9BDC7D09FA53F8004F6E7A /* QSFancyTableView.m */; };
-		7FE0080A0A1587E50014197D /* QSFancyTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9BDC7C09FA53F8004F6E7A /* QSFancyTableView.h */; };
-		7FE009180A1637810014197D /* QSOutlineView.h in Headers */ = {isa = PBXBuildFile; fileRef = E18001EC07B2BBB900010DB0 /* QSOutlineView.h */; };
+		7FE0080A0A1587E50014197D /* QSFancyTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9BDC7C09FA53F8004F6E7A /* QSFancyTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7FE009180A1637810014197D /* QSOutlineView.h in Headers */ = {isa = PBXBuildFile; fileRef = E18001EC07B2BBB900010DB0 /* QSOutlineView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FE009190A1637820014197D /* QSOutlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = E18001ED07B2BBB900010DB0 /* QSOutlineView.m */; };
-		7FE2EDE409FECDA60046DBBF /* QSGlossyBarView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FE2EDE209FECDA60046DBBF /* QSGlossyBarView.h */; };
+		7FE2EDE409FECDA60046DBBF /* QSGlossyBarView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FE2EDE209FECDA60046DBBF /* QSGlossyBarView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FE2EDE509FECDA60046DBBF /* QSGlossyBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2EDE309FECDA60046DBBF /* QSGlossyBarView.m */; };
 		7FE2EE8B09FF0BD50046DBBF /* QSTitleToolbarItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FE2EE8909FF0BD50046DBBF /* QSTitleToolbarItem.h */; };
 		7FE2EE8C09FF0BD50046DBBF /* QSTitleToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2EE8A09FF0BD50046DBBF /* QSTitleToolbarItem.m */; };
@@ -244,7 +248,7 @@
 		7FE8940E085D021C0016C421 /* QSProcessObjectSource.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7FE8940D085D021B0016C421 /* QSProcessObjectSource.nib */; };
 		7FEE6B2907D2A93100847B74 /* QSHelp.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FEE6B2707D2A93100847B74 /* QSHelp.h */; };
 		7FEE6B2A07D2A93100847B74 /* QSHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FEE6B2807D2A93100847B74 /* QSHelp.m */; };
-		7FF447EA080479E200316DB6 /* QSLSTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FF447E8080479E200316DB6 /* QSLSTools.h */; };
+		7FF447EA080479E200316DB6 /* QSLSTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FF447E8080479E200316DB6 /* QSLSTools.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FF447EB080479E200316DB6 /* QSLSTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF447E9080479E200316DB6 /* QSLSTools.m */; };
 		7FF590210804398F0031368C /* QSDirectoryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF5901F0804398F0031368C /* QSDirectoryParser.m */; };
 		7FF59035080439B00031368C /* QSTextParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF59033080439B00031368C /* QSTextParser.m */; };
@@ -257,7 +261,7 @@
 		7FF791CC0865BB4D001A0F63 /* QSTrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF791CA0865BB4D001A0F63 /* QSTrigger.m */; };
 		7FF792DC0865C013001A0F63 /* QSTriggerManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FF792DA0865C013001A0F63 /* QSTriggerManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FF792DD0865C013001A0F63 /* QSTriggerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF792DB0865C013001A0F63 /* QSTriggerManager.m */; };
-		7FF8BB3807B816A20088CEEF /* NSTask+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FF8BB3607B816A20088CEEF /* NSTask+BLTRExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7FF8BB3807B816A20088CEEF /* NSTask+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FF8BB3607B816A20088CEEF /* NSTask+BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FF8BB3907B816A20088CEEF /* NSTask+BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF8BB3707B816A20088CEEF /* NSTask+BLTRExtensions.m */; };
 		7FFA83FD08124B5600A858CD /* QSSimpleNotifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FFA83FB08124B5600A858CD /* QSSimpleNotifier.h */; };
 		7FFA83FE08124B5600A858CD /* QSSimpleNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFA83FC08124B5600A858CD /* QSSimpleNotifier.m */; };
@@ -267,7 +271,7 @@
 		929052FA0D0FEAD600579DAE /* QSMiscFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 929052F80D0FEAD600579DAE /* QSMiscFunctions.h */; };
 		929052FB0D0FEAD600579DAE /* QSMiscFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 929052F90D0FEAD600579DAE /* QSMiscFunctions.m */; };
 		9294A4E70D0FA219000EAE2E /* QSPaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 9294A4E60D0FA219000EAE2E /* QSPaths.m */; };
-		92D9C96A0D134BDD00D91825 /* QSTreeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 92D9C9680D134BDD00D91825 /* QSTreeController.h */; };
+		92D9C96A0D134BDD00D91825 /* QSTreeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 92D9C9680D134BDD00D91825 /* QSTreeController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		92D9C96B0D134BDD00D91825 /* QSTreeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D9C9690D134BDD00D91825 /* QSTreeController.m */; };
 		92E946190D04CCEF0013377F /* QSModifierKeyEvents.h in Headers */ = {isa = PBXBuildFile; fileRef = 92E946170D04CCEF0013377F /* QSModifierKeyEvents.h */; };
 		92E9461A0D04CCEF0013377F /* QSModifierKeyEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E946180D04CCEF0013377F /* QSModifierKeyEvents.m */; };
@@ -320,7 +324,7 @@
 		E12444CC07297FF300043A01 /* CGSPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = E12444CB07297FF300043A01 /* CGSPrivate.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		E1264FAD072FE76C00206035 /* QSPreferences.nib in Resources */ = {isa = PBXBuildFile; fileRef = E1264FAC072FE76C00206035 /* QSPreferences.nib */; };
 		E129F349071DD65A001E1D5A /* License.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E129F348071DD65A001E1D5A /* License.rtf */; };
-		E131F4F107B43BF400D0E4AC /* QSDockingWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = E131F4EF07B43BF400D0E4AC /* QSDockingWindow.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E131F4F107B43BF400D0E4AC /* QSDockingWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = E131F4EF07B43BF400D0E4AC /* QSDockingWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E131F4F207B43BF400D0E4AC /* QSDockingWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E131F4F007B43BF400D0E4AC /* QSDockingWindow.m */; };
 		E131F79707B441E300D0E4AC /* QSDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FCE307B2114E0044D6EF /* QSDebug.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E131F79807B441E300D0E4AC /* QSKeys.h in Headers */ = {isa = PBXBuildFile; fileRef = E103EC4706471DAF00447FE0 /* QSKeys.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -386,20 +390,18 @@
 		E180033D07B2FEB900010DB0 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E103F3DB0647213D00447FE0 /* AddressBook.framework */; };
 		E180033E07B2FEBF00010DB0 /* Message.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E103F73C06476D8400447FE0 /* Message.framework */; };
 		E180033F07B2FEC300010DB0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E103F60706476C7700447FE0 /* Security.framework */; };
-		E180041607B35E2300010DB0 /* NDHotKeyEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D63F06BD97B2004E3DC3 /* NDHotKeyEvent.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E180041607B35E2300010DB0 /* NDHotKeyEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D63F06BD97B2004E3DC3 /* NDHotKeyEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E180041707B35E2400010DB0 /* NDHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D64006BD97B2004E3DC3 /* NDHotKeyEvent.m */; };
-		E180041807B35E2500010DB0 /* NDHotKeyEvent_QSMods.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F591E006D1C9DC0069FD74 /* NDHotKeyEvent_QSMods.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E180041807B35E2500010DB0 /* NDHotKeyEvent_QSMods.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F591E006D1C9DC0069FD74 /* NDHotKeyEvent_QSMods.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E180041907B35E2900010DB0 /* NDHotKeyEvent_QSMods.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F591E106D1C9DC0069FD74 /* NDHotKeyEvent_QSMods.m */; };
-		E180041C07B35E2F00010DB0 /* NSAppleEventDescriptor+NDAppleScriptObject.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D64906BD97B2004E3DC3 /* NSAppleEventDescriptor+NDAppleScriptObject.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E180041C07B35E2F00010DB0 /* NSAppleEventDescriptor+NDAppleScriptObject.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D64906BD97B2004E3DC3 /* NSAppleEventDescriptor+NDAppleScriptObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E180041D07B35E3100010DB0 /* NSAppleEventDescriptor+NDAppleScriptObject.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D64A06BD97B2004E3DC3 /* NSAppleEventDescriptor+NDAppleScriptObject.m */; };
-		E180041E07B35E3200010DB0 /* NSString+NDCarbonUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D64D06BD97B2004E3DC3 /* NSString+NDCarbonUtilities.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E180041E07B35E3200010DB0 /* NSString+NDCarbonUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D64D06BD97B2004E3DC3 /* NSString+NDCarbonUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E180041F07B35E3300010DB0 /* NSString+NDCarbonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D64E06BD97B2004E3DC3 /* NSString+NDCarbonUtilities.m */; settings = {COMPILER_FLAGS = "-w"; }; };
-		E180042007B35E3300010DB0 /* NSString+NDUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D64F06BD97B2004E3DC3 /* NSString+NDUtilities.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E180042007B35E3300010DB0 /* NSString+NDUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D64F06BD97B2004E3DC3 /* NSString+NDUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E180042107B35E3400010DB0 /* NSString+NDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D65006BD97B2004E3DC3 /* NSString+NDUtilities.m */; };
-		E180042207B35E3500010DB0 /* NSURL+NDCarbonUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D65106BD97B2004E3DC3 /* NSURL+NDCarbonUtilities.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E180042207B35E3500010DB0 /* NSURL+NDCarbonUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D65106BD97B2004E3DC3 /* NSURL+NDCarbonUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E180043D07B35E3B00010DB0 /* NSURL+NDCarbonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D65206BD97B2004E3DC3 /* NSURL+NDCarbonUtilities.m */; settings = {COMPILER_FLAGS = "-w"; }; };
-		E180043E07B35E3D00010DB0 /* QSImageAndTextCell.h in Headers */ = {isa = PBXBuildFile; fileRef = E103EE5B06471DDE00447FE0 /* QSImageAndTextCell.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		E180043F07B35E3E00010DB0 /* QSImageAndTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E103EE5C06471DDE00447FE0 /* QSImageAndTextCell.m */; };
 		E188856706A4884F00B75D22 /* System Events.scpt in Resources */ = {isa = PBXBuildFile; fileRef = E188856606A4884F00B75D22 /* System Events.scpt */; };
 		E18986C00657DDCE001286AA /* QSPlugIn.icns in Resources */ = {isa = PBXBuildFile; fileRef = E18986BF0657DDCE001286AA /* QSPlugIn.icns */; };
 		E18F8D2A072DBB1C00057774 /* PlugInVersionRequirements.plist in Resources */ = {isa = PBXBuildFile; fileRef = E18F8D29072DBB1C00057774 /* PlugInVersionRequirements.plist */; };
@@ -437,78 +439,75 @@
 		E1E5FA6607B204580044D6EF /* QSTrackingWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA5607B204580044D6EF /* QSTrackingWindow.m */; };
 		E1E5FA6907B204580044D6EF /* QSWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA5907B204580044D6EF /* QSWindow.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		E1E5FA6A07B204580044D6EF /* QSWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA5A07B204580044D6EF /* QSWindow.m */; };
-		E1E5FAA307B204BF0044D6EF /* QSFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA6D07B204BE0044D6EF /* QSFoundation.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		E1E5FAA407B204BF0044D6EF /* NDAlias+QSMods.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA6E07B204BE0044D6EF /* NDAlias+QSMods.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FAA307B204BF0044D6EF /* QSFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA6D07B204BE0044D6EF /* QSFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E1E5FAA407B204BF0044D6EF /* NDAlias+QSMods.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA6E07B204BE0044D6EF /* NDAlias+QSMods.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAA507B204BF0044D6EF /* NDAlias+QSMods.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA6F07B204BE0044D6EF /* NDAlias+QSMods.m */; };
-		E1E5FAA607B204BF0044D6EF /* NDProcess+QSMods.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7007B204BE0044D6EF /* NDProcess+QSMods.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FAA607B204BF0044D6EF /* NDProcess+QSMods.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7007B204BE0044D6EF /* NDProcess+QSMods.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAA707B204BF0044D6EF /* NDProcess+QSMods.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA7107B204BE0044D6EF /* NDProcess+QSMods.m */; };
-		E1E5FAA807B204BF0044D6EF /* NSAppleEventDescriptor_QSMods.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7207B204BE0044D6EF /* NSAppleEventDescriptor_QSMods.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FAA807B204BF0044D6EF /* NSAppleEventDescriptor_QSMods.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7207B204BE0044D6EF /* NSAppleEventDescriptor_QSMods.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAA907B204BF0044D6EF /* NSAppleEventDescriptor_QSMods.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA7307B204BE0044D6EF /* NSAppleEventDescriptor_QSMods.m */; };
-		E1E5FAAA07B204BF0044D6EF /* NSAppleScript_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7407B204BE0044D6EF /* NSAppleScript_BLTRExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FAAA07B204BF0044D6EF /* NSAppleScript_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7407B204BE0044D6EF /* NSAppleScript_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAAB07B204BF0044D6EF /* NSAppleScript_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA7507B204BE0044D6EF /* NSAppleScript_BLTRExtensions.m */; };
-		E1E5FAAC07B204BF0044D6EF /* NSApplication_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7607B204BE0044D6EF /* NSApplication_BLTRExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FAAC07B204BF0044D6EF /* NSApplication_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7607B204BE0044D6EF /* NSApplication_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAAD07B204BF0044D6EF /* NSApplication_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA7707B204BE0044D6EF /* NSApplication_BLTRExtensions.m */; };
-		E1E5FAAE07B204BF0044D6EF /* NSArray_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7807B204BE0044D6EF /* NSArray_BLTRExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FAAE07B204BF0044D6EF /* NSArray_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7807B204BE0044D6EF /* NSArray_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAAF07B204BF0044D6EF /* NSArray_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA7907B204BE0044D6EF /* NSArray_BLTRExtensions.m */; };
-		E1E5FAB007B204BF0044D6EF /* NSBezierPath_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7A07B204BE0044D6EF /* NSBezierPath_BLTRExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FAB007B204BF0044D6EF /* NSBezierPath_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7A07B204BE0044D6EF /* NSBezierPath_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAB107B204BF0044D6EF /* NSBezierPath_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA7B07B204BE0044D6EF /* NSBezierPath_BLTRExtensions.m */; };
-		E1E5FAB207B204BF0044D6EF /* NSBundle_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7C07B204BE0044D6EF /* NSBundle_BLTRExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FAB207B204BF0044D6EF /* NSBundle_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7C07B204BE0044D6EF /* NSBundle_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAB307B204BF0044D6EF /* NSBundle_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA7D07B204BE0044D6EF /* NSBundle_BLTRExtensions.m */; };
-		E1E5FAB407B204BF0044D6EF /* NSColor_QSModifications.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7E07B204BE0044D6EF /* NSColor_QSModifications.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FAB407B204BF0044D6EF /* NSColor_QSModifications.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7E07B204BE0044D6EF /* NSColor_QSModifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAB507B204BF0044D6EF /* NSColor_QSModifications.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA7F07B204BE0044D6EF /* NSColor_QSModifications.m */; };
-		E1E5FAB607B204BF0044D6EF /* NSCursor_InformExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA8007B204BE0044D6EF /* NSCursor_InformExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FAB607B204BF0044D6EF /* NSCursor_InformExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA8007B204BE0044D6EF /* NSCursor_InformExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAB707B204BF0044D6EF /* NSCursor_InformExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA8107B204BE0044D6EF /* NSCursor_InformExtensions.m */; };
-		E1E5FAB807B204BF0044D6EF /* NSData_RangeExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA8207B204BE0044D6EF /* NSData_RangeExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FAB807B204BF0044D6EF /* NSData_RangeExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA8207B204BE0044D6EF /* NSData_RangeExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAB907B204BF0044D6EF /* NSData_RangeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA8307B204BE0044D6EF /* NSData_RangeExtensions.m */; };
-		E1E5FABA07B204BF0044D6EF /* NSEvent+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA8407B204BE0044D6EF /* NSEvent+BLTRExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		E1E5FABB07B204BF0044D6EF /* NSException_TraceExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA8507B204BE0044D6EF /* NSException_TraceExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FABA07B204BF0044D6EF /* NSEvent+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA8407B204BE0044D6EF /* NSEvent+BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E1E5FABB07B204BF0044D6EF /* NSException_TraceExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA8507B204BE0044D6EF /* NSException_TraceExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FABC07B204BF0044D6EF /* NSException_TraceExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA8607B204BE0044D6EF /* NSException_TraceExtensions.m */; };
-		E1E5FABD07B204BF0044D6EF /* NSFileManager_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA8707B204BE0044D6EF /* NSFileManager_BLTRExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FABD07B204BF0044D6EF /* NSFileManager_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA8707B204BE0044D6EF /* NSFileManager_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FABE07B204BF0044D6EF /* NSFileManager_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA8807B204BE0044D6EF /* NSFileManager_BLTRExtensions.m */; };
-		E1E5FABF07B204BF0044D6EF /* NSGeometry_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA8907B204BE0044D6EF /* NSGeometry_BLTRExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FABF07B204BF0044D6EF /* NSGeometry_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA8907B204BE0044D6EF /* NSGeometry_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAC007B204BF0044D6EF /* NSGeometry_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA8A07B204BE0044D6EF /* NSGeometry_BLTRExtensions.m */; };
-		E1E5FAC107B204BF0044D6EF /* NSImage_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA8B07B204BE0044D6EF /* NSImage_BLTRExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FAC107B204BF0044D6EF /* NSImage_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA8B07B204BE0044D6EF /* NSImage_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAC207B204BF0044D6EF /* NSImage_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA8C07B204BE0044D6EF /* NSImage_BLTRExtensions.m */; };
-		E1E5FAC307B204BF0044D6EF /* NSObject+ReaperExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA8D07B204BE0044D6EF /* NSObject+ReaperExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FAC307B204BF0044D6EF /* NSObject+ReaperExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA8D07B204BE0044D6EF /* NSObject+ReaperExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAC407B204BF0044D6EF /* NSObject+ReaperExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA8E07B204BE0044D6EF /* NSObject+ReaperExtensions.m */; };
-		E1E5FAC507B204BF0044D6EF /* NSPasteboard_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA8F07B204BE0044D6EF /* NSPasteboard_BLTRExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FAC507B204BF0044D6EF /* NSPasteboard_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA8F07B204BE0044D6EF /* NSPasteboard_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAC607B204BF0044D6EF /* NSPasteboard_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA9007B204BE0044D6EF /* NSPasteboard_BLTRExtensions.m */; };
-		E1E5FAC707B204BF0044D6EF /* NSScreen_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA9107B204BE0044D6EF /* NSScreen_BLTRExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FAC707B204BF0044D6EF /* NSScreen_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA9107B204BE0044D6EF /* NSScreen_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAC807B204BF0044D6EF /* NSScreen_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA9207B204BE0044D6EF /* NSScreen_BLTRExtensions.m */; };
-		E1E5FAC907B204BF0044D6EF /* NSStatusItem_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA9307B204BE0044D6EF /* NSStatusItem_BLTRExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		E1E5FACB07B204BF0044D6EF /* NSString_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA9507B204BE0044D6EF /* NSString_BLTRExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FACB07B204BF0044D6EF /* NSString_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA9507B204BE0044D6EF /* NSString_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FACC07B204BF0044D6EF /* NSString_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA9607B204BE0044D6EF /* NSString_BLTRExtensions.m */; };
-		E1E5FACD07B204BF0044D6EF /* NSTableView_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA9707B204BE0044D6EF /* NSTableView_BLTRExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FACD07B204BF0044D6EF /* NSTableView_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA9707B204BE0044D6EF /* NSTableView_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FACE07B204BF0044D6EF /* NSTableView_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA9807B204BE0044D6EF /* NSTableView_BLTRExtensions.m */; };
-		E1E5FACF07B204BF0044D6EF /* NSURL_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA9907B204BE0044D6EF /* NSURL_BLTRExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FACF07B204BF0044D6EF /* NSURL_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA9907B204BE0044D6EF /* NSURL_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAD007B204BF0044D6EF /* NSURL_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA9A07B204BE0044D6EF /* NSURL_BLTRExtensions.m */; };
-		E1E5FAD107B204BF0044D6EF /* NSUserDefaults_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA9B07B204BE0044D6EF /* NSUserDefaults_BLTRExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FAD107B204BF0044D6EF /* NSUserDefaults_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA9B07B204BE0044D6EF /* NSUserDefaults_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAD207B204BF0044D6EF /* NSUserDefaults_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA9C07B204BE0044D6EF /* NSUserDefaults_BLTRExtensions.m */; };
-		E1E5FAD307B204BF0044D6EF /* NSView_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA9D07B204BE0044D6EF /* NSView_BLTRExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FAD307B204BF0044D6EF /* NSView_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA9D07B204BE0044D6EF /* NSView_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAD407B204BF0044D6EF /* NSView_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA9E07B204BE0044D6EF /* NSView_BLTRExtensions.m */; };
-		E1E5FAD507B204BF0044D6EF /* NSWindow_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA9F07B204BE0044D6EF /* NSWindow_BLTRExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FAD507B204BF0044D6EF /* NSWindow_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA9F07B204BE0044D6EF /* NSWindow_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAD607B204BF0044D6EF /* NSWindow_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FAA007B204BE0044D6EF /* NSWindow_BLTRExtensions.m */; };
-		E1E5FAD707B204BF0044D6EF /* NSWorkspace_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FAA107B204BE0044D6EF /* NSWorkspace_BLTRExtensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FAD707B204BF0044D6EF /* NSWorkspace_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FAA107B204BE0044D6EF /* NSWorkspace_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAD807B204BF0044D6EF /* NSWorkspace_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FAA207B204BE0044D6EF /* NSWorkspace_BLTRExtensions.m */; };
-		E1E5FADF07B205950044D6EF /* QSKeyCodeTranslator.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FADD07B205950044D6EF /* QSKeyCodeTranslator.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		E1E5FAE007B205950044D6EF /* QSKeyCodeTranslator.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FADE07B205950044D6EF /* QSKeyCodeTranslator.m */; };
 		E1E5FAE307B207180044D6EF /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1075DB00783CE27004053AF /* IOKit.framework */; };
 		E1E5FAE407B207450044D6EF /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E103F3390647212400447FE0 /* Carbon.framework */; };
 		E1E5FB1507B2079E0044D6EF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E103F60706476C7700447FE0 /* Security.framework */; };
-		E1E5FB1607B207D10044D6EF /* NDAlias+AliasFile.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D63406BD97B2004E3DC3 /* NDAlias+AliasFile.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FB1607B207D10044D6EF /* NDAlias+AliasFile.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D63406BD97B2004E3DC3 /* NDAlias+AliasFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FB1707B207D10044D6EF /* NDAlias+AliasFile.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D63506BD97B2004E3DC3 /* NDAlias+AliasFile.m */; };
-		E1E5FB1807B207D20044D6EF /* NDAlias.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D63606BD97B2004E3DC3 /* NDAlias.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FB1807B207D20044D6EF /* NDAlias.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D63606BD97B2004E3DC3 /* NDAlias.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FB1907B207D20044D6EF /* NDAlias.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D63706BD97B2004E3DC3 /* NDAlias.m */; };
-		E1E5FB1A07B207D60044D6EF /* NDAppleScriptObject.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D63806BD97B2004E3DC3 /* NDAppleScriptObject.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FB1A07B207D60044D6EF /* NDAppleScriptObject.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D63806BD97B2004E3DC3 /* NDAppleScriptObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FB1B07B207D70044D6EF /* NDAppleScriptObject.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D63906BD97B2004E3DC3 /* NDAppleScriptObject.m */; };
-		E1E5FB1C07B207D80044D6EF /* NDAppleScriptObject_Protocols.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D63A06BD97B2004E3DC3 /* NDAppleScriptObject_Protocols.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FB1C07B207D80044D6EF /* NDAppleScriptObject_Protocols.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D63A06BD97B2004E3DC3 /* NDAppleScriptObject_Protocols.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FB1D07B207DA0044D6EF /* NDComponentInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D63C06BD97B2004E3DC3 /* NDComponentInstance.m */; };
-		E1E5FB1F07B207DC0044D6EF /* NDComponentInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D63B06BD97B2004E3DC3 /* NDComponentInstance.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		E1E5FB2007B2080E0044D6EF /* NDProcess.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D64306BD97B2004E3DC3 /* NDProcess.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FB1F07B207DC0044D6EF /* NDComponentInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D63B06BD97B2004E3DC3 /* NDComponentInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E1E5FB2007B2080E0044D6EF /* NDProcess.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D64306BD97B2004E3DC3 /* NDProcess.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FB2107B208100044D6EF /* NDProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D64406BD97B2004E3DC3 /* NDProcess.m */; settings = {COMPILER_FLAGS = "-w"; }; };
-		E1E5FB2207B208120044D6EF /* NDResourceFork+OtherSorces.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D64506BD97B2004E3DC3 /* NDResourceFork+OtherSorces.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FB2207B208120044D6EF /* NDResourceFork+OtherSorces.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D64506BD97B2004E3DC3 /* NDResourceFork+OtherSorces.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FB2307B208140044D6EF /* NDResourceFork+OtherSorces.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D64606BD97B2004E3DC3 /* NDResourceFork+OtherSorces.m */; };
-		E1E5FB2407B208140044D6EF /* NDResourceFork.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D64706BD97B2004E3DC3 /* NDResourceFork.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FB2407B208140044D6EF /* NDResourceFork.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D64706BD97B2004E3DC3 /* NDResourceFork.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FB2507B208150044D6EF /* NDResourceFork.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D64806BD97B2004E3DC3 /* NDResourceFork.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		E1E5FB4F07B208C00044D6EF /* ExceptionHandling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E133F1FB06ADCDF800D27A4E /* ExceptionHandling.framework */; };
 		E1E5FBD207B20DD20044D6EF /* NSString_Purification.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FB6507B20DD10044D6EF /* NSString_Purification.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -597,38 +596,38 @@
 		E1E5FC3807B20DD20044D6EF /* QSTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FBCB07B20DD20044D6EF /* QSTypes.m */; };
 		E1E5FC3907B20DD20044D6EF /* QSVoyeur.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FBCC07B20DD20044D6EF /* QSVoyeur.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FC3A07B20DD20044D6EF /* QSVoyeur.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FBCD07B20DD20044D6EF /* QSVoyeur.m */; };
-		E1E5FC7907B20E4D0044D6EF /* BLTRResizeView.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC4807B20E4C0044D6EF /* BLTRResizeView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FC7907B20E4D0044D6EF /* BLTRResizeView.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC4807B20E4C0044D6EF /* BLTRResizeView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FC7A07B20E4D0044D6EF /* BLTRResizeView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FC4907B20E4C0044D6EF /* BLTRResizeView.m */; };
 		E1E5FC7B07B20E4D0044D6EF /* DefaultBindings.qskeys in Resources */ = {isa = PBXBuildFile; fileRef = E1E5FC4A07B20E4C0044D6EF /* DefaultBindings.qskeys */; };
-		E1E5FC7E07B20E4D0044D6EF /* QSBackgroundView.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC4D07B20E4D0044D6EF /* QSBackgroundView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FC7E07B20E4D0044D6EF /* QSBackgroundView.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC4D07B20E4D0044D6EF /* QSBackgroundView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FC7F07B20E4D0044D6EF /* QSBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FC4E07B20E4D0044D6EF /* QSBackgroundView.m */; };
-		E1E5FC8007B20E4D0044D6EF /* QSBezelBackgroundView.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC4F07B20E4D0044D6EF /* QSBezelBackgroundView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FC8007B20E4D0044D6EF /* QSBezelBackgroundView.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC4F07B20E4D0044D6EF /* QSBezelBackgroundView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FC8107B20E4D0044D6EF /* QSBezelBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FC5007B20E4D0044D6EF /* QSBezelBackgroundView.m */; };
 		E1E5FC8207B20E4D0044D6EF /* QSBindableActions.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1E5FC5107B20E4D0044D6EF /* QSBindableActions.strings */; };
-		E1E5FC8507B20E4D0044D6EF /* QSCommandBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC5407B20E4D0044D6EF /* QSCommandBuilder.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FC8507B20E4D0044D6EF /* QSCommandBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC5407B20E4D0044D6EF /* QSCommandBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FC8607B20E4D0044D6EF /* QSCommandBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FC5507B20E4D0044D6EF /* QSCommandBuilder.m */; };
-		E1E5FC8B07B20E4D0044D6EF /* QSFileConflictPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC5A07B20E4D0044D6EF /* QSFileConflictPanel.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FC8B07B20E4D0044D6EF /* QSFileConflictPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC5A07B20E4D0044D6EF /* QSFileConflictPanel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FC8C07B20E4D0044D6EF /* QSFileConflictPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FC5B07B20E4D0044D6EF /* QSFileConflictPanel.m */; };
-		E1E5FC8D07B20E4D0044D6EF /* QSInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC5C07B20E4D0044D6EF /* QSInterface.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		E1E5FC8E07B20E4D0044D6EF /* QSInterfaceController.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC5D07B20E4D0044D6EF /* QSInterfaceController.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FC8D07B20E4D0044D6EF /* QSInterface.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC5C07B20E4D0044D6EF /* QSInterface.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E1E5FC8E07B20E4D0044D6EF /* QSInterfaceController.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC5D07B20E4D0044D6EF /* QSInterfaceController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FC8F07B20E4D0044D6EF /* QSInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FC5E07B20E4D0044D6EF /* QSInterfaceController.m */; };
-		E1E5FC9007B20E4D0044D6EF /* QSLargeTypeDisplay.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC5F07B20E4D0044D6EF /* QSLargeTypeDisplay.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FC9007B20E4D0044D6EF /* QSLargeTypeDisplay.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC5F07B20E4D0044D6EF /* QSLargeTypeDisplay.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FC9107B20E4D0044D6EF /* QSLargeTypeDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FC6007B20E4D0044D6EF /* QSLargeTypeDisplay.m */; };
-		E1E5FC9407B20E4D0044D6EF /* QSMenuButton.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC6307B20E4D0044D6EF /* QSMenuButton.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FC9407B20E4D0044D6EF /* QSMenuButton.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC6307B20E4D0044D6EF /* QSMenuButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FC9507B20E4D0044D6EF /* QSMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FC6407B20E4D0044D6EF /* QSMenuButton.m */; };
-		E1E5FC9807B20E4D0044D6EF /* QSObjectCell.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC6707B20E4D0044D6EF /* QSObjectCell.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FC9807B20E4D0044D6EF /* QSObjectCell.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC6707B20E4D0044D6EF /* QSObjectCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FC9907B20E4D0044D6EF /* QSObjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FC6807B20E4D0044D6EF /* QSObjectCell.m */; };
-		E1E5FC9A07B20E4D0044D6EF /* QSObjectView.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC6907B20E4D0044D6EF /* QSObjectView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FC9A07B20E4D0044D6EF /* QSObjectView.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC6907B20E4D0044D6EF /* QSObjectView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FC9B07B20E4D0044D6EF /* QSObjectView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FC6A07B20E4D0044D6EF /* QSObjectView.m */; };
-		E1E5FC9C07B20E4D0044D6EF /* QSRankCell.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC6B07B20E4D0044D6EF /* QSRankCell.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FC9C07B20E4D0044D6EF /* QSRankCell.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC6B07B20E4D0044D6EF /* QSRankCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FC9D07B20E4D0044D6EF /* QSRankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FC6C07B20E4D0044D6EF /* QSRankCell.m */; };
-		E1E5FC9E07B20E4D0044D6EF /* QSResizingInterfaceController.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC6D07B20E4D0044D6EF /* QSResizingInterfaceController.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FC9E07B20E4D0044D6EF /* QSResizingInterfaceController.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC6D07B20E4D0044D6EF /* QSResizingInterfaceController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FC9F07B20E4D0044D6EF /* QSResizingInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FC6E07B20E4D0044D6EF /* QSResizingInterfaceController.m */; };
-		E1E5FCA007B20E4D0044D6EF /* QSResultController.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC6F07B20E4D0044D6EF /* QSResultController.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FCA007B20E4D0044D6EF /* QSResultController.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC6F07B20E4D0044D6EF /* QSResultController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FCA107B20E4D0044D6EF /* QSResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FC7007B20E4D0044D6EF /* QSResultController.m */; };
-		E1E5FCA207B20E4D0044D6EF /* QSResultWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC7107B20E4D0044D6EF /* QSResultWindow.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FCA207B20E4D0044D6EF /* QSResultWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC7107B20E4D0044D6EF /* QSResultWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FCA307B20E4D0044D6EF /* QSResultWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FC7207B20E4D0044D6EF /* QSResultWindow.m */; };
-		E1E5FCA407B20E4D0044D6EF /* QSSearchObjectView.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC7307B20E4D0044D6EF /* QSSearchObjectView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E5FCA407B20E4D0044D6EF /* QSSearchObjectView.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC7307B20E4D0044D6EF /* QSSearchObjectView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FCA507B20E4D0044D6EF /* QSSearchObjectView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FC7407B20E4D0044D6EF /* QSSearchObjectView.m */; };
 		E1E8909007B29C8000478A69 /* QSFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9AF07B1FCFC0044D6EF /* QSFoundation.framework */; };
 		E1EF4204070FDF7700D6DA03 /* QSHelpersPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = E1EF4203070FDF7700D6DA03 /* QSHelpersPrefPane.nib */; };
@@ -912,7 +911,7 @@
 		7F26503108DB09B20076E4E6 /* NSString+CarbonUtilities.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = "NSString+CarbonUtilities.m"; path = "UKClasses/UKDirectoryEnumerator/NSString+CarbonUtilities.m"; sourceTree = "<group>"; };
 		7F26503208DB09B20076E4E6 /* UKDirectoryEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = UKDirectoryEnumerator.h; path = UKClasses/UKDirectoryEnumerator/UKDirectoryEnumerator.h; sourceTree = "<group>"; };
 		7F26503308DB09B20076E4E6 /* UKDirectoryEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = UKDirectoryEnumerator.m; path = UKClasses/UKDirectoryEnumerator/UKDirectoryEnumerator.m; sourceTree = "<group>"; };
-		7F35FC7C07F8D8BB0056051D /* QSPaths.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = QSPaths.h; path = "Code-QuickStepCore/QSPaths.h"; sourceTree = SOURCE_ROOT; };
+		7F35FC7C07F8D8BB0056051D /* QSPaths.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSPaths.h; sourceTree = "<group>"; };
 		7F3DB4BA0926D1620062EDFD /* NSEvent+BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSEvent+BLTRExtensions.m"; sourceTree = "<group>"; };
 		7F3F72D30952F00D009B4B2D /* NSApplication+ServicesModification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSApplication+ServicesModification.h"; sourceTree = "<group>"; };
 		7F3F72D40952F00E009B4B2D /* NSApplication+ServicesModification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSApplication+ServicesModification.m"; sourceTree = "<group>"; };
@@ -1166,7 +1165,7 @@
 		E1087B40069BD5D300971A69 /* ContactEmail.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ContactEmail.icns; sourceTree = "<group>"; };
 		E1087B41069BD5D300971A69 /* ContactPhone.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ContactPhone.icns; sourceTree = "<group>"; };
 		E1186AD506A6D6F700F3EA8E /* QSKindDescriptions.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = QSKindDescriptions.plist; sourceTree = "<group>"; };
-		E12444CB07297FF300043A01 /* CGSPrivate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CGSPrivate.h; path = "Code-External/CGSPrivate.h"; sourceTree = SOURCE_ROOT; };
+		E12444CB07297FF300043A01 /* CGSPrivate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CGSPrivate.h; sourceTree = "<group>"; };
 		E1264FAC072FE76C00206035 /* QSPreferences.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSPreferences.nib; sourceTree = "<group>"; };
 		E129F348071DD65A001E1D5A /* License.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = License.rtf; sourceTree = "<group>"; };
 		E131F4EF07B43BF400D0E4AC /* QSDockingWindow.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSDockingWindow.h; sourceTree = "<group>"; };
@@ -1857,10 +1856,8 @@
 				E19B4D1006D86E2300D215D8 /* QSMacros.h */,
 				E1E22ADD06A1C36F00919B30 /* QSDefines.h */,
 				E103EC4606471DAF00447FE0 /* QSTypes.h */,
-				7F35FC7C07F8D8BB0056051D /* QSPaths.h */,
 				E103EC4706471DAF00447FE0 /* QSKeys.h */,
 				E103EC4806471DAF00447FE0 /* QSPreferenceKeys.h */,
-				E12444CB07297FF300043A01 /* CGSPrivate.h */,
 			);
 			path = Prefix;
 			sourceTree = "<group>";
@@ -1947,6 +1944,7 @@
 		E103EE2406471DDE00447FE0 /* Code-External */ = {
 			isa = PBXGroup;
 			children = (
+				E12444CB07297FF300043A01 /* CGSPrivate.h */,
 				4DFE7D9E0E081A30000B9AA3 /* NSImageQuickLook */,
 				7FA4ED3F09132402007DB407 /* UKKQueue */,
 				7F26503008DB09B20076E4E6 /* NSString+CarbonUtilities.h */,
@@ -2233,6 +2231,7 @@
 		E1E5FB6407B20DD10044D6EF /* Code-QuickStepCore */ = {
 			isa = PBXGroup;
 			children = (
+				7F35FC7C07F8D8BB0056051D /* QSPaths.h */,
 				929052F80D0FEAD600579DAE /* QSMiscFunctions.h */,
 				929052F90D0FEAD600579DAE /* QSMiscFunctions.m */,
 				9294A4E60D0FA219000EAE2E /* QSPaths.m */,
@@ -2610,6 +2609,8 @@
 				7FE008080A1587E40014197D /* QSTableView.h in Headers */,
 				7FE0080A0A1587E50014197D /* QSFancyTableView.h in Headers */,
 				7FE009180A1637810014197D /* QSOutlineView.h in Headers */,
+				4DB49FFD0E1005C20010C540 /* QSDelegatingTableColumn.h in Headers */,
+				4DB4A03E0E100B020010C540 /* QSImageAndTextCell.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2637,7 +2638,6 @@
 				E1E5FAC307B204BF0044D6EF /* NSObject+ReaperExtensions.h in Headers */,
 				E1E5FAC507B204BF0044D6EF /* NSPasteboard_BLTRExtensions.h in Headers */,
 				E1E5FAC707B204BF0044D6EF /* NSScreen_BLTRExtensions.h in Headers */,
-				E1E5FAC907B204BF0044D6EF /* NSStatusItem_BLTRExtensions.h in Headers */,
 				E1E5FACB07B204BF0044D6EF /* NSString_BLTRExtensions.h in Headers */,
 				E1E5FACD07B204BF0044D6EF /* NSTableView_BLTRExtensions.h in Headers */,
 				E1E5FACF07B204BF0044D6EF /* NSURL_BLTRExtensions.h in Headers */,
@@ -2645,7 +2645,6 @@
 				E1E5FAD307B204BF0044D6EF /* NSView_BLTRExtensions.h in Headers */,
 				E1E5FAD507B204BF0044D6EF /* NSWindow_BLTRExtensions.h in Headers */,
 				E1E5FAD707B204BF0044D6EF /* NSWorkspace_BLTRExtensions.h in Headers */,
-				E1E5FADF07B205950044D6EF /* QSKeyCodeTranslator.h in Headers */,
 				E1E5FB1607B207D10044D6EF /* NDAlias+AliasFile.h in Headers */,
 				E1E5FB1807B207D20044D6EF /* NDAlias.h in Headers */,
 				E1E5FB1A07B207D60044D6EF /* NDAppleScriptObject.h in Headers */,
@@ -2660,7 +2659,6 @@
 				E180041E07B35E3200010DB0 /* NSString+NDCarbonUtilities.h in Headers */,
 				E180042007B35E3300010DB0 /* NSString+NDUtilities.h in Headers */,
 				E180042207B35E3500010DB0 /* NSURL+NDCarbonUtilities.h in Headers */,
-				E180043E07B35E3D00010DB0 /* QSImageAndTextCell.h in Headers */,
 				7FF8BB3807B816A20088CEEF /* NSTask+BLTRExtensions.h in Headers */,
 				7F712FE707BF4DEB00895313 /* QSImageView.h in Headers */,
 				7F93148D07E8B627009B3C06 /* NSIndexSet+Extensions.h in Headers */,
@@ -2672,10 +2670,10 @@
 				7F05F1E20852441C00A8EC0C /* NSObject+BLTRExtensions.h in Headers */,
 				7F26503408DB09B20076E4E6 /* NSString+CarbonUtilities.h in Headers */,
 				7F26503608DB09B20076E4E6 /* UKDirectoryEnumerator.h in Headers */,
-				7F4F93E30A0D8CCA00BCF88E /* QSDelegatingTableColumn.h in Headers */,
 				7F9553200A25DC4A0004FCC3 /* QSLoginItemFunctions.h in Headers */,
 				92D9C96A0D134BDD00D91825 /* QSTreeController.h in Headers */,
 				4DFE7DA30E081A3C000B9AA3 /* NSImage+QuickLook.h in Headers */,
+				4DB4A0210E1007EA0010C540 /* QSKeyCodeTranslator.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3311,6 +3309,8 @@
 				7FE008070A1587E30014197D /* QSTableView.m in Sources */,
 				7FE008090A1587E40014197D /* QSFancyTableView.m in Sources */,
 				7FE009190A1637820014197D /* QSOutlineView.m in Sources */,
+				4DB49FFE0E1005C30010C540 /* QSDelegatingTableColumn.m in Sources */,
+				4DB4A03D0E100B020010C540 /* QSImageAndTextCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3343,7 +3343,6 @@
 				E1E5FAD407B204BF0044D6EF /* NSView_BLTRExtensions.m in Sources */,
 				E1E5FAD607B204BF0044D6EF /* NSWindow_BLTRExtensions.m in Sources */,
 				E1E5FAD807B204BF0044D6EF /* NSWorkspace_BLTRExtensions.m in Sources */,
-				E1E5FAE007B205950044D6EF /* QSKeyCodeTranslator.m in Sources */,
 				E1E5FB1707B207D10044D6EF /* NDAlias+AliasFile.m in Sources */,
 				E1E5FB1907B207D20044D6EF /* NDAlias.m in Sources */,
 				E1E5FB1B07B207D70044D6EF /* NDAppleScriptObject.m in Sources */,
@@ -3357,7 +3356,6 @@
 				E180041F07B35E3300010DB0 /* NSString+NDCarbonUtilities.m in Sources */,
 				E180042107B35E3400010DB0 /* NSString+NDUtilities.m in Sources */,
 				E180043D07B35E3B00010DB0 /* NSURL+NDCarbonUtilities.m in Sources */,
-				E180043F07B35E3E00010DB0 /* QSImageAndTextCell.m in Sources */,
 				7FF8BB3907B816A20088CEEF /* NSTask+BLTRExtensions.m in Sources */,
 				7F712FE807BF4DEB00895313 /* QSImageView.m in Sources */,
 				7F93148E07E8B627009B3C06 /* NSIndexSet+Extensions.m in Sources */,
@@ -3372,10 +3370,10 @@
 				7F26503508DB09B20076E4E6 /* NSString+CarbonUtilities.m in Sources */,
 				7F26503708DB09B20076E4E6 /* UKDirectoryEnumerator.m in Sources */,
 				7F3DB4BB0926D1620062EDFD /* NSEvent+BLTRExtensions.m in Sources */,
-				7F4F93E40A0D8CCA00BCF88E /* QSDelegatingTableColumn.m in Sources */,
 				7F9553210A25DC4B0004FCC3 /* QSLoginItemFunctions.m in Sources */,
 				92D9C96B0D134BDD00D91825 /* QSTreeController.m in Sources */,
 				4DFE7DA20E081A3B000B9AA3 /* NSImage+QuickLook.m in Sources */,
+				4DB4A0220E1007EB0010C540 /* QSKeyCodeTranslator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

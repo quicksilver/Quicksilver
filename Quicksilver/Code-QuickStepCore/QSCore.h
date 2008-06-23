@@ -31,3 +31,6 @@
 #import "QSVoyeur.h"
 #import "QSInterfaceMediator.h"
 #import "QSTaskController.h"
+#import "QSLibrarian.h"
+#import "QSRankedObject.h"
+#import "QSIconLoader.h"
