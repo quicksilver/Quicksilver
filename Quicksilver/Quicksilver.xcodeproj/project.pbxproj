@@ -3912,7 +3912,7 @@
 				7F6B3E47085CE68E000735A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		7F6B3E4A085CE68E000735A8 /* Build configuration list for PBXNativeTarget "QuickStep Foundation" */ = {
 			isa = XCConfigurationList;
@@ -3921,7 +3921,7 @@
 				7F6B3E4C085CE68E000735A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		7F6B3E4F085CE68E000735A8 /* Build configuration list for PBXNativeTarget "QuickStep Core" */ = {
 			isa = XCConfigurationList;
@@ -3930,7 +3930,7 @@
 				7F6B3E51085CE68E000735A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		7F6B3E54085CE68E000735A8 /* Build configuration list for PBXNativeTarget "QuickStep Effects" */ = {
 			isa = XCConfigurationList;
@@ -3939,7 +3939,7 @@
 				7F6B3E56085CE68E000735A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		7F6B3E59085CE68E000735A8 /* Build configuration list for PBXNativeTarget "QuickStep Interface" */ = {
 			isa = XCConfigurationList;
@@ -3948,7 +3948,7 @@
 				7F6B3E5B085CE68E000735A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		7F6B3E5E085CE68E000735A8 /* Build configuration list for PBXAggregateTarget "QSScriptingDictionary" */ = {
 			isa = XCConfigurationList;
@@ -3957,7 +3957,7 @@
 				7F6B3E60085CE68E000735A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		7F6B3E63085CE68E000735A8 /* Build configuration list for PBXNativeTarget "Core Support" */ = {
 			isa = XCConfigurationList;
@@ -3966,7 +3966,7 @@
 				7F6B3E65085CE68E000735A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		7F6B3E68085CE68E000735A8 /* Build configuration list for PBXNativeTarget "Quicksilver" */ = {
 			isa = XCConfigurationList;
@@ -3975,7 +3975,7 @@
 				7F6B3E6A085CE68E000735A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		7F6B3E6D085CE68E000735A8 /* Build configuration list for PBXAggregateTarget "Quicksilver Distribution" */ = {
 			isa = XCConfigurationList;
@@ -3984,7 +3984,7 @@
 				7F6B3E6F085CE68E000735A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		7F6B3E7C085CE68E000735A8 /* Build configuration list for PBXProject "Quicksilver" */ = {
 			isa = XCConfigurationList;
@@ -3993,7 +3993,7 @@
 				7F6B3E7E085CE68E000735A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		7F9703D309AFEE8B00E9EA77 /* Build configuration list for PBXNativeTarget "QSDroplet" */ = {
 			isa = XCConfigurationList;
@@ -4002,7 +4002,7 @@
 				7F9703D509AFEE8B00E9EA77 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
