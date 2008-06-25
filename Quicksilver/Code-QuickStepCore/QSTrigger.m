@@ -33,6 +33,7 @@
 	}
 	return self;
 }
+
 - (id)init {
 	self = [super init];
 	if (self != nil) {
@@ -47,6 +48,7 @@
 	[children release];
 	[super dealloc];
 }
+
 - (BOOL)isGroup {
 	return [[self type] isEqualToString:@"QSGroupTrigger"];
 }
@@ -120,6 +122,7 @@
 	}
 	return YES;
 }
+
 - (QSCommand *)command {
 	id command = [info objectForKey:@"command"];
 	if ([command isKindOfClass:[NSDictionary class]]) {
@@ -134,7 +137,13 @@
 }
 
 - (NSArray *)commands {
-	return [NSArray arrayWithObject:[self command]];
+    NSArray * array = nil;
+    QSCommand * command = [self command];
+    
+    if( command != nil )
+        array = [NSArray arrayWithObject:command];
+    
+	return array;
 }
 - (BOOL)isPreset {
 	return [[info objectForKey:kItemID] hasPrefix:@"QS"];
