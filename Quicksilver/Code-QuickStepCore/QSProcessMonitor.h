@@ -10,7 +10,7 @@
 	NSMutableArray *processes;
 	NSDictionary *currentApplication;
 	NSDictionary *previousApplication;
-    EventHandlerRef *eventHandler;
+    EventHandlerRef eventHandler;
 }
 + (id)sharedInstance;
 - (NSArray *)visibleProcesses;

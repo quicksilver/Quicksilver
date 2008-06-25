@@ -60,8 +60,9 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 	eventType.eventClass = kEventClassApplication;
 	eventType.eventKind = kEventAppFrontSwitched;
 	EventHandlerUPP handlerFunction = NewEventHandlerUPP(appChanged);
-	OSStatus err = InstallEventHandler(GetEventMonitorTarget(), handlerFunction, 1, &eventType, self, eventHandler);
-	if (err) NSLog(@"gmod registration err %d", err);
+	OSStatus err = InstallEventHandler(GetEventMonitorTarget(), handlerFunction, 1, &eventType, self, &eventHandler);
+	if (err)
+        NSLog(@"gmod registration err %d", err);
 }
 
 - (id)init {
@@ -71,13 +72,12 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 
 		[[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(appTerminated:) name:NSWorkspaceDidTerminateApplicationNotification object: nil];
 		[[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(appLaunched:) name:NSWorkspaceDidLaunchApplicationNotification object: nil];
-//		[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(appChanged:) name:@"com.apple.HIToolbox.menuBarShownNotification" object:nil]:
     }
 	return self;
 }
 
 - (void)dealloc {
-    OSStatus err = RemoveEventHandler(*eventHandler);
+    OSStatus err = RemoveEventHandler(eventHandler);
     if(err)
         NSLog(@"error %d removing handler", err);
 	[self setCurrentApplication:nil];
