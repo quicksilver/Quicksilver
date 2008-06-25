@@ -8,6 +8,10 @@
 #import "QSTypes.h"
 
 #import "NSEvent+BLTRExtensions.h"
+@interface QSProcessMonitor (QSInternal)
+- (NSDictionary *)infoForPSN:(ProcessSerialNumber)processSerialNumber;
+@end
+
 OSStatus GetPSNForAppInfo(ProcessSerialNumber *psn, NSDictionary *theApp) {
 	if (!theApp) return 1;
 	(*psn) .highLongOfPSN = [[theApp objectForKey:@"NSApplicationProcessSerialNumberHigh"] longValue];
@@ -16,8 +20,20 @@ OSStatus GetPSNForAppInfo(ProcessSerialNumber *psn, NSDictionary *theApp) {
 }
 
 OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData) {
-	NSLog(@"app change event unhandled!");
-    [(QSProcessMonitor*)userData appChanged:nil];
+    ProcessSerialNumber *psn = malloc(sizeof(psn));
+    size_t size = sizeof(ProcessSerialNumber);
+    OSStatus result;
+    result = GetEventParameter(theEvent,
+                               kEventParamProcessID, typeProcessSerialNumber, NULL,
+                               size, &size, 
+                               psn );
+    if( size != sizeof(ProcessSerialNumber) ) {
+        free(psn);
+        if(DEBUG) NSLog( @"Invalid size returned %d", size );
+    } else {
+        NSDictionary *dict = [(QSProcessMonitor*)userData infoForPSN:*psn];
+        [[NSNotificationCenter defaultCenter] postNotificationName:QSActiveApplicationChanged object:userData userInfo:dict];
+    }
 	return CallNextEventHandler(nextHandler, theEvent);
 }
 
@@ -60,7 +76,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 	eventType.eventClass = kEventClassApplication;
 	eventType.eventKind = kEventAppFrontSwitched;
 	EventHandlerUPP handlerFunction = NewEventHandlerUPP(appChanged);
-	OSStatus err = InstallEventHandler(GetEventMonitorTarget(), handlerFunction, 1, &eventType, self, &eventHandler);
+	OSStatus err = InstallApplicationEventHandler(handlerFunction, 1, &eventType, self, &eventHandler);
 	if (err)
         NSLog(@"gmod registration err %d", err);
 }
@@ -72,6 +88,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 
 		[[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(appTerminated:) name:NSWorkspaceDidTerminateApplicationNotification object: nil];
 		[[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(appLaunched:) name:NSWorkspaceDidLaunchApplicationNotification object: nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appLaunched:) name:QSActiveApplicationChanged object: nil];
     }
 	return self;
 }
@@ -144,7 +161,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 			[self removeProcessWithPSN:psn];
 			break;
 		case NSFrontProcessSwitched:
-			[[NSNotificationCenter defaultCenter] postNotificationName:@"QSActiveApplicationChanged" object: processInfo];
+			[[NSNotificationCenter defaultCenter] postNotificationName:QSActiveApplicationChanged object: processInfo];
 			[self appChanged:nil];
 			break;
 		default:

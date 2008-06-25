@@ -40,7 +40,7 @@
 		if (!triggersDict) triggersDict = [[NSMutableDictionary dictionary] retain];
 		[[NSNotificationCenter defaultCenter] addObserver:self
 												selector:@selector(appChanged:)
-													name:@"QSActiveApplicationChanged"
+													name:QSActiveApplicationChanged
 												 object:nil];
 	}
 	return self;
@@ -50,7 +50,7 @@
 	//NSLog(@"app %@", [[notif object] objectForKey:@"NSApplicationBundleIdentifier"]);
 
 	NSArray *theTriggers = [triggersDict allValues];
-	NSString *ident = [[notif object] objectForKey:@"NSApplicationBundleIdentifier"];
+	NSString *ident = [[notif userInfo] objectForKey:@"NSApplicationBundleIdentifier"];
 	[theTriggers makeObjectsPerformSelector:@selector(rescope:) withObject:ident];
 }
 - (void)activateTriggers {
