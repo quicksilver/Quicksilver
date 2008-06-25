@@ -765,35 +765,32 @@ QSController *QSCon;
 	return YES;
 }
 
+- (void)writeLeaksToFileAtPath:(NSString*)path {
+    NSFileHandle * output = [NSFileHandle fileHandleForWritingAtPath:path];
+    if(output == nil)
+        output = [NSFileHandle fileHandleWithStandardError];
+    NSTask * leaksTask = [NSTask taskWithLaunchPath:@"/usr/bin/leaks"
+                                          arguments:[NSArray arrayWithObjects:
+                                                     [NSString stringWithFormat:@"%d", getpid()],
+                                                     nil]];
+    [leaksTask setStandardOutput:output];
+    [leaksTask setStandardError:output];
+    NSLog( @"Writing leaks to %@", ( path != nil ? path : @"stderr" ) );
+    [leaksTask launch];
+    [leaksTask waitUntilExit];
+}
+
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"WindowsShouldHide" object:self];
 	[[NSUserDefaults standardUserDefaults] synchronize];
-	//	if (DEBUG) [self writeLeaks];
+    if (DEBUG_MEMORY) [self writeLeaksToFileAtPath:QSApplicationSupportSubPath(@"QSLeaks.plist", NO)];
 }
-//#ifndef NDEBUG
-- (void)writeLeaks {
-	FILE* fp;
-	size_t len;
-	char cmd[32] , buf[512];
-	snprintf(cmd, sizeof(cmd), "/usr/bin/leaks %d", getpid() );
-	if (fp = popen(cmd, "r") ) {
-		while( len = fread(buf, 1, sizeof(buf), fp) )
-			fwrite(buf, 1, len, stderr);
-		pclose(fp);
-	}
-}
-//#endif
-//- (NSMenu *)applicationDockMenu:(NSApplication *)sender {/
-//	return [NSApp mainMenu];
-//}
-//applicationDockMenu:
-#if 0
+
 - (void)applicationWillFinishLaunching:(NSNotification *)aNotification {
 	if (DEBUG) {
 		[self registerForErrors];
 	}
 }
-#endif
 
 - (void)setupSplash {
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:kUseEffects]) {
@@ -1025,7 +1022,6 @@ QSController *QSCon;
 
 @end
 
-#if 0
 void QSSignalHandler(int i) {
 	printf("signal %d", i);
 	NSLog(@"Current Tasks %@", [[QSTaskController sharedInstance] tasks]);
@@ -1060,4 +1056,3 @@ void QSSignalHandler(int i) {
 }
 
 @end
-#endif

@@ -305,6 +305,8 @@ id QSPrefs;
 	if (!view) {
 		//id obj = [module objectForKey:@"instance"];
 		view = [module loadMainView];
+        if( view == nil )
+            NSLog( @"Failed loading view for Preference Module %@", module );
 		//[module setObject:view forKey:@"view"];
 		//[module setObject:[NSNumber numberWithFloat:NSHeight([view frame])] forKey:@"height"];
 		if ([module respondsToSelector:@selector(paneLoadedByController:)])
@@ -385,7 +387,7 @@ id QSPrefs;
 
 	id instance = [info objectForKey:@"instance"];
 	if (!instance) {
-		instance = [[[[QSReg getClass:[info objectForKey:@"class"]]alloc] init] autorelease];
+		instance = [[[[QSReg getClass:[info objectForKey:@"class"]] alloc] init] autorelease];
 		if (instance) {
 			if ([instance respondsToSelector:@selector(setInfo:)])
 				[instance setInfo:info];
