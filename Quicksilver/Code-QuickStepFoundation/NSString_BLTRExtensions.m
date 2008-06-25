@@ -229,7 +229,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 - (NSString *)encodedHexString {
 	NSMutableString *myHexString = [NSMutableString string];
 	short index = 0;
-	for (; index < [self cStringLength]; index++) {
+	for (; index < [self length]; index++) {
 		[myHexString appendFormat:@"%x", [self characterAtIndex:index]];
 	}
 	return myHexString;

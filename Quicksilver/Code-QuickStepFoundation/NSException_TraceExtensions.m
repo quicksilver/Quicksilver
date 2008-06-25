@@ -20,7 +20,7 @@
 		char buffer[512];
 		size_t length;
 
-		fprintf( stderr, "An exception of type %s occured.\n%s\n", [[self name] cString] , [[self reason] cString] );
+		fprintf( stderr, "An exception of type %s occured.\n%s\n", [[self name] UTF8String] , [[self reason] UTF8String] );
 		fprintf( stderr, "Stack trace:\n" );
 
 		while( length = fread( buffer, 1, sizeof( buffer ), file ) )
