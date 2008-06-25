@@ -8,13 +8,19 @@
 #import "QSTypes.h"
 
 #import "NSEvent+BLTRExtensions.h"
-#define kQSShowBackgroundProcesses @"QSShowBackgroundProcesses"
 OSStatus GetPSNForAppInfo(ProcessSerialNumber *psn, NSDictionary *theApp) {
 	if (!theApp) return 1;
 	(*psn) .highLongOfPSN = [[theApp objectForKey:@"NSApplicationProcessSerialNumberHigh"] longValue];
 	(*psn) .lowLongOfPSN = [[theApp objectForKey:@"NSApplicationProcessSerialNumberLow"] longValue];
 	return noErr;
 }
+
+OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData) {
+	NSLog(@"app change event unhandled!");
+    [(QSProcessMonitor*)userData appChanged:nil];
+	return CallNextEventHandler(nextHandler, theEvent);
+}
+
 @implementation QSProcessMonitor
 + (id)sharedInstance {
 	static id _sharedInstance;
@@ -36,47 +42,47 @@ OSStatus GetPSNForAppInfo(ProcessSerialNumber *psn, NSDictionary *theApp) {
 	procInfo.processInfoLength			 = sizeof(ProcessInfoRec);
 	procInfo.processName					 = procName;
 	procInfo.processAppSpec			 = &appFSSpec;
-	procInfo.processAppSpec			 = &appFSSpec;
+//	procInfo.processAppSpec			 = &appFSSpec;
 
 	while (procNotFound != (resultCode = GetNextProcess(&serialNumber) )) {
-		if (noErr == (resultCode =
-					 GetProcessInformation(&serialNumber, &procInfo) )) {
+		if (noErr == (resultCode = GetProcessInformation(&serialNumber, &procInfo) )) {
 			if ('\0' == procName[1])
 				procName[1] = '0';
-			[resultsArray addObject:(NSString
-									 *)CFStringCreateWithPascalString(NULL, procInfo.processName, kCFStringEncodingMacRoman)
-				];
+            NSString *processName = (NSString*)CFStringCreateWithPascalString(NULL, procInfo.processName, kCFStringEncodingUTF8);
+			[resultsArray addObject:processName];
 		}
 	}
 	return resultsArray;
-
 }
 
-OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData) {
-	NSLog(@"app change event unhandled!\n");
-	return CallNextEventHandler(nextHandler, theEvent);
-}
-
-- (void)regisiterForAppChangeNotifications {
+- (void)registerForAppChangeNotifications {
 	EventTypeSpec eventType;
 	eventType.eventClass = kEventClassApplication;
 	eventType.eventKind = kEventAppFrontSwitched;
 	EventHandlerUPP handlerFunction = NewEventHandlerUPP(appChanged);
-	OSStatus err = InstallEventHandler(GetEventMonitorTarget(), handlerFunction, 1, &eventType, NULL, NULL);
+	OSStatus err = InstallEventHandler(GetEventMonitorTarget(), handlerFunction, 1, &eventType, self, eventHandler);
 	if (err) NSLog(@"gmod registration err %d", err);
 }
 
 - (id)init {
 	if (self = [super init]) {
-		[self regisiterForAppChangeNotifications];
+		[self registerForAppChangeNotifications];
 		processes = [[NSMutableArray arrayWithCapacity:1] retain];
 
 		[[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(appTerminated:) name:NSWorkspaceDidTerminateApplicationNotification object: nil];
 		[[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(appLaunched:) name:NSWorkspaceDidLaunchApplicationNotification object: nil];
-		//[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(appChanged:) name:@"com.apple.HIToolbox.menuBarShownNotification" object:nil];
-
-	  }
+//		[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(appChanged:) name:@"com.apple.HIToolbox.menuBarShownNotification" object:nil]:
+    }
 	return self;
+}
+
+- (void)dealloc {
+    OSStatus err = RemoveEventHandler(*eventHandler);
+    if(err)
+        NSLog(@"error %d removing handler", err);
+	[self setCurrentApplication:nil];
+	[self setPreviousApplication:nil];
+	[super dealloc];
 }
 
 - (QSObject *)processObjectWithPSN:(ProcessSerialNumber)psn {
@@ -95,27 +101,27 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 }
 
 - (NSDictionary *)infoForPSN:(ProcessSerialNumber)processSerialNumber {
- NSDictionary *dict = (NSDictionary *)ProcessInformationCopyDictionary(&processSerialNumber, kProcessDictionaryIncludeAllInformationMask);
- dict = [[[dict autorelease] mutableCopy] autorelease];
-
- [dict setValue:[dict objectForKey:@"CFBundleName"]
-		 forKey:@"NSApplicationName"];
-
- [dict setValue:[dict objectForKey:@"BundlePath"]
-		 forKey:@"NSApplicationPath"];
-
- [dict setValue:[dict objectForKey:@"CFBundleIdentifier"]
-		 forKey:@"NSApplicationBundleIdentifier"];
-
- [dict setValue:[dict objectForKey:@"pid"]
-		 forKey:@"NSApplicationProcessIdentifier"];
-
- [dict setValue:[NSNumber numberWithLong:processSerialNumber.highLongOfPSN]
-		 forKey:@"NSApplicationProcessSerialNumberHigh"];
-
- [dict setValue:[NSNumber numberWithLong:processSerialNumber.lowLongOfPSN]
-		 forKey:@"NSApplicationProcessSerialNumberLow"];
-
+    NSDictionary *dict = (NSDictionary *)ProcessInformationCopyDictionary(&processSerialNumber, kProcessDictionaryIncludeAllInformationMask);
+    dict = [[[dict autorelease] mutableCopy] autorelease];
+    
+    [dict setValue:[dict objectForKey:@"CFBundleName"]
+            forKey:@"NSApplicationName"];
+    
+    [dict setValue:[dict objectForKey:@"BundlePath"]
+            forKey:@"NSApplicationPath"];
+    
+    [dict setValue:[dict objectForKey:@"CFBundleIdentifier"]
+            forKey:@"NSApplicationBundleIdentifier"];
+    
+    [dict setValue:[dict objectForKey:@"pid"]
+            forKey:@"NSApplicationProcessIdentifier"];
+    
+    [dict setValue:[NSNumber numberWithLong:processSerialNumber.highLongOfPSN]
+            forKey:@"NSApplicationProcessSerialNumberHigh"];
+    
+    [dict setValue:[NSNumber numberWithLong:processSerialNumber.lowLongOfPSN]
+            forKey:@"NSApplicationProcessSerialNumberLow"];
+    
 	return dict;
 }
 
@@ -126,10 +132,11 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 
 	NSDictionary *processInfo = [self infoForPSN:psn];
 
- switch ([theEvent subtype]) {
+    switch ([theEvent subtype]) {
 		case NSProcessDidLaunchSubType:
-			if (![[NSUserDefaults standardUserDefaults] boolForKey:@"QSShowBackgroundProcesses"]) return YES;
-	 BOOL background = [[processInfo objectForKey:@"LSUIElement"] boolValue] || [[processInfo objectForKey:@"LSBackgroundOnly"] boolValue];
+			if (![[NSUserDefaults standardUserDefaults] boolForKey:kQSShowBackgroundProcesses])
+                return YES;
+            BOOL background = [[processInfo objectForKey:@"LSUIElement"] boolValue] || [[processInfo objectForKey:@"LSBackgroundOnly"] boolValue];
 			if (!background) return YES;
 				[self addProcessWithDict: processInfo];
 			break;
@@ -144,7 +151,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 	 break;
 	}
 	return YES;
-} ;
+}
 
 - (void)appChanged:(NSNotification *)aNotification {
 	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
@@ -158,7 +165,6 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 
 	[self setPreviousApplication:currentApplication];
 	[self setCurrentApplication:newApp];
-
 }
 
 - (void)processTerminated:(QSObject *)thisProcess {
@@ -359,12 +365,6 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 		[previousApplication release];
 		previousApplication = [newPreviousApplication copy];
 	}
-}
-
-- (void)dealloc {
-	[self setCurrentApplication:nil];
-	[self setPreviousApplication:nil];
-	[super dealloc];
 }
 
 @end

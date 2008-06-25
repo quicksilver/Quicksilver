@@ -1,12 +1,16 @@
 
 
 #import <Foundation/Foundation.h>
+
+#define kQSShowBackgroundProcesses @"QSShowBackgroundProcesses"
+
 @class QSObject;
 
 @interface QSProcessMonitor : NSObject {
 	NSMutableArray *processes;
 	NSDictionary *currentApplication;
 	NSDictionary *previousApplication;
+    EventHandlerRef *eventHandler;
 }
 + (id)sharedInstance;
 - (NSArray *)visibleProcesses;
@@ -16,7 +20,6 @@
 
 + (id)sharedInstance;
 + (NSArray *)processes;
-- (void)regisiterForAppChangeNotifications;
 - (QSObject *)processObjectWithPSN:(ProcessSerialNumber)psn;
 - (BOOL)handleProcessEvent:(NSEvent *)theEvent;
 - (void)appChanged:(NSNotification *)aNotification;
