@@ -16,3 +16,5 @@
 #define QSCatalogSourceInvalidated @"QSCatalogSourceInvalidated"
 
 #define QSDebugLogRequest @"QSDebugLogRequest"
+
+#define QSActiveApplicationChanged @"QSActiveApplicationChanged"

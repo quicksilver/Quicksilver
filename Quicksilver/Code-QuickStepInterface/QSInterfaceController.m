@@ -71,7 +71,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 	[nc addObserver:self selector:@selector(windowDidResignKey:) name:NSWindowDidResignKeyNotification object:nil];
 	[nc addObserver:self selector:@selector(objectModified:) name:@"ObjectModified" object:nil];
 	[nc addObserver:self selector:@selector(searchObjectChanged:) name:@"SearchObjectChanged" object:nil];
-	[nc addObserver:self selector:@selector(appChanged:) name:@"QSActiveApplicationChanged" object:nil];
+	[nc addObserver:self selector:@selector(appChanged:) name:QSActiveApplicationChanged object:nil];
   if (fALPHA)
 	  [QSHistoryController sharedInstance];
 	return self;
