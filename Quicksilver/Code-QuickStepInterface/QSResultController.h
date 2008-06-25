@@ -1,7 +1,7 @@
 
 
 #import <AppKit/AppKit.h>
-#import "QSIconLoader.h"
+
 @class QSObjectView;
 
 @class QSSearchObjectView;

@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 #import "QSSearchObjectView.h"
-#import "QSCollection.h"
+
 @class QSCollection;
 
 @interface QSCollectingSearchObjectView : QSSearchObjectView {
