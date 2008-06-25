@@ -115,7 +115,10 @@ id QSReg = nil;
 	if (!providerClass) {
 		NSBundle *bundle = [classBundles objectForKey:className];
 		if (bundle) {
-			[bundle load];
+			if( ![bundle load] ) {
+                NSLog(@"Failed loading bundle for class %@", className);
+                return nil;
+            }
 			providerClass = NSClassFromString(className);
 			return providerClass;
 		} else {
