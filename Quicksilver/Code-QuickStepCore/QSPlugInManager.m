@@ -395,6 +395,7 @@
 
 	// Get all locally installed plugins
 	NSMutableArray *newLocalPlugIns = [NSBundle performSelector:@selector(bundleWithPath:) onObjectsInArray:[self allBundles]];
+    [newLocalPlugIns removeObject:[NSNull null]];
 	newLocalPlugIns = [QSPlugIn performSelector:@selector(plugInWithBundle:) onObjectsInArray:newLocalPlugIns];
 	[newLocalPlugIns removeObject:[NSNull null]];
 
