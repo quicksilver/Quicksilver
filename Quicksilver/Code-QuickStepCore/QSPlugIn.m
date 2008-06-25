@@ -614,17 +614,17 @@ if (DEBUG && [self isSecret]) {
 }
 
 - (BOOL)_registerPlugIn {
-
 	if (!bundle) return NO;
-
+    
+	if (DEBUG_PLUGINS)
+		NSLog(@"Loading PlugIn: %@ (%@) ", [[[bundle bundlePath] lastPathComponent] stringByDeletingPathExtension] , [bundle objectForInfoDictionaryKey:@"CFBundleVersion"]);
+        
 	[QSReg registerBundle:bundle];
 	[self registerPlugInFrameworks];
 
 	if ([[bundle objectForInfoDictionaryKey:@"NSAppleScriptEnabled"] boolValue])
 		[[NSScriptSuiteRegistry sharedScriptSuiteRegistry] loadSuitesFromBundle:bundle];
 
-	if (DEBUG_PLUGINS)
-		NSLog(@"Loading PlugIn: %@ (%@) ", [[[bundle bundlePath] lastPathComponent] stringByDeletingPathExtension] , [bundle objectForInfoDictionaryKey:@"CFBundleVersion"]);
 	BOOL loadNow = ![QSReg handleRegistration:bundle];
 
 	id value;
