@@ -7,31 +7,49 @@
 //
 
 #import "NSScreen_BLTRExtensions.h"
-/*#include <IOKit/IOKitLib.h>
+#include <IOKit/IOKitLib.h>
 #include <IOKit/graphics/IOFramebufferShared.h>
 #include <IOKit/graphics/IOGraphicsInterface.h>
 #include <IOKit/graphics/IOGraphicsLib.h>
-#include <IOKit/graphics/IOGraphicsTypes.h>*/
+#include <IOKit/graphics/IOGraphicsTypes.h>
 //#include <Carbon/Carbon.h>
 #include <ApplicationServices/ApplicationServices.h>
 
-//static void KeyArrayCallback(const void *key, const void *value, void *context) { CFArrayAppendValue(context, key);  }
+static void KeyArrayCallback(const void *key, const void *value, void *context) { CFArrayAppendValue(context, key);  }
 
 @implementation NSScreen (BLTRExtensions)
--(int)screenNumber{
+
++ (NSScreen *)screenWithNumber:(int)number {
+	NSEnumerator *e = [[self screens] objectEnumerator];
+	NSScreen *screen;
+	while(screen = [e nextObject]) {
+		if ([screen screenNumber] == number) {
+			return screen;
+		}
+	}
+    //NSLog(@"Can't find Screen %d", number);NSLog(@"screenx %d %d", [screen screenNumber] , number);
+	return nil;
+}
+
+- (int)screenNumber{
 	return _screenNumber;//[[[self deviceDescription]objectForKey:@"NSScreenNumber"]intValue]; 
 } 
 
 - (BOOL)usesOpenGLAcceleration {
 	return (BOOL)CGDisplayUsesOpenGLAcceleration((CGDirectDisplayID)_screenNumber);
 }
-#if 0
+
 - (NSString *)deviceName {
-	CFArrayRef langKeys, orderLangKeys; CFStringRef langKey, localName; io_connect_t displayPort; CFDictionaryRef dict, names; localName = NULL;
+	CFArrayRef langKeys, orderLangKeys;
+    CFStringRef langKey;
+    io_connect_t displayPort;
+    CFDictionaryRef dict, names;
+    NSString *localName = nil;
+    
 	displayPort = CGDisplayIOServicePort((CGDirectDisplayID)_screenNumber);
 	if ( displayPort == MACH_PORT_NULL )
 		return NULL; /* No physical device to get a name from */
-	dict = IOCreateDisplayInfoDictionary(displayPort, 0);
+	dict = IODisplayCreateInfoDictionary(displayPort, 0);
 
 	names = CFDictionaryGetValue( dict, CFSTR(kDisplayProductName) );
 	/* Extract all the display name locale keys */
@@ -43,7 +61,7 @@
 
 	if ( orderLangKeys && CFArrayGetCount(orderLangKeys) ) {
 		langKey = CFArrayGetValueAtIndex( orderLangKeys, 0 );
-		localName = CFDictionaryGetValue( names, langKey );
+		localName = (NSString*)CFDictionaryGetValue( names, langKey );
 		CFRetain( localName );
 	}
 
@@ -56,26 +74,8 @@
 		localName = [[NSDictionary dictionaryWithContentsOfFile:[NSString stringWithFormat:@"/System/Library/Displays/Overrides/DisplayVendorID-%x/DisplayProductID-%x", vendor, model]] objectForKey:@"DisplayProductName"];
 		if (!localName) localName = [NSString stringWithFormat:@"Unknown Display (%x:%x)", vendor, model];
 	} else {
-		[(NSString*)localName autorelease];
+		[localName autorelease];
 	}
 	return localName;
 }
-
-- (BOOL)supportsQE {
-	NSNumber* screenNum = [[self deviceDescription] objectForKey: @"NSScreenNumber"];
-	BOOL supportsQuartzExtreme = CGDisplayUsesOpenGLAcceleration( (CGDirectDisplayID) [screenNum pointerValue] );
-	return supportsQuartzExtreme;
-}
-+(NSScreen *)screenWithNumber:(int)number {
-	NSEnumerator *e = [[self screens] objectEnumerator];
-	NSScreen *screen;
-	while(screen = [e nextObject]) {
-		if ([screen screenNumber] == number) {
-			return screen;
-		}
-	}
-//NSLog(@"Can't find Screen %d", number);NSLog(@"screenx %d %d", [screen screenNumber] , number);
-	return nil;
-}
-#endif
 @end

@@ -62,6 +62,8 @@
 		4DB4A0220E1007EB0010C540 /* QSKeyCodeTranslator.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FADE07B205950044D6EF /* QSKeyCodeTranslator.m */; };
 		4DB4A03D0E100B020010C540 /* QSImageAndTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E103EE5C06471DDE00447FE0 /* QSImageAndTextCell.m */; };
 		4DB4A03E0E100B020010C540 /* QSImageAndTextCell.h in Headers */ = {isa = PBXBuildFile; fileRef = E103EE5B06471DDE00447FE0 /* QSImageAndTextCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DB8915C0E13E93200F57EF7 /* QSDesktopBackgroundView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DB8915A0E13E93200F57EF7 /* QSDesktopBackgroundView.h */; };
+		4DB8915D0E13E93200F57EF7 /* QSDesktopBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB8915B0E13E93200F57EF7 /* QSDesktopBackgroundView.m */; };
 		4DFE7DA20E081A3B000B9AA3 /* NSImage+QuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DFE7DA00E081A30000B9AA3 /* NSImage+QuickLook.m */; };
 		4DFE7DA30E081A3C000B9AA3 /* NSImage+QuickLook.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DFE7D9F0E081A30000B9AA3 /* NSImage+QuickLook.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DFE7DC70E082132000B9AA3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
@@ -879,6 +881,8 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		4DA1CCCF0E0BB61100CA6002 /* Developer.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Developer.xcconfig; path = "/Volumes/myHD/Projects/Quicksilver/quicksilver-b5x/Quicksilver/Configuration/Developer.xcconfig"; sourceTree = "<absolute>"; };
+		4DB8915A0E13E93200F57EF7 /* QSDesktopBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDesktopBackgroundView.h; sourceTree = "<group>"; };
+		4DB8915B0E13E93200F57EF7 /* QSDesktopBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDesktopBackgroundView.m; sourceTree = "<group>"; };
 		4DC3DD0C0E0BB27B009902EF /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
 		4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn.xcconfig; sourceTree = "<group>"; };
@@ -2352,6 +2356,8 @@
 		E1E5FC4707B20E4C0044D6EF /* Code-QuickStepInterface */ = {
 			isa = PBXGroup;
 			children = (
+				4DB8915A0E13E93200F57EF7 /* QSDesktopBackgroundView.h */,
+				4DB8915B0E13E93200F57EF7 /* QSDesktopBackgroundView.m */,
 				E103EE5B06471DDE00447FE0 /* QSImageAndTextCell.h */,
 				E103EE5C06471DDE00447FE0 /* QSImageAndTextCell.m */,
 				7FDBC1830A010C6400E496FF /* QSImageTextCountCell.h */,
@@ -2611,6 +2617,7 @@
 				7FE009180A1637810014197D /* QSOutlineView.h in Headers */,
 				4DB49FFD0E1005C20010C540 /* QSDelegatingTableColumn.h in Headers */,
 				4DB4A03E0E100B020010C540 /* QSImageAndTextCell.h in Headers */,
+				4DB8915C0E13E93200F57EF7 /* QSDesktopBackgroundView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3311,6 +3318,7 @@
 				7FE009190A1637820014197D /* QSOutlineView.m in Sources */,
 				4DB49FFE0E1005C30010C540 /* QSDelegatingTableColumn.m in Sources */,
 				4DB4A03D0E100B020010C540 /* QSImageAndTextCell.m in Sources */,
+				4DB8915D0E13E93200F57EF7 /* QSDesktopBackgroundView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
