@@ -148,24 +148,20 @@
 //}
 
 - (void)writeTriggers {
-
-	// NSArray alloc] initWithArray:copyItems:YES]
 	NSMutableArray *cleanedTriggerArray = [NSMutableArray arrayWithCapacity:[triggersDict count]];
 	NSEnumerator *triggerEnum;
 	QSTrigger *thisTrigger;
 	triggerEnum = [[triggersDict allValues] objectEnumerator];
 	while(thisTrigger = [triggerEnum nextObject]) {
-		//if ([thisTrigger objectForKey:@"command"])
-		// [thisTrigger setObject:[[thisTrigger objectForKey:@"command"] dictionaryRepresentation] forKey:@"command"];
-		[cleanedTriggerArray addObject:[thisTrigger dictionaryRepresentation]];
+        NSDictionary * rep = [thisTrigger dictionaryRepresentation];
+		[cleanedTriggerArray addObject:rep];
 	}
-	// NSLog(@"%@---%@", errorStr, data);
-	// [[triggersDict allValues] descriptionForLocale:nil];
-	[[NSDictionary dictionaryWithObjectsAndKeys:cleanedTriggerArray, @"triggers", nil]
-writeToFile:[pTriggerSettings stringByStandardizingPath] atomically:YES];
-		if (VERBOSE) NSLog(@"Writing %d triggers", [cleanedTriggerArray count]);
-	//  NSLog(@"savedTriggers");
-
+    NSDictionary * triggerDict = [NSDictionary dictionaryWithObjectsAndKeys:cleanedTriggerArray, @"triggers", nil];
+    if([triggerDict writeToFile:[pTriggerSettings stringByStandardizingPath] atomically:YES] == NO) {
+        NSLog(@"Triggers failed writing !");
+        return;
+    }
+    if (VERBOSE) NSLog(@"Wrote %d triggers", [cleanedTriggerArray count]);
 }
 
 - (NSMutableDictionary *)triggersDict {

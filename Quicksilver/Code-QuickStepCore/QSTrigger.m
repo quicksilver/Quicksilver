@@ -160,7 +160,7 @@
 		[dict setObject:[command dictionaryRepresentation] forKey:@"command"];
 		return [dict autorelease];
 	}
-	return info;
+	return [[info copy] autorelease];
 }
 
 - (NSString *)triggerDescription {
