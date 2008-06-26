@@ -216,6 +216,7 @@
 
 - (IBAction)deleteSelection:(id)sender {
 	[[QSPlugInManager sharedInstance] deletePlugIns:[self selectedPlugIns] fromWindow:[plugInTable window]];
+    [plugInTable reloadData];
 }
 
 - (IBAction)revealSelection:(id)sender { [[self selectedPlugIns] valueForKey:@"reveal"];  }
@@ -264,12 +265,10 @@
 
 - (IBAction)reloadPlugIns:(id)sender { [[QSPlugInManager sharedInstance] downloadWebPlugInInfoIgnoringDate];  }
 
-- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
+- (void)tableView:(NSTableView *)aTableView willDisplayCell:(NSTextFieldCell*)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
 	if ([[aTableColumn identifier] isEqualToString:@"enabled"]) {
 		NSArray *array = [arrayController arrangedObjects];
-		//if ([array count] <rowIndex) return;
-		id object = [array objectAtIndex:rowIndex];
-		//	NSLog(@"%d!!!", [object canBeDisabled]);
+		QSPlugIn *object = [array objectAtIndex:rowIndex];
 		[aCell setEnabled:[object canBeDisabled]];
 	}
 	if ([[aTableColumn identifier] isEqualToString:@"CFBundleName"]) {
