@@ -425,7 +425,6 @@
 	NSFileManager *manager = [NSFileManager defaultManager];
 	NSDictionary *conflicts = [manager conflictsForFiles:filePaths inDestination:destination]; //originals:keys destin:values
 	NSArray *resultPaths = nil;
-	int copyMethod = QSReplaceFilesResolution;
 
 	if (conflicts) {
 		NSMutableArray *otherFiles;
@@ -433,8 +432,8 @@
 		id panel = [QSFileConflictPanel conflictPanel];
 		[panel setConflictNames:[conflicts allValues]];
 		id QSIC = [[NSApp delegate] interfaceController];
-		[QSIC showMainWindow:nil];
-		copyMethod = [panel runModalAsSheetOnWindow:[QSIC window]];
+//		[QSIC showMainWindow:nil];
+		int copyMethod = [panel runModalAsSheetOnWindow:[QSIC window]];
 
 		switch (copyMethod) {
 			case QSCancelReplaceResolution:
@@ -462,35 +461,40 @@
 			}
 		}
 	}
-
-	resultPaths = (copy) ? [mQSFSBrowser copyFiles:filePaths toFolder:destination] : [mQSFSBrowser moveFiles:filePaths toFolder:destination];
-
-	if (resultPaths) {
-		if ([resultPaths count] <[filePaths count])
-			NSLog(@"Finder-based move may not return all paths");
-		return [QSObject fileObjectWithArray:resultPaths];
-	} else {
-		NSLog(@"Finder move failed");
-	}
-
-	if (!resultPaths) {
-//		if (DEBUG) NSLog(@"Using NSFileManager");
-		NSMutableArray *newPaths = [NSMutableArray arrayWithCapacity:[filePaths count]];
-		int i;
-		for(i = 0; i<[filePaths count]; i++) {
-			NSString *thisFile = [filePaths objectAtIndex:i];
-			NSString *destinationFile = [destination stringByAppendingPathComponent:[thisFile lastPathComponent]];
-			if (copy && [[NSFileManager defaultManager] copyPath:thisFile toPath:destinationFile handler:nil]) {
-				[newPaths addObject:destinationFile];
-			} else if (!copy && [[NSFileManager defaultManager] movePath:thisFile toPath:destinationFile handler:nil]) {
-				[[NSWorkspace sharedWorkspace] noteFileSystemChanged:[thisFile stringByDeletingLastPathComponent]];
-				[newPaths addObject:destinationFile];
-			} else {
-				[[NSAlert alertWithMessageText:@"Move Error" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Error Moving File: %@ to %@", thisFile, destination] runModal];
-			}
-		}
-		[[NSWorkspace sharedWorkspace] noteFileSystemChanged:destination];
-		return [QSObject fileObjectWithArray:newPaths];
+    
+    if( [filePaths count] == 0 ) {
+        NSLog(@"No file left to move");
+        return nil;
+    } else {
+        resultPaths = (copy) ? [mQSFSBrowser copyFiles:filePaths toFolder:destination] : [mQSFSBrowser moveFiles:filePaths toFolder:destination];
+        
+        if (resultPaths) {
+            if ([resultPaths count] <[filePaths count])
+                NSLog(@"Finder-based move may not return all paths");
+            return [QSObject fileObjectWithArray:resultPaths];
+        } else {
+            NSLog(@"Finder move failed");
+        }
+        
+        if (!resultPaths) {
+            //		if (DEBUG) NSLog(@"Using NSFileManager");
+            NSMutableArray *newPaths = [NSMutableArray arrayWithCapacity:[filePaths count]];
+            int i;
+            for(i = 0; i<[filePaths count]; i++) {
+                NSString *thisFile = [filePaths objectAtIndex:i];
+                NSString *destinationFile = [destination stringByAppendingPathComponent:[thisFile lastPathComponent]];
+                if (copy && [[NSFileManager defaultManager] copyPath:thisFile toPath:destinationFile handler:nil]) {
+                    [newPaths addObject:destinationFile];
+                } else if (!copy && [[NSFileManager defaultManager] movePath:thisFile toPath:destinationFile handler:nil]) {
+                    [[NSWorkspace sharedWorkspace] noteFileSystemChanged:[thisFile stringByDeletingLastPathComponent]];
+                    [newPaths addObject:destinationFile];
+                } else {
+                    [[NSAlert alertWithMessageText:@"Move Error" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Error Moving File: %@ to %@", thisFile, destination] runModal];
+                }
+            }
+            [[NSWorkspace sharedWorkspace] noteFileSystemChanged:destination];
+            return [QSObject fileObjectWithArray:newPaths];
+        }
 	}
 	return nil;
 }

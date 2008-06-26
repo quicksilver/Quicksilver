@@ -20,14 +20,15 @@
 	[imageAndTextCell release];
 }
 
-- (int)runModal {
+- (QSFileConflictResolutionMethod)runModal {
 //	[self makeKeyAndOrderFront:self];
 	[NSApp runModalForWindow:self];
 	[self orderOut:nil];
 	return method;
 }
 
-- (int)runModalAsSheetOnWindow:(NSWindow *)window {
+- (QSFileConflictResolutionMethod)runModalAsSheetOnWindow:(NSWindow *)window {
+//    [self makeKeyAndOrderFront:window];
 	[NSApp beginSheet:self modalForWindow:window modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
 	[NSApp runModalForWindow:self];
 	[NSApp endSheet:self];

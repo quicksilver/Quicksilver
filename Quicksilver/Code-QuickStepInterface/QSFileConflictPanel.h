@@ -4,7 +4,8 @@
 
 enum QSFileConflictResolutionMethod {
 	QSCancelReplaceResolution, QSReplaceFilesResolution, QSDontReplaceFilesResolution, QSSmartReplaceFilesResolution
-} ;
+};
+typedef int QSFileConflictResolutionMethod;
 
 @interface QSFileConflictPanel : NSPanel {
 	IBOutlet NSTableView *nameTable;
@@ -16,12 +17,12 @@ enum QSFileConflictResolutionMethod {
 	IBOutlet NSButton *replaceButton;
 }
 + (QSFileConflictPanel *)conflictPanel;
-- (int) runModal;
+- (QSFileConflictResolutionMethod) runModal;
 - (IBAction)cancel:(id)sender;
 - (IBAction)replace:(id)sender;
 
 - (NSArray *)conflictNames;
 - (void)setConflictNames:(NSArray *)newConflictNames;
-- (int) runModalAsSheetOnWindow:(NSWindow *)window;
+- (QSFileConflictResolutionMethod) runModalAsSheetOnWindow:(NSWindow *)window;
 
 @end
