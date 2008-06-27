@@ -783,7 +783,7 @@ QSController *QSCon;
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"WindowsShouldHide" object:self];
 	[[NSUserDefaults standardUserDefaults] synchronize];
-    if (DEBUG_MEMORY) [self writeLeaksToFileAtPath:QSApplicationSupportSubPath(@"QSLeaks.plist", NO)];
+//    if (DEBUG_MEMORY) [self writeLeaksToFileAtPath:QSApplicationSupportSubPath(@"QSLeaks.plist", NO)];
 }
 
 - (void)applicationWillFinishLaunching:(NSNotification *)aNotification {

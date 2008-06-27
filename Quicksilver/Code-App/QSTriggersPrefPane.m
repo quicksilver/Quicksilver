@@ -394,7 +394,8 @@
 	}
 
 	if ([[aTableColumn identifier] isEqualToString: @"trigger"]) {
-		[aCell setStringValue:[item triggerDescription]];
+        id desc = [item triggerDescription];
+        [aCell setStringValue:( desc ? desc : @"Unknown" )];
 		[aCell setRepresentedObject:item];
 		return;
 	}
