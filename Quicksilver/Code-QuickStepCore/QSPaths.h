@@ -18,7 +18,7 @@
 #define kDownloadUpdateExactURL @"http://qs0.blacktree.com/quicksilver/versiondownloadurl.txt"
 #define kDownloadUpdateURL @"http://qs0.blacktree.com/quicksilver/"
 #define kForumsURL @"http://forums.blacktree.com/index.php?c=2"
-#define kBugsURL @"http://bugs.blacktree.com/"
+#define kBugsURL @"http://code.google.com/p/blacktree-quicksilver/issues/list"
 #define kHelpURL @"http://docs.blacktree.com/"
 
 extern NSString *QSApplicationSupportPath;
