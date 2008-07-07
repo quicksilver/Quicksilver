@@ -184,8 +184,6 @@ extern NSSize QSMaxIconSize;
 - (NSMutableDictionary *)cache;
 - (void)setCache:(NSMutableDictionary *)aCache;
 
-
-
 - (id)init;
 - (void)dealloc;
 - (BOOL)isEqual:(id)anObject;

@@ -5,7 +5,7 @@
 #import "QSObjectView.h"
 
 @interface QSCommandBuilder : QSInterfaceController {
-  IBOutlet id		iFrame;
+    IBOutlet NSImageView *iFrame;
 	QSCommand *representedCommand;
 }
 - (QSCommand *)representedCommand;

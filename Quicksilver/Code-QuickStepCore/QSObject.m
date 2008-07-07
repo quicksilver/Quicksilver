@@ -770,7 +770,8 @@ return nil;
 }
 
 - (NSMutableDictionary *)dataDictionary {
-	return data;  }
+	return data;
+}
 
 - (NSMutableDictionary *)archiveDictionary {
 	NSMutableDictionary *archive = [NSMutableDictionary dictionaryWithObjectsAndKeys:

@@ -1759,11 +1759,9 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 
 		} else {
 			//Should show parent's level
-
 			newSelectedObject = parent;
 			if (newSelectedObject) {
-				if ([historyArray count] >historyIndex) {
-				//	if (VERBOSE) NSLog(@"history %@", [historyArray valueForKeyPath:@"selection.displayName"]);
+				if ([historyArray count] > historyIndex) {
 					if ([[[historyArray objectAtIndex:historyIndex+1] valueForKey:@"selection"] isEqual:parent]) {
 						if (VERBOSE) NSLog(@"Parent Missing, Using History");
 						[self goBackward:self];
@@ -1773,7 +1771,7 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 				}
 
 				if (!newObjects)
-					newObjects = (alt?[newSelectedObject altSiblings] :[newSelectedObject siblings]);
+					newObjects = (alt ? [newSelectedObject altSiblings] : [newSelectedObject siblings]);
 				if (![newObjects containsObject:newSelectedObject])
 					newObjects = [newSelectedObject altSiblings];
 
@@ -1795,40 +1793,35 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 				}
 			}
 		}
+    }
 
-}
-
-
-if ([newObjects count]) {
-	browsing = YES;
-
-	[self updateHistory];
-	[self saveMnemonic];
-	[self clearSearch];
-	int defaultMode = [[NSUserDefaults standardUserDefaults] integerForKey:kBrowseMode];
-	[self setSearchMode:defaultMode?defaultMode:SearchSnap];
-	[self setResultArray:(NSMutableArray *)newObjects]; // !!!:nicholas:20040319
-	[self setSourceArray:(NSMutableArray *)newObjects];
-
-	if (!newSelectedObject)
-		[self selectIndex:0];
-	else
-		[self selectObject:newSelectedObject];
-
-
-	[self setVisibleString:@"Browsing"];
-
-	[self showResultView:self];
-} else if (![[NSApp currentEvent] isARepeat]) {
-
-	[self showResultView:self];
-	if ([[resultController window] isVisible])
-		[resultController bump:(direction*4)];
-	else
-		NSBeep();
-}
-
-
+    if ([newObjects count]) {
+        browsing = YES;
+        
+        [self updateHistory];
+        [self saveMnemonic];
+        [self clearSearch];
+        int defaultMode = [[NSUserDefaults standardUserDefaults] integerForKey:kBrowseMode];
+        [self setSearchMode:defaultMode?defaultMode:SearchSnap];
+        [self setResultArray:(NSMutableArray *)newObjects]; // !!!:nicholas:20040319
+        [self setSourceArray:(NSMutableArray *)newObjects];
+        
+        if (!newSelectedObject)
+            [self selectIndex:0];
+        else
+            [self selectObject:newSelectedObject];
+        
+        [self setVisibleString:@"Browsing"];
+        
+        [self showResultView:self];
+    } else if (![[NSApp currentEvent] isARepeat]) {
+        
+        [self showResultView:self];
+        if ([[resultController window] isVisible])
+            [resultController bump:(direction*4)];
+        else
+            NSBeep();
+    }
 }
 
 
