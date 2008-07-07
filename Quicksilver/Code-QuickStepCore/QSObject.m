@@ -80,11 +80,9 @@ NSSize QSMaxIconSize;
 		}
 		//NSLog(@"%d %@", [thisObject retainCount] , [thisObject name]);
 	}
+    [objectDictionary removeObjectsForKeys:keysToDeleteFromObjectDict];
     keyEnum = [keysToDeleteFromObjectDict objectEnumerator];
-    while( thisKey = [keyEnum nextObject] ) {
-        count++;
-        [objectDictionary removeObjectForKey:thisKey];
-    }
+    count = [keysToDeleteFromObjectDict count];
 	if (DEBUG_MEMORY && count)
 		NSLog(@"Released %i objects", count);
 }
@@ -179,8 +177,8 @@ NSSize QSMaxIconSize;
 }
 
 + (void)registerObject:(QSBasicObject *)object withIdentifier:(NSString *)anIdentifier {
-if (object && anIdentifier)
-	[objectDictionary setObject:object forKey:anIdentifier];
+    if (object && anIdentifier)
+        [objectDictionary setObject:object forKey:anIdentifier];
 //		NSLog(@"setobj:%@", [objectDictionary objectForKey:anIdentifier]);
 }
 
@@ -258,11 +256,14 @@ if (object && anIdentifier)
 		}
 	}
 
+    NSMutableArray *typesToRemove = [NSMutableArray array];
 	e = [combinedData keyEnumerator];
 	while(type = [e nextObject]) {
 		if (![typesSet containsObject:type])
-			[combinedData removeObjectForKey:type];
+            [typesToRemove addObject:type];
 	}
+             
+    [combinedData removeObjectsForKeys:typesToRemove];
 
 	QSObject *object = [[[QSObject alloc] init] autorelease];
 	[object setDataDictionary:combinedData];
@@ -581,7 +582,7 @@ return nil;
 }
 
 - (void)setParentID:(NSString *)parentID {
-	if (parentID) [data setObject:parentID forKey:kQSObjectParentID];
+	if (parentID) [meta setObject:parentID forKey:kQSObjectParentID];
 }
 
 - (BOOL)childrenValid {
