@@ -25,18 +25,12 @@
 		NSDictionary *triggerStorage = [NSDictionary dictionaryWithContentsOfFile: [pTriggerSettings stringByStandardizingPath]];
 
 		triggers = [triggerStorage objectForKey:@"triggers"];
-		NSArray *ids = [triggers valueForKey:kItemID];
-		triggers = [QSTrigger performSelector:@selector(triggerWithInfo:) onObjectsInArray:triggers returnValues:YES];
-		triggersDict = [[NSMutableDictionary dictionaryWithObjects:triggers forKeys:ids] retain];
+        if([triggers count] != 0 ) {
+            NSArray *ids = [triggers valueForKey:kItemID];
+            triggers = [QSTrigger performSelector:@selector(triggerWithInfo:) onObjectsInArray:triggers returnValues:YES];
+            triggersDict = [[NSMutableDictionary dictionaryWithObjects:triggers forKeys:ids] retain];
+        }
 
-		//	 NSMutableDictionary *triggerDict;
-		//		NSEnumerator *triggerEnum = [triggers objectEnumerator];
-		//		while (triggerDict = [triggerEnum nextObject]) {
-		//			[triggerDict setObject:[QSCommand commandWithDictionary:[triggerDict objectForKey:@"command"]] forKey:@"command"];
-		//
-		//			[self enableTrigger:triggerDict];
-		//
-		//		}
 		if (!triggersDict) triggersDict = [[NSMutableDictionary dictionary] retain];
 		[[NSNotificationCenter defaultCenter] addObserver:self
 												selector:@selector(appChanged:)
@@ -143,8 +137,7 @@
 //- (void)setName:(NSString *)name forTrigger:(NSMutableDictionary *)trigger {
 //if (name)
 //	[trigger setObject:name forKey:@"name"];
-//	else
-//		[trigger removeObjectForKey:@"name"];
+//	elsepi//		[trigger removeObjectForKey:@"name"];
 //}
 
 - (void)writeTriggers {
@@ -154,11 +147,50 @@
 	triggerEnum = [[triggersDict allValues] objectEnumerator];
 	while(thisTrigger = [triggerEnum nextObject]) {
         NSDictionary * rep = [thisTrigger dictionaryRepresentation];
+        if(DEBUG) {
+            NSArray *plistTypes = [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInt:NSPropertyListXMLFormat_v1_0],
+                                                            [NSNumber numberWithUnsignedInt:NSPropertyListBinaryFormat_v1_0],
+/*                                                          [NSNumber numberWithUnsignedInt:NSPropertyListOpenStepFormat],
+ * Because it fails most writing */
+                                                            nil];
+            NSEnumerator * enumer = [plistTypes objectEnumerator];
+            NSNumber *num;
+            int failCount = 0;
+            while( num = [enumer nextObject] ) {
+                int plistType = [num unsignedIntValue];
+                BOOL valid = [NSPropertyListSerialization propertyList:rep isValidForFormat:plistType];
+                if(!valid && DEBUG) {
+                    NSLog(@"trigger representation %@ for format %@ : (%@)", ( valid ? @"valid" : @"invalid" ),
+                          (plistType == NSPropertyListXMLFormat_v1_0 ? @"XML" :
+                           (plistType == NSPropertyListBinaryFormat_v1_0 ? @"Binary" :
+                            (plistType == NSPropertyListOpenStepFormat ? @"OpenStep" :
+                             @"Unknown" ))),
+                          rep);
+                    failCount++;
+                }
+//            NSLog(@"types: %d, failed: %d", [plistTypes count], failCount);
+                if(failCount == [plistTypes count]) {
+                    NSLog(@"Utterly failed to output %@", rep);
+                }
+            } // endif(DEBUG)
+        }
 		[cleanedTriggerArray addObject:rep];
 	}
-    NSDictionary * triggerDict = [NSDictionary dictionaryWithObjectsAndKeys:cleanedTriggerArray, @"triggers", nil];
-    if([triggerDict writeToFile:[pTriggerSettings stringByStandardizingPath] atomically:YES] == NO) {
-        NSLog(@"Triggers failed writing !");
+    NSString *errorStr;
+    NSError *error;
+    NSMutableDictionary * triggerDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:cleanedTriggerArray, @"triggers", nil];
+    NSData *data = [NSPropertyListSerialization dataFromPropertyList:triggerDict
+                                                              format:NSPropertyListXMLFormat_v1_0
+                                                    errorDescription:&errorStr];
+    if(data == nil ) {
+        NSLog(@"Failed converting triggers: %@", errorStr);
+        return;
+    }
+    if([data writeToFile:[pTriggerSettings stringByStandardizingPath]
+                 options:0
+                   error:&error] == NO ) {
+//    if([triggerDict writeToFile: atomically:YES] == NO) {
+        NSLog(@"Failed writing triggers : %@", error );
         return;
     }
     if (VERBOSE) NSLog(@"Wrote %d triggers", [cleanedTriggerArray count]);
