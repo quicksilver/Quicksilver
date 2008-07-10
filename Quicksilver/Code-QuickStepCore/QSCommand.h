@@ -9,12 +9,14 @@
 @interface QSCommand : QSBasicObject {
 	NSMutableDictionary *oDict;
 }
-+(id)commandWithDirectObject:(QSBasicObject *)dObject actionObject:(QSBasicObject *)aObject indirectObject:(QSBasicObject *)iObject;
-- (id)initWithDirectObject:(QSBasicObject *)dObject actionObject:(QSBasicObject *)aObject indirectObject:(QSBasicObject *)iObject;
-+(id)commandWithDictionary:(NSDictionary *)newDict;
-- (id)initWithDictionary:(NSDictionary *)newDict;
-
++ (QSCommand *)commandWithDirectObject:(QSBasicObject *)dObject actionObject:(QSBasicObject *)aObject indirectObject:(QSBasicObject *)iObject;
++ (QSCommand *)commandWithDictionary:(NSDictionary *)newDict;
 + (QSCommand *)commandWithInfo:(id)command;
++ (QSCommand *)commandWithFile:(NSString *)path;
+
+- (QSCommand *)initWithDirectObject:(QSBasicObject *)dObject actionObject:(QSBasicObject *)aObject indirectObject:(QSBasicObject *)iObject;
+- (QSCommand *)initWithDictionary:(NSDictionary *)newDict;
+
 - (QSObject *)execute;
 - (NSString *)description;
 
@@ -27,5 +29,4 @@
 - (void)setDObject:(id)dObject;
 - (QSObject *)executeIgnoringModifiers;
 
-+(id)commandWithFile:(NSString *)path;
 @end

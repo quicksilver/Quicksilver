@@ -171,12 +171,12 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	}
 	return self;
 }
-+(id)commandWithDirectObject:(QSBasicObject *)dObject actionObject:(QSBasicObject *)aObject indirectObject:(QSBasicObject *)iObject {
++ (QSCommand *)commandWithDirectObject:(QSBasicObject *)dObject actionObject:(QSBasicObject *)aObject indirectObject:(QSBasicObject *)iObject {
 	if (dObject && aObject)
 		return [[[self alloc] initWithDirectObject:(QSBasicObject *)dObject actionObject:(QSBasicObject *)aObject indirectObject:(QSBasicObject *)iObject] autorelease];
 	return nil;
 }
-- (id)initWithDirectObject:(QSBasicObject *)dObject actionObject:(QSBasicObject *)aObject indirectObject:(QSBasicObject *)iObject {
+- (QSCommand *)initWithDirectObject:(QSBasicObject *)dObject actionObject:(QSBasicObject *)aObject indirectObject:(QSBasicObject *)iObject {
 	if (self = [self init]) {
 		if (dObject) [oDict setObject:dObject forKey:@"directObject"];
 		if (aObject) [oDict setObject:aObject forKey:@"actionObject"];
@@ -198,11 +198,11 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	return command;
 }
 
-+(id)commandWithDictionary:(NSDictionary *)newDict {
++ (QSCommand *)commandWithDictionary:(NSDictionary *)newDict {
 	return [[(QSCommand *)[self alloc] initWithDictionary:newDict] autorelease];
 }
 
-+(id)commandWithFile:(NSString *)path {
++ (QSCommand *)commandWithFile:(NSString *)path {
 	return [self commandWithDictionary:[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:@"command"]];
 }
 - (void)writeToFile:(NSString *)path {
@@ -212,7 +212,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	if (dObject) [oDict setObject:dObject forKey:@"directObject"];
 	if ([dObject identifier]) [oDict setObject:[dObject identifier] forKey:@"directID"];
 }
-- (id)initWithDictionary:(NSDictionary *)newDict {
+- (QSCommand *)initWithDictionary:(NSDictionary *)newDict {
 	if (self = [self init]) {
 		[oDict addEntriesFromDictionary:newDict];
 	}

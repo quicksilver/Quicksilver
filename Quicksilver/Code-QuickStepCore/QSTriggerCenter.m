@@ -137,7 +137,8 @@
 //- (void)setName:(NSString *)name forTrigger:(NSMutableDictionary *)trigger {
 //if (name)
 //	[trigger setObject:name forKey:@"name"];
-//	elsepi//		[trigger removeObjectForKey:@"name"];
+//	else
+//		[trigger removeObjectForKey:@"name"];
 //}
 
 - (void)writeTriggers {

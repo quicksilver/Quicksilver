@@ -6,6 +6,7 @@
 // Copyright 2005 Blacktree. All rights reserved.
 //
 
+#import "QSCollection.h"
 #import "QSCollectingSearchObjectView.h"
 
 @implementation QSCollectingSearchObjectView

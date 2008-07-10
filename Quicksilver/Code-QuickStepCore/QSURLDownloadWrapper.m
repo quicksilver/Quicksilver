@@ -11,6 +11,12 @@
 @interface NSURLDownload (NSPrivate)
 - (NSString *)_currentPath;
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data lengthReceived:(long long)length;
+- (void)sendDidReceiveResponse:(NSURLResponse*)resp;
+- (void)sendDidReceiveData:(long)length;
+@end
+
+@interface NSURLResponse (Private)
++ (NSURLResponse*)_responseWithCFURLResponse:(id)cfurlresp;
 @end
 
 @implementation QSURLDownload

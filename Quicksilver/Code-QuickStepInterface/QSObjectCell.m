@@ -678,9 +678,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 - (void)performMenuAction:(NSMenuItem *)item {
 	if (VERBOSE) NSLog(@"perf");
 
-
-	id command = [item representedObject];
-
+	QSCommand* command = [item representedObject];
 
 	[command execute];
 	//int argumentCount = [(QSAction *)action argumentCount];

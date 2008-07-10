@@ -226,7 +226,7 @@ NSDictionary *enabledPresetDictionary;*/
 	if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
 		NSArray *deepChildren = [self deepChildrenWithGroups:YES leaves:YES disabled:YES];
 		foreach(child, deepChildren)
-			[child setEnabled:enabled];
+			[(QSCatalogEntry*)child setEnabled:enabled];
 	}
 }
 
