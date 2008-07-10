@@ -12,6 +12,7 @@ int main(int argc, const char *argv[]) {
     if(DEBUG_MEMORY) {
         setenv("MallocStackLogging", "1", 1);
         setenv("MallocStackLoggingNoCompact", "1", 1);
+        setenv("NSAutoreleaseFreedObjectCheckEnabled", "YES", 1);
     }
 	return NSApplicationMain(argc, argv);
 }

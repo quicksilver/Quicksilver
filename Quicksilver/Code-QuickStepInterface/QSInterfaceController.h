@@ -72,7 +72,7 @@
 - (void)setClearTimer;
 - (void)executePartialCommand:(NSArray *)array;
 - (void)actionActivate:(id)sender;
-- (void)showArray:(NSMutableArray *)array;
+- (void)showArray:(NSArray *)array;
 - (QSBasicObject *)selection;
 - (void)encapsulateCommand;
 - (void)encapsulateCommand:(id)sender;

@@ -354,7 +354,7 @@
 	[self editTriggerCommand:selectedTrigger callback:@selector(addSheetDidEnd:returnCode:contextInfo:)];
 }
 
-- (void)outlineView:(NSOutlineView *)outlineView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn item:(id)item {
+- (void)outlineView:(NSOutlineView *)outlineView willDisplayCell:(NSCell *)aCell forTableColumn:(NSTableColumn *)aTableColumn item:(id)item {
 	item = [item respondsToSelector:@selector(representedObject)] ?[item representedObject] :[item observedObject];
 
 	//- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
@@ -382,14 +382,14 @@
 		if ([aCell isMemberOfClass:[NSPopUpButtonCell class]]) {
 			NSString *type = [thisTrigger valueForKey:@"type"];
 			[aCell setMenu:[[typeMenu copy] autorelease]];
-			[aCell selectItemAtIndex:[aCell indexOfItemWithRepresentedObject:type]];
+			[(NSPopUpButtonCell*)aCell selectItemAtIndex:[(NSPopUpButtonCell*)aCell indexOfItemWithRepresentedObject:type]];
 
 			[aCell setEnabled:!isGroup && ([typeMenu numberOfItems] >1 || ![type length])];
 		}
 		return;
 	}
 	if ([[aTableColumn identifier] isEqualToString: @"enabled"]) {
-		[aCell setTransparent:isGroup];
+		[(NSButtonCell*)aCell setTransparent:isGroup];
 		return;
 	}
 
@@ -644,7 +644,7 @@
 	foreach(trigger, [triggerTreeController selectedObjects]) {
 		//NSLog(@"trig %@", trigger);
 		if ([trigger isPreset])
-			[trigger setEnabled:NO];
+			[(QSTrigger*)trigger setEnabled:NO];
 		else
 			[[QSTriggerCenter sharedInstance] removeTrigger:trigger];
 	}

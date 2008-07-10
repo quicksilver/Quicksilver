@@ -276,15 +276,16 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 	[dSelector setSearchMode:SearchFilter];
 }
 
-- (void)showArray:(NSMutableArray *)array {
+- (void)showArray:(NSArray *)array {
 	[actionsUpdateTimer invalidate];
+    NSMutableArray *mutArray = [[array mutableCopy] autorelease];
 	[self clearObjectView:dSelector];
 	//[self clearObjectView:aSelector];
-	[dSelector setSourceArray:array]; // !!!:nicholas:20040319
-	[dSelector setResultArray:array]; // !!!:nicholas:20040319
+	[dSelector setSourceArray:mutArray]; // !!!:nicholas:20040319
+	[dSelector setResultArray:mutArray]; // !!!:nicholas:20040319
 	[dSelector setSearchMode:SearchFilter];
-	if ([array count])
-		[dSelector selectObject:[array objectAtIndex:0]];
+	if ([mutArray count])
+		[dSelector selectObject:[mutArray objectAtIndex:0]];
 	[self updateViewLocations];
 	[self updateActionsNow];
 	[self showMainWindow:self];
