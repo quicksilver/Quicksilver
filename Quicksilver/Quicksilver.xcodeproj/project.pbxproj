@@ -882,7 +882,7 @@
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		4DA1CCCF0E0BB61100CA6002 /* Developer.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Developer.xcconfig; path = "/Volumes/myHD/Projects/Quicksilver/quicksilver-b5x/Quicksilver/Configuration/Developer.xcconfig"; sourceTree = "<absolute>"; };
+		4DA1CCCF0E0BB61100CA6002 /* Developer.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Developer.xcconfig; sourceTree = "<group>"; };
 		4DB8915A0E13E93200F57EF7 /* QSDesktopBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDesktopBackgroundView.h; sourceTree = "<group>"; };
 		4DB8915B0E13E93200F57EF7 /* QSDesktopBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDesktopBackgroundView.m; sourceTree = "<group>"; };
 		4DC3DD0C0E0BB27B009902EF /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
