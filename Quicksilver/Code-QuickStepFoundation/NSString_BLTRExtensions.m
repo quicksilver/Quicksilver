@@ -118,7 +118,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 
 @implementation NSAttributedString (Sizing)
 - (NSSize)sizeForWidth:(float)width {
-	NSSize size;
+	NSSize size = NSZeroSize;
 
 	NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:self];
 	NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
@@ -291,7 +291,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 
 @implementation NSString (Blacktree)
 - (NSArray *)componentsSeparatedByStrings:(NSArray *)strings{
-	NSArray *array;
+	NSArray *array = nil;
 	if([strings count]>0)
 		array = [self componentsSeparatedByString:[strings head]];
 	if([strings count]>1)	

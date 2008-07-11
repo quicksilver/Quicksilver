@@ -223,7 +223,7 @@ id QSRez;
 }
 
 - (NSImage *)imageWithLocatorInformation:(id)locator {
-	NSImage *image;
+	NSImage *image = nil;
 	if ([locator isKindOfClass:[NSArray class]]) {
 		int i;
 		for (i = 0; i<[locator count]; i++) {

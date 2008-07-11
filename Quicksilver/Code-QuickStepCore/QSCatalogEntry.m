@@ -184,7 +184,7 @@ NSDictionary *enabledPresetDictionary;*/
 
 - (int)hasEnabledChildren {
 	if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
-		BOOL hasEnabledChildren;
+		BOOL hasEnabledChildren = NO;
 		int i;
 		for (i = 0; i<[children count]; i++)
 			hasEnabledChildren |= [[children objectAtIndex:i] isEnabled];
