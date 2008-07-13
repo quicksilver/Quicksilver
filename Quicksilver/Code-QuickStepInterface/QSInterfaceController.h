@@ -78,4 +78,8 @@
 - (void)encapsulateCommand:(id)sender;
 - (void)executeCommandAndContinue:(id)sender;
 - (IBAction)executeCommand:(id)sender;
+
+// set to YES to prevent hiding, no to allow hiding again.
+-(void)setHiding:(BOOL)fl;
+
 @end

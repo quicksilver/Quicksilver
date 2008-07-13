@@ -677,4 +677,6 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 	preview = flag;
 }
 
+-(void)setHiding:(BOOL)fl { hidingWindow = fl; }
+
 @end

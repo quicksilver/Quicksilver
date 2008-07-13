@@ -883,6 +883,8 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 
 	//if (![openPanel runModalForDirectory:oldFile file:nil types:nil]) return;
 	// beginSheetForDirectory:file:types:modalForWindow:modalDelegate:didEndSelector:contextInfo:
+	id QSIC = [[NSApp delegate] interfaceController];
+	[QSIC setHiding:YES];
 
 	[savePanel beginSheetForDirectory:oldFile
 								 file:nil
@@ -890,6 +892,7 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 						modalDelegate:self
 					  didEndSelector:@selector(savePanelDidEnd:returnCode:contextInfo:)
 						 contextInfo:sender];
+	[QSIC setHiding:NO];
 }
 - (void)savePanelDidEnd:(NSOpenPanel *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
 	[self setObjectValue:[QSObject fileObjectWithPath:[sheet filename]]];
@@ -910,7 +913,8 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 	//if (![openPanel runModalForDirectory:oldFile file:nil types:nil]) return;
 	// beginSheetForDirectory:file:types:modalForWindow:modalDelegate:didEndSelector:contextInfo:
 
-
+	id QSIC = [[NSApp delegate] interfaceController];
+	[QSIC setHiding:YES];
 	[openPanel beginSheetForDirectory:oldFile
 								 file:nil
 								types:nil
@@ -918,6 +922,7 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 						modalDelegate:self
 					  didEndSelector:@selector(openPanelDidEnd:returnCode:contextInfo:)
 						 contextInfo:sender];
+	[QSIC setHiding:NO];
 }
 
 - (void)openPanelDidEnd:(NSOpenPanel *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {

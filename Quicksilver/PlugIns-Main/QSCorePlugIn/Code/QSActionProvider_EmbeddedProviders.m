@@ -348,8 +348,10 @@
 	// ***warning   * activate before showing
 	id QSIC = [[NSApp delegate] interfaceController];
 	[QSIC showMainWindow:nil];
+	[QSIC setHiding:YES];
 
 	int choice = QSRunCriticalAlertSheet([(NSWindowController *)QSIC window], @"Delete File", [NSString stringWithFormat:@"Are you sure you want to PERMANENTLY delete:\r %@?", [selection componentsJoinedByString:@", "]], @"Delete", @"Cancel", nil);
+	[QSIC setHiding:NO];
 	if (choice == 1) {
 		NSEnumerator *files = [dObject enumeratorForType:QSFilePathType];
 		NSString *thisFile;
@@ -432,8 +434,10 @@
 		id panel = [QSFileConflictPanel conflictPanel];
 		[panel setConflictNames:[conflicts allValues]];
 		id QSIC = [[NSApp delegate] interfaceController];
-//		[QSIC showMainWindow:nil];
+		[QSIC showMainWindow:nil];
+		[QSIC setHiding:YES];
 		int copyMethod = [panel runModalAsSheetOnWindow:[QSIC window]];
+		[QSIC setHiding:NO];
 
 		switch (copyMethod) {
 			case QSCancelReplaceResolution:
