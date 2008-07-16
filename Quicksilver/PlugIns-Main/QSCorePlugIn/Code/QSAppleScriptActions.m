@@ -70,17 +70,17 @@
 
 - (QSObject *)doAppleScriptRunTextAction:(QSObject *)dObject {
 	NSDictionary *errorDict = nil;
+    id returnObj = nil;
 	NSAppleScript *script = [[NSAppleScript alloc] initWithSource:[self stringWithCorrectedLazyTell:[dObject objectForType:QSTextType]]];
 	if([script compileAndReturnError:&errorDict]) {
 //		NSAppleEventDescriptor *returnVal = ;
 //		if (VERBOSE) NSLog(@"Returned: %@", returnVal);
-		id returnObj = [[script executeAndReturnError:&errorDict] stringValue];
-		[script release];
+		returnObj = [[script executeAndReturnError:&errorDict] stringValue];
 		if (returnObj)
-			return [QSObject objectWithString:returnObj];
+			returnObj = [QSObject objectWithString:returnObj];
 	}
 	[script release];
-	return nil;
+	return returnObj;
 }
 
 - (QSObject *)doAppleScriptRunWithArgumentsAction:(QSObject *)dObject withArguments:(QSObject *)iObject {
