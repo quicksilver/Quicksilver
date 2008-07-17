@@ -263,7 +263,7 @@ id QSRez;
 - (BOOL)handleInfo:(id)info ofType:(NSString *)type fromBundle:(NSBundle *)bundle {
 	if ([type isEqualToString:@"QSResourceAdditions"]) {
 		[self addResourcesFromDictionary:info]; // inBundle:bundle];
-		} else {
+    } else {
 			if (QSIsLocalized)
 				[NSBundle registerLocalizationBundle:bundle forLanguage:info];
 		}

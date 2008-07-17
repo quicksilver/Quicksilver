@@ -4,7 +4,6 @@ SKIP_INSTALL = NO
 WRAPPER_EXTENSION = qsplugin
 INFOPLIST_FILE = Info.plist
 INFOPLIST_PREPROCESS = YES
-INSTALL_PATH = @executable_path/../PlugIns
 GCC_PRECOMPILE_PREFIX_HEADER = YES
 GCC_PREFIX_HEADER = $(QS_SOURCE_ROOT)/Configuration/QSPlugIn_Prefix.pch
 OTHER_LDFLAGS = -undefined dynamic_lookup

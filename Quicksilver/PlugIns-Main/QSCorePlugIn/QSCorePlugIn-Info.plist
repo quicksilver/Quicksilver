@@ -69,6 +69,96 @@
 			<key>icon</key>
 			<string>QSDirectObjectIconProxy</string>
 		</dict>
+		<key>AppleScriptOpenFilesAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSAppleScriptActions</string>
+			<key>actionSelector</key>
+			<string>doAppleScriptRunWithArgumentsAction:withArguments:</string>
+			<key>directFileTypes</key>
+			<array>
+				<string>&apos;osas&apos;</string>
+				<string>scpt</string>
+				<string>applescript</string>
+			</array>
+			<key>directTypes</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+			</array>
+			<key>displaysResult</key>
+			<integer>1</integer>
+			<key>icon</key>
+			<string>CompiledScriptIcon</string>
+			<key>precedence</key>
+			<real>4</real>
+			<key>validatesObjects</key>
+			<true/>
+		</dict>
+		<key>AppleScriptProcessTextAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSAppleScriptActions</string>
+			<key>actionSelector</key>
+			<string>doAppleScriptRunWithArgumentsAction:withArguments:</string>
+			<key>directFileTypes</key>
+			<array>
+				<string>&apos;osas&apos;</string>
+				<string>scpt</string>
+				<string>applescript</string>
+			</array>
+			<key>directTypes</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+			</array>
+			<key>displaysResult</key>
+			<integer>1</integer>
+			<key>icon</key>
+			<string>CompiledScriptIcon</string>
+			<key>precedence</key>
+			<real>4</real>
+			<key>validatesObjects</key>
+			<true/>
+		</dict>
+		<key>AppleScriptRunAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSAppleScriptActions</string>
+			<key>actionSelector</key>
+			<string>doAppleScriptRunAction:</string>
+			<key>directFileTypes</key>
+			<array>
+				<string>&apos;osas&apos;</string>
+				<string>scpt</string>
+				<string>applescript</string>
+			</array>
+			<key>directTypes</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+			</array>
+			<key>displaysResult</key>
+			<integer>1</integer>
+			<key>icon</key>
+			<string>CompiledScriptIcon</string>
+			<key>precedence</key>
+			<real>4</real>
+			<key>validatesObjects</key>
+			<true/>
+		</dict>
+		<key>AppleScriptRunTextAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSAppleScriptActions</string>
+			<key>actionSelector</key>
+			<string>doAppleScriptRunTextAction:</string>
+			<key>directTypes</key>
+			<array>
+				<string>NSStringPboardType</string>
+			</array>
+			<key>displaysResult</key>
+			<integer>1</integer>
+			<key>icon</key>
+			<string>CompiledScriptIcon</string>
+		</dict>
 		<key>AppOpenFileAction</key>
 		<dict>
 			<key>actionClass</key>
@@ -77,7 +167,7 @@
 			<string>openFile:with:</string>
 			<key>directFileTypes</key>
 			<array>
-				<string>'APPL'</string>
+				<string>&apos;APPL&apos;</string>
 				<string>app</string>
 			</array>
 			<key>directTypes</key>
@@ -144,7 +234,7 @@
 			<string>AppHideOthersAction</string>
 			<key>directFileTypes</key>
 			<array>
-				<string>'APPL'</string>
+				<string>&apos;APPL&apos;</string>
 			</array>
 			<key>directTypes</key>
 			<array>
@@ -157,96 +247,6 @@
 			<string>QSDirectObjectIconProxy</string>
 			<key>name</key>
 			<string>Toggle Application</string>
-		</dict>
-		<key>AppleScriptOpenFilesAction</key>
-		<dict>
-			<key>actionClass</key>
-			<string>QSAppleScriptActions</string>
-			<key>actionSelector</key>
-			<string>doAppleScriptRunWithArgumentsAction:withArguments:</string>
-			<key>directFileTypes</key>
-			<array>
-				<string>'osas'</string>
-				<string>scpt</string>
-				<string>applescript</string>
-			</array>
-			<key>directTypes</key>
-			<array>
-				<string>NSFilenamesPboardType</string>
-			</array>
-			<key>displaysResult</key>
-			<integer>1</integer>
-			<key>icon</key>
-			<string>CompiledScriptIcon</string>
-			<key>precedence</key>
-			<real>4</real>
-			<key>validatesObjects</key>
-			<true/>
-		</dict>
-		<key>AppleScriptProcessTextAction</key>
-		<dict>
-			<key>actionClass</key>
-			<string>QSAppleScriptActions</string>
-			<key>actionSelector</key>
-			<string>doAppleScriptRunWithArgumentsAction:withArguments:</string>
-			<key>directFileTypes</key>
-			<array>
-				<string>'osas'</string>
-				<string>scpt</string>
-				<string>applescript</string>
-			</array>
-			<key>directTypes</key>
-			<array>
-				<string>NSFilenamesPboardType</string>
-			</array>
-			<key>displaysResult</key>
-			<integer>1</integer>
-			<key>icon</key>
-			<string>CompiledScriptIcon</string>
-			<key>precedence</key>
-			<real>4</real>
-			<key>validatesObjects</key>
-			<true/>
-		</dict>
-		<key>AppleScriptRunAction</key>
-		<dict>
-			<key>actionClass</key>
-			<string>QSAppleScriptActions</string>
-			<key>actionSelector</key>
-			<string>doAppleScriptRunAction:</string>
-			<key>directFileTypes</key>
-			<array>
-				<string>'osas'</string>
-				<string>scpt</string>
-				<string>applescript</string>
-			</array>
-			<key>directTypes</key>
-			<array>
-				<string>NSFilenamesPboardType</string>
-			</array>
-			<key>displaysResult</key>
-			<integer>1</integer>
-			<key>icon</key>
-			<string>CompiledScriptIcon</string>
-			<key>precedence</key>
-			<real>4</real>
-			<key>validatesObjects</key>
-			<true/>
-		</dict>
-		<key>AppleScriptRunTextAction</key>
-		<dict>
-			<key>actionClass</key>
-			<string>QSAppleScriptActions</string>
-			<key>actionSelector</key>
-			<string>doAppleScriptRunTextAction:</string>
-			<key>directTypes</key>
-			<array>
-				<string>NSStringPboardType</string>
-			</array>
-			<key>displaysResult</key>
-			<integer>1</integer>
-			<key>icon</key>
-			<string>CompiledScriptIcon</string>
 		</dict>
 		<key>DiskEjectAction</key>
 		<dict>
@@ -278,7 +278,7 @@
 			<key>name</key>
 			<string>Always Open Type With...</string>
 			<key>precedence</key>
-			<real>0.10000000000000001</real>
+			<real>0.1</real>
 		</dict>
 		<key>FileCopyToAction</key>
 		<dict>
@@ -494,7 +494,7 @@
 				<string>NSFilenamesPboardType</string>
 			</array>
 			<key>precedence</key>
-			<real>0.10000000000000001</real>
+			<real>0.1</real>
 		</dict>
 		<key>FileRenameAction</key>
 		<dict>
@@ -522,7 +522,7 @@
 				<string>NSFilenamesPboardType</string>
 			</array>
 			<key>precedence</key>
-			<real>0.10000000149011612</real>
+			<real>0.1000000014901161</real>
 		</dict>
 		<key>FileToTrashAction</key>
 		<dict>
@@ -723,8 +723,8 @@
 			<string>instantiateTemplate:inDirectory:</string>
 			<key>directFileTypes</key>
 			<array>
-				<string>'fold'</string>
-				<string>'disk'</string>
+				<string>&apos;fold&apos;</string>
+				<string>&apos;disk&apos;</string>
 			</array>
 			<key>directTypes</key>
 			<array>
@@ -804,8 +804,8 @@
 			<string>makeFolderIn:named:</string>
 			<key>directFileTypes</key>
 			<array>
-				<string>'fold'</string>
-				<string>'disk'</string>
+				<string>&apos;fold&apos;</string>
+				<string>&apos;disk&apos;</string>
 			</array>
 			<key>directTypes</key>
 			<array>
@@ -873,7 +873,7 @@
 			<key>name</key>
 			<string>Assign Abbreviation...</string>
 			<key>precedence</key>
-			<real>-0.20000000000000001</real>
+			<real>-0.2</real>
 		</dict>
 		<key>QSObjectOmitAction</key>
 		<dict>
@@ -1052,23 +1052,23 @@
 			<array>
 				<string>aiff</string>
 				<string>AIFF</string>
-				<string>'AIFF'</string>
+				<string>&apos;AIFF&apos;</string>
 				<string>aif</string>
 				<string>AIF</string>
 				<string>aifc</string>
 				<string>AIFC</string>
 				<string>wav</string>
 				<string>WAV</string>
-				<string>'WAVE'</string>
+				<string>&apos;WAVE&apos;</string>
 				<string>snd</string>
 				<string>SND</string>
 				<string>au</string>
 				<string>AU</string>
-				<string>'ULAW'</string>
-				<string>'ALAW'</string>
+				<string>&apos;ULAW&apos;</string>
+				<string>&apos;ALAW&apos;</string>
 				<string>mp3</string>
 				<string>MP3</string>
-				<string>'Mp3 '</string>
+				<string>&apos;Mp3 &apos;</string>
 				<string>ulw</string>
 				<string>ULW</string>
 				<string>m4p</string>
@@ -1221,8 +1221,6 @@
 	<key>QSPresetAdditions</key>
 	<array>
 		<dict>
-			<key>ID</key>
-			<string>QSPresetApplications</string>
 			<key>catalogPath</key>
 			<string>/</string>
 			<key>children</key>
@@ -1329,43 +1327,39 @@
 					<string>QSProcessObjectSource</string>
 				</dict>
 				<dict>
-					<key>ID</key>
-					<string>QSPresetAllApplications</string>
 					<key>enabled</key>
 					<false/>
+					<key>ID</key>
+					<string>QSPresetAllApplications</string>
 					<key>source</key>
 					<string>QSAllApplicationsObjectSource</string>
 				</dict>
 			</array>
 			<key>icon</key>
 			<string>GenericApplicationIcon</string>
+			<key>ID</key>
+			<string>QSPresetApplications</string>
 			<key>name</key>
 			<string>Applications</string>
 			<key>source</key>
 			<string>QSGroupObjectSource</string>
 		</dict>
 		<dict>
-			<key>ID</key>
-			<string>QSPresetSystemGroup</string>
 			<key>catalogPath</key>
 			<string>/</string>
 			<key>children</key>
 			<array>
 				<dict>
-					<key>ID</key>
-					<string>QSPresetConfiguration</string>
 					<key>children</key>
 					<array>
 						<dict>
-							<key>ID</key>
-							<string>QSPresetPreferencePanes</string>
 							<key>children</key>
 							<array>
 								<dict>
-									<key>ID</key>
-									<string>QSPresetLibraryPreferencePanes</string>
 									<key>icon</key>
 									<string>PrefFileIcon</string>
+									<key>ID</key>
+									<string>QSPresetLibraryPreferencePanes</string>
 									<key>requiresSettingsPath</key>
 									<true/>
 									<key>settings</key>
@@ -1391,10 +1385,10 @@
 									<string>QSFileSystemObjectSource</string>
 								</dict>
 								<dict>
-									<key>ID</key>
-									<string>QSPresetUserPreferencePanes</string>
 									<key>icon</key>
 									<string>PrefFileIcon</string>
+									<key>ID</key>
+									<string>QSPresetUserPreferencePanes</string>
 									<key>name</key>
 									<string>System Preferences (User)</string>
 									<key>requiresSettingsPath</key>
@@ -1424,10 +1418,10 @@
 									<string>QSFileSystemObjectSource</string>
 								</dict>
 								<dict>
-									<key>ID</key>
-									<string>QSPresetSystemPreferencePanes</string>
 									<key>icon</key>
 									<string>PrefFileIcon</string>
+									<key>ID</key>
+									<string>QSPresetSystemPreferencePanes</string>
 									<key>name</key>
 									<string>System Preferences (System)</string>
 									<key>settings</key>
@@ -1455,6 +1449,8 @@
 							</array>
 							<key>icon</key>
 							<string>SystemPreferencesIcon</string>
+							<key>ID</key>
+							<string>QSPresetPreferencePanes</string>
 							<key>source</key>
 							<string>QSGroupObjectSource</string>
 							<key>supressChildren</key>
@@ -1463,12 +1459,12 @@
 					</array>
 					<key>icon</key>
 					<string>prefsGeneral</string>
+					<key>ID</key>
+					<string>QSPresetConfiguration</string>
 					<key>source</key>
 					<string>QSGroupObjectSource</string>
 				</dict>
 				<dict>
-					<key>ID</key>
-					<string>QSPresetDevices</string>
 					<key>children</key>
 					<array>
 						<dict>
@@ -1478,10 +1474,10 @@
 							<string>QSVolumesObjectSource</string>
 						</dict>
 						<dict>
-							<key>ID</key>
-							<string>QSPresetPrinters</string>
 							<key>icon</key>
 							<string>PrintCenterIcon</string>
+							<key>ID</key>
+							<string>QSPresetPrinters</string>
 							<key>settings</key>
 							<dict>
 								<key>folderDepth</key>
@@ -1503,18 +1499,20 @@
 							<string>QSFileSystemObjectSource</string>
 						</dict>
 					</array>
+					<key>ID</key>
+					<string>QSPresetDevices</string>
 					<key>source</key>
 					<string>QSGroupObjectSource</string>
 				</dict>
 			</array>
 			<key>icon</key>
 			<string>FinderIcon</string>
+			<key>ID</key>
+			<string>QSPresetSystemGroup</string>
 			<key>source</key>
 			<string>QSGroupObjectSource</string>
 		</dict>
 		<dict>
-			<key>ID</key>
-			<string>QSPresetUserGroup</string>
 			<key>catalogPath</key>
 			<string>/</string>
 			<key>children</key>
@@ -1586,10 +1584,10 @@
 					<string>QSFileSystemObjectSource</string>
 				</dict>
 				<dict>
-					<key>ID</key>
-					<string>QSPresetTrash</string>
 					<key>icon</key>
 					<string>TrashIcon</string>
+					<key>ID</key>
+					<string>QSPresetTrash</string>
 					<key>settings</key>
 					<dict>
 						<key>path</key>
@@ -1599,8 +1597,6 @@
 					<string>QSFileSystemObjectSource</string>
 				</dict>
 				<dict>
-					<key>ID</key>
-					<string>QSPresetDockGroup</string>
 					<key>children</key>
 					<array>
 						<dict>
@@ -1646,19 +1642,19 @@
 					</array>
 					<key>icon</key>
 					<string>DockIcon</string>
+					<key>ID</key>
+					<string>QSPresetDockGroup</string>
 					<key>source</key>
 					<string>QSGroupObjectSource</string>
 				</dict>
 				<dict>
-					<key>ID</key>
-					<string>QSPresetRecentItems</string>
 					<key>children</key>
 					<array>
 						<dict>
-							<key>ID</key>
-							<string>QSPresetRecentApplications</string>
 							<key>icon</key>
 							<string>GenericApplicationIcon</string>
+							<key>ID</key>
+							<string>QSPresetRecentApplications</string>
 							<key>settings</key>
 							<dict>
 								<key>bundle</key>
@@ -1679,10 +1675,10 @@
 							<string>QSDefaultsObjectSource</string>
 						</dict>
 						<dict>
-							<key>ID</key>
-							<string>QSPresetRecentDocuments</string>
 							<key>icon</key>
 							<string>GenericDocumentIcon</string>
+							<key>ID</key>
+							<string>QSPresetRecentDocuments</string>
 							<key>settings</key>
 							<dict>
 								<key>bundle</key>
@@ -1703,10 +1699,10 @@
 							<true/>
 						</dict>
 						<dict>
-							<key>ID</key>
-							<string>QSPresetRecentServers</string>
 							<key>icon</key>
 							<string>GenericFileServerIcon</string>
+							<key>ID</key>
+							<string>QSPresetRecentServers</string>
 							<key>settings</key>
 							<dict>
 								<key>bundle</key>
@@ -1727,12 +1723,12 @@
 							<true/>
 						</dict>
 						<dict>
-							<key>ID</key>
-							<string>QSPresetRecentServersFromLibrary</string>
 							<key>enabled</key>
 							<false/>
 							<key>icon</key>
 							<string>GenericFileServerIcon</string>
+							<key>ID</key>
+							<string>QSPresetRecentServersFromLibrary</string>
 							<key>name</key>
 							<string>Recent Servers (Library)</string>
 							<key>settings</key>
@@ -1748,12 +1744,12 @@
 							<string>QSFileSystemObjectSource</string>
 						</dict>
 						<dict>
-							<key>ID</key>
-							<string>QSPresetFavorites</string>
 							<key>enabled</key>
 							<false/>
 							<key>icon</key>
 							<string>FavoritesIcon</string>
+							<key>ID</key>
+							<string>QSPresetFavorites</string>
 							<key>settings</key>
 							<dict>
 								<key>folderDepth</key>
@@ -1769,10 +1765,10 @@
 							<string>QSFileSystemObjectSource</string>
 						</dict>
 						<dict>
-							<key>ID</key>
-							<string>QSPresetGlobalPrefsRecentFolders</string>
 							<key>icon</key>
 							<string>GenericFolderIcon</string>
+							<key>ID</key>
+							<string>QSPresetGlobalPrefsRecentFolders</string>
 							<key>settings</key>
 							<dict>
 								<key>bundle</key>
@@ -1791,18 +1787,20 @@
 					</array>
 					<key>icon</key>
 					<string>SafariHistoryIcon</string>
+					<key>ID</key>
+					<string>QSPresetRecentItems</string>
 					<key>source</key>
 					<string>QSGroupObjectSource</string>
 				</dict>
 			</array>
 			<key>icon</key>
 			<string>HomeFolderIcon</string>
+			<key>ID</key>
+			<string>QSPresetUserGroup</string>
 			<key>source</key>
 			<string>QSGroupObjectSource</string>
 		</dict>
 		<dict>
-			<key>ID</key>
-			<string>QSPresetQSGroup</string>
 			<key>catalogPath</key>
 			<string>/</string>
 			<key>children</key>
@@ -1814,58 +1812,54 @@
 					<string>QSCatalogEntrySource</string>
 				</dict>
 				<dict>
-					<key>ID</key>
-					<string>QSPresetProxies</string>
 					<key>enabled</key>
 					<false/>
 					<key>feature</key>
 					<integer>1</integer>
+					<key>ID</key>
+					<string>QSPresetProxies</string>
 					<key>source</key>
 					<string>QSProxyObjectSource</string>
 				</dict>
 				<dict>
-					<key>ID</key>
-					<string>QSPresetInternalMessages</string>
 					<key>enabled</key>
 					<false/>
 					<key>feature</key>
 					<integer>1</integer>
+					<key>ID</key>
+					<string>QSPresetInternalMessages</string>
 					<key>source</key>
 					<string>QSObjCMessageSource</string>
 				</dict>
 				<dict>
-					<key>ID</key>
-					<string>QSPresetInternalObjects</string>
 					<key>enabled</key>
 					<false/>
 					<key>feature</key>
 					<integer>1</integer>
-					<key>name</key>
-					<string>Internal Objects</string>
+					<key>ID</key>
+					<string>QSPresetInternalObjects</string>
 					<key>source</key>
 					<string>QSHandledObjectHandler</string>
 				</dict>
 				<dict>
-					<key>ID</key>
-					<string>QSPresetCommandHistory</string>
 					<key>enabled</key>
 					<false/>
 					<key>feature</key>
 					<integer>3</integer>
-					<key>name</key>
-					<string>Recent Commands</string>
+					<key>ID</key>
+					<string>QSPresetCommandHistory</string>
 					<key>source</key>
 					<string>QSHistoryObjectSource</string>
 					<key>userInfo</key>
 					<string>commands</string>
 				</dict>
 				<dict>
-					<key>ID</key>
-					<string>QSPresetObjectHistory</string>
 					<key>enabled</key>
 					<false/>
 					<key>feature</key>
 					<integer>1</integer>
+					<key>ID</key>
+					<string>QSPresetObjectHistory</string>
 					<key>name</key>
 					<string>Recent Objects</string>
 					<key>source</key>
@@ -1876,23 +1870,23 @@
 			</array>
 			<key>icon</key>
 			<string>Quicksilver</string>
+			<key>ID</key>
+			<string>QSPresetQSGroup</string>
 			<key>source</key>
 			<string>QSGroupObjectSource</string>
 		</dict>
 		<dict>
-			<key>ID</key>
-			<string>QSPresetScriptsGroup</string>
 			<key>catalogPath</key>
 			<string>/</string>
 			<key>children</key>
 			<array>
 				<dict>
-					<key>ID</key>
-					<string>QSPresetLibraryScripts</string>
 					<key>enabled</key>
 					<false/>
 					<key>icon</key>
 					<string>ScriptIcon</string>
+					<key>ID</key>
+					<string>QSPresetLibraryScripts</string>
 					<key>requiresSettingsPath</key>
 					<integer>1</integer>
 					<key>settings</key>
@@ -1919,10 +1913,10 @@
 					<string>QSFileSystemObjectSource</string>
 				</dict>
 				<dict>
-					<key>ID</key>
-					<string>QSPresetUserScripts</string>
 					<key>icon</key>
 					<string>ScriptIcon</string>
+					<key>ID</key>
+					<string>QSPresetUserScripts</string>
 					<key>modificationDate</key>
 					<real>103923120</real>
 					<key>name</key>
@@ -1953,10 +1947,10 @@
 					<string>QSFileSystemObjectSource</string>
 				</dict>
 				<dict>
-					<key>ID</key>
-					<string>QSPresetDVDPlayerScripts</string>
 					<key>icon</key>
 					<string>com.apple.DVDPlayer</string>
+					<key>ID</key>
+					<string>QSPresetDVDPlayerScripts</string>
 					<key>requiresSettingsPath</key>
 					<integer>1</integer>
 					<key>settings</key>
@@ -1980,6 +1974,8 @@
 			</array>
 			<key>icon</key>
 			<string>CompiledScriptIcon</string>
+			<key>ID</key>
+			<string>QSPresetScriptsGroup</string>
 			<key>source</key>
 			<string>QSGroupObjectSource</string>
 		</dict>
@@ -2009,8 +2005,6 @@
 		<dict>
 			<key>com.apple.AddressBook</key>
 			<string>QSPresetAddressBook</string>
-			<key>com.apple.Terminal</key>
-			<string>QSPresetTerminalFiles</string>
 			<key>com.apple.airport.adminutility</key>
 			<string>QSAirPortNetworkObjectSource</string>
 			<key>com.apple.dock</key>
@@ -2025,6 +2019,8 @@
 			<string>QSPresetPrinters</string>
 			<key>com.apple.systempreferences</key>
 			<string>QSPresetPreferencePanes</string>
+			<key>com.apple.Terminal</key>
+			<string>QSPresetTerminalFiles</string>
 			<key>com.blacktree.Quicksilver</key>
 			<string>QSPresetQSCatalogEntries</string>
 			<key>com.karelia.watson</key>
@@ -2110,6 +2106,13 @@
 				<string>Show Command Window </string>
 			</dict>
 		</dict>
+		<key>QSFileActionCreators</key>
+		<dict>
+			<key>QSAppleScriptActions</key>
+			<string>QSAppleScriptActions</string>
+			<key>QSShellScriptRunAction</key>
+			<string>QSShellScriptRunAction</string>
+		</dict>
 		<key>QSFSFileTypeParsers</key>
 		<dict>
 			<key>public.html</key>
@@ -2126,13 +2129,6 @@
 			<key>QSTextLineParser</key>
 			<string>QSTextLineParser</string>
 		</dict>
-		<key>QSFileActionCreators</key>
-		<dict>
-			<key>QSAppleScriptActions</key>
-			<string>QSAppleScriptActions</string>
-			<key>QSShellScriptRunAction</key>
-			<string>QSShellScriptRunAction</string>
-		</dict>
 		<key>QSObjectHandlers</key>
 		<dict>
 			<key>Apple URL pasteboard type</key>
@@ -2143,12 +2139,12 @@
 			<string>QSFileSystemObjectHandler</string>
 			<key>NSStringPboardType</key>
 			<string>QSStringObjectHandler</string>
-			<key>qs.ObjCMessage</key>
-			<string>QSObjCMessageSource</string>
 			<key>qs.catalogentry</key>
 			<string>QSCatalogEntrySource</string>
 			<key>qs.handled</key>
 			<string>QSHandledObjectHandler</string>
+			<key>qs.ObjCMessage</key>
+			<string>QSObjCMessageSource</string>
 		</dict>
 		<key>QSObjectSources</key>
 		<dict>
@@ -2184,6 +2180,19 @@
 		</dict>
 		<key>QSProxies</key>
 		<dict>
+			<key>com.blacktree.Quicksilver</key>
+			<dict>
+				<key>icon</key>
+				<string>Quicksilver</string>
+				<key>name</key>
+				<string>Quicksilver Selection</string>
+				<key>providerClass</key>
+				<string>QSController</string>
+				<key>types</key>
+				<array>
+					<string>*</string>
+				</array>
+			</dict>
 			<key>QSLastCommandProxy</key>
 			<dict>
 				<key>icon</key>
@@ -2247,19 +2256,6 @@
 				<key>types</key>
 				<array>
 					<string>NSFilenamesPboardType</string>
-				</array>
-			</dict>
-			<key>com.blacktree.Quicksilver</key>
-			<dict>
-				<key>icon</key>
-				<string>Quicksilver</string>
-				<key>name</key>
-				<string>Quicksilver Selection</string>
-				<key>providerClass</key>
-				<string>QSController</string>
-				<key>types</key>
-				<array>
-					<string>*</string>
 				</array>
 			</dict>
 		</dict>
@@ -2386,24 +2382,20 @@
 	<key>QSTriggerAdditions</key>
 	<array>
 		<dict>
-			<key>ID</key>
-			<string>QSGetGlobalSelectionTrigger</string>
 			<key>command</key>
 			<string>QSGetGlobalSelectionCommand</string>
-			<key>name</key>
-			<string>Command Window with Selection</string>
+			<key>ID</key>
+			<string>QSGetGlobalSelectionTrigger</string>
 			<key>set</key>
 			<string>Quicksilver</string>
 			<key>type</key>
 			<string>QSHotKeyTrigger</string>
 		</dict>
 		<dict>
-			<key>ID</key>
-			<string>QSActivateTextModeTrigger</string>
 			<key>command</key>
 			<string>QSActivateTextModeCommand</string>
-			<key>name</key>
-			<string>Command Window in Text Mode</string>
+			<key>ID</key>
+			<string>QSActivateTextModeTrigger</string>
 			<key>set</key>
 			<string>Quicksilver</string>
 			<key>type</key>
