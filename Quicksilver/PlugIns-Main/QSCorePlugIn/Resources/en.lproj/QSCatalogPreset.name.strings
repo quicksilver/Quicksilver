@@ -38,6 +38,8 @@
 	<string>Applications (Mac OS 9)</string>
 	<key>QSPresetClipboardContents</key>
 	<string>Clipboard Contents</string>
+    <key>QSPresetCommandHistory</key>
+	<string>Recent Commands</string>
 	<key>QSPresetConfiguration</key>
 	<string>Configuration</string>
 	<key>QSPresetContacts</key>
@@ -108,6 +110,8 @@
 	<string>iCab Bookmarks</string>
 	<key>QSPresetInternalMessages</key>
 	<string>Internal Commands</string>
+    <key>QSPresetInternalObjects</key>
+    <string>Internal Objects</string>
 	<key>QSPresetIEBookmarks</key>
 	<string>Internet Explorer Bookmarks</string>
 	<key>QSPresetIEGroup</key>

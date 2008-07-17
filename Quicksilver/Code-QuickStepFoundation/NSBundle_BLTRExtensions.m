@@ -22,10 +22,14 @@
 - (NSString *)safeLocalizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName {
 	NSString *dummyString = @"<missing>";
 	NSString *locString = [self localizedStringForKey:key value:dummyString table:tableName];
-	if ([locString isEqual:dummyString]) locString = nil;
+	if ([locString isEqual:dummyString]) {
+        if(DEBUG_LOCALIZATION)
+            NSLog(@"Localization: Missing key %@ in table %@, using default %@", key, tableName, value);
+        locString = nil;
+    }
 	if (!locString) {
 		NSMutableDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:
-			[self pathForResource:(tableName?tableName:@"Localizable") ofType:@"strings" inDirectory:nil forLocalization:@"English"]];
+			[self pathForResource:(tableName?tableName:@"Localizable") ofType:@"strings" inDirectory:nil forLocalization:@"en"]];
 		locString = [dictionary objectForKey:key];
 	}
 	if (!locString) locString = value;

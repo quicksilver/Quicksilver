@@ -363,7 +363,6 @@
 		E180013A07B2B48900010DB0 /* QSShellScriptRunAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E180011207B2B48900010DB0 /* QSShellScriptRunAction.m */; };
 		E180013E07B2B48900010DB0 /* QSTextSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E180011607B2B48900010DB0 /* QSTextSource.m */; };
 		E180014007B2B48900010DB0 /* QSWebSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E180011807B2B48900010DB0 /* QSWebSource.m */; };
-		E180014107B2B48900010DB0 /* QSCorePlugIn-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E180011907B2B48900010DB0 /* QSCorePlugIn-Info.plist */; };
 		E180016707B2B91800010DB0 /* QSFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9AF07B1FCFC0044D6EF /* QSFoundation.framework */; };
 		E180016807B2B91800010DB0 /* QSEffects.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9C307B1FD100044D6EF /* QSEffects.framework */; };
 		E180016907B2B92200010DB0 /* QSFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9AF07B1FCFC0044D6EF /* QSFoundation.framework */; };
@@ -942,7 +941,7 @@
 		7F515D4007B533D3003EA91C /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Catalog.strings; sourceTree = "<group>"; };
 		7F515D4207B533D3003EA91C /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Preferences.strings; sourceTree = "<group>"; };
 		7F5CFFC707FA76E700123A49 /* Quicksilver.sdef */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.sdef; path = Quicksilver.sdef; sourceTree = "<group>"; };
-		7F5D70CF091D9C76007A22C4 /* QSSplash.qtz */ = {isa = PBXFileReference; lastKnownFileType = file; path = QSSplash.qtz; sourceTree = "<group>"; };
+		7F5D70CF091D9C76007A22C4 /* QSSplash.qtz */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = QSSplash.qtz; sourceTree = "<group>"; };
 		7F60F12607FA134600922645 /* QSMainPreferencePanes.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSMainPreferencePanes.h; sourceTree = "<group>"; };
 		7F60F12707FA134600922645 /* QSMainPreferencePanes.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSMainPreferencePanes.m; sourceTree = "<group>"; };
 		7F60F13107FA13B900922645 /* QSPreferencePane.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSPreferencePane.h; sourceTree = "<group>"; };
@@ -965,7 +964,7 @@
 		7F75744A07BC3B4400F6AD87 /* QSActionsPrefPane.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSActionsPrefPane.nib; sourceTree = "<group>"; };
 		7F7AB61907F0761400ACBA8A /* QSCollectingSearchObjectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCollectingSearchObjectView.h; sourceTree = "<group>"; };
 		7F7AB61A07F0761400ACBA8A /* QSCollectingSearchObjectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCollectingSearchObjectView.m; sourceTree = "<group>"; };
-		7F8401D009690F00006E6F0E /* ClientDescription.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ClientDescription.plist; sourceTree = "<group>"; };
+		7F8401D009690F00006E6F0E /* ClientDescription.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ClientDescription.plist; sourceTree = "<group>"; };
 		7F84020609691035006E6F0E /* SyncServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SyncServices.framework; path = /System/Library/Frameworks/SyncServices.framework; sourceTree = "<absolute>"; };
 		7F84022E09691459006E6F0E /* QSSyncManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSyncManager.h; sourceTree = "<group>"; };
 		7F84022F09691459006E6F0E /* QSSyncManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSyncManager.m; sourceTree = "<group>"; };
@@ -975,7 +974,7 @@
 		7F840FCD096C3356006E6F0E /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = de; path = de.lproj/QSCatalogPreset.name.strings; sourceTree = "<group>"; };
 		7F840FCF096C3356006E6F0E /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = de; path = de.lproj/QSObjectSource.name.strings; sourceTree = "<group>"; };
 		7F840FD1096C3356006E6F0E /* de */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = de; path = de.lproj/QSParser.name.strings; sourceTree = "<group>"; };
-		7F840FD3096C3356006E6F0E /* en */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/QSAction.commandFormat.strings; sourceTree = "<group>"; };
+		7F840FD3096C3356006E6F0E /* en */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; fileEncoding = 30; name = en; path = en.lproj/QSAction.commandFormat.strings; sourceTree = "<group>"; };
 		7F840FD4096C3356006E6F0E /* en */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = en; path = en.lproj/QSAction.description.strings; sourceTree = "<group>"; };
 		7F840FD5096C3356006E6F0E /* en */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = en; path = en.lproj/QSAction.name.strings; sourceTree = "<group>"; };
 		7F840FD6096C3356006E6F0E /* en */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = en; path = en.lproj/QSCatalogPreset.name.strings; sourceTree = "<group>"; };
@@ -984,7 +983,7 @@
 		7F840FDA096C3356006E6F0E /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/About.strings; sourceTree = "<group>"; };
 		7F840FDC096C3356006E6F0E /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Catalog.strings; sourceTree = "<group>"; };
 		7F840FDE096C3356006E6F0E /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Preferences.strings; sourceTree = "<group>"; };
-		7F840FDF096C3356006E6F0E /* fr */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = fr; path = fr.lproj/QSAction.commandFormat.strings; sourceTree = "<group>"; };
+		7F840FDF096C3356006E6F0E /* fr */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; fileEncoding = 30; name = fr; path = fr.lproj/QSAction.commandFormat.strings; sourceTree = "<group>"; };
 		7F840FE0096C3356006E6F0E /* fr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = fr; path = fr.lproj/QSAction.description.strings; sourceTree = "<group>"; };
 		7F840FE1096C3356006E6F0E /* fr */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = fr; path = fr.lproj/QSAction.name.strings; sourceTree = "<group>"; };
 		7F840FE2096C3356006E6F0E /* fr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = fr; path = fr.lproj/QSCatalogPreset.name.strings; sourceTree = "<group>"; };
@@ -1016,7 +1015,7 @@
 		7F95531E0A25DC4A0004FCC3 /* QSLoginItemFunctions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSLoginItemFunctions.h; sourceTree = "<group>"; };
 		7F95531F0A25DC4A0004FCC3 /* QSLoginItemFunctions.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSLoginItemFunctions.m; sourceTree = "<group>"; };
 		7F9703D009AFEE8700E9EA77 /* QSDroplet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QSDroplet.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7F9703DC09AFEF8900E9EA77 /* QSDroplet-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = "QSDroplet-Info.plist"; sourceTree = "<group>"; };
+		7F9703DC09AFEF8900E9EA77 /* QSDroplet-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "QSDroplet-Info.plist"; sourceTree = "<group>"; };
 		7F9703DD09AFEF8900E9EA77 /* QSDroplet.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSDroplet.nib; sourceTree = "<group>"; };
 		7F9703E009AFEFB100E9EA77 /* QSDropletApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDropletApplication.h; sourceTree = "<group>"; };
 		7F9703E109AFEFB100E9EA77 /* QSDropletApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDropletApplication.m; sourceTree = "<group>"; };
@@ -1071,7 +1070,7 @@
 		7FDBC3110A0153CA00E496FF /* Button-Add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button-Add.png"; sourceTree = "<group>"; };
 		7FDBC4FF0A02D93400E496FF /* QSAdvancedPrefPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSAdvancedPrefPane.h; sourceTree = "<group>"; };
 		7FDBC5000A02D93400E496FF /* QSAdvancedPrefPane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSAdvancedPrefPane.m; sourceTree = "<group>"; };
-		7FDBC51E0A02DB0700E496FF /* DefaultsMap.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = DefaultsMap.plist; sourceTree = "<group>"; };
+		7FDBC51E0A02DB0700E496FF /* DefaultsMap.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = DefaultsMap.plist; sourceTree = "<group>"; };
 		7FDF328707F7B11800594789 /* QSObjectActions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSObjectActions.h; sourceTree = "<group>"; };
 		7FDF328807F7B11800594789 /* QSObjectActions.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSObjectActions.m; sourceTree = "<group>"; };
 		7FDF341607F7D59E00594789 /* NSDictionary+BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+BLTRExtensions.h"; sourceTree = "<group>"; };
@@ -1130,15 +1129,15 @@
 		E102F99006625D7400843027 /* QSTaskEntry.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSTaskEntry.nib; sourceTree = "<group>"; };
 		E102F99106625D7400843027 /* QSTaskViewer.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSTaskViewer.nib; sourceTree = "<group>"; };
 		E102F99206625D7400843027 /* QSTriggersPrefPane.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSTriggersPrefPane.nib; sourceTree = "<group>"; };
-		E103EB8806471D5900447FE0 /* QSCore-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = "QSCore-Info.plist"; sourceTree = "<group>"; };
-		E103EB8906471D5900447FE0 /* Quicksilver-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Quicksilver-Info.plist"; sourceTree = "<group>"; };
+		E103EB8806471D5900447FE0 /* QSCore-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "QSCore-Info.plist"; sourceTree = "<group>"; };
+		E103EB8906471D5900447FE0 /* Quicksilver-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Quicksilver-Info.plist"; sourceTree = "<group>"; };
 		E103EC4606471DAF00447FE0 /* QSTypes.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSTypes.h; sourceTree = "<group>"; };
 		E103EC4706471DAF00447FE0 /* QSKeys.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSKeys.h; sourceTree = "<group>"; };
 		E103EC4806471DAF00447FE0 /* QSPreferenceKeys.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSPreferenceKeys.h; sourceTree = "<group>"; };
-		E103EC5106471DBE00447FE0 /* ActionsPrecedence.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = ActionsPrecedence.plist; sourceTree = "<group>"; };
-		E103EC5606471DBE00447FE0 /* DefaultMnemonics.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = DefaultMnemonics.plist; sourceTree = "<group>"; };
-		E103EC5706471DBE00447FE0 /* QSDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = QSDefaults.plist; sourceTree = "<group>"; };
-		E103EC8406471DBF00447FE0 /* FileTypeGroups.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = FileTypeGroups.plist; path = Resources/FileTypeGroups.plist; sourceTree = SOURCE_ROOT; };
+		E103EC5106471DBE00447FE0 /* ActionsPrecedence.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = ActionsPrecedence.plist; sourceTree = "<group>"; };
+		E103EC5606471DBE00447FE0 /* DefaultMnemonics.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = DefaultMnemonics.plist; sourceTree = "<group>"; };
+		E103EC5706471DBE00447FE0 /* QSDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = QSDefaults.plist; sourceTree = "<group>"; };
+		E103EC8406471DBF00447FE0 /* FileTypeGroups.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; name = FileTypeGroups.plist; path = Resources/FileTypeGroups.plist; sourceTree = SOURCE_ROOT; };
 		E103EC8C06471DBF00447FE0 /* ChildArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChildArrow.png; sourceTree = "<group>"; };
 		E103EC9006471DBF00447FE0 /* defaultAction.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = defaultAction.icns; sourceTree = "<group>"; };
 		E103EC9106471DBF00447FE0 /* DefaultBookmarkIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DefaultBookmarkIcon.icns; sourceTree = "<group>"; };
@@ -1156,7 +1155,7 @@
 		E103ECAA06471DBF00447FE0 /* QuicksilverMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuicksilverMenu.png; sourceTree = "<group>"; };
 		E103ECAD06471DBF00447FE0 /* QuicksilverMenuPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuicksilverMenuPressed.png; sourceTree = "<group>"; };
 		E103ECB206471DBF00447FE0 /* ResizeWidget.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ResizeWidget.png; sourceTree = "<group>"; };
-		E103ECCC06471DBF00447FE0 /* ResourceLocations.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = ResourceLocations.plist; sourceTree = "<group>"; };
+		E103ECCC06471DBF00447FE0 /* ResourceLocations.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = ResourceLocations.plist; sourceTree = "<group>"; };
 		E103EE2906471DDE00447FE0 /* CPS.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CPS.h; sourceTree = "<group>"; };
 		E103EE5B06471DDE00447FE0 /* QSImageAndTextCell.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = QSImageAndTextCell.h; path = "../Code-External/QSImageAndTextCell.h"; sourceTree = "<group>"; };
 		E103EE5C06471DDE00447FE0 /* QSImageAndTextCell.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = QSImageAndTextCell.m; path = "../Code-External/QSImageAndTextCell.m"; sourceTree = "<group>"; };
@@ -1172,7 +1171,7 @@
 		E1087B3F069BD5D300971A69 /* ContactAddress.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ContactAddress.icns; sourceTree = "<group>"; };
 		E1087B40069BD5D300971A69 /* ContactEmail.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ContactEmail.icns; sourceTree = "<group>"; };
 		E1087B41069BD5D300971A69 /* ContactPhone.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ContactPhone.icns; sourceTree = "<group>"; };
-		E1186AD506A6D6F700F3EA8E /* QSKindDescriptions.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = QSKindDescriptions.plist; sourceTree = "<group>"; };
+		E1186AD506A6D6F700F3EA8E /* QSKindDescriptions.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = QSKindDescriptions.plist; sourceTree = "<group>"; };
 		E12444CB07297FF300043A01 /* CGSPrivate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CGSPrivate.h; sourceTree = "<group>"; };
 		E1264FAC072FE76C00206035 /* QSPreferences.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSPreferences.nib; sourceTree = "<group>"; };
 		E129F348071DD65A001E1D5A /* License.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = License.rtf; sourceTree = "<group>"; };
@@ -1214,7 +1213,7 @@
 		E180011607B2B48900010DB0 /* QSTextSource.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSTextSource.m; sourceTree = "<group>"; };
 		E180011707B2B48900010DB0 /* QSWebSource.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSWebSource.h; sourceTree = "<group>"; };
 		E180011807B2B48900010DB0 /* QSWebSource.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSWebSource.m; sourceTree = "<group>"; };
-		E180011907B2B48900010DB0 /* QSCorePlugIn-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = "QSCorePlugIn-Info.plist"; sourceTree = "<group>"; };
+		E180011907B2B48900010DB0 /* QSCorePlugIn-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "QSCorePlugIn-Info.plist"; sourceTree = "<group>"; };
 		E18001C307B2BBB800010DB0 /* AppKitPrivate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AppKitPrivate.h; sourceTree = "<group>"; };
 		E18001C507B2BBB800010DB0 /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E18001C807B2BBB800010DB0 /* QSApp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSApp.h; sourceTree = "<group>"; };
@@ -1243,16 +1242,16 @@
 		E180021507B2BBB900010DB0 /* QSUpdateController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSUpdateController.m; sourceTree = "<group>"; };
 		E188856606A4884F00B75D22 /* System Events.scpt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.scpt; path = "System Events.scpt"; sourceTree = "<group>"; };
 		E18986BF0657DDCE001286AA /* QSPlugIn.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = QSPlugIn.icns; sourceTree = "<group>"; };
-		E18F8D29072DBB1C00057774 /* PlugInVersionRequirements.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = PlugInVersionRequirements.plist; sourceTree = "<group>"; };
+		E18F8D29072DBB1C00057774 /* PlugInVersionRequirements.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = PlugInVersionRequirements.plist; sourceTree = "<group>"; };
 		E19B4D1006D86E2300D215D8 /* QSMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSMacros.h; sourceTree = "<group>"; };
 		E1A2B21306F954F80084C47B /* wildcard.* */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = "wildcard.*"; sourceTree = "<group>"; };
 		E1B2890006E3DAFA00CACB9E /* AppearanceText.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppearanceText.png; sourceTree = "<group>"; };
 		E1B2890106E3DAFA00CACB9E /* AppearanceSelection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppearanceSelection.png; sourceTree = "<group>"; };
 		E1B2890206E3DAFA00CACB9E /* AppearanceBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppearanceBack.png; sourceTree = "<group>"; };
 		E1B5F31206573C2900FCFBE2 /* QSInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QSInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E1B5F31306573C8100FCFBE2 /* QSInterface-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = "QSInterface-Info.plist"; sourceTree = "<group>"; };
-		E1C3BE4D06EA0A7F00B848D6 /* QSActions.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = QSActions.plist; sourceTree = "<group>"; };
-		E1C3BE4E06EA0A7F00B848D6 /* QSRegistration.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = QSRegistration.plist; sourceTree = "<group>"; };
+		E1B5F31306573C8100FCFBE2 /* QSInterface-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "QSInterface-Info.plist"; sourceTree = "<group>"; };
+		E1C3BE4D06EA0A7F00B848D6 /* QSActions.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = QSActions.plist; sourceTree = "<group>"; };
+		E1C3BE4E06EA0A7F00B848D6 /* QSRegistration.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = QSRegistration.plist; sourceTree = "<group>"; };
 		E1C4FC5206B98A9300FA8819 /* Object.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Object.png; sourceTree = "<group>"; };
 		E1C9DFB4070A37F1001BB625 /* CatalogGroup.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CatalogGroup.icns; sourceTree = "<group>"; };
 		E1CF688A06F2897900C848F3 /* Recent.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Recent.icns; sourceTree = "<group>"; };
@@ -3100,7 +3099,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E180014107B2B48900010DB0 /* QSCorePlugIn-Info.plist in Resources */,
 				7F24FA2108AFC326009DB343 /* QSURLExtractor.pl in Resources */,
 				7F840FEB096C3356006E6F0E /* QSAction.description.strings in Resources */,
 				7F840FEC096C3356006E6F0E /* QSAction.name.strings in Resources */,

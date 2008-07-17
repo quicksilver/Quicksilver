@@ -42,7 +42,7 @@ static BOOL gModifiersAreIgnored;
 	if (self = [super init]) {
 		[self setObject:[NSMutableDictionary dictionary] forType:QSActionType];
 		[self setIdentifier:newIdentifier];
-		[self setName:[newBundle safeLocalizedStringForKey:newIdentifier value:newIdentifier table:@"QSAction-name"]];
+		[self setName:[newBundle safeLocalizedStringForKey:newIdentifier value:newIdentifier table:@"QSAction.name"]];
 		[self setPrimaryType:QSActionType];
 		[self setDisplaysResult:YES];
 		[self setBundle:newBundle];
@@ -198,7 +198,7 @@ static BOOL gModifiersAreIgnored;
 }
 
 - (NSString *)detailsOfObject:(QSObject *)object {
-	NSString *newDetails = [[(QSAction *)object bundle] safeLocalizedStringForKey:[object identifier] value:@"missing" table:@"QSAction-description"];
+	NSString *newDetails = [[(QSAction *)object bundle] safeLocalizedStringForKey:[object identifier] value:@"missing" table:@"QSAction.description"];
 	if ([newDetails isEqualToString:@"missing"])
 		newDetails = nil;
 	if (newDetails)
@@ -296,6 +296,7 @@ static BOOL gModifiersAreIgnored;
 	}
 	return nil;
 }
+
 - (NSString *)commandDescriptionWithDirectObject:(QSBasicObject *)dObject indirectObject:(QSBasicObject *)iObject {
 	NSString *format;
 	NSString *identi = [self identifier];
