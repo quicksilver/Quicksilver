@@ -6,94 +6,6 @@
 	<array>
 		<dict>
 			<key>CLASS</key>
-			<string>QSMenuButton</string>
-			<key>LANGUAGE</key>
-			<string>ObjC</string>
-			<key>SUPERCLASS</key>
-			<string>NSButton</string>
-		</dict>
-		<dict>
-			<key>CLASS</key>
-			<string>QSTreeController</string>
-			<key>LANGUAGE</key>
-			<string>ObjC</string>
-			<key>SUPERCLASS</key>
-			<string>NSTreeController</string>
-		</dict>
-		<dict>
-			<key>ACTIONS</key>
-			<dict>
-				<key>relaunch</key>
-				<string>id</string>
-				<key>requestRelaunch</key>
-				<string>id</string>
-			</dict>
-			<key>CLASS</key>
-			<string>NSApplication</string>
-			<key>LANGUAGE</key>
-			<string>ObjC</string>
-			<key>SUPERCLASS</key>
-			<string>NSResponder</string>
-		</dict>
-		<dict>
-			<key>CLASS</key>
-			<string>QSHandledSplitView</string>
-			<key>LANGUAGE</key>
-			<string>ObjC</string>
-			<key>SUPERCLASS</key>
-			<string>NSSplitView</string>
-		</dict>
-		<dict>
-			<key>CLASS</key>
-			<string>NSObject</string>
-			<key>LANGUAGE</key>
-			<string>ObjC</string>
-		</dict>
-		<dict>
-			<key>ACTIONS</key>
-			<dict>
-				<key>showPaneHelp</key>
-				<string>id</string>
-			</dict>
-			<key>CLASS</key>
-			<string>QSPreferencePane</string>
-			<key>LANGUAGE</key>
-			<string>ObjC</string>
-			<key>OUTLETS</key>
-			<dict>
-				<key>_firstKeyView</key>
-				<string>NSView</string>
-				<key>_initialKeyView</key>
-				<string>NSView</string>
-				<key>_lastKeyView</key>
-				<string>NSView</string>
-				<key>_window</key>
-				<string>NSWindow</string>
-			</dict>
-			<key>SUPERCLASS</key>
-			<string>NSObject</string>
-		</dict>
-		<dict>
-			<key>ACTIONS</key>
-			<dict>
-				<key>flare</key>
-				<string>id</string>
-				<key>fold</key>
-				<string>id</string>
-				<key>pulse</key>
-				<string>id</string>
-				<key>shrink</key>
-				<string>id</string>
-			</dict>
-			<key>CLASS</key>
-			<string>NSWindow</string>
-			<key>LANGUAGE</key>
-			<string>ObjC</string>
-			<key>SUPERCLASS</key>
-			<string>NSResponder</string>
-		</dict>
-		<dict>
-			<key>CLASS</key>
 			<string>QSFancyTableView</string>
 			<key>LANGUAGE</key>
 			<string>ObjC</string>
@@ -110,11 +22,27 @@
 		</dict>
 		<dict>
 			<key>CLASS</key>
+			<string>QSMenuButton</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSButton</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
 			<string>QSGlossyBarButton</string>
 			<key>LANGUAGE</key>
 			<string>ObjC</string>
 			<key>SUPERCLASS</key>
 			<string>NSButton</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>QSTreeController</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSTreeController</string>
 		</dict>
 		<dict>
 			<key>ACTIONS</key>
@@ -146,6 +74,21 @@
 			<string>NSResponder</string>
 		</dict>
 		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>relaunch</key>
+				<string>id</string>
+				<key>requestRelaunch</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>NSApplication</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSResponder</string>
+		</dict>
+		<dict>
 			<key>CLASS</key>
 			<string>QSSplitHandleView</string>
 			<key>LANGUAGE</key>
@@ -157,6 +100,14 @@
 			</dict>
 			<key>SUPERCLASS</key>
 			<string>NSView</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>QSHandledSplitView</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSSplitView</string>
 		</dict>
 		<dict>
 			<key>CLASS</key>
@@ -237,11 +188,60 @@
 		</dict>
 		<dict>
 			<key>CLASS</key>
+			<string>NSObject</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
 			<string>QSGlossyBarMenuButton</string>
 			<key>LANGUAGE</key>
 			<string>ObjC</string>
 			<key>SUPERCLASS</key>
 			<string>QSMenuButton</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>showPaneHelp</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>QSPreferencePane</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>_firstKeyView</key>
+				<string>NSView</string>
+				<key>_initialKeyView</key>
+				<string>NSView</string>
+				<key>_lastKeyView</key>
+				<string>NSView</string>
+				<key>_window</key>
+				<string>NSWindow</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>flare</key>
+				<string>id</string>
+				<key>fold</key>
+				<string>id</string>
+				<key>pulse</key>
+				<string>id</string>
+				<key>shrink</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>NSWindow</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSResponder</string>
 		</dict>
 		<dict>
 			<key>CLASS</key>

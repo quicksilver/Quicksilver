@@ -1,113 +1,309 @@
-{
-    IBClasses = (
-        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
-        {
-            ACTIONS = {relaunch = id; requestRelaunch = id; }; 
-            CLASS = NSApplication; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSResponder; 
-        }, 
-        {CLASS = NSButton; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
-        {CLASS = NSObject; LANGUAGE = ObjC; }, 
-        {
-            CLASS = NSPreferencePane; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {
-                "_firstKeyView" = NSView; 
-                "_initialKeyView" = NSView; 
-                "_lastKeyView" = NSView; 
-                "_window" = NSWindow; 
-            }; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {CLASS = NSSegmentedControl; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
-        {CLASS = NSTableView; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
-        {CLASS = NSView; LANGUAGE = ObjC; SUPERCLASS = NSResponder; }, 
-        {
-            ACTIONS = {flare = id; fold = id; pulse = id; shrink = id; }; 
-            CLASS = NSWindow; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSResponder; 
-        }, 
-        {
-            ACTIONS = {
-                addSource = id; 
-                applySettings = id; 
-                copyPreset = id; 
-                rescanCurrentItem = id; 
-                restoreDefaultCatalog = id; 
-                saveItem = id; 
-                setValueForSenderForCatalogEntry = id; 
-            }; 
-            CLASS = QSCatalogPrefPane; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {
-                catalogSetsController = NSArrayController; 
-                catalogSetsTable = NSTableView; 
-                contentsController = NSArrayController; 
-                itemAddButton = NSButton; 
-                itemContentsDrawer = NSDrawer; 
-                itemContentsTable = NSTableView; 
-                itemIconField = NSImageView; 
-                itemOptionsTabView = NSTabView; 
-                itemOptionsView = NSBox; 
-                itemTable = NSOutlineView; 
-                messageTextField = NSTextField; 
-                messageView = NSView; 
-                sidebar = NSView; 
-                treeController = NSTreeController; 
-            }; 
-            SUPERCLASS = QSPreferencePane; 
-        }, 
-        {CLASS = QSFancyTableView; LANGUAGE = ObjC; SUPERCLASS = QSTableView; }, 
-        {CLASS = QSGlossyBarButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
-        {CLASS = QSGlossyBarMenuButton; LANGUAGE = ObjC; SUPERCLASS = QSMenuButton; }, 
-        {CLASS = QSGlossyBarView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
-        {CLASS = QSImageAndTextCell; LANGUAGE = ObjC; SUPERCLASS = NSTextFieldCell; }, 
-        {
-            CLASS = QSImageTextCountCell; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = QSImageAndTextCell; 
-        }, 
-        {CLASS = QSMenuButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
-        {CLASS = QSOutlineView; LANGUAGE = ObjC; SUPERCLASS = NSOutlineView; }, 
-        {
-            ACTIONS = {showPaneHelp = id; }; 
-            CLASS = QSPreferencePane; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {
-                "_firstKeyView" = NSView; 
-                "_initialKeyView" = NSView; 
-                "_lastKeyView" = NSView; 
-                "_window" = NSWindow; 
-            }; 
-            SUPERCLASS = NSPreferencePane; 
-        }, 
-        {
-            CLASS = QSSplitHandleView; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {splitView = QSHandledSplitView; }; 
-            SUPERCLASS = NSView; 
-        }, 
-        {
-            CLASS = QSTableView; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {draggingDelegate = id; }; 
-            SUPERCLASS = NSTableView; 
-        }, 
-        {CLASS = QSTreeController; LANGUAGE = ObjC; SUPERCLASS = NSTreeController; }, 
-        {
-            ACTIONS = {
-                finishHide = id; 
-                hideThreaded = id; 
-                reallyOrderFront = id; 
-                reallyOrderOut = id; 
-                showThreaded = id; 
-            }; 
-            CLASS = QSWindow; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSPanel; 
-        }
-    ); 
-    IBVersion = 1; 
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>CLASS</key>
+			<string>QSFancyTableView</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>QSTableView</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>QSImageTextCountCell</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>QSImageAndTextCell</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>NSSegmentedControl</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSControl</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>QSGlossyBarButton</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSButton</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>QSTreeController</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSTreeController</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>QSMenuButton</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSButton</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>finishHide</key>
+				<string>id</string>
+				<key>hideThreaded</key>
+				<string>id</string>
+				<key>reallyOrderFront</key>
+				<string>id</string>
+				<key>reallyOrderOut</key>
+				<string>id</string>
+				<key>showThreaded</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>QSWindow</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSPanel</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>addSource</key>
+				<string>id</string>
+				<key>applySettings</key>
+				<string>id</string>
+				<key>copyPreset</key>
+				<string>id</string>
+				<key>rescanCurrentItem</key>
+				<string>id</string>
+				<key>restoreDefaultCatalog</key>
+				<string>id</string>
+				<key>saveItem</key>
+				<string>id</string>
+				<key>setValueForSenderForCatalogEntry</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>QSCatalogPrefPane</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>catalogSetsController</key>
+				<string>NSArrayController</string>
+				<key>catalogSetsTable</key>
+				<string>NSTableView</string>
+				<key>contentsController</key>
+				<string>NSArrayController</string>
+				<key>itemAddButton</key>
+				<string>NSButton</string>
+				<key>itemContentsDrawer</key>
+				<string>NSDrawer</string>
+				<key>itemContentsTable</key>
+				<string>NSTableView</string>
+				<key>itemIconField</key>
+				<string>NSImageView</string>
+				<key>itemOptionsTabView</key>
+				<string>NSTabView</string>
+				<key>itemOptionsView</key>
+				<string>NSBox</string>
+				<key>itemTable</key>
+				<string>NSOutlineView</string>
+				<key>messageTextField</key>
+				<string>NSTextField</string>
+				<key>messageView</key>
+				<string>NSView</string>
+				<key>sidebar</key>
+				<string>NSView</string>
+				<key>treeController</key>
+				<string>NSTreeController</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>QSPreferencePane</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>NSView</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSResponder</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>relaunch</key>
+				<string>id</string>
+				<key>requestRelaunch</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>NSApplication</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSResponder</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>QSSplitHandleView</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>splitView</key>
+				<string>QSHandledSplitView</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSView</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>QSTableView</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>draggingDelegate</key>
+				<string>id</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSTableView</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>FirstResponder</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>QSOutlineView</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSOutlineView</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>NSObject</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>NSPreferencePane</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>_firstKeyView</key>
+				<string>NSView</string>
+				<key>_initialKeyView</key>
+				<string>NSView</string>
+				<key>_lastKeyView</key>
+				<string>NSView</string>
+				<key>_window</key>
+				<string>NSWindow</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>QSGlossyBarMenuButton</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>QSMenuButton</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>flare</key>
+				<string>id</string>
+				<key>fold</key>
+				<string>id</string>
+				<key>pulse</key>
+				<string>id</string>
+				<key>shrink</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>NSWindow</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSResponder</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>showPaneHelp</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>QSPreferencePane</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>_firstKeyView</key>
+				<string>NSView</string>
+				<key>_initialKeyView</key>
+				<string>NSView</string>
+				<key>_lastKeyView</key>
+				<string>NSView</string>
+				<key>_window</key>
+				<string>NSWindow</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSPreferencePane</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>QSImageAndTextCell</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSTextFieldCell</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>NSButton</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSControl</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>QSGlossyBarView</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSView</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>NSTableView</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSControl</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>
