@@ -62,7 +62,7 @@
 		4DB4A0220E1007EB0010C540 /* QSKeyCodeTranslator.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FADE07B205950044D6EF /* QSKeyCodeTranslator.m */; };
 		4DB4A03D0E100B020010C540 /* QSImageAndTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E103EE5C06471DDE00447FE0 /* QSImageAndTextCell.m */; };
 		4DB4A03E0E100B020010C540 /* QSImageAndTextCell.h in Headers */ = {isa = PBXBuildFile; fileRef = E103EE5B06471DDE00447FE0 /* QSImageAndTextCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4DB8915C0E13E93200F57EF7 /* QSDesktopBackgroundView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DB8915A0E13E93200F57EF7 /* QSDesktopBackgroundView.h */; };
+		4DB8915C0E13E93200F57EF7 /* QSDesktopBackgroundView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DB8915A0E13E93200F57EF7 /* QSDesktopBackgroundView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DB8915D0E13E93200F57EF7 /* QSDesktopBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB8915B0E13E93200F57EF7 /* QSDesktopBackgroundView.m */; };
 		4DFE7DA20E081A3B000B9AA3 /* NSImage+QuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DFE7DA00E081A30000B9AA3 /* NSImage+QuickLook.m */; };
 		4DFE7DA30E081A3C000B9AA3 /* NSImage+QuickLook.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DFE7D9F0E081A30000B9AA3 /* NSImage+QuickLook.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -77,15 +77,15 @@
 		7F05F1E30852441C00A8EC0C /* NSObject+BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F05F1E10852441C00A8EC0C /* NSObject+BLTRExtensions.m */; };
 		7F0843CE098ACB2F00F136CC /* QSLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F0843CC098ACB2F00F136CC /* QSLog.h */; };
 		7F0843CF098ACB2F00F136CC /* QSLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0843CD098ACB2F00F136CC /* QSLog.m */; };
-		7F0AB6CE07C4045700DF7D52 /* QSPlugIn.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F0AB6CA07C4045700DF7D52 /* QSPlugIn.h */; };
+		7F0AB6CE07C4045700DF7D52 /* QSPlugIn.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F0AB6CA07C4045700DF7D52 /* QSPlugIn.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F0AB6CF07C4045700DF7D52 /* QSPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0AB6CB07C4045700DF7D52 /* QSPlugIn.m */; };
-		7F0AB6D007C4045700DF7D52 /* QSPlugInManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F0AB6CC07C4045700DF7D52 /* QSPlugInManager.h */; };
+		7F0AB6D007C4045700DF7D52 /* QSPlugInManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F0AB6CC07C4045700DF7D52 /* QSPlugInManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F0AB6D107C4045700DF7D52 /* QSPlugInManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0AB6CD07C4045700DF7D52 /* QSPlugInManager.m */; };
 		7F0BDE7D07FC967F002CBDDF /* Get Quicksilver Selection.action in Copy Automator Actions */ = {isa = PBXBuildFile; fileRef = 7F0BDE4207FC962E002CBDDF /* Get Quicksilver Selection.action */; };
 		7F0BDE7E07FC967F002CBDDF /* Send to Quicksilver.action in Copy Automator Actions */ = {isa = PBXBuildFile; fileRef = 7F0BDE5007FC962E002CBDDF /* Send to Quicksilver.action */; };
 		7F15A5FA08F996D70058D25E /* QSSimpleNotifier.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F15A5F908F996D70058D25E /* QSSimpleNotifier.nib */; };
 		7F20EDED07E9F34C007A01B3 /* QSFeatureLevel.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FD1307B211A50044D6EF /* QSFeatureLevel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7F24E8B707EDC67D00943D5A /* QSObject_AEConversion.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F24E8B507EDC67D00943D5A /* QSObject_AEConversion.h */; };
+		7F24E8B707EDC67D00943D5A /* QSObject_AEConversion.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F24E8B507EDC67D00943D5A /* QSObject_AEConversion.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F24E8B807EDC67D00943D5A /* QSObject_AEConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F24E8B607EDC67D00943D5A /* QSObject_AEConversion.m */; };
 		7F24FA2108AFC326009DB343 /* QSURLExtractor.pl in Resources */ = {isa = PBXBuildFile; fileRef = 7F9769B408AE8366003FD75E /* QSURLExtractor.pl */; };
 		7F257BD6090DB26F00045D08 /* QSWindowAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F257BD4090DB26F00045D08 /* QSWindowAnimation.h */; };
@@ -106,7 +106,7 @@
 		7F4ADB010A4DDA33002A2A1B /* Pref-Triggers.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4ADAFD0A4DDA33002A2A1B /* Pref-Triggers.png */; };
 		7F4ADB600A4EB766002A2A1B /* BackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4ADB5E0A4EB766002A2A1B /* BackArrow.png */; };
 		7F4ADB610A4EB766002A2A1B /* ForwardArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4ADB5F0A4EB766002A2A1B /* ForwardArrow.png */; };
-		7F4D6872083AB7DE00541FEB /* QSHistoryController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F4D6870083AB7DE00541FEB /* QSHistoryController.h */; };
+		7F4D6872083AB7DE00541FEB /* QSHistoryController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F4D6870083AB7DE00541FEB /* QSHistoryController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F4D6873083AB7DE00541FEB /* QSHistoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4D6871083AB7DE00541FEB /* QSHistoryController.m */; };
 		7F4E4B380A3CD83D0070336A /* QSMainMenuPrefPane.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F4E4B360A3CD83D0070336A /* QSMainMenuPrefPane.h */; };
 		7F4E4B390A3CD83D0070336A /* QSMainMenuPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4E4B370A3CD83D0070336A /* QSMainMenuPrefPane.m */; };
@@ -192,10 +192,10 @@
 		7FA4ED4F09132402007DB407 /* UKMainThreadProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA4ED4709132402007DB407 /* UKMainThreadProxy.m */; };
 		7FA4EF270913AF3B007DB407 /* Changes.html in Copy SharedSupport */ = {isa = PBXBuildFile; fileRef = 7FA4EF240913AF27007DB407 /* Changes.html */; };
 		7FADDCE208B4D805004559C1 /* QSHistoryObjectSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FADDCE008B4D805004559C1 /* QSHistoryObjectSource.m */; };
-		7FB37EB4080997EF00A2B2B4 /* QSURLDownloadWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FB37EB2080997EF00A2B2B4 /* QSURLDownloadWrapper.h */; };
+		7FB37EB4080997EF00A2B2B4 /* QSURLDownloadWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FB37EB2080997EF00A2B2B4 /* QSURLDownloadWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FB37EB5080997EF00A2B2B4 /* QSURLDownloadWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB37EB3080997EF00A2B2B4 /* QSURLDownloadWrapper.m */; };
 		7FB77ADE09777BCF00E62ABE /* QSProcessObjectSource.nib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98B06625D7300843027 /* QSProcessObjectSource.nib */; };
-		7FB8AD4E08E6328D000A65C4 /* QSHandledObjectHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FB8AD4C08E6328D000A65C4 /* QSHandledObjectHandler.h */; };
+		7FB8AD4E08E6328D000A65C4 /* QSHandledObjectHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FB8AD4C08E6328D000A65C4 /* QSHandledObjectHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FB8AD4F08E6328D000A65C4 /* QSHandledObjectHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB8AD4D08E6328D000A65C4 /* QSHandledObjectHandler.m */; };
 		7FB8D6FC07B98B1300062022 /* QSCatalogEntry.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FB8D6FA07B98B1300062022 /* QSCatalogEntry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FB8D6FD07B98B1300062022 /* QSCatalogEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB8D6FB07B98B1300062022 /* QSCatalogEntry.m */; };
@@ -248,7 +248,7 @@
 		7FE893EE085CFE780016C421 /* QSInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1B5F31206573C2900FCFBE2 /* QSInterface.framework */; };
 		7FE893EF085CFE790016C421 /* QSFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9AF07B1FCFC0044D6EF /* QSFoundation.framework */; };
 		7FE8940E085D021C0016C421 /* QSProcessObjectSource.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7FE8940D085D021B0016C421 /* QSProcessObjectSource.nib */; };
-		7FEE6B2907D2A93100847B74 /* QSHelp.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FEE6B2707D2A93100847B74 /* QSHelp.h */; };
+		7FEE6B2907D2A93100847B74 /* QSHelp.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FEE6B2707D2A93100847B74 /* QSHelp.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FEE6B2A07D2A93100847B74 /* QSHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FEE6B2807D2A93100847B74 /* QSHelp.m */; };
 		7FF447EA080479E200316DB6 /* QSLSTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FF447E8080479E200316DB6 /* QSLSTools.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FF447EB080479E200316DB6 /* QSLSTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF447E9080479E200316DB6 /* QSLSTools.m */; };
@@ -257,7 +257,7 @@
 		7FF63D5207CC01E000A5EE4A /* QSTaskViewer.nib in Resources */ = {isa = PBXBuildFile; fileRef = E102F99106625D7400843027 /* QSTaskViewer.nib */; };
 		7FF63FF407CC0DF500A5EE4A /* QSPreferencesController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FF63FF207CC0DF500A5EE4A /* QSPreferencesController.h */; };
 		7FF63FF507CC0DF500A5EE4A /* QSPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF63FF307CC0DF500A5EE4A /* QSPreferencesController.m */; };
-		7FF791C40865BB3C001A0F63 /* QSTriggerCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FF791C20865BB3C001A0F63 /* QSTriggerCenter.h */; };
+		7FF791C40865BB3C001A0F63 /* QSTriggerCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FF791C20865BB3C001A0F63 /* QSTriggerCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FF791C50865BB3C001A0F63 /* QSTriggerCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF791C30865BB3C001A0F63 /* QSTriggerCenter.m */; };
 		7FF791CB0865BB4D001A0F63 /* QSTrigger.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FF791C90865BB4D001A0F63 /* QSTrigger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FF791CC0865BB4D001A0F63 /* QSTrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF791CA0865BB4D001A0F63 /* QSTrigger.m */; };
@@ -270,7 +270,7 @@
 		7FFF2D7A09383B8C008572B2 /* QSTaskView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FFF2D7809383B8C008572B2 /* QSTaskView.h */; };
 		7FFF2D7B09383B8C008572B2 /* QSTaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFF2D7909383B8C008572B2 /* QSTaskView.m */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		929052FA0D0FEAD600579DAE /* QSMiscFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 929052F80D0FEAD600579DAE /* QSMiscFunctions.h */; };
+		929052FA0D0FEAD600579DAE /* QSMiscFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 929052F80D0FEAD600579DAE /* QSMiscFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		929052FB0D0FEAD600579DAE /* QSMiscFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 929052F90D0FEAD600579DAE /* QSMiscFunctions.m */; };
 		9294A4E70D0FA219000EAE2E /* QSPaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 9294A4E60D0FA219000EAE2E /* QSPaths.m */; };
 		92D9C96A0D134BDD00D91825 /* QSTreeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 92D9C9680D134BDD00D91825 /* QSTreeController.h */; settings = {ATTRIBUTES = (Public, ); }; };
