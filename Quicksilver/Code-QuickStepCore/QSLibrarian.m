@@ -447,7 +447,7 @@ static float searchSpeed = 0.0;
 	NSMutableArray *typeEntry;
 	for(i = 0; i<objectCount; i++) {
 		object = [array objectAtIndex:i];
-		keys = [object allKeys];
+		keys = [[object dataDictionary] allKeys];
 		keyCount = [keys count];
 		for (j = 0; j<keyCount; j++) {
 			key = [keys objectAtIndex:j];

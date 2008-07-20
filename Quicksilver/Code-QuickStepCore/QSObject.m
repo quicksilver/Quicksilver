@@ -37,6 +37,139 @@ BOOL QSObjectInitialized = NO;
 
 NSSize QSMaxIconSize;
 
+
+@implementation QSBasicObject
+
+- (id)init {
+	if (self = [super init]) {
+		rankData = nil;
+		ranker = nil;
+	}
+	return self;
+}
+
+- (void)dealloc {
+	[ranker release];
+	[rankData release];
+	[super dealloc];
+}
+//- (BOOL)respondsToSelector:(SEL)aSelector {
+//	if ( [super respondsToSelector:aSelector]) return YES;
+//	if (VERBOSE) NSLog(@"select %@", NSStringFromSelector(aSelector));
+//	return NO;
+//}
+- (QSRankInfo *)getRankData {
+	QSRankInfo *oldRankData;
+	oldRankData = rankData;
+	rankData = [[QSRankInfo rankDataWithObject:self] retain];
+	[oldRankData release];
+	return rankData;
+}
+
+- (id <QSObjectRanker>) getRanker {
+	id oldRanker;
+	oldRanker = ranker;
+	ranker = [[QSDefaultObjectRanker alloc] initWithObject:self];
+	[oldRanker release];
+	return ranker;
+}
+- (id <QSObjectRanker>) ranker {
+	if (!ranker) return [self getRanker];
+	return ranker;
+}
+
+- (void)updateMnemonics {
+	[self getRanker];
+    //	[rankData setMnemonics:[[QSMnemonics sharedInstance] objectMnemonicsForID:[self identifier]]];
+}
+- (id)this {return [[self retain] autorelease];}
+- (id)thisWithIcon {
+	[self loadIcon];
+	return [[self retain] autorelease];
+}
+
+- (void)setEnabled:(BOOL)flag {
+	[QSLib setItem:self isOmitted:!flag];
+}
+- (BOOL)enabled {
+	return (BOOL)![QSLib itemIsOmitted:self];
+}
+
+- (void)setOmitted:(BOOL)flag {
+	[[self ranker] setOmitted:flag];
+}
+
+- (NSString *)kind {
+	return @"Object";
+}
+
+- (NSString *)label {return nil;}
+- (NSString *)name {return @"Object";}
+- (NSString *)primaryType {return nil;}
+- (id)primaryObject {return nil;}
+- (BOOL)containsType:(NSString *)aType {
+	return [[self types] containsObject:aType];
+}
+- (NSArray *)types {return nil;}
+- (int) primaryCount {return 0;}
+- (BOOL)loadIcon {return YES;}
+- (NSImage *)icon {
+	//[NSBundle bundleForClass:[self class]]
+	return [NSImage imageNamed:@"Object"];
+}
+- (NSComparisonResult) compare:(id)other {
+	return [[self name] 	compare:[other name]];
+}
+
+- (NSImage *)loadedIcon {
+	if (![self iconLoaded]) [self loadIcon];
+	return [self icon];
+}
+- (void)becameSelected { return;}
+
+- (BOOL)iconLoaded { return YES;  }
+- (QSBasicObject *)parent {return nil;}
+- (NSString *)displayName {return [self name];}
+- (NSString *)details {return nil;}
+- (NSString *)toolTip {return nil;}
+- (BOOL)drawIconInRect:(NSRect)rect flipped:(BOOL)flipped {return NO;}
+- (id)objectForType:(id)aKey {return nil;}
+- (NSArray *)arrayForType:(id)aKey {return nil;}
+- (NSEnumerator *)enumeratorForType:(NSString *)aKey {return [[self arrayForType:aKey] objectEnumerator];}
+- (float) score {return 0.0;}
+- (int) order {return NSNotFound;}
+- (bool) hasChildren {return NO;}
+- (NSArray *)children {return nil;}
+- (NSArray *)altChildren {return nil;}
+- (NSString *)description {return [self name];}
+//- (float) rankModification {return 0;}
+- (NSString *)identifier {return nil;}
+- (NSComparisonResult) scoreCompare:(QSBasicObject *)object {
+	return NSOrderedSame;
+}
+
+- (NSArray *)siblings {
+    
+	return [[self parent] children];
+}
+- (NSArray *)altSiblings {return [[self parent] altChildren];}
+
+- (NSComparisonResult) nameCompare:(QSBasicObject *)object {
+	return [[self name] caseInsensitiveCompare:[object name]];
+}
+- (BOOL)putOnPasteboard:(NSPasteboard *)pboard {
+	return [self putOnPasteboard:pboard declareTypes:nil includeDataForTypes:nil];
+}
+- (BOOL)putOnPasteboard:(NSPasteboard *)pboard includeDataForTypes:(NSArray *)includeTypes {
+	return [self putOnPasteboard:pboard declareTypes:nil includeDataForTypes:includeTypes];
+}
+
+- (BOOL)putOnPasteboard:(NSPasteboard *)pboard declareTypes:(NSArray *)types includeDataForTypes:(NSArray *)includeTypes {
+	return NO;
+}
+- (QSBasicObject *)resolvedObject {return self;}
+@end
+
 @implementation QSObject
 + (void)initialize {
 	if (!QSObjectInitialized) {
@@ -89,6 +222,7 @@ NSSize QSMaxIconSize;
 
 + (void)purgeOldImagesAndChildren {[self purgeImagesAndChildrenOlderThan:1.0];}
 + (void)purgeAllImagesAndChildren {[self purgeImagesAndChildrenOlderThan:0.0];}
+
 + (void)purgeImagesAndChildrenOlderThan:(NSTimeInterval)interval {
 	unsigned imagecount = 0;
 	unsigned childcount = 0;
@@ -101,7 +235,7 @@ NSSize QSMaxIconSize;
 	e = [iconLoadedArray objectEnumerator];
     while (thisObject = [e nextObject]) {
 		//	NSLog(@"i%@ %f", thisObject, thisObject->lastAccess);
-        if (thisObject->lastAccess && thisObject->lastAccess<(globalLastAccess-interval) ) {
+        if (thisObject->lastAccess && thisObject->lastAccess < (globalLastAccess - interval) ) {
             [tempArray addObject:thisObject];
         }
     }
@@ -116,7 +250,7 @@ NSSize QSMaxIconSize;
     e = [childLoadedArray objectEnumerator];
     while (thisObject = [e nextObject]) {
 		//	NSLog(@"c%@ %f", thisObject, thisObject->lastAccess);
-        if (thisObject->lastAccess && thisObject->lastAccess<(globalLastAccess-interval) ) {
+        if (thisObject->lastAccess && thisObject->lastAccess < (globalLastAccess - interval)) {
             [tempArray addObject:thisObject];
         }
     }
@@ -131,12 +265,21 @@ NSSize QSMaxIconSize;
 		NSLog(@"Released %i images and %i children (items before %d) ", imagecount, childcount, (int)interval);
 
 }
+
++ (void)purgeIdentifiers {[objectDictionary removeAllObjects];}
+
 + (void)interfaceChanged {
 	QSMaxIconSize = [(QSInterfaceController *)[[NSApp delegate] interfaceController] maxIconSize];
 	[self purgeAllImagesAndChildren];
 	// if (VERBOSE) NSLog(@"newsize %f", QSMaxIconSize.width);
 }
-+ (void)purgeIdentifiers {[objectDictionary removeAllObjects];}
+
++ (void)registerObject:(QSBasicObject *)object withIdentifier:(NSString *)anIdentifier {
+    if (object && anIdentifier)
+        [objectDictionary setObject:object forKey:anIdentifier];
+    //		NSLog(@"setobj:%@", [objectDictionary objectForKey:anIdentifier]);
+}
+
 
 - (id)init {
 	if (self = [super init]) {
@@ -174,12 +317,6 @@ NSSize QSMaxIconSize;
 	QSObject *newObject = [[[QSObject alloc] init] autorelease];
 	[newObject setName:aName];
 	return newObject;
-}
-
-+ (void)registerObject:(QSBasicObject *)object withIdentifier:(NSString *)anIdentifier {
-    if (object && anIdentifier)
-        [objectDictionary setObject:object forKey:anIdentifier];
-//		NSLog(@"setobj:%@", [objectDictionary objectForKey:anIdentifier]);
 }
 
 + (id)makeObjectWithIdentifier:(NSString *)anIdentifier {
@@ -293,10 +430,17 @@ NSSize QSMaxIconSize;
 	[super dealloc];
 }
 
+- (id)copyWithZone:(NSZone *)zone {
+	//NSLog(@"copied!");
+	return [self retain];
+	return NSCopyObject(self, 0, zone);
+}
+
 - (NSString *)displayName {
 	if (![self label]) return [self name];
 	return [self label];
 }
+
 - (NSString *)toolTip {
 	if (DEBUG)
 		return [NSString stringWithFormat:@"%@ (%d) \r%@\rTypes:\r\t%@", [self name] , self, [self details] , [[self decodedTypes] componentsJoinedByString:@"\r\t"]];
@@ -417,8 +561,6 @@ return nil;
 	}
 }
 
-- (NSArray *)allKeys {return [data allKeys];}
-
 - (void)forwardInvocation:(NSInvocation *)invocation {
 	if ([data respondsToSelector:[invocation selector]])
 		[invocation invokeWithTarget:data];
@@ -436,101 +578,6 @@ return nil;
 	if ([allKeys count] == 1) return [allKeys lastObject];
 
 	return nil;
-}
-
-- (BOOL)loadIcon {
-	if ([self iconLoaded]) return NO;
-	[self setIconLoaded:YES];
-
-	lastAccess = [NSDate timeIntervalSinceReferenceDate];
-	globalLastAccess = lastAccess;
-	[iconLoadedArray addObject:self];
-	//	 NSLog(@"Load Icon for %@", self);
-
-	NSString *namedIcon = [self objectForMeta:kQSObjectIconName];
-	if (namedIcon) {
-		NSImage *image = [QSResourceManager imageNamed:namedIcon];
-		if (image) {
-			[self setIcon:image];
-			return YES;
-		}
-	}
-
-	NSString *bestType = [self primaryType];
-
-	id handler = [typeHandlers objectForKey:bestType];
-	if ([handler respondsToSelector:@selector(loadIconForObject:)])
-		return [handler loadIconForObject:self];
-
-	//// if ([primaryType hasPrefix:@"QSCsontact"])
-	//	 return NO;
-
-	if ([IMAGETYPES intersectsSet:[NSSet setWithArray:[data allKeys]]]) {
-		[self setIcon:[[[NSImage alloc] initWithPasteboard:(NSPasteboard *)self] autorelease]];
-		[[self icon] createIconRepresentations];
-
-		[[self icon] createRepresentationOfSize:NSMakeSize(128, 128)];
-
-	}
-
-	// file type for sound clipping: clps
-	if (![self icon]) {
-		[self setIcon:[QSResourceManager imageNamed:@"GenericQuestionMarkIcon"]];
-		return NO;
-	}
-
-	return NO;
-}
-
-- (BOOL)unloadIcon {
-	if (![self iconLoaded]) return NO;
-	if ([self retainsIcon]) return NO;
-
-	[self setIcon:nil];
-	[self setIconLoaded:NO];
-	[iconLoadedArray removeObject:self];
-	return YES;
-}
-
-- (NSImage *)icon {
-	lastAccess = [NSDate timeIntervalSinceReferenceDate];
-	globalLastAccess = lastAccess;
-
-	if (icon) return icon;
-	//	if ([[self cache] objectForKey:kQSObjectIcon]) return [[self cache] objectForKey:kQSObjectIcon];
-
-	id handler = [typeHandlers objectForKey:[self primaryType]];
-	if ([handler respondsToSelector:@selector(setQuickIconForObject:)])
-		[handler setQuickIconForObject:self];
-
-	else if ([[self primaryType] isEqualToString:QSContactPhoneType]) [self setIcon: [NSImage imageNamed:@"ContactPhone"]];
-	else if ([[self primaryType] isEqualToString:QSContactAddressType]) [self setIcon: [NSImage imageNamed:@"ContactAddress"]];
-//	else if ([[self primaryType] isEqualToString:QSContactEmailType]) [self setIcon: [NSImage imageNamed:@"ContactEmail"]];
-
-	else if ([[self types] containsObject:@"BookmarkDictionaryListPboardType"]) {
-		[self setIcon:[NSImage imageNamed:@"FadedDefaultBookmarkIcon"]];
-	}
-
-	else
-		[self setIcon:[QSResourceManager imageNamed:@"GenericQuestionMarkIcon"]];
-
-	if (icon) return icon;
-	//	return [[self cache] objectForKey:kQSObjectIcon];
-	return nil;
-}
-
-- (void)setIcon:(NSImage *)newIcon {
-	//	if (newIcon) {
-	[icon autorelease];
-	icon = [newIcon retain];
-	[icon setScalesWhenResized:YES];
-	[icon setCacheMode:NSImageCacheNever];
-
-	//[[self cache] setObject:newIcon forKey:kQSObjectIcon];
-	//	} else {
-	//[[self cache] removeObjectForKey:kQSObjectIcon];
-	//	}
-
 }
 
 - (NSArray *)types {
@@ -568,6 +615,10 @@ return nil;
 - (int) primaryCount {
 	return [self count];
 }
+
+@end
+
+@implementation QSObject (Hierarchy)
 
 - (QSBasicObject * ) parent {
 	QSBasicObject * parent = nil;
@@ -635,12 +686,6 @@ return nil;
 	if ([handler respondsToSelector:@selector(objectHasChildren:)])
 		return [handler objectHasChildren:self];
 	return NO;
-}
-
-- (id)copyWithZone:(NSZone *)zone {
-	//NSLog(@"copied!");
-	return [self retain];
-	return NSCopyObject(self, 0, zone);
 }
 @end
 
@@ -949,134 +994,99 @@ return nil;
 
 @end
 
-@implementation QSBasicObject
-
-- (id)init {
-	if (self = [super init]) {
-		rankData = nil;
-		ranker = nil;
+@implementation QSObject (Icon)
+- (BOOL)loadIcon {
+	if ([self iconLoaded]) return NO;
+	[self setIconLoaded:YES];
+    
+	lastAccess = [NSDate timeIntervalSinceReferenceDate];
+	globalLastAccess = lastAccess;
+	[iconLoadedArray addObject:self];
+	//	 NSLog(@"Load Icon for %@", self);
+    
+	NSString *namedIcon = [self objectForMeta:kQSObjectIconName];
+	if (namedIcon) {
+		NSImage *image = [QSResourceManager imageNamed:namedIcon];
+		if (image) {
+			[self setIcon:image];
+			return YES;
+		}
 	}
-	return self;
-}
-
-- (void)dealloc {
-	[ranker release];
-	[rankData release];
-	[super dealloc];
-}
-//- (BOOL)respondsToSelector:(SEL)aSelector {
-//	if ( [super respondsToSelector:aSelector]) return YES;
-//	if (VERBOSE) NSLog(@"select %@", NSStringFromSelector(aSelector));
-//	return NO;
-//}
-- (QSRankInfo *)getRankData {
-	QSRankInfo *oldRankData;
-	oldRankData = rankData;
-	rankData = [[QSRankInfo rankDataWithObject:self] retain];
-	[oldRankData release];
-	return rankData;
-}
-
-- (id <QSObjectRanker>) getRanker {
-	id oldRanker;
-	oldRanker = ranker;
-	ranker = [[QSDefaultObjectRanker alloc] initWithObject:self];
-	[oldRanker release];
-	return ranker;
-}
-- (id <QSObjectRanker>) ranker {
-	if (!ranker) return [self getRanker];
-	return ranker;
-}
-
-- (void)updateMnemonics {
-	[self getRanker];
-//	[rankData setMnemonics:[[QSMnemonics sharedInstance] objectMnemonicsForID:[self identifier]]];
-}
-- (id)this {return [[self retain] autorelease];}
-- (id)thisWithIcon {
-	[self loadIcon];
-	return [[self retain] autorelease];
-}
-
-- (void)setEnabled:(BOOL)flag {
-	[QSLib setItem:self isOmitted:!flag];
-}
-- (BOOL)enabled {
-	return (BOOL)![QSLib itemIsOmitted:self];
-}
-
-- (void)setOmitted:(BOOL)flag {
-	[[self ranker] setOmitted:flag];
-}
-
-- (NSString *)kind {
-	return @"Object";
-}
-
-- (NSString *)label {return nil;}
-- (NSString *)name {return @"Object";}
-- (NSString *)primaryType {return nil;}
-- (id)primaryObject {return nil;}
-- (BOOL)containsType:(NSString *)aType {
-	return [[self types] containsObject:aType];
-}
-- (NSArray *)types {return nil;}
-- (int) primaryCount {return 0;}
-- (BOOL)loadIcon {return YES;}
-- (NSImage *)icon {
-	//[NSBundle bundleForClass:[self class]]
-	return [NSImage imageNamed:@"Object"];
-}
-- (NSComparisonResult) compare:(id)other {
-	return [[self name] 	compare:[other name]];
-}
-
-- (NSImage *)loadedIcon {
-	if (![self iconLoaded]) [self loadIcon];
-	return [self icon];
-}
-- (void)becameSelected { return;}
-
-- (BOOL)iconLoaded { return YES;  }
-- (QSBasicObject *)parent {return nil;}
-- (NSString *)displayName {return [self name];}
-- (NSString *)details {return nil;}
-- (NSString *)toolTip {return nil;}
-- (BOOL)drawIconInRect:(NSRect)rect flipped:(BOOL)flipped {return NO;}
-- (id)objectForType:(id)aKey {return nil;}
-- (NSArray *)arrayForType:(id)aKey {return nil;}
-- (NSEnumerator *)enumeratorForType:(NSString *)aKey {return [[self arrayForType:aKey] objectEnumerator];}
-- (float) score {return 0.0;}
-- (int) order {return NSNotFound;}
-- (bool) hasChildren {return NO;}
-- (NSArray *)children {return nil;}
-- (NSArray *)altChildren {return nil;}
-- (NSString *)description {return [self name];}
-//- (float) rankModification {return 0;}
-- (NSString *)identifier {return nil;}
-- (NSComparisonResult) scoreCompare:(QSBasicObject *)object {
-	return NSOrderedSame;
-}
-
-- (NSArray *)siblings {
-
-	return [[self parent] children];
-}
-- (NSArray *)altSiblings {return [[self parent] altChildren];}
-
-- (NSComparisonResult) nameCompare:(QSBasicObject *)object {
-	return [[self name] caseInsensitiveCompare:[object name]];
-}
-- (BOOL)putOnPasteboard:(NSPasteboard *)pboard {
-	return [self putOnPasteboard:pboard declareTypes:nil includeDataForTypes:nil];
-}
-- (BOOL)putOnPasteboard:(NSPasteboard *)pboard includeDataForTypes:(NSArray *)includeTypes {
-	return [self putOnPasteboard:pboard declareTypes:nil includeDataForTypes:includeTypes];
-}
-
-- (BOOL)putOnPasteboard:(NSPasteboard *)pboard declareTypes:(NSArray *)types includeDataForTypes:(NSArray *)includeTypes {
+    
+	NSString *bestType = [self primaryType];
+    
+	id handler = [typeHandlers objectForKey:bestType];
+	if ([handler respondsToSelector:@selector(loadIconForObject:)])
+		return [handler loadIconForObject:self];
+    
+	//// if ([primaryType hasPrefix:@"QSCsontact"])
+	//	 return NO;
+    
+	if ([IMAGETYPES intersectsSet:[NSSet setWithArray:[data allKeys]]]) {
+		[self setIcon:[[[NSImage alloc] initWithPasteboard:(NSPasteboard *)self] autorelease]];
+		[[self icon] createIconRepresentations];
+        
+		[[self icon] createRepresentationOfSize:NSMakeSize(128, 128)];
+        
+	}
+    
+	// file type for sound clipping: clps
+	if (![self icon]) {
+		[self setIcon:[QSResourceManager imageNamed:@"GenericQuestionMarkIcon"]];
+		return NO;
+	}
+    
 	return NO;
 }
-- (QSBasicObject *)resolvedObject {return self;}
+
+- (BOOL)unloadIcon {
+	if (![self iconLoaded]) return NO;
+	if ([self retainsIcon]) return NO;
+    
+	[self setIcon:nil];
+	[self setIconLoaded:NO];
+	[iconLoadedArray removeObject:self];
+	return YES;
+}
+
+- (NSImage *)icon {
+	lastAccess = [NSDate timeIntervalSinceReferenceDate];
+	globalLastAccess = lastAccess;
+    
+	if (icon) return icon;
+	//	if ([[self cache] objectForKey:kQSObjectIcon]) return [[self cache] objectForKey:kQSObjectIcon];
+    
+	id handler = [typeHandlers objectForKey:[self primaryType]];
+	if ([handler respondsToSelector:@selector(setQuickIconForObject:)])
+		[handler setQuickIconForObject:self];
+    
+	else if ([[self primaryType] isEqualToString:QSContactPhoneType]) [self setIcon: [NSImage imageNamed:@"ContactPhone"]];
+	else if ([[self primaryType] isEqualToString:QSContactAddressType]) [self setIcon: [NSImage imageNamed:@"ContactAddress"]];
+    //	else if ([[self primaryType] isEqualToString:QSContactEmailType]) [self setIcon: [NSImage imageNamed:@"ContactEmail"]];
+    
+	else if ([[self types] containsObject:@"BookmarkDictionaryListPboardType"]) {
+		[self setIcon:[NSImage imageNamed:@"FadedDefaultBookmarkIcon"]];
+	}
+    
+	else
+		[self setIcon:[QSResourceManager imageNamed:@"GenericQuestionMarkIcon"]];
+    
+	if (icon) return icon;
+	//	return [[self cache] objectForKey:kQSObjectIcon];
+	return nil;
+}
+
+- (void)setIcon:(NSImage *)newIcon {
+	//	if (newIcon) {
+	[icon autorelease];
+	icon = [newIcon retain];
+	[icon setScalesWhenResized:YES];
+	[icon setCacheMode:NSImageCacheNever];
+    
+	//[[self cache] setObject:newIcon forKey:kQSObjectIcon];
+	//	} else {
+	//[[self cache] removeObjectForKey:kQSObjectIcon];
+	//	}
+    
+}
 @end

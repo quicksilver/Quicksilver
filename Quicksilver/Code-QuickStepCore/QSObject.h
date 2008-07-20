@@ -174,27 +174,27 @@ extern NSSize QSMaxIconSize;
 	QSObjectFlags			flags;
 	NSTimeInterval			lastAccess;
 }
++ (void)initialize;
 + (void)cleanObjectDictionary;
 + (void)purgeOldImagesAndChildren;
 + (void)purgeAllImagesAndChildren;
 + (void)purgeImagesAndChildrenOlderThan:(NSTimeInterval)interval;
 + (void)purgeIdentifiers;
-+ (void)initialize;
-+ (void)registerObject:(QSBasicObject *)object withIdentifier:(NSString *)anIdentifier;
-- (NSMutableDictionary *)cache;
-- (void)setCache:(NSMutableDictionary *)aCache;
 
-- (id)init;
-- (void)dealloc;
-- (BOOL)isEqual:(id)anObject;
-- (NSString *)guessPrimaryType;
++ (void)registerObject:(QSBasicObject *)object withIdentifier:(NSString *)anIdentifier;
+
 + (id)objectWithName:(NSString *)aName;
 + (id)objectWithIdentifier:(NSString *)anIdentifier;
 + (id)makeObjectWithIdentifier:(NSString *)anIdentifier;
 + (id)objectByMergingObjects:(NSArray *)objects;
 + (id)objectByMergingObjects:(NSArray *)objects withObject:(QSObject *)object;
+
+- (id)init;
+- (void)dealloc;
+- (BOOL)isEqual:(id)anObject;
+- (NSString *)guessPrimaryType;
 - (NSArray *)splitObjects;
-- (NSString *)displayName ;
+- (NSString *)displayName;
 - (NSString *)toolTip;
 - (NSString *)descriptionWithLocale:(NSDictionary *)locale indent:(unsigned)level;
 - (NSString *)details;
@@ -202,12 +202,9 @@ extern NSSize QSMaxIconSize;
 
 - (int) count;
 - (int) primaryCount;
-- (NSArray *)allKeys;
-- (void)forwardInvocation:(NSInvocation *)invocation;
 - (NSArray *)types;
 - (NSArray *)decodedTypes;
-- (int) primaryCount;
-- (id)copyWithZone:(NSZone *)zone;
+- (int)primaryCount;
 - (id)handler;
 - (id)handlerForType:(NSString *)type selector:(SEL)selector;
 - (id)objectForType:(id)aKey;
@@ -219,6 +216,9 @@ extern NSSize QSMaxIconSize;
 
 - (void)setDetails:(NSString *)newDetails;
 
+- (NSMutableDictionary *)cache;
+- (void)setCache:(NSMutableDictionary *)aCache;
+
 @end
 
 @interface QSObject (Icon)
@@ -229,7 +229,7 @@ extern NSSize QSMaxIconSize;
 @end
 
 @interface QSObject (Hierarchy)
-- (QSBasicObject * ) parent;
+- (QSBasicObject *) parent;
 - (void)setParentID:(NSString *)parentID;
 - (BOOL)childrenValid;
 - (BOOL)unloadChildren;
