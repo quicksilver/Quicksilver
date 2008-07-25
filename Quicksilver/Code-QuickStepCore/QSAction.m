@@ -275,9 +275,8 @@ static BOOL gModifiersAreIgnored;
 			NSArray *objects = [dObject splitObjects];
 			NSEnumerator *e = [objects objectEnumerator];
 			id object;
-			id result;
 			while (object = [e nextObject]) {
-				result = [self performOnDirectObject:object indirectObject:iObject];
+				[self performOnDirectObject:object indirectObject:iObject];
 			}
 			return nil;
 		}

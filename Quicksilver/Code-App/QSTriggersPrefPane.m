@@ -499,7 +499,7 @@
 		[info setObject:[NSNumber numberWithBool:NO] forKey:kItemEnabled];
 	} else {
 		id command = [[(QSController *)[NSApp delegate] interfaceController] currentCommand];
-		info = [NSMutableDictionary dictionaryWithCapacity:5];
+        info = [[NSMutableDictionary alloc] initWithCapacity:5];
 		[info setObject:[sender representedObject] forKey:@"type"];
 		[info setObject:[NSNumber numberWithBool:YES] forKey:kItemEnabled];
 		if (command)
@@ -509,6 +509,7 @@
 	[info setObject:[NSString uniqueString] forKey:kItemID];
 
 	QSTrigger *trigger = [QSTrigger triggerWithInfo:info];
+    [info release];
 	[trigger initializeTrigger];
 	[[QSTriggerCenter sharedInstance] addTrigger:trigger];
 	[self updateTriggerArray];

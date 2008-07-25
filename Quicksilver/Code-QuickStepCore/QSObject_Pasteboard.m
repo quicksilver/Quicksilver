@@ -115,6 +115,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 		if (value = [self objectForType:NSRTFPboardType]) {
 			value = [[[NSAttributedString alloc] initWithRTF:value documentAttributes:nil] string];
 			[self setObject:value forType:QSTextType];
+            [value release];
 		}
 		if ([self objectForType:QSTextType])
 			[self sniffString];

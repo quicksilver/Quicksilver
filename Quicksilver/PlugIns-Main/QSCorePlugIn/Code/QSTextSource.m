@@ -106,5 +106,6 @@ Ascii2KeyCodeTable keytable;
 	NSDictionary *errorDict = nil;
 	[sysEventsScript executeSubroutine:@"type_text" arguments:string error:&errorDict];
 	if (errorDict) NSLog(@"Execute Error: %@", errorDict);
+    [sysEventsScript release];
 }
 @end

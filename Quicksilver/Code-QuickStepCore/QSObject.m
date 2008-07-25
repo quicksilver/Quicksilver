@@ -202,10 +202,11 @@ NSSize QSMaxIconSize;
 
 + (void)cleanObjectDictionary {
 	unsigned count = 0;
-	NSString *thisKey = nil;
 	QSObject *thisObject;
-    NSMutableArray * keysToDeleteFromObjectDict = [[NSMutableArray alloc] init];
+    NSMutableArray *keysToDeleteFromObjectDict = [[NSMutableArray alloc] init];
+    
     NSEnumerator *keyEnum = [objectDictionary keyEnumerator];
+    NSString *thisKey = nil;
 	while (thisKey = [keyEnum nextObject]) {
 		thisObject = [objectDictionary objectForKey:thisKey];
 		if ([thisObject retainCount] < 2) {
@@ -214,10 +215,12 @@ NSSize QSMaxIconSize;
 		//NSLog(@"%d %@", [thisObject retainCount] , [thisObject name]);
 	}
     [objectDictionary removeObjectsForKeys:keysToDeleteFromObjectDict];
-    keyEnum = [keysToDeleteFromObjectDict objectEnumerator];
+    
     count = [keysToDeleteFromObjectDict count];
 	if (DEBUG_MEMORY && count)
 		NSLog(@"Released %i objects", count);
+    
+    [keysToDeleteFromObjectDict release];
 }
 
 + (void)purgeOldImagesAndChildren {[self purgeImagesAndChildrenOlderThan:1.0];}

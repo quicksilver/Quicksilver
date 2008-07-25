@@ -31,15 +31,16 @@ OSStatus CGSSetWindowTags(CGSConnection cid, CGSWindow widow, int *tags, int oth
 }
 
 - (void)setAlphaValue:(float)fadeOut fadeTime:(float)seconds {
-	float newAlpha, elapsed;
+	float elapsed;
 	NSTimeInterval fadeStart = [NSDate timeIntervalSinceReferenceDate];
 	float fadeIn = [self alphaValue];
-	float distance = fadeOut-fadeIn;
-	newAlpha = (([NSDate timeIntervalSinceReferenceDate] - fadeStart) /seconds);
-	for(elapsed = 0; elapsed<1; elapsed = (([NSDate timeIntervalSinceReferenceDate] - fadeStart) / seconds)) {
-		[self setAlphaValue:fadeIn+elapsed*distance];
+	float distance = fadeOut - fadeIn;
+    
+	for (elapsed = 0; elapsed < 1; elapsed = (([NSDate timeIntervalSinceReferenceDate] - fadeStart) / seconds)) {
+		[self setAlphaValue:fadeIn + elapsed * distance];
 		// [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:seconds/300]];
 	}
+    
 	[self setAlphaValue:fadeOut];
 }
 

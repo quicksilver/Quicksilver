@@ -102,6 +102,7 @@
 
 	if (errorDict) {
 		NSLog(@"Load Script: %@", [errorDict objectForKey:@"NSAppleScriptErrorMessage"]);
+        [script release];
 		return;
 	}
 

@@ -66,6 +66,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 				procName[1] = '0';
             NSString *processName = (NSString*)CFStringCreateWithPascalString(NULL, procInfo.processName, kCFStringEncodingUTF8);
 			[resultsArray addObject:processName];
+            [processName release];
 		}
 	}
 	return resultsArray;

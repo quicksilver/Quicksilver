@@ -85,6 +85,7 @@
 	NSImage *image = [[NSImage alloc] initByReferencingURL:[NSURL URLWithString:imageURL]];
 	if (image) {
 		[object setIcon:image];
+        [image release];
 		return YES;
 		}
 	}

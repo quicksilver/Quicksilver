@@ -302,15 +302,26 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 - (NSString *)stringByResolvingWildcardsInPath {
 	NSMutableArray *components = [[[self stringByStandardizingPath] pathComponents] mutableCopy];
 	int index = [components indexOfObject:@"*"];
-	if (index == NSNotFound) return [self stringByStandardizingPath];
+    
+	if (index == NSNotFound) {
+        [components release];
+        return [self stringByStandardizingPath];
+    }
+    
 	NSString *basePath = nil;
 	NSArray *contents = nil;
 	while((index = [components indexOfObject:@"*"]) != NSNotFound) {
 		basePath = [NSString pathWithComponents:[components subarrayWithRange:NSMakeRange(0, index)]];
 		contents = [[NSFileManager defaultManager] directoryContentsAtPath:basePath];
-		if (![contents count]) return self;
-		[components replaceObjectAtIndex:index withObject:[contents lastObject]];
+        
+		if (![contents count]) {
+            [components release];
+            return self;
+		}
+        
+        [components replaceObjectAtIndex:index withObject:[contents lastObject]];
 	}
+    
 	return [NSString pathWithComponents:[components autorelease]];
 }
 

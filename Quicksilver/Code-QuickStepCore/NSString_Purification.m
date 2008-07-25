@@ -17,6 +17,13 @@
 	while((range = [string rangeOfCharacterFromSet:set options:NSBackwardsSearch range:NSMakeRange(0, range.location)]).location != NSNotFound) {
 		[string deleteCharactersInRange:range];
 	}
-	return ([self isEqualToString:string]) ? self : [string autorelease];
+    
+    if ([self isEqualToString:string]) {
+        [string release];
+        return self;
+    }
+    else {
+        return [string autorelease];
+    }
 }
 @end

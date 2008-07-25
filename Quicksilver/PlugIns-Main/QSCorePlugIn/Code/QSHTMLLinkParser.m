@@ -18,9 +18,9 @@
 }
 
 - (BOOL)validParserForPath:(NSString *)path {
-	NSFileManager *manager = [NSFileManager defaultManager];
-	BOOL isDirectory, exists;
-	exists = [manager fileExistsAtPath:[path stringByStandardizingPath] isDirectory:&isDirectory];
+	BOOL isDirectory;
+	[[NSFileManager defaultManager] fileExistsAtPath:[path stringByStandardizingPath] isDirectory:&isDirectory];
+    
 	return !isDirectory;
 }
 

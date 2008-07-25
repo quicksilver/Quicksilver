@@ -28,8 +28,9 @@
 
 @implementation QSDirectoryParser
 - (BOOL)validParserForPath:(NSString *)path {
-	BOOL isDirectory, exists;
-	exists = [[NSFileManager defaultManager] fileExistsAtPath:[path stringByStandardizingPath] isDirectory:&isDirectory];
+	BOOL isDirectory;
+	[[NSFileManager defaultManager] fileExistsAtPath:[path stringByStandardizingPath] isDirectory:&isDirectory];
+    
 	return isDirectory;
 }
 

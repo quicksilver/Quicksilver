@@ -392,6 +392,8 @@ if (DEBUG && [self isSecret]) {
 		}
 
 		[[NSUserDefaults standardUserDefaults] setObject:[disabledPlugInsSet allObjects] forKey:@"QSDisabledPlugIns"];
+        
+        [disabledPlugInsSet release];
 
 		if (flag) {
 			[[QSPlugInManager sharedInstance] liveLoadPlugIn:self];

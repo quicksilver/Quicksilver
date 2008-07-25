@@ -235,7 +235,7 @@ static inline int get_bit(unsigned char *arr, unsigned long bit_num) {
 
 		}
 	}
-	[bitmap release];
+	[bitmap autorelease];
 	return NSMakeRect(minX, [bitmap pixelsHigh] -maxY-1, maxX-minX+1, maxY-minY+1);
 }
 
