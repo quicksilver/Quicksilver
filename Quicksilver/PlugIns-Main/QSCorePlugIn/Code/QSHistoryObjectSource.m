@@ -34,9 +34,13 @@
 
 - (id)resolveProxyObject:(id)proxy {
 	if ([[proxy identifier] isEqualToString:@"QSLastCommandProxy"]) {
-		return [[QSHist recentCommands] objectAtIndex:0];
+        NSArray * recentCmds = [QSHist recentCommands];
+        if([recentCmds count] != 0)
+            return [recentCmds objectAtIndex:0];
 	} else if ([[proxy identifier] isEqualToString:@"QSLastObjectProxy"]) {
-		return [[QSHist recentCommands] objectAtIndex:0];
+        NSArray * recentObjs = [QSHist recentObjects];
+        if([recentObjs count] != 0)
+		return [recentObjs objectAtIndex:0];
 	}
 	return nil;
 }
