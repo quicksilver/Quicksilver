@@ -881,6 +881,10 @@
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		4D4F32FC0E39EDE500668F94 /* QSEffects-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "QSEffects-Info.plist"; sourceTree = "<group>"; };
+		4D4F32FD0E39EDFD00668F94 /* QSFoundation-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "QSFoundation-Info.plist"; sourceTree = "<group>"; };
+		4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Release.xcconfig; sourceTree = "<group>"; };
+		4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Debug.xcconfig; sourceTree = "<group>"; };
 		4DA1CCCF0E0BB61100CA6002 /* Developer.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Developer.xcconfig; sourceTree = "<group>"; };
 		4DB8915A0E13E93200F57EF7 /* QSDesktopBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDesktopBackgroundView.h; sourceTree = "<group>"; };
 		4DB8915B0E13E93200F57EF7 /* QSDesktopBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDesktopBackgroundView.m; sourceTree = "<group>"; };
@@ -1677,11 +1681,13 @@
 		4DC3DD0B0E0BB27B009902EF /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
-				4DA1CCCF0E0BB61100CA6002 /* Developer.xcconfig */,
 				4DC3DD0C0E0BB27B009902EF /* Common.xcconfig */,
 				4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */,
+				4DA1CCCF0E0BB61100CA6002 /* Developer.xcconfig */,
 				4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */,
+				4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */,
 				4DC3DD120E0BB27B009902EF /* QSPlugIn_Prefix.pch */,
+				4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */,
 				4DC3DD130E0BB27B009902EF /* Release.xcconfig */,
 			);
 			path = Configuration;
@@ -1842,6 +1848,8 @@
 		E103EB8706471D5900447FE0 /* PropertyLists */ = {
 			isa = PBXGroup;
 			children = (
+				4D4F32FD0E39EDFD00668F94 /* QSFoundation-Info.plist */,
+				4D4F32FC0E39EDE500668F94 /* QSEffects-Info.plist */,
 				E1C3BE4D06EA0A7F00B848D6 /* QSActions.plist */,
 				E1C3BE4E06EA0A7F00B848D6 /* QSRegistration.plist */,
 				E103EB8906471D5900447FE0 /* Quicksilver-Info.plist */,
@@ -2906,7 +2914,6 @@
 			);
 			projectRoot = "";
 			targets = (
-				7F039992080EE210001A9FA3 /* Quicksilver Distribution */,
 				8D1107260486CEB800E47090 /* Quicksilver */,
 				E1A5676506FFDD8700BAD045 /* QSScriptingDictionary */,
 				E1E5F97107B1FCFC0044D6EF /* QuickStep Foundation */,
@@ -2916,6 +2923,7 @@
 				E1E5F9C707B1FEC50044D6EF /* Core Support */,
 				7F0399E9080EE58D001A9FA3 /* Preflight */,
 				7F9703CF09AFEE8700E9EA77 /* QSDroplet */,
+				7F039992080EE210001A9FA3 /* Quicksilver Distribution */,
 			);
 		};
 /* End PBXProject section */
@@ -3142,7 +3150,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if :; then\n\techo open \"$BUILT_PRODUCTS_DIR\"\nelse {\n\tkillall Quicksilver\n\trsync -auzEv \"$BUILT_PRODUCTS_DIR/Quicksilver.app/\" /Applications/Quicksilver.app/\n\topen -a /Applications/Quicksilver.app\n}\nfi\nexit\n\nif [ $BUILD_STYLE != \"Release\" ]; then\n        exit\nfi\n\nVERSION=\"3814\" #`/usr/bin/svn info Quicksilver.xcodeproj | egrep '^Revision: ' | cut -f2 -d' '`;\n\necho $SRCROOT/Tools/buildDMG.pl -dmgName $PRODUCT_NAME \\\n                         -buildDir ~/Desktop \\\n                         -volName Quicksilver \\\n                         -dmgName QS.$VERSION.dev.0 \\\n                        -compressionLevel 9 \\\n                         -internetEnabled \\\n                         -debug $BUILT_PRODUCTS_DIR/Quicksilver.app\n\n$SRCROOT/Tools/buildDMG.pl -dmgName $PRODUCT_NAME \\\n                         -buildDir ~/Desktop \\\n                         -volName Quicksilver \\\n                         -dmgName QS.$VERSION.dev.0 \\\n                        -compressionLevel 9 \\\n                         -internetEnabled \\\n                         -debug $BUILT_PRODUCTS_DIR/Quicksilver.app";
+			shellScript = "killall Quicksilver\nrsync -auzEv \"$BUILT_PRODUCTS_DIR/Quicksilver.app/\" /Applications/Quicksilver.app/\nopen -a /Applications/Quicksilver.app\n\nexit\n\nif [ $BUILD_STYLE != \"Release\" ]; then\n        exit\nfi\n\nVERSION=\"3814\" #`/usr/bin/svn info Quicksilver.xcodeproj | egrep '^Revision: ' | cut -f2 -d' '`;\n\necho $SRCROOT/Tools/buildDMG.pl -dmgName $PRODUCT_NAME \\\n                         -buildDir ~/Desktop \\\n                         -volName Quicksilver \\\n                         -dmgName QS.$VERSION.dev.0 \\\n                        -compressionLevel 9 \\\n                         -internetEnabled \\\n                         -debug $BUILT_PRODUCTS_DIR/Quicksilver.app\n\n$SRCROOT/Tools/buildDMG.pl -dmgName $PRODUCT_NAME \\\n                         -buildDir ~/Desktop \\\n                         -volName Quicksilver \\\n                         -dmgName QS.$VERSION.dev.0 \\\n                        -compressionLevel 9 \\\n                         -internetEnabled \\\n                         -debug $BUILT_PRODUCTS_DIR/Quicksilver.app";
 		};
 		7FA4EF1E0913AE44007DB407 /* Release Notes */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3695,7 +3703,7 @@
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix/QSBasic_Prefix.pch;
-				INFOPLIST_FILE = "PropertyLists/QSCore-Info.plist";
+				INFOPLIST_FILE = "PropertyLists/QSFoundation-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				OTHER_LDFLAGS = (
 					"-weak_framework",
@@ -3823,7 +3831,7 @@
 		};
 		7F6B3E64085CE68E000735A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
+			baseConfigurationReference = 4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
 				PRODUCT_NAME = "Core Support";
@@ -3832,7 +3840,7 @@
 		};
 		7F6B3E65085CE68E000735A8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
+			baseConfigurationReference = 4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
 				PRODUCT_NAME = "Core Support";
@@ -3888,7 +3896,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
-				GCC_FAST_OBJC_DISPATCH = YES;
 			};
 			name = Release;
 		};

@@ -15,6 +15,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D4F33190E39EEB600668F94 /* QSPlugIn_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Debug.xcconfig; sourceTree = "<group>"; };
+		4D4F331A0E39EEB600668F94 /* QSPlugIn_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Release.xcconfig; sourceTree = "<group>"; };
 		4DA1CCC70E0BB53B00CA6002 /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
 		4DA1CCC80E0BB53B00CA6002 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		4DA1CCC90E0BB53B00CA6002 /* QSPlugIn.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn.xcconfig; sourceTree = "<group>"; };
@@ -100,6 +102,8 @@
 		4DA1CCC60E0BB53B00CA6002 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				4D4F33190E39EEB600668F94 /* QSPlugIn_Debug.xcconfig */,
+				4D4F331A0E39EEB600668F94 /* QSPlugIn_Release.xcconfig */,
 				4DA1CCD80E0BB65E00CA6002 /* Developer.xcconfig */,
 				4DA1CCC70E0BB53B00CA6002 /* Common.xcconfig */,
 				4DA1CCC80E0BB53B00CA6002 /* Debug.xcconfig */,
@@ -211,7 +215,7 @@
 /* Begin XCBuildConfiguration section */
 		7FE899BE085D4ADF0016C421 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4DA1CCC90E0BB53B00CA6002 /* QSPlugIn.xcconfig */;
+			baseConfigurationReference = 4D4F33190E39EEB600668F94 /* QSPlugIn_Debug.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = "Bezel Interface";
 			};
@@ -219,7 +223,7 @@
 		};
 		7FE899BF085D4ADF0016C421 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4DA1CCC90E0BB53B00CA6002 /* QSPlugIn.xcconfig */;
+			baseConfigurationReference = 4D4F331A0E39EEB600668F94 /* QSPlugIn_Release.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = "Bezel Interface";
 			};

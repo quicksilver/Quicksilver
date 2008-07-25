@@ -13,6 +13,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D4F33280E39EEF600668F94 /* QSPlugIn_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Debug.xcconfig; sourceTree = "<group>"; };
+		4D4F33290E39EEF600668F94 /* QSPlugIn_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Release.xcconfig; sourceTree = "<group>"; };
 		4DF0623E0E0BB81E0000EB16 /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
 		4DF0623F0E0BB81E0000EB16 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		4DF062400E0BB81E0000EB16 /* Developer.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Developer.xcconfig; sourceTree = "<group>"; };
@@ -95,6 +97,8 @@
 		4DF0623D0E0BB81E0000EB16 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				4D4F33280E39EEF600668F94 /* QSPlugIn_Debug.xcconfig */,
+				4D4F33290E39EEF600668F94 /* QSPlugIn_Release.xcconfig */,
 				4DF0623E0E0BB81E0000EB16 /* Common.xcconfig */,
 				4DF0623F0E0BB81E0000EB16 /* Debug.xcconfig */,
 				4DF062400E0BB81E0000EB16 /* Developer.xcconfig */,
@@ -187,7 +191,7 @@
 /* Begin XCBuildConfiguration section */
 		7FE8955D085D305D0016C421 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4DF062410E0BB81E0000EB16 /* QSPlugIn.xcconfig */;
+			baseConfigurationReference = 4D4F33280E39EEF600668F94 /* QSPlugIn_Debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = "Finder Module";
@@ -196,7 +200,7 @@
 		};
 		7FE8955E085D305D0016C421 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4DF062410E0BB81E0000EB16 /* QSPlugIn.xcconfig */;
+			baseConfigurationReference = 4D4F33290E39EEF600668F94 /* QSPlugIn_Release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = "Finder Module";
