@@ -14,7 +14,6 @@
 	BOOL moving, locked, allowKey;
 
 	NSString *autosaveName;
-	QSTrackingWindow *trackingWindow;
 }
 
 - (void)updateTrackingRect:(id)sender;
@@ -25,7 +24,6 @@
 - (NSString *)autosaveName;
 - (void)setAutosaveName:(NSString *)newAutosaveName;
 - (void)resignKeyWindowNow;
-- (QSTrackingWindow *)trackingWindow;
 - (IBAction)orderFrontHidden:(id)sender;
 - (void)saveFrame;
 - (BOOL)hidden;

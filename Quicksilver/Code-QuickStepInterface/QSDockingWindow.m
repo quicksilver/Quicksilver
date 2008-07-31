@@ -32,7 +32,7 @@
 
 - (void)awakeFromNib {
 	[self center];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hide:) name:QSActiveApplicationChanged object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideOrOrderOut:) name:QSActiveApplicationChanged object:nil];
 	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(lock) name:@"com.apple.HIToolbox.beginMenuTrackingNotification" object:nil];
 	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(unlock) name:@"com.apple.HIToolbox.endMenuTrackingNotification" object:nil];
 }
@@ -41,7 +41,6 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
 	[autosaveName release];
-	[trackingWindow release];
 	[hideTimer release];
 	[super dealloc];
 }
@@ -79,14 +78,14 @@
 		[self show:self];
 	}
 	if (!NSMouseInRect([NSEvent mouseLocation], NSInsetRect([self frame], -10, -10), NO) ) {
-		[self hide:self];
+		[self hideOrOrderOut:self];
 	}
 }
 
 - (void)timerHide:(NSTimer *)timer {
 	if (!NSMouseInRect([NSEvent mouseLocation], NSInsetRect([self frame], -10, -10), NO)) {
 		if ([NSDate timeIntervalSinceReferenceDate] - lastTime > 0.5) {
-			[self hide:self];
+			[self hideOrOrderOut:self];
 			[hideTimer invalidate];
 		}
 	}
@@ -97,7 +96,7 @@
 	if ([reentry windowNumber] != [self windowNumber])
 		reentry = nil;
 	if (!reentry && !StillDown() ) {
-		[self hide:self];
+		[self hideOrOrderOut:self];
 	}
 }
 
@@ -172,7 +171,7 @@
 
 - (void)keyDown:(NSEvent *)theEvent {
 	if ([self canFade] && [theEvent keyCode] == 53)
-		[self hide:nil];
+		[self hideOrOrderOut:nil];
 	else
 		[super keyDown:theEvent];
 }
@@ -202,12 +201,6 @@
 
 - (void)resignKeyWindowNow {
 	[self fakeResignKey];
-}
-
-- (QSTrackingWindow *)trackingWindow {
-	if (!trackingWindow) trackingWindow = [[QSTrackingWindow trackingWindow] retain];
-	[trackingWindow setDelegate:self];
-	return [[trackingWindow retain] autorelease];
 }
 
 - (void)updateTrackingRect:(id)sender {
