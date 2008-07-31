@@ -36,8 +36,12 @@ BOOL QSApplicationCompletedLaunch = NO;
 }
 
 + (void)initialize {
-	if (DEBUG_STARTUP) NSLog(@"App Initialize");
-	[[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/QSDefaults.plist"]]];
+    static BOOL done = NO;
+    if(!done) {
+        if (DEBUG_STARTUP) NSLog(@"App Initialize");
+        [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/QSDefaults.plist"]]];
+        done = YES;
+    }
 }
 
 - (id)init {
