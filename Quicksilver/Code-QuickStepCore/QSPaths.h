@@ -17,7 +17,7 @@
 #define kCurrentPreVersionURL	@"http://qs0.blacktree.com/quicksilver/versioncheck.php?type=pre"
 #define kDownloadUpdateExactURL @"http://qs0.blacktree.com/quicksilver/versiondownloadurl.txt"
 #define kDownloadUpdateURL @"http://qs0.blacktree.com/quicksilver/"
-#define kForumsURL @"http://forums.blacktree.com/index.php?c=2"
+#define kForumsURL @"http://groups.google.com/group/blacktree-quicksilver"
 #define kBugsURL @"http://code.google.com/p/blacktree-quicksilver/issues/list"
 #define kHelpURL @"http://docs.blacktree.com/"
 
