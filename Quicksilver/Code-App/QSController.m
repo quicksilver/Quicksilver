@@ -324,7 +324,7 @@ QSController *QSCon;
 			[quitWindowController initWithWindowNibName:@"QuitConfirm" owner:quitWindowController];
 
 			quitWindow = (QSWindow *)[quitWindowController window];
-			[quitWindow setLevel:kCGStatusWindowLevel+1];
+			[quitWindow setLevel:kCGPopUpMenuWindowLevel+1];
 			[quitWindow setIgnoresMouseEvents:YES];
 			[quitWindow center];
 			[quitWindow setShowEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSVExpandEffect", @"transformFn", @"show", @"type", [NSNumber numberWithFloat:0.15] , @"duration", nil]];
