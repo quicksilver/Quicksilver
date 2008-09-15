@@ -216,7 +216,7 @@
 
 - (IBAction)deleteSelection:(id)sender {
 	[[QSPlugInManager sharedInstance] deletePlugIns:[self selectedPlugIns] fromWindow:[plugInTable window]];
-    [plugInTable reloadData];
+[[QSPlugInManager sharedInstance] downloadWebPlugInInfoIgnoringDate];
 }
 
 - (IBAction)revealSelection:(id)sender { [[self selectedPlugIns] valueForKey:@"reveal"];  }
