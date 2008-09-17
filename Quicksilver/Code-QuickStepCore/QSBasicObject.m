@@ -159,4 +159,16 @@
 	return NO;
 }
 - (QSBasicObject *)resolvedObject {return self;}
+
+- (void)setBundle:(NSBundle *)aBundle {
+    if(aBundle != nil && aBundle != bundle) {
+        [bundle release];
+        bundle = [aBundle retain];
+    }
+}
+- (NSBundle *)bundle {
+    NSBundle *b = bundle;
+    if (!b) b = [QSReg bundleForClassName:[self identifier]];
+    return b;
+}
 @end

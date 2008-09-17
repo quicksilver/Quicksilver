@@ -37,6 +37,7 @@
 @interface QSBasicObject : NSObject <QSObject, QSObjectHierarchy> {
 @public
 	NSObject <QSObjectRanker> *ranker;
+    NSBundle *bundle;
 }
 + (id)objectWithDictionary:(NSDictionary*)dictionary;
 - (int)primaryCount;
@@ -45,13 +46,13 @@
 - (NSString *)displayName;
 - (NSString *)details;
 - (NSString *)toolTip;
-- (float) score;
-- (int) order;
+- (float)score;
+- (int)order;
 - (NSString *)description;
 //- (float) rankModification;
 - (NSString *)identifier;
 - (NSEnumerator *)enumeratorForType:(NSString *)aKey;
-- (NSComparisonResult) nameCompare:(QSBasicObject *)object;
+- (NSComparisonResult)nameCompare:(QSBasicObject *)object;
 - (BOOL)putOnPasteboard:(NSPasteboard *)pboard;
 - (BOOL)putOnPasteboard:(NSPasteboard *)pboard includeDataForTypes:(NSArray *)includeTypes;
 - (BOOL)putOnPasteboard:(NSPasteboard *)pboard declareTypes:(NSArray *)types includeDataForTypes:(NSArray *)includeTypes;
@@ -65,4 +66,6 @@
 - (BOOL)containsType:(NSString *)aType;
 - (QSBasicObject *)resolvedObject;
 - (void)becameSelected;
+- (NSBundle*)bundle;
+- (void)setBundle:(NSBundle*)bundle;
 @end
