@@ -239,6 +239,7 @@
 		destination = [destination stringByAppendingPathExtension:@"qspkg"];
 		[theDownload setDestination:destination allowOverwrite:YES];
 		[self setAppDownload:theDownload];
+        [theDownload release];
 	}
 #else
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:fileURL]];

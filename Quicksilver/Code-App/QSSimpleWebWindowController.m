@@ -44,6 +44,7 @@
 		[window setToolbar:toolbar];
 		[toolbar release];
 	}
+    [window release];
 	return self;
 }
 
@@ -84,6 +85,7 @@
 		[item setMaxSize:NSMakeSize(9999, 32)];
 		[textField setTarget:[[self window] contentView]];
 		[textField setAction:@selector(takeStringURLFrom:)];
+        [textField release];
 	} else if ( [itemIdentifier isEqualToString:@"Backward"] ) {
 		[item setLabel:@"Back"];
 		[item setPaletteLabel:[item label]];

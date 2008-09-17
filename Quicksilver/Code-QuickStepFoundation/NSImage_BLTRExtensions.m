@@ -211,8 +211,12 @@ static inline int get_bit(unsigned char *arr, unsigned long bit_num) {
 
 - (NSRect) usedRect {
 	NSBitmapImageRep *bitmap = [[NSBitmapImageRep alloc] initWithData:[self TIFFRepresentation]];
-
-	if (![bitmap hasAlpha]) return NSMakeRect(0, 0, [bitmap size] .height, [bitmap size] .width);
+    NSRect rect;
+	if (![bitmap hasAlpha]) {
+        rect = NSMakeRect(0, 0, [bitmap size] .height, [bitmap size] .width);
+        [bitmap release];
+        return rect;
+    }
 
 	int minX = [bitmap pixelsWide];
 	int minY = [bitmap pixelsHigh];
@@ -235,8 +239,9 @@ static inline int get_bit(unsigned char *arr, unsigned long bit_num) {
 
 		}
 	}
-	[bitmap autorelease];
-	return NSMakeRect(minX, [bitmap pixelsHigh] -maxY-1, maxX-minX+1, maxY-minY+1);
+    rect = NSMakeRect(minX, [bitmap pixelsHigh] -maxY-1, maxX-minX+1, maxY-minY+1);
+    [bitmap release];
+    return  rect;
 }
 
 - (NSImage *)scaleImageToSize:(NSSize)newSize trim:(BOOL)trim expand:(BOOL)expand scaleUp:(BOOL)scaleUp {

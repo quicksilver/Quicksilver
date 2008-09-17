@@ -813,6 +813,7 @@
 	QSURLDownload *theDownload = [[QSURLDownload alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[info objectForKey:@"url"]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0] delegate:self];
 	[theDownload setUserInfo:[info objectForKey:@"id"]];
 	[[self downloadsQueue] addObject:theDownload];
+    [theDownload release];
 	downloadsCount++;
 	[self updateDownloadProgressInfo];
 }

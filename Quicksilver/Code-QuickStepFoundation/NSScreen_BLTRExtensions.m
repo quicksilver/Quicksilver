@@ -62,9 +62,9 @@ static void KeyArrayCallback(const void *key, const void *value, void *context) 
 	if ( orderLangKeys && CFArrayGetCount(orderLangKeys) ) {
 		langKey = CFArrayGetValueAtIndex( orderLangKeys, 0 );
 		localName = (NSString*)CFDictionaryGetValue( names, langKey );
-		CFRetain( localName );
+        if (localName)
+            [[localName retain] autorelease];
 	}
-
 	CFRelease(orderLangKeys);
 	CFRelease(dict);
 
@@ -73,8 +73,6 @@ static void KeyArrayCallback(const void *key, const void *value, void *context) 
 		uint32_t vendor = CGDisplayVendorNumber((CGDirectDisplayID) _screenNumber);
 		localName = [[NSDictionary dictionaryWithContentsOfFile:[NSString stringWithFormat:@"/System/Library/Displays/Overrides/DisplayVendorID-%x/DisplayProductID-%x", vendor, model]] objectForKey:@"DisplayProductName"];
 		if (!localName) localName = [NSString stringWithFormat:@"Unknown Display (%x:%x)", vendor, model];
-	} else {
-		[localName autorelease];
 	}
 	return localName;
 }

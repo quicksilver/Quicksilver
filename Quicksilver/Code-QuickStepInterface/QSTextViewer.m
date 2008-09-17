@@ -40,9 +40,8 @@ QSTextViewer * QSShowTextViewerWithFile(NSString *path) {
 	[textview release];*/
 	[window setReleasedWhenClosed:YES];
 	[window center];
-	NSWindow *theWindow = window;
 
-	NSScrollView *scrollview = [[NSScrollView alloc] initWithFrame:[[theWindow contentView] frame]];
+	NSScrollView *scrollview = [[NSScrollView alloc] initWithFrame:[[window contentView] frame]];
 	[scrollview setBorderType:NSNoBorder];
 	[scrollview setHasVerticalScroller:YES];
 	[scrollview setHasHorizontalScroller:NO];
@@ -59,9 +58,9 @@ QSTextViewer * QSShowTextViewerWithFile(NSString *path) {
 	[[theTextView textContainer] setWidthTracksTextView:YES];
 
 	[scrollview setDocumentView:theTextView];
-	[theWindow setContentView:scrollview];
-	[theWindow makeKeyAndOrderFront:nil];
-	[theWindow makeFirstResponder:theTextView];
+	[window setContentView:scrollview];
+	[window makeKeyAndOrderFront:nil];
+	[window makeFirstResponder:theTextView];
 
 	[[theTextView enclosingScrollView] setHasHorizontalScroller:YES];
 	[theTextView setHorizontallyResizable:YES];
@@ -86,6 +85,7 @@ QSTextViewer * QSShowTextViewerWithFile(NSString *path) {
 //		[window setToolbar:[toolbar autorelease]];
 
 	}
+    [window release];
 	return self;
 }
 
