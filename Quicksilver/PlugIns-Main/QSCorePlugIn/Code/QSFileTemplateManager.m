@@ -56,8 +56,8 @@
 
 	NSString *kind;
 	LSCopyKindStringForURL((CFURLRef) [NSURL fileURLWithPath:path] , (CFStringRef *)&kind);
-	[kind autorelease];
-		[fileObject setDetails:kind];
+    [fileObject setDetails:kind];
+    [kind release];
 	return fileObject;
 }
 @end

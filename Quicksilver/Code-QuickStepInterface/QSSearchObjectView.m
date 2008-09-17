@@ -35,10 +35,15 @@
 NSMutableDictionary *bindingsDict = nil;
 
 @implementation QSSearchObjectView
-+(void)initialize {
-	bindingsDict = [[[NSMutableDictionary alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[QSSearchObjectView class]] pathForResource:@"DefaultBindings" ofType:@"qskeys"]] objectForKey:@"QSSearchObjectView"];
-	[bindingsDict addEntriesFromDictionary:[[NSDictionary dictionaryWithContentsOfFile:pUserKeyBindingsPath] objectForKey:@"QSSearchObjectView"]];
++ (void)initialize {
+    if( bindingsDict == nil ) {
+        NSDictionary *defaultBindings = [[NSMutableDictionary alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[QSSearchObjectView class]] pathForResource:@"DefaultBindings" ofType:@"qskeys"]];
+        bindingsDict = [[NSMutableDictionary alloc] initWithDictionary:[defaultBindings objectForKey:@"QSSearchObjectView"]];
+        [bindingsDict addEntriesFromDictionary:[[NSDictionary dictionaryWithContentsOfFile:pUserKeyBindingsPath] objectForKey:@"QSSearchObjectView"]];
+        [defaultBindings release];
+    }
 }
+
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	resetTimer = nil;

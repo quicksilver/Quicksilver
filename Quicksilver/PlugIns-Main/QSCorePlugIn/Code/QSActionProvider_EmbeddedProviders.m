@@ -59,7 +59,9 @@
 	OSStatus err = LSGetApplicationForURL((CFURLRef) [NSURL URLWithString: @"http:"], kLSRolesAll, NULL, (CFURLRef *)&appURL);
 	if (err != noErr)
 		NSLog(@"error %ld", err);
-	return [appURL path];
+    NSString *clientPath = [appURL path];
+    [appURL release];
+	return clientPath;
 }
 
 - (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
@@ -213,6 +215,7 @@
 		if (!preferred)
 			preferred = [NSNull null];
 
+        [appURL release];
 		return [NSArray arrayWithObjects:preferred, validIndirects, nil];
 	} else if ([action isEqualToString:kFileRenameAction]) {
 		NSString *path = [dObject singleFilePath];

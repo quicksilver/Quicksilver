@@ -139,7 +139,9 @@ id QSReg = nil;
 	Class providerClass = NSClassFromString(className);
 	//NSLog(@"Class <%@>", NSStringFromClass(providerClass) );
 	if (!providerClass) {
-		[[classBundles objectForKey:className] load]; //performSelectorOnMainThread:@selector(load) withObject:nil waitUntilDone:YES];
+        NSBundle * bundle = [classBundles objectForKey:className];
+		if([bundle load] == NO)
+            NSLog(@"Failed loading bundle %@", bundle);
 		providerClass = NSClassFromString(className);
 	}
 	if (providerClass) {

@@ -17,8 +17,11 @@
 
 	theString = CFStringCreateMutableCopy( kCFAllocatorDefault, 0, (CFStringRef) self);
 	CFStringTrimWhitespace( theString );
-
-	return (NSMutableString *)theString;
+    
+    NSString * retString = (NSString*)CFStringCreateCopy( kCFAllocatorDefault, theString );
+    CFRelease( theString );
+    
+	return [retString autorelease];
 }
 @end
 

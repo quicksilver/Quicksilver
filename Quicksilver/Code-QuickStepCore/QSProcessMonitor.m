@@ -20,19 +20,18 @@ OSStatus GetPSNForAppInfo(ProcessSerialNumber *psn, NSDictionary *theApp) {
 }
 
 OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData) {
-    ProcessSerialNumber *psn = malloc(sizeof(psn));
-    size_t size = sizeof(ProcessSerialNumber);
+    ProcessSerialNumber psn;
     OSStatus result;
     result = GetEventParameter(theEvent,
-                               kEventParamProcessID, typeProcessSerialNumber, NULL,
-                               size, &size, 
-                               psn );
-    if( size != sizeof(ProcessSerialNumber) ) {
-        free(psn);
-        if(DEBUG) NSLog( @"Invalid size returned %d", size );
-    } else {
-        NSDictionary *dict = [(QSProcessMonitor*)userData infoForPSN:*psn];
+                               kEventParamProcessID,
+                               typeProcessSerialNumber, NULL,
+                               sizeof(psn), NULL, 
+                               &psn );
+    if( result == noErr ) {
+        NSDictionary *dict = [(QSProcessMonitor*)userData infoForPSN:psn];
         [[NSNotificationCenter defaultCenter] postNotificationName:QSActiveApplicationChanged object:userData userInfo:dict];
+    } else {
+        NSLog(@"Unable to get event parameter kEventParamProcessID");
     }
 	return CallNextEventHandler(nextHandler, theEvent);
 }

@@ -10,6 +10,8 @@
 
 int main(int argc, const char *argv[]) {
     if(DEBUG_MEMORY) {
+        setenv("NSZombieEnabled", "YES", 1);
+        setenv("NSDeallocateZombies", "YES", 1); // So leaks don't get mad.
         setenv("MallocStackLogging", "1", 1);
         setenv("MallocStackLoggingNoCompact", "1", 1);
         setenv("NSAutoreleaseFreedObjectCheckEnabled", "YES", 1);

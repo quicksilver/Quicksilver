@@ -68,8 +68,9 @@
 			[updateTimer release];
 		}
 		updateTimer = [[NSTimer scheduledTimerWithTimeInterval:checkInterval target:self selector:@selector(threadedCheckForUpdate:) userInfo:nil repeats:shouldRepeat] retain];
-		[updateTimer setFireDate:doStartupCheck?[NSDate dateWithTimeIntervalSinceNow:33.333f] :nextCheck];
+		[updateTimer setFireDate:( doStartupCheck ? [NSDate dateWithTimeIntervalSinceNow:33.333f] : nextCheck )];
 		if (VERBOSE) NSLog(@"Next Version Check at : %@", [[updateTimer fireDate] description]);
+        [nextCheck release];
 	}
 }
 

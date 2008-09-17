@@ -92,6 +92,7 @@
 	AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)53, false ); //Escape
 																			   //	if (carbon) AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)56, false ); //Shift
 	AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)55, true ); //Command
+    CFRelease( app );
 	[pool release];
 }
 

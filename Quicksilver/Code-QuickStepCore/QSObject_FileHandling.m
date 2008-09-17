@@ -201,19 +201,17 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			LSItemInfoRecord infoRec;
 			//OSStatus status=
 			LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
-
-      
-      if (!theImage && [NSApp isLeopard] && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
-        theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSMaxIconSize asIcon:YES];
-      }
-        
-        
+                        
+            if (!theImage && [NSApp isLeopard] && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
+                theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSMaxIconSize asIcon:YES];
+            }
+            
 			if (!theImage && infoRec.flags & kLSItemInfoIsPackage) {
 				NSBundle *bundle = [NSBundle bundleWithPath:firstFile];
 				NSString *bundleImageName = nil;
 				if ([[firstFile pathExtension] isEqualToString:@"prefPane"]) {
 					bundleImageName = [[bundle infoDictionary] objectForKey:@"NSPrefPaneIconFile"];
-
+                    
 					if (!bundleImageName) bundleImageName = [[bundle infoDictionary] objectForKey:@"CFBundleIconFile"];
 					if (bundleImageName) {
 						NSString *bundleImagePath = [bundle pathForResource:bundleImageName ofType:nil];
@@ -221,7 +219,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 					}
 				}
 			}
-
+            
 			if (!theImage && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
 				NSString *type = [manager typeOfFile:path];
 				if ([[NSImage imageUnfilteredFileTypes] containsObject:type])
@@ -234,7 +232,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			}
 			if (!theImage)
 				theImage = [[NSWorkspace sharedWorkspace] iconForFile:path];
-
+            
 			// ***warning * This caused a crash?
 		}
 
@@ -387,7 +385,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		NSFileManager *manager = [NSFileManager defaultManager];
 
 		LSItemInfoRecord infoRec;
-		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestAllInfo, &infoRec);
+		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path], kLSRequestAllInfo, &infoRec);
+        [(NSString*)infoRec.extension autorelease];
 
 		if (infoRec.flags & kLSItemInfoIsAliasFile) {
 			path = [manager resolveAliasAtPath:path];
@@ -395,7 +394,6 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 				[object setChildren:[NSArray arrayWithObject:[QSObject fileObjectWithPath:path]]];
 				return YES;
 			}
-
 		}
 
 		NSMutableArray *fileChildren = [NSMutableArray arrayWithCapacity:1];
@@ -458,8 +456,9 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			//NSLog(@"uti %@ %@", uti, UTTypeCopyDescription(uti) );
 
 			id handler = [QSReg instanceForKey:uti inTable:@"QSFSFileTypeChildHandlers"];
-			if (handler)
+			if (handler) {
 				return [handler loadChildrenForObject:object];
+            }
 
 			id <QSParser> parser = [QSReg instanceForKey:uti inTable:@"QSFSFileTypeParsers"];
 			NSArray *children = [parser objectsFromPath:path withSettings:nil];
@@ -475,7 +474,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	}
 
 	if (newChildren) [object setChildren:newChildren];
-
+    
 	return YES;
 }
 
@@ -632,23 +631,25 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 - (NSString *)descriptiveNameForPackage:(NSString *)path withKindSuffix:(BOOL)includeKind {
-	CFBundleRef bundleRef = CFBundleCreate(kCFAllocatorDefault, (CFURLRef) [NSURL fileURLWithPath:path]);
+    NSURL *fileURL = [NSURL fileURLWithPath:path];
+	CFBundleRef bundleRef = CFBundleCreate(kCFAllocatorDefault, (CFURLRef)fileURL);
 	NSString *bundleName = (NSString *)CFBundleGetValueForInfoDictionaryKey(bundleRef, kCFBundleNameKey);
-	[[bundleName retain] autorelease];
-	CFRelease(bundleRef);
-
-	NSString *kind = nil;
 
 	if (includeKind) {
-		if ( ![[path pathExtension] caseInsensitiveCompare:@"prefPane"]) {
+        NSString *kind = nil;
+		if ([[path pathExtension] caseInsensitiveCompare:@"prefPane"]) {
 			kind = QSIsLocalized ? [self localizedPrefPaneKind] : @"Preference Pane";
 		} else {
-			LSCopyKindStringForURL((CFURLRef) [NSURL fileURLWithPath:path] , (CFStringRef *)&kind);
-			[kind autorelease];
+			LSCopyKindStringForURL((CFURLRef)fileURL, (CFStringRef *)&kind);
 		}
+        NSLog(@"kind: %@", kind);
 		if (bundleName && [kind length])
-			return [NSString stringWithFormat:@"%@ %@", bundleName, kind];
-	}
+			bundleName = [NSString stringWithFormat:@"%@ %@", bundleName, kind];
+        [kind release];
+	} else {
+        bundleName = [[bundleName retain] autorelease];
+    }
+    CFRelease(bundleRef);
 	return bundleName;
 }
 

@@ -11,11 +11,13 @@
 @implementation NSBundle (BLTRExtensions)
 
 - (id)imageNamed:(NSString *)name {
-	NSString *compositeName = [NSString stringWithFormat:@"%@:%@", [self bundleIdentifier] , name];
+	NSString *compositeName = [NSString stringWithFormat:@"%@:%@", [self bundleIdentifier], name];
 	NSImage *image = [NSImage imageNamed:compositeName];
-	if (!image) image = [[NSImage alloc] initWithContentsOfFile:[self pathForImageResource:name]];
-	[image setName:compositeName];
-	return [image autorelease];
+	if (!image) { 
+        image = [[[NSImage alloc] initWithContentsOfFile:[self pathForImageResource:name]] autorelease];
+        [image setName:compositeName];
+    }
+	return image;
 }
 
 // Falls back on english localization when needed

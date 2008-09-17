@@ -121,7 +121,8 @@ id QSRez;
 	if (locator)
 		image = [self imageWithLocatorInformation:locator];
 	else {// Try the systemicons bundle
-		image = [self sysIconNamed:name]; 		if (!image) // Try by bundle id
+		image = [self sysIconNamed:name];
+        if (!image) // Try by bundle id
 			image = [self imageWithLocatorInformation:[NSDictionary dictionaryWithObjectsAndKeys:name, @"bundle", nil]];
 
 		if (!image && ([name hasPrefix:@"/"] || [name hasPrefix:@"~"]) ) {
@@ -231,24 +232,24 @@ id QSRez;
 			if (image) break;
 		}
 	} else {
-		image = [[[NSImage alloc] initWithContentsOfFile:[self pathWithLocatorInformation:locator]]autorelease];
+		image = [[[NSImage alloc] initWithContentsOfFile:[self pathWithLocatorInformation:locator]] autorelease];
 	}
 
 	if (!image && [locator isKindOfClass:[NSDictionary class]]) {
 		NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
 		NSString *bundleID = [locator objectForKey:@"bundle"];
-		NSBundle *bundle = [NSBundle bundleWithIdentifier:bundleID];
+		NSBundle *bundle = [QSReg bundleWithIdentifier:bundleID];
 
 		if (!bundle)
 			bundle = [NSBundle bundleWithPath:[workspace absolutePathForAppBundleWithIdentifier:bundleID]];
-
-		NSString *type = [locator objectForKey:@"type"];
-		NSString *basePath = [bundle bundlePath];
-
-		if (basePath)
-			image = [workspace iconForFile:basePath];
-		else if (type)
-			image = [workspace iconForFileType:type];
+        
+        if(bundle != nil) {
+            image = [workspace iconForFile:[bundle bundlePath]];
+        } else {
+            if(DEBUG)
+                NSLog(@"Unable to locate bundle with identifier %@, using locator %@", bundleID, locator);
+            image = [workspace iconForFileType:[locator objectForKey:@"type"]];
+        }
 	}
 	return image;
 }
