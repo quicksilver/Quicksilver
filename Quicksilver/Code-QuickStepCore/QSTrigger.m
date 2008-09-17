@@ -49,6 +49,7 @@
 
 - (void)dealloc {
 	NSLog(@"dealloc %@", self);
+    [command release];
 	[info release];
 	[children release];
 	[super dealloc];
@@ -61,6 +62,7 @@
 - (BOOL)isGroup {
 	return [[self type] isEqualToString:@"QSGroupTrigger"];
 }
+
 - (NSImage *)smallIcon {
 	if ([[self type] isEqualToString:@"QSGroupTrigger"]) {
 		return [[self manager] image];
@@ -79,6 +81,7 @@
 		name = [[self command] name];
 	return name;
 }
+
 - (BOOL)hasCustomName {
 	if ([self isPreset]) return NO;
 	return [info objectForKey:@"name"] != nil;
@@ -132,28 +135,33 @@
 	return YES;
 }
 
+- (void)setCommand:(QSCommand*)newCommand {
+    if (newCommand != command) {
+        [command release];
+        command = [newCommand retain];
+    }
+}
+
 - (QSCommand *)command {
-	id command = [info objectForKey:@"command"];
-	if ([command isKindOfClass:[NSDictionary class]]) {
-		command = [QSCommand commandWithDictionary:command];
-		[info setObject:command forKey:@"command"];
-	} else if ([command isKindOfClass:[NSString class]]) {
-		NSDictionary *commandInfo = [QSReg valueForKey:command inTable:@"QSCommands"];
-		//NSLog(@"looking up command %@ %@", command, commandInfo );
-		command = [QSCommand commandWithDictionary:[commandInfo objectForKey:@"command"]];
-	}
+    if (command)
+        return command;
+    
+	id archivedCommand = [info objectForKey:@"command"];
+    if (archivedCommand)
+        command = [[QSCommand commandWithInfo:archivedCommand] retain];
 	return command;
 }
 
 - (NSArray *)commands {
     NSArray * array = nil;
-    QSCommand * command = [self command];
+    QSCommand * aCommand = [self command];
     
-    if( command != nil )
-        array = [NSArray arrayWithObject:command];
+    if (aCommand != nil)
+        array = [NSArray arrayWithObject:aCommand];
     
 	return array;
 }
+
 - (BOOL)isPreset {
 	return [[info objectForKey:kItemID] hasPrefix:@"QS"];
 }
@@ -163,13 +171,18 @@
 }
 
 - (NSDictionary *)dictionaryRepresentation {
-	id command = [info objectForKey:@"command"];
-	if ([command isKindOfClass:[QSCommand class]]) {
-		NSMutableDictionary *dict = [info mutableCopy];
-		[dict setObject:[command dictionaryRepresentation] forKey:@"command"];
-		return [dict autorelease];
-	}
-	return [[info copy] autorelease];
+    NSMutableDictionary *dict = [info mutableCopy];
+    id rep = nil;
+    if ([self usesPresetCommand]) {
+		rep = [[self command] identifier];
+    } else {
+        rep = [[self command] commandDict];
+    }
+    if (rep)
+        [dict setObject:rep forKey:@"command"];
+    else
+        [dict removeObjectForKey:@"command"];
+	return [dict autorelease];
 }
 
 - (NSString *)triggerDescription {

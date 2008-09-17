@@ -7,6 +7,9 @@
 @end
 
 @interface QSCommand : QSObject {
+    QSObject *dObject;
+    QSAction *aObject;
+    QSObject *iObject;
 }
 + (QSCommand *)commandWithDirectObject:(QSObject *)dObject actionObject:(QSAction *)aObject indirectObject:(QSObject *)iObject;
 + (QSCommand *)commandWithInfo:(id)info;
@@ -15,7 +18,6 @@
 + (QSCommand *)commandWithFile:(NSString *)path;
 
 - (QSCommand *)initWithDirectObject:(QSObject *)dObject actionObject:(QSAction *)aObject indirectObject:(QSObject *)iObject;
-- (QSCommand *)initWithDictionary:(NSDictionary *)newDict;
 
 - (QSObject *)execute;
 - (QSObject *)executeIgnoringModifiers;

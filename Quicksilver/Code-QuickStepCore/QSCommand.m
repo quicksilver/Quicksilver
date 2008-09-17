@@ -33,20 +33,6 @@
 
 @implementation QSCommandObjectHandler
 
-- (id)objectForRepresentation:(NSDictionary*)dictionary {
-    QSCommand *obj = [[QSCommand alloc] init];
-    [[obj commandDict] setDictionary:dictionary];
-    return [obj autorelease];
-}
-
-- (NSDictionary*)representationForObject:(QSBasicObject*)object {
-    NSMutableDictionary *rep = [[[(QSCommand*)object commandDict] mutableCopy] autorelease];
-    
-    [rep removeObjectsForKeys:[NSArray arrayWithObjects:@"directObject", @"actionObject", @"indirectObject", nil]];
-    
-    return rep;
-}
-
 - (void)setQuickIconForObject:(QSObject *)object {
 	[object setIcon:[NSImage imageNamed:@"defaultAction"]];
 }
@@ -56,10 +42,6 @@
 	[dObject loadIcon];
 	[object setIcon:[dObject icon]];
 	return YES;
-}
-
-- (NSString *)detailsOfObject:(QSObject *)object {
-    return [(QSCommand*)object _details];
 }
 
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
@@ -191,6 +173,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
     } else if ([info isKindOfClass:[NSString class]]) {
         command = [QSCommand commandWithIdentifier:info];
     } else if (![info isKindOfClass:[QSCommand class]]) {
+        [self release];
         return nil;
     }
     return command;
@@ -198,11 +181,18 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 
 + (QSCommand *)commandWithIdentifier:(NSString*)identifier {
     NSDictionary *commandInfo = [QSReg valueForKey:identifier inTable:@"QSCommands"];
-    return [QSCommand commandWithDictionary:[commandInfo objectForKey:@"command"]];
+    QSCommand *cmd;
+    if (commandInfo) {
+        cmd = [QSCommand commandWithDictionary:[commandInfo objectForKey:@"command"]];
+        [cmd setIdentifier:identifier];
+    }
+    return cmd;
 }
 
-+ (QSCommand *)commandWithDictionary:(NSDictionary *)newDict {
-	return [[[self alloc] initWithDictionary:newDict] autorelease];
++ (QSCommand *)commandWithDictionary:(NSDictionary *)dict {
+    QSCommand *cmd = [[self alloc] init];
+    [cmd setObject:dict forType:QSCommandType];
+    return [cmd autorelease];
 }
 
 + (QSCommand *)commandWithFile:(NSString *)path {
@@ -225,13 +215,6 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	return self;
 }
 
-- (QSCommand *)initWithDictionary:(NSDictionary *)newDict {
-	if (self = [self init]) {
-		[self setObject:newDict forType:QSCommandType];
-	}
-	return self;
-}
-
 - (NSMutableDictionary*)commandDict {
     NSMutableDictionary *dict = [self objectForType:QSCommandType];
     if(!dict) [self setObject:(dict = [NSMutableDictionary dictionary]) forType:QSCommandType];
@@ -242,47 +225,57 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	[[NSDictionary dictionaryWithObject:[self dictionaryRepresentation] forKey:@"command"] writeToFile:path atomically:NO];
 }
 
-- (void)setDirectObject:(QSObject*)dObject {
-    if (dObject != nil)
-        [[self commandDict] setObject:dObject forKey:@"directObject"];
-    id rep = [dObject identifier];
-    if(rep != nil)
-        [[self commandDict] setObject:rep forKey:@"directID"];
-    else {
-        rep = [dObject dictionaryRepresentation];
-        if(rep)
-            [[self commandDict] setObject:rep forKey:@"directArchive"];
+- (void)setDirectObject:(QSObject*)newObject {
+    if (newObject != nil && dObject != newObject) {
+        [dObject release];
+        dObject = [newObject retain];
+        
+        id rep = [dObject identifier];
+        if(rep != nil)
+            [[self commandDict] setObject:rep forKey:@"directID"];
+        else {
+            rep = [dObject dictionaryRepresentation];
+            if(rep)
+                [[self commandDict] setObject:rep forKey:@"directArchive"];
+        }
+        
     }
 }
 
-- (void)setActionObject:(QSAction*)aObject {
-    if (aObject != nil)
-        [[self commandDict] setObject:aObject forKey:@"actionObject"];
-    id rep = [aObject identifier];
-    if(rep != nil)
-        [[self commandDict] setObject:rep forKey:@"actionID"];
-    else {
-        rep = [aObject dictionaryRepresentation];
-        if(rep)
-            [[self commandDict] setObject:rep forKey:@"actionArchive"];
+- (void)setActionObject:(QSAction*)newObject {
+    if (newObject != nil && aObject != newObject) {
+        [aObject release];
+        aObject = [newObject retain];
+    
+        id rep = [aObject identifier];
+        if(rep != nil)
+            [[self commandDict] setObject:rep forKey:@"actionID"];
+        else {
+            rep = [aObject dictionaryRepresentation];
+            if(rep)
+                [[self commandDict] setObject:rep forKey:@"actionArchive"];
+        }
     }
 }
 
-- (void)setIndirectObject:(QSObject*)iObject {
-    if (iObject != nil)
-        [[self commandDict] setObject:iObject forKey:@"indirectObject"];
-    id rep = [iObject identifier];
-    if(rep != nil)
-        [[self commandDict] setObject:rep forKey:@"indirectID"];
-    else {
-        rep = [iObject dictionaryRepresentation];
-        if(rep)
-            [[self commandDict] setObject:rep forKey:@"indirectArchive"];
+- (void)setIndirectObject:(QSObject*)newObject {
+    if (newObject != nil && iObject != newObject) {
+        [iObject release];
+        iObject = [newObject retain];
+    
+        id rep = [iObject identifier];
+        if(rep != nil)
+            [[self commandDict] setObject:rep forKey:@"indirectID"];
+        else {
+            rep = [iObject dictionaryRepresentation];
+            if(rep)
+                [[self commandDict] setObject:rep forKey:@"indirectArchive"];
+        }
     }
 }
 
 - (QSAction *)aObject {
-    QSAction *action = [[self commandDict] objectForKey:@"actionObject"];
+    QSAction *action = aObject;
     if (!action) {
         action = [QSAction actionWithIdentifier:[[self commandDict] objectForKey:@"actionID"]];
         [self setActionObject:action];
@@ -295,7 +288,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 }
 
 - (QSObject *)dObject {
-	QSObject *object = [[self commandDict] objectForKey:@"directObject"];
+	QSObject *object = dObject;
     if (!object) {
         object = [QSObject objectWithIdentifier:[[self commandDict] objectForKey:@"directID"]];
         [self setDirectObject:object];
@@ -314,7 +307,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 }
 
 - (QSObject *)iObject {
-	QSObject *object = [[self commandDict] objectForKey:@"indirectObject"];
+	QSObject *object = iObject;
     if (!object) {
         object = [QSObject objectWithIdentifier:[[self commandDict] objectForKey:@"indirectID"]];
         [self setIndirectObject:object];
@@ -343,21 +336,21 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 }
 
 - (QSObject *)execute {
-	QSAction *aObject = [self aObject];
-	QSObject *dObject = [self dObject];
-	QSObject *iObject = [self iObject];
+	QSAction *actionObject = [self aObject];
+	QSObject *directObject = [self dObject];
+	QSObject *indirectObject = [self iObject];
 
 	if (VERBOSE) NSLog(@"Execute Command: %@", self);
-	int argumentCount = [(QSAction *)aObject argumentCount];
+	int argumentCount = [(QSAction *)actionObject argumentCount];
 	if (argumentCount<2) {
-		return [aObject performOnDirectObject:dObject indirectObject:iObject];
+		return [actionObject performOnDirectObject:directObject indirectObject:indirectObject];
 	} else if (argumentCount == 2) {
-		if ([iObject objectForType:QSTextProxyType]) {
-			[[(QSController *)[NSApp delegate] interfaceController] executePartialCommand:[NSArray arrayWithObjects:dObject, aObject, iObject, nil]];
-		} else if (iObject) {
-			return [aObject performOnDirectObject:dObject indirectObject:iObject];
+		if ([indirectObject objectForType:QSTextProxyType]) {
+			[[(QSController *)[NSApp delegate] interfaceController] executePartialCommand:[NSArray arrayWithObjects:directObject, actionObject, indirectObject, nil]];
+		} else if (indirectObject) {
+			return [aObject performOnDirectObject:directObject indirectObject:indirectObject];
 		} else {
-			if (!iObject) {
+			if (!indirectObject) {
 				NSString *selectClass = [[NSUserDefaults standardUserDefaults] stringForKey:@"QSUnidentifiedObjectSelector"];
 				id handler = [QSReg getClassInstance:selectClass];
 				NSLog(@"handler %@ %@", selectClass, handler);
@@ -366,7 +359,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 					return nil;
 				}
 			}
-			[[(QSController *)[NSApp delegate] interfaceController] executePartialCommand:[NSArray arrayWithObjects:dObject, aObject, iObject, nil]];
+			[[(QSController *)[NSApp delegate] interfaceController] executePartialCommand:[NSArray arrayWithObjects:directObject, actionObject, indirectObject, nil]];
 		}
 		return nil;
 	}
@@ -390,8 +383,8 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	[self executeFromMenu:sender];
 }
 
-- (void)executeWithIndirect:(id)iObject {
-    [self setIndirectObject:(QSObject *)[iObject resolvedObject]];
+- (void)executeWithIndirect:(id)indirectObject {
+    [self setIndirectObject:(QSObject *)[indirectObject resolvedObject]];
 	[self executeFromMenu:nil];
 }
 
@@ -427,33 +420,21 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	  [menu setDelegate:nil];
 }
 
-- (QSObject *)objectValue {
-	QSObject *commandObject = [QSObject objectWithName:[self description]];
-	[commandObject setObject:self forType:QSCommandType];
-	[commandObject setPrimaryType:QSCommandType];
+- (QSObject *)objectValue {    
+	QSCommand *commandObject = [QSCommand objectWithName:[self name]];
+    [commandObject setDirectObject:self];
 	return commandObject;
 }
 
 - (NSArray *)types {return [NSArray arrayWithObject:QSCommandType];}
 
 - (NSString *)name {
-    QSAction *aObject = [self aObject];
-    QSObject *dObject = [self dObject];
-    QSObject *iObject = [self iObject];
-    NSString *format = [aObject commandFormat];
+    QSAction *actionObject = [self aObject];
+    QSObject *directObject = [self dObject];
+    QSObject *indirectObject = [self iObject];
+    NSString *format = [actionObject commandFormat];
 	if (format)
-        return [NSString stringWithFormat:format, [dObject name], (iObject ? [iObject name] : @"<?>")];
-	else
-		return [NSString stringWithFormat:@"[Action Missing: %@] ", [[self commandDict] objectForKey:@"actionID"]];
-}
-
-- (NSString *)_details {
-    QSAction *aObject = [self aObject];
-    QSObject *dObject = [self dObject];
-    QSObject *iObject = [self iObject];
-    NSString *format = [aObject commandFormat];
-	if (format)
-        return [NSString stringWithFormat:format, [dObject details], (iObject ? [iObject details] : @"<?>")];
+        return [NSString stringWithFormat:format, [directObject name], (indirectObject ? [indirectObject name] : @"<?>")];
 	else
 		return [NSString stringWithFormat:@"[Action Missing: %@] ", [[self commandDict] objectForKey:@"actionID"]];
 }

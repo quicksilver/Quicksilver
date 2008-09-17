@@ -3,7 +3,26 @@
 #import "QSResourceManager.h"
 #import "QSTypes.h"
 
+#define kQSObjectClass @"class"
+
 @implementation QSObject (PropertyList)
++ (id)objectWithDictionary:(NSDictionary *)dictionary {
+    if(dictionary == nil)
+        return nil;
+    if (DEBUG_UNPACKING && VERBOSE)
+        NSLog(@"%@ %@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), dictionary);
+    id obj = [dictionary objectForKey:kQSObjectClass];
+    if(obj)
+        obj = [[NSClassFromString(obj) alloc] initWithDictionary:dictionary];
+    
+    if(!obj)
+        obj = [[self alloc] initWithDictionary:dictionary];
+    
+    if (!obj && DEBUG_UNPACKING)
+        NSLog(@"%@ %@ failed creating object with dict %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), dictionary);
+    
+    return [obj autorelease];
+}
 
 + (id)objectWithString:(NSString *)string name:(NSString *)aName type:(NSString *)aType {
 	return [[[QSObject alloc] initWithString:string name:aName type:aType] autorelease];
@@ -35,7 +54,7 @@
 	int i;
 	for (i = 0; i<[dictionaryArray count]; i++) {
 		NS_DURING
-			[dictObjectArray addObject:[QSObject objectWithDictionary:[dictionaryArray objectAtIndex:i]]];
+			[dictObjectArray addObject:[self objectWithDictionary:[dictionaryArray objectAtIndex:i]]];
 		NS_HANDLER
 			NSLog(@"Bad Object Encountered:\r%@", [dictionaryArray objectAtIndex:i]);
 		NS_ENDHANDLER
@@ -58,22 +77,8 @@
         return nil;
     
  	if (self = [self init]) {
-        NSEnumerator *e = [dataDict keyEnumerator];
-        NSString *key = nil;
-        NSDictionary *objDict = nil;
-        while(key = [e nextObject]) {
-            id obj = nil;
-            objDict = [dataDict objectForKey:key];
-            if([objDict isKindOfClass:[NSDictionary class]]) {
-                id handler = nil;
-                if (handler = [self handlerForType:key selector:@selector(objectForRepresentation:)])
-                    obj = [handler objectForRepresentation:objDict];
-                if (!obj && DEBUG_UNPACKING)
-                    NSLog(@"handler failed to provide representation, using dict %@", objDict);
-            }
-            [data setObject:(obj ? obj : objDict) forKey:key];
-        }
-        [meta setDictionary:[dictionary objectForKey:kMeta]];
+        [data setDictionary:dataDict];
+        [meta setDictionary:metaDict];
         
         [self extractMetadata];
         
@@ -86,31 +91,11 @@
     return self;
 }
 
-- (NSMutableDictionary *)dictionaryRepresentation {
-    NSMutableDictionary *archive = [super dictionaryRepresentation];
-    NSMutableDictionary *repData = [[NSMutableDictionary alloc] init];
-    NSEnumerator *e = [data keyEnumerator];
-    NSString *key = nil;
-    id obj = nil;
-    while (key = [e nextObject]) {
-        id handler = nil;
-        if (handler = [self handlerForType:key selector:@selector(representationForObject:)]) {
-            obj = [handler representationForObject:self];
-        }
-        if (!obj) {
-            obj = [data objectForKey:key];
-            if([obj respondsToSelector:@selector(dictionaryRepresentation)])
-                obj = [obj dictionaryRepresentation];
-        }
-        if (!obj)
-            obj = [data objectForKey:key];
-        
-        [repData setObject:obj
-                    forKey:key];
-    }
-    [archive setObject:repData forKey:kData];
-    [archive setObject:meta forKey:kMeta];
-    [repData release];
-    return archive;
+- (NSDictionary *)dictionaryRepresentation {
+    return [NSDictionary dictionaryWithObjectsAndKeys:
+            data, kData,
+            meta, kMeta,
+            NSStringFromClass([self class]), kQSObjectClass,
+            nil];
 }
 @end

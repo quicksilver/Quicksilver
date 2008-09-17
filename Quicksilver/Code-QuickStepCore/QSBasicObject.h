@@ -9,9 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import <QSCore/QSObjectRanker.h>
 
+// QSObject Protocols -  right now these aren't sufficient. QSBasicObject must be subclassed
 @protocol QSObject
-- (id)initWithDictionary:(NSDictionary*)dictionary;
-- (NSMutableDictionary *)dictionaryRepresentation;
 - (NSString *)label;
 - (NSString *)name;
 - (NSString *)primaryType;
@@ -21,7 +20,6 @@
 - (id)objectForType:(id)aType;
 - (NSArray *)arrayForType:(id)aKey;
 - (NSArray *)types;
-- (id)primaryObject;
 - (BOOL)loadIcon;
 - (BOOL)iconLoaded;
 @end
@@ -41,7 +39,6 @@
 	NSObject <QSObjectRanker> *ranker;
     NSBundle                  *bundle;
 }
-+ (id)objectWithDictionary:(NSDictionary*)dictionary;
 - (int)primaryCount;
 - (BOOL)loadIcon;
 - (NSImage *)icon;

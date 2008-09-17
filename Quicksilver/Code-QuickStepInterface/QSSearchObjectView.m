@@ -1239,7 +1239,7 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 - (void)dropObject:(QSBasicObject *)newSelection {
 	NSString *action = [[self objectValue] actionForDragOperation:NSDragOperationEvery withObject:newSelection];
 	//NSLog(@"action %@", action);
-	QSAction *actionObject = [QSLib actionForIdentifier:action];
+	QSAction *actionObject = [QSExec actionForIdentifier:action];
 
 	if (!action) {
 		NSBeep();

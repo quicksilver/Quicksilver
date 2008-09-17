@@ -464,27 +464,27 @@
 
 - (void)editSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
 	QSCommand *command = [commandEditor representedCommand];
-	QSTrigger *trigger = [(NSMutableDictionary *)contextInfo autorelease];
+	QSTrigger *trigger = (QSTrigger *)contextInfo;
 	if (command) {
-		[trigger setObject:command forKey:@"command"];
+        [trigger setCommand:command];
 		[[QSTriggerCenter sharedInstance] triggerChanged:trigger];
 	}
-	//NSLog(@"command %@", command);
-	[(NSObject *)contextInfo autorelease];
+	[trigger release];
 	[sheet orderOut:self];
 }
 
 - (void)addSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
 	QSCommand *command = [commandEditor representedCommand];
-	QSTrigger *trigger = [(NSMutableDictionary *)contextInfo autorelease];
+	QSTrigger *trigger = (QSTrigger*)contextInfo;
 	if (command) {
 		//		if (VERBOSE) NSLog(@"command %@", command);
-		[trigger setObject:command forKey:@"command"];
+		[trigger setCommand:command];
 		[[QSTriggerCenter sharedInstance] triggerChanged:trigger];
 	} else {
 		[[QSTriggerCenter sharedInstance] removeTrigger:trigger];
 		[self updateTriggerArray];
 	}
+    [trigger release];
 	[sheet orderOut:self];
 }
 

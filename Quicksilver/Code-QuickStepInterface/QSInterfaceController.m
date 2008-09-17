@@ -626,11 +626,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 
 - (void)encapsulateCommand {
 	if (VERBOSE) NSLog(@"Encapsulating Command");
-	QSCommand *command = [self currentCommand];
-	QSObject *commandObject = [QSObject objectWithName:[command description]];
-	[commandObject setObject:command forType:QSCommandType];
-
-	[commandObject setPrimaryType:QSCommandType];
+	QSCommand *commandObject = [self currentCommand];
 	[self selectObject:commandObject];
 	[self actionActivate:commandObject];
 }

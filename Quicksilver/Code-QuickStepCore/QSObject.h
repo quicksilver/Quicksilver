@@ -8,13 +8,8 @@
 
 extern NSSize QSMaxIconSize;
 
-// QSObject Protocols -  right now these aren't sufficient. QSBasicObject must be subclassed
-
 @interface NSObject (QSObjectHandlerInformalProtocol)
 //@protocol QSObjectHandler <NSObject>
-- (QSBasicObject*)objectForRepresentation:(NSDictionary*)dict;
-- (NSDictionary*)representationForObject:(QSBasicObject*)dict;
-
 - (BOOL)objectHasChildren:(QSObject *)object;
 - (BOOL)objectHasValidChildren:(QSObject *)object;
 

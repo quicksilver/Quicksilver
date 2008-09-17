@@ -26,7 +26,7 @@ static BOOL gModifiersAreIgnored;
 }*/
 
 + (id)actionWithDictionary:(NSDictionary *)dict {
-    return [self objectWithDictionary:dict];
+    return [[[self alloc] initWithDictionary:dict] autorelease];
 }
 
 + (id)actionWithDictionary:(NSDictionary *)dict identifier:(NSString *)ident {

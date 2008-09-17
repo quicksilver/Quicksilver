@@ -20,7 +20,7 @@
 }
 - (void)searchObjectChanged:(NSNotification*)notif {
 	[super searchObjectChanged:notif];
-	NSString *description = [[self currentCommand] description];
+	NSString *description = [[self currentCommand] name];
 	[commandView setStringValue:description?description:@""];
 	[self setRepresentedCommand:[self currentCommand]];
 }

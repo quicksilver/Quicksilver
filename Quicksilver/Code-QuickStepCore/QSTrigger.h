@@ -12,7 +12,7 @@
 
 @interface QSTrigger : NSObject {
 	NSMutableDictionary *info;
-	//QSCommand *command;
+	QSCommand *command;
 	NSMutableArray *children;
 	BOOL activated;
 }
@@ -20,6 +20,7 @@
 - (id)initWithDictionary:(NSDictionary *)dict;
 
 - (QSCommand *)command;
+- (void)setCommand:(QSCommand*)newCommand;
 
 - (BOOL)isPreset;
 - (BOOL)enabled;

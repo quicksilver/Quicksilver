@@ -181,7 +181,7 @@ NSSize QSMaxIconSize;
 }
 
 + (id)objectWithName:(NSString *)aName {
-	QSObject *newObject = [[[QSObject alloc] init] autorelease];
+	QSObject *newObject = [[[self alloc] init] autorelease];
 	[newObject setName:aName];
 	return newObject;
 }
