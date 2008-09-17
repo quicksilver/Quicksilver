@@ -196,7 +196,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 }
 
 + (QSCommand *)commandWithFile:(NSString *)path {
-	return [self commandWithDictionary:[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:@"command"]];
+	return [self objectWithDictionary:[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:@"command"]];
 }
 
 - (QSCommand *)initWithDirectObject:(QSObject *)directObject actionObject:(QSAction *)actionObject indirectObject:(QSObject *)indirectObject {
