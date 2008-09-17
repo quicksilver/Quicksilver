@@ -19,10 +19,12 @@ extern int NSAllModifierKeysMask;
 	int modifierActivationCount;
 	
     NSString *identifier;
-    NSMutableDictionary * /* NSDate *, BOOL */ activationAttempts;
-    
+    NSMutableArray * /* NSDate * */ activationAttempts;
 	id target;
 	SEL action;
+
+/*	@private
+		int keyCode;*/
 }
 + (BOOL)checkForModifierEvent:(NSEvent *)theEvent;
 + (QSModifierKeyEvent *)eventWithIdentifier:(NSString *)identifier;
@@ -31,6 +33,7 @@ extern int NSAllModifierKeysMask;
 - (void)enable;
 - (void)disable;
 - (BOOL)modifierToggled:(unsigned int)modifierKeysMask countTimes:(unsigned int)count;
+//- (BOOL)checkForModifierTap;
 
 - (unsigned int)modifierActivationMask;
 - (void)setModifierActivationMask:(unsigned int)newModifierActivationMask;
