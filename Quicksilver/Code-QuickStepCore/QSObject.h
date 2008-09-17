@@ -105,7 +105,7 @@ extern NSSize QSMaxIconSize;
 - (NSDragOperation) operationForDrag:(id <NSDraggingInfo>)sender ontoObject:(QSObject *)dObject withObject:(QSBasicObject *)iObject;
 - (NSString *)actionForDragMask:(NSDragOperation)operation ontoObject:(QSObject *)dObject withObject:(QSBasicObject *)iObject;
 - (BOOL)loadChildrenForObject:(QSObject *)object;
-- (NSString *)kindOfObject:(id <QSObject>)object;
+- (NSString *)kindOfObject:(QSObject *)object;
 - (id)dataForObject:(QSObject *)object pasteboardType:(NSString *)type;
 @end
 

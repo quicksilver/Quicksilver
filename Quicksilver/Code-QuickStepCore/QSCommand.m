@@ -146,7 +146,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	return YES;
 }
 
-- (NSString *)detailsOfObject:(id <QSObject>)object { return nil; }
+- (NSString *)detailsOfObject:(QSObject *)object { return nil; }
 
 // CommandsAsActionsHandling
 - (QSObject *)performAction:(QSAction *)action directObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {

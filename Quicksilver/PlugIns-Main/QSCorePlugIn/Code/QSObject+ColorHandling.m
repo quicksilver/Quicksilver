@@ -16,7 +16,7 @@
 @end
 
 @implementation QSColorObjectHandler : NSObject
-- (BOOL)objectHasChildren:(id <QSObject>)object {return NO;}
+- (BOOL)objectHasChildren:(QSObject *)object {return NO;}
 - (void)setQuickIconForObject:(QSObject *)object { [object setIcon:[[NSWorkspace sharedWorkspace] iconForFileType:@"'clpt'"]];  }
 - (BOOL)loadIconForObject:(QSObject *)object {
 	// need to handle other sizes, not just QSSize128
@@ -31,7 +31,7 @@
 	[image release];
 	return YES;
 }
-- (NSString *)identifierForObject:(id <QSObject>)object {return nil;}
+- (NSString *)identifierForObject:(QSObject *)object {return nil;}
 - (NSString *)detailsOfObject:(QSObject *)object {return nil;}
 - (id)dataForObject:(QSObject *)object pasteboardType:(NSString *)type { return [object colorValue];  }
 @end

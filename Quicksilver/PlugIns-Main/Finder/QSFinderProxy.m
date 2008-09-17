@@ -154,11 +154,14 @@ target:
 
 - (NSAppleScript *)finderScript {
 	if (!finderScript) {
-		NSString *path = [[NSBundle bundleForClass:[QSFinderProxy class]]pathForResource:@"Finder" ofType:@"scpt"];
+		NSString *path = [[NSBundle bundleForClass:[QSFinderProxy class]] pathForResource:@"Finder" ofType:@"scpt"];
 		if (path)
 			finderScript = [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:nil];
 	}
-	[self doomSelector:@selector(setFinderScript:) delay:10*MINUTES extend:YES];
+    [self performSelector:@selector(setFinderScript:)
+               withObject:finderScript
+               afterDelay:10*MINUTES
+                   extend:YES];
 	return finderScript;
 }
 

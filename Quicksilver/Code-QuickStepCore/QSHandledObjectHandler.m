@@ -48,7 +48,7 @@
 	return [object autorelease];
 }
 
-- (NSString *)identifierForObject:(id <QSObject>)object { return nil; }
+- (NSString *)identifierForObject:(QSObject *)object { return nil; }
 
 - (void)setQuickIconForObject:(QSObject *)object {
 	[object setIcon:[QSResourceManager imageNamed:@"Object"]];

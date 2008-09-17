@@ -190,7 +190,7 @@ static BOOL gModifiersAreIgnored;
 
 @implementation QSActionHandler
 
-- (NSString *)identifierForObject:(id <QSObject>)object {
+- (NSString *)identifierForObject:(QSObject *)object {
 	return nil;
 #if 0
 	return [object objectForType:QSActionType];

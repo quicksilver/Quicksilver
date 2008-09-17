@@ -16,8 +16,4 @@
 	[self performSelector:aSelector withObject:anArgument afterDelay:delay];
 }
 
-- (void)doomSelector:(SEL)selector delay:(NSTimeInterval)delay extend:(BOOL)extend {
-	[self performSelector:selector withObject:nil afterDelay:delay extend:extend];
-}
-
 @end

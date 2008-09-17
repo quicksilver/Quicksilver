@@ -11,10 +11,10 @@
 @implementation QSURLObjectHandler
 // Object Handler Methods
 
-- (NSString *)identifierForObject:(id <QSObject>)object {
+- (NSString *)identifierForObject:(QSObject *)object {
 	return [object objectForType:QSURLType];
 }
-- (NSString *)detailsOfObject:(id <QSObject>)object {
+- (NSString *)detailsOfObject:(QSObject *)object {
 	//NSString *url = [object objectForType:QSURLType];
 	return [object objectForType:QSURLType];
 }

@@ -86,9 +86,9 @@ static BOOL firstCheck = NO;
 	return YES;
 }
 
-- (BOOL)objectHasChildren:(QSBasicObject *)object { return YES; }
+- (BOOL)objectHasChildren:(QSObject *)object { return YES; }
 
-- (BOOL)objectHasValidChildren:(QSBasicObject *)object { return YES; }
+- (BOOL)objectHasValidChildren:(QSObject *)object { return YES; }
 
 - (BOOL)loadChildrenForObject:(QSObject *)object {
 	NSArray *children = [self childrenForObject:object];
@@ -99,7 +99,7 @@ static BOOL firstCheck = NO;
 		return NO;
 }
 
-- (NSString *)identifierForObject:(QSBasicObject *)object { return [object objectForType:QSCatalogEntryPboardType]; }
+- (NSString *)identifierForObject:(QSObject *)object { return [object objectForType:QSCatalogEntryPboardType]; }
 
 - (NSArray *)childrenForObject:(QSBasicObject *)object {
 	QSCatalogEntry *theEntry = [QSLib entryForID:[object objectForType:QSCatalogEntryPboardType]];

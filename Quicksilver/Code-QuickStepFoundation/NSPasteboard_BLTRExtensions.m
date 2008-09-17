@@ -21,10 +21,10 @@ void QSForcePaste() {
 
 	CGSetLocalEventsFilterDuringSupressionState(kCGEventFilterMaskPermitAllEvents, kCGEventSupressionStateSupressionInterval);
 
-	CGPostKeyboardEvent((CGCharCode) NULL, (CGKeyCode)55, true);
+	CGPostKeyboardEvent((CGCharCode) 0, (CGKeyCode)55, true);
 	CGPostKeyboardEvent((CGCharCode) 'v', keyCode, true);
 	CGPostKeyboardEvent((CGCharCode) 'v', keyCode, false);
-	CGPostKeyboardEvent((CGCharCode) NULL, (CGKeyCode)55, false);
+	CGPostKeyboardEvent((CGCharCode) 0, (CGKeyCode)55, false);
 
 	CGEnableEventStateCombining(YES);
 	CGInhibitLocalEvents(NO);

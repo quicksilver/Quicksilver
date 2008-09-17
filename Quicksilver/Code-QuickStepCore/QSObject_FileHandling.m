@@ -160,7 +160,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	}
 	return nil;
 }
-- (NSString *)detailsOfObject:(id <QSObject>)object {
+- (NSString *)detailsOfObject:(QSObject *)object {
 	NSArray *theFiles = [object arrayForType:QSFilePathType];
 	if ([theFiles count] == 1) {
 		NSString *path = [theFiles lastObject];
@@ -371,7 +371,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	return [NSAppleEventDescriptor aliasListDescriptorWithArray:[object validPaths]];
 }
 
-- (NSString *)identifierForObject:(id <QSObject>)object {
+- (NSString *)identifierForObject:(QSObject *)object {
 	return identifierForPaths([object arrayForType:QSFilePathType]);
 }
 - (BOOL)loadChildrenForObject:(QSObject *)object {
