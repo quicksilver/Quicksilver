@@ -4,7 +4,7 @@
 #import "QSObject_Menus.h"
 
 #import "QSAction.h"
-#import "QSLibrarian.h"
+#import "QSExecutor.h"
 #import "QSCommand.h"
 
 #import "QSObjectFormatter.h"
@@ -620,7 +620,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 	//  NSLog(@"Menu for: %@", object);
 	NSMenu *menu = [[[NSMenu alloc] initWithTitle:@"ContextMenu"] autorelease];
 
-	NSArray *actions = [QSLib validActionsForDirectObject:object indirectObject:nil];
+	NSArray *actions = [QSExec validActionsForDirectObject:object indirectObject:nil];
 	// actions = [actions sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 
 

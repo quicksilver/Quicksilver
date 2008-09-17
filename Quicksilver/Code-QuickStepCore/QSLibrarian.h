@@ -89,11 +89,6 @@ extern QSLibrarian *QSLib; // Shared Instance
 //- (void)loadActionsForObject:(id)actionObject;
 - (QSCatalogEntry *)catalogCustom;
 - (void)enableEntries;
-- (QSAction *)actionForIdentifier:(NSString *)identifier;
-- (QSObject *)performAction:(NSString *)action directObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
-- (NSArray *)rankedActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
-- (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
-- (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject;
 - (QSCatalogEntry *)catalog ;
 - (void)setCatalog:(QSCatalogEntry *)newCatalog ;
 - (NSMutableSet *)defaultSearchSet ;

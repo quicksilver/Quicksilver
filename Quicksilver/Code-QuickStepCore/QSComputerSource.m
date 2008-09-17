@@ -2,6 +2,8 @@
 #import "QSLibrarian.h"
 #import "QSResourceManager.h"
 
+#warning TODO: Merge this inside QSProxyObject/QSProxyObjectSource
+
 @implementation QSComputerProxy
 + (id)sharedInstance {
 	static id _sharedInstance;

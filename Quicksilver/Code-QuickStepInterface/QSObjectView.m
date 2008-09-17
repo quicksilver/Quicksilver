@@ -9,7 +9,7 @@
 #import "QSObjectView.h"
 #import "QSObjectCell.h"
 #import "QSController.h"
-#import "QSLibrarian.h"
+#import "QSExecutor.h"
 #import "QSInterfaceController.h"
 
 #import <QSFoundation/QSFoundation.h>
@@ -299,7 +299,7 @@
 	} else {
 		if (operation != lastDragMask) {
 			NSString *action = [[self objectValue] actionForDragOperation:operation withObject:draggedObject];
-			cursor = [NSCursor informativeCursorWithString:[[QSLib actionForIdentifier:action] name]];
+			cursor = [NSCursor informativeCursorWithString:[[QSExec actionForIdentifier:action] name]];
 			[cursor performSelector:@selector(set) withObject:nil afterDelay:0.0];
 		}
 		if (operation)
@@ -326,7 +326,7 @@
 	if (fDEV && [[NSApp currentEvent] modifierFlags] & NSControlKeyMask) {
 		[NSMenu popUpContextMenu:[[[self objectValue] resolvedObject] actionsMenu] withEvent:[NSApp currentEvent] forView:self];
 	} else if (action && [self dropMode] != QSSelectDropMode) {
-		[NSThread detachNewThreadSelector:@selector(concludeDragWithAction:) toTarget:self withObject:[QSLib actionForIdentifier:action]]; // Ankur, 21 Dec: Action retained in selector, not here
+		[NSThread detachNewThreadSelector:@selector(concludeDragWithAction:) toTarget:self withObject:[QSExec actionForIdentifier:action]]; // Ankur, 21 Dec: Action retained in selector, not here
 	} else if (lastDragMask & NSDragOperationGeneric) {
 		id winController = [[self window] windowController];
 		if ([winController isKindOfClass:[QSInterfaceController class]] ) {

@@ -75,11 +75,6 @@
         }
         [meta setDictionary:[dictionary objectForKey:kMeta]];
         
-        /*    } else {
-         NSLog(@"error: no data dictionary in object %@", dictionary);
-         [data setDictionary:dictionary];
-         // ***warning  * these initializers might not be efficient*/
-        
         [self extractMetadata];
         
         // ***warning  * should this update the name for files?

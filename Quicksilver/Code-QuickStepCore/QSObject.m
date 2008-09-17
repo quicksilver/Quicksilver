@@ -557,35 +557,41 @@ NSSize QSMaxIconSize;
 
 @implementation QSObject (Accessors)
 
-- (NSString *)identifier {	if (identifier)
-	return identifier;
+- (NSString *)identifier {
+    if (identifier)
+        return identifier;
 	if (flags.noIdentifier)
 		return nil;
-
+    
+    NSString *ident = nil;
+    
 	id handler = nil;
 	if (handler = [self handlerForSelector:@selector(identifierForObject:)]) {
-		[self setIdentifier:[handler identifierForObject:self]];
+		ident = [[handler identifierForObject:self] retain];
 	}
-	if (!identifier)
-		//	if (![self objectForMeta:kQSObjectObjectID]) {
-		flags.noIdentifier = YES;
+    if (!ident)
+        ident = [[meta objectForKey:kQSObjectObjectID] retain];
+    [self setIdentifier:ident];
 
-	// if (VERBOSE) NSLog(@"missing id for object:%@", self);
-	// }
-	return identifier;
-	//	return [self objectForMeta:kQSObjectObjectID];
+	return ident;
 }
 
 - (void)setIdentifier:(NSString *)newIdentifier {
-	[identifier release];
-	if (identifier) {
-		[objectDictionary removeObjectForKey:identifier];
-		[objectDictionary setObject:self forKey:newIdentifier];
-	}
-	identifier = [newIdentifier retain];
-  	if (newIdentifier)
-  		[meta setObject:newIdentifier forKey:kQSObjectObjectID];
-
+    if (identifier != nil) {
+        [objectDictionary removeObjectForKey:identifier];
+        [meta removeObjectForKey:kQSObjectObjectID];
+        if(identifier != newIdentifier)
+            [identifier release], identifier = nil;
+    }
+    if (newIdentifier != nil) {
+        flags.noIdentifier = NO;
+        [objectDictionary setObject:self forKey:newIdentifier];
+        [meta setObject:newIdentifier forKey:kQSObjectObjectID];
+        if (identifier != newIdentifier)
+            identifier = [newIdentifier retain];
+    } else {
+        flags.noIdentifier = YES;
+    }
 }
 
 - (NSString *)name {

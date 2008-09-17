@@ -644,29 +644,7 @@ static float searchSpeed = 0.0;
 	return shelfArray;
 }
 
-- (QSAction *)actionForIdentifier:(NSString *)identifier {
-	return [QSExec actionForIdentifier:(NSString *)identifier];
-}
-
-- (QSObject *)performAction:(NSString *)action directObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
-	return [QSExec performAction:(NSString *)action directObject:(QSObject *)dObject indirectObject:(QSObject *)iObject];
-}
-
-- (NSArray *)rankedActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
-	return [QSExec rankedActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject];
-}
-
-- (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
-	return [QSExec validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject];
-
-}
-
-- (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
-	return [QSExec validIndirectObjectsForAction:action directObject:dObject];
-}
-
 //Accessors
-
 - (QSCatalogEntry *)catalog {
 	return catalog;
 }

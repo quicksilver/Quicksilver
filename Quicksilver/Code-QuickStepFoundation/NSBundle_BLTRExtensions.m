@@ -55,7 +55,8 @@
     
 	if (!locString) {
         /* Failed, return value if specified and report */
-        NSLog(@"Localization: Missing localized key %@ in table %@, returning value %@", key, tableName, value);
+        if(DEBUG_LOCALIZATION)
+            NSLog(@"Localization: Missing localized key %@ in table %@, returning value %@", key, tableName, value);
         locString = value;
     }
 	return locString;
