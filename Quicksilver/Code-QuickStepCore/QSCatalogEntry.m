@@ -43,7 +43,7 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 + (QSCatalogEntry *)entryWithDictionary:(NSDictionary *)dict {
-	return [[(QSCatalogEntry *)[QSCatalogEntry alloc] initWithDictionary:dict] autorelease];
+	return [[[QSCatalogEntry alloc] initWithDictionary:dict] autorelease];
 }
 
 - (NSString *)description {
@@ -454,7 +454,7 @@ if (kUseNSArchiveForIndexes)
 	[NSKeyedArchiver archiveRootObject:[self contents] toFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"]];
 	else
 #endif
-	[[[self contents] arrayByPerformingSelector:@selector(archiveDictionary)] writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
+	[[[self contents] arrayByPerformingSelector:@selector(dictionaryRepresentation)] writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
 }
 
 

@@ -30,7 +30,6 @@ static NSMutableSet *childLoadedArray;
 //static NSMutableDictionary *mainChildrenDictionary;
 //static NSMutableDictionary *altChildrenDictionary;
 
-static NSMutableDictionary *typeHandlers;
 static NSTimeInterval globalLastAccess;
 
 BOOL QSObjectInitialized = NO;
@@ -52,8 +51,6 @@ NSSize QSMaxIconSize;
 		objectDictionary = [[NSMutableDictionary alloc] init]; // initWithCapacity:100]; formerly for these three
 		iconLoadedArray = [[NSMutableSet alloc] init];
 		childLoadedArray = [[NSMutableSet alloc] init];
-
-		typeHandlers = [[QSReg objectHandlers] retain];
 /*
 		[[NSImage imageNamed:@"Question"] createIconRepresentations];
 
@@ -320,28 +317,25 @@ NSSize QSMaxIconSize;
 - (NSString *)descriptionWithLocale:(NSDictionary *)locale indent:(unsigned)level {
 	return [data descriptionWithLocale:locale indent:level];
 }
-/*
- - (NSString *)status {
-	 if ([)
-int pid = [[[dObject objectForType:QSProcessType] objectForKey:@"NSApplicationProcessIdentifier"] intValue];
-kill(pid, signal);
-return nil;
-}
-*/
-
-- (id ) handler {
-	return [typeHandlers objectForKey:[self primaryType]];
-}
 
 - (id)handlerForType:(NSString *)type selector:(SEL)selector {
-	id handler = [typeHandlers objectForKey:type];
+	id handler = [[QSReg objectHandlers] objectForKey:type];
 	if (!selector || [handler respondsToSelector:selector]) return handler;
 	return nil;
 }
 
+- (id)handlerForSelector:(SEL)selector {
+    return [self handlerForType:[self primaryType] selector:selector];
+}
+
+- (id)handler {
+	return [self handlerForType:[self primaryType] selector:nil];
+}
+
+
 - (BOOL)drawIconInRect:(NSRect)rect flipped:(BOOL)flipped {
-	id handler = [typeHandlers objectForKey:[self primaryType]];
-	 if ([handler respondsToSelector:@selector(drawIconForObject:inRect:flipped:)]) {
+	id handler = nil;
+	 if (handler = [self handlerForSelector:@selector(drawIconForObject:inRect:flipped:)]) {
 		return [handler drawIconForObject:self inRect:rect flipped:flipped];
 	}
 	return NO;
@@ -355,8 +349,8 @@ return nil;
 	NSString *details = [meta objectForKey:kQSObjectDetails];
 	if (details) return details;
 
-	id handler = [typeHandlers objectForKey:[self primaryType]];
-	if ([handler respondsToSelector:@selector(detailsOfObject:)]) {
+	id handler = nil;
+	if (handler = [self handlerForSelector:@selector(detailsOfObject:)]) {
 		details = [handler detailsOfObject:self];
 		if (details) [meta setObject:details forKey:kQSObjectDetails];
 		return details;
@@ -493,8 +487,8 @@ return nil;
 - (QSBasicObject * ) parent {
 	QSBasicObject * parent = nil;
 
-	id handler = [typeHandlers objectForKey:[self primaryType]];
-	if ([handler respondsToSelector:@selector(parentOfObject:)])
+	id handler = nil;
+	if (handler = [self handlerForSelector:@selector(parentOfObject:)])
 		parent = [handler parentOfObject:self];
 
 	if (!parent)
@@ -507,8 +501,8 @@ return nil;
 }
 
 - (BOOL)childrenValid {
-	id handler = [typeHandlers objectForKey:[self primaryType]];
-	if ([handler respondsToSelector:@selector(objectHasValidChildren:)])
+	id handler = nil;
+	if (handler = [self handlerForSelector:@selector(objectHasValidChildren:)])
 		return [handler objectHasValidChildren:self];
 
 	return NO;
@@ -528,8 +522,8 @@ return nil;
 }
 
 - (void)loadChildren {
-	id handler = [typeHandlers objectForKey:[self primaryType]];
-	if ([handler respondsToSelector:@selector(loadChildrenForObject:)]) {
+	id handler = nil;
+	if (handler = [self handlerForSelector:@selector(loadChildrenForObject:)]) {
 
 	//	NSLog(@"load %x", self);
 
@@ -552,8 +546,8 @@ return nil;
 
 - (BOOL)hasChildren {
 
-	id handler = [typeHandlers objectForKey:[self primaryType]];
-	if ([handler respondsToSelector:@selector(objectHasChildren:)])
+	id handler = nil;
+	if (handler = [self handlerForSelector:@selector(objectHasChildren:)])
 		return [handler objectHasChildren:self];
 	return NO;
 }
@@ -568,8 +562,8 @@ return nil;
 	if (flags.noIdentifier)
 		return nil;
 
-	id handler = [typeHandlers objectForKey:[self primaryType]];
-	if ([handler respondsToSelector:@selector(identifierForObject:)]) {
+	id handler = nil;
+	if (handler = [self handlerForSelector:@selector(identifierForObject:)]) {
 		[self setIdentifier:[handler identifierForObject:self]];
 	}
 	if (!identifier)
@@ -655,8 +649,8 @@ return nil;
 	NSString *kind = [meta objectForKey:kQSObjectKind];
 	if (kind) return kind;
 
-	id handler = [typeHandlers objectForKey:[self primaryType]];
-	if ([handler respondsToSelector:@selector(kindOfObject:)]) {
+	id handler = nil;
+	if (handler = [self handlerForSelector:@selector(kindOfObject:)]) {
 		kind = [handler kindOfObject:self];
 		if (kind) {
 			[meta setObject:kind forKey:kQSObjectKind];
@@ -665,17 +659,16 @@ return nil;
 	}
 
 	return [self primaryType];
-
 }
 
 - (NSString *)primaryType {
-	// return [meta objectForKey:QSObjectPrimaryType];
+    if (!primaryType)
+        primaryType = [meta objectForKey:kQSObjectPrimaryType];
 	if (!primaryType)
 		primaryType = [[self guessPrimaryType] retain];
 	return primaryType;
 }
 - (void)setPrimaryType:(NSString *)newPrimaryType {
-	//	[meta setObject:newPrimaryType forKey:kQSObjectPrimaryType];
 	[primaryType release];
 	primaryType = [newPrimaryType retain];
 	[meta setObject:newPrimaryType forKey:kQSObjectPrimaryType];
@@ -683,14 +676,6 @@ return nil;
 
 - (NSMutableDictionary *)dataDictionary {
 	return data;
-}
-
-- (NSMutableDictionary *)archiveDictionary {
-	NSMutableDictionary *archive = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-		data, kData,
-		meta, kMeta,
-		nil];
-	return archive;
 }
 
 - (void)setDataDictionary:(NSMutableDictionary *)newDataDictionary {
@@ -817,10 +802,8 @@ return nil;
 		}
 	}
     
-	NSString *bestType = [self primaryType];
-    
-	id handler = [typeHandlers objectForKey:bestType];
-	if ([handler respondsToSelector:@selector(loadIconForObject:)])
+	id handler = nil;
+	if (handler = [self handlerForSelector:@selector(loadIconForObject:)])
 		return [handler loadIconForObject:self];
     
 	//// if ([primaryType hasPrefix:@"QSCsontact"])
@@ -860,8 +843,8 @@ return nil;
 	if (icon) return icon;
 	//	if ([[self cache] objectForKey:kQSObjectIcon]) return [[self cache] objectForKey:kQSObjectIcon];
     
-	id handler = [typeHandlers objectForKey:[self primaryType]];
-	if ([handler respondsToSelector:@selector(setQuickIconForObject:)])
+	id handler = nil;
+	if (handler = [self handlerForSelector:@selector(setQuickIconForObject:)])
 		[handler setQuickIconForObject:self];
     
 	else if ([[self primaryType] isEqualToString:QSContactPhoneType]) [self setIcon: [NSImage imageNamed:@"ContactPhone"]];

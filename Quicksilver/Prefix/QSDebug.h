@@ -17,3 +17,4 @@
 #define DEBUG_STARTUP (int) getenv("QSDebugStartup")
 #define DEBUG_CATALOG (int) getenv("QSDebugCatalog")
 #define DEBUG_LOCALIZATION (int) getenv("QSDebugLocalization")
+#define DEBUG_UNPACKING (int) getenv("QSDebugUnpacking")

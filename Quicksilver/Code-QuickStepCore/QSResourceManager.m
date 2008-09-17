@@ -246,10 +246,10 @@ id QSRez;
         if(bundle != nil) {
             image = [workspace iconForFile:[bundle bundlePath]];
         } else {
-            if(DEBUG)
-                NSLog(@"Unable to locate bundle with identifier %@, using locator %@", bundleID, locator);
             image = [workspace iconForFileType:[locator objectForKey:@"type"]];
         }
+        if(!image && DEBUG)
+            NSLog(@"Unable to locate bundle with identifier %@, using locator %@", bundleID, locator);
 	}
 	return image;
 }

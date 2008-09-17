@@ -43,45 +43,79 @@
 	return dictObjectArray;
 }
 
-+ (id)objectWithDictionary:(NSMutableDictionary *)dictionary {
-	NSString *class = [dictionary objectForKey:@"class"];
-	if (class) {
-		//NSLog(@"loadfromClass");
-		return [[(QSObject *)[NSClassFromString(class) alloc] initWithDictionary:dictionary] autorelease];
-	} else {
-		return [[(QSObject *)[QSObject alloc] initWithDictionary:dictionary] autorelease];
-	}
-	}
-
 - (void)changeFilesToPaths {
 	id object = [data objectForKey:QSFilePathType]; //[self arrayForType:];
 	if (object)
 		[data setObject:[object valueForKey:@"stringByStandardizingPath"] forKey:QSFilePathType];
 }
-- (id)initWithDictionary:(NSMutableDictionary *)dictionary {
-	if (!dictionary) {
-		[self release];
-		return nil;
-	}
-	if (self = [self init]) {
 
-		if ([dictionary objectForKey:kData]) {
-			[data setDictionary:[dictionary objectForKey:kData]];
-			[meta setDictionary:[dictionary objectForKey:kMeta]];
-
-		} else {
-			[data setDictionary:dictionary];
-			// ***warning  * these initializers might not be efficient
-		}
-		[self extractMetadata];
-
-		// ***warning  * should this update the name for files?
-		id dup = [self findDuplicateOrRegisterID];
-		if (dup) return dup;
-		if ([self containsType:QSFilePathType])
-			[self changeFilesToPaths];
-	}
-	return self;
+- (id)initWithDictionary:(NSDictionary *)dictionary {
+    if (DEBUG_UNPACKING)
+        NSLog(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+    NSDictionary *dataDict = [dictionary objectForKey:kData];
+    NSDictionary *metaDict = [dictionary objectForKey:kMeta];
+    if (!dataDict && !metaDict)
+        return nil;
+    
+ 	if (self = [self init]) {
+        NSEnumerator *e = [dataDict keyEnumerator];
+        NSString *key = nil;
+        NSDictionary *objDict = nil;
+        while(key = [e nextObject]) {
+            id obj = nil;
+            objDict = [dataDict objectForKey:key];
+            if([objDict isKindOfClass:[NSDictionary class]]) {
+                id handler = nil;
+                if (handler = [self handlerForType:key selector:@selector(objectForRepresentation:)])
+                    obj = [handler objectForRepresentation:objDict];
+                if (!obj && DEBUG_UNPACKING)
+                    NSLog(@"handler failed to provide representation, using dict %@", objDict);
+            }
+            [data setObject:(obj ? obj : objDict) forKey:key];
+        }
+        [meta setDictionary:[dictionary objectForKey:kMeta]];
+        
+        /*    } else {
+         NSLog(@"error: no data dictionary in object %@", dictionary);
+         [data setDictionary:dictionary];
+         // ***warning  * these initializers might not be efficient*/
+        
+        [self extractMetadata];
+        
+        // ***warning  * should this update the name for files?
+        id dup = [self findDuplicateOrRegisterID];
+        if (dup) return dup;
+        if ([self containsType:QSFilePathType])
+            [self changeFilesToPaths];
+    }
+    return self;
 }
 
+- (NSMutableDictionary *)dictionaryRepresentation {
+    NSMutableDictionary *archive = [super dictionaryRepresentation];
+    NSMutableDictionary *repData = [[NSMutableDictionary alloc] init];
+    NSEnumerator *e = [data keyEnumerator];
+    NSString *key = nil;
+    id obj = nil;
+    while (key = [e nextObject]) {
+        id handler = nil;
+        if (handler = [self handlerForType:key selector:@selector(representationForObject:)]) {
+            obj = [handler representationForObject:self];
+        }
+        if (!obj) {
+            obj = [data objectForKey:key];
+            if([obj respondsToSelector:@selector(dictionaryRepresentation)])
+                obj = [obj dictionaryRepresentation];
+        }
+        if (!obj)
+            obj = [data objectForKey:key];
+        
+        [repData setObject:obj
+                    forKey:key];
+    }
+    [archive setObject:repData forKey:kData];
+    [archive setObject:meta forKey:kMeta];
+    [repData release];
+    return archive;
+}
 @end

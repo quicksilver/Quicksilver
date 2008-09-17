@@ -12,6 +12,8 @@ extern NSSize QSMaxIconSize;
 
 @interface NSObject (QSObjectHandlerInformalProtocol)
 //@protocol QSObjectHandler <NSObject>
+- (QSBasicObject*)objectForRepresentation:(NSDictionary*)dict;
+- (NSDictionary*)representationForObject:(QSBasicObject*)dict;
 - (BOOL)loadIconForObject:(QSObject *)object;
 - (void)setQuickIconForObject:(QSObject *)object;
 - (BOOL)objectHasChildren:(QSObject *)object;
@@ -153,9 +155,9 @@ extern NSSize QSMaxIconSize;
 @end
 
 @interface QSObject (Archiving)
-- (id)initWithCoder:(NSCoder *)coder ;
-- (void)encodeWithCoder:(NSCoder *)coder ;
 + (id)objectFromFile:(NSString *)path;
+- (id)initWithCoder:(NSCoder *)coder;
+- (void)encodeWithCoder:(NSCoder *)coder;
 - (id)initFromFile:(NSString *)path;
 - (void)writeToFile:(NSString *)path;
 - (void)extractMetadata;
@@ -168,33 +170,31 @@ extern NSSize QSMaxIconSize;
 
 //Standard Accessors
 @interface QSObject (Accessors)
-
-- (NSMutableDictionary *)archiveDictionary;
 - (NSString *)identifier;
-- (void)setIdentifier:(NSString *)newIdentifier ;
-- (NSString *)name ;
-- (void)setName:(NSString *)newName ;
-- (NSArray *)children ;
-- (void)setChildren:(NSArray *)newChildren ;
-- (NSArray *)altChildren ;
-- (void)setAltChildren:(NSArray *)newAltChildren ;
+- (void)setIdentifier:(NSString *)newIdentifier;
+- (NSString *)name;
+- (void)setName:(NSString *)newName;
+- (NSArray *)children;
+- (void)setChildren:(NSArray *)newChildren;
+- (NSArray *)altChildren;
+- (void)setAltChildren:(NSArray *)newAltChildren;
 - (NSString *)label;
-- (void)setLabel:(NSString *)newLabel ;
-- (NSString *)primaryType ;
-- (void)setPrimaryType:(NSString *)newPrimaryType ;
-- (NSMutableDictionary *)dataDictionary ;
-- (void)setDataDictionary:(NSMutableDictionary *)newDataDictionary ;
+- (void)setLabel:(NSString *)newLabel;
+- (NSString *)primaryType;
+- (void)setPrimaryType:(NSString *)newPrimaryType;
+- (NSMutableDictionary *)dataDictionary;
+- (void)setDataDictionary:(NSMutableDictionary *)newDataDictionary;
 ///- (id)contents ;
 ///- (void)setContents:(id)newContents ;
-- (BOOL)iconLoaded ;
-- (void)setIconLoaded:(BOOL)flag ;
-- (BOOL)retainsIcon ;
-- (void)setRetainsIcon:(BOOL)flag ;
-- (BOOL)childrenLoaded ;
-- (void)setChildrenLoaded:(BOOL)flag ;
-- (BOOL)contentsLoaded ;
-- (void)setContentsLoaded:(BOOL)flag ;
-- (NSTimeInterval) childrenLoadedDate;
+- (BOOL)iconLoaded;
+- (void)setIconLoaded:(BOOL)flag;
+- (BOOL)retainsIcon;
+- (void)setRetainsIcon:(BOOL)flag;
+- (BOOL)childrenLoaded;
+- (void)setChildrenLoaded:(BOOL)flag;
+- (BOOL)contentsLoaded;
+- (void)setContentsLoaded:(BOOL)flag;
+- (NSTimeInterval)childrenLoadedDate;
 - (void)setChildrenLoadedDate:(NSTimeInterval)newChildrenLoadedDate; //- (NSTimeInterval)lastUseDate;
 //- (void)setLastUseDate:(NSTimeInterval)newLastUseDate;
 @end

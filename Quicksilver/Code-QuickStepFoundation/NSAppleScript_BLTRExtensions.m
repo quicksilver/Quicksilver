@@ -63,7 +63,11 @@
 	subroutineDescriptor = [NSAppleEventDescriptor descriptorWithString:name];
 	[event setParamDescriptor:subroutineDescriptor forKeyword:keyASSubroutineName];
 	if (arguments) [event setParamDescriptor:arguments forKeyword:keyDirectObject];
-	return [self executeAppleEvent:event error:errorInfo];
+    NSDictionary *dict = nil;
+	NSAppleEventDescriptor *desc = [self executeAppleEvent:event error:&dict];
+    if (!desc && DEBUG)
+        NSLog(@"Failed executing script: %@", dict);
+    return desc;
 }
 
 - (NSAppleEventDescriptor *)executeAppleEventWithEventClass:(AEEventClass)aEventClass eventID:(AEEventID)aEventID arguments:(id)arguments error:(NSDictionary **)errorInfo {

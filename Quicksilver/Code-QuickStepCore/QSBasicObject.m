@@ -8,7 +8,27 @@
 
 #import "QSBasicObject.h"
 
+#define kQSObjectClass @"class"
+
 @implementation QSBasicObject
+
++ (id)objectWithDictionary:(NSDictionary *)dictionary {
+    if (DEBUG_UNPACKING)
+        NSLog(@"%@ %@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), dictionary);
+    if(dictionary == nil)
+        return nil;
+    id obj = [dictionary objectForKey:kQSObjectClass];
+    if(obj)
+        obj = [[NSClassFromString(obj) alloc] initWithDictionary:dictionary];
+    
+    if(!obj)
+        obj = [[self alloc] initWithDictionary:dictionary];
+    
+    if (!obj && DEBUG_UNPACKING)
+        NSLog(@"%@ %@ failed creating object with dict %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), dictionary);
+    
+    return [obj autorelease];
+}
 
 - (id)init {
 	if (self = [super init]) {
@@ -17,9 +37,23 @@
 	return self;
 }
 
+- (id)initWithDictionary:(NSDictionary*)dictionary {
+    if([self isMemberOfClass:[QSBasicObject class]]) {
+        [self release];
+        return nil;
+    }
+    return [self init];
+}
+
+- (NSMutableDictionary*)dictionaryRepresentation {
+    if([self isMemberOfClass:[QSBasicObject class]])
+        [NSException raise:NSInternalInconsistencyException
+                    format:@"QSBasicObject doesn't support archiving via -dictionaryRepresentation. Use a subclass."];
+    return [NSMutableDictionary dictionaryWithObject:NSStringFromClass([self class]) forKey:kQSObjectClass];
+}
+
 - (void)dealloc {
 	[ranker release];
-	[rankData release];
 	[super dealloc];
 }
 

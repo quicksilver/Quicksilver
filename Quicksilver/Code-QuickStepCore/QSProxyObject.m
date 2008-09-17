@@ -92,12 +92,6 @@
 
 	return [[self proxyProvider] respondsToSelector:@selector(bypassValidation)] && [[self proxyProvider] bypassValidation];
 }
-- (NSMutableDictionary *)archiveDictionary {
-
-	NSMutableDictionary *archive = [super archiveDictionary];
-	[archive setObject:NSStringFromClass([self class]) forKey:@"class"];
-	return archive;
-}
 - (NSMutableDictionary *)dataDictionary {
 	return [[self proxyObject] dataDictionary];
 }

@@ -229,8 +229,8 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	NSMutableDictionary *sDict = [oDict mutableCopy];
 	QSObject *dObject = [oDict objectForKey:@"directObject"];
 	QSObject *iObject = [oDict objectForKey:@"indirectObject"];
-	if (dObject && ![oDict objectForKey:@"directArchive"]) [sDict setObject:[dObject archiveDictionary] forKey:@"directArchive"];
-	if (iObject && ![oDict objectForKey:@"indirectArchive"]) [sDict setObject:[iObject archiveDictionary] forKey:@"indirectArchive"];
+	if (dObject && ![oDict objectForKey:@"directArchive"]) [sDict setObject:[dObject dictionaryRepresentation] forKey:@"directArchive"];
+	if (iObject && ![oDict objectForKey:@"indirectArchive"]) [sDict setObject:[iObject dictionaryRepresentation] forKey:@"indirectArchive"];
 	[sDict removeObjectsForKeys:[NSArray arrayWithObjects:@"directObject", @"indirectObject", @"actionObject", nil]];
 	return [sDict autorelease];
 }

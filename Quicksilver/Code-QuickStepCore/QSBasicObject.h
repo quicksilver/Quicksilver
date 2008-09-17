@@ -10,6 +10,8 @@
 #import <QSCore/QSObjectRanker.h>
 
 @protocol QSObject
+- (id)initWithDictionary:(NSDictionary*)dictionary;
+- (NSMutableDictionary *)dictionaryRepresentation;
 - (NSString *)label;
 - (NSString *)name;
 - (NSString *)primaryType;
@@ -36,7 +38,8 @@
 @public
 	NSObject <QSObjectRanker> *ranker;
 }
-- (int) primaryCount;
++ (id)objectWithDictionary:(NSDictionary*)dictionary;
+- (int)primaryCount;
 - (BOOL)loadIcon;
 - (NSImage *)icon;
 - (NSString *)displayName;

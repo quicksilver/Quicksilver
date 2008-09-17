@@ -866,9 +866,8 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 }
 
 - (IBAction)logObjectDictionary:(id)sender {
-
 	NSLog(@"Printing Object\r%@", [[self objectValue] name]);
-	NSLog(@"Dictionary\r%@", [[self objectValue] archiveDictionary]);
+	NSLog(@"Dictionary\r%@", [[self objectValue] dictionaryRepresentation]);
 	NSLog(@"Icon\r%@", [[self objectValue] icon]);
 
 }
