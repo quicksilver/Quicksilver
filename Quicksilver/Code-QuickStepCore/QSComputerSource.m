@@ -11,7 +11,7 @@
 - (NSString *)label {return [[NSProcessInfo processInfo] hostName];}
 - (NSString *)name {return @"Computer";}
 - (NSImage *)icon {return [QSResourceManager imageNamed:@"ComputerIcon"];}
-- (bool)hasChildren {return YES;}
+- (BOOL)hasChildren {return YES;}
 - (NSArray *)children { return [[QSLib entryForID:@"QSPresetVolumes"] contents]; }
 - (void)dealloc {
 	[name release];

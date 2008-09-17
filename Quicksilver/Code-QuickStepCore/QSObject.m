@@ -138,7 +138,7 @@ NSSize QSMaxIconSize;
 - (NSEnumerator *)enumeratorForType:(NSString *)aKey {return [[self arrayForType:aKey] objectEnumerator];}
 - (float) score {return 0.0;}
 - (int) order {return NSNotFound;}
-- (bool) hasChildren {return NO;}
+- (BOOL) hasChildren {return NO;}
 - (NSArray *)children {return nil;}
 - (NSArray *)altChildren {return nil;}
 - (NSString *)description {return [self name];}
@@ -434,8 +434,8 @@ NSSize QSMaxIconSize;
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-	//NSLog(@"copied!");
-	return [self retain];
+	if(DEBUG)
+        NSLog(@"copied!");
 	return NSCopyObject(self, 0, zone);
 }
 

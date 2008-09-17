@@ -26,7 +26,7 @@ extern NSSize QSMaxIconSize;
 
 @protocol QSObjectHierarchy
 - (QSBasicObject *)parent;
-- (bool) hasChildren;
+- (BOOL) hasChildren;
 - (NSArray *)children;
 - (NSArray *)altChildren;
 - (NSArray *)siblings;
