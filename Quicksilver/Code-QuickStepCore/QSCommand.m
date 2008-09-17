@@ -139,7 +139,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 - (QSObject *)executeCommand:(QSObject *)dObject afterDelay:(QSObject *)iObject {
 	NSTimer *timer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:QSTimeIntervalForString([iObject stringValue])] interval:0 target:self selector:@selector(runCommand:) userInfo:dObject repeats:NO];
 	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
-	[timer release];
+    [timer release];
 	return nil;
 }
 
@@ -148,13 +148,13 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	if (!date) { NSBeep(); return nil; }
 	NSTimer *timer = [[NSTimer alloc] initWithFireDate:date interval:0 target:self selector:@selector(runCommand:) userInfo:dObject repeats:NO];
 	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
-	[timer release];
+    [timer release];
 	return nil;
 }
 
 - (void)runCommand:(NSTimer *)timer {
 	[(QSCommand*)[timer userInfo] execute];
-	[timer release];
+	[timer invalidate];
 }
 
 @end
