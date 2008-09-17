@@ -2,94 +2,13 @@
 #import <Foundation/Foundation.h>
 #import <AddressBook/AddressBook.h>
 
-#import "QSObjectRanker.h"
+#import <QSCore/QSBasicObject.h>
+
 @class QSObject, QSBasicObject;
-
-
 
 extern NSSize QSMaxIconSize;
 
-
 // QSObject Protocols -  right now these aren't sufficient. QSBasicObject must be subclassed
-@protocol QSObject
-- (NSString *)label;
-- (NSString *)name;
-- (NSString *)primaryType;
-- (id)primaryObject;
-- (id)objectForType:(id)aType;
-- (NSArray *)arrayForType:(id)aKey;
-- (NSArray *)types;
-- (id)primaryObject;
-- (BOOL)loadIcon;
-- (BOOL)iconLoaded;
-@end
-
-@protocol QSObjectHierarchy
-- (QSBasicObject *)parent;
-- (BOOL) hasChildren;
-- (NSArray *)children;
-- (NSArray *)altChildren;
-- (NSArray *)siblings;
-- (NSArray *)altSiblings;
-@end
-
-@class QSBasicObject;
-@interface QSRankInfo : NSObject {
-	@public
-	NSString *identifier;
-	NSString *name;
-	NSString *label;
-	NSDictionary *mnemonics;
-	BOOL omitted;
-}
-+(id)rankDataWithObject:(QSBasicObject *)object;
-- (id)initWithObject:(QSBasicObject *)object;
-- (NSString *)identifier;
-- (void)setIdentifier:(NSString *)anIdentifier;
-- (NSString *)name;
-- (void)setName:(NSString *)aName;
-- (NSString *)label;
-- (void)setLabel:(NSString *)aLabel;
-- (NSDictionary *)mnemonics;
-- (void)setMnemonics:(NSDictionary *)aMnemonics;
-- (BOOL)omitted;
-- (void)setOmitted:(BOOL)flag;
-@end
-
-@interface QSBasicObject : NSObject <QSObject, QSObjectHierarchy> {
-	@public
-	QSRankInfo *			rankData;
-	NSObject <QSObjectRanker> *ranker;
-}
-- (int) primaryCount;
-- (BOOL)loadIcon;
-- (NSImage *)icon;
-- (NSString *)displayName;
-- (NSString *)details;
-- (NSString *)toolTip;
-- (float) score;
-- (int) order;
-- (NSString *)description;
-//- (float) rankModification;
-- (NSString *)identifier;
-- (NSEnumerator *)enumeratorForType:(NSString *)aKey;
-- (NSComparisonResult) nameCompare:(QSBasicObject *)object;
-- (BOOL)putOnPasteboard:(NSPasteboard *)pboard;
-- (BOOL)putOnPasteboard:(NSPasteboard *)pboard includeDataForTypes:(NSArray *)includeTypes;
-- (BOOL)putOnPasteboard:(NSPasteboard *)pboard declareTypes:(NSArray *)types includeDataForTypes:(NSArray *)includeTypes;
-- (QSRankInfo *)getRankData;
-- (id <QSObjectRanker>) getRanker;
-- (id <QSObjectRanker>) ranker;
-- (void)setOmitted:(BOOL)flag;
-- (void)updateMnemonics;
-- (BOOL)drawIconInRect:(NSRect)rect flipped:(BOOL)flipped;
-- (NSString *)kind;
-- (void)setOmitted:(BOOL)flag ;
-- (BOOL)containsType:(NSString *)aType;
-- (QSBasicObject *)resolvedObject;
-- (void)becameSelected;
-@end
-
 
 @interface NSObject (QSObjectHandlerInformalProtocol)
 //@protocol QSObjectHandler <NSObject>
@@ -108,10 +27,6 @@ extern NSSize QSMaxIconSize;
 - (NSString *)kindOfObject:(QSObject *)object;
 - (id)dataForObject:(QSObject *)object pasteboardType:(NSString *)type;
 @end
-
-
-
-
 
 
 #define itemForKey(k) [data objectForKey:k]

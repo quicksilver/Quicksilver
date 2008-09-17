@@ -37,139 +37,6 @@ BOOL QSObjectInitialized = NO;
 
 NSSize QSMaxIconSize;
 
-
-@implementation QSBasicObject
-
-- (id)init {
-	if (self = [super init]) {
-		rankData = nil;
-		ranker = nil;
-	}
-	return self;
-}
-
-- (void)dealloc {
-	[ranker release];
-	[rankData release];
-	[super dealloc];
-}
-//- (BOOL)respondsToSelector:(SEL)aSelector {
-//	if ( [super respondsToSelector:aSelector]) return YES;
-//	if (VERBOSE) NSLog(@"select %@", NSStringFromSelector(aSelector));
-//	return NO;
-//}
-- (QSRankInfo *)getRankData {
-	QSRankInfo *oldRankData;
-	oldRankData = rankData;
-	rankData = [[QSRankInfo rankDataWithObject:self] retain];
-	[oldRankData release];
-	return rankData;
-}
-
-- (id <QSObjectRanker>) getRanker {
-	id oldRanker;
-	oldRanker = ranker;
-	ranker = [[QSDefaultObjectRanker alloc] initWithObject:self];
-	[oldRanker release];
-	return ranker;
-}
-- (id <QSObjectRanker>) ranker {
-	if (!ranker) return [self getRanker];
-	return ranker;
-}
-
-- (void)updateMnemonics {
-	[self getRanker];
-    //	[rankData setMnemonics:[[QSMnemonics sharedInstance] objectMnemonicsForID:[self identifier]]];
-}
-- (id)this {return [[self retain] autorelease];}
-- (id)thisWithIcon {
-	[self loadIcon];
-	return [[self retain] autorelease];
-}
-
-- (void)setEnabled:(BOOL)flag {
-	[QSLib setItem:self isOmitted:!flag];
-}
-- (BOOL)enabled {
-	return (BOOL)![QSLib itemIsOmitted:self];
-}
-
-- (void)setOmitted:(BOOL)flag {
-	[[self ranker] setOmitted:flag];
-}
-
-- (NSString *)kind {
-	return @"Object";
-}
-
-- (NSString *)label {return nil;}
-- (NSString *)name {return @"Object";}
-- (NSString *)primaryType {return nil;}
-- (id)primaryObject {return nil;}
-- (BOOL)containsType:(NSString *)aType {
-	return [[self types] containsObject:aType];
-}
-- (NSArray *)types {return nil;}
-- (int) primaryCount {return 0;}
-- (BOOL)loadIcon {return YES;}
-- (NSImage *)icon {
-	//[NSBundle bundleForClass:[self class]]
-	return [NSImage imageNamed:@"Object"];
-}
-- (NSComparisonResult) compare:(id)other {
-	return [[self name] 	compare:[other name]];
-}
-
-- (NSImage *)loadedIcon {
-	if (![self iconLoaded]) [self loadIcon];
-	return [self icon];
-}
-- (void)becameSelected { return;}
-
-- (BOOL)iconLoaded { return YES;  }
-- (QSBasicObject *)parent {return nil;}
-- (NSString *)displayName {return [self name];}
-- (NSString *)details {return nil;}
-- (NSString *)toolTip {return nil;}
-- (BOOL)drawIconInRect:(NSRect)rect flipped:(BOOL)flipped {return NO;}
-- (id)objectForType:(id)aKey {return nil;}
-- (NSArray *)arrayForType:(id)aKey {return nil;}
-- (NSEnumerator *)enumeratorForType:(NSString *)aKey {return [[self arrayForType:aKey] objectEnumerator];}
-- (float) score {return 0.0;}
-- (int) order {return NSNotFound;}
-- (BOOL) hasChildren {return NO;}
-- (NSArray *)children {return nil;}
-- (NSArray *)altChildren {return nil;}
-- (NSString *)description {return [self name];}
-//- (float) rankModification {return 0;}
-- (NSString *)identifier {return nil;}
-- (NSComparisonResult) scoreCompare:(QSBasicObject *)object {
-	return NSOrderedSame;
-}
-
-- (NSArray *)siblings {
-    
-	return [[self parent] children];
-}
-- (NSArray *)altSiblings {return [[self parent] altChildren];}
-
-- (NSComparisonResult) nameCompare:(QSBasicObject *)object {
-	return [[self name] caseInsensitiveCompare:[object name]];
-}
-- (BOOL)putOnPasteboard:(NSPasteboard *)pboard {
-	return [self putOnPasteboard:pboard declareTypes:nil includeDataForTypes:nil];
-}
-- (BOOL)putOnPasteboard:(NSPasteboard *)pboard includeDataForTypes:(NSArray *)includeTypes {
-	return [self putOnPasteboard:pboard declareTypes:nil includeDataForTypes:includeTypes];
-}
-
-- (BOOL)putOnPasteboard:(NSPasteboard *)pboard declareTypes:(NSArray *)types includeDataForTypes:(NSArray *)includeTypes {
-	return NO;
-}
-- (QSBasicObject *)resolvedObject {return self;}
-@end
-
 @implementation QSObject
 + (void)initialize {
 	if (!QSObjectInitialized) {
@@ -738,8 +605,6 @@ return nil;
 	if ([newName length] > 255) newName = [newName substringToIndex:255];
 	// ***warning  ** this should take first line only?
 
-	[rankData setName:[newName purifiedString]];
-
 	name = [newName retain];
 	if (newName) [meta setObject:newName forKey:kQSObjectPrimaryName];
 }
@@ -780,7 +645,6 @@ return nil;
 	if (![newLabel isEqualToString:[self name]]) {
 		[label release];
 		label = [newLabel retain];
-		[rankData setLabel:[newLabel purifiedString]];
 		if (newLabel) [meta setObject:newLabel forKey:kQSObjectAlternateName];
 		else 	[meta removeObjectForKey:kQSObjectAlternateName];
 	}
@@ -930,69 +794,6 @@ return nil;
 	if ([self identifier])
 		[QSObject registerObject:self withIdentifier:[self identifier]];
 	return nil;
-}
-
-@end
-
-@implementation QSRankInfo
-+(id)rankDataWithObject:(QSBasicObject *)object {
-	return [[[self alloc] initWithObject:object] autorelease];
-}
-- (id)initWithObject:(QSBasicObject *)object {
-	if (self = [super init]) {
-		NSString *theIdentifier = [object identifier];
-		name = [[QSDefaultStringRanker alloc] initWithString:[object name]];
-		label = [[QSDefaultStringRanker alloc] initWithString:[object label]];
-		[self setIdentifier:theIdentifier];
-		[self setMnemonics:[[QSMnemonics sharedInstance] objectMnemonicsForID:identifier]];
-		[self setOmitted:[QSLib itemIsOmitted:object]];
-	}
-	return self;
-}
-- (void)dealloc {
-	[name release];
-	[label release];
-	[mnemonics release];
-	[identifier release];
-	[super dealloc];
-}
-
-- (NSString *)identifier { return identifier;  }
-- (void)setIdentifier:(NSString *)anIdentifier {
-	if (identifier != anIdentifier) {
-		[identifier release];
-		identifier = [anIdentifier retain];
-	}
-}
-
-- (NSString *)name { return name;  }
-- (void)setName:(NSString *)aName {
-	if (name != aName) {
-		[name release];
-		name = [[QSDefaultStringRanker alloc] initWithString:aName];
-	}
-}
-
-- (NSString *)label { return label;  }
-- (void)setLabel:(NSString *)aLabel {
-	if (label != aLabel) {
-		[label release];
-		label = [[QSDefaultStringRanker alloc] initWithString:aLabel];
-	}
-}
-
-- (NSDictionary *)mnemonics { return mnemonics;  }
-
-- (void)setMnemonics:(NSDictionary *)aMnemonics {
-	if (mnemonics != aMnemonics) {
-		[mnemonics release];
-		mnemonics = [aMnemonics retain];
-	}
-}
-
-- (BOOL)omitted { return omitted;  }
-- (void)setOmitted:(BOOL)flag {
-	omitted = flag;
 }
 
 @end
