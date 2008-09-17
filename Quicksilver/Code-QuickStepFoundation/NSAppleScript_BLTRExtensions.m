@@ -58,15 +58,14 @@
 		arguments = argumentList;
 	}
 	int pid = [[NSProcessInfo processInfo] processIdentifier];
-	targetAddress = [[[NSAppleEventDescriptor alloc] initWithDescriptorType:typeKernelProcessID bytes:&pid length:sizeof(pid)] autorelease];
-	event = [[[NSAppleEventDescriptor alloc] initWithEventClass:kASAppleScriptSuite eventID:kASSubroutineEvent targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID] autorelease];
+	targetAddress = [[NSAppleEventDescriptor alloc] initWithDescriptorType:typeKernelProcessID bytes:&pid length:sizeof(pid)];
+	event = [[NSAppleEventDescriptor alloc] initWithEventClass:kASAppleScriptSuite eventID:kASSubroutineEvent targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
 	subroutineDescriptor = [NSAppleEventDescriptor descriptorWithString:name];
 	[event setParamDescriptor:subroutineDescriptor forKeyword:keyASSubroutineName];
 	if (arguments) [event setParamDescriptor:arguments forKeyword:keyDirectObject];
-    NSDictionary *dict = nil;
-	NSAppleEventDescriptor *desc = [self executeAppleEvent:event error:&dict];
-    if (!desc && DEBUG)
-        NSLog(@"Failed executing script: %@", dict);
+	NSAppleEventDescriptor *desc = [self executeAppleEvent:event error:errorInfo];
+    [event release];
+    [targetAddress release];
     return desc;
 }
 

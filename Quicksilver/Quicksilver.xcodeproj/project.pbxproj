@@ -64,6 +64,8 @@
 		4DB4A03E0E100B020010C540 /* QSImageAndTextCell.h in Headers */ = {isa = PBXBuildFile; fileRef = E103EE5B06471DDE00447FE0 /* QSImageAndTextCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DB8915C0E13E93200F57EF7 /* QSDesktopBackgroundView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DB8915A0E13E93200F57EF7 /* QSDesktopBackgroundView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DB8915D0E13E93200F57EF7 /* QSDesktopBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DB8915B0E13E93200F57EF7 /* QSDesktopBackgroundView.m */; };
+		4DD2CF360E7B345500BA1128 /* QSBasicObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD2CF340E7B345500BA1128 /* QSBasicObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DD2CF370E7B345500BA1128 /* QSBasicObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2CF350E7B345500BA1128 /* QSBasicObject.m */; };
 		4DFE7DA20E081A3B000B9AA3 /* NSImage+QuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DFE7DA00E081A30000B9AA3 /* NSImage+QuickLook.m */; };
 		4DFE7DA30E081A3C000B9AA3 /* NSImage+QuickLook.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DFE7D9F0E081A30000B9AA3 /* NSImage+QuickLook.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DFE7DC70E082132000B9AA3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
@@ -893,6 +895,8 @@
 		4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn.xcconfig; sourceTree = "<group>"; };
 		4DC3DD120E0BB27B009902EF /* QSPlugIn_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPlugIn_Prefix.pch; sourceTree = "<group>"; };
 		4DC3DD130E0BB27B009902EF /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		4DD2CF340E7B345500BA1128 /* QSBasicObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSBasicObject.h; sourceTree = "<group>"; };
+		4DD2CF350E7B345500BA1128 /* QSBasicObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSBasicObject.m; sourceTree = "<group>"; };
 		4DFE7D9F0E081A30000B9AA3 /* NSImage+QuickLook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+QuickLook.h"; sourceTree = "<group>"; };
 		4DFE7DA00E081A30000B9AA3 /* NSImage+QuickLook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+QuickLook.m"; sourceTree = "<group>"; };
 		4DFE7DA10E081A30000B9AA3 /* README.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = README.rtf; sourceTree = "<group>"; };
@@ -2362,6 +2366,8 @@
 				7FD5470F0872DB8600661F70 /* QSTask.m */,
 				7FB8AD4C08E6328D000A65C4 /* QSHandledObjectHandler.h */,
 				7FB8AD4D08E6328D000A65C4 /* QSHandledObjectHandler.m */,
+				4DD2CF340E7B345500BA1128 /* QSBasicObject.h */,
+				4DD2CF350E7B345500BA1128 /* QSBasicObject.m */,
 			);
 			path = "Code-QuickStepCore";
 			sourceTree = "<group>";
@@ -2591,6 +2597,7 @@
 				7FA4ED4C09132402007DB407 /* UKKQueue.h in Headers */,
 				7FA4ED4E09132402007DB407 /* UKMainThreadProxy.h in Headers */,
 				929052FA0D0FEAD600579DAE /* QSMiscFunctions.h in Headers */,
+				4DD2CF360E7B345500BA1128 /* QSBasicObject.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3295,6 +3302,7 @@
 				7FA4ED4F09132402007DB407 /* UKMainThreadProxy.m in Sources */,
 				9294A4E70D0FA219000EAE2E /* QSPaths.m in Sources */,
 				929052FB0D0FEAD600579DAE /* QSMiscFunctions.m in Sources */,
+				4DD2CF370E7B345500BA1128 /* QSBasicObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

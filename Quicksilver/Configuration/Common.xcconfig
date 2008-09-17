@@ -11,6 +11,8 @@ INFOPLIST_PREPROCESS = YES
 
 FRAMEWORK_SEARCH_PATHS = /System/Library/PrivateFrameworks ~/Library/Frameworks $(BUILT_PRODUCTS_DIR)
 
+//GCC_VERSION = com.apple.compilers.llvmgcc42
+
 // Disabled for now, plugins get angry
 //GCC_ENABLE_OBJC_GC = supported
 

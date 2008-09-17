@@ -39,6 +39,7 @@
 @interface QSBasicObject : NSObject <QSObject, QSObjectHierarchy> {
 @public
 	NSObject <QSObjectRanker> *ranker;
+    NSBundle                  *bundle;
 }
 + (id)objectWithDictionary:(NSDictionary*)dictionary;
 - (int)primaryCount;

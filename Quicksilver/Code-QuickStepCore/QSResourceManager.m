@@ -109,7 +109,7 @@ id QSRez;
 	if (!image && resourceOverrideList) {
 		NSString *file = [resourceOverrideList objectForKey:name];
 		if (file)
-			image = [[[NSImage alloc] initByReferencingFile:[resourceOverrideFolder stringByAppendingPathComponent:file]]autorelease];
+			image = [[[NSImage alloc] initByReferencingFile:[resourceOverrideFolder stringByAppendingPathComponent:file]] autorelease];
 		[image setName:name];
 
 	}

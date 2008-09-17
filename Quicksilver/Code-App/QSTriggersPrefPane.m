@@ -508,7 +508,7 @@
 	}
 	[info setObject:[NSString uniqueString] forKey:kItemID];
 
-	QSTrigger *trigger = [QSTrigger triggerWithInfo:info];
+	QSTrigger *trigger = [QSTrigger triggerWithDictionary:info];
     [info release];
 	[trigger initializeTrigger];
 	[[QSTriggerCenter sharedInstance] addTrigger:trigger];

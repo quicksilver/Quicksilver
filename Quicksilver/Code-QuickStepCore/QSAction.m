@@ -34,10 +34,8 @@ static BOOL gModifiersAreIgnored;
     if (obj)
         return obj;
     
-    NSMutableDictionary *rep = [dict mutableCopy];
-    [rep setObject:ident forKey:kActionIdentifier];
     obj = [self actionWithDictionary:dict];
-    [rep release];
+    [obj setIdentifier:ident];
     return obj;
 }
 
@@ -64,11 +62,11 @@ static BOOL gModifiersAreIgnored;
 	return self;
 }
 
-- (id)initWithDictionary:(NSDictionary *)dict identifier:(NSString *)ident bundle:(NSBundle *)bundle {
+- (id)initWithDictionary:(NSDictionary *)dict identifier:(NSString *)ident bundle:(NSBundle *)aBundle {
     NSMutableDictionary *rep = [dict mutableCopy];
     [rep setObject:ident forKey:kActionIdentifier];
     id obj = [self initWithDictionary:rep];
-    [obj setBundle:bundle];
+    [obj setBundle:aBundle];
     
     [rep release];
     return obj;
@@ -90,7 +88,7 @@ static BOOL gModifiersAreIgnored;
     return [self objectForType:QSActionType];
 }
 
-- (float) precedence {
+- (float)precedence {
 	NSNumber *num = [[self actionDict] objectForKey:kActionPrecedence];
 #if 0
 	if (!num) num = [[self actionDict] objectForKey:@"rankModification"];
@@ -104,7 +102,7 @@ static BOOL gModifiersAreIgnored;
 	return [self precedence];
 }
 #endif
-- (int) rank { return rank;  }
+- (int)rank { return rank;  }
 //- (int) _rank { return rank;  }
 - (void)_setRank:(int)newRank {
 	[self willChangeValueForKey:@"rank"];
@@ -120,14 +118,16 @@ static BOOL gModifiersAreIgnored;
     NSString *n = [super name];
     NSString *ident = [self identifier];
     if (!n) {
-        NSObject <QSActionProvider> *provider = [self provider];
-        if(provider && [provider respondsToSelector:@selector(titleForAction:)])
-            n = [[self provider] titleForAction:ident];
-        
-        if (!n) n = [[self bundle] safeLocalizedStringForKey:ident
-                                                       value:nil
-                                                       table:@"QSAction.name"];
+        n = [[self bundle] safeLocalizedStringForKey:ident
+                                               value:nil
+                                               table:@"QSAction.name"];
         if (!n) n = [[self actionDict] objectForKey:kActionName];
+        
+        if (!n) {
+            NSObject <QSActionProvider> *provider = [self provider];
+            if(provider && [provider respondsToSelector:@selector(titleForAction:)])
+                n = [[self provider] titleForAction:ident];
+        }
         
         [self setName:n];
         
@@ -141,7 +141,7 @@ static BOOL gModifiersAreIgnored;
 	[QSExec noteNewName:dname forAction:self];
 }
 
-- (int) userRank { return rank+1;  }
+- (int)userRank { return rank+1;  }
 - (void)setUserRank:(int)newRank {
 	rank = newRank-1;
 	[QSExec updateRanks];
@@ -163,7 +163,12 @@ static BOOL gModifiersAreIgnored;
 	[QSExec setAction:self isEnabled:flag];
 }
 
-- (NSNumber *)defaultEnabled { return [[self actionDict] objectForKey:kActionEnabled];  }
+- (BOOL)defaultEnabled { 
+    NSNumber *n = [[self actionDict] objectForKey:kActionEnabled];
+    if(n)
+        return [n boolValue];
+    return YES;
+}
 
 //- (SEL) action { return [self actionDict];  }
 - (void)setAction:(SEL)newAction {
@@ -192,15 +197,6 @@ static BOOL gModifiersAreIgnored;
 
 - (BOOL)displaysResult { return [[[self actionDict] objectForKey:kActionDisplaysResult] boolValue];  }
 - (void)setDisplaysResult:(BOOL)flag { [[self actionDict] setObject:[NSNumber numberWithInt:flag] forKey:kActionDisplaysResult];  }
-
-- (NSBundle*)bundle {
-    id b = [super bundle];
-    if (!b) {
-        b = [QSReg bundleForClassName:[[self actionDict] objectForKey:kActionProvider]];
-        [self setBundle:b];
-    }
-    return b;
-}
 
 - (id)provider {
 	NSDictionary *dict = [self actionDict];
@@ -280,40 +276,47 @@ static BOOL gModifiersAreIgnored;
 	return nil;
 }
 
-- (NSString *)commandDescriptionWithDirectObject:(QSBasicObject *)dObject indirectObject:(QSBasicObject *)iObject {
+- (NSString *)commandFormat {
 	NSString *format;
 	NSString *identi = [self identifier];
     
 	//check class bundle
-	format = [[(QSAction *)self bundle] safeLocalizedStringForKey:identi value:nil table:@"QSAction.commandFormat"];
+	format = [[self bundle] safeLocalizedStringForKey:identi value:nil table:@"QSAction.commandFormat"];
     
 	//Check the action dictionary
-	if ([format isEqualToString:identi])
+	if (!format)
 		format = [[self actionDict] objectForKey:@"commandFormat"];
     
 	// Check the main bundle
-	if ([format isEqualToString:identi])
+	if (!format)
 		format = [[NSBundle mainBundle] safeLocalizedStringForKey:identi value:nil table:@"QSAction.commandFormat"];
     
 	//Fallback format
-	if (!format || [format isEqualToString:identi])
-		format = [NSString stringWithFormat:@"%%@ (%@) %@", [self displayName], [self argumentCount] > 1 ? @" %@":@""];
+	if (!format)
+		format = [NSString stringWithFormat:@"%%@ (%@) %@", [self name], ([self argumentCount] > 1 ? @" %@" : @"")];
     
-	return [NSString stringWithFormat:format, [dObject displayName], iObject ? [iObject displayName] : @"<?>"];
+    return format;
 }
 
 @end
 
 @implementation QSActionHandler
+- (id)objectForRepresentation:(NSDictionary*)dictionary {
+    QSAction *obj = [[QSAction alloc] init];
+    [[obj actionDict] setDictionary:dictionary];
+    return [obj autorelease];
+}
+
+- (NSDictionary*)representationForObject:(QSBasicObject*)object {
+    return [(QSAction*)object actionDict];
+}
 
 - (NSString *)identifierForObject:(QSObject *)object {
 	return [[object objectForType:QSActionType] objectForKey:kActionIdentifier];
 }
 
 - (NSString *)detailsOfObject:(QSObject *)object {
-	NSString *newDetails = [[(QSAction *)object bundle] safeLocalizedStringForKey:[object identifier] value:@"missing" table:@"QSAction.description"];
-	if ([newDetails isEqualToString:@"missing"])
-		newDetails = nil;
+	NSString *newDetails = [[object bundle] safeLocalizedStringForKey:[object identifier] value:nil table:@"QSAction.description"];
 	if (newDetails)
 		return newDetails;
 	else

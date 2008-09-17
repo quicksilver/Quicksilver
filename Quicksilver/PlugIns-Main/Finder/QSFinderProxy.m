@@ -17,6 +17,7 @@
 	[self setFinderScript:nil];
 	[super dealloc];
 }
+
 - (NSImage *)icon {
 	return [[NSWorkspace sharedWorkspace] iconForFile:@"/System/Library/CoreServices/Finder.app"];
 }
@@ -35,7 +36,10 @@
 - (NSArray *)selection {
 	NSDictionary *errorDict = nil;
 	NSAppleEventDescriptor *desc = [[self finderScript] executeSubroutine:@"get_selection" arguments:nil error:&errorDict];
-	if (errorDict) NSLog(@"Execute Error: %@", errorDict);
+	if (errorDict) {
+        NSLog(@"Execute Error: %@", errorDict);
+        return nil;
+    }
 	NSMutableArray *files = [NSMutableArray arrayWithCapacity:[desc numberOfItems]];
 	int i;
 	for (i = 0; i<[desc numberOfItems]; i++)
@@ -158,10 +162,6 @@ target:
 		if (path)
 			finderScript = [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:nil];
 	}
-    [self performSelector:@selector(setFinderScript:)
-               withObject:finderScript
-               afterDelay:10*MINUTES
-                   extend:YES];
 	return finderScript;
 }
 
@@ -185,14 +185,10 @@ target:
 
 - (NSArray *)actionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
 	// Trash Object
-	NSMutableArray *array = [NSMutableArray array];
-	[array addObject:[QSAction actionWithDictionary:[NSDictionary dictionaryWithObjectsAndKeys:
-															 self, kActionProvider, @"openTrash:", kActionSelector, nil]
-										 identifier:@"FinderOpenTrashAction"]];
-	[array addObject:[QSAction actionWithDictionary:[NSDictionary dictionaryWithObjectsAndKeys:
-															 self, kActionProvider, @"emptyTrash:", kActionSelector, nil]
-										 identifier:@"FinderEmptyTrashAction"]];
-     return array;
+    return [NSMutableArray arrayWithObjects:
+            [QSAction actionWithIdentifier:kFinderOpenTrashAction],
+            [QSAction actionWithIdentifier:kFinderEmptyTrashAction],
+            nil];
 }
 
 @end

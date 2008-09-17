@@ -172,15 +172,23 @@ QSExecutor *QSExec;
 
 	[actionIdentifiers setObject:action forKey:ident];
 
-	NSNumber *activation = [actionActivation objectForKey:ident];
-	if (!activation)
-		activation = [action defaultEnabled];
-	[action _setEnabled:activation?[activation boolValue] : YES];
-
-	activation = [actionMenuActivation objectForKey:ident];
-	if (!activation)
-		activation = [action defaultEnabled];
-	[action _setMenuEnabled:activation?[activation boolValue] :YES];
+    
+	BOOL activation = NO;
+    NSNumber *act = nil;
+    act = [actionActivation objectForKey:ident];
+	if (act)
+        activation = [act boolValue];
+    else
+        activation = [action defaultEnabled];
+	[action setEnabled:activation];
+    
+    
+    act = [actionMenuActivation objectForKey:ident];
+	if (act)
+        activation = [act boolValue];
+    else
+        activation = [action defaultEnabled];
+	[action setMenuEnabled:activation];    
 
 	int index = [actionRanking indexOfObject:ident];
 
@@ -424,14 +432,13 @@ QSExecutor *QSExec;
 
 
 - (void)setAction:(QSAction *)action isEnabled:(BOOL)flag {
-	if (VERBOSE) NSLog(@"set action %@ is enabled %d", action, flag);
+//	if (VERBOSE) NSLog(@"set action %@ is enabled %d", action, flag);
 	[actionActivation setObject:[NSNumber numberWithBool:flag] forKey:[action identifier]];
 	[self writeActionsInfo];
 }
 
 - (void)setAction:(QSAction *)action isMenuEnabled:(BOOL)flag {
-
-	if (VERBOSE) NSLog(@"set action %@ is menu enabled %d", action, flag);
+//	if (VERBOSE) NSLog(@"set action %@ is menu enabled %d", action, flag);
 	[actionMenuActivation setObject:[NSNumber numberWithBool:flag] forKey:[action identifier]];
 	[self writeActionsInfo];
 }

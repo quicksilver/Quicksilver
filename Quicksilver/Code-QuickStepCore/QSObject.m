@@ -640,7 +640,7 @@ NSSize QSMaxIconSize;
 		[label release];
 		label = [newLabel retain];
 		if (newLabel) [meta setObject:newLabel forKey:kQSObjectAlternateName];
-		else 	[meta removeObjectForKey:kQSObjectAlternateName];
+		else [meta removeObjectForKey:kQSObjectAlternateName];
 	}
 }
 
@@ -710,16 +710,6 @@ NSSize QSMaxIconSize;
 - (NSTimeInterval) lastAccess { return lastAccess;  }
 - (void)setlastAccess:(NSTimeInterval)newlastAccess {
 	lastAccess = newlastAccess;
-}
-
-- (NSBundle *)bundle {
-	return [self objectForMeta:kQSObjectBundle];
-}
-
-- (void)setBundle:(NSBundle*)bundle {
-    if (bundle && ![[meta objectForKey:kQSObjectBundle] isEqual:bundle]) {
-        [meta setObject:bundle forKey:kQSObjectBundle];
-    }
 }
 
 @end

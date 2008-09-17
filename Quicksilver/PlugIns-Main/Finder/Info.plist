@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
@@ -17,9 +17,26 @@
 	<key>CFBundleShortVersionString</key>
 	<string>0.5.0</string>
 	<key>CFBundleVersion</key>
-	<string>134A</string>
+	<string>150B</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2004, Blacktree, Inc.</string>
+	<key>QSActions</key>
+	<dict>
+		<key>FinderEmptyTrashAction</key>
+		<dict>
+			<key>actionProvider</key>
+			<string>QSFinderProxy</string>
+			<key>actionSelector</key>
+			<string>emptyTrash:</string>
+		</dict>
+		<key>FinderOpenTrashAction</key>
+		<dict>
+			<key>actionProvider</key>
+			<string>QSFinderProxy</string>
+			<key>actionSelector</key>
+			<string>openTrash:</string>
+		</dict>
+	</dict>
 	<key>QSPlugIn</key>
 	<dict>
 		<key>author</key>
@@ -154,6 +171,23 @@
 					<string>NSFilenamesPboardType</string>
 				</array>
 			</dict>
+		</dict>
+	</dict>
+	<key>QSResourceAdditions</key>
+	<dict>
+		<key>Trash</key>
+		<dict>
+			<key>bundle</key>
+			<string>com.apple.dock</string>
+			<key>resource</key>
+			<string>trashempty.png</string>
+		</dict>
+		<key>TrashFull</key>
+		<dict>
+			<key>bundle</key>
+			<string>com.apple.dock</string>
+			<key>resource</key>
+			<string>trashfull.png</string>
 		</dict>
 	</dict>
 </dict>

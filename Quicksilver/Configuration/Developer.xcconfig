@@ -2,4 +2,4 @@
 // You can set this by editing the value here or by setting a value for QS_SOURCE_ROOT in Xcode's Source Trees Preferences
 // Please quote ("") this if there are spaces in the path, and remove a possible ending '/'.
 
-QS_SOURCE_ROOT = .
+QS_SOURCE_ROOT = /Volumes/myHD/Projects/Quicksilver/quicksilver-b5x-trunk/Quicksilver

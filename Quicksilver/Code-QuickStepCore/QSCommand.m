@@ -27,20 +27,61 @@
 - (void)completeAndExecuteCommand:(QSCommand *)command;
 @end
 
+@interface QSCommand ()
+- (NSMutableDictionary *)commandDict;
+@end
+
 @implementation QSCommandObjectHandler
+
+- (id)objectForRepresentation:(NSDictionary*)dictionary {
+    QSCommand *obj = [[QSCommand alloc] init];
+    [[obj commandDict] setDictionary:dictionary];
+    return [obj autorelease];
+}
+
+- (NSDictionary*)representationForObject:(QSBasicObject*)object {
+    NSMutableDictionary *rep = [[[(QSCommand*)object commandDict] mutableCopy] autorelease];
+    
+    [rep removeObjectsForKeys:[NSArray arrayWithObjects:@"directObject", @"actionObject", @"indirectObject", nil]];
+    
+    return rep;
+}
+
+- (void)setQuickIconForObject:(QSObject *)object {
+	[object setIcon:[NSImage imageNamed:@"defaultAction"]];
+}
+
+- (BOOL)loadIconForObject:(QSObject *)object {
+    id dObject = [(QSCommand*)object dObject];
+	[dObject loadIcon];
+	[object setIcon:[dObject icon]];
+	return YES;
+}
+
+- (NSString *)detailsOfObject:(QSObject *)object {
+    return [(QSCommand*)object _details];
+}
+
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
 	if ([action isEqualToString:@"QSCommandSaveAction"])
 		return nil;
 	else
 		return [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@""]];
 }
+
+// CommandsAsActionsHandling
+- (QSObject *)performAction:(QSAction *)action directObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
+    QSCommand *cmd = [QSCommand commandWithDirectObject:dObject actionObject:action indirectObject:iObject];
+	return [cmd execute];
+}
+
 - (QSObject *)executeCommand:(QSObject *)dObject {
-	return [(QSCommand*)[dObject objectForType:QSCommandType] execute];
+	return [(QSCommand*)dObject execute];
 }
 
 NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	NSScanner *scanner = [NSScanner scannerWithString:intervalString];
-
+    
 	float h = 0.0f;
 	float m = 0.0f;
 	float s = 0.0f;
@@ -50,7 +91,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 		[scanner scanFloat:&f];
 		if (![scanner scanUpToCharactersFromSet:[NSCharacterSet decimalDigitCharacterSet] intoString:&string])
 			string = nil;
-
+        
 		if (![string length] || [string isEqualToString:@":"]) {
 			if (m != 0.0f) {
 				if (h != 0.0f) {
@@ -62,7 +103,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 			} else {
 				m = f;
 			}
-
+            
 		} else if ([string hasPrefix:@"h"]) {
 			h += f;
 		} else if ([string hasPrefix:@"m"]) {
@@ -75,17 +116,16 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 }
 
 - (QSObject *)saveCommand:(QSObject *)dObject toPath:(QSObject *)iObject {
-	QSCommand *command = [dObject objectForType:QSCommandType];
-	id commandObject = [command dObject];
+	id commandObject = [(QSCommand*)dObject dObject];
 	BOOL asDroplet = [[commandObject identifier] isEqualToString:@"QSDropletItemProxy"];
-
+    
 	NSLog(@"droplet %d", asDroplet);
 	NSString *destination = [[[[iObject singleFilePath] stringByAppendingPathComponent:[dObject name]] stringByAppendingPathExtension:asDroplet?@"app":@"qscommand"] firstUnusedFilePath];
 	if (asDroplet) {
 		[[NSFileManager defaultManager] copyPath:[[NSBundle mainBundle] pathForResource:@"QSDroplet" ofType:@"app"] toPath:destination handler:nil];
-		[command writeToFile:[destination stringByAppendingPathComponent:@"Contents/Command.qscommand"]];
+		[dObject writeToFile:[destination stringByAppendingPathComponent:@"Contents/Command.qscommand"]];
 	} else {
-		[command writeToFile:destination];
+		[dObject writeToFile:destination];
 		[commandObject loadIcon];
 		NSImage *image = [commandObject icon];
 		[image setFlipped:NO];
@@ -96,18 +136,18 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 }
 
 - (void)addTrigger:(QSObject *)dObject {
-	QSCommand *command = [dObject objectForType:QSCommandType];
-
+	QSCommand *command = (QSCommand*)dObject;
+    
 	NSMutableDictionary *info = [NSMutableDictionary dictionaryWithCapacity:5];
 	[info setObject:@"QSHotKeyTrigger" forKey:@"type"];
 	[info setObject:[NSNumber numberWithBool:YES] forKey:kItemEnabled];
-
+    
 	if (command)
 		[info setObject:command forKey:@"command"];
-
+    
 	[info setObject:[NSString uniqueString] forKey:kItemID];
-
-	QSTrigger *trigger = [QSTrigger triggerWithInfo:info];
+    
+	QSTrigger *trigger = [QSTrigger triggerWithDictionary:info];
 	[trigger initializeTrigger];
 	[[QSTriggerCenter sharedInstance] addTrigger:trigger];
 	[[NSClassFromString(@"QSPreferencesController") sharedInstance] showPaneWithIdentifier:@"QSTriggersPrefPane"];
@@ -115,18 +155,18 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 }
 
 - (QSObject *)executeCommand:(QSObject *)dObject afterDelay:(QSObject *)iObject {
-	NSTimer *timer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:QSTimeIntervalForString([iObject stringValue])] interval:0 target:self selector:@selector(runCommand:) userInfo:[dObject objectForType:QSCommandType] repeats:NO];
+	NSTimer *timer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:QSTimeIntervalForString([iObject stringValue])] interval:0 target:self selector:@selector(runCommand:) userInfo:dObject repeats:NO];
 	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
-//	[timer release];
+	[timer release];
 	return nil;
 }
 
 - (QSObject *)executeCommand:(QSObject *)dObject atTime:(QSObject *)iObject {
 	NSDate *date = [NSDate dateWithNaturalLanguageString:[iObject stringValue]];
 	if (!date) { NSBeep(); return nil; }
-	NSTimer *timer = [[NSTimer alloc] initWithFireDate:date interval:0 target:self selector:@selector(runCommand:) userInfo:[dObject objectForType:QSCommandType] repeats:NO];
+	NSTimer *timer = [[NSTimer alloc] initWithFireDate:date interval:0 target:self selector:@selector(runCommand:) userInfo:dObject repeats:NO];
 	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
-//	[timer release];
+	[timer release];
 	return nil;
 }
 
@@ -135,104 +175,161 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	[timer release];
 }
 
-- (void)setQuickIconForObject:(QSObject *)object {
-	[object setIcon:[NSImage imageNamed:@"defaultAction"]];
-}
-
-- (BOOL)loadIconForObject:(QSObject *)object {
-	QSAction *action = (QSAction *)[[object objectForType:QSCommandType] dObject];
-	[action loadIcon];
-	[object setIcon:[action icon]];
-	return YES;
-}
-
-- (NSString *)detailsOfObject:(QSObject *)object { return nil; }
-
-// CommandsAsActionsHandling
-- (QSObject *)performAction:(QSAction *)action directObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
-	[[QSCommand commandWithInfo:[[action objectForType:QSActionType] objectForKey:@"command"]] execute];
-	return nil;
-}
 @end
 
 @implementation QSCommand
-
-- (QSObject *)objectValue {
-	QSObject *commandObject = [QSObject objectWithName:[self description]];
-	[commandObject setObject:self forType:QSCommandType];
-	[commandObject setPrimaryType:QSCommandType];
-	return commandObject;
-}
-- (NSArray *)types {return [NSArray arrayWithObject:QSCommandType];}
-
-- (id)init {
-	if (self = [super init]) {
-		oDict = [[NSMutableDictionary alloc] initWithCapacity:2];
-	}
-	return self;
-}
-+ (QSCommand *)commandWithDirectObject:(QSBasicObject *)dObject actionObject:(QSBasicObject *)aObject indirectObject:(QSBasicObject *)iObject {
++ (QSCommand *)commandWithDirectObject:(QSObject *)dObject actionObject:(QSAction *)aObject indirectObject:(QSObject *)iObject {
 	if (dObject && aObject)
-		return [[[self alloc] initWithDirectObject:(QSBasicObject *)dObject actionObject:(QSBasicObject *)aObject indirectObject:(QSBasicObject *)iObject] autorelease];
+		return [[[self alloc] initWithDirectObject:dObject actionObject:aObject indirectObject:iObject] autorelease];
 	return nil;
 }
-- (QSCommand *)initWithDirectObject:(QSBasicObject *)dObject actionObject:(QSBasicObject *)aObject indirectObject:(QSBasicObject *)iObject {
-	if (self = [self init]) {
-		if (dObject) [oDict setObject:dObject forKey:@"directObject"];
-		if (aObject) [oDict setObject:aObject forKey:@"actionObject"];
-		if (iObject) [oDict setObject:iObject forKey:@"indirectObject"];
-		if ([dObject identifier]) [oDict setObject:[dObject identifier] forKey:@"directID"];
-		if ([aObject identifier]) [oDict setObject:[aObject identifier] forKey:@"actionID"];
-		if ([iObject identifier]) [oDict setObject:[iObject identifier] forKey:@"indirectID"];
-	}
-	return self;
+
++ (QSCommand *)commandWithInfo:(id)info {
+    QSCommand *command = nil;
+    if ([info isKindOfClass:[NSDictionary class]]) {
+        command = [QSCommand commandWithDictionary:info];
+    } else if ([info isKindOfClass:[NSString class]]) {
+        command = [QSCommand commandWithIdentifier:info];
+    } else if (![info isKindOfClass:[QSCommand class]]) {
+        return nil;
+    }
+    return command;
 }
 
-+ (QSCommand *)commandWithInfo:(id)command {
-	if ([command isKindOfClass:[NSDictionary class]]) {
-		command = [QSCommand commandWithDictionary:command];
-	} else if ([command isKindOfClass:[NSString class]]) {
-		NSDictionary *commandInfo = [QSReg valueForKey:command inTable:@"QSCommands"];
-		command = [QSCommand commandWithDictionary:[commandInfo objectForKey:@"command"]];
-	}
-	return command;
++ (QSCommand *)commandWithIdentifier:(NSString*)identifier {
+    NSDictionary *commandInfo = [QSReg valueForKey:identifier inTable:@"QSCommands"];
+    return [QSCommand commandWithDictionary:[commandInfo objectForKey:@"command"]];
 }
 
 + (QSCommand *)commandWithDictionary:(NSDictionary *)newDict {
-	return [[(QSCommand *)[self alloc] initWithDictionary:newDict] autorelease];
+	return [[[self alloc] initWithDictionary:newDict] autorelease];
 }
 
 + (QSCommand *)commandWithFile:(NSString *)path {
 	return [self commandWithDictionary:[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:@"command"]];
 }
-- (void)writeToFile:(NSString *)path {
-	[[NSDictionary dictionaryWithObject:[self dictionaryRepresentation] forKey:@"command"] writeToFile:path atomically:NO];
-}
-- (void)setDObject:(id)dObject {
-	if (dObject) [oDict setObject:dObject forKey:@"directObject"];
-	if ([dObject identifier]) [oDict setObject:[dObject identifier] forKey:@"directID"];
-}
-- (QSCommand *)initWithDictionary:(NSDictionary *)newDict {
+
+- (QSCommand *)initWithDirectObject:(QSObject *)directObject actionObject:(QSAction *)actionObject indirectObject:(QSObject *)indirectObject {
 	if (self = [self init]) {
-		[oDict addEntriesFromDictionary:newDict];
+		if (directObject) [self setDirectObject:directObject];
+		if (actionObject) [self setActionObject:actionObject];
+		if (indirectObject) [self setIndirectObject:indirectObject];
 	}
 	return self;
 }
-- (void)dealloc {
-	[oDict release];
-	[super dealloc];
+
+- (id)init {
+	if (self = [super init]) {
+        [self setPrimaryType:QSCommandType];
+	}
+	return self;
 }
+
+- (QSCommand *)initWithDictionary:(NSDictionary *)newDict {
+	if (self = [self init]) {
+		[self setObject:newDict forType:QSCommandType];
+	}
+	return self;
+}
+
+- (NSMutableDictionary*)commandDict {
+    NSMutableDictionary *dict = [self objectForType:QSCommandType];
+    if(!dict) [self setObject:(dict = [NSMutableDictionary dictionary]) forType:QSCommandType];
+    return dict;
+}
+
+- (void)writeToFile:(NSString *)path {
+	[[NSDictionary dictionaryWithObject:[self dictionaryRepresentation] forKey:@"command"] writeToFile:path atomically:NO];
+}
+
+- (void)setDirectObject:(QSObject*)dObject {
+    if (dObject != nil)
+        [[self commandDict] setObject:dObject forKey:@"directObject"];
+    id rep = [dObject identifier];
+    if(rep != nil)
+        [[self commandDict] setObject:rep forKey:@"directID"];
+    else {
+        rep = [dObject dictionaryRepresentation];
+        if(rep)
+            [[self commandDict] setObject:rep forKey:@"directArchive"];
+    }
+}
+
+- (void)setActionObject:(QSAction*)aObject {
+    if (aObject != nil)
+        [[self commandDict] setObject:aObject forKey:@"actionObject"];
+    id rep = [aObject identifier];
+    if(rep != nil)
+        [[self commandDict] setObject:rep forKey:@"actionID"];
+    else {
+        rep = [aObject dictionaryRepresentation];
+        if(rep)
+            [[self commandDict] setObject:rep forKey:@"actionArchive"];
+    }
+}
+
+- (void)setIndirectObject:(QSObject*)iObject {
+    if (iObject != nil)
+        [[self commandDict] setObject:iObject forKey:@"indirectObject"];
+    id rep = [iObject identifier];
+    if(rep != nil)
+        [[self commandDict] setObject:rep forKey:@"indirectID"];
+    else {
+        rep = [iObject dictionaryRepresentation];
+        if(rep)
+            [[self commandDict] setObject:rep forKey:@"indirectArchive"];
+    }
+}
+
+- (QSAction *)aObject {
+    QSAction *action = [[self commandDict] objectForKey:@"actionObject"];
+    if (!action) {
+        action = [QSAction actionWithIdentifier:[[self commandDict] objectForKey:@"actionID"]];
+        [self setActionObject:action];
+    }
+    if (!action) {
+        action = [QSAction actionWithDictionary:[[self commandDict] objectForKey:@"actionArchive"]];
+        [self setActionObject:action];
+    }
+    return action;
+}
+
+- (QSObject *)dObject {
+	QSObject *object = [[self commandDict] objectForKey:@"directObject"];
+    if (!object) {
+        object = [QSObject objectWithIdentifier:[[self commandDict] objectForKey:@"directID"]];
+        [self setDirectObject:object];
+    }
+    if (!object) {
+        object = [QSAction actionWithIdentifier:[[self commandDict] objectForKey:@"directID"]];
+        [self setDirectObject:object];
+    }
+    if (!object) {
+        object = [QSObject objectWithDictionary:[[self commandDict] objectForKey:@"directArchive"]];
+        [self setDirectObject:object];
+    }
+    if (!object)
+        object = [QSObject fileObjectWithPath:[QSRez pathWithLocatorInformation:[[self commandDict] objectForKey:@"directResource"]]];
+    return object;
+}
+
+- (QSObject *)iObject {
+	QSObject *object = [[self commandDict] objectForKey:@"indirectObject"];
+    if (!object) {
+        object = [QSObject objectWithIdentifier:[[self commandDict] objectForKey:@"indirectID"]];
+        [self setIndirectObject:object];
+    }
+    if (!object) {
+        object = [QSObject objectWithDictionary:[[self commandDict] objectForKey:@"indirectArchive"]];
+        [self setIndirectObject:object];
+    }
+    if (!object)
+        object = [QSObject fileObjectWithPath:[QSRez pathWithLocatorInformation:[[self commandDict] objectForKey:@"indirectResource"]]];
+    return object;
+}
+
 - (NSComparisonResult) compare:(id)compareObject {
 	return [[self description] compare:[compareObject description]];
-}
-- (NSDictionary *)dictionaryRepresentation {
-	NSMutableDictionary *sDict = [oDict mutableCopy];
-	QSObject *dObject = [oDict objectForKey:@"directObject"];
-	QSObject *iObject = [oDict objectForKey:@"indirectObject"];
-	if (dObject && ![oDict objectForKey:@"directArchive"]) [sDict setObject:[dObject dictionaryRepresentation] forKey:@"directArchive"];
-	if (iObject && ![oDict objectForKey:@"indirectArchive"]) [sDict setObject:[iObject dictionaryRepresentation] forKey:@"indirectArchive"];
-	[sDict removeObjectsForKeys:[NSArray arrayWithObjects:@"directObject", @"indirectObject", @"actionObject", nil]];
-	return [sDict autorelease];
 }
 
 - (QSObject *)executeIgnoringModifiers {
@@ -250,7 +347,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	QSObject *dObject = [self dObject];
 	QSObject *iObject = [self iObject];
 
-	if (VERBOSE) NSLog(@"Execute Command: %@", [self description]);
+	if (VERBOSE) NSLog(@"Execute Command: %@", self);
 	int argumentCount = [(QSAction *)aObject argumentCount];
 	if (argumentCount<2) {
 		return [aObject performOnDirectObject:dObject indirectObject:iObject];
@@ -289,18 +386,15 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 }
 
 - (void)executeFromMenuWithIndirect:(id)sender {
-	QSObject *object = [sender representedObject];
-	[oDict setObject:object forKey:@"indirectObject"];
+	[self setIndirectObject:[sender representedObject]];
 	[self executeFromMenu:sender];
 }
+
 - (void)executeWithIndirect:(id)iObject {
-	QSObject *object = (QSObject *)[iObject resolvedObject];
-	[oDict setObject:object forKey:@"indirectObject"];
+    [self setIndirectObject:(QSObject *)[iObject resolvedObject]];
 	[self executeFromMenu:nil];
 }
-- (id)copyWithZone:(NSZone *)zone {
-	return [[QSCommand alloc] initWithDictionary:[[oDict mutableCopy] autorelease]];
-}
+
 - (NSArray *)validIndirects {
 	  NSArray *indirects = [[[self aObject] provider] validIndirectObjectsForAction:[[self aObject] identifier] directObject:[self dObject]];
 	  if ([indirects count] >1 && [[indirects objectAtIndex:1] isKindOfClass:[NSArray class]]) indirects = [indirects objectAtIndex:1];
@@ -309,6 +403,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	  }
 	  return indirects;
 }
+
 - (void)menuNeedsUpdate:(NSMenu *)menu {
 	  NSArray *indirects = [self validIndirects];
 	  NSMenuItem *item;
@@ -332,42 +427,35 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	  [menu setDelegate:nil];
 }
 
-- (QSAction *)aObject {
-	QSAction *aObject;
-	return ((aObject = [oDict objectForKey:@"actionObject"])) ? aObject : [QSExec actionForIdentifier:[oDict objectForKey:@"actionID"]];
-}
-- (QSObject *)dObject {
-	QSObject *dObject = [oDict objectForKey:@"directObject"];
-	if (!dObject) dObject = [QSObject objectWithIdentifier:[oDict objectForKey:@"directID"]];
-	if (!dObject && [oDict objectForKey:@"directArchive"]) {
-		dObject = [QSObject objectWithDictionary:[oDict objectForKey:@"directArchive"]];
-		if (dObject) [oDict setObject:dObject forKey:@"directObject"];
-	}
-	if (!dObject && [oDict objectForKey:@"directResource"]) {
-		dObject = [QSObject fileObjectWithPath:[QSRez pathWithLocatorInformation:[oDict objectForKey:@"directResource"]]];
-		if (dObject) [oDict setObject:dObject forKey:@"directObject"];
-	}
-	return dObject;
-}
-- (QSObject *)iObject {
-	QSObject *iObject = [oDict objectForKey:@"indirectObject"];
-	if (!iObject) iObject = [QSObject objectWithIdentifier:[oDict objectForKey:@"indirectID"]];
-	if (!iObject && [oDict objectForKey:@"indirectArchive"]) {
-		iObject = [QSObject objectWithDictionary:[oDict objectForKey:@"indirectArchive"]];
-		if (iObject) [oDict setObject:iObject forKey:@"indirectObject"];
-	}
-	if (!iObject && [oDict objectForKey:@"indirectResource"]) {
-		iObject = [QSObject fileObjectWithPath:[QSRez pathWithLocatorInformation:[oDict objectForKey:@"indirectResource"]]];
-		if (iObject) [oDict setObject:iObject forKey:@"indirectObject"];
-	}
-	return iObject;
+- (QSObject *)objectValue {
+	QSObject *commandObject = [QSObject objectWithName:[self description]];
+	[commandObject setObject:self forType:QSCommandType];
+	[commandObject setPrimaryType:QSCommandType];
+	return commandObject;
 }
 
-- (NSString *)description {
-	if ([self aObject])
-		return [[self aObject] commandDescriptionWithDirectObject:[self dObject] indirectObject:[self iObject]];
+- (NSArray *)types {return [NSArray arrayWithObject:QSCommandType];}
+
+- (NSString *)name {
+    QSAction *aObject = [self aObject];
+    QSObject *dObject = [self dObject];
+    QSObject *iObject = [self iObject];
+    NSString *format = [aObject commandFormat];
+	if (format)
+        return [NSString stringWithFormat:format, [dObject name], (iObject ? [iObject name] : @"<?>")];
 	else
-		return [NSString stringWithFormat:@"[Action Missing: %@] ", [oDict objectForKey:@"actionID"]];
+		return [NSString stringWithFormat:@"[Action Missing: %@] ", [[self commandDict] objectForKey:@"actionID"]];
+}
+
+- (NSString *)_details {
+    QSAction *aObject = [self aObject];
+    QSObject *dObject = [self dObject];
+    QSObject *iObject = [self iObject];
+    NSString *format = [aObject commandFormat];
+	if (format)
+        return [NSString stringWithFormat:format, [dObject details], (iObject ? [iObject details] : @"<?>")];
+	else
+		return [NSString stringWithFormat:@"[Action Missing: %@] ", [[self commandDict] objectForKey:@"actionID"]];
 }
 
 - (NSImage *)icon {
@@ -376,7 +464,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	return [direct icon];
 }
 
-- (NSString *)text { return [self description]; }
+- (NSString *)text { return [self name]; }
 - (NSImage *)image { return [self icon]; }
 
 @end

@@ -10,8 +10,9 @@
 #define kQSPreferencePanes @"QSPreferencePanes"
 #define pRegistryStoreLocation QSApplicationSupportSubPath(@"Registry.plist", NO);
 
+@class QSRegistry;
 
-extern id QSReg; // Registry shared instance
+extern QSRegistry *QSReg; // Registry shared instance
 
 @interface QSRegistry : NSObject {
 	NSMutableDictionary *classRegistry; //Dictionaries of registered class names for specific purposes
@@ -27,7 +28,7 @@ extern id QSReg; // Registry shared instance
 
 + (id)sharedInstance;
 + (void)initialize;
-- (id)init ;
+- (id)init;
 - (NSMutableDictionary *)tableNamed:(NSString *)key;
 - (void)setObject:(id)object forKey:(NSString *)key inTable:(NSString *)table;
 - (void)registerClassName:(NSString *)className inTable:(NSString *)table;

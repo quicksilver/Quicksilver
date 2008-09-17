@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D01EBF00E7BE662005B8AA2 /* QSAction.name.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D01EBEF0E7BE662005B8AA2 /* QSAction.name.strings */; };
 		7F2817B207B6F4EB007D4010 /* QSFinderProxy.h in Resources */ = {isa = PBXBuildFile; fileRef = 7F2817B007B6F4EB007D4010 /* QSFinderProxy.h */; };
 		7F2817B307B6F4EB007D4010 /* QSFinderProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2817B107B6F4EB007D4010 /* QSFinderProxy.m */; };
 		7F2817B707B6F4FC007D4010 /* Finder.scpt in Resources */ = {isa = PBXBuildFile; fileRef = 7F2817B607B6F4FC007D4010 /* Finder.scpt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D01EBEF0E7BE662005B8AA2 /* QSAction.name.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; path = QSAction.name.strings; sourceTree = "<group>"; };
 		4D4F33280E39EEF600668F94 /* QSPlugIn_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Debug.xcconfig; sourceTree = "<group>"; };
 		4D4F33290E39EEF600668F94 /* QSPlugIn_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Release.xcconfig; sourceTree = "<group>"; };
 		4DF0623E0E0BB81E0000EB16 /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 			children = (
 				7F2817B607B6F4FC007D4010 /* Finder.scpt */,
 				8D1AC9730486D14A00FE50C9 /* Info.plist */,
+				4D01EBEF0E7BE662005B8AA2 /* QSAction.name.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -156,6 +159,7 @@
 			files = (
 				7F2817B207B6F4EB007D4010 /* QSFinderProxy.h in Resources */,
 				7F2817B707B6F4FC007D4010 /* Finder.scpt in Resources */,
+				4D01EBF00E7BE662005B8AA2 /* QSAction.name.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

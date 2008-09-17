@@ -64,6 +64,8 @@
 - (void)setRank:(int)newRank;
 - (BOOL)enabled;
 - (void)setEnabled:(BOOL)flag;
+- (BOOL)menuEnabled;
+- (void)setMenuEnabled:(BOOL)flag;
 
 - (void)setArgumentCount:(int)newArgumentCount ;
 - (BOOL)reverse;
@@ -75,13 +77,13 @@
 - (void)setDisplaysResult:(BOOL)flag;
 
 
-- (float) precedence;
-- (NSNumber *)defaultEnabled;
+- (float)precedence;
+- (BOOL)defaultEnabled;
 - (void)_setEnabled:(BOOL)flag;
 - (void)_setRank:(int)newRank;
 - (void)_setMenuEnabled:(BOOL)flag;
-- (int) argumentCount;
-- (NSString *)commandDescriptionWithDirectObject:(QSBasicObject *)dObject indirectObject:(QSBasicObject *)iObject;
+- (int)argumentCount;
+- (NSString *)commandFormat;
 @end
 
 @interface QSActionHandler : NSObject

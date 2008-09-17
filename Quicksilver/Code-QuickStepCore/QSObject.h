@@ -14,20 +14,25 @@ extern NSSize QSMaxIconSize;
 //@protocol QSObjectHandler <NSObject>
 - (QSBasicObject*)objectForRepresentation:(NSDictionary*)dict;
 - (NSDictionary*)representationForObject:(QSBasicObject*)dict;
-- (BOOL)loadIconForObject:(QSObject *)object;
-- (void)setQuickIconForObject:(QSObject *)object;
+
 - (BOOL)objectHasChildren:(QSObject *)object;
 - (BOOL)objectHasValidChildren:(QSObject *)object;
+
+- (BOOL)loadChildrenForObject:(QSObject *)object;
 - (NSArray *)childrenForObject:(QSObject *)object;
 - (QSObject *)parentOfObject:(QSObject *)object;
 - (NSString *)detailsOfObject:(QSObject *)object;
 - (NSString *)identifierForObject:(QSObject *)object;
-- (BOOL)drawIconForObject:(QSObject *)object inRect:(NSRect)rect flipped:(BOOL)flipped;
-- (NSDragOperation) operationForDrag:(id <NSDraggingInfo>)sender ontoObject:(QSObject *)dObject withObject:(QSBasicObject *)iObject;
-- (NSString *)actionForDragMask:(NSDragOperation)operation ontoObject:(QSObject *)dObject withObject:(QSBasicObject *)iObject;
-- (BOOL)loadChildrenForObject:(QSObject *)object;
 - (NSString *)kindOfObject:(QSObject *)object;
+- (void)setQuickIconForObject:(QSObject *)object;
+- (BOOL)loadIconForObject:(QSObject *)object;
+- (BOOL)drawIconForObject:(QSObject *)object inRect:(NSRect)rect flipped:(BOOL)flipped;
+
 - (id)dataForObject:(QSObject *)object pasteboardType:(NSString *)type;
+- (NSDragOperation)operationForDrag:(id <NSDraggingInfo>)sender ontoObject:(QSObject *)dObject withObject:(QSBasicObject *)iObject;
+- (NSString *)actionForDragMask:(NSDragOperation)operation ontoObject:(QSObject *)dObject withObject:(QSBasicObject *)iObject;
+
+- (NSArray *)actionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
 @end
 
 

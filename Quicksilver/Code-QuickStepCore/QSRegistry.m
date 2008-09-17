@@ -11,16 +11,14 @@
 
 #import "NSException_TraceExtensions.h"
 
-id QSReg = nil;
+QSRegistry* QSReg = nil;
 
 @implementation QSRegistry
 
 + (NSBundle *)bundleWithIdentifier:(NSString *)identifier {
 	NSBundle *bundle = [[self sharedInstance] bundleWithIdentifier:identifier];
-	return (bundle) ? bundle : [NSBundle bundleWithIdentifier:identifier];
-/*	if (!bundle)
-		bundle = [NSBundle bundleWithIdentifier:identifier];
-	return bundle;*/
+	return (bundle ? bundle : [NSBundle bundleWithIdentifier:identifier]);
+
 }
 
 + (void)initialize {
@@ -102,6 +100,7 @@ id QSReg = nil;
 - (NSBundle *)bundleForClassName:(NSString *)className {
 	return [classBundles objectForKey:className];
 }
+
 - (void)registerBundle:(NSBundle *)bundle {
 	[identifierBundles setObject:bundle forKey:[bundle bundleIdentifier]];
 }

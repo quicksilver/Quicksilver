@@ -11,11 +11,10 @@
 #define kQSObjectClass @"class"
 
 @implementation QSBasicObject
-
 + (id)objectWithDictionary:(NSDictionary *)dictionary {
     if(dictionary == nil)
         return nil;
-    if (DEBUG_UNPACKING)
+    if (DEBUG_UNPACKING && VERBOSE)
         NSLog(@"%@ %@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), dictionary);
     id obj = [dictionary objectForKey:kQSObjectClass];
     if(obj)
@@ -132,7 +131,7 @@
 - (BOOL) hasChildren {return NO;}
 - (NSArray *)children {return nil;}
 - (NSArray *)altChildren {return nil;}
-- (NSString *)description {return [self name];}
+- (NSString *)description {return [NSString stringWithFormat:@"%@ <%p>", NSStringFromClass([self class]), self];}
 //- (float) rankModification {return 0;}
 - (NSString *)identifier {return nil;}
 - (NSComparisonResult) scoreCompare:(QSBasicObject *)object {
@@ -160,8 +159,17 @@
 }
 - (QSBasicObject *)resolvedObject {return self;}
 
-- (void)setBundle:(NSBundle *)aBundle {}
-- (NSBundle *)bundle {
-    return nil;
+- (void)setBundle:(NSBundle *)aBundle {
+    if(aBundle != nil && aBundle != bundle) {
+        [bundle release];
+        bundle = [aBundle retain];
+    }
 }
+
+- (NSBundle *)bundle {
+    NSBundle *b = bundle;
+    if (!b) b = [QSReg bundleForClassName:[self identifier]];
+    return b;
+}
+
 @end

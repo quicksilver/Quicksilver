@@ -50,7 +50,7 @@
 }
 
 - (id)initWithDictionary:(NSDictionary *)dictionary {
-    if (DEBUG_UNPACKING)
+    if (DEBUG_UNPACKING && VERBOSE)
         NSLog(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     NSDictionary *dataDict = [dictionary objectForKey:kData];
     NSDictionary *metaDict = [dictionary objectForKey:kMeta];

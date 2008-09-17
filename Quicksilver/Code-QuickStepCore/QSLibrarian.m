@@ -20,7 +20,7 @@ static int presetSort(id item1, id item2, QSLibrarian *librarian) {
 	return [[item1 name] caseInsensitiveCompare:[item2 name]];
 }
 
-id QSLib;
+QSLibrarian *QSLib = nil;
 
 static float searchSpeed = 0.0;
 
@@ -165,34 +165,31 @@ static float searchSpeed = 0.0;
 	//	NSLog(@"load Catalog %p %@", catalog, [catalog getChildren]);
 	//[catalogChildren addObject:[QSCatalogEntry entryWithDictionary:[NSDictionary dictionaryWithObjectsAndKeys:@"QSSeparator", kItemID, nil]]];
 
+    QSCatalogEntry *customEntry = [QSCatalogEntry entryWithDictionary:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                                       @"Custom", kItemName,
+                                                                       @"ToolbarCustomizeIcon", kItemIcon,
+                                                                       kCustomCatalogID, kItemID,
+                                                                       @"QSGroupObjectSource", kItemSource,
+                                                                       [NSMutableArray array] , kItemChildren,
+                                                                       [NSNumber numberWithBool:YES] , @"permanent",
+                                                                       [NSNumber numberWithBool:YES] , kItemEnabled, nil]];
+    
+	[catalogChildren addObject:customEntry];
+    
 	NSMutableDictionary *catalogStorage = [NSMutableDictionary dictionaryWithContentsOfFile:[pCatalogSettings stringByStandardizingPath]];
 
 	enabledPresetsDictionary = [[NSMutableDictionary alloc] init];
 	[enabledPresetsDictionary addEntriesFromDictionary:[catalogStorage objectForKey:@"enabledPresets"]];
+	omittedIDs = [[NSMutableSet setWithArray:[catalogStorage objectForKey:@"omittedItems"]] retain];
 
-
-	QSCatalogEntry *customEntry = [QSCatalogEntry entryWithDictionary:[NSMutableDictionary dictionaryWithObjectsAndKeys:
-		@"Custom", kItemName,
-		@"ToolbarCustomizeIcon", kItemIcon,
-		kCustomCatalogID, kItemID,
-		@"QSGroupObjectSource", kItemSource,
-		[NSMutableArray array] , kItemChildren,
-		[NSNumber numberWithBool:YES] , @"permanent",
-		[NSNumber numberWithBool:YES] , kItemEnabled, nil]];
-
-	[catalogChildren addObject:customEntry];
-	omittedIDs = [[NSMutableSet setWithArray:[catalogStorage objectForKey:@"omittedItems"]]retain];
-	//if (!enabledPresetsDictionary) enabledPresetsDictionary = [[NSMutableDictionary dictionaryWithCapacity:1] retain];
-	//QSCatalogEntry *customEntry = [self entryForID:kCustomCatalogID]; {
-		foreach(entry, [catalogStorage objectForKey:@"customEntries"]) {
-			[[customEntry children] addObject:[QSCatalogEntry entryWithDictionary:entry]];
-		}
-//	}
+    foreach(entry, [catalogStorage objectForKey:@"customEntries"]) {
+        [[customEntry children] addObject:[QSCatalogEntry entryWithDictionary:entry]];
+    }
+    
 	[self reloadIDDictionary:nil];
 	//NSLog(@"load Catalog %p %@", catalog, [catalog getChildren]);
 
 }
-
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -291,6 +288,7 @@ static float searchSpeed = 0.0;
 		[sourceArray addObject:thisEntry];
 	}
 }
+
 - (void)reloadIDDictionary:(NSNotification *)notif {
 	NSArray *entries = [catalog deepChildrenWithGroups:YES leaves:YES disabled:YES];
 	[entriesByID removeAllObjects];

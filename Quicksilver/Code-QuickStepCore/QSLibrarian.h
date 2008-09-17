@@ -5,17 +5,15 @@
 
 #define kCustomCatalogID @"QSCatalogCustom"
 
-
 @class QSBasicObject;
-
 @class QSObject;
 @class QSActions;
 @class QSAction;
 @class QSTask;
 @class QSTaskController;
 
-extern id QSLib; // Shared Instance
-
+@class QSLibrarian;
+extern QSLibrarian *QSLib; // Shared Instance
 
 @interface QSLibrarian : NSObject {
 	QSCatalogEntry *catalog; //Root Catalog Entry

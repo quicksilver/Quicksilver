@@ -7,40 +7,36 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <QSCore/QSObject.h>
 
 #define kQSProxyProvider @"provider"
 #define kQSProxyProviderClass @"providerClass"
 #define kQSProxyTypes @"types"
+#define kQSProxyIdentifier @"identifier"
+
 #define QSProxyType @"qs.proxy"
 
 #define QSProxyTargetCache @"proxyTarget"
 
-#import "QSObject.h"
 @protocol QSProxyObjectProvider
+- (BOOL)bypassValidation;
 - (id)resolveProxyObject:(id)proxy;
 - (NSArray *)typesForProxyObject:(id)proxy;
-- (NSTimeInterval) cacheTimeForProxy:(id)proxy;
+- (NSTimeInterval)cacheTimeForProxy:(id)proxy;
 @end
 
 @interface QSProxyObject : QSObject
-
-- (NSArray *)types;
++ (id)proxyWithDictionary:(NSDictionary*)dictionary;
+- (NSObject <QSProxyObjectProvider> *)proxyProvider;
+- (QSObject*)proxyObject;
 
 - (void)releaseProxy;
-- (id)_safeObjectForType:(id)aKey;
-
 
 - (BOOL)bypassValidation;
-@end
-
-@interface QSObject (QSProxyObject)
-- (id)proxyObject;
-- (id)proxyProvider;
 - (NSArray *)proxyTypes;
 //- (id)proxyObjectWithProviderClass:(NSString *)providerClass;
-//- (QSObject *)resolvedObject;
-@end
 
+@end
 
 
 @interface QSGlobalSelectionProxyProvider : NSObject

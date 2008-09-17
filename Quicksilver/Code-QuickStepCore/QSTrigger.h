@@ -16,9 +16,11 @@
 	NSMutableArray *children;
 	BOOL activated;
 }
-+ (id)triggerWithInfo:(NSDictionary *)info;
++ (id)triggerWithDictionary:(NSDictionary *)info;
+- (id)initWithDictionary:(NSDictionary *)dict;
+
 - (QSCommand *)command;
-- (id)initWithInfo:(NSDictionary *)dict;
+
 - (BOOL)isPreset;
 - (BOOL)enabled;
 - (void)setEnabled:(BOOL)enabled;

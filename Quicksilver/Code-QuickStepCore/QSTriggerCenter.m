@@ -228,7 +228,7 @@
 				[(NSMutableDictionary *)value addEntriesFromDictionary:defaults];
 			}
 			//NSLog(@"create %@, %@", value, [QSTrigger triggerWithInfo:value]);
-			[triggersDict setObject:[QSTrigger triggerWithInfo:value] forKey:iden];
+			[triggersDict setObject:[QSTrigger triggerWithDictionary:value] forKey:iden];
 		}
 		//NSLog(@"info %@ %@ %@", info, matchEntry, triggersDict);
 	}

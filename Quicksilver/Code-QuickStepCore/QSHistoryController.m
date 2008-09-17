@@ -43,7 +43,7 @@ id QSHist;
 }
 - (void)addCommand:(id)command {
 	if ([[[command dObject] identifier] isEqualToString:@"QSLastCommandProxy"]) {
-		[command setDObject:[command dObject]];
+		[command setDirectObject:[command dObject]];
 	}
 	if (command)
 		[commandHistory insertObject:[command objectValue] atIndex:0];

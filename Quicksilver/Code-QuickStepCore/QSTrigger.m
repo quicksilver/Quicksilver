@@ -20,13 +20,18 @@
 }
 
 + (id)triggerWithInfo:(NSDictionary *)dict {
-	return [[[self alloc] initWithInfo:dict] autorelease];
+    return [self triggerWithDictionary:dict];
 }
 
-- (NSString *)identifier {
-	return [info objectForKey:kItemID];
++ (id)triggerWithDictionary:(NSDictionary *)dict {
+	return [[[self alloc] initWithDictionary:dict] autorelease];
 }
+
 - (id)initWithInfo:(NSDictionary *)dict {
+    return [self initWithDictionary:dict];
+}
+
+- (id)initWithDictionary:(NSDictionary *)dict {
 	self = [super init];
 	if (self != nil) {
 		info = [dict mutableCopy];
@@ -47,6 +52,10 @@
 	[info release];
 	[children release];
 	[super dealloc];
+}
+
+- (NSString *)identifier {
+	return [info objectForKey:kItemID];
 }
 
 - (BOOL)isGroup {
@@ -169,6 +178,7 @@
 - (void)setTriggerDescription:(NSString *)description {
 	[[self manager] trigger:self setTriggerDescription:description];
 }
+
 - (NSString *)description {
 	return [[self command] description];
 }
@@ -186,9 +196,9 @@
 	if (![[info objectForKey:@"enabled"] boolValue])
 		return;
 	if (flag) {
-		[[self manager] enableTrigger:(QSTrigger *)self];
+		[[self manager] enableTrigger:self];
 	} else {
-		[[self manager] disableTrigger:(QSTrigger *)self];
+		[[self manager] disableTrigger:self];
 	}
 	activated = flag;
 }

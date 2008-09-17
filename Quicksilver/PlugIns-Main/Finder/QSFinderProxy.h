@@ -4,8 +4,10 @@
 #import <QSFoundation/QSFoundation.h>
 #import <QSCore/QSCore.h>
 
-
 #import "QSFSBrowserMediator.h"
+
+#define kFinderOpenTrashAction @"FinderOpenTrashAction"
+#define kFinderEmptyTrashAction @"FinderEmptyTrashAction"
 
 @interface QSFinderProxy : NSObject <QSFSBrowserMediator> {
 NSAppleScript *finderScript;
