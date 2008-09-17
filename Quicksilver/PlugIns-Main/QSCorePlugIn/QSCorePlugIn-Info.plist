@@ -2038,25 +2038,6 @@
 				<dict>
 					<key>actionID</key>
 					<string>QSObjCSendMessageAction</string>
-					<key>directArchive</key>
-					<dict>
-						<key>data</key>
-						<dict>
-							<key>qs.action</key>
-							<dict>
-								<key>actionClass</key>
-								<string>QSController</string>
-								<key>actionSelector</key>
-								<string>activateInterfaceTransmogrified:</string>
-								<key>icon</key>
-								<string>Quicksilver</string>
-								<key>name</key>
-								<string>QS Command Window with Text</string>
-								<key>runInMainThread</key>
-								<true/>
-							</dict>
-						</dict>
-					</dict>
 					<key>directID</key>
 					<string>QSInterfaceShowTransmogrifiedMessage</string>
 				</dict>
@@ -2069,36 +2050,6 @@
 				<dict>
 					<key>actionID</key>
 					<string>QSObjectSelectAction</string>
-					<key>directArchive</key>
-					<dict>
-						<key>class</key>
-						<string>QSProxyObject</string>
-						<key>data</key>
-						<dict>
-							<key>qs.proxy</key>
-							<dict>
-								<key>icon</key>
-								<string>Object</string>
-								<key>name</key>
-								<string>Current Selection</string>
-								<key>providerClass</key>
-								<string>QSGlobalSelectionProvider</string>
-							</dict>
-						</dict>
-						<key>properties</key>
-						<dict>
-							<key>QSObjectDetails</key>
-							<string>Proxy Object</string>
-							<key>QSObjectIconName</key>
-							<string>Object</string>
-							<key>QSObjectName</key>
-							<string>Current Selection</string>
-							<key>QSObjectObjectID</key>
-							<string>QSGlobalSelectionProxy</string>
-							<key>QSObjectType</key>
-							<string>qs.proxy</string>
-						</dict>
-					</dict>
 					<key>directID</key>
 					<string>QSGlobalSelectionProxy</string>
 				</dict>
@@ -2180,6 +2131,15 @@
 		</dict>
 		<key>QSProxies</key>
 		<dict>
+			<key>QSGlobalSelectionProxy</key>
+			<dict>
+				<key>icon</key>
+				<string>Object</string>
+				<key>name</key>
+				<string>Current Selection</string>
+				<key>providerClass</key>
+				<string>QSGlobalSelectionProvider</string>
+			</dict>
 			<key>com.blacktree.Quicksilver</key>
 			<dict>
 				<key>icon</key>
