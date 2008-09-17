@@ -176,7 +176,7 @@
     if ([self usesPresetCommand]) {
 		rep = [[self command] identifier];
     } else {
-        rep = [[self command] commandDict];
+        rep = [[self command] objectForType:QSCommandType];
     }
     if (rep)
         [dict setObject:rep forKey:@"command"];
