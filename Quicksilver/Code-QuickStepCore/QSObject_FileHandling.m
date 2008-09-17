@@ -490,7 +490,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			//NSLog(@"actions %d", [actions count]);
 			NSDictionary *appActions = [[QSReg tableNamed:@"QSApplicationActions"] objectForKey:bundleIdentifier];
 			foreachkey(actionID, actionDict, appActions) {
-				[actions addObject:[QSAction actionWithDictionary:actionDict identifier:actionID bundle:nil]];
+				[actions addObject:[QSAction actionWithDictionary:actionDict identifier:actionID]];
 			}
 			//	NSLog(@"actions %d", [actions count]);
 

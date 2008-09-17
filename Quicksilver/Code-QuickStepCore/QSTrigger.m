@@ -67,7 +67,7 @@
 - (NSString *)name {
 	NSString *name = [info objectForKey:@"name"];
 	if (!name)
-		name = [[self command] description];
+		name = [[self command] name];
 	return name;
 }
 - (BOOL)hasCustomName {

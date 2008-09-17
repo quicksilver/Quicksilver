@@ -188,14 +188,11 @@ target:
 	NSMutableArray *array = [NSMutableArray array];
 	[array addObject:[QSAction actionWithDictionary:[NSDictionary dictionaryWithObjectsAndKeys:
 															 self, kActionProvider, @"openTrash:", kActionSelector, nil]
-										 identifier:@"FinderOpenTrashAction" bundle:[self bundle]]];
+										 identifier:@"FinderOpenTrashAction"]];
 	[array addObject:[QSAction actionWithDictionary:[NSDictionary dictionaryWithObjectsAndKeys:
 															 self, kActionProvider, @"emptyTrash:", kActionSelector, nil]
-										 identifier:@"FinderEmptyTrashAction" bundle:[self bundle]]];
-	id handler = [self handlerForObject:dObject];
-	if ([handler respondsToSelector:@selector(actionsForDirectObject:indirectObject:)])
-		return [handler actionsForDirectObject:dObject indirectObject:nil];
-	return [NSMutableArray array];
+										 identifier:@"FinderEmptyTrashAction"]];
+     return array;
 }
 
 @end

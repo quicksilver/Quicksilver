@@ -13,10 +13,10 @@
 @implementation QSBasicObject
 
 + (id)objectWithDictionary:(NSDictionary *)dictionary {
-    if (DEBUG_UNPACKING)
-        NSLog(@"%@ %@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), dictionary);
     if(dictionary == nil)
         return nil;
+    if (DEBUG_UNPACKING)
+        NSLog(@"%@ %@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), dictionary);
     id obj = [dictionary objectForKey:kQSObjectClass];
     if(obj)
         obj = [[NSClassFromString(obj) alloc] initWithDictionary:dictionary];
@@ -160,15 +160,8 @@
 }
 - (QSBasicObject *)resolvedObject {return self;}
 
-- (void)setBundle:(NSBundle *)aBundle {
-    if(aBundle != nil && aBundle != bundle) {
-        [bundle release];
-        bundle = [aBundle retain];
-    }
-}
+- (void)setBundle:(NSBundle *)aBundle {}
 - (NSBundle *)bundle {
-    NSBundle *b = bundle;
-    if (!b) b = [QSReg bundleForClassName:[self identifier]];
-    return b;
+    return nil;
 }
 @end

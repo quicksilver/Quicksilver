@@ -39,6 +39,7 @@ extern NSSize QSMaxIconSize;
 #define kQSObjectPrimaryType @"QSObjectType"
 #define kQSObjectSource @"QSObjectSource"
 #define kQSObjectIconName @"QSObjectIconName"
+#define kQSObjectBundle @"QSObjectBundle"
 
 #define kQSObjectDefaultAction @"QSObjectDefaultAction"
 

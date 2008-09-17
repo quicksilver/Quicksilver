@@ -19,7 +19,7 @@
 #define kActionName @"name"
 #define kActionUserData @"userData"
 #define kActionEnabled @"enabled"
-//#define kActionIdentifier @"id"
+#define kActionIdentifier @"id"
 
 // arrays:
 #define kActionDirectTypes @"directTypes"
@@ -36,9 +36,6 @@
 // NSNumber (float) :
 #define kActionPrecedence @"precedence"
 
-#define kSourceBundleMeta @"sourceBundle"
-#define kUserDataMeta @"userData"
-
 @interface QSAction : QSObject {
 	int rank;
 	BOOL enabled;
@@ -49,49 +46,42 @@
 + (BOOL)modifiersAreIgnored;
 #endif
 
-+ (void)initialize;
++ (id)actionWithDictionary:(NSDictionary *)dict;
++ (id)actionWithDictionary:(NSDictionary *)dict identifier:(NSString *)ident;
 + (id)actionWithIdentifier:(NSString *)newIdentifier;
-+ (id)actionWithIdentifier:(NSString *)newIdentifier bundle:(NSBundle *)bundle; // Creates actions using Localization from this bundle
-- (id)initWithIdentifier:(NSString *)newIdentifier bundle:(NSBundle *)bundle;
-//- (float) rankModification;
-//- (void)setRankModification:(float)aRankModification;
-	//- (NSString *)identifier ;
-- (id)provider ;
-- (void)setProvider:(id)newProvider ;
-- (void)setAction:(SEL)newAction ;
-//- (void)setArgumentCount:(int)newArgumentCount ;
-- (void)setReverse:(BOOL)flag ;
-- (BOOL)canThread ;
-- (void)setIndirectOptional:(BOOL)flag;
-- (id)userData;
-- (void)setUserData:(id)anUserData;
-	//- (BOOL)displaysResult;
-- (void)setDisplaysResult:(BOOL)flag;
+
+- (id)initWithDictionary:(NSDictionary *)dict identifier:(NSString *)ident bundle:(NSBundle *)bundle;
+
+- (QSObject *)performOnDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
+
 - (QSAction *)alternate;
-- (int) rank;
+
+- (id)provider;
+- (void)setProvider:(id)newProvider;
+- (void)setAction:(SEL)newAction;
+
+- (int)rank;
 - (void)setRank:(int)newRank;
 - (BOOL)enabled;
 - (void)setEnabled:(BOOL)flag;
+
+- (void)setArgumentCount:(int)newArgumentCount ;
+- (BOOL)reverse;
+- (void)setReverse:(BOOL)flag ;
+- (BOOL)canThread;
+- (BOOL)indirectOptional;
+- (void)setIndirectOptional:(BOOL)flag;
+- (BOOL)displaysResult;
+- (void)setDisplaysResult:(BOOL)flag;
+
 
 - (float) precedence;
 - (NSNumber *)defaultEnabled;
 - (void)_setEnabled:(BOOL)flag;
 - (void)_setRank:(int)newRank;
 - (void)_setMenuEnabled:(BOOL)flag;
-@end
-
-
-@interface QSObject (ActionHandling)
-+ (QSAction *)actionWithDictionary:(NSDictionary *)dict identifier:(NSString *)ident bundle:(NSBundle *)bundle;
-- (id)initWithActionDictionary:(NSDictionary *)dict identifier:(NSString *)ident bundle:(NSBundle *)bundle;
-
-- (QSObject *)performOnDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
-- (NSString *)commandDescriptionWithDirectObject:(QSBasicObject *)dObject indirectObject:(QSBasicObject *)iObject;
 - (int) argumentCount;
-- (NSMutableDictionary *)actionDict;
-
-- (NSBundle *)bundle;
-- (void)setBundle:(NSBundle *)aBundle;
+- (NSString *)commandDescriptionWithDirectObject:(QSBasicObject *)dObject indirectObject:(QSBasicObject *)iObject;
 @end
 
 @interface QSActionHandler : NSObject

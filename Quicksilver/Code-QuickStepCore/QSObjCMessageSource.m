@@ -101,20 +101,20 @@
 @implementation QSObject (ObjCMessaging)
 + (QSObject *)messageObjectWithInfo:(NSDictionary *)dictionary identifier:(NSString *)identifier {
 	NSMutableDictionary *mDict = [[dictionary mutableCopy] autorelease];
+    
+    //if (VERBOSE) NSLog(@"Old style message object used:%@", [dictionary objectForKey:@"name"]);
+    
+    id value;
+    if (value = [mDict objectForKey:kQSObjCMessageAction])
+        [mDict setObject:value forKey:kActionSelector];
+    
+    if (value = [mDict objectForKey:kQSObjCMessageTargetClass])
+        [mDict setObject:value forKey:kActionClass];
+    
+    if (value = [mDict objectForKey:kQSObjCMessageSendToClass])
+        [mDict setObject:value forKey:kActionSendMessageToClass];
 
-		//if (VERBOSE) NSLog(@"Old style message object used:%@", [dictionary objectForKey:@"name"]);
-
-		id value;
-		if (value = [mDict objectForKey:kQSObjCMessageAction])
-			[mDict setObject:value forKey:kActionSelector];
-
-		if (value = [mDict objectForKey:kQSObjCMessageTargetClass])
-			[mDict setObject:value forKey:kActionClass];
-
-		if (value = [mDict objectForKey:kQSObjCMessageSendToClass])
-			[mDict setObject:value forKey:kActionSendMessageToClass];
-
-	return	[QSObject actionWithDictionary:mDict identifier:identifier bundle:nil];
+	return [QSAction actionWithDictionary:mDict identifier:identifier];
 }
 + (QSObject *)messageObjectWithTargetClass:(NSString *)class selectorString:(NSString *)selector {
 	NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:

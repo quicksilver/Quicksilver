@@ -16,6 +16,8 @@
 - (NSString *)name;
 - (NSString *)primaryType;
 - (id)primaryObject;
+- (NSBundle*)bundle;
+- (void)setBundle:(NSBundle*)bundle;
 - (id)objectForType:(id)aType;
 - (NSArray *)arrayForType:(id)aKey;
 - (NSArray *)types;
@@ -37,7 +39,6 @@
 @interface QSBasicObject : NSObject <QSObject, QSObjectHierarchy> {
 @public
 	NSObject <QSObjectRanker> *ranker;
-    NSBundle *bundle;
 }
 + (id)objectWithDictionary:(NSDictionary*)dictionary;
 - (int)primaryCount;
@@ -66,6 +67,4 @@
 - (BOOL)containsType:(NSString *)aType;
 - (QSBasicObject *)resolvedObject;
 - (void)becameSelected;
-- (NSBundle*)bundle;
-- (void)setBundle:(NSBundle*)bundle;
 @end

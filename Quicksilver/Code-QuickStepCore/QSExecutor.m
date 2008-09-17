@@ -159,7 +159,6 @@ QSExecutor *QSExec;
 }
 
 - (void)addAction:(QSAction *)action {
-	NSDictionary *actionDict = [action actionDict];
 	NSString *ident = [action identifier];
 	if (!ident)
 		return;
@@ -201,7 +200,7 @@ QSExecutor *QSExec;
 	} else {
 		[action _setRank:index];
 	}
-
+	NSDictionary *actionDict = [action objectForType:QSActionType];
 	NSArray *directTypes = [actionDict objectForKey:@"directTypes"];
 	if (![directTypes count]) directTypes = [NSArray arrayWithObject:@"*"];
 	NSEnumerator *e = [directTypes objectEnumerator];
@@ -225,26 +224,6 @@ QSExecutor *QSExec;
 		[[actionIdentifiers objectForKey:[actionRanking objectAtIndex:i]]_setRank:i];
 	}
 	[self writeActionsInfo];
-}
-
-- (void)addActionsFromDictionary:(NSDictionary *)actionsDictionary bundle:(NSBundle *)bundle {
-	NSEnumerator *e = [actionsDictionary keyEnumerator];
-	NSDictionary *actionDict;
-	NSString *key;
-	while (key = [e nextObject]) {
-		actionDict = [actionsDictionary objectForKey:key];
-
-		if ([[actionDict objectForKey:@"disabled"] boolValue]) continue;
-
-		QSAction *action = [QSAction actionWithDictionary:actionDict identifier:key bundle:bundle];
-
-		if ([[actionDict objectForKey:@"initialize"] boolValue] && [[action provider] respondsToSelector:@selector(initializeAction:)])
-			action = [[action provider] initializeAction:action];
-		if (action) {
-			[self addAction:action];
-			[[self makeArrayForSource:[bundle bundleIdentifier]] addObject:action];
-		}
-	}
 }
 
 - (NSMutableArray *)getArrayForSource:(NSString *)sourceid {
@@ -398,7 +377,7 @@ QSExecutor *QSExec;
 	while(thisAction = [newActionEnumerator nextObject]) {
 		if (![thisAction enabled]) continue;
 		validSourceActions = nil;
-		NSDictionary *actionDict = [thisAction actionDict];
+		NSDictionary *actionDict = [thisAction objectForType:QSActionType];
 		isValid = ![[actionDict objectForKey:@"validatesObjects"] boolValue];
 
 		//NSLog(@"thisact %@", thisAction);
@@ -524,7 +503,29 @@ QSExecutor *QSExec;
 @implementation QSExecutor (QSPlugInInfo)
 - (BOOL)handleInfo:(id)info ofType:(NSString *)type fromBundle:(NSBundle *)bundle {
 	if (info) {
-		[self addActionsFromDictionary:info bundle:bundle];
+        NSEnumerator *e = [info keyEnumerator];
+        NSMutableDictionary *actionDict;
+        NSString *key;
+        while (key = [e nextObject]) {
+            actionDict = [info objectForKey:key];
+            
+            if ([[actionDict objectForKey:@"disabled"] boolValue]) continue;
+            
+            actionDict = [actionDict mutableCopy];
+            
+            [actionDict setObject:key forKey:kActionIdentifier];
+            
+            QSAction *action = [QSAction actionWithDictionary:actionDict];
+            [action setBundle:bundle];
+            
+            if ([[actionDict objectForKey:@"initialize"] boolValue] && [[action provider] respondsToSelector:@selector(initializeAction:)])
+                action = [[action provider] initializeAction:action];
+            if (action) {
+                [self addAction:action];
+                [[self makeArrayForSource:[bundle bundleIdentifier]] addObject:action];
+            }
+            [actionDict release];
+        }
 	} else {
 		//		NSDictionary *providers = [[[plugin bundle] dictionaryForFileOrPlistKey:@"QSRegistration"] objectForKey:@"QSActionProviders"];
 		//		if (providers) {

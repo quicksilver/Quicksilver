@@ -339,11 +339,11 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 - (QSObject *)dObject {
 	QSObject *dObject = [oDict objectForKey:@"directObject"];
 	if (!dObject) dObject = [QSObject objectWithIdentifier:[oDict objectForKey:@"directID"]];
-	if (!dObject) {
+	if (!dObject && [oDict objectForKey:@"directArchive"]) {
 		dObject = [QSObject objectWithDictionary:[oDict objectForKey:@"directArchive"]];
 		if (dObject) [oDict setObject:dObject forKey:@"directObject"];
 	}
-	if (!dObject) {
+	if (!dObject && [oDict objectForKey:@"directResource"]) {
 		dObject = [QSObject fileObjectWithPath:[QSRez pathWithLocatorInformation:[oDict objectForKey:@"directResource"]]];
 		if (dObject) [oDict setObject:dObject forKey:@"directObject"];
 	}
@@ -352,11 +352,11 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 - (QSObject *)iObject {
 	QSObject *iObject = [oDict objectForKey:@"indirectObject"];
 	if (!iObject) iObject = [QSObject objectWithIdentifier:[oDict objectForKey:@"indirectID"]];
-	if (!iObject) {
+	if (!iObject && [oDict objectForKey:@"indirectArchive"]) {
 		iObject = [QSObject objectWithDictionary:[oDict objectForKey:@"indirectArchive"]];
 		if (iObject) [oDict setObject:iObject forKey:@"indirectObject"];
 	}
-	if (!iObject) {
+	if (!iObject && [oDict objectForKey:@"indirectResource"]) {
 		iObject = [QSObject fileObjectWithPath:[QSRez pathWithLocatorInformation:[oDict objectForKey:@"indirectResource"]]];
 		if (iObject) [oDict setObject:iObject forKey:@"indirectObject"];
 	}

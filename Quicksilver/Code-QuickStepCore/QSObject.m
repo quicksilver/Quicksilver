@@ -711,6 +711,17 @@ NSSize QSMaxIconSize;
 - (void)setlastAccess:(NSTimeInterval)newlastAccess {
 	lastAccess = newlastAccess;
 }
+
+- (NSBundle *)bundle {
+	return [self objectForMeta:kQSObjectBundle];
+}
+
+- (void)setBundle:(NSBundle*)bundle {
+    if (bundle && ![[meta objectForKey:kQSObjectBundle] isEqual:bundle]) {
+        [meta setObject:bundle forKey:kQSObjectBundle];
+    }
+}
+
 @end
 
 @implementation QSObject (Archiving)

@@ -39,8 +39,8 @@
 - (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject;
 //- (void)loadActionsForObject:(id)actionObject;
-- (void)addActionsFromDictionary:(NSDictionary *)actionsDictionary bundle:(NSBundle *)bundle;
 - (NSArray *)actions;
+- (QSAction *)actionForIdentifier:(NSString *)identifier;
 - (NSMutableArray *)actionsArrayForType:(NSString *)type;
 - (void)noteNewName:(NSString *)name forAction:(QSObject *)aObject;
 - (void)setAction:(QSAction *)action isEnabled:(BOOL)flag;

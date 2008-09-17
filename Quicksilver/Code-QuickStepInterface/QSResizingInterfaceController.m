@@ -46,7 +46,7 @@
 //	NSLog(@"adjust x%d", argumentCount);
 	NSResponder *firstResponder = [[self window] firstResponder];
 	if (argumentCount == 2) {
-		BOOL indirectOptional = [[[[aSelector objectValue] actionDict] objectForKey:kActionIndirectOptional] boolValue];
+		BOOL indirectOptional = [[aSelector objectValue] indirectOptional];
 
 //		  NSLog(@"adjust %d", indirectOptional);
 		if (indirectOptional) {
@@ -69,7 +69,7 @@
 	if (aResponder == iSelector || aResponder == [iSelector currentEditor]) {
 		QSAction *action = (QSAction *)[aSelector objectValue];
 		int argumentCount = [action argumentCount];
-		BOOL indirectOptional = [[[[aSelector objectValue] actionDict] objectForKey:kActionIndirectOptional] boolValue];
+		BOOL indirectOptional = [[aSelector objectValue] indirectOptional];
 
 		if (argumentCount == 2 && indirectOptional && (aResponder == iSelector || aResponder == [iSelector currentEditor]) )
 			[self adjustWindow:self];
