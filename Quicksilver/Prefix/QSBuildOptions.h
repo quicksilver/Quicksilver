@@ -10,4 +10,4 @@
 #import "QSApp.h"
 #define DEVELOPMENTVERSION YES
 #define PRERELEASEVERSION [NSApp isPrerelease]
-#define SVN_REVISION 3814
+#define SVN_REVISION 3821
