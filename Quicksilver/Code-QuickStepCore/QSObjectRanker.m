@@ -98,7 +98,7 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 		}
 		//rankedObject = [ranker rankedObject:thisObject forAbbreviation:anAbbreviation inContext:nil withMnemonics:abbreviationMnemonics];
 		rankedObject = (*scoreForObjectIMP) (ranker, @selector(rankedObject:forAbbreviation:inContext:withMnemonics:),
-											thisObject, anAbbreviation, @"test", abbreviationMnemonics, mnemonicsOnly);
+											thisObject, anAbbreviation, context, abbreviationMnemonics, mnemonicsOnly);
 
 		if (rankedObject) {
 			[rankObjects addObject:rankedObject];

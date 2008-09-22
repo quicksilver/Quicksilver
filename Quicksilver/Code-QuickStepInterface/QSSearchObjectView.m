@@ -1496,7 +1496,7 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 
 
 - (void)insertText:(id)aString {
-	aString = [[aString purifiedString] lowercaseString];
+//	aString = [[aString purifiedString] lowercaseString];
 	if (![partialString length]) {
 		[self updateHistory];
 		[self setSearchArray:sourceArray];

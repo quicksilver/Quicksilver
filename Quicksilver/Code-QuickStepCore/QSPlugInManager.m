@@ -188,10 +188,10 @@
 		NSData *data = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:nil error:nil];
 		[self loadNewWebData:data];
 	} else {
-	if (receivedData) {
-	 NSLog(@"Already checking %p", receivedData);
-	 return;
-	}
+        if (receivedData) {
+            NSLog(@"Already checking %p", receivedData);
+            return;
+        }
 
 		NSURLConnection *theConnection = [[NSURLConnection alloc] initWithRequest:theRequest
 																	 delegate:self];
@@ -237,12 +237,14 @@
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
 	[receivedData setLength:0];
 }
+
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
 	[receivedData appendData:data];
 }
+
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
- [connection release];
- [receivedData release];
+    [connection release];
+    [receivedData release];
 	receivedData = nil;
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSPlugInInfoFailedNotification object:self userInfo:nil];
@@ -710,9 +712,9 @@
 		[self setInstallStatus:status];
 		//[self setInstallProgress:[self downloadProgress]];
 		[[QSTaskController sharedInstance] updateTask:@"QSPlugInInstalling" status:status progress:-1];
-}
+    }
 
-[[NSNotificationCenter defaultCenter] postNotificationName:@"QSUpdateControllerStatusChanged" object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"QSUpdateControllerStatusChanged" object:self];
 }
 
 - (BOOL)plugInWasInstalled:(NSString *)plugInPath {
@@ -781,9 +783,11 @@
 	}
 	return YES;
 }
+
 - (BOOL)installPlugInsForIdentifiers:(NSArray *)bundleIDs {
 	return [self installPlugInsForIdentifiers:bundleIDs version:nil];
 }
+
 - (NSString *)urlStringForPlugIn:(NSString *)ident version:(NSString *)version {
 	if (!version) version = [NSApp buildVersion];
 	return [NSString stringWithFormat:@"http://qs0.blacktree.com/quicksilver/plugins/download.php?qsversion=%d&id=%@", [version hexIntValue] , ident];
@@ -813,7 +817,6 @@
 	QSURLDownload *theDownload = [[QSURLDownload alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[info objectForKey:@"url"]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0] delegate:self];
 	[theDownload setUserInfo:[info objectForKey:@"id"]];
 	[[self downloadsQueue] addObject:theDownload];
-    [theDownload release];
 	downloadsCount++;
 	[self updateDownloadProgressInfo];
 }
@@ -884,15 +887,16 @@
 }
 
 - (void)updateDownloadProgressInfo {
-
 	//NSLog(@"count %d %d %f", [[self downloadsQueue] count] , downloadsCount, [[[self downloadsQueue] objectAtIndex:0] progress]);
 	float progress = downloadsCount-[[self downloadsQueue] count] +[(QSURLDownload *)[self currentDownload] progress];
 	progress /= downloadsCount;
 	[self setInstallProgress:progress];
 }
+
 - (void)download:(NSURLDownload *)download didReceiveDataOfLength:(unsigned)length {
 	[self updateDownloadProgressInfo];
 }
+
 - (float) downloadProgress {return [self installProgress];}
 
 - (NSMutableArray *)downloadsQueue {
@@ -902,7 +906,6 @@
 }
 
 - (void)download:(QSURLDownload *)download didFailWithError:(NSError *)error {
-
 	[[self plugInWithID:[download userInfo]]downloadFailed];
  //NSLog(@"Download failed! Error - %@ %@", [[[download request] URL] absoluteString] , [error localizedDescription] , [[error userInfo] objectForKey:NSErrorFailingURLStringKey]);
 	NSRunInformationalAlertPanel(@"Download Failed", @"%@\r%@", nil, nil, nil, [[[download request] URL] absoluteString] , [error localizedDescription]);
@@ -912,9 +915,9 @@
 	[self setCurrentDownload:nil];
 	[self startDownloadQueue];
 	[self updateDownloadCount];
-
 	[download release];
 }
+
 - (void)cancelPlugInInstall {
 	[[self currentDownload] cancel];
 	[[self downloadsQueue] removeAllObjects];
@@ -923,9 +926,7 @@
 }
 
 - (void)downloadDidFinish:(QSURLDownload *)download {
-
 	//NSLog(@"path %@", download);
-
 	//NSLog(@"FINISHED %@ %@", download, currentDownload);
 	NSString *path = [download destination];
 	if (path) {

@@ -22,30 +22,25 @@ float QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mas
 	float score, remainingScore;
 	int i, j;
 	CFRange matchedRange, remainingStrRange, adjustedStrRange = strRange;
+    CFLocaleRef userLoc = CFLocaleCopyCurrent();
 	if (!abbrRange.length) return IGNORED_SCORE; //deduct some points for all remaining letters
 	if (abbrRange.length>strRange.length) return 0.0;
+    if (!CFStringFindWithOptionsAndLocale(str, abbr,
+                                          strRange,
+                                          kCFCompareCaseInsensitive | kCFCompareDiacriticInsensitive | kCFCompareLocalized,
+                                          userLoc, &matchedRange)) {
+        CFRelease(userLoc);
+        return 0.0;
+    }
 
-	UniChar u = CFStringGetCharacterAtIndex(abbr, abbrRange.location);
-	UniChar uc = toupper(u);
-	UniChar chars[strRange.length];
-	Boolean found = NO;
-	CFStringGetCharacters(str, strRange, chars);
-
-	for (i = 0; i<strRange.length; i++) {
-		if (chars[i] == u || chars[i] == uc) {
-			found = YES;
-			break;
-		}
-	}
-	if (!found) return 0.0;
-	adjustedStrRange.length -= i;
-	adjustedStrRange.location += i;
-
-	for (i = abbrRange.length; i>0; i--) { //Search for steadily smaller portions of the abbreviation
+	for (i = abbrRange.length; i > 0; i--) { //Search for steadily smaller portions of the abbreviation
 		CFStringRef curAbbr = CFStringCreateWithSubstring (NULL, abbr, CFRangeMake(abbrRange.location, i) );
 		//terminality
 		//axeen
-		BOOL found = CFStringFindWithOptions(str, curAbbr, CFRangeMake(adjustedStrRange.location, adjustedStrRange.length-abbrRange.length+i), kCFCompareCaseInsensitive, &matchedRange);
+		BOOL found = CFStringFindWithOptionsAndLocale(str, curAbbr,
+                                                      CFRangeMake(adjustedStrRange.location, adjustedStrRange.length - abbrRange.length + i),
+                                                      kCFCompareCaseInsensitive | kCFCompareDiacriticInsensitive | kCFCompareLocalized,
+                                                      userLoc, &matchedRange);
 		CFRelease(curAbbr);
 
 		if (!found) continue;
@@ -85,8 +80,10 @@ float QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mas
 			}
 			score += remainingScore*remainingStrRange.length;
 			score /= strRange.length;
+            CFRelease( userLoc );
 			return score;
 		}
 	}
+    CFRelease( userLoc );
 	return 0;
 }
