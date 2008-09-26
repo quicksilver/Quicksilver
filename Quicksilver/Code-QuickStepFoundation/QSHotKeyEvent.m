@@ -24,12 +24,18 @@ unsigned int carbonModifierFlagsToCocoaModifierFlags( unsigned int aModifierFlag
 	unsigned int theCocoaModifierFlags = 0;
 	if (aModifierFlags & shiftKey)
 		theCocoaModifierFlags |= NSShiftKeyMask;
+    if (aModifierFlags & alphaLock)
+		theCocoaModifierFlags |= NSAlphaShiftKeyMask;
 	if (aModifierFlags & controlKey)
 		theCocoaModifierFlags |= NSControlKeyMask;
 	if (aModifierFlags & optionKey)
 		theCocoaModifierFlags |= NSAlternateKeyMask;
 	if (aModifierFlags & cmdKey)
 		theCocoaModifierFlags |= NSCommandKeyMask;
+    if (aModifierFlags & kEventKeyModifierFnMask)
+        theCocoaModifierFlags |= NSFunctionKeyMask;
+    if (aModifierFlags & kEventKeyModifierNumLockMask)
+        theCocoaModifierFlags |= NSNumericPadKeyMask;
 	return theCocoaModifierFlags;
 }
 

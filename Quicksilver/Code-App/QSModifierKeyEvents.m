@@ -12,6 +12,7 @@
 #import <Carbon/Carbon.h>
 #import <unistd.h>
 
+#define NSNumlockKeyCode 10
 #define NSCommandKeyCode 55
 #define NSShiftKeyCode 56
 #define NSAlphaShiftCode 57
@@ -56,17 +57,23 @@ BOOL KeyMapAND(char *keymap, char *keymap2) {
 
 
 OSStatus keyPressed(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData) {
-	EventMouseButton button;
-	GetEventParameter(theEvent, kEventParamMouseButton, typeMouseButton, 0,
-					  sizeof(button), 0, &button);
-	UInt32 modifiers = GetCurrentEventKeyModifiers();
-//	if (VERBOSE) NSLog(@"Modifier event unhandled! %d\n", modifiers);
-
-//	[NSApp sendEvent:[NSEvent otherEventWithType:NSFlagsChanged location:NSZeroPoint modifierFlags:modifiers timestamp:windowNumber:0 context:nil subtype:0 data1:0 data2:0]];
-//+ (NSEvent *)keyEventWithType:(NSEventType)type location:(NSPoint)location modifierFlags:(unsigned int)flags timestamp:(NSTimeInterval)time windowNumber:(int)wNum context:(NSGraphicsContext*)context characters:(NSString *)keys charactersIgnoringModifiers:(NSString *)ukeys isARepeat:(BOOL)flag keyCode:(unsigned short)code;
-[NSApp sendEvent:[NSEvent keyEventWithType:NSFlagsChanged location:NSZeroPoint modifierFlags:carbonModifierFlagsToCocoaModifierFlags(modifiers) timestamp:[NSDate timeIntervalSinceReferenceDate]
- windowNumber:0 context:nil	characters:nil
-  charactersIgnoringModifiers:nil isARepeat:NO keyCode:0]];
+    OSStatus err;
+	UInt32 modifiers;
+    err = GetEventParameter( theEvent, kEventParamKeyModifiers, typeUInt32, 0, sizeof(modifiers), 0, &modifiers );
+    if( err != 0 ) {
+        NSLog( @"Failed getting event modifiers param! %d\n", err );
+    }
+    
+    /* TODO: Use the new 10.5-only call ? */
+//    NSEvent *event = [NSEvent eventWithEventRef:theEvent];
+    NSEvent *event = [NSEvent keyEventWithType:NSFlagsChanged location:NSZeroPoint
+                                 modifierFlags:carbonModifierFlagsToCocoaModifierFlags(modifiers)
+                                     timestamp:GetEventTime( theEvent )
+                                  windowNumber:0 context:nil
+                                    characters:nil charactersIgnoringModifiers:nil
+                                     isARepeat:NO keyCode:0];
+    
+    [NSApp sendEvent:event];
 	return CallNextEventHandler(nextHandler, theEvent);
 }
 
@@ -88,7 +95,7 @@ BOOL modifierEventsEnabled = YES;
 
 	if (!modsAdded) return NO;
 
-	unsigned int puremod = mods&NSAllModifierKeysMask;
+	unsigned int puremod = mods & NSAllModifierKeysMask;
 	if (!puremod && mods&NSAlphaShiftKeyMask) puremod = NSAlphaShiftKeyMask;
 
 	QSModifierKeyEvent *match = [modifierKeyEvents objectForKey:[NSNumber numberWithUnsignedInt:puremod]];
@@ -121,6 +128,7 @@ BOOL modifierEventsEnabled = YES;
 	if (!modifierKeyEvents) modifierKeyEvents = [[NSMutableDictionary alloc] init];
 	return modifierKeyEvents;
 }
+
 + (QSModifierKeyEvent *)eventWithIdentifier:(NSString *)identifier {
 	foreach(event, [modifierKeyEvents allValues]) {
 		if ([[event identifier] isEqualToString:identifier]) return event;
@@ -131,21 +139,24 @@ BOOL modifierEventsEnabled = YES;
 - (void)enable {
 	[[QSModifierKeyEvent modifierKeyEvents] setObject:self forKey:[NSNumber numberWithUnsignedInt:modifierActivationMask]];
 }
+
 - (void)disable {
 	[[[[QSModifierKeyEvent modifierKeyEvents] objectForKey:[NSNumber numberWithUnsignedInt:modifierActivationMask]]retain] autorelease];
 	[[QSModifierKeyEvent modifierKeyEvents] removeObjectForKey:[NSNumber numberWithUnsignedInt:modifierActivationMask]];
 }
+
 +(BOOL)alphaShiftReleased {
 	NSEvent *nextMask = [NSApp nextEventMatchingMask:NSFlagsChangedMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.5] inMode:NSDefaultRunLoopMode dequeue:YES];
-	if (nextMask && !([nextMask modifierFlags] &NSAlphaShiftKeyMask) ) { //All keys released
+	if (nextMask && !([nextMask modifierFlags] & NSAlphaShiftKeyMask) ) { //All keys released
 		return YES;
 	}
 	//NSLog(@"unreleased");
 	return NO;
 }
+
 +(BOOL)modifierToggled:(unsigned int)modifierKeysMask {
 	NSEvent *nextMask = [NSApp nextEventMatchingMask:NSFlagsChangedMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.2] inMode:NSDefaultRunLoopMode dequeue:YES];
-	if (nextMask && !([nextMask modifierFlags] &NSAllModifierKeysMask) ) { //All keys released
+	if (nextMask && !([nextMask modifierFlags] & NSAllModifierKeysMask) ) { //All keys released
 		nextMask = [NSApp nextEventMatchingMask:NSFlagsChangedMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.2] inMode:NSDefaultRunLoopMode dequeue:YES];
 
 		if (nextMask && ([nextMask modifierFlags]) == modifierKeysMask) { // Modifier re-pressed
@@ -257,32 +268,14 @@ BOOL modifierEventsEnabled = YES;
 	return NO;
 }
 
+- (unsigned int)modifierActivationMask { return modifierActivationMask; }
 
-
-
-
-
-
-
-
-
-
-
-
-
-- (unsigned int) modifierActivationMask { return modifierActivationMask;  }
-	//- (void)setModifierActivationMask:(unsigned int)newModifierActivationMask {
-	//	modifierActivationMask = newModifierActivationMask;
-	//}
-
-
-- (int) modifierActivationCount { return modifierActivationCount;  }
+- (int)modifierActivationCount { return modifierActivationCount; }
 - (void)setModifierActivationCount:(int)newModifierActivationCount {
 	modifierActivationCount = newModifierActivationCount;
 }
 
-
-- (id)target { return target;  }
+- (id)target { return target; }
 - (void)setTarget:(id)newTarget {
 	if (target != newTarget) {
 		[target release];
@@ -290,13 +283,12 @@ BOOL modifierEventsEnabled = YES;
 	}
 }
 
-
-- (SEL) action { return action;  }
+- (SEL) action { return action; }
 - (void)setAction:(SEL)newAction {
 	action = newAction;
 }
 
-- (NSString *)identifier { return identifier;  }
+- (NSString *)identifier { return identifier; }
 - (void)setIdentifier:(NSString *)newIdentifier {
 	if (identifier != newIdentifier) {
 		[identifier release];

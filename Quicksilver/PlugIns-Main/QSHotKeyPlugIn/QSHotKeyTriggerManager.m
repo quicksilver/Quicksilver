@@ -11,7 +11,7 @@
 #import <QSCore/QSTrigger.h>
 #import <QSEffects/QSWindow.h>
 #import <QSEffects/QSShading.h>
-#import <QSFoundation/NDHotKeyEvent_QSMods.h>
+#import <QSFoundation/QSHotKeyEvent.h>
 
 @implementation QSHotKeyTriggerManager
 
