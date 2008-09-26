@@ -4,7 +4,7 @@
 
 
 #import "QSObject.h"
-@interface QSBasicObject (Menus)
+@interface QSObject (Menus)
 - (NSMenu *)menu;
 - (NSMenuItem *)menuItem;
 - (NSMenu *)rankMenuWithTarget:(NSView *)target;

@@ -1,6 +1,6 @@
 #include "Common.xcconfig"
 
-ARCHS = /*ppc*/ i386
+ARCHS = ppc i386
 
 DEBUG_INFORMATION_FORMAT = dwarf
 

@@ -13,30 +13,35 @@
 #import "QSResourceManager.h"
 
 @implementation QSProxyObjectHandler
-- (id)providerSelector:(SEL)selector forObject:(QSObject*)object {
-    id provider = ( [object isKindOfClass:[QSProxyObject class]] ? [(QSProxyObject*)object proxyProvider] : nil );
-    if (provider && [provider respondsToSelector:selector]) {
-        return [provider performSelector:selector withObject:object];
-    }
-    return nil;
-}
 
 - (NSString *)detailsOfObject:(QSObject *)object {
-    NSString *details = [self providerSelector:_cmd forObject:object];
+    NSString *details = nil;
+    id provider = ( [object isKindOfClass:[QSProxyObject class]] ? [(QSProxyObject*)object proxyProvider] : nil );
+    if (provider && [provider respondsToSelector:@selector(detailsOfObject:)]) {
+        details = [provider detailsOfObject:object];
+    }
     if (!details)
         details = @"Proxy Object";
     return details;
 }
 
 - (NSString *)identifierForObject:(QSObject*)object {
-    NSString *identifier = [self providerSelector:_cmd forObject:object];
+    NSString *identifier = nil;
+    id provider = ( [object isKindOfClass:[QSProxyObject class]] ? [(QSProxyObject*)object proxyProvider] : nil );
+    if (provider && [provider respondsToSelector:@selector(identifierForObject:)]) {
+        identifier = [provider identifierForObject:object];
+    }
     if (!identifier)
         identifier = [[object objectForType:QSProxyType] objectForKey:kQSProxyIdentifier];
     return identifier;
 }
 
 - (BOOL)loadChildrenForObject:(QSObject *)object {
-    BOOL loaded = (BOOL)[self providerSelector:_cmd forObject:object];
+    BOOL loaded = NO;
+    id provider = ( [object isKindOfClass:[QSProxyObject class]] ? [(QSProxyObject*)object proxyProvider] : nil );
+    if (provider && [provider respondsToSelector:@selector(loadChildrenForObject:)]) {
+        loaded = [provider loadChildrenForObject:object];
+    }
     if (!loaded) {
         id proxyTarget = [(QSProxyObject*)object proxyObject];
         if (proxyTarget) {

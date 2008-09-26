@@ -14,6 +14,7 @@
 - (NSString *)label;
 - (NSString *)name;
 - (NSString *)primaryType;
+- (BOOL)enabled;
 - (id)primaryObject;
 - (NSBundle*)bundle;
 - (void)setBundle:(NSBundle*)bundle;

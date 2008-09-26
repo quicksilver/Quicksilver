@@ -46,6 +46,7 @@
 - (void)setEnabled:(BOOL)flag {
 	[QSLib setItem:self isOmitted:!flag];
 }
+
 - (BOOL)enabled {
 	return (BOOL)![QSLib itemIsOmitted:self];
 }

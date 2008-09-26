@@ -10,7 +10,7 @@
 
 #import "NSSortDescriptor+BLTRExtensions.h"
 
-@implementation QSBasicObject (Menus)
+@implementation QSObject (Menus)
 //
 //- (NSMenu *)menu {
 // NSLog(@"Menu for: %@", self);
@@ -152,7 +152,7 @@
 	int index;
 	count = MIN(count, [children count]);
 	for (index = 0; index<count; index++) {
-		QSBasicObject *child = [[self children] objectAtIndex:index];
+		QSObject *child = [[self children] objectAtIndex:index];
 		NSMenuItem *item = [child menuItemWithChildren:YES];
 		[item setIndentationLevel:indent];
 		[menu addItem:item];

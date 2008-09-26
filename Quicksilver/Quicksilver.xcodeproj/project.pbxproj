@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 42;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -70,7 +70,6 @@
 		4DC493E20E8D15CB000EEF1C /* QSImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC493DC0E8D15CB000EEF1C /* QSImageView.m */; };
 		4DC493E30E8D15CB000EEF1C /* QSPopUpTextButtonCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DC493DD0E8D15CB000EEF1C /* QSPopUpTextButtonCell.h */; };
 		4DC493E40E8D15CB000EEF1C /* QSPopUpTextButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC493DE0E8D15CB000EEF1C /* QSPopUpTextButtonCell.m */; };
-		4DC4941C0E8D1CEC000EEF1C /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC4941B0E8D1CEC000EEF1C /* QuickLook.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		4DD2CF360E7B345500BA1128 /* QSBasicObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD2CF340E7B345500BA1128 /* QSBasicObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD2CF370E7B345500BA1128 /* QSBasicObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2CF350E7B345500BA1128 /* QSBasicObject.m */; };
 		4DFE7DA20E081A3B000B9AA3 /* NSImage+QuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DFE7DA00E081A30000B9AA3 /* NSImage+QuickLook.m */; };
@@ -1574,7 +1573,6 @@
 				7FBF1749099F937900FFCF0B /* SecurityFoundation.framework in Frameworks */,
 				4DFE7DC70E082132000B9AA3 /* Foundation.framework in Frameworks */,
 				4DFE7DC90E082160000B9AA3 /* AppKit.framework in Frameworks */,
-				4DC4941C0E8D1CEC000EEF1C /* QuickLook.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3725,6 +3723,10 @@
 				GCC_PREFIX_HEADER = Prefix/QSBasic_Prefix.pch;
 				INFOPLIST_FILE = "PropertyLists/QSFoundation-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				OTHER_LDFLAGS = (
+					"-weak_framework",
+					QuickLook,
+				);
 				PRODUCT_NAME = QSFoundation;
 			};
 			name = Debug;

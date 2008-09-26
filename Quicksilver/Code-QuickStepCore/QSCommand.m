@@ -403,7 +403,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	  if ([indirects count]) {
 		  int i;
 		  for (i = 0; i < [indirects count] && i < 10; i++) {
-			  QSBasicObject *indirect = [indirects objectAtIndex:i];
+			  QSObject *indirect = [indirects objectAtIndex:i];
 			  if ([indirect isKindOfClass:[NSNull class]]) continue;
 			  item = [indirect menuItem];
 			  [menu addItem:item];
