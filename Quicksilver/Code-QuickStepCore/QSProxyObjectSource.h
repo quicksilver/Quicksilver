@@ -8,6 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
+@interface QSProxyObjectHandler : NSObject {
+    
+}
+
+@end
 
 @interface QSProxyObjectSource : NSObject {
 

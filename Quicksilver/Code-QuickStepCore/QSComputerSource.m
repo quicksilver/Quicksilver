@@ -2,21 +2,20 @@
 #import "QSLibrarian.h"
 #import "QSResourceManager.h"
 
-#warning TODO: Merge this inside QSProxyObject/QSProxyObjectSource
+@implementation QSComputerProxyProvider
+- (NSString*)detailsOfObject:(QSObject*)object {
+    if ([[object identifier] isEqualToString:@"QSComputerProxy"]) {
+        return [[NSProcessInfo processInfo] hostName];
+    }
+    return nil;
+}
 
-@implementation QSComputerProxy
-+ (id)sharedInstance {
-	static id _sharedInstance;
-	if (!_sharedInstance) _sharedInstance = [[[self class] allocWithZone:[self zone]] init];
-	return _sharedInstance;
+- (BOOL)loadChildrenForObject:(QSObject*)proxy {
+    if ([[proxy identifier] isEqualToString:@"QSComputerProxy"]) {
+        [proxy setChildren:[[QSLib entryForID:@"QSPresetVolumes"] contents]];
+        return YES;
+    }
+    return NO;
 }
-- (NSString *)label {return [[NSProcessInfo processInfo] hostName];}
-- (NSString *)name {return @"Computer";}
-- (NSImage *)icon {return [QSResourceManager imageNamed:@"ComputerIcon"];}
-- (BOOL)hasChildren {return YES;}
-- (NSArray *)children { return [[QSLib entryForID:@"QSPresetVolumes"] contents]; }
-- (void)dealloc {
-	[name release];
-	[super dealloc];
-}
+
 @end

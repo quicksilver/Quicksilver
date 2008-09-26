@@ -12,33 +12,51 @@
 #import "QSObject.h"
 #import "QSResourceManager.h"
 
+@implementation QSProxyObjectHandler
+- (id)providerSelector:(SEL)selector forObject:(QSObject*)object {
+    id provider = ( [object isKindOfClass:[QSProxyObject class]] ? [(QSProxyObject*)object proxyProvider] : nil );
+    if (provider && [provider respondsToSelector:selector]) {
+        return [provider performSelector:selector withObject:object];
+    }
+    return nil;
+}
+
+- (NSString *)detailsOfObject:(QSObject *)object {
+    NSString *details = [self providerSelector:_cmd forObject:object];
+    if (!details)
+        details = @"Proxy Object";
+    return details;
+}
+
+- (NSString *)identifierForObject:(QSObject*)object {
+    NSString *identifier = [self providerSelector:_cmd forObject:object];
+    if (!identifier)
+        identifier = [[object objectForType:QSProxyType] objectForKey:kQSProxyIdentifier];
+    return identifier;
+}
+
+- (BOOL)loadChildrenForObject:(QSObject *)object {
+    BOOL loaded = (BOOL)[self providerSelector:_cmd forObject:object];
+    if (!loaded) {
+        id proxyTarget = [(QSProxyObject*)object proxyObject];
+        if (proxyTarget) {
+            [object setChildren:[NSArray arrayWithObject:proxyTarget]];
+            return YES;
+        }
+    }
+	return loaded;
+}
+
+@end
+
 @implementation QSProxyObjectSource
-- (id)objectForRepresentation:(NSDictionary*)dictionary {
-    QSProxyObject *object = [[QSProxyObject alloc] init];
-    [object setObject:dictionary forType:QSProxyType];
-    [object setPrimaryType:QSProxyType];
-    return [object autorelease];
-}
-
-- (NSDictionary*)representationForObject:(QSObject*)object {
-    return [object objectForType:QSProxyType];
-}
-
 - (BOOL)entryCanBeIndexed:(NSDictionary *)theEntry {return NO;}
 - (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry {
 	return NO;
 }
 
-- (NSString *)identifierForObject:(QSObject*)object {
-    return [[object objectForType:QSProxyType] objectForKey:kQSProxyIdentifier];
-}
-
 - (NSImage *)iconForEntry:(NSDictionary *)dict {
 	return [QSResourceManager imageNamed:@"Object"];
-}
-
-- (NSString *)detailsOfObject:(QSObject *)object {
-	return @"Proxy Object";
 }
 
 - (NSArray *)objectsForEntry:(NSDictionary *)theEntry {
@@ -64,15 +82,6 @@
 			[array addObject:proxyObject];
 	}
 	return array;
-}
-
-- (BOOL)loadChildrenForObject:(QSObject *)object {
-	id proxyTarget = [(QSProxyObject*)object proxyObject];
-	if (proxyTarget) {
-		[object setChildren:[NSArray arrayWithObject:proxyTarget]];
-		return YES;
-	}
-	return NO;
 }
 
 @end

@@ -22,6 +22,16 @@
     return [[[self alloc] initWithDictionary:dictionary] autorelease];
 }
 
++ (id)proxyWithIdentifier:(NSString*)identifier {
+    id obj = [QSObject objectWithIdentifier:identifier];
+    if (!obj) {
+        id rep = [[QSReg tableNamed:@"QSProxies"] objectForKey:identifier];
+        if (rep)
+            obj = [QSProxyObject objectWithDictionary:rep];
+    }
+    return obj;
+}
+
 - (id)initWithDictionary:(NSDictionary*)dictionary {
     self = [super init];
     if (self) {
@@ -99,17 +109,9 @@
 	[self releaseProxy];
 }
 
-/*- (id)_safeObjectForType:(id)aKey {
- return [[self proxyObject] _safeObjectForType:aKey];
- }*/
-
 - (BOOL)bypassValidation {
 	return [[self proxyProvider] respondsToSelector:@selector(bypassValidation)] && [[self proxyProvider] bypassValidation];
 }
-
-/*- (NSMutableDictionary *)dataDictionary {
- return [[self proxyObject] dataDictionary];
- }*/
 
 - (QSBasicObject *)resolvedObject {return [self proxyObject];}
 

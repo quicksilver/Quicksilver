@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>QSActionProviders</key>
@@ -160,7 +160,7 @@
 		<key>qs.command</key>
 		<string>QSCommandObjectHandler</string>
 		<key>qs.proxy</key>
-		<string>QSProxyObjectSource</string>
+		<string>QSProxyObjectHandler</string>
 	</dict>
 	<key>QSPasteboardTypeHandlers</key>
 	<dict>
@@ -253,10 +253,7 @@
 			<key>class</key>
 			<string>QSCatalogPrefPane</string>
 			<key>color</key>
-			<data>
-			BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2Jq
-			ZWN0AIWEAWMChARmZmZmgz8yZ2oBgz8urq8Bhg==
-			</data>
+			<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMChARmZmZmgz8yZ2oBgz8urq8Bhg==</data>
 			<key>description</key>
 			<string>Modify the list of searchable items</string>
 			<key>icon</key>
@@ -295,10 +292,7 @@
 			<key>class</key>
 			<string>QSPlugInsPrefPane</string>
 			<key>color</key>
-			<data>
-			BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2Jq
-			ZWN0AIWEAWMBhARmZmZmgz9XjNiDPzZRtoM/bRvtAYY=
-			</data>
+			<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMBhARmZmZmgz9XjNiDPzZRtoM/bRvtAYY=</data>
 			<key>description</key>
 			<string>Find and install plug-ins</string>
 			<key>icon</key>
@@ -326,10 +320,7 @@
 			<key>class</key>
 			<string>QSTriggersPrefPane</string>
 			<key>color</key>
-			<data>
-			BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2Jq
-			ZWN0AIWEAWMChARmZmZmgz9+/v+DP17e34M/H5+gAYY=
-			</data>
+			<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMChARmZmZmgz9+/v+DP17e34M/H5+gAYY=</data>
 			<key>description</key>
 			<string>Act on hot keys and other triggers</string>
 			<key>icon</key>
@@ -342,6 +333,20 @@
 	</dict>
 	<key>QSProxies</key>
 	<dict>
+		<key>QSComputerProxy</key>
+		<dict>
+			<key>icon</key>
+			<string>ComputerIcon</string>
+			<key>name</key>
+			<string>Computer</string>
+			<key>providerClass</key>
+			<string>QSComputerProxyProvider</string>
+			<key>types</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+				<string>qs.process</string>
+			</array>
+		</dict>
 		<key>QSCurrentApplicationProxy</key>
 		<dict>
 			<key>icon</key>

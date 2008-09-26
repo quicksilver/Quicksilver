@@ -68,7 +68,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 - (QSObject *)parentOfObject:(QSObject *)object {
 	QSObject * parent = nil;
 	if ([object singleFilePath]) {
-		if ([[object singleFilePath] isEqualToString:@"/"]) parent = [QSComputerProxy sharedInstance];
+		if ([[object singleFilePath] isEqualToString:@"/"]) parent = [QSProxyObject proxyWithIdentifier:@"QSComputerProxy"];
 		else parent = [QSObject fileObjectWithPath:[[object singleFilePath] stringByDeletingLastPathComponent]];
 	}
 	return parent;

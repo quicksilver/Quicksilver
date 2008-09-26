@@ -1,10 +1,6 @@
 #import <Foundation/Foundation.h>
-#import "QSObject.h"
+#import "QSProxyObject.h"
 
-#define QSComputerProxyType @"QSComputerProxyType"
-
-@interface QSComputerProxy : QSBasicObject {
-	NSString *name;
+@interface QSComputerProxyProvider : NSObject /*<QSProxyObjectProvider>*/ {
 }
-+ (id)sharedInstance;
 @end

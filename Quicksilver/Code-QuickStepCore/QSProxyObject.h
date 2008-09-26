@@ -27,6 +27,7 @@
 
 @interface QSProxyObject : QSObject
 + (id)proxyWithDictionary:(NSDictionary*)dictionary;
++ (id)proxyWithIdentifier:(NSString*)identifier;
 - (NSObject <QSProxyObjectProvider> *)proxyProvider;
 - (QSObject*)proxyObject;
 
