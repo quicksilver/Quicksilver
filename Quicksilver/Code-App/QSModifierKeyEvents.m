@@ -108,7 +108,7 @@ BOOL modifierEventsEnabled = YES;
 		if (![self modifierToggled:mods]) return NO;
 
 	}
-		return [match checkForModifierTap];
+    return [match checkForModifierTap];
 }
 
 + (void)regisiterForGlobalModifiers {
@@ -141,11 +141,11 @@ BOOL modifierEventsEnabled = YES;
 }
 
 - (void)disable {
-	[[[[QSModifierKeyEvent modifierKeyEvents] objectForKey:[NSNumber numberWithUnsignedInt:modifierActivationMask]]retain] autorelease];
+	[[[[QSModifierKeyEvent modifierKeyEvents] objectForKey:[NSNumber numberWithUnsignedInt:modifierActivationMask]] retain] autorelease];
 	[[QSModifierKeyEvent modifierKeyEvents] removeObjectForKey:[NSNumber numberWithUnsignedInt:modifierActivationMask]];
 }
 
-+(BOOL)alphaShiftReleased {
++ (BOOL)alphaShiftReleased {
 	NSEvent *nextMask = [NSApp nextEventMatchingMask:NSFlagsChangedMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.5] inMode:NSDefaultRunLoopMode dequeue:YES];
 	if (nextMask && !([nextMask modifierFlags] & NSAlphaShiftKeyMask) ) { //All keys released
 		return YES;
@@ -154,7 +154,7 @@ BOOL modifierEventsEnabled = YES;
 	return NO;
 }
 
-+(BOOL)modifierToggled:(unsigned int)modifierKeysMask {
++ (BOOL)modifierToggled:(unsigned int)modifierKeysMask {
 	NSEvent *nextMask = [NSApp nextEventMatchingMask:NSFlagsChangedMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.2] inMode:NSDefaultRunLoopMode dequeue:YES];
 	if (nextMask && !([nextMask modifierFlags] & NSAllModifierKeysMask) ) { //All keys released
 		nextMask = [NSApp nextEventMatchingMask:NSFlagsChangedMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.2] inMode:NSDefaultRunLoopMode dequeue:YES];
@@ -163,7 +163,6 @@ BOOL modifierEventsEnabled = YES;
 			return YES;
 		}
 		//if (VERBOSE) NSLog(@"nextmask %d %d %d %d", nextMask, [nextMask modifierFlags] , [nextMask modifierFlags] &NSAllModifierKeysMask, modifierKeysMask);
-
 	}
 	return NO;
 }
@@ -217,7 +216,6 @@ BOOL modifierEventsEnabled = YES;
 	//	KeyMapAddKeyCode((char *)&modExcludeMap, keyCode);
 	//	KeyMapAddKeyCode((char *)&modExcludeMap, NSAlphaShiftCode);
 	//	KeyMapInvert((char *)&modExcludeMap);
-
 }
 
 
@@ -251,12 +249,13 @@ BOOL modifierEventsEnabled = YES;
 	if (!KeyMapAND((char *)&keyMap, (char *)&modRequireMap) || KeyMapAND((char *)&keyMap, (char *)&modExcludeMap)) return NO;
 
 	NSTimeInterval startDate = [NSDate timeIntervalSinceReferenceDate];
-	NSTimeInterval window = [self modifierActivationCount] == 2?0.3:0.15;
+	NSTimeInterval window = [self modifierActivationCount] == 2 ? 0.3 : 0.15;
 	while(([NSDate timeIntervalSinceReferenceDate] -startDate) <window) {
 		GetKeys((void *)keyMap);
 	//	logKeyMap((char *)&keyMap);
 
-		if (KeyMapAND((char *)&keyMap, (char *)&modExcludeMap))break; //Other keys pressed
+		if (KeyMapAND((char *)&keyMap, (char *)&modExcludeMap))
+            break; //Other keys pressed
 
 		if (!KeyMapAND((char *)&keyMap, (char *)&modRequireMap)) { // Modifier released
 			[self sendAction];
