@@ -301,15 +301,6 @@ static BOOL gModifiersAreIgnored;
 @end
 
 @implementation QSActionHandler
-- (id)objectForRepresentation:(NSDictionary*)dictionary {
-    QSAction *obj = [[QSAction alloc] init];
-    [[obj actionDict] setDictionary:dictionary];
-    return [obj autorelease];
-}
-
-- (NSDictionary*)representationForObject:(QSBasicObject*)object {
-    return [(QSAction*)object actionDict];
-}
 
 - (NSString *)identifierForObject:(QSObject *)object {
 	return [[object objectForType:QSActionType] objectForKey:kActionIdentifier];

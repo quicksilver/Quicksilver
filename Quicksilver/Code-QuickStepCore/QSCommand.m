@@ -181,7 +181,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 
 + (QSCommand *)commandWithIdentifier:(NSString*)identifier {
     NSDictionary *commandInfo = [QSReg valueForKey:identifier inTable:@"QSCommands"];
-    QSCommand *cmd;
+    QSCommand *cmd = nil;
     if (commandInfo) {
         cmd = [QSCommand commandWithDictionary:[commandInfo objectForKey:@"command"]];
         [cmd setIdentifier:identifier];

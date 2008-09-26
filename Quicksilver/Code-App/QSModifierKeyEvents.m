@@ -8,7 +8,7 @@
 
 #import "QSModifierKeyEvents.h"
 #import "QSController.h"
-#import "NDHotKeyEvent_QSMods.h"
+#import "QSHotKeyEvent.h"
 #import <Carbon/Carbon.h>
 #import <unistd.h>
 

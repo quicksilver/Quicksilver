@@ -645,7 +645,8 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 			[self clearObjectView:dSelector];
 		} else {
 			[dSelector performSelectorOnMainThread:@selector(selectObjectValue:) withObject:returnValue waitUntilDone:YES];
-			if ([action displaysResult]) [self showMainWindow:self];
+			if ([action displaysResult])
+                [self showMainWindow:self];
 		}
 	}
 	if (VERBOSE) NSLog(@"Command executed (%dms) ", (int)(-[startDate timeIntervalSinceNow] *1000));

@@ -5,7 +5,6 @@
 #import "NDAppleScriptObject_Protocols.h"
 #import "NDComponentInstance.h"
 #import "NDHotKeyEvent.h"
-#import "NDHotKeyEvent_QSMods.h"
 #import "NDProcess.h"
 #import "NDProcess+QSMods.h"
 #import "NDResourceFork.h"
@@ -53,6 +52,7 @@
 #import "QSLSTools.h"
 #import "QSTreeController.h"
 #import "QSUTI.h"
+#import "QSHotKeyEvent.h"
 
 
 

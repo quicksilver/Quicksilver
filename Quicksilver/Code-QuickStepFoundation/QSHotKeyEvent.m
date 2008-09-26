@@ -1,12 +1,12 @@
 //
-// NDHotKeyEvent_QSMods.m
+// QSHotKeyEvent.m
 // Quicksilver
 //
 // Created by Alcor on 8/16/04.
 // Copyright 2004 Blacktree. All rights reserved.
 //
 
-#import "NDHotKeyEvent_QSMods.h"
+#import "QSHotKeyEvent.h"
 
 typedef int CGSConnection;
 typedef enum {

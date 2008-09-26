@@ -1,10 +1,8 @@
 #import "QSShading.h"
 #import "NSScreen_BLTRExtensions.h"
 #import "NSApplication+ServicesModification.h"
-#import "NDHotKeyEvent_QSMods.h"
+#import "QSHotKeyEvent.h"
 #import "NDAlias+AliasFile.h"
-#import "NDHotKeyEvent_QSMods.h"
-#import "NDHotKeyEvent_QSMods.h"
 #import <Quartz/Quartz.h>
 #import "NDHotKeyEvent.h"
 #import "NDProcess.h"

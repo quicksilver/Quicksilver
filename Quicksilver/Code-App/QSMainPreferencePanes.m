@@ -23,7 +23,7 @@
 
 #import "NSBundle_BLTRExtensions.h"
 
-#import "NDHotKeyEvent_QSMods.h"
+#import "QSHotKeyEvent.h"
 
 #import "QSModifierKeyEvents.h"
 

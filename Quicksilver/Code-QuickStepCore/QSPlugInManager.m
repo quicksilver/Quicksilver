@@ -354,8 +354,9 @@
 
 	return [plugin registerPlugIn];
 }
+
 - (void)checkForUnmetDependencies {
-	//if (VERBOSE) NSLog(@"Unmet Dependencies: %@", [dependingPlugIns description]);
+    if (VERBOSE) NSLog(@"Unmet Dependencies: %@", dependingPlugIns);
 	NSMutableArray *array = [NSMutableArray array];
 	NSMutableSet *dependingNames = [NSMutableSet set];
 	foreachkey(ident, plugins, dependingPlugIns) {
@@ -906,9 +907,9 @@
 }
 
 - (void)download:(QSURLDownload *)download didFailWithError:(NSError *)error {
-	[[self plugInWithID:[download userInfo]]downloadFailed];
+	[[self plugInWithID:[download userInfo]] downloadFailed];
  //NSLog(@"Download failed! Error - %@ %@", [[[download request] URL] absoluteString] , [error localizedDescription] , [[error userInfo] objectForKey:NSErrorFailingURLStringKey]);
-	NSRunInformationalAlertPanel(@"Download Failed", @"%@\r%@", nil, nil, nil, [[[download request] URL] absoluteString] , [error localizedDescription]);
+	NSRunInformationalAlertPanel(@"Download Failed", @"%@\r%@", nil, nil, nil, [[[download request] URL] absoluteString], [error localizedDescription]);
 	[[self downloadsQueue] removeObject:download];
 	downloadsCount--;
 

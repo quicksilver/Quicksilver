@@ -2,8 +2,7 @@ NSString * stringForModifiers( unsigned int aModifierFlags );
 
 #import "QSHotKeyEditor.h"
 
-#import "NDHotKeyEvent.h"
-#import "NDHotKeyEvent_QSMods.h"
+#import "QSHotKeyEvent.h"
 
 @implementation QSHotKeyCell
 - (NSText *)setUpFieldEditorAttributes:(NSText *)textObj {

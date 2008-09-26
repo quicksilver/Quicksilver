@@ -1,5 +1,5 @@
 //
-//  NDHotKeyEvent_QSMods.h
+//  QSHotKeyEvent.h
 //  Quicksilver
 //
 //  Created by Alcor on 8/16/04.
