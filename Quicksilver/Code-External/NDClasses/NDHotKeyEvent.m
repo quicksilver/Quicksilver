@@ -916,7 +916,7 @@ static OSStatus switchHotKey( NDHotKeyEvent * self, BOOL aFlag )
 @end
 
 static NSString * stringForCharacter( const unsigned short aKeyCode, unichar aCharacter );
-static NSString * stringForModifiers( unsigned int aModifierFlags );	
+NSString * stringForModifiers( unsigned int aModifierFlags );	
 
 /*
  * stringForKeyCodeAndModifierFlags()
@@ -980,18 +980,26 @@ unichar unicharForKeyCode( unsigned short aKeyCode )
 	{
 		switch( aKeyCode )
 		{
-			case 0x7A: return NSF1FunctionKey;
-			case 0x78: return NSF2FunctionKey;
-			case 0x63: return NSF3FunctionKey;
-			case 0x76: return NSF4FunctionKey;
-			case 0x60: return NSF5FunctionKey;
-			case 0x61: return NSF6FunctionKey;
-			case 0x62: return NSF7FunctionKey;
-			case 0x64: return NSF8FunctionKey;
-			case 0x65: return NSF9FunctionKey;
-			case 0x6D: return NSF10FunctionKey;
-			case 0x67: return NSF11FunctionKey;
-			case 0x6F: return NSF12FunctionKey;
+			case kVK_F1: return NSF1FunctionKey;
+			case kVK_F2: return NSF2FunctionKey;
+			case kVK_F3: return NSF3FunctionKey;
+			case kVK_F4: return NSF4FunctionKey;
+			case kVK_F5: return NSF5FunctionKey;
+			case kVK_F6: return NSF6FunctionKey;
+			case kVK_F7: return NSF7FunctionKey;
+			case kVK_F8: return NSF8FunctionKey;
+			case kVK_F9: return NSF9FunctionKey;
+			case kVK_F10: return NSF10FunctionKey;
+			case kVK_F11: return NSF11FunctionKey;
+			case kVK_F12: return NSF12FunctionKey;
+            case kVK_F13: return NSF13FunctionKey;
+            case kVK_F14: return NSF14FunctionKey;
+            case kVK_F15: return NSF15FunctionKey;
+            case kVK_F16: return NSF16FunctionKey;
+            case kVK_F17: return NSF17FunctionKey;
+            case kVK_F18: return NSF18FunctionKey;
+            case kVK_F19: return NSF19FunctionKey;
+            case kVK_F20: return NSF20FunctionKey;
 			default: return 0x00;
 		}
 	}

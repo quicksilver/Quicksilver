@@ -463,3 +463,5 @@ NSString * stringForKeyCodeAndModifierFlags( unsigned short keyCode, unichar aCh
 	@result A <tt>unichar</tt>
  */
 unichar unicharForKeyCode( unsigned short keyCode );
+
+NSString * stringForModifiers( unsigned int aModifierFlags );
