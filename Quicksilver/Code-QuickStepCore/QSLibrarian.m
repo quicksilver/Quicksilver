@@ -628,8 +628,9 @@ static float searchSpeed = 0.0;
 	if (count) searchSpeed = ((speed+searchSpeed) /2.0f);
 	//  if (VERBOSE) NSLog(@"Ranking: %fms avg: %dµs", -([date timeIntervalSinceNow] *1000), (int)(speed*1000000)); date = [NSDate date];
  	[rankObjects sortUsingSelector:@selector(scoreCompare:)];
+    NSArray *rankedObjects = [rankObjects arrayByPerformingSelector:@selector(object)];
 	//NSLog(@"rakn %@", [rankObjects objectAtIndex:0]);
-	return rankObjects;
+	return [[rankedObjects mutableCopy] autorelease];
 }
 
 

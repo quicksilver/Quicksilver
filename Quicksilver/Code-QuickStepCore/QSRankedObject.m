@@ -51,7 +51,7 @@
 - (BOOL)isEqual:(id)anObject {
 	return [anObject isEqual:object];
 }
-- (BOOL)respondsToSelector:(SEL)aSelector {
+/*- (BOOL)respondsToSelector:(SEL)aSelector {
 	if ([super respondsToSelector:aSelector]) return YES;
   if ([object respondsToSelector:aSelector]) return YES;
  // NSLog(@"%@ does not respond to %@", object, NSStringFromSelector(aSelector) );
@@ -70,7 +70,7 @@
 	NSMethodSignature *sig = [[self class] instanceMethodSignatureForSelector:sel];
 	if (sig) return sig;
 	return [object methodSignatureForSelector:sel];
-}
+}*/
 
 - (id)initWithObject:(id)newObject matchString:(NSString *)matchString order:(int)newOrder score:(float)newScore {
 	if (self = [super init]) {

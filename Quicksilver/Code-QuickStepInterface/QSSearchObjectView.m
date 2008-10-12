@@ -698,10 +698,10 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 	// NSLog(@"newselect %d", selection+d);
 	[self selectIndex:selection+d];
 }
-- (BOOL)respondsToSelector:(SEL)aSelector {
+/*- (BOOL)respondsToSelector:(SEL)aSelector {
 //NSLog(NSStringFromSelector(aSelector) );
 	return[super respondsToSelector:aSelector];
-}
+}*/
 
 - (void)complete:(id)sender {
 	[self cancelOperation:sender];
