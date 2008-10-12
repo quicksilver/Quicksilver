@@ -1,95 +1,184 @@
 /*
- * NSURL+NDCarbonUtilities.m category
- * AppleScriptObjectProject
+ *  NSURL+NDCarbonUtilities.m category
+ *  AppleScriptObjectProject
  *
- * Created by nathan on Wed Dec 05 2001.
- * Copyright (c) 2001 __CompanyName__. All rights reserved.
+ *  Created by nathan on Wed Dec 05 2001.
+ *  Copyright 2001-2007 Nathan Day. All rights reserved.
  */
 
 #import "NSURL+NDCarbonUtilities.h"
 
+/*
+ * category implementation NSURL (NDCarbonUtilities)
+ */
 @implementation NSURL (NDCarbonUtilities)
 
-+ (NSURL *)URLWithFSRef:(const FSRef *)aFsRef {
-	return [(NSURL *)CFURLCreateFromFSRef( kCFAllocatorDefault, aFsRef ) autorelease];
+/*
+	+ URLWithFSRef:
+ */
++ (NSURL *)URLWithFSRef:(const FSRef *)aFsRef
+{
+	CFURLRef theURL = CFURLCreateFromFSRef( kCFAllocatorDefault, aFsRef );
+
+	/* To support GC and non-GC, we need this contortion. */
+	return [NSMakeCollectable(theURL) autorelease];
 }
 
-+ (NSURL *)URLWithFileSystemPathHFSStyle:(NSString *)aHFSString {
-	return [(NSURL *)CFURLCreateWithFileSystemPath( kCFAllocatorDefault, (CFStringRef)aHFSString, kCFURLHFSPathStyle, [aHFSString hasSuffix:@":"] ) autorelease];
+/*
+	+ URLWithFileSystemPathHFSStyle:
+ */
++ (NSURL *)URLWithFileSystemPathHFSStyle:(NSString *)aHFSString
+{
+	CFURLRef theURL = CFURLCreateWithFileSystemPath( kCFAllocatorDefault, (CFStringRef)aHFSString, kCFURLHFSPathStyle, [aHFSString hasSuffix:@":"] );
+
+	/* To support GC and non-GC, we need this contortion. */
+	return [NSMakeCollectable(theURL) autorelease];
 }
 
-- (BOOL)getFSRef:(FSRef *)aFsRef {
-	return CFURLGetFSRef( (CFURLRef) self, aFsRef ) != 0;
+/*
+	- getFSRef:
+ */
+- (BOOL)getFSRef:(FSRef *)aFsRef
+{
+	return CFURLGetFSRef( (CFURLRef)self, aFsRef ) != 0;
 }
 
-- (BOOL)getFSSpec:(FSSpec *)aFSSpec {
-	FSRef aFSRef;
+/*
+	- getFSRef:
+ */
+- (BOOL)getFSSpec:(FSSpec *)aFSSpec
+{
+#if defined(__LP64__) && __LP64__
+	(void)aFSSpec;
+	return NO;
+#else
+	FSRef			aFSRef;
+
 	return [self getFSRef:&aFSRef] && (FSGetCatalogInfo( &aFSRef, kFSCatInfoNone, NULL, NULL, aFSSpec, NULL ) == noErr);
+#endif
 }
 
-- (NSURL *)URLByDeletingLastPathComponent {
-	return [(NSURL *)CFURLCreateCopyDeletingLastPathComponent( kCFAllocatorDefault, (CFURLRef)self) autorelease];
+/*
+	- URLByDeletingLastPathComponent
+ */
+- (NSURL *)URLByDeletingLastPathComponent
+{
+	CFURLRef theURL = CFURLCreateCopyDeletingLastPathComponent( kCFAllocatorDefault, (CFURLRef)self);
+
+	/* To support GC and non-GC, we need this contortion. */
+	return [NSMakeCollectable(theURL) autorelease];
 }
 
-- (NSString *)fileSystemPathHFSStyle {
-	return [(NSString *)CFURLCopyFileSystemPath((CFURLRef)self, kCFURLHFSPathStyle) autorelease];
+/*
+	- fileSystemPathHFSStyle
+ */
+- (NSString *)fileSystemPathHFSStyle
+{
+	CFStringRef	theString = CFURLCopyFileSystemPath((CFURLRef)self, kCFURLHFSPathStyle);
+
+	/* To support GC and non-GC, we need this contortion. */
+	return [NSMakeCollectable(theString) autorelease];
 }
 
-- (NSURL *)resolveAliasFile {
-	FSRef theRef;
-	Boolean theIsTargetFolder, theWasAliased;
-	NSURL *theResolvedAlias = nil;
+/*
+	- resolveAliasFile
+ */
+- (NSURL *)resolveAliasFile
+{
+	FSRef			theRef;
+	Boolean		theIsTargetFolder,
+					theWasAliased;
+	NSURL			* theResolvedAlias = nil;;
+
 	[self getFSRef:&theRef];
-	if ( (FSResolveAliasFile ( &theRef, YES, &theIsTargetFolder, &theWasAliased ) == noErr) ) {
-		theResolvedAlias = (theWasAliased) ? [NSURL URLWithFSRef:&theRef] : nil;
+
+	if( (FSResolveAliasFile ( &theRef, YES, &theIsTargetFolder, &theWasAliased ) == noErr) )
+	{
+		theResolvedAlias = (theWasAliased) ? [NSURL URLWithFSRef:&theRef] : self;
 	}
+
 	return theResolvedAlias;
 }
 
-- (BOOL)finderInfoFlags:(UInt16*)aFlags type:(OSType*)aType creator:(OSType*)aCreator {
-	FSSpec theFSSpec;
-	struct FInfo theInfo;
-	if ( [self getFSSpec:&theFSSpec] && FSpGetFInfo( &theFSSpec, &theInfo) == noErr ) {
-		if ( aFlags ) *aFlags = theInfo.fdFlags;
-		if ( aType ) *aType = theInfo.fdType;
-		if ( aCreator ) *aCreator = theInfo.fdCreator;
+/*
+	- finderInfoFlags:type:creator:
+ */
+- (BOOL)finderInfoFlags:(UInt16*)aFlags type:(OSType*)aType creator:(OSType*)aCreator
+{
+	FSRef			theFSRef;
+	FSCatalogInfo	theInfo;
+
+	if( [self getFSRef:&theFSRef] && FSGetCatalogInfo( &theFSRef, kFSCatInfoFinderInfo, &theInfo, NULL, NULL, NULL) == noErr )
+	{
+		FileInfo*	theFileInfo = (FileInfo*)(&theInfo.finderInfo);
+		if( aFlags ) *aFlags = theFileInfo->finderFlags;
+		if( aType ) *aType = theFileInfo->fileType;
+		if( aCreator ) *aCreator = theFileInfo->fileCreator;
+
 		return YES;
-	} else
+	}
+	else
 		return NO;
 }
 
-- (NSPoint) finderLocation {
-	FSSpec theFSSpec;
-	struct FInfo theInfo;
-	NSPoint thePoint = NSMakePoint( 0, 0 );
-	if ( [self getFSSpec:&theFSSpec] && FSpGetFInfo( &theFSSpec, &theInfo) == noErr ) {
-		thePoint = NSMakePoint(theInfo.fdLocation.h, theInfo.fdLocation.v );
+/*
+	- finderLocation
+ */
+- (NSPoint)finderLocation
+{
+	FSRef			theFSRef;
+	FSCatalogInfo	theInfo;
+	NSPoint			thePoint = NSMakePoint( 0, 0 );
+
+	if( [self getFSRef:&theFSRef] && FSGetCatalogInfo( &theFSRef, kFSCatInfoFinderInfo, &theInfo, NULL, NULL, NULL) == noErr )
+	{
+		FileInfo*	theFileInfo = (FileInfo*)(&theInfo.finderInfo);
+		thePoint = NSMakePoint(theFileInfo->location.h, theFileInfo->location.v );
  	}
+
 	return thePoint;
 }
 
-- (BOOL)setFinderInfoFlags:(UInt16)aFlags mask:(UInt16)aMask type:(OSType)aType creator:(OSType)aCreator {
-	BOOL theResult = NO;
-	FSSpec theFSSpec;
-	struct FInfo theInfo = { 0 };
-	if ( [self getFSSpec:&theFSSpec] && FSpGetFInfo( &theFSSpec, &theInfo) == noErr ) {
-		theInfo.fdFlags = (aFlags & aMask) | (theInfo.fdFlags & !aMask);
-		theInfo.fdType = aType;
-		theInfo.fdCreator = aCreator;
-		theResult = FSpSetFInfo( &theFSSpec, &theInfo) == noErr;
+/*
+	- setFinderInfoFlags:mask:type:creator:
+ */
+- (BOOL)setFinderInfoFlags:(UInt16)aFlags mask:(UInt16)aMask type:(OSType)aType creator:(OSType)aCreator
+{
+	BOOL				theResult = NO;
+	FSRef			theFSRef;
+	FSCatalogInfo	theInfo;
+
+	if( [self getFSRef:&theFSRef] && FSGetCatalogInfo( &theFSRef, kFSCatInfoFinderInfo, &theInfo, NULL, NULL, NULL) == noErr )
+	{
+		FileInfo*	theFileInfo = (FileInfo*)(&theInfo.finderInfo);
+		theFileInfo->finderFlags = ((aFlags & aMask) | (theFileInfo->finderFlags & ~aMask)) & ~kHasBeenInited;
+		theFileInfo->fileType = aType;
+		theFileInfo->fileCreator = aCreator;
+
+		theResult = FSSetCatalogInfo( &theFSRef, kFSCatInfoFinderInfo, &theInfo) == noErr;
 	}
+
 	return theResult;
 }
 
-- (BOOL)setFinderLocation:(NSPoint)aLocation {
-	BOOL theResult = NO;
-	FSSpec theFSSpec;
-	struct FInfo theInfo = { 0 } ;
-	if ( [self getFSSpec:&theFSSpec] && FSpGetFInfo( &theFSSpec, &theInfo) == noErr ) {
-		theInfo.fdLocation.h = aLocation.x;
-		theInfo.fdLocation.v = aLocation.y;
-		theResult = FSpSetFInfo( &theFSSpec, &theInfo) == noErr;
+/*
+	- setFinderLocation:
+ */
+- (BOOL)setFinderLocation:(NSPoint)aLocation
+{
+	BOOL				theResult = NO;
+	FSRef			theFSRef;
+	FSCatalogInfo	theInfo;
+
+	if( [self getFSRef:&theFSRef] && FSGetCatalogInfo( &theFSRef, kFSCatInfoFinderInfo, &theInfo, NULL, NULL, NULL) == noErr )
+	{
+		FileInfo*	theFileInfo = (FileInfo*)(&theInfo.finderInfo);
+		theFileInfo->location.h = aLocation.x;
+		theFileInfo->location.v = aLocation.y;
+
+		theResult = FSSetCatalogInfo( &theFSRef, kFSCatInfoFinderInfo, &theInfo) == noErr;
 	}
+
 	return theResult;
 }
 
@@ -97,9 +186,13 @@
 
 @implementation NSURL (NDCarbonUtilitiesInfoFlags)
 
-- (BOOL)hasCustomIcon {
+- (BOOL)hasCustomIcon
+{
 	UInt16	theFlags;
 	return [self finderInfoFlags:&theFlags type:NULL creator:NULL] == YES && (theFlags & kHasCustomIcon) != 0;
 }
 
 @end
+
+
+

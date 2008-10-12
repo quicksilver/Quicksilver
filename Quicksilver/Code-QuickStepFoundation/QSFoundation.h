@@ -46,7 +46,6 @@
 #import "NSWindow_BLTRExtensions.h"
 #import "NSWorkspace_BLTRExtensions.h"
 
-#import "QSImageView.h"
 #import "QSKeyCodeTranslator.h"
 #import "QSLoginItemFunctions.h"
 #import "QSLSTools.h"

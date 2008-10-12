@@ -1,9 +1,9 @@
 /*
  *  NDAlias+AliasFile.m category
- *  NDAliasProject
+ *  NDAlias
  *
  *  Created by Nathan Day on Tue Dec 03 2002.
- *  Copyright (c) 2002 Nathan Day. All rights reserved.
+ *  Copyright 2002-2007 Nathan Day. All rights reserved.
  */
 
 #import "NDAlias+AliasFile.h"
@@ -12,48 +12,73 @@
 #import "NDResourceFork+OtherSorces.h"
 
 //const ResType	aliasResourceType = 'alis';
-//const OSType	finderCreatorCode = 'MACS';
-#define finderCreatorCode 'MACS'
-//const short		aliasRecordId = 0;
-#define aliasRecordId 0
+const OSType	finderCreatorCode = 0x4D414353; // 'MACS'
+const short		aliasRecordId = 0;
 //					customIconID = -16496;
 
 @implementation NDAlias (AliasFile)
 
 OSType aliasOSTypeFor( NSURL * aURL );
 
-+ (id)aliasWithContentsOfFile:(NSString *)aPath { return [[[self alloc] initWithContentsOfFile:aPath] autorelease]; }
++ (id)aliasWithContentsOfFile:(NSString *)aPath
+{
+	return [[[self alloc] initWithContentsOfFile:aPath] autorelease];
+}
 
-+ (id)aliasWithContentsOfURL:(NSURL *)aURL { return [[[self alloc] initWithContentsOfURL:aURL] autorelease]; }
++ (id)aliasWithContentsOfURL:(NSURL *)aURL
+{
+	return [[[self alloc] initWithContentsOfURL:aURL] autorelease];
+}
 
-- (id)initWithContentsOfFile:(NSString *)aPath {
-	NDResourceFork *theResourcFork;
+- (id)initWithContentsOfFile:(NSString *)aPath
+{
+	NDResourceFork		* theResourcFork;
 	theResourcFork = [[NDResourceFork alloc] initForReadingAtPath:aPath];
+
 	self = [self initWithData:[theResourcFork dataForType:formAlias Id:aliasRecordId]];
+
 	[theResourcFork release];
+
 	return self;
 }
 
-- (id)initWithContentsOfURL:(NSURL *)aURL {
-	NDResourceFork *theResourcFork;
+- (id)initWithContentsOfURL:(NSURL *)aURL
+{
+	NDResourceFork		* theResourcFork;
 	theResourcFork = [[NDResourceFork alloc] initForReadingAtURL:aURL];
+
 	self = [self initWithData:[theResourcFork dataForType:formAlias Id:aliasRecordId]];
+
 	[theResourcFork release];
+
 	return self;
 }
 
-- (BOOL)writeToFile:(NSString *)aPath {
-	return [self writeToURL:[NSURL fileURLWithPath:aPath]];
+- (BOOL)writeToFile:(NSString *)aPath
+{
+	return [self writeToURL:[NSURL fileURLWithPath:aPath] includeCustomIcon:YES];
 }
 
-- (BOOL)writeToURL:(NSURL *)aURL {
-	BOOL theSuccess;
-	NDResourceFork *theResourcFork;
+- (BOOL)writeToFile:(NSString *)aPath includeCustomIcon:(BOOL)aCustomIcon
+{
+	return [self writeToURL:[NSURL fileURLWithPath:aPath] includeCustomIcon:aCustomIcon];
+}
 
+- (BOOL)writeToURL:(NSURL *)aURL
+{
+	return [self writeToURL:(NSURL *)aURL includeCustomIcon:YES];
+}
+
+- (BOOL)writeToURL:(NSURL *)aURL includeCustomIcon:(BOOL)aCustomIcon
+{
+	BOOL				theSuccess;
+	NDResourceFork		* theResourcFork;
+	
 	theResourcFork = [[NDResourceFork alloc] initForWritingAtURL:aURL];
 	theSuccess = [theResourcFork addData:[self data] type:formAlias Id:aliasRecordId name:@"created by NDAlias"];
 
-	if ( theSuccess ) {
+	if( theSuccess )
+	{
 		UInt16		theFlags;
 		OSType		theAliasType,
 						theAliasCreator,
@@ -61,28 +86,34 @@ OSType aliasOSTypeFor( NSURL * aURL );
 						theTargetCreator;
 		NSURL			* theTargetURL;
 
-		theTargetURL = [self url];
+		theTargetURL = [self URL];
 
-		[[self url] finderInfoFlags:&theFlags type:&theTargetType creator:&theTargetCreator];
+		[[self URL] finderInfoFlags:&theFlags type:&theTargetType creator:&theTargetCreator];
 
-		theAliasType = aliasOSTypeFor( theTargetURL ); 	// get the alias type
+		theAliasType = aliasOSTypeFor( theTargetURL );	// get the alias type
 
-		if ( theAliasType == 0 ) { // 0 alias type means doc which just takes the targets type
+		if( theAliasType == 0 )	// 0 alias type means doc which just takes the targets type
+		{
 			theAliasCreator = theTargetCreator;
 			theAliasType = theTargetType;
-		} else { // special alias types take the finder creator code
+		}
+		else	// special alias types take the finder creator code
+		{
 			theAliasCreator = finderCreatorCode;
 		}
 
 		// item with custom icon as well as apps need to have a custoime icon for the alias
-		if ( (theAliasType == 0 ) || (theFlags & kHasCustomIcon) || (theAliasType == kAppPackageAliasType) || (theAliasType == kApplicationAliasType) ) {
+		if( aCustomIcon && ((theAliasType == 0 ) || (theFlags & kHasCustomIcon) || (theAliasType == kAppPackageAliasType) || (theAliasType == kApplicationAliasType)) )
+		{
 			NSData		* theIconFamilyData;
-
+			
 			theIconFamilyData = [NDResourceFork iconFamilyDataForURL:theTargetURL];
-
-			if ( [theResourcFork addData:theIconFamilyData type:kIconFamilyType Id:kCustomIconResource name:@""] )
+			
+			if( [theResourcFork addData:theIconFamilyData type:kIconFamilyType Id:kCustomIconResource name:@""] )
 				[aURL setFinderInfoFlags:kIsAlias | kHasCustomIcon mask:kIsAlias | kHasCustomIcon type:theAliasType creator:theAliasCreator];
-		} else {
+		}
+		else
+		{
 			[aURL setFinderInfoFlags:kIsAlias mask:kIsAlias | kHasCustomIcon type:theAliasType creator:theAliasCreator];
 		}
 	}
@@ -91,24 +122,35 @@ OSType aliasOSTypeFor( NSURL * aURL );
 	return theSuccess;
 }
 
-OSType aliasOSTypeFor( NSURL * aURL ) {
+OSType aliasOSTypeFor( NSURL * aURL )
+{
 	LSItemInfoRecord	theItemInfo;
 	OSType				theType = kContainerFolderAliasType;
-
+		
 	/*
 	* alias files to documents take on the targets type and creator
 	* alias files to others take on special types and finder creator
 	*/
-	if ( LSCopyItemInfoForURL( (CFURLRef) aURL, kLSRequestBasicFlagsOnly, &theItemInfo) == noErr) {
-		if ( (theItemInfo.flags & kLSItemInfoIsApplication) && (theItemInfo.flags & kLSItemInfoIsPackage) ) { // package app
+	if( LSCopyItemInfoForURL( (CFURLRef)aURL, kLSRequestBasicFlagsOnly, &theItemInfo) == noErr)
+	{
+		if( (theItemInfo.flags & kLSItemInfoIsApplication) && (theItemInfo.flags & kLSItemInfoIsPackage) )	// package app
+		{
 			theType = kAppPackageAliasType;
-		} else if ( theItemInfo.flags & kLSItemInfoIsApplication ) { // straight app
+		}
+		else if( theItemInfo.flags & kLSItemInfoIsApplication )	// straight app
+		{
 			theType = kApplicationAliasType;
-		} else if ( theItemInfo.flags & kLSItemInfoIsPlainFile ) { // document
-			theType = 0; 		// straight documents don't have a special alias type
-		} else if ( theItemInfo.flags & kLSItemInfoIsPackage ) { // package
+		}
+		else if( theItemInfo.flags & kLSItemInfoIsPlainFile )	// document
+		{
+			theType = 0;		// straight documents don't have a special alias type
+		}
+		else if( theItemInfo.flags & kLSItemInfoIsPackage )	// package
+		{
 			theType = kPackageAliasType;
-		} else if ( theItemInfo.flags & kLSItemInfoIsVolume ) { // disk
+		}
+		else if( theItemInfo.flags & kLSItemInfoIsVolume )	// disk
+		{
 			theType = kContainerHardDiskAliasType;
 		}
 	}

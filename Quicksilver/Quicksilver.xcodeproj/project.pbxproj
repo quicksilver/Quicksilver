@@ -638,8 +638,6 @@
 		E1E5FCA507B20E4D0044D6EF /* QSSearchObjectView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FC7407B20E4D0044D6EF /* QSSearchObjectView.m */; };
 		E1E8909007B29C8000478A69 /* QSFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9AF07B1FCFC0044D6EF /* QSFoundation.framework */; };
 		E1EF4204070FDF7700D6DA03 /* QSHelpersPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = E1EF4203070FDF7700D6DA03 /* QSHelpersPrefPane.nib */; };
-		E1F1D66A06BD97B2004E3DC3 /* NSString+CarbonUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D64B06BD97B2004E3DC3 /* NSString+CarbonUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1F1D66B06BD97B2004E3DC3 /* NSString+CarbonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D64C06BD97B2004E3DC3 /* NSString+CarbonUtilities.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1489,8 +1487,6 @@
 		E1F1D64806BD97B2004E3DC3 /* NDResourceFork.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NDResourceFork.m; sourceTree = "<group>"; };
 		E1F1D64906BD97B2004E3DC3 /* NSAppleEventDescriptor+NDAppleScriptObject.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NSAppleEventDescriptor+NDAppleScriptObject.h"; sourceTree = "<group>"; };
 		E1F1D64A06BD97B2004E3DC3 /* NSAppleEventDescriptor+NDAppleScriptObject.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NSAppleEventDescriptor+NDAppleScriptObject.m"; sourceTree = "<group>"; };
-		E1F1D64B06BD97B2004E3DC3 /* NSString+CarbonUtilities.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NSString+CarbonUtilities.h"; sourceTree = "<group>"; };
-		E1F1D64C06BD97B2004E3DC3 /* NSString+CarbonUtilities.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NSString+CarbonUtilities.m"; sourceTree = "<group>"; };
 		E1F1D64D06BD97B2004E3DC3 /* NSString+NDCarbonUtilities.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NSString+NDCarbonUtilities.h"; sourceTree = "<group>"; };
 		E1F1D64E06BD97B2004E3DC3 /* NSString+NDCarbonUtilities.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NSString+NDCarbonUtilities.m"; sourceTree = "<group>"; };
 		E1F1D64F06BD97B2004E3DC3 /* NSString+NDUtilities.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NSString+NDUtilities.h"; sourceTree = "<group>"; };
@@ -2468,8 +2464,6 @@
 				E1F1D64806BD97B2004E3DC3 /* NDResourceFork.m */,
 				E1F1D64906BD97B2004E3DC3 /* NSAppleEventDescriptor+NDAppleScriptObject.h */,
 				E1F1D64A06BD97B2004E3DC3 /* NSAppleEventDescriptor+NDAppleScriptObject.m */,
-				E1F1D64B06BD97B2004E3DC3 /* NSString+CarbonUtilities.h */,
-				E1F1D64C06BD97B2004E3DC3 /* NSString+CarbonUtilities.m */,
 				E1F1D64D06BD97B2004E3DC3 /* NSString+NDCarbonUtilities.h */,
 				E1F1D64E06BD97B2004E3DC3 /* NSString+NDCarbonUtilities.m */,
 				E1F1D64F06BD97B2004E3DC3 /* NSString+NDUtilities.h */,
@@ -2544,7 +2538,6 @@
 				E1E22ADE06A1C37000919B30 /* QSDefines.h in Headers */,
 				E1688CB206B473A100EDADDF /* QSTypes.h in Headers */,
 				E131F79807B441E300D0E4AC /* QSKeys.h in Headers */,
-				E1F1D66A06BD97B2004E3DC3 /* NSString+CarbonUtilities.h in Headers */,
 				E1E5FBD207B20DD20044D6EF /* NSString_Purification.h in Headers */,
 				E1E5FBD407B20DD20044D6EF /* QSAction.h in Headers */,
 				E1E5FBD607B20DD20044D6EF /* QSActionProvider.h in Headers */,
@@ -3251,7 +3244,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1F1D66B06BD97B2004E3DC3 /* NSString+CarbonUtilities.m in Sources */,
 				E1E5FBD307B20DD20044D6EF /* NSString_Purification.m in Sources */,
 				E1E5FBD507B20DD20044D6EF /* QSAction.m in Sources */,
 				E1E5FBD707B20DD20044D6EF /* QSActionProvider.m in Sources */,
