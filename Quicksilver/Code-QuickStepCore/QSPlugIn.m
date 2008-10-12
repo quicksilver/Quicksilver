@@ -167,7 +167,7 @@ if (DEBUG && [self isSecret]) {
 	}
 
 	//	NSLog(@"output%@", output);
-	return [output containsString:@"i386"];
+	return [output rangeOfString:@"i386"].location != NSNotFound;
 }
 
 - (NSDictionary *)info {
