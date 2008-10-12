@@ -214,36 +214,30 @@
 	if (altURL)
 		fileURL = altURL;
 	if (VERBOSE) NSLog(@"Downloading update from %@", fileURL);
-#if 1
+    
 	NSURL *url = [NSURL URLWithString:fileURL];
 	NSURLRequest *theRequest = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0];
 
 	// NSLog(@"app %@", theRequest);
 	// create the connection with the request
 	// and start loading the data
-	NSURLDownload *theDownload = [[QSURLDownload alloc] initWithRequest:theRequest delegate:self];
+	QSURLDownload *theDownload = [[QSURLDownload alloc] initWithRequest:theRequest delegate:self];
 	if (theDownload) {
 		updateTask = [[QSTask taskWithIdentifier:@"QSAppUpdateInstalling"] retain];
 		[updateTask setName:@"Downloading Update"];
 		[updateTask setProgress:-1];
 
-	[updateTask setCancelAction:@selector(cancelUpdate:)];
+        [updateTask setCancelAction:@selector(cancelUpdate:)];
 		[updateTask setCancelTarget:self];
 
 		//			[[QSTaskController sharedInstance] updateTask:@"QSAppUpdateInstalling" status:@"Downloading Update" progress:-1];
 		[QSTaskController showViewer];
 		[updateTask startTask:nil];
-		// set the destination file now
-		NSString *destination = NSTemporaryDirectory();
-		destination = [destination stringByAppendingPathComponent:[NSString uniqueString]];
-		destination = [destination stringByAppendingPathExtension:@"qspkg"];
-		[theDownload setDestination:destination allowOverwrite:YES];
-		[self setAppDownload:theDownload];
+		[self setAppDownload:(NSURLDownload*)theDownload];
+        [theDownload start];
+        
         [theDownload release];
 	}
-#else
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:fileURL]];
-#endif
 
 }
 - (NSURLDownload *)appDownload { return appDownload; }
@@ -274,10 +268,12 @@
 	updateTask = nil;
 	NSRunInformationalAlertPanel(@"Download Failed", @"An error occured while updating: %@", @"OK", nil, nil, [error localizedDescription] );
 	[self setAppDownload:nil];
+    [download cancel];
 	[download release];
 }
 
 - (void)downloadDidFinish:(QSURLDownload *)download {
+    [download cancel];
 	[download release];
 
 	BOOL plugInUpdates = [[QSPlugInManager sharedInstance] updatePlugInsForNewVersion:newVersion];
@@ -297,13 +293,10 @@
 	}
 }
 
-- (void)download:(QSURLDownload *)download didReceiveDataOfLength:(unsigned)length {
-	//[[QSTaskController sharedInstance] updateTask:@"QSAppUpdateInstalling" status: progress:-1];
-				[updateTask setStatus:
-					[NSString stringWithFormat:@"%.0fk of %.0fk", (double) [download currentContentLength] /1024, (double)[download expectedContentLength] /1024]];
-	NSLog([NSString stringWithFormat:@" %f - %f of %f", [(QSURLDownload *)download progress] , [download currentContentLength] /1024, [download expectedContentLength] /1024]);
+- (void)downloadDidUpdate:(QSURLDownload *)download {
+    NSString * status = [NSString stringWithFormat:@"%.0fk of %.0fk", (double) [download currentContentLength] /1024, (double)[download expectedContentLength] /1024];
+    [updateTask setStatus:status];
 	[updateTask setProgress:[(QSURLDownload *)download progress]];
-
 }
 
 - (void)cancelUpdate:(QSTask *)task {

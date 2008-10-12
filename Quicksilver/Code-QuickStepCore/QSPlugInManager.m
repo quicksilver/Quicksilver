@@ -23,6 +23,7 @@
 #import "NSException_TraceExtensions.h"
 
 #define pPlugInInfo QSApplicationSupportSubPath(@"PlugIns.plist", NO)
+#define MAX_CONCURRENT_DOWNLOADS 2
 
 @implementation QSPlugInManager
 + (id)sharedInstance {
@@ -692,23 +693,15 @@
 
 - (NSMutableArray *)updatedPlugIns { return updatedPlugIns;  }
 
-	//-(float) downloadProgress {
-	//	if (!downloadsCount) return 1.0;
-	//	return 	(float) (downloadsCount-[[self downloadsQueue] count])/(float)downloadsCount;
-	//}
-
 - (void)updateDownloadCount {
 	if (![[self downloadsQueue] count]) {
-		//if (downloadsCount) {
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"QSPlugInUpdatesFinished" object:self];
-		//}
-		downloadsCount = 0;
 		[self setInstallStatus:nil];
 		[[QSTaskController sharedInstance] removeTask:@"QSPlugInInstalling"];
 
 		[self setIsInstalling:NO];
 	} else {
-		NSString *status = [NSString stringWithFormat:@"Installing %d Plug-in(s) ", [[self downloadsQueue] count]];
+		NSString *status = [NSString stringWithFormat:@"Installing %d Plug-in(s)", [[self downloadsQueue] count]];
 		//NSString *status = [NSString stringWithFormat:@"Installing %@ (%d of %d) ", [[self currentDownload] name] , [[self downloadsQueue] count] , downloadsCount];
 		[self setInstallStatus:status];
 		//[self setInstallProgress:[self downloadProgress]];
@@ -815,31 +808,18 @@
 }
 
 - (void)installPlugInWithInfo:(NSDictionary *)info {
-	QSURLDownload *theDownload = [[QSURLDownload alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[info objectForKey:@"url"]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0] delegate:self];
-	[theDownload setUserInfo:[info objectForKey:@"id"]];
-	[[self downloadsQueue] addObject:theDownload];
-	downloadsCount++;
+	[[self downloadsQueue] addObject:[QSURLDownload downloadWithURL:[NSURL URLWithString:[info objectForKey:@"url"]] delegate:self]];
 	[self updateDownloadProgressInfo];
 }
 
-- (void)startDownloadToTemp:(QSURLDownload *)theDownload {
-	if (theDownload) {
-		//NSLog(@"DOWNLOAD :%@", theDownload);
-
-		// set the destination file now
-		NSString *destination = NSTemporaryDirectory();
-		destination = [destination stringByAppendingPathComponent:[NSString uniqueString]];
-		destination = [destination stringByAppendingPathExtension:@"qspkg"];
-		[theDownload setDestination:destination allowOverwrite:YES];
-	}
-}
-
 - (void)startDownloadQueue {
-	if (![self currentDownload] && [[self downloadsQueue] count]) {
-		QSURLDownload *download = [[self downloadsQueue] objectAtIndex:0];
-
-		[self startDownloadToTemp:download];
-		[self setCurrentDownload:download];
+    int queuedCount = [[self downloadsQueue] count];
+    if (currentDownloads < MAX_CONCURRENT_DOWNLOADS && queuedCount != 0) {
+        NSArray* array = [[self downloadsQueue] objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, (queuedCount < MAX_CONCURRENT_DOWNLOADS ? queuedCount : MAX_CONCURRENT_DOWNLOADS))]];
+        foreach(download, array) {
+            [download start];
+            currentDownloads++;
+        }
 	}
 }
 
@@ -888,42 +868,24 @@
 }
 
 - (void)updateDownloadProgressInfo {
-	//NSLog(@"count %d %d %f", [[self downloadsQueue] count] , downloadsCount, [[[self downloadsQueue] objectAtIndex:0] progress]);
-	float progress = downloadsCount-[[self downloadsQueue] count] +[(QSURLDownload *)[self currentDownload] progress];
-	progress /= downloadsCount;
+	//NSLog(@"count %d %d %f", [[self downloadsQueue] count], downloadsCount, [[[self downloadsQueue] objectAtIndex:0] progress]);
+    float progress = 0;
+    foreach(download, [self downloadsQueue]) {
+        progress *= [download progress];
+    }
 	[self setInstallProgress:progress];
-}
-
-- (void)download:(NSURLDownload *)download didReceiveDataOfLength:(unsigned)length {
-	[self updateDownloadProgressInfo];
 }
 
 - (float) downloadProgress {return [self installProgress];}
 
 - (NSMutableArray *)downloadsQueue {
-	if (!downloadsQueue)
-		downloadsQueue = [[NSMutableArray alloc] init];
-	return downloadsQueue;
+	if (!queuedDownloads)
+		queuedDownloads = [[NSMutableArray alloc] init];
+	return queuedDownloads;
 }
 
-- (void)download:(QSURLDownload *)download didFailWithError:(NSError *)error {
-	[[self plugInWithID:[download userInfo]] downloadFailed];
- //NSLog(@"Download failed! Error - %@ %@", [[[download request] URL] absoluteString] , [error localizedDescription] , [[error userInfo] objectForKey:NSErrorFailingURLStringKey]);
-	NSRunInformationalAlertPanel(@"Download Failed", @"%@\r%@", nil, nil, nil, [[[download request] URL] absoluteString], [error localizedDescription]);
-	[[self downloadsQueue] removeObject:download];
-	downloadsCount--;
-
-	[self setCurrentDownload:nil];
-	[self startDownloadQueue];
-	[self updateDownloadCount];
-	[download release];
-}
-
-- (void)cancelPlugInInstall {
-	[[self currentDownload] cancel];
-	[[self downloadsQueue] removeAllObjects];
-	[self setCurrentDownload:nil];
-	[self updateDownloadCount];
+- (void)downloadDidUpdate:(QSURLDownload *)download {
+	[self updateDownloadProgressInfo];
 }
 
 - (void)downloadDidFinish:(QSURLDownload *)download {
@@ -932,16 +894,37 @@
 	NSString *path = [download destination];
 	if (path) {
 		NSString *plugInPath = [[self installPlugInFromCompressedFile:path] lastObject];
+        [download cancel];
 		[[self downloadsQueue] removeObject:download];
 		[self plugInWasInstalled:plugInPath];
-		//downloadsCount--;
-		[self setCurrentDownload:nil];
-		[self startDownloadQueue];
-		[self updateDownloadCount];
-
-	}
-	[download release];
+    }
+    else
+        NSLog(@"Failed getting path of download at url %@", [download URL]);
+    currentDownloads--;
+    
+    [self startDownloadQueue];
+    [self updateDownloadCount];
 }
+
+- (void)download:(QSURLDownload *)download didFailWithError:(NSError *)error {
+	[[self plugInWithID:[download userInfo]] downloadFailed];
+ //NSLog(@"Download failed! Error - %@ %@", [[[download request] URL] absoluteString] , [error localizedDescription] , [[error userInfo] objectForKey:NSErrorFailingURLStringKey]);
+	NSRunInformationalAlertPanel(@"Download Failed", @"%@\r%@", nil, nil, nil, [[download URL] absoluteString], [error localizedDescription]);
+    [download cancel];
+    [[self downloadsQueue] removeObject:download];
+    currentDownloads--;
+    
+	[self startDownloadQueue];
+	[self updateDownloadCount];
+}
+
+- (void)cancelPlugInInstall {
+    foreach(download, [self downloadsQueue])
+        [download cancel];
+	[[self downloadsQueue] removeAllObjects];
+	[self updateDownloadCount];
+}
+
 
 - (NSString *)installStatus {
 	return installStatus;
@@ -966,14 +949,6 @@
 }
 - (void)setIsInstalling:(BOOL)flag {
 	isInstalling = flag;
-}
-
-- (NSURLDownload *)currentDownload { return currentDownload; }
-- (void)setCurrentDownload:(NSURLDownload *)newCurrentDownload {
-	if (currentDownload != newCurrentDownload) {
-		[currentDownload release];
-		currentDownload = [newCurrentDownload retain];
-	}
 }
 
 - (BOOL)showNotifications { return showNotifications;  }

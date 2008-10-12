@@ -7,6 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <QSCore/QSURLDownloadWrapper.h>
+
 #define QSPlugInListingDownloadCompleteNotification @"QSPlugInListingDownloadComplete"
 #define QSPlugInInfoLoadedNotification @"QSPlugInInfoLoaded"
 #define QSPlugInInfoFailedNotification @"QSPlugInInfoFailed"
@@ -31,15 +33,15 @@
 	BOOL warnedOfRelaunch;
 
 	NSMutableArray *updatedPlugIns;
-	int downloadsCount;
-	NSMutableArray *downloadsQueue;
-	NSURLDownload *currentDownload;
+	NSMutableArray *queuedDownloads;
+    int currentDownloads;
+    
 	NSString *installStatus;
 	float installProgress;
 	BOOL isInstalling;
 	BOOL supressRelaunchMessage;
-  int errorCount;
-  NSTimeInterval lastCheck;
+    int errorCount;
+    NSTimeInterval lastCheck;
 }
 
 + (id)sharedInstance;
@@ -87,7 +89,6 @@
 - (NSMutableDictionary *)loadedPlugIns;
 - (void)setLoadedPlugIns:(NSMutableDictionary *)newLoadedPlugIns;
 
-
 - (NSString *)installStatus;
 - (void)setInstallStatus:(NSString *)newInstallStatus;
 - (float) installProgress;
@@ -98,19 +99,16 @@
 - (NSString *)urlStringForPlugIn:(NSString *)ident version:(NSString *)version;
 - (BOOL)supressRelaunchMessage;
 - (void)setSupressRelaunchMessage:(BOOL)flag;
-//- (NSMutableArray *)downloadsQueue ;
-- (NSMutableArray *)downloadsQueue ;
+- (NSMutableArray *)downloadsQueue;
 - (NSString *)installPlugInFromFile:(NSString *)path;
 - (void)downloadWebPlugInInfo;
 - (void)downloadWebPlugInInfoIgnoringDate;
 - (BOOL)updatePlugInsForNewVersion:(NSString *)version;
-- (float) downloadProgress;
+- (float)downloadProgress;
 - (NSMutableArray *)updatedPlugIns;
 - (BOOL)handleInstallURL:(NSURL *)url;
 - (BOOL)installPlugInsFromFiles:(NSArray *)fileList;
 
-- (NSURLDownload *)currentDownload;
-- (void)setCurrentDownload:(NSURLDownload *)newCurrentDownload;
 - (void)cancelPlugInInstall;
 
 - (void)loadPlugInInfo:(NSArray *)array;
