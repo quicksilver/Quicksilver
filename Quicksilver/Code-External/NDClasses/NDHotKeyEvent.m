@@ -8,6 +8,8 @@
 
 #import "NDHotKeyEvent.h"
 
+#define NDHotKeyEventThreadSafe 1
+
 @interface NDHotKeyEvent (Private)
 + (NSHashTable *)allHotKeyEvents;
 - (BOOL)addHotKey;
