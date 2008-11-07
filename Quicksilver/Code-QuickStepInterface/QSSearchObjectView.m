@@ -25,10 +25,10 @@
 #import "QSBackgroundView.h"
 #import "QSController.h"
 
-#include "QSGlobalSelectionProvider.h"
-
+#import "QSGlobalSelectionProvider.h"
 
 #import "QSTextProxy.h"
+
 #define pUserKeyBindingsPath QSApplicationSupportSubPath(@"KeyBindings.qskeys", NO)
 #define MAX_HISTORY_COUNT 20
 
@@ -1360,7 +1360,10 @@ NSMutableDictionary *bindingsDict = nil;
 #pragma mark -
 #pragma mark NSResponder Key Bindings
 - (void)deleteBackward:(id)sender {
-	[self clearSearch];
+    if(defaultBool(kDoubleDeleteClearsObject) && [self matchedString] == nil)
+        [self delete:sender];
+    else
+        [self clearSearch];
 }
 
 - (void)pageUp:(id)sender {[self pageScroll:-1];}

@@ -579,27 +579,15 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 	}
 }
 
-
-- (NSMenu *)menuForEvent:(NSEvent *)event inRect:(NSRect)cellFrame ofView:(NSView *)view {
-
-	NSMenu *theMenu = [super  menuForEvent:(NSEvent *)event inRect:(NSRect)cellFrame ofView:(NSView *)view];
-	//  NSLog(@"theMenu %@ %@ %@ %@", theMenu, event, view, self);
-
-
-	return theMenu;
-}
-
-
 - (NSMenu *)menu {
 	if (![[self controlView] isKindOfClass:[QSObjectView class]]) return nil;
 	return [self menuForObject:[self representedObject]];
 }
+
 - (NSMenu *)menuForObject:(id)object {
-	//  NSLog(@"Menu for: %@", object);
 	NSMenu *menu = [[[NSMenu alloc] initWithTitle:@"ContextMenu"] autorelease];
 
 	NSArray *actions = [QSExec validActionsForDirectObject:object indirectObject:nil];
-	// actions = [actions sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 
 	NSMenuItem *item;
 
@@ -607,8 +595,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 		NSMenu *actionsMenu = [[[NSMenu alloc] initWithTitle:@"Actions"] autorelease];
 
 		int i;
-
-		for (i = 0; i<[actions count]; i++) {
+		for (i = 0; i < [actions count]; i++) {
 			QSAction *action = [actions objectAtIndex:i];
 			if (action) {
 				NSArray *componentArray = [[action name] componentsSeparatedByString:@"/"];
@@ -624,7 +611,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 					if (!groupMenu) {
 						groupMenu = [[[NSMenuItem alloc] initWithTitle:[componentArray objectAtIndex:0] action:nil keyEquivalent:@""] autorelease];
 						if (icon) [groupMenu setImage:icon];
-						[groupMenu setSubmenu: [[[NSMenu alloc] initWithTitle:[componentArray objectAtIndex:0]]autorelease]];
+						[groupMenu setSubmenu:[[[NSMenu alloc] initWithTitle:[componentArray objectAtIndex:0]] autorelease]];
 						[actionsMenu addItem:groupMenu];
 					}
 					item = (NSMenuItem *)[[groupMenu submenu] addItemWithTitle:[componentArray objectAtIndex:1] action:@selector(execute) keyEquivalent:@""];
@@ -638,16 +625,12 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 			}
 		}
 		item = [[[NSMenuItem alloc] initWithTitle:@"Actions" action:nil keyEquivalent:@""] autorelease];
-		//if (icon) [groupMenu setImage:nil];
 		[item setSubmenu: actionsMenu];
 		[menu addItem:item];
 	}
-
-	if ([[self controlView] isKindOfClass:[QSObjectView class]]) {
-		[menu addItem:[NSMenuItem separatorItem]];
-		[menu addItemWithTitle:@"Copy" action:@selector(copy:) keyEquivalent:@""];
-		[[menu addItemWithTitle:@"Remove" action:@selector(deleteBackward:) keyEquivalent:@""] setTarget:[self controlView]];
-	}
+    [menu addItem:[NSMenuItem separatorItem]];
+    [menu addItemWithTitle:@"Copy" action:@selector(copy:) keyEquivalent:@""];
+    [[menu addItemWithTitle:@"Remove" action:@selector(delete:) keyEquivalent:@""] setTarget:[self controlView]];
 	return menu;
 }
 

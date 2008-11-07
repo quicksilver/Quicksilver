@@ -136,7 +136,9 @@
 	return YES;
 }
 
-- (void)paste:(id)sender {[self readSelectionFromPasteboard:[NSPasteboard generalPasteboard]];}
+- (void)delete:(id)sender { [self setObjectValue:nil]; }
+
+- (void)paste:(id)sender { [self readSelectionFromPasteboard:[NSPasteboard generalPasteboard]]; }
 
 - (void)cut:(id)sender {
 	[[self objectValue] putOnPasteboard:[NSPasteboard generalPasteboard] includeDataForTypes:nil];
@@ -171,49 +173,7 @@
 	return [[self cell] cellSize];
 }
 
-- (NSMenu *)mxenu {
-	NSMenu *menu = [[[NSMenu alloc] initWithTitle:@"ContextMenu"] autorelease];
-	NSArray *actions = [QSExec validActionsForDirectObject:[self objectValue] indirectObject:nil];
-	NSMenuItem *item;
-	int i;
-	for (i = 0; i<[actions count]; i++) {
-		QSAction *action = [actions objectAtIndex:i];
-		if (action) {
-			NSArray *componentArray = [[action name] componentsSeparatedByString:@"/"];
-
-			NSImage *icon = [action icon];
-			[icon setSize:NSMakeSize(16, 16)];
-
-			if ([componentArray count] >1) {
-				NSMenuItem *groupMenu = [menu itemWithTitle:[componentArray objectAtIndex:0]];
-				if (!groupMenu) {
-					groupMenu = [[[NSMenuItem alloc] initWithTitle:[componentArray objectAtIndex:0] action:nil keyEquivalent:@""] autorelease];
-					if (icon) [groupMenu setImage:icon];
-					[groupMenu setSubmenu: [[[NSMenu alloc] initWithTitle:[componentArray objectAtIndex:0]]autorelease]];
-					[menu addItem:groupMenu];
-				}
-				item = (NSMenuItem *)[[groupMenu submenu] addItemWithTitle:[componentArray objectAtIndex:1] action:@selector(performMenuAction:) keyEquivalent:@""];
-			} else
-				item = (NSMenuItem *)[menu addItemWithTitle:[action name] action:@selector(performMenuAction:) keyEquivalent:@""];
-
-			[item setTarget:self];
-			[item setRepresentedObject:action];
-			if (icon) [item setImage:icon];
-
-		}
-	}
-	[menu addItem:[NSMenuItem separatorItem]];
-	[menu addItemWithTitle:@"Copy" action:@selector(copy:) keyEquivalent:@""];
-	[menu addItemWithTitle:@"Remove" action:@selector(delete:) keyEquivalent:@""];
-	return menu;
-}
-
-- (void)performMenuAction:(NSMenuItem *)item {
-	[[item representedObject] performOnDirectObject:[self objectValue] indirectObject:nil];
-}
-
 //Standard Accessors
-
 - (id)objectValue { return [[self cell] representedObject];  }
 - (void)setObjectValue:(QSBasicObject *)newObject {
 	[newObject loadIcon];
