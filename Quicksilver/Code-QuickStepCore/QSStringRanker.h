@@ -10,9 +10,9 @@
 
 @protocol QSStringRanker
 - (id)initWithString:(NSString *)string;
-- (double) scoreForAbbreviation:(NSString*)anAbbreviation;
+- (double)scoreForAbbreviation:(NSString*)anAbbreviation;
 - (NSIndexSet*)maskForAbbreviation:(NSString*)anAbbreviation;
-
+- (NSString*)rankedString;
 @end
 
 @interface QSDefaultStringRanker : NSObject <QSStringRanker> {

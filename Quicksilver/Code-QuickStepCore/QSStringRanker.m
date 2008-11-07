@@ -26,12 +26,19 @@
 	normString = nil;
 	[super dealloc];
 }
+
 - (NSString *)description {
-	return normString;
+	return [NSString stringWithFormat:@"%@ @%", [super description], normString];
 }
-- (double) scoreForAbbreviation:(NSString*)anAbbreviation {
+
+- (NSString*)rankedString {
+    return normString;
+}
+
+- (double)scoreForAbbreviation:(NSString*)anAbbreviation {
 	return QSScoreForAbbreviation((CFStringRef) normString, (CFStringRef)anAbbreviation, nil);
 }
+
 - (NSIndexSet*)maskForAbbreviation:(NSString*)anAbbreviation {
 	NSMutableIndexSet *mask = [NSMutableIndexSet indexSet];
 	QSScoreForAbbreviation((CFStringRef) normString, (CFStringRef)anAbbreviation, mask);

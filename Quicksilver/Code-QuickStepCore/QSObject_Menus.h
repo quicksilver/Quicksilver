@@ -2,7 +2,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 #import "QSObject.h"
 @interface QSObject (Menus)
 - (NSMenu *)menu;

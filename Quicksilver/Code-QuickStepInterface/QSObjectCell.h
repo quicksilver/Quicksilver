@@ -28,7 +28,7 @@
 - (NSColor *)highlightColor;
 - (void)setHighlightColor:(NSColor *)aHighlightColor;
 - (NSMenu *)menuForObject:(id)object;
-- (NSSize) iconSize;
+- (NSSize)iconSize;
 - (void)setIconSize:(NSSize)anIconSize;
 //- (BOOL)objectIsInCollection:(QSObject *)thisObject;
 - (void)drawTextForObject:(QSObject *)drawObject withFrame:(NSRect)cellFrame inView:(NSView *)controlView;

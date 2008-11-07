@@ -1,5 +1,4 @@
 #import "NSWindow_BLTRExtensions.h"
-
 #import "NSGeometry_BLTRExtensions.h"
 typedef int CGSConnection;
 typedef int CGSWindow;
