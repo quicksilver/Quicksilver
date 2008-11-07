@@ -728,16 +728,15 @@
 
 // drag and drop
 - (BOOL)outlineView:(NSOutlineView *)outlineView writeItems:(NSArray *)items toPasteboard:(NSPasteboard *)pboard {
-	draggedIndexPaths = [items valueForKey:@"indexPath"];
     if([items count] == 0)
         return NO;
-	items = ([items count] && [[items lastObject] respondsToSelector:@selector(representedObject)]) ? [items valueForKey:@"representedObject"] : [items valueForKey:@"observedObject"];
-	draggedEntries = items;
+//    items = ([items count] && [[items lastObject] respondsToSelector:@selector(representedObject)]) ? [items valueForKey:@"representedObject"] : [items valueForKey:@"observedObject"];
     
 	[pboard declareTypes:[NSArray arrayWithObject:QSTriggerDragType] owner:self];
-    id plist = [items valueForKey:@"dictionaryRepresentation"];
-	[pboard setPropertyList:plist forType:QSTriggerDragType];
-    NSLog(@"write %@", plist);
+    NSArray *indexes = [items valueForKey:@"indexPath"];
+    id data = [NSKeyedArchiver archivedDataWithRootObject:indexes];
+	[pboard setData:data forType:QSTriggerDragType];
+    NSLog(@"write %@", indexes);
 	return YES;
 }
 
@@ -746,8 +745,8 @@
 	item = [item respondsToSelector:@selector(representedObject)] ? [item representedObject] : [item observedObject];
     int dragOperation = (([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) ? NSDragOperationCopy : NSDragOperationMove);
     
-    if ([draggedEntries containsObject:item])
-        return NSDragOperationNone;
+/*    if ([draggedEntries containsObject:item])
+        return NSDragOperationNone;*/
     
     if (!item && index == -1) {
 //        NSLog(@"No item, and index == -1");
@@ -766,69 +765,24 @@
         dragOperation = NSDragOperationNone;
     }
     return dragOperation;
-#if 0
-	if ((!item && index != 0) || [item isGroup]) {
-		[outlineView setDropItem:realItem dropChildIndex:NSOutlineViewDropOnItemIndex];
-//		return NSDragOperationMove;
-		//if (index>0) return NSDragOperationMove;
-		if ([info draggingSource] == triggerTable) {
-			foreach(entry, draggedEntries) {
-				//	NSLog(@"%@ %@", [[item path] componentsJoinedByString:@"/"] , [[entry path] componentsJoinedByString:@"/"]);
-				//	if ([[item path] hasPrefix:[entry path]])
-				//		return NSDragOperationNone;
-			}
-
-			//		if ([[NSSet setWithArray:[item ancestors]]intersectsSet:[NSSet setWithArray:draggedEntries]])
-			//			return NSDragOperationNone;
-
-			//		if ([[draggedEntries objectAtIndex:0] isPreset])
-			//			
-		}
-		return NSDragOperationMove;
-	}
-#endif
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(int)index {
 	//id treeItem = item;
 	//NSIndexPath *indexPath = [item indexPath];
-	item = [item respondsToSelector:@selector(representedObject)] ? [item representedObject] :[item observedObject];
-	//NSLog(@"drop on %@ - %@", item, [item identifier]);
-	//	if (!item) item = [QSLib entryForID:@"QSCatalogCustom"];
-	//NSMutableArray *insertionArray = nil; //(NSMutableArray *)[item childrenArray];
+	item = [item respondsToSelector:@selector(representedObject)] ? [item representedObject] : [item observedObject];
+    NSLog(@"drop on %@ - %@ at index %d", item, [item identifier], index);
     
-	//	BOOL shouldShowOptions = NO;
-	NSArray *objects = nil;
-	if ([info draggingSource] == outlineView) {
-		objects = draggedEntries;
-		//[NSUnarchiver unarchiveObjectWithData:data];
-		//		if (![item isPreset] || [info draggingSourceOperationMask] == NSDragOperationCopy)
-		//			objects = [objects valueForKey:@"uniqueCopy"];
-        
-		//	} else {
-		//		// ***warning  * support dragging of multiple items
-		//		QSCatalogEntry *entry = [self entryForDraggedFile:
-		//			[[[[info draggingPasteboard] propertyListForType:NSFilenamesPboardType] objectAtIndex:0] stringByAbbreviatingWithTildeInPath]
-		//			];
-		//		if (!entry) {
-		//			NSBeep();
-		//			return NO;
-		//		}
-		//		objects = [NSArray arrayWithObject:entry];
-		//
-		//		[entry scanForced:YES];
-		//		shouldShowOptions = YES;
-    }
-	//
-	//
-	//	if (index>0 && [[insertionArray subarrayWithRange:NSMakeRange(0, index)] containsObject:[draggedEntries lastObject]])
-	//		index--;
+    NSPasteboard *pb = [info draggingPasteboard];
+    NSData *data = [pb dataForType:QSTriggerDragType];
+    NSArray *indexes = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    NSLog(@"indexes: %@", indexes);
     
-	//	//NSLog(@"mast %d", [info draggingSourceOperationMask]);
 	if ([info draggingSourceOperationMask] == NSDragOperationMove
         && [info draggingSource] == triggerTable) {
-        
-		[draggedEntries setValue:[item identifier] forKey:@"parentID"];
+/*        [triggerTreeController 
+        [triggerTreeController moveNodes:<#(NSArray *)nodes#> toIndexPath:<#(NSIndexPath *)startingIndexPath#>*/
+//		[draggedEntries setValue:[item identifier] forKey:@"parentID"];
         
 		//NSLog(@"dragged %@", [draggedEntries valueForKey:@"parentID"]);
 		//	[treeController removeObjectsAtArrangedObjectIndexPaths:draggedIndexPaths];

@@ -44,9 +44,6 @@
 	NSString *search;
 	NSString *currentSet;
 
-	NSArray *draggedEntries;
-	NSArray *draggedIndexPaths;
-
 	IBOutlet NSTabView *drawerTabView;
 	IBOutlet NSTabViewItem *settingsItem;
 
