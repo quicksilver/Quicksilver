@@ -153,7 +153,6 @@
 		[[trigger info] removeObjectsForKeys:[NSArray arrayWithObjects:@"modifiers", @"keyCode", @"character", nil]];
 	else
 		[[trigger info] addEntriesFromDictionary:dict];
-	[[self currentTrigger] setEnabled:YES];
 	[[self currentTrigger] willChangeValueForKey:@"triggerDescription"];
 	[[self currentTrigger] didChangeValueForKey:@"triggerDescription"];
 	[self willChangeValueForKey:@"hotKey"];

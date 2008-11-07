@@ -47,8 +47,9 @@
 	NSString *ident = [[notif userInfo] objectForKey:@"NSApplicationBundleIdentifier"];
 	[theTriggers makeObjectsPerformSelector:@selector(rescope:) withObject:ident];
 }
+
 - (void)activateTriggers {
-	[[triggersDict allValues] makeObjectsPerformSelector:@selector(tryToActivate)];
+	[[triggersDict allValues] makeObjectsPerformSelector:@selector(reactivate)];
 }
 
 #if 0
@@ -115,7 +116,6 @@
 //}
 
 - (void)triggerChanged:(QSTrigger *)trigger {
-	[trigger reactivate];
 	[self writeTriggers];
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSTriggerChangedNotification object:trigger];
 }
@@ -142,6 +142,10 @@
 //}
 
 - (void)writeTriggers {
+    [self performSelector:@selector(writeTriggersNow) withObject:nil afterDelay:10.0 extend:YES];
+}
+
+- (void)writeTriggersNow {
 	NSMutableArray *cleanedTriggerArray = [NSMutableArray arrayWithCapacity:[triggersDict count]];
 	NSEnumerator *triggerEnum;
 	QSTrigger *thisTrigger;
@@ -190,7 +194,6 @@
     if([data writeToFile:[pTriggerSettings stringByStandardizingPath]
                  options:0
                    error:&error] == NO ) {
-//    if([triggerDict writeToFile: atomically:YES] == NO) {
         NSLog(@"Failed writing triggers : %@", error );
         return;
     }
@@ -198,7 +201,6 @@
 }
 
 - (NSMutableDictionary *)triggersDict {
-	//	NSLog(@"dict %@", triggersDict);
 	return triggersDict;
 }
 

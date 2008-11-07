@@ -14,7 +14,6 @@
 	NSMutableDictionary *info;
 	QSCommand *command;
 	NSMutableArray *children;
-	BOOL activated;
 }
 + (id)triggerWithDictionary:(NSDictionary *)info;
 - (id)initWithDictionary:(NSDictionary *)dict;

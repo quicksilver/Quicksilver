@@ -200,46 +200,39 @@
 	return [QSReg instanceForKey:[info objectForKey:@"type"] inTable:QSTriggerManagers];
 }
 
-- (void)tryToActivate {
-	[self setActivated:YES];
+- (void)reactivate {
+    [self setEnabled:[self enabled]];
 }
-- (BOOL)activated { return activated;  }
-- (void)setActivated: (BOOL)flag {
-	if (activated == flag) return;
+
+- (BOOL)activated { return [self enabled];  }
+- (void)setActivated:(BOOL)flag {
 	if (![[info objectForKey:@"enabled"] boolValue])
 		return;
-	if (flag) {
-		[[self manager] enableTrigger:self];
-	} else {
-		[[self manager] disableTrigger:self];
-	}
-	activated = flag;
+    [self setEnabled:flag];
 }
 
 - (BOOL)enabled {
 	return [[info objectForKey:@"enabled"] boolValue];
 }
+
 - (void)disable {
 	[self setEnabled:NO];
-	[[QSTriggerCenter sharedInstance] writeTriggers];
 }
 
-- (void)reactivate {
-	[self setActivated:NO];
-	[self setActivated:YES];
-}
 - (void)setEnabled:(BOOL)enabled {
 	[info setObject:[NSNumber numberWithBool:enabled] forKey:@"enabled"];
-	[self setActivated:enabled];
+    enabled ? [[self manager] enableTrigger:self] : [[self manager] disableTrigger:self];
 	[[QSTriggerCenter sharedInstance] triggerChanged:self];
 }
 
 - (id)objectForKey:(NSString *)key {
-	return 	[info objectForKey:key];
+	return [info objectForKey:key];
 }
+
 - (void)setObject:(id)object forKey:(NSString *)key {
 	[info setObject:object forKey:key];
 }
+
 - (id)valueForUndefinedKey:(NSString *)key {
 	return [info objectForKey:key];
 }
