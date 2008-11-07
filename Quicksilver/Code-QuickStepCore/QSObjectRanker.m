@@ -57,19 +57,21 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 	while (thisObject = [enumer nextObject]) {
 
 		id ranker = [thisObject ranker];
-		if (!ranker) {
 
-			NSLog(@"ranker %@", thisObject);
-			ranker = [thisObject getRanker];
-		}
-        QSRankedObject *rankedObject = (*scoreForObjectIMP) (ranker, @selector(rankedObject:forAbbreviation:inContext:withMnemonics:),
-                                                             thisObject, anAbbreviation, context, abbreviationMnemonics, mnemonicsOnly);
+        QSRankedObject *rankedObject;
+        if([ranker isKindOfClass:[QSDefaultObjectRanker class]])
+            rankedObject = (*scoreForObjectIMP) (ranker, @selector(rankedObject:forAbbreviation:inContext:withMnemonics:),
+                                                 thisObject, anAbbreviation, context, abbreviationMnemonics, mnemonicsOnly);
+        else
+            rankedObject = [ranker rankedObject:thisObject forAbbreviation:anAbbreviation
+                                      inContext:context
+                                  withMnemonics:abbreviationMnemonics
+                                  mnemonicsOnly:mnemonicsOnly];
 
 		if (rankedObject) {
 			[rankObjects addObject:rankedObject];
 		}
 	}
-	//NSLog(@"newscore %@", rankObjects);
 	return rankObjects;
 }
 

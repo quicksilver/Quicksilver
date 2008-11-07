@@ -115,6 +115,7 @@
 
 - (void)updateMnemonics {
 	[ranker release];
+    ranker = nil;
 	[self ranker];
 }
 

@@ -454,8 +454,9 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 
 		NSString *nameString = nil;
 		NSIndexSet *hitMask = nil;
-		if (abbreviationString)
-			nameString = [[drawObject ranker] matchedStringForAbbreviation:abbreviationString hitmask:&hitMask inContext:nil];
+        id ranker = [drawObject ranker];
+		if (ranker && abbreviationString)
+			nameString = [ranker matchedStringForAbbreviation:abbreviationString hitmask:&hitMask inContext:nil];
         if (!nameString) nameString = [drawObject name];
         if (!nameString) nameString = [drawObject label];
 		if (!nameString) nameString = @"<Unknown>";
