@@ -483,7 +483,7 @@ static float searchSpeed = 0.0;
 
 - (void)saveShelf:(NSString *)key {
 	NSString *path = [pShelfLocation stringByStandardizingPath];
-	NSArray *dictionaryArray = [[shelfArrays objectForKey:key] arrayByPerformingSelector:@selector(archiveDictionary)];
+	NSArray *dictionaryArray = [[shelfArrays objectForKey:key] arrayByPerformingSelector:@selector(dictionaryRepresentation)];
 	[dictionaryArray writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsshelf"] atomically:YES];
 }
 
