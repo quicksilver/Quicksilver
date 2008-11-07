@@ -44,11 +44,10 @@
 NSMutableDictionary *kindDescriptions = nil;
 
 @implementation QSResultController
-+(void)initialize {
-	kindDescriptions = [[NSMutableDictionary alloc] initWithContentsOfFile:
-		[[NSBundle mainBundle] pathForResource:@"QSKindDescriptions" ofType:@"plist"]];
-
-	//NSLog(@"%@", kindDescriptions);
++ (void)initialize {
+    if (!kindDescriptions)
+        kindDescriptions = [[NSMutableDictionary alloc] initWithContentsOfFile:
+                            [[NSBundle mainBundle] pathForResource:@"QSKindDescriptions" ofType:@"plist"]];
 }
 
 + (id)sharedInstance {

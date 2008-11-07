@@ -57,9 +57,10 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 
 + (void)initialize {
 	static BOOL initialized = NO;
-	if (initialized) return;
-	initialized = YES;
-	[NSApp registerServicesMenuSendTypes:[NSArray arrayWithObjects:NSStringPboardType, NSRTFPboardType, nil] returnTypes:[NSArray arrayWithObjects:NSStringPboardType, NSRTFPboardType, nil]];
+	if (!initialized) {
+        [NSApp registerServicesMenuSendTypes:[NSArray arrayWithObjects:NSStringPboardType, NSRTFPboardType, nil]
+                                 returnTypes:[NSArray arrayWithObjects:NSStringPboardType, NSRTFPboardType, nil]];
+    }
 }
 
 + (NSString *)name { return @"DefaultInterface"; }
@@ -72,8 +73,8 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 	[nc addObserver:self selector:@selector(objectModified:) name:@"ObjectModified" object:nil];
 	[nc addObserver:self selector:@selector(searchObjectChanged:) name:@"SearchObjectChanged" object:nil];
 	[nc addObserver:self selector:@selector(appChanged:) name:QSActiveApplicationChanged object:nil];
-  if (fALPHA)
-	  [QSHistoryController sharedInstance];
+    if (fALPHA)
+        [QSHistoryController sharedInstance];
 	return self;
 }
 
@@ -99,6 +100,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 - (NSSize) maxIconSize {
 	return NSMakeSize(128, 128);
 }
+
 - (void)windowDidLoad {
 	//if (![[self window] setFrameUsingName:[self window] Key]) [[self window] center];
 	[progressIndicator stopAnimation:self];
@@ -236,6 +238,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 - (NSArray *)rankedActions {
 	return [QSExec rankedActionsForDirectObject:[dSelector objectValue] indirectObject:[iSelector objectValue]];
 }
+
 - (void)updateActionsNow {
 	[actionsUpdateTimer invalidate];
 
@@ -389,7 +392,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 }
 
 - (void)showMainWindow:(id)sender {
-	[(QSWindow *)[self window] makeKeyAndOrderFront:sender];
+	[[self window] makeKeyAndOrderFront:sender];
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:kSuppressHotKeysInCommand]) {
 		CGSConnection conn = _CGSDefaultConnection();
 		CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyDisable);
@@ -446,8 +449,6 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 
 //Notifications
 #pragma mark Notifications
-
-
 - (void)appChanged:(NSNotification *)aNotification {
 	NSString *currentApp = [[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationBundleIdentifier"];
 	if (![currentApp isEqualToString:@"com.blacktree.Quicksilver"])
@@ -541,7 +542,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 	[dSelector setObjectValue:[array objectAtIndex:0]];
 	[actionsUpdateTimer invalidate];
 	[aSelector setObjectValue:[array objectAtIndex:1]];
-	if ([array count] >2)
+	if ([array count] > 2)
 		[iSelector setObjectValue:[array objectAtIndex:2]];
 	else
 		[iSelector setObjectValue:nil];

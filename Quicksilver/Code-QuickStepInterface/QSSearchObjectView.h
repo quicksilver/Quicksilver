@@ -14,12 +14,8 @@ typedef enum QSSearchMode {
 	SearchShuffle = 4,
 } QSSearchMode;
 
-
 @class QSResultController;
 @interface QSSearchObjectView : QSObjectView <NSTextInput> {
-
-	NSArrayController *resultArrayController;
-
 	NSMutableString *partialString;
 	NSString 		*matchedString;
 	NSString 		*visibleString;
@@ -29,7 +25,6 @@ typedef enum QSSearchMode {
 	NSTimer *resetTimer;
 	NSTimer *searchTimer;
 	NSTimer *resultTimer;
-
 
 	NSTimeInterval lastTime;
 	NSTimeInterval lastProc;
@@ -44,8 +39,6 @@ typedef enum QSSearchMode {
 
 	id selectedObject;
 
-	id editor;
-
 	BOOL hFlip;
 	BOOL vFlip;
 	NSText *currentEditor;
@@ -56,11 +49,7 @@ typedef enum QSSearchMode {
 	NSMutableArray *parentStack; // The parents for the current browse session
 	NSMutableArray *childStack; // The children for the current browse session
 
-
-
-
-	@public
-
+@public
 	QSResultController *resultController;
 	QSSearchMode searchMode;
 
@@ -68,7 +57,7 @@ typedef enum QSSearchMode {
 	NSMutableArray *searchArray; // Interim array for searching smaller and smaller pieces
 	NSMutableArray *resultArray; // Final filtered array for current search string
 
-	NSData *scoreData;
+//	NSData *scoreData;
 	unsigned selection;
 	BOOL browsing;
 	BOOL validMnemonic;
@@ -98,8 +87,8 @@ typedef enum QSSearchMode {
 - (void)setShouldResetSearchArray:(BOOL)flag;
 - (NSString *)matchedString;
 - (void)setMatchedString:(NSString *)newMatchedString;
-- (NSData *)scoreData;
-- (void)setScoreData:(NSData *)newScoreData;
+/*- (NSData *)scoreData;
+- (void)setScoreData:(NSData *)newScoreData;*/
 
 - (IBAction)toggleResultView:sender;
 - (void)selectIndex:(int)index;
@@ -143,10 +132,8 @@ typedef enum QSSearchMode {
 
 - (QSSearchObjectView *)directSelector;
 - (QSSearchObjectView *)indirectSelector;
-
-- (QSSearchObjectView *)directSelector;
-- (QSSearchObjectView *)actionSelector;
 - (QSSearchObjectView *)indirectSelector;
+
 - (BOOL)allowText;
 - (void)setAllowText:(BOOL)flag;
 - (BOOL)allowNonActions;

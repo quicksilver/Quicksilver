@@ -447,34 +447,17 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 }
 
 - (void)drawTextForObject:(QSObject *)drawObject withFrame:(NSRect)cellFrame inView:(NSView *)controlView {
-
 	if ([self imagePosition] != NSImageOnly) { // Text Drawing Routines
 		NSString *abbreviationString = nil;
 		if ([controlView respondsToSelector:@selector(matchedString)])
 			abbreviationString = [(QSSearchObjectView *)controlView matchedString];
 
-		int stringIndex = -1;
+		NSString *nameString = nil;
 		NSIndexSet *hitMask = nil;
 		if (abbreviationString)
-			stringIndex = [[drawObject ranker] matchedStringForAbbreviation:abbreviationString hitmask:&hitMask inContext:nil];
-
-		//NSLog(@"hit %d %@", stringIndex, hitMask);
-
-
-		if (stringIndex >= 0) {
-		//	NSLog(@"index %@ >> > %@ >> > %@", abbreviationString, [drawObject name] , [drawObject label]);
-
-		}
-
-
-		NSString *nameString = nil;
-		if (stringIndex == 0)
-			nameString = [drawObject name];
-		else if (stringIndex == 1)
-			nameString = [drawObject label];
-
-		if (!nameString) nameString = [drawObject label];
-		if (!nameString) nameString = [drawObject name];
+			nameString = [[drawObject ranker] matchedStringForAbbreviation:abbreviationString hitmask:&hitMask inContext:nil];
+        if (!nameString) nameString = [drawObject name];
+        if (!nameString) nameString = [drawObject label];
 		if (!nameString) nameString = @"<Unknown>";
 
 		//NSLog(@"usingname: %@", nameString);
@@ -482,19 +465,14 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 		NSSize nameSize = [nameString sizeWithAttributes:nameAttributes];
 		NSSize detailsSize = NSZeroSize;
 		if (detailsString) detailsSize = [detailsString sizeWithAttributes:detailsAttributes];
-
-
-
-
+        
 		BOOL useAlternateColor = [controlView isKindOfClass:[NSTableView class]] && [(NSTableView *)controlView isRowSelected:[(NSTableView *)controlView rowAtPoint:cellFrame.origin]];
 		NSColor *mainColor = (textColor?textColor:(useAlternateColor?[NSColor alternateSelectedControlTextColor] :[NSColor controlTextColor]) );
 		NSColor *fadedColor = [mainColor colorWithAlphaComponent:0.80];
-
-
-
+        
 		NSRect textDrawRect = [self titleRectForBounds:cellFrame];
 
-		NSMutableAttributedString *titleString = [[[NSMutableAttributedString alloc] initWithString:nameString?nameString:@"???"] autorelease];
+		NSMutableAttributedString *titleString = [[[NSMutableAttributedString alloc] initWithString:nameString] autorelease];
 		[titleString setAttributes:nameAttributes range:NSMakeRange(0, [titleString length])];
 
 		if (abbreviationString && ![abbreviationString hasPrefix:@"QSActionMnemonic"]) {
@@ -516,7 +494,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 			for(i = 0; i<count; i += j) {
 				for (j = 1; i+j<count && hits[i+j-1] +1 == hits[i+j]; j++);
 				//	 NSLog(@"hit (%d, %d) ", hits[i] , j);
-				[titleString addAttributes:attributes range:NSMakeRange(hits[i] , j)];
+				[titleString addAttributes:attributes range:NSMakeRange(hits[i], j)];
 				//				 NSLog(@"5");
 			}
 		} else {
@@ -623,7 +601,6 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 	NSArray *actions = [QSExec validActionsForDirectObject:object indirectObject:nil];
 	// actions = [actions sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 
-
 	NSMenuItem *item;
 
 	if ([actions count]) {
@@ -666,13 +643,12 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 		[menu addItem:item];
 	}
 
-	if (![[self controlView] isKindOfClass:[QSObjectView class]]) {
+	if ([[self controlView] isKindOfClass:[QSObjectView class]]) {
 		[menu addItem:[NSMenuItem separatorItem]];
 		[menu addItemWithTitle:@"Copy" action:@selector(copy:) keyEquivalent:@""];
 		[[menu addItemWithTitle:@"Remove" action:@selector(deleteBackward:) keyEquivalent:@""] setTarget:[self controlView]];
 	}
 	return menu;
-
 }
 
 - (void)performMenuAction:(NSMenuItem *)item {

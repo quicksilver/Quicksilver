@@ -72,6 +72,7 @@
 		4DC493E40E8D15CB000EEF1C /* QSPopUpTextButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC493DE0E8D15CB000EEF1C /* QSPopUpTextButtonCell.m */; };
 		4DD2CF360E7B345500BA1128 /* QSBasicObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD2CF340E7B345500BA1128 /* QSBasicObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD2CF370E7B345500BA1128 /* QSBasicObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2CF350E7B345500BA1128 /* QSBasicObject.m */; };
+		4DF2B3960EB8933D009CEC3C /* NDSDKCompatibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DF2B3950EB8933D009CEC3C /* NDSDKCompatibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DFE7DA20E081A3B000B9AA3 /* NSImage+QuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DFE7DA00E081A30000B9AA3 /* NSImage+QuickLook.m */; };
 		4DFE7DA30E081A3C000B9AA3 /* NSImage+QuickLook.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DFE7D9F0E081A30000B9AA3 /* NSImage+QuickLook.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DFE7DC70E082132000B9AA3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
@@ -906,6 +907,7 @@
 		4DC4941B0E8D1CEC000EEF1C /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		4DD2CF340E7B345500BA1128 /* QSBasicObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSBasicObject.h; sourceTree = "<group>"; };
 		4DD2CF350E7B345500BA1128 /* QSBasicObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSBasicObject.m; sourceTree = "<group>"; };
+		4DF2B3950EB8933D009CEC3C /* NDSDKCompatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDSDKCompatibility.h; sourceTree = "<group>"; };
 		4DFE7D9F0E081A30000B9AA3 /* NSImage+QuickLook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+QuickLook.h"; sourceTree = "<group>"; };
 		4DFE7DA00E081A30000B9AA3 /* NSImage+QuickLook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+QuickLook.m"; sourceTree = "<group>"; };
 		4DFE7DA10E081A30000B9AA3 /* README.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = README.rtf; sourceTree = "<group>"; };
@@ -2445,6 +2447,7 @@
 		E1F1D63306BD97B2004E3DC3 /* NDClasses */ = {
 			isa = PBXGroup;
 			children = (
+				4DF2B3950EB8933D009CEC3C /* NDSDKCompatibility.h */,
 				E1F1D63406BD97B2004E3DC3 /* NDAlias+AliasFile.h */,
 				E1F1D63506BD97B2004E3DC3 /* NDAlias+AliasFile.m */,
 				E1F1D63606BD97B2004E3DC3 /* NDAlias.h */,
@@ -2703,6 +2706,7 @@
 				4DFE7DA30E081A3C000B9AA3 /* NSImage+QuickLook.h in Headers */,
 				4DB4A0210E1007EA0010C540 /* QSKeyCodeTranslator.h in Headers */,
 				4DC493CB0E8D1340000EEF1C /* QSHotKeyEvent.h in Headers */,
+				4DF2B3960EB8933D009CEC3C /* NDSDKCompatibility.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

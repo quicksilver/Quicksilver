@@ -11,9 +11,9 @@
 @class QSObject, QSBasicObject;
 @class QSCommand;
 @interface QSInterfaceController : NSWindowController {
-	IBOutlet QSSearchObjectView *		dSelector;
-	IBOutlet QSSearchObjectView *		aSelector;
-	IBOutlet QSSearchObjectView *		iSelector;
+	IBOutlet QSSearchObjectView *dSelector;
+	IBOutlet QSSearchObjectView *aSelector;
+	IBOutlet QSSearchObjectView *iSelector;
 
 	IBOutlet NSProgressIndicator *progressIndicator;
 	IBOutlet id commandView;
@@ -26,7 +26,6 @@
   }
 - (BOOL)preview;
 - (void)setPreview: (BOOL)flag;
-
 
 - (NSSize) maxIconSize;
 - (IBAction)hideWindows:(id)sender;

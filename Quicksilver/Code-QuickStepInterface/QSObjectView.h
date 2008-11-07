@@ -15,7 +15,6 @@ typedef enum {
 
 
 @interface QSObjectView : NSControl {
-
 	NSString *searchString;
 	QSInterfaceController *controller;
 	BOOL dragImageDraw;
@@ -37,7 +36,7 @@ typedef enum {
 	BOOL initiatesDrags;
 	BOOL shouldSpring;
 	NSImage *draggedImage;
-	}
+}
 - (QSObject *)draggedObject;
 - (void)setDraggedObject:(QSObject *)newDraggedObject;
 
@@ -58,6 +57,6 @@ typedef enum {
 - (void)setDragAction:(NSString *)aDragAction;
 
 - (QSInterfaceController *)controller;
-- (NSSize) cellSize;
+- (NSSize)cellSize;
 - (void)mouseClicked:(NSEvent *)theEvent;
 @end

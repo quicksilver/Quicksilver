@@ -159,17 +159,14 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 - (void)searchObjectChanged:(NSNotification*)notif {
 	[super searchObjectChanged:notif];
 	//	[self updateDetailsString];
-	NSString *command = [[self currentCommand] name];
-	if (!command) command = @"";
-	[commandView setStringValue:[dSelector objectValue] ?command:@"Begin typing in the Subject field to search"];
-
-	//	[executeButton setEnabled:command != nil];
-	return;
+	NSString *commandName = [[self currentCommand] name];
+	if (!commandName) commandName = @"";
+	[commandView setStringValue:([dSelector objectValue] ? commandName : @"Begin typing in the Subject field to search")];
 }
 
 - (void)updateDetailsString {
-	NSString *command = [[self currentCommand] name];
-	[commandView setStringValue:command?command:@""];
+	NSString *commandName = [[self currentCommand] name];
+	[commandView setStringValue:(commandName ? commandName : @"")];
 	return;
 	NSResponder *firstResponder = [[self window] firstResponder];
 	if ([firstResponder respondsToSelector:@selector(objectValue)]) {
