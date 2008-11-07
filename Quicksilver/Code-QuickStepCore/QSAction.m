@@ -179,7 +179,7 @@ static BOOL gModifiersAreIgnored;
  	[[self actionDict] setObject:[NSNumber numberWithInt:flag] forKey:kActionIndirectOptional];
 }
 
-- (BOOL)displaysResult { return [[[self actionDict] objectForKey:kActionDisplaysResult] boolValue];  }
+- (BOOL)displaysResult { return [[[self actionDict] objectForKey:kActionDisplaysResult] boolValue]; }
 - (void)setDisplaysResult:(BOOL)flag { [[self actionDict] setObject:[NSNumber numberWithInt:flag] forKey:kActionDisplaysResult];  }
 
 - (id)provider {
@@ -198,9 +198,8 @@ static BOOL gModifiersAreIgnored;
 
 - (BOOL)canThread { return ![[[self actionDict] objectForKey:kActionRunsInMainThread] boolValue];  }
 
-- (QSAction *)alternate { return [QSExec actionForIdentifier:[[self actionDict] objectForKey:kActionAlternate]];  }
+- (QSAction *)alternate { return [QSExec actionForIdentifier:[[self actionDict] objectForKey:kActionAlternate]]; }
 
-- (int) order {return [self rank];}
 #if 0
 - (IBAction)editActions:(id)sender {
 	[NSApp activateIgnoringOtherApps:YES];
@@ -282,6 +281,14 @@ static BOOL gModifiersAreIgnored;
     return format;
 }
 
+- (float)score {
+    return 0.0;
+}
+
+- (int)order {
+    return [self rank];
+}
+
 @end
 
 @implementation QSActionHandler
@@ -300,7 +307,7 @@ static BOOL gModifiersAreIgnored;
 
 - (void)setQuickIconForObject:(QSObject *)object { [object setIcon:[NSImage imageNamed:@"defaultAction"]];  }
 
-- (BOOL)drawIconForObject:(QSObject *)object inRect:(NSRect)rect flipped:(BOOL)flipped { return NO;  }
+- (BOOL)drawIconForObject:(QSObject *)object inRect:(NSRect)rect flipped:(BOOL)flipped { return NO; }
 
 - (BOOL)loadIconForObject:(QSObject *)object {
 	NSImage *icon = [QSRez imageWithExactName:[object identifier]];

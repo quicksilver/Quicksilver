@@ -18,67 +18,78 @@
 	IBOutlet NSProgressIndicator *progressIndicator;
 	IBOutlet id commandView;
 	IBOutlet QSMenuButton *menuButton;
+    
 	NSTimer *hideTimer;
 	NSTimer *actionsUpdateTimer;
 	NSTimer *clearTimer;
 	BOOL hidingWindow;
 	BOOL preview;
-  }
-- (BOOL)preview;
-- (void)setPreview: (BOOL)flag;
-
-- (NSSize) maxIconSize;
-- (IBAction)hideWindows:(id)sender;
-- (void)updateActionsNow;
-- (void)hideMainWindow:(id)sender;
-- (void)showMainWindow:(id)sender;
-
-- (IBAction)activate:(id)sender;
-- (void)updateActions;
-
-- (void)shortCircuit:(id)sender;
-- (void)activate:(id)sender;
-- (void)updateViewLocations;
-- (void)activateInTextMode:(id)sender;
-- (void)updateIndirectObjects;
-- (IBAction)showTasks:(id)sender;
-- (void)invalidateHide;
-
-- (NSProgressIndicator *)progressIndicator;
+}
 - (QSCommand *)currentCommand;
-- (IBAction)executeCommand:(id)sender;
-- (void)executeCommandThreaded;
-- (void)executePartialCommand:(NSArray *)array;
-
 - (void)setCommand:(QSCommand *)command;
 - (void)setCommandWithArray:(NSArray *)array;
 
-- (void)activate:(id)sender;
-- (void)selectObject:(QSBasicObject *)object;
-- (void)searchObjectChanged:(NSNotification*)notif;
-- (void)showIndirectSelector:(id)sender;
+- (IBAction)showInterface:(id)sender;
+- (IBAction)activate:(id)sender;
+- (IBAction)activateInTextMode:(id)sender;
+- (IBAction)actionActivate:(id)sender;
 
-- (void)hideIndirectSelector:(id)sender;
-- (QSSearchObjectView *)dSelector;
-- (QSSearchObjectView *)aSelector;
-- (QSSearchObjectView *)iSelector;
-- (QSMenuButton *)menuButton;
-- (void)fireActionUpdateTimer;
-- (void)searchArray:(NSMutableArray *)array;
+- (IBAction)executeCommand:(id)sender;
+- (IBAction)executeCommandAndContinue:(id)sender;
+- (IBAction)shortCircuit:(id)sender;
+- (IBAction)encapsulateCommand:(id)sender;
+
+- (IBAction)hideWindows:(id)sender;
+
+- (IBAction)showTasks:(id)sender;
+
+- (void)selectObject:(QSBasicObject *)object;
+- (QSBasicObject *)selection;
+
+- (void)searchArray:(NSArray *)array;
+- (void)showArray:(NSArray *)array;
+
+- (void)showMainWindow:(id)sender;
+- (void)hideMainWindow:(id)sender;
 - (void)hideMainWindowFromExecution:(id)sender;
 - (void)hideMainWindowFromCancel:(id)sender;
 - (void)hideMainWindowFromFade:(id)sender;
-- (void)setClearTimer;
-- (void)executePartialCommand:(NSArray *)array;
-- (void)actionActivate:(id)sender;
-- (void)showArray:(NSArray *)array;
-- (QSBasicObject *)selection;
+
+- (void)showIndirectSelector:(id)sender;
+- (void)hideIndirectSelector:(id)sender;
+
+- (void)updateActions;
+- (void)updateActionsNow;
+
+- (void)updateIndirectObjects;
+- (void)updateViewLocations;
+- (void)invalidateHide;
+
 - (void)encapsulateCommand;
-- (void)encapsulateCommand:(id)sender;
-- (void)executeCommandAndContinue:(id)sender;
-- (IBAction)executeCommand:(id)sender;
+
+- (void)executeCommandThreaded;
+- (void)executePartialCommand:(NSArray *)array;
+
+- (void)searchObjectChanged:(NSNotification*)notif;
+
+- (QSSearchObjectView *)dSelector;
+- (QSSearchObjectView *)aSelector;
+- (QSSearchObjectView *)iSelector;
+
+- (QSMenuButton *)menuButton;
+
+- (NSProgressIndicator *)progressIndicator;
+
+- (NSSize)maxIconSize;
+
+- (void)fireActionUpdateTimer;
+- (void)setClearTimer;
 
 // set to YES to prevent hiding, no to allow hiding again.
--(void)setHiding:(BOOL)fl;
+- (BOOL)hiding;
+- (void)setHiding:(BOOL)flag;
+
+- (BOOL)preview;
+- (void)setPreview:(BOOL)flag;
 
 @end

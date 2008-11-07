@@ -1,8 +1,6 @@
 
 
 #import "QSResultWindow.h"
-
-
 @implementation QSResultWindow
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(unsigned int)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
 	NSWindow* result = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:YES];
@@ -15,10 +13,10 @@
 	[self setMovableByWindowBackground:NO];
 	[self setHasShadow:YES];
 	[self setLevel:NSFloatingWindowLevel];
-  return result;
+    return result;
 }
 
-- (NSTimeInterval) animationResizeTime:(NSRect)newFrame {
+- (NSTimeInterval)animationResizeTime:(NSRect)newFrame {
 	return .1;
 }
 

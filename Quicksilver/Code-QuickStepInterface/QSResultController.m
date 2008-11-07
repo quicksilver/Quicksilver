@@ -10,8 +10,6 @@
 #import "QSIconLoader.h"
 #import "QSLibrarian.h"
 #import "QSWindow.h"
-//#import "FSNodeInfo.h"
-//#import "FSBrowserCell.h"
 
 #import "AppKitPrivate.h"
 #import "QSImageAndTextCell.h"
@@ -29,19 +27,13 @@
 
 #define IconLoadNotification @"IconsLoaded"
 
-@interface NSTableView (SingleRowDisplay)
-- (void)_setNeedsDisplayInRow:(int)fp8;
-@end
-
-@interface QSResultController (PrivateUtilities)
-- (NSString*)fsPathToColumn:(int)column;
-- (NSDictionary*)normalFontAttributes;
-- (NSDictionary*)boldFontAttributes;
-@end
-
 #import "QSTextProxy.h"
 
 NSMutableDictionary *kindDescriptions = nil;
+
+@interface QSResultController ()
+- (void)reloadColors;
+@end
 
 @implementation QSResultController
 + (void)initialize {
@@ -56,10 +48,17 @@ NSMutableDictionary *kindDescriptions = nil;
 	return _sharedInstance;
 }
 
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	[self reloadColors];
+}
+
+#pragma mark -
+#pragma mark Lifetime
 - (id)init {
 	self = [self initWithWindowNibName:@"ResultWindow"];
 	if (self) {
-		focus = nil;
+        focus = nil;
 		loadingIcons = NO;
 		loadingChildIcons = NO;
 		iconTimer = nil;
@@ -73,21 +72,11 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 - (id)initWithFocus:(id)myFocus {
-	self = [self init];
-	if (self) {
-		focus = myFocus;
+    self = [self init];
+    if (self) {
+        focus = myFocus;
 	}
-	return self;
-}
-
-- (void)reloadColors {
-	NSData *data = [[NSUserDefaultsController sharedUserDefaultsController]
-valueForKeyPath:@"values.QSAppearance3B"];
-	NSColor *color = [NSUnarchiver unarchiveObjectWithData:data];
-	[[self window] setOpaque:[color alphaComponent] == 1.0f];
-}
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	[self reloadColors];
+    return self;
 }
 
 - (void)windowDidLoad {
@@ -108,46 +97,40 @@ valueForKeyPath:@"values.QSAppearance3B"];
 		[splitView removeFromSuperview];
 
 	}
-
+    NSUserDefaultsController *sucd = [NSUserDefaultsController sharedUserDefaultsController];
+    [sucd addObserver:self
+           forKeyPath:@"values.QSAppearance3B"
+              options:0
+              context:nil];
+    
 	[[[resultTable tableColumnWithIdentifier:@"NameColumn"] dataCell] bind:@"textColor"
-																 toObject:[NSUserDefaultsController sharedUserDefaultsController]
-															  withKeyPath:@"values.QSAppearance3T"
-																  options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:@"NSValueTransformerName"]];
-
-	[[NSUserDefaultsController sharedUserDefaultsController] addObserver:self
-															 forKeyPath:@"values.QSAppearance3B"
-																options:0
-																context:nil];
-
+                                                                  toObject:sucd
+                                                               withKeyPath:@"values.QSAppearance3T"
+                                                                   options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:@"NSValueTransformerName"]];
+    
 	[resultTable bind:@"backgroundColor"
-			 toObject:[NSUserDefaultsController sharedUserDefaultsController]
-		 withKeyPath:@"values.QSAppearance3B"
-			 options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName
-												 forKey:@"NSValueTransformerName"]];
-
-	[self reloadColors];
-
+			 toObject:sucd
+          withKeyPath:@"values.QSAppearance3B"
+              options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName
+                                                  forKey:@"NSValueTransformerName"]];
 	[resultTable bind:@"highlightColor"
-			 toObject:[NSUserDefaultsController sharedUserDefaultsController]
+			 toObject:sucd
 		 withKeyPath:@"values.QSAppearance3A"
 			 options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName
 												 forKey:@"NSValueTransformerName"]];
-
+    
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
-
 		[[[resultChildTable tableColumnWithIdentifier:@"NameColumn"] dataCell] bind:@"textColor"
-																		  toObject:[NSUserDefaultsController sharedUserDefaultsController]
+                                                                           toObject:sucd
 																		withKeyPath:@"values.QSAppearance3T"
 																			options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:@"NSValueTransformerName"]];
-
 		[resultChildTable bind:@"backgroundColor"
-					 toObject:[NSUserDefaultsController sharedUserDefaultsController]
-				  withKeyPath:@"values.QSAppearance3B"
-					  options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName
-														  forKey:@"NSValueTransformerName"]];
-
+                      toObject:sucd
+                   withKeyPath:@"values.QSAppearance3B"
+                       options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName
+                                                           forKey:@"NSValueTransformerName"]];
 	}
-
+	[self reloadColors];
 	[[self window] setLevel:NSFloatingWindowLevel+1];
 
 	//[[resultTable enclosingScrollView] setHasVerticalScroller:NO];
@@ -162,25 +145,36 @@ valueForKeyPath:@"values.QSAppearance3B"];
 	[super dealloc];
 }
 
+#pragma mark -
+#pragma mark Accessors, Utilities
+- (NSArray *)currentResults { return currentResults; }
+- (void)setCurrentResults:(NSArray *)newCurrentResults {
+	[currentResults release];
+	currentResults = [newCurrentResults retain];
+}
+
+- (QSObject *)selectedItem { return selectedItem; }
+- (void)setSelectedItem:(QSObject *)newSelectedItem {
+	if (selectedItem != newSelectedItem) {
+		[selectedItem release];
+		selectedItem = [newSelectedItem retain];
+	}
+}
+
+- (void)reloadColors {
+	NSData *data = [[NSUserDefaultsController sharedUserDefaultsController] valueForKeyPath:@"values.QSAppearance3B"];
+	NSColor *color = [NSUnarchiver unarchiveObjectWithData:data];
+	[[self window] setOpaque:[color alphaComponent] == 1.0f];
+}
+
 - (void)updateScrollViewTrackingRect {
 	NSView *view = [[self window] contentView];
 	if (scrollViewTrackingRect) [view removeTrackingRect:scrollViewTrackingRect];
 	scrollViewTrackingRect = [view addTrackingRect:[view frame] owner:self userData:nil assumeInside:NO];
+}
 
-}
-- (void)scrollWheel:(NSEvent *)theEvent {
-	[resultTable scrollWheel:theEvent];
-}
-/*
-- (void)mouseEntered:(NSEvent *)theEvent {
-	[[resultTable enclosingScrollView] setHasVerticalScroller:YES];
-}
-- (void)mouseExited:(NSEvent *)theEvent {
-	[[resultTable enclosingScrollView] setHasVerticalScroller:NO];
-}
-*/
 - (IBAction)setSearchMode:(id)sender {
-	[focus setSearchMode:[sender tag]];
+    [focus setSearchMode:[sender tag]];
 }
 
 - (void)bump:(int)i {
@@ -190,52 +184,101 @@ valueForKeyPath:@"values.QSAppearance3B"];
 		[[self window] setFrameOrigin:NSOffsetRect(frame, i*j/8, 0) .origin];
 	for (; j >= 0; j--)
 		[[self window] setFrameOrigin:NSOffsetRect(frame, i*j/8, 0) .origin];
-
 }
-- (void)keyDown:(NSEvent *)theEvent {
-	NSString *characters;
-	unichar c;
-	unsigned int characterIndex, characterCount;
 
-	// There could be multiple characters in the event.
-	characters = [theEvent charactersIgnoringModifiers];
+- (void)loadChildren {
+	if (NSEqualRects(NSZeroRect, [resultChildTable visibleRect]) )
+        return;
+	[resultChildTable reloadData];
+}
 
-	characterCount = [characters length];
-	for (characterIndex = 0; characterIndex < characterCount;
-		 characterIndex++) {
-		c = [characters characterAtIndex: characterIndex];
-		switch(c) {
-
-			case '\r': //Return
-					  //[self sendAction:[self action] to:[self target]];
-				[(QSInterfaceController *)[[focus window] windowController] executeCommand:self];
-				break;
-			case '\t': //Tab
-			case 25: //Back Tab
-			case 27: //Escape
-				[[self window] orderOut:self];
-				[focus keyDown:theEvent];
-				return;
-		}
+- (void)setSplitLocation {
+	NSNumber *resultWidth = [[NSUserDefaults standardUserDefaults] objectForKey:kResultTableSplit];
+    
+	if (resultWidth) {
+		NSView *firstView = [[splitView subviews] objectAtIndex:0];
+		NSRect frame = [firstView frame];
+		frame.size.width = [resultWidth floatValue] *NSWidth([splitView frame]);
+        
+		NSLog(@"%f", frame.size.width);
+        
+		[firstView setFrame:frame];
+        
+		frame.origin.x += NSWidth(frame);
+		frame.size.width = NSWidth([splitView frame]) -NSWidth(frame)-[splitView dividerThickness];
+        
+		[[[splitView subviews] lastObject] setFrame:frame];
+        
+		[splitView adjustSubviews];
+		[splitView display];
 	}
-
 }
 
-- (void)windowDidResize:(NSNotification *)aNotification {
-	[[self window] saveFrameUsingName:@"results"];
-	//	NSLog(@"win"); ;
-	[[NSUserDefaults standardUserDefaults] synchronize];
-	//  visibleRange = [resultTable rowsInRect:[resultTable visibleRect]];
-	/// visibleChildRange = [resultChildTable rowsInRect:[resultChildTable visibleRect]];
-
-	if ([self numberOfRowsInTableView:resultTable] && [[NSUserDefaults standardUserDefaults] boolForKey:kShowIcons])
-		[[self resultIconLoader] loadIconsInRange:[resultTable rowsInRect:[resultTable visibleRect]]];
-	if (!NSEqualRects(NSZeroRect, [resultChildTable visibleRect]) && [self numberOfRowsInTableView:resultChildTable])
-		[[self resultChildIconLoader] loadIconsInRange:[resultChildTable rowsInRect:[resultChildTable visibleRect]]];
-
-	[self updateScrollViewTrackingRect];
+#pragma mark -
+#pragma mark Icon Loading
+- (BOOL)iconLoadValidForTable:(NSTableView *)table {
+	if (table == resultTable && !iconLoadValid) {
+		iconLoadValid = YES;
+		return NO;
+	} else if (table == resultChildTable && !childIconLoadValid) {
+		childIconLoadValid = YES;
+		return NO;
+	}
+	return YES;
+}
+/*
+ -(void)iconLoader:(QSIconLoader *)loader finishedLoadingArray:sourceArray {
+ if (loader == resultIconLoader)
+ [self setResultIconLoader:nil];
+ else if (loader == resultChildIconLoader)
+ [self setResultChildIconLoader:nil];
+ }
+ */
+- (void)iconLoader:(QSIconLoader *)loader loadedIndex:(int)m inArray:(NSArray *)array {
+	//	NSLog(@"loaded");
+	NSTableView *table = nil;
+	if (loader == resultIconLoader) {
+		table = resultTable;
+		if (m == [resultTable selectedRow])
+            [focus setNeedsDisplay:YES];
+	} else if (loader == resultChildIconLoader) {
+		table = resultChildTable;
+	} else {
+		//NSLog(@"RogueLoader %d", m);
+	}
+	[table performSelectorOnMainThread:@selector(redisplayRows:) withObject:[NSIndexSet indexSetWithIndex:m] waitUntilDone:NO];
 }
 
+- (BOOL)iconsAreLoading {
+	return [resultIconLoader isLoading];
+}
+
+- (QSIconLoader *)resultIconLoader {
+	if (!resultIconLoader) {
+		[self setResultIconLoader:[QSIconLoader loaderWithArray:[self currentResults]]];
+		[resultIconLoader setDelegate:self];
+	}
+	return [[resultIconLoader retain] autorelease];
+}
+
+- (void)setResultIconLoader:(QSIconLoader *)aResultIconLoader {
+	//NSLog(@"setloader %@", aResultIconLoader);
+	if (resultIconLoader != aResultIconLoader) {
+		[resultIconLoader invalidate];
+		[resultIconLoader release];
+		resultIconLoader = [aResultIconLoader retain];
+	}
+}
+
+- (QSIconLoader *)resultChildIconLoader { return resultChildIconLoader;  }
+- (void)setResultChildIconLoader:(QSIconLoader *)aResultChildIconLoader {
+	if (resultChildIconLoader != aResultChildIconLoader) {
+		[resultChildIconLoader release];
+		resultChildIconLoader = [aResultChildIconLoader retain];
+	}
+}
+#pragma mark -
+#pragma mark Actions
 - (IBAction)defineMnemonic:(id)sender {
 	//	NSLog(@"%d", [resultTable clickedRow]);
 	if (![focus mnemonicDefined])
@@ -258,32 +301,12 @@ valueForKeyPath:@"values.QSAppearance3B"];
 	[QSLib assignCustomAbbreviationForItem:[focus objectValue]];
 }
 
-- (void)viewChanged:(NSNotification*)notif {
-	NSRange newRange = [resultTable rowsInRect:[resultTable visibleRect]];
-
-	//  NSLog(@"%d-%d are visible %d", visibleRange.location, visibleRange.location+visibleRange.length, [self iconsAreLoading]);
-
-	//[self iconsAreLoading];
-	//	NSBeep();
-	if ([self numberOfRowsInTableView:resultTable] && [[NSUserDefaults standardUserDefaults] boolForKey:kShowIcons])
-		[[self resultIconLoader] loadIconsInRange:newRange];
-	//	[self threadedIconLoad];
-
-	// loadingRange = newRange;
-}
-
-- (void)childViewChanged:(NSNotification*)notif {
-	//visibleRange = [resultTable rowsInRect:[resultTable visibleRect]];
-	//s NSLog(@"%d-%d are visible", visibleRange.location, visibleRange.location+visibleRange.length); /
-	// [self threadedChildIconLoad];
-}
-
 - (void)arrayChanged:(NSNotification*)notif {
 	[self setResultIconLoader:nil];
 	[self setCurrentResults:[focus resultArray]];
-
+    
 	[resultTable reloadData];
-
+    
 	//visibleRange = [resultTable rowsInRect:[resultTable visibleRect]];
 	//	NSLog(@"arraychanged %d", [[self currentResults] count]);
 	//[self threadedIconLoad];
@@ -293,29 +316,29 @@ valueForKeyPath:@"values.QSAppearance3B"];
 
 - (void)updateSelectionInfo {
 	selectedResult = [resultTable selectedRow];
-
+    
 	if (selectedResult<0 || ![[self currentResults] count]) return;
 	QSObject *newSelectedItem = [[self currentResults] objectAtIndex:selectedResult];
-
+    
 	NSString *status = [NSString stringWithFormat:@"%d of %d", selectedResult+1, [[self currentResults] count]];
 	NSString *details = [selectedItem details] ?[selectedItem details] :@"";
-
-	if ([resultTable rowHeight] <34 && details)
+    
+	if ([resultTable rowHeight] < 34 && details)
 		status = [status stringByAppendingFormat:@" %C %@", 0x25B8, details];
-
+    
 	[(NSTextField *)selectionView setStringValue:status];
-
+    
 	if (selectedItem != newSelectedItem) {
 		[self setSelectedItem:newSelectedItem];
-
+        
 		//		[[[resultTable tableColumnWithIdentifier: COLUMNID_NAME] headerCell] setStringValue:];
-
+        
 		//	 [[resultTable headerView] setNeedsDisplay:YES];
 		//  [resultTable _setNeedsDisplayForColumn:1 draggedDelta:0.0];
-
+        
 		hideChildren = YES;
 		[resultChildTable noteNumberOfRowsChanged];
-
+        
 		if ([[NSApp currentEvent] modifierFlags] &NSFunctionKeyMask && [[NSApp currentEvent] isARepeat]) {
 			if ([childrenLoadTimer isValid]) {
 				[childrenLoadTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
@@ -327,19 +350,60 @@ valueForKeyPath:@"values.QSAppearance3B"];
 		} else {
 			[self loadChildren];
 		}
-
+        
 	}
 }
 
-- (QSObject *)selectedItem {
-	return selectedItem;
+#pragma mark -
+#pragma mark NSResponder
+- (void)scrollWheel:(NSEvent *)theEvent {
+	[resultTable scrollWheel:theEvent];
 }
 
-- (void)setSelectedItem:(QSObject *)newSelectedItem {
-	if (selectedItem != newSelectedItem) {
-		[selectedItem release];
-		selectedItem = [newSelectedItem retain];
+- (void)keyDown:(NSEvent *)theEvent {
+	NSString *characters;
+	unichar c;
+	unsigned int characterIndex, characterCount;
+
+	// There could be multiple characters in the event.
+	characters = [theEvent charactersIgnoringModifiers];
+
+	characterCount = [characters length];
+	for (characterIndex = 0; characterIndex < characterCount;
+		 characterIndex++) {
+		c = [characters characterAtIndex: characterIndex];
+		switch(c) {
+
+			case '\r': //Return
+					  //[self sendAction:[self action] to:[self target]];
+				[[focus controller] executeCommand:self];
+				break;
+			case '\t': //Tab
+			case 25: //Back Tab
+			case 27: //Escape
+				[[self window] orderOut:self];
+				[focus keyDown:theEvent];
+				return;
+		}
 	}
+
+}
+
+#pragma mark -
+#pragma mark NSWindow Delegate
+- (void)windowDidResize:(NSNotification *)aNotification {
+	[[self window] saveFrameUsingName:@"results"];
+	//	NSLog(@"win"); ;
+	[[NSUserDefaults standardUserDefaults] synchronize];
+	//  visibleRange = [resultTable rowsInRect:[resultTable visibleRect]];
+	/// visibleChildRange = [resultChildTable rowsInRect:[resultChildTable visibleRect]];
+
+	if ([self numberOfRowsInTableView:resultTable] && [[NSUserDefaults standardUserDefaults] boolForKey:kShowIcons])
+		[[self resultIconLoader] loadIconsInRange:[resultTable rowsInRect:[resultTable visibleRect]]];
+	if (!NSEqualRects(NSZeroRect, [resultChildTable visibleRect]) && [self numberOfRowsInTableView:resultChildTable])
+		[[self resultChildIconLoader] loadIconsInRange:[resultChildTable rowsInRect:[resultChildTable visibleRect]]];
+
+	[self updateScrollViewTrackingRect];
 }
 
 /*
@@ -361,46 +425,8 @@ valueForKeyPath:@"values.QSAppearance3B"];
  }
  */
 
-- (void)loadChildren {
-	if (NSEqualRects(NSZeroRect, [resultChildTable visibleRect]) ) return;
-	[resultChildTable reloadData];
-	// [self threadedChildIconLoad];
-
-}
-
-- (BOOL)iconLoadValidForTable:(NSTableView *)table {
-	if (table == resultTable && !iconLoadValid) {
-		iconLoadValid = YES;
-		return NO;
-	} else if (table == resultChildTable && !childIconLoadValid) {
-		childIconLoadValid = YES;
-		return NO;
-	}
-	return YES;
-}
-/*
- -(void)iconLoader:(QSIconLoader *)loader finishedLoadingArray:sourceArray {
-	 if (loader == resultIconLoader)
-		 [self setResultIconLoader:nil];
-	 else if (loader == resultChildIconLoader)
-		 [self setResultChildIconLoader:nil];
- }
- */
-- (void)iconLoader:(QSIconLoader *)loader loadedIndex:(int)m inArray:(NSArray *)array {
-	//	NSLog(@"loaded");
-	NSTableView *table = nil;
-	if (loader == resultIconLoader) {
-		table = resultTable;
-
-		if (m == [resultTable selectedRow]) [focus setNeedsDisplay:YES];
-	} else if (loader == resultChildIconLoader) {
-		table = resultChildTable;
-	} else {
-		//NSLog(@"RogueLoader %d", m);
-	}
-	[table performSelectorOnMainThread:@selector(redisplayRows:) withObject:[NSIndexSet indexSetWithIndex:m] waitUntilDone:NO];
-}
-
+#pragma mark -
+#pragma mark NSSplitView Delegate
 - (float) splitView:(NSSplitView *)sender constrainMaxCoordinate:(float)proposedMax ofSubviewAt:(int)offset {
 	//NSLog(@"constrainMax: %f, %d", proposedMax, offset);
 	// return proposedMax-36;
@@ -452,7 +478,7 @@ valueForKeyPath:@"values.QSAppearance3B"];
 	[sv1 setFrame:leftFrame];
 	[sv2 setFrame:rightFrame];
 
-} ;
+}
 
 - (void)splitViewDidResizeSubviews:(NSNotification *)notification {
 	// if ([[NSApp currentEvent] type] == NSLeftMouseDragged) {
@@ -460,64 +486,6 @@ valueForKeyPath:@"values.QSAppearance3B"];
 	//	[[NSUserDefaults standardUserDefaults] setFloat:NSWidth([[resultChildTable enclosingScrollView] frame]) /NSWidth([splitView frame])
 	//												 forKey:kResultTableSplit];
 	//	}
-}
-
-- (void)setSplitLocation {
-	NSNumber *resultWidth = [[NSUserDefaults standardUserDefaults] objectForKey:kResultTableSplit];
-
-	if (resultWidth) {
-		NSView *firstView = [[splitView subviews] objectAtIndex:0];
-		NSRect frame = [firstView frame];
-		frame.size.width = [resultWidth floatValue] *NSWidth([splitView frame]);
-
-		NSLog(@"%f", frame.size.width);
-
-		[firstView setFrame:frame];
-
-		frame.origin.x += NSWidth(frame);
-		frame.size.width = NSWidth([splitView frame]) -NSWidth(frame)-[splitView dividerThickness];
-
-		[[[splitView subviews] lastObject] setFrame:frame];
-
-		[splitView adjustSubviews];
-		[splitView display];
-	}
-}
-
-- (NSArray *)currentResults { return currentResults;  }
-
-- (void)setCurrentResults:(NSArray *)newCurrentResults {
-	[currentResults release];
-	currentResults = [newCurrentResults retain];
-}
-
-- (BOOL)iconsAreLoading {
-	return [resultIconLoader isLoading];
-}
-- (QSIconLoader *)resultIconLoader {
-	if (!resultIconLoader) {
-		[self setResultIconLoader:[QSIconLoader loaderWithArray:[self currentResults]]];
-		[resultIconLoader setDelegate:self];
-	}
-	return [[resultIconLoader retain] autorelease];
-}
-
-- (void)setResultIconLoader:(QSIconLoader *)aResultIconLoader {
-	//NSLog(@"setloader %@", aResultIconLoader);
-	if (resultIconLoader != aResultIconLoader) {
-		[resultIconLoader invalidate];
-		[resultIconLoader release];
-		resultIconLoader = [aResultIconLoader retain];
-	}
-}
-
-- (QSIconLoader *)resultChildIconLoader { return resultChildIconLoader;  }
-
-- (void)setResultChildIconLoader:(QSIconLoader *)aResultChildIconLoader {
-	if (resultChildIconLoader != aResultChildIconLoader) {
-		[resultChildIconLoader release];
-		resultChildIconLoader = [aResultChildIconLoader retain];
-	}
 }
 
 @end
@@ -566,16 +534,31 @@ valueForKeyPath:@"values.QSAppearance3B"];
 	if (1 || !fDEV)
 		[resultTable removeTableColumn:tableColumn];
 
-	//tableColumn = [resultTable tableColumnWithIdentifier: COLUMNID_NAME];
-	//[tableColumn setDataCell:[[[NSImageCell alloc] init] autorelease]];
-	//Register for table notifications
-	// [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectionChange:) name:NSTableViewSelectionDidChangeNotification object:nil];
-	// [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectionChange:) name:NSTableViewSelectionIsChangingNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewChanged:) name:NSViewBoundsDidChangeNotification object:[[resultTable enclosingScrollView] contentView]];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(childViewChanged:) name:NSViewBoundsDidChangeNotification object:[[resultChildTable enclosingScrollView] contentView]];
 }
 
-- (int) numberOfRowsInTableView:(NSTableView *)tableView {
+- (void)viewChanged:(NSNotification*)notif {
+	NSRange newRange = [resultTable rowsInRect:[resultTable visibleRect]];
+    
+	//  NSLog(@"%d-%d are visible %d", visibleRange.location, visibleRange.location+visibleRange.length, [self iconsAreLoading]);
+    
+	//[self iconsAreLoading];
+	//	NSBeep();
+	if ([self numberOfRowsInTableView:resultTable] && [[NSUserDefaults standardUserDefaults] boolForKey:kShowIcons])
+		[[self resultIconLoader] loadIconsInRange:newRange];
+	//	[self threadedIconLoad];
+    
+	// loadingRange = newRange;
+}
+
+- (void)childViewChanged:(NSNotification*)notif {
+	//visibleRange = [resultTable rowsInRect:[resultTable visibleRect]];
+	//s NSLog(@"%d-%d are visible", visibleRange.location, visibleRange.location+visibleRange.length); /
+	// [self threadedChildIconLoad];
+}
+
+- (int)numberOfRowsInTableView:(NSTableView *)tableView {
 
 	//NSLog(@"rows?");
 	if (tableView == resultChildTable) {
@@ -624,7 +607,7 @@ valueForKeyPath:@"values.QSAppearance3B"];
 		}
 		if ([[tableColumn identifier] isEqualToString: COLUMNID_HASCHILDREN]) {
 
-			return([thisObject hasChildren] ?[NSImage imageNamed:@"ChildArrow"] :nil);
+			return([thisObject hasChildren] ? [NSImage imageNamed:@"ChildArrow"] :nil);
 		}
 
 	}
@@ -638,15 +621,15 @@ valueForKeyPath:@"values.QSAppearance3B"];
 		QSObject *thisObject = [array objectAtIndex:rowIndex];
 
 		[aCell setRepresentedObject:thisObject];
-		[aCell setState:[focus objectIsInCollection:thisObject]];
+        [aCell setState:[focus objectIsInCollection:thisObject]];
 	}
-	if ([[aTableColumn identifier] isEqualToString: COLUMNID_RANK]) {
+	if ([[aTableColumn identifier] isEqualToString:COLUMNID_RANK]) {
 		NSArray *array = [self currentResults];
 
-		QSObject *thisObject = [array objectAtIndex:rowIndex];
+		QSRankedObject *thisObject = [array objectAtIndex:rowIndex];
 
-		[(QSRankCell *)aCell setScore:(float)[thisObject score]];
-		[(QSRankCell *)aCell setOrder:(int)[thisObject order]];
+		[(QSRankCell *)aCell setScore:[thisObject score]];
+		[(QSRankCell *)aCell setOrder:[thisObject order]];
 		//int order = [thisObject order];
 		// NSLog(@"score %f %@", score, thisObject);
 		//return [thisObject retain]; //[NSNumber numberWithInt:(score*100) +order?1000:0];
@@ -659,20 +642,21 @@ valueForKeyPath:@"values.QSAppearance3B"];
 	NSArray *array = [self currentResults];
 	QSObject *thisObject = [array objectAtIndex:row];
 
-	return [thisObject rankMenuWithTarget:focus];
+    return [thisObject rankMenuWithTarget:focus];
 }
 
 - (BOOL)tableView:(NSTableView *)tv writeRows:(NSArray*)rows toPasteboard:(NSPasteboard*)pboard {
 	[[[self currentResults] objectAtIndex:[[rows objectAtIndex:0] intValue]]putOnPasteboard:pboard includeDataForTypes:nil];
 	return YES;
 }
+
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification {
 
 	if (aNotification && [aNotification object] != resultTable) return;
 
 	if (selectedResult != -1 && selectedResult != [resultTable selectedRow]) {
 		selectedResult = [resultTable selectedRow];
-		[focus selectIndex:[resultTable selectedRow]];
+        [focus selectIndex:[resultTable selectedRow]];
 		[self updateSelectionInfo];
 	}
 }
@@ -699,20 +683,20 @@ valueForKeyPath:@"values.QSAppearance3B"];
 
 		NSArray *array = [self currentResults];
 		QSObject *thisObject = [array objectAtIndex:[sender clickedRow]];
-
-		[NSMenu popUpContextMenu:[thisObject rankMenuWithTarget:focus] withEvent:theEvent forView:sender];
+        [NSMenu popUpContextMenu:[thisObject rankMenuWithTarget:focus] withEvent:theEvent forView:sender];
 
 	}
 }
 
 - (IBAction)sortByName:(id)sender {
-	[focus sortByName:sender];
+    [focus sortByName:sender];
 }
+
 - (IBAction)sortByScore:(id)sender {
-	[focus sortByScore:sender];
+    [focus sortByScore:sender];
 }
 
 - (IBAction)tableViewDoubleAction:(id)sender {
-	[(QSInterfaceController *)[[focus window] windowController] executeCommand:self];
+    [[focus controller] executeCommand:self];
 }
 @end

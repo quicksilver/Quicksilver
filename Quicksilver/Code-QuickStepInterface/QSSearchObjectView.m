@@ -64,7 +64,7 @@ NSMutableDictionary *bindingsDict = nil;
 	allowNonActions = YES;
 	allowText = YES;
 	resultController = [[QSResultController alloc] initWithFocus:self];
-
+    
 	searchMode = SearchFilterAll;
 	moreComing = NO;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideResultView:) name:@"NSWindowDidResignKeyNotification" object:[self window]];
@@ -76,7 +76,7 @@ NSMutableDictionary *bindingsDict = nil;
 	parentStack = [[NSMutableArray alloc] initWithCapacity:10];
 
 	validSearch = YES;
-
+    
 	[resultController window];
 	[[resultController window] setFrameUsingName:@"results" force:YES];
 	[self setVisibleString:@""];
@@ -102,7 +102,6 @@ NSMutableDictionary *bindingsDict = nil;
 	[searchArray release];
 	[sourceArray release];
 	[resultArray release];
-//	[scoreData release];
 	[super dealloc];
 }
 
@@ -976,7 +975,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 #pragma mark -
 #pragma mark NSResponder
-- (BOOL)acceptsFirstResponder {return YES;}
+- (BOOL)acceptsFirstResponder { return YES; }
 
 - (BOOL)becomeFirstResponder {
 	if ([[[self objectValue] primaryType] isEqual:QSTextProxyType]) {

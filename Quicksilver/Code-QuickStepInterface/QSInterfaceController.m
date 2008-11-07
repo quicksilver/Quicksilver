@@ -65,8 +65,19 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 
 + (NSString *)name { return @"DefaultInterface"; }
 
+- (id)init {
+	if (self = [super init]) {
+		[self loadWindow];
+	}
+	return self;
+}
+
 - (id)initWithWindow:(NSWindow *)window {
-	if (!(self = [super initWithWindow:window]) ) return nil;
+    self = [super initWithWindow:window];
+	if (!self) {
+        [super release];
+        return nil;
+    }
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver:self selector:@selector(windowDidBecomeKey:) name:NSWindowDidBecomeKeyNotification object:nil];
 	[nc addObserver:self selector:@selector(windowDidResignKey:) name:NSWindowDidResignKeyNotification object:nil];
@@ -93,12 +104,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc removeObserver:progressIndicator];
 	[nc removeObserver:self];
-	[[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
 	[super dealloc];
-}
-
-- (NSSize) maxIconSize {
-	return NSMakeSize(128, 128);
 }
 
 - (void)windowDidLoad {
@@ -127,8 +133,8 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 	NSTextAttachment *attachment = [[[NSTextAttachment alloc] init] autorelease];
 	[attachment setAttachmentCell: attachmentCell];
 #endif
-
-	// NSAttributedString *attributedString = [NSAttributedString attributedStringWithAttachment: attachment];
+    
+    // NSAttributedString *attributedString = [NSAttributedString attributedStringWithAttachment: attachment];
 	//[[commandView textStorage] appendAttributedString:attributedString];
 	[self searchObjectChanged:nil];
 
@@ -137,13 +143,26 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 	[nc addObserver:progressIndicator selector:@selector(stopAnimation:) name:QSTasksEndedNotification object:nil];
 }
 
-- (IBAction)hideWindows:(id)sender {
-	[self hideMainWindow:self];
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSReleaseOldCachesNotification object:self];
-	[self setClearTimer];
+- (QSCommand *)currentCommand { 
+    return [QSCommand commandWithDirectObject:[dSelector objectValue] actionObject:[aSelector objectValue] indirectObject:[iSelector objectValue]];
 }
 
-// Menu Actions
+- (void)setCommand:(QSCommand *)command {
+    [self window];
+    [dSelector setObjectValue:[command dObject]];
+    [aSelector setObjectValue:[command aObject]];
+    [iSelector setObjectValue:[command iObject]];
+}
+
+- (void)setCommandWithArray:(NSArray *)array {
+	[dSelector setObjectValue:[array objectAtIndex:0]];
+	[actionsUpdateTimer invalidate];
+	[aSelector setObjectValue:[array objectAtIndex:1]];
+	if ([array count] > 2)
+		[iSelector setObjectValue:[array objectAtIndex:2]];
+	else
+		[iSelector setObjectValue:nil];
+}
 
 - (void)selectObject:(QSBasicObject *)object {
 	[dSelector setObjectValue:object];
@@ -153,47 +172,94 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 	return [dSelector objectValue];
 }
 
-- (void)shortCircuit:(id)sender {
-	//NSLog(@"scirr");
-	[self fireActionUpdateTimer];
-	NSArray *array = [aSelector resultArray];
-
-	int argumentCount = [(QSAction *)[aSelector objectValue] argumentCount];
-
-	if (sender == iSelector) {
-		int index = [array indexOfObject:[aSelector objectValue]];
-		int count = [array count];
-		if (index != count-1)
-			array = [[array subarrayWithRange:NSMakeRange(index+1, count-index-1)] arrayByAddingObjectsFromArray:
-				[array subarrayWithRange:NSMakeRange(0, index+1)]];
-		argumentCount = 0;
-		[[self window] makeFirstResponder:nil];
+- (void)showMainWindow:(id)sender {
+	[[self window] makeKeyAndOrderFront:sender];
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:kSuppressHotKeysInCommand]) {
+		CGSConnection conn = _CGSDefaultConnection();
+		CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyDisable);
 	}
-
-	if (argumentCount != 2) {
-		NSEnumerator *enumer = [array objectEnumerator];
-		QSAction *action = nil;
-		QSAction *bestAction = nil;
-		while(action = [enumer nextObject]) {
-			if ([action argumentCount] == 2) {
-				bestAction = action;
-				[aSelector selectObject:action];
-				[self updateIndirectObjects];
-				break;
-			}
-		}
-		if (!bestAction) {
-			NSBeep();
-			return;
-		}
-	}
-	[[self window] makeFirstResponder:iSelector];
 }
 
-- (void)updateActions {
-	[aSelector setResultArray:nil];
-	[aSelector clearObjectValue];
-	[self performSelectorOnMainThread:@selector(setActionUpdateTimer) withObject:nil waitUntilDone:YES];
+- (void)willHideMainWindow:(id)sender {
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:kSuppressHotKeysInCommand]) {
+		CGSConnection conn = _CGSDefaultConnection();
+		CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyEnable);
+	}
+	if ([[self window] isVisible] && ![[self window] attachedSheet]) {
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"InterfaceDeactivated" object:self];
+		[[self window] makeFirstResponder:nil];
+	}
+}
+
+- (void)hideMainWindowWithEffect:(id)effect {
+	[self willHideMainWindow:nil];
+	[self setHiding:YES];
+	if (effect && [[NSUserDefaults standardUserDefaults] boolForKey:kUseEffects])
+		[(QSWindow *)[self window] hideWithEffect:effect];
+	else
+		[[self window] orderOut:nil];
+	[self setHiding:NO];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSReleaseOldCachesNotification object:self];
+    
+}
+
+- (void)hideMainWindow:(id)sender {
+	[self hideMainWindowWithEffect:nil];
+}
+
+- (void)hideMainWindowFromExecution:(id)sender {
+	[self hideMainWindowWithEffect:
+     [[self window] windowPropertyForKey:kQSWindowExecEffect]];
+}
+
+- (void)hideMainWindowFromCancel:(id)sender {
+	[self hideMainWindowWithEffect:
+     [[self window] windowPropertyForKey:kQSWindowCancelEffect]];
+}
+
+- (void)hideMainWindowFromFade:(id)sender {
+	if ([[self window] respondsToSelector:@selector(windowPropertyForKey:)])
+		[self hideMainWindowWithEffect:
+         [[self window] windowPropertyForKey:kQSWindowFadeEffect]];
+}
+
+- (void)showIndirectSelector:(id)sender {
+	[[[self window] contentView] addSubview:iSelector];
+	[aSelector setNextKeyView:iSelector];
+}
+
+- (void)hideIndirectSelector:(id)sender {
+	[iSelector removeFromSuperview];
+}
+
+- (void)clearObjectView:(QSSearchObjectView *)view {
+	[view setResultArray:nil];
+	[view setSourceArray:nil];
+	[view setMatchedString:nil];
+	[view setSearchString:nil];
+	[view clearObjectValue];
+}
+
+- (void)updateControl:(QSSearchObjectView *)control withArray:(NSArray *)array {
+	id defaultSelection = nil;
+	if ([array count]) {
+		if ([[array lastObject] isKindOfClass:[NSArray class]]) {
+			defaultSelection = [array objectAtIndex:0];
+			if ([defaultSelection isKindOfClass:[NSNull class]])
+				defaultSelection = nil;
+			array = [array lastObject];
+            
+		} else {
+			defaultSelection = [array objectAtIndex:0];
+		}
+	} else {
+		[control clearObjectValue];
+	}
+	[control clearSearch];
+	[control setSourceArray:(NSMutableArray *)array];
+	[control setResultArray:(NSMutableArray *)array];
+    
+	[control selectObject:defaultSelection];
 }
 
 - (void)setActionUpdateTimer {
@@ -213,30 +279,14 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 	[actionsUpdateTimer fire];
 }
 
-- (void)updateControl:(QSSearchObjectView *)control withArray:(NSArray *)array {
-	id defaultSelection = nil;
-	if ([array count]) {
-		if ([[array lastObject] isKindOfClass:[NSArray class]]) {
-			defaultSelection = [array objectAtIndex:0];
-			if ([defaultSelection isKindOfClass:[NSNull class]])
-				defaultSelection = nil;
-			array = [array lastObject];
-
-		} else {
-			defaultSelection = [array objectAtIndex:0];
-		}
-	} else {
-		[control clearObjectValue];
-	}
-	[control clearSearch];
-	[control setSourceArray:(NSMutableArray *)array];
-	[control setResultArray:(NSMutableArray *)array];
-
-	[control selectObject:defaultSelection];
-}
-
 - (NSArray *)rankedActions {
 	return [QSExec rankedActionsForDirectObject:[dSelector objectValue] indirectObject:[iSelector objectValue]];
+}
+
+- (void)updateActions {
+	[aSelector setResultArray:nil];
+	[aSelector clearObjectValue];
+	[self performSelectorOnMainThread:@selector(setActionUpdateTimer) withObject:nil waitUntilDone:YES];
 }
 
 - (void)updateActionsNow {
@@ -258,145 +308,11 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 	[iSelector setSearchMode:(indirects?SearchFilter:SearchFilterAll)];
 }
 
-- (void)clearObjectView:(QSSearchObjectView *)view {
-	[view setResultArray:nil];
-	[view setSourceArray:nil];
-	[view setMatchedString:nil];
-	[view setSearchString:nil];
-	[view clearObjectValue];
-}
-
-- (void)searchArray:(NSMutableArray *)array {
-	[actionsUpdateTimer invalidate];
-	[self clearObjectView:dSelector];
-	//[self clearObjectView:aSelector];
-	[dSelector setSourceArray:array]; // !!!:nicholas:20040319
-	[dSelector setResultArray:array]; // !!!:nicholas:20040319
-	[self updateViewLocations];
-	[self updateActionsNow];
-	[self showMainWindow:self];
-	[[self window] makeFirstResponder:dSelector];
-	[dSelector setSearchMode:SearchFilter];
-}
-
-- (void)showArray:(NSArray *)array {
-	[actionsUpdateTimer invalidate];
-    NSMutableArray *mutArray = [[array mutableCopy] autorelease];
-	[self clearObjectView:dSelector];
-	//[self clearObjectView:aSelector];
-	[dSelector setSourceArray:mutArray]; // !!!:nicholas:20040319
-	[dSelector setResultArray:mutArray]; // !!!:nicholas:20040319
-	[dSelector setSearchMode:SearchFilter];
-	if ([mutArray count])
-		[dSelector selectObject:[mutArray objectAtIndex:0]];
-	[self updateViewLocations];
-	[self updateActionsNow];
-	[self showMainWindow:self];
-	[[self window] makeFirstResponder:dSelector];
-	[dSelector showResultView:self];
-}
-
-- (void)showInterface:(id)sender {
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"InterfaceActivated" object:self];
-	[self showMainWindow:self];
-}
-
-- (id)init {
-	if (self = [super init]) {
-		[self loadWindow];
-	}
-	return self;
-}
-
-- (void)activate:(id)sender {
-	if ([[self window] isVisible] && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSInterfaceReactivationDeactivates"]) {
-		[self hideMainWindowFromCancel:sender];
-		return;
-	}
-
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"InterfaceActivated" object:self];
-
-	[hideTimer invalidate];
-	[dSelector reset:self];
-	[self updateActions];
-	[iSelector reset:self];
-	[[dSelector objectValue] loadIcon];
-	[self setPreview:NO];
-	[self showInterface:self];
-
-	[[self window] makeFirstResponder:dSelector];
-
-	[dSelector setSearchMode:SearchFilterAll];
-
-	NSEvent *theEvent = [NSApp nextEventMatchingMask:NSKeyDownMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.075] inMode:NSDefaultRunLoopMode dequeue:YES];
-#warning dont do this unless the character is alphabetic
-	if (theEvent) {
-		theEvent = [NSEvent keyEventWithType:[theEvent type] location:[theEvent locationInWindow] modifierFlags:0 timestamp:[theEvent timestamp] windowNumber:[theEvent windowNumber] context:[theEvent context] characters:[theEvent charactersIgnoringModifiers] charactersIgnoringModifiers:[theEvent charactersIgnoringModifiers] isARepeat:[theEvent isARepeat] keyCode:[theEvent keyCode]];
-		if (VERBOSE) NSLog(@"Ignoring Modifiers for characters: %@", [theEvent characters]);
-		[NSApp postEvent:theEvent atStart:YES];
-		//NSLog(@"time2 %f", [theEvent timestamp]);
-	}
-}
-
-- (void)actionActivate:(id)sender {
-	[self updateActionsNow];
-	[iSelector reset:self];
-	[[dSelector objectValue] loadIcon];
-	[[self window] makeFirstResponder:aSelector];
-	[self showInterface:self];
-}
-
-- (void)activateInTextMode:(id)sender {
-	[dSelector transmogrify:sender];
-	[iSelector reset:self];
-	[self showInterface:self];
-}
-
-- (void)willHideMainWindow:(id)sender {
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:kSuppressHotKeysInCommand]) {
-		CGSConnection conn = _CGSDefaultConnection();
-		CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyEnable);
-	}
-	if ([[self window] isVisible] && ![[self window] attachedSheet]) {
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"InterfaceDeactivated" object:self];
-		[[self window] makeFirstResponder:nil];
-	}
-}
-
-- (void)hideMainWindowWithEffect:(id)effect {
-	[self willHideMainWindow:nil];
-	hidingWindow = YES;
-	if (effect && [[NSUserDefaults standardUserDefaults] boolForKey:kUseEffects])
-		[(QSWindow *)[self window] hideWithEffect:effect];
+- (void)updateViewLocations {
+	if ([(QSAction *)[aSelector objectValue] argumentCount] == 2)
+		[self showIndirectSelector:nil];
 	else
-		[(QSWindow *)[self window] orderOut:nil];
-	hidingWindow = NO;
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSReleaseOldCachesNotification object:self];
-
-}
-- (void)hideMainWindow:(id)sender {
-	[self hideMainWindowWithEffect:nil];
-}
-- (void)hideMainWindowFromExecution:(id)sender {
-	[self hideMainWindowWithEffect:
-		[[self window] windowPropertyForKey:kQSWindowExecEffect]];
-}
-- (void)hideMainWindowFromCancel:(id)sender {
-	[self hideMainWindowWithEffect:
-		[[self window] windowPropertyForKey:kQSWindowCancelEffect]];
-}
-- (void)hideMainWindowFromFade:(id)sender {
-	if ([[self window] respondsToSelector:@selector(windowPropertyForKey:)])
-		[self hideMainWindowWithEffect:
-			[[self window] windowPropertyForKey:kQSWindowFadeEffect]];
-}
-
-- (void)showMainWindow:(id)sender {
-	[[self window] makeKeyAndOrderFront:sender];
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:kSuppressHotKeysInCommand]) {
-		CGSConnection conn = _CGSDefaultConnection();
-		CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyDisable);
-	}
+		[self hideIndirectSelector:nil];
 }
 
 - (void)performService:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
@@ -407,6 +323,26 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 	[self activate:self];
 }
 
+- (void)searchArray:(NSArray *)array {
+	[actionsUpdateTimer invalidate];
+	[self clearObjectView:dSelector];
+    NSMutableArray *mutArray = [[array mutableCopy] autorelease];
+	[dSelector setSourceArray:mutArray]; // !!!:nicholas:20040319
+	[dSelector setResultArray:mutArray]; // !!!:nicholas:20040319
+    [dSelector setSearchMode:SearchFilter];
+	[self updateViewLocations];
+	[self updateActionsNow];
+	[self showMainWindow:self];
+	[[self window] makeFirstResponder:dSelector];
+}
+
+- (void)showArray:(NSArray *)array {
+    [self searchArray:array];
+	[dSelector showResultView:self];
+}
+
+#pragma mark -
+#pragma mark Notifications
 - (void)objectModified:(NSNotification*)notif {
 	if ([[dSelector objectValue] isEqual:[notif object]]) {
 		if (VERBOSE) NSLog(@"Reloading actions for: %@", [notif object]);
@@ -431,32 +367,10 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 	[[self window] enableFlushWindow];
 }
 
-- (void)updateViewLocations {
-	if ([(QSAction *)[aSelector objectValue] argumentCount] == 2)
-		[self showIndirectSelector:nil];
-	else
-		[self hideIndirectSelector:nil];
-}
-
-- (void)showIndirectSelector:(id)sender {
-	[[[self window] contentView] addSubview:iSelector];
-	[aSelector setNextKeyView:iSelector];
-}
-
-- (void)hideIndirectSelector:(id)sender {
-	[iSelector removeFromSuperview];
-}
-
-//Notifications
-#pragma mark Notifications
 - (void)appChanged:(NSNotification *)aNotification {
 	NSString *currentApp = [[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationBundleIdentifier"];
 	if (![currentApp isEqualToString:@"com.blacktree.Quicksilver"])
 		[self hideWindows:self];
-}
-
-- (IBAction)showAbout:(id)sender {
-	[[NSApp delegate] showAbout:sender];
 }
 
 - (void)invalidateHide {
@@ -476,18 +390,31 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 		//	NSLog(@"Window Staying Open");
 	}
 }
-- (void)dragPerformed {
-	// NSLog(@"perform"); [hideTimer invalidate];
+
+- (void)setClearTimer {
+	if ([clearTimer isValid]) {
+		[clearTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:10*MINUTES]];
+	} else {
+		[clearTimer release];
+		clearTimer = [[NSTimer scheduledTimerWithTimeInterval:10*MINUTES target:self selector:@selector(clear:) userInfo:nil repeats:NO] retain];
+	}
 }
 
-- (void)windowDidResignMain:(NSNotification *)aNotification {
-	// if (VERBOSE)  NSLog(@"ResignMain");
+- (void)clear:(NSTimer *)timer {
+	[dSelector clearObjectValue];
+	[self updateActionsNow];
 }
 
+#pragma mark -
+#pragma mark NSWindow
+#pragma mark Delegate
 - (BOOL)windowShouldClose:(id)sender {
 	[self hideMainWindowFromCancel:self];
 	return NO;
 }
+
+#pragma mark Notifications
+- (void)windowDidResignMain:(NSNotification *)aNotification {}
 
 - (void)windowDidResignKey:(NSNotification *)aNotification {
 	if ([aNotification object] == [self window]) {
@@ -518,34 +445,28 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 	}
 }
 
-- (void)setClearTimer {
-	if ([clearTimer isValid]) {
-		[clearTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:10*MINUTES]];
-	} else {
-		[clearTimer release];
-		clearTimer = [[NSTimer scheduledTimerWithTimeInterval:10*MINUTES target:self selector:@selector(clear:) userInfo:nil repeats:NO] retain];
+#pragma mark -
+#pragma mark Command Execution
+- (void)executeCommandThreaded {
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	NSDate *startDate = [NSDate date];
+	QSAction *action = [aSelector objectValue];
+	if ([[NSApp currentEvent] modifierFlags] & NSCommandKeyMask && !([[NSApp currentEvent] modifierFlags] & NSShiftKeyMask) ) {
+		action = [action alternate];
+		if (VERBOSE) NSLog(@"Using Alternate: %@", action);
 	}
-}
-
-- (void)clear:(NSTimer *)timer {
-	[dSelector clearObjectValue];
-	[self updateActionsNow];
-}
-
-- (IBAction)showTasks:(id)sender {
-	[[NSClassFromString(@"QSTaskViewer") sharedInstance] showWindow:self];
-}
-
-- (NSProgressIndicator *)progressIndicator { return progressIndicator;  }
-
-- (void)setCommandWithArray:(NSArray *)array {
-	[dSelector setObjectValue:[array objectAtIndex:0]];
-	[actionsUpdateTimer invalidate];
-	[aSelector setObjectValue:[array objectAtIndex:1]];
-	if ([array count] > 2)
-		[iSelector setObjectValue:[array objectAtIndex:2]];
-	else
-		[iSelector setObjectValue:nil];
+	QSObject *returnValue = [action performOnDirectObject:[dSelector objectValue] indirectObject:[iSelector objectValue]];
+	if (returnValue) {
+		if ([returnValue isKindOfClass:[QSNullObject class]]) {
+			[self clearObjectView:dSelector];
+		} else {
+			[dSelector performSelectorOnMainThread:@selector(selectObjectValue:) withObject:returnValue waitUntilDone:YES];
+			if ([action displaysResult])
+                [self showMainWindow:self];
+		}
+	}
+	if (VERBOSE) NSLog(@"Command executed (%dms) ", (int)(-[startDate timeIntervalSinceNow] *1000));
+	[pool release];
 }
 
 - (void)executePartialCommand:(NSArray *)array {
@@ -565,7 +486,7 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 	[self showInterface:self];
 }
 
-- (IBAction)executeCommand:(id)sender cont:(BOOL)cont encapsulate:(BOOL)encapsulate {
+- (void)executeCommand:(id)sender cont:(BOOL)cont encapsulate:(BOOL)encapsulate {
 	if ([actionsUpdateTimer isValid]) {
 		[actionsUpdateTimer fire];
 	}
@@ -602,29 +523,6 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 	if (cont) [[self window] makeFirstResponder:aSelector];
 }
 
-- (void)encapsulateCommand:(id)sender {
-	[self executeCommand:(id)sender cont:NO encapsulate:YES];
-}
-
-- (void)executeCommandAndContinue:(id)sender {
-	[self executeCommand:(id)sender cont:YES encapsulate:NO];
-}
-
-- (IBAction)executeCommand:(id)sender {
-	[self executeCommand:(id)sender cont:NO encapsulate:NO];
-}
-
-- (QSCommand *)currentCommand {
-	return [QSCommand commandWithDirectObject:[dSelector objectValue] actionObject:[aSelector objectValue] indirectObject:[iSelector objectValue]];
-}
-
-- (void)setCommand:(QSCommand *)command {
-	[self window];
-	  [dSelector setObjectValue:[command dObject]];
-	  [aSelector setObjectValue:[command aObject]];
-	  [iSelector setObjectValue:[command iObject]];
-}
-
 - (void)encapsulateCommand {
 	if (VERBOSE) NSLog(@"Encapsulating Command");
 	QSCommand *commandObject = [self currentCommand];
@@ -632,28 +530,122 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 	[self actionActivate:commandObject];
 }
 
-- (void)executeCommandThreaded {
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	NSDate *startDate = [NSDate date];
-	QSAction *action = [aSelector objectValue];
-	if ([[NSApp currentEvent] modifierFlags] & NSCommandKeyMask && !([[NSApp currentEvent] modifierFlags] & NSShiftKeyMask) ) {
-		action = [action alternate];
-		if (VERBOSE) NSLog(@"Using Alternate: %@", action);
-	}
-	QSObject *returnValue = [action performOnDirectObject:[dSelector objectValue] indirectObject:[iSelector objectValue]];
-	if (returnValue) {
-		if ([returnValue isKindOfClass:[QSNullObject class]]) {
-			[self clearObjectView:dSelector];
-		} else {
-			[dSelector performSelectorOnMainThread:@selector(selectObjectValue:) withObject:returnValue waitUntilDone:YES];
-			if ([action displaysResult])
-                [self showMainWindow:self];
-		}
-	}
-	if (VERBOSE) NSLog(@"Command executed (%dms) ", (int)(-[startDate timeIntervalSinceNow] *1000));
-	[pool release];
+
+#pragma mark -
+#pragma mark IBActions
+- (IBAction)showInterface:(id)sender {
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"InterfaceActivated" object:self];
+	[self showMainWindow:self];
 }
 
+- (IBAction)activate:(id)sender {
+	if ([[self window] isVisible] && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSInterfaceReactivationDeactivates"]) {
+		[self hideMainWindowFromCancel:sender];
+		return;
+	}
+    
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"InterfaceActivated" object:self];
+    
+	[hideTimer invalidate];
+	[dSelector reset:self];
+	[self updateActions];
+	[iSelector reset:self];
+	[[dSelector objectValue] loadIcon];
+	[self setPreview:NO];
+	[self showInterface:self];
+    
+	[[self window] makeFirstResponder:dSelector];
+    
+	[dSelector setSearchMode:SearchFilterAll];
+    
+	NSEvent *theEvent = [NSApp nextEventMatchingMask:NSKeyDownMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.075] inMode:NSDefaultRunLoopMode dequeue:YES];
+#warning dont do this unless the character is alphabetic
+	if (theEvent) {
+		theEvent = [NSEvent keyEventWithType:[theEvent type] location:[theEvent locationInWindow] modifierFlags:0 timestamp:[theEvent timestamp] windowNumber:[theEvent windowNumber] context:[theEvent context] characters:[theEvent charactersIgnoringModifiers] charactersIgnoringModifiers:[theEvent charactersIgnoringModifiers] isARepeat:[theEvent isARepeat] keyCode:[theEvent keyCode]];
+		if (VERBOSE) NSLog(@"Ignoring Modifiers for characters: %@", [theEvent characters]);
+		[NSApp postEvent:theEvent atStart:YES];
+		//NSLog(@"time2 %f", [theEvent timestamp]);
+	}
+}
+
+- (IBAction)activateInTextMode:(id)sender {
+	[dSelector transmogrify:sender];
+	[iSelector reset:self];
+	[self showInterface:self];
+}
+
+- (IBAction)actionActivate:(id)sender {
+	[self updateActionsNow];
+	[iSelector reset:self];
+	[[dSelector objectValue] loadIcon];
+	[[self window] makeFirstResponder:aSelector];
+	[self showInterface:self];
+}
+
+- (IBAction)executeCommand:(id)sender {
+	[self executeCommand:sender cont:NO encapsulate:NO];
+}
+
+- (IBAction)executeCommandAndContinue:(id)sender {
+	[self executeCommand:sender cont:YES encapsulate:NO];
+}
+
+- (IBAction)shortCircuit:(id)sender {
+	//NSLog(@"scirr");
+	[self fireActionUpdateTimer];
+	NSArray *array = [aSelector resultArray];
+    
+	int argumentCount = [(QSAction *)[aSelector objectValue] argumentCount];
+    
+	if (sender == iSelector) {
+		int index = [array indexOfObject:[aSelector objectValue]];
+		int count = [array count];
+		if (index != count-1)
+			array = [[array subarrayWithRange:NSMakeRange(index+1, count-index-1)] arrayByAddingObjectsFromArray:
+                     [array subarrayWithRange:NSMakeRange(0, index+1)]];
+		argumentCount = 0;
+		[[self window] makeFirstResponder:nil];
+	}
+    
+	if (argumentCount != 2) {
+		NSEnumerator *enumer = [array objectEnumerator];
+		QSAction *action = nil;
+		QSAction *bestAction = nil;
+		while(action = [enumer nextObject]) {
+			if ([action argumentCount] == 2) {
+				bestAction = action;
+				[aSelector selectObject:action];
+				[self updateIndirectObjects];
+				break;
+			}
+		}
+		if (!bestAction) {
+			NSBeep();
+			return;
+		}
+	}
+	[[self window] makeFirstResponder:iSelector];
+}
+
+- (IBAction)encapsulateCommand:(id)sender {
+	[self executeCommand:(id)sender cont:NO encapsulate:YES];
+}
+
+- (IBAction)hideWindows:(id)sender {
+	[self hideMainWindow:self];
+	[self setClearTimer];
+}
+
+- (IBAction)showTasks:(id)sender {
+	[[NSClassFromString(@"QSTaskViewer") sharedInstance] showWindow:self];
+}
+
+- (IBAction)showAbout:(id)sender {
+	[[NSApp delegate] showAbout:sender];
+}
+
+#pragma mark -
+#pragma mark NSResponder overrides
 - (BOOL)performKeyEquivalent:(NSEvent *)theEvent {
 	if ([theEvent modifierFlags] & NSCommandKeyMask && [theEvent modifierFlags] & NSShiftKeyMask && [[theEvent characters] length] && [[NSCharacterSet letterCharacterSet] characterIsMember:[[theEvent characters] characterAtIndex:0]]) {
 		return [[self aSelector] executeText:(NSEvent *)theEvent];
@@ -661,19 +653,26 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 	return NO;
 }
 
-- (QSSearchObjectView *)dSelector { return dSelector;  }
+#pragma mark -
+#pragma mark Accessors
 
-- (QSSearchObjectView *)aSelector { return aSelector;  }
+- (QSSearchObjectView *)dSelector { return dSelector; }
 
-- (QSSearchObjectView *)iSelector { return iSelector;  }
+- (QSSearchObjectView *)aSelector { return aSelector; }
 
-- (QSMenuButton *)menuButton { return menuButton;  }
+- (QSSearchObjectView *)iSelector { return iSelector; }
 
-- (BOOL)preview { return preview;  }
-- (void)setPreview: (BOOL)flag {
-	preview = flag;
-}
+- (QSMenuButton *)menuButton { return menuButton; }
 
--(void)setHiding:(BOOL)fl { hidingWindow = fl; }
+- (NSProgressIndicator *)progressIndicator { return progressIndicator;  }
+
+- (NSSize) maxIconSize { return NSMakeSize(128, 128); }
+
+- (BOOL)preview { return preview; }
+- (void)setPreview: (BOOL)flag { preview = flag; }
+
+- (BOOL)hiding { return hidingWindow; }
+- (void)setHiding:(BOOL)flag { hidingWindow = flag; }
+
 
 @end
