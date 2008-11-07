@@ -119,6 +119,10 @@
 	[self ranker];
 }
 
+- (float)score { return 0.0f; }
+
+- (int)order { return NSNotFound; }
+
 - (NSComparisonResult)nameCompare:(QSBasicObject*)object {
 	return [[self name] caseInsensitiveCompare:[object name]];
 }

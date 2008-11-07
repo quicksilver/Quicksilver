@@ -924,7 +924,7 @@ NSMutableDictionary *bindingsDict = nil;
 		searchDelay = [[NSUserDefaults standardUserDefaults] floatForKey:kSearchDelay];
     
     
-	if (0 && moreComing) {
+	if (fALPHA && moreComing) {
 		if ([searchTimer isValid]) [searchTimer invalidate];
 	} else {
 		if (![searchTimer isValid]) {
@@ -1015,12 +1015,8 @@ NSMutableDictionary *bindingsDict = nil;
 	//if (VERBOSE) NSLog(@"KeyD: %@\r%@", [theEvent characters] , theEvent);
 	lastTime = [theEvent timestamp];
 	lastProc = now;
-    
-	// ***warning  * should check for additional keydowns up to now so the search isn't done too often.
 	float resetDelay = [[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay];
-	if ((resetDelay && delay>resetDelay) || [self shouldResetSearchString]) {
-        
-		//if (VERBOSE) NSLog(@"resetting: %f", delay);
+	if ((resetDelay && delay > resetDelay) || [self shouldResetSearchString]) {
 		[partialString setString:@""];
 		validSearch = YES;
 		if ([self searchMode] == SearchFilterAll) {
@@ -1028,14 +1024,11 @@ NSMutableDictionary *bindingsDict = nil;
 			[self setSourceArray:nil];
 		}
 		[self setShouldResetSearchString:NO];
-	} //else if (now-lastProc > resetDelay) {
-    //NSLog(@"event wast delayed");
-    //}
-    //if (fALPHA) moreComing = nil != [NSApp nextEventMatchingMask:NSKeyDownMask untilDate:[NSDate date] inMode:NSDefaultRunLoopMode dequeue:NO];
-    //if (VERBOSE && moreComing) NSLog(@"moreComing");
+	}
     
-    
-    
+	// check for additional keydowns up to now so the search isn't done too often.
+    if (fALPHA) moreComing = nil != [NSApp nextEventMatchingMask:NSKeyDownMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.333] inMode:NSDefaultRunLoopMode dequeue:NO];
+    if (VERBOSE && moreComing) NSLog(@"moreComing");
     
 	// ***warning  * have downshift move to indirect object
     
