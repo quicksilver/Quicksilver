@@ -159,7 +159,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 - (void)searchObjectChanged:(NSNotification*)notif {
 	[super searchObjectChanged:notif];
 	//	[self updateDetailsString];
-	NSString *command = [[self currentCommand] description];
+	NSString *command = [[self currentCommand] name];
 	if (!command) command = @"";
 	[commandView setStringValue:[dSelector objectValue] ?command:@"Begin typing in the Subject field to search"];
 
@@ -168,7 +168,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 }
 
 - (void)updateDetailsString {
-	NSString *command = [[self currentCommand] description];
+	NSString *command = [[self currentCommand] name];
 	[commandView setStringValue:command?command:@""];
 	return;
 	NSResponder *firstResponder = [[self window] firstResponder];
@@ -182,7 +182,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 			}
 		}
 	}
-	[commandView setStringValue:[[self currentCommand] description]];
+	[commandView setStringValue:[[self currentCommand] name]];
 }
 - (void)searchView:(QSSearchObjectView *)view changedString:(NSString *)string {
 	//	NSLog(@"string %@ %@", string, view);
