@@ -1183,7 +1183,7 @@
 				<string>Apple URL pasteboard type</string>
 			</array>
 			<key>precedence</key>
-			<real>2</real>
+			<integer>2</integer>
 			<key>validatesObjects</key>
 			<true/>
 		</dict>

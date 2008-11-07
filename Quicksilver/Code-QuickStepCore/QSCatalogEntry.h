@@ -66,7 +66,7 @@
 - (void)setContents:(NSArray *)newContents;
 - (NSIndexPath *)catalogIndexPath;
 - (NSMutableDictionary *)info;
-	- (QSCatalogEntry *)uniqueCopy;
+- (QSCatalogEntry *)uniqueCopy;
 - (NSString *)indexLocation;
 - (void)setName:(NSString *)newName;
 

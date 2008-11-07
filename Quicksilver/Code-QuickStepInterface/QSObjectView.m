@@ -173,7 +173,7 @@
 
 - (NSMenu *)mxenu {
 	NSMenu *menu = [[[NSMenu alloc] initWithTitle:@"ContextMenu"] autorelease];
-	NSArray *actions = [[QSLibrarian sharedInstance] validActionsForDirectObject:[self objectValue] indirectObject:nil];
+	NSArray *actions = [QSExec validActionsForDirectObject:[self objectValue] indirectObject:nil];
 	NSMenuItem *item;
 	int i;
 	for (i = 0; i<[actions count]; i++) {

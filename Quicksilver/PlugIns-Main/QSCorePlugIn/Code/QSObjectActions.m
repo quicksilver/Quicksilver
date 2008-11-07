@@ -118,20 +118,20 @@
 
 	[NSMenu popUpContextMenu:menu withEvent:theEvent forView:[window contentView]]; // withFont:[NSFont boldSystemFontOfSize:10]];
 																				  //[window orderOut:nil];
-		[window setAlphaValue:0.0 fadeTime:0.3];
-		return nil;
+    [window setAlphaValue:0.0 fadeTime:0.3];
+    return nil;
 }
 
 - (QSObject *)showChildMenu:(QSObject *)dObject {
-	[self showMenu:[[dObject resolvedObject] childrenMenu] forObject:dObject];
+	[self showMenu:[(QSObject*)[dObject resolvedObject] childrenMenu] forObject:dObject];
 	return nil;
 }
 - (QSObject *)showMenu:(QSObject *)dObject {
-	[self showMenu:[[dObject resolvedObject] fullMenu] forObject:dObject];
+	[self showMenu:[(QSObject*)[dObject resolvedObject] fullMenu] forObject:dObject];
 	return nil;
 }
 - (QSObject *)showActionMenu:(QSObject *)dObject {
-	[self showMenu:[[dObject resolvedObject] actionsMenu] forObject:dObject];
+	[self showMenu:[(QSObject*)[dObject resolvedObject] actionsMenu] forObject:dObject];
 	return nil;
 }
 

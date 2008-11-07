@@ -377,8 +377,6 @@ NSDictionary *enabledPresetDictionary;*/
 
 - (id)imageAndText { return self; }
 
-- (id)this { return self; /*[[self retain] autorelease];*/ }
-
 - (void)setImageAndText:(id)object { [self setName:object]; }
 
 - (NSImage *)image { return [self icon]; }

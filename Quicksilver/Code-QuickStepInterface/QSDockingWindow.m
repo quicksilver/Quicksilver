@@ -16,6 +16,7 @@
 	hideTimer = nil;
 	[self setCanHide:NO];
 	[self setLevel:NSFloatingWindowLevel];
+    [self setSticky:YES];
 
 	NSMutableArray *types = [standardPasteboardTypes mutableCopy];
 	[types addObjectsFromArray:[[QSReg objectHandlers] allKeys]];

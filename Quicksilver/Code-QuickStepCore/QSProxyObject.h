@@ -19,9 +19,9 @@
 #define QSProxyTargetCache @"proxyTarget"
 
 @protocol QSProxyObjectProvider
-- (BOOL)bypassValidation;
 - (id)resolveProxyObject:(id)proxy;
 - (NSArray *)typesForProxyObject:(id)proxy;
+- (BOOL)bypassValidation;
 - (NSTimeInterval)cacheTimeForProxy:(id)proxy;
 @end
 
