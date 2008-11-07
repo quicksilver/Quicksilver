@@ -213,7 +213,11 @@ extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlob
 	int newLevel = [level intValue];
 	newFeatureLevel = newLevel;
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	if (newLevel == 2 && (GetCurrentKeyModifiers() & (optionKey | rightOptionKey) )) {
+	if (newLevel == 1 && (GetCurrentKeyModifiers() & (optionKey | rightOptionKey) )) {
+        newLevel++;
+        NSBeep();
+    } 
+    if (newLevel == 2 && (GetCurrentKeyModifiers() & (shiftKey | optionKey | rightOptionKey))) {
 		newLevel++;
 		NSBeep();
 		[defaults setBool:YES forKey:kCuttingEdgeFeatures];
