@@ -912,7 +912,7 @@ QSController *QSCon;
 	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
 	[[ws notificationCenter] addObserver:self selector:@selector(appLaunched:) name:NSWorkspaceDidLaunchApplicationNotification object:nil];
 	[[ws notificationCenter] addObserver:self selector:@selector(appWillLaunch:) name:NSWorkspaceWillLaunchApplicationNotification object:nil];
-	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(appChanged:) name:@"com.apple.HIToolbox.menuBarShownNotification" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appChanged:) name:QSActiveApplicationChanged object:nil];
 
 	[[[NSApp mainMenu] itemAtIndex:0] setTitle:@"Quicksilver"];
 
