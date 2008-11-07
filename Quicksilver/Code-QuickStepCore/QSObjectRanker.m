@@ -16,75 +16,41 @@
 #import "QSRegistry.h"
 #import "QSLibrarian.h"
 
-//float gMinScore = 0.333333;
-Class QSCurrentStringRanker;
-BOOL QSUsePureStringRanking;
-QSRankedObject *QSMakeRankObject(NSString *searchString, QSBasicObject *object, float modifier, BOOL mnemonicsOnly, NSDictionary *definedMnemonics);
+#define QSUsePureStringRanking [[NSUserDefaults standardUserDefaults] boolForKey:@"QSUsePureStringRanking"]
+
+Class QSCurrentStringRanker = nil;
+
+typedef QSRankedObject * (*QSScoreForObjectIMP) (id instance, SEL selector, QSBasicObject *object, NSString* anAbbreviation, NSString *context, NSArray * mnemonics, BOOL mnemonicsOnly);
 
 typedef double (*QSScoreForAbbrevIMP) (id object, SEL selector, NSString * abbreviation);
-
 QSScoreForAbbrevIMP scoreForAbbrevIMP;
 
 @implementation QSDefaultObjectRanker
-+(void)initialize {
-	NSString *className = [[NSUserDefaults standardUserDefaults] stringForKey:@"QSStringRankers"];
-	if (!className)
-		className = @"QSDefaultStringRanker";
++ (void)initialize {
+    NSString *className = [[NSUserDefaults standardUserDefaults] stringForKey:@"QSStringRankers"];
+    if (!className)
+        className = @"QSDefaultStringRanker";
+    
+    QSCurrentStringRanker = NSClassFromString(className);
+    
+    if (QSCurrentStringRanker)
+        scoreForAbbrevIMP = (QSScoreForAbbrevIMP) [QSCurrentStringRanker instanceMethodForSelector:@selector(scoreForAbbreviation:)];
+    else
+        [NSException raise:NSInternalInconsistencyException format:@"No %@ class found !", className];
+}
 
-	[[QSReg bundleForClassName:className] load]; //performSelectorOnMainThread:@selector(load) withObject:nil waitUntilDone:YES];
-
-	QSCurrentStringRanker = NSClassFromString(className);
-
-	if (!QSCurrentStringRanker) QSCurrentStringRanker = NSClassFromString(@"QSDefaultStringRanker");
-
-	QSUsePureStringRanking = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSUsePureStringRanking"];
-	//	QSUsePureStringRanking = YES;
-	//NSLog(@"%@", QSCurrentStringRanker);
-
-	scoreForAbbrevIMP = (QSScoreForAbbrevIMP) [QSCurrentStringRanker instanceMethodForSelector:@selector(scoreForAbbreviation:)];
-	}
-
-+(id)rankerForObject:(QSBasicObject *)object {
++ (id)rankerForObject:(QSBasicObject *)object {
 	return [[[self alloc] initWithObject:object] autorelease];
-}
-- (id)initWithObject:(QSBasicObject *)object {
-	if (self = [super init]) {
-		nameRanker = nil;
-		labelRanker = nil;
-		if ([object name])
-			nameRanker = [[QSCurrentStringRanker alloc] initWithString:[object name]];
-		if ([object label])
-			labelRanker = [[QSCurrentStringRanker alloc] initWithString:[object label]];
-		usageMnemonics = [[[QSMnemonics sharedInstance] objectMnemonicsForID:[object identifier]]retain];
-
-		[self setOmitted:[QSLib itemIsOmitted:object]];
-	}
-	return self;
-}
-
-- (void)dealloc {
-
-	[usageMnemonics release];
-	usageMnemonics = nil;
-	[nameRanker release];
-	nameRanker = nil;
-	[labelRanker release];
-	labelRanker = nil;
-	[super dealloc];
 }
 
 + (NSMutableArray *)rankedObjectsForAbbreviation:(NSString*)anAbbreviation inSet:(NSArray *)set inContext:(NSString *)context mnemonicsOnly:(BOOL)mnemonicsOnly {
 	NSArray *abbreviationMnemonics = [[QSMnemonics sharedInstance] abbrevMnemonicsForString:anAbbreviation];
-
+    
+	NSMutableArray *rankObjects = [NSMutableArray arrayWithCapacity:[set count]];
+    
 	NSEnumerator *enumer = [set objectEnumerator];
 	QSBasicObject *thisObject;
 
-	int count = [(NSArray *)set count];
-	NSMutableArray *rankObjects = [NSMutableArray arrayWithCapacity:count];
-
-	QSRankedObject *rankedObject;
-
-	typedef QSRankedObject * (*QSScoreForObjectIMP) (id instance, SEL selector, QSBasicObject *object, NSString* anAbbreviation, NSString *context, NSArray * mnemonics, BOOL mnemonicsOnly);
 	QSScoreForObjectIMP scoreForObjectIMP =
 		(QSScoreForObjectIMP) [self instanceMethodForSelector:@selector(rankedObject:forAbbreviation:inContext:withMnemonics:mnemonicsOnly:)];
 
@@ -96,40 +62,59 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 			NSLog(@"ranker %@", thisObject);
 			ranker = [thisObject getRanker];
 		}
-		//rankedObject = [ranker rankedObject:thisObject forAbbreviation:anAbbreviation inContext:nil withMnemonics:abbreviationMnemonics];
-		rankedObject = (*scoreForObjectIMP) (ranker, @selector(rankedObject:forAbbreviation:inContext:withMnemonics:),
-											thisObject, anAbbreviation, context, abbreviationMnemonics, mnemonicsOnly);
+        QSRankedObject *rankedObject = (*scoreForObjectIMP) (ranker, @selector(rankedObject:forAbbreviation:inContext:withMnemonics:),
+                                                             thisObject, anAbbreviation, context, abbreviationMnemonics, mnemonicsOnly);
 
 		if (rankedObject) {
 			[rankObjects addObject:rankedObject];
-			// NSLog(@"rank %@", rankedObject);
 		}
 	}
-	[rankObjects makeObjectsPerformSelector:@selector(release)];
-
 	//NSLog(@"newscore %@", rankObjects);
 	return rankObjects;
 }
 
-- (int) matchedStringForAbbreviation:(NSString*)anAbbreviation hitmask:(NSIndexSet **)hitmask inContext:(NSString *)context {
-//- (NSIndexSet*)maskForAbbreviation:(NSString*)anAbbreviation inContext:(NSString *)context {
-//- (NSIndexSet*)hitMaskForObject:(QSBasicObject *)object abbreviation:(NSString *)anAbbreviation index:(int *)index {
-	if (!anAbbreviation) return -1;
-
-	float nameScore = [nameRanker scoreForAbbreviation:anAbbreviation];
-	if (labelRanker && [labelRanker scoreForAbbreviation:anAbbreviation] >nameScore) {
-		*hitmask = [labelRanker maskForAbbreviation:anAbbreviation];
-		return 1;
-	} else {
-		*hitmask = [nameRanker maskForAbbreviation:anAbbreviation];
-		return 0;
+- (id)initWithObject:(QSBasicObject *)object {
+	if (self = [super init]) {
+		nameRanker = nil;
+		labelRanker = nil;
+		if ([object name])
+			nameRanker = [[QSCurrentStringRanker alloc] initWithString:[object name]];
+		if ([object label])
+			labelRanker = [[QSCurrentStringRanker alloc] initWithString:[object label]];
+		usageMnemonics = [[[QSMnemonics sharedInstance] objectMnemonicsForID:[object identifier]]retain];
 	}
-	return -1;
+	return self;
 }
 
-- (QSRankedObject *)rankedObject:(QSObject *)object forAbbreviation:(NSString*)anAbbreviation inContext:(NSString *)context withMnemonics:(NSArray *)mnemonics mnemonicsOnly:(BOOL)mnemonicsOnly {
+- (void)dealloc {
+	[usageMnemonics release];
+	usageMnemonics = nil;
+	[nameRanker release];
+	nameRanker = nil;
+	[labelRanker release];
+	labelRanker = nil;
+	[super dealloc];
+}
 
-	//QSRankedObject *QSMakeRankObject(NSString *searchString, QSBasicObject *object, float modifier, BOOL mnemonicsOnly, NSDictionary *definedMnemonics) {
+- (NSString*)description {
+    return [NSString stringWithFormat:@"%@ for object %@ with %d mnemonics:\n%@", [super description], [nameRanker rankedString], [usageMnemonics count], usageMnemonics];
+}
+
+- (NSString*)matchedStringForAbbreviation:(NSString*)anAbbreviation hitmask:(NSIndexSet **)hitmask inContext:(NSString *)context {
+	if (!anAbbreviation) return nil;
+    
+	float nameScore = [nameRanker scoreForAbbreviation:anAbbreviation];
+	if (labelRanker && [labelRanker scoreForAbbreviation:anAbbreviation] > nameScore) {
+		*hitmask = [labelRanker maskForAbbreviation:anAbbreviation];
+		return [labelRanker rankedString];
+	} else {
+		*hitmask = [nameRanker maskForAbbreviation:anAbbreviation];
+		return [nameRanker rankedString];
+	}
+	return nil;
+}
+
+- (QSRankedObject *)rankedObject:(QSBasicObject *)object forAbbreviation:(NSString*)anAbbreviation inContext:(NSString *)context withMnemonics:(NSArray *)mnemonics mnemonicsOnly:(BOOL)mnemonicsOnly {
 	QSRankedObject *rankedObject = nil;
 	if ([object isKindOfClass:[QSRankedObject class]]) { // Reuse old ranked object if possible
 		rankedObject = (QSRankedObject *)object;
@@ -147,8 +132,6 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 	//	QSRankInfo *info = object->rankData;
 	//	if (!info) info = [object getRankData];
 
-	if (self->omitted)
-		return nil;
 	if (!nameRanker) {
 		//NSLog(@"No Name!");
 		return nil;
@@ -219,23 +202,15 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 		[rankedObject setOrder:newOrder];
 	}
 
-	if (newScore>0.3333) {
+	if (newScore > QSMinScore) {
 		if (rankedObject) {
 			[rankedObject setRankedString:matchedString];
-
 			return [rankedObject retain];
 		} else {
-
-			return [[QSRankedObject alloc] initWithObject:(id)object matchString:matchedString order:newOrder score:(float)newScore];
-
+			return [[QSRankedObject alloc] initWithObject:object matchString:matchedString order:newOrder score:newScore];
 		}
 	}
 	return nil;
-
-	}
-
-- (void)setOmitted:(BOOL)flag {
-	omitted = flag;
 }
 
 @end

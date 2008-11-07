@@ -1,4 +1,5 @@
 #import "QSLibrarian.h"
+#import "QSMnemonics.h"
 #import "QSNotifications.h"
 
 #import "QSPreferenceKeys.h"
@@ -14,7 +15,7 @@
 //#define compGT(a, b) (a < b)
 #import "UKMainThreadProxy.h"
 
-float gMinScore = 0.333333;
+float QSMinScore = 0.333333;
 
 static int presetSort(id item1, id item2, QSLibrarian *librarian) {
 	return [[item1 name] caseInsensitiveCompare:[item2 name]];
@@ -50,8 +51,8 @@ static float searchSpeed = 0.0;
 	if (self = [super init]) {
 		NSNumber *minScore = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSMinimumScore"];
 		if (minScore) {
-			gMinScore = [minScore floatValue];
-			NSLog(@"Minimum Score set to %f", gMinScore);
+			QSMinScore = [minScore floatValue];
+			NSLog(@"Minimum Score set to %f", QSMinScore);
 		}
 		[QSLibrarian createDirectories];
 		scanTask = [[QSTask alloc] initWithIdentifier:@"QSLibrarianScanTask"];
@@ -559,14 +560,12 @@ static float searchSpeed = 0.0;
 	if (!omittedIDs && omit) omittedIDs = [[NSMutableSet set] retain];
 	if (omit) [omittedIDs addObject:[item identifier]];
 	else [omittedIDs removeObject:[item identifier]];
-
-	[item setOmitted:omit];
 	[self writeCatalog:self];
 }
 
 - (float) estimatedTimeForSearchInSet:(id)set {
 	float estimate = (set?[(NSArray *)set count] :[(NSArray *)defaultSearchSet count])*searchSpeed;
-	// if (VERBOSE) NSLog(@"Estimte: %fms avg: %dµs", estimate*1000, (int)(searchSpeed*1000000));
+	// if (VERBOSE) NSLog(@"Estimte: %fms avg: %dÂµs", estimate*1000, (int)(searchSpeed*1000000));
 	return MIN(estimate, 0.5);
 }
 
@@ -620,17 +619,21 @@ static float searchSpeed = 0.0;
 }
 
 - (NSMutableArray *)scoredArrayForString:(NSString *)searchString inSet:(NSArray *)set mnemonicsOnly:(BOOL)mnemonicsOnly {
-	if (!set) set = (NSArray *)defaultSearchSet;
+	if (!set) set = [defaultSearchSet allObjects];
 	NSDate *date = [NSDate date];
-	NSMutableArray *rankObjects = [QSDefaultObjectRanker rankedObjectsForAbbreviation:searchString inSet:(NSArray *)set inContext:nil mnemonicsOnly:(BOOL)mnemonicsOnly];
+	NSMutableArray *rankObjects = [QSDefaultObjectRanker rankedObjectsForAbbreviation:searchString inSet:set inContext:searchString mnemonicsOnly:mnemonicsOnly];
 	int count = [set count];
-	float speed = -[date timeIntervalSinceNow] /count;
-	if (count) searchSpeed = ((speed+searchSpeed) /2.0f);
-	//  if (VERBOSE) NSLog(@"Ranking: %fms avg: %dµs", -([date timeIntervalSinceNow] *1000), (int)(speed*1000000)); date = [NSDate date];
+	float speed = -[date timeIntervalSinceNow] / count;
+	if (count)
+        searchSpeed = ((speed + searchSpeed) / 2.0f);
+	if (VERBOSE)
+        NSLog(@"Ranking: %fms avg: %dÂµs", -([date timeIntervalSinceNow] * 1000), (int)(speed * 1000000));
+    
  	[rankObjects sortUsingSelector:@selector(scoreCompare:)];
-    NSArray *rankedObjects = [rankObjects arrayByPerformingSelector:@selector(object)];
-	//NSLog(@"rakn %@", [rankObjects objectAtIndex:0]);
-	return [[rankedObjects mutableCopy] autorelease];
+/*    NSArray *rankedObjects = [rankObjects arrayByPerformingSelector:@selector(object)];
+	[rankObjects release];
+    return [[rankedObjects mutableCopy] autorelease];*/
+    return rankObjects;
 }
 
 

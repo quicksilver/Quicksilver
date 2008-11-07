@@ -28,30 +28,35 @@
  }
 + (id)sharedInstance;
 
-- (void)loadFileActions;
+- (QSAction *)actionForIdentifier:(NSString *)identifier;
 - (void)addActions:(NSArray *)actions;
 - (void)addAction:(QSAction *)action;
+- (NSArray *)actions;
+
 - (NSArray *)rankedActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
 - (NSArray *)rankedActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject shouldBypass:(BOOL)bypass;
-//- (void)registerActions:(id)actionObject;
-- (QSAction *)actionForIdentifier:(NSString *)identifier;
-- (QSObject *)performAction:(NSString *)action directObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
 - (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject;
-//- (void)loadActionsForObject:(id)actionObject;
-- (NSArray *)actions;
-- (QSAction *)actionForIdentifier:(NSString *)identifier;
+- (QSObject *)performAction:(NSString *)action directObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
+
 - (NSMutableArray *)actionsArrayForType:(NSString *)type;
-- (void)noteNewName:(NSString *)name forAction:(QSObject *)aObject;
+- (NSMutableArray *)getArrayForSource:(NSString *)sourceid;
+- (NSMutableArray *)makeArrayForSource:(NSString *)sourceid;
+
+- (BOOL)actionIsEnabled:(QSAction*)action;
 - (void)setAction:(QSAction *)action isEnabled:(BOOL)flag;
+- (BOOL)actionIsMenuEnabled:(QSAction*)action;
 - (void)setAction:(QSAction *)action isMenuEnabled:(BOOL)flag;
+
 - (void)orderActions:(NSArray *)actions aboveActions:(NSArray *)lowerActions;
 - (void)orderActions:(NSArray *)actions belowActions:(NSArray *)higherActions;
 - (void)updateRanks;
-- (void)writeActionsInfo;
+
+- (void)noteNewName:(NSString *)name forAction:(QSObject *)aObject;
 - (void)noteIndirect:(QSObject *)iObject forAction:(QSObject *)aObject;
-- (NSMutableArray *)getArrayForSource:(NSString *)sourceid;
-- (NSMutableArray *)makeArrayForSource:(NSString *)sourceid;
+
+- (void)loadFileActions;
+- (void)writeActionsInfo;
 @end
 
 extern QSExecutor *QSExec; // Shared Instance

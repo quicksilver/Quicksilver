@@ -651,7 +651,6 @@ NSSize QSMaxIconSize;
 }
 
 - (NSString *)kind {
-
 	NSString *kind = [meta objectForKey:kQSObjectKind];
 	if (kind) return kind;
 

@@ -9,23 +9,22 @@
 #import <Cocoa/Cocoa.h>
 #import <QSCore/QSObjectRanker.h>
 
+@class QSBasicObject;
+
 // QSObject Protocols -  right now these aren't sufficient. QSBasicObject must be subclassed
 @protocol QSObject
+- (NSString *)identifier;
 - (NSString *)label;
 - (NSString *)name;
-- (NSString *)primaryType;
 - (BOOL)enabled;
+- (void)setEnabled:(BOOL)flag;
 - (id)primaryObject;
 - (NSBundle*)bundle;
 - (void)setBundle:(NSBundle*)bundle;
-- (id)objectForType:(id)aType;
-- (NSArray *)arrayForType:(id)aKey;
-- (NSArray *)types;
 - (BOOL)loadIcon;
 - (BOOL)iconLoaded;
 @end
 
-@class QSBasicObject;
 @protocol QSObjectHierarchy
 - (QSBasicObject *)parent;
 - (BOOL)hasChildren;
@@ -35,35 +34,39 @@
 - (NSArray *)altSiblings;
 @end
 
-@interface QSBasicObject : NSObject <QSObject, QSObjectHierarchy> {
-@public
+@protocol QSObjectTyping
+- (NSString *)primaryType;
+- (NSArray *)types;
+- (id)objectForType:(id)aType;
+- (NSArray *)arrayForType:(id)aKey;
+- (NSEnumerator *)enumeratorForType:(NSString *)aKey;
+- (BOOL)containsType:(NSString *)aType;
+@end
+
+@interface QSBasicObject : NSObject <QSObject, QSObjectHierarchy, QSObjectTyping> {
+@private
 	NSObject <QSObjectRanker> *ranker;
     NSBundle                  *bundle;
 }
 - (int)primaryCount;
-- (BOOL)loadIcon;
 - (NSImage *)icon;
 - (NSString *)displayName;
 - (NSString *)details;
 - (NSString *)toolTip;
-- (float)score;
-- (int)order;
-- (NSString *)description;
-//- (float) rankModification;
-- (NSString *)identifier;
-- (NSEnumerator *)enumeratorForType:(NSString *)aKey;
-- (NSComparisonResult)nameCompare:(QSBasicObject *)object;
+- (BOOL)drawIconInRect:(NSRect)rect flipped:(BOOL)flipped;
+- (NSString *)kind;
+- (QSBasicObject *)resolvedObject;
+- (void)becameSelected;
+@end
+
+@interface QSBasicObject (QSPasteboard)
 - (BOOL)putOnPasteboard:(NSPasteboard *)pboard;
 - (BOOL)putOnPasteboard:(NSPasteboard *)pboard includeDataForTypes:(NSArray *)includeTypes;
 - (BOOL)putOnPasteboard:(NSPasteboard *)pboard declareTypes:(NSArray *)types includeDataForTypes:(NSArray *)includeTypes;
-- (id <QSObjectRanker>) getRanker;
-- (id <QSObjectRanker>) ranker;
-- (void)setOmitted:(BOOL)flag;
+@end
+
+@interface QSBasicObject (QSRanking)
+- (Class)getRanker;
+- (NSObject <QSObjectRanker> *)ranker;
 - (void)updateMnemonics;
-- (BOOL)drawIconInRect:(NSRect)rect flipped:(BOOL)flipped;
-- (NSString *)kind;
-- (void)setOmitted:(BOOL)flag ;
-- (BOOL)containsType:(NSString *)aType;
-- (QSBasicObject *)resolvedObject;
-- (void)becameSelected;
 @end

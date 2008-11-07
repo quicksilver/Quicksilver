@@ -3,7 +3,7 @@
 
 @implementation QSObject (Drag)
 
-- (NSDragOperation) draggingEntered:(id <NSDraggingInfo>)sender withObject:(QSBasicObject *)object {
+- (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender withObject:(QSBasicObject *)object {
 	NSDragOperation sourceDragMask = [sender draggingSourceOperationMask];
 	id handler = [self handler];
 	if ([handler respondsToSelector:@selector(operationForDrag:ontoObject:withObject:)])

@@ -1,5 +1,6 @@
 #import <Foundation/Foundation.h>
-#import "QSObject.h"
+#import <QSCore/QSObject.h>
+#import <QSCore/QSObjectRanker.h>
 
 // strings:
 #define kActionClass @"actionClass"
@@ -32,14 +33,13 @@
 #define kActionIndirectOptional @"indirectOptional"
 #define kActionReverseArguments @"reverseArguments"
 #define kActionSplitPluralArguments @"splitPlural"
+#define kActionValidatesObjects @"validatesObjects"
 
 // NSNumber (float) :
 #define kActionPrecedence @"precedence"
 
 @interface QSAction : QSObject {
 	int rank;
-	BOOL enabled;
-	BOOL menuEnabled;
 }
 #if 0
 + (void)setModifiersAreIgnored:(BOOL)flag;
@@ -62,12 +62,15 @@
 
 - (int)rank;
 - (void)setRank:(int)newRank;
+- (float)precedence;
 - (BOOL)enabled;
 - (void)setEnabled:(BOOL)flag;
 - (BOOL)menuEnabled;
 - (void)setMenuEnabled:(BOOL)flag;
+- (BOOL)defaultEnabled;
 
-- (void)setArgumentCount:(int)newArgumentCount ;
+- (int)argumentCount;
+- (void)setArgumentCount:(int)newArgumentCount;
 - (BOOL)reverse;
 - (void)setReverse:(BOOL)flag ;
 - (BOOL)canThread;
@@ -76,13 +79,6 @@
 - (BOOL)displaysResult;
 - (void)setDisplaysResult:(BOOL)flag;
 
-
-- (float)precedence;
-- (BOOL)defaultEnabled;
-- (void)_setEnabled:(BOOL)flag;
-- (void)_setRank:(int)newRank;
-- (void)_setMenuEnabled:(BOOL)flag;
-- (int)argumentCount;
 - (NSString *)commandFormat;
 @end
 

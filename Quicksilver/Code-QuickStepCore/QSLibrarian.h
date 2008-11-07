@@ -5,6 +5,8 @@
 
 #define kCustomCatalogID @"QSCatalogCustom"
 
+extern float QSMinScore;
+
 @class QSBasicObject;
 @class QSObject;
 @class QSActions;

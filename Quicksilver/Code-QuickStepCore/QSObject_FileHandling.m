@@ -32,6 +32,9 @@ static NSDictionary *bundlePresetChildren;
 //static BOOL useSmallIcons = NO;
 
 NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
+    if (bundleIdentifier == nil)
+        return nil;
+    
 	NSArray *recentDocuments = [(NSArray *)CFPreferencesCopyValue((CFStringRef) @"NSRecentDocumentRecords", (CFStringRef) bundleIdentifier, kCFPreferencesCurrentUser, kCFPreferencesAnyHost) autorelease];
 
 	NSFileManager *manager = [NSFileManager defaultManager];

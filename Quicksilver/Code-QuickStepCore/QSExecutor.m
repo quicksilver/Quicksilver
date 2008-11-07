@@ -39,8 +39,12 @@ QSExecutor *QSExec;
 @interface QSObject (QSActionsHandlerProtocol)
 - (NSArray *)actionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
 @end
-@implementation QSExecutor
 
+@interface QSAction (QSPrivate)
+- (void)_setRank:(int)newRank;
+@end
+
+@implementation QSExecutor
 + (id)sharedInstance {
 	if (!QSExec) QSExec = [[[self class] allocWithZone:[self zone]] init];
 	return QSExec;
@@ -196,9 +200,9 @@ QSExecutor *QSExec;
 		float prec = [action precedence];
 		int i;
 		float otherPrec;
-		for(i = 0; i<[actionRanking count]; i++) {
+		for(i = 0; i < [actionRanking count]; i++) {
 			otherPrec = [[actionPrecedence valueForKey:[actionRanking objectAtIndex:i]] floatValue];
-			if (otherPrec<prec) break;
+			if (otherPrec < prec) break;
 		}
 		[actionRanking insertObject:ident atIndex:i];
 		[actionPrecedence setObject:[NSNumber numberWithFloat:prec] forKey:ident];
@@ -229,7 +233,7 @@ QSExecutor *QSExec;
 - (void)updateRanks {
 	int i;
 	for(i = 0; i<[actionRanking count]; i++) {
-		[[actionIdentifiers objectForKey:[actionRanking objectAtIndex:i]]_setRank:i];
+		[[actionIdentifiers objectForKey:[actionRanking objectAtIndex:i]] _setRank:i];
 	}
 	[self writeActionsInfo];
 }
@@ -283,8 +287,9 @@ QSExecutor *QSExec;
 
 
 - (NSArray *)rankedActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
-	return [self rankedActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject shouldBypass:NO];
+	return [self rankedActionsForDirectObject:dObject indirectObject:iObject shouldBypass:NO];
 }
+
 - (NSArray *)rankedActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject shouldBypass:(BOOL)bypass {
 	NSMutableArray *actions = nil;
 	if ([[dObject handler] respondsToSelector:@selector(actionsForDirectObject:indirectObject:)])
@@ -357,7 +362,6 @@ QSExecutor *QSExec;
 	NSSet *types = [NSSet setWithArray:[dObject types]];
 	NSString *fileType = [dObject singleFileType];
 
-
 	NSMutableDictionary *validatedActionsBySource = [NSMutableDictionary dictionary];
 	NSArray *validSourceActions;
 
@@ -386,16 +390,16 @@ QSExecutor *QSExec;
 		if (![thisAction enabled]) continue;
 		validSourceActions = nil;
 		NSDictionary *actionDict = [thisAction objectForType:QSActionType];
-		isValid = ![[actionDict objectForKey:@"validatesObjects"] boolValue];
+		isValid = ![[actionDict objectForKey:kActionValidatesObjects] boolValue];
 
 		//NSLog(@"thisact %@", thisAction);
 
 		if (!isValid) {
-			validSourceActions = [validatedActionsBySource objectForKey:[actionDict objectForKey:@"actionClass"]];
+			validSourceActions = [validatedActionsBySource objectForKey:[actionDict objectForKey:kActionClass]];
 			if (!validSourceActions) {
 
 				aObject = [thisAction provider];
-				validSourceActions = [self validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject fromSource:aObject types:nil fileType:nil];
+				validSourceActions = [self validActionsForDirectObject:dObject indirectObject:iObject fromSource:aObject types:nil fileType:nil];
 				NSString *className = NSStringFromClass([aObject class]);
 				if (className)
 					[validatedActionsBySource setObject:validSourceActions?validSourceActions:[NSArray array] forKey:className];
@@ -430,13 +434,20 @@ QSExecutor *QSExec;
 	return [actionObject validIndirectObjectsForAction:action directObject:dObject];
 }
 
-
+- (BOOL)actionIsEnabled:(QSAction*)action {
+    id val = [actionActivation objectForKey:[action identifier]];
+    return (val ? [val boolValue] : YES);
+}
 - (void)setAction:(QSAction *)action isEnabled:(BOOL)flag {
 //	if (VERBOSE) NSLog(@"set action %@ is enabled %d", action, flag);
 	[actionActivation setObject:[NSNumber numberWithBool:flag] forKey:[action identifier]];
 	[self writeActionsInfo];
 }
 
+- (BOOL)actionIsMenuEnabled:(QSAction*)action {
+    id val = [actionMenuActivation objectForKey:[action identifier]];
+    return (val ? [val boolValue] : YES);
+}
 - (void)setAction:(QSAction *)action isMenuEnabled:(BOOL)flag {
 //	if (VERBOSE) NSLog(@"set action %@ is menu enabled %d", action, flag);
 	[actionMenuActivation setObject:[NSNumber numberWithBool:flag] forKey:[action identifier]];
@@ -477,12 +488,11 @@ QSExecutor *QSExec;
 }
 
 - (void)noteNewName:(NSString *)name forAction:(QSObject *)aObject {
-
 	NSString *aIdent = [aObject identifier];
 	if (!name)
 		[actionNames removeObjectForKey:aIdent];
 	else
-		[actionNames setObject:name forKey: aIdent];
+		[actionNames setObject:name forKey:aIdent];
 	[self performSelector:@selector(writeActionsInfoNow) withObject:nil afterDelay:5.0 extend:YES];
 }
 

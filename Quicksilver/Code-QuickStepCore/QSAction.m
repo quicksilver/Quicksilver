@@ -90,20 +90,10 @@ static BOOL gModifiersAreIgnored;
 
 - (float)precedence {
 	NSNumber *num = [[self actionDict] objectForKey:kActionPrecedence];
-#if 0
-	if (!num) num = [[self actionDict] objectForKey:@"rankModification"];
-#warning remove
-#endif
-	return num?[num floatValue] :0.0;
+	return num ? [num floatValue] : 0.0;
 }
 
-#if 0
-- (float) rankModification {
-	return [self precedence];
-}
-#endif
 - (int)rank { return rank;  }
-//- (int) _rank { return rank;  }
 - (void)_setRank:(int)newRank {
 	[self willChangeValueForKey:@"rank"];
 	rank = newRank;
@@ -128,6 +118,8 @@ static BOOL gModifiersAreIgnored;
             if(provider && [provider respondsToSelector:@selector(titleForAction:)])
                 n = [[self provider] titleForAction:ident];
         }
+        if(!n && DEBUG)
+            NSLog(@"Action %@ without provider.", ident);
         
         [self setName:n];
         
@@ -147,21 +139,13 @@ static BOOL gModifiersAreIgnored;
 	[QSExec updateRanks];
 }
 
-- (BOOL)menuEnabled {
-	return menuEnabled;
-}
-- (void)_setMenuEnabled:(BOOL)flag { menuEnabled = flag;  }
+- (BOOL)menuEnabled { return [QSExec actionIsMenuEnabled:self]; }
 - (void)setMenuEnabled:(BOOL)flag {
-	menuEnabled = flag;
 	[QSExec setAction:self isMenuEnabled:flag];
 }
 
-- (BOOL)enabled { return enabled;  }
-- (void)_setEnabled:(BOOL)flag { enabled = flag;  }
-- (void)setEnabled:(BOOL)flag {
-	enabled = flag;
-	[QSExec setAction:self isEnabled:flag];
-}
+- (BOOL)enabled { return [QSExec actionIsEnabled:self];  }
+- (void)setEnabled:(BOOL)flag { [QSExec setAction:self isEnabled:flag]; }
 
 - (BOOL)defaultEnabled { 
     NSNumber *n = [[self actionDict] objectForKey:kActionEnabled];

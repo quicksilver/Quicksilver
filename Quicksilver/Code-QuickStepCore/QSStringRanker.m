@@ -15,9 +15,11 @@
 	if (!string) {
 		[self release];
 		return nil;
-	} else if (self = [super init]) {
-		normString = [[string purifiedString] retain];
-	}
+    }
+    self = [super init];
+    if (self) {
+        [self setRankedString:string];
+    }
 	return self;
 }
 
@@ -31,8 +33,12 @@
 	return [NSString stringWithFormat:@"%@ @%", [super description], normString];
 }
 
-- (NSString*)rankedString {
-    return normString;
+- (NSString*)rankedString { return normString; }
+- (void)setRankedString:(NSString*)aString {
+    if (aString != normString) {
+        [normString release];
+        normString = [[aString purifiedString] retain];
+    }
 }
 
 - (double)scoreForAbbreviation:(NSString*)anAbbreviation {
