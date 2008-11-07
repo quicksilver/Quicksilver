@@ -46,7 +46,6 @@ Ascii2KeyCodeTable keytable;
 - (QSObject *)typeObject:(QSObject *)dObject {
 	// NSLog( AsciiToKeyCode(&ttable, "m") {
 	// short AsciiToKeyCode(Ascii2KeyCodeTable *ttable, short asciiCode) {
-	NSLog([dObject objectForType:QSTextType]);
 	[self typeString2:[dObject objectForType:QSTextType]];
 	return nil;
 }
