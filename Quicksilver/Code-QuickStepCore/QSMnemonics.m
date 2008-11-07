@@ -8,6 +8,7 @@
 	}
 	return _sharedInstance;
 }
+
 - (id)init {
 	if (!(self = [super init]) ) return nil;
 	writeTimer = nil;
@@ -25,7 +26,7 @@
 		[mnemonics setObject:(abbrevMnemonics = [NSMutableDictionary dictionaryWithCapacity:1]) forKey:@"abbreviation"];
 
 	if (DEBUG_STARTUP)
-		NSLog(@"Loaded %d implied and %d defined mnemonics", [objectMnemonics count] , [abbrevMnemonics count]);
+		NSLog(@"Loaded %d implied and %d defined mnemonics", [objectMnemonics count], [abbrevMnemonics count]);
 
 	return self;
 }
@@ -33,6 +34,7 @@
 - (NSDictionary *)objectMnemonics {
 	return objectMnemonics;
 }
+
 - (NSDictionary *)objectMnemonicsForID:(NSString *)key {
 	return [objectMnemonics objectForKey:key];
 }
@@ -48,16 +50,16 @@
 }
 
 - (void)addAbbrevMnemonic:(NSString *)mnem forID:(NSString *)key {
-	[self addAbbrevMnemonic:(NSString *)mnem forID:(NSString *)key relativeToID:nil immediately:NO];
+	[self addAbbrevMnemonic:mnem forID:key relativeToID:nil immediately:NO];
 }
 
 - (void)addAbbrevMnemonic:(NSString *)mnem forID:(NSString *)key immediately:(BOOL)immediately {
-	[self addAbbrevMnemonic:(NSString *)mnem forID:(NSString *)key relativeToID:nil immediately:immediately];
+	[self addAbbrevMnemonic:mnem forID:key relativeToID:nil immediately:immediately];
 }
 
 - (void)addAbbrevMnemonic:(NSString *)mnem forID:(NSString *)key relativeToID:(NSString *)above immediately:(BOOL)immediately {
 	if (!key) return;
-  if (!mnem) return;
+    if (!mnem) return;
 
 	NSMutableArray *objectEntry;
 	if (!(objectEntry = [abbrevMnemonics objectForKey:mnem]) ) {
@@ -70,7 +72,8 @@
 //	if (VERBOSE) NSLog(@"%@", [objectEntry description]);
 
 	if (index != NSNotFound) {
-		if (![[recentMnemonics objectForKey:mnem] isEqual:key] || immediately) index++; //Put after topmost unless is most recently used
+		if (![[recentMnemonics objectForKey:mnem] isEqual:key] || immediately)
+            index++; //Put after topmost unless is most recently used
 		[objectEntry insertObject:key atIndex:index];
 	} else {
 		if ([[recentMnemonics objectForKey:mnem] isEqualToString:key] || immediately) { //Put after topmost unless is most recently used
