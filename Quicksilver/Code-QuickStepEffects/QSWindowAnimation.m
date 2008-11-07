@@ -10,6 +10,8 @@
 
 #import "QSWindowAnimation.h"
 
+#import "QSEmbeddedEffects.h"
+
 @implementation QSWindowAnimation
 
 - (id)init {

@@ -156,7 +156,7 @@
 		[scanStatusField setStringValue:[NSString stringWithFormat:@"Scanning %@", [[notif object] name]]];
 }
 
-- (IBAction)cancelPlugInInstall:(id)sender { [NSApp endSheet:pluginStatusPanel returnCode:0];  }
+- (IBAction)cancelPlugInInstall:(id)sender { [NSApp endSheet:pluginStatusPanel returnCode:0]; }
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
 	[sheet close];
 	[[QSPlugInManager sharedInstance] cancelPlugInInstall];

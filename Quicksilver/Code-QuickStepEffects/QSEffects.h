@@ -7,5 +7,12 @@
  *
  */
 
-#include <Carbon/Carbon.h>
 
+#import <QSEffects/QSCGSTransition.h>
+#import <QSEffects/QSEmbeddedEffects.h>
+#import <QSEffects/QSFadingView.h>
+#import <QSEffects/QSMoveHelper.h>
+#import <QSEffects/QSShading.h>
+#import <QSEffects/QSTrackingWindow.h>
+#import <QSEffects/QSWindow.h>
+#import <QSEffects/QSWindowAnimation.h>

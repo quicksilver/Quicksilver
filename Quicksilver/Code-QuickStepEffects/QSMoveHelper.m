@@ -1,8 +1,7 @@
 #import "QSMoveHelper.h"
-#import "QSEffects.h"
-#import "NSGeometry_BLTRExtensions.h"
+/*#import "QSEffects.h"
+#import "NSGeometry_BLTRExtensions.h"*/
 
-#include <unistd.h>
 
 NSRect QSBlendRects(NSRect start, NSRect end, float b) {
 	return NSMakeRect(	round(NSMinX(start) *(1-b) + NSMinX(end)*b),

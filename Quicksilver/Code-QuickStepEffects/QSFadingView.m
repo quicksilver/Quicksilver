@@ -8,7 +8,6 @@
 
 #import "QSFadingView.h"
 
-
 @interface NSView (NSDecendantsPrivate)
 - (void)_setDrawsOwnDescendants:(BOOL)flag;
 @end

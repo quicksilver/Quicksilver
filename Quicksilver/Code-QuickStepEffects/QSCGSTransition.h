@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "CGSPrivate.h"
+#import <QSFoundation/CGSPrivate.h>
 
 @interface QSCGSTransition : NSObject {
 	int handle;

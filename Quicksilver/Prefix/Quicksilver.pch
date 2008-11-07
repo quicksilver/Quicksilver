@@ -1,0 +1,7 @@
+#ifdef __OBJC__
+#import "QSBasic.pch"
+#import <QSFoundation/QSFoundation.h>
+#import <QSCore/QSCore.h>
+#import <QSEffects/QSEffects.h>
+#import <QSInterface/QSInterface.h>
+#endif

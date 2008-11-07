@@ -7,9 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "QSEmbeddedEffects.h"
-
-#import "CGSPrivate.h"
+#import <QSFoundation/CGSPrivate.h>
 
 #define kQSGSTransformF @"transformFn"
 #define kQSGSBrightF @"brightnessFn"

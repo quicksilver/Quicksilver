@@ -27,16 +27,6 @@
 
 #import "QSModifierKeyEvents.h"
 
-typedef int CGSConnection;
-typedef enum {
-	CGSGlobalHotKeyEnable = 0,
-	CGSGlobalHotKeyDisable = 1,
-} CGSGlobalHotKeyOperatingMode;
-
-extern CGSConnection _CGSDefaultConnection(void);
-extern CGError CGSGetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlobalHotKeyOperatingMode *mode);
-extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlobalHotKeyOperatingMode mode);
-
 @implementation QSSearchPrefPane
 
 - (void)awakeFromNib {

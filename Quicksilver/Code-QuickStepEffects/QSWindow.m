@@ -2,8 +2,6 @@
 
 #import "QSWindowAnimation.h"
 #import "QSPreferenceKeys.h"
-#import <unistd.h>
-#import "NSWindow_BLTRExtensions.h"
 
 @implementation NSWindow (Effects)
 

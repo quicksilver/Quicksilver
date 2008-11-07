@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-
 @interface QSFadingView : NSView {
 	float opacity;
 }

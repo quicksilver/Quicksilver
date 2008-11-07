@@ -1,11 +1,6 @@
 #import "NSWindow_BLTRExtensions.h"
 #import "NSGeometry_BLTRExtensions.h"
-typedef int CGSConnection;
-typedef int CGSWindow;
-extern CGSConnection _CGSDefaultConnection(void);
-
-OSStatus CGSGetWindowTags(CGSConnection cid, CGSWindow widow, int *tags, int other);
-OSStatus CGSSetWindowTags(CGSConnection cid, CGSWindow widow, int *tags, int other);
+#import "CGSPrivate.h"
 
 @implementation NSWindow (Fade)
 - (id)windowPropertyForKey:(NSString *)key { return nil; }
@@ -17,14 +12,14 @@ OSStatus CGSSetWindowTags(CGSConnection cid, CGSWindow widow, int *tags, int oth
 	if (wid < 0)
 		return;
 	cid = _CGSDefaultConnection();
-	int tags[2];
+	CGSWindowTag tags[2];
 	tags[0] = tags[1] = 0;
 	OSStatus retVal = CGSGetWindowTags(cid, wid, tags, 32);
 	if (!retVal) {
 		if (flag)
-			tags[0] = tags[0] | 0x00000800;
+			tags[0] |= CGSTagSticky;
 		else
-			tags[0] = tags[0] & 0x00000800;
+			tags[0] &= CGSTagSticky;
 		retVal = CGSSetWindowTags(cid, wid, tags, 32);
 	}
 }

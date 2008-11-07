@@ -57,7 +57,6 @@ typedef enum QSSearchMode {
 	NSMutableArray *searchArray; // Interim array for searching smaller and smaller pieces
 	NSMutableArray *resultArray; // Final filtered array for current search string
 
-//	NSData *scoreData;
 	unsigned selection;
 	BOOL browsing;
 	BOOL validMnemonic;
@@ -87,8 +86,6 @@ typedef enum QSSearchMode {
 - (void)setShouldResetSearchArray:(BOOL)flag;
 - (NSString *)matchedString;
 - (void)setMatchedString:(NSString *)newMatchedString;
-/*- (NSData *)scoreData;
-- (void)setScoreData:(NSData *)newScoreData;*/
 
 - (IBAction)toggleResultView:sender;
 - (void)selectIndex:(int)index;

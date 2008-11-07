@@ -1,6 +1,5 @@
 #import <Foundation/Foundation.h>
-#import "CGSPrivate.h"
-#import "QSMoveHelper.h"
+#import <QSFoundation/CGSPrivate.h>
 
 @interface NSObject (QSWindowDelegate)
 - (void)firstResponderChanged:(NSResponder *)aResponder;
@@ -13,6 +12,8 @@
 - (void)shrink:(id)sender;
 - (void)fold:(id)sender;
 @end
+
+@class QSMoveHelper;
 
 #define kQSWindowHideEffect @"hideEffect"
 #define kQSWindowShowEffect @"showEffect"

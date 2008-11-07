@@ -211,6 +211,16 @@ struct CGPointWarp {
 extern CGError CGSSetWindowWarp(const CGSConnection cid, const CGSWindow wid, int w, int h, CGPointWarp mesh[h] [w]);
 extern OSStatus CGSSetWindowListBrightness(const CGSConnection cid, CGSWindow *wids, float *brightness, int count);
 
+// Global Hotkey
+typedef enum {
+	CGSGlobalHotKeyEnable = 0,
+	CGSGlobalHotKeyDisable = 1,
+} CGSGlobalHotKeyOperatingMode;
+
+extern CGSConnection _CGSDefaultConnection(void);
+extern CGError CGSGetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlobalHotKeyOperatingMode *mode);
+extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlobalHotKeyOperatingMode mode);
+
 #define CGSConnectionID CGSConnection
 #define CGSWindowID CGSWindow
 
