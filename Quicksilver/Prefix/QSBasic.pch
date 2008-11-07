@@ -3,8 +3,7 @@
 //
 
 #ifdef __OBJC__
-#import <Cocoa/Cocoa.h>
-
+#import <Foundation/Foundation.h>
 #import "QSKeys.h"
 #import "QSDefines.h"
 #import "QSMacros.h"
@@ -12,5 +11,4 @@
 #import "QSFeatureLevel.h"
 #import "QSPaths.h"
 #import "QSDebug.h"
-
 #endif

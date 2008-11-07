@@ -219,6 +219,16 @@
 			4DD89F170EBDDB34005A15AE /* PBXTextBookmark */ = 4DD89F170EBDDB34005A15AE /* PBXTextBookmark */;
 			4DD89F180EBDDB34005A15AE /* PBXTextBookmark */ = 4DD89F180EBDDB34005A15AE /* PBXTextBookmark */;
 			4DD89F190EBDDB34005A15AE /* PBXTextBookmark */ = 4DD89F190EBDDB34005A15AE /* PBXTextBookmark */;
+			4DD89F4F0EBDDDFF005A15AE /* PBXTextBookmark */ = 4DD89F4F0EBDDDFF005A15AE /* PBXTextBookmark */;
+			4DD89F500EBDDDFF005A15AE /* PBXTextBookmark */ = 4DD89F500EBDDDFF005A15AE /* PBXTextBookmark */;
+			4DD89F510EBDDDFF005A15AE /* PBXTextBookmark */ = 4DD89F510EBDDDFF005A15AE /* PBXTextBookmark */;
+			4DD89F520EBDDDFF005A15AE /* PBXTextBookmark */ = 4DD89F520EBDDDFF005A15AE /* PBXTextBookmark */;
+			4DD89F530EBDDDFF005A15AE /* PBXTextBookmark */ = 4DD89F530EBDDDFF005A15AE /* PBXTextBookmark */;
+			4DD89F600EBDDE41005A15AE /* PBXTextBookmark */ = 4DD89F600EBDDE41005A15AE /* PBXTextBookmark */;
+			4DD89F610EBDDE41005A15AE /* PBXTextBookmark */ = 4DD89F610EBDDE41005A15AE /* PBXTextBookmark */;
+			4DD89F620EBDDE41005A15AE /* PBXTextBookmark */ = 4DD89F620EBDDE41005A15AE /* PBXTextBookmark */;
+			4DD89F630EBDDE41005A15AE /* PBXTextBookmark */ = 4DD89F630EBDDE41005A15AE /* PBXTextBookmark */;
+			4DD89F640EBDDE41005A15AE /* PBXTextBookmark */ = 4DD89F640EBDDE41005A15AE /* PBXTextBookmark */;
 		};
 		sourceControlManager = 4DFE7D140E0812B2000B9AA3 /* Source Control */;
 		userBuildSettings = {
@@ -751,19 +761,36 @@
 		vrLen = 994;
 		vrLoc = 0;
 	};
+	4DD89E740EBDD410005A15AE /* QSCore.pch */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1163, 759}}";
+			sepNavSelRange = "{91, 33}";
+			sepNavVisRange = "{0, 218}";
+			sepNavWindowFrame = "{{19, -5}, {1222, 878}}";
+		};
+	};
+	4DD89E750EBDD410005A15AE /* QSEffects.pch */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1163, 759}}";
+			sepNavSelRange = "{136, 0}";
+			sepNavVisRange = "{0, 241}";
+			sepNavWindowFrame = "{{19, -5}, {1222, 878}}";
+		};
+	};
 	4DD89E760EBDD410005A15AE /* QSFoundation.pch */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1163, 759}}";
-			sepNavSelRange = "{0, 0}";
+			sepNavSelRange = "{125, 21}";
 			sepNavVisRange = "{0, 193}";
 			sepNavWindowFrame = "{{19, -5}, {1222, 878}}";
 		};
 	};
 	4DD89E770EBDD410005A15AE /* QSInterface.pch */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1093, 391}}";
-			sepNavSelRange = "{159, 12}";
+			sepNavIntBoundsRect = "{{0, 0}, {1163, 759}}";
+			sepNavSelRange = "{136, 0}";
 			sepNavVisRange = "{0, 277}";
+			sepNavWindowFrame = "{{19, -5}, {1222, 878}}";
 		};
 	};
 	4DD89E7B0EBDD53F005A15AE /* PBXTextBookmark */ = {
@@ -783,7 +810,7 @@
 		rLen = 12;
 		rLoc = 159;
 		rType = 0;
-		vrLen = 277;
+		vrLen = 255;
 		vrLoc = 0;
 	};
 	4DD89E7D0EBDD53F005A15AE /* PBXTextBookmark */ = {
@@ -950,7 +977,7 @@
 		rLen = 32;
 		rLoc = 201;
 		rType = 0;
-		vrLen = 277;
+		vrLen = 255;
 		vrLoc = 0;
 	};
 	4DD89E910EBDD53F005A15AE /* PBXTextBookmark */ = {
@@ -1001,7 +1028,7 @@
 		rLen = 12;
 		rLoc = 159;
 		rType = 0;
-		vrLen = 277;
+		vrLen = 255;
 		vrLoc = 0;
 	};
 	4DD89E960EBDD53F005A15AE /* PBXTextBookmark */ = {
@@ -1159,7 +1186,7 @@
 		fRef = E103F55A0647258700447FE0 /* Quicksilver.pch */;
 		name = "Quicksilver.pch: 5";
 		rLen = 0;
-		rLoc = 130;
+		rLoc = 154;
 		rType = 0;
 		vrLen = 177;
 		vrLoc = 0;
@@ -1263,7 +1290,7 @@
 		fRef = E103F55A0647258700447FE0 /* Quicksilver.pch */;
 		name = "Quicksilver.pch: 5";
 		rLen = 0;
-		rLoc = 130;
+		rLoc = 154;
 		rType = 0;
 		vrLen = 177;
 		vrLoc = 0;
@@ -1751,6 +1778,102 @@
 			sepNavWindowFrame = "{{19, -5}, {1222, 878}}";
 		};
 	};
+	4DD89F4F0EBDDDFF005A15AE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E1E3CB960653BE040026BAF2 /* NTViewLocalizer.m */;
+		name = "NTViewLocalizer.m: 74";
+		rLen = 0;
+		rLoc = 1894;
+		rType = 0;
+		vrLen = 525;
+		vrLoc = 1681;
+	};
+	4DD89F500EBDDDFF005A15AE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "warning: 'QSInterfaceController' may not respond to '-customize:'";
+		fRef = 7F60F12707FA134600922645 /* QSMainPreferencePanes.m */;
+		rLen = 1;
+		rLoc = 78;
+		rType = 1;
+	};
+	4DD89F510EBDDDFF005A15AE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E1E3CB960653BE040026BAF2 /* NTViewLocalizer.m */;
+		name = "NTViewLocalizer.m: 74";
+		rLen = 0;
+		rLoc = 1894;
+		rType = 0;
+		vrLen = 525;
+		vrLoc = 1681;
+	};
+	4DD89F520EBDDDFF005A15AE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F60F12707FA134600922645 /* QSMainPreferencePanes.m */;
+		name = "QSMainPreferencePanes.m: 79";
+		rLen = 55;
+		rLoc = 2694;
+		rType = 0;
+		vrLen = 822;
+		vrLoc = 2124;
+	};
+	4DD89F530EBDDDFF005A15AE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4DC493CA0E8D1340000EEF1C /* QSHotKeyEvent.m */;
+		name = "QSHotKeyEvent.m: 10";
+		rLen = 10;
+		rLoc = 161;
+		rType = 0;
+		vrLen = 466;
+		vrLoc = 0;
+	};
+	4DD89F600EBDDE41005A15AE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F60F12707FA134600922645 /* QSMainPreferencePanes.m */;
+		name = "QSMainPreferencePanes.m: 79";
+		rLen = 55;
+		rLoc = 2694;
+		rType = 0;
+		vrLen = 822;
+		vrLoc = 2124;
+	};
+	4DD89F610EBDDE41005A15AE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "error: 'PRERELEASEVERSION' undeclared (first use in this function)";
+		fRef = E1E5FA7707B204BE0044D6EF /* NSApplication_BLTRExtensions.m */;
+		rLen = 1;
+		rLoc = 25;
+		rType = 1;
+	};
+	4DD89F620EBDDE41005A15AE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 7F60F12707FA134600922645 /* QSMainPreferencePanes.m */;
+		name = "QSMainPreferencePanes.m: 79";
+		rLen = 55;
+		rLoc = 2694;
+		rType = 0;
+		vrLen = 822;
+		vrLoc = 2124;
+	};
+	4DD89F630EBDDE41005A15AE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E1E5FA7707B204BE0044D6EF /* NSApplication_BLTRExtensions.m */;
+		name = "NSApplication_BLTRExtensions.m: 26";
+		rLen = 181;
+		rLoc = 702;
+		rType = 0;
+		vrLen = 922;
+		vrLoc = 272;
+	};
+	4DD89F640EBDDE41005A15AE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 4DC493CA0E8D1340000EEF1C /* QSHotKeyEvent.m */;
+		name = "QSHotKeyEvent.m: 10";
+		rLen = 10;
+		rLoc = 161;
+		rType = 0;
+		vrLen = 466;
+		vrLoc = 0;
+	};
 	4DE10ECE0E89B49D0066B056 /* QSPlugInManager.m:798 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
@@ -2178,9 +2301,9 @@
 	};
 	7F60F12707FA134600922645 /* QSMainPreferencePanes.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1296, 3850}}";
-			sepNavSelRange = "{596, 0}";
-			sepNavVisRange = "{538, 1233}";
+			sepNavIntBoundsRect = "{{0, 0}, {1296, 3876}}";
+			sepNavSelRange = "{2694, 55}";
+			sepNavVisRange = "{2124, 822}";
 			sepNavWindowFrame = "{{19, 0}, {878, 878}}";
 		};
 	};
@@ -2593,8 +2716,8 @@
 	7FEA90BC07D9A7CC000D32C3 /* QSBasic.pch */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {819, 759}}";
-			sepNavSelRange = "{192, 0}";
-			sepNavVisRange = "{0, 316}";
+			sepNavSelRange = "{160, 0}";
+			sepNavVisRange = "{0, 324}";
 			sepNavWindowFrame = "{{19, 0}, {878, 878}}";
 		};
 	};
@@ -2792,9 +2915,9 @@
 	};
 	E103F55A0647258700447FE0 /* Quicksilver.pch */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1093, 391}}";
-			sepNavSelRange = "{130, 0}";
-			sepNavVisRange = "{0, 177}";
+			sepNavIntBoundsRect = "{{0, 0}, {819, 759}}";
+			sepNavSelRange = "{39, 0}";
+			sepNavVisRange = "{0, 201}";
 			sepNavWindowFrame = "{{19, 0}, {878, 878}}";
 		};
 	};
@@ -3269,9 +3392,9 @@
 	};
 	E1E5FA7707B204BE0044D6EF /* NSApplication_BLTRExtensions.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1008, 2548}}";
-			sepNavSelRange = "{3125, 5}";
-			sepNavVisRange = "{2547, 872}";
+			sepNavIntBoundsRect = "{{0, 0}, {1110, 2576}}";
+			sepNavSelRange = "{702, 181}";
+			sepNavVisRange = "{272, 792}";
 			sepNavWindowFrame = "{{19, 0}, {878, 878}}";
 		};
 	};
@@ -3552,8 +3675,8 @@
 	E1E5FB7707B20DD10044D6EF /* QSCore.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {819, 759}}";
-			sepNavSelRange = "{777, 0}";
-			sepNavVisRange = "{0, 778}";
+			sepNavSelRange = "{138, 0}";
+			sepNavVisRange = "{0, 777}";
 			sepNavWindowFrame = "{{690, 0}, {878, 878}}";
 		};
 	};

@@ -7,7 +7,6 @@
  *
  */
 
-
 #import "QSTypes.h"
 #import "QSDebug.h"
 #import "QSNotifications.h"

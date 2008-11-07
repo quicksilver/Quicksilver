@@ -7,5 +7,4 @@
 #import "QSBasic.pch"
 #import <QSFoundation/QSFoundation.h>
 #import <QSCore/QSCore.h>
-
 #endif
