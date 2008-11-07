@@ -30,7 +30,7 @@
 	}
 }
 - (QSTrigger *)settingsSelection {return currentTrigger;}
-- (void)populateInfoFields {} ;
+- (void)populateInfoFields {};
 
 - (NSWindow *)triggerDisplayWindowWithTrigger:(QSTrigger *)trigger {
 	NSImage *image = [[trigger command] icon];

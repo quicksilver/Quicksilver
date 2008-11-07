@@ -34,7 +34,8 @@
 	IBOutlet NSArrayController *triggerArrayController;
 	IBOutlet NSTreeController *triggerTreeController;
 
-	NSMutableArray *triggerArray; NSMenu *typeMenu;
+	NSMutableArray *triggerArray;
+    NSMenu *typeMenu;
 
 	NSMutableArray *triggerSets;
 	QSCommandBuilder *commandEditor;
@@ -64,8 +65,6 @@
 - (NSMutableArray *)triggerSets;
 - (void)setTriggerSets:(NSMutableArray *)newTriggerSets;
 
-
-
 + (QSTriggersPrefPane *)sharedInstance;
 - (void)updateTriggerArray;
 - (NSArray *)triggerArray;
@@ -80,6 +79,10 @@
 - (IBAction)editTrigger:(id)sender;
 - (IBAction)selectTrigger:(id)sender;
 
+- (IBAction)showTriggerInfo:(id)sender;
+- (IBAction)hideTriggerInfo:(id)sender;
+- (int)tabViewIndex;
+- (void)setTabViewIndex:(int)index;
 
 - (IBAction)editCommand:(id)sender;
 

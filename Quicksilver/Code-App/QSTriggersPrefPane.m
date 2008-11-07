@@ -81,7 +81,7 @@
 }
 
 - (void)willUnselect { [optionsDrawer close];  }
-- (int) tabViewIndex { return [drawerTabView indexOfTabViewItem:[drawerTabView selectedTabViewItem]];}
+- (int)tabViewIndex { return [drawerTabView indexOfTabViewItem:[drawerTabView selectedTabViewItem]];}
 - (void)setTabViewIndex:(int)index { [drawerTabView selectTabViewItemAtIndex:index];}
 
 - (NSString *)mainNibName { return @"QSTriggersPrefPane";  }
@@ -163,7 +163,7 @@
 - (void)awakeFromNib {
 	typeMenu = nil;
 	[self populateTypeMenu];
-	[triggerTable registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, @"QSTriggerDragType", nil]];
+	[triggerTable registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, QSTriggerDragType, nil]];
 
 	[triggerTable setVerticalMotionCanBeginDrag: TRUE];
 
@@ -356,106 +356,13 @@
 	[self editTriggerCommand:selectedTrigger callback:@selector(addSheetDidEnd:returnCode:contextInfo:)];
 }
 
-- (void)outlineView:(NSOutlineView *)outlineView willDisplayCell:(NSCell *)aCell forTableColumn:(NSTableColumn *)aTableColumn item:(id)item {
-	item = [item respondsToSelector:@selector(representedObject)] ?[item representedObject] :[item observedObject];
-
-	//- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
-	QSTrigger *thisTrigger = item; //[[triggerArrayController arrangedObjects] objectAtIndex:rowIndex];
-	BOOL isGroup = [thisTrigger isGroup];
-
-	//	if ([[aTableColumn identifier] isEqualToString: @"command"]) {
-	//
-	//
-	//		if ([aCell isHighlighted]) {
-	//			[aCell setTextColor:[NSColor selectedTextColor]];
-	//			NSLog(@"white");
-	//		} else {
-	//			[aCell setTextColor:[NSColor textColor]];
-	//			NSLog(@"black");
-	//		}
-	//		if (![aCell isEnabled]) {
-	//			[aCell setTextColor:[[aCell textColor] colorWithAlphaComponent:0.5]];
-	//			NSLog(@"gray");
-	//		}
-	//
-	//	}
-
-	if ([[aTableColumn identifier] isEqualToString: @"type"]) {
-		if ([aCell isMemberOfClass:[NSPopUpButtonCell class]]) {
-			NSString *type = [thisTrigger valueForKey:@"type"];
-			[aCell setMenu:[[typeMenu copy] autorelease]];
-			[(NSPopUpButtonCell*)aCell selectItemAtIndex:[(NSPopUpButtonCell*)aCell indexOfItemWithRepresentedObject:type]];
-
-			[aCell setEnabled:!isGroup && ([typeMenu numberOfItems] >1 || ![type length])];
-		}
-		return;
-	}
-	if ([[aTableColumn identifier] isEqualToString: @"enabled"]) {
-		[(NSButtonCell*)aCell setTransparent:isGroup];
-		return;
-	}
-
-	if ([[aTableColumn identifier] isEqualToString: @"trigger"]) {
-        id desc = [item triggerDescription];
-        [aCell setStringValue:( desc ? desc : @"Unknown" )];
-		[aCell setRepresentedObject:item];
-		return;
-	}
+- (IBAction)showTriggerInfo:(id)sender {
+    [optionsDrawer open:sender];
 }
 
-- (NSCell *)outlineView:(NSOutlineView *)outlineView dataCellForTableColumn:(NSTableColumn *)aTableColumn byItem:(id)item {
-
-	//- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
-	QSTrigger *thisTrigger = [item respondsToSelector:@selector(representedObject)] ?[item representedObject] :[item observedObject]; //[[triggerArrayController arrangedObjects] objectAtIndex:rowIndex];
-	//NSLog(@"cell for %@", item);
-
-	id manager = [thisTrigger manager];
-	return ([manager respondsToSelector:@selector(descriptionCellForTrigger:)]) ? [manager performSelector:@selector(descriptionCellForTrigger:) withObject:thisTrigger] : nil;
+- (IBAction)hideTriggerInfo:(id)sender {
+    [optionsDrawer close:sender];    
 }
-
-- (void)outlineView:(NSOutlineView *)outlineView setObjectValue:(id)anObject forTableColumn:(NSTableColumn *)aTableColumn byItem:(id)item {
-	//- (void)outlineView:(NSTableView *)aTableView setObjectValue:(id)anObject forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
-	item = [item respondsToSelector:@selector(representedObject)] ?[item representedObject] :[item observedObject];
-	QSTrigger *thisTrigger = item; //[[triggerArrayController arrangedObjects] objectAtIndex:rowIndex];
-
-		if ([[aTableColumn identifier] isEqualToString: @"type"]) {
-			//NSLog(@"anobject %@", anObject);
-
-			int typeIndex = [anObject intValue];
-			if (typeIndex == -1) return;
-			NSString *type = [[typeMenu itemAtIndex:typeIndex] representedObject];
-			[thisTrigger setType:type];
-			[triggerTable reloadData];
-			[optionsDrawer open];
-
-			[self selectTrigger:self];
-			//	} else if ([[aTableColumn identifier] isEqualToString: @"command"]) {
-			//		if (![(NSString *)anObject length])anObject = nil;
-			//		[thisTrigger setName:anObject];
-			//		[aTableView reloadData];
-
-			} else if ([[aTableColumn identifier] isEqualToString: @"trigger"]) {
-				//NSLog(@"setdescrip %@", anObject);
-				id manager = [thisTrigger manager];
-				if ([manager respondsToSelector:@selector(trigger:setTriggerDescription:)])
-					[manager trigger:[self currentTrigger] setTriggerDescription:anObject];
-
-			} else if ([[aTableColumn identifier] isEqualToString: @"enabled"]) {
-				return;
-
-			}
-		//else {
-		//		[thisTrigger setValue:anObject forKey:[aTableColumn identifier]];
-		//	}
-		//
-		NS_DURING
-			[[QSTriggerCenter sharedInstance] triggerChanged:thisTrigger];
-		NS_HANDLER
-			NSBeep();
-		NS_ENDHANDLER
-
-		return;
-	}
 
 - (BOOL)editTriggerCommand:(QSTrigger *)trigger callback:(SEL)aSelector {
 	//[[optionsDrawer contentView] window] //
@@ -531,42 +438,6 @@
 						callback:@selector(addSheetDidEnd:returnCode:contextInfo:)];
 	}
 }
-- (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)aTableColumn item:(id)item {
-	//- (BOOL)tableView:(NSTableView *)aTableView shouldEditTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
-	item = [item respondsToSelector:@selector(representedObject)] ?[item representedObject] :[item observedObject];
-	id theSelectedTrigger = item; //[[triggerArrayController selectedObjects] lastObject];
-	if ([[aTableColumn identifier] isEqualToString:@"trigger"]) {
-		//BOOL shouldEdit = NO;
-		id manager = [theSelectedTrigger manager];
-		//NSLog(@"othereditor %@ %@", manager, thisTrigger);
-		//	if ([manager respondsToSelector:@selector(shouldEditTrigger:)])
-		//			shouldEdit = [manager shouldEditTrigger:theSelectedTrigger];
-		//
-		//		if (!shouldEdit)
-		[optionsDrawer open];
-		if ([manager respondsToSelector:@selector(triggerDoubleClicked:)])
-			[manager performSelector:@selector(triggerDoubleClicked:) withObject:theSelectedTrigger];
-		return NO;
-	}
-	if ([[aTableColumn identifier] isEqualToString:@"command"] || [[aTableColumn identifier] isEqualToString:@"icon"]) {
-		if ([theSelectedTrigger usesPresetCommand])
-			return NO;
-		if ([[NSApp currentEvent] type] == NSKeyDown) {
-			[outlineView reloadData];
-			[[outlineView window] makeFirstResponder:outlineView];
-			return YES;
-		}
-		if ([[theSelectedTrigger type] isEqualToString:@"QSGroupTrigger"]) return YES;
-
-		[self editTriggerCommand:theSelectedTrigger callback:@selector(editSheetDidEnd:returnCode:contextInfo:)];
-		return NO;
-		// return YES;
-	} /*else if ([[aTableColumn identifier] isEqualToString: @"type"]) { this block commented out by me
-		//NSLog(@"edit type");
-		return NO;
-	} */
-	return NO;
-}
 
 - (IBAction)editTrigger:(id)sender {
 	NSLog(@"edit");
@@ -574,6 +445,7 @@
 		[self editTriggerCommand:[triggerArray objectAtIndex:[triggerTable selectedRow]] callback:@selector(editSheetDidEnd:returnCode:contextInfo:) ];
 	}
 }
+
 - (id)windowWillReturnFieldEditor:(NSWindow *)sender toObject:(id)anObject {
 	if (anObject == triggerTable) {
 		if ([triggerTable clickedColumn] == [triggerTable columnWithIdentifier:@"trigger"] || [triggerTable editedColumn] == [triggerTable columnWithIdentifier:@"trigger"]) {
@@ -716,8 +588,145 @@
 - (int) outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item {return 0;}
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {return nil;}
 
-// drag and drop
+- (void)outlineView:(NSOutlineView *)outlineView willDisplayCell:(NSCell *)aCell forTableColumn:(NSTableColumn *)aTableColumn item:(id)item {
+	item = [item respondsToSelector:@selector(representedObject)] ?[item representedObject] :[item observedObject];
+    
+	//- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
+	QSTrigger *thisTrigger = item; //[[triggerArrayController arrangedObjects] objectAtIndex:rowIndex];
+	BOOL isGroup = [thisTrigger isGroup];
+    
+	//	if ([[aTableColumn identifier] isEqualToString: @"command"]) {
+	//
+	//
+	//		if ([aCell isHighlighted]) {
+	//			[aCell setTextColor:[NSColor selectedTextColor]];
+	//			NSLog(@"white");
+	//		} else {
+	//			[aCell setTextColor:[NSColor textColor]];
+	//			NSLog(@"black");
+	//		}
+	//		if (![aCell isEnabled]) {
+	//			[aCell setTextColor:[[aCell textColor] colorWithAlphaComponent:0.5]];
+	//			NSLog(@"gray");
+	//		}
+	//
+	//	}
+    
+	if ([[aTableColumn identifier] isEqualToString: @"type"]) {
+		if ([aCell isMemberOfClass:[NSPopUpButtonCell class]]) {
+			NSString *type = [thisTrigger valueForKey:@"type"];
+			[aCell setMenu:[[typeMenu copy] autorelease]];
+			[(NSPopUpButtonCell*)aCell selectItemAtIndex:[(NSPopUpButtonCell*)aCell indexOfItemWithRepresentedObject:type]];
+            
+			[aCell setEnabled:!isGroup && ([typeMenu numberOfItems] >1 || ![type length])];
+		}
+		return;
+	}
+	if ([[aTableColumn identifier] isEqualToString: @"enabled"]) {
+		[(NSButtonCell*)aCell setTransparent:isGroup];
+		return;
+	}
+    
+	if ([[aTableColumn identifier] isEqualToString: @"trigger"]) {
+        id desc = [item triggerDescription];
+        [aCell setStringValue:( desc ? desc : @"Unknown" )];
+		[aCell setRepresentedObject:item];
+		return;
+	}
+}
 
+- (NSCell *)outlineView:(NSOutlineView *)outlineView dataCellForTableColumn:(NSTableColumn *)aTableColumn byItem:(id)item {
+    
+	//- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
+	QSTrigger *thisTrigger = [item respondsToSelector:@selector(representedObject)] ?[item representedObject] :[item observedObject]; //[[triggerArrayController arrangedObjects] objectAtIndex:rowIndex];
+	//NSLog(@"cell for %@", item);
+    
+	id manager = [thisTrigger manager];
+	return ([manager respondsToSelector:@selector(descriptionCellForTrigger:)]) ? [manager performSelector:@selector(descriptionCellForTrigger:) withObject:thisTrigger] : nil;
+}
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)aTableColumn item:(id)item {
+	//- (BOOL)tableView:(NSTableView *)aTableView shouldEditTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
+	item = [item respondsToSelector:@selector(representedObject)] ?[item representedObject] :[item observedObject];
+	id theSelectedTrigger = item; //[[triggerArrayController selectedObjects] lastObject];
+	if ([[aTableColumn identifier] isEqualToString:@"trigger"]) {
+		//BOOL shouldEdit = NO;
+		id manager = [theSelectedTrigger manager];
+		//NSLog(@"othereditor %@ %@", manager, thisTrigger);
+		//	if ([manager respondsToSelector:@selector(shouldEditTrigger:)])
+		//			shouldEdit = [manager shouldEditTrigger:theSelectedTrigger];
+		//
+		//		if (!shouldEdit)
+		[optionsDrawer open];
+		if ([manager respondsToSelector:@selector(triggerDoubleClicked:)])
+			[manager performSelector:@selector(triggerDoubleClicked:) withObject:theSelectedTrigger];
+		return NO;
+	}
+	if ([[aTableColumn identifier] isEqualToString:@"command"] || [[aTableColumn identifier] isEqualToString:@"icon"]) {
+		if ([theSelectedTrigger usesPresetCommand])
+			return NO;
+		if ([[NSApp currentEvent] type] == NSKeyDown) {
+			[outlineView reloadData];
+			[[outlineView window] makeFirstResponder:outlineView];
+			return YES;
+		}
+		if ([[theSelectedTrigger type] isEqualToString:@"QSGroupTrigger"]) return YES;
+        
+		[self editTriggerCommand:theSelectedTrigger callback:@selector(editSheetDidEnd:returnCode:contextInfo:)];
+		return NO;
+		// return YES;
+	} /*else if ([[aTableColumn identifier] isEqualToString: @"type"]) { this block commented out by me
+     //NSLog(@"edit type");
+     return NO;
+     } */
+	return NO;
+}
+
+- (void)outlineView:(NSOutlineView *)outlineView setObjectValue:(id)anObject forTableColumn:(NSTableColumn *)aTableColumn byItem:(id)item {
+	//- (void)outlineView:(NSTableView *)aTableView setObjectValue:(id)anObject forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
+	item = [item respondsToSelector:@selector(representedObject)] ?[item representedObject] :[item observedObject];
+	QSTrigger *thisTrigger = item; //[[triggerArrayController arrangedObjects] objectAtIndex:rowIndex];
+    
+    if ([[aTableColumn identifier] isEqualToString: @"type"]) {
+        //NSLog(@"anobject %@", anObject);
+        
+        int typeIndex = [anObject intValue];
+        if (typeIndex == -1) return;
+        NSString *type = [[typeMenu itemAtIndex:typeIndex] representedObject];
+        [thisTrigger setType:type];
+        [triggerTable reloadData];
+        [optionsDrawer open];
+        
+        [self selectTrigger:self];
+        //	} else if ([[aTableColumn identifier] isEqualToString: @"command"]) {
+        //		if (![(NSString *)anObject length])anObject = nil;
+        //		[thisTrigger setName:anObject];
+        //		[aTableView reloadData];
+        
+    } else if ([[aTableColumn identifier] isEqualToString: @"trigger"]) {
+        //NSLog(@"setdescrip %@", anObject);
+        id manager = [thisTrigger manager];
+        if ([manager respondsToSelector:@selector(trigger:setTriggerDescription:)])
+            [manager trigger:[self currentTrigger] setTriggerDescription:anObject];
+        
+    } else if ([[aTableColumn identifier] isEqualToString: @"enabled"]) {
+        return;
+        
+    }
+    //else {
+    //		[thisTrigger setValue:anObject forKey:[aTableColumn identifier]];
+    //	}
+    //
+    NS_DURING
+    [[QSTriggerCenter sharedInstance] triggerChanged:thisTrigger];
+    NS_HANDLER
+    NSBeep();
+    NS_ENDHANDLER
+    
+    return;
+}
+
+// drag and drop
 - (BOOL)outlineView:(NSOutlineView *)outlineView writeItems:(NSArray *)items toPasteboard:(NSPasteboard *)pboard {
 	draggedIndexPaths = [items valueForKey:@"indexPath"];
     if([items count] == 0)
@@ -735,20 +744,27 @@
 - (NSDragOperation)outlineView:(NSOutlineView *)outlineView validateDrop:(id <NSDraggingInfo>)info proposedItem:(id)item proposedChildIndex:(int)index {
 	id realItem = item;
 	item = [item respondsToSelector:@selector(representedObject)] ? [item representedObject] : [item observedObject];
-    int dragOperation = (([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) ? NSDragOperationCopy : NSDragOperationNone);
+    int dragOperation = (([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) ? NSDragOperationCopy : NSDragOperationMove);
     
-    if (!item && index == -1) return NSDragOperationNone;
-    if (!item && index != -1) {
+    if ([draggedEntries containsObject:item])
+        return NSDragOperationNone;
+    
+    if (!item && index == -1) {
+//        NSLog(@"No item, and index == -1");
+        dragOperation = NSDragOperationNone;
+    } else if (!item && index != -1) {
+//        NSLog(@"No item, but index == %d", index);
         [outlineView setDropItem:realItem dropChildIndex:index];
-        return dragOperation;
+    } else if (item && [item isGroup]) {
+//        NSLog(@"Has item, which is a group, index == %d", index);
+        if(index == -1)
+            [outlineView setDropItem:realItem dropChildIndex:NSOutlineViewDropOnItemIndex];
+        else
+            [outlineView setDropItem:realItem dropChildIndex:index];
+    } else {
+//        NSLog(@"On Item (isGroup: %@)?", ([item isGroup] ? @"YES" : @"NO"));
+        dragOperation = NSDragOperationNone;
     }
-    if (item && [item isGroup]) {
-        [outlineView setDropItem:realItem dropChildIndex:NSOutlineViewDropOnItemIndex];
-        return dragOperation;
-    }
-    NSLog(@"Item is %@", item);
-    NSLog(@"index: %d", index);
-    
     return dragOperation;
 #if 0
 	if ((!item && index != 0) || [item isGroup]) {
@@ -761,9 +777,6 @@
 				//	if ([[item path] hasPrefix:[entry path]])
 				//		return NSDragOperationNone;
 			}
-
-			if ([draggedEntries containsObject:item])
-				return NSDragOperationNone;
 
 			//		if ([[NSSet setWithArray:[item ancestors]]intersectsSet:[NSSet setWithArray:draggedEntries]])
 			//			return NSDragOperationNone;

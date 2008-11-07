@@ -117,7 +117,10 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	return [QSObject fileObjectWithPath:destination];
 }
 
-- (void)addTrigger:(QSObject *)dObject {
+- (QSObject*)addTrigger:(QSObject *)dObject withInfo:(QSObject*)iObject {
+#warning TODO: iObject contains a string which allows passing missing parameters (trigger type, mainly)
+    /* More TODO: Ask the trigger's trigger manager to parse the iObject stringValue,
+     * so that trigger manager get a chance to customize their properties */
 	QSCommand *command = (QSCommand*)dObject;
     
 	NSMutableDictionary *info = [NSMutableDictionary dictionaryWithCapacity:5];
@@ -134,6 +137,9 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	[[QSTriggerCenter sharedInstance] addTrigger:trigger];
 	[[NSClassFromString(@"QSPreferencesController") sharedInstance] showPaneWithIdentifier:@"QSTriggersPrefPane"];
 	[[NSClassFromString(@"QSTriggersPrefPane") sharedInstance] showTrigger:trigger];
+    [[NSClassFromString(@"QSTriggersPrefPane") sharedInstance] setTabViewIndex:0];
+    [[NSClassFromString(@"QSTriggersPrefPane") sharedInstance] showTriggerInfo:trigger];
+    return nil;
 }
 
 - (QSObject *)executeCommand:(QSObject *)dObject afterDelay:(QSObject *)iObject {
