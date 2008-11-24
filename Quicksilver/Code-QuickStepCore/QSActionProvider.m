@@ -14,7 +14,10 @@
 - (NSArray *)types { return nil;  }
 - (NSArray *)fileTypes { return nil;}
 - (QSAction *)initializeAction:(QSAction *)action { return action;  }
-- (int) argumentCountForAction:(NSString *)action { return 1; }
+- (int)argumentCountForAction:(NSString *)action {
+    return [[[[QSAction actionWithIdentifier:action] objectForKey:kActionSelector] componentsSeparatedByString:@":"] count] - 1;
+}
+
 - (NSString *)titleForAction:(NSString *)action {
 	NSString *title = [[NSBundle bundleForClass:[self class]] safeLocalizedStringForKey:action value:action table:@"QSAction.name"];
 	return title ? title : action;

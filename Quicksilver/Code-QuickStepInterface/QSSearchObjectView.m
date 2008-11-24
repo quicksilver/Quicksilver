@@ -78,7 +78,6 @@ NSMutableDictionary *bindingsDict = nil;
 	validSearch = YES;
     
 	[resultController window];
-	[[resultController window] setFrameUsingName:@"results" force:YES];
 	[self setVisibleString:@""];
 
 	[[self cell] bind:@"highlightColor" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSAppearance2A" options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:@"NSValueTransformerName"]];
@@ -953,15 +952,6 @@ NSMutableDictionary *bindingsDict = nil;
 	}
 }
 
-#warning TODO: Can this be removed ?
-- (void)encapsulateCommand:(id)sender {
-    [[self controller] encapsulateCommand:self];
-}
-
-- (void)executeCommandAndContinue:(id)sender {
-	[[self controller] executeCommandAndContinue:self];
-}
-
 - (void)executeCommand:(id)sender {
 	[resultTimer invalidate];
 	if ([searchTimer isValid]) {
@@ -983,20 +973,17 @@ NSMutableDictionary *bindingsDict = nil;
 		[self transmogrify:self];
 		//  NSLog(@"%@", [[self objectValue] dataDictionary]);
 		if (defaultValue) {
-            
 			[self setObjectValue:[QSObject objectWithString:defaultValue]];
 			[[self currentEditor] setString:defaultValue];
 			[[self currentEditor] selectAll:self];
 		}
 	}
-    
 	return [super becomeFirstResponder];
 }
 
 - (BOOL)resignFirstResponder {
 	//NSLog(@"resign first");
 	if ([self currentEditor]) {
-        
 		// NSLog(@"resign first with monkey %@", self);
 		// [[self currentEditor] endEditing];
 	}
@@ -1031,7 +1018,6 @@ NSMutableDictionary *bindingsDict = nil;
     if (VERBOSE && moreComing) NSLog(@"moreComing");
     
 	// ***warning  * have downshift move to indirect object
-    
 	if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"/"] && [self handleSlashEvent:theEvent])
         return;
 	if (([[theEvent characters] isEqualToString:@"~"] || [[theEvent characters] isEqualToString:@"`"]) && [self handleTildeEvent:theEvent])
@@ -1043,8 +1029,8 @@ NSMutableDictionary *bindingsDict = nil;
 		[self insertSpace:nil];
 		return;
 	}
-	// ***warning  * have downshift move to indirect object
     
+	// ***warning  * have downshift move to indirect object
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Shift Actions"]
         && [theEvent modifierFlags] &NSShiftKeyMask
         && ([[theEvent characters] length] >= 1)
@@ -1073,7 +1059,7 @@ NSMutableDictionary *bindingsDict = nil;
 	[[self window] makeFirstResponder:[self actionSelector]];
 	// ***warning  * toggle first responder on key up
     
-	[(QSInterfaceController *)[[self window] windowController] fireActionUpdateTimer];
+	[[self controller] fireActionUpdateTimer];
 	[[self actionSelector] keyDown:theEvent];
 	return YES;
 }
@@ -1124,7 +1110,7 @@ NSMutableDictionary *bindingsDict = nil;
     
 	[[self window] makeFirstResponder:[self window]];
     
-    
+#warning FIXME: What was the purpose of this ?
 #if 1
 	[self insertNewline:self];
     
@@ -1354,7 +1340,7 @@ NSMutableDictionary *bindingsDict = nil;
 #pragma mark NSResponder Key Bindings
 - (void)deleteBackward:(id)sender {
     if(defaultBool(kDoubleDeleteClearsObject) && [self matchedString] == nil)
-        [self delete:sender];
+        [super delete:sender];
     else
         [self clearSearch];
 }

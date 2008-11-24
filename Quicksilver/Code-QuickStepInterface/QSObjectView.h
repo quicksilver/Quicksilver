@@ -59,4 +59,6 @@ typedef enum {
 - (QSInterfaceController *)controller;
 - (NSSize)cellSize;
 - (void)mouseClicked:(NSEvent *)theEvent;
+
+- (void)delete:(id)sender;
 @end

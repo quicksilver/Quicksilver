@@ -178,10 +178,10 @@ target:
 	//com.apple.finder
 	return [QSObject fileObjectWithArray:[self selection]];
 }
+
 - (NSArray *)typesForProxyObject:(id)proxy {
 	return [NSArray arrayWithObject:QSFilePathType];
 }
-
 
 - (NSArray *)actionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
 	// Trash Object

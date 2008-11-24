@@ -345,7 +345,7 @@ QSExecutor *QSExec;
 	}
 	NSArray *actions = nil;
 	NS_DURING
-		actions = [aObject validActionsForDirectObject:dObject indirectObject:nil];
+		actions = [aObject validActionsForDirectObject:dObject indirectObject:iObject];
 	NS_HANDLER
 		;
 	NS_ENDHANDLER
@@ -521,27 +521,26 @@ QSExecutor *QSExec;
 - (BOOL)handleInfo:(id)info ofType:(NSString *)type fromBundle:(NSBundle *)bundle {
 	if (info) {
         NSEnumerator *e = [info keyEnumerator];
-        NSMutableDictionary *actionDict;
+        NSDictionary *actionDict;
         NSString *key;
         while (key = [e nextObject]) {
             actionDict = [info objectForKey:key];
             
-            if ([[actionDict objectForKey:@"disabled"] boolValue]) continue;
+            if ([[actionDict objectForKey:kItemFeatureLevel] intValue] > [NSApp featureLevel]) {
+                NSLog(@"Prevented load of action %@", [actionDict objectForKey:kItemID]);
+                continue;
+            }
             
-            actionDict = [actionDict mutableCopy];
-            
-            [actionDict setObject:key forKey:kActionIdentifier];
-            
-            QSAction *action = [QSAction actionWithDictionary:actionDict];
+            QSAction *action = [QSAction actionWithDictionary:actionDict identifier:key];
             [action setBundle:bundle];
             
-            if ([[actionDict objectForKey:@"initialize"] boolValue] && [[action provider] respondsToSelector:@selector(initializeAction:)])
+            if ([[actionDict objectForKey:kActionInitialize] boolValue] && [[action provider] respondsToSelector:@selector(initializeAction:)])
                 action = [[action provider] initializeAction:action];
+            
             if (action) {
                 [self addAction:action];
                 [[self makeArrayForSource:[bundle bundleIdentifier]] addObject:action];
             }
-            [actionDict release];
         }
 	} else {
 		//		NSDictionary *providers = [[[plugin bundle] dictionaryForFileOrPlistKey:@"QSRegistration"] objectForKey:@"QSActionProviders"];

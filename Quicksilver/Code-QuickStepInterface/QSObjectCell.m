@@ -293,7 +293,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 		if ([self highlightsBy] || isFirstResponder) {
 			QSObject *drawObject = [self representedObject];
 			BOOL action = [drawObject respondsToSelector:@selector(argumentCount)];
-			int argCount = (action?[(QSAction *)drawObject argumentCount] :0);
+			int argCount = (action ? [(QSAction *)drawObject argumentCount] : 0);
 			//BOOL indentRight = (indentLeft && [drawObject argumentCount] >1);
 			NSRect borderRect = NSInsetRect(cellFrame, 2.25, 2.25);
 			[roundRect setLineWidth:1.5];
@@ -365,7 +365,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 }
 
 - (void)drawSearchPlaceholderWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
-	NSString *defaultText = @"Type to search";
+	NSString *defaultText = NSLocalizedStringFromTableInBundle(@"Type to search", nil, [NSBundle mainBundle], @"Type to search");
 	NSSize textSize = [defaultText sizeWithAttributes:detailsAttributes];
 	NSRect textRect = centerRectInRect(rectFromSize(textSize), cellFrame);
 	  BOOL isFirstResponder = [[controlView window] firstResponder] == controlView && ![controlView isKindOfClass:[NSTableView class]];
@@ -385,9 +385,8 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 - (id)objectValue {
 	return [self representedObject];
 }
+
 - (void)setObjectValue:(id)value {
-	//NSLog(@"value %@", value);
-	if (value);
 	[self setRepresentedObject:value];
 }
 
@@ -399,13 +398,12 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 	if ([drawObject isKindOfClass:[QSNullObject class]]) return;
 	//	[drawObject loadIcon];
 	if (!drawObject) { // Draw default string
-		[self drawSearchPlaceholderWithFrame:(NSRect) cellFrame inView:(NSView *)controlView];
+		[self drawSearchPlaceholderWithFrame:cellFrame inView:controlView];
 		return;
 	}
 
-
-	[self drawIconForObject:drawObject withFrame:(NSRect) cellFrame inView:(NSView *)controlView];
-	[self drawTextForObject:drawObject withFrame:(NSRect) cellFrame inView:(NSView *)controlView];
+	[self drawIconForObject:drawObject withFrame:cellFrame inView:controlView];
+	[self drawTextForObject:drawObject withFrame:cellFrame inView:controlView];
 }
 
 - (void)drawIconForObject:(QSObject *)object withFrame:(NSRect)cellFrame inView:(NSView *)controlView {
@@ -413,6 +411,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 	[self drawObjectImage:object inRect:drawingRect cellFrame:cellFrame controlView:controlView flipped:[controlView isFlipped] opacity:1.0];
 	//[self drawObjectImage:object inRect:NSOffsetRect(drawingRect, 0, -NSHeight(drawingRect) *1.1) cellFrame:cellFrame controlView:controlView flipped:!flipped opacity:0.25];
 }
+
 - (void)buildStylesForFrame:(NSRect)cellFrame inView:(NSView *)controlView {
 	//	BOOL wideDraw = NSWidth(cellFrame) /NSHeight(cellFrame) > 2;
 	//  BOOL isFirstResponder = [[controlView window] firstResponder] == controlView && ![controlView isKindOfClass:[NSTableView class]];
@@ -503,6 +502,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 		}
 
 		if (showDetails && [detailsString length]) {
+            NSLog(@"Strings are %@, %@, sizes are %@, %@", nameString, detailsString, NSStringFromSize(nameSize), NSStringFromSize(detailsSize));
 			float detailHeight = NSHeight(textDrawRect) -nameSize.height;
 			NSRange returnRange;
 			if (detailHeight<detailsSize.height && (returnRange = [detailsString rangeOfString:@"\n"]) .location != NSNotFound)

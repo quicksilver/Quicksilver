@@ -19,7 +19,6 @@
 #define kActionIcon @"icon"
 #define kActionName @"name"
 #define kActionUserData @"userData"
-#define kActionEnabled @"enabled"
 #define kActionIdentifier @"id"
 
 // arrays:
@@ -34,6 +33,8 @@
 #define kActionReverseArguments @"reverseArguments"
 #define kActionSplitPluralArguments @"splitPlural"
 #define kActionValidatesObjects @"validatesObjects"
+#define kActionInitialize @"initialize"
+#define kActionEnabled @"enabled"
 
 // NSNumber (float) :
 #define kActionPrecedence @"precedence"
@@ -78,6 +79,8 @@
 - (void)setIndirectOptional:(BOOL)flag;
 - (BOOL)displaysResult;
 - (void)setDisplaysResult:(BOOL)flag;
+
+- (id)objectForKey:(NSString*)key;
 
 - (NSString *)commandFormat;
 @end

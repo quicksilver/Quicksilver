@@ -21,10 +21,6 @@ static BOOL gModifiersAreIgnored;
 }
 #endif
 
-/*+ (void)initialize {
-	actionPrecedence = [[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ActionsPrecedence" ofType:@"plist"]] retain];
-}*/
-
 + (id)actionWithDictionary:(NSDictionary *)dict {
     return [[[self alloc] initWithDictionary:dict] autorelease];
 }
@@ -86,6 +82,10 @@ static BOOL gModifiersAreIgnored;
 
 - (NSMutableDictionary*)actionDict {
     return [self objectForType:QSActionType];
+}
+
+- (id)objectForKey:(NSString*)key {
+    return [[self actionDict] objectForKey:key];
 }
 
 - (float)precedence {
@@ -154,7 +154,8 @@ static BOOL gModifiersAreIgnored;
     return YES;
 }
 
-//- (SEL) action { return [self actionDict];  }
+- (SEL)action { return NSSelectorFromString([[self actionDict] objectForKey:kActionSelector]); }
+
 - (void)setAction:(SEL)newAction {
 	if (newAction)
 		[[self actionDict] setObject:NSStringFromSelector(newAction) forKey:kActionSelector];
@@ -162,8 +163,21 @@ static BOOL gModifiersAreIgnored;
 		[[self actionDict] removeObjectForKey:kActionSelector];
 }
 
+- (int)argumentCount {
+    id obj = [[self actionDict] objectForKey:kActionArgumentCount];
+    if (obj)
+        return [obj intValue];
+    
+    id provider = [self provider];
+    if ([provider respondsToSelector:@selector(argumentCountForAction:)])
+        return [provider argumentCountForAction:[self identifier]];
+    
+    return [[QSActionProvider provider] argumentCountForAction:[self identifier]];
+}
+
 - (void)setArgumentCount:(int)newArgumentCount {
-	[[self actionDict] setObject:[NSNumber numberWithInt:newArgumentCount] forKey:kActionArgumentCount];
+    [[self actionDict] setObject:[NSNumber numberWithInt:newArgumentCount]
+                          forKey:kActionArgumentCount];
 }
 
 - (BOOL)reverse { return [[[self actionDict] objectForKey:kActionReverseArguments] boolValue]; }
@@ -224,8 +238,6 @@ static BOOL gModifiersAreIgnored;
 #endif
 	return [menu autorelease];
 }
-
-- (int)argumentCount { return [[[[self actionDict] objectForKey:kActionSelector] componentsSeparatedByString:@":"] count] - 1;  }
 
 - (QSObject *)performOnDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
 	NSDictionary *dict = [self actionDict];
@@ -305,7 +317,7 @@ static BOOL gModifiersAreIgnored;
 		return [[(QSAction *)object actionDict] objectForKey:@"description"];
 }
 
-- (void)setQuickIconForObject:(QSObject *)object { [object setIcon:[NSImage imageNamed:@"defaultAction"]];  }
+- (void)setQuickIconForObject:(QSObject *)object { [object setIcon:[NSImage imageNamed:@"defaultAction"]]; }
 
 - (BOOL)drawIconForObject:(QSObject *)object inRect:(NSRect)rect flipped:(BOOL)flipped { return NO; }
 

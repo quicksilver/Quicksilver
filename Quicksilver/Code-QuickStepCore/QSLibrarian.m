@@ -564,13 +564,13 @@ static float searchSpeed = 0.0;
 }
 
 - (float) estimatedTimeForSearchInSet:(id)set {
-	float estimate = (set?[(NSArray *)set count] :[(NSArray *)defaultSearchSet count])*searchSpeed;
-	// if (VERBOSE) NSLog(@"Estimte: %fms avg: %dÂµs", estimate*1000, (int)(searchSpeed*1000000));
+	float estimate = (set ? [set count] : [defaultSearchSet count]) * searchSpeed;
+	if (VERBOSE)
+        NSLog(@"Estimate: %fms avg: %dµs", estimate * 1000, (int)(searchSpeed * 1000000));
 	return MIN(estimate, 0.5);
 }
 
 - (NSMutableArray *)scoreTest:(id)sender {
-
 	NSArray *array = [NSArray arrayWithObjects:@"a", @"b", @"c", @"d", @"e", @"f", @"g", @"h", @"i", @"j", @"k", @"l", @"m", @"n", @"o", @"p", @"q", @"r", @"s", @"t", @"u", @"v", @"w", @"x", @"y", @"z", nil];
 	int i, j;
 	int count = [array count];
@@ -586,12 +586,8 @@ static float searchSpeed = 0.0;
 	for(i = 0; i<count; i++) {
 		date = [NSDate date];
 		for(j = 0; j<25; j++) {
-
-
 			//	NSData *scores;
 			NSString *string = [array objectAtIndex:i];
-
-			//date = [NSDate date];
 			pool = [[NSAutoreleasePool alloc] init];
 			newResultArray = [self scoredArrayForString:string inSet:nil mnemonicsOnly:NO];
 			//if (VERBOSE) NSLog(@"Searched for \"%@\" in %3fms (%d items) ", string, (1000 * -[date timeIntervalSinceNow]) , [newResultArray count]);
@@ -599,9 +595,7 @@ static float searchSpeed = 0.0;
 			[pool release];
 		}
 
-		if (VERBOSE) NSLog(@"SearchTesA in %3fs, %3fs", -[date timeIntervalSinceNow] , -[totalDate timeIntervalSinceNow]);
-
-		//	if (VERBOSE) NSLog(@"SearchTest in %3fs, %f", -[totalDate timeIntervalSinceNow] , moo);
+		if (VERBOSE) NSLog(@"SearchTest in %3fs, %3fs", -[date timeIntervalSinceNow] , -[totalDate timeIntervalSinceNow]);
 	}
 	return nil;
 }

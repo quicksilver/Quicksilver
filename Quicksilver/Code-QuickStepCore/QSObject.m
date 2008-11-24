@@ -352,25 +352,26 @@ NSSize QSMaxIconSize;
 	id handler = nil;
 	if (handler = [self handlerForSelector:@selector(detailsOfObject:)]) {
 		details = [handler detailsOfObject:self];
-		if (details) [meta setObject:details forKey:kQSObjectDetails];
-		return details;
 	}
-	/*
-	 if ([[self primaryType] isEqualToString:NSFilenamesPboardType]) {
-	 }
-	 */
-	//if ([[self primaryType] isEqualToString:NSURLPboardType])
-	// return itemForKey(NSURLPboardType);
 
-	if ([itemForKey([self primaryType]) isKindOfClass:[NSString class]])
-	  return itemForKey([self primaryType]);
-
-	//if ([[self types] containsObject:@"BookmarkDictionaryListPboardType"])
-	// return @"Safari Bookmarks";
-
-	return nil; //[[data allKeys] componentsJoinedByString:@", "];
-
+    if (details)
+        details = [[self bundle] safeLocalizedStringForKey:details
+                                                     value:nil
+                                                     table:@"QSObject.details"];    
+    else
+        details = [[self bundle] safeLocalizedStringForKey:[self identifier]
+                                                     value:nil
+                                                     table:@"QSObject.details"];
+    if (details != nil) {
+        [self setObject:details forMeta:kQSObjectDetails];
+    }
+    
+    if ([itemForKey([self primaryType]) isKindOfClass:[NSString class]])
+        return itemForKey([self primaryType]);
+    
+	return nil;
 }
+
 - (id)primaryObject {return itemForKey([self primaryType]);}
 	//- (id)objectForKey:(id)aKey {return [data objectForKey:aKey];}
 	//- (void)setObject:(id)object forKey:(id)aKey {[data setObject:object forKey:aKey];}
@@ -637,16 +638,24 @@ NSSize QSMaxIconSize;
 
 - (NSString *)label {
 	// if (!label) return nil; //[self name];
-	return label;
-	return 	[meta objectForKey:kQSObjectAlternateName];
-
+    if (label)
+        return label;
+    
+    label = [meta objectForKey:kQSObjectAlternateName];
+    if (label)
+        return label;
+    
+    return nil;
 }
+
 - (void)setLabel:(NSString *)newLabel {
-	if (![newLabel isEqualToString:[self name]]) {
+	if (newLabel != label) {
 		[label release];
 		label = [newLabel retain];
-		if (newLabel) [meta setObject:newLabel forKey:kQSObjectAlternateName];
-		else [meta removeObjectForKey:kQSObjectAlternateName];
+		if (newLabel)
+            [meta setObject:newLabel forKey:kQSObjectAlternateName];
+		else
+            [meta removeObjectForKey:kQSObjectAlternateName];
 	}
 }
 
