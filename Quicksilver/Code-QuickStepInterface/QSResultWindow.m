@@ -9,6 +9,11 @@
 	[self setShowEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSSlightGrowEffect", @"transformFn", @"show", @"type", [NSNumber numberWithFloat:0.1] , @"duration", nil]];
 	[self setHideEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSSlightShrinkEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithFloat:0.1] , @"duration", nil]];
 
+    if([self setFrameUsingName:@"results"])
+        [[self class] removeFrameUsingName:@"results"];
+    
+    [self setFrameAutosaveName:@"QSResultWindow"];
+    
 	[self setBackgroundColor:[NSColor whiteColor]];
 	[self setMovableByWindowBackground:NO];
 	[self setHasShadow:YES];
@@ -23,7 +28,5 @@
 - (BOOL)acceptsFirstResponder {return NO;}
 - (BOOL)canBecomeKeyWindow {return NO;}
 - (BOOL)canBecomeMainWindow {return NO;}
-
-
 
 @end

@@ -39,6 +39,8 @@
 - (IBAction)shortCircuit:(id)sender;
 - (IBAction)encapsulateCommand:(id)sender;
 
+- (IBAction)customize:(id)sender;
+
 - (IBAction)hideWindows:(id)sender;
 
 - (IBAction)showTasks:(id)sender;

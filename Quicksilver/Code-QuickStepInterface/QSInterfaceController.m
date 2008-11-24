@@ -300,7 +300,9 @@
 }
 
 - (void)updateViewLocations {
-	if ([(QSAction *)[aSelector objectValue] argumentCount] == 2)
+    QSAction *obj = [aSelector objectValue];
+    int argc = [obj argumentCount];
+	if ([obj isKindOfClass:[QSAction class]] && argc == 2)
 		[self showIndirectSelector:nil];
 	else
 		[self hideIndirectSelector:nil];
@@ -348,10 +350,13 @@
 		[self updateActions];
 		[self updateViewLocations];
 	} else if ([notif object] == aSelector) {
-		int argumentCount = [(QSAction *)[aSelector objectValue] argumentCount];
-		if (argumentCount == 2)
-			[self updateIndirectObjects];
-		[self updateViewLocations];
+        QSAction *obj = [aSelector objectValue];
+        if ([obj isKindOfClass:[QSAction class]]) {
+            int argumentCount = [obj argumentCount];
+            if (argumentCount == 2)
+                [self updateIndirectObjects];
+            [self updateViewLocations];
+        }
 	} else if ([notif object] == iSelector) {
 		[self updateViewLocations];
 	}
@@ -552,7 +557,16 @@
 	NSEvent *theEvent = [NSApp nextEventMatchingMask:NSKeyDownMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.075] inMode:NSDefaultRunLoopMode dequeue:YES];
 #warning dont do this unless the character is alphabetic
 	if (theEvent) {
-		theEvent = [NSEvent keyEventWithType:[theEvent type] location:[theEvent locationInWindow] modifierFlags:0 timestamp:[theEvent timestamp] windowNumber:[theEvent windowNumber] context:[theEvent context] characters:[theEvent charactersIgnoringModifiers] charactersIgnoringModifiers:[theEvent charactersIgnoringModifiers] isARepeat:[theEvent isARepeat] keyCode:[theEvent keyCode]];
+		theEvent = [NSEvent keyEventWithType:[theEvent type]
+                                    location:[theEvent locationInWindow]
+                               modifierFlags:0
+                                   timestamp:[theEvent timestamp]
+                                windowNumber:[theEvent windowNumber]
+                                     context:[theEvent context]
+                                  characters:[theEvent charactersIgnoringModifiers]
+                 charactersIgnoringModifiers:[theEvent charactersIgnoringModifiers]
+                                   isARepeat:[theEvent isARepeat]
+                                     keyCode:[theEvent keyCode]];
 		if (VERBOSE) NSLog(@"Ignoring Modifiers for characters: %@", [theEvent characters]);
 		[NSApp postEvent:theEvent atStart:YES];
 		//NSLog(@"time2 %f", [theEvent timestamp]);
@@ -619,7 +633,11 @@
 }
 
 - (IBAction)encapsulateCommand:(id)sender {
-	[self executeCommand:(id)sender cont:NO encapsulate:YES];
+	[self executeCommand:sender cont:NO encapsulate:YES];
+}
+
+- (IBAction)customize:(id)sender {
+    
 }
 
 - (IBAction)hideWindows:(id)sender {

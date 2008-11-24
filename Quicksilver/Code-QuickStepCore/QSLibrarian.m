@@ -566,7 +566,7 @@ static float searchSpeed = 0.0;
 - (float) estimatedTimeForSearchInSet:(id)set {
 	float estimate = (set ? [set count] : [defaultSearchSet count]) * searchSpeed;
 	if (VERBOSE)
-        NSLog(@"Estimate: %fms avg: %d�s", estimate * 1000, (int)(searchSpeed * 1000000));
+        NSLog(@"Estimate: %fms avg: %dµs", estimate * 1000, (int)(searchSpeed * 1000000));
 	return MIN(estimate, 0.5);
 }
 
@@ -621,7 +621,7 @@ static float searchSpeed = 0.0;
 	if (count)
         searchSpeed = ((speed + searchSpeed) / 2.0f);
 	if (VERBOSE)
-        NSLog(@"Ranking: %fms avg: %dµs", -([date timeIntervalSinceNow] * 1000), (int)(speed * 1000000));
+        NSLog(@"Ranking: %fms avg: %d¬µs", -([date timeIntervalSinceNow] * 1000), (int)(speed * 1000000));
     
  	[rankObjects sortUsingSelector:@selector(scoreCompare:)];
 /*    NSArray *rankedObjects = [rankObjects arrayByPerformingSelector:@selector(object)];

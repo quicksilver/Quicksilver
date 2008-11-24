@@ -29,7 +29,6 @@
 //	NSArray **sourceArrayPointer;
 	NSTimer *iconTimer;
 	NSTimer *childrenLoadTimer;
-	BOOL hideChildren;
 	BOOL loadingIcons;
 	BOOL loadingChildIcons;
 	BOOL iconLoadValid;

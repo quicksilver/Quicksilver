@@ -66,7 +66,6 @@ NSMutableDictionary *kindDescriptions = nil;
 		selectedItem = nil;
 		loadingRange = NSMakeRange(0, 0);
 		scrollViewTrackingRect = 0;
-		//[self setSplitLocation];
 	}
 	return self;
 }
@@ -84,7 +83,9 @@ NSMutableDictionary *kindDescriptions = nil;
 	[(QSWindow *)[self window] setShowOffset:NSMakePoint(16, 0)];
 	[self setupResultTable];
 	// [[[self window] contentView] flipSubviewsOnAxis:1];
-
+    
+    [splitView setAutosaveName:@"QSResultWindowSplitView"];
+    
 	if (![[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
 		NSView *tableView = [resultTable enclosingScrollView];
 		[[tableView retain] autorelease];
@@ -95,7 +96,6 @@ NSMutableDictionary *kindDescriptions = nil;
 		[[splitView superview] addSubview:tableView];
 		resultChildTable = nil;
 		[splitView removeFromSuperview];
-
 	}
     NSUserDefaultsController *sucd = [NSUserDefaultsController sharedUserDefaultsController];
     [sucd addObserver:self
@@ -192,7 +192,7 @@ NSMutableDictionary *kindDescriptions = nil;
 	[resultChildTable reloadData];
 }
 
-- (void)setSplitLocation {
+/*- (void)setSplitLocation {
 	NSNumber *resultWidth = [[NSUserDefaults standardUserDefaults] objectForKey:kResultTableSplit];
     
 	if (resultWidth) {
@@ -205,14 +205,14 @@ NSMutableDictionary *kindDescriptions = nil;
 		[firstView setFrame:frame];
         
 		frame.origin.x += NSWidth(frame);
-		frame.size.width = NSWidth([splitView frame]) -NSWidth(frame)-[splitView dividerThickness];
+		frame.size.width = NSWidth([splitView frame]) - NSWidth(frame) - [splitView dividerThickness];
         
 		[[[splitView subviews] lastObject] setFrame:frame];
         
 		[splitView adjustSubviews];
 		[splitView display];
 	}
-}
+}*/
 
 #pragma mark -
 #pragma mark Icon Loading
@@ -226,14 +226,7 @@ NSMutableDictionary *kindDescriptions = nil;
 	}
 	return YES;
 }
-/*
- -(void)iconLoader:(QSIconLoader *)loader finishedLoadingArray:sourceArray {
- if (loader == resultIconLoader)
- [self setResultIconLoader:nil];
- else if (loader == resultChildIconLoader)
- [self setResultChildIconLoader:nil];
- }
- */
+
 - (void)iconLoader:(QSIconLoader *)loader loadedIndex:(int)m inArray:(NSArray *)array {
 	//	NSLog(@"loaded");
 	NSTableView *table = nil;
@@ -317,11 +310,12 @@ NSMutableDictionary *kindDescriptions = nil;
 - (void)updateSelectionInfo {
 	selectedResult = [resultTable selectedRow];
     
-	if (selectedResult<0 || ![[self currentResults] count]) return;
+	if (selectedResult < 0 || ![[self currentResults] count]) return;
 	QSObject *newSelectedItem = [[self currentResults] objectAtIndex:selectedResult];
     
-	NSString *status = [NSString stringWithFormat:@"%d of %d", selectedResult+1, [[self currentResults] count]];
-	NSString *details = [selectedItem details] ?[selectedItem details] :@"";
+    NSString *fmt = NSLocalizedStringFromTableInBundle(@"%d of %d", nil, nil, [NSBundle bundleForClass:[self class]]);
+	NSString *status = [NSString stringWithFormat:fmt, selectedResult + 1, [[self currentResults] count]];
+	NSString *details = [selectedItem details] ? [selectedItem details] : @"";
     
 	if ([resultTable rowHeight] < 34 && details)
 		status = [status stringByAppendingFormat:@" %C %@", 0x25B8, details];
@@ -330,22 +324,17 @@ NSMutableDictionary *kindDescriptions = nil;
     
 	if (selectedItem != newSelectedItem) {
 		[self setSelectedItem:newSelectedItem];
-        
-		//		[[[resultTable tableColumnWithIdentifier: COLUMNID_NAME] headerCell] setStringValue:];
-        
-		//	 [[resultTable headerView] setNeedsDisplay:YES];
-		//  [resultTable _setNeedsDisplayForColumn:1 draggedDelta:0.0];
-        
-		hideChildren = YES;
 		[resultChildTable noteNumberOfRowsChanged];
         
-		if ([[NSApp currentEvent] modifierFlags] &NSFunctionKeyMask && [[NSApp currentEvent] isARepeat]) {
+		if ([[NSApp currentEvent] modifierFlags] & NSFunctionKeyMask && [[NSApp currentEvent] isARepeat]) {
 			if ([childrenLoadTimer isValid]) {
 				[childrenLoadTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
 			} else {
 				// ***warning  * this should be triggered by the keyUp
-				[childrenLoadTimer release];
-				childrenLoadTimer = [[NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(loadChildren) userInfo:nil repeats:NO] retain];
+                if (![NSApp nextEventMatchingMask:NSKeyUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.333] inMode:NSDefaultRunLoopMode dequeue:NO]) {
+                    [childrenLoadTimer release];
+                    childrenLoadTimer = [[NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(loadChildren) userInfo:nil repeats:NO] retain];
+                }
 			}
 		} else {
 			[self loadChildren];
@@ -392,12 +381,6 @@ NSMutableDictionary *kindDescriptions = nil;
 #pragma mark -
 #pragma mark NSWindow Delegate
 - (void)windowDidResize:(NSNotification *)aNotification {
-	[[self window] saveFrameUsingName:@"results"];
-	//	NSLog(@"win"); ;
-	[[NSUserDefaults standardUserDefaults] synchronize];
-	//  visibleRange = [resultTable rowsInRect:[resultTable visibleRect]];
-	/// visibleChildRange = [resultChildTable rowsInRect:[resultChildTable visibleRect]];
-
 	if ([self numberOfRowsInTableView:resultTable] && [[NSUserDefaults standardUserDefaults] boolForKey:kShowIcons])
 		[[self resultIconLoader] loadIconsInRange:[resultTable rowsInRect:[resultTable visibleRect]]];
 	if (!NSEqualRects(NSZeroRect, [resultChildTable visibleRect]) && [self numberOfRowsInTableView:resultChildTable])
@@ -405,25 +388,6 @@ NSMutableDictionary *kindDescriptions = nil;
 
 	[self updateScrollViewTrackingRect];
 }
-
-/*
- -(void)threadedIconLoad {
-	 if (!loadingIcons && [[NSUserDefaults standardUserDefaults] boolForKey:kShowIcons]) {
-		 loadingIcons = YES;
-		 [NSThread detachNewThreadSelector:@selector(loadIconsInTable:) toTarget:self withObject:resultTable];
-	 }
-	 else iconLoadValid = NO;
- }
- -(void)threadedChildIconLoad {
-
-	 //NSLog(@"load child icons");
-	 if (!loadingChildIcons && [[NSUserDefaults standardUserDefaults] boolForKey:kShowIcons]) {
-		 loadingChildIcons = YES;
-		 [NSThread detachNewThreadSelector:@selector(loadIconsInTable:) toTarget:self withObject:resultChildTable];
-	 }
-	 else childIconLoadValid = NO;
- }
- */
 
 #pragma mark -
 #pragma mark NSSplitView Delegate
@@ -434,18 +398,9 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 - (float) splitView:(NSSplitView *)sender constrainMinCoordinate:(float)proposedMin ofSubviewAt:(int)offset {
-	NSLog(@"constrainMin: %f, %d", proposedMin, offset);
-	// if (offset)
-
-	return NSWidth([sender frame]) /2;
-
-	return proposedMin;
+	//NSLog(@"constrainMin: %f, %d", proposedMin, offset);
+	return NSWidth([sender frame]) / 2;
 }
-
-//- (float) splitView:(NSSplitView *)splitView constrainSplitPosition:(float)proposedPosition ofSubviewAt:(int)offset {
-//NSLog(@"constrainSplit: %f, %d", proposedPosition, offset);
-//return [splitView frame] .size.height-160;
-//}
 
 - (BOOL)splitView:(NSSplitView *)sender canCollapseSubview:(NSView *)subview {
 	//NSLog(@"collapse");
@@ -469,7 +424,7 @@ NSMutableDictionary *kindDescriptions = nil;
 	rightFrame.size.height = newFrame.size.height;
 
 	rightFrame.size.width = MIN(rightFrame.size.width, newFrame.size.width/2);
-	if (rightFrame.size.width<32) rightFrame.size.width = 0;
+	if (rightFrame.size.width < 32) rightFrame.size.width = 0;
 
 	leftFrame.size.width = newFrame.size.width - rightFrame.size.width - dividerThickness;
 
@@ -477,15 +432,14 @@ NSMutableDictionary *kindDescriptions = nil;
 
 	[sv1 setFrame:leftFrame];
 	[sv2 setFrame:rightFrame];
-
 }
 
 - (void)splitViewDidResizeSubviews:(NSNotification *)notification {
-	// if ([[NSApp currentEvent] type] == NSLeftMouseDragged) {
-	//	 NSLog(@"%f", NSWidth([[resultChildTable enclosingScrollView] frame]) /NSWidth([splitView frame]));
-	//	[[NSUserDefaults standardUserDefaults] setFloat:NSWidth([[resultChildTable enclosingScrollView] frame]) /NSWidth([splitView frame])
-	//												 forKey:kResultTableSplit];
-	//	}
+	if ([[NSApp currentEvent] type] == NSLeftMouseDragged) {
+        CGFloat split = NSWidth([[resultChildTable enclosingScrollView] frame]) / NSWidth([splitView frame]);
+        [[NSUserDefaults standardUserDefaults] setFloat:split
+                                                 forKey:kResultTableSplit];
+    }
 }
 
 @end
@@ -553,23 +507,18 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 - (void)childViewChanged:(NSNotification*)notif {
+	NSRange newRange = [resultChildTable rowsInRect:[resultChildTable visibleRect]];
 	//visibleRange = [resultTable rowsInRect:[resultTable visibleRect]];
 	//s NSLog(@"%d-%d are visible", visibleRange.location, visibleRange.location+visibleRange.length); /
 	// [self threadedChildIconLoad];
+	if ([self numberOfRowsInTableView:resultTable] && [[NSUserDefaults standardUserDefaults] boolForKey:kShowIcons])
+		[[self resultChildIconLoader] loadIconsInRange:newRange];
 }
 
 - (int)numberOfRowsInTableView:(NSTableView *)tableView {
-
-	//NSLog(@"rows?");
 	if (tableView == resultChildTable) {
-		//if ([[NSApp currentEvent] isARepeat]) return 0;
-		if (hideChildren) {
-			hideChildren = NO;
-			return 0;
-		}
-		return[[selectedItem children] count];
+		return [[selectedItem children] count];
 	} else {
-		// NSLog(@"%d results", [[self currentResults] count]);
 		return [[self currentResults] count];
 	}
 }
@@ -651,7 +600,6 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification {
-
 	if (aNotification && [aNotification object] != resultTable) return;
 
 	if (selectedResult != -1 && selectedResult != [resultTable selectedRow]) {
@@ -660,15 +608,7 @@ NSMutableDictionary *kindDescriptions = nil;
 		[self updateSelectionInfo];
 	}
 }
-- (void)tableViewSelectionIsChanging:(NSNotification *)aNotification {
 
-	// NSLog(@"ischanging");
-}
-/*
- - (void)tableView:(NSTableView *)tableView didClickTableColumn:(NSTableColumn *)tableColumn {
-	 NSLog(@"clicx %@", tableColumn);
- }
- */
 - (IBAction)tableViewAction:(id)sender {
 	//NSLog(@"action %@ %d %d", sender, [sender clickedColumn] , [sender clickedRow]);
 	if ([sender clickedRow] == -1) {
