@@ -320,8 +320,10 @@ NSSize QSMaxIconSize;
 
 - (id)handlerForType:(NSString *)type selector:(SEL)selector {
 	id handler = [[QSReg objectHandlers] objectForKey:type];
-	if (!selector || [handler respondsToSelector:selector]) return handler;
-	return nil;
+    if(DEBUG && handler == nil)
+        NSLog(@"No handler for type %@", type);
+    
+    return (selector == NULL ? handler : ( [handler respondsToSelector:selector] ? handler : nil ) );
 }
 
 - (id)handlerForSelector:(SEL)selector {
@@ -331,7 +333,6 @@ NSSize QSMaxIconSize;
 - (id)handler {
 	return [self handlerForType:[self primaryType] selector:nil];
 }
-
 
 - (BOOL)drawIconInRect:(NSRect)rect flipped:(BOOL)flipped {
 	id handler = nil;

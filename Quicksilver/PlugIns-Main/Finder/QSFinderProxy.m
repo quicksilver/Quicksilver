@@ -4,8 +4,6 @@
 #import <QSFoundation/NSObject+ReaperExtensions.h>
 #import <QSFoundation/NSAppleScript_BLTRExtensions.h>
 
-
-
 @implementation QSFinderProxy
 + (id)sharedInstance {
 	static id _sharedInstance;
@@ -76,6 +74,7 @@
 - (BOOL)openFile:(NSString *)file {
 	return [[NSWorkspace sharedWorkspace] openFile:file];
 }
+
 - (NSArray *)deleteFiles:(NSArray *)files {
 	return nil;
 }
@@ -174,21 +173,10 @@ target:
 
 
 - (id)resolveProxyObject:(id)proxy {
-	//	NSLog(@"provide");
-	//com.apple.finder
 	return [QSObject fileObjectWithArray:[self selection]];
 }
 
 - (NSArray *)typesForProxyObject:(id)proxy {
 	return [NSArray arrayWithObject:QSFilePathType];
 }
-
-- (NSArray *)actionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
-	// Trash Object
-    return [NSMutableArray arrayWithObjects:
-            [QSAction actionWithIdentifier:kFinderOpenTrashAction],
-            [QSAction actionWithIdentifier:kFinderEmptyTrashAction],
-            nil];
-}
-
 @end

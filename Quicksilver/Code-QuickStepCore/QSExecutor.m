@@ -36,9 +36,9 @@
 
 QSExecutor *QSExec;
 
-@interface QSObject (QSActionsHandlerProtocol)
+/*@interface QSObject (QSActionsHandlerProtocol)
 - (NSArray *)actionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
-@end
+@end*/
 
 @interface QSAction (QSPrivate)
 - (void)_setRank:(int)newRank;
@@ -291,14 +291,9 @@ QSExecutor *QSExec;
 }
 
 - (NSArray *)rankedActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject shouldBypass:(BOOL)bypass {
-	NSMutableArray *actions = nil;
-	if ([[dObject handler] respondsToSelector:@selector(actionsForDirectObject:indirectObject:)])
-		actions = (NSMutableArray *)[[dObject handler] actionsForDirectObject:dObject indirectObject:iObject];
-
-	if ([dObject isKindOfClass:[QSRankedObject class]]) {
-		dObject = [(QSRankedObject*)dObject object];
-	}
-	BOOL bypassValidation=
+	NSArray *actions = nil;
+    
+	BOOL bypassValidation =
 		(bypass && [dObject isKindOfClass:[QSProxyObject class]] && [(QSProxyObject *)dObject bypassValidation]);
 
 	if (bypassValidation) {
@@ -306,21 +301,19 @@ QSExecutor *QSExec;
 		actions = [[[actionIdentifiers allValues] mutableCopy] autorelease];
 	}
 	if (!actions)
-		actions = (NSMutableArray *)[self validActionsForDirectObject:dObject indirectObject:iObject];
+		actions = [self validActionsForDirectObject:dObject indirectObject:iObject];
 
 	NSString *preferredActionID = [dObject objectForMeta:kQSObjectDefaultAction];
 
 	id preferredAction = nil;
-	if ([preferredActionID isEqualToString:@""])
-		preferredAction = [NSNull null];
-	else if (preferredActionID)
+    if (preferredActionID)
 		preferredAction = [self actionForIdentifier:preferredActionID];
 
 	//	NSLog(@"prefer \"%@\"", preferredActionID);
 	//	NSLog(@"actions %d", [actions count]);
 #if 1
 	NSSortDescriptor *rankDescriptor = [[NSSortDescriptor alloc] initWithKey:@"rank" ascending:YES];
-	[actions sortUsingDescriptors:[NSArray arrayWithObject:rankDescriptor]];
+	actions = [actions sortedArrayUsingDescriptors:[NSArray arrayWithObject:rankDescriptor]];
 	[rankDescriptor release];
 #else
 	actions = [QSLib scoredArrayForString:[NSString stringWithFormat:@"QSActionMnemonic:%@", [dObject primaryType]] inSet:actions mnemonicsOnly:YES];
@@ -414,9 +407,7 @@ QSExecutor *QSExec;
 		//if ([validSourceActions count])
 		//	NSLog(@"Actions for %@:%@", thisAction, validSourceActions);
 
-
 		if (isValid) [validActions addObject:thisAction];
-
 	}
 
 
@@ -425,7 +416,7 @@ QSExecutor *QSExec;
 		NSLog(@"unable to find actions %@\r%@", oldActionObjects, actionIdentifiers);
 		NSLog(@"types %@ %@", types, fileType);
 	}
-	return validActions;
+	return [[validActions copy] autorelease];
 }
 
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
