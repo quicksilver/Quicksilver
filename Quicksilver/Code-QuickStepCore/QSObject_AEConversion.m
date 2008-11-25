@@ -13,36 +13,33 @@
 
 @implementation QSObject (AEConversion)
 
-- (QSObject *)initWithAEDescriptor:(NSAppleEventDescriptor *)desc {
+/*- (QSObject *)initWithAEDescriptor:(NSAppleEventDescriptor *)desc {
 	if (self = [self init]) {
 		[self setName:@"AEObject"];
-
 		[self setObject:desc forType:kQSAEDescriptorType];
 	}
 	return self;
-}
+}*/
 
-+ (QSObject *)objectWithAEDescriptor:(NSAppleEventDescriptor *)desc types:(NSArray *)types {
-	NSString *type = [types lastObject];
-	NSLog(@"type is %@", type);
-	desc = [NSAppleEventDescriptor descriptorWithDescriptorType:[desc descriptorType] data:[desc data]];
-	NSLog(@"type is %@ %@", desc, [desc objectValueAPPLE]);
++ (QSObject *)objectWithAEDescriptor:(NSAppleEventDescriptor *)desc {
+    NSMutableArray * objects = [NSMutableArray arrayWithCapacity:[desc numberOfItems]];
+    
+    NSArray *handlers = [[NSSet setWithArray:[[QSReg objectHandlers] allValues]] allObjects];
+    
+    foreach( object, objects ) {
+        foreach( handler, handlers ) {
+            id obj = nil;
+            if ([handler respondsToSelector:@selector(objectWithAEDescriptor:)])
+                obj = [handler objectWithAEDescriptor:desc];
+            
+            if (obj)
+                [objects addObject:obj];
+        }
+    }
 
-	id handler = [QSReg getClassInstance:[[QSReg tableNamed:@"QSAETypeConverters"] valueForKey:type]];
-	if (handler)
-		return [handler objectWithAEDescriptor:desc types:types];
-
-	//	DescType t = [desc descriptorType];
-	//	NSString *type = nil;
-	//	if (t == typeAEList)
-	//		type = NSFileTypeForHFSTypeCode([[desc descriptorAtIndex:1] descriptorType]);
-	//	else
-	//		type = NSFileTypeForHFSTypeCode([desc descriptorType]);
-
-	//id ob = [desc objectValue];
-	//NSLog(@"object %@", ob);
-
-	return [[[self alloc] initWithAEDescriptor:desc] autorelease];
+    if([objects count] == 0)
+        NSLog(@"Unhandled AE conversion from descriptor %@", desc);
+	return [QSObject objectByMergingObjects:objects];
 }
 
 - (NSAppleEventDescriptor *)AEDescriptor {

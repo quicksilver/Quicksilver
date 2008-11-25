@@ -611,14 +611,16 @@ QSController *QSCon;
 		object = [QSObject fileObjectWithArray:(NSArray *)desc];
 	else if (fDEV) {
 		NSLog(@"descriptor %@ %@", NSStringFromClass([desc class]), desc);
-		object = [QSObject objectWithAEDescriptor:desc types:(NSArray *)types];
+		object = [QSObject objectWithAEDescriptor:desc];// types:types];
 	}
 	NSLog(@"object %@", object);
 	[self receiveObject:object];
 }
+
 - (void)setAESelection:(NSAppleEventDescriptor *)desc {
 	[self setAESelection:desc types:nil];
 }
+
 - (NSAppleEventDescriptor *)AESelection {
 	QSObject *selection = (QSObject*)[[self interfaceController] selection];
 	NSLog(@"object %@", selection);

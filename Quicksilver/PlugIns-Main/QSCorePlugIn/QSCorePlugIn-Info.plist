@@ -839,21 +839,6 @@
 			<key>validatesObjects</key>
 			<true/>
 		</dict>
-		<key>QSObjectAssignLabelAction</key>
-		<dict>
-			<key>actionClass</key>
-			<string>QSObjectActions</string>
-			<key>actionSelector</key>
-			<string>labelObject:withString:</string>
-			<key>directTypes</key>
-			<array>
-				<string>*</string>
-			</array>
-			<key>disabled</key>
-			<true/>
-			<key>feature</key>
-			<integer>1</integer>
-		</dict>
 		<key>QSObjectAssignMnemonic</key>
 		<dict>
 			<key>actionClass</key>
@@ -874,19 +859,6 @@
 			<string>Assign Abbreviation...</string>
 			<key>precedence</key>
 			<real>-0.2</real>
-		</dict>
-		<key>QSObjectOmitAction</key>
-		<dict>
-			<key>actionClass</key>
-			<string>QSObjectActions</string>
-			<key>actionSelector</key>
-			<string>omitObject:</string>
-			<key>directTypes</key>
-			<array>
-				<string>*</string>
-			</array>
-			<key>disabled</key>
-			<true/>
 		</dict>
 		<key>QSObjectSearchChildrenAction</key>
 		<dict>
@@ -1080,21 +1052,6 @@
 			</array>
 			<key>name</key>
 			<string>Play Sound</string>
-		</dict>
-		<key>QSTextDiffAction</key>
-		<dict>
-			<key>actionClass</key>
-			<string>QSTextActions</string>
-			<key>actionSelector</key>
-			<string>diffObject:withObject:</string>
-			<key>directTypes</key>
-			<array>
-				<string>NSStringPboardType</string>
-			</array>
-			<key>disabled</key>
-			<true/>
-			<key>enabled</key>
-			<false/>
 		</dict>
 		<key>QSTextShowDialogAction</key>
 		<dict>
@@ -2110,9 +2067,11 @@
 			<key>QSGroupObjectSource</key>
 			<string>QSGroupObjectSource</string>
 			<key>QSHandledObjectHandler</key>
-			<string>QSHandledObjectHandler</string>
+			<string>QSInternalObjectSource</string>
 			<key>QSHistoryObjectSource</key>
 			<string>QSHistoryObjectSource</string>
+			<key>QSInternalObjectSource</key>
+			<string>QSInternalObjectSource</string>
 			<key>QSObjCMessageSource</key>
 			<string>QSObjCMessageSource</string>
 			<key>QSProcessObjectSource</key>
@@ -2123,11 +2082,6 @@
 			<string>QSVolumesObjectSource</string>
 			<key>QSWebSource</key>
 			<string>QSWebSource</string>
-		</dict>
-		<key>QSPlugInLoaders</key>
-		<dict>
-			<key>QSAppleScriptActions</key>
-			<string>QSAppleScriptActions</string>
 		</dict>
 		<key>QSProxies</key>
 		<dict>

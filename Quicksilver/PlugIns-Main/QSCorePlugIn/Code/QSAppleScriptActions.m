@@ -8,6 +8,7 @@
 
 #import "QSAppleScriptActions.h"
 #import "QSTaskController.h"
+#import "QSObject_AEConversion.h"
 #import "QSObject_PropertyList.h"
 #import "QSObject_FileHandling.h"
 #import "QSObject_StringHandling.h"
@@ -21,25 +22,26 @@
 
 @implementation QSAppleScriptActions
 
-+ (void)loadPlugIn {}
-
 - (QSAction *)scriptActionForPath:(NSString *)path {
 	NSArray *handlers = [NSAppleScript validHandlersFromArray:[NSArray arrayWithObjects:@"aevtoapp", @"DAEDopnt", @"aevtodoc", nil] inScriptFile:path];
 
-	QSAction *action = [QSAction actionWithIdentifier:[@"[Action] :" stringByAppendingString:path]];
-	NSMutableDictionary *actionDict = [action actionDict];
-	[actionDict setObject:path forKey:@"actionScript"];
-	[actionDict setObject:NSStringFromClass([self class]) forKey:kActionClass];
-	[actionDict setObject:self forKey:kActionProvider];
+	NSMutableDictionary *actionDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                       NSStringFromClass([self class]),    kActionClass,
+                                       self,    kActionProvider,
+                                       path,    kActionScript,
+                                       nil];
+    
 	if ([handlers containsObject:@"DAEDopnt"]) {
-		[actionDict setObject:[NSArray arrayWithObject:QSTextType] forKey:@"directTypes"];
-		[actionDict setObject:@"QSOpenTextEventPlaceholder" forKey:@"actionHandler"];
+		[actionDict setObject:[NSArray arrayWithObject:QSTextType] forKey:kActionDirectTypes];
+		[actionDict setObject:@"QSOpenTextEventPlaceholder" forKey:kActionHandler];
 	}
 	if ([handlers containsObject:@"aevtodoc"]) {
-		[actionDict setObject:[NSArray arrayWithObject:QSFilePathType] forKey:@"directTypes"];
-		[actionDict setObject:@"QSOpenFileEventPlaceholder" forKey:@"actionHandler"];
+		[actionDict setObject:[NSArray arrayWithObject:QSFilePathType] forKey:kActionDirectTypes];
+		[actionDict setObject:@"QSOpenFileEventPlaceholder" forKey:kActionHandler];
 	}
-	[action setName:[[path lastPathComponent] stringByDeletingPathExtension]];
+    NSString *actionName = [[path lastPathComponent] stringByDeletingPathExtension];
+    QSAction *action = [QSAction actionWithDictionary:actionDict identifier:[@"[Action]:" stringByAppendingString:path]];
+    [action setName:actionName];
 	[action setObject:path forMeta:kQSObjectIconName];
 	return action;
 }
@@ -49,7 +51,7 @@
 	NSString *path;
 	NSMutableArray *array = [NSMutableArray array];
 	while(path = [e nextObject]) {
-		if ([[path pathExtension] isEqualToString:@"scpt"]) {
+		if ([QSUTIOfFile(path) isEqualToString:QSUTIForExtensionOrType(@"scpt", 0)]) {
 			[array addObject:[self scriptActionForPath:path]];
 		}
 	}
@@ -73,8 +75,6 @@
     id returnObj = nil;
 	NSAppleScript *script = [[NSAppleScript alloc] initWithSource:[self stringWithCorrectedLazyTell:[dObject objectForType:QSTextType]]];
 	if([script compileAndReturnError:&errorDict]) {
-//		NSAppleEventDescriptor *returnVal = ;
-//		if (VERBOSE) NSLog(@"Returned: %@", returnVal);
 		returnObj = [[script executeAndReturnError:&errorDict] stringValue];
 		if (returnObj)
 			returnObj = [QSObject objectWithString:returnObj];
@@ -83,7 +83,7 @@
 	return returnObj;
 }
 
-- (QSObject *)doAppleScriptRunWithArgumentsAction:(QSObject *)dObject withArguments:(QSObject *)iObject {
+- (QSObject *)doAppleScriptRunAction:(QSObject *)dObject withArguments:(QSObject *)iObject {
 	[self runAppleScript:[dObject singleFilePath] withArguments:iObject];
 	return nil;
 }
@@ -93,8 +93,9 @@
 	return nil;
 }
 
-- (void)runAppleScript:(NSString *)scriptPath withArguments:(QSObject *)iObject {
+- (QSObject*)runAppleScript:(NSString *)scriptPath withArguments:(QSObject *)iObject {
 	NSDictionary *errorDict = nil;
+    NSAppleEventDescriptor * returnDesc = nil;
 
 	[[QSTaskController sharedInstance] updateTask:@"Run AppleScript" status:@"Loading Script" progress:-1];
 	NSAppleScript *script = [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:scriptPath] error:&errorDict];
@@ -103,7 +104,7 @@
 	if (errorDict) {
 		NSLog(@"Load Script: %@", [errorDict objectForKey:@"NSAppleScriptErrorMessage"]);
         [script release];
-		return;
+		return nil;
 	}
 
 	if (!iObject) {
@@ -118,12 +119,15 @@
 		if (files) {
 			event = [[NSAppleEventDescriptor alloc] initWithEventClass:kCoreEventClass eventID:kAEOpenDocuments targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
 			[event setParamDescriptor:[NSAppleEventDescriptor aliasListDescriptorWithArray:files] forKeyword:keyDirectObject];
-		} else {
+		} else if([iObject AEDescriptor]) {
+            event = [[NSAppleEventDescriptor alloc] initWithEventClass:kCoreEventClass eventID:kAEOpenDocuments targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
+			[event setParamDescriptor:[iObject AEDescriptor] forKeyword:keyDirectObject];
+        } else {
 			event = [[NSAppleEventDescriptor alloc] initWithEventClass:kQSScriptSuite eventID:kQSOpenTextScriptCommand targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
 			[event setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:[iObject stringValue]] forKeyword:keyDirectObject];
 		}
 		[targetAddress release];
-		[script executeAppleEvent:event error:&errorInfo];
+		returnDesc = [script executeAppleEvent:event error:&errorInfo];
 		[event release];
 		//NSLog(@"%@", errorInfo);
 	}
@@ -131,6 +135,7 @@
 	[script storeInFile:@"scriptPath"];
 	[[QSTaskController sharedInstance] removeTask:@"Run AppleScript"];
 	[script release];
+    return [QSObject objectWithAEDescriptor:returnDesc];
 }
 
 - (QSObject *)objectForDescriptor:(NSAppleEventDescriptor *)desc {
@@ -167,18 +172,19 @@
 
 	if ([handler isEqualToString:@"QSOpenFileEventPlaceholder"]) {
 		NSArray *files = [dObject validPaths];
-		event = [[[NSAppleEventDescriptor alloc] initWithEventClass:kCoreEventClass eventID:kAEOpenDocuments targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID] autorelease];
+		event = [[NSAppleEventDescriptor alloc] initWithEventClass:kCoreEventClass eventID:kAEOpenDocuments targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
 		[event setParamDescriptor:[NSAppleEventDescriptor aliasListDescriptorWithArray:files] forKeyword:keyDirectObject];
 	} else if ([handler isEqualToString:@"QSOpenTextEventPlaceholder"]) {
-		event = [[[NSAppleEventDescriptor alloc] initWithEventClass:kQSScriptSuite eventID:kQSOpenTextScriptCommand targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID] autorelease];
+		event = [[NSAppleEventDescriptor alloc] initWithEventClass:kQSScriptSuite eventID:kQSOpenTextScriptCommand targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
 		[event setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:[dObject stringValue]] forKeyword:keyDirectObject];
 	} else {
 		id object;
-		NSArray *types = [[action actionDict] objectForKey:kActionDirectTypes];
-		NSString *type = ([types count]) ? [types objectAtIndex:0] :[dObject primaryType];
+		NSArray *types = [action objectForKey:kActionDirectTypes];
+		NSString *type = ([types count]) ? [types objectAtIndex:0] : [dObject primaryType];
 		object = [dObject arrayForType:type];
-		object = ([type isEqual:QSFilePathType]) ? [NSAppleEventDescriptor aliasListDescriptorWithArray:object] : [NSAppleEventDescriptor descriptorWithObject:object];
-		event = [NSAppleEventDescriptor descriptorWithSubroutineName:handler argumentsArray:[NSArray arrayWithObject:object]];
+		object = ([type isEqual:QSFilePathType] ? [NSAppleEventDescriptor aliasListDescriptorWithArray:object] : [NSAppleEventDescriptor descriptorWithObject:object]);
+        
+		event = [[NSAppleEventDescriptor alloc] initWithSubroutineName:handler argumentsArray:[NSArray arrayWithObject:object]];
 	}
 
 	id result = [self objectForDescriptor:[script executeAppleEvent:event error:&errorDict]];
@@ -205,8 +211,13 @@
 	}
 	return nil;
 }
+
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
-	return ([action isEqualToString:kAppleScriptOpenTextAction]) ? [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@""]] : nil;
+	return ([action isEqualToString:kAppleScriptOpenTextAction] ? [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@""]] : nil);
 }
 
+- (int)argumentCountForAction:(NSString *)action {
+#warning TODO: Allow script access
+    return 1;
+}
 @end

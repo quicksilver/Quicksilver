@@ -319,7 +319,7 @@
 /*!
 	@method descriptorWithCString:
 	@abstract Returns a <tt>NSAppleEventDescriptor</tt> containing a string the c string..
-	@discussion Returns a <tt>NSAppleEventDescriptor</tt> containing a descriptor of type <tt>typeText</tt> or <tt>typeChar</tt>
+	@discussion Returns a <tt>NSAppleEventDescriptor</tt> containing a descriptor of type <tt>typeText</tt> or <tt>typeChar</tt>. (typeText is considered as deprecated, use +descriptorWithString: instead)
 	@param aString A c string.
 	@result A <tt>NSAppleEventDescriptor</tt> containing plain text.
  */

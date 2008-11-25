@@ -48,34 +48,26 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
 	foreach(component, [script componentsSeparatedByString: @"%%%"]) {
 		if (![component hasPrefix:@" {"]) continue;
 		if (![component hasSuffix:@"} "]) continue;
-		component = [component substringWithRange:NSMakeRange(1, [(NSString *)component length] -2)];
+		component = [component substringWithRange:NSMakeRange(1, [(NSString *)component length] - 2)];
 		NSArray *keyval = [component componentsSeparatedByString:@"="];
 
 		if ([keyval count] == 2) [scriptDict setObject:[keyval objectAtIndex:1] forKey:[keyval objectAtIndex:0]];
 		//NSLog(@"dictionary:%@", scriptDict);
 	}
-
-//	NSLog(@"script %@", scriptDict);
-	QSAction *action = [QSAction actionWithIdentifier:[@"[Action] :" stringByAppendingString:path]];
-	[[action actionDict] setObject:path forKey:@"actionScript"];
-
-	[[action actionDict] setObject:scriptDict forKey:@"scriptAttributes"];
-	[[action actionDict] setObject:NSStringFromClass([self class]) forKey:kActionClass];
-	[[action actionDict] setObject:self forKey:kActionProvider];
-
-	[[action actionDict] setObject:[NSArray arrayWithObjects:QSFilePathType, QSTextType, nil] forKey:@"directTypes"];
-
+    
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                 [NSArray arrayWithObjects:QSFilePathType, QSTextType, nil], @"directTypes",
+                                 NSStringFromClass([self class]),  kActionClass,
+                                 path,         @"actionScript",
+                                 scriptDict,   @"scriptAttributes",
+                                 self,         kActionProvider,
+                                 nil];
+    
 	NSString *iconName = [scriptDict objectForKey:@"QSIcon"];
 	if (iconName)
-		[[action actionDict] setObject:iconName forKey:@"icon"];
-//	if ([handlers containsObject:@"DAEDopnt"]) {
-//		[[action actionDict] setObject:[NSArray arrayWithObject:QSTextType] forKey:@"directTypes"];
-//	}
+		[dict setObject:iconName forKey:kActionIcon];
 
-//	if ([handlers containsObject:@"aevtodoc"]) {
-//		[[action actionDict] setObject:[NSArray arrayWithObject:QSFilePathType] forKey:@"directTypes"];
-//	}
-
+	QSAction *action = [QSAction actionWithDictionary:dict identifier:[@"[Action] :" stringByAppendingString:path]];
 	[action setName:[[path lastPathComponent] stringByDeletingPathExtension]];
 	[action setObject:path forMeta:kQSObjectIconName];
 	return action;
@@ -113,8 +105,7 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
 
 	NSString *result = [self runExecutable:scriptPath withArguments:arguments];
 	//NSLog(@"dict %@", [action actionDict]);
-	if ([[[action actionDict] valueForKeyPath:@"scriptAttributes.QSHandling"] isEqualToString:@"QSTextViewer"]) {
-
+	if ([[[action objectForKey:@"scriptAttributes"] objectForKey:@"QSHandling"] isEqualToString:@"QSTextViewer"]) {
 		QSShowTextViewerWithString(result);
 		return nil;
 	}
@@ -132,7 +123,7 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
 }
 
 - (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
-	if (QSPathCanBeExecuted([dObject singleFilePath] , NO) )
+	if (QSPathCanBeExecuted([dObject singleFilePath], NO) )
 		return [NSArray arrayWithObject:kQSShellScriptRunAction];
 	return nil;
 }
@@ -151,7 +142,6 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
 	NSMutableArray *argArray = [NSMutableArray array];
 
 	if (!executable) {
-
 		[argArray addObject:taskPath];
 		taskPath = QSGetShebangPathForScript(path);
 	}

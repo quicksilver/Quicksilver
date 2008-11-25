@@ -268,7 +268,8 @@
 		char				* objCType;
 		DescType			descType;
 		unsigned short	size;
-	}		theTypes[] = {
+	}
+    theTypes[] = {
 		{ @encode(float), typeIEEE32BitFloatingPoint, sizeof(float) },
 		{ @encode(double), typeIEEE64BitFloatingPoint, sizeof(double) },
 		{ @encode(long double), type128BitFloatingPoint, sizeof(long double) },
@@ -1028,7 +1029,7 @@
 	if( self = [self initWithEventClass:kASAppleScriptSuite eventID:kASSubroutineEvent
 									 targetDescriptor:[NSAppleEventDescriptor currentProcessDescriptor] returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID] )
 	{
-		[self setParamDescriptor:[NSAppleEventDescriptor descriptorWithCString:[[aRoutineName lowercaseString] lossyCString]] forKeyword:keyASSubroutineName];
+		[self setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:[aRoutineName lowercaseString]] forKeyword:keyASSubroutineName];
 		[self setParamDescriptor:aParam ? aParam : [NSAppleEventDescriptor listDescriptor] forKeyword:keyDirectObject];
 	}
 
@@ -1044,7 +1045,7 @@
 														 targetDescriptor:[NSAppleEventDescriptor currentProcessDescriptor] returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID] )
 	{
 		unsigned int		theIndex;
-		[self setParamDescriptor:[NSAppleEventDescriptor descriptorWithCString:[[aRoutineName lowercaseString] lossyCString]] forKeyword:keyASSubroutineName];
+		[self setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:[aRoutineName lowercaseString]] forKeyword:keyASSubroutineName];
 		for( theIndex = 0; theIndex < aCount; theIndex++ )
 		{
 			if( aLabels[theIndex] == keyASPrepositionGiven
@@ -1076,7 +1077,7 @@
 												  targetDescriptor:[NSAppleEventDescriptor currentProcessDescriptor] returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID] )
 	{
 		unsigned int		theIndex;
-		[self setParamDescriptor:[NSAppleEventDescriptor descriptorWithCString:[[aRoutineName lowercaseString] lossyCString]] forKeyword:keyASSubroutineName];
+		[self setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:[aRoutineName lowercaseString]] forKeyword:keyASSubroutineName];
 		for( theIndex = 0; theIndex < aCount; theIndex++ )
 			[self setParamDescriptor:aParam[theIndex] forKeyword:aLabels[theIndex]];
 	}
@@ -1091,7 +1092,7 @@
 {
 	if( self = [self initWithEventClass:kASAppleScriptSuite eventID:kASPrepositionalSubroutine targetDescriptor:[NSAppleEventDescriptor currentProcessDescriptor] returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID] )
 	{
-		[self setParamDescriptor:[NSAppleEventDescriptor descriptorWithCString:[[aRoutineName lowercaseString] lossyCString]] forKeyword:keyASSubroutineName];
+		[self setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:[aRoutineName lowercaseString]] forKeyword:keyASSubroutineName];
 		do
 		{
 			id		theObject = va_arg( anArgList, id );

@@ -11,6 +11,6 @@
 
 @interface QSObject (AEConversion)
 - (NSAppleEventDescriptor *)AEDescriptor;
-+ (QSObject *)objectWithAEDescriptor:(NSAppleEventDescriptor *)desc types:(NSArray *)types;
++ (QSObject *)objectWithAEDescriptor:(NSAppleEventDescriptor *)desc;
 
 @end

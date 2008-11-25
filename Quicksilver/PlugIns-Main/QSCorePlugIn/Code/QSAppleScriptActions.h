@@ -20,6 +20,6 @@
 
 
 @interface QSAppleScriptActions : QSActionProvider
-- (void)runAppleScript:(NSString *)scriptPath withArguments:(QSObject *)iObject;
+- (QSObject*)runAppleScript:(NSString *)scriptPath withArguments:(QSObject *)iObject;
 @end
 
