@@ -313,7 +313,7 @@ NSMutableDictionary *kindDescriptions = nil;
 	if (selectedResult < 0 || ![[self currentResults] count]) return;
 	QSObject *newSelectedItem = [[self currentResults] objectAtIndex:selectedResult];
     
-    NSString *fmt = NSLocalizedStringFromTableInBundle(@"%d of %d", nil, nil, [NSBundle bundleForClass:[self class]]);
+    NSString *fmt = NSLocalizedStringFromTableInBundle(@"%d of %d", nil, [NSBundle bundleForClass:[self class]], @"");
 	NSString *status = [NSString stringWithFormat:fmt, selectedResult + 1, [[self currentResults] count]];
 	NSString *details = [selectedItem details] ? [selectedItem details] : @"";
     

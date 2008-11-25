@@ -242,7 +242,7 @@
 
 - (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
 	NSMutableArray *newActions = [NSMutableArray arrayWithObject:kFileGetPathAction];
-	if ([dObject validPaths]){
+	if ([dObject validPaths]) {
 		[newActions addObject:kFileOpenAction];
 		[newActions addObject:kFileOpenWithAction];
 		[newActions addObject:kFileRevealAction];
@@ -255,7 +255,6 @@
 	}
 	if ([dObject validSingleFilePath])
 		[newActions addObject:kFileRenameAction];
-//	[newActions addObject:kFileGetPathAction];
 	return newActions;
 }
 

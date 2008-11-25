@@ -52,7 +52,7 @@
 + (id)objectsWithDictionaryArray:(NSArray *)dictionaryArray {
 	NSMutableArray *dictObjectArray = [NSMutableArray arrayWithCapacity:[dictionaryArray count]];
 	int i;
-	for (i = 0; i<[dictionaryArray count]; i++) {
+	for (i = 0; i < [dictionaryArray count]; i++) {
 		NS_DURING
 			[dictObjectArray addObject:[self objectWithDictionary:[dictionaryArray objectAtIndex:i]]];
 		NS_HANDLER

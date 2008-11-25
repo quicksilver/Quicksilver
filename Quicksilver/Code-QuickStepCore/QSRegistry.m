@@ -181,15 +181,15 @@ QSRegistry* QSReg = nil;
 	}
 }
 
-+ (void)registerClassName:(NSString *)className inTable:(NSString *)table {[[self sharedInstance] registerClassName:(NSString *)className inTable:(NSString *)table];} ;
++ (void)registerClassName:(NSString *)className inTable:(NSString *)table { [[self sharedInstance] registerClassName:(NSString *)className inTable:(NSString *)table]; }
 - (void)registerClassName:(NSString *)className inTable:(NSString *)table {
 	[[self tableNamed:table] setObject:className forKey:className];
 }
 
-+ (void)registerHandler:(id)handler forType:(NSString *)type {[[self sharedInstance] registerHandler:(id)handler forType:(NSString *)type];} ;
++ (void)registerHandler:(id)handler forType:(NSString *)type {[[self sharedInstance] registerHandler:handler forType:type]; }
 - (void)registerHandler:(id)handler forType:(NSString *)type {
 	NSMutableDictionary *typeHandlers = [self tableNamed:kQSObjectHandlers];
-	if (type){
+	if (type) {
 		[[self retainedTableNamed:kQSObjectHandlers] setObject:[self getClassInstance:handler] forKey:type];
 		if (handler)
 			[typeHandlers setObject:handler forKey:type];
@@ -206,6 +206,7 @@ QSRegistry* QSReg = nil;
 - (id)preferredInstanceOfTable:(NSString *)table {
 	return [prefInstances objectForKey:table];
 }
+
 - (void)removePreferredInstanceOfTable:table {
 	NSString *className = NSStringFromClass([[prefInstances objectForKey:table] class]);
 	if (className)
@@ -416,7 +417,7 @@ QSRegistry* QSReg = nil;
 @end
 
 @implementation QSRegistry (ObjectHandlers)
-+ (NSMutableDictionary *)objectHandlers {return[[self sharedInstance] objectHandlers];}
++ (NSMutableDictionary *)objectHandlers {return [[self sharedInstance] objectHandlers];}
 - (NSMutableDictionary *)objectHandlers {return [self retainedTableNamed:kQSObjectHandlers];}
 @end
 

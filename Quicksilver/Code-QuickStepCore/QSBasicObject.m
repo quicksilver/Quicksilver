@@ -66,7 +66,7 @@
 	return [[self types] containsObject:aType];
 }
 
-- (int) primaryCount {return 0;}
+- (int)primaryCount {return 0;}
 
 - (NSImage *)icon {
 	return [NSImage imageNamed:@"Object"];
@@ -80,6 +80,10 @@
 	return [self icon];
 }
 - (void)becameSelected { return; }
+
+- (id)this { return self; }
+
+- (id)thisWithIcon { return self; };
 
 - (NSString *)displayName {return [self name];}
 - (NSString *)details {return nil;}

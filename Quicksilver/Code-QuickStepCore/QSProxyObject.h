@@ -20,6 +20,9 @@
 
 @protocol QSProxyObjectProvider
 - (id)resolveProxyObject:(id)proxy;
+@end
+
+@interface NSObject (QSProxyObjectProvider)
 - (NSArray *)typesForProxyObject:(id)proxy;
 - (BOOL)bypassValidation;
 - (NSTimeInterval)cacheTimeForProxy:(id)proxy;

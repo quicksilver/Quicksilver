@@ -19,15 +19,14 @@ extern NSString *QSIMAccountType; 				//NSString ("AIM:accountname") also MSN, I
 extern NSString *QSIMMultiAccountType; 				//NSSet of ("AIM:accountname") also MSN, ICQ, Jabber, Yahoo
 extern NSString *QSCommandType; 			//QSCommand
 extern NSString *QSHandledType; 			//NSDictionary
+
 // Pasteboard types
-
-
 #define QSPrivatePboardType @"QSPrivatePboardType" // This pasteboard type prevents recording by the Clip History
 
 
 #define standardPasteboardTypes [NSArray arrayWithObjects:@"Apple URL pasteboard type", NSColorPboardType, NSFileContentsPboardType, NSFilenamesPboardType, NSFontPboardType, NSHTMLPboardType, NSPDFPboardType, NSPICTPboardType, NSPostScriptPboardType, NSRulerPboardType, NSRTFPboardType, NSRTFDPboardType, NSStringPboardType, NSTabularTextPboardType, NSTIFFPboardType, NSURLPboardType, NSVCardPboardType, NSFilesPromisePboardType, nil]
 
-#define clippingTypes [NSSet setWithObjects:@"textClipping", @"pictClipping", @"'clpp'", @"textClipping", @"'clpt'", @"webloc", @"inetloc", @"'ilht'", @"'ilaf'", nil]
+#define clippingTypes [NSSet setWithObjects:@"textClipping", @"pictClipping", @"'clpp'", @"'clpt'", @"webloc", @"inetloc", @"'ilht'", @"'ilaf'", nil]
 #define PLISTTYPES [NSArray arrayWithObjects:NSFilenamesPboardType, @"ABPeopleUIDsPboardType", @"WebURLsWithTitlesPboardType", @"AddressesPboardType", nil]
 #define TEXTTYPES [NSSet setWithObjects:@"QSObjectID", NSStringPboardType, @"NeXT plain ascii pasteboard type", NSTabularTextPboardType, NSHTMLPboardType, nil]
 #define SYLETYPES [NSSet setWithObjects:NSStringPboardType, @"NeXT Rich Text Format v1.0 pasteboard type", @"NeXT Rich Text Format v1.0 pasteboard type", nil]

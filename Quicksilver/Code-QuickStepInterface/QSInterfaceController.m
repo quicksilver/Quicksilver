@@ -271,7 +271,15 @@
 }
 
 - (NSArray *)rankedActions {
-	return [QSExec rankedActionsForDirectObject:[dSelector objectValue] indirectObject:[iSelector objectValue]];
+    id dObject = [dSelector objectValue];
+    id iObject = [iSelector objectValue];
+    if([dObject isKindOfClass:[QSRankedObject class]])
+        dObject = [dObject object];
+    
+    if([iObject isKindOfClass:[QSRankedObject class]])
+        dObject = [iObject object];
+    
+	return [QSExec rankedActionsForDirectObject:dObject indirectObject:iObject];
 }
 
 - (void)updateActions {
@@ -634,10 +642,6 @@
 
 - (IBAction)encapsulateCommand:(id)sender {
 	[self executeCommand:sender cont:NO encapsulate:YES];
-}
-
-- (IBAction)customize:(id)sender {
-    
 }
 
 - (IBAction)hideWindows:(id)sender {

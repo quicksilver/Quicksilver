@@ -76,7 +76,7 @@
 
 @implementation QSAppearancePrefPane
 - (IBAction)customize:(id)sender {
-	[[QSReg preferredCommandInterface] customize:sender];
+	[[QSReg preferredCommandInterface] performSelector:@selector(customize:) withObject:sender];
 }
 - (IBAction)preview:(id)sender {
 	id win = [[QSReg preferredCommandInterface] window];

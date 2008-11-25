@@ -65,7 +65,6 @@
 
 - (QSIconLoader *)resultChildIconLoader;
 - (void)setResultChildIconLoader:(QSIconLoader *)aResultChildIconLoader;
-- (void)setSplitLocation;
 
 //- (IBAction)sortByName:(id)sender;
 //- (IBAction)sortByScore:(id)sender;
