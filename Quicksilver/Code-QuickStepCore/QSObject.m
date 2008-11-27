@@ -320,7 +320,7 @@ NSSize QSMaxIconSize;
 
 - (id)handlerForType:(NSString *)type selector:(SEL)selector {
 	id handler = [[QSReg objectHandlers] objectForKey:type];
-    if(DEBUG && handler == nil)
+    if(DEBUG && VERBOSE && handler == nil)
         NSLog(@"No handler for type %@", type);
     
     return (selector == NULL ? handler : ( [handler respondsToSelector:selector] ? handler : nil ) );

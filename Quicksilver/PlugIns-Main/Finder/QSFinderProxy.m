@@ -171,7 +171,6 @@ target:
 	}
 }
 
-
 - (id)resolveProxyObject:(id)proxy {
 	return [QSObject fileObjectWithArray:[self selection]];
 }

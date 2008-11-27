@@ -459,7 +459,13 @@
 		action = [action alternate];
 		if (VERBOSE) NSLog(@"Using Alternate: %@", action);
 	}
-	QSObject *returnValue = [action performOnDirectObject:[dSelector objectValue] indirectObject:[iSelector objectValue]];
+    QSObject *dObject = [dSelector objectValue];
+    QSObject *iObject = [iSelector objectValue];
+    if( [dObject isKindOfClass:[QSRankedObject class]] )
+        dObject = [(QSRankedObject*)dObject object];
+    if( [iObject isKindOfClass:[QSRankedObject class]] )
+        iObject = [(QSRankedObject*)iObject object];
+	QSObject *returnValue = [action performOnDirectObject:dObject indirectObject:iObject];
 	if (returnValue) {
 		if ([returnValue isKindOfClass:[QSNullObject class]]) {
 			[self clearObjectView:dSelector];
