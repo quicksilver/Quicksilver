@@ -7,17 +7,17 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "QSActionProvider.h"
+
 # define kAppleScriptOpenTextAction @"AppleScriptProcessTextAction"
 # define kAppleScriptOpenFilesAction @"AppleScriptOpenFilesAction"
 # define kAppleScriptRunAction @"AppleScriptRunAction"
 
 # define kAppleScriptRunTextAction @"AppleScriptRunTextAction"
-#import "QSActionProvider.h"
-
 
 #define kQSScriptSuite 'DAED'
 #define kQSOpenTextScriptCommand 'opnt'
-
+#define kQSGetArgumentCountCommand 'garc'
 
 @interface QSAppleScriptActions : QSActionProvider
 - (QSObject*)runAppleScript:(NSString *)scriptPath withArguments:(QSObject *)iObject;

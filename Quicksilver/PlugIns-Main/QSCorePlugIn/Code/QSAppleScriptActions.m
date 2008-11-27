@@ -188,6 +188,7 @@
 	}
 
 	id result = [self objectForDescriptor:[script executeAppleEvent:event error:&errorDict]];
+    [event release];
 	[targetAddress release];
 	[script release];
 	if (errorDict) NSLog(@"error %@", errorDict);
@@ -216,8 +217,41 @@
 	return ([action isEqualToString:kAppleScriptOpenTextAction] ? [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@""]] : nil);
 }
 
-- (int)argumentCountForAction:(NSString *)action {
-#warning TODO: Allow script access
-    return 1;
+- (int)argumentCountForAction:(NSString *)actionId {
+    int argumentCount = 1;
+    QSAction *action = [QSAction actionWithIdentifier:actionId];
+	NSString *scriptPath = [action objectForKey:kActionScript];
+
+	if ([scriptPath hasPrefix:@"/"] || [scriptPath hasPrefix:@"~"])
+		scriptPath = [scriptPath stringByStandardizingPath];
+	else
+		scriptPath = [[action bundle] pathForResource:[scriptPath stringByDeletingPathExtension] ofType:[scriptPath pathExtension]];
+
+    NSArray *handlers = [NSAppleScript validHandlersFromArray:[NSArray arrayWithObject:@"DAEDgarc"] inScriptFile:scriptPath];
+    if( handlers != nil && [handlers count] != 0 ) {
+        NSAppleEventDescriptor *event;
+        int pid = [[NSProcessInfo processInfo] processIdentifier];
+        NSAppleEventDescriptor* targetAddress = [[NSAppleEventDescriptor alloc] initWithDescriptorType:typeKernelProcessID bytes:&pid length:sizeof(pid)];
+        
+        NSDictionary *errorDict = nil;
+        NSAppleScript *script = [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:scriptPath] error:&errorDict];
+        
+		event = [[NSAppleEventDescriptor alloc] initWithEventClass:kQSScriptSuite eventID:kQSGetArgumentCountCommand targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
+        
+        NSAppleEventDescriptor *result = [script executeAppleEvent:event error:&errorDict];
+        if( result ) {
+            argumentCount = [result int32Value];
+        } else if( errorDict != nil )
+            NSLog(@"error %@", errorDict);
+        
+        [event release];
+        [targetAddress release];
+        [script release];
+        
+    }
+    if( DEBUG )
+        NSLog(@"argument count for %@ is %d", actionId, argumentCount);
+    
+    return argumentCount;
 }
 @end

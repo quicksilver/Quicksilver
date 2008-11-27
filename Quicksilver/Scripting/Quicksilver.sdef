@@ -81,13 +81,17 @@
 			</value>
 	</suite>
 		
-	<suite name="Script Handlers" code="DAEH" description="handlers for actions and other scripts.">
+	<suite name="Script Handlers" code="DAEH" description="Handlers for Actions and other scripts.">
 		<cocoa name="QuicksilverHandlers"/>
-			<command name="process text" code="DAEDopnt" description="process some text. Scripts with this handler gain a &apos;Process Text&apos; action">
+			<command name="process text" code="DAEDopnt" description="Process some text. Scripts with this handler gain a &apos;Process Text&apos; action">
 				<cocoa class="NSScriptCommand"/>
 				<direct-parameter type="text" description="text to process"/>
 				<result type="any" description="value to return to Quicksilver"/>
 			</command>
-
+            
+            <command name="get argument count" code="DAEDgarc" description="Get the argument count for this action. Scripts with this handler can customize their argument count. Valid values are 1, 2.">
+				<cocoa class="NSScriptCommand"/>
+				<result type="number" description="value to return to Quicksilver"/>
+			</command>
 	</suite>
 </dictionary>
