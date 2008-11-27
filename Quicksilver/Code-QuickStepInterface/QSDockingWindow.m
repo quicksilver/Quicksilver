@@ -17,7 +17,8 @@
 	[self setCanHide:NO];
 	[self setLevel:NSFloatingWindowLevel];
     [self setSticky:YES];
-
+    [self setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
+    
 	NSMutableArray *types = [standardPasteboardTypes mutableCopy];
 	[types addObjectsFromArray:[[QSReg objectHandlers] allKeys]];
 	[self registerForDraggedTypes:types];
