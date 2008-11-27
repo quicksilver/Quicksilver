@@ -603,7 +603,7 @@ QSController *QSCon;
 
 - (id)selection { return [NSAppleEventDescriptor descriptorWithString:@"string"];  }
 
-- (void)setAESelection:(NSAppleEventDescriptor *)desc types:(NSArray *)types {
+- (void)setAESelection:(NSAppleEventDescriptor *)desc {
 	QSObject *object = nil;
 	if ([desc isKindOfClass:[NSString class]])
 		object = [QSObject objectWithString:(NSString *)desc];
@@ -611,14 +611,10 @@ QSController *QSCon;
 		object = [QSObject fileObjectWithArray:(NSArray *)desc];
 	else if (fDEV) {
 		NSLog(@"descriptor %@ %@", NSStringFromClass([desc class]), desc);
-		object = [QSObject objectWithAEDescriptor:desc];// types:types];
+		object = [QSObject objectWithAEDescriptor:desc];
 	}
 	NSLog(@"object %@", object);
 	[self receiveObject:object];
-}
-
-- (void)setAESelection:(NSAppleEventDescriptor *)desc {
-	[self setAESelection:desc types:nil];
 }
 
 - (NSAppleEventDescriptor *)AESelection {

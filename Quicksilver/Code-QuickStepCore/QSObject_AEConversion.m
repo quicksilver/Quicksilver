@@ -13,14 +13,6 @@
 
 @implementation QSObject (AEConversion)
 
-/*- (QSObject *)initWithAEDescriptor:(NSAppleEventDescriptor *)desc {
-	if (self = [self init]) {
-		[self setName:@"AEObject"];
-		[self setObject:desc forType:kQSAEDescriptorType];
-	}
-	return self;
-}*/
-
 + (QSObject *)objectWithAEDescriptor:(NSAppleEventDescriptor *)desc {
     NSMutableArray * objects = [NSMutableArray arrayWithCapacity:[desc numberOfItems]];
     
@@ -44,9 +36,8 @@
 
 - (NSAppleEventDescriptor *)AEDescriptor {
 	id handler = [self handler];
-	if ([handler respondsToSelector:@selector(AEDescriptorForObject:)])
-		return [handler performSelector:@selector(AEDescriptorForObject:) withObject:self];
-
+    if( handler && [handler respondsToSelector:@selector(AEDescriptorForObject:)] )
+        return [handler performSelector:@selector(AEDescriptorForObject:) withObject:self];
 	return nil;
 }
 
