@@ -7,7 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
-@class QSObject;
+@class QSObjectSource;
+@interface QSInternalObjectSource : QSObjectSource
+@end
+
 @interface QSHandledObjectHandler : NSObject
-- (QSObject *)handledObjectObjectWithInfo:(NSDictionary *)dict;
 @end

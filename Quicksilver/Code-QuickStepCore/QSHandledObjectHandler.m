@@ -14,7 +14,7 @@
 #import "QSTypes.h"
 #import "QSResourceManager.h"
 
-@implementation QSHandledObjectHandler
+@implementation QSInternalObjectSource
 - (BOOL)entryCanBeIndexed:(NSDictionary *)theEntry {return NO;}
 
 - (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry { return YES; }
@@ -28,29 +28,30 @@
 	NSDictionary *info;
 	while (key = [ke nextObject]) {
 		info = [messages objectForKey:key];
-		messageObject = [self handledObjectObjectWithInfo:info];
-		[messageObject setIdentifier:key];
-		[array addObject:messageObject];
+        NSDictionary *objDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 [NSDictionary dictionaryWithObjectsAndKeys:
+                                  [info objectForKey:@"name"], kQSObjectPrimaryName,
+                                  [info objectForKey:@"icon"], kQSObjectIcon,
+                                  nil], kData,
+                                 [NSDictionary dictionaryWithObjectsAndKeys:
+                                  key, kQSObjectObjectID,
+                                  QSHandledType, kQSObjectPrimaryType,
+                                  nil], kMeta,
+                                 nil];
+		messageObject = [QSObject objectWithDictionary:objDict];
+        if( messageObject != nil )
+            [array addObject:messageObject];
 	}
 	return array;
 }
 
-- (QSObject *)handledObjectObjectWithInfo:(NSDictionary *)dict {
-	QSObject *object = [[QSObject alloc] init];
-	[object setObject:dict forType:QSHandledType];
-	[object setPrimaryType:QSHandledType];
-	NSString *ident = [dict objectForKey:@"id"];
-	if (ident) [object setIdentifier:ident];
-	NSString *newName = [dict objectForKey:@"name"];
-	if (!newName)
-		newName = ident;
-	[object setName:newName];
-	return [object autorelease];
-}
+@end
 
-- (NSString *)identifierForObject:(QSObject *)object { return nil; }
+@implementation QSHandledObjectHandler
 
-- (void)setQuickIconForObject:(QSObject *)object {
+//- (NSString *)identifierForObject:(QSObject *)object { return nil; }
+
+/*- (void)setQuickIconForObject:(QSObject *)object {
 	[object setIcon:[QSResourceManager imageNamed:@"Object"]];
 }
 
@@ -79,18 +80,11 @@
 	return NO;
 }
 
-- (NSArray *)actionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
-	id handler = [self handlerForObject:dObject];
-	if ([handler respondsToSelector:@selector(actionsForDirectObject:indirectObject:)])
-		return [handler actionsForDirectObject:dObject indirectObject:nil];
-	return [NSMutableArray array];
-}
-
 - (BOOL)loadChildrenForObject:(QSObject *)object {
 	id handler = [self handlerForObject:object];
 	if ([handler respondsToSelector:@selector(loadChildrenForObject:indirectObject:)])
 		return [handler loadChildrenForObject:object];
 	return NO;
 }
-
+*/
 @end
