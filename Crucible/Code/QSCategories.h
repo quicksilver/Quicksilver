@@ -8,6 +8,7 @@
  */
 
 #import "QSExternals.h"
+#import "CGSPrivate_QSMods.h"
 #import "NSApplication+ServicesModification.h"
 #import "InertButton.h"
 #import "NDAlias+QSMods.h"
