@@ -994,110 +994,186 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		4D7095350D102871008498FD /* Configuration */ = {
+		4D257D850F437AA400369B2D /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				4D7095360D102871008498FD /* Common.xcconfig */,
-				4D7095370D102871008498FD /* Debug.xcconfig */,
-				4D7095400D102871008498FD /* Release.xcconfig */,
-				4D7095AB0D102EFE008498FD /* Developer.xcconfig */,
-			);
-			name = Configuration;
-			path = ../Configuration;
-			sourceTree = SOURCE_ROOT;
-		};
-		4DEF6A470D2A917800FDF605 /* Crucible */ = {
-			isa = PBXGroup;
-			children = (
-				7F9A87960C497AEF00B5912D /* QSAccessibility.h */,
-				7F9A87970C497AEF00B5912D /* QSAccessibility.m */,
+				4D257E270F43841F00369B2D /* QSObject */,
+				4D257E230F4382F900369B2D /* Object Handlers */,
+				4D257E250F43837300369B2D /* Object Sources */,
+				4D257E220F4382EB00369B2D /* Mediators */,
 				7F9A87980C497AEF00B5912D /* QSAction.h */,
 				7F9A87990C497AEF00B5912D /* QSAction.m */,
 				7F9A879A0C497AEF00B5912D /* QSActionProvider.h */,
 				7F9A879B0C497AEF00B5912D /* QSActionProvider.m */,
-				7F9A879C0C497AEF00B5912D /* QSAlertManager.h */,
-				7F9A879D0C497AEF00B5912D /* QSAlertManager.m */,
-				7F9A879E0C497AEF00B5912D /* QSAppearanceController.h */,
-				7F9A879F0C497AEF00B5912D /* QSAppearanceController.m */,
-				7F9A87A00C497AEF00B5912D /* QSBackgroundView.h */,
-				7F9A87A10C497AEF00B5912D /* QSBackgroundView.m */,
-				7F9A87A20C497AEF00B5912D /* QSBadgeImage.h */,
-				7F9A87A30C497AEF00B5912D /* QSBadgeImage.m */,
-				7F9A87A40C497AEF00B5912D /* QSCrucible.h */,
-				7F9A87A50C497AEF00B5912D /* QSBezelBackgroundView.h */,
-				7F9A87A60C497AEF00B5912D /* QSBezelBackgroundView.m */,
-				7F9A87A80C497AEF00B5912D /* QSBuildOptions.h */,
 				7F9A87A90C497AEF00B5912D /* QSCatalogEntry.h */,
 				7F9A87AA0C497AF000B5912D /* QSCatalogEntry.m */,
-				7F9A87AB0C497AF000B5912D /* QSCell.h */,
-				7F9A87AC0C497AF000B5912D /* QSCell.m */,
-				7F9A87AF0C497AF000B5912D /* QSCGSTransition.h */,
-				7F9A87B00C497AF000B5912D /* QSCGSTransition.m */,
-				7F9A87B10C497AF000B5912D /* QSCIEffectOverlay.h */,
-				7F9A87B20C497AF000B5912D /* QSCIEffectOverlay.m */,
-				7F9A87B30C497AF000B5912D /* QSCollectingSearchObjectView.h */,
-				7F9A87B40C497AF000B5912D /* QSCollectingSearchObjectView.m */,
 				7F9A87B50C497AF000B5912D /* QSCollection.h */,
 				7F9A87B60C497AF000B5912D /* QSCollection.m */,
 				7F9A87B70C497AF000B5912D /* QSCommand.h */,
 				7F9A87B80C497AF000B5912D /* QSCommand.m */,
-				7F9A87B90C497AF000B5912D /* QSCommandActions.h */,
-				7F9A87BA0C497AF000B5912D /* QSCommandActions.m */,
-				7F9A87BB0C497AF000B5912D /* QSCommandBuilder.h */,
-				7F9A87BC0C497AF000B5912D /* QSCommandBuilder.m */,
-				7F9A87BD0C497AF000B5912D /* QSCommandInterfaceController.h */,
-				7F9A87BE0C497AF000B5912D /* QSCommandInterfaceController.m */,
-				7F9A87BF0C497AF000B5912D /* QSComputerSource.h */,
-				7F9A87C00C497AF000B5912D /* QSComputerSource.m */,
-				7F9A87C10C497AF000B5912D /* QSCore.h */,
-				7F9A87C20C497AF000B5912D /* QSCoreNotifications.h */,
-				7F9A87C30C497AF000B5912D /* QSDebug.h */,
-				7F9A87C40C497AF000B5912D /* QSDefines.h */,
-				7F9A87C50C497AF000B5912D /* QSDelegatingCell.h */,
-				7F9A87C60C497AF000B5912D /* QSDelegatingCell.m */,
-				7F9A87C70C497AF000B5912D /* QSDelegatingTableColumn.h */,
-				7F9A87C80C497AF000B5912D /* QSDelegatingTableColumn.m */,
-				7F9A87C90C497AF000B5912D /* QSDesktopBackgroundView.h */,
-				7F9A87CA0C497AF000B5912D /* QSDesktopBackgroundView.m */,
-				7F9A87CB0C497AF000B5912D /* QSDockingWindow.h */,
-				7F9A87CC0C497AF000B5912D /* QSDockingWindow.m */,
-				7F9A87CD0C497AF000B5912D /* QSEffects.h */,
-				7F9A87CE0C497AF000B5912D /* QSEmbeddedEffects.h */,
-				7F9A87CF0C497AF000B5912D /* QSEmbeddedEffects.m */,
 				7F9A87D00C497AF000B5912D /* QSense.h */,
 				7F9A87D10C497AF000B5912D /* QSense.m */,
 				7F9A87D20C497AF000B5912D /* QSExecutor.h */,
 				7F9A87D30C497AF000B5912D /* QSExecutor.m */,
-				7F9A87D40C497AF000B5912D /* QSFadingView.h */,
-				7F9A87D50C497AF000B5912D /* QSFadingView.m */,
-				7F9A87D60C497AF000B5912D /* QSFancyObjectCell.h */,
-				7F9A87D70C497AF000B5912D /* QSFancyObjectCell.m */,
-				7F9A87D80C497AF000B5912D /* QSFancyTableView.h */,
-				7F9A87D90C497AF000B5912D /* QSFancyTableView.m */,
-				7F9A87DA0C497AF000B5912D /* QSFeatureLevel.h */,
-				7F9A87DB0C497AF000B5912D /* QSFileConflictPanel.h */,
-				7F9A87DC0C497AF000B5912D /* QSFileConflictPanel.m */,
-				7F9A87DD0C497AF000B5912D /* QSFileSystemMonitor.h */,
-				7F9A87DE0C497AF000B5912D /* QSFileSystemMonitor.m */,
-				7F9A87DF0C497AF000B5912D /* QSFoundation.h */,
 				7F9A87E00C497AF000B5912D /* QSGlobalSelectionProvider.h */,
 				7F9A87E10C497AF000B5912D /* QSGlobalSelectionProvider.m */,
-				7F9A87E20C497AF000B5912D /* QSGlossyBarView.h */,
-				7F9A87E30C497AF000B5912D /* QSGlossyBarView.m */,
-				7F9A87E40C497AF000B5912D /* QSHandledObjectHandler.h */,
-				7F9A87E50C497AF000B5912D /* QSHandledObjectHandler.m */,
-				7F9A87E60C497AF000B5912D /* QSHandledSplitView.h */,
-				7F9A87E70C497AF000B5912D /* QSHandledSplitView.m */,
-				7F9A87E80C497AF000B5912D /* QSHelp.h */,
-				7F9A87E90C497AF000B5912D /* QSHelp.m */,
 				7F9A87EA0C497AF000B5912D /* QSHistoryController.h */,
 				7F9A87EB0C497AF000B5912D /* QSHistoryController.m */,
+				7F9A88040C497AF000B5912D /* QSLibrarian.h */,
+				7F9A88050C497AF000B5912D /* QSLibrarian.m */,
+				7F9A881B0C497AF000B5912D /* QSMnemonics.h */,
+				7F9A881C0C497AF000B5912D /* QSMnemonics.m */,
+				7F9A88400C497AF000B5912D /* QSObjectRanker.h */,
+				7F9A88410C497AF000B5912D /* QSObjectRanker.m */,
+				7F9A88420C497AF000B5912D /* QSObjectSource.h */,
+				7F9A88430C497AF000B5912D /* QSObjectSource.m */,
+				7F9A88470C497AF000B5912D /* QSParser.h */,
+				7F9A88480C497AF000B5912D /* QSParser.m */,
+				7F9A883E0C497AF000B5912D /* QSObjectFormatter.h */,
+				7F9A883F0C497AF000B5912D /* QSObjectFormatter.m */,
+				7F9A88560C497AF000B5912D /* QSProcessMonitor.h */,
+				7F9A88570C497AF000B5912D /* QSProcessMonitor.m */,
+				7F9A88660C497AF000B5912D /* QSResourceManager.h */,
+				7F9A88670C497AF000B5912D /* QSResourceManager.m */,
+				7F9A88700C497AF000B5912D /* QSSeparatorObject.h */,
+				7F9A88710C497AF000B5912D /* QSSeparatorObject.m */,
+				7F9A88780C497AF000B5912D /* QSStringRanker.h */,
+				7F9A88790C497AF100B5912D /* QSStringRanker.m */,
+				7F9A887E0C497AF100B5912D /* QSTask.h */,
+				7F9A887F0C497AF100B5912D /* QSTask.m */,
+				7F9A88800C497AF100B5912D /* QSTaskController.h */,
+				7F9A88810C497AF100B5912D /* QSTaskController.m */,
+				7F9A88840C497AF100B5912D /* QSTextViewer.h */,
+				7F9A88850C497AF100B5912D /* QSTextViewer.m */,
+				7F9A88880C497AF100B5912D /* QSTreeController.h */,
+				7F9A88890C497AF100B5912D /* QSTreeController.m */,
+				7F9A88900C497AF100B5912D /* QSVoyeur.h */,
+				7F9A88910C497AF100B5912D /* QSVoyeur.m */,
+				4D8912E30D28288C006060ED /* QSController.h */,
+				4D8913220D282997006060ED /* QSApp.h */,
+				7F350C4B0D15A4FB00B2B814 /* QSObject+QSIconLoader.h */,
+				7F350C4C0D15A4FB00B2B814 /* QSObject+QSIconLoader.m */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		4D257D860F437AA900369B2D /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				4D257E200F43808200369B2D /* Controls */,
+				4D257E1E0F43805B00369B2D /* Views, Cells */,
+				4D257E1D0F43804B00369B2D /* Windows, Panels */,
+				7F9A879C0C497AEF00B5912D /* QSAlertManager.h */,
+				7F9A879D0C497AEF00B5912D /* QSAlertManager.m */,
+				7F9A879E0C497AEF00B5912D /* QSAppearanceController.h */,
+				7F9A879F0C497AEF00B5912D /* QSAppearanceController.m */,
+				7F9A87A20C497AEF00B5912D /* QSBadgeImage.h */,
+				7F9A87A30C497AEF00B5912D /* QSBadgeImage.m */,
+				7F9A87AF0C497AF000B5912D /* QSCGSTransition.h */,
+				7F9A87B00C497AF000B5912D /* QSCGSTransition.m */,
+				7F9A87B10C497AF000B5912D /* QSCIEffectOverlay.h */,
+				7F9A87B20C497AF000B5912D /* QSCIEffectOverlay.m */,
+				7F9A87C70C497AF000B5912D /* QSDelegatingTableColumn.h */,
+				7F9A87C80C497AF000B5912D /* QSDelegatingTableColumn.m */,
+				7F9A87CE0C497AF000B5912D /* QSEmbeddedEffects.h */,
+				7F9A87CF0C497AF000B5912D /* QSEmbeddedEffects.m */,
 				7F9A87EC0C497AF000B5912D /* QSHotKeyEditor.h */,
 				7F9A87ED0C497AF000B5912D /* QSHotKeyEditor.m */,
-				7F9A87EE0C497AF000B5912D /* QSIconLoader.h */,
-				7F9A87EF0C497AF000B5912D /* QSIconLoader.m */,
-				7F9A87F00C497AF000B5912D /* QSIdleWatcher.h */,
-				7F9A87F10C497AF000B5912D /* QSIdleWatcher.m */,
+				7F17F16E0C4F1983001ADE1A /* QSTitleToolbarItem.h */,
+				7F17F16F0C4F1983001ADE1A /* QSTitleToolbarItem.m */,
+				7F9A88720C497AF000B5912D /* QSShading.h */,
+				7F9A88730C497AF000B5912D /* QSShading.m */,
+				7F9A88920C497AF100B5912D /* QSWarpEffects.h */,
+				7F9A88930C497AF100B5912D /* QSWarpEffects.m */,
+				7F9A88960C497AF100B5912D /* QSWindowAnimation.h */,
+				7F9A88970C497AF100B5912D /* QSWindowAnimation.m */,
+			);
+			name = Interface;
+			sourceTree = "<group>";
+		};
+		4D257D960F437C0300369B2D /* Plugins */ = {
+			isa = PBXGroup;
+			children = (
+				7F9A87B90C497AF000B5912D /* QSCommandActions.h */,
+				7F9A87BA0C497AF000B5912D /* QSCommandActions.m */,
+				7F9A87BF0C497AF000B5912D /* QSComputerSource.h */,
+				7F9A87C00C497AF000B5912D /* QSComputerSource.m */,
+			);
+			name = Plugins;
+			sourceTree = "<group>";
+		};
+		4D257E1B0F437FF500369B2D /* Unused? */ = {
+			isa = PBXGroup;
+			children = (
+				7F9A87AB0C497AF000B5912D /* QSCell.h */,
+				7F9A87AC0C497AF000B5912D /* QSCell.m */,
+				7F9A87DD0C497AF000B5912D /* QSFileSystemMonitor.h */,
+				7F9A87DE0C497AF000B5912D /* QSFileSystemMonitor.m */,
+				7F9A885A0C497AF000B5912D /* QSProcessSwitcher.h */,
+				7F9A885B0C497AF000B5912D /* QSProcessSwitcher.m */,
+				7F9A88980C497AF100B5912D /* QSWorkspaceMediatior.h */,
+				7F9A88990C497AF100B5912D /* QSWorkspaceMediatior.m */,
+			);
+			name = "Unused?";
+			sourceTree = "<group>";
+		};
+		4D257E1C0F43803200369B2D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7F9A87BB0C497AF000B5912D /* QSCommandBuilder.h */,
+				7F9A87BC0C497AF000B5912D /* QSCommandBuilder.m */,
+				7F9A87BD0C497AF000B5912D /* QSCommandInterfaceController.h */,
+				7F9A87BE0C497AF000B5912D /* QSCommandInterfaceController.m */,
+				7F9A87FB0C497AF000B5912D /* QSInterfaceController.h */,
+				7F9A87FC0C497AF000B5912D /* QSInterfaceController.m */,
+				7F9A88640C497AF000B5912D /* QSResizingInterfaceController.h */,
+				7F9A88650C497AF000B5912D /* QSResizingInterfaceController.m */,
+				7F9A886A0C497AF000B5912D /* QSResultController.h */,
+				7F9A886B0C497AF000B5912D /* QSResultController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		4D257E1D0F43804B00369B2D /* Windows, Panels */ = {
+			isa = PBXGroup;
+			children = (
+				7F9A87CB0C497AF000B5912D /* QSDockingWindow.h */,
+				7F9A87CC0C497AF000B5912D /* QSDockingWindow.m */,
+				7F9A87DB0C497AF000B5912D /* QSFileConflictPanel.h */,
+				7F9A87DC0C497AF000B5912D /* QSFileConflictPanel.m */,
+				7F9A88020C497AF000B5912D /* QSLargeTypeDisplay.h */,
+				7F9A88030C497AF000B5912D /* QSLargeTypeDisplay.m */,
+				7F9A886C0C497AF000B5912D /* QSResultWindow.h */,
+				7F9A886D0C497AF000B5912D /* QSResultWindow.m */,
+				7F9A88860C497AF100B5912D /* QSTrackingWindow.h */,
+				7F9A88870C497AF100B5912D /* QSTrackingWindow.m */,
+				7F9A88940C497AF100B5912D /* QSWindow.h */,
+				7F9A88950C497AF100B5912D /* QSWindow.m */,
+			);
+			name = "Windows, Panels";
+			sourceTree = "<group>";
+		};
+		4D257E1E0F43805B00369B2D /* Views, Cells */ = {
+			isa = PBXGroup;
+			children = (
+				7F9A87A50C497AEF00B5912D /* QSBezelBackgroundView.h */,
+				7F9A87A60C497AEF00B5912D /* QSBezelBackgroundView.m */,
+				7F9A87D40C497AF000B5912D /* QSFadingView.h */,
+				7F9A87D50C497AF000B5912D /* QSFadingView.m */,
+				7F9A87A00C497AEF00B5912D /* QSBackgroundView.h */,
+				7F9A87A10C497AEF00B5912D /* QSBackgroundView.m */,
+				7F9A87B30C497AF000B5912D /* QSCollectingSearchObjectView.h */,
+				7F9A87B40C497AF000B5912D /* QSCollectingSearchObjectView.m */,
+				7F9A87C90C497AF000B5912D /* QSDesktopBackgroundView.h */,
+				7F9A87CA0C497AF000B5912D /* QSDesktopBackgroundView.m */,
+				7F9A87C50C497AF000B5912D /* QSDelegatingCell.h */,
+				7F9A87C60C497AF000B5912D /* QSDelegatingCell.m */,
+				7F9A87D60C497AF000B5912D /* QSFancyObjectCell.h */,
+				7F9A87D70C497AF000B5912D /* QSFancyObjectCell.m */,
+				7F9A87E20C497AF000B5912D /* QSGlossyBarView.h */,
+				7F9A87E30C497AF000B5912D /* QSGlossyBarView.m */,
+				7F9A87E60C497AF000B5912D /* QSHandledSplitView.h */,
+				7F9A87E70C497AF000B5912D /* QSHandledSplitView.m */,
 				7F9A87F20C497AF000B5912D /* QSImageAndTextCell.h */,
 				7F9A87F30C497AF000B5912D /* QSImageAndTextCell.m */,
 				7FDE8CB80D28A299004C6AB1 /* QSImageTextDetailCell.m */,
@@ -1106,48 +1182,137 @@
 				7F9A87F50C497AF000B5912D /* QSImageTextCountCell.m */,
 				7F9A87F60C497AF000B5912D /* QSImageView.h */,
 				7F9A87F70C497AF000B5912D /* QSImageView.m */,
-				7F9A87FA0C497AF000B5912D /* QSInterface.h */,
-				7F9A87FB0C497AF000B5912D /* QSInterfaceController.h */,
-				7F9A87FC0C497AF000B5912D /* QSInterfaceController.m */,
-				7F9A87FD0C497AF000B5912D /* QSInterfaceMediator.h */,
-				7F9A87FE0C497AF000B5912D /* QSInterfaceMediator.m */,
+				7F9A88170C497AF000B5912D /* QSMenuView.h */,
+				7F9A88180C497AF000B5912D /* QSMenuView.m */,
+				7F9A883C0C497AF000B5912D /* QSObjectCell.h */,
+				7F9A883D0C497AF000B5912D /* QSObjectCell.m */,
+				7F9A88440C497AF000B5912D /* QSObjectView.h */,
+				7F9A88450C497AF000B5912D /* QSObjectView.m */,
+				7F9A88510C497AF000B5912D /* QSPopUpTextButtonCell.h */,
+				7F9A88520C497AF000B5912D /* QSPopUpTextButtonCell.m */,
+				7F9A88600C497AF000B5912D /* QSRankCell.h */,
+				7F9A88610C497AF000B5912D /* QSRankCell.m */,
+				7F9A886E0C497AF000B5912D /* QSSearchObjectView.h */,
+				7F9A886F0C497AF000B5912D /* QSSearchObjectView.m */,
+				7F9A88740C497AF000B5912D /* QSSliderTextCell.h */,
+				7F9A88750C497AF000B5912D /* QSSliderTextCell.m */,
+				7F9A88760C497AF000B5912D /* QSSplitHandleView.h */,
+				7F9A88770C497AF000B5912D /* QSSplitHandleView.m */,
+				7F9A887A0C497AF100B5912D /* QSTableHeaderCell.h */,
+				7F9A887B0C497AF100B5912D /* QSTableHeaderCell.m */,
+			);
+			name = "Views, Cells";
+			sourceTree = "<group>";
+		};
+		4D257E200F43808200369B2D /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				7F9A87D80C497AF000B5912D /* QSFancyTableView.h */,
+				7F9A87D90C497AF000B5912D /* QSFancyTableView.m */,
+				7F9A88150C497AF000B5912D /* QSMenuButton.h */,
+				7F9A88160C497AF000B5912D /* QSMenuButton.m */,
+				7F9A887C0C497AF100B5912D /* QSTableView.h */,
+				7F9A887D0C497AF100B5912D /* QSTableView.m */,
+				7F5D24220C49C44200812049 /* QSOutlineView.h */,
+				7F5D24210C49C44200812049 /* QSOutlineView.m */,
+			);
+			name = Controls;
+			sourceTree = "<group>";
+		};
+		4D257E210F43824300369B2D /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				7F9A87960C497AEF00B5912D /* QSAccessibility.h */,
+				7F9A87970C497AEF00B5912D /* QSAccessibility.m */,
+				7F17F0640C4F1795001ADE1A /* QSCaseInsensitiveStringKey.h */,
+				7F17F0650C4F1795001ADE1A /* QSCaseInsensitiveStringKey.m */,
+				7F9A87E80C497AF000B5912D /* QSHelp.h */,
+				7F9A87E90C497AF000B5912D /* QSHelp.m */,
+				7F9A87EE0C497AF000B5912D /* QSIconLoader.h */,
+				7F9A87EF0C497AF000B5912D /* QSIconLoader.m */,
+				7F9A87F00C497AF000B5912D /* QSIdleWatcher.h */,
+				7F9A87F10C497AF000B5912D /* QSIdleWatcher.m */,
 				7F9A87FF0C497AF000B5912D /* QSKeyCodeTranslator.h */,
 				7F9A88000C497AF000B5912D /* QSKeyCodeTranslator.m */,
-				7F9A88010C497AF000B5912D /* QSKeys.h */,
-				7F9A88020C497AF000B5912D /* QSLargeTypeDisplay.h */,
-				7F9A88030C497AF000B5912D /* QSLargeTypeDisplay.m */,
-				7F9A88040C497AF000B5912D /* QSLibrarian.h */,
-				7F9A88050C497AF000B5912D /* QSLibrarian.m */,
-				7F9A88060C497AF000B5912D /* QSLocalization.h */,
-				7F9A88070C497AF000B5912D /* QSLocalization.m */,
-				7F9A88080C497AF000B5912D /* QSLog.h */,
-				7F9A88090C497AF000B5912D /* QSLog.m */,
 				7F9A880A0C497AF000B5912D /* QSLoginItemFunctions.h */,
 				7F9A880B0C497AF000B5912D /* QSLoginItemFunctions.m */,
 				7F9A880C0C497AF000B5912D /* QSLSTools.h */,
 				7F9A880D0C497AF000B5912D /* QSLSTools.m */,
-				7F9A880E0C497AF000B5912D /* QSMacros.h */,
-				7F9A880F0C497AF000B5912D /* QSMDPredicate.h */,
-				7F9A88100C497AF000B5912D /* QSMDPredicate.m */,
 				7F9A88110C497AF000B5912D /* QSMediaKeys.c */,
 				7F9A88120C497AF000B5912D /* QSMediaKeys.h */,
-				7F9A88150C497AF000B5912D /* QSMenuButton.h */,
-				7F9A88160C497AF000B5912D /* QSMenuButton.m */,
-				7F9A88170C497AF000B5912D /* QSMenuView.h */,
-				7F9A88180C497AF000B5912D /* QSMenuView.m */,
+				7F9A880F0C497AF000B5912D /* QSMDPredicate.h */,
+				7F9A88100C497AF000B5912D /* QSMDPredicate.m */,
 				7F9A88190C497AF000B5912D /* QSMiscFunctions.h */,
 				7F9A881A0C497AF000B5912D /* QSMiscFunctions.m */,
-				7F9A881B0C497AF000B5912D /* QSMnemonics.h */,
-				7F9A881C0C497AF000B5912D /* QSMnemonics.m */,
 				7F9A881D0C497AF000B5912D /* QSMoveHelper.h */,
 				7F9A881E0C497AF000B5912D /* QSMoveHelper.m */,
-				7F9A88210C497AF000B5912D /* QSNotifications.h */,
+				7F9A88490C497AF000B5912D /* QSPasteboardMirror.h */,
+				7F9A884A0C497AF000B5912D /* QSPasteboardMirror.m */,
+				7F9A88540C497AF000B5912D /* QSPreferencePane.h */,
+				7F9A88550C497AF000B5912D /* QSPreferencePane.m */,
+				7F9A88680C497AF000B5912D /* QSResultArray.h */,
+				7F9A88690C497AF000B5912D /* QSResultArray.m */,
+				7F9A888C0C497AF100B5912D /* QSURLDownloadWrapper.h */,
+				7F9A888D0C497AF100B5912D /* QSURLDownloadWrapper.m */,
+			);
+			name = Misc;
+			sourceTree = "<group>";
+		};
+		4D257E220F4382EB00369B2D /* Mediators */ = {
+			isa = PBXGroup;
+			children = (
+				7F9A87FD0C497AF000B5912D /* QSInterfaceMediator.h */,
+				7F9A87FE0C497AF000B5912D /* QSInterfaceMediator.m */,
 				7F9A88220C497AF000B5912D /* QSNotifyMediator.h */,
 				7F9A88230C497AF000B5912D /* QSNotifyMediator.m */,
-				7F9A88240C497AF000B5912D /* QSNullObject.h */,
-				7F9A88250C497AF000B5912D /* QSNullObject.m */,
+			);
+			name = Mediators;
+			sourceTree = "<group>";
+		};
+		4D257E230F4382F900369B2D /* Object Handlers */ = {
+			isa = PBXGroup;
+			children = (
+				7F9A87E40C497AF000B5912D /* QSHandledObjectHandler.h */,
+				7F9A87E50C497AF000B5912D /* QSHandledObjectHandler.m */,
+			);
+			name = "Object Handlers";
+			sourceTree = "<group>";
+		};
+		4D257E250F43837300369B2D /* Object Sources */ = {
+			isa = PBXGroup;
+			children = (
 				7F9A88260C497AF000B5912D /* QSObjCMessageSource.h */,
 				7F9A88270C497AF000B5912D /* QSObjCMessageSource.m */,
+				7F9A88580C497AF000B5912D /* QSProcessSource.h */,
+				7F9A88590C497AF000B5912D /* QSProcessSource.m */,
+				7F9A885E0C497AF000B5912D /* QSProxyObjectSource.h */,
+				7F9A885F0C497AF000B5912D /* QSProxyObjectSource.m */,
+			);
+			name = "Object Sources";
+			sourceTree = "<group>";
+		};
+		4D257E260F4383D200369B2D /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				7F9A88060C497AF000B5912D /* QSLocalization.h */,
+				7F9A88070C497AF000B5912D /* QSLocalization.m */,
+				7F9A88080C497AF000B5912D /* QSLog.h */,
+				7F9A88090C497AF000B5912D /* QSLog.m */,
+				7F9A884B0C497AF000B5912D /* QSPaths.h */,
+				7F9A884C0C497AF000B5912D /* QSPaths.m */,
+				7F9A888A0C497AF100B5912D /* QSTypes.h */,
+				7F9A888B0C497AF100B5912D /* QSTypes.m */,
+				7F9A888E0C497AF100B5912D /* QSUTI.h */,
+				7F9A888F0C497AF100B5912D /* QSUTI.m */,
+			);
+			name = Foundation;
+			sourceTree = "<group>";
+		};
+		4D257E270F43841F00369B2D /* QSObject */ = {
+			isa = PBXGroup;
+			children = (
+				7F9A88240C497AF000B5912D /* QSNullObject.h */,
+				7F9A88250C497AF000B5912D /* QSNullObject.m */,
 				7F9A88280C497AF000B5912D /* QSObject.h */,
 				7F9A88290C497AF000B5912D /* QSObject.m */,
 				7F9A882A0C497AF000B5912D /* QSObject_AEConversion.h */,
@@ -1168,109 +1333,56 @@
 				7F9A88390C497AF000B5912D /* QSObject_StringHandling.m */,
 				7F9A883A0C497AF000B5912D /* QSObject_URLHandling.h */,
 				7F9A883B0C497AF000B5912D /* QSObject_URLHandling.m */,
-				7F9A883C0C497AF000B5912D /* QSObjectCell.h */,
-				7F9A883D0C497AF000B5912D /* QSObjectCell.m */,
-				7F9A883E0C497AF000B5912D /* QSObjectFormatter.h */,
-				7F9A883F0C497AF000B5912D /* QSObjectFormatter.m */,
-				7F9A88400C497AF000B5912D /* QSObjectRanker.h */,
-				7F9A88410C497AF000B5912D /* QSObjectRanker.m */,
-				7F9A88420C497AF000B5912D /* QSObjectSource.h */,
-				7F9A88430C497AF000B5912D /* QSObjectSource.m */,
-				7F9A88440C497AF000B5912D /* QSObjectView.h */,
-				7F9A88450C497AF000B5912D /* QSObjectView.m */,
-				7F9A88470C497AF000B5912D /* QSParser.h */,
-				7F9A88480C497AF000B5912D /* QSParser.m */,
-				7F9A88490C497AF000B5912D /* QSPasteboardMirror.h */,
-				7F9A884A0C497AF000B5912D /* QSPasteboardMirror.m */,
-				7F9A884B0C497AF000B5912D /* QSPaths.h */,
-				7F9A884C0C497AF000B5912D /* QSPaths.m */,
+				7F9A885C0C497AF000B5912D /* QSProxyObject.h */,
+				7F9A885D0C497AF000B5912D /* QSProxyObject.m */,
+				7F9A88620C497AF000B5912D /* QSRankedObject.h */,
+				7F9A88630C497AF000B5912D /* QSRankedObject.m */,
+				7F9A88820C497AF100B5912D /* QSTextProxy.h */,
+				7F9A88830C497AF100B5912D /* QSTextProxy.m */,
+			);
+			name = QSObject;
+			sourceTree = "<group>";
+		};
+		4D7095350D102871008498FD /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				4D7095360D102871008498FD /* Common.xcconfig */,
+				4D7095370D102871008498FD /* Debug.xcconfig */,
+				4D7095400D102871008498FD /* Release.xcconfig */,
+				4D7095AB0D102EFE008498FD /* Developer.xcconfig */,
+			);
+			name = Configuration;
+			path = ../Configuration;
+			sourceTree = SOURCE_ROOT;
+		};
+		4DEF6A470D2A917800FDF605 /* Crucible */ = {
+			isa = PBXGroup;
+			children = (
+				4D257E260F4383D200369B2D /* Foundation */,
+				4D257E210F43824300369B2D /* Misc */,
+				4D257E1C0F43803200369B2D /* Controller */,
+				4D257E1B0F437FF500369B2D /* Unused? */,
+				4D257D860F437AA900369B2D /* Interface */,
+				4D257D850F437AA400369B2D /* Core */,
+				4D257D960F437C0300369B2D /* Plugins */,
+				7F9A87A40C497AEF00B5912D /* QSCrucible.h */,
+				7F9A87A80C497AEF00B5912D /* QSBuildOptions.h */,
+				7F9A87C10C497AF000B5912D /* QSCore.h */,
+				7F9A87C20C497AF000B5912D /* QSCoreNotifications.h */,
+				7F9A87C30C497AF000B5912D /* QSDebug.h */,
+				7F9A87C40C497AF000B5912D /* QSDefines.h */,
+				7F9A87CD0C497AF000B5912D /* QSEffects.h */,
+				7F9A87DA0C497AF000B5912D /* QSFeatureLevel.h */,
+				7F9A87DF0C497AF000B5912D /* QSFoundation.h */,
+				7F9A87FA0C497AF000B5912D /* QSInterface.h */,
+				7F9A88010C497AF000B5912D /* QSKeys.h */,
+				7F9A880E0C497AF000B5912D /* QSMacros.h */,
+				7F9A88210C497AF000B5912D /* QSNotifications.h */,
 				7F9A884D0C497AF000B5912D /* QSPlugIn.h */,
 				7F9A884E0C497AF000B5912D /* QSPlugIn.m */,
 				7F9A884F0C497AF000B5912D /* QSPlugInManager.h */,
 				7F9A88500C497AF000B5912D /* QSPlugInManager.m */,
-				7F9A88510C497AF000B5912D /* QSPopUpTextButtonCell.h */,
-				7F9A88520C497AF000B5912D /* QSPopUpTextButtonCell.m */,
 				7F9A88530C497AF000B5912D /* QSPreferenceKeys.h */,
-				7F9A88540C497AF000B5912D /* QSPreferencePane.h */,
-				7F9A88550C497AF000B5912D /* QSPreferencePane.m */,
-				7F9A88560C497AF000B5912D /* QSProcessMonitor.h */,
-				7F9A88570C497AF000B5912D /* QSProcessMonitor.m */,
-				7F9A88580C497AF000B5912D /* QSProcessSource.h */,
-				7F9A88590C497AF000B5912D /* QSProcessSource.m */,
-				7F9A885A0C497AF000B5912D /* QSProcessSwitcher.h */,
-				7F9A885B0C497AF000B5912D /* QSProcessSwitcher.m */,
-				7F9A885C0C497AF000B5912D /* QSProxyObject.h */,
-				7F9A885D0C497AF000B5912D /* QSProxyObject.m */,
-				7F9A885E0C497AF000B5912D /* QSProxyObjectSource.h */,
-				7F9A885F0C497AF000B5912D /* QSProxyObjectSource.m */,
-				7F9A88600C497AF000B5912D /* QSRankCell.h */,
-				7F9A88610C497AF000B5912D /* QSRankCell.m */,
-				7F9A88620C497AF000B5912D /* QSRankedObject.h */,
-				7F9A88630C497AF000B5912D /* QSRankedObject.m */,
-				7F9A88640C497AF000B5912D /* QSResizingInterfaceController.h */,
-				7F9A88650C497AF000B5912D /* QSResizingInterfaceController.m */,
-				7F9A88660C497AF000B5912D /* QSResourceManager.h */,
-				7F9A88670C497AF000B5912D /* QSResourceManager.m */,
-				7F9A88680C497AF000B5912D /* QSResultArray.h */,
-				7F9A88690C497AF000B5912D /* QSResultArray.m */,
-				7F9A886A0C497AF000B5912D /* QSResultController.h */,
-				7F9A886B0C497AF000B5912D /* QSResultController.m */,
-				7F9A886C0C497AF000B5912D /* QSResultWindow.h */,
-				7F9A886D0C497AF000B5912D /* QSResultWindow.m */,
-				7F9A886E0C497AF000B5912D /* QSSearchObjectView.h */,
-				7F9A886F0C497AF000B5912D /* QSSearchObjectView.m */,
-				7F9A88700C497AF000B5912D /* QSSeparatorObject.h */,
-				7F9A88710C497AF000B5912D /* QSSeparatorObject.m */,
-				7F9A88720C497AF000B5912D /* QSShading.h */,
-				7F9A88730C497AF000B5912D /* QSShading.m */,
-				7F9A88740C497AF000B5912D /* QSSliderTextCell.h */,
-				7F9A88750C497AF000B5912D /* QSSliderTextCell.m */,
-				7F9A88760C497AF000B5912D /* QSSplitHandleView.h */,
-				7F9A88770C497AF000B5912D /* QSSplitHandleView.m */,
-				7F9A88780C497AF000B5912D /* QSStringRanker.h */,
-				7F9A88790C497AF100B5912D /* QSStringRanker.m */,
-				7F9A887A0C497AF100B5912D /* QSTableHeaderCell.h */,
-				7F9A887B0C497AF100B5912D /* QSTableHeaderCell.m */,
-				7F9A887C0C497AF100B5912D /* QSTableView.h */,
-				7F9A887D0C497AF100B5912D /* QSTableView.m */,
-				7F9A887E0C497AF100B5912D /* QSTask.h */,
-				7F9A887F0C497AF100B5912D /* QSTask.m */,
-				7F9A88800C497AF100B5912D /* QSTaskController.h */,
-				7F9A88810C497AF100B5912D /* QSTaskController.m */,
-				7F9A88820C497AF100B5912D /* QSTextProxy.h */,
-				7F9A88830C497AF100B5912D /* QSTextProxy.m */,
-				7F9A88840C497AF100B5912D /* QSTextViewer.h */,
-				7F9A88850C497AF100B5912D /* QSTextViewer.m */,
-				7F9A88860C497AF100B5912D /* QSTrackingWindow.h */,
-				7F9A88870C497AF100B5912D /* QSTrackingWindow.m */,
-				7F9A88880C497AF100B5912D /* QSTreeController.h */,
-				7F9A88890C497AF100B5912D /* QSTreeController.m */,
-				7F9A888A0C497AF100B5912D /* QSTypes.h */,
-				7F9A888B0C497AF100B5912D /* QSTypes.m */,
-				7F9A888C0C497AF100B5912D /* QSURLDownloadWrapper.h */,
-				7F9A888D0C497AF100B5912D /* QSURLDownloadWrapper.m */,
-				7F9A888E0C497AF100B5912D /* QSUTI.h */,
-				7F9A888F0C497AF100B5912D /* QSUTI.m */,
-				7F9A88900C497AF100B5912D /* QSVoyeur.h */,
-				7F9A88910C497AF100B5912D /* QSVoyeur.m */,
-				7F9A88920C497AF100B5912D /* QSWarpEffects.h */,
-				7F9A88930C497AF100B5912D /* QSWarpEffects.m */,
-				7F9A88940C497AF100B5912D /* QSWindow.h */,
-				7F9A88950C497AF100B5912D /* QSWindow.m */,
-				7F9A88960C497AF100B5912D /* QSWindowAnimation.h */,
-				7F9A88970C497AF100B5912D /* QSWindowAnimation.m */,
-				7F9A88980C497AF100B5912D /* QSWorkspaceMediatior.h */,
-				7F9A88990C497AF100B5912D /* QSWorkspaceMediatior.m */,
-				4D8912E30D28288C006060ED /* QSController.h */,
-				4D8913220D282997006060ED /* QSApp.h */,
-				7F350C4B0D15A4FB00B2B814 /* QSObject+QSIconLoader.h */,
-				7F350C4C0D15A4FB00B2B814 /* QSObject+QSIconLoader.m */,
-				7F5D24220C49C44200812049 /* QSOutlineView.h */,
-				7F5D24210C49C44200812049 /* QSOutlineView.m */,
-				7F17F16E0C4F1983001ADE1A /* QSTitleToolbarItem.h */,
-				7F17F16F0C4F1983001ADE1A /* QSTitleToolbarItem.m */,
-				7F17F0640C4F1795001ADE1A /* QSCaseInsensitiveStringKey.h */,
-				7F17F0650C4F1795001ADE1A /* QSCaseInsensitiveStringKey.m */,
 			);
 			name = Crucible;
 			sourceTree = "<group>";

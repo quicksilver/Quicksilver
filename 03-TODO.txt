@@ -1,0 +1,19 @@
+Etienne's TODO notes :
+
+* I need to port changes I made in the b5X branch :
+	- Consolidate QSBasicObject & QSObject. There are numerous ways of getting an object name/details, and each subclass adds to the confusion.
+	- Fix the localization stuff. This depends (a little) on the above. What I would love it being able of copying one's Quicksilver installation in a locale to a computer in another locale, and don't see any piece of the first locale's strings showing up.
+	- The fixes to triggers (scoping), but since I'm not sure of the state of triggers in here, I'm left wondering.
+
+* Look at how plugins are managed in Blocks.
+
+* Integrate with Sparkle.
+
+* Rework/redo the whole interface stuff :
+	- Using bindings.
+	- Correct the "wierdiness" in QSInterfaceController, this should maintain a QSCommand, not a tuple QSObj/QSAction/QSObj (this for if we want to add arguments to actions).
+	- Detangle QSResultController/QSSearchObjectView. The former ought to be a controller, the other its associated view. Drop the QSResultController view code in QSResultView, integrate the sorting/algo stuff from QSSearchObjectView.
+
+* Cleanup the mess with QSRankedObjects. Those are created by QSObjectRanker as wrappers around an object, and they end up in the interface, albeit as proxies for the object they wrap. I'm not sure how to fix this (or even if this could be useful), because keeping the ranking data is necessary, but it is only used as a one-shot (until the QSCommandInterface closes).
+
+* Add a QSTimerSource, containing QSCommands that have been timed, thus giving access to them.
