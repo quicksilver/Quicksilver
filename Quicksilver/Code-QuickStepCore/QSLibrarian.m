@@ -340,12 +340,26 @@ static float searchSpeed = 0.0;
 	NSArray *shelves = [[NSFileManager defaultManager] directoryContentsAtPath:path];
 	NSArray *dictionaryArray;
 	int i;
-	for (i = 0; i<[shelves count]; i++) {
+	for (i = 0; i < [shelves count]; i++) {
 		NSString *thisShelf = [shelves objectAtIndex:i];
-		if (![[thisShelf pathExtension] isEqualToString:@"qsshelf"]) continue;
-		dictionaryArray = [NSArray arrayWithContentsOfFile:[path stringByAppendingPathComponent:thisShelf]];
+		if (![[thisShelf pathExtension] isEqualToString:@"qsshelf"])
+            continue;
+        
+        NSString *errorString;
+        NSData *data = [NSData dataWithContentsOfFile:[path stringByAppendingPathComponent:thisShelf]];
+        dictionaryArray = [NSPropertyListSerialization propertyListFromData:data
+                                                           mutabilityOption:NSPropertyListMutableContainersAndLeaves
+                                                                     format:NULL
+                                                           errorDescription:&errorString];
+        if (dictionaryArray == nil) {
+            NSLog("Error reading shelf file %@: %@", thisShelf, errorString);
+            [errorString release];
+            continue;
+        }
+
 		NSArray *objects = [QSObject objectsWithDictionaryArray:dictionaryArray];
-		if (objects) [shelfArrays setObject:objects forKey:[thisShelf stringByDeletingPathExtension]];
+		if (objects)
+            [shelfArrays setObject:objects forKey:[thisShelf stringByDeletingPathExtension]];
 	}
 }
 
