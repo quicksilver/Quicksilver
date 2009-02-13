@@ -7,6 +7,9 @@
 @class QSAction;
 @class QSTaskController;
 
+@class QSExecutor;
+extern QSExecutor *QSExec; // Shared Instance
+
 @protocol QSFileActionProvider
 - (NSArray *)fileActionsFromPaths:(NSArray *)paths;
 @end

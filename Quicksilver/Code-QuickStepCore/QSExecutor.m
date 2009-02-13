@@ -34,7 +34,7 @@
 
 #define pQSActionsLocation QSApplicationSupportSubPath(@"Actions.plist", NO)
 
-QSExecutor *QSExec;
+QSExecutor *QSExec = nil;
 
 /*@interface QSObject (QSActionsHandlerProtocol)
 - (NSArray *)actionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
