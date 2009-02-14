@@ -194,7 +194,7 @@ static BOOL gModifiersAreIgnored;
 }
 
 - (BOOL)displaysResult { return [[[self actionDict] objectForKey:kActionDisplaysResult] boolValue]; }
-- (void)setDisplaysResult:(BOOL)flag { [[self actionDict] setObject:[NSNumber numberWithInt:flag] forKey:kActionDisplaysResult];  }
+- (void)setDisplaysResult:(BOOL)flag { [[self actionDict] setObject:[NSNumber numberWithInt:flag] forKey:kActionDisplaysResult]; }
 
 - (id)provider {
 	NSDictionary *dict = [self actionDict];
@@ -209,6 +209,30 @@ static BOOL gModifiersAreIgnored;
 	[dict setObject:NSStringFromClass([newProvider class]) forKey:kActionClass];
 	[dict setObject:newProvider forKey:kActionProvider];
 }
+
+- (NSArray*)directTypes {
+    return [[self actionDict] objectForKey:kActionDirectTypes];
+}
+
+- (void)setDirectTypes:(NSArray*)types {
+    [[self actionDict] setObject:types forKey:kActionDirectTypes];
+}
+
+- (NSArray*)indirectTypes {
+    return [[self actionDict] objectForKey:kActionIndirectTypes];
+}
+
+- (void)setIndirectTypes:(NSArray*)types {
+    [[self actionDict] setObject:types forKey:kActionIndirectTypes];
+}
+
+/*- (NSArray*)resultTypes {
+    return [[self actionDict] objectForKey:kActionResultType];
+}
+
+- (void)setResultTypes:(NSArray*)types {
+    [[self actionDict] setObject:types forKey:kActionResultType];
+}*/
 
 - (BOOL)canThread { return ![[[self actionDict] objectForKey:kActionRunsInMainThread] boolValue];  }
 

@@ -2,6 +2,8 @@
 #import <QSCore/QSObject.h>
 #import <QSCore/QSObjectRanker.h>
 
+/* TODO : Split this in QSAppleScript action ? */
+
 // strings:
 #define kActionClass @"actionClass"
 #define kActionProvider @"actionProvider"
@@ -24,7 +26,7 @@
 // arrays:
 #define kActionDirectTypes @"directTypes"
 #define kActionIndirectTypes @"indirectTypes"
-#define kActionResultType @"resultTypes"
+#define kActionResultType @"resultTypes" // Unused ? 
 
 // BOOLs:
 #define kActionRunsInMainThread @"runInMainThread"
@@ -59,6 +61,8 @@
 
 - (id)provider;
 - (void)setProvider:(id)newProvider;
+
+- (SEL)action;
 - (void)setAction:(SEL)newAction;
 
 - (int)rank;
@@ -73,12 +77,19 @@
 - (int)argumentCount;
 - (void)setArgumentCount:(int)newArgumentCount;
 - (BOOL)reverse;
-- (void)setReverse:(BOOL)flag ;
+- (void)setReverse:(BOOL)flag;
 - (BOOL)canThread;
 - (BOOL)indirectOptional;
 - (void)setIndirectOptional:(BOOL)flag;
 - (BOOL)displaysResult;
 - (void)setDisplaysResult:(BOOL)flag;
+
+- (NSArray*)directTypes;
+- (void)setDirectTypes:(NSArray*)types;
+- (NSArray*)indirectTypes;
+- (void)setIndirectTypes:(NSArray*)types;
+/*- (NSArray*)resultTypes;
+- (void)setResultTypes:(NSArray*)types;*/
 
 - (id)objectForKey:(NSString*)key;
 
