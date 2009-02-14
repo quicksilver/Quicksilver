@@ -352,7 +352,7 @@ static float searchSpeed = 0.0;
                                                                      format:NULL
                                                            errorDescription:&errorString];
         if (dictionaryArray == nil) {
-            NSLog("Error reading shelf file %@: %@", thisShelf, errorString);
+            NSLog(@"Error reading shelf file %@: %@", thisShelf, errorString);
             [errorString release];
             continue;
         }
