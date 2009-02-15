@@ -214,10 +214,10 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 		[self reloadProcesses];
 	else
 		[self addProcessWithDict:[notif userInfo]];
-	//	[self invalidateSelf];
 
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSApplicationLaunchEvent" userInfo:[NSDictionary dictionaryWithObject:[self imbuedFileProcessForDict:[notif userInfo]] forKey:@"object"]];
-
+    QSObject *procObject = [self imbuedFileProcessForDict:[notif userInfo]];
+    if (procObject)
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSApplicationLaunchEvent" userInfo:[NSDictionary dictionaryWithObject:procObject forKey:@"object"]];
 }
 
 - (void)addObserverForEvent:(NSString *)event trigger:(NSDictionary *)trigger {
@@ -234,9 +234,11 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 //	NSLog(@"addProcess %@", [info objectForKey:@"NSApplicationName"]);
 	QSObject *thisProcess = [self imbuedFileProcessForDict:info];
 //	NSLog(@"process %@", thisProcess);
-	[processes addObject:thisProcess];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"ObjectModified" object:thisProcess];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"processesChanged" object:nil];
+    if (thisProcess != nil) {
+        [processes addObject:thisProcess];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ObjectModified" object:thisProcess];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"processesChanged" object:nil];
+    }
 }
 
 - (NSArray *)getAllProcesses {
