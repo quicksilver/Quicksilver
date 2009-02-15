@@ -23,15 +23,10 @@ float QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mas
 	int i, j;
 	CFRange matchedRange, remainingStrRange, adjustedStrRange = strRange;
     CFLocaleRef userLoc = CFLocaleCopyCurrent();
-	if (!abbrRange.length) return IGNORED_SCORE; //deduct some points for all remaining letters
-	if (abbrRange.length>strRange.length) return 0.0;
-    if (!CFStringFindWithOptionsAndLocale(str, abbr,
-                                          strRange,
-                                          kCFCompareCaseInsensitive | kCFCompareDiacriticInsensitive | kCFCompareLocalized,
-                                          userLoc, &matchedRange)) {
-        CFRelease(userLoc);
+	if (!abbrRange.length)
+        return IGNORED_SCORE; //deduct some points for all remaining letters
+	if (abbrRange.length > strRange.length)
         return 0.0;
-    }
 
 	for (i = abbrRange.length; i > 0; i--) { //Search for steadily smaller portions of the abbreviation
 		CFStringRef curAbbr = CFStringCreateWithSubstring (NULL, abbr, CFRangeMake(abbrRange.location, i) );
@@ -47,11 +42,11 @@ float QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mas
 
 		if (mask) [mask addIndexesInRange:NSMakeRange(matchedRange.location, matchedRange.length)];
 
-		remainingStrRange.location = matchedRange.location+matchedRange.length;
-		remainingStrRange.length = strRange.location+strRange.length-remainingStrRange.location;
+		remainingStrRange.location = matchedRange.location + matchedRange.length;
+		remainingStrRange.length = strRange.location + strRange.length - remainingStrRange.location;
 
 		// Search what is left of the string with the rest of the abbreviation
-		remainingScore = QSScoreForAbbreviationWithRanges(str, abbr, mask, remainingStrRange, CFRangeMake(abbrRange.location+i, abbrRange.length-i) );
+		remainingScore = QSScoreForAbbreviationWithRanges(str, abbr, mask, remainingStrRange, CFRangeMake(abbrRange.location + i, abbrRange.length - i) );
 
 		if (remainingScore) {
 			score = remainingStrRange.location-strRange.location;
