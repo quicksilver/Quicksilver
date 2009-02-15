@@ -179,7 +179,7 @@
 		[event setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:[dObject stringValue]] forKeyword:keyDirectObject];
 	} else {
 		id object;
-		NSArray *types = [action objectForKey:kActionDirectTypes];
+		NSArray *types = [action directTypes];
 		NSString *type = ([types count]) ? [types objectAtIndex:0] : [dObject primaryType];
 		object = [dObject arrayForType:type];
 		object = ([type isEqual:QSFilePathType] ? [NSAppleEventDescriptor aliasListDescriptorWithArray:object] : [NSAppleEventDescriptor descriptorWithObject:object]);
