@@ -141,14 +141,15 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 	if (anAbbreviation && !mnemonicsOnly) { // get base score for both name and label
 										  //newScore = [nameRanker scoreForAbbreviation:anAbbreviation]; //QSScoreForAbbreviation((CFStringRef) info->name, (CFStringRef)searchString, nil);
 		newScore = (*scoreForAbbrevIMP) (nameRanker, @selector(scoreForAbbreviation:), anAbbreviation);
-
+        matchedString = [nameRanker rankedString];
+        
 		if (labelRanker) {
 			//float labelScore = [labelRanker scoreForAbbreviation:anAbbreviation]; //QSScoreForAbbreviation((CFStringRef) info->label, (CFStringRef)searchString, nil);
 			float labelScore = (*scoreForAbbrevIMP) (labelRanker, @selector(scoreForAbbreviation:), anAbbreviation);
 
-			if (labelScore>newScore) {
+			if (labelScore > newScore) {
 				newScore = labelScore;
-				//matchedString = info->label;
+                matchedString = [labelRanker rankedString];
 			}
 		}
 	}
