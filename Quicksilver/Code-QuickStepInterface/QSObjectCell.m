@@ -502,7 +502,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 		}
 
 		if (showDetails && [detailsString length]) {
-            NSLog(@"Strings are %@, %@, sizes are %@, %@", nameString, detailsString, NSStringFromSize(nameSize), NSStringFromSize(detailsSize));
+            //NSLog(@"Strings are %@, %@, sizes are %@, %@", nameString, detailsString, NSStringFromSize(nameSize), NSStringFromSize(detailsSize));
 			float detailHeight = NSHeight(textDrawRect) -nameSize.height;
 			NSRange returnRange;
 			if (detailHeight<detailsSize.height && (returnRange = [detailsString rangeOfString:@"\n"]) .location != NSNotFound)
