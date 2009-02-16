@@ -1105,7 +1105,7 @@
 			else
 				[self setParamDescriptor:[NSAppleEventDescriptor descriptorWithObject:theObject] forKeyword:aKeyWord];
 		}
-		while( (aKeyWord = va_arg( anArgList, AEKeyword ) ) != nil );
+		while( (aKeyWord = va_arg( anArgList, AEKeyword ) ) != 0 );
 	}
 
 	return self;
