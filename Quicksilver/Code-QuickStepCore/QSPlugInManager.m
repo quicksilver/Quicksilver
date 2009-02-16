@@ -713,7 +713,10 @@
 
 - (BOOL)plugInWasInstalled:(NSString *)plugInPath {
 	NSBundle *bundle = [NSBundle bundleWithPath:plugInPath];
-
+    if (bundle == nil) {
+        NSLog(@"Failed to get bundle for plugin at path %@", plugInPath);
+        return NO;
+    }
 	NSString *name = [bundle objectForInfoDictionaryKey:@"CFBundleName"];
 	QSPlugInManager *manager = [QSPlugInManager sharedInstance];
 
