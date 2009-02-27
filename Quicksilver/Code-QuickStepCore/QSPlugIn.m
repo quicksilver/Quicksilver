@@ -153,7 +153,9 @@ if (DEBUG && [self isSecret]) {
 }
 
 - (BOOL)isUniversal {
-	if (![bundle executablePath]) return NO;
+	if (![bundle executablePath])
+        return NO;
+    /* TODO: Use NSTask */
 	NSString *str = [NSString stringWithFormat:@"/usr/bin/lipo -info \"%@\"", [bundle executablePath]];
 	FILE *file = popen( [str UTF8String] , "r" );
 	NSString *output = nil;
@@ -164,10 +166,12 @@ if (DEBUG && [self isSecret]) {
 		while (length = fread( buffer, 1, sizeof( buffer ), file ) )[pipeData appendBytes:buffer length:length];
 		output = [[[NSString alloc] initWithData:pipeData encoding:NSUTF8StringEncoding] autorelease];
 		pclose( file );
+        return [output rangeOfString:@"i386"].location != NSNotFound;
 	}
 
+    return NO;
 	//	NSLog(@"output%@", output);
-	return [output rangeOfString:@"i386"].location != NSNotFound;
+	
 }
 
 - (NSDictionary *)info {

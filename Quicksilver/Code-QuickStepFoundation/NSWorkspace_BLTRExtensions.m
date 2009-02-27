@@ -54,6 +54,7 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 		CFRelease(fileURL);
 
 		scriptText = [NSString stringWithFormat:@"tell application \"Finder\" to set comment of item \"%@\" to \"%@\"", hfsPath, comment];
+        [hfsPath release];
 		script = [[NSAppleScript alloc] initWithSource:scriptText];
 		result = ([[script executeAndReturnError:nil] stringValue] != nil);
 		[script release];

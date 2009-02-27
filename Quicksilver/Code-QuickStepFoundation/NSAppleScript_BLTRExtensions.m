@@ -35,10 +35,10 @@
 
 @implementation NSAppleScript (Constructors)
 + (NSAppleScript *)scriptWithContentsOfFile:(NSString *)path {
-	return [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:nil];
+	return [[[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:nil] autorelease];
 }
 + (NSAppleScript *)scriptWithContentsOfResource:(NSString *)path inBundle:(NSBundle *)bundle {
-	return [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:[bundle pathForResource:[path stringByDeletingPathExtension] ofType:[path pathExtension]]] error:nil];
+	return [[[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:[bundle pathForResource:[path stringByDeletingPathExtension] ofType:[path pathExtension]]] error:nil] autorelease];
 }
 @end
 

@@ -70,11 +70,11 @@
         NSString *type = [thisInfo objectForKey:@"type"];
         
         if ([type isEqualToString:@"checkbox"]) {
-            cell = [[NSButtonCell alloc] init];
+            cell = [[[NSButtonCell alloc] init] autorelease];
             [(NSButtonCell*)cell setButtonType:NSSwitchButton];
             [cell setTitle:@""];
         } else if ([type hasPrefix:@"popup"]) {
-            cell = [[NSPopUpButtonCell alloc] init];
+            cell = [[[NSPopUpButtonCell alloc] init] autorelease];
             
             [(NSPopUpButtonCell *)cell setBordered:YES];
             [(NSPopUpButtonCell *)cell removeAllItems];
@@ -88,7 +88,7 @@
             }
             
         } else if ([type isEqualToString:@"text"]) {
-            cell = [[NSTextFieldCell alloc] init];
+            cell = [[[NSTextFieldCell alloc] init] autorelease];
             [(NSTextFieldCell *)cell setPlaceholderString:@"text"];
         }
         [cell setControlSize:NSSmallControlSize];

@@ -233,7 +233,7 @@ NSDictionary *enabledPresetDictionary;*/
 - (void)pruneInvalidChildren {
 	NSMutableArray *children2 = [children copy];
 	foreach(child, children2) {
-		if ([child isSeparator]) return; //Stop when at end of presets
+		if ([child isSeparator]) break; //Stop when at end of presets
 		if ([child isRestricted]) {
 			if (DEBUG_CATALOG) NSLog(@"Disabling Preset:%@", [child identifier]);
 			[children removeObject:child];

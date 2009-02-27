@@ -156,6 +156,7 @@
 	}
 
 	[addButton setMenu:addMenu];
+    [addMenu release];
 }
 
 - (id)preferencesSplitView { return [sidebar superview];  }

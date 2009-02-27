@@ -570,8 +570,6 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)selectObjectValue:(QSObject *)newObject {
 	if (newObject != [self objectValue]) {
 		[self updateHistory];
-		// if (newObject) NSLog(@"%p set value %@", self, newObject);
-		// [newObject loadIcon];
 		[super setObjectValue:newObject];
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
 	}
@@ -1495,7 +1493,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (long)conversationIdentifier { return (long)self; }
 
 - (NSAttributedString *)attributedSubstringFromRange:(NSRange)theRange {
-	return [[NSAttributedString alloc] initWithString:[partialString substringWithRange:theRange]];
+	return [[[NSAttributedString alloc] initWithString:[partialString substringWithRange:theRange]] autorelease];
 }
 - (NSRange)markedRange { return NSMakeRange([partialString length] -1, 1); }
 - (NSRange)selectedRange { return NSMakeRange(NSNotFound, 0); }

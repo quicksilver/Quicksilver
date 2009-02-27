@@ -22,9 +22,10 @@ float QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mas
 	float score, remainingScore;
 	int i, j;
 	CFRange matchedRange, remainingStrRange, adjustedStrRange = strRange;
-    CFLocaleRef userLoc = CFLocaleCopyCurrent();
+    
 	if (!abbrRange.length)
         return IGNORED_SCORE; //deduct some points for all remaining letters
+    
 	if (abbrRange.length > strRange.length)
         return 0.0;
 
@@ -32,11 +33,13 @@ float QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mas
 		CFStringRef curAbbr = CFStringCreateWithSubstring (NULL, abbr, CFRangeMake(abbrRange.location, i) );
 		//terminality
 		//axeen
+        CFLocaleRef userLoc = CFLocaleCopyCurrent();
 		BOOL found = CFStringFindWithOptionsAndLocale(str, curAbbr,
                                                       CFRangeMake(adjustedStrRange.location, adjustedStrRange.length - abbrRange.length + i),
                                                       kCFCompareCaseInsensitive | kCFCompareDiacriticInsensitive | kCFCompareLocalized,
                                                       userLoc, &matchedRange);
 		CFRelease(curAbbr);
+        CFRelease(userLoc);
 
 		if (!found) continue;
 
@@ -75,10 +78,8 @@ float QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mas
 			}
 			score += remainingScore*remainingStrRange.length;
 			score /= strRange.length;
-            CFRelease( userLoc );
 			return score;
 		}
 	}
-    CFRelease( userLoc );
 	return 0;
 }

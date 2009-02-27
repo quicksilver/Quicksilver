@@ -210,7 +210,7 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 			[rankedObject setRankedString:matchedString];
 			return [rankedObject retain];
 		} else {
-			return [[QSRankedObject alloc] initWithObject:object matchString:matchedString order:newOrder score:newScore];
+			return [[[QSRankedObject alloc] initWithObject:object matchString:matchedString order:newOrder score:newScore] autorelease];
 		}
 	}
 	return nil;
