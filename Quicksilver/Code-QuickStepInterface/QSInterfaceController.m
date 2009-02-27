@@ -309,8 +309,7 @@
 
 - (void)updateViewLocations {
     QSAction *obj = [aSelector objectValue];
-    int argc = [obj argumentCount];
-	if ([obj isKindOfClass:[QSAction class]] && argc == 2)
+	if ([obj argumentCount] == 2)
 		[self showIndirectSelector:nil];
 	else
 		[self hideIndirectSelector:nil];
@@ -359,6 +358,8 @@
 		[self updateViewLocations];
 	} else if ([notif object] == aSelector) {
         QSAction *obj = [aSelector objectValue];
+        if ([obj isKindOfClass:[QSRankedObject class]])
+            obj = [(QSRankedObject*)obj object];
         if ([obj isKindOfClass:[QSAction class]]) {
             int argumentCount = [obj argumentCount];
             if (argumentCount == 2)

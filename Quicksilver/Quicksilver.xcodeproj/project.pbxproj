@@ -901,7 +901,6 @@
 		4DC493DC0E8D15CB000EEF1C /* QSImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSImageView.m; sourceTree = "<group>"; };
 		4DC493DD0E8D15CB000EEF1C /* QSPopUpTextButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPopUpTextButtonCell.h; sourceTree = "<group>"; };
 		4DC493DE0E8D15CB000EEF1C /* QSPopUpTextButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPopUpTextButtonCell.m; sourceTree = "<group>"; };
-		4DC4941B0E8D1CEC000EEF1C /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		4DD2CF340E7B345500BA1128 /* QSBasicObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSBasicObject.h; sourceTree = "<group>"; };
 		4DD2CF350E7B345500BA1128 /* QSBasicObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSBasicObject.m; sourceTree = "<group>"; };
 		4DD89E740EBDD410005A15AE /* QSCore.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCore.pch; sourceTree = "<group>"; };
@@ -1609,6 +1608,7 @@
 			children = (
 				7F84020609691035006E6F0E /* SyncServices.framework */,
 				7F686D90080C151100449DEF /* QuartzCore.framework */,
+				4DFE7DAD0E081BFD000B9AA3 /* QuickLook.framework */,
 				7F9BAA560886DA54003CB3A1 /* Security.framework */,
 				7F9BAA570886DA54003CB3A1 /* SecurityFoundation.framework */,
 				E1075DB00783CE27004053AF /* IOKit.framework */,
@@ -1672,7 +1672,6 @@
 				E1A567CA06FFEBFB00BAD045 /* Scripting */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				E1FDD4A60729D0A800A63098 /* Embedded PlugIns */,
-				4DC4941B0E8D1CEC000EEF1C /* QuickLook.framework */,
 			);
 			name = Quicksilver;
 			sourceTree = "<group>";
@@ -1680,7 +1679,6 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4DFE7DAD0E081BFD000B9AA3 /* QuickLook.framework */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 			);
