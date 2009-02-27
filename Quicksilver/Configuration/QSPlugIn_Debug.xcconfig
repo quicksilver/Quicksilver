@@ -1,2 +1,2 @@
 #include "Debug.xcconfig"
-#include "QSPlugin.xcconfig"
+#include "QSPlugIn.xcconfig"
