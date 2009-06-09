@@ -643,7 +643,7 @@
     }
     int argumentCount = [(QSAction *)[aSelector objectValue] argumentCount]; 	
     if (argumentCount == 2) {
-        BOOL indirectIsRequired = ![[[[aSelector objectValue] actionDict] objectForKey:kActionIndirectOptional] boolValue];
+        BOOL indirectIsRequired = ![(QSAction *)[aSelector objectValue] indirectOptional];
         BOOL indirectIsInvalid = ![iSelector objectValue];
         BOOL indirectIsTextProxy = [[[iSelector objectValue] primaryType] isEqual:QSTextProxyType];
         
@@ -730,9 +730,8 @@
 		if ([returnValue isKindOfClass:[QSNullObject class]]) {
 			[self clearObjectView:dSelector];
 		} else {
-			BOOL display = [[[action actionDict] objectForKey:kActionDisplaysResult] boolValue];
 			[dSelector performSelectorOnMainThread:@selector(selectObjectValue:) withObject:returnValue waitUntilDone:YES]; 		
-			if (display) [self showMainWindow:self];
+			if ([action displaysResult]) [self showMainWindow:self];
 		}
 	}
   if (VERBOSE) QSLog(@"Command executed (%dms) ", (int)(-[startDate timeIntervalSinceNow] *1000));

@@ -203,8 +203,7 @@ QSExecutor *QSExec;
 	}
 }
 
-- (void) addAction:(QSAction *)action {
-	NSDictionary *actionDict = [action actionDict];
+- (void)addAction:(QSAction *)action {
 	NSString *ident = [action identifier];
 	if (!ident) {
 		//	QSLog(@"aciton %@",actionDict);
@@ -224,14 +223,10 @@ QSExecutor *QSExec;
 	[actionIdentifiers setObject:action forKey:ident];
 	
 	NSNumber *activation = [actionActivation objectForKey:ident];
-	if (!activation)
-		activation = [action defaultEnabled];
-	[action _setEnabled:(activation ? [activation boolValue] : YES)];
+	[action _setEnabled:(activation ? [activation boolValue] : [action defaultEnabled])];
 	
 	activation = [actionMenuActivation objectForKey:ident];
-	if (!activation)
-		activation = [action defaultEnabled];
-	[action _setMenuEnabled:(activation ? [activation boolValue] : YES)];	
+	[action _setMenuEnabled:(activation ? [activation boolValue] : [action defaultEnabled])];	
 	
 	int index = [actionRanking indexOfObject:ident];
 	
@@ -255,7 +250,7 @@ QSExecutor *QSExec;
 		[action _setRank:index];
 	}
 	
-	NSArray *directTypes = [actionDict objectForKey:@"directTypes"];
+	NSArray *directTypes = [action directTypes];
 	if (![directTypes count])
         directTypes = [NSArray arrayWithObject:@"*"];
 	NSEnumerator *e = [directTypes objectEnumerator];
@@ -265,7 +260,7 @@ QSExecutor *QSExec;
 		[[self actionsArrayForType:type] addObject:action];
 	
 	if ([directTypes containsObject:QSFilePathType]) {
-		directTypes = [actionDict objectForKey:@"directFileTypes"];
+		directTypes = [action directFileTypes];
 		if (![directTypes count])
             directTypes = [NSArray arrayWithObject:@"*"];
 		for (type in directTypes) {
@@ -483,13 +478,12 @@ QSExecutor *QSExec;
 	for( thisAction in newActions) {
 		if (![thisAction enabled]) continue;
 		validSourceActions = nil;
-		NSDictionary *actionDict = [thisAction actionDict];
-		isValid = ![[actionDict objectForKey:@"validatesObjects"] boolValue];
+		isValid = ![thisAction validatesObject];
 		
 		//QSLog(@"thisact %@", thisAction);
 		
 		if (!isValid) {
-			validSourceActions = [validatedActionsBySource objectForKey:[actionDict objectForKey:@"actionClass"]];
+			validSourceActions = [validatedActionsBySource objectForKey:[thisAction class]];
 			if (!validSourceActions) {
 				aObject = [thisAction provider];
                 
