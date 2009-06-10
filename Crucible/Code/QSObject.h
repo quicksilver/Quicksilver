@@ -88,22 +88,16 @@ typedef struct _QSObjectFlags {
 + (id)makeObjectWithIdentifier:(NSString *)anIdentifier;
 
 - (id)init;
-- (void)dealloc;
+
 - (BOOL)isEqual:(id)anObject;
+
 - (NSString *)guessPrimaryType;
 - (NSArray *)splitObjects;
-- (NSString *)displayName;
-- (NSString *)toolTip;
-- (NSString *)descriptionWithLocale:(NSDictionary *)locale indent:(unsigned)level;
-- (NSString *)details;
 
-- (id)primaryObject;
 - (NSArray *)allKeys;
 
-- (NSArray *)types;
 - (NSArray *)decodedTypes;
 
-- (id)handler;
 - (id)handlerForType:(NSString *)type selector:(SEL)selector;
 - (id)handlerForSelector:(SEL)selector;
 
@@ -116,52 +110,41 @@ typedef struct _QSObjectFlags {
 - (id)objectForMeta:(id)aKey;
 - (void)setObject:(id)object forMeta:(id)aKey;
 
-- (void)setDetails:(NSString *)newDetails;
-
 - (NSMutableDictionary *)cache;
 - (void)setCache:(NSMutableDictionary *)aCache;
 
 
 @end
 
-@interface QSObject (Icon)
-- (BOOL)loadIcon;
-- (BOOL)unloadIcon;
-- (NSImage *)icon;
-- (void)setIcon:(NSImage *)newIcon;
-@end
-
 @interface QSObject (Hierarchy)
-- (QSBasicObject *)parent;
 - (void)setParentID:(NSString *)parentID;
-- (BOOL)childrenValid;
-- (BOOL)unloadChildren;
+- (void)setChildren:(NSArray *)newChildren;
+- (void)setAltChildren:(NSArray *)newAltChildren;
+
 - (void)loadChildren;
-- (BOOL)hasChildren;
+- (BOOL)unloadChildren;
+
+- (BOOL)childrenValid;
+
+- (BOOL)childrenLoaded;
+- (void)setChildrenLoaded:(BOOL)flag;
 @end
 
 //Standard Accessors
 @interface QSObject (Accessors)
-- (NSString *)identifier;
 - (void)setIdentifier:(NSString *)newIdentifier;
-- (NSString *)name;
 - (void)setName:(NSString *)newName;
-- (NSArray *)children;
-- (void)setChildren:(NSArray *)newChildren;
-- (NSArray *)altChildren;
-- (void)setAltChildren:(NSArray *)newAltChildren;
-- (NSString *)label;
 - (void)setLabel:(NSString *)newLabel;
-- (NSString *)primaryType;
+- (void)setDetails:(NSString *)newDetails;
+
 - (void)setPrimaryType:(NSString *)newPrimaryType;
+
 - (NSMutableDictionary *)dataDictionary;
 - (void)setDataDictionary:(NSMutableDictionary *)newDataDictionary;
-- (BOOL)iconLoaded;
+
 - (void)setIconLoaded:(BOOL)flag;
 - (BOOL)retainsIcon;
 - (void)setRetainsIcon:(BOOL)flag;
-- (BOOL)childrenLoaded;
-- (void)setChildrenLoaded:(BOOL)flag;
 - (BOOL)contentsLoaded;
 - (void)setContentsLoaded:(BOOL)flag;
 - (NSTimeInterval)childrenLoadedDate;

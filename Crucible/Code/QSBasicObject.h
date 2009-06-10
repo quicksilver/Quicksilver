@@ -22,20 +22,14 @@
 #define kQSObjectClass @"class"
 
 // QSObject Protocols -  right now these aren't sufficient. QSBasicObject must be subclassed
-@protocol QSObject
-- (NSString *)label;
-- (NSString *)name;
+@protocol QSRanking
+- (Class)rankerClass;
+- (id <QSObjectRanker>)ranker;
+- (void)updateMnemonics;
 
-- (BOOL)loadIcon;
-- (BOOL)iconLoaded;
-- (NSImage *)icon;
-
-- (NSString *)primaryType;
-- (id)primaryObject;
-
-- (NSArray *)types;
-- (id)objectForType:(id)aType;
-- (NSArray *)arrayForType:(id)aKey;
+- (float)score;
+- (int)order;
+- (float)rankModification;
 @end
 
 @protocol QSObjectHierarchy
@@ -47,42 +41,65 @@
 - (NSArray *)altSiblings;
 @end
 
+@protocol QSTyping
+- (NSString *)primaryType;
+- (id)primaryObject;
+
+- (NSArray *)types;
+- (id)objectForType:(id)aType;
+
+- (NSArray *)arrayForType:(id)aKey;
+- (BOOL)containsType:(NSString *)aType;
+- (NSEnumerator *)enumeratorForType:(NSString *)aKey;
+@end
+
 @protocol QSCoding
 + (id)objectWithDictionary:(NSDictionary *)dict;
 - (id)initWithDictionary:(NSDictionary *)dict;
 - (NSDictionary *)dictionaryRepresentation;
 @end
 
-@interface QSBasicObject : NSObject <QSCoding, QSObject, QSObjectHierarchy> {
+@protocol QSIcon
+- (NSImage *)icon;
+- (void)setIcon:(NSImage *)newIcon;
+
+- (void)loadIcon;
+- (BOOL)unloadIcon;
+
+- (BOOL)iconLoaded;
+
+- (BOOL)drawIconInRect:(NSRect)rect flipped:(BOOL)flipped;
+@end
+
+@protocol QSObject <QSRanking, QSCoding, QSTyping, QSIcon, QSObjectHierarchy>
+- (NSString *)identifier;
+- (NSString *)name; /** < The object name */
+- (NSString *)label; /** < An alternate name for the object */
+- (NSString *)displayName; /** < The label, or the name if unavailable */
+- (NSString *)details; /** < Additional information about the object */
+- (NSString *)kind; /** < Human-readable type */
+
+- (NSImage *)icon;
+
+- (NSUInteger)count;
+
+- (NSBundle *)bundle;
+- (void)setBundle:(NSBundle *)bundle;
+
+- (id)handler;
+@end
+
+@interface QSBasicObject : NSObject <QSObject> {
 @public
 	NSObject <QSObjectRanker> *ranker;
+    NSBundle                  *bundle;
 }
 
-- (NSString *)identifier;
-- (NSString *)displayName;
-- (NSString *)details;
-- (NSString *)kind;
-- (NSString *)toolTip;
 
 - (BOOL)enabled;
 - (void)setEnabled:(BOOL)flag;
 
-- (float)score;
-- (int)order;
-- (float)rankModification;
-
-- (Class)rankerClass;
-- (id <QSObjectRanker>)ranker;
-- (void)updateMnemonics;
-
-- (BOOL)drawIconInRect:(NSRect)rect flipped:(BOOL)flipped;
-
 - (NSComparisonResult)nameCompare:(QSBasicObject *)object;
-
-- (BOOL)containsType:(NSString *)aType;
-- (NSEnumerator *)enumeratorForType:(NSString *)aKey;
-
-- (NSUInteger)count;
 
 /* TODO: I'm pretty sure a good amount of cleanup would make the following redundant */
 - (QSBasicObject *)resolvedObject;

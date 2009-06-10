@@ -172,6 +172,10 @@ NSSize QSMaxIconSize;
     [super dealloc];
 }
 
+- (id)copyWithZone:(NSZone *)zone {
+    return [self retain];
+}
+
 - (NSDictionary *)dictionaryRepresentation {
     NSMutableDictionary *dict = (NSMutableDictionary *)[super dictionaryRepresentation];
     [dict setObject:data forKey:kData];
@@ -262,18 +266,6 @@ NSSize QSMaxIconSize;
 	return splitObjects;
 }
 
-- (NSString *)displayName {
-    if (![self label])
-        return [self name];
-    return [self label];
-}
-
-- (NSString *)toolTip {
-    if (DEBUG)
-        return [NSString stringWithFormat:@"%@ (%d) \r%@\rTypes:\r\t%@", [self name] , self, [self details] , [[self decodedTypes] componentsJoinedByString:@"\r\t"]];
-    return nil;
-}
-
 - (NSString *)descriptionWithLocale:(NSDictionary *)locale indent:(unsigned)level {
     return [data descriptionWithLocale:locale indent:level];
 }
@@ -304,28 +296,6 @@ NSSize QSMaxIconSize;
 		return [handler drawIconForObject:self inRect:rect flipped:flipped];
     }
 	return NO;
-}
-
-- (void)setDetails:(NSString *)newDetails {
-	[self setObject:newDetails forMeta:kQSObjectDetails];
-}
-
-- (NSString *)details {
-	NSString *details = [meta objectForKey:kQSObjectDetails];
-    if (details)
-        return details;
-    
-    id handler = [[QSReg objectHandlers] objectForKey:[self primaryType]];
-    if ([handler respondsToSelector:@selector(detailsOfObject:)]) {
-		details = [handler detailsOfObject:self];
-		if (details) [meta setObject:details forKey:kQSObjectDetails];
-		return details;
-    }
-    
-    if ([[self objectForType:[self primaryType]] isKindOfClass:[NSString class]])
-        return [self objectForType:[self primaryType]];
-    
-    return nil;
 }
 
 - (id)primaryObject {
@@ -522,8 +492,6 @@ NSSize QSMaxIconSize;
     return [[[data allKeys] mutableCopy] autorelease];
 }
 
-- (NSUInteger)count { return 1; }
-
 - (NSArray *)decodedTypes {
     NSMutableArray *decodedTypes = [NSMutableArray arrayWithCapacity:[data count]];
     NSEnumerator *typesEnumerator = [data keyEnumerator];
@@ -533,6 +501,10 @@ NSSize QSMaxIconSize;
     }
     return decodedTypes;
 }
+
+@end
+
+@implementation QSObject (Hierarchy)
 
 - (QSBasicObject *)parent {
     QSBasicObject * parent = nil;
@@ -547,6 +519,12 @@ NSSize QSMaxIconSize;
     return parent;
 }
 
+- (BOOL)hasChildren {
+    id handler = [[QSReg objectHandlers] objectForKey:[self primaryType]];
+    if ([handler respondsToSelector:@selector(objectHasChildren:)])
+        return [handler objectHasChildren:self];
+    return NO;
+}
 
 - (void)setParentID:(NSString *)parentID {
     if (parentID)
@@ -565,20 +543,6 @@ NSSize QSMaxIconSize;
     return NO;
 }
 
-- (BOOL)unloadChildren {
-	//QSLog(@"unload children of %@", self);
-	
-    if (![self childrenLoaded])
-        return NO;
-	//QSLog(@"unloaded %@ %x", self, self);
-    [self setChildren:nil];
-    [self setAltChildren:nil];
-    flags.childrenLoaded = NO;
-    [self setChildrenLoadedDate:0];
-	[childLoadedSet removeObject:self];
-    return YES;
-}
-
 - (void)loadChildren {
     id handler = [[QSReg objectHandlers] objectForKey:[self primaryType]];
     if ([handler respondsToSelector:@selector(loadChildrenForObject:)]) {
@@ -594,18 +558,54 @@ NSSize QSMaxIconSize;
 	
 }
 
-- (BOOL)hasChildren {
-    id handler = [[QSReg objectHandlers] objectForKey:[self primaryType]];
-    if ([handler respondsToSelector:@selector(objectHasChildren:)])
-        return [handler objectHasChildren:self];
-    return NO;
+- (BOOL)unloadChildren {
+	//QSLog(@"unload children of %@", self);
+	
+    if (![self childrenLoaded])
+        return NO;
+	//QSLog(@"unloaded %@ %x", self, self);
+    [self setChildren:nil];
+    [self setAltChildren:nil];
+    flags.childrenLoaded = NO;
+    [self setChildrenLoadedDate:0];
+	[childLoadedSet removeObject:self];
+    return YES;
 }
 
-- (id)copyWithZone:(NSZone *)zone {
-	//QSLog(@"copied!");
-	return [self retain];
-    return NSCopyObject(self, 0, zone);
+- (NSArray *)children {
+    //QSLog(@"load for %@ %d %d", self, !flags.childrenLoaded, ![self childrenValid]);
+    if (!flags.childrenLoaded || ![self childrenValid])
+        [self loadChildren];
+	
+	return [cache objectForKey:kQSObjectChildren];
 }
+
+- (void)setChildren:(NSArray *)newChildren {
+	if (newChildren) {
+        [[self cache] setObject:newChildren forKey:kQSObjectChildren];
+        flags.childrenLoaded = YES;
+        [self setChildrenLoadedDate:[NSDate timeIntervalSinceReferenceDate]];
+        lastAccess = [NSDate timeIntervalSinceReferenceDate];
+        globalLastAccess = lastAccess;
+        //QSLog(@"Children loaded for %@", self);
+        [childLoadedSet addObject:self];
+    }
+}
+
+- (NSArray *)altChildren {
+	if (!flags.childrenLoaded || ![self childrenValid])
+        [self loadChildren];
+	return [cache objectForKey:kQSObjectAltChildren];
+}
+
+- (void)setAltChildren:(NSArray *)newAltChildren {
+	if (newAltChildren)
+		[[self cache] setObject:newAltChildren forKey:kQSObjectAltChildren];
+}
+
+- (BOOL)childrenLoaded { return flags.childrenLoaded;  }
+- (void)setChildrenLoaded:(BOOL)flag { flags.childrenLoaded = flag; }
+
 @end
 
 //Standard Accessors
@@ -654,37 +654,27 @@ NSSize QSMaxIconSize;
 	if (newName) [meta setObject:newName forKey:kQSObjectPrimaryName];
 }
 
-- (NSArray *)children {
-    //QSLog(@"load for %@ %d %d", self, !flags.childrenLoaded, ![self childrenValid]);
-    if (!flags.childrenLoaded || ![self childrenValid])
-        [self loadChildren];
-	
-	return [cache objectForKey:kQSObjectChildren];
+- (void)setDetails:(NSString *)newDetails {
+	[self setObject:newDetails forMeta:kQSObjectDetails];
 }
 
-- (void)setChildren:(NSArray *)newChildren {
-	if (newChildren) {
-        [[self cache] setObject:newChildren forKey:kQSObjectChildren];
-        flags.childrenLoaded = YES;
-        [self setChildrenLoadedDate:[NSDate timeIntervalSinceReferenceDate]];
-        lastAccess = [NSDate timeIntervalSinceReferenceDate];
-        globalLastAccess = lastAccess;
-        //QSLog(@"Children loaded for %@", self);
-        [childLoadedSet addObject:self];
+- (NSString *)details {
+	NSString *details = [meta objectForKey:kQSObjectDetails];
+    if (details)
+        return details;
+    
+    id handler = [[QSReg objectHandlers] objectForKey:[self primaryType]];
+    if ([handler respondsToSelector:@selector(detailsOfObject:)]) {
+		details = [handler detailsOfObject:self];
+		if (details) [meta setObject:details forKey:kQSObjectDetails];
+		return details;
     }
+    
+    if ([[self objectForType:[self primaryType]] isKindOfClass:[NSString class]])
+        return [self objectForType:[self primaryType]];
+    
+    return nil;
 }
-
-- (NSArray *)altChildren {
-	if (!flags.childrenLoaded || ![self childrenValid])
-        [self loadChildren];
-	return [cache objectForKey:kQSObjectAltChildren];
-}
-
-- (void)setAltChildren:(NSArray *)newAltChildren {
-	if (newAltChildren)
-		[[self cache] setObject:newAltChildren forKey:kQSObjectAltChildren];
-}
-
 
 - (NSString *)label {
     if (!label)
@@ -702,7 +692,6 @@ NSSize QSMaxIconSize;
             [meta removeObjectForKey:kQSObjectAlternateName];
 	} 		    
 }
-
 
 - (NSString *)kind {
 	NSString *kind = [meta objectForKey:kQSObjectKind];
@@ -725,6 +714,7 @@ NSSize QSMaxIconSize;
 		primaryType = [[self guessPrimaryType] retain];
 	return primaryType;
 }
+
 - (void)setPrimaryType:(NSString *)newPrimaryType {
     [primaryType release];
     primaryType = [newPrimaryType retain];
@@ -743,9 +733,6 @@ NSSize QSMaxIconSize;
 
 - (BOOL)retainsIcon  { return flags.retainsIcon;  } ;
 - (void)setRetainsIcon:(BOOL)flag {	flags.retainsIcon = (flag > 0); }
-
-- (BOOL)childrenLoaded { return flags.childrenLoaded;  }
-- (void)setChildrenLoaded:(BOOL)flag { flags.childrenLoaded = flag; }
 
 - (BOOL)contentsLoaded { return flags.contentsLoaded;  }
 - (void)setContentsLoaded:(BOOL)flag { flags.contentsLoaded = flag; }

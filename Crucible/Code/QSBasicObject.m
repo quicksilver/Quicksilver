@@ -18,6 +18,22 @@
 
 @implementation QSBasicObject
 
+- (id)init {
+    if ((self = [super init]) ) {
+		ranker = nil;
+        bundle = nil;
+    }
+    return self;
+}
+
+- (void)dealloc {
+	[ranker release];
+    [super dealloc];
+}
+
+- (NSString *)description {return [NSString stringWithFormat:@"%@ <%p>, %@", NSStringFromClass([self class]), self, [self identifier]];}
+
+#pragma mark QSCoding protocol
 + (id)objectWithDictionary:(NSDictionary *)dict {
     NSString *className = [dict objectForKey:kQSObjectClass];
     if (!className)
@@ -30,17 +46,6 @@
     return [[[class alloc] initWithDictionary:dict] autorelease];
 }
 
-- (id)init {
-    if ((self = [super init]) ) {
-		ranker = nil;
-    }
-    return self;
-}
-
-- (void)dealloc {
-	[ranker release];
-    [super dealloc];
-}
 
 - (id)initWithDictionary:(NSDictionary *)dict {
     self = [self init];
@@ -56,39 +61,39 @@
     return dict;
 }
 
-- (NSString *)label { return nil; }
-- (NSString *)name { return @"Object"; }
+#pragma mark QSObject protocol
 - (NSString *)identifier { return nil; }
-- (NSString *)displayName { return [self name]; }
+- (NSString *)name { return @"Object"; }
+- (NSString *)label { return nil; }
+
+- (NSString *)displayName {
+    if (![self label])
+        return [self name];
+    return [self label];
+}
+
 - (NSString *)details { return nil; }
 - (NSString *)kind { return @"Object"; }
-- (NSString *)toolTip { return nil; }
 
+- (NSUInteger)count { return 0; }
 
-#pragma mark Catalog managment
-- (void)setEnabled:(BOOL)flag {
-	[QSLib setItem:self isOmitted:!flag]; 	
+- (void)setBundle:(NSBundle *)aBundle {
+    if(aBundle != nil && aBundle != bundle) {
+        [bundle release];
+        bundle = [aBundle retain];
+    }
+}
+- (NSBundle *)bundle {
+    NSBundle *b = bundle;
+    if (!b) b = [QSReg bundleForClassName:[self identifier]];
+    return b;
 }
 
-- (BOOL)enabled {
-	return ![QSLib itemIsOmitted:self]; 	
-}
+- (id)handler { return nil; }
 
-- (void)setOmitted:(BOOL)flag {
-	[[self ranker] setOmitted:flag];
-}
+#pragma mark QSRanking protocol
+/* FIXME: The ranker won't notice its object changed */
 
-#pragma mark Ranking primitives
-- (float)score { return 0.0; }
-
-- (int)order { return NSNotFound; }
-
-- (float)rankModification { return 0; }
-
-#pragma mark Ranking system
-/* TODO: Check differences between this and the branch
- * Issues: the ranker won't notice its object changed
- */
 - (Class)rankerClass {
 	return [QSDefaultObjectRanker class];
 }
@@ -105,19 +110,38 @@
     [oldRanker release];
 }
 
-#pragma mark Icon
-- (BOOL)loadIcon { return YES; }
-- (BOOL)iconLoaded { return YES; }
+- (float)score { return 0.0; }
+
+- (int)order { return NSNotFound; }
+
+- (float)rankModification { return 0; }
+
+#pragma mark QSIcon protocol
 - (NSImage *)icon {
     return [NSImage imageNamed:@"Object"];
+}
 
-}
-- (NSImage *)loadedIcon {
-	if (![self iconLoaded]) [self loadIcon];
-	return [self icon];
-}
+- (void)setIcon:(NSImage *)icon { return; }
+
+- (void)loadIcon { return; }
+- (BOOL)unloadIcon { return NO; }
+
+- (BOOL)iconLoaded { return YES; }
 
 - (BOOL)drawIconInRect:(NSRect)rect flipped:(BOOL)flipped { return NO; }
+
+#pragma mark Catalog managment
+- (void)setEnabled:(BOOL)flag {
+	[QSLib setItem:self isOmitted:!flag]; 	
+}
+
+- (BOOL)enabled {
+	return ![QSLib itemIsOmitted:self]; 	
+}
+
+- (void)setOmitted:(BOOL)flag {
+	[[self ranker] setOmitted:flag];
+}
 
 #pragma mark Comparison
 - (NSComparisonResult)compare:(id)other {
@@ -128,7 +152,7 @@
     return [[self name] caseInsensitiveCompare:[object name]];  
 }
 
-#pragma mark Type handling
+#pragma mark QSTyping protocol
 - (NSString *)primaryType { return nil; }
 - (id)primaryObject { return nil; }
 
@@ -142,9 +166,7 @@
 
 - (NSEnumerator *)enumeratorForType:(NSString *)aKey { return [[self arrayForType:aKey] objectEnumerator]; }
 
-- (NSUInteger)count { return 0; }
-
-#pragma mark Hierarchy
+#pragma mark QSObjectHierarchy protocol
 - (QSBasicObject *)parent { return nil; }
 
 - (BOOL)hasChildren { return NO; }
@@ -171,8 +193,5 @@
 - (BOOL)putOnPasteboard:(NSPasteboard *)pboard declareTypes:(NSArray *)types includeDataForTypes:(NSArray *)includeTypes {
     return NO;
 }
-
-#pragma mark Debugging
-- (NSString *)description { return [super description]; }
 
 @end
