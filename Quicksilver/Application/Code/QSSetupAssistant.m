@@ -132,7 +132,7 @@
 	
 	NSString *path = [[NSBundle bundleForClass:[self class]]pathForResource:@"License"
 																   ofType:@"rtf"];
-	[[(NSTextView *)agreementView documentView] replaceCharactersInRange:NSMakeRange(0, 0) withRTF:[NSData dataWithContentsOfFile:path]];
+	[[(NSScrollView *)agreementView documentView] replaceCharactersInRange:NSMakeRange(0, 0) withRTF:[NSData dataWithContentsOfFile:path]];
 	
 	[self selectedItem:[setupTabView selectedTabViewItem]];
 	[[gettingStartedView preferences] setDefaultTextEncodingName:@"utf-8"];

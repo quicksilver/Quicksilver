@@ -888,13 +888,31 @@ NSString * stringForKeyCodeAndModifierFlags( unsigned short aKeyCode, unichar aC
 	return [stringForModifiers(aModifierFlags) stringByAppendingString:stringForCharacter( aKeyCode, aChar )];
 }
 
+unichar unicodeForFunctionKey( UInt32 aKeyCode )
+{
+    switch( aKeyCode )
+    {
+        case 0x7A: return NSF1FunctionKey;
+        case 0x78: return NSF2FunctionKey;
+        case 0x63: return NSF3FunctionKey;
+        case 0x76: return NSF4FunctionKey;
+        case 0x60: return NSF5FunctionKey;
+        case 0x61: return NSF6FunctionKey;
+        case 0x62: return NSF7FunctionKey;
+        case 0x64: return NSF8FunctionKey;
+        case 0x65: return NSF9FunctionKey;
+        case 0x6D: return NSF10FunctionKey;
+        case 0x67: return NSF11FunctionKey;
+        case 0x6F: return NSF12FunctionKey;
+        default: return 0x00;
+    }
+}
+
 /*
  * unicharForKeyCode()
  */
 unichar unicharForKeyCode( unsigned short aKeyCode )
 {
-	auto unichar unicodeForFunctionKey( UInt32 aKeyCode );	
-
 	static UInt32			theState = 0;
 	const void				* theKeyboardLayoutData;
 	KeyboardLayoutRef		theCurrentKeyBoardLayout;
@@ -938,26 +956,6 @@ unichar unicharForKeyCode( unsigned short aKeyCode )
 	}
 	
 	return theChar;
-
-	unichar unicodeForFunctionKey( UInt32 aKeyCode )
-	{
-		switch( aKeyCode )
-		{
-			case 0x7A: return NSF1FunctionKey;
-			case 0x78: return NSF2FunctionKey;
-			case 0x63: return NSF3FunctionKey;
-			case 0x76: return NSF4FunctionKey;
-			case 0x60: return NSF5FunctionKey;
-			case 0x61: return NSF6FunctionKey;
-			case 0x62: return NSF7FunctionKey;
-			case 0x64: return NSF8FunctionKey;
-			case 0x65: return NSF9FunctionKey;
-			case 0x6D: return NSF10FunctionKey;
-			case 0x67: return NSF11FunctionKey;
-			case 0x6F: return NSF12FunctionKey;
-			default: return 0x00;
-		}
-	}
 }
 
 NSString * stringForCharacter( const unsigned short aKeyCode, unichar aCharacter )

@@ -6,8 +6,8 @@
 #import "QSLocalization.h"
 
 NSString *gSysIconBundle = nil;
-id QSRez;
 
+static QSResourceManager *sharedResourceManager = nil;
 
 //#import </usr/include/objc/objc-class.h>
 //
@@ -75,8 +75,8 @@ id QSRez;
 }
 
 + (id)sharedInstance {
-    if (!QSRez) QSRez = [[[self class] allocWithZone:[self zone]] init];
-    return QSRez;
+    if (!sharedResourceManager) sharedResourceManager = [[[self class] allocWithZone:[self zone]] init];
+    return sharedResourceManager;
 }
 + (NSImage *)imageNamed:(NSString *)name {
 	return [[self sharedInstance] imageNamed:name];

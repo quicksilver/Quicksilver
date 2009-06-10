@@ -4,8 +4,7 @@
 
 #import <Foundation/Foundation.h>
 
-
-extern id QSRez;
+#define QSRez [QSResourceManager sharedInstance]
 
 @interface QSResourceManager : NSObject {
     NSMutableDictionary *resourceDict;
