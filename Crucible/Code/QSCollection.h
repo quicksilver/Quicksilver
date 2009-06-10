@@ -15,8 +15,7 @@
  */
 
 @interface QSCollection : QSBasicObject {
-	NSMutableArray *array;
-	QSObject *objectValue;
+	NSMutableArray *objects;
 }
 + (id)collection;
 + (id)collectionWithObjects:(id <QSObject>)objects, ...;
@@ -30,4 +29,6 @@
 - (void)removeLastObject;
 - (void)removeAllObjects;
 - (BOOL)containsObject:(id <QSObject>)object;
+
+- (NSArray *)allObjects;
 @end

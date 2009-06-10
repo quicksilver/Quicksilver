@@ -32,13 +32,13 @@
 
 - (id)init {
     if ((self = [super init])) {
-        array = [[NSMutableArray alloc] init];
+        objects = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
 - (void)dealloc {
-	[array release];
+	[objects release];
     [super dealloc];
 }
 
@@ -46,12 +46,12 @@
 - (BOOL)respondsToSelector:(SEL)aSelector{
     if ([super respondsToSelector:aSelector])
         return YES;
-    return [array respondsToSelector:aSelector];
+    return [objects respondsToSelector:aSelector];
 }
 
 - (void)forwardInvocation:(NSInvocation *)invocation {
-  if ([array respondsToSelector:[invocation selector]])
-        [invocation invokeWithTarget:array];
+  if ([objects respondsToSelector:[invocation selector]])
+        [invocation invokeWithTarget:objects];
     else
         [self doesNotRecognizeSelector:[invocation selector]];
 }
@@ -59,11 +59,15 @@
 - (NSMethodSignature*)methodSignatureForSelector:(SEL)sel {
     NSMethodSignature *sig = [[self class] instanceMethodSignatureForSelector:sel];
     if (sig) return sig;
-    return [array methodSignatureForSelector:sel];
+    return [objects methodSignatureForSelector:sel];
 }
 
 - (NSUInteger)count {
-	return [array count];
+	return [objects count];
+}
+
+- (NSArray *)allObjects {
+    return [objects copy];
 }
 
 @end
