@@ -12,25 +12,13 @@
 #define kQSAEDescriptorType @"aedesc"
 
 @implementation QSObject (AEConversion)
-
-- (QSObject *)initWithAEDescriptor:(NSAppleEventDescriptor *)desc{
-	if ((self=[self init])){
-		[self setName:@"AEObject"];
-		
-		
-		[self setObject:desc forType:kQSAEDescriptorType];
-	}
-	return self;
-}
-
-+ (QSObject *)objectWithAEDescriptor:(NSAppleEventDescriptor *)desc types:(NSArray *)types{
-	NSString *type=[types lastObject];
++ (QSObject *)objectWithAEDescriptor:(NSAppleEventDescriptor *)desc types:(NSArray *)types {
+	NSString *type = [types lastObject];
 	QSLog(@"type is %@",type);
-	desc=[NSAppleEventDescriptor descriptorWithDescriptorType:[desc descriptorType] data:[desc data]];
-	QSLog(@"type is %@ %@",desc,[desc objectValueAPPLE]);
+	desc = [NSAppleEventDescriptor descriptorWithDescriptorType:[desc descriptorType] data:[desc data]];
+	QSLog(@"type is %@ %@",desc, [desc objectValueAPPLE]);
 	
-	
-	id handler=[QSReg getClassInstance:[[QSReg elementsForPointID:@"QSAETypeConverters"]valueForKey:type]];
+	id handler = [QSReg getClassInstance:[[QSReg elementsForPointID:@"QSAETypeConverters"] valueForKey:type]];
 	if (handler)
 		return [handler objectWithAEDescriptor:desc types:types];
 	
@@ -45,13 +33,20 @@
 	//QSLog(@"object %@", ob);
 	
 	
-	return [[[self alloc]initWithAEDescriptor:desc]autorelease];
+	return [[[self alloc] initWithAEDescriptor:desc] autorelease];
 }
 
+- (QSObject *)initWithAEDescriptor:(NSAppleEventDescriptor *)desc {
+	if ((self = [self init])){
+		[self setName:@"AEObject"];
+		[self setObject:desc forType:kQSAEDescriptorType];
+	}
+	return self;
+}
 
--(NSAppleEventDescriptor *)AEDescriptor{
-	id handler=[self handler];
-	if ([handler respondsToSelector:@selector(AEDescriptorForObject:)])
+- (NSAppleEventDescriptor *)AEDescriptor {
+	id handler = [self handlerForSelector:@selector(AEDescriptorForObject:)];
+	if (handler)
         return [handler performSelector:@selector(AEDescriptorForObject:) withObject:self];
     
 	return nil;	

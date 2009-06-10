@@ -7,10 +7,15 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "QSObject.h"
+#import <QSCrucible/QSObject.h>
+
+@protocol QSObjectHandler_AEConversion
+- (NSAppleEventDescriptor *)AEDescriptorForObject:(QSObject*)object;
+- (QSObject *)objectWithAEDescriptor:(NSAppleEventDescriptor *)descriptor;
+@end
 
 @interface QSObject (AEConversion)
--(NSAppleEventDescriptor *)AEDescriptor;
 + (QSObject *)objectWithAEDescriptor:(NSAppleEventDescriptor *)desc types:(NSArray *)types;
-
+- (QSObject *)initWithAEDescriptor:(NSAppleEventDescriptor *)desc;
+- (NSAppleEventDescriptor *)AEDescriptor;
 @end
