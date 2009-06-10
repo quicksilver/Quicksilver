@@ -6,11 +6,11 @@
 QSExecutor *QSExec;
 
 @interface QSObject (QSActionsHandlerProtocol)
-- (NSArray *) actionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
+- (NSArray *)actionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
 @end
 
 @interface QSExecutor (Private)
-- (void) loadActions;
+- (void)loadActions;
 @end
 
 @implementation QSExecutor
@@ -94,8 +94,7 @@ QSExecutor *QSExec;
 
 - (void) loadActions {
 	NSArray *elements = [QSReg elementsForPointID:@"com.blacktree.actions"];
-	//if (![elements count]) [NSApp terminate:
-  NSDictionary *actionDict;
+    NSDictionary *actionDict;
 	NSString *key;
 	BElement *element;
 

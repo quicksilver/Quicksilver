@@ -1,21 +1,13 @@
 
 
 #import <Foundation/Foundation.h>
-#import "QSCatalogEntry.h"
 
 #define kCustomCatalogID @"QSCatalogCustom"
 
-
 @class QSBasicObject;
 
-@class QSObject;
-@class QSActions;
-@class QSAction;
 @class QSTask;
 @class QSTaskController;
-
-extern id QSLib; // Shared Instance
-
 
 @interface QSLibrarian : NSObject {
     QSCatalogEntry *catalog; //Root Catalog Entry
@@ -91,11 +83,6 @@ extern id QSLib; // Shared Instance
 //- (void)loadActionsForObject:(id)actionObject;
 - (QSCatalogEntry *)catalogCustom;
 - (void)enableEntries;
-- (QSAction *)actionForIdentifier:(NSString *)identifier;
-- (QSObject *)performAction:(NSString *)action directObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
-- (NSArray *)rankedActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
-- (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
-- (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject;
 - (QSCatalogEntry *)catalog ;
 - (void)setCatalog:(QSCatalogEntry *)newCatalog ;
 - (NSMutableSet *)defaultSearchSet ;
@@ -120,6 +107,5 @@ extern id QSLib; // Shared Instance
 
 @end
 
-
-
+extern QSLibrarian *QSLib; // Shared Instance
 

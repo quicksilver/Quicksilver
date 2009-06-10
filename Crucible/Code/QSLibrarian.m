@@ -20,98 +20,13 @@
 
 float gMinScore = 0.333333;
 
+QSLibrarian* QSLib = nil;
+
+static float searchSpeed = 0.0;
 
 static int presetSort(id item1, id item2, QSLibrarian *librarian) {
 	return [[item1 name] caseInsensitiveCompare:[item2 name]];
 }
-
-
-
-id QSLib;
-
-//QSRankedObject *makeRankObject(NSString *searchString, QSBasicObject *object, float modifier, BOOL mnemonicsOnly, NSDictionary *definedMnemonics) {
-//    QSRankedObject *rankedObject = nil;
-//    if ([object isKindOfClass:[QSRankedObject class]]) { // Reuse old ranked object if possible
-//        rankedObject = (QSRankedObject *)object;
-//        object = [rankedObject object];
-//    }
-//    NSString *matchedString = nil;
-//    if (!searchString) searchString = @"";
-//    float newScore = 1.0;
-//	
-//	
-//    QSRankInfo *info = object->rankData;
-//	if (!info) info = [object getRankData];
-//	
-//	if (info->omitted)
-//		return nil;
-//	if (!info->name) return nil;
-//    if (searchString && !mnemonicsOnly) { // get base score for both name and label
-//        newScore = [info->name scoreForAbbreviation:searchString]; //QSScoreForAbbreviation((CFStringRef) info->name, (CFStringRef)searchString, nil);
-//        
-//        if (info->label) {
-//            float labelScore = [info->label scoreForAbbreviation:searchString]; //QSScoreForAbbreviation((CFStringRef) info->label, (CFStringRef)searchString, nil);
-//			
-//            if (labelScore>newScore) {
-//				newScore = labelScore;
-//				matchedString = info->label;
-//			}
-//		}
-//    }
-//    
-//    
-//    if (newScore) { // Add modifiers
-//		if ([definedMnemonics objectForKey:info->identifier])
-//            modifier += 10.0f;
-//        newScore += modifier;
-//		
-//		if (mnemonicsOnly)
-//			newScore += [object rankModification];
-//    }
-//    NSDictionary *myShortcuts = info->mnemonics;  
-//	int useCount = 0;
-//	
-//	// get number of times this abbrev. has been used
-//	if ([searchString length])
-//		useCount = [[myShortcuts objectForKey:searchString] intValue];  
-//	
-//	
-//	if (useCount) {
-//		newScore += (1-1/(useCount+1) );
-//		
-//	} else if (newScore) {
-//		// otherwise add points for similar starting abbreviations
-//		NSEnumerator *enumerator = [myShortcuts keyEnumerator];
-//		id key;
-//		while ((key = [enumerator nextObject]) ) {
-//			if (prefixCompare(key, searchString) == NSOrderedSame) {
-//				newScore += (1-1/([[myShortcuts objectForKey:key] floatValue]) )/4;
-//			}
-//		}
-//		
-//	}
-//	
-//	if (newScore)  newScore += sqrt([object retainCount]) /100; // If an object appears many times, increase score, this may be bad
-//	
-//	//*** in the future, increase for recent document, increase for partial match, increase for higher source index
-//	
-//	// Create the ranked object
-//	if (rankedObject)
-//		[rankedObject setScore:newScore];
-//	if (newScore>gMinScore) {
-//		if (rankedObject) {
-//			[rankedObject setRankedString:matchedString];
-//			return [rankedObject retain];
-//		} else {
-//			return [[QSRankedObject alloc] initWithObject:(id)object matchString:matchedString score:(float)newScore];
-//			
-//		}
-//	}
-//	return nil;
-//}
-//
-
-static float searchSpeed = 0.0;
 
 @implementation QSLibrarian
 
@@ -127,10 +42,12 @@ static float searchSpeed = 0.0;
 	path = [pShelfLocation stringByStandardizingPath];
 	if (![manager fileExistsAtPath:path isDirectory:nil]) [manager createDirectoriesForPath:path];
 }
+
 + (void)removeIndexes {
 	[[NSFileManager defaultManager] removeFileAtPath:[pIndexLocation stringByStandardizingPath] handler:nil]; 	
 	[self createDirectories];
 }
+
 - (void)loadDefaultCatalog {
 	//    [self setCatalog:[NSMutableDictionary dictionaryWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"Catalog" ofType:@"plist"]]];
 }
@@ -156,7 +73,6 @@ static float searchSpeed = 0.0;
         [self setShelfArrays:[NSMutableDictionary dictionaryWithCapacity:1]];
         [self setCatalogArrays:[NSMutableDictionary dictionaryWithCapacity:1]];
         
-        
 		NSDictionary *modulesEntry = [NSMutableDictionary dictionaryWithObjectsAndKeys:
 			@"Modules", kItemName,
 			@"PlugInIcon", kItemIcon,
@@ -171,8 +87,6 @@ static float searchSpeed = 0.0;
 			[self setCatalog:[QSCatalogEntry entryWithDictionary:
 			[NSMutableDictionary dictionaryWithObjectsAndKeys:@"QSCATALOGROOT", kItemName, @"QSGroupObjectSource", kItemSource, [NSMutableArray arrayWithObjects:modulesEntry, nil] , kItemChildren, [NSNumber numberWithBool:YES] , kItemEnabled, nil]]];
 		}
-		//	QSLog(@"cat");
-		
         
         // Register for Notifications
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(writeCatalog:) name:QSCatalogEntryChanged object:nil];
@@ -192,6 +106,7 @@ static float searchSpeed = 0.0;
     
     return self;
 }
+
 - (void)enableEntries {
 	[[catalog leafEntries] makeObjectsPerformSelector:@selector(enable)];
 }
@@ -199,26 +114,14 @@ static float searchSpeed = 0.0;
 - (void)pruneInvalidChildren:(id)sender {
 	[catalog pruneInvalidChildren]; 	
 }
+
 - (QSCatalogEntry *)catalogCustom {
 	return [self entryForID:kCustomCatalogID]; 	
 }
-- (void)assignCustomAbbreviationForItem:(QSObject *)item {	
+
+- (void)assignCustomAbbreviationForItem:(QSObject *)item {
+    
 }
-
-
-//- (void)saveCatalogArrays {
-//	NSDate *date = [NSDate date];
-//	//QSLog(@"Writing Preferences");
-//	// NSFileManager *manager = [NSFileManager defaultManager];
-//	
-//	NSEnumerator *catalogEnumerator = [catalogArrays keyEnumerator];
-//	NSString *key;
-//	//NSArray *dictionaryArray;
-//	//NSData *data;
-//	while((key = [catalogEnumerator nextObject]) )
-//		[self saveCatalogArray:key];
-//	if (DEBUG_CATALOG)  QSLog(@"Saved Catalog in %f seconds", -[date timeIntervalSinceNow]);
-//}
 
 - (void)setPreset:(QSCatalogEntry *)preset isEnabled:(BOOL)flag {
 	[enabledPresetsDictionary setObject:[NSNumber numberWithBool:flag] forKey:[preset identifier]];
@@ -269,28 +172,10 @@ static float searchSpeed = 0.0;
 	NSArray *presets = [QSReg elementsForPointID:@"com.blacktree.catalog.presets"];
 	
 	foreach(preset, presets) {
-
-	[self registerPreset:[preset plistContent]
-				 inBundle:[[preset plugin] bundle]
-					 scan:NO];
-
+        [self registerPreset:[preset plistContent]
+                    inBundle:[[preset plugin] bundle]
+                        scan:NO];
 	}
-	
-	// NSMutableArray *catalogChildren = [catalog getChildren];
-	
-	
-	// Load presets
-	
-	// NSMutableArray *presets = nil;
-	// if (DEBUG) presets = [NSMutableArray arrayWithContentsOfFile:[pCatalogPresetsDebugLocation stringByStandardizingPath]];
-	//   if (!presets) presets = [NSMutableArray arrayWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"Presets" ofType:@"plist"]];
-	//  if (!presets) QSLog(@"Unable to load presets");
-	
-	///	foreach(preset, presets) {
-	//	[catalogChildren addObject:[QSCatalogEntry entryWithDictionary:preset]];
-	//} 	
-	
-	
 }
 
 - (void)loadCatalogInfo {
@@ -326,7 +211,6 @@ static float searchSpeed = 0.0;
 	//QSLog(@"load Catalog %p %@", catalog, [catalog getChildren]);  
 	
 }
-
 
 - (void)dealloc {
     [self writeCatalog:self];  
@@ -372,10 +256,6 @@ static float searchSpeed = 0.0;
 	//    if (DEBUG) [presetEntries writeToFile:[pCatalogPresetsDebugLocation stringByStandardizingPath] atomically:YES];
 	//    if (VERBOSE) QSLog(@"Catalog Saved");
 }
-
-//- (NSArray *)entriesForSource:(NSString *)source {
-//    NSArray *[self leafEntriesOfEntry:catalog];
-//s}
 
 - (void)reloadSource:(NSNotification *)notif {
 	   NSArray *entries = [entriesBySource objectForKey:[notif object]];
@@ -446,7 +326,6 @@ static float searchSpeed = 0.0;
 	return nil;
 }
 
-
 - (void)loadShelfArrays {
     NSString *path = [pShelfLocation stringByStandardizingPath];
     NSArray *shelves = [[NSFileManager defaultManager] directoryContentsAtPath:path];
@@ -458,8 +337,6 @@ static float searchSpeed = 0.0;
         if (objects) [shelfArrays setObject:objects forKey:[thisShelf stringByDeletingPathExtension]];
     }
 }
-
-
 
 - (BOOL)loadCatalogArrays {
     NSDate *date = [NSDate date];
@@ -497,13 +374,6 @@ static float searchSpeed = 0.0;
 	invalidIndexes = nil;
 	return YES;
 }
-
-/*
- - (BOOL)loadIndexesForEntries:(NSArray *)theEntries {
-     
-     return YES;
- }
- */
 
 
 
@@ -672,6 +542,7 @@ static float searchSpeed = 0.0;
 - (BOOL)itemIsOmitted:(QSBasicObject *)item {
 	return [omittedIDs containsObject:[item identifier]];
 }
+
 - (void)setItem:(QSBasicObject *)item isOmitted:(BOOL)omit {
 	if (!omittedIDs && omit) omittedIDs = [[NSMutableSet set] retain];
 	if (omit) [omittedIDs addObject:[item identifier]];
@@ -680,9 +551,6 @@ static float searchSpeed = 0.0;
 	[item setOmitted:omit];
 	[self writeCatalog:self];
 }
-
-
-
 
 - (float) estimatedTimeForSearchInSet:(id)set {
     float estimate = (set?[(NSArray *)set count] :[(NSArray *)defaultSearchSet count])*searchSpeed;
@@ -824,38 +692,6 @@ static float searchSpeed = 0.0;
     return shelfArray;
 }
 
-//
-//- (void)registerActions:(id)actionObject {
-//	[QSExec registerActions:(id)actionObject];
-//}
-//
-//- (void)loadActionsForObject:(id)actionObject {
-//	[QSExec loadActionsForObject:(id)actionObject];
-//}
-
-- (QSAction *)actionForIdentifier:(NSString *)identifier {
-	return [QSExec  actionForIdentifier:(NSString *)identifier];
-}
-
-- (QSObject *)performAction:(NSString *)action directObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
-	return [QSExec performAction:(NSString *)action directObject:(QSObject *)dObject indirectObject:(QSObject *)iObject];
-}
-
-- (NSArray *)rankedActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
-	return [QSExec rankedActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject];
-}
-
-- (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
-	return [QSExec validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject];
-	
-}
-
-- (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
-    return [QSExec validIndirectObjectsForAction:action directObject:dObject];
-}
-
-
-
 //Accessors
 
 - (QSCatalogEntry *)catalog { 
@@ -918,8 +754,6 @@ static float searchSpeed = 0.0;
         scanTask = [value retain];
     }
 }
-
-
 
 @end
 

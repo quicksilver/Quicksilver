@@ -231,7 +231,7 @@
 		NSMenuItem *item;
 		
 		
-		NSMutableArray *actions=(NSMutableArray *)[QSLib validActionsForDirectObject:(QSObject *)self indirectObject:nil];
+		NSMutableArray *actions=(NSMutableArray *)[QSExec validActionsForDirectObject:(QSObject *)self indirectObject:nil];
 		[actions sortUsingDescriptors:[NSSortDescriptor descriptorArrayWithKey:@"rank" ascending:YES selector:@selector(compare:)]];
 		
 		item=(NSMenuItem *)[menu addItemWithTitle:[NSString stringWithFormat:@"Actions (...All%C)",0x25B8] action:(SEL)0 keyEquivalent:@""];
@@ -262,7 +262,7 @@
 		
 		
 	}else if ([[menu title]isEqualToString:kQSObjectActionsMenu]){
-	    NSMutableArray *actions=(NSMutableArray *)[QSLib validActionsForDirectObject:(QSObject *)self indirectObject:nil];
+	    NSMutableArray *actions=(NSMutableArray *)[QSExec validActionsForDirectObject:(QSObject *)self indirectObject:nil];
 		// actions = 
 		
 		[actions sortUsingDescriptors:[NSSortDescriptor descriptorArrayWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)]];

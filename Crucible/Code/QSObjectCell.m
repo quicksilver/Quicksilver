@@ -658,13 +658,13 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
   if (![[self controlView] isKindOfClass:[QSObjectView class]]) return nil;
   return [self menuForObject:[self representedObject]];
 }
+
 - (NSMenu *)menuForObject:(id)object {
   //   QSLog(@"Menu for: %@", object);
   NSMenu *menu = [[[NSMenu alloc] initWithTitle:@"ContextMenu"] autorelease];
   
-  NSArray *actions = [QSLib validActionsForDirectObject:object indirectObject:nil];
+  NSArray *actions = [QSExec validActionsForDirectObject:object indirectObject:nil];
   // actions = [actions sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
-  
   
   NSMenuItem *item;
 	

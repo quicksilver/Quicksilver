@@ -407,7 +407,7 @@
 	} else {
 		if (maskChanged) {
 			NSString *action = [[self objectValue] actionForDragOperation:sourceDragMask withObject:draggedObject];
-			NSCursor *cursor = [NSCursor informativeCursorWithString:[[QSLib actionForIdentifier:action] name]];
+			NSCursor *cursor = [NSCursor informativeCursorWithString:[[QSExec actionForIdentifier:action] name]];
 			//QSLog(@"%@", cursor);
 			//[cursor push];
 			
@@ -478,7 +478,7 @@
 	} else if (action && [self dropMode] != QSSelectDropMode) {
 		//QSLog(@"action: %@", action);
 		
-		QSAction *actionObject = [QSLib actionForIdentifier:action];
+		QSAction *actionObject = [QSExec actionForIdentifier:action];
 		//Threaded to avoid finder from locking during a drag
 		//	timerWithTimeInterval:0.0 target:self selector:@selector(concludeDragWithAction:) userInfo:nil repeats:
 		//	[NSTimer scheduledTimerWithTimeInterval:0.0 target:self selector:@selector(concludeDragWithAction:) userInfo: repeats:<#(BOOL)yesOrNo#>]

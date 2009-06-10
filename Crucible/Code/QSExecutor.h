@@ -4,8 +4,6 @@
 
 @class QSBasicObject;
 
-@class QSObject;
-@class QSActions;
 @class QSAction;
 @class QSTaskController;
 
@@ -29,22 +27,20 @@
 	NSMutableDictionary *actionNames;
 }
 
-+ (id) sharedInstance;
++ (id)sharedInstance;
 
-- (void) loadFileActions;
-- (void) addActions:(NSArray *)actions;
-- (void) addAction:(QSAction *)action;
-- (NSArray *) rankedActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
-- (NSArray *) rankedActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject shouldBypass:(BOOL)bypass;
-// - (void) registerActions:(id)actionObject;
-- (QSAction *) actionForIdentifier:(NSString *)identifier;
-- (QSObject *) performAction:(NSString *)action directObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
-- (NSArray *) validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
-- (NSArray *) validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject;
-//- (void) loadActionsForObject:(id)actionObject;
-- (void) addActionsFromDictionary:(NSDictionary *)actionsDictionary bundle:(NSBundle *)bundle;
-- (NSArray *) actions;
-- (NSMutableArray *) actionsArrayForType:(NSString *)type;
+- (void)loadFileActions;
+- (void)addActions:(NSArray *)actions;
+- (void)addAction:(QSAction *)action;
+- (NSArray *)rankedActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
+- (NSArray *)rankedActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject shouldBypass:(BOOL)bypass;
+- (QSAction *)actionForIdentifier:(NSString *)identifier;
+- (QSObject *)performAction:(NSString *)action directObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
+- (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
+- (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject;
+- (void)addActionsFromDictionary:(NSDictionary *)actionsDictionary bundle:(NSBundle *)bundle;
+- (NSArray *)actions;
+- (NSMutableArray *)actionsArrayForType:(NSString *)type;
 - (void) noteNewName:(NSString *)name forAction:(QSObject *)aObject;
 - (void) setAction:(QSAction *)action isEnabled:(BOOL)flag;
 - (void) setAction:(QSAction *)action isMenuEnabled:(BOOL)flag;
@@ -53,8 +49,8 @@
 - (void) updateRanks;
 - (void) writeActionsInfo;
 - (void) noteIndirect:(QSObject *)iObject forAction:(QSObject *)aObject;
-- (NSMutableArray *) getArrayForSource:(NSString *)sourceid;
-- (NSMutableArray *) makeArrayForSource:(NSString *)sourceid;
+- (NSMutableArray *)getArrayForSource:(NSString *)sourceid;
+- (NSMutableArray *)makeArrayForSource:(NSString *)sourceid;
 @end
 
-extern QSExecutor *QSExec; // Shared Instance
+extern QSExecutor *QSExec;
