@@ -18,7 +18,7 @@
 #define compGT(a, b) (a < b)
 #import "UKMainThreadProxy.h"
 
-float gMinScore = 0.333333;
+float QSMinScore = 0.333333;
 
 QSLibrarian* QSLib = nil;
 
@@ -56,8 +56,8 @@ static int presetSort(id item1, id item2, QSLibrarian *librarian) {
     if ((self = [super init]) ) {
 		NSNumber *minScore = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSMinimumScore"];
 		if (minScore) {
-			gMinScore = [minScore floatValue];
-			QSLog(@"Minimum Score set to %f", gMinScore);
+			QSMinScore = [minScore floatValue];
+			QSLog(@"Minimum Score set to %f", QSMinScore);
 		}
 		[QSLibrarian createDirectories];
         scanTask = [[QSTask alloc] initWithIdentifier:@"QSLibrarianScanTask"];

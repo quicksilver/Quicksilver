@@ -112,7 +112,7 @@
     order = newOrder;
 }
 
-- (NSString *)rankedString { return rankedString;  }
+- (NSString *)rankedString { return rankedString; }
 
 - (void)setRankedString:(NSString *)newRankedString {
     [rankedString release];

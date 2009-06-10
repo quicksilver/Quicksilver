@@ -5,7 +5,6 @@
 #define kCustomCatalogID @"QSCatalogCustom"
 
 @class QSBasicObject;
-
 @class QSTask;
 @class QSTaskController;
 
@@ -109,3 +108,4 @@
 
 extern QSLibrarian *QSLib; // Shared Instance
 
+extern float QSMinScore;

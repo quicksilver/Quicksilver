@@ -492,79 +492,58 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 	
 	if ([self imagePosition] != NSImageOnly) { // Text Drawing Routines
 		NSString *abbreviationString = nil;
-    if ([controlView respondsToSelector:@selector(matchedString)])
-      abbreviationString = [(QSSearchObjectView *)controlView matchedString];
+        if ([controlView respondsToSelector:@selector(matchedString)])
+            abbreviationString = [(QSSearchObjectView *)controlView matchedString];
     
-		int stringIndex = -1;
+		NSString *matchedString = nil;
 		NSIndexSet *hitMask = nil;
 		if (abbreviationString)
-			stringIndex = [[drawObject ranker] matchedStringForAbbreviation:abbreviationString hitmask:&hitMask inContext:nil];
-    
-		//QSLog(@"hit %d %@", stringIndex, hitMask);
-		
-		
-		if (stringIndex >= 0) {
-      //	QSLog(@"index %@ >> > %@ >> > %@", abbreviationString, [drawObject name] , [drawObject label]);
-			
-		}
-		
-		
-		NSString *nameString = nil;
-		if (stringIndex == 0)
-			nameString = [drawObject name];
-		else if (stringIndex == 1)
-			nameString = [drawObject label];
-		
-		if (!nameString) nameString = [drawObject label];
-		if (!nameString) nameString = [drawObject name];
-		if (!nameString) nameString = @"<Unknown>";
+			matchedString = [[drawObject ranker] matchedStringForAbbreviation:abbreviationString hitmask:&hitMask inContext:nil];
+        
+        if (!matchedString) matchedString = [drawObject label];
+        if (!matchedString) matchedString = [drawObject name];
+		if (!matchedString) matchedString = @"<Unknown>";
 		
 		//QSLog(@"usingname: %@", nameString);
 		NSString *detailsString = [drawObject details];
-		NSSize nameSize = [nameString sizeWithAttributes:nameAttributes];
+		NSSize nameSize = [matchedString sizeWithAttributes:nameAttributes];
 		NSSize detailsSize = NSZeroSize;
-		if (detailsString) detailsSize = [detailsString sizeWithAttributes:detailsAttributes];
-		
-		
-		
+		if (detailsString)
+            detailsSize = [detailsString sizeWithAttributes:detailsAttributes];
 		
 		BOOL useAlternateColor = [controlView isKindOfClass:[NSTableView class]] && [(NSTableView *)controlView isRowSelected:[(NSTableView *)controlView rowAtPoint:cellFrame.origin]];
-		NSColor *mainColor = (textColor?textColor:(useAlternateColor?[NSColor alternateSelectedControlTextColor] :[NSColor controlTextColor]) );
+		NSColor *mainColor = (textColor ? textColor : (useAlternateColor ? [NSColor alternateSelectedControlTextColor] : [NSColor controlTextColor]));
 		NSColor *fadedColor = [mainColor colorWithAlphaComponent:0.80];
 		
+        NSRect textDrawRect = [self titleRectForBounds:cellFrame];
 		
+		NSMutableAttributedString *titleString = [[[NSMutableAttributedString alloc] initWithString:matchedString] autorelease];
+        [titleString setAttributes:nameAttributes range:NSMakeRange(0, [titleString length])];
 		
-    NSRect textDrawRect = [self titleRectForBounds:cellFrame];
-		
-		NSMutableAttributedString *titleString = [[[NSMutableAttributedString alloc] initWithString:nameString?nameString:@"???"] autorelease];
-    [titleString setAttributes:nameAttributes range:NSMakeRange(0, [titleString length])];
-		
-    if (abbreviationString && ![abbreviationString hasPrefix:@"QSActionMnemonic"]) {
-      [titleString addAttribute:NSForegroundColorAttributeName value:fadedColor range:NSMakeRange(0, [titleString length])];
+        if (abbreviationString && ![abbreviationString hasPrefix:@"QSActionMnemonic"]) {
+            [titleString addAttribute:NSForegroundColorAttributeName value:fadedColor range:NSMakeRange(0, [titleString length])];
       
-      //   QSLog(@"4");
+            //   QSLog(@"4");
 			int i = 0;
-      int j = 0;
-      unsigned int hits[[titleString length]];
-      int count = [hitMask getIndexes:(unsigned int *)&hits maxCount:[titleString length] inIndexRange:nil];
-      NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                mainColor, NSForegroundColorAttributeName,
-                                mainColor, NSUnderlineColorAttributeName,
-                                [NSNumber numberWithInt:2.0] , NSUnderlineStyleAttributeName,
-                                [NSNumber numberWithFloat:1.0] , NSBaselineOffsetAttributeName,
-                                nil];
-      
-      //       QSLog(@"hit %@ %@", [titleString string] , hitMask);
-      for(i = 0; i<count; i += j) {
-        for (j = 1; i+j<count && hits[i+j-1] +1 == hits[i+j]; j++);
-        //     QSLog(@"hit (%d, %d) ", hits[i] , j);
-        [titleString addAttributes:attributes range:NSMakeRange(hits[i] , j)];
-        //                 QSLog(@"5");
-      }
-    } else {
-      [titleString addAttribute:NSBaselineOffsetAttributeName value:[NSNumber numberWithFloat:-1.0] range:NSMakeRange(0, [titleString length])];
-    }    
-    
+            int j = 0;
+            unsigned int hits[[titleString length]];
+            int count = [hitMask getIndexes:(unsigned int *)&hits maxCount:[titleString length] inIndexRange:nil];
+            NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                        mainColor, NSForegroundColorAttributeName,
+                                        mainColor, NSUnderlineColorAttributeName,
+                                        [NSNumber numberWithInt:2.0] , NSUnderlineStyleAttributeName,
+                                        [NSNumber numberWithFloat:1.0] , NSBaselineOffsetAttributeName,
+                                        nil];
+            
+            //       QSLog(@"hit %@ %@", [titleString string] , hitMask);
+            for(i = 0; i < count; i += j) {
+                for (j = 1; i + j < count && hits[i + j - 1] + 1 == hits[i + j]; j++);
+                [titleString addAttributes:attributes range:NSMakeRange(hits[i] , j)];
+            }
+        } else {
+            [titleString addAttribute:NSBaselineOffsetAttributeName value:[NSNumber numberWithFloat:-1.0] range:NSMakeRange(0, [titleString length])];
+        }    
+        
 		if (showDetails && [detailsString length]) {
 			float detailHeight = NSHeight(textDrawRect) -nameSize.height;
 			NSRange returnRange;

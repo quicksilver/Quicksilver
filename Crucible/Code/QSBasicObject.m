@@ -68,12 +68,14 @@
 
 - (id <QSObjectRanker>)ranker {
 	if (!ranker)
-        ranker = [[self rankerClass] initWithObject:self];
+        ranker = [[[self rankerClass] rankerForObject:self] retain];
 	return ranker;
 }
 
 - (void)updateMnemonics {
-	[self ranker];
+    id oldRanker = ranker;
+    ranker = nil;
+    [oldRanker release];
 }
 
 #pragma mark Icon

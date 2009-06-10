@@ -11,30 +11,41 @@
 #import "NSString_Purification.h"
 
 @implementation QSDefaultStringRanker
-- (id)initWithString:(NSString *)string{
-	if (!string){
+- (id)initWithString:(NSString *)string {
+	if (!string) {
 		[self release];
 		return nil;
-	}else if ((self=[super init])){
-		normString=[[string purifiedString]retain];
+	} else if ((self = [super init])) {
+		normString = [[string purifiedString] retain];
 	}
 	return self;
 }
 
-- (void)dealloc{
+- (void)dealloc {
 	[normString release];
-	normString=nil;
+	normString = nil;
 	[super dealloc];
 }
-- (NSString *)description{
-	return normString;
+
+- (NSString *)description {
+	return [NSString stringWithFormat:@"%@ %@", [super description], normString];
 }
-- (double)scoreForAbbreviation:(NSString*)anAbbreviation{
-	return QSScoreForAbbreviation((CFStringRef)normString, (CFStringRef)anAbbreviation,nil);
+
+- (NSString*)rankedString { return normString; }
+- (void)setRankedString:(NSString*)aString {
+    if (aString != normString) {
+        [normString release];
+        normString = [[aString purifiedString] retain];
+    }
 }
-- (NSIndexSet*)maskForAbbreviation:(NSString*)anAbbreviation{
-	NSMutableIndexSet *mask=[NSMutableIndexSet indexSet];
-	QSScoreForAbbreviation((CFStringRef)normString, (CFStringRef)anAbbreviation,mask);
+
+- (double)scoreForAbbreviation:(NSString*)anAbbreviation {
+	return QSScoreForAbbreviation((CFStringRef)normString, (CFStringRef)anAbbreviation, nil);
+}
+
+- (NSIndexSet*)maskForAbbreviation:(NSString*)anAbbreviation {
+	NSMutableIndexSet *mask = [NSMutableIndexSet indexSet];
+	QSScoreForAbbreviation((CFStringRef)normString, (CFStringRef)anAbbreviation, mask);
 	return mask;
 }
 @end
