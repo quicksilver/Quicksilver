@@ -94,12 +94,12 @@
 	[[self window] setHidesOnDeactivate:NO];
     [[self menuButton] setMenu:[[NSApp delegate] statusMenuWithQuit]];
     
-	QSObjectCell *attachmentCell = [[QSObjectCell alloc] initTextCell:@""];
-    [attachmentCell setRepresentedObject:[QSObject fileObjectWithPath:@"/Volumes/Lore/"]];
-    [[attachmentCell representedObject] loadIcon];
-    
-    NSTextAttachment *attachment = [[[NSTextAttachment alloc] init] autorelease];
-    [attachment setAttachmentCell: attachmentCell];
+//	QSObjectCell *attachmentCell = [[QSObjectCell alloc] initTextCell:@""];
+//    [attachmentCell setRepresentedObject:[QSObject fileObjectWithPath:@"/Volumes/Lore/"]];
+//    [[attachmentCell representedObject] loadIcon];
+//    
+//    NSTextAttachment *attachment = [[[NSTextAttachment alloc] init] autorelease];
+//    [attachment setAttachmentCell: attachmentCell];
     
 //  NSAttributedString *attributedString = [NSAttributedString attributedStringWithAttachment: attachment];
 //  [[commandView textStorage] appendAttributedString:attributedString];

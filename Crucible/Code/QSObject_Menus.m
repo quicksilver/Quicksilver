@@ -258,7 +258,7 @@
 	} else if ([[menu title] isEqualToString:kQSObjectActionsMenu]) {
 	    NSArray *actions = [QSExec validActionsForDirectObject:self indirectObject:nil];
 		
-		[actions sortUsingDescriptors:[NSSortDescriptor descriptorArrayWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)]];
+		[actions sortedArrayUsingDescriptors:[NSSortDescriptor descriptorArrayWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)]];
 
 		if ([actions count]) {
 			[self addActionsInArray:actions count:[actions count] toMenu:menu indent:0];
