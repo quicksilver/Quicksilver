@@ -710,7 +710,7 @@ int IsKeyPressed(unsigned short key)
 		if (VERBOSE) QSLog(@"Using Alternate: %@", action);
 	}
 	
-    QSObject *returnValue = [action performOnDirectObject:[dSelector objectValue] indirectObject:[iSelector objectValue]];
+    QSBasicObject *returnValue = [action performOnDirectObject:[dSelector objectValue] indirectObject:[iSelector objectValue]];
 	if (returnValue) {
 		if ([returnValue isKindOfClass:[QSNullObject class]]) {
 			[self clearObjectView:dSelector];

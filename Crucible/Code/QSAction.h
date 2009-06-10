@@ -21,7 +21,7 @@
 #define kActionUserData @"userData" //String
 
 #define kActionEnabled @"enabled" //String
-//#define kActionIdentifier @"id" //String
+#define kActionIdentifier kQSObjectObjectID //String
 
 #define kActionDirectTypes @"directTypes" // Array
 #define kActionIndirectTypes @"indirectTypes" // Array
@@ -47,14 +47,16 @@
 + (void)setModifiersAreIgnored:(BOOL)flag;
 + (BOOL)modifiersAreIgnored;
 
-+ (id)actionWithDictionary:(NSDictionary *)dict;
-+ (id)actionWithDictionary:(NSDictionary *)dict identifier:(NSString *)ident;
+/** Returns an action registered under an identifier, or nil */
 + (id)actionWithIdentifier:(NSString *)newIdentifier;
 
-- (id)initWithIdentifier:(NSString *)newIdentifier bundle:(NSBundle *)bundle;
-- (id)init;
+/** Creates and register an action packed as a dictionary */
++ (id)actionWithDictionary:(NSDictionary *)dict;
 
-- (QSBasicObject *)performOnDirectObject:(QSBasicObject *)dObject indirectObject:(QSBasicObject *)iObject;
+- (id)init;
+- (id)initWithDictionary:(NSDictionary *)dict;
+
+- (QSObject *)performOnDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
 
 - (QSAction *)alternate;
 
@@ -78,6 +80,7 @@
 
 - (int)argumentCount;
 - (void)setArgumentCount:(int)newArgumentCount;
+
 - (BOOL)canThread;
 
 - (BOOL)displaysResult;
@@ -99,14 +102,6 @@
 - (void)_setRank:(int)newRank;
 - (void)_setMenuEnabled:(BOOL)flag;
 
-+ (id)actionWithDictionary:(NSDictionary *)dict identifier:(NSString *)ident bundle:(NSBundle *)bundle;
-+ (id)actionWithIdentifier:(NSString *)newIdentifier bundle:(NSBundle *)bundle;
-
-- (NSString *)commandDescriptionWithDirectObject:(QSBasicObject *)dObject indirectObject:(QSBasicObject *)iObject;
-- (id)initWithActionDictionary:(NSDictionary *)dict identifier:(NSString *)ident bundle:(NSBundle *)bundle;
-
-- (NSBundle *)bundle;
-- (void)setBundle:(NSBundle *)aBundle;
 @end
 
 

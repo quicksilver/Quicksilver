@@ -466,7 +466,10 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 - (NSString *) description {
 	if (![self aObject])
         return [NSString stringWithFormat:@"[Action Missing: %@]", [oDict objectForKey:@"actionID"]];
-    return [[self aObject] commandDescriptionWithDirectObject:[self dObject] indirectObject:[self iObject]];
+    
+    NSString *format = [[self aObject] commandFormat];
+    
+    return [NSString stringWithFormat:format, [[self dObject] displayName], [self iObject] ? [[self iObject] displayName] : @"<?>"];
 }
 
 - (NSImage *) icon {
