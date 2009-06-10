@@ -6,13 +6,10 @@
 @interface QSObject (QSFileObjectCreationProtocol)
 - (id)initFileObject:(QSObject *)object ofType:(NSString *)type;
 @end
+
 @interface NSObject (QSFileCreatingHandlingProtocol)
 - (NSData *)fileRepresentationForObject:(QSObject *)object;
 - (NSString *)filenameForObject:(QSObject *)object;
-@end
-@interface QSFileSystemObjectHandler : NSObject{
-	NSMutableDictionary *applicationIcons;	
-}
 @end
 
 @interface QSBasicObject (FileHandling)
@@ -34,8 +31,7 @@
 + (NSMutableArray *)fileObjectsWithURLArray:(NSArray *)pathArray;
 - (id)initWithArray:(NSArray *)paths;
 - (void)getNameFromFiles;
--(NSString *)kindOfFile:(NSString *)path;
-    //        QSLog(@"name %@ %@ %@",newName, newLabel,[path lastPathComponent]);
+- (NSString *)kindOfFile:(NSString *)path;
 - (NSString *)filesContainer;
 - (NSString *)filesType;
 - (QSObject *)fileObjectByMergingWith:(QSObject *)mergeObject;

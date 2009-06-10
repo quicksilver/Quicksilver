@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D1FA3A20FDD970400EBA56D /* QSFileSystemObjectHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D1FA3A00FDD970400EBA56D /* QSFileSystemObjectHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D1FA3A30FDD970400EBA56D /* QSFileSystemObjectHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1FA3A10FDD970400EBA56D /* QSFileSystemObjectHandler.m */; };
 		4D2772050DFF029C002A960F /* NDSDKCompatibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D2771FC0DFF029C002A960F /* NDSDKCompatibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D2869920F4304DA00077D9E /* CGSPrivate_QSMods.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D2869910F4304DA00077D9E /* CGSPrivate_QSMods.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D4EE9C30E0180B400857804 /* NSColor+QSCGColorRef.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D4EE9BD0E0180B400857804 /* NSColor+QSCGColorRef.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -460,6 +462,8 @@
 /* Begin PBXFileReference section */
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		4D1FA3A00FDD970400EBA56D /* QSFileSystemObjectHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSFileSystemObjectHandler.h; sourceTree = "<group>"; };
+		4D1FA3A10FDD970400EBA56D /* QSFileSystemObjectHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSFileSystemObjectHandler.m; sourceTree = "<group>"; };
 		4D2771FA0DFF029C002A960F /* NDLaunchServicesObject+Paths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NDLaunchServicesObject+Paths.h"; sourceTree = "<group>"; };
 		4D2771FB0DFF029C002A960F /* NDLaunchServicesObject+Paths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NDLaunchServicesObject+Paths.m"; sourceTree = "<group>"; };
 		4D2771FC0DFF029C002A960F /* NDSDKCompatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDSDKCompatibility.h; sourceTree = "<group>"; };
@@ -1278,6 +1282,8 @@
 			children = (
 				7F9A87E40C497AF000B5912D /* QSHandledObjectHandler.h */,
 				7F9A87E50C497AF000B5912D /* QSHandledObjectHandler.m */,
+				4D1FA3A00FDD970400EBA56D /* QSFileSystemObjectHandler.h */,
+				4D1FA3A10FDD970400EBA56D /* QSFileSystemObjectHandler.m */,
 			);
 			name = "Object Handlers";
 			sourceTree = "<group>";
@@ -1853,6 +1859,7 @@
 				4D4EE9C70E0180B400857804 /* QSTitleToolbarView.h in Headers */,
 				4D2869920F4304DA00077D9E /* CGSPrivate_QSMods.h in Headers */,
 				4DA8A4680FD9A8930092EE70 /* QSBasicObject.h in Headers */,
+				4D1FA3A20FDD970400EBA56D /* QSFileSystemObjectHandler.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2155,6 +2162,7 @@
 				4D4EE9C40E0180B400857804 /* NSColor+QSCGColorRef.m in Sources */,
 				4D4EE9C80E0180B400857804 /* QSTitleToolbarView.m in Sources */,
 				4DA8A4690FD9A8930092EE70 /* QSBasicObject.m in Sources */,
+				4D1FA3A30FDD970400EBA56D /* QSFileSystemObjectHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
