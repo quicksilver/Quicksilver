@@ -45,31 +45,8 @@
 - (NSArray *)altSiblings;
 @end
 
-@interface QSRankInfo : NSObject {
-@public
-	NSString *identifier;
-	NSString *name;
-	NSString *label;
-	NSDictionary *mnemonics;
-	BOOL omitted;
-}
-+ (id)rankDataWithObject:(QSBasicObject *)object;
-- (id)initWithObject:(QSBasicObject *)object;
-- (NSString *)identifier;
-- (void)setIdentifier:(NSString *)anIdentifier;
-- (NSString *)name;
-- (void)setName:(NSString *)aName;
-- (NSString *)label;
-- (void)setLabel:(NSString *)aLabel;
-- (NSDictionary *)mnemonics;
-- (void)setMnemonics:(NSDictionary *)aMnemonics;
-- (BOOL)omitted;
-- (void)setOmitted:(BOOL)flag;
-@end
-
 @interface QSBasicObject : NSObject <QSObject, QSObjectHierarchy> {
 @public
-	QSRankInfo *			rankData;
 	NSObject <QSObjectRanker> *ranker;
 }
 
@@ -86,8 +63,7 @@
 - (int)order;
 - (float)rankModification;
 
-- (QSRankInfo *)getRankData;
-- (id <QSObjectRanker>)getRanker;
+- (Class)rankerClass;
 - (id <QSObjectRanker>)ranker;
 - (void)updateMnemonics;
 

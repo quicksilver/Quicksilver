@@ -95,13 +95,11 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 	QSScoreForObjectIMP scoreForObjectIMP = 
 		(QSScoreForObjectIMP) [self instanceMethodForSelector:@selector(rankedObject:forAbbreviation:inContext:withMnemonics:mnemonicsOnly:)];
 	
-	for (QSBasicObject *thisObject in set){
-		
-		id ranker=[thisObject ranker];
-		if (!ranker){
-			
-			QSLog(@"ranker %@",thisObject);
-			ranker=[thisObject getRanker];
+	for (QSBasicObject *thisObject in set) {
+		id ranker = [thisObject ranker];
+		if (!ranker) {
+			QSLog(@"ranker %@", thisObject);
+            continue;
 		}
 		//rankedObject=[ranker rankedObject:thisObject forAbbreviation:anAbbreviation inContext:nil withMnemonics:abbreviationMnemonics];
 		

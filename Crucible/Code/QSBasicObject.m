@@ -20,7 +20,6 @@
 
 - (id)init {
     if ((self = [super init]) ) {
-		rankData = nil;
 		ranker = nil;
     }
     return self;
@@ -28,7 +27,6 @@
 
 - (void)dealloc {
 	[ranker release];
-    [rankData release];
     [super dealloc];
 }
 
@@ -61,29 +59,21 @@
 - (float)rankModification { return 0; }
 
 #pragma mark Ranking system
-- (QSRankInfo *)getRankData {
-	QSRankInfo *oldRankData;
-	oldRankData = rankData;
-	rankData = [[QSRankInfo rankDataWithObject:self] retain];
-	[oldRankData release];
-	return rankData;
-}
-
-- (id <QSObjectRanker>)getRanker {
-	id oldRanker;
-	oldRanker = ranker;
-	ranker = [[QSDefaultObjectRanker alloc] initWithObject:self];
-	[oldRanker release];
-	return ranker;
+/* TODO: Check differences between this and the branch
+ * Issues: the ranker won't notice its object changed
+ */
+- (Class)rankerClass {
+	return [QSDefaultObjectRanker class];
 }
 
 - (id <QSObjectRanker>)ranker {
-	if (!ranker) return [self getRanker];
+	if (!ranker)
+        ranker = [[self rankerClass] initWithObject:self];
 	return ranker;
 }
 
 - (void)updateMnemonics {
-	[self getRanker];
+	[self ranker];
 }
 
 #pragma mark Icon
@@ -155,75 +145,5 @@
 
 #pragma mark Debugging
 - (NSString *)description { return [super description]; }
-
-@end
-
-@implementation QSRankInfo
-+ (id)rankDataWithObject:(QSBasicObject *)object {
-	return [[[self alloc] initWithObject:object] autorelease];
-}
-
-- (id)initWithObject:(QSBasicObject *)object {
-	if ((self = [super init])) {
-		NSString *theIdentifier = [object identifier];
-		name = [[QSDefaultStringRanker alloc] initWithString:[object name]];
-		label = [[QSDefaultStringRanker alloc] initWithString:[object label]];
-		[self setIdentifier:theIdentifier];
-		[self setMnemonics:[[QSMnemonics sharedInstance] objectMnemonicsForID:identifier]];
-		[self setOmitted:[QSLib itemIsOmitted:object]];
-    }
-    return self;
-}
-
-- (void)dealloc {
-    [name release];
-    [label release];
-    [mnemonics release];
-    [identifier release];
-    [super dealloc];
-}
-
-- (NSString *)identifier { return [[identifier retain] autorelease]; }
-
-- (void)setIdentifier:(NSString *)anIdentifier {
-    if (identifier != anIdentifier) {
-        [identifier release];
-        identifier = [anIdentifier retain];
-    }
-}
-
-- (NSString *)name { return [[name retain] autorelease]; }
-
-- (void)setName:(NSString *)aName {
-    if (name != aName) {
-        [name release];
-		
-		name = [[QSDefaultStringRanker alloc] initWithString:aName];
-    }
-}
-
-- (NSString *)label { return [[label retain] autorelease];  }
-
-- (void)setLabel:(NSString *)aLabel {
-    if (label != aLabel) {
-        [label release];
-		label = [[QSDefaultStringRanker alloc] initWithString:aLabel];
-    }
-}
-
-
-- (NSDictionary *)mnemonics { return [[mnemonics retain] autorelease];  }
-
-- (void)setMnemonics:(NSDictionary *)aMnemonics {
-    if (mnemonics != aMnemonics) {
-        [mnemonics release];
-        mnemonics = [aMnemonics retain];
-    }
-}
-
-- (BOOL)omitted { return omitted; }
-- (void)setOmitted:(BOOL)flag {
-	omitted = flag;
-}
 
 @end

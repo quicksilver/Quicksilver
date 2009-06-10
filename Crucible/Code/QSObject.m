@@ -674,11 +674,9 @@ NSSize QSMaxIconSize;
 }
 
 - (void)setName:(NSString *)newName {
-  [name release];
-  if ([newName length] >255) newName = [newName substringToIndex:255];  
+    [name release];
+    if ([newName length] > 255) newName = [newName substringToIndex:255];  
 	// ***warning   ** this should take first line only?
-	
-	[rankData setName:[newName purifiedString]];
 	
 	name = [newName retain];
 	if (newName) [meta setObject:newName forKey:kQSObjectPrimaryName];
@@ -736,7 +734,6 @@ NSSize QSMaxIconSize;
 	if (![newLabel isEqualToString:[self name]]) {
 		[label release];
 		label = [newLabel retain];
-		[rankData setLabel:[newLabel purifiedString]];
 		if (newLabel) [meta setObject:newLabel forKey:kQSObjectAlternateName];
 		else 	[meta removeObjectForKey:kQSObjectAlternateName];
 	} 		    
