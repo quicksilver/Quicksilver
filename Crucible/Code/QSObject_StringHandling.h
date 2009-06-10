@@ -7,10 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "QSObject.h"
-
-@interface QSStringObjectHandler : NSObject
-@end
+#import <QSCrucible/QSObject.h>
 
 @interface QSObject (StringHandling)
 + (id)objectWithString:(NSString *)string;
