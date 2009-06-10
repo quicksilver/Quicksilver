@@ -10,6 +10,6 @@
 #import "QSObject.h"
 
 @interface QSObject (Numeric)
-+(NSArray *)booleanObjects;
-+(NSArray *)booleanObjectsWithToggle:(BOOL)toggle;
++ (NSArray *)booleanObjects;
++ (NSArray *)booleanObjectsWithToggle:(BOOL)toggle;
 @end
