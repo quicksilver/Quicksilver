@@ -8,8 +8,6 @@
 
 #import "QSObject_StringHandling.h"
 
-
-
 id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
     if ([PLISTTYPES containsObject:type])
         return [pasteboard propertyListForType:type];
@@ -24,8 +22,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
     return nil;
 }
 
-
-bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) {
+BOOL writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) {
     //NSArray *plistTypes = [NSArray arrayWithObjects:NSFilenamesPboardType, @"ABPeopleUIDsPboardType", @"WebURLsWithTitlesPboardType", nil];
     if ([NSURLPboardType isEqualToString:type]) {
         //if (VERBOSE) QSLog(@"URL Data: %@", data);
@@ -57,7 +54,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
     id theObject = nil;
 	
     if ([[pasteboard types] containsObject:QSPrivatePboardType]) return nil;
-	 if ([[pasteboard types] containsObject:@"de.petermaurer.TransientPasteboardType"]) return nil;
+    if ([[pasteboard types] containsObject:@"de.petermaurer.TransientPasteboardType"]) return nil;
 	
     if ([[pasteboard types] containsObject:@"QSObjectID"])
         theObject = [QSObject objectWithIdentifier:[pasteboard stringForType:@"QSObjectID"]];
@@ -66,10 +63,9 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
         NSArray *objectIdentifier = [[pasteboard stringForType:@"QSObjectAddress"] componentsSeparatedByString:@":"];
         if ([[objectIdentifier objectAtIndex:0] intValue] == [[NSProcessInfo processInfo] processIdentifier])
             return (QSObject *)[[objectIdentifier lastObject] intValue];
-        else if (VERBOSE) QSLog(@"Ignored old object: %@", objectIdentifier);
-        
+        else if (VERBOSE)
+            QSLog(@"Ignored old object: %@", objectIdentifier);
     }
-    
     
     return [[[QSObject alloc] initWithPasteboard:pasteboard] autorelease];
 }
@@ -77,19 +73,19 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 - (id)initWithPasteboard:(NSPasteboard *)pasteboard {
     return [self initWithPasteboard:pasteboard types:nil];
 }
+
 - (void)addContentsOfClipping:(NSString *)path { // Not thread safe?
 	NSPasteboard *pasteboard = [NSPasteboard pasteboardByFilteringClipping:path];
 	[self addContentsOfPasteboard:pasteboard types:nil];
 	[pasteboard releaseGlobally];
 }
 
-
 - (void)addContentsOfPasteboard:(NSPasteboard *)pasteboard types:(NSArray *)types {
     NSEnumerator *typesEnumerator = [(types?types:[pasteboard types]) objectEnumerator];
     NSString *thisType;
     NSMutableArray *typeArray = [NSMutableArray arrayWithCapacity:1];
     NSArray *ignoreTypes = [NSArray arrayWithObjects:@"QSObjectAddress", @"CorePasteboardFlavorType 0x4D555246", @"CorePasteboardFlavorType 0x54455854", nil];
-    while((thisType = [typesEnumerator nextObject])) {
+    while ((thisType = [typesEnumerator nextObject])) {
         if ([[pasteboard types] containsObject:thisType] && ![ignoreTypes containsObject:thisType]) {
             id theObject = objectForPasteboardType(pasteboard, thisType);
             if (theObject && thisType) [self setObject:theObject forType:thisType];  
@@ -99,24 +95,15 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
         }
     }
 	// QSLog(@"data:%@", [self dataDictionary]);
-    /*
-     if (![[data allKeys] containsObject:NSURLPboardType]) {
-         NSURL *getURL = [[NSURL URLFromPasteboard:pasteboard] absoluteString];
-         if (getURL) {
-             [data setObject:getURL forType:NSURLPboardType];
-             QSLog(@"addingURL");
-         }
-     }
-     */
 }
 
 
 - (id)initWithPasteboard:(NSPasteboard *)pasteboard types:(NSArray *)types {
     if ((self = [self init])) {
         //QSLog(@"new pasteboard object:%d", self);
-        if (!types) types = [pasteboard types];
+        if (!types)
+            types = [pasteboard types];
         //pasteboard = [NSPasteboard pasteboardByFilteringTypesInPasteboard:pasteboard];
-        
         
 		NSString *source = @"Clipboard";
 		if (pasteboard == [NSPasteboard generalPasteboard])
@@ -152,7 +139,8 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
                 [self addContentsOfClipping:clippingPath];
         }
         
-        if ([self objectForType:kQSObjectPrimaryName]) [self setName:[self objectForType:kQSObjectPrimaryName]];
+        if ([self objectForType:kQSObjectPrimaryName])
+            [self setName:[self objectForType:kQSObjectPrimaryName]];
         else {
             [self setName:@"Unknown Clipboard Object"];
             [self guessName];
@@ -161,9 +149,11 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
     }
     return self;
 }
+
 + (id)objectWithClipping:(NSString *)clippingFile {
     return [[[QSObject alloc] initWithClipping:clippingFile] autorelease];
 }
+
 - (id)initWithClipping:(NSString *)clippingFile {
 	NSPasteboard *pasteboard = [NSPasteboard pasteboardByFilteringClipping:clippingFile];
     if ((self = [self initWithPasteboard:pasteboard])) {
@@ -172,8 +162,6 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 	[pasteboard releaseGlobally];
     return self;
 }
-
-
 
 - (void)guessName {
     NSString * newName = nil;
@@ -217,9 +205,10 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
         
         NSString *source = [self objectForMeta:kQSObjectSource];
         if (source) {
-            NSString *appName = [[NSFileManager defaultManager] displayNameAtPath:
-                                 [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:source]];
-            if (!appName) appName = source;
+            NSString *path = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:source];
+            NSString *appName = [[NSFileManager defaultManager] displayNameAtPath:path];
+            if (!appName)
+                appName = source;
             newName = [newName stringByAppendingFormat: @" - %@", appName];
         }
         [self setName:newName];
@@ -227,7 +216,6 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
     
     /*
      also
-     
      
      NSRTFPboardType
      Rich Text Format (RTF)
@@ -238,13 +226,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
      NSStringPboardType
      NSString data
      */
-    
-    
 }
-
-
-
-
 
 - (BOOL)putOnPasteboard:(NSPasteboard *)pboard declareTypes:(NSArray *)types includeDataForTypes:(NSArray *)includeTypes {
     if (!types)
@@ -265,10 +247,8 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 		//	QSLog(@"declare types: %@", types);
 		
 	} else {
-		
-		if (!includeTypes && [types containsObject:NSURLPboardType]) includeTypes = [NSArray arrayWithObject:NSURLPboardType];
-		
-		
+		if (!includeTypes && [types containsObject:NSURLPboardType])
+            includeTypes = [NSArray arrayWithObject:NSURLPboardType];
     }
 	[pboard declareTypes:types owner:self];
     /*
@@ -281,7 +261,6 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
      */
     //   QSLog(@"declareTypes: %@", [types componentsJoinedByString:@", "]);
     for (NSString *thisType in includeTypes) {
-        
         if ([types containsObject:thisType]) {
 			// QSLog(@"includedata, %@", thisType);
             [self pasteboard:pboard provideDataForType:thisType];
@@ -312,8 +291,6 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 	} 	
 }
 
-
-
 - (void)pasteboardChangedOwner:(NSPasteboard *)sender {
     //if (sender == [NSPasteboard generalPasteboard] && VERBOSE)
 	//   QSLog(@"%@ Lost the Pasteboard: %@", self, sender);
@@ -321,7 +298,8 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 
 - (NSData *)dataForType:(NSString *)dataType {
     id theData = [data objectForKey:dataType];
-    if ([theData isKindOfClass:[NSData class]]) return theData;
+    if ([theData isKindOfClass:[NSData class]])
+        return theData;
     return nil;
 }
 @end

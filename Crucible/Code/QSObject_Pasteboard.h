@@ -9,9 +9,10 @@
 - (id)initWithPasteboard:(NSPasteboard *)pasteboard;
 - (void)addContentsOfPasteboard:(NSPasteboard *)pasteboard types:(NSArray *)types;
 - (id)initWithPasteboard:(NSPasteboard *)pasteboard types:(NSArray *)types;
+
 + (id)objectWithClipping:(NSString *)clippingFile;
 - (id)initWithClipping:(NSString *)clippingFile;
--(void)guessName;
+- (void)guessName;
 - (BOOL)putOnPasteboard:(NSPasteboard *)pboard declareTypes:(NSArray *)types includeDataForTypes:(NSArray *)includeTypes;
 - (void)pasteboard:(NSPasteboard *)sender provideDataForType:(NSString *)type;
 - (void)pasteboardChangedOwner:(NSPasteboard *)sender;
