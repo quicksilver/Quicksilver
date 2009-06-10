@@ -178,45 +178,41 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 - (void)guessName {
     NSString * newName = nil;
     //QSLog(@"webtitl %@", [pasteboard propertyListForType:@"WebURLsWithTitlesPboardType"]);
-    if (itemForKey(NSFilenamesPboardType)) {
+    if ([self objectForType:NSFilenamesPboardType]) {
         [self setPrimaryType:NSFilenamesPboardType];
         [self getNameFromFiles];
     }
-    else if (itemForKey(NSStringPboardType)) {
-        newName = [itemForKey(NSStringPboardType) stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    else if ([self objectForType:NSStringPboardType]) {
+        newName = [[self objectForType:NSStringPboardType] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         [self setName:newName];
     } else {
-        if (itemForKey(NSPDFPboardType))
+        if ([self objectForType:NSPDFPboardType])
             newName = @"PDF Image";
-        else if (itemForKey([@"'icns'" encodedPasteboardType]))
+        else if ([self objectForType:[@"'icns'" encodedPasteboardType]])
             newName = @"Finder Icon";
-        else if (itemForKey(NSPICTPboardType))
+        else if ([self objectForType:NSPICTPboardType])
             newName = @"PICT Image";
-        else if (itemForKey(NSPostScriptPboardType))
+        else if ([self objectForType:NSPostScriptPboardType])
             newName = @"PostScript Image";
-        else if (itemForKey(NSTIFFPboardType))
-            newName = @"TIFF Image";
-        else if (itemForKey(NSTIFFPboardType))
-            newName = @"TIFF Image";
-        else if (itemForKey(NSTIFFPboardType))
+        else if ([self objectForType:NSTIFFPboardType])
             newName = @"TIFF Image";  
-        else if (itemForKey(NSColorPboardType))
+        else if ([self objectForType:NSColorPboardType])
             newName = @"Color Data";
-        else if (itemForKey(NSFileContentsPboardType))
+        else if ([self objectForType:NSFileContentsPboardType])
             newName = @"File Contents";
-        else if (itemForKey(NSFontPboardType))
+        else if ([self objectForType:NSFontPboardType])
             newName = @"Font Information";
-        else if (itemForKey(NSHTMLPboardType))
+        else if ([self objectForType:NSHTMLPboardType])
             newName = @"HTML Data";
-        else if (itemForKey(NSRulerPboardType))
+        else if ([self objectForType:NSRulerPboardType])
             newName = @"Paragraph formatting";
-        else if (itemForKey(NSHTMLPboardType))
+        else if ([self objectForType:NSHTMLPboardType])
             newName = @"HTML Data";
-        else if (itemForKey(NSTabularTextPboardType))
+        else if ([self objectForType:NSTabularTextPboardType])
             newName = @"Tabular Text";
-        else if (itemForKey(NSVCardPboardType))
+        else if ([self objectForType:NSVCardPboardType])
             newName = @"VCard data";
-        else if (itemForKey(NSFilesPromisePboardType))
+        else if ([self objectForType:NSFilesPromisePboardType])
             newName = @"Promised Files";  
         
         NSString *source = [self objectForMeta:kQSObjectSource];

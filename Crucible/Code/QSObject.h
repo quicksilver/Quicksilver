@@ -7,8 +7,7 @@
 
 extern NSSize QSMaxIconSize;
 
-@interface NSObject (QSObjectHandlerInformalProtocol)
-//@protocol QSObjectHandler <NSObject>
+@protocol QSObjectHandler <NSObject>
 - (BOOL)loadIconForObject:(QSObject *)object;
 - (void)setQuickIconForObject:(QSObject *)object;
 - (BOOL)objectHasChildren:(QSObject *)object;
@@ -24,8 +23,6 @@ extern NSSize QSMaxIconSize;
 - (NSString *)kindOfObject:(id <QSObject>)object;
 - (id)dataForObject:(QSObject *)object pasteboardType:(NSString *)type;
 @end
-
-#define itemForKey(k) [data objectForKey:k]
 
 // meta dictionary keys
 #define kQSObjectPrimaryName ((NSString *)kMDItemTitle)
@@ -86,22 +83,19 @@ typedef struct _QSObjectFlags {
 + (void)purgeAllImagesAndChildren;
 + (void)purgeImagesAndChildrenOlderThan:(NSTimeInterval)interval;
 + (void)purgeIdentifiers;
-+ (void)initialize;
+
 + (void)registerObject:(QSBasicObject *)object withIdentifier:(NSString *)anIdentifier;
-- (NSMutableDictionary *)cache;
-- (void)setCache:(NSMutableDictionary *)aCache;
 
++ (id)objectWithName:(NSString *)aName;
++ (id)objectWithIdentifier:(NSString *)anIdentifier;
++ (id)makeObjectWithIdentifier:(NSString *)anIdentifier;
++ (id)objectByMergingObjects:(NSArray *)objects;
++ (id)objectByMergingObjects:(NSArray *)objects withObject:(QSObject *)object;
 
-
-- (id) init;
-- (void) dealloc;
+- (id)init;
+- (void)dealloc;
 - (BOOL)isEqual:(id)anObject;
 - (NSString *)guessPrimaryType;
-+ (id) objectWithName:(NSString *)aName;
-+ (id) objectWithIdentifier:(NSString *)anIdentifier;
-+ (id) makeObjectWithIdentifier:(NSString *)anIdentifier;
-+ (id) objectByMergingObjects:(NSArray *)objects;
-+ (id) objectByMergingObjects:(NSArray *)objects withObject:(QSObject *)object;
 - (NSArray *)splitObjects;
 - (NSString *)displayName ;
 - (NSString *)toolTip;
@@ -112,21 +106,29 @@ typedef struct _QSObjectFlags {
 - (int)count;
 - (int)primaryCount;
 - (NSArray *)allKeys;
-- (void)forwardInvocation:(NSInvocation *)invocation;
+
 - (NSArray *)types;
 - (NSArray *)decodedTypes;
+
 - (int)primaryCount;
-- (id)copyWithZone:(NSZone *)zone;
+
 - (id)handler;
 - (id)handlerForType:(NSString *)type selector:(SEL)selector;
+
 - (id)objectForType:(id)aKey;
 - (void)setObject:(id)object forType:(id)aKey;
+
 - (id)objectForCache:(id)aKey;
 - (void)setObject:(id)object forCache:(id)aKey;
+
 - (id)objectForMeta:(id)aKey;
 - (void)setObject:(id)object forMeta:(id)aKey;
 
 - (void)setDetails:(NSString *)newDetails;
+
+- (NSMutableDictionary *)cache;
+- (void)setCache:(NSMutableDictionary *)aCache;
+
 
 @end
 
@@ -134,82 +136,64 @@ typedef struct _QSObjectFlags {
 - (BOOL)loadIcon;
 - (BOOL)unloadIcon;
 - (NSImage *)icon;
-- (void)setIcon:(NSImage *)newIcon ;
+- (void)setIcon:(NSImage *)newIcon;
 @end
 
 @interface QSObject (Hierarchy)
-- (QSBasicObject * )parent;
-- (void) setParentID:(NSString *)parentID;
+- (QSBasicObject *)parent;
+- (void)setParentID:(NSString *)parentID;
 - (BOOL)childrenValid;
 - (BOOL)unloadChildren;
 - (void)loadChildren;
--(BOOL)hasChildren;
+- (BOOL)hasChildren;
 @end
 
 @interface QSObject (Archiving)
-- (id)initWithCoder:(NSCoder *)coder ;
-- (void)encodeWithCoder:(NSCoder *)coder ;
 + (id)objectFromFile:(NSString *)path;
+- (id)initWithCoder:(NSCoder *)coder;
+- (void)encodeWithCoder:(NSCoder *)coder;
+
 - (id)initFromFile:(NSString *)path;
 - (void)writeToFile:(NSString *)path;
+
+- (NSMutableDictionary *)archiveDictionary;
+
 - (void)extractMetadata;
 
 - (id)findDuplicateOrRegisterID;
-
 @end
 
 
 
 //Standard Accessors
 @interface QSObject (Accessors)
-
-- (NSMutableDictionary *)archiveDictionary;
 - (NSString *)identifier;
-- (void)setIdentifier:(NSString *)newIdentifier ;
-- (NSString *)name ;
-- (void)setName:(NSString *)newName ;
-- (NSArray *)children ;
-- (void)setChildren:(NSArray *)newChildren ;
-- (NSArray *)altChildren ;
-- (void)setAltChildren:(NSArray *)newAltChildren ;
+- (void)setIdentifier:(NSString *)newIdentifier;
+- (NSString *)name;
+- (void)setName:(NSString *)newName;
+- (NSArray *)children;
+- (void)setChildren:(NSArray *)newChildren;
+- (NSArray *)altChildren;
+- (void)setAltChildren:(NSArray *)newAltChildren;
 - (NSString *)label;
-- (void)setLabel:(NSString *)newLabel ;
-- (NSString *)primaryType ;
-- (void)setPrimaryType:(NSString *)newPrimaryType ;
-- (NSMutableDictionary *)dataDictionary ;
-- (void)setDataDictionary:(NSMutableDictionary *)newDataDictionary ;
-///- (id)contents ;
-///- (void)setContents:(id)newContents ;
-- (BOOL)iconLoaded ;
-- (void)setIconLoaded:(BOOL)flag ;
-- (BOOL)retainsIcon ;
-- (void)setRetainsIcon:(BOOL)flag ;
-- (BOOL)childrenLoaded ;
-- (void)setChildrenLoaded:(BOOL)flag ;
-- (BOOL)contentsLoaded ;
-- (void)setContentsLoaded:(BOOL)flag ;
+- (void)setLabel:(NSString *)newLabel;
+- (NSString *)primaryType;
+- (void)setPrimaryType:(NSString *)newPrimaryType;
+- (NSMutableDictionary *)dataDictionary;
+- (void)setDataDictionary:(NSMutableDictionary *)newDataDictionary;
+- (BOOL)iconLoaded;
+- (void)setIconLoaded:(BOOL)flag;
+- (BOOL)retainsIcon;
+- (void)setRetainsIcon:(BOOL)flag;
+- (BOOL)childrenLoaded;
+- (void)setChildrenLoaded:(BOOL)flag;
+- (BOOL)contentsLoaded;
+- (void)setContentsLoaded:(BOOL)flag;
 - (NSTimeInterval)childrenLoadedDate;
-- (void)setChildrenLoadedDate:(NSTimeInterval)newChildrenLoadedDate; //- (NSTimeInterval)lastUseDate;
+- (void)setChildrenLoadedDate:(NSTimeInterval)newChildrenLoadedDate;
+///- (id)contents;
+///- (void)setContents:(id)newContents;
+//- (NSTimeInterval)lastUseDate;
 //- (void)setLastUseDate:(NSTimeInterval)newLastUseDate;
 @end
-
-
-
-//
-//AEDescriptorValue:
-//AEDescriptorForFlavor:
-//PasteboardDataForType:
-
-/*
- - (id)handler;
- - (id)handlerForType:(NSString *)type selector:(SEL)selector;
- - (id)valueForFlavor:(id)aKey;
- - (void)setValue:(id)object forFlavor:(id)aKey;
- - (id)objectForCache:(id)aKey;
- - (void)setObject:(id)object forCache:(id)aKey;
- - (id)objectForMeta:(id)aKey;
- - (void)setObject:(id)object forMeta:(id)aKey;
- 
- */
-
 
