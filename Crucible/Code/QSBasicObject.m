@@ -77,16 +77,20 @@
 
 - (NSUInteger)count { return 0; }
 
+- (NSBundle *)bundle {
+    NSBundle *b = bundle;
+    if (!b) {
+        b = [QSReg bundleForClassName:[self identifier]];
+        bundle = [b retain];
+    }
+    return b;
+}
+
 - (void)setBundle:(NSBundle *)aBundle {
     if(aBundle != nil && aBundle != bundle) {
         [bundle release];
         bundle = [aBundle retain];
     }
-}
-- (NSBundle *)bundle {
-    NSBundle *b = bundle;
-    if (!b) b = [QSReg bundleForClassName:[self identifier]];
-    return b;
 }
 
 - (id)handler { return nil; }
