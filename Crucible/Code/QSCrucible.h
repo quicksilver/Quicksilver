@@ -8,6 +8,7 @@
 #import "QSAppearanceController.h"
 #import "QSBackgroundView.h"
 #import "QSBadgeImage.h"
+#import "QSBasicObject.h"
 #import "QSBezelBackgroundView.h"
 #import "QSBuildOptions.h"
 #import "QSCaseInsensitiveStringKey.h"

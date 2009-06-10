@@ -18,6 +18,8 @@
 		4D7544360D354327004190BE /* QSCategories.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D7544350D354327004190BE /* QSCategories.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D8912E50D28288C006060ED /* QSController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D8912E30D28288C006060ED /* QSController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D8913230D282997006060ED /* QSApp.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D8913220D282997006060ED /* QSApp.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DA8A4680FD9A8930092EE70 /* QSBasicObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DA8A4660FD9A8930092EE70 /* QSBasicObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DA8A4690FD9A8930092EE70 /* QSBasicObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA8A4670FD9A8930092EE70 /* QSBasicObject.m */; };
 		7F17F1720C4F199D001ADE1A /* QSTitleToolbarItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F17F16E0C4F1983001ADE1A /* QSTitleToolbarItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F17F1730C4F199D001ADE1A /* QSTitleToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F17F16F0C4F1983001ADE1A /* QSTitleToolbarItem.m */; };
 		7F17F1740C4F199D001ADE1A /* QSCaseInsensitiveStringKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F17F0640C4F1795001ADE1A /* QSCaseInsensitiveStringKey.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -479,6 +481,8 @@
 		4D7544350D354327004190BE /* QSCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCategories.h; sourceTree = "<group>"; };
 		4D8912E30D28288C006060ED /* QSController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSController.h; sourceTree = "<group>"; };
 		4D8913220D282997006060ED /* QSApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSApp.h; sourceTree = "<group>"; };
+		4DA8A4660FD9A8930092EE70 /* QSBasicObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSBasicObject.h; sourceTree = "<group>"; };
+		4DA8A4670FD9A8930092EE70 /* QSBasicObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSBasicObject.m; sourceTree = "<group>"; };
 		7F17F05B0C4F16F0001ADE1A /* NSApplication+ServicesModification.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NSApplication+ServicesModification.h"; sourceTree = "<group>"; };
 		7F17F05C0C4F16F0001ADE1A /* NSApplication+ServicesModification.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NSApplication+ServicesModification.m"; sourceTree = "<group>"; };
 		7F17F0600C4F172A001ADE1A /* DNDArrayController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DNDArrayController.h; sourceTree = "<group>"; };
@@ -1311,6 +1315,8 @@
 		4D257E270F43841F00369B2D /* QSObject */ = {
 			isa = PBXGroup;
 			children = (
+				4DA8A4660FD9A8930092EE70 /* QSBasicObject.h */,
+				4DA8A4670FD9A8930092EE70 /* QSBasicObject.m */,
 				7F9A88240C497AF000B5912D /* QSNullObject.h */,
 				7F9A88250C497AF000B5912D /* QSNullObject.m */,
 				7F9A88280C497AF000B5912D /* QSObject.h */,
@@ -1846,6 +1852,7 @@
 				4D4EE9C30E0180B400857804 /* NSColor+QSCGColorRef.h in Headers */,
 				4D4EE9C70E0180B400857804 /* QSTitleToolbarView.h in Headers */,
 				4D2869920F4304DA00077D9E /* CGSPrivate_QSMods.h in Headers */,
+				4DA8A4680FD9A8930092EE70 /* QSBasicObject.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2147,6 +2154,7 @@
 				7FDE8CBA0D28A299004C6AB1 /* QSImageTextDetailCell.m in Sources */,
 				4D4EE9C40E0180B400857804 /* NSColor+QSCGColorRef.m in Sources */,
 				4D4EE9C80E0180B400857804 /* QSTitleToolbarView.m in Sources */,
+				4DA8A4690FD9A8930092EE70 /* QSBasicObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
