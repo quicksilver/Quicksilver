@@ -978,7 +978,7 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 - (IBAction)logObjectDictionary:(id)sender {
 	
 	QSLog(@"Printing Object\r%@", [[self objectValue] name]);
-	QSLog(@"Dictionary\r%@", [[self objectValue] archiveDictionary]);
+	QSLog(@"Dictionary\r%@", [[self objectValue] dictionaryRepresentation]);
 	QSLog(@"Icon\r%@", [[self objectValue] icon]);
 	
 }

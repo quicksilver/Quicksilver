@@ -227,7 +227,7 @@
 	NSString *file = [[dropDestination path] stringByAppendingPathComponent:name];
 	
 	//QSLog(file);
-	[(QSObject *)[self objectValue] writeToFile:file];
+	[[(QSObject *)[self objectValue] dictionaryRepresentation] writeToFile:file atomically:YES];
 	return [NSArray arrayWithObject:name];
 }
 

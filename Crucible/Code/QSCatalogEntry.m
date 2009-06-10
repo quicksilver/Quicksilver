@@ -517,7 +517,7 @@ NSDictionary *enabledPresetDictionary;
         thisName = [thisName stringByReplacing:@"/" with:@"_"];
         thisName = [thisName stringByReplacing:@":" with:@"_"];
         NSString *thisPath = [path stringByAppendingPathComponent:thisName];
-        [item writeToFile:thisPath];
+        [[item dictionaryRepresentation] writeToFile:thisPath atomically:YES];
     }
 }
 
@@ -531,7 +531,7 @@ NSDictionary *enabledPresetDictionary;
 	if (gUseNSArchiveForIndexes) {
 		[NSKeyedArchiver archiveRootObject:[self contents]  toFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"]];
 	} else {
-		NSArray *dictionaryArray = [[self contents] arrayByPerformingSelector:@selector(archiveDictionary)];
+		NSArray *dictionaryArray = [[self contents] arrayByPerformingSelector:@selector(dictionaryRepresentation)];
 		[dictionaryArray writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
 	}
 	

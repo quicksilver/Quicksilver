@@ -471,7 +471,7 @@ static int presetSort(id item1, id item2, QSLibrarian *librarian) {
 - (void)saveShelf:(NSString *)key {
     //NSFileManager *manager = [NSFileManager defaultManager];
     NSString *path = [pShelfLocation stringByStandardizingPath];
-    NSArray *dictionaryArray = [[shelfArrays objectForKey:key] arrayByPerformingSelector:@selector(archiveDictionary)];
+    NSArray *dictionaryArray = [[shelfArrays objectForKey:key] arrayByPerformingSelector:@selector(dictionaryRepresentation)];
     [dictionaryArray writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsshelf"] atomically:YES];
 }
 
