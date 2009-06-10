@@ -22,10 +22,10 @@
     return self;    
 }
 
-
 + (id)objectWithType:(NSString *)type value:(id)value name:(NSString *)newName{
     return[[(QSObject *)[QSObject alloc]initWithType:(NSString *)type value:(id)value name:(NSString *)newName]autorelease];
 }
+
 - (id)initWithType:(NSString *)type value:(id)value name:(NSString *)newName{
     if ((self = [self init])){
         [data setObject:value forKey:type];
@@ -46,48 +46,10 @@
     return dictObjectArray;
 }
 
-
-+ (id)objectWithDictionary:(NSMutableDictionary *)dictionary{
-	NSString *class=[dictionary objectForKey:@"class"];
-	if (class){
-		//QSLog(@"loadfromClass");
-		return [[(QSObject *)[NSClassFromString(class) alloc]initWithDictionary:dictionary]autorelease];
-	}else{
-		return [[(QSObject *)[QSObject alloc]initWithDictionary:dictionary]autorelease];
-	}
-}
-
 - (void)changeFilesToPaths{
 	id object=[data objectForKey:QSFilePathType];//[self arrayForType:];
 	if (object)
 		[data setObject:[object valueForKey:@"stringByStandardizingPath"] forKey:QSFilePathType];
 }
-- (id)initWithDictionary:(NSMutableDictionary *)dictionary{
-    if (!dictionary){
-		[self release];
-		return nil;
-	}
-	if ((self = [self init])){
-		
-		if ([dictionary objectForKey:kData]){
-			[data setDictionary:[dictionary objectForKey:kData]];
-			[meta setDictionary:[dictionary objectForKey:kMeta]];
-			
-		}else{
-			[data setDictionary:dictionary]; 
-			// ***warning   * these initializers might not be efficient
-        }
-		[self extractMetadata];
-		
-        
-		// ***warning   * should this update the name for files?
-		id dup=[self findDuplicateOrRegisterID];
-		if (dup) return dup;
-		if ([self containsType:QSFilePathType])
-			[self changeFilesToPaths];
-	}
-    return self;
-}
-
 
 @end

@@ -123,8 +123,7 @@ NSSize QSMaxIconSize;
 
 - (id)init {
     if ((self = [super init]) ) {
-		
-		data = [NSMutableDictionary dictionaryWithCapacity:0];
+		data = [[NSMutableDictionary dictionaryWithCapacity:0] retain];
         meta = [[NSMutableDictionary dictionaryWithCapacity:0] retain];
         name = nil;
         label = nil;
@@ -136,6 +135,90 @@ NSSize QSMaxIconSize;
     return self;
 }
 
+- (id)initWithDictionary:(NSDictionary *)dictionary{
+    if (!dictionary) {
+		[self release];
+		return nil;
+	}
+    
+	if ((self = [self init])) {
+        [data setDictionary:[dictionary objectForKey:kData]];
+        [meta setDictionary:[dictionary objectForKey:kMeta]];
+		[self extractMetadata];
+		
+		id dup = [self findDuplicateOrRegisterID];
+		if (dup)
+            return dup;
+/*		if ([self containsType:QSFilePathType])
+			[self changeFilesToPaths];*/
+	}
+    return self;
+}
+
+- (void)dealloc {
+	[self unloadIcon];
+	[self unloadChildren];
+    [data release];
+    [meta release];
+    [cache release];
+	
+    [name release];
+    [label release];  
+    [identifier release];
+	[icon release];
+    [primaryType release];
+	[primaryObject release];  
+	
+    [super dealloc];
+}
+
+- (NSDictionary *)dictionaryRepresentation {
+    NSMutableDictionary *dict = (NSMutableDictionary *)[super dictionaryRepresentation];
+    [dict setObject:data forKey:kData];
+    [dict setObject:meta forKey:kMeta];
+    return dict;
+}
+
+- (void)extractMetadata {
+	if ([data objectForKey:kQSObjectPrimaryName])
+		[self setName:[data objectForKey:kQSObjectPrimaryName]];
+	if ([data objectForKey:kQSObjectAlternateName])
+		[self setLabel:[data objectForKey:kQSObjectAlternateName]];
+	if ([data objectForKey:kQSObjectPrimaryType])
+		[self setPrimaryType:[data objectForKey:kQSObjectPrimaryType]];
+	if ([data objectForKey:kQSObjectIcon]) {
+		id iconRef = [data objectForKey:kQSObjectIcon];
+		if ([iconRef isKindOfClass:[NSData class]])
+			[self setIcon:[[[NSImage alloc] initWithData:iconRef] autorelease]];
+		else if ([iconRef isKindOfClass:[NSString class]])
+			[self setIcon:[QSResourceManager imageNamed:iconRef]];
+		[self setIconLoaded:YES];
+	}
+	
+	if ([meta objectForKey:kQSObjectObjectID])
+		identifier = [[meta objectForKey:kQSObjectObjectID] retain];
+	if ([meta objectForKey:kQSObjectPrimaryType])
+		primaryType = [[meta objectForKey:kQSObjectPrimaryType] retain];
+	if ([meta objectForKey:kQSObjectPrimaryName])
+		name = [[meta objectForKey:kQSObjectPrimaryName] retain];
+	if ([meta objectForKey:kQSObjectAlternateName])
+		label = [[meta objectForKey:kQSObjectAlternateName] retain];
+    
+	[data removeObjectForKey:QSProcessType]; // Don't carry over process info
+}
+
+- (id)findDuplicateOrRegisterID {
+	id dup = [QSObject objectWithIdentifier:[self identifier]];
+	if (dup) {
+		[self release];
+		return [dup retain];
+	}
+    
+	if ([self identifier])
+		[QSObject registerObject:self withIdentifier:[self identifier]];
+    
+	return nil;
+}
 
 - (BOOL)isEqual:(id)anObject {
     if (self != anObject && [anObject isKindOfClass:[QSRankedObject class]]) {
@@ -152,24 +235,6 @@ NSSize QSMaxIconSize;
         if (![[data objectForKey:key] isEqual:[anObject objectForType:key]]) return NO;
     }
     return YES;
-}
-
-- (void)dealloc {
-	//QSLog(@"dealloc %x %@", self, [self name]);
-	[self unloadIcon];
-	[self unloadChildren];
-    [data release];
-    [meta release];
-    [cache release];
-	
-    [name release];
-    [label release];  
-    [identifier release];
-	[icon release];
-    [primaryType release];
-	[primaryObject release];  
-	
-    [super dealloc];
 }
 
 - (NSArray *)splitObjects {
@@ -700,42 +765,6 @@ NSSize QSMaxIconSize;
 
 
 @implementation QSObject (Archiving)
-+ (id)objectFromFile:(NSString *)path {
-    return [[[self alloc] initFromFile:path] autorelease];
-}
-
-- (id)initFromFile:(NSString *)path {
-    if ((self = [self init]) ) {
-        NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:path];
-        NSDictionary *newData = [dictionary objectForKey:kData];
-        NSDictionary *newMeta = [dictionary objectForKey:kMeta];
-        if (!newData) newData = dictionary;
-        
-        [data setDictionary:newData];
-        [meta setDictionary:newMeta];
-        [self extractMetadata];
-    }
-    return self;
-}
-
-- (void)writeToFile:(NSString *)path {
-    NSString *uti = [(NSString*)UTTypeCreatePreferredIdentifierForTag(kUTTagClassNSPboardType,
-                                                                      (CFStringRef)[self primaryType],
-                                                                      NULL) autorelease];
-    
-    if (uti) [meta setObject:uti forKey:(NSString *)kMDItemContentType];
-    if (uti) [meta setObject:uti forKey:(NSString *)kMDItemCopyright];
-    
-    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    [dictionary setObject:data forKey:kData];
-    [dictionary setObject:meta forKey:kMeta];
-    
-    NSData *fileData = [NSPropertyListSerialization dataFromPropertyList:dictionary
-                                                                  format:NSPropertyListBinaryFormat_v1_0
-                                                        errorDescription:nil];
-    
-    [fileData writeToFile:path atomically:YES];
-}
 
 - (id)initWithCoder:(NSCoder *)coder {
     self = [self init];
@@ -751,53 +780,6 @@ NSSize QSMaxIconSize;
 - (void)encodeWithCoder:(NSCoder *)coder {
     [coder encodeObject:meta forKey:@"meta"];
     [coder encodeObject:data forKey:@"data"];
-}
-
-- (NSMutableDictionary *)archiveDictionary {
-	NSMutableDictionary *archive = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                    data, kData,
-                                    meta, kMeta,
-                                    nil];
-    return archive;
-}
-
-- (void)extractMetadata {
-	if ([data objectForKey:kQSObjectPrimaryName])
-		[self setName:[data objectForKey:kQSObjectPrimaryName]];
-	if ([data objectForKey:kQSObjectAlternateName])
-		[self setLabel:[data objectForKey:kQSObjectAlternateName]];
-	if ([data objectForKey:kQSObjectPrimaryType])
-		[self setPrimaryType:[data objectForKey:kQSObjectPrimaryType]];
-	if ([data objectForKey:kQSObjectIcon]) {
-		id iconRef = [data objectForKey:kQSObjectIcon];
-		if ([iconRef isKindOfClass:[NSData class]])
-			[self setIcon:[[[NSImage alloc] initWithData:iconRef] autorelease]];
-		else if ([iconRef isKindOfClass:[NSString class]])
-			[self setIcon:[QSResourceManager imageNamed:iconRef]];
-		[self setIconLoaded:YES];
-	}
-	
-	if ([meta objectForKey:kQSObjectObjectID])
-		identifier = [[meta objectForKey:kQSObjectObjectID] retain];
-	if ([meta objectForKey:kQSObjectPrimaryType])
-		primaryType = [[meta objectForKey:kQSObjectPrimaryType] retain];
-	if ([meta objectForKey:kQSObjectPrimaryName])
-		name = [[meta objectForKey:kQSObjectPrimaryName] retain];
-	if ([meta objectForKey:kQSObjectAlternateName])
-		label = [[meta objectForKey:kQSObjectAlternateName] retain];
-    
-	[data removeObjectForKey:QSProcessType]; // Don't carry over process info
-}
-
-- (id)findDuplicateOrRegisterID {
-	id dup = [QSObject objectWithIdentifier:[self identifier]];
-	if (dup) {
-		[self release];
-		return [dup retain];
-	}
-	if ([self identifier])
-		[QSObject registerObject:self withIdentifier:[self identifier]];
-	return nil;
 }
 
 @end

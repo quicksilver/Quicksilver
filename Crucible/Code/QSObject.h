@@ -140,23 +140,6 @@ typedef struct _QSObjectFlags {
 - (BOOL)hasChildren;
 @end
 
-@interface QSObject (Archiving)
-+ (id)objectFromFile:(NSString *)path;
-- (id)initWithCoder:(NSCoder *)coder;
-- (void)encodeWithCoder:(NSCoder *)coder;
-
-- (id)initFromFile:(NSString *)path;
-- (void)writeToFile:(NSString *)path;
-
-- (NSMutableDictionary *)archiveDictionary;
-
-- (void)extractMetadata;
-
-- (id)findDuplicateOrRegisterID;
-@end
-
-
-
 //Standard Accessors
 @interface QSObject (Accessors)
 - (NSString *)identifier;

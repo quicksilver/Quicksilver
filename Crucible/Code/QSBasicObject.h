@@ -19,6 +19,8 @@
 @class QSBasicObject;
 @protocol QSObjectRanker;
 
+#define kQSObjectClass @"class"
+
 // QSObject Protocols -  right now these aren't sufficient. QSBasicObject must be subclassed
 @protocol QSObject
 - (NSString *)label;
@@ -45,7 +47,13 @@
 - (NSArray *)altSiblings;
 @end
 
-@interface QSBasicObject : NSObject <QSObject, QSObjectHierarchy> {
+@protocol QSCoding
++ (id)objectWithDictionary:(NSDictionary *)dict;
+- (id)initWithDictionary:(NSDictionary *)dict;
+- (NSDictionary *)dictionaryRepresentation;
+@end
+
+@interface QSBasicObject : NSObject <QSCoding, QSObject, QSObjectHierarchy> {
 @public
 	NSObject <QSObjectRanker> *ranker;
 }

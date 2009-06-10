@@ -18,6 +18,18 @@
 
 @implementation QSBasicObject
 
++ (id)objectWithDictionary:(NSDictionary *)dict {
+    NSString *className = [dict objectForKey:kQSObjectClass];
+    if (!className)
+        [NSException raise:NSInternalInconsistencyException format:@"Missing kQSObjectClass key"];
+    
+    Class class = NSClassFromString(className);
+    if (!class)
+        [NSException raise:NSInternalInconsistencyException format:@"Unknown class %@ in runtime", className];
+    
+    return [[[class alloc] initWithDictionary:dict] autorelease];
+}
+
 - (id)init {
     if ((self = [super init]) ) {
 		ranker = nil;
@@ -30,6 +42,20 @@
     [super dealloc];
 }
 
+- (id)initWithDictionary:(NSDictionary *)dict {
+    self = [self init];
+    if (self) {
+        
+    }
+    return self;
+}
+
+- (NSDictionary *)dictionaryRepresentation {
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setObject:NSStringFromClass([self class]) forKey:kQSObjectClass];
+    return dict;
+}
+
 - (NSString *)label { return nil; }
 - (NSString *)name { return @"Object"; }
 - (NSString *)identifier { return nil; }
@@ -37,6 +63,7 @@
 - (NSString *)details { return nil; }
 - (NSString *)kind { return @"Object"; }
 - (NSString *)toolTip { return nil; }
+
 
 #pragma mark Catalog managment
 - (void)setEnabled:(BOOL)flag {
