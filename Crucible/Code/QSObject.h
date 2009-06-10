@@ -40,7 +40,6 @@ extern NSSize QSMaxIconSize;
 #define kQSObjectSource @"QSObjectSource"
 #define kQSObjectCreationDate ((NSString *)kMDItemContentCreationDate)
 #define kQSStringEncoding @"QSStringEncoding"
-//#define METAKEYS [NSArray arrayWithObjects:
 
 #define kMeta @"metadata"
 #define kData @"data"
@@ -97,7 +96,7 @@ typedef struct _QSObjectFlags {
 - (BOOL)isEqual:(id)anObject;
 - (NSString *)guessPrimaryType;
 - (NSArray *)splitObjects;
-- (NSString *)displayName ;
+- (NSString *)displayName;
 - (NSString *)toolTip;
 - (NSString *)descriptionWithLocale:(NSDictionary *)locale indent:(unsigned)level;
 - (NSString *)details;
@@ -114,6 +113,7 @@ typedef struct _QSObjectFlags {
 
 - (id)handler;
 - (id)handlerForType:(NSString *)type selector:(SEL)selector;
+- (id)handlerForSelector:(SEL)selector;
 
 - (id)objectForType:(id)aKey;
 - (void)setObject:(id)object forType:(id)aKey;

@@ -42,16 +42,23 @@ NSSize QSMaxIconSize;
 
 
 + (void)cleanObjectDictionary {
+    NSMutableArray *keysToRemove = [[NSMutableArray alloc] init];
     unsigned count = 0;
     QSObject *thisObject;
     for (NSString *thisKey in [objectDictionary allKeys]) {
         thisObject = [objectDictionary objectForKey:thisKey];
-        if ([thisObject retainCount] <2) {
+        if ([thisObject retainCount] < 2) {
             count++;
-            [objectDictionary removeObjectForKey:thisKey];
+            [keysToRemove addObject:thisKey];
         }
 		//QSLog(@"%d %@", [thisObject retainCount] , [thisObject name]);
     }
+    
+    for (NSString *thisKey in keysToRemove)
+        [objectDictionary removeObjectForKey:thisKey];
+    
+    [keysToRemove release];
+    
     if (DEBUG_MEMORY && count) 
 		QSLog(@"Released %i objects", count);
 }
@@ -65,19 +72,17 @@ NSSize QSMaxIconSize;
     
     for (QSObject *thisObject in [[iconLoadedSet mutableCopy] autorelease]) {
 		//	QSLog(@"i%@ %f", thisObject, thisObject->lastAccess);
-        if (thisObject->lastAccess && thisObject->lastAccess<(globalLastAccess-interval) ) {
+        if (thisObject->lastAccess && thisObject->lastAccess < (globalLastAccess - interval) ) {
             if ([thisObject unloadIcon])
                 imagecount++;
         }
     }
     
     for (QSObject *thisObject in [[childLoadedSet mutableCopy] autorelease]) {
-        if (thisObject->lastAccess && thisObject->lastAccess<(globalLastAccess-interval) ) {
+        if (thisObject->lastAccess && thisObject->lastAccess < (globalLastAccess - interval)) {
             if ([thisObject unloadChildren]) childcount++;
         }
     }
-    
-    
     
     if (DEBUG_MEMORY && (imagecount || childcount) ) 
 		QSLog(@"Released %i images and %i children  (items before %d) ", imagecount, childcount, (int)interval);
@@ -90,41 +95,6 @@ NSSize QSMaxIconSize;
 }
 
 + (void)purgeIdentifiers {[objectDictionary removeAllObjects];}
-
-- (id)init {
-    if ((self = [super init]) ) {
-		
-		data = nil;
-        [self setDataDictionary:[NSMutableDictionary dictionaryWithCapacity:0]];
-        meta = [[NSMutableDictionary dictionaryWithCapacity:0] retain];
-        name = nil;
-        label = nil;
-		icon = nil;
-        identifier = nil;
-        primaryType = nil;
-        lastAccess = 0;
-    }
-    return self;
-}
-
-
-- (BOOL)isEqual:(id)anObject {
-    if (self != anObject && [anObject isKindOfClass:[QSRankedObject class]]) {
-        anObject = [anObject object];
-    }
-    
-	if (self == anObject) return YES;
-    if (![[self identifier] isEqualToString:[anObject identifier]]) return NO;
-    if ([self primaryObject])
-        return [[self primaryObject] isEqual:[anObject primaryObject]];
-    NSEnumerator *typesEnumerator = [data keyEnumerator];
-    NSString *key;
-    while((key = [typesEnumerator nextObject]) ) {
-        if (![[data objectForKey:key] isEqual:[anObject objectForType:key]]) return NO;
-    }
-    return YES;
-}
-
 
 + (id)objectWithName:(NSString *)aName {
     QSObject *newObject = [[[QSObject alloc] init] autorelease];
@@ -159,33 +129,6 @@ NSSize QSMaxIconSize;
 	[array addObject:object];
 	return	[self objectByMergingObjects:array];
 }
-
-- (NSArray *)splitObjects {
-	NSDictionary *dataDict = [self dataDictionary];
-	
-	
-	NSEnumerator *ke = [dataDict keyEnumerator];
-	NSString *key;
-	NSArray *value;
-    
-	int i;
-	
-	NSMutableArray *splitObjects = [NSMutableArray array];
-	
-	while((key = [ke nextObject]) ) {
-		value = [dataDict objectForKey:key];
-		if ([value isKindOfClass:[NSArray class]]) {
-			while([splitObjects count] <[value count])
-				[splitObjects addObject:[QSObject objectWithName:[self name]]];
-			for (i = 0; i<[value count]; i++) {
-				[[splitObjects objectAtIndex:i] setObject:[value objectAtIndex:i] forType:key];
-			}
-		} else {
-		}
-	}
-	return splitObjects;
-}
-
 
 + (id)objectByMergingObjects:(NSArray *)objects {
     id thisObject;
@@ -226,7 +169,38 @@ NSSize QSMaxIconSize;
     return object;
 }
 
+- (id)init {
+    if ((self = [super init]) ) {
+		
+		data = [NSMutableDictionary dictionaryWithCapacity:0];
+        meta = [[NSMutableDictionary dictionaryWithCapacity:0] retain];
+        name = nil;
+        label = nil;
+		icon = nil;
+        identifier = nil;
+        primaryType = nil;
+        lastAccess = 0;
+    }
+    return self;
+}
 
+
+- (BOOL)isEqual:(id)anObject {
+    if (self != anObject && [anObject isKindOfClass:[QSRankedObject class]]) {
+        anObject = [anObject object];
+    }
+    
+	if (self == anObject) return YES;
+    if (![[self identifier] isEqualToString:[anObject identifier]]) return NO;
+    if ([self primaryObject])
+        return [[self primaryObject] isEqual:[anObject primaryObject]];
+    NSEnumerator *typesEnumerator = [data keyEnumerator];
+    NSString *key;
+    while((key = [typesEnumerator nextObject]) ) {
+        if (![[data objectForKey:key] isEqual:[anObject objectForType:key]]) return NO;
+    }
+    return YES;
+}
 
 - (void)dealloc {
 	//QSLog(@"dealloc %x %@", self, [self name]);
@@ -244,6 +218,31 @@ NSSize QSMaxIconSize;
 	[primaryObject release];  
 	
     [super dealloc];
+}
+
+- (NSArray *)splitObjects {
+	NSDictionary *dataDict = [self dataDictionary];
+	
+	NSEnumerator *ke = [dataDict keyEnumerator];
+	NSString *key;
+	NSArray *value;
+    
+	int i;
+	
+	NSMutableArray *splitObjects = [NSMutableArray array];
+	
+	while((key = [ke nextObject]) ) {
+		value = [dataDict objectForKey:key];
+		if ([value isKindOfClass:[NSArray class]]) {
+			while([splitObjects count] <[value count])
+				[splitObjects addObject:[QSObject objectWithName:[self name]]];
+			for (i = 0; i<[value count]; i++) {
+				[[splitObjects objectAtIndex:i] setObject:[value objectAtIndex:i] forType:key];
+			}
+		} else {
+		}
+	}
+	return splitObjects;
 }
 
 - (NSString *)displayName {
@@ -270,7 +269,16 @@ NSSize QSMaxIconSize;
 	id handler = [[QSReg objectHandlers] objectForKey:type];
     if (!selector || [handler respondsToSelector:selector])
         return handler;
+    
 	return nil;
+}
+
+- (id)handlerForSelector:(SEL)selector {
+    id handler = [self handler];
+    if (selector && [handler respondsToSelector:selector])
+        return handler;
+        
+    return nil;
 }
 
 - (BOOL)drawIconInRect:(NSRect)rect flipped:(BOOL)flipped {
@@ -281,15 +289,14 @@ NSSize QSMaxIconSize;
 	return NO;
 }
 
-
 - (void)setDetails:(NSString *)newDetails {
 	[self setObject:newDetails forMeta:kQSObjectDetails];
 }
 
-
 - (NSString *)details {
 	NSString *details = [meta objectForKey:kQSObjectDetails];
-    if (details) return details;
+    if (details)
+        return details;
     
     id handler = [[QSReg objectHandlers] objectForKey:[self primaryType]];
     if ([handler respondsToSelector:@selector(detailsOfObject:)]) {
