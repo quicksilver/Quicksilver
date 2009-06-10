@@ -266,10 +266,6 @@ NSSize QSMaxIconSize;
 	return splitObjects;
 }
 
-- (NSString *)descriptionWithLocale:(NSDictionary *)locale indent:(unsigned)level {
-    return [data descriptionWithLocale:locale indent:level];
-}
-
 - (id)handler {
     return [[QSReg objectHandlers] objectForKey:[self primaryType]];
 }
@@ -370,13 +366,6 @@ NSSize QSMaxIconSize;
 }
 
 - (NSArray *)allKeys { return [data allKeys]; }
-
-- (void)forwardInvocation:(NSInvocation *)invocation {
-    if ([data respondsToSelector:[invocation selector]])
-        [invocation invokeWithTarget:data];
-    else
-        [self doesNotRecognizeSelector:[invocation selector]];
-}
 
 - (NSString *)guessPrimaryType {
 	NSArray *allKeys = [data allKeys];
@@ -512,7 +501,6 @@ NSSize QSMaxIconSize;
     id handler = [[QSReg objectHandlers] objectForKey:[self primaryType]];
     if ([handler respondsToSelector:@selector(parentOfObject:)])
         parent = [handler parentOfObject:self];
-    
     
     if (!parent)
         parent = [objectDictionary objectForKey:[meta objectForKey:kQSObjectParentID]];
