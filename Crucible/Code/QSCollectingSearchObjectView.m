@@ -13,30 +13,32 @@
 
 - (void)awakeFromNib{
 	[super awakeFromNib];
-	collection=[[QSCollection alloc]init];
+	collection = [[QSCollection alloc] init];
 	
-	collecting=NO;
-	collectionEdge=NSMinYEdge;
-	collectionSpace=16.0;
+	collecting = NO;
+	collectionEdge = NSMinYEdge;
+	collectionSpace = 16.0;
 }
-- (NSSize)cellSize{
-	int count=[collection count];
-	NSSize size=[super cellSize];
+
+- (NSSize)cellSize {
+	int count = [collection count];
+	NSSize size = [super cellSize];
 	
-	if (collectionSpace==0.0)
-		size.width+=count*16;
+	if (collectionSpace == 0.0)
+		size.width += count * 16;
 	
 	return size;
 }
+
 - (void)drawRect:(NSRect)rect {
 	NSRect frame=[self frame];
-	int count=[collection count];
-	if (![self currentEditor] && count){
-		float totalSpace=collectionSpace+4;
-		if (collectionSpace==0.0){
-			totalSpace=count*16+8;
+	int count = [collection count];
+	if (![self currentEditor] && count) {
+		float totalSpace = collectionSpace + 4;
+		if (collectionSpace == 0.0) {
+			totalSpace = count * 16 + 8;
 		}
-		frame.origin=NSZeroPoint;
+		frame.origin = NSZeroPoint;
 		NSRect mainRect, collectRect;
 		//	collectionSpace=16;
 		NSDivideRect(frame,&collectRect,&mainRect,totalSpace,collectionEdge);
@@ -54,9 +56,9 @@
 		int i;
 		float iconSize=collectionSpace?collectionSpace:16;
 		float opacity=collecting?1.0:0.5;
-		QSObject *object;
+		id <QSObject> object;
 		for (i=0;i<count;i++){
-			object=[collection objectAtIndex:i];
+			object = [collection objectAtIndex:i];
 			NSImage *icon=[object icon];
 			[icon setSize:NSMakeSize(16,16)];
 			[icon setFlipped:NO];
@@ -118,9 +120,10 @@
 
 
 - (id)objectValue {
-	if ([collection count])
-		return [QSObject objectByMergingObjects:(NSArray *)collection withObject:[super objectValue]];
-	else
+	if ([collection count]) {
+        [collection addObject:[super objectValue]];
+		return collection;
+	} else
 		return [super objectValue];
 }
 

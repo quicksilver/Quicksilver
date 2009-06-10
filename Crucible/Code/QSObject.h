@@ -17,8 +17,6 @@ extern NSSize QSMaxIconSize;
 - (NSString *)detailsOfObject:(QSObject *)object;
 - (NSString *)identifierForObject:(QSObject *)object;
 - (BOOL)drawIconForObject:(QSObject *)object inRect:(NSRect)rect flipped:(BOOL)flipped;
-- (NSDragOperation)operationForDrag:(id <NSDraggingInfo>)sender ontoObject:(QSObject *)dObject withObject:(QSBasicObject *)iObject;
-- (NSString *)actionForDragMask:(NSDragOperation)operation ontoObject:(QSObject *)dObject withObject:(QSBasicObject *)iObject;
 - (BOOL)loadChildrenForObject:(QSObject *)object;
 - (NSString *)kindOfObject:(id <QSObject>)object;
 - (id)dataForObject:(QSObject *)object pasteboardType:(NSString *)type;
@@ -88,8 +86,6 @@ typedef struct _QSObjectFlags {
 + (id)objectWithName:(NSString *)aName;
 + (id)objectWithIdentifier:(NSString *)anIdentifier;
 + (id)makeObjectWithIdentifier:(NSString *)anIdentifier;
-+ (id)objectByMergingObjects:(NSArray *)objects;
-+ (id)objectByMergingObjects:(NSArray *)objects withObject:(QSObject *)object;
 
 - (id)init;
 - (void)dealloc;
@@ -100,16 +96,12 @@ typedef struct _QSObjectFlags {
 - (NSString *)toolTip;
 - (NSString *)descriptionWithLocale:(NSDictionary *)locale indent:(unsigned)level;
 - (NSString *)details;
-- (id)primaryObject;
 
-- (int)count;
-- (int)primaryCount;
+- (id)primaryObject;
 - (NSArray *)allKeys;
 
 - (NSArray *)types;
 - (NSArray *)decodedTypes;
-
-- (int)primaryCount;
 
 - (id)handler;
 - (id)handlerForType:(NSString *)type selector:(SEL)selector;

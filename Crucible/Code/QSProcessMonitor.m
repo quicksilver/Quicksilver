@@ -345,9 +345,9 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 	}else if ([[proxy identifier] isEqualToString:@"QSPreviousApplicationProxy"]){
 		return [self imbuedFileProcessForDict:previousApplication];
 	}else if ([[proxy identifier] isEqualToString:@"QSHiddenApplicationsProxy"]){
-		return [QSObject objectByMergingObjects:[self processesWithHiddenState:YES]];
+		return [QSCollection collectionWithArray:[self processesWithHiddenState:YES]];
 	}else if ([[proxy identifier] isEqualToString:@"QSVisibleApplicationsProxy"]){
-		return [QSObject objectByMergingObjects:[self processesWithHiddenState:NO]];
+		return [QSCollection collectionWithArray:[self processesWithHiddenState:NO]];
 	}
 	return nil;
 }

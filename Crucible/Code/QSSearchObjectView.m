@@ -843,8 +843,9 @@ indexOfObject:[[self objectValue] identifier]] != NSNotFound;
 	}
 	return;  
 }
+
 - (void)selectAll:(id)sender {
-	[self setObjectValue:[QSObject objectByMergingObjects:resultArray]] ;
+	[self setObjectValue:[QSCollection collectionWithArray:resultArray]] ;
 	
 }
 

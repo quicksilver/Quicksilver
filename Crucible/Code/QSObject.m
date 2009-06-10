@@ -121,54 +121,6 @@ NSSize QSMaxIconSize;
     return [objectDictionary objectForKey:anIdentifier];
 }
 
-+ (id)objectByMergingObjects:(NSArray *)objects withObject:(QSObject *)object {
-	if ([objects containsObject:object] || !object)
-		return [self objectByMergingObjects:objects];
-	
-	NSMutableArray *array = [objects mutableCopy];
-	[array addObject:object];
-	return	[self objectByMergingObjects:array];
-}
-
-+ (id)objectByMergingObjects:(NSArray *)objects {
-    id thisObject;
-	
-	NSMutableSet *typesSet = nil;
-	
-	NSMutableDictionary *combinedData = [NSMutableDictionary dictionary];
-	NSEnumerator *e;
-	NSString *type;
-	NSMutableArray *array;
-    for (thisObject in objects) {
-		if (!typesSet)
-            typesSet = [NSMutableSet setWithArray:[thisObject types]];
-		else
-			[typesSet intersectSet:[NSSet setWithArray:[thisObject types]]];
-		
-		for(type in typesSet) {
-			array = [combinedData objectForKey:type];
-			if (!array) [combinedData setObject:(array = [NSMutableArray array]) forKey:type];
-			[array addObjectsFromArray:[thisObject arrayForType:type]];
-		}
-	}
-	
-	e = [combinedData keyEnumerator];
-	while((type = [e nextObject]) ) {
-		if (![typesSet containsObject:type])
-			[combinedData removeObjectForKey:type];
-	}
-	
-	
-	QSObject *object = [[[QSObject alloc] init] autorelease];
-	[object setDataDictionary:combinedData];
-	[object setObject:objects forCache:kQSObjectComponents];
-	if ([combinedData objectForKey:QSFilePathType])
-		[object guessName];
-	else
-		[object setName:@"combined objects"];
-    return object;
-}
-
 - (id)init {
     if ((self = [super init]) ) {
 		
@@ -505,6 +457,8 @@ NSSize QSMaxIconSize;
     return [[[data allKeys] mutableCopy] autorelease];
 }
 
+- (NSUInteger)count { return 1; }
+
 - (NSArray *)decodedTypes {
     NSMutableArray *decodedTypes = [NSMutableArray arrayWithCapacity:[data count]];
     NSEnumerator *typesEnumerator = [data keyEnumerator];
@@ -513,26 +467,6 @@ NSSize QSMaxIconSize;
         [decodedTypes addObject:[thisType decodedPasteboardType]];
     }
     return decodedTypes;
-}
-
-- (int) count {
-	if (![self primaryType]) {
-		NSEnumerator *e = [[[self dataDictionary] allValues] objectEnumerator];
-		id value;
-		int count = 1;
-		while((value = [e nextObject]) ) {
-			if ([value isKindOfClass:[NSArray class]]) count = MAX([(NSArray *)value count] , count);
-		}
-		return count;
-	}
-    id priObj = [self primaryObject];
-    if ([priObj isKindOfClass:[NSArray class]])
-        return [(NSArray *)priObj count];
-    return 1;
-}
-
-- (int)primaryCount {
-	return [self count];
 }
 
 - (QSBasicObject *)parent {

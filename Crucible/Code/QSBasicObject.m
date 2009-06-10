@@ -109,13 +109,13 @@
 - (id)objectForType:(id)aKey { return nil; }
 - (NSArray *)arrayForType:(id)aKey { return nil; }
 
-- (int)primaryCount { return 0; }
-
 - (BOOL)containsType:(NSString *)aType {
 	return [[self types] containsObject:aType];
 }
 
 - (NSEnumerator *)enumeratorForType:(NSString *)aKey { return [[self arrayForType:aKey] objectEnumerator]; }
+
+- (NSUInteger)count { return 0; }
 
 #pragma mark Hierarchy
 - (QSBasicObject *)parent { return nil; }

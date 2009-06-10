@@ -13,13 +13,13 @@
 @class QSCollection;
 
 @interface QSCollectingSearchObjectView : QSSearchObjectView {
-	NSMutableArray *collection;
+	QSCollection  * collection;
 	BOOL 			collecting;
 	NSRectEdge		collectionEdge;
 	float			collectionSpace;
 }
 
--(IBAction) emptyCollection:(id)sender;
+- (IBAction)emptyCollection:(id)sender;
 - (BOOL)objectIsInCollection:(QSObject *)thisObject;
 
 - (NSRectEdge)collectionEdge;

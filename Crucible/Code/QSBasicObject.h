@@ -71,9 +71,10 @@
 
 - (NSComparisonResult)nameCompare:(QSBasicObject *)object;
 
-- (int)primaryCount;
 - (BOOL)containsType:(NSString *)aType;
 - (NSEnumerator *)enumeratorForType:(NSString *)aKey;
+
+- (NSUInteger)count;
 
 /* TODO: I'm pretty sure a good amount of cleanup would make the following redundant */
 - (QSBasicObject *)resolvedObject;

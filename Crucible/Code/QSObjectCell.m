@@ -164,7 +164,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 
 
 - (BOOL)hasBadge {
-  return [[self representedObject] primaryCount] >1;
+    return [[self representedObject] count] > 1;
 }
 
 - (NSRect) imageRectForBounds:(NSRect)theRect {
@@ -611,9 +611,9 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 			[cornerBadge drawInRect:badgeRect fromRect:rectFromSize([cornerBadge size]) operation:NSCompositeSourceOver fraction:1.0];
 		}
 		
-		if ([drawObject primaryCount] >1 && MIN(NSWidth(drawingRect), NSHeight(drawingRect) ) >= 64) {
-			NSImage *countImage = [QSCountBadgeImage badgeForCount:[drawObject primaryCount]];
-			//NSImage *countImage = QSBadgeImageForCount([drawObject primaryCount]);
+		if ([drawObject count] >1 && MIN(NSWidth(drawingRect), NSHeight(drawingRect) ) >= 64) {
+			NSImage *countImage = [QSCountBadgeImage badgeForCount:[drawObject count]];
+			//NSImage *countImage = QSBadgeImageForCount([drawObject count]);
 			if (countImage) {
 				NSRect badgeRect = [self badgeRectForBounds:cellFrame badgeImage:countImage];
 				[countImage drawInRect:badgeRect fromRect:rectFromSize([countImage size]) operation:NSCompositeSourceOver fraction:1.0];

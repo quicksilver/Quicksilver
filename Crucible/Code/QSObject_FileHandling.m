@@ -212,35 +212,28 @@ NSString *identifierForPaths(NSArray *paths) {
     NSFileManager *manager = [NSFileManager defaultManager];
     NSString *newName = nil;
     NSString *newLabel = nil;
-    if ([self count] > 1) {
-		NSArray *paths = [self arrayForType:QSFilePathType];
-        NSString *container = [self filesContainer];
-        NSString *type = [self filesType];
-        BOOL onDesktop = [container isEqualToString:[@"~/Desktop/" stringByStandardizingPath]];
-        newName = [NSString stringWithFormat:@"%d %@ %@ \"%@\"", [paths count] , type, onDesktop?@"on":@"in", [container lastPathComponent]];
-    } else {
-        NSString *path = [self objectForType:QSFilePathType];
-        
-        LSItemInfoRecord infoRec;
-        LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
-        
-        if (infoRec.flags & kLSItemInfoIsPackage) {
-			newLabel = [self descriptiveNameForPackage:(NSString *)path withKindSuffix:!(infoRec.flags & kLSItemInfoIsApplication)];
-			if ([newLabel isEqualToString:newName]) newLabel = nil;
-        }
-        
-		if (!newName) {
-            newName = [path lastPathComponent];
-            //   if (infoRec.flags & kLSItemInfoExtensionIsHidden) newName = [newName stringByDeletingPathExtension];
-        }
-        if (!newLabel && ![self label]) {
-            newLabel = [manager displayNameAtPath:path];
-            if ([newName isEqualToString:newLabel])
-                newLabel = nil;
-        }
-        if ([path isEqualToString:@"/"])
-            newLabel = [manager displayNameAtPath:path];
+    NSString *path = [self objectForType:QSFilePathType];
+    
+    LSItemInfoRecord infoRec;
+    LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);
+    
+    if (infoRec.flags & kLSItemInfoIsPackage) {
+        newLabel = [self descriptiveNameForPackage:path withKindSuffix:!(infoRec.flags & kLSItemInfoIsApplication)];
+        if ([newLabel isEqualToString:newName])
+            newLabel = nil;
     }
+    
+    if (!newName) {
+        newName = [path lastPathComponent];
+        //   if (infoRec.flags & kLSItemInfoExtensionIsHidden) newName = [newName stringByDeletingPathExtension];
+    }
+    if (!newLabel && ![self label]) {
+        newLabel = [manager displayNameAtPath:path];
+        if ([newName isEqualToString:newLabel])
+            newLabel = nil;
+    }
+    if ([path isEqualToString:@"/"])
+        newLabel = [manager displayNameAtPath:path];
     [self setName:newName];  
     [self setLabel:newLabel];  
     
