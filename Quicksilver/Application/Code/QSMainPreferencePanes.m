@@ -171,7 +171,7 @@
 	NSMenuItem *item;
 	[interfacePopUp removeAllItems];
 	
-	NSMutableDictionary *interfaces=[QSReg elementsByIDForPointID:kQSCommandInterfaceControllers];
+	NSDictionary *interfaces = [QSReg elementsByIDForPointID:kQSCommandInterfaceControllers];
 	NSEnumerator *keyEnum=[interfaces keyEnumerator];
 	NSString *key, *title;
 	while((key=[keyEnum nextObject])){
