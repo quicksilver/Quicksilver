@@ -1012,7 +1012,7 @@ NSMutableDictionary *bindingsDict = nil;
 	}
     
 	// check for additional keydowns up to now so the search isn't done too often.
-    if (fALPHA) moreComing = nil != [NSApp nextEventMatchingMask:NSKeyDownMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.333] inMode:NSDefaultRunLoopMode dequeue:NO];
+    if (fALPHA) moreComing = nil != [NSApp nextEventMatchingMask:NSKeyDownMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.100] inMode:NSDefaultRunLoopMode dequeue:NO];
     if (VERBOSE && moreComing) NSLog(@"moreComing");
     
 	// ***warning  * have downshift move to indirect object
