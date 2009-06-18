@@ -160,7 +160,7 @@ id QSPrefs;
 
 	NSSortDescriptor *nameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)];
 	NSSortDescriptor *orderDescriptor = [[NSSortDescriptor alloc] initWithKey:@"priority" ascending:NO];
-	NSMutableArray *sidebarModules = (NSMutableArray *)[[modulesByID allValues] sortedArrayUsingDescriptors:[NSArray arrayWithObjects:orderDescriptor, nameDescriptor, nil]];
+	NSMutableArray *sidebarModules = [[[[modulesByID allValues] sortedArrayUsingDescriptors:[NSArray arrayWithObjects:orderDescriptor, nameDescriptor, nil]] mutableCopy] autorelease];
 	[nameDescriptor release]; [orderDescriptor release];
 	[sidebarModules filterUsingPredicate:[NSPredicate predicateWithFormat:@"not type like[cd] 'toolbar'"]];
 	[sidebarModules filterUsingPredicate:[NSPredicate predicateWithFormat:@"not type like[cd] 'hidden'"]];
