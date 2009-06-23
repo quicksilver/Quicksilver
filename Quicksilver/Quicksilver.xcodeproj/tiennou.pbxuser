@@ -132,8 +132,16 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 257377400;
-			PBXWorkspaceStateSaveDate = 257377400;
+			PBXPerProjectTemplateStateSaveDate = 267381630;
+			PBXWorkspaceStateSaveDate = 267381630;
+		};
+		perUserProjectItems = {
+			4D7DFFAE0FEFED530026531A /* PBXTextBookmark */ = 4D7DFFAE0FEFED530026531A /* PBXTextBookmark */;
+			4D7DFFAF0FEFED530026531A /* PBXTextBookmark */ = 4D7DFFAF0FEFED530026531A /* PBXTextBookmark */;
+			4D7DFFB00FEFED530026531A /* PBXTextBookmark */ = 4D7DFFB00FEFED530026531A /* PBXTextBookmark */;
+			4D7DFFB10FEFED530026531A /* PBXTextBookmark */ = 4D7DFFB10FEFED530026531A /* PBXTextBookmark */;
+			4D7DFFB60FEFED5B0026531A /* PlistBookmark */ = 4D7DFFB60FEFED5B0026531A /* PlistBookmark */;
+			4D7DFFB70FEFED5B0026531A /* PlistBookmark */ = 4D7DFFB70FEFED5B0026531A /* PlistBookmark */;
 		};
 		sourceControlManager = 4DFE7D140E0812B2000B9AA3 /* Source Control */;
 		userBuildSettings = {
@@ -299,7 +307,7 @@
 		ignoreCount = 0;
 		lineNumber = 1095;
 		location = QSInterface;
-		modificationTime = 257377660.684749;
+		modificationTime = 257377660.6847489;
 		state = 1;
 	};
 	4D63D0EC0EC8B16E00CB8CAF /* QSObjectCell.m:505 */ = {
@@ -369,6 +377,68 @@
 			sepNavWindowFrame = "{{19, -5}, {1197, 878}}";
 		};
 	};
+	4D7DFFAE0FEFED530026531A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E1E5FB7207B20DD10044D6EF /* QSCommand.m */;
+		name = "QSCommand.m: 121";
+		rLen = 104;
+		rLoc = 3578;
+		rType = 0;
+		vrLen = 1414;
+		vrLoc = 3325;
+	};
+	4D7DFFAF0FEFED530026531A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "warning: #warning FIXME: What was the purpose of this ?";
+		fRef = E1E5FC7407B20E4D0044D6EF /* QSSearchObjectView.m */;
+		rLen = 1;
+		rLoc = 1110;
+		rType = 1;
+	};
+	4D7DFFB00FEFED530026531A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E1E5FB7207B20DD10044D6EF /* QSCommand.m */;
+		name = "QSCommand.m: 121";
+		rLen = 104;
+		rLoc = 3578;
+		rType = 0;
+		vrLen = 1414;
+		vrLoc = 3325;
+	};
+	4D7DFFB10FEFED530026531A /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = E1E5FC7407B20E4D0044D6EF /* QSSearchObjectView.m */;
+		name = "QSSearchObjectView.m: 1106";
+		rLen = 0;
+		rLoc = 37795;
+		rType = 0;
+		vrLen = 983;
+		vrLoc = 36963;
+	};
+	4D7DFFB60FEFED5B0026531A /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = E103EB8906471D5900447FE0 /* Quicksilver-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleSignature,
+		);
+		name = "/Volumes/myHD/Projects/Quicksilver/qs-git/Quicksilver/PropertyLists/Quicksilver-Info.plist";
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	4D7DFFB70FEFED5B0026531A /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = E103EB8906471D5900447FE0 /* Quicksilver-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleHelpBookFolder,
+		);
+		name = "/Volumes/myHD/Projects/Quicksilver/qs-git/Quicksilver/PropertyLists/Quicksilver-Info.plist";
+		rLen = 0;
+		rLoc = 2147483647;
+	};
 	4D7E2BF10E25163A004239AE /* QSFileTagsPlugInSource.m */ = {
 		isa = PBXFileReference;
 		lastKnownFileType = sourcecode.c.objc;
@@ -389,7 +459,7 @@
 		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 28;
-		modificationTime = 257377663.335321;
+		modificationTime = 257377663.3353209;
 		state = 0;
 	};
 	4D8FBF930EC3D3DD00595961 /* QSTrigger.m:211 */ = {
@@ -516,7 +586,7 @@
 		ignoreCount = 0;
 		lineNumber = 132;
 		location = QSCore;
-		modificationTime = 257377660.683864;
+		modificationTime = 257377660.6838639;
 		state = 2;
 	};
 	4DB8915A0E13E93200F57EF7 /* QSDesktopBackgroundView.h */ = {
@@ -705,7 +775,7 @@
 		ignoreCount = 0;
 		lineNumber = 1022;
 		location = Quicksilver;
-		modificationTime = 257377660.683676;
+		modificationTime = 257377660.6836761;
 		state = 1;
 	};
 	4DD2CF340E7B345500BA1128 /* QSBasicObject.h */ = {
@@ -902,7 +972,7 @@
 		ignoreCount = 0;
 		lineNumber = 801;
 		location = QSCore;
-		modificationTime = 257377660.684453;
+		modificationTime = 257377660.6844531;
 		state = 1;
 	};
 	4DE41D160F57464800878A68 /* QSInterfaceController.m:311 */ = {
@@ -2795,7 +2865,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1128, 6552}}";
 			sepNavSelRange = "{3578, 104}";
-			sepNavVisRange = "{3450, 1117}";
+			sepNavVisRange = "{3325, 1160}";
 			sepNavWindowFrame = "{{20, -1}, {878, 878}}";
 		};
 	};
@@ -3425,9 +3495,9 @@
 	};
 	E1E5FC7407B20E4D0044D6EF /* QSSearchObjectView.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1323, 23898}}";
-			sepNavSelRange = "{27746, 0}";
-			sepNavVisRange = "{26940, 1883}";
+			sepNavIntBoundsRect = "{{0, 0}, {1093, 23898}}";
+			sepNavSelRange = "{37795, 0}";
+			sepNavVisRange = "{36963, 1074}";
 			sepNavWindowFrame = "{{398, 0}, {1382, 878}}";
 		};
 	};
