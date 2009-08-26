@@ -337,7 +337,7 @@ NSMutableDictionary *bindingsDict = nil;
 		//	[[self cell] setState:NSOffState];
 	}
     
-	[resultController->resultTable setNeedsDisplay:YES];
+    //[resultController->resultTable setNeedsDisplay:YES];
     
 	if (browsing) [[NSUserDefaults standardUserDefaults] setInteger:newSearchMode forKey:kBrowseMode];
     
