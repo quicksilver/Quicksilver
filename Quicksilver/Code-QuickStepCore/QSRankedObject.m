@@ -38,6 +38,10 @@
 	return sig;
 }
 
+- (id)valueForUndefinedKey:(NSString *)key {
+    return [[self object] valueForKey:key];
+}
+
 #pragma mark Lifecycle
 - (id)initWithObject:(id)newObject matchString:(NSString *)matchString order:(int)newOrder score:(float)newScore {
     if (!newObject)
