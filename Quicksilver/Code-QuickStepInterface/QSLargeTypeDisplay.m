@@ -107,7 +107,7 @@ void QSShowLargeType(NSString *number) {
 	[largeTypeWindow setInitialFirstResponder:textView];
 	[largeTypeWindow setAlphaValue:1 fadeTime:0.333];
 	[[largeTypeWindow contentView] display];
-    [largeTypeWindow autorelease];
+    /* Released when closed */
 }
 
 
