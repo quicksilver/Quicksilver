@@ -68,17 +68,18 @@ NSSize QSMaxIconSize;
 	unsigned count = 0;
 	QSObject *thisObject;
     NSMutableArray *keysToDeleteFromObjectDict = [[NSMutableArray alloc] init];
-    
-    NSEnumerator *keyEnum = [objectDictionary keyEnumerator];
-    NSString *thisKey = nil;
-	while (thisKey = [keyEnum nextObject]) {
-		thisObject = [objectDictionary objectForKey:thisKey];
-		if ([thisObject retainCount] < 2) {
-            [keysToDeleteFromObjectDict addObject:thisKey];
-		}
-		//NSLog(@"%d %@", [thisObject retainCount] , [thisObject name]);
-	}
-    [objectDictionary removeObjectsForKeys:keysToDeleteFromObjectDict];
+    @synchronized(objectDictionary) {
+        NSEnumerator *keyEnum = [objectDictionary keyEnumerator];
+        NSString *thisKey = nil;
+        while (thisKey = [keyEnum nextObject]) {
+            thisObject = [objectDictionary objectForKey:thisKey];
+            if ([thisObject retainCount] < 2) {
+                [keysToDeleteFromObjectDict addObject:thisKey];
+            }
+            //NSLog(@"%d %@", [thisObject retainCount] , [thisObject name]);
+        }
+        [objectDictionary removeObjectsForKeys:keysToDeleteFromObjectDict];
+    }
     
     count = [keysToDeleteFromObjectDict count];
 	if (DEBUG_MEMORY && count)
@@ -133,7 +134,11 @@ NSSize QSMaxIconSize;
 
 }
 
-+ (void)purgeIdentifiers {[objectDictionary removeAllObjects];}
++ (void)purgeIdentifiers {
+    @synchronized(objectDictionary) {
+        [objectDictionary removeAllObjects];
+    }
+}
 
 + (void)interfaceChanged {
 	QSMaxIconSize = [(QSInterfaceController *)[[NSApp delegate] interfaceController] maxIconSize];
@@ -142,8 +147,11 @@ NSSize QSMaxIconSize;
 }
 
 + (void)registerObject:(QSBasicObject *)object withIdentifier:(NSString *)anIdentifier {
-    if (object && anIdentifier)
-        [objectDictionary setObject:object forKey:anIdentifier];
+    if (object && anIdentifier) {
+        @synchronized(objectDictionary) {
+            [objectDictionary setObject:object forKey:anIdentifier];
+        }
+    }
     //		NSLog(@"setobj:%@", [objectDictionary objectForKey:anIdentifier]);
 }
 
@@ -580,14 +588,18 @@ NSSize QSMaxIconSize;
 
 - (void)setIdentifier:(NSString *)newIdentifier {
     if (identifier != nil) {
-        [objectDictionary removeObjectForKey:identifier];
+        @synchronized(objectDictionary) {
+            [objectDictionary removeObjectForKey:identifier];
+        }
         [meta removeObjectForKey:kQSObjectObjectID];
         if(identifier != newIdentifier)
             [identifier release], identifier = nil;
     }
     if (newIdentifier != nil) {
         flags.noIdentifier = NO;
-        [objectDictionary setObject:self forKey:newIdentifier];
+        @synchronized(objectDictionary) {
+            [objectDictionary setObject:self forKey:newIdentifier];
+        }
         [meta setObject:newIdentifier forKey:kQSObjectObjectID];
         if (identifier != newIdentifier)
             identifier = [newIdentifier retain];
