@@ -427,7 +427,7 @@
 		return nil;
 
 	NSFileManager *manager = [NSFileManager defaultManager];
-	NSDictionary *conflicts = [manager conflictsForFiles:filePaths inDestination:destination]; //originals:keys destin:values
+	NSDictionary *conflicts = [manager conflictsForFiles:filePaths inDestination:destination];
 	NSArray *resultPaths = nil;
 
 	if (conflicts) {
@@ -449,7 +449,12 @@
 				NSEnumerator *enumerator = [[conflicts allValues] objectEnumerator];
 				while(file = [enumerator nextObject]) {
 					NSLog(file);
-					[manager removeFileAtPath:file handler:nil];
+                    if ([file hasPrefix:destination]) {
+                        NSLog("File %@ already exists in %@", file, destination);
+                        continue;
+                    }
+                    
+                    [manager removeFileAtPath:file handler:nil];
 				}
 				break;
 			}
