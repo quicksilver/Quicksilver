@@ -480,6 +480,30 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     
 	return YES;
 }
+
+- (NSArray *)actionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
+    NSString *path = [dObject objectForType:QSFilePathType];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:nil]) {
+        LSItemInfoRecord infoRec;
+        LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);
+        if (infoRec.flags & kLSItemInfoIsApplication) {
+            NSMutableArray *actions = (NSMutableArray *)[QSExec validActionsForDirectObject:dObject indirectObject:iObject];
+            NSString *bundleIdentifier = [[NSBundle bundleWithPath:path] bundleIdentifier];
+
+            //NSLog(@"actions %d", [actions count]);
+            NSDictionary *appActions = [[QSReg tableNamed:@"QSApplicationActions"] objectForKey:bundleIdentifier];
+            foreachkey(actionID, actionDict, appActions) {
+                [actions addObject:[QSAction actionWithDictionary:[actionDict copy] identifier:actionID]];
+            }
+            //    NSLog(@"actions %d", [actions count]);
+
+            return actions;
+
+        }
+    }
+    return nil;
+}
+
 @end
 
 @implementation QSBasicObject (FileHandling)
