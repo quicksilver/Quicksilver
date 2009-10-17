@@ -422,7 +422,8 @@ id QSPrefs;
 		[iconView setHidden:YES];
 		[toolbarTitleView display];
 		[loadingProgress setHidden:NO];
-		[loadingProgress setAnimationDelay:1/60];
+#warning Removed setAnimationDelay as it's DEPRECATED_10_5+
+//		[loadingProgress setAnimationDelay:1/60];
 		[loadingProgress startAnimation:nil];
 
 		//[iconView display];
