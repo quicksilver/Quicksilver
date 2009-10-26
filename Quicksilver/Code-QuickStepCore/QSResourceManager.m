@@ -120,18 +120,25 @@ id QSRez;
 	if ([locator isKindOfClass:[NSNull class]]) return nil;
 	if (locator)
 		image = [self imageWithLocatorInformation:locator];
-	else {// Try the systemicons bundle
+    else if (!image && ([name hasPrefix:@"/"] || [name hasPrefix:@"~"]) ) { // !!! Andre Berg 20091007: Try iconForFile first if name looks like ordinary path
+        NSString *path = [name stringByStandardizingPath];
+        if ([[NSImage imageUnfilteredFileTypes] containsObject:[path pathExtension]])
+            image = [[[NSImage alloc] initByReferencingFile:path] autorelease];
+        else
+            image = [[NSWorkspace sharedWorkspace] iconForFile:path];        
+    } else {// Try the systemicons bundle
 		image = [self sysIconNamed:name];
         if (!image) // Try by bundle id
 			image = [self imageWithLocatorInformation:[NSDictionary dictionaryWithObjectsAndKeys:name, @"bundle", nil]];
 
-		if (!image && ([name hasPrefix:@"/"] || [name hasPrefix:@"~"]) ) {
-			NSString *path = [name stringByStandardizingPath];
-			if ([[NSImage imageUnfilteredFileTypes] containsObject:[path pathExtension]])
-				image = [[[NSImage alloc] initByReferencingFile:path] autorelease];
-			else
-				image = [[NSWorkspace sharedWorkspace] iconForFile:path];
-		}
+// !!! Andre Berg 20091007: commented out because we use it as case in if/else above
+// 		if (!image && ([name hasPrefix:@"/"] || [name hasPrefix:@"~"]) ) {
+// 			NSString *path = [name stringByStandardizingPath];
+// 			if ([[NSImage imageUnfilteredFileTypes] containsObject:[path pathExtension]])
+// 				image = [[[NSImage alloc] initByReferencingFile:path] autorelease];
+// 			else
+// 				image = [[NSWorkspace sharedWorkspace] iconForFile:path];
+// 		}
 
 		// NSLog(@"iconbundle %@ %@", name, image);
 	}
