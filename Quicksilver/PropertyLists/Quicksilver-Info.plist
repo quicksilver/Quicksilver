@@ -111,10 +111,10 @@
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleHelpBookFolder</key>
-	<string>QSHelp</string>
 	<key>CFBundleGetInfoString</key>
 	<string>Quicksilver β56a7, Copyright © 2000-2008 Blacktree, Inc.</string>
+	<key>CFBundleHelpBookFolder</key>
+	<string>QSHelp</string>
 	<key>CFBundleHelpBookName</key>
 	<string>Quicksilver Help</string>
 	<key>CFBundleIconFile</key>
@@ -167,7 +167,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3825</string>
+	<string>3828</string>
 	<key>LSHasLocalizedDisplayName</key>
 	<integer>1</integer>
 	<key>LSUIElement</key>
@@ -195,12 +195,14 @@
 			<string>getSelection</string>
 			<key>NSPortName</key>
 			<string>Quicksilver</string>
+			<key>NSRequiredContext</key>
+			<dict/>
 			<key>NSSendTypes</key>
 			<array>
-				<string>NSColorPboardType</string>
-				<string>NSFileContentsPboardType</string>
 				<string>NSFilenamesPboardType</string>
+				<string>NSFileContentsPboardType</string>
 				<string>NSFontPboardType</string>
+				<string>NSColorPboardType</string>
 				<string>NSHTMLPboardType</string>
 				<string>NSPDFPboardType</string>
 				<string>NSPICTPboardType</string>
@@ -237,10 +239,10 @@
 			<string>Quicksilver</string>
 			<key>NSSendTypes</key>
 			<array>
-				<string>NSColorPboardType</string>
-				<string>NSFileContentsPboardType</string>
 				<string>NSFilenamesPboardType</string>
+				<string>NSFileContentsPboardType</string>
 				<string>NSFontPboardType</string>
+				<string>NSColorPboardType</string>
 				<string>NSHTMLPboardType</string>
 				<string>NSPDFPboardType</string>
 				<string>NSPICTPboardType</string>
