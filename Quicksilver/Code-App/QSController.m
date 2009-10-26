@@ -262,13 +262,19 @@ QSController *QSCon;
 	[debugMenuItem setSubmenu:debugMenu];
 
 }
+
 - (void)raiseException {
 	[NSException raise:@"Test Exception" format:@"This is a test. It is only a test. In the event of a real exception, it would have been followed by some witty commentary."];
 }
 
+// disable warning because this is intentional
+#pragma clang diagnostic ignored "-Wformat-security"
+
 - (void)crashQS {
 	NSLog((id)1);
 }
+
+#pragma clang diagnostic enabled "-Wformat-security"
 
 // Menu Actions
 
