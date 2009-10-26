@@ -36,7 +36,8 @@ OSType aliasOSTypeFor( NSURL * aURL );
 	theResourcFork = [[NDResourceFork alloc] initForReadingAtPath:aPath];
 
 	self = [self initWithData:[theResourcFork dataForType:formAlias Id:aliasRecordId]];
-
+    
+    [theResourcFork closeFile];
 	[theResourcFork release];
 
 	return self;
