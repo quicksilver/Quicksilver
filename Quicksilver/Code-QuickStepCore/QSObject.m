@@ -305,6 +305,23 @@ NSSize QSMaxIconSize;
 	[super dealloc];
 }
 
+// !!! Andre Berg 20091008: adding a gdbDataFormatter method which can be easily used 
+// as GDB data formatter, e.g. "<QSObject> {[$VAR gdbDataFormatter]}:s" will call it 
+// and display the result. The advantage is that this formatter will go less out of scope
+
+- (const char *) gdbDataFormatter {
+    return [[NSString stringWithFormat:@"name: %@, label: %@, identifier: %@, primaryType: %@, primaryObject: %@, meta: %@, data: %@, cache: %@, icon: %@, lastAccess: %d",
+             (name ? name : @"nil"),
+             (label ? label : @"nil"),
+             (identifier ? identifier : @"nil"),
+             (primaryType ? primaryType : @"nil"),
+             (meta ? [meta descriptionInStringsFileFormat] : @"nil"),
+             (data ? [data descriptionInStringsFileFormat] : @"nil"),
+             (cache ? [cache descriptionInStringsFileFormat] : @"nil"),
+             (icon ? [icon description] : @"nil"),
+             (lastAccess ? lastAccess : 0.0f)] UTF8String];
+}
+
 - (id)copyWithZone:(NSZone *)zone {
 	if(DEBUG)
         NSLog(@"copied!");
@@ -819,7 +836,8 @@ NSSize QSMaxIconSize;
 	lastAccess = [NSDate timeIntervalSinceReferenceDate];
 	globalLastAccess = lastAccess;
 	[iconLoadedArray addObject:self];
-	//	 NSLog(@"Load Icon for %@", self);
+	if (VERBOSE) NSLog(@"Load Icon for %@", self);
+    else if (DEBUG && VERBOSE) NSLog(@"Load Icon for %@", [self gdbDataFormatter]);
     
 	NSString *namedIcon = [self objectForMeta:kQSObjectIconName];
 	if (namedIcon) {
