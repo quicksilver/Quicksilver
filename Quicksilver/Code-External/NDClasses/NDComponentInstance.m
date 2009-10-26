@@ -267,7 +267,7 @@ static NDComponentInstance		* sharedComponentInstance = nil;
 
 	if( defaultSendProcPtr( [theAppleEventDescriptor aeDesc], &theReplyAppleEvent, aSendMode, aSendPriority, aTimeOutInTicks, anIdleProc, aFilterProc, defaultSendProcRefCon ) == noErr )
 	{
-		theReplyAppleEventDesc = [NSAppleEventDescriptor descriptorWithAEDescNoCopy:&theReplyAppleEvent];
+		theReplyAppleEventDesc = [NSAppleEventDescriptor descriptorWithAEDescNoCpy:&theReplyAppleEvent];
 	}
 	
 	return theReplyAppleEventDesc;
@@ -292,7 +292,7 @@ static NDComponentInstance		* sharedComponentInstance = nil;
 	OSErr			theError;
 	if ( (theError = OSAScriptingComponentName( [self scriptingComponent], &theDesc)) == noErr )
 	{
-		theDescription = [@"NDComponentInstance name:" stringByAppendingString:[[NSAppleEventDescriptor descriptorWithAEDescNoCopy:&theDesc] stringValue]];
+		theDescription = [@"NDComponentInstance name:" stringByAppendingString:[[NSAppleEventDescriptor descriptorWithAEDescNoCpy:&theDesc] stringValue]];
 	}
 	else
 	{

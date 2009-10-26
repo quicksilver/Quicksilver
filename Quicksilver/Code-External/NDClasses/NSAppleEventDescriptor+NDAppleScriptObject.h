@@ -7,6 +7,15 @@
 #import <Foundation/Foundation.h>
 #import <Carbon/Carbon.h>
 
+#ifndef NS_RETURNS_RETAINED
+    // Marks methods and functions which return an object that needs to be released by the caller but whose names are not consistent with Cocoa naming rules. The recommended fix to this is the rename the methods or functions, but this macro can be used to let the clang static analyzer know of any exceptions that cannot be fixed.
+    #if defined(__clang__)
+        #define NS_RETURNS_RETAINED __attribute__((ns_returns_retained))
+    #else
+        #define NS_RETURNS_RETAINED
+    #endif
+#endif
+
 /*!
 	@category NSAppleEventDescriptor(NDAppleScriptObject)
 	@abstract Category of <tt>NSAppleEventDescriptor</tt>.
@@ -15,13 +24,15 @@
 @interface NSAppleEventDescriptor (NDAppleScriptObject)
 
 /*!
-	@method descriptorWithAEDescNoCopy:
+	@method descriptorWithAEDescNoCpy:
 	@abstract Returns a <tt>NSAppleEventDescriptor</tt> for the <tt>AEDesc</tt>.
 	@discussion Allocates, initializes and returns an <tt>NSAppleEventDescriptor</tt> that takes ownership of the Carbon <tt>AEDesc</tt> structure pointed to by <tt>aeDesc</tt>. Returns <tt>nil</tt> if an error occurs. The initialized object takes responsibility for calling the <tt>AEDisposeDesc</tt> function on the <tt>AEDesc</tt> at object deallocation time.
 	@param aeDesc A Carbon <tt>AEDesc</tt> structure.
 	@result A <tt>NSAppleEventDescriptor</tt>
  */
-+ (id)descriptorWithAEDescNoCopy:(const AEDesc *)aeDesc;
+
+// !!! Andre Berg 20091013: renamed descriptorWithAEDescNoCopy: to descriptorWithAEDescNoCpy: to keep Clang's static analyzer from assuming it is a NS_RETURNS_RETAINED method because of the "Copy" in its selector name.
++ (id)descriptorWithAEDescNoCpy:(const AEDesc *)aeDesc;
 
 /*!
 	@method descriptorWithAEDesc:

@@ -67,7 +67,7 @@ const NSString			* NDAppleScriptPartialResult = @"Error Partial Result";
 	{
 		if( OSACoerceToDesc( [aComponentInstance scriptingComponent], theResultID, typeWildCard, kOSAModeNull, &theResultDesc ) == noErr )
 		{
-			theResult = [NSAppleEventDescriptor descriptorWithAEDescNoCopy:&theResultDesc];
+			theResult = [NSAppleEventDescriptor descriptorWithAEDescNoCpy:&theResultDesc];
 
 			OSADispose( [aComponentInstance scriptingComponent], theResultID );
 		}
@@ -344,7 +344,7 @@ const NSString			* NDAppleScriptPartialResult = @"Error Partial Result";
 
 	if( [self isCompiled] && (noErr == OSAStore( [self scriptingComponent], compiledScriptID, typeOSAGenericStorage, kOSAModeNull, &theDesc ) ) )
 	{
-		theData = [[NSAppleEventDescriptor descriptorWithAEDescNoCopy:&theDesc] data];
+		theData = [[NSAppleEventDescriptor descriptorWithAEDescNoCpy:&theDesc] data];
 	}
 	return theData;
 }
@@ -478,8 +478,9 @@ const NSString			* NDAppleScriptPartialResult = @"Error Partial Result";
 
 	if( OSAGetProperty( [self scriptingComponent], kOSAModeNull, [self compiledScriptID], [theNameDescriptor aeDesc], &theResultID ) == noErr )
 	{
-		if( (theErr = OSACoerceToDesc ( [self scriptingComponent], theResultID, typeWildCard, kOSAModeNull, &theDesc )) == noErr )
-			theResultDesc = [NSAppleEventDescriptor descriptorWithAEDescNoCopy:&theDesc];
+        theErr = OSACoerceToDesc ( [self scriptingComponent], theResultID, typeWildCard, kOSAModeNull, &theDesc );
+		if( theErr == noErr )
+			theResultDesc = [NSAppleEventDescriptor descriptorWithAEDescNoCpy:&theDesc];
 	}
 
 	return theResultDesc;
@@ -514,7 +515,7 @@ const NSString			* NDAppleScriptPartialResult = @"Error Partial Result";
 	
 	if( [self isCompiled] && OSACoerceToDesc( [self scriptingComponent], resultingValueID, typeWildCard, kOSAModeNull, &theResultDesc ) == noErr )
 	{
-		theDescriptor = [NSAppleEventDescriptor descriptorWithAEDescNoCopy:&theResultDesc];
+		theDescriptor = [NSAppleEventDescriptor descriptorWithAEDescNoCpy:&theResultDesc];
 	}
 	return theDescriptor;
 }
@@ -544,7 +545,7 @@ const NSString			* NDAppleScriptPartialResult = @"Error Partial Result";
 	NSString					* theString = nil;
 	if( [self isCompiled] && OSADisplay( [self scriptingComponent], resultingValueID, typeChar, kOSAModeNull, &theResultDesc ) == noErr )
 	{
-		theString = [[NSAppleEventDescriptor descriptorWithAEDescNoCopy:&theResultDesc] stringValue];
+		theString = [[NSAppleEventDescriptor descriptorWithAEDescNoCpy:&theResultDesc] stringValue];
 	}
 	return theString;
 }
@@ -608,7 +609,7 @@ const NSString			* NDAppleScriptPartialResult = @"Error Partial Result";
 	{
 		if( OSAScriptError(theComponentInstance, theResults[theIndex].selector, theResults[theIndex].desiredType, &aDescriptor ) == noErr )
 		{
-			[theDictionary setObject:(id)[[NSAppleEventDescriptor descriptorWithAEDescNoCopy:&aDescriptor] objectValue] forKey:(id)theResults[theIndex].key];
+			[theDictionary setObject:(id)[[NSAppleEventDescriptor descriptorWithAEDescNoCpy:&aDescriptor] objectValue] forKey:(id)theResults[theIndex].key];
 		}
 	}
 
@@ -661,7 +662,7 @@ const NSString			* NDAppleScriptPartialResult = @"Error Partial Result";
 
 	if( theSource == nil && (theErr = OSAGetSource( [self scriptingComponent], compiledScriptID, typeChar, &theDesc)) == noErr )
 	{
-		theSource = [[NSAppleEventDescriptor descriptorWithAEDescNoCopy:&theDesc] stringValue];
+		theSource = [[NSAppleEventDescriptor descriptorWithAEDescNoCpy:&theDesc] stringValue];
 	}
 	
 	return theSource;

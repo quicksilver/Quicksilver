@@ -15,9 +15,9 @@
 @implementation NSAppleEventDescriptor (NDAppleScriptObject)
 
 /*
- * +descriptorWithAEDescNoCopy:
+ * +descriptorWithAEDescNoCpy:
  */
-+ (id)descriptorWithAEDescNoCopy:(const AEDesc *)aDesc
++ (id)descriptorWithAEDescNoCpy:(const AEDesc *)aDesc
 {
 	return [[[self alloc] initWithAEDescNoCopy:aDesc] autorelease];
 }
@@ -320,7 +320,7 @@
 
 				if( AECreateDesc( typeRangeDescriptor, (void*)&theRange, sizeof(NSRange), &theDesc ) == noErr )
 				{
-					theDescriptor = [NSAppleEventDescriptor descriptorWithAEDescNoCopy:&theDesc];
+					theDescriptor = [NSAppleEventDescriptor descriptorWithAEDescNoCpy:&theDesc];
 				}
 				else
 					AEDisposeDesc( &theDesc );
