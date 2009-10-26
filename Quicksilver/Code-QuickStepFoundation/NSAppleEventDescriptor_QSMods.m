@@ -28,7 +28,7 @@
 		return nil;
 	} else {
 		AEDisposeDesc(&reply);
-		return [NSAppleEventDescriptor descriptorWithAEDescNoCopy:&reply];
+		return [NSAppleEventDescriptor descriptorWithAEDescNoCpy:&reply];
 	}
 }
 

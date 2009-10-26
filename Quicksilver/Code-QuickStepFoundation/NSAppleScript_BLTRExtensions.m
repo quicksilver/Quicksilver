@@ -79,7 +79,7 @@
 
 	 {	if ( [self isCompiled] && (noErr == OSAStore( [NSAppleScript _defaultScriptingComponent] , [self _compiledScriptID] , typeOSAGenericStorage, kOSAModeNull, &theDesc ) ) )
 
-		theData = [[NSAppleEventDescriptor descriptorWithAEDescNoCopy:&theDesc] data];
+		theData = [[NSAppleEventDescriptor descriptorWithAEDescNoCpy:&theDesc] data];
 	}
 	return theData;
 }
@@ -201,6 +201,7 @@
 	if (![scriptData length]) {
 		NDResourceFork *resource = [NDResourceFork resourceForkForReadingAtPath:path];
 		scriptData = [resource dataForType:'scpt' Id:128];
+        [resource closeFile];
 	}
 	NSMutableArray *validHandlers = [NSMutableArray array];
 	int i;
