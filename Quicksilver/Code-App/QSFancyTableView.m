@@ -41,18 +41,26 @@
 	[self highlightSelectionInClipRect:rect withGradientColor:[self highlightColor]];
 }
 
+// !!! Andre Berg 20091015: Caution! Do not delete either of the following two methods even if they seem redundant. 
+// The new selectRowIndexes:byExtendingSelection: method calls the old one (selectRow:byExtendingSelection:) if found
+// thus avoiding recursive cycles in subclasses which would overwise overflow the stack depth.
+- (void)selectRowIndexes:(NSIndexSet *)indexes byExtendingSelection:(BOOL)extend; {
+	[super selectRowIndexes:indexes byExtendingSelection:extend];
+	[self setNeedsDisplay:YES]; // we display extra because we draw
+                                // multiple contiguous selected rows differently, so changing
+                                // one row's selection can change how others draw.
+}
+
 - (void)selectRow:(int)row byExtendingSelection:(BOOL)extend; {
 	[super selectRow:row byExtendingSelection:extend];
 	[self setNeedsDisplay:YES]; // we display extra because we draw
-								//multiple contiguous selected rows differently, so changing
-								//	one row's selection can change how others draw.
+								// multiple contiguous selected rows differently, so changing
+								// one row's selection can change how others draw.
 }
 
 - (void)deselectRow:(int)row; {
 	[super deselectRow:row];
-	[self setNeedsDisplay:YES]; // we display extra because we draw
-								//multiple contiguous selected rows differently, so changing
-								//	one row's selection can change how others draw.
+	[self setNeedsDisplay:YES];					   
 }
 
 - (id)_highlightColorForCell:(NSCell *)cell; {
@@ -99,6 +107,16 @@
 	[self highlightSelectionInClipRect:rect withGradientColor:[self highlightColor]];
 }
 
+// !!! Andre Berg 20091015: Caution! Do not delete either of the following two methods even if they seem redundant. 
+// The new selectRowIndexes:byExtendingSelection: method calls the old one (selectRow:byExtendingSelection:) if found
+// thus avoiding recursive cycles in subclasses which would overwise overflow the stack depth.
+- (void)selectRowIndexes:(NSIndexSet *)indexes byExtendingSelection:(BOOL)extend; {
+	[super selectRowIndexes:indexes byExtendingSelection:extend];
+	[self setNeedsDisplay:YES]; // we display extra because we draw
+                                // multiple contiguous selected rows differently, so changing
+                                // one row's selection can change how others draw.
+}
+
 - (void)selectRow:(int)row byExtendingSelection:(BOOL)extend; {
 	[super selectRow:row byExtendingSelection:extend];
 	[self setNeedsDisplay:YES]; // we display extra because we draw
@@ -108,9 +126,7 @@
 
 - (void)deselectRow:(int)row; {
 	[super deselectRow:row];
-	[self setNeedsDisplay:YES]; // we display extra because we draw
-								//multiple contiguous selected rows differently, so changing
-								//	one row's selection can change how others draw.
+	[self setNeedsDisplay:YES];						   
 }
 
 - (id)_highlightColorForCell:(NSCell *)cell; {

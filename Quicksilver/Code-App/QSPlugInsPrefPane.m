@@ -102,7 +102,8 @@
 	[[plugInText window] useOptimizedDrawing:NO];
 	[arrayController addObserver:self forKeyPath:@"selectedObjects" options:0 context:nil];
 	[setsArrayController addObserver:self forKeyPath:@"selectedObjects" options:0 context:nil];
-	[pluginSetsTable selectRow:0 byExtendingSelection:NO];
+	[pluginSetsTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
+    //[pluginSetsTable selectRow:0 byExtendingSelection:NO];
 }
 
 - (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id)listener {

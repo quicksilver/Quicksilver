@@ -132,7 +132,8 @@ static id _sharedInstance;
 
 	[itemTable setAutoresizesOutlineColumn:NO];
 	[itemTable setAllowsMultipleSelection:NO];
-	[itemTable selectRow:0 byExtendingSelection:NO];
+	[itemTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
+    //[itemTable selectRow:0 byExtendingSelection:NO];
 
 /*[self updateCurrentItemContents];*/[itemContentsTable reloadData];
 
@@ -173,8 +174,8 @@ static id _sharedInstance;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateEntrySelection) name:NSOutlineViewSelectionDidChangeNotification object:nil];
 
 	[itemTable reloadData];
-
-	[itemTable selectRowIndexes:[NSIndexSet indexSet] byExtendingSelection:NO];
+    // !!! Andre Berg 20091015:  an empty index set will deselect everything? Is this intended here?
+	//[itemTable selectRowIndexes:[NSIndexSet indexSet] byExtendingSelection:NO];
 	[self updateEntrySelection];
 }
 

@@ -239,7 +239,7 @@ NSMutableDictionary *kindDescriptions = nil;
 	} else {
 		//NSLog(@"RogueLoader %d", m);
 	}
-	[table performSelectorOnMainThread:@selector(redisplayRows:) withObject:[NSIndexSet indexSetWithIndex:m] waitUntilDone:NO];
+	[table performSelectorOnMainThread:@selector(redisplayRows:) withObject:[NSIndexSet indexSetWithIndex:(m ? m : 0)] waitUntilDone:NO];
 }
 
 - (BOOL)iconsAreLoading {
@@ -586,7 +586,7 @@ NSMutableDictionary *kindDescriptions = nil;
 	return;
 }
 - (NSMenu *)tableView:(NSTableView*)tableView menuForTableColumn:(NSTableColumn *)column row:(int)row {
-	[tableView selectRow:row byExtendingSelection:NO];
+	[tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:(row ? row : 0)] byExtendingSelection:NO];
 
 	NSArray *array = [self currentResults];
 	QSObject *thisObject = [array objectAtIndex:row];

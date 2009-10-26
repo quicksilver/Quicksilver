@@ -561,7 +561,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (IBAction)updateResultView:(id)sender {
 	//[resultController->searchModePopUp selectItemAtIndex:[resultController->searchModePopUp indexOfItemWithTag:searchMode]];
 	[self reloadResultTable];
-	[resultController->resultTable selectRow:selection byExtendingSelection:NO];
+	[resultController->resultTable selectRowIndexes:[NSIndexSet indexSetWithIndex:(selection ? selection : 0)] byExtendingSelection:NO];
 	[resultController updateSelectionInfo];
 }
 
@@ -633,7 +633,7 @@ NSMutableDictionary *bindingsDict = nil;
 		[self selectObjectValue:object];
 		[resultController->resultTable scrollRowToVisible:selection];
 		//[resultController->resultTable centerRowInView:selection];
-		[resultController->resultTable selectRow:selection byExtendingSelection:NO];
+		[resultController->resultTable selectRowIndexes:[NSIndexSet indexSetWithIndex:(selection ? selection : 0)] byExtendingSelection:NO];
 	} else
 		[self selectObjectValue:nil];
     
