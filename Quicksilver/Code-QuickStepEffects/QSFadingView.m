@@ -31,13 +31,13 @@
 
 - (void)_recursiveDisplayAllDirtyWithLockFocus:(BOOL)lock visRect:(NSRect)rect {
 	if (opacity >= 1.0) {
-		[(id)super _recursiveDisplayAllDirtyWithLockFocus:(BOOL)lock visRect:(NSRect)rect];
+		[super _recursiveDisplayAllDirtyWithLockFocus:(BOOL)lock visRect:(NSRect)rect];
 	} else if(opacity) {
 		CGContextRef context = (CGContextRef) ([[NSGraphicsContext currentContext] graphicsPort]);
 		CGContextSaveGState(context);
 		CGContextSetAlpha(context, opacity);
 		CGContextBeginTransparencyLayer(context, 0);
-		[(id)super _recursiveDisplayAllDirtyWithLockFocus:(BOOL)lock visRect:(NSRect)rect];
+		[super _recursiveDisplayAllDirtyWithLockFocus:(BOOL)lock visRect:(NSRect)rect];
 		CGContextEndTransparencyLayer(context);
 		CGContextRestoreGState(context);
 	}
