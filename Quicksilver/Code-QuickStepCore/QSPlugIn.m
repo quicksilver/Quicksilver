@@ -105,7 +105,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 //	if (DEBUG && [self isUniversal]) {
 //		name = [name stringByAppendingFormat:@" - U"];
 //	}
-if (DEBUG && [self isSecret]) {
+    if (DEBUG && [self isSecret]) {
 		name = [name stringByAppendingFormat:@" - Secret"];
 	}
 
@@ -202,7 +202,7 @@ if (DEBUG && [self isSecret]) {
 
 - (void)showHelp {
 	NSString *urlString = [NSString stringWithFormat:@"http://docs.blacktree.com/?page=%@", [self helpPage]];
-	NSLog(urlString);
+	NSLog(@"%@", urlString);
 	if (urlString) 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[urlString stringByReplacing:@" " with:@"+"]]];
 }
 
@@ -672,7 +672,7 @@ if (DEBUG && [self isSecret]) {
 	NS_HANDLER
 		NSString *errorMessage = [NSString stringWithFormat:@"An error ocurred while loading plug-in \"%@\": %@", self, localException];
 		if (VERBOSE) {
-			NSLog(errorMessage);
+			NSLog(@"%@", errorMessage);
 			[localException printStackTrace];
 		}
 		[self setLoadError:[localException reason]];

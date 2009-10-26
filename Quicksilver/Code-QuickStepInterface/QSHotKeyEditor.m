@@ -286,7 +286,7 @@ NSString * stringForModifiers( unsigned int aModifierFlags );
 			break;
 			case NSFlagsChanged: {
 				NSString *newString = stringForModifiers([theEvent modifierFlags]);
-				NSLog(newString);
+				NSLog(@"%@", newString);
 				[self setStringValue:[newString length] ? newString : @""];
 				[self display];
 				[setButton display];

@@ -20,7 +20,7 @@
 			tags[0] |= CGSTagSticky;
 		else
 			tags[0] &= CGSTagSticky;
-		retVal = CGSSetWindowTags(cid, wid, tags, 32);
+		CGSSetWindowTags(cid, wid, tags, 32);
 	}
 }
 
@@ -61,6 +61,7 @@
 		[self setFrame:blendRects(startRect, frameRect, elapsed) display:displayFlag];
 		[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:seconds/20]];
 	}
+#warning shouldn't the following alpha here really be newAlpha? otherwise newAlpha is entirely calculated in vein...
 	[self setAlphaValue:alpha];
 	[self setFrame:frameRect display:displayFlag];
  }
@@ -68,7 +69,7 @@
 
 +(NSWindow *)windowWithImage:(NSImage *)image {
 	NSRect windowRect = NSMakeRect(0, 0, [image size] .width, [image size] .height);
-	NSWindow *window = [[[self class] alloc] initWithContentRect:windowRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+	NSWindow *window = [[[[self class] alloc] initWithContentRect:windowRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO] retain];
 	[window setIgnoresMouseEvents:YES];
 	[window setBackgroundColor: [NSColor clearColor]];
 	[window setOpaque:NO];
@@ -78,7 +79,7 @@
 	[[window contentView] unlockFocus];
 	[window setAutodisplay:NO];
 	[window setReleasedWhenClosed:YES];
-	return window;
+	return [window autorelease];
 }
 @end
 
@@ -90,11 +91,12 @@
 
 	float v = velocity;
 	// NSTimeInterval startTime = [NSDate timeIntervalSinceReferenceDate];
-	NSTimeInterval thisTime, elapsedTime;
-
-	thisTime = startTime;
+	//NSTimeInterval thisTime, elapsedTime;
+    //thisTime = startTime;
 	//NSRect startFrame = [self frame];
-		NSRect newFrame = [self frame];
+
+	NSRect newFrame = [self frame];
+    NSTimeInterval elapsedTime;
 
 	while (v>0) {
 

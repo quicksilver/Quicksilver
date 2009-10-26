@@ -162,7 +162,7 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 	ProcessSerialNumber thisPSN;
 	thisPSN.highLongOfPSN = kNoProcess;
 	thisPSN.lowLongOfPSN = 0;
-	Boolean show;
+	Boolean show = 0;
 	while(GetNextProcess ( &thisPSN ) == noErr) {
 		for (i = 0; i<[theApps count]; i++) {
 			SameProcess(&thisPSN, psn+i, &show);
@@ -228,7 +228,7 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 			NSLog(@"%d:%d at \"%@\"", error.fError, error.fErrorPos, @"");
 		else {
 			AppleEvent reply;
-			err = AESend(&event, &reply, kAEWaitReply, kAENormalPriority, 100, NULL, NULL);
+			AESend(&event, &reply, kAEWaitReply, kAENormalPriority, 100, NULL, NULL);
 			AEDisposeDesc(&event); // we must dispose of this and the reply.
 		}
 	}
