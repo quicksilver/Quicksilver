@@ -427,7 +427,7 @@ void			UKFSCatInfoFromDictionary( NSDictionary* attrs, FSCatalogInfo* currInfo, 
 
 		// Now, if we're at the file system root, consult .hidden on what other files we should hide:
 		if ( [path isEqualToString: @"/"] ) {  // At the root level, we have some specially hidden Unix folders:
-			NSArray*	hiddenList = [[NSString stringWithContentsOfFile: @"/.hidden"] componentsSeparatedByString: @"\n"];
+			NSArray*	hiddenList = [[NSString stringWithContentsOfFile: @"/.hidden" usedEncoding:nil error:nil] componentsSeparatedByString: @"\n"];
 			[arr removeObjectsInArray: hiddenList];
 		}
 		// End of autoreleased area.

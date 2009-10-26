@@ -217,7 +217,9 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 		[[NSScanner scannerWithString:[self substringWithRange:NSMakeRange(i*2, 2)]] scanHexInt:&x];
 		s[i] = (char)x;
 	}
-	return [NSString stringWithCString:s length:4];
+    // !!! Andre Berg 20091007: remove deprecated method
+	//return [NSString stringWithCString:s length:4];
+    return [NSString stringWithCString:s encoding:NSUTF8StringEncoding];
 }
 
 - (unsigned) hexIntValue {
@@ -283,7 +285,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 		if (textSize.width <= NSWidth(rect) && textSize.height <= NSHeight(rect) )
 			return newAttributes;
 	}
-	return [newAttributes autorelease];
+	return newAttributes;
 }
 
 @end
