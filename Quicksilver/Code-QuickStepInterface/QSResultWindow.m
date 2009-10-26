@@ -6,8 +6,8 @@
 	NSWindow* result = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:YES];
 	[self setOpaque:![[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsUseAlpha"]];
 
-	[self setShowEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSSlightGrowEffect", @"transformFn", @"show", @"type", [NSNumber numberWithFloat:0.1] , @"duration", nil]];
-	[self setHideEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSSlightShrinkEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithFloat:0.1] , @"duration", nil]];
+	[self setShowEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSSlightGrowEffect", @"transformFn", @"show", @"type", [NSNumber numberWithFloat:0.05] , @"duration", nil]];
+	[self setHideEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSSlightShrinkEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithFloat:0.05] , @"duration", nil]];
 
     if([self setFrameUsingName:@"results"])
         [[self class] removeFrameUsingName:@"results"];

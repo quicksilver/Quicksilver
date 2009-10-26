@@ -31,6 +31,7 @@
 
 #define pUserKeyBindingsPath QSApplicationSupportSubPath(@"KeyBindings.qskeys", NO)
 #define MAX_HISTORY_COUNT 20
+#define SEARCH_RESULT_DELAY 0.05f
 
 NSMutableDictionary *bindingsDict = nil;
 
@@ -337,7 +338,7 @@ NSMutableDictionary *bindingsDict = nil;
 		//	[[self cell] setState:NSOffState];
 	}
     
-    //[resultController->resultTable setNeedsDisplay:YES];
+    [resultController->resultTable setNeedsDisplay:YES];
     
 	if (browsing) [[NSUserDefaults standardUserDefaults] setInteger:newSearchMode forKey:kBrowseMode];
     
@@ -819,14 +820,13 @@ NSMutableDictionary *bindingsDict = nil;
 
 
 - (void)performSearchFor:(NSString *)string from:(id)sender {
-    //	NSDate *date = [NSDate date];
+    NSDate *date = [NSDate date];
     
 	//	NSData *scores;
 	NSMutableArray *newResultArray = [[QSLibrarian sharedInstance] scoredArrayForString:string inSet:searchArray];
     
 	//t NSLog(@"scores %@", scores);
-	//if (DEBUG_RANKING)
-	// NSLog(@"Searched for \"%@\" in %3fms (%d items) ", string, 1000 * -[date timeIntervalSinceNow] , [newResultArray count]);
+	if (DEBUG_RANKING) NSLog(@"Searched for \"%@\" in %3fms (%d items) ", string, 1000 * -[date timeIntervalSinceNow] , [newResultArray count]);
     // NSLog (@"search for %@", string);
 	//NSLog(@"%d valid", validSearch);
 	if (validSearch = [newResultArray count] >0) {
@@ -1012,7 +1012,7 @@ NSMutableDictionary *bindingsDict = nil;
 	}
     
 	// check for additional keydowns up to now so the search isn't done too often.
-    if (fALPHA) moreComing = nil != [NSApp nextEventMatchingMask:NSKeyDownMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.100] inMode:NSDefaultRunLoopMode dequeue:NO];
+    if (fALPHA) moreComing = nil != [NSApp nextEventMatchingMask:NSKeyDownMask untilDate:[NSDate dateWithTimeIntervalSinceNow:SEARCH_RESULT_DELAY] inMode:NSDefaultRunLoopMode dequeue:NO];
     if (VERBOSE && moreComing) NSLog(@"moreComing");
     
 	// ***warning  * have downshift move to indirect object
@@ -1710,7 +1710,7 @@ NSMutableDictionary *bindingsDict = nil;
         [self saveMnemonic];
         [self clearSearch];
         int defaultMode = [[NSUserDefaults standardUserDefaults] integerForKey:kBrowseMode];
-        [self setSearchMode:defaultMode?defaultMode:SearchSnap];
+        [self setSearchMode:(defaultMode ? defaultMode : SearchSnap)];
         [self setResultArray:(NSMutableArray *)newObjects]; // !!!:nicholas:20040319
         [self setSourceArray:(NSMutableArray *)newObjects];
         
