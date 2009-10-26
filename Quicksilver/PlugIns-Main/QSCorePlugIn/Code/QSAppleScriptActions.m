@@ -88,6 +88,11 @@
 	return nil;
 }
 
+- (QSObject *)doAppleScriptRunWithArgumentsAction:(QSObject *)dObject withArguments:(QSObject *)iObject {
+	[self runAppleScript:[dObject singleFilePath] withArguments:iObject];
+	return nil;
+}
+
 - (QSObject *)doAppleScriptRunAction:(QSObject *)dObject {
 	[self runAppleScript:[dObject singleFilePath] withArguments:nil];
 	return nil;
@@ -155,7 +160,7 @@
 	NSString *scriptPath = [dict objectForKey:kActionScript];
 	NSString *handler = [dict objectForKey:kActionHandler];
 	if (!handler) {
-		NSLog(@"no handler");
+		NSLog(@"AppleScript Action: No handler? Aborting...");
 		return nil;
 	}
 	if ([scriptPath hasPrefix:@"/"] || [scriptPath hasPrefix:@"~"])
@@ -175,7 +180,13 @@
 		event = [[NSAppleEventDescriptor alloc] initWithEventClass:kCoreEventClass eventID:kAEOpenDocuments targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
 		[event setParamDescriptor:[NSAppleEventDescriptor aliasListDescriptorWithArray:files] forKeyword:keyDirectObject];
 	} else if ([handler isEqualToString:@"QSOpenTextEventPlaceholder"]) {
-		event = [[NSAppleEventDescriptor alloc] initWithEventClass:kQSScriptSuite eventID:kQSOpenTextScriptCommand targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
+        
+        event = [[NSAppleEventDescriptor alloc] initWithEventClass:kQSScriptSuite 
+                                                           eventID:kQSOpenTextScriptCommand 
+                                                  targetDescriptor:targetAddress 
+                                                          returnID:kAutoGenerateReturnID 
+                                                     transactionID:kAnyTransactionID];
+        
 		[event setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:[dObject stringValue]] forKeyword:keyDirectObject];
 	} else {
 		id object;
@@ -191,7 +202,7 @@
     [event release];
 	[targetAddress release];
 	[script release];
-	if (errorDict) NSLog(@"error %@", errorDict);
+	if (errorDict) NSLog(@"Perform AppleScript Action Error: %@", [errorDict descriptionInStringsFileFormat]);
 	return result;
 }
 
