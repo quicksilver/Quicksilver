@@ -226,13 +226,13 @@ static BOOL gModifiersAreIgnored;
     [[self actionDict] setObject:types forKey:kActionIndirectTypes];
 }
 
-/*- (NSArray*)resultTypes {
+- (NSArray*)resultTypes {
     return [[self actionDict] objectForKey:kActionResultType];
 }
 
 - (void)setResultTypes:(NSArray*)types {
     [[self actionDict] setObject:types forKey:kActionResultType];
-}*/
+}
 
 - (BOOL)canThread { return ![[[self actionDict] objectForKey:kActionRunsInMainThread] boolValue];  }
 
