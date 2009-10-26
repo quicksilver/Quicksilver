@@ -226,14 +226,20 @@ static float searchSpeed = 0.0;
 	// ***warning  **add error
 
 	NSMutableArray *catalogChildren = [[self entryForID:kCustomCatalogID] children];
-	NSEnumerator *childEnumerator = [catalogChildren objectEnumerator];
-
 	NSMutableArray *customEntries = [NSMutableArray arrayWithCapacity:1];
 	NSMutableArray *presetEntries = [NSMutableArray arrayWithCapacity:1];
-
-
-	QSCatalogEntry *thisEntry;
-	while(thisEntry = [childEnumerator nextObject]) {
+    
+// !!! Andre Berg 20091017:  updated to foreach
+//     NSEnumerator *childEnumerator = [catalogChildren objectEnumerator];
+// 	QSCatalogEntry *thisEntry;
+// 	while(thisEntry = [childEnumerator nextObject]) {
+// 		if (![thisEntry isPreset] && ![thisEntry isSeparator])
+// 			[customEntries addObject:[thisEntry dictionaryRepresentation]];
+// 		else if (DEBUG && ![thisEntry isSeparator]) [presetEntries addObject:thisEntry];
+// 	}
+    
+	//QSCatalogEntry *thisEntry;
+	foreach(thisEntry, catalogChildren) {
 		if (![thisEntry isPreset] && ![thisEntry isSeparator])
 			[customEntries addObject:[thisEntry dictionaryRepresentation]];
 		else if (DEBUG && ![thisEntry isSeparator]) [presetEntries addObject:thisEntry];

@@ -405,32 +405,32 @@
 
 	NSMutableDictionary	*plugInsToLoadByID = [NSMutableDictionary dictionary];
 
+    NSArray *disabledBundles = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSDisabledPlugIns"];
+     
+    // !!! Andre Berg 20091013: Changed the objectEnumerators below to 10.5's fast enumeration    
 	//NSLog(@"toload %@ %@", [newLocalPlugIns valueForKey:@"bundlePath"] , newLocalPlugIns);
-	NSEnumerator *e;
-	QSPlugIn *plugin;
-
-	NSArray *disabledBundles = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSDisabledPlugIns"];
-
-	// If plugin should be loaded, add it to the list
-	e = [newLocalPlugIns objectEnumerator];
-	while(plugin = [e nextObject]) {
-		if (![self plugInIsMostRecent:plugin inGroup:plugInsToLoadByID]) continue; 	//Skip if not most recent
+    // !!! Andre Berg 20091017: change to foreach macro
+    // QSPlugIn * plugin;
+    // If plugin should be loaded, add it to the list
+    foreach(plugin, newLocalPlugIns) {
+        if (![self plugInIsMostRecent:plugin inGroup:plugInsToLoadByID]) continue;      //Skip if not most recent
 		if (![plugin identifier]) continue;
 		[localPlugIns setObject:plugin forKey:[plugin identifier]];
 		[knownPlugIns setObject:plugin forKey:[plugin identifier]];
 		if ([disabledBundles containsObject:[plugin identifier]]) continue; 			//Skip if disabled
-		if (![self plugInMeetsRequirements:plugin]) continue; 						//Skip if does not meet requirements
-		if (![self plugInMeetsDependencies:plugin]) continue; 						//Skip if does not meet dependencies
+		if (![self plugInMeetsRequirements:plugin]) continue;                           //Skip if does not meet requirements
+		if (![self plugInMeetsDependencies:plugin]) continue;                           //Skip if does not meet dependencies
 		[plugInsToLoadByID setObject:plugin forKey:[plugin identifier]];
-	}
+    }
+
 	//	NSLog(@"toload %@", plugInsToLoadByID);
-	// load all valid plugins
-	NSArray *plugInsToLoad = [plugInsToLoadByID allValues];
-	e = [[localPlugIns allValues] objectEnumerator];
-	while(plugin = [e nextObject]) {
-		if ([plugInsToLoad containsObject:plugin])
+	// load all valid plugins    
+    NSArray * plugInsToLoad = [plugInsToLoadByID allValues];
+    NSArray * localPlugins = [localPlugIns allValues];
+    foreach (plugin, localPlugins) {
+        if ([plugInsToLoad containsObject:plugin])
 			[plugin registerPlugIn];
-	}
+    }
 
 	[self checkForUnmetDependencies];
 	[self suggestOldPlugInRemoval];
@@ -454,9 +454,15 @@
 		NSLog(@"External PlugIns Disabled");
 	} else {
 		NSArray *librarySearchPaths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSAllDomainsMask - NSSystemDomainMask, YES);
-		searchPathEnum = [librarySearchPaths objectEnumerator];
-		while(currPath = [searchPathEnum nextObject])
-			[bundleSearchPaths addObject:[currPath stringByAppendingPathComponent:appSupportSubpath]];
+        
+// 		searchPathEnum = [librarySearchPaths objectEnumerator];
+// 		while(currPath = [searchPathEnum nextObject])
+// 			[bundleSearchPaths addObject:[currPath stringByAppendingPathComponent:appSupportSubpath]];
+        
+        // !!! Andre Berg 20091017: change to foreach macro
+		foreach(currPath, librarySearchPaths) {
+            [bundleSearchPaths addObject:[currPath stringByAppendingPathComponent:appSupportSubpath]];
+        }
 		[bundleSearchPaths addObject:QSApplicationSupportSubPath(@"PlugIns", NO)];
 		[bundleSearchPaths addObject:[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent]];
 		[bundleSearchPaths addObject:[[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"PlugIns"]];
@@ -473,13 +479,26 @@
 		[bundleSearchPaths addObject:[[[NSFileManager defaultManager] currentDirectoryPath] stringByAppendingPathComponent:@"PrivatePlugIns"]];
 	}
 
-	searchPathEnum = [bundleSearchPaths objectEnumerator];
-	while(currPath = [searchPathEnum nextObject]) {
-		NSEnumerator *bundleEnum;
+// 	searchPathEnum = [bundleSearchPaths objectEnumerator];
+// 	while(currPath = [searchPathEnum nextObject]) {
+// 		NSEnumerator *bundleEnum;
+// 		NSString *curPlugInPath;
+// 		bundleEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:currPath error:nil] objectEnumerator];
+// 		if (bundleEnum) {
+// 			while(curPlugInPath = [bundleEnum nextObject]) {
+// 				if ([[curPlugInPath pathExtension] caseInsensitiveCompare:@"qsplugin"] == NSOrderedSame) {
+// 					[allBundles addObject:[currPath stringByAppendingPathComponent:curPlugInPath]];
+// 				}
+// 			}
+// 		}
+// 	}
+    
+    // !!! Andre Berg 20091017: change to foreach macro
+	foreach(currPath, bundleSearchPaths) {
 		NSString *curPlugInPath;
-		bundleEnum = [[[NSFileManager defaultManager] directoryContentsAtPath:currPath] objectEnumerator];
-		if (bundleEnum) {
-			while(curPlugInPath = [bundleEnum nextObject]) {
+        NSArray * dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:currPath error:nil];
+		if (dirContents) {
+			foreach(curPlugInPath, dirContents) {
 				if ([[curPlugInPath pathExtension] caseInsensitiveCompare:@"qsplugin"] == NSOrderedSame) {
 					[allBundles addObject:[currPath stringByAppendingPathComponent:curPlugInPath]];
 				}

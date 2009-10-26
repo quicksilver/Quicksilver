@@ -1,5 +1,12 @@
+#import <AvailabilityMacros.h>
+
 #define ESS(x) (x == 1?@"":@"s")
-#define foreach(x, y) id x; NSEnumerator *rwEnum = [y objectEnumerator]; while(x = [rwEnum nextObject])
+#if MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_5
+    #define foreach(x, y) id x; NSEnumerator *rwEnum = [y objectEnumerator]; while(x = [rwEnum nextObject])
+#else
+    // use fast enumeration on Mac OS X 10.5+
+    #define foreach(x, y) for (id (x) in (y)) 
+#endif
 #define foreachr(x, y) id x; NSEnumerator *rwEnum = [y reverseObjectEnumerator]; while(x = [rwEnum nextObject])
 #define foreachkey(k, x, y) id x = nil; NSString *k = nil; NSEnumerator *kEnum = [y keyEnumerator]; while((k = [kEnum nextObject]) && (x = [y objectForKey:k]) )
 #define defaultBool(x) [[NSUserDefaults standardUserDefaults] boolForKey:x]

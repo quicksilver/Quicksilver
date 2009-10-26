@@ -242,13 +242,19 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	} else {
 		NSMutableSet *set = [NSMutableSet set];
 		NSWorkspace *w = [NSWorkspace sharedWorkspace];
-		NSEnumerator *e = [theFiles objectEnumerator];
-		NSString *theFile;
-		while (theFile = [e nextObject]) {
+        
+// !!! Andre Berg 20091017: update to foreach
+// 		NSEnumerator *e = [theFiles objectEnumerator];
+// 		NSString *theFile;
+// 		while (theFile = [e nextObject]) {
+// 			NSString *type = [manager typeOfFile:theFile];
+// 			[set addObject:type?type:@"'msng'"];
+// 		}
+        
+		//NSString *theFile;
+		foreach(theFile, theFiles) {
 			NSString *type = [manager typeOfFile:theFile];
-
 			[set addObject:type?type:@"'msng'"];
-
 		}
 
 		//NSLog(@"%@, set", set);
