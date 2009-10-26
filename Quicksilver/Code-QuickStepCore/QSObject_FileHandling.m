@@ -20,6 +20,7 @@
 #import "NSAppleEventDescriptor+NDAppleScriptObject.h"
 #include "QSLocalization.h"
 
+
 // Ankur, 21 Dec 07: 'useSmallIcons' not used anywhere. Commented out.
 // Ankur, 12 Feb 08: as above for 'applicationIcons'
 
@@ -52,11 +53,14 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 @implementation QSFileSystemObjectHandler
+
+// !!! Andre Berg 20091017: Not so good to disable init when subclassing... re-enabling.
+
 // Object Handler Methods
-/*+(void)initialize {
-	useSmallIcons = [[NSUserDefaults standardUserDefaults] boolForKey:kUseSmallIcons];
-}*/
-#if 0
+// +(void)initialize {
+// 	useSmallIcons = [[NSUserDefaults standardUserDefaults] boolForKey:kUseSmallIcons];
+// }
+#if 1
 - (id)init {
 	self = [super init];
 	if (self != nil) {
@@ -68,6 +72,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	return applicationIcons;
 }
 #endif
+
 - (QSObject *)parentOfObject:(QSObject *)object {
 	QSObject * parent = nil;
 	if ([object singleFilePath]) {
@@ -85,11 +90,12 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	if (NSWidth(rect) <= 32)
 		return NO;
 	NSString *path = [object singleFilePath];
-
+    
+    // !!! Andre Berg 20091017:  will need to disable this again when I understand why
 	//icon
 	//	cache? - use
 	//	loader?
-#if 0
+#if 1
 	if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:nil]) {
 		LSItemInfoRecord infoRec;
 		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
@@ -204,11 +210,15 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			LSItemInfoRecord infoRec;
 			//OSStatus status=
 			LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
-                        
-            if (!theImage && [NSApp isLeopard] && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
+
+            // !!! Andre Berg 20091015: inline QSApp -isLeopard ... calling this on NSApp appears flaky at best
+            SInt32 version;
+            Gestalt (gestaltSystemVersion, &version);
+
+            if (!theImage && version >= 0x1050 && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
                 theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSMaxIconSize asIcon:YES];
             }
-            
+
 			if (!theImage && infoRec.flags & kLSItemInfoIsPackage) {
 				NSBundle *bundle = [NSBundle bundleWithPath:firstFile];
 				NSString *bundleImageName = nil;
