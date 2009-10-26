@@ -5,38 +5,38 @@
 /* TODO : Split this in QSAppleScript action ? */
 
 // strings:
-#define kActionClass @"actionClass"
-#define kActionProvider @"actionProvider"
-#define kActionSelector @"actionSelector"
-#define kActionSendMessageToClass @"actionSendToClass"
-#define kActionAlternate @"alternateAction"
-#define kActionScript @"actionScript"
-#define kActionHandler @"actionHandler"
-#define kActionEventClass @"actionEventClass"
-#define kActionEventID @"actionEventID"
+#define kActionClass                @"actionClass"
+#define kActionProvider             @"actionProvider"
+#define kActionSelector             @"actionSelector"
+#define kActionSendMessageToClass   @"actionSendToClass"
+#define kActionAlternate            @"alternateAction"
+#define kActionScript               @"actionScript"
+#define kActionHandler              @"actionHandler"
+#define kActionEventClass           @"actionEventClass"
+#define kActionEventID              @"actionEventID"
 
-#define kActionArgumentCount @"argumentCount" // Number, if undefined, calculates from selector
+#define kActionArgumentCount        @"argumentCount" // Number, if undefined, calculates from selector
 
 // strings:
-#define kActionIcon @"icon"
-#define kActionName @"name"
-#define kActionUserData @"userData"
-#define kActionIdentifier @"id"
+#define kActionIcon                 @"icon"
+#define kActionName                 @"name"
+#define kActionUserData             @"userData"
+#define kActionIdentifier           @"id"
 
 // arrays:
-#define kActionDirectTypes @"directTypes"
-#define kActionIndirectTypes @"indirectTypes"
-#define kActionResultType @"resultTypes" // Unused ? 
+#define kActionDirectTypes          @"directTypes"
+#define kActionIndirectTypes        @"indirectTypes"
+#define kActionResultType           @"resultTypes" // Unused ?
 
 // BOOLs:
-#define kActionRunsInMainThread @"runInMainThread"
-#define kActionDisplaysResult @"displaysResult"
-#define kActionIndirectOptional @"indirectOptional"
-#define kActionReverseArguments @"reverseArguments"
+#define kActionRunsInMainThread     @"runInMainThread"
+#define kActionDisplaysResult       @"displaysResult"
+#define kActionIndirectOptional     @"indirectOptional"
+#define kActionReverseArguments     @"reverseArguments"
 #define kActionSplitPluralArguments @"splitPlural"
-#define kActionValidatesObjects @"validatesObjects"
-#define kActionInitialize @"initialize"
-#define kActionEnabled @"enabled"
+#define kActionValidatesObjects     @"validatesObjects"
+#define kActionInitialize           @"initialize"
+#define kActionEnabled              @"enabled"
 
 // NSNumber (float) :
 #define kActionPrecedence @"precedence"
@@ -58,6 +58,8 @@
 - (QSObject *)performOnDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
 
 - (QSAction *)alternate;
+
+- (NSMutableDictionary *)actionDict;
 
 - (id)provider;
 - (void)setProvider:(id)newProvider;
