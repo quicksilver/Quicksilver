@@ -1,8 +1,6 @@
-
-
-
 #import <Foundation/Foundation.h>
 #import "QSObject.h"
+
 @interface QSObject (QSFileObjectCreationProtocol)
 - (id)initFileObject:(QSObject *)object ofType:(NSString *)type;
 @end
@@ -11,7 +9,7 @@
 - (NSString *)filenameForObject:(QSObject *)object;
 @end
 @interface QSFileSystemObjectHandler : NSObject {
-//	NSMutableDictionary *applicationIcons;
+    NSMutableDictionary *applicationIcons;
 }
 @end
 
