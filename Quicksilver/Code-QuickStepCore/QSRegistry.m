@@ -129,7 +129,7 @@ QSRegistry* QSReg = nil;
 
 - (id)getClassInstance:(NSString *)className {
 	if (!className) {
-		NSLog(@"Null class requested");
+		if (DEBUG && VERBOSE) NSLog(@"Null class requested");
 		return nil;
 	}
 	id instance;

@@ -74,7 +74,11 @@ NSMutableDictionary *tasksDictionary;
 	[super release];
 }
 - (void)dealloc {
-//	if (VERBOSE) 	NSLog(@"Dealloc Task: %@", [self name]);
+    // !!! Andre Berg 20091007: doesn't seem that there are many QSTasks with a name or status. 
+    // So the logging statements do not make much sense really if we get "(null)" for all parameters
+    // I will disable them for now since they don't provide useful info
+    
+	//if (DEBUG && VERBOSE) 	NSLog(@"Dealloc Task: %@", [self name]);
 	//NSLog(@"dealloc task %x %@ %@ %d", self, name, identifier, [self retainCount]);
 //	if ([tasksDictionary objectForKey:[self identifier]]) {
 //		[self retain];
@@ -82,7 +86,7 @@ NSMutableDictionary *tasksDictionary;
 //		[self setIdentifier:nil];
 //		return;
 //	}
-//	NSLog(@"really dealloc task %@ %@ %d", name, identifier, [self retainCount]);
+	//if (DEBUG && VERBOSE) NSLog(@"really dealloc task %@ %@ %d", name, identifier, [self retainCount]);
 	[self setIdentifier:nil];
 
 	//NSLog(@"really task %x", self);
@@ -92,7 +96,7 @@ NSMutableDictionary *tasksDictionary;
 	[self setCancelTarget:nil];
 	[self setSubtasks:nil];
 	[super dealloc];
-//	NSLog(@"done dealloc task");
+	//if (DEBUG && VERBOSE) NSLog(@"done dealloc task");
 }
 
 
@@ -110,18 +114,16 @@ NSMutableDictionary *tasksDictionary;
 	return running;
 }
 - (void)startTask:(id)sender {
-//	NSLog(@"start %@", self);
+    if (DEBUG && VERBOSE) NSLog(@"Start Task: %@", self);
 	if (!running) {
 		running = YES;
-
 		[QSTasks taskStarted:[[self retain] autorelease]];
 		//[QSTasks performSelectorOnMainThread:@selector(taskStarted:) withObject:self waitUntilDone:NO];
 	}
 }
 - (void)stopTask:(id)sender {
 	if (running) {
-		//if (VERBOSE) 	NSLog(@"End Task: %@", [self identifier]);
-
+		if (DEBUG && VERBOSE) NSLog(@"End Task: %@", [self identifier]);
 		running = NO;
 		[QSTasks taskStopped:self];
 
