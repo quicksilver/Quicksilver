@@ -455,10 +455,10 @@
 - (void)executeCommandThreaded {
 	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	NSDate *startDate = [NSDate date];
-	QSAction *action = [aSelector objectValue];
+	QSAction *action = [[aSelector objectValue] retain];
 	if ([[NSApp currentEvent] modifierFlags] & NSCommandKeyMask && !([[NSApp currentEvent] modifierFlags] & NSShiftKeyMask) ) {
 		action = [action alternate];
-		if (VERBOSE) NSLog(@"Using Alternate: %@", action);
+		if (VERBOSE) NSLog(@"Using Alternate Action: %@", action);
 	}
     QSObject *dObject = [dSelector objectValue];
     QSObject *iObject = [iSelector objectValue];
@@ -472,11 +472,16 @@
 			[self clearObjectView:dSelector];
 		} else {
 			[dSelector performSelectorOnMainThread:@selector(selectObjectValue:) withObject:returnValue waitUntilDone:YES];
-			if ([action displaysResult])
+			if (action)
+                if ([action respondsToSelector:@selector(displaysResult)] && [action displaysResult]) { // !!! Andre Berg 20091007: allow actions to disable showing the result
+                    [self showMainWindow:self];
+                }
+            else 
                 [self showMainWindow:self];
 		}
 	}
 	if (VERBOSE) NSLog(@"Command executed (%dms) ", (int)(-[startDate timeIntervalSinceNow] *1000));
+    //[action release];
 	[pool release];
 }
 
