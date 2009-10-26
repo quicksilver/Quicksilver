@@ -197,7 +197,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 - (void)searchView:(QSSearchObjectView *)view changedResults:(NSArray *)array {
 	//	NSLog(@"string %@ %@", string, view);
 	int count = [array count];
-	NSString *string = [NSString stringWithFormat:@"%@ %@%@", count?[NSNumber numberWithInt:count] :@"No", view == aSelector?@"action":@"item", ESS(count)];
+	NSString *string = [NSString stringWithFormat:@"%@ %@%@", count ? [[NSNumber numberWithInt:count] description] : [@"No" description], view == aSelector?@"action":@"item", ESS(count)];
 	//if (!count) string = @"No items";
 	if (string) {
 		if (view == dSelector)
