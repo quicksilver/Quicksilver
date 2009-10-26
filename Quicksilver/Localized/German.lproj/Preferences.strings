@@ -1,0 +1,433 @@
+/* NSTextField (0.00) : <title:0.00> (oid:2137) */
+"0.00" = "0.00";
+
+/* NSTextField (10) : <title:10> (oid:2129) */
+"10" = "10";
+
+/* NSMenuItem : <title:<Finder>> (oid:2201) */
+"<Finder>" = "<Finder>";
+
+/* NSMenuItem : <title:Accurate> (oid:2145) */
+"Accurate" = "Präzision";
+
+/* NSTabViewItem : <title:Actions> (oid:2184) */
+"Actions" = "Aktionen";
+
+/* NSTextField (Activation:) : <title:Activation:> (oid:2087) */
+"Activation:" = "Aktivierung:\n)";
+
+/* NSIBHelpConnector : <title:Add Quicksilver to your login items> (oid:2182) */
+"Add Quicksilver to your login items" = "Quicksilver der Anmeldeliste hinzufügen";
+
+/* NSIBHelpConnector : <title:Add actions from the services menu> (oid:2203) */
+"Add actions from the services menu" = "Aktionen des Service-Menüs hinzufügen";
+
+/* NSMenuItem : <title:All Items> (oid:2072) */
+"All Items" = "Alle Elemente";
+
+/* NSButtonCell (Alpha) : <title:Alpha> (oid:2098) */
+"Alpha" = "Alpha";
+
+/* NSTabViewItem : <title:Application> (oid:2082) */
+"Application" = "Programm";
+
+/* NSMenuItem : <title:Application Selection> (oid:2123) */
+"Application Selection" = "Programm Auswahl";
+
+/* NSTextField (Automatically show other matches) : <title:Automatically show other matches
+> (oid:2120) */
+"Automatically show other matches\n" = "Zeige weitere Funde automatisch";
+
+/* NSIBHelpConnector : <title:Automatically show shelf> (oid:2313) */
+"Automatically show shelf" = "Öffne die Ablage automatisch";
+
+/* NSButtonCell (Beta) : <title:Beta> (oid:2135) */
+"Beta" = "Beta";
+
+/* NSButton (CC myself in Direct Email) : <title:CC myself in Direct Email> (oid:1073) */
+"CC myself in Direct Email" = "CC an mich bei Direktmail";
+
+/* NSButton (Check Now) : <title:Cancel> (oid:2095) */
+"Cancel" = "Abbruch";
+
+/* NSButton (Capitalized keys modify action) : <title:Capitalized keys modify action> (oid:2043) */
+"Capitalized keys modify action" = "Hochgestellte Tasten modifizieren die Aktion";
+
+/* NSButton (Capture History:) : <title:Capture History:> (oid:2102) */
+"Capture History:" = "Erfassungsverlauf";
+
+/* NSButton (Check Now) : <title:Check Now> (oid:2095) */
+"Check Now" = "Überprüfen";
+
+/* NSIBHelpConnector : <title:Check for update immediately> (oid:2158) */
+"Check for update immediately" = "Überprüfe sofort auf Updates";
+
+/* NSButton (Check for updates:) : <title:Check for updates:> (oid:2056) */
+"Check for updates:" = "Auf Updates überprüfen";
+
+/* NSTabViewItem : <title:Clipboard> (oid:2058) */
+"Clipboard" = "Zwischenablage";
+
+/* NSTabViewItem : <title:Command> (oid:2097) */
+"Command" = "Befehl";
+
+/* NSBox : <title:Command Line Tool> (oid:2084) */
+"Command Line Tool" = "Kommandozeilenprogramm";
+
+/* NSButton (Contact Actions) : <title:Contact Actions> (oid:2200) */
+"Contact Actions" = "Kontakt Aktionen";
+
+/* NSIBHelpConnector : <title:Create new threads for tasks> (oid:2168) */
+"Create new threads for tasks" = "Erstelle neue 'Threads' für Aufgaben";
+
+/* NSMenuItem : <title:Daily> (oid:2048) */
+"Daily" = "Täglich";
+
+/* NSMenuItem : <title:Default Chat Client> (oid:506) */
+"Default Chat Client" = "Messagerie instantanée par défaut";
+
+/* NSMenuItem : <title:Default Email Client> (oid:507) */
+"Default Email Client" = "Messagerie par défaut";
+
+/* NSIBHelpConnector : <title:Delay before searching to improve performance on slow machines> (oid:2183) */
+"Delay before searching to improve performance on slow machines" = "Delay before searching to improve performance on slow machines";
+
+/* NSIBHelpConnector : <title:Delay before showing alternatives> (oid:2155) */
+"Delay before showing alternatives" = "Delay before showing alternatives";
+
+/* NSMenuItem : <title:Delayed> (oid:2133) */
+"Delayed" = "Après coup";
+
+/* NSIBHelpConnector : <title:Destination for opened/dropped files> (oid:2161) */
+"Destination for opened/dropped files" = "Destination for opened/dropped files";
+
+/* NSIBHelpConnector : <title:Destination for results> (oid:2164) */
+"Destination for results" = "Destination for results";
+
+/* NSTextField (Development versions check daily regardless of these settings) : <title:Development versions check daily regardless of these settings> (oid:2126) */
+"Development versions check daily regardless of these settings" = "Les versions de développement vérifient quotidiennement sans tenir compte de ces réglages";
+
+/* NSIBHelpConnector : <title:Do not show command window on startup> (oid:2315) */
+"Do not show command window on startup" = "Do not show command window on startup";
+
+/* NSButton (Don't activate on startup) : <title:Don't activate on startup> (oid:2118) */
+"Don't activate on startup" = "Ne pas activater au démarrage";
+
+/* NSIBHelpConnector : <title:Don't perform automatic rescan every 10 minutes> (oid:2298) */
+"Don't perform automatic rescan every 10 minutes" = "Don't perform automatic rescan every 10 minutes";
+
+/* NSButton (Don't rescan catalog automatically) : <title:Don't rescan catalog automatically> (oid:2294) */
+"Don't rescan catalog automatically" = "Ne pas rescanner le catalogue automatiquement";
+
+/* NSButton (Don't show status menu item) : <title:Don't show status menu item> (oid:2121) */
+"Don't show status menu item" = "Ne pas afficher l'icône du menu des statuts";
+
+/* NSTextField (Dropped items go to:) : <title:Dropped items go to:> (oid:2051) */
+"Dropped items go to:" = "Les éléments tombés vers :";
+
+/* NSButton (Enable Rendezvous) : <title:Enable Rendezvous> (oid:2075) */
+"Enable Rendezvous" = "Activer Rendezvous";
+
+/* NSButton (Enable Services) : <title:Enable Services> (oid:2187) */
+"Enable Services" = "Activer les services";
+
+/* NSIBHelpConnector : <title:Enable eye-candy> (oid:2160) */
+"Enable eye-candy" = "Enable eye-candy";
+
+/* NSIBHelpConnector : <title:Enable update checking> (oid:2172) */
+"Enable update checking" = "Enable update checking";
+
+/* NSTabViewItem : <title:Extras> (oid:2152) */
+"Extras" = "Extras";
+
+/* NSMenuItem : <title:Fast> (oid:2039) */
+"Fast" = "Rapide";
+
+/* NSBox : <title:Features & Stability> (oid:2114) */
+"Features & Stability" = "Fonctions & Stabilité";
+
+/* NSIBHelpConnector : <title:Finder or finder replacement to use> (oid:2204) */
+"Finder or finder replacement to use" = "Finder or finder replacement to use";
+
+/* NSIBHelpConnector : <title:Global activation hotkey> (oid:2170) */
+"Global activation hotkey" = "Global activation hotkey";
+
+/* NSButton (Hide after pasting) : <title:Hide after pasting> (oid:2285) */
+"Hide after pasting" = "Masquer après collage";
+
+/* NSIBHelpConnector : <title:Hide clipboard automatically after pasting> (oid:2316) */
+"Hide clipboard automatically after pasting" = "Hide clipboard automatically after pasting";
+
+/* NSButton (Hide menus and dock icon) : <title:Hide menus and dock icon> (oid:2131) */
+"Hide menus and dock icon" = "Enlever l'icône du dock et les menus de la barre";
+
+/* NSIBHelpConnector : <title:Hide status item too> (oid:2174) */
+"Hide status item too" = "Hide status item too";
+
+/* NSIBHelpConnector : <title:Holding shift causes the action to change> (oid:2314) */
+"Holding shift causes the action to change" = "Holding shift causes the action to change";
+
+/* NSIBHelpConnector : <title:Ignore global HotKeys when command is active> (oid:2311) */
+"Ignore global HotKeys when command is active" = "Ignore global HotKeys when command is active";
+
+/* NSTextField (Ignore items larger than:) : <title:Ignore items larger than:> (oid:2083) */
+"Ignore items larger than:" = "Ignorer les éléments plus large que :";
+
+/* NSMenuItem : <title:Immediately> (oid:2066) */
+"Immediately" = "Immédiatement";
+
+/* NSButton (Inline Contents) : <title:Inline Contents> (oid:1199) */
+"Inline Contents" = "Contenu en ligne";
+
+/* NSButton (Install) : <title:Install> (oid:2070) */
+"Install" = "Installer";
+
+/* NSIBHelpConnector : <title:Install the command line tool> (oid:2179) */
+"Install the command line tool" = "Install the command line tool";
+
+/* NSIBHelpConnector : <title:Interface type> (oid:2157) */
+"Interface type" = "Interface type";
+
+/* NSTextField (Interface:) : <title:Interface:> (oid:2050) */
+"Interface:" = "Interface:";
+
+/* NSMenuItem : <title:Item1> (oid:2190) */
+"Item1" = "Item1";
+
+/* NSMenuItem : <title:Item2> (oid:2197) */
+"Item2" = "Item2";
+
+/* NSMenuItem : <title:Item3> (oid:2199) */
+"Item3" = "Item3";
+
+/* NSIBHelpConnector : <title:Items that should load their icons> (oid:2167) */
+"Items that should load their icons" = "Items that should load their icons";
+
+/* NSTextField (Kind:) : <title:Kind:> (oid:525) */
+"Kind:" = "Genre :";
+
+/* NSTextField (Last Check:) : <title:Last Check:> (oid:2062) */
+"Last Check:" = "Dernière mise à jour:";
+
+/* NSMenuItem : <title:Last Used Item> (oid:2139) */
+"Last Used Item" = "Dernier élément utilisé";
+
+/* NSTextField (Load icons for) : <title:Load icons for> (oid:2094) */
+"Load icons for" = "Charger les icones pour :";
+
+/* NSButton (Maintain aliases to file Items) : <title:Maintain aliases to file Items> (oid:2092) */
+"Maintain aliases to file Items" = "Maintenir les liens pour classer les éléments";
+
+/* NSIBHelpConnector : <title:Match letters typed with the wrong hand> (oid:2163) */
+"Match letters typed with the wrong hand" = "Match letters typed with the wrong hand";
+
+/* NSTabViewItem : <title:Matching> (oid:2116) */
+"Matching" = "Résultas";
+
+/* NSMenuItem : <title:Menu Bar> (oid:2096) */
+"Menu Bar" = "Menu barre";
+
+/* NSTableColumn : <title:Module> (oid:2205) */
+"Module" = "Module";
+
+/* NSMenuItem : <title:Monthly> (oid:2064) */
+"Monthly" = "Chaque mois";
+
+/* NSNibBindingConnector : <title:NSIsNotNil> (oid:2253) */
+"NSIsNotNil" = "NSIsNotNil";
+
+/* NSNibBindingConnector : <title:NSNegateBoolean> (oid:2236) */
+"NSNegateBoolean" = "NSNegateBoolean";
+
+/* NSTabViewItem : <title:Networking> (oid:2041) */
+"Networking" = "Réseau";
+
+/* NSNibBindingConnector : <title:Never> (oid:2310) */
+"Never" = "Never";
+
+/* NSIBHelpConnector : <title:New, lightly tested features > (oid:2169) */
+"New, lightly tested features " = "New, lightly tested features ";
+
+/* NSIBHelpConnector : <title:Number of items to save> (oid:2159) */
+"Number of items to save" = "Number of items to save";
+
+/* NSMenuItem : <title:On Launch> (oid:2040) */
+"On Launch" = "Au lancement";
+
+/* NSButton (One-hand matching) : <title:One-hand matching> (oid:2042) */
+"One-hand matching" = "Résultat en un coup";
+
+/* NSIBHelpConnector : <title:Only list applications that support the selected file> (oid:2317) */
+"Only list applications that support the selected file" = "Only list applications that support the selected file";
+
+/* NSMenu : <title:OtherViews> (oid:2275) */
+"OtherViews" = "OtherViews";
+
+/* NSPanel (Panel) : <title:Panel> (oid:501) */
+"Panel" = "Panel";
+
+/* QSWindow (Preferences) : <title:Preferences> (oid:12) */
+"Preferences" = "Préférences";
+
+/* NSIBHelpConnector : <title:Prevent accidental quitting> (oid:2162) */
+"Prevent accidental quitting" = "Prevent accidental quitting";
+
+/* NSButton (Recieve Items) : <title:Recieve Items> (oid:2130) */
+"Recieve Items" = "Réception des éléments";
+
+/* NSIBHelpConnector : <title:Remove large (128x128) icons from memory. Will make Bezel interface blurry> (oid:2308) */
+"Remove large (128x128) icons from memory. Will make Bezel interface blurry" = "Remove large (128x128) icons from memory. Will make Bezel interface blurry";
+
+/* NSTextField (Reopening an application) : <title:Reopening an application> (oid:2276) */
+"Reopening an application" = "Réouvrir une application";
+
+/* NSIBHelpConnector : <title:Reopening behavior> (oid:2312) */
+"Reopening behavior" = "Reopening behavior";
+
+/* NSTextField (Reopening the current application shows all windows) : <title:Reopening the current application shows all windows> (oid:2284) */
+"Reopening the current application shows all windows" = "Reopening the current application shows all windows";
+
+/* NSTextField (Reset search after) : <title:Reset search after> (oid:2140) */
+"Reset search after" = "Initialiser après";
+
+/* NSBox : <title:Routing> (oid:2078) */
+"Routing" = "Aiguillage";
+
+/* NSButton (Run tasks in background) : <title:Run tasks in background> (oid:2144) */
+"Run tasks in background" = "Exécutez les tâches en fond";
+
+/* NSIBHelpConnector : <title:Save items copied to the clipboard> (oid:2173) */
+"Save items copied to the clipboard" = "Save items copied to the clipboard";
+
+/* NSTextField (Search Ranking:) : <title:Search Ranking:> (oid:2149) */
+"Search Ranking:" = "Search Ranking:";
+
+/* NSTextField (Searchable items are controlled by the catalog) : <title:Searchable items are controlled by the catalog> (oid:2301) */
+"Searchable items are controlled by the catalog" = "Les éléments recherchables sont contrôlés par le catalogue";
+
+/* NSMenuItem : <title:Selected Item Only> (oid:2052) */
+"Selected Item Only" = "Les éléments sélectionnés";
+
+/* NSTextField (Send Files With:) : <title:Send Files With:> (oid:508) */
+"Send Files With:" = "Envoyer les fichiers avec:";
+
+/* NSTextField (Send results to:) : <title:Send results to:> (oid:2085) */
+"Send results to:" = "Envoyer les résultats vers :";
+
+/* NSButton (Share Clip History) : <title:Share Clip History> (oid:2101) */
+"Share Clip History" = "Partager l'historique";
+
+/* NSButton (Share Clipboard) : <title:Share Clipboard> (oid:2111) */
+"Share Clipboard" = "Partager le presse-papiers";
+
+/* NSMenuItem : <title:Shelf> (oid:2088) */
+"Shelf" = "l'étagère";
+
+/* NSButton (Show Catalog) : <title:Show Catalog> (oid:2300) */
+"Show Catalog" = "Show Catalog";
+
+/* NSButton (Show Task Viewer automatically) : <title:Show Task Viewer automatically> (oid:2141) */
+"Show Task Viewer automatically" = "Montrez le visualisateur de tâche automatiquement";
+
+/* NSButton (Show children) : <title:Show children> (oid:1200) */
+"Show children" = "Montrer les enfants";
+
+/* NSButton (Show only valid applications for Open With...) : <title:Show only valid applications for Open With...> (oid:2303) */
+"Show only valid applications for Open With..." = "Afficher que les applis valides pour Ouvrir avec...";
+
+/* NSTextField (Show other matches) : <title:Show other matches> (oid:2061) */
+"Show other matches" = "Montrer d'autres résultats";
+
+/* NSButton (Show shelf on launch) : <title:Show shelf on launch> (oid:2054) */
+"Show shelf on launch" = "Montrez l'étagère au lancement";
+
+/* NSIBHelpConnector : <title:Show task viewer whenever there is activity> (oid:2180) */
+"Show task viewer whenever there is activity" = "Show task viewer whenever there is activity";
+
+/* NSButton (Shrink icons to save memory) : <title:Shrink icons to save memory> (oid:2128) */
+"Shrink icons to save memory" = "Rétrécir des icônes pour épargner la mémoire";
+
+/* NSButtonCell (Stable) : <title:Stable> (oid:2109) */
+"Stable" = "Stable";
+
+/* NSIBHelpConnector : <title:Stable features only> (oid:2171) */
+"Stable features only" = "Stable features only";
+
+/* NSButton (Start at login) : <title:Start at login> (oid:2148) */
+"Start at login" = "Lancement au démarrage de session";
+
+/* NSButton (Superfluous visual effects) : <title:Superfluous visual effects> (oid:2045) */
+"Superfluous visual effects" = "Effets visuels superflus";
+
+/* NSButton (Suppress HotKeys in Command) : <title:Suppress HotKeys in Command> (oid:2106) */
+"Suppress HotKeys in Command" = "Supprimez les racourcis-clavier aux commandes";
+
+/* NSMenuItem : <title:Task Viewer> (oid:2080) */
+"Task Viewer" = "Le visualisateur de tâches";
+
+/* NSTextField (Temporary pref - Requires relaunch) : <title:Temporary pref - Requires relaunch> (oid:2297) */
+"Temporary pref - Requires relaunch" = "Préf temporaire - Nécésite un redémarrage";
+
+/* NSIBHelpConnector : <title:This might not be a good idea> (oid:2181) */
+"This might not be a good idea" = "This might not be a good idea";
+
+/* NSIBHelpConnector : <title:Time to wait before new letters typed are considered a new search> (oid:2166) */
+"Time to wait before new letters typed are considered a new search" = "Time to wait before new letters typed are considered a new search";
+
+/* NSBox : <title:Title> (oid:2209) */
+"Title" = "Title";
+
+/* NSIBHelpConnector : <title:Toggle dock icon and menu visibility. (Requires relaunch)> (oid:2177) */
+"Toggle dock icon and menu visibility. (Requires relaunch)" = "Toggle dock icon and menu visibility. (Requires relaunch)";
+
+/* NSButton (0) : <title:Type a HotKey> (oid:2154) */
+"Type a HotKey" = "Type a HotKey";
+
+/* NSIBHelpConnector : <title:Untested and possibly dangerous features> (oid:2178) */
+"Untested and possibly dangerous features" = "Untested and possibly dangerous features";
+
+/* NSTabViewItem : <title:Update> (oid:2147) */
+"Update" = "Mise à jour";
+
+/* NSIBHelpConnector : <title:Update frequency> (oid:2176) */
+"Update frequency" = "Update frequency";
+
+/* NSTextField (Use) : <title:Use> (oid:2195) */
+"Use" = "Utiliser";
+
+/* NSButtonCell (Volatile) : <title:Volatile> (oid:2110) */
+"Volatile" = "Volatile";
+
+/* NSTextField (Wait for) : <title:Wait for> (oid:2122) */
+"Wait for" = "Attendre";
+
+/* NSButton (Warn before quitting) : <title:Warn before quitting> (oid:2107) */
+"Warn before quitting" = "Retard avant de quitter";
+
+/* NSMenuItem : <title:Weekly> (oid:2146) */
+"Weekly" = "Chaque semaine";
+
+/* NSMenuItem : <title:Window> (oid:2046) */
+"Window" = "Fenêtre";
+
+/* NSMenuItem : <title:activates> (oid:2273) */
+"activates" = "Activations";
+
+/* NSTextField (for selections and reveals) : <title:for selections and reveals> (oid:2193) */
+"for selections and reveals" = "pour les sélections et ouvertures";
+
+/* NSTextField (qs is not installed) : <title:qs is not installed> (oid:2086) */
+"qs is not installed" = "QS n'est pas installé";
+
+/* NSTextField (seconds) : <title:seconds> (oid:2127) */
+"seconds" = "secondes";
+
+/* NSTextField (seconds before searching) : <title:seconds before searching> (oid:2081) */
+"seconds before searching" = "secondes après la recherche";
+
+/* NSMenuItem : <title:shows all windows> (oid:2272) */
+"shows all windows" = "Affiche toutes les fenêtres";
+
+/* NSMenuItem : <title:shows front window> (oid:2274) */
+"shows front window" = "Affiche les fenêtres du premier plan";
+
