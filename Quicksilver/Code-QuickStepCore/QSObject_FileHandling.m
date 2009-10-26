@@ -329,7 +329,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			return YES;
 		}
 
-		NSTimeInterval modDate = [[[[NSFileManager defaultManager] fileAttributesAtPath:path traverseLink:NO] fileModificationDate] timeIntervalSinceReferenceDate];
+		NSTimeInterval modDate = [[[[NSFileManager defaultManager] attributesOfItemAtPath:path error:NULL] fileModificationDate] timeIntervalSinceReferenceDate];
 		if (modDate>[object childrenLoadedDate]) return NO;
 	}
 	return YES;
@@ -402,9 +402,19 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		NSMutableArray *fileChildren = [NSMutableArray arrayWithCapacity:1];
 		NSMutableArray *visibleFileChildren = [NSMutableArray arrayWithCapacity:1];
 
-		NSString *file;
-		NSEnumerator *enumerator = [[manager directoryContentsAtPath:path] objectEnumerator];
-		while (file = [enumerator nextObject]) {
+// 		NSString *file;
+// 		NSEnumerator *enumerator = [[manager contentsOfDirectoryAtPath:path error:nil] objectEnumerator];
+// 		while (file = [enumerator nextObject]) {
+// 			file = [path stringByAppendingPathComponent:file];
+// 			[fileChildren addObject:file];
+// 			if ([manager isVisible:file])
+// 				[visibleFileChildren addObject:file];
+// 		}
+        
+        // !!! Andre Berg 20091017: change to foreach macro
+		//NSString *file;
+        NSArray * dirContents = [manager contentsOfDirectoryAtPath:path error:nil];
+		foreach(file, dirContents) {
 			file = [path stringByAppendingPathComponent:file];
 			[fileChildren addObject:file];
 			if ([manager isVisible:file])

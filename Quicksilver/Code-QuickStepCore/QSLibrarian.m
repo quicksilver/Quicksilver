@@ -40,7 +40,7 @@ static float searchSpeed = 0.0;
 	if (![manager fileExistsAtPath:path isDirectory:nil]) [manager createDirectoriesForPath:path];
 }
 + (void)removeIndexes {
-	[[NSFileManager defaultManager] removeFileAtPath:[pIndexLocation stringByStandardizingPath] handler:nil];
+	[[NSFileManager defaultManager] removeItemAtPath:[pIndexLocation stringByStandardizingPath] error:nil];
 	[self createDirectories];
 }
 - (void)loadDefaultCatalog {
@@ -221,7 +221,7 @@ static float searchSpeed = 0.0;
 	NSFileManager *manager = [NSFileManager defaultManager];
 	NSString *path = [pCatalogSettings stringByStandardizingPath];
 	if (![manager fileExistsAtPath:[path stringByDeletingLastPathComponent] isDirectory:nil]) {
-		[manager createDirectoryAtPath:[path stringByDeletingLastPathComponent] attributes:nil];
+		[manager createDirectoryAtPath:[path stringByDeletingLastPathComponent] withIntermediateDirectories:NO attributes:nil error:nil];
 	} else ;
 	// ***warning  **add error
 
@@ -337,7 +337,7 @@ static float searchSpeed = 0.0;
 
 - (void)loadShelfArrays {
 	NSString *path = [pShelfLocation stringByStandardizingPath];
-	NSArray *shelves = [[NSFileManager defaultManager] directoryContentsAtPath:path];
+	NSArray *shelves = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:nil];
 	NSArray *dictionaryArray;
 	int i;
 	for (i = 0; i < [shelves count]; i++) {

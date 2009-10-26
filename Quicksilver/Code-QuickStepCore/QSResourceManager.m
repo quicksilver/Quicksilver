@@ -61,7 +61,7 @@ id QSRez;
 		resourceOverrideFolder = QSApplicationSupportSubPath(@"Resources", NO);
 		if ([fm fileExistsAtPath:resourceOverrideFolder]) {
 			[resourceOverrideFolder retain];
-			NSArray *contents = [[fm directoryContentsAtPath:resourceOverrideFolder] pathsMatchingExtensions:[NSImage imageFileTypes]];
+			NSArray *contents = [[fm contentsOfDirectoryAtPath:resourceOverrideFolder error:nil] pathsMatchingExtensions:[NSImage imageFileTypes]];
 			resourceOverrideList = [[NSDictionary dictionaryWithObjects:contents forKeys:[contents valueForKey:@"stringByDeletingPathExtension"]]retain];
 		} else {
 			resourceOverrideFolder = nil;

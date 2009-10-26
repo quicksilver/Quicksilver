@@ -559,7 +559,7 @@
 		} else {
 			foreach(plugIn, oldPlugIns) {
 				NSLog(@"Deleting Old Duplicate Plug-in:\r%@", [plugIn path]);
-				[[NSFileManager defaultManager] removeFileAtPath:[plugIn path] handler:nil];
+				[[NSFileManager defaultManager] removeItemAtPath:[plugIn path] error:nil];
 			}
 		}
 	}
@@ -644,9 +644,9 @@
 	[task waitUntilExit];
 	int status = [task terminationStatus];
 	if (status == 0) {
-		[manager removeFileAtPath:path handler:nil];
+		[manager removeItemAtPath:path error:nil];
 		[[NSWorkspace sharedWorkspace] noteFileSystemChanged:[path stringByDeletingLastPathComponent]];
-		return [manager directoryContentsAtPath:tempDirectory];
+		return [manager contentsOfDirectoryAtPath:tempDirectory error:nil];
 	} else {
 		return nil;
 	}
@@ -657,7 +657,7 @@
 	NSFileManager *manager = [NSFileManager defaultManager];
 	NSString *destination = psMainPlugInsLocation;
 	NSString *tempDirectory = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString uniqueString]];
-	[manager createDirectoryAtPath:tempDirectory attributes:nil];
+	[manager createDirectoryAtPath:tempDirectory withIntermediateDirectories:NO attributes:nil error:nil];
 
 	NSArray *extracted = [self extractFilesFromQSPkg:path toPath:tempDirectory];
 
@@ -672,7 +672,7 @@
 	}
 	//NSLog(@"installed %@", installedPlugIns);
 	[[NSWorkspace sharedWorkspace] noteFileSystemChanged:destination];
-	[manager removeFileAtPath:tempDirectory handler:nil];
+	[manager removeItemAtPath:tempDirectory error:nil];
 	return installedPlugIns;
 
 }
@@ -683,9 +683,9 @@
 	[manager createDirectoriesForPath:destinationFolder];
 	NSString *destinationPath = [destinationFolder stringByAppendingPathComponent: [path lastPathComponent]];
 	if (![destinationPath isEqualToString:path]) {
-		if (![manager removeFileAtPath:destinationPath handler:nil]);
+		if (![manager removeItemAtPath:destinationPath error:nil]);
 	}
-	if (![manager movePath:path toPath:destinationPath handler:nil]) NSLog(@"move failed, %@, %@", path, destinationPath);
+	if (![manager moveItemAtPath:path toPath:destinationPath error:nil]) NSLog(@"move failed, %@, %@", path, destinationPath);
 	[[NSWorkspace sharedWorkspace] noteFileSystemChanged:[path stringByDeletingLastPathComponent]];
 	[[NSWorkspace sharedWorkspace] noteFileSystemChanged:destinationFolder];
 	return destinationPath;

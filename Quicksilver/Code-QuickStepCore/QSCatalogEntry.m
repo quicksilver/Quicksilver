@@ -468,7 +468,7 @@ if (kUseNSArchiveForIndexes)
 	if (![manager fileExistsAtPath:indexPath isDirectory:nil])
 		return NO;
 	if (!indexDate)
-		[self setIndexDate:[[manager fileAttributesAtPath:indexPath traverseLink:NO] fileModificationDate]];
+		[self setIndexDate:[[manager attributesOfItemAtPath:indexPath error:NULL] fileModificationDate]];
 	NSNumber *modInterval = [info objectForKey:kItemModificationDate];
 	if (modInterval) {
 		NSDate *specDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[modInterval floatValue]];

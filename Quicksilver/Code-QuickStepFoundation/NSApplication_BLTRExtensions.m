@@ -83,9 +83,9 @@
 	NSString *tempPath = [[launchPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Quicksilver.old.app"];
 	//NSLog(@"temp %@ new %@", tempPath, newPath);
 	BOOL status;
-	status = [manager movePath:launchPath toPath:tempPath handler:nil];
+	status = [manager moveItemAtPath:launchPath toPath:tempPath error:nil];
 	if (VERBOSE) NSLog(@"Move Old %d", status);
-	status = [manager movePath:newPath toPath:launchPath handler:nil];
+	status = [manager moveItemAtPath:newPath toPath:launchPath error:nil];
 	if (VERBOSE) NSLog(@"Copy New %d", status);
 	status = [manager movePathToTrash:tempPath];
 	if (VERBOSE) NSLog(@"Trash Old %d", status);
@@ -119,6 +119,7 @@
 
 @end
 
+#warning update these to the new NSApplicationPresentationOptions API. 
 @implementation NSApplication (LSUIElementManipulation)
 
 - (BOOL)shouldBeUIElement {
@@ -133,7 +134,7 @@
 			NSMutableDictionary *infoDict = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
 			[infoDict setObject:[NSNumber numberWithBool:hidden] forKey:@"LSUIElement"];
 			[infoDict writeToFile:plistPath atomically:NO];
-			[manager changeFileAttributes:[NSDictionary dictionaryWithObject:[NSDate date] forKey:NSFileModificationDate] atPath: [[NSBundle mainBundle] bundlePath]];
+			[manager setAttributes:[NSDictionary dictionaryWithObject:[NSDate date] forKey:NSFileModificationDate] ofItemAtPath:[[NSBundle mainBundle] bundlePath] error:nil];
 			return YES;
 		}
 	}

@@ -431,7 +431,7 @@ if (DEBUG && [self isSecret]) {
 	id manager = [QSPlugInManager sharedInstance];
 	[[manager localPlugIns] removeObjectForKey:ident];
 	[[manager knownPlugIns] removeObjectForKey:ident];
-	return [[NSFileManager defaultManager] removeFileAtPath:[bundle bundlePath] handler:nil];
+	return [[NSFileManager defaultManager] removeItemAtPath:[bundle bundlePath] error:nil];
 }
 
 //------------------------
@@ -599,7 +599,7 @@ if (DEBUG && [self isSecret]) {
 		setenv("DYLD_FRAMEWORK_PATH", [frameworkVar UTF8String] , YES);
 		NSLog(@"Adding Framework Search Path: %@", frameworksPath);
 
-		//	NSString *testpath = [frameworksPath stringByAppendingPathComponent:[[fm directoryContentsAtPath:frameworksPath] lastObject]];
+		//	NSString *testpath = [frameworksPath stringByAppendingPathComponent:[[fm contentsOfDirectoryAtPath:frameworksPath error:nil] lastObject]];
 
 		//	NSLog(@"bund %@", [NSBundle bundleWithPath:testpath]);
 		//[[NSBundle bundleWithPath:testpath] load];

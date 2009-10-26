@@ -325,7 +325,7 @@
 - (QSObject *)makeFolderIn:(QSObject *)dObject named:(QSObject *)iObject {
 	NSString *theFolder = [dObject validSingleFilePath];
 	NSString *newPath = [theFolder stringByAppendingPathComponent:[iObject stringValue]];
-	[[NSFileManager defaultManager] createDirectoryAtPath:newPath attributes:nil];
+	[[NSFileManager defaultManager] createDirectoryAtPath:newPath withIntermediateDirectories:NO attributes:nil error:nil];
 	[[NSWorkspace sharedWorkspace] noteFileSystemChanged:theFolder];
 	return [QSObject fileObjectWithPath:newPath];
 }
@@ -358,7 +358,7 @@
 		NSEnumerator *files = [dObject enumeratorForType:QSFilePathType];
 		NSString *thisFile;
 		while(thisFile = [files nextObject]) {
-			if ([[NSFileManager defaultManager] removeFileAtPath:thisFile handler:nil])
+			if ([[NSFileManager defaultManager] removeItemAtPath:thisFile error:nil])
 				[[NSWorkspace sharedWorkspace] noteFileSystemChanged:[thisFile stringByDeletingLastPathComponent]];
 			else
 				NSLog(@"Could not delete file");
@@ -405,7 +405,7 @@
 
 	NSString *destinationFile = [container stringByAppendingPathComponent:newName];
 
-	if ([[NSFileManager defaultManager] movePath:path toPath:destinationFile handler:nil])
+	if ([[NSFileManager defaultManager] moveItemAtPath:path toPath:destinationFile error:nil])
 		[[NSWorkspace sharedWorkspace] noteFileSystemChanged:container];
 	else
 		[[NSAlert alertWithMessageText:@"error" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Error renaming File: %@ to %@", path, destinationFile] runModal];
@@ -456,13 +456,13 @@ return [self moveFiles:dObject toFolder:iObject shouldCopy:YES];
 				NSString *file;
 				NSEnumerator *enumerator = [[conflicts allValues] objectEnumerator];
 				while(file = [enumerator nextObject]) {
-					NSLog(file);
+					NSLog(@"%@", file);
                     if ([file hasPrefix:destination]) {
-                        NSLog("File %@ already exists in %@", file, destination);
+                        NSLog(@"File %@ already exists in %@", file, destination);
                         continue;
                     }
                     
-                    [manager removeFileAtPath:file handler:nil];
+                    [manager removeItemAtPath:file error:nil];
 				}
 				break;
 			}
@@ -504,7 +504,7 @@ return [self moveFiles:dObject toFolder:iObject shouldCopy:YES];
                 NSString *destinationFile = [destination stringByAppendingPathComponent:[thisFile lastPathComponent]];
                 if (copy && [[NSFileManager defaultManager] copyPath:thisFile toPath:destinationFile handler:nil]) {
                     [newPaths addObject:destinationFile];
-                } else if (!copy && [[NSFileManager defaultManager] movePath:thisFile toPath:destinationFile handler:nil]) {
+                } else if (!copy && [[NSFileManager defaultManager] moveItemAtPath:thisFile toPath:destinationFile error:nil]) {
                     [[NSWorkspace sharedWorkspace] noteFileSystemChanged:[thisFile stringByDeletingLastPathComponent]];
                     [newPaths addObject:destinationFile];
                 } else {

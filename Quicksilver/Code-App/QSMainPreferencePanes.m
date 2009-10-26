@@ -223,23 +223,67 @@
 }
 
 - (void)deleteSupportFiles {
+    // !!! Andre Berg 20091013: updated to new 10.5/10.6 API with regards to removeFileAtPath:handler: and the new removeItemAtPath:error:
 	NSFileManager *fm = [NSFileManager defaultManager];
-	[fm removeFileAtPath:QSApplicationSupportSubPath(@"Actions.plist", NO) handler:self];
-	[fm removeFileAtPath:QSApplicationSupportSubPath(@"Catalog.plist", NO) handler:self];
-	[fm removeFileAtPath:pIndexLocation handler:self];
-	[fm removeFileAtPath:QSApplicationSupportSubPath(@"Mnemonics.plist", NO) handler:self];
-	[fm removeFileAtPath:QSApplicationSupportSubPath(@"PlugIns", NO) handler:self];
-	[fm removeFileAtPath:QSApplicationSupportSubPath(@"PlugIns.plist", NO) handler:self];
-	[fm removeFileAtPath:QSApplicationSupportSubPath(@"Shelves", NO) handler:self];
-	[fm removeFileAtPath:[@"~/Library/Caches/Quicksilver" stringByStandardizingPath] handler:self];
+    NSError * err = nil;
+	[fm removeItemAtPath:QSApplicationSupportSubPath(@"Actions.plist", NO) error:&err];
+    if (err) {
+        NSLog(@"QSMainPreferencePanes:%s: Error: %@", __PRETTY_FUNCTION__, err);
+        err = nil;
+    }
+	[fm removeItemAtPath:QSApplicationSupportSubPath(@"Catalog.plist", NO) error:&err];
+    if (err) {
+        NSLog(@"QSMainPreferencePanes:%s: Error: %@", __PRETTY_FUNCTION__, err);
+        err = nil;
+    }
+	[fm removeItemAtPath:pIndexLocation error:&err];
+    if (err) {
+        NSLog(@"QSMainPreferencePanes:%s: Error: %@", __PRETTY_FUNCTION__, err);
+        err = nil;
+    }
+	[fm removeItemAtPath:QSApplicationSupportSubPath(@"Mnemonics.plist", NO) error:&err];
+    if (err) {
+        NSLog(@"QSMainPreferencePanes:%s: Error: %@", __PRETTY_FUNCTION__, err);
+        err = nil;
+    }
+	[fm removeItemAtPath:QSApplicationSupportSubPath(@"PlugIns", NO) error:&err];
+    if (err) {
+        NSLog(@"QSMainPreferencePanes:%s: Error: %@", __PRETTY_FUNCTION__, err);
+        err = nil;
+    }
+	[fm removeItemAtPath:QSApplicationSupportSubPath(@"PlugIns.plist", NO) error:&err];
+    if (err) {
+        NSLog(@"QSMainPreferencePanes:%s: Error: %@", __PRETTY_FUNCTION__, err);
+        err = nil;
+    }
+	[fm removeItemAtPath:QSApplicationSupportSubPath(@"Shelves", NO) error:&err];
+    if (err) {
+        NSLog(@"QSMainPreferencePanes:%s: Error: %@", __PRETTY_FUNCTION__, err);
+        err = nil;
+    }
+	[fm removeItemAtPath:[@"~/Library/Caches/Quicksilver" stringByStandardizingPath] error:&err];
+    if (err) {
+        NSLog(@"QSMainPreferencePanes:%s: Error: %@", __PRETTY_FUNCTION__, err);
+        err = nil;
+    }
 	[[NSUserDefaults standardUserDefaults] synchronize];
-	[fm removeFileAtPath:[@"~/Library/Preferences/com.blacktree.Quicksilver.plist" stringByStandardizingPath] handler:self];
+	[fm removeItemAtPath:[@"~/Library/Preferences/com.blacktree.Quicksilver.plist" stringByStandardizingPath] error:&err];
+    if (err) {
+        NSLog(@"QSMainPreferencePanes:%s: Error: %@", __PRETTY_FUNCTION__, err);
+        err = nil;
+    }
 }
 
 - (void)deleteApplication {
-	[[NSFileManager defaultManager] removeFileAtPath:[[NSBundle mainBundle] bundlePath] handler:self];
+    NSError * err = nil;
+	[[NSFileManager defaultManager] removeItemAtPath:[[NSBundle mainBundle] bundlePath] error:&err];
+    if (err) {
+        NSLog(@"QSMainPreferencePanes:%s: Error: %@", __PRETTY_FUNCTION__, err);
+        err = nil;
+    }
 }
-
+// !!! Andre Berg 20091013: this is no longer needed since I upgraded the all the calls to removeFileAtPath:handler: to the new 10.5+ API (removeItemAtPath:error:);
+// this should also have the side effect of being faster...
 - (BOOL)fileManager:(NSFileManager *)manager shouldProceedAfterError:(NSDictionary *)errorInfo {
 	NSLog(@"error: %@", errorInfo);
 	return YES;

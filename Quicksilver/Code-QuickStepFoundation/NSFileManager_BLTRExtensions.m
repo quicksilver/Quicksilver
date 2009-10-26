@@ -44,7 +44,7 @@
 #endif
 
 - (BOOL)movePathToTrash:(NSString *)filepath {
-	return [self movePath:filepath toPath:[[[@"~/.Trash/" stringByStandardizingPath] stringByAppendingPathComponent:[filepath lastPathComponent]] firstUnusedFilePath] handler:nil];
+	return [self moveItemAtPath:filepath toPath:[[[@"~/.Trash/" stringByStandardizingPath] stringByAppendingPathComponent:[filepath lastPathComponent]] firstUnusedFilePath] error:nil];
 }
 
 #if 0
@@ -148,7 +148,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 	if ([hfsType isEqualToString:@"''"]) hfsType = nil;
 
 	if (!hfsType && isDirectory && infoRec.flags&kLSItemInfoIsPackage) {
-		NSString *packageType = [NSString stringWithContentsOfFile:[path stringByAppendingPathComponent:@"Contents/PkgInfo"]];
+		NSString *packageType = [NSString stringWithContentsOfFile:[path stringByAppendingPathComponent:@"Contents/PkgInfo"] usedEncoding:nil error:nil];
 		if ([packageType length] >= 4)
 			packageType = [packageType substringToIndex:4];
 		if (packageType)
@@ -241,7 +241,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 	NSString *type;
 	LSItemInfoRecord infoRec;
 //	OSStatus status;
-	NSEnumerator *enumerator = [[manager directoryContentsAtPath:path] objectEnumerator];
+	NSEnumerator *enumerator = [[manager contentsOfDirectoryAtPath:path error:nil] objectEnumerator];
 	while (file = [enumerator nextObject]) {
 		file = [path stringByAppendingPathComponent:file];
 		type = [self typeOfFile:file];
@@ -270,7 +270,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 }
 
 - (BOOL)touchPath:(NSString *)path {
-	return [self changeFileAttributes:[NSDictionary dictionaryWithObject:[NSDate date] forKey:NSFileModificationDate] atPath:path];
+	return [self setAttributes:[NSDictionary dictionaryWithObject:[NSDate date] forKey:NSFileModificationDate] ofItemAtPath:path error:nil];
 
 }
 
@@ -315,13 +315,13 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 	if (depth) depth--;
 
 	NSString *file;
-	NSDate *moddate = [[self fileAttributesAtPath:path traverseLink:NO] fileModificationDate];
+	NSDate *moddate = [[self attributesOfItemAtPath:path error:NULL] fileModificationDate];
 
 	if ([date compare:moddate] == NSOrderedAscending && [moddate timeIntervalSinceNow] <0) {
 		return moddate;
 	}
 	if (isDirectory) {
-		NSEnumerator *enumerator = [[self directoryContentsAtPath:path] objectEnumerator];
+		NSEnumerator *enumerator = [[self contentsOfDirectoryAtPath:path error:nil] objectEnumerator];
 		while (file = [enumerator nextObject]) {
 			file = [path stringByAppendingPathComponent:file];
 			if (![self fileExistsAtPath:file isDirectory:&isDirectory]) continue;
@@ -353,7 +353,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 	if ([moddate timeIntervalSinceNow] >0)
 		moddate = [NSDate distantPast];
 	if (isDirectory) {
-		NSEnumerator *enumerator = [[self directoryContentsAtPath:path] objectEnumerator];
+		NSEnumerator *enumerator = [[self contentsOfDirectoryAtPath:path error:nil] objectEnumerator];
 		while (file = [enumerator nextObject]) {
 			file = [path stringByAppendingPathComponent:file];
 			if (![self fileExistsAtPath:file isDirectory:&isDirectory]) continue;
@@ -369,7 +369,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 
 
 - (NSDate *)pastOnlyModifiedDate:(NSString *)path {
-	NSDate *moddate = [[self fileAttributesAtPath:path traverseLink:NO] fileModificationDate];
+	NSDate *moddate = [[self attributesOfItemAtPath:path error:NULL] fileModificationDate];
 	if ([moddate timeIntervalSinceNow] > 0) {
 		//NSLog(@"File has future date: %@\r%@", path, [moddate description]);
 		moddate = [NSDate distantPast];
@@ -386,16 +386,16 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 	if ([path length]){
 		if (![self fileExistsAtPath:[path stringByDeletingLastPathComponent] isDirectory:nil])
 			[self createDirectoriesForPath:[path stringByDeletingLastPathComponent]];
-		return [self createDirectoryAtPath:path attributes:nil];
+		return [self createDirectoryAtPath:path withIntermediateDirectories:NO attributes:nil error:nil];
 	} else return NO;
 }
 - (int)defaultDragOperationForMovingPaths:(NSArray *)sources toDestination:(NSString *)destination {
-	NSDictionary *dAttr = [self fileAttributesAtPath:destination traverseLink:NO];
+	NSDictionary *dAttr = [self attributesOfItemAtPath:destination error:NULL];
 	int i;
 	for (i = 0; i<[sources count]; i++) {
 		if ([[sources objectAtIndex:0] isEqualToString:destination])
 			return NSDragOperationNone;
-		NSDictionary *sAttr = [self fileAttributesAtPath:[sources objectAtIndex:0] traverseLink:NO];
+		NSDictionary *sAttr = [self attributesOfItemAtPath:[sources objectAtIndex:0] error:NULL];
 		if (![[sAttr objectForKey:NSFileSystemNumber] isEqualTo:[dAttr objectForKey:NSFileSystemNumber]])
 			return NSDragOperationCopy;
 	}

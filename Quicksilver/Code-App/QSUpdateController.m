@@ -329,7 +329,7 @@
 		NSFileManager *manager = [NSFileManager defaultManager];
 
 		NSString *tempDirectory = [NSTemporaryDirectory() stringByAppendingPathComponent:@"QSUpdate"];
-		[manager createDirectoryAtPath:tempDirectory attributes:nil];
+		[manager createDirectoryAtPath:tempDirectory withIntermediateDirectories:NO attributes:nil error:nil];
 		[updateTask setProgress:-1.0];
 
 		NSArray *extracted = [self extractFilesFromQSPkg:path toPath:tempDirectory];
@@ -358,7 +358,7 @@
 		NSFileManager *manager = [NSFileManager defaultManager];
 
 		NSString *tempDirectory = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString uniqueString]];
-		[manager createDirectoryAtPath:tempDirectory attributes:nil];
+		[manager createDirectoryAtPath:tempDirectory withIntermediateDirectories:NO attributes:nil error:nil];
 
 		[updateTask setProgress:-1.0];
 		[updateTask setName:@"Installing Update"];
@@ -369,7 +369,7 @@
 
 		[task waitUntilExit];
 
-		NSArray *extracted = [[manager directoryContentsAtPath:tempDirectory] pathsMatchingExtensions:[NSArray arrayWithObject:@"app"]];
+		NSArray *extracted = [[manager contentsOfDirectoryAtPath:tempDirectory error:nil] pathsMatchingExtensions:[NSArray arrayWithObject:@"app"]];
 		//NSLog(@"extract %@ %@ %@",extracted, tempDirectory, [task arguments]);
 		if ([extracted count] != 1) {
 			NSLog(@"App Update Error");
@@ -389,7 +389,7 @@
 										 arguments:[NSArray arrayWithObjects:@"detach", tempDirectory, nil]];
 
 			[task waitUntilExit];
-			[[NSFileManager defaultManager] removeFileAtPath:tempDirectory handler:nil];
+			[[NSFileManager defaultManager] removeItemAtPath:tempDirectory error:nil];
 
 			[tempPath release];
 			tempPath = nil;
@@ -421,7 +421,7 @@
 }
 
 - (void)finishInstallAndRelaunch {
-	//	[manager removeFileAtPath:tempDirectory handler:nil];
+	//	[manager removeItemAtPath:tempDirectory error:nil];
 }
 
 - (NSArray *)extractFilesFromQSPkg:(NSString *)path toPath:(NSString *)tempDirectory {
@@ -435,9 +435,9 @@
 	[task waitUntilExit];
 	int status = [task terminationStatus];
 	if (status == 0) {
-		[manager removeFileAtPath:path handler:nil];
+		[manager removeItemAtPath:path error:nil];
 		[[NSWorkspace sharedWorkspace] noteFileSystemChanged:[path stringByDeletingLastPathComponent]];
-		return [manager directoryContentsAtPath:tempDirectory];
+		return [manager contentsOfDirectoryAtPath:tempDirectory error:nil];
 	} else {
 		return nil;
 	}

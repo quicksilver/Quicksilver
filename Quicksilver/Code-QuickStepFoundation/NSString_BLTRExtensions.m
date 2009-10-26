@@ -312,7 +312,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	NSArray *contents = nil;
 	while((index = [components indexOfObject:@"*"]) != NSNotFound) {
 		basePath = [NSString pathWithComponents:[components subarrayWithRange:NSMakeRange(0, index)]];
-		contents = [[NSFileManager defaultManager] directoryContentsAtPath:basePath];
+		contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:basePath error:nil];
         
 		if (![contents count]) {
             [components release];

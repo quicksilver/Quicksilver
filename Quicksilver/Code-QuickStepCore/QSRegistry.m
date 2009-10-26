@@ -379,14 +379,14 @@ QSRegistry* QSReg = nil;
 		[bundleSearchPaths addObjectsFromArray:[[[NSUserDefaults standardUserDefaults] arrayForKey:@"QSAdditionalPlugInPaths"] valueForKey:@"stringByStandardizingPath"]];
 		[bundleSearchPaths addObject:[[fm currentDirectoryPath] stringByAppendingPathComponent:@"PrivatePlugIns"]];
 	}
-
-	searchPathEnum = [bundleSearchPaths objectEnumerator];
-	while(currPath = [searchPathEnum nextObject]) {
+    
+    // !!! Andre Berg 20091017: update from objectEnumerator to foreach
+	foreach(currPath, bundleSearchPaths) {
 		NSEnumerator *bundleEnum;
 		NSString *curBundlePath;
-		bundleEnum = [[fm directoryContentsAtPath:currPath] objectEnumerator];
-		if (bundleEnum) {
-			while(curBundlePath = [bundleEnum nextObject]) {
+		NSArray * dirContents = [fm contentsOfDirectoryAtPath:currPath error:nil];
+		if (dirContents) {
+			foreach(curBundlePath, dirContents) {
 				if ([[curBundlePath pathExtension] caseInsensitiveCompare:@"qsplugin"] == NSOrderedSame) {
 					[allBundles addObject:[currPath stringByAppendingPathComponent:curBundlePath]];
 				}

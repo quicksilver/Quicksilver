@@ -127,7 +127,7 @@
 	NSFileManager *manager = [NSFileManager defaultManager];
 	NSString *path = [pMnemonicStorage stringByStandardizingPath];
 	if (![manager fileExistsAtPath:[path stringByDeletingLastPathComponent] isDirectory:nil])
-		[manager createDirectoryAtPath:[path stringByDeletingLastPathComponent] attributes:nil];
+		[manager createDirectoryAtPath:[path stringByDeletingLastPathComponent] withIntermediateDirectories:NO attributes:nil error:nil];
 	//NSLog(@"Mnemonics:%@", mnemonics);
 	[mnemonics writeToFile:path atomically:YES];
 }

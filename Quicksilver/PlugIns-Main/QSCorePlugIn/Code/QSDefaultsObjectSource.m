@@ -62,7 +62,7 @@
 	NSFileManager *manager = [NSFileManager defaultManager];
 	NSString *itemPath = [self prefFileForBundle:[settings objectForKey:kDefaultsObjectSourceBundleID]];
 	if (![manager fileExistsAtPath:itemPath isDirectory:nil]) return YES;
-	NSDate *modDate = [[manager fileAttributesAtPath:itemPath traverseLink:NO] fileModificationDate];
+	NSDate *modDate = [[manager attributesOfItemAtPath:itemPath error:NULL] fileModificationDate];
 	if ([modDate compare:indexDate] == NSOrderedDescending) return NO; //FS item modification is more recent than index
 	return YES;
 	return [super indexIsValidFromDate:indexDate forEntry:theEntry];
