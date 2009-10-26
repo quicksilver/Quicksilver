@@ -16,15 +16,15 @@
 - (void)awakeFromNib {
 	[prefSetsTable setSortDescriptors:[NSSortDescriptor descriptorArrayWithKey:@"title" ascending:YES]];
 	[(QSImageAndTextCell *)[[prefSetsTable tableColumnWithIdentifier:@"title"] dataCell] setImageSize:QSSize16];
-//	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(columnResized:) name:NSTableViewColumnDidResizeNotification object:titleColumn];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(columnResized:) name:NSTableViewColumnDidResizeNotification object:nil];
 }
 
-#if 0
+// !!! Andre Berg 20091017: This is needed to get rid of the bug described in "tableView:dataCellForTableColumn:row:" below
+// Also of course registering as observer and unregistering in dealloc.
 - (void)columnResized:(id)sender {
 	NSLog(@"- columnResized in QSAdvancedPrefPane");
 	[prefSetsTable noteHeightOfRowsWithIndexesChanged:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [[prefSetsController arrangedObjects] count] )]]; // was calling self
 }
-#endif
 
 - (IBAction)setValue:(id)sender {
 	NSLog(@"setvalue %@", [sender objectValue]);
@@ -57,9 +57,21 @@
 //- (NSString *)tableView:(NSTableView *)aTableView toolTipForCell:(NSCell *)aCell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)aTableColumn row:(int)row mouseLocation:(NSPoint)mouseLocation {
 ////	return [[aCell objectValue] description];
 //}
+
 - (NSCell *)tableView:(NSTableView *)aTableView dataCellForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
-	id thisInfo = [[prefSetsController arrangedObjects] objectAtIndex:rowIndex];
-	NSCell *cell = nil;
+    
+    id thisInfo = nil;
+    // !!! Andre Berg 20091015: there seems to be a bug where the first load of the Extras table view has an index out of bound error 
+    // which seems to be connected to QSImageAndTextCell - if then the user clicks below all entries in say the Extras preference pane, 
+    // an index out of bounds exception will be raised...
+    @try {
+       thisInfo = [[prefSetsController arrangedObjects] objectAtIndex:rowIndex];
+    }
+    @catch (NSException * e) {
+        if (DEBUG)
+            NSLog(@"*** Unhandled Exception:%@ with reason: %@, in %s", [e name], [e reason], _cmd);
+    }
+	NSCell *cell;
     
     if ([[aTableColumn identifier] isEqualToString:@"title"]) {
         cell = [[[NSTextFieldCell alloc] init] autorelease];
@@ -227,6 +239,7 @@
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSTableViewColumnDidResizeNotification object:nil];
 	[currentInfo release];
 	[super dealloc];
 }

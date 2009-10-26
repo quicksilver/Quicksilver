@@ -159,14 +159,13 @@ IMPORTANT: This Apple software is supplied to you by Apple Computer, Inc. ("Appl
 			[image setFlipped:YES];
 			// imageFrame.origin.y += ceil((cellFrame.size.height + imageFrame.size.height) / 2);
 		} else {
-
 			// [image setFlipped:NO];
 			// imageFrame.origin.y += ceil((cellFrame.size.height - imageFrame.size.height) / 2);
 		}
 
 		NSImageRep *bestRep = [image bestRepresentationForSize:theImageSize];
 		[image setSize:[bestRep size]];
-		float opacity = [self isEnabled] ?1.0:0.5;
+		float opacity = [self isEnabled] ? 1.0 : 0.5;
 
 		[image drawInRect:imageFrame fromRect:rectFromSize([image size]) operation:NSCompositeSourceOver fraction:opacity];
 
@@ -185,12 +184,12 @@ IMPORTANT: This Apple software is supplied to you by Apple Computer, Inc. ("Appl
 	[self setTextColor:[NSColor controlTextColor]];
 }
 
-//- (NSSize) cellSizeForBounds:(NSRect)bounds {
-//	bounds.size.width -= 1+[self imageWidthForFrame:bounds] *1.125;
-//	NSSize cellSize = [super cellSizeForBounds:bounds];
-//	cellSize.width += 1+[self imageWidthForFrame:bounds] *1.125;
-//	return cellSize;
-//}
+// - (NSSize) cellSizeForBounds:(NSRect)bounds {
+// 	bounds.size.width -= 1+[self imageWidthForFrame:bounds] *1.125;
+// 	NSSize cellSize = [super cellSizeForBounds:bounds];
+// 	cellSize.width += 1+[self imageWidthForFrame:bounds] *1.125;
+// 	return cellSize;
+// }
 
 - (NSSize) cellSize {
 	NSSize cellSize = [super cellSize];
