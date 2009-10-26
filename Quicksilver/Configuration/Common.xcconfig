@@ -1,10 +1,10 @@
 #include "Developer.xcconfig"
 
-SDKROOT = $(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk
+SDKROOT = $(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk
 
 SYMROOT = $(QS_SOURCE_ROOT)/build
 
-MACOSX_DEPLOYMENT_TARGET = 10.4
+MACOSX_DEPLOYMENT_TARGET = 10.5
 PREBINDING = NO
 
 INFOPLIST_PREPROCESS = YES
@@ -22,7 +22,7 @@ GCC_ENABLE_OBJC_EXCEPTIONS = YES
 
 GCC_FAST_OBJC_DISPATCH = YES
 
-WARNING_CFLAGS = -Wall -Wno-parentheses // Disabled for now. Too picky ;-) -Wextra
+WARNING_CFLAGS = -Wno-parentheses -Wno-deprecated-declarations // -Wall // Disabled for now. Too picky ;-) -Wextra
 
 QS_APP_CONTENTS_FOLDER = $(CONFIGURATION_BUILD_DIR)/Quicksilver.app/Contents
 

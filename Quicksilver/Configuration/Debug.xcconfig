@@ -11,3 +11,15 @@ GCC_ENABLE_FIX_AND_CONTINUE = YES
 GCC_GENERATE_DEBUGGING_SYMBOLS = YES
 
 GCC_OPTIMIZATION_LEVEL = 0
+
+LLVM_LTO = NO  // Link Time Optimization (specific to LLVM & Clang)
+
+//GCC_VERSION = 4.2                                     // GCC 4.2
+//GCC_VERSION = com.apple.compilers.llvmgcc42           // LLVM GCC 4.2
+GCC_VERSION = com.apple.compilers.llvm.clang.1_0        // Clang 1.0 (uses LLVM GCC 4.2 for C++ stuff)
+
+ALWAYS_SEARCH_USER_PATHS = NO
+
+PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES  // If you get lotsa "Duplicate interface definition" errors from "Core Support" when you are building with Clang, then edit the
+                                                        // "Core Support" target build settings and override the "PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR" setting from the 
+                                                        // Build Settings dialog and set it to NO (the name of the build settings should turn bold indicating its overiding something).
