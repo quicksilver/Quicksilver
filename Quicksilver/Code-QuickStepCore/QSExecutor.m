@@ -107,8 +107,8 @@ QSExecutor *QSExec = nil;
 
 - (void)loadFileActions {
 	NSString *rootPath = QSApplicationSupportSubPath(@"Actions/", NO);
-	NSArray *files = [rootPath performSelector:@selector(stringByAppendingPathComponent:) onObjectsInArray:[[NSFileManager defaultManager] directoryContentsAtPath:rootPath]];
-	NSEnumerator *e = [[QSReg instancesForTable:@"QSFileActionCreators"] objectEnumerator];
+	NSArray *files = [rootPath performSelector:@selector(stringByAppendingPathComponent:) onObjectsInArray:[[NSFileManager defaultManager] contentsOfDirectoryAtPath:rootPath error:nil]];
+    NSEnumerator *e = [[QSReg instancesForTable:@"QSFileActionCreators"] objectEnumerator];
 	id <QSFileActionProvider> creator;
 	while(creator = [e nextObject]) {
 		[self addActions:[creator fileActionsFromPaths:files]];
@@ -375,41 +375,40 @@ QSExecutor *QSExec = nil;
 	//NSArray *newActions = bypassValidation?validActions
 	//									:
 	NSArray *newActions = [self actionsForTypes:[dObject types] fileTypes:fileType?[NSArray arrayWithObject:fileType] :nil];
-	NSEnumerator *newActionEnumerator = [newActions objectEnumerator];
-
-	QSAction *thisAction;
+    //QSAction *thisAction;
 	BOOL isValid;
-	while(thisAction = [newActionEnumerator nextObject]) {
-		if (![thisAction enabled]) continue;
+    
+    // !!! Andre Berg 20091013: update to foreach with fast enum
+    foreach(thisAction, newActions) {
+        if (![thisAction enabled]) continue;
 		validSourceActions = nil;
 		NSDictionary *actionDict = [thisAction objectForType:QSActionType];
 		isValid = ![[actionDict objectForKey:kActionValidatesObjects] boolValue];
-
+        
 		//NSLog(@"thisact %@", thisAction);
-
+        
 		if (!isValid) {
 			validSourceActions = [validatedActionsBySource objectForKey:[actionDict objectForKey:kActionClass]];
 			if (!validSourceActions) {
-
+                
 				aObject = [thisAction provider];
 				validSourceActions = [self validActionsForDirectObject:dObject indirectObject:iObject fromSource:aObject types:nil fileType:nil];
 				NSString *className = NSStringFromClass([aObject class]);
 				if (className)
 					[validatedActionsBySource setObject:validSourceActions?validSourceActions:[NSArray array] forKey:className];
-
+                
 				if (validSourceActions) {
 					[actions addObjectsFromArray:validSourceActions];
 				}
 			}
-
+            
 			isValid = [validSourceActions containsObject:[thisAction identifier]];
 		}
 		//if ([validSourceActions count])
 		//	NSLog(@"Actions for %@:%@", thisAction, validSourceActions);
-
+        
 		if (isValid) [validActions addObject:thisAction];
-	}
-
+    }
 
 	// NSLog(@"Actions for %@:%@", [dObject name] , validActions);
 	if (![validActions count]) {
@@ -511,6 +510,8 @@ QSExecutor *QSExec = nil;
 @implementation QSExecutor (QSPlugInInfo)
 - (BOOL)handleInfo:(id)info ofType:(NSString *)type fromBundle:(NSBundle *)bundle {
 	if (info) {
+        // !!! Andre Berg 20091017: update to fast enumeration
+        #if MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_4
         NSEnumerator *e = [info keyEnumerator];
         NSDictionary *actionDict;
         NSString *key;
@@ -518,7 +519,12 @@ QSExecutor *QSExec = nil;
             actionDict = [info objectForKey:key];
             
             if ([[actionDict objectForKey:kItemFeatureLevel] intValue] > [NSApp featureLevel]) {
-                NSLog(@"Prevented load of action %@", [actionDict objectForKey:kItemID]);
+                NSString * actionIdentifier = [actionDict objectForKey:kItemID];
+                if (!actionIdentifier) {
+                    NSLog(@"Prevented load of unidentified action from bundle %@ because the action's featureLevel (set from its Info.plist) is higher than NSApp's current featureLevel. This is not neccessarily an error. Sometimes this mechanism is used to prevent unstable actions from loading.", [[bundle bundlePath] lastPathComponent]);
+                } else {
+                    NSLog(@"Prevented load of action %@ because it's featureLevel (set from its Info.plist) is higher than NSApp's current featureLevel. This is not neccessarily an error. Sometimes this mechanism is used to prevent unstable actions from loading.", actionIdentifier);
+                }
                 continue;
             }
             
@@ -533,6 +539,33 @@ QSExecutor *QSExec = nil;
                 [[self makeArrayForSource:[bundle bundleIdentifier]] addObject:action];
             }
         }
+        #else
+        NSDictionary *actionDict;
+        for (NSString *key in info) {
+            actionDict = [info objectForKey:key];
+            
+            if ([[actionDict objectForKey:kItemFeatureLevel] intValue] > [NSApp featureLevel]) {
+                NSString * actionIdentifier = [actionDict objectForKey:kItemID];
+                if (!actionIdentifier) {
+                    NSLog(@"Prevented load of unidentified action from bundle %@ because the action's featureLevel (set from its Info.plist) is higher than NSApp's current featureLevel. This is not neccessarily an error. Sometimes this mechanism is used to prevent unstable actions from loading.", [[bundle bundlePath] lastPathComponent]);
+                } else {
+                    NSLog(@"Prevented load of action %@ because it's featureLevel (set from its Info.plist) is higher than NSApp's current featureLevel. This is not neccessarily an error. Sometimes this mechanism is used to prevent unstable actions from loading.", actionIdentifier);
+                }
+                continue;
+            }
+            
+            QSAction *action = [QSAction actionWithDictionary:actionDict identifier:key];
+            [action setBundle:bundle];
+            
+            if ([[actionDict objectForKey:kActionInitialize] boolValue] && [[action provider] respondsToSelector:@selector(initializeAction:)])
+                action = [[action provider] initializeAction:action];
+            
+            if (action) {
+                [self addAction:action];
+                [[self makeArrayForSource:[bundle bundleIdentifier]] addObject:action];
+            }
+        }
+        #endif
 	} else {
 		//		NSDictionary *providers = [[[plugin bundle] dictionaryForFileOrPlistKey:@"QSRegistration"] objectForKey:@"QSActionProviders"];
 		//		if (providers) {
