@@ -109,7 +109,7 @@
 		7F0AB6D107C4045700DF7D52 /* QSPlugInManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0AB6CD07C4045700DF7D52 /* QSPlugInManager.m */; };
 		7F0BDE7D07FC967F002CBDDF /* Get Quicksilver Selection.action in Copy Automator Actions */ = {isa = PBXBuildFile; fileRef = 7F0BDE4207FC962E002CBDDF /* Get Quicksilver Selection.action */; };
 		7F0BDE7E07FC967F002CBDDF /* Send to Quicksilver.action in Copy Automator Actions */ = {isa = PBXBuildFile; fileRef = 7F0BDE5007FC962E002CBDDF /* Send to Quicksilver.action */; };
-		7F15A5FA08F996D70058D25E /* QSSimpleNotifier.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F15A5F908F996D70058D25E /* QSSimpleNotifier.nib */; };
+		7F15A5FA08F996D70058D25E /* QSSimpleNotifier.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F15A5F908F996D70058D25E /* QSSimpleNotifier.xib */; };
 		7F24E8B707EDC67D00943D5A /* QSObject_AEConversion.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F24E8B507EDC67D00943D5A /* QSObject_AEConversion.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F24E8B807EDC67D00943D5A /* QSObject_AEConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F24E8B607EDC67D00943D5A /* QSObject_AEConversion.m */; };
 		7F24FA2108AFC326009DB343 /* QSURLExtractor.pl in Resources */ = {isa = PBXBuildFile; fileRef = 7F9769B408AE8366003FD75E /* QSURLExtractor.pl */; };
@@ -135,8 +135,8 @@
 		7F4D6873083AB7DE00541FEB /* QSHistoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4D6871083AB7DE00541FEB /* QSHistoryController.m */; };
 		7F4E4B380A3CD83D0070336A /* QSMainMenuPrefPane.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F4E4B360A3CD83D0070336A /* QSMainMenuPrefPane.h */; };
 		7F4E4B390A3CD83D0070336A /* QSMainMenuPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4E4B370A3CD83D0070336A /* QSMainMenuPrefPane.m */; };
-		7F4E4B4D0A3CDA7A0070336A /* QSMainMenuPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F4E4B4C0A3CDA7A0070336A /* QSMainMenuPrefPane.nib */; };
-		7F4E725909682F4200FBA4F7 /* QSSetupAssistant.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F4E725409682F4200FBA4F7 /* QSSetupAssistant.nib */; };
+		7F4E4B4D0A3CDA7A0070336A /* QSMainMenuPrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F4E4B4C0A3CDA7A0070336A /* QSMainMenuPrefPane.xib */; };
+		7F4E725909682F4200FBA4F7 /* QSSetupAssistant.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F4E725409682F4200FBA4F7 /* QSSetupAssistant.xib */; };
 		7F5D70D0091D9C76007A22C4 /* QSSplash.qtz in Resources */ = {isa = PBXBuildFile; fileRef = 7F5D70CF091D9C76007A22C4 /* QSSplash.qtz */; };
 		7F60F12807FA134600922645 /* QSMainPreferencePanes.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F60F12607FA134600922645 /* QSMainPreferencePanes.h */; };
 		7F60F12907FA134600922645 /* QSMainPreferencePanes.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F60F12707FA134600922645 /* QSMainPreferencePanes.m */; };
@@ -151,7 +151,7 @@
 		7F73BC66084787A500D01BDB /* QSStyle.css in Resources */ = {isa = PBXBuildFile; fileRef = 7F73BC65084787A500D01BDB /* QSStyle.css */; };
 		7F73BD46084794CB00D01BDB /* QSSimpleWebWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F73BD44084794CB00D01BDB /* QSSimpleWebWindowController.h */; };
 		7F73BD47084794CB00D01BDB /* QSSimpleWebWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F73BD45084794CB00D01BDB /* QSSimpleWebWindowController.m */; };
-		7F75744B07BC3B4400F6AD87 /* QSActionsPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F75744A07BC3B4400F6AD87 /* QSActionsPrefPane.nib */; };
+		7F75744B07BC3B4400F6AD87 /* QSActionsPrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F75744A07BC3B4400F6AD87 /* QSActionsPrefPane.xib */; };
 		7F7AB61B07F0761400ACBA8A /* QSCollectingSearchObjectView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F7AB61907F0761400ACBA8A /* QSCollectingSearchObjectView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F7AB61C07F0761400ACBA8A /* QSCollectingSearchObjectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7AB61A07F0761400ACBA8A /* QSCollectingSearchObjectView.m */; };
 		7F8401D109690F00006E6F0E /* ClientDescription.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F8401D009690F00006E6F0E /* ClientDescription.plist */; };
@@ -210,7 +210,7 @@
 		7FADDCE208B4D805004559C1 /* QSHistoryObjectSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FADDCE008B4D805004559C1 /* QSHistoryObjectSource.m */; };
 		7FB37EB4080997EF00A2B2B4 /* QSURLDownloadWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FB37EB2080997EF00A2B2B4 /* QSURLDownloadWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FB37EB5080997EF00A2B2B4 /* QSURLDownloadWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB37EB3080997EF00A2B2B4 /* QSURLDownloadWrapper.m */; };
-		7FB77ADE09777BCF00E62ABE /* QSProcessObjectSource.nib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98B06625D7300843027 /* QSProcessObjectSource.nib */; };
+		7FB77ADE09777BCF00E62ABE /* QSProcessObjectSource.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98B06625D7300843027 /* QSProcessObjectSource.xib */; };
 		7FB8AD4E08E6328D000A65C4 /* QSHandledObjectHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FB8AD4C08E6328D000A65C4 /* QSHandledObjectHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FB8D6FC07B98B1300062022 /* QSCatalogEntry.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FB8D6FA07B98B1300062022 /* QSCatalogEntry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FB8D6FD07B98B1300062022 /* QSCatalogEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB8D6FB07B98B1300062022 /* QSCatalogEntry.m */; };
@@ -262,14 +262,14 @@
 		7FE893ED085CFE780016C421 /* QSEffects.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9C307B1FD100044D6EF /* QSEffects.framework */; };
 		7FE893EE085CFE780016C421 /* QSInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1B5F31206573C2900FCFBE2 /* QSInterface.framework */; };
 		7FE893EF085CFE790016C421 /* QSFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9AF07B1FCFC0044D6EF /* QSFoundation.framework */; };
-		7FE8940E085D021C0016C421 /* QSProcessObjectSource.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7FE8940D085D021B0016C421 /* QSProcessObjectSource.nib */; };
+		7FE8940E085D021C0016C421 /* QSProcessObjectSource.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FE8940D085D021B0016C421 /* QSProcessObjectSource.xib */; };
 		7FEE6B2907D2A93100847B74 /* QSHelp.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FEE6B2707D2A93100847B74 /* QSHelp.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FEE6B2A07D2A93100847B74 /* QSHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FEE6B2807D2A93100847B74 /* QSHelp.m */; };
 		7FF447EA080479E200316DB6 /* QSLSTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FF447E8080479E200316DB6 /* QSLSTools.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FF447EB080479E200316DB6 /* QSLSTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF447E9080479E200316DB6 /* QSLSTools.m */; };
 		7FF590210804398F0031368C /* QSDirectoryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF5901F0804398F0031368C /* QSDirectoryParser.m */; };
 		7FF59035080439B00031368C /* QSTextParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF59033080439B00031368C /* QSTextParser.m */; };
-		7FF63D5207CC01E000A5EE4A /* QSTaskViewer.nib in Resources */ = {isa = PBXBuildFile; fileRef = E102F99106625D7400843027 /* QSTaskViewer.nib */; };
+		7FF63D5207CC01E000A5EE4A /* QSTaskViewer.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F99106625D7400843027 /* QSTaskViewer.xib */; };
 		7FF63FF407CC0DF500A5EE4A /* QSPreferencesController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FF63FF207CC0DF500A5EE4A /* QSPreferencesController.h */; };
 		7FF63FF507CC0DF500A5EE4A /* QSPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF63FF307CC0DF500A5EE4A /* QSPreferencesController.m */; };
 		7FF791C40865BB3C001A0F63 /* QSTriggerCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FF791C20865BB3C001A0F63 /* QSTriggerCenter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -297,17 +297,17 @@
 		CDCC201010A4C14B009C4EED /* QSMDPredicate.h in Headers */ = {isa = PBXBuildFile; fileRef = CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */; };
 		CDCC201110A4C14B009C4EED /* QSMDPredicate.m in Sources */ = {isa = PBXBuildFile; fileRef = CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */; };
 		E102347106BB6CC900143367 /* Find.icns in Resources */ = {isa = PBXBuildFile; fileRef = E102347006BB6CC900143367 /* Find.icns */; };
-		E102F9BD06625D7400843027 /* About.nib in Resources */ = {isa = PBXBuildFile; fileRef = E102F97C06625D7300843027 /* About.nib */; };
-		E102F9BE06625D7400843027 /* QSCatalog.nib in Resources */ = {isa = PBXBuildFile; fileRef = E102F97D06625D7300843027 /* QSCatalog.nib */; };
-		E102F9BF06625D7400843027 /* CommandBuilder.nib in Resources */ = {isa = PBXBuildFile; fileRef = E102F97E06625D7300843027 /* CommandBuilder.nib */; };
-		E102F9C306625D7400843027 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98206625D7300843027 /* MainMenu.nib */; };
-		E102F9C906625D7400843027 /* QSDefaultsObjectSource.nib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98806625D7300843027 /* QSDefaultsObjectSource.nib */; };
-		E102F9CA06625D7400843027 /* QSFileConflictPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98906625D7300843027 /* QSFileConflictPanel.nib */; };
-		E102F9CB06625D7400843027 /* QSFileSystemObjectSource.nib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98A06625D7300843027 /* QSFileSystemObjectSource.nib */; };
-		E102F9CD06625D7400843027 /* QuitConfirm.nib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98C06625D7300843027 /* QuitConfirm.nib */; };
-		E102F9CE06625D7400843027 /* ResultWindow.nib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98D06625D7300843027 /* ResultWindow.nib */; };
-		E102F9D106625D7400843027 /* QSTaskEntry.nib in Resources */ = {isa = PBXBuildFile; fileRef = E102F99006625D7400843027 /* QSTaskEntry.nib */; };
-		E102F9D306625D7400843027 /* QSTriggersPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = E102F99206625D7400843027 /* QSTriggersPrefPane.nib */; };
+		E102F9BD06625D7400843027 /* About.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F97C06625D7300843027 /* About.xib */; };
+		E102F9BE06625D7400843027 /* QSCatalog.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F97D06625D7300843027 /* QSCatalog.xib */; };
+		E102F9BF06625D7400843027 /* CommandBuilder.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F97E06625D7300843027 /* CommandBuilder.xib */; };
+		E102F9C306625D7400843027 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98206625D7300843027 /* MainMenu.xib */; };
+		E102F9C906625D7400843027 /* QSDefaultsObjectSource.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98806625D7300843027 /* QSDefaultsObjectSource.xib */; };
+		E102F9CA06625D7400843027 /* QSFileConflictPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98906625D7300843027 /* QSFileConflictPanel.xib */; };
+		E102F9CB06625D7400843027 /* QSFileSystemObjectSource.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98A06625D7300843027 /* QSFileSystemObjectSource.xib */; };
+		E102F9CD06625D7400843027 /* QuitConfirm.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98C06625D7300843027 /* QuitConfirm.xib */; };
+		E102F9CE06625D7400843027 /* ResultWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98D06625D7300843027 /* ResultWindow.xib */; };
+		E102F9D106625D7400843027 /* QSTaskEntry.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F99006625D7400843027 /* QSTaskEntry.xib */; };
+		E102F9D306625D7400843027 /* QSTriggersPrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F99206625D7400843027 /* QSTriggersPrefPane.xib */; };
 		E103ECF606471DBF00447FE0 /* DefaultMnemonics.plist in Resources */ = {isa = PBXBuildFile; fileRef = E103EC5606471DBE00447FE0 /* DefaultMnemonics.plist */; };
 		E103ED1A06471DBF00447FE0 /* FileTypeGroups.plist in Resources */ = {isa = PBXBuildFile; fileRef = E103EC8406471DBF00447FE0 /* FileTypeGroups.plist */; };
 		E103ED2106471DBF00447FE0 /* ChildArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = E103EC8C06471DBF00447FE0 /* ChildArrow.png */; };
@@ -339,7 +339,7 @@
 		E1087B43069BD5D300971A69 /* ContactEmail.icns in Resources */ = {isa = PBXBuildFile; fileRef = E1087B40069BD5D300971A69 /* ContactEmail.icns */; };
 		E1087B44069BD5D300971A69 /* ContactPhone.icns in Resources */ = {isa = PBXBuildFile; fileRef = E1087B41069BD5D300971A69 /* ContactPhone.icns */; };
 		E1186AD606A6D6F700F3EA8E /* QSKindDescriptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1186AD506A6D6F700F3EA8E /* QSKindDescriptions.plist */; };
-		E1264FAD072FE76C00206035 /* QSPreferences.nib in Resources */ = {isa = PBXBuildFile; fileRef = E1264FAC072FE76C00206035 /* QSPreferences.nib */; };
+		E1264FAD072FE76C00206035 /* QSPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1264FAC072FE76C00206035 /* QSPreferences.xib */; };
 		E129F349071DD65A001E1D5A /* License.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E129F348071DD65A001E1D5A /* License.rtf */; };
 		E131F4F107B43BF400D0E4AC /* QSDockingWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = E131F4EF07B43BF400D0E4AC /* QSDockingWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E131F4F207B43BF400D0E4AC /* QSDockingWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E131F4F007B43BF400D0E4AC /* QSDockingWindow.m */; };
@@ -347,12 +347,12 @@
 		E133F1FC06ADCDF800D27A4E /* ExceptionHandling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E133F1FB06ADCDF800D27A4E /* ExceptionHandling.framework */; };
 		E133F20406ADCE7000D27A4E /* ExceptionHandling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E133F1FB06ADCDF800D27A4E /* ExceptionHandling.framework */; };
 		E1388482073AAE8A0080A9E1 /* Triggers.icns in Resources */ = {isa = PBXBuildFile; fileRef = E1388481073AAE8A0080A9E1 /* Triggers.icns */; };
-		E14B86920738158D003C1AED /* QSAppearancePrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = E14B868E0738158D003C1AED /* QSAppearancePrefPane.nib */; };
-		E14B86930738158D003C1AED /* QSAdvancedPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = E14B868F0738158D003C1AED /* QSAdvancedPrefPane.nib */; };
-		E14B86940738158D003C1AED /* QSApplicationPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = E14B86900738158D003C1AED /* QSApplicationPrefPane.nib */; };
-		E14B86950738158D003C1AED /* QSSearchPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = E14B86910738158D003C1AED /* QSSearchPrefPane.nib */; };
+		E14B86920738158D003C1AED /* QSAppearancePrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = E14B868E0738158D003C1AED /* QSAppearancePrefPane.xib */; };
+		E14B86930738158D003C1AED /* QSAdvancedPrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = E14B868F0738158D003C1AED /* QSAdvancedPrefPane.xib */; };
+		E14B86940738158D003C1AED /* QSApplicationPrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = E14B86900738158D003C1AED /* QSApplicationPrefPane.xib */; };
+		E14B86950738158D003C1AED /* QSSearchPrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = E14B86910738158D003C1AED /* QSSearchPrefPane.xib */; };
 		E16774A806A2D4C600D8F4F0 /* PrefPaneTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = E16774A706A2D4C600D8F4F0 /* PrefPaneTemplate.png */; };
-		E1737B8B06AF48520082F948 /* QSPlugInsPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = E1737B8A06AF48520082F948 /* QSPlugInsPrefPane.nib */; };
+		E1737B8B06AF48520082F948 /* QSPlugInsPrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1737B8A06AF48520082F948 /* QSPlugInsPrefPane.xib */; };
 		E177C41A067D09F700182A11 /* ScriptIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = E177C419067D09F700182A11 /* ScriptIcon.png */; };
 		E178F647065CF846004655DA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E103F6FE06476CBC00447FE0 /* SystemConfiguration.framework */; };
 		E178F648065CF848004655DA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E103F60706476C7700447FE0 /* Security.framework */; };
@@ -637,7 +637,7 @@
 		E1E5FCA407B20E4D0044D6EF /* QSSearchObjectView.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FC7307B20E4D0044D6EF /* QSSearchObjectView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FCA507B20E4D0044D6EF /* QSSearchObjectView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FC7407B20E4D0044D6EF /* QSSearchObjectView.m */; };
 		E1E8909007B29C8000478A69 /* QSFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9AF07B1FCFC0044D6EF /* QSFoundation.framework */; };
-		E1EF4204070FDF7700D6DA03 /* QSHelpersPrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = E1EF4203070FDF7700D6DA03 /* QSHelpersPrefPane.nib */; };
+		E1EF4204070FDF7700D6DA03 /* QSHelpersPrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1EF4203070FDF7700D6DA03 /* QSHelpersPrefPane.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -971,7 +971,7 @@
 		7F0BD5DD07B52EA8003F3DC3 /* Core Support.qsplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Core Support.qsplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F0BDE4207FC962E002CBDDF /* Get Quicksilver Selection.action */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Get Quicksilver Selection.action"; path = "Scripting/Automator/Get Quicksilver Selection.action"; sourceTree = SOURCE_ROOT; };
 		7F0BDE5007FC962E002CBDDF /* Send to Quicksilver.action */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Send to Quicksilver.action"; path = "Scripting/Automator/Send to Quicksilver.action"; sourceTree = SOURCE_ROOT; };
-		7F15A5F908F996D70058D25E /* QSSimpleNotifier.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSSimpleNotifier.nib; sourceTree = "<group>"; };
+		7F15A5F908F996D70058D25E /* QSSimpleNotifier.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSSimpleNotifier.xib; sourceTree = "<group>"; };
 		7F15A6AB08F9CAB10058D25E /* QSCGSTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCGSTransition.h; sourceTree = "<group>"; };
 		7F15A6AC08F9CAB20058D25E /* QSCGSTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCGSTransition.m; sourceTree = "<group>"; };
 		7F24E8B507EDC67D00943D5A /* QSObject_AEConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSObject_AEConversion.h; sourceTree = "<group>"; };
@@ -998,8 +998,8 @@
 		7F4D6871083AB7DE00541FEB /* QSHistoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHistoryController.m; sourceTree = "<group>"; };
 		7F4E4B360A3CD83D0070336A /* QSMainMenuPrefPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSMainMenuPrefPane.h; sourceTree = "<group>"; };
 		7F4E4B370A3CD83D0070336A /* QSMainMenuPrefPane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSMainMenuPrefPane.m; sourceTree = "<group>"; };
-		7F4E4B4C0A3CDA7A0070336A /* QSMainMenuPrefPane.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSMainMenuPrefPane.nib; sourceTree = "<group>"; };
-		7F4E725409682F4200FBA4F7 /* QSSetupAssistant.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSSetupAssistant.nib; sourceTree = "<group>"; };
+		7F4E4B4C0A3CDA7A0070336A /* QSMainMenuPrefPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSMainMenuPrefPane.xib; sourceTree = "<group>"; };
+		7F4E725409682F4200FBA4F7 /* QSSetupAssistant.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSSetupAssistant.xib; sourceTree = "<group>"; };
 		7F5CFFC707FA76E700123A49 /* Quicksilver.sdef */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.sdef; path = Quicksilver.sdef; sourceTree = "<group>"; };
 		7F5D70CF091D9C76007A22C4 /* QSSplash.qtz */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = QSSplash.qtz; sourceTree = "<group>"; };
 		7F60F12607FA134600922645 /* QSMainPreferencePanes.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSMainPreferencePanes.h; sourceTree = "<group>"; };
@@ -1019,7 +1019,7 @@
 		7F73BC65084787A500D01BDB /* QSStyle.css */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = QSStyle.css; sourceTree = "<group>"; };
 		7F73BD44084794CB00D01BDB /* QSSimpleWebWindowController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSSimpleWebWindowController.h; sourceTree = "<group>"; };
 		7F73BD45084794CB00D01BDB /* QSSimpleWebWindowController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSSimpleWebWindowController.m; sourceTree = "<group>"; };
-		7F75744A07BC3B4400F6AD87 /* QSActionsPrefPane.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSActionsPrefPane.nib; sourceTree = "<group>"; };
+		7F75744A07BC3B4400F6AD87 /* QSActionsPrefPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSActionsPrefPane.xib; sourceTree = "<group>"; };
 		7F7AB61907F0761400ACBA8A /* QSCollectingSearchObjectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCollectingSearchObjectView.h; sourceTree = "<group>"; };
 		7F7AB61A07F0761400ACBA8A /* QSCollectingSearchObjectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCollectingSearchObjectView.m; sourceTree = "<group>"; };
 		7F8401D009690F00006E6F0E /* ClientDescription.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ClientDescription.plist; sourceTree = "<group>"; };
@@ -1139,7 +1139,7 @@
 		7FE2EDE309FECDA60046DBBF /* QSGlossyBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSGlossyBarView.m; sourceTree = "<group>"; };
 		7FE2EE8909FF0BD50046DBBF /* QSTitleToolbarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTitleToolbarItem.h; sourceTree = "<group>"; };
 		7FE2EE8A09FF0BD50046DBBF /* QSTitleToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSTitleToolbarItem.m; sourceTree = "<group>"; };
-		7FE8940D085D021B0016C421 /* QSProcessObjectSource.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSProcessObjectSource.nib; sourceTree = "<group>"; };
+		7FE8940D085D021B0016C421 /* QSProcessObjectSource.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSProcessObjectSource.xib; sourceTree = "<group>"; };
 		7FEA90BC07D9A7CC000D32C3 /* QSBasic.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSBasic.pch; sourceTree = "<group>"; };
 		7FEE6B2707D2A93100847B74 /* QSHelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHelp.h; sourceTree = "<group>"; };
 		7FEE6B2807D2A93100847B74 /* QSHelp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHelp.m; sourceTree = "<group>"; };
@@ -1176,19 +1176,19 @@
 		CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSMDPredicate.h; path = "Apps/Quicksilver/Code-QuickStepFoundation/QSMDPredicate.h"; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSMDPredicate.m; path = "Apps/Quicksilver/Code-QuickStepFoundation/QSMDPredicate.m"; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		E102347006BB6CC900143367 /* Find.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Find.icns; sourceTree = "<group>"; };
-		E102F97C06625D7300843027 /* About.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = About.nib; sourceTree = "<group>"; };
-		E102F97D06625D7300843027 /* QSCatalog.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSCatalog.nib; sourceTree = "<group>"; };
-		E102F97E06625D7300843027 /* CommandBuilder.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = CommandBuilder.nib; sourceTree = "<group>"; };
-		E102F98206625D7300843027 /* MainMenu.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = MainMenu.nib; sourceTree = "<group>"; };
-		E102F98806625D7300843027 /* QSDefaultsObjectSource.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSDefaultsObjectSource.nib; sourceTree = "<group>"; };
-		E102F98906625D7300843027 /* QSFileConflictPanel.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSFileConflictPanel.nib; sourceTree = "<group>"; };
-		E102F98A06625D7300843027 /* QSFileSystemObjectSource.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSFileSystemObjectSource.nib; sourceTree = "<group>"; };
-		E102F98B06625D7300843027 /* QSProcessObjectSource.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSProcessObjectSource.nib; sourceTree = "<group>"; };
-		E102F98C06625D7300843027 /* QuitConfirm.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QuitConfirm.nib; sourceTree = "<group>"; };
-		E102F98D06625D7300843027 /* ResultWindow.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = ResultWindow.nib; sourceTree = "<group>"; };
-		E102F99006625D7400843027 /* QSTaskEntry.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSTaskEntry.nib; sourceTree = "<group>"; };
-		E102F99106625D7400843027 /* QSTaskViewer.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSTaskViewer.nib; sourceTree = "<group>"; };
-		E102F99206625D7400843027 /* QSTriggersPrefPane.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSTriggersPrefPane.nib; sourceTree = "<group>"; };
+		E102F97C06625D7300843027 /* About.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = About.xib; sourceTree = "<group>"; };
+		E102F97D06625D7300843027 /* QSCatalog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSCatalog.xib; sourceTree = "<group>"; };
+		E102F97E06625D7300843027 /* CommandBuilder.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommandBuilder.xib; sourceTree = "<group>"; };
+		E102F98206625D7300843027 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		E102F98806625D7300843027 /* QSDefaultsObjectSource.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSDefaultsObjectSource.xib; sourceTree = "<group>"; };
+		E102F98906625D7300843027 /* QSFileConflictPanel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSFileConflictPanel.xib; sourceTree = "<group>"; };
+		E102F98A06625D7300843027 /* QSFileSystemObjectSource.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSFileSystemObjectSource.xib; sourceTree = "<group>"; };
+		E102F98B06625D7300843027 /* QSProcessObjectSource.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSProcessObjectSource.xib; sourceTree = "<group>"; };
+		E102F98C06625D7300843027 /* QuitConfirm.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuitConfirm.xib; sourceTree = "<group>"; };
+		E102F98D06625D7300843027 /* ResultWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultWindow.xib; sourceTree = "<group>"; };
+		E102F99006625D7400843027 /* QSTaskEntry.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSTaskEntry.xib; sourceTree = "<group>"; };
+		E102F99106625D7400843027 /* QSTaskViewer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSTaskViewer.xib; sourceTree = "<group>"; };
+		E102F99206625D7400843027 /* QSTriggersPrefPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSTriggersPrefPane.xib; sourceTree = "<group>"; };
 		E103EB8806471D5900447FE0 /* QSCore-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "QSCore-Info.plist"; sourceTree = "<group>"; };
 		E103EB8906471D5900447FE0 /* Quicksilver-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Quicksilver-Info.plist"; sourceTree = "<group>"; };
 		E103EC5106471DBE00447FE0 /* ActionsPrecedence.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = ActionsPrecedence.plist; sourceTree = "<group>"; };
@@ -1230,19 +1230,19 @@
 		E1087B41069BD5D300971A69 /* ContactPhone.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ContactPhone.icns; sourceTree = "<group>"; };
 		E1186AD506A6D6F700F3EA8E /* QSKindDescriptions.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = QSKindDescriptions.plist; sourceTree = "<group>"; };
 		E12444CB07297FF300043A01 /* CGSPrivate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CGSPrivate.h; sourceTree = "<group>"; };
-		E1264FAC072FE76C00206035 /* QSPreferences.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSPreferences.nib; sourceTree = "<group>"; };
+		E1264FAC072FE76C00206035 /* QSPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSPreferences.xib; sourceTree = "<group>"; };
 		E129F348071DD65A001E1D5A /* License.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = License.rtf; sourceTree = "<group>"; };
 		E131F4EF07B43BF400D0E4AC /* QSDockingWindow.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSDockingWindow.h; sourceTree = "<group>"; };
 		E131F4F007B43BF400D0E4AC /* QSDockingWindow.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSDockingWindow.m; sourceTree = "<group>"; };
 		E131FA4B07B44C0900D0E4AC /* QSEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSEffects.h; sourceTree = "<group>"; };
 		E133F1FB06ADCDF800D27A4E /* ExceptionHandling.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExceptionHandling.framework; path = /System/Library/Frameworks/ExceptionHandling.framework; sourceTree = "<absolute>"; };
 		E1388481073AAE8A0080A9E1 /* Triggers.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Triggers.icns; sourceTree = "<group>"; };
-		E14B868E0738158D003C1AED /* QSAppearancePrefPane.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSAppearancePrefPane.nib; sourceTree = "<group>"; };
-		E14B868F0738158D003C1AED /* QSAdvancedPrefPane.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSAdvancedPrefPane.nib; sourceTree = "<group>"; };
-		E14B86900738158D003C1AED /* QSApplicationPrefPane.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSApplicationPrefPane.nib; sourceTree = "<group>"; };
-		E14B86910738158D003C1AED /* QSSearchPrefPane.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSSearchPrefPane.nib; sourceTree = "<group>"; };
+		E14B868E0738158D003C1AED /* QSAppearancePrefPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSAppearancePrefPane.xib; sourceTree = "<group>"; };
+		E14B868F0738158D003C1AED /* QSAdvancedPrefPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSAdvancedPrefPane.xib; sourceTree = "<group>"; };
+		E14B86900738158D003C1AED /* QSApplicationPrefPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSApplicationPrefPane.xib; sourceTree = "<group>"; };
+		E14B86910738158D003C1AED /* QSSearchPrefPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSSearchPrefPane.xib; sourceTree = "<group>"; };
 		E16774A706A2D4C600D8F4F0 /* PrefPaneTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PrefPaneTemplate.png; sourceTree = "<group>"; };
-		E1737B8A06AF48520082F948 /* QSPlugInsPrefPane.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSPlugInsPrefPane.nib; sourceTree = "<group>"; };
+		E1737B8A06AF48520082F948 /* QSPlugInsPrefPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSPlugInsPrefPane.xib; sourceTree = "<group>"; };
 		E177C419067D09F700182A11 /* ScriptIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScriptIcon.png; sourceTree = "<group>"; };
 		E1790F6F067AE13700E763E4 /* QSPkg.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = QSPkg.icns; sourceTree = "<group>"; };
 		E18000F307B2B48800010DB0 /* QSActionProvider_EmbeddedProviders.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSActionProvider_EmbeddedProviders.h; sourceTree = "<group>"; };
@@ -1505,7 +1505,7 @@
 		E1E5FC7207B20E4D0044D6EF /* QSResultWindow.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSResultWindow.m; sourceTree = "<group>"; };
 		E1E5FC7307B20E4D0044D6EF /* QSSearchObjectView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSSearchObjectView.h; sourceTree = "<group>"; };
 		E1E5FC7407B20E4D0044D6EF /* QSSearchObjectView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSSearchObjectView.m; sourceTree = "<group>"; };
-		E1EF4203070FDF7700D6DA03 /* QSHelpersPrefPane.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSHelpersPrefPane.nib; sourceTree = "<group>"; };
+		E1EF4203070FDF7700D6DA03 /* QSHelpersPrefPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSHelpersPrefPane.xib; sourceTree = "<group>"; };
 		E1F1D63406BD97B2004E3DC3 /* NDAlias+AliasFile.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NDAlias+AliasFile.h"; sourceTree = "<group>"; };
 		E1F1D63506BD97B2004E3DC3 /* NDAlias+AliasFile.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NDAlias+AliasFile.m"; sourceTree = "<group>"; };
 		E1F1D63606BD97B2004E3DC3 /* NDAlias.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NDAlias.h; sourceTree = "<group>"; };
@@ -1835,31 +1835,31 @@
 		E102F97B06625D7300843027 /* Nibs */ = {
 			isa = PBXGroup;
 			children = (
-				7F4E4B4C0A3CDA7A0070336A /* QSMainMenuPrefPane.nib */,
-				7F4E725409682F4200FBA4F7 /* QSSetupAssistant.nib */,
-				7FE8940D085D021B0016C421 /* QSProcessObjectSource.nib */,
-				E14B868E0738158D003C1AED /* QSAppearancePrefPane.nib */,
-				E14B868F0738158D003C1AED /* QSAdvancedPrefPane.nib */,
-				E14B86900738158D003C1AED /* QSApplicationPrefPane.nib */,
-				E14B86910738158D003C1AED /* QSSearchPrefPane.nib */,
-				E1EF4203070FDF7700D6DA03 /* QSHelpersPrefPane.nib */,
-				E1737B8A06AF48520082F948 /* QSPlugInsPrefPane.nib */,
-				E102F97C06625D7300843027 /* About.nib */,
-				E102F97D06625D7300843027 /* QSCatalog.nib */,
-				E102F97E06625D7300843027 /* CommandBuilder.nib */,
-				E102F98206625D7300843027 /* MainMenu.nib */,
-				E1264FAC072FE76C00206035 /* QSPreferences.nib */,
-				E102F98806625D7300843027 /* QSDefaultsObjectSource.nib */,
-				E102F98906625D7300843027 /* QSFileConflictPanel.nib */,
-				E102F98A06625D7300843027 /* QSFileSystemObjectSource.nib */,
-				E102F98B06625D7300843027 /* QSProcessObjectSource.nib */,
-				E102F98C06625D7300843027 /* QuitConfirm.nib */,
-				E102F98D06625D7300843027 /* ResultWindow.nib */,
-				E102F99006625D7400843027 /* QSTaskEntry.nib */,
-				E102F99106625D7400843027 /* QSTaskViewer.nib */,
-				E102F99206625D7400843027 /* QSTriggersPrefPane.nib */,
-				7F75744A07BC3B4400F6AD87 /* QSActionsPrefPane.nib */,
-				7F15A5F908F996D70058D25E /* QSSimpleNotifier.nib */,
+				7F4E4B4C0A3CDA7A0070336A /* QSMainMenuPrefPane.xib */,
+				7F4E725409682F4200FBA4F7 /* QSSetupAssistant.xib */,
+				7FE8940D085D021B0016C421 /* QSProcessObjectSource.xib */,
+				E14B868E0738158D003C1AED /* QSAppearancePrefPane.xib */,
+				E14B868F0738158D003C1AED /* QSAdvancedPrefPane.xib */,
+				E14B86900738158D003C1AED /* QSApplicationPrefPane.xib */,
+				E14B86910738158D003C1AED /* QSSearchPrefPane.xib */,
+				E1EF4203070FDF7700D6DA03 /* QSHelpersPrefPane.xib */,
+				E1737B8A06AF48520082F948 /* QSPlugInsPrefPane.xib */,
+				E102F97C06625D7300843027 /* About.xib */,
+				E102F97D06625D7300843027 /* QSCatalog.xib */,
+				E102F97E06625D7300843027 /* CommandBuilder.xib */,
+				E102F98206625D7300843027 /* MainMenu.xib */,
+				E1264FAC072FE76C00206035 /* QSPreferences.xib */,
+				E102F98806625D7300843027 /* QSDefaultsObjectSource.xib */,
+				E102F98906625D7300843027 /* QSFileConflictPanel.xib */,
+				E102F98A06625D7300843027 /* QSFileSystemObjectSource.xib */,
+				E102F98B06625D7300843027 /* QSProcessObjectSource.xib */,
+				E102F98C06625D7300843027 /* QuitConfirm.xib */,
+				E102F98D06625D7300843027 /* ResultWindow.xib */,
+				E102F99006625D7400843027 /* QSTaskEntry.xib */,
+				E102F99106625D7400843027 /* QSTaskViewer.xib */,
+				E102F99206625D7400843027 /* QSTriggersPrefPane.xib */,
+				7F75744A07BC3B4400F6AD87 /* QSActionsPrefPane.xib */,
+				7F15A5F908F996D70058D25E /* QSSimpleNotifier.xib */,
 			);
 			path = Nibs;
 			sourceTree = "<group>";
@@ -3028,97 +3028,97 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1A2B21406F954F80084C47B /* wildcard.* in Resources */,
 				7F9704EB09B0A15F00E9EA77 /* QSDroplet.app in Resources */,
-				E1CF688B06F2897900C848F3 /* Recent.icns in Resources */,
-				E103ECF606471DBF00447FE0 /* DefaultMnemonics.plist in Resources */,
-				E103ED1A06471DBF00447FE0 /* FileTypeGroups.plist in Resources */,
-				E103ED2106471DBF00447FE0 /* ChildArrow.png in Resources */,
-				E103ED2506471DBF00447FE0 /* defaultAction.icns in Resources */,
-				E103ED2606471DBF00447FE0 /* DefaultBookmarkIcon.icns in Resources */,
-				E103ED2806471DBF00447FE0 /* DocPrefs.png in Resources */,
-				E103ED2A06471DBF00447FE0 /* Dot.png in Resources */,
-				E103ED3206471DBF00447FE0 /* KeyboardTrigger.png in Resources */,
-				E103ED3306471DBF00447FE0 /* MouseTrigger.png in Resources */,
+				7F73BC66084787A500D01BDB /* QSStyle.css in Resources */,
+				7F8403BE096A05E4006E6F0E /* GettingStarted.html in Resources */,
+				7F841767096CB23B006E6F0E /* GettingSupport.html in Resources */,
 				E103ED3606471DBF00447FE0 /* Catalog.icns in Resources */,
-				E103ED3706471DBF00447FE0 /* prefsClipboard.png in Resources */,
-				E103ED3806471DBF00447FE0 /* PresetIcon.png in Resources */,
-				E103ED3906471DBF00447FE0 /* QSIconActivatedBadge.png in Resources */,
-				E103ED3A06471DBF00447FE0 /* QSIconRunningBadge.png in Resources */,
-				E103ED3C06471DBF00447FE0 /* QSLigature.png in Resources */,
-				E103ED3E06471DBF00447FE0 /* Quicksilver.icns in Resources */,
-				E103ED3F06471DBF00447FE0 /* QuicksilverMenu.png in Resources */,
-				E103ED4206471DBF00447FE0 /* QuicksilverMenuPressed.png in Resources */,
-				E103ED4706471DBF00447FE0 /* ResizeWidget.png in Resources */,
-				E103ED5D06471DBF00447FE0 /* ResourceLocations.plist in Resources */,
-				E103F5110647238E00447FE0 /* ActionsPrecedence.plist in Resources */,
-				E18986C00657DDCE001286AA /* QSPlugIn.icns in Resources */,
-				E102F9BD06625D7400843027 /* About.nib in Resources */,
-				E102F9BE06625D7400843027 /* QSCatalog.nib in Resources */,
-				E102F9BF06625D7400843027 /* CommandBuilder.nib in Resources */,
-				E102F9C306625D7400843027 /* MainMenu.nib in Resources */,
-				E102F9C906625D7400843027 /* QSDefaultsObjectSource.nib in Resources */,
-				E102F9CA06625D7400843027 /* QSFileConflictPanel.nib in Resources */,
-				E102F9CB06625D7400843027 /* QSFileSystemObjectSource.nib in Resources */,
-				E102F9CD06625D7400843027 /* QuitConfirm.nib in Resources */,
-				E102F9CE06625D7400843027 /* ResultWindow.nib in Resources */,
-				E102F9D106625D7400843027 /* QSTaskEntry.nib in Resources */,
-				E102F9D306625D7400843027 /* QSTriggersPrefPane.nib in Resources */,
-				E177C41A067D09F700182A11 /* ScriptIcon.png in Resources */,
+				E1C9DFB5070A37F1001BB625 /* CatalogGroup.icns in Resources */,
 				E1087B42069BD5D300971A69 /* ContactAddress.icns in Resources */,
 				E1087B43069BD5D300971A69 /* ContactEmail.icns in Resources */,
 				E1087B44069BD5D300971A69 /* ContactPhone.icns in Resources */,
-				E16774A806A2D4C600D8F4F0 /* PrefPaneTemplate.png in Resources */,
-				E188856706A4884F00B75D22 /* System Events.scpt in Resources */,
-				E1186AD606A6D6F700F3EA8E /* QSKindDescriptions.plist in Resources */,
-				E1737B8B06AF48520082F948 /* QSPlugInsPrefPane.nib in Resources */,
-				E1C4FC5306B98A9300FA8819 /* Object.png in Resources */,
+				E103ED2506471DBF00447FE0 /* defaultAction.icns in Resources */,
+				E103ED2606471DBF00447FE0 /* DefaultBookmarkIcon.icns in Resources */,
 				E102347106BB6CC900143367 /* Find.icns in Resources */,
-				E1B2890306E3DAFA00CACB9E /* AppearanceText.png in Resources */,
-				E1B2890406E3DAFA00CACB9E /* AppearanceSelection.png in Resources */,
-				E1B2890506E3DAFA00CACB9E /* AppearanceBack.png in Resources */,
-				E1A2B21406F954F80084C47B /* wildcard.* in Resources */,
-				E1C9DFB5070A37F1001BB625 /* CatalogGroup.icns in Resources */,
-				E1EF4204070FDF7700D6DA03 /* QSHelpersPrefPane.nib in Resources */,
-				E1D1F5BE07197D6B00F48DE5 /* QuicksilverMenuLight.png in Resources */,
-				E129F349071DD65A001E1D5A /* License.rtf in Resources */,
-				E18F8D2A072DBB1C00057774 /* PlugInVersionRequirements.plist in Resources */,
-				E1264FAD072FE76C00206035 /* QSPreferences.nib in Resources */,
-				E14B86920738158D003C1AED /* QSAppearancePrefPane.nib in Resources */,
-				E14B86930738158D003C1AED /* QSAdvancedPrefPane.nib in Resources */,
-				E14B86940738158D003C1AED /* QSApplicationPrefPane.nib in Resources */,
-				E14B86950738158D003C1AED /* QSSearchPrefPane.nib in Resources */,
+				E18986C00657DDCE001286AA /* QSPlugIn.icns in Resources */,
+				E103ED3E06471DBF00447FE0 /* Quicksilver.icns in Resources */,
+				E1CF688B06F2897900C848F3 /* Recent.icns in Resources */,
 				E1388482073AAE8A0080A9E1 /* Triggers.icns in Resources */,
-				7F75744B07BC3B4400F6AD87 /* QSActionsPrefPane.nib in Resources */,
-				7FF63D5207CC01E000A5EE4A /* QSTaskViewer.nib in Resources */,
-				7FC20B5307FB589A00FDD3CA /* Quicksilver.scriptTerminology in Resources */,
-				7FC20B5407FB589B00FDD3CA /* Quicksilver.scriptSuite in Resources */,
-				7FC20B5507FB589B00FDD3CA /* QuicksilverHandlers.scriptSuite in Resources */,
-				7FC20B5607FB589C00FDD3CA /* QuicksilverHandlers.scriptTerminology in Resources */,
-				7F73BC66084787A500D01BDB /* QSStyle.css in Resources */,
-				7FE8940E085D021C0016C421 /* QSProcessObjectSource.nib in Resources */,
-				7F15A5FA08F996D70058D25E /* QSSimpleNotifier.nib in Resources */,
-				7F5D70D0091D9C76007A22C4 /* QSSplash.qtz in Resources */,
-				7F4E725909682F4200FBA4F7 /* QSSetupAssistant.nib in Resources */,
+				E103F5110647238E00447FE0 /* ActionsPrecedence.plist in Resources */,
 				7F8401D109690F00006E6F0E /* ClientDescription.plist in Resources */,
-				7F8403BE096A05E4006E6F0E /* GettingStarted.html in Resources */,
-				7F841767096CB23B006E6F0E /* GettingSupport.html in Resources */,
+				E103ECF606471DBF00447FE0 /* DefaultMnemonics.plist in Resources */,
+				7FDBC51F0A02DB0700E496FF /* DefaultsMap.plist in Resources */,
+				E103ED1A06471DBF00447FE0 /* FileTypeGroups.plist in Resources */,
+				E18F8D2A072DBB1C00057774 /* PlugInVersionRequirements.plist in Resources */,
+				E1186AD606A6D6F700F3EA8E /* QSKindDescriptions.plist in Resources */,
+				E103ED5D06471DBF00447FE0 /* ResourceLocations.plist in Resources */,
+				92DC402D0E25A0C40091BD92 /* Action.png in Resources */,
+				92DC402C0E25A0C40091BD92 /* Action_p.png in Resources */,
+				E1B2890506E3DAFA00CACB9E /* AppearanceBack.png in Resources */,
+				E1B2890406E3DAFA00CACB9E /* AppearanceSelection.png in Resources */,
+				E1B2890306E3DAFA00CACB9E /* AppearanceText.png in Resources */,
+				7F4ADB600A4EB766002A2A1B /* BackArrow.png in Resources */,
+				7FDBC3160A0153CA00E496FF /* Button-Add.png in Resources */,
+				7FDBC3150A0153CA00E496FF /* Button-AddMenu.png in Resources */,
+				7FDBC3140A0153CA00E496FF /* Button-GearMenu.png in Resources */,
 				7FDBC3120A0153CA00E496FF /* Button-Info.png in Resources */,
 				7FDBC3130A0153CA00E496FF /* Button-Remove.png in Resources */,
-				7FDBC3140A0153CA00E496FF /* Button-GearMenu.png in Resources */,
-				7FDBC3150A0153CA00E496FF /* Button-AddMenu.png in Resources */,
-				7FDBC3160A0153CA00E496FF /* Button-Add.png in Resources */,
-				7FDBC51F0A02DB0700E496FF /* DefaultsMap.plist in Resources */,
 				7FC6AD770A0996E200D5B2C3 /* Button-Rescan.png in Resources */,
-				7F4E4B4D0A3CDA7A0070336A /* QSMainMenuPrefPane.nib in Resources */,
+				E103ED2106471DBF00447FE0 /* ChildArrow.png in Resources */,
+				E103ED2806471DBF00447FE0 /* DocPrefs.png in Resources */,
+				E103ED2A06471DBF00447FE0 /* Dot.png in Resources */,
+				7F4ADB610A4EB766002A2A1B /* ForwardArrow.png in Resources */,
+				E103ED3206471DBF00447FE0 /* KeyboardTrigger.png in Resources */,
+				E103ED3306471DBF00447FE0 /* MouseTrigger.png in Resources */,
+				E1C4FC5306B98A9300FA8819 /* Object.png in Resources */,
 				7F4ADAFE0A4DDA33002A2A1B /* Pref-Catalog.png in Resources */,
 				7F4ADAFF0A4DDA33002A2A1B /* Pref-PlugIns.png in Resources */,
 				7F4ADB000A4DDA33002A2A1B /* Pref-Settings.png in Resources */,
 				7F4ADB010A4DDA33002A2A1B /* Pref-Triggers.png in Resources */,
-				7F4ADB600A4EB766002A2A1B /* BackArrow.png in Resources */,
-				7F4ADB610A4EB766002A2A1B /* ForwardArrow.png in Resources */,
+				E16774A806A2D4C600D8F4F0 /* PrefPaneTemplate.png in Resources */,
+				E103ED3706471DBF00447FE0 /* prefsClipboard.png in Resources */,
 				7F46BFDD0A87F37F002D31E8 /* prefsGeneral.png in Resources */,
-				92DC402C0E25A0C40091BD92 /* Action_p.png in Resources */,
-				92DC402D0E25A0C40091BD92 /* Action.png in Resources */,
+				E103ED3806471DBF00447FE0 /* PresetIcon.png in Resources */,
+				E103ED3906471DBF00447FE0 /* QSIconActivatedBadge.png in Resources */,
+				E103ED3A06471DBF00447FE0 /* QSIconRunningBadge.png in Resources */,
+				E103ED3C06471DBF00447FE0 /* QSLigature.png in Resources */,
+				E103ED3F06471DBF00447FE0 /* QuicksilverMenu.png in Resources */,
+				E1D1F5BE07197D6B00F48DE5 /* QuicksilverMenuLight.png in Resources */,
+				E103ED4206471DBF00447FE0 /* QuicksilverMenuPressed.png in Resources */,
+				E103ED4706471DBF00447FE0 /* ResizeWidget.png in Resources */,
+				E177C41A067D09F700182A11 /* ScriptIcon.png in Resources */,
+				7F5D70D0091D9C76007A22C4 /* QSSplash.qtz in Resources */,
+				E129F349071DD65A001E1D5A /* License.rtf in Resources */,
+				7FC20B5407FB589B00FDD3CA /* Quicksilver.scriptSuite in Resources */,
+				7FC20B5507FB589B00FDD3CA /* QuicksilverHandlers.scriptSuite in Resources */,
+				7FC20B5307FB589A00FDD3CA /* Quicksilver.scriptTerminology in Resources */,
+				7FC20B5607FB589C00FDD3CA /* QuicksilverHandlers.scriptTerminology in Resources */,
+				E102F9BD06625D7400843027 /* About.xib in Resources */,
+				E102F9BF06625D7400843027 /* CommandBuilder.xib in Resources */,
+				E102F9C306625D7400843027 /* MainMenu.xib in Resources */,
+				7F75744B07BC3B4400F6AD87 /* QSActionsPrefPane.xib in Resources */,
+				E14B86930738158D003C1AED /* QSAdvancedPrefPane.xib in Resources */,
+				E14B86920738158D003C1AED /* QSAppearancePrefPane.xib in Resources */,
+				E14B86940738158D003C1AED /* QSApplicationPrefPane.xib in Resources */,
+				E102F9BE06625D7400843027 /* QSCatalog.xib in Resources */,
+				E102F9C906625D7400843027 /* QSDefaultsObjectSource.xib in Resources */,
+				E102F9CA06625D7400843027 /* QSFileConflictPanel.xib in Resources */,
+				E102F9CB06625D7400843027 /* QSFileSystemObjectSource.xib in Resources */,
+				E1EF4204070FDF7700D6DA03 /* QSHelpersPrefPane.xib in Resources */,
+				7F4E4B4D0A3CDA7A0070336A /* QSMainMenuPrefPane.xib in Resources */,
+				E1737B8B06AF48520082F948 /* QSPlugInsPrefPane.xib in Resources */,
+				E1264FAD072FE76C00206035 /* QSPreferences.xib in Resources */,
+				7FE8940E085D021C0016C421 /* QSProcessObjectSource.xib in Resources */,
+				E14B86950738158D003C1AED /* QSSearchPrefPane.xib in Resources */,
+				7F4E725909682F4200FBA4F7 /* QSSetupAssistant.xib in Resources */,
+				7F15A5FA08F996D70058D25E /* QSSimpleNotifier.xib in Resources */,
+				E102F9D106625D7400843027 /* QSTaskEntry.xib in Resources */,
+				7FF63D5207CC01E000A5EE4A /* QSTaskViewer.xib in Resources */,
+				E102F9D306625D7400843027 /* QSTriggersPrefPane.xib in Resources */,
+				E102F9CD06625D7400843027 /* QuitConfirm.xib in Resources */,
+				E102F9CE06625D7400843027 /* ResultWindow.xib in Resources */,
+				E188856706A4884F00B75D22 /* System Events.scpt in Resources */,
 				6535A91A1086EF4D009D5C90 /* Localizable.strings in Resources */,
 				6535A98C1086F627009D5C90 /* Catalog.strings in Resources */,
 				6535A98E1086F627009D5C90 /* Preferences.strings in Resources */,
@@ -3130,7 +3130,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7FB77ADE09777BCF00E62ABE /* QSProcessObjectSource.nib in Resources */,
+				7FB77ADE09777BCF00E62ABE /* QSProcessObjectSource.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
