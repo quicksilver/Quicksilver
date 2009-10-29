@@ -1,13 +1,13 @@
 #import <Foundation/Foundation.h>
 
-#define QSPlugInLoadedNotification @"QSPlugInLoaded"
+#define QSPlugInLoadedNotification    @"QSPlugInLoaded"
 #define QSPlugInInstalledNotification @"QSPlugInInstalled"
 
-#define kQSActionProviders @"QSActionProviders"
-#define kQSFSParsers @"QSFSParsers"
-#define kQSObjectSources @"QSObjectSources"
-#define kQSObjectHandlers @"QSObjectHandlers"
-#define kQSPreferencePanes @"QSPreferencePanes"
+#define kQSActionProviders     @"QSActionProviders"
+#define kQSFSParsers           @"QSFSParsers"
+#define kQSObjectSources       @"QSObjectSources"
+#define kQSObjectHandlers      @"QSObjectHandlers"
+#define kQSPreferencePanes     @"QSPreferencePanes"
 #define pRegistryStoreLocation QSApplicationSupportSubPath(@"Registry.plist", NO);
 
 @class QSRegistry;

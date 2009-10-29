@@ -34,35 +34,35 @@ extern NSSize QSMaxIconSize;
 #define itemForKey(k) [data objectForKey:k]
 
 // meta dictionary keys
-#define kQSObjectPrimaryName @"QSObjectName"
-#define kQSObjectAlternateName @"QSObjectLabel"
-#define kQSObjectPrimaryType @"QSObjectType"
-#define kQSObjectSource @"QSObjectSource"
-#define kQSObjectIconName @"QSObjectIconName"
-#define kQSObjectBundle @"QSObjectBundle"
+#define kQSObjectPrimaryName      @"QSObjectName"
+#define kQSObjectAlternateName    @"QSObjectLabel"
+#define kQSObjectPrimaryType      @"QSObjectType"
+#define kQSObjectSource           @"QSObjectSource"
+#define kQSObjectIconName         @"QSObjectIconName"
+#define kQSObjectBundle           @"QSObjectBundle"
 
-#define kQSObjectDefaultAction @"QSObjectDefaultAction"
+#define kQSObjectDefaultAction    @"QSObjectDefaultAction"
 
-#define kQSObjectObjectID @"QSObjectObjectID"
-#define kQSObjectParentID @"QSObjectParentID"
-#define kQSObjectDetails @"QSObjectDetails"
-#define kQSObjectKind @"QSObjectKind"
-#define kQSObjectSource @"QSObjectSource"
-#define kQSObjectCreationDate @"QSObjectCreationDate"
-#define kQSStringEncoding @"QSStringEncoding"
-//#define METAKEYS [NSArray arrayWithObjects:
+#define kQSObjectObjectID         @"QSObjectObjectID"
+#define kQSObjectParentID         @"QSObjectParentID"
+#define kQSObjectDetails          @"QSObjectDetails"
+#define kQSObjectKind             @"QSObjectKind"
+#define kQSObjectSource           @"QSObjectSource"
+#define kQSObjectCreationDate     @"QSObjectCreationDate"
+#define kQSStringEncoding         @"QSStringEncoding"
+// #define METAKEYS [NSArray arrayWithObjects:
 
-#define kMeta @"properties"
-#define kData @"data"
+#define kMeta                     @"properties"
+#define kData                     @"data"
 
 
 // cache dictionary keys
-#define kQSObjectIcon @"QSObjectIcon"
-#define kQSObjectChildren @"QSObjectChildren"
-#define kQSObjectAltChildren @"QSObjectAltChildren"
+#define kQSObjectIcon             @"QSObjectIcon"
+#define kQSObjectChildren         @"QSObjectChildren"
+#define kQSObjectAltChildren      @"QSObjectAltChildren"
 #define kQSObjectChildrenLoadDate @"QSObjectChildrenLoadDate"
-#define kQSContents @"QSObjectContents"
-#define kQSObjectComponents @"QSObjectComponents"
+#define kQSContents               @"QSObjectContents"
+#define kQSObjectComponents       @"QSObjectComponents"
 
 typedef struct _QSObjectFlags {
 	unsigned int		multiTyped:1;
