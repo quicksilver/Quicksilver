@@ -10,7 +10,7 @@
 
 @implementation NSString (Purification)
 - (NSString *)purifiedString {
-	NSMutableString *string = [[self decomposedStringWithCanonicalMapping] mutableCopy];
+	NSMutableString *string = [[self precomposedStringWithCanonicalMapping] mutableCopy];
 	NSRange range;
 	NSCharacterSet *set = [NSCharacterSet nonBaseCharacterSet];
 	range = NSMakeRange([string length], 0);
