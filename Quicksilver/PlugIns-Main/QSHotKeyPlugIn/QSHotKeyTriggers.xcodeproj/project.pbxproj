@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7FEF24BB07D53BCB005BC984 /* QSHotKeyTrigger.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7FEF24BA07D53BCB005BC984 /* QSHotKeyTrigger.nib */; };
+		7FEF24BB07D53BCB005BC984 /* QSHotKeyTrigger.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FEF24BA07D53BCB005BC984 /* QSHotKeyTrigger.xib */; };
 		7FEF24C107D53BD7005BC984 /* QSHotKeyTriggerManager.h in Resources */ = {isa = PBXBuildFile; fileRef = 7FEF24BF07D53BD7005BC984 /* QSHotKeyTriggerManager.h */; };
 		7FEF24C207D53BD7005BC984 /* QSHotKeyTriggerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FEF24C007D53BD7005BC984 /* QSHotKeyTriggerManager.m */; };
 /* End PBXBuildFile section */
@@ -21,7 +21,7 @@
 		4DF0625A0E0BB87B0000EB16 /* QSPlugIn.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn.xcconfig; sourceTree = "<group>"; };
 		4DF0625B0E0BB87B0000EB16 /* QSPlugIn_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPlugIn_Prefix.pch; sourceTree = "<group>"; };
 		4DF0625C0E0BB87B0000EB16 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
-		7FEF24BA07D53BCB005BC984 /* QSHotKeyTrigger.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSHotKeyTrigger.nib; sourceTree = "<group>"; };
+		7FEF24BA07D53BCB005BC984 /* QSHotKeyTrigger.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSHotKeyTrigger.xib; sourceTree = "<group>"; };
 		7FEF24BF07D53BD7005BC984 /* QSHotKeyTriggerManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSHotKeyTriggerManager.h; sourceTree = "<group>"; };
 		7FEF24C007D53BD7005BC984 /* QSHotKeyTriggerManager.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSHotKeyTriggerManager.m; sourceTree = "<group>"; };
 		8D1AC9730486D14A00FE50C9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -55,7 +55,7 @@
 		0259C582FE90428111CA0C5A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				7FEF24BA07D53BCB005BC984 /* QSHotKeyTrigger.nib */,
+				7FEF24BA07D53BCB005BC984 /* QSHotKeyTrigger.xib */,
 				8D1AC9730486D14A00FE50C9 /* Info.plist */,
 			);
 			name = Resources;
@@ -152,7 +152,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7FEF24BB07D53BCB005BC984 /* QSHotKeyTrigger.nib in Resources */,
+				7FEF24BB07D53BCB005BC984 /* QSHotKeyTrigger.xib in Resources */,
 				7FEF24C107D53BD7005BC984 /* QSHotKeyTriggerManager.h in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

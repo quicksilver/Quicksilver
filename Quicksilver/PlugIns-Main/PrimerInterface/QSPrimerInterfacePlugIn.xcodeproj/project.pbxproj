@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		E18CEAD1077C7BA9002B030A /* QSPrimerInterfaceController.h in Resources */ = {isa = PBXBuildFile; fileRef = E18CEACE077C7BA9002B030A /* QSPrimerInterfaceController.h */; };
 		E18CEAD2077C7BA9002B030A /* QSPrimerInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = E18CEACF077C7BA9002B030A /* QSPrimerInterfaceController.m */; };
-		E18CEAF9077C7E03002B030A /* Primer.nib in Resources */ = {isa = PBXBuildFile; fileRef = E18CEAF8077C7E03002B030A /* Primer.nib */; };
+		E18CEAF9077C7E03002B030A /* Primer.xib in Resources */ = {isa = PBXBuildFile; fileRef = E18CEAF8077C7E03002B030A /* Primer.xib */; };
 		E19BDB4F071E3011009BCC54 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E19BDB4D071E3011009BCC54 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
@@ -26,7 +26,7 @@
 		8D1AC9740486D14A00FE50C9 /* Primer Interface.qsplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Primer Interface.qsplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E18CEACE077C7BA9002B030A /* QSPrimerInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSPrimerInterfaceController.h; sourceTree = "<group>"; };
 		E18CEACF077C7BA9002B030A /* QSPrimerInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSPrimerInterfaceController.m; sourceTree = "<group>"; };
-		E18CEAF8077C7E03002B030A /* Primer.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = Primer.nib; sourceTree = "<group>"; };
+		E18CEAF8077C7E03002B030A /* Primer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Primer.xib; sourceTree = "<group>"; };
 		E19BDB4E071E3011009BCC54 /* en */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -58,7 +58,7 @@
 			isa = PBXGroup;
 			children = (
 				E19BDB4D071E3011009BCC54 /* Localizable.strings */,
-				E18CEAF8077C7E03002B030A /* Primer.nib */,
+				E18CEAF8077C7E03002B030A /* Primer.xib */,
 				8D1AC9730486D14A00FE50C9 /* Info.plist */,
 			);
 			name = Resources;
@@ -164,7 +164,7 @@
 			files = (
 				E19BDB4F071E3011009BCC54 /* Localizable.strings in Resources */,
 				E18CEAD1077C7BA9002B030A /* QSPrimerInterfaceController.h in Resources */,
-				E18CEAF9077C7E03002B030A /* Primer.nib in Resources */,
+				E18CEAF9077C7E03002B030A /* Primer.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,7 +10,7 @@
 		8D1AC9700486D14A00FE50C9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD92D38A0106425D02CA0E72 /* Cocoa.framework */; };
 		E131FA0B07B4493B00D0E4AC /* QSBezelInterfaceController.h in Resources */ = {isa = PBXBuildFile; fileRef = E131FA0907B4493B00D0E4AC /* QSBezelInterfaceController.h */; };
 		E131FA0C07B4493B00D0E4AC /* QSBezelInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = E131FA0A07B4493B00D0E4AC /* QSBezelInterfaceController.m */; };
-		E190B39207B470E70027D8A0 /* QSBezelInterface.nib in Resources */ = {isa = PBXBuildFile; fileRef = E190B39107B470E70027D8A0 /* QSBezelInterface.nib */; };
+		E190B39207B470E70027D8A0 /* QSBezelInterface.xib in Resources */ = {isa = PBXBuildFile; fileRef = E190B39107B470E70027D8A0 /* QSBezelInterface.xib */; };
 		E190B39D07B470F80027D8A0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E190B39B07B470F70027D8A0 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
@@ -28,7 +28,7 @@
 		DD92D38A0106425D02CA0E72 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		E131FA0907B4493B00D0E4AC /* QSBezelInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSBezelInterfaceController.h; sourceTree = "<group>"; };
 		E131FA0A07B4493B00D0E4AC /* QSBezelInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSBezelInterfaceController.m; sourceTree = "<group>"; };
-		E190B39107B470E70027D8A0 /* QSBezelInterface.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSBezelInterface.nib; sourceTree = "<group>"; };
+		E190B39107B470E70027D8A0 /* QSBezelInterface.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSBezelInterface.xib; sourceTree = "<group>"; };
 		E190B39C07B470F80027D8A0 /* en */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -60,7 +60,7 @@
 		0259C582FE90428111CA0C5A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				E190B39107B470E70027D8A0 /* QSBezelInterface.nib */,
+				E190B39107B470E70027D8A0 /* QSBezelInterface.xib */,
 				E190B39B07B470F70027D8A0 /* Localizable.strings */,
 				8D1AC9730486D14A00FE50C9 /* Info.plist */,
 			);
@@ -167,7 +167,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E131FA0B07B4493B00D0E4AC /* QSBezelInterfaceController.h in Resources */,
-				E190B39207B470E70027D8A0 /* QSBezelInterface.nib in Resources */,
+				E190B39207B470E70027D8A0 /* QSBezelInterface.xib in Resources */,
 				E190B39D07B470F80027D8A0 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
