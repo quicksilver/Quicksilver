@@ -442,8 +442,8 @@
 
 - (NSMutableArray *)allBundles {
 
-	NSEnumerator *searchPathEnum;
-	NSString *currPath;
+	NSEnumerator *searchPathEnum = nil;
+	NSString *currPath = nil;
 	NSMutableSet *bundleSearchPaths = [NSMutableSet set];
 	NSMutableArray *allBundles = [NSMutableArray array];
 	//[allBundles addObject:[[NSBundle mainBundle] bundlePath]];
