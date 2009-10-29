@@ -86,22 +86,22 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)dealloc {
 	[self unbind:@"highlightColor"];
-	[bindingsDict release];
-	[partialString release];
-	[matchedString release];
-	[visibleString release];
-	[resetTimer release];
-	[searchTimer release];
-	[resultTimer release];
-	[selectedObject release];
-	[currentEditor release];
-	[historyArray release];
-	[parentStack release];
-	[childStack release];
-	[resultController release];
-	[searchArray release];
-	[sourceArray release];
-	[resultArray release];
+	[bindingsDict release], bindingsDict = nil;
+	[partialString release], partialString = nil;
+	[matchedString release], matchedString = nil;
+	[visibleString release], visibleString = nil;
+	[resetTimer release], resetTimer = nil;
+	[searchTimer release], searchTimer = nil;
+	[resultTimer release], resultTimer = nil;
+	[selectedObject release], selectedObject = nil;
+	[currentEditor release], currentEditor = nil;
+	[historyArray release], historyArray = nil;
+	[parentStack release], parentStack = nil;
+	[childStack release], childStack = nil;
+	[resultController release], resultController = nil;
+	[searchArray release], searchArray = nil;
+	[sourceArray release], sourceArray = nil;
+	[resultArray release], resultArray = nil;
 	[super dealloc];
 }
 

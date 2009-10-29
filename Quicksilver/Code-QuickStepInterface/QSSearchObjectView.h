@@ -15,7 +15,7 @@ typedef enum QSSearchMode {
 } QSSearchMode;
 
 @class QSResultController;
-@interface QSSearchObjectView : QSObjectView <NSTextInput> {
+@interface QSSearchObjectView : QSObjectView <NSTextInput, NSTextDelegate> {
 	NSMutableString *partialString;
 	NSString 		*matchedString;
 	NSString 		*visibleString;
