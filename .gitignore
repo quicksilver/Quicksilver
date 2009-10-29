@@ -6,8 +6,11 @@ build
 Makefile
 autom4te.cache
 *~
-*.xcodeproj/*.pbxuser
-*.xcodeproj/*.perspectivev3
-*.xcodeproj/*.mode1v3
-*.xcodeproj/*.tm_build_errors
+*.pbxuser
+*.perspectivev3
+*.mode1v3
+*.mode2v3
+*.pbxuser
+*.tm_build_errors
 *.tmproj
+Developer.xcconfig
