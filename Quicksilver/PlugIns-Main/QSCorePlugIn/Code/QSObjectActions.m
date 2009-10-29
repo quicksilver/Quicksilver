@@ -105,18 +105,30 @@
 	//		[window setReleasedWhenClosed:YES];
 	//
 	return window;
-	}
+}
 
 - (NSWindow *)showMenu:(NSMenu *)menu forObject:(QSObject *)object {
 	NSPoint loc = [NSEvent mouseLocation];
+    
 	NSWindow *window = nil;
-
 	window = [self windowForObject:object atPoint:loc];
-	NSEvent *theEvent = [NSEvent mouseEventWithType:NSRightMouseDown location:NSMakePoint(1, 1)
-									modifierFlags:0 timestamp:0 windowNumber:[window windowNumber] context:nil eventNumber:0 clickCount:1 pressure:0];
-	//[window setAlphaValue:0.5 fadeTime:0.1];
-
-	[NSMenu popUpContextMenu:menu withEvent:theEvent forView:[window contentView]]; // withFont:[NSFont boldSystemFontOfSize:10]];
+    
+    if (!window) return nil;
+    
+    NSView * cView = [window contentView];
+    
+    NSEvent *theEvent = [NSEvent mouseEventWithType:NSRightMouseDown 
+                                           location:NSMakePoint(1, 1) 
+                                      modifierFlags:0 
+                                          timestamp:0 
+                                       windowNumber:[window windowNumber] 
+                                            context:nil 
+                                        eventNumber:0 
+                                         clickCount:1 
+                                           pressure:0];
+    
+	[window setAlphaValue:0.5 fadeTime:0.1];
+	[NSMenu popUpContextMenu:menu withEvent:theEvent forView:cView withFont:[NSFont boldSystemFontOfSize:10]];
 																				  //[window orderOut:nil];
     [window setAlphaValue:0.0 fadeTime:0.3];
     return nil;
