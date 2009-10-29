@@ -2,10 +2,9 @@
 
 #import <AppKit/AppKit.h>
 
-@class QSObjectView;
+@class QSObjectView, QSSearchObjectView;
 
-@class QSSearchObjectView;
-@interface QSResultController : NSWindowController {
+@interface QSResultController : NSWindowController <NSTableViewDataSource> {
 	@public
 	IBOutlet NSTextField *	searchStringField;
 	IBOutlet NSView *	selectionView;

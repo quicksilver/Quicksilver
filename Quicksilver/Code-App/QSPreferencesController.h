@@ -4,7 +4,7 @@
 #include <PreferencePanes/PreferencePanes.h>
 #define kQSPreferencesSplitWidth @"QSPreferencesSplitWidth"
 
-@interface QSPreferencesController : NSWindowController {
+@interface QSPreferencesController : NSWindowController <NSToolbarDelegate> {
 	IBOutlet NSTextField *descView;
 	IBOutlet NSTableView *externalPrefsTable;
 	IBOutlet NSButton *helpButton;

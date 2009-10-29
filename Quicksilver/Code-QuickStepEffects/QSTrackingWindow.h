@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface QSTrackingWindow : NSWindow {
+@interface QSTrackingWindow : NSWindow <NSWindowDelegate> {
 	NSTrackingRectTag trackingRect;
 }
 

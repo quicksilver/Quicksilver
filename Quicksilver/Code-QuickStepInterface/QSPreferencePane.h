@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface QSPreferencePane : NSObject {
+@interface QSPreferencePane : NSObject <NSWindowDelegate> {
 	IBOutlet NSWindow *_window;
 	IBOutlet NSView *_initialKeyView;
 	IBOutlet NSView *_firstKeyView;

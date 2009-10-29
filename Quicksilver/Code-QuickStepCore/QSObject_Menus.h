@@ -3,7 +3,7 @@
 #import <Foundation/Foundation.h>
 
 #import "QSObject.h"
-@interface QSObject (Menus)
+@interface QSObject (Menus) <NSMenuDelegate>
 - (NSMenu *)menu;
 - (NSMenuItem *)menuItem;
 - (NSMenu *)rankMenuWithTarget:(NSView *)target;
