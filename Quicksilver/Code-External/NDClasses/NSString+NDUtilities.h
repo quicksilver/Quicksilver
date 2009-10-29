@@ -63,13 +63,13 @@
  */
 - (NSArray *)componentsSeparatedByString:(NSString *)separator withOpeningQuote:(NSString *)openingQuote closingQuote:(NSString *)closingQuote singleQuote:(NSString *)singleQuote includeEmptyComponents:(BOOL)flag;
 
-/*!
+/**!
 	@method uniquePath
 	@abstract Get a unique path.
 	@discussion Returns a unique path based on the recieved, if the receiver it's self does not exist then it is returned.
 	@result A path that is guaranteed not to exist yet.
  */
-// - (NSString *)uniquePath;
+//- (NSString *)uniquePath;
 
 
 @end
