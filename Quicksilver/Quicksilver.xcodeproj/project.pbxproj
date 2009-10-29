@@ -242,7 +242,7 @@
 		7FDBC5010A02D93400E496FF /* QSAdvancedPrefPane.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FDBC4FF0A02D93400E496FF /* QSAdvancedPrefPane.h */; };
 		7FDBC5020A02D93400E496FF /* QSAdvancedPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDBC5000A02D93400E496FF /* QSAdvancedPrefPane.m */; };
 		7FDBC51F0A02DB0700E496FF /* DefaultsMap.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FDBC51E0A02DB0700E496FF /* DefaultsMap.plist */; };
-		7FDE06E909B1FFB900D394DF /* QSDroplet.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7F9703DD09AFEF8900E9EA77 /* QSDroplet.nib */; };
+		7FDE06E909B1FFB900D394DF /* QSDroplet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F9703DD09AFEF8900E9EA77 /* QSDroplet.xib */; };
 		7FDF328A07F7B11800594789 /* QSObjectActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDF328807F7B11800594789 /* QSObjectActions.m */; };
 		7FDF341807F7D59E00594789 /* NSDictionary+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FDF341607F7D59E00594789 /* NSDictionary+BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FDF341907F7D59E00594789 /* NSDictionary+BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDF341707F7D59E00594789 /* NSDictionary+BLTRExtensions.m */; };
@@ -1074,7 +1074,7 @@
 		7F95531F0A25DC4A0004FCC3 /* QSLoginItemFunctions.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSLoginItemFunctions.m; sourceTree = "<group>"; };
 		7F9703D009AFEE8700E9EA77 /* QSDroplet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QSDroplet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F9703DC09AFEF8900E9EA77 /* QSDroplet-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "QSDroplet-Info.plist"; sourceTree = "<group>"; };
-		7F9703DD09AFEF8900E9EA77 /* QSDroplet.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSDroplet.nib; sourceTree = "<group>"; };
+		7F9703DD09AFEF8900E9EA77 /* QSDroplet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSDroplet.xib; sourceTree = "<group>"; };
 		7F9703E009AFEFB100E9EA77 /* QSDropletApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDropletApplication.h; sourceTree = "<group>"; };
 		7F9703E109AFEFB100E9EA77 /* QSDropletApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDropletApplication.m; sourceTree = "<group>"; };
 		7F9703F809AFF05F00E9EA77 /* QSDropletMain.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSDropletMain.m; sourceTree = "<group>"; };
@@ -1804,7 +1804,7 @@
 				7FD6F9EB09B0D7DA00F706F9 /* QSDroplet.icns */,
 				7F9703F809AFF05F00E9EA77 /* QSDropletMain.m */,
 				7F9703DC09AFEF8900E9EA77 /* QSDroplet-Info.plist */,
-				7F9703DD09AFEF8900E9EA77 /* QSDroplet.nib */,
+				7F9703DD09AFEF8900E9EA77 /* QSDroplet.xib */,
 				7F9703E009AFEFB100E9EA77 /* QSDropletApplication.h */,
 				7F9703E109AFEFB100E9EA77 /* QSDropletApplication.m */,
 			);
@@ -3019,7 +3019,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7FDE06E909B1FFB900D394DF /* QSDroplet.nib in Resources */,
+				7FDE06E909B1FFB900D394DF /* QSDroplet.xib in Resources */,
 				7FD6F9EC09B0D7DA00F706F9 /* QSDroplet.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
