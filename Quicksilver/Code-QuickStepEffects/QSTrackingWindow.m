@@ -18,7 +18,7 @@
 	[window setHasShadow:NO];
 	[window setLevel:kCGPopUpMenuWindowLevel-1];
 	[window setSticky:YES];
-	//[window setDelegate:[window contentView]]];
+	[window setDelegate:[window contentView]];
 	NSMutableArray *types = [[standardPasteboardTypes mutableCopy] autorelease];
  // [types addObjectsFromArray:[[QSReg objectHandlers] allKeys]];
 	[window registerForDraggedTypes:types];
@@ -31,7 +31,7 @@
 }
 
 - (void)updateTrackingRect {
-	NSLog(@"update");
+	if (DEBUG && VERBOSE) NSLog(@"update");
 	//logRect([self frame]);
 	if (trackingRect) [[self contentView] removeTrackingRect:trackingRect];
 	trackingRect = [[self contentView] addTrackingRect:NSMakeRect(0, 0, NSWidth([self frame]), NSHeight([self frame]) ) owner:self userData:self assumeInside:NO];
@@ -43,18 +43,17 @@
 }
 
 - (void)mouseEntered:(NSEvent *)theEvent {
-	NSLog(@"entered tracking");
+	if (DEBUG && VERBOSE) NSLog(@"entered tracking");
 	[[self delegate] mouseEntered:theEvent];
 }
 
 - (void)mouseExited:(NSEvent *)theEvent {
-	NSLog(@"exited tracking");
+	if (DEBUG && VERBOSE) NSLog(@"exited tracking");
 	[[self delegate] mouseExited:theEvent];
 }
 
 - (unsigned int) draggingEntered:(id <NSDraggingInfo>)theEvent {
-
-	NSLog(@"dragging tracking");
+	if (DEBUG && VERBOSE) NSLog(@"dragging tracking");
 	[[self delegate] mouseEntered:nil];
 	return NSDragOperationEvery;
 }
