@@ -43,6 +43,7 @@
 @implementation QSObject (StringHandling)
 + (id)objectWithString:(NSString *)string { return [[(QSObject *)[QSObject alloc] initWithString:string] autorelease];  }
 - (id)initWithString:(NSString *)string {
+    if (!string) string = @"unknown";
 	if (self = [self init]) {
 		[data setObject:string forKey:QSTextType];
 		[self setName:string];
