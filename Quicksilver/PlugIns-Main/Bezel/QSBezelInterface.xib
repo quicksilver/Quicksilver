@@ -60,7 +60,6 @@
 							<int key="NSvFlags">260</int>
 							<string key="NSFrame">{{356, 31}, {160, 160}}</string>
 							<reference key="NSSuperview" ref="708947105"/>
-							<bool key="NSViewCanDrawConcurrently">YES</bool>
 							<string key="NSClassName">QSCollectingSearchObjectView</string>
 							<string key="NSExtension">NSImageView</string>
 						</object>
@@ -69,7 +68,6 @@
 							<int key="NSvFlags">260</int>
 							<string key="NSFrame">{{188, 31}, {160, 160}}</string>
 							<reference key="NSSuperview" ref="708947105"/>
-							<bool key="NSViewCanDrawConcurrently">YES</bool>
 							<string key="NSClassName">QSSearchObjectView</string>
 							<string key="NSExtension">NSImageView</string>
 						</object>
@@ -78,7 +76,6 @@
 							<int key="NSvFlags">260</int>
 							<string key="NSFrame">{{20, 31}, {160, 160}}</string>
 							<reference key="NSSuperview" ref="708947105"/>
-							<bool key="NSViewCanDrawConcurrently">YES</bool>
 							<string key="NSClassName">QSCollectingSearchObjectView</string>
 							<string key="NSExtension">NSImageView</string>
 						</object>
