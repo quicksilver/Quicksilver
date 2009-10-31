@@ -961,7 +961,7 @@
 		6535A9A61086F6B3009D5C90 /* no */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = no; path = no.lproj/About.strings; sourceTree = "<group>"; };
 		7F05F1E00852441C00A8EC0C /* NSObject+BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+BLTRExtensions.h"; sourceTree = "<group>"; };
 		7F05F1E10852441C00A8EC0C /* NSObject+BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+BLTRExtensions.m"; sourceTree = "<group>"; };
-		7F0737A10927023A00782D10 /* CHANGELOG */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = CHANGELOG; path = SharedSupport/CHANGELOG; sourceTree = "<group>"; };
+		7F0737A10927023A00782D10 /* CHANGELOG */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = CHANGELOG; path = SharedSupport/CHANGELOG; sourceTree = "<group>"; wrapsLines = 1; };
 		7F0843CC098ACB2F00F136CC /* QSLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSLog.h; sourceTree = "<group>"; };
 		7F0843CD098ACB2F00F136CC /* QSLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSLog.m; sourceTree = "<group>"; };
 		7F0AB6CA07C4045700DF7D52 /* QSPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSPlugIn.h; sourceTree = "<group>"; };
@@ -1690,24 +1690,24 @@
 			children = (
 				7F0737A10927023A00782D10 /* CHANGELOG */,
 				4DC3DD0B0E0BB27B009902EF /* Configuration */,
-				E103EC4506471DAF00447FE0 /* Prefix */,
 				E18001C207B2BBB800010DB0 /* Code-App */,
 				E103EE2406471DDE00447FE0 /* Code-External */,
-				E103EB8706471D5900447FE0 /* PropertyLists */,
-				E102F97B06625D7300843027 /* Nibs */,
-				E1E5FA6C07B204BE0044D6EF /* Code-QuickStepFoundation */,
 				E1E5FB6407B20DD10044D6EF /* Code-QuickStepCore */,
-				E1E5FC4707B20E4C0044D6EF /* Code-QuickStepInterface */,
 				E1E5FA4A07B204580044D6EF /* Code-QuickStepEffects */,
-				E1DADBB30666606900BB655F /* SharedSupport */,
-				7F515D3307B533D2003EA91C /* Localized */,
-				E1BF1D450657F6620074A05A /* PlugIns-Main */,
-				E103EC5006471DBE00447FE0 /* Resources */,
-				7F9703DB09AFEF8900E9EA77 /* QSDroplet */,
-				29B97323FDCFA39411CA2CEA /* Frameworks */,
-				E1A567CA06FFEBFB00BAD045 /* Scripting */,
-				19C28FACFE9D520D11CA2CBB /* Products */,
+				E1E5FA6C07B204BE0044D6EF /* Code-QuickStepFoundation */,
+				E1E5FC4707B20E4C0044D6EF /* Code-QuickStepInterface */,
 				E1FDD4A60729D0A800A63098 /* Embedded PlugIns */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				7F515D3307B533D2003EA91C /* Localized */,
+				E102F97B06625D7300843027 /* Nibs */,
+				E1BF1D450657F6620074A05A /* PlugIns-Main */,
+				E103EC4506471DAF00447FE0 /* Prefix */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+				E103EB8706471D5900447FE0 /* PropertyLists */,
+				7F9703DB09AFEF8900E9EA77 /* QSDroplet */,
+				E103EC5006471DBE00447FE0 /* Resources */,
+				E1A567CA06FFEBFB00BAD045 /* Scripting */,
+				E1DADBB30666606900BB655F /* SharedSupport */,
 			);
 			name = Quicksilver;
 			sourceTree = "<group>";

@@ -1,5 +1,32 @@
 Changes
 =======
-
-  * Fixes searching within results (iTunes tracks)
-  * Many fixes by Ankur
+  
+  'andreberg' GitHub version:
+  
+  * Default compiler is now Clang, Apple's and the Open Source community's next gen compiler.
+  
+  * Actions should now appear localized again where appropriate.
+  
+  * Composed characters like German umlauts (e.g. 'Š') will now show both parts (the letter 'a' and the 'dots'. Previously only letters would show up).
+  
+  * The broken action menu now shows up with a cross-selection of all enabled actions from the Actions preferences. 
+  
+  * The Smart Replace and Replace dialog actions no longer crash Quicksilver and now actually will append numbers via a smart numbering system if a file to be copied or moved already exists at the destination. (Note: needs feature level equal to or higher than 3, e.g.: defaults write com.blacktree.Quicksilver "Feature Level" 3)
+  
+  * File operation requiring credentials no longer crash QS after providing the password. 
+  
+  * Icons associated with custom file actions (e.g. like custom AppleScript actions) are now correctly displayed instead of a generic file placeholder icon.
+  
+  * AppleScript actions which return something now cause Quicksilver to reappear again ready to use the result for the next action.
+  
+  * Mouse tracking for triggers ('Mouse entered' / 'Mouse exited')  now seems to work more reliably. 
+  
+  * The Extras preferences pane no longer has this weird row spacing issue upon first loading of the associated NIB file.
+  
+  * Excessive log outputs have been silenced to only occur if certain debugging environment variables are set in order to avoid spamming the Console.
+  
+  * Dozens of API upgrades like replacing deprecated methods with safer variants or adding decleration names for the new way of handling informal protocols.
+  
+  * All NIB files were converted to a SCM and collaboration friendly XIB format. A lot of clipping warnings have been fixed.
+  
+  * Various other housekeeping tasks.
