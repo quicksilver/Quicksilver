@@ -26,7 +26,7 @@ The following is a short, assorted list of facts and enhancements you may find i
 For a more comprehensive list take a look at the commit messages.  
 <br />
 
-* Default compiler now is Clang, Apple's and the Open Source community's next gen compiler.
+* Default compiler changed to Clang, Apple's and the Open Source community's next gen compiler.
 
  By doing that a 20 to 40% increase in runtime speed was gained while managing a catalog library with approx. 13k items. Quicksilver also feels a lot snappier too. This, of course, is mostly subjective (read: YMMV).
 
