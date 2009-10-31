@@ -2,7 +2,7 @@ About Quicksilver B5X on Github
 ===============================
 
 This repository is an off-the-side copy of the Quicksilver B5X Subversion repository currently hosted at [Google Code](http://code.google.com/p/blacktree-alchemy "Quicksilver Subversion Repository").
-I have done this in the hopes of improving Quicksilver by enhancing it wherever possible and of course fixing bugs over time.
+I have done this in the hopes of improving Quicksilver by fixing bugs and enhancing it wherever possible.
 
 If you want more info about [Quicksilver](http://en.wikipedia.org/wiki/Quicksilver_%28software%29 "Quicksilver Wikipedia article") 
 just do a search on YouTube - there's tons of very helpful instructional and informational video tutorials.
@@ -14,25 +14,26 @@ Facts, Features and Fixes
 
 The biggest change first and foremost:  
 
-    The minimum runtime requirement for Quicksilver is now Mac OS X 10.5 ("Leopard"). 
-    Any support for Mac OS X 10.4 ("Tiger") will be dropped.
+    Minimum runtime requirement for this version of Quicksilver B5X is Mac OS X 10.5 ("Leopard"). 
+    There are no plans to support this version on Mac OS X 10.4 ("Tiger").
 
 <br />
 
-To avoid confusion with Quicksilver's regular beta versions hosted at Google Code I will append my initials `(ab)` to the revision number. Currently I am unsure how to integrate my work with the Subversion repository at Google Code as I don't have write access. Talking to a project owner revealed that in the future development might happen at GitHub but until that happens I will have to cook my own soup so to speak. 
+To avoid confusion with Quicksilver's regular beta versions hosted at Google Code I will append my initials `(ab)` to the revision number. Currently I am not sure how to best integrate my work with the Subversion repository at Google Code as I don't have write access to that repository. Talking to a project owner revealed that in the future development might happen at GitHub but until that happens I will have to cook my own soup so to speak. 
 
 
 The following is a short, assorted list of facts and enhancements you may find in this version.   
 For a more comprehensive list take a look at the commit messages.  
 <br />
 
-* Default compiler is now Clang, Apple's and the Open Source community's next gen compiler.
+* Default compiler now is Clang, Apple's and the Open Source community's next gen compiler.
 
  By doing that a 20 to 40% increase in runtime speed was gained while managing a catalog library with approx. 13k items. Quicksilver also feels a lot snappier too. This, of course, is mostly subjective (read: YMMV).
 
-* Actions should now appear localized again where appropriate.
- 
- (e.g. 'Copy to...' for example in German can also be typed as 'Bewegen nach...' or 'Open' as 'Ouvrir' in French. .lproj folders for English, French, Italian, German, Spanish, Danish, Finish, Norwegian, Polish, and Swedish have been included. Mind you, the end result really depends on how Mac OS X handles this in the target language as Quicksilver just asks the OS for the localized representation of some common actions).
+* Actions should now appear localized again where appropriate.  
+
+  (e.g. 'Copy to...' for example in German sould also be typed as 'Bewegen nach...' or 'Open' as 'Ouvrir' in French.   
+  .lproj folders for English, French, Italian, German, Spanish, Danish, Finish, Norwegian, Polish, and Swedish have been included. Mind you, the end result really depends on how Mac OS X handles this in the target language as Quicksilver just asks the OS for the localized representation of some common actions).
 
 * Composed characters like German umlauts (e.g. 'ä') will now show both parts (the letter 'a' and the 'dots'. Previously only letters would show up).
 
@@ -40,9 +41,8 @@ For a more comprehensive list take a look at the commit messages.
 
 * The Smart Replace and Replace dialog actions no longer crash Quicksilver and will now actually append numbers via a smart numbering system if a file to be copied or moved already exists at the destination.  
 
- In order to use the Smart Replace dialog you will need to set the feature level equal to or higher than 3.  
- To do that enter the following _exactly_ into the Terminal and press Return:   
-`defaults write com.blacktree.Quicksilver "Feature Level" 3`
+  In order to use the Smart Replace dialog you will need to set the feature level equal to or higher than 3.To do that enter the following _exactly_ into the Terminal and press Return:   
+  `defaults write com.blacktree.Quicksilver "Feature Level" 3`
 
 * File operation requiring credentials no longer crash QS after providing the password. 
 
