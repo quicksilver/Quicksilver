@@ -9,30 +9,6 @@ just do a search on YouTube - there's tons of very helpful instructional and inf
 Or visit the [mailing list](http://groups.google.com/group/blacktree-quicksilver "Quicksilver Google Group") hosted at Google Groups.
 
 
-<br />
-Legal Stuff 
------------
-
-Before we get down to the details, let's get the legal stuff out of the way.  
-By downloading and/or using this software you agree to the following terms of use:
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this software except in compliance with the License.
-    You may obtain a copy of the License at
-    
-      http://www.apache.org/licenses/LICENSE-2.0
-    
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
-
-Which basically means: whatever you do, I can't be held accountable if something breaks.  
-
-
-<br />
 Before You Try It Out
 ---------------------
     
@@ -54,14 +30,13 @@ your were trying out this version.
 
 
 
-<br />
 Facts, Features and Fixes 
 -------------------------
 
 The biggest change first and foremost:  
 
-    Minimum runtime requirement for this version of Quicksilver B5X is Mac OS X 10.5 ("Leopard"). 
-    There are no plans to support this version on Mac OS X 10.4 ("Tiger").
+    Minimum runtime requirement for this version is Mac OS X 10.5 ("Leopard"). 
+    There are no plans for supporting Mac OS X 10.4 ("Tiger").
 
 <br />
 
@@ -109,7 +84,7 @@ For a more comprehensive list take a look at the commit messages.
 
 * Various other housekeeping tasks.
 
-<br />
+
 Development
 -----------
 
@@ -132,7 +107,7 @@ example path: `/Applications/Quicksilver.app/Contents/Frameworks`.
 
 Note: The names in bold are important and should be entered *exactly* as shown.
 
-<br />
+
 A Few Notes on Working With Git
 -------------------------------
 
@@ -160,7 +135,28 @@ The following commands seem to do just that:
 
 This will keep git from noticing any changes but will still keep it (do a `git-ls-files | grep Developer.xcconfig` to confirm).
 
-If you need to make changes to any of those files and you need these changes visible for others to clone then you must revert the commands issued above before commiting.
+If you need to make changes to any of those files and you need these changes visible for others to clone then you must revert the commands issued above before commiting.  
 To do so just run the commands again but this time with `--no-assume-unchanged`.
 
 PS.: If any of the git veterans has a better way of handling this please send me a message to my (andreberg) github inbox.
+
+
+Legal Stuff 
+-----------
+
+By downloading and/or using this software you agree to the following terms of use:
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this software except in compliance with the License.
+    You may obtain a copy of the License at
+    
+      http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+
+Which basically means: whatever you do, I can't be held accountable if something breaks.  
