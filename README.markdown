@@ -8,6 +8,7 @@ If you want more info about [Quicksilver](http://en.wikipedia.org/wiki/Quicksilv
 just do a search on YouTube - there's tons of very helpful instructional and informational video tutorials.
 Or visit the [mailing list](http://groups.google.com/group/blacktree-quicksilver "Quicksilver Google Group") hosted at Google Groups.
 
+
 <br />
 Legal Stuff 
 -----------
@@ -30,12 +31,15 @@ By downloading and/or using this software you agree to the following terms of us
 
 Which basically means: whatever you do, I can't be held accountable if something breaks.  
 
+
 <br />
 Before You Try It Out
 ---------------------
     
 Before trying out new Quicksilver versions **ALWAYS BACKUP** your user data!  
-This is easily done by backing up the following folders:
+This is easily done by backing up the following folders 
+
+(`<user>` stands for your short user name):
 
 `/Users/<user>/Library/Application Support/Quicksilver`  
 `/Users/<user>/Library/Caches/Quicksilver`
@@ -68,14 +72,14 @@ The following is a short, assorted list of facts and enhancements you may find i
 For a more comprehensive list take a look at the commit messages.  
 <br />
 
-* Default compiler changed to Clang, Apple's and the Open Source community's next gen compiler.
+* Default compiler changed to Clang, Apple's and the Open Source community's next gen compiler.  
 
- By doing that a 20 to 40% increase in runtime speed was gained while managing a catalog library with approx. 13k items. Quicksilver also feels a lot snappier too. This, of course, is mostly subjective (read: YMMV).
+    By doing that a 20 to 40% increase in runtime speed was gained while managing a catalog library with approx. 13k items. Quicksilver also feels a lot snappier too. This, of course, is mostly subjective (read: YMMV).
 
 * Actions should now appear localized again where appropriate.  
 
-  (e.g. 'Copy to...' for example in German could also be typed as 'Bewegen nach...' or 'Open' as 'Ouvrir' in French.   
-  .lproj folders for English, French, Italian, German, Spanish, Danish, Finish, Norwegian, Polish, and Swedish have been included. Mind you, the end result really depends on how Mac OS X handles this in the target language as Quicksilver just asks the OS for the localized representation of some common actions).
+    (e.g. 'Copy to...' for example in German could also be typed as 'Bewegen nach...' or 'Open' as 'Ouvrir' in French.   
+    .lproj folders for English, French, Italian, German, Spanish, Danish, Finish, Norwegian, Polish, and Swedish have been included. Mind you, the end result really depends on how Mac OS X handles this in the target language as Quicksilver just asks the OS for the localized representation of some common actions).
 
 * Composed characters like German umlauts (e.g. 'ä') will now show both parts (the letter 'a' and the 'dots'. Previously only letters would show up).
 
@@ -83,8 +87,7 @@ For a more comprehensive list take a look at the commit messages.
 
 * The Smart Replace and Replace dialog actions no longer crash Quicksilver and will now actually append numbers via a smart numbering system if a file to be copied or moved already exists at the destination.  
 
-  In order to use the Smart Replace dialog you will need to set the feature level equal to or higher than 3.To do that enter the following _exactly_ into the Terminal and press Return:   
-  `defaults write com.blacktree.Quicksilver "Feature Level" 3`
+    In order to use the Smart Replace dialog you will need to set the feature level equal to or higher than 3.To do that enter the following _exactly_ into the Terminal and press Return:  `defaults write com.blacktree.Quicksilver "Feature Level" 3`
 
 * File operation requiring credentials no longer crash QS after providing the password. 
 
