@@ -9,6 +9,48 @@ just do a search on YouTube - there's tons of very helpful instructional and inf
 Or visit the [mailing list](http://groups.google.com/group/blacktree-quicksilver "Quicksilver Google Group") hosted at Google Groups.
 
 <br />
+Legal Stuff 
+-----------
+
+Before we get down to the details, let's get the legal stuff out of the way.  
+By downloading and/or using this software you agree to the following terms of use:
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this software except in compliance with the License.
+    You may obtain a copy of the License at
+    
+      http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+
+Which basically means: whatever you do, I can't be held accountable if something breaks.  
+
+<br />
+Before You Try It Out
+---------------------
+    
+Before trying out new Quicksilver versions **ALWAYS BACKUP** your user data!  
+This is easily done by backing up the following folders:
+
+`/Users/<user>/Library/Application Support/Quicksilver`  
+`/Users/<user>/Library/Caches/Quicksilver`
+
+and just to be safe, let's also backup the present
+
+`/Applications/Quicksilver.app`
+
+before you overwrite it with this version.  
+Now if anything happens you can always restore the exact state Quicksilver was in before
+your were trying out this version. 
+
+
+
+<br />
 Facts, Features and Fixes 
 -------------------------
 
