@@ -32,7 +32,7 @@ For a more comprehensive list take a look at the commit messages.
 
 * Actions should now appear localized again where appropriate.  
 
-  (e.g. 'Copy to...' for example in German sould also be typed as 'Bewegen nach...' or 'Open' as 'Ouvrir' in French.   
+  (e.g. 'Copy to...' for example in German could also be typed as 'Bewegen nach...' or 'Open' as 'Ouvrir' in French.   
   .lproj folders for English, French, Italian, German, Spanish, Danish, Finish, Norwegian, Polish, and Swedish have been included. Mind you, the end result really depends on how Mac OS X handles this in the target language as Quicksilver just asks the OS for the localized representation of some common actions).
 
 * Composed characters like German umlauts (e.g. 'ä') will now show both parts (the letter 'a' and the 'dots'. Previously only letters would show up).
