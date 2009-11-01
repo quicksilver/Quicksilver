@@ -15,6 +15,8 @@ Changes
   
   * File operation requiring credentials no longer crash QS after providing the password. 
   
+  * The Large Type action now keeps the text visible again for prolonged periods.
+  
   * Icons associated with custom file actions (e.g. like custom AppleScript actions) are now correctly displayed instead of a generic file placeholder icon.
   
   * AppleScript actions which return something now cause Quicksilver to reappear again ready to use the result for the next action.

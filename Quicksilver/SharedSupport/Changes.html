@@ -1,7 +1,22 @@
 <h1>Release Notes: Quicksilver Build 3814</h1>
 <h1>Changes</h1>
 
+<p>'andreberg' GitHub version:</p>
+
 <ul>
-<li>Fixes searching within results (iTunes tracks)</li>
-<li>Many fixes by Ankur</li>
+<li><p>Default compiler is now Clang, Apple's and the Open Source community's next gen compiler.</p></li>
+<li><p>Actions should now appear localized again where appropriate.</p></li>
+<li><p>Composed characters like German umlauts (e.g. 'Š') will now show both parts (the letter 'a' and the 'dots'. Previously only letters would show up).</p></li>
+<li><p>The broken action menu now shows up with a cross-selection of all enabled actions from the Actions preferences. </p></li>
+<li><p>The Smart Replace and Replace dialog actions no longer crash Quicksilver and now actually will append numbers via a smart numbering system if a file to be copied or moved already exists at the destination. (Note: needs feature level equal to or higher than 3, e.g.: defaults write com.blacktree.Quicksilver "Feature Level" 3)</p></li>
+<li><p>File operation requiring credentials no longer crash QS after providing the password. </p></li>
+<li><p>The Large Type action now keeps the text visible again for prolonged periods.</p></li>
+<li><p>Icons associated with custom file actions (e.g. like custom AppleScript actions) are now correctly displayed instead of a generic file placeholder icon.</p></li>
+<li><p>AppleScript actions which return something now cause Quicksilver to reappear again ready to use the result for the next action.</p></li>
+<li><p>Mouse tracking for triggers ('Mouse entered' / 'Mouse exited')  now seems to work more reliably. </p></li>
+<li><p>The Extras preferences pane no longer has this weird row spacing issue upon first loading of the associated NIB file.</p></li>
+<li><p>Excessive log outputs have been silenced to only occur if certain debugging environment variables are set in order to avoid spamming the Console.</p></li>
+<li><p>Dozens of API upgrades like replacing deprecated methods with safer variants or adding decleration names for the new way of handling informal protocols.</p></li>
+<li><p>All NIB files were converted to a SCM and collaboration friendly XIB format. A lot of clipping warnings have been fixed.</p></li>
+<li><p>Various other housekeeping tasks.</p></li>
 </ul>
