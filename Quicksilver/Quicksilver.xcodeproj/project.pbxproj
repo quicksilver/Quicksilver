@@ -959,6 +959,10 @@
 		6535A9A41086F6AE009D5C90 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/About.strings; sourceTree = "<group>"; };
 		6535A9A51086F6B0009D5C90 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/About.strings; sourceTree = "<group>"; };
 		6535A9A61086F6B3009D5C90 /* no */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = no; path = no.lproj/About.strings; sourceTree = "<group>"; };
+		6552BC9E109D0DDE003B4892 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6552BC9F109D0DED003B4892 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Catalog.strings; sourceTree = "<group>"; };
+		6552BCA0109D0DF6003B4892 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Preferences.strings; sourceTree = "<group>"; };
+		6552BCA1109D0E00003B4892 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/About.strings; sourceTree = "<group>"; };
 		7F05F1E00852441C00A8EC0C /* NSObject+BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+BLTRExtensions.h"; sourceTree = "<group>"; };
 		7F05F1E10852441C00A8EC0C /* NSObject+BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+BLTRExtensions.m"; sourceTree = "<group>"; };
 		7F0737A10927023A00782D10 /* CHANGELOG */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = CHANGELOG; path = SharedSupport/CHANGELOG; sourceTree = "<group>"; wrapsLines = 1; };
@@ -3626,6 +3630,7 @@
 				6535A9391086F0E5009D5C90 /* pl */,
 				6535A93A1086F0E7009D5C90 /* fi */,
 				6535A9381086F0E2009D5C90 /* no */,
+				6552BC9E109D0DDE003B4892 /* sv */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -3642,6 +3647,7 @@
 				6535A9A41086F6AE009D5C90 /* pl */,
 				6535A9A51086F6B0009D5C90 /* fi */,
 				6535A9A61086F6B3009D5C90 /* no */,
+				6552BCA1109D0E00003B4892 /* sv */,
 			);
 			name = About.strings;
 			sourceTree = "<group>";
@@ -3658,6 +3664,7 @@
 				6535A9931086F64C009D5C90 /* pl */,
 				6535A9941086F64E009D5C90 /* fi */,
 				6535A9961086F65F009D5C90 /* no */,
+				6552BC9F109D0DED003B4892 /* sv */,
 			);
 			name = Catalog.strings;
 			sourceTree = "<group>";
@@ -3674,6 +3681,7 @@
 				6535A99C1086F693009D5C90 /* pl */,
 				6535A99D1086F695009D5C90 /* fi */,
 				6535A99E1086F697009D5C90 /* no */,
+				6552BCA0109D0DF6003B4892 /* sv */,
 			);
 			name = Preferences.strings;
 			sourceTree = "<group>";
