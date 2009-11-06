@@ -69,7 +69,7 @@
 	@discussion Returns a unique path based on the recieved, if the receiver it's self does not exist then it is returned.
 	@result A path that is guaranteed not to exist yet.
  */
-- (NSString *)uniquePath;
+// - (NSString *)uniquePath;
 
 
 @end

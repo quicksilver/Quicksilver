@@ -294,6 +294,8 @@
 		92DC402D0E25A0C40091BD92 /* Action.png in Resources */ = {isa = PBXBuildFile; fileRef = 92DC402B0E25A0C40091BD92 /* Action.png */; };
 		92E946190D04CCEF0013377F /* QSModifierKeyEvents.h in Headers */ = {isa = PBXBuildFile; fileRef = 92E946170D04CCEF0013377F /* QSModifierKeyEvents.h */; };
 		92E9461A0D04CCEF0013377F /* QSModifierKeyEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E946180D04CCEF0013377F /* QSModifierKeyEvents.m */; };
+		CDCC201010A4C14B009C4EED /* QSMDPredicate.h in Headers */ = {isa = PBXBuildFile; fileRef = CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */; };
+		CDCC201110A4C14B009C4EED /* QSMDPredicate.m in Sources */ = {isa = PBXBuildFile; fileRef = CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */; };
 		E102347106BB6CC900143367 /* Find.icns in Resources */ = {isa = PBXBuildFile; fileRef = E102347006BB6CC900143367 /* Find.icns */; };
 		E102F9BD06625D7400843027 /* About.nib in Resources */ = {isa = PBXBuildFile; fileRef = E102F97C06625D7300843027 /* About.nib */; };
 		E102F9BE06625D7400843027 /* QSCatalog.nib in Resources */ = {isa = PBXBuildFile; fileRef = E102F97D06625D7300843027 /* QSCatalog.nib */; };
@@ -1139,6 +1141,8 @@
 		92DC402B0E25A0C40091BD92 /* Action.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Action.png; sourceTree = "<group>"; };
 		92E946170D04CCEF0013377F /* QSModifierKeyEvents.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSModifierKeyEvents.h; sourceTree = "<group>"; };
 		92E946180D04CCEF0013377F /* QSModifierKeyEvents.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSModifierKeyEvents.m; sourceTree = "<group>"; };
+		CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSMDPredicate.h; path = "Apps/Quicksilver/Code-QuickStepFoundation/QSMDPredicate.h"; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSMDPredicate.m; path = "Apps/Quicksilver/Code-QuickStepFoundation/QSMDPredicate.m"; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		E102347006BB6CC900143367 /* Find.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Find.icns; sourceTree = "<group>"; };
 		E102F97C06625D7300843027 /* About.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = About.nib; sourceTree = "<group>"; };
 		E102F97D06625D7300843027 /* QSCatalog.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = QSCatalog.nib; sourceTree = "<group>"; };
@@ -2161,6 +2165,8 @@
 		E1E5FA6C07B204BE0044D6EF /* Code-QuickStepFoundation */ = {
 			isa = PBXGroup;
 			children = (
+				CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */,
+				CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */,
 				4DC493C90E8D1340000EEF1C /* QSHotKeyEvent.h */,
 				4DC493CA0E8D1340000EEF1C /* QSHotKeyEvent.m */,
 				92D9C9680D134BDD00D91825 /* QSTreeController.h */,
@@ -2708,6 +2714,7 @@
 				4DC493CB0E8D1340000EEF1C /* QSHotKeyEvent.h in Headers */,
 				4DF2B3960EB8933D009CEC3C /* NDSDKCompatibility.h in Headers */,
 				4DD89EF90EBDD97B005A15AE /* CGSPrivate.h in Headers */,
+				CDCC201010A4C14B009C4EED /* QSMDPredicate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3410,6 +3417,7 @@
 				4DC493CC0E8D1340000EEF1C /* QSHotKeyEvent.m in Sources */,
 				4DD89F080EBDDA5E005A15AE /* NTLocalizedString.m in Sources */,
 				4DD89F0C0EBDDA7A005A15AE /* NTViewLocalizer.m in Sources */,
+				CDCC201110A4C14B009C4EED /* QSMDPredicate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
