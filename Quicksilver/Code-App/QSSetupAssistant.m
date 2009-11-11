@@ -144,7 +144,7 @@
 	[scanProgress stopAnimation:self];
 	[scanStatusField setHidden:YES];
 	[[self window] display];
-	//[scanStatusField setStringValue:@""]; //[NSString stringWithFormat:@"%d items in catalog", [[[QSLib catalog] contents] count]]];
+	//[scanStatusField setStringValue:@""]; //[NSString stringWithFormat:@"%d items in catalog", [[[[QSLibrarian sharedInstance] catalog] contents] count]]];
 	scanComplete = YES;
 	if ([[[setupTabView selectedTabViewItem] identifier] isEqualToString:@"scan"]) {
 		[scanStatusField setStringValue:@"Scan Complete"];
@@ -196,7 +196,7 @@
 			[[self window] displayIfNeeded];
 			[scanProgress setUsesThreadedAnimation:YES];
 			[scanProgress startAnimation:self];
-			[[QSLibrarian sharedInstance] startThreadedAndForcedScan];
+			[QSLib startThreadedAndForcedScan];
 		}
 		[[gettingStartedView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/Resources/GettingStarted.html"]]]];
 	} else if ([[item identifier] isEqualToString:@"plugins"]) {

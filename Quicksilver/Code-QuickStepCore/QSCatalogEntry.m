@@ -166,7 +166,7 @@ NSDictionary *enabledPresetDictionary;*/
 		return title;
 }
 
-- (BOOL)isCatalog { return self == [QSLib catalog]; }
+- (BOOL)isCatalog { return self == [[QSLibrarian sharedInstance] catalog]; }
 - (BOOL)isPreset { return [[self identifier] hasPrefix:@"QSPreset"]; }
 - (BOOL)isSeparator { return [[self identifier] hasPrefix:@"QSSeparator"]; }
 - (BOOL)isGroup { return [[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]; }
@@ -202,7 +202,7 @@ NSDictionary *enabledPresetDictionary;*/
 		return NO;
 	else if ([self isPreset]) {
 		NSNumber *value;
-		if (value = [QSLib presetIsEnabled:self])
+		if (value = [[QSLibrarian sharedInstance] presetIsEnabled:self])
 			return [value boolValue];
 		else if (value = [info objectForKey:kItemEnabled])
 			return [value boolValue];
@@ -215,7 +215,7 @@ NSDictionary *enabledPresetDictionary;*/
 - (void)setEnabled:(BOOL)enabled {
 	NSString *theID = [info objectForKey:kItemID];
 	if ([theID hasPrefix:@"QSPreset"])
-		[QSLib setPreset:self isEnabled:enabled];
+		[[QSLibrarian sharedInstance] setPreset:self isEnabled:enabled];
 	else
 		[info setObject:[NSNumber numberWithBool:enabled] forKey:kItemEnabled];
 	if (enabled && ![[self contents] count]) [self scanForced:NO];
@@ -330,7 +330,7 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (NSArray *)ancestors {
-	id catalog = [QSLib catalog];
+	id catalog = [[QSLibrarian sharedInstance] catalog];
 	NSArray *groups = [catalog deepChildrenWithGroups:YES leaves:NO disabled:YES];
 	NSMutableArray *entryChain = [NSMutableArray arrayWithCapacity:0];
 	id thisItem = self;
@@ -437,7 +437,7 @@ else
 			else
 				return NO;
 			[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryIndexed object:self];
-			[QSLib recalculateTypeArraysForItem:self];
+			[[QSLibrarian sharedInstance] recalculateTypeArraysForItem:self];
 	}
 	return YES;
 }
@@ -534,9 +534,9 @@ if (kUseNSArchiveForIndexes)
 
 - (void)scanForcedInThread:(BOOL)force {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	[[QSLib scanTask] startTask:nil];
+	[[[QSLibrarian sharedInstance] scanTask] startTask:nil];
 	[self scanForced:force];
-	[[QSLib scanTask] stopTask:nil];
+	[[[QSLibrarian sharedInstance] scanTask] stopTask:nil];
 	[pool release];
 }
 
@@ -550,7 +550,7 @@ if (kUseNSArchiveForIndexes)
 		[pool release];
 		return nil;
 	}
-	[[QSLib scanTask] setStatus:[NSString stringWithFormat:@"Checking:%@", name]];
+	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:@"Checking:%@", name]];
 	BOOL valid = [self indexIsValid];
 	if (valid && !force) {
 		if (DEBUG_CATALOG) NSLog(@"\tIndex is valid for source: %@", name);
@@ -558,7 +558,7 @@ if (kUseNSArchiveForIndexes)
 	}
 	if (DEBUG_CATALOG)
 		NSLog(@"Scanning source: %@%@", [self name] , (force?@" (forced) ":@""));
-	[[QSLib scanTask] setStatus:[NSString stringWithFormat:@"Scanning:%@", name]];
+	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:@"Scanning:%@", name]];
 	[self scanAndCache];
 	return nil;
 }

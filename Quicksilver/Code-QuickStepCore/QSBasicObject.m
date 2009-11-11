@@ -26,8 +26,8 @@
 - (NSString *)identifier {return nil;}
 - (NSString *)label {return nil;}
 - (NSString *)name {return @"Object";}
-- (BOOL)enabled {return ![QSLib itemIsOmitted:self];}
-- (void)setEnabled:(BOOL)flag {[QSLib setItem:self isOmitted:!flag];}
+- (BOOL)enabled {return ![[QSLibrarian sharedInstance] itemIsOmitted:self];}
+- (void)setEnabled:(BOOL)flag {[[QSLibrarian sharedInstance] setItem:self isOmitted:!flag];}
 - (id)primaryObject {return nil;}
 - (BOOL)loadIcon {return YES;}
 - (BOOL)iconLoaded {return YES;}

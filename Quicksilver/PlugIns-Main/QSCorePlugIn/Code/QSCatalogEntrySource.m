@@ -47,7 +47,7 @@ static BOOL firstCheck = NO;
 - (NSImage *)iconForEntry:(NSDictionary *)dict { return [QSResourceManager imageNamed:@"prefsCatalog"]; }
 
 - (NSArray *)objectsForEntry:(NSDictionary *)theEntry {
-	return [self objectsFromCatalogEntries:[[QSLib catalog] deepChildrenWithGroups:YES leaves:YES disabled:YES]];
+	return [self objectsFromCatalogEntries:[[[QSLibrarian sharedInstance] catalog] deepChildrenWithGroups:YES leaves:YES disabled:YES]];
 }
 
 // FIXME: What is this meant for?
@@ -82,7 +82,7 @@ static BOOL firstCheck = NO;
 // Object Handler Methods
 
 - (BOOL)loadIconForObject:(QSObject *)object {
-	[object setIcon:[[QSLib entryForID:[object objectForType:QSCatalogEntryPboardType]] icon]];
+	[object setIcon:[[[QSLibrarian sharedInstance] entryForID:[object objectForType:QSCatalogEntryPboardType]] icon]];
 	return YES;
 }
 
@@ -102,7 +102,7 @@ static BOOL firstCheck = NO;
 - (NSString *)identifierForObject:(QSObject *)object { return [object objectForType:QSCatalogEntryPboardType]; }
 
 - (NSArray *)childrenForObject:(QSBasicObject *)object {
-	QSCatalogEntry *theEntry = [QSLib entryForID:[object objectForType:QSCatalogEntryPboardType]];
+	QSCatalogEntry *theEntry = [[QSLibrarian sharedInstance] entryForID:[object objectForType:QSCatalogEntryPboardType]];
 
 	if ([theEntry isGroup])
 		return [self objectsFromCatalogEntries:[theEntry contents]];
@@ -130,12 +130,12 @@ static BOOL firstCheck = NO;
 }
 
 - (QSObject *)show:(QSObject *)dObject {
-	[NSClassFromString(@"QSCatalogPrefPane") showEntryInCatalog:[QSLib entryForID:[dObject objectForType:QSCatalogEntryPboardType]]];
+	[NSClassFromString(@"QSCatalogPrefPane") showEntryInCatalog:[[QSLibrarian sharedInstance] entryForID:[dObject objectForType:QSCatalogEntryPboardType]]];
 	return nil;
 }
 
 - (QSObject *)rescan:(QSObject *)dObject {
-	[[QSLib entryForID:[dObject objectForType:QSCatalogEntryPboardType]] scanForced:YES];
+	[[[QSLibrarian sharedInstance] entryForID:[dObject objectForType:QSCatalogEntryPboardType]] scanForced:YES];
 	return nil;
 }
 

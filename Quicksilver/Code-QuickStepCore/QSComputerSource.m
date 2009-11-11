@@ -16,7 +16,7 @@
 
 - (BOOL)loadChildrenForObject:(QSObject*)proxy {
     if ([[proxy identifier] isEqualToString:@"QSComputerProxy"]) {
-        [proxy setChildren:[[QSLib entryForID:@"QSPresetVolumes"] contents]];
+        [proxy setChildren:[[[QSLibrarian sharedInstance] entryForID:@"QSPresetVolumes"] contents]];
         return YES;
     }
     return NO;

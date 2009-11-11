@@ -287,11 +287,11 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 - (IBAction)omitItem:(id)sender {
-	[QSLib setItem:[focus objectValue] isOmitted:YES];
+	[[QSLibrarian sharedInstance] setItem:[focus objectValue] isOmitted:YES];
 }
 
 - (IBAction)assignAbbreviation:(id)sender {
-	[QSLib assignCustomAbbreviationForItem:[focus objectValue]];
+	[[QSLibrarian sharedInstance] assignCustomAbbreviationForItem:[focus objectValue]];
 }
 
 - (void)arrayChanged:(NSNotification*)notif {

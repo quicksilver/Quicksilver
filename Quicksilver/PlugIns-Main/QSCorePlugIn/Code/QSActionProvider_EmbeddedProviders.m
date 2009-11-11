@@ -209,7 +209,7 @@
 		[set addObjectsFromArray:[(NSArray *)LSCopyApplicationURLsForURL((CFURLRef)fileURL, kLSRolesAll) autorelease]];
 		[set addObjectsFromArray:[self universalApps]];
 
-		validIndirects = [QSLib scoredArrayForString:nil inSet:[QSObject fileObjectsWithURLArray:[set allObjects]]];
+		validIndirects = [[QSLibrarian sharedInstance] scoredArrayForString:nil inSet:[QSObject fileObjectsWithURLArray:[set allObjects]]];
 
 		id preferred = [QSObject fileObjectWithPath:[appURL path]];
 		if (!preferred)
@@ -224,7 +224,7 @@
 	} else if ([action isEqualToString:@"QSNewFolderAction"]) {
 		return [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@"untitled folder"]];
 	} else if ([action isEqualToString:kFileMoveToAction]) {
-		NSArray *fileObjects = [QSLib arrayForType:QSFilePathType];
+		NSArray *fileObjects = [[QSLibrarian sharedInstance] arrayForType:QSFilePathType];
 		int i;
 		BOOL isDirectory;
 		for(i = 0; i<[fileObjects count]; i++) {
@@ -427,7 +427,7 @@ return [self moveFiles:dObject toFolder:iObject shouldCopy:YES];
 }
 - (QSObject *)moveFiles:(QSObject *)dObject toFolder:(QSObject *)iObject shouldCopy:(BOOL)copy {
 
-	NSLog(@"file: %@ directory: %@", dObject, iObject);
+   NSLog(@"file: %@ directory: %@", dObject, iObject);
 
 	NSString *destination = [iObject singleFilePath];
 	NSArray *filePaths = [dObject validPaths];
