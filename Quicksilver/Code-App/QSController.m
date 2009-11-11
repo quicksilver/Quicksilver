@@ -646,8 +646,8 @@ QSController *QSCon;
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"WindowsShouldHide" object:self];
 }
 
-- (IBAction)rescanItems:sender { [[QSLibrarian sharedInstance] startThreadedScan];  }
-- (IBAction)forceRescanItems:sender { [[QSLibrarian sharedInstance] startThreadedAndForcedScan];  }
+- (IBAction)rescanItems:sender { [QSLib startThreadedScan];  }
+- (IBAction)forceRescanItems:sender { [QSLib startThreadedAndForcedScan];  }
 
 - (void)delayedStartup {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -656,7 +656,7 @@ QSController *QSCon;
 	QSTask *task = [QSTask taskWithIdentifier:@"QSDelayedStartup"];
 	[task setStatus:@"Updating Catalog"];
 	[task startTask:self];
-	[QSLib loadMissingIndexes];
+	[[QSLibrarian sharedInstance] loadMissingIndexes];
 	[task stopTask:self];
 	[pool release];
 }
@@ -837,15 +837,15 @@ QSController *QSCon;
 	if (DEBUG_STARTUP)
 		NSLog(@"PlugIns loaded");
 
-	[QSLib initCatalog];
+	[[QSLibrarian sharedInstance] initCatalog];
 
-	[QSLib pruneInvalidChildren:nil];
-	[QSLib loadCatalogInfo];
+	[[QSLibrarian sharedInstance] pruneInvalidChildren:nil];
+	[[QSLibrarian sharedInstance] loadCatalogInfo];
 
 	[QSExec loadFileActions];
 
-	[QSLib reloadIDDictionary:nil];
-	[QSLib enableEntries];
+	[[QSLibrarian sharedInstance] reloadIDDictionary:nil];
+	[[QSLibrarian sharedInstance] enableEntries];
 
 	if (DEBUG_STARTUP)
 		NSLog(@"Catalog loaded");
@@ -859,10 +859,10 @@ QSController *QSCon;
 			[QSLib startThreadedAndForcedScan];
 		}
 	} else {
-		[QSLib loadCatalogArrays];
+		[[QSLibrarian sharedInstance] loadCatalogArrays];
 	}
 
-	[QSLib reloadEntrySources:nil];
+	[[QSLibrarian sharedInstance] reloadEntrySources:nil];
 
 	if (atLogin)
 		[self setupSplash];

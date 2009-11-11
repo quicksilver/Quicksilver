@@ -172,8 +172,8 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)rescoreSelectedItem {
 	if (![self objectValue]) return;
-	//[QSLib scoredArrayForString:[self matchedString] inSet:[NSArray arrayWithObject:[self objectValue]] mnemonicsOnly:![self matchedString]];
-	[QSLib scoredArrayForString:[self matchedString] inSet:[NSArray arrayWithObject:[self objectValue]]];
+	//[[QSLibrarian sharedInstance] scoredArrayForString:[self matchedString] inSet:[NSArray arrayWithObject:[self objectValue]] mnemonicsOnly:![self matchedString]];
+	[[QSLibrarian sharedInstance] scoredArrayForString:[self matchedString] inSet:[NSArray arrayWithObject:[self objectValue]]];
 	if ([[resultController window] isVisible])
 		[resultController->resultTable reloadData];
 }

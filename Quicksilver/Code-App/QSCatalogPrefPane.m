@@ -181,7 +181,7 @@ static id _sharedInstance;
 
 - (IBAction)restoreDefaultCatalog:(id)sender {
 	if (NSRunAlertPanel(@"Restore Defaults?", @"This will replace your current catalog setup with the default items", @"Replace", @"Cancel", nil) ) {
-		[QSLib loadDefaultCatalog];
+		[[QSLibrarian sharedInstance] loadDefaultCatalog];
 		[itemTable reloadData];
 		[itemTable deselectAll:nil];
 	}
@@ -193,7 +193,7 @@ static id _sharedInstance;
 }
 
 - (void)handleURL:(NSURL *)url {
-	[[self class] showEntryInCatalog:[QSLib entryForID:[url fragment]]];
+	[[self class] showEntryInCatalog:[[QSLibrarian sharedInstance] entryForID:[url fragment]]];
 }
 
 + (void)showEntryInCatalog:(QSCatalogEntry *)entry {
@@ -208,7 +208,7 @@ static id _sharedInstance;
 
 - (void)addEntryForCatFile:(NSString *)path {
 	QSCatalogEntry *entry = [self entryForCatFile:path];
-	[[[QSLib entryForID:@"QSCatalogCustom"] children] addObject:entry];
+	[[[[QSLibrarian sharedInstance] entryForID:@"QSCatalogCustom"] children] addObject:entry];
 	[itemTable reloadData];
 	[QSCatalogPrefPane showEntryInCatalog:entry];
 }
@@ -237,7 +237,7 @@ static id _sharedInstance;
 		sourceString = [sender representedObject];
 	QSCatalogEntry *parentEntry = [[treeController selectedObjects] lastObject];
 	if (!parentEntry || [parentEntry isPreset] || ![parentEntry isGroup] || [parentEntry isCatalog]) {
-		parentEntry = [QSLib catalogCustom];
+		parentEntry = [[QSLibrarian sharedInstance] catalogCustom];
 		[catalogSetsController setSelectedObjects:[NSArray arrayWithObject:parentEntry]];
 	}
 
@@ -305,7 +305,7 @@ static id _sharedInstance;
 
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(int) rowIndex {
 	if ([[aTableColumn identifier] isEqualToString:kItemEnabled]) {
-		return [NSNumber numberWithBool:![QSLib itemIsOmitted:[[contentsController arrangedObjects] objectAtIndex:rowIndex]]];
+		return [NSNumber numberWithBool:![[QSLibrarian sharedInstance] itemIsOmitted:[[contentsController arrangedObjects] objectAtIndex:rowIndex]]];
 	} else if ([[aTableColumn identifier] isEqualToString: kItemName]) {
 		[(QSObject *)[[contentsController arrangedObjects] objectAtIndex:rowIndex] loadIcon];
 		return [[contentsController arrangedObjects] objectAtIndex:rowIndex];
@@ -317,7 +317,7 @@ static id _sharedInstance;
 
 - (void)tableView:(NSTableView *)aTableView setObjectValue:anObject forTableColumn:(NSTableColumn *)aTableColumn row:(int) rowIndex {
 	if ([[aTableColumn identifier] isEqualToString:kItemEnabled])
-		[QSLib setItem:[[contentsController arrangedObjects] objectAtIndex:rowIndex] isOmitted:![anObject boolValue]];
+		[[QSLibrarian sharedInstance] setItem:[[contentsController arrangedObjects] objectAtIndex:rowIndex] isOmitted:![anObject boolValue]];
 }
 
 #if 0
@@ -350,7 +350,7 @@ static id _sharedInstance;
 		if ([itemTable selectedRow] >= 0)
 			newItem = [[treeController selectedObjects] lastObject];
 		if (currentItem != newItem) {
-			[QSLib writeCatalog:self];
+			[[QSLibrarian sharedInstance] writeCatalog:self];
 			[self setCurrentItem:newItem];
 /* [self updateCurrentItemContents];*/ [itemContentsTable reloadData];
 			[self populateCatalogEntryFields];
@@ -400,7 +400,7 @@ static id _sharedInstance;
 
 - (id)outlineView:(NSOutlineView *)outlineView child:(int)index ofItem:(id)item { return nil; }
 
-- (QSCatalogEntry *)catalog { return [QSLib catalog]; }
+- (QSCatalogEntry *)catalog { return [[QSLibrarian sharedInstance] catalog]; }
 
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn*)tableColumn byItem:(id)item { return nil; }
 
@@ -427,7 +427,7 @@ static id _sharedInstance;
 - (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(int)index {
 	item = [item respondsToSelector:@selector(representedObject)] ?[item representedObject] :[item observedObject];
 	if (!item)
-		item = [QSLib entryForID:@"QSCatalogCustom"];
+		item = [[QSLibrarian sharedInstance] entryForID:@"QSCatalogCustom"];
 
 	NSMutableArray *insertionArray = (NSMutableArray *)[item children];
 	if (!insertionArray) {
@@ -479,7 +479,7 @@ static id _sharedInstance;
 
 - (IBAction)copyPreset:(id)sender {
 	QSCatalogEntry *newItem = [currentItem uniqueCopy];
-	[[[QSLib catalogCustom] children] addObject:newItem];
+	[[[[QSLibrarian sharedInstance] catalogCustom] children] addObject:newItem];
 	[currentItem setEnabled:NO];
 	[itemTable reloadData];
 	[treeController rearrangeObjects];
@@ -538,9 +538,10 @@ static id _sharedInstance;
 - (void)catalogChanged:(NSNotification *)notification { [itemTable reloadData]; }
 
 - (void)catalogIndexed:(NSNotification *)notification {
-	if ([notification object] == currentItem);
-/*[self updateCurrentItemContents];*/[itemContentsTable reloadData];
-
+	/*if ([notification object] == currentItem)
+      [self updateCurrentItemContents];*/
+      
+   [itemContentsTable reloadData];
 	[itemTable reloadItem:[notification object]];
 
 	//int row = [itemTable rowForItem:[notification object]];
@@ -565,7 +566,7 @@ static id _sharedInstance;
 		[NSThread detachNewThreadSelector:@selector(scanForcedInThread:) toTarget:currentItem withObject:self];
 //		[[QSTaskController sharedInstance] removeTask:@"Scan"];
 	} else {
-		//[[QSLib catalog] scanForced:YES];
+		//[[[QSLibrarian sharedInstance] catalog] scanForced:YES];
 //		[NSThread detachNewThreadSelector:@selector(scanForcedInThread:)
 //								 toTarget:currentItem withObject:self];
 //		[QSLib startThreadedAndForcedScan];

@@ -72,7 +72,7 @@
 
 - (QSObject *)findObjectInCatalog:(QSObject *)dObject {
 
-	QSCatalogEntry *theEntry = [QSLib firstEntryContainingObject:dObject];
+	QSCatalogEntry *theEntry = [[QSLibrarian sharedInstance] firstEntryContainingObject:dObject];
 
 	[NSClassFromString(@"QSCatalogPrefPane") showEntryInCatalog:theEntry];
 	return nil;
@@ -191,7 +191,7 @@
 		return nil;
 	} else {
 	QSObject *textObject = [QSObject textProxyObjectWithDefaultValue:@""];
-	return [NSArray arrayWithObject:textObject]; //[QSLibarrayForType:NSFilenamesPboardType];
+	return [NSArray arrayWithObject:textObject]; //[[QSLibrarian sharedInstance]arrayForType:NSFilenamesPboardType];
 	}
 }
 

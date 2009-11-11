@@ -316,7 +316,7 @@ QSExecutor *QSExec = nil;
 	actions = [actions sortedArrayUsingDescriptors:[NSArray arrayWithObject:rankDescriptor]];
 	[rankDescriptor release];
 #else
-	actions = [QSLib scoredArrayForString:[NSString stringWithFormat:@"QSActionMnemonic:%@", [dObject primaryType]] inSet:actions mnemonicsOnly:YES];
+	actions = [[QSLibrarian sharedInstance] scoredArrayForString:[NSString stringWithFormat:@"QSActionMnemonic:%@", [dObject primaryType]] inSet:actions mnemonicsOnly:YES];
 #endif
 
 	if (preferredAction)

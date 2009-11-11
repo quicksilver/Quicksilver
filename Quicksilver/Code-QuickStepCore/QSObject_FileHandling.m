@@ -464,7 +464,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 				NSString *childPreset = [bundlePresetChildren objectForKey:bundleIdentifier];
 				if (childPreset) {
 					if (VERBOSE) NSLog(@"using preset %@", childPreset);
-					QSCatalogEntry *theEntry = [QSLib entryForID:childPreset];
+					QSCatalogEntry *theEntry = [[QSLibrarian sharedInstance] entryForID:childPreset];
 					newChildren = [theEntry contentsScanIfNeeded:YES];
 				} else {
 					NSArray *recentDocuments = recentDocumentsForBundle(bundleIdentifier);
@@ -670,7 +670,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		} else {
 			LSCopyKindStringForURL((CFURLRef)fileURL, (CFStringRef *)&kind);
 		}
-        NSLog(@"kind: %@", kind);
+      if (DEBUG_LOCALIZATION) NSLog(@"kind: %@", kind);
 		if (bundleName && [kind length])
 			bundleName = [NSString stringWithFormat:@"%@ %@", bundleName, kind];
         [kind release];
