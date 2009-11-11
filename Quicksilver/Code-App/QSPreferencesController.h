@@ -6,7 +6,7 @@
 
 @interface QSPreferencesController : NSWindowController
 #if (MAC_OS_X_VERSION_MAX_ALLOWED >= 1060)
-	<NSToolbarDelegate>
+	<NSToolbarDelegate, NSWindowDelegate, NSSplitViewDelegate>
 #endif
 {
 	IBOutlet NSTextField *descView;
