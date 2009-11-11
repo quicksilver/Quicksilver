@@ -138,12 +138,12 @@
     destination = [path retain]; 
 }
 
-- (void)downloadDidFinish:(NSURLDownload *)download {
+- (void)downloadDidFinish:(QSURLDownload *)download {
     if(delegate && [delegate respondsToSelector:@selector(downloadDidFinish:)])
         [delegate performSelector:@selector(downloadDidFinish:) withObject:self];
 }
 
-- (void)download:(NSURLDownload *)download didFailWithError:(NSError *)error {
+- (void)download:(QSURLDownload *)download didFailWithError:(NSError *)error {
     if(delegate && [delegate respondsToSelector:@selector(downloadDidFinish:)])
         [delegate download:(NSURLDownload*)self didFailWithError:error];
 }
