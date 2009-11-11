@@ -274,7 +274,7 @@ QSController *QSCon;
 	NSLog((id)1);
 }
 
-#pragma clang diagnostic enabled "-Wformat-security"
+#pragma clang diagnostic warning "-Wformat-security"
 
 // Menu Actions
 
