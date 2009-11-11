@@ -1,5 +1,7 @@
-// QS_SOURCE_ROOT should always point to the root of the Quicksilver source tree.
-// You can set this by editing the value here or by setting a value for QS_SOURCE_ROOT in Xcode's Source Trees Preferences
-// Please quote ("") this if there are spaces in the path, and remove a possible ending '/'.
+// This file contains developer-specific information. You can provide temporary overrides to build settings here.
 
-QS_SOURCE_ROOT = /Developer/Apps/Quicksilver
+// The bundle version displayed in the Finder's Get Info dialog and About Box
+QS_INFO_VERSION = ß56a7
+
+// The current development version shown in About Box
+QS_BUNDLE_VERSION = 3839
