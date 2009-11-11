@@ -14,9 +14,13 @@
 
 @implementation NSApplication (Info)
 - (BOOL)wasLaunchedAtLogin {
+   NSDictionary * parentProcessInfoDict = [NSApp parentProcessInformation];
+   if (parentProcessInfoDict) {
+      NSLog(@"[Quicksilver %s]: parentProcessInfoDict = '%@'", __PRETTY_FUNCTION__, [parentProcessInfoDict descriptionInStringsFileFormat]);
+   }
     // !!! Andre Berg 20091017: some people like to start QS by means of launchd plist which can also keep it alive when it crashes 
-	return ([(NSString *)([[NSApp parentProcessInformation] objectForKey:kCFBundleIdentifierKey]) isEqualToString:@"com.apple.loginwindow"] 
-            || [(NSString *)([[NSApp parentProcessInformation] objectForKey:kCFBundleExecutableKey]) isEqualToString:@"/sbin/launchd"]);
+	return ([(NSString *)([parentProcessInfoDict objectForKey:(id)kCFBundleIdentifierKey]) isEqualToString:@"com.apple.loginwindow"] 
+            || [(NSString *)([parentProcessInfoDict objectForKey:(id)kCFBundleExecutableKey]) isEqualToString:@"/sbin/launchd"]);
 }
 
 - (NSString *)buildVersion {
