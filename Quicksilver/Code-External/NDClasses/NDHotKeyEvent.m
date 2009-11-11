@@ -455,8 +455,9 @@ struct HotKeyMappingEntry
 
 - (void)dealloc
 {
-	if( UnregisterEventHotKey( reference ) != noErr )	// in lock from release
-		NSLog( @"Failed to unregister hot key %@", self );
+    OSStatus err = UnregisterEventHotKey( reference );
+	if( err != noErr )	// in lock from release
+		NSLog( @"Failed to unregister hot key %@ with error %d", self, err );
 	[super dealloc];
 }
 
@@ -918,6 +919,8 @@ static OSStatus switchHotKey( NDHotKeyEvent * self, BOOL aFlag )
 @end
 
 static NSString * stringForCharacter( const unsigned short aKeyCode, unichar aCharacter );
+static unichar unicodeForFunctionKey( UInt32 aKeyCode );
+
 NSString * stringForModifiers( unsigned int aModifierFlags );	
 
 /*
@@ -931,7 +934,7 @@ NSString * stringForKeyCodeAndModifierFlags( unsigned short aKeyCode, unichar aC
 /*
  * unicharForKeyCode()
  */
-	static unichar unicodeForFunctionKey( UInt32 aKeyCode );	
+
 unichar unicharForKeyCode( unsigned short aKeyCode )
 {
 	static UInt32			theState = 0;
@@ -978,37 +981,42 @@ unichar unicharForKeyCode( unsigned short aKeyCode )
 	
 	return theChar;
 }
-	static unichar unicodeForFunctionKey( UInt32 aKeyCode )
-	{
-		switch( aKeyCode )
-		{
-			case kVK_F1: return NSF1FunctionKey;
-			case kVK_F2: return NSF2FunctionKey;
-			case kVK_F3: return NSF3FunctionKey;
-			case kVK_F4: return NSF4FunctionKey;
-			case kVK_F5: return NSF5FunctionKey;
-			case kVK_F6: return NSF6FunctionKey;
-			case kVK_F7: return NSF7FunctionKey;
-			case kVK_F8: return NSF8FunctionKey;
-			case kVK_F9: return NSF9FunctionKey;
-			case kVK_F10: return NSF10FunctionKey;
-			case kVK_F11: return NSF11FunctionKey;
-			case kVK_F12: return NSF12FunctionKey;
-            case kVK_F13: return NSF13FunctionKey;
-            case kVK_F14: return NSF14FunctionKey;
-            case kVK_F15: return NSF15FunctionKey;
-            case kVK_F16: return NSF16FunctionKey;
-            case kVK_F17: return NSF17FunctionKey;
-            case kVK_F18: return NSF18FunctionKey;
-            case kVK_F19: return NSF19FunctionKey;
-            case kVK_F20: return NSF20FunctionKey;
-			default: return 0x00;
-		}
-	}
+
+static unichar unicodeForFunctionKey( UInt32 aKeyCode )
+{
+    switch( aKeyCode )
+    {
+        case kVK_F1: return NSF1FunctionKey;
+        case kVK_F2: return NSF2FunctionKey;
+        case kVK_F3: return NSF3FunctionKey;
+        case kVK_F4: return NSF4FunctionKey;
+        case kVK_F5: return NSF5FunctionKey;
+        case kVK_F6: return NSF6FunctionKey;
+        case kVK_F7: return NSF7FunctionKey;
+        case kVK_F8: return NSF8FunctionKey;
+        case kVK_F9: return NSF9FunctionKey;
+        case kVK_F10: return NSF10FunctionKey;
+        case kVK_F11: return NSF11FunctionKey;
+        case kVK_F12: return NSF12FunctionKey;
+        case kVK_F13: return NSF13FunctionKey;
+        case kVK_F14: return NSF14FunctionKey;
+        case kVK_F15: return NSF15FunctionKey;
+        case kVK_F16: return NSF16FunctionKey;
+        case kVK_F17: return NSF17FunctionKey;
+        case kVK_F18: return NSF18FunctionKey;
+        case kVK_F19: return NSF19FunctionKey;
+        case kVK_F20: return NSF20FunctionKey;
+        default: return 0x00;
+    }
+}
 
 NSString * stringForCharacter( const unsigned short aKeyCode, unichar aCharacter )
 {
 	NSString		* theString = nil;
+    /* tiennou: This is a modification to handle keys with no visible character (F-keys) */
+    if (!aCharacter)
+        aCharacter = unicharForKeyCode(aKeyCode);
+    
 	switch( aCharacter )
 	{
 		case NSUpArrowFunctionKey:
@@ -1140,7 +1148,7 @@ NSString * stringForCharacter( const unsigned short aKeyCode, unichar aCharacter
 
 			if( aCharacter >= 'a' && aCharacter <= 'z' )		// convert to uppercase
 				aCharacter = aCharacter + 'A' - 'a';
-
+            
 			theString = [NSString stringWithCharacters:&aCharacter length:1];
 			break;
 	}
