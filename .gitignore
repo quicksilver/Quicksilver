@@ -14,6 +14,3 @@ autom4te.cache
 *.tm_build_errors
 *.tmproj
 Developer.xcconfig
-*.scriptSuite
-*.scriptTerminology
-QuicksilverScripting.r
