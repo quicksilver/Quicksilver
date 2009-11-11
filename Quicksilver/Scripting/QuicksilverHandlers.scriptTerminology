@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Commands</key>
+	<dict>
+		<key>GetArgumentCount</key>
+		<dict>
+			<key>Description</key>
+			<string>Get the argument count for this action. Scripts with this handler can customize their argument count. Valid values are 1, 2.</string>
+			<key>Name</key>
+			<string>get argument count</string>
+		</dict>
+		<key>ProcessText</key>
+		<dict>
+			<key>Description</key>
+			<string>Process some text. Scripts with this handler gain a 'Process Text' action</string>
+			<key>Name</key>
+			<string>process text</string>
+			<key>UnnamedArgument</key>
+			<dict>
+				<key>Description</key>
+				<string>text to process</string>
+			</dict>
+		</dict>
+	</dict>
+	<key>Description</key>
+	<string>Handlers for Actions and other scripts.</string>
+	<key>Name</key>
+	<string>Script Handlers</string>
+</dict>
+</plist>

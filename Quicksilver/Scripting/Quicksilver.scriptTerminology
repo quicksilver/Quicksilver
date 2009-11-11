@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Classes</key>
+	<dict>
+		<key>NSApplication</key>
+		<dict>
+			<key>Attributes</key>
+			<dict>
+				<key>AESelection</key>
+				<dict>
+					<key>Description</key>
+					<string>current selection</string>
+					<key>Name</key>
+					<string>selection</string>
+				</dict>
+			</dict>
+			<key>Name</key>
+			<string>application</string>
+			<key>PluralName</key>
+			<string>applications</string>
+		</dict>
+	</dict>
+	<key>Commands</key>
+	<dict>
+		<key>OpenURL</key>
+		<dict>
+			<key>Description</key>
+			<string>Opens or selects a URL</string>
+			<key>Name</key>
+			<string>open URL</string>
+			<key>UnnamedArgument</key>
+			<dict>
+				<key>Description</key>
+				<string>the URL to open</string>
+			</dict>
+		</dict>
+		<key>ShowLargeType</key>
+		<dict>
+			<key>Description</key>
+			<string>display text in large type</string>
+			<key>Name</key>
+			<string>show large type</string>
+			<key>UnnamedArgument</key>
+			<dict>
+				<key>Description</key>
+				<string>text to display</string>
+			</dict>
+		</dict>
+		<key>ShowNotification</key>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>imageData</key>
+				<dict>
+					<key>Description</key>
+					<string>image data for notification</string>
+					<key>Name</key>
+					<string>image data</string>
+				</dict>
+				<key>imageName</key>
+				<dict>
+					<key>Description</key>
+					<string>image name for notification</string>
+					<key>Name</key>
+					<string>image name</string>
+				</dict>
+				<key>text</key>
+				<dict>
+					<key>Description</key>
+					<string>text of notification</string>
+					<key>Name</key>
+					<string>text</string>
+				</dict>
+			</dict>
+			<key>Description</key>
+			<string>Display a notification</string>
+			<key>Name</key>
+			<string>show notification</string>
+			<key>UnnamedArgument</key>
+			<dict>
+				<key>Description</key>
+				<string>title of notification</string>
+			</dict>
+		</dict>
+	</dict>
+	<key>Description</key>
+	<string>commands and classes for Quicksilver scripting.</string>
+	<key>Name</key>
+	<string>Quicksilver</string>
+</dict>
+</plist>
