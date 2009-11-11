@@ -1177,8 +1177,8 @@
 		92DC402B0E25A0C40091BD92 /* Action.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Action.png; sourceTree = "<group>"; };
 		92E946170D04CCEF0013377F /* QSModifierKeyEvents.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSModifierKeyEvents.h; sourceTree = "<group>"; };
 		92E946180D04CCEF0013377F /* QSModifierKeyEvents.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSModifierKeyEvents.m; sourceTree = "<group>"; };
-		CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QSMDPredicate.h; path = "Apps/Quicksilver/Code-QuickStepFoundation/QSMDPredicate.h"; sourceTree = SYSTEM_DEVELOPER_DIR; };
-		CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QSMDPredicate.m; path = "Apps/Quicksilver/Code-QuickStepFoundation/QSMDPredicate.m"; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSMDPredicate.h; sourceTree = "<group>"; };
+		CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSMDPredicate.m; sourceTree = "<group>"; };
 		E102347006BB6CC900143367 /* Find.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Find.icns; sourceTree = "<group>"; };
 		E102F97C06625D7300843027 /* About.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = About.xib; sourceTree = "<group>"; };
 		E102F97D06625D7300843027 /* QSCatalog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSCatalog.xib; sourceTree = "<group>"; };
@@ -2058,8 +2058,8 @@
 		E18001C207B2BBB800010DB0 /* Code-App */ = {
 			isa = PBXGroup;
 			children = (
-				E18001C307B2BBB800010DB0 /* AppKitPrivate.h */,
 				E18001C507B2BBB800010DB0 /* main.m */,
+				E18001C307B2BBB800010DB0 /* AppKitPrivate.h */,
 				7F3F72D30952F00D009B4B2D /* NSApplication+ServicesModification.h */,
 				7F3F72D40952F00E009B4B2D /* NSApplication+ServicesModification.m */,
 				7F8C658108116FD10051113C /* QSAboutWindowController.h */,
@@ -2177,29 +2177,6 @@
 		E1E5FA6C07B204BE0044D6EF /* Code-QuickStepFoundation */ = {
 			isa = PBXGroup;
 			children = (
-				CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */,
-				CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */,
-				4DC493C90E8D1340000EEF1C /* QSHotKeyEvent.h */,
-				4DC493CA0E8D1340000EEF1C /* QSHotKeyEvent.m */,
-				92D9C9680D134BDD00D91825 /* QSTreeController.h */,
-				92D9C9690D134BDD00D91825 /* QSTreeController.m */,
-				7F95531E0A25DC4A0004FCC3 /* QSLoginItemFunctions.h */,
-				7F95531F0A25DC4A0004FCC3 /* QSLoginItemFunctions.m */,
-				7F0843CC098ACB2F00F136CC /* QSLog.h */,
-				7F0843CD098ACB2F00F136CC /* QSLog.m */,
-				7F93148B07E8B626009B3C06 /* NSIndexSet+Extensions.h */,
-				7F943F6308033961007EDC31 /* QSUTI.h */,
-				7F943F6408033961007EDC31 /* QSUTI.m */,
-				7FDF342307F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.h */,
-				7FDF342407F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.m */,
-				7F93148C07E8B627009B3C06 /* NSIndexSet+Extensions.m */,
-				7FDF341607F7D59E00594789 /* NSDictionary+BLTRExtensions.h */,
-				7FDF341707F7D59E00594789 /* NSDictionary+BLTRExtensions.m */,
-				7FF8BB3607B816A20088CEEF /* NSTask+BLTRExtensions.h */,
-				7FF8BB3707B816A20088CEEF /* NSTask+BLTRExtensions.m */,
-				E1E5FADD07B205950044D6EF /* QSKeyCodeTranslator.h */,
-				E1E5FADE07B205950044D6EF /* QSKeyCodeTranslator.m */,
-				E1E5FA6D07B204BE0044D6EF /* QSFoundation.h */,
 				E1E5FA6E07B204BE0044D6EF /* NDAlias+QSMods.h */,
 				E1E5FA6F07B204BE0044D6EF /* NDAlias+QSMods.m */,
 				E1E5FA7007B204BE0044D6EF /* NDProcess+QSMods.h */,
@@ -2274,8 +2251,31 @@
 				7F0843CD098ACB2F00F136CC /* QSLog.m */,
 				7F95531E0A25DC4A0004FCC3 /* QSLoginItemFunctions.h */,
 				7F95531F0A25DC4A0004FCC3 /* QSLoginItemFunctions.m */,
+				7FDF341607F7D59E00594789 /* NSDictionary+BLTRExtensions.h */,
 				7FF447E8080479E200316DB6 /* QSLSTools.h */,
 				7FF447E9080479E200316DB6 /* QSLSTools.m */,
+				CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */,
+				CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */,
+				92D9C9680D134BDD00D91825 /* QSTreeController.h */,
+				7FDF341707F7D59E00594789 /* NSDictionary+BLTRExtensions.m */,
+				92D9C9690D134BDD00D91825 /* QSTreeController.m */,
+				7F93148B07E8B626009B3C06 /* NSIndexSet+Extensions.h */,
+				7F943F6308033961007EDC31 /* QSUTI.h */,
+				7F93148C07E8B627009B3C06 /* NSIndexSet+Extensions.m */,
+				7F943F6408033961007EDC31 /* QSUTI.m */,
+				7FDF342307F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.h */,
+				7FDF342407F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.m */,
+				7FF8BB3607B816A20088CEEF /* NSTask+BLTRExtensions.h */,
+				7FF8BB3707B816A20088CEEF /* NSTask+BLTRExtensions.m */,
+				E1E5FA6D07B204BE0044D6EF /* QSFoundation.h */,
+				4DC493C90E8D1340000EEF1C /* QSHotKeyEvent.h */,
+				4DC493CA0E8D1340000EEF1C /* QSHotKeyEvent.m */,
+				E1E5FADD07B205950044D6EF /* QSKeyCodeTranslator.h */,
+				E1E5FADE07B205950044D6EF /* QSKeyCodeTranslator.m */,
+				7F0843CC098ACB2F00F136CC /* QSLog.h */,
+				7F0843CD098ACB2F00F136CC /* QSLog.m */,
+				7F95531E0A25DC4A0004FCC3 /* QSLoginItemFunctions.h */,
+				7F95531F0A25DC4A0004FCC3 /* QSLoginItemFunctions.m */,
 				92D9C9680D134BDD00D91825 /* QSTreeController.h */,
 				92D9C9690D134BDD00D91825 /* QSTreeController.m */,
 				7F943F6308033961007EDC31 /* QSUTI.h */,
@@ -2920,7 +2920,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = NO;
+				BuildIndependentTargetsInParallel = YES;
 			};
 			buildConfigurationList = 7F6B3E7C085CE68E000735A8 /* Build configuration list for PBXProject "Quicksilver" */;
 			compatibilityVersion = "Xcode 3.1";
