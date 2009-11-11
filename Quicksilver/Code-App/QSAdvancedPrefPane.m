@@ -22,7 +22,6 @@
 // !!! Andre Berg 20091017: This is needed to get rid of the bug described in "tableView:dataCellForTableColumn:row:" below
 // Also of course registering as observer and unregistering in dealloc.
 - (void)columnResized:(id)sender {
-	NSLog(@"- columnResized in QSAdvancedPrefPane");
 	[prefSetsTable noteHeightOfRowsWithIndexesChanged:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [[prefSetsController arrangedObjects] count] )]]; // was calling self
 }
 
@@ -54,9 +53,9 @@
 	return MAX(24, size.height+6);
 }
 
-//- (NSString *)tableView:(NSTableView *)aTableView toolTipForCell:(NSCell *)aCell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)aTableColumn row:(int)row mouseLocation:(NSPoint)mouseLocation {
-////	return [[aCell objectValue] description];
-//}
+- (NSString *)tableView:(NSTableView *)aTableView toolTipForCell:(NSCell *)aCell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)aTableColumn row:(int)row mouseLocation:(NSPoint)mouseLocation {
+   return [[aCell objectValue] description];
+}
 
 - (NSCell *)tableView:(NSTableView *)aTableView dataCellForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
     
