@@ -45,10 +45,17 @@ static BOOL gModifiersAreIgnored;
 	return [[[QSExec actionForIdentifier:newIdentifier] retain] autorelease];
 }
 
-+ (id)actionWithIdentifier:(NSString *)newIdentifier bundle:(NSBundle *)newBundle {
++ (id) actionWithIdentifier:(NSString *)newIdentifier bundle:(NSBundle *)newBundle {
     id obj = [self actionWithIdentifier:newIdentifier];
-    [obj setBundle:newBundle];
-	return obj;
+
+    // !!! Andre Berg 20091111: Incorporating patch Issue126-Fix.diff of pkohut
+    if (!obj) {
+        obj = [[[self alloc] initWithIdentifier:newIdentifier bundle:newBundle] autorelease];
+    } else {
+        [obj setBundle:newBundle];
+    }
+    // patch end
+    return obj;
 }
 
 - (id)init {
@@ -79,6 +86,20 @@ static BOOL gModifiersAreIgnored;
 	}
 	return self;
 }
+
+// !!! Andre Berg 20091111: Incorporating patch Issue126-Fix.diff of pkohut 
+- (id)initWithIdentifier:(NSString *)newIdentifier bundle:(NSBundle *)newBundle {
+   NSString * normalizedIdentifier = newIdentifier == 0 ? @"" : newIdentifier;
+   id obj = [self initWithDictionary:[NSDictionary dictionary] identifier:normalizedIdentifier bundle:newBundle];
+   if(obj) {
+      [self setIdentifier:newIdentifier];
+      [self setName:[newBundle safeLocalizedStringForKey:newIdentifier value:newIdentifier table:@"QSAction.name"]];
+      [self setDisplaysResult:YES];
+      [self setArgumentCount:1];
+   }
+   return obj;
+}
+// end patch
 
 - (NSMutableDictionary*)actionDict {
     return [self objectForType:QSActionType];
