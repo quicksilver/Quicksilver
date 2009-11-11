@@ -19,7 +19,7 @@
 	<key>QSPresetBrowsersGroup</key>
 	<string>Lesezeichen</string>
 	<key>QSPresetBuffers</key>
-	<string>Buffer Contents ?Ç'est quoi???</string>
+	<string>Inhalt des Vorgabenpuffers</string>
 	<key>QSPresetCaminoBookmarks</key>
 	<string>Camino-Lesezeichen</string>
 	<key>QSPresetClassicApplications</key>
@@ -107,7 +107,7 @@
 	<key>QSPresetMiscellaneousGroup</key>
 	<string>Verschiedenes</string>
 	<key>QSPresetNUDCContacts</key>
-	<string>Aktueller Kontakt (Now Contact) ???</string>
+	<string>Aktueller Kontakt</string>
 	<key>QSPresetNetworkLocations</key>
 	<string>Netzwerk</string>
 	<key>QSPresetOmniWebBookmarks</key>
@@ -139,7 +139,7 @@
 	<key>QSPresetRecentItems</key>
 	<string>Benutzte Objekte</string>
 	<key>QSPresetRecentSelections</key>
-	<string>Benutzte Auswahlen (Recent Selections) ???</string>
+	<string>Benutzte Auswahlen</string>
 	<key>QSPresetRecentServers</key>
 	<string>Benutzte Server</string>
 	<key>QSPresetRendezvous</key>

@@ -3,23 +3,33 @@
 <plist version="1.0">
 <dict>
 	<key>AppActivateAction</key>
-	<string>Nach Vorne</string>
+	<string>Einblenden</string>
 	<key>AppHideAction</key>
 	<string>Ausblenden</string>
+    <key>AppHideOthersAction</key>
+    <string>Andere ausblenden</string>
 	<key>AppLaunchAction</key>
 	<string>Starten</string>
 	<key>AppLaunchAgainAction</key>
-	<string>Nochmal Starten</string>
+	<string>Eine Kopie Starten</string>
 	<key>AppOpenFileAction</key>
 	<string>Datei Öffnen...</string>
 	<key>AppQuitAction</key>
 	<string>Beenden</string>
+    <key>AppRelaunchAction</key>
+    <string>Neustarten</string>
 	<key>AppReopenAction</key>
 	<string>Starten</string>
 	<key>AppRootLaunchAction</key>
 	<string>Als Root Starten</string>
+    <key>AppleScriptOpenFilesAction</key>
+    <string>Open File...</string>
+    <key>AppleScriptProcessTextAction</key>
+    <string>Process Text...</string>
 	<key>AppleScriptRunAction</key>
 	<string>Ausführen</string>
+    <key>AppleScriptRunTextAction</key>
+    <string>Als AppleScript Ausführen</string>
 	<key>ContactEditAction</key>
 	<string>Bearbeiten</string>
 	<key>ContactEmailAction</key>
@@ -46,6 +56,8 @@
 	<string>Entpacken</string>
 	<key>FileDeleteAction</key>
 	<string>Löschen</string>
+    <key>FileGetInfoAction</key>
+    <string>Infofenster</string>
 	<key>FileGetPathAction</key>
 	<string>Pfad Davon</string>
 	<key>FileMakeLinkInAction</key>
@@ -56,6 +68,8 @@
 	<string>Öffnen</string>
 	<key>FileOpenWithAction</key>
 	<string>Öffnen Mit...</string>
+    <key>FileRenameAction</key>
+    <string>Umbenennen...</string>
 	<key>FileRevealAction</key>
 	<string>Zeigen</string>
 	<key>FileToTrashAction</key>
@@ -63,9 +77,9 @@
 	<key>ItemSendToContactEmailAction</key>
 	<string>Mailen an...</string>
 	<key>ItemSendToContactIMAction</key>
-	<string>Telegramm An...</string>
+	<string>Sofortnachricht An...</string>
 	<key>PasteboardPasteAction</key>
-	<string>Einsetzen</string>
+	<string>Einfügen</string>
 	<key>ProcessKillAction</key>
 	<string>Sofort Beenden</string>
 	<key>ProcessLowerPriorityAction</key>
@@ -75,33 +89,87 @@
 	<key>ProcessResumeAction</key>
 	<string>Fortsetzen</string>
 	<key>ProcessSuspendAction</key>
-	<string>Pausieren</string>
-	<key>QSABLargeTypeAction</key>
-	<string>Große Schrift</string>
+	<string>Ausführung Anhalten (Suspendieren)</string>
+	<key>QSAIMSMSAction</key>
+	<string>Eine SMS (AIM/iChat) Senden</string>
+	<key>QSAirPortNetworkSelectAction</key>
+	<string>Airport Netzwerk Wechseln</string>
+	<key>QSCLExecuteAction</key>
+	<string>Ausführen</string>
+	<key>QSCLExecuteTextAction</key>
+	<string>In Einer Shell Ausführen</string>
+	<key>QSCLExecuteWithArgsAction</key>
+	<string>Ausführen [...]</string>
+	<key>QSCLTermExecuteTextAction</key>
+	<string>Im Terminal Ausführen</string>
+	<key>QSCLTermExecuteWithArgsAction</key>
+	<string>Im Terminal Ausführen [...]</string>
+	<key>QSCLTermShowDirectoryAction</key>
+	<string>Öffne Pfad im Terminal</string>
+	<key>QSCLTermShowManPageAction</key>
+	<string>Man Page Zeigen</string>
 	<key>QSCatalogEntryRescanAction</key>
 	<string>Katalogeintrag Aktualisieren</string>
 	<key>QSCatalogEntryShowAction</key>
 	<string>Katalogeintrag zeigen</string>
+    <key>QSComposeEmailItemAction</key>
+    <string>Email... (Verfassen)</string>
+    <key>QSComposeEmailItemReverseAction</key>
+    <string>Email An... (Verfassen)</string>
+    <key>QSDialNumberAction</key>
+    <string>Wählen</string>
 	<key>QSEditAction</key>
 	<string>Bearbeiten</string>
+    <key>QSEmailAction</key>
+    <string>Mailen</string>
+    <key>QSEmailItemAction</key>
+    <string>Email... (Senden)</string>
+    <key>QSEmailItemReverseAction</key>
+    <string>Email An... (Senden)</string>
 	<key>QSHFSLockAction</key>
-	<string>Schützen</string>
+	<string>Sperren</string>
 	<key>QSHFSMakeInvisibleAction</key>
 	<string>Verstecken</string>
 	<key>QSHFSMakeVisibleAction</key>
 	<string>Sichtbar Machen</string>
 	<key>QSHFSUnlockAction</key>
-	<string>Entschützen</string>
+	<string>Sperrung Aufheben</string>
+    <key>QSLargeTypeAction</key>
+    <string>Große Schrift</string>
 	<key>QSNUTDContactShowAction</key>
 	<string>Kontakt Zeigen</string>
-	<key>QSNetworkLocationSelectAction</key>
-	<string>Umgebung Wechseln</string>
+    <key>QSNetworkLocationSelectAction</key>
+    <string>Netzwerkumgebung Wechseln</string>
+    <key>QSObjCSendMessageAction</key>
+    <string>Ausführen</string>
+    <key>QSObjectSearchChildrenAction</key>
+    <string>Inhalt Durchsuchen</string>
+    <key>QSObjectShowChildrenAction</key>
+    <string>Inhalt Anzeigen</string>
+    <key>QSPutOnShelfAction</key>
+    <string>Auf Ablage Legen</string>
+    <key>QSShelfShowAction</key>
+    <string>Zeigen</string>
+    <key>QSSherlockChannelShowAction</key>
+    <string>Channel Zeigen</string>
+    <key>QSTextAppendAction</key>
+    <string>Text Anhängen...</string>
+    <key>QSTextDiffAction</key>
+    <string>Zeige Differenz Zu...</string>
+    <key>QSTextPrependAction</key>
+    <string>Text Voranstellen...</string>
+    <key>QSTextTypeAction</key>
+    <string>Text Tippen</string>
+    <key>QSUserSwitchAction</key>
+    <string>Benutzer Wechseln</string>
+    <key>QSiPhotoAlbumShowAction</key>
+    <string>Album Zeigen</string>
 	<key>QSiPhotoAlbumSlideShowAction</key>
 	<string>Diashow Abspielen</string>
-	<key>QSiTunesPlaylistPlayAction</key>
-	<string>Wiedergabeliste Abspielen</string>
-	<key>QSiTunesTrackPlayAction</key>
-	<string>Abspielen</string>
+    <key>QSiTunesAppendItemAction</key>
+    <string>Einreihen</string>
+    <key>QSiTunesPlayItemAction</key>
+    <string>Abspielen</string>
 	<key>ShellScriptRunAction</key>
 	<string>Shellskript Ausführen</string>
 	<key>URLEmailAction</key>
@@ -112,9 +180,13 @@
 	<string>Javascript Ausführen</string>
 	<key>URLOpenAction</key>
 	<string>Öffnen</string>
+	<key>URLOpenWithAction</key>
+	<string>Öffnen Mit...</string>
 	<key>URLSearchAction</key>
 	<string>Suchen</string>
 	<key>URLSearchForAction</key>
-	<string>Suche Nach Objekt...</string>
+	<string>Suche Nach...</string>
+    <key>QSiTunesPlaylistPlayAction</key>
+    <string>Wiedergabeliste Abspielen</string>
 </dict>
 </plist>

@@ -76,7 +76,7 @@
 	<string>Setzt ein pausiertes Programm fort</string>
 	<key>ProcessSuspendAction</key>
 	<string>Pausiert ein laufendes Programm</string>
-	<key>QSABLargeTypeAction</key>
+	<key>QSLargeTypeAction</key>
 	<string>Große Schrift</string>
 	<key>QSCatalogEntryRescanAction</key>
 	<string>Katalogeintrag auf den neuesten Stand bringen</string>

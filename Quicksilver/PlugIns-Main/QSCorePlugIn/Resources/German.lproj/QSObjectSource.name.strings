@@ -11,15 +11,15 @@
 	<key>QSCatalogEntrySource</key>
 	<string>Katalogeinträge</string>
 	<key>QSDefaultsObjectSource</key>
-	<string>Voreinstellungsausleser (Defaults Reader) ???</string>
+	<string>Voreinstellungsparser</string>
 	<key>QSFileSystemObjectSource</key>
 	<string>Datei- &amp; Ordner-Durchsucher</string>
 	<key>QSGroupObjectSource</key>
 	<string>Gruppe</string>
 	<key>QSMachineSource</key>
-	<string>Quicksilver Computer (Machines)???</string>
+	<string>Zugängliche Computer</string>
 	<key>QSNUDCSource</key>
-	<string>Jetzt Aktuell Und Kontakt (Now Up-To and Contact) ???</string>
+	<string>Jetzt Aktuell Und Kontakt</string>
 	<key>QSNetworkLocationObjectSource</key>
 	<string>Netzwerk</string>
 	<key>QSProcessObjectSource</key>
