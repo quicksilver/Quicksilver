@@ -85,6 +85,18 @@ For a more comprehensive list take a look at the commit messages.
 * Various other housekeeping tasks.
 
 
+Notes Specific to Snow Leopard
+------------------------------
+
+Snow Leopard has a reworked Services system. This is relevant because preferences like *"Pull selection from front application instead of Finder"* (`Preferences > Extras`) make use of two services called *"Get Current Selection"* and *"Send to Quicksilver"*. 
+
+It appears that these services will not register properly when the pasteboard server (`/System/Library/CoreServices/pbs`) sees multiple Quicksilver.app packages each with their very own Info.plist file defining the same services.
+
+The result is that none of the services for any Quicksilver.app will register and thus the default Cmd + Esc hotkey combo won't do anything much no matter which application is currrently frontmost.
+The solution to this is to zip any old Quicksilver.app packages you want to keep around and delete every Quicksilver.app package except the one you want to run. 
+Also do not forget to empty your trash after you deleted the older Quicksilver.app packages.
+
+
 Development
 -----------
 
