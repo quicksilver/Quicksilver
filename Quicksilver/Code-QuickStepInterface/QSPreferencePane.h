@@ -8,7 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface QSPreferencePane : NSObject <NSWindowDelegate> {
+@interface QSPreferencePane : NSObject
+#if (MAC_OS_X_VERSION_MAX_ALLOWED >= 1060)
+   <NSWindowDelegate>
+#endif
+{
 	IBOutlet NSWindow *_window;
 	IBOutlet NSView *_initialKeyView;
 	IBOutlet NSView *_firstKeyView;

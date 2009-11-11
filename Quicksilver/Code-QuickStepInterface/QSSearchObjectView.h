@@ -15,7 +15,12 @@ typedef enum QSSearchMode {
 } QSSearchMode;
 
 @class QSResultController;
-@interface QSSearchObjectView : QSObjectView <NSTextInput, NSTextDelegate> {
+@interface QSSearchObjectView : QSObjectView <NSTextInput
+#if (MAC_OS_X_VERSION_MAX_ALLOWED >= 1060)
+	, NSTextDelegate
+#endif
+> 
+{   
 	NSMutableString *partialString;
 	NSString 		*matchedString;
 	NSString 		*visibleString;

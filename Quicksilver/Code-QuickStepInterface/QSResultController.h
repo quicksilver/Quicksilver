@@ -4,8 +4,12 @@
 
 @class QSObjectView, QSSearchObjectView;
 
-@interface QSResultController : NSWindowController <NSTableViewDataSource> {
-	@public
+@interface QSResultController : NSWindowController
+#if (MAC_OS_X_VERSION_MAX_ALLOWED >= 1060)
+   <NSTableViewDataSource>
+#endif
+{
+ @public
 	IBOutlet NSTextField *	searchStringField;
 	IBOutlet NSView *	selectionView;
 	IBOutlet NSSplitView *	splitView;
