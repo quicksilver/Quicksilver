@@ -473,13 +473,12 @@
 		} else {
 			[dSelector performSelectorOnMainThread:@selector(selectObjectValue:) withObject:returnValue waitUntilDone:YES];
 			if (action) {
-                // !!! Andre Berg 20091007: allow actions to disable showing the result
-                if ([action isKindOfClass:[QSRankedObject class]] && [(QSRankedObject *)action object])
+                if ([action isKindOfClass:[QSRankedObject class]] && [(QSRankedObject *)action object]) {
                     action = [(QSRankedObject *)action object];
-                if ([action respondsToSelector:@selector(displaysResult)] && [action displaysResult])
-                    [self showMainWindow:self];
-            } else {
-                [self showMainWindow:self];
+                    if ([action displaysResult]) {
+                        [self showMainWindow:self];
+                    }
+                }
             }
 		}
 	}
