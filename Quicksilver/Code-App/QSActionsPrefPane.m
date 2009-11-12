@@ -104,7 +104,7 @@
 			break;
 		}
 		case 1: {
-			foreach(plugin, [[QSPlugInManager sharedInstance] loadedPlugIns]) {
+			foreachkey(pluginId, plugin, [[QSPlugInManager sharedInstance] loadedPlugIns]) {
 				NSString *name = [plugin shortName];
 				if (!name) name = [plugin identifier];
 				NSArray *actionsArray = [QSExec getArrayForSource:[plugin identifier]];
