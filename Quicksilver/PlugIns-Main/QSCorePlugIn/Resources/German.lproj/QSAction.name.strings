@@ -58,8 +58,12 @@
 	<string>Löschen</string>
     <key>FileGetInfoAction</key>
     <string>Infofenster</string>
-	<key>FileGetPathAction</key>
-	<string>Pfad Davon</string>
+    <key>FileGetPosixPathAction</key>
+    <string>Pfad Zu</string>
+    <key>FileGetURLAction</key>
+    <string>Pfad als URL</string>
+    <key>FileGetHFSPathAction</key>
+    <string>HFS Pfad Zu</string>
 	<key>FileMakeLinkInAction</key>
 	<string>Alias Erzeugen In...</string>
 	<key>FileMoveToAction</key>
@@ -68,6 +72,8 @@
 	<string>Öffnen</string>
 	<key>FileOpenWithAction</key>
 	<string>Öffnen Mit...</string>
+    <key>FileAlwaysOpenTypeWithAction</key>
+    <string>Immer Öffnen Mit...</string>
     <key>FileRenameAction</key>
     <string>Umbenennen...</string>
 	<key>FileRevealAction</key>
@@ -78,8 +84,10 @@
 	<string>Mailen an...</string>
 	<key>ItemSendToContactIMAction</key>
 	<string>Sofortnachricht An...</string>
+    <key>PasteboardCopyAction</key>
+    <string>Kopieren</string>
 	<key>PasteboardPasteAction</key>
-	<string>Einfügen</string>
+	<string>Einsetzen</string>
 	<key>ProcessKillAction</key>
 	<string>Sofort Beenden</string>
 	<key>ProcessLowerPriorityAction</key>
@@ -134,6 +142,8 @@
 	<string>Sichtbar Machen</string>
 	<key>QSHFSUnlockAction</key>
 	<string>Sperrung Aufheben</string>
+    <key>QSNewFolderAction</key>
+    <string>Neuer Ordner...</string>
     <key>QSLargeTypeAction</key>
     <string>Große Schrift</string>
 	<key>QSNUTDContactShowAction</key>
@@ -142,6 +152,10 @@
     <string>Netzwerkumgebung Wechseln</string>
     <key>QSObjCSendMessageAction</key>
     <string>Ausführen</string>
+    <key>QSObjectAssignMnemonic</key>
+    <string>Kürzel Zuweisen...</string>
+    <key>QSObjectSelectAction</key>
+    <string>Im Befehlsfenster Auswählen</string>
     <key>QSObjectSearchChildrenAction</key>
     <string>Inhalt Durchsuchen</string>
     <key>QSObjectShowChildrenAction</key>
@@ -160,6 +174,8 @@
     <string>Text Voranstellen...</string>
     <key>QSTextTypeAction</key>
     <string>Text Tippen</string>
+    <key>QSTextSpeakAction</key>
+    <string>Text Vorsprechen</string>
     <key>QSUserSwitchAction</key>
     <string>Benutzer Wechseln</string>
     <key>QSiPhotoAlbumShowAction</key>

@@ -671,7 +671,7 @@
 			remoteGlobalIDString = 8D1AC9600486D14A00FE50C9;
 			remoteInfo = "HotKey Triggers";
 		};
-		4DAAEB9E0E0BBF720088C72D /* PBXContainerItemProxy */ = {
+		65D5F72B10ABAD6A002DCB0C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
@@ -2891,7 +2891,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				4DAAEB9F0E0BBF720088C72D /* PBXTargetDependency */,
+				65D5F72C10ABAD6A002DCB0C /* PBXTargetDependency */,
 			);
 			name = "Core Support";
 			productName = QSAirPortPlugIn;
@@ -3510,10 +3510,10 @@
 			name = "HotKey Triggers";
 			targetProxy = 4DAAEB860E0BBE1B0088C72D /* PBXContainerItemProxy */;
 		};
-		4DAAEB9F0E0BBF720088C72D /* PBXTargetDependency */ = {
+		65D5F72C10ABAD6A002DCB0C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8D1107260486CEB800E47090 /* Quicksilver */;
-			targetProxy = 4DAAEB9E0E0BBF720088C72D /* PBXContainerItemProxy */;
+			targetProxy = 65D5F72B10ABAD6A002DCB0C /* PBXContainerItemProxy */;
 		};
 		7F039994080EE21A001A9FA3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
