@@ -30,6 +30,8 @@
     <string>Ausführen</string>
     <key>AppleScriptRunTextAction</key>
     <string>Als AppleScript Ausführen</string>
+    <key>CalculatorCalculateAction</key>
+    <string>Berechnen</string>
     <key>ContactEditAction</key>
     <string>Bearbeiten</string>
     <key>ContactEmailAction</key>
@@ -59,11 +61,12 @@
     <key>FileGetInfoAction</key>
     <string>Infofenster</string>
     <key>FileGetPosixPathAction</key>
-    <string>Pfad Zu</string>
+    <string>Pfad (POSIX)</string>
     <key>FileGetURLAction</key>
     <string>Pfad als URL</string>
     <key>FileGetHFSPathAction</key>
-    <string>HFS Pfad Zu</string>    <key>FileMakeLinkInAction</key>
+    <string>Pfad (HFS)</string>
+    <key>FileMakeLinkInAction</key>
     <string>Alias Erzeugen In...</string>
     <key>FileMoveToAction</key>
     <string>Bewegen Nach...</string>
@@ -86,7 +89,7 @@
     <key>PasteboardCopyAction</key>
     <string>Kopieren</string>
     <key>PasteboardPasteAction</key>
-    <string>Einfügen</string>
+    <string>Einsetzen</string>
     <key>ProcessKillAction</key>
     <string>Sofort Beenden</string>
     <key>ProcessLowerPriorityAction</key>
@@ -104,17 +107,21 @@
     <key>QSCLExecuteAction</key>
     <string>Ausführen</string>
     <key>QSCLExecuteTextAction</key>
-    <string>In Einer Shell Ausführen</string>
+    <string>Befehl In Shell Ausführen</string>
+    <key>QSCLExecuteShellCommandAction</key>
+    <string>Befehl In Shell Ausführen</string>
     <key>QSCLExecuteWithArgsAction</key>
     <string>Ausführen [...]</string>
     <key>QSCLTermExecuteTextAction</key>
+    <string>Textbefehl im Terminal Ausführen</string>
+    <key>QSCLTermExecuteShellCommandAction</key>
     <string>Im Terminal Ausführen</string>
     <key>QSCLTermExecuteWithArgsAction</key>
     <string>Im Terminal Ausführen [...]</string>
     <key>QSCLTermShowDirectoryAction</key>
-    <string>Öffne Pfad im Terminal</string>
+    <string>Im Terminal Öffnen</string>
     <key>QSCLTermShowManPageAction</key>
-    <string>Man Page Zeigen</string>
+    <string>Man Page Anzeigen</string>
     <key>QSCatalogEntryRescanAction</key>
     <string>Katalogeintrag Aktualisieren</string>
     <key>QSCatalogEntryShowAction</key>
@@ -163,6 +170,8 @@
     <string>Auf Ablage Legen</string>
     <key>QSShelfShowAction</key>
     <string>Zeigen</string>
+    <key>QSShellScriptRunAction</key>
+    <string>Ausführen [...]</string>
     <key>QSSherlockChannelShowAction</key>
     <string>Channel Zeigen</string>
     <key>QSTextAppendAction</key>
