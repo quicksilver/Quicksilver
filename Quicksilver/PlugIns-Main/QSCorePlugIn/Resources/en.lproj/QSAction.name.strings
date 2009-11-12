@@ -58,8 +58,12 @@
 	<string>Delete (Erase)</string>
 	<key>FileGetInfoAction</key>
 	<string>Get Info</string>
-	<key>FileGetPathAction</key>
-	<string>Get Path</string>
+    <key>FileGetPosixPathAction</key>
+    <string>Get Path</string>
+    <key>FileGetURLAction</key>
+    <string>Get File URL</string>
+    <key>FileGetHFSPathAction</key>
+    <string>Get File Location</string>
 	<key>FileMakeLinkInAction</key>
 	<string>Make Link In...</string>
 	<key>FileMoveToAction</key>
@@ -68,6 +72,8 @@
 	<string>Open</string>
 	<key>FileOpenWithAction</key>
 	<string>Open With...</string>
+	<key>FileAlwaysOpenTypeWithAction</key>
+    <string>Always Open Type With...</string>
 	<key>FileRenameAction</key>
 	<string>Rename...</string>
 	<key>FileRevealAction</key>
@@ -78,8 +84,10 @@
 	<string>Email To...</string>
 	<key>ItemSendToContactIMAction</key>
 	<string>IM To Person...</string>
-	<key>PasteboardPasteAction</key>
-	<string>Paste</string>
+    <key>PasteboardCopyAction</key>
+    <string>Copy to Clipboard</string>
+    <key>PasteboardPasteAction</key>
+    <string>Paste with Clipboard</string>
 	<key>ProcessKillAction</key>
 	<string>Force Quit (Kill)</string>
 	<key>ProcessLowerPriorityAction</key>
@@ -88,10 +96,14 @@
 	<string>Raise Priority</string>
 	<key>ProcessResumeAction</key>
 	<string>Continue Execution (Resume)</string>
-	<key>ProcessSuspendAction</key>
-	<string>Pause Execution (Suspend)</string>
-	<key>QSAIMSMSAction</key>
-	<string>Send SMS (AIM/iChat)</string>
+    <key>ProcessSuspendAction</key>
+    <string>Pause Execution (Suspend)</string>
+    <key>QSObjectAssignMnemonic</key>
+    <string>Assign Abbreviation...</string>
+    <key>QSObjectSelectAction</key>
+    <string>Select in Command Window</string>
+    <key>QSAIMSMSAction</key>
+    <string>Send SMS (AIM/iChat)</string>
 	<key>QSAirPortNetworkSelectAction</key>
 	<string>Switch Airport</string>
 	<key>QSCLExecuteAction</key>
@@ -132,8 +144,10 @@
 	<string>Make Invisible</string>
 	<key>QSHFSMakeVisibleAction</key>
 	<string>Make Visible</string>
-	<key>QSHFSUnlockAction</key>
-	<string>Unlock</string>
+    <key>QSHFSUnlockAction</key>
+    <string>Unlock</string>
+    <key>QSNewFolderAction</key>
+    <string>New Folder...</string>
 	<key>QSLargeTypeAction</key>
 	<string>Large Type</string>
 	<key>QSNUTDContactShowAction</key>
@@ -150,8 +164,10 @@
 	<string>Put on Shelf</string>
 	<key>QSShelfShowAction</key>
 	<string>Show</string>
-	<key>QSSherlockChannelShowAction</key>
-	<string>Show Channel</string>
+    <key>QSSherlockChannelShowAction</key>
+    <string>Show Channel</string>
+    <key>QSTextSpeakAction</key>
+    <string>Speak Text (Say)</string>
 	<key>QSTextAppendAction</key>
 	<string>Append Text To...</string>
 	<key>QSTextDiffAction</key>

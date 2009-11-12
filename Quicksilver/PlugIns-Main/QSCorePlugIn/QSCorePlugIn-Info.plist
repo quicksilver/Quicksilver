@@ -275,8 +275,6 @@
 			<array>
 				<string>NSFilenamesPboardType</string>
 			</array>
-			<key>name</key>
-			<string>Always Open Type With...</string>
 			<key>precedence</key>
 			<real>0.1</real>
 		</dict>
@@ -291,7 +289,7 @@
 				<string>NSFilenamesPboardType</string>
 			</array>
 			<key>displaysResult</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 		<key>FileDeleteAction</key>
 		<dict>
@@ -320,8 +318,6 @@
 			<integer>1</integer>
 			<key>feature</key>
 			<integer>1</integer>
-			<key>name</key>
-			<string>Get File Location</string>
 			<key>precedence</key>
 			<real>-0.5</real>
 		</dict>
@@ -352,8 +348,6 @@
 			<false/>
 			<key>feature</key>
 			<integer>1</integer>
-			<key>name</key>
-			<string>Get File Path</string>
 			<key>precedence</key>
 			<real>-0.5</real>
 		</dict>
@@ -373,8 +367,6 @@
 			<false/>
 			<key>feature</key>
 			<integer>1</integer>
-			<key>name</key>
-			<string>Get File URL</string>
 			<key>precedence</key>
 			<real>-0.5</real>
 		</dict>
@@ -450,7 +442,7 @@
 				<string>NSFilenamesPboardType</string>
 			</array>
 			<key>displaysResult</key>
-			<integer>0</integer>
+			<integer>1</integer>
 			<key>indirectTypes</key>
 			<array>
 				<string>NSFilenamesPboardType</string>
@@ -507,7 +499,7 @@
 				<string>NSFilenamesPboardType</string>
 			</array>
 			<key>displaysResult</key>
-			<integer>0</integer>
+			<integer>1</integer>
 			<key>feature</key>
 			<integer>1</integer>
 		</dict>
@@ -547,8 +539,6 @@
 			</array>
 			<key>icon</key>
 			<string>Clipboard</string>
-			<key>name</key>
-			<string>Copy to Clipboard</string>
 			<key>precedence</key>
 			<real>-0.5</real>
 		</dict>
@@ -566,8 +556,6 @@
 			<true/>
 			<key>icon</key>
 			<string>Clipboard</string>
-			<key>name</key>
-			<string>Paste with Clipboard</string>
 			<key>precedence</key>
 			<real>-0.5</real>
 		</dict>
@@ -819,8 +807,6 @@
 			<array>
 				<string>NSStringPboardType</string>
 			</array>
-			<key>name</key>
-			<string>New Folder...</string>
 		</dict>
 		<key>QSObjCSendMessageAction</key>
 		<dict>
@@ -855,8 +841,6 @@
 			<array>
 				<string>NSStringPboardType</string>
 			</array>
-			<key>name</key>
-			<string>Assign Abbreviation...</string>
 			<key>precedence</key>
 			<real>-0.2</real>
 		</dict>
@@ -891,8 +875,6 @@
 			<false/>
 			<key>icon</key>
 			<string>Quicksilver</string>
-			<key>name</key>
-			<string>Select in Command Window</string>
 		</dict>
 		<key>QSObjectShowActionMenu</key>
 		<dict>
@@ -1080,8 +1062,6 @@
 			</array>
 			<key>enabled</key>
 			<false/>
-			<key>name</key>
-			<string>Speak Text (Say)</string>
 		</dict>
 		<key>QSTextTypeAction</key>
 		<dict>
