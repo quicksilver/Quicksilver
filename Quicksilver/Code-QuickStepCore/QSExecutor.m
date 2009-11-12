@@ -108,18 +108,17 @@ QSExecutor *QSExec = nil;
 - (void)loadFileActions {
 	NSString *rootPath = QSApplicationSupportSubPath(@"Actions/", NO);
 	NSArray *files = [rootPath performSelector:@selector(stringByAppendingPathComponent:) onObjectsInArray:[[NSFileManager defaultManager] contentsOfDirectoryAtPath:rootPath error:nil]];
+    // !!! Andre Berg 20091112: Caution: Do not replace this one with fast enumeration
     NSEnumerator *e = [[QSReg instancesForTable:@"QSFileActionCreators"] objectEnumerator];
-	id <QSFileActionProvider> creator;
-	while(creator = [e nextObject]) {
-		[self addActions:[creator fileActionsFromPaths:files]];
-	}
+    id <QSFileActionProvider> creator;
+    while(creator = [e nextObject]) {
+        [self addActions:[creator fileActionsFromPaths:files]];
+    }
 }
 
 - (NSArray *)actionsForFileTypes:(NSArray *)types {
 	NSMutableSet *set = [NSMutableSet set];
-	NSEnumerator *e = [types objectEnumerator];
-	NSString *type;
-	while (type = [e nextObject]) {
+	for (NSString *type in types) {
 		[set addObjectsFromArray:[directObjectFileTypes objectForKey:type]];
 	}
 	[set addObjectsFromArray:[directObjectFileTypes objectForKey:@"*"]];
@@ -128,9 +127,7 @@ QSExecutor *QSExec = nil;
 
 - (NSArray *)actionsForTypes:(NSArray *)types fileTypes:(NSArray *)fileTypes {
 	NSMutableSet *set = [NSMutableSet set];
-	NSEnumerator *e = [types objectEnumerator];
-	NSString *type;
-	while (type = [e nextObject]) {
+	for (NSString *type in types) {
 		if ([type isEqualToString:QSFilePathType]) {
 			[set addObjectsFromArray:[self actionsForFileTypes:fileTypes]];
 		} else {
@@ -157,7 +154,7 @@ QSExecutor *QSExec = nil;
 }
 
 - (void)addActions:(NSArray *)actions {
-	foreach (action, actions) {
+	for (QSAction * action in actions) {
 		[self addAction:action];
 	}
 }
@@ -215,16 +212,15 @@ QSExecutor *QSExec = nil;
 	NSDictionary *actionDict = [action objectForType:QSActionType];
 	NSArray *directTypes = [actionDict objectForKey:@"directTypes"];
 	if (![directTypes count]) directTypes = [NSArray arrayWithObject:@"*"];
-	NSEnumerator *e = [directTypes objectEnumerator];
-	NSString *type;
-	while (type = [e nextObject])
-		[[self actionsArrayForType:type] addObject:action];
-
+    NSString *type;
+	for (type in directTypes) {
+        [[self actionsArrayForType:type] addObject:action];
+    }
+    
 	if ([directTypes containsObject:QSFilePathType]) {
 		directTypes = [actionDict objectForKey:@"directFileTypes"];
 		if (![directTypes count]) directTypes = [NSArray arrayWithObject:@"*"];
-		e = [directTypes objectEnumerator];
-		while (type = [e nextObject]) {
+		for (type in directTypes) {
 			[[self actionsArrayForFileType:type] addObject:action];
 		}
 	}
@@ -337,11 +333,11 @@ QSExecutor *QSExec = nil;
 		}
 	}
 	NSArray *actions = nil;
-	NS_DURING
+	@try {
 		actions = [aObject validActionsForDirectObject:dObject indirectObject:iObject];
-	NS_HANDLER
-		;
-	NS_ENDHANDLER
+	} @catch (NSException *localException) {
+        if (DEBUG) NSLog(@"[Quicksilver %s]: localException = '%@'", __PRETTY_FUNCTION__, [localException description]);
+	}
 	return actions;
 }
 
@@ -374,12 +370,11 @@ QSExecutor *QSExec = nil;
 
 	//NSArray *newActions = bypassValidation?validActions
 	//									:
-	NSArray *newActions = [self actionsForTypes:[dObject types] fileTypes:fileType?[NSArray arrayWithObject:fileType] :nil];
-    //QSAction *thisAction;
+	NSArray *newActions = [self actionsForTypes:[dObject types] fileTypes:(fileType ? [NSArray arrayWithObject:fileType] : nil)];
 	BOOL isValid;
     
     // !!! Andre Berg 20091013: update to foreach with fast enum
-    foreach(thisAction, newActions) {
+    for (QSAction *thisAction in newActions) {
         if (![thisAction enabled]) continue;
 		validSourceActions = nil;
 		NSDictionary *actionDict = [thisAction objectForType:QSActionType];
@@ -429,7 +424,7 @@ QSExecutor *QSExec = nil;
     return (val ? [val boolValue] : YES);
 }
 - (void)setAction:(QSAction *)action isEnabled:(BOOL)flag {
-//	if (VERBOSE) NSLog(@"set action %@ is enabled %d", action, flag);
+ 	if (VERBOSE) NSLog(@"set action %@ is enabled %d", action, flag);
 	[actionActivation setObject:[NSNumber numberWithBool:flag] forKey:[action identifier]];
 	[self writeActionsInfo];
 }
@@ -439,7 +434,7 @@ QSExecutor *QSExec = nil;
     return (val ? [val boolValue] : YES);
 }
 - (void)setAction:(QSAction *)action isMenuEnabled:(BOOL)flag {
-//	if (VERBOSE) NSLog(@"set action %@ is menu enabled %d", action, flag);
+ 	if (VERBOSE) NSLog(@"set action %@ is menu enabled %d", action, flag);
 	[actionMenuActivation setObject:[NSNumber numberWithBool:flag] forKey:[action identifier]];
 	[self writeActionsInfo];
 }
@@ -511,39 +506,9 @@ QSExecutor *QSExec = nil;
 - (BOOL)handleInfo:(id)info ofType:(NSString *)type fromBundle:(NSBundle *)bundle {
 	if (info) {
         // !!! Andre Berg 20091017: update to fast enumeration
-        #if MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_4
-        NSEnumerator *e = [info keyEnumerator];
-        NSDictionary *actionDict;
-        NSString *key;
-        while (key = [e nextObject]) {
-            actionDict = [info objectForKey:key];
-            
-            if ([[actionDict objectForKey:kItemFeatureLevel] intValue] > [NSApp featureLevel]) {
-                NSString * actionIdentifier = [actionDict objectForKey:kItemID];
-                if (!actionIdentifier) {
-                    NSLog(@"Prevented load of unidentified action from bundle %@ because the action's featureLevel (set from its Info.plist) is higher than NSApp's current featureLevel. This is not neccessarily an error. Sometimes this mechanism is used to prevent unstable actions from loading.", [[bundle bundlePath] lastPathComponent]);
-                } else {
-                    NSLog(@"Prevented load of action %@ because it's featureLevel (set from its Info.plist) is higher than NSApp's current featureLevel. This is not neccessarily an error. Sometimes this mechanism is used to prevent unstable actions from loading.", actionIdentifier);
-                }
-                continue;
-            }
-            
-            QSAction *action = [QSAction actionWithDictionary:actionDict identifier:key];
-            [action setBundle:bundle];
-            
-            if ([[actionDict objectForKey:kActionInitialize] boolValue] && [[action provider] respondsToSelector:@selector(initializeAction:)])
-                action = [[action provider] initializeAction:action];
-            
-            if (action) {
-                [self addAction:action];
-                [[self makeArrayForSource:[bundle bundleIdentifier]] addObject:action];
-            }
-        }
-        #else
         NSDictionary *actionDict;
         for (NSString *key in info) {
             actionDict = [info objectForKey:key];
-            
             if ([[actionDict objectForKey:kItemFeatureLevel] intValue] > [NSApp featureLevel]) {
                 NSString * actionIdentifier = [actionDict objectForKey:kItemID];
                 if (!actionIdentifier) {
@@ -565,7 +530,6 @@ QSExecutor *QSExec = nil;
                 [[self makeArrayForSource:[bundle bundleIdentifier]] addObject:action];
             }
         }
-        #endif
 	} else {
 		//		NSDictionary *providers = [[[plugin bundle] dictionaryForFileOrPlistKey:@"QSRegistration"] objectForKey:@"QSActionProviders"];
 		//		if (providers) {
