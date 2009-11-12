@@ -4,7 +4,6 @@
 
 #import "NSColor_QSModifications.h"
 
-
 @interface NSTableView (SingleRowDisplay)
 - (void)_setNeedsDisplayInRow:(int)fp8;
 @end

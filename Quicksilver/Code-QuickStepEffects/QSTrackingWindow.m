@@ -10,7 +10,7 @@
 #import "QSTypes.h"
 
 @implementation QSTrackingWindow
-+(QSTrackingWindow *)trackingWindow {
++ (QSTrackingWindow *)trackingWindow {
 	QSTrackingWindow* window = [[[QSTrackingWindow alloc] initWithContentRect:NSZeroRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreRetained defer:YES] autorelease];
 	[window setBackgroundColor: [[NSColor redColor] colorWithAlphaComponent:0.5]];
 	[window setOpaque:NO];
@@ -60,5 +60,13 @@
 
 - (BOOL)canBecomeKeyWindow {return NO;}
 - (BOOL)canBecomeMainWindow {return NO;}
+
+- (id <QSTrackingWindowDelegate>)delegate {
+    return [super delegate];
+}
+
+- (void)setDelegate:(id <QSTrackingWindowDelegate>)delegate {
+    [super setDelegate:(id <NSWindowDelegate>)delegate];
+}
 
 @end
