@@ -87,10 +87,10 @@
 	//BOOL carbon = [proc isCarbon];
 	
 	AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)55, true ); //Command
-																			  //	if (carbon) AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)56, true ); //Shift
+	//	if (carbon) AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)56, true ); //Shift
 	AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)53, true ); //Escape
 	AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)53, false ); //Escape
-																			   //	if (carbon) AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)56, false ); //Shift
+	//	if (carbon) AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)56, false ); //Shift
 	AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)55, true ); //Command
     CFRelease( app );
 	[pool release];
@@ -105,8 +105,7 @@ NSTimeInterval failDate = 0;
 
 + (id)currentSelection {
 	NSDictionary *appDictionary = [[NSWorkspace sharedWorkspace] activeApplication];
-	//while(1);
-	NSString *identifier = [appDictionary objectForKey:@"NSApplicationBundleIdentifier"];
+   NSString *identifier = [appDictionary objectForKey:@"NSApplicationBundleIdentifier"];
 	
 	NSDictionary *info = [[QSReg tableNamed:@"QSProxies"] objectForKey:identifier];
 	if (info) {

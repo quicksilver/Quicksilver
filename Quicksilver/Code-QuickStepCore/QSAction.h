@@ -52,8 +52,10 @@
 + (id)actionWithDictionary:(NSDictionary *)dict;
 + (id)actionWithDictionary:(NSDictionary *)dict identifier:(NSString *)ident;
 + (id)actionWithIdentifier:(NSString *)newIdentifier;
++ (id)actionWithIdentifier:(NSString *)newIdentifier bundle:(NSBundle *)newBundle;
 
 - (id)initWithDictionary:(NSDictionary *)dict identifier:(NSString *)ident bundle:(NSBundle *)bundle;
+- (id)initWithIdentifier:(NSString *)newIdentifier bundle:(NSBundle *)newBundle;
 
 - (QSObject *)performOnDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
 

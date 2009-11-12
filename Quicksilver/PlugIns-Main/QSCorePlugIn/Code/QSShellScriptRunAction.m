@@ -173,8 +173,8 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
 		[scanner scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"\r\n"] intoString:&taskPath];
 	}
 
-	if ([arguments count]);
-	[argArray addObjectsFromArray:arguments];
+	if ([arguments count])
+      [argArray addObjectsFromArray:arguments];
 
 	NSTask *task = [[[NSTask alloc] init] autorelease];
 	[task setLaunchPath:taskPath];

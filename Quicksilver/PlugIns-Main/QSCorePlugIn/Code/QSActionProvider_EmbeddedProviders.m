@@ -453,17 +453,15 @@ return [self moveFiles:dObject toFolder:iObject shouldCopy:YES];
 			case QSCancelReplaceResolution:
 				return nil;
 			case QSReplaceFilesResolution: {
-				NSString *file;
-				NSEnumerator *enumerator = [[conflicts allValues] objectEnumerator];
-				while(file = [enumerator nextObject]) {
+            for (NSString *file in [conflicts allValues])
+            {
 					NSLog(@"%@", file);
-                    if ([file hasPrefix:destination]) {
-                        NSLog(@"File %@ already exists in %@", file, destination);
-                        continue;
-                    }
-                    
-                    [manager removeItemAtPath:file error:nil];
-				}
+               if ([file hasPrefix:destination]) {
+                  NSLog(@"File %@ already exists in %@", file, destination);
+                  continue;
+               }
+               [manager removeItemAtPath:file error:nil];
+            }
 				break;
 			}
 			case QSDontReplaceFilesResolution:
