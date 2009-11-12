@@ -472,12 +472,25 @@
 			[self clearObjectView:dSelector];
 		} else {
 			[dSelector performSelectorOnMainThread:@selector(selectObjectValue:) withObject:returnValue waitUntilDone:YES];
-			if (action)
-                if ([action respondsToSelector:@selector(displaysResult)] && [action displaysResult]) { // !!! Andre Berg 20091007: allow actions to disable showing the result
-                    [self showMainWindow:self];
-                }
-            else 
-                [self showMainWindow:self];
+			if (action) {
+            // !!! Andre Berg 20091007: allow actions to disable showing the result
+            if ([action isKindOfClass:[QSRankedObject class]] && [(QSRankedObject *)action object]) {
+               action = (QSRankedObject *)action;
+               if ([[action object] respondsToSelector:@selector(displaysResult)]) {
+                  if ([[action object] displaysResult]) {
+                     [self showMainWindow:self];
+                  }
+               }
+            } else {
+               if ([action respondsToSelector:@selector(displaysResult)]) {
+                  if ([action displaysResult]) {
+                     [self showMainWindow:self];
+                  }
+               }
+            }
+         } else {
+            [self showMainWindow:self];
+         }
 		}
 	}
 	if (VERBOSE) NSLog(@"Command executed (%dms) ", (int)(-[startDate timeIntervalSinceNow] *1000));
@@ -672,7 +685,10 @@
 #pragma mark -
 #pragma mark NSResponder overrides
 - (BOOL)performKeyEquivalent:(NSEvent *)theEvent {
-	if ([theEvent modifierFlags] & NSCommandKeyMask && [theEvent modifierFlags] & NSShiftKeyMask && [[theEvent characters] length] && [[NSCharacterSet letterCharacterSet] characterIsMember:[[theEvent characters] characterAtIndex:0]]) {
+	if (([theEvent modifierFlags] & NSCommandKeyMask) && 
+       ([theEvent modifierFlags] & NSShiftKeyMask) && 
+       ([[theEvent characters] length]) && 
+       ([[NSCharacterSet letterCharacterSet] characterIsMember:[[theEvent characters] characterAtIndex:0]])) {
 		return [[self aSelector] executeText:(NSEvent *)theEvent];
 	}
 	return NO;
