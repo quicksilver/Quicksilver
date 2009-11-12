@@ -1,5 +1,7 @@
 #include "Developer.xcconfig"
 
+VALID_ARCHS = i386 ppc
+
 SDKROOT = $(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk
 
 SYMROOT = $(QS_BUILD_ROOT)/build
