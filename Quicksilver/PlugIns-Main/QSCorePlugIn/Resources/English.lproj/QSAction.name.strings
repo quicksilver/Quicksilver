@@ -106,18 +106,22 @@
     <string>Send SMS (AIM/iChat)</string>
 	<key>QSAirPortNetworkSelectAction</key>
 	<string>Switch Airport</string>
-	<key>QSCLExecuteAction</key>
-	<string>Run</string>
-	<key>QSCLExecuteTextAction</key>
-	<string>Run in Shell</string>
+    <key>QSCLExecuteAction</key>
+    <string>Run</string>
+    <key>QSCLExecuteTextAction</key>
+    <string>Run Command in Shell</string>
+    <key>QSCLExecuteShellCommandAction</key>
+    <string>Run Command in Shell</string>
 	<key>QSCLExecuteWithArgsAction</key>
 	<string>Run [...]</string>
 	<key>QSCLTermExecuteTextAction</key>
-	<string>Run in Terminal</string>
+	<string>Run a Text Command in Terminal</string>
+    <key>QSCLTermExecuteShellCommandAction</key>
+    <string>Run a Text Command in Terminal</string>
 	<key>QSCLTermExecuteWithArgsAction</key>
 	<string>Run in Terminal [...]</string>
 	<key>QSCLTermShowDirectoryAction</key>
-	<string>Go to in Terminal</string>
+	<string>Go To Directory in Terminal</string>
 	<key>QSCLTermShowManPageAction</key>
 	<string>Show Man Page</string>
 	<key>QSCatalogEntryRescanAction</key>
@@ -164,6 +168,8 @@
 	<string>Put on Shelf</string>
 	<key>QSShelfShowAction</key>
 	<string>Show</string>
+    <key>QSShellScriptRunAction</key>
+    <string>Run [...]</string>
     <key>QSSherlockChannelShowAction</key>
     <string>Show Channel</string>
     <key>QSTextSpeakAction</key>
