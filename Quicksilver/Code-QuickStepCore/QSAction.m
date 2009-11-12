@@ -214,7 +214,9 @@ static BOOL gModifiersAreIgnored;
  	[[self actionDict] setObject:[NSNumber numberWithInt:flag] forKey:kActionIndirectOptional];
 }
 
-- (BOOL)displaysResult { return [[[self actionDict] objectForKey:kActionDisplaysResult] boolValue]; }
+- (BOOL)displaysResult { 
+   return [[[self actionDict] objectForKey:kActionDisplaysResult] boolValue]; 
+}
 - (void)setDisplaysResult:(BOOL)flag { [[self actionDict] setObject:[NSNumber numberWithInt:flag] forKey:kActionDisplaysResult]; }
 
 - (id)provider {

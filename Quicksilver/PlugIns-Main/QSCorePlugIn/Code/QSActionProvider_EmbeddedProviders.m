@@ -252,6 +252,8 @@
 		[newActions addObject:kFileMoveToAction];
 		[newActions addObject:kFileCopyToAction];
 		[newActions addObject:kFileGetInfoAction];
+      // !!! Andre Berg 20091112: shouldn't the following also be added?
+      [newActions addObject:kFileAlwaysOpenWithAction];
 	}
 	if ([dObject validSingleFilePath])
 		[newActions addObject:kFileRenameAction];
@@ -467,8 +469,8 @@ return [self moveFiles:dObject toFolder:iObject shouldCopy:YES];
 			case QSDontReplaceFilesResolution:
 				otherFiles = [[filePaths mutableCopy] autorelease];
 				[otherFiles removeObjectsInArray:[conflicts allKeys]];
-//				if (DEBUG) NSLog(@"Only moving %@", otherFiles);
-					filePaths = otherFiles;
+            if (DEBUG) NSLog(@"Only moving %@", otherFiles);
+            filePaths = otherFiles;
 				break;
 			case QSSmartReplaceFilesResolution: {
 				NSTask *rsync = [NSTask taskWithLaunchPath:@"/usr/bin/rsync" arguments:[[[NSArray arrayWithObject:@"-auzEq"] arrayByAddingObjectsFromArray:filePaths] arrayByAddingObject:destination]];
@@ -500,7 +502,7 @@ return [self moveFiles:dObject toFolder:iObject shouldCopy:YES];
             for(i = 0; i<[filePaths count]; i++) {
                 NSString *thisFile = [filePaths objectAtIndex:i];
                 NSString *destinationFile = [destination stringByAppendingPathComponent:[thisFile lastPathComponent]];
-                if (copy && [[NSFileManager defaultManager] copyPath:thisFile toPath:destinationFile handler:nil]) {
+                if (copy && [[NSFileManager defaultManager] copyItemAtPath:thisFile toPath:destinationFile error:nil]) {
                     [newPaths addObject:destinationFile];
                 } else if (!copy && [[NSFileManager defaultManager] moveItemAtPath:thisFile toPath:destinationFile error:nil]) {
                     [[NSWorkspace sharedWorkspace] noteFileSystemChanged:[thisFile stringByDeletingLastPathComponent]];
