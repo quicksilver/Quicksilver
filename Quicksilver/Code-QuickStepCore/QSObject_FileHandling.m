@@ -35,7 +35,8 @@ static NSDictionary *bundlePresetChildren;
 NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     if (bundleIdentifier == nil)
         return nil;
-    
+
+#warning FIXME - tiennou: Doesn't seem to work on 10.6
 	NSArray *recentDocuments = [(NSArray *)CFPreferencesCopyValue((CFStringRef) @"NSRecentDocumentRecords", (CFStringRef) bundleIdentifier, kCFPreferencesCurrentUser, kCFPreferencesAnyHost) autorelease];
 
 	NSFileManager *manager = [NSFileManager defaultManager];
@@ -47,7 +48,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		aliasData = [[[recentDocuments objectAtIndex:i] objectForKey:@"_NSLocator"] objectForKey:@"_NSAlias"];
 		path = [[NDAlias aliasWithData:aliasData] quickPath];
 		// ***warning * eventually include aliases
-		if (path && [manager fileExistsAtPath:path]) [documentsArray addObject:path];
+		if (path && [manager fileExistsAtPath:path])
+                [documentsArray addObject:path];
 	}
 	return documentsArray;
 }
@@ -519,7 +521,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
             //NSLog(@"actions %d", [actions count]);
             NSDictionary *appActions = [[QSReg tableNamed:@"QSApplicationActions"] objectForKey:bundleIdentifier];
             foreachkey(actionID, actionDict, appActions) {
-                [actions addObject:[QSAction actionWithDictionary:[actionDict copy] identifier:actionID]];
+                actionDict = [[actionDict copy] autorelease];
+                [actions addObject:[QSAction actionWithDictionary:actionDict identifier:actionID]];
             }
             //    NSLog(@"actions %d", [actions count]);
 
