@@ -474,7 +474,7 @@ return [self moveFiles:dObject toFolder:iObject shouldCopy:YES];
 				break;
 			case QSSmartReplaceFilesResolution: {
 				NSTask *rsync = [NSTask taskWithLaunchPath:@"/usr/bin/rsync" arguments:[[[NSArray arrayWithObject:@"-auzEq"] arrayByAddingObjectsFromArray:filePaths] arrayByAddingObject:destination]];
-				[rsync launch]; [rsync waitUntilExit]; [rsync release];
+				[rsync launch]; [rsync waitUntilExit];
 				return nil;
 				break;
 			}

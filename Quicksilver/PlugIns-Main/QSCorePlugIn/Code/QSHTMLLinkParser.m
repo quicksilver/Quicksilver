@@ -25,7 +25,7 @@
 }
 
 - (NSArray *)objectsFromData:(NSData *)data encoding:(NSStringEncoding)encoding settings:(NSDictionary *)settings source:(NSURL *)source {
-	NSString *string = [[NSString alloc] initWithData:data encoding:encoding?encoding:NSISOLatin1StringEncoding];
+	NSString *string = [[[NSString alloc] initWithData:data encoding:encoding?encoding:NSISOLatin1StringEncoding] autorelease];
 	//NSLog(@"data %d %@, settings %@, source %@", [data length] , string, settings, source);
 	 NSString *prefix;
 	 if (prefix = [settings objectForKey:@"contentPrefix"]) {
@@ -57,8 +57,6 @@
 	[task launch];
 	[writeHandle writeData:data];
 	[writeHandle closeFile];
-
-	[string release];
 
 	NSMutableData *returnData = [[NSMutableData alloc] init];
 	NSData *readData;
