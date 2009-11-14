@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface QSDropletApplication : NSApplication 
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1060
    <NSApplicationDelegate>
 #endif
 {}
