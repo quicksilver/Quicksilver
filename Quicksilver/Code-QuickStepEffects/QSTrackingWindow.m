@@ -66,7 +66,11 @@
 }
 
 - (void)setDelegate:(id <QSTrackingWindowDelegate>)delegate {
-    [super setDelegate:(id <NSWindowDelegate>)delegate];
+    [super setDelegate:
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1060
+    (id <NSWindowDelegate>)
+#endif
+    delegate];
 }
 
 @end
