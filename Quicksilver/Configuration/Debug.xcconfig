@@ -1,6 +1,6 @@
 #include "Common.xcconfig"
 
-ARCHS = ppc i386
+ARCHS = i386 // Change this to $(NATIVE_ARCH_ACTUAL) when 64bit support is ready.
 
 DEBUG_INFORMATION_FORMAT = dwarf
 

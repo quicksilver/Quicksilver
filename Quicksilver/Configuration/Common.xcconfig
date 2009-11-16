@@ -1,6 +1,6 @@
 #include "Developer.xcconfig"
 
-VALID_ARCHS = i386 ppc
+VALID_ARCHS = i386 x86_64 ppc
 
 SDKROOT = $(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk
 
