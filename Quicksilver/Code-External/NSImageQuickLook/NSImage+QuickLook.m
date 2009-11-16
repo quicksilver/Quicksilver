@@ -30,6 +30,7 @@
         // which is a lot more efficient than copying pixel data into a brand new NSImage.
         // Thanks to Troy Stephens @ Apple for pointing this new method out to me.
         NSBitmapImageRep *bitmapImageRep = [[NSBitmapImageRep alloc] initWithCGImage:ref];
+        CFRelease(ref);
         NSImage *newImage = nil;
         if (bitmapImageRep) {
             newImage = [[NSImage alloc] initWithSize:[bitmapImageRep size]];
@@ -40,7 +41,6 @@
                 return [newImage autorelease];
             }
         }
-        CFRelease(ref);
     } else {
         // If we couldn't get a Quick Look preview, fall back on the file's Finder icon.
         NSImage *icon = [[NSWorkspace sharedWorkspace] iconForFile:path];

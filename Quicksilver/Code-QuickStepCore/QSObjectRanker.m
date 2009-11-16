@@ -208,7 +208,7 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 	if (newScore > QSMinScore) {
 		if (rankedObject) {
 			[rankedObject setRankedString:matchedString];
-			return [rankedObject retain];
+			return rankedObject;
 		} else {
 			return [[[QSRankedObject alloc] initWithObject:object matchString:matchedString order:newOrder score:newScore] autorelease];
 		}

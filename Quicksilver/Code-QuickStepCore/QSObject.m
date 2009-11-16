@@ -594,10 +594,10 @@ NSSize QSMaxIconSize;
     
 	id handler = nil;
 	if (handler = [self handlerForSelector:@selector(identifierForObject:)]) {
-		ident = [[handler identifierForObject:self] retain];
+		ident = [handler identifierForObject:self];
 	}
     if (!ident)
-        ident = [[meta objectForKey:kQSObjectObjectID] retain];
+        ident = [meta objectForKey:kQSObjectObjectID];
     [self setIdentifier:ident];
 
 	return ident;
