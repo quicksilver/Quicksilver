@@ -62,7 +62,7 @@
 - (BOOL)canBecomeMainWindow {return NO;}
 
 - (id <QSTrackingWindowDelegate>)delegate {
-    return [super delegate];
+    return (id <QSTrackingWindowDelegate>)[super delegate];
 }
 
 - (void)setDelegate:(id <QSTrackingWindowDelegate>)delegate {

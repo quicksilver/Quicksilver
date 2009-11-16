@@ -113,7 +113,7 @@ NSRect QSBlendRects(NSRect start, NSRect end, float b) {
 	}
 }
 
-- (void)_resizeWindow:(id)window toFrame:(struct _NSRect)frameRect alpha:(float)alpha display:(BOOL)flag {
+- (void)_resizeWindow:(id)window toFrame:(NSRect)frameRect alpha:(float)alpha display:(BOOL)flag {
 	_startTime = [NSDate timeIntervalSinceReferenceDate];
 	_totalTime = [window animationResizeTime:frameRect];
 

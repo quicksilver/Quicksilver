@@ -507,7 +507,7 @@
 }
 
 - (id <QSWindowDelegate>)delegate {
-    return [super delegate];
+    return (id <QSWindowDelegate>)[super delegate];
 }
 
 - (void)setDelegate:(id <QSWindowDelegate>)delegate {
