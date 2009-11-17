@@ -4,12 +4,16 @@ About Quicksilver B5X on Github
 This repository contains the current source code of Quicksilver. If you're having issues with the latest Quicksilver version, feel free to log them at the issue tracker at http://github.com/tiennou/blacktree-alchemy/issues. 
 
 The B5X branch contains the source for the currently released Quicksilver.
-The master branch contains the code for the "next-gen" Quicksilver. Right now it features an updated plugin system, and Catalyst, which aims to provide triggers as a preference pane, and that's it. It is usable, but all plugins are not compatible without some work.
+The master branch contains the code for the "next-gen" Quicksilver. Right now it features an updated plugin system, and Catalyst, which aims to provide triggers as a preference pane, and that's it. It is usable, but all plugins are incompatible without some extra work.
 
 If you want more info about [Quicksilver](http://en.wikipedia.org/wiki/Quicksilver_%28software%29 "Quicksilver Wikipedia article") 
 just do a search on YouTube - there's tons of very helpful instructional and informational video tutorials.
 Or visit the [mailing list](http://groups.google.com/group/blacktree-quicksilver "Quicksilver Google Group") hosted at Google Groups.
 
+Where to find it ?
+---------------------
+
+Go look on the download pages around. The "most official" one is at http://github.com/tiennou/blacktree-alchemy/downloads, but there are some others at http://github.com/andreberg/blacktree-alchemy/downloads. Choose the one with the biggest number ;-).
 
 Before You Try It Out
 ---------------------
@@ -77,9 +81,13 @@ For a more comprehensive list take a look at the commit messages.
 
 * Excessive log outputs have been silenced to only occur if certain debugging environment variables are set in order to avoid spamming the Console.
 
-* Dozens of API upgrades like replacing deprecated methods with safer variants or adding decleration names for the new way of handling informal protocols.
+* Dozens of API upgrades like replacing deprecated methods with safer variants or adding declaration names for the new way of handling informal protocols.
 
 * All NIB files were converted to a SCM and collaboration friendly XIB format. A lot of clipping warnings have been fixed.
+
+* Triggers with wierd keys (like Function keys) are now displayed again.
+
+* Updated French and German localization.
 
 * Various other housekeeping tasks.
 
