@@ -140,7 +140,7 @@
 	[script storeInFile:@"scriptPath"];
 	[[QSTaskController sharedInstance] removeTask:@"Run AppleScript"];
 	[script release];
-    return [QSObject objectWithAEDescriptor:returnDesc];
+	return iObject?[QSObject objectWithAEDescriptor:returnDesc]:nil;
 }
 
 - (QSObject *)objectForDescriptor:(NSAppleEventDescriptor *)desc {
@@ -232,6 +232,9 @@
     int argumentCount = 1;
     QSAction *action = [QSAction actionWithIdentifier:actionId];
 	NSString *scriptPath = [action objectForKey:kActionScript];
+
+	if (!scriptPath)
+		return argumentCount;
 
 	if ([scriptPath hasPrefix:@"/"] || [scriptPath hasPrefix:@"~"])
 		scriptPath = [scriptPath stringByStandardizingPath];
