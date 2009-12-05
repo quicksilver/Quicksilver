@@ -216,7 +216,7 @@
 	//@implementation QSTriggerCenter (QSPlugInInfo)
 - (BOOL)handleInfo:(id)info ofType:(NSString *)type fromBundle:(NSBundle *)bundle {
 	id matchEntry = nil;
-	foreach(value, info) {
+	for(NSDictionary * value in info) {
 		NSString *iden = [value objectForKey:kItemID];
 		//NSLog(@"info %@ %@", iden, value);
 		if (matchEntry = [triggersDict objectForKey:iden]) {

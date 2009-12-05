@@ -51,12 +51,11 @@
 }
 + (id)objectsWithDictionaryArray:(NSArray *)dictionaryArray {
 	NSMutableArray *dictObjectArray = [NSMutableArray arrayWithCapacity:[dictionaryArray count]];
-	int i;
-	for (i = 0; i < [dictionaryArray count]; i++) {
+	for (id loopItem in dictionaryArray) {
 		NS_DURING
-			[dictObjectArray addObject:[self objectWithDictionary:[dictionaryArray objectAtIndex:i]]];
+			[dictObjectArray addObject:[self objectWithDictionary:loopItem]];
 		NS_HANDLER
-			NSLog(@"Bad Object Encountered:\r%@", [dictionaryArray objectAtIndex:i]);
+			NSLog(@"Bad Object Encountered:\r%@", loopItem);
 		NS_ENDHANDLER
 	}
 	return dictObjectArray;

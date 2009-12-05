@@ -171,7 +171,7 @@
 	if (delegatesEvents && [(NSObject *)[self delegate] respondsToSelector:@selector(shouldSendEvent:)] && ![[self delegate] shouldSendEvent:theEvent])
 		return;
 	if (eventDelegates) {
-		foreach(eDelegate, eventDelegates) {
+		for(id eDelegate in eventDelegates) {
 			if ([eDelegate respondsToSelector:@selector(shouldSendEvent:)] && ![eDelegate shouldSendEvent:theEvent])
 				return;
 		}

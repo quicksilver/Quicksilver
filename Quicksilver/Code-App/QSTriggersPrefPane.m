@@ -150,7 +150,7 @@
 		[addMenu addItem:groupItem];
 	}
 
-	foreach(menuItem, [addMenu itemArray]) {
+	for(id menuItem in [addMenu itemArray]) {
 		[menuItem setTarget:self];
 		[menuItem setAction:@selector(addTrigger:)];
 	}
@@ -517,10 +517,10 @@
 
 - (IBAction)removeTrigger:(id)sender {
 	if ([triggerTable selectedRow] <0) return;
-	foreach(trigger, [triggerTreeController selectedObjects]) {
+	for(QSTrigger * trigger in [triggerTreeController selectedObjects]) {
 		//NSLog(@"trig %@", trigger);
 		if ([trigger isPreset])
-			[(QSTrigger*)trigger setEnabled:NO];
+			[trigger setEnabled:NO];
 		else
 			[[QSTriggerCenter sharedInstance] removeTrigger:trigger];
 	}

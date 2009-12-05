@@ -225,10 +225,8 @@
 		return [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@"untitled folder"]];
 	} else if ([action isEqualToString:kFileMoveToAction]) {
 		NSArray *fileObjects = [[QSLibrarian sharedInstance] arrayForType:QSFilePathType];
-		int i;
 		BOOL isDirectory;
-		for(i = 0; i<[fileObjects count]; i++) {
-			QSObject *thisObject = [fileObjects objectAtIndex:i];
+		for(QSObject *thisObject in fileObjects) {
 			NSString *path = [thisObject singleFilePath];
 			if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory]) {
 				if (isDirectory && ![[path pathExtension] length])
@@ -262,9 +260,8 @@
 
 - (BOOL)filesExist:(NSArray *)paths {
 	NSFileManager *manager = [NSFileManager defaultManager];
-	NSEnumerator *files = [paths objectEnumerator];
 	NSString *thisFile;
-	while(thisFile = [files nextObject])
+	for(thisFile in paths)
 		if (![manager fileExistsAtPath:thisFile])
 			return NO;
 	return YES;
@@ -381,7 +378,7 @@
 }
 
 - (QSObject *)openItemAtLogin:(QSObject *)dObject {
-	foreach(path, [dObject arrayForType:QSFilePathType]) {
+	for(NSString * path in [dObject arrayForType:QSFilePathType]) {
 		QSSetItemShouldLaunchAtLogin(path, YES, YES);
 	}
 	return nil;
@@ -498,9 +495,7 @@ return [self moveFiles:dObject toFolder:iObject shouldCopy:YES];
         if (!resultPaths) {
             //		if (DEBUG) NSLog(@"Using NSFileManager");
             NSMutableArray *newPaths = [NSMutableArray arrayWithCapacity:[filePaths count]];
-            int i;
-            for(i = 0; i<[filePaths count]; i++) {
-                NSString *thisFile = [filePaths objectAtIndex:i];
+            for(NSString *thisFile in filePaths) {
                 NSString *destinationFile = [destination stringByAppendingPathComponent:[thisFile lastPathComponent]];
                 if (copy && [[NSFileManager defaultManager] copyItemAtPath:thisFile toPath:destinationFile error:nil]) {
                     [newPaths addObject:destinationFile];

@@ -142,7 +142,7 @@
 #if 0
 	NSArray *colorDefaults = [NSArray arrayWithObjects:kQSAppearance1B, kQSAppearance1A, kQSAppearance1T, kQSAppearance2B, kQSAppearance2A, kQSAppearance2T, kQSAppearance3B, kQSAppearance3A, kQSAppearance3T, nil];
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	foreach(key, colorDefaults) {
+	for(NSString * key in colorDefaults) {
 		[defaults willChangeValueForKey:key];
 		[defaults removeObjectForKey:key];
 		[defaults didChangeValueForKey:key];

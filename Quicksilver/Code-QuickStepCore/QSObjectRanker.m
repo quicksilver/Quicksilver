@@ -48,13 +48,12 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
     
 	NSMutableArray *rankObjects = [NSMutableArray arrayWithCapacity:[set count]];
     
-	NSEnumerator *enumer = [set objectEnumerator];
 	QSBasicObject *thisObject;
 
 	QSScoreForObjectIMP scoreForObjectIMP =
 		(QSScoreForObjectIMP) [self instanceMethodForSelector:@selector(rankedObject:forAbbreviation:inContext:withMnemonics:mnemonicsOnly:)];
 
-	while (thisObject = [enumer nextObject]) {
+	for (thisObject in set) {
 
 		id ranker = [thisObject ranker];
 

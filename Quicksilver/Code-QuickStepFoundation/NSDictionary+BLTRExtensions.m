@@ -20,7 +20,7 @@
 - (NSArray *)keysSortedByValueUsingDescriptors:(NSArray *)descriptors {
 	NSArray *values = [[self allValues] sortedArrayUsingDescriptors:descriptors];
 	NSMutableArray *array = [NSMutableArray array];
-	foreach(value, values)
+	for(id value in values)
 		[array addObjectsFromArray:[self allKeysForObject:value]];
 	return array;
 }

@@ -108,8 +108,7 @@ NSSize QSMaxIconSize;
         }
     }
     
-    e = [tempArray objectEnumerator];
-    while( thisObject = [e nextObject] ) {
+    for( thisObject in tempArray ) {
         if ([thisObject unloadIcon])
             imagecount++;
     }
@@ -123,8 +122,7 @@ NSSize QSMaxIconSize;
         }
     }
     
-    e = [tempArray objectEnumerator];
-    while( thisObject = [e nextObject] ) {
+    for( thisObject in tempArray ) {
         if ([thisObject unloadChildren])
             childcount++;
     }
@@ -246,7 +244,6 @@ NSSize QSMaxIconSize;
 }
 
 + (id)objectByMergingObjects:(NSArray *)objects {
-	NSEnumerator *objectEnumerator = [objects objectEnumerator];
 	id thisObject;
 
 	NSMutableSet *typesSet = nil;
@@ -255,13 +252,12 @@ NSSize QSMaxIconSize;
 	NSEnumerator *e;
 	NSString *type;
 	NSMutableArray *array;
-	while (thisObject = [objectEnumerator nextObject]) {
+	for (thisObject in objects) {
 		if (!typesSet) typesSet = [NSMutableSet setWithArray:[thisObject types]];
 		else
 			[typesSet intersectSet:[NSSet setWithArray:[thisObject types]]];
-		e = [typesSet objectEnumerator];
 
-		while(type = [e nextObject]) {
+		for(type in typesSet) {
 			array = [combinedData objectForKey:type];
 			if (!array) [combinedData setObject:(array = [NSMutableArray array]) forKey:type];
 			[array addObjectsFromArray:[thisObject arrayForType:type]];

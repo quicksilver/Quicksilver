@@ -152,7 +152,7 @@
 	[desc release];
 	if (conforms) {
 		if (![conforms isKindOfClass:[NSArray class]]) conforms = [NSArray arrayWithObject:conforms];
-		foreach(type, conforms){
+		for(NSString * type in conforms){
 			desc = (NSString *)UTTypeCopyDescription((CFStringRef)type);
 			[menu addItemWithTitle:desc action:nil keyEquivalent:@""];
 			[desc release];
@@ -166,7 +166,7 @@
 	NSArray *conforms = [[(NSString *)UTTypeCopyDeclaration((CFStringRef)representedObject) autorelease] objectForKey:(NSString *)kUTTypeConformsToKey];
 	if (conforms) {
 		if (![conforms isKindOfClass:[NSArray class]]) conforms = [NSArray arrayWithObject:conforms];
-		foreach(type, conforms)
+		for(NSString * type in conforms)
 			[menu addItemWithTitle:[(NSString *)UTTypeCopyDescription((CFStringRef)type) autorelease] action:nil keyEquivalent:@""];
 	}
 	return menu;
@@ -292,7 +292,7 @@
 		[wsNotif addObserver:entry selector:@selector(invalidateIndex:) name:nil object:path];
 	}
 	NSArray *paths = [settings objectForKey:@"watchPaths"];
-	foreach (p, paths) {
+	for (NSString * p in paths) {
 		[[QSVoyeur sharedInstance] addPathToQueue:p];
 		if (VERBOSE) NSLog(@"Watching Path %@", p);
 		[wsNotif addObserver:entry selector:@selector(invalidateIndex:) name:UKKQueueFileWrittenToNotification object:p];

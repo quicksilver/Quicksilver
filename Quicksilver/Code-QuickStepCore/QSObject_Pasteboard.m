@@ -243,9 +243,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 	 }
 	 */
 	//  NSLog(@"declareTypes: %@", [types componentsJoinedByString:@", "]);
-	int i;
-	for (i = 0; i<[includeTypes count]; i++) {
-		NSString *thisType = [includeTypes objectAtIndex:i];
+	for (NSString *thisType in includeTypes) {
 		if ([types containsObject:thisType]) {
 			// NSLog(@"includedata, %@", thisType);
 			[self pasteboard:pboard provideDataForType:thisType];

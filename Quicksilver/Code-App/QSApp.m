@@ -129,7 +129,7 @@ BOOL QSApplicationCompletedLaunch = NO;
 
 - (void)sendEvent:(NSEvent *)theEvent {
 	if (eventDelegates) {
-		foreach(eDelegate, eventDelegates) {
+		for(id eDelegate in eventDelegates) {
 			if ([eDelegate respondsToSelector:@selector(shouldSendEvent:)] && ![eDelegate shouldSendEvent:theEvent])
 				return;
 		}

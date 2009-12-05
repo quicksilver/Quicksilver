@@ -11,9 +11,8 @@
 
 BOOL QSItemShouldLaunchAtLogin(NSString *path) {
 	NSArray *loginItems = [(NSArray *)CFPreferencesCopyValue((CFStringRef) @"AutoLaunchedApplicationDictionary", (CFStringRef) @"loginwindow", kCFPreferencesCurrentUser, kCFPreferencesAnyHost) autorelease];
-	int i;
-	for (i = 0; i<[loginItems count]; i++) {
-		if ([[[[loginItems objectAtIndex:i] objectForKey:@"Path"] stringByStandardizingPath] isEqualToString:path]) {
+	for (id loopItem in loginItems) {
+		if ([[[loopItem objectForKey:@"Path"] stringByStandardizingPath] isEqualToString:path]) {
 			return YES;
 		}
 	}

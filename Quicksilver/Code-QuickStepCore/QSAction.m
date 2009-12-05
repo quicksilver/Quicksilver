@@ -295,9 +295,8 @@ static BOOL gModifiersAreIgnored;
 			provider = [QSReg getClassInstance:class];
 		if ([[dict objectForKey:kActionSplitPluralArguments] boolValue] && [dObject count] > 1) {
 			NSArray *objects = [dObject splitObjects];
-			NSEnumerator *e = [objects objectEnumerator];
 			id object;
-			while (object = [e nextObject]) {
+			for (object in objects) {
 				[self performOnDirectObject:object indirectObject:iObject];
 			}
 			return nil;

@@ -68,9 +68,8 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 	NSArray *appURLs = nil;
 	_LSCopyAllApplicationURLs(&appURLs);
 	NSMutableArray *apps = [NSMutableArray arrayWithCapacity:[appURLs count]];
-	int i;
-	for (i = 0; i<[appURLs count]; i++) {
-		[apps addObject:[[appURLs objectAtIndex:i] path]];
+	for (id loopItem in appURLs) {
+		[apps addObject:[loopItem path]];
 	}
 	[appURLs release];
 	return apps;

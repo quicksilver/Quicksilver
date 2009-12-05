@@ -1003,10 +1003,10 @@ QSController *QSCon;
 	if ([(plugIns = [fileList pathsMatchingExtensions:[NSArray arrayWithObjects:@"qspkg", @"qsplugin", nil]]) count]) {
 		[[QSPlugInManager sharedInstance] installPlugInsFromFiles:plugIns];
 	} else if ([(plugIns = [fileList pathsMatchingExtensions:[NSArray arrayWithObject:@"qscatalogentry"]]) count]) {
-		foreach(path, plugIns)
+		for(NSString * path in plugIns)
 			[QSCatalogPrefPane addEntryForCatFile:path];
 	} else if ([(plugIns = [fileList pathsMatchingExtensions:[NSArray arrayWithObject:@"qscommand"]]) count]) {
-		foreach(path, plugIns)
+		for(NSString * path in plugIns)
 			[self executeCommandAtPath:path];
 	} else {
 		QSObject *entry;

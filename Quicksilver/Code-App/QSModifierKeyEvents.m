@@ -130,7 +130,7 @@ BOOL modifierEventsEnabled = YES;
 }
 
 + (QSModifierKeyEvent *)eventWithIdentifier:(NSString *)identifier {
-	foreach(event, [modifierKeyEvents allValues]) {
+	for(QSModifierKeyEvent * event in [modifierKeyEvents allValues]) {
 		if ([[event identifier] isEqualToString:identifier]) return event;
 	}
 	return nil;

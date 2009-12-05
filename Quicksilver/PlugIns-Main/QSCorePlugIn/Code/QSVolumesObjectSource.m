@@ -50,7 +50,7 @@
 	if ([[proxy identifier] isEqualToString:@"QSNetworkVolumesProxy"]) {
 		NSArray *paths = [[NSWorkspace sharedWorkspace] mountedRemovableMedia];
 		NSMutableArray *netPaths = [NSMutableArray array];
-		foreach(path, paths) {
+		for(NSString * path in paths) {
 			if ([path hasPrefix:@"/Network"]) [netPaths addObject:path];
 		}
 		return [QSObject fileObjectWithArray:paths];

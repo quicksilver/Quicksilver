@@ -636,10 +636,9 @@
 	}
     
 	if (argumentCount != 2) {
-		NSEnumerator *enumer = [array objectEnumerator];
 		QSAction *action = nil;
 		QSAction *bestAction = nil;
-		while(action = [enumer nextObject]) {
+		for(action in array) {
 			if ([action argumentCount] == 2) {
 				bestAction = action;
 				[aSelector selectObject:action];

@@ -178,7 +178,7 @@
 }
 
 - (IBAction)showHelp:(id)sender {
-	foreach(plugin, [self selectedPlugIns]) {
+	for(id plugin in [self selectedPlugIns]) {
 		QSShowHelpPage([plugin helpPage]);
 	}
 }
@@ -326,7 +326,7 @@
 	NSMutableArray *categoryDicts = [NSMutableArray array];
 	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:3] , @"viewMode", categoryDicts, @"children", @"All Plug-ins", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
 
-	foreach(categoryName, categories)
+	for(NSString * categoryName in categories)
 		[categoryDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:3] , @"viewMode", categoryName, @"category", categoryName, @"text", @"category", @"type", nil]];
 
 	return setDicts;

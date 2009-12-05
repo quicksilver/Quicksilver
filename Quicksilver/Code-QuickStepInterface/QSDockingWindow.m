@@ -147,9 +147,8 @@
 	NSArray *screens = [NSScreen screens];
 	NSRect hideRect = expelRectFromRectOnEdge([self frame], [[self screen] frame], edge, 1.0); // TESTING: not peeking?
 	if ([screens count]) {
-		int i;
-		for (i = 0; i<[screens count]; i++) {
-			if (NSIntersectsRect(NSInsetRect(hideRect, 1, 1), [[screens objectAtIndex:i] frame]) ) return;
+		for (id loopItem in screens) {
+			if (NSIntersectsRect(NSInsetRect(hideRect, 1, 1), [loopItem frame]) ) return;
 		}
 	}
 	hidden = YES;

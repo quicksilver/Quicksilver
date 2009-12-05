@@ -92,7 +92,7 @@
             
             NSDictionary *items = [thisInfo objectForKey:@"items"];
             NSArray *keys = [[items allKeys] sortedArrayUsingSelector:@selector(compare:)];
-            foreach(key, keys) {
+            for(NSString * key in keys) {
                 id option = [items objectForKey:key];
                 id item = [[cell menu] addItemWithTitle:option action:nil keyEquivalent:@""];
                 [item setRepresentedObject:key];

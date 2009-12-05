@@ -250,7 +250,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
 	NSArray *related = [self relatedBundles];
 	//if (!related) return YES;
-	foreach(bundleID, related) {
+	for(NSString * bundleID in related) {
 		if ([ws absolutePathForAppBundleWithIdentifier:bundleID]) return YES;
 	}
 	return NO;
@@ -477,7 +477,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 - (NSArray *)unmetDependencies {
 	NSArray *plugIns = [self dependencies];
 	NSMutableArray *unmet = [NSMutableArray array];
-	foreach(plugInDict, plugIns) {
+	for(NSDictionary * plugInDict in plugIns) {
 		NSString *identifier = [plugInDict objectForKey:@"id"];
 
 		if (![[[QSPlugInManager sharedInstance] loadedPlugIns] objectForKey:identifier]) {
@@ -507,7 +507,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	if (requirementsDict) {
 		NSArray *bundles = [requirementsDict objectForKey:@"bundles"];
 		if (![[NSUserDefaults standardUserDefaults] boolForKey:@"QSIgnorePlugInBundleRequirements"]) {
-			foreach(bundleDict, bundles) {
+			for(NSDictionary * bundleDict in bundles) {
 				break;
 				NSString *identifier = [bundleDict objectForKey:@"id"];
 				NSString *path = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:identifier];
@@ -522,7 +522,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 		 {
 			NSArray *frameworks = [requirementsDict objectForKey:@"frameworks"];
-			foreach(frameworkDict, frameworks) {
+			for(NSDictionary * frameworkDict in frameworks) {
 				NSString *identifier = [frameworkDict objectForKey:@"id"];
 				NSString *resource = [frameworkDict objectForKey:@"resource"];
 				NSString *path = [[QSResourceManager sharedInstance] pathWithLocatorInformation:resource];
@@ -542,7 +542,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 		}
 
 		NSArray *paths = [requirementsDict objectForKey:@"paths"];
-		foreach(path, paths) {
+		for(NSString * path in paths) {
 			if (![[NSFileManager defaultManager] fileExistsAtPath:[path stringByStandardizingPath]]) {
 				if (error) *error = [NSString stringWithFormat:@"Path not found: '%@'", path];
 				return NO;

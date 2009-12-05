@@ -133,10 +133,9 @@
 	// if has subviews, localize them too
 	if ([[view subviews] count]) {
 		NSArray *subviews = [view subviews];
-		int x, xcnt = [subviews count];
 
-		for (x = 0; x<xcnt; x++) {
-			[self localizeView:[subviews objectAtIndex:x]];
+		for (id loopItem in subviews) {
+			[self localizeView:loopItem];
 		}
 	}
 }

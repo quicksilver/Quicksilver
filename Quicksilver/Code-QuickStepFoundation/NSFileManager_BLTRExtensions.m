@@ -403,9 +403,8 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 }
 
 - (BOOL)filesExistAtPaths:(NSArray *)paths {
-	NSEnumerator *files = [paths objectEnumerator];
 	NSString *thisFile;
-	while(thisFile = [files nextObject])
+	for(thisFile in paths)
 		if (![self fileExistsAtPath:thisFile]) return NO;
 	return YES;
 }
@@ -416,9 +415,8 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 	NSFileManager *manager = [NSFileManager defaultManager];
 	NSString *file;
 	NSString *destinationPath;
-	NSEnumerator *enumerator = [files objectEnumerator];
 
-	while(file = [enumerator nextObject]) {
+	for(file in files) {
 		destinationPath = [destination stringByAppendingPathComponent:[file lastPathComponent]];
 		if ([manager fileExistsAtPath:destinationPath])
 			[conflicts setObject:destinationPath forKey:file];

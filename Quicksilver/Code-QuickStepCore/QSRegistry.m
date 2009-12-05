@@ -357,7 +357,6 @@ QSRegistry* QSReg = nil;
 - (NSMutableArray *)allBundles {
 	NSBundle *appBundle = [NSBundle mainBundle];
 	NSFileManager *fm = [NSFileManager defaultManager];
-	NSEnumerator *searchPathEnum;
 	NSString *currPath;
 	NSMutableSet *bundleSearchPaths = [NSMutableSet set];
 	NSMutableArray *allBundles = [NSMutableArray array];
@@ -369,8 +368,7 @@ QSRegistry* QSReg = nil;
 		NSLog(@"External PlugIns Disabled");
 	} else {
 		NSArray *librarySearchPaths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSAllDomainsMask - NSSystemDomainMask, YES);
-		searchPathEnum = [librarySearchPaths objectEnumerator];
-		while(currPath = [searchPathEnum nextObject])
+		for(currPath in librarySearchPaths)
 			[bundleSearchPaths addObject:[currPath stringByAppendingPathComponent:appSupportSubpath]];
 		[bundleSearchPaths addObject:[[appBundle bundlePath] stringByDeletingLastPathComponent]];
 		[bundleSearchPaths addObject:[[[appBundle bundlePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"PlugIns"]];
@@ -380,13 +378,12 @@ QSRegistry* QSReg = nil;
 		[bundleSearchPaths addObject:[[fm currentDirectoryPath] stringByAppendingPathComponent:@"PrivatePlugIns"]];
 	}
     
-    // !!! Andre Berg 20091017: update from objectEnumerator to foreach
-	foreach(currPath, bundleSearchPaths) {
+	for(NSString * currPath in bundleSearchPaths) {
 		NSEnumerator *bundleEnum;
 		NSString *curBundlePath;
 		NSArray * dirContents = [fm contentsOfDirectoryAtPath:currPath error:nil];
 		if (dirContents) {
-			foreach(curBundlePath, dirContents) {
+			for(NSString * curBundlePath in dirContents) {
 				if ([[curBundlePath pathExtension] caseInsensitiveCompare:@"qsplugin"] == NSOrderedSame) {
 					[allBundles addObject:[currPath stringByAppendingPathComponent:curBundlePath]];
 				}

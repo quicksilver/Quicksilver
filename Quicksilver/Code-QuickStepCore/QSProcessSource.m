@@ -79,7 +79,7 @@
 	if (!array) {
 		array = [dObject arrayForType:QSFilePathType];
 
-		foreach(app, array) {
+		for(NSString * app in array) {
 			[workspace openFile:app];
 		}
 		return nil;
@@ -89,9 +89,8 @@
 		[workspace hideOtherApplications:array];
 
 	NSDictionary *procDict;
-	NSEnumerator *e = [array objectEnumerator];
 
-	while(procDict = [e nextObject]) {
+	for(procDict in array) {
 
 		if (!procDict ) {
 			[workspace launchApplication:[procDict objectForKey:@"NSApplicationPath"]];

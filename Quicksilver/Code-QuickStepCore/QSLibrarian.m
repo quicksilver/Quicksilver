@@ -126,12 +126,11 @@ static float searchSpeed = 0.0;
 - (void)registerPresets:(NSArray *)newPresets inBundle:(NSBundle *)bundle scan:(BOOL)scan {
 
 	//NSLog(@"prestes %@", newPresets);
-	NSEnumerator *e = [newPresets objectEnumerator];
 	NSMutableDictionary *dict;
 	QSCatalogEntry *entry, *parent;
 	NSString *path;
 	NSMutableArray *children;
-	while(dict = [e nextObject]) {
+	for(dict in newPresets) {
 		parent = nil;
 		entry = [QSCatalogEntry entryWithDictionary:dict];
 		path = [dict objectForKey:@"catalogPath"];
@@ -183,7 +182,7 @@ static float searchSpeed = 0.0;
 	[enabledPresetsDictionary addEntriesFromDictionary:[catalogStorage objectForKey:@"enabledPresets"]];
 	omittedIDs = [[NSMutableSet setWithArray:[catalogStorage objectForKey:@"omittedItems"]] retain];
 
-    foreach(entry, [catalogStorage objectForKey:@"customEntries"]) {
+    for(NSDictionary * entry in [catalogStorage objectForKey:@"customEntries"]) {
         [[customEntry children] addObject:[QSCatalogEntry entryWithDictionary:entry]];
     }
     
@@ -238,8 +237,7 @@ static float searchSpeed = 0.0;
 // 		else if (DEBUG && ![thisEntry isSeparator]) [presetEntries addObject:thisEntry];
 // 	}
     
-	//QSCatalogEntry *thisEntry;
-	foreach(thisEntry, catalogChildren) {
+	for(QSCatalogEntry * thisEntry in catalogChildren) {
 		if (![thisEntry isPreset] && ![thisEntry isSeparator])
 			[customEntries addObject:[thisEntry dictionaryRepresentation]];
 		else if (DEBUG && ![thisEntry isSeparator]) [presetEntries addObject:thisEntry];
@@ -270,9 +268,8 @@ static float searchSpeed = 0.0;
 	[scanTask setStatus:[NSString stringWithFormat:@"Reloading Index for %@", [entries lastObject]]];
 	[scanTask startTask:self];
 
-	int i;
-	for (i = 0; i<[entries count]; i++) {
-		[[entries objectAtIndex:i] scanForced:NO];
+	for (id loopItem in entries) {
+		[loopItem scanForced:NO];
 	}
 	[scanTask stopTask:self];
 }
@@ -281,9 +278,7 @@ static float searchSpeed = 0.0;
 	NSArray *entries = [catalog leafEntries];
 	[entriesBySource removeAllObjects];
 
-	int i;
-	for (i = 0; i<[entries count]; i++) {
-		QSCatalogEntry *thisEntry = [entries objectAtIndex:i];
+	for (QSCatalogEntry *thisEntry in entries) {
 		NSString *source = [[thisEntry info] objectForKey:kItemSource];
 
 		NSMutableArray *sourceArray = [entriesBySource objectForKey:source];
@@ -299,9 +294,7 @@ static float searchSpeed = 0.0;
 - (void)reloadIDDictionary:(NSNotification *)notif {
 	NSArray *entries = [catalog deepChildrenWithGroups:YES leaves:YES disabled:YES];
 	[entriesByID removeAllObjects];
-	int i;
-	for (i = 0; i<[entries count]; i++) {
-		QSCatalogEntry *thisEntry = [entries objectAtIndex:i];
+	for (QSCatalogEntry *thisEntry in entries) {
 		[entriesByID setObject:thisEntry forKey:[thisEntry identifier]];
 	}
 }
@@ -310,7 +303,7 @@ static float searchSpeed = 0.0;
 - (void)reloadSets:(NSNotification *)notif {
 	NSMutableSet *newDefaultSet = [NSMutableSet setWithCapacity:1];
 	//NSLog(@"cat %@ %@", catalog, [catalog leafEntries]);
-	foreach(entry, [catalog leafEntries]) {
+	for(QSCatalogEntry * entry in [catalog leafEntries]) {
 		//NSLog(@"entry %@", entry);
 		[newDefaultSet addObjectsFromArray:[entry contents]];
 	}
@@ -332,7 +325,7 @@ static float searchSpeed = 0.0;
 }
 - (QSCatalogEntry *)firstEntryContainingObject:(QSObject *)object {
 	NSArray *entries = [catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
-	foreach(entry, entries) {
+	for(QSCatalogEntry * entry in entries) {
 		//NSString *ID = [entry identifier];
 		if ([[entry _contents] containsObject:object])
 			return entry;
@@ -345,9 +338,7 @@ static float searchSpeed = 0.0;
 	NSString *path = [pShelfLocation stringByStandardizingPath];
 	NSArray *shelves = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:nil];
 	NSArray *dictionaryArray;
-	int i;
-	for (i = 0; i < [shelves count]; i++) {
-		NSString *thisShelf = [shelves objectAtIndex:i];
+	for (NSString *thisShelf in shelves) {
 		if (![[thisShelf pathExtension] isEqualToString:@"qsshelf"])
             continue;
         
@@ -378,7 +369,7 @@ static float searchSpeed = 0.0;
 //	NSLog(@"entries %@", entries);
 	BOOL indexesValid = YES;
 	//BOOL indexValid;
-	foreach(entry, entries) {
+	for(QSCatalogEntry * entry in entries) {
 		if (![entry loadIndex]) {
 			if (!invalidIndexes) invalidIndexes = [[NSMutableArray alloc] init];
 			NSLog(@"entry %@ is invalid", entry);
@@ -398,7 +389,7 @@ static float searchSpeed = 0.0;
 }
 
 - (BOOL)scanInvalidIndexes {
-	foreach(entry, invalidIndexes) {
+	for(QSCatalogEntry * entry in invalidIndexes) {
 
 		NSLog(@"Forcing %@ to scan", entry);
 		[entry scanForced:NO];
@@ -426,10 +417,7 @@ static float searchSpeed = 0.0;
 
 	//NSLog(@"%@", [typeDictionary allKeys]);
 	NSArray *typeKeys = [typeDictionary allKeys];
-	int keyCount = [typeKeys count];
-	int j;
-	for (j = 0; j<keyCount; j++) {
-		NSString *key = [typeKeys objectAtIndex:j];
+	for (NSString *key in typeKeys) {
 		NSMutableDictionary *typeEntry = [typeArrays objectForKey:key];
 		if (!typeEntry) {
 			typeEntry = [NSMutableDictionary dictionaryWithCapacity:1];
@@ -485,10 +473,8 @@ static float searchSpeed = 0.0;
 
 - (void)loadMissingIndexes {
 	NSArray *entries = [catalog leafEntries];
-	int i;
 	id entry;
-	for (i = 0; i<[entries count]; i++) {
-		entry = [entries objectAtIndex:i];
+	for (entry in entries) {
 		if (![entry canBeIndexed] || ![entry _contents]) {
 				//NSLog(@"Missing: %@", [entry name]);
 			[entry scanAndCache];
