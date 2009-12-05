@@ -95,10 +95,16 @@
 	NSEnumerator *e = [[QSReg instancesForTable:@"QSFaviconSources"] objectEnumerator];
 	id <QSFaviconSource> source;
 
-	//NSLog(@"favisource", source);
-	while (!favicon && (source = [e nextObject]) ) {
-	//	NSLog(@"favisource %@", source);
+//	//NSLog(@"favisource", source);
+//	while (!favicon && (source = [e nextObject]) ) {
+//	//	NSLog(@"favisource %@", source);
+//		favicon = [source faviconForURL:url];
+//	}
+
+	for(source in e) {
 		favicon = [source faviconForURL:url];
+		if(favicon)
+			break;
 	}
 
 	if (!favicon) return NO;

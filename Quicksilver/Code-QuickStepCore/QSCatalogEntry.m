@@ -106,7 +106,7 @@ NSDictionary *enabledPresetDictionary;*/
 	NSEnumerator *e = [[path pathComponents] objectEnumerator];
 	NSString *s;
 	QSCatalogEntry *object = self;
-	while(s = [e nextObject]) {
+	for(s in e) {
 		object = [object childWithID:s];
 	}
 	return object;

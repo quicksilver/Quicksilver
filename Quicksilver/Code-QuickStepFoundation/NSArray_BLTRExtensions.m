@@ -69,8 +69,7 @@
 
 - (id)objectWithValue:(id)value forKey:(NSString *)key {
 	NSEnumerator *e = [self objectEnumerator];
-	id object;
-	while(object = [e nextObject]) {
+	for(id object in e) {
 		if ([[object valueForKey:key] isEqual:value])
 			return object;
 	}

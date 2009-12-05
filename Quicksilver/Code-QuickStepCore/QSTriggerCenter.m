@@ -147,10 +147,9 @@
 
 - (void)writeTriggersNow {
 	NSMutableArray *cleanedTriggerArray = [NSMutableArray arrayWithCapacity:[triggersDict count]];
-	NSEnumerator *triggerEnum;
-	QSTrigger *thisTrigger;
-	triggerEnum = [[triggersDict allValues] objectEnumerator];
-	while(thisTrigger = [triggerEnum nextObject]) {
+	QSTrigger * thisTrigger;
+	NSEnumerator *triggerEnum = [[triggersDict allValues] objectEnumerator];
+	for(thisTrigger in triggerEnum) {
         NSDictionary * rep = [thisTrigger dictionaryRepresentation];
         if(DEBUG) {
             NSArray *plistTypes = [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInt:NSPropertyListXMLFormat_v1_0],
@@ -158,10 +157,10 @@
 /*                                                          [NSNumber numberWithUnsignedInt:NSPropertyListOpenStepFormat],
  * Because it fails most writing */
                                                             nil];
+			NSNumber * num;
             NSEnumerator * enumer = [plistTypes objectEnumerator];
-            NSNumber *num;
             int failCount = 0;
-            while( num = [enumer nextObject] ) {
+            for(num in enumer ) {
                 int plistType = [num unsignedIntValue];
                 BOOL valid = [NSPropertyListSerialization propertyList:rep isValidForFormat:plistType];
                 if(!valid && DEBUG) {

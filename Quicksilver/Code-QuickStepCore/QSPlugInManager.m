@@ -440,7 +440,7 @@
 
 - (NSMutableArray *)allBundles {
 
-	NSEnumerator *searchPathEnum = nil;
+//	NSEnumerator *searchPathEnum = nil;
 	NSString *currPath = nil;
 	NSMutableSet *bundleSearchPaths = [NSMutableSet set];
 	NSMutableArray *allBundles = [NSMutableArray array];
@@ -620,9 +620,9 @@
 
 	[self downloadWebPlugInInfoFromDate:plugInWebDownloadDate forUpdateVersion:version synchronously:YES];
 
-	NSEnumerator *e = [knownPlugIns objectEnumerator];
 	QSPlugIn *thisPlugIn;
-	while(thisPlugIn = [e nextObject]) {
+	NSEnumerator *e = [knownPlugIns objectEnumerator];
+	for(thisPlugIn in e) {
 		if ([thisPlugIn needsUpdate]) {
 			[updatedPlugIns addObject:thisPlugIn];
 			newPlugInsAvailable++;

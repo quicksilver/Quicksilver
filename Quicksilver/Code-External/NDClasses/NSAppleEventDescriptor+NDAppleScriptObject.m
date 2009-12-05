@@ -460,7 +460,7 @@
 		NSNumber			* theKey;
 		NSEnumerator	* theEnumerator = [aDictionary keyEnumerator];
 		Class				theNumberClass = [NSNumber class];
-		while( (theKey = [theEnumerator nextObject]) != nil )
+		for( theKey in theEnumerator )
 		{
 			NSParameterAssert( [theKey isKindOfClass:theNumberClass] );
 			[theDescriptor setDescriptor:[NSAppleEventDescriptor descriptorWithObject:[aDictionary objectForKey:theKey]] forKeyword:[theKey unsignedIntValue]];
@@ -572,7 +572,7 @@
 		id					theKey;
 		unsigned int	theIndex = 1;
 
-		while ((theKey = [theEnumerator nextObject]) != nil )
+		for (theKey in theEnumerator )
 		{
 			[theUserRecord insertDescriptor:[NSAppleEventDescriptor descriptorWithString:[theKey description]] atIndex:theIndex++];
 			[theUserRecord insertDescriptor:[NSAppleEventDescriptor descriptorWithObject:[aDictionary objectForKey:theKey]] atIndex:theIndex++];		

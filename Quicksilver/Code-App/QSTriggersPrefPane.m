@@ -123,7 +123,7 @@
 	NSMutableArray *items = [NSMutableArray array];
 
 	id groupItem = nil;
-	while(key = [e nextObject]) {
+	for(key in e) {
 		manager = [managers objectForKey:key];
 		item = [[[NSMenuItem alloc] initWithTitle:[manager name] action:NULL keyEquivalent:@""] autorelease];
 		[item setRepresentedObject:key];

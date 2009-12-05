@@ -55,10 +55,10 @@ static inline int get_bit(unsigned char *arr, unsigned long bit_num) {
 	NSImage *fadedImage = [[NSImage alloc] initWithData:[self TIFFRepresentation]];
 	[fadedImage setCacheMode:NSImageCacheNever];
 
-	NSEnumerator *repEnum = [[fadedImage representations] objectEnumerator];
-	NSImageRep *rep;
+	NSImageRep *rep;	
 	[[NSColor colorWithDeviceWhite:0.0 alpha:alpha] set];
-	while(rep = [repEnum nextObject]) {
+	NSEnumerator *repEnum = [[fadedImage representations] objectEnumerator];
+	for(rep in repEnum) {
 		[fadedImage lockFocusOnRepresentation:rep];
 		NSRectFillUsingOperation(rectFromSize([rep size]), NSCompositeDestinationIn);
 		[fadedImage unlockFocus];
@@ -183,9 +183,9 @@ static inline int get_bit(unsigned char *arr, unsigned long bit_num) {
 }
 
 - (void)removeRepresentationsLargerThanSize:(NSSize)size {
+	NSImageRep * thisRep;
 	NSEnumerator *e = [[self representations] reverseObjectEnumerator];
-	NSImageRep *thisRep;
-	while(thisRep = [e nextObject]) {
+	for(thisRep in e) {
 		if ([thisRep size] .width > size.width && [thisRep size] .height > size.height)
 			[self removeRepresentation:thisRep];
 	}

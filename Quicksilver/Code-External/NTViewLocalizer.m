@@ -68,7 +68,7 @@
 			NSEnumerator *enumerator = [[menu itemArray] objectEnumerator];
 			NSMenuItem* item;
 
-			while (item = [enumerator nextObject])
+			for (item in enumerator)
 				[item setTitle:[self localizedString:[item title]]];
 		} else {
 			[view setTitle:[self localizedString:[view title]]];

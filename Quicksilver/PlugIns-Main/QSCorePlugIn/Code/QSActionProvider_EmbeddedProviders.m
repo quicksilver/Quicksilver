@@ -81,7 +81,7 @@
 	NSMutableArray *urlArray = [NSMutableArray array];
 	NSString *urlString;
 	NSEnumerator *e = [[dObject arrayForType:QSURLType] objectEnumerator];
-	while (urlString = [e nextObject]) {
+	for (urlString in e) {
 		NSURL *url = [NSURL URLWithString:urlString];
 		if ([urlString rangeOfString:QUERY_KEY].location != NSNotFound) {
 			int pathLoc = [urlString rangeOfString:[url path]].location;
@@ -273,7 +273,7 @@
 	LSItemInfoRecord infoRec;
 	NSEnumerator *files = [[dObject validPaths] objectEnumerator];
 	NSString *thisFile;
-	while(thisFile = [files nextObject]) {
+	for(thisFile in files) {
 		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:thisFile] , kLSRequestBasicFlagsOnly, &infoRec);
 		if (!(infoRec.flags & kLSItemInfoIsContainer) || (infoRec.flags & kLSItemInfoIsPackage) || ![mQSFSBrowser openFile:thisFile]) {
 			if (infoRec.flags & kLSItemInfoIsAliasFile) {
@@ -313,7 +313,7 @@
 		NSString *thisApp = [iObject singleFilePath];
 		NSEnumerator *files = [[dObject validPaths] objectEnumerator];
 		NSString *thisFile;
-		while(thisFile = [files nextObject])
+		for(thisFile in files)
 			[[NSWorkspace sharedWorkspace] openFile:thisFile withApplication:thisApp];
 	} else {
 		NSBeep();
@@ -333,7 +333,7 @@
 	NSEnumerator *files = [[dObject validPaths] objectEnumerator];
 	// ***warning   * should resolve aliases
 	NSString *thisFile;
-	while(thisFile = [files nextObject])
+	for(thisFile in files)
 		[mQSFSBrowser revealFile:thisFile];
 	return nil;
 }
@@ -356,7 +356,7 @@
 	if (choice == 1) {
 		NSEnumerator *files = [dObject enumeratorForType:QSFilePathType];
 		NSString *thisFile;
-		while(thisFile = [files nextObject]) {
+		for(thisFile in files) {
 			if ([[NSFileManager defaultManager] removeItemAtPath:thisFile error:nil])
 				[[NSWorkspace sharedWorkspace] noteFileSystemChanged:[thisFile stringByDeletingLastPathComponent]];
 			else
@@ -370,7 +370,7 @@
 	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
 	NSEnumerator *files = [[dObject arrayForType:QSFilePathType] objectEnumerator];
 	NSString *thisFile;
-	while(thisFile = [files nextObject]) {
+	for(thisFile in files) {
 		[ws performFileOperation:NSWorkspaceRecycleOperation source:[thisFile stringByDeletingLastPathComponent] destination:@"" files:[NSArray arrayWithObject:[thisFile lastPathComponent]] tag:nil];
 		[ws noteFileSystemChanged:[thisFile stringByDeletingLastPathComponent]];
 	}
@@ -517,7 +517,7 @@ return [self moveFiles:dObject toFolder:iObject shouldCopy:YES];
 	NSString *destination = [iObject singleFilePath];
 	NSEnumerator *files = [dObject enumeratorForType:QSFilePathType];
 	NSString *thisFile, *destinationFile;
-	while(thisFile = [files nextObject]) {
+	for(thisFile in files) {
 		destinationFile = [destination stringByAppendingPathComponent:[thisFile lastPathComponent]];
 		if ([(NDAlias *)[NDAlias aliasWithPath:thisFile] writeToFile:destinationFile])
 			[[NSWorkspace sharedWorkspace] noteFileSystemChanged:destination];
@@ -529,7 +529,7 @@ return [self moveFiles:dObject toFolder:iObject shouldCopy:YES];
 	NSString *destination = [iObject singleFilePath];
 	NSEnumerator *files = [dObject enumeratorForType:QSFilePathType];
 	NSString *thisFile, *destinationFile;
-	while(thisFile = [files nextObject]) {
+	for(thisFile in files) {
 		destinationFile = [destination stringByAppendingPathComponent:[thisFile lastPathComponent]];
 		if ([[NSFileManager defaultManager] createSymbolicLinkAtPath:destinationFile pathContent:thisFile])
 			[[NSWorkspace sharedWorkspace] noteFileSystemChanged:destination];
@@ -540,7 +540,7 @@ return [self moveFiles:dObject toFolder:iObject shouldCopy:YES];
 - (QSObject *)makeHardLinkTo:(QSObject *)dObject inFolder:(QSObject *)iObject {
 	NSString *thisFile, *destination = [iObject singleFilePath];
 	NSEnumerator *files = [dObject enumeratorForType:QSFilePathType];
-	while(thisFile = [files nextObject]) {
+	for(thisFile in files) {
 		if ([[NSFileManager defaultManager] linkPath:[destination stringByAppendingPathComponent:[thisFile lastPathComponent]] toPath:thisFile handler:nil])
 			[[NSWorkspace sharedWorkspace] noteFileSystemChanged:destination];
 	}

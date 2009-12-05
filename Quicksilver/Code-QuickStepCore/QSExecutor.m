@@ -110,7 +110,7 @@ QSExecutor *QSExec = nil;
 	NSArray *files = [rootPath performSelector:@selector(stringByAppendingPathComponent:) onObjectsInArray:[[NSFileManager defaultManager] contentsOfDirectoryAtPath:rootPath error:nil]];
     NSEnumerator *e = [[QSReg instancesForTable:@"QSFileActionCreators"] objectEnumerator];
 	id <QSFileActionProvider> creator;
-	while(creator = [e nextObject]) {
+	for(creator in e) {
 		[self addActions:[creator fileActionsFromPaths:files]];
 	}
 }
@@ -511,7 +511,7 @@ QSExecutor *QSExec = nil;
         NSEnumerator *e = [info keyEnumerator];
         NSDictionary *actionDict;
         NSString *key;
-        while (key = [e nextObject]) {
+        for (key in e) {
             actionDict = [info objectForKey:key];
             
             if ([[actionDict objectForKey:kItemFeatureLevel] intValue] > [NSApp featureLevel]) {

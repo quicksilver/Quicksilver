@@ -108,7 +108,7 @@
 	NSMutableDictionary *interfaces = [QSReg tableNamed:kQSCommandInterfaceControllers];
 	NSEnumerator *keyEnum = [interfaces keyEnumerator];
 	NSString *key, *title;
-	while(key = [keyEnum nextObject]) {
+	for(key in keyEnum) {
 		title = [[QSReg bundleForClassName:[interfaces objectForKey:key]] safeLocalizedStringForKey:key value:key table:nil];
 		item = (NSMenuItem *)[[interfacePopUp menu] addItemWithTitle:title action:nil keyEquivalent:@""];
 		[item setRepresentedObject:key];

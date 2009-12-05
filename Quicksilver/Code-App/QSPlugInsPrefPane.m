@@ -252,7 +252,8 @@
 	NSEnumerator *e = [[self selectedPlugIns] objectEnumerator];
 	QSPlugIn *bundle;
 	BOOL filesOpened = NO;
-	while (bundle = [e nextObject]) filesOpened |= [self showInfoForPlugIn:bundle];
+	for (bundle in e)
+		filesOpened |= [self showInfoForPlugIn:bundle];
 	if (!filesOpened) NSBeep();
 }
 

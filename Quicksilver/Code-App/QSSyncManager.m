@@ -69,7 +69,7 @@ mSHARED_INSTANCE_CLASS_METHOD
 		NSLog(@"prepared");
 		NSEnumerator *enumerator = [session changeEnumeratorForEntityNames:filteredEntityNames];
 		ISyncChange *change;
-		while(change = [enumerator nextObject]) {
+		for(change in enumerator) {
 			NSString *recordID = [change recordIdentifier];
 			NSDictionary *record = [change record] ;
 			NSString *identifier = [record objectForKey:kItemID];

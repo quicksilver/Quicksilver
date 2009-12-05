@@ -276,7 +276,8 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
 		NSEnumerator *  fdEnumerator = [watchedFDs objectEnumerator];
 		NSNumber	 *  anFD;
 
-		while( (anFD = [fdEnumerator nextObject]) != nil )
+//		while( (anFD = [fdEnumerator nextObject]) != nil )
+		for( anFD in fdEnumerator )
 			close( [anFD intValue] );
 
 		[watchedFDs removeAllObjects];

@@ -435,7 +435,7 @@ static float searchSpeed = 0.0;
 	NSEnumerator *typeEntryEnumerator = [[typeArrays objectForKey:string] objectEnumerator];
 	NSArray *typeEntry;
 	NSMutableSet *typeSet = [NSMutableSet setWithCapacity:1];
-	while(typeEntry = [typeEntryEnumerator nextObject])
+	for(typeEntry in typeEntryEnumerator)
 		[typeSet addObjectsFromArray:typeEntry];
 
 	// NSLog(@"found %d objects for type %@\r%@", [typeSet count] , string, [typeArrays objectForKey:string]);

@@ -70,8 +70,8 @@ NSSize QSMaxIconSize;
     NSMutableArray *keysToDeleteFromObjectDict = [[NSMutableArray alloc] init];
     @synchronized(objectDictionary) {
         NSEnumerator *keyEnum = [objectDictionary keyEnumerator];
-        NSString *thisKey = nil;
-        while (thisKey = [keyEnum nextObject]) {
+        NSString *thisKey;
+        for (thisKey in keyEnum) {
             thisObject = [objectDictionary objectForKey:thisKey];
             if ([thisObject retainCount] < 2) {
                 [keysToDeleteFromObjectDict addObject:thisKey];
@@ -101,7 +101,7 @@ NSSize QSMaxIconSize;
 
     NSMutableArray * tempArray = [NSMutableArray array];
 	e = [iconLoadedArray objectEnumerator];
-    while (thisObject = [e nextObject]) {
+    for (thisObject in e) {
 		//	NSLog(@"i%@ %f", thisObject, thisObject->lastAccess);
         if (thisObject->lastAccess && thisObject->lastAccess < (globalLastAccess - interval) ) {
             [tempArray addObject:thisObject];
@@ -115,7 +115,7 @@ NSSize QSMaxIconSize;
     
     tempArray = [NSMutableArray array];
     e = [childLoadedArray objectEnumerator];
-    while (thisObject = [e nextObject]) {
+    for (thisObject in e) {
 		//	NSLog(@"c%@ %f", thisObject, thisObject->lastAccess);
         if (thisObject->lastAccess && thisObject->lastAccess < (globalLastAccess - interval)) {
             [tempArray addObject:thisObject];
@@ -180,7 +180,7 @@ NSSize QSMaxIconSize;
 		return [[self primaryObject] isEqual:[anObject primaryObject]];
 	NSEnumerator *typesEnumerator = [data keyEnumerator];
 	NSString *key;
-	while(key = [typesEnumerator nextObject]) {
+	for(key in typesEnumerator) {
 		if (![[data objectForKey:key] isEqual:[anObject objectForType:key]]) return NO;
 	}
 	return YES;
@@ -219,6 +219,8 @@ NSSize QSMaxIconSize;
 - (NSArray *)splitObjects {
 	NSDictionary *dataDict = [self dataDictionary];
 
+	NSMutableArray *splitObjects = [NSMutableArray array];
+	
 	NSEnumerator *ke = [dataDict keyEnumerator];
 	NSString *key;
 	NSArray *value;
@@ -227,9 +229,7 @@ NSSize QSMaxIconSize;
 	//int resultCount = 0;
 	int i;
 
-	NSMutableArray *splitObjects = [NSMutableArray array];
-
-	while(key = [ke nextObject]) {
+	for(key in ke) {
 		value = [dataDict objectForKey:key];
 		if ([value isKindOfClass:[NSArray class]]) {
 			while([splitObjects count] <[value count])
@@ -266,7 +266,7 @@ NSSize QSMaxIconSize;
 
     NSMutableArray *typesToRemove = [NSMutableArray array];
 	e = [combinedData keyEnumerator];
-	while(type = [e nextObject]) {
+	for(type in e) {
 		if (![typesSet containsObject:type])
             [typesToRemove addObject:type];
 	}
@@ -477,7 +477,7 @@ NSSize QSMaxIconSize;
 	NSMutableArray *decodedTypes = [NSMutableArray arrayWithCapacity:[data count]];
 	NSEnumerator *typesEnumerator = [data keyEnumerator];
 	NSString *thisType;
-	while(thisType = [typesEnumerator nextObject]) {
+	for(thisType in typesEnumerator) {
 		[decodedTypes addObject:[thisType decodedPasteboardType]];
 	}
 	return decodedTypes;
@@ -488,7 +488,7 @@ NSSize QSMaxIconSize;
 		NSEnumerator *e = [[[self dataDictionary] allValues] objectEnumerator];
 		id value;
 		int count = 1;
-		while(value = [e nextObject]) {
+		for(value in e) {
 			if ([value isKindOfClass:[NSArray class]]) count = MAX([(NSArray *)value count] , count);
 		}
 		return count;
