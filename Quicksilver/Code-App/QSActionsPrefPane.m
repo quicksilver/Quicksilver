@@ -38,14 +38,14 @@
 	NSMutableSet *newActions = [NSMutableSet set];
 	switch (displayMode) {
 		case 0: {
-			foreach(category, categories) {
+			for(id category in categories) {
 				NSString *type = [category objectForKey:@"group"];
 				[newActions addObjectsFromArray: ([type isEqual:kQSAllActionsCategory])?[QSExec actions]:[QSExec actionsArrayForType:type] ];
 			}
 			break;
 		}
 		case 1: {
-			foreach(category, categories) {
+			for(id category in categories) {
 				NSString *plugin = [category objectForKey:@"group"];
 				[newActions addObjectsFromArray: ([plugin isEqual:kQSAllActionsCategory])?[QSExec actions]:[QSExec getArrayForSource:plugin] ];
 			}
@@ -88,7 +88,7 @@
 		case 0: {
 			NSDictionary *infoTable = [QSReg tableNamed:@"QSTypeDefinitions"];
 			NSArray *newGroups = [infoTable allKeys];
-			foreach(group, newGroups) {
+			for(NSString * group in newGroups) {
 				NSDictionary *info = [infoTable objectForKey:group];
 				if (!info) continue;
 				NSString *name = [info objectForKey:@"name"];

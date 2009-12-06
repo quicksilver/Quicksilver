@@ -50,7 +50,7 @@
 	NSEnumerator *e = [[scripts pathsMatchingExtensions:[NSArray arrayWithObjects:@"scpt", @"app", nil]] objectEnumerator];
 	NSString *path;
 	NSMutableArray *array = [NSMutableArray array];
-	while(path = [e nextObject]) {
+	for(path in e) {
 		if ([QSUTIOfFile(path) isEqualToString:QSUTIForExtensionOrType(@"scpt", 0)]) {
 			[array addObject:[self scriptActionForPath:path]];
 		}

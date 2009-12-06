@@ -130,7 +130,7 @@ id QSPrefs;
 //	NSLog(@"plug %@", plugInPanes);
 	NSEnumerator *e = [plugInPanes keyEnumerator];
 	NSString *paneKey = nil;
-	while(paneKey = [e nextObject]) {
+	for(paneKey in e) {
 		if ([modulesByID objectForKey:paneKey]) continue;
 		//if ([loadedPanes containsObject:paneKey]) continue;
 		NSMutableDictionary *paneInfo = [[[plugInPanes objectForKey:paneKey] mutableCopy] autorelease];

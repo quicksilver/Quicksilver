@@ -3186,7 +3186,7 @@
 		};
 		7F2F820908A97A440022178B /* Install */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
+			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
@@ -3194,7 +3194,7 @@
 			name = Install;
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "echo \"rsync -auzEv $BUILT_PRODUCTS_DIR/Quicksilver.app /Applications/Quicksilver.app\"\nrsync -auzEv \"$BUILT_PRODUCTS_DIR/Quicksilver.app/\" /Applications/Quicksilver.app/\n\nexit\n\nif [ $BUILD_STYLE != \"Release\" ]; then\n        exit\nfi\n\nVERSION=\"3814\" #`/usr/bin/svn info Quicksilver.xcodeproj | egrep '^Revision: ' | cut -f2 -d' '`;\n\necho $SRCROOT/Tools/buildDMG.pl -dmgName $PRODUCT_NAME \\\n                         -buildDir ~/Desktop \\\n                         -volName Quicksilver \\\n                         -dmgName QS.$VERSION.dev.0 \\\n                        -compressionLevel 9 \\\n                         -internetEnabled \\\n                         -debug $BUILT_PRODUCTS_DIR/Quicksilver.app\n\n$SRCROOT/Tools/buildDMG.pl -dmgName $PRODUCT_NAME \\\n                         -buildDir ~/Desktop \\\n                         -volName Quicksilver \\\n                         -dmgName QS.$VERSION.dev.0 \\\n                        -compressionLevel 9 \\\n                         -internetEnabled \\\n                         -debug $BUILT_PRODUCTS_DIR/Quicksilver.app";
 		};
@@ -3971,6 +3971,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_AUTO_VECTORIZATION = NO;
+				GCC_ENABLE_SSE3_EXTENSIONS = NO;
+				GCC_ENABLE_SSE41_EXTENSIONS = NO;
+				GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				ONLY_ACTIVE_ARCH = NO;
+				SKIP_INSTALL = NO;
+				STRIP_INSTALLED_PRODUCT = YES;
 			};
 			name = Release;
 		};

@@ -65,12 +65,12 @@ QSRegistry* QSReg = nil;
 }
 
 - (NSMutableDictionary *)instancesForTable:(NSString *)key {
+	id instance;
+	NSString * entry;
 	NSDictionary *sourceTable = [self tableNamed:key];
 	NSMutableDictionary *instances = [NSMutableDictionary dictionaryWithCapacity:[sourceTable count]];
-	NSString *entry;
 	NSEnumerator *e = [sourceTable keyEnumerator];
-	id instance;
-	while(entry = [e nextObject]) {
+	for(entry in e) {
 		if (instance = [self getClassInstance:[sourceTable objectForKey:entry]])
 			[instances setObject:instance forKey:entry];
 	}
@@ -89,10 +89,10 @@ QSRegistry* QSReg = nil;
 - (void)retainItemsInTable:(NSString *)table {
 	NSDictionary *sourceTable = [self tableNamed:table];
 	NSMutableDictionary *retainedItems = [self retainedTableNamed:table];
-	NSString *entry;
 	NSEnumerator *e = [sourceTable keyEnumerator];
+	NSString * entry;
 	id instance;
-	while(entry = [e nextObject]) {
+	for(entry in e) {
 		if (instance = [self getClassInstance:[sourceTable objectForKey:entry]])
 			[retainedItems setObject:instance forKey:entry];
 	}
@@ -254,15 +254,14 @@ QSRegistry* QSReg = nil;
 	//if (![registration isKindOfClass:[NSDictionary class]]) [NSException exceptionWithName:@"Invalid registration" reason: @"Registration is not a dictionary" userInfo:nil];
 	//	[bundle load];
 	NSEnumerator *keynum = [registration keyEnumerator];
-	NSString *table;
-	while (table = [keynum nextObject]) {
+	NSString * table;
+	for (table in keynum) {
 		NSDictionary *providers = [registration objectForKey:table];
 		if (![providers isKindOfClass:[NSDictionary class]]) [NSException raise:@"Invalid registration" format:@"%@ invalid", table];
 		[[self tableNamed:table] addEntriesFromDictionary:providers];
-		NSString *provider;
-		NSEnumerator *e = [providers keyEnumerator];
 		NSMutableDictionary *retainedInstances = [tableInstances objectForKey:table];
-		while(provider = [e nextObject]) {
+		NSEnumerator *e = [providers keyEnumerator];
+		for(NSString * provider in e) {
 			id entry = [providers objectForKey:provider];
 			NSString *className = entry;
 			if ([entry isKindOfClass:[NSDictionary class]])
@@ -357,7 +356,6 @@ QSRegistry* QSReg = nil;
 - (NSMutableArray *)allBundles {
 	NSBundle *appBundle = [NSBundle mainBundle];
 	NSFileManager *fm = [NSFileManager defaultManager];
-	NSEnumerator *searchPathEnum;
 	NSString *currPath;
 	NSMutableSet *bundleSearchPaths = [NSMutableSet set];
 	NSMutableArray *allBundles = [NSMutableArray array];
@@ -369,8 +367,7 @@ QSRegistry* QSReg = nil;
 		NSLog(@"External PlugIns Disabled");
 	} else {
 		NSArray *librarySearchPaths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSAllDomainsMask - NSSystemDomainMask, YES);
-		searchPathEnum = [librarySearchPaths objectEnumerator];
-		while(currPath = [searchPathEnum nextObject])
+		for(currPath in librarySearchPaths)
 			[bundleSearchPaths addObject:[currPath stringByAppendingPathComponent:appSupportSubpath]];
 		[bundleSearchPaths addObject:[[appBundle bundlePath] stringByDeletingLastPathComponent]];
 		[bundleSearchPaths addObject:[[[appBundle bundlePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"PlugIns"]];
@@ -380,13 +377,12 @@ QSRegistry* QSReg = nil;
 		[bundleSearchPaths addObject:[[fm currentDirectoryPath] stringByAppendingPathComponent:@"PrivatePlugIns"]];
 	}
     
-    // !!! Andre Berg 20091017: update from objectEnumerator to foreach
-	foreach(currPath, bundleSearchPaths) {
-		NSEnumerator *bundleEnum;
+	for(NSString * currPath in bundleSearchPaths) {
+//		NSEnumerator *bundleEnum;
 		NSString *curBundlePath;
 		NSArray * dirContents = [fm contentsOfDirectoryAtPath:currPath error:nil];
 		if (dirContents) {
-			foreach(curBundlePath, dirContents) {
+			for(NSString * curBundlePath in dirContents) {
 				if ([[curBundlePath pathExtension] caseInsensitiveCompare:@"qsplugin"] == NSOrderedSame) {
 					[allBundles addObject:[currPath stringByAppendingPathComponent:curBundlePath]];
 				}

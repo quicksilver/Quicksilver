@@ -138,9 +138,8 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
 		keepThreadRunning = NO;
 
 	// Close all our file descriptors so the files can be deleted:
-	NSEnumerator*	enny = [watchedFDs objectEnumerator];
 	NSNumber*		fdNum;
-	while( (fdNum = [enny nextObject]) ) {
+	for( fdNum in watchedFDs ) {
 		if ( close( [fdNum intValue] ) == -1 )
 			NSLog(@"dealloc: Couldn't close file descriptor (%d) ", errno);
 	}
@@ -277,7 +276,8 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
 		NSEnumerator *  fdEnumerator = [watchedFDs objectEnumerator];
 		NSNumber	 *  anFD;
 
-		while( (anFD = [fdEnumerator nextObject]) != nil )
+//		while( (anFD = [fdEnumerator nextObject]) != nil )
+		for( anFD in fdEnumerator )
 			close( [anFD intValue] );
 
 		[watchedFDs removeAllObjects];

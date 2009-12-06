@@ -64,7 +64,7 @@
 	NSMenuItem *item;
 	NSEnumerator *keyEnum = [parsers keyEnumerator];
 	NSString *key;
-	while(key = [keyEnum nextObject]) {
+	for(key in keyEnum) {
 		if (![[parsers objectForKey:key] validParserForPath:path]) continue;
 
 		NSString *title = [[NSBundle bundleForClass:NSClassFromString(key)] safeLocalizedStringForKey:key value:key table:@"QSParser.name"];
@@ -86,7 +86,7 @@
 	[typeSetsMenu addItemWithTitle:@"Add Set" action:nil keyEquivalent:@""];
 
 	NSMenuItem *item;
-	while(key = [keyEnumerator nextObject]) {
+	for(key in keyEnumerator) {
 		//  [[NSBundle mainBundle] localizedStringForKey:theID value:theID table:@"QSCatalogPreset.name"];
 
 		item = (NSMenuItem *)[typeSetsMenu addItemWithTitle:[[NSBundle mainBundle] safeLocalizedStringForKey:key value:key table:@"FileTypeGroupNames"] action:nil keyEquivalent:@""];
@@ -152,7 +152,7 @@
 	[desc release];
 	if (conforms) {
 		if (![conforms isKindOfClass:[NSArray class]]) conforms = [NSArray arrayWithObject:conforms];
-		foreach(type, conforms){
+		for(NSString * type in conforms){
 			desc = (NSString *)UTTypeCopyDescription((CFStringRef)type);
 			[menu addItemWithTitle:desc action:nil keyEquivalent:@""];
 			[desc release];
@@ -166,7 +166,7 @@
 	NSArray *conforms = [[(NSString *)UTTypeCopyDeclaration((CFStringRef)representedObject) autorelease] objectForKey:(NSString *)kUTTypeConformsToKey];
 	if (conforms) {
 		if (![conforms isKindOfClass:[NSArray class]]) conforms = [NSArray arrayWithObject:conforms];
-		foreach(type, conforms)
+		for(NSString * type in conforms)
 			[menu addItemWithTitle:[(NSString *)UTTypeCopyDescription((CFStringRef)type) autorelease] action:nil keyEquivalent:@""];
 	}
 	return menu;
@@ -292,7 +292,7 @@
 		[wsNotif addObserver:entry selector:@selector(invalidateIndex:) name:nil object:path];
 	}
 	NSArray *paths = [settings objectForKey:@"watchPaths"];
-	foreach (p, paths) {
+	for (NSString * p in paths) {
 		[[QSVoyeur sharedInstance] addPathToQueue:p];
 		if (VERBOSE) NSLog(@"Watching Path %@", p);
 		[wsNotif addObserver:entry selector:@selector(invalidateIndex:) name:UKKQueueFileWrittenToNotification object:p];

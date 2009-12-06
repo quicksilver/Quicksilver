@@ -314,10 +314,9 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 
 - (NSArray*)imagesForTypes:(NSArray *)types {
 	NSMutableArray *typeImageArray = [NSMutableArray arrayWithCapacity:1];
-	NSEnumerator *typesEnumerator = [types objectEnumerator];
 	NSString *thisType;
 	NSDictionary *imageDictionary = [self typeImageDictionary];
-	while(thisType = [typesEnumerator nextObject]) {
+	for(thisType in types) {
 		NSImage *typeImage = [imageDictionary objectForKey:thisType];
 		if (typeImage) [typeImageArray addObject:typeImage];
 	}
@@ -595,9 +594,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 	if ([actions count]) {
 		NSMenu *actionsMenu = [[[NSMenu alloc] initWithTitle:@"Actions"] autorelease];
 
-		int i;
-		for (i = 0; i < [actions count]; i++) {
-			QSAction *action = [actions objectAtIndex:i];
+		for (QSAction *action in actions) {
 			if (action) {
 				NSArray *componentArray = [[action name] componentsSeparatedByString:@"/"];
 

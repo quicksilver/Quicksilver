@@ -45,7 +45,7 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
 	NSString *script = [NSString stringWithContentsOfFile:path];
 
 	NSMutableDictionary *scriptDict = [NSMutableDictionary dictionary];
-	foreach(component, [script componentsSeparatedByString: @"%%%"]) {
+	for(NSString * component in [script componentsSeparatedByString: @"%%%"]) {
 		if (![component hasPrefix:@" {"]) continue;
 		if (![component hasSuffix:@"} "]) continue;
 		component = [component substringWithRange:NSMakeRange(1, [(NSString *)component length] - 2)];
@@ -75,11 +75,10 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
 
 - (NSArray *)fileActionsFromPaths:(NSArray *)scripts {
 	scripts = [scripts pathsMatchingExtensions:SCRIPT_EXT];
-	NSEnumerator *e = [scripts objectEnumerator];
 	NSString *path;
 	NSMutableArray *array = [NSMutableArray array];
 
-	while(path = [e nextObject]) {
+	for(path in scripts) {
 		QSAction *action = [self scriptActionForPath:path];
 		[array addObject:action];
 	}

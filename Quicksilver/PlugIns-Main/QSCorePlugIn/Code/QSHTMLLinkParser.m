@@ -71,10 +71,9 @@
 
 	NSMutableArray *objects = [NSMutableArray arrayWithCapacity:1];
 	QSObject *newObject;
-	NSEnumerator *e = [array objectEnumerator];
 	NSArray *link;
 	NSCharacterSet *wncs = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-	while(link = [e nextObject]) {
+	for(link in array) {
 		if ([link count] < 4) continue;
 		NSString *shortcut = [link objectAtIndex:2];
 		NSString *url = [[[link objectAtIndex:0] stringByReplacing:@"&amp; " with:@"&"] stringByReplacing:@"%s" with:@"***"];

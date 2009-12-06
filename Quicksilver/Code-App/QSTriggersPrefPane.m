@@ -123,7 +123,7 @@
 	NSMutableArray *items = [NSMutableArray array];
 
 	id groupItem = nil;
-	while(key = [e nextObject]) {
+	for(key in e) {
 		manager = [managers objectForKey:key];
 		item = [[[NSMenuItem alloc] initWithTitle:[manager name] action:NULL keyEquivalent:@""] autorelease];
 		[item setRepresentedObject:key];
@@ -150,7 +150,7 @@
 		[addMenu addItem:groupItem];
 	}
 
-	foreach(menuItem, [addMenu itemArray]) {
+	for(id menuItem in [addMenu itemArray]) {
 		[menuItem setTarget:self];
 		[menuItem setAction:@selector(addTrigger:)];
 	}
@@ -517,10 +517,10 @@
 
 - (IBAction)removeTrigger:(id)sender {
 	if ([triggerTable selectedRow] <0) return;
-	foreach(trigger, [triggerTreeController selectedObjects]) {
+	for(QSTrigger * trigger in [triggerTreeController selectedObjects]) {
 		//NSLog(@"trig %@", trigger);
 		if ([trigger isPreset])
-			[(QSTrigger*)trigger setEnabled:NO];
+			[trigger setEnabled:NO];
 		else
 			[[QSTriggerCenter sharedInstance] removeTrigger:trigger];
 	}

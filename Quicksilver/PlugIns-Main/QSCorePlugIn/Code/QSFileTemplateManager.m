@@ -43,7 +43,7 @@
 	NSFileManager *fm = [NSFileManager defaultManager];
 	NSString *path = QSApplicationSupportSubPath(@"Templates", NO);
     NSArray * fmContents = [fm contentsOfDirectoryAtPath:path error:nil];
-	foreach(subpath, fmContents) {
+	for(NSString * subpath in fmContents) {
 		if ([subpath hasPrefix:@"."]) continue;
 		subpath = [path stringByAppendingPathComponent:subpath];
 		[array addObject:[self templateFromFile:subpath]];

@@ -110,16 +110,15 @@ QSExecutor *QSExec = nil;
 	NSArray *files = [rootPath performSelector:@selector(stringByAppendingPathComponent:) onObjectsInArray:[[NSFileManager defaultManager] contentsOfDirectoryAtPath:rootPath error:nil]];
     NSEnumerator *e = [[QSReg instancesForTable:@"QSFileActionCreators"] objectEnumerator];
 	id <QSFileActionProvider> creator;
-	while(creator = [e nextObject]) {
+	for(creator in e) {
 		[self addActions:[creator fileActionsFromPaths:files]];
 	}
 }
 
 - (NSArray *)actionsForFileTypes:(NSArray *)types {
 	NSMutableSet *set = [NSMutableSet set];
-	NSEnumerator *e = [types objectEnumerator];
 	NSString *type;
-	while (type = [e nextObject]) {
+	for (type in types) {
 		[set addObjectsFromArray:[directObjectFileTypes objectForKey:type]];
 	}
 	[set addObjectsFromArray:[directObjectFileTypes objectForKey:@"*"]];
@@ -128,9 +127,8 @@ QSExecutor *QSExec = nil;
 
 - (NSArray *)actionsForTypes:(NSArray *)types fileTypes:(NSArray *)fileTypes {
 	NSMutableSet *set = [NSMutableSet set];
-	NSEnumerator *e = [types objectEnumerator];
 	NSString *type;
-	while (type = [e nextObject]) {
+	for (type in types) {
 		if ([type isEqualToString:QSFilePathType]) {
 			[set addObjectsFromArray:[self actionsForFileTypes:fileTypes]];
 		} else {
@@ -157,7 +155,7 @@ QSExecutor *QSExec = nil;
 }
 
 - (void)addActions:(NSArray *)actions {
-	foreach (action, actions) {
+	for (QSAction * action in actions) {
 		[self addAction:action];
 	}
 }
@@ -217,14 +215,13 @@ QSExecutor *QSExec = nil;
 	if (![directTypes count]) directTypes = [NSArray arrayWithObject:@"*"];
 	NSEnumerator *e = [directTypes objectEnumerator];
 	NSString *type;
-	while (type = [e nextObject])
+	for (type in directTypes)
 		[[self actionsArrayForType:type] addObject:action];
 
 	if ([directTypes containsObject:QSFilePathType]) {
 		directTypes = [actionDict objectForKey:@"directFileTypes"];
 		if (![directTypes count]) directTypes = [NSArray arrayWithObject:@"*"];
-		e = [directTypes objectEnumerator];
-		while (type = [e nextObject]) {
+		for (type in directTypes) {
 			[[self actionsArrayForFileType:type] addObject:action];
 		}
 	}
@@ -378,8 +375,7 @@ QSExecutor *QSExec = nil;
     //QSAction *thisAction;
 	BOOL isValid;
     
-    // !!! Andre Berg 20091013: update to foreach with fast enum
-    foreach(thisAction, newActions) {
+    for(QSAction * thisAction in newActions) {
         if (![thisAction enabled]) continue;
 		validSourceActions = nil;
 		NSDictionary *actionDict = [thisAction objectForType:QSActionType];
@@ -515,7 +511,7 @@ QSExecutor *QSExec = nil;
         NSEnumerator *e = [info keyEnumerator];
         NSDictionary *actionDict;
         NSString *key;
-        while (key = [e nextObject]) {
+        for (key in e) {
             actionDict = [info objectForKey:key];
             
             if ([[actionDict objectForKey:kItemFeatureLevel] intValue] > [NSApp featureLevel]) {

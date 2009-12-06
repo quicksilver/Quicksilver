@@ -18,8 +18,8 @@
     
     NSArray *handlers = [[NSSet setWithArray:[[QSReg objectHandlers] allValues]] allObjects];
     
-    foreach( object, objects ) {
-        foreach( handler, handlers ) {
+    for(id object in objects ) {
+        for(id handler in handlers ) {
             id obj = nil;
             if ([handler respondsToSelector:@selector(objectWithAEDescriptor:)])
                 obj = [handler objectWithAEDescriptor:desc];

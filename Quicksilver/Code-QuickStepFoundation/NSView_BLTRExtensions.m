@@ -35,8 +35,8 @@ unsigned int flipMask(unsigned int mask, int axis) {
 - (void)flipSubviewsOnAxis:(bool)vertical {
 	NSSize parentSize = [self frame].size;
 	NSEnumerator *subviewEnumerator = [[self subviews] objectEnumerator];
-	NSView *thisView;
-	while (thisView = [subviewEnumerator nextObject]) {
+	NSView * thisView;
+	for (thisView in subviewEnumerator) {
 		NSRect frame = [thisView frame];
 		if (vertical == 0)
 			[thisView setFrameOrigin:NSMakePoint(parentSize.width-NSMaxX(frame), frame.origin.y)];

@@ -40,7 +40,7 @@
 	[(QSWindow *)[self window] setFastShow:YES];
 
 	NSArray *theControls = [NSArray arrayWithObjects:dSelector, aSelector, iSelector, nil];
-	foreach(theControl, theControls) {
+	for(NSControl * theControl in theControls) {
 		NSCell *theCell = [theControl cell];
 		[theCell setAlignment:NSCenterTextAlignment];
 		[theControl setPreferredEdge:NSMinYEdge];
@@ -66,7 +66,7 @@
 	[details unbind:@"textColor"];
 	[commandView unbind:@"textColor"];
 	NSArray *theControls = [NSArray arrayWithObjects:dSelector, aSelector, iSelector, nil];
-	foreach(theControl, theControls) {
+	for(NSControl * theControl in theControls) {
 		NSCell *theCell = [theControl cell];
 		[theCell unbind:@"highlightColor"];
 		[theCell unbind:@"textColor"];

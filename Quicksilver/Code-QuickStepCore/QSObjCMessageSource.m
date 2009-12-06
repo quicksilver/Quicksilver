@@ -54,7 +54,7 @@
 	NSString *key;
 	QSObject *messageObject;
 	NSDictionary *info;
-	while (key = [ke nextObject]) {
+	for (key in ke) {
 		info = [messages objectForKey:key];
 		messageObject = [QSObject messageObjectWithInfo:info identifier:key];
 //		[messageObject setIdentifier:key];
