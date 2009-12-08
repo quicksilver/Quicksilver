@@ -905,7 +905,7 @@ QSController *QSCon;
 
 	if (rescanInterval>0) {
 		if (DEBUG_STARTUP) NSLog(@"Rescanning every %d minutes", rescanInterval);
-		[[NSTimer scheduledTimerWithTimeInterval:rescanInterval*60 target:self selector:@selector(rescanItems:) userInfo:nil repeats:YES] retain];
+		[NSTimer scheduledTimerWithTimeInterval:rescanInterval*60 target:self selector:@selector(rescanItems:) userInfo:nil repeats:YES];
 	}
 
 	if (DEBUG_STARTUP) NSLog(@"Register for Notifications");

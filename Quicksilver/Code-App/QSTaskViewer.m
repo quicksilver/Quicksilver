@@ -88,7 +88,7 @@ NSNib *taskEntryNib = nil;
 	[taskEntryNib instantiateNibWithOwner:task topLevelObjects:&objects];
 	QSTaskView *view = [objects lastObject];
 	// I think that the owner normally retains the object
-	return [view autorelease];
+	return view;
 }
 
 - (void)refreshAllTasks:(NSNotification *)notif {

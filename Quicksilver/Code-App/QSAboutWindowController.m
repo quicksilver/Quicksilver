@@ -56,6 +56,7 @@
 		[window display];
 		[aboutWindow addChildWindow:window ordered:NSWindowAbove];
 		[imageView removeFromSuperview];
+		[window release];
 	}
 }
 
