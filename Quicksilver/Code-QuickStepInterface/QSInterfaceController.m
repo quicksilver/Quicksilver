@@ -455,7 +455,7 @@
 - (void)executeCommandThreaded {
 	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	NSDate *startDate = [NSDate date];
-	QSAction *action = [[aSelector objectValue] retain];
+	QSAction *action = [aSelector objectValue];
 	if ([[NSApp currentEvent] modifierFlags] & NSCommandKeyMask && !([[NSApp currentEvent] modifierFlags] & NSShiftKeyMask) ) {
 		action = [action alternate];
 		if (VERBOSE) NSLog(@"Using Alternate Action: %@", action);
@@ -484,7 +484,6 @@
 		}
 	}
 	if (VERBOSE) NSLog(@"Command executed (%dms) ", (int)(-[startDate timeIntervalSinceNow] *1000));
-    //[action release];
 	[pool release];
 }
 

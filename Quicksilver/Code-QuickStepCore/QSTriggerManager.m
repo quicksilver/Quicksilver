@@ -64,7 +64,7 @@
 	[imageView setImageFrameStyle:NSImageFrameNone];
 	[imageView setImageScaling:NSScaleNone];
 	[[splashWindow contentView] addSubview:imageView];
-	return splashWindow;
+	return [splashWindow autorelease];
 }
 @end
 

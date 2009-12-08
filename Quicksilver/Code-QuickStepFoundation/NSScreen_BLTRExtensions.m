@@ -65,7 +65,8 @@ static void KeyArrayCallback(const void *key, const void *value, void *context) 
         if (localName)
             [[localName retain] autorelease];
 	}
-	CFRelease(orderLangKeys);
+	if (orderLangKeys)
+	    CFRelease(orderLangKeys);
 	CFRelease(dict);
 
 	if (!localName) {

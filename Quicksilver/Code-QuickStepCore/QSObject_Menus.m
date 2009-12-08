@@ -193,7 +193,6 @@
 				if ([action argumentCount] >1) {
 					NSMenu *sub = [[[NSMenu alloc] initWithTitle:[action name]]autorelease];
 					[sub setDelegate:command];
-					[command retain]; // so it doesn't get released too early when menu deconstructed
 					[item setSubmenu:sub];
 
 				}
