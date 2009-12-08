@@ -69,7 +69,7 @@
 
 +(NSWindow *)windowWithImage:(NSImage *)image {
 	NSRect windowRect = NSMakeRect(0, 0, [image size] .width, [image size] .height);
-	NSWindow *window = [[[[self class] alloc] initWithContentRect:windowRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO] retain];
+	NSWindow *window = [[[self class] alloc] initWithContentRect:windowRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
 	[window setIgnoresMouseEvents:YES];
 	[window setBackgroundColor: [NSColor clearColor]];
 	[window setOpaque:NO];
@@ -79,7 +79,7 @@
 	[[window contentView] unlockFocus];
 	[window setAutodisplay:NO];
 	[window setReleasedWhenClosed:YES];
-	return [window autorelease];
+	return window;
 }
 @end
 

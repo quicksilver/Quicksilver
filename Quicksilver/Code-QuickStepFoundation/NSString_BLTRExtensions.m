@@ -276,6 +276,9 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 - (NSDictionary *)attributesToFitRect:(NSRect) rect withAttributes:(NSDictionary *)attributes {
 	NSMutableDictionary *newAttributes = [attributes mutableCopy];
 	if (!newAttributes) newAttributes = [NSMutableDictionary dictionaryWithCapacity:1];
+	else
+		[newAttributes autorelease];
+
 	NSFont *font = [newAttributes objectForKey:NSFontAttributeName];
 	float fontSize = [font pointSize];
 	NSSize textSize;
