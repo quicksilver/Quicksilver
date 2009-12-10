@@ -164,10 +164,6 @@
 	count = MIN(count, [actions count]);
 	int i;
 	NSMenuItem *item;
-	NSDictionary *attrs = [NSDictionary dictionaryWithObjectsAndKeys:
-		[NSFont menuBarFontOfSize:0] , NSFontAttributeName,
-		[NSNumber numberWithFloat:0.25] , NSObliquenessAttributeName,
-		nil];
 
 	for (i = 0; i<count; i++) {
 		QSAction *action = [actions objectAtIndex:i];
@@ -199,8 +195,6 @@
 				}
 
 			}
-			[item setAttributedTitle:
-				[[[NSAttributedString alloc] initWithString:[item title] attributes:attrs] autorelease]];
 
 			[item setTarget:command];
 			[item setRepresentedObject:command];
@@ -212,58 +206,46 @@
 }
 
 - (void)menuNeedsUpdate:(NSMenu *)menu {
-	if ([[menu title] isEqualToString:kQSObjectChildrenMenu]) {
-        
-		NSArray *children = [self children];
-		[self addChildrenInArray:children count:[children count] toMenu:menu indent:0];
-
-	} else if ([[menu title] isEqualToString:kQSObjectFullMenu]) {
-        
-		[menu addItem:[self menuItem]];
-		[menu addItem:[NSMenuItem separatorItem]];
-        
-		NSMutableArray *actions = (NSMutableArray *) [QSExec validActionsForDirectObject:(QSObject *)self indirectObject:nil];
-        // !!! Andre Berg 20091029: the next line raises an HIToolbox exception because of mutating an immutable object. 
-        // NSArray * sortedActions = [actions sortedArrayUsingDescriptors:[NSSortDescriptor descriptorArrayWithKey:@"rank" ascending:YES selector:@selector(localizedCompare:)]];;
-        NSArray * sortedActions = actions;
-        
-		NSMenuItem *item = nil;
-		item = (NSMenuItem *)[menu addItemWithTitle:[NSString stringWithFormat:@"Actions (...All%C)", 0x25B8] action:(SEL)0 keyEquivalent:@""];
-		[item setImage:[[NSImage imageNamed:@"defaultAction"] duplicateOfSize:QSSize16]];
-		[item setSubmenu:[self actionsMenu]];
-		[self addActionsInArray:sortedActions count:3 toMenu:menu indent:1];
-
-		NSArray *children = nil;
-		if ([self hasChildren] && (children = [self children]) && [children count]) {
-            
-            item = (NSMenuItem *)[menu addItemWithTitle:@"Actions" action:(SEL)0 keyEquivalent:@""];
-
-            [item setImage:[[NSImage imageNamed:@"defaultAction"] duplicateOfSize:QSSize16]];
-            [item setSubmenu:[self actionsMenu]];
-
-            [menu addItem:[NSMenuItem separatorItem]];
-            item = (NSMenuItem *)[menu addItemWithTitle:@"Contents" action:(SEL)0 keyEquivalent:@""];
-
-            [item setImage:[[NSImage imageNamed:@"Dot"] duplicateOfSize:QSSize16]];
-            [self addChildrenInArray:children count:[children count] toMenu:menu indent:1];
-
-		} else {
-			item = (NSMenuItem *)[menu addItemWithTitle:@"Actions" action:(SEL)0 keyEquivalent:@""];
-		}
-		[menu setDelegate:self];
-
-	} else if ([[menu title] isEqualToString:kQSObjectActionsMenu]) {
-		NSMutableArray * actions = (NSMutableArray *) [QSExec validActionsForDirectObject:(QSObject *)self indirectObject:nil];
-        // !!! Andre Berg 20091029: the next line raises an HIToolbox exception because of mutating an immutable object. 
-        // NSArray * sortedActions = [actions sortedArrayUsingDescriptors:[NSSortDescriptor descriptorArrayWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)]];
-        NSArray * sortedActions = actions;
-        
-		if ([sortedActions count]) {
-			//NSMenu *actionsMenu = [[[NSMenu alloc] initWithTitle:@"Actions"] autorelease];
-			[self addActionsInArray:sortedActions count:[sortedActions count] toMenu:menu indent:0];
-		}
-	}
-
+  BOOL actionsItem = NO;
+  BOOL actionsList = NO;
+  BOOL contentsList = NO;
+  
+  if ([[menu title] isEqualToString:kQSObjectFullMenu]) {
+    if ([self hasChildren] && ([[self children] count])) {
+      actionsItem = YES;
+      contentsList = YES;
+    }
+    else actionsList = YES;
+  }
+  if ([[menu title] isEqualToString:kQSObjectChildrenMenu]) {
+    contentsList = ([self hasChildren] && ([[self children] count]));
+  }
+  if ([[menu title] isEqualToString:kQSObjectActionsMenu]) {
+    actionsList = YES;
+  }
+  
+  
+  if (actionsItem || actionsList) {
+    NSMutableArray *actions = (NSMutableArray *)[QSExec validActionsForDirectObject:(QSObject *)self indirectObject:nil];
+    NSArray *rankSortedActions = [actions sortedArrayUsingDescriptors:[NSSortDescriptor descriptorArrayWithKey:@"rank" ascending:YES selector:@selector(compare:)]];
+    [self addActionsInArray:rankSortedActions count:2 toMenu:menu indent:0];
+    
+    if (actionsItem) {
+      NSMenuItem *item = (NSMenuItem *)[menu addItemWithTitle:@"Actions" action:(SEL)0 keyEquivalent:@""];
+      [item setImage:[[NSImage imageNamed:@"defaultAction"] duplicateOfSize:QSSize16]];
+      [item setSubmenu:[self actionsMenu]];
+      [menu addItem:[NSMenuItem separatorItem]];
+    }
+    if (actionsList) {
+      [menu addItem:[NSMenuItem separatorItem]];
+      NSArray *nameSortedActions = [actions sortedArrayUsingDescriptors:[NSSortDescriptor descriptorArrayWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)]];
+      [self addActionsInArray:nameSortedActions count:[nameSortedActions count] toMenu:menu indent:0];
+    }
+  }
+  if (contentsList) {
+    [self addChildrenInArray:[self children] count:[[self children] count] toMenu:menu indent:0];
+  }
+  [menu setDelegate:self];
 }
 //- (int) numberOfItemsInMenu:(NSMenu*)menu {
 //	//NSLog(@"MENU %@ count", [menu title]);
