@@ -25,7 +25,7 @@
 
 #import "QSHotKeyEvent.h"
 
-#import "QSModifierKeyEvents.h"
+#import "QSModifierKeyHandler.h"
 
 @implementation QSSearchPrefPane
 
@@ -46,16 +46,15 @@
 }
 
 - (void)setModifier:(int)modifier count:(int)count {
-	QSModifierKeyEvent *event = [QSModifierKeyEvent eventWithIdentifier:@"QSModKeyActivation"];
+	QSModifierKeyHandler *event = [QSModifierKeyHandler sharedModifierKeyHandler];
 	[event disable];
-	if (count) {
-		event = [[[QSModifierKeyEvent alloc] init] autorelease];
-		[event setModifierActivationMask:modifier];
-		[event setModifierActivationCount:count];
-		[event setTarget:[NSApp delegate]];
-		[event setIdentifier:@"QSModKeyActivation"];
-		[event setAction:@selector(activateInterface:)];
-		[event enable];
+	if (count) {	
+	    [event setModifierActivationMask:modifier];
+	    [event setModifierActivationCount:count];
+	    [event setTarget:[NSApp delegate]];
+	    [event setIdentifier:@"QSModKeyActivation"];
+	    [event setAction:@selector(activateInterface:)];
+	    [event enable];
 	}
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

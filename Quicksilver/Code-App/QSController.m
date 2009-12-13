@@ -32,7 +32,7 @@
 #import "QSInterfaceMediator.h"
 #import "QSLibrarian.h"
 #import "QSMacros.h"
-#import "QSModifierKeyEvents.h"
+#import "QSModifierKeyHandler.h"
 #import "QSMnemonics.h"
 #import "QSNotifications.h"
 #import "QSObject_AEConversion.h"
@@ -58,6 +58,9 @@
 #import "QSUpdateController.h"
 #import "QSVoyeur.h"
 #import "QSWindow.h"
+
+#pragma mark "Import externals"
+
 #import <ApplicationServices/ApplicationServices.h>
 #import <Carbon/Carbon.h>
 #import <ExceptionHandling/NSExceptionHandler.h>
@@ -78,6 +81,7 @@
 
 #import "QSObject_Pasteboard.h"
 #import "QSCommand.h"
+
 
 QSController *QSCon;
 
@@ -868,13 +872,13 @@ QSController *QSCon;
 	// Setup Activation Hotkey
 
 	if ([defaults integerForKey:@"QSModifierActivationCount"] >0) {
-		QSModifierKeyEvent *modActivation = [[[QSModifierKeyEvent alloc] init] autorelease];
-		[modActivation setModifierActivationMask: [defaults integerForKey:@"QSModifierActivationKey"]];
-		[modActivation setModifierActivationCount:[defaults integerForKey:@"QSModifierActivationCount"]];
-		[modActivation setTarget:self];
-		[modActivation setIdentifier:@"QSModKeyActivation"];
-		[modActivation setAction:@selector(activateInterface:)];
-		[modActivation enable];
+	    QSModifierKeyHandler *modActivation = [QSModifierKeyHandler sharedModifierKeyHandler];
+	    [modActivation setModifierActivationMask: [defaults integerForKey:@"QSModifierActivationKey"]];
+	    [modActivation setModifierActivationCount:[defaults integerForKey:@"QSModifierActivationCount"]];
+	    [modActivation setTarget:self];
+	    [modActivation setIdentifier:@"QSModKeyActivation"];
+	    [modActivation setAction:@selector(activateInterface:)];
+	    [modActivation enable];
 	}
 
 	id oldModifiers = [defaults objectForKey:kHotKeyModifiers];
