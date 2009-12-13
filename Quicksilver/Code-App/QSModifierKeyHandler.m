@@ -49,7 +49,6 @@ GTMOBJECT_SINGLETON_BOILERPLATE(QSModifierKeyHandler, sharedModifierKeyHandler);
 - (OSStatus)gtm_eventHandler:(GTMCarbonEventHandler *)sender 
                receivedEvent:(GTMCarbonEvent *)event 
                      handler:(EventHandlerCallRef)handler {
-    NSLog(@"key event");
     OSStatus status = eventNotHandledErr;
     if ([event eventClass] == kEventClassKeyboard &&
 	[event eventKind] == kEventRawKeyModifiersChanged) {
@@ -77,7 +76,6 @@ GTMOBJECT_SINGLETON_BOILERPLATE(QSModifierKeyHandler, sharedModifierKeyHandler);
 
 // method that is called when the modifier keys are hit and we are inactive
 - (void)modifiersChangedWhileInactive:(NSEvent*)event {
-    NSLog(@"modifiers changed while inactive");
     // If we aren't activated by hotmodifiers, we don't want to be here
     // and if we are in the process of activating, we want to ignore the hotkey
     // so we don't try to process it twice.
@@ -166,13 +164,11 @@ GTMOBJECT_SINGLETON_BOILERPLATE(QSModifierKeyHandler, sharedModifierKeyHandler);
 
     if (isGood) {
 	// Houston - we have liftoff
-	NSLog(@"We have lif off");
 	[self sendAction];
     }
 }
 
 - (void)modifiersChangedWhileActive:(NSEvent*)event {
-    NSLog(@"modifiers changed while active");
     // A statemachine that tracks our state via hotModifiersState_.
     // Simple incrementing state.
     if (!hotModifiers_) {
