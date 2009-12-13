@@ -500,7 +500,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 			[titleString addAttribute:NSBaselineOffsetAttributeName value:[NSNumber numberWithFloat:-1.0] range:NSMakeRange(0, [titleString length])];
 		}
 
-		if (showDetails && [detailsString length]) {
+		if (([[NSUserDefaults standardUserDefaults] integerForKey:@"QSResultViewRowHeight"] >= 34) && showDetails && [detailsString length]) {
             //NSLog(@"Strings are %@, %@, sizes are %@, %@", nameString, detailsString, NSStringFromSize(nameSize), NSStringFromSize(detailsSize));
 			float detailHeight = NSHeight(textDrawRect) -nameSize.height;
 			NSRange returnRange;
