@@ -485,7 +485,7 @@ QSController *QSCon;
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSImage *splashImage = [NSImage imageNamed:@"QSLigature"];
  {
-		splashWindow = [NSWindow newWindowWithImage:splashImage];
+		splashWindow = [NSWindow windowWithImage:splashImage];
 #if 0
 //		if ([NSApp isPrerelease]) {
 			NSRect rect = NSInsetRect(NSMakeRect(28, 108, 88, 24), 1, 1);
@@ -581,7 +581,6 @@ QSController *QSCon;
 	[interfaceController release];
 	[aboutWindowController release];
 	[quitWindowController release];
-	[splashWindow release];
 	[statusItem release];
 	[controllerConnection release];
 	[dropletConnection release];
