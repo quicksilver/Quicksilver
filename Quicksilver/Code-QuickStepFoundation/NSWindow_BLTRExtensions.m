@@ -67,7 +67,7 @@
  }
 
 
-+(NSWindow *)newWindowWithImage:(NSImage *)image {
++(NSWindow *)windowWithImage:(NSImage *)image {
 	NSRect windowRect = NSMakeRect(0, 0, [image size] .width, [image size] .height);
 	NSWindow *window = [[[self class] alloc] initWithContentRect:windowRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
 	[window setIgnoresMouseEvents:YES];
