@@ -128,7 +128,7 @@
                                            pressure:0];
     
 	[window setAlphaValue:0.5 fadeTime:0.1];
-	[NSMenu popUpContextMenu:menu withEvent:theEvent forView:cView withFont:[NSFont boldSystemFontOfSize:10]];
+	[NSMenu popUpContextMenu:menu withEvent:theEvent forView:cView withFont:[NSFont systemFontOfSize:11]];
 																				  //[window orderOut:nil];
     [window setAlphaValue:0.0 fadeTime:0.3];
     return nil;

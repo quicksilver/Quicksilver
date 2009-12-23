@@ -500,7 +500,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 			[titleString addAttribute:NSBaselineOffsetAttributeName value:[NSNumber numberWithFloat:-1.0] range:NSMakeRange(0, [titleString length])];
 		}
 
-		if (showDetails && [detailsString length]) {
+		if (([[NSUserDefaults standardUserDefaults] integerForKey:@"QSResultViewRowHeight"] >= 34) && showDetails && [detailsString length]) {
             //NSLog(@"Strings are %@, %@, sizes are %@, %@", nameString, detailsString, NSStringFromSize(nameSize), NSStringFromSize(detailsSize));
 			float detailHeight = NSHeight(textDrawRect) -nameSize.height;
 			NSRange returnRange;
@@ -585,19 +585,22 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 }
 
 - (NSMenu *)menuForObject:(id)object {
+  if (!object) return nil;
 	NSMenu *menu = [[[NSMenu alloc] initWithTitle:@"ContextMenu"] autorelease];
 
 	NSArray *actions = [QSExec validActionsForDirectObject:object indirectObject:nil];
+	NSArray *nameSortedActions = [actions sortedArrayUsingDescriptors:[NSSortDescriptor descriptorArrayWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)]];
 
 	NSMenuItem *item;
-
-	if ([actions count]) {
+  NSDictionary *attrs = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:11],NSFontAttributeName,nil];
+  
+	if ([nameSortedActions count]) {
 		NSMenu *actionsMenu = [[[NSMenu alloc] initWithTitle:@"Actions"] autorelease];
 
-		for (QSAction *action in actions) {
+		for (QSAction *action in nameSortedActions) {
 			if (action) {
 				NSArray *componentArray = [[action name] componentsSeparatedByString:@"/"];
-
+        [action loadIcon];
 				NSImage *icon = [[[action icon] copy] autorelease];
 				[icon setSize:NSMakeSize(16, 16)];
 				[icon setFlipped:NO];
@@ -608,13 +611,16 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 					NSMenuItem *groupMenu = [menu itemWithTitle:[componentArray objectAtIndex:0]];
 					if (!groupMenu) {
 						groupMenu = [[[NSMenuItem alloc] initWithTitle:[componentArray objectAtIndex:0] action:nil keyEquivalent:@""] autorelease];
+						[groupMenu setAttributedTitle:[[[NSAttributedString alloc] initWithString:[groupMenu title] attributes:attrs] autorelease]];
 						if (icon) [groupMenu setImage:icon];
 						[groupMenu setSubmenu:[[[NSMenu alloc] initWithTitle:[componentArray objectAtIndex:0]] autorelease]];
 						[actionsMenu addItem:groupMenu];
 					}
 					item = (NSMenuItem *)[[groupMenu submenu] addItemWithTitle:[componentArray objectAtIndex:1] action:@selector(execute) keyEquivalent:@""];
+					[item setAttributedTitle:[[[NSAttributedString alloc] initWithString:[item title] attributes:attrs] autorelease]];
 				} else
 					item = (NSMenuItem *)[actionsMenu addItemWithTitle:[action name] action:@selector(execute) keyEquivalent:@""];
+					[item setAttributedTitle:[[[NSAttributedString alloc] initWithString:[item title] attributes:attrs] autorelease]];
 				[item setTarget:command];
 				[item setRepresentedObject:command];
 
@@ -624,11 +630,17 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 		}
 		item = [[[NSMenuItem alloc] initWithTitle:@"Actions" action:nil keyEquivalent:@""] autorelease];
 		[item setSubmenu: actionsMenu];
+    [item setAttributedTitle:[[[NSAttributedString alloc] initWithString:[item title] attributes:attrs] autorelease]];
 		[menu addItem:item];
+		[menu addItem:[NSMenuItem separatorItem]];
 	}
-    [menu addItem:[NSMenuItem separatorItem]];
-    [menu addItemWithTitle:@"Copy" action:@selector(copy:) keyEquivalent:@""];
-    [[menu addItemWithTitle:@"Remove" action:@selector(delete:) keyEquivalent:@""] setTarget:[self controlView]];
+	item = [[[NSMenuItem alloc] initWithTitle:@"Copy" action:@selector(copy:) keyEquivalent:@""] autorelease];
+  [item setAttributedTitle:[[[NSAttributedString alloc] initWithString:[item title] attributes:attrs] autorelease]];
+  [menu addItem:item];
+  item = [[[NSMenuItem alloc] initWithTitle:@"Remove" action:@selector(delete:) keyEquivalent:@""] autorelease];
+  [item setTarget:[self controlView]];
+  [item setAttributedTitle:[[[NSAttributedString alloc] initWithString:[item title] attributes:attrs] autorelease]];
+  [menu addItem:item];
 	return menu;
 }
 
