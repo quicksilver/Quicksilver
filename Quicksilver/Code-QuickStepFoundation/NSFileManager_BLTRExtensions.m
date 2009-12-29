@@ -171,7 +171,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 	if (![hfsType length] && isDirectory)
 		hfsType = @"'fold'";
 	
-	NSLog(@"Checking if directory... path is: %@", path);
+	// NSLog(@"Checking if directory... path is: %@", path);
 	
 	// Defines if is a file with 'extension'
 	if (extension)
