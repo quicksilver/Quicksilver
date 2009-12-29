@@ -176,7 +176,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 	// Defines if is a file with 'extension'
 	if (extension)
 		return extension;
-	if (hfsType)
+	else if (hfsType)
 		return hfsType;
 	else
 		return @"";
