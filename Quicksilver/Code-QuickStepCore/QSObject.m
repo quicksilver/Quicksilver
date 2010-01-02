@@ -51,7 +51,7 @@ NSSize QSMaxIconSize;
 		objectDictionary = [[NSMutableDictionary alloc] init]; // initWithCapacity:100]; formerly for these three
 		iconLoadedArray = [[NSMutableSet alloc] init];
 		childLoadedArray = [[NSMutableSet alloc] init];
-/*
+
 		[[NSImage imageNamed:@"Question"] createIconRepresentations];
 
 		[[NSImage imageNamed:@"ContactAddress"] createRepresentationOfSize:NSMakeSize(16, 16)];
@@ -59,7 +59,7 @@ NSSize QSMaxIconSize;
 		[[NSImage imageNamed:@"ContactEmail"] createRepresentationOfSize:NSMakeSize(16, 16)];
 
 		[[NSImage imageNamed:@"defaultAction"] createIconRepresentations];
-*/
+
 		QSObjectInitialized = YES;
 	}
 }
@@ -847,7 +847,7 @@ NSSize QSMaxIconSize;
 	id handler = nil;
 	if (handler = [self handlerForSelector:@selector(loadIconForObject:)])
 		return [handler loadIconForObject:self];
-    
+
 	//// if ([primaryType hasPrefix:@"QSCsontact"])
 	//	 return NO;
     
@@ -906,16 +906,16 @@ NSSize QSMaxIconSize;
 }
 
 - (void)setIcon:(NSImage *)newIcon {
-	//	if (newIcon) {
-	[icon autorelease];
-	icon = [newIcon retain];
-	[icon setScalesWhenResized:YES];
-	[icon setCacheMode:NSImageCacheNever];
-    
-	//[[self cache] setObject:newIcon forKey:kQSObjectIcon];
-	//	} else {
-	//[[self cache] removeObjectForKey:kQSObjectIcon];
-	//	}
+	if (newIcon != icon) {
+		[icon release];
+		icon = [newIcon retain];
+		[icon setScalesWhenResized:YES];
+		[icon setCacheMode:NSImageCacheNever];
+
+		//[[self cache] setObject:newIcon forKey:kQSObjectIcon];
+		//	} else {
+		//[[self cache] removeObjectForKey:kQSObjectIcon];
+	}
     
 }
 @end
