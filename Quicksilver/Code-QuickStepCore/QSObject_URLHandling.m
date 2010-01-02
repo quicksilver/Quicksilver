@@ -31,51 +31,51 @@
 }
 
 - (BOOL)drawIconForObject:(QSObject *)object inRect:(NSRect)rect flipped:(BOOL)flipped {
-	//	NSImage *icon = [object icon];
-	NSString *url = [object objectForType:QSURLType];
-	//NSLog(@"drawurl %@", url);
-	if (NSWidth(rect) <= 32 ) return NO;
+	if (NSWidth(rect) <= 32 )
+		return NO;
 
-	NSImage *image = [NSImage imageNamed:@"DefaultBookmarkIcon"];
+	NSString *url = [object objectForType:QSURLType];
 
 	BOOL isQuery = [url rangeOfString:QUERY_KEY] .location != NSNotFound;
-	if (![url hasPrefix:@"http:"] && !isQuery) return NO;
+	BOOL hasPrefix = [url hasPrefix:@"http:"];
+	if (!hasPrefix && !isQuery)
+		return NO;
 
+	NSImage *image = [NSImage imageNamed:@"DefaultBookmarkIcon"];
 	[image setSize:[[image bestRepresentationForSize:rect.size] size]];
-	//[image adjustSizeToDrawAtSize:rect.size];
 	[image setFlipped:flipped];
-	[image drawInRect:rect fromRect:rectFromSize([image size]) operation:NSCompositeSourceOver fraction:1.0];
 
-	if ([object iconLoaded]) {
+	if([object iconLoaded]) {
 		NSImage *cornerBadge = [object icon];
-		if (cornerBadge != image) {
+		if (cornerBadge == image) { // && !(hasPrefix || isQuery) ) {
+			[image drawInRect:rect fromRect:rectFromSize([image size]) operation:NSCompositeSourceOver fraction:1.0];
+		} else {
 			[cornerBadge setFlipped:flipped];
 			NSImageRep *bestBadgeRep = [cornerBadge bestRepresentationForSize:rect.size];
 			[cornerBadge setSize:[bestBadgeRep size]];
 			NSRect badgeRect = rectFromSize([cornerBadge size]);
-
-			//NSPoint offset = rectOffset(badgeRect, rect, 2);
 			badgeRect = centerRectInRect(badgeRect, rect);
-			badgeRect = NSOffsetRect(badgeRect, 0, -NSHeight(rect) /6);
-
-			[[NSColor colorWithDeviceWhite:1.0 alpha:0.8] set];
-			NSRectFillUsingOperation(NSInsetRect(badgeRect, -3, -3), NSCompositeSourceOver);
-			[[NSColor colorWithDeviceWhite:0.75 alpha:1.0] set];
-			NSFrameRectWithWidth(NSInsetRect(badgeRect, -5, -5), 2);
 			[cornerBadge drawInRect:badgeRect fromRect:rectFromSize([cornerBadge size]) operation:NSCompositeSourceOver fraction:1.0];
 		}
 	}
+
+	/*
+	 //////////////////////////////////////////////////////////////////
+	 Once the image caching is figured out or the WebSearchPlug is
+	 fixed, then remove the if statement below.  Its purpose is to draw
+	 a finder icon (the magnifing glass) over the top of the image in
+	 panel 1.
+	 //////////////////////////////////////////////////////////////////
+	 */
 	if (isQuery) {
 		NSImage *findImage = [NSImage imageNamed:@"Find"];
 		[findImage setSize:NSMakeSize(128, 128)];
 		[findImage drawInRect:NSMakeRect(rect.origin.x+NSWidth(rect) *1/3, rect.origin.y, NSWidth(rect)*2/3, NSHeight(rect)*2/3) fromRect:NSMakeRect(0, 0, 128, 128)
 					operation:NSCompositeSourceOver fraction:1.0];
-		return YES;
-
 	}
 	return YES;
-
 }
+
 - (BOOL)loadIconForObject:(QSObject *)object {
 	NSString *urlString = [object objectForType:QSURLType];
 	if (!urlString) return NO;

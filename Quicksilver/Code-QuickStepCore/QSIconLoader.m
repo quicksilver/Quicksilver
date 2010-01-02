@@ -53,6 +53,16 @@
 			m += j;
 			if (m<0 || m >= [array count]) continue;
 			thisObject = [array objectAtIndex:m];
+
+			/*
+			 //////////////////////////////////////////////////////////////////
+			 This looks like a good spot to override the image if the object is
+			 a WebSearchPlugin.  Tried a bunch of stuff, but nothing worked 100%.
+			 Once again, fixing the WebSearchPlugin proper will probably eliminate
+			 the need for workarounds.  Anyways, just marking this spot for future
+			 reference.
+			 //////////////////////////////////////////////////////////////////
+			 */
 			if (![thisObject isKindOfClass:[NSNull class]] && ![thisObject iconLoaded]) {
 				[thisObject loadIcon];
 				[delegate iconLoader:self loadedIndex:m inArray:sourceArray];

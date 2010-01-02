@@ -114,7 +114,10 @@ id QSRez;
 
 	}
 	if (!image && bundle) image = [bundle imageNamed:name];
-	if (image) return image;
+	if (image) {
+		[image setFlipped:NO];
+		return image;
+	}
 
 	id locator = [resourceDict objectForKey:name];
 	if ([locator isKindOfClass:[NSNull class]]) return nil;
@@ -125,30 +128,39 @@ id QSRez;
         if ([[NSImage imageUnfilteredFileTypes] containsObject:[path pathExtension]])
             image = [[[NSImage alloc] initByReferencingFile:path] autorelease];
         else
-            image = [[NSWorkspace sharedWorkspace] iconForFile:path];        
+            image = [[NSWorkspace sharedWorkspace] iconForFile:path];
     } else {// Try the systemicons bundle
 		image = [self sysIconNamed:name];
+
+		/*
+		//////////////////////////////////////////////////////////////////
+		 Tried many methods to override the image cache so that web_search_list,
+		 if hasSuffix QUERY_KEY, has the finder icon (magnifing glass) overlayed
+		 on the image.
+		 Sort of got close, but nothing worked 100%.  The problem probably
+		 lies in the WebSearchPlugin, but I can't get break points to trigger
+		 properly for that plugin project.
+		//////////////////////////////////////////////////////////////////
+		 */
+
+		// Last change to load an icon before trying with a bundle ID,
+		// see if we get a hit.
+		if(!image && [name hasSuffix:@"web_search_list"]) {
+				image = [NSImage imageNamed:@"DefaultBookmarkIcon"];
+		}
+
         if (!image) // Try by bundle id
 			image = [self imageWithLocatorInformation:[NSDictionary dictionaryWithObjectsAndKeys:name, @"bundle", nil]];
-
-// !!! Andre Berg 20091007: commented out because we use it as case in if/else above
-// 		if (!image && ([name hasPrefix:@"/"] || [name hasPrefix:@"~"]) ) {
-// 			NSString *path = [name stringByStandardizingPath];
-// 			if ([[NSImage imageUnfilteredFileTypes] containsObject:[path pathExtension]])
-// 				image = [[[NSImage alloc] initByReferencingFile:path] autorelease];
-// 			else
-// 				image = [[NSWorkspace sharedWorkspace] iconForFile:path];
-// 		}
-
-		// NSLog(@"iconbundle %@ %@", name, image);
 	}
 	if (!image && [locator isKindOfClass:[NSString class]]) {
 		image = [self imageNamed:locator];
 	}
 
-	SEL selector = NSSelectorFromString([NSString stringWithFormat:@"%@Image", name]);
-	if ([self respondsToSelector:selector])
-		image = [self performSelector:selector];
+	if(!image) {
+		SEL selector = NSSelectorFromString([NSString stringWithFormat:@"%@Image", name]);
+		if ([self respondsToSelector:selector])
+			image = [self performSelector:selector];
+	}
 
 	if (0 && !image) {
 		if (VERBOSE) NSLog(@"Searching for image: %@", name);
@@ -164,19 +176,16 @@ id QSRez;
 	}
 
 	if (!image) {
-	 // if (VERBOSE) NSLog(@"Image Not Found: %@", name);
-		if (!image) [resourceDict setObject:[NSNull null] forKey:name];
-
-		return nil;
+		// if (VERBOSE) NSLog(@"Image Not Found:: %@", name);
+		[resourceDict setObject:[NSNull null] forKey:name];
 	} else {
 		[image setName:name];
-
 		if (![image representationOfSize:NSMakeSize(32, 32)])
 			[image createRepresentationOfSize:NSMakeSize(32, 32)];
 		if (![image representationOfSize:NSMakeSize(16, 16)])
 			[image createRepresentationOfSize:NSMakeSize(16, 16)];
-		return image;
 	}
+	return image;
 }
 
 - (NSImage *)imageNamed:(NSString *)name {
