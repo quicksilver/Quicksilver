@@ -101,6 +101,63 @@ id QSRez;
 	return image;
 }
 
+#ifdef USE_NEW_URL_ICON_DRAWING_CODE
+/*!
+    @buildWebSearchIcon
+    @abstract   Builds a new icon that is a composite of 2 other icons
+    @discussion Loads the icon named in parameter useIconFileNamed and
+				loads a second icon called "Find". The first icon is
+				drawn at 128x128. The second icon is scaled and drawn
+				at an offset to create the composite.
+    @param      useIconFile Name of the source (first) icon.
+    @result     Returns the new 128x128 image or nil.
+*/
+
+- (NSImage *)buildWebSearchIcon:(NSString *)useIconFileNamed
+{
+	NSImage *webSearchImage = nil;
+	NSImage *image = [NSImage imageNamed:useIconFileNamed];
+	if(image) {
+		NSRect rect = NSMakeRect(0, 0, 128, 128);
+		[image setSize:[[image bestRepresentationForSize:rect.size] size]];
+		NSSize imageSize = [image size];
+		NSBitmapImageRep *bitmap = [[[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+																		   pixelsWide:imageSize.width
+																		   pixelsHigh:imageSize.height
+																		bitsPerSample:8
+																	  samplesPerPixel:4
+																			 hasAlpha:YES
+																			 isPlanar:NO
+																	   colorSpaceName:NSCalibratedRGBColorSpace
+																		 bitmapFormat:0
+																		  bytesPerRow:0
+																		 bitsPerPixel:0]
+									autorelease];
+		if(bitmap) {
+			NSGraphicsContext *graphicsContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:bitmap];
+			if(graphicsContext){
+				[NSGraphicsContext saveGraphicsState];
+				[NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithBitmapImageRep:bitmap]];
+
+				rect = NSMakeRect(0, 0, imageSize.width, imageSize.height);
+				[image setSize:rect.size];
+				[image setFlipped:NO];
+				[image drawInRect:rect fromRect:rectFromSize([image size]) operation:NSCompositeSourceOver fraction:1.0];
+
+				NSImage *findImage = [NSImage imageNamed:@"Find"];
+				if(findImage) {
+					[findImage setSize:rect.size];
+					[findImage drawInRect:NSMakeRect(rect.origin.x+NSWidth(rect) *1/3, rect.origin.y, NSWidth(rect)*2/3, NSHeight(rect)*2/3) fromRect:rect operation:NSCompositeSourceOver fraction:1.0];
+				}
+				[NSGraphicsContext restoreGraphicsState];
+				webSearchImage = [[[NSImage alloc] initWithData:[bitmap TIFFRepresentation]] autorelease];
+			}
+		}
+	}
+	return webSearchImage;
+}
+#endif
+
 - (NSImage *)imageNamed:(NSString *)name inBundle:(NSBundle *)bundle {
 
 	if (!name) return nil;
@@ -132,25 +189,17 @@ id QSRez;
     } else {// Try the systemicons bundle
 		image = [self sysIconNamed:name];
 
-		/*
-		//////////////////////////////////////////////////////////////////
-		 Tried many methods to override the image cache so that web_search_list,
-		 if hasSuffix QUERY_KEY, has the finder icon (magnifing glass) overlayed
-		 on the image.
-		 Sort of got close, but nothing worked 100%.  The problem probably
-		 lies in the WebSearchPlugin, but I can't get break points to trigger
-		 properly for that plugin project.
-		//////////////////////////////////////////////////////////////////
-		 */
-
-		// Last change to load an icon before trying with a bundle ID,
-		// see if we get a hit.
+#ifdef USE_NEW_URL_ICON_DRAWING_CODE
 		if(!image && [name hasSuffix:@"web_search_list"]) {
-				image = [NSImage imageNamed:@"DefaultBookmarkIcon"];
+			// build a new web search icon that will display in first
+			// panel objects and the dropdown list.
+			image = [self buildWebSearchIcon:@"DefaultBookmarkIcon"];
 		}
+#endif
 
-        if (!image) // Try by bundle id
+		if (!image) // Try by bundle id
 			image = [self imageWithLocatorInformation:[NSDictionary dictionaryWithObjectsAndKeys:name, @"bundle", nil]];
+
 	}
 	if (!image && [locator isKindOfClass:[NSString class]]) {
 		image = [self imageNamed:locator];
@@ -179,7 +228,14 @@ id QSRez;
 		// if (VERBOSE) NSLog(@"Image Not Found:: %@", name);
 		[resourceDict setObject:[NSNull null] forKey:name];
 	} else {
+#ifdef USE_NEW_URL_ICON_DRAWING_CODE
+		if([name hasSuffix:@"web_search_list"])
+			[image setName:@"web_search_list"];
+		else
+			[image setName:name];
+#else
 		[image setName:name];
+#endif
 		if (![image representationOfSize:NSMakeSize(32, 32)])
 			[image createRepresentationOfSize:NSMakeSize(32, 32)];
 		if (![image representationOfSize:NSMakeSize(16, 16)])
@@ -220,12 +276,12 @@ id QSRez;
 			bundle = [NSBundle bundleWithPath:[workspace absolutePathForAppBundleWithIdentifier:bundleID]];
 
 		NSString *resourceName = [locator objectForKey:@"resource"];
-		//NSString *type = [locator objectForKey:@"type"];
+		// NSString *type = [locator objectForKey:@"type"];
 		NSString *subPath = [locator objectForKey:@"path"];
 
 		NSString *basePath = [bundle bundlePath];
 		// NSString *basePath = [workspace absolutePathForAppBundleWithIdentifier:bundle];
-		//  NSLog(@"loc %@ %@", locator, path);
+		NSLog(@"loc %@ %@", locator, path);
 
 		if (resourceName) {
 			path = [bundle pathForResource:[resourceName stringByDeletingPathExtension]
@@ -256,9 +312,9 @@ id QSRez;
 		NSString *bundleID = [locator objectForKey:@"bundle"];
 		NSBundle *bundle = [QSReg bundleWithIdentifier:bundleID];
 
-		if (!bundle)
+		if (!bundle) {
 			bundle = [NSBundle bundleWithPath:[workspace absolutePathForAppBundleWithIdentifier:bundleID]];
-        
+		}
         if(bundle != nil) {
             image = [workspace iconForFile:[bundle bundlePath]];
         } else {

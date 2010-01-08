@@ -4,6 +4,7 @@
 
 #import <Foundation/Foundation.h>
 
+#define USE_NEW_URL_ICON_DRAWING_CODE 1
 
 extern id QSRez;
 

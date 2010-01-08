@@ -314,7 +314,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 			NSString *handlerName = [[QSReg tableNamed:@"QSBundleChildHandlers"] objectForKey:bundleIdentifier];
 			if (handlerName) return YES;
-      if (!bundleIdentifier) return NO;
+        if (!bundleIdentifier) return NO;
 			NSArray *recentDocuments = (NSArray *)CFPreferencesCopyValue((CFStringRef) @"NSRecentDocumentRecords", (CFStringRef) bundleIdentifier, kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
 			[recentDocuments autorelease];
 			if (recentDocuments) return YES;

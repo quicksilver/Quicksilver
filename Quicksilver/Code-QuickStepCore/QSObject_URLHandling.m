@@ -30,6 +30,58 @@
 
 }
 
+
+#ifndef USE_NEW_URL_ICON_DRAWING_CODE
+// Original drawIconForObject code
+- (BOOL)drawIconForObject:(QSObject *)object inRect:(NSRect)rect flipped:(BOOL)flipped {
+	//      NSImage *icon = [object icon];
+	NSString *url = [object objectForType:QSURLType];
+	//NSLog(@"drawurl %@", url);
+	if (NSWidth(rect) <= 32 ) return NO;
+
+	NSImage *image = [NSImage imageNamed:@"DefaultBookmarkIcon"];
+
+	BOOL isQuery = [url rangeOfString:QUERY_KEY] .location != NSNotFound;
+	if (![url hasPrefix:@"http:"] && !isQuery) return NO;
+
+	[image setSize:[[image bestRepresentationForSize:rect.size] size]];
+	[image setFlipped:flipped];
+	[image drawInRect:rect fromRect:rectFromSize([image size]) operation:NSCompositeSourceOver fraction:1.0];
+
+	if ([object iconLoaded]) {
+		NSImage *cornerBadge = [object icon];
+		if (cornerBadge != image) {
+			[cornerBadge setFlipped:flipped];
+			NSImageRep *bestBadgeRep = [cornerBadge bestRepresentationForSize:rect.size];
+			[cornerBadge setSize:[bestBadgeRep size]];
+			NSRect badgeRect = rectFromSize([cornerBadge size]);
+
+			//NSPoint offset = rectOffset(badgeRect, rect, 2);
+			badgeRect = centerRectInRect(badgeRect, rect);
+			badgeRect = NSOffsetRect(badgeRect, 0, -NSHeight(rect) /6);
+
+			[[NSColor colorWithDeviceWhite:1.0 alpha:0.8] set];
+			NSRectFillUsingOperation(NSInsetRect(badgeRect, -3, -3), NSCompositeSourceOver);
+			[[NSColor colorWithDeviceWhite:0.75 alpha:1.0] set];
+			NSFrameRectWithWidth(NSInsetRect(badgeRect, -5, -5), 2);
+			[cornerBadge drawInRect:badgeRect fromRect:rectFromSize([cornerBadge size]) operation:NSCompositeSourceOver fraction:1.0];
+		}
+	}
+	if (isQuery) {
+		NSImage *findImage = [NSImage imageNamed:@"Find"];
+		[findImage setSize:NSMakeSize(128, 128)];
+		[findImage drawInRect:NSMakeRect(rect.origin.x+NSWidth(rect) *1/3, rect.origin.y, NSWidth(rect)*2/3, NSHeight(rect)*2/3) fromRect:NSMakeRect(0, 0, 128, 128)
+					operation:NSCompositeSourceOver fraction:1.0];
+		return YES;
+
+	}
+	return YES;
+
+}
+#endif
+
+#ifdef USE_NEW_URL_ICON_DRAWING_CODE
+// revised drawIconForObject code
 - (BOOL)drawIconForObject:(QSObject *)object inRect:(NSRect)rect flipped:(BOOL)flipped {
 	if (NSWidth(rect) <= 32 )
 		return NO;
@@ -41,7 +93,10 @@
 	if (!hasPrefix && !isQuery)
 		return NO;
 
-	NSImage *image = [NSImage imageNamed:@"DefaultBookmarkIcon"];
+	// @"web_search_list" string needs to match string in QSResourceManager.m
+	// (imageNamed function).
+	NSImage *image = [NSImage imageNamed:@"web_search_list"];
+
 	[image setSize:[[image bestRepresentationForSize:rect.size] size]];
 	[image setFlipped:flipped];
 
@@ -58,23 +113,9 @@
 			[cornerBadge drawInRect:badgeRect fromRect:rectFromSize([cornerBadge size]) operation:NSCompositeSourceOver fraction:1.0];
 		}
 	}
-
-	/*
-	 //////////////////////////////////////////////////////////////////
-	 Once the image caching is figured out or the WebSearchPlug is
-	 fixed, then remove the if statement below.  Its purpose is to draw
-	 a finder icon (the magnifing glass) over the top of the image in
-	 panel 1.
-	 //////////////////////////////////////////////////////////////////
-	 */
-	if (isQuery) {
-		NSImage *findImage = [NSImage imageNamed:@"Find"];
-		[findImage setSize:NSMakeSize(128, 128)];
-		[findImage drawInRect:NSMakeRect(rect.origin.x+NSWidth(rect) *1/3, rect.origin.y, NSWidth(rect)*2/3, NSHeight(rect)*2/3) fromRect:NSMakeRect(0, 0, 128, 128)
-					operation:NSCompositeSourceOver fraction:1.0];
-	}
 	return YES;
 }
+#endif
 
 - (BOOL)loadIconForObject:(QSObject *)object {
 	NSString *urlString = [object objectForType:QSURLType];
@@ -82,11 +123,11 @@
 
 	NSString *imageURL = [object objectForMeta:kQSObjectIconName];
 	if (imageURL) {
-	NSImage *image = [[NSImage alloc] initByReferencingURL:[NSURL URLWithString:imageURL]];
-	if (image) {
-		[object setIcon:image];
-        [image release];
-		return YES;
+		NSImage *image = [[NSImage alloc] initByReferencingURL:[NSURL URLWithString:imageURL]];
+		if (image) {
+			[object setIcon:image];
+			[image release];
+			return YES;
 		}
 	}
 	NSURL *url = [NSURL URLWithString:urlString];
