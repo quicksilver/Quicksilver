@@ -39,7 +39,7 @@
 	if ([[NSScreen mainScreen] usesOpenGLAcceleration]) {
 		NSRect r = [imageView frame];
 		r.origin = [aboutWindow convertBaseToScreen:r.origin];
-		NSWindow *window = [[[[NSWindow class] alloc] initWithContentRect:r styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO] autorelease];
+		NSWindow *window = [[[NSWindow class] alloc] initWithContentRect:r styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
 		[window setIgnoresMouseEvents:YES];
 		[window setBackgroundColor:[NSColor clearColor]];
 		[window setOpaque:NO];

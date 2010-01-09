@@ -194,8 +194,8 @@
             return;
         }
 
-		NSURLConnection *theConnection = [[[NSURLConnection alloc] initWithRequest:theRequest
-																	 delegate:self] autorelease];
+		NSURLConnection *theConnection = [[NSURLConnection alloc] initWithRequest:theRequest
+																	 delegate:self];
 
 		if (theConnection) {
 			receivedData = [[NSMutableData data] retain];
