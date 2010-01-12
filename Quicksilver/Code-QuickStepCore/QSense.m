@@ -20,7 +20,7 @@ float QSScoreForAbbreviation(CFStringRef str, CFStringRef abbr, id mask) {
 	return QSScoreForAbbreviationWithRanges(str, abbr, mask, CFRangeMake(0, CFStringGetLength(str) ), CFRangeMake(0, CFStringGetLength(abbr)));
 }
 
-#ifdef DEBUG
+#ifdef _DDEBUG
 // XCode and GDB were having problems keeping the display code in sync.
 // So moved the problem piece to its own function.  Looks like NSMakeRange
 // uses NS_INLINE, which is causing the problem.
@@ -65,7 +65,7 @@ float QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mas
 		}
 		
 		if (mask) {
-#ifdef DEBUG
+#ifdef _DDEBUG
 			// See AddIndexesInRange note above!
 			AddIndexesInRange(mask, &matchedRange);
 #else

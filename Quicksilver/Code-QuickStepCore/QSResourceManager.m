@@ -101,7 +101,7 @@ id QSRez;
 	return image;
 }
 
-#ifdef USE_NEW_URL_ICON_DRAWING_CODE
+#if defined(USE_NEW_URL_ICON_DRAWING_CODE) || defined(USE_NEW_URL_ICON_DRAWING_CODE_WITH_FAVICONS)
 /*!
     @buildWebSearchIcon
     @abstract   Builds a new icon that is a composite of 2 other icons
@@ -180,22 +180,34 @@ id QSRez;
 	if ([locator isKindOfClass:[NSNull class]]) return nil;
 	if (locator)
 		image = [self imageWithLocatorInformation:locator];
-    else if (!image && ([name hasPrefix:@"/"] || [name hasPrefix:@"~"]) ) { // !!! Andre Berg 20091007: Try iconForFile first if name looks like ordinary path
-        NSString *path = [name stringByStandardizingPath];
-        if ([[NSImage imageUnfilteredFileTypes] containsObject:[path pathExtension]])
-            image = [[[NSImage alloc] initByReferencingFile:path] autorelease];
-        else
-            image = [[NSWorkspace sharedWorkspace] iconForFile:path];
+    else if (!image && ([name hasPrefix:@"/"] || [name hasPrefix:@"~"])) { // !!! Andre Berg 20091007: Try iconForFile first if name looks like ordinary path
+		if(!image) {
+			NSString *path = [name stringByStandardizingPath];
+			if ([[NSImage imageUnfilteredFileTypes] containsObject:[path pathExtension]])
+				image = [[[NSImage alloc] initByReferencingFile:path] autorelease];
+			else
+				image = [[NSWorkspace sharedWorkspace] iconForFile:path];
+		}
     } else {// Try the systemicons bundle
 		image = [self sysIconNamed:name];
 
-#ifdef USE_NEW_URL_ICON_DRAWING_CODE
+#if defined(USE_NEW_URL_ICON_DRAWING_CODE) || defined(USE_NEW_URL_ICON_DRAWING_CODE_WITH_FAVICONS)
 		if(!image && [name hasSuffix:@"web_search_list"]) {
 			// build a new web search icon that will display in first
 			// panel objects and the dropdown list.
 			image = [self buildWebSearchIcon:@"DefaultBookmarkIcon"];
 		}
 #endif
+
+		// Check if item represents one of the Firefox profile files.
+		// (this should be considered a temporary patch until the
+		// Firefox plugin can be fixed to set its own images)
+		if(!image && [name rangeOfString:@"/Library/Application%20Support/Firefox/Profiles/"].length > 0) {
+			if([name hasSuffix:@"bookmarks.html"]) {
+				image = [NSImage imageNamed:@"DefaultBookmarkIcon"];
+			}
+		}
+
 
 		if (!image) // Try by bundle id
 			image = [self imageWithLocatorInformation:[NSDictionary dictionaryWithObjectsAndKeys:name, @"bundle", nil]];
@@ -228,7 +240,7 @@ id QSRez;
 		// if (VERBOSE) NSLog(@"Image Not Found:: %@", name);
 		[resourceDict setObject:[NSNull null] forKey:name];
 	} else {
-#ifdef USE_NEW_URL_ICON_DRAWING_CODE
+#if defined(USE_NEW_URL_ICON_DRAWING_CODE) || defined(USE_NEW_URL_ICON_DRAWING_CODE_WITH_FAVICONS)
 		if([name hasSuffix:@"web_search_list"])
 			[image setName:@"web_search_list"];
 		else
