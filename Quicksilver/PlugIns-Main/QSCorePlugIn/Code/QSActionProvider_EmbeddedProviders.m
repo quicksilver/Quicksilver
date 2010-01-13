@@ -384,6 +384,13 @@
 	return nil;
 }
 
+- (QSObject *)doNotOpenItemAtLogin:(QSObject *)dObject {
+	for(NSString *path in [dObject arrayForType:QSFilePathType]) {
+		QSSetItemShouldLaunchAtLogin(path, NO, YES);
+	}
+	return nil;
+}
+
 - (QSObject *)renameFile:(QSObject *)dObject withName:(QSObject *)iObject {
 	NSString *path = [dObject singleFilePath];
 

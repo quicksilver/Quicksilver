@@ -411,7 +411,7 @@ QSExecutor *QSExec = nil;
 		NSLog(@"unable to find actions %@\r%@", oldActionObjects, actionIdentifiers);
 		NSLog(@"types %@ %@", types, fileType);
 	}
-	return [[validActions copy] autorelease];
+	return [[validActions mutableCopy] autorelease];
 }
 
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
