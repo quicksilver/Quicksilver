@@ -4,10 +4,6 @@
 
 #import <Foundation/Foundation.h>
 
-//#define USE_ORIGINAL_URL_ICON_DRAWING_CODE 1
-#define USE_NEW_URL_ICON_DRAWING_CODE 1
-//#define USE_NEW_URL_ICON_DRAWING_CODE_WITH_FAVICONS 1  // Experimental - not ready for production code
-
 extern id QSRez;
 
 @interface QSResourceManager : NSObject {

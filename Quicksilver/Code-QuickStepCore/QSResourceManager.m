@@ -101,7 +101,6 @@ id QSRez;
 	return image;
 }
 
-#if defined(USE_NEW_URL_ICON_DRAWING_CODE) || defined(USE_NEW_URL_ICON_DRAWING_CODE_WITH_FAVICONS)
 /*!
     @buildWebSearchIcon
     @abstract   Builds a new icon that is a composite of 2 other icons
@@ -156,7 +155,6 @@ id QSRez;
 	}
 	return webSearchImage;
 }
-#endif
 
 - (NSImage *)imageNamed:(NSString *)name inBundle:(NSBundle *)bundle {
 
@@ -191,13 +189,11 @@ id QSRez;
     } else {// Try the systemicons bundle
 		image = [self sysIconNamed:name];
 
-#if defined(USE_NEW_URL_ICON_DRAWING_CODE) || defined(USE_NEW_URL_ICON_DRAWING_CODE_WITH_FAVICONS)
 		if(!image && [name hasSuffix:@"web_search_list"]) {
 			// build a new web search icon that will display in first
 			// panel objects and the dropdown list.
 			image = [self buildWebSearchIcon:@"DefaultBookmarkIcon"];
 		}
-#endif
 
 		// Check if item represents one of the Firefox profile files.
 		// (this should be considered a temporary patch until the
@@ -240,14 +236,11 @@ id QSRez;
 		// if (VERBOSE) NSLog(@"Image Not Found:: %@", name);
 		[resourceDict setObject:[NSNull null] forKey:name];
 	} else {
-#if defined(USE_NEW_URL_ICON_DRAWING_CODE) || defined(USE_NEW_URL_ICON_DRAWING_CODE_WITH_FAVICONS)
 		if([name hasSuffix:@"web_search_list"])
 			[image setName:@"web_search_list"];
 		else
 			[image setName:name];
-#else
-		[image setName:name];
-#endif
+
 		if (![image representationOfSize:NSMakeSize(32, 32)])
 			[image createRepresentationOfSize:NSMakeSize(32, 32)];
 		if (![image representationOfSize:NSMakeSize(16, 16)])

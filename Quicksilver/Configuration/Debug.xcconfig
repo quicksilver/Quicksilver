@@ -26,4 +26,3 @@ PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES  // If you get lotsa "Dup
                                                         // "Core Support" target build settings and override the "PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR" setting from the
                                                         // Build Settings dialog and set it to NO (the name of the build settings should turn bold indicating its overiding something).
 
-_DDEBUG = 1  // Need conditional compiling, QS redefined the purpose of DEBUG
