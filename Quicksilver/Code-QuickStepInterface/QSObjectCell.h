@@ -16,6 +16,7 @@
 	NSDictionary *nameAttributes;
 	NSDictionary *detailsAttributes;
 	NSRect lastFrame;
+	NSTextView *fieldEditor;
 }
 
 - (NSDictionary *)typeImageDictionary;
