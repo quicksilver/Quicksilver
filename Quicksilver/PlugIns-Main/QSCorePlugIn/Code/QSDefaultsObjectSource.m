@@ -87,49 +87,57 @@
 }
 
 - (void)addObjectsForKeyList:(NSArray *)keyList keyNumber:(int)index ofType:(int)type inObject:(id)thisObject toArray:(NSMutableArray *)array {
-	if ([keyList count] > index) {
-		NSString *thisKey = [keyList objectAtIndex:index];
-		if ([thisKey isEqualToString:@"*"] && [thisObject isKindOfClass:[NSArray class]]) {
-			int i;
-			for (i = 0 ; i<[(NSArray *)thisObject count]; i++) {
-				[self addObjectsForKeyList:keyList keyNumber:index+1 ofType:type inObject:[thisObject objectAtIndex:i] toArray:array];
-			}
-		} else if ([thisObject isKindOfClass:[NSDictionary class]]) {
-			[self addObjectsForKeyList:keyList keyNumber:index+1 ofType:type inObject:[thisObject objectForKey:thisKey] toArray:array];
-		}/* else {
-			//  if (VERBOSE) NSLog(@"can't parse object:\r %@\r%@\r%@", keyList, thisObject, array);
-		}*/
-	} else {
-		NSString *path = nil;
-		QSObject *newObject = nil;
-		NSFileManager *fm = [NSFileManager defaultManager];
-		switch (type) {
-			case DefaultsPathEntry:
-				newObject = [fm fileExistsAtPath:thisObject] ?[QSObject fileObjectWithPath:thisObject] :nil;
-				break;
-			case DefaultsURLEntry:
-				newObject = [QSObject URLObjectWithURL:thisObject title:nil];
-				break;
-			case DefaultsAliasEntry:
-				path = [[NDAlias aliasWithData:thisObject] quickPath];
-				if (path && [fm fileExistsAtPath:path])
-					newObject = [QSObject fileObjectWithPath:path];
-					break;
-			case DefaultsTextEntry:
-				newObject = [QSObject objectWithString:thisObject];
-				break;
-			case DefaultsFileDataEntry:
-				path = [[NDAlias aliasWithData:[thisObject objectForKey:@"_CFURLAliasData"]]quickPath];
-				if (path) {
-					newObject = [fm fileExistsAtPath:path] ?[QSObject fileObjectWithPath:path] :nil;
-				} else {
-					newObject = [QSObject URLObjectWithURL:[thisObject objectForKey:@"_CFURLString"] title:nil];
-				}
-					break;
-		}
-		if (newObject)
-			[array addObject:newObject];
-	}
+  if ([keyList count] > index) {
+    NSString *thisKey = [keyList objectAtIndex:index];
+    if ([thisKey isEqualToString:@"*"] && [thisObject isKindOfClass:[NSArray class]]) {
+      int i;
+      for (i = 0 ; i<[(NSArray *)thisObject count]; i++) {
+        [self addObjectsForKeyList:keyList keyNumber:index+1 ofType:type inObject:[thisObject objectAtIndex:i] toArray:array];
+      }
+    } else if ([thisObject isKindOfClass:[NSDictionary class]]) {
+      [self addObjectsForKeyList:keyList keyNumber:index+1 ofType:type inObject:[thisObject objectForKey:thisKey] toArray:array];
+    }/* else {
+      //  if (VERBOSE) NSLog(@"can't parse object:\r %@\r%@\r%@", keyList, thisObject, array);
+    }*/
+  } else {
+    NSString *path = nil;
+    QSObject *newObject = nil;
+    NSFileManager *fm = [NSFileManager defaultManager];
+    switch (type) {
+      case DefaultsPathEntry:
+        newObject = [fm fileExistsAtPath:thisObject] ?[QSObject fileObjectWithPath:thisObject] :nil;
+        break;
+      case DefaultsURLEntry:
+        newObject = [QSObject URLObjectWithURL:thisObject title:nil];
+        break;
+      case DefaultsAliasEntry:
+        path = [[NDAlias aliasWithData:thisObject] quickPath];
+        if (path && [fm fileExistsAtPath:path])
+          newObject = [QSObject fileObjectWithPath:path];
+        else {
+          NSURL *fileURL = [NSURL URLByResolvingBookmarkData:thisObject options:NSURLBookmarkResolutionWithoutMounting relativeToURL:nil bookmarkDataIsStale:NO error:nil];
+          path = [fileURL absoluteString];
+          path = [path stringByReplacingOccurrencesOfString:@"file://localhost" withString:@""];
+          path = [path stringByReplacingOccurrencesOfString:@"file:/" withString:@""];
+          path = [path stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+          if (path) newObject = [QSObject fileObjectWithPath:path];
+        }
+          break;
+      case DefaultsTextEntry:
+        newObject = [QSObject objectWithString:thisObject];
+        break;
+      case DefaultsFileDataEntry:
+        path = [[NDAlias aliasWithData:[thisObject objectForKey:@"_CFURLAliasData"]]quickPath];
+        if (path) {
+          newObject = [fm fileExistsAtPath:path] ?[QSObject fileObjectWithPath:path] :nil;
+        } else {
+          newObject = [QSObject URLObjectWithURL:[thisObject objectForKey:@"_CFURLString"] title:nil];
+        }
+          break;
+    }
+    if (newObject)
+      [array addObject:newObject];
+  }
 }
 
 - (void)populateFields {
