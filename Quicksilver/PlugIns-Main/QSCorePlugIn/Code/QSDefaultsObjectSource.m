@@ -114,7 +114,8 @@
         path = [[NDAlias aliasWithData:thisObject] quickPath];
         if (path && [fm fileExistsAtPath:path])
           newObject = [QSObject fileObjectWithPath:path];
-        else {
+        #if (MAC_OS_X_VERSION_MAX_ALLOWED >= 1060)
+        else if ([NSURL respondsToSelector:@selector(URLByResolvingBookmarkData:options:relativeToURL:bookmarkDataIsStale:error:)]) {
           NSURL *fileURL = [NSURL URLByResolvingBookmarkData:thisObject options:NSURLBookmarkResolutionWithoutMounting relativeToURL:nil bookmarkDataIsStale:NO error:nil];
           path = [fileURL absoluteString];
           path = [path stringByReplacingOccurrencesOfString:@"file://localhost" withString:@""];
@@ -122,6 +123,7 @@
           path = [path stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
           if (path) newObject = [QSObject fileObjectWithPath:path];
         }
+        #endif
           break;
       case DefaultsTextEntry:
         newObject = [QSObject objectWithString:thisObject];
