@@ -339,7 +339,6 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 			// Fix to 'relaunch' action bug done by removing if(status == 0).
 			if (status == -600) break;
 		}
-		}
 		usleep(500000);
 		[self openFile:bundlePath];
 	}
