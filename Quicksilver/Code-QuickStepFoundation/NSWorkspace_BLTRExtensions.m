@@ -332,9 +332,13 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 		}
 		while(1) {
 			int status = GetProcessPID(&psn, &pid);
-			NSLog(@"waiting for %@ to quit %d %d", bundlePath, status, pid);
-			usleep(250000);
-			if (status == 0 || status == -600) break;
+			NSLog(@"waiting for %@ to quit, current status :%d for PID %d", bundlePath, status, pid);
+			// wait for half a second
+			usleep(500000);
+			// Status -600 means process not found. 
+			// Fix to 'relaunch' action bug done by removing if(status == 0).
+			if (status == -600) break;
+		}
 		}
 		usleep(500000);
 		[self openFile:bundlePath];
