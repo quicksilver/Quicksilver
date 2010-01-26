@@ -286,7 +286,7 @@ id QSRez;
 
 		NSString *basePath = [bundle bundlePath];
 		// NSString *basePath = [workspace absolutePathForAppBundleWithIdentifier:bundle];
-		NSLog(@"loc %@ %@", locator, path);
+		// NSLog(@"loc %@ %@", locator, path);
 
 		if (resourceName) {
 			path = [bundle pathForResource:[resourceName stringByDeletingPathExtension]
