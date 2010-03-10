@@ -22,7 +22,7 @@ Class QSCurrentStringRanker = nil;
 
 typedef QSRankedObject * (*QSScoreForObjectIMP) (id instance, SEL selector, QSBasicObject *object, NSString* anAbbreviation, NSString *context, NSArray * mnemonics, BOOL mnemonicsOnly);
 
-typedef double (*QSScoreForAbbrevIMP) (id object, SEL selector, NSString * abbreviation);
+typedef float (*QSScoreForAbbrevIMP) (id object, SEL selector, NSString * abbreviation);
 QSScoreForAbbrevIMP scoreForAbbrevIMP;
 
 @implementation QSDefaultObjectRanker
