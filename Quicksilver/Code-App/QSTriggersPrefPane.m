@@ -61,7 +61,7 @@
 	//	self = [self initWithWindowNibName:@"Triggers"];
 	self = [super initWithBundle:[NSBundle bundleForClass:[self class]]];
 	if (self) {
-		lastRow = -1;
+		selectedRow = -1;
 		//	[self setSort:[[[NSSortDescriptor alloc] initWithKey:@"command" ascending:YES] autorelease]];
 		//		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectTrigger:) name:NSOutlin object:triggerTable];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(triggerChanged:) name:QSTriggerChangedNotification object:nil];
@@ -80,13 +80,21 @@
 	[[[optionsDrawer contentView] window] setDelegate:self];
 }
 
-- (void)willUnselect { [optionsDrawer close];  }
-- (int)tabViewIndex { return [drawerTabView indexOfTabViewItem:[drawerTabView selectedTabViewItem]];}
-- (void)setTabViewIndex:(int)index { [drawerTabView selectTabViewItemAtIndex:index];}
+- (void)willUnselect {
+    [optionsDrawer close];
+}
+- (int)tabViewIndex {
+    return [drawerTabView indexOfTabViewItem:[drawerTabView selectedTabViewItem]];
+}
+- (void)setTabViewIndex:(int)index {
+    [drawerTabView selectTabViewItemAtIndex:index];
+}
 
 - (NSString *)mainNibName { return @"QSTriggersPrefPane";  }
 
-- (void)didSelect { [optionsDrawer setParentWindow:[[self mainView] window]];  }
+- (void)didSelect {
+    [optionsDrawer setParentWindow:[[self mainView] window]];
+}
 
 - (NSArray *)typeMenuItems { return [[typeMenu itemArray] valueForKey:@"representedObject"];  }
 
@@ -188,13 +196,13 @@
 	// NSLog(@"hu %f %f %f %f", hue, saturation, brightness, alpha);
 
 	[triggerSetsTable setBackgroundColor:[NSColor colorWithCalibratedHue:0.15f
-																 saturation:0.1f
-																 brightness:0.980000f
-																	 alpha:1.000000f]];
+                                                              saturation:0.1f
+                                                              brightness:0.980000f
+                                                                   alpha:1.000000f]];
 	NSColor *highlightColor = [NSColor colorWithCalibratedHue:0.11944444444
-													saturation:0.88f
-													brightness:1.000000f
-														 alpha:1.000000f];
+                                                   saturation:0.88f
+                                                   brightness:1.000000f
+                                                        alpha:1.000000f];
 
 	[(QSTableView *)triggerSetsTable setHighlightColor:highlightColor];
 	[(QSOutlineView *)triggerTable setHighlightColor:highlightColor];
@@ -217,7 +225,7 @@
 							   options:0
 							   context:nil];
 	NSSortDescriptor* aSortDesc = [[[NSSortDescriptor alloc]
-												 initWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)] autorelease];
+                                    initWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)] autorelease];
 	[triggerArrayController setSortDescriptors:[NSArray arrayWithObject: aSortDesc]];
 	[triggerArrayController rearrangeObjects];
 
@@ -271,7 +279,6 @@
 //}
 
 - (IBAction)triggerChanged:(id)sender {
-
 	[triggerTable reloadData];
 }
 
@@ -308,13 +315,12 @@
 
 	if ([manager respondsToSelector:@selector(setCurrentTrigger:)])
 		[manager setCurrentTrigger:thisTrigger];
-
 }
 
 /*
  + (NSString*)_stringForModifiers: (long)modifiers
  {
-	 static long modToChar[4] [2] =
+ static long modToChar[4] [2] =
  {
  { cmdKey, 		 } ,
  { optionKey, 	 } ,
@@ -322,22 +328,22 @@
  { shiftKey, 		 }
  } ;
 
-	 NSString* str;
-	 NSString* charStr;
-	 long i;
+ NSString* str;
+ NSString* charStr;
+ long i;
 
-	 str = [NSString string];
+ str = [NSString string];
 
-	 for( i = 0; i < 4; i++ )
-	 {
-		 if ( modifiers & modToChar[i] [0] )
-		 {
-			 charStr = [NSString stringWithCharacters: (const unichar*)&modToChar[i] [1] length: 1];
-			 str = [str stringByAppendingString: charStr];
-		 }
-	 }
+ for( i = 0; i < 4; i++ )
+ {
+ if ( modifiers & modToChar[i] [0] )
+ {
+ charStr = [NSString stringWithCharacters: (const unichar*)&modToChar[i] [1] length: 1];
+ str = [str stringByAppendingString: charStr];
+ }
+ }
 
-	 return str;
+ return str;
  }
  */
 
@@ -354,7 +360,15 @@
 }
 
 - (IBAction)editCommand:(id)sender {
-	[self editTriggerCommand:selectedTrigger callback:@selector(addSheetDidEnd:returnCode:contextInfo:)];
+    // !!!:paulkohut:20100311
+    // if trigger is selected then edit the triggers command properties.  Otherwise ignore
+    // edit button press.  Note, this should be handled by the UI to disable the edit button
+    // if a trigger is not selected, however I could not find where to do in the code.
+
+    // [self editTriggerCommand:selectedTrigger callback:@selector(addSheetDidEnd:returnCode:contextInfo:)];
+
+    if([self selectedTrigger])
+        [self editTriggerCommand:selectedTrigger callback:@selector(editSheetDidEnd:returnCode:contextInfo:)];
 }
 
 - (IBAction)showTriggerInfo:(id)sender {
@@ -475,9 +489,9 @@
 	NSTableColumn *col = [[triggerTable tableColumns] objectAtIndex:[triggerTable clickedColumn]];
 	id item = [triggerTable itemAtRow:[triggerTable clickedRow]];
 	item = [item respondsToSelector:@selector(representedObject)] ?[item representedObject] :[item observedObject];
-//	NSLog(@"%@ %@ %d %d", item, [col identifier] , lastRow, [triggerTable clickedRow]);
+    //	NSLog(@"%@ %@ %d %d", item, [col identifier] , selectedRow, [triggerTable clickedRow]);
 
-	if (lastRow == [triggerTable clickedRow] && [sender clickedRow] >= 0) {
+	if (selectedRow == [triggerTable clickedRow] && [sender clickedRow] >= 0) {
 		if ([[NSApp currentEvent] clickCount] >1) return;
 		if ( [[col identifier] isEqualToString:@"command"]) {
 			id theSelectedTrigger = item; //[[triggerArrayController arrangedObjects] objectAtIndex:[sender clickedRow]];
@@ -490,7 +504,7 @@
 			[[triggerTable window] setAcceptsMouseMovedEvents:NO];
 		}
 	}
-	lastRow = [triggerTable clickedRow];
+	selectedRow = [triggerTable clickedRow];
 }
 
 - (void)updateTriggerArray {
@@ -538,14 +552,14 @@
 
 - (void)showTrigger:(QSTrigger *)trigger {
 	[self showTriggerGroupWithIdentifier:[trigger triggerSet]];
-//	NSLog(@"trig %@ %@", trigger, set);
+    //	NSLog(@"trig %@ %@", trigger, set);
 }
 - (void)showTriggerWithIdentifier:(NSString *)triggerID {
 	[self showTrigger:[[QSTriggerCenter sharedInstance] triggerWithID:triggerID]];
 }
 - (void)showTriggerGroupWithIdentifier:(NSString *)groupID {
 	[self setCurrentSet:groupID];
-//	NSLog(@"index %d", index);
+    //	NSLog(@"index %d", index);
 	[(NSArrayController *)triggerSetsController setSelectionIndex:[[[self triggerSets] valueForKey:@"text"] indexOfObject:groupID]];
 }
 
@@ -558,7 +572,7 @@
 	if (![currentSet length] || [currentSet isEqual:@"Custom Triggers"]) {
 		predicate = [NSPredicate predicateWithFormat:@"triggerSet == NULL", currentSet];
 		predicate = [NSCompoundPredicate andPredicateWithSubpredicates:
-			[NSArray arrayWithObjects:predicate, rootPredicate, nil]];
+                     [NSArray arrayWithObjects:predicate, rootPredicate, nil]];
 	} else if ([currentSet isEqual:@"All Triggers"]) {
 	} else {
 		predicate = [NSPredicate predicateWithFormat:@"triggerSet == %@", currentSet];
@@ -571,7 +585,7 @@
 		else
 			predicate = searchPredicate;
 	}
-//	NSLog(@"arranged %@", [triggerArrayController arrangedObjects]);
+    //	NSLog(@"arranged %@", [triggerArrayController arrangedObjects]);
 	[triggerArrayController setFilterPredicate:predicate];
 }
 
@@ -591,11 +605,11 @@
 
 - (void)outlineView:(NSOutlineView *)outlineView willDisplayCell:(NSCell *)aCell forTableColumn:(NSTableColumn *)aTableColumn item:(id)item {
 	item = [item respondsToSelector:@selector(representedObject)] ?[item representedObject] :[item observedObject];
-    
+
 	//- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
 	QSTrigger *thisTrigger = item; //[[triggerArrayController arrangedObjects] objectAtIndex:rowIndex];
 	BOOL isGroup = [thisTrigger isGroup];
-    
+
 	//	if ([[aTableColumn identifier] isEqualToString: @"command"]) {
 	//
 	//
@@ -612,13 +626,13 @@
 	//		}
 	//
 	//	}
-    
+
 	if ([[aTableColumn identifier] isEqualToString: @"type"]) {
 		if ([aCell isMemberOfClass:[NSPopUpButtonCell class]]) {
 			NSString *type = [thisTrigger valueForKey:@"type"];
 			[aCell setMenu:[[typeMenu copy] autorelease]];
 			[(NSPopUpButtonCell*)aCell selectItemAtIndex:[(NSPopUpButtonCell*)aCell indexOfItemWithRepresentedObject:type]];
-            
+
 			[aCell setEnabled:!isGroup && ([typeMenu numberOfItems] >1 || ![type length])];
 		}
 		return;
@@ -627,7 +641,7 @@
 		[(NSButtonCell*)aCell setTransparent:isGroup];
 		return;
 	}
-    
+
 	if ([[aTableColumn identifier] isEqualToString: @"trigger"]) {
         id desc = [item triggerDescription];
         [aCell setStringValue:( desc ? desc : @"Unknown" )];
@@ -637,11 +651,11 @@
 }
 
 - (NSCell *)outlineView:(NSOutlineView *)outlineView dataCellForTableColumn:(NSTableColumn *)aTableColumn byItem:(id)item {
-    
+
 	//- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
 	QSTrigger *thisTrigger = [item respondsToSelector:@selector(representedObject)] ?[item representedObject] :[item observedObject]; //[[triggerArrayController arrangedObjects] objectAtIndex:rowIndex];
 	//NSLog(@"cell for %@", item);
-    
+
 	id manager = [thisTrigger manager];
 	return ([manager respondsToSelector:@selector(descriptionCellForTrigger:)]) ? [manager performSelector:@selector(descriptionCellForTrigger:) withObject:thisTrigger] : nil;
 }
@@ -672,14 +686,14 @@
 			return YES;
 		}
 		if ([[theSelectedTrigger type] isEqualToString:@"QSGroupTrigger"]) return YES;
-        
+
 		[self editTriggerCommand:theSelectedTrigger callback:@selector(editSheetDidEnd:returnCode:contextInfo:)];
 		return NO;
 		// return YES;
 	} /*else if ([[aTableColumn identifier] isEqualToString: @"type"]) { this block commented out by me
-     //NSLog(@"edit type");
-     return NO;
-     } */
+       //NSLog(@"edit type");
+       return NO;
+       } */
 	return NO;
 }
 
@@ -687,32 +701,32 @@
 	//- (void)outlineView:(NSTableView *)aTableView setObjectValue:(id)anObject forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
 	item = [item respondsToSelector:@selector(representedObject)] ?[item representedObject] :[item observedObject];
 	QSTrigger *thisTrigger = item; //[[triggerArrayController arrangedObjects] objectAtIndex:rowIndex];
-    
+
     if ([[aTableColumn identifier] isEqualToString: @"type"]) {
         //NSLog(@"anobject %@", anObject);
-        
+
         int typeIndex = [anObject intValue];
         if (typeIndex == -1) return;
         NSString *type = [[typeMenu itemAtIndex:typeIndex] representedObject];
         [thisTrigger setType:type];
         [triggerTable reloadData];
         [optionsDrawer open];
-        
+
         [self selectTrigger:self];
         //	} else if ([[aTableColumn identifier] isEqualToString: @"command"]) {
         //		if (![(NSString *)anObject length])anObject = nil;
         //		[thisTrigger setName:anObject];
         //		[aTableView reloadData];
-        
+
     } else if ([[aTableColumn identifier] isEqualToString: @"trigger"]) {
         //NSLog(@"setdescrip %@", anObject);
         id manager = [thisTrigger manager];
         if ([manager respondsToSelector:@selector(trigger:setTriggerDescription:)])
             [manager trigger:[self currentTrigger] setTriggerDescription:anObject];
-        
+
     } else if ([[aTableColumn identifier] isEqualToString: @"enabled"]) {
         return;
-        
+
     }
     //else {
     //		[thisTrigger setValue:anObject forKey:[aTableColumn identifier]];
@@ -723,7 +737,7 @@
     NS_HANDLER
     NSBeep();
     NS_ENDHANDLER
-    
+
     return;
 }
 
@@ -731,8 +745,8 @@
 - (BOOL)outlineView:(NSOutlineView *)outlineView writeItems:(NSArray *)items toPasteboard:(NSPasteboard *)pboard {
     if([items count] == 0)
         return NO;
-//    items = ([items count] && [[items lastObject] respondsToSelector:@selector(representedObject)]) ? [items valueForKey:@"representedObject"] : [items valueForKey:@"observedObject"];
-    
+    //    items = ([items count] && [[items lastObject] respondsToSelector:@selector(representedObject)]) ? [items valueForKey:@"representedObject"] : [items valueForKey:@"observedObject"];
+
 	[pboard declareTypes:[NSArray arrayWithObject:QSTriggerDragType] owner:self];
     NSArray *indexes = [items valueForKey:@"indexPath"];
     id data = [NSKeyedArchiver archivedDataWithRootObject:indexes];
@@ -745,24 +759,24 @@
 	id realItem = item;
 	item = [item respondsToSelector:@selector(representedObject)] ? [item representedObject] : [item observedObject];
     int dragOperation = (([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) ? NSDragOperationCopy : NSDragOperationMove);
-    
-/*    if ([draggedEntries containsObject:item])
-        return NSDragOperationNone;*/
-    
+
+    /*    if ([draggedEntries containsObject:item])
+     return NSDragOperationNone;*/
+
     if (!item && index == -1) {
-//        NSLog(@"No item, and index == -1");
+        //        NSLog(@"No item, and index == -1");
         dragOperation = NSDragOperationNone;
     } else if (!item && index != -1) {
-//        NSLog(@"No item, but index == %d", index);
+        //        NSLog(@"No item, but index == %d", index);
         [outlineView setDropItem:realItem dropChildIndex:index];
     } else if (item && [item isGroup]) {
-//        NSLog(@"Has item, which is a group, index == %d", index);
+        //        NSLog(@"Has item, which is a group, index == %d", index);
         if(index == -1)
             [outlineView setDropItem:realItem dropChildIndex:NSOutlineViewDropOnItemIndex];
         else
             [outlineView setDropItem:realItem dropChildIndex:index];
     } else {
-//        NSLog(@"On Item (isGroup: %@)?", ([item isGroup] ? @"YES" : @"NO"));
+        //        NSLog(@"On Item (isGroup: %@)?", ([item isGroup] ? @"YES" : @"NO"));
         dragOperation = NSDragOperationNone;
     }
     return dragOperation;
@@ -773,18 +787,18 @@
 	//NSIndexPath *indexPath = [item indexPath];
 	item = [item respondsToSelector:@selector(representedObject)] ? [item representedObject] : [item observedObject];
     NSLog(@"drop on %@ - %@ at index %d", item, [item identifier], index);
-    
+
     NSPasteboard *pb = [info draggingPasteboard];
     NSData *data = [pb dataForType:QSTriggerDragType];
     NSArray *indexes = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     NSLog(@"indexes: %@", indexes);
-    
+
 	if ([info draggingSourceOperationMask] == NSDragOperationMove
         && [info draggingSource] == triggerTable) {
-/*        [triggerTreeController 
-        [triggerTreeController moveNodes:<#(NSArray *)nodes#> toIndexPath:<#(NSIndexPath *)startingIndexPath#>*/
-//		[draggedEntries setValue:[item identifier] forKey:@"parentID"];
-        
+        /*        [triggerTreeController
+         [triggerTreeController moveNodes:<#(NSArray *)nodes#> toIndexPath:<#(NSIndexPath *)startingIndexPath#>*/
+        //		[draggedEntries setValue:[item identifier] forKey:@"parentID"];
+
 		//NSLog(@"dragged %@", [draggedEntries valueForKey:@"parentID"]);
 		//	[treeController removeObjectsAtArrangedObjectIndexPaths:draggedIndexPaths];
 	}
@@ -816,7 +830,7 @@
 }
 
 - (NSMutableArray *)triggerSets {
-	 {
+    {
 		NSMutableDictionary *sets = [QSReg tableNamed:@"QSTriggerSets"];
 		//[[[[NSSet setWithArray:[[[[QSTriggerCenter sharedInstance] triggersDict] allValues] valueForKey:@"triggerSet"]]allObjects] mutableCopy] autorelease];
 		//[sets removeObject:[NSNull null]];
@@ -827,7 +841,7 @@
 		foreachkey(key, set, sets) {
 
 			[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-				[set objectForKey:@"name"] , @"text", [QSResourceManager imageNamed:[set objectForKey:@"icon"]], @"image", nil]];
+                                 [set objectForKey:@"name"] , @"text", [QSResourceManager imageNamed:[set objectForKey:@"icon"]], @"image", nil]];
 		}
 		[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"All Triggers", @"text", [NSImage imageNamed:@"Pref-Triggers"] , @"image", nil]];
 
@@ -854,7 +868,7 @@
 
 - (id)tokenField:(NSTokenField *)tokenField representedObjectForEditingString:(NSString *)editingString {
 	NSString *path = [[NSWorkspace sharedWorkspace] fullPathForApplication:editingString];
-return [[NSBundle bundleWithPath:path] bundleIdentifier];
+    return [[NSBundle bundleWithPath:path] bundleIdentifier];
 }
 - (NSTokenStyle) tokenField:(NSTokenField *)tokenField styleForRepresentedObject:(id)representedObject {
 
