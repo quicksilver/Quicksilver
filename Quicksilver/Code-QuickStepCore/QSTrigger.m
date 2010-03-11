@@ -252,6 +252,7 @@
 - (void)setEnabledDoNotNotify:(BOOL)enabled {
 	[info setObject:[NSNumber numberWithBool:enabled] forKey:@"enabled"];
     enabled ? [[self manager] enableTrigger:self] : [[self manager] disableTrigger:self];
+    activated = enabled;
 }
 
 - (id)objectForKey:(NSString *)key {
