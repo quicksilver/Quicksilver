@@ -31,9 +31,10 @@ unsigned int lastModifiers;
 
 - (void)enable;
 - (void)disable;
-+(BOOL)alphaShiftReleased;
++(BOOL)alphaShiftReleased:(NSTimeInterval)eventTime;
 - (BOOL)checkForModifierTap;
-+(BOOL)modifierToggled:(unsigned int)modifierKeysMask;
+//+(BOOL)modifierToggled:(unsigned int)modifierKeysMask eventTime:(NSTimeInterval)eventTime ;
++(BOOL)modifierToggled:(NSTimeInterval)eventTime ;
 - (unsigned int) modifierActivationMask;
 - (void)setModifierActivationMask:(unsigned int)newModifierActivationMask;
 - (int) modifierActivationCount;

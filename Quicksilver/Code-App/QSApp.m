@@ -1,7 +1,7 @@
 #import "QSPreferenceKeys.h"
 #import "QSApp.h"
 #import "QSController.h"
-#import "QSModifierKeyHandler.h"
+#import "QSModifierKeyEvents.h"
 #import "QSInterfaceController.h"
 #import "NSApplication_BLTRExtensions.h"
 #import <unistd.h>
@@ -128,45 +128,45 @@ BOOL QSApplicationCompletedLaunch = NO;
 }
 
 - (void)sendEvent:(NSEvent *)theEvent {
-    if (eventDelegates) {
-	for(id eDelegate in eventDelegates) {
-	    if ([eDelegate respondsToSelector:@selector(shouldSendEvent:)] && ![eDelegate shouldSendEvent:theEvent])
-		return;
+	if (eventDelegates) {
+		for(id eDelegate in eventDelegates) {
+			if ([eDelegate respondsToSelector:@selector(shouldSendEvent:)] && ![eDelegate shouldSendEvent:theEvent])
+				return;
+		}
 	}
-    }
-    switch ((int) [theEvent type]) {
-    case NSProcessNotificationEvent:
-	[[QSProcessMonitor sharedInstance] handleProcessEvent:theEvent];
-	break;
-    case NSRightMouseDown:
-	if (![theEvent windowNumber]) { // Workaround for ignored right clicks on non activating panels
-	    [self forwardWindowlessRightClick:theEvent];
-	    return;
-	} else if ([theEvent standardModifierFlags] > 0) {
-	    [[NSClassFromString(@"QSMouseTriggerManager") sharedInstance] handleMouseTriggerEvent:theEvent type:nil forView:nil];
+	switch ((int) [theEvent type]) {
+		case NSProcessNotificationEvent:
+			[[QSProcessMonitor sharedInstance] handleProcessEvent:theEvent];
+			break;
+		case NSRightMouseDown:
+			if (![theEvent windowNumber]) { // Workaround for ignored right clicks on non activating panels
+				[self forwardWindowlessRightClick:theEvent];
+				return;
+			} else if ([theEvent standardModifierFlags] > 0) {
+				[[NSClassFromString(@"QSMouseTriggerManager") sharedInstance] handleMouseTriggerEvent:theEvent type:nil forView:nil];
+			}
+			break;
+	  case NSLeftMouseDown:
+			if ([theEvent standardModifierFlags] > 0)
+				[[NSClassFromString(@"QSMouseTriggerManager") sharedInstance] handleMouseTriggerEvent:theEvent type:nil forView:nil];
+		  break;
+	  case NSOtherMouseDown:
+			[theEvent retain];
+			if (VERBOSE)
+				NSLog(@"OtherMouse %@ %@", theEvent, [theEvent window]);
+			[[NSClassFromString(@"QSMouseTriggerManager") sharedInstance] handleMouseTriggerEvent:theEvent type:nil forView:nil];
+			break;
+	  case NSScrollWheel: {
+			NSWindow *interfaceWindow = [[(QSController *)[self delegate] interfaceController] window];
+			if ([self keyWindow] == interfaceWindow)
+				[[interfaceWindow firstResponder] scrollWheel:theEvent];
+		}
+			break;
+	  case NSFlagsChanged:
+			[QSModifierKeyEvent checkForModifierEvent:theEvent];
+			break;
 	}
-	break;
-    case NSLeftMouseDown:
-	if ([theEvent standardModifierFlags] > 0)
-	    [[NSClassFromString(@"QSMouseTriggerManager") sharedInstance] handleMouseTriggerEvent:theEvent type:nil forView:nil];
-	break;
-    case NSOtherMouseDown:
-	[theEvent retain];
-	if (VERBOSE)
-	    NSLog(@"OtherMouse %@ %@", theEvent, [theEvent window]);
-	[[NSClassFromString(@"QSMouseTriggerManager") sharedInstance] handleMouseTriggerEvent:theEvent type:nil forView:nil];
-	break;
-    case NSScrollWheel: {
-	NSWindow *interfaceWindow = [[(QSController *)[self delegate] interfaceController] window];
-	if ([self keyWindow] == interfaceWindow)
-	    [[interfaceWindow firstResponder] scrollWheel:theEvent];
-    }
-	break;
-    case NSFlagsChanged:
-	[[QSModifierKeyHandler sharedModifierKeyHandler] modifiersChangedWhileActive:theEvent];
-	break;
-    }
-    [super sendEvent:theEvent];
+	[super sendEvent:theEvent];
 }
 - (void)forwardWindowlessRightClick:(NSEvent *)theEvent {
 	NSEnumerator *windowEnumerator = [[self windows] objectEnumerator];
