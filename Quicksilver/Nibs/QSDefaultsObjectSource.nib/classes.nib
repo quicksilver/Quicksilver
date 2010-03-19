@@ -1,0 +1,23 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {setValueForSender = id; }; 
+            CLASS = QSDefaultsObjectSource; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                bundleIDField = NSTextField; 
+                entryTypePopUp = NSPopUpButton; 
+                keyField = NSTextField; 
+            }; 
+            SUPERCLASS = QSObjectSource; 
+        }, 
+        {
+            CLASS = QSObjectSource; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {settingsView = NSView; }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

@@ -1,0 +1,62 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {checkForUpdate = id; requestRelaunch = id; showCatalog = id; }; 
+            CLASS = FirstResponder; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = NSObject; LANGUAGE = ObjC; }, 
+        {
+            ACTIONS = {flare = id; pulse = id; shrink = id; }; 
+            CLASS = NSWindow; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSResponder; 
+        }, 
+        {CLASS = QSBackgroundView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {CLASS = QSFancyTableView; LANGUAGE = ObjC; SUPERCLASS = QSTableView; }, 
+        {CLASS = QSGlossyBarView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {CLASS = QSHandledSplitView; LANGUAGE = ObjC; SUPERCLASS = NSSplitView; }, 
+        {CLASS = QSImageAndTextCell; LANGUAGE = ObjC; SUPERCLASS = NSTextFieldCell; }, 
+        {CLASS = QSImageView; LANGUAGE = ObjC; SUPERCLASS = NSImageView; }, 
+        {
+            ACTIONS = {selectModule = id; }; 
+            CLASS = QSPreferencesController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                descView = NSTextField; 
+                externalPrefsTable = NSTableView; 
+                fillerBox = NSBox; 
+                helpButton = NSButton; 
+                iconView = NSImageView; 
+                internalPrefsTable = NSTableView; 
+                loadingProgress = NSProgressIndicator; 
+                mainBox = NSBox; 
+                moduleController = NSArrayController; 
+                nameView = NSTextField; 
+                prefsBox = NSBox; 
+                settingsPrefsBox = NSBox; 
+                settingsSplitView = NSSplitView; 
+                settingsView = NSView; 
+                sidebarView = NSView; 
+                toolbarPrefsBox = NSBox; 
+                toolbarTitleView = NSView; 
+            }; 
+            SUPERCLASS = NSWindowController; 
+        }, 
+        {
+            CLASS = QSSplitHandleView; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {splitView = QSHandledSplitView; }; 
+            SUPERCLASS = NSView; 
+        }, 
+        {CLASS = QSTableView; LANGUAGE = ObjC; SUPERCLASS = NSTableView; }, 
+        {
+            ACTIONS = {hideThreaded = id; reallyOrderFront = id; showThreaded = id; }; 
+            CLASS = QSWindow; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSPanel; 
+        }
+    ); 
+    IBVersion = 1; 
+}

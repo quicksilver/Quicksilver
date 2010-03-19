@@ -1,0 +1,26 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            CLASS = NSPreferencePane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "_firstKeyView" = NSView; 
+                "_initialKeyView" = NSView; 
+                "_lastKeyView" = NSView; 
+                "_window" = NSWindow; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {setFilterText = id; }; 
+            CLASS = QSActionsPrefPane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {actionController = NSArrayController; groupController = NSArrayController; }; 
+            SUPERCLASS = QSPreferencePane; 
+        }, 
+        {CLASS = QSImageCell; LANGUAGE = ObjC; SUPERCLASS = NSImageCell; }, 
+        {CLASS = QSPreferencePane; LANGUAGE = ObjC; SUPERCLASS = NSPreferencePane; }
+    ); 
+    IBVersion = 1; 
+}

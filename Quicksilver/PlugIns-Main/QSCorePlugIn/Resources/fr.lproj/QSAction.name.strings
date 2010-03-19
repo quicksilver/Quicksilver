@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AppActivateAction</key>
+	<string>Activer</string>
+	<key>AppHideAction</key>
+	<string>Masquer</string>
+	<key>AppHideOthersAction</key>
+	<string>Masquer les autres</string>
+	<key>AppLaunchAction</key>
+	<string>Lancer</string>
+	<key>AppLaunchAgainAction</key>
+	<string>Lancer une copie</string>
+	<key>AppOpenFileAction</key>
+	<string>Ouvrir un fichier...</string>
+	<key>AppQuitAction</key>
+	<string>Quitter</string>
+	<key>AppRelaunchAction</key>
+	<string>Relancer</string>
+	<key>AppReopenAction</key>
+	<string>Réouvrir</string>
+	<key>AppRootLaunchAction</key>
+	<string>Lancer en tant qu'administrateur</string>
+	<key>AppleScriptOpenFilesAction</key>
+	<string>Ouvrir le fichier...</string>
+	<key>AppleScriptProcessTextAction</key>
+	<string>Traiter le texte...</string>
+	<key>AppleScriptRunAction</key>
+	<string>Exécuter</string>
+	<key>AppleScriptRunTextAction</key>
+	<string>Exécuter comme un AppleScript</string>
+	<key>ContactEditAction</key>
+	<string>Modifier</string>
+	<key>ContactEmailAction</key>
+	<string>Envoyer un mail</string>
+	<key>ContactIMAction</key>
+	<string>M.I.</string>
+	<key>ContactSendItemEmailAction</key>
+	<string>Envoyer l'élément par mail</string>
+	<key>ContactSendItemIMAction</key>
+	<string>Envoyer l'élément par chat</string>
+	<key>ContactSendTextEmailAction</key>
+	<string>Envoyer le texte par mail</string>
+	<key>ContactShowAction</key>
+	<string>Afficher</string>
+	<key>DiskEjectAction</key>
+	<string>Éjecter</string>
+	<key>DiskForceEjectAction</key>
+	<string>Forcer l'éjection</string>
+	<key>FileCompressAction</key>
+	<string>Compresser</string>
+	<key>FileCopyToAction</key>
+	<string>Copier dans...</string>
+	<key>FileDecompressAction</key>
+	<string>Décompresser</string>
+	<key>FileDeleteAction</key>
+	<string>Supprimer</string>
+	<key>FileGetInfoAction</key>
+	<string>Lire les informations</string>
+    <key>FileGetPosixPathAction</key>
+    <string>Obtenir le chemin</string>
+    <key>FileGetURLAction</key>
+    <string>Obtenir l'URL</string>
+    <key>FileGetHFSPathAction</key>
+    <string>Obtenir le chemin HFS</string>
+	<key>FileMakeLinkInAction</key>
+	<string>Créer un lien...</string>
+	<key>FileMoveToAction</key>
+	<string>Déplacer...</string>
+	<key>FileOpenAction</key>
+	<string>Ouvrir</string>
+	<key>FileOpenWithAction</key>
+	<string>Ouvrir avec...</string>
+	<key>FileAlwaysOpenTypeWithAction</key>
+    <string>Toujours ouvrir avec...</string>
+	<key>FileRenameAction</key>
+	<string>Renommer...</string>
+	<key>FileRevealAction</key>
+	<string>Révéler</string>
+	<key>FileToTrashAction</key>
+	<string>Mettre à la corbeille</string>
+	<key>ItemSendToContactEmailAction</key>
+	<string>Envoyer par email à...</string>
+	<key>ItemSendToContactIMAction</key>
+	<string>Envoyer par chat à...</string>
+    <key>PasteboardCopyAction</key>
+    <string>Copier</string>
+	<key>PasteboardPasteAction</key>
+	<string>Coller</string>
+	<key>ProcessKillAction</key>
+	<string>Tuer</string>
+	<key>ProcessLowerPriorityAction</key>
+	<string>Abaisser la priorité</string>
+	<key>ProcessRaisePriorityAction</key>
+	<string>Augmenter la priorité</string>
+	<key>ProcessResumeAction</key>
+	<string>Reprendre l'exécution</string>
+	<key>ProcessSuspendAction</key>
+	<string>Suspendre l'exécution</string>
+	<key>QSObjectAssignMnemonic</key>
+    <string>Assigner une abbréviation...</string>
+    <key>QSObjectSelectAction</key>
+    <string>Sélectionner dans l'Interface</string>
+	<key>QSCatalogEntryRescanAction</key>
+	<string>Actualiser le Catalogue</string>
+	<key>QSCatalogEntryShowAction</key>
+	<string>Monter le Catalogue</string>
+	<key>QSComposeEmailItemAction</key>
+	<string>Envoyer l'élément... (Composer)</string>
+	<key>QSComposeEmailItemReverseAction</key>
+	<string>Envoyer à... (Composer)</string>
+	<key>QSDialNumberAction</key>
+	<string>Composer</string>
+	<key>QSEditAction</key>
+	<string>Edition</string>
+	<key>QSEmailAction</key>
+	<string>Envoyer</string>
+	<key>QSEmailItemAction</key>
+	<string>Envoyer l'élément...</string>
+	<key>QSEmailItemReverseAction</key>
+	<string>Envoyer à...</string>
+	<key>QSHFSLockAction</key>
+	<string>Verrouiller</string>
+	<key>QSHFSMakeInvisibleAction</key>
+	<string>Rendre invisible</string>
+	<key>QSHFSMakeVisibleAction</key>
+	<string>Rendre visible</string>
+	<key>QSHFSUnlockAction</key>
+	<string>Déverrouiller</string>
+    <key>QSNewFolderAction</key>
+    <string>Nouveau dossier...</string>
+	<key>QSLargeTypeAction</key>
+	<string>Montrer en gros</string>
+	<key>QSNUTDContactShowAction</key>
+	<string>Afficher le contact</string>
+	<key>QSNetworkLocationSelectAction</key>
+	<string>Utiliser cette Configuration Réseau</string>
+	<key>QSObjCSendMessageAction</key>
+	<string>Exécuter</string>
+	<key>QSObjectSearchChildrenAction</key>
+	<string>Chercher le contenu</string>
+	<key>QSObjectShowChildrenAction</key>
+	<string>Montrer le contenu</string>
+	<key>QSPutOnShelfAction</key>
+	<string>Mettre sur l'étagère</string>
+	<key>QSShelfShowAction</key>
+	<string>Montrer l'étagère</string>
+    <key>QSSherlockChannelShowAction</key>
+    <string>Montrer le canal</string>
+    <key>QSTextSpeakAction</key>
+    <string>Dire</string>
+	<key>QSTextAppendAction</key>
+	<string>Ajouter le text...</string>
+	<key>QSTextDiffAction</key>
+	<string>Différences avec...</string>
+	<key>QSTextPrependAction</key>
+	<string>Insérer le texte...</string>
+	<key>QSTextTypeAction</key>
+	<string>Taper le texte</string>
+	<key>QSUserSwitchAction</key>
+	<string>Commutation d'utilisateur</string>
+	<key>QSiPhotoAlbumShowAction</key>
+	<string>Montrer l'album</string>
+	<key>QSiPhotoAlbumSlideShowAction</key>
+	<string>Voir le diaporama</string>
+	<key>QSiTunesPlaylistPlayAction</key>
+	<string>Écouter la liste de lecture</string>
+	<key>QSiTunesTrackPlayAction</key>
+	<string>Écouter</string>
+	<key>ShellScriptRunAction</key>
+	<string>Éxecuter le script Shell</string>
+	<key>URLEmailAction</key>
+	<string>Envoyer par mail</string>
+	<key>URLFindWithAction</key>
+	<string>Retrouver avec...</string>
+	<key>URLJSAction</key>
+	<string>Éxecuter Javascript</string>
+	<key>URLOpenAction</key>
+	<string>Ouvrir l'URL</string>
+	<key>URLOpenWithAction</key>
+	<string>Ouvrir l'URL avec...</string>
+	<key>URLSearchAction</key>
+	<string>Rechercher</string>
+	<key>URLSearchForAction</key>
+	<string>Rechercher sur le site...</string>
+</dict>
+</plist>

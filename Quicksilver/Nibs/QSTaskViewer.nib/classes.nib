@@ -1,0 +1,47 @@
+{
+    IBClasses = (
+        {CLASS = BLTRResizeView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = NSObject; LANGUAGE = ObjC; }, 
+        {
+            ACTIONS = {flare = id; fold = id; pulse = id; shrink = id; }; 
+            CLASS = NSWindow; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSResponder; 
+        }, 
+        {CLASS = QSBackgroundView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {CLASS = QSBorderlessWindow; LANGUAGE = ObjC; SUPERCLASS = QSWindow; }, 
+        {
+            ACTIONS = {
+                hide = id; 
+                orderFrontHidden = id; 
+                show = id; 
+                toggle = id; 
+                updateTrackingRect = id; 
+            }; 
+            CLASS = QSDockingWindow; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = QSBorderlessWindow; 
+        }, 
+        {CLASS = QSMenuButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
+        {
+            ACTIONS = {hideWindow = id; showWindow = id; }; 
+            CLASS = QSTaskViewer; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {controller = NSArrayController; tasksView = NSView; }; 
+            SUPERCLASS = NSWindowController; 
+        }, 
+        {
+            ACTIONS = {
+                hideThreaded = id; 
+                reallyOrderFront = id; 
+                reallyOrderOut = id; 
+                showThreaded = id; 
+            }; 
+            CLASS = QSWindow; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSPanel; 
+        }
+    ); 
+    IBVersion = 1; 
+}

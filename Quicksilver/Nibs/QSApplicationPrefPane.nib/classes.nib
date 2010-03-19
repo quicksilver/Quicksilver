@@ -1,0 +1,24 @@
+{
+    IBClasses = (
+        {
+            CLASS = NSPreferencePane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "_firstKeyView" = id; 
+                "_initialKeyView" = id; 
+                "_lastKeyView" = id; 
+                "_window" = id; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {checkNow = id; resetQS = id; runSetup = id; uninstallQS = id; }; 
+            CLASS = QSApplicationPrefPane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {}; 
+            SUPERCLASS = QSPreferencePane; 
+        }, 
+        {CLASS = QSPreferencePane; LANGUAGE = ObjC; SUPERCLASS = NSPreferencePane; }
+    ); 
+    IBVersion = 1; 
+}

@@ -1,0 +1,92 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {
+                rescanItems = id; 
+                showAbout = id; 
+                showActivityViewer = id; 
+                showPreferences = id; 
+                showShelf = id; 
+            }; 
+            CLASS = FirstResponder; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = QSBezelBackgroundView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {
+            CLASS = QSBezelInterfaceController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {details = NSTextField; }; 
+            SUPERCLASS = QSResizingInterfaceController; 
+        }, 
+        {CLASS = QSBorderlessWindow; LANGUAGE = ObjC; SUPERCLASS = QSWindow; }, 
+        {
+            ACTIONS = {emptyCollection = id; }; 
+            CLASS = QSCollectingSearchObjectView; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = QSSearchObjectView; 
+        }, 
+        {
+            CLASS = QSFloatingInterfaceController; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = QSResizingInterfaceController; 
+        }, 
+        {
+            ACTIONS = {
+                activate = id; 
+                executeCommand = id; 
+                hideIndirectSelector = id; 
+                hideMainWindow = id; 
+                hideWindows = id; 
+                showIndirectSelector = id; 
+                showMainWindow = id; 
+                showTasks = id; 
+            }; 
+            CLASS = QSInterfaceController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                aSelector = QSSearchObjectView; 
+                commandView = id; 
+                dSelector = QSSearchObjectView; 
+                iSelector = QSSearchObjectView; 
+                menuButton = QSMenuButton; 
+                progressIndicator = NSProgressIndicator; 
+            }; 
+            SUPERCLASS = NSWindowController; 
+        }, 
+        {CLASS = QSMenuButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
+        {CLASS = QSObjectView; LANGUAGE = ObjC; SUPERCLASS = NSImageView; }, 
+        {
+            ACTIONS = {contractWindow = id; expandWindow = id; }; 
+            CLASS = QSResizingInterfaceController; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = QSInterfaceController; 
+        }, 
+        {
+            ACTIONS = {
+                defineMnemonic = id; 
+                hideResultView = id; 
+                removeImpliedMnemonic = id; 
+                removeMnemonic = id; 
+                reset = id; 
+                showResultView = id; 
+                sortByName = id; 
+                sortByScore = id; 
+                toggleResultView = id; 
+                transmogrify = id; 
+                updateResultView = id; 
+            }; 
+            CLASS = QSSearchObjectView; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {editor = id; selectedObject = id; }; 
+            SUPERCLASS = QSObjectView; 
+        }, 
+        {
+            ACTIONS = {hideThreaded = id; showThreaded = id; }; 
+            CLASS = QSWindow; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSPanel; 
+        }
+    ); 
+    IBVersion = 1; 
+}

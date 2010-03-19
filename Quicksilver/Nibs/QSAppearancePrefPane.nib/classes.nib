@@ -1,0 +1,25 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            CLASS = NSPreferencePane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "_firstKeyView" = id; 
+                "_initialKeyView" = id; 
+                "_lastKeyView" = id; 
+                "_window" = id; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {customize = id; preview = id; resetColors = id; setCommandInterface = id; }; 
+            CLASS = QSAppearancePrefPane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {customizeButton = NSButton; interfacePopUp = NSPopUpButton; }; 
+            SUPERCLASS = QSPreferencePane; 
+        }, 
+        {CLASS = QSPreferencePane; LANGUAGE = ObjC; SUPERCLASS = NSPreferencePane; }
+    ); 
+    IBVersion = 1; 
+}

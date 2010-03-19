@@ -11,7 +11,7 @@
 @implementation QSObject (ColorHandling)
 - (NSColor *)colorValue {
 	NSData *colorData = [self objectForType:NSColorPboardType];
-	return colorData ? [NSKeyedUnarchiver unarchiveObjectWithData:colorData] : nil;
+	return colorData ? [NSUnarchiver unarchiveObjectWithData:colorData] : nil;
 }
 @end
 

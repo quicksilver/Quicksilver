@@ -1,0 +1,83 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = NSObject; LANGUAGE = ObjC; }, 
+        {
+            CLASS = NSPreferencePane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "_firstKeyView" = NSView; 
+                "_initialKeyView" = NSView; 
+                "_lastKeyView" = NSView; 
+                "_window" = NSWindow; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {flare = id; pulse = id; shrink = id; }; 
+            CLASS = NSWindow; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSResponder; 
+        }, 
+        {
+            CLASS = QSDelegatingCell; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {delegate = id; }; 
+            SUPERCLASS = NSTextFieldCell; 
+        }, 
+        {CLASS = QSGlossyBarButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
+        {CLASS = QSGlossyBarButtonCell; LANGUAGE = ObjC; SUPERCLASS = NSButtonCell; }, 
+        {CLASS = QSGlossyBarMenuButton; LANGUAGE = ObjC; SUPERCLASS = QSMenuButton; }, 
+        {CLASS = QSGlossyBarView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {CLASS = QSImageAndTextCell; LANGUAGE = ObjC; SUPERCLASS = NSTextFieldCell; }, 
+        {
+            ACTIONS = {goHome = id; search = id; showInBrowser = id; }; 
+            CLASS = QSMainMenuPrefPane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                guideView = WebView; 
+                progressField = NSTextField; 
+                progressIndicator = NSProgressIndicator; 
+            }; 
+            SUPERCLASS = QSPreferencePane; 
+        }, 
+        {CLASS = QSMenuButton; LANGUAGE = ObjC; SUPERCLASS = NSButton; }, 
+        {
+            ACTIONS = {showPaneHelp = id; }; 
+            CLASS = QSPreferencePane; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "_firstKeyView" = NSView; 
+                "_initialKeyView" = NSView; 
+                "_lastKeyView" = NSView; 
+                "_window" = NSWindow; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {addTrigger = id; removeTrigger = id; }; 
+            CLASS = QSTriggerEditor; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                addButton = id; 
+                hotKeyOptions = id; 
+                optionsDrawer = NSDrawer; 
+                removeButton = id; 
+                triggerTable = id; 
+            }; 
+            SUPERCLASS = NSPreferencePane; 
+        }, 
+        {
+            CLASS = QSTriggersArrayController; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSArrayController; 
+        }, 
+        {
+            ACTIONS = {hideThreaded = id; reallyOrderFront = id; showThreaded = id; }; 
+            CLASS = QSWindow; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSPanel; 
+        }
+    ); 
+    IBVersion = 1; 
+}
