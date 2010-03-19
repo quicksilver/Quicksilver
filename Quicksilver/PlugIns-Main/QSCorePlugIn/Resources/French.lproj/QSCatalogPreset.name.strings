@@ -3,13 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>QSPresetABMailRecents</key>
-	<string>Destinataires Précédents de Mail</string>
+	<string>Destinataires précédents de Mail</string>
+	<key>QSPresetUserGroup</key>
+	<string>Utilisateur</string>
+	<key>QSPresetDownloads</key>
+	<string>Téléchargements</string>
+	<key>QSPresetDocuments</key>
+	<string>Documents</string>
 	<key>QSPresetAccounts</key>
-	<string>Comptes des utilisateurs</string>
+	<string>Comptes utilisateurs</string>
+	<key>QSPresetProxies</key>
+	<string>Objets Proxy</string>
 	<key>QSPresetAddressBook</key>
-	<string>Carnet d'adresses des contacts</string>
+	<string>Contacts du Carnet d'Adresses</string>
+	<key>QSPresetAddressBookGroup</key>
+	<string>Carnet d'Adresses</string>
 	<key>QSPresetAddressBookScripts</key>
-	<string>Scripts (Carnet d'adresses)</string>
+	<string>Scripts du Carnet d'adresses</string>
 	<key>QSPresetAllApplications</key>
 	<string>Toutes les Applications trouvées</string>
 	<key>QSPresetAllRecentDocuments</key>
@@ -28,48 +38,50 @@
 	<string>Applications (Mac OS 9)</string>
 	<key>QSPresetClipboardContents</key>
 	<string>Contenu du presse-papiers</string>
+    <key>QSPresetCommandHistory</key>
+	<string>Commandes récentes</string>
 	<key>QSPresetConfiguration</key>
 	<string>Configuration</string>
 	<key>QSPresetContacts</key>
 	<string>Contacts</string>
 	<key>QSPresetDVDPlayerScripts</key>
-	<string>Scripts (Lecteur de DVD)</string>
+	<string>Scripts du Lecteur de DVD</string>
 	<key>QSPresetDesktop</key>
 	<string>Bureau</string>
 	<key>QSPresetDeveloper</key>
-	<string>Dévelopeur</string>
+	<string>Développeur</string>
 	<key>QSPresetDeveloperAddressBookDocs</key>
 	<string>Carnet d'adresses</string>
 	<key>QSPresetDeveloperAppKit</key>
-	<string>KitApp</string>
+	<string>AppKit</string>
 	<key>QSPresetDeveloperAppKitDocumentation</key>
-	<string>Documentation du kitApp</string>
+	<string>Documentation d'AppKit</string>
 	<key>QSPresetDeveloperAppKitHeaders</key>
-	<string>En-têtes du KitApp</string>
+	<string>En-têtes d'AppKit</string>
 	<key>QSPresetDeveloperApplications</key>
-	<string>Applications (Dévelopeur)</string>
+	<string>Applications (Développeur)</string>
 	<key>QSPresetDeveloperCoreFoundationHeaders</key>
-	<string>En-têtes de base</string>
+	<string>En-têtes de CoreFoundation</string>
 	<key>QSPresetDeveloperFoundation</key>
-	<string>Base</string>
+	<string>Foundation</string>
 	<key>QSPresetDeveloperFoundationDocumentation</key>
-	<string>Documentation de la Base</string>
+	<string>Documentation de Foundation</string>
 	<key>QSPresetDeveloperFoundationHeaders</key>
-	<string>En-têtes de Base</string>
+	<string>En-têtes Foundation</string>
 	<key>QSPresetDeveloperFrameworks</key>
-	<string>Cadres</string>
+	<string>Cadres d'application</string>
 	<key>QSPresetDeveloperOtherDocs</key>
 	<string>Autres documentations</string>
 	<key>QSPresetDeveloperPreferencePaneDocs</key>
-	<string>Panneau des préferences</string>
+	<string>Documentation de PreferencePanes</string>
 	<key>QSPresetDeveloperPrivateFrameworks</key>
-	<string>Cadres privés</string>
+	<string>Cadres d'application privés</string>
 	<key>QSPresetDeveloperPublicFrameworks</key>
-	<string>Cadres publiques</string>
+	<string>Cadres d'application publiques</string>
 	<key>QSPresetDeveloperScreenSaverDocs</key>
-	<string>Préserveur d'écran</string>
+	<string>Documentation de ScreenSaver</string>
 	<key>QSPresetDeveloperWebKitDocs</key>
-	<string>KitWeb</string>
+	<string>Documentation de WebKit</string>
 	<key>QSPresetDevices</key>
 	<string>Périphériques</string>
 	<key>QSPresetDockApplications</key>

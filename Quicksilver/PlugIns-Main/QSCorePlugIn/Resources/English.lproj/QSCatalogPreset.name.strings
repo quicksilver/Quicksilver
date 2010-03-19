@@ -188,6 +188,10 @@
 	<string>Recent Applications</string>
 	<key>QSPresetRecentDocuments</key>
 	<string>Recent Documents</string>
+	<key>QSPresetRecentApplications106</key>
+	<string>Recent Applications (10.6)</string>
+	<key>QSPresetRecentDocuments106</key>
+	<string>Recent Documents (10.6)</string>
 	<key>QSPresetRecentItems</key>
 	<string>Recent Items</string>
 	<key>QSPresetRecentSelections</key>

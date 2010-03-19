@@ -473,24 +473,14 @@
 		} else {
 			[dSelector performSelectorOnMainThread:@selector(selectObjectValue:) withObject:returnValue waitUntilDone:YES];
 			if (action) {
-            // !!! Andre Berg 20091007: allow actions to disable showing the result
-            if ([action isKindOfClass:[QSRankedObject class]] && [(QSRankedObject *)action object]) {
-               action = (QSRankedObject *)action;
-               if ([[action object] respondsToSelector:@selector(displaysResult)]) {
-                  if ([[action object] displaysResult]) {
-                     [self showMainWindow:self];
-                  }
-               }
+                // !!! Andre Berg 20091007: allow actions to disable showing the result
+                if ([action isKindOfClass:[QSRankedObject class]] && [(QSRankedObject *)action object])
+                    action = [(QSRankedObject *)action object];
+                if ([action respondsToSelector:@selector(displaysResult)] && [action displaysResult])
+                    [self showMainWindow:self];
             } else {
-               if ([action respondsToSelector:@selector(displaysResult)]) {
-                  if ([action displaysResult]) {
-                     [self showMainWindow:self];
-                  }
-               }
+                [self showMainWindow:self];
             }
-         } else {
-            [self showMainWindow:self];
-         }
 		}
 	}
 	if (VERBOSE) NSLog(@"Command executed (%dms) ", (int)(-[startDate timeIntervalSinceNow] *1000));
@@ -646,10 +636,9 @@
 	}
     
 	if (argumentCount != 2) {
-		NSEnumerator *enumer = [array objectEnumerator];
 		QSAction *action = nil;
 		QSAction *bestAction = nil;
-		while(action = [enumer nextObject]) {
+		for(action in array) {
 			if ([action argumentCount] == 2) {
 				bestAction = action;
 				[aSelector selectObject:action];

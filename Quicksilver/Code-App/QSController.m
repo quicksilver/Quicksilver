@@ -181,9 +181,7 @@ QSController *QSCon;
 
 - (void)startMenuExtraConnection {
 	if (controllerConnection) return;
-	controllerConnection = [NSConnection defaultConnection];
-	[controllerConnection registerName:@"QuicksilverControllerConnection"];
-	[controllerConnection setRootObject:self];
+	controllerConnection = [[NSConnection serviceConnectionWithName:@"QuicksilverControllerConnection" rootObject:self] retain];
 }
 
 - (void)handleAppleEvent:(NSAppleEventDescriptor *)event withReplyEvent: (NSAppleEventDescriptor *)replyEvent {
@@ -536,9 +534,7 @@ QSController *QSCon;
 }
 - (void)startDropletConnection {
 	if (dropletConnection) return;
-	dropletConnection = [NSConnection defaultConnection];
-	[dropletConnection registerName:@"Quicksilver Droplet"];
-	[dropletConnection setRootObject:self];
+	dropletConnection = [[NSConnection serviceConnectionWithName:@"Quicksilver Droplet" rootObject:self] retain];
 }
 
 - (void)handlePasteboardDrop:(NSPasteboard *)pb commandPath:(NSString *)path {
@@ -1003,10 +999,10 @@ QSController *QSCon;
 	if ([(plugIns = [fileList pathsMatchingExtensions:[NSArray arrayWithObjects:@"qspkg", @"qsplugin", nil]]) count]) {
 		[[QSPlugInManager sharedInstance] installPlugInsFromFiles:plugIns];
 	} else if ([(plugIns = [fileList pathsMatchingExtensions:[NSArray arrayWithObject:@"qscatalogentry"]]) count]) {
-		foreach(path, plugIns)
+		for(NSString * path in plugIns)
 			[QSCatalogPrefPane addEntryForCatFile:path];
 	} else if ([(plugIns = [fileList pathsMatchingExtensions:[NSArray arrayWithObject:@"qscommand"]]) count]) {
-		foreach(path, plugIns)
+		for(NSString * path in plugIns)
 			[self executeCommandAtPath:path];
 	} else {
 		QSObject *entry;

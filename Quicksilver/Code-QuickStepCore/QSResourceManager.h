@@ -4,7 +4,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 extern id QSRez;
 
 @interface QSResourceManager : NSObject {

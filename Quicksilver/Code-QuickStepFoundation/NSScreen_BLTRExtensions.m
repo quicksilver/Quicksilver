@@ -20,9 +20,9 @@ static void KeyArrayCallback(const void *key, const void *value, void *context) 
 @implementation NSScreen (BLTRExtensions)
 
 + (NSScreen *)screenWithNumber:(int)number {
+	NSScreen * screen;
 	NSEnumerator *e = [[self screens] objectEnumerator];
-	NSScreen *screen;
-	while(screen = [e nextObject]) {
+	for(screen in e) {
 		if ([screen screenNumber] == number) {
 			return screen;
 		}

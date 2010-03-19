@@ -13,7 +13,7 @@
 
 @protocol QSObjectRanker
 - (id)initWithObject:(QSBasicObject *)object;
-//- (double)scoreForAbbreviation:(NSString*)anAbbreviation inContext:(NSString *)context;
+//- (float)scoreForAbbreviation:(NSString*)anAbbreviation inContext:(NSString *)context;
 //- (NSIndexSet*)maskForAbbreviation:(NSString*)anAbbreviation inContext:(NSString *)context;
 - (NSString*)matchedStringForAbbreviation:(NSString*)anAbbreviation hitmask:(NSIndexSet **)hitmask inContext:(NSString *)context;
 - (QSRankedObject *)rankedObject:(QSBasicObject *)object forAbbreviation:(NSString*)anAbbreviation inContext:(NSString *)context withMnemonics:(NSArray *)mnemonics mnemonicsOnly:(BOOL)mnemonicsOnly;

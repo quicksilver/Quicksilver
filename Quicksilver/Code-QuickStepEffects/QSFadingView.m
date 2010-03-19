@@ -8,8 +8,9 @@
 
 #import "QSFadingView.h"
 
-@interface NSView (NSDecendantsPrivate)
+@interface NSView (QSAppKitPrivate)
 - (void)_setDrawsOwnDescendants:(BOOL)flag;
+- (void)_recursiveDisplayAllDirtyWithLockFocus:(BOOL)lock visRect:(NSRect)rect;
 @end
 
 @implementation QSFadingView
@@ -31,13 +32,13 @@
 
 - (void)_recursiveDisplayAllDirtyWithLockFocus:(BOOL)lock visRect:(NSRect)rect {
 	if (opacity >= 1.0) {
-		[super _recursiveDisplayAllDirtyWithLockFocus:(BOOL)lock visRect:(NSRect)rect];
+		[super _recursiveDisplayAllDirtyWithLockFocus:lock visRect:rect];
 	} else if(opacity) {
 		CGContextRef context = (CGContextRef) ([[NSGraphicsContext currentContext] graphicsPort]);
 		CGContextSaveGState(context);
 		CGContextSetAlpha(context, opacity);
 		CGContextBeginTransparencyLayer(context, 0);
-		[super _recursiveDisplayAllDirtyWithLockFocus:(BOOL)lock visRect:(NSRect)rect];
+		[super _recursiveDisplayAllDirtyWithLockFocus:lock visRect:rect];
 		CGContextEndTransparencyLayer(context);
 		CGContextRestoreGState(context);
 	}

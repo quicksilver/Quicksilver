@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 #import <QSFoundation/CGSPrivate.h>
 
-@interface NSObject (QSWindowDelegate)
+@protocol QSWindowDelegate
 - (void)firstResponderChanged:(NSResponder *)aResponder;
 - (BOOL)shouldSendEvent:(NSEvent *)theEvent;
 @end
@@ -48,23 +48,25 @@
 - (IBAction)showThreaded:(id)sender;
 
 
-- (NSPoint) hideOffset;
+- (NSPoint)hideOffset;
 - (void)setHideOffset:(NSPoint)newHideOffset;
 
 - (NSPoint) showOffset;
 - (void)setShowOffset:(NSPoint)newShowOffset;
 - (void)reallyOrderFront:(id)sender;
 - (void)fakeResignKey;
-- (bool) liesAboutKey;
+- (bool)liesAboutKey;
 - (void)setLiesAboutKey:(bool)flag;
-- (bool) delegatesEvents;
+- (bool)delegatesEvents;
 - (void)setDelegatesEvents:(bool)flag;
-- (bool) fastShow;
+- (bool)fastShow;
 - (void)setFastShow:(bool)flag;
 
 - (QSMoveHelper *)helper;
 - (void)setHelper:(QSMoveHelper *)aHelper;
 
+- (id <QSWindowDelegate>)delegate;
+- (void)setDelegate:(id <QSWindowDelegate>)delegate;
 - (id)hideEffect;
 - (void)setHideEffect:(id)aHideEffect;
 

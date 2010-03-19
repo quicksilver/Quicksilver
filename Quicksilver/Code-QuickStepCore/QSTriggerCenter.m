@@ -117,6 +117,17 @@
 
 - (void)triggerChanged:(QSTrigger *)trigger {
 	[self writeTriggers];
+
+    // !!!:paulkohut:20100311
+    // Fix for issue 47
+    // Handle case for when a keyboard assignment is added to
+    // a trigger for the first time.  By default when a trigger is
+    // added it does not have a key assignment.  This call ensures
+    // the when a key is assigned the trigger is properly
+    // setup.  Otherwise the user has to toggle the enable/disable
+    // check box to get the trigger to work.
+    [trigger setEnabledDoNotNotify:[trigger enabled]];
+
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSTriggerChangedNotification object:trigger];
 }
 //+ (NSString *)nameForTrigger:(NSDictionary *)trigger {
@@ -147,10 +158,9 @@
 
 - (void)writeTriggersNow {
 	NSMutableArray *cleanedTriggerArray = [NSMutableArray arrayWithCapacity:[triggersDict count]];
-	NSEnumerator *triggerEnum;
-	QSTrigger *thisTrigger;
-	triggerEnum = [[triggersDict allValues] objectEnumerator];
-	while(thisTrigger = [triggerEnum nextObject]) {
+	QSTrigger * thisTrigger;
+	NSEnumerator *triggerEnum = [[triggersDict allValues] objectEnumerator];
+	for(thisTrigger in triggerEnum) {
         NSDictionary * rep = [thisTrigger dictionaryRepresentation];
         if(DEBUG) {
             NSArray *plistTypes = [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInt:NSPropertyListXMLFormat_v1_0],
@@ -158,10 +168,10 @@
 /*                                                          [NSNumber numberWithUnsignedInt:NSPropertyListOpenStepFormat],
  * Because it fails most writing */
                                                             nil];
+			NSNumber * num;
             NSEnumerator * enumer = [plistTypes objectEnumerator];
-            NSNumber *num;
             int failCount = 0;
-            while( num = [enumer nextObject] ) {
+            for(num in enumer ) {
                 int plistType = [num unsignedIntValue];
                 BOOL valid = [NSPropertyListSerialization propertyList:rep isValidForFormat:plistType];
                 if(!valid && DEBUG) {
@@ -216,7 +226,7 @@
 	//@implementation QSTriggerCenter (QSPlugInInfo)
 - (BOOL)handleInfo:(id)info ofType:(NSString *)type fromBundle:(NSBundle *)bundle {
 	id matchEntry = nil;
-	foreach(value, info) {
+	for(NSDictionary * value in info) {
 		NSString *iden = [value objectForKey:kItemID];
 		//NSLog(@"info %@ %@", iden, value);
 		if (matchEntry = [triggersDict objectForKey:iden]) {

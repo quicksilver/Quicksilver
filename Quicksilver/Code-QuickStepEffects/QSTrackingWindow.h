@@ -8,6 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
+@protocol QSTrackingWindowDelegate
+- (void)mouseEntered:(NSEvent *)theEvent;
+- (void)mouseExited:(NSEvent *)theEvent;
+@end
+
 @interface QSTrackingWindow : NSWindow
 #if (MAC_OS_X_VERSION_MAX_ALLOWED >= 1060)
 <NSWindowDelegate>
@@ -16,6 +21,8 @@
 	NSTrackingRectTag trackingRect;
 }
 
-+(QSTrackingWindow *)trackingWindow;
++ (QSTrackingWindow *)trackingWindow;
+- (id <QSTrackingWindowDelegate>)delegate;
+- (void)setDelegate:(id <QSTrackingWindowDelegate>)delegate;
 
 @end

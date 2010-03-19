@@ -68,9 +68,8 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 	NSArray *appURLs = nil;
 	_LSCopyAllApplicationURLs(&appURLs);
 	NSMutableArray *apps = [NSMutableArray arrayWithCapacity:[appURLs count]];
-	int i;
-	for (i = 0; i<[appURLs count]; i++) {
-		[apps addObject:[[appURLs objectAtIndex:i] path]];
+	for (id loopItem in appURLs) {
+		[apps addObject:[loopItem path]];
 	}
 	[appURLs release];
 	return apps;
@@ -83,9 +82,9 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 	return ([self dictForApplicationName:pathOrID] || [self dictForApplicationIdentifier:pathOrID]);
 }
 - (NSDictionary *)dictForApplicationName:(NSString *)path {
+	NSDictionary * theApp;
 	NSEnumerator *appEnumerator = [[self launchedApplications] objectEnumerator];
-	NSDictionary *theApp;
-	while(theApp = [appEnumerator nextObject]) {
+	for(theApp in appEnumerator) {
 		if ([[theApp objectForKey:@"NSApplicationPath"] isEqualToString:path] || [[theApp objectForKey:@"NSApplicationName"] isEqualToString:path])
 			return theApp;
 	}
@@ -93,9 +92,9 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 }
 
 - (NSDictionary *)dictForApplicationIdentifier:(NSString *)ident {
+	NSDictionary * theApp;
 	NSEnumerator *appEnumerator = [[self launchedApplications] objectEnumerator];
-	NSDictionary *theApp;
-	while(theApp = [appEnumerator nextObject]) {
+	for(theApp in appEnumerator) {
 		if ([[theApp objectForKey:@"NSApplicationBundleIdentifier"] isEqualToString:ident])
 			return theApp;
 	}
@@ -333,9 +332,12 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 		}
 		while(1) {
 			int status = GetProcessPID(&psn, &pid);
-			NSLog(@"waiting for %@ to quit %d %d", bundlePath, status, pid);
-			usleep(250000);
-			if (status == 0 || status == -600) break;
+			NSLog(@"waiting for %@ to quit, current status :%d for PID %d", bundlePath, status, pid);
+			// wait for half a second
+			usleep(500000);
+			// Status -600 means process not found. 
+			// Fix to 'relaunch' action bug done by removing if(status == 0).
+			if (status == -600) break;
 		}
 		usleep(500000);
 		[self openFile:bundlePath];

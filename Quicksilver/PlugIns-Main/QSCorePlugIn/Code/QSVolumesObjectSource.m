@@ -37,7 +37,10 @@
 	[super invalidateSelf];
 }
 
-- (NSImage *)iconForEntry:(NSDictionary *)dict {return [[NSWorkspace sharedWorkspace] iconForFile:@"/"];}
+- (NSImage *)iconForEntry:(NSDictionary *)dict
+{
+	return [[NSWorkspace sharedWorkspace] iconForFile:@"/"];
+}
 
 - (NSArray *)objectsForEntry:(NSDictionary *)dict {
 	NSArray *volumes = [QSObject fileObjectsWithPathArray:[[NSWorkspace sharedWorkspace] mountedLocalVolumePaths]];
@@ -50,7 +53,7 @@
 	if ([[proxy identifier] isEqualToString:@"QSNetworkVolumesProxy"]) {
 		NSArray *paths = [[NSWorkspace sharedWorkspace] mountedRemovableMedia];
 		NSMutableArray *netPaths = [NSMutableArray array];
-		foreach(path, paths) {
+		for(NSString * path in paths) {
 			if ([path hasPrefix:@"/Network"]) [netPaths addObject:path];
 		}
 		return [QSObject fileObjectWithArray:paths];

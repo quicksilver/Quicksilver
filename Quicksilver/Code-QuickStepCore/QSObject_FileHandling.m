@@ -35,19 +35,20 @@ static NSDictionary *bundlePresetChildren;
 NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     if (bundleIdentifier == nil)
         return nil;
-    
+
+#warning FIXME - tiennou: Doesn't seem to work on 10.6
 	NSArray *recentDocuments = [(NSArray *)CFPreferencesCopyValue((CFStringRef) @"NSRecentDocumentRecords", (CFStringRef) bundleIdentifier, kCFPreferencesCurrentUser, kCFPreferencesAnyHost) autorelease];
 
 	NSFileManager *manager = [NSFileManager defaultManager];
 	NSMutableArray *documentsArray = [NSMutableArray arrayWithCapacity:[recentDocuments count]];
-	int i;
 	NSData *aliasData;
 	NSString *path;
-	for (i = 0; i<[recentDocuments count]; i++) {
-		aliasData = [[[recentDocuments objectAtIndex:i] objectForKey:@"_NSLocator"] objectForKey:@"_NSAlias"];
+	for (id loopItem in recentDocuments) {
+		aliasData = [[loopItem objectForKey:@"_NSLocator"] objectForKey:@"_NSAlias"];
 		path = [[NDAlias aliasWithData:aliasData] quickPath];
 		// ***warning * eventually include aliases
-		if (path && [manager fileExistsAtPath:path]) [documentsArray addObject:path];
+		if (path && [manager fileExistsAtPath:path])
+                [documentsArray addObject:path];
 	}
 	return documentsArray;
 }
@@ -253,7 +254,6 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		NSMutableSet *set = [NSMutableSet set];
 		NSWorkspace *w = [NSWorkspace sharedWorkspace];
         
-// !!! Andre Berg 20091017: update to foreach
 // 		NSEnumerator *e = [theFiles objectEnumerator];
 // 		NSString *theFile;
 // 		while (theFile = [e nextObject]) {
@@ -262,7 +262,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 // 		}
         
 		//NSString *theFile;
-		foreach(theFile, theFiles) {
+		for(NSString * theFile in theFiles) {
 			NSString *type = [manager typeOfFile:theFile];
 			[set addObject:type?type:@"'msng'"];
 		}
@@ -314,7 +314,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 			NSString *handlerName = [[QSReg tableNamed:@"QSBundleChildHandlers"] objectForKey:bundleIdentifier];
 			if (handlerName) return YES;
-      if (!bundleIdentifier) return NO;
+        if (!bundleIdentifier) return NO;
 			NSArray *recentDocuments = (NSArray *)CFPreferencesCopyValue((CFStringRef) @"NSRecentDocumentRecords", (CFStringRef) bundleIdentifier, kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
 			[recentDocuments autorelease];
 			if (recentDocuments) return YES;
@@ -427,10 +427,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 // 				[visibleFileChildren addObject:file];
 // 		}
         
-        // !!! Andre Berg 20091017: change to foreach macro
-		//NSString *file;
         NSArray * dirContents = [manager contentsOfDirectoryAtPath:path error:nil];
-		foreach(file, dirContents) {
+		for(NSString * file in dirContents) {
 			file = [path stringByAppendingPathComponent:file];
 			[fileChildren addObject:file];
 			if ([manager isVisible:file])
@@ -470,7 +468,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 					NSArray *recentDocuments = recentDocumentsForBundle(bundleIdentifier);
 					newChildren = [QSObject fileObjectsWithPathArray:recentDocuments];
 
-					foreach(child, newChildren) {
+					for(QSObject * child in newChildren) {
 						[child setObject:bundleIdentifier forMeta:@"QSPreferredApplication"];
 					}
 				}
@@ -519,7 +517,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
             //NSLog(@"actions %d", [actions count]);
             NSDictionary *appActions = [[QSReg tableNamed:@"QSApplicationActions"] objectForKey:bundleIdentifier];
             foreachkey(actionID, actionDict, appActions) {
-                [actions addObject:[QSAction actionWithDictionary:[actionDict copy] identifier:actionID]];
+                actionDict = [[actionDict copy] autorelease];
+                [actions addObject:[QSAction actionWithDictionary:actionDict identifier:actionID]];
             }
             //    NSLog(@"actions %d", [actions count]);
 
@@ -601,10 +600,9 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 + (NSArray *)fileObjectsWithPathArray:(NSArray *)pathArray {
 	NSMutableArray *fileObjectArray = [NSMutableArray arrayWithCapacity:1];
-	int i;
 	id object;
-	for (i = 0; i<[pathArray count]; i++) {
-		if (object = [QSObject fileObjectWithPath:[pathArray objectAtIndex:i]])
+	for (id loopItem in pathArray) {
+		if (object = [QSObject fileObjectWithPath:loopItem])
 			[fileObjectArray addObject:object];
 	}
 	return fileObjectArray;
@@ -612,9 +610,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 + (NSMutableArray *)fileObjectsWithURLArray:(NSArray *)pathArray {
 	NSMutableArray *fileObjectArray = [NSMutableArray arrayWithCapacity:1];
-	int i;
-	for (i = 0; i<[pathArray count]; i++) {
-		[fileObjectArray addObject:[QSObject fileObjectWithPath:[[pathArray objectAtIndex:i] path]]];
+	for (id loopItem in pathArray) {
+		[fileObjectArray addObject:[QSObject fileObjectWithPath:[loopItem path]]];
 	}
 	return fileObjectArray;
 }
@@ -717,11 +714,10 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 - (NSString *)filesContainer {
 	NSArray *paths = [self arrayForType:QSFilePathType];
-	int i;
 
 	NSString *commonPath = [[[paths objectAtIndex:0] stringByStandardizingPath] stringByDeletingLastPathComponent];
-	for (i = 0; i<[paths count]; i++) {
-		NSString *thisPath = [[paths objectAtIndex:i] stringByStandardizingPath];
+	for (id loopItem in paths) {
+		NSString *thisPath = [loopItem stringByStandardizingPath];
 		while (commonPath && ![thisPath hasPrefix:commonPath])
 			commonPath = [commonPath stringByDeletingLastPathComponent];
 	}
@@ -738,10 +734,9 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	BOOL filesOnly = YES;
 	NSString *kind = nil;
 	NSArray *paths = [self arrayForType:QSFilePathType];
-	int i;
 
-	for (i = 0; i<[paths count]; i++) {
-		NSString *thisPath = [[paths objectAtIndex:i] stringByStandardizingPath];
+	for (id loopItem in paths) {
+		NSString *thisPath = [loopItem stringByStandardizingPath];
 		NSString *type = [[NSFileManager defaultManager] typeOfFile:thisPath];
 		if ([type isEqualToString:@"'fold'"]) {
 			filesOnly = NO;

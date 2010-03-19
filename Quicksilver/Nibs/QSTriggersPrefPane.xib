@@ -2,16 +2,17 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">10B504</string>
+		<string key="IBDocument.SystemVersion">10C540</string>
 		<string key="IBDocument.InterfaceBuilderVersion">740</string>
-		<string key="IBDocument.AppKitVersion">1038.2</string>
-		<string key="IBDocument.HIToolboxVersion">437.00</string>
+		<string key="IBDocument.AppKitVersion">1038.25</string>
+		<string key="IBDocument.HIToolboxVersion">458.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			<string key="NS.object.0">740</string>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="536"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -553,7 +554,7 @@
 				<string key="NSTreeContentLeafKey">isLeaf</string>
 			</object>
 			<object class="NSCustomView" id="33005212">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">256</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -665,6 +666,7 @@
 													</object>
 													<string key="NSFrame">{{1, 1}, {240, 257}}</string>
 													<reference key="NSSuperview" ref="239285831"/>
+													<reference key="NSNextKeyView" ref="453583857"/>
 													<reference key="NSDocView" ref="453583857"/>
 													<reference key="NSBGColor" ref="357099386"/>
 													<int key="NScvFlags">4</int>
@@ -691,6 +693,7 @@
 											</object>
 											<string key="NSFrame">{{5, 40}, {242, 259}}</string>
 											<reference key="NSSuperview" ref="621064177"/>
+											<reference key="NSNextKeyView" ref="347951400"/>
 											<int key="NSsFlags">530</int>
 											<reference key="NSVScroller" ref="929255676"/>
 											<reference key="NSHScroller" ref="208947634"/>
@@ -948,7 +951,7 @@
 						<reference key="NSSuperview" ref="33005212"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSSegmentedCell" key="NSCell" id="528758226">
-							<int key="NSCellFlags">67239424</int>
+							<int key="NSCellFlags">-2080244224</int>
 							<int key="NSCellFlags2">131072</int>
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="816101703"/>
@@ -964,7 +967,6 @@
 									<double key="NSSegmentItemWidth">87.333335876464844</double>
 									<string key="NSSegmentItemLabel">Commands</string>
 									<int key="NSSegmentItemTag">1</int>
-									<bool key="NSSegmentItemDisabled">YES</bool>
 									<int key="NSSegmentItemImageScaling">2</int>
 								</object>
 								<object class="NSSegmentItem">
@@ -1023,6 +1025,7 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{279, 397}</string>
+				<reference key="NSSuperview"/>
 				<object class="NSMutableString" key="NSClassName">
 					<characters key="NS.bytes">NSView</characters>
 				</object>
@@ -2569,6 +2572,7 @@
 					<string>830.IBPluginDependency</string>
 					<string>831.IBPluginDependency</string>
 					<string>832.IBPluginDependency</string>
+					<string>832.IBSegmentedControlInspectorSelectedSegmentMetadataKey</string>
 					<string>833.IBPluginDependency</string>
 					<string>834.IBPluginDependency</string>
 					<string>835.IBPluginDependency</string>
@@ -2649,7 +2653,7 @@
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
-					<string>{{609, 70}, {279, 397}}</string>
+					<string>{{1097, 271}, {279, 397}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2785,6 +2789,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<integer value="0"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2917,6 +2922,13 @@
 					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Code-External/GMTClasses/GTMCarbonEvent.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Code-External/NDClasses/NDHotKeyEvent.h</string>
 					</object>
 				</object>
@@ -3009,13 +3021,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Code-QuickStepCore/QSURLDownloadWrapper.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="347319741">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Code-QuickStepEffects/QSWindow.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -3121,7 +3126,10 @@
 							<string>id</string>
 						</object>
 					</object>
-					<reference key="sourceIdentifier" ref="347319741"/>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="347319741">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Code-QuickStepEffects/QSWindow.h</string>
+					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSWindow</string>

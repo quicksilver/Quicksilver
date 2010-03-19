@@ -29,7 +29,6 @@
                                        NSStringFromClass([self class]),    kActionClass,
                                        self,    kActionProvider,
                                        path,    kActionScript,
-                                       [NSNumber numberWithBool:YES],      kActionDisplaysResult,
                                        nil];
     
 	if ([handlers containsObject:@"DAEDopnt"]) {
@@ -48,9 +47,10 @@
 }
 
 - (NSArray *)fileActionsFromPaths:(NSArray *)scripts {
-	NSArray *paths = [scripts pathsMatchingExtensions:[NSArray arrayWithObjects:@"scpt", @"app", nil]];
-    NSMutableArray *array = [NSMutableArray array]; 
-	for (NSString * path in paths) {
+	NSEnumerator *e = [[scripts pathsMatchingExtensions:[NSArray arrayWithObjects:@"scpt", @"app", nil]] objectEnumerator];
+	NSString *path;
+	NSMutableArray *array = [NSMutableArray array];
+	for(path in e) {
 		if ([QSUTIOfFile(path) isEqualToString:QSUTIForExtensionOrType(@"scpt", 0)]) {
 			[array addObject:[self scriptActionForPath:path]];
 		}
@@ -140,7 +140,7 @@
 	[script storeInFile:@"scriptPath"];
 	[[QSTaskController sharedInstance] removeTask:@"Run AppleScript"];
 	[script release];
-    return [QSObject objectWithAEDescriptor:returnDesc];
+	return iObject?[QSObject objectWithAEDescriptor:returnDesc]:nil;
 }
 
 - (QSObject *)objectForDescriptor:(NSAppleEventDescriptor *)desc {
@@ -232,6 +232,9 @@
     int argumentCount = 1;
     QSAction *action = [QSAction actionWithIdentifier:actionId];
 	NSString *scriptPath = [action objectForKey:kActionScript];
+
+	if (!scriptPath)
+		return argumentCount;
 
 	if ([scriptPath hasPrefix:@"/"] || [scriptPath hasPrefix:@"~"])
 		scriptPath = [scriptPath stringByStandardizingPath];

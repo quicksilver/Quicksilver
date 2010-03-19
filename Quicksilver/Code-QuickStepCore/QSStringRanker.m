@@ -41,7 +41,7 @@
     }
 }
 
-- (double)scoreForAbbreviation:(NSString*)anAbbreviation {
+- (float)scoreForAbbreviation:(NSString*)anAbbreviation {
 	return QSScoreForAbbreviation((CFStringRef) normString, (CFStringRef)anAbbreviation, nil);
 }
 

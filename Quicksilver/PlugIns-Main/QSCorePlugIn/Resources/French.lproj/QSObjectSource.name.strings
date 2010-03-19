@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>QSABMailRecentsObjectSource</key>
-	<string>Envoyer les Bénéficiaires Précédents</string>
+	<string>Destinataires Mail précédents</string>
 	<key>QSAddressBookObjectSource</key>
-	<string>Carnet d'addresses</string>
+	<string>Carnet d'adresses</string>
 	<key>QSAllApplicationsObjectSource</key>
-	<string>Toutes applications</string>
+	<string>Toutes les applications</string>
 	<key>QSCatalogEntrySource</key>
 	<string>Catalogue des entrées</string>
 	<key>QSDefaultsObjectSource</key>
@@ -15,20 +15,20 @@
 	<key>QSFileSystemObjectSource</key>
 	<string>Scruteur de répertoire et de fichier</string>
 	<key>QSGroupObjectSource</key>
-	<string>Groupe</string>
+	<string>Groupes</string>
 	<key>QSMachineSource</key>
-	<string>Source de Quicksilver</string>
+	<string>Appareils</string>
 	<key>QSNUDCSource</key>
 	<string>Connection et mise à jour de suite</string>
 	<key>QSNetworkLocationObjectSource</key>
-	<string>Emplacements réseau</string>
+	<string>Configurations réseau</string>
 	<key>QSProcessObjectSource</key>
 	<string>Processus en cours</string>
 	<key>QSVolumesObjectSource</key>
 	<string>Volumes montés</string>
 	<key>QSiPhotoObjectSource</key>
-	<string>Librairie d'iPhoto</string>
+	<string>Bibliothèque d'iPhoto</string>
 	<key>QSiTunesObjectSource</key>
-	<string>Librairie musicale d'iTunes</string>
+	<string>Bibliothèque d'iTunes</string>
 </dict>
 </plist>

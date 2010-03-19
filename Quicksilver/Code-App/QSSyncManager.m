@@ -44,7 +44,7 @@ mSHARED_INSTANCE_CLASS_METHOD
 	[session clientWantsToPushAllRecordsForEntityNames:entityNames];
 
 	if ([session shouldPushAllRecordsForEntityName:@"com.blacktree.QuicksilverSync.trigger"]) {
-		foreach(trigger, [[QSTriggerCenter sharedInstance] triggers]) {
+		for(id trigger in [[QSTriggerCenter sharedInstance] triggers]) {
 			NSDictionary *record = [NSDictionary dictionaryWithObjectsAndKeys:
 				@"com.blacktree.QuicksilverSync.trigger", ISyncRecordEntityNameKey,
 				[(QSTrigger *)trigger info] , @"content", nil];
@@ -53,9 +53,8 @@ mSHARED_INSTANCE_CLASS_METHOD
 		}
 	}
 	NSString *entityName;
-	NSEnumerator *entityEnumerator = [entityNames objectEnumerator];
 	NSMutableArray *filteredEntityNames = [NSMutableArray array];
-	while (entityName = [entityEnumerator nextObject]) {
+	for (entityName in entityNames) {
 		if ([session shouldPullChangesForEntityName:entityName])
 			[filteredEntityNames addObject:entityName];
 		if ([session shouldReplaceAllRecordsOnClientForEntityName:entityName]) {
@@ -70,7 +69,7 @@ mSHARED_INSTANCE_CLASS_METHOD
 		NSLog(@"prepared");
 		NSEnumerator *enumerator = [session changeEnumeratorForEntityNames:filteredEntityNames];
 		ISyncChange *change;
-		while(change = [enumerator nextObject]) {
+		for(change in enumerator) {
 			NSString *recordID = [change recordIdentifier];
 			NSDictionary *record = [change record] ;
 			NSString *identifier = [record objectForKey:kItemID];

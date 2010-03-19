@@ -18,9 +18,8 @@
 	}
 }
 - (void)insertObjectsFromArray:(NSArray *)array atIndex:(unsigned)index {
-	NSEnumerator *e = [array objectEnumerator];
 	id object;
-	while(object = [e nextObject])
+	for(object in array)
 		[self insertObject:object atIndex:index];
 }
 
@@ -70,8 +69,7 @@
 
 - (id)objectWithValue:(id)value forKey:(NSString *)key {
 	NSEnumerator *e = [self objectEnumerator];
-	id object;
-	while(object = [e nextObject]) {
+	for(id object in e) {
 		if ([[object valueForKey:key] isEqual:value])
 			return object;
 	}
