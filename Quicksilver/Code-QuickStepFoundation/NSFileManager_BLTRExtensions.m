@@ -159,12 +159,21 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 			return @"'APPL'";
 	}
 
+	NSString *extension = [path pathExtension];
+	// if no extension or is a directory
+        // 29/12/2009 Patrick Robertson
+        // Fix bug #34
+	if (![extension length] || isDirectory)
+	{
+		extension = nil;
+	}
+	// Defines a directory
 	if (![hfsType length] && isDirectory)
 		hfsType = @"'fold'";
-
-	NSString *extension = [path pathExtension];
-	if (![extension length]) extension = nil;
-
+	
+	// NSLog(@"Checking if directory... path is: %@", path);
+	
+	// Defines if is a file with 'extension'
 	if (extension)
 		return extension;
 	else if (hfsType)
@@ -174,10 +183,10 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 }
 
 - (NSString *)fullyResolvedPathForPath:(NSString *)sourcePath {
-	NSEnumerator *enumer = [[[[sourcePath stringByStandardizingPath] stringByResolvingSymlinksInPath] pathComponents] objectEnumerator];
 	NSString *thisComponent;
 	NSString *path = @"";
-	while(thisComponent = [enumer nextObject]) {
+	NSEnumerator *enumer = [[[[sourcePath stringByStandardizingPath] stringByResolvingSymlinksInPath] pathComponents] objectEnumerator];
+	for(thisComponent in enumer) {
 		path = [path stringByAppendingPathComponent:thisComponent];
 		if (![self fileExistsAtPath:path])
 			continue;
@@ -242,7 +251,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 	LSItemInfoRecord infoRec;
 //	OSStatus status;
 	NSEnumerator *enumerator = [[manager contentsOfDirectoryAtPath:path error:nil] objectEnumerator];
-	while (file = [enumerator nextObject]) {
+	for (file in enumerator) {
 		file = [path stringByAppendingPathComponent:file];
 		type = [self typeOfFile:file];
 
@@ -322,7 +331,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 	}
 	if (isDirectory) {
 		NSEnumerator *enumerator = [[self contentsOfDirectoryAtPath:path error:nil] objectEnumerator];
-		while (file = [enumerator nextObject]) {
+		for (file in enumerator) {
 			file = [path stringByAppendingPathComponent:file];
 			if (![self fileExistsAtPath:file isDirectory:&isDirectory]) continue;
 
@@ -354,7 +363,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 		moddate = [NSDate distantPast];
 	if (isDirectory) {
 		NSEnumerator *enumerator = [[self contentsOfDirectoryAtPath:path error:nil] objectEnumerator];
-		while (file = [enumerator nextObject]) {
+		for (file in enumerator) {
 			file = [path stringByAppendingPathComponent:file];
 			if (![self fileExistsAtPath:file isDirectory:&isDirectory]) continue;
 
@@ -403,9 +412,8 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 }
 
 - (BOOL)filesExistAtPaths:(NSArray *)paths {
-	NSEnumerator *files = [paths objectEnumerator];
 	NSString *thisFile;
-	while(thisFile = [files nextObject])
+	for(thisFile in paths)
 		if (![self fileExistsAtPath:thisFile]) return NO;
 	return YES;
 }
@@ -416,9 +424,8 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 	NSFileManager *manager = [NSFileManager defaultManager];
 	NSString *file;
 	NSString *destinationPath;
-	NSEnumerator *enumerator = [files objectEnumerator];
 
-	while(file = [enumerator nextObject]) {
+	for(file in files) {
 		destinationPath = [destination stringByAppendingPathComponent:[file lastPathComponent]];
 		if ([manager fileExistsAtPath:destinationPath])
 			[conflicts setObject:destinationPath forKey:file];

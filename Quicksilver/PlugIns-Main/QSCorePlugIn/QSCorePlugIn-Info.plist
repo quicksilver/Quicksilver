@@ -1613,6 +1613,30 @@
 						</dict>
 						<dict>
 							<key>icon</key>
+							<string>GenericApplicationIcon</string>
+							<key>ID</key>
+							<string>QSPresetRecentApplications106</string>
+							<key>settings</key>
+							<dict>
+								<key>bundle</key>
+								<string>com.apple.recentitems</string>
+								<key>keypath</key>
+								<array>
+									<string>RecentApplications</string>
+									<string>CustomListItems</string>
+									<string>*</string>
+									<string>Bookmark</string>
+								</array>
+								<key>type</key>
+								<integer>3</integer>
+								<key>watchTarget</key>
+								<true/>
+							</dict>
+							<key>source</key>
+							<string>QSDefaultsObjectSource</string>
+						</dict>
+						<dict>
+							<key>icon</key>
 							<string>GenericDocumentIcon</string>
 							<key>ID</key>
 							<string>QSPresetRecentDocuments</string>
@@ -1626,6 +1650,30 @@
 									<string>CustomListItems</string>
 									<string>*</string>
 									<string>Alias</string>
+								</array>
+								<key>type</key>
+								<integer>3</integer>
+							</dict>
+							<key>source</key>
+							<string>QSDefaultsObjectSource</string>
+							<key>watchTarget</key>
+							<true/>
+						</dict>
+						<dict>
+							<key>icon</key>
+							<string>GenericDocumentIcon</string>
+							<key>ID</key>
+							<string>QSPresetRecentDocuments106</string>
+							<key>settings</key>
+							<dict>
+								<key>bundle</key>
+								<string>com.apple.recentitems</string>
+								<key>keypath</key>
+								<array>
+									<string>RecentDocuments</string>
+									<string>CustomListItems</string>
+									<string>*</string>
+									<string>Bookmark</string>
 								</array>
 								<key>type</key>
 								<integer>3</integer>

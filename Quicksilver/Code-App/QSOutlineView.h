@@ -2,8 +2,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSObject (OutlineViewSeparator)
-- (BOOL)outlineView:(NSTableView *)aTableView itemIsSeparator:(id)item;
+@interface NSObject (QSOutlineViewDelegate)
+- (BOOL)outlineView:(NSOutlineView *)aTableView itemIsSeparator:(id)item;
 @end
 
 @interface QSOutlineView : NSOutlineView {

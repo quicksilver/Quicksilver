@@ -1,22 +1,66 @@
-<h1>Release Notes: Quicksilver Build 3814</h1>
-<h1>Changes</h1>
+<h1>Release Notes: Quicksilver Build 3841</h1>
+<h1>Changes - B58(3841)</h1>
 
-<p>'andreberg' GitHub version:</p>
+<p>Etienne Samson</p>
 
 <ul>
-<li><p>Default compiler is now Clang, Apple's and the Open Source community's next gen compiler.</p></li>
-<li><p>Actions should now appear localized again where appropriate.</p></li>
-<li><p>Composed characters like German umlauts (e.g. 'Š') will now show both parts (the letter 'a' and the 'dots'. Previously only letters would show up).</p></li>
-<li><p>The broken action menu now shows up with a cross-selection of all enabled actions from the Actions preferences. </p></li>
-<li><p>The Smart Replace and Replace dialog actions no longer crash Quicksilver and now actually will append numbers via a smart numbering system if a file to be copied or moved already exists at the destination. (Note: needs feature level equal to or higher than 3, e.g.: defaults write com.blacktree.Quicksilver "Feature Level" 3)</p></li>
-<li><p>File operation requiring credentials no longer crash QS after providing the password. </p></li>
-<li><p>The Large Type action now keeps the text visible again for prolonged periods.</p></li>
-<li><p>Icons associated with custom file actions (e.g. like custom AppleScript actions) are now correctly displayed instead of a generic file placeholder icon.</p></li>
-<li><p>AppleScript actions which return something now cause Quicksilver to reappear again ready to use the result for the next action.</p></li>
-<li><p>Mouse tracking for triggers ('Mouse entered' / 'Mouse exited')  now seems to work more reliably. </p></li>
-<li><p>The Extras preferences pane no longer has this weird row spacing issue upon first loading of the associated NIB file.</p></li>
-<li><p>Excessive log outputs have been silenced to only occur if certain debugging environment variables are set in order to avoid spamming the Console.</p></li>
-<li><p>Dozens of API upgrades like replacing deprecated methods with safer variants or adding decleration names for the new way of handling informal protocols.</p></li>
-<li><p>All NIB files were converted to a SCM and collaboration friendly XIB format. A lot of clipping warnings have been fixed.</p></li>
-<li><p>Various other housekeeping tasks.</p></li>
+<li><p>Disable Info.plist preprocessing on Plugins. </p></li>
+<li><p>Make shell scripts with "additional shebang" info work. </p></li>
+<li><p>README: Make real links.</p></li>
 </ul>
+
+<p>Henery Barnor</p>
+
+<ul>
+<li>Removed dangling NSLog calls </li>
+</ul>
+
+<p>Michael Guntsche</p>
+
+<ul>
+<li><p>Add Core Plugins to Release Build</p></li>
+<li><p>Fix to error messages</p></li>
+</ul>
+
+<p>neurolepsy </p>
+
+<ul>
+<li><p>Fix droplets by using the 10.5+ NSConnection vending method</p></li>
+<li><p>The G in BROWSING no longer gets cut off in the result window</p></li>
+<li><p>Menus improved</p></li>
+<li><p>Object context menus improved</p></li>
+<li><p>Don't show object descriptions in the result window if there's not enough room (rows &lt;34px high)</p></li>
+<li><p>Recent Items made Snow Leopard compatible</p></li>
+<li><p>Text fields only allow plain text </p></li>
+<li><p>Fix bug creating an indexSet from the UI Access plugin</p></li>
+<li><p>Fix 10.5 compilation issue </p></li>
+</ul>
+
+<p>Patrick Robertson</p>
+
+<ul>
+<li><p>Fixed bug #35 - Do Not Open At Login Action now working</p></li>
+<li><p>Fix bug #34</p></li>
+<li><p>Tidying up (forgot to re-add 'else')</p></li>
+<li><p>Remove dangling NSLogs ;)</p></li>
+<li><p>Fixed relaunch action for fussy apps that did not quit straight away </p></li>
+<li><p>Removed a stray brace </p></li>
+<li><p>Commented out the loc - locator, path (for bundles) NSLog</p></li>
+<li><p>Commented out another NSLog message  </p></li>
+</ul>
+
+<p>Paul Kohut</p>
+
+<ul>
+<li><p>Initial loop optimizations</p></li>
+<li><p>Update score ranking code</p></li>
+<li><p>NSEnumerator - loop optimization</p></li>
+<li><p>Merge branch 'NSEnumerators' into B5x</p></li>
+<li><p>Issue #39 (bug 262) Fix: Incorrect display of Websearch</p></li>
+<li><p>Turn on a couple release optimizations </p></li>
+<li><p>Fix issues 26, 47, 57 and 61 </p></li>
+<li><p>Fix lingering issue PjRobertson found </p></li>
+<li><p>Fixed single/double tap Modifier Key Activation</p></li>
+</ul>
+
+<p>And thanks to any other I may have inadvertently missed.</p>

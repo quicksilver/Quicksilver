@@ -455,8 +455,11 @@ struct HotKeyMappingEntry
 
 - (void)dealloc
 {
-	if( UnregisterEventHotKey( reference ) != noErr )	// in lock from release
-		NSLog( @"Failed to unregister hot key %@", self );
+    if(reference) {
+        OSStatus err = UnregisterEventHotKey( reference );
+        if( err != noErr )	// in lock from release
+            NSLog( @"Failed to unregister hot key %@ with error %d", self, err );
+    }
 	[super dealloc];
 }
 
@@ -918,6 +921,8 @@ static OSStatus switchHotKey( NDHotKeyEvent * self, BOOL aFlag )
 @end
 
 static NSString * stringForCharacter( const unsigned short aKeyCode, unichar aCharacter );
+static unichar unicodeForFunctionKey( UInt32 aKeyCode );
+
 NSString * stringForModifiers( unsigned int aModifierFlags );	
 
 /*
@@ -928,10 +933,79 @@ NSString * stringForKeyCodeAndModifierFlags( unsigned short aKeyCode, unichar aC
 	return [stringForModifiers(aModifierFlags) stringByAppendingString:stringForCharacter( aKeyCode, aChar )];
 }
 
+UInt32 normalizeKeyCode(UInt32 theChar, unsigned short aKeyCode) {
+	switch( theChar )
+	{
+		case kHomeCharCode: theChar = NSHomeFunctionKey; break;
+			//			case kEnterCharCode: theChar = ; break;
+		case kEndCharCode: theChar = NSEndFunctionKey; break;
+		case kHelpCharCode: theChar = NSHelpFunctionKey; break;
+			//			case kBellCharCode: theChar = ; break;
+			//			case kBackspaceCharCode: theChar = ; break;
+			//			case kTabCharCode: theChar = ; break;
+			//			case kLineFeedCharCode: theChar = ; break;
+		case kPageUpCharCode: theChar = NSPageUpFunctionKey; break;
+		case kPageDownCharCode: theChar = NSPageDownFunctionKey; break;
+			//			case kReturnCharCode: theChar = ; break;
+		case kFunctionKeyCharCode: theChar = unicodeForFunctionKey( aKeyCode ); break;
+			//			case kCommandCharCode: theChar = ; break;
+			//			case kCheckCharCode: theChar = ; break;
+			//			case kDiamondCharCode : theChar = ; break;
+			//			case kAppleLogoCharCode: theChar = ; break;
+			//			case kEscapeCharCode: theChar = ; break;
+		case kClearCharCode:
+			theChar = (aKeyCode==0x47) ? NSInsertFunctionKey : theChar;
+			break;
+		case kLeftArrowCharCode: theChar = NSLeftArrowFunctionKey; break;
+		case kRightArrowCharCode: theChar = NSRightArrowFunctionKey; break;
+		case kUpArrowCharCode: theChar = NSUpArrowFunctionKey; break;
+		case kDownArrowCharCode: theChar = NSDownArrowFunctionKey; break;
+			//			case kSpaceCharCode: theChar = ; break;
+		case kDeleteCharCode: theChar = NSDeleteCharFunctionKey; break;
+			//			case kBulletCharCode: theChar = ; break;
+			//			case kNonBreakingSpaceCharCode: theChar = ; break;
+	}
+	return theChar;	
+}
+
 /*
  * unicharForKeyCode()
  */
-	static unichar unicodeForFunctionKey( UInt32 aKeyCode );	
+#if MAX_OS_X_VERSION_MAX_ALLOWED >= MAX_OS_X_VERSION_10_5
+// For OS X >= 10.5, 32 and 64 bit supported
+// Used UpdateKeymap at http://www.libsdl.org/cgi/viewvc.cgi/trunk/SDL/src/video/cocoa/SDL_cocoakeyboard.m?view=markup
+// as source to figure this out.
+ unichar unicharForKeyCode( unsigned short aKeyCode )
+ {
+	const void				* theKeyboardLayoutData;
+	TISInputSourceRef 		theCurrentKeyBoardLayout;
+	UInt32					theChar = kNullCharCode;
+	
+	theCurrentKeyBoardLayout = TISCopyCurrentKeyboardLayoutInputSource();
+	CFDataRef uchrDataRef = TISGetInputSourceProperty(theCurrentKeyBoardLayout,
+													  kTISPropertyUnicodeKeyLayoutData);
+	
+	if(uchrDataRef) {
+		if(theKeyboardLayoutData = CFDataGetBytePtr(uchrDataRef)) {
+			UInt32 keyboardType = LMGetKbdType();
+			UInt32 deadKeyState = 0;
+			UniChar s[8];
+			UInt32 len;
+			
+			OSStatus err = UCKeyTranslate((UCKeyboardLayout *) theKeyboardLayoutData,
+										  aKeyCode, kUCKeyActionDown, 0,
+										  keyboardType, kUCKeyTranslateNoDeadKeysMask,
+										  &deadKeyState, 8, &len, s);
+			
+			if(err == noErr && len > 0)
+				theChar = normalizeKeyCode(s[0], aKeyCode);
+		}		
+	}
+	return theChar;
+}
+#else
+// for OS X <= 10.4.  Routine uses functions that are depreciated
+// in 10.5 and are not supported in 64bit OS.
 unichar unicharForKeyCode( unsigned short aKeyCode )
 {
 	static UInt32			theState = 0;
@@ -942,73 +1016,48 @@ unichar unicharForKeyCode( unsigned short aKeyCode )
 	if( KLGetCurrentKeyboardLayout( &theCurrentKeyBoardLayout ) == noErr && KLGetKeyboardLayoutProperty( theCurrentKeyBoardLayout, kKLKCHRData, &theKeyboardLayoutData) == noErr )
 	{
 		theChar = KeyTranslate ( theKeyboardLayoutData, aKeyCode, &theState );
-
-		switch( theChar )
-		{
-			case kHomeCharCode: theChar = NSHomeFunctionKey; break;
-//			case kEnterCharCode: theChar = ; break;
-			case kEndCharCode: theChar = NSEndFunctionKey; break;
-			case kHelpCharCode: theChar = NSHelpFunctionKey; break;
-//			case kBellCharCode: theChar = ; break;
-//			case kBackspaceCharCode: theChar = ; break;
-//			case kTabCharCode: theChar = ; break;
-//			case kLineFeedCharCode: theChar = ; break;
-			case kPageUpCharCode: theChar = NSPageUpFunctionKey; break;
-			case kPageDownCharCode: theChar = NSPageDownFunctionKey; break;
-//			case kReturnCharCode: theChar = ; break;
-			case kFunctionKeyCharCode: theChar = unicodeForFunctionKey( aKeyCode ); break;
-//			case kCommandCharCode: theChar = ; break;
-//			case kCheckCharCode: theChar = ; break;
-//			case kDiamondCharCode : theChar = ; break;
-//			case kAppleLogoCharCode: theChar = ; break;
-//			case kEscapeCharCode: theChar = ; break;
-			case kClearCharCode:
-				theChar = (aKeyCode==0x47) ? NSInsertFunctionKey : theChar;
-				break;
-			case kLeftArrowCharCode: theChar = NSLeftArrowFunctionKey; break;
-			case kRightArrowCharCode: theChar = NSRightArrowFunctionKey; break;
-			case kUpArrowCharCode: theChar = NSUpArrowFunctionKey; break;
-			case kDownArrowCharCode: theChar = NSDownArrowFunctionKey; break;
-//			case kSpaceCharCode: theChar = ; break;
-			case kDeleteCharCode: theChar = NSDeleteCharFunctionKey; break;
-//			case kBulletCharCode: theChar = ; break;
-//			case kNonBreakingSpaceCharCode: theChar = ; break;
-		}
+        theChar = normalizeKeyCode(theChar, aKeyCode);
 	}
 	
 	return theChar;
 }
-	static unichar unicodeForFunctionKey( UInt32 aKeyCode )
-	{
-		switch( aKeyCode )
-		{
-			case kVK_F1: return NSF1FunctionKey;
-			case kVK_F2: return NSF2FunctionKey;
-			case kVK_F3: return NSF3FunctionKey;
-			case kVK_F4: return NSF4FunctionKey;
-			case kVK_F5: return NSF5FunctionKey;
-			case kVK_F6: return NSF6FunctionKey;
-			case kVK_F7: return NSF7FunctionKey;
-			case kVK_F8: return NSF8FunctionKey;
-			case kVK_F9: return NSF9FunctionKey;
-			case kVK_F10: return NSF10FunctionKey;
-			case kVK_F11: return NSF11FunctionKey;
-			case kVK_F12: return NSF12FunctionKey;
-            case kVK_F13: return NSF13FunctionKey;
-            case kVK_F14: return NSF14FunctionKey;
-            case kVK_F15: return NSF15FunctionKey;
-            case kVK_F16: return NSF16FunctionKey;
-            case kVK_F17: return NSF17FunctionKey;
-            case kVK_F18: return NSF18FunctionKey;
-            case kVK_F19: return NSF19FunctionKey;
-            case kVK_F20: return NSF20FunctionKey;
-			default: return 0x00;
-		}
-	}
+#endif
+
+static unichar unicodeForFunctionKey( UInt32 aKeyCode )
+{
+    switch( aKeyCode )
+    {
+        case kVK_F1: return NSF1FunctionKey;
+        case kVK_F2: return NSF2FunctionKey;
+        case kVK_F3: return NSF3FunctionKey;
+        case kVK_F4: return NSF4FunctionKey;
+        case kVK_F5: return NSF5FunctionKey;
+        case kVK_F6: return NSF6FunctionKey;
+        case kVK_F7: return NSF7FunctionKey;
+        case kVK_F8: return NSF8FunctionKey;
+        case kVK_F9: return NSF9FunctionKey;
+        case kVK_F10: return NSF10FunctionKey;
+        case kVK_F11: return NSF11FunctionKey;
+        case kVK_F12: return NSF12FunctionKey;
+        case kVK_F13: return NSF13FunctionKey;
+        case kVK_F14: return NSF14FunctionKey;
+        case kVK_F15: return NSF15FunctionKey;
+        case kVK_F16: return NSF16FunctionKey;
+        case kVK_F17: return NSF17FunctionKey;
+        case kVK_F18: return NSF18FunctionKey;
+        case kVK_F19: return NSF19FunctionKey;
+        case kVK_F20: return NSF20FunctionKey;
+        default: return 0x00;
+    }
+}
 
 NSString * stringForCharacter( const unsigned short aKeyCode, unichar aCharacter )
 {
 	NSString		* theString = nil;
+    /* tiennou: This is a modification to handle keys with no visible character (F-keys) */
+    if (!aCharacter)
+        aCharacter = unicharForKeyCode(aKeyCode);
+    
 	switch( aCharacter )
 	{
 		case NSUpArrowFunctionKey:
@@ -1140,7 +1189,7 @@ NSString * stringForCharacter( const unsigned short aKeyCode, unichar aCharacter
 
 			if( aCharacter >= 'a' && aCharacter <= 'z' )		// convert to uppercase
 				aCharacter = aCharacter + 'A' - 'a';
-
+            
 			theString = [NSString stringWithCharacters:&aCharacter length:1];
 			break;
 	}

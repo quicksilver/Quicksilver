@@ -68,7 +68,7 @@
 			NSEnumerator *enumerator = [[menu itemArray] objectEnumerator];
 			NSMenuItem* item;
 
-			while (item = [enumerator nextObject])
+			for (item in enumerator)
 				[item setTitle:[self localizedString:[item title]]];
 		} else {
 			[view setTitle:[self localizedString:[view title]]];
@@ -133,10 +133,9 @@
 	// if has subviews, localize them too
 	if ([[view subviews] count]) {
 		NSArray *subviews = [view subviews];
-		int x, xcnt = [subviews count];
 
-		for (x = 0; x<xcnt; x++) {
-			[self localizeView:[subviews objectAtIndex:x]];
+		for (id loopItem in subviews) {
+			[self localizeView:loopItem];
 		}
 	}
 }

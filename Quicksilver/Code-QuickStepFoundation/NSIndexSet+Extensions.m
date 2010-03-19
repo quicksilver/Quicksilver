@@ -11,8 +11,7 @@
 @implementation NSIndexSet (ArrayInit)
 + (NSIndexSet *)indexSetFromArray:(NSArray *)indexes {
 	NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
-	//NSNumber *idx;
-	foreach(idx, indexes)
+	for(NSNumber * idx in indexes)
 		[indexSet addIndex:[idx intValue]];
 	return indexSet;
 }

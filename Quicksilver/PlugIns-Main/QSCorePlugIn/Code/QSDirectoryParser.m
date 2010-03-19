@@ -40,7 +40,12 @@
 
 	NSMutableArray *types = [NSMutableArray array];
 
-	foreach(type, [settings objectForKey:kItemFolderTypes]) {
+	// ???: Is this really a loop
+	// Does [settings objectForKey:kItemFolderTypes] return a collection or
+	// just a single item?  If just a single item then refactor the 'for' statement
+	// to an 'if' statement.
+#warning - Is this really a loop??? pkohut:20090412
+	for(NSString * type in [settings objectForKey:kItemFolderTypes]) {
 		if ([type hasPrefix:@"'"] && [type length] == 6) {
 			NSString *ident = (NSString*)UTTypeCreatePreferredIdentifierForTag(kUTTagClassOSType, (CFStringRef)[type substringWithRange:NSMakeRange(1, 4)], NULL);
 			[types addObject:ident];
@@ -99,7 +104,7 @@ int eCount = 0;
 			if (![types count]) {
 				include = YES;
 			} else {
-				foreach(requiredType, types) {
+				for(NSString * requiredType in types) {
 					if (UTTypeConformsTo((CFStringRef)type, (CFStringRef)requiredType)) {
 						include = YES;
 						break;

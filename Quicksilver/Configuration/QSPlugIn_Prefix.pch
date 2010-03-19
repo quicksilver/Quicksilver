@@ -9,5 +9,6 @@
 #import <QSEffects/QSEffects.h>
 #import <QSCore/QSCore.h>
 #import <QSInterface/QSInterface.h>
+#import <QSInterface/QSPreferencePane.h>
 
 #endif 

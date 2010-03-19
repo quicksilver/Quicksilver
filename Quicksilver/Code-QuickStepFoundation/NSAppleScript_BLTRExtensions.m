@@ -204,9 +204,7 @@
         [resource closeFile];
 	}
 	NSMutableArray *validHandlers = [NSMutableArray array];
-	int i;
-	for (i = 0; i<[array count]; i++) {
-		NSString *handler = [array objectAtIndex:i];
+	for (NSString *handler in array) {
 		if ([scriptData offsetOfData:[handler dataUsingEncoding:NSASCIIStringEncoding]] != NSNotFound)
 			[validHandlers addObject:handler];
 	}

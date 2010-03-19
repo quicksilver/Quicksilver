@@ -69,11 +69,11 @@
 	NSDictionary *messages = [QSReg tableNamed:@"QSProxies"];
 	NSMutableArray *array = [NSMutableArray arrayWithCapacity:[messages count]];
 	NSEnumerator *ke = [messages keyEnumerator];
-	NSString *key;
 	QSObject *proxyObject;
 	NSDictionary *info;
+	NSString *key;
 	NSString *name;
-	while (key = [ke nextObject]) {
+	for (key in ke) {
 		info = [messages objectForKey:key];
         proxyObject = [QSProxyObject proxyWithDictionary:info];
         [proxyObject setIdentifier:key];

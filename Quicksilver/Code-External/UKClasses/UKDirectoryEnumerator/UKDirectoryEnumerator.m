@@ -415,7 +415,8 @@ void			UKFSCatInfoFromDictionary( NSDictionary* attrs, FSCatalogInfo* currInfo, 
 		[enny setDesiredInfo: kFSCatInfoFinderInfo];
 
 		// Loop through the directory:
-		while( (fname = [enny nextObject]) ) {
+//		while( (fname = [enny nextObject]) ) {
+		for( fname in enny ) {
 			if ( [fname characterAtIndex: 0] == '.' ) 	// Unix-style invisibility?
 				continue;
 

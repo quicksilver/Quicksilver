@@ -108,7 +108,7 @@
 	NSMutableDictionary *interfaces = [QSReg tableNamed:kQSCommandInterfaceControllers];
 	NSEnumerator *keyEnum = [interfaces keyEnumerator];
 	NSString *key, *title;
-	while(key = [keyEnum nextObject]) {
+	for(key in keyEnum) {
 		title = [[QSReg bundleForClassName:[interfaces objectForKey:key]] safeLocalizedStringForKey:key value:key table:nil];
 		item = (NSMenuItem *)[[interfacePopUp menu] addItemWithTitle:title action:nil keyEquivalent:@""];
 		[item setRepresentedObject:key];
@@ -142,7 +142,7 @@
 #if 0
 	NSArray *colorDefaults = [NSArray arrayWithObjects:kQSAppearance1B, kQSAppearance1A, kQSAppearance1T, kQSAppearance2B, kQSAppearance2A, kQSAppearance2T, kQSAppearance3B, kQSAppearance3A, kQSAppearance3T, nil];
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	foreach(key, colorDefaults) {
+	for(NSString * key in colorDefaults) {
 		[defaults willChangeValueForKey:key];
 		[defaults removeObjectForKey:key];
 		[defaults didChangeValueForKey:key];

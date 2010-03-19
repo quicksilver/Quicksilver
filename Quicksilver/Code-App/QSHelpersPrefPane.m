@@ -59,7 +59,7 @@
 	NSEnumerator *keyEnum = [mediators keyEnumerator];
 	NSString *path, *key, *title;
 	NSMenuItem *item = nil;
-	while(key = [keyEnum nextObject]) {
+	for(key in keyEnum) {
 		path = [workspace absolutePathForAppBundleWithIdentifier:key];
 		NSString *class = [mediators objectForKey:key];
 		NSBundle *bundle = [QSReg bundleForClassName:class];

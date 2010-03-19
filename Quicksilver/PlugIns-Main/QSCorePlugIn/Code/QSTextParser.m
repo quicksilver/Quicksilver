@@ -75,9 +75,8 @@
 }
 - (NSArray *)linesFromString:(NSString *)string {
 	NSMutableArray *array = [NSMutableArray arrayWithCapacity:1];
-	QSObject *newObject;
-	foreach(line, [string componentsSeparatedByString:@"\n"]) {
-		newObject = [QSObject objectWithString:line];
+	for(NSString * line in [string componentsSeparatedByString:@"\n"]) {
+		QSObject * newObject = [QSObject objectWithString:line];
 		[newObject setDetails:nil];
 		if (newObject)
 			[array addObject: newObject];

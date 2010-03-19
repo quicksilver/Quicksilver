@@ -58,10 +58,9 @@ static BOOL firstCheck = NO;
 
 	QSObject *newObject;
 	QSCatalogEntry *thisEntry;
-	NSEnumerator *objectEnumerator = [catalogObjects objectEnumerator];
 	NSString *name;
 	NSString *theID;
-	while(thisEntry = [objectEnumerator nextObject]) {
+	for(thisEntry in catalogObjects) {
 		name = [thisEntry name];
 		theID = [thisEntry identifier];
 		if (!theID || [theID isEqualToString:@"QSSeparator"])

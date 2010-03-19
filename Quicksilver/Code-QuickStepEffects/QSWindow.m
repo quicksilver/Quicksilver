@@ -161,17 +161,17 @@
 
 - (BOOL)makeFirstResponder:(NSResponder *)aResponder {
 	BOOL responderChanged = [super makeFirstResponder:aResponder];
-	if (responderChanged && [[self delegate] respondsToSelector:@selector(firstResponderChanged:)])
+	if (responderChanged && [(NSObject *)[self delegate] respondsToSelector:@selector(firstResponderChanged:)])
 		[[self delegate] firstResponderChanged:aResponder];
 	return responderChanged;
 }
 
 - (void)sendEvent:(NSEvent *)theEvent {
 //	[self retain];
-	if (delegatesEvents && [[self delegate] respondsToSelector:@selector(shouldSendEvent:)] && ![[self delegate] shouldSendEvent:theEvent])
+	if (delegatesEvents && [(NSObject *)[self delegate] respondsToSelector:@selector(shouldSendEvent:)] && ![[self delegate] shouldSendEvent:theEvent])
 		return;
 	if (eventDelegates) {
-		foreach(eDelegate, eventDelegates) {
+		for(id eDelegate in eventDelegates) {
 			if ([eDelegate respondsToSelector:@selector(shouldSendEvent:)] && ![eDelegate shouldSendEvent:theEvent])
 				return;
 		}
@@ -504,6 +504,18 @@
 		[eventDelegates release];
 		eventDelegates = nil;
 	}
+}
+
+- (id <QSWindowDelegate>)delegate {
+    return (id <QSWindowDelegate>)[super delegate];
+}
+
+- (void)setDelegate:(id <QSWindowDelegate>)delegate {
+    [super setDelegate:
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1060
+    (id <NSWindowDelegate>)
+#endif
+    delegate];
 }
 
 @end

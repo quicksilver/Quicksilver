@@ -32,8 +32,8 @@
 
 @interface QSMoveHelper : QSAnimationHelper {
 	NSWindow *_window;
-	struct _NSRect _endFrame;
-	struct _NSRect _startFrame;
+	NSRect _endFrame;
+	NSRect _startFrame;
 	float _startAlpha;
 	float _endAlpha;
 	BOOL _displayFlag;

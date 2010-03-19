@@ -12,9 +12,69 @@
 		7FEF24C207D53BD7005BC984 /* QSHotKeyTriggerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FEF24C007D53BD7005BC984 /* QSHotKeyTriggerManager.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		4DC393B110B30A6E009D8B7A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DC393A410B30A6E009D8B7A /* Quicksilver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D1107320486CEB800E47090;
+			remoteInfo = Quicksilver;
+		};
+		4DC393B310B30A6E009D8B7A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DC393A410B30A6E009D8B7A /* Quicksilver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E1E5F9AF07B1FCFC0044D6EF;
+			remoteInfo = "QuickStep Foundation";
+		};
+		4DC393B510B30A6E009D8B7A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DC393A410B30A6E009D8B7A /* Quicksilver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E1E5F9C307B1FD100044D6EF;
+			remoteInfo = "QuickStep Effects";
+		};
+		4DC393B710B30A6E009D8B7A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DC393A410B30A6E009D8B7A /* Quicksilver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E103F1600647200700447FE0;
+			remoteInfo = "QuickStep Core";
+		};
+		4DC393B910B30A6E009D8B7A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DC393A410B30A6E009D8B7A /* Quicksilver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E1B5F31206573C2900FCFBE2;
+			remoteInfo = "QuickStep Interface";
+		};
+		4DC393BB10B30A6E009D8B7A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DC393A410B30A6E009D8B7A /* Quicksilver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7F0BD5DD07B52EA8003F3DC3;
+			remoteInfo = "Core Support";
+		};
+		4DC393BD10B30A6E009D8B7A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DC393A410B30A6E009D8B7A /* Quicksilver.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7F9703D009AFEE8700E9EA77;
+			remoteInfo = QSDroplet;
+		};
+		4DC393C110B30A74009D8B7A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DC393A410B30A6E009D8B7A /* Quicksilver.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D1107260486CEB800E47090;
+			remoteInfo = Quicksilver;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		4D4F33320E39EF1A00668F94 /* QSPlugIn_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Debug.xcconfig; sourceTree = "<group>"; };
 		4D4F33330E39EF1A00668F94 /* QSPlugIn_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Release.xcconfig; sourceTree = "<group>"; };
+		4DC393A410B30A6E009D8B7A /* Quicksilver.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Quicksilver.xcodeproj; path = ../../Quicksilver.xcodeproj; sourceTree = SOURCE_ROOT; };
 		4DF062570E0BB87B0000EB16 /* Common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
 		4DF062580E0BB87B0000EB16 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		4DF062590E0BB87B0000EB16 /* Developer.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Developer.xcconfig; sourceTree = "<group>"; };
@@ -42,6 +102,7 @@
 		0259C574FE90428111CA0C5A /* QSHotKeyTriggers */ = {
 			isa = PBXGroup;
 			children = (
+				4DC393A410B30A6E009D8B7A /* Quicksilver.xcodeproj */,
 				4DF062560E0BB87B0000EB16 /* Configuration */,
 				32DBCF9E0370C38000C91783 /* Classes */,
 				32DBCF9F0370C38200C91783 /* Other Sources */,
@@ -92,6 +153,20 @@
 			name = "Other Sources";
 			sourceTree = "<group>";
 		};
+		4DC393A510B30A6E009D8B7A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4DC393B210B30A6E009D8B7A /* Quicksilver.app */,
+				4DC393B410B30A6E009D8B7A /* QSFoundation.framework */,
+				4DC393B610B30A6E009D8B7A /* QSEffects.framework */,
+				4DC393B810B30A6E009D8B7A /* QSCore.framework */,
+				4DC393BA10B30A6E009D8B7A /* QSInterface.framework */,
+				4DC393BC10B30A6E009D8B7A /* Core Support.qsplugin */,
+				4DC393BE10B30A6E009D8B7A /* QSDroplet.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		4DF062560E0BB87B0000EB16 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -123,6 +198,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				4DC393C210B30A74009D8B7A /* PBXTargetDependency */,
 			);
 			name = "HotKey Triggers";
 			productInstallPath = "$(HOME)/Developer/Palettes";
@@ -140,12 +216,70 @@
 			hasScannedForEncodings = 1;
 			mainGroup = 0259C574FE90428111CA0C5A /* QSHotKeyTriggers */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 4DC393A510B30A6E009D8B7A /* Products */;
+					ProjectRef = 4DC393A410B30A6E009D8B7A /* Quicksilver.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8D1AC9600486D14A00FE50C9 /* HotKey Triggers */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		4DC393B210B30A6E009D8B7A /* Quicksilver.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = Quicksilver.app;
+			remoteRef = 4DC393B110B30A6E009D8B7A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4DC393B410B30A6E009D8B7A /* QSFoundation.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = QSFoundation.framework;
+			remoteRef = 4DC393B310B30A6E009D8B7A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4DC393B610B30A6E009D8B7A /* QSEffects.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = QSEffects.framework;
+			remoteRef = 4DC393B510B30A6E009D8B7A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4DC393B810B30A6E009D8B7A /* QSCore.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = QSCore.framework;
+			remoteRef = 4DC393B710B30A6E009D8B7A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4DC393BA10B30A6E009D8B7A /* QSInterface.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = QSInterface.framework;
+			remoteRef = 4DC393B910B30A6E009D8B7A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4DC393BC10B30A6E009D8B7A /* Core Support.qsplugin */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Core Support.qsplugin";
+			remoteRef = 4DC393BB10B30A6E009D8B7A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4DC393BE10B30A6E009D8B7A /* QSDroplet.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = QSDroplet.app;
+			remoteRef = 4DC393BD10B30A6E009D8B7A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8D1AC9660486D14A00FE50C9 /* Resources */ = {
@@ -162,14 +296,14 @@
 /* Begin PBXShellScriptBuildPhase section */
 		E1022B2806B3475D00299BEC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "\"$SRCROOT/../bltrversion\" $INFOPLIST_FILE";
 		};
@@ -185,6 +319,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4DC393C210B30A74009D8B7A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Quicksilver;
+			targetProxy = 4DC393C110B30A74009D8B7A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		7F07B01C085E433200E2AFC4 /* Release */ = {

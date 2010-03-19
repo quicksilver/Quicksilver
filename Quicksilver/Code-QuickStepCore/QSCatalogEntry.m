@@ -58,7 +58,7 @@ NSDictionary *enabledPresetDictionary;*/
 		NSArray *childDicts = [dict objectForKey:kItemChildren];
 		if (childDicts) {
 			NSMutableArray *newChildren = [NSMutableArray array];
-			foreach(child, childDicts) {
+			for(NSDictionary * child in childDicts) {
 				[newChildren addObject:[QSCatalogEntry entryWithDictionary:child]];
 			}
 			children = [newChildren retain];
@@ -92,9 +92,8 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (QSCatalogEntry *)childWithID:(NSString *)theID {
-	NSEnumerator *e = [children objectEnumerator];
 	QSCatalogEntry *child;
-	while(child = [e nextObject]) {
+	for(child in children) {
 		if ([[child identifier] isEqualToString:theID])
 			return child;
 	}
@@ -107,7 +106,7 @@ NSDictionary *enabledPresetDictionary;*/
 	NSEnumerator *e = [[path pathComponents] objectEnumerator];
 	NSString *s;
 	QSCatalogEntry *object = self;
-	while(s = [e nextObject]) {
+	for(s in e) {
 		object = [object childWithID:s];
 	}
 	return object;
@@ -175,7 +174,7 @@ NSDictionary *enabledPresetDictionary;*/
 	BOOL enabled = [self isEnabled];
 	if (!enabled) return 0;
 	if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
-		foreach(child, [self deepChildrenWithGroups:NO leaves:YES disabled:YES]) {
+		for(QSCatalogEntry * child in [self deepChildrenWithGroups:NO leaves:YES disabled:YES]) {
 			if (![child isEnabled]) return -1*enabled;
 		}
 	}
@@ -185,9 +184,8 @@ NSDictionary *enabledPresetDictionary;*/
 - (int)hasEnabledChildren {
 	if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
 		BOOL hasEnabledChildren = NO;
-		int i;
-		for (i = 0; i<[children count]; i++)
-			hasEnabledChildren |= [[children objectAtIndex:i] isEnabled];
+		for (id loopItem in children)
+			hasEnabledChildren |= [loopItem isEnabled];
 		return hasEnabledChildren;
 	} else
 		return YES;
@@ -225,14 +223,14 @@ NSDictionary *enabledPresetDictionary;*/
 	[self setEnabled:enabled];
 	if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
 		NSArray *deepChildren = [self deepChildrenWithGroups:YES leaves:YES disabled:YES];
-		foreach(child, deepChildren)
-			[(QSCatalogEntry*)child setEnabled:enabled];
+		for(QSCatalogEntry * child in deepChildren)
+			[child setEnabled:enabled];
 	}
 }
 
 - (void)pruneInvalidChildren {
 	NSMutableArray *children2 = [children copy];
-	foreach(child, children2) {
+	for(QSCatalogEntry * child in children2) {
 		if ([child isSeparator]) break; //Stop when at end of presets
 		if ([child isRestricted]) {
 			if (DEBUG_CATALOG) NSLog(@"Disabling Preset:%@", [child identifier]);
@@ -254,7 +252,7 @@ NSDictionary *enabledPresetDictionary;*/
 		return nil;
 	} else if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
 		NSMutableArray *childObjects = [NSMutableArray arrayWithCapacity:1];
-		foreach(child, children) {
+		for(QSCatalogEntry * child in children) {
 			[childObjects addObjectsFromArray:[child leafIDs]];
 		}
 		return childObjects;
@@ -278,7 +276,7 @@ NSDictionary *enabledPresetDictionary;*/
 		NSMutableArray *childObjects = [NSMutableArray arrayWithCapacity:1];
 		if (groups)
 			[childObjects addObject:self];
-		foreach(child, children) {
+		for(QSCatalogEntry * child in children) {
 			[childObjects addObjectsFromArray:[child deepChildrenWithGroups:groups leaves:leaves disabled:disabled]];
 		}
 		return childObjects;
@@ -544,7 +542,7 @@ if (kUseNSArchiveForIndexes)
 	if ([self isSeparator] || ![self isEnabled]) return nil;
 	if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-		foreach(child, children) {
+		for(QSCatalogEntry * child in children) {
 			[child scanForced:force];
 		}
 		[pool release];
@@ -592,7 +590,7 @@ if (kUseNSArchiveForIndexes)
 	if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
 		NSMutableSet *childObjects = [NSMutableSet setWithCapacity:1];
 
-		foreach(child, children) {
+		for(QSCatalogEntry * child in children) {
 			[childObjects addObjectsFromArray:[child contentsScanIfNeeded:(BOOL)canScan]];
 		}
 		return [childObjects allObjects];

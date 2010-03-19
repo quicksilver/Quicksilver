@@ -129,7 +129,7 @@ BOOL QSApplicationCompletedLaunch = NO;
 
 - (void)sendEvent:(NSEvent *)theEvent {
 	if (eventDelegates) {
-		foreach(eDelegate, eventDelegates) {
+		for(id eDelegate in eventDelegates) {
 			if ([eDelegate respondsToSelector:@selector(shouldSendEvent:)] && ![eDelegate shouldSendEvent:theEvent])
 				return;
 		}
@@ -172,7 +172,7 @@ BOOL QSApplicationCompletedLaunch = NO;
 	NSEnumerator *windowEnumerator = [[self windows] objectEnumerator];
 	NSWindow *thisWindow;
 	NSWindow *clickWindow = nil;
-	while (thisWindow = [windowEnumerator nextObject])
+	for (thisWindow in windowEnumerator)
 		if ([thisWindow isVisible] && [thisWindow level] > [clickWindow level] && [thisWindow styleMask] & NSNonactivatingPanelMask && ![thisWindow ignoresMouseEvents] && NSPointInRect([theEvent locationInWindow] , NSInsetRect([thisWindow frame] , 0, -1) )) //These points are offset by one for some silly reason
 			clickWindow = thisWindow;
 	if (clickWindow) {

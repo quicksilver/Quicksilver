@@ -1,11 +1,6 @@
 #import "QSOutlineView.h"
 #import "QSTableView.h"
 
-@implementation NSObject (OutlineViewSeparator)
-- (BOOL)outlineView:(NSOutlineView *)aTableView itemIsSeparator:(id)item { return NO; }
-@end
-
-
 @implementation QSOutlineView
 - (id)_highlightColorForCell:(NSCell *)cell {
 	if (highlightColor)

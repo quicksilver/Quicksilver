@@ -103,12 +103,11 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 }
 
 - (QSObject *)processObjectWithPSN:(ProcessSerialNumber)psn {
-	NSEnumerator *processEnumerator = [processes objectEnumerator];
 	QSObject *thisProcess;
 	ProcessSerialNumber thisPSN;
 	Boolean match;
 
-	while(thisProcess = [processEnumerator nextObject]) {
+	for(thisProcess in processes) {
 		NSDictionary *info = [thisProcess objectForType:QSProcessType];
 		GetPSNForAppInfo(&thisPSN, info);
 		SameProcess(&psn, &thisPSN, &match);
@@ -249,8 +248,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 	NDProcess *thisProcess;
 	pid_t pid = -1;
 	//ProcessSerialNumber psn;
-	NSEnumerator *processEnumerator = [newProcesses objectEnumerator];
-	while(thisProcess = [processEnumerator nextObject]) {
+	for(thisProcess in newProcesses) {
 		newObject = nil;
 		if (newObject = [self imbuedFileProcessForDict:[thisProcess processInfo]])
 			[objects addObject:newObject];
@@ -267,8 +265,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 	NSArray *newProcesses = [[NSWorkspace sharedWorkspace] launchedApplications]; //[NDProcess everyProcess];
 
 	NSDictionary *thisProcess;
-	NSEnumerator *processEnumerator = [newProcesses objectEnumerator];
-	while(thisProcess = [processEnumerator nextObject]) {
+	for(thisProcess in newProcesses) {
 
 		if (newObject = [self imbuedFileProcessForDict:thisProcess])
 			[objects addObject:newObject];
@@ -289,8 +286,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 	NDProcess *thisProcess;
 //	pid_t pid = -1;
 	//ProcessSerialNumber psn;
-	NSEnumerator *processEnumerator = [newProcesses objectEnumerator];
-	while(thisProcess = [processEnumerator nextObject]) {
+	for(thisProcess in newProcesses) {
 		newObject = nil;
 		if (hidden && [thisProcess isVisible]) continue;
 		else if ([thisProcess isBackground]) continue;

@@ -9,6 +9,11 @@
 #import <Cocoa/Cocoa.h>
 #import "QSObject.h"
 #import "QSAction.h"
+
+NSArray *QSGetShebangArgsForScript(NSString *path);
+
+/* Deprecated, do not use !
+ * It fails on things like #!/usr/bin/arch -i386 /usr/bin/ruby */
 NSString *QSGetShebangPathForScript(NSString *path);
 
 #define kQSShellScriptRunAction @"QSShellScriptRunAction"

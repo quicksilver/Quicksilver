@@ -100,9 +100,7 @@ static id _sharedInstance;
 	[itemAddButton setMenu:itemAddButtonMenu];
 	[itemAddButtonMenu release];
 
-	int i;
-	for (i = 0; i < [sources count]; i++) {
-		NSString *theID = [sources objectAtIndex:i];
+	for (NSString *theID in sources) {
 		id source = [[QSReg objectSources] objectForKey:theID];
 		if (!([source respondsToSelector:@selector(isVisibleSource)]
 			  && [source isVisibleSource]))

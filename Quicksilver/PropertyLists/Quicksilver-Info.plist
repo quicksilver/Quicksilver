@@ -111,8 +111,6 @@
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleGetInfoString</key>
-	<string>Quicksilver β56a7, Copyright © 2000-2008 Blacktree, Inc.</string>
 	<key>CFBundleHelpBookFolder</key>
 	<string>QSHelp</string>
 	<key>CFBundleHelpBookName</key>
@@ -128,7 +126,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>β56a7</string>
+	<string>${QS_INFO_VERSION}</string>
 	<key>CFBundleSignature</key>
 	<string>daed</string>
 	<key>CFBundleURLTypes</key>
@@ -167,13 +165,15 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3839</string>
+	<string>${QS_BUNDLE_VERSION}</string>
 	<key>LSHasLocalizedDisplayName</key>
 	<integer>1</integer>
 	<key>LSUIElement</key>
-	<integer>0</integer>
+	<false/>
 	<key>NSAppleScriptEnabled</key>
 	<true/>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2000-2008 Blacktree, Inc.</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>

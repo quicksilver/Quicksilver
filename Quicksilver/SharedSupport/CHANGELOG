@@ -1,34 +1,85 @@
-Changes
+Changes - B58(3841)
 =======
-  
-  'andreberg' GitHub version:
-  
-  * Default compiler is now Clang, Apple's and the Open Source community's next gen compiler.
-  
-  * Actions should now appear localized again where appropriate.
-  
-  * Composed characters like German umlauts (e.g. 'Š') will now show both parts (the letter 'a' and the 'dots'. Previously only letters would show up).
-  
-  * The broken action menu now shows up with a cross-selection of all enabled actions from the Actions preferences. 
-  
-  * The Smart Replace and Replace dialog actions no longer crash Quicksilver and now actually will append numbers via a smart numbering system if a file to be copied or moved already exists at the destination. (Note: needs feature level equal to or higher than 3, e.g.: defaults write com.blacktree.Quicksilver "Feature Level" 3)
-  
-  * File operation requiring credentials no longer crash QS after providing the password. 
-  
-  * The Large Type action now keeps the text visible again for prolonged periods.
-  
-  * Icons associated with custom file actions (e.g. like custom AppleScript actions) are now correctly displayed instead of a generic file placeholder icon.
-  
-  * AppleScript actions which return something now cause Quicksilver to reappear again ready to use the result for the next action.
-  
-  * Mouse tracking for triggers ('Mouse entered' / 'Mouse exited')  now seems to work more reliably. 
-  
-  * The Extras preferences pane no longer has this weird row spacing issue upon first loading of the associated NIB file.
-  
-  * Excessive log outputs have been silenced to only occur if certain debugging environment variables are set in order to avoid spamming the Console.
-  
-  * Dozens of API upgrades like replacing deprecated methods with safer variants or adding decleration names for the new way of handling informal protocols.
-  
-  * All NIB files were converted to a SCM and collaboration friendly XIB format. A lot of clipping warnings have been fixed.
-  
-  * Various other housekeeping tasks.
+Etienne Samson
+
+  * Disable Info.plist preprocessing on Plugins. 
+
+  * Make shell scripts with "additional shebang" info work. 
+
+  * README: Make real links.
+
+
+Henery Barnor
+
+  * Removed dangling NSLog calls 
+ 
+
+Michael Guntsche
+
+  * Add Core Plugins to Release Build
+
+  * Fix to error messages
+
+neurolepsy 
+
+  * Fix droplets by using the 10.5+ NSConnection vending method
+
+  * The G in BROWSING no longer gets cut off in the result window
+
+  * Menus improved
+
+  * Object context menus improved
+
+  * Don't show object descriptions in the result window if there's not enough room (rows <34px high)
+
+  * Recent Items made Snow Leopard compatible
+
+  * Text fields only allow plain text 
+
+  * Fix bug creating an indexSet from the UI Access plugin
+
+  * Fix 10.5 compilation issue 
+
+
+Patrick Robertson
+
+  * Fixed bug #35 - Do Not Open At Login Action now working
+
+  * Fix bug #34
+
+  * Tidying up (forgot to re-add 'else')
+
+  * Remove dangling NSLogs ;)
+
+  * Fixed relaunch action for fussy apps that did not quit straight away 
+
+  * Removed a stray brace 
+
+  * Commented out the loc - locator, path (for bundles) NSLog
+ 
+  * Commented out another NSLog message  
+
+
+Paul Kohut
+
+  * Initial loop optimizations
+
+  * Update score ranking code
+
+  * NSEnumerator - loop optimization
+
+  * Merge branch 'NSEnumerators' into B5x
+
+  * Issue #39 (bug 262) Fix: Incorrect display of Websearch
+
+  * Turn on a couple release optimizations 
+
+  * Fix issues 26, 47, 57 and 61 
+
+  * Fix lingering issue PjRobertson found 
+
+  * Fixed single/double tap Modifier Key Activation
+
+
+And thanks to any other I may have inadvertently missed.
+

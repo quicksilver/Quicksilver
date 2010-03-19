@@ -23,7 +23,7 @@ NSMutableDictionary *localizationBundles;
 }
 + (void)registerLocalizationBundle:(NSBundle *)bundle forLanguage:(NSString *)lang {
 	NSArray *locs = [bundle pathsForResourcesOfType:@"qsloc" inDirectory:nil];
-	foreach(loc, locs) {
+	for(NSString * loc in locs) {
 		[localizationBundles setObject:bundle forKey:[[loc lastPathComponent] stringByDeletingPathExtension]];
 	}
 

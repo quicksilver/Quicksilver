@@ -22,7 +22,7 @@ Class QSCurrentStringRanker = nil;
 
 typedef QSRankedObject * (*QSScoreForObjectIMP) (id instance, SEL selector, QSBasicObject *object, NSString* anAbbreviation, NSString *context, NSArray * mnemonics, BOOL mnemonicsOnly);
 
-typedef double (*QSScoreForAbbrevIMP) (id object, SEL selector, NSString * abbreviation);
+typedef float (*QSScoreForAbbrevIMP) (id object, SEL selector, NSString * abbreviation);
 QSScoreForAbbrevIMP scoreForAbbrevIMP;
 
 @implementation QSDefaultObjectRanker
@@ -48,13 +48,12 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
     
 	NSMutableArray *rankObjects = [NSMutableArray arrayWithCapacity:[set count]];
     
-	NSEnumerator *enumer = [set objectEnumerator];
 	QSBasicObject *thisObject;
 
 	QSScoreForObjectIMP scoreForObjectIMP =
 		(QSScoreForObjectIMP) [self instanceMethodForSelector:@selector(rankedObject:forAbbreviation:inContext:withMnemonics:mnemonicsOnly:)];
 
-	while (thisObject = [enumer nextObject]) {
+	for (thisObject in set) {
 
 		id ranker = [thisObject ranker];
 
@@ -183,7 +182,7 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 			// otherwise add points for similar starting abbreviations
 			NSEnumerator *enumerator = [usageMnemonics keyEnumerator];
 			id key;
-			while ((key = [enumerator nextObject]) ) {
+			for (key in enumerator) {
 				if (prefixCompare(key, anAbbreviation) == NSOrderedSame) {
 					newScore += (1-1/([[usageMnemonics objectForKey:key] floatValue]) )/4;
 				}
@@ -208,7 +207,7 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 	if (newScore > QSMinScore) {
 		if (rankedObject) {
 			[rankedObject setRankedString:matchedString];
-			return [rankedObject retain];
+			return rankedObject;
 		} else {
 			return [[[QSRankedObject alloc] initWithObject:object matchString:matchedString order:newOrder score:newScore] autorelease];
 		}

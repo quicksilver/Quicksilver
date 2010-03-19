@@ -25,7 +25,7 @@
 }
 
 - (NSArray *)objectsFromData:(NSData *)data encoding:(NSStringEncoding)encoding settings:(NSDictionary *)settings source:(NSURL *)source {
-	NSString *string = [[NSString alloc] initWithData:data encoding:encoding?encoding:NSISOLatin1StringEncoding];
+	NSString *string = [[[NSString alloc] initWithData:data encoding:encoding?encoding:NSISOLatin1StringEncoding] autorelease];
 	//NSLog(@"data %d %@, settings %@, source %@", [data length] , string, settings, source);
 	 NSString *prefix;
 	 if (prefix = [settings objectForKey:@"contentPrefix"]) {
@@ -58,8 +58,6 @@
 	[writeHandle writeData:data];
 	[writeHandle closeFile];
 
-	[string release];
-
 	NSMutableData *returnData = [[NSMutableData alloc] init];
 	NSData *readData;
 	while ((readData = [readHandle availableData]) && [readData length]) {
@@ -73,10 +71,9 @@
 
 	NSMutableArray *objects = [NSMutableArray arrayWithCapacity:1];
 	QSObject *newObject;
-	NSEnumerator *e = [array objectEnumerator];
 	NSArray *link;
 	NSCharacterSet *wncs = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-	while(link = [e nextObject]) {
+	for(link in array) {
 		if ([link count] < 4) continue;
 		NSString *shortcut = [link objectAtIndex:2];
 		NSString *url = [[[link objectAtIndex:0] stringByReplacing:@"&amp; " with:@"&"] stringByReplacing:@"%s" with:@"***"];

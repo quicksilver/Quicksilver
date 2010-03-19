@@ -101,6 +101,61 @@ id QSRez;
 	return image;
 }
 
+/*!
+    @buildWebSearchIcon
+    @abstract   Builds a new icon that is a composite of 2 other icons
+    @discussion Loads the icon named in parameter useIconFileNamed and
+				loads a second icon called "Find". The first icon is
+				drawn at 128x128. The second icon is scaled and drawn
+				at an offset to create the composite.
+    @param      useIconFile Name of the source (first) icon.
+    @result     Returns the new 128x128 image or nil.
+*/
+
+- (NSImage *)buildWebSearchIcon:(NSString *)useIconFileNamed
+{
+	NSImage *webSearchImage = nil;
+	NSImage *image = [NSImage imageNamed:useIconFileNamed];
+	if(image) {
+		NSRect rect = NSMakeRect(0, 0, 128, 128);
+		[image setSize:[[image bestRepresentationForSize:rect.size] size]];
+		NSSize imageSize = [image size];
+		NSBitmapImageRep *bitmap = [[[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+																		   pixelsWide:imageSize.width
+																		   pixelsHigh:imageSize.height
+																		bitsPerSample:8
+																	  samplesPerPixel:4
+																			 hasAlpha:YES
+																			 isPlanar:NO
+																	   colorSpaceName:NSCalibratedRGBColorSpace
+																		 bitmapFormat:0
+																		  bytesPerRow:0
+																		 bitsPerPixel:0]
+									autorelease];
+		if(bitmap) {
+			NSGraphicsContext *graphicsContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:bitmap];
+			if(graphicsContext){
+				[NSGraphicsContext saveGraphicsState];
+				[NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithBitmapImageRep:bitmap]];
+
+				rect = NSMakeRect(0, 0, imageSize.width, imageSize.height);
+				[image setSize:rect.size];
+				[image setFlipped:NO];
+				[image drawInRect:rect fromRect:rectFromSize([image size]) operation:NSCompositeSourceOver fraction:1.0];
+
+				NSImage *findImage = [NSImage imageNamed:@"Find"];
+				if(findImage) {
+					[findImage setSize:rect.size];
+					[findImage drawInRect:NSMakeRect(rect.origin.x+NSWidth(rect) *1/3, rect.origin.y, NSWidth(rect)*2/3, NSHeight(rect)*2/3) fromRect:rect operation:NSCompositeSourceOver fraction:1.0];
+				}
+				[NSGraphicsContext restoreGraphicsState];
+				webSearchImage = [[[NSImage alloc] initWithData:[bitmap TIFFRepresentation]] autorelease];
+			}
+		}
+	}
+	return webSearchImage;
+}
+
 - (NSImage *)imageNamed:(NSString *)name inBundle:(NSBundle *)bundle {
 
 	if (!name) return nil;
@@ -114,48 +169,62 @@ id QSRez;
 
 	}
 	if (!image && bundle) image = [bundle imageNamed:name];
-	if (image) return image;
+	if (image) {
+		[image setFlipped:NO];
+		return image;
+	}
 
 	id locator = [resourceDict objectForKey:name];
 	if ([locator isKindOfClass:[NSNull class]]) return nil;
 	if (locator)
 		image = [self imageWithLocatorInformation:locator];
-    else if (!image && ([name hasPrefix:@"/"] || [name hasPrefix:@"~"]) ) { // !!! Andre Berg 20091007: Try iconForFile first if name looks like ordinary path
-        NSString *path = [name stringByStandardizingPath];
-        if ([[NSImage imageUnfilteredFileTypes] containsObject:[path pathExtension]])
-            image = [[[NSImage alloc] initByReferencingFile:path] autorelease];
-        else
-            image = [[NSWorkspace sharedWorkspace] iconForFile:path];        
+    else if (!image && ([name hasPrefix:@"/"] || [name hasPrefix:@"~"])) { // !!! Andre Berg 20091007: Try iconForFile first if name looks like ordinary path
+		if(!image) {
+			NSString *path = [name stringByStandardizingPath];
+			if ([[NSImage imageUnfilteredFileTypes] containsObject:[path pathExtension]])
+				image = [[[NSImage alloc] initByReferencingFile:path] autorelease];
+			else
+				image = [[NSWorkspace sharedWorkspace] iconForFile:path];
+		}
     } else {// Try the systemicons bundle
 		image = [self sysIconNamed:name];
-        if (!image) // Try by bundle id
+
+		if(!image && [name hasSuffix:@"web_search_list"]) {
+			// build a new web search icon that will display in first
+			// panel objects and the dropdown list.
+			image = [self buildWebSearchIcon:@"DefaultBookmarkIcon"];
+		}
+
+		// Check if item represents one of the Firefox profile files.
+		// (this should be considered a temporary patch until the
+		// Firefox plugin can be fixed to set its own images)
+		if(!image && [name rangeOfString:@"/Library/Application%20Support/Firefox/Profiles/"].length > 0) {
+			if([name hasSuffix:@"bookmarks.html"]) {
+				image = [NSImage imageNamed:@"DefaultBookmarkIcon"];
+			}
+		}
+
+
+		if (!image) // Try by bundle id
 			image = [self imageWithLocatorInformation:[NSDictionary dictionaryWithObjectsAndKeys:name, @"bundle", nil]];
 
-// !!! Andre Berg 20091007: commented out because we use it as case in if/else above
-// 		if (!image && ([name hasPrefix:@"/"] || [name hasPrefix:@"~"]) ) {
-// 			NSString *path = [name stringByStandardizingPath];
-// 			if ([[NSImage imageUnfilteredFileTypes] containsObject:[path pathExtension]])
-// 				image = [[[NSImage alloc] initByReferencingFile:path] autorelease];
-// 			else
-// 				image = [[NSWorkspace sharedWorkspace] iconForFile:path];
-// 		}
-
-		// NSLog(@"iconbundle %@ %@", name, image);
 	}
 	if (!image && [locator isKindOfClass:[NSString class]]) {
 		image = [self imageNamed:locator];
 	}
 
-	SEL selector = NSSelectorFromString([NSString stringWithFormat:@"%@Image", name]);
-	if ([self respondsToSelector:selector])
-		image = [self performSelector:selector];
+	if(!image) {
+		SEL selector = NSSelectorFromString([NSString stringWithFormat:@"%@Image", name]);
+		if ([self respondsToSelector:selector])
+			image = [self performSelector:selector];
+	}
 
 	if (0 && !image) {
 		if (VERBOSE) NSLog(@"Searching for image: %@", name);
 
+		NSBundle * bundle;
 		NSEnumerator *bundEnumer = [[NSBundle allBundles] objectEnumerator];
-		NSBundle *bundle;
-		while (bundle = [bundEnumer nextObject]) {
+		for (bundle in bundEnumer) {
 			NSString *path = [bundle pathForImageResource:name];
 			if (path) {
 				image = [[[NSImage alloc] initByReferencingFile:path] autorelease];
@@ -164,19 +233,20 @@ id QSRez;
 	}
 
 	if (!image) {
-	 // if (VERBOSE) NSLog(@"Image Not Found: %@", name);
-		if (!image) [resourceDict setObject:[NSNull null] forKey:name];
-
-		return nil;
+		// if (VERBOSE) NSLog(@"Image Not Found:: %@", name);
+		[resourceDict setObject:[NSNull null] forKey:name];
 	} else {
-		[image setName:name];
+		if([name hasSuffix:@"web_search_list"])
+			[image setName:@"web_search_list"];
+		else
+			[image setName:name];
 
 		if (![image representationOfSize:NSMakeSize(32, 32)])
 			[image createRepresentationOfSize:NSMakeSize(32, 32)];
 		if (![image representationOfSize:NSMakeSize(16, 16)])
 			[image createRepresentationOfSize:NSMakeSize(16, 16)];
-		return image;
 	}
+	return image;
 }
 
 - (NSImage *)imageNamed:(NSString *)name {
@@ -211,12 +281,12 @@ id QSRez;
 			bundle = [NSBundle bundleWithPath:[workspace absolutePathForAppBundleWithIdentifier:bundleID]];
 
 		NSString *resourceName = [locator objectForKey:@"resource"];
-		//NSString *type = [locator objectForKey:@"type"];
+		// NSString *type = [locator objectForKey:@"type"];
 		NSString *subPath = [locator objectForKey:@"path"];
 
 		NSString *basePath = [bundle bundlePath];
 		// NSString *basePath = [workspace absolutePathForAppBundleWithIdentifier:bundle];
-		//  NSLog(@"loc %@ %@", locator, path);
+		// NSLog(@"loc %@ %@", locator, path);
 
 		if (resourceName) {
 			path = [bundle pathForResource:[resourceName stringByDeletingPathExtension]
@@ -247,9 +317,9 @@ id QSRez;
 		NSString *bundleID = [locator objectForKey:@"bundle"];
 		NSBundle *bundle = [QSReg bundleWithIdentifier:bundleID];
 
-		if (!bundle)
+		if (!bundle) {
 			bundle = [NSBundle bundleWithPath:[workspace absolutePathForAppBundleWithIdentifier:bundleID]];
-        
+		}
         if(bundle != nil) {
             image = [workspace iconForFile:[bundle bundlePath]];
         } else {

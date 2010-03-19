@@ -12,7 +12,7 @@
 
 - (NSDictionary *)servicesDictionaryForService:(NSString *)serviceName {
 	NSArray *array = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSServices"];
-	foreach(dict, array) {
+	for(NSDictionary * dict in array) {
 		if ([[dict valueForKeyPath:(@"NSMenuItem.default")] isEqualToString:serviceName])
 			return dict;
 	}
@@ -24,7 +24,7 @@
 
 	NSMutableArray *array = [[plistDict objectForKey:@"NSServices"] mutableCopy];
 	NSDictionary *oldDict = nil;
-	foreach(aDict, array) {
+	for(NSDictionary * aDict in array) {
 		if ([[aDict valueForKeyPath:(@"NSMenuItem.default")] isEqualToString:serviceName]) {
 			oldDict = aDict;
 			break;

@@ -15,11 +15,18 @@
 
 #define SCRIPT_EXT [NSArray arrayWithObjects:@"sh", @"pl", @"command", @"php", @"py", @"rb", nil]
 NSString *QSGetShebangPathForScript(NSString *path) {
-	NSString *taskPath = nil;
+    NSArray *args = QSGetShebangArgsForScript(path);
+    if (args)
+        return [args objectAtIndex:0];
+    
+    return nil;
+}
+NSArray *QSGetShebangArgsForScript(NSString *path) {
+	NSString *taskArgs = nil;
 	NSScanner *scanner = [NSScanner scannerWithString:[NSString stringWithContentsOfFile:path]];
 	[scanner scanString:@"#!" intoString:nil];
-	[scanner scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"\r\n"] intoString:&taskPath];
-	return taskPath;
+	[scanner scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"\r\n"] intoString:&taskArgs];
+	return [taskArgs componentsSeparatedByString:@" "];
 }
 
 BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
@@ -45,7 +52,7 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
 	NSString *script = [NSString stringWithContentsOfFile:path];
 
 	NSMutableDictionary *scriptDict = [NSMutableDictionary dictionary];
-	foreach(component, [script componentsSeparatedByString: @"%%%"]) {
+	for(NSString * component in [script componentsSeparatedByString: @"%%%"]) {
 		if (![component hasPrefix:@" {"]) continue;
 		if (![component hasSuffix:@"} "]) continue;
 		component = [component substringWithRange:NSMakeRange(1, [(NSString *)component length] - 2)];
@@ -75,11 +82,10 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
 
 - (NSArray *)fileActionsFromPaths:(NSArray *)scripts {
 	scripts = [scripts pathsMatchingExtensions:SCRIPT_EXT];
-	NSEnumerator *e = [scripts objectEnumerator];
 	NSString *path;
 	NSMutableArray *array = [NSMutableArray array];
 
-	while(path = [e nextObject]) {
+	for(path in scripts) {
 		QSAction *action = [self scriptActionForPath:path];
 		[array addObject:action];
 	}
@@ -123,73 +129,72 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
 }
 
 - (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
-	if (QSPathCanBeExecuted([dObject singleFilePath], NO) )
+	if (QSPathCanBeExecuted([dObject singleFilePath], NO))
 		return [NSArray arrayWithObject:kQSShellScriptRunAction];
 	return nil;
 }
 
 - (QSObject *)runShellScript:(QSObject *)dObject {
-	NSString *result = [self runScript:[(QSObject *)dObject singleFilePath]];
+	NSString *result = [self runScript:[dObject singleFilePath]];
 	if ([result length])
 		return [QSObject objectWithString:result];
 	return nil;
 }
 
 - (NSString *)runScript:(NSString *)path {
-	BOOL executable = [[NSFileManager defaultManager] isExecutableFileAtPath:path];
-
 	NSString *taskPath = path;
-	NSMutableArray *argArray = [NSMutableArray array];
-
-	if (!executable) {
-		[argArray addObject:taskPath];
-		taskPath = QSGetShebangPathForScript(path);
-	}
-	NSTask *task = [[[NSTask alloc] init] autorelease];
-	[task setLaunchPath:taskPath];
-	[task setArguments:argArray];
-	[task setStandardOutput:[NSPipe pipe]];
-	[task launch];
-	[task waitUntilExit];
-
-	NSString *string = [[[NSString alloc] initWithData:[[[task standardOutput] fileHandleForReading] readDataToEndOfFile] encoding:NSUTF8StringEncoding] autorelease];
-//	int status = [task terminationStatus];
-	//if (status == 0) NSLog(@"Task succeeded.");
-	//else NSLog(@"Task failed.");
-	return string;
+	NSMutableArray *taskArgs = [NSMutableArray array];
+    NSString *taskOutput = nil; 
+    
+    NSTask *task = [[[NSTask alloc] init] autorelease];
+    [task setLaunchPath:taskPath];
+    [task setArguments:taskArgs];
+    [task setStandardOutput:[NSPipe pipe]];
+    
+    @try {
+        [task launch];
+        [task waitUntilExit];
+        
+        taskOutput = [[[NSString alloc] initWithData:[[[task standardOutput] fileHandleForReading] readDataToEndOfFile] encoding:NSUTF8StringEncoding] autorelease];
+        if ([task terminationStatus] != 0) {
+            NSLog(@"Task failed %@", taskOutput);
+            taskOutput = nil;
+        }
+    }
+    @catch (NSException *e) {
+        NSLog(@"Task raised %@ %@, %@", [e name], [e reason], (![[NSFileManager defaultManager] isExecutableFileAtPath:taskPath] ? @" file is not executable" : @""));
+    }
+    
+	return taskOutput;
 }
 
 - (NSString *)runExecutable:(NSString *)path withArguments:(NSArray *)arguments {
-	BOOL executable = [[NSFileManager defaultManager] isExecutableFileAtPath:path];
-
 	NSString *taskPath = path;
-	NSMutableArray *argArray = [NSMutableArray array];
-
-	if (!executable) {
-		NSString *contents = [NSString stringWithContentsOfFile:path];
-		NSScanner *scanner = [NSScanner scannerWithString:contents];
-		[argArray addObject:taskPath];
-		[scanner scanString:@"#!" intoString:nil];
-		[scanner scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"\r\n"] intoString:&taskPath];
-	}
-
+	NSMutableArray *taskArgs = [NSMutableArray array];
+    NSString *taskOutput = nil;
+    
 	if ([arguments count])
-      [argArray addObjectsFromArray:arguments];
-
-	NSTask *task = [[[NSTask alloc] init] autorelease];
-	[task setLaunchPath:taskPath];
-	[task setArguments:argArray];
-	[task setStandardOutput:[NSPipe pipe]];
-	[task launch];
-	[task waitUntilExit];
+      [taskArgs addObjectsFromArray:arguments];
+    
+    NSTask *task = [[[NSTask alloc] init] autorelease];
+    [task setLaunchPath:taskPath];
+    [task setArguments:taskArgs];
+    [task setStandardOutput:[NSPipe pipe]];
+    
+    @try {
+        [task launch];
+        [task waitUntilExit];
+        taskOutput = [[[NSString alloc] initWithData:[[[task standardOutput] fileHandleForReading] readDataToEndOfFile] encoding:NSUTF8StringEncoding] autorelease];
+    }
+    @catch (NSException *e) {
+        NSLog(@"Task raised exception %@", e);
+    }
 	// NSLog(@"Run Task: %@ %@", taskPath, argArray);
-
-	NSString *string = [[[NSString alloc] initWithData:[[[task standardOutput] fileHandleForReading] readDataToEndOfFile] encoding:NSUTF8StringEncoding] autorelease];
 
 	//int status = [task terminationStatus];
 	///	if (status == 0) NSLog(@"Task succeeded.");
 	//	else NSLog(@"Task failed.");
-	return string;
+	return taskOutput;
 }
 
 @end

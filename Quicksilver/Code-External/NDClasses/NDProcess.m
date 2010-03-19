@@ -373,12 +373,21 @@ NSString		* kBundleExecutableKey = @"CFBundleExecutable";
 
 	theProcessesArray = [NSMutableArray array];
 	theEnumerator = [self processesEnumerater];
-	while( theProcessesArray != nil && (theProcess = [theEnumerator nextObject]) != nil )
+//	while( theProcessesArray != nil && (theProcess = [theEnumerator nextObject]) != nil )
+//	{
+//		if( [[theProcess name] isEqualToString:aName] )
+//			[theProcessesArray addObject:theProcess];
+//	}
+	
+	if( theProcessesArray )
 	{
-		if( [[theProcess name] isEqualToString:aName] )
-			[theProcessesArray addObject:theProcess];
+		for( theProcess in theEnumerator )
+		{
+			if( [[theProcess name] isEqualToString:aName] )
+				[theProcessesArray addObject:theProcess];
+		}
 	}
-
+	
 	return theProcessesArray;
 }
 
@@ -391,7 +400,8 @@ NSString		* kBundleExecutableKey = @"CFBundleExecutable";
 	NDProcess			* theProcess = nil;
 
 	theEnumerator = [self processesEnumerater];
-	while( (theProcess = [theEnumerator nextObject]) != nil )
+	
+	for( theProcess in theEnumerator )
 	{
 		if( [[theProcess name] isEqualToString:aName] )
 			break;							// FOUND
@@ -409,7 +419,7 @@ NSString		* kBundleExecutableKey = @"CFBundleExecutable";
 	NDProcess			* theProcess;
 
 	theEnumerator = [self processesEnumerater];
-	while( (theProcess = [theEnumerator nextObject]) != nil )
+	for( theProcess in theEnumerator  )
 	{
 		if( [[theProcess url] isEqual:aURL] )
 			return theProcess;						// RETURN found process
@@ -471,7 +481,7 @@ NSString		* kBundleExecutableKey = @"CFBundleExecutable";
 	theFoundProcesses = [NSMutableArray array];
 	theEnumerator = [self processesEnumerater];
 
-	while( (theProcess = [theEnumerator nextObject]) != nil )
+	for( theProcess in theEnumerator )
 	{
 		if( [[[theProcess url] absoluteString] isEqualToString:[aURL absoluteString]] )
 			[theFoundProcesses addObject:theProcess];
@@ -491,8 +501,7 @@ NSString		* kBundleExecutableKey = @"CFBundleExecutable";
 
 	theFoundProcesses = [NSMutableArray array];
 	theEnumerator = [self processesEnumerater];
-
-	while( (theProcess = [theEnumerator nextObject]) != nil)
+	for( theProcess in theEnumerator )
 	{
 		if( [[theProcess path] isEqualToString:aPath] )
 			[theFoundProcesses addObject:theProcess];

@@ -1,0 +1,95 @@
+# !/bin/sh
+
+USER_LIBRARY_PATH=$HOME/Library
+QS_APPSUPPORT_PATH=$USER_LIBRARY_PATH/Application\ Support/Quicksilver
+QS_PREFERENCE_FILE=$USER_LIBRARY_PATH/Preferences/com.blacktree.Quicksilver
+QS_CACHES_PATH=$USER_LIBRARY_PATH/Caches/Quicksilver
+BACKUP_SUFFIX=mine
+
+
+function displayUsageAndExit()
+{
+  echo "Usage: qs-nuke [-hr]"
+  echo "When ran with no argument, it will :"
+  echo " - copy aside QS Preferences and App Support directory (suffixing them with -${BACKUP_SUFFIX}),"
+  echo " - delete them along with its Cache directory."
+  echo ""
+  echo "IMPORTANT: The backup will only be made the first time you run it. Subsequent runs will detect the backup and only perform the deletion."
+  echo ""
+  echo "Options :"
+  echo "  -h: this help"
+  echo "  -r: restore the backup (TODO, but it's a simple copy ;-))"
+  exit $1
+}
+
+args=`getopt rh $*`
+if [ $? != 0 ]
+then
+		displayUsageAndExit 2;
+fi
+set -- $args
+for i
+do
+	case "$i"
+	in
+		-r)
+			RESTORE=1;
+			shift;;
+		-h)
+		  displayUsageAndExit 0;
+		  shift;;
+	esac
+done
+
+if [ w$RESTORE == w1 ]; then
+	echo "Restoring from backup"
+	echo "TODO"
+	exit 0;
+fi
+
+echo "Are you sure you want to nuke your Quicksilver configuration ?"
+read ANS
+if [ w`echo $ANS | grep -e "[y|Y|yes]"` = w ]; then
+echo "Got '$ANS', doing nothing..."
+	exit 0
+fi
+
+# Remove QS Application Support directory, backing it up if its not already.
+if [ -e "${QS_APPSUPPORT_PATH}" ]; then
+	if [ -d "${QS_APPSUPPORT_PATH}" ]; then
+		if [ ! -d "${QS_APPSUPPORT_PATH}-${BACKUP_SUFFIX}" ]; then
+			mv "${QS_APPSUPPORT_PATH}" "${QS_APPSUPPORT_PATH}-${BACKUP_SUFFIX}"
+		else
+			echo "Removing \"${QS_APPSUPPORT_PATH}\"..."
+			rm -R "${QS_APPSUPPORT_PATH}"
+		fi
+	else
+		echo "Unexpected file type at path \"${QS_APPSUPPORT_PATH}\", cancelling"
+		exit 1
+	fi
+fi
+
+# Remove QS Preference file, backing it up if its not already.
+if [ -e "${QS_PREFERENCE_FILE}.plist" ]; then
+	if [ -f "${QS_PREFERENCE_FILE}.plist" ]; then
+		if [ ! -f "${QS_PREFERENCE_FILE}.plist-${BACKUP_SUFFIX}" ]; then
+			mv "${QS_PREFERENCE_FILE}.plist" "${QS_PREFERENCE_FILE}.plist-${BACKUP_SUFFIX}"
+		else
+			echo "Removing \"${QS_PREFERENCE_FILE}\"..."
+			rm "${QS_PREFERENCE_FILE}.plist"
+		fi
+	else
+		echo "Unexpected file type at path \"${QS_PREFERENCE_FILE}.plist\", cancelling"
+		exit 1
+	fi
+fi
+
+if [ -e "${QS_CACHES_PATH}" ]; then
+	if [ -d "${QS_CACHES_PATH}" ]; then
+		echo "Removing \"${QS_CACHES_PATH}\"..."
+		rm -R "${QS_CACHES_PATH}"
+	else
+		echo "Unexpected file type at path \"${QS_CACHES_PATH}.plist\", cancelling"
+		exit 1
+	fi
+fi
