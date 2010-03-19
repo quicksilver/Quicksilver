@@ -78,7 +78,7 @@
 
 	// Load dependencies
 	NSArray *deps = [dependingPlugIns objectForKey:[plugin identifier]];
-	foreach(dep, deps) {
+	for(QSPlugIn * dep in deps) {
 		if (![[dep unmetDependencies] count])
 			[self liveLoadPlugIn:dep];
 	}
@@ -205,11 +205,10 @@
 }
 
 - (void)loadPlugInInfo:(NSArray *)array {
-	NSEnumerator *e = [array objectEnumerator];
 	id value;
 	NSString *key;
 	QSPlugIn *plugin;
-	while(value = [e nextObject]) {
+	for(value in array) {
 		key = [value objectForKey:@"CFBundleIdentifier"];
 		if (!key) continue;
 		[plugInWebData setObject:value forKey:key];
@@ -325,7 +324,7 @@
 
 	if (result) {
 		BOOL success = 1;
-		foreach(plugin, deletePlugIns) {
+		for(QSPlugIn * plugin in deletePlugIns) {
 			success = success && [plugin delete];
 		}
 		//	[self reloadPlugInsList:nil];
@@ -392,9 +391,8 @@
 }
 
 - (void)loadPlugInsAtLaunch {
-	NSDate *date = [NSDate date];
-    QSPlugIn * plugin = nil;
-    
+	//NSDate *date = [NSDate date];
+
 	// load main bundle
 	[[QSPlugIn plugInWithBundle:[NSBundle mainBundle]]registerPlugIn];
 
@@ -408,12 +406,11 @@
 
     NSArray *disabledBundles = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSDisabledPlugIns"];
      
-    // !!! Andre Berg 20091013: Changed the objectEnumerators below to 10.5's fast enumeration    
 	//NSLog(@"toload %@ %@", [newLocalPlugIns valueForKey:@"bundlePath"] , newLocalPlugIns);
     // !!! Andre Berg 20091017: change to foreach macro
     // QSPlugIn * plugin;
     // If plugin should be loaded, add it to the list
-    for (plugin in newLocalPlugIns) {
+    for(QSPlugIn * plugin in newLocalPlugIns) {
         if (![self plugInIsMostRecent:plugin inGroup:plugInsToLoadByID]) continue;      //Skip if not most recent
 		if (![plugin identifier]) continue;
 		[localPlugIns setObject:plugin forKey:[plugin identifier]];
@@ -428,15 +425,14 @@
 	// load all valid plugins    
     NSArray * plugInsToLoad = [plugInsToLoadByID allValues];
     NSArray * localPlugins = [localPlugIns allValues];
-    for (plugin in localPlugins) {
+    for (QSPlugIn * plugin in localPlugins) {
         if ([plugInsToLoad containsObject:plugin])
 			[plugin registerPlugIn];
     }
 
 	[self checkForUnmetDependencies];
 	[self suggestOldPlugInRemoval];
-    
-	if (DEBUG_STARTUP) NSLog(@"PlugIn Load Complete (%dms) ", (int)(-[date timeIntervalSinceNow] *1000));
+	//if (DEBUG_STARTUP) NSLog(@"PlugIn Load Complete (%dms) ", (int)(-[date timeIntervalSinceNow] *1000));
 	startupLoadComplete = YES;
 }
 
@@ -444,6 +440,7 @@
 
 - (NSMutableArray *)allBundles {
 
+//	NSEnumerator *searchPathEnum = nil;
 	NSString *currPath = nil;
 	NSMutableSet *bundleSearchPaths = [NSMutableSet set];
 	NSMutableArray *allBundles = [NSMutableArray array];
@@ -455,11 +452,14 @@
 		NSLog(@"External PlugIns Disabled");
 	} else {
 		NSArray *librarySearchPaths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSAllDomainsMask - NSSystemDomainMask, YES);
-		
-        for (currPath in librarySearchPaths) {
+        
+// 		searchPathEnum = [librarySearchPaths objectEnumerator];
+// 		while(currPath = [searchPathEnum nextObject])
+// 			[bundleSearchPaths addObject:[currPath stringByAppendingPathComponent:appSupportSubpath]];
+        
+		for(NSString * currPath in librarySearchPaths) {
             [bundleSearchPaths addObject:[currPath stringByAppendingPathComponent:appSupportSubpath]];
         }
-        
 		[bundleSearchPaths addObject:QSApplicationSupportSubPath(@"PlugIns", NO)];
 		[bundleSearchPaths addObject:[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent]];
 		[bundleSearchPaths addObject:[[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"PlugIns"]];
@@ -476,11 +476,25 @@
 		[bundleSearchPaths addObject:[[[NSFileManager defaultManager] currentDirectoryPath] stringByAppendingPathComponent:@"PrivatePlugIns"]];
 	}
 
-	for (currPath in bundleSearchPaths) {
-		NSString *curPlugInPath = nil;
+// 	searchPathEnum = [bundleSearchPaths objectEnumerator];
+// 	while(currPath = [searchPathEnum nextObject]) {
+// 		NSEnumerator *bundleEnum;
+// 		NSString *curPlugInPath;
+// 		bundleEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:currPath error:nil] objectEnumerator];
+// 		if (bundleEnum) {
+// 			while(curPlugInPath = [bundleEnum nextObject]) {
+// 				if ([[curPlugInPath pathExtension] caseInsensitiveCompare:@"qsplugin"] == NSOrderedSame) {
+// 					[allBundles addObject:[currPath stringByAppendingPathComponent:curPlugInPath]];
+// 				}
+// 			}
+// 		}
+// 	}
+    
+	for(NSString * currPath in bundleSearchPaths) {
+		NSString *curPlugInPath;
         NSArray * dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:currPath error:nil];
 		if (dirContents) {
-			for (curPlugInPath in dirContents) {
+			for(NSString * curPlugInPath in dirContents) {
 				if ([[curPlugInPath pathExtension] caseInsensitiveCompare:@"qsplugin"] == NSOrderedSame) {
 					[allBundles addObject:[currPath stringByAppendingPathComponent:curPlugInPath]];
 				}
@@ -511,7 +525,7 @@
 	if ([unmet count]) {
 
 		//NSLog(@"unmet? %@", unmet);
-		foreach(dependency, unmet) {
+		for(NSDictionary * dependency in unmet) {
 			NSString *iden = [dependency objectForKey:@"id"];
 			NSMutableArray *depending = [dependingPlugIns objectForKey:iden];
 			if (!depending) [dependingPlugIns setObject:(depending = [NSMutableArray array]) forKey:iden];
@@ -530,8 +544,8 @@
 	//NSString *error;
 
 #warning should detect installation of a disabled plugin
-	if (dupPlugIn = [loadedPlugIns objectForKey:ident]) { // check if the bundle is already loaded. if so need to restart.
-        //NSLog(@"Bundle already loaded: %@", dupPlugIn);
+	if (dupPlugIn = [loadedPlugIns objectForKey:ident]) {// check if the bundle is already loaded. if so need to restart.
+													 //NSLog(@"Bundle already loaded: %@", dupPlugIn);
 		return NO;
 
 	} else if ((dupPlugIn = [loadingBundles objectForKey:ident]) && ![plugIn isEqual:dupPlugIn]) {
@@ -558,7 +572,7 @@
 		if (1) {//DEBUG || [[NSUserDefaults standardUserDefaults] boolForKey:@"QSIgnoreOldPlugIns"]) {
 			  //	if (VERBOSE) NSLog(@"Ignored Old Plugins: %@", [[oldPlugIns valueForKeyPath:@"path"] componentsJoinedByString:@"\r"]);
 		} else {
-			for (QSPlugIn * plugIn in oldPlugIns) {
+			for(QSPlugIn * plugIn in oldPlugIns) {
 				NSLog(@"Deleting Old Duplicate Plug-in:\r%@", [plugIn path]);
 				[[NSFileManager defaultManager] removeItemAtPath:[plugIn path] error:nil];
 			}
@@ -606,8 +620,9 @@
 
 	[self downloadWebPlugInInfoFromDate:plugInWebDownloadDate forUpdateVersion:version synchronously:YES];
 
-	QSPlugIn *thisPlugIn = nil;
-	for (thisPlugIn in knownPlugIns) {
+	QSPlugIn *thisPlugIn;
+	NSEnumerator *e = [knownPlugIns objectEnumerator];
+	for(thisPlugIn in e) {
 		if ([thisPlugIn needsUpdate]) {
 			[updatedPlugIns addObject:thisPlugIn];
 			newPlugInsAvailable++;
@@ -723,10 +738,9 @@
 
 	BOOL liveLoaded = [manager liveLoadPlugIn:plugin];
 
-	if (![[self downloadsQueue] count]) {
-        [manager checkForUnmetDependencies];
-        //[self updateDownloadCount];
-    }
+	if (![[self downloadsQueue] count])
+		[manager checkForUnmetDependencies];
+	//[self updateDownloadCount];
 
 	if (!liveLoaded && (updatingPlugIns || !warnedOfRelaunch) && ![[self downloadsQueue] count] && !supressRelaunchMessage) {
 		int selection = NSRunInformationalAlertPanel(@"Install complete", @"Some plug-ins will not be available until Quicksilver is relaunched.", @"Relaunch", @"Later", nil);
@@ -767,8 +781,7 @@
 		NSString *newPlugIn = nil;
 
 		NSString *path;
-		NSEnumerator *enumerator = [fileList objectEnumerator];
-		while(path = [enumerator nextObject]) {
+		for(path in fileList) {
 			if ([[path pathExtension] caseInsensitiveCompare:@"qspkg"] == NSOrderedSame)
 				newPlugIn = [[self installPlugInFromCompressedFile:path] lastObject];
 			else if ([[path pathExtension] caseInsensitiveCompare:@"qsplugin"] == NSOrderedSame)
@@ -792,10 +805,9 @@
 
 - (BOOL)installPlugInsForIdentifiers:(NSArray *)bundleIDs version:(NSString *)version {
 	if (VERBOSE) NSLog(@"Update: %@", bundleIDs);
-	NSEnumerator *e = [bundleIDs objectEnumerator];
 	NSString *ident = nil;
 	if (!version) version = [NSApp buildVersion];
-	while(ident = [e nextObject]) {
+	for(ident in bundleIDs) {
 		NSString *url = [self urlStringForPlugIn:ident version:version];
 		NSLog(@"Downloading %@", url);
 		[self performSelectorOnMainThread:@selector(installPlugInWithInfo:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:ident, @"id", url, @"url", nil] waitUntilDone:YES];
@@ -819,7 +831,7 @@
     int queuedCount = [[self downloadsQueue] count];
     if (currentDownloads < MAX_CONCURRENT_DOWNLOADS && queuedCount != 0) {
         NSArray* array = [[self downloadsQueue] objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, (queuedCount < MAX_CONCURRENT_DOWNLOADS ? queuedCount : MAX_CONCURRENT_DOWNLOADS))]];
-        for (QSURLDownload * download in array) {
+        for(id download in array) {
             [download start];
             currentDownloads++;
         }
@@ -873,7 +885,7 @@
 - (void)updateDownloadProgressInfo {
 	//NSLog(@"count %d %d %f", [[self downloadsQueue] count], downloadsCount, [[[self downloadsQueue] objectAtIndex:0] progress]);
     float progress = 0;
-    for (QSURLDownload * download in [self downloadsQueue]) {
+    for(id download in [self downloadsQueue]) {
         progress *= [download progress];
     }
 	[self setInstallProgress:progress];
@@ -922,7 +934,7 @@
 }
 
 - (void)cancelPlugInInstall {
-    for (QSURLDownload * download in [self downloadsQueue])
+    for(id download in [self downloadsQueue])
         [download cancel];
 	[[self downloadsQueue] removeAllObjects];
 	[self updateDownloadCount];
