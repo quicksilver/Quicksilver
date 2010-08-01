@@ -159,12 +159,21 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 			return @"'APPL'";
 	}
 
+	NSString *extension = [path pathExtension];
+	// if no extension or is a directory
+        // 29/12/2009 Patrick Robertson
+        // Fix bug #34
+	if (![extension length] || isDirectory)
+	{
+		extension = nil;
+	}
+	// Defines a directory
 	if (![hfsType length] && isDirectory)
 		hfsType = @"'fold'";
-
-	NSString *extension = [path pathExtension];
-	if (![extension length]) extension = nil;
-
+	
+	// NSLog(@"Checking if directory... path is: %@", path);
+	
+	// Defines if is a file with 'extension'
 	if (extension)
 		return extension;
 	else if (hfsType)

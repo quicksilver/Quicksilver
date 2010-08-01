@@ -14,6 +14,7 @@
 	NSMutableDictionary *info;
 	QSCommand *command;
 	NSMutableArray *children;
+    BOOL activated;
 }
 + (id)triggerWithDictionary:(NSDictionary *)info;
 - (id)initWithDictionary:(NSDictionary *)dict;
@@ -24,6 +25,7 @@
 - (BOOL)isPreset;
 - (BOOL)enabled;
 - (void)setEnabled:(BOOL)enabled;
+- (void)setEnabledDoNotNotify:(BOOL)enabled;
 - (void)disable;
 - (id)manager;
 - (BOOL)usesPresetCommand;

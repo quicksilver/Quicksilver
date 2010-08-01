@@ -20,20 +20,8 @@ float QSScoreForAbbreviation(CFStringRef str, CFStringRef abbr, id mask) {
 	return QSScoreForAbbreviationWithRanges(str, abbr, mask, CFRangeMake(0, CFStringGetLength(str) ), CFRangeMake(0, CFStringGetLength(abbr)));
 }
 
-#ifdef DEBUG
-// XCode and GDB were having problems keeping the display code in sync.
-// So moved the problem piece to its own function.  Looks like NSMakeRange
-// uses NS_INLINE, which is causing the problem.
-// :pkohut:20091204 
-
-void AddIndexesInRange(id mask, CFRange * matchedRange)
-{
-	[mask addIndexesInRange:NSMakeRange(matchedRange->location, matchedRange->length)];
-}
-#endif
-
 float QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mask, CFRange strRange, CFRange abbrRange) {
-	float score, remainingScore;
+	float score = 0.0, remainingScore = 0.0;
 	int i, j;
 	CFRange matchedRange, remainingStrRange, adjustedStrRange = strRange;
     
@@ -47,30 +35,26 @@ float QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mas
 	// for faster lookups.
 	CFStringInlineBuffer inlineBuffer;
 	CFStringInitInlineBuffer(str, &inlineBuffer, strRange);
-	
+	CFLocaleRef userLoc = CFLocaleCopyCurrent();
+
 	for (i = abbrRange.length; i > 0; i--) { //Search for steadily smaller portions of the abbreviation
 		CFStringRef curAbbr = CFStringCreateWithSubstring (NULL, abbr, CFRangeMake(abbrRange.location, i) );
 		//terminality
 		//axeen
-        CFLocaleRef userLoc = CFLocaleCopyCurrent();
+//        CFLocaleRef userLoc = CFLocaleCopyCurrent();
 		BOOL found = CFStringFindWithOptionsAndLocale(str, curAbbr,
                                                       CFRangeMake(adjustedStrRange.location, adjustedStrRange.length - abbrRange.length + i),
                                                       kCFCompareCaseInsensitive | kCFCompareDiacriticInsensitive | kCFCompareLocalized,
                                                       userLoc, &matchedRange);
 		CFRelease(curAbbr);
-        CFRelease(userLoc);
+//        CFRelease(userLoc);
 		
 		if (!found) {
 			continue;
 		}
 		
 		if (mask) {
-#ifdef DEBUG
-			// See AddIndexesInRange note above!
-			AddIndexesInRange(mask, &matchedRange);
-#else
 			[mask addIndexesInRange:NSMakeRange(matchedRange.location, matchedRange.length)];
-#endif
 		}
 		
 		remainingStrRange.location = matchedRange.location + matchedRange.length;
@@ -106,8 +90,10 @@ float QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mas
 			}
 			score += remainingScore*remainingStrRange.length;
 			score /= strRange.length;
+            CFRelease(userLoc);
 			return score;
 		}
 	}
+    CFRelease(userLoc);
 	return 0;
 }

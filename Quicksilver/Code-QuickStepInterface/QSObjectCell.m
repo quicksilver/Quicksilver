@@ -62,6 +62,19 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 + (NSFocusRingType) defaultFocusRingType {
 	return NSFocusRingTypeExterior;
 }
+- (NSTextView *)fieldEditorForView:(NSView *)aControlView
+{
+  if (!fieldEditor) {
+    fieldEditor = [[NSTextView alloc] initWithFrame:NSZeroRect];
+    [fieldEditor setFieldEditor:YES];
+    [fieldEditor setRichText:NO];
+  }
+  return fieldEditor;
+}
+- (void)dealloc{
+  [fieldEditor release];
+  [super dealloc];
+}
 - (id)initTextCell:(NSString *)aString {
 
 	if (self = [super initTextCell:aString]) {

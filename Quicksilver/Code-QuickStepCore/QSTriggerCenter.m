@@ -117,6 +117,17 @@
 
 - (void)triggerChanged:(QSTrigger *)trigger {
 	[self writeTriggers];
+
+    // !!!:paulkohut:20100311
+    // Fix for issue 47
+    // Handle case for when a keyboard assignment is added to
+    // a trigger for the first time.  By default when a trigger is
+    // added it does not have a key assignment.  This call ensures
+    // the when a key is assigned the trigger is properly
+    // setup.  Otherwise the user has to toggle the enable/disable
+    // check box to get the trigger to work.
+    [trigger setEnabledDoNotNotify:[trigger enabled]];
+
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSTriggerChangedNotification object:trigger];
 }
 //+ (NSString *)nameForTrigger:(NSDictionary *)trigger {

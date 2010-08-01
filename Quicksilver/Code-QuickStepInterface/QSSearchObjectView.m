@@ -562,6 +562,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (IBAction)updateResultView:(id)sender {
 	//[resultController->searchModePopUp selectItemAtIndex:[resultController->searchModePopUp indexOfItemWithTag:searchMode]];
 	[self reloadResultTable];
+	if (selection > NSNotFound - 1) selection = 0;
 	[resultController->resultTable selectRowIndexes:[NSIndexSet indexSetWithIndex:(selection ? selection : 0)] byExtendingSelection:NO];
 	[resultController updateSelectionInfo];
 }

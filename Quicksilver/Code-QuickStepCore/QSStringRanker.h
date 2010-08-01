@@ -10,7 +10,7 @@
 
 @protocol QSStringRanker
 - (id)initWithString:(NSString *)string;
-- (double)scoreForAbbreviation:(NSString*)anAbbreviation;
+- (float)scoreForAbbreviation:(NSString*)anAbbreviation;
 - (NSIndexSet*)maskForAbbreviation:(NSString*)anAbbreviation;
 - (NSString*)rankedString;
 - (void)setRankedString:(NSString*)aString;

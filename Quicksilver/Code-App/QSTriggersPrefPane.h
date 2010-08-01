@@ -49,7 +49,7 @@
 
 	QSTrigger *selectedTrigger;
 	NSSplitView *splitView;
-	int lastRow;
+	int selectedRow;
 }
 - (NSString *)currentSet;
 - (void)setCurrentSet:(NSString *)value;

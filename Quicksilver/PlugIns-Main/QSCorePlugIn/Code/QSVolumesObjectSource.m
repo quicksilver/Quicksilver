@@ -37,7 +37,10 @@
 	[super invalidateSelf];
 }
 
-- (NSImage *)iconForEntry:(NSDictionary *)dict {return [[NSWorkspace sharedWorkspace] iconForFile:@"/"];}
+- (NSImage *)iconForEntry:(NSDictionary *)dict
+{
+	return [[NSWorkspace sharedWorkspace] iconForFile:@"/"];
+}
 
 - (NSArray *)objectsForEntry:(NSDictionary *)dict {
 	NSArray *volumes = [QSObject fileObjectsWithPathArray:[[NSWorkspace sharedWorkspace] mountedLocalVolumePaths]];

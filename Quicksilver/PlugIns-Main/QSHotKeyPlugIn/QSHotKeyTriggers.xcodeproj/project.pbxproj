@@ -17,56 +17,56 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 4DC393A410B30A6E009D8B7A /* Quicksilver.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8D1107320486CEB800E47090 /* Quicksilver.app */;
+			remoteGlobalIDString = 8D1107320486CEB800E47090;
 			remoteInfo = Quicksilver;
 		};
 		4DC393B310B30A6E009D8B7A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4DC393A410B30A6E009D8B7A /* Quicksilver.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = E1E5F9AF07B1FCFC0044D6EF /* QSFoundation.framework */;
+			remoteGlobalIDString = E1E5F9AF07B1FCFC0044D6EF;
 			remoteInfo = "QuickStep Foundation";
 		};
 		4DC393B510B30A6E009D8B7A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4DC393A410B30A6E009D8B7A /* Quicksilver.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = E1E5F9C307B1FD100044D6EF /* QSEffects.framework */;
+			remoteGlobalIDString = E1E5F9C307B1FD100044D6EF;
 			remoteInfo = "QuickStep Effects";
 		};
 		4DC393B710B30A6E009D8B7A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4DC393A410B30A6E009D8B7A /* Quicksilver.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = E103F1600647200700447FE0 /* QSCore.framework */;
+			remoteGlobalIDString = E103F1600647200700447FE0;
 			remoteInfo = "QuickStep Core";
 		};
 		4DC393B910B30A6E009D8B7A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4DC393A410B30A6E009D8B7A /* Quicksilver.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = E1B5F31206573C2900FCFBE2 /* QSInterface.framework */;
+			remoteGlobalIDString = E1B5F31206573C2900FCFBE2;
 			remoteInfo = "QuickStep Interface";
 		};
 		4DC393BB10B30A6E009D8B7A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4DC393A410B30A6E009D8B7A /* Quicksilver.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 7F0BD5DD07B52EA8003F3DC3 /* Core Support.qsplugin */;
+			remoteGlobalIDString = 7F0BD5DD07B52EA8003F3DC3;
 			remoteInfo = "Core Support";
 		};
 		4DC393BD10B30A6E009D8B7A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4DC393A410B30A6E009D8B7A /* Quicksilver.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 7F9703D009AFEE8700E9EA77 /* QSDroplet.app */;
+			remoteGlobalIDString = 7F9703D009AFEE8700E9EA77;
 			remoteInfo = QSDroplet;
 		};
 		4DC393C110B30A74009D8B7A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4DC393A410B30A6E009D8B7A /* Quicksilver.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 8D1107260486CEB800E47090 /* Quicksilver */;
+			remoteGlobalIDString = 8D1107260486CEB800E47090;
 			remoteInfo = Quicksilver;
 		};
 /* End PBXContainerItemProxy section */
@@ -296,14 +296,14 @@
 /* Begin PBXShellScriptBuildPhase section */
 		E1022B2806B3475D00299BEC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "\"$SRCROOT/../bltrversion\" $INFOPLIST_FILE";
 		};

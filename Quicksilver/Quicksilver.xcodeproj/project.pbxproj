@@ -54,13 +54,6 @@
 /* Begin PBXBuildFile section */
 		2727154B10D2EACD00DF221A /* QSKeyMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 2727154910D2EACD00DF221A /* QSKeyMap.h */; };
 		2727154C10D2EACD00DF221A /* QSKeyMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 2727154A10D2EACD00DF221A /* QSKeyMap.m */; };
-		27BCE58210D0EB5C007CEB4F /* GTMCarbonEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 27BCE57D10D0EB5C007CEB4F /* GTMCarbonEvent.h */; };
-		27BCE58310D0EB5C007CEB4F /* GTMCarbonEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BCE57E10D0EB5C007CEB4F /* GTMCarbonEvent.m */; };
-		27BCE58410D0EB5C007CEB4F /* GTMDebugSelectorValidation.h in Headers */ = {isa = PBXBuildFile; fileRef = 27BCE57F10D0EB5C007CEB4F /* GTMDebugSelectorValidation.h */; };
-		27BCE58510D0EB5C007CEB4F /* GTMDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 27BCE58010D0EB5C007CEB4F /* GTMDefines.h */; };
-		27BCE58610D0EB5C007CEB4F /* GTMObjectSingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 27BCE58110D0EB5C007CEB4F /* GTMObjectSingleton.h */; };
-		27BCE58B10D0EC72007CEB4F /* QSModifierKeyHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 27BCE58710D0EC65007CEB4F /* QSModifierKeyHandler.h */; };
-		27BCE58C10D0EC72007CEB4F /* QSModifierKeyHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BCE58810D0EC65007CEB4F /* QSModifierKeyHandler.m */; };
 		4D6A663410AB2A2F00898CA4 /* QSTreeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 92D9C9680D134BDD00D91825 /* QSTreeController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D8A0B3F10AB2404006AF163 /* Configuration in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4D8A0B3510AB23F7006AF163 /* Configuration */; };
 		4DB4A0210E1007EA0010C540 /* QSKeyCodeTranslator.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FADD07B205950044D6EF /* QSKeyCodeTranslator.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -878,13 +871,6 @@
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		2727154910D2EACD00DF221A /* QSKeyMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSKeyMap.h; sourceTree = "<group>"; };
 		2727154A10D2EACD00DF221A /* QSKeyMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSKeyMap.m; sourceTree = "<group>"; };
-		27BCE57D10D0EB5C007CEB4F /* GTMCarbonEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMCarbonEvent.h; sourceTree = "<group>"; };
-		27BCE57E10D0EB5C007CEB4F /* GTMCarbonEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMCarbonEvent.m; sourceTree = "<group>"; };
-		27BCE57F10D0EB5C007CEB4F /* GTMDebugSelectorValidation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDebugSelectorValidation.h; sourceTree = "<group>"; };
-		27BCE58010D0EB5C007CEB4F /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
-		27BCE58110D0EB5C007CEB4F /* GTMObjectSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMObjectSingleton.h; sourceTree = "<group>"; };
-		27BCE58710D0EC65007CEB4F /* QSModifierKeyHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSModifierKeyHandler.h; sourceTree = "<group>"; };
-		27BCE58810D0EC65007CEB4F /* QSModifierKeyHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSModifierKeyHandler.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		4D4F32FC0E39EDE500668F94 /* QSEffects-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "QSEffects-Info.plist"; sourceTree = "<group>"; };
@@ -1695,18 +1681,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		27BCE57C10D0EB5C007CEB4F /* GMTClasses */ = {
-			isa = PBXGroup;
-			children = (
-				27BCE57D10D0EB5C007CEB4F /* GTMCarbonEvent.h */,
-				27BCE57E10D0EB5C007CEB4F /* GTMCarbonEvent.m */,
-				27BCE57F10D0EB5C007CEB4F /* GTMDebugSelectorValidation.h */,
-				27BCE58010D0EB5C007CEB4F /* GTMDefines.h */,
-				27BCE58110D0EB5C007CEB4F /* GTMObjectSingleton.h */,
-			);
-			path = GMTClasses;
-			sourceTree = "<group>";
-		};
 		29B97314FDCFA39411CA2CEA /* Quicksilver */ = {
 			isa = PBXGroup;
 			children = (
@@ -1998,7 +1972,6 @@
 		E103EE2406471DDE00447FE0 /* Code-External */ = {
 			isa = PBXGroup;
 			children = (
-				27BCE57C10D0EB5C007CEB4F /* GMTClasses */,
 				E12444CB07297FF300043A01 /* CGSPrivate.h */,
 				4DFE7D9E0E081A30000B9AA3 /* NSImageQuickLook */,
 				7FA4ED3F09132402007DB407 /* UKKQueue */,
@@ -2078,8 +2051,6 @@
 		E18001C207B2BBB800010DB0 /* Code-App */ = {
 			isa = PBXGroup;
 			children = (
-				27BCE58710D0EC65007CEB4F /* QSModifierKeyHandler.h */,
-				27BCE58810D0EC65007CEB4F /* QSModifierKeyHandler.m */,
 				E18001C307B2BBB800010DB0 /* AppKitPrivate.h */,
 				E18001C507B2BBB800010DB0 /* main.m */,
 				7F3F72D30952F00D009B4B2D /* NSApplication+ServicesModification.h */,
@@ -2590,7 +2561,6 @@
 				7FDBC5010A02D93400E496FF /* QSAdvancedPrefPane.h in Headers */,
 				7F4E4B380A3CD83D0070336A /* QSMainMenuPrefPane.h in Headers */,
 				92E946190D04CCEF0013377F /* QSModifierKeyEvents.h in Headers */,
-				27BCE58B10D0EC72007CEB4F /* QSModifierKeyHandler.h in Headers */,
 				2727154B10D2EACD00DF221A /* QSKeyMap.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2775,10 +2745,6 @@
 				7F943F6508033961007EDC31 /* QSUTI.h in Headers */,
 				7F26503608DB09B20076E4E6 /* UKDirectoryEnumerator.h in Headers */,
 				4D6A663410AB2A2F00898CA4 /* QSTreeController.h in Headers */,
-				27BCE58210D0EB5C007CEB4F /* GTMCarbonEvent.h in Headers */,
-				27BCE58410D0EB5C007CEB4F /* GTMDebugSelectorValidation.h in Headers */,
-				27BCE58510D0EB5C007CEB4F /* GTMDefines.h in Headers */,
-				27BCE58610D0EB5C007CEB4F /* GTMObjectSingleton.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3315,7 +3281,6 @@
 				7FDBC5020A02D93400E496FF /* QSAdvancedPrefPane.m in Sources */,
 				7F4E4B390A3CD83D0070336A /* QSMainMenuPrefPane.m in Sources */,
 				92E9461A0D04CCEF0013377F /* QSModifierKeyEvents.m in Sources */,
-				27BCE58C10D0EC72007CEB4F /* QSModifierKeyHandler.m in Sources */,
 				2727154C10D2EACD00DF221A /* QSKeyMap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3487,7 +3452,6 @@
 				92D9C96B0D134BDD00D91825 /* QSTreeController.m in Sources */,
 				7F943F6608033961007EDC31 /* QSUTI.m in Sources */,
 				7F26503708DB09B20076E4E6 /* UKDirectoryEnumerator.m in Sources */,
-				27BCE58310D0EB5C007CEB4F /* GTMCarbonEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4015,16 +3979,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				GCC_AUTO_VECTORIZATION = NO;
-				GCC_ENABLE_SSE3_EXTENSIONS = NO;
-				GCC_ENABLE_SSE41_EXTENSIONS = NO;
-				GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
-				ONLY_ACTIVE_ARCH = NO;
-				SKIP_INSTALL = NO;
-				STRIP_INSTALLED_PRODUCT = YES;
 			};
 			name = Release;
 		};
