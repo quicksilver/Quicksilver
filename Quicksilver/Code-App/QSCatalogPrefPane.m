@@ -388,8 +388,11 @@ static id _sharedInstance;
 		[excludeFiletypesLabel setHidden:YES];
 		[excludeFiletypes setHidden:YES];
 		[saveExcludeFiletypes setHidden:YES];
+		[descendIntoBundles setHidden:YES];
 		
 		[[[currentItem info] objectForKey:kItemSettings] setObject:@"" forKey:kItemExcludeFiletypes];
+		[[[currentItem info] objectForKey:kItemSettings] setObject:@"yes" forKey:kItemDescendIntoBundles];
+		
 		[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChanged object:[currentItem info]];
 	}
 	else
@@ -397,10 +400,18 @@ static id _sharedInstance;
 		[excludeFiletypesLabel setHidden:NO];
 		[excludeFiletypes setHidden:NO];
 		[saveExcludeFiletypes setHidden:NO];
+		[descendIntoBundles setHidden:NO];
 		
 		NSString *excludeRegexpValue = [[[currentItem info] objectForKey:kItemSettings] objectForKey:kItemExcludeFiletypes];
 		if (excludeRegexpValue != nil)
 			[excludeFiletypes setStringValue:excludeRegexpValue];
+		else
+			[excludeFiletypes setStringValue:@""];
+		
+		if ([[[[currentItem info] objectForKey:kItemSettings] objectForKey:kItemDescendIntoBundles] isEqualToString:@"no"])
+			[descendIntoBundles setState:NSOffState];
+		else
+			[descendIntoBundles setState:NSOnState];
 	}
 }
 
@@ -592,9 +603,18 @@ static id _sharedInstance;
 	}
 }
 
-- (IBAction)saveExcludeRegexp:(id)sender {
-	NSString *newValue = ([currentItem isPreset] || [currentItem isSeparator]) ? @"" : [excludeFiletypes stringValue];
-	[[[currentItem info] objectForKey:kItemSettings] setObject:newValue forKey:kItemExcludeFiletypes];
+- (IBAction)saveExcludeFiletypes:(id)sender {
+	NSString *excludeValue = ([currentItem isPreset] || [currentItem isSeparator]) ? @"" : [excludeFiletypes stringValue];
+	[[[currentItem info] objectForKey:kItemSettings] setObject:excludeValue forKey:kItemExcludeFiletypes];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChanged object:[currentItem info]];
+}
+
+- (IBAction)saveDescendIntoBundles:(id)sender {
+	NSLog(@"saveDescendIntoBundles");
+	NSString *descendValue = ([currentItem isPreset] || [currentItem isSeparator]) ? @"yes" : ([descendIntoBundles state] == NSOnState ? @"yes" : @"no");
+	[[[currentItem info] objectForKey:kItemSettings] setObject:descendValue forKey:kItemDescendIntoBundles];
+	
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChanged object:[currentItem info]];
 }
 

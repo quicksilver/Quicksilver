@@ -41,6 +41,10 @@
 	if (excludeValue != nil)
 		excludeFiletypes = [excludeValue componentsSeparatedByString:@","];
 	
+	NSString *descendValue = [settings objectForKey:kItemDescendIntoBundles];
+	
+	BOOL descendIntoBundles = [descendValue isEqualToString:@"no"] ? NO : YES;
+	
 	int depthValue = (depth?[depth intValue] : 1);
 
 	NSMutableArray *types = [NSMutableArray array];
@@ -63,12 +67,12 @@
 			[types addObject:type];
 		}
 	}
-	return [[NSSet setWithArray:[self objectsFromPath:path depth:depthValue types:types excludes:excludeFiletypes]] allObjects];
+	return [[NSSet setWithArray:[self objectsFromPath:path depth:depthValue types:types excludes:excludeFiletypes descend:descendIntoBundles]] allObjects];
 }
 
 int eCount = 0;
 
-- (NSArray *)objectsFromPath:(NSString *)path depth:(int)depth types:(NSArray *)types excludes:(NSArray *)excludes {
+- (NSArray *)objectsFromPath:(NSString *)path depth:(int)depth types:(NSArray *)types excludes:(NSArray *)excludes descend:(BOOL)descendIntoBundles {
 	BOOL isDirectory; NSFileManager *manager = [NSFileManager defaultManager];
 	if (![manager fileExistsAtPath:path isDirectory:&isDirectory] || !isDirectory)
 		return nil;
@@ -127,9 +131,14 @@ int eCount = 0;
 				if (aliasFile) [obj setObject:aliasFile forType:QSAliasFilePathType];
 				if (obj) [array addObject:obj];
 			}
-			if (depth && isDirectory) {// && !(infoRec.flags & kLSItemInfoIsPackage))
+			
+			BOOL shouldDescend = YES;
+			if ([NSBundle bundleWithPath:file] != nil && !descendIntoBundles)
+				shouldDescend = NO;
+			
+			if (depth && isDirectory && shouldDescend) {// && !(infoRec.flags & kLSItemInfoIsPackage))
 				NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-				[array addObjectsFromArray:[self objectsFromPath:file depth:depth types:types excludes:excludes]];
+				[array addObjectsFromArray:[self objectsFromPath:file depth:depth types:types excludes:excludes descend:descendIntoBundles]];
 				[pool release];
 			}
 		}
