@@ -15,6 +15,7 @@
 #define kItemFileContents @"fileContents"
 #define kItemFolderTypes @"folderTypes"
 #define kItemFolderDepth @"folderDepth"
+#define kItemExcludeFiletypes @"excludeFiletypes"
 #define kItemParser @"parser"
 #define kItemScanContents @"scanContents"
 #define kItemSkipItem @"skipItem"

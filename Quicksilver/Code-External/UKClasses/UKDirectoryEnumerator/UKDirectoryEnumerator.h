@@ -85,6 +85,7 @@
 - (NSDictionary*)		fileAttributes; 		// You must set up whichInfo to get something in here. Note that this is an expensive call. If you can use isDirectory() or isInvisible(), then do that instead.
 - (BOOL)					isInvisible; 		// You must set whichInfo to include kFSCatInfoFinderInfo to get something except NO here.
 - (BOOL)					isDirectory; 		// You must set whichInfo to include kFSCatInfoNodeFlags to get something except NO here.
+- (BOOL)					isAlias;            // You must set whichInfo to include kFSCatInfoFinderInfo to get something except NO here.
 
 - (void)					setCacheSize: (ItemCount)c; // How many files to cache. Defaults to UKDirectoryEnumeratorCacheSize
 - (ItemCount) 			cacheSize;

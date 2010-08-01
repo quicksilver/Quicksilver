@@ -270,6 +270,16 @@ void			UKFSCatInfoFromDictionary( NSDictionary* attrs, FSCatalogInfo* currInfo, 
 		return NO;
 }
 
+/* tiennou: Added 02/02/2011 */
+- (BOOL)			isAlias {
+	FSCatalogInfo*			currInfo = &(infoCache[currIndex -1]);
+    
+	if ( UK_BTST(whichInfo, kFSCatInfoFinderInfo) ) {
+		FileInfo*		fInfo = (FileInfo*)currInfo->finderInfo;
+		return UK_BTST(fInfo->finderFlags, kIsAlias);
+	} else
+		return NO;
+}
 
 // -----------------------------------------------------------------------------
 //  setDesiredInfo:

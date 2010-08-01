@@ -25,9 +25,9 @@ NSString *QSUTIForAnyTypeString(NSString *type) {
 }
 
 NSString *QSUTIForExtensionOrType(NSString *extension, OSType filetype) {
-	NSString *itemUTI = NULL;
+	NSString *itemUTI = nil;
 	//NSLog(@"type %@ %@", extension, UTCreateStringForOSType(filetype) );
-	if ( extension != NULL ) {
+	if ( extension != nil ) {
 		itemUTI = (NSString *)UTTypeCreatePreferredIdentifierForTag (kUTTagClassFilenameExtension, (CFStringRef) extension, NULL);
 	} else {
 		if (filetype == 'fold') return @"public.folder";

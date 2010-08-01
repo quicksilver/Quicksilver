@@ -36,34 +36,24 @@
 
 - (NSArray *)objectsFromPath:(NSString *)path withSettings:(NSDictionary *)settings {
 	NSNumber *depth = [settings objectForKey:kItemFolderDepth];
+	
 	int depthValue = (depth?[depth intValue] : 1);
 
 	NSMutableArray *types = [NSMutableArray array];
-
-	// ???: Is this really a loop
-	// Does [settings objectForKey:kItemFolderTypes] return a collection or
-	// just a single item?  If just a single item then refactor the 'for' statement
-	// to an 'if' statement.
-#warning - Is this really a loop??? pkohut:20090412
-	for(NSString * type in [settings objectForKey:kItemFolderTypes]) {
-		if ([type hasPrefix:@"'"] && [type length] == 6) {
-			NSString *ident = (NSString*)UTTypeCreatePreferredIdentifierForTag(kUTTagClassOSType, (CFStringRef)[type substringWithRange:NSMakeRange(1, 4)], NULL);
-			[types addObject:ident];
-			[ident release];
-		} else if ([type rangeOfString:@"."] .location == NSNotFound) {
-			NSString *ident = (NSString*)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (CFStringRef)type, NULL);
-			[types addObject:ident];
-			[ident release];
-		} else {
-			[types addObject:type];
-		}
+	for (NSString *type in [settings objectForKey:kItemFolderTypes]) {
+        NSString *realType = QSUTIForAnyTypeString(type);
+        [types addObject:(realType ? realType : type)];
 	}
-	return [[NSSet setWithArray:[self objectsFromPath:path depth:depthValue types:types]] allObjects];
+    
+    NSMutableArray *excludedTypes = [NSMutableArray array];
+    for (NSString *excludedType in [settings objectForKey:kItemExcludeFiletypes]) {
+        NSString *realType = QSUTIForAnyTypeString(excludedType);
+        [excludedTypes addObject:(realType ? realType : excludedType)];
+    }
+	return [[NSSet setWithArray:[self objectsFromPath:path depth:depthValue types:types excludeTypes:excludedTypes]] allObjects];
 }
 
-int eCount = 0;
-
-- (NSArray *)objectsFromPath:(NSString *)path depth:(int)depth types:(NSArray *)types {
+- (NSArray *)objectsFromPath:(NSString *)path depth:(int)depth types:(NSArray *)types excludeTypes:(NSArray *)excludedTypes {
 	BOOL isDirectory; NSFileManager *manager = [NSFileManager defaultManager];
 	if (![manager fileExistsAtPath:path isDirectory:&isDirectory] || !isDirectory)
 		return nil;
@@ -73,53 +63,49 @@ int eCount = 0;
 	UKDirectoryEnumerator *enumerator = [[UKDirectoryEnumerator alloc] initWithPath:path];
 	if (!enumerator) return nil;
 
-	eCount++;
-
 	NSString *file, *aliasFile, *type;
 	NSMutableArray *array = [NSMutableArray array];
 	NDAlias *aliasSource;
 	QSObject *obj;
 
-	[enumerator setDesiredInfo: kFSCatInfoGettableInfo|kFSCatInfoFinderInfo];
+	[enumerator setDesiredInfo: kFSCatInfoGettableInfo | kFSCatInfoFinderInfo];
 	while (file = [enumerator nextObjectFullPath]) {
-		FSCatalogInfo* currInfo = [enumerator currInfo];
-		type = [manager UTIOfFile:file];
-//		FileInfo *fInfo = (FileInfo*)currInfo->finderInfo;
-//		UInt16 finderFlags = ((FileInfo*)currInfo->finderInfo)->finderFlags;
 		aliasSource = nil; aliasFile = nil;
 		isDirectory = [enumerator isDirectory];
-		if (((FileInfo*)currInfo->finderInfo)->finderFlags & kIsAlias) {
-		 NSString *targetFile = [manager resolveAliasAtPath:file];
+		if ([enumerator isAlias]) {
+            /* If this is an alias, try to resolve it to get the remaining checks right */
+            NSString *targetFile = [manager resolveAliasAtPath:file];
 			 if (targetFile) {
 				 aliasSource = [NDAlias aliasWithContentsOfFile:file];
 				 aliasFile = file;
 				 file = targetFile;
-				 type = [manager UTIOfFile:file];
 				 [manager fileExistsAtPath:file isDirectory:&isDirectory];
 			}
 		}
 		if (aliasFile || (![enumerator isInvisible] && ![[file lastPathComponent] hasPrefix:@"."] && ![file isEqualToString:@"/mach.sym"]) ) {
-			// if this is the target of alias, include
-			BOOL include = NO;
-			if (![types count]) {
-				include = YES;
-			} else {
-				for(NSString * requiredType in types) {
-					if (UTTypeConformsTo((CFStringRef)type, (CFStringRef)requiredType)) {
-						include = YES;
-						break;
-					}
-				}
-			}
+            type = [manager UTIOfFile:file];
+			// if we are an alias or the file has no reason to be included
+			BOOL include = YES;
+            for (NSString *requiredType in types) {
+                if (!UTTypeConformsTo((CFStringRef)type, (CFStringRef)requiredType)) {
+                    include = NO;
+                }
+            }
+            for (NSString *excludedType in excludedTypes) {
+                if (UTTypeConformsTo((CFStringRef)type, (CFStringRef)excludedType)) {
+                    include = NO;
+                }
+            }
+			
 			if (include) {
 				obj = [QSObject fileObjectWithPath:file];
 				if (aliasSource) [obj setObject:[aliasSource data] forType:QSAliasDataType];
 				if (aliasFile) [obj setObject:aliasFile forType:QSAliasFilePathType];
 				if (obj) [array addObject:obj];
 			}
-			if (depth && isDirectory) {// && !(infoRec.flags & kLSItemInfoIsPackage))
+			if (depth && isDirectory) {
 				NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-				[array addObjectsFromArray:[self objectsFromPath:file depth:depth types:types]];
+				[array addObjectsFromArray:[self objectsFromPath:file depth:depth types:types excludeTypes:excludedTypes]];
 				[pool release];
 			}
 		}
