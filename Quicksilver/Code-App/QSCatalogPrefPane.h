@@ -52,7 +52,13 @@
 //	NSMutableDictionary *iconCache;
 
 	IBOutlet NSView *sidebar;
+	
+	IBOutlet NSTextField *excludeFiletypesLabel;
+	IBOutlet NSTextField *excludeFiletypes;
+	IBOutlet NSButton *saveExcludeFiletypes;
 }
+
+- (IBAction)saveExcludeRegexp:(id)sender;
 
 - (IBAction)addSource:(id)sender;
 //- (IBAction)addSourcePreset:(id)sender;

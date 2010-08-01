@@ -36,6 +36,11 @@
 
 - (NSArray *)objectsFromPath:(NSString *)path withSettings:(NSDictionary *)settings {
 	NSNumber *depth = [settings objectForKey:kItemFolderDepth];
+	NSString *excludeValue = [settings objectForKey:kItemExcludeFiletypes];
+	NSArray *excludeFiletypes = [NSArray array];
+	if (excludeValue != nil)
+		excludeFiletypes = [excludeValue componentsSeparatedByString:@","];
+	
 	int depthValue = (depth?[depth intValue] : 1);
 
 	NSMutableArray *types = [NSMutableArray array];
@@ -58,12 +63,12 @@
 			[types addObject:type];
 		}
 	}
-	return [[NSSet setWithArray:[self objectsFromPath:path depth:depthValue types:types]] allObjects];
+	return [[NSSet setWithArray:[self objectsFromPath:path depth:depthValue types:types excludes:excludeFiletypes]] allObjects];
 }
 
 int eCount = 0;
 
-- (NSArray *)objectsFromPath:(NSString *)path depth:(int)depth types:(NSArray *)types {
+- (NSArray *)objectsFromPath:(NSString *)path depth:(int)depth types:(NSArray *)types excludes:(NSArray *)excludes {
 	BOOL isDirectory; NSFileManager *manager = [NSFileManager defaultManager];
 	if (![manager fileExistsAtPath:path isDirectory:&isDirectory] || !isDirectory)
 		return nil;
@@ -111,6 +116,11 @@ int eCount = 0;
 					}
 				}
 			}
+			
+			NSString *ext = [file pathExtension];
+			if (include && ext != nil && [ext length] > 0 && [excludes containsObject:ext])
+				include = NO;
+			
 			if (include) {
 				obj = [QSObject fileObjectWithPath:file];
 				if (aliasSource) [obj setObject:[aliasSource data] forType:QSAliasDataType];
@@ -119,7 +129,7 @@ int eCount = 0;
 			}
 			if (depth && isDirectory) {// && !(infoRec.flags & kLSItemInfoIsPackage))
 				NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-				[array addObjectsFromArray:[self objectsFromPath:file depth:depth types:types]];
+				[array addObjectsFromArray:[self objectsFromPath:file depth:depth types:types excludes:excludes]];
 				[pool release];
 			}
 		}
