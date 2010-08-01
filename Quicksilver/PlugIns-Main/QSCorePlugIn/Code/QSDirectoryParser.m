@@ -133,7 +133,7 @@ int eCount = 0;
 			}
 			
 			BOOL shouldDescend = YES;
-			if ([NSBundle bundleWithPath:file] != nil && !descendIntoBundles)
+			if ([[NSWorkspace sharedWorkspace] isFilePackageAtPath:file] && !descendIntoBundles)
 				shouldDescend = NO;
 			
 			if (depth && isDirectory && shouldDescend) {// && !(infoRec.flags & kLSItemInfoIsPackage))
