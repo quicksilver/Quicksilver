@@ -174,6 +174,7 @@ static id _sharedInstance;
 	[itemTable reloadData];
     // !!! Andre Berg 20091015:  an empty index set will deselect everything? Is this intended here?
 	//[itemTable selectRowIndexes:[NSIndexSet indexSet] byExtendingSelection:NO];
+	
 	[self updateEntrySelection];
 }
 
@@ -381,6 +382,26 @@ static id _sharedInstance;
 		[self populateCatalogEntryFields];
 		[itemOptionsView setContentView:messageView];
 	}
+	
+	if ([currentItem isPreset] || [currentItem isSeparator])
+	{
+		[excludeFiletypesLabel setHidden:YES];
+		[excludeFiletypes setHidden:YES];
+		[saveExcludeFiletypes setHidden:YES];
+		
+		[[[currentItem info] objectForKey:kItemSettings] setObject:@"" forKey:kItemExcludeFiletypes];
+		[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChanged object:[currentItem info]];
+	}
+	else
+	{
+		[excludeFiletypesLabel setHidden:NO];
+		[excludeFiletypes setHidden:NO];
+		[saveExcludeFiletypes setHidden:NO];
+		
+		NSString *excludeRegexpValue = [[[currentItem info] objectForKey:kItemSettings] objectForKey:kItemExcludeFiletypes];
+		if (excludeRegexpValue != nil)
+			[excludeFiletypes setStringValue:excludeRegexpValue];
+	}
 }
 
 - (int) outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item { return 0; }
@@ -569,6 +590,12 @@ static id _sharedInstance;
 //								 toTarget:currentItem withObject:self];
 //		[QSLib startThreadedAndForcedScan];
 	}
+}
+
+- (IBAction)saveExcludeRegexp:(id)sender {
+	NSString *newValue = ([currentItem isPreset] || [currentItem isSeparator]) ? @"" : [excludeFiletypes stringValue];
+	[[[currentItem info] objectForKey:kItemSettings] setObject:newValue forKey:kItemExcludeFiletypes];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChanged object:[currentItem info]];
 }
 
 - (BOOL)windowShouldClose:(id)sender {
