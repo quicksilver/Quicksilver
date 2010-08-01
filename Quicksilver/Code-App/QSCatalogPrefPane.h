@@ -56,9 +56,11 @@
 	IBOutlet NSTextField *excludeFiletypesLabel;
 	IBOutlet NSTextField *excludeFiletypes;
 	IBOutlet NSButton *saveExcludeFiletypes;
+	IBOutlet NSButton *descendIntoBundles;
 }
 
-- (IBAction)saveExcludeRegexp:(id)sender;
+- (IBAction)saveExcludeFiletypes:(id)sender;
+- (IBAction)saveDescendIntoBundles:(id)sender;
 
 - (IBAction)addSource:(id)sender;
 //- (IBAction)addSourcePreset:(id)sender;
