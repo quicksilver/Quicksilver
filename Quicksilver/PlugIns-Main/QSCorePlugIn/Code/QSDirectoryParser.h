@@ -13,6 +13,6 @@
 #import <QSCore/QSParser.h>
 @interface QSDirectoryParser : QSParser
 
-- (NSArray *)objectsFromPath:(NSString *)path depth:(int)depth types:(NSArray *)types excludeTypes:(NSArray *)excludes;
+- (NSArray *)objectsFromPath:(NSString *)path depth:(int)depth types:(NSArray *)types excludeTypes:(NSArray *)excludes descend:(BOOL)descendIntoBundles;
 @end
 

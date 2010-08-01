@@ -36,8 +36,9 @@
 
 - (NSArray *)objectsFromPath:(NSString *)path withSettings:(NSDictionary *)settings {
 	NSNumber *depth = [settings objectForKey:kItemFolderDepth];
-	
 	int depthValue = (depth?[depth intValue] : 1);
+    CFBooleanRef descendValue = (CFBooleanRef)[settings objectForKey:kItemDescendIntoBundles];
+	BOOL descendIntoBundles = descendValue == kCFBooleanTrue ? YES : NO;
 
 	NSMutableArray *types = [NSMutableArray array];
 	for (NSString *type in [settings objectForKey:kItemFolderTypes]) {
@@ -50,10 +51,10 @@
         NSString *realType = QSUTIForAnyTypeString(excludedType);
         [excludedTypes addObject:(realType ? realType : excludedType)];
     }
-	return [[NSSet setWithArray:[self objectsFromPath:path depth:depthValue types:types excludeTypes:excludedTypes]] allObjects];
+	return [[NSSet setWithArray:[self objectsFromPath:path depth:depthValue types:types excludeTypes:excludedTypes descend:descendIntoBundles]] allObjects];
 }
 
-- (NSArray *)objectsFromPath:(NSString *)path depth:(int)depth types:(NSArray *)types excludeTypes:(NSArray *)excludedTypes {
+- (NSArray *)objectsFromPath:(NSString *)path depth:(int)depth types:(NSArray *)types excludeTypes:(NSArray *)excludedTypes descend:(BOOL)descendIntoBundles {
 	BOOL isDirectory; NSFileManager *manager = [NSFileManager defaultManager];
 	if (![manager fileExistsAtPath:path isDirectory:&isDirectory] || !isDirectory)
 		return nil;
@@ -103,9 +104,14 @@
 				if (aliasFile) [obj setObject:aliasFile forType:QSAliasFilePathType];
 				if (obj) [array addObject:obj];
 			}
-			if (depth && isDirectory) {
+			
+			BOOL shouldDescend = YES;
+			if ([[NSWorkspace sharedWorkspace] isFilePackageAtPath:file] != nil && !descendIntoBundles)
+				shouldDescend = NO;
+			
+			if (depth && isDirectory && shouldDescend) {
 				NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-				[array addObjectsFromArray:[self objectsFromPath:file depth:depth types:types excludeTypes:excludedTypes]];
+				[array addObjectsFromArray:[self objectsFromPath:file depth:depth types:types excludeTypes:excludedTypes descend:descendIntoBundles]];
 				[pool release];
 			}
 		}
