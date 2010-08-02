@@ -383,7 +383,7 @@ static id _sharedInstance;
 		[itemOptionsView setContentView:messageView];
 	}
 	
-	if ([currentItem isPreset] || [currentItem isSeparator])
+	if ([currentItem isPreset] || [currentItem isSeparator] || ![[[[currentItem source] class] description] isEqualToString:@"QSFileSystemObjectSource"])
 	{
 		[excludeFiletypesLabel setHidden:YES];
 		[excludeFiletypes setHidden:YES];
@@ -401,6 +401,9 @@ static id _sharedInstance;
 		[excludeFiletypes setHidden:NO];
 		[saveExcludeFiletypes setHidden:NO];
 		[descendIntoBundles setHidden:NO];
+		
+		NSDictionary *settings = [[currentItem info] objectForKey:kItemSettings];
+		NSLog(@"settings: %@", settings);
 		
 		NSString *excludeRegexpValue = [[[currentItem info] objectForKey:kItemSettings] objectForKey:kItemExcludeFiletypes];
 		if (excludeRegexpValue != nil)
