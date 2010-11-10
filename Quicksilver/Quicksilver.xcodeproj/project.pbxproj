@@ -3972,6 +3972,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
+				SDKROOT = macosx10.5;
 			};
 			name = Debug;
 		};
@@ -3979,6 +3980,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
+				SDKROOT = macosx10.5;
 			};
 			name = Release;
 		};

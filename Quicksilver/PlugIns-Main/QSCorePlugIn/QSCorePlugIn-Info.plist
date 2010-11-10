@@ -1080,8 +1080,6 @@
 		<dict>
 			<key>actionClass</key>
 			<string>URLActions</string>
-			<key>actionSelector</key>
-			<string>doURLOpenAction:</string>
 			<key>directTypes</key>
 			<array>
 				<string>Apple URL pasteboard type</string>
@@ -1115,12 +1113,29 @@
 			<string>URLActions</string>
 			<key>actionSelector</key>
 			<string>doURLOpenAction:</string>
+			<key>alternateAction</key>
+			<string>URLOpenActionInBackground</string>
 			<key>directTypes</key>
 			<array>
 				<string>Apple URL pasteboard type</string>
 			</array>
 			<key>precedence</key>
 			<integer>2</integer>
+			<key>validatesObjects</key>
+			<true/>
+		</dict>
+		<key>URLOpenActionInBackground</key>
+		<dict>
+			<key>actionClass</key>
+			<string>URLActions</string>
+			<key>actionSelector</key>
+			<string>doURLOpenActionInBackground:</string>
+			<key>directTypes</key>
+			<array>
+				<string>Apple URL pasteboard type</string>
+			</array>
+			<key>precedence</key>
+			<integer>1</integer>
 			<key>validatesObjects</key>
 			<true/>
 		</dict>

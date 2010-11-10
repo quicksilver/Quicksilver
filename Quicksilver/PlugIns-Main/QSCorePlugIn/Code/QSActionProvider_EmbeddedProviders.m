@@ -106,6 +106,38 @@
 	return nil;
 }
 
+- (QSObject *)doURLOpenActionInBackground:(QSObject *)dObject {
+	NSLog(@"Doing alternate action");
+	NSMutableArray *urlArray = [NSMutableArray array];
+	NSString *urlString;
+	NSEnumerator *e = [[dObject arrayForType:QSURLType] objectEnumerator];
+	for (urlString in e) {
+		NSURL *url = [NSURL URLWithString:urlString];
+		if ([urlString rangeOfString:QUERY_KEY].location != NSNotFound) {
+			int pathLoc = [urlString rangeOfString:[url path]].location;
+			if (pathLoc != NSNotFound)
+				url = [NSURL URLWithString:[urlString substringWithRange:NSMakeRange(0, pathLoc)]];
+		}
+		url = [url URLByInjectingPasswordFromKeychain];
+		if (url)
+			[urlArray addObject:url];
+		else
+			NSLog(@"error with url: %@", urlString);
+	}
+	// TODO: Bring this back later
+	//	if (fALPHA && ![QSAction modifiersAreIgnored] && mOptionKeyIsDown) {
+	/*	if (mOptionKeyIsDown) {
+	 id cont = [[NSClassFromString(@"QSSimpleWebWindowController") alloc] initWithWindow:nil];
+	 [(QSSimpleWebWindowController *)cont openURL:[urlArray lastObject]];
+	 [[cont window] makeKeyAndOrderFront:nil];
+	 } else {*/
+	[[NSWorkspace sharedWorkspace] openURLs:urlArray withAppBundleIdentifier:[dObject objectForMeta:@"QSPreferredApplication"] options:NSWorkspaceLaunchWithoutActivation additionalEventParamDescriptor:nil launchIdentifiers:nil];
+	//	}
+	return nil;
+}
+
+
+
 - (QSObject *)doURLOpenAction:(QSObject *)dObject with:(QSObject *)iObject {
 	NSURL *url = [[NSURL URLWithString:[dObject objectForType:QSURLType]] URLByInjectingPasswordFromKeychain];
 	NSString *ident = nil;
