@@ -136,12 +136,24 @@
 		//}
 	} else {
 		NSArray *selection = [arrayController selectedObjects];
+		BOOL isMainThread = [NSThread isMainThread];
+		NSString *htmlString;
 		if ([selection count] == 1) {
-			[[plugInText mainFrame] loadHTMLString:[[selection objectAtIndex:0] infoHTML] baseURL:nil];
+			htmlString = [[selection objectAtIndex:0] infoHTML];
 		} else {
-			[[plugInText mainFrame] loadHTMLString:@"" baseURL:nil];
+			htmlString = @"";
 		}
+		if (isMainThread) {
+			[[plugInText mainFrame] loadHTMLString:htmlString baseURL:nil];
+		} else {
+			[self performSelectorOnMainThread:@selector(updateWithHTMLString:) withObject:htmlString waitUntilDone:NO];
+		}
+
 	}
+}
+
+- (void)updateWithHTMLString:(NSString*)html {
+	[[plugInText mainFrame] loadHTMLString:html baseURL:nil];
 }
 
 - (void)paneLoadedByController:(id)controller {
