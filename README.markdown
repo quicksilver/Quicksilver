@@ -1,10 +1,10 @@
 About Quicksilver B5X on Github
 ===============================
 
-This repository contains the current source code of Quicksilver. If you're having issues with the latest Quicksilver version, feel free to log them at the [issue tracker](http://github.com/tiennou/blacktree-alchemy/issues). 
+This repository contains the current source code of Quicksilver. If you're having issues with the latest Quicksilver version, feel free to log them at the [issue tracker](https://github.com/quicksilver/Quicksilver/issues). 
 
-The B5X branch contains the source for the currently released Quicksilver.
-The master branch contains the code for the "next-gen" Quicksilver. Right now it features an updated plugin system, and Catalyst, which aims to provide triggers as a preference pane, and that's it. It is usable, but all plugins are incompatible without some extra work.
+This branch contains the source for the currently released Quicksilver.
+The alcor branch contains the code for the "next-gen" Quicksilver. Right now it features an updated plugin system, and Catalyst, which aims to provide triggers as a preference pane, and that's it. It is usable, but all plugins are incompatible without some extra work.
 
 If you want more info about [Quicksilver](http://en.wikipedia.org/wiki/Quicksilver_%28software%29 "Quicksilver Wikipedia article") 
 just do a search on YouTube - there's tons of very helpful instructional and informational video tutorials.
@@ -13,7 +13,7 @@ Or visit the [mailing list](http://groups.google.com/group/blacktree-quicksilver
 Where to find it ?
 ---------------------
 
-Go look on the download pages around. The "most official" one is [here](http://github.com/tiennou/blacktree-alchemy/downloads), but there are some [others](http://github.com/andreberg/blacktree-alchemy/downloads). Choose the one with the biggest number ;-).
+Go look on the download pages around. The "most official" one is [here](https://github.com/quicksilver/Quicksilver/downloads), but there are some others lying around in the forest of forks. Choose the one with the biggest number ;-).
 
 Before You Try It Out
 ---------------------

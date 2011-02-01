@@ -85,10 +85,8 @@
 	[[NSWorkspace sharedWorkspace] openURL:[[[[guideView mainFrame] dataSource] mainResource] URL]];
 }
 
-#define SEARCH_URL @"http://docs.blacktree.com/?do=search&id=%@"
-
 - (IBAction)search:(id)sender {
-	[[guideView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:SEARCH_URL, [sender stringValue]]]]];
+	[[guideView mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:kHelpSearchURL, [sender stringValue]]]]];
 }
 
 @end

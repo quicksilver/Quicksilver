@@ -7,8 +7,7 @@
 //
 
 #import "QSHelp.h"
-#define uHelpRoot @"http://docs.blacktree.com/"
 void QSShowHelpPage(NSString *page) {
 	if (page)
-		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[uHelpRoot stringByAppendingString:page]]];
+		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[kHelpURL stringByAppendingString:page]]];
 }
