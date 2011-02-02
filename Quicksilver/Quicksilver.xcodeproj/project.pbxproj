@@ -52,8 +52,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		2727154B10D2EACD00DF221A /* QSKeyMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 2727154910D2EACD00DF221A /* QSKeyMap.h */; };
-		2727154C10D2EACD00DF221A /* QSKeyMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 2727154A10D2EACD00DF221A /* QSKeyMap.m */; };
 		4D6A663410AB2A2F00898CA4 /* QSTreeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 92D9C9680D134BDD00D91825 /* QSTreeController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D8A0B3F10AB2404006AF163 /* Configuration in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4D8A0B3510AB23F7006AF163 /* Configuration */; };
 		4DB4A0210E1007EA0010C540 /* QSKeyCodeTranslator.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FADD07B205950044D6EF /* QSKeyCodeTranslator.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -869,8 +867,6 @@
 
 /* Begin PBXFileReference section */
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		2727154910D2EACD00DF221A /* QSKeyMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSKeyMap.h; sourceTree = "<group>"; };
-		2727154A10D2EACD00DF221A /* QSKeyMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSKeyMap.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		4D4F32FC0E39EDE500668F94 /* QSEffects-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "QSEffects-Info.plist"; sourceTree = "<group>"; };
@@ -2107,8 +2103,6 @@
 				E180021307B2BBB900010DB0 /* QSTriggersPrefPane.m */,
 				E180021407B2BBB900010DB0 /* QSUpdateController.h */,
 				E180021507B2BBB900010DB0 /* QSUpdateController.m */,
-				2727154910D2EACD00DF221A /* QSKeyMap.h */,
-				2727154A10D2EACD00DF221A /* QSKeyMap.m */,
 			);
 			path = "Code-App";
 			sourceTree = "<group>";
@@ -2561,7 +2555,6 @@
 				7FDBC5010A02D93400E496FF /* QSAdvancedPrefPane.h in Headers */,
 				7F4E4B380A3CD83D0070336A /* QSMainMenuPrefPane.h in Headers */,
 				92E946190D04CCEF0013377F /* QSModifierKeyEvents.h in Headers */,
-				2727154B10D2EACD00DF221A /* QSKeyMap.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3281,7 +3274,6 @@
 				7FDBC5020A02D93400E496FF /* QSAdvancedPrefPane.m in Sources */,
 				7F4E4B390A3CD83D0070336A /* QSMainMenuPrefPane.m in Sources */,
 				92E9461A0D04CCEF0013377F /* QSModifierKeyEvents.m in Sources */,
-				2727154C10D2EACD00DF221A /* QSKeyMap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
