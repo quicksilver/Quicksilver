@@ -2911,6 +2911,7 @@
 			};
 			buildConfigurationList = 7F6B3E7C085CE68E000735A8 /* Build configuration list for PBXProject "Quicksilver" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
