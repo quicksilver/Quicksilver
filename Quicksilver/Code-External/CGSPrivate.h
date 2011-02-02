@@ -206,9 +206,9 @@ typedef struct CGPointWarp CGPointWarp;
 struct CGPointWarp {
 	CGPoint local;
 	CGPoint global;
-} ;
+};
 
-extern CGError CGSSetWindowWarp(const CGSConnection cid, const CGSWindow wid, int w, int h, CGPointWarp mesh[h] [w]);
+extern CGError CGSSetWindowWarp(const CGSConnection cid, const CGSWindow wid, uint32_t w, uint32_t h, CGPointWarp *mesh);
 extern OSStatus CGSSetWindowListBrightness(const CGSConnection cid, CGSWindow *wids, float *brightness, int count);
 
 // Global Hotkey
