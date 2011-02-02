@@ -126,7 +126,7 @@
 
 @implementation QSWindow
 
-- (id)initWithContentRect:(NSRect)contentRect styleMask:(unsigned int)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
+- (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
 	NSWindow* result = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag];
  	//NSLog(@">%@ %d", result, aStyle);
 	//[self setBackgroundColor: [NSColor clearColor]]; //colorWithCalibratedWhite:0.75 alpha:0.5]];
@@ -521,7 +521,7 @@
 @end
 
 @implementation QSBorderlessWindow
-- (id)initWithContentRect:(NSRect)contentRect styleMask:(unsigned int)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
+- (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
 	if (self = [super initWithContentRect:contentRect styleMask:NSNonactivatingPanelMask | NSBorderlessWindowMask | NSClosableWindowMask backing:bufferingType defer:YES]) {
 		[self setBackgroundColor:[NSColor clearColor]];
 		[self setOpaque:NO];
