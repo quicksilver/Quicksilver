@@ -604,7 +604,7 @@
 
 	[self downloadWebPlugInInfoFromDate:plugInWebDownloadDate forUpdateVersion:version synchronously:YES];
 
-	for (QSPlugIn *thisPlugIn in knownPlugIns) {
+	for (QSPlugIn *thisPlugIn in [self knownPlugInsWithWebInfo]) {
 		if ([thisPlugIn needsUpdate]) {
 			[updatedPlugIns addObject:thisPlugIn];
 			newPlugInsAvailable++;
