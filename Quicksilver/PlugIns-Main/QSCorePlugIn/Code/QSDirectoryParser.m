@@ -86,12 +86,17 @@
 		if (aliasFile || (![enumerator isInvisible] && ![[file lastPathComponent] hasPrefix:@"."] && ![file isEqualToString:@"/mach.sym"]) ) {
             type = [manager UTIOfFile:file];
 			// if we are an alias or the file has no reason to be included
-			BOOL include = YES;
-            for (NSString *requiredType in types) {
-                if (!UTTypeConformsTo((CFStringRef)type, (CFStringRef)requiredType)) {
-                    include = NO;
-                }
-            }
+			BOOL include = NO;
+			if (![types count]) {
+				include = YES;
+			} else {
+				for(NSString * requiredType in types) {
+					if (UTTypeConformsTo((CFStringRef)type, (CFStringRef)requiredType)) {
+						include = YES;
+						break;
+					}
+				}
+			}
             for (NSString *excludedType in excludedTypes) {
                 if (UTTypeConformsTo((CFStringRef)type, (CFStringRef)excludedType)) {
                     include = NO;
