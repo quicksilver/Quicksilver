@@ -86,9 +86,13 @@ NSNib *taskEntryNib = nil;
 	NSArray *objects = nil;
 	if (!taskEntryNib) taskEntryNib = [[NSNib alloc] initWithNibNamed:@"QSTaskEntry" bundle:[NSBundle mainBundle]];
 	[taskEntryNib instantiateNibWithOwner:task topLevelObjects:&objects];
-	QSTaskView *view = [objects lastObject];
-	// I think that the owner normally retains the object
-	return view;
+    for (QSTaskView *object in objects) {
+        if ([object isKindOfClass:[QSTaskView class]]) {
+            // I think that the owner normally retains the object
+            return object;
+        }
+    }
+	return nil;
 }
 
 - (void)refreshAllTasks:(NSNotification *)notif {
