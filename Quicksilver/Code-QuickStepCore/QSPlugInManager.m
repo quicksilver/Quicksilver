@@ -133,7 +133,9 @@
 }
 
 - (NSString *)webInfoURLFromDate:(NSDate *)date forUpdateVersion:(NSString *)version {
-	NSString *fetchURLString = @"http://qs0.blacktree.com/quicksilver/plugins/plugininfo.php?";
+	NSString *fetchURLString = [[[NSProcessInfo processInfo] environment] objectForKey:@"QSPluginInfoURL"];
+    if (!fetchURLString)
+        fetchURLString = kPluginInfoURL;
 	NSMutableArray *query = [NSMutableArray array];
 	if (date) {
 		[query addObject:[NSString stringWithFormat:@"asOfDate=%@",
@@ -150,7 +152,7 @@
 		[query addObject:[NSString stringWithFormat:@"sids=%@", [secretIdentifiers componentsJoinedByString:@", "]]];
 	}
 
-	fetchURLString = [fetchURLString stringByAppendingString:[query componentsJoinedByString:@"&"]];
+	fetchURLString = [fetchURLString stringByAppendingFormat:@"?%@", [query componentsJoinedByString:@"&"]];
 	if (VERBOSE) NSLog(@"Get web info: %@", fetchURLString);
 	return fetchURLString;
 }
@@ -782,8 +784,13 @@
 }
 
 - (NSString *)urlStringForPlugIn:(NSString *)ident version:(NSString *)version {
-	if (!version) version = [NSApp buildVersion];
-	return [NSString stringWithFormat:@"http://qs0.blacktree.com/quicksilver/plugins/download.php?qsversion=%d&id=%@", [version hexIntValue] , ident];
+    NSString *downloadURL = [[[NSProcessInfo processInfo] environment] objectForKey:@"QSPluginDownloadURL"];
+    if (!downloadURL)
+        downloadURL = kPluginDownloadURL;
+
+	if (!version)
+        version = [NSApp buildVersion];
+	return [NSString stringWithFormat:@"%@?qsversion=%d&id=%@", downloadURL, [version hexIntValue], ident];
 }
 
 - (BOOL)installPlugInsForIdentifiers:(NSArray *)bundleIDs version:(NSString *)version {

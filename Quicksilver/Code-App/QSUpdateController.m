@@ -98,6 +98,33 @@
 }
 #endif
 
+- (NSURL *)buildUpdateCheckURL {
+	NSString *checkURL = [[[NSProcessInfo processInfo] environment] objectForKey:@"QSCheckUpdateURL"];
+    if (!checkURL)
+        checkURL = kCheckUpdateURL;
+    NSString *thisVersionString = (NSString *)CFBundleGetValueForInfoDictionaryKey(CFBundleGetMainBundle(), kCFBundleVersionKey);
+    
+    NSString *versionType = nil;
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"QSNewUpdateReleaseLevel"]) {
+        case 2:
+            versionType = @"dev";
+            break;
+        case 1:
+            versionType = @"pre";
+            break;
+        default:
+            versionType = @"rel";
+            break;
+    }
+    if (PRERELEASEVERSION)
+        versionType = @"pre";
+    
+    checkURL = [checkURL stringByAppendingFormat:@"?type=%@&current=%@", versionType, thisVersionString];
+    
+	if (VERBOSE) NSLog(@"Update Check URL: %@", checkURL);
+    return [NSURL URLWithString:checkURL];
+}
+
 - (IBAction)checkForUpdate:(id)sender {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
@@ -125,24 +152,14 @@
 	//[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
 	BOOL forceUpdate = [sender isEqual:@"Force"];
 	if (forceUpdate) NSLog(@"Forcing Update");
-	int versionType = [defaults integerForKey:@"QSNewUpdateReleaseLevel"];
-
-	NSString *versionURL = nil;
-	if (versionType == 2)
-		versionURL = kCurrentDevVersionURL;
-	else if (versionType == 1 || PRERELEASEVERSION)
-		versionURL = kCurrentPreVersionURL;
-	else if (versionType == 0)
-		versionURL = kCurrentVersionURL;
-
-	if (VERBOSE) NSLog(@"Version URL, %@", versionURL);
+    
 	BOOL newVersionAvailable = NO;
-
-	versionURL = [NSString stringWithFormat:@"%@&current=%@", versionURL, thisVersionString];
-
+    
+	NSURL *versionURL = [self buildUpdateCheckURL];
+    
 	NSString *testVersionString = nil;
 	if (success) {
-		NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:versionURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0];
+		NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:versionURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0];
 
 		NSData *data = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:nil error:nil];
 		testVersionString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
@@ -151,8 +168,8 @@
 
 	[defaults setObject:[NSDate date] forKey:kLastUpdateCheck];
 	if ([testVersionString length] && [testVersionString length] <10) {
-		if (VERBOSE) NSLog(@"Current Version:%d Installed Version:%d", [testVersionString hexIntValue] , [thisVersionString hexIntValue]);
-		newVersionAvailable = [testVersionString hexIntValue] >[thisVersionString hexIntValue];
+		if (VERBOSE) NSLog(@"Current Version:%d Installed Version:%d", [testVersionString hexIntValue], [thisVersionString hexIntValue]);
+		newVersionAvailable = [testVersionString hexIntValue] > [thisVersionString hexIntValue];
 		if (newVersionAvailable)
 			newVersion = [testVersionString retain];
 	} else {
@@ -164,8 +181,7 @@
 		return;
 	}
 
-	NSString *altURL = [[[NSProcessInfo processInfo] environment] objectForKey:@"QSUpdateSource"];
-	if (altURL || forceUpdate)
+	if (forceUpdate)
 		newVersionAvailable = YES;
 
 	if (newVersionAvailable) {
@@ -196,25 +212,20 @@
 - (void)installAppUpdate {
 	if (updateTask) return;
 
-	NSString *fileURL = @"http://download.blacktree.com/download.php?id=com.blacktree.Quicksilver&type=dmg&new=yes";
-	//header("Location: http://download.blacktree.com/download.php?versionlevel=dev&new=yes&id=com.blacktree.Quicksilver&type=dmg");
-	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+	NSString *fileURL = [[[NSProcessInfo processInfo] environment] objectForKey:@"QSDownloadUpdateURL"];
+	if (!fileURL)
+        fileURL = kDownloadUpdateURL;
 
-	//	BOOL devUpdate = PRERELEASEVERSION || [[NSUserDefaults standardUserDefaults] boolForKey:@"QSUpdateFindDevVersions"];
+    fileURL = [fileURL stringByAppendingFormat:@"?id=%@&type=dmg&new=yes", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleIdentifierKey]];
 
-	int versionType = [defaults integerForKey:@"QSUpdateReleaseLevel"];
+    int versionType = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSUpdateReleaseLevel"];
+    if (versionType == 2)
+        fileURL = [fileURL stringByAppendingString:@"&dev=1"];
+    else if (versionType == 1 || PRERELEASEVERSION)
+        fileURL = [fileURL stringByAppendingString:@"&pre=1"];
 
-	//NSString *versionURL = nil;
-	if (versionType == 2)
-		fileURL = [fileURL stringByAppendingString:@"&dev=1"];
-	else if (versionType == 1 || PRERELEASEVERSION)
-		fileURL = [fileURL stringByAppendingString:@"&pre=1"];
-
-	NSString *altURL = [[[NSProcessInfo processInfo] environment] objectForKey:@"QSUpdateSource"];
-	if (altURL)
-		fileURL = altURL;
 	if (VERBOSE) NSLog(@"Downloading update from %@", fileURL);
-    
+
 	NSURL *url = [NSURL URLWithString:fileURL];
 	NSURLRequest *theRequest = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0];
 

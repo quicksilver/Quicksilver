@@ -143,7 +143,7 @@ QSController *QSCon;
 	[NSApp activateIgnoringOtherApps:YES];
 	int result = NSRunInformationalAlertPanel(@"", @"This version of Quicksilver has expired. Please download the latest version.", @"Download", @"OK", nil);
 	if (result)
-		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kDownloadUpdateURL]];
+		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kWebSiteURL]];
 }
 #endif
 
