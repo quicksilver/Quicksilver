@@ -123,8 +123,6 @@
     if (![checkVersionString length] && [checkVersionString length] > 10) {
         NSLog(@"Unable to check for new version.");
         [[QSTaskController sharedInstance] removeTask:@"Check for Update"];
-        if (!quiet)
-            NSRunInformationalAlertPanel(@"Connection Error", @"Unable to check for updates.", @"OK", nil, nil);
         return -1;
     }
 
@@ -321,116 +319,102 @@
 - (void)finishAppInstall {
 	NSString *path = [appDownload destination];
 
-	//[self installAppFromCompressedFile:path];
 	[updateTask setStatus:@"Download Complete"];
 	[updateTask setProgress:1.0];
-	//	[[QSTaskController sharedInstance] updateTask:@"QSAppUpdateInstalling" status:@"Download Complete" progress:-1];
-	[self installAppFromDiskImage:path];
+    
+    NSInteger selection = 0;
+	BOOL update = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSUpdateWithoutAsking"];
+	if (!update) {
+        selection = NSRunInformationalAlertPanel(@"Download Successful", @"A new version of Quicksilver has been downloaded. This version must be relaunched after it is installed.", @"Install and Relaunch", @"Cancel Update", nil);
+		update = (selection == NSAlertDefaultReturn);
+    }
+    
+    //[self installAppFromCompressedFile:path];
+    NSString *installPath = nil;
+    if (update) {
+        installPath = [self installAppFromDiskImage:path];
+        if (!installPath) {
+            selection = NSRunInformationalAlertPanel(@"Installation Failed", @"It was not possible to decompress downloaded file.", @"Cancel Update", @"Download manually", nil);
+            if (selection == NSAlertAlternateReturn)
+                [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kWebSiteURL]];
+        }
+    }
+    if (installPath) {
+        BOOL relaunch = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSRelaunchAutomaticallyAfterUpdate"];
+        if (!relaunch) {
+            selection = NSRunInformationalAlertPanel(@"Installation Successful", @"A new version of Quicksilver has been installed. This version must be relaunched after it is installed.", @"Relaunch", @"Relaunch Later", nil);
+            relaunch = (selection == NSAlertDefaultReturn);
+        }
+        if (relaunch)
+            [NSApp relaunchFromPath:installPath];
+    }
+
 	[updateTask stopTask:nil];
 	[updateTask release], updateTask = nil;
-
-}
-- (NSArray *)installAppFromCompressedFile:(NSString *)path {
-	int selection = defaultBool(@"QSUpdateWithoutAsking");
-	if (!selection)
-		selection = NSRunInformationalAlertPanel(@"Download Successful", @"A new version of Quicksilver has been downloaded. This version must be relaunched after it is installed.", @"Install and Relaunch", @"Cancel Update", nil);
-	if (selection == 1) {
-		NSFileManager *manager = [NSFileManager defaultManager];
-
-		NSString *tempDirectory = [NSTemporaryDirectory() stringByAppendingPathComponent:@"QSUpdate"];
-		[manager createDirectoryAtPath:tempDirectory withIntermediateDirectories:NO attributes:nil error:nil];
-		[updateTask setProgress:-1.0];
-
-		NSArray *extracted = [self extractFilesFromQSPkg:path toPath:tempDirectory];
-		if ([extracted count] != 1) {
-			NSLog(@"App Update Error");
-			return nil;
-		}
-
-		NSString *newAppVersionPath = [tempDirectory stringByAppendingPathComponent:[extracted lastObject]];
-		if (newAppVersionPath)
-			[NSApp relaunchAfterMovingFromPath:newAppVersionPath];
-	} 	else {
-
-		[updateTask stopTask:nil];
-		[updateTask release];
-		updateTask = nil;
-
-	}
-	return nil;
-}
-- (NSArray *)installAppFromDiskImage:(NSString *)path {
-	int selection = defaultBool(@"QSUpdateWithoutAsking");
-	if (!selection)
-		selection = NSRunInformationalAlertPanel(@"Download Successful", @"A new version of Quicksilver has been downloaded. This version must be relaunched after it is installed.", @"Install and Relaunch", @"Cancel Update", nil);
-	if (selection == 1) {
-		NSFileManager *manager = [NSFileManager defaultManager];
-
-		NSString *tempDirectory = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString uniqueString]];
-		[manager createDirectoryAtPath:tempDirectory withIntermediateDirectories:NO attributes:nil error:nil];
-
-		[updateTask setProgress:-1.0];
-		[updateTask setName:@"Installing Update"];
-		[updateTask setStatus:@"Verifying Data"];
-			//		[[QSTaskController sharedInstance] updateTask:@"QSAppUpdateInstalling" status:@"Verifying Data" progress:-1];
-		NSTask *task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/hdiutil"
-											 arguments:[NSArray arrayWithObjects:@"attach", path, @"-nobrowse", @"-mountpoint", tempDirectory, nil]];
-
-		[task waitUntilExit];
-
-		NSArray *extracted = [[manager contentsOfDirectoryAtPath:tempDirectory error:nil] pathsMatchingExtensions:[NSArray arrayWithObject:@"app"]];
-		//NSLog(@"extract %@ %@ %@",extracted, tempDirectory, [task arguments]);
-		if ([extracted count] != 1) {
-			NSLog(@"App Update Error");
-			return nil;
-		}
-
-//		[updateTask:@"Installing Update" progress:-1];
-
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWasMoved:) name:@"QSApplicationWillRelaunch" object:self];
-		NSString *newAppVersionPath = [tempDirectory stringByAppendingPathComponent:[extracted lastObject]];
-		if (newAppVersionPath) {
-			[updateTask setStatus:@"Copying Application"];
-			[NSApp replaceWithUpdateFromPath:newAppVersionPath];
-			[updateTask setStatus:@"Cleaning Up"];
-			//			[[QSTaskController sharedInstance] updateTask:@"QSAppUpdateInstalling" status:@"Cleaning Up" progress:-1];
-			task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/hdiutil"
-										 arguments:[NSArray arrayWithObjects:@"detach", tempDirectory, nil]];
-
-			[task waitUntilExit];
-			[[NSFileManager defaultManager] removeItemAtPath:tempDirectory error:nil];
-
-			[tempPath release];
-			tempPath = nil;
-
-			[updateTask stopTask:nil];
-			[updateTask release];
-			updateTask = nil;
-
-			//	[[QSTaskController sharedInstance] removeTask:@"QSAppUpdateInstalling"];
-			[QSTaskController hideViewer];
-			if (defaultBool(@"QSQuitAfterUpdate") )
-				[NSApp terminate:nil];
-			else
-				[NSApp relaunch:self];
-
-		} else {
-
-			[updateTask stopTask:nil];
-			[updateTask release];
-			updateTask = nil;
-
-		}
-	}
-	return nil;
 }
 
-- (void)applicationWasMoved:(NSNotification *)notif {
-	NSLog(@"notif %@ %@", notif, tempPath);
+- (NSString *)installAppFromCompressedFile:(NSString *)path {
+    NSFileManager *manager = [NSFileManager defaultManager];
+    
+    NSString *tempDirectory = [NSTemporaryDirectory() stringByAppendingPathComponent:@"QSUpdate"];
+    [manager createDirectoryAtPath:tempDirectory withIntermediateDirectories:NO attributes:nil error:nil];
+    
+    [updateTask setName:@"Installing Update"];
+    [updateTask setStatus:@"Extracting Data"];
+    [updateTask setProgress:-1.0];
+    NSArray *extracted = [self extractFilesFromQSPkg:path toPath:tempDirectory];
+    if ([extracted count] != 1) {
+        NSLog(@"App Update Error");
+        return nil;
+    }
+    
+    NSString *newAppVersionPath = [tempDirectory stringByAppendingPathComponent:[extracted lastObject]];
+    
+    [updateTask setStatus:@"Copying Application"];
+    [NSApp replaceWithUpdateFromPath:newAppVersionPath];
+    [updateTask setStatus:@"Cleaning Up"];
+
+    return newAppVersionPath;
 }
 
-- (void)finishInstallAndRelaunch {
-	//	[manager removeItemAtPath:tempDirectory error:nil];
+- (NSString *)installAppFromDiskImage:(NSString *)path {
+    NSFileManager *manager = [NSFileManager defaultManager];
+    
+    NSString *tempDirectory = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString uniqueString]];
+    [manager createDirectoryAtPath:tempDirectory withIntermediateDirectories:NO attributes:nil error:nil];
+    
+    [updateTask setName:@"Installing Update"];
+    [updateTask setStatus:@"Verifying Data"];
+    [updateTask setProgress:-1.0];
+    
+    NSTask *task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/hdiutil"
+                                            arguments:[NSArray arrayWithObjects:@"attach", path, @"-nobrowse", @"-mountpoint", tempDirectory, nil]];
+    
+    [task waitUntilExit];
+    
+    if ([task terminationStatus] != 0)
+        return nil;
+
+    NSArray *extracted = [[manager contentsOfDirectoryAtPath:tempDirectory error:nil] pathsMatchingExtensions:[NSArray arrayWithObject:@"app"]];
+    if ([extracted count] != 1)
+        return nil;
+
+    NSString *newAppVersionPath = [tempDirectory stringByAppendingPathComponent:[extracted lastObject]];
+    if (!newAppVersionPath)
+        return nil;
+    
+    [updateTask setStatus:@"Copying Application"];
+    [NSApp replaceWithUpdateFromPath:newAppVersionPath];
+    [updateTask setStatus:@"Cleaning Up"];
+    
+    task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/hdiutil"
+                                    arguments:[NSArray arrayWithObjects:@"detach", tempDirectory, nil]];
+    [task waitUntilExit];
+    [[NSFileManager defaultManager] removeItemAtPath:tempDirectory error:nil];
+    
+    [tempPath release];
+    tempPath = nil;
+    return newAppVersionPath;    
 }
 
 - (NSArray *)extractFilesFromQSPkg:(NSString *)path toPath:(NSString *)tempDirectory {

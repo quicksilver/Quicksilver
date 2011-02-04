@@ -33,10 +33,10 @@
 //- (NSArray *)installPlugInFromCompressedFile:(NSString *)path;
 //-(float) downloadProgress;
 - (void)forceStartupCheck;
-- (NSArray *)installAppFromCompressedFile:(NSString *)path;
+- (NSString *)installAppFromCompressedFile:(NSString *)path;
 - (NSArray *)extractFilesFromQSPkg:(NSString *)path toPath:(NSString *)tempDirectory;
 - (IBAction)threadedRequestedCheckForUpdate:(id)sender;
 - (void)finishAppInstall;
-- (NSArray *)installAppFromDiskImage:(NSString *)path;
+- (NSString *)installAppFromDiskImage:(NSString *)path;
 - (IBAction)threadedCheckForUpdate:(id)sender;
 @end
