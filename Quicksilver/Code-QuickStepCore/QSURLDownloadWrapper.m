@@ -144,7 +144,7 @@
 }
 
 - (void)download:(QSURLDownload *)download didFailWithError:(NSError *)error {
-    if(delegate && [delegate respondsToSelector:@selector(downloadDidFinish:)])
+    if(delegate && [delegate respondsToSelector:@selector(download:didFailWithError:)])
         [delegate download:(NSURLDownload*)self didFailWithError:error];
 }
 
