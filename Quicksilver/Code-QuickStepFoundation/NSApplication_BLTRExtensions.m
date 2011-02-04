@@ -74,22 +74,19 @@
 @end
 
 @implementation NSApplication (Relaunching)
+
 - (void)requestRelaunch:(id)sender {
-	//if (defaultBool(@"QSRelaunchWithoutAsking") )
-	//	[self relaunch:self];
-	//else
-		if (NSRunAlertPanel(@"Relaunch required", @"Quicksilver needs to be relaunched for some changes to take effect", @"Relaunch", @"Later", nil) )
+    if (NSRunAlertPanel(@"Relaunch required", @"Quicksilver needs to be relaunched for some changes to take effect", @"Relaunch", @"Later", nil))
 		[self relaunch:self];
 }
-
 
 - (void)relaunchAfterMovingFromPath:(NSString *)newPath {
 	[self relaunchAtPath:[[NSBundle mainBundle] bundlePath] movedFromPath:newPath];
 }
 
-- (int) moveToPath:(NSString *)launchPath fromPath:(NSString *)newPath {
+- (int)moveToPath:(NSString *)launchPath fromPath:(NSString *)newPath {
 	NSFileManager *manager = [NSFileManager defaultManager];
-	NSString *tempPath = [[launchPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Quicksilver.old.app"];
+	NSString *tempPath = [[launchPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.old.app", [[NSProcessInfo processInfo] processName]]];
 	//NSLog(@"temp %@ new %@", tempPath, newPath);
 	BOOL status;
 	status = [manager moveItemAtPath:launchPath toPath:tempPath error:nil];
@@ -100,6 +97,7 @@
 	if (VERBOSE) NSLog(@"Trash Old %d", status);
 	return status;
 }
+
 - (void)replaceWithUpdateFromPath:(NSString *)newPath {
 	[self moveToPath:[[NSBundle mainBundle] bundlePath] fromPath:newPath];
 }
