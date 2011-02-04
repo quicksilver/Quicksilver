@@ -106,7 +106,7 @@
 			}
 			
 			BOOL shouldDescend = YES;
-			if ([[NSWorkspace sharedWorkspace] isFilePackageAtPath:file] != nil && !descendIntoBundles)
+			if ([[NSWorkspace sharedWorkspace] isFilePackageAtPath:file] && !descendIntoBundles)
 				shouldDescend = NO;
 			
 			if (depth && isDirectory && shouldDescend) {
