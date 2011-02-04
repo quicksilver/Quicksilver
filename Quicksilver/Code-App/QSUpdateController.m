@@ -67,21 +67,9 @@
 	}
 }
 
-- (void)handleURL:(NSURL *)url {
-	NSLog(@"url %@", url);
-	[self threadedRequestedCheckForUpdate:nil];
-}
-
-- (IBAction)threadedCheckForUpdate:(id)sender {
-	[NSThread detachNewThreadSelector:@selector(checkForUpdate:) toTarget:self withObject:nil];
-}
-
-- (IBAction)threadedRequestedCheckForUpdate:(id)sender {
-	[NSThread detachNewThreadSelector:@selector(checkForUpdate:) toTarget:self withObject:mOptionKeyIsDown?@"Force":@"Requested"];
-}
-
-#if 0
 - (BOOL)networkIsReachable {
+    /* FIXME: Hard to get right */
+    return YES;
 	BOOL success = NO;
 	SCNetworkConnectionFlags reachabilityStatus;
 	success = SCNetworkCheckReachabilityByName("www.apple.com", &reachabilityStatus);
@@ -91,7 +79,6 @@
 #endif
 	return success;
 }
-#endif
 
 - (NSURL *)buildUpdateCheckURL {
 	NSString *checkURL = [[[NSProcessInfo processInfo] environment] objectForKey:@"QSCheckUpdateURL"];
@@ -123,90 +110,112 @@
     return [NSURL URLWithString:checkURL];
 }
 
-- (IBAction)checkForUpdate:(id)sender {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+- (NSInteger)checkForUpdates:(BOOL)force {
+    NSString *thisVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+	NSString *checkVersionString = nil;
 
-	[[QSTaskController sharedInstance] updateTask:@"Check for Update" status:@"Check for Update" progress:-1];
+    NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:[self buildUpdateCheckURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0];
 
-	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    NSData *data = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:nil error:nil];
+    checkVersionString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 
-	BOOL quiet = !sender || sender == self || [sender isKindOfClass:[NSTimer class]];
-	BOOL success = YES;
-/*	BOOL success = [self networkIsReachable];
-	if (!success) {
-		NSLog(@"Blacktree unreacheable");
-		[[QSTaskController sharedInstance] removeTask:@"Check for Update"];
-		if (quiet) {
-			return;
-		} else {
-			int result = NSRunInformationalAlertPanel(@"Connection Error", @"Your internet connection does not appear to be active.", @"Cancel", @"Check Anyway", nil);
-			if (result == NSAlertDefaultReturn) return;
-		}
-	}
-*/
-	NSString *thisVersionString = (NSString *)CFBundleGetValueForInfoDictionaryKey(CFBundleGetMainBundle(), kCFBundleVersionKey);
+    [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:kLastUpdateCheck];
+    if (![checkVersionString length] && [checkVersionString length] > 10) {
+        NSLog(@"Unable to check for new version.");
+        [[QSTaskController sharedInstance] removeTask:@"Check for Update"];
+        if (!quiet)
+            NSRunInformationalAlertPanel(@"Connection Error", @"Unable to check for updates.", @"OK", nil, nil);
+        return -1;
+    }
 
-	//NSLog(@"%@", sender);
-	//[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-	BOOL forceUpdate = [sender isEqual:@"Force"];
-	if (forceUpdate) NSLog(@"Forcing Update");
-    
-	BOOL newVersionAvailable = NO;
-    
-	NSURL *versionURL = [self buildUpdateCheckURL];
-    
-	NSString *testVersionString = nil;
-	if (success) {
-		NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:versionURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0];
-		[theRequest setValue:kQSUserAgent forHTTPHeaderField:@"User-Agent"];
-		NSData *data = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:nil error:nil];
-		testVersionString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-		NSLog(@"Version: %@", testVersionString);
-	}
-
-	[defaults setObject:[NSDate date] forKey:kLastUpdateCheck];
-	if ([testVersionString length] && [testVersionString length] <10) {
+    BOOL newVersionAvailable = [checkVersionString hexIntValue] > [thisVersionString hexIntValue];
+    /* We have to get the current available version, because it will get displayed to the user,
+     * so force happens only if there's a valid response from the server
+     */
+    newVersion = [checkVersionString retain];
 #ifdef DEBUG
-		if (VERBOSE) NSLog(@"Current Version:%d Installed Version:%d", [testVersionString hexIntValue], [thisVersionString hexIntValue]);
+    if (VERBOSE)
+        NSLog(@"Installed Version: %@, Available Version: %@, Valid: %@, Force update: %@", thisVersionString, checkVersionString, (newVersionAvailable ? @"YES" : @"NO"), (force ? @"YES" : @"NO"));
 #endif
-		newVersionAvailable = [testVersionString hexIntValue] > [thisVersionString hexIntValue];
-		if (newVersionAvailable)
-			newVersion = [testVersionString retain];
-	} else {
-		NSLog(@"Unable to check for new version.");
-		[[QSTaskController sharedInstance] removeTask:@"Check for Update"];
-		if (!quiet)
-			NSRunInformationalAlertPanel(@"Connection Error", @"Unable to check for updates.", @"OK", nil, nil);
-		[pool release];
-		return;
-	}
+    return (newVersionAvailable || force) ? 1 : 0;
+}
 
-	if (forceUpdate)
-		newVersionAvailable = YES;
+- (BOOL)checkForUpdatesInBackground:(BOOL)quiet force:(BOOL)force {
+	[[QSTaskController sharedInstance] updateTask:@"Check for Update" status:@"Check for Update" progress:-1];
+    BOOL updated = NO;
+    BOOL reachable = [self networkIsReachable];
+    if (!reachable) {
+        NSLog(@"Network unreacheable");
+        [[QSTaskController sharedInstance] removeTask:@"Check for Update"];
+        if (!quiet) {
+            int result = NSRunInformationalAlertPanel(@"Connection Error", @"Your internet connection does not appear to be active.", @"Cancel", @"Check Anyway", nil);
+            if (result == NSAlertDefaultReturn)
+                return NO;
+        } else
+            return NO;
+    }
 
-	if (newVersionAvailable) {
-		//[NSApp activateIgnoringOtherApps:YES];
-		if (defaultBool(@"QSDownloadUpdatesInBackground") ) {
-			[self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
-		} else {
-			int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"New Version", nil], @"A new version of Quicksilver is available; would you like to download it now? (%@) ", @"Get New Version", @"Cancel", nil, newVersion); //, @"More Info");
-			if (selection == 1) {
-				[self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
-			} else if (selection == -1) {  //Go to web site
-				[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kDownloadUpdateURL]];
-			}
-		}
-	} else {
-		BOOL updated = [[QSPlugInManager sharedInstance] checkForPlugInUpdates];
-		if (!updated) {
-			NSLog(@"Quicksilver is up to date.");
-			// NSLog(@"sender: %@", sender);
-			if (!quiet) NSRunInformationalAlertPanel(@"No Updates Available", [NSString stringWithFormat:@"You already have the latest version of Quicksilver (v%@) and all installed plug-ins", thisVersionString] , @"OK", nil, nil);
-		}
-	}
-	[[QSTaskController sharedInstance] removeTask:@"Check for Update"];
-	//  [self setUpdateTimer];
-	[pool release];
+    NSInteger check = [self checkForUpdates:force];
+    [[QSTaskController sharedInstance] removeTask:@"Check for Update"];
+    if (check == -1) {
+        if (!quiet)
+            NSRunInformationalAlertPanel(@"Connection Error", @"Unable to check for updates.", @"OK", nil, nil);
+        return NO;
+    } else if (check == 1) {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSDownloadUpdatesInBackground"]) {
+            [self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
+        } else {
+            int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"New Version", nil], @"A new version of Quicksilver, version %@, is available; would you like to download it now?", @"Get New Version", @"Cancel", nil, newVersion); //, @"More Info");
+            if (selection == 1) {
+                [self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
+            } else if (selection == -1) {  //Go to web site
+                [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kWebSiteURL]];
+            }
+        }
+        return YES;
+    } else {
+        updated = [[QSPlugInManager sharedInstance] checkForPlugInUpdates];
+        if (!updated) {
+            NSLog(@"Quicksilver is up to date.");
+            if (!quiet)
+                NSRunInformationalAlertPanel(@"No Updates Available", [NSString stringWithFormat:@"You already have the latest version of Quicksilver (v%@) and all installed plug-ins", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]] , @"OK", nil, nil);
+        }
+    }
+
+    return updated;
+}
+
+- (BOOL)threadedCheckForUpdates:(BOOL)force {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    BOOL res = [self checkForUpdatesInBackground:NO force:force];
+    [pool release];
+    return res;
+}
+
+- (BOOL)threadedCheckForUpdatesInBackground:(BOOL)force {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    BOOL res = [self checkForUpdatesInBackground:YES force:force];
+    [pool release];
+    return res;
+}
+
+- (IBAction)checkForUpdate:(id)sender {
+	BOOL quiet = !sender || sender == self || [sender isKindOfClass:[NSTimer class]];
+	BOOL forceUpdate = [sender isEqual:@"Force"];
+
+    [self checkForUpdatesInBackground:quiet force:forceUpdate];
+}
+
+- (void)handleURL:(NSURL *)url {
+	[self threadedCheckForUpdatesInBackground:NO];
+}
+
+- (IBAction)threadedCheckForUpdate:(id)sender {
+	[self threadedCheckForUpdates:NO];
+}
+
+- (IBAction)threadedRequestedCheckForUpdate:(id)sender {
+	[self threadedCheckForUpdates:mOptionKeyIsDown];
 }
 
 - (void)installAppUpdate {
@@ -242,7 +251,6 @@
         [updateTask setCancelAction:@selector(cancelUpdate:)];
 		[updateTask setCancelTarget:self];
 
-		//			[[QSTaskController sharedInstance] updateTask:@"QSAppUpdateInstalling" status:@"Downloading Update" progress:-1];
 		[QSTaskController showViewer];
 		[updateTask startTask:nil];
         [appDownload start];
