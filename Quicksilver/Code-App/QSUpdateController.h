@@ -5,12 +5,12 @@
 //  Created by Alcor on 7/22/04.
 //  Copyright 2004 Blacktree. All rights reserved.
 //
-@class QSTask;
+@class QSTask, QSURLDownload;
 #import <Cocoa/Cocoa.h>
 @interface QSUpdateController : NSObject {
 	NSTimer *updateTimer;
 	BOOL doStartupCheck;
-	NSURLDownload *appDownload;
+	QSURLDownload *appDownload;
 	NSString *newVersion;
 	NSString *tempPath;
 	QSTask *updateTask;
@@ -30,8 +30,6 @@
 //- (NSArray *)installPlugInFromCompressedFile:(NSString *)path;
 //-(float) downloadProgress;
 - (void)forceStartupCheck;
-- (NSURLDownload *)appDownload;
-- (void)setAppDownload:(NSURLDownload *)anAppDownload;
 - (NSArray *)installAppFromCompressedFile:(NSString *)path;
 - (NSArray *)extractFilesFromQSPkg:(NSString *)path toPath:(NSString *)tempDirectory;
 - (IBAction)threadedRequestedCheckForUpdate:(id)sender;

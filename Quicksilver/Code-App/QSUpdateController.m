@@ -232,8 +232,8 @@
 	// NSLog(@"app %@", theRequest);
 	// create the connection with the request
 	// and start loading the data
-	QSURLDownload *theDownload = [[QSURLDownload alloc] initWithRequest:theRequest delegate:self];
-	if (theDownload) {
+	appDownload = [[QSURLDownload alloc] initWithRequest:theRequest delegate:self];
+	if (appDownload) {
 		updateTask = [[QSTask taskWithIdentifier:@"QSAppUpdateInstalling"] retain];
 		[updateTask setName:@"Downloading Update"];
 		[updateTask setProgress:-1];
@@ -244,18 +244,7 @@
 		//			[[QSTaskController sharedInstance] updateTask:@"QSAppUpdateInstalling" status:@"Downloading Update" progress:-1];
 		[QSTaskController showViewer];
 		[updateTask startTask:nil];
-		[self setAppDownload:(NSURLDownload*)theDownload];
-        [theDownload start];
-        
-        [theDownload release];
-	}
-
-}
-- (NSURLDownload *)appDownload { return appDownload; }
-- (void)setAppDownload:(NSURLDownload *)anAppDownload {
-	if(anAppDownload != appDownload){
-		[appDownload release];
-		appDownload = [anAppDownload retain];
+        [appDownload start];
 	}
 }
 
@@ -272,15 +261,16 @@
 //	return info;
 //}
 - (void)download:(QSURLDownload *)download didFailWithError:(NSError *)error {
+    if (download != appDownload)
+        return;
 	NSLog(@"Download Failed");
 	//	[[QSTaskController sharedInstance] removeTask:@"QSAppUpdateInstalling"];
 	[updateTask stopTask:nil];
 	[updateTask release];
 	updateTask = nil;
 	NSRunInformationalAlertPanel(@"Download Failed", @"An error occured while updating: %@", @"OK", nil, nil, [error localizedDescription] );
-	[self setAppDownload:nil];
-    [download cancel];
-	[download release];
+    [appDownload cancel];
+	[appDownload release];
 }
 
 - (void)downloadDidFinish:(QSURLDownload *)download {
@@ -312,15 +302,15 @@
 
 - (void)cancelUpdate:(QSTask *)task {
 	shouldCancel = YES;
-	[[self appDownload] cancel];
-	[self setAppDownload:nil];
+	[appDownload cancel];
+    [appDownload release], appDownload = nil;
 	[updateTask stopTask:nil];
 	[updateTask release];
 	updateTask = nil;
 }
 
 - (void)finishAppInstall {
-	NSString *path = [(QSURLDownload *)[self appDownload] destination];
+	NSString *path = [appDownload destination];
 
 	//[self installAppFromCompressedFile:path];
 	[updateTask setStatus:@"Download Complete"];
@@ -328,8 +318,7 @@
 	//	[[QSTaskController sharedInstance] updateTask:@"QSAppUpdateInstalling" status:@"Download Complete" progress:-1];
 	[self installAppFromDiskImage:path];
 	[updateTask stopTask:nil];
-	[updateTask release];
-				updateTask = nil;
+	[updateTask release], updateTask = nil;
 
 }
 - (NSArray *)installAppFromCompressedFile:(NSString *)path {
