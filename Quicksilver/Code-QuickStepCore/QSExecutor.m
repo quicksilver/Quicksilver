@@ -421,7 +421,7 @@ QSExecutor *QSExec = nil;
     return (val ? [val boolValue] : YES);
 }
 - (void)setAction:(QSAction *)action isEnabled:(BOOL)flag {
- 	if (VERBOSE) NSLog(@"set action %@ is enabled %d", action, flag);
+// 	if (VERBOSE) NSLog(@"set action %@ is enabled %d", action, flag);
 	[actionActivation setObject:[NSNumber numberWithBool:flag] forKey:[action identifier]];
 	[self writeActionsInfo];
 }
@@ -431,7 +431,7 @@ QSExecutor *QSExec = nil;
     return (val ? [val boolValue] : YES);
 }
 - (void)setAction:(QSAction *)action isMenuEnabled:(BOOL)flag {
- 	if (VERBOSE) NSLog(@"set action %@ is menu enabled %d", action, flag);
+// 	if (VERBOSE) NSLog(@"set action %@ is menu enabled %d", action, flag);
 	[actionMenuActivation setObject:[NSNumber numberWithBool:flag] forKey:[action identifier]];
 	[self writeActionsInfo];
 }
@@ -535,4 +535,3 @@ QSExecutor *QSExec = nil;
 	return YES;
 }
 @end
-
