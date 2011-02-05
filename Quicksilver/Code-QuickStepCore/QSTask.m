@@ -2,14 +2,20 @@
 // QSTask.m
 // Quicksilver
 //
-// Created by Nicholas Jitkoff on 6/29/05.
-// Copyright 2005 __MyCompanyName__. All rights reserved.
+// Created by Nicholas Jitkoff on 6/29/05. Adapted by Florian Heckl on 20/08/10.
 //
 
 #import "QSTask.h"
 #import "QSTaskController.h"
 
+@interface QSTask (PRIVATE)
+
+-(id)initWithIdentifier:(NSString *)newIdentifier;
+
+@end
+
 NSMutableDictionary *tasksDictionary;
+
 @implementation QSTask
 + (void)initialize {
 	tasksDictionary = [[NSMutableDictionary alloc] init];
@@ -57,22 +63,17 @@ NSMutableDictionary *tasksDictionary;
 - (NSString *)description {
 	return [NSString stringWithFormat:@"[%@:%@:%@] ", identifier, name, status];
 }
+- (id)init {
+	return [self initWithIdentifier:nil];
+}
 - (id)initWithIdentifier:(NSString *)newIdentifier {
-	self = [super init];
+	self = [super initWithNibName:@"QSTaskEntry" bundle:[NSBundle mainBundle]];
 	if (self != nil) {
 		[self setIdentifier:newIdentifier];
 	}
 	return self;
 }
 
-- (void)release {
-//	if ([self retainCount] <= 3)
-//		NSLog(@"release task %x %@ %d", self, name, [self retainCount]);
-	if ([self retainCount] == 2 && identifier) {
-		[self setIdentifier:nil];
-	}
-	[super release];
-}
 - (void)dealloc {
     // !!! Andre Berg 20091007: doesn't seem that there are many QSTasks with a name or status. 
     // So the logging statements do not make much sense really if we get "(null)" for all parameters
@@ -117,7 +118,7 @@ NSMutableDictionary *tasksDictionary;
     if (DEBUG && VERBOSE) NSLog(@"Start Task: %@", self);
 	if (!running) {
 		running = YES;
-		[QSTasks taskStarted:[[self retain] autorelease]];
+		[QSTasks taskStarted:self];
 		//[QSTasks performSelectorOnMainThread:@selector(taskStarted:) withObject:self waitUntilDone:NO];
 	}
 }
@@ -146,7 +147,8 @@ NSMutableDictionary *tasksDictionary;
 
 
 
-
+#pragma mark -
+#pragma mark Accessors
 // Accessors
 
 
@@ -157,7 +159,7 @@ NSMutableDictionary *tasksDictionary;
 - (void)setIdentifier:(NSString *)value {
 	if (identifier != value) {
 		NSString *oldIdentifier = identifier;
-		[identifier autorelease];
+		[identifier release];
 		identifier = [value copy];
 		if (tasksDictionary) {
 			if (value) [tasksDictionary setObject:self forKey:value];

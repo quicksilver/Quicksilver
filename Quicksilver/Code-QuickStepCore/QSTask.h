@@ -2,8 +2,7 @@
 //  QSTask.h
 //  Quicksilver
 //
-//  Created by Nicholas Jitkoff on 6/29/05.
-//  Copyright 2005 __MyCompanyName__. All rights reserved.
+//  Created by Nicholas Jitkoff on 6/29/05. Adapted by Florian Heckl on 20/08/10.
 //
 
 #import <Cocoa/Cocoa.h>
@@ -12,7 +11,8 @@
 @interface NSObject (QSTaskDelegate)
 - (NSImage *)iconForTask:(QSTask *)task;
 @end
-@interface QSTask : NSObject {
+
+@interface QSTask : NSViewController {
 	NSString *identifier;
 	NSString *name;
 	NSString *status;

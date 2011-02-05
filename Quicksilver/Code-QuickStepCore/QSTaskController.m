@@ -27,11 +27,11 @@ QSTaskController *QSTasks;
 }
 
 - (void)taskStarted:(QSTask *)task {
-	[self performSelectorOnMainThread:@selector(mainThreadTaskStarted:) withObject:[task retain] waitUntilDone:YES];
+	[self performSelectorOnMainThread:@selector(mainThreadTaskStarted:) withObject:task waitUntilDone:YES];
 
 }
 - (void)mainThreadTaskStarted:(QSTask *)task {
-	[task autorelease];
+	//[task autorelease];
 	BOOL firstItem = ![tasks count];
 	if (![tasks containsObject:task])
 		[tasks addObject:task];
@@ -44,10 +44,10 @@ QSTaskController *QSTasks;
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSTaskAddedNotification object:nil];
 }
 - (void)taskStopped:(QSTask *)task {
-	[self performSelectorOnMainThread:@selector(mainThreadTaskStopped:) withObject:[task retain] waitUntilDone:YES];
+	[self performSelectorOnMainThread:@selector(mainThreadTaskStopped:) withObject:task waitUntilDone:YES];
 }
 - (void)mainThreadTaskStopped:(QSTask *)task {
-	[task autorelease];
+	//[task autorelease];
 	if (task)
 		[tasks removeObject:task];
 	//[self performSelectorOnMainThread:@selector(mainThreadTaskRemoved:) withObject:self waitUntilDone:NO];

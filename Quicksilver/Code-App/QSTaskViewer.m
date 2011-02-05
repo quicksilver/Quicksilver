@@ -83,16 +83,7 @@
 NSNib *taskEntryNib = nil;
 
 - (QSTaskView *)taskViewForTask:(QSTask *)task {
-	NSArray *objects = nil;
-	if (!taskEntryNib) taskEntryNib = [[NSNib alloc] initWithNibNamed:@"QSTaskEntry" bundle:[NSBundle mainBundle]];
-	[taskEntryNib instantiateNibWithOwner:task topLevelObjects:&objects];
-    for (QSTaskView *object in objects) {
-        if ([object isKindOfClass:[QSTaskView class]]) {
-            // I think that the owner normally retains the object
-            return object;
-        }
-    }
-	return nil;
+	return (QSTaskView*)[task view];
 }
 
 - (void)refreshAllTasks:(NSNotification *)notif {
@@ -107,20 +98,22 @@ NSNib *taskEntryNib = nil;
 		QSTask *task = [[self tasks] objectAtIndex:i];
 		int index = [oldTasks indexOfObject:task];
 		NSView *view = nil;
-		BOOL exists = index != NSNotFound;
-		if (exists)
+		if (index != NSNotFound) {
 			view = [oldTaskViews objectAtIndex:index];
+		}
 		if (!view) view = [self taskViewForTask:task];
-		NSRect frame = [view frame];
-		frame.origin = NSMakePoint(0, NSHeight([tasksView frame]) -NSHeight([view frame])*(i+1));
-		frame.size.width = NSWidth([[tasksView enclosingScrollView] frame]);
-		[view setFrame:frame];
-		[tasksView addSubview:view];
-		[newTaskViews addObject:view];
+		if (view) {
+			NSRect frame = [view frame];
+			frame.origin = NSMakePoint(0, NSHeight([tasksView frame]) -NSHeight([view frame])*(i+1));
+			frame.size.width = NSWidth([[tasksView enclosingScrollView] frame]);
+			[view setFrame:frame];
+			[tasksView addSubview:view];
+			[newTaskViews addObject:view];
+		}
 	}
 
 	[oldTaskViews removeObjectsInArray:newTaskViews];
-	oldTasks = [oldTaskViews valueForKey:@"task"];
+	//oldTasks = [oldTaskViews valueForKey:@"task"];
 
 	[oldTaskViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 	[tasksView setNeedsDisplay:YES];
