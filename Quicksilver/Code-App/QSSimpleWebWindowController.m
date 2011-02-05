@@ -54,7 +54,15 @@
 
 - (void)loadHTMLString:(NSString *)string baseURL:(NSURL *)URL {
 //	NSLog(@"------------definition %@ %@", string, [[[self window] contentView] mainFrame]);
-	[[[[self window] contentView] mainFrame] loadHTMLString:string baseURL:URL];
+	if ([NSThread isMainThread]) {
+		[[[[self window] contentView] mainFrame] loadHTMLString:string baseURL:URL];
+	} else {
+		[self performSelectorOnMainThread:@selector(loadHTMLStringOnMainThread:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:string, @"string", URL, @"base", nil] waitUntilDone:NO];
+	}
+}
+
+- (void)loadHTMLStringOnMainThread:(NSDictionary*)parameters {
+	[[[[self window] contentView] mainFrame] loadHTMLString:[parameters objectForKey:@"string"] baseURL:[parameters objectForKey:@"base"]];
 }
 
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar {
