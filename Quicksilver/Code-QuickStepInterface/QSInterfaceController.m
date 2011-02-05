@@ -90,11 +90,12 @@
 	[actionsUpdateTimer release];
 	[hideTimer release];
 	[clearTimer release];
-	[progressIndicator release];
-	[iSelector release];
+	//[progressIndicator release];
+	//[iSelector release];
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc removeObserver:progressIndicator];
 	[nc removeObserver:self];
+	
 	[super dealloc];
 }
 
@@ -455,7 +456,7 @@
 - (void)executeCommandThreaded {
 	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	NSDate *startDate = [NSDate date];
-	QSAction *action = [aSelector objectValue];
+	QSAction *action = [[aSelector objectValue] retain];
 	if ([[NSApp currentEvent] modifierFlags] & NSCommandKeyMask && !([[NSApp currentEvent] modifierFlags] & NSShiftKeyMask) ) {
 		action = [action alternate];
 		if (VERBOSE) NSLog(@"Using Alternate Action: %@", action);
