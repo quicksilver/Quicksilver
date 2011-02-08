@@ -876,7 +876,7 @@
 
 - (void)updateDownloadProgressInfo {
 	//NSLog(@"count %d %d %f", [[self downloadsQueue] count], downloadsCount, [[[self downloadsQueue] objectAtIndex:0] progress]);
-    float progress = 0;
+    float progress = 1.0;
     for (QSURLDownload *download in [self downloadsQueue]) {
         progress *= [download progress];
     }
