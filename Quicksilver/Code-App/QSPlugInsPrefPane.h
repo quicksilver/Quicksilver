@@ -41,7 +41,7 @@
 - (BOOL)showInfoForPlugIn:(QSPlugIn *)aPlugin;
 
 - (NSMutableArray *)plugins;
-- (void)setPlugins:(NSMutableArray *)newPlugins;
+- (void)setPlugins:(NSArray *)newPlugins;
 
 
 - (NSString *)search;

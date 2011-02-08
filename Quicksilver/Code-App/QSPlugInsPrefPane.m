@@ -184,9 +184,7 @@
 }
 
 - (void)reloadPlugInsList:(NSNotification *)notif {
-//	NSArray *newPlugIns = [[QSPlugInManager sharedInstance] knownPlugInsWithWebInfo];
-//	NSLog(@"loaded %d plugins", [newPlugIns count]);
-	[self setPlugins:(NSMutableArray *)[[QSPlugInManager sharedInstance] knownPlugInsWithWebInfo]];
+	[self setPlugins:[[QSPlugInManager sharedInstance] knownPlugInsWithWebInfo]];
 }
 
 - (IBAction)showHelp:(id)sender {
@@ -229,7 +227,7 @@
 
 - (IBAction)deleteSelection:(id)sender {
 	[[QSPlugInManager sharedInstance] deletePlugIns:[self selectedPlugIns] fromWindow:[plugInTable window]];
-[[QSPlugInManager sharedInstance] downloadWebPlugInInfoIgnoringDate];
+    [[QSPlugInManager sharedInstance] downloadWebPlugInInfoIgnoringDate];
 }
 
 - (IBAction)revealSelection:(id)sender { [[self selectedPlugIns] valueForKey:@"reveal"];  }
@@ -301,10 +299,12 @@
 }
 
 - (NSMutableArray *)plugins { return plugins; }
-- (void)setPlugins:(NSMutableArray *)newPlugins {
-	if(newPlugins != plugins){
+- (void)setPlugins:(NSArray *)newPlugins {
+	if(newPlugins != plugins) {
+        [self willChangeValueForKey:@"plugins"];
 		[plugins release];
-		plugins = [newPlugins retain];
+		plugins = [newPlugins mutableCopy];
+        [self didChangeValueForKey:@"plugins"];
 	}
 }
 
