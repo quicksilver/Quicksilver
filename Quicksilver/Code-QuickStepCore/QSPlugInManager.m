@@ -813,7 +813,9 @@
 }
 
 - (void)installPlugInWithInfo:(NSDictionary *)info {
-	[[self downloadsQueue] addObject:[QSURLDownload downloadWithURL:[NSURL URLWithString:[info objectForKey:@"url"]] delegate:self]];
+    QSURLDownload *download = [QSURLDownload downloadWithURL:[NSURL URLWithString:[info objectForKey:@"url"]] delegate:self];
+    [download setUserInfo:[info objectForKey:@"id"]];
+	[[self downloadsQueue] addObject:download];
 	[self updateDownloadProgressInfo];
 }
 
