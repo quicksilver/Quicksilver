@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-
+@protocol QSURLDownloadDelegate;
 @interface QSURLDownload : NSObject {
     NSURLRequest *request;
     NSURLDownload *download;
@@ -16,10 +16,10 @@
 	long long currentContentLength;
 	id userInfo;
     NSString *destination;
-    id delegate;
+    id <QSURLDownloadDelegate> delegate;
 }
-+ (id)downloadWithURL:(NSURL*)url delegate:(id)aDelegate;
-- (id)initWithRequest:(NSURLRequest*)url delegate:(id)aDelegate;
++ (id)downloadWithURL:(NSURL*)url delegate:(id <QSURLDownloadDelegate>)aDelegate;
+- (id)initWithRequest:(NSURLRequest*)url delegate:(id <QSURLDownloadDelegate>)aDelegate;
 - (void)start;
 - (void)cancel;
 
@@ -34,8 +34,11 @@
 - (long long)currentContentLength;
 @end
 
-@interface NSObject (QSURLDownloadDelegate)
-- (void)downloadDidUpdate:(QSURLDownload *)download;
+@protocol QSURLDownloadDelegate <NSObject>
 - (void)downloadDidFinish:(QSURLDownload *)download;
 - (void)download:(QSURLDownload *)download didFailWithError:(NSError *)error;
+
+@optional
+- (void)downloadDidBegin:(QSURLDownload *)download;
+- (void)downloadDidUpdate:(QSURLDownload *)download;
 @end

@@ -14,7 +14,7 @@
 #define QSPlugInInfoFailedNotification @"QSPlugInInfoFailed"
 
 @class QSPlugIn;
-@interface QSPlugInManager : NSObject {
+@interface QSPlugInManager : NSObject <QSURLDownloadDelegate> {
 	BOOL startupLoadComplete;
 
 	NSMutableDictionary 			*localPlugIns; 	// Most recent version of every plugin on this machine. Includes restricted.
