@@ -394,7 +394,6 @@
 
 - (void)loadPlugInsAtLaunch {
 	NSDate *date = [NSDate date];
-    QSPlugIn * plugin = nil;
     
 	// load main bundle
 	[[QSPlugIn plugInWithBundle:[NSBundle mainBundle]]registerPlugIn];
@@ -443,8 +442,6 @@
 #define appSupportSubpath @"Application Support/Quicksilver/PlugIns"
 
 - (NSMutableArray *)allBundles {
-
-	NSString *currPath = nil;
 	NSMutableSet *bundleSearchPaths = [NSMutableSet set];
 	NSMutableArray *allBundles = [NSMutableArray array];
 	//[allBundles addObject:[[NSBundle mainBundle] bundlePath]];
