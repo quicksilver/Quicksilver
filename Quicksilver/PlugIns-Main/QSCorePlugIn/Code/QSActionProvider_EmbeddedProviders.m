@@ -181,7 +181,7 @@
 }
 
 - (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
-	if ([[[NSWorkspace sharedWorkspace] mountedLocalVolumePaths] containsObject:[[dObject singleFilePath] stringByStandardizingPath]])
+	if ([[[dObject singleFilePath] stringByStandardizingPath] hasPrefix:@"/Volumes/"])
 		return [NSArray arrayWithObject:kDiskEjectAction];
 	else
 		return nil;
@@ -189,12 +189,14 @@
 
 - (QSObject *)performAction:(QSAction *)action directObject:(QSBasicObject *)dObject indirectObject:(QSBasicObject *)iObject {
 	NSString *firstFile = [dObject singleFilePath];
-	if (![[NSWorkspace sharedWorkspace] unmountAndEjectDeviceAtPath:firstFile]) {
-		NSDictionary *errorDict;
-		NSAppleScript *script = [[NSAppleScript alloc] initWithSource:[NSString stringWithFormat:@"tell application \"Finder\" to eject disk \"%@\"", [[NSFileManager defaultManager] displayNameAtPath:firstFile]]];
-			[script executeAndReturnError:&errorDict];
-			[script release];
-		if (errorDict) NSBeep();
+	if ([[[NSWorkspace sharedWorkspace] mountedLocalVolumePaths] containsObject:[[dObject singleFilePath] stringByStandardizingPath]]) {
+        if (![[NSWorkspace sharedWorkspace] unmountAndEjectDeviceAtPath:firstFile]) {
+            NSDictionary *errorDict;
+            NSAppleScript *script = [[NSAppleScript alloc] initWithSource:[NSString stringWithFormat:@"tell application \"Finder\" to eject disk \"%@\"", [[NSFileManager defaultManager] displayNameAtPath:firstFile]]];
+            [script executeAndReturnError:&errorDict];
+            [script release];
+            if (errorDict) NSBeep();
+        }
 	}
 	return nil;
 }
