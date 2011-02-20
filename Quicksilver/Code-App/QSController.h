@@ -64,4 +64,4 @@
 @end
 #endif
 
-extern QSController *QSCon;
+#define QSCon [QSController sharedInstance]

@@ -14,9 +14,6 @@
 #define DEVEXPIRE 180.0f
 #define DEPEXPIRE 365.24219878f
 
-
-QSController *QSCon;
-
 @interface QSObject (QSURLHandling)
 - (void)handleURL:(NSURL *)url;
 @end
@@ -25,12 +22,14 @@ QSController *QSCon;
 - (void)registerForErrors;
 @end
 
+static QSController *defaultController = nil;
+
 @implementation QSController
-- (void)awakeFromNib { if (!QSCon) QSCon = [self retain];  }
+- (void)awakeFromNib { if (!defaultController) defaultController = [self retain];  }
 + (id)sharedInstance {
-	if (!QSCon)
-		QSCon = [[[self class] allocWithZone:[self zone]] init];
-	return QSCon;
+	if (!defaultController)
+		defaultController = [[[self class] allocWithZone:[self zone]] init];
+	return defaultController;
 }
 
 + (void)initialize {
