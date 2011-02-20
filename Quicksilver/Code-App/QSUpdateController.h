@@ -5,8 +5,11 @@
 //  Created by Alcor on 7/22/04.
 //  Copyright 2004 Blacktree. All rights reserved.
 //
-@class QSTask, QSURLDownload;
+
 #import <Cocoa/Cocoa.h>
+
+@class QSTask, QSURLDownload;
+
 @interface QSUpdateController : NSObject {
 	NSTimer *updateTimer;
 	BOOL doStartupCheck;

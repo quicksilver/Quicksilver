@@ -10,22 +10,11 @@
 //	update task is now cancelled on "connection error".
 //	networkIsReachable returning YES. commented out.
 
-#import "QSUpdateController.h"
-#import "QSTask.h"
-#import "QSTaskController.h"
-#import "QSRegistry.h"
-#import "QSNotifyMediator.h"
-#import "QSApp.h"
-
-#import "QSPlugInManager.h"
-
-#import "QSPlugIn.h"
-
-#import "NSArray_BLTRExtensions.h"
 #import <SystemConfiguration/SystemConfiguration.h>
 
-#import "QSURLDownloadWrapper.h"
-#import "QSPreferenceKeys.h"
+#import "Quicksilver.h"
+
+#import "QSUpdateController.h"
 
 @implementation QSUpdateController
 

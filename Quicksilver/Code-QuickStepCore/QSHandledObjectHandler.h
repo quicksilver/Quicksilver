@@ -7,7 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-@class QSObjectSource;
+#import <QSCore/QSObjectSource.h>
+
 @interface QSInternalObjectSource : QSObjectSource
 @end
 

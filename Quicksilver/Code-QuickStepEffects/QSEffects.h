@@ -7,7 +7,6 @@
  *
  */
 
-
 #import <QSEffects/QSCGSTransition.h>
 #import <QSEffects/QSEmbeddedEffects.h>
 #import <QSEffects/QSFadingView.h>

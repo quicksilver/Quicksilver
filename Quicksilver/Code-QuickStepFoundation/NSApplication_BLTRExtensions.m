@@ -32,7 +32,10 @@
 
 - (NSString *)versionString {
 	NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
-	return [NSString stringWithFormat:@"%@ %@(%@) ", [info objectForKey:@"CFBundleShortVersionString"] , PRERELEASEVERSION?@"PRERELEASE ":@"", [info objectForKey:@"CFBundleVersion"]];
+    NSString *level = @"";
+    if ([self featureLevel] != 0)
+        level = [[NSNumber numberWithInt:[self featureLevel]] stringValue];
+	return [NSString stringWithFormat:@"%@ %@(%@) ", [info objectForKey:@"CFBundleShortVersionString"], level, [info objectForKey:@"CFBundleVersion"]];
 }
 
 - (int)featureLevel {return 0;}

@@ -2,7 +2,7 @@
 
 VALID_ARCHS = i386 x86_64 ppc
 
-SDKROOT = $(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk
+SDKROOT = macosx10.6
 
 SYMROOT = $(QS_BUILD_ROOT)/build
 
@@ -28,6 +28,9 @@ WARNING_CFLAGS = -Wall -Wno-parentheses -Wno-deprecated-declarations -Wunused-fu
 
 QS_APP_CONTENTS_FOLDER = $(CONFIGURATION_BUILD_DIR)/Quicksilver.app/Contents
 QS_BUILD_ROOT = /tmp/QS
+
+GCC_PRECOMPILE_PREFIX_HEADER = YES
+GCC_PREFIX_HEADER = $(QS_BUILD_ROOT)/Configuration/Quicksilver.pch
 
 GCC_WARN_ABOUT_RETURN_TYPE = YES
 GCC_WARN_UNUSED_VARIABLE = YES

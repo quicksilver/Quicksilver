@@ -15,6 +15,7 @@
 	BOOL newVersion, runningSetupAssistant;
 	NSObject *dropletProxy;
 }
++ (id)sharedInstance;
 - (IBAction)runSetupAssistant:(id)sender;
 - (NSProgressIndicator *)progressIndicator;
 - (IBAction)showPreferences:(id)sender;

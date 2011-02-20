@@ -1,6 +1,5 @@
 #ifdef __OBJC__
 #import <Cocoa/Cocoa.h>
-#import "QSBasic.pch"
 #import <QSFoundation/QSFoundation.h>
 #import <QSCore/QSCore.h>
 #import <QSEffects/QSEffects.h>

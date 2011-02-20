@@ -4,7 +4,5 @@ INSTALL_PATH = /Quicksilver.app/Contents/PlugIns
 WRAPPER_EXTENSION = qsplugin
 INFOPLIST_FILE = Info.plist
 INFOPLIST_PREPROCESS = NO
-GCC_PRECOMPILE_PREFIX_HEADER = YES
-GCC_PREFIX_HEADER = $(QS_BUILD_ROOT)/Configuration/QSPlugIn_Prefix.pch
 OTHER_LDFLAGS = -undefined dynamic_lookup
 BUNDLE_LOADER = $(QS_APP_CONTENTS_FOLDER)/MacOS/Quicksilver
