@@ -6,6 +6,8 @@
     <true/>
     <key>Label</key>
     <string>com.blacktree.Quicksilver</string>
+    <key>LimitLoadToSessionType</key>
+    <string>Aqua</string>
     <key>ProgramArguments</key>
     <array>
       <string>/Applications/Quicksilver.app/Contents/MacOS/Quicksilver</string>
