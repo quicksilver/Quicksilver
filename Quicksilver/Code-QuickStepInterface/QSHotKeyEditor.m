@@ -130,6 +130,7 @@ NSString * stringForModifiers( unsigned int aModifierFlags );
 - (void)cancel {
 	if ([[self window] firstResponder] == self) {
 		if (VERBOSE) NSLog(@"Cancel");
+        /* TODO: Check what is actually delegate */
 		[[self window] makeFirstResponder:[self delegate]];
 	}
 }

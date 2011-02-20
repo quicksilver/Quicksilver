@@ -14,3 +14,7 @@
 //- (void)centerRowInView:(int)rowIndex;
 - (void)highlightSelectionInClipRect:(NSRect)rect withGradientColor:(NSColor *)color;
 @end
+
+@interface NSTableView (Separator)
+- (void)drawSeparatorForRow:(int)rowIndex clipRect:(NSRect)clipRect;
+@end

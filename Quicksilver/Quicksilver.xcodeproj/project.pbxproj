@@ -88,7 +88,6 @@
 		4DD2CF360E7B345500BA1128 /* QSBasicObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD2CF340E7B345500BA1128 /* QSBasicObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD2CF370E7B345500BA1128 /* QSBasicObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2CF350E7B345500BA1128 /* QSBasicObject.m */; };
 		4DD89EF90EBDD97B005A15AE /* CGSPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = E12444CB07297FF300043A01 /* CGSPrivate.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		4DD89F080EBDDA5E005A15AE /* NTLocalizedString.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E3CB920653BE030026BAF2 /* NTLocalizedString.m */; };
 		4DD89F0C0EBDDA7A005A15AE /* NTViewLocalizer.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E3CB960653BE040026BAF2 /* NTViewLocalizer.m */; };
 		4DD89F230EBDDBA9005A15AE /* QSBuildOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F1A0EBDDBA9005A15AE /* QSBuildOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD89F240EBDDBA9005A15AE /* QSDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F1B0EBDDBA9005A15AE /* QSDebug.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3589,7 +3588,6 @@
 				E1E5FAD407B204BF0044D6EF /* NSView_BLTRExtensions.m in Sources */,
 				E1E5FAD607B204BF0044D6EF /* NSWindow_BLTRExtensions.m in Sources */,
 				E1E5FAD807B204BF0044D6EF /* NSWorkspace_BLTRExtensions.m in Sources */,
-				4DD89F080EBDDA5E005A15AE /* NTLocalizedString.m in Sources */,
 				4DD89F0C0EBDDA7A005A15AE /* NTViewLocalizer.m in Sources */,
 				CDCC201110A4C14B009C4EED /* QSMDPredicate.m in Sources */,
 				4DC493CC0E8D1340000EEF1C /* QSHotKeyEvent.m in Sources */,

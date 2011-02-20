@@ -16,7 +16,6 @@ typedef enum {
 
 @interface QSObjectView : NSControl {
 	NSString *searchString;
-	QSInterfaceController *controller;
 	BOOL dragImageDraw;
 	BOOL dragAcceptDraw;
 

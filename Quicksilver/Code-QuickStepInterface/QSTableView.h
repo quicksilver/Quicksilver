@@ -2,13 +2,19 @@
 
 #import <AppKit/AppKit.h>
 
-
-@interface NSObject (QSTableViewDelegate)
-- (BOOL)tableView:(NSTableView *)aTableView shouldDrawRow:(int)rowIndex inClipRect:(NSRect)clipRect;
-- (BOOL)tableView:(NSTableView *)aTableView rowIsSeparator:(int)rowIndex;
-- (NSMenu *)tableView:(NSTableView*)tableView menuForTableColumn:(NSTableColumn *)column row:(int)row;
-- (void)tableView:(NSTableView *)tv dropEndedWithOperation:(NSDragOperation)operation;
+@class QSTableView;
+@protocol QSTableViewDelegate <NSTableViewDelegate>
+@optional
+- (BOOL)tableView:(QSTableView *)aTableView shouldDrawRow:(int)rowIndex inClipRect:(NSRect)clipRect;
+- (BOOL)tableView:(QSTableView *)aTableView rowIsSeparator:(int)rowIndex;
+- (NSMenu *)tableView:(QSTableView*)tableView menuForTableColumn:(NSTableColumn *)column row:(int)row;
+- (void)tableView:(QSTableView *)tv dropEndedWithOperation:(NSDragOperation)operation;
 - (void)drawSeparatorForRow:(int)rowIndex clipRect:(NSRect)clipRect;
+@end
+
+@protocol QSTableViewDataSource <NSTableViewDataSource>
+@optional
+- (void)tableView:(QSTableView *)aTableView dropEndedWithOperation:(NSDragOperation)operation;
 @end
 
 @interface QSTableView : NSTableView {
@@ -23,9 +29,10 @@
 - (id)draggingDelegate;
 - (void)setDraggingDelegate:(id)aDraggingDelegate;
 - (void)setOpaque:(BOOL)flag;
+- (id <QSTableViewDelegate>)delegate;
+- (id <QSTableViewDataSource>)dataSource;
 @end
 
 @interface NSTableView (MenuExtensions)
-
 - (NSMenu*)menuForEvent:(NSEvent*)evt;
 @end

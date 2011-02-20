@@ -272,15 +272,15 @@ id QSPrefs;
 	//return [[[modules objectAtIndex:row] objectForKey:@"type"] isEqualToString:@"Main"] ?32:16;
 }
 
-- (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(int)rowIndex {
-	return (aTableView == internalPrefsTable) ? ![self tableView:aTableView rowIsSeparator:rowIndex] : NO;
-}
-
 - (BOOL)tableView:(NSTableView *)aTableView rowIsSeparator:(int)rowIndex {
 	if (aTableView == internalPrefsTable)
 		return nil != [[modules objectAtIndex:rowIndex] objectForKey:@"separator"];
 	else
 		return NO;
+}
+
+- (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(int)rowIndex {
+	return (aTableView == internalPrefsTable) ? ![self tableView:aTableView rowIsSeparator:rowIndex] : NO;
 }
 
 - (BOOL)tableView:(NSTableView *)tableView shouldShowCellExpansionForTableColumn:(NSTableColumn *)tableColumn row:(int)row {

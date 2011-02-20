@@ -458,7 +458,7 @@ struct HotKeyMappingEntry
     if(reference) {
         OSStatus err = UnregisterEventHotKey( reference );
         if( err != noErr )	// in lock from release
-            NSLog( @"Failed to unregister hot key %@ with error %d", self, err );
+            NSLog( @"Failed to unregister hot key %@ with error %ld", self, err );
     }
 	[super dealloc];
 }

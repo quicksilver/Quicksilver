@@ -1,4 +1,5 @@
 
+#import <QSFoundation/NSTableView_BLTRExtensions.h>
 
 #import "QSTableView.h"
 
@@ -15,6 +16,14 @@
 //	//[self setHeaderView:[[[ABPropertyHeaderView alloc] initWithFrame:[[self headerView] frame]]autorelease]];
 //}
 //
+
+- (id <QSTableViewDelegate>)delegate {
+    return (id <QSTableViewDelegate>)[super delegate];
+}
+
+- (id <QSTableViewDataSource>)dataSource {
+    return (id <QSTableViewDataSource>)[super dataSource];
+}
 
 - (BOOL)canDragRowsWithIndexes:(NSIndexSet *)rowIndexes atPoint:(NSPoint)mouseDownPoint {
 	return YES;
@@ -139,7 +148,7 @@
 }
 
 - (void)draggedImage:(NSImage *)anImage endedAt:(NSPoint)aPoint operation:(NSDragOperation)operation {
-	[super draggedImage:(NSImage *)anImage endedAt:(NSPoint)aPoint operation:(NSDragOperation)operation];
+	[super draggedImage:anImage endedAt:aPoint operation:operation];
 
 	if ([[self dataSource] respondsToSelector:@selector(tableView:dropEndedWithOperation:)] )
 		[[self dataSource] tableView:self dropEndedWithOperation:operation];
@@ -163,7 +172,7 @@
 	int column = [self columnAtPoint:point];
 	int row = [self rowAtPoint:point];
 	if ( column >= 0 && row >= 0 && [[self delegate] respondsToSelector:@selector(tableView:menuForTableColumn:row:)] )
-		return [[self delegate] tableView:self menuForTableColumn:[[self tableColumns] objectAtIndex:column] row:row];
+		return [(id <QSTableViewDelegate>)[self delegate] tableView:(QSTableView *)self menuForTableColumn:[[self tableColumns] objectAtIndex:column] row:row];
 	return [super menuForEvent:evt];
 }
 @end

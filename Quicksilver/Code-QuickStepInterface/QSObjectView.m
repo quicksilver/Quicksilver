@@ -53,16 +53,13 @@
 - (void)awakeFromNib {
 ////	[self viewDidMoveToWindow];
 	[self registerForDraggedTypes:[NSArray arrayWithObjects:NSURLPboardType, NSColorPboardType, NSFileContentsPboardType, NSFilenamesPboardType, NSFontPboardType, NSHTMLPboardType, NSPDFPboardType, NSPICTPboardType, NSPostScriptPboardType, NSRulerPboardType, NSRTFPboardType, NSRTFDPboardType, NSStringPboardType, NSTabularTextPboardType, NSTIFFPboardType, NSURLPboardType, NSVCardPboardType, NSFilesPromisePboardType, nil]];
-	if (!controller && [self window])
-		controller = [[self window] delegate];
 	// [self setToolTip:@"No Selection"];
 	draggedObject = nil;
 	[self setDropMode:QSFullDropMode];
 }
+
 - (QSInterfaceController *)controller {
-	if (!controller && [self window])
-		controller = [[self window] delegate];
-	return controller;
+	return (QSInterfaceController *)[[self window] windowController];
 }
 
 - (BOOL)acceptsFirstResponder {return NO;}
@@ -284,7 +281,10 @@
 	NSString *action = [[self objectValue] actionForDragOperation:lastDragMask withObject:draggedObject];
 
 	if (fDEV && [[NSApp currentEvent] modifierFlags] & NSControlKeyMask) {
-		[NSMenu popUpContextMenu:[[[self objectValue] resolvedObject] actionsMenu] withEvent:[NSApp currentEvent] forView:self];
+        if ([[[self objectValue] resolvedObject] respondsToSelector:@selector(actionsMenu)]) {
+            NSMenu *actionsMenu = [[[self objectValue] resolvedObject] performSelector:@selector(actionsMenu)];
+            [NSMenu popUpContextMenu:actionsMenu withEvent:[NSApp currentEvent] forView:self];
+        }
 	} else if (action && [self dropMode] != QSSelectDropMode) {
 		[NSThread detachNewThreadSelector:@selector(concludeDragWithAction:) toTarget:self withObject:[QSExec actionForIdentifier:action]]; // Ankur, 21 Dec: Action retained in selector, not here
 	} else if (lastDragMask & NSDragOperationGeneric) {

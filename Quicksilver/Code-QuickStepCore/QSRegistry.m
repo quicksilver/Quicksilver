@@ -377,15 +377,10 @@ QSRegistry* QSReg = nil;
 		[bundleSearchPaths addObject:[[fm currentDirectoryPath] stringByAppendingPathComponent:@"PrivatePlugIns"]];
 	}
     
-	for(NSString * currPath in bundleSearchPaths) {
-//		NSEnumerator *bundleEnum;
-		NSString *curBundlePath;
-		NSArray * dirContents = [fm contentsOfDirectoryAtPath:currPath error:nil];
-		if (dirContents) {
-			for(NSString * curBundlePath in dirContents) {
-				if ([[curBundlePath pathExtension] caseInsensitiveCompare:@"qsplugin"] == NSOrderedSame) {
-					[allBundles addObject:[currPath stringByAppendingPathComponent:curBundlePath]];
-				}
+	for (NSString *currPath in bundleSearchPaths) {
+        for (NSString *curBundlePath in [fm contentsOfDirectoryAtPath:currPath error:nil]) {
+            if ([[curBundlePath pathExtension] caseInsensitiveCompare:@"qsplugin"] == NSOrderedSame) {
+                [allBundles addObject:[currPath stringByAppendingPathComponent:curBundlePath]];
 			}
 		}
 	}

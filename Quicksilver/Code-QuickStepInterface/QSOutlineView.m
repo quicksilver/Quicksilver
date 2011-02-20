@@ -2,6 +2,10 @@
 #import "QSTableView.h"
 
 @implementation QSOutlineView
+
+- (id <QSOutlineViewDelegate>)delegate {
+    return (id <QSOutlineViewDelegate>)[super delegate];
+}
 - (id)_highlightColorForCell:(NSCell *)cell {
 	if (highlightColor)
 		return highlightColor;

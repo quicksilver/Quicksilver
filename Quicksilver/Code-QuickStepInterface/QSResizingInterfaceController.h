@@ -8,6 +8,7 @@
 	BOOL expanded;
 	NSTimer *expandTimer;
 }
+- (void)firstResponderChanged:(NSResponder *)aResponder;
 - (void)resetAdjustTimer;
 - (void)expandWindow:(id)sender;
 - (void)contractWindow:(id)sender;

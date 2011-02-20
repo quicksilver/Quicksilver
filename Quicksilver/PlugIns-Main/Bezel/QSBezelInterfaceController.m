@@ -40,18 +40,18 @@
 	[(QSWindow *)[self window] setFastShow:YES];
 
 	NSArray *theControls = [NSArray arrayWithObjects:dSelector, aSelector, iSelector, nil];
-	for(NSControl * theControl in theControls) {
-		NSCell *theCell = [theControl cell];
+	for(QSSearchObjectView *theControl in theControls) {
+		QSObjectCell *theCell = [theControl cell];
 		[theCell setAlignment:NSCenterTextAlignment];
 		[theControl setPreferredEdge:NSMinYEdge];
 		[theControl setResultsPadding:NSMinY([dSelector frame])];
 		[theControl setPreferredEdge:NSMinYEdge];
-		[(QSWindow *)[((QSSearchObjectView *)theControl)->resultController window] setHideOffset:NSMakePoint(0, NSMinY([iSelector frame]))];
-		[(QSWindow *)[((QSSearchObjectView *)theControl)->resultController window] setShowOffset:NSMakePoint(0, NSMinY([dSelector frame]))];
+		[(QSWindow *)[(theControl)->resultController window] setHideOffset:NSMakePoint(0, NSMinY([iSelector frame]))];
+		[(QSWindow *)[(theControl)->resultController window] setShowOffset:NSMakePoint(0, NSMinY([dSelector frame]))];
 
-		[(QSObjectCell *)theCell setShowDetails:NO];
-		[(QSObjectCell *)theCell setTextColor:[NSColor whiteColor]];
-		[(QSObjectCell *)theCell setState:NSOnState];
+		[theCell setShowDetails:NO];
+		[theCell setTextColor:[NSColor whiteColor]];
+		[theCell setState:NSOnState];
 
 		[theCell bind:@"highlightColor" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSAppearance1A" options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:@"NSValueTransformerName"]];
 		[theCell bind:@"textColor" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSAppearance1T" options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:@"NSValueTransformerName"]];

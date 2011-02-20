@@ -68,7 +68,7 @@
     }
     @catch (NSException * e) {
         if (DEBUG)
-            NSLog(@"*** Unhandled Exception:%@ with reason: %@, in %s", [e name], [e reason], _cmd);
+            NSLog(@"*** Unhandled Exception:%@ with reason: %@, in %@", [e name], [e reason], NSStringFromSelector(_cmd));
     }
 	NSCell *cell;
     

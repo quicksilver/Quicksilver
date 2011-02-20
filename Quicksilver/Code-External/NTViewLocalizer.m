@@ -64,27 +64,24 @@
 	if ([view isKindOfClass:[NSButton class]]) {
 		if ([view isKindOfClass:[NSPopUpButton class]]) {
 			// localize the menu items
-			NSMenu *menu = [view menu];
-			NSEnumerator *enumerator = [[menu itemArray] objectEnumerator];
-			NSMenuItem* item;
-
-			for (item in enumerator)
+			for (NSMenuItem* item in [[view menu] itemArray])
 				[item setTitle:[self localizedString:[item title]]];
 		} else {
-			[view setTitle:[self localizedString:[view title]]];
-			[view setAlternateTitle:[self localizedString:[view alternateTitle]]];
+            NSButton *button = (NSButton *)view;
+			[button setTitle:[self localizedString:[button title]]];
+			[button setAlternateTitle:[self localizedString:[button alternateTitle]]];
 
 			// resize to fit if a checkbox
-			if ([view isSwitchButton])
-				[view sizeToFit];
+			if ([button isSwitchButton])
+				[button sizeToFit];
 		}
 	} else if ([view isKindOfClass:[NSBox class]]) {
-		[view setTitle:[self localizedString:[view title]]];
+		[(NSBox *)view setTitle:[self localizedString:[(NSBox *)view title]]];
 	} else if ([view isKindOfClass:[NSMatrix class]]) {
 		NSButtonCell* cell;
 
 		// localize permission matrix
-		items = [view cells];
+		items = [(NSMatrix *)view cells];
 
 		cnt = [items count];
 		for (i = 0; i<cnt; i++) {
@@ -96,10 +93,10 @@
 		}
 
 		// matrix needs to be resized when the strings are changed
-		[view setValidateSize:NO];
+		[(NSMatrix *)view setValidateSize:NO];
 	} else if ([view isKindOfClass:[NSTabView class]]) {
 		// localize the tabs
-		items = [view tabViewItems];
+		items = [(NSTabView *)view tabViewItems];
 
 		cnt = [items count];
 		for (i = 0; i<cnt; i++) {
@@ -110,13 +107,14 @@
 		}
 	} else if ([view isKindOfClass:[NSTextField class]]) {
 		// handles NSTextFields and other non button NSControls
-		[view setStringValue:[self localizedString:[view stringValue]]];
+        NSTextField *field = (NSTextField *)view;
+		[field setStringValue:[self localizedString:[field stringValue]]];
 
 		// localize place holder string
-		[[view cell] setPlaceholderString:[self localizedString:[[view cell] placeholderString]]];
+		[[field cell] setPlaceholderString:[self localizedString:[[field cell] placeholderString]]];
 	} else if ([view isKindOfClass:[NSTableView class]]) {
 		NSTableColumn *column;
-		items = [view tableColumns];
+		items = [(NSTableView *)view tableColumns];
 
 		cnt = [items count];
 		for (i = 0; i<cnt; i++) {

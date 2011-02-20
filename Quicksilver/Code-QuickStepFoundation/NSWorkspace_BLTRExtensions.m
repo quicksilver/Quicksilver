@@ -224,7 +224,7 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 		AEBuildError error;
 		OSStatus err = AEBuildAppleEvent('misc', 'actv', typeProcessSerialNumber, &psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event, &error, "");
 		if (err)
-			NSLog(@"%d:%d at \"%@\"", error.fError, error.fErrorPos, @"");
+			NSLog(@"%ld:%ld at \"%@\"", error.fError, error.fErrorPos, @"");
 		else {
 			AppleEvent reply;
 			AESend(&event, &reply, kAEWaitReply, kAENormalPriority, 100, NULL, NULL);
@@ -265,7 +265,7 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 
 	OSStatus err = AEBuildAppleEvent(kCoreEventClass, kAEQuitApplication, typeProcessSerialNumber, &psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event, &error, "");
 	if (err)
-		NSLog(@"%d:%d at \"%@\"", error.fError, error.fErrorPos, @"");
+		NSLog(@"%ld:%ld at \"%@\"", error.fError, error.fErrorPos, @"");
 	else {
 		err = AESend(&event, NULL, kAENoReply, kAENormalPriority, kAEDefaultTimeout, NULL, NULL);
 		AEDisposeDesc(&event); // we must dispose of this and the reply.
@@ -280,7 +280,7 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 		AEBuildError error;
 		OSStatus err = AEBuildAppleEvent(kCoreEventClass, kAEQuitApplication, typeProcessSerialNumber, &psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event, &error, "");
 		if (err)
-			NSLog(@"%d:%d at \"%@\"", error.fError, error.fErrorPos, @"");
+			NSLog(@"%ld:%ld at \"%@\"", error.fError, error.fErrorPos, @"");
 		else {
 			err = AESend(&event, NULL, kAEWaitReply, kAENormalPriority, kAEDefaultTimeout, NULL, NULL);
 			AEDisposeDesc(&event); // we must dispose of this and the reply.
@@ -301,7 +301,7 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 	spec.launchFlags	 = kLSLaunchNewInstance;
 	spec.asyncRefCon	 = NULL;
 	err = LSOpenFromURLSpec( &spec, NULL );
-	NSLog(@"err %d", err);
+	NSLog(@"err %ld", err);
 	//CFRelease( spec.appURL );
 }
 - (BOOL)openFileInBackground:(NSString *)fullPath {

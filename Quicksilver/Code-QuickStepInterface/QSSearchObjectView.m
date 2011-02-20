@@ -1251,7 +1251,7 @@ NSMutableDictionary *bindingsDict = nil;
 		[self insertNewline:nil];
 		return YES;
 	}
-	BOOL higher = [[[self window] delegate] performKeyEquivalent:theEvent];
+	BOOL higher = [[self controller] performKeyEquivalent:theEvent];
 	if ([[self window] firstResponder] == self && !higher) {
 		if ([self handleBoundKey:theEvent]) return YES;
 	}

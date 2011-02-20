@@ -61,7 +61,7 @@ OSStatus keyPressed(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 	UInt32 modifiers;
     err = GetEventParameter( theEvent, kEventParamKeyModifiers, typeUInt32, 0, sizeof(modifiers), 0, &modifiers );
     if( err != 0 ) {
-        NSLog( @"Failed getting event modifiers param! %d\n", err );
+        NSLog( @"Failed getting event modifiers param! %ld\n", err );
     }
     
     /* TODO: Use the new 10.5-only call ? */
@@ -185,7 +185,7 @@ unsigned int previousModifier = 0;
 	eventType.eventKind = kEventRawKeyModifiersChanged;
 	EventHandlerUPP handlerFunction = NewEventHandlerUPP(keyPressed);
 	OSStatus err = InstallEventHandler(GetEventMonitorTarget(), handlerFunction, 1, &eventType, NULL, NULL);
-	if (err) NSLog(@"gmod registration err %d", err);
+	if (err) NSLog(@"gmod registration err %ld", err);
 }
 
 + (void)initialize {

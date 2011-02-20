@@ -78,7 +78,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 	EventHandlerUPP handlerFunction = NewEventHandlerUPP(appChanged);
 	OSStatus err = InstallApplicationEventHandler(handlerFunction, 1, &eventType, self, &eventHandler);
 	if (err)
-        NSLog(@"gmod registration err %d", err);
+        NSLog(@"gmod registration err %ld", err);
 }
 
 - (id)init {
@@ -96,7 +96,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 - (void)dealloc {
     OSStatus err = RemoveEventHandler(eventHandler);
     if(err)
-        NSLog(@"error %d removing handler", err);
+        NSLog(@"error %ld removing handler", err);
 	[self setCurrentApplication:nil];
 	[self setPreviousApplication:nil];
 	[super dealloc];
