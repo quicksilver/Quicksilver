@@ -12,7 +12,8 @@
 BOOL QSIsLocalized;
 
 BOOL QSGetLocalizationStatus() {
-	return (BOOL)[[[NSBundle mainBundle] preferredLocalizations] indexOfObject:@"en"];
+    QSIsLocalized = (BOOL)[[[NSBundle mainBundle] preferredLocalizations] indexOfObject:@"en"];
+	return QSIsLocalized;
 }
 
 NSMutableDictionary *localizationBundles;

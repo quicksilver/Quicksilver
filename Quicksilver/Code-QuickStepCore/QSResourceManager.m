@@ -342,7 +342,7 @@ id QSRez;
 	if ([type isEqualToString:@"QSResourceAdditions"]) {
 		[self addResourcesFromDictionary:info]; // inBundle:bundle];
     } else {
-			if (QSIsLocalized)
+			if (QSGetLocalizationStatus())
 				[NSBundle registerLocalizationBundle:bundle forLanguage:info];
 		}
 	return YES;

@@ -174,7 +174,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	NSArray *theFiles = [object arrayForType:QSFilePathType];
 	if ([theFiles count] == 1) {
 		NSString *path = [theFiles lastObject];
-		if (QSIsLocalized)
+		if (QSGetLocalizationStatus())
 			return [[[NSFileManager defaultManager] componentsToDisplayForPath:path] componentsJoinedByString:@":"];
 		else if ([path hasPrefix:NSTemporaryDirectory()])
 			return [@"(Quicksilver) " stringByAppendingPathComponent:[path lastPathComponent]];
@@ -663,7 +663,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	if (includeKind) {
         NSString *kind = nil;
 		if ([[path pathExtension] caseInsensitiveCompare:@"prefPane"]) {
-			kind = QSIsLocalized ? [self localizedPrefPaneKind] : @"Preference Pane";
+			kind = QSGetLocalizationStatus() ? [self localizedPrefPaneKind] : @"Preference Pane";
 		} else {
 			LSCopyKindStringForURL((CFURLRef)fileURL, (CFStringRef *)&kind);
 		}

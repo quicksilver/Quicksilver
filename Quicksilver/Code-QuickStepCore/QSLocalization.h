@@ -12,7 +12,6 @@
 #define NSLocalizedStringFromTableInBundle(key, tbl, bundle, comment) \
 [bundle distributedLocalizedStringForKey:(key) value:@"" table:(tbl)]
 
-extern BOOL QSIsLocalized; //Global variable indicating a non-english system
 
 BOOL QSGetLocalizationStatus();
 

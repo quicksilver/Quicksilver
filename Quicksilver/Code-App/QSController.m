@@ -720,6 +720,7 @@ static QSController *defaultController = nil;
 }
 
 - (void)applicationWillFinishLaunching:(NSNotification *)aNotification {
+    QSGetLocalizationStatus();
 	if (DEBUG) {
 		[self registerForErrors];
 	}
