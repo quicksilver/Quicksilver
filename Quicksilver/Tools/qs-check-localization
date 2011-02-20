@@ -1,0 +1,115 @@
+#!/usr/bin/env ruby -w
+# encoding: UTF-8
+
+require 'trollop'
+require 'osx/plist'
+require 'pp'
+
+def extract_preset_keys(preset)
+  presets = []
+  presets << {'id' => preset['ID'], 'name' => preset['name']}
+  if preset['children']
+    preset['children'].each {|child| presets << extract_preset_keys(child) }
+  end
+  presets.flatten
+end
+
+def parse_plugin_plist(plist)
+  # TODO: Check QSParser.name.strings. Are those QSFSFileTypeParsers, QSFSParsers or QSURLTypeParsers ?
+  registry = {}
+  plist['QSActions'].each do |id, dict|
+    registry['QSAction'] ||= {}
+    registry['QSAction'][id] = dict['name'];
+  end
+  plist['QSPresetAdditions'].each do |preset|
+    extract_preset_keys(preset).each do |preset_dict|
+      registry['QSPreset'] ||= {}
+      registry['QSPreset'][preset_dict["id"]] = preset_dict['name'];
+    end
+  end
+  plist['QSRegistration']['QSCommands'].each do |id, dict|
+    registry['QSCommand'] ||= {}
+    registry['QSCommand'][id] = dict['name'];
+  end
+  plist['QSRegistration']['QSObjectSources'].each do |id, dict|
+    registry['QSObjectSource'] ||= {}
+    registry['QSObjectSource'][id] = dict['name'];
+  end
+  plist['QSRegistration']['QSProxies'].each do |id, dict|
+    registry['QSProxy'] ||= {}
+    registry['QSProxy'][id] = dict['name'];
+  end
+  plist['QSRegistration']["QSRegistryHeaders"].each do |id, dict|
+    registry['QSRegistryHeader'] ||= {}
+    registry['QSRegistryHeader'][id] = dict['name'];
+  end
+  plist['QSRegistration']['QSTypeDefinitions'].each do |id, dict|
+    registry['QSType'] ||= {}
+    registry['QSType'][id] = dict['name'];
+  end
+  registry
+end
+
+def check_keys(loc, type, keys_to_check, declared_ids)
+  keys_state = {:provided => [], :missing => [], :invalid => []}
+  keys_to_check.each do |key|
+    Dir.glob(File.join(loc, "#{type}.#{key}.strings")) do |file|
+      plist = OSX::PropertyList.load_file(file)
+      declared_ids.each do |id|
+        keys_state[plist.include?(id) ? :provided : :missing] << id
+      end
+      plist.each do |id, val|
+        keys_state[:invalid] << id unless declared_ids.include? id
+      end
+    end
+  end
+  keys_state
+end
+
+# Parse arguments
+options = Trollop::options do
+  banner "Usage: qs-check-localization [-h] [-l|--locale locale-id] path"
+  text "Will display what values are missing or invalid in a plugin for a given locale (or all)"
+  text ""
+  opt :locale, "The specific locale files to test", :type => :string, :short => "-l"
+end
+
+# Get the bundle (either a .qsplugin, or an Info.plist next to a Resources directory with .lproj directories inside)
+bundle = ARGV.shift
+locale = options[:locale]
+
+Trollop::die "Missing path to bundle" if bundle.nil?
+
+plugin = File.expand_path(bundle)
+localization_dirs = nil
+plist = case plugin
+when /\.plist$/ then  
+  localization_dirs = Dir[File.join(File.dirname(plugin), "Resources", "*.lproj")]
+  OSX::PropertyList.load_file plugin
+when /\.qsplugin$/ then  
+  localization_dirs = Dir[File.join(plugin, "Contents", "Resources", "*.lproj")]
+  OSX::PropertyList.load_file File.join(plugin, "Contents", "Info.plist")
+else
+  raise "Doesn't know what to do with #{bundle}"
+end
+
+registry = parse_plugin_plist(plist)
+
+localization_dirs = localization_dirs.select() {|loc_dir| loc_dir.match(/#{locale}\.lproj$/) } if locale
+localization_dirs.each do |loc|
+  registry.each do |type, dict|
+    keys = case type
+    when 'QSAction' then
+      ['name', 'description', 'commandFormat']
+    else
+      ['name']
+    end
+
+    keys_state = check_keys(loc, type, keys, dict.keys)
+    keys_state.each do |state, found_keys|
+      found_keys.each do |key|
+        puts "#{state}: #{type}, #{key} in #{File.basename(loc)}"
+      end
+    end
+  end
+end
