@@ -662,7 +662,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 	if (includeKind) {
         NSString *kind = nil;
-		if ([[path pathExtension] caseInsensitiveCompare:@"prefPane"]) {
+		if ([[path pathExtension] caseInsensitiveCompare:@"prefPane"] == NSOrderedSame) {
 			kind = QSGetLocalizationStatus() ? [self localizedPrefPaneKind] : @"Preference Pane";
 		} else {
 			LSCopyKindStringForURL((CFURLRef)fileURL, (CFStringRef *)&kind);
