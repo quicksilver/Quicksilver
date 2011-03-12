@@ -218,8 +218,11 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 }
 
 - (BOOL)putOnPasteboard:(NSPasteboard *)pboard declareTypes:(NSArray *)types includeDataForTypes:(NSArray *)includeTypes {
-	if (!types)
-		types = [[[[self dataDictionary] allKeys] mutableCopy] autorelease];
+	if (!types) {
+	  types = [[[[self dataDictionary] allKeys] mutableCopy] autorelease];
+	  if ([types containsObject:QSProxyType])
+        [(NSMutableArray *)types addObjectsFromArray:[[[self resolvedObject] dataDictionary] allKeys]];
+	}
 	else {
 		NSMutableSet *typeSet = [NSMutableSet setWithArray:types];
 		[typeSet intersectSet:[NSSet setWithArray:[[self dataDictionary] allKeys]]];
