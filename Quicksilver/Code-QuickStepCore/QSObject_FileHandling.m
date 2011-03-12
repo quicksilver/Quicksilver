@@ -666,11 +666,11 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			kind = QSGetLocalizationStatus() ? [self localizedPrefPaneKind] : @"Preference Pane";
 		} else {
 			LSCopyKindStringForURL((CFURLRef)fileURL, (CFStringRef *)&kind);
+      [kind autorelease];
 		}
       if (DEBUG_LOCALIZATION) NSLog(@"kind: %@", kind);
 		if (bundleName && [kind length])
 			bundleName = [NSString stringWithFormat:@"%@ %@", bundleName, kind];
-        [kind release];
 	} else {
         bundleName = [[bundleName retain] autorelease];
     }
