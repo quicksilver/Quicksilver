@@ -9,7 +9,7 @@
 #import "QSGlobalSelectionProvider.h"
 
 #import "QSRegistry.h"
-
+#import "QSProcessMonitor.h"
 #import "QSProxyObject.h"
 #import "QSObject_StringHandling.h"
 #import "QSObject_Pasteboard.h"
@@ -106,7 +106,10 @@ NSTimeInterval failDate = 0;
 + (id)currentSelection {
 	NSDictionary *appDictionary = [[NSWorkspace sharedWorkspace] activeApplication];
    NSString *identifier = [appDictionary objectForKey:@"NSApplicationBundleIdentifier"];
-	
+	if ([identifier isEqualToString:@"com.blacktree.Quicksilver"]) {
+ 	  appDictionary = [[QSProcessMonitor sharedInstance] previousApplication];
+ 	  identifier = [appDictionary objectForKey:@"NSApplicationBundleIdentifier"];
+ 	}
 	NSDictionary *info = [[QSReg tableNamed:@"QSProxies"] objectForKey:identifier];
 	if (info) {
 		id provider = [QSReg getClassInstance:[info objectForKey:kQSProxyProviderClass]];
@@ -148,6 +151,10 @@ NSTimeInterval failDate = 0;
 - (NSArray *)typesForProxyObject:(id)proxy {
 	NSDictionary *appDictionary = [[NSWorkspace sharedWorkspace] activeApplication];
 	NSString *identifier = [appDictionary objectForKey:@"NSApplicationBundleIdentifier"];
+	if ([identifier isEqualToString:@"com.blacktree.Quicksilver"]) {
+	  appDictionary = [[QSProcessMonitor sharedInstance] previousApplication];
+	  identifier = [appDictionary objectForKey:@"NSApplicationBundleIdentifier"];
+	}
 	NSDictionary *info = [[QSReg tableNamed:@"QSProxies"] objectForKey:identifier];
 	NSArray *array = [info objectForKey:kQSProxyTypes];
 	if (!info) return [NSArray arrayWithObjects:NSStringPboardType, NSFilenamesPboardType, nil];
