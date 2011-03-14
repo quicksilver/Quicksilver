@@ -88,7 +88,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 
 		[[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(appTerminated:) name:NSWorkspaceDidTerminateApplicationNotification object: nil];
 		[[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(appLaunched:) name:NSWorkspaceDidLaunchApplicationNotification object: nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appLaunched:) name:QSActiveApplicationChanged object: nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appChanged:) name:QSActiveApplicationChanged object: nil];
     }
 	return self;
 }
