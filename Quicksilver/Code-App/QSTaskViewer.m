@@ -39,7 +39,7 @@
 	[win setOpaque:YES];
 	[(QSDockingWindow *)win setAutosaveName:@"QSTaskViewerWindow"]; // should use the real methods to do this
 	[win display];
-	[self refreshAllTasks:nil];
+	//[self refreshAllTasks:nil];
 	[self resizeTableToFit];
 }
 
@@ -80,21 +80,19 @@
 	}
 }
 
-NSNib *taskEntryNib = nil;
-
 - (QSTaskView *)taskViewForTask:(QSTask *)task {
 	return (QSTaskView*)[task view];
 }
 
 - (void)refreshAllTasks:(NSNotification *)notif {
 	[controller rearrangeObjects];
-
+	
 	NSMutableArray *oldTaskViews = [[tasksView subviews] mutableCopy];
 	NSArray *oldTasks = [oldTaskViews valueForKey:@"task"];
 	NSMutableArray *newTaskViews = [NSMutableArray array];
-
-	int i;
-	for (i = 0; i<[[self tasks] count]; i++) {
+	
+	int i, count;
+	for (i = 0, count = [[self tasks] count]; i<count; i++) {
 		QSTask *task = [[self tasks] objectAtIndex:i];
 		int index = [oldTasks indexOfObject:task];
 		NSView *view = nil;
@@ -111,15 +109,15 @@ NSNib *taskEntryNib = nil;
 			[newTaskViews addObject:view];
 		}
 	}
-
+	
 	[oldTaskViews removeObjectsInArray:newTaskViews];
-	//oldTasks = [oldTaskViews valueForKey:@"task"];
-
+	
 	[oldTaskViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+	[oldTaskViews makeObjectsPerformSelector:@selector(setTask:) withObject:nil];
 	[tasksView setNeedsDisplay:YES];
-
+	
 	[oldTaskViews release];
-
+	
 	if ([[self window] isVisible] && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSResizeTaskViewerAutomatically"]) {
 		[self resizeTableToFit];
 	}
@@ -153,12 +151,9 @@ NSNib *taskEntryNib = nil;
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
-	//	[tasksView release];
 	[hideTimer release];
 	[updateTimer release];
 	[tasks release];
-	//	[controller release];
-	[taskEntryNib release];
 	
 	[super dealloc];
 }
