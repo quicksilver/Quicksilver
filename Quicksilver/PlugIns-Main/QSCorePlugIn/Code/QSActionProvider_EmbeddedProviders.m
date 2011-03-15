@@ -458,6 +458,7 @@
 }
 
 - (QSObject *)moveFiles:(QSObject *)dObject toFolder:(QSObject *)iObject {return [self moveFiles:dObject toFolder:iObject shouldCopy:NO];}
+
 - (QSObject *)copyFiles:(QSObject *)dObject toFolder:(QSObject *)iObject 
 {
 

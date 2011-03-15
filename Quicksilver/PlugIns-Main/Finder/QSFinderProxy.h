@@ -1,4 +1,3 @@
-
 #import <Cocoa/Cocoa.h>
 #import <Foundation/Foundation.h>
 #import <QSFoundation/QSFoundation.h>
@@ -16,7 +15,7 @@ NSAppleScript *finderScript;
 
 - (BOOL)revealFile:(NSString *)file;
 - (NSArray *)selection;
-- (NSArray *)copyFiles:(NSArray *)files toFolder:(NSString *)destination;
+- (NSArray *)copyFiles:(NSArray *)files toFolder:(NSString *)destination NS_RETURNS_NOT_RETAINED;
 - (NSArray *)moveFiles:(NSArray *)files toFolder:(NSString *)destination;
 - (NSArray *)moveFiles:(NSArray *)files toFolder:(NSString *)destination shouldCopy:(BOOL)copy;
 - (NSArray *)deleteFiles:(NSArray *)files;

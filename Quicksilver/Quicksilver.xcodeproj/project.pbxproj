@@ -52,9 +52,10 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		423DA025132F7A2C005ED70F /* QSAction.name.strings in Resources */ = {isa = PBXBuildFile; fileRef = 423DA024132F7A2C005ED70F /* QSAction.name.strings */; };
+		42ADF4FE1317237900C68070 /* QSClangAnalyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42ADF4FD1317237900C68070 /* QSClangAnalyzer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D002D4C1311476B009040B7 /* QSBezelInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D002CA2131145DD009040B7 /* QSBezelInterfaceController.m */; };
 		4D002D4D1311476C009040B7 /* QSBezelInterface.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D002CA0131145DD009040B7 /* QSBezelInterface.xib */; };
-		4D002D821311490A009040B7 /* QSAction.name.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D002CC71311460B009040B7 /* QSAction.name.strings */; };
 		4D002D831311490E009040B7 /* QSFinderProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D002CCD1311460B009040B7 /* QSFinderProxy.m */; };
 		4D002D8F131149DA009040B7 /* Primer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D002CE913114628009040B7 /* Primer.xib */; };
 		4D002D90131149DB009040B7 /* QSPrimerInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D002CEB13114628009040B7 /* QSPrimerInterfaceController.m */; };
@@ -876,19 +877,21 @@
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		423DA022132F79B6005ED70F /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/QSAction.name.strings; sourceTree = "<group>"; };
+		423DA026132F7A5B005ED70F /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/QSAction.name.strings; sourceTree = "<group>"; };
+		423DA027132F7A65005ED70F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSAction.name.strings; sourceTree = "<group>"; };
+		423DA028132F7A6B005ED70F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/QSAction.name.strings; sourceTree = "<group>"; };
+		42ADF4FD1317237900C68070 /* QSClangAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSClangAnalyzer.h; sourceTree = "<group>"; };
 		4D002C9E131145DD009040B7 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4D002C9F131145DD009040B7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D002CA0131145DD009040B7 /* QSBezelInterface.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSBezelInterface.xib; sourceTree = "<group>"; };
 		4D002CA1131145DD009040B7 /* QSBezelInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSBezelInterfaceController.h; sourceTree = "<group>"; };
 		4D002CA2131145DD009040B7 /* QSBezelInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSBezelInterfaceController.m; sourceTree = "<group>"; };
-		4D002CBF1311460B009040B7 /* en */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; fileEncoding = 10; name = en; path = en.lproj/QSAction.name.strings; sourceTree = "<group>"; };
 		4D002CC11311460B009040B7 /* New Finder Window.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; path = "New Finder Window.scpt"; sourceTree = "<group>"; };
 		4D002CC21311460B009040B7 /* Refresh Finder Window.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; path = "Refresh Finder Window.scpt"; sourceTree = "<group>"; };
 		4D002CC31311460B009040B7 /* Finder.original.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; path = Finder.original.scpt; sourceTree = "<group>"; };
 		4D002CC41311460B009040B7 /* Finder.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; path = Finder.scpt; sourceTree = "<group>"; };
-		4D002CC51311460B009040B7 /* fr */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; fileEncoding = 10; name = fr; path = fr.lproj/QSAction.name.strings; sourceTree = "<group>"; };
 		4D002CC61311460B009040B7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4D002CC71311460B009040B7 /* QSAction.name.strings */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; fileEncoding = 10; path = QSAction.name.strings; sourceTree = "<group>"; };
 		4D002CCB1311460B009040B7 /* QSFinderPlugIn_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSFinderPlugIn_Prefix.pch; sourceTree = "<group>"; };
 		4D002CCC1311460B009040B7 /* QSFinderProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSFinderProxy.h; sourceTree = "<group>"; };
 		4D002CCD1311460B009040B7 /* QSFinderProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSFinderProxy.m; sourceTree = "<group>"; };
@@ -1777,15 +1780,14 @@
 		4D002CA91311460B009040B7 /* Finder */ = {
 			isa = PBXGroup;
 			children = (
-				4D002CBE1311460B009040B7 /* QSAction.name.strings */,
 				4D002CC01311460B009040B7 /* Finder */,
 				4D002CC31311460B009040B7 /* Finder.original.scpt */,
 				4D002CC41311460B009040B7 /* Finder.scpt */,
 				4D002CC61311460B009040B7 /* Info.plist */,
-				4D002CC71311460B009040B7 /* QSAction.name.strings */,
 				4D002CCB1311460B009040B7 /* QSFinderPlugIn_Prefix.pch */,
 				4D002CCC1311460B009040B7 /* QSFinderProxy.h */,
 				4D002CCD1311460B009040B7 /* QSFinderProxy.m */,
+				423DA024132F7A2C005ED70F /* QSAction.name.strings */,
 			);
 			path = Finder;
 			sourceTree = "<group>";
@@ -2355,6 +2357,7 @@
 				4DD89F1A0EBDDBA9005A15AE /* QSBuildOptions.h */,
 				7FB8D6FA07B98B1300062022 /* QSCatalogEntry.h */,
 				7FB8D6FB07B98B1300062022 /* QSCatalogEntry.m */,
+				42ADF4FD1317237900C68070 /* QSClangAnalyzer.h */,
 				E1E5FB6F07B20DD10044D6EF /* QSCollection.h */,
 				E1E5FB7007B20DD10044D6EF /* QSCollection.m */,
 				E1E5FB7107B20DD10044D6EF /* QSCommand.h */,
@@ -2691,6 +2694,7 @@
 				7FA4ED4809132402007DB407 /* UKFileWatcher.h in Headers */,
 				7FA4ED4C09132402007DB407 /* UKKQueue.h in Headers */,
 				7FA4ED4E09132402007DB407 /* UKMainThreadProxy.h in Headers */,
+				42ADF4FE1317237900C68070 /* QSClangAnalyzer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3107,7 +3111,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D002E1213114B17009040B7 /* Finder.scpt in Resources */,
-				4D002D821311490A009040B7 /* QSAction.name.strings in Resources */,
+				423DA025132F7A2C005ED70F /* QSAction.name.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3768,21 +3772,23 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		423DA024132F7A2C005ED70F /* QSAction.name.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				423DA022132F79B6005ED70F /* English */,
+				423DA026132F7A5B005ED70F /* German */,
+				423DA027132F7A65005ED70F /* fr */,
+				423DA028132F7A6B005ED70F /* en */,
+			);
+			name = QSAction.name.strings;
+			sourceTree = "<group>";
+		};
 		4D002C9D131145DD009040B7 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				4D002C9E131145DD009040B7 /* en */,
 			);
 			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		4D002CBE1311460B009040B7 /* QSAction.name.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4D002CBF1311460B009040B7 /* en */,
-				4D002CC51311460B009040B7 /* fr */,
-			);
-			name = QSAction.name.strings;
 			sourceTree = "<group>";
 		};
 		4D002CE613114628009040B7 /* Localizable.strings */ = {
