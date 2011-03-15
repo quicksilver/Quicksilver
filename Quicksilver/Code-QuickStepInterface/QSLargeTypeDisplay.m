@@ -66,7 +66,7 @@ void QSShowLargeType(NSString *number) {
 	NSLayoutManager *layoutManager = [textView layoutManager];
 	unsigned numberOfLines, index, numberOfGlyphs = [layoutManager numberOfGlyphs];
 	NSRange lineRange;
-	float height;
+	float height = 0;
 	for (numberOfLines = 0, index = 0; index < numberOfGlyphs; numberOfLines++) {
 		NSRect rect = [layoutManager lineFragmentRectForGlyphAtIndex:index effectiveRange:&lineRange];
 		height += NSHeight(rect);

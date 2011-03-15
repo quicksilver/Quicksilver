@@ -776,7 +776,7 @@ NSSize QSMaxIconSize;
 	[data setDictionary:[coder decodeObjectForKey:@"data"]];
 	[self extractMetadata];
 	id dup = [self findDuplicateOrRegisterID];
-	if (dup) return dup;
+	if (dup) return [dup retain];
 	return self;
 }
 
@@ -815,7 +815,7 @@ NSSize QSMaxIconSize;
 	id dup = [QSObject objectWithIdentifier:[self identifier]];
 	if (dup) {
 		[self release];
-		return [dup retain];
+		return dup;
 	}
 	if ([self identifier])
 		[QSObject registerObject:self withIdentifier:[self identifier]];

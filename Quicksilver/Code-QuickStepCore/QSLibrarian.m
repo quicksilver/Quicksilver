@@ -584,7 +584,7 @@ static float searchSpeed = 0.0;
 
 	NSDate *totalDate = [NSDate date];
 	NSDate *date;
-	NSMutableArray *newResultArray;
+	//NSMutableArray *newResultArray;
 
 	//NSTimeInterval moo = 0;
 	//NSTimeInterval moo2 = 0;
@@ -595,7 +595,7 @@ static float searchSpeed = 0.0;
 			//	NSData *scores;
 			NSString *string = [array objectAtIndex:i];
 			pool = [[NSAutoreleasePool alloc] init];
-			newResultArray = [self scoredArrayForString:string inSet:nil mnemonicsOnly:NO];
+			/*newResultArray = */[self scoredArrayForString:string inSet:nil mnemonicsOnly:NO];
 			//if (VERBOSE) NSLog(@"Searched for \"%@\" in %3fms (%d items) ", string, (1000 * -[date timeIntervalSinceNow]) , [newResultArray count]);
 
 			[pool release];

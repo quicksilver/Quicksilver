@@ -71,7 +71,6 @@ float QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mas
 				if (!whitespace) whitespace = CFCharacterSetGetPredefined(kCFCharacterSetWhitespace);
 				static CFCharacterSetRef uppercase = NULL;
 				if (!uppercase) uppercase = CFCharacterSetGetPredefined(kCFCharacterSetUppercaseLetter);
-				j = 0;
 				if (CFCharacterSetIsCharacterMember(whitespace, CFStringGetCharacterFromInlineBuffer(&inlineBuffer, matchedRange.location-1) )) {
 					for (j = matchedRange.location-2; j >= (int) strRange.location; j--) {
 						if (CFCharacterSetIsCharacterMember(whitespace, CFStringGetCharacterFromInlineBuffer(&inlineBuffer, j) )) score--;

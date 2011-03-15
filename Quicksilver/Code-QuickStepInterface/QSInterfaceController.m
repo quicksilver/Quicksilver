@@ -458,7 +458,12 @@
 	NSDate *startDate = [NSDate date];
 	QSAction *action = [[aSelector objectValue] retain];
 	if ([[NSApp currentEvent] modifierFlags] & NSCommandKeyMask && !([[NSApp currentEvent] modifierFlags] & NSShiftKeyMask) ) {
-		action = [action alternate];
+		QSAction* alternate = [action alternate];
+		if (alternate != action) {
+			[alternate retain];
+			[action release];
+			action = alternate;
+		}
 		if (VERBOSE) NSLog(@"Using Alternate Action: %@", action);
 	}
     QSObject *dObject = [dSelector objectValue];
@@ -475,7 +480,12 @@
 			[dSelector performSelectorOnMainThread:@selector(selectObjectValue:) withObject:returnValue waitUntilDone:YES];
 			if (action) {
                 if ([action isKindOfClass:[QSRankedObject class]] && [(QSRankedObject *)action object]) {
-                    action = [(QSRankedObject *)action object];
+                    QSAction* rankedAction = [(QSRankedObject *)action object];
+					if (rankedAction != action) {
+						[rankedAction retain];
+						[action release];
+						action = rankedAction;
+					}
                     if ([action displaysResult]) {
                         [self showMainWindow:self];
                     }
@@ -484,6 +494,7 @@
 		}
 	}
 	if (VERBOSE) NSLog(@"Command executed (%dms) ", (int)(-[startDate timeIntervalSinceNow] *1000));
+	[action release];
 	[pool release];
 }
 
