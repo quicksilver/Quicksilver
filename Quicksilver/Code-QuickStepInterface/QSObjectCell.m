@@ -72,8 +72,8 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
   return fieldEditor;
 }
 - (void)dealloc{
-  [fieldEditor release];
-  [super dealloc];
+	[fieldEditor release];
+	[super dealloc];
 }
 - (id)initTextCell:(NSString *)aString {
 
@@ -129,7 +129,6 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 
 	NSCellImagePosition pos = [self imagePosition];
 	if (autosize) {
-		pos = -1;
 		BOOL wideDraw = NSWidth(theRect) /NSHeight(theRect) > 2;
 		if (wideDraw || [self isBezeled])
 			pos = NSImageLeft;
