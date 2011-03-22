@@ -402,6 +402,18 @@ QSExecutor *QSExec = nil;
 		if (isValid) [validActions addObject:thisAction];
     }
 
+	// add application actions
+	if ([dObject isApplication]){
+		NSString *path = [dObject objectForType:QSFilePathType];
+		NSString *bundleIdentifier = [[NSBundle bundleWithPath:path] bundleIdentifier];
+		NSDictionary *appActions = [[QSReg tableNamed:@"QSApplicationActions"] objectForKey:bundleIdentifier];
+		foreachkey(actionID, actionDict, appActions) {
+			actionDict = [[actionDict copy] autorelease];
+			[validActions addObject:[QSAction actionWithDictionary:actionDict identifier:actionID]];
+		}
+	}
+
+
 	// NSLog(@"Actions for %@:%@", [dObject name] , validActions);
 	if (![validActions count]) {
 		NSLog(@"unable to find actions %@\r%@", oldActionObjects, actionIdentifiers);
