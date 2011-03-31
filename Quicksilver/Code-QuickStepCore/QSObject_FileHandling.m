@@ -506,7 +506,6 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 - (NSArray *)actionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
-#warning this isn't called from anywhere. maybe remove?
     NSString *path = [dObject objectForType:QSFilePathType];
     if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:nil]) {
         LSItemInfoRecord infoRec;
@@ -639,7 +638,6 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 - (BOOL)isApplication {
 	NSString *path = [self singleFilePath];
-	if (!path){ return NO; }
 	LSItemInfoRecord infoRec;
 	LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);
 	return (infoRec.flags & kLSItemInfoIsApplication);
