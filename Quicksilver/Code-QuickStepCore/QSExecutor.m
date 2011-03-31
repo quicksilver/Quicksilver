@@ -36,9 +36,9 @@
 
 QSExecutor *QSExec = nil;
 
-/*@interface QSObject (QSActionsHandlerProtocol)
+@interface QSObject (QSActionsHandlerProtocol)
 - (NSArray *)actionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
-@end*/
+@end
 
 @interface QSAction (QSPrivate)
 - (void)_setRank:(int)newRank;
@@ -286,6 +286,8 @@ QSExecutor *QSExec = nil;
 
 - (NSArray *)rankedActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject shouldBypass:(BOOL)bypass {
 	NSArray *actions = nil;
+	if ([[dObject handler] respondsToSelector:@selector(actionsForDirectObject:indirectObject:)])
+		actions = (NSMutableArray *)[[dObject handler] actionsForDirectObject:dObject indirectObject:iObject];
     
 	BOOL bypassValidation =
 		(bypass && [dObject isKindOfClass:[QSProxyObject class]] && [(QSProxyObject *)dObject bypassValidation]);
