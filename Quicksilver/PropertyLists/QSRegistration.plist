@@ -336,7 +336,7 @@
 		<key>QSComputerProxy</key>
 		<dict>
 			<key>icon</key>
-			<string>ComputerIcon</string>
+			<string>NSComputer</string>
 			<key>name</key>
 			<string>Computer</string>
 			<key>providerClass</key>
