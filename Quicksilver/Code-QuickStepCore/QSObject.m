@@ -846,7 +846,7 @@ NSSize QSMaxIconSize;
 	if (namedIcon) {
     NSImage *image = nil;
 	  if ([namedIcon isEqualToString:@"ProxyIcon"]) {
-      QSObject *resolved = [self resolvedObject];
+      QSObject *resolved = (QSObject *)[self resolvedObject];
 	    [resolved loadIcon];
 	    image = [resolved icon];
 	  }
