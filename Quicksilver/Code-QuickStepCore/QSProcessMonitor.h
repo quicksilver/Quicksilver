@@ -34,7 +34,7 @@
 - (NSArray *)getVisibleProcesses;
 - (QSObject *)imbuedFileProcessForDict:(NSDictionary *)dict;
 - (void)reloadProcesses;
-
+- (NSDictionary *)previousApplication;
 - (void)setPreviousApplication:(NSDictionary *)newPreviousApplication ;
 - (void)setCurrentApplication:(NSDictionary *)newCurrentApplication ;
 @end

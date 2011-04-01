@@ -662,15 +662,15 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 	if (includeKind) {
         NSString *kind = nil;
-		if ([[path pathExtension] caseInsensitiveCompare:@"prefPane"]) {
+		if ([[path pathExtension] caseInsensitiveCompare:@"prefPane"] == NSOrderedSame) {
 			kind = QSGetLocalizationStatus() ? [self localizedPrefPaneKind] : @"Preference Pane";
 		} else {
 			LSCopyKindStringForURL((CFURLRef)fileURL, (CFStringRef *)&kind);
+      [kind autorelease];
 		}
       if (DEBUG_LOCALIZATION) NSLog(@"kind: %@", kind);
 		if (bundleName && [kind length])
 			bundleName = [NSString stringWithFormat:@"%@ %@", bundleName, kind];
-        [kind release];
 	} else {
         bundleName = [[bundleName retain] autorelease];
     }

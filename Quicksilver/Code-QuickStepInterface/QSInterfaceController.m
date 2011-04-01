@@ -310,7 +310,7 @@
 
 - (void)updateViewLocations {
     QSAction *obj = [aSelector objectValue];
-	if ([obj argumentCount] == 2)
+	if (([obj respondsToSelector:@selector(argumentCount)]) && ([obj argumentCount] == 2))
 		[self showIndirectSelector:nil];
 	else
 		[self hideIndirectSelector:nil];
