@@ -350,7 +350,7 @@
 		<key>QSCurrentApplicationProxy</key>
 		<dict>
 			<key>icon</key>
-			<string>GenericApplicationIcon</string>
+			<string>ProxyIcon</string>
 			<key>name</key>
 			<string>Current Application</string>
 			<key>providerClass</key>
@@ -402,7 +402,7 @@
 		<key>QSPreviousApplicationProxy</key>
 		<dict>
 			<key>icon</key>
-			<string>GenericApplicationIcon</string>
+			<string>ProxyIcon</string>
 			<key>name</key>
 			<string>Previous Application</string>
 			<key>providerClass</key>
