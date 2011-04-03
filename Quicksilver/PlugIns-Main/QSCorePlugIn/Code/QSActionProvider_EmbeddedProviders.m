@@ -570,10 +570,9 @@ return [self moveFiles:dObject toFolder:iObject shouldCopy:YES];
 - (QSObject *)makeLinkTo:(QSObject *)dObject inFolder:(QSObject *)iObject {
 	NSString *destination = [iObject singleFilePath];
 	NSEnumerator *files = [dObject enumeratorForType:QSFilePathType];
-	NSString *thisFile, *destinationFile;
+	NSString *thisFile;
 	for(thisFile in files) {
-		destinationFile = [destination stringByAppendingPathComponent:[thisFile lastPathComponent]];
-		if ([[NSFileManager defaultManager] createSymbolicLinkAtPath:destinationFile pathContent:thisFile])
+		if ([[NSFileManager defaultManager] createSymbolicLinkAtPath:[destination stringByAppendingPathComponent:[thisFile lastPathComponent]] withDestinationPath:thisFile error:nil])
 			[[NSWorkspace sharedWorkspace] noteFileSystemChanged:destination];
 	}
 	return nil;
@@ -583,7 +582,7 @@ return [self moveFiles:dObject toFolder:iObject shouldCopy:YES];
 	NSString *thisFile, *destination = [iObject singleFilePath];
 	NSEnumerator *files = [dObject enumeratorForType:QSFilePathType];
 	for(thisFile in files) {
-		if ([[NSFileManager defaultManager] linkPath:[destination stringByAppendingPathComponent:[thisFile lastPathComponent]] toPath:thisFile handler:nil])
+		if ([[NSFileManager defaultManager] linkItemAtPath:thisFile toPath:[destination stringByAppendingPathComponent:[thisFile lastPathComponent]] error:nil])
 			[[NSWorkspace sharedWorkspace] noteFileSystemChanged:destination];
 	}
 	return nil;
