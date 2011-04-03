@@ -399,7 +399,10 @@ NSSize QSMaxIconSize;
 	//- (void)setObject:(id)object forKey:(id)aKey {[data setObject:object forKey:aKey];}
 
 - (id)_safeObjectForType:(id)aKey {
-	return [data objectForKey:aKey];
+  id object = [data objectForKey:aKey];
+  if (!object && [[self primaryType] isEqualToString:QSProxyType])
+      object = [[self resolvedObject] objectForType:aKey];
+	return object;
 #if 0
 	if (flags.multiTyped)
 		return[data objectForKey:aKey];
@@ -826,7 +829,13 @@ NSSize QSMaxIconSize;
 
 @implementation QSObject (Icon)
 - (BOOL)loadIcon {
-	if ([self iconLoaded]) return NO;
+  NSString *namedIcon = [self objectForMeta:kQSObjectIconName];
+	if ([self iconLoaded]) {
+	  if (!namedIcon)
+      return NO;
+    else if (![namedIcon isEqualToString:@"ProxyIcon"])
+      return NO;
+	}
 	[self setIconLoaded:YES];
     
 	lastAccess = [NSDate timeIntervalSinceReferenceDate];
@@ -834,10 +843,15 @@ NSSize QSMaxIconSize;
 	[iconLoadedArray addObject:self];
 	if (VERBOSE) NSLog(@"Load Icon for %@", self);
     else if (DEBUG && VERBOSE) NSLog(@"Load Icon for %@", [self gdbDataFormatter]);
-    
-	NSString *namedIcon = [self objectForMeta:kQSObjectIconName];
 	if (namedIcon) {
-		NSImage *image = [QSResourceManager imageNamed:namedIcon];
+    NSImage *image = nil;
+	  if ([namedIcon isEqualToString:@"ProxyIcon"]) {
+      QSObject *resolved = (QSObject *)[self resolvedObject];
+	    [resolved loadIcon];
+	    image = [resolved icon];
+	  }
+    else
+      image =  [QSResourceManager imageNamed:namedIcon];
 		if (image) {
 			[self setIcon:image];
 			return YES;

@@ -451,6 +451,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	}
 	bundle = [newBundle retain];
 	if (bundle) {
+		[[[plugInBundlePaths objectForKey:[bundle bundlePath]] retain] autorelease]; // old plugin needs to be retained, because it will be released once it's replaced in plugInBundlePaths-list
 		[plugInBundlePaths setObject:self forKey:[bundle bundlePath]];
 		[self release];
 	}
