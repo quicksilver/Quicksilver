@@ -1,6 +1,6 @@
 #include "Common.xcconfig"
 
-ARCHS = i386 ppc
+ARCHS = i386
 
 DEBUG_INFORMATION_FORMAT = dwarf-with-dsym
 
