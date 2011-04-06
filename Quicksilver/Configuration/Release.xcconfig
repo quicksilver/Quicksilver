@@ -37,8 +37,8 @@ GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS = YES
 LLVM_LTO = YES  // Link Time Optimization (specific to LLVM & Clang)
 
 //GCC_VERSION = 4.2                                     // GCC 4.2
-GCC_VERSION = com.apple.compilers.llvmgcc42           // LLVM GCC 4.2
-//GCC_VERSION = com.apple.compilers.llvm.clang.1_0        // Clang 1.0 (uses LLVM GCC 4.2 for C++ stuff)
+//GCC_VERSION = com.apple.compilers.llvmgcc42           // LLVM GCC 4.2
+GCC_VERSION = com.apple.compilers.llvm.clang.1_0        // Clang 1.0 (uses LLVM GCC 4.2 for C++ stuff)
 
 ALWAYS_SEARCH_USER_PATHS = NO
 
