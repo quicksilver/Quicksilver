@@ -141,7 +141,7 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (NSDate *)lastScanDate {
-	return [[[NSFileManager defaultManager] fileAttributesAtPath:[self indexLocation] traverseLink:YES] objectForKey:NSFileModificationDate];
+	return [[[NSFileManager defaultManager] attributesOfItemAtPath:[self indexLocation] error:nil] objectForKey:NSFileModificationDate];
 }
 
 - (BOOL)deletable {

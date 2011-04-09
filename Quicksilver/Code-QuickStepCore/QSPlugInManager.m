@@ -536,8 +536,8 @@
 		NSFileManager *manager = [NSFileManager defaultManager];
 		NSComparisonResult sorting = [[dupPlugIn buildVersion] versionCompare:[plugIn buildVersion]];
 		if (sorting == NSOrderedSame) {
-			sorting	 = [[[manager fileAttributesAtPath:[dupPlugIn bundlePath] traverseLink:YES] fileModificationDate]
-							compare:[[manager fileAttributesAtPath:[plugIn bundlePath] traverseLink:YES] fileModificationDate]];
+			sorting	 = [[[manager attributesOfItemAtPath:[dupPlugIn bundlePath] error:nil] fileModificationDate]
+						compare:[[manager attributesOfItemAtPath:[plugIn bundlePath] error:nil] fileModificationDate]];
 		}
 		if (sorting >= 0) {
 			[oldPlugIns addObject:plugIn];

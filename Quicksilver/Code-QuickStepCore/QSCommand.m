@@ -105,7 +105,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	NSLog(@"droplet %d", asDroplet);
 	NSString *destination = [[[[iObject singleFilePath] stringByAppendingPathComponent:[dObject name]] stringByAppendingPathExtension:asDroplet?@"app":@"qscommand"] firstUnusedFilePath];
 	if (asDroplet) {
-		[[NSFileManager defaultManager] copyPath:[[NSBundle mainBundle] pathForResource:@"QSDroplet" ofType:@"app"] toPath:destination handler:nil];
+		[[NSFileManager defaultManager] copyItemAtPath:[[NSBundle mainBundle] pathForResource:@"QSDroplet" ofType:@"app"] toPath:destination error:nil];
 		[dObject writeToFile:[destination stringByAppendingPathComponent:@"Contents/Command.qscommand"]];
 	} else {
 		[dObject writeToFile:destination];

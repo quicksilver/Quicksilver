@@ -124,7 +124,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	}
 	if ([self isLoaded]) {
 		if ( [bundle isLoaded]) {
-			int fileSize = [[[[NSFileManager defaultManager] fileAttributesAtPath:[bundle executablePath] traverseLink:YES] objectForKey:NSFileSize] intValue];
+			int fileSize = [[[[NSFileManager defaultManager] attributesOfItemAtPath:[bundle executablePath] error:nil] objectForKey:NSFileSize] intValue];
 
 			status = [NSString stringWithFormat:@"Loaded (%dk) ", fileSize/1024];
 		} else {
@@ -215,9 +215,9 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 		return [NSDate date];
 	} else 	if (bundle) {
-		NSDate *buildDate = [[[NSFileManager defaultManager] fileAttributesAtPath:[bundle executablePath] traverseLink:YES] fileModificationDate];
+		NSDate *buildDate = [[[NSFileManager defaultManager] attributesOfItemAtPath:[bundle executablePath] error:nil] fileModificationDate];
 		if (!buildDate)
-			buildDate = [[[NSFileManager defaultManager] fileAttributesAtPath:[bundle bundlePath] traverseLink:YES] fileModificationDate];
+			buildDate = [[[NSFileManager defaultManager] attributesOfItemAtPath:[bundle bundlePath] error:nil] fileModificationDate];
 
 		return buildDate;
 	}
