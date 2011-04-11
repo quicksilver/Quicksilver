@@ -2373,6 +2373,8 @@
 				E1E5FB7707B20DD10044D6EF /* QSCore.h */,
 				4DD89F1B0EBDDBA9005A15AE /* QSDebug.h */,
 				4DD89F1C0EBDDBA9005A15AE /* QSDefines.h */,
+				D49399091350078E00B908C6 /* QSDownloads.h */,
+				D493990A1350078E00B908C6 /* QSDownloads.m */,
 				E1E5FB7907B20DD10044D6EF /* QSense.h */,
 				E1E5FB7A07B20DD10044D6EF /* QSense.m */,
 				E1E5FB7B07B20DD10044D6EF /* QSExecutor.h */,
@@ -2474,8 +2476,6 @@
 				7FB37EB3080997EF00A2B2B4 /* QSURLDownloadWrapper.m */,
 				E1E5FBCC07B20DD20044D6EF /* QSVoyeur.h */,
 				E1E5FBCD07B20DD20044D6EF /* QSVoyeur.m */,
-				D49399091350078E00B908C6 /* QSDownloads.h */,
-				D493990A1350078E00B908C6 /* QSDownloads.m */,
 			);
 			path = "Code-QuickStepCore";
 			sourceTree = "<group>";
