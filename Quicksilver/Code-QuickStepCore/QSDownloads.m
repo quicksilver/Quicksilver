@@ -4,6 +4,9 @@
 //
 //  Created by Rob McBroom on 4/8/11.
 //
+//  This class should be used to manage anything having to do with
+//  the user's Downloads folder.
+//
 
 #import "QSDownloads.h"
 
@@ -28,6 +31,8 @@
             // Chrome downloads in progress
             [[downloadedFile pathExtension] isEqualToString:@".crdownload"]
         ) continue;
+        // if SomeFile.part exists, SomeFile is probably an in-progress download so skip it
+        if ([manager fileExistsAtPath:[downloads stringByAppendingPathComponent: [downloadedFile stringByAppendingPathExtension:@"part"]]]) continue;
         NSString *downloadPath = [downloads stringByAppendingPathComponent:downloadedFile];
         // ignore folders
         if ([manager fileExistsAtPath:downloadPath isDirectory:&isDir] && isDir) continue;
