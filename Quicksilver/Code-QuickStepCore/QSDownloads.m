@@ -20,16 +20,15 @@
     NSDate *mostRecent = [NSDate distantPast];
     for (NSString *downloadedFile in contents) {
         if (
-            // system files
-            [downloadedFile isEqualToString:@".DS_Store"] ||
-            [downloadedFile isEqualToString:@".localized"] ||
+            // hidden files
+            [downloadedFile characterAtIndex:0] == '.' ||
             // Safari downloads in progress
-            [[downloadedFile pathExtension] isEqualToString:@".download"] ||
+            [[downloadedFile pathExtension] isEqualToString:@"download"] ||
             // Firefox downloads in progress
-            [[downloadedFile pathExtension] isEqualToString:@".part"] ||
-            [[downloadedFile pathExtension] isEqualToString:@".dtapart"] ||
+            [[downloadedFile pathExtension] isEqualToString:@"part"] ||
+            [[downloadedFile pathExtension] isEqualToString:@"dtapart"] ||
             // Chrome downloads in progress
-            [[downloadedFile pathExtension] isEqualToString:@".crdownload"]
+            [[downloadedFile pathExtension] isEqualToString:@"crdownload"]
         ) continue;
         // if SomeFile.part exists, SomeFile is probably an in-progress download so skip it
         if ([manager fileExistsAtPath:[downloads stringByAppendingPathComponent: [downloadedFile stringByAppendingPathExtension:@"part"]]]) continue;
