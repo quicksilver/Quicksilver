@@ -1,7 +1,9 @@
 Changes - §59(3482)
 =======
   
-  * NEW: New 'Latest Download' proxy, corresponding to the latest file in the ~/Downloads folder
+  * PLUGIN: Items labelled with this tag are for plugins available from http://qsapp.com/plugins
+  
+  * NEW: New 'Latest Download' proxy, corresponding to the latest file in the ~/Downloads folder (Bug #70)
 
   * NEW: Auto Update of Application using QSApp.com (this is the last time you'll ever have to go looking for a new release!)
   
@@ -27,7 +29,7 @@ Changes - §59(3482)
   
   * PLUGIN: Mail Module fixed to allow right arrowing
   
-  * PLUGIN: UI Elements plugin updated to enable menu services
+  * PLUGIN: UI Elements plugin updated to enable menu services (Bug #19)
   
   * PLUGIN: Fix small clipboard leak
   
@@ -35,7 +37,7 @@ Changes - §59(3482)
   
   * PLUGIN: New 1Password Module for interaction with 1Password
   
-  * PLGUIN: New Remote Hosts Module
+  * PLUGIN: New Remote Hosts Module
   
   * PLUGIN: Fixed Dictionary Plugin to work with 10.5+
   
@@ -53,15 +55,15 @@ Changes - §59(3482)
   
   * CHANGE: Quietened noisy logs, giving less (unwanted) console logs
   
-  * FIX: AppleScript 'Process Text' fix
+  * FIX: AppleScript 'Process Text' fix (Bug #144)
   
   * FIX: 'Do Not Open At Login' action fixed (Bug #35)
   
-  * FIX: Proxy Objects now work again as previously
+  * FIX: Proxy Objects now work again as previously (Bug #8 & more)
   
   * FIX: A crash when installing an already installed plugin
   
-  * FIX: Application actions now work again
+  * FIX: Application actions now work again (Bug #102 & #7)
   
   * FIX: Calling AppleScripts now works as expected (revert old commit)
   
