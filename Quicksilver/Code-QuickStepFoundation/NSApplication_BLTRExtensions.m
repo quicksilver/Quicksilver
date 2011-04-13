@@ -94,7 +94,7 @@
 	BOOL status;
 	status = [manager moveItemAtPath:launchPath toPath:tempPath error:nil];
 	if (VERBOSE) NSLog(@"Move Old %d", status);
-	status = [manager moveItemAtPath:newPath toPath:launchPath error:nil];
+	status = [manager copyItemAtPath:newPath toPath:launchPath error:nil];
 	if (VERBOSE) NSLog(@"Copy New %d", status);
 	status = [manager movePathToTrash:tempPath];
 	if (VERBOSE) NSLog(@"Trash Old %d", status);
