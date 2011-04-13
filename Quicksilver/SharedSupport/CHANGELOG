@@ -55,6 +55,8 @@ Changes - §59(3482)
   
   * FIX: AppleScript 'Process Text' fix
   
+  * FIX: 'Do Not Open At Login' action fixed (Bug #35)
+  
   * FIX: Proxy Objects now work again as previously
   
   * FIX: A crash when installing an already installed plugin
@@ -79,9 +81,13 @@ Changes - §59(3482)
   
   * FIX: Crashes on interface rapid changing
   
-  * FIX: Make the 'Eject' action validate to reduce lag/wait times
+  * FIX: Make the 'Eject' action validate to reduce lag/wait times (Bug #56)
   
   * FIX: Sizing of drawers in the Quicksilver preferences (Bug #71)
+  
+  * FIX: Task viewer now reliably loads (Bug #119)
+  
+  * FIX: Webkit fixes (Bug #113)
   
   
 Thanks for this release goes to:
