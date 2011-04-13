@@ -405,7 +405,7 @@ dW5jdGlvbmFsaXR5Lg0</string>
 												<object class="NSTextFieldCell" key="NSCell" id="290924070">
 													<int key="NSCellFlags">67239424</int>
 													<int key="NSCellFlags2">272629760</int>
-													<string key="NSContents">Quicksilver is beta software and should be treated as such. This version will expire six months after the initial release.</string>
+													<string key="NSContents">Quicksilver is beta software and should be treated as such.</string>
 													<reference key="NSSupport" ref="654267372"/>
 													<reference key="NSControlView" ref="245194481"/>
 													<reference key="NSBackgroundColor" ref="596208864"/>

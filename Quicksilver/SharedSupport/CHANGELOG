@@ -1,3 +1,109 @@
+Changes - §59(3482)
+=======
+  
+  * PLUGIN: Items labelled with this tag are for plugins available from http://qsapp.com/plugins
+  
+  * NEW: New 'Latest Download' proxy, corresponding to the latest file in the ~/Downloads folder (Bug #70)
+
+  * NEW: Auto Update of Application using QSApp.com (this is the last time you'll ever have to go looking for a new release!)
+  
+  * NEW: New menu bar icon
+
+  * NEW: French localisations for the Finder Module
+  
+  * NEW: German localisations for actions
+
+  * NEW: an 'Open Url in Background action'. Also set as alternate action to 'Open URL' (hit CMD+RTN)
+  
+  * NEW: Speed improvements through the use of 'fast enumeration' in Leopard and Snow Leopard
+  
+  * NEW: Added 'descend into bundle' option for catalog entries (containing Mac OS X bundles)
+  
+  * NEW: Changes to build Quicksilver as a 64 bit application in the future
+  
+  * NEW: Proxy objects for applications and windows use the correct application's icon
+  
+  * NEW: PPC build support removed
+  
+  * PLUGIN: New Cyberduck Plugin
+  
+  * PLUGIN: Mail Module fixed to allow right arrowing
+  
+  * PLUGIN: UI Elements plugin updated to enable menu services (Bug #19)
+  
+  * PLUGIN: Fix small clipboard leak
+  
+  * PLUGIN: New Yojimbo plugin
+  
+  * PLUGIN: New 1Password Module for interaction with 1Password
+  
+  * PLUGIN: New Remote Hosts Module
+  
+  * PLUGIN: Fixed Dictionary Plugin to work with 10.5+
+  
+  * PLUGIN: Pinboard.in added to del.icio.us Plugin
+  
+  * PLUGIN: Added 'Current Focused Window' proxy to UI Elements Plugin
+  
+  * PLUGIN: Newly written documentation on plugin development (see Quicksilver Plugins source on GitHub)
+  
+  * CHANGE: Framework and source code tidy up
+  
+  * CHANGE: Updated deprecated NSFileManager actions (10.5+)
+
+  * CHANGE: Changed links to reflect change to QSApp.com website
+  
+  * CHANGE: Quietened noisy logs, giving less (unwanted) console logs
+  
+  * FIX: AppleScript 'Process Text' fix (Bug #144)
+  
+  * FIX: 'Do Not Open At Login' action fixed (Bug #35)
+  
+  * FIX: Proxy Objects now work again as previously (Bug #8 & more)
+  
+  * FIX: A crash when installing an already installed plugin
+  
+  * FIX: Application actions now work again (Bug #102 & #7)
+  
+  * FIX: Calling AppleScripts now works as expected (revert old commit)
+  
+  * FIX: Disabled items in catalog are now ignored
+  
+  * FIX: Typos and incorrect tootlips (Bug #138 & more)
+  
+  * FIX: 'Make Hard Link' and 'Make Link' actions fixed
+  
+  * FIX: Memory leak fixes as returned by Clang checker
+  
+  * FIX: Show Quicksilver Command Window when a result is required to be shown
+  
+  * FIX: AppleScript actions now show the result in the Quicksilver Command Window
+  
+  * FIX: Fixed build warnings within XCode, and made Source Code compiling much quicker and easier
+  
+  * FIX: Crashes on interface rapid changing
+  
+  * FIX: Make the 'Eject' action validate to reduce lag/wait times (Bug #56)
+  
+  * FIX: Sizing of drawers in the Quicksilver preferences (Bug #71)
+  
+  * FIX: Task viewer now reliably loads (Bug #119)
+  
+  * FIX: Webkit fixes (Bug #113)
+  
+  
+Thanks for this release goes to:
+Developement from:
+Patrick Robertson, Rob McBroom, Etienne Samson, Qiushi (Billy) He, Matt Beshara, Henning Jungkurth, Michael Guntsche, Paul Kohut, Yiwen Wu, Florian Heckl.
+Also, special thanks to:
+'scotnery' for the new Menu Bar icon.
+Jeff Cox for his support for the development team.
+Philip Dooher for setting up @LoveQuicksilver & lovequicksilver.com.
+Patrick Robertson for initiating QSApp.com.
+Rob McBroom for his Plugin Development documentation.
+All contributers to the Wiki at http://qsapp.com/wiki.
+GitHub for hosting the source and downloads.
+
 Changes - B58(3841)
 =======
 Etienne Samson

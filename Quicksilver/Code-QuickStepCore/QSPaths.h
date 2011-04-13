@@ -9,8 +9,8 @@
 #define psMainPlugInsLocation QSApplicationSupportSubPath(@"PlugIns/", NO)
 #define psMainPlugInsToInstallLocation QSApplicationSupportSubPath(@"PlugIns/Incoming/", NO)
 
-#define kCheckUpdateURL         @"http://qs0.blacktree.com/quicksilver/versioncheck.php"
-#define kDownloadUpdateURL      @"http://download.blacktree.com/download.php"
+#define kCheckUpdateURL         @"http://qs0.qsapp.com/versioncheck.php"
+#define kDownloadUpdateURL      @"http://qs0.qsapp.com/download.php"
 #define kPluginInfoURL          @"http://qs0.blacktree.com/quicksilver/plugins/plugininfo.php"
 #define kPluginDownloadURL      @"http://qs0.blacktree.com/quicksilver/plugins/download.php"
 
