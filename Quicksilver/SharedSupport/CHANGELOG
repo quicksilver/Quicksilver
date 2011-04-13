@@ -9,9 +9,9 @@ Changes - §59(3482)
   
   * NEW: New menu bar icon
 
-  * NEW: French localisations for the Finder Module
+  * NEW: French localisation for the Finder Module
   
-  * NEW: German localisations for actions
+  * NEW: German localisation for actions
 
   * NEW: an 'Open Url in Background action'. Also set as alternate action to 'Open URL' (hit CMD+RTN)
   
@@ -69,7 +69,7 @@ Changes - §59(3482)
   
   * FIX: Disabled items in catalog are now ignored
   
-  * FIX: Typos and incorrect tootlips (Bug #138 & more)
+  * FIX: Typos and incorrect tooltips (Bug #138 & more)
   
   * FIX: 'Make Hard Link' and 'Make Link' actions fixed
   
@@ -93,7 +93,7 @@ Changes - §59(3482)
   
   
 Thanks for this release goes to:
-Developement from:
+Development from:
 Patrick Robertson, Rob McBroom, Etienne Samson, Qiushi (Billy) He, Matt Beshara, Henning Jungkurth, Michael Guntsche, Paul Kohut, Yiwen Wu, Florian Heckl.
 Also, special thanks to:
 'scotnery' for the new Menu Bar icon.
@@ -101,7 +101,7 @@ Jeff Cox for his support for the development team.
 Philip Dooher for setting up @LoveQuicksilver & lovequicksilver.com.
 Patrick Robertson for initiating QSApp.com.
 Rob McBroom for his Plugin Development documentation.
-All contributers to the Wiki at http://qsapp.com/wiki.
+All contributors to the Wiki at http://qsapp.com/wiki.
 GitHub for hosting the source and downloads.
 
 Changes - B58(3841)
