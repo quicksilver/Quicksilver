@@ -43,6 +43,7 @@
 #import "NSURL_BLTRExtensions.h"
 
 # define kURLOpenAction @"URLOpenAction"
+# define kURLOpenActionInBackground @"URLOpenActionInBackground"
 # define kURLOpenWithAction @"URLOpenWithAction"
 # define kURLJSAction @"URLJSAction"
 # define kURLEmailAction @"URLEmailAction"
@@ -74,7 +75,7 @@
 /*	[newActions addObject:kURLOpenAction];
 	[newActions addObject:kURLOpenWithAction];
 	return newActions; */
-	return [NSArray arrayWithObjects:kURLOpenAction, kURLOpenWithAction, nil];
+	return [NSArray arrayWithObjects:kURLOpenAction, kURLOpenWithAction, kURLOpenActionInBackground, nil];
 }
 
 - (QSObject *)doURLOpenAction:(QSObject *)dObject {

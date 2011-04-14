@@ -82,6 +82,8 @@
 	<string>Run Javascript</string>
 	<key>URLOpenAction</key>
 	<string>Open a URL</string>
+	<key>URLOpenActionInBackground</key>
+	<string>Open a URL without leaving the current application</string>
 	<key>URLSearchAction</key>
 	<string>Search a Query URL</string>
 	<key>URLSearchForAction</key>

@@ -112,6 +112,8 @@
 	<string>Führt Javascript-Programm aus</string>
 	<key>URLOpenAction</key>
 	<string>Öffnet Internetadresse</string>
+	<key>URLOpenActionInBackground</key>
+	<string>Öffne eine URL ohne das aktuelle Programm zu verlassen</string>
 	<key>URLSearchAction</key>
 	<string>Sucht auf Internet-Suchseite</string>
 	<key>URLSearchForAction</key>

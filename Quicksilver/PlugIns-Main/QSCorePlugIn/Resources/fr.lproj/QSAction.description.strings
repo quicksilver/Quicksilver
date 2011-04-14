@@ -112,6 +112,8 @@
 	<string>Executer Javascript</string>
 	<key>URLOpenAction</key>
 	<string>Ouvrir un URL</string>
+	<key>URLOpenActionInBackground</key>
+	<string>Ouvrir l'URL à l'arrière plan</string>
 	<key>URLSearchAction</key>
 	<string>Rechercher un URL de requête</string>
 	<key>URLSearchForAction</key>

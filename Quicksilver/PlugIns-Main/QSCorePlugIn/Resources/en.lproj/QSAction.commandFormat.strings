@@ -154,6 +154,8 @@
 	<string>Run %@</string>
 	<key>URLOpenAction</key>
 	<string>Open %@</string>
+	<key>URLOpenActionInBackground</key>
+	<string>Open %@ in Background</string>
 	<key>URLOpenWithAction</key>
 	<string>Open %@ with %@</string>
 	<key>URLSearchAction</key>
