@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface QSAboutWindowController : NSWindowController {
+@interface QSAboutWindowController : NSWindowController <NSWindowDelegate> {
 	IBOutlet id creditsView;
 	BOOL showCredits;
 	IBOutlet NSImageView *imageView;
