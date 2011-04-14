@@ -15,8 +15,10 @@
     NSString *downloads = [@"~/Downloads" stringByStandardizingPath];
     NSFileManager *manager = [NSFileManager defaultManager];
     BOOL isDir;
+    // list files in the Downloads directory
     NSArray *contents = [manager contentsOfDirectoryAtPath:downloads error:nil];
-    NSString *mrdpath;
+    // the most recent download (with the folder itself as a fallback)
+    NSString *mrdpath = downloads;
     NSDate *mostRecent = [NSDate distantPast];
     for (NSString *downloadedFile in contents) {
         if (
