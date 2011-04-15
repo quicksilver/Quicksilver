@@ -1,4 +1,4 @@
-Changes - §59(3482)
+Changes - B59(3482)
 =======
   
   * PLUGIN: Items labelled with this tag are for plugins available from http://qsapp.com/plugins
@@ -93,16 +93,29 @@ Changes - §59(3482)
   
   
 Thanks for this release goes to:
+
 Development from:
+
 Patrick Robertson, Rob McBroom, Etienne Samson, Qiushi (Billy) He, Matt Beshara, Henning Jungkurth, Michael Guntsche, Paul Kohut, Yiwen Wu, Florian Heckl.
+
+
 Also, special thanks to:
+
 'scotnery' for the new Menu Bar icon.
+
 Jeff Cox for his support for the development team.
+
 Philip Dooher for setting up @LoveQuicksilver & lovequicksilver.com.
+
 Patrick Robertson for initiating QSApp.com.
+
 Rob McBroom for his Plugin Development documentation.
+
 All contributors to the Wiki at http://qsapp.com/wiki.
+
 GitHub for hosting the source and downloads.
+
+
 
 Changes - B58(3841)
 =======
