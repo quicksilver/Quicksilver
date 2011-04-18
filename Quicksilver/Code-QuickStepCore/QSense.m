@@ -67,14 +67,18 @@ float QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mas
 			score = remainingStrRange.location-strRange.location;
 			// ignore skipped characters if is first letter of a word
 			if (matchedRange.location>strRange.location) {//if some letters were skipped
-				static CFCharacterSetRef whitespace = NULL;
-				if (!whitespace) whitespace = CFCharacterSetGetPredefined(kCFCharacterSetWhitespace);
+				static CFCharacterSetRef wordSeparator = NULL;
+				if (!wordSeparator)
+				{
+				  wordSeparator = CFCharacterSetCreateMutableCopy(NULL, CFCharacterSetGetPredefined(kCFCharacterSetWhitespace));
+				  CFCharacterSetAddCharactersInString((CFMutableCharacterSetRef)wordSeparator, (CFStringRef)@".");
+				}
 				static CFCharacterSetRef uppercase = NULL;
 				if (!uppercase) uppercase = CFCharacterSetGetPredefined(kCFCharacterSetUppercaseLetter);
 				j = 0;
-				if (CFCharacterSetIsCharacterMember(whitespace, CFStringGetCharacterFromInlineBuffer(&inlineBuffer, matchedRange.location-1) )) {
+				if (CFCharacterSetIsCharacterMember(wordSeparator, CFStringGetCharacterFromInlineBuffer(&inlineBuffer, matchedRange.location-1) )) {
 					for (j = matchedRange.location-2; j >= (int) strRange.location; j--) {
-						if (CFCharacterSetIsCharacterMember(whitespace, CFStringGetCharacterFromInlineBuffer(&inlineBuffer, j) )) score--;
+						if (CFCharacterSetIsCharacterMember(wordSeparator, CFStringGetCharacterFromInlineBuffer(&inlineBuffer, j) )) score--;
 						else score -= SKIPPED_SCORE;
 					}
 				} else if (CFCharacterSetIsCharacterMember(uppercase, CFStringGetCharacterFromInlineBuffer(&inlineBuffer, matchedRange.location) )) {
