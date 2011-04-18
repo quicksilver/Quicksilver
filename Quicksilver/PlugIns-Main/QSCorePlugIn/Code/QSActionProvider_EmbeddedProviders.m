@@ -588,7 +588,18 @@ return [self moveFiles:dObject toFolder:iObject shouldCopy:YES];
 	return nil;
 }
 
-- (QSObject *)getFilePaths:(QSObject *)dObject { return [QSObject objectWithString:[[dObject arrayForType:QSFilePathType] componentsJoinedByString:@"\n"]];  }
+- (QSObject *)getFilePaths:(QSObject *)dObject {
+    // FIXME: add more smarts so the comma trick will work
+    NSString *path = [[dObject arrayForType:QSFilePathType] componentsJoinedByString:@"\n"];
+    // prefix POSIX to ensure a unique name
+    QSObject *pathResult = [QSObject objectWithName:[NSString stringWithFormat:@"POSIX:%@", path]];
+    // display the path without "POSIX"
+    [pathResult setLabel:path];
+    // allow it to be used as text (Large Type, Paste, etc.)
+    [pathResult setObject:path forType:QSTextType];
+    [pathResult setPrimaryType:QSTextType];
+    return pathResult;
+}
 
 - (QSObject *)getFileURLs:(QSObject *)dObject {
 	return [QSObject objectWithString:[[NSURL performSelector:@selector(fileURLWithPath:) onObjectsInArray:[dObject arrayForType:QSFilePathType] returnValues:YES] componentsJoinedByString:@"\n"]];
