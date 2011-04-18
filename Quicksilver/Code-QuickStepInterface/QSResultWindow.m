@@ -12,7 +12,11 @@
     if([self setFrameUsingName:@"results"])
         [[self class] removeFrameUsingName:@"results"];
     
-    [self setFrameAutosaveName:@"QSResultWindow"];
+	// HenningJ 20110418: There seem to be several bugs in the setFrameAutosaveName stuff.
+	// see http://www.cocoadev.com/index.pl?NSWindowFrameAutosizing
+	// using manual loading and saving (in QSResultController windowDidResize:) instead
+	// [self setFrameAutosaveName:@"QSResultWindow"];
+	[self setFrameUsingName:@"QSResultWindow" force:YES];
     
 	[self setBackgroundColor:[NSColor whiteColor]];
 	[self setMovableByWindowBackground:NO];
