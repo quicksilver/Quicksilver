@@ -60,6 +60,8 @@
 		2E34EDD5134CA14F005E66A1 /* NSStatusItem_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA9307B204BE0044D6EF /* NSStatusItem_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2E34EE14134CA2E6005E66A1 /* UKFileWatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FA4ED4009132402007DB407 /* UKFileWatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2E34EE15134CA2E6005E66A1 /* UKKQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FA4ED4409132402007DB407 /* UKKQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2E476B80135C408400F67250 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D002C9D131145DD009040B7 /* Localizable.strings */; };
+		2E476B81135C408E00F67250 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D002CE613114628009040B7 /* Localizable.strings */; };
 		4D002D4C1311476B009040B7 /* QSBezelInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D002CA2131145DD009040B7 /* QSBezelInterfaceController.m */; };
 		4D002D4D1311476C009040B7 /* QSBezelInterface.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D002CA0131145DD009040B7 /* QSBezelInterface.xib */; };
 		4D002D821311490A009040B7 /* QSAction.name.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D002CC71311460B009040B7 /* QSAction.name.strings */; };
@@ -3115,6 +3117,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E476B80135C408400F67250 /* Localizable.strings in Resources */,
 				4D002D4D1311476C009040B7 /* QSBezelInterface.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3132,6 +3135,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E476B81135C408E00F67250 /* Localizable.strings in Resources */,
 				4D002D8F131149DA009040B7 /* Primer.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
