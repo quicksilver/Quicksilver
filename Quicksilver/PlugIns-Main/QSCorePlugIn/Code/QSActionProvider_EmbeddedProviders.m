@@ -229,6 +229,8 @@
 	[super dealloc];
 }
 
+// This method validates the 3rd pane for the core plugin actions
+// kFileSomethingActions are defined in the corresponding .h file
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
 	NSMutableArray *validIndirects = [NSMutableArray arrayWithCapacity:1];
 	if ([action isEqualToString:kFileOpenWithAction]) {
@@ -253,12 +255,14 @@
         [appURL release];
 		return [NSArray arrayWithObjects:preferred, validIndirects, nil];
 	} else if ([action isEqualToString:kFileRenameAction]) {
+		// return a text object (empty text box) to rename a file
 		NSString *path = [dObject singleFilePath];
 		if (path)
 			return [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:[path lastPathComponent]]];
 	} else if ([action isEqualToString:@"QSNewFolderAction"]) {
 		return [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@"untitled folder"]];
-	} else if ([action isEqualToString:kFileMoveToAction]) {
+	} else if ([action isEqualToString:kFileMoveToAction] || [action isEqualToString:kFileCopyToAction]) {
+		// We only want folders for the move to / copy to actions (can't move to anything else)
 		NSArray *fileObjects = [[QSLibrarian sharedInstance] arrayForType:QSFilePathType];
 		BOOL isDirectory;
 		for(QSObject *thisObject in fileObjects) {

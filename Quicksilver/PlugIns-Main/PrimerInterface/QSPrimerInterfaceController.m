@@ -32,6 +32,9 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 	[[self window] addInternalWidgetsForStyleMask:NSUtilityWindowMask closeOnly:YES];
 	[[self window] setLevel:NSModalPanelWindowLevel];
 	[[self window] setFrameAutosaveName:@"PrimerInterfaceWindow"];
+    
+    // Set the window to be visible on all spaces
+    [[self window] setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
 
 	//  [[self window] setFrame:constrainRectToRect([[self window] frame] , [[[self window] screen] visibleFrame]) display:NO];
 	//	[(QSWindow *)[self window] setHideOffset:NSMakePoint(0, -99)];
