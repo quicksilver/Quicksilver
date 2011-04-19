@@ -592,7 +592,19 @@ return [self moveFiles:dObject toFolder:iObject shouldCopy:YES];
 	return nil;
 }
 
-- (QSObject *)getFilePaths:(QSObject *)dObject { return [QSObject objectWithString:[[dObject arrayForType:QSFilePathType] componentsJoinedByString:@"\n"]];  }
+- (QSObject *)getFilePaths:(QSObject *)dObject {
+    // get an array of paths from files in the first pane
+    NSArray *paths = [dObject arrayForType:QSFilePathType];
+    // the name/label should be a one-line string
+    QSObject *pathResult = [QSObject objectWithName:[paths componentsJoinedByString:@", "]];
+    // use something other than the path to prevent this from clobbering the existing file (if it's in the catalog)
+    [pathResult setIdentifier:@"GetPathActionResult"];
+    // store all paths separated by newlines
+    // allow it to be used as text (Large Type, Paste, etc.)
+    [pathResult setObject:[paths componentsJoinedByString:@"\n"] forType:QSTextType];
+    [pathResult setPrimaryType:QSTextType];
+    return pathResult;
+}
 
 - (QSObject *)getFileURLs:(QSObject *)dObject {
 	return [QSObject objectWithString:[[NSURL performSelector:@selector(fileURLWithPath:) onObjectsInArray:[dObject arrayForType:QSFilePathType] returnValues:YES] componentsJoinedByString:@"\n"]];
