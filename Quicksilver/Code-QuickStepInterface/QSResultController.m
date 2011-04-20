@@ -138,6 +138,9 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 - (void)dealloc {
+	NSUserDefaultsController *sucd = [NSUserDefaultsController sharedUserDefaultsController];
+	[sucd removeObserver:self forKeyPath:@"values.QSAppearance3B"];
+
 	[[[resultTable tableColumnWithIdentifier:@"NameColumn"] dataCell] unbind:@"textColor"];
 	[resultTable unbind:@"backgroundColor"];
 	[resultTable unbind:@"highlightColor"];
