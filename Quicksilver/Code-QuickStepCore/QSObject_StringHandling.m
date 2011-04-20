@@ -108,16 +108,18 @@
 	if ([urlString rangeOfString:@"\n"] .location != NSNotFound || [urlString rangeOfString:@"\r"] .location != NSNotFound) {
 		urlString = [[urlString lines] componentsJoinedByString:@""];
 	}
-	// Creat a URL with the string (escape funny characters like |. Use the default encoding
+	// Create a URL with the string (escape funny characters like |) #WARN: Use the default encoding
 	NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:[NSString defaultCStringEncoding]]];
-	if ([url scheme]) {
+	// if URL has prefix, host and : is not at start
+	if ([url scheme] && [url host] && [urlString rangeOfString:@":"].location != 1) {
+		NSLog(@"Apple thinks it's a URL");
 		[self setObject:urlString forType:QSURLType];
 		[self setPrimaryType:QSURLType];
 		return;
 	}
-	// If there's a .
+	// If there's a . in the string (most likely a URL...)
 	if ([stringValue rangeOfString:@"."] .location != NSNotFound) {
-		// if there's an @ sign but NO forward slash / (it's an email address
+		// if there's an @ sign but NO forward slash / (it's an email address)
 		if ([stringValue rangeOfString:@"@"] .location != NSNotFound && [stringValue rangeOfString:@"/"] .location == NSNotFound) {
 			[self setObject:[NSArray arrayWithObject:stringValue] forType:QSEmailAddressType];
 
@@ -125,7 +127,6 @@
 			[self setPrimaryType:QSURLType];
 			return;
 		} else {
-			NSLog(@"last one it can be!");
 			// if there's an @ sign AND it has a forward slash
 			NSString *host = [[stringValue componentsSeparatedByString:@"/"] objectAtIndex:0];
 			NSArray *components = [host componentsSeparatedByString:@"."];
