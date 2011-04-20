@@ -289,6 +289,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 	for(thisProcess in newProcesses) {
 		newObject = nil;
 		if (hidden && [thisProcess isVisible]) continue;
+		else if ((!hidden) && (![thisProcess isVisible])) continue;
 		else if ([thisProcess isBackground]) continue;
 
 		if (newObject = [self imbuedFileProcessForDict:[thisProcess processInfo]])
@@ -357,6 +358,8 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 		return [QSObject objectByMergingObjects:[self processesWithHiddenState:YES]];
 	} else if ([[proxy identifier] isEqualToString:@"QSVisibleApplicationsProxy"]) {
 		return [QSObject objectByMergingObjects:[self processesWithHiddenState:NO]];
+  } else if ([[proxy identifier] isEqualToString:@"QSRunningApplicationsProxy"]) {
+		return [QSObject objectByMergingObjects:[self getVisibleProcesses]];
 	}
 	return nil;
 }
