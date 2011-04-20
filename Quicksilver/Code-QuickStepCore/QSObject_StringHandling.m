@@ -59,21 +59,21 @@
 - (void)sniffString {
 	NSString *stringValue = [self objectForType:QSTextType];
 
-	// = means it's a string for the calculator
+	// A string for the calculator
 	if ([stringValue hasPrefix:@"="]) {
 		[self setObject:stringValue forType:QSFormulaType];
 		[self setObject:nil forType:QSTextType];
 		[self setPrimaryType:QSFormulaType];
 		return;
 	}
-	// 'tell app' means it's an AppleScript
+	// It's an AppleScript
 	if ([stringValue hasPrefix:@"tell app"]) {
 		//NSLog(@"Script!");
 		[self setObject:@"AppleScriptRunTextAction" forMeta:kQSObjectDefaultAction];
 		return;
 	}
 	
-	// If the string is prefixed with / or ~ it's a file path
+	// It's a file path
 	if ([stringValue hasPrefix:@"/"] || [stringValue hasPrefix:@"~"]) {
 		NSMutableArray *files = [[[stringValue componentsSeparatedByString:@"\n"] mutableCopy] autorelease];
 		[files removeObject:@""];
@@ -100,26 +100,25 @@
 	}
 	// trimWhitespace calls a CFStringTrimWhitespace to remove whitespace from start and end of string
 	stringValue = [stringValue trimWhitespace];
-	// if there are white spaces within the string, keep it as a string
+	// Any whitespaces means it's still a string
 	if ([stringValue rangeOfString:@" "] .location != NSNotFound) return;
 	// replace \%s with *** for Query URLs
 	NSString *urlString = [self cleanQueryURL:stringValue];
-	// if there are new lines or returns, replace all \r with \n
+	// replace all \r with \n
 	if ([urlString rangeOfString:@"\n"] .location != NSNotFound || [urlString rangeOfString:@"\r"] .location != NSNotFound) {
 		urlString = [[urlString lines] componentsJoinedByString:@""];
 	}
 	// Create a URL with the string (escape funny characters like |) #WARN: Use the default encoding
 	NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:[NSString defaultCStringEncoding]]];
-	// if URL has prefix, host and : is not at start
+	// It's a URL if it has a prefix, host and : is not at start
 	if ([url scheme] && [url host] && [urlString rangeOfString:@":"].location != 1) {
-		NSLog(@"Apple thinks it's a URL");
 		[self setObject:urlString forType:QSURLType];
 		[self setPrimaryType:QSURLType];
 		return;
 	}
 	// If there's a . in the string (most likely a URL...)
 	if ([stringValue rangeOfString:@"."] .location != NSNotFound) {
-		// if there's an @ sign but NO forward slash / (it's an email address)
+		// @ sign but NO forward slash / means it's an email address
 		if ([stringValue rangeOfString:@"@"] .location != NSNotFound && [stringValue rangeOfString:@"/"] .location == NSNotFound) {
 			[self setObject:[NSArray arrayWithObject:stringValue] forType:QSEmailAddressType];
 
@@ -127,13 +126,14 @@
 			[self setPrimaryType:QSURLType];
 			return;
 		} else {
-			// if there's an @ sign AND it has a forward slash
+			// @ sign AND it has a forward slash - a URL?
 			NSString *host = [[stringValue componentsSeparatedByString:@"/"] objectAtIndex:0];
 			NSArray *components = [host componentsSeparatedByString:@"."];
 			// if the 'host' string has a length, no space, there are components, and last object doesn't have prefix htm
 			if ([host length] && [host rangeOfString:@" "] .location == NSNotFound && [components count] && ![[components lastObject] hasPrefix:@"htm"]) {
 				// if there are 4 components, last component has a length > 1, no numbers in the last component
 				if ([components count] == 4 || ([(NSString *)[components lastObject] length] >1 && [[components lastObject] rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]].location == NSNotFound)) { //Last component has no numbers
+					
 					NSArray *tld = [NSArray arrayWithObjects:@"AC",@"AD",@"AE",@"AERO",@"AF",@"AG",@"AI",@"AL",@"AM",@"AN",@"AO",@"AQ",@"AR",@"ARPA",@"AS",@"ASIA",@"AT",@"AU",@"AW",@"AX",@"AZ",@"BA",@"BB",@"BD",@"BE",@"BF",@"BG",@"BH",@"BI",@"BIZ",
 									@"BJ",@"BM",@"BN",@"BO",@"BR",@"BS",@"BT",@"BV",@"BW",@"BY",@"BZ",@"CA",@"CAT",@"CC",@"CD",@"CF",@"CG",@"CH",@"CI",@"CK",@"CL",@"CM",@"CN",@"CO",@"COM",@"COOP",@"CR",@"CU",@"CV",@"CX",@"CY",@"CZ",@"DE",@"DJ",@"DK",
 									@"DM",@"DO",@"DZ",@"EC",@"EDU",@"EE",@"EG",@"ER",@"ES",@"ET",@"EU",@"FI",@"FJ",@"FK",@"FM",@"FO",@"FR",@"GA",@"GB",@"GD",@"GE",@"GF",@"GG",@"GH",@"GI",@"GL",@"GM",@"GN",@"GOV",@"GP",@"GQ",@"GR",@"GS",@"GT",@"GU",
@@ -142,7 +142,6 @@
 									@"MY",@"MZ",@"NA",@"NAME",@"NC",@"NE",@"NET",@"NF",@"NG",@"NI",@"NL",@"NO",@"NP",@"NR",@"NU",@"NZ",@"OM",@"ORG",@"PA",@"PE",@"PF",@"PG",@"PH",@"PK",@"PL",@"PM",@"PN",@"PR",@"PRO",@"PS",@"PT",@"PW",@"PY",@"QA",@"RE",@"RO",
 									@"RS",@"RU",@"RW",@"SA",@"SB",@"SC",@"SD",@"SE",@"SG",@"SH",@"SI",@"SJ",@"SK",@"SL",@"SM",@"SN",@"SO",@"SR",@"ST",@"SU",@"SV",@"SY",@"SZ",@"TC",@"TD",@"TEL",@"TF",@"TG",@"TH",@"TJ",@"TK",@"TL",@"TM",@"TN",@"TO",@"TP",@"TR",
 									@"TRAVEL",@"TT",@"TV",@"TW",@"TZ",@"UA",@"UG",@"UK",@"US",@"UY",@"UZ",@"VA",@"VC",@"VE",@"VG",@"VI",@"VN",@"VU",@"WF",@"WS",@"XXX",@"YE",@"YT",@"ZA",@"ZM",@"ZW",nil];
-					NSLog(@"tld: %@",tld);
 			
 					// check to see if the last component of the string is a tld (case insensitive)
 						if([tld containsObject:[[components lastObject] uppercaseString]])
