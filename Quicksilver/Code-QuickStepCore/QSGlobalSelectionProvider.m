@@ -104,11 +104,11 @@
 NSTimeInterval failDate = 0;
 
 + (id)currentSelection {
-	NSDictionary *appDictionary = [[NSWorkspace sharedWorkspace] activeApplication];
-   NSString *identifier = [appDictionary objectForKey:@"NSApplicationBundleIdentifier"];
+   NSString *identifier = [[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationBundleIdentifier"];
+   BOOL selectionFromUnfocusedApp = NO;
 	if ([identifier isEqualToString:@"com.blacktree.Quicksilver"]) {
- 	  appDictionary = [[QSProcessMonitor sharedInstance] previousApplication];
- 	  identifier = [appDictionary objectForKey:@"NSApplicationBundleIdentifier"];
+ 	  identifier = [[[QSProcessMonitor sharedInstance] previousApplication] objectForKey:@"NSApplicationBundleIdentifier"];
+    selectionFromUnfocusedApp = YES;
  	}
 	NSDictionary *info = [[QSReg tableNamed:@"QSProxies"] objectForKey:identifier];
 	if (info) {
@@ -117,7 +117,7 @@ NSTimeInterval failDate = 0;
 		//	NSLog(@"Using provider %@ for %@", provider, identifier);
 		return [provider resolveProxyObject:nil];
 	} else {
-		
+    if (selectionFromUnfocusedApp) return nil;
 		QSTemporaryServiceProvider *sp = [[[QSTemporaryServiceProvider alloc] init] autorelease];
 		NSPasteboard *pb = nil;
 		
