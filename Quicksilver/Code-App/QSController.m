@@ -524,8 +524,8 @@ static QSController *defaultController = nil;
 		return dropletProxy;
 	} else {
 		QSObject *object = [[[self interfaceController] dSelector] objectValue];
-		if ([object isKindOfClass:[QSProxyObject class]] || [object isEqual:proxy])
-			return nil;
+		if ([object isEqual:proxy]) return [[[self interfaceController] dSelector] previousObjectValue];
+    if ([object isKindOfClass:[QSProxyObject class]]) return nil;
 		return object;
 	}
 	return nil;
