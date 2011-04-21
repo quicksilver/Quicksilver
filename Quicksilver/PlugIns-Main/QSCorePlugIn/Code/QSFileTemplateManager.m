@@ -16,7 +16,7 @@
 - (QSObject *)instantiateTemplate:(QSObject *)dObject inDirectory:(QSObject *)iObject {
 	NSString *template = [dObject singleFilePath];
 	NSString *destination = [[[[iObject singleFilePath] stringByAppendingPathComponent:@"untitled"] stringByAppendingPathExtension:[template pathExtension]] firstUnusedFilePath];
-	[[NSFileManager defaultManager] copyPath:template toPath:destination handler:nil];
+	[[NSFileManager defaultManager] copyItemAtPath:template toPath:destination error:nil];
 	return [QSObject fileObjectWithPath:destination];
 }
 #else
@@ -28,7 +28,7 @@
 	destination = [destination firstUnusedFilePath];
 	
 	NSFileManager *fm = [NSFileManager defaultManager];
-	[fm copyPath:template toPath:destination handler:nil];
+	[fm copyItemAtPath:template toPath:destination error:nil];
 	
 	return [QSObject fileObjectWithPath:destination];
 }

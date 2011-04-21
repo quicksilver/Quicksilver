@@ -53,8 +53,9 @@
 
 // CommandsAsActionsHandling
 - (QSObject *)performAction:(QSAction *)action directObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
-    QSCommand *cmd = [QSCommand commandWithDirectObject:dObject actionObject:action indirectObject:iObject];
-	return [cmd execute];
+	NSDictionary *dict=[action objectForType:QSActionType];
+	QSCommand *command=[QSCommand commandWithInfo:[dict objectForKey:@"command"]];
+	return [command execute];
 }
 
 - (QSObject *)executeCommand:(QSObject *)dObject {
@@ -104,7 +105,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	NSLog(@"droplet %d", asDroplet);
 	NSString *destination = [[[[iObject singleFilePath] stringByAppendingPathComponent:[dObject name]] stringByAppendingPathExtension:asDroplet?@"app":@"qscommand"] firstUnusedFilePath];
 	if (asDroplet) {
-		[[NSFileManager defaultManager] copyPath:[[NSBundle mainBundle] pathForResource:@"QSDroplet" ofType:@"app"] toPath:destination handler:nil];
+		[[NSFileManager defaultManager] copyItemAtPath:[[NSBundle mainBundle] pathForResource:@"QSDroplet" ofType:@"app"] toPath:destination error:nil];
 		[dObject writeToFile:[destination stringByAppendingPathComponent:@"Contents/Command.qscommand"]];
 	} else {
 		[dObject writeToFile:destination];

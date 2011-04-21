@@ -43,6 +43,7 @@
 #import "NSURL_BLTRExtensions.h"
 
 # define kURLOpenAction @"URLOpenAction"
+# define kURLOpenActionInBackground @"URLOpenActionInBackground"
 # define kURLOpenWithAction @"URLOpenWithAction"
 # define kURLJSAction @"URLJSAction"
 # define kURLEmailAction @"URLEmailAction"
@@ -74,7 +75,7 @@
 /*	[newActions addObject:kURLOpenAction];
 	[newActions addObject:kURLOpenWithAction];
 	return newActions; */
-	return [NSArray arrayWithObjects:kURLOpenAction, kURLOpenWithAction, nil];
+	return [NSArray arrayWithObjects:kURLOpenAction, kURLOpenWithAction, kURLOpenActionInBackground, nil];
 }
 
 - (QSObject *)doURLOpenAction:(QSObject *)dObject {
@@ -228,6 +229,8 @@
 	[super dealloc];
 }
 
+// This method validates the 3rd pane for the core plugin actions
+// kFileSomethingActions are defined in the corresponding .h file
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
 	NSMutableArray *validIndirects = [NSMutableArray arrayWithCapacity:1];
 	if ([action isEqualToString:kFileOpenWithAction]) {
@@ -252,12 +255,14 @@
         [appURL release];
 		return [NSArray arrayWithObjects:preferred, validIndirects, nil];
 	} else if ([action isEqualToString:kFileRenameAction]) {
+		// return a text object (empty text box) to rename a file
 		NSString *path = [dObject singleFilePath];
 		if (path)
 			return [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:[path lastPathComponent]]];
 	} else if ([action isEqualToString:@"QSNewFolderAction"]) {
 		return [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@"untitled folder"]];
-	} else if ([action isEqualToString:kFileMoveToAction]) {
+	} else if ([action isEqualToString:kFileMoveToAction] || [action isEqualToString:kFileCopyToAction]) {
+		// We only want folders for the move to / copy to actions (can't move to anything else)
 		NSArray *fileObjects = [[QSLibrarian sharedInstance] arrayForType:QSFilePathType];
 		BOOL isDirectory;
 		for(QSObject *thisObject in fileObjects) {
@@ -569,10 +574,9 @@ return [self moveFiles:dObject toFolder:iObject shouldCopy:YES];
 - (QSObject *)makeLinkTo:(QSObject *)dObject inFolder:(QSObject *)iObject {
 	NSString *destination = [iObject singleFilePath];
 	NSEnumerator *files = [dObject enumeratorForType:QSFilePathType];
-	NSString *thisFile, *destinationFile;
+	NSString *thisFile;
 	for(thisFile in files) {
-		destinationFile = [destination stringByAppendingPathComponent:[thisFile lastPathComponent]];
-		if ([[NSFileManager defaultManager] createSymbolicLinkAtPath:destinationFile pathContent:thisFile])
+		if ([[NSFileManager defaultManager] createSymbolicLinkAtPath:[destination stringByAppendingPathComponent:[thisFile lastPathComponent]] withDestinationPath:thisFile error:nil])
 			[[NSWorkspace sharedWorkspace] noteFileSystemChanged:destination];
 	}
 	return nil;
@@ -582,13 +586,25 @@ return [self moveFiles:dObject toFolder:iObject shouldCopy:YES];
 	NSString *thisFile, *destination = [iObject singleFilePath];
 	NSEnumerator *files = [dObject enumeratorForType:QSFilePathType];
 	for(thisFile in files) {
-		if ([[NSFileManager defaultManager] linkPath:[destination stringByAppendingPathComponent:[thisFile lastPathComponent]] toPath:thisFile handler:nil])
+		if ([[NSFileManager defaultManager] linkItemAtPath:thisFile toPath:[destination stringByAppendingPathComponent:[thisFile lastPathComponent]] error:nil])
 			[[NSWorkspace sharedWorkspace] noteFileSystemChanged:destination];
 	}
 	return nil;
 }
 
-- (QSObject *)getFilePaths:(QSObject *)dObject { return [QSObject objectWithString:[[dObject arrayForType:QSFilePathType] componentsJoinedByString:@"\n"]];  }
+- (QSObject *)getFilePaths:(QSObject *)dObject {
+    // get an array of paths from files in the first pane
+    NSArray *paths = [dObject arrayForType:QSFilePathType];
+    // the name/label should be a one-line string
+    QSObject *pathResult = [QSObject objectWithName:[paths componentsJoinedByString:@", "]];
+    // use something other than the path to prevent this from clobbering the existing file (if it's in the catalog)
+    [pathResult setIdentifier:@"GetPathActionResult"];
+    // store all paths separated by newlines
+    // allow it to be used as text (Large Type, Paste, etc.)
+    [pathResult setObject:[paths componentsJoinedByString:@"\n"] forType:QSTextType];
+    [pathResult setPrimaryType:QSTextType];
+    return pathResult;
+}
 
 - (QSObject *)getFileURLs:(QSObject *)dObject {
 	return [QSObject objectWithString:[[NSURL performSelector:@selector(fileURLWithPath:) onObjectsInArray:[dObject arrayForType:QSFilePathType] returnValues:YES] componentsJoinedByString:@"\n"]];

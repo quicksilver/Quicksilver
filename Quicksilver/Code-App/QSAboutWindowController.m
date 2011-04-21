@@ -16,11 +16,13 @@
 }
 
 - (void)awakeFromNib {
+	NSLog(@"awake");
 	NSBundle *appBundle = [NSBundle mainBundle];
 	NSString *name = [appBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
 	if (!name)
 		name = @"Quicksilver";
 	NSWindow *aboutWindow = [self window];
+	[aboutWindow setDelegate:self]; // needed, so windowWillClose: method is called
 	[(NSTextField *)[aboutWindow initialFirstResponder] setStringValue:[NSString stringWithFormat:@"%@ (%@)", name, [appBundle objectForInfoDictionaryKey:@"CFBundleVersion"]]];
 	[aboutWindow center];
 	if (![NSFont fontWithName:@"HiraKakuPro-W3" size:10.0]) {
@@ -50,13 +52,24 @@
 		[window setContentView:content];
 		[content setEraseColor:[NSColor clearColor]];
 		[content setClearsBackground:YES];
-		[content startRendering];
+//		[content startRendering]; // moved to showWindow: method
 		[content setMaxRenderingFrameRate:10];
 		[content release];
 		[window display];
 		[aboutWindow addChildWindow:window ordered:NSWindowAbove];
 		[imageView removeFromSuperview];
 	}
+}
+
+- (IBAction)showWindow:(id)sender {
+	// start rendering QS animation each time the window is opened
+	[[[[[self window] childWindows] objectAtIndex:0] contentView] startRendering];
+	[super showWindow:sender];
+}
+
+- (void)windowWillClose:(NSNotification *)notification {
+	// stop rendering QS animation each time the window is closed
+	[[[[[notification object] childWindows] objectAtIndex:0] contentView] stopRendering];
 }
 
 - (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id)listener {

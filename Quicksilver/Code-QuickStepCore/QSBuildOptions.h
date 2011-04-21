@@ -7,6 +7,5 @@
  *
  */
 
-#import "QSApp.h"
 #define DEVELOPMENTVERSION YES
-#define PRERELEASEVERSION [NSApp isPrerelease]
+#define PRERELEASEVERSION NO

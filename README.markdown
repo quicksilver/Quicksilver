@@ -6,14 +6,14 @@ This repository contains the current source code of Quicksilver. If you're havin
 This branch contains the source for the currently released Quicksilver.
 The alcor branch contains the code for the "next-gen" Quicksilver. Right now it features an updated plugin system, and Catalyst, which aims to provide triggers as a preference pane, and that's it. It is usable, but all plugins are incompatible without some extra work.
 
-If you want more info about [Quicksilver](http://en.wikipedia.org/wiki/Quicksilver_%28software%29 "Quicksilver Wikipedia article") 
+If you want more info about [Quicksilver](QSapp.com) you can read about it on [Wikipedia](http://en.wikipedia.org/wiki/Quicksilver_%28software%29 "Quicksilver Wikipedia article"), or
 just do a search on YouTube - there's tons of very helpful instructional and informational video tutorials.
 Or visit the [mailing list](http://groups.google.com/group/blacktree-quicksilver "Quicksilver Google Group") hosted at Google Groups.
 
 Where to find it ?
 ---------------------
 
-Go look on the download pages around. The "most official" one is [here](https://github.com/quicksilver/Quicksilver/downloads), but there are some others lying around in the forest of forks. Choose the one with the biggest number ;-).
+Visit [QSApp.com](http://qsapp.com/download.php), and download the right version for your operating system.
 
 Before You Try It Out
 ---------------------
@@ -107,7 +107,7 @@ Also do not forget to empty your trash after you deleted the older Quicksilver.a
 Development
 -----------
 
-You should be able to build Quicksilver by opening the project file with Xcode and pressing "Build". Be aware that the build system **will overwrite** the Quicksilver located in your /Applications folder.
+You should be able to build Quicksilver after following the instructions as seen in the Quicksilver Wiki on [Building Quicksilver](http://qsapp.com/wiki/Building_Quicksilver). Be aware that the build system **will overwrite** the Quicksilver located in your /Applications folder.
 
 A Few Notes on Working With Git
 -------------------------------

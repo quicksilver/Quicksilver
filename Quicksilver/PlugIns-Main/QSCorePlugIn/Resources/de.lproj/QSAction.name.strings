@@ -204,6 +204,8 @@
     <string>Javascript Ausführen</string>
     <key>URLOpenAction</key>
     <string>Öffnen</string>
+    <key>URLOpenActionInBackground</key>
+    <string>Öffne URL im Hintergrund</string>
     <key>URLOpenWithAction</key>
     <string>Öffnen Mit...</string>
     <key>URLSearchAction</key>

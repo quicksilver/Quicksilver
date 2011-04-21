@@ -178,6 +178,8 @@
 	<string>Éxecuter Javascript</string>
 	<key>URLOpenAction</key>
 	<string>Ouvrir l'URL</string>
+	<key>URLOpenActionInBackground</key>
+	<string>Ouvrir l'URL à l'arrière plan</string>
 	<key>URLOpenWithAction</key>
 	<string>Ouvrir l'URL avec...</string>
 	<key>URLSearchAction</key>

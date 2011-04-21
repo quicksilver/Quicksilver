@@ -154,6 +154,8 @@
 	<string>Retrouver %@</string>
 	<key>URLOpenAction</key>
 	<string>Ouvrir %@</string>
+	<key>URLOpenActionInBackground</key>
+	<string>Ouvrir %@ à l'arrière plan</string>
 	<key>URLOpenWithAction</key>
 	<string>Ouvrir %@ avec %@</string>
 	<key>URLSearchAction</key>

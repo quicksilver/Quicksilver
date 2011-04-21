@@ -97,7 +97,7 @@ static QSController *defaultController = nil;
 		// Enforce Expiration Date
 		//Check if a devopment version has expired
 #if 0
-		if (PRERELEASEVERSION && [[NSDate date] timeIntervalSinceDate:[[[NSDate alloc] initWithTimeInterval:DAYS*(DEVELOPMENTVERSION?DEVEXPIRE:DEPEXPIRE) sinceDate:[[[NSFileManager defaultManager] fileAttributesAtPath:[[NSBundle mainBundle] executablePath] traverseLink:YES] fileModificationDate]] autorelease]]>0) {
+		if (PRERELEASEVERSION && [[NSDate date] timeIntervalSinceDate:[[[NSDate alloc] initWithTimeInterval:DAYS*(DEVELOPMENTVERSION?DEVEXPIRE:DEPEXPIRE) sinceDate:[[[NSFileManager defaultManager] attributesOfItemAtPath:[[NSBundle mainBundle] executablePath] error:nil] fileModificationDate]] autorelease]]>0) {
 			[self showExpireDialog];
 			if (!(GetCurrentKeyModifiers() & (optionKey | rightOptionKey) ))
 				[NSTimer scheduledTimerWithTimeInterval:13*HOURS target:self selector:@selector(showExpireDialog) userInfo:nil repeats:YES];

@@ -232,6 +232,11 @@
     int argumentCount = 1;
     QSAction *action = [QSAction actionWithIdentifier:actionId];
 	NSString *scriptPath = [action objectForKey:kActionScript];
+    
+    if ([actionId isEqualToString:kAppleScriptOpenTextAction])
+        argumentCount = 2;
+    
+    // TODO: figure out why all this code is here - scriptPath always seems to be nil
 
 	if (!scriptPath)
 		return argumentCount;

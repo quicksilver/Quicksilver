@@ -20,9 +20,6 @@
 #import "NTViewLocalizer.h"
 #import "NSString+CarbonUtilities.h"
 #import "UKDirectoryEnumerator.h"
-#import "UKFileWatcher.h"
-#import "UKKQueue.h"
-#import "UKMainThreadProxy.h"
 
 #import "QSUTI.h"
 #import "QSTreeController.h"

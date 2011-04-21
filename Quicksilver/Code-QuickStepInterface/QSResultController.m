@@ -83,8 +83,9 @@ NSMutableDictionary *kindDescriptions = nil;
 	[(QSWindow *)[self window] setShowOffset:NSMakePoint(16, 0)];
 	[self setupResultTable];
 	// [[[self window] contentView] flipSubviewsOnAxis:1];
-    
-    [splitView setAutosaveName:@"QSResultWindowSplitView"];
+
+	// HenningJ 20110418: I don't think this does anything. There is nothing saved in ~/Linbrary/Preferences/com.blacktree.Quicksilver.plist
+	[splitView setAutosaveName:@"QSResultWindowSplitView"];
     
 	if (![[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
 		NSView *tableView = [resultTable enclosingScrollView];
@@ -380,6 +381,7 @@ NSMutableDictionary *kindDescriptions = nil;
 
 #pragma mark -
 #pragma mark NSWindow Delegate
+// called twice when a user resized the results window
 - (void)windowDidResize:(NSNotification *)aNotification {
 	if ([self numberOfRowsInTableView:resultTable] && [[NSUserDefaults standardUserDefaults] boolForKey:kShowIcons])
 		[[self resultIconLoader] loadIconsInRange:[resultTable rowsInRect:[resultTable visibleRect]]];
@@ -387,6 +389,9 @@ NSMutableDictionary *kindDescriptions = nil;
 		[[self resultChildIconLoader] loadIconsInRange:[resultChildTable rowsInRect:[resultChildTable visibleRect]]];
 
 	[self updateScrollViewTrackingRect];
+
+	// saves size for result window when it is resized
+	[[self window] saveFrameUsingName:@"QSResultWindow"];
 }
 
 #pragma mark -
