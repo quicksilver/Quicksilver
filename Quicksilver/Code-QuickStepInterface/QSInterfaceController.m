@@ -475,7 +475,10 @@
         [self clearObjectView:dSelector];
         [dSelector performSelectorOnMainThread:@selector(selectObjectValue:) withObject:returnValue waitUntilDone:YES];
         if (action) {
-            if ([action isKindOfClass:[QSRankedObject class]] && [(QSRankedObject *)action object]) {
+            if ([action displaysResult]) {
+                [self showMainWindow:self];
+            }
+            else if ([action isKindOfClass:[QSRankedObject class]] && [(QSRankedObject *)action object]) {
                 action = [(QSRankedObject *)action object];
                 if ([action displaysResult]) {
                     [self showMainWindow:self];
