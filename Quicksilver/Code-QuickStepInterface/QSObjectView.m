@@ -171,8 +171,21 @@
 }
 
 //Standard Accessors
+- (QSObject *)previousObjectValue
+{
+  return previousObjectValue;
+}
+
+- (void)setPreviousObjectValue:(QSObject *)aValue
+{
+  QSObject *oldPreviousObjectValue = previousObjectValue;
+  previousObjectValue = [aValue retain];
+  [oldPreviousObjectValue release];
+}
+
 - (id)objectValue { return [[self cell] representedObject];  }
 - (void)setObjectValue:(QSBasicObject *)newObject {
+  [self setPreviousObjectValue:[self objectValue]];
 	[newObject loadIcon];
 	[newObject becameSelected];
 	// [self setToolTip:[newObject toolTip]];
