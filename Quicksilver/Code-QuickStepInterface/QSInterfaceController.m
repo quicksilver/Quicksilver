@@ -479,16 +479,7 @@
            remove objects selected by the comma trick before the action was run.) */
         [self clearObjectView:dSelector];
         [dSelector performSelectorOnMainThread:@selector(selectObjectValue:) withObject:returnValue waitUntilDone:YES];
-        if (action) {
-            if ([action isKindOfClass:[QSRankedObject class]] && [(QSRankedObject *)action object]) {
-                action = [(QSRankedObject *)action object];
-                if ([action displaysResult]) {
-                    [self showMainWindow:self];
-		if ([returnValue isKindOfClass:[QSNullObject class]]) {
-			[self clearObjectView:dSelector];
-		} else {
-			[dSelector performSelectorOnMainThread:@selector(selectObjectValue:) withObject:returnValue waitUntilDone:YES];
-			if (action) {
+		if (action) {
                 if ([action isKindOfClass:[QSRankedObject class]] && [(QSRankedObject *)action object]) {
                     QSAction* rankedAction = [(QSRankedObject *)action object];
 					if (rankedAction != action) {
@@ -499,7 +490,6 @@
                     if ([action displaysResult]) {
                         [self showMainWindow:self];
                     }
-                }
             }
         }
 	}
