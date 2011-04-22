@@ -48,6 +48,7 @@ NSMutableDictionary *bindingsDict = nil;
 #pragma mark Lifetime
 - (void)awakeFromNib {
 	[super awakeFromNib];
+	[QSSearchObjectView initialize];
 	resetTimer = nil;
 	searchTimer = nil;
 	resultTimer = nil;
