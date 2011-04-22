@@ -86,7 +86,6 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)dealloc {
 	[self unbind:@"highlightColor"];
-	[bindingsDict release], bindingsDict = nil;
 	[partialString release], partialString = nil;
 	[matchedString release], matchedString = nil;
 	[visibleString release], visibleString = nil;
