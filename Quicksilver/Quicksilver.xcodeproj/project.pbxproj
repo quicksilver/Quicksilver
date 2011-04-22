@@ -2699,10 +2699,6 @@
 				7FB37EB4080997EF00A2B2B4 /* QSURLDownloadWrapper.h in Headers */,
 				E1E5FC3907B20DD20044D6EF /* QSVoyeur.h in Headers */,
 				D493990D1350078E00B908C6 /* QSDownloads.h in Headers */,
-				7FA4ED4809132402007DB407 /* UKFileWatcher.h in Headers */,
-				7FA4ED4C09132402007DB407 /* UKKQueue.h in Headers */,
-				7FA4ED4E09132402007DB407 /* UKMainThreadProxy.h in Headers */,
-				42ADF4FE1317237900C68070 /* QSClangAnalyzer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
