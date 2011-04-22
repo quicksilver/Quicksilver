@@ -62,8 +62,8 @@
 @implementation QSPlistParser
 - (BOOL)validParserForPath:(NSString *)path {
 	NSFileManager *manager = [NSFileManager defaultManager];
-	BOOL isDirectory, exists;
-	exists = [manager fileExistsAtPath:[path stringByStandardizingPath] isDirectory:&isDirectory];
+	BOOL isDirectory/*, exists*/;
+	/*exists = */[manager fileExistsAtPath:[path stringByStandardizingPath] isDirectory:&isDirectory];
 	return !isDirectory && [[path pathExtension] isEqual:@"plist"];
 }
 - (NSArray *)objectsFromPath:(NSString *)path withSettings:(NSDictionary *)settings {

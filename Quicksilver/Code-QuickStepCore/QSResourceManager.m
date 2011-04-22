@@ -179,13 +179,11 @@ id QSRez;
 	if (locator)
 		image = [self imageWithLocatorInformation:locator];
     else if (!image && ([name hasPrefix:@"/"] || [name hasPrefix:@"~"])) { // !!! Andre Berg 20091007: Try iconForFile first if name looks like ordinary path
-		if(!image) {
-			NSString *path = [name stringByStandardizingPath];
-			if ([[NSImage imageUnfilteredFileTypes] containsObject:[path pathExtension]])
-				image = [[[NSImage alloc] initByReferencingFile:path] autorelease];
-			else
-				image = [[NSWorkspace sharedWorkspace] iconForFile:path];
-		}
+		NSString *path = [name stringByStandardizingPath];
+		if ([[NSImage imageUnfilteredFileTypes] containsObject:[path pathExtension]])
+			image = [[[NSImage alloc] initByReferencingFile:path] autorelease];
+		else
+			image = [[NSWorkspace sharedWorkspace] iconForFile:path];
     } else {// Try the systemicons bundle
 		image = [self sysIconNamed:name];
 

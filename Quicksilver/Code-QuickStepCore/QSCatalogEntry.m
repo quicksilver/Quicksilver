@@ -612,8 +612,7 @@ if (kUseNSArchiveForIndexes)
 	}
 	[newDictionary setObject:[NSString uniqueString] forKey:kItemID];
 
-
-	QSCatalogEntry *newEntry = [QSCatalogEntry entryWithDictionary:newDictionary];
+	QSCatalogEntry *newEntry = [[QSCatalogEntry alloc] initWithDictionary:newDictionary];
 	if ([self children])
 		[newEntry setChildren:[[self children] valueForKey:@"uniqueCopy"]];
 

@@ -1,8 +1,10 @@
 #import <Foundation/Foundation.h>
+#import <QSCore/QSClangAnalyzer.h>
 #import "QSObject.h"
 
 @interface QSObject (QSFileObjectCreationProtocol)
-- (id)initFileObject:(QSObject *)object ofType:(NSString *)type;
+//
+- (id)initFileObject:(QSObject *)object ofType:(NSString *)type NS_RETURNS_RETAINED;
 @end
 @interface NSObject (QSFileCreatingHandlingProtocol)
 - (NSData *)fileRepresentationForObject:(QSObject *)object;

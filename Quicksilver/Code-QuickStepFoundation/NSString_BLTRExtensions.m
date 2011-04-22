@@ -72,7 +72,6 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 			score = remainingSearchRange.location-searchRange.location;
 			// ignore skipped characters if is first letter of a word
 			if (matchedRange.location>searchRange.location) {//if some letters were skipped
-				j = 0;
 				if ([[NSCharacterSet whitespaceCharacterSet] characterIsMember:[self characterAtIndex:matchedRange.location-1]]) {
 					for (j = matchedRange.location-2; j >= (int) searchRange.location; j--) {
 						if ([[NSCharacterSet whitespaceCharacterSet] characterIsMember:[self characterAtIndex:j]]) score--;
@@ -274,11 +273,8 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 }
 
 - (NSDictionary *)attributesToFitRect:(NSRect) rect withAttributes:(NSDictionary *)attributes {
-	NSMutableDictionary *newAttributes = [attributes mutableCopy];
+	NSMutableDictionary *newAttributes = [[attributes mutableCopy] autorelease];
 	if (!newAttributes) newAttributes = [NSMutableDictionary dictionaryWithCapacity:1];
-	else
-		[newAttributes autorelease];
-
 	NSFont *font = [newAttributes objectForKey:NSFontAttributeName];
 	float fontSize = [font pointSize];
 	NSSize textSize;

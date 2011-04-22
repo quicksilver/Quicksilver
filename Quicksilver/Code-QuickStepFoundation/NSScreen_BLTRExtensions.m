@@ -62,11 +62,12 @@ static void KeyArrayCallback(const void *key, const void *value, void *context) 
 	if ( orderLangKeys && CFArrayGetCount(orderLangKeys) ) {
 		langKey = CFArrayGetValueAtIndex( orderLangKeys, 0 );
 		localName = (NSString*)CFDictionaryGetValue( names, langKey );
-        if (localName)
-            [[localName retain] autorelease];
+//        if (localName)
+//            [[localName retain] autorelease];
 	}
-	if (orderLangKeys)
-	    CFRelease(orderLangKeys);
+	if (orderLangKeys) {
+		CFRelease(orderLangKeys);
+	}
 	CFRelease(dict);
 
 	if (!localName) {

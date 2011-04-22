@@ -624,8 +624,13 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			[[self dataDictionary] setObject:path forKey:QSFilePathType];
 			NSString *uti = QSUTIOfFile(path);
 			id handler = [QSReg instanceForKey:uti inTable:@"QSFileObjectCreationHandlers"];
-			if (handler)
-				return [handler initFileObject:self ofType:uti];
+			if (handler) {
+				// fheckl 2011-02-25
+				// XCode CLang analysis: incorrect decrement of reference count
+				//   because method name starts with init -> no problem
+				[handler initFileObject:self ofType:uti];
+				return self;
+			}
 		} else {
 			[[self dataDictionary] setObject:paths forKey:QSFilePathType];
 		}

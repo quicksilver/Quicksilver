@@ -388,14 +388,14 @@ struct HotKeyMappingEntry
 		NSString		* theCharacter;
 		NSNumber		* theKeyCode,
 						* theModiferFlag;
-		SEL			theKeyPressedSelector,
-						theKeyReleasedSelector;
+//		SEL			theKeyPressedSelector,
+//						theKeyReleasedSelector;
 
 		theKeyCode = [aPropertyList objectForKey:kArchivingKeyCodeKey];
 		theCharacter = [aPropertyList objectForKey:kArchivingCharacterKey];
 		theModiferFlag = [aPropertyList objectForKey:kArchivingModifierFlagsKey];
-		theKeyPressedSelector = NSSelectorFromString([aPropertyList objectForKey:kArchivingSelectorPressedCodeKey]);
-		theKeyReleasedSelector = NSSelectorFromString([aPropertyList objectForKey:kArchivingSelectorReleasedCodeKey]);
+//		theKeyPressedSelector = NSSelectorFromString([aPropertyList objectForKey:kArchivingSelectorPressedCodeKey]);
+//		theKeyReleasedSelector = NSSelectorFromString([aPropertyList objectForKey:kArchivingSelectorReleasedCodeKey]);
 
 		self = [self initWithKeyCode:[theKeyCode unsignedShortValue] character:[theCharacter characterAtIndex:0] modifierFlags:[theModiferFlag unsignedIntValue]];
 	}

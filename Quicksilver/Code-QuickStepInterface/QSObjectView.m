@@ -81,12 +81,12 @@
 - (void)setImage:(NSImage *)image {}
 
 - (void)mouseDown:(NSEvent *)theEvent {
-	BOOL isInside = YES;
-	NSPoint mouseLoc;
+	//BOOL isInside = YES;
+	//NSPoint mouseLoc;
 
 	theEvent = [[self window] nextEventMatchingMask: NSLeftMouseUpMask | NSLeftMouseDraggedMask];
-	mouseLoc = [self convertPoint:[theEvent locationInWindow] fromView:nil];
-	isInside = [self mouse:mouseLoc inRect:[self bounds]];
+	//mouseLoc = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+	//isInside = [self mouse:mouseLoc inRect:[self bounds]];
 
 	switch ([theEvent type]) {
 		case NSLeftMouseDragged:

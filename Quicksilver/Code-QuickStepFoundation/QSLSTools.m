@@ -21,8 +21,8 @@ NSString *QSApplicationPathForURL(NSString *urlString) {
 
 NSString *QSApplicationIdentifierForURL(NSString *urlString) {
 	NSURL *appURL = nil;
-	OSStatus err;
-	err = LSGetApplicationForURL((CFURLRef) [NSURL URLWithString: urlString] , kLSRolesAll, NULL, (CFURLRef *)&appURL);
+//	OSStatus err;
+	/*err = */LSGetApplicationForURL((CFURLRef) [NSURL URLWithString: urlString] , kLSRolesAll, NULL, (CFURLRef *)&appURL);
 	NSString *path = [appURL path];
 	[appURL release];
 	if (!path)
