@@ -299,6 +299,7 @@
 		92DC402D0E25A0C40091BD92 /* Action.png in Resources */ = {isa = PBXBuildFile; fileRef = 92DC402B0E25A0C40091BD92 /* Action.png */; };
 		92E946190D04CCEF0013377F /* QSModifierKeyEvents.h in Headers */ = {isa = PBXBuildFile; fileRef = 92E946170D04CCEF0013377F /* QSModifierKeyEvents.h */; };
 		92E9461A0D04CCEF0013377F /* QSModifierKeyEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E946180D04CCEF0013377F /* QSModifierKeyEvents.m */; };
+		CD3F9D68136183250013FCB7 /* QSClangAnalyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42ADF4FD1317237900C68070 /* QSClangAnalyzer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDCC201010A4C14B009C4EED /* QSMDPredicate.h in Headers */ = {isa = PBXBuildFile; fileRef = CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDCC201110A4C14B009C4EED /* QSMDPredicate.m in Sources */ = {isa = PBXBuildFile; fileRef = CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */; };
 		D493990D1350078E00B908C6 /* QSDownloads.h in Headers */ = {isa = PBXBuildFile; fileRef = D49399091350078E00B908C6 /* QSDownloads.h */; };
@@ -2631,6 +2632,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD3F9D68136183250013FCB7 /* QSClangAnalyzer.h in Headers */,
 				E1E5FBD207B20DD20044D6EF /* NSString_Purification.h in Headers */,
 				E1E5FBD407B20DD20044D6EF /* QSAction.h in Headers */,
 				E1E5FBD607B20DD20044D6EF /* QSActionProvider.h in Headers */,
