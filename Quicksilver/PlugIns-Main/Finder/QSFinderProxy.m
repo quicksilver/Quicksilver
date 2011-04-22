@@ -3,6 +3,7 @@
 #import "QSFinderProxy.h"
 #import <QSFoundation/NSObject+ReaperExtensions.h>
 #import <QSFoundation/NSAppleScript_BLTRExtensions.h>
+#import <QSCore/QSClangAnalyzer.h>
 
 @implementation QSFinderProxy
 + (id)sharedInstance {

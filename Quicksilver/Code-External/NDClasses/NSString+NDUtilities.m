@@ -97,7 +97,6 @@
 	if( ![theComponet isEqualToString:@""] )
 	{
 		[theComponentArray addObject:theComponet];
-		theComponet = [NSMutableString string];
 	}
 	
 	return theComponentArray;

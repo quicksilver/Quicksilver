@@ -200,6 +200,9 @@
 																	 delegate:self];
 
 		if (theConnection) {
+			// fheckl 2011-02-05
+			// XCode Analysis: Potential leak
+			//   data must be retained here because it is needed for the callbacks
 			receivedData = [[NSMutableData data] retain];
 			[QSTasks updateTask:@"UpdatePlugInInfo" status:@"Updating Plug-in Info" progress:0.0];
 		}
@@ -527,7 +530,7 @@
 	//NSString *error;
 
 #warning should detect installation of a disabled plugin
-	if (dupPlugIn = [loadedPlugIns objectForKey:ident]) { // check if the bundle is already loaded. if so need to restart.
+	if (/*dupPlugIn = */[loadedPlugIns objectForKey:ident]) { // check if the bundle is already loaded. if so need to restart.
         //NSLog(@"Bundle already loaded: %@", dupPlugIn);
 		return NO;
 

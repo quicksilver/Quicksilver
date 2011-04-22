@@ -289,8 +289,7 @@ static NDComponentInstance		* sharedComponentInstance = nil;
 {
 	AEDesc		theDesc = { typeNull, NULL };
 	NSString		* theDescription = nil;
-	OSErr			theError;
-	if ( (theError = OSAScriptingComponentName( [self scriptingComponent], &theDesc)) == noErr )
+	if ( (OSAScriptingComponentName( [self scriptingComponent], &theDesc)) == noErr )
 	{
 		theDescription = [@"NDComponentInstance name:" stringByAppendingString:[[NSAppleEventDescriptor descriptorWithAEDescNoCpy:&theDesc] stringValue]];
 	}

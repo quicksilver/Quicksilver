@@ -83,7 +83,7 @@
         
         // ***warning  * should this update the name for files?
         id dup = [self findDuplicateOrRegisterID];
-        if (dup) return dup;
+        if (dup) return [dup retain];
         if ([self containsType:QSFilePathType])
             [self changeFilesToPaths];
     }

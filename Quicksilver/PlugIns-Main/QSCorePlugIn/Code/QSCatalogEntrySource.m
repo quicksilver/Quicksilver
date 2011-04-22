@@ -19,12 +19,15 @@
 #define kQSCatalogEntryRescanAction @"QSCatalogEntryRescanAction"
 
 static BOOL firstCheck = NO;
+static NSImage *prefsCatalogImage = nil;
 
 @implementation QSCatalogEntrySource
 
 + (void)initialize {
-	[[QSResourceManager imageNamed:@"prefsCatalog"] retain];
-	[[QSResourceManager imageNamed:@"prefsCatalog"] createIconRepresentations];
+	if (prefsCatalogImage == nil) {
+		prefsCatalogImage = [[QSResourceManager imageNamed:@"prefsCatalog"] retain];
+		[prefsCatalogImage createIconRepresentations];
+	}
 }
 
 - (id)init {

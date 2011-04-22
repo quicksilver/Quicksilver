@@ -107,10 +107,10 @@ unsigned int previousModifier = 0;
     // To determine if the caps lock key is the only key press check if mods is
     // in one of the 3 states below.  NSMouseEnteredMask is set if QS has current
     // focus.
-    BOOL capsKeyPressed = NO;
+    //BOOL capsKeyPressed = NO;
     if(!modsKeyPressed && (mods == 0 || mods & (NSAlphaShiftKeyMask | NSMouseEnteredMask)) ) {
         mods = NSAlphaShiftKeyMask;
-        capsKeyPressed = YES;
+        //capsKeyPressed = YES;
     }
 
 	BOOL modsAdded = mods >= lastModifiers;

@@ -43,7 +43,7 @@
 }
 
 
-- (float) countWidthForFrame:(NSRect)frame {
+- (float) countWidthForFrame/*:(NSRect)frame*/ {
 	if (![count length]) return 0;
 	NSSize textSize = [count sizeWithAttributes:countBadgeTextAttributes];
 	textSize.width += textSize.height;
@@ -64,7 +64,7 @@
 	frame = [super textRectForFrame:frame];
 	if (!count) return frame;
 	NSRect textFrame, countFrame;
-	float width = [self countWidthForFrame:textFrame];
+	float width = [self countWidthForFrame/*:textFrame*/];
 		if (width) width += 3;
 	NSDivideRect (frame, &countFrame, &textFrame, width, NSMaxXEdge);
 	return textFrame;
@@ -74,7 +74,7 @@
 	[super drawWithFrame:cellFrame inView:controlView];
 	if (count) {
 		NSRect rect = [super textRectForFrame:cellFrame];
-		float width = [self countWidthForFrame:rect];
+		float width = [self countWidthForFrame/*:rect*/];
 		rect.origin.x += NSWidth(rect) -width;
 		rect.size.width = width;
 

@@ -476,7 +476,7 @@ static id _sharedInstance;
 }
 
 - (IBAction)copyPreset:(id)sender {
-	QSCatalogEntry *newItem = [currentItem uniqueCopy];
+	QSCatalogEntry *newItem = [[currentItem uniqueCopy] autorelease];
 	[[[[QSLibrarian sharedInstance] catalogCustom] children] addObject:newItem];
 	[currentItem setEnabled:NO];
 	[itemTable reloadData];

@@ -19,11 +19,9 @@
 
 - (void)awakeFromNib {
 	[progress setUsesThreadedAnimation:YES];
-	//[progress startAnimation:nil];
 }
 
 - (void)dealloc {
-	//NSLog(@"release task view %@", task);
 	[progress unbind:@"isIndeterminate"];
 	[task release];
 	[super dealloc];
