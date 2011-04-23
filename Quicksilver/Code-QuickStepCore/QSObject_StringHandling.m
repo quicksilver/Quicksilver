@@ -102,7 +102,8 @@
 		urlString = [[urlString lines] componentsJoinedByString:@""];
 	}
 	NSURL *url = [NSURL URLWithString:urlString];
-
+	
+	// Note: This check fails if url has non-escaped characters e.g. | Last method below catches this (tld check)
 	if ([url scheme]) {
 		[self setObject:urlString forType:QSURLType];
 		[self setPrimaryType:QSURLType];
@@ -121,7 +122,9 @@
 
 			if ([host length] && [host rangeOfString:@" "] .location == NSNotFound && [components count] && ![[components lastObject] hasPrefix:@"htm"]) {
 				if ([components count] == 4 || ([(NSString *)[components lastObject] length] >1 && [[components lastObject] rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]].location == NSNotFound)) { //Last component has no numbers
-					urlString = [@"http://" stringByAppendingString:urlString];
+					// Don't add http:// if it's already there
+					if(![urlString hasPrefix:@"http://"])
+						urlString = [@"http://" stringByAppendingString:urlString];
 					[self setObject:urlString forType:QSURLType];
 					[self setPrimaryType:QSURLType];
 				}
