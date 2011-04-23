@@ -9,12 +9,16 @@
 #import <Cocoa/Cocoa.h>
 #import "QSObject.h"
 
+
 @interface NSString (Trimming)
 - (NSString *)trimWhitespace;
 @end
 
 @interface QSStringObjectHandler : NSObject
+
 @end
+
+static NSArray *tldArray = nil;
 
 @interface QSObject (StringHandling)
 + (id)objectWithString:(NSString *)string;
