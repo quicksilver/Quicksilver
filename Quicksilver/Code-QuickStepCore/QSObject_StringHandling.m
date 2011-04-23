@@ -115,61 +115,59 @@
 		urlString = [[urlString lines] componentsJoinedByString:@""];
 	}
 	
-	// Create a URL with the string (escape funny characters like |) #WARN: Use the default encoding
-	NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-	// It's a URL if it has a prefix, host and : is not at start
-	if ([url scheme] && [url host] && [urlString rangeOfString:@":"].location != 1) {
-	NSURL *url = [NSURL URLWithString:urlString];
-	
-	// Note: This check fails if url has non-escaped characters e.g. | Last method below catches this (tld check)
+	// Create a URL with the string make sure to encode any |%<> chars
+	NSURL *url = [NSURL URLWithString:[urlString URLEncoding]];
+
 	if ([url scheme] && [url host] && [urlString rangeOfString:@":"].location != 1) {
 		[self setObject:urlString forType:QSURLType];
 		[self setPrimaryType:QSURLType];
 		return;
 	}
-	
-	// If there's a . in the string (most likely a URL...)
-	if ([stringValue rangeOfString:@"."] .location != NSNotFound) {
-		// @ sign but NO forward slash / means it's an email address
-		if ([stringValue rangeOfString:@"@"] .location != NSNotFound && [stringValue rangeOfString:@"/"] .location == NSNotFound) {
-			[self setObject:[NSArray arrayWithObject:stringValue] forType:QSEmailAddressType];
-			[self setObject:[@"mailto:" stringByAppendingString:stringValue] forType:QSURLType];
-			[self setPrimaryType:QSURLType];
-			return;
-		} else {
-			// @ sign AND it has a forward slash - a URL?
-			NSString *host = [[stringValue componentsSeparatedByString:@"/"] objectAtIndex:0];
-			NSArray *components = [host componentsSeparatedByString:@"."];
-			// if the 'host' string has a length, no space, there are components, and last object doesn't have prefix htm
-			if ([host length] && [host rangeOfString:@" "] .location == NSNotFound && [components count] && ![[components lastObject] hasPrefix:@"htm"]) {
-				// if there are 4 components, last component has a length > 1, no numbers in the last component
-				if ([components count] == 4 || ([(NSString *)[components lastObject] length] >1 && [[components lastObject] rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]].location == NSNotFound)) {
-					if(tldArray == nil) {
-						tldArray = [[NSArray arrayWithObjects:@"AC",@"AD",@"AE",@"AERO",@"AF",@"AG",@"AI",@"AL",@"AM",@"AN",@"AO",@"AQ",@"AR",@"ARPA",@"AS",@"ASIA",@"AT",@"AU",@"AW",@"AX",@"AZ",@"BA",@"BB",@"BD",@"BE",@"BF",@"BG",@"BH",@"BI",@"BIZ",
-									 @"BJ",@"BM",@"BN",@"BO",@"BR",@"BS",@"BT",@"BV",@"BW",@"BY",@"BZ",@"CA",@"CAT",@"CC",@"CD",@"CF",@"CG",@"CH",@"CI",@"CK",@"CL",@"CM",@"CN",@"CO",@"COM",@"COOP",@"CR",@"CU",@"CV",@"CX",@"CY",@"CZ",@"DE",@"DJ",@"DK",
-									 @"DM",@"DO",@"DZ",@"EC",@"EDU",@"EE",@"EG",@"ER",@"ES",@"ET",@"EU",@"FI",@"FJ",@"FK",@"FM",@"FO",@"FR",@"GA",@"GB",@"GD",@"GE",@"GF",@"GG",@"GH",@"GI",@"GL",@"GM",@"GN",@"GOV",@"GP",@"GQ",@"GR",@"GS",@"GT",@"GU",
-									 @"GW",@"GY",@"HK",@"HM",@"HN",@"HR",@"HT",@"HU",@"ID",@"IE",@"IL",@"IM",@"IN",@"INFO",@"INT",@"IO",@"IQ",@"IR",@"IS",@"IT",@"JE",@"JM",@"JO",@"JOBS",@"JP",@"KE",@"KG",@"KH",@"KI",@"KM",@"KN",@"KP",@"KR",@"KW",@"KY",
-									 @"KZ",@"LA",@"LB",@"LC",@"LI",@"LK",@"LR",@"LS",@"LT",@"LU",@"LV",@"LY",@"MA",@"MC",@"MD",@"ME",@"MG",@"MH",@"MIL",@"MK",@"ML",@"MM",@"MN",@"MO",@"MOBI",@"MP",@"MQ",@"MR",@"MS",@"MT",@"MU",@"MUSEUM",@"MV",@"MW",@"MX",
-									 @"MY",@"MZ",@"NA",@"NAME",@"NC",@"NE",@"NET",@"NF",@"NG",@"NI",@"NL",@"NO",@"NP",@"NR",@"NU",@"NZ",@"OM",@"ORG",@"PA",@"PE",@"PF",@"PG",@"PH",@"PK",@"PL",@"PM",@"PN",@"PR",@"PRO",@"PS",@"PT",@"PW",@"PY",@"QA",@"RE",@"RO",
-									 @"RS",@"RU",@"RW",@"SA",@"SB",@"SC",@"SD",@"SE",@"SG",@"SH",@"SI",@"SJ",@"SK",@"SL",@"SM",@"SN",@"SO",@"SR",@"ST",@"SU",@"SV",@"SY",@"SZ",@"TC",@"TD",@"TEL",@"TF",@"TG",@"TH",@"TJ",@"TK",@"TL",@"TM",@"TN",@"TO",@"TP",@"TR",
-									 @"TRAVEL",@"TT",@"TV",@"TW",@"TZ",@"UA",@"UG",@"UK",@"US",@"UY",@"UZ",@"VA",@"VC",@"VE",@"VG",@"VI",@"VN",@"VU",@"WF",@"WS",@"XXX",@"YE",@"YT",@"ZA",@"ZM",@"ZW",nil] retain];
+		
+		// If there's a . in the string (most likely a URL...)
+		if ([stringValue rangeOfString:@"."] .location != NSNotFound) {
+			// @ sign but NO forward slash / means it's an email address
+			if ([stringValue rangeOfString:@"@"] .location != NSNotFound && [stringValue rangeOfString:@"/"] .location == NSNotFound) {
+				[self setObject:[NSArray arrayWithObject:stringValue] forType:QSEmailAddressType];
+				[self setObject:[@"mailto:" stringByAppendingString:stringValue] forType:QSURLType];
+				[self setPrimaryType:QSURLType];
+				return;
+			} else {
+				// @ sign AND it has a forward slash - a URL?
+				NSString *host = [[stringValue componentsSeparatedByString:@"/"] objectAtIndex:0];
+				NSArray *components = [host componentsSeparatedByString:@"."];
+				// if the 'host' string has a length, no space, there are components, and last object doesn't have prefix htm
+				if ([host length] && [host rangeOfString:@" "] .location == NSNotFound && [components count] && ![[components lastObject] hasPrefix:@"htm"]) {
+					// if there are 4 components, last component has a length > 1, no numbers in the last component
+					if ([components count] == 4 || ([(NSString *)[components lastObject] length] >1 && [[components lastObject] rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]].location == NSNotFound)) {
+						if(tldArray == nil) {
+							tldArray = [[NSArray arrayWithObjects:@"AC",@"AD",@"AE",@"AERO",@"AF",@"AG",@"AI",@"AL",@"AM",@"AN",@"AO",@"AQ",@"AR",@"ARPA",@"AS",@"ASIA",@"AT",@"AU",@"AW",@"AX",@"AZ",@"BA",@"BB",@"BD",@"BE",@"BF",@"BG",@"BH",@"BI",@"BIZ",
+										 @"BJ",@"BM",@"BN",@"BO",@"BR",@"BS",@"BT",@"BV",@"BW",@"BY",@"BZ",@"CA",@"CAT",@"CC",@"CD",@"CF",@"CG",@"CH",@"CI",@"CK",@"CL",@"CM",@"CN",@"CO",@"COM",@"COOP",@"CR",@"CU",@"CV",@"CX",@"CY",@"CZ",@"DE",@"DJ",@"DK",
+										 @"DM",@"DO",@"DZ",@"EC",@"EDU",@"EE",@"EG",@"ER",@"ES",@"ET",@"EU",@"FI",@"FJ",@"FK",@"FM",@"FO",@"FR",@"GA",@"GB",@"GD",@"GE",@"GF",@"GG",@"GH",@"GI",@"GL",@"GM",@"GN",@"GOV",@"GP",@"GQ",@"GR",@"GS",@"GT",@"GU",
+										 @"GW",@"GY",@"HK",@"HM",@"HN",@"HR",@"HT",@"HU",@"ID",@"IE",@"IL",@"IM",@"IN",@"INFO",@"INT",@"IO",@"IQ",@"IR",@"IS",@"IT",@"JE",@"JM",@"JO",@"JOBS",@"JP",@"KE",@"KG",@"KH",@"KI",@"KM",@"KN",@"KP",@"KR",@"KW",@"KY",
+										 @"KZ",@"LA",@"LB",@"LC",@"LI",@"LK",@"LR",@"LS",@"LT",@"LU",@"LV",@"LY",@"MA",@"MC",@"MD",@"ME",@"MG",@"MH",@"MIL",@"MK",@"ML",@"MM",@"MN",@"MO",@"MOBI",@"MP",@"MQ",@"MR",@"MS",@"MT",@"MU",@"MUSEUM",@"MV",@"MW",@"MX",
+										 @"MY",@"MZ",@"NA",@"NAME",@"NC",@"NE",@"NET",@"NF",@"NG",@"NI",@"NL",@"NO",@"NP",@"NR",@"NU",@"NZ",@"OM",@"ORG",@"PA",@"PE",@"PF",@"PG",@"PH",@"PK",@"PL",@"PM",@"PN",@"PR",@"PRO",@"PS",@"PT",@"PW",@"PY",@"QA",@"RE",@"RO",
+										 @"RS",@"RU",@"RW",@"SA",@"SB",@"SC",@"SD",@"SE",@"SG",@"SH",@"SI",@"SJ",@"SK",@"SL",@"SM",@"SN",@"SO",@"SR",@"ST",@"SU",@"SV",@"SY",@"SZ",@"TC",@"TD",@"TEL",@"TF",@"TG",@"TH",@"TJ",@"TK",@"TL",@"TM",@"TN",@"TO",@"TP",@"TR",
+										 @"TRAVEL",@"TT",@"TV",@"TW",@"TZ",@"UA",@"UG",@"UK",@"US",@"UY",@"UZ",@"VA",@"VC",@"VE",@"VG",@"VI",@"VN",@"VU",@"WF",@"WS",@"XXX",@"YE",@"YT",@"ZA",@"ZM",@"ZW",nil] retain];
+						}
+						// check to see if the last component of the string is a tld (case insensitive)
+						if([tldArray containsObject:[[components lastObject] uppercaseString]]) {
+							// Don't add http:// if it's already there
+							if(![urlString hasPrefix:@"http://"])
+								urlString = [@"http://" stringByAppendingString:urlString];
+							[self setObject:urlString forType:QSURLType];
+							[self setPrimaryType:QSURLType];
+							return;
+						}
 					}
-					// check to see if the last component of the string is a tld (case insensitive)
-					if([tldArray containsObject:[[components lastObject] uppercaseString]]) {
-						// Don't add http:// if it's already there
-						if(![urlString hasPrefix:@"http://"])
-							urlString = [@"http://" stringByAppendingString:urlString];
-						[self setObject:urlString forType:QSURLType];
-						[self setPrimaryType:QSURLType];
-						return;
-					}
-					
 				}
+				
 			}
 		}
+		return;
 	}
-	return;
-}
+	
+	
 - (NSString *)stringValue {
 	NSString *string = [self objectForType:QSTextType];
 	//NSLog(@"string %@", string);
