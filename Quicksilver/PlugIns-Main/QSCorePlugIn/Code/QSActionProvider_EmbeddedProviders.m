@@ -82,7 +82,10 @@
 	NSMutableArray *urlArray = [NSMutableArray array];
 
 	for (NSString *urlString in [dObject arrayForType:QSURLType]) {
+		// Escape characters (but not # or %)
+		NSLog(@"urlString %@ \n urlstring replaced: %@ \n urlstring encoded %@",urlString,[urlString URLDecoding], [urlString URLEncoding]);
 		NSURL *url = [NSURL URLWithString:[urlString URLEncoding]];
+		// replace QUERY_KEY *** with nothing if we're just opening the URL
 		if ([urlString rangeOfString:QUERY_KEY].location != NSNotFound) {
 			int pathLoc = [urlString rangeOfString:[url path]].location;
 			if (pathLoc != NSNotFound)
