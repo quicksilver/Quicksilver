@@ -80,14 +80,13 @@
 
 - (QSObject *)doURLOpenAction:(QSObject *)dObject {
 	NSMutableArray *urlArray = [NSMutableArray array];
-	NSString *urlString;
-	NSEnumerator *e = [[dObject arrayForType:QSURLType] objectEnumerator];
-	for (urlString in e) {
-		NSURL *url = [NSURL URLWithString:urlString];
+
+	for (NSString *urlString in [dObject arrayForType:QSURLType]) {
+		NSURL *url = [NSURL URLWithString:[urlString URLEncoding]];
 		if ([urlString rangeOfString:QUERY_KEY].location != NSNotFound) {
 			int pathLoc = [urlString rangeOfString:[url path]].location;
 			if (pathLoc != NSNotFound)
-				url = [NSURL URLWithString:[urlString substringWithRange:NSMakeRange(0, pathLoc)]];
+				url = [NSURL URLWithString:[[urlString substringWithRange:NSMakeRange(0, pathLoc)] URLEncoding]];
 		}
 		url = [url URLByInjectingPasswordFromKeychain];
 		if (url)
@@ -108,16 +107,14 @@
 }
 
 - (QSObject *)doURLOpenActionInBackground:(QSObject *)dObject {
-	NSLog(@"Doing alternate action");
 	NSMutableArray *urlArray = [NSMutableArray array];
-	NSString *urlString;
-	NSEnumerator *e = [[dObject arrayForType:QSURLType] objectEnumerator];
-	for (urlString in e) {
-		NSURL *url = [NSURL URLWithString:urlString];
+
+	for (NSString *urlString in [dObject arrayForType:QSURLType]) {
+		NSURL *url = [NSURL URLWithString:[urlString URLEncoding]];
 		if ([urlString rangeOfString:QUERY_KEY].location != NSNotFound) {
 			int pathLoc = [urlString rangeOfString:[url path]].location;
 			if (pathLoc != NSNotFound)
-				url = [NSURL URLWithString:[urlString substringWithRange:NSMakeRange(0, pathLoc)]];
+				url = [NSURL URLWithString:[[urlString substringWithRange:NSMakeRange(0, pathLoc)] URLEncoding]];
 		}
 		url = [url URLByInjectingPasswordFromKeychain];
 		if (url)
@@ -140,7 +137,7 @@
 
 
 - (QSObject *)doURLOpenAction:(QSObject *)dObject with:(QSObject *)iObject {
-	NSURL *url = [[NSURL URLWithString:[dObject objectForType:QSURLType]] URLByInjectingPasswordFromKeychain];
+	NSURL *url = [[NSURL URLWithString:[[dObject objectForType:QSURLType] URLEncoding]] URLByInjectingPasswordFromKeychain];
 	NSString *ident = nil;
 	if ([iObject isApplication]){
 		ident = [[NSBundle bundleWithPath:[iObject singleFilePath]] bundleIdentifier];
