@@ -722,3 +722,10 @@ static float searchSpeed = 0.0;
 	return YES;
 }
 @end
+
+@implementation QSLibrarian (ConstellationMenus_Legacy)
+- (id)validActionsForDirectObject:(id)obj indirectObject:(id)obj2 {
+		// This is used by the Constellation menus plugin
+		return [QSExec validActionsForDirectObject:obj indirectObject:obj2];
+}
+@end
