@@ -12,7 +12,6 @@
 //#import "NSString+CarbonUtilities.h"
 
 
-// static array with list of TLDs
 
 @implementation NSString (Trimming)
 - (NSString *)trimWhitespace {
@@ -61,6 +60,9 @@
 - (id)dataForObject:(QSObject *)object pasteboardType:(NSString *)type { return [object objectForType:type];  }
 
 - (void)sniffString {
+	// array used to store list of TLDs
+	static NSArray *tldArray = nil;
+
 	NSString *stringValue = [self objectForType:QSTextType];
 
 	// A string for the calculator
@@ -126,8 +128,13 @@
 		
 		// If there's a . in the string (most likely a URL...)
 		if ([stringValue rangeOfString:@"."] .location != NSNotFound) {
+			if ([stringValue hasPrefix:@"mailto"]) {
+				[self setObject:[NSArray arrayWithObject:stringValue] forType:QSEmailAddressType];
+				[self setObject:[@"mailto:" stringByAppendingString:stringValue] forType:QSURLType];
+				[self setPrimaryType:QSURLType];
+			}
 			// @ sign but NO forward slash / means it's an email address
-			if ([stringValue rangeOfString:@"@"] .location != NSNotFound && [stringValue rangeOfString:@"/"] .location == NSNotFound) {
+			if (([stringValue rangeOfString:@"@"] .location != NSNotFound && [stringValue rangeOfString:@"/"] .location == NSNotFound)) {
 				[self setObject:[NSArray arrayWithObject:stringValue] forType:QSEmailAddressType];
 				[self setObject:[@"mailto:" stringByAppendingString:stringValue] forType:QSURLType];
 				[self setPrimaryType:QSURLType];

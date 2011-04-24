@@ -18,8 +18,6 @@
 
 @end
 
-static NSArray *tldArray = nil;
-
 @interface QSObject (StringHandling)
 + (id)objectWithString:(NSString *)string;
 - (id)initWithString:(NSString *)string;
