@@ -81,10 +81,7 @@ static NSMutableDictionary *tasksDictionary = nil;
     // So the logging statements do not make much sense really if we get "(null)" for all parameters
     // I will disable them for now since they don't provide useful info
     
-	if (DEBUG && VERBOSE) NSLog(@"really dealloc task %@ %@ %d", name, identifier, [self retainCount]);
-	
-	NSLog(@"really dealloc task %@ %@ %d", name, identifier, [self retainCount]);
-	[self setIdentifier:nil];
+    [identifier release], identifier = nil;
 
 	[self setName:nil];
 	[self setStatus:nil];
