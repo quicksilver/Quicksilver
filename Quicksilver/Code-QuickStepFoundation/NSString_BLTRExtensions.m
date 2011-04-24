@@ -147,22 +147,12 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 
 - (NSString *)URLEncoding {
 // escape embedded %-signs that don't appear to actually be escape sequences, and pre-decode the result to avoid double-encoding
-	NSString *string;
-	if([self rangeOfString:@"%25"].location != NSNotFound)
-			string = [self stringByReplacing:@"%25" with:@"%"];
-		else
-			string = self;
- 	return [(NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) string, CFSTR("#"), NULL, kCFStringEncodingUTF8) autorelease];
+ 	return [(NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) self, CFSTR("#%"), NULL, kCFStringEncodingUTF8) autorelease];
 }
 
 - (NSString *)URLEncodingWithEncoding:(CFStringEncoding) encoding {
 // escape embedded %-signs that don't appear to actually be escape sequences, and pre-decode the result to avoid double-encoding
-	NSString *string;
-	if([self rangeOfString:@"%25"].location != NSNotFound)
-		string = [self stringByReplacing:@"%25" with:@"%"];
-		else
-			string = self;
-	return [(NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) string, CFSTR("#%"), NULL, encoding) autorelease];
+	return [(NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) self, CFSTR("#%"), NULL, encoding) autorelease];
 }
 
 - (NSString *)URLDecoding {
