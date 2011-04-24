@@ -138,6 +138,9 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 - (void)dealloc {
+	NSUserDefaultsController *sucd = [NSUserDefaultsController sharedUserDefaultsController];
+	[sucd removeObserver:self forKeyPath:@"values.QSAppearance3B"];
+
 	[[[resultTable tableColumnWithIdentifier:@"NameColumn"] dataCell] unbind:@"textColor"];
 	[resultTable unbind:@"backgroundColor"];
 	[resultTable unbind:@"highlightColor"];
@@ -314,8 +317,9 @@ NSMutableDictionary *kindDescriptions = nil;
 	if (selectedResult < 0 || ![[self currentResults] count]) return;
 	QSObject *newSelectedItem = [[self currentResults] objectAtIndex:selectedResult];
     
-    NSString *fmt = NSLocalizedStringFromTableInBundle(@"%d of %d", nil, [NSBundle bundleForClass:[self class]], @"");
-	NSString *status = [NSString stringWithFormat:fmt, selectedResult + 1, [[self currentResults] count]];
+	// HenningJ 20110419 there is no localized version of "%d of %d". Additionally, something goes wrong while trying to localize it.
+	// NSString *fmt = NSLocalizedStringFromTableInBundle(@"%d of %d", nil, [NSBundle bundleForClass:[self class]], @"");
+	NSString *status = [NSString stringWithFormat:@"%d of %d", selectedResult + 1, [[self currentResults] count]];
 	NSString *details = [selectedItem details] ? [selectedItem details] : @"";
     
 	if ([resultTable rowHeight] < 34 && details)

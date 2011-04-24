@@ -45,7 +45,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 
 + (NSArray *)processes {
 	NSMutableArray *resultsArray = [NSMutableArray array];
-	OSErr resultCode = noErr;
+//	OSErr resultCode = noErr;
 	ProcessSerialNumber serialNumber;
 	ProcessInfoRec			 procInfo;
 	FSSpec			 appFSSpec;
@@ -59,8 +59,8 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 	procInfo.processAppSpec			 = &appFSSpec;
 //	procInfo.processAppSpec			 = &appFSSpec;
 
-	while (procNotFound != (resultCode = GetNextProcess(&serialNumber) )) {
-		if (noErr == (resultCode = GetProcessInformation(&serialNumber, &procInfo) )) {
+	while (procNotFound != (/*resultCode = */GetNextProcess(&serialNumber) )) {
+		if (noErr == (/*resultCode = */GetProcessInformation(&serialNumber, &procInfo) )) {
 			if ('\0' == procName[1])
 				procName[1] = '0';
             NSString *processName = (NSString*)CFStringCreateWithPascalString(NULL, procInfo.processName, kCFStringEncodingUTF8);

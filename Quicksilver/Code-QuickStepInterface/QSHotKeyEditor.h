@@ -2,9 +2,9 @@
 
 @interface QSHotKeyControl : NSTextField {
 	@private
-	unsigned short		keyCode;
-	unichar				character;
-	unsigned long		modifierFlags;
+//	unsigned short		keyCode;
+//	unichar				character;
+//	unsigned long		modifierFlags;
 }
 @end
 

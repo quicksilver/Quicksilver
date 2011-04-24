@@ -28,33 +28,26 @@ QSTaskController *QSTasks;
 
 - (void)taskStarted:(QSTask *)task {
 	[self performSelectorOnMainThread:@selector(mainThreadTaskStarted:) withObject:task waitUntilDone:YES];
-
 }
 - (void)mainThreadTaskStarted:(QSTask *)task {
-	//[task autorelease];
 	BOOL firstItem = ![tasks count];
 	if (![tasks containsObject:task])
 		[tasks addObject:task];
 
-	//	NSLog(@"added %@", tasks);
 	if (firstItem) {
 		[[NSNotificationCenter defaultCenter] postNotificationName:QSTasksStartedNotification object:nil];
 	}
-#warning the task should be added to this notification!
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSTaskAddedNotification object:nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSTaskAddedNotification object:task];
 }
 - (void)taskStopped:(QSTask *)task {
 	[self performSelectorOnMainThread:@selector(mainThreadTaskStopped:) withObject:task waitUntilDone:YES];
 }
 - (void)mainThreadTaskStopped:(QSTask *)task {
-	//[task autorelease];
 	if (task)
 		[tasks removeObject:task];
-	//[self performSelectorOnMainThread:@selector(mainThreadTaskRemoved:) withObject:self waitUntilDone:NO];
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSTaskRemovedNotification object:nil];
 
 	if (![tasks count]) {
-		//		[self performSelectorOnMainThread:@selector(mainThreadTaskEnded:) withObject:self waitUntilDone:NO];
 		[[NSNotificationCenter defaultCenter] postNotificationName:QSTasksEndedNotification object:nil];
 	}
 }

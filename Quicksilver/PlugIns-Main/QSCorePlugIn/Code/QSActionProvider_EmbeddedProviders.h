@@ -1,7 +1,6 @@
 
 
 #import <Foundation/Foundation.h>
-
 #import <QSCore/QSActionProvider.h>
 
 # define kFileOpenAction @"FileOpenAction"
@@ -22,6 +21,8 @@
 # define kFileGetPathAction @"FileGetPathAction"
 # define kFileGetInfoAction @"FileGetInfoAction"
 
+#import <QSCore/QSClangAnalyzer.h>
+
 @interface FSActions : QSActionProvider {
 	NSArray *universalApps;
 }
@@ -29,7 +30,7 @@
 - (void)setUniversalApps:(NSArray *)anUniversalApps;
 - (BOOL)filesExist:(NSArray *)paths;
 - (QSObject *)moveFiles:(QSObject *)dObject toFolder:(QSObject *)iObject;
-- (QSObject *)copyFiles:(QSObject *)dObject toFolder:(QSObject *)iObject;
+- (QSObject *)copyFiles:(QSObject *)dObject toFolder:(QSObject *)iObject NS_RETURNS_NOT_RETAINED;
 - (QSObject *)moveFiles:(QSObject *)dObject toFolder:(QSObject *)iObject shouldCopy:(BOOL)copy;
 @end
 @interface FSDiskActions : QSActionProvider

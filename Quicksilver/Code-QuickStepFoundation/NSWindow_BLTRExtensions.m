@@ -49,13 +49,15 @@
 	if (alpha == [self alphaValue])
 		[self setFrame:frameRect display:displayFlag animate:animationFlag];
 
-	float newAlpha, elapsed;
+//	float newAlpha, elapsed;
+	float elapsed;
 	float seconds = (float) [self animationResizeTime:frameRect];
 	NSTimeInterval fadeStart = [NSDate timeIntervalSinceReferenceDate];
 	NSRect startRect = [self frame];
 	float fadeIn = [self alphaValue];
 	float distance = alpha-fadeIn;
-	newAlpha = (([NSDate timeIntervalSinceReferenceDate] - fadeStart) /seconds);
+//	newAlpha = (([NSDate timeIntervalSinceReferenceDate] - fadeStart) /seconds);
+#warning this is no real loop, it's only executed once
 	for(elapsed = 0; elapsed<1; elapsed = (([NSDate timeIntervalSinceReferenceDate] - fadeStart) /seconds)) {
 		[self setAlphaValue:fadeIn+elapsed*distance];
 		[self setFrame:blendRects(startRect, frameRect, elapsed) display:displayFlag];
@@ -79,7 +81,7 @@
 	[[window contentView] unlockFocus];
 	[window setAutodisplay:NO];
 	[window setReleasedWhenClosed:YES];
-	return window;
+	return [window autorelease];
 }
 @end
 

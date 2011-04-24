@@ -64,6 +64,9 @@
 	[imageView setImageFrameStyle:NSImageFrameNone];
 	[imageView setImageScaling:NSScaleNone];
 	[[splashWindow contentView] addSubview:imageView];
+	// fheckl 2011-02-05
+	// Xcode Analysis: Potential leak
+	//   but that's ok since the window is released on close, so no autorelease here
 	return splashWindow;
 }
 @end

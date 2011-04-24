@@ -658,9 +658,8 @@ const NSString			* NDAppleScriptPartialResult = @"Error Partial Result";
 {
 	AEDesc		theDesc = { typeNull, NULL };
 	NSString		* theSource = scriptSource;
-	OSAError		theErr = noErr;
 
-	if( theSource == nil && (theErr = OSAGetSource( [self scriptingComponent], compiledScriptID, typeChar, &theDesc)) == noErr )
+	if( theSource == nil && (OSAGetSource( [self scriptingComponent], compiledScriptID, typeChar, &theDesc)) == noErr )
 	{
 		theSource = [[NSAppleEventDescriptor descriptorWithAEDescNoCpy:&theDesc] stringValue];
 	}

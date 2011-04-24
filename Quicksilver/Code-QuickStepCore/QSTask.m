@@ -7,6 +7,7 @@
 
 #import "QSTask.h"
 #import "QSTaskController.h"
+#import "QSTaskView.h"
 
 @interface QSTask (PRIVATE)
 
@@ -14,16 +15,17 @@
 
 @end
 
-NSMutableDictionary *tasksDictionary;
+static NSMutableDictionary *tasksDictionary = nil;
 
 @implementation QSTask
-+ (void)initialize {
+
++ (void) load {
 	tasksDictionary = [[NSMutableDictionary alloc] init];
-	//[QSTaskController sharedInstance];
-	[self setKeys:[NSArray arrayWithObject:@"progress"]
- triggerChangeNotificationsForDependentKey:@"indeterminateProgress"];
-	[self setKeys:[NSArray arrayWithObject:@"progress"]
- triggerChangeNotificationsForDependentKey:@"animateProgress"];
+}
+
++ (void)initialize {
+	[self setKeys:[NSArray arrayWithObject:@"progress"] triggerChangeNotificationsForDependentKey:@"indeterminateProgress"];
+	[self setKeys:[NSArray arrayWithObject:@"progress"] triggerChangeNotificationsForDependentKey:@"animateProgress"];
 }
 
 + (QSTask *)taskWithIdentifier:(NSString *)identifier {
@@ -61,7 +63,7 @@ NSMutableDictionary *tasksDictionary;
 	return icon;
 }
 - (NSString *)description {
-	return [NSString stringWithFormat:@"[%@:%@:%@] ", identifier, name, status];
+	return [NSString stringWithFormat:@"[%@:%@:%@ %2d] ", identifier, name, status, [self retainCount]];
 }
 - (id)init {
 	return [self initWithIdentifier:nil];
@@ -79,29 +81,18 @@ NSMutableDictionary *tasksDictionary;
     // So the logging statements do not make much sense really if we get "(null)" for all parameters
     // I will disable them for now since they don't provide useful info
     
-	//if (DEBUG && VERBOSE) 	NSLog(@"Dealloc Task: %@", [self name]);
-	//NSLog(@"dealloc task %x %@ %@ %d", self, name, identifier, [self retainCount]);
-//	if ([tasksDictionary objectForKey:[self identifier]]) {
-//		[self retain];
-//		[tasksDictionary removeObjectForKey:[self identifier]];
-//		[self setIdentifier:nil];
-//		return;
-//	}
-	//if (DEBUG && VERBOSE) NSLog(@"really dealloc task %@ %@ %d", name, identifier, [self retainCount]);
+	if (DEBUG && VERBOSE) NSLog(@"really dealloc task %@ %@ %d", name, identifier, [self retainCount]);
+	
+	NSLog(@"really dealloc task %@ %@ %d", name, identifier, [self retainCount]);
 	[self setIdentifier:nil];
 
-	//NSLog(@"really task %x", self);
 	[self setName:nil];
 	[self setStatus:nil];
 	[self setResult:nil];
 	[self setCancelTarget:nil];
 	[self setSubtasks:nil];
 	[super dealloc];
-	//if (DEBUG && VERBOSE) NSLog(@"done dealloc task");
 }
-
-
-
 
 - (void)cancel:(id)sender {
 	if (cancelTarget) {
@@ -124,10 +115,12 @@ NSMutableDictionary *tasksDictionary;
 }
 - (void)stopTask:(id)sender {
 	if (running) {
-		if (DEBUG && VERBOSE) NSLog(@"End Task: %@", [self identifier]);
+		if (DEBUG && VERBOSE) NSLog(@"End Task: %@ %d", [self identifier], [self retainCount]);
 		running = NO;
 		[QSTasks taskStopped:self];
-
+	}
+	if (identifier != nil) {
+		[tasksDictionary removeObjectForKey:identifier];
 	}
 }
 
@@ -142,7 +135,7 @@ NSMutableDictionary *tasksDictionary;
 	return progress<0;
 }
 - (BOOL)canBeCancelled {
-	return cancelAction != NULL;
+	return cancelAction != nil;
 }
 
 
@@ -158,13 +151,18 @@ NSMutableDictionary *tasksDictionary;
 }
 - (void)setIdentifier:(NSString *)value {
 	if (identifier != value) {
-		NSString *oldIdentifier = identifier;
+		NSString *oldIdentifier = [identifier copy];
 		[identifier release];
 		identifier = [value copy];
 		if (tasksDictionary) {
-			if (value) [tasksDictionary setObject:self forKey:value];
-			if (oldIdentifier) [tasksDictionary removeObjectForKey:oldIdentifier];
+			if (value) {
+				[tasksDictionary setObject:self forKey:value];
+			}
+			if (oldIdentifier) {
+				[tasksDictionary removeObjectForKey:oldIdentifier];
+			} 
 		}
+		[oldIdentifier release];
 	}
 }
 
@@ -186,7 +184,7 @@ NSMutableDictionary *tasksDictionary;
 
 - (void)setStatus:(NSString *)value {
 	if (status != value) {
-		[status autorelease];
+		[status release];
 		status = [value copy];
 	}
 }

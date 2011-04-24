@@ -53,7 +53,7 @@ void QSFillRectWithGradientFromEdge(NSRect rect, NSColor *start, NSColor *end, N
 		case NSMaxYEdge: startPoint = CGPointMake(0, NSMaxY(rect) ); endPoint = CGPointMake(0, NSMinY(rect)); break;
 		case NSMinYEdge: startPoint = CGPointMake(0, NSMinY(rect) ); endPoint = CGPointMake(0, NSMaxY(rect)); break;
 		case NSMaxXEdge: startPoint = CGPointMake(NSMaxX(rect), 0); endPoint = CGPointMake(NSMinX(rect), 0); break;
-		case NSMinXEdge: startPoint = CGPointMake(NSMinX(rect), 0); endPoint = CGPointMake(NSMaxX(rect), 0); break;
+		case NSMinXEdge:default: startPoint = CGPointMake(NSMinX(rect), 0); endPoint = CGPointMake(NSMaxX(rect), 0); break;
 	} // warning: points may be left uninitialized
 
 	CGShadingRef shading = CGShadingCreateAxial(colorspace, startPoint, endPoint, function, NO, NO);

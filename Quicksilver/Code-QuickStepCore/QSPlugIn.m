@@ -420,13 +420,13 @@ NSMutableDictionary *plugInBundlePaths = nil;
 						  inFileViewerRootedAtPath:@""];
 }
 - (BOOL)delete {
-	NSString *ident, *path;
+	NSString *ident/*, *path*/;
 	if(bundle) {
 		ident = [bundle bundleIdentifier];
-		path = [bundle bundlePath];
+//		path = [bundle bundlePath];
 	} else {
 		ident = [data objectForKey:@"CFBundleIdentifier"];
-		path = nil;
+//		path = nil;
 	}
 	id manager = [QSPlugInManager sharedInstance];
 	[[manager localPlugIns] removeObjectForKey:ident];
