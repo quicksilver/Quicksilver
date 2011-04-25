@@ -440,6 +440,20 @@
 				<string>NSFilenamesPboardType</string>
 			</array>
 		</dict>
+			<key>QSRunningApplicationsProxy</key>
+		<dict>
+			<key>icon</key>
+			<string>GenericApplicationIcon</string>
+			<key>name</key>
+			<string>Running Applications</string>
+			<key>providerClass</key>
+			<string>QSProcessMonitor</string>
+			<key>types</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+				<string>qs.process</string>
+			</array>
+		</dict>
 	</dict>
 	<key>QSRegistryHeaders</key>
 	<dict>
