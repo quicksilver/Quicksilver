@@ -487,9 +487,9 @@
 						[action release];
 						action = rankedAction;
 					}
-                    if ([action displaysResult]) {
-                        [self showMainWindow:self];
-                    }
+            }
+            if ([action displaysResult]) {
+                [self showMainWindow:self];
             }
         }
 	}
