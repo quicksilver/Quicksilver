@@ -39,8 +39,8 @@
 		
 		
 		// Add observers to see when QS is active
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceActivated:) name:@"InterfaceActivated" object:nil];
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceDeactivated:) name:@"InterfaceDeactivated" object:nil];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceActivated) name:@"InterfaceActivated" object:nil];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceDeactivated) name:@"InterfaceDeactivated" object:nil];
 		
 		//NSLog(@"info: %@",info);
 		//		NSLog(@"triggers: %@",triggersDict);
