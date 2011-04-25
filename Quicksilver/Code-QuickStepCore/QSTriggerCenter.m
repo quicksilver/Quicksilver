@@ -36,10 +36,32 @@
 												selector:@selector(appChanged:)
 													name:QSActiveApplicationChanged
 												 object:nil];
+		
+		
+		// Add observers to see when QS is active
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceActivated:) name:@"InterfaceActivated" object:nil];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceDeactivated:) name:@"InterfaceDeactivated" object:nil];
+		
+		//NSLog(@"info: %@",info);
+		//		NSLog(@"triggers: %@",triggersDict);
 	}
 	return self;
 }
 
+// Method to set the scope when the QS UI is activated
+- (void)interfaceActivated {
+	NSArray *theTriggers = [triggersDict allValues];
+	[theTriggers makeObjectsPerformSelector:@selector(rescope:) withObject:@"com.blacktree.Quicksilver"];
+}
+
+// Method to set the scope when the QS UI is deactivated
+- (void)interfaceDeactivated {
+	NSArray *theTriggers = [triggersDict allValues];
+	[theTriggers makeObjectsPerformSelector:@selector(rescope:) withObject:
+	 [[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationBundleIdentifier"]];
+}
+
+// Method that listens for app changes (other than QS) and notifies the trigger scope method
 - (void)appChanged:(NSNotification *)notif {
 	//NSLog(@"app %@", [[notif object] objectForKey:@"NSApplicationBundleIdentifier"]);
 
@@ -115,6 +137,8 @@
 //	return [[self managerForTrigger:entry] disableTrigger:entry];
 //}
 
+
+// Stupidly, this isn't called when the scope of a trigger is changed. Why not?!
 - (void)triggerChanged:(QSTrigger *)trigger {
 	[self writeTriggers];
 
@@ -153,6 +177,7 @@
 //}
 
 - (void)writeTriggers {
+//	NSLog(@"writing triggers");
     [self performSelector:@selector(writeTriggersNow) withObject:nil afterDelay:10.0 extend:YES];
 }
 
