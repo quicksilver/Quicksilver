@@ -150,15 +150,9 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	NSString *string = self;
 	
 	// For when we have to deal with % characters
-	if([string rangeOfString:@"%"].location != NSNotFound) {
-		// Try Cocoa's way of replacing % escapes
-		if (!([string stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding])) {
-			// If it fails, do a manual replace
-			string = [string URLDecoding];
-		}
-		else 
-			string = [string stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	}
+	if([string rangeOfString:@"%"].location != NSNotFound)
+		// Decode the string first
+		string = [string URLDecoding];
 	
 // escape embedded %-signs that don't appear to actually be escape sequences, and pre-decode the result to avoid double-encoding
  	return [(NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) string, CFSTR("#"), NULL, kCFStringEncodingUTF8) autorelease];
@@ -168,13 +162,8 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	
 	NSString *string = self;
 	
-	if([string rangeOfString:@"%"].location != NSNotFound) {
-		if (!([string stringByReplacingPercentEscapesUsingEncoding:encoding])) {
-			string = [string URLDecoding];
-		}
-		else 
-			string = [string stringByReplacingPercentEscapesUsingEncoding:encoding];
-	}
+	if([string rangeOfString:@"%"].location != NSNotFound)
+		string = [string URLDecoding];
 	
 // escape embedded %-signs that don't appear to actually be escape sequences, and pre-decode the result to avoid double-encoding
 	return [(NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) string, CFSTR("#"), NULL, encoding) autorelease];
@@ -184,13 +173,21 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 // Cocoa's stringByReplacingPercentEscapes... and CF's CFURLCreateStringByEscapingPercentEscapes... both return nil if there's a % in the string that doesn't
 // need escaping e.g. '100% free = 100% a load of crap'
 	NSString *string = self;
-	string = [string stringByReplacingOccurrencesOfString:@"%20" withString:@" "];
-	string = [string stringByReplacingOccurrencesOfString:@"%22" withString:@"'"];
-	string = [string stringByReplacingOccurrencesOfString:@"%3C" withString:@"<"];
-	string = [string stringByReplacingOccurrencesOfString:@"%3E" withString:@">"];
-	string = [string stringByReplacingOccurrencesOfString:@"%25" withString:@"%"];
-	string = [string stringByReplacingOccurrencesOfString:@"%7C" withString:@"|"];
-	string = [string stringByReplacingOccurrencesOfString:@"%5C" withString:@"\\"];
+	
+	// Try Cocoa's way of replacing % escapes
+	if (!([string stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding])) {
+		// If it fails, do a manual replace
+		string = [string stringByReplacingOccurrencesOfString:@"%20" withString:@" "];
+		string = [string stringByReplacingOccurrencesOfString:@"%22" withString:@"'"];
+		string = [string stringByReplacingOccurrencesOfString:@"%3C" withString:@"<"];
+		string = [string stringByReplacingOccurrencesOfString:@"%3E" withString:@">"];
+		string = [string stringByReplacingOccurrencesOfString:@"%25" withString:@"%"];
+		string = [string stringByReplacingOccurrencesOfString:@"%7C" withString:@"|"];
+		string = [string stringByReplacingOccurrencesOfString:@"%5C" withString:@"\\"];
+	}
+	else 
+		string = [string stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	
 	return string;
 }
 @end
