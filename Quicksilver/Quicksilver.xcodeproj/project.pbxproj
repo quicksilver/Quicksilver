@@ -903,27 +903,19 @@
 		2E0D0207136719E800B9B767 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/QSCatalogPreset.name.strings; sourceTree = "<group>"; };
 		2E0D0209136719FA00B9B767 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/QSObjectSource.name.strings; sourceTree = "<group>"; };
 		2E0D020B13671A0D00B9B767 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/QSParser.name.strings; sourceTree = "<group>"; };
-		2E0D021613671A5C00B9B767 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/QSAction.commandFormat.strings; sourceTree = "<group>"; };
 		2E0D021713671A5D00B9B767 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/QSAction.commandFormat.strings; sourceTree = "<group>"; };
 		2E0D021813671A6200B9B767 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSAction.commandFormat.strings; sourceTree = "<group>"; };
 		2E0D021A13671A6400B9B767 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/QSAction.commandFormat.strings; sourceTree = "<group>"; };
-		2E0D021B13671A7100B9B767 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/QSAction.description.strings; sourceTree = "<group>"; };
 		2E0D021C13671A7300B9B767 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/QSAction.description.strings; sourceTree = "<group>"; };
 		2E0D021D13671A7700B9B767 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSAction.description.strings; sourceTree = "<group>"; };
 		2E0D021F13671A7900B9B767 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/QSAction.description.strings; sourceTree = "<group>"; };
-		2E0D022013671A8200B9B767 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/QSAction.name.strings; sourceTree = "<group>"; };
-		2E0D022113671A8800B9B767 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/QSAction.name.strings; sourceTree = "<group>"; };
 		2E0D022213671A9400B9B767 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSAction.name.strings; sourceTree = "<group>"; };
 		2E0D022413671A9800B9B767 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/QSAction.name.strings; sourceTree = "<group>"; };
-		2E0D022513671A9D00B9B767 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/QSCatalogPreset.name.strings; sourceTree = "<group>"; };
-		2E0D022613671AA200B9B767 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/QSCatalogPreset.name.strings; sourceTree = "<group>"; };
 		2E0D022713671AA600B9B767 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSCatalogPreset.name.strings; sourceTree = "<group>"; };
 		2E0D022913671AA800B9B767 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/QSCatalogPreset.name.strings; sourceTree = "<group>"; };
-		2E0D022A13671AAE00B9B767 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/QSObjectSource.name.strings; sourceTree = "<group>"; };
 		2E0D022B13671AB700B9B767 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/QSObjectSource.name.strings; sourceTree = "<group>"; };
 		2E0D022C13671ABE00B9B767 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSObjectSource.name.strings; sourceTree = "<group>"; };
 		2E0D022E13671AC000B9B767 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/QSObjectSource.name.strings; sourceTree = "<group>"; };
-		2E0D022F13671AC700B9B767 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/QSParser.name.strings; sourceTree = "<group>"; };
 		2E0D023013671AD400B9B767 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/QSParser.name.strings; sourceTree = "<group>"; };
 		2E0D023113671AD700B9B767 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSParser.name.strings; sourceTree = "<group>"; };
 		2E0D023313671AD900B9B767 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/QSParser.name.strings; sourceTree = "<group>"; };
@@ -3301,7 +3293,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# for each localized nib file do:\nfor nib in Nibs/English.lproj/* ; do\n\techo \"Base nib for localization: $nib\"\n\tnibFile=`basename $nib` # get filename without path\n\tnibName=${nibFile%.*} # get filename without extension\n\t\n\t# extract strings from English nib\n\techo \"Extracing strings file from base nib: $nibName.xib\"\n\tibtool --generate-strings-file \"Localized/English.lproj/$nibName.strings\" \"Nibs/English.lproj/$nibName.xib\"\n\n\techo\n\t# find languages that the current nib is localized for\n\tfor langFolder in Nibs/* ; do\n\t\tif ([[ $langFolder =~ lproj$ ]] && [ $langFolder != \"Nibs/English.lproj\" ]); then # only localization (.lproj) folders , and ignore English.lproj\n\t\t\tlang=${langFolder:5}\n\t\t\techo \"Trying for language: ${lang/.lproj/}\"\n\t\t\tif [ -f \"Nibs/$lang/$nibName.xib\" ] && [ -f \"Localized/$lang/$nibName.strings\" ]; then # check if the nib file and the localization file exist\n\t\t\t\t\n\t\t\t\t# update localized nib\n\t\t\t\techo \"Creating Nibs/$lang/$nibName.xib\"\n\t\t\t\tibtool --strings-file \"Localized/de.lproj/$nibName.strings\" --write \"Nibs/de.lproj/$nibName.xib\" \"Nibs/English.lproj/$nibName.xib\"\n\t\t\telse\n\t\t\t\techo \"No \\\"${lang/.lproj/}\\\" localization for $nibName.xib found.\"\n\t\t\tfi\n\t\t\techo\n\t\tfi\n\tdone\ndone\n";
+			shellScript = "# Create by Henning Jungkurth\n# base on http://developer.casgrain.com/?p=94\n# \n# Script to extract strings from base .xib files (English) and create localized versions if a localization is available.\n# Both a localized .xib file in Nibs/ and a localized .strings file in Localized/ must be available\n\n# for each localized nib file\nfor nib in Nibs/English.lproj/* ; do\n\techo \"Base nib for localization: $nib\"\n\tnibFile=`basename $nib` # get filename without path\n\tnibName=${nibFile%.*} # get filename without extension\n\t\n\t# extract strings from English nib\n\techo \"Extracing strings file from base nib: $nibName.xib\"\n\tibtool --generate-strings-file \"Localized/English.lproj/$nibName.strings\" \"Nibs/English.lproj/$nibName.xib\"\n\n\techo\n\t# find languages that the current nib is localized for\n\tfor langFolder in Nibs/* ; do\n\t\tif ([[ $langFolder =~ lproj$ ]] && [ $langFolder != \"Nibs/English.lproj\" ]); then # only localization (.lproj) folders , and ignore English.lproj\n\t\t\tlang=${langFolder:5}\n\t\t\techo \"Trying for language: ${lang/.lproj/}\"\n\t\t\tif [ -f \"Nibs/$lang/$nibName.xib\" ] && [ -f \"Localized/$lang/$nibName.strings\" ]; then # check if the nib file and the localization file exist\n\t\t\t\t\n\t\t\t\t# update localized nib\n\t\t\t\techo \"Creating Nibs/$lang/$nibName.xib\"\n\t\t\t\tibtool --strings-file \"Localized/de.lproj/$nibName.strings\" --write \"Nibs/de.lproj/$nibName.xib\" \"Nibs/English.lproj/$nibName.xib\"\n\t\t\telse\n\t\t\t\techo \"No \\\"${lang/.lproj/}\\\" localization for $nibName.xib found.\"\n\t\t\tfi\n\t\t\techo\n\t\tfi\n\tdone\ndone\n";
 		};
 		7F0399E8080EE58D001A9FA3 /* Remove PlugIns */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3812,7 +3804,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				2E0D0201136719A900B9B767 /* English */,
-				2E0D021613671A5C00B9B767 /* en */,
 				2E0D021713671A5D00B9B767 /* de */,
 				2E0D021813671A6200B9B767 /* fr */,
 				2E0D021A13671A6400B9B767 /* it */,
@@ -3824,7 +3815,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				2E0D0203136719BF00B9B767 /* English */,
-				2E0D021B13671A7100B9B767 /* en */,
 				2E0D021C13671A7300B9B767 /* de */,
 				2E0D021D13671A7700B9B767 /* fr */,
 				2E0D021F13671A7900B9B767 /* it */,
@@ -3836,8 +3826,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				2E0D0205136719D400B9B767 /* English */,
-				2E0D022013671A8200B9B767 /* en */,
-				2E0D022113671A8800B9B767 /* de */,
 				2E0D022213671A9400B9B767 /* fr */,
 				2E0D022413671A9800B9B767 /* it */,
 			);
@@ -3848,8 +3836,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				2E0D0207136719E800B9B767 /* English */,
-				2E0D022513671A9D00B9B767 /* en */,
-				2E0D022613671AA200B9B767 /* de */,
 				2E0D022713671AA600B9B767 /* fr */,
 				2E0D022913671AA800B9B767 /* it */,
 			);
@@ -3860,7 +3846,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				2E0D0209136719FA00B9B767 /* English */,
-				2E0D022A13671AAE00B9B767 /* en */,
 				2E0D022B13671AB700B9B767 /* de */,
 				2E0D022C13671ABE00B9B767 /* fr */,
 				2E0D022E13671AC000B9B767 /* it */,
@@ -3872,7 +3857,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				2E0D020B13671A0D00B9B767 /* English */,
-				2E0D022F13671AC700B9B767 /* en */,
 				2E0D023013671AD400B9B767 /* de */,
 				2E0D023113671AD700B9B767 /* fr */,
 				2E0D023313671AD900B9B767 /* it */,
