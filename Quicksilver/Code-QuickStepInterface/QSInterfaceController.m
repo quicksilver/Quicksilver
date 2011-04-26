@@ -480,14 +480,15 @@
         [self clearObjectView:dSelector];
         [dSelector performSelectorOnMainThread:@selector(selectObjectValue:) withObject:returnValue waitUntilDone:YES];
 		if (action) {
-                if ([action isKindOfClass:[QSRankedObject class]] && [(QSRankedObject *)action object]) {
-                    QSAction* rankedAction = [(QSRankedObject *)action object];
-					if (rankedAction != action) {
-						[rankedAction retain];
-						[action release];
-						action = rankedAction;
-					}
+            if ([action isKindOfClass:[QSRankedObject class]] && [(QSRankedObject *)action object]) {
+                QSAction* rankedAction = [(QSRankedObject *)action object];
+                if (rankedAction != action) {
+                    [rankedAction retain];
+                    [action release];
+                    action = rankedAction;
+                }
             }
+            // bring the interface back to show the result
             if ([action displaysResult]) {
                 [self showMainWindow:self];
             }
