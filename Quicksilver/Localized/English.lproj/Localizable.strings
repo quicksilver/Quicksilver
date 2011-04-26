@@ -1,3 +1,7 @@
+/*
+I don't think these are used anywhere.
+But it looks like they are supposed to be used for the preferences menu items.
+*/
 "QSPlugInsPrefPane" = "Plug-ins";
 "QSUpdatePrefPane" = "Update";
 "QSHelpersPrefPane" = "Helpers";

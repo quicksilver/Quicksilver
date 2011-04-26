@@ -964,6 +964,7 @@ cyBvZiBzbWFsbCBhY3RzLgogCg</string>
 					<string>-3.IBPluginDependency</string>
 					<string>-3.ImportedFromIB2</string>
 					<string>10.IBPluginDependency</string>
+					<string>10.IBPropertyAccessControl</string>
 					<string>10.ImportedFromIB2</string>
 					<string>11.IBPluginDependency</string>
 					<string>11.ImportedFromIB2</string>
@@ -980,6 +981,7 @@ cyBvZiBzbWFsbCBhY3RzLgogCg</string>
 					<string>15.IBPluginDependency</string>
 					<string>15.ImportedFromIB2</string>
 					<string>16.IBPluginDependency</string>
+					<string>16.IBPropertyAccessControl</string>
 					<string>16.ImportedFromIB2</string>
 					<string>17.IBPluginDependency</string>
 					<string>17.ImportedFromIB2</string>
@@ -1024,8 +1026,10 @@ cyBvZiBzbWFsbCBhY3RzLgogCg</string>
 					<string>7.IBPluginDependency</string>
 					<string>7.ImportedFromIB2</string>
 					<string>8.IBPluginDependency</string>
+					<string>8.IBPropertyAccessControl</string>
 					<string>8.ImportedFromIB2</string>
 					<string>9.IBPluginDependency</string>
+					<string>9.IBPropertyAccessControl</string>
 					<string>9.ImportedFromIB2</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
@@ -1033,6 +1037,7 @@ cyBvZiBzbWFsbCBhY3RzLgogCg</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<integer value="2"/>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
@@ -1049,6 +1054,7 @@ cyBvZiBzbWFsbCBhY3RzLgogCg</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<integer value="2"/>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
@@ -1093,8 +1099,10 @@ cyBvZiBzbWFsbCBhY3RzLgogCg</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<integer value="2"/>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<integer value="2"/>
 					<boolean value="YES"/>
 				</object>
 			</object>
