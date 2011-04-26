@@ -6,6 +6,8 @@
 	<string>Destinataires Mail précédents</string>
 	<key>QSAddressBookObjectSource</key>
 	<string>Carnet d'adresses</string>
+	<key>QSAirPortNetworkObjectSource</key>
+	<string>AirPort Networks</string>
 	<key>QSAllApplicationsObjectSource</key>
 	<string>Toutes les applications</string>
 	<key>QSCatalogEntrySource</key>

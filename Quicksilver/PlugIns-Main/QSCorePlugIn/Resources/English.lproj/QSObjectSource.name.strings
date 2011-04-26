@@ -3,34 +3,34 @@
 <plist version="1.0">
 <dict>
 	<key>QSABMailRecentsObjectSource</key>
-	<string>Mail Empfängerliste</string>
+	<string>Mail Previous Recipients</string>
 	<key>QSAddressBookObjectSource</key>
-	<string>Adressbuch</string>
+	<string>Address Book</string>
 	<key>QSAirPortNetworkObjectSource</key>
 	<string>AirPort Networks</string>
 	<key>QSAllApplicationsObjectSource</key>
-	<string>Alle Programme</string>
+	<string>All Applications</string>
 	<key>QSCatalogEntrySource</key>
-	<string>Katalogeinträge</string>
+	<string>Catalog Entries</string>
 	<key>QSDefaultsObjectSource</key>
-	<string>Voreinstellungsausleser (Defaults Reader) ???</string>
+	<string>Defaults Reader</string>
 	<key>QSFileSystemObjectSource</key>
-	<string>Datei- &amp; Ordner-Durchsucher</string>
+	<string>File &amp; Folder Scanner</string>
 	<key>QSGroupObjectSource</key>
-	<string>Gruppe</string>
+	<string>Group</string>
 	<key>QSMachineSource</key>
-	<string>Quicksilver Computer (Machines)???</string>
+	<string>Quicksilver Machines</string>
 	<key>QSNUDCSource</key>
-	<string>Jetzt Aktuell Und Kontakt (Now Up-To and Contact) ???</string>
+	<string>Now Up-To-Date and Contact</string>
 	<key>QSNetworkLocationObjectSource</key>
-	<string>Netzwerk</string>
+	<string>Network Locations</string>
 	<key>QSProcessObjectSource</key>
-	<string>Laufende Prozesse</string>
+	<string>Running Processes</string>
 	<key>QSVolumesObjectSource</key>
-	<string>Aktive Volumes</string>
+	<string>Mounted Volumes</string>
 	<key>QSiPhotoObjectSource</key>
-	<string>iPhoto Fotoarchiv</string>
+	<string>iPhoto Library</string>
 	<key>QSiTunesObjectSource</key>
-	<string>iTunes Bibliothek</string>
+	<string>iTunes Music Library</string>
 </dict>
 </plist>
