@@ -338,8 +338,11 @@
 }
 
 - (void)showArray:(NSArray *)array {
+    // display the results list with these items
     [self searchArray:array];
-	[dSelector showResultView:self];
+    // put the first item from the array into the first pane
+    [dSelector selectObjectValue:[array objectAtIndex:0]];
+    [dSelector showResultView:self];
 }
 
 #pragma mark -
