@@ -8,10 +8,6 @@
  */
 
 #include <Carbon/Carbon.h>
-#undef NSLocalizedStringFromTableInBundle
-#define NSLocalizedStringFromTableInBundle(key, tbl, bundle, comment) \
-[bundle distributedLocalizedStringForKey:(key) value:@"" table:(tbl)]
-
 
 BOOL QSGetLocalizationStatus();
 
