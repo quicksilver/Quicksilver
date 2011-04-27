@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define missingString @"<missingString>"
+
 @interface NSBundle (BLTRExtensions)
 - (id)imageNamed:(NSString *)name;
 
