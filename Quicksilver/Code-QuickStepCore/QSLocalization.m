@@ -58,8 +58,8 @@ NSMutableDictionary *localizationBundles;
 		locString = [dictionary objectForKey:key];
 	}
 
-	if (!locString) locString = value;
-	if (!locString) locString = key;
+	if (!locString || [locString isEqualToString:@""]) locString = value;
+	if (!locString || [locString isEqualToString:@""]) locString = key;
 	return locString;
 }
 
