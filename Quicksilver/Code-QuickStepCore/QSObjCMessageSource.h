@@ -25,5 +25,5 @@
 @interface QSObject (ObjCMessaging)
 
 + (QSObject *)messageObjectWithInfo:(NSDictionary *)dictionary identifier:(NSString *)identifier;
-+ (QSObject *)messageObjectWithTargetClass:(NSString *)class selectorString:(NSString *)selector;
++ (QSObject *)messageObjectWithTargetClass:(NSString *)aClass selectorString:(NSString *)selector;
 @end

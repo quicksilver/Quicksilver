@@ -32,6 +32,13 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
         className = @"QSDefaultStringRanker";
     
     QSCurrentStringRanker = NSClassFromString(className);
+	if (!QSCurrentStringRanker) {
+		// ok, maybe the bundle wasn't loaded right away, let's try to load it now
+		NSBundle *rankerBundle = [QSReg bundleForClassName:className];
+		if (rankerBundle && [rankerBundle load]) {
+			QSCurrentStringRanker = NSClassFromString(className);
+		}
+	}
     
     if (QSCurrentStringRanker)
         scoreForAbbrevIMP = (QSScoreForAbbrevIMP) [QSCurrentStringRanker instanceMethodForSelector:@selector(scoreForAbbreviation:)];

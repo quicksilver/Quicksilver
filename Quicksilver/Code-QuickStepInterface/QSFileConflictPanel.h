@@ -5,7 +5,9 @@
 enum QSFileConflictResolutionMethod {
 	QSCancelReplaceResolution, QSReplaceFilesResolution, QSDontReplaceFilesResolution, QSSmartReplaceFilesResolution
 };
+#if !defined(__cplusplus)
 typedef int QSFileConflictResolutionMethod;
+#endif
 
 @interface QSFileConflictPanel : NSPanel {
 	IBOutlet NSTableView *nameTable;
