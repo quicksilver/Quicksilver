@@ -338,6 +338,7 @@
 
 - (void)showArray:(NSArray *)array withDirectObject:(QSObject *)dObject {
     [actionsUpdateTimer invalidate];
+    [self clearObjectView:dSelector];
     NSMutableArray *mutArray = [[array mutableCopy] autorelease];
     [dSelector setSourceArray:mutArray];
     [dSelector setResultArray:mutArray];
@@ -345,9 +346,6 @@
     if (dObject) {
         // show an item from this array if set
         [dSelector selectObjectValue:[array objectAtIndex:0]];
-    } else {
-        // clear the first pane
-        [self clearObjectView:dSelector];
     }
     [self updateViewLocations];
     [self updateActionsNow];
