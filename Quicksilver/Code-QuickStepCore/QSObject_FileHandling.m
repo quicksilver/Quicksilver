@@ -58,21 +58,46 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	}
 	
 	// for 10.6
+	NSURL *url;
+	NSError *err;
+	// If QuickTime Player, use specific format
+	if ([bundleIdentifier isEqualToString:@"com.apple.QuickTimePlayerX"]) {
+		recentDocuments = [(NSArray *)CFPreferencesCopyValue((CFStringRef) @"MGRecentURLPropertyLists", 
+															 (CFStringRef) bundleIdentifier, 
+															 kCFPreferencesCurrentUser, 
+															 kCFPreferencesAnyHost) autorelease];
+		
+		for(NSData *bookmarkData in recentDocuments) {
+			err = nil;
+			url = [NSURL URLByResolvingBookmarkData:bookmarkData 
+											options:NSURLBookmarkResolutionWithoutMounting|NSURLBookmarkResolutionWithoutUI 
+									  relativeToURL:nil 
+								bookmarkDataIsStale:NO 
+											  error:&err];
+			if (url == nil || err != nil) {
+				// couldn't resolve bookmark, so skip
+				continue;
+			}
+			[documentsArray addObject:[url path]];
+		}
+		return documentsArray;
+	}
+
+	// Use LSSharedFileList.plist files for other apps
 	NSDictionary *recentDocuments106 = [(NSArray *)CFPreferencesCopyValue((CFStringRef) @"RecentDocuments", 
 																		  (CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"], 
 																		  kCFPreferencesCurrentUser, 
 																		  kCFPreferencesAnyHost) autorelease];
-	NSArray *rd = [recentDocuments106 objectForKey:@"CustomListItems"];
+	recentDocuments = [recentDocuments106 objectForKey:@"CustomListItems"];
 	NSData *bookmarkData;
-	NSError *err;
-	for(NSDictionary *documentStorage in rd) {
+	for(NSDictionary *documentStorage in recentDocuments) {
 		bookmarkData = [documentStorage objectForKey:@"Bookmark"];
 		err = nil;
-		NSURL *url = [NSURL URLByResolvingBookmarkData:bookmarkData 
-											   options:NSURLBookmarkResolutionWithoutMounting|NSURLBookmarkResolutionWithoutUI 
-										 relativeToURL:nil 
-								   bookmarkDataIsStale:NO 
-												 error:&err];
+		url = [NSURL URLByResolvingBookmarkData:bookmarkData 
+										options:NSURLBookmarkResolutionWithoutMounting|NSURLBookmarkResolutionWithoutUI 
+								  relativeToURL:nil 
+							bookmarkDataIsStale:NO 
+										  error:&err];
 		if (url == nil || err != nil) {
 			// couldn't resolve bookmark, so skip
 			continue;
