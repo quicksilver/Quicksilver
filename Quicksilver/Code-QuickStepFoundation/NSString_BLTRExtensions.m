@@ -146,18 +146,52 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 @implementation NSString (URLEncoding)
 
 - (NSString *)URLEncoding {
-// escape embedded %-signs that don't appear to actually be escape sequences, and pre-decode the result to avoid double-encoding
-	return [(NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) self, NULL, NULL, kCFStringEncodingUTF8) autorelease];
+	
+	NSString *string = self;
+	
+	// For when we have to deal with % characters
+	if([string rangeOfString:@"%"].location != NSNotFound) {
+		// Decode the string first
+		string = [string URLDecoding];
+	}
+	
+	// escape embedded %-signs that don't appear to actually be escape sequences, and pre-decode the result to avoid double-encoding
+ 	return [(NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) string, CFSTR("#"), NULL, kCFStringEncodingUTF8) autorelease];
 }
 
 - (NSString *)URLEncodingWithEncoding:(CFStringEncoding) encoding {
-// escape embedded %-signs that don't appear to actually be escape sequences, and pre-decode the result to avoid double-encoding
-	return [(NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) self, NULL, NULL, encoding) autorelease];
+	
+	NSString *string = self;
+	
+	if([self rangeOfString:@"%"].location != NSNotFound) {
+		string = [self URLDecoding];
+	}
+	
+	// escape embedded %-signs that don't appear to actually be escape sequences, and pre-decode the result to avoid double-encoding
+	return [(NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) string, CFSTR("#"), NULL, encoding) autorelease];
 }
 
 - (NSString *)URLDecoding {
-// escape embedded %-signs that don't appear to actually be escape sequences NSString * preppedString = escapePercentsInString(self);
-	return [(NSString *)CFURLCreateStringByReplacingPercentEscapes(kCFAllocatorDefault, (CFStringRef) self, (CFStringRef) @"") autorelease];
+	// Cocoa's stringByReplacingPercentEscapes... and CF's CFURLCreateStringByEscapingPercentEscapes... both return nil if there's a % in the string that doesn't
+	// need escaping e.g. '100% free = 100% a load of crap'
+	NSString *string = self;
+	NSString *replacedString = [self stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	// Try Cocoa's way of replacing % escapes
+	if (replacedString !=nil) {
+		// Return the replaced string if Cocoa's method works
+		return replacedString;
+	}
+	else {
+		// If it fails, do a manual replace
+		string = [string stringByReplacingOccurrencesOfString:@"%20" withString:@" "];
+		string = [string stringByReplacingOccurrencesOfString:@"%22" withString:@"'"];
+		string = [string stringByReplacingOccurrencesOfString:@"%3C" withString:@"<"];
+		string = [string stringByReplacingOccurrencesOfString:@"%3E" withString:@">"];
+		string = [string stringByReplacingOccurrencesOfString:@"%25" withString:@"%"];
+		string = [string stringByReplacingOccurrencesOfString:@"%7C" withString:@"|"];
+		string = [string stringByReplacingOccurrencesOfString:@"%5C" withString:@"\\"];
+		return string;
+	}
 }
 @end
 
@@ -251,8 +285,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	NSMutableString *result = [NSMutableString stringWithCapacity:[self length]];
 	[result setString:self];
 	[result replaceOccurrencesOfString:search withString:replacement options:NSLiteralSearch range:NSMakeRange(0, [self length])];
-	return result;
-}
+	return result;}
 
 @end
 
