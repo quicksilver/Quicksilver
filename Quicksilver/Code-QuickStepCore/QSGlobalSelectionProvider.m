@@ -104,12 +104,8 @@
 NSTimeInterval failDate = 0;
 
 + (id)currentSelection {
-	NSDictionary *appDictionary = [[NSWorkspace sharedWorkspace] activeApplication];
-   NSString *identifier = [appDictionary objectForKey:@"NSApplicationBundleIdentifier"];
-	if ([identifier isEqualToString:@"com.blacktree.Quicksilver"]) {
- 	  appDictionary = [[QSProcessMonitor sharedInstance] previousApplication];
- 	  identifier = [appDictionary objectForKey:@"NSApplicationBundleIdentifier"];
- 	}
+  NSString *identifier = [[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationBundleIdentifier"];
+  if ([identifier isEqualToString:@"com.blacktree.Quicksilver"]) return nil;
 	NSDictionary *info = [[QSReg tableNamed:@"QSProxies"] objectForKey:identifier];
 	if (info) {
 		id provider = [QSReg getClassInstance:[info objectForKey:kQSProxyProviderClass]];
@@ -117,7 +113,6 @@ NSTimeInterval failDate = 0;
 		//	NSLog(@"Using provider %@ for %@", provider, identifier);
 		return [provider resolveProxyObject:nil];
 	} else {
-		
 		QSTemporaryServiceProvider *sp = [[[QSTemporaryServiceProvider alloc] init] autorelease];
 		NSPasteboard *pb = nil;
 		

@@ -35,6 +35,8 @@ typedef enum {
 	BOOL initiatesDrags;
 	BOOL shouldSpring;
 	NSImage *draggedImage;
+	
+  QSObject *previousObjectValue;
 }
 - (QSObject *)draggedObject;
 - (void)setDraggedObject:(QSObject *)newDraggedObject;
