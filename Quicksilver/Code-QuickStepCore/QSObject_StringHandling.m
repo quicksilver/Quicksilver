@@ -120,32 +120,26 @@
 	// Create a URL with the string make sure to encode any |%<> chars
 	NSURL *url = [NSURL URLWithString:[urlString URLEncoding]];
 
-	if ([url scheme] && [url host] && [urlString rangeOfString:@":"].location != 1) {
+	if ([url scheme] && [urlString rangeOfString:@":"].location != 1) {
 		[self setObject:urlString forType:QSURLType];
 		[self setPrimaryType:QSURLType];
 		return;
 	}
 	
-	// If there's a . in the string (most likely a URL...)
+	// Text with a '.' (most likely a URL or email address)
 	if ([stringValue rangeOfString:@"."] .location != NSNotFound) {
-		if ([stringValue hasPrefix:@"mailto"]) {
-			[self setObject:[NSArray arrayWithObject:stringValue] forType:QSEmailAddressType];
-			[self setObject:[@"mailto:" stringByAppendingString:stringValue] forType:QSURLType];
-			[self setPrimaryType:QSURLType];
-		}
-		// @ sign but NO forward slash / means it's an email address
+		// @ sign but NO /, -> email address
 		if (([stringValue rangeOfString:@"@"] .location != NSNotFound && [stringValue rangeOfString:@"/"] .location == NSNotFound)) {
 			[self setObject:[NSArray arrayWithObject:stringValue] forType:QSEmailAddressType];
 			[self setObject:[@"mailto:" stringByAppendingString:stringValue] forType:QSURLType];
 			[self setPrimaryType:QSURLType];
 			return;
 		} else {
-			// @ sign AND it has a forward slash - a URL?
+			// @ sign AND /, -> a URL?
 			NSString *host = [[stringValue componentsSeparatedByString:@"/"] objectAtIndex:0];
 			NSArray *components = [host componentsSeparatedByString:@"."];
-			// if the 'host' string has a length, no space, there are components, and last object doesn't have prefix htm
+			// URL testing (4 components, no spaces, TLD check
 			if ([host length] && [host rangeOfString:@" "] .location == NSNotFound && [components count] && ![[components lastObject] hasPrefix:@"htm"]) {
-				// if there are 4 components, last component has a length > 1, no numbers in the last component
 				if ([components count] == 4 || ([(NSString *)[components lastObject] length] >1 && [[components lastObject] rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]].location == NSNotFound)) {
 					if(tldArray == nil) {
 						tldArray = [[NSArray arrayWithObjects:@"AC",@"AD",@"AE",@"AERO",@"AF",@"AG",@"AI",@"AL",@"AM",@"AN",@"AO",@"AQ",@"AR",@"ARPA",@"AS",@"ASIA",@"AT",@"AU",@"AW",@"AX",@"AZ",@"BA",@"BB",@"BD",@"BE",@"BF",@"BG",@"BH",@"BI",@"BIZ",
