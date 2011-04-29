@@ -467,13 +467,15 @@
 - (QSObject *)copyFiles:(QSObject *)dObject toFolder:(QSObject *)iObject 
 {
 
-	if (dObject == iObject)
-		NSLog(@"help!");
-return [self moveFiles:dObject toFolder:iObject shouldCopy:YES];
+	if (dObject == iObject) {
+		NSLog(@"Can't copy file to same destination as original file!");
+	}
+	return [self moveFiles:dObject toFolder:iObject shouldCopy:YES];
 }
+
 - (QSObject *)moveFiles:(QSObject *)dObject toFolder:(QSObject *)iObject shouldCopy:(BOOL)copy {
 
-   NSLog(@"file: %@ directory: %@", dObject, iObject);
+   //NSLog(@"file: %@ directory: %@", dObject, iObject);
 
 	NSString *destination = [iObject singleFilePath];
 	NSArray *filePaths = [dObject validPaths];
