@@ -325,21 +325,32 @@
 }
 
 - (void)searchArray:(NSArray *)array {
-	[actionsUpdateTimer invalidate];
-	[self clearObjectView:dSelector];
-    NSMutableArray *mutArray = [[array mutableCopy] autorelease];
-	[dSelector setSourceArray:mutArray]; // !!!:nicholas:20040319
-	[dSelector setResultArray:mutArray]; // !!!:nicholas:20040319
-    [dSelector setSearchMode:SearchFilter];
-	[self updateViewLocations];
-	[self updateActionsNow];
-	[self showMainWindow:self];
-	[[self window] makeFirstResponder:dSelector];
+    // show the results list with the first pane empty
+    [self showArray:array withDirectObject:nil];
 }
 
 - (void)showArray:(NSArray *)array {
-    [self searchArray:array];
-	[dSelector showResultView:self];
+    // display the results list with these items
+    // put the first item from the array into the first pane
+    [self showArray:array withDirectObject:[array objectAtIndex:0]];
+    [dSelector showResultView:self];
+}
+
+- (void)showArray:(NSArray *)array withDirectObject:(QSObject *)dObject {
+    [actionsUpdateTimer invalidate];
+    [self clearObjectView:dSelector];
+    NSMutableArray *mutArray = [[array mutableCopy] autorelease];
+    [dSelector setSourceArray:mutArray];
+    [dSelector setResultArray:mutArray];
+    [dSelector setSearchMode:SearchFilter];
+    if (dObject) {
+        // show an item from this array if set
+        [dSelector selectObjectValue:dObject];
+    }
+    [self updateViewLocations];
+    [self updateActionsNow];
+    [self showMainWindow:self];
+    [[self window] makeFirstResponder:dSelector];
 }
 
 #pragma mark -
