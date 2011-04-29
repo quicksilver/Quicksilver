@@ -130,7 +130,7 @@
 	if ([stringValue rangeOfString:@"."] .location != NSNotFound) {
 		// @ sign but NO /, -> email address
 		if (([stringValue rangeOfString:@"@"] .location != NSNotFound && [stringValue rangeOfString:@"/"] .location == NSNotFound)) {
-			[self setObject:[NSArray arrayWithObject:stringValue] forType:QSEmailAddressType];
+			[self setObject:stringValue forType:QSEmailAddressType];
 			[self setObject:[@"mailto:" stringByAppendingString:stringValue] forType:QSURLType];
 			[self setPrimaryType:QSURLType];
 			return;
