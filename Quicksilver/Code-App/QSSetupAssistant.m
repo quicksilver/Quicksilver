@@ -271,6 +271,11 @@
 }
 
 - (IBAction)finish:(id)sender {
+	
+	// Create 'Actions' folder if it doesn't already exist
+	NSString *actionsFolder = [[NSString stringWithString:@"~/Library/Application Support/Quicksilver/Actions"] stringByExpandingTildeInPath];
+	[[NSFileManager defaultManager] createDirectoryAtPath:actionsFolder withIntermediateDirectories:YES attributes:nil error:nil];
+	
 	[[NSUserDefaults standardUserDefaults] setBool:YES forKey:kSetupAssistantCompleted];
 	[[self window] close];
 	[NSApp stopModal];
