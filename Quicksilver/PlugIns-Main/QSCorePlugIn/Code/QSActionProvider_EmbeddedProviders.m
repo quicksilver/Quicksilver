@@ -475,8 +475,6 @@
 
 - (QSObject *)moveFiles:(QSObject *)dObject toFolder:(QSObject *)iObject shouldCopy:(BOOL)copy {
 
-   //NSLog(@"file: %@ directory: %@", dObject, iObject);
-
 	NSString *destination = [iObject singleFilePath];
 	NSArray *filePaths = [dObject validPaths];
 	if (!filePaths)
