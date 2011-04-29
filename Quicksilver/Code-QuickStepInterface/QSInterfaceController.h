@@ -48,6 +48,7 @@
 
 - (void)searchArray:(NSArray *)array;
 - (void)showArray:(NSArray *)array;
+- (void)showArray:(NSArray *)array withDirectObject:(QSObject *)dObject;
 
 - (void)showMainWindow:(id)sender;
 - (void)hideMainWindow:(id)sender;
