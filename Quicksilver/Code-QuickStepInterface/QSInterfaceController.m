@@ -345,7 +345,7 @@
     [dSelector setSearchMode:SearchFilter];
     if (dObject) {
         // show an item from this array if set
-        [dSelector selectObjectValue:[array objectAtIndex:0]];
+        [dSelector selectObjectValue:dObject];
     }
     [self updateViewLocations];
     [self updateActionsNow];
