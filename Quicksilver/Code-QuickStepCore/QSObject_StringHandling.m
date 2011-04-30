@@ -128,7 +128,7 @@
 	
 	// Email address
 	if ([stringValue hasPrefix:@"mailto:"]) {
-		[self setObject:stringValue forType:QSEmailAddressType];
+		[self setObject:[[stringValue componentsSeparatedByString:@"mailto:"] objectAtIndex:1]  forType:QSEmailAddressType];
 		[self setObject:stringValue forType:QSURLType];
 		[self setPrimaryType:QSURLType];
 		return;
