@@ -120,11 +120,20 @@
 	// Create a URL with the string make sure to encode any |%<> chars
 	NSURL *url = [NSURL URLWithString:[urlString URLEncoding]];
 
-	if ([url scheme] && [urlString rangeOfString:@":"].location != 1) {
+	if ([url scheme] && [url host] && [urlString rangeOfString:@":"].location != 1) {
 		[self setObject:urlString forType:QSURLType];
 		[self setPrimaryType:QSURLType];
 		return;
 	}
+	
+	// Email address
+	if ([stringValue hasPrefix:@"mailto:"]) {
+		[self setObject:[[stringValue componentsSeparatedByString:@"mailto:"] objectAtIndex:1]  forType:QSEmailAddressType];
+		[self setObject:stringValue forType:QSURLType];
+		[self setPrimaryType:QSURLType];
+		return;
+	}	
+	
 	
 	// Text with a '.' (most likely a URL or email address)
 	if ([stringValue rangeOfString:@"."] .location != NSNotFound) {
