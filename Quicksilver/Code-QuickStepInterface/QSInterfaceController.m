@@ -331,8 +331,14 @@
 
 - (void)showArray:(NSArray *)array {
     // display the results list with these items
-    // put the first item from the array into the first pane
-    [self showArray:array withDirectObject:[array objectAtIndex:0]];
+    if (array && [array count] > 0) {
+        // put the first item from the array into the first pane
+        [self showArray:array withDirectObject:[array objectAtIndex:0]];
+    } else {
+        // nothing to display - present a blank interface
+        [self showArray:array withDirectObject:nil];
+    }
+
     [dSelector showResultView:self];
 }
 
