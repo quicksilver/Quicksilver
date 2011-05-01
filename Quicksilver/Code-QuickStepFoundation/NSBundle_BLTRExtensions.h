@@ -40,7 +40,7 @@
  
  You should not use this method. Use 
  NSString *NSLocalizedStringWithDefaultValue(NSString *key, NSString *tableName, NSBundle *bundle, NSString *value, NSString *comment)
- instead. That can be extracted automatically.
+ or it's relatives instead. That can be extracted automatically.
  
  This method tries to look up the best possible localized version of a string. It starts looking 
  in the most specific place and if it can't find the string there, it falls back to the next, less 
@@ -52,11 +52,9 @@
  (skip this step if tableName is nil or "Localizable")
  4. Check in the default language ("English"), in the Localizable.strings file.
  5. use defaultValue
- 6. use key
  
  @param key unique identifer for the string
  @param defaultValue will be used, if no localized and no english version of the string is found. 
- If it is nil, the key will be used as default value.
  @param tableName name of the .strings file to be used (without the .strings extrension). If this 
  is nil, or the key could not be found in this file, it falls back to Localizable.strings
  @returns the best possible localized version of key.

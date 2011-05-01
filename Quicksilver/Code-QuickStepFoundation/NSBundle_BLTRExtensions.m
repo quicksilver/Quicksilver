@@ -68,13 +68,7 @@
 	}
 	
 	// 5. use defaultValue
-	locString = defaultValue;
-	if (locString && ![locString isEqualToString:@""]) {
-		return locString;
-	}
-	
-	// 6. use key
-	return key;
+	return defaultValue;
 }
 
 NSMutableDictionary *scriptsDictionary = nil;
