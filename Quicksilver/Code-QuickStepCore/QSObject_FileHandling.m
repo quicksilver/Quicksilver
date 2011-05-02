@@ -20,6 +20,9 @@
 #import "NSAppleEventDescriptor+NDAppleScriptObject.h"
 #include "QSLocalization.h"
 
+#import "QSInterfaceController.h"
+#import "QSController.h"
+
 
 // Ankur, 21 Dec 07: 'useSmallIcons' not used anywhere. Commented out.
 // Ankur, 12 Feb 08: as above for 'applicationIcons'
@@ -271,7 +274,11 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
             Gestalt (gestaltSystemVersion, &version);
 
             if (!theImage && version >= 0x1050 && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
-                theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSMaxIconSize asIcon:YES];
+				// do preview icon loading in separate thread (using NSOperationQueue)
+				NSInvocationOperation *theOp = [[[NSInvocationOperation alloc] initWithTarget:self
+															  selector:@selector(previewIcon:)
+																object:object] autorelease];
+				[[[QSLibrarian sharedInstance] previewImageQueue] addOperation:theOp];
             }
 
 			if (!theImage && infoRec.flags & kLSItemInfoIsPackage) {
@@ -349,6 +356,15 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 	[object setIcon:theImage];
 	return YES;
+}
+
+-(void)previewIcon:(id)object {
+	NSArray *theFiles = [object arrayForType:QSFilePathType];
+	NSString *path = [theFiles lastObject];
+	NSImage *theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSMaxIconSize asIcon:YES];
+	[object setIcon:theImage];
+	QSInterfaceController *controller = [(QSController *)[NSApp delegate] interfaceController];
+	[[controller window] setViewsNeedDisplay:YES];
 }
 
 - (BOOL)objectHasChildren:(QSObject *)object {
