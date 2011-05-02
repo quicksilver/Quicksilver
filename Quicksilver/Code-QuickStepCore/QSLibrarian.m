@@ -58,6 +58,9 @@ static float searchSpeed = 0.0;
 		scanTask = [[QSTask alloc] initWithIdentifier:@"QSLibrarianScanTask"];
 		[scanTask setName:@"Updating Catalog"];
 		[scanTask setIcon:[NSImage imageNamed:@"Catalog.icns"]];
+		
+		previewImageQueue = [[NSOperationQueue alloc] init];
+		[previewImageQueue setMaxConcurrentOperationCount:1];
 		//Initialize Variables
 		appSearchArrays = nil;
 		typeArrays = [[NSMutableDictionary dictionaryWithCapacity:1] retain];
@@ -198,6 +201,7 @@ static float searchSpeed = 0.0;
 	[defaultSearchSet release];
 	[omittedIDs release];
 	[scanTask release];
+	[previewImageQueue release];
 	[activityController release];
 	[catalogArrays release];
 	[typeArrays release];
@@ -708,6 +712,10 @@ static float searchSpeed = 0.0;
 		[scanTask release];
 		scanTask = [value retain];
 	}
+}
+
+- (NSOperationQueue *)previewImageQueue {
+	return previewImageQueue;
 }
 
 @end
