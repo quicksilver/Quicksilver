@@ -548,7 +548,7 @@ if (kUseNSArchiveForIndexes)
 		[pool release];
 		return nil;
 	}
-	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:@"Checking:%@", name]];
+	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:@"Checking:%@", [self name]]];
 	BOOL valid = [self indexIsValid];
 	if (valid && !force) {
 		if (DEBUG_CATALOG) NSLog(@"\tIndex is valid for source: %@", name);
@@ -556,7 +556,7 @@ if (kUseNSArchiveForIndexes)
 	}
 	if (DEBUG_CATALOG)
 		NSLog(@"Scanning source: %@%@", [self name] , (force?@" (forced) ":@""));
-	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:@"Scanning:%@", name]];
+	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:@"Scanning:%@", [self name]]];
 	[self scanAndCache];
 	return nil;
 }
