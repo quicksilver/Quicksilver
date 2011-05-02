@@ -116,9 +116,9 @@
 
 	return [QSAction actionWithDictionary:mDict identifier:identifier];
 }
-+ (QSObject *)messageObjectWithTargetClass:(NSString *)class selectorString:(NSString *)selector {
++ (QSObject *)messageObjectWithTargetClass:(NSString *)aClass selectorString:(NSString *)selector {
 	NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-		class, kQSObjCMessageTargetClass,
+		aClass, kQSObjCMessageTargetClass,
 		selector, kQSObjCMessageAction,
 		nil];
 	return [self messageObjectWithInfo:dictionary identifier:nil];
