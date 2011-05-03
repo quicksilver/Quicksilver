@@ -958,7 +958,6 @@ UInt32 normalizeKeyCode(UInt32 theChar, unsigned short aKeyCode) {
 		case kClearCharCode:
 			// Set the char to the '/' key
 			theChar = (aKeyCode==0x47) ? NSInsertFunctionKey : theChar;
-			NSLog(@"theChar: %@",theChar);
 			break;
 		case kLeftArrowCharCode: theChar = NSLeftArrowFunctionKey; break;
 		case kRightArrowCharCode: theChar = NSRightArrowFunctionKey; break;

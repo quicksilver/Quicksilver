@@ -1072,10 +1072,10 @@ NSMutableDictionary *bindingsDict = nil;
 	
 	NSEvent *upEvent = [NSApp nextEventMatchingMask:NSKeyUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.25] inMode:NSDefaultRunLoopMode dequeue:YES];
 	
-	// Key up from the '/' character after 0.05s
+	// Is there a key up from the '/' character after 0.25s
 	if ([[upEvent charactersIgnoringModifiers] isEqualToString:@"/"]) {
 		[self moveRight:self];
-	// If '/' is still held down (i.e. no up event in 0.25s), go to the root
+	// If '/' is still held down (i.e. no key up in the 0.25s passed), go to root
 	} else if(!upEvent) {
 		[self setObjectValue:[QSObject fileObjectWithPath:@"/"]];
 		upEvent = [NSApp nextEventMatchingMask:NSKeyUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.25] inMode:NSDefaultRunLoopMode dequeue:YES];
@@ -1185,11 +1185,6 @@ NSMutableDictionary *bindingsDict = nil;
      }
 	 */
 //	NSLog(@"The Event is...: %@\ and currentEditor: %@ ",theEvent,[[[self control] dSelector] currentEditor]);
-	if([self objectValue] == nil)
-	{
-		NSLog(@"it's nil");
-		return;
-	}
 	
 	if ([theEvent clickCount] > 1) {
 		[(QSInterfaceController *)[[self window] windowController] executeCommand:self];
