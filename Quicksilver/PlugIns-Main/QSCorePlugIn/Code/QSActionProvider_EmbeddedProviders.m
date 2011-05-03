@@ -405,11 +405,18 @@
 				NSLog(@"Could not delete file");
 			}
 		}
-		// play trash sound
-		CFURLRef soundURL = (CFURLRef)[NSURL fileURLWithPath:@"/System/Library/Components/CoreAudio.component/Contents/Resources/SystemSounds/dock/drag to trash.aif"];
-		SystemSoundID soundId;
-		AudioServicesCreateSystemSoundID(soundURL, &soundId);
-		AudioServicesPlaySystemSound(soundId);
+		// get settings for playing sound
+		Boolean isSet;
+		int val = (int)CFPreferencesGetAppIntegerValue(CFSTR("com.apple.sound.uiaudio.enabled"),
+													   CFSTR("com.apple.systemsound"),
+													   &isSet);
+		if (val == 1 && isSet) {
+			// play trash sound
+			CFURLRef soundURL = (CFURLRef)[NSURL fileURLWithPath:@"/System/Library/Components/CoreAudio.component/Contents/Resources/SystemSounds/dock/drag to trash.aif"];
+			SystemSoundID soundId;
+			AudioServicesCreateSystemSoundID(soundURL, &soundId);
+			AudioServicesPlaySystemSound(soundId);
+		}
 
 		// return folder that contained the last file that was deleted
 		return [QSObject fileObjectWithPath:[lastDeletedFile stringByDeletingLastPathComponent]];;
@@ -429,11 +436,18 @@
 		lastDeletedFile = thisFile;
 	}
 	
-	// play trash sound
-	CFURLRef soundURL = (CFURLRef)[NSURL fileURLWithPath:@"/System/Library/Components/CoreAudio.component/Contents/Resources/SystemSounds/dock/drag to trash.aif"];
-	SystemSoundID soundId;
-	AudioServicesCreateSystemSoundID(soundURL, &soundId);
-	AudioServicesPlaySystemSound(soundId);
+	// get settings for playing sound
+	Boolean isSet;
+	int val = (int)CFPreferencesGetAppIntegerValue(CFSTR("com.apple.sound.uiaudio.enabled"),
+												   CFSTR("com.apple.systemsound"),
+												   &isSet);
+	if (val == 1 && isSet) {
+		// play trash sound
+		CFURLRef soundURL = (CFURLRef)[NSURL fileURLWithPath:@"/System/Library/Components/CoreAudio.component/Contents/Resources/SystemSounds/dock/drag to trash.aif"];
+		SystemSoundID soundId;
+		AudioServicesCreateSystemSoundID(soundURL, &soundId);
+		AudioServicesPlaySystemSound(soundId);
+	}
 
 	// return folder that contained the last file that was deleted
 	return [QSObject fileObjectWithPath:[lastDeletedFile stringByDeletingLastPathComponent]];;
