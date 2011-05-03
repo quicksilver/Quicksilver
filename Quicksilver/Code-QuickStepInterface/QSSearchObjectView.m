@@ -726,6 +726,7 @@ NSMutableDictionary *bindingsDict = nil;
 	//		[self setObjectValue:[QSObject fileObjectWithPath:NSHomeDirectory()]];
 }
 
+// Action that selects the root location in dObject/iObject views
 - (void)selectRoot:(id)sender {
 	if (allowNonActions)
 		[self setObjectValue:[QSObject fileObjectWithPath:@"/"]];
@@ -993,6 +994,7 @@ NSMutableDictionary *bindingsDict = nil;
 	return YES;
 }
 
+// This method deals with all keydowns. Some very interesting things could be done by manipulating this method
 - (void)keyDown:(NSEvent *)theEvent {
 	[NSThread setThreadPriority:1.0];
 	NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
@@ -1062,15 +1064,19 @@ NSMutableDictionary *bindingsDict = nil;
 	return YES;
 }
 
+// Deals with the forward slash ('/') being used to drill down and also direct to root
+// Called when the key is either pressed or depressed
 - (BOOL)handleSlashEvent:(NSEvent *)theEvent {
 	if ([theEvent isARepeat]) return YES;
-    
 	if (!allowNonActions) return YES;
+	
 	NSEvent *upEvent = [NSApp nextEventMatchingMask:NSKeyUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.25] inMode:NSDefaultRunLoopMode dequeue:YES];
-    
+	
+	// Key up from the '/' character after 0.05s
 	if ([[upEvent charactersIgnoringModifiers] isEqualToString:@"/"]) {
 		[self moveRight:self];
-	} else {
+	// If '/' is still held down (i.e. no up event in 0.25s), go to the root
+	} else if(!upEvent) {
 		[self setObjectValue:[QSObject fileObjectWithPath:@"/"]];
 		upEvent = [NSApp nextEventMatchingMask:NSKeyUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.25] inMode:NSDefaultRunLoopMode dequeue:YES];
 		if (fBETA && !upEvent)
@@ -1178,6 +1184,13 @@ NSMutableDictionary *bindingsDict = nil;
      editor = nil;
      }
 	 */
+//	NSLog(@"The Event is...: %@\ and currentEditor: %@ ",theEvent,[[[self control] dSelector] currentEditor]);
+	if([self objectValue] == nil)
+	{
+		NSLog(@"it's nil");
+		return;
+	}
+	
 	if ([theEvent clickCount] > 1) {
 		[(QSInterfaceController *)[[self window] windowController] executeCommand:self];
 	} else {

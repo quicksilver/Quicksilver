@@ -934,6 +934,7 @@ NSString * stringForKeyCodeAndModifierFlags( unsigned short aKeyCode, unichar aC
 }
 
 UInt32 normalizeKeyCode(UInt32 theChar, unsigned short aKeyCode) {
+
 	switch( theChar )
 	{
 		case kHomeCharCode: theChar = NSHomeFunctionKey; break;
@@ -953,8 +954,11 @@ UInt32 normalizeKeyCode(UInt32 theChar, unsigned short aKeyCode) {
 			//			case kDiamondCharCode : theChar = ; break;
 			//			case kAppleLogoCharCode: theChar = ; break;
 			//			case kEscapeCharCode: theChar = ; break;
+		// If the key pressed is the escape key	
 		case kClearCharCode:
+			// Set the char to the '/' key
 			theChar = (aKeyCode==0x47) ? NSInsertFunctionKey : theChar;
+			NSLog(@"theChar: %@",theChar);
 			break;
 		case kLeftArrowCharCode: theChar = NSLeftArrowFunctionKey; break;
 		case kRightArrowCharCode: theChar = NSRightArrowFunctionKey; break;
