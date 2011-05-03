@@ -266,11 +266,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			//OSStatus status=
 			LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
 
-            // !!! Andre Berg 20091015: inline QSApp -isLeopard ... calling this on NSApp appears flaky at best
-            SInt32 version;
-            Gestalt (gestaltSystemVersion, &version);
-
-            if (!theImage && version >= 0x1050 && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
+            if (!theImage && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
                 theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSMaxIconSize asIcon:YES];
             }
 
