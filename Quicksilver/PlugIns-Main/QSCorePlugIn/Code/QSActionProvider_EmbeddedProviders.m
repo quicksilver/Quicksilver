@@ -415,8 +415,8 @@
 		return [QSObject fileObjectWithPath:[lastDeletedFile stringByDeletingLastPathComponent]];;
 	}
 	
-	// permanent delete was canceled, so put files in first pane again
-	return dObject;
+	// permanent delete was canceled, so leave files in first pane again
+	return nil;
 }
 
 - (QSBasicObject *)trashFile:(QSObject *)dObject {
