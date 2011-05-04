@@ -257,6 +257,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	NSArray *theFiles = [object arrayForType:QSFilePathType];
 	if (!theFiles) return NO;
 	if ([theFiles count] == 1) {
+		// it's a single file
 		// do complicated preview icon loading in separate thread
 		NSInvocationOperation *theOp = [[[NSInvocationOperation alloc] initWithTarget:self
 																			 selector:@selector(previewIcon:)
@@ -266,48 +267,46 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		// use basic file type icon in the meantime
 		theImage = [[NSWorkspace sharedWorkspace] iconForFile:[theFiles lastObject]];
 	} else {
+		// it's a combined object, containing multiple files
 		NSMutableSet *set = [NSMutableSet set];
 		NSWorkspace *w = [NSWorkspace sharedWorkspace];
-        
-// 		NSEnumerator *e = [theFiles objectEnumerator];
-// 		NSString *theFile;
-// 		while (theFile = [e nextObject]) {
-// 			NSString *type = [manager typeOfFile:theFile];
-// 			[set addObject:type?type:@"'msng'"];
-// 		}
-        
-		//NSString *theFile;
 		NSFileManager *manager = [NSFileManager defaultManager];
 		for(NSString *theFile in theFiles) {
 			NSString *type = [manager typeOfFile:theFile];
 			[set addObject:type?type:@"'msng'"];
 		}
 
-		//NSLog(@"%@, set", set);
 		if ([set containsObject:@"'fold'"]) {
 			[set removeObject:@"'fold'"];
 			[set addObject:@"'fldr'"];
-
 		}
-		if ([set count] == 1)
+		
+		if ([set count] == 1) {
 			theImage = [w iconForFileType:[set anyObject]];
-		else
+		} else {
 			theImage = [w iconForFiles:theFiles];
+		}
 	}
 
 	if (theImage) {
 		[theImage createRepresentationOfSize:NSMakeSize(32, 32)];
 		[theImage createRepresentationOfSize:NSMakeSize(16, 16)];
 	}
-	if (QSMaxIconSize.width<128) {
-		// ***warning * use this better
-		//if (VERBOSE) NSLog(@"stripping maxsize for object %@", object);
-		[theImage removeRepresentation:[theImage representationOfSize:NSMakeSize(128, 128)]];
-	}
-	// NSLog(@"Reps for %@\r%@", [object name] , [theImage representations]);
-	//[theImage setScalesWhenResized:YES];
+	
+	// last fallback, other methods didn't work
 	if (!theImage) theImage = [QSResourceManager imageNamed:@"GenericQuestionMarkIcon"];
 
+	// remove all image representations that are larger then QSMaxIconSize
+	// not really sure if this is needed or even makes sense
+	// but it was in here before, but only removing exactly the 
+	// 128x128 representation, if QSMaxIconSize was smaller than 128x128
+	// and there was a warning-comment: "***warning * use this better"
+	for (NSImageRep *imgRep in [theImage representations]) {
+		if ([imgRep size].width > QSMaxIconSize.width) {
+			[theImage removeRepresentation:imgRep];
+		}
+	}
+	
 	[object setIcon:theImage];
 	return YES;
 }
