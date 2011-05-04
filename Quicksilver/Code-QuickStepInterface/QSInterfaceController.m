@@ -366,6 +366,11 @@
 		if (VERBOSE) NSLog(@"Reloading actions for: %@", [notif object]);
 		[self updateActions];
 	}
+	
+	// redraw icons
+	[dSelector updateObject:[notif object]];
+	[aSelector updateObject:[notif object]];
+	[iSelector updateObject:[notif object]];
 }
 
 - (void)searchObjectChanged:(NSNotification*)notif {

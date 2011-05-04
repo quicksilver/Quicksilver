@@ -196,6 +196,10 @@ NSMutableDictionary *kindDescriptions = nil;
 	[resultChildTable reloadData];
 }
 
+-(void)rowModified:(int)index {
+	[resultTable setNeedsDisplayInRect:[resultTable rectOfRow:index]];
+}
+
 /*- (void)setSplitLocation {
 	NSNumber *resultWidth = [[NSUserDefaults standardUserDefaults] objectForKey:kResultTableSplit];
     
@@ -450,7 +454,6 @@ NSMutableDictionary *kindDescriptions = nil;
                                                  forKey:kResultTableSplit];
     }
 }
-
 @end
 
 @implementation QSResultController (Table)

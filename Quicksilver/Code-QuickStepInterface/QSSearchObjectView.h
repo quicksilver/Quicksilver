@@ -168,6 +168,8 @@ typedef enum QSSearchMode {
 - (BOOL)handleSlashEvent:(NSEvent *)theEvent;
 - (BOOL)handleTildeEvent:(NSEvent *)theEvent;
 - (BOOL)handleRepeaterEvent:(NSEvent *)theEvent;
+
+- (void)updateObject:(QSObject *)object;
 @end
 
 
