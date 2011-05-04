@@ -376,7 +376,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 }
 
 - (void)drawSearchPlaceholderWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
-	NSString *defaultText = NSLocalizedStringFromTableInBundle(@"Type to search", nil, [NSBundle mainBundle], @"Type to search");
+	NSString *defaultText = NSLocalizedStringWithDefaultValue(@"Type to search", nil, [NSBundle mainBundle], @"Type to search", @"Hint that appears in the first pane of the QS interface when it's empty.");
 	NSSize textSize = [defaultText sizeWithAttributes:detailsAttributes];
 	NSRect textRect = centerRectInRect(rectFromSize(textSize), cellFrame);
 	  BOOL isFirstResponder = [[controlView window] firstResponder] == controlView && ![controlView isKindOfClass:[NSTableView class]];
