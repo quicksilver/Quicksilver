@@ -57,7 +57,7 @@ BOOL QSApplicationCompletedLaunch = NO;
 		Gestalt (gestaltSystemVersion, &version);
 		if (version < 0x1050) {
 			NSBundle *appBundle = [NSBundle mainBundle];
-			NSRunAlertPanel([[appBundle objectForInfoDictionaryKey:@"CFBundleName"] stringByAppendingString:@" requires Mac OS 10.5+"] , @"Recent versions of Quicksilver require Mac OS 10.5 Leopard. Older 10.4 and 10.3 compatible versions are available from the website.", @"OK", nil, nil, [appBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]);
+			NSRunAlertPanel([[appBundle objectForInfoDictionaryKey:@"CFBundleName"] stringByAppendingString:@" requires Mac OS X 10.5+"] , @"Recent versions of Quicksilver require Mac OS 10.5 Leopard. Older 10.4 and 10.3 compatible versions are available from the website.", @"OK", nil, nil, [appBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]);
 			[self terminate:self];
 		}
 
