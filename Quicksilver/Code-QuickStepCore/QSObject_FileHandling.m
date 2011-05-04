@@ -256,57 +256,15 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	NSImage *theImage = nil;
 	NSArray *theFiles = [object arrayForType:QSFilePathType];
 	if (!theFiles) return NO;
-	NSString *firstFile = [theFiles objectAtIndex:0];
-	NSFileManager *manager = [NSFileManager defaultManager];
 	if ([theFiles count] == 1) {
-		NSString *path = [theFiles lastObject];
-		if ([manager fileExistsAtPath:path]) {
-			LSItemInfoRecord infoRec;
-			//OSStatus status=
-			LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
-
-            // !!! Andre Berg 20091015: inline QSApp -isLeopard ... calling this on NSApp appears flaky at best
-            SInt32 version;
-            Gestalt (gestaltSystemVersion, &version);
-
-            if (!theImage && version >= 0x1050 && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
-				// do preview icon loading in separate thread (using NSOperationQueue)
-				NSInvocationOperation *theOp = [[[NSInvocationOperation alloc] initWithTarget:self
-															  selector:@selector(previewIcon:)
-																object:object] autorelease];
-				[[[QSLibrarian sharedInstance] previewImageQueue] addOperation:theOp];
-            }
-
-			if (!theImage && infoRec.flags & kLSItemInfoIsPackage) {
-				NSBundle *bundle = [NSBundle bundleWithPath:firstFile];
-				NSString *bundleImageName = nil;
-				if ([[firstFile pathExtension] isEqualToString:@"prefPane"]) {
-					bundleImageName = [[bundle infoDictionary] objectForKey:@"NSPrefPaneIconFile"];
-                    
-					if (!bundleImageName) bundleImageName = [[bundle infoDictionary] objectForKey:@"CFBundleIconFile"];
-					if (bundleImageName) {
-						NSString *bundleImagePath = [bundle pathForResource:bundleImageName ofType:nil];
-						theImage = [[[NSImage alloc] initWithContentsOfFile:bundleImagePath] autorelease];
-					}
-				}
-			}
-            
-			if (!theImage && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
-				NSString *type = [manager typeOfFile:path];
-				if ([[NSImage imageUnfilteredFileTypes] containsObject:type])
-					theImage = [[[NSImage alloc] initWithContentsOfFile:path] autorelease];
-				else {
-					id provider = [QSReg instanceForKey:type inTable:@"QSFSFileTypePreviewers"];
-					//NSLog(@"provider %@", [QSReg tableNamed:@"QSFSFileTypePreviewers"]);
-					theImage = [provider iconForFile:path ofType:type];
-				}
-			}
-			if (!theImage)
-				theImage = [[NSWorkspace sharedWorkspace] iconForFile:path];
-            
-			// ***warning * This caused a crash?
-		}
-
+		// do complicated preview icon loading in separate thread
+		NSInvocationOperation *theOp = [[[NSInvocationOperation alloc] initWithTarget:self
+																			 selector:@selector(previewIcon:)
+																			   object:object] autorelease];
+		[[[QSLibrarian sharedInstance] previewImageQueue] addOperation:theOp];
+		
+		// use basic file type icon in the meantime
+		theImage = [[NSWorkspace sharedWorkspace] iconForFile:[theFiles lastObject]];
 	} else {
 		NSMutableSet *set = [NSMutableSet set];
 		NSWorkspace *w = [NSWorkspace sharedWorkspace];
@@ -319,7 +277,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 // 		}
         
 		//NSString *theFile;
-		for(NSString * theFile in theFiles) {
+		NSFileManager *manager = [NSFileManager defaultManager];
+		for(NSString *theFile in theFiles) {
 			NSString *type = [manager typeOfFile:theFile];
 			[set addObject:type?type:@"'msng'"];
 		}
@@ -344,7 +303,6 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		// ***warning * use this better
 		//if (VERBOSE) NSLog(@"stripping maxsize for object %@", object);
 		[theImage removeRepresentation:[theImage representationOfSize:NSMakeSize(128, 128)]];
-
 	}
 	// NSLog(@"Reps for %@\r%@", [object name] , [theImage representations]);
 	//[theImage setScalesWhenResized:YES];
@@ -355,9 +313,71 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 -(void)previewIcon:(id)object {
+	NSImage *theImage = nil;
 	NSArray *theFiles = [object arrayForType:QSFilePathType];
 	NSString *path = [theFiles lastObject];
-	NSImage *theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSMaxIconSize asIcon:YES];
+	NSString *firstFile = [theFiles objectAtIndex:0];
+	NSFileManager *manager = [NSFileManager defaultManager];
+	if ([manager fileExistsAtPath:path]) {
+		LSItemInfoRecord infoRec;
+		//OSStatus status=
+		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
+		
+		// !!! Andre Berg 20091015: inline QSApp -isLeopard ... calling this on NSApp appears flaky at best
+		SInt32 version;
+		Gestalt (gestaltSystemVersion, &version);
+		
+		// try preview icon
+		if (!theImage && version >= 0x1050 && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
+			// do preview icon loading in separate thread (using NSOperationQueue)
+			theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSMaxIconSize asIcon:YES];
+		}
+		
+		// Just for prefpanes?
+		if (!theImage && infoRec.flags & kLSItemInfoIsPackage) {
+			NSBundle *bundle = [NSBundle bundleWithPath:firstFile];
+			NSString *bundleImageName = nil;
+			if ([[firstFile pathExtension] isEqualToString:@"prefPane"]) {
+				bundleImageName = [[bundle infoDictionary] objectForKey:@"NSPrefPaneIconFile"];
+				
+				if (!bundleImageName) bundleImageName = [[bundle infoDictionary] objectForKey:@"CFBundleIconFile"];
+				if (bundleImageName) {
+					NSString *bundleImagePath = [bundle pathForResource:bundleImageName ofType:nil];
+					theImage = [[[NSImage alloc] initWithContentsOfFile:bundleImagePath] autorelease];
+				}
+			}
+		}
+		
+		// try QS's own methods to generate a preview
+		if (!theImage && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
+			NSString *type = [manager typeOfFile:path];
+			if ([[NSImage imageUnfilteredFileTypes] containsObject:type])
+				theImage = [[[NSImage alloc] initWithContentsOfFile:path] autorelease];
+			else {
+				id provider = [QSReg instanceForKey:type inTable:@"QSFSFileTypePreviewers"];
+				//NSLog(@"provider %@", [QSReg tableNamed:@"QSFSFileTypePreviewers"]);
+				theImage = [provider iconForFile:path ofType:type];
+			}
+		}
+		
+		// fallback, if no of the other methods worked: just use icon for filetype
+		if (!theImage) {
+			theImage = [[NSWorkspace sharedWorkspace] iconForFile:path];
+		}
+	}
+	
+	if (theImage) {
+		[theImage createRepresentationOfSize:NSMakeSize(32, 32)];
+		[theImage createRepresentationOfSize:NSMakeSize(16, 16)];
+	}
+	if (QSMaxIconSize.width<128) {
+		// ***warning * use this better
+		//if (VERBOSE) NSLog(@"stripping maxsize for object %@", object);
+		[theImage removeRepresentation:[theImage representationOfSize:NSMakeSize(128, 128)]];
+		
+	}
+	if (!theImage) theImage = [QSResourceManager imageNamed:@"GenericQuestionMarkIcon"];
+	
 	[object setIcon:theImage];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"ObjectModified" object:object];
 }
