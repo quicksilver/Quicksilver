@@ -20,10 +20,6 @@
 #import "NSAppleEventDescriptor+NDAppleScriptObject.h"
 #include "QSLocalization.h"
 
-#import "QSInterfaceController.h"
-#import "QSController.h"
-
-
 // Ankur, 21 Dec 07: 'useSmallIcons' not used anywhere. Commented out.
 // Ankur, 12 Feb 08: as above for 'applicationIcons'
 
@@ -363,8 +359,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	NSString *path = [theFiles lastObject];
 	NSImage *theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSMaxIconSize asIcon:YES];
 	[object setIcon:theImage];
-	QSInterfaceController *controller = [(QSController *)[NSApp delegate] interfaceController];
-	[[controller window] setViewsNeedDisplay:YES];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"ObjectModified" object:object];
 }
 
 - (BOOL)objectHasChildren:(QSObject *)object {
