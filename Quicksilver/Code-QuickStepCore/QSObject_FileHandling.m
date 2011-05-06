@@ -695,6 +695,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	return self;
 }
 
+// Checks to see if the object in question is an application
 - (BOOL)isApplication {
 	NSString *path = [self singleFilePath];
 	LSItemInfoRecord infoRec;

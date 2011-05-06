@@ -55,6 +55,30 @@
 #import "QSInterfaceController.h"
 
 @implementation URLActions
+
+- (NSArray *)universalApps {
+	if (!universalApps) {
+		QSTaskController *qstc = [QSTaskController sharedInstance];
+		[qstc updateTask:@"Updating Application Database" status:@"Updating Applications" progress:-1];
+		universalApps = (NSArray *)LSCopyApplicationURLsForURL((CFURLRef)[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"wildcard" ofType:@"*"]], kLSRolesAll);
+		[qstc removeTask:@"Updating Application Database"];
+	}
+	[self performSelector:@selector(setUniversalApps:) withObject:nil afterDelay:10*MINUTES extend:YES];
+	return universalApps;
+}
+
+- (void)setUniversalApps:(NSArray *)anUniversalApps {
+	if (universalApps != anUniversalApps) {
+		[universalApps release];
+		universalApps = [anUniversalApps retain];
+	}
+}
+
+- (void)dealloc {
+	[universalApps release];
+	[super dealloc];
+}
+
 - (NSString *)defaultWebClient {
 	NSURL *appURL = nil;
 	OSStatus err = LSGetApplicationForURL((CFURLRef) [NSURL URLWithString: @"http:"], kLSRolesAll, NULL, (CFURLRef *)&appURL);
@@ -77,6 +101,38 @@
 	return newActions; */
 	return [NSArray arrayWithObjects:kURLOpenAction, kURLOpenWithAction, kURLOpenActionInBackground, nil];
 }
+
+// Method to only show apps in the 3rd pane for the 'Open with...' action
+- (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject{
+
+	NSMutableArray *validIndirects = [NSMutableArray arrayWithCapacity:1];
+
+	// only for 'Open URL with...' action
+	if ([action isEqualToString:@"URLOpenWithAction"]) {
+
+		NSMutableSet *set = [NSMutableSet set];
+		
+		// We want the apps that'll open any standard URL
+		// Can't use the dObject's URLs here since 'Current Web Page' hasn't resolved yet to contain an URL and breaks this
+		NSURL *url = [NSURL URLWithString:@"http://qsapp.com"];
+				
+		// Set the OS X default app for URLs (to be 1st in the returned list)
+		id preferred = [QSObject fileObjectWithPath:[self defaultWebClient]];
+		if (!preferred) {
+			preferred = [NSNull null];
+		}
+				
+		[set addObjectsFromArray:[(NSArray *)LSCopyApplicationURLsForURL((CFURLRef)url, kLSRolesAll) autorelease]];
+		[set addObjectsFromArray:[self universalApps]];
+		validIndirects = [[QSLibrarian sharedInstance] scoredArrayForString:nil inSet:[QSObject fileObjectsWithURLArray:[set allObjects]]];
+		
+		return [NSArray arrayWithObjects:preferred, validIndirects, nil];
+
+	}
+	
+	return nil;
+}
+
 
 - (QSObject *)doURLOpenAction:(QSObject *)dObject {
 	NSMutableArray *urlArray = [NSMutableArray array];
@@ -138,14 +194,16 @@
 }
 
 
-
 - (QSObject *)doURLOpenAction:(QSObject *)dObject with:(QSObject *)iObject {
-	NSURL *url = [[NSURL URLWithString:[[dObject objectForType:QSURLType] URLEncoding]] URLByInjectingPasswordFromKeychain];
-	NSString *ident = nil;
-	if ([iObject isApplication]){
-		ident = [[NSBundle bundleWithPath:[iObject singleFilePath]] bundleIdentifier];
-		if (ident)
-			[[NSWorkspace sharedWorkspace] openURLs:[NSArray arrayWithObject:url] withAppBundleIdentifier:ident options:0 additionalEventParamDescriptor:nil launchIdentifiers:nil];
+	// Enumerate through each URL in dObject and app in iObject
+	for (NSString *urlString in [dObject arrayForType:QSURLType]) {
+		for(QSObject *individual in [iObject objectForCache:kQSObjectComponents]) {
+			if([individual isApplication]) {		
+				NSURL *url = [[NSURL URLWithString:[urlString URLEncoding]] URLByInjectingPasswordFromKeychain];
+				NSString *ident = [[NSBundle bundleWithPath:[individual singleFilePath]] bundleIdentifier];
+				[[NSWorkspace sharedWorkspace] openURLs:[NSArray arrayWithObject:url] withAppBundleIdentifier:ident options:0 additionalEventParamDescriptor:nil launchIdentifiers:nil];
+			}
+		}
 	}
 	return nil;
 }
@@ -235,8 +293,9 @@
 	NSMutableArray *validIndirects = [NSMutableArray arrayWithCapacity:1];
 	if ([action isEqualToString:kFileOpenWithAction]) {
 		NSURL *fileURL = nil;
-		if ([dObject singleFilePath])
-			fileURL = [NSURL fileURLWithPath:[dObject singleFilePath]];
+		// comma trick - get a list of apps based on the 1st selected file
+		fileURL = [NSURL  fileURLWithPath:[[dObject validPaths] objectAtIndex:0]];
+
 		NSURL *appURL = nil;
 
 		if (fileURL) LSGetApplicationForURL((CFURLRef) fileURL, kLSRolesAll, NULL, (CFURLRef *)&appURL);
@@ -310,9 +369,7 @@
 	NSFileManager *manager = [NSFileManager defaultManager];
 	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
 	LSItemInfoRecord infoRec;
-	NSEnumerator *files = [[dObject validPaths] objectEnumerator];
-	NSString *thisFile;
-	for(thisFile in files) {
+	for(NSString *thisFile in [dObject validPaths]) {
 		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:thisFile] , kLSRequestBasicFlagsOnly, &infoRec);
 		if (!(infoRec.flags & kLSItemInfoIsContainer) || (infoRec.flags & kLSItemInfoIsPackage) || ![mQSFSBrowser openFile:thisFile]) {
 			if (infoRec.flags & kLSItemInfoIsAliasFile) {
@@ -347,15 +404,19 @@
 	return nil;
 }
 
+// FileOpenWithAction
 - (QSObject *)openFile:(QSObject *)dObject with:(QSObject *)iObject {
-	if ([iObject isApplication]) {
-		NSString *thisApp = [iObject singleFilePath];
-		NSEnumerator *files = [[dObject validPaths] objectEnumerator];
-		NSString *thisFile;
-		for(thisFile in files)
-			[[NSWorkspace sharedWorkspace] openFile:thisFile withApplication:thisApp];
-	} else {
-		NSBeep();
+	// Enumerate through list of files in dObject and apps in iObject
+	for(NSString *thisFile in [dObject validPaths]) {
+		for(QSObject *individual in [iObject objectForCache:kQSObjectComponents]) {
+			if([individual isApplication]) {
+				[[NSWorkspace sharedWorkspace] openFile:thisFile withApplication:[individual singleFilePath]];
+			}
+			else {
+				NSBeep();
+			}
+			
+		}
 	}
 	return nil;
 }
