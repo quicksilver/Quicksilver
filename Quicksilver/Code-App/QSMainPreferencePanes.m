@@ -106,13 +106,27 @@
 	NSMenuItem *item;
 	[interfacePopUp removeAllItems];
 	NSMutableDictionary *interfaces = [QSReg tableNamed:kQSCommandInterfaceControllers];
+	NSMutableDictionary *interfaceNames = [NSMutableDictionary dictionaryWithCapacity:[interfaces count]];
+	
+	// localize titles/names of interfaces
 	NSEnumerator *keyEnum = [interfaces keyEnumerator];
-	NSString *key, *title;
-	for(key in keyEnum) {
+	NSString *title;
+	for(NSString *key in keyEnum) {
 		title = [[QSReg bundleForClassName:[interfaces objectForKey:key]] safeLocalizedStringForKey:key value:key table:nil];
-		item = (NSMenuItem *)[[interfacePopUp menu] addItemWithTitle:title action:nil keyEquivalent:@""];
-		[item setRepresentedObject:key];
+		[interfaceNames setObject:key forKey:title];
 	}
+
+	// sort localized names
+	NSArray *titles = [interfaceNames allKeys];
+	titles = [titles sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+	
+	// add interfaces to popup menu
+	for(title in titles) {
+		item = (NSMenuItem *)[[interfacePopUp menu] addItemWithTitle:title action:nil keyEquivalent:@""];
+		[item setRepresentedObject:[interfaceNames objectForKey:title]];
+	}
+	
+	// select active interface
 	[self selectItemInPopUp:interfacePopUp representedObject:[QSReg preferredCommandInterfaceID]];
 }
 
