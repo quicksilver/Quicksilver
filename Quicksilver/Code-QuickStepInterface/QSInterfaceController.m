@@ -495,7 +495,7 @@
         /* (The main object would get replaced anyway. This is only done to
            remove objects selected by the comma trick before the action was run.) */
         [self clearObjectView:dSelector];
-        [dSelector performSelectorOnMainThread:@selector(selectObjectValue:) withObject:returnValue waitUntilDone:YES];
+        [dSelector performSelectorOnMainThread:@selector(setObjectValue:) withObject:returnValue waitUntilDone:YES];
 		if (action) {
             if ([action isKindOfClass:[QSRankedObject class]] && [(QSRankedObject *)action object]) {
                 QSAction* rankedAction = [(QSRankedObject *)action object];
