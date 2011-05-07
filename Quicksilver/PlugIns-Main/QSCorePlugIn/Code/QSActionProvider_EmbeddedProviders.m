@@ -56,29 +56,6 @@
 
 @implementation URLActions
 
-- (NSArray *)universalApps {
-	if (!universalApps) {
-		QSTaskController *qstc = [QSTaskController sharedInstance];
-		[qstc updateTask:@"Updating Application Database" status:@"Updating Applications" progress:-1];
-		universalApps = (NSArray *)LSCopyApplicationURLsForURL((CFURLRef)[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"wildcard" ofType:@"*"]], kLSRolesAll);
-		[qstc removeTask:@"Updating Application Database"];
-	}
-	[self performSelector:@selector(setUniversalApps:) withObject:nil afterDelay:10*MINUTES extend:YES];
-	return universalApps;
-}
-
-- (void)setUniversalApps:(NSArray *)anUniversalApps {
-	if (universalApps != anUniversalApps) {
-		[universalApps release];
-		universalApps = [anUniversalApps retain];
-	}
-}
-
-- (void)dealloc {
-	[universalApps release];
-	[super dealloc];
-}
-
 - (NSString *)defaultWebClient {
 	NSURL *appURL = nil;
 	OSStatus err = LSGetApplicationForURL((CFURLRef) [NSURL URLWithString: @"http:"], kLSRolesAll, NULL, (CFURLRef *)&appURL);
@@ -112,18 +89,26 @@
 
 		NSMutableSet *set = [NSMutableSet set];
 		
-		// We want the apps that'll open any standard URL
-		// Can't use the dObject's URLs here since 'Current Web Page' hasn't resolved yet to contain an URL and breaks this
-		NSURL *url = [NSURL URLWithString:@"http://qsapp.com"];
+		// Base the list of apps on the URL in dObject (1st object if multiple are selected)
+		NSURL *url = [NSURL URLWithString:[[dObject arrayForType:QSURLType] objectAtIndex:0]];
+		
+		// If for some reason no URLs given (current web page proxy)
+		if(!url) {
+			url = [NSURL URLWithString:@"http://"];
 				
-		// Set the OS X default app for URLs (to be 1st in the returned list)
-		id preferred = [QSObject fileObjectWithPath:[self defaultWebClient]];
+		}
+		
+		// Get the default app for the url
+		NSURL *appURL = nil;
+		LSGetApplicationForURL((CFURLRef)url, kLSRolesAll, NULL, (CFURLRef *)&appURL);
+		
+		// Set the default app to be 1st in the returned list
+		id preferred = [QSObject fileObjectWithPath:[appURL path]];
 		if (!preferred) {
 			preferred = [NSNull null];
 		}
 				
 		[set addObjectsFromArray:[(NSArray *)LSCopyApplicationURLsForURL((CFURLRef)url, kLSRolesAll) autorelease]];
-		[set addObjectsFromArray:[self universalApps]];
 		validIndirects = [[QSLibrarian sharedInstance] scoredArrayForString:nil inSet:[QSObject fileObjectsWithURLArray:[set allObjects]]];
 		
 		return [NSArray arrayWithObjects:preferred, validIndirects, nil];
@@ -139,7 +124,6 @@
 
 	for (NSString *urlString in [dObject arrayForType:QSURLType]) {
 		// Escape characters (but not # or %)
-		NSLog(@"urlString %@ \n urlstring replaced: %@ \n urlstring encoded %@",urlString,[urlString URLDecoding], [urlString URLEncoding]);
 		NSURL *url = [NSURL URLWithString:[urlString URLEncoding]];
 		// replace QUERY_KEY *** with nothing if we're just opening the URL
 		if ([urlString rangeOfString:QUERY_KEY].location != NSNotFound) {

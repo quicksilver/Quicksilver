@@ -36,11 +36,7 @@
 @interface FSDiskActions : QSActionProvider
 @end
 @interface URLActions : QSActionProvider {
-	NSArray *universalApps;
 }
-
-- (NSArray *)universalApps;
-- (void)setUniversalApps:(NSArray *)anUniversalApps;
 - (void)performJavaScript:(NSString *)jScript;
 @end
 
