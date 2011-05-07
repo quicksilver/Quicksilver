@@ -182,7 +182,7 @@
 - (QSObject *)doURLOpenAction:(QSObject *)dObject with:(QSObject *)iObject {
 	// Enumerate through each URL in dObject and app in iObject
 	for (NSString *urlString in [dObject arrayForType:QSURLType]) {
-		for(QSObject *individual in [iObject objectForCache:
+		for(QSObject *individual in [iObject objectForCache:kQSObjectComponents]) {
 			if([individual isApplication]) {		
 				NSURL *url = [[NSURL URLWithString:[urlString URLEncoding]] URLByInjectingPasswordFromKeychain];
 				NSString *ident = [[NSBundle bundleWithPath:[individual singleFilePath]] bundleIdentifier];
