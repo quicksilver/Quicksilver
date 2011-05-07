@@ -55,12 +55,14 @@ typedef enum {
 
 
 /**
- Categorie for checking system version
+ Category for checking system version
  
- This categorie of NSApplication provides class methods to check, which Mac OS X 
+ This category of NSApplication provides class methods to check which Mac OS X 
  version Quicksilver is running on.
  Uses Gesalt API. See http://www.cocoadev.com/index.pl?DeterminingOSVersion for 
  reasons this is the best choice for determining the system version.
+ For future methods similar to these ones, keep the limitations of gestaltSystemVersion 
+ in mind. Maybe use gestaltSystemVersionMajor/gestaltSystemVersionMinor instead.
  */
 @interface NSApplication (VersionCheck)
 
