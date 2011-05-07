@@ -82,11 +82,10 @@
 // Method to only show apps in the 3rd pane for the 'Open with...' action
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject{
 
-	NSMutableArray *validIndirects = [NSMutableArray arrayWithCapacity:1];
-
 	// only for 'Open URL with...' action
 	if ([action isEqualToString:@"URLOpenWithAction"]) {
 
+		NSMutableArray *validIndirects = [NSMutableArray arrayWithCapacity:1];
 		NSMutableSet *set = [NSMutableSet set];
 		
 		// Base the list of apps on the URL in dObject (1st object if multiple are selected)
@@ -95,7 +94,6 @@
 		// If for some reason no URLs given (current web page proxy)
 		if(!url) {
 			url = [NSURL URLWithString:@"http://"];
-				
 		}
 		
 		// Get the default app for the url
@@ -112,7 +110,6 @@
 		validIndirects = [[QSLibrarian sharedInstance] scoredArrayForString:nil inSet:[QSObject fileObjectsWithURLArray:[set allObjects]]];
 		
 		return [NSArray arrayWithObjects:preferred, validIndirects, nil];
-
 	}
 	
 	return nil;
@@ -132,10 +129,12 @@
 				url = [NSURL URLWithString:[[urlString substringWithRange:NSMakeRange(0, pathLoc)] URLEncoding]];
 		}
 		url = [url URLByInjectingPasswordFromKeychain];
-		if (url)
+		if (url) {
 			[urlArray addObject:url];
-		else
+		}
+		else {
 			NSLog(@"error with url: %@", urlString);
+		}
 	}
 	// TODO: Bring this back later
 //	if (fALPHA && ![QSAction modifiersAreIgnored] && mOptionKeyIsDown) {
@@ -160,10 +159,12 @@
 				url = [NSURL URLWithString:[[urlString substringWithRange:NSMakeRange(0, pathLoc)] URLEncoding]];
 		}
 		url = [url URLByInjectingPasswordFromKeychain];
-		if (url)
+		if (url) {
 			[urlArray addObject:url];
-		else
+		}
+		else {
 			NSLog(@"error with url: %@", urlString);
+		}
 	}
 	// TODO: Bring this back later
 	//	if (fALPHA && ![QSAction modifiersAreIgnored] && mOptionKeyIsDown) {
@@ -181,11 +182,15 @@
 - (QSObject *)doURLOpenAction:(QSObject *)dObject with:(QSObject *)iObject {
 	// Enumerate through each URL in dObject and app in iObject
 	for (NSString *urlString in [dObject arrayForType:QSURLType]) {
-		for(QSObject *individual in [iObject objectForCache:kQSObjectComponents]) {
+		for(QSObject *individual in [iObject objectForCache:
 			if([individual isApplication]) {		
 				NSURL *url = [[NSURL URLWithString:[urlString URLEncoding]] URLByInjectingPasswordFromKeychain];
 				NSString *ident = [[NSBundle bundleWithPath:[individual singleFilePath]] bundleIdentifier];
-				[[NSWorkspace sharedWorkspace] openURLs:[NSArray arrayWithObject:url] withAppBundleIdentifier:ident options:0 additionalEventParamDescriptor:nil launchIdentifiers:nil];
+				[[NSWorkspace sharedWorkspace] openURLs:[NSArray arrayWithObject:url]
+								withAppBundleIdentifier:ident
+												options:0
+						 additionalEventParamDescriptor:nil
+									  launchIdentifiers:nil];
 			}
 		}
 	}
