@@ -20,6 +20,8 @@
 #import "NSAppleEventDescriptor+NDAppleScriptObject.h"
 #include "QSLocalization.h"
 
+#import "NSApplication_BLTRExtensions.h"
+
 
 // Ankur, 21 Dec 07: 'useSmallIcons' not used anywhere. Commented out.
 // Ankur, 12 Feb 08: as above for 'applicationIcons'
@@ -62,7 +64,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	}
 
 	// for 10.6
-	if (floor(NSAppKitVersionNumber) >= 1038 ) { // 1038 is NSAppKitVersionNumber10_6
+	if ([NSApplication isSnowLeopard]) {
 		NSURL *url;
 		NSError *err;
 		// If QuickTime Player, use specific format
