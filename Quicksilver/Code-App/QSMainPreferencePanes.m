@@ -105,13 +105,12 @@
 - (void)updateInterfacePopUp {
 	NSMenuItem *item;
 	[interfacePopUp removeAllItems];
-	NSMutableDictionary *interfaces = [QSReg tableNamed:kQSCommandInterfaceControllers];
+	NSDictionary *interfaces = [QSReg tableNamed:kQSCommandInterfaceControllers];
 	NSMutableDictionary *interfaceNames = [NSMutableDictionary dictionaryWithCapacity:[interfaces count]];
 	
 	// localize titles/names of interfaces
-	NSEnumerator *keyEnum = [interfaces keyEnumerator];
 	NSString *title;
-	for(NSString *key in keyEnum) {
+	for(NSString *key in interfaces) {
 		title = [[QSReg bundleForClassName:[interfaces objectForKey:key]] safeLocalizedStringForKey:key value:key table:nil];
 		[interfaceNames setObject:key forKey:title];
 	}
