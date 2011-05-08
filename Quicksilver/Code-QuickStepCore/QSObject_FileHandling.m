@@ -264,13 +264,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	if (!theFiles) return NO;
 	if ([theFiles count] == 1) {
 		// it's a single file
-		// do complicated preview icon loading in separate thread
-		NSInvocationOperation *theOp = [[[NSInvocationOperation alloc] initWithTarget:self
-																			 selector:@selector(previewIcon:)
-																			   object:object] autorelease];
-		[[[QSLibrarian sharedInstance] previewImageQueue] addOperation:theOp];
-		
-		// use basic file type icon in the meantime
+		// use basic file type icon temporarily
 		theImage = [[NSWorkspace sharedWorkspace] iconForFile:[theFiles lastObject]];
 	} else {
 		// it's a combined object, containing multiple files
@@ -294,9 +288,20 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		}
 	}
 
+	// set temporary image until preview icon is generated
 	theImage = [self prepareImageforIcon:theImage];
-	
 	[object setIcon:theImage];
+	
+	// if it's a single file, try to create preview icon
+	// this has to be started after the temporary icon is set, so the preview icon
+	// wont be overwritten by the temporary icon
+	if ([theFiles count] == 1) {
+		// do complicated preview icon loading in separate thread
+		NSInvocationOperation *theOp = [[[NSInvocationOperation alloc] initWithTarget:self
+																			 selector:@selector(previewIcon:)
+																			   object:object] autorelease];
+		[[[QSLibrarian sharedInstance] previewImageQueue] addOperation:theOp];
+	}
 	return YES;
 }
 
