@@ -54,6 +54,8 @@
 
 #import "QSInterfaceController.h"
 
+#import <AudioToolbox/AudioServices.h>
+
 @implementation URLActions
 - (NSString *)defaultWebClient {
 	NSURL *appURL = nil;
@@ -394,26 +396,61 @@
 	[QSIC setHiding:NO];
 	if (choice == 1) {
 		NSEnumerator *files = [dObject enumeratorForType:QSFilePathType];
-		NSString *thisFile;
-		for(thisFile in files) {
-			if ([[NSFileManager defaultManager] removeItemAtPath:thisFile error:nil])
+		NSString *lastDeletedFile;
+		for(NSString *thisFile in files) {
+			if ([[NSFileManager defaultManager] removeItemAtPath:thisFile error:nil]) {
 				[[NSWorkspace sharedWorkspace] noteFileSystemChanged:[thisFile stringByDeletingLastPathComponent]];
-			else
+				lastDeletedFile = thisFile;
+			} else {
 				NSLog(@"Could not delete file");
+			}
 		}
+		// get settings for playing sound
+		Boolean isSet;
+		int val = (int)CFPreferencesGetAppIntegerValue(CFSTR("com.apple.sound.uiaudio.enabled"),
+													   CFSTR("com.apple.systemsound"),
+													   &isSet);
+		if (val == 1 || !isSet) {
+			// play trash sound
+			CFURLRef soundURL = (CFURLRef)[NSURL fileURLWithPath:@"/System/Library/Components/CoreAudio.component/Contents/Resources/SystemSounds/dock/drag to trash.aif"];
+			SystemSoundID soundId;
+			AudioServicesCreateSystemSoundID(soundURL, &soundId);
+			AudioServicesPlaySystemSound(soundId);
+		}
+
+		// return folder that contained the last file that was deleted
+		return [QSObject fileObjectWithPath:[lastDeletedFile stringByDeletingLastPathComponent]];;
 	}
-	return [QSObject nullObject];
+	
+	// permanent delete was canceled, so leave files in first pane again
+	return nil;
 }
 
 - (QSBasicObject *)trashFile:(QSObject *)dObject {
 	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
 	NSEnumerator *files = [[dObject arrayForType:QSFilePathType] objectEnumerator];
-	NSString *thisFile;
-	for(thisFile in files) {
+	NSString *lastDeletedFile;
+	for(NSString *thisFile in files) {
 		[ws performFileOperation:NSWorkspaceRecycleOperation source:[thisFile stringByDeletingLastPathComponent] destination:@"" files:[NSArray arrayWithObject:[thisFile lastPathComponent]] tag:nil];
 		[ws noteFileSystemChanged:[thisFile stringByDeletingLastPathComponent]];
+		lastDeletedFile = thisFile;
 	}
-	return [QSObject nullObject];
+	
+	// get settings for playing sound
+	Boolean isSet;
+	int val = (int)CFPreferencesGetAppIntegerValue(CFSTR("com.apple.sound.uiaudio.enabled"),
+												   CFSTR("com.apple.systemsound"),
+												   &isSet);
+	if (val == 1 || !isSet) {
+		// play trash sound
+		CFURLRef soundURL = (CFURLRef)[NSURL fileURLWithPath:@"/System/Library/Components/CoreAudio.component/Contents/Resources/SystemSounds/dock/drag to trash.aif"];
+		SystemSoundID soundId;
+		AudioServicesCreateSystemSoundID(soundURL, &soundId);
+		AudioServicesPlaySystemSound(soundId);
+	}
+
+	// return folder that contained the last file that was deleted
+	return [QSObject fileObjectWithPath:[lastDeletedFile stringByDeletingLastPathComponent]];;
 }
 
 - (QSObject *)openItemAtLogin:(QSObject *)dObject {
