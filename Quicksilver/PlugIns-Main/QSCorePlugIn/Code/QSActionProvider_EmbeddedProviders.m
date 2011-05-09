@@ -410,7 +410,7 @@
 		int val = (int)CFPreferencesGetAppIntegerValue(CFSTR("com.apple.sound.uiaudio.enabled"),
 													   CFSTR("com.apple.systemsound"),
 													   &isSet);
-		if (val == 1 && isSet) {
+		if (val == 1 || !isSet) {
 			// play trash sound
 			CFURLRef soundURL = (CFURLRef)[NSURL fileURLWithPath:@"/System/Library/Components/CoreAudio.component/Contents/Resources/SystemSounds/dock/drag to trash.aif"];
 			SystemSoundID soundId;
@@ -441,7 +441,7 @@
 	int val = (int)CFPreferencesGetAppIntegerValue(CFSTR("com.apple.sound.uiaudio.enabled"),
 												   CFSTR("com.apple.systemsound"),
 												   &isSet);
-	if (val == 1 && isSet) {
+	if (val == 1 || !isSet) {
 		// play trash sound
 		CFURLRef soundURL = (CFURLRef)[NSURL fileURLWithPath:@"/System/Library/Components/CoreAudio.component/Contents/Resources/SystemSounds/dock/drag to trash.aif"];
 		SystemSoundID soundId;
