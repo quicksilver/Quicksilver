@@ -507,8 +507,10 @@
                 }
             }
             if ([action displaysResult]) {
-                // set focus to the action
-                [[self window] makeFirstResponder:aSelector];
+                if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSJumpToActionOnResult"]) {
+                    // set focus to the action
+                    [[self window] makeFirstResponder:aSelector];
+                }
                 // bring the interface back to show the result
                 [self showMainWindow:self];
             }
