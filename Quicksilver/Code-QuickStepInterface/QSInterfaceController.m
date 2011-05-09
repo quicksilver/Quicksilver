@@ -508,6 +508,7 @@
             }
             // bring the interface back to show the result
             if ([action displaysResult]) {
+                // send focus to the second pane if the user has set the preference
                 if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSJumpToActionOnResult"]) {
                     [[self window] makeFirstResponder:aSelector];
                 }
