@@ -495,6 +495,7 @@
         /* (The main object would get replaced anyway. This is only done to
            remove objects selected by the comma trick before the action was run.) */
         [self clearObjectView:dSelector];
+        // put the result in the first pane and in the results list
         [dSelector performSelectorOnMainThread:@selector(setObjectValue:) withObject:returnValue waitUntilDone:YES];
 		if (action) {
             if ([action isKindOfClass:[QSRankedObject class]] && [(QSRankedObject *)action object]) {
@@ -505,8 +506,12 @@
                     action = rankedAction;
                 }
             }
-            // bring the interface back to show the result
             if ([action displaysResult]) {
+                if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSJumpToActionOnResult"]) {
+                    // set focus to the action
+                    [[self window] makeFirstResponder:aSelector];
+                }
+                // bring the interface back to show the result
                 [self showMainWindow:self];
             }
         }
@@ -566,8 +571,12 @@
 		[QSHist addCommand:[self currentCommand]];
 	[dSelector saveMnemonic];
  	[aSelector saveMnemonic];
-	if (argumentCount == 2) [iSelector saveMnemonic];
-	if (cont) [[self window] makeFirstResponder:aSelector];
+    if (argumentCount == 2) {
+        [iSelector saveMnemonic];
+    }
+    if (cont) {
+        [[self window] makeFirstResponder:aSelector];
+    }
 }
 
 - (void)encapsulateCommand {
