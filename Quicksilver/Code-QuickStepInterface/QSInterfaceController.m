@@ -508,6 +508,9 @@
             }
             // bring the interface back to show the result
             if ([action displaysResult]) {
+                if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSJumpToActionOnResult"]) {
+                    [[self window] makeFirstResponder:aSelector];
+                }
                 [self showMainWindow:self];
             }
         }
@@ -646,12 +649,12 @@
 }
 
 - (IBAction)executeCommand:(id)sender {
-    // run the command and set focus to the 1st pane by default,
-    // or the 2nd pane if the user has requested it
-    [self executeCommand:sender cont:[[NSUserDefaults standardUserDefaults] boolForKey:@"QSJumpToActionOnResult"] encapsulate:NO];
+    // run the action and set focus to the 1st pane
+    [self executeCommand:sender cont:NO encapsulate:NO];
 }
 
 - (IBAction)executeCommandAndContinue:(id)sender {
+    // run the action and set focus to the 2nd pane
 	[self executeCommand:sender cont:YES encapsulate:NO];
 }
 
