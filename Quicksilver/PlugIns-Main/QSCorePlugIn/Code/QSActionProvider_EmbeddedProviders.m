@@ -180,36 +180,23 @@
 
 
 - (QSObject *)doURLOpenAction:(QSObject *)dObject with:(QSObject *)iObject {
+	NSArray *splitObjects = [iObject splitObjects];
+	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
 	// Enumerate through list of files in dObject and apps in iObject
-	int objectCount = [iObject count];
-	// Make sure iObject has a count
-	if(objectCount) {
-		NSArray *arrayOfObjects;
-		NSWorkspace *ws = [NSWorkspace sharedWorkspace];
-		// Only one app in iObject
-		if (objectCount ==  1) {
-			arrayOfObjects = [NSArray arrayWithObject:iObject];
-		}
-		// More than one iObject
-		else {
-			arrayOfObjects = [NSArray arrayWithArray:[iObject objectForCache:kQSObjectComponents]];
-		}
-		for(QSObject *individual in arrayOfObjects) {
-			for (NSString *urlString in [dObject arrayForType:QSURLType]) {
-				if([individual isApplication]) {		
-					NSURL *url = [[NSURL URLWithString:[urlString URLEncoding]] URLByInjectingPasswordFromKeychain];
-					NSString *ident = [[NSBundle bundleWithPath:[individual singleFilePath]] bundleIdentifier];
-					[ws openURLs:[NSArray arrayWithObject:url] withAppBundleIdentifier:ident
-																			   options:0
-														additionalEventParamDescriptor:nil
-																	 launchIdentifiers:nil];
-				}
-				// iObject isn't an app
-				else {
-					NSBeep();
-				}
-				
+	for(QSObject *individual in splitObjects) {
+		for (NSString *urlString in [dObject arrayForType:QSURLType]) {
+			if([individual isApplication]) {		
+				NSURL *url = [[NSURL URLWithString:[urlString URLEncoding]] URLByInjectingPasswordFromKeychain];
+				NSString *ident = [[NSBundle bundleWithPath:[individual singleFilePath]] bundleIdentifier];
+				[ws openURLs:[NSArray arrayWithObject:url] withAppBundleIdentifier:ident
+																		   options:0
+													additionalEventParamDescriptor:nil
+																 launchIdentifiers:nil];
 			}
+			// iObject isn't an app
+			else {
+				NSBeep();
+			}			
 		}
 	}
 	return nil;
@@ -296,7 +283,12 @@
 
 // This method validates the 3rd pane for the core plugin actions
 // kFileSomethingActions are defined in the corresponding .h file
+#warning p_j_r 11/05/11, this method shouldn't be called if the action isn't a validActionsForDirectObject, see bug #310 on GitHub for more information
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
+	// Only return an array if the dObject is a file
+	if(![dObject validPaths]) {
+		return nil;
+	}
 	NSMutableArray *validIndirects = [NSMutableArray arrayWithCapacity:1];
 	if ([action isEqualToString:kFileOpenWithAction]) {
 		NSURL *fileURL = nil;
@@ -413,33 +405,20 @@
 
 // FileOpenWithAction
 - (QSObject *)openFile:(QSObject *)dObject with:(QSObject *)iObject {
+	NSArray *splitObjects = [iObject splitObjects];
+	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
 	// Enumerate through list of files in dObject and apps in iObject
-	int objectCount = [iObject count];
-	// Make sure iObject has a count
-	if(objectCount) {
-		NSArray *arrayOfObjects;
-		NSWorkspace *ws = [NSWorkspace sharedWorkspace];
-		// Only one app in iObject
-		if (objectCount ==  1) {
-			arrayOfObjects = [NSArray arrayWithObject:iObject];
-		}
-		// More than one iObject
-		else {
-			arrayOfObjects = [NSArray arrayWithArray:[iObject objectForCache:kQSObjectComponents]];
-		}
-		for(QSObject *individual in arrayOfObjects) {
-			for(NSString *thisFile in [dObject validPaths]) {
-				// If there's only a single value in iObject
-				if([individual isApplication]) {
-					[ws openFile:thisFile withApplication:[individual singleFilePath]];
-				}
-				else {
-					NSBeep();
-				}
-				
+	for(QSObject *individual in splitObjects) {
+		for(NSString *thisFile in [dObject validPaths]) {
+			// If there's only a single value in iObject
+			if([individual isApplication]) {
+				[ws openFile:thisFile withApplication:[individual singleFilePath]];
+			}
+			else {
+				NSBeep();
 			}
 		}
-	}
+	}	
 	return nil;
 }
 
