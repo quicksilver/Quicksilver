@@ -43,7 +43,9 @@
             mrdpath = downloadPath;
         }
     }    
-    QSObject *mrd = [QSObject objectWithString:mrdpath];
+    QSObject *mrd = [QSObject objectWithName:mrdpath];
+    [mrd setIdentifier:@"QSLatestDownloadProxy"];
+    [mrd setObject:mrdpath forType:QSFilePathType];
     return mrd;
 }
 @end
