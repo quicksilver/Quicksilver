@@ -4035,7 +4035,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "PlugIns-Main/QSHotKeyPlugin/Info.plist";
+				INFOPLIST_FILE = "PlugIns-Main/QSHotKeyPlugIn/Info.plist";
 				PRODUCT_NAME = "HotKey Triggers";
 			};
 			name = Debug;
@@ -4044,7 +4044,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */;
 			buildSettings = {
-				INFOPLIST_FILE = "PlugIns-Main/QSHotKeyPlugin/Info.plist";
+				INFOPLIST_FILE = "PlugIns-Main/QSHotKeyPlugIn/Info.plist";
 				PRODUCT_NAME = "HotKey Triggers";
 			};
 			name = Release;
