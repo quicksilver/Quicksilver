@@ -42,8 +42,7 @@
             mostRecent = modified;
             mrdpath = downloadPath;
         }
-    }    
-    QSObject *mrd = [QSObject objectWithString:mrdpath];
-    return mrd;
+    }
+    return [QSObject fileObjectWithPath:mrdpath];
 }
 @end
