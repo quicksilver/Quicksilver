@@ -42,10 +42,7 @@
             mostRecent = modified;
             mrdpath = downloadPath;
         }
-    }    
-    QSObject *mrd = [QSObject objectWithName:mrdpath];
-    [mrd setIdentifier:@"QSLatestDownloadProxy"];
-    [mrd setObject:mrdpath forType:QSFilePathType];
-    return mrd;
+    }
+    return [QSObject fileObjectWithPath:mrdpath];
 }
 @end
