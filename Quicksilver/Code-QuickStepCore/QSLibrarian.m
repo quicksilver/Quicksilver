@@ -454,6 +454,7 @@ static float searchSpeed = 0.0;
 	NSMutableArray *typeEntry;
 	for(i = 0; i<objectCount; i++) {
 		object = [array objectAtIndex:i];
+# warning - This needs fixing if array is 0, or just has a QSNullObject
 		keys = [[object dataDictionary] allKeys];
 		keyCount = [keys count];
 		for (j = 0; j<keyCount; j++) {

@@ -122,7 +122,6 @@ extern NSSize QSMaxIconSize;
 - (int) primaryCount;
 - (NSArray *)types;
 - (NSArray *)decodedTypes;
-- (int)primaryCount;
 - (id)handler;
 - (id)handlerForType:(NSString *)type selector:(SEL)selector;
 - (id)objectForType:(id)aKey;

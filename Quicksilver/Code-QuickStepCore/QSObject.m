@@ -217,19 +217,20 @@ NSSize QSMaxIconSize;
 }
 
 - (NSArray *)splitObjects {
+	
+	if ([self count] == 1) {
+		return [NSArray arrayWithObject:self];
+	}
+	
 	NSDictionary *dataDict = [self dataDictionary];
 
 	NSMutableArray *splitObjects = [NSMutableArray array];
-	
-	NSEnumerator *ke = [dataDict keyEnumerator];
-	NSString *key;
 	NSArray *value;
-	//NSEnumerator *te;
 
 	//int resultCount = 0;
 	int i;
 
-	for(key in ke) {
+	for(NSString *key in dataDict) {
 		value = [dataDict objectForKey:key];
 		if ([value isKindOfClass:[NSArray class]]) {
 			while([splitObjects count] <[value count])
