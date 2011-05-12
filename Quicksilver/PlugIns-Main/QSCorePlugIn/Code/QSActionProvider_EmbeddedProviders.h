@@ -35,8 +35,8 @@
 @end
 @interface FSDiskActions : QSActionProvider
 @end
-@interface URLActions : QSActionProvider
-
+@interface URLActions : QSActionProvider {
+}
 - (void)performJavaScript:(NSString *)jScript;
 @end
 

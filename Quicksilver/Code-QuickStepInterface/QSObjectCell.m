@@ -552,7 +552,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 	BOOL handlerDraw = NO;
 	if (NSWidth(drawingRect) >64)
 		handlerDraw = [drawObject drawIconInRect:(NSRect) drawingRect flipped:flipped];
-
+#warning - gave me a random exception (Patrick Robertson 07/05/11)
 	if (!handlerDraw) {
 		[icon setFlipped:flipped];
 
