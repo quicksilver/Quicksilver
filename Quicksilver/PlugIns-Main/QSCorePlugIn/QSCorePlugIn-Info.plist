@@ -2303,15 +2303,13 @@
 		<dict>
 			<key></key>
 			<string>QSHTMLLinkParser</string>
-			<key>com</key>
-			<string>QSHTMLLinkParser</string>
 			<key>htm</key>
 			<string>QSHTMLLinkParser</string>
 			<key>html</key>
 			<string>QSHTMLLinkParser</string>
-			<key>net</key>
+			<key>php</key>
 			<string>QSHTMLLinkParser</string>
-			<key>org</key>
+			<key>tld</key>
 			<string>QSHTMLLinkParser</string>
 			<key>txt</key>
 			<string>QSTextLineParser</string>
