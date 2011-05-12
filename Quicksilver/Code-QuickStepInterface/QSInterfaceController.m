@@ -495,6 +495,7 @@
         /* (The main object would get replaced anyway. This is only done to
            remove objects selected by the comma trick before the action was run.) */
         [self clearObjectView:dSelector];
+        // put the result in the first pane and in the results list
         [dSelector performSelectorOnMainThread:@selector(setObjectValue:) withObject:returnValue waitUntilDone:YES];
 		if (action) {
             if ([action isKindOfClass:[QSRankedObject class]] && [(QSRankedObject *)action object]) {
@@ -507,6 +508,10 @@
             }
             // bring the interface back to show the result
             if ([action displaysResult]) {
+                // send focus to the second pane if the user has set the preference
+                if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSJumpToActionOnResult"]) {
+                    [[self window] makeFirstResponder:aSelector];
+                }
                 [self showMainWindow:self];
             }
         }
@@ -557,7 +562,9 @@
 		[self encapsulateCommand];
 		return;
 	}
-	if (!cont) [self hideMainWindowFromExecution:self]; // *** this should only hide if no result comes in like 2 seconds
+	if (!cont) {
+        [self hideMainWindowFromExecution:self]; // *** this should only hide if no result comes in like 2 seconds
+    }
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:kExecuteInThread] && [[aSelector objectValue] canThread])
 		[NSThread detachNewThreadSelector:@selector(executeCommandThreaded) toTarget:self withObject:nil];
 	else
@@ -566,8 +573,12 @@
 		[QSHist addCommand:[self currentCommand]];
 	[dSelector saveMnemonic];
  	[aSelector saveMnemonic];
-	if (argumentCount == 2) [iSelector saveMnemonic];
-	if (cont) [[self window] makeFirstResponder:aSelector];
+	if (argumentCount == 2) {
+        [iSelector saveMnemonic];
+    }
+	if (cont) {
+        [[self window] makeFirstResponder:aSelector];
+    }
 }
 
 - (void)encapsulateCommand {
@@ -639,10 +650,12 @@
 }
 
 - (IBAction)executeCommand:(id)sender {
-	[self executeCommand:sender cont:NO encapsulate:NO];
+    // run the action and set focus to the 1st pane
+    [self executeCommand:sender cont:NO encapsulate:NO];
 }
 
 - (IBAction)executeCommandAndContinue:(id)sender {
+    // run the action and set focus to the 2nd pane
 	[self executeCommand:sender cont:YES encapsulate:NO];
 }
 
