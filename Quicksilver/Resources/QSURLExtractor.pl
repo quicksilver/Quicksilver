@@ -35,12 +35,14 @@ sub start
 	my($self,$tag,$attr,$attrseq,$orig) = @_;
 	
 	if ( $tag eq 'a'){
-			$self->{thisLink} = $attr;
-			push(@{$self->{URLArray}},	$self->{thisLink} );
-			$self->{got_href}++;
+		$self->{thisLink} = $attr;
+		push(@{$self->{URLArray}},      $self->{thisLink} );
+		$self->{got_href}++;
+	}
+	if ($self->{got_href}) {
+		if ( $tag eq 'img'){
+			$self->{thisLink}{imageurl}= $attr->{src};
 		}
-	if ( $tag eq 'img'){
-		$self->{thisLink}{imageurl}= $attr->{src}; 
 	}
 }
 

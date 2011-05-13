@@ -79,16 +79,34 @@
 		NSString *url = [[[link objectAtIndex:0] stringByReplacing:@"&amp; " with:@"&"] stringByReplacing:@"%s" with:@"***"];
 		NSString *text = [link objectAtIndex:1];
 		NSString *imageurl = [link objectAtIndex:3];
-		if (text) {
+		if (text.length || imageurl.length) {
 			NSString *name = [shortcut length] ? shortcut : text;
 			NSString *label = [shortcut length] ? text : nil;
-			if (url)
+			// The link is represented by an image, give it the name of the image
+			if(text.length == 0) {
+				name = imageurl;
+			}
+			// make sure it's an actual URL
+			if (url.length) {
 				url = [[NSURL URLWithString:url relativeToURL:source] absoluteString];
-			newObject = [QSObject URLObjectWithURL:url title:[name stringByTrimmingCharactersInSet:wncs]];
-			if (label) [newObject setLabel:label];
-			if (imageurl) {
+				newObject = [QSObject URLObjectWithURL:url title:[name stringByTrimmingCharactersInSet:wncs]];
+				// Make sure the URL is also a text type
+				[newObject setObject:url forType:QSTextType];
+				[newObject setPrimaryType:QSURLType];
+			}
+			if (label) {
+				[newObject setLabel:label];
+			}
+			#warning TODO: Issue #315: Check to see if the URL has *** in it and change the icon to a search URL icon	
+			// Load the web search module icon
+			//if ([url rangeOfString:@"***"].location != NSNotFound) {
+			//	[newObject setObject:@"QSSearchURLIcon" forMeta:kQSObjectIconName];
+			//}
+			// Only set the icon if 
+			if (imageurl.length) {
 				imageurl = [[NSURL URLWithString:imageurl relativeToURL:source] absoluteString];
 				[newObject setObject:imageurl forMeta:kQSObjectIconName];
+				[newObject setIconLoaded:NO];
 			}
 			if (newObject)
 				[objects addObject:newObject];
