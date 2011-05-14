@@ -186,15 +186,16 @@
 
 
 @implementation NSApplication (VersionCheck)
-+ (BOOL)isLeopard {
++ (SInt32)macOSXVersion {
 	SInt32 version;
 	Gestalt (gestaltSystemVersion, &version);
-	return (version >= 0x1050);
+	return version;
+}
++ (BOOL)isLeopard {
+	return ([self macOSXVersion] >= 0x1050);
 }
 
 + (BOOL)isSnowLeopard {
-	SInt32 version;
-	Gestalt (gestaltSystemVersion, &version);
-	return (version >= 0x1060);
+	return ([self macOSXVersion] >= 0x1060);
 }
 @end
