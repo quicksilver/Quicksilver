@@ -23,7 +23,7 @@
 	[types addObjectsFromArray:[[QSReg objectHandlers] allKeys]];
 	[self registerForDraggedTypes:types];
 	[types release];
-
+	
 	[self updateTrackingRect:self];
 	return result;
 }
@@ -73,14 +73,12 @@
 }
 
 - (void)mouseEntered:(NSEvent *)theEvent {
+	timeEntered = [NSDate timeIntervalSinceReferenceDate];
 	[hideTimer invalidate];
-	NSEvent *earlyExit = [NSApp nextEventMatchingMask:NSMouseExitedMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.25] inMode:NSDefaultRunLoopMode dequeue:YES];
-
+	NSEvent *earlyExit = [NSApp nextEventMatchingMask:NSMouseExitedMask untilDate:[NSDate dateWithTimeIntervalSinceNow:5] inMode:NSDefaultRunLoopMode dequeue:YES];
+	
 	if (!earlyExit && !locked) {
 		[self show:self];
-	}
-	if (!NSMouseInRect([NSEvent mouseLocation], NSInsetRect([self frame], -10, -10), NO) ) {
-		[self hideOrOrderOut:self];
 	}
 }
 
@@ -94,10 +92,11 @@
 }
 
 - (void)mouseExited:(NSEvent *)theEvent {
-	NSEvent *reentry = [NSApp nextEventMatchingMask:NSMouseEnteredMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.333] inMode:NSDefaultRunLoopMode dequeue:NO];
+	NSTimeInterval timeExited = [NSDate timeIntervalSinceReferenceDate];
+	NSEvent *reentry = [NSApp nextEventMatchingMask:NSMouseEnteredMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.5] inMode:NSDefaultRunLoopMode dequeue:NO];
 	if ([reentry windowNumber] != [self windowNumber])
 		reentry = nil;
-	if (!reentry && !StillDown() ) {
+	if (!reentry && !StillDown() && (timeExited - timeEntered > 0.18)) {
 		[self hideOrOrderOut:self];
 	}
 }
@@ -137,7 +136,7 @@
 
 - (IBAction)hide:(id)sender {
 	if (hidden) return;
-
+	
 	[self saveFrame];
 	if ([self isKeyWindow])
 		[self fakeResignKey];
@@ -169,7 +168,7 @@
 		[self orderFront:sender];
 	}
 }
-
+// if Esc key is pressed, close the window
 - (void)keyDown:(NSEvent *)theEvent {
 	if ([self canFade] && [theEvent keyCode] == 53)
 		[self hideOrOrderOut:nil];
