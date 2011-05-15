@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "QSCore.h"
 
 @interface QSHTMLLinkParser : QSParser
 @end

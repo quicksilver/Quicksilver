@@ -14,11 +14,11 @@ extern id QSRez;
 + (void)initialize;
 + (id)sharedInstance;
 + (NSImage *)imageNamed:(NSString *)name;
-
 + (NSImage *)imageNamed:(NSString *)name inBundle:(NSBundle *)bundle;
+- (NSImage *)buildWebSearchIconForObject:(QSObject *)object;
 - (NSImage *)imageNamed:(NSString *)name;
+- (NSImage *)getFavIcon:(NSString *)url;
 - (NSImage *)imageWithLocatorInformation:(id)locator;
-
 - (void)addResourcesFromDictionary:(NSDictionary *)dict;
 - (NSString *)pathWithLocatorInformation:(id)locator;
 - (NSImage *)imageWithExactName:(NSString *)name;

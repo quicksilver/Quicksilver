@@ -31,27 +31,6 @@
 }
 
 /*!
- *    favIcon
- *    @abstract   Matches a URL string with a favIcon NSImage
- *    @discussion For this function to work the favIcon dictionary must
- *                by populated.  Currently that is done through Safari (need the
- *                updated plugin).
- *    @param      url The input URL string to match
- *    @result     An NSImage if there was a match, otherwise nil
- */
-- (NSImage *)favIcon:(NSString *)url {
-	id <QSFaviconSource> source;
-	NSImage *favicon = nil;
-
-	for(source in [[QSReg instancesForTable:@"QSFaviconSources"] objectEnumerator]) {
-		favicon = [source faviconForURL:[NSURL URLWithString:url]];
-		if(favicon)
-			break;
-	}
-	return favicon;
-}
-
-/*!
  * @drawIconForObject
  * @abstract   Special handler for drawing the objects image on screen
  * @discussion Currently does not handle any drawing operations and retruns NO.
@@ -66,13 +45,22 @@
 	return NO;
 }
 
+
 - (BOOL)loadIconForObject:(QSObject *)object {
 	NSString *urlString = [object objectForType:QSURLType];
 	if (!urlString) return NO;
 
+	// For search URLs
+	if([[object stringValue] rangeOfString:@"***"].location !=NSNotFound) {
+		[object setIcon:[[QSResourceManager sharedInstance] buildWebSearchIconForObject:object]];
+		return YES;
+	}
+	
+	// For images that are links on web pages
 	NSString *imageURL = [object objectForMeta:kQSObjectIconName];
-	if (imageURL) {
-		NSImage *image = [[NSImage alloc] initByReferencingURL:[NSURL URLWithString:imageURL]];
+	if (imageURL) {	
+		// initWithContentsOfURL accounts for the URL being dynamic
+		NSImage *image = [[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:imageURL]];
 		if (image) {
 			[object setIcon:image];
 			[image release];
