@@ -101,6 +101,7 @@ NSMutableDictionary *bindingsDict = nil;
 	[searchArray release], searchArray = nil;
 	[sourceArray release], sourceArray = nil;
 	[resultArray release], resultArray = nil;
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[super dealloc];
 }
 
