@@ -1512,6 +1512,22 @@ NSMutableDictionary *bindingsDict = nil;
 - (NSArray *)validAttributesForMarkedText {
 	return [NSArray array];
 }
+
+- (void)updateObject:(QSObject *)object {
+	// find index of object in the resultlist
+	int ind = [resultArray indexOfObject:object];
+	if (ind == NSNotFound) {
+		return;
+	}
+	
+	// if object is the currently active object, update it in the pane
+	if (ind == selection) {
+		[self setNeedsDisplay:YES];
+	}
+	
+	// update it in the resultlist
+	[resultController rowModified:ind];
+}
 @end
 
 @implementation QSSearchObjectView (History)

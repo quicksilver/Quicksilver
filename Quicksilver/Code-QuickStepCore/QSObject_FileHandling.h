@@ -44,5 +44,7 @@
 - (NSString *)singleFileType;
 - (NSArray *)validPaths;
 - (NSArray *)validPathsResolvingAliases:(BOOL)resolve;
+
+-(void)previewIcon:(id)file;
 @end
 

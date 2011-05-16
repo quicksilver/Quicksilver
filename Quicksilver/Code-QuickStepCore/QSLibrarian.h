@@ -25,6 +25,8 @@ extern QSLibrarian *QSLib; // Shared Instance
 	NSMutableSet *omittedIDs;
 	QSTask *scanTask;
 	QSTaskController *activityController;
+	
+	NSOperationQueue *previewImageQueue;
 
 	NSMutableDictionary *catalogArrays; // Arrays for each leaf catalog entry (Entry)
 	NSMutableDictionary *typeArrays; // Type arrays (Type / Entry)
@@ -111,5 +113,6 @@ extern QSLibrarian *QSLib; // Shared Instance
 - (void)initCatalog;
 - (QSTask *)scanTask;
 - (void)setScanTask:(QSTask *)value;
+- (NSOperationQueue *)previewImageQueue;
 
 @end
