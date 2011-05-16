@@ -72,7 +72,9 @@
 	[super draggingExited:theEvent];
 }
 
+// mouse entered the docing window
 - (void)mouseEntered:(NSEvent *)theEvent {
+	// time when we mouse entered the window
 	timeEntered = [NSDate timeIntervalSinceReferenceDate];
 	[hideTimer invalidate];
 	NSEvent *earlyExit = [NSApp nextEventMatchingMask:NSMouseExitedMask untilDate:[NSDate dateWithTimeIntervalSinceNow:5] inMode:NSDefaultRunLoopMode dequeue:YES];
@@ -91,11 +93,14 @@
 	}
 }
 
+// mouse existed the docking window
 - (void)mouseExited:(NSEvent *)theEvent {
+	// time when wmouse exited the window
 	NSTimeInterval timeExited = [NSDate timeIntervalSinceReferenceDate];
 	NSEvent *reentry = [NSApp nextEventMatchingMask:NSMouseEnteredMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.5] inMode:NSDefaultRunLoopMode dequeue:NO];
 	if ([reentry windowNumber] != [self windowNumber])
 		reentry = nil;
+	// no re-entry of mouse into window and was inside the window for more than 0.18s
 	if (!reentry && !StillDown() && (timeExited - timeEntered > 0.18)) {
 		[self hideOrOrderOut:self];
 	}
@@ -168,7 +173,7 @@
 		[self orderFront:sender];
 	}
 }
-// if Esc key is pressed, close the window
+// method to close window when Esc key is pressed
 - (void)keyDown:(NSEvent *)theEvent {
 	if ([self canFade] && [theEvent keyCode] == 53)
 		[self hideOrOrderOut:nil];
