@@ -30,9 +30,9 @@
 	if ([[self window] isVisible]) {
 		if (![expandTimer isValid]) {
 			[expandTimer release];
-			expandTimer = [[NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(adjustWindow:) userInfo:nil repeats:NO] retain];
+			expandTimer = [[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(adjustWindow:) userInfo:nil repeats:NO] retain];
 		} else {
-			[expandTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:0.25]];
+			[expandTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 		}
 	} else {
 		[self adjustWindow:self];
@@ -44,21 +44,22 @@
 	int argumentCount = [action argumentCount];
 
 //	NSLog(@"adjust x%d", argumentCount);
-	NSResponder *firstResponder = [[self window] firstResponder];
 	if (argumentCount == 2) {
 		BOOL indirectOptional = [[aSelector objectValue] indirectOptional];
 
 //		  NSLog(@"adjust %d", indirectOptional);
-		if (indirectOptional) {
+		// When the 3rd pane is not optional, show it (most likely case, so first)
+		if (!indirectOptional) {
+			[self expandWindow:sender];
+			return;
+		} else {
+			NSResponder *firstResponder = [[self window] firstResponder];
 			if (firstResponder == iSelector
 				 || firstResponder == [iSelector currentEditor]
 				 || ([iSelector objectValue] != nil && ![[iSelector objectValue] objectForType:QSTextProxyType]) ) {
 				[self expandWindow:sender];
 				return;
 			}
-		} else {
-			[self expandWindow:sender];
-			return;
 		}
 	}
 		[self contractWindow:sender];
