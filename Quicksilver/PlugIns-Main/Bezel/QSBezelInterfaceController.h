@@ -13,3 +13,9 @@
 
 - (NSRect) rectForState:(BOOL)expanded;
 @end
+
+@interface NSWindow (QSBezelInterfaceController)
+
+-(NSTimeInterval)animationResizeTime:(NSRect)newWindowFrame;
+
+@end
