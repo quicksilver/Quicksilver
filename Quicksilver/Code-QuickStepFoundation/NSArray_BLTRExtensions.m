@@ -68,8 +68,7 @@
 }
 
 - (id)objectWithValue:(id)value forKey:(NSString *)key {
-	NSEnumerator *e = [self objectEnumerator];
-	for(id object in e) {
+	for(id object in self) {
 		if ([[object valueForKey:key] isEqual:value])
 			return object;
 	}

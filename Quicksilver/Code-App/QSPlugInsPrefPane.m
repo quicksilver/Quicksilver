@@ -259,10 +259,8 @@
 }
 
 - (IBAction)getInfo:(id)sender {
-	NSEnumerator *e = [[self selectedPlugIns] objectEnumerator];
-	QSPlugIn *bundle;
 	BOOL filesOpened = NO;
-	for (bundle in e)
+	for (QSPlugIn *bundle in [self selectedPlugIns])
 		filesOpened |= [self showInfoForPlugIn:bundle];
 	if (!filesOpened) NSBeep();
 }

@@ -53,7 +53,6 @@ QSExecutor *QSExec = nil;
 - (id)init {
 	if (self = [super init]) {
 		actionSources = [[NSMutableDictionary alloc] initWithCapacity:1];
-		oldActionObjects = [[NSMutableArray alloc] initWithCapacity:1];
 		actionIdentifiers = [[NSMutableDictionary alloc] initWithCapacity:1];
 		directObjectTypes = [[NSMutableDictionary alloc] initWithCapacity:1];
 	 	directObjectFileTypes = [[NSMutableDictionary alloc] initWithCapacity:1];
@@ -61,7 +60,9 @@ QSExecutor *QSExec = nil;
 		NSDictionary *actionsPrefs = [NSDictionary dictionaryWithContentsOfFile:pQSActionsLocation];
 		actionPrecedence = [[actionsPrefs objectForKey:@"actionPrecedence"] mutableCopy];
 		actionRanking = [[actionsPrefs objectForKey:@"actionRanking"] mutableCopy];
+		// Actions that appear in the 'actions menu' (use 'show action menu' action to see it)
 		actionMenuActivation = [[actionsPrefs objectForKey:@"actionMenuActivation"] mutableCopy];
+		// Actions that show up in the 2nd pane
 		actionActivation = [[actionsPrefs objectForKey:@"actionActivation"] mutableCopy];
 		actionIndirects = [[actionsPrefs objectForKey:@"actionIndirects"] mutableCopy];
 		actionNames = [[actionsPrefs objectForKey:@"actionNames"] mutableCopy];
@@ -91,7 +92,6 @@ QSExecutor *QSExec = nil;
 
 - (void)dealloc {
 	// [self writeCatalog:self];
-	[oldActionObjects release];
 	[actionIdentifiers release];
 	[directObjectTypes release];
 	[directObjectFileTypes release];
@@ -109,7 +109,7 @@ QSExecutor *QSExec = nil;
 	NSString *rootPath = QSApplicationSupportSubPath(@"Actions/", NO);
 	NSArray *files = [rootPath performSelector:@selector(stringByAppendingPathComponent:) onObjectsInArray:[[NSFileManager defaultManager] contentsOfDirectoryAtPath:rootPath error:nil]];
     // Caution: Do not replace this one with fast enumeration
-    NSEnumerator *e = [[QSReg instancesForTable:@"QSFileActionCreators"] objectEnumerator];
+	NSEnumerator *e = [[QSReg instancesForTable:@"QSFileActionCreators"] objectEnumerator];
 	for(id <QSFileActionProvider> creator in e) {
 		[self addActions:[creator fileActionsFromPaths:files]];
 	}
@@ -348,7 +348,6 @@ QSExecutor *QSExec = nil;
 	NSMutableArray *actions = [NSMutableArray arrayWithCapacity:1];
 	// unsigned i;
 	id aObject = nil;
-	NSSet *types = [NSSet setWithArray:[dObject types]];
 	NSString *fileType = [dObject singleFileType];
 
 	NSMutableDictionary *validatedActionsBySource = [NSMutableDictionary dictionary];
@@ -406,8 +405,8 @@ QSExecutor *QSExec = nil;
 
 	// NSLog(@"Actions for %@:%@", [dObject name] , validActions);
 	if (![validActions count]) {
-		NSLog(@"unable to find actions %@\r%@", oldActionObjects, actionIdentifiers);
-		NSLog(@"types %@ %@", types, fileType);
+		NSLog(@"unable to find actions for %@", actionIdentifiers);
+		NSLog(@"types %@ %@", [NSSet setWithArray:[dObject types]], fileType);
 	}
 	return [[validActions mutableCopy] autorelease];
 }

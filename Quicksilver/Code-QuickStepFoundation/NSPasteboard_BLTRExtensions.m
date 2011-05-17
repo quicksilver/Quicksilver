@@ -57,9 +57,7 @@ void QSForcePaste() {
 	}
 
 	[pboard declareTypes:[typesDictionary allKeys] owner:self];
-	NSString * key;
-	NSEnumerator *keyEnumerator = [typesDictionary keyEnumerator];
-	for(key in keyEnumerator)
+	for(NSString *key in typesDictionary)
 		[pboard setData:[typesDictionary objectForKey:key] forType:key];
 
 	return [NSPasteboard pasteboardByFilteringTypesInPasteboard:pboard];

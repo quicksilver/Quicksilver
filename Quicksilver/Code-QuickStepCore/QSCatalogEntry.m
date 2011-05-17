@@ -103,10 +103,8 @@ NSDictionary *enabledPresetDictionary;*/
 - (QSCatalogEntry *)childWithPath:(NSString *)path {
 	if (![path length])
 		return self;
-	NSEnumerator *e = [[path pathComponents] objectEnumerator];
-	NSString *s;
 	QSCatalogEntry *object = self;
-	for(s in e) {
+	for(NSString *s in [path pathComponents]) {
 		object = [object childWithID:s];
 	}
 	return object;

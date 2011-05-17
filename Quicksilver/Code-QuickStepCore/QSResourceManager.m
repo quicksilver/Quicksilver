@@ -220,9 +220,7 @@ id QSRez;
 	if (0 && !image) {
 		if (VERBOSE) NSLog(@"Searching for image: %@", name);
 
-		NSBundle * bundle;
-		NSEnumerator *bundEnumer = [[NSBundle allBundles] objectEnumerator];
-		for (bundle in bundEnumer) {
+		for (NSBundle *bundle in [NSBundle allBundles]) {
 			NSString *path = [bundle pathForImageResource:name];
 			if (path) {
 				image = [[[NSImage alloc] initByReferencingFile:path] autorelease];

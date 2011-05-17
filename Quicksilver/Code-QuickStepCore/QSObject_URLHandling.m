@@ -43,7 +43,7 @@
 	id <QSFaviconSource> source;
 	NSImage *favicon = nil;
 
-	for(source in [[QSReg instancesForTable:@"QSFaviconSources"] objectEnumerator]) {
+	for(source in [QSReg instancesForTable:@"QSFaviconSources"]) {
 		favicon = [source faviconForURL:[NSURL URLWithString:url]];
 		if(favicon)
 			break;

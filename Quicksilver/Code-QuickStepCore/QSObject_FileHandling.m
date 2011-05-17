@@ -621,10 +621,13 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
             //NSLog(@"actions %d", [actions count]);
             NSDictionary *appActions = [[QSReg tableNamed:@"QSApplicationActions"] objectForKey:bundleIdentifier];
-            foreachkey(actionID, actionDict, appActions) {
+			if([appActions count]) {
+            for(NSString *actionID in appActions) {
+				NSDictionary *actionDict = [appActions objectForKey:actionID];
                 actionDict = [[actionDict copy] autorelease];
                 [actions addObject:[QSAction actionWithDictionary:actionDict identifier:actionID]];
             }
+			}
             //    NSLog(@"actions %d", [actions count]);
 
             return actions;
