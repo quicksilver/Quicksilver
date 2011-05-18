@@ -112,7 +112,7 @@ id QSRez;
 	return favicon;
 }
 
-- (NSImage *)buildWebSearchIconForObject:(NSString *)urlString {
+- (NSImage *)buildWebSearchIconForURL:(NSString *)urlString {
 
 	NSImage *webSearchImage = nil;
 	NSImage *image = [NSImage imageNamed:@"DefaultBookmarkIcon"];

@@ -52,7 +52,7 @@
 
 	// For search URLs
 	if([[object stringValue] rangeOfString:@"***"].location !=NSNotFound) {
-		[object setIcon:[[QSResourceManager sharedInstance] buildWebSearchIconForObject:[object stringValue]]];
+		[object setIcon:[[QSResourceManager sharedInstance] buildWebSearchIconForURL:[object stringValue]]];
 		return YES;
 	}
 	
