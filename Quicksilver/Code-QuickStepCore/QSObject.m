@@ -8,6 +8,7 @@
 
 #import "QSStringRanker.h"
 #import "QSNotifications.h"
+//#import "QSFaviconManager.h"
 #import "QSResourceManager.h"
 #import "QSTypes.h"
 #import "QSRegistry.h"
@@ -921,8 +922,7 @@ NSSize QSMaxIconSize;
 
 - (void)setIcon:(NSImage *)newIcon {
 	if (newIcon != icon) {
-		// 'release' being called here was causing crashes
-		[icon autorelease];
+		[icon release];
 		icon = [newIcon retain];
 		[icon setScalesWhenResized:YES];
 		[icon setCacheMode:NSImageCacheNever];
