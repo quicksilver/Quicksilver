@@ -101,58 +101,65 @@ id QSRez;
 	return image;
 }
 
-/*!
-    @buildWebSearchIcon
-    @abstract   Builds a new icon that is a composite of 2 other icons
-    @discussion Loads the icon named in parameter useIconFileNamed and
-				loads a second icon called "Find". The first icon is
-				drawn at 128x128. The second icon is scaled and drawn
-				at an offset to create the composite.
-    @param      useIconFile Name of the source (first) icon.
-    @result     Returns the new 128x128 image or nil.
-*/
+- (NSImage *)getFavIcon:(NSString *)urlString { 
+	NSURL *favIconURL = [NSURL URLWithString:urlString];
+	// URLs without a scheme, NSURL's 'host' method returns nil
+	if (![favIconURL host]) {
+		return nil;
+	}
+	NSString *favIconString = [NSString stringWithFormat:@"http://g.etfv.co/http://%@?defaulticon=none&extension=.ico", [favIconURL host]];
+	NSImage *favicon = [[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:favIconString]];
+	return favicon;
+}
 
-- (NSImage *)buildWebSearchIcon:(NSString *)useIconFileNamed
-{
+- (NSImage *)buildWebSearchIconForURL:(NSString *)urlString {
+
 	NSImage *webSearchImage = nil;
-	NSImage *image = [NSImage imageNamed:useIconFileNamed];
+	NSImage *image = [NSImage imageNamed:@"DefaultBookmarkIcon"];
 	if(image) {
 		NSRect rect = NSMakeRect(0, 0, 128, 128);
 		[image setSize:[[image bestRepresentationForSize:rect.size] size]];
 		NSSize imageSize = [image size];
 		NSBitmapImageRep *bitmap = [[[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
-																		   pixelsWide:imageSize.width
-																		   pixelsHigh:imageSize.height
-																		bitsPerSample:8
-																	  samplesPerPixel:4
-																			 hasAlpha:YES
-																			 isPlanar:NO
-																	   colorSpaceName:NSCalibratedRGBColorSpace
-																		 bitmapFormat:0
-																		  bytesPerRow:0
-																		 bitsPerPixel:0]
+																			pixelsWide:imageSize.width
+																			pixelsHigh:imageSize.height
+																		 bitsPerSample:8
+																	   samplesPerPixel:4
+																			  hasAlpha:YES
+																			  isPlanar:NO
+																		colorSpaceName:NSCalibratedRGBColorSpace
+																		  bitmapFormat:0
+																		   bytesPerRow:0
+																		  bitsPerPixel:0]
 									autorelease];
 		if(bitmap) {
 			NSGraphicsContext *graphicsContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:bitmap];
 			if(graphicsContext){
 				[NSGraphicsContext saveGraphicsState];
 				[NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithBitmapImageRep:bitmap]];
-
 				rect = NSMakeRect(0, 0, imageSize.width, imageSize.height);
-				[image setSize:rect.size];
 				[image setFlipped:NO];
+				[image setSize:rect.size];
 				[image drawInRect:rect fromRect:rectFromSize([image size]) operation:NSCompositeSourceOver fraction:1.0];
-
+				
 				NSImage *findImage = [NSImage imageNamed:@"Find"];
 				if(findImage) {
 					[findImage setSize:rect.size];
-					[findImage drawInRect:NSMakeRect(rect.origin.x+NSWidth(rect) *1/3, rect.origin.y, NSWidth(rect)*2/3, NSHeight(rect)*2/3) fromRect:rect operation:NSCompositeSourceOver fraction:1.0];
+					// Try and load the site's favicon
+					NSImage *favIcon = [self getFavIcon:urlString];
+					if(favIcon) {
+						[favIcon setSize:rect.size];
+						[favIcon drawInRect:NSMakeRect(rect.origin.x+NSWidth(rect)*0.48, rect.origin.y+NSWidth(rect)*0.32, 30, 30) fromRect:rect operation:NSCompositeSourceOver fraction:1.0];
+					}
+						[findImage drawInRect:NSMakeRect(rect.origin.x+NSWidth(rect) *1/3, rect.origin.y, NSWidth(rect)*2/3, NSHeight(rect)*2/3) fromRect:rect operation:NSCompositeSourceOver fraction:1.0];
 				}
 				[NSGraphicsContext restoreGraphicsState];
 				webSearchImage = [[[NSImage alloc] initWithData:[bitmap TIFFRepresentation]] autorelease];
 			}
 		}
 	}
+	[image setName:@"Web Search Icon"];
+	
 	return webSearchImage;
 }
 
@@ -187,12 +194,7 @@ id QSRez;
     } else {// Try the systemicons bundle
 		image = [self sysIconNamed:name];
 
-		if(!image && [name hasSuffix:@"web_search_list"]) {
-			// build a new web search icon that will display in first
-			// panel objects and the dropdown list.
-			image = [self buildWebSearchIcon:@"DefaultBookmarkIcon"];
-		}
-
+		
 		// Check if item represents one of the Firefox profile files.
 		// (this should be considered a temporary patch until the
 		// Firefox plugin can be fixed to set its own images)
@@ -234,9 +236,6 @@ id QSRez;
 		// if (VERBOSE) NSLog(@"Image Not Found:: %@", name);
 		[resourceDict setObject:[NSNull null] forKey:name];
 	} else {
-		if([name hasSuffix:@"web_search_list"])
-			[image setName:@"web_search_list"];
-		else
 			[image setName:name];
 
 		if (![image representationOfSize:NSMakeSize(32, 32)])
