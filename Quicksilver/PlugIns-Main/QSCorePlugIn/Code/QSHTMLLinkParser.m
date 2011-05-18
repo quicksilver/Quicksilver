@@ -108,13 +108,8 @@
 			if (label) {
 				[newObject setLabel:label];
 			}
-			// Load the web search module icon
-			if ([url rangeOfString:@"***"].location != NSNotFound) {
-				[newObject setIcon:[[QSResourceManager sharedInstance] buildWebSearchIconForObject:newObject]];
-				[newObject setIconLoaded:YES];
-			}
-			// Only set the icon if 
-			else if (imageurl.length) {
+			// If the link is an image, set this as the icon
+			if (imageurl.length) {
 				imageurl = [[NSURL URLWithString:imageurl relativeToURL:source] absoluteString];
 				[newObject setObject:imageurl forMeta:kQSObjectIconName];
 				[newObject setIconLoaded:NO];

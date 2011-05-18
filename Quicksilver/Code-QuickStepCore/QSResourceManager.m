@@ -101,18 +101,8 @@ id QSRez;
 	return image;
 }
 
-
-/*!
- *    favIcon
- *    @abstract   Matches a URL string with a favIcon NSImage
- *    @discussion For this function to work the favIcon dictionary must
- *                by populated.  Currently that is done through Safari (need the
- *                updated plugin).
- *    @param      url The input URL string to match
- *    @result     An NSImage if there was a match, otherwise nil
- */
-- (NSImage *)getFavIcon:(NSString *)url { 
-	NSURL *favIconURL = [NSURL URLWithString:url];
+- (NSImage *)getFavIcon:(NSString *)urlString { 
+	NSURL *favIconURL = [NSURL URLWithString:urlString];
 	// URLs without a scheme, NSURL's 'host' method returns nil
 	if (![favIconURL host]) {
 		return nil;
@@ -122,20 +112,7 @@ id QSRez;
 	return favicon;
 }
 
-
-/*!
- @buildWebSearchIconWithIcon
- @abstract   Builds a new icon that is a composite of 2 other icons
- @discussion Loads the icon named in parameter useIconFileNamed (defaults to DefaultBookmarkIcon)
- and loads a second icon called "Find". The first icon is
- drawn at 128x128. The second icon is scaled and drawn
- at an offset to create the composite.
- Called in QSHTMLLinkParser.m and the Web Search Plugin
- @param      useIconFile Name of the source (first) icon.
- @result     Returns the new 128x128 image or nil.
- */
-
-- (NSImage *)buildWebSearchIconForObject:(QSObject *)object {
+- (NSImage *)buildWebSearchIconForObject:(NSString *)urlString {
 
 	NSImage *webSearchImage = nil;
 	NSImage *image = [NSImage imageNamed:@"DefaultBookmarkIcon"];
@@ -169,7 +146,7 @@ id QSRez;
 				if(findImage) {
 					[findImage setSize:rect.size];
 					// Try and load the site's favicon
-					NSImage *favIcon = [self getFavIcon:[object stringValue]];
+					NSImage *favIcon = [self getFavIcon:urlString];
 					if(favIcon) {
 						NSRect faviconRect = NSMakeRect(0, 0, 30, 30);
 						[favIcon setSize:faviconRect.size];
