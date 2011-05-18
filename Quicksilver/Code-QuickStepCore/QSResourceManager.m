@@ -148,18 +148,10 @@ id QSRez;
 					// Try and load the site's favicon
 					NSImage *favIcon = [self getFavIcon:urlString];
 					if(favIcon) {
-						NSRect faviconRect = NSMakeRect(0, 0, 30, 30);
-						[favIcon setSize:faviconRect.size];
-						NSRect faviconPos = centerRectInRect(faviconRect, rect);
-						faviconPos = centerRectInRect(NSMakeRect(0, 0, 30, 30), rect);
-						faviconPos.origin.y -= 8;
-						faviconPos.origin.x += 13;
-						[favIcon drawInRect:faviconPos fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
-						[findImage drawInRect:NSMakeRect(rect.origin.x+NSWidth(rect) *1/3, rect.origin.y, NSWidth(rect)*2/3, NSHeight(rect)*2/3) fromRect:rect operation:NSCompositeSourceOver fraction:1.0];
+						[favIcon setSize:rect.size];
+						[favIcon drawInRect:NSMakeRect(rect.origin.x+NSWidth(rect)*0.48, rect.origin.y+NSWidth(rect)*0.32, 30, 30) fromRect:rect operation:NSCompositeSourceOver fraction:1.0];
 					}
-					else {
 						[findImage drawInRect:NSMakeRect(rect.origin.x+NSWidth(rect) *1/3, rect.origin.y, NSWidth(rect)*2/3, NSHeight(rect)*2/3) fromRect:rect operation:NSCompositeSourceOver fraction:1.0];
-					}
 				}
 				[NSGraphicsContext restoreGraphicsState];
 				webSearchImage = [[[NSImage alloc] initWithData:[bitmap TIFFRepresentation]] autorelease];
