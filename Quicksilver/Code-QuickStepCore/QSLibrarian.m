@@ -611,11 +611,11 @@ static float searchSpeed = 0.0;
 }
 
 - (NSMutableArray *)scoredArrayForString:(NSString *)string {
-	return [self scoredArrayForString:string inSet:nil];
+	return [self scoredArrayForString:string inSet:nil mnemonicsOnly:NO];
 }
 
 - (NSMutableArray *)scoredArrayForString:(NSString *)string inNamedSet:(NSString *)setName {
-	return [self scoredArrayForString:string inSet:nil];
+	return [self scoredArrayForString:string inSet:nil mnemonicsOnly:NO];
 }
 
 - (NSMutableArray *)scoredArrayForString:(NSString *)searchString inSet:(id)set {
@@ -624,15 +624,17 @@ static float searchSpeed = 0.0;
 
 - (NSMutableArray *)scoredArrayForString:(NSString *)searchString inSet:(NSArray *)set mnemonicsOnly:(BOOL)mnemonicsOnly {
 	if (!set) set = [defaultSearchSet allObjects];
-	NSDate *date = [NSDate date];
 	NSMutableArray *rankObjects = [QSDefaultObjectRanker rankedObjectsForAbbreviation:searchString inSet:set inContext:searchString mnemonicsOnly:mnemonicsOnly];
+#ifdef DEBUG
+	NSLog(@"we're in debug");
+	NSDate *date = [NSDate date];
 	int count = [set count];
 	float speed = -[date timeIntervalSinceNow] / count;
 	if (count)
         searchSpeed = ((speed + searchSpeed) / 2.0f);
 	if (VERBOSE)
         NSLog(@"Ranking: %fms avg: %d¬µs", -([date timeIntervalSinceNow] * 1000), (int)(speed * 1000000));
-    
+#endif
  	[rankObjects sortUsingSelector:@selector(scoreCompare:)];
 /*    NSArray *rankedObjects = [rankObjects arrayByPerformingSelector:@selector(object)];
 	[rankObjects release];
