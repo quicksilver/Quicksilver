@@ -86,6 +86,8 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 		//NSLog(@"init cell");
 		[self setShowsFirstResponder:YES];
 		[self setFont:[NSFont systemFontOfSize:12]];
+		nameFont = [self font];
+		detailsFont = [NSFont fontWithName:[[self font] fontName] size:[[self font] pointSize] *5/6];
 		showDetails = YES;
 		autosize = YES;
 		[self setHighlightsBy:NSChangeBackgroundCellMask];
@@ -99,8 +101,6 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 		// NSLog(@"%d pos", [self imagePosition]);
 		//[self setFormatter:[[[QSObjectFormatter alloc] init] autorelease]];
 		// [self setShowsBorderOnlyWhileMouseInside:YES];
-
-
 	}
 	return self;
 }
@@ -443,14 +443,14 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 
 	[nameAttributes release];
 	nameAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:
-		[NSFont fontWithName:[[self font] fontName] size:MIN([[self font] pointSize] , NSHeight(cellFrame) *1.125*2/3) -1] , NSFontAttributeName,
+		nameFont, NSFontAttributeName,
 		mainColor, NSForegroundColorAttributeName,
 		style, NSParagraphStyleAttributeName,
 		nil];
 
 	[detailsAttributes release];
 	detailsAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:
-		[NSFont fontWithName:[[self font] fontName] size:[[self font] pointSize] *5/6] , NSFontAttributeName,
+		detailsFont, NSFontAttributeName,
 		fadedColor, NSForegroundColorAttributeName,
 		style, NSParagraphStyleAttributeName,
 		nil];
@@ -687,12 +687,40 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 	showDetails = flag;
 }
 
+- (NSFont *)nameFont {
+    return nameFont;
+}
+
+- (void)setNameFont:(NSFont *)newNameFont {
+    if (nameFont == newNameFont)
+    {
+        return;
+    }
+    [nameFont release];
+    nameFont = newNameFont;
+    [[self controlView] setNeedsDisplay:YES];
+}
+
+- (NSFont *)detailsFont {
+    return detailsFont;
+}
+
+- (void)setDetailsFont:(NSFont *)newDetailsFont {
+    if (detailsFont == newDetailsFont)
+    {
+        return;
+    }
+    [detailsFont release];
+    detailsFont = newDetailsFont;
+    [[self controlView] setNeedsDisplay:YES];
+}
+
 - (NSColor *)textColor { return textColor;  }
 
 - (void)setTextColor:(NSColor *)newTextColor {
-	[textColor release];
-	textColor = [newTextColor retain];
-	[[self controlView] setNeedsDisplay:YES];
+    [textColor release];
+    textColor = [newTextColor retain];
+    [[self controlView] setNeedsDisplay:YES];
 }
 
 - (NSColor *)highlightColor { return highlightColor;  }
