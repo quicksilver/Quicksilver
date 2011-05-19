@@ -5,14 +5,15 @@
 #import <QSEffects/QSTrackingWindow.h>
 
 @interface QSDockingWindow : QSBorderlessWindow {
-
+	
 	NSTrackingRectTag trackingRect;
-   // BOOL hidden;
-
+	// BOOL hidden;
+	
 	NSTimer *hideTimer;
 	NSTimeInterval lastTime;
+	NSTimeInterval timeEntered;
 	BOOL moving, locked, allowKey;
-
+	
 	NSString *autosaveName;
 }
 

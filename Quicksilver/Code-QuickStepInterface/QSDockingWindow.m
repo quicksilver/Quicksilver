@@ -23,7 +23,7 @@
 	[types addObjectsFromArray:[[QSReg objectHandlers] allKeys]];
 	[self registerForDraggedTypes:types];
 	[types release];
-
+	
 	[self updateTrackingRect:self];
 	return result;
 }
@@ -72,15 +72,15 @@
 	[super draggingExited:theEvent];
 }
 
+// mouse entered the docing window
 - (void)mouseEntered:(NSEvent *)theEvent {
+	// time when we mouse entered the window
+	timeEntered = [NSDate timeIntervalSinceReferenceDate];
 	[hideTimer invalidate];
-	NSEvent *earlyExit = [NSApp nextEventMatchingMask:NSMouseExitedMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.25] inMode:NSDefaultRunLoopMode dequeue:YES];
-
+	NSEvent *earlyExit = [NSApp nextEventMatchingMask:NSMouseExitedMask untilDate:[NSDate dateWithTimeIntervalSinceNow:5] inMode:NSDefaultRunLoopMode dequeue:YES];
+	
 	if (!earlyExit && !locked) {
 		[self show:self];
-	}
-	if (!NSMouseInRect([NSEvent mouseLocation], NSInsetRect([self frame], -10, -10), NO) ) {
-		[self hideOrOrderOut:self];
 	}
 }
 
@@ -93,11 +93,15 @@
 	}
 }
 
+// mouse existed the docking window
 - (void)mouseExited:(NSEvent *)theEvent {
-	NSEvent *reentry = [NSApp nextEventMatchingMask:NSMouseEnteredMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.333] inMode:NSDefaultRunLoopMode dequeue:NO];
+	// time when wmouse exited the window
+	NSTimeInterval timeExited = [NSDate timeIntervalSinceReferenceDate];
+	NSEvent *reentry = [NSApp nextEventMatchingMask:NSMouseEnteredMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.5] inMode:NSDefaultRunLoopMode dequeue:NO];
 	if ([reentry windowNumber] != [self windowNumber])
 		reentry = nil;
-	if (!reentry && !StillDown() ) {
+	// no re-entry of mouse into window and was inside the window for more than 0.18s
+	if (!reentry && !StillDown() && (timeExited - timeEntered > 0.18)) {
 		[self hideOrOrderOut:self];
 	}
 }
@@ -137,7 +141,7 @@
 
 - (IBAction)hide:(id)sender {
 	if (hidden) return;
-
+	
 	[self saveFrame];
 	if ([self isKeyWindow])
 		[self fakeResignKey];
@@ -169,7 +173,7 @@
 		[self orderFront:sender];
 	}
 }
-
+// method to close window when Esc key is pressed
 - (void)keyDown:(NSEvent *)theEvent {
 	if ([self canFade] && [theEvent keyCode] == 53)
 		[self hideOrOrderOut:nil];
