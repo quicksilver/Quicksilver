@@ -437,7 +437,7 @@ static float searchSpeed = 0.0;
 
 - (NSArray *)arrayForType:(NSString *)string {
 	NSMutableSet *typeSet = [NSMutableSet setWithCapacity:1];
-	for(NSArray *typeEntry in [typeArrays objectForKey:string]) {
+	for(NSArray *typeEntry in [[typeArrays objectForKey:string] allValues]) {
 		[typeSet addObjectsFromArray:typeEntry];
 	}
 
