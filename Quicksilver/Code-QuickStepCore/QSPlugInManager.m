@@ -569,14 +569,14 @@
 - (void)suggestOldPlugInRemoval {
 	//NSLog(@"old: %@", oldPlugIns);
 	if ([oldPlugIns count]) {
-		if (1) {//DEBUG || [[NSUserDefaults standardUserDefaults] boolForKey:@"QSIgnoreOldPlugIns"]) {
-			  //	if (VERBOSE) NSLog(@"Ignored Old Plugins: %@", [[oldPlugIns valueForKeyPath:@"path"] componentsJoinedByString:@"\r"]);
-		} else {
+		//if (1) {//DEBUG || [[NSUserDefaults standardUserDefaults] boolForKey:@"QSIgnoreOldPlugIns"]) {
+		//	  //	if (VERBOSE) NSLog(@"Ignored Old Plugins: %@", [[oldPlugIns valueForKeyPath:@"path"] componentsJoinedByString:@"\r"]);
+		//} else {
 			for (QSPlugIn * plugIn in oldPlugIns) {
 				NSLog(@"Deleting Old Duplicate Plug-in:\r%@", [plugIn path]);
 				[[NSFileManager defaultManager] removeItemAtPath:[plugIn path] error:nil];
 			}
-		}
+		//}
 	}
 }
 

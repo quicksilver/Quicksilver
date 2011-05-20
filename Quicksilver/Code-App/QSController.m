@@ -163,6 +163,7 @@ static QSController *defaultController = nil;
 	[statusItem setHighlightMode:YES];
 }
 
+#ifdef DEBUG
 - (void)activateDebugMenu {
 	NSLog(@"debug menu");
 	NSMenu *debugMenu = [[[NSMenu alloc] initWithTitle:@"Debug"] autorelease];
@@ -202,7 +203,7 @@ static QSController *defaultController = nil;
 	[debugMenuItem setSubmenu:debugMenu];
 
 }
-
+#endif
 - (void)raiseException {
 	[NSException raise:@"Test Exception" format:@"This is a test. It is only a test. In the event of a real exception, it would have been followed by some witty commentary."];
 }

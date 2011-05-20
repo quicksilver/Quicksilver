@@ -641,7 +641,6 @@ static float searchSpeed = 0.0;
 	NSMutableArray *rankObjects = [QSDefaultObjectRanker rankedObjectsForAbbreviation:searchString inSet:set inContext:searchString mnemonicsOnly:mnemonicsOnly];
 
 #ifdef DEBUG
-	NSLog(@"we're debugging");
 	NSDate *date = [NSDate date];
 	int count = [set count];
 	float speed = -[date timeIntervalSinceNow] / count;

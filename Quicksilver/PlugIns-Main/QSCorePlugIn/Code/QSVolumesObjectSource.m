@@ -23,7 +23,7 @@
 
 - (void)dealloc {
 
-#ifndef DEBUG
+#ifdef DEBUG
 	if(DEBUG_MEMORY) NSLog(@"QSVolumesObjectSource dealloc");
 #endif
 	

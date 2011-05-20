@@ -16,7 +16,6 @@
 
 #import "QSBadgeImage.h"
 
-#define DRAWDEBUG 0
 #define countBadgeTextAttributes [NSDictionary dictionaryWithObjectsAndKeys:[NSFont boldSystemFontOfSize:24] , NSFontAttributeName, [NSColor whiteColor] , NSForegroundColorAttributeName, nil]
 
 

@@ -174,7 +174,7 @@
             for(num in enumer ) {
                 int plistType = [num unsignedIntValue];
                 BOOL valid = [NSPropertyListSerialization propertyList:rep isValidForFormat:plistType];
-                if(!valid && DEBUG) {
+                if(!valid) {
                     NSLog(@"trigger representation %@ for format %@ : (%@)", ( valid ? @"valid" : @"invalid" ),
                           (plistType == NSPropertyListXMLFormat_v1_0 ? @"XML" :
                            (plistType == NSPropertyListBinaryFormat_v1_0 ? @"Binary" :
