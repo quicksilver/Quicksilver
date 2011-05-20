@@ -9,6 +9,8 @@
 // FIXME: Is the space in @"&amp; " intentional?
 
 #import "QSHTMLLinkParser.h"
+#import <QSCore/QSResourceManager.h>
+
 
 @implementation QSHTMLLinkParser
 
@@ -27,22 +29,23 @@
 - (NSArray *)objectsFromData:(NSData *)data encoding:(NSStringEncoding)encoding settings:(NSDictionary *)settings source:(NSURL *)source {
 	NSString *string = [[[NSString alloc] initWithData:data encoding:encoding?encoding:NSISOLatin1StringEncoding] autorelease];
 	//NSLog(@"data %d %@, settings %@, source %@", [data length] , string, settings, source);
-	 NSString *prefix;
-	 if (prefix = [settings objectForKey:@"contentPrefix"]) {
-		 NSRange prefixRange = [string rangeOfString:prefix];
-		 if (prefixRange.location != NSNotFound) {
-			 string = [string substringFromIndex:NSMaxRange(prefixRange) +1];
-		 }
-	 }
-	 NSString *suffix;
-	 if (suffix = [settings objectForKey:@"contentSuffix"]) {
-		 NSRange suffixRange = [string rangeOfString:suffix];
-		 if (suffixRange.location != NSNotFound) {
-			 string = [string substringToIndex:suffixRange.location];
-		 }
-	 }
-	 if (prefix || suffix)
-		 data = [string dataUsingEncoding:encoding];
+	NSString *prefix;
+	if (prefix = [settings objectForKey:@"contentPrefix"]) {
+		NSRange prefixRange = [string rangeOfString:prefix];
+		if (prefixRange.location != NSNotFound) {
+			string = [string substringFromIndex:NSMaxRange(prefixRange) +1];
+		}
+	}
+	NSString *suffix;
+	if (suffix = [settings objectForKey:@"contentSuffix"]) {
+		NSRange suffixRange = [string rangeOfString:suffix];
+		if (suffixRange.location != NSNotFound) {
+			string = [string substringToIndex:suffixRange.location];
+		}
+	}
+	if (prefix || suffix) {
+		data = [string dataUsingEncoding:encoding];
+	}
 	NSString *script = [[NSBundle bundleForClass:[self class]] pathForResource:@"QSURLExtractor" ofType:@"pl"];
 	//NSLog(@"parsing with %@\r%@", script, source);
 	NSTask *task = [NSTask taskWithLaunchPath:@"/usr/bin/perl" arguments:[NSArray arrayWithObject:script]];
@@ -53,22 +56,22 @@
 	[task setStandardInput:writePipe];
 	[task setStandardOutput:readPipe];
 	// [task setStandardError:[NSPipe pipe]];
-
+	
 	[task launch];
 	[writeHandle writeData:data];
 	[writeHandle closeFile];
-
+	
 	NSMutableData *returnData = [[NSMutableData alloc] init];
 	NSData *readData;
 	while ((readData = [readHandle availableData]) && [readData length]) {
 		[returnData appendData:readData];
 	}
-
+	
 	string = [[NSString alloc] initWithData:returnData encoding:encoding?encoding:NSISOLatin1StringEncoding];
 	[returnData release];
 	NSArray *array = [string componentsSeparatedByStrings:[NSArray arrayWithObjects:@"\n", @"\t", nil]];
 	[string release];
-
+	
 	NSMutableArray *objects = [NSMutableArray arrayWithCapacity:1];
 	QSObject *newObject;
 	NSArray *link;
@@ -79,37 +82,41 @@
 		NSString *url = [[[link objectAtIndex:0] stringByReplacing:@"&amp; " with:@"&"] stringByReplacing:@"%s" with:@"***"];
 		NSString *text = [link objectAtIndex:1];
 		NSString *imageurl = [link objectAtIndex:3];
-		if (text.length || imageurl.length) {
-			NSString *name = [shortcut length] ? shortcut : text;
-			NSString *label = [shortcut length] ? text : nil;
+		NSString *name;
+		// make sure there's an actual URL
+		if (url.length) {
+			// empty <a></a> tags, give the name of the url
+			if(!(text.length || imageurl.length)) {
+				name = url; 
+			}
 			// The link is represented by an image, give it the name of the image
-			if(text.length == 0) {
+			else if(!text.length) {
 				name = imageurl;
 			}
-			// make sure it's an actual URL
-			if (url.length) {
-				url = [[NSURL URLWithString:url relativeToURL:source] absoluteString];
-				newObject = [QSObject URLObjectWithURL:url title:[name stringByTrimmingCharactersInSet:wncs]];
-				// Make sure the URL is also a text type
-				[newObject setObject:url forType:QSTextType];
-				[newObject setPrimaryType:QSURLType];
+			else {
+				name = [shortcut length] ? shortcut : text;
 			}
+			NSString *label = [shortcut length] ? text : nil;
+			
+			// make sure it's an actual URL
+			url = [[NSURL URLWithString:[url URLEncoding] relativeToURL:source] absoluteString];
+			newObject = [QSObject URLObjectWithURL:url title:[name stringByTrimmingCharactersInSet:wncs]];
+			// Make sure the URL is also a text type
+			[newObject setObject:url forType:QSTextType];
+			[newObject setPrimaryType:QSURLType];
+			
 			if (label) {
 				[newObject setLabel:label];
 			}
-			#warning TODO: Issue #315: Check to see if the URL has *** in it and change the icon to a search URL icon	
-			// Load the web search module icon
-			//if ([url rangeOfString:@"***"].location != NSNotFound) {
-			//	[newObject setObject:@"QSSearchURLIcon" forMeta:kQSObjectIconName];
-			//}
-			// Only set the icon if 
+			// If the link is an image, set this as the icon
 			if (imageurl.length) {
 				imageurl = [[NSURL URLWithString:imageurl relativeToURL:source] absoluteString];
 				[newObject setObject:imageurl forMeta:kQSObjectIconName];
 				[newObject setIconLoaded:NO];
 			}
-			if (newObject)
+			if (newObject) {
 				[objects addObject:newObject];
+			}
 		}
 	}
 	return objects;
