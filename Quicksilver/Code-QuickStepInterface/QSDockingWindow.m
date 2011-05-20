@@ -76,9 +76,9 @@
 
 // mouse entered the docing window
 - (void)mouseEntered:(NSEvent *)theEvent {
-	// time when mouse entered the window
-	// Cases: ff the window's a floating window and hidden, don't set (allows for case where you mouse over a window as it's fading)
-	// If the window's a sliding edge window, always set it (it's always 'hidden')
+	// Set time when mouse entered the window
+	// Case 1: If the window's a floating window that's hidden, set = 0.0 (allows for case where you mouse over the area where the window was as it's fading)
+	// Case 2: If the window's a sliding-into-edge window, always set the time to the current time (it's always 'hidden', so must check for the canFade case)
 	if(!hidden || [self canFade]) {
 		timeEntered = [NSDate timeIntervalSinceReferenceDate];
 	}
@@ -105,14 +105,14 @@
 	}
 }
 
-// mouse existed the docking window
+// mouse exited the docking window
 - (void)mouseExited:(NSEvent *)theEvent {
 	
 	// if the mouse never entered the window, it shouldn't close
 	if(timeEntered == 0.0) {
 		return;
 	}
-	// time when wmouse exited the window
+	// time when mouse exited the window
 	NSTimeInterval timeExited = [NSDate timeIntervalSinceReferenceDate];
 	
 	// Event for mouse re-entry into window. 0.5s chosen as max time allowed for the mouse outside the window before it closes (best time through testing)
