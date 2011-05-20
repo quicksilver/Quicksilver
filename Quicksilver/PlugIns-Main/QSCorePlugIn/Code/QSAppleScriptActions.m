@@ -268,8 +268,10 @@
         [script release];
         
     }
-    if( DEBUG )
-        NSLog(@"argument count for %@ is %d", actionId, argumentCount);
+
+#ifdef DEBUG
+	NSLog(@"argument count for %@ is %d", actionId, argumentCount);
+#endif
     
     return argumentCount;
 }

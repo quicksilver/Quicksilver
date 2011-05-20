@@ -336,7 +336,7 @@ QSExecutor *QSExec = nil;
 	@try {
 		actions = [aObject validActionsForDirectObject:dObject indirectObject:iObject];
 	} @catch (NSException *localException) {
-        if (DEBUG) NSLog(@"[Quicksilver %s]: localException = '%@'", __PRETTY_FUNCTION__, [localException description]);
+		NSLog(@"[Quicksilver %s]: localException = '%@'", __PRETTY_FUNCTION__, [localException description]);
 	}
 	return actions;
 }

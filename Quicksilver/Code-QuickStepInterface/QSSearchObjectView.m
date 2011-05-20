@@ -822,13 +822,19 @@ NSMutableDictionary *bindingsDict = nil;
 
 
 - (void)performSearchFor:(NSString *)string from:(id)sender {
-    NSDate *date = [NSDate date];
-    
+#ifdef DEBUG
+	NSDate *date = [NSDate date];
+#endif
+	
 	//	NSData *scores;
 	NSMutableArray *newResultArray = [[QSLibrarian sharedInstance] scoredArrayForString:string inSet:searchArray];
     
 	//t NSLog(@"scores %@", scores);
+	
+#ifdef DEBUG
 	if (DEBUG_RANKING) NSLog(@"Searched for \"%@\" in %3fms (%d items) ", string, 1000 * -[date timeIntervalSinceNow] , [newResultArray count]);
+#endif
+	
     // NSLog (@"search for %@", string);
 	//NSLog(@"%d valid", validSearch);
 	if (validSearch = [newResultArray count] >0) {

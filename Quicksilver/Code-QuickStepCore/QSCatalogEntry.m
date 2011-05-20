@@ -115,8 +115,9 @@ NSDictionary *enabledPresetDictionary;*/
 
 
 - (BOOL)isRestricted {
-	if (DEBUG)
-		return NO;
+#ifdef DEBUG
+	return NO;
+#endif
 	NSString *sourceType = [info objectForKey:kItemSource];
 	if ([sourceType isEqualToString:@"QSGroupObjectSource"] || [QSReg sourceNamed:sourceType])
 		return [NSApp featureLevel] < [[info objectForKey:kItemFeatureLevel] intValue];
@@ -124,8 +125,9 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (BOOL)isSuppressed {
-	if (DEBUG)
-		return NO;
+#ifdef DEBUG
+	return NO;
+#endif
 	NSString *path = [info objectForKey:@"requiresPath"];
 	if (path && ![[NSFileManager defaultManager] fileExistsAtPath:[path stringByResolvingWildcardsInPath]])
 		return YES;
@@ -233,10 +235,18 @@ NSDictionary *enabledPresetDictionary;*/
 	for(QSCatalogEntry * child in children2) {
 		if ([child isSeparator]) break; //Stop when at end of presets
 		if ([child isRestricted]) {
+			
+#ifdef DEBUG
 			if (DEBUG_CATALOG) NSLog(@"Disabling Preset:%@", [child identifier]);
+#endif
+			
 			[children removeObject:child];
 		} else if (![[NSUserDefaults standardUserDefaults] boolForKey:@"Show All Catalog Entries"] && [child isSuppressed]) {
+			
+#ifdef DEBUG
 			if (DEBUG_CATALOG) NSLog(@"Suppressing Preset:%@", [child identifier]);
+#endif
+			
 			[children removeObject:child];
 		} else if ([child isGroup]) {
 			[child pruneInvalidChildren];
@@ -441,7 +451,11 @@ else
 }
 
 - (void)saveIndex {
+	
+#ifdef DEBUG
 	if (DEBUG_CATALOG) NSLog(@"saving index for %@", self);
+#endif
+	
 	[self setIndexDate:[NSDate date]];
 	NSString *key = [self identifier];
 	NSString *path = [pIndexLocation stringByStandardizingPath];
@@ -551,11 +565,19 @@ if (kUseNSArchiveForIndexes)
 	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:@"Checking:%@", [self name]]];
 	BOOL valid = [self indexIsValid];
 	if (valid && !force) {
+		
+#ifdef DEBUG
 		if (DEBUG_CATALOG) NSLog(@"\tIndex is valid for source: %@", name);
+#endif
+		
 		return [self contents];
 	}
+	
+#ifdef DEBUG
 	if (DEBUG_CATALOG)
 		NSLog(@"Scanning source: %@%@", [self name] , (force?@" (forced) ":@""));
+#endif
+	
 	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:@"Scanning:%@", [self name]]];
 	[self scanAndCache];
 	return nil;

@@ -31,7 +31,11 @@
 }
 
 - (void)updateTrackingRect {
-	if (DEBUG && VERBOSE) NSLog(@"update");
+	
+#ifdef DEBUG
+	if (VERBOSE) NSLog(@"update");
+#endif
+	
 	//logRect([self frame]);
 	if (trackingRect) [[self contentView] removeTrackingRect:trackingRect];
 	trackingRect = [[self contentView] addTrackingRect:NSMakeRect(0, 0, NSWidth([self frame]), NSHeight([self frame]) ) owner:self userData:self assumeInside:NO];
@@ -43,17 +47,29 @@
 }
 
 - (void)mouseEntered:(NSEvent *)theEvent {
-	if (DEBUG && VERBOSE) NSLog(@"entered tracking");
+	
+#ifdef DEBUG
+	if (VERBOSE) NSLog(@"entered tracking");
+#endif
+	
 	[[self delegate] mouseEntered:theEvent];
 }
 
 - (void)mouseExited:(NSEvent *)theEvent {
-	if (DEBUG && VERBOSE) NSLog(@"exited tracking");
+
+#ifdef DEBUG
+	if (VERBOSE) NSLog(@"exited tracking");
+#endif
+	
 	[[self delegate] mouseExited:theEvent];
 }
 
 - (unsigned int) draggingEntered:(id <NSDraggingInfo>)theEvent {
-	if (DEBUG && VERBOSE) NSLog(@"dragging tracking");
+	
+#ifdef DEBUG
+	if (VERBOSE) NSLog(@"dragging tracking");
+#endif
+	
 	[[self delegate] mouseEntered:nil];
 	return NSDragOperationEvery;
 }

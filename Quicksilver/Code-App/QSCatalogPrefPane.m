@@ -335,11 +335,16 @@ static id _sharedInstance;
 }
 
 - (BOOL)selectedCatalogEntryIsEditable {
+	
+#ifdef DEBUG
+	return YES;
+#endif
+	
 	id source = [currentItem source];
 	if ([source respondsToSelector:@selector(usesGlobalSettings)] && [source performSelector:@selector(usesGlobalSettings)])
 		return YES;
 	else
-		return (![currentItem isPreset] || DEBUG);
+		return (![currentItem isPreset]);
 }
 
 - (void)updateEntrySelection {
@@ -521,7 +526,12 @@ static id _sharedInstance;
 }
 
 - (void)populateCatalogEntryFields {
-	[itemIconField setEnabled:(currentItem && ![currentItem isPreset]) || DEBUG];
+	
+#ifdef DEBUG
+	[itemIconField setEnabled:YES];
+#endif
+	
+	[itemIconField setEnabled:(currentItem && ![currentItem isPreset])];
 	[itemIconField setImage:[currentItem icon]];
 }
 

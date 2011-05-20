@@ -483,7 +483,9 @@
 
 - (IBAction)outlineClicked:(id)sender {
     if( [triggerTable clickedColumn] == -1 ) {
-        if (DEBUG) NSLog(@"%@ with column == -1", NSStringFromSelector(_cmd));
+#ifdef DEBUG
+		NSLog(@"%@ with column == -1", NSStringFromSelector(_cmd));
+#endif
         return;
     }
 	NSTableColumn *col = [[triggerTable tableColumns] objectAtIndex:[triggerTable clickedColumn]];

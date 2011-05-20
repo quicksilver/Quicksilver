@@ -26,8 +26,9 @@ void QSSetItemShouldLaunchAtLogin(NSString *path, BOOL launch, BOOL includeAlias
 	[tempItems release];
 
 	if (!loginItems) {
-		if (DEBUG)
+#ifdef DEBUG
 			NSLog(@"Creating AutoLaunchedApplicationDictionary");
+#endif
 		loginItems = [NSMutableArray arrayWithCapacity:1];
 	}
 

@@ -41,8 +41,12 @@ QSRegistry* QSReg = nil;
 		infoRegistry = [[NSMutableDictionary alloc] init];
 		[self objectSources];
 		[self objectHandlers];
+		
+#ifdef DEBUG
 		if (DEBUG_PLUGINS)
 			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bundleDidLoad:) name:NSBundleDidLoadNotification object:nil];
+#endif
+		
 		//	[self retainedTableNamed:kQSFSParsers];
 	}
 	return self;
@@ -128,10 +132,16 @@ QSRegistry* QSReg = nil;
 }
 
 - (id)getClassInstance:(NSString *)className {
+
 	if (!className) {
-		if (DEBUG && VERBOSE) NSLog(@"Null class requested");
+
+#ifdef DEBUG
+		if (VERBOSE) NSLog(@"Null class requested");
+#endif
+		
 		return nil;
 	}
+	
 	id instance;
 	if (instance = [classInstances objectForKey:className]) return instance;
 

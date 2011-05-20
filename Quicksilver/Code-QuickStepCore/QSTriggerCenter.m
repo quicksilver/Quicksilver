@@ -162,7 +162,7 @@
 	NSEnumerator *triggerEnum = [[triggersDict allValues] objectEnumerator];
 	for(thisTrigger in triggerEnum) {
         NSDictionary * rep = [thisTrigger dictionaryRepresentation];
-        if(DEBUG) {
+#ifdef DEBUG
             NSArray *plistTypes = [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInt:NSPropertyListXMLFormat_v1_0],
                                                             [NSNumber numberWithUnsignedInt:NSPropertyListBinaryFormat_v1_0],
 /*                                                          [NSNumber numberWithUnsignedInt:NSPropertyListOpenStepFormat],
@@ -187,8 +187,8 @@
                 if(failCount == [plistTypes count]) {
                     NSLog(@"Utterly failed to output %@", rep);
                 }
-            } // endif(DEBUG)
-        }
+            }
+#endif
 		[cleanedTriggerArray addObject:rep];
 	}
     NSString *errorStr;
