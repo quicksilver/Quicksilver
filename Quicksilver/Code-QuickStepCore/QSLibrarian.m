@@ -448,21 +448,10 @@ static float searchSpeed = 0.0;
 
 
 - (NSDictionary *)typeArraysFromArray:(NSArray *)array {
-	int i, j;
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:1];
-	NSArray *keys;
-	QSObject *object;
-	int objectCount = [array count];
-	int keyCount;
-	NSString *key;
 	NSMutableArray *typeEntry;
-	for(i = 0; i<objectCount; i++) {
-		object = [array objectAtIndex:i];
-# warning - This needs fixing if array is 0, or just has a QSNullObject
-		keys = [[object dataDictionary] allKeys];
-		keyCount = [keys count];
-		for (j = 0; j<keyCount; j++) {
-			key = [keys objectAtIndex:j];
+	for(QSObject *object in array) {
+		for (NSString *key in [object dataDictionary]) {
 			if ([key hasPrefix:@"QSObject"]) continue;
 			typeEntry = [dict objectForKey:key];
 			if (!typeEntry) {
@@ -471,7 +460,7 @@ static float searchSpeed = 0.0;
 			}
 			[typeEntry addObject:object];
 		}
-
+		
 	}
 	return dict;
 }
