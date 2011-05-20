@@ -62,9 +62,7 @@
 	NSMutableDictionary *parsers = [QSReg instancesForTable:kQSFSParsers];
 
 	NSMenuItem *item;
-	NSEnumerator *keyEnum = [parsers keyEnumerator];
-	NSString *key;
-	for(key in keyEnum) {
+	for(NSString *key in parsers) {
 		if (![[parsers objectForKey:key] validParserForPath:path]) continue;
 
 		NSString *title = [[NSBundle bundleForClass:NSClassFromString(key)] safeLocalizedStringForKey:key value:key table:@"QSParser.name"];
@@ -81,12 +79,10 @@
 
 	NSMenu *typeSetsMenu = [[NSMenu alloc] initWithTitle:@"Types"];
 
-	NSEnumerator *keyEnumerator = [typeSets keyEnumerator];
-	NSString *key;
 	[typeSetsMenu addItemWithTitle:@"Add Set" action:nil keyEquivalent:@""];
 
 	NSMenuItem *item;
-	for(key in keyEnumerator) {
+	for(NSString *key in typeSets) {
 		//  [[NSBundle mainBundle] localizedStringForKey:theID value:theID table:@"QSCatalogPreset.name"];
 
 		item = (NSMenuItem *)[typeSetsMenu addItemWithTitle:[[NSBundle mainBundle] safeLocalizedStringForKey:key value:key table:@"FileTypeGroupNames"] action:nil keyEquivalent:@""];

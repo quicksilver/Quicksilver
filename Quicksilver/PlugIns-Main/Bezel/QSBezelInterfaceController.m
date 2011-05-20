@@ -22,9 +22,9 @@
 	[window setHideOffset:NSMakePoint(0, 0)];
 	[window setShowOffset:NSMakePoint(0, 0)];
 
-	[window setWindowProperty:[NSDictionary dictionaryWithObjectsAndKeys:@"QSExplodeEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithFloat:0.2], @"duration", nil] forKey:kQSWindowExecEffect];
+	[window setWindowProperty:[NSDictionary dictionaryWithObjectsAndKeys:@"QSExplodeEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithFloat:0.15], @"duration", nil] forKey:kQSWindowExecEffect];
 	[window setWindowProperty:[NSDictionary dictionaryWithObjectsAndKeys:@"hide", @"type", [NSNumber numberWithFloat:0.15], @"duration", nil] forKey:kQSWindowFadeEffect];
-	[window setWindowProperty:[NSDictionary dictionaryWithObjectsAndKeys:@"QSVContractEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithFloat:0.333], @"duration", nil, [NSNumber numberWithFloat:0.25] , @"brightnessB", @"QSStandardBrightBlending", @"brightnessFn", nil] forKey:kQSWindowCancelEffect];
+	[window setWindowProperty:[NSDictionary dictionaryWithObjectsAndKeys:@"QSVContractEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithFloat:0.25], @"duration", nil, [NSNumber numberWithFloat:0.25] , @"brightnessB", @"QSStandardBrightBlending", @"brightnessFn", nil] forKey:kQSWindowCancelEffect];
 
 	[(QSBezelBackgroundView *)[[self window] contentView] setRadius:24.0];
 	[(QSBezelBackgroundView *)[[self window] contentView] setGlassStyle:QSGlossUpArc];
@@ -77,6 +77,7 @@
 	}
 	[super dealloc];
 }
+
 
 - (NSSize) maxIconSize {
 	return NSMakeSize(128, 128);
@@ -135,6 +136,15 @@
 - (void)searchObjectChanged:(NSNotification*)notif {
 	[super searchObjectChanged:notif];
 	[self updateDetailsString];
+}
+
+@end
+
+@implementation NSWindow (QSBezelInterfaceController)
+
+-(NSTimeInterval)animationResizeTime:(NSRect)newWindowFrame
+{
+	return 0.01;
 }
 
 @end

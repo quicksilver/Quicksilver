@@ -68,12 +68,10 @@
 	if (VERBOSE) NSLog(@"rescanning proxies");
 	NSDictionary *messages = [QSReg tableNamed:@"QSProxies"];
 	NSMutableArray *array = [NSMutableArray arrayWithCapacity:[messages count]];
-	NSEnumerator *ke = [messages keyEnumerator];
 	QSObject *proxyObject;
 	NSDictionary *info;
-	NSString *key;
 	NSString *name;
-	for (key in ke) {
+	for (NSString *key in messages) {
 		info = [messages objectForKey:key];
         proxyObject = [QSProxyObject proxyWithDictionary:info];
         [proxyObject setIdentifier:key];

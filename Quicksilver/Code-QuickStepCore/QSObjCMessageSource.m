@@ -50,11 +50,9 @@
 - (NSArray *)objectsForEntry:(NSDictionary *)theEntry {
 	NSDictionary *messages = [QSReg tableNamed:@"QSInternalMessages"];
 	NSMutableArray *array = [NSMutableArray arrayWithCapacity:[messages count]];
-	NSEnumerator *ke = [messages keyEnumerator];
-	NSString *key;
 	QSObject *messageObject;
 	NSDictionary *info;
-	for (key in ke) {
+	for (NSString *key in messages) {
 		info = [messages objectForKey:key];
 		messageObject = [QSObject messageObjectWithInfo:info identifier:key];
 //		[messageObject setIdentifier:key];

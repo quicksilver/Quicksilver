@@ -7,7 +7,6 @@
 //    // use fast enumeration on Mac OS X 10.5+
 //    #define foreach(x, y) for (id (x) in (y)) 
 //#endif
-#define foreachr(x, y) id x; NSEnumerator *rwEnum = [y reverseObjectEnumerator]; while(x = [rwEnum nextObject])
 #define foreachkey(k, x, y) id x = nil; NSString *k = nil; NSEnumerator *kEnum = [y keyEnumerator]; while((k = [kEnum nextObject]) && (x = [y objectForKey:k]) )
 #define defaultBool(x) [[NSUserDefaults standardUserDefaults] boolForKey:x]
 #define mOptionKeyIsDown (GetCurrentKeyModifiers() &optionKey)

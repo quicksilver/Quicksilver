@@ -457,10 +457,8 @@
 	NSAppleEventDescriptor	* theDescriptor = nil;
 	if( aDictionary != nil && (theDescriptor = [self recordDescriptor]) != nil )
 	{
-		NSNumber			* theKey;
-		NSEnumerator	* theEnumerator = [aDictionary keyEnumerator];
 		Class				theNumberClass = [NSNumber class];
-		for( theKey in theEnumerator )
+		for(NSNumber *theKey in aDictionary )
 		{
 			NSParameterAssert( [theKey isKindOfClass:theNumberClass] );
 			[theDescriptor setDescriptor:[NSAppleEventDescriptor descriptorWithObject:[aDictionary objectForKey:theKey]] forKeyword:[theKey unsignedIntValue]];
@@ -568,11 +566,9 @@
 
 	if( [aDictionary count] > 0 && (theUserRecord = [self listDescriptor]) != nil )
 	{
-		NSEnumerator	* theEnumerator = [aDictionary keyEnumerator];
-		id					theKey;
 		unsigned int	theIndex = 1;
 
-		for (theKey in theEnumerator )
+		for (id theKey in aDictionary )
 		{
 			[theUserRecord insertDescriptor:[NSAppleEventDescriptor descriptorWithString:[theKey description]] atIndex:theIndex++];
 			[theUserRecord insertDescriptor:[NSAppleEventDescriptor descriptorWithObject:[aDictionary objectForKey:theKey]] atIndex:theIndex++];		

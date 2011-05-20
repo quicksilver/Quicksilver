@@ -82,10 +82,9 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
 
 - (NSArray *)fileActionsFromPaths:(NSArray *)scripts {
 	scripts = [scripts pathsMatchingExtensions:SCRIPT_EXT];
-	NSString *path;
 	NSMutableArray *array = [NSMutableArray array];
 
-	for(path in scripts) {
+	for(NSString *path in scripts) {
 		QSAction *action = [self scriptActionForPath:path];
 		[array addObject:action];
 	}

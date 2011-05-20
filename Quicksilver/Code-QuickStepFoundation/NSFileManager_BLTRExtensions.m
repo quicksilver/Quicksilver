@@ -183,10 +183,8 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 }
 
 - (NSString *)fullyResolvedPathForPath:(NSString *)sourcePath {
-	NSString *thisComponent;
 	NSString *path = @"";
-	NSEnumerator *enumer = [[[[sourcePath stringByStandardizingPath] stringByResolvingSymlinksInPath] pathComponents] objectEnumerator];
-	for(thisComponent in enumer) {
+	for(NSString *thisComponent in [[sourcePath stringByStandardizingPath] pathComponents]) {
 		path = [path stringByAppendingPathComponent:thisComponent];
 		if (![self fileExistsAtPath:path])
 			continue;
@@ -246,12 +244,10 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 		//if (VERBOSE) NSLog(@"Scan Depth Exceeded 10 Levels with: %@", path);
 		return array;
 
-	NSString *file;
 	NSString *type;
 	LSItemInfoRecord infoRec;
 //	OSStatus status;
-	NSEnumerator *enumerator = [[manager contentsOfDirectoryAtPath:path error:nil] objectEnumerator];
-	for (file in enumerator) {
+	for (NSString *file in [manager contentsOfDirectoryAtPath:path error:nil]) {
 		file = [path stringByAppendingPathComponent:file];
 		type = [self typeOfFile:file];
 
@@ -323,15 +319,13 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 
 	if (depth) depth--;
 
-	NSString *file;
 	NSDate *moddate = [[self attributesOfItemAtPath:path error:NULL] fileModificationDate];
 
 	if ([date compare:moddate] == NSOrderedAscending && [moddate timeIntervalSinceNow] <0) {
 		return moddate;
 	}
 	if (isDirectory) {
-		NSEnumerator *enumerator = [[self contentsOfDirectoryAtPath:path error:nil] objectEnumerator];
-		for (file in enumerator) {
+		for (NSString *file in [self contentsOfDirectoryAtPath:path error:nil]) {
 			file = [path stringByAppendingPathComponent:file];
 			if (![self fileExistsAtPath:file isDirectory:&isDirectory]) continue;
 
@@ -357,13 +351,11 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 
 	if (depth) depth--;
 
-	NSString *file;
 	NSDate *moddate = [self pastOnlyModifiedDate:path];
 	if ([moddate timeIntervalSinceNow] >0)
 		moddate = [NSDate distantPast];
 	if (isDirectory) {
-		NSEnumerator *enumerator = [[self contentsOfDirectoryAtPath:path error:nil] objectEnumerator];
-		for (file in enumerator) {
+		for (NSString *file in [self contentsOfDirectoryAtPath:path error:nil]) {
 			file = [path stringByAppendingPathComponent:file];
 			if (![self fileExistsAtPath:file isDirectory:&isDirectory]) continue;
 

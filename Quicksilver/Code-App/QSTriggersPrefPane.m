@@ -125,13 +125,11 @@
 	NSDictionary *managers = [QSReg instancesForTable:@"QSTriggerManagers"];
 
 	//	NSLog(@"populate %@", managers);
-	NSEnumerator *e = [managers keyEnumerator];
-	NSString *key;
 	id manager = nil;
 	NSMutableArray *items = [NSMutableArray array];
 
 	id groupItem = nil;
-	for(key in e) {
+	for(NSString *key in managers) {
 		manager = [managers objectForKey:key];
 		item = [[[NSMenuItem alloc] initWithTitle:[manager name] action:NULL keyEquivalent:@""] autorelease];
 		[item setRepresentedObject:key];
