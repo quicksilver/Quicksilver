@@ -131,7 +131,6 @@
 		7F15A5FA08F996D70058D25E /* QSSimpleNotifier.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F15A5F908F996D70058D25E /* QSSimpleNotifier.xib */; };
 		7F24E8B707EDC67D00943D5A /* QSObject_AEConversion.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F24E8B507EDC67D00943D5A /* QSObject_AEConversion.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F24E8B807EDC67D00943D5A /* QSObject_AEConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F24E8B607EDC67D00943D5A /* QSObject_AEConversion.m */; };
-		7F24FA2108AFC326009DB343 /* QSURLExtractor.pl in Resources */ = {isa = PBXBuildFile; fileRef = 7F9769B408AE8366003FD75E /* QSURLExtractor.pl */; };
 		7F257BD6090DB26F00045D08 /* QSWindowAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F257BD4090DB26F00045D08 /* QSWindowAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F257BD7090DB26F00045D08 /* QSWindowAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F257BD5090DB26F00045D08 /* QSWindowAnimation.m */; };
 		7F26503408DB09B20076E4E6 /* NSString+CarbonUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F26503008DB09B20076E4E6 /* NSString+CarbonUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -307,6 +306,7 @@
 		CDCC201110A4C14B009C4EED /* QSMDPredicate.m in Sources */ = {isa = PBXBuildFile; fileRef = CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */; };
 		D493990D1350078E00B908C6 /* QSDownloads.h in Headers */ = {isa = PBXBuildFile; fileRef = D49399091350078E00B908C6 /* QSDownloads.h */; };
 		D493990E1350078E00B908C6 /* QSDownloads.m in Sources */ = {isa = PBXBuildFile; fileRef = D493990A1350078E00B908C6 /* QSDownloads.m */; };
+		D4A43887137CCF0300F15F7F /* QSURLExtractor.py in Resources */ = {isa = PBXBuildFile; fileRef = D4A4383B137CCCF500F15F7F /* QSURLExtractor.py */; };
 		E102347106BB6CC900143367 /* Find.icns in Resources */ = {isa = PBXBuildFile; fileRef = E102347006BB6CC900143367 /* Find.icns */; };
 		E102F9BD06625D7400843027 /* About.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F97C06625D7300843027 /* About.xib */; };
 		E102F9BE06625D7400843027 /* QSCatalog.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F97D06625D7300843027 /* QSCatalog.xib */; };
@@ -1122,7 +1122,6 @@
 		7F9703F809AFF05F00E9EA77 /* QSDropletMain.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSDropletMain.m; sourceTree = "<group>"; };
 		7F975A2407FC9C5E007FC20F /* QSDefaultsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDefaultsManager.h; sourceTree = "<group>"; };
 		7F975A2507FC9C5E007FC20F /* QSDefaultsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDefaultsManager.m; sourceTree = "<group>"; };
-		7F9769B408AE8366003FD75E /* QSURLExtractor.pl */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.perl; path = QSURLExtractor.pl; sourceTree = "<group>"; };
 		7F9BAA560886DA54003CB3A1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
 		7F9BAA570886DA54003CB3A1 /* SecurityFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SecurityFoundation.framework; path = /System/Library/Frameworks/SecurityFoundation.framework; sourceTree = "<absolute>"; };
 		7F9BDB2D09F86D25004F6E7A /* QSHandledSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHandledSplitView.h; sourceTree = "<group>"; };
@@ -1212,6 +1211,7 @@
 		CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSMDPredicate.m; sourceTree = "<group>"; };
 		D49399091350078E00B908C6 /* QSDownloads.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDownloads.h; sourceTree = "<group>"; };
 		D493990A1350078E00B908C6 /* QSDownloads.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDownloads.m; sourceTree = "<group>"; };
+		D4A4383B137CCCF500F15F7F /* QSURLExtractor.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = QSURLExtractor.py; sourceTree = "<group>"; };
 		E102347006BB6CC900143367 /* Find.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Find.icns; sourceTree = "<group>"; };
 		E102F97C06625D7300843027 /* About.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = About.xib; sourceTree = "<group>"; };
 		E102F97D06625D7300843027 /* QSCatalog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSCatalog.xib; sourceTree = "<group>"; };
@@ -1962,13 +1962,13 @@
 		E103EC5006471DBE00447FE0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D4A4383B137CCCF500F15F7F /* QSURLExtractor.py */,
 				7F4AD9150A4DA3D1002A2A1B /* Guide.html */,
 				7FDBC51E0A02DB0700E496FF /* DefaultsMap.plist */,
 				7F8403BD096A05E4006E6F0E /* GettingStarted.html */,
 				7F841766096CB23B006E6F0E /* GettingSupport.html */,
 				7F5D70CF091D9C76007A22C4 /* QSSplash.qtz */,
 				7F8401D009690F00006E6F0E /* ClientDescription.plist */,
-				7F9769B408AE8366003FD75E /* QSURLExtractor.pl */,
 				E129F348071DD65A001E1D5A /* License.rtf */,
 				E1186AD506A6D6F700F3EA8E /* QSKindDescriptions.plist */,
 				7F73BC65084787A500D01BDB /* QSStyle.css */,
@@ -3298,7 +3298,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F24FA2108AFC326009DB343 /* QSURLExtractor.pl in Resources */,
 				7F840FEB096C3356006E6F0E /* QSAction.description.strings in Resources */,
 				7F840FEC096C3356006E6F0E /* QSAction.name.strings in Resources */,
 				7F840FED096C3356006E6F0E /* QSCatalogPreset.name.strings in Resources */,
@@ -3309,6 +3308,7 @@
 				7F840FF2096C3356006E6F0E /* Catalog.strings in Resources */,
 				7F840FF3096C3356006E6F0E /* Preferences.strings in Resources */,
 				7F841BB6096CCCBF006E6F0E /* Rocket.png in Resources */,
+				D4A43887137CCF0300F15F7F /* QSURLExtractor.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
