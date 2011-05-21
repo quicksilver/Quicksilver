@@ -68,9 +68,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 - (void)addContentsOfPasteboard:(NSPasteboard *)pasteboard types:(NSArray *)types {
 	NSMutableArray *typeArray = [NSMutableArray arrayWithCapacity:1];
 	NSArray *ignoreTypes = [NSArray arrayWithObjects:@"QSObjectAddress", @"CorePasteboardFlavorType 0x4D555246", @"CorePasteboardFlavorType 0x54455854", nil];
-	NSString *thisType;
-	NSEnumerator *typesEnumerator = [(types?types:[pasteboard types]) objectEnumerator];
-	for(thisType in typesEnumerator) {
+	for(NSString *thisType in (types?types:[pasteboard types])) {
 		if ([[pasteboard types] containsObject:thisType] && ![ignoreTypes containsObject:thisType]) {
 			id theObject = objectForPasteboardType(pasteboard, thisType);
 			if (theObject && thisType)

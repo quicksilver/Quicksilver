@@ -156,10 +156,8 @@ BOOL QSApplicationCompletedLaunch = NO;
 	[super sendEvent:theEvent];
 }
 - (void)forwardWindowlessRightClick:(NSEvent *)theEvent {
-	NSEnumerator *windowEnumerator = [[self windows] objectEnumerator];
-	NSWindow *thisWindow;
 	NSWindow *clickWindow = nil;
-	for (thisWindow in windowEnumerator)
+	for (NSWindow *thisWindow in [self windows])
 		if ([thisWindow isVisible] && [thisWindow level] > [clickWindow level] && [thisWindow styleMask] & NSNonactivatingPanelMask && ![thisWindow ignoresMouseEvents] && NSPointInRect([theEvent locationInWindow] , NSInsetRect([thisWindow frame] , 0, -1) )) //These points are offset by one for some silly reason
 			clickWindow = thisWindow;
 	if (clickWindow) {

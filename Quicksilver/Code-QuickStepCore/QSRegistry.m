@@ -66,11 +66,9 @@ QSRegistry* QSReg = nil;
 
 - (NSMutableDictionary *)instancesForTable:(NSString *)key {
 	id instance;
-	NSString * entry;
 	NSDictionary *sourceTable = [self tableNamed:key];
 	NSMutableDictionary *instances = [NSMutableDictionary dictionaryWithCapacity:[sourceTable count]];
-	NSEnumerator *e = [sourceTable keyEnumerator];
-	for(entry in e) {
+	for(NSString *entry in sourceTable) {
 		if (instance = [self getClassInstance:[sourceTable objectForKey:entry]])
 			[instances setObject:instance forKey:entry];
 	}
@@ -89,10 +87,8 @@ QSRegistry* QSReg = nil;
 - (void)retainItemsInTable:(NSString *)table {
 	NSDictionary *sourceTable = [self tableNamed:table];
 	NSMutableDictionary *retainedItems = [self retainedTableNamed:table];
-	NSEnumerator *e = [sourceTable keyEnumerator];
-	NSString * entry;
 	id instance;
-	for(entry in e) {
+	for(NSString *entry in sourceTable) {
 		if (instance = [self getClassInstance:[sourceTable objectForKey:entry]])
 			[retainedItems setObject:instance forKey:entry];
 	}
@@ -253,15 +249,12 @@ QSRegistry* QSReg = nil;
 	if (!registration) return NO;
 	//if (![registration isKindOfClass:[NSDictionary class]]) [NSException exceptionWithName:@"Invalid registration" reason: @"Registration is not a dictionary" userInfo:nil];
 	//	[bundle load];
-	NSEnumerator *keynum = [registration keyEnumerator];
-	NSString * table;
-	for (table in keynum) {
+	for (NSString *table in registration) {
 		NSDictionary *providers = [registration objectForKey:table];
 		if (![providers isKindOfClass:[NSDictionary class]]) [NSException raise:@"Invalid registration" format:@"%@ invalid", table];
 		[[self tableNamed:table] addEntriesFromDictionary:providers];
 		NSMutableDictionary *retainedInstances = [tableInstances objectForKey:table];
-		NSEnumerator *e = [providers keyEnumerator];
-		for(NSString * provider in e) {
+		for(NSString *provider in providers) {
 			id entry = [providers objectForKey:provider];
 			NSString *className = entry;
 			if ([entry isKindOfClass:[NSDictionary class]])

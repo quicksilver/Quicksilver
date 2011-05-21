@@ -433,10 +433,8 @@
 }
 
 - (QSObject *)revealFile:(QSObject *)dObject {
-	NSEnumerator *files = [[dObject validPaths] objectEnumerator];
 	// ***warning   * should resolve aliases
-	NSString *thisFile;
-	for(thisFile in files)
+	for(NSString *thisFile in [dObject validPaths])
 		[mQSFSBrowser revealFile:thisFile];
 	return nil;
 }
@@ -457,9 +455,8 @@
 	int choice = QSRunCriticalAlertSheet([(NSWindowController *)QSIC window], @"Delete File", [NSString stringWithFormat:@"Are you sure you want to PERMANENTLY delete:\r %@?", [selection componentsJoinedByString:@", "]], @"Delete", @"Cancel", nil);
 	[QSIC setHiding:NO];
 	if (choice == 1) {
-		NSEnumerator *files = [dObject enumeratorForType:QSFilePathType];
 		NSString *lastDeletedFile;
-		for(NSString *thisFile in files) {
+		for(NSString *thisFile in [dObject arrayForType:QSFilePathType]) {
 			if ([[NSFileManager defaultManager] removeItemAtPath:thisFile error:nil]) {
 				[[NSWorkspace sharedWorkspace] noteFileSystemChanged:[thisFile stringByDeletingLastPathComponent]];
 				lastDeletedFile = thisFile;
@@ -490,9 +487,8 @@
 
 - (QSBasicObject *)trashFile:(QSObject *)dObject {
 	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
-	NSEnumerator *files = [[dObject arrayForType:QSFilePathType] objectEnumerator];
 	NSString *lastDeletedFile;
-	for(NSString *thisFile in files) {
+	for(NSString *thisFile in [dObject arrayForType:QSFilePathType]) {
 		[ws performFileOperation:NSWorkspaceRecycleOperation source:[thisFile stringByDeletingLastPathComponent] destination:@"" files:[NSArray arrayWithObject:[thisFile lastPathComponent]] tag:nil];
 		[ws noteFileSystemChanged:[thisFile stringByDeletingLastPathComponent]];
 		lastDeletedFile = thisFile;
@@ -661,9 +657,8 @@
 
 - (QSObject *)makeAliasTo:(QSObject *)dObject inFolder:(QSObject *)iObject {
 	NSString *destination = [iObject singleFilePath];
-	NSEnumerator *files = [dObject enumeratorForType:QSFilePathType];
-	NSString *thisFile, *destinationFile;
-	for(thisFile in files) {
+	NSString *destinationFile;
+	for(NSString *thisFile in [dObject arrayForType:QSFilePathType]) {
 		destinationFile = [destination stringByAppendingPathComponent:[thisFile lastPathComponent]];
 		if ([(NDAlias *)[NDAlias aliasWithPath:thisFile] writeToFile:destinationFile])
 			[[NSWorkspace sharedWorkspace] noteFileSystemChanged:destination];
@@ -673,9 +668,7 @@
 
 - (QSObject *)makeLinkTo:(QSObject *)dObject inFolder:(QSObject *)iObject {
 	NSString *destination = [iObject singleFilePath];
-	NSEnumerator *files = [dObject enumeratorForType:QSFilePathType];
-	NSString *thisFile;
-	for(thisFile in files) {
+	for(NSString *thisFile in [dObject arrayForType:QSFilePathType]) {
 		if ([[NSFileManager defaultManager] createSymbolicLinkAtPath:[destination stringByAppendingPathComponent:[thisFile lastPathComponent]] withDestinationPath:thisFile error:nil])
 			[[NSWorkspace sharedWorkspace] noteFileSystemChanged:destination];
 	}
@@ -683,9 +676,8 @@
 }
 
 - (QSObject *)makeHardLinkTo:(QSObject *)dObject inFolder:(QSObject *)iObject {
-	NSString *thisFile, *destination = [iObject singleFilePath];
-	NSEnumerator *files = [dObject enumeratorForType:QSFilePathType];
-	for(thisFile in files) {
+	NSString *destination = [iObject singleFilePath];
+	for(NSString *thisFile in [dObject arrayForType:QSFilePathType]) {
 		if ([[NSFileManager defaultManager] linkItemAtPath:thisFile toPath:[destination stringByAppendingPathComponent:[thisFile lastPathComponent]] error:nil])
 			[[NSWorkspace sharedWorkspace] noteFileSystemChanged:destination];
 	}

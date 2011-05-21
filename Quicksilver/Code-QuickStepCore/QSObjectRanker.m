@@ -187,9 +187,7 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 
 		} else if (newScore) {
 			// otherwise add points for similar starting abbreviations
-			NSEnumerator *enumerator = [usageMnemonics keyEnumerator];
-			id key;
-			for (key in enumerator) {
+			for (id key in usageMnemonics) {
 				if (prefixCompare(key, anAbbreviation) == NSOrderedSame) {
 					newScore += (1-1/([[usageMnemonics objectForKey:key] floatValue]) )/4;
 				}
