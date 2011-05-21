@@ -128,9 +128,7 @@ id QSPrefs;
 //	[QSReg printRegistry:nil];
 	NSDictionary *plugInPanes = [QSReg tableNamed:kQSPreferencePanes];
 //	NSLog(@"plug %@", plugInPanes);
-	NSEnumerator *e = [plugInPanes keyEnumerator];
-	NSString *paneKey = nil;
-	for(paneKey in e) {
+	for(NSString *paneKey in plugInPanes) {
 		if ([modulesByID objectForKey:paneKey]) continue;
 		//if ([loadedPanes containsObject:paneKey]) continue;
 		NSMutableDictionary *paneInfo = [[[plugInPanes objectForKey:paneKey] mutableCopy] autorelease];

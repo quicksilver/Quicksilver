@@ -1,5 +1,3 @@
-
-
 #import <Foundation/Foundation.h>
 #import "QSCatalogEntry.h"
 
@@ -84,10 +82,9 @@ extern QSLibrarian *QSLib; // Shared Instance
 - (float) estimatedTimeForSearchInSet:(id)set;
 - (NSMutableArray *)scoreTest:(id)sender;
 - (NSMutableArray *)scoredArrayForString:(NSString *)string;
-- (NSMutableArray *)scoredArrayForString:(NSString *)string inNamedSet:(NSString *)setName;
+- (NSMutableArray *)scoredArrayForString:(NSString *)string inNamedSet:(NSString *)setName __attribute__((deprecated));
 - (NSMutableArray *)scoredArrayForString:(NSString *)searchString inSet:(id)set;
 - (NSMutableArray *)scoredArrayForString:(NSString *)searchString inSet:(NSArray *)set mnemonicsOnly:(BOOL)mnemonicsOnly;
-//- (NSMutableArray *)scoredArrayForString:(NSString *)searchString inSet:(NSArray *)set mnemonicsOnly:(BOOL)mnemonicsOnly;
 - (NSMutableArray *)shelfNamed:(NSString *)shelfName;
 //- (void)registerActions:(id)actionObject;
 //- (void)loadActionsForObject:(id)actionObject;

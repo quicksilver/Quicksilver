@@ -15,7 +15,6 @@ extern QSExecutor *QSExec; // Shared Instance
 @end
 
 @interface QSExecutor : NSObject {
-	NSMutableArray *oldActionObjects;
 	NSMutableDictionary *actionIdentifiers;
 	NSMutableDictionary *directObjectTypes;
 	NSMutableDictionary *directObjectFileTypes;

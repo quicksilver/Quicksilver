@@ -69,9 +69,7 @@ NSSize QSMaxIconSize;
 	QSObject *thisObject;
     NSMutableArray *keysToDeleteFromObjectDict = [[NSMutableArray alloc] init];
     @synchronized(objectDictionary) {
-        NSEnumerator *keyEnum = [objectDictionary keyEnumerator];
-        NSString *thisKey;
-        for (thisKey in keyEnum) {
+        for (NSString *thisKey in objectDictionary) {
             thisObject = [objectDictionary objectForKey:thisKey];
             if ([thisObject retainCount] < 2) {
                 [keysToDeleteFromObjectDict addObject:thisKey];
@@ -94,35 +92,30 @@ NSSize QSMaxIconSize;
 + (void)purgeImagesAndChildrenOlderThan:(NSTimeInterval)interval {
 	unsigned imagecount = 0;
 	unsigned childcount = 0;
-	NSEnumerator *e;
  // NSString *thisKey = nil;
 
 	QSObject *thisObject;
-
     NSMutableArray * tempArray = [NSMutableArray array];
-	e = [iconLoadedArray objectEnumerator];
-    for (thisObject in e) {
+    for (thisObject in iconLoadedArray) {
 		//	NSLog(@"i%@ %f", thisObject, thisObject->lastAccess);
         if (thisObject->lastAccess && thisObject->lastAccess < (globalLastAccess - interval) ) {
             [tempArray addObject:thisObject];
         }
     }
-    
     for( thisObject in tempArray ) {
         if ([thisObject unloadIcon])
             imagecount++;
     }
     
     tempArray = [NSMutableArray array];
-    e = [childLoadedArray objectEnumerator];
-    for (thisObject in e) {
+    for (thisObject in childLoadedArray) {
 		//	NSLog(@"c%@ %f", thisObject, thisObject->lastAccess);
         if (thisObject->lastAccess && thisObject->lastAccess < (globalLastAccess - interval)) {
             [tempArray addObject:thisObject];
         }
     }
     
-    for( thisObject in tempArray ) {
+    for(thisObject in tempArray ) {
         if ([thisObject unloadChildren])
             childcount++;
     }
@@ -178,9 +171,7 @@ NSSize QSMaxIconSize;
 	if (![[self identifier] isEqualToString:[anObject identifier]]) return NO;
 	if ([self primaryObject])
 		return [[self primaryObject] isEqual:[anObject primaryObject]];
-	NSEnumerator *typesEnumerator = [data keyEnumerator];
-	NSString *key;
-	for(key in typesEnumerator) {
+	for(NSString *key in data) {
 		if (![[data objectForKey:key] isEqual:[anObject objectForType:key]]) return NO;
 	}
 	return YES;
@@ -245,15 +236,12 @@ NSSize QSMaxIconSize;
 }
 
 + (id)objectByMergingObjects:(NSArray *)objects {
-	id thisObject;
-
 	NSMutableSet *typesSet = nil;
 
 	NSMutableDictionary *combinedData = [NSMutableDictionary dictionary];
-	NSEnumerator *e;
 	NSString *type;
 	NSMutableArray *array;
-	for (thisObject in objects) {
+	for (id thisObject in objects) {
 		if (!typesSet) typesSet = [NSMutableSet setWithArray:[thisObject types]];
 		else
 			[typesSet intersectSet:[NSSet setWithArray:[thisObject types]]];
@@ -266,8 +254,7 @@ NSSize QSMaxIconSize;
 	}
 
     NSMutableArray *typesToRemove = [NSMutableArray array];
-	e = [combinedData keyEnumerator];
-	for(type in e) {
+	for(type in combinedData) {
 		if (![typesSet containsObject:type])
             [typesToRemove addObject:type];
 	}
@@ -479,9 +466,7 @@ NSSize QSMaxIconSize;
 
 - (NSArray *)decodedTypes {
 	NSMutableArray *decodedTypes = [NSMutableArray arrayWithCapacity:[data count]];
-	NSEnumerator *typesEnumerator = [data keyEnumerator];
-	NSString *thisType;
-	for(thisType in typesEnumerator) {
+	for(NSString *thisType in data) {
 		[decodedTypes addObject:[thisType decodedPasteboardType]];
 	}
 	return decodedTypes;
@@ -489,10 +474,8 @@ NSSize QSMaxIconSize;
 
 - (int) count {
 	if (![self primaryType]) {
-		NSEnumerator *e = [[[self dataDictionary] allValues] objectEnumerator];
-		id value;
 		int count = 1;
-		for(value in e) {
+		for(id value in [[self dataDictionary] allValues]) {
 			if ([value isKindOfClass:[NSArray class]]) count = MAX([(NSArray *)value count] , count);
 		}
 		return count;
@@ -615,6 +598,7 @@ NSSize QSMaxIconSize;
     if (newIdentifier != nil) {
         flags.noIdentifier = NO;
         @synchronized(objectDictionary) {
+#warning got a EXC_BAD_ACCESS here Patrick Robertson 17/05/11
             [objectDictionary setObject:self forKey:newIdentifier];
         }
         [meta setObject:newIdentifier forKey:kQSObjectObjectID];

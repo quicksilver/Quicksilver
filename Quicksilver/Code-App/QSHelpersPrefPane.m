@@ -56,10 +56,9 @@
 		return [menu autorelease];
 	}
 	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
-	NSEnumerator *keyEnum = [mediators keyEnumerator];
-	NSString *path, *key, *title;
+	NSString *path, *title;
 	NSMenuItem *item = nil;
-	for(key in keyEnum) {
+	for(NSString *key in mediators) {
 		path = [workspace absolutePathForAppBundleWithIdentifier:key];
 		NSString *class = [mediators objectForKey:key];
 		NSBundle *bundle = [QSReg bundleForClassName:class];
