@@ -12,19 +12,23 @@
 #import "QSKeyCodeTranslator.h"
 
 void QSForcePaste() {
-	QSKeyCodeTranslator *linguist = [[QSKeyCodeTranslator alloc] init];
-	CGKeyCode keyCode = [linguist keyCodeForCharacter:@"v"];
-	[linguist release];
 
 	CGInhibitLocalEvents(YES);
 	CGEnableEventStateCombining(NO);
 
 	CGSetLocalEventsFilterDuringSupressionState(kCGEventFilterMaskPermitAllEvents, kCGEventSupressionStateSupressionInterval);
 
-	CGPostKeyboardEvent((CGCharCode) 0, (CGKeyCode)55, true);
-	CGPostKeyboardEvent((CGCharCode) 'v', keyCode, true);
-	CGPostKeyboardEvent((CGCharCode) 'v', keyCode, false);
-	CGPostKeyboardEvent((CGCharCode) 0, (CGKeyCode)55, false);
+	CGEventSourceRef source = CGEventSourceCreate(kCGEventSourceStateCombinedSessionState);
+	CGEventRef pasteCommandDown = CGEventCreateKeyboardEvent(source, (CGKeyCode)9, YES);
+	CGEventSetFlags(pasteCommandDown, kCGEventFlagMaskCommand);
+	CGEventRef pasteCommandUp = CGEventCreateKeyboardEvent(source, (CGKeyCode)9, NO);
+	
+	CGEventPost(kCGAnnotatedSessionEventTap, pasteCommandDown);
+	CGEventPost(kCGAnnotatedSessionEventTap, pasteCommandUp);
+	
+	CFRelease(pasteCommandUp);
+	CFRelease(pasteCommandDown);
+	CFRelease(source);
 
 	CGEnableEventStateCombining(YES);
 	CGInhibitLocalEvents(NO);
