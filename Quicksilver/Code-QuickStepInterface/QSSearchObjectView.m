@@ -975,7 +975,8 @@ NSMutableDictionary *bindingsDict = nil;
 		if (defaultValue) {
 			[self setObjectValue:[QSObject objectWithString:defaultValue]];
 			[[self currentEditor] setString:defaultValue];
-			[[self currentEditor] selectAll:self];
+			NSString *fileName = [[defaultValue componentsSeparatedByString:@"."] objectAtIndex:0];
+			[[self currentEditor] setSelectedRange:NSMakeRange(0, fileName.length)];
 		}
 	}
 	return [super becomeFirstResponder];
