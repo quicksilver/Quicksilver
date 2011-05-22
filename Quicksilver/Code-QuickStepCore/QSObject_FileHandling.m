@@ -116,7 +116,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 #endif
 }
 
-@interface QSFileSystemObjectHandler (hidden) {}
+@interface QSFileSystemObjectHandler (hidden)
 -(NSImage *)prepareImageforIcon:(NSImage *)icon;
 
 @end
