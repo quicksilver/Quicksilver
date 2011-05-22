@@ -42,7 +42,9 @@ static QSController *defaultController = nil;
 	if (initialized) return;
 	initialized = YES;
 
+#ifdef DEBUG
 	if (QSGetLocalizationStatus() && DEBUG_STARTUP) NSLog(@"Enabling Localization");
+#endif
 
 	[NSApp registerServicesMenuSendTypes:[NSArray arrayWithObjects:NSStringPboardType, NSRTFPboardType, nil] returnTypes:[NSArray arrayWithObjects:NSStringPboardType, NSRTFPboardType, nil]];
 
@@ -56,8 +58,10 @@ static QSController *defaultController = nil;
 	[defaultActionImage setCacheMode:NSImageCacheNever];
 #endif
 
+#ifdef DEBUG
 	if (defaultBool(@"verbose") )
 		setenv("verbose", "1", YES);
+#endif
 
 	// Pre instantiate to avoid bug
 //	[NSColor controlShadowColor];
@@ -490,11 +494,15 @@ static QSController *defaultController = nil;
 
 - (void)executeCommandAtPath:(NSString *)path { [[QSCommand commandWithFile:path] execute];  }
 - (void)performService:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"Perform Service: %@ %d", userData, [userData characterAtIndex:0]);
+#endif
 	[self receiveObject:[[[QSObject alloc] initWithPasteboard:pboard] autorelease]];
 }
 - (void)getSelection:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"GetSel Service: %@ %d", userData, [userData characterAtIndex:0]);
+#endif
 	[self receiveObject:[[[QSObject alloc] initWithPasteboard:pboard] autorelease]];
 }
 

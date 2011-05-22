@@ -144,8 +144,10 @@ BOOL QSApplicationCompletedLaunch = NO;
 		  break;
 	  case NSOtherMouseDown:
 			[theEvent retain];
+#ifdef DEBUG
 			if (VERBOSE)
 				NSLog(@"OtherMouse %@ %@", theEvent, [theEvent window]);
+#endif
 			[[NSClassFromString(@"QSMouseTriggerManager") sharedInstance] handleMouseTriggerEvent:theEvent type:nil forView:nil];
 			break;
 	  case NSScrollWheel: {

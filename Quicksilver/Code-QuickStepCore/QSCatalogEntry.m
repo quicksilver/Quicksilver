@@ -467,8 +467,10 @@ if (kUseNSArchiveForIndexes)
 
 
 - (void)invalidateIndex:(NSNotification *)notif {
+#ifdef DEBUG
 	if (VERBOSE)
 		NSLog(@"Catalog Entry Invalidated: %@ (%@) %@", self, [notif object] , [notif name]);
+#endif
 	[self scanForced:YES];
 }
 
@@ -489,14 +491,18 @@ if (kUseNSArchiveForIndexes)
 
 - (id)source {
 	id source = [QSReg sourceNamed:[info objectForKey:kItemSource]];
+#ifdef DEBUG
 	if (!source && VERBOSE)
 		NSLog(@"Source not found: %@ for Entry: %@", [info objectForKey:kItemSource] , [self identifier]);
+#endif
 	return source;
 }
 
 - (NSArray *)scannedObjects {
 	if (isScanning) {
+#ifdef DEBUG
 		if (VERBOSE) NSLog(@"%@ is already being scanned", [self name]);
+#endif
 		return nil;
 	} else {
 		[self setIsScanning:YES];

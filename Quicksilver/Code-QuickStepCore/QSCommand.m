@@ -346,8 +346,9 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	QSAction *actionObject = [self aObject];
 	QSObject *directObject = [self dObject];
 	QSObject *indirectObject = [self iObject];
-
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"Execute Command: %@", self);
+#endif
 	int argumentCount = [(QSAction *)actionObject argumentCount];
 	if (argumentCount<2) {
 		return [actionObject performOnDirectObject:directObject indirectObject:indirectObject];

@@ -7,7 +7,7 @@
  *
  */
 
-
+#ifdef DEBUG
 #define VERBOSE (int) getenv("verbose")
 
 #define DEBUG_RANKING (int) getenv("QSDebugRanking")
@@ -19,3 +19,4 @@
 #define DEBUG_LOCALIZATION (int) getenv("QSDebugLocalization")
 #define DEBUG_UNPACKING (int) getenv("QSDebugUnpacking")
 
+#endif

@@ -685,10 +685,12 @@ NSMutableDictionary *plugInBundlePaths = nil;
 		[self _registerPlugIn];
 	NS_HANDLER
 		NSString *errorMessage = [NSString stringWithFormat:@"An error ocurred while loading plug-in \"%@\": %@", self, localException];
+#ifdef DEBUG
 		if (VERBOSE) {
 			NSLog(@"%@", errorMessage);
 			[localException printStackTrace];
 		}
+#endif
 		[self setLoadError:[localException reason]];
 	NS_ENDHANDLER
 	return YES;

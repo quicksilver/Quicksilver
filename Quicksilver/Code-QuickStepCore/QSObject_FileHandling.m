@@ -566,7 +566,9 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 				NSString *childPreset = [bundlePresetChildren objectForKey:bundleIdentifier];
 				if (childPreset) {
+#ifdef DEBUG
 					if (VERBOSE) NSLog(@"using preset %@", childPreset);
+#endif
 					QSCatalogEntry *theEntry = [[QSLibrarian sharedInstance] entryForID:childPreset];
 					newChildren = [theEntry contentsScanIfNeeded:YES];
 				} else {
@@ -661,7 +663,9 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	if ([paths count] == 1) {
 		NSString *aliasFile = [self objectForType:QSAliasFilePathType];
 		if ([manager fileExistsAtPath:aliasFile]) {
+#ifdef DEBUG
 			if (VERBOSE) NSLog(@"Using original alias file:%@", aliasFile);
+#endif
 			return [NSArray arrayWithObject:aliasFile];
 		}
 	}

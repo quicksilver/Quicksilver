@@ -153,7 +153,9 @@
 	}
 
 	fetchURLString = [fetchURLString stringByAppendingFormat:@"?%@", [query componentsJoinedByString:@"&"]];
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"Get web info: %@", fetchURLString);
+#endif
 	return fetchURLString;
 }
 
@@ -259,7 +261,9 @@
 - (void)clearOldWebData {
 	NSArray *webPlugIns = [[knownPlugIns allValues] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isInstalled == 0"]];
 	webPlugIns = [webPlugIns valueForKey:@"identifier"];
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"Invalidating %@", webPlugIns);
+#endif
 	[knownPlugIns removeObjectsForKeys:webPlugIns];
 	[plugInWebData removeAllObjects];
 	[[knownPlugIns allValues] makeObjectsPerformSelector:@selector(clearWebData)];
@@ -365,7 +369,9 @@
 }
 
 - (void)checkForUnmetDependencies {
+#ifdef DEBUG
     if (VERBOSE) NSLog(@"Unmet Dependencies: %@", dependingPlugIns);
+#endif
 	NSMutableArray *array = [NSMutableArray array];
 	NSMutableSet *dependingNames = [NSMutableSet set];
 	foreachkey(ident, plugins, dependingPlugIns) {
@@ -809,7 +815,9 @@
 }
 
 - (BOOL)installPlugInsForIdentifiers:(NSArray *)bundleIDs version:(NSString *)version {
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"Update: %@", bundleIDs);
+#endif
 	NSString *ident = nil;
 	if (!version) version = [NSApp buildVersion];
 	for(ident in bundleIDs) {

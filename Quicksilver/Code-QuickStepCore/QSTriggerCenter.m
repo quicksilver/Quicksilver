@@ -203,7 +203,9 @@
         NSLog(@"Failed writing triggers : %@", error );
         return;
     }
+#ifdef DEBUG
     if (VERBOSE) NSLog(@"Wrote %d triggers", [cleanedTriggerArray count]);
+#endif
 }
 
 - (NSMutableDictionary *)triggersDict {

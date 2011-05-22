@@ -380,7 +380,9 @@
 			}
 			NSString *fileHandler = [dObject objectForMeta:@"QSPreferredApplication"];
 			if (fileHandler) {
+#ifdef DEBUG
 				if (VERBOSE) NSLog(@"Using %@", fileHandler);
+#endif
 				[ws openFile:thisFile withApplication:[ws absolutePathForAppBundleWithIdentifier:fileHandler]];
 			} else {
 //				if (![QSAction modifiersAreIgnored] && (GetCurrentKeyModifiers() & shiftKey)) { // Open in background

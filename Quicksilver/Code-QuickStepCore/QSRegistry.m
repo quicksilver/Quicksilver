@@ -156,8 +156,10 @@ QSRegistry* QSReg = nil;
 			instance = [[[providerClass alloc] init] autorelease];
 		[classInstances setObject:instance forKey:className];
 		return instance;
+#ifdef DEBUG
 	} else {
 		if (VERBOSE) NSLog(@"Can't find class %@ %@", className, [classBundles objectForKey:className]);
+#endif
 	}
 	return nil;
 }

@@ -15,8 +15,10 @@
 static BOOL gModifiersAreIgnored;
 + (void)setModifiersAreIgnored:(BOOL)flag { gModifiersAreIgnored = flag;  }
 + (BOOL)modifiersAreIgnored {
+#ifdef DEBUG
 	if (VERBOSE && gModifiersAreIgnored)
 		NSLog(@"ignoring modifiers %d", gModifiersAreIgnored);
+#endif
 	return gModifiersAreIgnored;
 }
 #endif

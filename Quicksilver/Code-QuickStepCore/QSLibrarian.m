@@ -108,7 +108,9 @@ static float searchSpeed = 0.0;
 }
 
 - (void)pruneInvalidChildren:(id)sender {
+#ifdef DEBUG
 	if(VERBOSE) NSLog(@"prune invalid");
+#endif
 	[catalog pruneInvalidChildren];
 }
 - (QSCatalogEntry *)catalogCustom {
@@ -240,12 +242,15 @@ static float searchSpeed = 0.0;
 // 		else if (DEBUG && ![thisEntry isSeparator]) [presetEntries addObject:thisEntry];
 // 	}
     
+#ifdef DEBUG
+	NSMutableArray *presetEntries = [NSMutableArray arrayWithCapacity:1];
+#endif
+	
 	for(QSCatalogEntry * thisEntry in catalogChildren) {
 		if (![thisEntry isPreset] && ![thisEntry isSeparator]) {
 			[customEntries addObject:[thisEntry dictionaryRepresentation]];
 		}
 #ifdef DEBUG
-		NSMutableArray *presetEntries = [NSMutableArray arrayWithCapacity:1];
 		else if (![thisEntry isSeparator]) {
 			[presetEntries addObject:thisEntry];
 		}
@@ -576,8 +581,10 @@ static float searchSpeed = 0.0;
 
 - (float) estimatedTimeForSearchInSet:(id)set {
 	float estimate = (set ? [set count] : [defaultSearchSet count]) * searchSpeed;
+#ifdef DEBUG
 	if (VERBOSE)
         NSLog(@"Estimate: %fms avg: %dµs", estimate * 1000, (int)(searchSpeed * 1000000));
+#endif
 	return MIN(estimate, 0.5);
 }
 
@@ -586,16 +593,19 @@ static float searchSpeed = 0.0;
 	int i, j;
 	int count = [array count];
 
-
+#ifdef DEBUG
 	NSDate *totalDate = [NSDate date];
 	NSDate *date;
+#endif
 	//NSMutableArray *newResultArray;
 
 	//NSTimeInterval moo = 0;
 	//NSTimeInterval moo2 = 0;
 	NSAutoreleasePool *pool;
 	for(i = 0; i<count; i++) {
+#ifdef DEBUG
 		date = [NSDate date];
+#endif
 		for(j = 0; j<25; j++) {
 			//	NSData *scores;
 			NSString *string = [array objectAtIndex:i];
@@ -605,8 +615,9 @@ static float searchSpeed = 0.0;
 
 			[pool release];
 		}
-
+#ifdef DEBUG
 		if (VERBOSE) NSLog(@"SearchTest in %3fs, %3fs", -[date timeIntervalSinceNow] , -[totalDate timeIntervalSinceNow]);
+#endif
 	}
 	return nil;
 }
@@ -629,7 +640,6 @@ static float searchSpeed = 0.0;
 #ifdef DEBUG
 	NSDate *date = [NSDate date];
 	
-	NSMutableArray *rankObjects = [QSDefaultObjectRanker rankedObjectsForAbbreviation:searchString inSet:set inContext:searchString mnemonicsOnly:mnemonicsOnly];
 	int count = [set count];
 	float speed = -[date timeIntervalSinceNow] / count;
 	if (count)

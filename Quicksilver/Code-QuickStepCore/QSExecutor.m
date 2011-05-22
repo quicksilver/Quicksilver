@@ -201,8 +201,9 @@ QSExecutor *QSExec = nil;
 		[actionRanking insertObject:ident atIndex:i];
 		[actionPrecedence setObject:[NSNumber numberWithFloat:prec] forKey:ident];
 		[action setRank:i];
-
+#ifdef DEBUG
 		if (VERBOSE) NSLog(@"inserting action %@ at %d (%f) ", action, i, prec);
+#endif
 	} else {
 		[action _setRank:index];
 	}
@@ -437,7 +438,9 @@ QSExecutor *QSExec = nil;
 
 - (void)orderActions:(NSArray *)actions aboveActions:(NSArray *)lowerActions {
 	int index = [[lowerActions valueForKeyPath:@"@min.rank"] intValue];
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"Promote to %d", index);
+#endif
 	NSString *targetIdentifier = [actionRanking objectAtIndex:index];
 	NSArray *identifiers = [actions valueForKey:@"identifier"];
 	[actionRanking removeObjectsInArray:identifiers];
@@ -481,6 +484,7 @@ QSExecutor *QSExec = nil;
 	[self performSelector:@selector(writeActionsInfoNow) withObject:nil afterDelay:3.0 extend:YES];
 }
 - (void)writeActionsInfoNow {
+#warning should sort out #if 1 - p_j_r 22/05/11
 #if 1
 	[[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:actionPrecedence, actionRanking, actionActivation, actionMenuActivation, actionIndirects, actionNames, nil] forKeys:[NSArray arrayWithObjects:@"actionPrecedence", @"actionRanking", @"actionActivation", @"actionMenuActivation", @"actionIndirects", @"actionNames", nil]] writeToFile:pQSActionsLocation atomically:YES];
 #else
@@ -493,7 +497,9 @@ QSExecutor *QSExec = nil;
 	[dict setObject:actionNames forKey:@"actionNames"];
 	[dict writeToFile:pQSActionsLocation atomically:YES];
 #endif
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"Wrote Actions Info");
+#endif
 }
 @end
 

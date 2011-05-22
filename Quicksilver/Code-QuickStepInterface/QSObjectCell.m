@@ -656,7 +656,9 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 }
 
 - (void)performMenuAction:(NSMenuItem *)item {
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"perf");
+#endif
 
 	QSCommand* command = [item representedObject];
 
