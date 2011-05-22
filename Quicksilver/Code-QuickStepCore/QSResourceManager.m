@@ -102,7 +102,7 @@ id QSRez;
 }
 
 - (NSImage *)getFavIcon:(NSString *)urlString { 
-	NSURL *favIconURL = [NSURL URLWithString:urlString];
+	NSURL *favIconURL = [NSURL URLWithString:[urlString URLEncoding]];
 	// URLs without a scheme, NSURL's 'host' method returns nil
 	if (![favIconURL host]) {
 		return nil;
