@@ -9,7 +9,6 @@
 #import "NSPasteboard_BLTRExtensions.h"
 #import "NSString_BLTRExtensions.h"
 #import "NDResourceFork.h"
-#import "QSKeyCodeTranslator.h"
 
 void QSForcePaste() {
 
