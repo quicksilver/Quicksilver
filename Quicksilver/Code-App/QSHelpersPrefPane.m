@@ -48,10 +48,12 @@
 	NSDictionary *mediators = [QSReg tableNamed:table];
 	NSMenu *menu = [[NSMenu alloc] initWithTitle:@"popUp"];
 	if (![mediators count]) {
-		if (!DEBUG) {
+		
+#ifndef DEBUG
             [menu release];
             return nil;
-        }
+#endif
+
 		[menu addItemWithTitle:@"None Available" action:nil keyEquivalent:@""];
 		return [menu autorelease];
 	}

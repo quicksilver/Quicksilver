@@ -782,7 +782,11 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			LSCopyKindStringForURL((CFURLRef)fileURL, (CFStringRef *)&kind);
       [kind autorelease];
 		}
+		
+#ifdef DEBUG
       if (DEBUG_LOCALIZATION) NSLog(@"kind: %@", kind);
+#endif
+		
 		if (bundleName && [kind length])
 			bundleName = [NSString stringWithFormat:@"%@ %@", bundleName, kind];
 	} else {

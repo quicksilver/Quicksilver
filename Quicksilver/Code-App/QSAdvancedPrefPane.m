@@ -67,8 +67,9 @@
        thisInfo = [[prefSetsController arrangedObjects] objectAtIndex:rowIndex];
     }
     @catch (NSException * e) {
-        if (DEBUG)
-            NSLog(@"*** Unhandled Exception:%@ with reason: %@, in %@", [e name], [e reason], NSStringFromSelector(_cmd));
+#ifdef DEBUG
+		NSLog(@"*** Unhandled Exception:%@ with reason: %@, in %@", [e name], [e reason], NSStringFromSelector(_cmd));
+#endif
     }
 	NSCell *cell;
     

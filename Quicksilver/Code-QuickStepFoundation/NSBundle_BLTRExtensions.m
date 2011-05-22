@@ -36,12 +36,15 @@
 	if (locString && ![locString isEqualToString:missingString]) { 
 		return locString; 
 	}
+	
+#ifdef DEBUG
 	if(DEBUG_LOCALIZATION) { 
 		NSLog(@"Localization: Missing localized key %@ in table %@ for localization \"%@\", trying for English",
 			  key,
 			  tableName,
 			  [[self preferredLocalizations] objectAtIndex:0]);
 	}
+#endif
 	
 	// 3. look up in tableName for default (English) localization (skip, if default table)
 	NSDictionary *dictionary;
@@ -61,11 +64,14 @@
 	if (locString) {
 		return locString;
 	}
+	
+#ifdef DEBUG
 	if(DEBUG_LOCALIZATION) {
 		NSLog(@"Localization: Missing localized key %@ in table %@ for localization English",
 			  key,
 			  tableName);
 	}
+#endif
 	
 	// 5. use defaultValue
 	return defaultValue;

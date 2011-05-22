@@ -92,7 +92,11 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	if (!name) name = [data objectForKey:(NSString *)kCFBundleNameKey];
 
 	int feature = [[[self info] valueForKeyPath:@"QSRequirements.feature"] intValue];
-	if (DEBUG && [name hasSuffix:@" Module"]) name = [name substringToIndex:[name length] -7];
+
+#ifdef DEBUG
+	if ([name hasSuffix:@" Module"]) name = [name substringToIndex:[name length] -7];
+#endif
+	
 	if (feature == 1) {
 		name = [name stringByAppendingFormat:@" (+) ", 0x25B8];
 	} else if (feature == 2) {
@@ -100,14 +104,18 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	} else if (feature>2) {
 		name = [name stringByAppendingFormat:@" (%C) ", 0x03B1];
 	}
-	if (DEBUG && !data)
+	
+#ifdef DEBUG
+	if (!data) {
 		name = [name stringByAppendingFormat:@" - Private", 0x03B1];
+	}
 //	if (DEBUG && [self isUniversal]) {
 //		name = [name stringByAppendingFormat:@" - U"];
 //	}
-    if (DEBUG && [self isSecret]) {
+    if ([self isSecret]) {
 		name = [name stringByAppendingFormat:@" - Secret"];
 	}
+#endif
 
 	return name;
 }
@@ -623,9 +631,11 @@ NSMutableDictionary *plugInBundlePaths = nil;
 - (BOOL)_registerPlugIn {
 	if (!bundle) return NO;
     
+#ifdef DEBUG
 	if (DEBUG_PLUGINS)
 		NSLog(@"Loading PlugIn: %@ (%@) ", [[[bundle bundlePath] lastPathComponent] stringByDeletingPathExtension] , [bundle objectForInfoDictionaryKey:@"CFBundleVersion"]);
-        
+#endif
+	
 	[QSReg registerBundle:bundle];
 	[self registerPlugInFrameworks];
 
@@ -652,7 +662,10 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	if (loadNow) {
 		currPrincipalClass = [bundle principalClass];
 		if (currPrincipalClass) {
+			
+#ifdef DEBUG
 			if (DEBUG_PLUGINS) NSLog(@"Forcing Load of Class %@", currPrincipalClass);
+#endif
 
 			if ([currPrincipalClass respondsToSelector:@selector(loadPlugIn)])
 				[currPrincipalClass loadPlugIn];

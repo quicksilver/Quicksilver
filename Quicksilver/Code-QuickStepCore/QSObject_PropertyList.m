@@ -9,17 +9,23 @@
 + (id)objectWithDictionary:(NSDictionary *)dictionary {
     if(dictionary == nil)
         return nil;
+	
+#ifdef DEBUG
     if (DEBUG_UNPACKING && VERBOSE)
         NSLog(@"%@ %@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), dictionary);
+#endif
+	
     id obj = [dictionary objectForKey:kQSObjectClass];
     if(obj)
         obj = [[NSClassFromString(obj) alloc] initWithDictionary:dictionary];
     
     if(!obj)
         obj = [[self alloc] initWithDictionary:dictionary];
-    
+
+#ifdef DEBUG
     if (!obj && DEBUG_UNPACKING)
         NSLog(@"%@ %@ failed creating object with dict %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), dictionary);
+#endif
     
     return [obj autorelease];
 }
@@ -68,8 +74,12 @@
 }
 
 - (id)initWithDictionary:(NSDictionary *)dictionary {
+	
+#ifdef DEBUG
     if (DEBUG_UNPACKING && VERBOSE)
         NSLog(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+#endif
+	
     NSDictionary *dataDict = [dictionary objectForKey:kData];
     NSDictionary *metaDict = [dictionary objectForKey:kMeta];
     if (!dataDict && !metaDict)

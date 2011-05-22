@@ -160,7 +160,7 @@
 	NSMutableArray *cleanedTriggerArray = [NSMutableArray arrayWithCapacity:[triggersDict count]];
 	for(QSTrigger *thisTrigger in [triggersDict allValues]) {
         NSDictionary * rep = [thisTrigger dictionaryRepresentation];
-        if(DEBUG) {
+#ifdef DEBUG
             NSArray *plistTypes = [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInt:NSPropertyListXMLFormat_v1_0],
                                                             [NSNumber numberWithUnsignedInt:NSPropertyListBinaryFormat_v1_0],
 /*                                                          [NSNumber numberWithUnsignedInt:NSPropertyListOpenStepFormat],
@@ -170,7 +170,7 @@
             for(NSNumber *num in plistTypes ) {
                 int plistType = [num unsignedIntValue];
                 BOOL valid = [NSPropertyListSerialization propertyList:rep isValidForFormat:plistType];
-                if(!valid && DEBUG) {
+                if(!valid) {
                     NSLog(@"trigger representation %@ for format %@ : (%@)", ( valid ? @"valid" : @"invalid" ),
                           (plistType == NSPropertyListXMLFormat_v1_0 ? @"XML" :
                            (plistType == NSPropertyListBinaryFormat_v1_0 ? @"Binary" :
@@ -183,8 +183,8 @@
                 if(failCount == [plistTypes count]) {
                     NSLog(@"Utterly failed to output %@", rep);
                 }
-            } // endif(DEBUG)
-        }
+            }
+#endif
 		[cleanedTriggerArray addObject:rep];
 	}
     NSString *errorStr;

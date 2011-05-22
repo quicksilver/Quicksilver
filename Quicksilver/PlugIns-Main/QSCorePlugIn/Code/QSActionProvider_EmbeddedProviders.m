@@ -608,7 +608,9 @@
 			case QSDontReplaceFilesResolution:
 				otherFiles = [[filePaths mutableCopy] autorelease];
 				[otherFiles removeObjectsInArray:[conflicts allKeys]];
-            if (DEBUG) NSLog(@"Only moving %@", otherFiles);
+#ifdef DEBUG
+				NSLog(@"Only moving %@", otherFiles);
+#endif
             filePaths = otherFiles;
 				break;
 			case QSSmartReplaceFilesResolution: {

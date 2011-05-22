@@ -339,8 +339,12 @@
 
 }
 - (void)bundleDidLoad:(NSNotification *)aNotif {
+	
+#ifdef DEBUG
 	if (DEBUG_PLUGINS)
 		NSLog(@"Loaded Bundle: %@ Classes: %@", [[[aNotif object] bundlePath] lastPathComponent] , [[[aNotif userInfo] objectForKey:@"NSLoadedClasses"] componentsJoinedByString:@", "]);
+#endif
+	
 }
 
 - (BOOL)liveLoadPlugIn:(QSPlugIn *)plugin {
@@ -396,8 +400,11 @@
 }
 
 - (void)loadPlugInsAtLaunch {
+
+#ifdef DEBUG
 	NSDate *date = [NSDate date];
-    
+#endif
+	
 	// load main bundle
 	[[QSPlugIn plugInWithBundle:[NSBundle mainBundle]]registerPlugIn];
 
@@ -437,8 +444,11 @@
 
 	[self checkForUnmetDependencies];
 	[self suggestOldPlugInRemoval];
-    
+	
+#ifdef DEBUG
 	if (DEBUG_STARTUP) NSLog(@"PlugIn Load Complete (%dms) ", (int)(-[date timeIntervalSinceNow] *1000));
+#endif
+	
 	startupLoadComplete = YES;
 }
 
@@ -494,7 +504,11 @@
 	NSString *error;
 	if (![plugIn meetsRequirements:&error]) {
 		if (error) [plugIn setLoadError:error];
+		
+#ifdef DEBUG
 		if (DEBUG_PLUGINS) NSLog(@"Requirements not met %@:\r%@", plugIn, error);
+#endif
+		
 		return NO;
 	}
 	return YES;
@@ -555,14 +569,14 @@
 - (void)suggestOldPlugInRemoval {
 	//NSLog(@"old: %@", oldPlugIns);
 	if ([oldPlugIns count]) {
-		if (1) {//DEBUG || [[NSUserDefaults standardUserDefaults] boolForKey:@"QSIgnoreOldPlugIns"]) {
-			  //	if (VERBOSE) NSLog(@"Ignored Old Plugins: %@", [[oldPlugIns valueForKeyPath:@"path"] componentsJoinedByString:@"\r"]);
-		} else {
+		//if (1) {//DEBUG || [[NSUserDefaults standardUserDefaults] boolForKey:@"QSIgnoreOldPlugIns"]) {
+		//	  //	if (VERBOSE) NSLog(@"Ignored Old Plugins: %@", [[oldPlugIns valueForKeyPath:@"path"] componentsJoinedByString:@"\r"]);
+		//} else {
 			for (QSPlugIn * plugIn in oldPlugIns) {
 				NSLog(@"Deleting Old Duplicate Plug-in:\r%@", [plugIn path]);
 				[[NSFileManager defaultManager] removeItemAtPath:[plugIn path] error:nil];
 			}
-		}
+		//}
 	}
 }
 

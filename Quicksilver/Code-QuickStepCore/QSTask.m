@@ -103,7 +103,11 @@ static NSMutableDictionary *tasksDictionary = nil;
 	return running;
 }
 - (void)startTask:(id)sender {
-    if (DEBUG && VERBOSE) NSLog(@"Start Task: %@", self);
+	
+#ifdef DEBUG
+    if (VERBOSE) NSLog(@"Start Task: %@", self);
+#endif
+	
 	if (!running) {
 		running = YES;
 		[QSTasks taskStarted:self];
@@ -112,7 +116,11 @@ static NSMutableDictionary *tasksDictionary = nil;
 }
 - (void)stopTask:(id)sender {
 	if (running) {
-		if (DEBUG && VERBOSE) NSLog(@"End Task: %@ %d", [self identifier], [self retainCount]);
+		
+#ifdef DEBUG
+		if (VERBOSE) NSLog(@"End Task: %@ %d", [self identifier], [self retainCount]);
+#endif
+		
 		running = NO;
 		[QSTasks taskStopped:self];
 	}
