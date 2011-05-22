@@ -96,12 +96,7 @@ NSSize QSMaxIconSize;
 #ifdef DEBUG
 	unsigned imagecount = 0;
 	unsigned childcount = 0;
-<<<<<<< HEAD
-=======
 #endif
-	
-	NSEnumerator *e;
->>>>>>> debugCompile
  // NSString *thisKey = nil;
 
 	QSObject *thisObject;
