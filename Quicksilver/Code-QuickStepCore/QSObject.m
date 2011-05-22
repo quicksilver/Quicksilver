@@ -124,15 +124,10 @@ NSSize QSMaxIconSize;
         }
     }
     
-<<<<<<< HEAD
-    for(thisObject in tempArray ) {
-        if ([thisObject unloadChildren])
-=======
     for( thisObject in tempArray ) {
         if ([thisObject unloadChildren]) {
 			
 #ifdef DEBUG
->>>>>>> debugCompile
             childcount++;
 #endif		
 		}
