@@ -975,7 +975,12 @@ NSMutableDictionary *bindingsDict = nil;
 		if (defaultValue) {
 			[self setObjectValue:[QSObject objectWithString:defaultValue]];
 			[[self currentEditor] setString:defaultValue];
-			[[self currentEditor] selectAll:self];
+			if([[[[self actionSelector] objectValue] identifier] isEqualToString:@"FileRenameAction"]) {
+				NSString *fileName = [defaultValue stringByDeletingPathExtension];
+				[[self currentEditor] setSelectedRange:NSMakeRange(0, fileName.length)];
+			} else {
+			   [[self currentEditor] selectAll:self];
+			}
 		}
 	}
 	return [super becomeFirstResponder];
