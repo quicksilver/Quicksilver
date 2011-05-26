@@ -686,7 +686,12 @@
 
 - (QSObject *)getFilePaths:(QSObject *)dObject {
     // get an array of paths from files in the first pane
-    NSArray *paths = [dObject arrayForType:QSFilePathType];
+    NSMutableArray *paths = [NSMutableArray arrayWithCapacity:1];
+    for (NSString *path in [dObject arrayForType:QSFilePathType])
+    {
+        // use ~ to represent the home directory (where applicable)
+        [paths addObject:[path stringByAbbreviatingWithTildeInPath]];
+    }
     // the name/label should be a one-line string
     QSObject *pathResult = [QSObject objectWithName:[paths componentsJoinedByString:@", "]];
     // use something other than the path to prevent this from clobbering the existing file (if it's in the catalog)
