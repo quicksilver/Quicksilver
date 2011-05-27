@@ -350,6 +350,27 @@
 			<integer>1</integer>
 			<key>precedence</key>
 			<real>-0.5</real>
+			<key>alternateAction</key>
+			<string>FileGetAbsolutePosixPathAction</string>
+		</dict>
+		<key>FileGetAbsolutePosixPathAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>FSActions</string>
+			<key>actionSelector</key>
+			<string>getAbsoluteFilePaths:</string>
+			<key>directTypes</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+			</array>
+			<key>displaysResult</key>
+			<integer>1</integer>
+			<key>enabled</key>
+			<false/>
+			<key>feature</key>
+			<integer>1</integer>
+			<key>precedence</key>
+			<real>-0.5</real>
 		</dict>
 		<key>FileGetURLAction</key>
 		<dict>
