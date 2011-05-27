@@ -60,6 +60,8 @@
 	<string>Get Info</string>
     <key>FileGetPosixPathAction</key>
     <string>Get Path</string>
+    <key>FileGetAbsolutePosixPathAction</key>
+    <string>Get Absolute Path</string>
     <key>FileGetURLAction</key>
     <string>Get File URL</string>
     <key>FileGetHFSPathAction</key>

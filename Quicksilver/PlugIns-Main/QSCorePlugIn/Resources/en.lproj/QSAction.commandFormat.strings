@@ -52,6 +52,8 @@
 	<string>Get info on %@</string>
 	<key>FileGetPosixPathAction</key>
 	<string>Get posix path of %@</string>
+	<key>FileGetAbsolutePosixPathAction</key>
+	<string>Get absolute path of %@</string>
 	<key>FileGetURLAction</key>
 	<string>Get file:// URL of %@</string>
 	<key>FileMakeAliasInAction</key>

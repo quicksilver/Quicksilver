@@ -42,6 +42,10 @@
 	<string>Copy to another location</string>
 	<key>FileDecompressAction</key>
 	<string>Decompress file</string>
+	<key>FileGetPosixPathAction</key>
+	<string>Get the path using ~</string>
+	<key>FileGetAbsolutePosixPathAction</key>
+	<string>Get the absolute path (without ~)</string>
 	<key>FileMakeLinkInAction</key>
 	<string>Make link in another location</string>
 	<key>FileMoveToAction</key>

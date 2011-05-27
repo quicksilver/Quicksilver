@@ -60,6 +60,8 @@
 	<string>Lire les informations</string>
     <key>FileGetPosixPathAction</key>
     <string>Obtenir le chemin</string>
+    <key>FileGetAbsolutePosixPathAction</key>
+    <string>Obtenir le chemin absolu</string>
     <key>FileGetURLAction</key>
     <string>Obtenir l'URL</string>
     <key>FileGetHFSPathAction</key>
