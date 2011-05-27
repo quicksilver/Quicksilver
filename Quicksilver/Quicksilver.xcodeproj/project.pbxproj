@@ -4256,11 +4256,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					DEBUG,
-					"=",
-					1,
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 			};
 			name = Debug;
 		};
