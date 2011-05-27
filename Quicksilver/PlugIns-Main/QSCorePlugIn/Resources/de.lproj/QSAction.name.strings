@@ -60,9 +60,9 @@
     <string>Löschen</string>
     <key>FileGetInfoAction</key>
     <string>Infofenster</string>
-    <key>FileGetPosixPathAction</key>
+    <key>FileGetPathAction</key>
     <string>Pfad (POSIX)</string>
-    <key>FileGetAbsolutePosixPathAction</key>
+    <key>FileGetPosixPathAction</key>
     <string>Vollständiger Pfad (POSIX)</string>
     <key>FileGetURLAction</key>
     <string>Pfad als URL</string>

@@ -332,7 +332,7 @@
 				<string>NSFilenamesPboardType</string>
 			</array>
 		</dict>
-		<key>FileGetPosixPathAction</key>
+		<key>FileGetPathAction</key>
 		<dict>
 			<key>actionClass</key>
 			<string>FSActions</string>
@@ -351,9 +351,9 @@
 			<key>precedence</key>
 			<real>-0.5</real>
 			<key>alternateAction</key>
-			<string>FileGetAbsolutePosixPathAction</string>
+			<string>FileGetPosixPathAction</string>
 		</dict>
-		<key>FileGetAbsolutePosixPathAction</key>
+		<key>FileGetPosixPathAction</key>
 		<dict>
 			<key>actionClass</key>
 			<string>FSActions</string>

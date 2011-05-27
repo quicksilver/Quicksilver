@@ -50,7 +50,7 @@
 	<string>Obtenir le chemin HFS de %@</string>
 	<key>FileGetInfoAction</key>
 	<string>Lire les informations de %@</string>
-	<key>FileGetPosixPathAction</key>
+	<key>FileGetPathAction</key>
 	<string>Obtenir le chemin POSIX de %@</string>
 	<key>FileGetURLAction</key>
 	<string>Obtenir l'URL file:// de %@</string>
