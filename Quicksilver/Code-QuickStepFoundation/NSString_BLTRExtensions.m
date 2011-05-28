@@ -368,5 +368,33 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 		alternatePath = [NSString stringWithFormat:@"%@ %d.%@", basePath, i, extension];
 	return alternatePath;
 }
++ (NSData *)dataFromString:(NSString *)htmlString forType:(NSString *)type {
+	
+	// Dict containing the attributed string's attributes (most notably, a link)
+	NSDictionary *attStringAttributes = [NSDictionary dictionaryWithObject:[NSURL URLWithString:[htmlString URLEncoding]]
+																	forKey:NSLinkAttributeName];
+	
+	// create a different string for the link name (remove the mailto)
+	NSString *titleString =([htmlString hasPrefix:@"mailto:"]) ?[htmlString substringFromIndex:7] :htmlString;
+	
+	// create the attributed string
+	NSAttributedString *attString = [[NSAttributedString alloc] initWithString:titleString attributes:attStringAttributes];
+	
+	// For HTML pasteboard types, create a HTML data object
+	if([type isEqualToString:NSHTMLPboardType]) {
+		NSArray * exclude = [NSArray arrayWithObjects:@"doctype",@"html",@"head",@"body",@"xml",nil];
+		NSDictionary * htmlAtt = [NSDictionary dictionaryWithObjectsAndKeys:NSHTMLTextDocumentType, NSDocumentTypeDocumentAttribute,
+								  exclude,NSExcludedElementsDocumentAttribute,nil];
+		
+		return [attString dataFromRange:NSMakeRange(0, [attString length]) documentAttributes:htmlAtt error:nil];
+	}
+	// For RTF pasteboard types, create an RTF data object
+	else if([type isEqualToString:NSRTFPboardType]) {
+		return [attString RTFFromRange:NSMakeRange(0, [attString length])
+					documentAttributes:nil];
+	}
+	
+	return nil;
+}
 
 @end
