@@ -12,6 +12,7 @@
 + (id)objectWithClipping:(NSString *)clippingFile;
 - (id)initWithClipping:(NSString *)clippingFile;
 - (void)guessName;
+- (BOOL)putOnPasteboardAsPlainTextOnly:(NSPasteboard *)pboard;
 - (BOOL)putOnPasteboard:(NSPasteboard *)pboard declareTypes:(NSArray *)types includeDataForTypes:(NSArray *)includeTypes;
 - (void)pasteboard:(NSPasteboard *)sender provideDataForType:(NSString *)type;
 - (void)pasteboardChangedOwner:(NSPasteboard *)sender;

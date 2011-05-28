@@ -217,6 +217,15 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 	}
 }
 
+- (BOOL)putOnPasteboardAsPlainTextOnly:(NSPasteboard *)pboard {
+	NSArray *types = [NSArray arrayWithObject:NSStringPboardType];
+	[pboard declareTypes:types owner:nil];
+	NSString *string = [self stringValue];
+	string = ([string hasPrefix:@"mailto:"]) ? [string substringFromIndex:7] : string;
+	[pboard setString:string forType:NSStringPboardType];
+	return YES;
+}
+
 // Declares the types that should be put on the pasteboard
 - (BOOL)putOnPasteboard:(NSPasteboard *)pboard declareTypes:(NSArray *)types includeDataForTypes:(NSArray *)includeTypes {
 	if (!types) {
