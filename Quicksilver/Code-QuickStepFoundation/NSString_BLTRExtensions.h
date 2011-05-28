@@ -73,4 +73,5 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString);
 - (NSString *)stringByResolvingWildcardsInPath;
 - (NSString *)firstUnusedFilePath;
 - (NSArray *)componentsSeparatedByStrings:(NSArray *)strings;
++ (NSData *)dataFromString:(NSString *)htmlString forType:(NSString *)type;
 @end
