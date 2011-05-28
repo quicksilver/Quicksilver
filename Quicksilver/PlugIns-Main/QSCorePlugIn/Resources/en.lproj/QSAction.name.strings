@@ -90,6 +90,8 @@
     <string>Copy to Clipboard</string>
     <key>PasteboardPasteAction</key>
     <string>Paste with Clipboard</string>
+	<key>PasteboardPasteActionAsPlainText</key>
+	<string>Paste as Plain Text</string>
 	<key>ProcessKillAction</key>
 	<string>Force Quit (Kill)</string>
 	<key>ProcessLowerPriorityAction</key>
