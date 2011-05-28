@@ -23,15 +23,12 @@ BOOL QSApplicationCompletedLaunch = NO;
 @implementation QSApp
 +(void)load {
 #ifdef DEBUG
-		setenv("verbose", "1", YES);
 	 if(mOptionKeyIsDown) {
 		NSLog(@"Setting Verbose");
 		setenv("verbose", "1", YES);
 		setenv("QSDebugPlugIns", "1", YES);
 		setenv("QSDebugStartup", "1", YES);
 		setenv("QSDebugCatalog", "1", YES);
-	} else {
-		unsetenv("verbose");
 	}
 #endif
 }
