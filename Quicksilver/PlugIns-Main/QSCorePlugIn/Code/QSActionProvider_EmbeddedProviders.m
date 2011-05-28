@@ -750,18 +750,25 @@
 	return nil;
 }
 - (QSObject *)pasteObject:(QSObject *)dObject {
-	if ([dObject putOnPasteboard:[NSPasteboard generalPasteboard]]) {
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"WindowsShouldHide" object:self];
-		[[NSApp keyWindow] orderOut:self];
-		QSForcePaste();
-	} else NSBeep();
+	
+	[self pasteObject:dObject asPlainText:NO];
 	return nil;
 }
 - (QSObject *)pasteObjectAsPlainText:(QSObject *)dObject {
 
-	dObject = [QSObject objectWithString:[dObject stringValue]];
+	[self pasteObject:dObject asPlainText:YES];
+	return nil;
+}
+- (QSObject *)pasteObject:(QSObject *)dObject asPlainText:(BOOL)plainText {
 	
-	if ([dObject putOnPasteboard:[NSPasteboard generalPasteboard]]) {
+	BOOL success;
+	if(plainText) {
+		success = [dObject putOnPasteboardAsPlainTextOnly:[NSPasteboard generalPasteboard]];
+	}
+	else {
+		success = [dObject putOnPasteboard:[NSPasteboard generalPasteboard]];
+	}
+	if(success) {
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"WindowsShouldHide" object:self];
 		[[NSApp keyWindow] orderOut:self];
 		QSForcePaste();
