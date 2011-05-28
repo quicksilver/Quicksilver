@@ -47,6 +47,8 @@
 @end
 
 @interface ClipboardActions : QSActionProvider
+-(QSObject *)pasteObject:(QSObject *)dObject;
+-(QSObject *)pasteObjectAsPlainText:(QSObject *)dObject;
 @end
 
 
