@@ -1527,12 +1527,14 @@ NSMutableDictionary *bindingsDict = nil;
 	}
 	
 	// if object is the currently active object, update it in the pane
-	if (ind == selection) {
+	if ((ind == selection) || ([resultArray count] == 1)) {
 		[self setNeedsDisplay:YES];
 	}
 	
 	// update it in the resultlist
-	[resultController rowModified:ind];
+	if ([[resultController window] isVisible]) {
+		[resultController rowModified:ind];
+	}
 }
 @end
 
