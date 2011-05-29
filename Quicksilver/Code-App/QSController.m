@@ -207,17 +207,21 @@ static QSController *defaultController = nil;
 	[debugMenuItem setSubmenu:debugMenu];
 
 }
-#endif
+
 - (void)raiseException {
 	[NSException raise:@"Test Exception" format:@"This is a test. It is only a test. In the event of a real exception, it would have been followed by some witty commentary."];
 }
 
+
 // disable warning because this is intentional
 #pragma clang diagnostic ignored "-Wformat-security"
 
+// Method to crash QS - can call from the debug menu
 - (void)crashQS {
 	NSLog((id)1);
 }
+
+#endif
 
 #pragma clang diagnostic warning "-Wformat-security"
 
@@ -253,7 +257,10 @@ static QSController *defaultController = nil;
 
 }
 
+#ifdef DEBUG
 - (IBAction)sendReleaseAll:(id)sender { [[NSNotificationCenter defaultCenter] postNotificationName:QSReleaseAllNotification object:nil];  }
+#endif
+
 - (IBAction)showGuide:(id)sender { [QSPreferencesController showPaneWithIdentifier:@"QSMainMenuPrefPane"];  }
 - (IBAction)showSettings:(id)sender { [QSPreferencesController showPaneWithIdentifier:@"QSSettingsPanePlaceholder"];  }
 - (IBAction)showCatalog:(id)sender { [QSPreferencesController showPaneWithIdentifier:@"QSCatalogPrefPane"];  }

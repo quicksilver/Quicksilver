@@ -588,24 +588,21 @@ static float searchSpeed = 0.0;
 	return MIN(estimate, 0.5);
 }
 
+#ifdef DEBUG
 - (NSMutableArray *)scoreTest:(id)sender {
 	NSArray *array = [NSArray arrayWithObjects:@"a", @"b", @"c", @"d", @"e", @"f", @"g", @"h", @"i", @"j", @"k", @"l", @"m", @"n", @"o", @"p", @"q", @"r", @"s", @"t", @"u", @"v", @"w", @"x", @"y", @"z", nil];
 	int i, j;
 	int count = [array count];
 
-#ifdef DEBUG
 	NSDate *totalDate = [NSDate date];
 	NSDate *date;
-#endif
 	//NSMutableArray *newResultArray;
 
 	//NSTimeInterval moo = 0;
 	//NSTimeInterval moo2 = 0;
 	NSAutoreleasePool *pool;
 	for(i = 0; i<count; i++) {
-#ifdef DEBUG
 		date = [NSDate date];
-#endif
 		for(j = 0; j<25; j++) {
 			//	NSData *scores;
 			NSString *string = [array objectAtIndex:i];
@@ -615,12 +612,11 @@ static float searchSpeed = 0.0;
 
 			[pool release];
 		}
-#ifdef DEBUG
 		if (VERBOSE) NSLog(@"SearchTest in %3fs, %3fs", -[date timeIntervalSinceNow] , -[totalDate timeIntervalSinceNow]);
-#endif
 	}
 	return nil;
 }
+#endif
 
 - (NSMutableArray *)scoredArrayForString:(NSString *)string {
 	return [self scoredArrayForString:string inSet:nil mnemonicsOnly:NO];

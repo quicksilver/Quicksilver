@@ -206,10 +206,12 @@ QSRegistry* QSReg = nil;
 	}
 }
 
+#ifdef DEBUG
 - (void)printRegistry:(id)sender {
 	NSLog(@"classRegistry:\r%@", classRegistry);
 	NSLog(@"bundles:\r%@", classBundles);
 }
+#endif
 
 - (id)preferredInstanceOfTable:(NSString *)table {
 	return [prefInstances objectForKey:table];

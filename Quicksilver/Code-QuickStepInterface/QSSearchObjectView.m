@@ -748,11 +748,13 @@ NSMutableDictionary *bindingsDict = nil;
 	return YES;
 }
 
+#ifdef DEBUG
 - (IBAction)logObjectDictionary:(id)sender {
 	NSLog(@"Printing Object\r%@", [[self objectValue] name]);
 	NSLog(@"Dictionary\r%@", [[self objectValue] dictionaryRepresentation]);
 	NSLog(@"Icon\r%@", [[self objectValue] icon]);    
 }
+#endif
 
 - (void)transmogrifyWithText:(NSString *)string {
 	if (![self allowText]) return;
