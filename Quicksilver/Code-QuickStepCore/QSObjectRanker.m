@@ -87,7 +87,7 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 		labelRanker = nil;
 		if ([object name])
 			nameRanker = [[QSCurrentStringRanker alloc] initWithString:[object name]];
-		if ([object label])
+		if ([object label] && ![[object label] isEqualToString:[object name]])
 			labelRanker = [[QSCurrentStringRanker alloc] initWithString:[object label]];
 		usageMnemonics = [[[QSMnemonics sharedInstance] objectMnemonicsForID:[object identifier]] retain];
 	}
