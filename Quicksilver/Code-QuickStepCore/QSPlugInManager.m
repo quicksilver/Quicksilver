@@ -675,11 +675,27 @@
 
 }
 
+/**
+ Copy specified path to plugins folder and install the plugin.
+ @param	path	File system path to the .qsplugin folder to copy then install
+ @return 			Path of the installed plugin, or nil if unreadable.
+ */
 - (NSString *)installPlugInFromFile:(NSString *)path {
+  NSString *bundleID, *bundleVersion;
+  bundleID = [QSPlugIn bundleIDForPluginAt:path andVersion:&bundleVersion];
+  if (!bundleID) {
+    NSLog(@"Failed to install plugin %@, no bundle ID", path);
+    return nil;
+  }
+  if (!*version) {
+    NSLog(@"Warning installing plugin %@, no version string found", path);
+    *version = @"0";
+  }
 	NSString *destinationFolder = psMainPlugInsLocation;
 	NSFileManager *manager = [NSFileManager defaultManager];
 	[manager createDirectoriesForPath:destinationFolder];
-	NSString *destinationPath = [destinationFolder stringByAppendingPathComponent: [path lastPathComponent]];
+	NSString *destinationPath = [destinationFolder stringByAppendingPathComponent:
+                               [NSString stringWithFormat:@"%@.%@.qsplugin", bundleID, bundleVersion]];
 	if (![destinationPath isEqualToString:path]) {
 		if (![manager removeItemAtPath:destinationPath error:nil])
              NSLog(@"failed to remove %@ for installation of %@", destinationPath, path);
@@ -772,8 +788,8 @@
 				newPlugIn = [[self installPlugInFromCompressedFile:path] lastObject];
 			else if ([[path pathExtension] caseInsensitiveCompare:@"qsplugin"] == NSOrderedSame)
 				newPlugIn = [self installPlugInFromFile:path];
-
-			[self plugInWasInstalled:newPlugIn];
+			if (newPlugIn)
+        [self plugInWasInstalled:newPlugIn];
 		}
 
 	}
