@@ -153,7 +153,9 @@
 	}
 
 	fetchURLString = [fetchURLString stringByAppendingFormat:@"?%@", [query componentsJoinedByString:@"&"]];
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"Get web info: %@", fetchURLString);
+#endif
 	return fetchURLString;
 }
 
@@ -259,7 +261,9 @@
 - (void)clearOldWebData {
 	NSArray *webPlugIns = [[knownPlugIns allValues] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isInstalled == 0"]];
 	webPlugIns = [webPlugIns valueForKey:@"identifier"];
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"Invalidating %@", webPlugIns);
+#endif
 	[knownPlugIns removeObjectsForKeys:webPlugIns];
 	[plugInWebData removeAllObjects];
 	[[knownPlugIns allValues] makeObjectsPerformSelector:@selector(clearWebData)];
@@ -339,8 +343,12 @@
 
 }
 - (void)bundleDidLoad:(NSNotification *)aNotif {
+	
+#ifdef DEBUG
 	if (DEBUG_PLUGINS)
 		NSLog(@"Loaded Bundle: %@ Classes: %@", [[[aNotif object] bundlePath] lastPathComponent] , [[[aNotif userInfo] objectForKey:@"NSLoadedClasses"] componentsJoinedByString:@", "]);
+#endif
+	
 }
 
 - (BOOL)liveLoadPlugIn:(QSPlugIn *)plugin {
@@ -361,7 +369,9 @@
 }
 
 - (void)checkForUnmetDependencies {
+#ifdef DEBUG
     if (VERBOSE) NSLog(@"Unmet Dependencies: %@", dependingPlugIns);
+#endif
 	NSMutableArray *array = [NSMutableArray array];
 	NSMutableSet *dependingNames = [NSMutableSet set];
 	foreachkey(ident, plugins, dependingPlugIns) {
@@ -396,8 +406,11 @@
 }
 
 - (void)loadPlugInsAtLaunch {
+
+#ifdef DEBUG
 	NSDate *date = [NSDate date];
-    
+#endif
+	
 	// load main bundle
 	[[QSPlugIn plugInWithBundle:[NSBundle mainBundle]]registerPlugIn];
 
@@ -437,8 +450,11 @@
 
 	[self checkForUnmetDependencies];
 	[self suggestOldPlugInRemoval];
-    
+	
+#ifdef DEBUG
 	if (DEBUG_STARTUP) NSLog(@"PlugIn Load Complete (%dms) ", (int)(-[date timeIntervalSinceNow] *1000));
+#endif
+	
 	startupLoadComplete = YES;
 }
 
@@ -494,7 +510,11 @@
 	NSString *error;
 	if (![plugIn meetsRequirements:&error]) {
 		if (error) [plugIn setLoadError:error];
+		
+#ifdef DEBUG
 		if (DEBUG_PLUGINS) NSLog(@"Requirements not met %@:\r%@", plugIn, error);
+#endif
+		
 		return NO;
 	}
 	return YES;
@@ -555,14 +575,14 @@
 - (void)suggestOldPlugInRemoval {
 	//NSLog(@"old: %@", oldPlugIns);
 	if ([oldPlugIns count]) {
-		if (1) {//DEBUG || [[NSUserDefaults standardUserDefaults] boolForKey:@"QSIgnoreOldPlugIns"]) {
-			  //	if (VERBOSE) NSLog(@"Ignored Old Plugins: %@", [[oldPlugIns valueForKeyPath:@"path"] componentsJoinedByString:@"\r"]);
-		} else {
+		//if (1) {//DEBUG || [[NSUserDefaults standardUserDefaults] boolForKey:@"QSIgnoreOldPlugIns"]) {
+		//	  //	if (VERBOSE) NSLog(@"Ignored Old Plugins: %@", [[oldPlugIns valueForKeyPath:@"path"] componentsJoinedByString:@"\r"]);
+		//} else {
 			for (QSPlugIn * plugIn in oldPlugIns) {
 				NSLog(@"Deleting Old Duplicate Plug-in:\r%@", [plugIn path]);
 				[[NSFileManager defaultManager] removeItemAtPath:[plugIn path] error:nil];
 			}
-		}
+		//}
 	}
 }
 
@@ -795,7 +815,9 @@
 }
 
 - (BOOL)installPlugInsForIdentifiers:(NSArray *)bundleIDs version:(NSString *)version {
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"Update: %@", bundleIDs);
+#endif
 	NSString *ident = nil;
 	if (!version) version = [NSApp buildVersion];
 	for(ident in bundleIDs) {

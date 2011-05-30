@@ -218,9 +218,12 @@ id QSRez;
 		if ([self respondsToSelector:selector])
 			image = [self performSelector:selector];
 	}
-
+#warning: This check is just if(0), removed by p_j_r 22/05/11
+#if 0
 	if (0 && !image) {
+#ifdef DEBUG
 		if (VERBOSE) NSLog(@"Searching for image: %@", name);
+#endif
 
 		for (NSBundle *bundle in [NSBundle allBundles]) {
 			NSString *path = [bundle pathForImageResource:name];
@@ -229,6 +232,7 @@ id QSRez;
 			}
 		}
 	}
+#endif
 
 	if (!image) {
 		// if (VERBOSE) NSLog(@"Image Not Found:: %@", name);
@@ -320,8 +324,13 @@ id QSRez;
         } else {
             image = [workspace iconForFileType:[locator objectForKey:@"type"]];
         }
-        if(!image && DEBUG)
+		
+#ifdef DEBUG
+        if(!image) {
             NSLog(@"Unable to locate bundle with identifier %@, using locator %@", bundleID, locator);
+		}
+#endif
+		
 	}
 	return image;
 }

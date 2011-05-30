@@ -748,11 +748,13 @@ NSMutableDictionary *bindingsDict = nil;
 	return YES;
 }
 
+#ifdef DEBUG
 - (IBAction)logObjectDictionary:(id)sender {
 	NSLog(@"Printing Object\r%@", [[self objectValue] name]);
 	NSLog(@"Dictionary\r%@", [[self objectValue] dictionaryRepresentation]);
 	NSLog(@"Icon\r%@", [[self objectValue] icon]);    
 }
+#endif
 
 - (void)transmogrifyWithText:(NSString *)string {
 	if (![self allowText]) return;
@@ -822,13 +824,19 @@ NSMutableDictionary *bindingsDict = nil;
 
 
 - (void)performSearchFor:(NSString *)string from:(id)sender {
-    NSDate *date = [NSDate date];
-    
+#ifdef DEBUG
+	NSDate *date = [NSDate date];
+#endif
+	
 	//	NSData *scores;
 	NSMutableArray *newResultArray = [[QSLibrarian sharedInstance] scoredArrayForString:string inSet:searchArray];
     
 	//t NSLog(@"scores %@", scores);
+	
+#ifdef DEBUG
 	if (DEBUG_RANKING) NSLog(@"Searched for \"%@\" in %3fms (%d items) ", string, 1000 * -[date timeIntervalSinceNow] , [newResultArray count]);
+#endif
+	
     // NSLog (@"search for %@", string);
 	//NSLog(@"%d valid", validSearch);
 	if (validSearch = [newResultArray count] >0) {
@@ -1021,7 +1029,9 @@ NSMutableDictionary *bindingsDict = nil;
     
 	// check for additional keydowns up to now so the search isn't done too often.
     if (fALPHA) moreComing = nil != [NSApp nextEventMatchingMask:NSKeyDownMask untilDate:[NSDate dateWithTimeIntervalSinceNow:SEARCH_RESULT_DELAY] inMode:NSDefaultRunLoopMode dequeue:NO];
+#ifdef DEBUG
     if (VERBOSE && moreComing) NSLog(@"moreComing");
+#endif
     
 	// ***warning  * have downshift move to indirect object
 	if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"/"] && [self handleSlashEvent:theEvent])
@@ -1129,8 +1139,9 @@ NSMutableDictionary *bindingsDict = nil;
     
     
 	if (nextEvent = [NSApp nextEventMatchingMask:NSKeyUpMask untilDate:absorbDate inMode:NSDefaultRunLoopMode dequeue:NO]) {
-        
+#ifdef DEBUG
 		if (VERBOSE) 	NSLog(@"discarding events till %@", nextEvent);
+#endif
 		[NSApp discardEventsMatchingMask:NSAnyEventMask beforeEvent:nextEvent];
         
 	}
@@ -1488,8 +1499,10 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)doCommandBySelector:(SEL)aSelector {
+#ifdef DEBUG
 	if (VERBOSE && ![self respondsToSelector:aSelector])
 		NSLog(@"Unhandled Command: %@", NSStringFromSelector(aSelector) );
+#endif
 	[super doCommandBySelector:aSelector];
 }
 
@@ -1569,7 +1582,9 @@ NSMutableDictionary *bindingsDict = nil;
 //	return nil;
 //}
 - (void)switchToHistoryState:(int)i {
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"select in history %d %@", i, [historyArray valueForKeyPath:@"selection.displayName"]);
+#endif
 	//
 	if (i<[historyArray count])
 		[self setHistoryState:[historyArray objectAtIndex:i]];
@@ -1598,7 +1613,9 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)goForward:(id)sender {
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"goForward");
+#endif
 	if (historyIndex>0) {
 		[self switchToHistoryState:--historyIndex];
 	} else {
@@ -1606,7 +1623,9 @@ NSMutableDictionary *bindingsDict = nil;
 	}
 }
 - (void)goBackward:(id)sender {
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"goBackward");
+#endif
 
 	if (historyIndex == -1) {
 		[self updateHistory];
@@ -1701,11 +1720,15 @@ NSMutableDictionary *bindingsDict = nil;
 			if (newSelectedObject) {
 				if ([historyArray count] > historyIndex) {
 					if ([[[historyArray objectAtIndex:historyIndex+1] valueForKey:@"selection"] isEqual:parent]) {
+#ifdef DEBUG
 						if (VERBOSE) NSLog(@"Parent Missing, Using History");
+#endif
 						[self goBackward:self];
 						return;
 					}
+#ifdef DEBUG
 					if (VERBOSE) NSLog(@"Parent Missing, No History, %@", [[historyArray objectAtIndex:0] valueForKey:@"selection"]);
+#endif
 				}
 
 				if (!newObjects)
@@ -1721,12 +1744,16 @@ NSMutableDictionary *bindingsDict = nil;
 				if (!newObjects && [historyArray count]) {
 					//
 					if ([[[historyArray objectAtIndex:0] valueForKey:@"selection"] isEqual:parent]) {
+#ifdef DEBUG
 						if (VERBOSE) NSLog(@"Parent Missing, Using History");
+#endif
 
 						[self goBackward:self];
 						return;
 					}
+#ifdef DEBUG
 					if (VERBOSE) NSLog(@"Parent Missing, No History");
+#endif
 
 				}
 			}

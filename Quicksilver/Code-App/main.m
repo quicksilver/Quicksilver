@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 int main(int argc, const char *argv[]) {
+#ifdef DEBUG
     if(DEBUG_MEMORY) {
         setenv("NSZombieEnabled", "YES", 1);
         setenv("NSDeallocateZombies", "YES", 1); // So leaks don't get mad.
@@ -16,5 +17,6 @@ int main(int argc, const char *argv[]) {
         setenv("MallocStackLoggingNoCompact", "1", 1);
         setenv("NSAutoreleaseFreedObjectCheckEnabled", "YES", 1);
     }
+#endif
 	return NSApplicationMain(argc, argv);
 }

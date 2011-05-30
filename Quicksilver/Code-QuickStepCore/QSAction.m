@@ -15,8 +15,10 @@
 static BOOL gModifiersAreIgnored;
 + (void)setModifiersAreIgnored:(BOOL)flag { gModifiersAreIgnored = flag;  }
 + (BOOL)modifiersAreIgnored {
+#ifdef DEBUG
 	if (VERBOSE && gModifiersAreIgnored)
 		NSLog(@"ignoring modifiers %d", gModifiersAreIgnored);
+#endif
 	return gModifiersAreIgnored;
 }
 #endif
@@ -139,9 +141,12 @@ static BOOL gModifiersAreIgnored;
             if(provider && [provider respondsToSelector:@selector(titleForAction:)])
                 n = [[self provider] titleForAction:ident];
         }
-        if(!n && DEBUG)
+		
+#ifdef DEBUG
+        if(!n)
             NSLog(@"Action %@ without provider.", ident);
-        
+#endif
+		
         [self setName:n];
         
         if (!n) n = ident;

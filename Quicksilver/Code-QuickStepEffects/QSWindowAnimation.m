@@ -37,7 +37,11 @@
 }
 
 - (void)dealloc {
+	
+#ifdef DEBUG
 	if(DEBUG_MEMORY) NSLog(@"qswindowanimation dealloc");
+#endif
+	
 	[_window release];
 	[animType release];
 	[super dealloc];

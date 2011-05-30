@@ -35,7 +35,9 @@
 - (void)openURL:(NSURL *)url;
 - (void)showSplash:sender;
 
+#ifdef DEBUG
 - (void)activateDebugMenu;
+#endif
 
 - (NSMenu *)statusMenuWithQuit;
 - (void)activateInterface:(id)sender;

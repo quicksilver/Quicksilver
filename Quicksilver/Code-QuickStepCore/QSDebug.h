@@ -7,8 +7,8 @@
  *
  */
 
+#ifdef DEBUG
 #define VERBOSE (int) getenv("verbose")
-#define DEBUG (bool) getenv("NSDebugEnabled")
 
 #define DEBUG_RANKING (int) getenv("QSDebugRanking")
 #define DEBUG_MNEMONICS (int) getenv("QSDebugMnemonics")
@@ -18,3 +18,5 @@
 #define DEBUG_CATALOG (int) getenv("QSDebugCatalog")
 #define DEBUG_LOCALIZATION (int) getenv("QSDebugLocalization")
 #define DEBUG_UNPACKING (int) getenv("QSDebugUnpacking")
+
+#endif

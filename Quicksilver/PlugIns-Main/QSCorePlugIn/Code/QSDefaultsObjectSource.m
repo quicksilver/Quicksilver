@@ -31,7 +31,9 @@
 		if ([[settings objectForKey:@"watchTarget"] boolValue]) {
 			NSString *path = [self prefFileForBundle:[settings objectForKey:kDefaultsObjectSourceBundleID]];
 			[[QSVoyeur sharedInstance] addPathToQueue:path notifyingAbout:UKKQueueNotifyAboutDelete | UKKQueueNotifyAboutWrite];
+#ifdef DEBUG
 			if (VERBOSE) NSLog(@"Watching Path %@", path);
+#endif
 			[[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:entry selector:@selector(invalidateIndex:) name:nil object:path];
 		}
 	}

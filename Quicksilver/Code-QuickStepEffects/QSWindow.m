@@ -148,7 +148,11 @@
 }
 
 - (void)dealloc {
+	
+#ifdef DEBUG
 	if(DEBUG_MEMORY) NSLog(@"QSWindow dealloc");
+#endif
+	
 	[helper release];
 	[properties release];
 	[eventDelegates release];

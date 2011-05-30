@@ -90,8 +90,10 @@
 		event = [NSApp nextEventMatchingMask:NSAnyEventMask untilDate:date inMode:NSDefaultRunLoopMode dequeue:YES];
 		if ([event type] == NSSystemDefined && [event subtype] == 9) // A hotkey up event
 			return event;
+#ifdef DEBUG
 		else if (event)
 			if (VERBOSE) NSLog(@"Foreign Event Ignored %@", event);
+#endif
 		else
 			return nil;
 	}
