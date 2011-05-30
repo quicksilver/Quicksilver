@@ -235,38 +235,64 @@ NSSize QSMaxIconSize;
 	return splitObjects;
 }
 
+// Method to merge objects into a single 'combined' object
 + (id)objectByMergingObjects:(NSArray *)objects {
+	// if there's only 1 object, just return it
+	if ([objects count] == 1) {
+		return [objects objectAtIndex:0];
+	}
 	NSMutableSet *typesSet = nil;
-
+	
+	// Dict to store each object's data
 	NSMutableDictionary *combinedData = [NSMutableDictionary dictionary];
 	NSString *type;
 	NSMutableArray *array;
+	// Set used to keep track of the objects already added
+	NSMutableSet *setOfObjects = [[NSMutableSet alloc] init];
+	
+	// add each object from the list of objects to the combinedData dict
 	for (id thisObject in objects) {
-		if (!typesSet) typesSet = [NSMutableSet setWithArray:[thisObject types]];
-		else
-			[typesSet intersectSet:[NSSet setWithArray:[thisObject types]]];
-
-		for(type in typesSet) {
-			array = [combinedData objectForKey:type];
-			if (!array) [combinedData setObject:(array = [NSMutableArray array]) forKey:type];
-			[array addObjectsFromArray:[thisObject arrayForType:type]];
+		// Make sure the object's not already been stored (case when you have two of the same object with the comma trick)
+		if (![setOfObjects containsObject:thisObject]) {
+			if (!typesSet) typesSet = [NSMutableSet setWithArray:[thisObject types]];
+			else
+				[typesSet intersectSet:[NSSet setWithArray:[thisObject types]]];
+			for(type in typesSet) {
+				array = [combinedData objectForKey:type];
+				if (!array) [combinedData setObject:(array = [NSMutableArray array]) forKey:type];
+				
+				[array addObjectsFromArray:[thisObject arrayForType:type]];
+				// add the object to the setOfObjects to keep track of which objects we've added to combinedData
+				[setOfObjects addObject:thisObject];
+			}
 		}
 	}
-
+	// get the number of objects added to combinedData, then release arrayOfObjects
+	int objectCount = [setOfObjects count];
+	[setOfObjects release];
+	
+	// If there's still only 1 object (case: if the comma trick is used on the same object multiple times)
+	if (objectCount == 1) {
+		return [objects objectAtIndex:0];
+	}
+	
     NSMutableArray *typesToRemove = [NSMutableArray array];
 	for(type in combinedData) {
 		if (![typesSet containsObject:type])
             [typesToRemove addObject:type];
 	}
-             
+	
     [combinedData removeObjectsForKeys:typesToRemove];
-
+	
+	// Create the 'combined' object
 	QSObject *object = [[[QSObject alloc] init] autorelease];
 	[object setDataDictionary:combinedData];
 	[object setObject:objects forCache:kQSObjectComponents];
 	if ([combinedData objectForKey:QSFilePathType])
+		// try to guess a name based on the file types
 		[object guessName];
 	else
+		// fall back on setting a simple name
 		[object setName:@"combined objects"];
 	return object;
 }
