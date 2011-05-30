@@ -61,7 +61,7 @@
     <key>FileGetPathAction</key>
     <string>Obtenir le chemin</string>
     <key>FileGetPosixPathAction</key>
-    <string>Obtenir le chemin absolu</string>
+    <string>Obtenir le chemin absolu (POSIX)</string>
     <key>FileGetURLAction</key>
     <string>Obtenir l'URL</string>
     <key>FileGetHFSPathAction</key>

@@ -61,9 +61,9 @@
     <key>FileGetInfoAction</key>
     <string>Infofenster</string>
     <key>FileGetPathAction</key>
-    <string>Pfad (POSIX)</string>
+    <string>Pfad</string>
     <key>FileGetPosixPathAction</key>
-    <string>Vollständiger Pfad (POSIX)</string>
+    <string>Absoluter Pfad (POSIX)</string>
     <key>FileGetURLAction</key>
     <string>Pfad als URL</string>
     <key>FileGetHFSPathAction</key>
