@@ -84,7 +84,7 @@
 	if ([stringValue hasPrefix:@"/"] || [stringValue hasPrefix:@"~"]) {
 		NSMutableArray *files = [[[stringValue componentsSeparatedByString:@"\n"] mutableCopy] autorelease];
 		[files removeObject:@""];
-		files = [files arrayByPerformingSelector:@selector(stringByStandardizingPath)];
+		files = (NSMutableArray *)[files arrayByPerformingSelector:@selector(stringByStandardizingPath)];
 		//NSString *path = [stringValue stringByStandardizingPath];
 		//NSLog(@"%@", files);
 		int line = -1;
