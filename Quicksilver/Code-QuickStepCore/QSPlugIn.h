@@ -31,6 +31,7 @@
 }
 + (id)plugInWithBundle:(NSBundle *)aBundle;
 + (id)plugInWithWebInfo:(NSDictionary *)webInfo;
++ (NSString *)bundleIDForPluginAt:(NSString*)path andVersion:(NSString**)version;
 - (int) isInstalled;
 - (NSString *)name;
 - (NSString *)status;

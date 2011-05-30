@@ -55,6 +55,25 @@ NSMutableDictionary *plugInBundlePaths = nil;
 + (id)plugInWithWebInfo:(NSDictionary *)webInfo {
 	return [[[QSPlugIn alloc] initWithWebInfo:webInfo] autorelease];
 }
+/**
+ Without loading the bundle, read bundle ID and version string
+ @param      path			The path to the qsplugin on file system (eg: "/Users/paul/Downloads/Email Support.qsplugin")
+ @param      version	A pointer to an \c NSString* that will be set to the version string of the plugin if present
+ @result     An auto-released string with the bundle ID (eg: "com.blacktree.Quicksilver.QSEmailSupport")
+ */
++ (NSString *)bundleIDForPluginAt:(NSString*)path andVersion:(NSString**)version {
+  CFBundleRef bundle = CFBundleCreate(NULL, (CFURLRef)[NSURL fileURLWithPath:path]);
+  if (!bundle) return nil;
+  if (version) {
+		*version = (NSString*)CFBundleGetValueForInfoDictionaryKey(bundle, kCFBundleVersionKey);
+    [[*version retain] autorelease];
+  }
+  NSString *bundleIdent = (NSString *)CFBundleGetIdentifier(bundle);
+  [[bundleIdent retain] autorelease];
+  CFRelease(bundle);
+  return bundleIdent;
+}
+
 - (void)dealloc {
 	[self setBundle:nil];
 	[bundle release];
