@@ -45,7 +45,7 @@
 
 - (id)head { return [self count] ? [self objectAtIndex:0] : nil; }
 - (NSArray *)tail { return [self count] > 1 ? [self subarrayWithRange:NSMakeRange(1, [self count]-1)] : nil; }
-- (NSArray *)arrayByPerformingSelector:(SEL)aSelector {
+- (NSMutableArray *)arrayByPerformingSelector:(SEL)aSelector {
 	NSMutableArray *resultArray = [NSMutableArray arrayWithCapacity:[self count]];
 	id result;
 	for (id anObject in self)
@@ -56,7 +56,7 @@
 	return resultArray;
 }
 
-- (NSArray *)arrayByPerformingSelector:(SEL)aSelector withObject:(id)object {
+- (NSMutableArray *)arrayByPerformingSelector:(SEL)aSelector withObject:(id)object {
 	NSMutableArray *resultArray = [NSMutableArray arrayWithCapacity:[self count]];
 	int i;
 	id result = nil;
