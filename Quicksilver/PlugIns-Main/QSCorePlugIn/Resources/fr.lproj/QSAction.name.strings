@@ -58,8 +58,10 @@
 	<string>Supprimer</string>
 	<key>FileGetInfoAction</key>
 	<string>Lire les informations</string>
-    <key>FileGetPosixPathAction</key>
+    <key>FileGetPathAction</key>
     <string>Obtenir le chemin</string>
+    <key>FileGetPosixPathAction</key>
+    <string>Obtenir le chemin absolu (POSIX)</string>
     <key>FileGetURLAction</key>
     <string>Obtenir l'URL</string>
     <key>FileGetHFSPathAction</key>
