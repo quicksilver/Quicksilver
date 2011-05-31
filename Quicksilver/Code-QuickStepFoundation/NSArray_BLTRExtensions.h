@@ -25,8 +25,8 @@
 - (id)head;
 - (NSArray *)tail;
 
-- (NSArray *)arrayByPerformingSelector:(SEL)aSelector;
-- (NSArray *)arrayByPerformingSelector:(SEL)aSelector withObject:(id)object;
+- (NSMutableArray *)arrayByPerformingSelector:(SEL)aSelector;
+- (NSMutableArray *)arrayByPerformingSelector:(SEL)aSelector withObject:(id)object;
 - (id)objectWithValue:(id)value forKey:(NSString *)key;
 @end
 

@@ -332,12 +332,33 @@
 				<string>NSFilenamesPboardType</string>
 			</array>
 		</dict>
-		<key>FileGetPosixPathAction</key>
+		<key>FileGetPathAction</key>
 		<dict>
 			<key>actionClass</key>
 			<string>FSActions</string>
 			<key>actionSelector</key>
 			<string>getFilePaths:</string>
+			<key>directTypes</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+			</array>
+			<key>displaysResult</key>
+			<integer>1</integer>
+			<key>enabled</key>
+			<false/>
+			<key>feature</key>
+			<integer>1</integer>
+			<key>precedence</key>
+			<real>-0.5</real>
+			<key>alternateAction</key>
+			<string>FileGetPosixPathAction</string>
+		</dict>
+		<key>FileGetPosixPathAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>FSActions</string>
+			<key>actionSelector</key>
+			<string>getAbsoluteFilePaths:</string>
 			<key>directTypes</key>
 			<array>
 				<string>NSFilenamesPboardType</string>
