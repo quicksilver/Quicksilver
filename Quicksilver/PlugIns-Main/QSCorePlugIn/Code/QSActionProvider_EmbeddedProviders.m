@@ -684,9 +684,16 @@
 	return nil;
 }
 
-- (QSObject *)getFilePaths:(QSObject *)dObject {
+- (QSObject *)getFilePaths:(QSObject *)dObject withTilde:(BOOL)withTilde
+{
     // get an array of paths from files in the first pane
-    NSMutableArray *paths = [[dObject arrayForType:QSFilePathType] arrayByPerformingSelector:@selector(stringByAbbreviatingWithTildeInPath)];
+    NSArray *paths = nil;
+    if (withTilde)
+    {
+        paths = [[dObject arrayForType:QSFilePathType] arrayByPerformingSelector:@selector(stringByAbbreviatingWithTildeInPath)];
+    } else {
+        paths = [dObject arrayForType:QSFilePathType];
+    }
     // the name/label should be a one-line string
     QSObject *pathResult = [QSObject objectWithName:[paths componentsJoinedByString:@", "]];
     // use something other than the path to prevent this from clobbering the existing file (if it's in the catalog)
@@ -698,18 +705,14 @@
     return pathResult;
 }
 
-- (QSObject *)getAbsoluteFilePaths:(QSObject *)dObject {
-    // get an array of paths from files in the first pane
-    NSArray *paths = [dObject arrayForType:QSFilePathType];
-    // the name/label should be a one-line string
-    QSObject *pathResult = [QSObject objectWithName:[paths componentsJoinedByString:@", "]];
-    // use something other than the path to prevent this from clobbering the existing file (if it's in the catalog)
-    [pathResult setIdentifier:@"GetPathActionResult"];
-    // store all paths separated by newlines
-    // allow it to be used as text (Large Type, Paste, etc.)
-    [pathResult setObject:[paths componentsJoinedByString:@"\n"] forType:QSTextType];
-    [pathResult setPrimaryType:QSTextType];
-    return pathResult;
+- (QSObject *)getFilePaths:(QSObject *)dObject
+{
+    return [self getFilePaths:dObject withTilde:YES];
+}
+
+- (QSObject *)getAbsoluteFilePaths:(QSObject *)dObject
+{
+    return [self getFilePaths:dObject withTilde:NO];
 }
 
 - (QSObject *)getFileURLs:(QSObject *)dObject {
