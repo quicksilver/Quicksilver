@@ -50,8 +50,10 @@
 	<string>Get HFS path of %@</string>
 	<key>FileGetInfoAction</key>
 	<string>Get info on %@</string>
-	<key>FileGetPosixPathAction</key>
+	<key>FileGetPathAction</key>
 	<string>Get posix path of %@</string>
+	<key>FileGetPosixPathAction</key>
+	<string>Get absolute path of %@</string>
 	<key>FileGetURLAction</key>
 	<string>Get file:// URL of %@</string>
 	<key>FileMakeAliasInAction</key>

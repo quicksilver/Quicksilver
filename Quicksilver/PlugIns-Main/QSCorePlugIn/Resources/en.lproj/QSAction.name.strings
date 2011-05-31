@@ -58,8 +58,10 @@
 	<string>Delete (Erase)</string>
 	<key>FileGetInfoAction</key>
 	<string>Get Info</string>
-    <key>FileGetPosixPathAction</key>
+    <key>FileGetPathAction</key>
     <string>Get Path</string>
+    <key>FileGetPosixPathAction</key>
+    <string>Get Absolute (POSIX) Path</string>
     <key>FileGetURLAction</key>
     <string>Get File URL</string>
     <key>FileGetHFSPathAction</key>
