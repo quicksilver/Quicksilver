@@ -8,11 +8,13 @@ Created by Rob McBroom on 2010-04-13.
 
 import sys
 import os
-from HTMLParser import HTMLParser
+from HTMLParser import HTMLParser, HTMLParseError
 
 class ExtractLinks(HTMLParser):
-    # def __init__(self):
-    #     HTMLParser.__init__(self)
+    def __init__(self):
+        HTMLParser.__init__(self)
+        self.insideLinkTag = False
+    
     def handle_starttag(self,tag,attrs):
         # print 'start', tag, self.insideLinkTag
         if tag == 'a':
@@ -66,6 +68,7 @@ if __name__ == '__main__':
     import fileinput
     page = ''.join([line for line in fileinput.input()])
     parser = ExtractLinks()
-    parser.insideLinkTag = False
-    # parser.thisLink = dict
-    parser.feed(page)
+    try:
+        parser.feed(page)
+    except HTMLParseError, e:
+        pass
