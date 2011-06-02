@@ -51,7 +51,7 @@
 	if (!urlString) return NO;
 
 	// For search URLs
-	if([[object stringValue] rangeOfString:@"***"].location !=NSNotFound) {
+	if([[object stringValue] rangeOfString:QUERY_KEY].location !=NSNotFound) {
 		[object setIcon:[[QSResourceManager sharedInstance] buildWebSearchIconForURL:[object stringValue]]];
 		return YES;
 	}
@@ -119,8 +119,8 @@
 - (NSString *)cleanQueryURL:(NSString *)query {
 	//NSLog(@"query %@", query);
 	if ([query rangeOfString:@"\%s"] .location != NSNotFound) {
-		//NSLog(@"%@ > %@", query, [query stringByReplacing:@"\%s" with:@"***"]);
-		return [query stringByReplacing:@"\%s" with:@"***"];
+		//NSLog(@"%@ > %@", query, [query stringByReplacing:@"\%s" with:QUERY_KEY]);
+		return [query stringByReplacing:@"\%s" with:QUERY_KEY];
 
 	}
 	return query;
