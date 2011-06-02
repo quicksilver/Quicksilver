@@ -35,7 +35,7 @@ if __name__ == '__main__':
         img = link.find('img', src=True)
         if img:
             thisLink['image'] = img['src']
-            if thisLink['title'] == None:
+            if thisLink['title'] is None:
                 # look for a title here if none exists
                 if img.has_key('title'):
                     thisLink['title'] = img['title']
@@ -44,7 +44,7 @@ if __name__ == '__main__':
                 else:
                     thisLink['title'] = path.basename(img['src'])
         ## if there's *still* no title (empty <a></a> tag), fall back to the URL
-        if thisLink['title'] == None:
+        if thisLink['title'] is None:
             thisLink['title'] = path.basename(link['href'])
         ## print the result
         print '%s\t%s\t%s\t%s' % (thisLink['url'], thisLink['title'], thisLink['shortcut'], thisLink['image'])
