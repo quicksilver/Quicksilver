@@ -79,7 +79,7 @@
 	for(link in array) {
 		if ([link count] < 4) continue;
 		NSString *shortcut = [link objectAtIndex:2];
-		NSString *url = [[[link objectAtIndex:0] stringByReplacing:@"&amp; " with:@"&"] stringByReplacing:@"%s" with:@"***"];
+		NSString *url = [[[link objectAtIndex:0] stringByReplacing:@"&amp; " with:@"&"] stringByReplacing:@"%s" with:QUERY_KEY];
 		NSString *text = [link objectAtIndex:1];
 		NSString *imageurl = [link objectAtIndex:3];
 		NSString *name;
