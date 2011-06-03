@@ -252,22 +252,22 @@ NSSize QSMaxIconSize;
 	
 	// add each object from the list of objects to the combinedData dict
 	for (id thisObject in objects) {
-		// Make sure the object's not already been stored (case when you have two of the same object with the comma trick)
-		if (![setOfObjects containsObject:thisObject]) {
-			if (!typesSet) typesSet = [NSMutableSet setWithArray:[thisObject types]];
-			else
-				[typesSet intersectSet:[NSSet setWithArray:[thisObject types]]];
-			for(type in typesSet) {
-				array = [combinedData objectForKey:type];
-				if (!array) [combinedData setObject:(array = [NSMutableArray array]) forKey:type];
-				
-				[array addObjectsFromArray:[thisObject arrayForType:type]];
-				// add the object to the setOfObjects to keep track of which objects we've added to combinedData
-				[setOfObjects addObject:thisObject];
-			}
+		if (!typesSet) {
+			typesSet = [NSMutableSet setWithArray:[thisObject types]];
+		}
+		else {
+			[typesSet intersectSet:[NSSet setWithArray:[thisObject types]]];
+		}
+		for(type in typesSet) {
+			array = [combinedData objectForKey:type];
+			if (!array) [combinedData setObject:(array = [NSMutableArray array]) forKey:type];
+			
+			[array addObjectsFromArray:[thisObject arrayForType:type]];
+			// add the object to the setOfObjects to keep track of which objects we've added to combinedData
+			[setOfObjects addObject:thisObject];
 		}
 	}
-	// get the number of objects added to combinedData, then release arrayOfObjects
+	// get the number of objects added to combinedData, then release setOfObjects
 	int objectCount = [setOfObjects count];
 	[setOfObjects release];
 	
