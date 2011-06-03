@@ -1,4 +1,73 @@
 <h1>Release Notes: Quicksilver Build 3842</h1>
+<h1>Changes - B60 (3490)</h1>
+
+<ul>
+<li><p>NEW: Search by file extension. e.g. type 'mp3' will show you all .mp3s (or files with mp3 in the name)</p></li>
+<li><p>NEW: 'Delete' and 'Move to Trash' actions now give sound notification of completion (like Finder's behaviour)</p></li>
+<li><p>NEW: 'Running Applications' proxy object (Issue #221)</p></li>
+<li><p>NEW: Interfaces sorted by name within the Preferences (Issue #294)</p></li>
+<li><p>NEW: Optimisation and memory management improvements using CLang's static analyser</p></li>
+<li><p>NEW: Recent documents for applications by right arrowing into them (e.g. Preview) in 10.6 (Issue #109)</p></li>
+<li><p>NEW: Creation of 'Actions' folder in Quicksilver's support folder to make saving custom actions easier (Issue #266)</p></li>
+<li><p>NEW: Superior string sniffing. Quicksilver now knows that define:word and a.b.c.d are not a URLs. (Issue #214)</p></li>
+<li><p>NEW: Quicksilver correctly selects the 1st item in the list after using the 'show contents' action (Issue #226)</p></li>
+<li><p>NEW: ß60+ versions of Quicksilver will not launch on 10.4 machines or below (Issue #279)</p></li>
+<li><p>NEW: 1st object in the results list is selected by default when viewing children of objects (Issue #226)</p></li>
+<li><p>NEW: Quicksilver source is now distributed via MacPorts (for install, see http://qsapp.com/wiki/Building_Quicksilver )</p></li>
+<li><p>NEW: Asynchronous loading of icons; no beach balling when finding file icons (Issue #98)</p></li>
+<li><p>NEW: Show link's images when browsing URLs/websites in Quicksilver (Issue #316)</p></li>
+<li><p>NEW: Web Search Icons now show the magnifying glass and the URLs favIcon (thanks to http://g.etfv.co and http://potatolondon.com) (Issue #315)</p></li>
+<li><p>NEW: Python HTML Link extractor for browsing in Quicksilver. Adds image title or alt to image labels (Issue #317)</p></li>
+<li><p>NEW: Reduced open/close/resize times for the Bezel Interface. Now feels more responsive (Issue #323)</p></li>
+<li><p>NEW: Rename action no longer selects the file extension in the 3rd pane (mimicking Finder's behaviour) (Issue #328)</p></li>
+<li><p>FIX: When using Quicksilver to browse the web (right arrow into URLs), the correct icons are shown (Issue #302)</p></li>
+<li><p>FIX: Websites with any top level domain (e.g. .uk) can now be browsed within Quicksilver (Issue #316)</p></li>
+<li><p>FIX: Link parser now correctly returns all the links on a page (Issue #316)</p></li>
+<li><p>FIX: Crash when changing interfaces (Issue #272)</p></li>
+<li><p>FIX: Task Viewer no longer shows 'null' when rescanning catalog entries (Issue #276)</p></li>
+<li><p>FIX: Down arrow does not wipe the result of an action, returned to Quicksilver (Issue #282)</p></li>
+<li><p>FIX: 'Latest Download' proxy no longer causes conflicts with cataloged items (Issue #308)</p></li>
+<li><p>FIX: Correct numbering of results (1 of 1) when an action returns an object to Quicksilver (Issue #282)</p></li>
+<li><p>FIX: Exception when entering nonBaseCharacters (Issue #275)</p></li>
+<li><p>FIX: TextMate String Ranker now works as previously (Issue #14)</p></li>
+<li><p>FIX: 'Type to Search' text in the command window panes (and more localisation fixes) (Issue #250)</p></li>
+<li><p>FIX: Pressing '/' to enter items could accidentally drill down to the root (Issue #63)</p></li>
+<li><p>FIX: The about window stops rendering images when closed</p></li>
+<li><p>FIX: Assignment of mailto: strings as objects with Email actions (Issue #267)</p></li>
+<li><p>FIX: Always display the interface when Quicksilver returns a result (Issue #232)</p></li>
+<li><p>FIX: URLs with &lt;>|#"?$! characters are parsed properly </p></li>
+<li><p>FIX: Copy To… action only shows folders in the 3rd pane</p></li>
+<li><p>FIX: 'Visible Applications' proxy displays only apps that aren't hidden (Issue #221)</p></li>
+<li><p>FIX: Bezel and Primer interface names display correctly in the preferences (Issue #190)</p></li>
+<li><p>FIX: Changing interface properly registers '.' as a special character to enter text mode (Issue #233)</p></li>
+<li><p>FIX: Incorrect size settings for two .xibs</p></li>
+<li><p>FIX: Size of result window remembered on relaunch (Issue #176)</p></li>
+<li><p>FIX: Possible crashes when installing plugins (Issue #241)</p></li>
+<li><p>FIX: 1st pane (and comma items) are cleared when an action returns an object (Issue #203)</p></li>
+<li><p>FIX: Primer interface appears on all spaces (Issue #64)</p></li>
+<li><p>FIX: Preference pane appears on all spaces (Issue #64)</p></li>
+<li><p>FIX: Result window size saved on relaunch (Issue #176)</p></li>
+<li><p>FIX: Get Path action returns strings instead of files (Issue #182)</p></li>
+<li><p>FIX: Get Path action works with the comma trick (Issue #203)</p></li>
+<li><p>FIX: Search results 'x of y' showing correctly in the result window (Issue #207)</p></li>
+<li><p>FIX: Clicking 'Defaults' in the Appearance Preferences would crash Quicksilver (Issue #212)</p></li>
+<li><p>FIX: PlugIn file path renamed correctly for compilation on case-sensitive systems (MacPorts) (Issue #309)</p></li>
+<li><p>FIX: Compilation fixes for 10.5 and isSnowLeopard method (moved to a new class) (Issue #287)</p></li>
+<li><p>CHANGED: Task Viewer modified to make it more robust</p></li>
+<li><p>CHANGED: Localisation improvements and refactoring (Issue #260)</p></li>
+<li><p>CHANGED: Implementation of fast enumeration for easier reading and possible speed improvements (Issue #323)</p></li>
+<li><p>CHANGED: Small speed improvement to object ranking (Issue #336)</p></li>
+<li><p>PLUGIN: Renamed the 'Current Webpage' proxies to reflect which browser they come from (Issue #59)</p></li>
+<li><p>PLUGIN: Fixed right arrowing into 'Current Web Page (Safari)' proxy object (Issue #59)</p></li>
+<li><p>PLUGIN: Mail Module rewritten to fix right arrowing into Mail.app</p></li>
+<li><p>PLUGIN: OmniWeb plugin rewritten to be more consistent with naming of proxies and added documentation</p></li>
+<li><p>PLUGIN: UI Access plugin fixed to show icons of windows for 'Windows…' actions, speed increases</p></li>
+<li><p>PLUGIN: Made Window Interface appear on all spaces (Issue #61)</p></li>
+</ul>
+
+<p>Special thanks to:
+Potatolondon.com for providing the favIcon lookup service ( http://f.etfv.com )</p>
+
 <h1>Changes - B59(3482)</h1>
 
 <ul>
