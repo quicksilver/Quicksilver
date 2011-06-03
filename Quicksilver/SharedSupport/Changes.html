@@ -1,7 +1,8 @@
 <h1>Release Notes: Quicksilver Build 3842</h1>
-<h1>Changes - B60 (3490)</h1>
+<h2>Changes - &szlig;60 (3490)</h2>
 
 <ul>
+<li><p>PLUGIN: Items labelled with this tag are for new/updated plugins available from http://qsapp.com/plugins</p></li>
 <li><p>NEW: Search by file extension. e.g. type 'mp3' will show you all .mp3s (or files with mp3 in the name)</p></li>
 <li><p>NEW: 'Delete' and 'Move to Trash' actions now give sound notification of completion (like Finder's behaviour)</p></li>
 <li><p>NEW: 'Running Applications' proxy object (Issue #221)</p></li>
@@ -11,7 +12,7 @@
 <li><p>NEW: Creation of 'Actions' folder in Quicksilver's support folder to make saving custom actions easier (Issue #266)</p></li>
 <li><p>NEW: Superior string sniffing. Quicksilver now knows that define:word and a.b.c.d are not a URLs. (Issue #214)</p></li>
 <li><p>NEW: Quicksilver correctly selects the 1st item in the list after using the 'show contents' action (Issue #226)</p></li>
-<li><p>NEW: ß60+ versions of Quicksilver will not launch on 10.4 machines or below (Issue #279)</p></li>
+<li><p>NEW: &szlig;60+ versions of Quicksilver will not launch on 10.4 machines or below (Issue #279)</p></li>
 <li><p>NEW: 1st object in the results list is selected by default when viewing children of objects (Issue #226)</p></li>
 <li><p>NEW: Quicksilver source is now distributed via MacPorts (for install, see http://qsapp.com/wiki/Building_Quicksilver )</p></li>
 <li><p>NEW: Asynchronous loading of icons; no beach balling when finding file icons (Issue #98)</p></li>
@@ -20,6 +21,20 @@
 <li><p>NEW: Python HTML Link extractor for browsing in Quicksilver. Adds image title or alt to image labels (Issue #317)</p></li>
 <li><p>NEW: Reduced open/close/resize times for the Bezel Interface. Now feels more responsive (Issue #323)</p></li>
 <li><p>NEW: Rename action no longer selects the file extension in the 3rd pane (mimicking Finder's behaviour) (Issue #328)</p></li>
+<li><p>NEW: Preference that allows jumping to the action automatically for actions that return results (Issue #225)</p></li>
+<li><p>PLUGIN: Renamed the 'Current Webpage' proxies to reflect which browser they come from (Issue #59)</p></li>
+<li><p>PLUGIN: Fixed right arrowing into 'Current Web Page (Safari)' proxy object (Issue #59)</p></li>
+<li><p>PLUGIN: Mail Module rewritten to fix right arrowing into Mail.app</p></li>
+<li><p>PLUGIN: OmniWeb plugin rewritten to be more consistent with naming of proxies and added documentation</p></li>
+<li><p>PLUGIN: UI Access plugin fixed to show icons of windows for 'Windows…' actions, speed increases</p></li>
+<li><p>PLUGIN: UI Iccess plugin includes a new 'Show all Menu Items' action </p></li>
+<li><p>PLUGIN: Made Window Interface appear on all spaces (Issue #61)</p></li>
+<li><p>CHANGED: Task Viewer modified to make it more robust</p></li>
+<li><p>CHANGED: Localisation improvements and refactoring (Issue #260)</p></li>
+<li><p>CHANGED: Implementation of fast enumeration for easier reading and possible speed improvements (Issue #323)</p></li>
+<li><p>CHANGED: Small speed improvement to object ranking (Issue #336)</p></li>
+<li><p>CHANGED: Get Path renamed to Get Absolute Path, new Get Path action returns things like <code>~/Documents</code> (Issue #331)</p></li>
+<li><p>FIX: Searches like "Itchy &amp; Scratchy" are now correctly passed to the browser (Issue #313)</p></li>
 <li><p>FIX: When using Quicksilver to browse the web (right arrow into URLs), the correct icons are shown (Issue #302)</p></li>
 <li><p>FIX: Websites with any top level domain (e.g. .uk) can now be browsed within Quicksilver (Issue #316)</p></li>
 <li><p>FIX: Link parser now correctly returns all the links on a page (Issue #316)</p></li>
@@ -53,22 +68,12 @@
 <li><p>FIX: Clicking 'Defaults' in the Appearance Preferences would crash Quicksilver (Issue #212)</p></li>
 <li><p>FIX: PlugIn file path renamed correctly for compilation on case-sensitive systems (MacPorts) (Issue #309)</p></li>
 <li><p>FIX: Compilation fixes for 10.5 and isSnowLeopard method (moved to a new class) (Issue #287)</p></li>
-<li><p>CHANGED: Task Viewer modified to make it more robust</p></li>
-<li><p>CHANGED: Localisation improvements and refactoring (Issue #260)</p></li>
-<li><p>CHANGED: Implementation of fast enumeration for easier reading and possible speed improvements (Issue #323)</p></li>
-<li><p>CHANGED: Small speed improvement to object ranking (Issue #336)</p></li>
-<li><p>PLUGIN: Renamed the 'Current Webpage' proxies to reflect which browser they come from (Issue #59)</p></li>
-<li><p>PLUGIN: Fixed right arrowing into 'Current Web Page (Safari)' proxy object (Issue #59)</p></li>
-<li><p>PLUGIN: Mail Module rewritten to fix right arrowing into Mail.app</p></li>
-<li><p>PLUGIN: OmniWeb plugin rewritten to be more consistent with naming of proxies and added documentation</p></li>
-<li><p>PLUGIN: UI Access plugin fixed to show icons of windows for 'Windows…' actions, speed increases</p></li>
-<li><p>PLUGIN: Made Window Interface appear on all spaces (Issue #61)</p></li>
 </ul>
 
 <p>Special thanks to:
 Potatolondon.com for providing the favIcon lookup service ( http://f.etfv.com )</p>
 
-<h1>Changes - B59(3482)</h1>
+<h2>Changes - &szlig;59(3482)</h2>
 
 <ul>
 <li><p>PLUGIN: Items labelled with this tag are for plugins available from http://qsapp.com/plugins</p></li>
@@ -140,68 +145,34 @@ Potatolondon.com for providing the favIcon lookup service ( http://f.etfv.com )<
 
 <p>GitHub for hosting the source and downloads.</p>
 
-<h1>Changes - B58(3841)</h1>
-
-<p>Etienne Samson</p>
+<h2>Changes - &szlig;58 (3841)</h2>
 
 <ul>
-<li><p>Disable Info.plist preprocessing on Plugins. </p></li>
-<li><p>Make shell scripts with "additional shebang" info work. </p></li>
+<li><p>NEW: Make shell scripts with "additional shebang" info work. </p></li>
 <li><p>README: Make real links.</p></li>
-</ul>
-
-<p>Henery Barnor</p>
-
-<ul>
-<li>Removed dangling NSLog calls </li>
-</ul>
-
-<p>Michael Guntsche</p>
-
-<ul>
-<li><p>Add Core Plugins to Release Build</p></li>
-<li><p>Fix to error messages</p></li>
-</ul>
-
-<p>neurolepsy </p>
-
-<ul>
-<li><p>Fix droplets by using the 10.5+ NSConnection vending method</p></li>
-<li><p>The G in BROWSING no longer gets cut off in the result window</p></li>
-<li><p>Menus improved</p></li>
-<li><p>Object context menus improved</p></li>
-<li><p>Don't show object descriptions in the result window if there's not enough room (rows &lt;34px high)</p></li>
-<li><p>Recent Items made Snow Leopard compatible</p></li>
-<li><p>Text fields only allow plain text </p></li>
-<li><p>Fix bug creating an indexSet from the UI Access plugin</p></li>
-<li><p>Fix 10.5 compilation issue </p></li>
-</ul>
-
-<p>Patrick Robertson</p>
-
-<ul>
-<li><p>Fixed bug #35 - Do Not Open At Login Action now working</p></li>
-<li><p>Fix bug #34</p></li>
-<li><p>Tidying up (forgot to re-add 'else')</p></li>
-<li><p>Remove dangling NSLogs ;)</p></li>
-<li><p>Fixed relaunch action for fussy apps that did not quit straight away </p></li>
-<li><p>Removed a stray brace </p></li>
-<li><p>Commented out the loc - locator, path (for bundles) NSLog</p></li>
-<li><p>Commented out another NSLog message  </p></li>
-</ul>
-
-<p>Paul Kohut</p>
-
-<ul>
-<li><p>Initial loop optimizations</p></li>
-<li><p>Update score ranking code</p></li>
-<li><p>NSEnumerator - loop optimization</p></li>
-<li><p>Merge branch 'NSEnumerators' into B5x</p></li>
-<li><p>Issue #39 (bug 262) Fix: Incorrect display of Websearch</p></li>
-<li><p>Turn on a couple release optimizations </p></li>
-<li><p>Fix issues 26, 47, 57 and 61 </p></li>
-<li><p>Fix lingering issue PjRobertson found </p></li>
-<li><p>Fixed single/double tap Modifier Key Activation</p></li>
+<li><p>CHANGE: Disable Info.plist preprocessing on Plugins.   </p></li>
+<li><p>CHANGE: Removed dangling NSLog calls </p></li>
+<li><p>CHANGE: Add Core Plugins to Release Build</p></li>
+<li><p>CHANGE: Menus improved</p></li>
+<li><p>CHANGE: Object context menus improved  </p></li>
+<li><p>CHANGE: Update score ranking code</p></li>
+<li><p>CHANGE: NSEnumerator - loop optimization</p></li>
+<li><p>CHANGE: Turn on a couple release optimizations </p></li>
+<li><p>FIX: Error messages</p></li>
+<li><p>FIX: Droplets work again, using the 10.5+ NSConnection vending method</p></li>
+<li><p>FIX: The G in BROWSING no longer gets cut off in the result window</p></li>
+<li><p>FIX: Don't show object descriptions in the result window if there's not enough room (rows &lt;34px high)</p></li>
+<li><p>FIX: Recent Items made Snow Leopard compatible</p></li>
+<li><p>FIX: Text fields only allow plain text </p></li>
+<li><p>FIX: Bug creating an indexSet from the UI Access plugin</p></li>
+<li><p>FIX: 10.5 compilation issue </p></li>
+<li><p>FIX: Do Not Open At Login Action now working (Issue #35)</p></li>
+<li><p>FIX: Issue #34</p></li>
+<li><p>FIX: relaunch action for fussy apps that did not quit straight away </p></li>
+<li><p>FIX: Incorrect display of Websearch (Issue #39)</p></li>
+<li><p>FIX: Issues 26, 47, 57 and 61 </p></li>
+<li><p>FIX: lingering issue PjRobertson found </p></li>
+<li><p>FIX: single/double tap Modifier Key Activation</p></li>
 </ul>
 
 <p>And thanks to any other I may have inadvertently missed.</p>

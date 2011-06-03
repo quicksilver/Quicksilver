@@ -1,5 +1,7 @@
 Changes - B60 (3490)
-=======
+-------
+
+  * PLUGIN: Items labelled with this tag are for new/updated plugins available from http://qsapp.com/plugins
 
   * NEW: Search by file extension. e.g. type 'mp3' will show you all .mp3s (or files with mp3 in the name)
 
@@ -36,6 +38,34 @@ Changes - B60 (3490)
   * NEW: Reduced open/close/resize times for the Bezel Interface. Now feels more responsive (Issue #323)
 
   * NEW: Rename action no longer selects the file extension in the 3rd pane (mimicking Finder's behaviour) (Issue #328)
+  
+  * NEW: Preference that allows jumping to the action automatically for actions that return results (Issue #225)
+  
+  * PLUGIN: Renamed the 'Current Webpage' proxies to reflect which browser they come from (Issue #59)
+
+  * PLUGIN: Fixed right arrowing into 'Current Web Page (Safari)' proxy object (Issue #59)
+
+  * PLUGIN: Mail Module rewritten to fix right arrowing into Mail.app
+  
+  * PLUGIN: OmniWeb plugin rewritten to be more consistent with naming of proxies and added documentation
+  
+  * PLUGIN: UI Access plugin fixed to show icons of windows for 'Windows…' actions, speed increases
+  
+  * PLUGIN: UI Iccess plugin includes a new 'Show all Menu Items' action 
+  
+  * PLUGIN: Made Window Interface appear on all spaces (Issue #61)
+  
+  * CHANGED: Task Viewer modified to make it more robust
+  
+  * CHANGED: Localisation improvements and refactoring (Issue #260)
+ 
+  * CHANGED: Implementation of fast enumeration for easier reading and possible speed improvements (Issue #323)
+
+  * CHANGED: Small speed improvement to object ranking (Issue #336)
+
+  * CHANGED: Get Path renamed to Get Absolute Path, new Get Path action returns things like `~/Documents` (Issue #331)
+  
+  * FIX: Searches like "Itchy & Scratchy" are now correctly passed to the browser (Issue #313)
 
   * FIX: When using Quicksilver to browse the web (right arrow into URLs), the correct icons are shown (Issue #302)
 
@@ -103,31 +133,13 @@ Changes - B60 (3490)
 
   * FIX: Compilation fixes for 10.5 and isSnowLeopard method (moved to a new class) (Issue #287)
 
-  * CHANGED: Task Viewer modified to make it more robust
-  
-  * CHANGED: Localisation improvements and refactoring (Issue #260)
- 
-  * CHANGED: Implementation of fast enumeration for easier reading and possible speed improvements (Issue #323)
-
-  * CHANGED: Small speed improvement to object ranking (Issue #336)
-
-  * PLUGIN: Renamed the 'Current Webpage' proxies to reflect which browser they come from (Issue #59)
-
-  * PLUGIN: Fixed right arrowing into 'Current Web Page (Safari)' proxy object (Issue #59)
-
-  * PLUGIN: Mail Module rewritten to fix right arrowing into Mail.app
-  
-  * PLUGIN: OmniWeb plugin rewritten to be more consistent with naming of proxies and added documentation
-  
-  * PLUGIN: UI Access plugin fixed to show icons of windows for 'Windows…' actions, speed increases
-  
-  * PLUGIN: Made Window Interface appear on all spaces (Issue #61)
 
 Special thanks to:
 Potatolondon.com for providing the favIcon lookup service ( http://f.etfv.com )
 
+
 Changes - B59(3482)
-=======
+-------
   
   * PLUGIN: Items labelled with this tag are for plugins available from http://qsapp.com/plugins
   
@@ -245,88 +257,58 @@ GitHub for hosting the source and downloads.
 
 
 
-Changes - B58(3841)
-=======
-Etienne Samson
+Changes - B58 (3841)
+------
 
-  * Disable Info.plist preprocessing on Plugins. 
-
-  * Make shell scripts with "additional shebang" info work. 
+  * NEW: Make shell scripts with "additional shebang" info work. 
 
   * README: Make real links.
 
+  * CHANGE: Disable Info.plist preprocessing on Plugins.   
 
-Henery Barnor
+  * CHANGE: Removed dangling NSLog calls 
 
-  * Removed dangling NSLog calls 
- 
+  * CHANGE: Add Core Plugins to Release Build
 
-Michael Guntsche
+  * CHANGE: Menus improved
 
-  * Add Core Plugins to Release Build
+  * CHANGE: Object context menus improved  
+  
+  * CHANGE: Update score ranking code
 
-  * Fix to error messages
+  * CHANGE: NSEnumerator - loop optimization
 
-neurolepsy 
+  * CHANGE: Turn on a couple release optimizations 
 
-  * Fix droplets by using the 10.5+ NSConnection vending method
+  * FIX: Error messages
 
-  * The G in BROWSING no longer gets cut off in the result window
+  * FIX: Droplets work again, using the 10.5+ NSConnection vending method
 
-  * Menus improved
+  * FIX: The G in BROWSING no longer gets cut off in the result window
 
-  * Object context menus improved
+  * FIX: Don't show object descriptions in the result window if there's not enough room (rows <34px high)
 
-  * Don't show object descriptions in the result window if there's not enough room (rows <34px high)
+  * FIX: Recent Items made Snow Leopard compatible
 
-  * Recent Items made Snow Leopard compatible
+  * FIX: Text fields only allow plain text 
 
-  * Text fields only allow plain text 
+  * FIX: Bug creating an indexSet from the UI Access plugin
 
-  * Fix bug creating an indexSet from the UI Access plugin
+  * FIX: 10.5 compilation issue 
 
-  * Fix 10.5 compilation issue 
+  * FIX: Do Not Open At Login Action now working (Issue #35)
 
+  * FIX: Issue #34
 
-Patrick Robertson
+  * FIX: relaunch action for fussy apps that did not quit straight away 
 
-  * Fixed bug #35 - Do Not Open At Login Action now working
+  * FIX: Incorrect display of Websearch (Issue #39)
 
-  * Fix bug #34
+  * FIX: Issues 26, 47, 57 and 61 
 
-  * Tidying up (forgot to re-add 'else')
+  * FIX: lingering issue PjRobertson found 
 
-  * Remove dangling NSLogs ;)
-
-  * Fixed relaunch action for fussy apps that did not quit straight away 
-
-  * Removed a stray brace 
-
-  * Commented out the loc - locator, path (for bundles) NSLog
- 
-  * Commented out another NSLog message  
-
-
-Paul Kohut
-
-  * Initial loop optimizations
-
-  * Update score ranking code
-
-  * NSEnumerator - loop optimization
-
-  * Merge branch 'NSEnumerators' into B5x
-
-  * Issue #39 (bug 262) Fix: Incorrect display of Websearch
-
-  * Turn on a couple release optimizations 
-
-  * Fix issues 26, 47, 57 and 61 
-
-  * Fix lingering issue PjRobertson found 
-
-  * Fixed single/double tap Modifier Key Activation
+  * FIX: single/double tap Modifier Key Activation
 
 
 And thanks to any other I may have inadvertently missed.
-
