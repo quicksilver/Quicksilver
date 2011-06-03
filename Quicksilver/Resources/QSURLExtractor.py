@@ -20,6 +20,9 @@ import codecs
 streamWriter = codecs.lookup('utf-8')[-1]
 stdout = streamWriter(stdout)
 
+## a place to store the links we find
+links = set()
+
 if __name__ == '__main__':
     page = ''.join([line for line in fileinput.input()])
     soup = BeautifulSoup(page)
@@ -46,5 +49,14 @@ if __name__ == '__main__':
         ## if there's *still* no title (empty <a></a> tag), fall back to the URL
         if thisLink['title'] is None:
             thisLink['title'] = path.basename(link['href'])
-        ## print the result
-        print '%s\t%s\t%s\t%s' % (thisLink['url'], thisLink['title'], thisLink['shortcut'], thisLink['image'])
+        ## convert to something immutable for storage
+        hashableLink = (thisLink['url'].strip(),
+                        thisLink['title'].strip(),
+                        thisLink['shortcut'].strip(),
+                        thisLink['image'].strip())
+        ## store the result
+        links.add(hashableLink)
+
+## print the results
+for link in links:
+    print '\t'.join(link)
