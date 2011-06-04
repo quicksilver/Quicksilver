@@ -27,7 +27,7 @@
 // Ankur, 12 Feb 08: as above for 'applicationIcons'
 
 NSString *identifierForPaths(NSArray *paths) {
-	if ([paths count] == 1) return [[paths lastObject] stringByResolvingSymlinksInPath];
+	if ([paths count] == 1) return [paths lastObject];
 	return [paths componentsJoinedByString:@" "];
 }
 
@@ -679,7 +679,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 + (QSObject *)fileObjectWithPath:(NSString *)path {
 	if (![path length])
 		return nil;
-	path = [[path stringByStandardizingPath] stringByResolvingSymlinksInPath];
+	path = [path stringByStandardizingPath]; // Keeps symlink paths intact
 	// ***warning * should this only resolve simlinks of ancestors?
 	if ([[path pathExtension] isEqualToString:@"silver"])
 		return [QSObject objectWithDictionary:[NSDictionary dictionaryWithContentsOfFile:path]];
