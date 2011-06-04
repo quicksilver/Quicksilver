@@ -72,6 +72,19 @@
 	[NSApp setKeyEquivalent:string forService:@"Quicksilver/Send to Quicksilver"];
 }
 
+- (BOOL)showChildrenInSplitView {
+	return [[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"];
+}
+
+- (void)setShowChildrenInSplitView:(BOOL)flag {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	
+	[defaults setBool:flag forKey:@"QSResultsShowChildren"];
+
+	[defaults synchronize];
+	[NSApp requestRelaunch:nil];
+}
+
 @end
 
 @implementation QSAppearancePrefPane
