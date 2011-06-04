@@ -51,7 +51,7 @@ Changes - ß60 (3490)
   
   * PLUGIN: UI Access plugin fixed to show icons of windows for 'Windows…' actions, speed increases
   
-  * PLUGIN: UI Iccess plugin includes a new 'Show all Menu Items' action 
+  * PLUGIN: UI Access plugin includes a new 'Show all Menu Items' action 
   
   * PLUGIN: Made Window Interface appear on all spaces (Issue #61)
   
