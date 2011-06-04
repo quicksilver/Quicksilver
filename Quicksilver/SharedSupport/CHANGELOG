@@ -65,6 +65,8 @@ Changes - §60 (3490)
 
   * CHANGED: Get Path renamed to Get Absolute Path, new Get Path action returns things like `~/Documents` (Issue #331)
   
+  * FIX: Crash when Quicksilver tries to combine the same object (Issue #342)
+  
   * FIX: Searches like "Itchy & Scratchy" are now correctly passed to the browser (Issue #313)
 
   * FIX: When using Quicksilver to browse the web (right arrow into URLs), the correct icons are shown (Issue #302)
