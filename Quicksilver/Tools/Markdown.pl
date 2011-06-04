@@ -999,6 +999,7 @@ sub _EncodeCode {
 # The point is that in code, these characters are literals,
 # and lose their special Markdown meanings.
 #
+
     local $_ = shift;
 
 	# Encode all ampersands; HTML entities are not

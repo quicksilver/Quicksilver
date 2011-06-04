@@ -1,5 +1,147 @@
-Changes - B59(3482)
-=======
+Changes - ß60 (3490)
+-------
+
+  * PLUGIN: Items labelled with this tag are for new/updated plugins available from http://qsapp.com/plugins
+
+  * NEW: Search by file extension. e.g. type 'mp3' will show you all .mp3s (or files with mp3 in the name)
+
+  * NEW: 'Delete' and 'Move to Trash' actions now give sound notification of completion (like Finder's behaviour)
+
+  * NEW: 'Running Applications' proxy object (Issue #221)
+
+  * NEW: Interfaces sorted by name within the Preferences (Issue #294)
+
+  * NEW: Optimisation and memory management improvements using CLang's static analyser
+
+  * NEW: Recent documents for applications by right arrowing into them (e.g. Preview) in 10.6 (Issue #109)
+
+  * NEW: Creation of 'Actions' folder in Quicksilver's support folder to make saving custom actions easier (Issue #266)
+
+  * NEW: Superior string sniffing. Quicksilver now knows that define:word and a.b.c.d are not a URLs. (Issue #214)
+
+  * NEW: Quicksilver correctly selects the 1st item in the list after using the 'show contents' action (Issue #226)
+
+  * NEW: ß60+ versions of Quicksilver will not launch on 10.4 machines or below (Issue #279)
+
+  * NEW: 1st object in the results list is selected by default when viewing children of objects (Issue #226)
+
+  * NEW: Quicksilver source is now distributed via MacPorts (for install, see http://qsapp.com/wiki/Building_Quicksilver )
+
+  * NEW: Asynchronous loading of icons; no beach balling when finding file icons (Issue #98)
+
+  * NEW: Show link's images when browsing URLs/websites in Quicksilver (Issue #316)
+
+  * NEW: Web Search Icons now show the magnifying glass and the URLs favIcon (thanks to http://g.etfv.co and http://potatolondon.com) (Issue #315)
+
+  * NEW: Python HTML Link extractor for browsing in Quicksilver. Adds image title or alt to image labels (Issue #317)
+
+  * NEW: Reduced open/close/resize times for the Bezel Interface. Now feels more responsive (Issue #323)
+
+  * NEW: Rename action no longer selects the file extension in the 3rd pane (mimicking Finder's behaviour) (Issue #328)
+  
+  * NEW: Preference that allows jumping to the action automatically for actions that return results (Issue #225)
+  
+  * PLUGIN: Renamed the 'Current Webpage' proxies to reflect which browser they come from (Issue #59)
+
+  * PLUGIN: Fixed right arrowing into 'Current Web Page (Safari)' proxy object (Issue #59)
+
+  * PLUGIN: Mail Module rewritten to fix right arrowing into Mail.app
+  
+  * PLUGIN: OmniWeb plugin rewritten to be more consistent with naming of proxies and added documentation
+  
+  * PLUGIN: UI Access plugin fixed to show icons of windows for 'Windows...' actions, speed increases
+  
+  * PLUGIN: UI Access plugin includes a new 'Show all Menu Items' action 
+  
+  * PLUGIN: Made Window Interface appear on all spaces (Issue #61)
+  
+  * CHANGED: Task Viewer modified to make it more robust
+  
+  * CHANGED: Localisation improvements and refactoring (Issue #260)
+ 
+  * CHANGED: Implementation of fast enumeration for easier reading and possible speed improvements (Issue #323)
+
+  * CHANGED: Small speed improvement to object ranking (Issue #336)
+
+  * CHANGED: Get Path renamed to Get Absolute Path, new Get Path action returns things like `~/Documents` (Issue #331)
+  
+  * FIX: Crash when Quicksilver tries to combine the same object (Issue #342)
+  
+  * FIX: Searches like "Itchy & Scratchy" are now correctly passed to the browser (Issue #313)
+
+  * FIX: When using Quicksilver to browse the web (right arrow into URLs), the correct icons are shown (Issue #302)
+
+  * FIX: Websites with any top level domain (e.g. .uk) can now be browsed within Quicksilver (Issue #316)
+
+  * FIX: Link parser now correctly returns all the links on a page (Issue #316)
+
+  * FIX: Crash when changing interfaces (Issue #272)
+
+  * FIX: Task Viewer no longer shows 'null' when rescanning catalog entries (Issue #276)
+
+  * FIX: Down arrow does not wipe the result of an action, returned to Quicksilver (Issue #282)
+
+  * FIX: 'Latest Download' proxy no longer causes conflicts with cataloged items (Issue #308)
+
+  * FIX: Correct numbering of results (1 of 1) when an action returns an object to Quicksilver (Issue #282)
+
+  * FIX: Exception when entering nonBaseCharacters (Issue #275)
+
+  * FIX: TextMate String Ranker now works as previously (Issue #14)
+
+  * FIX: 'Type to Search' text in the command window panes (and more localisation fixes) (Issue #250)
+
+  * FIX: Pressing '/' to enter items could accidentally drill down to the root (Issue #63)
+
+  * FIX: The about window stops rendering images when closed
+  
+  * FIX: Assignment of mailto: strings as objects with Email actions (Issue #267)
+
+  * FIX: Always display the interface when Quicksilver returns a result (Issue #232)
+
+  * FIX: URLs with <>|#"?$! characters are parsed properly 
+  
+  * FIX: Copy To… action only shows folders in the 3rd pane
+  
+  * FIX: 'Visible Applications' proxy displays only apps that aren't hidden (Issue #221)
+
+  * FIX: Bezel and Primer interface names display correctly in the preferences (Issue #190)
+
+  * FIX: Changing interface properly registers '.' as a special character to enter text mode (Issue #233)
+
+  * FIX: Incorrect size settings for two .xibs
+  
+  * FIX: Size of result window remembered on relaunch (Issue #176)
+
+  * FIX: Possible crashes when installing plugins (Issue #241)
+
+  * FIX: 1st pane (and comma items) are cleared when an action returns an object (Issue #203)
+
+  * FIX: Primer interface appears on all spaces (Issue #64)
+
+  * FIX: Preference pane appears on all spaces (Issue #64)
+
+  * FIX: Result window size saved on relaunch (Issue #176)
+
+  * FIX: Get Path action returns strings instead of files (Issue #182)
+
+  * FIX: Get Path action works with the comma trick (Issue #203)
+
+  * FIX: Search results 'x of y' showing correctly in the result window (Issue #207)
+
+  * FIX: Clicking 'Defaults' in the Appearance Preferences would crash Quicksilver (Issue #212)
+
+  * FIX: PlugIn file path renamed correctly for compilation on case-sensitive systems (MacPorts) (Issue #309)
+
+  * FIX: Compilation fixes for 10.5 and isSnowLeopard method (moved to a new class) (Issue #287)
+
+
+Special thanks to:
+Potatolondon.com for providing the favIcon lookup service ( http://f.etfv.com )
+
+
+Changes - ß59(3482)
+-------
   
   * PLUGIN: Items labelled with this tag are for plugins available from http://qsapp.com/plugins
   
@@ -117,88 +259,58 @@ GitHub for hosting the source and downloads.
 
 
 
-Changes - B58(3841)
-=======
-Etienne Samson
+Changes - ß58 (3841)
+------
 
-  * Disable Info.plist preprocessing on Plugins. 
-
-  * Make shell scripts with "additional shebang" info work. 
+  * NEW: Make shell scripts with "additional shebang" info work. 
 
   * README: Make real links.
 
+  * CHANGE: Disable Info.plist preprocessing on Plugins.   
 
-Henery Barnor
+  * CHANGE: Removed dangling NSLog calls 
 
-  * Removed dangling NSLog calls 
- 
+  * CHANGE: Add Core Plugins to Release Build
 
-Michael Guntsche
+  * CHANGE: Menus improved
 
-  * Add Core Plugins to Release Build
+  * CHANGE: Object context menus improved  
+  
+  * CHANGE: Update score ranking code
 
-  * Fix to error messages
+  * CHANGE: NSEnumerator - loop optimization
 
-neurolepsy 
+  * CHANGE: Turn on a couple release optimizations 
 
-  * Fix droplets by using the 10.5+ NSConnection vending method
+  * FIX: Error messages
 
-  * The G in BROWSING no longer gets cut off in the result window
+  * FIX: Droplets work again, using the 10.5+ NSConnection vending method
 
-  * Menus improved
+  * FIX: The G in BROWSING no longer gets cut off in the result window
 
-  * Object context menus improved
+  * FIX: Don't show object descriptions in the result window if there's not enough room (rows <34px high)
 
-  * Don't show object descriptions in the result window if there's not enough room (rows <34px high)
+  * FIX: Recent Items made Snow Leopard compatible
 
-  * Recent Items made Snow Leopard compatible
+  * FIX: Text fields only allow plain text 
 
-  * Text fields only allow plain text 
+  * FIX: Bug creating an indexSet from the UI Access plugin
 
-  * Fix bug creating an indexSet from the UI Access plugin
+  * FIX: 10.5 compilation issue 
 
-  * Fix 10.5 compilation issue 
+  * FIX: Do Not Open At Login Action now working (Issue #35)
 
+  * FIX: Issue #34
 
-Patrick Robertson
+  * FIX: relaunch action for fussy apps that did not quit straight away 
 
-  * Fixed bug #35 - Do Not Open At Login Action now working
+  * FIX: Incorrect display of Websearch (Issue #39)
 
-  * Fix bug #34
+  * FIX: Issues 26, 47, 57 and 61 
 
-  * Tidying up (forgot to re-add 'else')
+  * FIX: lingering issue PjRobertson found 
 
-  * Remove dangling NSLogs ;)
-
-  * Fixed relaunch action for fussy apps that did not quit straight away 
-
-  * Removed a stray brace 
-
-  * Commented out the loc - locator, path (for bundles) NSLog
- 
-  * Commented out another NSLog message  
-
-
-Paul Kohut
-
-  * Initial loop optimizations
-
-  * Update score ranking code
-
-  * NSEnumerator - loop optimization
-
-  * Merge branch 'NSEnumerators' into B5x
-
-  * Issue #39 (bug 262) Fix: Incorrect display of Websearch
-
-  * Turn on a couple release optimizations 
-
-  * Fix issues 26, 47, 57 and 61 
-
-  * Fix lingering issue PjRobertson found 
-
-  * Fixed single/double tap Modifier Key Activation
+  * FIX: single/double tap Modifier Key Activation
 
 
 And thanks to any other I may have inadvertently missed.
-
