@@ -49,7 +49,7 @@ Changes - ß60 (3490)
   
   * PLUGIN: OmniWeb plugin rewritten to be more consistent with naming of proxies and added documentation
   
-  * PLUGIN: UI Access plugin fixed to show icons of windows for 'Windows…' actions, speed increases
+  * PLUGIN: UI Access plugin fixed to show icons of windows for 'Windows...' actions, speed increases
   
   * PLUGIN: UI Access plugin includes a new 'Show all Menu Items' action 
   
