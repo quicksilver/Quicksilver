@@ -679,8 +679,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 + (QSObject *)fileObjectWithPath:(NSString *)path {
 	if (![path length])
 		return nil;
-	path = [path stringByStandardizingPath]; // Keeps symlink paths intact
-	// ***warning * should this only resolve simlinks of ancestors?
+	path = [path stringByStandardizingPath];
 	if ([[path pathExtension] isEqualToString:@"silver"])
 		return [QSObject objectWithDictionary:[NSDictionary dictionaryWithContentsOfFile:path]];
 
