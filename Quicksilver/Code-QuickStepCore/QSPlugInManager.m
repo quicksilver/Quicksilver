@@ -687,9 +687,9 @@
     NSLog(@"Failed to install plugin %@, no bundle ID", path);
     return nil;
   }
-  if (!*version) {
+  if (!bundleVersion) {
     NSLog(@"Warning installing plugin %@, no version string found", path);
-    *version = @"0";
+    bundleVersion = @"0";
   }
 	NSString *destinationFolder = psMainPlugInsLocation;
 	NSFileManager *manager = [NSFileManager defaultManager];
