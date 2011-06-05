@@ -489,7 +489,7 @@
 	item = [item respondsToSelector:@selector(representedObject)] ?[item representedObject] :[item observedObject];
     //	NSLog(@"%@ %@ %d %d", item, [col identifier] , selectedRow, [triggerTable clickedRow]);
 
-	if (selectedRow == [triggerTable clickedRow] && [sender clickedRow] >= 0) {
+  if (selectedRow == [triggerTable clickedRow] && [sender clickedRow] >= 0 && [[NSApp currentEvent] type] <= NSMouseExited) {
 		if ([[NSApp currentEvent] clickCount] >1) return;
 		if ( [[col identifier] isEqualToString:@"command"]) {
 			id theSelectedTrigger = item; //[[triggerArrayController arrangedObjects] objectAtIndex:[sender clickedRow]];
