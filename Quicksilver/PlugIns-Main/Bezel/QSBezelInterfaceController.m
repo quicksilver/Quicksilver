@@ -16,8 +16,11 @@
 
 	[super windowDidLoad];
 	QSWindow *window = (QSWindow *)[self window];
-	[window setLevel:kCGOverlayWindowLevel];
+	[window setLevel:NSModalPanelWindowLevel];
 	[window setBackgroundColor:[NSColor clearColor]];
+	
+	// Set the window to be visible on all spaces
+    [[self window] setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
 
 	[window setHideOffset:NSMakePoint(0, 0)];
 	[window setShowOffset:NSMakePoint(0, 0)];
@@ -36,7 +39,7 @@
 	[details bind:@"textColor" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSAppearance1T" options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:@"NSValueTransformerName"]];
 	[commandView bind:@"textColor" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSAppearance1T" options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:@"NSValueTransformerName"]];
 
-	[[self window] setMovableByWindowBackground:NO];
+	[[self window] setMovableByWindowBackground:YES];
 	[(QSWindow *)[self window] setFastShow:YES];
 
 	NSArray *theControls = [NSArray arrayWithObjects:dSelector, aSelector, iSelector, nil];
