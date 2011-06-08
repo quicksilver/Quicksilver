@@ -894,10 +894,10 @@
 		4D002CA0131145DD009040B7 /* QSBezelInterface.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSBezelInterface.xib; sourceTree = "<group>"; };
 		4D002CA1131145DD009040B7 /* QSBezelInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSBezelInterfaceController.h; sourceTree = "<group>"; };
 		4D002CA2131145DD009040B7 /* QSBezelInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSBezelInterfaceController.m; sourceTree = "<group>"; };
-		4D002CC11311460B009040B7 /* New Finder Window.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; path = "New Finder Window.scpt"; sourceTree = "<group>"; };
-		4D002CC21311460B009040B7 /* Refresh Finder Window.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; path = "Refresh Finder Window.scpt"; sourceTree = "<group>"; };
-		4D002CC31311460B009040B7 /* Finder.original.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; path = Finder.original.scpt; sourceTree = "<group>"; };
-		4D002CC41311460B009040B7 /* Finder.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; path = Finder.scpt; sourceTree = "<group>"; };
+		4D002CC11311460B009040B7 /* New Finder Window.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; path = "New Finder Window.scpt"; sourceTree = "<group>"; };
+		4D002CC21311460B009040B7 /* Refresh Finder Window.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; path = "Refresh Finder Window.scpt"; sourceTree = "<group>"; };
+		4D002CC31311460B009040B7 /* Finder.original.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; path = Finder.original.scpt; sourceTree = "<group>"; };
+		4D002CC41311460B009040B7 /* Finder.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; path = Finder.scpt; sourceTree = "<group>"; };
 		4D002CC61311460B009040B7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D002CCB1311460B009040B7 /* QSFinderPlugIn_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSFinderPlugIn_Prefix.pch; sourceTree = "<group>"; };
 		4D002CCC1311460B009040B7 /* QSFinderProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSFinderProxy.h; sourceTree = "<group>"; };
@@ -1328,7 +1328,7 @@
 		E180021307B2BBB900010DB0 /* QSTriggersPrefPane.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSTriggersPrefPane.m; sourceTree = "<group>"; };
 		E180021407B2BBB900010DB0 /* QSUpdateController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSUpdateController.h; sourceTree = "<group>"; };
 		E180021507B2BBB900010DB0 /* QSUpdateController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSUpdateController.m; sourceTree = "<group>"; };
-		E188856606A4884F00B75D22 /* System Events.scpt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.scpt; path = "System Events.scpt"; sourceTree = "<group>"; };
+		E188856606A4884F00B75D22 /* System Events.scpt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = file; path = "System Events.scpt"; sourceTree = "<group>"; };
 		E18986BF0657DDCE001286AA /* QSPlugIn.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = QSPlugIn.icns; sourceTree = "<group>"; };
 		E18F8D29072DBB1C00057774 /* PlugInVersionRequirements.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = PlugInVersionRequirements.plist; sourceTree = "<group>"; };
 		E1A2B21306F954F80084C47B /* wildcard.* */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = "wildcard.*"; sourceTree = "<group>"; };
@@ -3355,7 +3355,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"<h1>Release Notes: Quicksilver Build $QS_BUNDLE_VERSION</h1>\" > \"$SRCROOT/SharedSupport/Changes.html\"\n\"$SRCROOT/Tools/Markdown.pl\" \"$SRCROOT/SharedSupport/CHANGELOG\" >> \"$SRCROOT/SharedSupport/Changes.html\"";
+			shellScript = "echo \"<!DOCTYPE html><html><head><meta http-equiv=\\\"content-type\\\" content=\\\"text/html; charset=utf-8\\\" /></head><body><h1>Release Notes: Quicksilver Build $QS_BUNDLE_VERSION</h1>\" > \"$SRCROOT/SharedSupport/Changes.html\"\n\"$SRCROOT/Tools/Markdown.pl\" \"$SRCROOT/SharedSupport/CHANGELOG\" | iconv -f ISO-8859-1 -t UTF8 >> \"$SRCROOT/SharedSupport/Changes.html\"\necho \"</body></html>\" >> \"$SRCROOT/SharedSupport/Changes.html\"";
 		};
 		E1A5676406FFDD8700BAD045 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
