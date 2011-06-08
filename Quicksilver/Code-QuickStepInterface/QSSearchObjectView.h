@@ -53,6 +53,9 @@ typedef enum QSSearchMode {
 	int 			historyIndex;
 	NSMutableArray *parentStack; // The parents for the current browse session
 	NSMutableArray *childStack; // The children for the current browse session
+    
+    NSFont *textCellFont; // for text entry mode
+    NSColor *textCellFontColor; // for text entry mode
 
 @public
 	QSResultController *resultController;
@@ -159,6 +162,8 @@ typedef enum QSSearchMode {
 - (void)setMarkedText:(id)aString selectedRange:(NSRange)selRange;
 - (void)unmarkText;
 - (NSArray *)validAttributesForMarkedText;
+- (void)setTextCellFont:(NSFont *)newCellFont;
+- (void)setTextCellFontColor:(NSColor *)newCellColor;
 
 - (void)setVisibleString:(NSString *)string;
 - (NSString *)visibleString;

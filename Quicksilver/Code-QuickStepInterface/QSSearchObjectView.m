@@ -65,6 +65,8 @@ NSMutableDictionary *bindingsDict = nil;
 	allowNonActions = YES;
 	allowText = YES;
 	resultController = [[QSResultController alloc] initWithFocus:self];
+    textCellFont = [NSFont systemFontOfSize:12.0];
+    textCellFontColor = [NSColor blackColor];
     
 	searchMode = SearchFilterAll;
 	moreComing = NO;
@@ -780,8 +782,8 @@ NSMutableDictionary *bindingsDict = nil;
 		[editor setDrawsBackground: NO];
 		[editor setDelegate: self];
 		[editor setMinSize: editorFrame.size];
-		[editor setFont:[NSFont systemFontOfSize:12.0]];
-		[editor setTextColor:[NSColor blackColor]];
+		[editor setFont:textCellFont];
+		[editor setTextColor:textCellFontColor];
 //		[editor setContinuousSpellCheckingEnabled:YES];
 		[editor setEditable:YES];
 		[editor setSelectable:YES];
@@ -961,6 +963,28 @@ NSMutableDictionary *bindingsDict = nil;
 	}
 	[resetTimer fire];
 	[[self controller] executeCommand:self];
+}
+
+- (NSFont *)textCellFont
+{
+    return textCellFont;
+}
+
+- (void)setTextCellFont:(NSFont *)newCellFont
+{
+    [textCellFont autorelease];
+    textCellFont = [newCellFont retain];
+}
+
+- (NSColor *)textCellFontColor
+{
+    return textCellFontColor;
+}
+
+- (void)setTextCellFontColor:(NSColor *)newCellColor
+{
+    [textCellFontColor autorelease];
+    textCellFontColor = [newCellColor retain];
 }
 
 #pragma mark -
