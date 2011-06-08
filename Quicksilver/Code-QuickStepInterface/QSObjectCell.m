@@ -73,6 +73,8 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 }
 - (void)dealloc{
 	[fieldEditor release];
+    [nameFont release];
+    [detailsFont release];
 	[super dealloc];
 }
 - (id)initTextCell:(NSString *)aString {
@@ -85,9 +87,9 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 		[self setImagePosition:NSImageLeft];
 		//NSLog(@"init cell");
 		[self setShowsFirstResponder:YES];
-		[self setFont:[NSFont systemFontOfSize:12]];
-		nameFont = [self font];
-		detailsFont = [NSFont fontWithName:[[self font] fontName] size:[[self font] pointSize] *5/6];
+		[self setFont:[NSFont systemFontOfSize:12.0]];
+		[self setNameFont:[NSFont systemFontOfSize:12.0]];
+		[self setDetailsFont:[NSFont systemFontOfSize:10.0]];
 		showDetails = YES;
 		autosize = YES;
 		[self setHighlightsBy:NSChangeBackgroundCellMask];
@@ -692,12 +694,8 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 }
 
 - (void)setNameFont:(NSFont *)newNameFont {
-    if (nameFont == newNameFont)
-    {
-        return;
-    }
-    [nameFont release];
-    nameFont = newNameFont;
+    [nameFont autorelease];
+    nameFont = [newNameFont retain];
     [[self controlView] setNeedsDisplay:YES];
 }
 
@@ -706,12 +704,8 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 }
 
 - (void)setDetailsFont:(NSFont *)newDetailsFont {
-    if (detailsFont == newDetailsFont)
-    {
-        return;
-    }
-    [detailsFont release];
-    detailsFont = newDetailsFont;
+    [detailsFont autorelease];
+    detailsFont = [newDetailsFont retain];
     [[self controlView] setNeedsDisplay:YES];
 }
 
