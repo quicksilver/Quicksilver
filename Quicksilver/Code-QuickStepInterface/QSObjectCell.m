@@ -90,6 +90,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 		[self setFont:[NSFont systemFontOfSize:12.0]];
 		[self setNameFont:[NSFont systemFontOfSize:12.0]];
 		[self setDetailsFont:[NSFont systemFontOfSize:10.0]];
+        cellRadiusFactor = 9;
 		showDetails = YES;
 		autosize = YES;
 		[self setHighlightsBy:NSChangeBackgroundCellMask];
@@ -316,7 +317,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 			[roundRect stroke];
 		}
 	} else if ([self highlightsBy] && (isFirstResponder || [self state]) ) {
-		[roundRect appendBezierPathWithRoundedRectangle:cellFrame withRadius:NSHeight(cellFrame) /9];
+		[roundRect appendBezierPathWithRoundedRectangle:cellFrame withRadius:NSHeight(cellFrame)/cellRadiusFactor];
 		[roundRect fill];
 		//[roundRect setFlatness:0.0];
 		//[roundRect setLineWidth:3.25];
@@ -706,6 +707,18 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 - (void)setDetailsFont:(NSFont *)newDetailsFont {
     [detailsFont autorelease];
     detailsFont = [newDetailsFont retain];
+    [[self controlView] setNeedsDisplay:YES];
+}
+
+- (float)cellRadiusFactor {
+    return cellRadiusFactor;
+}
+
+- (void)setCellRadiusFactor:(float)newRadius {
+    if (cellRadiusFactor == newRadius) {
+        return;
+    }
+    cellRadiusFactor = newRadius;
     [[self controlView] setNeedsDisplay:YES];
 }
 
