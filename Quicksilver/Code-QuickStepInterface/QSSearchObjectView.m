@@ -65,8 +65,8 @@ NSMutableDictionary *bindingsDict = nil;
 	allowNonActions = YES;
 	allowText = YES;
 	resultController = [[QSResultController alloc] initWithFocus:self];
-    textCellFont = [NSFont systemFontOfSize:12.0];
-    textCellFontColor = [NSColor blackColor];
+	[self setTextCellFont:[NSFont systemFontOfSize:12.0]];
+	[self setTextCellFontColor:[NSColor blackColor]];
     
 	searchMode = SearchFilterAll;
 	moreComing = NO;
