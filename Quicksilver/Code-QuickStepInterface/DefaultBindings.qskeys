@@ -22,6 +22,14 @@
 		<string>transmogrify:</string>
 		<key>/</key>
 		<string>moveRight:</string>
+		<key>^h</key>
+		<string>moveLeft:</string>
+		<key>^j</key>
+		<string>moveUp:</string>
+		<key>^k</key>
+		<string>moveDown:</string>
+		<key>^l</key>
+		<string>moveRight:</string>
 		<key>;</key>
 		<string>combine:</string>
 		<key>=</key>
