@@ -135,13 +135,20 @@
 
 		url = [self cleanQueryURL:url];
 		[self setName:(title?title:url)];
-		[[self dataDictionary] setObject:url forKey:QSURLType];
-		if ([url hasPrefix:@"mailto:"])
-			[self setObject:[NSArray arrayWithObject:[url substringWithRange:NSMakeRange(7, [url length] -7)]] forType:QSEmailAddressType];
-		[self setPrimaryType:QSURLType];
+		[self assignURLTypesWithURL:url];
 	}
 	return self;
 }
 
-@end
+- (void)assignURLTypesWithURL:(NSString *)url
+{
+		[[self dataDictionary] setObject:url forKey:QSURLType];
+		[self setObject:url forType:QSURLType];
+		[self setObject:url forType:QSTextType];
+		if ([url hasPrefix:@"mailto:"]) {
+			[self setObject:[NSArray arrayWithObject:[url substringWithRange:NSMakeRange(7, [url length] -7)]] forType:QSEmailAddressType];
+		}
+		[self setPrimaryType:QSURLType];
+}
 
+@end
