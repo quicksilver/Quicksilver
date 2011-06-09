@@ -888,6 +888,8 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		423DA027132F7A65005ED70F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSAction.name.strings; sourceTree = "<group>"; };
 		423DA028132F7A6B005ED70F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/QSAction.name.strings; sourceTree = "<group>"; };
+		4249366D13A15E3E008A933B /* CHANGELOG */ = {isa = PBXFileReference; lastKnownFileType = text; path = CHANGELOG; sourceTree = "<group>"; };
+		4249366E13A15E3E008A933B /* ChangesBare.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = ChangesBare.html; sourceTree = "<group>"; };
 		42ADF4FD1317237900C68070 /* QSClangAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSClangAnalyzer.h; sourceTree = "<group>"; };
 		4D002C9E131145DD009040B7 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4D002C9F131145DD009040B7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -926,7 +928,6 @@
 		4D00308413116376009040B7 /* QSTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSTableView.m; sourceTree = "<group>"; };
 		4D4F32FC0E39EDE500668F94 /* QSEffects-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "QSEffects-Info.plist"; sourceTree = "<group>"; };
 		4D4F32FD0E39EDFD00668F94 /* QSFoundation-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "QSFoundation-Info.plist"; sourceTree = "<group>"; };
-		4D784C9410AB18D500898C87 /* Read Me.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "Read Me.rtf"; sourceTree = "<group>"; };
 		4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Release.xcconfig; sourceTree = "<group>"; };
 		4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Debug.xcconfig; sourceTree = "<group>"; };
 		4D8A0B3510AB23F7006AF163 /* Configuration */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Configuration; sourceTree = "<group>"; };
@@ -2207,7 +2208,8 @@
 		E1DADBB30666606900BB655F /* SharedSupport */ = {
 			isa = PBXGroup;
 			children = (
-				4D784C9410AB18D500898C87 /* Read Me.rtf */,
+				4249366D13A15E3E008A933B /* CHANGELOG */,
+				4249366E13A15E3E008A933B /* ChangesBare.html */,
 				7F8C659E081171DB0051113C /* Credits.html */,
 				7FA4EF240913AF27007DB407 /* Changes.html */,
 			);
@@ -3355,7 +3357,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"<!DOCTYPE html><html><head><meta http-equiv=\\\"content-type\\\" content=\\\"text/html; charset=utf-8\\\" /></head><body><h1>Release Notes: Quicksilver Build $QS_BUNDLE_VERSION</h1>\" > \"$SRCROOT/SharedSupport/Changes.html\"\n\"$SRCROOT/Tools/Markdown.pl\" \"$SRCROOT/SharedSupport/CHANGELOG\" | iconv -f ISO-8859-1 -t UTF8 >> \"$SRCROOT/SharedSupport/Changes.html\"\necho \"</body></html>\" >> \"$SRCROOT/SharedSupport/Changes.html\"";
+			shellScript = "SUPP_DIR=\"$SRCROOT/SharedSupport\"\nFULL_HTML=\"$SUPP_DIR/Changes.html\"\nPART_HTML=\"$SUPP_DIR/ChangesBare.html\"\necho \"<!DOCTYPE html><html><head><meta http-equiv=\\\"content-type\\\" content=\\\"text/html; charset=utf-8\\\" /></head><body>\" > $FULL_HTML\necho \"<h1>Release Notes: Quicksilver Build $QS_BUNDLE_VERSION</h1>\" | tee -a $FULL_HTML | tee $PART_HTML\n\"$SRCROOT/Tools/Markdown.pl\" \"$SRCROOT/SharedSupport/CHANGELOG\" | iconv -f ISO-8859-1 -t UTF8 | tee -a $FULL_HTML | tee -a $PART_HTML\necho \"</body></html>\" >> $FULL_HTML";
 		};
 		E1A5676406FFDD8700BAD045 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
