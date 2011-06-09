@@ -18,6 +18,7 @@
 #define kQSScriptSuite 'DAED'
 #define kQSOpenTextScriptCommand 'opnt'
 #define kQSGetArgumentCountCommand 'garc'
+#define kQSOpenTextIndirectParameter 'IdTx'
 
 @interface QSAppleScriptActions : QSActionProvider
 - (QSObject*)runAppleScript:(NSString *)scriptPath withArguments:(QSObject *)iObject;

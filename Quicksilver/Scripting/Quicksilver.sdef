@@ -78,6 +78,7 @@
 		<command name="process text" code="DAEDopnt" description="Process some text. Scripts with this handler gain a &apos;Process Text&apos; action">
 			<cocoa class="NSScriptCommand"/>
 			<direct-parameter description="text to process" type="text"/>
+			<parameter name="with" code="IdTx" description="indirect text" type="text" optional="yes"/>
 			<result description="value to return to Quicksilver" type="any"/>
 		</command>
 		<command name="get argument count" code="DAEDgarc" description="Get the argument count for this action. Scripts with this handler can customize their argument count. Valid values are 1, 2.">
