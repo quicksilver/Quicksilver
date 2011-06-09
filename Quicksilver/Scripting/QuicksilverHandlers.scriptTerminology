@@ -13,6 +13,16 @@
 		</dict>
 		<key>ProcessText</key>
 		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>with</key>
+				<dict>
+					<key>Description</key>
+					<string>indirect text</string>
+					<key>Name</key>
+					<string>with</string>
+				</dict>
+			</dict>
 			<key>Description</key>
 			<string>Process some text. Scripts with this handler gain a 'Process Text' action</string>
 			<key>Name</key>

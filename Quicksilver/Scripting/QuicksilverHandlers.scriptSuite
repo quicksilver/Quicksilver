@@ -25,6 +25,18 @@
 			<string>DAED</string>
 			<key>AppleEventCode</key>
 			<string>opnt</string>
+			<key>Arguments</key>
+			<dict>
+				<key>with</key>
+				<dict>
+					<key>AppleEventCode</key>
+					<string>IdTx</string>
+					<key>Optional</key>
+					<string>YES</string>
+					<key>Type</key>
+					<string>NSString</string>
+				</dict>
+			</dict>
 			<key>CommandClass</key>
 			<string>NSScriptCommand</string>
 			<key>ResultAppleEventCode</key>
