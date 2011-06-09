@@ -121,16 +121,13 @@
 	NSURL *url = [NSURL URLWithString:[urlString URLEncoding]];
 
 	if ([url scheme] && [url host] && [urlString rangeOfString:@":"].location != 1) {
-		[self setObject:urlString forType:QSURLType];
-		[self setPrimaryType:QSURLType];
+		[self assignURLTypesWithURL:urlString];
 		return;
 	}
 	
 	// Email address
 	if ([stringValue hasPrefix:@"mailto:"]) {
-		[self setObject:[[stringValue componentsSeparatedByString:@"mailto:"] objectAtIndex:1]  forType:QSEmailAddressType];
-		[self setObject:stringValue forType:QSURLType];
-		[self setPrimaryType:QSURLType];
+		[self assignURLTypesWithURL:stringValue];
 		return;
 	}	
 	
@@ -139,9 +136,7 @@
 	if ([stringValue rangeOfString:@"."] .location != NSNotFound) {
 		// @ sign but NO /, -> email address
 		if (([stringValue rangeOfString:@"@"] .location != NSNotFound && [stringValue rangeOfString:@"/"] .location == NSNotFound)) {
-			[self setObject:stringValue forType:QSEmailAddressType];
-			[self setObject:[@"mailto:" stringByAppendingString:stringValue] forType:QSURLType];
-			[self setPrimaryType:QSURLType];
+			[self assignURLTypesWithURL:[@"mailto:" stringByAppendingString:stringValue]];
 			return;
 		} else {
 			// @ sign AND /, -> a URL?
@@ -166,8 +161,7 @@
 						if(![urlString hasPrefix:@"http://"]) {
 							urlString = [@"http://" stringByAppendingString:urlString];
 						}
-						[self setObject:urlString forType:QSURLType];
-						[self setPrimaryType:QSURLType];
+						[self assignURLTypesWithURL:urlString];
 						return;
 					}
 				}

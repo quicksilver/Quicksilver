@@ -102,8 +102,7 @@
 			url = [[NSURL URLWithString:[url URLEncoding] relativeToURL:source] absoluteString];
 			newObject = [QSObject URLObjectWithURL:url title:[name stringByTrimmingCharactersInSet:wncs]];
 			// Make sure the URL is also a text type
-			[newObject setObject:url forType:QSTextType];
-			[newObject setPrimaryType:QSURLType];
+			[newObject assignURLTypesWithURL:url];
 			
 			if (label) {
 				[newObject setLabel:label];
