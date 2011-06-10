@@ -186,6 +186,15 @@
 
 
 @implementation NSApplication (VersionCheck)
++ (NSString *)macOSXFullVersion {
+	SInt32 versionMajor, versionMinor, versionBugfix;
+	Gestalt (gestaltSystemVersionMajor, &versionMajor);
+	Gestalt (gestaltSystemVersionMinor, &versionMinor);
+	Gestalt (gestaltSystemVersionBugFix, &versionBugfix);
+	
+	return [NSString stringWithFormat:@"%i.%i.%i",versionMajor,versionMinor,versionBugfix];
+}
+
 + (BOOL)isLeopard {
 	SInt32 version;
 	Gestalt (gestaltSystemVersion, &version);

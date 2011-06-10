@@ -149,7 +149,7 @@
 	NSString *testVersionString = nil;
 	if (success) {
 		NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:versionURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0];
-
+		[theRequest setValue:kQSUserAgent forHTTPHeaderField:@"User-Agent"];
 		NSData *data = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:nil error:nil];
 		testVersionString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 		NSLog(@"Version: %@", testVersionString);
