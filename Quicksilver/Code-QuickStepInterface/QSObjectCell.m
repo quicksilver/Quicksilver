@@ -88,8 +88,8 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 		//NSLog(@"init cell");
 		[self setShowsFirstResponder:YES];
 		[self setFont:[NSFont systemFontOfSize:12.0]];
-		[self setNameFont:[NSFont systemFontOfSize:12.0]];
-		[self setDetailsFont:[NSFont systemFontOfSize:10.0]];
+		[self setNameFont:nil];
+		[self setDetailsFont:nil];
         cellRadiusFactor = 9;
 		showDetails = YES;
 		autosize = YES;
@@ -443,7 +443,16 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 	BOOL useAlternateColor = [controlView isKindOfClass:[NSTableView class]] && [(NSTableView *)controlView isRowSelected:[(NSTableView *)controlView rowAtPoint:cellFrame.origin]];
 	NSColor *mainColor = (textColor?textColor:(useAlternateColor?[NSColor alternateSelectedControlTextColor] :[NSColor controlTextColor]) );
 	NSColor *fadedColor = [mainColor colorWithAlphaComponent:0.80];
-
+	
+	if(!nameFont)
+	{
+		[self setNameFont:[NSFont fontWithName:[[self font] fontName] size:MIN([[self font] pointSize] , NSHeight(cellFrame) *1.125*2/3) -1]];
+	}
+	if(!detailsFont)
+	{
+		[self setDetailsFont:[NSFont fontWithName:[[self font] fontName] size:[[self font] pointSize] *5/6]];
+	}
+	
 	[nameAttributes release];
 	nameAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:
 		nameFont, NSFontAttributeName,
