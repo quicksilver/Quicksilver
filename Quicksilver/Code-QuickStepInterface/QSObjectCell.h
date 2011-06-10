@@ -8,6 +8,9 @@
 	NSTextAttachment *attachment;
 	BOOL showDetails;
 	BOOL autosize;
+	NSFont *nameFont;
+	NSFont *detailsFont;
+    float cellRadiusFactor;
 	NSColor *textColor;
 	NSColor *highlightColor;
 	NSSize iconSize;
@@ -24,6 +27,13 @@
 
 - (BOOL)showDetails;
 - (void)setShowDetails:(BOOL)flag;
+- (NSFont *)nameFont;
+- (void)setNameFont:(NSFont *)newNameFont;
+- (NSFont *)detailsFont;
+- (void)setDetailsFont:(NSFont *)newDetailsFont;
+// (cell height / cellRadiusFactor) will become the radius for rounded corners
+- (float)cellRadiusFactor;
+- (void)setCellRadiusFactor:(float)newRadius;
 - (NSColor *)textColor;
 - (void)setTextColor:(NSColor *)newTextColor;
 - (NSColor *)highlightColor;
