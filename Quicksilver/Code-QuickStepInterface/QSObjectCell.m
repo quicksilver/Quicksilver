@@ -73,6 +73,8 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 }
 - (void)dealloc{
 	[fieldEditor release];
+    [nameFont release];
+    [detailsFont release];
 	[super dealloc];
 }
 - (id)initTextCell:(NSString *)aString {
@@ -85,7 +87,10 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 		[self setImagePosition:NSImageLeft];
 		//NSLog(@"init cell");
 		[self setShowsFirstResponder:YES];
-		[self setFont:[NSFont systemFontOfSize:12]];
+		[self setFont:[NSFont systemFontOfSize:12.0]];
+		[self setNameFont:[NSFont systemFontOfSize:12.0]];
+		[self setDetailsFont:[NSFont systemFontOfSize:10.0]];
+        cellRadiusFactor = 9;
 		showDetails = YES;
 		autosize = YES;
 		[self setHighlightsBy:NSChangeBackgroundCellMask];
@@ -99,8 +104,6 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 		// NSLog(@"%d pos", [self imagePosition]);
 		//[self setFormatter:[[[QSObjectFormatter alloc] init] autorelease]];
 		// [self setShowsBorderOnlyWhileMouseInside:YES];
-
-
 	}
 	return self;
 }
@@ -314,7 +317,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 			[roundRect stroke];
 		}
 	} else if ([self highlightsBy] && (isFirstResponder || [self state]) ) {
-		[roundRect appendBezierPathWithRoundedRectangle:cellFrame withRadius:NSHeight(cellFrame) /9];
+		[roundRect appendBezierPathWithRoundedRectangle:cellFrame withRadius:NSHeight(cellFrame)/cellRadiusFactor];
 		[roundRect fill];
 		//[roundRect setFlatness:0.0];
 		//[roundRect setLineWidth:3.25];
@@ -443,14 +446,14 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 
 	[nameAttributes release];
 	nameAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:
-		[NSFont fontWithName:[[self font] fontName] size:MIN([[self font] pointSize] , NSHeight(cellFrame) *1.125*2/3) -1] , NSFontAttributeName,
+		nameFont, NSFontAttributeName,
 		mainColor, NSForegroundColorAttributeName,
 		style, NSParagraphStyleAttributeName,
 		nil];
 
 	[detailsAttributes release];
 	detailsAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:
-		[NSFont fontWithName:[[self font] fontName] size:[[self font] pointSize] *5/6] , NSFontAttributeName,
+		detailsFont, NSFontAttributeName,
 		fadedColor, NSForegroundColorAttributeName,
 		style, NSParagraphStyleAttributeName,
 		nil];
@@ -687,12 +690,44 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 	showDetails = flag;
 }
 
+- (NSFont *)nameFont {
+    return nameFont;
+}
+
+- (void)setNameFont:(NSFont *)newNameFont {
+    [nameFont autorelease];
+    nameFont = [newNameFont retain];
+    [[self controlView] setNeedsDisplay:YES];
+}
+
+- (NSFont *)detailsFont {
+    return detailsFont;
+}
+
+- (void)setDetailsFont:(NSFont *)newDetailsFont {
+    [detailsFont autorelease];
+    detailsFont = [newDetailsFont retain];
+    [[self controlView] setNeedsDisplay:YES];
+}
+
+- (float)cellRadiusFactor {
+    return cellRadiusFactor;
+}
+
+- (void)setCellRadiusFactor:(float)newRadius {
+    if (cellRadiusFactor == newRadius) {
+        return;
+    }
+    cellRadiusFactor = newRadius;
+    [[self controlView] setNeedsDisplay:YES];
+}
+
 - (NSColor *)textColor { return textColor;  }
 
 - (void)setTextColor:(NSColor *)newTextColor {
-	[textColor release];
-	textColor = [newTextColor retain];
-	[[self controlView] setNeedsDisplay:YES];
+    [textColor release];
+    textColor = [newTextColor retain];
+    [[self controlView] setNeedsDisplay:YES];
 }
 
 - (NSColor *)highlightColor { return highlightColor;  }
