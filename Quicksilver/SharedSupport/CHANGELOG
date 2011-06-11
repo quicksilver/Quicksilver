@@ -18,7 +18,7 @@
 
   * NEW: Quicksilver correctly selects the 1st item in the list after using the 'show contents' action (Issue #226)
 
-  * NEW: ß60+ versions of Quicksilver will not launch on 10.4 machines or below (Issue #279)
+  * NEW: √ü60+ versions of Quicksilver will not launch on 10.4 machines or below (Issue #279)
 
   * NEW: 1st object in the results list is selected by default when viewing children of objects (Issue #226)
 
@@ -98,7 +98,7 @@
 
   * FIX: URLs with <>|#"?$! characters are parsed properly 
   
-  * FIX: Copy To… action only shows folders in the 3rd pane
+  * FIX: Copy To‚Ä¶ action only shows folders in the 3rd pane
   
   * FIX: 'Visible Applications' proxy displays only apps that aren't hidden (Issue #221)
 
@@ -137,7 +137,7 @@ Special thanks to:
 Potatolondon.com for providing the favIcon lookup service ( http://f.etfv.com )
 
 
-Changes - ß59(3842)
+Changes - √ü59(3842)
 -------
   
   * PLUGIN: Items labelled with this tag are for plugins available from http://qsapp.com/plugins
@@ -256,7 +256,7 @@ GitHub for hosting the source and downloads.
 
 
 
-Changes - ß58 (3841)
+Changes - √ü58 (3841)
 ------
 
   * NEW: Make shell scripts with "additional shebang" info work. 
