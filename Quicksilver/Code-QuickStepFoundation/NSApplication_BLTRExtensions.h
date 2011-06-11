@@ -65,7 +65,11 @@ typedef enum {
  in mind. Maybe use gestaltSystemVersionMajor/gestaltSystemVersionMinor instead.
  */
 @interface NSApplication (VersionCheck)
-
+/**
+ Returns the version as provided by Gestalt(gestaltSystemVersion,...)
+ @returns SInt32 Mac OS X version number as a hex number (eg: 0x1013 = 10.1.3)
+*/
++ (SInt32)macOSXSystemVersion;
 /**
  Checks, if system is at least Mac OS X 10.5 (Leopard)
   
