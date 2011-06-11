@@ -79,15 +79,15 @@
 	for(link in array) {
 		if ([link count] < 4) continue;
 		NSString *shortcut = [link objectAtIndex:2];
-		NSString *url = [[[link objectAtIndex:0] stringByReplacing:@"&amp; " with:@"&"] stringByReplacing:@"%s" with:QUERY_KEY];
+		NSString *urlString = [[[link objectAtIndex:0] stringByReplacing:@"&amp; " with:@"&"] stringByReplacing:@"%s" with:QUERY_KEY];
 		NSString *text = [link objectAtIndex:1];
 		NSString *imageurl = [link objectAtIndex:3];
 		NSString *name;
 		// make sure there's an actual URL
-		if (url.length) {
+		if (urlString.length) {
 			// empty <a></a> tags, give the name of the url
 			if(!(text.length || imageurl.length)) {
-				name = url; 
+				name = urlString; 
 			}
 			// The link is represented by an image, give it the name of the image
 			else if(!text.length) {
@@ -99,10 +99,9 @@
 			NSString *label = [shortcut length] ? text : nil;
 			
 			// make sure it's an actual URL
-			url = [[NSURL URLWithString:[url URLEncoding] relativeToURL:source] absoluteString];
-			newObject = [QSObject URLObjectWithURL:url title:[name stringByTrimmingCharactersInSet:wncs]];
-			// Make sure the URL is also a text type
-			[newObject assignURLTypesWithURL:url];
+			urlString = [[NSURL URLWithString:[urlString URLEncoding] relativeToURL:source] absoluteString];
+			newObject = [QSObject URLObjectWithURL:urlString title:[name stringByTrimmingCharactersInSet:wncs]];
+			[newObject assignURLTypesWithURL:urlString];
 			
 			if (label) {
 				[newObject setLabel:label];
