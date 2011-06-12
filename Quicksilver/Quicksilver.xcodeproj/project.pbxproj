@@ -225,7 +225,6 @@
 		7FADDCE208B4D805004559C1 /* QSHistoryObjectSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FADDCE008B4D805004559C1 /* QSHistoryObjectSource.m */; };
 		7FB37EB4080997EF00A2B2B4 /* QSURLDownloadWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FB37EB2080997EF00A2B2B4 /* QSURLDownloadWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FB37EB5080997EF00A2B2B4 /* QSURLDownloadWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB37EB3080997EF00A2B2B4 /* QSURLDownloadWrapper.m */; };
-		7FB77ADE09777BCF00E62ABE /* QSProcessObjectSource.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98B06625D7300843027 /* QSProcessObjectSource.xib */; };
 		7FB8AD4E08E6328D000A65C4 /* QSHandledObjectHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FB8AD4C08E6328D000A65C4 /* QSHandledObjectHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FB8D6FC07B98B1300062022 /* QSCatalogEntry.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FB8D6FA07B98B1300062022 /* QSCatalogEntry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FB8D6FD07B98B1300062022 /* QSCatalogEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB8D6FB07B98B1300062022 /* QSCatalogEntry.m */; };
@@ -1220,7 +1219,6 @@
 		E102F98806625D7300843027 /* QSDefaultsObjectSource.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSDefaultsObjectSource.xib; sourceTree = "<group>"; };
 		E102F98906625D7300843027 /* QSFileConflictPanel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSFileConflictPanel.xib; sourceTree = "<group>"; };
 		E102F98A06625D7300843027 /* QSFileSystemObjectSource.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSFileSystemObjectSource.xib; sourceTree = "<group>"; };
-		E102F98B06625D7300843027 /* QSProcessObjectSource.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSProcessObjectSource.xib; sourceTree = "<group>"; };
 		E102F98C06625D7300843027 /* QuitConfirm.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuitConfirm.xib; sourceTree = "<group>"; };
 		E102F98D06625D7300843027 /* ResultWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultWindow.xib; sourceTree = "<group>"; };
 		E102F99006625D7400843027 /* QSTaskEntry.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSTaskEntry.xib; sourceTree = "<group>"; };
@@ -1940,7 +1938,6 @@
 				E102F99206625D7400843027 /* QSTriggersPrefPane.xib */,
 				E102F98C06625D7300843027 /* QuitConfirm.xib */,
 				E102F98D06625D7300843027 /* ResultWindow.xib */,
-				E102F98B06625D7300843027 /* QSProcessObjectSource.xib */,
 			);
 			path = Nibs;
 			sourceTree = "<group>";
@@ -3266,7 +3263,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7FB77ADE09777BCF00E62ABE /* QSProcessObjectSource.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
