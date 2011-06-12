@@ -144,8 +144,10 @@
 		[self setObject:urlString forType:QSTextType];
 		if ([urlString hasPrefix:@"mailto:"]) {
 			[self setObject:[NSArray arrayWithObject:[urlString substringWithRange:NSMakeRange(7, [urlString length] -7)]] forType:QSEmailAddressType];
+			[self setPrimaryType:QSEmailAddressType];
+		} else {
+			[self setPrimaryType:QSURLType];
 		}
-		[self setPrimaryType:QSURLType];
 }
 
 @end

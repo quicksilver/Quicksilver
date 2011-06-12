@@ -916,7 +916,7 @@ NSSize QSMaxIconSize;
     
 	else if ([[self primaryType] isEqualToString:QSContactPhoneType]) [self setIcon: [NSImage imageNamed:@"ContactPhone"]];
 	else if ([[self primaryType] isEqualToString:QSContactAddressType]) [self setIcon: [NSImage imageNamed:@"ContactAddress"]];
-    //	else if ([[self primaryType] isEqualToString:QSContactEmailType]) [self setIcon: [NSImage imageNamed:@"ContactEmail"]];
+    else if ([[self primaryType] isEqualToString:QSEmailAddressType]) [self setIcon: [NSImage imageNamed:@"ContactEmail"]];
     
 	else if ([[self types] containsObject:@"BookmarkDictionaryListPboardType"]) {
 		[self setIcon:[NSImage imageNamed:@"FadedDefaultBookmarkIcon"]];
