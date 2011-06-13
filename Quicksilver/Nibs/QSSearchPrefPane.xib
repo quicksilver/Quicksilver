@@ -571,7 +571,7 @@
 							<object class="NSButtonCell" key="NSCell" id="998824526">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">131072</int>
-								<string key="NSContents">Show children split view</string>
+								<string key="NSContents">Show children in result list</string>
 								<reference key="NSSupport" ref="26"/>
 								<reference key="NSControlView" ref="525749660"/>
 								<int key="NSButtonFlags">1211912703</int>
@@ -1095,10 +1095,6 @@
 				<string key="NSMaxSize">{384, 406}</string>
 			</object>
 			<object class="NSUserDefaultsController" id="1039794070">
-				<object class="NSMutableArray" key="NSDeclaredKeys">
-					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>QSJumpToActionOnResult</string>
-				</object>
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
 			<object class="NSCustomObject" id="695362859">
@@ -2232,6 +2228,7 @@
 					<string>120.IBPluginDependency</string>
 					<string>120.IBViewBoundsToFrameTransform</string>
 					<string>120.ImportedFromIB2</string>
+					<string>121.IBAttributePlaceholdersKey</string>
 					<string>121.IBPluginDependency</string>
 					<string>121.ImportedFromIB2</string>
 					<string>122.IBAttributePlaceholdersKey</string>
@@ -2420,6 +2417,14 @@
 						<bytes key="NSTransformStruct">P4AAAL+AAABDBQAAwmQAAA</bytes>
 					</object>
 					<boolean value="YES"/>
+					<object class="NSMutableDictionary">
+						<string key="NS.key.0">ToolTip</string>
+						<object class="IBToolTipAttribute" key="NS.object.0">
+							<string key="name">ToolTip</string>
+							<reference key="object" ref="525749660"/>
+							<string key="toolTip">The children of the object that is selected in the resultlist are displayed in a second list.</string>
+						</object>
+					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
 					<object class="NSMutableDictionary">
@@ -2847,6 +2852,13 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Code-QuickStepFoundation/NSWindow_BLTRExtensions.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSWindow</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">PlugIns-Main/Bezel/QSBezelInterfaceController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
