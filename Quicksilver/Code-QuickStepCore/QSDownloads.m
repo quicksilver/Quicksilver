@@ -13,13 +13,49 @@
 @implementation QSDownloads
 - (id)resolveProxyObject:(id)proxy {
     NSString *downloads = [@"~/Downloads" stringByStandardizingPath];
-    NSFileManager *manager = [NSFileManager defaultManager];
-    BOOL isDir;
+    NSFileManager *manager = [[NSFileManager alloc] init];
+	NSString *downloadPath, *mrdpath = downloads;
+	NSDate *modified = nil;
+    NSDate *mostRecent = [NSDate distantPast];
+	
+	// Snow Leopard Specific Way
+	if([NSApplication isSnowLeopard]) {
+		NSNumber *isDir;
+		NSURL *downloadsURL = [NSURL URLWithString:downloads];
+		NSArray *contents = [manager contentsOfDirectoryAtURL:downloadsURL
+								   includingPropertiesForKeys:[NSArray arrayWithObjects:NSURLIsDirectoryKey,NSURLAttributeModificationDateKey,nil]
+													  options:NSDirectoryEnumerationSkipsHiddenFiles
+														error:nil];
+		for (NSURL *downloadedFile in contents) {
+			NSString *pathExtension = [downloadedFile pathExtension];
+			 if ([pathExtension isEqualToString:@"download"] ||
+				 [pathExtension isEqualToString:@"part"] ||
+				 [pathExtension isEqualToString:@"dtapart"] ||
+				 [pathExtension isEqualToString:@"crdownload"]) {
+				 continue;
+			 }
+			if ([downloadedFile getResourceValue:&isDir forKey:NSURLIsDirectoryKey error:nil] && [isDir boolValue]) {
+				continue;
+			}
+			downloadPath = [downloadedFile path];
+			if([manager fileExistsAtPath:[downloadPath stringByAppendingPathExtension:@"part"]]) {
+				continue;
+			}
+			[downloadedFile getResourceValue:&modified forKey:NSURLAttributeModificationDateKey error:nil];
+			if ([mostRecent compare:modified] == NSOrderedAscending) {
+				mostRecent = modified;
+				mrdpath = downloadPath;
+			}
+		}
+	}
+	
+	// Leopard Way
+	else {
+	BOOL isDir;
+
     // list files in the Downloads directory
     NSArray *contents = [manager contentsOfDirectoryAtPath:downloads error:nil];
     // the most recent download (with the folder itself as a fallback)
-    NSString *mrdpath = downloads;
-    NSDate *mostRecent = [NSDate distantPast];
     for (NSString *downloadedFile in contents) {
         if (
             // hidden files
@@ -32,17 +68,20 @@
             // Chrome downloads in progress
             [[downloadedFile pathExtension] isEqualToString:@"crdownload"]
         ) continue;
+		downloadPath = [downloads stringByAppendingPathComponent:downloadedFile];
         // if SomeFile.part exists, SomeFile is probably an in-progress download so skip it
-        if ([manager fileExistsAtPath:[downloads stringByAppendingPathComponent: [downloadedFile stringByAppendingPathExtension:@"part"]]]) continue;
-        NSString *downloadPath = [downloads stringByAppendingPathComponent:downloadedFile];
+        if ([manager fileExistsAtPath:[downloadPath stringByAppendingPathExtension:@"part"]]) continue;
         // ignore folders
         if ([manager fileExistsAtPath:downloadPath isDirectory:&isDir] && isDir) continue;
-        NSDate *modified = [[manager attributesOfItemAtPath:downloadPath error:nil] fileModificationDate];
+        modified = [[manager attributesOfItemAtPath:downloadPath error:nil] fileModificationDate];
         if ([mostRecent compare:modified] == NSOrderedAscending) {
             mostRecent = modified;
             mrdpath = downloadPath;
         }
     }
+	}
+
+	[manager release];
     return [QSObject fileObjectWithPath:mrdpath];
 }
 @end
