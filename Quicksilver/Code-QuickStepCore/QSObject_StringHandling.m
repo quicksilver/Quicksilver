@@ -157,10 +157,6 @@
 					}
 					// check to see if the last component of the string is a tld (case insensitive)
 					if([tldArray containsObject:[[components lastObject] uppercaseString]]) {
-						// Don't add http:// if it's already there
-						if(![urlString hasPrefix:@"http://"]) {
-							urlString = [@"http://" stringByAppendingString:urlString];
-						}
 						[self assignURLTypesWithURL:urlString];
 						return;
 					}

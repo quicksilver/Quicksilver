@@ -140,7 +140,13 @@
 - (void)assignURLTypesWithURL:(NSString *)urlString
 {
 		[[self dataDictionary] setObject:urlString forKey:QSURLType];
-		[self setObject:urlString forType:QSURLType];
+		if ([[NSURL URLWithString:urlString] scheme])
+		{
+			[self setObject:urlString forType:QSURLType];
+		} else {
+			// a plain string (host or FQDN?) was passed - add a scheme prefix
+			[self setObject:[@"http://" stringByAppendingString:urlString] forType:QSURLType];
+		}
 		[self setObject:urlString forType:QSTextType];
 		if ([urlString hasPrefix:@"mailto:"]) {
 			[self setObject:[NSArray arrayWithObject:[urlString substringWithRange:NSMakeRange(7, [urlString length] -7)]] forType:QSEmailAddressType];
