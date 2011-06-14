@@ -36,7 +36,9 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
 	BOOL executable = [[NSFileManager defaultManager] isExecutableFileAtPath:path];
 	if (!executable) {
 		if ([[NSString stringWithContentsOfFile:path] hasPrefix:@"#!"]) executable = YES;
+#ifdef DEBUG
 		else if (VERBOSE) NSLog(@"No Shebang found");
+#endif
 	} else if (!allowApps) {
 		LSItemInfoRecord infoRec;
 		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);

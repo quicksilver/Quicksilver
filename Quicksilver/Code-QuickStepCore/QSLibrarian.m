@@ -108,7 +108,9 @@ static float searchSpeed = 0.0;
 }
 
 - (void)pruneInvalidChildren:(id)sender {
+#ifdef DEBUG
 	if(VERBOSE) NSLog(@"prune invalid");
+#endif
 	[catalog pruneInvalidChildren];
 }
 - (QSCatalogEntry *)catalogCustom {
@@ -230,7 +232,6 @@ static float searchSpeed = 0.0;
 
 	NSMutableArray *catalogChildren = [[self entryForID:kCustomCatalogID] children];
 	NSMutableArray *customEntries = [NSMutableArray arrayWithCapacity:1];
-	NSMutableArray *presetEntries = [NSMutableArray arrayWithCapacity:1];
     
 // !!! Andre Berg 20091017:  updated to foreach
 //     NSEnumerator *childEnumerator = [catalogChildren objectEnumerator];
@@ -241,10 +242,19 @@ static float searchSpeed = 0.0;
 // 		else if (DEBUG && ![thisEntry isSeparator]) [presetEntries addObject:thisEntry];
 // 	}
     
+#ifdef DEBUG
+	NSMutableArray *presetEntries = [NSMutableArray arrayWithCapacity:1];
+#endif
+	
 	for(QSCatalogEntry * thisEntry in catalogChildren) {
-		if (![thisEntry isPreset] && ![thisEntry isSeparator])
+		if (![thisEntry isPreset] && ![thisEntry isSeparator]) {
 			[customEntries addObject:[thisEntry dictionaryRepresentation]];
-		else if (DEBUG && ![thisEntry isSeparator]) [presetEntries addObject:thisEntry];
+		}
+#ifdef DEBUG
+		else if (![thisEntry isSeparator]) {
+			[presetEntries addObject:thisEntry];
+		}
+#endif
 	}
 
 
@@ -367,7 +377,11 @@ static float searchSpeed = 0.0;
 
 
 - (BOOL)loadCatalogArrays {
+
+#ifdef DEBUG
 	NSDate *date = [NSDate date];
+#endif
+	
 	NSArray *entries = [catalog leafEntries];
 
 //	NSLog(@"entries %@", entries);
@@ -385,8 +399,11 @@ static float searchSpeed = 0.0;
 	// if (indexesValid) [NSThread detachNewThreadSelector:@selector(scanCatalogWithDelay:) toTarget:self withObject:nil];
 	// else [self startThreadedScan];
 
+#ifdef DEBUG
 	if (DEBUG_CATALOG)
 		NSLog(@"Indexes loaded (%dms) ", (int)(-[date timeIntervalSinceNow] *1000));
+#endif
+	
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryIndexed object:nil];
   if (invalidIndexes) [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scanInvalidIndexes) name:NSApplicationDidFinishLaunchingNotification object:nil];
 	return indexesValid;
@@ -564,16 +581,18 @@ static float searchSpeed = 0.0;
 
 - (float) estimatedTimeForSearchInSet:(id)set {
 	float estimate = (set ? [set count] : [defaultSearchSet count]) * searchSpeed;
+#ifdef DEBUG
 	if (VERBOSE)
         NSLog(@"Estimate: %fms avg: %dµs", estimate * 1000, (int)(searchSpeed * 1000000));
+#endif
 	return MIN(estimate, 0.5);
 }
 
+#ifdef DEBUG
 - (NSMutableArray *)scoreTest:(id)sender {
 	NSArray *array = [NSArray arrayWithObjects:@"a", @"b", @"c", @"d", @"e", @"f", @"g", @"h", @"i", @"j", @"k", @"l", @"m", @"n", @"o", @"p", @"q", @"r", @"s", @"t", @"u", @"v", @"w", @"x", @"y", @"z", nil];
 	int i, j;
 	int count = [array count];
-
 
 	NSDate *totalDate = [NSDate date];
 	NSDate *date;
@@ -593,11 +612,11 @@ static float searchSpeed = 0.0;
 
 			[pool release];
 		}
-
 		if (VERBOSE) NSLog(@"SearchTest in %3fs, %3fs", -[date timeIntervalSinceNow] , -[totalDate timeIntervalSinceNow]);
 	}
 	return nil;
 }
+#endif
 
 - (NSMutableArray *)scoredArrayForString:(NSString *)string {
 	return [self scoredArrayForString:string inSet:nil mnemonicsOnly:NO];
@@ -616,12 +635,15 @@ static float searchSpeed = 0.0;
 	NSMutableArray *rankObjects = [QSDefaultObjectRanker rankedObjectsForAbbreviation:searchString inSet:set inContext:searchString mnemonicsOnly:mnemonicsOnly];
 #ifdef DEBUG
 	NSDate *date = [NSDate date];
+	
 	int count = [set count];
 	float speed = -[date timeIntervalSinceNow] / count;
 	if (count)
         searchSpeed = ((speed + searchSpeed) / 2.0f);
+
 	if (VERBOSE)
         NSLog(@"Ranking: %fms avg: %d¬µs", -([date timeIntervalSinceNow] * 1000), (int)(speed * 1000000));
+
 #endif
  	[rankObjects sortUsingSelector:@selector(scoreCompare:)];
 /*    NSArray *rankedObjects = [rankObjects arrayByPerformingSelector:@selector(object)];

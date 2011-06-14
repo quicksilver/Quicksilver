@@ -35,17 +35,21 @@
 }
 
 - (void)getSelection:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"Get Selection: %@ %d", userData, [userData characterAtIndex:0]);
+#endif
     if(resultPboard)
         [resultPboard release]; 
 	resultPboard = [pboard retain];
 }
 
+#ifdef DEBUG
 - (void)performService:(NSPasteboard *)pboard
 			  userData:(NSString *)userData
 				 error:(NSString **)error {
 	if (VERBOSE) NSLog(@"xPerform Service: %@ %d", userData, [userData characterAtIndex:0]);
 }
+#endif
 
 - (NSPasteboard *)getSelectionFromFrontApp {
 	
@@ -87,10 +91,10 @@
 	//BOOL carbon = [proc isCarbon];
 	
 	AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)55, true ); //Command
-	//	if (carbon) AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)56, true ); //Shift
+//	if (carbon) AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)56, true ); //Shift
 	AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)53, true ); //Escape
 	AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)53, false ); //Escape
-	//	if (carbon) AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)56, false ); //Shift
+//	if (carbon) AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)56, false ); //Shift
 	AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)55, true ); //Command
     CFRelease( app );
 	[pool release];

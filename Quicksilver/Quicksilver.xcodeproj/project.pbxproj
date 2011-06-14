@@ -3977,6 +3977,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */;
 			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = "PlugIns-Main/Bezel/Info.plist";
 				PRODUCT_NAME = "Bezel Interface";
 			};
@@ -3995,6 +3996,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */;
 			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = "PlugIns-Main/Finder/Info.plist";
 				PRODUCT_NAME = "Finder Module";
 			};
@@ -4013,6 +4015,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */;
 			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = "PlugIns-Main/PrimerInterface/Info.plist";
 				PRODUCT_NAME = "Primer Interface";
 			};
@@ -4031,6 +4034,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */;
 			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = "PlugIns-Main/QSHotKeyPlugIn/Info.plist";
 				PRODUCT_NAME = "HotKey Triggers";
 			};
@@ -4048,6 +4052,7 @@
 		7F6B3E46085CE68E000735A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				PRODUCT_NAME = Preflight;
 			};
 			name = Debug;
@@ -4066,6 +4071,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = "PropertyLists/QSFoundation-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				OTHER_LDFLAGS = (
@@ -4099,6 +4105,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = "PropertyLists/QSCore-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = QSCore;
@@ -4123,6 +4130,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = "PropertyLists/QSEffects-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = QSEffects;
@@ -4147,6 +4155,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = "PropertyLists/QSInterface-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = QSInterface;
@@ -4168,6 +4177,7 @@
 		7F6B3E5F085CE68E000735A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				PRODUCT_NAME = QSScriptingDictionary;
 			};
 			name = Debug;
@@ -4183,6 +4193,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */;
 			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
 				PRODUCT_NAME = "Core Support";
 			};
@@ -4201,6 +4212,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = Quicksilver;
@@ -4223,6 +4235,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				PRODUCT_NAME = Distribution;
 			};
 			name = Debug;
@@ -4239,6 +4252,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 			};
 			name = Debug;
 		};
@@ -4252,6 +4266,7 @@
 		7F9703D409AFEE8B00E9EA77 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = "QSDroplet/QSDroplet-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = QSDroplet;

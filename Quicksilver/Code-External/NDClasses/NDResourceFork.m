@@ -195,7 +195,9 @@ BOOL operateOnResourceUsingFunction( ResFileRefNum afileRef, ResType aType, NSSt
 	{
 		// Unlike in finalize, we can safely call closeFile here, but to be consistent between GC and non-GC, the caller should always call closeFile himself, and not rely on it being done here.
 		[self closeFile];
+#ifdef DEBUG
 		if (VERBOSE) NSLog (@"NDAlias ERROR: you neglected to call closeFile: before disposing this NDResourceFork");
+#endif
 	}
 	[super dealloc];
 }

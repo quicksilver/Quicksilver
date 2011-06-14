@@ -65,7 +65,6 @@ NSSize QSMaxIconSize;
 }
 
 + (void)cleanObjectDictionary {
-	unsigned count = 0;
 	QSObject *thisObject;
     NSMutableArray *keysToDeleteFromObjectDict = [[NSMutableArray alloc] init];
     @synchronized(objectDictionary) {
@@ -78,11 +77,14 @@ NSSize QSMaxIconSize;
         }
         [objectDictionary removeObjectsForKeys:keysToDeleteFromObjectDict];
     }
-    
+	
+#ifdef DEBUG
+	unsigned count = 0;
     count = [keysToDeleteFromObjectDict count];
 	if (DEBUG_MEMORY && count)
 		NSLog(@"Released %i objects", count);
-    
+#endif
+	
     [keysToDeleteFromObjectDict release];
 }
 
@@ -90,8 +92,11 @@ NSSize QSMaxIconSize;
 + (void)purgeAllImagesAndChildren {[self purgeImagesAndChildrenOlderThan:0.0];}
 
 + (void)purgeImagesAndChildrenOlderThan:(NSTimeInterval)interval {
+
+#ifdef DEBUG
 	unsigned imagecount = 0;
 	unsigned childcount = 0;
+#endif
  // NSString *thisKey = nil;
 
 	QSObject *thisObject;
@@ -103,8 +108,12 @@ NSSize QSMaxIconSize;
         }
     }
     for( thisObject in tempArray ) {
-        if ([thisObject unloadIcon])
+        if ([thisObject unloadIcon]) {
+			
+#ifdef DEBUG
             imagecount++;
+#endif
+		}
     }
     
     tempArray = [NSMutableArray array];
@@ -115,14 +124,19 @@ NSSize QSMaxIconSize;
         }
     }
     
-    for(thisObject in tempArray ) {
-        if ([thisObject unloadChildren])
+    for( thisObject in tempArray ) {
+        if ([thisObject unloadChildren]) {
+			
+#ifdef DEBUG
             childcount++;
+#endif		
+		}
     }
 
+#ifdef DEBUG
 	if (DEBUG_MEMORY && (imagecount || childcount) )
 		NSLog(@"Released %i images and %i children (items before %d) ", imagecount, childcount, (int)interval);
-
+#endif
 }
 
 + (void)purgeIdentifiers {
@@ -320,6 +334,7 @@ NSSize QSMaxIconSize;
 // and display the result. The advantage is that this formatter will go less out of scope
 
 - (const char *) gdbDataFormatter {
+#warning search URL icons crash this method
     return [[NSString stringWithFormat:@"name: %@, label: %@, identifier: %@, primaryType: %@, primaryObject: %@, meta: %@, data: %@, cache: %@, icon: %@, lastAccess: %d",
              (name ? name : @"nil"),
              (label ? label : @"nil"),
@@ -333,8 +348,9 @@ NSSize QSMaxIconSize;
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-	if(DEBUG)
-        NSLog(@"copied!");
+#ifdef DEBUG
+	NSLog(@"copied!");
+#endif
 	return NSCopyObject(self, 0, zone);
 }
 
@@ -344,8 +360,9 @@ NSSize QSMaxIconSize;
 }
 
 - (NSString *)toolTip {
-	if (DEBUG)
-		return [NSString stringWithFormat:@"%@ (%d) \r%@\rTypes:\r\t%@", [self name] , self, [self details] , [[self decodedTypes] componentsJoinedByString:@"\r\t"]];
+#ifdef DEBUG
+	return [NSString stringWithFormat:@"%@ (%d) \r%@\rTypes:\r\t%@", [self name] , self, [self details] , [[self decodedTypes] componentsJoinedByString:@"\r\t"]];
+#endif
 	return nil; //[self displayName];
 }
 
@@ -856,8 +873,11 @@ NSSize QSMaxIconSize;
 	lastAccess = [NSDate timeIntervalSinceReferenceDate];
 	globalLastAccess = lastAccess;
 	[iconLoadedArray addObject:self];
-	if (VERBOSE) NSLog(@"Load Icon for %@", self);
-    else if (DEBUG && VERBOSE) NSLog(@"Load Icon for %@", [self gdbDataFormatter]);
+
+#ifdef DEBUG
+	if (VERBOSE) NSLog(@"Load Icon for %@", [self gdbDataFormatter]);
+#endif
+	
 	if (namedIcon) {
     NSImage *image = nil;
 	  if ([namedIcon isEqualToString:@"ProxyIcon"]) {

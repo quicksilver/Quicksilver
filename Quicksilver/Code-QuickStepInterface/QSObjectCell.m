@@ -16,7 +16,6 @@
 
 #import "QSBadgeImage.h"
 
-#define DRAWDEBUG 0
 #define countBadgeTextAttributes [NSDictionary dictionaryWithObjectsAndKeys:[NSFont boldSystemFontOfSize:24] , NSFontAttributeName, [NSColor whiteColor] , NSForegroundColorAttributeName, nil]
 
 
@@ -669,7 +668,9 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 }
 
 - (void)performMenuAction:(NSMenuItem *)item {
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"perf");
+#endif
 
 	QSCommand* command = [item representedObject];
 

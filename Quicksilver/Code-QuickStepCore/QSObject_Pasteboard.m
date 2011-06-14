@@ -50,8 +50,10 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 		NSArray *objectIdentifier = [[pasteboard stringForType:@"QSObjectAddress"] componentsSeparatedByString:@":"];
 		if ([[objectIdentifier objectAtIndex:0] intValue] == [[NSProcessInfo processInfo] processIdentifier])
 			return (QSObject *)[[objectIdentifier lastObject] intValue];
+#ifdef DEBUG
 		else if (VERBOSE)
 			NSLog(@"Ignored old object: %@", objectIdentifier);
+#endif
 	}
 	return [[[QSObject alloc] initWithPasteboard:pasteboard] autorelease];
 }

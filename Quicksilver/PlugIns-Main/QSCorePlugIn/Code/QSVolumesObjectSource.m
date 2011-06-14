@@ -22,7 +22,11 @@
 }
 
 - (void)dealloc {
+
+#ifdef DEBUG
 	if(DEBUG_MEMORY) NSLog(@"QSVolumesObjectSource dealloc");
+#endif
+	
 	[[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self];
 	[super dealloc];
 }

@@ -363,7 +363,9 @@
 #pragma mark Notifications
 - (void)objectModified:(NSNotification*)notif {
 	if ([[dSelector objectValue] isEqual:[notif object]]) {
+#ifdef DEBUG
 		if (VERBOSE) NSLog(@"Reloading actions for: %@", [notif object]);
+#endif
 		[self updateActions];
 	}
 	
@@ -477,7 +479,9 @@
 #pragma mark Command Execution
 - (void)executeCommandThreaded {
 	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+#ifdef DEBUG
 	NSDate *startDate = [NSDate date];
+#endif
 	QSAction *action = [[aSelector objectValue] retain];
 	if ([[NSApp currentEvent] modifierFlags] & NSCommandKeyMask && !([[NSApp currentEvent] modifierFlags] & NSShiftKeyMask) ) {
 		QSAction* alternate = [action alternate];
@@ -486,7 +490,9 @@
 			[action release];
 			action = alternate;
 		}
+#ifdef DEBUG
 		if (VERBOSE) NSLog(@"Using Alternate Action: %@", action);
+#endif
 	}
     QSObject *dObject = [dSelector objectValue];
     QSObject *iObject = [iSelector objectValue];
@@ -521,7 +527,9 @@
             }
         }
 	}
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"Command executed (%dms) ", (int)(-[startDate timeIntervalSinceNow] *1000));
+#endif
 	[action release];
 	[pool release];
 }
@@ -587,7 +595,9 @@
 }
 
 - (void)encapsulateCommand {
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"Encapsulating Command");
+#endif
 	QSCommand *commandObject = [self currentCommand];
 	[self selectObject:commandObject];
 	[self actionActivate:commandObject];
@@ -634,7 +644,9 @@
                  charactersIgnoringModifiers:[theEvent charactersIgnoringModifiers]
                                    isARepeat:[theEvent isARepeat]
                                      keyCode:[theEvent keyCode]];
+#ifdef DEBUG
 		if (VERBOSE) NSLog(@"Ignoring Modifiers for characters: %@", [theEvent characters]);
+#endif
 		[NSApp postEvent:theEvent atStart:YES];
 		//NSLog(@"time2 %f", [theEvent timestamp]);
 	}

@@ -92,12 +92,16 @@
 	NSString *tempPath = [[launchPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.old.app", [[NSProcessInfo processInfo] processName]]];
 	//NSLog(@"temp %@ new %@", tempPath, newPath);
 	BOOL status;
+#ifdef DEBUG
 	status = [manager moveItemAtPath:launchPath toPath:tempPath error:nil];
 	if (VERBOSE) NSLog(@"Move Old %d", status);
 	status = [manager copyItemAtPath:newPath toPath:launchPath error:nil];
 	if (VERBOSE) NSLog(@"Copy New %d", status);
+#endif
 	status = [manager movePathToTrash:tempPath];
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"Trash Old %d", status);
+#endif
 	return status;
 }
 

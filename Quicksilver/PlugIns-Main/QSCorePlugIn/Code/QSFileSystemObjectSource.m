@@ -284,13 +284,17 @@
 	NSNotificationCenter *wsNotif = [[NSWorkspace sharedWorkspace] notificationCenter];
 	if ([[settings objectForKey:@"watchTarget"] boolValue]) {
 		[[QSVoyeur sharedInstance] addPathToQueue:path notifyingAbout:UKKQueueNotifyAboutDelete | UKKQueueNotifyAboutWrite];
+#ifdef DEBUG
 		if (VERBOSE) NSLog(@"Watching Path %@", path);
+#endif
 		[wsNotif addObserver:entry selector:@selector(invalidateIndex:) name:nil object:path];
 	}
 	NSArray *paths = [settings objectForKey:@"watchPaths"];
 	for (NSString * p in paths) {
 		[[QSVoyeur sharedInstance] addPathToQueue:p];
+#ifdef DEBIG
 		if (VERBOSE) NSLog(@"Watching Path %@", p);
+#endif
 		[wsNotif addObserver:entry selector:@selector(invalidateIndex:) name:UKKQueueFileWrittenToNotification object:p];
 	}
 }

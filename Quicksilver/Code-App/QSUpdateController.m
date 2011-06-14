@@ -43,8 +43,10 @@
 		int versionType = [defaults integerForKey:@"QSUpdateReleaseLevel"];
 	//	if (DEVELOPMENTVERSION && frequency>7)
 //			frequency = 7;
-		if ((versionType>0 || PRERELEASEVERSION) && frequency>1)
+#ifdef DEBUG
+		if (versionType>0 && frequency>1)
 			frequency = 1;
+#endif
 		BOOL shouldRepeat = (frequency>0);
 		NSTimeInterval checkInterval = frequency*24*60*60;
 		//NSLog(@"Last Version Check at : %@", [lastCheck description]);
@@ -58,7 +60,9 @@
 		}
 		updateTimer = [[NSTimer scheduledTimerWithTimeInterval:checkInterval target:self selector:@selector(threadedCheckForUpdate:) userInfo:nil repeats:shouldRepeat] retain];
 		[updateTimer setFireDate:( doStartupCheck ? [NSDate dateWithTimeIntervalSinceNow:33.333f] : nextCheck )];
+#ifdef DEBUG
 		if (VERBOSE) NSLog(@"Next Version Check at : %@", [[updateTimer fireDate] description]);
+#endif
         [nextCheck release];
 	}
 }
@@ -82,7 +86,9 @@
 	SCNetworkConnectionFlags reachabilityStatus;
 	success = SCNetworkCheckReachabilityByName("www.apple.com", &reachabilityStatus);
 	success = (success && (reachabilityStatus & 3) );
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"Blacktree reachable: %d", reachabilityStatus);
+#endif
 	return success;
 }
 #endif
@@ -105,12 +111,15 @@
             versionType = @"rel";
             break;
     }
+#ifdef DEBUG
     if (PRERELEASEVERSION)
         versionType = @"pre";
+#endif
     
     checkURL = [checkURL stringByAppendingFormat:@"?type=%@&current=%@", versionType, thisVersionString];
-    
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"Update Check URL: %@", checkURL);
+#endif
     return [NSURL URLWithString:checkURL];
 }
 
@@ -157,7 +166,9 @@
 
 	[defaults setObject:[NSDate date] forKey:kLastUpdateCheck];
 	if ([testVersionString length] && [testVersionString length] <10) {
+#ifdef DEBUG
 		if (VERBOSE) NSLog(@"Current Version:%d Installed Version:%d", [testVersionString hexIntValue], [thisVersionString hexIntValue]);
+#endif
 		newVersionAvailable = [testVersionString hexIntValue] > [thisVersionString hexIntValue];
 		if (newVersionAvailable)
 			newVersion = [testVersionString retain];
@@ -210,10 +221,11 @@
     int versionType = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSUpdateReleaseLevel"];
     if (versionType == 2)
         fileURL = [fileURL stringByAppendingString:@"&dev=1"];
-    else if (versionType == 1 || PRERELEASEVERSION)
+    else if (versionType == 1)
         fileURL = [fileURL stringByAppendingString:@"&pre=1"];
-
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"Downloading update from %@", fileURL);
+#endif
 
 	NSURL *url = [NSURL URLWithString:fileURL];
 	NSURLRequest *theRequest = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0];

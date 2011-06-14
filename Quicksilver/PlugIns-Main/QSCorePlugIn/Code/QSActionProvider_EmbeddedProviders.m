@@ -380,7 +380,9 @@
 			}
 			NSString *fileHandler = [dObject objectForMeta:@"QSPreferredApplication"];
 			if (fileHandler) {
+#ifdef DEBUG
 				if (VERBOSE) NSLog(@"Using %@", fileHandler);
+#endif
 				[ws openFile:thisFile withApplication:[ws absolutePathForAppBundleWithIdentifier:fileHandler]];
 			} else {
 //				if (![QSAction modifiersAreIgnored] && (GetCurrentKeyModifiers() & shiftKey)) { // Open in background
@@ -608,7 +610,9 @@
 			case QSDontReplaceFilesResolution:
 				otherFiles = [[filePaths mutableCopy] autorelease];
 				[otherFiles removeObjectsInArray:[conflicts allKeys]];
-            if (DEBUG) NSLog(@"Only moving %@", otherFiles);
+#ifdef DEBUG
+				NSLog(@"Only moving %@", otherFiles);
+#endif
             filePaths = otherFiles;
 				break;
 			case QSSmartReplaceFilesResolution: {

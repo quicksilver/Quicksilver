@@ -65,7 +65,9 @@
 }
 
 - (NSArray *)objectsForEntry:(NSDictionary *)theEntry {
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"rescanning proxies");
+#endif
 	NSDictionary *messages = [QSReg tableNamed:@"QSProxies"];
 	NSMutableArray *array = [NSMutableArray arrayWithCapacity:[messages count]];
 	QSObject *proxyObject;

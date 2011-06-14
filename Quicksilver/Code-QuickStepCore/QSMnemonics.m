@@ -25,8 +25,10 @@
 	if (!(abbrevMnemonics = [mnemonics objectForKey:@"abbreviation"]) )
 		[mnemonics setObject:(abbrevMnemonics = [NSMutableDictionary dictionaryWithCapacity:1]) forKey:@"abbreviation"];
 
+#ifdef DEBUG
 	if (DEBUG_STARTUP)
 		NSLog(@"Loaded %d implied and %d defined mnemonics", [objectMnemonics count], [abbrevMnemonics count]);
+#endif
 
 	return self;
 }

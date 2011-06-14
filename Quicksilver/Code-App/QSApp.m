@@ -22,23 +22,25 @@ BOOL QSApplicationCompletedLaunch = NO;
 
 @implementation QSApp
 +(void)load {
-	if (DEBUG)
-		setenv("verbose", "1", YES);
-	else if (mOptionKeyIsDown) {
+#ifdef DEBUG
+	 if(mOptionKeyIsDown) {
 		NSLog(@"Setting Verbose");
 		setenv("verbose", "1", YES);
 		setenv("QSDebugPlugIns", "1", YES);
 		setenv("QSDebugStartup", "1", YES);
 		setenv("QSDebugCatalog", "1", YES);
-	} else {
-		unsetenv("verbose");
 	}
+#endif
 }
 
 + (void)initialize {
     static BOOL done = NO;
     if(!done) {
+		
+#ifdef DEBUG
         if (DEBUG_STARTUP) NSLog(@"App Initialize");
+#endif
+		
         [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/QSDefaults.plist"]]];
         done = YES;
     }
@@ -139,8 +141,10 @@ BOOL QSApplicationCompletedLaunch = NO;
 		  break;
 	  case NSOtherMouseDown:
 			[theEvent retain];
+#ifdef DEBUG
 			if (VERBOSE)
 				NSLog(@"OtherMouse %@ %@", theEvent, [theEvent window]);
+#endif
 			[[NSClassFromString(@"QSMouseTriggerManager") sharedInstance] handleMouseTriggerEvent:theEvent type:nil forView:nil];
 			break;
 	  case NSScrollWheel: {

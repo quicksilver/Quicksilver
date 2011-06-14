@@ -33,12 +33,18 @@ static QSController *defaultController = nil;
 }
 
 + (void)initialize {
+	
+#ifdef DEBUG
 	if (DEBUG_STARTUP) NSLog(@"Controller Initialize");
+#endif
+	
 	static BOOL initialized = NO;
 	if (initialized) return;
 	initialized = YES;
 
+#ifdef DEBUG
 	if (QSGetLocalizationStatus() && DEBUG_STARTUP) NSLog(@"Enabling Localization");
+#endif
 
 	[NSApp registerServicesMenuSendTypes:[NSArray arrayWithObjects:NSStringPboardType, NSRTFPboardType, nil] returnTypes:[NSArray arrayWithObjects:NSStringPboardType, NSRTFPboardType, nil]];
 
@@ -52,8 +58,10 @@ static QSController *defaultController = nil;
 	[defaultActionImage setCacheMode:NSImageCacheNever];
 #endif
 
+#ifdef DEBUG
 	if (defaultBool(@"verbose") )
 		setenv("verbose", "1", YES);
+#endif
 
 	// Pre instantiate to avoid bug
 //	[NSColor controlShadowColor];
@@ -92,7 +100,10 @@ static QSController *defaultController = nil;
 
 - (id)init {
 	if (self = [super init]) {
+		
+#ifdef DEBUG
 		if (DEBUG_STARTUP) NSLog(@"Controller Init");
+#endif
 
 		// Enforce Expiration Date
 		//Check if a devopment version has expired
@@ -156,6 +167,7 @@ static QSController *defaultController = nil;
 	[statusItem setHighlightMode:YES];
 }
 
+#ifdef DEBUG
 - (void)activateDebugMenu {
 	NSLog(@"debug menu");
 	NSMenu *debugMenu = [[[NSMenu alloc] initWithTitle:@"Debug"] autorelease];
@@ -200,12 +212,16 @@ static QSController *defaultController = nil;
 	[NSException raise:@"Test Exception" format:@"This is a test. It is only a test. In the event of a real exception, it would have been followed by some witty commentary."];
 }
 
+
 // disable warning because this is intentional
 #pragma clang diagnostic ignored "-Wformat-security"
 
+// Method to crash QS - can call from the debug menu
 - (void)crashQS {
 	NSLog((id)1);
 }
+
+#endif
 
 #pragma clang diagnostic warning "-Wformat-security"
 
@@ -241,7 +257,10 @@ static QSController *defaultController = nil;
 
 }
 
+#ifdef DEBUG
 - (IBAction)sendReleaseAll:(id)sender { [[NSNotificationCenter defaultCenter] postNotificationName:QSReleaseAllNotification object:nil];  }
+#endif
+
 - (IBAction)showGuide:(id)sender { [QSPreferencesController showPaneWithIdentifier:@"QSMainMenuPrefPane"];  }
 - (IBAction)showSettings:(id)sender { [QSPreferencesController showPaneWithIdentifier:@"QSSettingsPanePlaceholder"];  }
 - (IBAction)showCatalog:(id)sender { [QSPreferencesController showPaneWithIdentifier:@"QSCatalogPrefPane"];  }
@@ -482,11 +501,15 @@ static QSController *defaultController = nil;
 
 - (void)executeCommandAtPath:(NSString *)path { [[QSCommand commandWithFile:path] execute];  }
 - (void)performService:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"Perform Service: %@ %d", userData, [userData characterAtIndex:0]);
+#endif
 	[self receiveObject:[[[QSObject alloc] initWithPasteboard:pboard] autorelease]];
 }
 - (void)getSelection:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"GetSel Service: %@ %d", userData, [userData characterAtIndex:0]);
+#endif
 	[self receiveObject:[[[QSObject alloc] initWithPasteboard:pboard] autorelease]];
 }
 
@@ -582,7 +605,11 @@ static QSController *defaultController = nil;
 
 - (void)delayedStartup {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+#ifdef DEBUG
 	if (DEBUG_STARTUP) NSLog(@"Delayed Startup");
+#endif
+	
 	[NSThread setThreadPriority:0.0];
 	QSTask *task = [QSTask taskWithIdentifier:@"QSDelayedStartup"];
 	[task setStatus:@"Updating Catalog"];
@@ -611,12 +638,16 @@ static QSController *defaultController = nil;
 				if (selection)
 					[NSApp relaunchAtPath:lastLocation movedFromPath:bundlePath];
 			}
-			if ([defaults boolForKey:kShowReleaseNotesOnUpgrade] && (!DEBUG) ) {
+			
+#ifndef DEBUG
+			if ([defaults boolForKey:kShowReleaseNotesOnUpgrade]) {
 				[NSApp activateIgnoringOtherApps:YES];
 				int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"Quicksilver has been updated", nil] , @"You are using a new version of Quicksilver. Would you like to see the Release Notes?", @"Show Release Notes", @"Ignore", nil);
 				if (selection == 1)
 					[self showReleaseNotes:self];
 			}
+#endif
+			
 			[[NSWorkspace sharedWorkspace] setComment:@"Quicksilver" forFile:[[NSBundle mainBundle] bundlePath]];
 			if (lastVersion < [@"2000" hexIntValue]) {
 				NSFileManager *fm = [NSFileManager defaultManager];
@@ -722,9 +753,9 @@ static QSController *defaultController = nil;
 
 - (void)applicationWillFinishLaunching:(NSNotification *)aNotification {
     QSGetLocalizationStatus();
-	if (DEBUG) {
-		[self registerForErrors];
-	}
+#ifdef DEBUG
+	[self registerForErrors];
+#endif
 }
 
 - (void)setupSplash {
@@ -750,25 +781,34 @@ static QSController *defaultController = nil;
 	if (!atLogin)
 		[self setupSplash];
 
+#ifdef DEBUG
 	if (DEBUG_STARTUP)
 		NSLog(@"Instantiate Classes");
-
+#endif
+	
 	[QSRegistry sharedInstance];
-
+	
+#ifdef DEBUG
 	if (DEBUG_STARTUP)
 		NSLog(@"Registry loaded");
+#endif
 
 	[QSMnemonics sharedInstance];
 	[QSLibrarian sharedInstance];
 	[QSExecutor sharedInstance];
 	[QSTaskController sharedInstance];
-
+	
+#ifdef DEBUG
 	if (DEBUG_STARTUP)
 		NSLog(@"Library loaded");
+#endif
 
 	[[QSPlugInManager sharedInstance] loadPlugInsAtLaunch];
+	
+#ifdef DEBUG
 	if (DEBUG_STARTUP)
 		NSLog(@"PlugIns loaded");
+#endif
 
 	[[QSLibrarian sharedInstance] initCatalog];
 
@@ -779,13 +819,16 @@ static QSController *defaultController = nil;
 
 	[[QSLibrarian sharedInstance] reloadIDDictionary:nil];
 	[[QSLibrarian sharedInstance] enableEntries];
-
+	
+#ifdef DEBUG
 	if (DEBUG_STARTUP)
 		NSLog(@"Catalog loaded");
+#endif
 
 	[QSObject purgeIdentifiers];
 
-	if (newVersion && (!DEBUG) ) {
+#ifndef DEBUG
+	if (newVersion) {
 		if (!runningSetupAssistant) {
 			NSLog(@"New Version: Purging all Identifiers and Forcing Rescan");
 			[QSLibrarian removeIndexes];
@@ -794,7 +837,12 @@ static QSController *defaultController = nil;
 	} else {
 		[[QSLibrarian sharedInstance] loadCatalogArrays];
 	}
-
+#endif
+	
+#ifdef DEBUG
+	[[QSLibrarian sharedInstance] loadCatalogArrays];
+#endif
+	
 	[[QSLibrarian sharedInstance] reloadEntrySources:nil];
 
 	if (atLogin)
@@ -841,22 +889,31 @@ static QSController *defaultController = nil;
 	int rescanInterval = [defaults integerForKey:@"QSCatalogRescanFrequency"];
 
 	if (rescanInterval>0) {
+		
+#ifdef DEBUG
 		if (DEBUG_STARTUP) NSLog(@"Rescanning every %d minutes", rescanInterval);
+#endif
+		
 		[NSTimer scheduledTimerWithTimeInterval:rescanInterval*60 target:self selector:@selector(rescanItems:) userInfo:nil repeats:YES];
 	}
 
+#ifdef DEBUG
 	if (DEBUG_STARTUP) NSLog(@"Register for Notifications");
+#endif
+	
 	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
 	[[ws notificationCenter] addObserver:self selector:@selector(appLaunched:) name:NSWorkspaceDidLaunchApplicationNotification object:nil];
 	[[ws notificationCenter] addObserver:self selector:@selector(appWillLaunch:) name:NSWorkspaceWillLaunchApplicationNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appChanged:) name:QSActiveApplicationChanged object:nil];
 
 	[[[NSApp mainMenu] itemAtIndex:0] setTitle:@"Quicksilver"];
-
+	
+#ifdef DEBUG
 	if (DEBUG_STARTUP) NSLog(@"Will Finish Launching");
 
-	if (DEBUG || PRERELEASEVERSION)
+	if (PRERELEASEVERSION)
 		[self activateDebugMenu];
+#endif
 
 	if (runningSetupAssistant) {
 		[self hideSplash:nil];
@@ -868,8 +925,10 @@ static QSController *defaultController = nil;
 
 	[QSResourceManager sharedInstance];
 	[[QSTriggerCenter sharedInstance] activateTriggers];
-
+	
+#ifdef DEBUG
 	if (DEBUG_STARTUP) NSLog(@"Did Finish Launching\n ");
+#endif
 
 	[self bind:@"showMenuIcon" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSShowMenuIcon" options:nil];
 
@@ -879,8 +938,10 @@ static QSController *defaultController = nil;
 	if ( ! (runningSetupAssistant || newVersion) )
 		[self rescanItems:self];
 
-	if (newVersion && !DEBUG)
+#ifndef DEBUG
+	if (newVersion)
 		[[QSUpdateController sharedInstance] forceStartupCheck];
+#endif
 
 	[[QSUpdateController sharedInstance] setUpdateTimer];
 
