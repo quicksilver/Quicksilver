@@ -84,7 +84,6 @@ NSMutableDictionary *kindDescriptions = nil;
 	[self setupResultTable];
 	// [[[self window] contentView] flipSubviewsOnAxis:1];
 
-	// HenningJ 20110418: I don't think this does anything. There is nothing saved in ~/Linbrary/Preferences/com.blacktree.Quicksilver.plist
 	[splitView setAutosaveName:@"QSResultWindowSplitView"];
     
 	if (![[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
