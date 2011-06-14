@@ -19,6 +19,7 @@
     NSDate *mostRecent = [NSDate distantPast];
 	
 	// Snow Leopard Specific Way
+	#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1060
 	if([NSApplication isSnowLeopard]) {
 		NSNumber *isDir;
 		NSURL *downloadsURL = [NSURL URLWithString:downloads];
@@ -53,6 +54,7 @@
 	
 	// Leopard Way
 	else {
+	#endif
 		BOOL isDir;
 		
 		// list files in the Downloads directory
@@ -82,7 +84,9 @@
 				mrdpath = downloadPath;
 			}
 		}
+	#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1060
 	}
+	#endif
 	
 	[manager release];
     return [QSObject fileObjectWithPath:mrdpath];
