@@ -84,8 +84,8 @@
 					 @"TRAVEL",@"TT",@"TV",@"TW",@"TZ",@"UA",@"UG",@"UK",@"US",@"UY",@"UZ",@"VA",@"VC",@"VE",@"VG",@"VI",@"VN",@"VU",@"WF",@"WS",@"XXX",@"YE",@"YT",@"ZA",@"ZM",@"ZW",nil] retain];
 	}
 	NSString *urlString = [object objectForType:QSURLType];
-	// Make sure the URL type is a domain or .html/htm type
-	NSString *type = [urlString pathExtension];
+	// Check the extension of the URL. We're looking for a tld, .php, .html or .htm (set in QSCorePlugin-Info.plist)
+	NSString *type = [[[urlString pathExtension] componentsSeparatedByString:@"?"] objectAtIndex:0];
 	// Check if the URL is a tld
 	if(type.length > 0 && [tldArray containsObject:[type uppercaseString]]) {
 		type = @"tld";
