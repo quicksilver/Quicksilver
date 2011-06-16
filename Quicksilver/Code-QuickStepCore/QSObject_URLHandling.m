@@ -15,19 +15,16 @@
 	return [object objectForType:QSURLType];
 }
 - (NSString *)detailsOfObject:(QSObject *)object {
-	//NSString *url = [object objectForType:QSURLType];
 	return [object objectForType:QSURLType];
 }
 
 - (void)setQuickIconForObject:(QSObject *)object {
-	NSString *url = [object objectForType:QSURLType];
-	if ([url hasPrefix:@"mailto:"])
+	if ([[object types] containsObject:QSEmailAddressType])
 		[object setIcon:[NSImage imageNamed:@"ContactEmail"]];
-	else if ([url hasPrefix:@"ftp:"])
-		[object setIcon:[QSResourceManager imageNamed:@"AFPClient"]];
+	else if ([[object objectForType:QSURLType] hasPrefix:@"ftp:"])
+		[object setIcon:[QSResourceManager imageNamed:@"InternetLocationFTP"]];
 	else
 		[object setIcon:[NSImage imageNamed:@"DefaultBookmarkIcon"]];
-
 }
 
 /*!
@@ -109,12 +106,12 @@
 
 @implementation QSObject (URLHandling)
 
-+ (QSObject *)URLObjectWithURL:(NSString *)url title:(NSString *)title {
-	if ([url hasPrefix:@"file://"] || [url hasPrefix:@"/"]) {
-		return [QSObject fileObjectWithPath:[[NSURL URLWithString:url] path]];
++ (QSObject *)URLObjectWithURL:(NSString *)urlString title:(NSString *)title {
+	if ([urlString hasPrefix:@"file://"] || [urlString hasPrefix:@"/"]) {
+		return [QSObject fileObjectWithPath:[[NSURL URLWithString:urlString] path]];
 
 	}
-	return [[[QSObject alloc] initWithURL:url title:title] autorelease];
+	return [[[QSObject alloc] initWithURL:urlString title:title] autorelease];
 }
 - (NSString *)cleanQueryURL:(NSString *)query {
 	//NSLog(@"query %@", query);
@@ -125,23 +122,38 @@
 	}
 	return query;
 }
-- (id)initWithURL:(NSString *)url title:(NSString *)title {
+- (id)initWithURL:(NSString *)urlString title:(NSString *)title {
 
-	if (!url) {
+	if (!urlString) {
 		[self release];
 		return nil;
 	}
 	if (self = [self init]) {
 
-		url = [self cleanQueryURL:url];
-		[self setName:(title?title:url)];
-		[[self dataDictionary] setObject:url forKey:QSURLType];
-		if ([url hasPrefix:@"mailto:"])
-			[self setObject:[NSArray arrayWithObject:[url substringWithRange:NSMakeRange(7, [url length] -7)]] forType:QSEmailAddressType];
-		[self setPrimaryType:QSURLType];
+		urlString = [self cleanQueryURL:urlString];
+		[self setName:(title?title:urlString)];
+		[self assignURLTypesWithURL:urlString];
 	}
 	return self;
 }
 
-@end
+- (void)assignURLTypesWithURL:(NSString *)urlString
+{
+		[[self dataDictionary] setObject:urlString forKey:QSURLType];
+		if ([[NSURL URLWithString:urlString] scheme])
+		{
+			[self setObject:urlString forType:QSURLType];
+		} else {
+			// a plain string (host or FQDN?) was passed - add a scheme prefix
+			[self setObject:[@"http://" stringByAppendingString:urlString] forType:QSURLType];
+		}
+		[self setObject:urlString forType:QSTextType];
+		if ([urlString hasPrefix:@"mailto:"]) {
+			[self setObject:[NSArray arrayWithObject:[urlString substringWithRange:NSMakeRange(7, [urlString length] -7)]] forType:QSEmailAddressType];
+			[self setPrimaryType:QSEmailAddressType];
+		} else {
+			[self setPrimaryType:QSURLType];
+		}
+}
 
+@end
