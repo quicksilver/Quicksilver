@@ -46,9 +46,15 @@ if __name__ == '__main__':
                     thisLink['title'] = img['alt']
                 else:
                     thisLink['title'] = path.basename(img['src'])
-        ## if there's *still* no title (empty <a></a> tag), fall back to the URL
+            
         if thisLink['title'] is None:
-            thisLink['title'] = path.basename(link['href'])
+            ## check for a span inside the link text
+            span = link.find('span')
+            if span:
+                thisLink['title'] = span.string
+            else:
+                ## if there's *still* no title (empty <a></a> tag), fall back to the URL
+                thisLink['title'] = path.basename(link['href'])
         ## convert to something immutable for storage
         hashableLink = (thisLink['url'].strip(),
                         thisLink['title'].strip(),
@@ -59,4 +65,4 @@ if __name__ == '__main__':
 
 ## print the results
 for link in links:
-    print '\t'.join(link)
+    stdout.write('\t'.join(link) + '\n')
