@@ -10,5 +10,5 @@
 + (QSObject *)URLObjectWithURL:(NSString *)url title:(NSString *)title;
 - (id)initWithURL:(NSString *)url title:(NSString *)title;
 - (NSString *)cleanQueryURL:(NSString *)query;
-- (void)assignURLTypesWithURL:(NSString *)url; // allows existing objects to set themselves up as URLs
+- (void)assignURLTypesWithURL:(NSString *)urlString; // allows existing objects to set themselves up as URLs
 @end
