@@ -7,8 +7,8 @@
 @interface QSURLObjectHandler : NSObject
 @end
 @interface QSObject (URLHandling)
-+ (QSObject *)URLObjectWithURL:(NSString *)url title:(NSString *)title;
-- (id)initWithURL:(NSString *)url title:(NSString *)title;
++ (QSObject *)URLObjectWithURL:(NSString *)urlString title:(NSString *)title;
+- (id)initWithURL:(NSString *)urlString title:(NSString *)title;
 - (NSString *)cleanQueryURL:(NSString *)query;
 - (void)assignURLTypesWithURL:(NSString *)urlString; // allows existing objects to set themselves up as URLs
 @end
