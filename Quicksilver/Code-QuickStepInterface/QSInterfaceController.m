@@ -278,7 +278,7 @@
         dObject = [dObject object];
     
     if([iObject isKindOfClass:[QSRankedObject class]])
-        dObject = [iObject object];
+        iObject = [iObject object];
     
 	return [QSExec rankedActionsForDirectObject:dObject indirectObject:iObject];
 }
