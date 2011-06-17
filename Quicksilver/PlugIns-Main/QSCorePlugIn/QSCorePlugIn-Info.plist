@@ -338,6 +338,8 @@
 			<string>FSActions</string>
 			<key>actionSelector</key>
 			<string>getFilePaths:</string>
+			<key>alternateAction</key>
+			<string>FileGetPosixPathAction</string>
 			<key>directTypes</key>
 			<array>
 				<string>NSFilenamesPboardType</string>
@@ -350,8 +352,6 @@
 			<integer>1</integer>
 			<key>precedence</key>
 			<real>-0.5</real>
-			<key>alternateAction</key>
-			<string>FileGetPosixPathAction</string>
 		</dict>
 		<key>FileGetPosixPathAction</key>
 		<dict>
@@ -1230,37 +1230,6 @@
 					</dict>
 					<key>source</key>
 					<string>QSFileSystemObjectSource</string>
-				</dict>
-				<dict>
-					<key>ID</key>
-					<string>QSPresetClassicApplications</string>
-					<key>name</key>
-					<string>Applications (Mac OS 9)</string>
-					<key>requiresSettingsPath</key>
-					<true/>
-					<key>settings</key>
-					<dict>
-						<key>folderDepth</key>
-						<integer>2</integer>
-						<key>folderTypes</key>
-						<array>
-							<string>com.apple.application</string>
-						</array>
-						<key>kind</key>
-						<string>Folder</string>
-						<key>parser</key>
-						<string>QSDirectoryParser</string>
-						<key>path</key>
-						<string>/Applications (Mac OS 9)/</string>
-						<key>scanContents</key>
-						<integer>0</integer>
-						<key>skipItem</key>
-						<integer>1</integer>
-					</dict>
-					<key>source</key>
-					<string>QSFileSystemObjectSource</string>
-					<key>watchTarget</key>
-					<true/>
 				</dict>
 				<dict>
 					<key>ID</key>
