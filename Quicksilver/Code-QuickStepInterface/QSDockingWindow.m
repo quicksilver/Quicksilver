@@ -23,7 +23,7 @@
 	[types addObjectsFromArray:[[QSReg objectHandlers] allKeys]];
 	[self registerForDraggedTypes:types];
 	[types release];
-
+	
 	[self updateTrackingRect:self];
 	return result;
 }
@@ -35,7 +35,9 @@
 - (void)awakeFromNib {
 	[self center];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideOrOrderOut:) name:QSActiveApplicationChanged object:nil];
+	// Notification for when the menu items list is opened in a docking window (e.g. clipboard menu)
 	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(lock) name:@"com.apple.HIToolbox.beginMenuTrackingNotification" object:nil];
+	// Notification for when the menu item list is closed in a docking window
 	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(unlock) name:@"com.apple.HIToolbox.endMenuTrackingNotification" object:nil];
 }
 
@@ -72,15 +74,25 @@
 	[super draggingExited:theEvent];
 }
 
+// mouse entered the docing window
 - (void)mouseEntered:(NSEvent *)theEvent {
-	[hideTimer invalidate];
-	NSEvent *earlyExit = [NSApp nextEventMatchingMask:NSMouseExitedMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.25] inMode:NSDefaultRunLoopMode dequeue:YES];
-
-	if (!earlyExit && !locked) {
-		[self show:self];
+	// Set time when mouse entered the window
+	// Case 1: If the window's a floating window that's hidden, set = 0.0 (allows for case where you mouse over the area where the window was as it's fading)
+	// Case 2: If the window's a sliding-into-edge window, always set the time to the current time (it's always 'hidden', so must check for the canFade case)
+	if(!hidden || [self canFade]) {
+		timeEntered = [NSDate timeIntervalSinceReferenceDate];
 	}
-	if (!NSMouseInRect([NSEvent mouseLocation], NSInsetRect([self frame], -10, -10), NO) ) {
-		[self hideOrOrderOut:self];
+	else{
+		timeEntered = 0.0;
+	}
+
+	[hideTimer invalidate];
+	// Event for mouse exit. untilDate:+0.2s from now chosen as appropriate for holding the mose on the screen edge (trial and error)
+	NSEvent *earlyExit = [NSApp nextEventMatchingMask:NSMouseExitedMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.2] inMode:NSDefaultRunLoopMode dequeue:YES];
+	
+	// Open the docking window if it's on the edge of the screen
+	if ([self canFade] && !earlyExit && !locked) {
+		[self show:self];
 	}
 }
 
@@ -93,11 +105,22 @@
 	}
 }
 
+// mouse exited the docking window
 - (void)mouseExited:(NSEvent *)theEvent {
-	NSEvent *reentry = [NSApp nextEventMatchingMask:NSMouseEnteredMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.333] inMode:NSDefaultRunLoopMode dequeue:NO];
+	
+	// if the mouse never entered the window, it shouldn't close
+	if(timeEntered == 0.0) {
+		return;
+	}
+	// time when mouse exited the window
+	NSTimeInterval timeExited = [NSDate timeIntervalSinceReferenceDate];
+	
+	// Event for mouse re-entry into window. 0.5s chosen as max time allowed for the mouse outside the window before it closes (best time through testing)
+	NSEvent *reentry = [NSApp nextEventMatchingMask:NSMouseEnteredMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.5] inMode:NSDefaultRunLoopMode dequeue:NO];
 	if ([reentry windowNumber] != [self windowNumber])
 		reentry = nil;
-	if (!reentry && !StillDown() ) {
+	// no re-entry of mouse into window and was inside the window for more than 0.2s (best time found from trial and error)
+	if (!reentry && !StillDown() && (timeExited - timeEntered > 0.2)) {
 		[self hideOrOrderOut:self];
 	}
 }
@@ -137,7 +160,7 @@
 
 - (IBAction)hide:(id)sender {
 	if (hidden) return;
-
+	
 	[self saveFrame];
 	if ([self isKeyWindow])
 		[self fakeResignKey];
@@ -169,7 +192,7 @@
 		[self orderFront:sender];
 	}
 }
-
+// method to close command window when Esc key is pressed
 - (void)keyDown:(NSEvent *)theEvent {
 	if ([self canFade] && [theEvent keyCode] == 53)
 		[self hideOrOrderOut:nil];
@@ -226,6 +249,8 @@
 	if (hidden) {
 		[super reallyOrderOut:sender];
 	} else {
+		// Set the state that the window is hidden
+		hidden = YES;
 		[self saveFrame];
 		[super orderOut:sender];
 	}
