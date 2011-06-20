@@ -164,6 +164,7 @@
 	NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:fetchURLString]
 															cachePolicy:NSURLRequestUseProtocolCachePolicy
 														timeoutInterval:20.0];
+	[theRequest setValue:kQSUserAgent forHTTPHeaderField:@"User-Agent"];
 	//if (VERBOSE)
 	NSLog(@"Fetching plugin data from %@", fetchURLString);
 
