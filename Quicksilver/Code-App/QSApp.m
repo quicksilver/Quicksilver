@@ -63,7 +63,6 @@ BOOL QSApplicationCompletedLaunch = NO;
 
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-#ifndef DEBUG
 	// Honor dock hidden preference if new version
 	isUIElement = [self shouldBeUIElement];
 	if (!isUIElement && [defaults boolForKey:kHideDockIcon]) {
@@ -71,12 +70,14 @@ BOOL QSApplicationCompletedLaunch = NO;
 			[defaults setInteger:1 forKey:@"QSShowMenuIcon"];
 
 	  NSLog(@"Relaunching to honor Dock Icon Preference");
-		if ([self setShouldBeUIElement:YES])
+		if ([self setShouldBeUIElement:YES]) {
+#ifndef DEBUG
 			[self relaunch:nil];
-		else
-			[defaults setBool:NO forKey:kHideDockIcon];
-	}
 #endif
+		} else {
+			[defaults setBool:NO forKey:kHideDockIcon];
+		}
+	}
 
 	featureLevel = [defaults integerForKey:kFeatureLevel];
 	if (featureLevel < 0)
