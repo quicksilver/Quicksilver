@@ -70,10 +70,13 @@ BOOL QSApplicationCompletedLaunch = NO;
 			[defaults setInteger:1 forKey:@"QSShowMenuIcon"];
 
 	  NSLog(@"Relaunching to honor Dock Icon Preference");
-		if ([self setShouldBeUIElement:YES])
+		if ([self setShouldBeUIElement:YES]) {
+#ifndef DEBUG
 			[self relaunch:nil];
-		else
+#endif
+		} else {
 			[defaults setBool:NO forKey:kHideDockIcon];
+		}
 	}
 
 	featureLevel = [defaults integerForKey:kFeatureLevel];
