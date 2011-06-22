@@ -13,6 +13,7 @@
 @interface QSFileSystemObjectHandler : NSObject {
     NSMutableDictionary *applicationIcons;
 }
+- (NSArray *)actionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
 @end
 
 @interface QSBasicObject (FileHandling)
