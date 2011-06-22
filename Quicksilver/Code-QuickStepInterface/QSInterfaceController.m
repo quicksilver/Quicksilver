@@ -73,6 +73,7 @@
 	[nc addObserver:self selector:@selector(windowDidBecomeKey:) name:NSWindowDidBecomeKeyNotification object:self];
 	[nc addObserver:self selector:@selector(windowDidResignKey:) name:NSWindowDidResignKeyNotification object:self];
 	[nc addObserver:self selector:@selector(objectModified:) name:@"ObjectModified" object:nil];
+	[nc addObserver:self selector:@selector(objectIconModified:) name:@"ObjectIconModified" object:nil];
 	[nc addObserver:self selector:@selector(searchObjectChanged:) name:@"SearchObjectChanged" object:nil];
 	[nc addObserver:self selector:@selector(appChanged:) name:QSActiveApplicationChanged object:nil];
     if (fALPHA)
@@ -366,11 +367,18 @@
 		if (VERBOSE) NSLog(@"Reloading actions for: %@", [notif object]);
 		[self updateActions];
 	}
+}
+
+- (void)objectIconModified:(NSNotification *)notif {
+	if ([[dSelector objectValue] isEqual:[notif object]]) {
+		// redraw dObject icon
+		[dSelector updateObject:[notif object]];
+	}
+	else if([[iSelector objectValue] isEqual:[notif object]]) {
+		// redraw iObject icon
+		[iSelector updateObject:[notif object]];
+	}
 	
-	// redraw icons
-	[dSelector updateObject:[notif object]];
-	[aSelector updateObject:[notif object]];
-	[iSelector updateObject:[notif object]];
 }
 
 - (void)searchObjectChanged:(NSNotification*)notif {
@@ -557,7 +565,7 @@
 		BOOL indirectIsInvalid = ![iSelector objectValue];
 		BOOL indirectIsTextProxy = [[[iSelector objectValue] primaryType] isEqual:QSTextProxyType];
 		if (indirectIsRequired && (indirectIsInvalid || indirectIsTextProxy) ) {
-			if (![iSelector objectValue]) NSBeep();
+			if (indirectIsInvalid) NSBeep();
 			[[self window] makeFirstResponder:iSelector];
 			return;
 		}
@@ -649,7 +657,7 @@
 - (IBAction)actionActivate:(id)sender {
 	[self updateActionsNow];
 	[iSelector reset:self];
-	[[dSelector objectValue] loadIcon];
+	//[[dSelector objectValue] loadIcon];
 	[[self window] makeFirstResponder:aSelector];
 	[self showInterface:self];
 }
