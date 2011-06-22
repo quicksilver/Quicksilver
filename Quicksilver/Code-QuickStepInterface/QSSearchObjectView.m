@@ -1522,7 +1522,8 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)updateObject:(QSObject *)object {
 	// find index of object in the resultlist
 	int ind = [resultArray indexOfObject:object];
-	if (ind == NSNotFound) {
+	int count = [resultArray count];
+	if (ind == NSNotFound && count != 1) {
 		return;
 	}
 	
