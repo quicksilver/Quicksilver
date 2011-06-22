@@ -1523,12 +1523,13 @@ NSMutableDictionary *bindingsDict = nil;
 	// find index of object in the resultlist
 	int ind = [resultArray indexOfObject:object];
 	int count = [resultArray count];
+	// for cases where there's only 1 object in the results, it's not always selected
 	if (ind == NSNotFound && count != 1) {
 		return;
 	}
 	
 	// if object is the currently active object, update it in the pane
-	if ((ind == selection) || ([resultArray count] == 1)) {
+	if ((ind == selection) || (count == 1)) {
 		[self setNeedsDisplay:YES];
 	}
 	
