@@ -24,9 +24,9 @@
 		<string>moveRight:</string>
 		<key>^h</key>
 		<string>moveLeft:</string>
-		<key>^j</key>
-		<string>moveUp:</string>
 		<key>^k</key>
+		<string>moveUp:</string>
+		<key>^j</key>
 		<string>moveDown:</string>
 		<key>^l</key>
 		<string>moveRight:</string>
