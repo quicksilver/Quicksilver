@@ -143,10 +143,11 @@ id QSRez;
 				[image drawInRect:rect fromRect:rectFromSize([image size]) operation:NSCompositeSourceOver fraction:1.0];
 				
 				NSImage *findImage = [NSImage imageNamed:@"Find"];
+				NSImage *favIcon = nil;
 				if(findImage) {
 					[findImage setSize:rect.size];
 					// Try and load the site's favicon
-					NSImage *favIcon = [self getFavIcon:urlString];
+					favIcon = [self getFavIcon:urlString];
 					if(favIcon) {
 						[favIcon setSize:rect.size];
 						[favIcon drawInRect:NSMakeRect(rect.origin.x+NSWidth(rect)*0.48, rect.origin.y+NSWidth(rect)*0.32, 30, 30) fromRect:rect operation:NSCompositeSourceOver fraction:1.0];
@@ -155,6 +156,8 @@ id QSRez;
 				}
 				[NSGraphicsContext restoreGraphicsState];
 				webSearchImage = [[[NSImage alloc] initWithData:[bitmap TIFFRepresentation]] autorelease];
+				NSImageRep *fav16 = [favIcon bestRepresentationForSize:(NSSize){16.0f, 16.0f}];
+				if (fav16) [webSearchImage addRepresentation:fav16];
 			}
 		}
 	}
