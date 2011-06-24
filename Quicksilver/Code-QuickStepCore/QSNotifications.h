@@ -19,7 +19,7 @@
 
 #define QSActiveApplicationChanged @"QSActiveApplicationChanged"
 
-// Notification for when an object icon has been loaded
+// Notification for when an object icon has been loaded and needs updating in the display
 #define QSObjectIconModified @"QSObjectIconModified"
 // Notification for when an object has been modified and actions need to be reloaded
 #define QSObjectModified @"QSObjectModified"
