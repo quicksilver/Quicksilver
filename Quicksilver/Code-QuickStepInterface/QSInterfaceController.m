@@ -72,8 +72,8 @@
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver:self selector:@selector(windowDidBecomeKey:) name:NSWindowDidBecomeKeyNotification object:self];
 	[nc addObserver:self selector:@selector(windowDidResignKey:) name:NSWindowDidResignKeyNotification object:self];
-	[nc addObserver:self selector:@selector(objectModified:) name:@"ObjectModified" object:nil];
-	[nc addObserver:self selector:@selector(objectIconModified:) name:@"ObjectIconModified" object:nil];
+	[nc addObserver:self selector:@selector(objectModified:) name:QSObjectModified object:nil];
+	[nc addObserver:self selector:@selector(objectIconModified:) name:QSObjectIconModified object:nil];
 	[nc addObserver:self selector:@selector(searchObjectChanged:) name:@"SearchObjectChanged" object:nil];
 	[nc addObserver:self selector:@selector(appChanged:) name:QSActiveApplicationChanged object:nil];
     if (fALPHA)

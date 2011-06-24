@@ -18,3 +18,8 @@
 #define QSDebugLogRequest @"QSDebugLogRequest"
 
 #define QSActiveApplicationChanged @"QSActiveApplicationChanged"
+
+// Notification for when an object icon has been loaded
+#define QSObjectIconModified @"QSObjectIconModified"
+// Notification for when an object has been modified and actions need to be reloaded
+#define QSObjectModified @"QSObjectModified"
