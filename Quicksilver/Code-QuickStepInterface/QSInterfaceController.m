@@ -370,13 +370,14 @@
 }
 
 - (void)objectIconModified:(NSNotification *)notif {
-	if ([[dSelector objectValue] isEqual:[notif object]]) {
+	QSObject *object = [notif object];
+	if ([[dSelector objectValue] isEqual:object]) {
 		// redraw dObject icon
-		[dSelector updateObject:[notif object]];
+		[dSelector updateObject:object];
 	}
-	else if([[iSelector objectValue] isEqual:[notif object]]) {
+	if ([[iSelector objectValue] isEqual:object]) {
 		// redraw iObject icon
-		[iSelector updateObject:[notif object]];
+		[iSelector updateObject:object];
 	}
 	
 }
