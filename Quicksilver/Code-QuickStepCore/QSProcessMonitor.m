@@ -235,7 +235,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 //	NSLog(@"process %@", thisProcess);
     if (thisProcess != nil) {
         [processes addObject:thisProcess];
-        [[NSNotificationCenter defaultCenter] postNotificationName:ObjectModified object:thisProcess];
+        [[NSNotificationCenter defaultCenter] postNotificationName:QSObjectModified object:thisProcess];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"processesChanged" object:nil];
     }
 }
