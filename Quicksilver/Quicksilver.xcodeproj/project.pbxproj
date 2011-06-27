@@ -887,6 +887,7 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		423DA027132F7A65005ED70F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSAction.name.strings; sourceTree = "<group>"; };
 		423DA028132F7A6B005ED70F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/QSAction.name.strings; sourceTree = "<group>"; };
+		4249366E13A15E3E008A933B /* ChangesBare.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ChangesBare.html; sourceTree = "<group>"; };
 		42ADF4FD1317237900C68070 /* QSClangAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSClangAnalyzer.h; sourceTree = "<group>"; };
 		4D002C9E131145DD009040B7 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4D002C9F131145DD009040B7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -925,7 +926,6 @@
 		4D00308413116376009040B7 /* QSTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSTableView.m; sourceTree = "<group>"; };
 		4D4F32FC0E39EDE500668F94 /* QSEffects-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "QSEffects-Info.plist"; sourceTree = "<group>"; };
 		4D4F32FD0E39EDFD00668F94 /* QSFoundation-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "QSFoundation-Info.plist"; sourceTree = "<group>"; };
-		4D784C9410AB18D500898C87 /* Read Me.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "Read Me.rtf"; sourceTree = "<group>"; };
 		4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Release.xcconfig; sourceTree = "<group>"; };
 		4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Debug.xcconfig; sourceTree = "<group>"; };
 		4D8A0B3510AB23F7006AF163 /* Configuration */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Configuration; sourceTree = "<group>"; };
@@ -1002,7 +1002,7 @@
 		6552BCA1109D0E00003B4892 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/About.strings; sourceTree = "<group>"; };
 		7F05F1E00852441C00A8EC0C /* NSObject+BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+BLTRExtensions.h"; sourceTree = "<group>"; };
 		7F05F1E10852441C00A8EC0C /* NSObject+BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+BLTRExtensions.m"; sourceTree = "<group>"; };
-		7F0737A10927023A00782D10 /* CHANGELOG */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = CHANGELOG; path = SharedSupport/CHANGELOG; sourceTree = "<group>"; wrapsLines = 1; };
+		7F0737A10927023A00782D10 /* CHANGELOG */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CHANGELOG; path = SharedSupport/CHANGELOG; sourceTree = "<group>"; wrapsLines = 1; };
 		7F0843CC098ACB2F00F136CC /* QSLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSLog.h; sourceTree = "<group>"; };
 		7F0843CD098ACB2F00F136CC /* QSLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSLog.m; sourceTree = "<group>"; };
 		7F0AB6CA07C4045700DF7D52 /* QSPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSPlugIn.h; sourceTree = "<group>"; };
@@ -1132,7 +1132,7 @@
 		7FA4ED4509132402007DB407 /* UKKQueue.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = UKKQueue.m; sourceTree = "<group>"; };
 		7FA4ED4609132402007DB407 /* UKMainThreadProxy.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = UKMainThreadProxy.h; sourceTree = "<group>"; };
 		7FA4ED4709132402007DB407 /* UKMainThreadProxy.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = UKMainThreadProxy.m; sourceTree = "<group>"; };
-		7FA4EF240913AF27007DB407 /* Changes.html */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; path = Changes.html; sourceTree = "<group>"; };
+		7FA4EF240913AF27007DB407 /* Changes.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Changes.html; sourceTree = "<group>"; };
 		7FADDCDF08B4D805004559C1 /* QSHistoryObjectSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHistoryObjectSource.h; sourceTree = "<group>"; };
 		7FADDCE008B4D805004559C1 /* QSHistoryObjectSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHistoryObjectSource.m; sourceTree = "<group>"; };
 		7FB37EB2080997EF00A2B2B4 /* QSURLDownloadWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSURLDownloadWrapper.h; sourceTree = "<group>"; };
@@ -2204,7 +2204,7 @@
 		E1DADBB30666606900BB655F /* SharedSupport */ = {
 			isa = PBXGroup;
 			children = (
-				4D784C9410AB18D500898C87 /* Read Me.rtf */,
+				4249366E13A15E3E008A933B /* ChangesBare.html */,
 				7F8C659E081171DB0051113C /* Credits.html */,
 				7FA4EF240913AF27007DB407 /* Changes.html */,
 			);
@@ -3351,7 +3351,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"<h1>Release Notes: Quicksilver Build $QS_BUNDLE_VERSION</h1>\" > \"$SRCROOT/SharedSupport/Changes.html\"\n\"$SRCROOT/Tools/Markdown.pl\" \"$SRCROOT/SharedSupport/CHANGELOG\" >> \"$SRCROOT/SharedSupport/Changes.html\"";
+			shellScript = "SUPP_DIR=\"$SRCROOT/SharedSupport\"\nFULL_HTML=\"$SUPP_DIR/Changes.html\"\nPART_HTML=\"$SUPP_DIR/ChangesBare.html\"\necho \"<!DOCTYPE html><html><head><meta http-equiv=\\\"content-type\\\" content=\\\"text/html; charset=utf-8\\\" /></head><body>\" > $FULL_HTML\necho \"<h1>Release Notes: Quicksilver Build $QS_BUNDLE_VERSION</h1>\" | tee -a $FULL_HTML | tee $PART_HTML\n\"$SRCROOT/Tools/Markdown.pl\" \"$SRCROOT/SharedSupport/CHANGELOG\" | tee -a $FULL_HTML | tee -a $PART_HTML\necho \"</body></html>\" >> $FULL_HTML";
 		};
 		E1A5676406FFDD8700BAD045 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
