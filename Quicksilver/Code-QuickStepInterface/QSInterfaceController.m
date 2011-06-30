@@ -72,7 +72,8 @@
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver:self selector:@selector(windowDidBecomeKey:) name:NSWindowDidBecomeKeyNotification object:self];
 	[nc addObserver:self selector:@selector(windowDidResignKey:) name:NSWindowDidResignKeyNotification object:self];
-	[nc addObserver:self selector:@selector(objectModified:) name:@"ObjectModified" object:nil];
+	[nc addObserver:self selector:@selector(objectModified:) name:QSObjectModified object:nil];
+	[nc addObserver:self selector:@selector(objectIconModified:) name:QSObjectIconModified object:nil];
 	[nc addObserver:self selector:@selector(searchObjectChanged:) name:@"SearchObjectChanged" object:nil];
 	[nc addObserver:self selector:@selector(appChanged:) name:QSActiveApplicationChanged object:nil];
     if (fALPHA)
@@ -368,11 +369,19 @@
 #endif
 		[self updateActions];
 	}
+}
+
+- (void)objectIconModified:(NSNotification *)notif {
+	QSObject *object = [notif object];
+	if ([[dSelector objectValue] isEqual:object]) {
+		// redraw dObject icon
+		[dSelector updateObject:object];
+	}
+	if ([[iSelector objectValue] isEqual:object]) {
+		// redraw iObject icon
+		[iSelector updateObject:object];
+	}
 	
-	// redraw icons
-	[dSelector updateObject:[notif object]];
-	[aSelector updateObject:[notif object]];
-	[iSelector updateObject:[notif object]];
 }
 
 - (void)searchObjectChanged:(NSNotification*)notif {
@@ -565,7 +574,7 @@
 		BOOL indirectIsInvalid = ![iSelector objectValue];
 		BOOL indirectIsTextProxy = [[[iSelector objectValue] primaryType] isEqual:QSTextProxyType];
 		if (indirectIsRequired && (indirectIsInvalid || indirectIsTextProxy) ) {
-			if (![iSelector objectValue]) NSBeep();
+			if (indirectIsInvalid) NSBeep();
 			[[self window] makeFirstResponder:iSelector];
 			return;
 		}
@@ -661,7 +670,7 @@
 - (IBAction)actionActivate:(id)sender {
 	[self updateActionsNow];
 	[iSelector reset:self];
-	[[dSelector objectValue] loadIcon];
+	//[[dSelector objectValue] loadIcon];
 	[[self window] makeFirstResponder:aSelector];
 	[self showInterface:self];
 }

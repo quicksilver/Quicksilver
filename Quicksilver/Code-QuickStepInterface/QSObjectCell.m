@@ -467,6 +467,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 		nil];
 }
 
+// method for drawing the text (e.g. object label, name etc.) on the interface
 - (void)drawTextForObject:(QSObject *)drawObject withFrame:(NSRect)cellFrame inView:(NSView *)controlView {
 	if ([self imagePosition] != NSImageOnly) { // Text Drawing Routines
 		NSString *abbreviationString = nil;
@@ -500,7 +501,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 		if (abbreviationString && ![abbreviationString hasPrefix:@"QSActionMnemonic"]) {
 			[titleString addAttribute:NSForegroundColorAttributeName value:fadedColor range:NSMakeRange(0, [titleString length])];
 
-			//  NSLog(@"4");
+			// Organise displaying the text, underlining the letters typed (in the name)
 			int i = 0;
 			int j = 0;
 			unsigned int hits[[titleString length]];
