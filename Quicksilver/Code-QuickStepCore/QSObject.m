@@ -432,7 +432,7 @@ NSSize QSMaxIconSize;
 - (id)_safeObjectForType:(id)aKey {
   id object = [data objectForKey:aKey];
   if (!object && [[self primaryType] isEqualToString:QSProxyType])
-      object = [[self resolvedObject] objectForType:aKey];
+      object = [[self resolvedObject] arrayForType:aKey];
 	return object;
 #if 0
 	if (flags.multiTyped)
