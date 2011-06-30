@@ -188,7 +188,20 @@
                                                       returnID:kAutoGenerateReturnID
                                                  transactionID:kAnyTransactionID];
 		[event setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:[dObject stringValue]] forKeyword:keyDirectObject];
-		[event setDescriptor:[NSAppleEventDescriptor descriptorWithString:[iObject stringValue]] forKeyword:kQSOpenTextIndirectParameter];
+    NSArray *indirectPaths = [iObject validPaths];
+    NSAppleEventDescriptor *iObjectDescriptor = nil;
+    NSUInteger indirectPathCount = [indirectPaths count];
+    if (indirectPathCount == 1) {
+      iObjectDescriptor = [NSAppleEventDescriptor descriptorWithString:[indirectPaths objectAtIndex:0]];
+    } else if (indirectPathCount > 1) {
+      iObjectDescriptor = [NSAppleEventDescriptor listDescriptor];
+      for (NSString *path in indirectPaths) {
+        [iObjectDescriptor insertDescriptor:[NSAppleEventDescriptor descriptorWithString:path] atIndex:0];
+      }
+    } else {
+      iObjectDescriptor = [NSAppleEventDescriptor descriptorWithString:[iObject stringValue]];
+    }
+		[event setDescriptor:iObjectDescriptor forKeyword:kQSOpenTextIndirectParameter];
 	} else {
 		id object;
 		NSArray *types = [action directTypes];
