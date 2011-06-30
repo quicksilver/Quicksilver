@@ -13,6 +13,9 @@
 @interface QSFileSystemObjectHandler : NSObject {
     NSMutableDictionary *applicationIcons;
 }
+
+// Added by Patrick Robertson 30/06/11 in Pull #388. QSObject_FileHandling.h/.m are a mess and it's unclear as to wether
+// this is required. Any developers working on tidying these files should check the necessity/requirement of this definition
 - (NSArray *)actionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
 @end
 
