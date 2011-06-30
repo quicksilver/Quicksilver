@@ -18,7 +18,7 @@
 				<key>with</key>
 				<dict>
 					<key>Description</key>
-					<string>indirect text</string>
+					<string>indirect object</string>
 					<key>Name</key>
 					<string>with</string>
 				</dict>

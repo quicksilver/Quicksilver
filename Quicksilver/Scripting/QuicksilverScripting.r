@@ -483,8 +483,8 @@ resource 'aete' (0, "Quicksilver") {
 			directParamRequired,
 			singleItem, notEnumerated, Reserved13,
 			{
-				"with", 'IdTx', 'TEXT',
-				"indirect text",
+				"with", 'IdOb', '****',
+				"indirect object",
 				optional,
 				singleItem, notEnumerated, Reserved13
 			},

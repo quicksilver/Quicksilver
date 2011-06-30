@@ -30,11 +30,11 @@
 				<key>with</key>
 				<dict>
 					<key>AppleEventCode</key>
-					<string>IdTx</string>
+					<string>IdOb</string>
 					<key>Optional</key>
 					<string>YES</string>
 					<key>Type</key>
-					<string>NSString</string>
+					<string>NSObject</string>
 				</dict>
 			</dict>
 			<key>CommandClass</key>
