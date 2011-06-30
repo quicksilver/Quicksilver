@@ -330,12 +330,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	//OSStatus status=
 	LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
 		
-	// !!! Andre Berg 20091015: inline QSApp -isLeopard ... calling this on NSApp appears flaky at best
-	SInt32 version;
-	Gestalt (gestaltSystemVersion, &version);
-		
 	// try preview icon
-	if (!theImage && version >= 0x1050 && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
+	if (!theImage && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
 		// do preview icon loading in separate thread (using NSOperationQueue)
 		theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSMaxIconSize asIcon:YES];
 	}
@@ -375,7 +371,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	theImage = [self prepareImageforIcon:theImage];
 	
 	[object setIcon:theImage];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"ObjectModified" object:object];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSObjectIconModified object:object];
 }
 
 -(NSImage *)prepareImageforIcon:(NSImage *)theImage {
