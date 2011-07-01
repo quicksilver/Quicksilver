@@ -1266,22 +1266,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: values.QSResultsShowChildren</string>
-						<reference key="source" ref="525749660"/>
-						<reference key="destination" ref="1039794070"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="525749660"/>
-							<reference key="NSDestination" ref="1039794070"/>
-							<string key="NSLabel">value: values.QSResultsShowChildren</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">values.QSResultsShowChildren</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">200</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: values.QSResultViewRowHeight</string>
 						<reference key="source" ref="511896307"/>
 						<reference key="destination" ref="1039794070"/>
@@ -1516,6 +1500,35 @@
 					</object>
 					<int key="connectionID">284</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: showChildrenInSplitView</string>
+						<reference key="source" ref="998824526"/>
+						<reference key="destination" ref="204909127"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="998824526"/>
+							<reference key="NSDestination" ref="204909127"/>
+							<string key="NSLabel">value: showChildrenInSplitView</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">showChildrenInSplitView</string>
+							<object class="NSDictionary" key="NSOptions">
+								<bool key="EncodedWithXMLCoder">YES</bool>
+								<object class="NSArray" key="dict.sortedKeys">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<string>NSConditionallySetsEditable</string>
+									<string>NSConditionallySetsEnabled</string>
+								</object>
+								<object class="NSMutableArray" key="dict.values">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<boolean value="YES"/>
+									<boolean value="NO"/>
+								</object>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">292</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -1560,7 +1573,6 @@
 							<reference ref="505510077"/>
 							<reference ref="126931782"/>
 							<reference ref="621610687"/>
-							<reference ref="525749660"/>
 							<reference ref="386934001"/>
 							<reference ref="151921610"/>
 							<reference ref="242277331"/>
@@ -1581,6 +1593,7 @@
 							<reference ref="151034742"/>
 							<reference ref="248346902"/>
 							<reference ref="56014405"/>
+							<reference ref="525749660"/>
 						</object>
 						<reference key="parent" ref="755988772"/>
 					</object>
@@ -2230,6 +2243,7 @@
 					<string>120.ImportedFromIB2</string>
 					<string>121.IBAttributePlaceholdersKey</string>
 					<string>121.IBPluginDependency</string>
+					<string>121.IBViewBoundsToFrameTransform</string>
 					<string>121.ImportedFromIB2</string>
 					<string>122.IBAttributePlaceholdersKey</string>
 					<string>122.IBPluginDependency</string>
@@ -2426,6 +2440,9 @@
 						</object>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAABDRgAAw0kAAA</bytes>
+					</object>
 					<boolean value="YES"/>
 					<object class="NSMutableDictionary">
 						<string key="NS.key.0">ToolTip</string>
@@ -2581,7 +2598,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">284</int>
+			<int key="maxID">292</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
