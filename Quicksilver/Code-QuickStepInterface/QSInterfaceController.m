@@ -373,13 +373,34 @@
 
 - (void)objectIconModified:(NSNotification *)notif {
 	QSObject *object = [notif object];
-	if ([[dSelector objectValue] isEqual:object]) {
-		// redraw dObject icon
-		[dSelector updateObject:object];
+	id dObject = [dSelector objectValue];
+	id iObject = [iSelector objectValue];
+	
+	// Resolve any proxy objects (e.g. Latest Download)
+	if ([dObject isKindOfClass:[QSRankedObject class]]) {
+		dObject = [dObject object];
 	}
-	if ([[iSelector objectValue] isEqual:object]) {
+	if ([iObject isKindOfClass:[QSRankedObject class]]) {
+		iObject = [iObject object];
+	}
+	if ([dObject isKindOfClass:[QSProxyObject class]]) {
+		// The icon of the proxy object needs to be that of the actual file
+		[[dSelector objectValue] setIcon:[object icon]];
+		dObject = [dObject resolvedObject];
+	}
+	if ([iObject isKindOfClass:[QSProxyObject class]]) {
+		// The icon of the proxy object needs to be that of the actual file
+		[[iSelector objectValue] setIcon:[object icon]];
+		iObject = [iObject resolvedObject];
+	}
+	
+	if ([dObject isEqual:object] ) {
+		// redraw dObject icon
+		[dSelector updateObject:[dSelector objectValue]];
+	}
+	if ([iObject isEqual:object]) {
 		// redraw iObject icon
-		[iSelector updateObject:object];
+		[iSelector updateObject:[iSelector objectValue]];
 	}
 	
 }
