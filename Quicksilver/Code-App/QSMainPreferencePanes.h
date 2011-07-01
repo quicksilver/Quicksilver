@@ -10,6 +10,8 @@
 #import "QSPreferencePane.h"
 
 @interface QSSearchPrefPane : QSPreferencePane {}
+- (BOOL)showChildrenInSplitView;
+- (void)setShowChildrenInSplitView:(BOOL)flag;
 @end
 
 @interface QSAppearancePrefPane : QSPreferencePane {
