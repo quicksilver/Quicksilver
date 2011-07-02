@@ -483,7 +483,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (IBAction)showResultView:(id)sender {
-	if ([[self window] firstResponder] != self) [[self window] makeFirstResponder:self];
+	if ([[self window] firstResponder] != self) return;
 	if ([[resultController window] isVisible]) return; //[resultController->resultTable reloadData];
     
 	[[resultController window] setLevel:[[self window] level] +1];
@@ -542,6 +542,7 @@ NSMutableDictionary *bindingsDict = nil;
     
 	if ([[self window] isVisible]) {
 		[[resultController window] orderFront:nil];
+		// Show the results window
 		[[self window] addChildWindow:[resultController window] ordered:NSWindowAbove];
 	}
 }
