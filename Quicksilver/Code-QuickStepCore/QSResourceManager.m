@@ -180,7 +180,6 @@ id QSRez;
 	}
 	if (!image && bundle) image = [bundle imageNamed:name];
 	if (image) {
-		[image setFlipped:NO];
 		return image;
 	}
 
@@ -325,7 +324,9 @@ id QSRez;
         if(bundle != nil) {
             image = [workspace iconForFile:[bundle bundlePath]];
         } else {
+			if ([locator objectForKey:@"type"]) {
             image = [workspace iconForFileType:[locator objectForKey:@"type"]];
+			}
         }
 		
 #ifdef DEBUG
