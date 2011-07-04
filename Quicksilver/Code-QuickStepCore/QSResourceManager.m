@@ -324,6 +324,7 @@ id QSRez;
         if(bundle != nil) {
             image = [workspace iconForFile:[bundle bundlePath]];
         } else {
+			// try and find an icon for the file type
 			if ([locator objectForKey:@"type"]) {
             image = [workspace iconForFileType:[locator objectForKey:@"type"]];
 			}
