@@ -175,6 +175,7 @@ typedef enum QSSearchMode {
 - (BOOL)handleRepeaterEvent:(NSEvent *)theEvent;
 
 - (void)updateObject:(QSObject *)object;
+- (void)compareAndUpdateWithObject:(QSObject *)object;
 @end
 
 
