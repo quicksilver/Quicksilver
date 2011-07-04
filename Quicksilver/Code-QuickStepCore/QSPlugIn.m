@@ -354,8 +354,14 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	if (!icon) {
 		NSDictionary *pDict = [[self info] objectForKey:@"QSPlugIn"];
 		NSString *text = [pDict objectForKey:@"icon"];
-		icon = [QSResourceManager imageNamed:text];
-		if (!icon) icon = [QSResourceManager imageNamed:@"QSPlugIn"];
+		// make sure an icon set in plugin's .plist
+		if(text != nil) {
+			icon = [QSResourceManager imageNamed:text inBundle:bundle];
+		}
+		if (!icon)
+		{
+			icon = [QSResourceManager imageNamed:@"QSPlugIn"];
+		}
 		[icon setSize:QSSize32];
 		[icon retain];
 	}
