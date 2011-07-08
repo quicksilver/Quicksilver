@@ -479,8 +479,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
         id ranker = [drawObject ranker];
 		if (ranker && abbreviationString)
 			nameString = [ranker matchedStringForAbbreviation:abbreviationString hitmask:&hitMask inContext:nil];
-        if (!nameString) nameString = [drawObject name];
-        if (!nameString) nameString = [drawObject label];
+		if (!nameString) nameString = [drawObject displayName];
 		if (!nameString) nameString = @"<Unknown>";
 
 		//NSLog(@"usingname: %@", nameString);
