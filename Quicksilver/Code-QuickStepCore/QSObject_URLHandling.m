@@ -140,7 +140,7 @@
 - (void)assignURLTypesWithURL:(NSString *)urlString
 {
 		[[self dataDictionary] setObject:urlString forKey:QSURLType];
-		if ([[NSURL URLWithString:urlString] scheme])
+		if ([[NSURL URLWithString:[urlString URLEncoding]] scheme])
 		{
 			[self setObject:urlString forType:QSURLType];
 		} else {
