@@ -4,6 +4,9 @@
 
 @class QSObjectView, QSSearchObjectView;
 
+// added by RCS
+@class QSMenuButton;
+
 @interface QSResultController : NSWindowController
 #if (MAC_OS_X_VERSION_MAX_ALLOWED >= 1060)
    <NSTableViewDataSource>
@@ -20,7 +23,12 @@
 	QSIconLoader *resultChildIconLoader;
 	IBOutlet NSTextField *	resultCountField;
 	IBOutlet NSMenu *searchModeMenu;
-	int selectedResult;
+
+    // added by RCS
+    // I added an outlet for the search mode menu button. I made the corresponding assignment within the ResultWindow.xib file in Interface Builder.
+    IBOutlet QSMenuButton *searchModeMenuButton;
+    
+    int selectedResult;
 	QSObject *selectedItem;
 	BOOL browsing;
 	BOOL needsReload;
@@ -47,6 +55,10 @@
 - (IBAction)clearMnemonics:(id)sender;
 - (IBAction)omitItem:(id)sender;
 - (IBAction)assignAbbreviation:(id)sender;
+
+// added by RCS
+// event handler triggered by searchModeMenuButton - this link is made in Interface Builder
+- (IBAction)searchModeMenuButtonPressed:(id)sender;
 
 - (id)initWithFocus:(id)myFocus;
 

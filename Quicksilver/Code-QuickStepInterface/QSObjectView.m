@@ -191,6 +191,13 @@
 	// [self setToolTip:[newObject toolTip]];
 	[[self cell] setRepresentedObject:newObject];
 	[self setNeedsDisplay:YES];
+    
+    // added by RCS
+    // Set the button cell's title, which is used by VoiceOver to announce the name of the button.
+    // Then post notifications of a change in the GUI using the accessibility API.
+    [[self cell] setTitle:[newObject displayName]];
+    NSAccessibilityPostNotification([self cell], NSAccessibilityTitleChangedNotification);
+    NSAccessibilityPostNotification([self cell], NSAccessibilityFocusedWindowChangedNotification);
 }
 
 - (QSObjectDropMode) dropMode { return dropMode;  }
