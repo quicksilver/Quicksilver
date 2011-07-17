@@ -610,6 +610,11 @@ NSSize QSMaxIconSize;
 	return ident;
 }
 
+/* WARNING: If you are receiving EXC_BAD_ACCESS messages here, it is due to Quicksilver's catalog
+containg multiple objects with the same identifier. Best efforts should be made to create objects with unique
+ identifiers. If not possible, then efforts should be made to check if an object already exists with a specific
+ identifier before creating a new one.
+ Note by p_j_r 17/07/2011 */
 - (void)setIdentifier:(NSString *)newIdentifier {
     if (identifier != nil) {
         @synchronized(objectDictionary) {
@@ -622,7 +627,6 @@ NSSize QSMaxIconSize;
     if (newIdentifier != nil) {
         flags.noIdentifier = NO;
         @synchronized(objectDictionary) {
-#warning got a EXC_BAD_ACCESS here Patrick Robertson 17/05/11
             [objectDictionary setObject:self forKey:newIdentifier];
         }
         [meta setObject:newIdentifier forKey:kQSObjectObjectID];
