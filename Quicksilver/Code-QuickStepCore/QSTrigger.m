@@ -169,6 +169,8 @@
 	return [[info objectForKey:kItemID] hasPrefix:@"QS"];
 }
 
+// if the command has a preset (e.g. a built in command/trigger for a plugin: performs a single action),
+// it is a single string as opposed to an NSDict with an 'action' and 'direct object' (or 'indirect object')
 - (BOOL)usesPresetCommand {
 	return ([[info objectForKey:@"command"] isKindOfClass:[NSString class]]);
 }

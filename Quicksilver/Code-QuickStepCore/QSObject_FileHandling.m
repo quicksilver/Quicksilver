@@ -723,9 +723,17 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	return fileObjectArray;
 }
 
-- (id)initWithArray:(NSArray *)paths { //**this function could create dups
+- (id)initWithArray:(NSArray *)paths { 
+	NSString *thisIdentifier = identifierForPaths(paths);
+
+	// return an already-created object if it exists
+	QSObject *existingObject = [QSObject objectWithIdentifier:thisIdentifier];
+	if (existingObject) {
+		return existingObject;
+	}
+	
+	// if no previous object has been created, then create a new one
 	if (self = [self init]) {
-		NSString *thisIdentifier = identifierForPaths(paths);
 		if ([paths count] == 1) {
 			NSString *path = [paths lastObject];
 			[[self dataDictionary] setObject:path forKey:QSFilePathType];
