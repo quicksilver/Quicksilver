@@ -29,6 +29,7 @@
 
 	IBOutlet NSTableView * triggerSetsTable;
 	
+	// 'edit' button in the drawer's 'command' tab 
 	IBOutlet NSButton * editButton;
 	
 	IBOutlet NSController *triggerSetsController;

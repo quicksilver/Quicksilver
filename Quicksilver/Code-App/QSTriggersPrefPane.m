@@ -64,8 +64,9 @@
 		selectedRow = -1;
 		//	[self setSort:[[[NSSortDescriptor alloc] initWithKey:@"command" ascending:YES] autorelease]];
 		//		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectTrigger:) name:NSOutlin object:triggerTable];
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(triggerChanged:) name:QSTriggerChangedNotification object:nil];
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(populateTypeMenu) name:QSPlugInLoadedNotification object:nil];
+		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+		[nc addObserver:self selector:@selector(triggerChanged:) name:QSTriggerChangedNotification object:nil];
+		[nc addObserver:self selector:@selector(populateTypeMenu) name:QSPlugInLoadedNotification object:nil];
 		commandEditor = [[QSCommandBuilder alloc] init];
 		[self setCurrentSet:@"Custom Triggers"];
 	}
@@ -78,6 +79,13 @@
 	[optionsDrawer setTrailingOffset:24];
 	[optionsDrawer setPreferredEdge:NSMaxXEdge];
 	[[[optionsDrawer contentView] window] setDelegate:self];
+}
+
+- (void)dealloc {
+	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+	[nc removeObserver:self];
+	[[QSTriggerCenter sharedInstance] writeTriggersNow];
+	[super dealloc];
 }
 
 - (void)willUnselect {
@@ -853,15 +861,20 @@
 	}
 }
 
+
 - (NSString *)tokenField:(NSTokenField *)tokenField editingStringForRepresentedObject:(id)representedObject {
 	NSString *path = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:representedObject];
 	return [[path lastPathComponent] stringByDeletingPathExtension];
 }
+
+// The method called when the token field (e.g. the 'scope' field completes/creates a new token
 - (NSString *)tokenField:(NSTokenField *)tokenField displayStringForRepresentedObject:(id)representedObject {
 	NSString *path = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:representedObject];
+	[[QSTriggerCenter sharedInstance] triggerChanged:selectedTrigger];
 	return [[path lastPathComponent] stringByDeletingPathExtension];
 }
 
+// The method called to find a representation for the entered string in the token field
 - (id)tokenField:(NSTokenField *)tokenField representedObjectForEditingString:(NSString *)editingString {
 	NSString *path = [[NSWorkspace sharedWorkspace] fullPathForApplication:editingString];
     return [[NSBundle bundleWithPath:path] bundleIdentifier];
