@@ -175,13 +175,15 @@
 //		[trigger removeObjectForKey:@"name"];
 //}
 
+// When multiple 'writeTriggers' messages are sent in a short period of time, this method intends to reduce the work (creating .plists and writing)
+// so it is only performed once.
 - (void)writeTriggers {
-//	NSLog(@"writing triggers");
-    [self performSelector:@selector(writeTriggersNow) withObject:nil afterDelay:10.0 extend:YES];
+    [self performSelector:@selector(writeTriggersNow) withObject:nil afterDelay:2.0 extend:YES];
 }
 
 - (void)writeTriggersNow {
-	NSMutableArray *cleanedTriggerArray = [NSMutableArray arrayWithCapacity:[triggersDict count]];
+	NSLog(@"writing triggers");
+	NSMutableArray *cleanedTriggerArray = [[NSMutableArray alloc] initWithCapacity:[triggersDict count]];
 	for(QSTrigger *thisTrigger in [triggersDict allValues]) {
         NSDictionary * rep = [thisTrigger dictionaryRepresentation];
 #ifdef DEBUG
@@ -211,25 +213,30 @@
 #endif
 		[cleanedTriggerArray addObject:rep];
 	}
+	
     NSString *errorStr;
     NSError *error;
-    NSMutableDictionary * triggerDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:cleanedTriggerArray, @"triggers", nil];
+    NSDictionary * triggerDict = [[NSDictionary alloc] initWithObjectsAndKeys:cleanedTriggerArray, @"triggers", nil];
     NSData *data = [NSPropertyListSerialization dataFromPropertyList:triggerDict
                                                               format:NSPropertyListXMLFormat_v1_0
                                                     errorDescription:&errorStr];
-    if(data == nil ) {
+    if(data == nil || errorStr) {
         NSLog(@"Failed converting triggers: %@", errorStr);
         return;
     }
-    if([data writeToFile:[pTriggerSettings stringByStandardizingPath]
-                 options:0
-                   error:&error] == NO ) {
+    
+	if (![data writeToFile:[pTriggerSettings stringByStandardizingPath] options:0 error:&error]) {
         NSLog(@"Failed writing triggers : %@", error );
         return;
     }
+	
 #ifdef DEBUG
-    if (VERBOSE) NSLog(@"Wrote %d triggers", [cleanedTriggerArray count]);
+    NSLog(@"Wrote %d triggers", [cleanedTriggerArray count]);
 #endif
+	
+	// manual memory management (better for ARC)
+	[triggerDict release];
+	[cleanedTriggerArray release];
 }
 
 - (NSMutableDictionary *)triggersDict {
