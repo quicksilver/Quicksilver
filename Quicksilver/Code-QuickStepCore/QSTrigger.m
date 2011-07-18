@@ -138,7 +138,7 @@
         return NO;
 	[[self command] executeIgnoringModifiers];
 	if ([info objectForKey:@"oneshot"]) {
-		[self disable];
+		[self setEnabled:NO];
 	}
 	return YES;
 }
@@ -215,7 +215,6 @@
     activated = [self enabled];
 }
 
-// !!!:paulkohut:20100311
 // Fix issue 57, http://github.com/tiennou/blacktree-alchemy/issues/#issue/57
 //     issue 61, http://github.com/tiennou/blacktree-alchemy/issuesearch?state=open&q=trigger#issue/61
 // Added variable activated to QSTrigger object to handle trigger "scope".
@@ -223,26 +222,17 @@
 // the primary trigger enabler and the other as an application scope trigger
 // enabler, and caused issue 57.
 // Giving each state its own flag eliminates the problem completely.
-- (BOOL)activated { return activated;  }
+- (BOOL)activated {
+	return activated;
+}
 - (void)setActivated:(BOOL)flag {
 	if (![[info objectForKey:@"enabled"] boolValue])
 		return;
     activated = flag;
 }
 
-//- (BOOL)activated { return [self enabled];  }
-//- (void)setActivated:(BOOL)flag {
-//	if (![[info objectForKey:@"enabled"] boolValue])
-//		return;
-//    [self setEnabled:flag];
-//}
-
 - (BOOL)enabled {
 	return [[info objectForKey:@"enabled"] boolValue];
-}
-
-- (void)disable {
-	[self setEnabled:NO];
 }
 
 - (void)setEnabled:(BOOL)enabled {
@@ -251,7 +241,6 @@
 	[[QSTriggerCenter sharedInstance] triggerChanged:self];
 }
 
-// !!!:paulkohut:20100311
 // Fix for issue 47, http://github.com/tiennou/blacktree-alchemy/issues#issue/47
 // Enable/Disable the trigger based on the enabled flag.
 // Allows the flag to be changed without notifing the QSTriggerCenter, avoiding
