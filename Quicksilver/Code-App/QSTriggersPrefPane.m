@@ -81,14 +81,8 @@
 	[[[optionsDrawer contentView] window] setDelegate:self];
 }
 
-- (void)dealloc {
-	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-	[nc removeObserver:self];
-	[[QSTriggerCenter sharedInstance] writeTriggersNow];
-	[super dealloc];
-}
-
 - (void)willUnselect {
+	[[QSTriggerCenter sharedInstance] writeTriggersNow];
     [optionsDrawer close];
 }
 - (int)tabViewIndex {
