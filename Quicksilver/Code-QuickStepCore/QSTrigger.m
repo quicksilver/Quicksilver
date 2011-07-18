@@ -5,6 +5,7 @@
 // Created by Alcor on 6/19/05.
 // Copyright 2005 Blacktree, Inc. All rights reserved.
 //
+// Modified by p_j_r on 24/04/2011
 
 #import "QSTriggersPrefPane.h"
 
@@ -118,7 +119,11 @@
 	[[self manager] initializeTrigger:self];
 }
 
+// On app change, checks all triggers to see if they should be enabled/disabled based on scope in prefs
 - (void)rescope:(NSString *)ident {
+	// If the trigger's disabled there's no point rescoping **fix p_j_r 24/04/2011
+	if([info objectForKey:@"enabled"] && ![[info objectForKey:@"enabled"] boolValue]) return;
+	// Scoped is 0 for unscoped triggers, -1 for 'disabled in xxx' and +1 for 'enabled in xxx'
 	int scoped = [[info objectForKey:@"applicationScopeType"] intValue];
 	if (!scoped) return;
 	NSArray *apps = [info objectForKey:@"applicationScope"];

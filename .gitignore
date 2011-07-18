@@ -14,3 +14,4 @@ autom4te.cache
 *.tm_build_errors
 *.tmproj
 Developer.xcconfig
+Quicksilver/Code-External/GMTClasses/*
