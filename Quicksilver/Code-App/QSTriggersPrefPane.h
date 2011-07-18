@@ -28,7 +28,9 @@
 	IBOutlet NSOutlineView * triggerTable;
 
 	IBOutlet NSTableView * triggerSetsTable;
-
+	
+	IBOutlet NSButton * editButton;
+	
 	IBOutlet NSController *triggerSetsController;
 
 	IBOutlet NSArrayController *triggerArrayController;

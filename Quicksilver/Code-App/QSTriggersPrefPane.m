@@ -66,12 +66,12 @@
 		//		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectTrigger:) name:NSOutlin object:triggerTable];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(triggerChanged:) name:QSTriggerChangedNotification object:nil];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(populateTypeMenu) name:QSPlugInLoadedNotification object:nil];
-
 		commandEditor = [[QSCommandBuilder alloc] init];
 		[self setCurrentSet:@"Custom Triggers"];
 	}
 	return self;
 }
+
 - (void)paneLoadedByController:(id)controller {
 	[optionsDrawer setParentWindow:[controller window]];
 	[optionsDrawer setLeadingOffset:48];
@@ -357,16 +357,9 @@
 	return [[[NSWorkspace sharedWorkspace] launchedApplications] valueForKey:@"NSApplicationName"];
 }
 
+// Enabling/disabling of the 'edit' button is done within the outlineClicked: method
 - (IBAction)editCommand:(id)sender {
-    // !!!:paulkohut:20100311
-    // if trigger is selected then edit the triggers command properties.  Otherwise ignore
-    // edit button press.  Note, this should be handled by the UI to disable the edit button
-    // if a trigger is not selected, however I could not find where to do in the code.
-
-    // [self editTriggerCommand:selectedTrigger callback:@selector(addSheetDidEnd:returnCode:contextInfo:)];
-
-    if([self selectedTrigger])
-        [self editTriggerCommand:selectedTrigger callback:@selector(editSheetDidEnd:returnCode:contextInfo:)];
+	[self editTriggerCommand:selectedTrigger callback:@selector(editSheetDidEnd:returnCode:contextInfo:)];
 }
 
 - (IBAction)showTriggerInfo:(id)sender {
@@ -453,7 +446,6 @@
 }
 
 - (IBAction)editTrigger:(id)sender {
-	NSLog(@"edit");
 	if ([triggerTable selectedRow] >= 0) {
 		[self editTriggerCommand:[triggerArray objectAtIndex:[triggerTable selectedRow]] callback:@selector(editSheetDidEnd:returnCode:contextInfo:) ];
 	}
@@ -480,7 +472,9 @@
 }
 
 - (IBAction)outlineClicked:(id)sender {
+	// User has deselected a row
     if( [triggerTable clickedColumn] == -1 ) {
+		[editButton setEnabled:NO];
 #ifdef DEBUG
 		NSLog(@"%@ with column == -1", NSStringFromSelector(_cmd));
 #endif
@@ -506,6 +500,7 @@
 		}
 	}
 	selectedRow = [triggerTable clickedRow];
+	[editButton setEnabled:YES];
 }
 
 - (void)updateTriggerArray {
