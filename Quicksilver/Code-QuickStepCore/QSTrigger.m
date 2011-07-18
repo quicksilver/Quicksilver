@@ -229,6 +229,7 @@
 	if (![[info objectForKey:@"enabled"] boolValue])
 		return;
     activated = flag;
+	[[QSHotKeyEvent hotKeyWithIdentifier:[[self info] objectForKey:kItemID]] setEnabled:flag];
 }
 
 - (BOOL)enabled {
