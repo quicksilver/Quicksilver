@@ -61,8 +61,9 @@ static NSMutableDictionary *hotKeyDictionary;
 	return [hotKeyDictionary objectForKey:anIdentifier];
 }
 + (QSHotKeyEvent *)hotKeyWithDictionary:(NSDictionary *)dict {
-	if (![dict objectForKey:@"keyCode"]) return nil;
-	if (![dict objectForKey:@"modifiers"]) return nil;
+	if (![dict objectForKey:@"keyCode"] || ![dict objectForKey:@"modifiers"]) {
+		return nil;
+	}
 
 	return (QSHotKeyEvent *)[self getHotKeyForKeyCode:[[dict objectForKey:@"keyCode"] shortValue] character:[[dict objectForKey:@"character"] characterAtIndex:0] modifierFlags:[[dict objectForKey:@"modifiers"] unsignedIntValue]];
 }
