@@ -82,7 +82,7 @@
 }
 
 - (void)willUnselect {
-	[[QSTriggerCenter sharedInstance] writeTriggersNow];
+	[[QSTriggerCenter sharedInstance] writeTriggers];
     [optionsDrawer close];
 }
 - (int)tabViewIndex {
@@ -369,6 +369,7 @@
 }
 
 - (IBAction)hideTriggerInfo:(id)sender {
+	[[QSTriggerCenter sharedInstance] writeTriggers];
     [optionsDrawer close:sender];    
 }
 
