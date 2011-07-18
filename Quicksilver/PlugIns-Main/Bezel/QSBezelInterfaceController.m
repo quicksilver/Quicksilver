@@ -5,12 +5,10 @@
 #import <QSInterface/QSObjectCell.h>
 #import <QSEffects/QSWindow.h>
 
-// added by RCS
 #import "QSMenuButton.h"
 
 @implementation QSBezelInterfaceController
 
-// added by RCS
 - (IBAction)qsMenuButtonPressed:(id)sender {
     [qsMenuButton qsMenuButtonWasPressed];
 }

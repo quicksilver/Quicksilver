@@ -18,7 +18,6 @@
 
 #import "QSObject_Menus.h"
 
-// added by RCS
 #import "QSMenuButton.h"
 
 #define MAX_VISIBLE_COLUMNS 4
@@ -655,7 +654,6 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 
-// added by RCS
 // this calls the generic handler defined for all QSMenuButton objects
 - (IBAction)searchModeMenuButtonPressed:(id)sender {
     [searchModeMenuButton qsMenuButtonWasPressed];

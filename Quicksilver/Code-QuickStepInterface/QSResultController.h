@@ -4,7 +4,6 @@
 
 @class QSObjectView, QSSearchObjectView;
 
-// added by RCS
 @class QSMenuButton;
 
 @interface QSResultController : NSWindowController
@@ -24,8 +23,7 @@
 	IBOutlet NSTextField *	resultCountField;
 	IBOutlet NSMenu *searchModeMenu;
 
-    // added by RCS
-    // I added an outlet for the search mode menu button. I made the corresponding assignment within the ResultWindow.xib file in Interface Builder.
+    // Outlet for the search mode menu button. Corresponding assignment is made within the ResultWindow.xib file in Interface Builder.
     IBOutlet QSMenuButton *searchModeMenuButton;
     
     int selectedResult;
@@ -56,7 +54,6 @@
 - (IBAction)omitItem:(id)sender;
 - (IBAction)assignAbbreviation:(id)sender;
 
-// added by RCS
 // event handler triggered by searchModeMenuButton - this link is made in Interface Builder
 - (IBAction)searchModeMenuButtonPressed:(id)sender;
 

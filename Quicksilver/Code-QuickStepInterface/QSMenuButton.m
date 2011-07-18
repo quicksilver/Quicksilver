@@ -2,14 +2,13 @@
 
 @implementation QSMenuButton
 
-// added by RCS
 // This is an event handler triggered by activating the button. Using mouseDown: meant that the button could not be activated using the keyboard.
 - (void)qsMenuButtonWasPressed {
     [[self cell] setHighlighted:YES];
 	[NSMenu popUpContextMenu:[self menu] withEvent:[NSEvent mouseEventWithType:NSRightMouseDown location:[self convertPoint:NSMakePoint(menuOffset.x, menuOffset.y+NSHeight([self frame]) +4) toView:nil] modifierFlags:0 timestamp:0 windowNumber:[[self window] windowNumber] context:nil eventNumber:0 clickCount:1 pressure:0] forView: self];
 	[[self cell] setHighlighted:NO];
     
-    // added by RCS
+    // notify assistive technologies that something happened
     NSAccessibilityPostNotification([self menu], NSAccessibilityFocusedWindowChangedNotification);
 }
 
@@ -22,8 +21,7 @@
 	[NSMenu popUpContextMenu:[self menu] withEvent:[NSEvent mouseEventWithType:NSRightMouseDown location:[self convertPoint:NSMakePoint(menuOffset.x, menuOffset.y+NSHeight([self frame]) +4) toView:nil] modifierFlags:0 timestamp:0 windowNumber:[[self window] windowNumber] context:nil eventNumber:0 clickCount:1 pressure:0] forView: self];
 	[[self cell] setHighlighted:NO];
 */
-    // added by RCS
-    // I moved the code above into the button activation handler.
+    // Code that used to be in this function was moved into the button activation handler above.
     [self qsMenuButtonWasPressed];
 }
 - (void)drawRect:(NSRect)rect {

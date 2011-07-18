@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Bezel Interface.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>Core Support.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>13</integer>
+		</dict>
+		<key>Finder Module.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+		<key>HotKey Triggers.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>12</integer>
+		</dict>
+		<key>Preflight.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+		<key>Primer Interface.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>10</integer>
+		</dict>
+		<key>QSDroplet.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>QSScriptingDictionary.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>QuickStep Core.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
+		<key>QuickStep Effects.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
+		<key>QuickStep Foundation.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>QuickStep Interface.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
+		<key>Quicksilver Distribution.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>Quicksilver.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>11</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>4D002D011311465B009040B7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4D002D60131148C2009040B7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4D002D87131149A3009040B7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4D002DAC13114A2E009040B7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7F039992080EE210001A9FA3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7F0399E9080EE58D001A9FA3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7F9703CF09AFEE8700E9EA77</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8D1107260486CEB800E47090</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E103F15F0647200700447FE0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E1A5676506FFDD8700BAD045</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E1B5F2AB06573C2900FCFBE2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E1E5F97107B1FCFC0044D6EF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E1E5F9B107B1FD100044D6EF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E1E5F9C707B1FEC50044D6EF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
