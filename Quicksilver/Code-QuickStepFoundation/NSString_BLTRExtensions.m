@@ -368,14 +368,15 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 		alternatePath = [NSString stringWithFormat:@"%@ %d.%@", basePath, i, extension];
 	return alternatePath;
 }
-+ (NSData *)dataFromString:(NSString *)htmlString forType:(NSString *)type {
++ (NSData *)dataForObject:(id)object forType:(NSString *)type {
+	// the string's link (only different from the title if it contains the mailto: prefix)
+	NSString *linkString = [object objectForType:NSURLPboardType];
+	// the string's title
+	NSString *titleString = [object stringValue];
 	
 	// Dict containing the attributed string's attributes (most notably, a link)
-	NSDictionary *attStringAttributes = [NSDictionary dictionaryWithObject:[NSURL URLWithString:[htmlString URLEncoding]]
+	NSDictionary *attStringAttributes = [NSDictionary dictionaryWithObject:[NSURL URLWithString:[linkString URLEncoding]]
 																	forKey:NSLinkAttributeName];
-	
-	// create a different string for the link name (remove the mailto)
-	NSString *titleString =([htmlString hasPrefix:@"mailto:"]) ?[htmlString substringFromIndex:7] :htmlString;
 	
 	// create the attributed string
 	NSAttributedString *attString = [[NSAttributedString alloc] initWithString:titleString attributes:attStringAttributes];
