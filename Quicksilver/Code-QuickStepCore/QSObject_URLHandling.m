@@ -149,7 +149,7 @@
 		}
 		if ([urlString hasPrefix:@"mailto:"]) {
 			NSString *email = [urlString substringWithRange:NSMakeRange(7, [urlString length] -7)];
-			[self setObject:[NSArray arrayWithObject:email] forType:QSEmailAddressType];
+			[self setObject:email forType:QSEmailAddressType];
 			[self setObject:email forType:QSTextType];
 			[self setPrimaryType:QSEmailAddressType];
 		} else {
