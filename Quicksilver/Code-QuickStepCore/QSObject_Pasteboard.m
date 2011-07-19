@@ -239,6 +239,11 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 		types = [[[typeSet allObjects] mutableCopy] autorelease];
 	}
 	
+	if (![types containsObject:NSStringPboardType]) {
+		[(NSMutableArray *)types addObject:NSStringPboardType];
+		[[self dataDictionary] setObject:[self stringValue] forKey:NSStringPboardType];
+	}
+	
 	// define the types to be included on the pasteboard
 	if (!includeTypes) {
 		if ([types containsObject:NSFilenamesPboardType])
@@ -250,6 +255,11 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 		else if ([types containsObject:NSColorPboardType])
 			includeTypes = [NSArray arrayWithObject:NSColorPboardType];
 	}
+	
+	if (!includeTypes) {
+		includeTypes = [NSArray arrayWithObject:NSStringPboardType];
+	}
+
 	[pboard declareTypes:types owner:self];
 	/*
 	 // ***warning  ** Should add additional information for file items	 if ([paths count] == 1) {
@@ -264,12 +274,13 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 		// add the RTF and HTML types to the list of types
 		types = [types arrayByAddingObjectsFromArray:[NSArray arrayWithObjects:NSHTMLPboardType,NSRTFPboardType,nil]];
 		// Create the HTML and RTF data
-		NSData *htmlData = [NSString dataFromString:[self stringValue] forType:NSHTMLPboardType];
-		NSData *rtfData = [NSString dataFromString:[self stringValue] forType:NSRTFPboardType];
+		NSData *htmlData = [NSString dataForObject:self forType:NSHTMLPboardType];
+		NSData *rtfData = [NSString dataForObject:self forType:NSRTFPboardType];
 		// Add the HTML and RTF data to the object's data dictionary
 		[[self dataDictionary] setObject:htmlData forKey:NSHTMLPboardType];	
 		[[self dataDictionary] setObject:rtfData forKey:NSRTFPboardType];
 	}
+	
 	for (NSString *thisType in includeTypes) {
 		if ([types containsObject:thisType]) {
 			// NSLog(@"includedata, %@", thisType);
