@@ -169,14 +169,14 @@
 	
 	
 - (NSString *)stringValue {
-	if ([self containsType:QSTextType]) {
-		return [self objectForType:QSTextType];
-	}
 	if ([self containsType:QSEmailAddressType]) {
 		return [self objectForType:QSEmailAddressType];
 	}
 	if ([self containsType:QSURLType]) {
 		return [self objectForType:QSURLType];
+	}
+	if ([self containsType:QSTextType]) {
+		return [self objectForType:QSTextType];
 	}
 	return [self displayName];
 }
