@@ -359,17 +359,19 @@
 	return [[[NSWorkspace sharedWorkspace] launchedApplications] valueForKey:@"NSApplicationName"];
 }
 
-// Enabling/disabling of the 'edit' button is done within the outlineClicked: method
+// Enabling/disabling of the 'edit' button is done programmatically within the outlineClicked: method
 - (IBAction)editCommand:(id)sender {
 	[self editTriggerCommand:selectedTrigger callback:@selector(editSheetDidEnd:returnCode:contextInfo:)];
 }
+
 
 - (IBAction)showTriggerInfo:(id)sender {
     [optionsDrawer open:sender];
 }
 
+// Called when a trigger's info panel is closed
 - (IBAction)hideTriggerInfo:(id)sender {
-	[[QSTriggerCenter sharedInstance] writeTriggers];
+	[[QSTriggerCenter sharedInstance] triggerChanged:selectedTrigger];
     [optionsDrawer close:sender];    
 }
 
