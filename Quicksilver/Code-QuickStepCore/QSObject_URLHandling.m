@@ -147,11 +147,13 @@
 			// a plain string (host or FQDN?) was passed - add a scheme prefix
 			[self setObject:[@"http://" stringByAppendingString:urlString] forType:QSURLType];
 		}
-		[self setObject:urlString forType:QSTextType];
 		if ([urlString hasPrefix:@"mailto:"]) {
-			[self setObject:[NSArray arrayWithObject:[urlString substringWithRange:NSMakeRange(7, [urlString length] -7)]] forType:QSEmailAddressType];
+			NSString *email = [urlString substringWithRange:NSMakeRange(7, [urlString length] -7)];
+			[self setObject:email forType:QSEmailAddressType];
+			[self setObject:email forType:QSTextType];
 			[self setPrimaryType:QSEmailAddressType];
 		} else {
+			[self setObject:urlString forType:QSTextType];
 			[self setPrimaryType:QSURLType];
 		}
 }
