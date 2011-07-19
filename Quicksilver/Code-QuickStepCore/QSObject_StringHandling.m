@@ -169,17 +169,16 @@
 	
 	
 - (NSString *)stringValue {
-	NSString *string = [self objectForType:QSTextType];
-	//NSLog(@"string %@", string);
-	// ***warning  * should convert other objects to strings
-
-	if (!string)
-		string = [self objectForType:QSURLType];
-
-	// NSLog(string);
-	if (!string) string = [self displayName];
-
-	return string;
+	if ([self containsType:QSTextType]) {
+		return [self objectForType:QSTextType];
+	}
+	if ([self containsType:QSEmailAddressType]) {
+		return [self objectForType:QSEmailAddressType];
+	}
+	if ([self containsType:QSURLType]) {
+		return [self objectForType:QSURLType];
+	}
+	return [self displayName];
 }
 
 @end
