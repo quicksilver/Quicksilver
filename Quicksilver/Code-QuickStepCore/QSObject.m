@@ -227,26 +227,7 @@ NSSize QSMaxIconSize;
 		return [NSArray arrayWithObject:self];
 	}
 	
-	NSDictionary *dataDict = [self dataDictionary];
-
-	NSMutableArray *splitObjects = [NSMutableArray array];
-	NSArray *value;
-
-	//int resultCount = 0;
-	int i;
-
-	for(NSString *key in dataDict) {
-		value = [dataDict objectForKey:key];
-		if ([value isKindOfClass:[NSArray class]]) {
-			while([splitObjects count] <[value count])
-				[splitObjects addObject:[QSObject objectWithName:[self name]]];
-			for (i = 0; i<[value count]; i++) {
-				[[splitObjects objectAtIndex:i] setObject:[value objectAtIndex:i] forType:key];
-			}
-		} else {
-		}
-	}
-	return splitObjects;
+	return [self objectForCache:kQSObjectComponents];
 }
 
 // Method to merge objects into a single 'combined' object
