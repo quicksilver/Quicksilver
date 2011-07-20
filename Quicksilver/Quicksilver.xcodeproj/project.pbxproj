@@ -58,6 +58,7 @@
 		2E34EDA2134C9EEE005E66A1 /* NTViewLocalizer.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E3CB950653BE030026BAF2 /* NTViewLocalizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2E34EDAA134C9F25005E66A1 /* QSLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F0843CC098ACB2F00F136CC /* QSLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2E34EDD5134CA14F005E66A1 /* NSStatusItem_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA9307B204BE0044D6EF /* NSStatusItem_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2E3B550013B3566B00130C11 /* dragToTrash.aif in Resources */ = {isa = PBXBuildFile; fileRef = 2E3B54FF13B3566B00130C11 /* dragToTrash.aif */; };
 		2E476B80135C408400F67250 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D002C9D131145DD009040B7 /* Localizable.strings */; };
 		2E476B81135C408E00F67250 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D002CE613114628009040B7 /* Localizable.strings */; };
 		4D002D4C1311476B009040B7 /* QSBezelInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D002CA2131145DD009040B7 /* QSBezelInterfaceController.m */; };
@@ -885,6 +886,7 @@
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		2E3B54FF13B3566B00130C11 /* dragToTrash.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = dragToTrash.aif; sourceTree = "<group>"; };
 		423DA027132F7A65005ED70F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSAction.name.strings; sourceTree = "<group>"; };
 		423DA028132F7A6B005ED70F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/QSAction.name.strings; sourceTree = "<group>"; };
 		4249366E13A15E3E008A933B /* ChangesBare.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ChangesBare.html; sourceTree = "<group>"; };
@@ -1871,6 +1873,7 @@
 		7F840FC7096C3356006E6F0E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2E3B54FF13B3566B00130C11 /* dragToTrash.aif */,
 				7F841BB5096CCCBF006E6F0E /* Rocket.png */,
 				7F840FC8096C3356006E6F0E /* QSAction.description.strings */,
 				7F840FCA096C3356006E6F0E /* QSAction.name.strings */,
@@ -3305,6 +3308,7 @@
 				7F840FF3096C3356006E6F0E /* Preferences.strings in Resources */,
 				7F841BB6096CCCBF006E6F0E /* Rocket.png in Resources */,
 				D4A43887137CCF0300F15F7F /* QSURLExtractor.py in Resources */,
+				2E3B550013B3566B00130C11 /* dragToTrash.aif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
