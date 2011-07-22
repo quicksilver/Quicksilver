@@ -306,6 +306,7 @@
 		D493990D1350078E00B908C6 /* QSDownloads.h in Headers */ = {isa = PBXBuildFile; fileRef = D49399091350078E00B908C6 /* QSDownloads.h */; };
 		D493990E1350078E00B908C6 /* QSDownloads.m in Sources */ = {isa = PBXBuildFile; fileRef = D493990A1350078E00B908C6 /* QSDownloads.m */; };
 		D4A43887137CCF0300F15F7F /* QSURLExtractor.py in Resources */ = {isa = PBXBuildFile; fileRef = D4A4383B137CCCF500F15F7F /* QSURLExtractor.py */; };
+		D4B1E9EA1396C0E500AF68A7 /* BeautifulSoup.py in Resources */ = {isa = PBXBuildFile; fileRef = D4B1E9E91396C0E500AF68A7 /* BeautifulSoup.py */; };
 		E102347106BB6CC900143367 /* Find.icns in Resources */ = {isa = PBXBuildFile; fileRef = E102347006BB6CC900143367 /* Find.icns */; };
 		E102F9BD06625D7400843027 /* About.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F97C06625D7300843027 /* About.xib */; };
 		E102F9BE06625D7400843027 /* QSCatalog.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F97D06625D7300843027 /* QSCatalog.xib */; };
@@ -1211,6 +1212,7 @@
 		D49399091350078E00B908C6 /* QSDownloads.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDownloads.h; sourceTree = "<group>"; };
 		D493990A1350078E00B908C6 /* QSDownloads.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDownloads.m; sourceTree = "<group>"; };
 		D4A4383B137CCCF500F15F7F /* QSURLExtractor.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = QSURLExtractor.py; sourceTree = "<group>"; };
+		D4B1E9E91396C0E500AF68A7 /* BeautifulSoup.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = BeautifulSoup.py; sourceTree = "<group>"; };
 		E102347006BB6CC900143367 /* Find.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Find.icns; sourceTree = "<group>"; };
 		E102F97C06625D7300843027 /* About.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = About.xib; sourceTree = "<group>"; };
 		E102F97D06625D7300843027 /* QSCatalog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSCatalog.xib; sourceTree = "<group>"; };
@@ -1959,6 +1961,7 @@
 		E103EC5006471DBE00447FE0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D4B1E9E91396C0E500AF68A7 /* BeautifulSoup.py */,
 				D4A4383B137CCCF500F15F7F /* QSURLExtractor.py */,
 				7F4AD9150A4DA3D1002A2A1B /* Guide.html */,
 				7FDBC51E0A02DB0700E496FF /* DefaultsMap.plist */,
@@ -3305,6 +3308,7 @@
 				7F840FF3096C3356006E6F0E /* Preferences.strings in Resources */,
 				7F841BB6096CCCBF006E6F0E /* Rocket.png in Resources */,
 				D4A43887137CCF0300F15F7F /* QSURLExtractor.py in Resources */,
+				D4B1E9EA1396C0E500AF68A7 /* BeautifulSoup.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -22,7 +22,7 @@
 - (NSArray *)objectsFromPath:(NSString *)path withSettings:(NSDictionary *)settings {
 	path = [path stringByStandardizingPath];
 	NSData *data = [NSData dataWithContentsOfFile:path];
-	return [self objectsFromData:data encoding:0 settings:settings source:[NSURL fileURLWithPath:path]];
+	return [self objectsFromData:data encoding:NSUTF8StringEncoding settings:settings source:[NSURL fileURLWithPath:path]];
 }
 
 - (NSArray *)objectsFromURL:(NSURL *)url withSettings:(NSDictionary *)settings {
@@ -33,7 +33,7 @@
 															cachePolicy:NSURLRequestUseProtocolCachePolicy
 														timeoutInterval:10.0];
 	[theRequest setValue:kQSUserAgent forHTTPHeaderField:@"User-Agent"];
-	NSStringEncoding encoding = 0;
+	NSStringEncoding encoding = NSUTF8StringEncoding;
 
 	NSURLResponse *response = nil;
 	//if (VERBOSE) NSLog(@"Downloading from %@", url);
