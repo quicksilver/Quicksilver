@@ -18,8 +18,8 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	return nil;
 }
 
+// writes the selected data to the general pasteboard
 bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) {
-	//NSArray *plistTypes = [NSArray arrayWithObjects:NSFilenamesPboardType, @"ABPeopleUIDsPboardType", @"WebURLsWithTitlesPboardType", nil];
 	if ([NSURLPboardType isEqualToString:type]) {
 		[[NSURL URLWithString:data] writeToPasteboard:pasteboard];
 		[pasteboard addTypes:[NSArray arrayWithObject:NSStringPboardType] owner:nil];
@@ -217,27 +217,49 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 	}
 }
 
+- (BOOL)putOnPasteboardAsPlainTextOnly:(NSPasteboard *)pboard {
+	NSArray *types = [NSArray arrayWithObject:NSStringPboardType];
+	[pboard declareTypes:types owner:nil];
+	NSString *string = [self stringValue];
+	[pboard setString:string forType:NSStringPboardType];
+	return YES;
+}
+
+// Declares the types that should be put on the pasteboard
 - (BOOL)putOnPasteboard:(NSPasteboard *)pboard declareTypes:(NSArray *)types includeDataForTypes:(NSArray *)includeTypes {
 	if (!types) {
-	  types = [[[[self dataDictionary] allKeys] mutableCopy] autorelease];
-	  if ([types containsObject:QSProxyType])
-        [(NSMutableArray *)types addObjectsFromArray:[[[self resolvedObject] dataDictionary] allKeys]];
+		// get the different pboard types from the object's data dictionary -- they're all stored here
+		types = [[[[self dataDictionary] allKeys] mutableCopy] autorelease];
+		if ([types containsObject:QSProxyType])
+			[(NSMutableArray *)types addObjectsFromArray:[[[self resolvedObject] dataDictionary] allKeys]];
 	}
 	else {
 		NSMutableSet *typeSet = [NSMutableSet setWithArray:types];
 		[typeSet intersectSet:[NSSet setWithArray:[[self dataDictionary] allKeys]]];
 		types = [[[typeSet allObjects] mutableCopy] autorelease];
 	}
-
+	// If there's no string type for the object, we need to set one
+	if (![types containsObject:NSStringPboardType]) {
+		[(NSMutableArray *)types addObject:NSStringPboardType];
+		[[self dataDictionary] setObject:[self stringValue] forKey:NSStringPboardType];
+	}
+	
+	// define the types to be included on the pasteboard
 	if (!includeTypes) {
 		if ([types containsObject:NSFilenamesPboardType])
 			includeTypes = [NSArray arrayWithObject:NSFilenamesPboardType];
-//			[pboard declareTypes:includeTypes owner:self];
+		//			[pboard declareTypes:includeTypes owner:self];
 		else if ([types containsObject:NSURLPboardType])
-			includeTypes = [NSArray arrayWithObject:NSURLPboardType];
+			// for urls, define plain text, rtf and html
+			includeTypes = [NSArray arrayWithObjects:NSURLPboardType,NSHTMLPboardType,NSRTFPboardType,nil];
 		else if ([types containsObject:NSColorPboardType])
 			includeTypes = [NSArray arrayWithObject:NSColorPboardType];
 	}
+	// last case: no other useful types: return a basic string
+	if (!includeTypes) {
+		includeTypes = [NSArray arrayWithObject:NSStringPboardType];
+	}
+
 	[pboard declareTypes:types owner:self];
 	/*
 	 // ***warning  ** Should add additional information for file items	 if ([paths count] == 1) {
@@ -246,6 +268,19 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 	 }
 	 */
 	//  NSLog(@"declareTypes: %@", [types componentsJoinedByString:@", "]);
+	
+	// For URLs, create the RTF and HTML data to be stored in the clipboard
+	if ([types containsObject:NSURLPboardType]) {
+		// add the RTF and HTML types to the list of types
+		types = [types arrayByAddingObjectsFromArray:[NSArray arrayWithObjects:NSHTMLPboardType,NSRTFPboardType,nil]];
+		// Create the HTML and RTF data
+		NSData *htmlData = [NSString dataForObject:self forType:NSHTMLPboardType];
+		NSData *rtfData = [NSString dataForObject:self forType:NSRTFPboardType];
+		// Add the HTML and RTF data to the object's data dictionary
+		[[self dataDictionary] setObject:htmlData forKey:NSHTMLPboardType];	
+		[[self dataDictionary] setObject:rtfData forKey:NSRTFPboardType];
+	}
+	
 	for (NSString *thisType in includeTypes) {
 		if ([types containsObject:thisType]) {
 			// NSLog(@"includedata, %@", thisType);
@@ -254,9 +289,9 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 	}
 	if ([self identifier]) {
 		[pboard addTypes:[NSArray arrayWithObject:@"QSObjectID"] owner:self];
-		writeObjectToPasteboard(pboard, @"QSObjectID", [self identifier]);
+		writeObjectToPasteboard(pboard, @"QSObjectID", [self stringValue]);
 	}
-
+	
 	[pboard addTypes:[NSArray arrayWithObject:@"QSObjectAddress"] owner:self];
 	//  NSLog(@"types %@", [pboard types]);
 	return YES;

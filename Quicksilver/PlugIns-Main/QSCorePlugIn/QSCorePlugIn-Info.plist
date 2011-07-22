@@ -563,6 +563,23 @@
 			<key>precedence</key>
 			<real>-0.5</real>
 		</dict>
+		<key>PasteboardPasteActionAsPlainText</key>
+		<dict>
+			<key>actionClass</key>
+			<string>ClipboardActions</string>
+			<key>actionSelector</key>
+			<string>pasteObjectAsPlainText:</string>
+			<key>directTypes</key>
+			<array>
+				<string>*</string>
+			</array>
+			<key>enabled</key>
+			<true/>
+			<key>icon</key>
+			<string>Clipboard</string>
+			<key>precedence</key>
+			<real>-0.5</real>
+		</dict>
 		<key>PasteboardPasteAction</key>
 		<dict>
 			<key>actionClass</key>
@@ -579,6 +596,8 @@
 			<string>Clipboard</string>
 			<key>precedence</key>
 			<real>-0.5</real>
+			<key>alternateAction</key>
+			<string>PasteboardPasteActionAsPlainText</string>
 		</dict>
 		<key>QSCatalogEntryRescanAction</key>
 		<dict>

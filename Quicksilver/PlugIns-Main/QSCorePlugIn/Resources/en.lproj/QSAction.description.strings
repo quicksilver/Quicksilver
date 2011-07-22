@@ -62,6 +62,8 @@
 	<string>IM item to a contact</string>
 	<key>PasteboardPasteAction</key>
 	<string>Paste this object to the current application</string>
+	<key>PasteboardPasteActionAsPlainText</key>
+	<string>Paste this object as plain text to the current application</string>
 	<key>ProcessKillAction</key>
 	<string>Force an application to quit</string>
 	<key>ProcessResumeAction</key>
