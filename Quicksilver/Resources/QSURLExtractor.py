@@ -27,6 +27,9 @@ if __name__ == '__main__':
     page = ''.join([line for line in fileinput.input()])
     soup = BeautifulSoup(page)
     for link in soup.findAll('a', href=True):
+        ## skip useless links
+        if link['href'] == '' or link['href'].startswith('#'):
+            continue
         ## initialize the link
         thisLink = {
             'url': link['href'],
@@ -52,9 +55,9 @@ if __name__ == '__main__':
             span = link.find('span')
             if span:
                 thisLink['title'] = span.string
-            else:
-                ## if there's *still* no title (empty <a></a> tag), fall back to the URL
-                thisLink['title'] = path.basename(link['href'])
+        if thisLink['title'] is None:
+            ## if there's *still* no title (empty tag), fall back to the URL
+            thisLink['title'] = path.basename(link['href'])
         ## convert to something immutable for storage
         hashableLink = (thisLink['url'].strip(),
                         thisLink['title'].strip(),
