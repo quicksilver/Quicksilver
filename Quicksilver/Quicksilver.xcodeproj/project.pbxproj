@@ -301,6 +301,7 @@
 		CD3F9ECC13619CE00013FCB7 /* UKMainThreadProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FA4ED4609132402007DB407 /* UKMainThreadProxy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD3F9ECD13619CE00013FCB7 /* UKKQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FA4ED4409132402007DB407 /* UKKQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD3F9ECE13619CE00013FCB7 /* UKFileWatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FA4ED4009132402007DB407 /* UKFileWatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CDC9C6C513DA2B6D0053B09C /* Clipboard.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDC9C6C413DA2B6D0053B09C /* Clipboard.icns */; };
 		CDCC201010A4C14B009C4EED /* QSMDPredicate.h in Headers */ = {isa = PBXBuildFile; fileRef = CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDCC201110A4C14B009C4EED /* QSMDPredicate.m in Sources */ = {isa = PBXBuildFile; fileRef = CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */; };
 		D493990D1350078E00B908C6 /* QSDownloads.h in Headers */ = {isa = PBXBuildFile; fileRef = D49399091350078E00B908C6 /* QSDownloads.h */; };
@@ -1206,6 +1207,7 @@
 		92DC402B0E25A0C40091BD92 /* Action.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Action.png; sourceTree = "<group>"; };
 		92E946170D04CCEF0013377F /* QSModifierKeyEvents.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSModifierKeyEvents.h; sourceTree = "<group>"; };
 		92E946180D04CCEF0013377F /* QSModifierKeyEvents.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSModifierKeyEvents.m; sourceTree = "<group>"; };
+		CDC9C6C413DA2B6D0053B09C /* Clipboard.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Clipboard.icns; sourceTree = "<group>"; };
 		CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSMDPredicate.h; sourceTree = "<group>"; };
 		CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSMDPredicate.m; sourceTree = "<group>"; };
 		D49399091350078E00B908C6 /* QSDownloads.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDownloads.h; sourceTree = "<group>"; };
@@ -1871,6 +1873,7 @@
 		7F840FC7096C3356006E6F0E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CDC9C6C413DA2B6D0053B09C /* Clipboard.icns */,
 				7F841BB5096CCCBF006E6F0E /* Rocket.png */,
 				7F840FC8096C3356006E6F0E /* QSAction.description.strings */,
 				7F840FCA096C3356006E6F0E /* QSAction.name.strings */,
@@ -3305,6 +3308,7 @@
 				7F840FF3096C3356006E6F0E /* Preferences.strings in Resources */,
 				7F841BB6096CCCBF006E6F0E /* Rocket.png in Resources */,
 				D4A43887137CCF0300F15F7F /* QSURLExtractor.py in Resources */,
+				CDC9C6C513DA2B6D0053B09C /* Clipboard.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
