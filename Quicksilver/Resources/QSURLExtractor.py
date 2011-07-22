@@ -56,8 +56,8 @@ if __name__ == '__main__':
             if span:
                 thisLink['title'] = span.string
         if thisLink['title'] is None:
-            ## if there's *still* no title (empty tag), fall back to the URL
-            thisLink['title'] = path.basename(link['href'])
+            ## if there's *still* no title (empty tag), skip it
+            continue
         ## convert to something immutable for storage
         hashableLink = (thisLink['url'].strip(),
                         thisLink['title'].strip(),
