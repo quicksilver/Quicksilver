@@ -1,4 +1,4 @@
-About Quicksilver B5X on Github
+About Quicksilver ß6X on Github
 ===============================
 
 This repository contains the current source code of Quicksilver. If you're having issues with the latest Quicksilver version, feel free to log them at the [issue tracker](https://github.com/quicksilver/Quicksilver/issues). 
@@ -92,8 +92,8 @@ For a more comprehensive list take a look at the commit messages.
 * Various other housekeeping tasks.
 
 
-Notes Specific to Snow Leopard
-------------------------------
+Notes Specific to Snow Leopard and Lion
+---------------------------------------
 
 Snow Leopard has a reworked Services system. This is relevant because preferences like *"Pull selection from front application instead of Finder"* (`Preferences > Extras`) make use of two services called *"Get Current Selection"* and *"Send to Quicksilver"*. 
 
