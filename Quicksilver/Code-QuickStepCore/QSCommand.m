@@ -316,7 +316,6 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
         object = [QSObject objectWithDictionary:[[self commandDict] objectForKey:@"directArchive"]];
     }
 
-	[self setDirectObject:object];
 
     if (!object)
         object = [QSObject fileObjectWithPath:[QSRez pathWithLocatorInformation:[cmdDict objectForKey:@"directResource"]]];
@@ -324,6 +323,9 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	// For cases where we really can't determine the object
 	if (!object) {
 		NSLog(@"Warning: no direct object for Command %@\nCommand Dictionary: %@", self, cmdDict);
+	}
+	if (object) {
+		[self setDirectObject:object];
 	}
     return object;
 }
@@ -350,13 +352,13 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	if (!object) {
         object = [QSObject objectWithDictionary:[[self commandDict] objectForKey:@"indirectArchive"]];
     }
-	
-	[self setIndirectObject:object];
-	
+		
 	if (!object) {
 		object = [QSObject fileObjectWithPath:[QSRez pathWithLocatorInformation:[cmdDict objectForKey:@"indirectResource"]]];
 	}
-	
+	if (object) {
+		[self setIndirectObject:object];
+	}
 	return object;
 }
 
