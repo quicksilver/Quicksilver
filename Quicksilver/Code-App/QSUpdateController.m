@@ -213,7 +213,7 @@
 }
 
 - (IBAction)threadedRequestedCheckForUpdate:(id)sender {
-	[self threadedCheckForUpdates:mOptionKeyIsDown];
+	[self threadedCheckForUpdates:YES];
 }
 
 - (void)installAppUpdate {
