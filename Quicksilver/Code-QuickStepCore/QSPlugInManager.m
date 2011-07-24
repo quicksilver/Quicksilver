@@ -153,7 +153,7 @@
 	NSArray *webPlugIns = [[knownPlugIns allValues] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isSecret == 1"]];
 	NSArray *secretIdentifiers = [webPlugIns valueForKey:@"identifier"];
 	if ([secretIdentifiers count]) {
-		[query addObject:[NSString stringWithFormat:@"sids=%@", [secretIdentifiers componentsJoinedByString:@", "]]];
+		[query addObject:[NSString stringWithFormat:@"sids=%@", [secretIdentifiers componentsJoinedByString:@","]]];
 	}
 
 	fetchURLString = [fetchURLString stringByAppendingFormat:@"?%@", [query componentsJoinedByString:@"&"]];
