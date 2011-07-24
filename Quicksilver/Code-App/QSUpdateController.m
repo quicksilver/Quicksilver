@@ -67,19 +67,6 @@
 	}
 }
 
-- (BOOL)networkIsReachable {
-    /* FIXME: Hard to get right */
-    return YES;
-	BOOL success = NO;
-	SCNetworkConnectionFlags reachabilityStatus;
-	success = SCNetworkCheckReachabilityByName("www.apple.com", &reachabilityStatus);
-	success = (success && (reachabilityStatus & 3) );
-#ifdef DEBUG
-	if (VERBOSE) NSLog(@"Blacktree reachable: %d", reachabilityStatus);
-#endif
-	return success;
-}
-
 - (NSURL *)buildUpdateCheckURL {
 	NSString *checkURL = [[[NSProcessInfo processInfo] environment] objectForKey:@"QSCheckUpdateURL"];
     if (!checkURL)
@@ -141,17 +128,6 @@
 - (BOOL)checkForUpdatesInBackground:(BOOL)quiet force:(BOOL)force {
 	[[QSTaskController sharedInstance] updateTask:@"Check for Update" status:@"Check for Update" progress:-1];
     BOOL updated = NO;
-    BOOL reachable = [self networkIsReachable];
-    if (!reachable) {
-        NSLog(@"Network unreacheable");
-        [[QSTaskController sharedInstance] removeTask:@"Check for Update"];
-        if (!quiet) {
-            int result = NSRunInformationalAlertPanel(@"Connection Error", @"Your internet connection does not appear to be active.", @"Cancel", @"Check Anyway", nil);
-            if (result == NSAlertDefaultReturn)
-                return NO;
-        } else
-            return NO;
-    }
 
     NSInteger check = [self checkForUpdates:force];
     [[QSTaskController sharedInstance] removeTask:@"Check for Update"];
