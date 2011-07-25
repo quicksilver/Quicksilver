@@ -743,7 +743,6 @@
 @end
 
 # define kPasteboardPasteAction @"PasteboardPasteAction"
-# define kPasteboardExpandAction @"PasteboardExpandAction"
 
 @implementation ClipboardActions
 - (QSObject *)copyObject:(QSObject *)dObject {
@@ -751,7 +750,25 @@
 	return nil;
 }
 - (QSObject *)pasteObject:(QSObject *)dObject {
-	if ([dObject putOnPasteboard:[NSPasteboard generalPasteboard]]) {
+	
+	[self pasteObject:dObject asPlainText:NO];
+	return nil;
+}
+- (QSObject *)pasteObjectAsPlainText:(QSObject *)dObject {
+
+	[self pasteObject:dObject asPlainText:YES];
+	return nil;
+}
+- (QSObject *)pasteObject:(QSObject *)dObject asPlainText:(BOOL)plainText {
+	
+	BOOL success;
+	if(plainText) {
+		success = [dObject putOnPasteboardAsPlainTextOnly:[NSPasteboard generalPasteboard]];
+	}
+	else {
+		success = [dObject putOnPasteboard:[NSPasteboard generalPasteboard]];
+	}
+	if(success) {
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"WindowsShouldHide" object:self];
 		[[NSApp keyWindow] orderOut:self];
 		QSForcePaste();
