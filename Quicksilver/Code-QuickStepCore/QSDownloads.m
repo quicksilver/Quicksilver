@@ -22,6 +22,7 @@
 	#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1060
 	if([NSApplication isSnowLeopard]) {
 		NSNumber *isDir;
+		NSNumber *isPackage;
 		NSURL *downloadsURL = [NSURL URLWithString:downloads];
 		// An array of the directory contents, keeping the isDirectory key, attributeModificationDate key and skipping hidden files
 		NSArray *contents = [manager contentsOfDirectoryAtURL:downloadsURL
@@ -29,6 +30,8 @@
 													  options:NSDirectoryEnumerationSkipsHiddenFiles
 														error:nil];
 		for (NSURL *downloadedFile in contents) {
+			NSError *err = nil;
+
 			NSString *fileExtension = [downloadedFile pathExtension];
 			if ([fileExtension isEqualToString:@"download"] ||
 				[fileExtension isEqualToString:@"part"] ||
@@ -36,15 +39,32 @@
 				[fileExtension isEqualToString:@"crdownload"]) {
 				continue;
 			}
-			if ([downloadedFile getResourceValue:&isDir forKey:NSURLIsDirectoryKey error:nil] && [isDir boolValue]) {
-				continue;
+			
+			// Do not show folders
+			if ([downloadedFile getResourceValue:&isDir forKey:NSURLIsDirectoryKey error:&err] && [isDir boolValue]) {
+				if (err != nil) {
+					NSLog(@"Error getting resource value for %@\nError: %@",downloadPath,err);
+					continue;
+				}
+				// Show packages (e.g. .app and .qsplugin packages)
+				if ([downloadedFile getResourceValue:&isPackage forKey:NSURLIsPackageKey error:&err] && ![isPackage boolValue]) {
+					if (err != nil) {
+						NSLog(@"Error getting resource value for %@\nError: %@",downloadPath,err);
+						continue;
+					}
+					continue;
+				}
 			}
-			downloadPath = [downloadedFile path];
+				downloadPath = [downloadedFile path];
 			if([manager fileExistsAtPath:[downloadPath stringByAppendingPathExtension:@"part"]]) {
 				continue;
 			}
 			// compare the modified date of the file with the most recent download file
-			[downloadedFile getResourceValue:&modified forKey:NSURLAttributeModificationDateKey error:nil];
+			[downloadedFile getResourceValue:&modified forKey:NSURLAttributeModificationDateKey error:&err];
+			if (err != nil) {
+				NSLog(@"Error getting resource value for %@\nError: %@",downloadPath,err);
+				continue;
+			}
 			if ([mostRecent compare:modified] == NSOrderedAscending) {
 				mostRecent = modified;
 				mrdpath = downloadPath;
