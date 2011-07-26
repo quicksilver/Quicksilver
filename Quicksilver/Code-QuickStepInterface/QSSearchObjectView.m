@@ -160,6 +160,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)saveMnemonic {
 	NSString *mnemonicKey = [self matchedString];
+	if (!mnemonicKey || [mnemonicKey isEqualToString:@""]) return;
 	QSObject *mnemonicValue = [self objectValue];
 	if ([mnemonicValue count] > 1) {
 		mnemonicValue = [[[self objectValue] splitObjects] lastObject];
@@ -167,13 +168,15 @@ NSMutableDictionary *bindingsDict = nil;
 
 	[[QSMnemonics sharedInstance] addObjectMnemonic:mnemonicKey forID:[mnemonicValue identifier]];
 	if (![self sourceArray]) { // don't add abbreviation if in a subsearch
-	    [[QSMnemonics sharedInstance] addAbbrevMnemonic:mnemonicKey forID:[mnemonicValue identifier] relativeToID:nil immediately:NO];
-    }
+		[[QSMnemonics sharedInstance] addAbbrevMnemonic:mnemonicKey forID:[mnemonicValue identifier] relativeToID:nil immediately:NO];
+	}
 
 	[mnemonicValue updateMnemonics];
 	[self rescoreSelectedItem];
 #ifdef DEBUG
-    NSLog(@"Added Mnemonic: %@", [self matchedString]);
+	if (VERBOSE) {
+		NSLog(@"Added Mnemonic: %@ for object: %@", [self matchedString], [mnemonicValue identifier]);
+	}
 #endif
 }
 
