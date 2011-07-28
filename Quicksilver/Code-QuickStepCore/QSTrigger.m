@@ -49,7 +49,9 @@
 }
 
 - (void)dealloc {
+#ifdef DEBUG
 	NSLog(@"dealloc %@", self);
+#endif
     [command release];
 	[info release];
 	[children release];
