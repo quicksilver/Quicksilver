@@ -122,7 +122,7 @@
     if (VERBOSE)
         NSLog(@"Installed Version: %@, Available Version: %@, Valid: %@, Force update: %@", thisVersionString, checkVersionString, (newVersionAvailable ? @"YES" : @"NO"), (force ? @"YES" : @"NO"));
 #endif
-    return (newVersionAvailable || force) ? 1 : 0;
+    return newVersionAvailable ? 1 : 0;
 }
 
 - (BOOL)checkForUpdatesInBackground:(BOOL)quiet force:(BOOL)force {
