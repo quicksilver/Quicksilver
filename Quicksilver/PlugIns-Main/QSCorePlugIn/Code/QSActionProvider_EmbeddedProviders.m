@@ -473,7 +473,7 @@
 													   &isSet);
 		if (val == 1 || !isSet) {
 			// play trash sound
-			CFURLRef soundURL = (CFURLRef)[NSURL fileURLWithPath:@"/System/Library/Components/CoreAudio.component/Contents/Resources/SystemSounds/dock/drag to trash.aif"];
+			CFURLRef soundURL = (CFURLRef)[NSURL fileURLWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"dragToTrash" ofType:@"aif"]];
 			SystemSoundID soundId;
 			AudioServicesCreateSystemSoundID(soundURL, &soundId);
 			AudioServicesPlaySystemSound(soundId);
@@ -503,7 +503,7 @@
 												   &isSet);
 	if (val == 1 || !isSet) {
 		// play trash sound
-		CFURLRef soundURL = (CFURLRef)[NSURL fileURLWithPath:@"/System/Library/Components/CoreAudio.component/Contents/Resources/SystemSounds/dock/drag to trash.aif"];
+		CFURLRef soundURL = (CFURLRef)[NSURL fileURLWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"dragToTrash" ofType:@"aif"]];
 		SystemSoundID soundId;
 		AudioServicesCreateSystemSoundID(soundURL, &soundId);
 		AudioServicesPlaySystemSound(soundId);
