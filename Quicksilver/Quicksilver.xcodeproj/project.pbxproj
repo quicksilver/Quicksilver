@@ -1877,6 +1877,7 @@
 		7F840FC7096C3356006E6F0E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2E3B54FF13B3566B00130C11 /* dragToTrash.aif */,
 				CDC9C6C413DA2B6D0053B09C /* Clipboard.icns */,
 				7F841BB5096CCCBF006E6F0E /* Rocket.png */,
 				7F840FC8096C3356006E6F0E /* QSAction.description.strings */,
@@ -3315,6 +3316,7 @@
 				D4A43887137CCF0300F15F7F /* QSURLExtractor.py in Resources */,
 				D4B1E9EA1396C0E500AF68A7 /* BeautifulSoup.py in Resources */,
 				CDC9C6C513DA2B6D0053B09C /* Clipboard.icns in Resources */,
+				2E3B550013B3566B00130C11 /* dragToTrash.aif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
