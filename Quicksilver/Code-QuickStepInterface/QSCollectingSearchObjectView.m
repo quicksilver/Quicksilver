@@ -57,6 +57,7 @@
 	if (!collecting) collecting = YES;
 	if ([super objectValue]) {
 		[collection addObject:[super objectValue]];
+        [[[super controller] dSelector] saveMnemonic];
 		[self setNeedsDisplay:YES];
 	}
 	[self setShouldResetSearchString:YES];
