@@ -114,7 +114,7 @@
 - (void)addObjectMnemonic:(NSString *)mnem forID:(NSString *)key {
 	if (!mnem) mnem = @"";
 
-	if (!key) return;
+	if (!key || [key isEqualToString:@""]) return;
 	NSMutableDictionary *objectEntry;
 	if (!(objectEntry = [objectMnemonics objectForKey:key]) ) {
 		objectEntry = [NSMutableDictionary dictionaryWithCapacity:1];
