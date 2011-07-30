@@ -39,11 +39,12 @@
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 	if (DEVELOPMENTVERSION ? ![defaults boolForKey:@"QSPreventAutomaticUpdate"] : [defaults boolForKey:kCheckForUpdates]) {
 		NSDate *lastCheck = [defaults objectForKey:kLastUpdateCheck];
-		int frequency = [defaults integerForKey:kCheckForUpdateFrequency];
-		int versionType = [defaults integerForKey:@"QSUpdateReleaseLevel"];
+		NSInteger frequency = [defaults integerForKey:kCheckForUpdateFrequency];
+		
 	//	if (DEVELOPMENTVERSION && frequency>7)
 //			frequency = 7;
 #ifdef DEBUG
+    NSInteger versionType = [defaults integerForKey:@"QSUpdateReleaseLevel"];
 		if (versionType>0 && frequency>1)
 			frequency = 1;
 #endif
@@ -233,7 +234,7 @@
 	// NSLog(@"app %@", theRequest);
 	// create the connection with the request
 	// and start loading the data
-	appDownload = [[QSURLDownload alloc] initWithRequest:theRequest delegate:self];
+	appDownload = [[QSURLDownload alloc] initWithRequest:theRequest delegate:(id )self];
 	if (appDownload) {
 		updateTask = [[QSTask taskWithIdentifier:@"QSAppUpdateInstalling"] retain];
 		[updateTask setName:@"Downloading Update"];

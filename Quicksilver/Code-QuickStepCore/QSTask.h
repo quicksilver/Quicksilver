@@ -28,6 +28,8 @@
 	NSArray *subtasks;
 	QSTask *parentTask;
 }
+
+-(id)initWithIdentifier:(NSString *)newIdentifier;
 + (QSTask *)taskWithIdentifier:(NSString *)identifier;
 + (QSTask *)findTaskWithIdentifier:(NSString *)identifier;
 - (void)startTask:(id)sender;

@@ -686,7 +686,7 @@
 			[[outlineView window] makeFirstResponder:outlineView];
 			return YES;
 		}
-		if ([[theSelectedTrigger type] isEqualToString:@"QSGroupTrigger"]) return YES;
+		if ([[(QSTrigger *)theSelectedTrigger type] isEqualToString:@"QSGroupTrigger"]) return YES;
 
 		[self editTriggerCommand:theSelectedTrigger callback:@selector(editSheetDidEnd:returnCode:contextInfo:)];
 		return NO;
@@ -733,11 +733,12 @@
     //		[thisTrigger setValue:anObject forKey:[aTableColumn identifier]];
     //	}
     //
-    NS_DURING
-    [[QSTriggerCenter sharedInstance] triggerChanged:thisTrigger];
-    NS_HANDLER
-    NSBeep();
-    NS_ENDHANDLER
+    @try {
+      [[QSTriggerCenter sharedInstance] triggerChanged:thisTrigger];
+    }
+    @catch (NSException *e) {
+      NSBeep();
+    }
 
     return;
 }

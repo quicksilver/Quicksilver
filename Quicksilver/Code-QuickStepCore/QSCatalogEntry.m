@@ -24,8 +24,6 @@
 - (void)disableEntry:(QSCatalogEntry *)entry;
 @end
 
-#define kUseNSArchiveForIndexes NO;
-
 /*NSDictionary *entriesByID;
 NSDictionary *enabledPresetDictionary;*/
 
@@ -52,7 +50,7 @@ NSDictionary *enabledPresetDictionary;*/
 
 - (QSCatalogEntry *)initWithDictionary:(NSDictionary *)dict {
 	if (self = [super init]) {
-		info = [dict retain];
+		info = [dict mutableCopy];
 		children = nil; contents = nil; indexDate = nil;
 
 		NSArray *childDicts = [dict objectForKey:kItemChildren];
@@ -415,7 +413,7 @@ NSDictionary *enabledPresetDictionary;*/
 	NSArray *leaves = [self deepChildrenWithGroups:NO leaves:YES disabled:NO];
 	int i, count = 0;
 	for (i = 0; i<[leaves count]; i++)
-		count += [[[leaves objectAtIndex:i] contents] count];
+		count += [(NSArray *)[[leaves objectAtIndex:i] contents] count];
 	return count;
 }
 
@@ -427,16 +425,12 @@ NSDictionary *enabledPresetDictionary;*/
 	if ([self isEnabled]) {
 		NSString *path = [self indexLocation];
 		NSMutableArray *dictionaryArray = nil;
-		NS_DURING
-#if 0
-if(kUseNSArchiveForIndexes)
-	dictionaryArray = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-else
-#endif
+		@try {
 			dictionaryArray = [QSObject objectsWithDictionaryArray:[NSMutableArray arrayWithContentsOfFile:path]];
-		NS_HANDLER
-			NSLog(@"Error loading index of %@: %@", [self name] , localException);
-		NS_ENDHANDLER
+		}
+		@catch (NSException *e) {
+		  NSLog(@"Error loading index of %@: %@", [self name] , e);
+		}
 
 			if (dictionaryArray)
 				[self setContents:dictionaryArray];
@@ -457,11 +451,6 @@ else
 	[self setIndexDate:[NSDate date]];
 	NSString *key = [self identifier];
 	NSString *path = [pIndexLocation stringByStandardizingPath];
-#if 0
-if (kUseNSArchiveForIndexes)
-	[NSKeyedArchiver archiveRootObject:[self contents] toFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"]];
-	else
-#endif
 	[[[self contents] arrayByPerformingSelector:@selector(dictionaryRepresentation)] writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
 }
 
@@ -508,13 +497,14 @@ if (kUseNSArchiveForIndexes)
 		[self setIsScanning:YES];
 		NSArray *itemContents = nil;
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-		NS_DURING
+		@try {
 			QSObjectSource *source = [self source];
 			itemContents = [[source objectsForEntry:info] retain];
-		NS_HANDLER
-			NSLog(@"An error ocurred while scanning \"%@\": %@", [self name], localException);
-			[localException printStackTrace];
-		NS_ENDHANDLER
+		}
+		@catch (NSException *e) {
+			NSLog(@"An error ocurred while scanning \"%@\": %@", [self name], e);
+			[e printStackTrace];
+		}
 		[pool release];
 		[self setIsScanning:NO];
 		return [itemContents autorelease];
@@ -596,7 +586,7 @@ if (kUseNSArchiveForIndexes)
 - (void)setChildren:(NSArray *)newChildren {
 	if(newChildren != children){
 		[children release];
-		children = [newChildren retain];
+		children = [newChildren mutableCopy];
 	}
 }
 
@@ -605,7 +595,7 @@ if (kUseNSArchiveForIndexes)
 - (void)setContents:(NSArray *)newContents {
 	if(newContents != contents){
 		[contents release];
-		contents = [newContents retain];
+		contents = [newContents mutableCopy];
 	}
 }
 

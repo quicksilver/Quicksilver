@@ -13,5 +13,11 @@
 	NSMutableArray *array;
 //	QSObject *objectValue;
 }
+- (id)init;
+- (void)dealloc;
+- (BOOL)respondsToSelector:(SEL)aSelector;
+- (void)forwardInvocation:(NSInvocation *)invocation;
+- (NSMethodSignature*)methodSignatureForSelector:(SEL)sel;
 - (unsigned) count;
+
 @end

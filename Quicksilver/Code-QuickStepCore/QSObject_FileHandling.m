@@ -40,28 +40,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	
 	NSMutableArray *documentsArray = [NSMutableArray arrayWithCapacity:0];
 	
-	// for before 10.6
-	NSArray *recentDocuments = [(NSArray *)CFPreferencesCopyValue((CFStringRef) @"NSRecentDocumentRecords", 
-																  (CFStringRef) bundleIdentifier, 
-																  kCFPreferencesCurrentUser, 
-																  kCFPreferencesAnyHost) autorelease];
-	if ([recentDocuments count] > 0) {
-		NSFileManager *manager = [NSFileManager defaultManager];
-		NSData *aliasData;
-		NSString *path;
-		for (id loopItem in recentDocuments) {
-			aliasData = [[loopItem objectForKey:@"_NSLocator"] objectForKey:@"_NSAlias"];
-			path = [[NDAlias aliasWithData:aliasData] quickPath];
-			// ***warning * eventually include aliases
-			if (path && [manager fileExistsAtPath:path])
-				[documentsArray addObject:path];
-		}
-#if MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5
-	}
-	return documentsArray;
-#else
-	return documentsArray;
-	}
+	NSArray *recentDocuments = nil;
 
 	// for 10.6
 	if ([NSApplication isSnowLeopard]) {
@@ -91,7 +70,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		}
 		
 		// Use LSSharedFileList.plist files for other apps
-		NSDictionary *recentDocuments106 = [(NSArray *)CFPreferencesCopyValue((CFStringRef) @"RecentDocuments", 
+		NSDictionary *recentDocuments106 = [(NSDictionary *)CFPreferencesCopyValue((CFStringRef) @"RecentDocuments", 
 																			  (CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"], 
 																			  kCFPreferencesCurrentUser, 
 																			  kCFPreferencesAnyHost) autorelease];
@@ -113,7 +92,6 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		}
 	}	
 	return documentsArray;
-#endif
 }
 
 @interface QSFileSystemObjectHandler (hidden)

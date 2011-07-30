@@ -22,7 +22,7 @@
 	[self setMovableByWindowBackground:NO];
 	[self setHasShadow:YES];
 	[self setLevel:NSFloatingWindowLevel];
-    return result;
+    return (QSResultWindow *)result;
 }
 
 - (NSTimeInterval)animationResizeTime:(NSRect)newFrame {

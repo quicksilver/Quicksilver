@@ -383,7 +383,7 @@
 	if ([predicates count])
 		filterPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicates];
 	[arrayController setFilterPredicate:filterPredicate];
-	if (!ignoreView && ![[arrayController arrangedObjects] count]) {
+	if (!ignoreView && ![(NSArray *)[arrayController arrangedObjects] count]) {
 		[self reloadFiltersIgnoringViewMode:YES];
 	}
 }

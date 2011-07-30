@@ -132,7 +132,7 @@
 	NSRect tableRect = [[tasksView enclosingScrollView] frame];
 	NSRect windowRect = [[tasksView window] frame];
 //	BOOL atBottom = NSMinY(windowRect) <= NSMinY([[[self window] screen] frame]);
-	float newHeight = -1+MAX([[controller arrangedObjects] count] , 1) *55;
+	float newHeight = -1+MAX([(NSArray *)[controller arrangedObjects] count] , 1) *55;
 	float heightChange = newHeight-NSHeight(tableRect);
 	windowRect.size.height += heightChange;
 //	if (!atBottom)

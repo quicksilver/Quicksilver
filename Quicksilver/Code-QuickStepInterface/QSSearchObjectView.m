@@ -297,7 +297,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)setSearchArray:(NSArray *)newSearchArray {
     if (searchArray != newSearchArray) {
         [searchArray release];
-        searchArray = [newSearchArray retain];
+        searchArray = [newSearchArray mutableCopy];
     }
 }
 
