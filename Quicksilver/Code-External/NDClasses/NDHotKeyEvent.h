@@ -60,7 +60,7 @@ extern const OSType			NDHotKeyDefaultSignature;
 	EventHotKeyRef		reference;
 	unsigned short		keyCode;
 	unichar				character;
-	unsigned int		modifierFlags;
+	NSUInteger		modifierFlags;
 	int					currentEventType;
 	id					target;
 	SEL					selectorReleased,
@@ -113,7 +113,7 @@ extern const OSType			NDHotKeyDefaultSignature;
 	@param modifierFlags The modifer flags, ( <tt>NSCommandKeyMask</tt>, <tt>NSControlKeyMask</tt>, <tt>NSAlternateKeyMask</tt>, <tt>NSShiftKeyMask</tt> ).
 	@result Returns <tt>YES</tt> if enabled.
  */
-+ (BOOL)isEnabledKeyCode:(unsigned short)keyCode modifierFlags:(unsigned int)modifierFlags;
++ (BOOL)isEnabledKeyCode:(unsigned short)keyCode modifierFlags:(NSUInteger)modifierFlags;
 
 /*!
 	@method getHotKeyForKeyCode:modifierFlags:
@@ -124,7 +124,7 @@ extern const OSType			NDHotKeyDefaultSignature;
 	@param modifierFlags The modifer flags, ( <tt>NSCommandKeyMask</tt>, <tt>NSControlKeyMask</tt>, <tt>NSAlternateKeyMask</tt>, <tt>NSShiftKeyMask</tt> ).
 	@result The <tt>NDHotKeyEvent</tt> obejct or nil if failure.
  */
-+ (NDHotKeyEvent *)getHotKeyForKeyCode:(unsigned short)keyCode character:(unichar)aChar modifierFlags:(unsigned int)modifierFlags;
++ (NDHotKeyEvent *)getHotKeyForKeyCode:(unsigned short)keyCode character:(unichar)aChar modifierFlags:(NSUInteger)modifierFlags;
 /*!
 	@method findHotKeyForKeyCode:modifierFlags:
 	@abstract Find an <tt>NDHotKeyEvent</tt>
@@ -133,7 +133,7 @@ extern const OSType			NDHotKeyDefaultSignature;
 	@param modifierFlags The modifer flags, ( <tt>NSCommandKeyMask</tt>, <tt>NSControlKeyMask</tt>, <tt>NSAlternateKeyMask</tt>, <tt>NSShiftKeyMask</tt> ).
 	@result The <tt>NDHotKeyEvent</tt> obejct or nil if none found.
  */
-+ (NDHotKeyEvent *)findHotKeyForKeyCode:(unsigned short)keyCode modifierFlags:(unsigned int)modifierFlags;
++ (NDHotKeyEvent *)findHotKeyForKeyCode:(unsigned short)keyCode modifierFlags:(NSUInteger)modifierFlags;
 
 /*!
 	@method hotKeyWithEvent:
@@ -162,7 +162,7 @@ extern const OSType			NDHotKeyDefaultSignature;
 	@param modifierFlags The modifer flags, ( <tt>NSCommandKeyMask</tt>, <tt>NSControlKeyMask</tt>, <tt>NSAlternateKeyMask</tt>, <tt>NSShiftKeyMask</tt> ).
 	@result An new <tt>NDHotKeyEvent</tt> or nil if failure.
  */
-+ (id)hotKeyWithKeyCode:(unsigned short)keyCode character:(unichar)aChar modifierFlags:(unsigned int)modifer;
++ (id)hotKeyWithKeyCode:(unsigned short)keyCode character:(unichar)aChar modifierFlags:(NSUInteger)modifer;
 
 /*!
 	@method hotKeyWithKeyCode:character:modifierFlags:target:selector:
@@ -175,7 +175,7 @@ extern const OSType			NDHotKeyDefaultSignature;
 	@param selector The selector sent when hot key is released
 	@result A new <tt>NDHotKeyEvent</tt>
  */
-+ (id)hotKeyWithKeyCode:(unsigned short)keyCode character:(unichar)aChar modifierFlags:(unsigned int)modifer target:(id)target selector:(SEL)selector;
++ (id)hotKeyWithKeyCode:(unsigned short)keyCode character:(unichar)aChar modifierFlags:(NSUInteger)modifer target:(id)target selector:(SEL)selector;
 
 /*!
 	@method initWithPropertyList:
@@ -216,7 +216,7 @@ extern const OSType			NDHotKeyDefaultSignature;
 	@param selector The selector sent when hot key is released
 	@result A initialized <tt>NDHotKeyEvent</tt>
  */
-- (id)initWithKeyCode:(unsigned short)keyCode character:(unichar)aChar modifierFlags:(unsigned int)modifer target:(id)target selector:(SEL)selector;
+- (id)initWithKeyCode:(unsigned short)keyCode character:(unichar)aChar modifierFlags:(NSUInteger)modifer target:(id)target selector:(SEL)selector;
 
 /*!
 	@method initWithKeyCode:character:modifierFlags
@@ -227,7 +227,7 @@ extern const OSType			NDHotKeyDefaultSignature;
 	@param modifierFlags The modifer flags, ( <tt>NSCommandKeyMask</tt>, <tt>NSControlKeyMask</tt>, <tt>NSAlternateKeyMask</tt>, <tt>NSShiftKeyMask</tt> ).
 	@result A initialized <tt>NDHotKeyEvent</tt>
  */
-- (id)initWithKeyCode:(unsigned short)keyCode character:(unichar)aChar modifierFlags:(unsigned int)modifer;
+- (id)initWithKeyCode:(unsigned short)keyCode character:(unichar)aChar modifierFlags:(NSUInteger)modifer;
 
 /*!
 	@method initWithPropertyList:
@@ -355,7 +355,7 @@ extern const OSType			NDHotKeyDefaultSignature;
 	</blockquote>
 	@result The last event type.
  */
-- (int)currentEventType;
+- (NSInteger)currentEventType;
 
 /*!
 	@method setTarget:selector:
@@ -414,7 +414,7 @@ extern const OSType			NDHotKeyDefaultSignature;
 	@discussion The <tt>modifierFlags</tt> can be a bitwise and combination of <tt>NSControlKeyMask</tt>, <tt>NSAlternateKeyMask</tt>, <tt>NSShiftKeyMask</tt>, and <tt>NSCommandKeyMask</tt>.
 	@result The modifer key flags.
  */
-- (unsigned int)modifierFlags;
+- (NSUInteger)modifierFlags;
 
 /*!
 	@method stringValue
@@ -454,7 +454,7 @@ extern const OSType			NDHotKeyDefaultSignature;
 	@param modifierFlags modifer flags, comman, option, shift and control. 
 	@result A <tt>NSString</tt> representing the hot key combination.
  */
-NSString * stringForKeyCodeAndModifierFlags( unsigned short keyCode, unichar aChar, unsigned int modifierFlags );
+NSString * stringForKeyCodeAndModifierFlags( unsigned short keyCode, unichar aChar, NSUInteger modifierFlags );
 /*!
 	@function unicharForKeyCode
 	@abstract Get a unicode charater for the key combination.
@@ -464,4 +464,4 @@ NSString * stringForKeyCodeAndModifierFlags( unsigned short keyCode, unichar aCh
  */
 unichar unicharForKeyCode( unsigned short keyCode );
 
-NSString * stringForModifiers( unsigned int aModifierFlags );
+NSString * stringForModifiers( NSUInteger aModifierFlags );
