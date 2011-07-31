@@ -211,4 +211,8 @@
 + (BOOL)isSnowLeopard {
 	return ([self macOSXSystemVersion] >= 0x1060);
 }
+
++ (BOOL)isLion {
+	return ([self macOSXSystemVersion] >= 0x1070);
+}
 @end
