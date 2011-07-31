@@ -7,17 +7,19 @@
 - (void)searchView:(id)view resultsVisible:(BOOL)visible;
 @end
 
+// These tags are set within Interface Builder, and are used to define the current search mode
 typedef enum QSSearchMode {
-	SearchFilterAll = 1,
-	SearchFilter = 2,
-	SearchSnap = 3,
-	SearchShuffle = 4,
+	SearchFilterAll = 1, // Filter Catalog
+	SearchFilter = 2, // Filter Results
+	SearchSnap = 3, // Snap to Best
+	SearchShuffle = 4, // Not Sure (not used?)
 } QSSearchMode;
 
 @class QSResultController;
 @interface QSSearchObjectView : QSObjectView <NSTextInput
 #if (MAC_OS_X_VERSION_MAX_ALLOWED >= 1060)
-	, NSTextDelegate
+// NSTextViewDelegate for the NSTextView (the text mode view) as used in transmogrifyWithText:(NSString *)string
+	, NSTextViewDelegate
 #endif
 > 
 {   

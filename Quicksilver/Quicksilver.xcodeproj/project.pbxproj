@@ -1540,7 +1540,7 @@
 		E1E5FC7107B20E4D0044D6EF /* QSResultWindow.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSResultWindow.h; sourceTree = "<group>"; };
 		E1E5FC7207B20E4D0044D6EF /* QSResultWindow.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSResultWindow.m; sourceTree = "<group>"; };
 		E1E5FC7307B20E4D0044D6EF /* QSSearchObjectView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSSearchObjectView.h; sourceTree = "<group>"; };
-		E1E5FC7407B20E4D0044D6EF /* QSSearchObjectView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSSearchObjectView.m; sourceTree = "<group>"; };
+		E1E5FC7407B20E4D0044D6EF /* QSSearchObjectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSearchObjectView.m; sourceTree = "<group>"; };
 		E1EF4203070FDF7700D6DA03 /* QSHelpersPrefPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSHelpersPrefPane.xib; sourceTree = "<group>"; };
 		E1F1D63406BD97B2004E3DC3 /* NDAlias+AliasFile.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NDAlias+AliasFile.h"; sourceTree = "<group>"; };
 		E1F1D63506BD97B2004E3DC3 /* NDAlias+AliasFile.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NDAlias+AliasFile.m"; sourceTree = "<group>"; };

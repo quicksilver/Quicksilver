@@ -68,7 +68,7 @@ NSMutableDictionary *bindingsDict = nil;
 	[self setTextCellFont:[NSFont systemFontOfSize:12.0]];
 	[self setTextCellFontColor:[NSColor blackColor]];
     
-	searchMode = SearchFilterAll;
+	searchMode = SearchFilter;
 	moreComing = NO;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideResultView:) name:@"NSWindowDidResignKeyNotification" object:[self window]];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sourceArrayChanged:) name:@"QSSourceArrayUpdated" object:nil];
@@ -338,24 +338,40 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (QSSearchMode)searchMode { return searchMode;  }
 - (void)setSearchMode:(QSSearchMode)newSearchMode {
-    searchMode = newSearchMode;
-    
-	if (searchMode != SearchFilterAll) {
-		//		[resultController->resultTable setBackgroundColor:[[NSColor selectedControlColor] blendedColorWithFraction:0.75 ofColor:[NSColor whiteColor]]];
-		//	[[self cell] setState:NSOnState];
-	} else {
-		//		[resultController->resultTable setBackgroundColor:[NSColor colorWithCalibratedHue:0.0 saturation:0.0 brightness:1.0 alpha:0.95]];
-		//	[[self cell] setState:NSOffState];
+	// Do not allow the setting of 'Filter Catalog' when in the aSelector (action)
+	if (!([[self class] isEqual:[QSSearchObjectView class]] && newSearchMode == SearchFilterAll)) {
+		searchMode = newSearchMode;
 	}
-    
-    [resultController->resultTable setNeedsDisplay:YES];
-    
-	if (browsing) [[NSUserDefaults standardUserDefaults] setInteger:newSearchMode forKey:kBrowseMode];
-    
-	// ***warning  * set default browse mode
-    
-	//if ([[resultController window] isVisible])
-	//	[resultController->searchModeMenu selectItemAtIndex:[resultController->searchModePopUp indexOfItemWithTag:searchMode]];
+//	// When not browsing (haven't → into an object) we should only use the 'filter catalog' mode
+//	if (!browsing && ((newSearchMode == SearchFilter) || (newSearchMode == SearchSnap))) {
+//		NSBeep();
+//		searchMode = SearchFilterAll;
+//	}
+//	// When browsing (HAVE → into an object) 'filter catalog' should not be usable
+//	else if (browsing && newSearchMode == SearchFilterAll) {
+//		NSBeep();
+//	}
+//	else {
+//		searchMode = newSearchMode;
+//	}
+
+	
+    [resultController->resultTable setNeedsDisplay:YES];	
+	if (browsing) {
+	[[NSUserDefaults standardUserDefaults] setInteger:searchMode forKey:kBrowseMode];
+	}
+		switch (searchMode) {
+			case SearchSnap:
+				[resultController setSearchSnapActivated];
+				break;
+			case SearchFilter:
+				[resultController setSearchFilterActivated];
+				break;
+			default:
+				[resultController setSearchFilterAllActivated];
+				break;
+		}
+
 }
 
 - (NSText *)currentEditor {
@@ -590,7 +606,6 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)setObjectValue:(QSBasicObject *)newObject {
 	//if (newObject) NSLog(@"%p set value %@", self, newObject);
 	[self hideResultView:self];
-    
 	[self clearSearch];
 	[parentStack removeAllObjects];
 	[self setResultArray:[NSArray arrayWithObjects:newObject, nil]];
@@ -771,7 +786,9 @@ NSMutableDictionary *bindingsDict = nil;
 	if ([self currentEditor]) {
 		[[self window] makeFirstResponder: self];
 	} else {
-		NSText *editor = [[self window] fieldEditor:YES forObject: self];
+		// Whilst the definition states fieldEditor:forObject returns an NSText object, the docs state 
+		// it's an NSTextView object. Source on the internet suggest the latter is correct
+		NSTextView *editor = (NSTextView *)[[self window] fieldEditor:YES forObject: self];
 		if (string) {
 			[editor setString:string];
 			[editor setSelectedRange:NSMakeRange([[editor string] length] , 0)];
@@ -786,7 +803,8 @@ NSMutableDictionary *bindingsDict = nil;
 		NSRect titleFrame = [self frame];
 		NSRect editorFrame = NSInsetRect(titleFrame, NSHeight(titleFrame) /16, NSHeight(titleFrame)/16);
 		editorFrame.origin = NSMakePoint(NSHeight(titleFrame) /16, NSHeight(titleFrame)/16);
-        
+
+		[editor setAllowsUndo:YES];
 		[editor setHorizontallyResizable: YES];
 		[editor setVerticallyResizable: YES];
 		[editor setDrawsBackground: NO];
@@ -832,7 +850,7 @@ NSMutableDictionary *bindingsDict = nil;
 	// NSLog(@"search performed");
 }
 
-
+	
 - (void)performSearchFor:(NSString *)string from:(id)sender {
 #ifdef DEBUG
 	NSDate *date = [NSDate date];
@@ -856,8 +874,11 @@ NSMutableDictionary *bindingsDict = nil;
 		if ([self searchMode] == SearchFilterAll || [self searchMode] == SearchFilter)
 			[self setResultArray:newResultArray];
 		if ([self searchMode] == SearchFilterAll) {
+			// ! Don't search the entire catalog if we're in the aSelector (actions)
+			if (![[self class] isEqual:[QSSearchObjectView class]]) {
 			[self setSearchArray:newResultArray];
 			[parentStack removeAllObjects];
+			}
 		}
         
 		if ([self searchMode] == SearchSnap) {
@@ -1086,6 +1107,41 @@ NSMutableDictionary *bindingsDict = nil;
         && self == [self directSelector]) {
 		[self handleShiftedKeyEvent:theEvent];
 		return;
+	}
+	
+	if ([theEvent modifierFlags] &NSCommandKeyMask) {
+		if ([[theEvent characters] characterAtIndex:0] == NSRightArrowFunctionKey) {
+			QSSearchMode aNewSearchMode;
+			switch (searchMode) {
+				case SearchFilterAll:
+					aNewSearchMode = SearchFilter;
+					break;
+					case SearchFilter:
+					aNewSearchMode = SearchSnap;
+						break;
+				default:
+					aNewSearchMode = SearchFilterAll;
+					break;
+			}
+			[self setSearchMode:aNewSearchMode];
+			return;
+		}
+		else if ([[theEvent characters] characterAtIndex:0] == NSLeftArrowFunctionKey) {
+			QSSearchMode aNewSearchMode;
+			switch (searchMode) {
+				case SearchFilterAll:
+					aNewSearchMode = SearchSnap;
+					break;
+				case SearchSnap:
+					aNewSearchMode = SearchFilter;
+					break;
+				default:
+					aNewSearchMode = SearchFilterAll;
+					break;
+			}
+			[self setSearchMode:aNewSearchMode];
+			return;
+		}
 	}
     
 	if ([theEvent isARepeat] && !([theEvent modifierFlags] &NSFunctionKeyMask) )
@@ -1803,7 +1859,7 @@ NSMutableDictionary *bindingsDict = nil;
         [self saveMnemonic];
         [self clearSearch];
         int defaultMode = [[NSUserDefaults standardUserDefaults] integerForKey:kBrowseMode];
-        [self setSearchMode:(defaultMode ? defaultMode : SearchSnap)];
+        [self setSearchMode:(defaultMode ? defaultMode  : SearchSnap)];
         [self setResultArray:(NSMutableArray *)newObjects]; // !!!:nicholas:20040319
         [self setSourceArray:(NSMutableArray *)newObjects];
         
