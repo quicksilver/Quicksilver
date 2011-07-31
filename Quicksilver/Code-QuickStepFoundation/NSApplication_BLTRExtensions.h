@@ -90,4 +90,11 @@ typedef enum {
  @returns YES, if 10.6+. NO otherwise
  */
 + (BOOL)isSnowLeopard;
+
+/**
+ Checks, if system is at least Mac OS X 10.7 (Lion)
+ 
+ @returns YES, if 10.7+. NO otherwise
+ */
++ (BOOL)isLion;
 @end
