@@ -78,6 +78,8 @@ typedef enum {
 + (NSString *)macOSXFullVersion;
 
 /**
+ DEPRECATED METHOD
+ This should be removed (along with all corresponding isLeopard code) when we've got over the Lion upgrade hurdle
  Checks, if system is at least Mac OS X 10.5 (Leopard)
   
  @returns YES, if 10.5+. NO otherwise
