@@ -16,11 +16,11 @@
 
 	[super windowDidLoad];
 	QSWindow *window = (QSWindow *)[self window];
-	[window setLevel:NSModalPanelWindowLevel];
+	[window setLevel:NSPopUpMenuWindowLevel];
 	[window setBackgroundColor:[NSColor clearColor]];
 	
 	// Set the window to be visible on all spaces
-    [[self window] setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
+    [[self window] setCollectionBehavior:NSWindowCollectionBehaviorTransient];
 
 	[window setHideOffset:NSMakePoint(0, 0)];
 	[window setShowOffset:NSMakePoint(0, 0)];
