@@ -98,10 +98,13 @@
 			}
 		}
 		if ([[NSFileManager defaultManager] filesExistAtPaths:files]) {
-			if (line >= 0)
+			if (line >= 0) {
 				[self setObject:[NSDictionary dictionaryWithObjectsAndKeys:[files lastObject] , @"path", [NSNumber numberWithInt:line] , @"line", nil] forType:@"QSLineReferenceType"];
+			}
 			[self setObject:files forType:QSFilePathType];
 			[self setPrimaryType:QSFilePathType];
+			// set an appropriate name based on the files
+			[self getNameFromFiles];
 		}
 		return;
 	}

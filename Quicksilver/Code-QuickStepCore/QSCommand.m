@@ -296,36 +296,70 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 
 - (QSObject *)dObject {
 	QSObject *object = dObject;
-    if (!object) {
-        object = [QSObject objectWithIdentifier:[[self commandDict] objectForKey:@"directID"]];
-        [self setDirectObject:object];
+	// If we have the object, do not go through numerous 'if(!object)' before returning
+	if (object) {
+		return object;
+	}
+	
+	NSDictionary *cmdDict = [self commandDict];
+	NSString *directID = [cmdDict objectForKey:@"directID"];
+
+	if (directID) {
+        object = [QSObject objectWithIdentifier:directID];
+		// For cases where the command has a directID/directArchive, but it's corresponding object hasn't already been created (i.e. *not* in the catalog)
+		if (!object) {
+			// sniffs the string to create a new object
+			object = [QSObject objectWithString:directID];
+		}
     }
-    if (!object) {
-        object = [QSAction actionWithIdentifier:[[self commandDict] objectForKey:@"directID"]];
-        [self setDirectObject:object];
-    }
-    if (!object) {
+	if (!object) {
         object = [QSObject objectWithDictionary:[[self commandDict] objectForKey:@"directArchive"]];
-        [self setDirectObject:object];
     }
+
+
     if (!object)
-        object = [QSObject fileObjectWithPath:[QSRez pathWithLocatorInformation:[[self commandDict] objectForKey:@"directResource"]]];
+        object = [QSObject fileObjectWithPath:[QSRez pathWithLocatorInformation:[cmdDict objectForKey:@"directResource"]]];
+	
+	// For cases where we really can't determine the object
+	if (!object) {
+		NSLog(@"Warning: no direct object for Command %@\nCommand Dictionary: %@", self, cmdDict);
+	}
+	if (object) {
+		[self setDirectObject:object];
+	}
     return object;
 }
 
 - (QSObject *)iObject {
 	QSObject *object = iObject;
-    if (!object) {
-        object = [QSObject objectWithIdentifier:[[self commandDict] objectForKey:@"indirectID"]];
-        [self setIndirectObject:object];
-    }
-    if (!object) {
+	if (object) {
+		return object;
+	}
+	
+	NSDictionary *cmdDict = [self commandDict];
+	NSString *indirectID = [cmdDict objectForKey:@"indirectID"];
+    if (indirectID) {
+        object = [QSObject objectWithIdentifier:indirectID];
+		if (!object) {
+			// For cases where the object doesn't exist
+			if (!object) {
+				// create an object by sniffing the string
+				object = [QSObject objectWithString:indirectID];
+			}
+		}
+	}
+	
+	if (!object) {
         object = [QSObject objectWithDictionary:[[self commandDict] objectForKey:@"indirectArchive"]];
-        [self setIndirectObject:object];
     }
-    if (!object)
-        object = [QSObject fileObjectWithPath:[QSRez pathWithLocatorInformation:[[self commandDict] objectForKey:@"indirectResource"]]];
-    return object;
+		
+	if (!object) {
+		object = [QSObject fileObjectWithPath:[QSRez pathWithLocatorInformation:[cmdDict objectForKey:@"indirectResource"]]];
+	}
+	if (object) {
+		[self setIndirectObject:object];
+	}
+	return object;
 }
 
 - (NSComparisonResult) compare:(id)compareObject {
