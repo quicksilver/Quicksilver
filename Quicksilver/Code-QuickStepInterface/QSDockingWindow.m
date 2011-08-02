@@ -25,7 +25,7 @@
 	[types release];
 	
 	[self updateTrackingRect:self];
-	return result;
+	return (QSDockingWindow *)result;
 }
 
 #if 0

@@ -144,7 +144,7 @@
 	trueRect = contentRect;
 	// logRect([[self _borderView] frame]);
 	// NSLog(@"%@", [self _borderView]);
-	return result;
+	return (QSWindow *)result;
 }
 
 - (void)dealloc {

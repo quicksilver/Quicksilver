@@ -9,11 +9,6 @@
 #import "QSTaskController.h"
 #import "QSTaskView.h"
 
-@interface QSTask (PRIVATE)
-
--(id)initWithIdentifier:(NSString *)newIdentifier;
-
-@end
 
 static NSMutableDictionary *tasksDictionary = nil;
 

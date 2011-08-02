@@ -579,7 +579,7 @@ static float searchSpeed = 0.0;
 	[self writeCatalog:self];
 }
 
-- (float) estimatedTimeForSearchInSet:(id)set {
+- (float) estimatedTimeForSearchInSet:(NSArray *)set {
 	float estimate = (set ? [set count] : [defaultSearchSet count]) * searchSpeed;
 #ifdef DEBUG
 	if (VERBOSE)

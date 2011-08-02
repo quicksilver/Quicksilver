@@ -42,7 +42,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 - (id)initWithWebInfo:(NSDictionary *)webInfo {
 	if (self = [super init]) {
-		data = [webInfo retain];
+		data = [webInfo mutableCopy];
 		bundle = nil;
 	}
 	return self;
@@ -700,18 +700,19 @@ NSMutableDictionary *plugInBundlePaths = nil;
 - (BOOL)registerPlugIn {
 
 	//NSLog(@"%s", __PRETTY_FUNCTION__) ;
-	NS_DURING
+	@try {
 		[self _registerPlugIn];
-	NS_HANDLER
-		NSString *errorMessage = [NSString stringWithFormat:@"An error ocurred while loading plug-in \"%@\": %@", self, localException];
+	}
+	@catch (NSException *e) {
 #ifdef DEBUG
 		if (VERBOSE) {
+		  NSString *errorMessage = [NSString stringWithFormat:@"An error ocurred while loading plug-in \"%@\": %@", self, e];
 			NSLog(@"%@", errorMessage);
-			[localException printStackTrace];
+			[e printStackTrace];
 		}
 #endif
-		[self setLoadError:[localException reason]];
-	NS_ENDHANDLER
+		[self setLoadError:[e reason]];
+	}
 	return YES;
 }
 

@@ -278,7 +278,7 @@
 	if (!prop) {
 	errorCount++;
 	} else {
-		NSLog(@"Downloaded info for %d plug-in(s) ", [[prop objectForKey:@"plugins"] count]);
+		NSLog(@"Downloaded info for %d plug-in(s) ", [(NSArray *)[prop objectForKey:@"plugins"] count]);
 		//	NSEnumerator *e = [prop objectEnumerator];
 		if ([prop count] && [[prop objectForKey:@"fullIndex"] boolValue])
 			[self clearOldWebData];
@@ -376,7 +376,7 @@
 	NSMutableArray *array = [NSMutableArray array];
 	NSMutableSet *dependingNames = [NSMutableSet set];
 	foreachkey(ident, plugins, dependingPlugIns) {
-		if ([plugins count]) {
+		if ([(NSArray *)plugins count]) {
 			NSArray *dependencies = [[plugins lastObject] dependencies];
 			[array addObject:[dependencies objectWithValue:ident forKey:@"id"]];
 

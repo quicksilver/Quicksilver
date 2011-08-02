@@ -130,55 +130,6 @@
 	return [[NSAEDescriptorTranslator sharedAEDescriptorTranslator] objectByTranslatingDescriptor:self toType:nil inSuite:nil];
 }
 
-+ (NSAppleEventDescriptor *)XdescriptorWithObject:(id)object {
-	NSAppleEventDescriptor *descriptorObject = nil;
-	if ([object isKindOfClass:[NSArray class]]) {
-		descriptorObject = [NSAppleEventDescriptor listDescriptor];
-		int i;
-		for (i = 0; i<[object count]; i++) {
-			[descriptorObject insertDescriptor:[NSAppleEventDescriptor descriptorWithObject:[object objectAtIndex:i]] atIndex:i+1];
-		}
-		return descriptorObject;
-	} else if ([object isKindOfClass:[NSString class]]) {
-		return [NSAppleEventDescriptor descriptorWithString:object];
-	} else if ([object isKindOfClass:[NSNumber class]]) {
-		return [NSAppleEventDescriptor descriptorWithInt32:[object intValue]];
-	} else if ([object isKindOfClass:[NSAppleEventDescriptor class]]) {
-		return object;
-	} else if ([object isKindOfClass:[NSNull class]]) {
-		return [NSAppleEventDescriptor nullDescriptor];
-	} else {
-		return nil;
-	}
-}
-
-- (id)xobjectValue {
-	// NSLog(@"Convert type: %@", NSFileTypeForHFSTypeCode([self descriptorType]) );
-	switch ([self descriptorType]) {
-		case kAENullEvent:
-			return nil;
-		case cAEList: {
-			NSMutableArray *array = [NSMutableArray arrayWithCapacity:[self numberOfItems]];
-			int i;
-			id theItem;
-			for (i = 0; i<[self numberOfItems]; i++) {
-				theItem = [[self descriptorAtIndex:i+1] objectValue];
-				if (theItem) [array addObject:theItem];
-			}
-			return array;
-		}
-		case cBoolean:
-			return [NSNumber numberWithBool:[self booleanValue]];
-
-			// if (typeAERecord == [self descriptorType]) {
-			//	 return [NSNumber numberWithBool:[self booleanValue]];
-			//	}
-		default:
-			return [self stringValue];
-	}
-	return nil;
-}
-
 + (NSAppleEventDescriptor *)descriptorWithPath:(NSString *)path {
 	if (!path) return 0;
 	// AppleEvent event, reply;

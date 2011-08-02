@@ -22,7 +22,7 @@
 // !!! Andre Berg 20091017: This is needed to get rid of the bug described in "tableView:dataCellForTableColumn:row:" below
 // Also of course registering as observer and unregistering in dealloc.
 - (void)columnResized:(id)sender {
-	[prefSetsTable noteHeightOfRowsWithIndexesChanged:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [[prefSetsController arrangedObjects] count] )]]; // was calling self
+	[prefSetsTable noteHeightOfRowsWithIndexesChanged:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [(NSArray *)[prefSetsController arrangedObjects] count] )]]; // was calling self
 }
 
 - (IBAction)setValue:(id)sender {

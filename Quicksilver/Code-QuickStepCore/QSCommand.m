@@ -372,10 +372,6 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 		return nil;
 	}
 	return nil;
-//		NS_DURING
-//	NS_HANDLER
-//		;
-//	NS_ENDHANDLER
 }
 - (void)executeFromMenu:(id)sender {
 	//NSLog(@"sender %@", NSStringFromClass([sender class]) );

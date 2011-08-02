@@ -79,7 +79,7 @@
 
 @implementation NSObject (BLTRArrayPerform)
 
-+ (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(id)array returnValues:(BOOL)flag {
++ (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(NSArray *)array returnValues:(BOOL)flag {
 	NSMutableArray *resultArray = nil;
 	if (flag)
 		resultArray = [NSMutableArray arrayWithCapacity:[array count]];
@@ -93,7 +93,7 @@
 	return resultArray;
 }
 
-- (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(id)array returnValues:(BOOL)flag {
+- (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(NSArray *)array returnValues:(BOOL)flag {
 	NSMutableArray *resultArray = nil;
 	if (flag)
 		resultArray = [NSMutableArray arrayWithCapacity:[array count]];
@@ -106,8 +106,8 @@
 	return resultArray;
 }
 
-- (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(id)array {
-	return [self performSelector:(SEL) aSelector onObjectsInArray:(id)array returnValues:YES];
+- (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(NSArray *)array {
+	return [self performSelector:aSelector onObjectsInArray:array returnValues:YES];
 }
 
 @end

@@ -1,7 +1,7 @@
 NSString * stringForModifiers( unsigned int aModifierFlags );
 
 #import "QSHotKeyEditor.h"
-
+#import "QSApp.h"
 #import "QSHotKeyEvent.h"
 
 @implementation QSHotKeyCell
@@ -110,7 +110,7 @@ NSString * stringForModifiers( unsigned int aModifierFlags );
 	defaultString = [[self string] copy];
 	BOOL status = [super becomeFirstResponder];
 	validCombo = NO;
-	[NSApp addEventDelegate:self];
+	[(QSApp *)[NSApplication sharedApplication] addEventDelegate:self];
 	[self _disableHotKeyOperationMode];
 	[self setSelectedRange:NSMakeRange(0, [[self string] length])];
 	return status;
@@ -123,7 +123,7 @@ NSString * stringForModifiers( unsigned int aModifierFlags );
 - (BOOL)resignFirstResponder {
 	[defaultString release];
 	defaultString = nil;
-	[NSApp removeEventDelegate:self];
+	[(QSApp *)[NSApplication sharedApplication] removeEventDelegate:self];
 	[self _restoreHotKeyOperationMode];
 	return [super resignFirstResponder];
 }
@@ -133,7 +133,7 @@ NSString * stringForModifiers( unsigned int aModifierFlags );
 		if (VERBOSE) NSLog(@"Cancel");
 #endif
         /* TODO: Check what is actually delegate */
-		[[self window] makeFirstResponder:[self delegate]];
+		[[self window] makeFirstResponder:(NSResponder *)[self delegate]];
 	}
 }
 - (void)flagsChanged:(NSEvent *)theEvent {

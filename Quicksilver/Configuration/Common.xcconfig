@@ -1,19 +1,17 @@
 #include "Developer.xcconfig"
 
-VALID_ARCHS = i386 x86_64 ppc
-
-SDKROOT = macosx10.6
+VALID_ARCHS = i386 x86_64
 
 SYMROOT = $(QS_BUILD_ROOT)/build
 
-MACOSX_DEPLOYMENT_TARGET = 10.5
+MACOSX_DEPLOYMENT_TARGET = 10.6
 PREBINDING = NO
 
 INFOPLIST_PREPROCESS = YES
 
 FRAMEWORK_SEARCH_PATHS = /System/Library/PrivateFrameworks ~/Library/Frameworks $(BUILT_PRODUCTS_DIR)
 
-//GCC_VERSION = com.apple.compilers.llvmgcc42
+GCC_VERSION = com.apple.compilers.llvm.clang.1_0
 
 // Disabled for now, plugins get angry
 //GCC_ENABLE_OBJC_GC = supported

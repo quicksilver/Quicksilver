@@ -231,7 +231,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 		// get the different pboard types from the object's data dictionary -- they're all stored here
 		types = [[[[self dataDictionary] allKeys] mutableCopy] autorelease];
 		if ([types containsObject:QSProxyType])
-			[(NSMutableArray *)types addObjectsFromArray:[[[self resolvedObject] dataDictionary] allKeys]];
+			[(NSMutableArray *)types addObjectsFromArray:[[(QSObject *)[self resolvedObject] dataDictionary] allKeys]];
 	}
 	else {
 		NSMutableSet *typeSet = [NSMutableSet setWithArray:types];

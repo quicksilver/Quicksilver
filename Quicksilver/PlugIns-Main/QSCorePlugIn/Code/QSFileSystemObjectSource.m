@@ -159,7 +159,7 @@
 #else
 - (NSMenu *)tokenField:(NSTokenField *)tokenField menuForRepresentedObject:(id)representedObject {
 	NSMenu *menu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
-	NSArray *conforms = [[(NSString *)UTTypeCopyDeclaration((CFStringRef)representedObject) autorelease] objectForKey:(NSString *)kUTTypeConformsToKey];
+	NSArray *conforms = [(NSDictionary *)[(NSString *)UTTypeCopyDeclaration((CFStringRef)representedObject) autorelease] objectForKey:(NSString *)kUTTypeConformsToKey];
 	if (conforms) {
 		if (![conforms isKindOfClass:[NSArray class]]) conforms = [NSArray arrayWithObject:conforms];
 		for(NSString * type in conforms)

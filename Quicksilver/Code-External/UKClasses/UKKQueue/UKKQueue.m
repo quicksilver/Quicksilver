@@ -315,7 +315,7 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
 	while( keepThreadRunning ) {
 		NSAutoreleasePool*  pool = [[NSAutoreleasePool alloc] init];
 
-		NS_DURING
+		@try {
 			n = kevent( queueFD, NULL, 0, &ev, 1, &timeout );
 			if ( n > 0 ) {
 				if ( ev.filter == EVFILT_VNODE ) {
@@ -341,9 +341,10 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
 					}
 				}
 			}
-		NS_HANDLER
-			NSLog(@"Error in UKKQueue watcherThread: %@", localException);
-		NS_ENDHANDLER
+		}
+		@catch (NSException *e) {
+		  NSLog(@"Error in UKKQueue watcherThread: %@", e);
+		}
 
 		[pool release];
 	}
