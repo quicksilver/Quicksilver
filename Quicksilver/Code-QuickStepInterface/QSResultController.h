@@ -20,14 +20,14 @@
 	QSIconLoader *resultChildIconLoader;
 	IBOutlet NSTextField *	resultCountField;
 	IBOutlet NSMenu *searchModeMenu;
-	int selectedResult;
+	NSInteger selectedResult;
 	QSObject *selectedItem;
 	BOOL browsing;
 	BOOL needsReload;
 	NSRange loadingRange;
 	NSArray *currentResults;
 	QSSearchObjectView *focus;
-	int scrollViewTrackingRect;
+	NSInteger scrollViewTrackingRect;
 
 //	NSArray **sourceArrayPointer;
 	NSTimer *iconTimer;
@@ -55,7 +55,7 @@
 - (void)loadChildren;
 - (IBAction)setSearchMode:(id)sender;
 - (void)arrayChanged:(NSNotification*)notif;
-- (void)bump:(int)i;
+- (void)bump:(NSInteger)i;
 
 - (void)updateSelectionInfo;
 - (QSObject *)selectedItem;
@@ -69,7 +69,7 @@
 - (QSIconLoader *)resultChildIconLoader;
 - (void)setResultChildIconLoader:(QSIconLoader *)aResultChildIconLoader;
 
--(void)rowModified:(int)index;
+-(void)rowModified:(NSInteger)index;
 //- (IBAction)sortByName:(id)sender;
 //- (IBAction)sortByScore:(id)sender;
 @end

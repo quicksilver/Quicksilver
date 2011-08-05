@@ -8,6 +8,9 @@
 
 #import "QSKeyCodeTranslator.h"
 
+extern long GetScriptVariable(short script, short selector);
+#define smScriptKeys 32
+
 typedef struct {
 	short kchrID;
 	Str255 KCHRname;

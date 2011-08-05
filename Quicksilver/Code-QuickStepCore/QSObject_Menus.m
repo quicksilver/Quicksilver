@@ -21,7 +21,7 @@
 //	// actions = [actions sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 //
 //	NSMenuItem *item;
-//	int i;
+//	NSInteger i;
 //	for (i = 0; i<[actions count]; i++) {
 //		QSAction *action = [actions objectAtIndex:i];
 //		if (action) {
@@ -148,8 +148,8 @@
 	return menu;
 }
 
-- (BOOL)addChildrenInArray:(NSArray *)children count:(int)count toMenu:(NSMenu *)menu indent:(int)indent {
-	int index;
+- (BOOL)addChildrenInArray:(NSArray *)children count:(NSInteger)count toMenu:(NSMenu *)menu indent:(NSInteger)indent {
+	NSInteger index;
 	count = MIN(count, [children count]);
 	for (index = 0; index<count; index++) {
 		QSObject *child = [[self children] objectAtIndex:index];
@@ -160,9 +160,9 @@
 	return YES;
 }
 
-- (BOOL)addActionsInArray:(NSArray *)actions count:(int)count toMenu:(NSMenu *)menu indent:(int)indent {
+- (BOOL)addActionsInArray:(NSArray *)actions count:(NSInteger)count toMenu:(NSMenu *)menu indent:(NSInteger)indent {
 	count = MIN(count, [actions count]);
-	int i;
+	NSInteger i;
 	NSMenuItem *item;
 
 	for (i = 0; i<count; i++) {
@@ -247,7 +247,7 @@
   }
   [menu setDelegate:self];
 }
-//- (int) numberOfItemsInMenu:(NSMenu*)menu {
+//- (NSInteger) numberOfItemsInMenu:(NSMenu*)menu {
 //	//NSLog(@"MENU %@ count", [menu title]);
 //
 //	if ([[menu title] isEqualToString:kQSObjectChildrenMenu]) {
@@ -255,7 +255,7 @@
 //	}
 //	return 0;
 //}
-//- (BOOL)menu:(NSMenu*)menu updateItem:(NSMenuItem*)item atIndex:(int)index shouldCancel:(BOOL)shouldCancel {
+//- (BOOL)menu:(NSMenu*)menu updateItem:(NSMenuItem*)item atIndex:(NSInteger)index shouldCancel:(BOOL)shouldCancel {
 //	//NSLog(@"MENU %@ index %d", [menu title] , index);
 //	if ([[menu title] isEqualToString:kQSObjectChildrenMenu]) {
 //		QSBasicObject *child = [[self children] objectAtIndex:index];

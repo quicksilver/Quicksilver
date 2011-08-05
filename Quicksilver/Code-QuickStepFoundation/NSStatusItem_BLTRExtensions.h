@@ -17,11 +17,11 @@ enum {
 };
 
 @interface NSStatusBar (Priority)
-- (id)_statusItemWithLength:(float)length withPriority:(int)priority;
+- (id)_statusItemWithLength:(float)length withPriority:(NSInteger)priority;
 @end
 
 #if 0
 @interface NSStatusItem (Priority)
-- (int) priority;
+- (NSInteger) priority;
 @end
 #endif

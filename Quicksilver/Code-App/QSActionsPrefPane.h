@@ -4,7 +4,7 @@
 @interface QSActionsPrefPane : QSPreferencePane {
 	NSMutableArray *actions;
 	NSMutableArray *groups;
-	int displayMode;
+	NSInteger displayMode;
 	IBOutlet NSArrayController *groupController;
 	IBOutlet NSArrayController *actionController;
 }
@@ -12,8 +12,8 @@
 - (void)setActions:(NSMutableArray *)newActions;
 - (NSMutableArray *)groups;
 - (void)setGroups:(NSMutableArray *)newGroups;
-- (int) displayMode;
-- (void)setDisplayMode:(int)newDisplayMode;
+- (NSInteger) displayMode;
+- (void)setDisplayMode:(NSInteger)newDisplayMode;
 - (IBAction)setFilterText:(id)sender;
 - (void)updateGroups;
 - (void)selectCategories:(NSArray *)categories;

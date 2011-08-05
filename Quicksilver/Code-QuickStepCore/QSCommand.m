@@ -349,7 +349,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"Execute Command: %@", self);
 #endif
-	int argumentCount = [(QSAction *)actionObject argumentCount];
+	NSInteger argumentCount = [(QSAction *)actionObject argumentCount];
 	if (argumentCount<2) {
 		return [actionObject performOnDirectObject:directObject indirectObject:indirectObject];
 	} else if (argumentCount == 2) {
@@ -405,7 +405,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	  NSArray *indirects = [self validIndirects];
 	  NSMenuItem *item;
 	  if ([indirects count]) {
-		  int i;
+		  NSInteger i;
 		  for (i = 0; i < [indirects count] && i < 10; i++) {
 			  QSObject *indirect = [indirects objectAtIndex:i];
 			  if ([indirect isKindOfClass:[NSNull class]]) continue;

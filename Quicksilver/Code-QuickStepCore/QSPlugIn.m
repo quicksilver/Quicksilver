@@ -110,7 +110,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	if (bundle) name = [bundle objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
 	if (!name) name = [data objectForKey:(NSString *)kCFBundleNameKey];
 
-	int feature = [[[self info] valueForKeyPath:@"QSRequirements.feature"] intValue];
+	NSInteger feature = [[[self info] valueForKeyPath:@"QSRequirements.feature"] integerValue];
 
 #ifdef DEBUG
 	if ([name hasSuffix:@" Module"]) name = [name substringToIndex:[name length] -7];
@@ -151,7 +151,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	}
 	if ([self isLoaded]) {
 		if ( [bundle isLoaded]) {
-			int fileSize = [[[[NSFileManager defaultManager] attributesOfItemAtPath:[bundle executablePath] error:nil] objectForKey:NSFileSize] intValue];
+			NSInteger fileSize = [[[[NSFileManager defaultManager] attributesOfItemAtPath:[bundle executablePath] error:nil] objectForKey:NSFileSize] integerValue];
 
 			status = [NSString stringWithFormat:@"Loaded (%dk) ", fileSize/1024];
 		} else {
@@ -371,7 +371,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	return smallIcon;
 }
 
-- (int) isInstalled {
+- (NSInteger) isInstalled {
 	if (bundle) return 1;
 	else if (installing) return -1;
 	else return 0;
@@ -390,10 +390,10 @@ NSMutableDictionary *plugInBundlePaths = nil;
 }
 - (BOOL)meetsFeature {
 	//return YES; // Override this for now
-	return [[[self info] valueForKeyPath:@"QSRequirements.feature"] intValue] <= [NSApp featureLevel];
+	return [[[self info] valueForKeyPath:@"QSRequirements.feature"] integerValue] <= [NSApp featureLevel];
 }
 
-- (int) isLoaded {return loaded;}
+- (NSInteger) isLoaded {return loaded;}
 #define disabledPlugIns [[NSUserDefaults standardUserDefaults] arrayForKey:@"QSDisabledPlugIns"]
 - (NSColor *)enabledColor {
 	return [self isInstalled] ?[NSColor blackColor] :[NSColor grayColor];
@@ -403,7 +403,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 - (NSString *)path {return [bundle bundlePath];}
 - (NSString *)bundlePath {return [bundle bundlePath];}
 
-- (int) enabled {
+- (NSInteger) enabled {
 	if (!bundle)
 		return installing?-1:0;
 	return ![disabledPlugIns containsObject:[bundle bundleIdentifier]];
@@ -558,7 +558,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 				NSBundle *pathBundle = [NSBundle bundleWithPath:path];
 				[pathBundle load];
 				//CFBundleRef b = CFBundleCreate(NULL, [NSURL fileURLWithPath:path]);
-				//int err = CFBundleLoadExecutable(b);
+				//NSInteger err = CFBundleLoadExecutable(b);
 				NSLog(@"path %@ %@ %@", path, resource, pathBundle);
 
 				if (!path) {
@@ -586,7 +586,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 			}
 		}
 
-//		int feature = [[requirementsDict objectForKey:@"feature"] intValue];
+//		NSInteger feature = [[requirementsDict objectForKey:@"feature"] integerValue];
 //		if (feature>[NSApp featureLevel]) {
 //			if (error) *error = @"Feature Level not Met";
 //			return NO;

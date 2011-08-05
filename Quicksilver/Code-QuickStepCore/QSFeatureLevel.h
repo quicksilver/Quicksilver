@@ -7,7 +7,7 @@
  *
  */
 
-#define fDEV ((int) [NSApp featureLevel] >2)
-#define fALPHA ((int) [NSApp featureLevel] >1)
-#define fBETA ((int) [NSApp featureLevel] >0)
+#define fDEV ((NSInteger) [NSApp featureLevel] >2)
+#define fALPHA ((NSInteger) [NSApp featureLevel] >1)
+#define fBETA ((NSInteger) [NSApp featureLevel] >0)
 #define fSPECIAL 0

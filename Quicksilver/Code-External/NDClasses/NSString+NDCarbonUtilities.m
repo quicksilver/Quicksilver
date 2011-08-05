@@ -126,7 +126,7 @@
 #ifdef __OBJC_GC__
 	NSLog (@"WARNING: do not use pascalString in GC apps");
 #endif
-	const unsigned int	kPascalStringLen = 256;
+	const NSUInteger	kPascalStringLen = 256;
 	NSMutableData		* theData = [NSMutableData dataWithCapacity:kPascalStringLen];
 	return [self getPascalString:(StringPtr)[theData mutableBytes] length:kPascalStringLen] ? [theData bytes] : NULL;
 }

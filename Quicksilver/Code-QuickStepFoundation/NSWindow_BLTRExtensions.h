@@ -17,7 +17,7 @@
 
 @interface NSWindow (Widgets)
 - (void)addInternalWidgets;
-- (void)addInternalWidgetsForStyleMask:(int) styleMask;
-- (void)addInternalWidgetsForStyleMask:(int) styleMask closeOnly:(BOOL)closeOnly;
+- (void)addInternalWidgetsForStyleMask:(NSInteger) styleMask;
+- (void)addInternalWidgetsForStyleMask:(NSInteger) styleMask closeOnly:(BOOL)closeOnly;
 @end
 

@@ -135,7 +135,7 @@ NSSize QSMaxIconSize;
 
 #ifdef DEBUG
 	if (DEBUG_MEMORY && (imagecount || childcount) )
-		NSLog(@"Released %i images and %i children (items before %d) ", imagecount, childcount, (int)interval);
+		NSLog(@"Released %i images and %i children (items before %d) ", imagecount, childcount, (NSInteger)interval);
 #endif
 }
 
@@ -263,7 +263,7 @@ NSSize QSMaxIconSize;
 		}
 	}
 	// get the number of objects added to combinedData, then release setOfObjects
-	int objectCount = [setOfObjects count];
+	NSInteger objectCount = [setOfObjects count];
 	[setOfObjects release];
 	
 	// If there's still only 1 object (case: if the comma trick is used on the same object multiple times)
@@ -347,7 +347,7 @@ NSSize QSMaxIconSize;
 	return nil; //[self displayName];
 }
 
-- (NSString *)descriptionWithLocale:(NSDictionary *)locale indent:(unsigned)level {
+- (NSString *)descriptionWithLocale:(NSDictionary *)locale indent:(NSUInteger)level {
 	return [data descriptionWithLocale:locale indent:level];
 }
 
@@ -496,9 +496,9 @@ NSSize QSMaxIconSize;
 	return decodedTypes;
 }
 
-- (int) count {
+- (NSInteger) count {
 	if (![self primaryType]) {
-		int count = 1;
+		NSInteger count = 1;
 		for(id value in [[self dataDictionary] allValues]) {
 			if ([value isKindOfClass:[NSArray class]]) count = MAX([(NSArray *)value count] , count);
 		}
@@ -510,7 +510,7 @@ NSSize QSMaxIconSize;
 	return 1;
 }
 
-- (int) primaryCount {
+- (NSInteger) primaryCount {
 	return [self count];
 }
 

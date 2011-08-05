@@ -32,7 +32,7 @@
 - (void)awakeFromNib {
 #if 0
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NDHotKeyEvent *activationKey = [NDHotKeyEvent getHotKeyForKeyCode:[[defaults objectForKey:kHotKeyCode] unsignedShortValue] character:0 modifierFlags:[[defaults objectForKey:kHotKeyModifiers] unsignedIntValue]];
+	NDHotKeyEvent *activationKey = [NDHotKeyEvent getHotKeyForKeyCode:[[defaults objectForKey:kHotKeyCode] unsignedShortValue] character:0 modifierFlags:[[defaults objectForKey:kHotKeyModifiers] unsignedIntegerValue]];
 	[hotKeyButton setTitle:[activationKey stringValue]];
 #endif
 	NSUserDefaultsController *defaultsController = [NSUserDefaultsController sharedUserDefaultsController];
@@ -45,7 +45,7 @@
 	[super dealloc];
 }
 
-- (void)setModifier:(int)modifier count:(int)count {
+- (void)setModifier:(NSInteger)modifier count:(NSInteger)count {
 	QSModifierKeyEvent *event = [QSModifierKeyEvent eventWithIdentifier:@"QSModKeyActivation"];
 	[event disable];
 	if (count) {
@@ -110,7 +110,7 @@
 }
 
 - (void)selectItemInPopUp:(NSPopUpButton *)popUp representedObject:(id)object {
-	int index = [popUp indexOfItemWithRepresentedObject:object];
+	NSInteger index = [popUp indexOfItemWithRepresentedObject:object];
 	if (index == -1 && [popUp numberOfItems]) index = 0;
 	[popUp selectItemAtIndex:index];
 }
@@ -176,7 +176,7 @@
 #endif
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *keys[] = { kQSAppearance1B, kQSAppearance1A, kQSAppearance1T, kQSAppearance2B, kQSAppearance2A, kQSAppearance2T, kQSAppearance3B, kQSAppearance3A, kQSAppearance3T };
-	int i;
+	NSInteger i;
 	for(i = 0; i < sizeof(keys) / sizeof(keys[0]); i++){
 		[defaults willChangeValueForKey:keys[i]];
 		[defaults removeObjectForKey:keys[i]];
@@ -220,13 +220,13 @@
 		[NSApp requestRelaunch:nil];
 }
 
-- (int) featureLevel {
+- (NSInteger) featureLevel {
 	if (newFeatureLevel) return newFeatureLevel;
 	else return [NSApp featureLevel];
 }
 
 - (void)setFeatureLevel:(id)level {
-	int newLevel = [level intValue];
+	NSInteger newLevel = [level integerValue];
 	newFeatureLevel = newLevel;
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	if (newLevel == 1 && (GetCurrentKeyModifiers() & (optionKey | rightOptionKey) )) {

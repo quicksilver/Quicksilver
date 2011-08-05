@@ -44,7 +44,7 @@
 - (NSArray *)componentsSeparatedByString:(NSString *)aSeparator withOpeningQuote:(NSString *)aOpeningQuote closingQuote:(NSString *)aClosingQuote singleQuote:(NSString *)aSingleQuote includeEmptyComponents:(BOOL)aFlag
 {
 	NSMutableArray			* theComponentArray = [NSMutableArray array];
-	unsigned int			theTokenEnd = 0,
+	NSUInteger			theTokenEnd = 0,
 								theLength = [self length],
 								theSeperatorLen = [aSeparator length],
 								theSingleQuoteLen = [aSingleQuote length],

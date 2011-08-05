@@ -83,7 +83,7 @@
 
 - (void)invokeService {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	pid_t pid = [[[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationProcessIdentifier"] intValue];
+	pid_t pid = [[[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationProcessIdentifier"] integerValue];
 	AXUIElementRef app = AXUIElementCreateApplication (pid);
 	
 	//	NDProcess *proc = [NDProcess frontProcess];

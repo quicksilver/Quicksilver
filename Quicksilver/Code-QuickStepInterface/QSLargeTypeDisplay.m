@@ -25,7 +25,7 @@ void QSShowLargeType(NSString *number) {
 	float displayWidth = NSWidth(screenRect) *11/12-2*EDGEINSET;
 	NSRange fullRange = NSMakeRange(0, [number length]);
 	NSMutableAttributedString *formattedNumber = [[NSMutableAttributedString alloc] initWithString:number];
-	int size;
+	NSInteger size;
 	NSSize textSize;
 	NSFont *textFont;
 	for (size = 24; size<300; size++) {
@@ -113,7 +113,7 @@ void QSShowLargeType(NSString *number) {
 
 
 @implementation QSVanishingWindow
-- (id)initWithContentRect:(NSRect)contentRect styleMask:(unsigned int)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
+- (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
 	if (self = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag]) {
 		[self setReleasedWhenClosed:YES];
 	}

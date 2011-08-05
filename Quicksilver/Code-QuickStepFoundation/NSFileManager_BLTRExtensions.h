@@ -20,16 +20,16 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec);
 - (NSString *)resolveAliasAtPath:(NSString *)aliasFullPath;
 - (NSString *)resolveAliasAtPathWithUI:(NSString *)aliasFullPath;
 - (NSString *)typeOfFile:(NSString *)path;
-- (NSArray *)itemsForPath:(NSString *)path depth:(int)depth types:(NSArray *)types;
-- (NSDate *)modifiedDate:(NSString *)path depth:(int)depth;
+- (NSArray *)itemsForPath:(NSString *)path depth:(NSInteger)depth types:(NSArray *)types;
+- (NSDate *)modifiedDate:(NSString *)path depth:(NSInteger)depth;
 - (NSDate *)pastOnlyModifiedDate:(NSString *)path;
-- (NSDate *)path:(NSString *)path wasModifiedAfter:(NSDate *)date depth:(int)depth;
+- (NSDate *)path:(NSString *)path wasModifiedAfter:(NSDate *)date depth:(NSInteger)depth;
 - (NSString *)fullyResolvedPathForPath:(NSString *)sourcePath;
 - (NSString *)UTIOfFile:(NSString *)path;
 @end
 
 @interface NSFileManager (BLTRExtensions)
-- (int) defaultDragOperationForMovingPaths:(NSArray *)sources toDestination:(NSString *)destination;
+- (NSInteger) defaultDragOperationForMovingPaths:(NSArray *)sources toDestination:(NSString *)destination;
 
 - (BOOL)createDirectoriesForPath:(NSString *)path;
 - (BOOL)filesExistAtPaths:(NSArray *)paths;

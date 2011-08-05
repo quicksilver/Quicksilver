@@ -121,7 +121,7 @@
 + (NSAppleEventDescriptor *)aliasListDescriptorWithArray:(NSArray *)anArray
 {
 	NSAppleEventDescriptor	* theEventList = nil;
-	unsigned int				theIndex,
+	NSUInteger				theIndex,
 									theNumOfParam;
 
 	theNumOfParam = [anArray count];
@@ -149,7 +149,9 @@
  */
 + (id)descriptorWithURL:(NSURL *)aURL
 {
-	return [self descriptorWithDescriptorType:typeFileURL data:[NSData dataWithBytes:(void *)aURL length:sizeof(NSURL)]];
+  NSLog(@"out of order: %s", _cmd);
+  return nil;
+  // return [self descriptorWithDescriptorType:typeFileURL data:[NSData dataWithBytes:(void *)aURL length:sizeof(NSURL)]];
 }
 
 /*
@@ -204,7 +206,9 @@
  */
 + (id)descriptorWithShort:(short int)aValue
 {
-	return [self descriptorWithDescriptorType:typeShortInteger data:[NSData dataWithBytes:&aValue length: sizeof(aValue)]];
+  NSLog(@"out of order: %s", _cmd);
+  return nil;
+  // return [self descriptorWithDescriptorType:typeShortInteger data:[NSData dataWithBytes:&aValue length: sizeof(aValue)]];
 }
 // typeLongInteger
 /*
@@ -212,7 +216,9 @@
  */
 + (id)descriptorWithLong:(long int)aValue
 {
-	return [self descriptorWithDescriptorType:typeLongInteger data:[NSData dataWithBytes:&aValue length: sizeof(aValue)]];
+  NSLog(@"out of order: %s", _cmd);
+  return nil;
+  // return [self descriptorWithDescriptorType:typeLongInteger data:[NSData dataWithBytes:&aValue length: sizeof(aValue)]];
 }
 // typeInteger
 /*
@@ -220,7 +226,9 @@
  */
 + (id)descriptorWithInt:(int)aValue
 {
-	return [self descriptorWithDescriptorType:typeInteger data:[NSData dataWithBytes:&aValue length: sizeof(aValue)]];
+  NSLog(@"out of order: %s", _cmd);
+  return nil;
+  // return [self descriptorWithDescriptorType:typeInteger data:[NSData dataWithBytes:&aValue length: sizeof(aValue)]];
 }
 // typeShortFloat
 /*
@@ -228,7 +236,9 @@
  */
 + (id)descriptorWithFloat:(float)aValue
 {
-	return [self descriptorWithDescriptorType:typeShortFloat data:[NSData dataWithBytes:&aValue length: sizeof(aValue)]];
+  NSLog(@"out of order: %s", _cmd);
+  return nil;
+  // return [self descriptorWithDescriptorType:typeShortFloat data:[NSData dataWithBytes:&aValue length: sizeof(aValue)]];
 }
 // typeLongFloat
 /*
@@ -236,15 +246,19 @@
  */
 + (id)descriptorWithDouble:(double)aValue
 {
-	return [self descriptorWithDescriptorType:typeLongFloat data:[NSData dataWithBytes:&aValue length: sizeof(aValue)]];
+  NSLog(@"out of order: %s", _cmd);
+  return nil;
+  // return [self descriptorWithDescriptorType:typeLongFloat data:[NSData dataWithBytes:&aValue length: sizeof(aValue)]];
 }
 // typeMagnitude
 /*
  * +descriptorWithUnsignedInt:
  */
-+ (id)descriptorWithUnsignedInt:(unsigned int)aValue
++ (id)descriptorWithUnsignedInt:(NSUInteger)aValue
 {
-	return [self descriptorWithDescriptorType:typeMagnitude data:[NSData dataWithBytes:&aValue length: sizeof(aValue)]];
+  NSLog(@"out of order: %s", _cmd);
+  return nil;
+  // return [self descriptorWithDescriptorType:typeMagnitude data:[NSData dataWithBytes:&aValue length: sizeof(aValue)]];
 }
 
 /*
@@ -262,7 +276,7 @@
 {
 	const char					* theType = [aNumber objCType];
 	NSAppleEventDescriptor	* theDescriptor = nil;
-	unsigned int				theIndex;
+	NSUInteger				theIndex;
 	struct
 	{
 		char				* objCType;
@@ -277,7 +291,7 @@
 		{ @encode(char), typeSInt16, sizeof(char) },
 		{ @encode(unsigned short int), typeUInt32, sizeof(unsigned short int) },
 		{ @encode(short int), typeSInt16, sizeof(short int) },
-		{ @encode(unsigned int), typeUInt32, sizeof(unsigned int) },
+		{ @encode(NSUInteger), typeUInt32, sizeof(NSUInteger) },
 		{ @encode(int), typeSInt32, sizeof(int) },
 		{ @encode(unsigned long int), typeUInt32, sizeof(unsigned long int) },
 		{ @encode(long int), typeSInt32, sizeof(long int) },
@@ -313,9 +327,9 @@
 		[aValue getValue:(void*)&theRange];
 		theRange.length += theRange.location;
 		
-		if( AECreateDesc( keyAERangeStart, (void*)&theRange.location, sizeof(unsigned int), &theValues[0] ) == noErr )
+		if( AECreateDesc( keyAERangeStart, (void*)&theRange.location, sizeof(NSUInteger), &theValues[0] ) == noErr )
 		{
-			if( AECreateDesc( keyAERangeStop, (void*)&theRange.length, sizeof(unsigned int), &theValues[1] ) == noErr )
+			if( AECreateDesc( keyAERangeStop, (void*)&theRange.length, sizeof(NSUInteger), &theValues[1] ) == noErr )
 			{
 
 				if( AECreateDesc( typeRangeDescriptor, (void*)&theRange, sizeof(NSRange), &theDesc ) == noErr )
@@ -388,7 +402,7 @@
 + (id)descriptorWithArray:(NSArray *)anArray
 {
 	NSAppleEventDescriptor	* theEventList = nil;
-	unsigned int				theIndex,
+	NSUInteger				theIndex,
 									theNumOfParam;
 
 	theNumOfParam = [anArray count];
@@ -423,7 +437,7 @@
  */
 + (id)listDescriptorWithObjects:(id)anObject arguments:(va_list)anArgList
 {
-	unsigned int					theIndex = 1;
+	NSUInteger					theIndex = 1;
 	NSAppleEventDescriptor		* theEventList = [self listDescriptor];
 
 	do
@@ -435,12 +449,12 @@
 /*
  * +recordDescriptorWithObjects:keywords:count:
  */
-+ (NSAppleEventDescriptor *)recordDescriptorWithObjects:(id *)anObjects keywords:(AEKeyword *)aKeywords count:(unsigned int)aCount
++ (NSAppleEventDescriptor *)recordDescriptorWithObjects:(id *)anObjects keywords:(AEKeyword *)aKeywords count:(NSUInteger)aCount
 {
 	NSAppleEventDescriptor	* theDescriptor = nil;
 	if( (theDescriptor = [self recordDescriptor]) != nil )
 	{
-		unsigned int		theIndex;
+		NSUInteger		theIndex;
 		for( theIndex = 0; theIndex < aCount; theIndex++ )
 		{
 			[theDescriptor setDescriptor:[NSAppleEventDescriptor descriptorWithObject:anObjects[theIndex]] forKeyword:aKeywords[theIndex]];
@@ -461,7 +475,7 @@
 		for(NSNumber *theKey in aDictionary )
 		{
 			NSParameterAssert( [theKey isKindOfClass:theNumberClass] );
-			[theDescriptor setDescriptor:[NSAppleEventDescriptor descriptorWithObject:[aDictionary objectForKey:theKey]] forKeyword:[theKey unsignedIntValue]];
+			[theDescriptor setDescriptor:[NSAppleEventDescriptor descriptorWithObject:[aDictionary objectForKey:theKey]] forKeyword:[theKey unsignedIntegerValue]];
 		}
 	}
 	return theDescriptor;
@@ -523,7 +537,7 @@
 	NSAppleEventDescriptor		* theUserRecord = [self listDescriptor];
 	if( theUserRecord )
 	{
-		unsigned int		theIndex = 1;
+		NSUInteger		theIndex = 1;
 		do
 		{
 			NSString		* theKey = va_arg( anArgList, id );
@@ -540,12 +554,12 @@
 /*
  * +userRecordDescriptorWithObjects:keys:count:
  */
-+ (NSAppleEventDescriptor *)userRecordDescriptorWithObjects:(id *)anObject keys:(NSString **)aKeys count:(unsigned int)aCount
++ (NSAppleEventDescriptor *)userRecordDescriptorWithObjects:(id *)anObject keys:(NSString **)aKeys count:(NSUInteger)aCount
 {
 	NSAppleEventDescriptor		* theUserRecord = [self listDescriptor];
 	if( theUserRecord )
 	{
-		unsigned int		theIndex;
+		NSUInteger		theIndex;
 		for( theIndex = 0; theIndex < aCount; theIndex++ )
 		{
 			NSParameterAssert( aKeys[theIndex] != nil );
@@ -566,7 +580,7 @@
 
 	if( [aDictionary count] > 0 && (theUserRecord = [self listDescriptor]) != nil )
 	{
-		unsigned int	theIndex = 1;
+		NSUInteger	theIndex = 1;
 
 		for (id theKey in aDictionary )
 		{
@@ -607,7 +621,7 @@
  */
 -(NSDictionary *)dictionaryValueFromRecordDescriptor
 {
-	unsigned int				theIndex,
+	NSUInteger				theIndex,
 									theNumOfItems = [self numberOfItems];
 	NSMutableDictionary		*theDictionary = [NSMutableDictionary dictionaryWithCapacity:theNumOfItems];
 
@@ -630,7 +644,7 @@
 - (NSDictionary *)dictionaryValue
 {
 	NSAppleEventDescriptor	* theUserRecordFields = [self descriptorForKeyword:keyASUserRecordFields];
-	unsigned int				theIndex,
+	NSUInteger				theIndex,
 									theNumOfItems = [theUserRecordFields numberOfItems];
 	NSMutableDictionary		* theDictionary = theNumOfItems
 									? [NSMutableDictionary dictionaryWithCapacity:theNumOfItems/2]
@@ -656,12 +670,12 @@
 	{
 		case typeAlias:							//	alias record
 		{
-			unsigned int	theSize;
+			NSUInteger	theSize;
 			Handle			theAliasHandle;
 			FSRef				theTarget;
 			Boolean			theWasChanged;
 
-			theSize = (unsigned int)AEGetDescDataSize([self aeDesc]);
+			theSize = (NSUInteger)AEGetDescDataSize([self aeDesc]);
 			theAliasHandle = NewHandle( theSize );
 			HLock(theAliasHandle);
 			theError = AEGetDescData([self aeDesc], *theAliasHandle, theSize);
@@ -685,11 +699,11 @@
 /*
  * -unsignedIntValue
  */
-- (unsigned int)unsignedIntValue
+- (NSUInteger)unsignedIntValue
 {
-	unsigned int		theUnsignedInt = 0;
-	if( AEGetDescData([self aeDesc], &theUnsignedInt, sizeof(unsigned int)) != noErr )
-		NSLog(@"Failed to get unsigned int value from NSAppleEventDescriptor");
+	NSUInteger		theUnsignedInt = 0;
+	if( AEGetDescData([self aeDesc], &theUnsignedInt, sizeof(NSUInteger)) != noErr )
+		NSLog(@"Failed to get NSUInteger value from NSAppleEventDescriptor");
 
 	return theUnsignedInt;
 }
@@ -723,50 +737,52 @@
  */
 - (NSValue *)value
 {
-	NSValue		* theValue = nil;
-
-	switch([self descriptorType])
-	{
-		case typeBoolean:						//	Boolean value
-		case typeShortInteger:				//	16-bit integer
-		case typeLongInteger:				//	32-bit integer
-		case typeShortFloat:					//	SANE single
-		case typeFloat:						//	SANE double
-		case typeMagnitude:					//	unsigned 32-bit integer
-		case typeTrue:							//	TRUE Boolean value
-		case typeFalse:						//	FALSE Boolean value
-			theValue = [self numberValue];
-			break;
-		case typeOSAErrorRange:
-		{
-			DescType		theTypeCode;
-			Size			theActualSize;
-			short int	theStart,
-							theEnd;
-			if( AEGetParamPtr([self aeDesc], keyOSASourceStart, typeShortInteger, &theTypeCode, (void*)&theStart, sizeof(short int), &theActualSize ) == noErr && AEGetParamPtr([self aeDesc], keyOSASourceEnd, typeShortInteger, &theTypeCode, (void*)&theEnd, sizeof(short int), &theActualSize ) == noErr )
-			{
-				theValue = [NSValue valueWithRange:NSMakeRange( theStart, theEnd - theStart )];
-			}
-			break;
-		}
-		case typeRangeDescriptor:
-		{
-			DescType		theTypeCode;
-			Size			theActualSize;
-			short int	theStart,
-							theEnd;
-			if( AEGetParamPtr ([self aeDesc], keyAERangeStart, typeShortInteger, &theTypeCode, (void*)&theStart, sizeof(short int), &theActualSize ) == noErr && AEGetParamPtr ([self aeDesc], keyAERangeStop, typeShortInteger, &theTypeCode, (void*)&theEnd, sizeof(short int), &theActualSize ) == noErr )
-			{
-				theValue = [NSValue valueWithRange:NSMakeRange( theStart, theEnd - theStart )];
-			}
-			break;
-		}
-		default:
-			theValue = nil;
-			break;
-	}
-
-	return theValue;
+  NSLog(@"out of order: %s", _cmd);
+  return nil;
+  // NSValue    * theValue = nil;
+  // 
+  // switch([self descriptorType])
+  // {
+  //  case typeBoolean:           //  Boolean value
+  //  case typeShortInteger:        //  16-bit integer
+  //  case typeLongInteger:       //  32-bit integer
+  //  case typeShortFloat:          //  SANE single
+  //  case typeFloat:           //  SANE double
+  //  case typeMagnitude:         //  unsigned 32-bit integer
+  //  case typeTrue:              //  TRUE Boolean value
+  //  case typeFalse:           //  FALSE Boolean value
+  //    theValue = [self numberValue];
+  //    break;
+  //  case typeOSAErrorRange:
+  //  {
+  //    DescType    theTypeCode;
+  //    Size      theActualSize;
+  //    short int theStart,
+  //            theEnd;
+  //    if( AEGetParamPtr([self aeDesc], keyOSASourceStart, typeShortInteger, &theTypeCode, (void*)&theStart, sizeof(short int), &theActualSize ) == noErr && AEGetParamPtr([self aeDesc], keyOSASourceEnd, typeShortInteger, &theTypeCode, (void*)&theEnd, sizeof(short int), &theActualSize ) == noErr )
+  //    {
+  //      theValue = [NSValue valueWithRange:NSMakeRange( theStart, theEnd - theStart )];
+  //    }
+  //    break;
+  //  }
+  //  case typeRangeDescriptor:
+  //  {
+  //    DescType    theTypeCode;
+  //    Size      theActualSize;
+  //    short int theStart,
+  //            theEnd;
+  //    if( AEGetParamPtr ([self aeDesc], keyAERangeStart, typeShortInteger, &theTypeCode, (void*)&theStart, sizeof(short int), &theActualSize ) == noErr && AEGetParamPtr ([self aeDesc], keyAERangeStop, typeShortInteger, &theTypeCode, (void*)&theEnd, sizeof(short int), &theActualSize ) == noErr )
+  //    {
+  //      theValue = [NSValue valueWithRange:NSMakeRange( theStart, theEnd - theStart )];
+  //    }
+  //    break;
+  //  }
+  //  default:
+  //    theValue = nil;
+  //    break;
+  // }
+  // 
+  // return theValue;
 }
 
 /*
@@ -774,60 +790,62 @@
  */
 - (NSNumber *)numberValue
 {
-	NSNumber		* theNumber = nil;
-
-	switch([self descriptorType])
-	{
-		case typeBoolean:						//	Boolean value
-			theNumber = [NSNumber numberWithBool:[self booleanValue]];
-			break;
-		case typeShortInteger:				//	16-bit integer
-			theNumber = [NSNumber numberWithShort: [self int32Value]];
-			break;
-		case typeLongInteger:				//	32-bit integer
-//		case typeInteger:							//	32-bit integer
-		{
-			int		theInteger;
-			if( AEGetDescData([self aeDesc], &theInteger, sizeof(int)) == noErr )
-				theNumber = [NSNumber numberWithInt: theInteger];
-			break;
-		}
-		case typeShortFloat:					//	SANE single
-//		case typeSMFloat:							//	SANE single
-		{
-			theNumber = [NSNumber numberWithFloat:[self floatValue]];
-			break;
-		}
-		case typeFloat:						//	SANE double
-//		case typeLongFloat:						//	SANE double
-		{
-			theNumber = [NSNumber numberWithDouble:[self doubleValue]];
-			break;
-		}
-//		case typeExtended:						//	SANE extended
-//			break;
-//		case typeComp:							//	SANE comp
-//			break;
-		case typeMagnitude:					//	unsigned 32-bit integer
-		{
-			theNumber = [NSNumber numberWithUnsignedLong:[self unsignedIntValue]];
-			break;
-		}
-		case typeTrue:							//	TRUE Boolean value
-			theNumber = [NSNumber numberWithBool:YES];
-			break;
-		case typeFalse:						//	FALSE Boolean value
-			theNumber = [NSNumber numberWithBool:NO];
-			break;
-		case typeType:
-			theNumber = [NSNumber numberWithUnsignedLong:[self typeCodeValue]];
-			break;
-		default:
-			theNumber = nil;
-			break;
-	}
-
-	return theNumber;
+  NSLog(@"out of order: %s", _cmd);
+  return nil;
+//  NSNumber    * theNumber = nil;
+// 
+//  switch([self descriptorType])
+//  {
+//    case typeBoolean:           //  Boolean value
+//      theNumber = [NSNumber numberWithBool:[self booleanValue]];
+//      break;
+//    case typeShortInteger:        //  16-bit integer
+//      theNumber = [NSNumber numberWithShort: [self int32Value]];
+//      break;
+//    case typeLongInteger:       //  32-bit integer
+// //   case typeInteger:             //  32-bit integer
+//    {
+//      int   theInteger;
+//      if( AEGetDescData([self aeDesc], &theInteger, sizeof(int)) == noErr )
+//        theNumber = [NSNumber numberWithInt: theInteger];
+//      break;
+//    }
+//    case typeShortFloat:          //  SANE single
+// //   case typeSMFloat:             //  SANE single
+//    {
+//      theNumber = [NSNumber numberWithFloat:[self floatValue]];
+//      break;
+//    }
+//    case typeFloat:           //  SANE double
+// //   case typeLongFloat:           //  SANE double
+//    {
+//      theNumber = [NSNumber numberWithDouble:[self doubleValue]];
+//      break;
+//    }
+// //   case typeExtended:            //  SANE extended
+// //     break;
+// //   case typeComp:              //  SANE comp
+// //     break;
+//    case typeMagnitude:         //  unsigned 32-bit integer
+//    {
+//      theNumber = [NSNumber numberWithUnsignedLong:[self unsignedIntegerValue]];
+//      break;
+//    }
+//    case typeTrue:              //  TRUE Boolean value
+//      theNumber = [NSNumber numberWithBool:YES];
+//      break;
+//    case typeFalse:           //  FALSE Boolean value
+//      theNumber = [NSNumber numberWithBool:NO];
+//      break;
+//    case typeType:
+//      theNumber = [NSNumber numberWithUnsignedLong:[self typeCodeValue]];
+//      break;
+//    default:
+//      theNumber = nil;
+//      break;
+//  }
+// 
+//  return theNumber;
 }
 
 /*
@@ -835,75 +853,77 @@
  */
 - (id)objectValue
 {
-	id			theResult;
-	DescType	theDescType = [self descriptorType];
-
-#if 0
-	printf("descriptor type = %s\n", [NSFileTypeForHFSTypeCode(theDescType) lossyCString] );
-#endif
-	
-	switch(theDescType)
-	{
-		case typeBoolean:						//	1-byte Boolean value
-		case typeShortInteger:				//	16-bit integer
-//		case typeSMInt:							//	16-bit integer
-		case typeLongInteger:				//	32-bit integer
-//		case typeInteger:							//	32-bit integer
-		case typeShortFloat:					//	SANE single
-//		case typeSMFloat:							//	SANE single
-		case typeFloat:						//	SANE double
- //		case typeLongFloat:						//	SANE double
-//		case typeExtended:						//	SANE extended
-//		case typeComp:							//	SANE comp
-		case typeMagnitude:					//	unsigned 32-bit integer
-		case typeTrue:							//	TRUE Boolean value
-		case typeFalse:						//	FALSE Boolean value
-			theResult = [self numberValue];
-			break;
-		case typeOSAErrorRange:
-			theResult = [self value];
-			break;
-//		case typeChar:								//	unterminated string, equal to typeText
-		case typeText:							//	plain text
-		case kTXNUnicodeTextData:			//	unicode string
-			theResult = [self stringValue];
-			break;
-		case typeAEList:						//	list of descriptor records
-			theResult = [self arrayValue];
-			break;
-		case typeAERecord:					//	list of keyword-specified
-			theResult = [self numberOfItems] == 1 && [self keywordForDescriptorAtIndex:1] == keyASUserRecordFields ? [self dictionaryValue] : [self dictionaryValueFromRecordDescriptor];
-			break;
-		case typeAlias:						//	alias record
-		case typeFileURL:
-			theResult = [self urlValue];
-			break;
-//		case typeEnumerated:					//	enumerated data
-//			break;
-		case cScript:							// script data
-		{
-			SEL		theSelector;
-
-			theSelector = NSSelectorFromString(@"appleScriptValue");
-			theResult = [self respondsToSelector:theSelector] ? [self performSelector:theSelector] : self;
-			break;
-		}
-		case cEventIdentifier:
-		{
-			unsigned int		*theValues;
-			theValues = (unsigned int*)[[self data] bytes];
-			theResult = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithUnsignedInt:theValues[0]], @"EventClass", [NSNumber numberWithUnsignedInt:theValues[1]], @"EventID", nil];
-			break;
-		}
-		case typeNull:
-			theResult = [NSNull null];
-			break;
-		default:
-			theResult = self;
-			break;
-	}
-
-	return theResult;
+  NSLog(@"out of order: %s", _cmd);
+  return nil;
+//  id      theResult;
+//  DescType  theDescType = [self descriptorType];
+// 
+// #if 0
+//  printf("descriptor type = %s\n", [NSFileTypeForHFSTypeCode(theDescType) lossyCString] );
+// #endif
+//  
+//  switch(theDescType)
+//  {
+//    case typeBoolean:           //  1-byte Boolean value
+//    case typeShortInteger:        //  16-bit integer
+// //   case typeSMInt:             //  16-bit integer
+//    case typeLongInteger:       //  32-bit integer
+// //   case typeInteger:             //  32-bit integer
+//    case typeShortFloat:          //  SANE single
+// //   case typeSMFloat:             //  SANE single
+//    case typeFloat:           //  SANE double
+//  //    case typeLongFloat:           //  SANE double
+// //   case typeExtended:            //  SANE extended
+// //   case typeComp:              //  SANE comp
+//    case typeMagnitude:         //  unsigned 32-bit integer
+//    case typeTrue:              //  TRUE Boolean value
+//    case typeFalse:           //  FALSE Boolean value
+//      theResult = [self numberValue];
+//      break;
+//    case typeOSAErrorRange:
+//      theResult = [self value];
+//      break;
+// //   case typeChar:                //  unterminated string, equal to typeText
+//    case typeText:              //  plain text
+//    case kTXNUnicodeTextData:     //  unicode string
+//      theResult = [self stringValue];
+//      break;
+//    case typeAEList:            //  list of descriptor records
+//      theResult = [self arrayValue];
+//      break;
+//    case typeAERecord:          //  list of keyword-specified
+//      theResult = [self numberOfItems] == 1 && [self keywordForDescriptorAtIndex:1] == keyASUserRecordFields ? [self dictionaryValue] : [self dictionaryValueFromRecordDescriptor];
+//      break;
+//    case typeAlias:           //  alias record
+//    case typeFileURL:
+//      theResult = [self urlValue];
+//      break;
+// //   case typeEnumerated:          //  enumerated data
+// //     break;
+//    case cScript:             // script data
+//    {
+//      SEL   theSelector;
+// 
+//      theSelector = NSSelectorFromString(@"appleScriptValue");
+//      theResult = [self respondsToSelector:theSelector] ? [self performSelector:theSelector] : self;
+//      break;
+//    }
+//    case cEventIdentifier:
+//    {
+//      NSUInteger    *theValues;
+//      theValues = (NSUInteger*)[[self data] bytes];
+//      theResult = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithUnsignedInt:theValues[0]], @"EventClass", [NSNumber numberWithUnsignedInt:theValues[1]], @"EventID", nil];
+//      break;
+//    }
+//    case typeNull:
+//      theResult = [NSNull null];
+//      break;
+//    default:
+//      theResult = self;
+//      break;
+//  }
+// 
+//  return theResult;
 }
 
 @end
@@ -983,7 +1003,7 @@
 /*
  * +descriptorWithSubroutineName:prepositionalArgumentObjects:forKeyword:count:
  */
-+ (id)descriptorWithSubroutineName:(NSString *)aRoutineName labels:(AEKeyword*)aLabels argumentObjects:(id *)anObjects count:(unsigned int)aCount
++ (id)descriptorWithSubroutineName:(NSString *)aRoutineName labels:(AEKeyword*)aLabels argumentObjects:(id *)anObjects count:(NSUInteger)aCount
 {
 	return [[[self alloc] initWithSubroutineName:aRoutineName labels:aLabels arguments:anObjects count:aCount] autorelease];
 }
@@ -991,7 +1011,7 @@
 /*
  * +descriptorWithSubroutineName:labels:argumentDescriptors:count:
  */
-+ (id)descriptorWithSubroutineName:(NSString *)aRoutineName labels:(AEKeyword*)aLabels argumentDescriptors:(NSAppleEventDescriptor **)aParam count:(unsigned int)aCount
++ (id)descriptorWithSubroutineName:(NSString *)aRoutineName labels:(AEKeyword*)aLabels argumentDescriptors:(NSAppleEventDescriptor **)aParam count:(NSUInteger)aCount
 {
 	return [[[self alloc] initWithSubroutineName:aRoutineName labels:aLabels argumentDescriptors:aParam  count:aCount] autorelease];
 }
@@ -1035,12 +1055,12 @@
 /*
  * -initWithSubroutineName:labels:arguments:count:
  */
-- (id)initWithSubroutineName:(NSString *)aRoutineName labels:(AEKeyword*)aLabels arguments:(id *)anObjects count:(unsigned int)aCount
+- (id)initWithSubroutineName:(NSString *)aRoutineName labels:(AEKeyword*)aLabels arguments:(id *)anObjects count:(NSUInteger)aCount
 {
 	if( self = [self initWithEventClass:kASAppleScriptSuite eventID:kASPrepositionalSubroutine
 														 targetDescriptor:[NSAppleEventDescriptor currentProcessDescriptor] returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID] )
 	{
-		unsigned int		theIndex;
+		NSUInteger		theIndex;
 		[self setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:[aRoutineName lowercaseString]] forKeyword:keyASSubroutineName];
 		for( theIndex = 0; theIndex < aCount; theIndex++ )
 		{
@@ -1067,12 +1087,12 @@
 /*
  * -initWithSubroutineName:prepositionalArgumentDescriptors:forKeywords:count:
  */
-- (id)initWithSubroutineName:(NSString *)aRoutineName labels:(AEKeyword*)aLabels argumentDescriptors:(NSAppleEventDescriptor **)aParam count:(unsigned int)aCount
+- (id)initWithSubroutineName:(NSString *)aRoutineName labels:(AEKeyword*)aLabels argumentDescriptors:(NSAppleEventDescriptor **)aParam count:(NSUInteger)aCount
 {
 	if( self = [self initWithEventClass:kASAppleScriptSuite eventID:kASPrepositionalSubroutine
 												  targetDescriptor:[NSAppleEventDescriptor currentProcessDescriptor] returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID] )
 	{
-		unsigned int		theIndex;
+		NSUInteger		theIndex;
 		[self setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:[aRoutineName lowercaseString]] forKeyword:keyASSubroutineName];
 		for( theIndex = 0; theIndex < aCount; theIndex++ )
 			[self setParamDescriptor:aParam[theIndex] forKeyword:aLabels[theIndex]];

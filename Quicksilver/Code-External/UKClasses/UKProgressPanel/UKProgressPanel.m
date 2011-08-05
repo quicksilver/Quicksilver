@@ -194,10 +194,10 @@ NSLock*						gUKProgressPanelThreadLock = nil; 			// Users will want to use thre
 	[gUKProgressPanelThreadLock lock];
 
 	NSArray*			subs = [taskContentView subviews];
-	unsigned int		pos = [subs indexOfObject: [theElement progressTaskView]];
+	NSUInteger		pos = [subs indexOfObject: [theElement progressTaskView]];
 	NSEnumerator*		elEnum = [subs objectEnumerator];
 	NSSize				sizeGone = [[theElement progressTaskView] frame] .size;
-	unsigned int		x;
+	NSUInteger		x;
 	NSView*				currElemView;
 
 	// Move down elements above the one we're removing:
@@ -215,7 +215,7 @@ NSLock*						gUKProgressPanelThreadLock = nil; 			// Users will want to use thre
 	[taskContentView setNeedsDisplay:YES];
 
 	// Update "number of tasks" status display:
-	unsigned int tCount = [subs count];
+	NSUInteger tCount = [subs count];
 	if ( tCount == 0 )
 		[taskStatus setStringValue: NSLocalizedStringFromTable(@"No active tasks.", @"UKProgressPanel", nil)];
 	else

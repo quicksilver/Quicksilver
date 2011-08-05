@@ -36,8 +36,8 @@
 - (BOOL)isPreset;
 - (BOOL)isSeparator;
 - (BOOL)isGroup;
-- (int) state;
-- (int) hasEnabledChildren;
+- (NSInteger) state;
+- (NSInteger) hasEnabledChildren;
 - (BOOL)isEnabled;
 - (void)setEnabled:(BOOL)enabled;
 - (void)setDeepEnabled:(BOOL)enabled;
@@ -49,7 +49,7 @@
 - (NSArray *)ancestors;
 - (NSString *)name;
 - (NSImage *)icon;
-- (int) deepObjectCount;
+- (NSInteger) deepObjectCount;
 - (BOOL)loadIndex;
 - (void)saveIndex;
 - (BOOL)indexIsValid;
@@ -78,6 +78,6 @@
 - (void)setIsScanning:(BOOL)flag;
 //- (NSString *)countString;
 
-- (int) count;
+- (NSInteger) count;
 - (NSIndexPath *)catalogSetIndexPath;
 @end

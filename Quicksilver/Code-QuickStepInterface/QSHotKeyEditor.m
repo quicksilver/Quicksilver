@@ -1,4 +1,4 @@
-NSString * stringForModifiers( unsigned int aModifierFlags );
+NSString * stringForModifiers( NSUInteger aModifierFlags );
 
 #import "QSHotKeyEditor.h"
 #import "QSApp.h"
@@ -35,7 +35,7 @@ NSString * stringForModifiers( unsigned int aModifierFlags );
 	//if ([thisTrigger objectForKey:@"keyCode"] && [thisTrigger objectForKey:@"modifiers"]) {
 	//		QSHotKeyEvent *activationKey = (QSHotKeyEvent *)[QSHotKeyEvent getHotKeyForKeyCode:[[thisTrigger objectForKey:@"keyCode"] shortValue]
 	//																			  character:0
-	//																	  safeModifierFlags:[[thisTrigger objectForKey:@"modifiers"] intValue]];
+	//																	  safeModifierFlags:[[thisTrigger objectForKey:@"modifiers"] integerValue]];
 	//		return [activationKey stringValue];
 	//		return @"nil";
 	[super setStringValue:string];
@@ -141,7 +141,7 @@ NSString * stringForModifiers( unsigned int aModifierFlags );
 	[self setString:[newString length] ? newString:defaultString];
 }
 - (void)setDictionaryStringWithEvent:(NSEvent *)theEvent {
-	unsigned int modifiers = [theEvent modifierFlags];
+	NSUInteger modifiers = [theEvent modifierFlags];
 	unsigned short keyCode = [theEvent keyCode];
 	NSString *characters = (keyCode == 48) ? @"\t" : [theEvent charactersIgnoringModifiers];
 	//	NSLog(@"event %@", theEvent);
@@ -204,7 +204,7 @@ NSString * stringForModifiers( unsigned int aModifierFlags );
 }
 
 - (NSDictionary *)hotKeyDictForEvent:(NSEvent *)event {
-	unsigned int modifiers = [event modifierFlags];
+	NSUInteger modifiers = [event modifierFlags];
 	unsigned short keyCode = [event keyCode];
 //	NSString *character = (keyCode == 48) ? @"\t" : [event charactersIgnoringModifiers];
 	return [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithUnsignedInt:modifiers] , @"modifiers", [NSNumber numberWithUnsignedShort:keyCode] , @"keyCode", nil];

@@ -491,8 +491,6 @@
 		E1E5FAC407B204BF0044D6EF /* NSObject+ReaperExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA8E07B204BE0044D6EF /* NSObject+ReaperExtensions.m */; };
 		E1E5FAC507B204BF0044D6EF /* NSPasteboard_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA8F07B204BE0044D6EF /* NSPasteboard_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAC607B204BF0044D6EF /* NSPasteboard_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA9007B204BE0044D6EF /* NSPasteboard_BLTRExtensions.m */; };
-		E1E5FAC707B204BF0044D6EF /* NSScreen_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA9107B204BE0044D6EF /* NSScreen_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1E5FAC807B204BF0044D6EF /* NSScreen_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA9207B204BE0044D6EF /* NSScreen_BLTRExtensions.m */; };
 		E1E5FACB07B204BF0044D6EF /* NSString_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA9507B204BE0044D6EF /* NSString_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FACC07B204BF0044D6EF /* NSString_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA9607B204BE0044D6EF /* NSString_BLTRExtensions.m */; };
 		E1E5FACD07B204BF0044D6EF /* NSTableView_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA9707B204BE0044D6EF /* NSTableView_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1403,8 +1401,6 @@
 		E1E5FA8E07B204BE0044D6EF /* NSObject+ReaperExtensions.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ReaperExtensions.m"; sourceTree = "<group>"; };
 		E1E5FA8F07B204BE0044D6EF /* NSPasteboard_BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NSPasteboard_BLTRExtensions.h; sourceTree = "<group>"; };
 		E1E5FA9007B204BE0044D6EF /* NSPasteboard_BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NSPasteboard_BLTRExtensions.m; sourceTree = "<group>"; };
-		E1E5FA9107B204BE0044D6EF /* NSScreen_BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NSScreen_BLTRExtensions.h; sourceTree = "<group>"; };
-		E1E5FA9207B204BE0044D6EF /* NSScreen_BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NSScreen_BLTRExtensions.m; sourceTree = "<group>"; };
 		E1E5FA9307B204BE0044D6EF /* NSStatusItem_BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NSStatusItem_BLTRExtensions.h; sourceTree = "<group>"; };
 		E1E5FA9507B204BE0044D6EF /* NSString_BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NSString_BLTRExtensions.h; sourceTree = "<group>"; };
 		E1E5FA9607B204BE0044D6EF /* NSString_BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NSString_BLTRExtensions.m; sourceTree = "<group>"; };
@@ -2314,8 +2310,6 @@
 				E1E5FA8E07B204BE0044D6EF /* NSObject+ReaperExtensions.m */,
 				E1E5FA8F07B204BE0044D6EF /* NSPasteboard_BLTRExtensions.h */,
 				E1E5FA9007B204BE0044D6EF /* NSPasteboard_BLTRExtensions.m */,
-				E1E5FA9107B204BE0044D6EF /* NSScreen_BLTRExtensions.h */,
-				E1E5FA9207B204BE0044D6EF /* NSScreen_BLTRExtensions.m */,
 				7FDF342307F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.h */,
 				7FDF342407F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.m */,
 				E1E5FA9307B204BE0044D6EF /* NSStatusItem_BLTRExtensions.h */,
@@ -2798,7 +2792,6 @@
 				7F05F1E20852441C00A8EC0C /* NSObject+BLTRExtensions.h in Headers */,
 				E1E5FAC307B204BF0044D6EF /* NSObject+ReaperExtensions.h in Headers */,
 				E1E5FAC507B204BF0044D6EF /* NSPasteboard_BLTRExtensions.h in Headers */,
-				E1E5FAC707B204BF0044D6EF /* NSScreen_BLTRExtensions.h in Headers */,
 				7FDF342507F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.h in Headers */,
 				2E34EDD5134CA14F005E66A1 /* NSStatusItem_BLTRExtensions.h in Headers */,
 				7F26503408DB09B20076E4E6 /* NSString+CarbonUtilities.h in Headers */,
@@ -3606,7 +3599,6 @@
 				7F05F1E30852441C00A8EC0C /* NSObject+BLTRExtensions.m in Sources */,
 				E1E5FAC407B204BF0044D6EF /* NSObject+ReaperExtensions.m in Sources */,
 				E1E5FAC607B204BF0044D6EF /* NSPasteboard_BLTRExtensions.m in Sources */,
-				E1E5FAC807B204BF0044D6EF /* NSScreen_BLTRExtensions.m in Sources */,
 				7FDF342607F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.m in Sources */,
 				7F26503508DB09B20076E4E6 /* NSString+CarbonUtilities.m in Sources */,
 				E180041F07B35E3300010DB0 /* NSString+NDCarbonUtilities.m in Sources */,
@@ -3989,7 +3981,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = "PlugIns-Main/Bezel/Info.plist";
 				PRODUCT_NAME = "Bezel Interface";
@@ -4000,7 +3992,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				INFOPLIST_FILE = "PlugIns-Main/Bezel/Info.plist";
 				PRODUCT_NAME = "Bezel Interface";
 			};
@@ -4010,7 +4002,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = "PlugIns-Main/Finder/Info.plist";
 				PRODUCT_NAME = "Finder Module";
@@ -4021,7 +4013,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				INFOPLIST_FILE = "PlugIns-Main/Finder/Info.plist";
 				PRODUCT_NAME = "Finder Module";
 			};
@@ -4031,7 +4023,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = "PlugIns-Main/PrimerInterface/Info.plist";
 				PRODUCT_NAME = "Primer Interface";
@@ -4042,7 +4034,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				INFOPLIST_FILE = "PlugIns-Main/PrimerInterface/Info.plist";
 				PRODUCT_NAME = "Primer Interface";
 			};
@@ -4052,7 +4044,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = "PlugIns-Main/QSHotKeyPlugIn/Info.plist";
 				PRODUCT_NAME = "HotKey Triggers";
@@ -4063,7 +4055,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				INFOPLIST_FILE = "PlugIns-Main/QSHotKeyPlugIn/Info.plist";
 				PRODUCT_NAME = "HotKey Triggers";
 			};
@@ -4088,7 +4080,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -4107,7 +4099,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -4124,6 +4116,7 @@
 		7F6B3E50085CE68E000735A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -4137,6 +4130,7 @@
 		7F6B3E51085CE68E000735A8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -4149,6 +4143,7 @@
 		7F6B3E55085CE68E000735A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -4162,6 +4157,7 @@
 		7F6B3E56085CE68E000735A8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -4174,6 +4170,7 @@
 		7F6B3E5A085CE68E000735A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -4187,6 +4184,7 @@
 		7F6B3E5B085CE68E000735A8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -4215,7 +4213,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
 				PRODUCT_NAME = "Core Support";
@@ -4226,7 +4224,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
 				PRODUCT_NAME = "Core Support";
 			};
@@ -4236,7 +4234,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -4249,7 +4247,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = Quicksilver;
@@ -4278,7 +4276,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 			};
 			name = Debug;
@@ -4287,13 +4285,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 			};
 			name = Release;
 		};
 		7F9703D409AFEE8B00E9EA77 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = "QSDroplet/QSDroplet-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -4305,6 +4304,7 @@
 		7F9703D509AFEE8B00E9EA77 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				INFOPLIST_FILE = "QSDroplet/QSDroplet-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = QSDroplet;

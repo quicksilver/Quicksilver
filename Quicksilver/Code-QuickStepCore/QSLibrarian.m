@@ -17,7 +17,7 @@
 
 float QSMinScore = 0.333333;
 
-static int presetSort(id item1, id item2, QSLibrarian *librarian) {
+static NSInteger presetSort(id item1, id item2, QSLibrarian *librarian) {
 	return [[item1 name] caseInsensitiveCompare:[item2 name]];
 }
 
@@ -79,7 +79,7 @@ static float searchSpeed = 0.0;
 			[NSMutableArray array] , kItemChildren,
 			[NSNumber numberWithBool:YES] , kItemEnabled, nil];
 
-		if ((int) getenv("QSDisableCatalog") || GetCurrentKeyModifiers() & shiftKey) {
+		if ((NSInteger) getenv("QSDisableCatalog") || GetCurrentKeyModifiers() & shiftKey) {
 			NSLog(@"Disabling Catalog");
 		} else {
 			[self setCatalog:[QSCatalogEntry entryWithDictionary:
@@ -157,7 +157,7 @@ static float searchSpeed = 0.0;
 		}
 		children = [parent getChildren];
 		[children addObject:entry];
-		[children sortUsingFunction:(int (*)(id, id, void *))presetSort context:(void *)self];
+		[children sortUsingFunction:(NSInteger (*)(id, id, void *))presetSort context:(void *)self];
 		if (scan) [entry scanForced:YES];
 	}
 	//[catalogChildren replaceObjectsInRange:NSMakeRange(0, 0) withObjectsFromArray:newPresets];
@@ -401,7 +401,7 @@ static float searchSpeed = 0.0;
 
 #ifdef DEBUG
 	if (DEBUG_CATALOG)
-		NSLog(@"Indexes loaded (%dms) ", (int)(-[date timeIntervalSinceNow] *1000));
+		NSLog(@"Indexes loaded (%dms) ", (NSInteger)(-[date timeIntervalSinceNow] *1000));
 #endif
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryIndexed object:nil];
@@ -447,7 +447,7 @@ static float searchSpeed = 0.0;
 		[typeEntry setObject:[typeDictionary objectForKey:key] forKey:currentItemID];
 	}
 	//NSLog(@"%@", typeArrays);
-	// if (DEBUG) NSLog(@"Rebuilt Type Array for %@ in %dms", currentItemID, (int) (-[date timeIntervalSinceNow] *1000));
+	// if (DEBUG) NSLog(@"Rebuilt Type Array for %@ in %dms", currentItemID, (NSInteger) (-[date timeIntervalSinceNow] *1000));
 
 }
 
@@ -525,8 +525,8 @@ static float searchSpeed = 0.0;
 	scannerCount++;
 	[NSThread setThreadPriority:0];
 	NSArray *children = [catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
-	int i;
-	int c = [children count];
+	NSInteger i;
+	NSInteger c = [children count];
 	for (i = 0; i<c; i++) {
 		[mtScanTask setProgress:(float) i/c];
 		[[children objectAtIndex:i] scanForced:force];
@@ -583,7 +583,7 @@ static float searchSpeed = 0.0;
 	float estimate = (set ? [set count] : [defaultSearchSet count]) * searchSpeed;
 #ifdef DEBUG
 	if (VERBOSE)
-        NSLog(@"Estimate: %fms avg: %dµs", estimate * 1000, (int)(searchSpeed * 1000000));
+        NSLog(@"Estimate: %fms avg: %dµs", estimate * 1000, (NSInteger)(searchSpeed * 1000000));
 #endif
 	return MIN(estimate, 0.5);
 }
@@ -591,8 +591,8 @@ static float searchSpeed = 0.0;
 #ifdef DEBUG
 - (NSMutableArray *)scoreTest:(id)sender {
 	NSArray *array = [NSArray arrayWithObjects:@"a", @"b", @"c", @"d", @"e", @"f", @"g", @"h", @"i", @"j", @"k", @"l", @"m", @"n", @"o", @"p", @"q", @"r", @"s", @"t", @"u", @"v", @"w", @"x", @"y", @"z", nil];
-	int i, j;
-	int count = [array count];
+	NSInteger i, j;
+	NSInteger count = [array count];
 
 	NSDate *totalDate = [NSDate date];
 	NSDate *date;
@@ -636,13 +636,13 @@ static float searchSpeed = 0.0;
 #ifdef DEBUG
 	NSDate *date = [NSDate date];
 	
-	int count = [set count];
+	NSInteger count = [set count];
 	float speed = -[date timeIntervalSinceNow] / count;
 	if (count)
         searchSpeed = ((speed + searchSpeed) / 2.0f);
 
 	if (VERBOSE)
-        NSLog(@"Ranking: %fms avg: %d¬µs", -([date timeIntervalSinceNow] * 1000), (int)(speed * 1000000));
+        NSLog(@"Ranking: %fms avg: %d¬µs", -([date timeIntervalSinceNow] * 1000), (NSInteger)(speed * 1000000));
 
 #endif
  	[rankObjects sortUsingSelector:@selector(scoreCompare:)];

@@ -395,7 +395,7 @@
         if ([obj isKindOfClass:[QSRankedObject class]])
             obj = [(QSRankedObject*)obj object];
         if ([obj isKindOfClass:[QSAction class]]) {
-            int argumentCount = [obj argumentCount];
+            NSInteger argumentCount = [obj argumentCount];
             if (argumentCount == 2)
                 [self updateIndirectObjects];
             [self updateViewLocations];
@@ -418,7 +418,7 @@
 
 - (void)timerHide:(NSTimer *)timer {
 	if (preview) return;
-	bool stayOpen = StillDown();
+	bool stayOpen = [NSEvent pressedMouseButtons];
 	if (!stayOpen) {
 		 // NSLog(@"Window Closing");
 		if ([[NSApp keyWindow] level] <= [[self window] level])
@@ -537,7 +537,7 @@
         }
 	}
 #ifdef DEBUG
-	if (VERBOSE) NSLog(@"Command executed (%dms) ", (int)(-[startDate timeIntervalSinceNow] *1000));
+	if (VERBOSE) NSLog(@"Command executed (%dms) ", (NSInteger)(-[startDate timeIntervalSinceNow] *1000));
 #endif
 	[action release];
 	[pool release];
@@ -568,7 +568,7 @@
 		NSBeep();
 		return;
 	}
-	int argumentCount = [(QSAction *)[aSelector objectValue] argumentCount];
+	NSInteger argumentCount = [(QSAction *)[aSelector objectValue] argumentCount];
 	if (argumentCount == 2) {
 		BOOL indirectIsRequired = ![[aSelector objectValue] indirectOptional];
 		BOOL indirectIsInvalid = ![iSelector objectValue];
@@ -690,11 +690,11 @@
 	[self fireActionUpdateTimer];
 	NSArray *array = [aSelector resultArray];
     
-	int argumentCount = [(QSAction *)[aSelector objectValue] argumentCount];
+	NSInteger argumentCount = [(QSAction *)[aSelector objectValue] argumentCount];
     
 	if (sender == iSelector) {
-		int index = [array indexOfObject:[aSelector objectValue]];
-		int count = [array count];
+		NSInteger index = [array indexOfObject:[aSelector objectValue]];
+		NSInteger count = [array count];
 		if (index != count-1)
 			array = [[array subarrayWithRange:NSMakeRange(index+1, count-index-1)] arrayByAddingObjectsFromArray:
                      [array subarrayWithRange:NSMakeRange(0, index+1)]];

@@ -6,13 +6,13 @@ enum QSFileConflictResolutionMethod {
 	QSCancelReplaceResolution, QSReplaceFilesResolution, QSDontReplaceFilesResolution, QSSmartReplaceFilesResolution
 };
 #if !defined(__cplusplus)
-typedef int QSFileConflictResolutionMethod;
+typedef NSInteger QSFileConflictResolutionMethod;
 #endif
 
 @interface QSFileConflictPanel : NSPanel {
 	IBOutlet NSTableView *nameTable;
 	NSArray *conflictNames;
-	int method;
+	NSInteger method;
 
 	IBOutlet NSButton *smartReplaceButton;
 	IBOutlet NSButton *dontReplaceButton;

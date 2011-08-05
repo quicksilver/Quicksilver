@@ -61,7 +61,7 @@
 //	[SLog(@"back %@",[backgroundDict objectForKey:@"ImageFilePath"]);
     [self setBackgroundImage:[[[NSImage allocWithZone:[self zone]] initWithContentsOfFile: [backgroundDict objectForKey:@"ImageFilePath"]] autorelease]];
     [self setBackgroundColor:[NSColor colorWithCalibratedRed:[[colorArray objectAtIndex:0]floatValue] green:[[colorArray objectAtIndex:1]floatValue] blue:[[colorArray objectAtIndex:2]floatValue] alpha:1]];
-    [self setBackgroundType:[[backgroundDict objectForKey:@"PlacementKeyTag"]intValue]];
+    [self setBackgroundType:[[backgroundDict objectForKey:@"PlacementKeyTag"]integerValue]];
     [self setNeedsDisplay:YES];
 }
 
@@ -81,8 +81,8 @@
 	
 }
 
-- (int)screenNumber { return screenNumber; }
-- (void)setScreenNumber:(int)newScreenNumber{
+- (NSInteger)screenNumber { return screenNumber; }
+- (void)setScreenNumber:(NSInteger)newScreenNumber{
 	if (screenNumber!=newScreenNumber){
 		screenNumber = newScreenNumber;
 		[self updateDisplay];

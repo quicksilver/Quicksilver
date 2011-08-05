@@ -48,7 +48,6 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 //	OSErr resultCode = noErr;
 	ProcessSerialNumber serialNumber;
 	ProcessInfoRec			 procInfo;
-	FSSpec			 appFSSpec;
 
 	Str255							 procName;
 	serialNumber.highLongOfPSN = kNoProcess;
@@ -56,8 +55,6 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 
 	procInfo.processInfoLength			 = sizeof(ProcessInfoRec);
 	procInfo.processName					 = procName;
-	procInfo.processAppSpec			 = &appFSSpec;
-//	procInfo.processAppSpec			 = &appFSSpec;
 
 	while (procNotFound != (/*resultCode = */GetNextProcess(&serialNumber) )) {
 		if (noErr == (/*resultCode = */GetProcessInformation(&serialNumber, &procInfo) )) {

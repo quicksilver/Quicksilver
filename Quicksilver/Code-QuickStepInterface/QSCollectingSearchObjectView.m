@@ -25,7 +25,7 @@
 }
 - (void)drawRect:(NSRect)rect {
 	NSRect frame = [self frame];
-	int count = [collection count];
+	NSInteger count = [collection count];
 	if (![self currentEditor] && count) {
 		float totalSpace = collectionSpace+4;
 		if (collectionSpace < 0.0001) {
@@ -38,7 +38,7 @@
 		[[NSColor colorWithDeviceWhite:1.0 alpha:0.92] set];
 		if (collectionSpace < 0.0001)
 			collectRect.origin.x += 8;
-		int i;
+		NSInteger i;
 		float iconSize = collectionSpace?collectionSpace:16;
 		float opacity = collecting?1.0:0.5;
 		QSObject *object;

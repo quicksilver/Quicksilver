@@ -24,7 +24,7 @@
 	string = [string stringByReplacing:@"\n" with:@"\r"];
 	NSArray *lines = [string componentsSeparatedByString:@"\r"];
 	NSString *line;
-    int i;
+    NSInteger i;
 	for (i = 0; i<[lines count]; i++) {
 		line = [lines objectAtIndex:i];
 		if (lineType)

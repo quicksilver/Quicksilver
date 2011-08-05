@@ -12,7 +12,7 @@
 @interface NSApplication (Info)
 - (BOOL)wasLaunchedAtLogin;
 - (NSString *)versionString;
-- (int) featureLevel;
+- (NSInteger) featureLevel;
 - (NSDictionary *)processInformation;
 - (NSDictionary *)parentProcessInformation;
 @end
@@ -49,7 +49,7 @@ typedef enum {
 #define kLastUsedLocation @"Last Used Location"
 
 @interface NSApplication (LaunchStatus)
-- (int) checkLaunchStatus;
+- (NSInteger) checkLaunchStatus;
 - (void)updateLaunchStatusInfo;
 @end
 

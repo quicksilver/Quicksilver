@@ -11,10 +11,10 @@
 @interface NSTableView (Fancification)
 //-(void)set;
 
-//- (void)centerRowInView:(int)rowIndex;
+//- (void)centerRowInView:(NSInteger)rowIndex;
 - (void)highlightSelectionInClipRect:(NSRect)rect withGradientColor:(NSColor *)color;
 @end
 
 @interface NSTableView (Separator)
-- (void)drawSeparatorForRow:(int)rowIndex clipRect:(NSRect)clipRect;
+- (void)drawSeparatorForRow:(NSInteger)rowIndex clipRect:(NSRect)clipRect;
 @end

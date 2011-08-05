@@ -75,8 +75,8 @@
 	}
 }
 
-- (int) displayMode { return displayMode;  }
-- (void)setDisplayMode:(int)newDisplayMode {
+- (NSInteger) displayMode { return displayMode;  }
+- (void)setDisplayMode:(NSInteger)newDisplayMode {
 	displayMode = newDisplayMode;
 	[self updateGroups];
 	[groupController setSelectionIndex:0];
@@ -126,7 +126,7 @@
 	[self setGroups:array];
 }
 
-- (NSDragOperation)tableView:(NSTableView *)view validateDrop:(id <NSDraggingInfo>)info proposedRow:(int)row proposedDropOperation:(NSTableViewDropOperation)operation {
+- (NSDragOperation)tableView:(NSTableView *)view validateDrop:(id <NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)operation {
 	NSArray *data = [[info draggingPasteboard] propertyListForType:QSTableRowsType];
 	NSIndexSet *indexes = [NSIndexSet indexSetFromArray:data];
 	if ([indexes containsIndex:row] || [indexes containsIndex:row-1])
@@ -135,12 +135,12 @@
 		return operation == NSTableViewDropAbove ? NSDragOperationMove : NSDragOperationNone;
 }
 
-- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row {
+- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
 	if ([[tableColumn identifier] isEqualToString:@"enabled"] && mOptionKeyIsDown)
 		[[actionController arrangedObjects] setValue:object forKey:@"enabled"];
 	if ([[tableColumn identifier] isEqualToString:@"rank"]) {
 		NSArray *currentActions = [actionController arrangedObjects];
-		int newRow = [object intValue] -1;
+		NSInteger newRow = [object integerValue] -1;
 		if (row != newRow && row >= 0 && row<[currentActions count] && newRow >= 0 && newRow<[currentActions count]) {
 			[QSExec orderActions:[NSArray arrayWithObject:[currentActions objectAtIndex:row]] aboveActions:[NSArray arrayWithObject:[currentActions objectAtIndex:newRow]]];
 		}
@@ -148,7 +148,7 @@
 	}
 }
 
-- (BOOL)tableView:(NSTableView *)view acceptDrop:(id <NSDraggingInfo>)info row:(int)row dropOperation:(NSTableViewDropOperation)operation {
+- (BOOL)tableView:(NSTableView *)view acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)operation {
 	[view registerForDraggedTypes:nil];
 	NSArray *data = [[info draggingPasteboard] propertyListForType:QSTableRowsType];
 	NSIndexSet *indexes = [NSIndexSet indexSetFromArray:data];

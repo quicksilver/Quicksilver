@@ -22,7 +22,7 @@ float QSScoreForAbbreviation(CFStringRef str, CFStringRef abbr, id mask) {
 
 float QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mask, CFRange strRange, CFRange abbrRange) {
 	float score = 0.0, remainingScore = 0.0;
-	int i, j;
+	NSInteger i, j;
 	CFRange matchedRange, remainingStrRange, adjustedStrRange = strRange;
     
 	if (!abbrRange.length)
@@ -76,12 +76,12 @@ float QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mas
 				static CFCharacterSetRef uppercase = NULL;
 				if (!uppercase) uppercase = CFCharacterSetGetPredefined(kCFCharacterSetUppercaseLetter);
 				if (CFCharacterSetIsCharacterMember(wordSeparator, CFStringGetCharacterFromInlineBuffer(&inlineBuffer, matchedRange.location-1) )) {
-					for (j = matchedRange.location-2; j >= (int) strRange.location; j--) {
+					for (j = matchedRange.location-2; j >= (NSInteger) strRange.location; j--) {
 						if (CFCharacterSetIsCharacterMember(wordSeparator, CFStringGetCharacterFromInlineBuffer(&inlineBuffer, j) )) score--;
 						else score -= SKIPPED_SCORE;
 					}
 				} else if (CFCharacterSetIsCharacterMember(uppercase, CFStringGetCharacterFromInlineBuffer(&inlineBuffer, matchedRange.location) )) {
-					for (j = matchedRange.location-1; j >= (int) strRange.location; j--) {
+					for (j = matchedRange.location-1; j >= (NSInteger) strRange.location; j--) {
 						if (CFCharacterSetIsCharacterMember(uppercase, CFStringGetCharacterFromInlineBuffer(&inlineBuffer, j) ))
 							score--;
 						else

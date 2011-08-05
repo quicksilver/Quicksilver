@@ -36,7 +36,7 @@
 	return method;
 }
 
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)theReturnCode contextInfo:(void *)contextInfo {
+- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)theReturnCode contextInfo:(void *)contextInfo {
 	[NSApp stopModal];
 }
 - (void)cancel:(id)sender {
@@ -53,15 +53,15 @@
 	[NSApp stopModal];
 }
 
-- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
+- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
 	return [[conflictNames objectAtIndex:rowIndex] lastPathComponent];
 }
 
-- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
+- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
 	[(QSImageAndTextCell*)aCell setImage:[[NSWorkspace sharedWorkspace] iconForFile:[conflictNames objectAtIndex:rowIndex]]];
 }
 
-- (int)numberOfRowsInTableView:(NSTableView *)aTableView {
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView {
 	return [conflictNames count];
 }
 

@@ -41,7 +41,7 @@ QSExecutor *QSExec = nil;
 @end
 
 @interface QSAction (QSPrivate)
-- (void)_setRank:(int)newRank;
+- (void)_setRank:(NSInteger)newRank;
 @end
 
 @implementation QSExecutor
@@ -188,11 +188,11 @@ QSExecutor *QSExec = nil;
         activation = [action defaultEnabled];
 	[action setMenuEnabled:activation];    
 
-	int index = [actionRanking indexOfObject:ident];
+	NSInteger index = [actionRanking indexOfObject:ident];
 
 	if (index == NSNotFound) {
 		float prec = [action precedence];
-		int i;
+		NSInteger i;
 		float otherPrec;
 		for(i = 0; i < [actionRanking count]; i++) {
 			otherPrec = [[actionPrecedence valueForKey:[actionRanking objectAtIndex:i]] floatValue];
@@ -224,7 +224,7 @@ QSExecutor *QSExec = nil;
 }
 
 - (void)updateRanks {
-	int i;
+	NSInteger i;
 	for(i = 0; i<[actionRanking count]; i++) {
 		[[actionIdentifiers objectForKey:[actionRanking objectAtIndex:i]] _setRank:i];
 	}
@@ -437,7 +437,7 @@ QSExecutor *QSExec = nil;
 }
 
 - (void)orderActions:(NSArray *)actions aboveActions:(NSArray *)lowerActions {
-	int index = [[lowerActions valueForKeyPath:@"@min.rank"] intValue];
+	NSInteger index = [[lowerActions valueForKeyPath:@"@min.rank"] integerValue];
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"Promote to %d", index);
 #endif
@@ -449,7 +449,7 @@ QSExecutor *QSExec = nil;
 	[self updateRanks];
 }
 - (void)orderActions:(NSArray *)actions belowActions:(NSArray *)higherActions {
-	int index = [[higherActions valueForKeyPath:@"@max.rank"] intValue];
+	NSInteger index = [[higherActions valueForKeyPath:@"@max.rank"] integerValue];
 	//NSLog(@"demote to %d", index);
 	NSString *targetIdentifier = [actionRanking objectAtIndex:index];
 	NSArray *identifiers = [actions valueForKey:@"identifier"];
@@ -510,7 +510,7 @@ QSExecutor *QSExec = nil;
         NSDictionary *actionDict;
         for (NSString *key in info) {
             actionDict = [info objectForKey:key];
-            if ([[actionDict objectForKey:kItemFeatureLevel] intValue] > [NSApp featureLevel]) {
+            if ([[actionDict objectForKey:kItemFeatureLevel] integerValue] > [NSApp featureLevel]) {
                 NSString * actionIdentifier = [actionDict objectForKey:kItemID];
                 if (!actionIdentifier) {
                     NSLog(@"Prevented load of unidentified action from bundle %@ because the action's featureLevel (set from its Info.plist) is higher than NSApp's current featureLevel. This is not neccessarily an error. Sometimes this mechanism is used to prevent unstable actions from loading.", [[bundle bundlePath] lastPathComponent]);

@@ -8,8 +8,8 @@
 
 #import "NSView_BLTRExtensions.h"
 
-unsigned int flipMask(unsigned int mask, int axis) {
-	unsigned int newMask = 0;
+NSUInteger flipMask(NSUInteger mask, NSInteger axis) {
+	NSUInteger newMask = 0;
 	newMask = newMask | (mask & NSViewNotSizable);
 	newMask = newMask | (mask & NSViewWidthSizable);
 	newMask = newMask | (mask & NSViewHeightSizable);

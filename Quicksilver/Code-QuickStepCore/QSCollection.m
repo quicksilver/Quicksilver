@@ -41,7 +41,7 @@
 	return [array methodSignatureForSelector:sel];
 }
 
-- (unsigned) count {
+- (NSUInteger) count {
 	return [array count];
 }
 

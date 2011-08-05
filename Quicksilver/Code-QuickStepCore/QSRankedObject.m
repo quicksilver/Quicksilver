@@ -3,9 +3,9 @@
 #import "QSRankedObject.h"
 
 @implementation QSRankedObject
-/*+ (NSMutableArray *)rankedArrayWithObjects:(id *)objects scores:(float *)scores strings:(id *)strings count:(int)count {
+/*+ (NSMutableArray *)rankedArrayWithObjects:(id *)objects scores:(float *)scores strings:(id *)strings count:(NSInteger)count {
     NSMutableArray *rankedArray = [NSMutableArray arrayWithCapacity:count];
-    int i;
+    NSInteger i;
     for (i = 0; i<count; i++) {
         NSString *matched = strings[i];
         NSLog(@"rai %@ %@", objects[i] , [matched retain]);
@@ -43,7 +43,7 @@
 }
 
 #pragma mark Lifecycle
-- (id)initWithObject:(id)newObject matchString:(NSString *)matchString order:(int)newOrder score:(float)newScore {
+- (id)initWithObject:(id)newObject matchString:(NSString *)matchString order:(NSInteger)newOrder score:(float)newScore {
     if (!newObject)
         [NSException raise:NSInvalidArgumentException
                     format:@"object can't be nil"];
@@ -114,8 +114,8 @@
 - (float)score { return score; }
 - (void)setScore:(float)newScore { score = newScore; }
 
-- (int)order { return order;  }
-- (void)setOrder:(int)newOrder { order = newOrder; }
+- (NSInteger)order { return order;  }
+- (void)setOrder:(NSInteger)newOrder { order = newOrder; }
 
 - (id)object { return object; }
 - (void)setObject:(id)newObject {
@@ -154,7 +154,7 @@
 
 	NSMenuItem *item;
 
-	int myOrder = [self order];
+	NSInteger myOrder = [self order];
 	NSString *title = [NSString stringWithFormat:@"Score: %.0f", [self score] *100];
 	if (myOrder != NSNotFound)
 		title = [NSString stringWithFormat:@"Rank: %d, %@", myOrder+1, title];

@@ -136,7 +136,7 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 	}
 	float newScore = 1.0;
 	//float modifier = 0.0;
-	int newOrder = NSNotFound;
+	NSInteger newOrder = NSNotFound;
 	//	QSRankInfo *info = object->rankData;
 	//	if (!info) info = [object getRankData];
 
@@ -176,11 +176,11 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 #endif
 		}
 
-		int useCount = 0;
+		NSInteger useCount = 0;
 
 		// get number of times this abbrev. has been used
 		if ([anAbbreviation length])
-			useCount = [[usageMnemonics objectForKey:anAbbreviation] intValue];
+			useCount = [[usageMnemonics objectForKey:anAbbreviation] integerValue];
 
 		if (useCount) {
 			newScore += (1-1/(useCount+1) );

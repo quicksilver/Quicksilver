@@ -84,7 +84,7 @@ static QSController *defaultController = nil;
 #if 0
 - (void)showExpireDialog {
 	[NSApp activateIgnoringOtherApps:YES];
-	int result = NSRunInformationalAlertPanel(@"", @"This version of Quicksilver has expired. Please download the latest version.", @"Download", @"OK", nil);
+	NSInteger result = NSRunInformationalAlertPanel(@"", @"This version of Quicksilver has expired. Please download the latest version.", @"Download", @"OK", nil);
 	if (result)
 		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kWebSiteURL]];
 }
@@ -140,11 +140,11 @@ static QSController *defaultController = nil;
 		//		NSLog(@"App: %@ %@", [[notif userInfo] objectForKey:@"NSApplicationBundleIdentifier"] , [[NSBundle mainBundle] bundleIdentifier]);
 }
 
-- (int) showMenuIcon {
+- (NSInteger) showMenuIcon {
 	return -1;
 }
 - (void)setShowMenuIcon:(NSNumber *)mode {
-	int priority = 0;
+	NSInteger priority = 0;
 
 	if (statusItem) {
 		[[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
@@ -152,7 +152,7 @@ static QSController *defaultController = nil;
 		statusItem = nil;
 	}
 
-	switch ([mode intValue]) {
+	switch ([mode integerValue]) {
 		case 1: priority = NSNormalStatusItemPriority; break;
 		case 2: priority = NSLeftStatusItemPriority; break;
 		case 3: priority = NSRightStatusItemPriority; break;
@@ -622,19 +622,19 @@ static QSController *defaultController = nil;
 - (NSString *)internetDownloadLocation { return [[[NDAlias aliasWithData:[[[[(NSDictionary *)CFPreferencesCopyValue((CFStringRef) @"Version 2.5.4", (CFStringRef) @"com.apple.internetconfig", kCFPreferencesCurrentUser, kCFPreferencesAnyHost) autorelease] objectForKey:@"ic-added"] objectForKey:@"DownloadFolder"] objectForKey:@"ic-data"]] path] stringByStandardizingPath];  }
 
 - (void)checkForFirstRun {
-	int status = [NSApp checkLaunchStatus];
+	NSInteger status = [NSApp checkLaunchStatus];
 
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *lastLocation = [defaults objectForKey:kLastUsedLocation];
 	NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
 	NSString *lastVersionString = [defaults objectForKey:kLastUsedVersion];
-	int lastVersion = [lastVersionString respondsToSelector:@selector(hexIntValue)] ? [lastVersionString hexIntValue] : 0;
+	NSInteger lastVersion = [lastVersionString respondsToSelector:@selector(hexIntValue)] ? [lastVersionString hexIntValue] : 0;
 	switch (status) {
 		case QSApplicationUpgradedLaunch:
 			if (fBETA && lastLocation && ![bundlePath isEqualToString:[lastLocation stringByStandardizingPath]]) {
 				//New version in new location.
 				[NSApp activateIgnoringOtherApps:YES];
-				int selection = NSRunAlertPanel(@"Running from a new location", @"The previous version of Quicksilver was located in \"%@\". Would you like to move this new version to that location?", @"Move and Relaunch", @"Don't Move", nil, [[lastLocation stringByDeletingLastPathComponent] lastPathComponent]);
+				NSInteger selection = NSRunAlertPanel(@"Running from a new location", @"The previous version of Quicksilver was located in \"%@\". Would you like to move this new version to that location?", @"Move and Relaunch", @"Don't Move", nil, [[lastLocation stringByDeletingLastPathComponent] lastPathComponent]);
 				if (selection)
 					[NSApp relaunchAtPath:lastLocation movedFromPath:bundlePath];
 			}
@@ -642,7 +642,7 @@ static QSController *defaultController = nil;
 #ifndef DEBUG
 			if ([defaults boolForKey:kShowReleaseNotesOnUpgrade]) {
 				[NSApp activateIgnoringOtherApps:YES];
-				int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"Quicksilver has been updated", nil] , @"You are using a new version of Quicksilver. Would you like to see the Release Notes?", @"Show Release Notes", @"Ignore", nil);
+				NSInteger selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"Quicksilver has been updated", nil] , @"You are using a new version of Quicksilver. Would you like to see the Release Notes?", @"Show Release Notes", @"Ignore", nil);
 				if (selection == 1)
 					[self showReleaseNotes:self];
 			}
@@ -658,7 +658,7 @@ static QSController *defaultController = nil;
 			break;
 		case QSApplicationDowngradedLaunch:
 			[NSApp activateIgnoringOtherApps:YES];
-			int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"This is an old version of Quicksilver", nil] , @"You have previously used a newer version. Perhaps you have duplicate copies?", @"Reveal this copy", @"Ignore", nil);
+			NSInteger selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"This is an old version of Quicksilver", nil] , @"You have previously used a newer version. Perhaps you have duplicate copies?", @"Reveal this copy", @"Ignore", nil);
 			if (selection == 1)
 				[[NSWorkspace sharedWorkspace] selectFile:[[NSBundle mainBundle] bundlePath] inFileViewerRootedAtPath:@""];
 				break;
@@ -668,7 +668,7 @@ static QSController *defaultController = nil;
 			if (shouldInstall) {
 				//New version in new location.
 				[NSApp activateIgnoringOtherApps:YES];
-				int selection = NSRunAlertPanel(@"Would you like to install Quicksilver?", @"Quicksilver was launched from a download location.\rWould you like to copy Quicksilver to your applications folder?", @"Install in \"Applications\"", @"Quit", @"Choose Location...");
+				NSInteger selection = NSRunAlertPanel(@"Would you like to install Quicksilver?", @"Quicksilver was launched from a download location.\rWould you like to copy Quicksilver to your applications folder?", @"Install in \"Applications\"", @"Quit", @"Choose Location...");
 				NSString *installPath = nil;
 				if (selection == 1) {
 					installPath = @"/Applications";
@@ -868,7 +868,7 @@ static QSController *defaultController = nil;
 	//Update hotkey prefs
 
 	if (oldModifiers && oldKeyCode) {
-		int modifiers = [oldModifiers unsignedIntValue];
+		NSInteger modifiers = [oldModifiers unsignedIntegerValue];
 		if (modifiers < (1 << (rightControlKeyBit+1) )) {
 			NSLog(@"updating hotkey %d", modifiers);
 			[defaults setValue:[NSNumber numberWithInt:carbonModifierFlagsToCocoaModifierFlags(modifiers)] forKey:kHotKeyModifiers];
@@ -886,7 +886,7 @@ static QSController *defaultController = nil;
 
 	quitWindowController = nil;
 
-	int rescanInterval = [defaults integerForKey:@"QSCatalogRescanFrequency"];
+	NSInteger rescanInterval = [defaults integerForKey:@"QSCatalogRescanFrequency"];
 
 	if (rescanInterval>0) {
 		
@@ -1018,11 +1018,11 @@ static QSController *defaultController = nil;
 
 @end
 
-void QSSignalHandler(int i) {
+void QSSignalHandler(NSInteger i) {
 	printf("signal %d", i);
 	NSLog(@"Current Tasks %@", [[QSTaskController sharedInstance] tasks]);
 	[NSApp activateIgnoringOtherApps:YES];
-	int result = NSRunCriticalAlertPanel(@"An error has occured", @"Quicksilver must be relaunched to regain stability.", @"Relaunch", @"Quit", nil, i);
+	NSInteger result = NSRunCriticalAlertPanel(@"An error has occured", @"Quicksilver must be relaunched to regain stability.", @"Relaunch", @"Quit", nil, i);
 	NSLog(@"result %d", result);
 	if (result == 1)
 		[NSApp relaunch:nil];
@@ -1041,12 +1041,12 @@ void QSSignalHandler(int i) {
 	}
 }
 
-- (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldLogException:(NSException *)exception mask:(unsigned int)aMask {
+- (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldLogException:(NSException *)exception mask:(NSUInteger)aMask {
 	[exception printStackTrace];
 	return NO;
 } // mask is NSLog<exception type>Mask, exception's userInfo has stack trace for key NSStackTraceKey
 
-- (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldHandleException:(NSException *)exception mask:(unsigned int)aMask {
+- (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldHandleException:(NSException *)exception mask:(NSUInteger)aMask {
 
 	return YES;
 }

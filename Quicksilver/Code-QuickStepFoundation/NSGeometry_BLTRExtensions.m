@@ -29,21 +29,21 @@ NSPoint offsetPoint(NSPoint fromPoint, NSPoint toPoint) {
 	return NSMakePoint(toPoint.x-fromPoint.x, toPoint.y-fromPoint.y);
 }
 
-int oppositeQuadrant(int quadrant) {
+NSInteger oppositeQuadrant(NSInteger quadrant) {
 	quadrant = quadrant+2;
 	quadrant %= 4;
 	if (!quadrant) quadrant = 4;
 	return quadrant;
 }
 
-NSPoint rectOffset(NSRect innerRect, NSRect outerRect, int quadrant) {
+NSPoint rectOffset(NSRect innerRect, NSRect outerRect, NSInteger quadrant) {
 	if (quadrant)
 		return NSMakePoint((quadrant == 3 || quadrant == 2) ? NSMaxX(outerRect)-NSMaxX(innerRect) : NSMinX(outerRect)-NSMinX(innerRect),
 						 (quadrant == 4 || quadrant == 3) ? NSMaxY(outerRect)-NSMaxY(innerRect) : NSMinY(outerRect)-NSMinY(innerRect));
 	return NSMakePoint(NSMidX(outerRect)-NSMidX(innerRect), NSMidY(outerRect)-NSMidY(innerRect)); //Center Rects
 }
 
-NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant) {
+NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, NSInteger quadrant) {
 	NSPoint offset = rectOffset(innerRect, outerRect, quadrant);
 	return NSOffsetRect(innerRect, offset.x, offset.y);
 }
@@ -51,7 +51,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant) {
 
 
 
-NSRect rectZoom(NSRect rect, float zoom, int quadrant) {
+NSRect rectZoom(NSRect rect, float zoom, NSInteger quadrant) {
 	NSSize newSize = NSMakeSize(NSWidth(rect) *zoom, NSHeight(rect)*zoom);
 	NSRect newRect = rect;
 	newRect.size = newSize;
@@ -157,10 +157,10 @@ float distanceFromOrigin(NSPoint point) {
 	return hypot(point.x, point.y);
 }
 
-int closestCorner(NSRect innerRect, NSRect outerRect) {
+NSInteger closestCorner(NSRect innerRect, NSRect outerRect) {
 	float bestDistance = -1;
-	int closestCorner = 0;
-	int i;
+	NSInteger closestCorner = 0;
+	NSInteger i;
 	for(i = 0; i<5; i++) {
 		float distance = distanceFromOrigin(rectOffset(innerRect, outerRect, i) );
 		if (distance < bestDistance || bestDistance<0) {

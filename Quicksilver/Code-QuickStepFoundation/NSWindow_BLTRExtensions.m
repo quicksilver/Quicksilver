@@ -161,8 +161,8 @@
 		//[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:.001]];
 
 	}
-	newFrame.origin.x = (int) newFrame.origin.x;
-	newFrame.origin.y = (int) newFrame.origin.y;
+	newFrame.origin.x = (NSInteger) newFrame.origin.x;
+	newFrame.origin.y = (NSInteger) newFrame.origin.y;
  [self setFrame:newFrame display:YES animate:NO];
 }
 @end
@@ -173,7 +173,7 @@
 }
 
 
-- (void)addInternalWidgetsForStyleMask:(int) styleMask closeOnly:(BOOL)closeOnly {
+- (void)addInternalWidgetsForStyleMask:(NSInteger) styleMask closeOnly:(BOOL)closeOnly {
 	NSButton *closeButton = [NSWindow standardWindowButton:NSWindowCloseButton forStyleMask:styleMask];
 	NSPoint widgetOrigin = NSMakePoint(3, NSHeight([self frame]) -NSHeight([closeButton frame])-3);
 	[closeButton setFrameOrigin:widgetOrigin];
@@ -198,7 +198,7 @@
 //	[zoomButton cell] ._hasRollover = YES;
 
 }
-- (void)addInternalWidgetsForStyleMask:(int) styleMask {
-	[self addInternalWidgetsForStyleMask:(int) styleMask closeOnly:NO];
+- (void)addInternalWidgetsForStyleMask:(NSInteger) styleMask {
+	[self addInternalWidgetsForStyleMask:(NSInteger) styleMask closeOnly:NO];
 }
 @end

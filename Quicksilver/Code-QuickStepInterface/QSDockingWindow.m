@@ -7,7 +7,7 @@
 #import <QSFoundation/QSFoundation.h>
 
 @implementation QSDockingWindow
-- (id)initWithContentRect:(NSRect)contentRect styleMask:(unsigned int)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
+- (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
 	NSWindow *result = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag];
 	[self setOpaque:NO];
 	[self center];
@@ -53,12 +53,12 @@
 - (void)lock {locked = YES;}
 - (void)unlock {locked = NO;}
 
-- (unsigned int)draggingEntered:(id <NSDraggingInfo>)theEvent {
+- (NSUInteger)draggingEntered:(id <NSDraggingInfo>)theEvent {
 	[self show:self];
 	return [super draggingEntered:theEvent];
 }
 
-- (unsigned int)draggingUpdated:(id <NSDraggingInfo>)theEvent {
+- (NSUInteger)draggingUpdated:(id <NSDraggingInfo>)theEvent {
 	return [super draggingUpdated:theEvent];
 }
 
@@ -120,13 +120,13 @@
 	if ([reentry windowNumber] != [self windowNumber])
 		reentry = nil;
 	// no re-entry of mouse into window and was inside the window for more than 0.2s (best time found from trial and error)
-	if (!reentry && !StillDown() && (timeExited - timeEntered > 0.2)) {
+	if (!reentry && ![NSEvent pressedMouseButtons] && (timeExited - timeEntered > 0.2)) {
 		[self hideOrOrderOut:self];
 	}
 }
 
 - (BOOL)canFade {
-	return ((int)touchingEdgeForRectInRect([self frame], [[self screen] frame]) >= 0);
+	return ((NSInteger)touchingEdgeForRectInRect([self frame], [[self screen] frame]) >= 0);
 }
 
 - (BOOL)canBecomeKeyWindow {
@@ -164,7 +164,7 @@
 	[self saveFrame];
 	if ([self isKeyWindow])
 		[self fakeResignKey];
-	int edge = touchingEdgeForRectInRect([self frame], [[self screen] frame]);
+	NSInteger edge = touchingEdgeForRectInRect([self frame], [[self screen] frame]);
 	if (edge < 0)
 		return;
 	NSArray *screens = [NSScreen screens];

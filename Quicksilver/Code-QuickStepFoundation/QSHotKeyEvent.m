@@ -12,8 +12,8 @@
 /*
  * cocoaModifierFlagsToCarbonModifierFlags()
  */
-unsigned int carbonModifierFlagsToCocoaModifierFlags( unsigned int aModifierFlags ) {
-	unsigned int theCocoaModifierFlags = 0;
+NSUInteger carbonModifierFlagsToCocoaModifierFlags( NSUInteger aModifierFlags ) {
+	NSUInteger theCocoaModifierFlags = 0;
 	if (aModifierFlags & shiftKey)
 		theCocoaModifierFlags |= NSShiftKeyMask;
     if (aModifierFlags & alphaLock)
@@ -64,17 +64,17 @@ static NSMutableDictionary *hotKeyDictionary;
 	if (![dict objectForKey:@"keyCode"]) return nil;
 	if (![dict objectForKey:@"modifiers"]) return nil;
 
-	return (QSHotKeyEvent *)[self getHotKeyForKeyCode:[[dict objectForKey:@"keyCode"] shortValue] character:[[dict objectForKey:@"character"] characterAtIndex:0] modifierFlags:[[dict objectForKey:@"modifiers"] unsignedIntValue]];
+	return (QSHotKeyEvent *)[self getHotKeyForKeyCode:[[dict objectForKey:@"keyCode"] shortValue] character:[[dict objectForKey:@"character"] characterAtIndex:0] modifierFlags:[[dict objectForKey:@"modifiers"] unsignedIntegerValue]];
 }
 @end
 
 @implementation NDHotKeyEvent (QSMods)
 
-+ (id)getHotKeyForKeyCode:(unsigned short)aKeyCode character:(unichar)aChar carbonModifierFlags:(unsigned int)aModifierFlags {
++ (id)getHotKeyForKeyCode:(unsigned short)aKeyCode character:(unichar)aChar carbonModifierFlags:(NSUInteger)aModifierFlags {
 	return [self getHotKeyForKeyCode:aKeyCode character:aChar modifierFlags:carbonModifierFlagsToCocoaModifierFlags(aModifierFlags)];
 }
 
-+ (id)getHotKeyForKeyCode:(unsigned short)aKeyCode character:(unichar)aChar safeModifierFlags:(unsigned int)aModifierFlags {
++ (id)getHotKeyForKeyCode:(unsigned short)aKeyCode character:(unichar)aChar safeModifierFlags:(NSUInteger)aModifierFlags {
 	if (aModifierFlags< (1 << (rightControlKeyBit+1) )) //Carbon Modifiers
 		return [self getHotKeyForKeyCode:aKeyCode character:aChar carbonModifierFlags:aModifierFlags];
 	else

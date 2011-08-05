@@ -5,9 +5,9 @@
 @implementation NSEvent (BLTRExtensions)
 
 + (NSTimeInterval) doubleClickTime {
-	return (double) GetDblTime() / 60.0;
+	return (double) [NSEvent doubleClickInterval] / 60.0;
 }
-- (int)standardModifierFlags {
+- (NSInteger)standardModifierFlags {
 	return [self modifierFlags] & (NSCommandKeyMask | NSAlternateKeyMask | NSControlKeyMask | NSShiftKeyMask | NSFunctionKeyMask);
 }
 

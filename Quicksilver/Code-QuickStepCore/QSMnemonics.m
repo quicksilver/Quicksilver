@@ -69,7 +69,7 @@
 		[abbrevMnemonics setObject:objectEntry forKey:mnem];
 	}
 	//NSLog(@"recent %@ %@", [recentMnemonics objectForKey:mnem] , key);
-	int index = [objectEntry indexOfObject:above];
+	NSInteger index = [objectEntry indexOfObject:above];
 
 //	if (VERBOSE) NSLog(@"%@", [objectEntry description]);
 
@@ -120,7 +120,7 @@
 		objectEntry = [NSMutableDictionary dictionaryWithCapacity:1];
 		[objectMnemonics setObject:objectEntry forKey:key];
 	}
-	[objectEntry setObject:[NSNumber numberWithInt:([[objectEntry objectForKey:mnem] intValue]) +1] forKey:mnem];
+	[objectEntry setObject:[NSNumber numberWithInt:([[objectEntry objectForKey:mnem] integerValue]) +1] forKey:mnem];
 	// [self writeItems:self];
 	[self setWriteTimer];
 }

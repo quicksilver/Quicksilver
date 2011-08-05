@@ -97,7 +97,7 @@
 			continue;
 		}
 		BOOL frontmost = [workspace applicationIsFrontmost:procDict];
-		int behavior = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSActionAppReopenBehavior"];
+		NSInteger behavior = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSActionAppReopenBehavior"];
 		if (frontmost) behavior = 2;
 
 		switch (behavior) {

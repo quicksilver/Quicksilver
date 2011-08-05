@@ -16,7 +16,7 @@
 		typedef unsigned long NSUInteger;
 	#else
 		typedef int NSInteger;
-		typedef unsigned int NSUInteger;
+		typedef NSUInteger NSUInteger;
 	#endif
 	#define NSIntegerMax    LONG_MAX
 	#define NSIntegerMin    LONG_MIN

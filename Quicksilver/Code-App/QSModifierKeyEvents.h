@@ -8,23 +8,23 @@
 
 #import <Cocoa/Cocoa.h>
 
-extern int NSAllModifierKeysMask;
+extern NSInteger NSAllModifierKeysMask;
 
-unsigned int lastModifiers;
+NSUInteger lastModifiers;
 @interface NSApplication (QSModifierKeyEvents)
 - (BOOL)checkForModifierEvent:(NSEvent *)theEvent;
 @end
 
 @interface QSModifierKeyEvent : NSObject {
-	unsigned int modifierActivationMask;
-	int modifierActivationCount;
+	NSUInteger modifierActivationMask;
+	NSInteger modifierActivationCount;
 	NSString *identifier;
 	id target;
 	SEL action;
 
 
 	@private
-		int keyCode;
+		NSInteger keyCode;
 }
 + (BOOL)checkForModifierEvent:(NSEvent *)theEvent;
 + (QSModifierKeyEvent *)eventWithIdentifier:(NSString *)identifier;
@@ -33,12 +33,12 @@ unsigned int lastModifiers;
 - (void)disable;
 +(BOOL)alphaShiftReleased:(NSTimeInterval)eventTime;
 - (BOOL)checkForModifierTap;
-//+(BOOL)modifierToggled:(unsigned int)modifierKeysMask eventTime:(NSTimeInterval)eventTime ;
+//+(BOOL)modifierToggled:(NSUInteger)modifierKeysMask eventTime:(NSTimeInterval)eventTime ;
 +(BOOL)modifierToggled:(NSTimeInterval)eventTime ;
-- (unsigned int) modifierActivationMask;
-- (void)setModifierActivationMask:(unsigned int)newModifierActivationMask;
-- (int) modifierActivationCount;
-- (void)setModifierActivationCount:(int)newModifierActivationCount;
+- (NSUInteger) modifierActivationMask;
+- (void)setModifierActivationMask:(NSUInteger)newModifierActivationMask;
+- (NSInteger) modifierActivationCount;
+- (void)setModifierActivationCount:(NSInteger)newModifierActivationCount;
 - (id)target;
 - (void)setTarget:(id)newTarget;
 - (SEL) action;

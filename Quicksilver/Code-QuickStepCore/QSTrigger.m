@@ -121,7 +121,7 @@
 }
 
 - (void)rescope:(NSString *)ident {
-	int scoped = [[info objectForKey:@"applicationScopeType"] intValue];
+	NSInteger scoped = [[info objectForKey:@"applicationScopeType"] integerValue];
 	if (!scoped) return;
 	NSArray *apps = [info objectForKey:@"applicationScope"];
 	BOOL shouldActivate = [apps containsObject:ident];

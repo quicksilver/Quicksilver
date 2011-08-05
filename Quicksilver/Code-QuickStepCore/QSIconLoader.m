@@ -37,7 +37,7 @@
 
 	BOOL rangeValid = NO;
 
-	int i, j, m;
+	NSInteger i, j, m;
 	id <NSObject, QSObject> thisObject;
 	while (!(rangeValid) && loaderValid) {
 		loadRange = newRange;
@@ -108,9 +108,9 @@
 
 - (BOOL)isLoading { return loadThread != nil; }
 
-- (int) modulation { return modulation;  }
+- (NSInteger) modulation { return modulation;  }
 
-- (void)setModulation:(int)newModulation {
+- (void)setModulation:(NSInteger)newModulation {
 	modulation = newModulation;
 }
 

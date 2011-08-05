@@ -45,8 +45,8 @@
 
 @interface QSProcessActionProvider : QSActionProvider {
 }
-//- (int) pidOfProcess:(QSObject *)dObject;
-//- (BOOL)setPriority:(int)priority ofPID:(int)pid;
-//- (void)setPriority:(int)priority ofProcess:(QSObject *)dObject;
-//- (void)sendSignal:(int)signal toProcess:(QSObject *)dObject;
+//- (NSInteger) pidOfProcess:(QSObject *)dObject;
+//- (BOOL)setPriority:(NSInteger)priority ofPID:(NSInteger)pid;
+//- (void)setPriority:(NSInteger)priority ofProcess:(QSObject *)dObject;
+//- (void)sendSignal:(NSInteger)signal toProcess:(QSObject *)dObject;
 @end

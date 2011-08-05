@@ -46,7 +46,7 @@
 		origin.x += NSWidth(frame) -12;
 		origin.x += 0.5;
 		[NSBezierPath setDefaultLineWidth:1.0];
-		int i;
+		NSInteger i;
 		for (i = 0; i<3; i++) {
 			[[NSColor colorWithDeviceWhite:0.0 alpha:0.5] set];
 			[NSBezierPath strokeLineFromPoint:NSMakePoint(origin.x+i*3, origin.y+6)

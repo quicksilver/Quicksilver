@@ -9,7 +9,7 @@
 #import "QSLog.h"
 
 @implementation QSLog
-+(void)logFile:(char*)sourceFile lineNumber:(int)lineNumber format:(NSString*)format, ... {
++(void)logFile:(char*)sourceFile lineNumber:(NSInteger)lineNumber format:(NSString*)format, ... {
 	va_list ap;
 	NSString *print, *file;
 	va_start(ap, format);

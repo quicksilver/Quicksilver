@@ -29,10 +29,10 @@
 
 @interface QSHotKeyFieldEditor : NSTextView {
 	NSNumber *mVirtualKey;
-	unsigned int mModifiers;
+	NSUInteger mModifiers;
 
 	BOOL mOperationModeEnabled;
-	unsigned int mSavedHotKeyOperatingMode;
+	NSUInteger mSavedHotKeyOperatingMode;
 	BOOL validCombo;
 
 	unichar				character;

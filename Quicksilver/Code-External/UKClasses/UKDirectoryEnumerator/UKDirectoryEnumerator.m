@@ -527,11 +527,11 @@ NSDictionary*	   UKDictionaryFromFSCatInfo( FSCatalogInfo* currInfo, FSCatalogIn
 		}
 	}
 	if ( UK_BTST(whichInfo, kFSCatInfoPermissions) ) {
-		FSPermissionInfo*		pInfo = (FSPermissionInfo*)currInfo->permissions;
-
-		[dict setObject: [NSNumber numberWithUnsignedLong: pInfo->userID] forKey: NSFileOwnerAccountID];
-		[dict setObject: [NSNumber numberWithUnsignedLong: pInfo->groupID] forKey: NSFileGroupOwnerAccountID];
-		[dict setObject: [NSNumber numberWithUnsignedShort: pInfo->mode] forKey: NSFilePosixPermissions];
+    // FSPermissionInfo*    pInfo = (FSPermissionInfo*)currInfo->permissions;
+    // 
+    // [dict setObject: [NSNumber numberWithUnsignedLong: pInfo->userID] forKey: NSFileOwnerAccountID];
+    // [dict setObject: [NSNumber numberWithUnsignedLong: pInfo->groupID] forKey: NSFileGroupOwnerAccountID];
+    // [dict setObject: [NSNumber numberWithUnsignedShort: pInfo->mode] forKey: NSFilePosixPermissions];
 	}
 	CFAbsoluteTime	  absTime = 0;
 	if ( UK_BTST(whichInfo, kFSCatInfoCreateDate) ) {
@@ -664,28 +664,28 @@ void	UKFSCatInfoFromDictionary( NSDictionary* attrs, FSCatalogInfo* currInfo, FS
 	}
 
 	// Permissions:
-	FSPermissionInfo*		pInfo = (FSPermissionInfo*)currInfo->permissions;
-
-	val = [attrs objectForKey: NSFileOwnerAccountID];
-	if ( val ) {
-		(*whichInfo) |= kFSCatInfoPermissions;
-
-		pInfo->userID = [val unsignedLongValue];
-	}
-
-	val = [attrs objectForKey: NSFileGroupOwnerAccountID];
-	if ( val ) {
-		(*whichInfo) |= kFSCatInfoPermissions;
-
-		pInfo->groupID = [val unsignedLongValue];
-	}
-
-	val = [attrs objectForKey: NSFilePosixPermissions];
-	if ( val ) {
-		(*whichInfo) |= kFSCatInfoPermissions;
-
-		pInfo->mode = [val unsignedShortValue];
-	}
+  // FSPermissionInfo*    pInfo = (FSPermissionInfo*)currInfo->permissions;
+  // 
+  // val = [attrs objectForKey: NSFileOwnerAccountID];
+  // if ( val ) {
+  //  (*whichInfo) |= kFSCatInfoPermissions;
+  // 
+  //  pInfo->userID = [val unsignedLongValue];
+  // }
+  // 
+  // val = [attrs objectForKey: NSFileGroupOwnerAccountID];
+  // if ( val ) {
+  //  (*whichInfo) |= kFSCatInfoPermissions;
+  // 
+  //  pInfo->groupID = [val unsignedLongValue];
+  // }
+  // 
+  // val = [attrs objectForKey: NSFilePosixPermissions];
+  // if ( val ) {
+  //  (*whichInfo) |= kFSCatInfoPermissions;
+  // 
+  //  pInfo->mode = [val unsignedShortValue];
+  // }
 
 	// Dates:
 	// TO DO: Write code to set dates.

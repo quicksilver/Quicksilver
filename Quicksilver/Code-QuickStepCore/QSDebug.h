@@ -8,15 +8,15 @@
  */
 
 #ifdef DEBUG
-#define VERBOSE (int) getenv("verbose")
+#define VERBOSE (NSInteger) getenv("verbose")
 
-#define DEBUG_RANKING (int) getenv("QSDebugRanking")
-#define DEBUG_MNEMONICS (int) getenv("QSDebugMnemonics")
-#define DEBUG_PLUGINS (int) getenv("QSDebugPlugIns")
-#define DEBUG_MEMORY (int) getenv("QSDebugMemory")
-#define DEBUG_STARTUP (int) getenv("QSDebugStartup")
-#define DEBUG_CATALOG (int) getenv("QSDebugCatalog")
-#define DEBUG_LOCALIZATION (int) getenv("QSDebugLocalization")
-#define DEBUG_UNPACKING (int) getenv("QSDebugUnpacking")
+#define DEBUG_RANKING (NSInteger) getenv("QSDebugRanking")
+#define DEBUG_MNEMONICS (NSInteger) getenv("QSDebugMnemonics")
+#define DEBUG_PLUGINS (NSInteger) getenv("QSDebugPlugIns")
+#define DEBUG_MEMORY (NSInteger) getenv("QSDebugMemory")
+#define DEBUG_STARTUP (NSInteger) getenv("QSDebugStartup")
+#define DEBUG_CATALOG (NSInteger) getenv("QSDebugCatalog")
+#define DEBUG_LOCALIZATION (NSInteger) getenv("QSDebugLocalization")
+#define DEBUG_UNPACKING (NSInteger) getenv("QSDebugUnpacking")
 
 #endif

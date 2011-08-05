@@ -42,7 +42,7 @@
 //- (NSString *)paneDescription {
 //	return @"Preferences";
 //}
-//- (int) featureLevel {
+//- (NSInteger) featureLevel {
 //	return 1;
 //}
 //- (NSString *)identifier {

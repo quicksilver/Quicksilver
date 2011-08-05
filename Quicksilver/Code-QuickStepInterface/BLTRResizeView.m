@@ -47,8 +47,8 @@
 	NSRect newFrame = oldFrame;
 	NSPoint frameOffset = NSZeroPoint;
 
-	int xMod = (quadrant == 3 || quadrant == 2) ? -1 : 1;
-	int yMod = (quadrant == 4 || quadrant == 3) ? -1 : 1;
+	NSInteger xMod = (quadrant == 3 || quadrant == 2) ? -1 : 1;
+	NSInteger yMod = (quadrant == 4 || quadrant == 3) ? -1 : 1;
 	NSPoint sizeOffset = NSMakePoint(xMod*eventOffset.x, yMod*eventOffset.y);
 	newFrame.size.width = MAX([[self window] minSize] .width, NSWidth(oldFrame) +sizeOffset.x);
 	newFrame.size.height = MAX([[self window] minSize] .height, NSHeight(oldFrame) +sizeOffset.y);

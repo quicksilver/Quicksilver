@@ -91,10 +91,10 @@
 	NSArray *oldTasks = [oldTaskViews valueForKey:@"task"];
 	NSMutableArray *newTaskViews = [NSMutableArray array];
 	
-	int i, count;
+	NSInteger i, count;
 	for (i = 0, count = [[self tasks] count]; i<count; i++) {
 		QSTask *task = [[self tasks] objectAtIndex:i];
-		int index = [oldTasks indexOfObject:task];
+		NSInteger index = [oldTasks indexOfObject:task];
 		NSView *view = nil;
 		if (index != NSNotFound) {
 			view = [oldTaskViews objectAtIndex:index];
@@ -146,7 +146,7 @@
 	return tasks;
 }
 
-- (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(int)rowIndex { return NO; }
+- (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(NSInteger)rowIndex { return NO; }
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];

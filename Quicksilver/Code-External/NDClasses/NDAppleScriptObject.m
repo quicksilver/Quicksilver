@@ -579,7 +579,7 @@ const NSString			* NDAppleScriptPartialResult = @"Error Partial Result";
  */
 - (NSAppleEventDescriptor *)appleEventTarget
 {
-	unsigned int				theCurrentProcess = kCurrentProcess;
+	NSUInteger				theCurrentProcess = kCurrentProcess;
 
 	return [NSAppleEventDescriptor descriptorWithDescriptorType:typeProcessSerialNumber data:[NSData dataWithBytes:&theCurrentProcess length:sizeof(theCurrentProcess)]];
 }
@@ -589,31 +589,33 @@ const NSString			* NDAppleScriptPartialResult = @"Error Partial Result";
  */
 - (NSDictionary *)error
 {
-	AEDesc					aDescriptor;
-	unsigned int			theIndex;
-	ComponentInstance		theComponentInstance = [self scriptingComponent];
-	NSMutableDictionary	* theDictionary = [NSMutableDictionary dictionaryWithCapacity:7];
-
-	struct { const NSString * key; const DescType desiredType; const OSType selector; }
-			theResults[] = {
-				{ NSAppleScriptErrorMessage, typeText, kOSAErrorMessage },
-				{ NSAppleScriptErrorNumber, typeShortInteger, kOSAErrorNumber },
-				{ NSAppleScriptErrorAppName, typeText, kOSAErrorApp },
-				{ NSAppleScriptErrorBriefMessage, typeText, kOSAErrorBriefMessage },
-				{ NSAppleScriptErrorRange, typeOSAErrorRange, kOSAErrorRange },
-				{ NDAppleScriptOffendingObject, typeObjectSpecifier, kOSAErrorOffendingObject, },
-				{ NDAppleScriptPartialResult, typeBest, kOSAErrorPartialResult },
-				{ nil, 0, 0 }
-			};
-	for( theIndex = 0; theResults[theIndex].key != nil; theIndex++ )
-	{
-		if( OSAScriptError(theComponentInstance, theResults[theIndex].selector, theResults[theIndex].desiredType, &aDescriptor ) == noErr )
-		{
-			[theDictionary setObject:(id)[[NSAppleEventDescriptor descriptorWithAEDescNoCpy:&aDescriptor] objectValue] forKey:(id)theResults[theIndex].key];
-		}
-	}
-
-	return theDictionary;
+  NSLog(@"out of order: %s", _cmd);
+  return nil;
+  // AEDesc         aDescriptor;
+  // NSUInteger     theIndex;
+  // ComponentInstance    theComponentInstance = [self scriptingComponent];
+  // NSMutableDictionary  * theDictionary = [NSMutableDictionary dictionaryWithCapacity:7];
+  // 
+  // struct { const NSString * key; const DescType desiredType; const OSType selector; }
+  //    theResults[] = {
+  //      { NSAppleScriptErrorMessage, typeText, kOSAErrorMessage },
+  //      { NSAppleScriptErrorNumber, typeShortInteger, kOSAErrorNumber },
+  //      { NSAppleScriptErrorAppName, typeText, kOSAErrorApp },
+  //      { NSAppleScriptErrorBriefMessage, typeText, kOSAErrorBriefMessage },
+  //      { NSAppleScriptErrorRange, typeOSAErrorRange, kOSAErrorRange },
+  //      { NDAppleScriptOffendingObject, typeObjectSpecifier, kOSAErrorOffendingObject, },
+  //      { NDAppleScriptPartialResult, typeBest, kOSAErrorPartialResult },
+  //      { nil, 0, 0 }
+  //    };
+  // for( theIndex = 0; theResults[theIndex].key != nil; theIndex++ )
+  // {
+  //  if( OSAScriptError(theComponentInstance, theResults[theIndex].selector, theResults[theIndex].desiredType, &aDescriptor ) == noErr )
+  //  {
+  //    [theDictionary setObject:(id)[[NSAppleEventDescriptor descriptorWithAEDescNoCpy:&aDescriptor] objectValue] forKey:(id)theResults[theIndex].key];
+  //  }
+  // }
+  // 
+  // return theDictionary;
 }
 
 /*

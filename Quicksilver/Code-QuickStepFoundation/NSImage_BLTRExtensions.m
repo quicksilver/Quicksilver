@@ -11,7 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #if 0
-static inline int get_bit(unsigned char *arr, unsigned long bit_num) {
+static inline NSInteger get_bit(unsigned char *arr, unsigned long bit_num) {
 	return ( arr[(bit_num/8)] & (1 << (bit_num%8)) );
 }
 #endif
@@ -19,14 +19,14 @@ static inline int get_bit(unsigned char *arr, unsigned long bit_num) {
 #if 0
 @implementation NSBitmapImageRep (Stego)
 /*
- - (void)embedMessage:(NSString *)message inChannel:(int)channel {
+ - (void)embedMessage:(NSString *)message inChannel:(NSInteger)channel {
 	 unsigned char *pixels = [self bitmapData];
 
 	 // In the following loop, i is the horizontal coordinate of the pixel, and
 	 // j is the vertical component.
 	 // i loops over columns, j loops over rows
-	 int i;
-	 int j;
+	 NSInteger i;
+	 NSInteger j;
 	 for(j = 0; j < imageHeightInPixels; j++)
 	 {
 		 for (i = 0; i < imageWidthInPixels; i++)
@@ -104,8 +104,8 @@ static inline int get_bit(unsigned char *arr, unsigned long bit_num) {
 	float repDistance = 65536.0;
 	NSImageRep *thisRep;
 	float thisDistance;
-	int i;
-	for (i = 0; i<(int) [reps count]; i++) {
+	NSInteger i;
+	for (i = 0; i<(NSInteger) [reps count]; i++) {
 		thisRep = [reps objectAtIndex:i];
 		thisDistance = MIN(theSize.width-[thisRep size] .width, theSize.height-[thisRep size] .height);
 		if (repDistance<0 && thisDistance>0) continue;
@@ -119,8 +119,8 @@ static inline int get_bit(unsigned char *arr, unsigned long bit_num) {
 
 - (NSImageRep *)representationOfSize:(NSSize)theSize {
 	NSArray *reps = [self representations];
-	int i;
-	for (i = 0; i<(int) [reps count]; i++)
+	NSInteger i;
+	for (i = 0; i<(NSInteger) [reps count]; i++)
 		if (NSEqualSizes([[reps objectAtIndex:i] size] , theSize) )
 			return [reps objectAtIndex:i];
 	return nil;
@@ -214,12 +214,12 @@ static inline int get_bit(unsigned char *arr, unsigned long bit_num) {
         return rect;
     }
 
-	int minX = [bitmap pixelsWide];
-	int minY = [bitmap pixelsHigh];
-	int maxX = 0;
-	int maxY = 0;
+	NSInteger minX = [bitmap pixelsWide];
+	NSInteger minY = [bitmap pixelsHigh];
+	NSInteger maxX = 0;
+	NSInteger maxY = 0;
 
-	int i, j;
+	NSInteger i, j;
 	unsigned char* pixels = [bitmap bitmapData];
 
 	for(i = 0; i<[bitmap pixelsWide]; i++) {
@@ -261,9 +261,9 @@ static inline int get_bit(unsigned char *arr, unsigned long bit_num) {
 	if (![rep isKindOfClass:[NSBitmapImageRep class]]) return nil;
 	unsigned char *pixels = [rep bitmapData];
 
-	int red = 0, blue = 0, green = 0; //, alpha = 0;
-	int n = [rep size] .width * [rep size] .height;
-	int i = 0;
+	NSInteger red = 0, blue = 0, green = 0; //, alpha = 0;
+	NSInteger n = [rep size] .width * [rep size] .height;
+	NSInteger i = 0;
 	for (i = 0; i < n; i++) {
 		//	pixels[(j*imageWidthInPixels+i) *bitsPerPixel+channel]
 		//NSLog(@"%d %d %d %d", pixels[0] , pixels[1] , pixels[2] , pixels[3]);

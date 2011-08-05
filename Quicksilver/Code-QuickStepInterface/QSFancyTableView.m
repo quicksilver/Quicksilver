@@ -28,7 +28,7 @@
 
 - (void)drawBackgroundInClipRect:(NSRect)clipRect {
 	NSColor *backgroundColor = [self backgroundColor];
-	float hue, saturation, brightness, alpha;
+	CGFloat hue, saturation, brightness, alpha;
 	[[backgroundColor colorUsingColorSpaceName:NSDeviceRGBColorSpace] getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
 
 	// Create synthetic darker and lighter versions
@@ -51,14 +51,14 @@
                                 // one row's selection can change how others draw.
 }
 
-- (void)selectRow:(int)row byExtendingSelection:(BOOL)extend; {
+- (void)selectRow:(NSInteger)row byExtendingSelection:(BOOL)extend; {
 	[super selectRow:row byExtendingSelection:extend];
 	[self setNeedsDisplay:YES]; // we display extra because we draw
 								// multiple contiguous selected rows differently, so changing
 								// one row's selection can change how others draw.
 }
 
-- (void)deselectRow:(int)row; {
+- (void)deselectRow:(NSInteger)row; {
 	[super deselectRow:row];
 	[self setNeedsDisplay:YES];					   
 }
@@ -90,7 +90,7 @@
 
 - (void)drawBackgroundInClipRect:(NSRect)clipRect {
 	NSColor *backgroundColor = [self backgroundColor];
-	float hue, saturation, brightness, alpha;
+	CGFloat hue, saturation, brightness, alpha;
 	[[backgroundColor colorUsingColorSpaceName:NSDeviceRGBColorSpace] getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
 
 	// Create synthetic darker and lighter versions
@@ -117,14 +117,14 @@
                                 // one row's selection can change how others draw.
 }
 
-- (void)selectRow:(int)row byExtendingSelection:(BOOL)extend; {
+- (void)selectRow:(NSInteger)row byExtendingSelection:(BOOL)extend; {
 	[super selectRow:row byExtendingSelection:extend];
 	[self setNeedsDisplay:YES]; // we display extra because we draw
 								//multiple contiguous selected rows differently, so changing
 								//	one row's selection can change how others draw.
 }
 
-- (void)deselectRow:(int)row; {
+- (void)deselectRow:(NSInteger)row; {
 	[super deselectRow:row];
 	[self setNeedsDisplay:YES];						   
 }

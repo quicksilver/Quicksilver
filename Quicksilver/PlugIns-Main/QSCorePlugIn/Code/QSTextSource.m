@@ -18,6 +18,9 @@
 #define kQSTextDiffAction @"QSTextDiffAction"
 #define kQSLargeTypeAction @"QSLargeTypeAction"
 
+extern long GetScriptVariable(short script, short selector);
+#define smScriptKeys 32
+
 Ascii2KeyCodeTable keytable;
 @implementation QSTextActions
 +(void)initialize {
@@ -86,7 +89,7 @@ Ascii2KeyCodeTable keytable;
 
 - (void)typeString:(NSString *)string {
 	const char *s = [string UTF8String];
-	int i;
+	NSInteger i;
 	BOOL upper;
 	for (i = 0; i<strlen(s); i++) {
 		CGKeyCode code = [self AsciiToKeyCode:s[i]];

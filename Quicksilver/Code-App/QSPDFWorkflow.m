@@ -8,7 +8,7 @@
 - (BOOL)putOnShelfFromPasteboard:(NSPasteboard *)pboard;
 @end
 
-int main (int argc, const char * argv[]) {
+NSInteger main (NSInteger argc, const char * argv[]) {
 	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	NSLog(@"%s | %s | %s", argv[1] , argv[2] , argv[3]);
 
@@ -16,13 +16,13 @@ int main (int argc, const char * argv[]) {
 	if (proxy) {
 		NSPasteboard * pboard = [NSPasteboard pasteboardWithUniqueName];
 
-		int fileArgs = 1;
+		NSInteger fileArgs = 1;
 		BOOL putOnShelf = NO;
 
 
 
 
-		int i;
+		NSInteger i;
 		NSMutableArray *filenames = [NSMutableArray arrayWithCapacity:argc-1];
 		NSFileManager *manager = [NSFileManager defaultManager];
 		NSString *currentPath = [manager currentDirectoryPath];

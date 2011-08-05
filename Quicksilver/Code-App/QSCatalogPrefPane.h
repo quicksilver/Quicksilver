@@ -10,7 +10,7 @@
 
 //
 //@interface NSSegmentedControl (SelectedIndex)
-//- (int) indexOfSelectedItem;
+//- (NSInteger) indexOfSelectedItem;
 //@end;
 //@class QSPrefsController;
 @interface QSCatalogPrefPane : QSPreferencePane {
@@ -82,8 +82,8 @@
 - (void)setCurrentItemContents:(NSArray *)newCurrentItemContents;
 
 
-//- (BOOL)outlineView:(NSOutlineView *)outlineView removeChild:(int)index ofItem:(id)item;
-//- (BOOL)outlineView:(NSOutlineView *)outlineView addChild:(id)childItem toItem:(id)item atIndex:(int)index;
+//- (BOOL)outlineView:(NSOutlineView *)outlineView removeChild:(NSInteger)index ofItem:(id)item;
+//- (BOOL)outlineView:(NSOutlineView *)outlineView addChild:(id)childItem toItem:(id)item atIndex:(NSInteger)index;
 //- (BOOL)outlineView:(NSOutlineView *)outlineView removeRows:(NSIndexSet *)rows;
 
 - (BOOL)outlineView:(NSOutlineView *)aTableView itemIsSeparator:(id)item;
@@ -91,7 +91,7 @@
 
 - (void)updateEntrySelection;
 
-- (BOOL)tableView:(NSTableView *)aTableView rowIsSeparator:(int)rowIndex;
+- (BOOL)tableView:(NSTableView *)aTableView rowIsSeparator:(NSInteger)rowIndex;
 
 - (QSCatalogEntry *)currentItem;
 - (void)setCurrentItem:(QSCatalogEntry *)newCurrentItem;

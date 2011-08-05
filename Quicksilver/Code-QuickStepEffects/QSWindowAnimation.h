@@ -24,12 +24,12 @@
 @interface QSWindowAnimation : NSAnimation {
 	@public
 	NSWindow *_window;
-	int wid;
+	NSInteger wid;
 	CGSConnection cgs;
 
 	void (*effectFt) (QSWindowAnimation *);
 
-	CGPointWarp *(*warpFt) (QSWindowAnimation *, float, int *, int *);
+	CGPointWarp *(*warpFt) (QSWindowAnimation *, float, NSInteger *, NSInteger *);
 
 	CGAffineTransform (*transformFt) (QSWindowAnimation *, float);
 	struct CGAffineTransform _transformA;

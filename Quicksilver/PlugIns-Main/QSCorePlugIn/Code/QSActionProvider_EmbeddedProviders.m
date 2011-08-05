@@ -62,7 +62,7 @@
 	NSURL *appURL = nil;
 	OSStatus err = LSGetApplicationForURL((CFURLRef) [NSURL URLWithString: @"http:"], kLSRolesAll, NULL, (CFURLRef *)&appURL);
 	if (err != noErr)
-		NSLog(@"error %ld", err);
+		NSLog(@"error %d", err);
     NSString *clientPath = [appURL path];
     [appURL release];
 	return clientPath;
@@ -126,7 +126,7 @@
 		NSURL *url = [NSURL URLWithString:[urlString URLEncoding]];
 		// replace QUERY_KEY *** with nothing if we're just opening the URL
 		if ([urlString rangeOfString:QUERY_KEY].location != NSNotFound) {
-			int pathLoc = [urlString rangeOfString:[url path]].location;
+			NSInteger pathLoc = [urlString rangeOfString:[url path]].location;
 			if (pathLoc != NSNotFound)
 				url = [NSURL URLWithString:[[urlString substringWithRange:NSMakeRange(0, pathLoc)] URLEncoding]];
 		}
@@ -156,7 +156,7 @@
 	for (NSString *urlString in [dObject arrayForType:QSURLType]) {
 		NSURL *url = [NSURL URLWithString:[urlString URLEncoding]];
 		if ([urlString rangeOfString:QUERY_KEY].location != NSNotFound) {
-			int pathLoc = [urlString rangeOfString:[url path]].location;
+			NSInteger pathLoc = [urlString rangeOfString:[url path]].location;
 			if (pathLoc != NSNotFound)
 				url = [NSURL URLWithString:[[urlString substringWithRange:NSMakeRange(0, pathLoc)] URLEncoding]];
 		}
@@ -454,7 +454,7 @@
 	[QSIC showMainWindow:nil];
 	[QSIC setHiding:YES];
 
-	int choice = QSRunCriticalAlertSheet([(NSWindowController *)QSIC window], @"Delete File", [NSString stringWithFormat:@"Are you sure you want to PERMANENTLY delete:\r %@?", [selection componentsJoinedByString:@", "]], @"Delete", @"Cancel", nil);
+	NSInteger choice = QSRunCriticalAlertSheet([(NSWindowController *)QSIC window], @"Delete File", [NSString stringWithFormat:@"Are you sure you want to PERMANENTLY delete:\r %@?", [selection componentsJoinedByString:@", "]], @"Delete", @"Cancel", nil);
 	[QSIC setHiding:NO];
 	if (choice == 1) {
 		NSString *lastDeletedFile;
@@ -468,7 +468,7 @@
 		}
 		// get settings for playing sound
 		Boolean isSet;
-		int val = (int)CFPreferencesGetAppIntegerValue(CFSTR("com.apple.sound.uiaudio.enabled"),
+		NSInteger val = (NSInteger)CFPreferencesGetAppIntegerValue(CFSTR("com.apple.sound.uiaudio.enabled"),
 													   CFSTR("com.apple.systemsound"),
 													   &isSet);
 		if (val == 1 || !isSet) {
@@ -498,7 +498,7 @@
 	
 	// get settings for playing sound
 	Boolean isSet;
-	int val = (int)CFPreferencesGetAppIntegerValue(CFSTR("com.apple.sound.uiaudio.enabled"),
+	NSInteger val = (NSInteger)CFPreferencesGetAppIntegerValue(CFSTR("com.apple.sound.uiaudio.enabled"),
 												   CFSTR("com.apple.systemsound"),
 												   &isSet);
 	if (val == 1 || !isSet) {
@@ -589,7 +589,7 @@
 		id QSIC = [[NSApp delegate] interfaceController];
 		[QSIC showMainWindow:nil];
 		[QSIC setHiding:YES];
-		int copyMethod = [panel runModalAsSheetOnWindow:[QSIC window]];
+		NSInteger copyMethod = [panel runModalAsSheetOnWindow:[QSIC window]];
 		[QSIC setHiding:NO];
 
 		switch (copyMethod) {

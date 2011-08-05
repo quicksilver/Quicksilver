@@ -5,13 +5,13 @@
 //extern BOOL QSApplicationCompletedLaunch;
 
 @interface QSApp : NSApplication {
-	int featureLevel;
+	NSInteger featureLevel;
 	BOOL isUIElement, shouldRelaunch;
 	IBOutlet NSMenu *hiddenMenu;
 	NSResponder *globalKeyEquivalentTarget;
 	NSMutableArray *eventDelegates;
 }
-- (int) featureLevel;
+- (NSInteger) featureLevel;
 
 - (BOOL)isUIElement;
 - (BOOL)setShouldBeUIElement:(BOOL)hidden; //Returns YES if successful

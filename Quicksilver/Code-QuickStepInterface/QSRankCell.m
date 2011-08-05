@@ -15,7 +15,7 @@
 
 - (void)drawInteriorWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
 	// float score = 1.0; //[[self objectValue] score];
-	//int order = 1; //[[self objectValue] order];
+	//NSInteger order = 1; //[[self objectValue] order];
 	//NSLog(@"score %f %d", score, order);
 
 	NSBezierPath *roundRect = [NSBezierPath bezierPath];
@@ -58,8 +58,8 @@
 	score = newScore;
 }
 
-- (int) order { return order;  }
-- (void)setOrder:(int)newOrder {
+- (NSInteger) order { return order;  }
+- (void)setOrder:(NSInteger)newOrder {
 	order = newOrder;
 }
 @end

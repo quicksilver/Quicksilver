@@ -10,7 +10,7 @@
 #import "QSShading.h"
 /*
 struct QSGradient {
-	int countil
+	NSInteger countil
 
 }
 
@@ -26,7 +26,7 @@ struct QSGradientPoint {
 void QSColorFade(void *info, const CGFloat *in, CGFloat *out) {
 	CGFloat v = *in;
 	CGFloat *colors = info;
-	int i;
+	NSInteger i;
 	for (i = 0; i<4; i++)
 		*out++ = colors[i] *(1-v) +colors[i+4] *(v);
 
@@ -107,7 +107,7 @@ NSBezierPath *QSGlossClipPathForRectAndStyle(NSRect rect, QSGlossStyle style) {
 
 			break;
 		case QSGlossFlat:
-			rect.origin.y += (int) (NSHeight(rect)/2);
+			rect.origin.y += (NSInteger) (NSHeight(rect)/2);
 			//rect.size.height /= 2;
 			[gloss appendBezierPathWithRect:rect];
 			break;

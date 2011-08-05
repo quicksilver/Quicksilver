@@ -140,7 +140,7 @@
 		if (quiet) {
 			return;
 		} else {
-			int result = NSRunInformationalAlertPanel(@"Connection Error", @"Your internet connection does not appear to be active.", @"Cancel", @"Check Anyway", nil);
+			NSInteger result = NSRunInformationalAlertPanel(@"Connection Error", @"Your internet connection does not appear to be active.", @"Cancel", @"Check Anyway", nil);
 			if (result == NSAlertDefaultReturn) return;
 		}
 	}
@@ -190,7 +190,7 @@
 		if (defaultBool(@"QSDownloadUpdatesInBackground") ) {
 			[self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
 		} else {
-			int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"New Version", nil], @"A new version of Quicksilver is available; would you like to download it now? (%@) ", @"Get New Version", @"Cancel", nil, newVersion); //, @"More Info");
+			NSInteger selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"New Version", nil], @"A new version of Quicksilver is available; would you like to download it now? (%@) ", @"Get New Version", @"Cancel", nil, newVersion); //, @"More Info");
 			if (selection == 1) {
 				[self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
 			} else if (selection == -1) {  //Go to web site
@@ -219,7 +219,7 @@
 
     fileURL = [fileURL stringByAppendingFormat:@"?id=%@&type=dmg&new=yes", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleIdentifierKey]];
 
-    int versionType = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSUpdateReleaseLevel"];
+    NSInteger versionType = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSUpdateReleaseLevel"];
     if (versionType == 2)
         fileURL = [fileURL stringByAppendingString:@"&dev=1"];
     else if (versionType == 1)
@@ -324,7 +324,7 @@
 
 }
 - (NSArray *)installAppFromCompressedFile:(NSString *)path {
-	int selection = defaultBool(@"QSUpdateWithoutAsking");
+	NSInteger selection = defaultBool(@"QSUpdateWithoutAsking");
 	if (!selection)
 		selection = NSRunInformationalAlertPanel(@"Download Successful", @"A new version of Quicksilver has been downloaded. This version must be relaunched after it is installed.", @"Install and Relaunch", @"Cancel Update", nil);
 	if (selection == 1) {
@@ -353,7 +353,7 @@
 	return nil;
 }
 - (NSArray *)installAppFromDiskImage:(NSString *)path {
-	int selection = defaultBool(@"QSUpdateWithoutAsking");
+	NSInteger selection = defaultBool(@"QSUpdateWithoutAsking");
 	if (!selection)
 		selection = NSRunInformationalAlertPanel(@"Download Successful", @"A new version of Quicksilver has been downloaded. This version must be relaunched after it is installed.", @"Install and Relaunch", @"Cancel Update", nil);
 	if (selection == 1) {
@@ -435,7 +435,7 @@
 	[task setArguments:[NSArray arrayWithObjects:@"-x", @"-rsrc", path, tempDirectory, nil]];
 	[task launch];
 	[task waitUntilExit];
-	int status = [task terminationStatus];
+	NSInteger status = [task terminationStatus];
 	if (status == 0) {
 		[manager removeItemAtPath:path error:nil];
 		[[NSWorkspace sharedWorkspace] noteFileSystemChanged:[path stringByDeletingLastPathComponent]];

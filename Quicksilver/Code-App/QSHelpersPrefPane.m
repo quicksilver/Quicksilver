@@ -39,7 +39,7 @@
 }
 
 - (void)selectItemInPopUp:(NSPopUpButton *)popUp representedObject:(id)object {
-	int index = [popUp indexOfItemWithRepresentedObject:object];
+	NSInteger index = [popUp indexOfItemWithRepresentedObject:object];
 	if (index == -1 && [popUp numberOfItems]) index = 0;
 	[popUp selectItemAtIndex:index];
 }
@@ -98,7 +98,7 @@
 	foreachkey(key, header, [QSReg tableNamed:@"QSRegistryHeaders"]) {
 		if ([[header objectForKey:@"type"] isEqual:@"mediator"]) {
 			NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObject:header forKey:INFO];
-			if ([[header objectForKey:@"feature"] intValue] > [NSApp featureLevel]) continue;
+			if ([[header objectForKey:@"feature"] integerValue] > [NSApp featureLevel]) continue;
 			NSMenu *menu = [self menuForTable:key includeDefault:[[header objectForKey:@"allowDefault"] boolValue]];
 			if (!menu) continue;
 			if (menu)
@@ -111,11 +111,11 @@
 	[helperTable reloadData];
 }
 
-- (int) numberOfRowsInTableView:(NSTableView *)aTableView {
+- (NSInteger) numberOfRowsInTableView:(NSTableView *)aTableView {
 	return [helperInfo count];
 }
 
-- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
+- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
 	if ([[aTableColumn identifier] isEqual:@"helper"]) {
 		return nil;
 	} else {
@@ -123,10 +123,10 @@
 	}
 }
 
-- (void)tableView:(NSTableView *)aTableView setObjectValue:(id)anObject forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
+- (void)tableView:(NSTableView *)aTableView setObjectValue:(id)anObject forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
 	if ([[aTableColumn identifier] isEqual:@"helper"] && anObject) {
 		NSDictionary *info = [helperInfo objectAtIndex:rowIndex];
-		int index = [anObject intValue];
+		NSInteger index = [anObject integerValue];
 		NSMenu *menu = [info objectForKey:MENU];
 		NSDictionary *settings = [info objectForKey:INFO];
 		anObject = [[menu itemAtIndex:index] representedObject];
@@ -140,7 +140,7 @@
 	}
 }
 
-- (void)tableView:(NSTableView *)aTableView willDisplayCell:(NSCell*)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
+- (void)tableView:(NSTableView *)aTableView willDisplayCell:(NSCell*)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
 	if ([[aTableColumn identifier] isEqual:@"helper"]) {
 		NSDictionary *info = [helperInfo objectAtIndex:rowIndex];
 		id object = [QSReg getMediatorID:[info objectForKey:IDENT]];
@@ -149,7 +149,7 @@
 		NSMenu *menu = [[helperInfo objectAtIndex:rowIndex] objectForKey:MENU];
 		[aCell setEnabled:[menu numberOfItems] >1];
 		[aCell setMenu:menu];
-		int index = [(NSPopUpButtonCell*)aCell indexOfItemWithRepresentedObject:object];
+		NSInteger index = [(NSPopUpButtonCell*)aCell indexOfItemWithRepresentedObject:object];
 		if (index == -1 && [(NSPopUpButtonCell*)aCell numberOfItems]) index = 0;
 		[(NSPopUpButtonCell*)aCell selectItemAtIndex:index];
 	}

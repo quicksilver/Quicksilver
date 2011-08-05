@@ -12,7 +12,7 @@
 @interface BLTRResizeView : NSView {
 	NSPoint mouseDownPoint;
 	NSRect oldFrame;
-	int quadrant;
+	NSInteger quadrant;
 }
 
 @end

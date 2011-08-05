@@ -29,7 +29,7 @@
 
 @interface QSApplicationPrefPane : QSPreferencePane {
 	IBOutlet NSMatrix *featureLevelMatrix;
-	int newFeatureLevel;
+	NSInteger newFeatureLevel;
 }
 - (IBAction)checkNow:(id)sender;
 - (IBAction)resetQS:(id)sender;

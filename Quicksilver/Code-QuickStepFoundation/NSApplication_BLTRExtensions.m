@@ -38,7 +38,7 @@
 	return [NSString stringWithFormat:@"%@ %@(%@) ", [info objectForKey:@"CFBundleShortVersionString"], level, [info objectForKey:@"CFBundleVersion"]];
 }
 
-- (int)featureLevel {return 0;}
+- (NSInteger)featureLevel {return 0;}
 
 - (NSDictionary *)processInformation {
 	ProcessSerialNumber currPSN;
@@ -87,7 +87,7 @@
 	[self relaunchAtPath:[[NSBundle mainBundle] bundlePath] movedFromPath:newPath];
 }
 
-- (int)moveToPath:(NSString *)launchPath fromPath:(NSString *)newPath {
+- (NSInteger)moveToPath:(NSString *)launchPath fromPath:(NSString *)newPath {
 	NSFileManager *manager = [NSFileManager defaultManager];
 	NSString *tempPath = [[launchPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.old.app", [[NSProcessInfo processInfo] processName]]];
 	//NSLog(@"temp %@ new %@", tempPath, newPath);
@@ -158,7 +158,7 @@
 @end
 
 @implementation NSApplication (LaunchStatus)
-- (int)checkLaunchStatus {
+- (NSInteger)checkLaunchStatus {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *lastLocation = [defaults objectForKey:kLastUsedLocation];
 
@@ -168,8 +168,8 @@
 	if (! (lastLocation || lastVersionString) )
 		return QSApplicationFirstLaunch;
 
-	int lastVersion = [lastVersionString respondsToSelector:@selector(hexIntValue)] ? [lastVersionString hexIntValue] : 0;
-	int thisVersion = [thisVersionString hexIntValue];
+	NSInteger lastVersion = [lastVersionString respondsToSelector:@selector(hexIntValue)] ? [lastVersionString hexIntValue] : 0;
+	NSInteger thisVersion = [thisVersionString hexIntValue];
 
 	if (thisVersion>lastVersion) return QSApplicationUpgradedLaunch;
 	if (thisVersion<lastVersion) return QSApplicationDowngradedLaunch;

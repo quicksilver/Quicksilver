@@ -13,7 +13,7 @@
 
 #define DIFF 84
 
-NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
+NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, NSInteger quadrant);
 
 @implementation QSPrimerInterfaceController
 
@@ -199,7 +199,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 }
 - (void)searchView:(QSSearchObjectView *)view changedResults:(NSArray *)array {
 	//	NSLog(@"string %@ %@", string, view);
-	int count = [array count];
+	NSInteger count = [array count];
 	NSString *string = [NSString stringWithFormat:@"%@ %@%@", count ? [[NSNumber numberWithInt:count] description] : [@"No" description], view == aSelector?@"action":@"item", ESS(count)];
 	//if (!count) string = @"No items";
 	if (string) {

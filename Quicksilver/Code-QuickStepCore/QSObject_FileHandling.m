@@ -646,7 +646,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	return nil;
 }
 
-- (int) fileCount {
+- (NSInteger) fileCount {
 	return [[self arrayForType:QSFilePathType] count];
 }
 

@@ -18,6 +18,6 @@
 - (BOOL)respondsToSelector:(SEL)aSelector;
 - (void)forwardInvocation:(NSInvocation *)invocation;
 - (NSMethodSignature*)methodSignatureForSelector:(SEL)sel;
-- (unsigned) count;
+- (NSUInteger) count;
 
 @end

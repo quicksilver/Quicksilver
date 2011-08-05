@@ -5,10 +5,10 @@
 
 @interface QSRankCell : NSCell {
 	float score;
-	int order;
+	NSInteger order;
 }
 - (float) score;
 - (void)setScore:(float)newScore;
-- (int) order;
-- (void)setOrder:(int)newOrder;
+- (NSInteger) order;
+- (void)setOrder:(NSInteger)newOrder;
 @end

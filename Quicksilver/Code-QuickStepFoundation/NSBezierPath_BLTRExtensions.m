@@ -24,7 +24,7 @@
 	[self closePath];
 }
 
-- (void)appendBezierPathWithRoundedRectangle:(NSRect)aRect withRadius:(float)radius indent:(int)indent {
+- (void)appendBezierPathWithRoundedRectangle:(NSRect)aRect withRadius:(float)radius indent:(NSInteger)indent {
 	NSPoint topMid = NSMakePoint(NSMidX(aRect), NSMaxY(aRect) );
 	NSPoint topLeft = NSMakePoint(NSMinX(aRect), NSMaxY(aRect) );
 	NSPoint topRight = NSMakePoint(NSMaxX(aRect), NSMaxY(aRect) );

@@ -41,7 +41,7 @@
 
 - (void)adjustWindow:(id)sender {
 	QSAction *action = (QSAction *)[aSelector objectValue];
-	int argumentCount = [action argumentCount];
+	NSInteger argumentCount = [action argumentCount];
 
 //	NSLog(@"adjust x%d", argumentCount);
 	if (argumentCount == 2) {
@@ -69,7 +69,7 @@
 - (void)firstResponderChanged:(NSResponder *)aResponder {
 	if (aResponder == iSelector || aResponder == [iSelector currentEditor]) {
 		QSAction *action = (QSAction *)[aSelector objectValue];
-		int argumentCount = [action argumentCount];
+		NSInteger argumentCount = [action argumentCount];
 		BOOL indirectOptional = [[aSelector objectValue] indirectOptional];
 
 		if (argumentCount == 2 && indirectOptional && (aResponder == iSelector || aResponder == [iSelector currentEditor]) )

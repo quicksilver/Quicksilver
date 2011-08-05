@@ -10,8 +10,8 @@
 
 
 @interface QSCountBadgeImage : NSImage {
-	int count;
+	NSInteger count;
 	//NSColor *color;
 }
-+ (QSCountBadgeImage *)badgeForCount:(int)count;
++ (QSCountBadgeImage *)badgeForCount:(NSInteger)count;
 @end

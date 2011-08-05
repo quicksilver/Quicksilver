@@ -444,7 +444,7 @@ NSMutableDictionary *bindingsDict = nil;
 	[QSIC setHiding:NO];
 }
 
-- (void)savePanelDidEnd:(NSOpenPanel *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+- (void)savePanelDidEnd:(NSOpenPanel *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
 	[self setObjectValue:[QSObject fileObjectWithPath:[sheet filename]]];
 }
 
@@ -475,7 +475,7 @@ NSMutableDictionary *bindingsDict = nil;
 	[QSIC setHiding:NO];
 }
 
-- (void)openPanelDidEnd:(NSOpenPanel *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+- (void)openPanelDidEnd:(NSOpenPanel *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
 	[self setObjectValue:[QSObject fileObjectWithPath:[sheet filename]]];
 }
 
@@ -625,11 +625,11 @@ NSMutableDictionary *bindingsDict = nil;
 //	[self setObjectValue:entry];
 //}
 
-- (void)rowClicked:(int)index {
+- (void)rowClicked:(NSInteger)index {
     
 }
 
-- (void)selectIndex:(int)index {
+- (void)selectIndex:(NSInteger)index {
 	// NSLog(@"selectindex %d %d", self, index);
     
 	if (index<0)
@@ -654,7 +654,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)selectObject:(QSBasicObject *)obj {
-	int index = 0;
+	NSInteger index = 0;
 	//[self updateHistory];
 	if (obj) {
 		index = [resultArray indexOfObject:obj];
@@ -696,7 +696,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (NSString *)stringForEvent:(NSEvent *)theEvent {
-	int flags = [theEvent modifierFlags];
+	NSInteger flags = [theEvent modifierFlags];
 	NSString *string = [NSString stringWithFormat:@"%@%@%@%@%@%@",
                         flags&NSShiftKeyMask?@"$":@"",
                         flags&NSControlKeyMask?@"^":@"",
@@ -719,15 +719,15 @@ NSMutableDictionary *bindingsDict = nil;
 	[self setShouldResetSearchString:YES];
 }
 
-- (void)pageScroll:(int)direction {
+- (void)pageScroll:(NSInteger)direction {
 	if (![[resultController window] isVisible]) [self showResultView:self];
     
-	int movement = direction * (NSHeight([[resultController->resultTable enclosingScrollView] frame]) /[resultController->resultTable rowHeight]);
+	NSInteger movement = direction * (NSHeight([[resultController->resultTable enclosingScrollView] frame]) /[resultController->resultTable rowHeight]);
 	//NSLog(@"%d", movement);
 	[self moveSelectionBy:movement];
 }
 
-- (void)moveSelectionBy:(int)d {
+- (void)moveSelectionBy:(NSInteger)d {
 	[self selectIndex:selection+d];
 }
 
@@ -870,7 +870,7 @@ NSMutableDictionary *bindingsDict = nil;
 			[self selectIndex:0];
 		}
         
-		int resultBehavior = [[NSUserDefaults standardUserDefaults] integerForKey:kResultWindowBehavior];
+		NSInteger resultBehavior = [[NSUserDefaults standardUserDefaults] integerForKey:kResultWindowBehavior];
         
 		if ([resultArray count] > 1) {
 			if (resultBehavior == 0)
@@ -1298,7 +1298,7 @@ NSMutableDictionary *bindingsDict = nil;
 		delta += [theEvent deltaY];
 	}
     
-	[self moveSelectionBy:-(int) delta];
+	[self moveSelectionBy:-(NSInteger) delta];
 	// [resultController->resultTable scrollWheel:theEvent];
 }
 
@@ -1331,7 +1331,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (IBAction)insertSpace:(id)sender {
-	int behavior = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSSearchSpaceBarBehavior"];
+	NSInteger behavior = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSSearchSpaceBarBehavior"];
 	switch(behavior) {
 		case 1: //Normal
 			[self insertText:@" "];
@@ -1540,7 +1540,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)setMarkedText:(id)aString selectedRange:(NSRange)selRange {
 	if ([(NSString *)aString length]) {
-		NSLog(@"setmark %@ %d, %d", aString, selRange.location, selRange.length);
+		NSLog(@"setmark %@ %lu, %lu", aString, selRange.location, selRange.length);
 		aString = [[aString purifiedString] lowercaseString];
 		[partialString setString:aString];
 		[self partialStringChanged];
@@ -1558,7 +1558,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (NSRange)selectedRange { return NSMakeRange(NSNotFound, 0); }
 
 - (NSRect)firstRectForCharacterRange:(NSRange)theRange { return NSZeroRect; }
-- (unsigned int)characterIndexForPoint:(NSPoint)thePoint { return 0; }
+- (NSUInteger)characterIndexForPoint:(NSPoint)thePoint { return 0; }
 
 - (NSArray *)validAttributesForMarkedText {
 	return [NSArray array];
@@ -1566,8 +1566,8 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)updateObject:(QSObject *)object {
 	// find index of object in the resultlist
-	int ind = [resultArray indexOfObject:object];
-	int count = [resultArray count];
+	NSInteger ind = [resultArray indexOfObject:object];
+	NSInteger count = [resultArray count];
 	// for cases where there's only 1 object in the results, it's not always selected
 	if (ind == NSNotFound && count != 1) {
 		return;
@@ -1617,7 +1617,7 @@ NSMutableDictionary *bindingsDict = nil;
 //		return [historyArray objectAtIndex:0];
 //	return nil;
 //}
-- (void)switchToHistoryState:(int)i {
+- (void)switchToHistoryState:(NSInteger)i {
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"select in history %d %@", i, [historyArray valueForKeyPath:@"selection.displayName"]);
 #endif
@@ -1699,7 +1699,7 @@ NSMutableDictionary *bindingsDict = nil;
 	[self browse:-1];
 }
 
-- (void)browse:(int)direction {
+- (void)browse:(NSInteger)direction {
 	NSArray *newObjects = nil;
 	QSBasicObject * newSelectedObject = [super objectValue];
 	QSBasicObject * parent = nil;
@@ -1802,7 +1802,7 @@ NSMutableDictionary *bindingsDict = nil;
         [self updateHistory];
         [self saveMnemonic];
         [self clearSearch];
-        int defaultMode = [[NSUserDefaults standardUserDefaults] integerForKey:kBrowseMode];
+        NSInteger defaultMode = [[NSUserDefaults standardUserDefaults] integerForKey:kBrowseMode];
         [self setSearchMode:(defaultMode ? defaultMode : SearchSnap)];
         [self setResultArray:(NSMutableArray *)newObjects]; // !!!:nicholas:20040319
         [self setSourceArray:(NSMutableArray *)newObjects];

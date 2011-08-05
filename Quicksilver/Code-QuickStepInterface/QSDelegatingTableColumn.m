@@ -10,11 +10,11 @@
 
 @interface NSObject (QSDelegatingTableColumn)
 - (NSCell *)outlineView:(NSOutlineView *)outlineView dataCellForTableColumn:(NSTableColumn *)aTableColumn byItem:(id)item;
-- (NSCell *)tableView:(NSTableView *)aTableView dataCellForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex;
+- (NSCell *)tableView:(NSTableView *)aTableView dataCellForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex;
 @end
 
 @implementation QSDelegatingTableColumn
-- (id)dataCellForRow:(int)row {
+- (id)dataCellForRow:(NSInteger)row {
 	id delegate = [[self tableView] delegate];
 	NSCell *cell = nil;
 	if ([[self tableView] isKindOfClass:[NSOutlineView class]]) {

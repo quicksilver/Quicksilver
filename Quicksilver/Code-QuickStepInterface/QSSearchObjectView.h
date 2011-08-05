@@ -50,7 +50,7 @@ typedef enum QSSearchMode {
 
 	BOOL 			recordsHistory; //ACC
 	NSMutableArray *historyArray;
-	int 			historyIndex;
+	NSInteger 			historyIndex;
 	NSMutableArray *parentStack; // The parents for the current browse session
 	NSMutableArray *childStack; // The children for the current browse session
     
@@ -77,9 +77,9 @@ typedef enum QSSearchMode {
 - (void)clearSearch;
 
 - (void)clearObjectValue;
-- (void)moveSelectionBy:(int)d;
+- (void)moveSelectionBy:(NSInteger)d;
 - (void)selectObjectValue:( QSObject *)newObject ;
-- (void)pageScroll:(int)direction;
+- (void)pageScroll:(NSInteger)direction;
 
 - (NSMutableArray *)sourceArray;
 - (void)setSourceArray:(NSMutableArray *)newSourceArray;
@@ -96,7 +96,7 @@ typedef enum QSSearchMode {
 - (void)setMatchedString:(NSString *)newMatchedString;
 
 - (IBAction)toggleResultView:sender;
-- (void)selectIndex:(int)index;
+- (void)selectIndex:(NSInteger)index;
 - (void)selectObject:(QSBasicObject *)obj;
 - (void)resetString;
 - (IBAction)defineMnemonic:(id)sender;
@@ -118,7 +118,7 @@ typedef enum QSSearchMode {
 - (IBAction)sortByName:(id)sender;
 - (void)reloadResultTable;
 - (BOOL)executeText:(NSEvent *)theEvent;
-- (void)selectIndex:(int)index;
+- (void)selectIndex:(NSInteger)index;
 - (void)performSearchFor:(NSString *)string from:(id)sender;
 - (IBAction)hideResultView:sender;
 - (BOOL)handleBoundKey:(NSEvent *)theEvent;
@@ -153,7 +153,7 @@ typedef enum QSSearchMode {
 
 	//TextInputMethods
 - (NSAttributedString *)attributedSubstringFromRange:(NSRange)theRange;
-- (unsigned int) characterIndexForPoint:(NSPoint)thePoint;
+- (NSUInteger) characterIndexForPoint:(NSPoint)thePoint;
 - (long) conversationIdentifier;
 - (NSRect) firstRectForCharacterRange:(NSRange)theRange;
 - (BOOL)hasMarkedText;
@@ -189,5 +189,5 @@ typedef enum QSSearchMode {
 
 
 @interface QSSearchObjectView (Browsing)
-- (void)browse:(int)direction;
+- (void)browse:(NSInteger)direction;
 @end

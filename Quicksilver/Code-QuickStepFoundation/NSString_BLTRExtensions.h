@@ -51,7 +51,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString);
 
 - (NSString *)encodedPasteboardType;
 - (NSString *)encodedHexString;
-- (unsigned) hexIntValue;
+- (NSUInteger) hexIntValue;
 - (NSComparisonResult) versionCompare:(NSString *)other;
 - (NSString *)encodedPasteboardType;
 @end

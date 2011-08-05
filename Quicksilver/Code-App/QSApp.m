@@ -50,8 +50,8 @@ BOOL QSApplicationCompletedLaunch = NO;
 	char *relaunchingFromPid = getenv("relaunchFromPid");
 	if (relaunchingFromPid) {
 		unsetenv("relaunchFromPid");
-		int pid = atoi(relaunchingFromPid);
-		int i;
+		NSInteger pid = atoi(relaunchingFromPid);
+		NSInteger i;
 		for (i = 0; !kill(pid, 0) && i<50; i++) usleep(100000);
 	}
 	if ((self = [super init])) {
@@ -105,7 +105,7 @@ BOOL QSApplicationCompletedLaunch = NO;
 	[super setApplicationIconImage:image];
 }
 
-- (int)featureLevel {return featureLevel;}
+- (NSInteger)featureLevel {return featureLevel;}
 - (BOOL)betaLevel {return featureLevel>0;}
 - (BOOL)alphaLevel {return featureLevel>1;}
 - (BOOL)devLevel {return featureLevel>2;}
@@ -126,7 +126,7 @@ BOOL QSApplicationCompletedLaunch = NO;
 				return;
 		}
 	}
-	switch ((int) [theEvent type]) {
+	switch ((NSInteger) [theEvent type]) {
 		case NSProcessNotificationEvent:
 			[[QSProcessMonitor sharedInstance] handleProcessEvent:theEvent];
 			break;
@@ -213,7 +213,7 @@ BOOL QSApplicationCompletedLaunch = NO;
 }
 
 - (BOOL)isPrerelease {
-	int releaseLevel = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"QSReleaseStatus"] intValue];
+	NSInteger releaseLevel = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"QSReleaseStatus"] integerValue];
 	return releaseLevel > 0;
 }
 

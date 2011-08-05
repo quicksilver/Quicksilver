@@ -200,7 +200,7 @@
 
 	[itemParserPopUp setMenu:[QSFileSystemObjectSource parserMenuForPath:fullPath]];
 
-	int parserEntry = [itemParserPopUp indexOfItemWithRepresentedObject:parser];
+	NSInteger parserEntry = [itemParserPopUp indexOfItemWithRepresentedObject:parser];
 	[itemParserPopUp selectItemAtIndex:(parserEntry == -1?0:parserEntry)];
 
 	BOOL isDirectory, exists;
@@ -209,7 +209,7 @@
 	if ([[settings objectForKey:kItemParser] isEqualToString:@"QSDirectoryParser"] && (exists) ) {
 		[itemOptionsView setContentView:itemFolderOptions];
 		NSNumber *depth = [settings objectForKey:kItemFolderDepth];
-		int depthInt = (depth?[depth intValue] : 1);
+		NSInteger depthInt = (depth?[depth integerValue] : 1);
 		if (depthInt == -1 || depthInt > 8) depthInt = 8;
 		[itemFolderDepthSlider setFloatValue:9-depthInt];
 	} else {
@@ -240,7 +240,7 @@
 	else if (sender == itemSkipItemSwitch)
 		[settings setObject:[NSNumber numberWithBool:[sender state]] forKey:kItemSkipItem];
 	else if (sender == itemFolderDepthSlider) {
-		int depth = (9-[itemFolderDepthSlider intValue]);
+		NSInteger depth = (9-[itemFolderDepthSlider integerValue]);
 		if (depth>7) depth = -1;
 		[settings setObject:[NSNumber numberWithInt:depth] forKey:kItemFolderDepth];
 	} else if (sender == itemParserPopUp) {
@@ -258,8 +258,8 @@
 - (BOOL)textShouldEndEditing:(NSText *)aTextObject { return YES;  }
 
 #if 0
-- (int) numberOfRowsInTableView:(NSTableView *)tableView { return [typeSets count];  }
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row {
+- (NSInteger) numberOfRowsInTableView:(NSTableView *)tableView { return [typeSets count];  }
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
 	if ([[tableColumn identifier] isEqualToString:@"Set"]) {
 		return [[typeSets allKeys] objectAtIndex:row];
 		return @"name";
@@ -387,7 +387,7 @@
 	if ([specDate compare:indexDate] == NSOrderedDescending) return NO; //Catalog Specification is more recent than index
 
 	NSNumber *depth = [settings objectForKey:kItemFolderDepth];
-	 NSDate *modDate = [manager path:itemPath wasModifiedAfter:indexDate depth:[depth intValue]];
+	 NSDate *modDate = [manager path:itemPath wasModifiedAfter:indexDate depth:[depth integerValue]];
 	 return modDate == nil;
 }
 

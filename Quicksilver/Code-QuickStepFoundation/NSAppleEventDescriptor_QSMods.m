@@ -24,7 +24,7 @@
 	AppleEvent reply;
 	OSStatus err = AESend([self aeDesc] , &reply, sendMode, priority, timeout, NULL, NULL);
 	if (err) {
-		NSLog(@"sendAppleEventError %ld", err);
+		NSLog(@"sendAppleEventError %d", err);
 		return nil;
 	} else {
 		AEDisposeDesc(&reply);

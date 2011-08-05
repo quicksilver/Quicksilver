@@ -10,7 +10,7 @@
 #import <QSFoundation/CGSPrivate.h>
 
 @interface QSCGSTransition : NSObject {
-	int handle;
+	NSInteger handle;
 	CGSTransitionSpec spec;
 }
 + (id)transitionWithWindow:(NSWindow *)window type:(CGSTransitionType)type option:(CGSTransitionOption)option;

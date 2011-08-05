@@ -34,13 +34,13 @@
 
 	NSMutableArray *updatedPlugIns;
 	NSMutableArray *queuedDownloads;
-    int currentDownloads;
+    NSInteger currentDownloads;
     
 	NSString *installStatus;
 	float installProgress;
 	BOOL isInstalling;
 	BOOL supressRelaunchMessage;
-    int errorCount;
+    NSInteger errorCount;
     NSTimeInterval lastCheck;
 }
 

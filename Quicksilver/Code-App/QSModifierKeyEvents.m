@@ -20,11 +20,11 @@
 #define NSControlKeyCode 59
 #define NSFunctionKeyCode 63
 
-int NSAllModifierKeysMask = NSShiftKeyMask | NSControlKeyMask | NSAlternateKeyMask | NSCommandKeyMask | NSFunctionKeyMask;
+NSInteger NSAllModifierKeysMask = NSShiftKeyMask | NSControlKeyMask | NSAlternateKeyMask | NSCommandKeyMask | NSFunctionKeyMask;
 
 void logKeyMap(char *keyMap) {
 	NSMutableString *string = [NSMutableString string];
-	int i;
+	NSInteger i;
 	for (i = 0; i<16; i++)
 		[string appendFormat:@" %02hhX", keyMap[i]];
 
@@ -32,24 +32,24 @@ void logKeyMap(char *keyMap) {
 
 }
 
-void KeyMapAddKeyCode(char *keymap, int keyCode) {
-	int i = keyCode / 8;
-	int j = keyCode % 8;
+void KeyMapAddKeyCode(char *keymap, NSInteger keyCode) {
+	NSInteger i = keyCode / 8;
+	NSInteger j = keyCode % 8;
 	keymap[i] = keymap[i] | 1 << j;
 }
 
 void KeyMapInvert(char *keymap) {
-	int i;
+	NSInteger i;
 	for (i = 0; i<16; i++)
 		keymap[i] = ~keymap[i];
 }
 void KeyMapInit(char *keymap) {
-    int i;
+    NSInteger i;
 	for (i = 0; i<16; i++) keymap[i] = 0;
 }
 
 BOOL KeyMapAND(char *keymap, char *keymap2) {
-	int i;
+	NSInteger i;
 	for (i = 0; i<16; i++)
 		if (keymap[i] & keymap2[i]) return YES;
 	return NO;
@@ -61,7 +61,7 @@ OSStatus keyPressed(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 	UInt32 modifiers;
     err = GetEventParameter( theEvent, kEventParamKeyModifiers, typeUInt32, 0, sizeof(modifiers), 0, &modifiers );
     if( err != 0 ) {
-        NSLog( @"Failed getting event modifiers param! %ld\n", err );
+        NSLog( @"Failed getting event modifiers param! %d\n", err );
     }
     
     /* TODO: Use the new 10.5-only call ? */
@@ -78,14 +78,14 @@ OSStatus keyPressed(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 }
 
 NSMutableDictionary *modifierKeyEvents = nil;
-unsigned int lastModifiers;
+NSUInteger lastModifiers;
 BOOL modifierEventsEnabled = YES;
 
 // !!!:paulkohut:20100316
 // additional infomation needed for double tap events
 NSTimeInterval lastEventTime = 0;
 double doubleTapTimerWindow = 0.3;
-unsigned int previousModifier = 0;
+NSUInteger previousModifier = 0;
 
 @implementation QSModifierKeyEvent
 + (void)enableModifierEvents {modifierEventsEnabled = YES;}
@@ -98,7 +98,7 @@ unsigned int previousModifier = 0;
 	if (!modifierEventsEnabled) return NO;
 	if (!modifierKeyEvents) return NO;
 
-	unsigned int mods = [theEvent modifierFlags];
+	NSUInteger mods = [theEvent modifierFlags];
 
     BOOL modsKeyPressed = NO;
     if((mods & NSAllModifierKeysMask))
@@ -122,7 +122,7 @@ unsigned int previousModifier = 0;
     NSTimeInterval eventTime = [NSDate timeIntervalSinceReferenceDate];
 
     // Get the mod key.
-    unsigned int puremod = mods & NSAllModifierKeysMask;
+    NSUInteger puremod = mods & NSAllModifierKeysMask;
     if (!puremod)
         puremod = NSAlphaShiftKeyMask;
 
@@ -185,7 +185,7 @@ unsigned int previousModifier = 0;
 	eventType.eventKind = kEventRawKeyModifiersChanged;
 	EventHandlerUPP handlerFunction = NewEventHandlerUPP(keyPressed);
 	OSStatus err = InstallEventHandler(GetEventMonitorTarget(), handlerFunction, 1, &eventType, NULL, NULL);
-	if (err) NSLog(@"gmod registration err %ld", err);
+	if (err) NSLog(@"gmod registration err %d", err);
 }
 
 + (void)initialize {
@@ -231,7 +231,7 @@ unsigned int previousModifier = 0;
 //}
 
 
-- (void)setModifierActivationMask:(unsigned int)value {
+- (void)setModifierActivationMask:(NSUInteger)value {
 	modifierActivationMask = 1 << value;
 
 	switch (modifierActivationMask) {
@@ -316,10 +316,10 @@ unsigned int previousModifier = 0;
 	return NO;
 }
 
-- (unsigned int)modifierActivationMask { return modifierActivationMask; }
+- (NSUInteger)modifierActivationMask { return modifierActivationMask; }
 
-- (int)modifierActivationCount { return modifierActivationCount; }
-- (void)setModifierActivationCount:(int)newModifierActivationCount {
+- (NSInteger)modifierActivationCount { return modifierActivationCount; }
+- (void)setModifierActivationCount:(NSInteger)newModifierActivationCount {
 	modifierActivationCount = newModifierActivationCount;
 }
 

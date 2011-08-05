@@ -278,7 +278,7 @@
 	if (!prop) {
 	errorCount++;
 	} else {
-		NSLog(@"Downloaded info for %d plug-in(s) ", [(NSArray *)[prop objectForKey:@"plugins"] count]);
+		NSLog(@"Downloaded info for %lu plug-in(s) ", [(NSArray *)[prop objectForKey:@"plugins"] count]);
 		//	NSEnumerator *e = [prop objectEnumerator];
 		if ([prop count] && [[prop objectForKey:@"fullIndex"] boolValue])
 			[self clearOldWebData];
@@ -326,7 +326,7 @@
 	NSArray *loaded = [[self loadedPlugIns] allValues];
 	BOOL needsRelaunch = nil != [deletePlugIns firstObjectCommonWithArray:loaded];
 
-	int result;
+	NSInteger result;
 	if (needsRelaunch)
 		result = NSRunCriticalAlertPanel(@"Delete plug-ins?", @"Would you like to delete the selected plug-ins? A relaunch will be required", @"Delete and Relaunch", @"Cancel", nil);
 	else
@@ -391,7 +391,7 @@
 
 	} else {
 		//[NSApp activateIgnoringOtherApps:YES];
-		int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"Plug-in Requirements", nil] ,
+		NSInteger selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"Plug-in Requirements", nil] ,
 												  @"Using [%@] requires installation of [%@] .", @"Install", @"Disable", @"Always Install Requirements",
 												  [[dependingNames allObjects] componentsJoinedByString:@", "] ,
 												  [[array valueForKey:@"name"] componentsJoinedByString:@", "]);
@@ -453,7 +453,7 @@
 	[self suggestOldPlugInRemoval];
 	
 #ifdef DEBUG
-	if (DEBUG_STARTUP) NSLog(@"PlugIn Load Complete (%dms) ", (int)(-[date timeIntervalSinceNow] *1000));
+	if (DEBUG_STARTUP) NSLog(@"PlugIn Load Complete (%dms) ", (NSInteger)(-[date timeIntervalSinceNow] *1000));
 #endif
 	
 	startupLoadComplete = YES;
@@ -468,7 +468,7 @@
 
 	[bundleSearchPaths addObject:[[NSBundle mainBundle] builtInPlugInsPath]];
 
-	if ((int) getenv("QSDisableExternalPlugIns")) {
+	if ((NSInteger) getenv("QSDisableExternalPlugIns")) {
 		NSLog(@"External PlugIns Disabled");
 	} else {
 		NSArray *librarySearchPaths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSAllDomainsMask - NSSystemDomainMask, YES);
@@ -619,7 +619,7 @@
 	if (!plugInWebData)
 		[self loadWebPlugInInfo];
 
-	int newPlugInsAvailable = 0;
+	NSInteger newPlugInsAvailable = 0;
 	//NSDictionary *bundleIDs = [QSReg identifierBundles];
 
 	if (!updatedPlugIns) updatedPlugIns = [[NSMutableArray array] retain];
@@ -636,7 +636,7 @@
 
 	if (newPlugInsAvailable) {
 		NSArray *names = [updatedPlugIns valueForKey:@"name"];
-		int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"Plug-in Updates are available", nil] ,
+		NSInteger selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"Plug-in Updates are available", nil] ,
 												  @"%@", @"Install", @"Cancel", nil, [names componentsJoinedByString:@", "]);
 		if (selection == 1) {
 			updatingPlugIns = YES;
@@ -662,7 +662,7 @@
 	[task setArguments:[NSArray arrayWithObjects:@"-x", @"-rsrc", path, tempDirectory, nil]];
 	[task launch];
 	[task waitUntilExit];
-	int status = [task terminationStatus];
+	NSInteger status = [task terminationStatus];
 	if (status == 0) {
 		[manager removeItemAtPath:path error:nil];
 		[[NSWorkspace sharedWorkspace] noteFileSystemChanged:[path stringByDeletingLastPathComponent]];
@@ -766,7 +766,7 @@
     }
 
 	if (!liveLoaded && (updatingPlugIns || !warnedOfRelaunch) && ![[self downloadsQueue] count] && !supressRelaunchMessage) {
-		int selection = NSRunInformationalAlertPanel(@"Install complete", @"Some plug-ins will not be available until Quicksilver is relaunched.", @"Relaunch", @"Later", nil);
+		NSInteger selection = NSRunInformationalAlertPanel(@"Install complete", @"Some plug-ins will not be available until Quicksilver is relaunched.", @"Relaunch", @"Later", nil);
 
 		if (selection == 1) {
 			[NSApp relaunch:self];
@@ -789,7 +789,7 @@
 	//NSBeep();
 
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-	int selection = [defaults boolForKey:kClickInstallWithoutAsking];
+	NSInteger selection = [defaults boolForKey:kClickInstallWithoutAsking];
 
 	if (!selection) {//[NSApp activateIgnoringOtherApps:YES];
 		selection = NSRunInformationalAlertPanel(@"Install plug-ins?", @"Do you wish to move selected items to Quicksilver's plug-in folder?", @"Install", @"Cancel", @"Always Install Plug-ins");
@@ -860,7 +860,7 @@
 }
 
 - (void)startDownloadQueue {
-    int queuedCount = [[self downloadsQueue] count];
+    NSInteger queuedCount = [[self downloadsQueue] count];
     if (currentDownloads < MAX_CONCURRENT_DOWNLOADS && queuedCount != 0) {
         NSArray* array = [[self downloadsQueue] objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, (queuedCount < MAX_CONCURRENT_DOWNLOADS ? queuedCount : MAX_CONCURRENT_DOWNLOADS))]];
         for (QSURLDownload *download in array) {
@@ -896,7 +896,7 @@
 
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 
-	int selection = [defaults boolForKey:kWebInstallWithoutAsking];
+	NSInteger selection = [defaults boolForKey:kWebInstallWithoutAsking];
 	if (!selection)
 		selection = NSRunInformationalAlertPanel(name, @"Do you wish to install the %@?", @"Install", @"Cancel", @"Always Install Plug-ins", name);
 	if (selection) {

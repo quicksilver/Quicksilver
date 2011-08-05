@@ -10,7 +10,7 @@
 #import "NSArray_BLTRExtensions.h"
 
 NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
-	int length = MIN([aString length] , [bString length]);
+	NSInteger length = MIN([aString length] , [bString length]);
 	if (!length) return NSOrderedSame;
 	return [aString compare:bString options:NSCaseInsensitiveSearch range:NSMakeRange(0, MIN([aString length] , [bString length]) )];
 }
@@ -18,11 +18,11 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 @implementation NSString (Abbreviation)
 - (float) scoreForString:(NSString *)testString {
 	float score = 1;
-	int i;
+	NSInteger i;
 	NSString *characterString;
 	NSRange currentRange = NSMakeRange(0, [testString length]);
-	int index;
-	for (i = 0; i<(int) [self length]; i++) {
+	NSInteger index;
+	for (i = 0; i<(NSInteger) [self length]; i++) {
 		characterString = [self substringWithRange:NSMakeRange(i, 1)];
 		index = [testString rangeOfString:characterString options:NSCaseInsensitiveSearch range:currentRange].location;
 		if (index == NSNotFound) return 0;
@@ -52,7 +52,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 
 - (float) scoreForAbbreviation:(NSString *)abbreviation inRange:(NSRange)searchRange fromRange:(NSRange)abbreviationRange hitMask:(NSMutableIndexSet *)mask {
 	float score, remainingScore;
-	int i, j;
+	NSInteger i, j;
 	NSRange matchedRange, remainingSearchRange;
 	if (!abbreviationRange.length) return 0.9; //deduct some points for all remaining letters
 	if (abbreviationRange.length>searchRange.length) return 0.0;
@@ -73,12 +73,12 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 			// ignore skipped characters if is first letter of a word
 			if (matchedRange.location>searchRange.location) {//if some letters were skipped
 				if ([[NSCharacterSet whitespaceCharacterSet] characterIsMember:[self characterAtIndex:matchedRange.location-1]]) {
-					for (j = matchedRange.location-2; j >= (int) searchRange.location; j--) {
+					for (j = matchedRange.location-2; j >= (NSInteger) searchRange.location; j--) {
 						if ([[NSCharacterSet whitespaceCharacterSet] characterIsMember:[self characterAtIndex:j]]) score--;
 						else score -= 0.15;
 					}
 				} else if ([[NSCharacterSet uppercaseLetterCharacterSet] characterIsMember:[self characterAtIndex:matchedRange.location]]) {
-					for (j = matchedRange.location-1; j >= (int) searchRange.location; j--) {
+					for (j = matchedRange.location-1; j >= (NSInteger) searchRange.location; j--) {
 						if ([[NSCharacterSet uppercaseLetterCharacterSet] characterIsMember:[self characterAtIndex:j]])
 							score--;
 						else
@@ -98,10 +98,10 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 
 - (NSArray *)hitsForString:(NSString *)testString {
 	NSMutableArray *hitsArray = [NSMutableArray arrayWithCapacity:[self length]];
-	int i;
+	NSInteger i;
 	NSString *characterString;
 	NSRange currentRange = NSMakeRange(0, [testString length]);
-	int index;
+	NSInteger index;
 	for (i = 0; i<[self length]; i++) {
 		characterString = [self substringWithRange:NSMakeRange(i, 1)];
 		index = [testString rangeOfString:characterString options:NSCaseInsensitiveSearch range:currentRange].location;
@@ -209,7 +209,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	NSMutableString *truncString = [self mutableCopy];
 
 	float naturalWidth = [truncString sizeWithAttributes:attributes].width;
-	int extra = (float) [self length] * (naturalWidth-width)/naturalWidth;
+	NSInteger extra = (float) [self length] * (naturalWidth-width)/naturalWidth;
 
 	[truncString deleteCharactersInRange:NSMakeRange(([self length]-extra) / 2, extra)];
 
@@ -245,8 +245,8 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 }
 
 - (NSString *)decodedHexString {
-	char s[4]; unsigned x; int i;
-	for (i = 0; i<((int) [self length] / 2); i++) {
+	char s[4]; unsigned x; NSInteger i;
+	for (i = 0; i<((NSInteger) [self length] / 2); i++) {
 		[[NSScanner scannerWithString:[self substringWithRange:NSMakeRange(i*2, 2)]] scanHexInt:&x];
 		s[i] = (char)x;
 	}
@@ -255,7 +255,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
     return [NSString stringWithCString:s encoding:NSUTF8StringEncoding];
 }
 
-- (unsigned) hexIntValue {
+- (NSUInteger) hexIntValue {
 	unsigned x;
 	[[NSScanner scannerWithString:self] scanHexInt:&x];
 	return x;
@@ -335,7 +335,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 
 - (NSString *)stringByResolvingWildcardsInPath {
 	NSMutableArray *components = [[[self stringByStandardizingPath] pathComponents] mutableCopy];
-	int index = [components indexOfObject:@"*"];
+	NSInteger index = [components indexOfObject:@"*"];
     
 	if (index == NSNotFound) {
         [components release];
@@ -363,7 +363,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	NSString *basePath = [self stringByDeletingPathExtension];
 	NSString *extension = [self pathExtension];
 	NSString *alternatePath = self;
-	int i;
+	NSInteger i;
 	for (i = 1; [[NSFileManager defaultManager] fileExistsAtPath:alternatePath]; i++)
 		alternatePath = [NSString stringWithFormat:@"%@ %d.%@", basePath, i, extension];
 	return alternatePath;

@@ -13,8 +13,8 @@
 	IBOutlet NSProgressIndicator *scanProgress;
 
 	IBOutlet NSTextField *scanStatusField;
-	int plugInInfoStatus;
-	int step;
+	NSInteger plugInInfoStatus;
+	NSInteger step;
 	BOOL scanComplete;
 	BOOL setupComplete;
 	NSDictionary *identifiers;

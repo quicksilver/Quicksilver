@@ -111,7 +111,7 @@
 				<td align="center"><tt>type128BitFloatingPoint</tt></td>
 			</tr>
 			<tr>
-				<td align="center"><tt>NSNumber&lt;unsigned char&gt;<br>NSNumber&lt;unsigned short int&gt;<br>NSNumber&lt;unsigned int&gt;<br>NSNumber&lt;unsigned long int&gt;</tt></td>
+				<td align="center"><tt>NSNumber&lt;unsigned char&gt;<br>NSNumber&lt;unsigned short int&gt;<br>NSNumber&lt;NSUInteger&gt;<br>NSNumber&lt;unsigned long int&gt;</tt></td>
 				<td align="center"><tt>typeUInt32</tt></td>
 			</tr>
 			<tr>
@@ -153,7 +153,7 @@
 				<td align="center"><tt>typeInteger</tt></td>
 			</tr>
 			<tr>
-				<td align="center"><tt>unsigned int<br></tt></td>
+				<td align="center"><tt>NSUInteger<br></tt></td>
 				<td align="center"><tt>typeMagnitude</tt></td>
 			</tr>
 			<tr>
@@ -321,12 +321,12 @@
 
 /*!
 	@method descriptorWithUnsignedInt:
-	@abstract Returns a <tt>NSAppleEventDescriptor</tt> containing a unsigned integer descriptor.
+	@abstract Returns a <tt>NSAppleEventDescriptor</tt> containing a NSUIntegereger descriptor.
 	@discussion Returns a <tt>NSAppleEventDescriptor</tt> containing a descriptor of type <tt>typeMagnitude</tt>
-	@param value The unsigned int.
-	@result A <tt>NSAppleEventDescriptor</tt> containing a unsigned integer descriptor.
+	@param value The NSUInteger.
+	@result A <tt>NSAppleEventDescriptor</tt> containing a NSUIntegereger descriptor.
  */
-+ (id)descriptorWithUnsignedInt:(unsigned int)value;
++ (id)descriptorWithUnsignedInt:(NSUInteger)value;
 /*!
 	@method descriptorWithCString:
 	@abstract Returns a <tt>NSAppleEventDescriptor</tt> containing a string the c string..
@@ -349,7 +349,7 @@
 				<tr><td align="center"><tt>char</tt></td><td align="center"><tt>typeSInt16</tt></td></tr>
 				<tr><td align="center"><tt>unsigned short int</tt></td><td align="center"><tt>typeUInt32</tt></td></tr>
 				<tr><td align="center"><tt>short int</tt></td><td align="center"><tt>typeSInt16</tt></td></tr>
-				<tr><td align="center"><tt>unsigned int</tt></td><td align="center"><tt>typeUInt32</tt></td></tr>
+				<tr><td align="center"><tt>NSUInteger</tt></td><td align="center"><tt>typeUInt32</tt></td></tr>
 				<tr><td align="center"><tt>int</tt></td><td align="center"><tt>typeSInt32</tt></td></tr>
 				<tr><td align="center"><tt>unsigned long int</tt></td><td align="center"><tt>typeUInt32</tt></td></tr>
 				<tr><td align="center"><tt>long int</tt></td><td align="center"><tt>typeSInt32</tt></td></tr>
@@ -430,7 +430,7 @@
 			<tr>
 				<td align="center"><tt>NSNumber&lt;unsigned char&gt;<br>
 									NSNumber&lt;unsigned short int&gt;<br>
-									NSNumber&lt;unsigned int&gt;<br>
+									NSNumber&lt;NSUInteger&gt;<br>
 									NSNumber&lt;unsigned long int&gt;</tt></td>
 				<td align="center"><tt>typeUInt32</tt></td>
 			</tr>
@@ -513,7 +513,7 @@
 	@param count The number of objects and keywords.
 	@result A <tt>NSAppleEventDescriptor</tt> for a record descriptor.
  */
-+ (NSAppleEventDescriptor *)recordDescriptorWithObjects:(id *)objects keywords:(AEKeyword *)keywords count:(unsigned int)count;
++ (NSAppleEventDescriptor *)recordDescriptorWithObjects:(id *)objects keywords:(AEKeyword *)keywords count:(NSUInteger)count;
 
 	/*!
 	@method recordDescriptorWithDictionary:
@@ -582,7 +582,7 @@
 	@param count The number of objects and keys.
 	@result A <tt>NSAppleEventDescriptor</tt> for a list descriptor representing a user record.
  */
-+ (NSAppleEventDescriptor *)userRecordDescriptorWithObjects:(id *)objects keys:(NSString **)keys count:(unsigned int)count;
++ (NSAppleEventDescriptor *)userRecordDescriptorWithObjects:(id *)objects keys:(NSString **)keys count:(NSUInteger)count;
 
 	/*!
 	@method userRecordDescriptorWithDictionary:
@@ -627,11 +627,11 @@
 
 /*!
 	@method unsignedIntValue
-	@abstract Returns a unsigned int value for the recevier.
-	@discussion Returns a unsigned int value if the recevier contains a unsigned integer descriptor, otherwise it returns <tt>0</tt>.
-	@result An unsigned int value.
+	@abstract Returns a NSUInteger value for the recevier.
+	@discussion Returns a NSUInteger value if the recevier contains a NSUIntegereger descriptor, otherwise it returns <tt>0</tt>.
+	@result An NSUInteger value.
 */
-- (unsigned int)unsignedIntValue;
+- (NSUInteger)unsignedIntValue;
 
 /*!
 	@method floatValue
@@ -842,7 +842,7 @@
 	@param count The number of labels and objects
 	@result A <tt>NSAppleEventDescriptor</tt> for a subroutine with labled arguments.
  */
-+ (id)descriptorWithSubroutineName:(NSString *)routineName labels:(AEKeyword*)labels argumentObjects:(id *)objects count:(unsigned int)count;
++ (id)descriptorWithSubroutineName:(NSString *)routineName labels:(AEKeyword*)labels argumentObjects:(id *)objects count:(NSUInteger)count;
 
 /*!
 	@method descriptorWithSubroutineName:labels:argumentDescriptors:count:
@@ -892,7 +892,7 @@
 	@param count The number of keywords and parameters.
 	@result A <tt>NSAppleEventDescriptor</tt> for a subroutine with labled arguments.
  */
-+ (id)descriptorWithSubroutineName:(NSString *)routineName labels:(AEKeyword*)labels argumentDescriptors:(NSAppleEventDescriptor **)params count:(unsigned int)count;
++ (id)descriptorWithSubroutineName:(NSString *)routineName labels:(AEKeyword*)labels argumentDescriptors:(NSAppleEventDescriptor **)params count:(NSUInteger)count;
 
 /*!
 	@method descriptorWithSubroutineName:labelsAndArguments:...
@@ -1027,7 +1027,7 @@
 	@param count The number of keywords and <tt>NSAppleEventDescriptors</tt>
 	@result A <tt>NSAppleEventDescriptor</tt> for a subroutine with labeled arguments.
  */
-- (id)initWithSubroutineName:(NSString *)routineName labels:(AEKeyword*)labels argumentDescriptors:(NSAppleEventDescriptor **)aParam count:(unsigned int)count;
+- (id)initWithSubroutineName:(NSString *)routineName labels:(AEKeyword*)labels argumentDescriptors:(NSAppleEventDescriptor **)aParam count:(NSUInteger)count;
 /*!
 	@method initWithSubroutineName:labels:arguments:count:
 	@abstract Returns a <tt>NSAppleEventDescriptor</tt> for calling an AppleScript routine with labeled arguments.
@@ -1076,7 +1076,7 @@
 	@param count The number of keywords and objects.
 	@result A <tt>NSAppleEventDescriptor</tt> for a subroutine with labeled arguments.
  */
-- (id)initWithSubroutineName:(NSString *)routineName labels:(AEKeyword*)labels arguments:(id *)objects count:(unsigned int)count;
+- (id)initWithSubroutineName:(NSString *)routineName labels:(AEKeyword*)labels arguments:(id *)objects count:(NSUInteger)count;
 
 /*!
 	@method initWithSubroutineName:labelsAndArguments:arguments:

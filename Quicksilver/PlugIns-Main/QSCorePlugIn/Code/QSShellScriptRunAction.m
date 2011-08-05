@@ -192,7 +192,7 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
     }
 	// NSLog(@"Run Task: %@ %@", taskPath, argArray);
 
-	//int status = [task terminationStatus];
+	//NSInteger status = [task terminationStatus];
 	///	if (status == 0) NSLog(@"Task succeeded.");
 	//	else NSLog(@"Task failed.");
 	return taskOutput;

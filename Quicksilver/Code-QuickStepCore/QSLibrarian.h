@@ -42,7 +42,7 @@ extern QSLibrarian *QSLib; // Shared Instance
 	NSMutableDictionary *entriesByID;
 
 	NSMutableArray *invalidIndexes;
-	int scannerCount;
+	NSInteger scannerCount;
 }
 
 + (id)sharedInstance;

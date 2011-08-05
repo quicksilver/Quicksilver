@@ -56,7 +56,7 @@
 	NSRect screenRect = [[NSScreen mainScreen] frame];
 	NSRect windowRect = [[super window] frame];
 	[window setIgnoresMouseEvents:YES];
-	int quadrant = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSNotifierDefaultQuadrant"];
+	NSInteger quadrant = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSNotifierDefaultQuadrant"];
 
 	NSRect centeredRect = NSOffsetRect(windowRect, NSMidX(screenRect) -NSMidX(windowRect), NSMidY(screenRect)-NSMidY(windowRect)); //-NSHeight(screenRect)/4);
 	if (quadrant)
@@ -133,7 +133,7 @@
 	[imageView setImage:splashImage];
 	[[textView textStorage] setAttributedString:newAttributedString];
 
-	int direction = 1;
+	NSInteger direction = 1;
 
 	if ([titleString isEqualToString:lastTitle])
 		direction = -1;
@@ -145,7 +145,7 @@
 		[curTimer release];
 		curTimer = nil;
 
-		int transition = CGSLeft;
+		NSInteger transition = CGSLeft;
 
 		if (direction == -1)
 			transition = CGSRight;

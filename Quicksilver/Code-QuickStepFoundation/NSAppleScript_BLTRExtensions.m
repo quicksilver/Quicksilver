@@ -30,7 +30,7 @@
 - (NSAppleEventDescriptor *)descriptorByTranslatingObject:(id)object ofType:(id)type inSuite:(id)suite;
 - (id)objectByTranslatingDescriptor:(NSAppleEventDescriptor *)descriptor toType:(id)type inSuite:(id)suite;
 - (void)registerTranslator:(id)translator selector:(SEL) selector toTranslateFromClass:(Class) class;
-- (void)registerTranslator:(id)translator selector:(SEL) selector toTranslateFromDescriptorType:(unsigned int) type;
+- (void)registerTranslator:(id)translator selector:(SEL) selector toTranslateFromDescriptorType:(NSUInteger) type;
 @end
 
 @implementation NSAppleScript (Constructors)
@@ -57,7 +57,7 @@
 		[argumentList insertDescriptor:arguments atIndex:[arguments numberOfItems] +1];
 		arguments = argumentList;
 	}
-	int pid = [[NSProcessInfo processInfo] processIdentifier];
+	NSInteger pid = [[NSProcessInfo processInfo] processIdentifier];
 	targetAddress = [[NSAppleEventDescriptor alloc] initWithDescriptorType:typeKernelProcessID bytes:&pid length:sizeof(pid)];
 	event = [[NSAppleEventDescriptor alloc] initWithEventClass:kASAppleScriptSuite eventID:kASSubroutineEvent targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
 	subroutineDescriptor = [NSAppleEventDescriptor descriptorWithString:name];

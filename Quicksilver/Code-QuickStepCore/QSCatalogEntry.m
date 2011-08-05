@@ -116,7 +116,7 @@ NSDictionary *enabledPresetDictionary;*/
 #endif
 	NSString *sourceType = [info objectForKey:kItemSource];
 	if ([sourceType isEqualToString:@"QSGroupObjectSource"] || [QSReg sourceNamed:sourceType])
-		return [NSApp featureLevel] < [[info objectForKey:kItemFeatureLevel] intValue];
+		return [NSApp featureLevel] < [[info objectForKey:kItemFeatureLevel] integerValue];
 	return YES;
 }
 
@@ -168,7 +168,7 @@ NSDictionary *enabledPresetDictionary;*/
 - (BOOL)isSeparator { return [[self identifier] hasPrefix:@"QSSeparator"]; }
 - (BOOL)isGroup { return [[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]; }
 - (BOOL)isLeaf { return ![self isGroup]; }
-- (int)state {
+- (NSInteger)state {
 	BOOL enabled = [self isEnabled];
 	if (!enabled) return 0;
 	if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
@@ -179,7 +179,7 @@ NSDictionary *enabledPresetDictionary;*/
 	return enabled;
 }
 
-- (int)hasEnabledChildren {
+- (NSInteger)hasEnabledChildren {
 	if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
 		BOOL hasEnabledChildren = NO;
 		for (id loopItem in children)
@@ -303,8 +303,8 @@ NSDictionary *enabledPresetDictionary;*/
 
 - (NSIndexPath *)catalogIndexPath {
 	NSArray *anc = [self ancestors];
-	int i;
-	int index;
+	NSInteger i;
+	NSInteger index;
 	NSIndexPath *p = nil;
 	for (i = 0; i < ([anc count]-1); i++) {
 		index = [[[anc objectAtIndex:i] children] indexOfObject:[anc objectAtIndex:i+1]];
@@ -319,8 +319,8 @@ NSDictionary *enabledPresetDictionary;*/
 
 - (NSIndexPath *)catalogSetIndexPath {
 	NSArray *anc = [self ancestors];
-	int i;
-	int index;
+	NSInteger i;
+	NSInteger index;
 	NSIndexPath *p = nil;
 	for (i = 1; i<([anc count] -1); i++) {
 		index = [[[anc objectAtIndex:i] children] indexOfObject:[anc objectAtIndex:i+1]];
@@ -338,7 +338,7 @@ NSDictionary *enabledPresetDictionary;*/
 	NSArray *groups = [catalog deepChildrenWithGroups:YES leaves:NO disabled:YES];
 	NSMutableArray *entryChain = [NSMutableArray arrayWithCapacity:0];
 	id thisItem = self;
-	int i;
+	NSInteger i;
 	[entryChain addObject:self];
 	id theGroup = nil;
 	while(thisItem != catalog) {
@@ -398,20 +398,20 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (NSString *)getCount {
-	int num;
+	NSInteger num;
 	if((num = [self count]))
 		return [NSString stringWithFormat:@"%d", num];
 	else
 		return nil;
 }
 
-- (int)count {
+- (NSInteger)count {
 	return [self deepObjectCount];
 }
 
-- (int)deepObjectCount {
+- (NSInteger)deepObjectCount {
 	NSArray *leaves = [self deepChildrenWithGroups:NO leaves:YES disabled:NO];
-	int i, count = 0;
+	NSInteger i, count = 0;
 	for (i = 0; i<[leaves count]; i++)
 		count += [(NSArray *)[[leaves objectAtIndex:i] contents] count];
 	return count;

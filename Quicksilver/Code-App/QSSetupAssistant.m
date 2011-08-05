@@ -134,7 +134,7 @@
 	}
 	return YES;
 }
-- (void)alertDidEnd:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+- (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
 	[[alert window] close];
 	if (returnCode)
 		[NSApp terminate:self];
@@ -157,7 +157,7 @@
 }
 
 - (IBAction)cancelPlugInInstall:(id)sender { [NSApp endSheet:pluginStatusPanel returnCode:0]; }
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
 	[sheet close];
 	[[QSPlugInManager sharedInstance] cancelPlugInInstall];
 	[[self recommendedPlugIns] setValue:[NSNumber numberWithBool:NO] forKey:@"shouldInstall"];
@@ -176,7 +176,7 @@
 		[self finish:sender];
 		return;
 	}
-	int transitions[5] = {CGSUp, CGSLeft, CGSLeft, CGSLeft, CGSUp} ;
+	NSInteger transitions[5] = {CGSUp, CGSLeft, CGSLeft, CGSLeft, CGSUp} ;
 	QSCGSTransition *transition = [QSCGSTransition transitionWithWindow:[self window] type:CGSCube option:transitions[ [setupTabView indexOfTabViewItem:[setupTabView selectedTabViewItem]]] ];
 	[self deselectedItem:[setupTabView selectedTabViewItem]];
 	[setupTabView selectNextTabViewItem:self];
@@ -226,7 +226,7 @@
 }
 
 - (IBAction)prevSection:(id)sender {
-	int transitions[6] = {CGSUp, CGSDown, CGSRight, CGSRight, CGSRight, CGSDown} ;
+	NSInteger transitions[6] = {CGSUp, CGSDown, CGSRight, CGSRight, CGSRight, CGSDown} ;
 	QSCGSTransition *transition = [QSCGSTransition transitionWithWindow:[self window] type:CGSCube option:transitions[ [setupTabView indexOfTabViewItem:[setupTabView selectedTabViewItem]]] ];
 	[self deselectedItem:[setupTabView selectedTabViewItem]];
 	[setupTabView selectPreviousTabViewItem:self];
