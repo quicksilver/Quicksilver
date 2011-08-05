@@ -36,10 +36,32 @@
 												selector:@selector(appChanged:)
 													name:QSActiveApplicationChanged
 												 object:nil];
+		
+		
+		// Add observers to see when QS is active
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceActivated) name:@"InterfaceActivated" object:nil];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(interfaceDeactivated) name:@"InterfaceDeactivated" object:nil];
+		
+		//NSLog(@"info: %@",info);
+		//		NSLog(@"triggers: %@",triggersDict);
 	}
 	return self;
 }
 
+// Method to set the scope when the QS UI is activated
+- (void)interfaceActivated {
+	NSArray *theTriggers = [triggersDict allValues];
+	[theTriggers makeObjectsPerformSelector:@selector(rescope:) withObject:@"com.blacktree.Quicksilver"];
+}
+
+// Method to set the scope when the QS UI is deactivated
+- (void)interfaceDeactivated {
+	NSArray *theTriggers = [triggersDict allValues];
+	[theTriggers makeObjectsPerformSelector:@selector(rescope:) withObject:
+	 [[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationBundleIdentifier"]];
+}
+
+// Method that listens for app changes (other than QS) and notifies the trigger scope method
 - (void)appChanged:(NSNotification *)notif {
 	//NSLog(@"app %@", [[notif object] objectForKey:@"NSApplicationBundleIdentifier"]);
 
@@ -115,15 +137,16 @@
 //	return [[self managerForTrigger:entry] disableTrigger:entry];
 //}
 
+
+// Stupidly, this isn't called when the scope of a trigger is changed. Why not?!
 - (void)triggerChanged:(QSTrigger *)trigger {
 	[self writeTriggers];
 
-    // !!!:paulkohut:20100311
     // Fix for issue 47
     // Handle case for when a keyboard assignment is added to
     // a trigger for the first time.  By default when a trigger is
     // added it does not have a key assignment.  This call ensures
-    // the when a key is assigned the trigger is properly
+    // that when a key is assigned the trigger is properly
     // setup.  Otherwise the user has to toggle the enable/disable
     // check box to get the trigger to work.
     [trigger setEnabledDoNotNotify:[trigger enabled]];
@@ -152,12 +175,15 @@
 //		[trigger removeObjectForKey:@"name"];
 //}
 
+// When multiple 'writeTriggers' messages are sent in a short period of time, this method intends to reduce the work (creating .plists and writing)
+// so it is only performed once.
 - (void)writeTriggers {
-    [self performSelector:@selector(writeTriggersNow) withObject:nil afterDelay:10.0 extend:YES];
+    [self performSelector:@selector(writeTriggersNow) withObject:nil afterDelay:2.0 extend:YES];
 }
 
 - (void)writeTriggersNow {
-	NSMutableArray *cleanedTriggerArray = [NSMutableArray arrayWithCapacity:[triggersDict count]];
+	NSLog(@"writing triggers");
+	NSMutableArray *cleanedTriggerArray = [[NSMutableArray alloc] initWithCapacity:[triggersDict count]];
 	for(QSTrigger *thisTrigger in [triggersDict allValues]) {
         NSDictionary * rep = [thisTrigger dictionaryRepresentation];
 #ifdef DEBUG
@@ -187,25 +213,30 @@
 #endif
 		[cleanedTriggerArray addObject:rep];
 	}
+	
     NSString *errorStr;
     NSError *error;
-    NSMutableDictionary * triggerDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:cleanedTriggerArray, @"triggers", nil];
+    NSDictionary * triggerDict = [[NSDictionary alloc] initWithObjectsAndKeys:cleanedTriggerArray, @"triggers", nil];
     NSData *data = [NSPropertyListSerialization dataFromPropertyList:triggerDict
                                                               format:NSPropertyListXMLFormat_v1_0
                                                     errorDescription:&errorStr];
-    if(data == nil ) {
+    if(data == nil || errorStr) {
         NSLog(@"Failed converting triggers: %@", errorStr);
         return;
     }
-    if([data writeToFile:[pTriggerSettings stringByStandardizingPath]
-                 options:0
-                   error:&error] == NO ) {
+    
+	if (![data writeToFile:[pTriggerSettings stringByStandardizingPath] options:0 error:&error]) {
         NSLog(@"Failed writing triggers : %@", error );
         return;
     }
+	
 #ifdef DEBUG
-    if (VERBOSE) NSLog(@"Wrote %d triggers", [cleanedTriggerArray count]);
+    NSLog(@"Wrote %d triggers", [cleanedTriggerArray count]);
 #endif
+	
+	// manual memory management (better for ARC)
+	[triggerDict release];
+	[cleanedTriggerArray release];
 }
 
 - (NSMutableDictionary *)triggersDict {

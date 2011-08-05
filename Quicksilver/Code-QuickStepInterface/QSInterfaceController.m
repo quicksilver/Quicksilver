@@ -616,6 +616,7 @@
 #pragma mark -
 #pragma mark IBActions
 - (IBAction)showInterface:(id)sender {
+	 
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"InterfaceActivated" object:self];
 	[self showMainWindow:self];
 }
@@ -625,8 +626,9 @@
 		[self hideMainWindowFromCancel:sender];
 		return;
 	}
-    
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"InterfaceActivated" object:self];
+    // This will be called on line 575 [self showInterface:self], there's no point calling it twice
+	// Only thing that uses this notification is triggers at the moment (p_j_r change 24/04/2011)
+	// [[NSNotificationCenter defaultCenter] postNotificationName:@"InterfaceActivated" object:self];
     
 	[hideTimer invalidate];
 	[dSelector reset:self];
