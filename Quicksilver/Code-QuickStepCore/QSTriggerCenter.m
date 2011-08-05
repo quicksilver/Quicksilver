@@ -182,7 +182,9 @@
 }
 
 - (void)writeTriggersNow {
+#ifdef DEBUG
 	NSLog(@"writing triggers");
+#endif
 	NSMutableArray *cleanedTriggerArray = [[NSMutableArray alloc] initWithCapacity:[triggersDict count]];
 	for(QSTrigger *thisTrigger in [triggersDict allValues]) {
         NSDictionary * rep = [thisTrigger dictionaryRepresentation];
