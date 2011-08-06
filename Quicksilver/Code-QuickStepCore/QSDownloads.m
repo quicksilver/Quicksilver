@@ -50,7 +50,6 @@
 				if ([downloadedFile getResourceValue:&isPackage forKey:NSURLIsPackageKey error:&err] && ![isPackage boolValue]) {
 					if (err != nil) {
 						NSLog(@"Error getting resource value for %@\nError: %@",downloadPath,err);
-						continue;
 					}
 					continue;
 				}
