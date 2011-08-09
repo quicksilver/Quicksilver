@@ -544,7 +544,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, NSInteger quadrant);
 }
 
 - (void)drawObjectImage:(QSObject *)drawObject inRect:(NSRect)drawingRect cellFrame:(NSRect)cellFrame controlView:(NSView *)controlView flipped:(BOOL)flipped opacity:(float)opacity {
-	NSImage *icon = [drawObject icon];
+  NSImage *icon = [[[drawObject icon] retain] autorelease];
 	NSImage *cornerBadge = nil;
 	// NSLog(@"icon");
 	BOOL proxyDraw = [[icon name] isEqualToString:QSDirectObjectIconProxy];
@@ -562,7 +562,6 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, NSInteger quadrant);
 	BOOL handlerDraw = NO;
 	if (NSWidth(drawingRect) >64)
 		handlerDraw = [drawObject drawIconInRect:(NSRect) drawingRect flipped:flipped];
-#warning - gave me a random exception (Patrick Robertson 07/05/11)
 	if (!handlerDraw) {
 		[icon setFlipped:flipped];
 

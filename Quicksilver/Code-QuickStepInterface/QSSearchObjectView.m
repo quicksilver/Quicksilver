@@ -1541,7 +1541,8 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)setMarkedText:(id)aString selectedRange:(NSRange)selRange {
 	if ([(NSString *)aString length]) {
 		NSLog(@"setmark %@ %lu, %lu", aString, selRange.location, selRange.length);
-		aString = [[aString purifiedString] lowercaseString];
+    if ([[aString class] isKindOfClass:[NSAttributedString class]]) aString = [[[aString string] purifiedString] lowercaseString];
+    else aString = [[aString purifiedString] lowercaseString];
 		[partialString setString:aString];
 		[self partialStringChanged];
 	}
