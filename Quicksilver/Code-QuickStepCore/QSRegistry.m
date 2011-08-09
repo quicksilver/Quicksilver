@@ -144,9 +144,14 @@ QSRegistry* QSReg = nil;
 	Class providerClass = NSClassFromString(className);
 	//NSLog(@"Class <%@>", NSStringFromClass(providerClass) );
 	if (!providerClass) {
+    NSError *error = nil;
         NSBundle * bundle = [classBundles objectForKey:className];
-		if([bundle load] == NO)
-            NSLog(@"Failed loading bundle %@", bundle);
+		if([bundle loadAndReturnError:&error] == NO)
+		{
+		  NSLog(@"Failed loading bundle %@", bundle);
+      NSLog(@"Error: %@", error);
+		}
+            
 		providerClass = NSClassFromString(className);
 	}
 	if (providerClass) {
