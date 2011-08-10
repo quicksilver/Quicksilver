@@ -961,7 +961,7 @@ UInt32 normalizeKeyCode(UInt32 theChar, unsigned short aKeyCode) {
  {
 	const void				* theKeyboardLayoutData;
 	TISInputSourceRef 		theCurrentKeyBoardLayout;
-	UInt32					theChar = kNullCharCode;
+	NSUInteger					theChar = kNullCharCode;
 	
 	theCurrentKeyBoardLayout = TISCopyCurrentKeyboardLayoutInputSource();
 	CFDataRef uchrDataRef = TISGetInputSourceProperty(theCurrentKeyBoardLayout,
@@ -969,10 +969,10 @@ UInt32 normalizeKeyCode(UInt32 theChar, unsigned short aKeyCode) {
 	
 	if(uchrDataRef) {
 		if(theKeyboardLayoutData = CFDataGetBytePtr(uchrDataRef)) {
-			UInt32 keyboardType = LMGetKbdType();
-			UInt32 deadKeyState = 0;
-			UniChar s[8];
-			UInt32 len;
+			NSUInteger keyboardType = LMGetKbdType();
+			NSUInteger deadKeyState = 0;
+			unichar s[8];
+			NSUInteger len;
 			
 			OSStatus err = UCKeyTranslate((UCKeyboardLayout *) theKeyboardLayoutData,
 										  aKeyCode, kUCKeyActionDown, 0,
