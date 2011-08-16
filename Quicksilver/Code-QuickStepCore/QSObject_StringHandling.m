@@ -178,6 +178,7 @@
 					}
 					if (isValidIPAddress) {
 						[self assignURLTypesWithURL:urlString];
+                        [self setObject:host forType:QSRemoteHostsType];
 						return;
 					}
 				}

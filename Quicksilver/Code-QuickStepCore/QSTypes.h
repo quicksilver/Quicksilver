@@ -19,6 +19,7 @@ extern NSString *QSIMAccountType; 				//NSString ("AIM:accountname") also MSN, I
 extern NSString *QSIMMultiAccountType; 				//NSSet of ("AIM:accountname") also MSN, ICQ, Jabber, Yahoo
 extern NSString *QSCommandType; 			//QSCommand
 extern NSString *QSHandledType; 			//NSDictionary
+extern NSString *QSRemoteHostsType;     // NSString (remote hostname or FQDN)
 
 // Pasteboard types
 #define QSPrivatePboardType @"QSPrivatePboardType" // This pasteboard type prevents recording by the Clip History
