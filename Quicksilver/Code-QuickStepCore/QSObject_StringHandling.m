@@ -174,7 +174,7 @@
 - (NSString *)stringValue {
 	if ([self containsType:QSFilePathType]) {
 		if ([self count] > 1) {
-			return [[self arrayForType:QSFilePathType] componentsJoinedByString:@"\n"];
+			return [[self arrayForType:QSFilePathType] componentsJoinedByString:@" "];
 		} else {
 			return [self objectForType:QSFilePathType];
 		}
