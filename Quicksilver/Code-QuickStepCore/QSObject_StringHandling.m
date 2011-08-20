@@ -172,6 +172,13 @@
 	
 	
 - (NSString *)stringValue {
+	if ([self containsType:QSFilePathType]) {
+		if ([self count] > 1) {
+			return [[self arrayForType:QSFilePathType] componentsJoinedByString:@"\n"];
+		} else {
+			return [self objectForType:QSFilePathType];
+		}
+	}
 	if ([self containsType:QSTextType]) {
 		return [self objectForType:QSTextType];
 	}
