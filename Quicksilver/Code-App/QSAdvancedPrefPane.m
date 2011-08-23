@@ -45,7 +45,7 @@
 	return [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"DefaultsMap" ofType:@"plist"]];
 }
 
-- (float) tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
+- (CGFloat) tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
 	NSTableColumn *column = [tableView tableColumnWithIdentifier:@"title"];
 	NSCell *cell = [column dataCell];
 	[cell setStringValue:[[[prefSetsController arrangedObjects] objectAtIndex:row] objectForKey:@"title"]];

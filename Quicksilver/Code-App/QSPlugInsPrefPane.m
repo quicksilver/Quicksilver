@@ -345,7 +345,7 @@
 
 - (BOOL)isItemExpanded:(id)item {return YES;}
 
-- (float)outlineView:(NSOutlineView *)outlineView heightOfRowByItem:(id)item {
+- (CGFloat)outlineView:(NSOutlineView *)outlineView heightOfRowByItem:(id)item {
 	if ([[[item respondsToSelector:@selector(representedObject)] ? [item representedObject] : [(QSObject *)item observedObject] objectForKey:@"type"] isEqualToString:@"category"])
 		return 16;
 	return 32;

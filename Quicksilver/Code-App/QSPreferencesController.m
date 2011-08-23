@@ -268,7 +268,7 @@ id QSPrefs;
 //	return nil;
 //}
 
-- (float) tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
+- (CGFloat) tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
 	return ([[modules objectAtIndex:row] objectForKey:@"separator"]) ? 8 : 16;
 	//return [[[modules objectAtIndex:row] objectForKey:@"type"] isEqualToString:@"Main"] ?32:16;
 }
