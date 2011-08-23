@@ -18,7 +18,6 @@
 
 #import "NSAppleScript_BLTRExtensions.h"
 
-#import "NSAppleEventDescriptor+NDAppleScriptObject.h"
 
 @implementation QSAppleScriptActions
 

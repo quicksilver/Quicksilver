@@ -1,7 +1,6 @@
 #import "NSPasteboard_BLTRExtensions.h"
 #import "QSActionProvider_EmbeddedProviders.h"
 #import "NSString+NDCarbonUtilities.h"
-#import "NSAppleEventDescriptor+NDAppleScriptObject.h"
 #import "QSObject.h"
 #import "QSObject_FileHandling.h"
 
@@ -20,7 +19,6 @@
 #import "QSObject_StringHandling.h"
 #import "QSTaskController.h"
 
-#import "NDAppleScriptObject.h"
 
 #import "QSAlertManager.h"
 #import "QSTypes.h"

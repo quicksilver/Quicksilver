@@ -17,7 +17,6 @@
 #import "QSMacros.h"
 #import "QSAction.h"
 #import "QSObject_PropertyList.h"
-#import "NSAppleEventDescriptor+NDAppleScriptObject.h"
 #include "QSLocalization.h"
 
 #import "NSApplication_BLTRExtensions.h"

@@ -413,8 +413,6 @@
 		E18002D307B2F0B800010DB0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E18001C507B2BBB800010DB0 /* main.m */; };
 		E180041607B35E2300010DB0 /* NDHotKeyEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D63F06BD97B2004E3DC3 /* NDHotKeyEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E180041707B35E2400010DB0 /* NDHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D64006BD97B2004E3DC3 /* NDHotKeyEvent.m */; };
-		E180041C07B35E2F00010DB0 /* NSAppleEventDescriptor+NDAppleScriptObject.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D64906BD97B2004E3DC3 /* NSAppleEventDescriptor+NDAppleScriptObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E180041D07B35E3100010DB0 /* NSAppleEventDescriptor+NDAppleScriptObject.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D64A06BD97B2004E3DC3 /* NSAppleEventDescriptor+NDAppleScriptObject.m */; };
 		E180041E07B35E3200010DB0 /* NSString+NDCarbonUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D64D06BD97B2004E3DC3 /* NSString+NDCarbonUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E180041F07B35E3300010DB0 /* NSString+NDCarbonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D64E06BD97B2004E3DC3 /* NSString+NDCarbonUtilities.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		E180042007B35E3300010DB0 /* NSString+NDUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D64F06BD97B2004E3DC3 /* NSString+NDUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -460,8 +458,6 @@
 		E1E5FAA507B204BF0044D6EF /* NDAlias+QSMods.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA6F07B204BE0044D6EF /* NDAlias+QSMods.m */; };
 		E1E5FAA607B204BF0044D6EF /* NDProcess+QSMods.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7007B204BE0044D6EF /* NDProcess+QSMods.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAA707B204BF0044D6EF /* NDProcess+QSMods.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA7107B204BE0044D6EF /* NDProcess+QSMods.m */; };
-		E1E5FAA807B204BF0044D6EF /* NSAppleEventDescriptor_QSMods.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7207B204BE0044D6EF /* NSAppleEventDescriptor_QSMods.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1E5FAA907B204BF0044D6EF /* NSAppleEventDescriptor_QSMods.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA7307B204BE0044D6EF /* NSAppleEventDescriptor_QSMods.m */; };
 		E1E5FAAA07B204BF0044D6EF /* NSAppleScript_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7407B204BE0044D6EF /* NSAppleScript_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAAB07B204BF0044D6EF /* NSAppleScript_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA7507B204BE0044D6EF /* NSAppleScript_BLTRExtensions.m */; };
 		E1E5FAAC07B204BF0044D6EF /* NSApplication_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7607B204BE0044D6EF /* NSApplication_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -512,11 +508,6 @@
 		E1E5FB1707B207D10044D6EF /* NDAlias+AliasFile.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D63506BD97B2004E3DC3 /* NDAlias+AliasFile.m */; };
 		E1E5FB1807B207D20044D6EF /* NDAlias.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D63606BD97B2004E3DC3 /* NDAlias.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FB1907B207D20044D6EF /* NDAlias.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D63706BD97B2004E3DC3 /* NDAlias.m */; };
-		E1E5FB1A07B207D60044D6EF /* NDAppleScriptObject.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D63806BD97B2004E3DC3 /* NDAppleScriptObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1E5FB1B07B207D70044D6EF /* NDAppleScriptObject.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D63906BD97B2004E3DC3 /* NDAppleScriptObject.m */; };
-		E1E5FB1C07B207D80044D6EF /* NDAppleScriptObject_Protocols.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D63A06BD97B2004E3DC3 /* NDAppleScriptObject_Protocols.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1E5FB1D07B207DA0044D6EF /* NDComponentInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D63C06BD97B2004E3DC3 /* NDComponentInstance.m */; };
-		E1E5FB1F07B207DC0044D6EF /* NDComponentInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D63B06BD97B2004E3DC3 /* NDComponentInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FB2007B2080E0044D6EF /* NDProcess.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D64306BD97B2004E3DC3 /* NDProcess.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FB2107B208100044D6EF /* NDProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D64406BD97B2004E3DC3 /* NDProcess.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		E1E5FB2207B208120044D6EF /* NDResourceFork+OtherSorces.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D64506BD97B2004E3DC3 /* NDResourceFork+OtherSorces.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1370,8 +1361,6 @@
 		E1E5FA6F07B204BE0044D6EF /* NDAlias+QSMods.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NDAlias+QSMods.m"; sourceTree = "<group>"; };
 		E1E5FA7007B204BE0044D6EF /* NDProcess+QSMods.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NDProcess+QSMods.h"; sourceTree = "<group>"; };
 		E1E5FA7107B204BE0044D6EF /* NDProcess+QSMods.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NDProcess+QSMods.m"; sourceTree = "<group>"; };
-		E1E5FA7207B204BE0044D6EF /* NSAppleEventDescriptor_QSMods.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NSAppleEventDescriptor_QSMods.h; sourceTree = "<group>"; };
-		E1E5FA7307B204BE0044D6EF /* NSAppleEventDescriptor_QSMods.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NSAppleEventDescriptor_QSMods.m; sourceTree = "<group>"; };
 		E1E5FA7407B204BE0044D6EF /* NSAppleScript_BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NSAppleScript_BLTRExtensions.h; sourceTree = "<group>"; };
 		E1E5FA7507B204BE0044D6EF /* NSAppleScript_BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NSAppleScript_BLTRExtensions.m; sourceTree = "<group>"; };
 		E1E5FA7607B204BE0044D6EF /* NSApplication_BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NSApplication_BLTRExtensions.h; sourceTree = "<group>"; };
@@ -1542,11 +1531,6 @@
 		E1F1D63506BD97B2004E3DC3 /* NDAlias+AliasFile.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NDAlias+AliasFile.m"; sourceTree = "<group>"; };
 		E1F1D63606BD97B2004E3DC3 /* NDAlias.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NDAlias.h; sourceTree = "<group>"; };
 		E1F1D63706BD97B2004E3DC3 /* NDAlias.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NDAlias.m; sourceTree = "<group>"; };
-		E1F1D63806BD97B2004E3DC3 /* NDAppleScriptObject.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NDAppleScriptObject.h; sourceTree = "<group>"; };
-		E1F1D63906BD97B2004E3DC3 /* NDAppleScriptObject.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NDAppleScriptObject.m; sourceTree = "<group>"; };
-		E1F1D63A06BD97B2004E3DC3 /* NDAppleScriptObject_Protocols.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NDAppleScriptObject_Protocols.h; sourceTree = "<group>"; };
-		E1F1D63B06BD97B2004E3DC3 /* NDComponentInstance.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NDComponentInstance.h; sourceTree = "<group>"; };
-		E1F1D63C06BD97B2004E3DC3 /* NDComponentInstance.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NDComponentInstance.m; sourceTree = "<group>"; };
 		E1F1D63F06BD97B2004E3DC3 /* NDHotKeyEvent.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NDHotKeyEvent.h; sourceTree = "<group>"; };
 		E1F1D64006BD97B2004E3DC3 /* NDHotKeyEvent.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NDHotKeyEvent.m; sourceTree = "<group>"; };
 		E1F1D64306BD97B2004E3DC3 /* NDProcess.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NDProcess.h; sourceTree = "<group>"; };
@@ -1555,8 +1539,6 @@
 		E1F1D64606BD97B2004E3DC3 /* NDResourceFork+OtherSorces.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NDResourceFork+OtherSorces.m"; sourceTree = "<group>"; };
 		E1F1D64706BD97B2004E3DC3 /* NDResourceFork.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NDResourceFork.h; sourceTree = "<group>"; };
 		E1F1D64806BD97B2004E3DC3 /* NDResourceFork.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NDResourceFork.m; sourceTree = "<group>"; };
-		E1F1D64906BD97B2004E3DC3 /* NSAppleEventDescriptor+NDAppleScriptObject.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NSAppleEventDescriptor+NDAppleScriptObject.h"; sourceTree = "<group>"; };
-		E1F1D64A06BD97B2004E3DC3 /* NSAppleEventDescriptor+NDAppleScriptObject.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NSAppleEventDescriptor+NDAppleScriptObject.m"; sourceTree = "<group>"; };
 		E1F1D64D06BD97B2004E3DC3 /* NSString+NDCarbonUtilities.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NSString+NDCarbonUtilities.h"; sourceTree = "<group>"; };
 		E1F1D64E06BD97B2004E3DC3 /* NSString+NDCarbonUtilities.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NSString+NDCarbonUtilities.m"; sourceTree = "<group>"; };
 		E1F1D64F06BD97B2004E3DC3 /* NSString+NDUtilities.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NSString+NDUtilities.h"; sourceTree = "<group>"; };
@@ -2270,8 +2252,6 @@
 				E1E5FA6F07B204BE0044D6EF /* NDAlias+QSMods.m */,
 				E1E5FA7007B204BE0044D6EF /* NDProcess+QSMods.h */,
 				E1E5FA7107B204BE0044D6EF /* NDProcess+QSMods.m */,
-				E1E5FA7207B204BE0044D6EF /* NSAppleEventDescriptor_QSMods.h */,
-				E1E5FA7307B204BE0044D6EF /* NSAppleEventDescriptor_QSMods.m */,
 				E1E5FA7407B204BE0044D6EF /* NSAppleScript_BLTRExtensions.h */,
 				E1E5FA7507B204BE0044D6EF /* NSAppleScript_BLTRExtensions.m */,
 				E1E5FA7607B204BE0044D6EF /* NSApplication_BLTRExtensions.h */,
@@ -2567,11 +2547,6 @@
 				E1F1D63506BD97B2004E3DC3 /* NDAlias+AliasFile.m */,
 				E1F1D63606BD97B2004E3DC3 /* NDAlias.h */,
 				E1F1D63706BD97B2004E3DC3 /* NDAlias.m */,
-				E1F1D63806BD97B2004E3DC3 /* NDAppleScriptObject.h */,
-				E1F1D63906BD97B2004E3DC3 /* NDAppleScriptObject.m */,
-				E1F1D63A06BD97B2004E3DC3 /* NDAppleScriptObject_Protocols.h */,
-				E1F1D63B06BD97B2004E3DC3 /* NDComponentInstance.h */,
-				E1F1D63C06BD97B2004E3DC3 /* NDComponentInstance.m */,
 				E1F1D63F06BD97B2004E3DC3 /* NDHotKeyEvent.h */,
 				E1F1D64006BD97B2004E3DC3 /* NDHotKeyEvent.m */,
 				E1F1D64306BD97B2004E3DC3 /* NDProcess.h */,
@@ -2580,8 +2555,6 @@
 				E1F1D64606BD97B2004E3DC3 /* NDResourceFork+OtherSorces.m */,
 				E1F1D64706BD97B2004E3DC3 /* NDResourceFork.h */,
 				E1F1D64806BD97B2004E3DC3 /* NDResourceFork.m */,
-				E1F1D64906BD97B2004E3DC3 /* NSAppleEventDescriptor+NDAppleScriptObject.h */,
-				E1F1D64A06BD97B2004E3DC3 /* NSAppleEventDescriptor+NDAppleScriptObject.m */,
 				E1F1D64D06BD97B2004E3DC3 /* NSString+NDCarbonUtilities.h */,
 				E1F1D64E06BD97B2004E3DC3 /* NSString+NDCarbonUtilities.m */,
 				E1F1D64F06BD97B2004E3DC3 /* NSString+NDUtilities.h */,
@@ -2760,17 +2733,12 @@
 				E1E5FB1607B207D10044D6EF /* NDAlias+AliasFile.h in Headers */,
 				E1E5FAA407B204BF0044D6EF /* NDAlias+QSMods.h in Headers */,
 				E1E5FB1807B207D20044D6EF /* NDAlias.h in Headers */,
-				E1E5FB1A07B207D60044D6EF /* NDAppleScriptObject.h in Headers */,
-				E1E5FB1C07B207D80044D6EF /* NDAppleScriptObject_Protocols.h in Headers */,
-				E1E5FB1F07B207DC0044D6EF /* NDComponentInstance.h in Headers */,
 				E180041607B35E2300010DB0 /* NDHotKeyEvent.h in Headers */,
 				E1E5FAA607B204BF0044D6EF /* NDProcess+QSMods.h in Headers */,
 				E1E5FB2007B2080E0044D6EF /* NDProcess.h in Headers */,
 				E1E5FB2207B208120044D6EF /* NDResourceFork+OtherSorces.h in Headers */,
 				E1E5FB2407B208140044D6EF /* NDResourceFork.h in Headers */,
 				4DF2B3960EB8933D009CEC3C /* NDSDKCompatibility.h in Headers */,
-				E180041C07B35E2F00010DB0 /* NSAppleEventDescriptor+NDAppleScriptObject.h in Headers */,
-				E1E5FAA807B204BF0044D6EF /* NSAppleEventDescriptor_QSMods.h in Headers */,
 				E1E5FAAA07B204BF0044D6EF /* NSAppleScript_BLTRExtensions.h in Headers */,
 				E1E5FAAC07B204BF0044D6EF /* NSApplication_BLTRExtensions.h in Headers */,
 				E1E5FAAE07B204BF0044D6EF /* NSArray_BLTRExtensions.h in Headers */,
@@ -3570,15 +3538,11 @@
 				E1E5FB1707B207D10044D6EF /* NDAlias+AliasFile.m in Sources */,
 				E1E5FAA507B204BF0044D6EF /* NDAlias+QSMods.m in Sources */,
 				E1E5FB1907B207D20044D6EF /* NDAlias.m in Sources */,
-				E1E5FB1B07B207D70044D6EF /* NDAppleScriptObject.m in Sources */,
-				E1E5FB1D07B207DA0044D6EF /* NDComponentInstance.m in Sources */,
 				E180041707B35E2400010DB0 /* NDHotKeyEvent.m in Sources */,
 				E1E5FAA707B204BF0044D6EF /* NDProcess+QSMods.m in Sources */,
 				E1E5FB2107B208100044D6EF /* NDProcess.m in Sources */,
 				E1E5FB2307B208140044D6EF /* NDResourceFork+OtherSorces.m in Sources */,
 				E1E5FB2507B208150044D6EF /* NDResourceFork.m in Sources */,
-				E180041D07B35E3100010DB0 /* NSAppleEventDescriptor+NDAppleScriptObject.m in Sources */,
-				E1E5FAA907B204BF0044D6EF /* NSAppleEventDescriptor_QSMods.m in Sources */,
 				E1E5FAAB07B204BF0044D6EF /* NSAppleScript_BLTRExtensions.m in Sources */,
 				E1E5FAAD07B204BF0044D6EF /* NSApplication_BLTRExtensions.m in Sources */,
 				E1E5FAAF07B204BF0044D6EF /* NSArray_BLTRExtensions.m in Sources */,

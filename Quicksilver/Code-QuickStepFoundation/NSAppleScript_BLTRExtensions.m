@@ -8,12 +8,10 @@
 
 #import "NSAppleScript_BLTRExtensions.h"
 #import "NSData_RangeExtensions.h"
-#import "NDAppleScriptObject.h"
 #import "NDResourceFork.h"
 
 #import <Carbon/Carbon.h>
 
-#import "NSAppleEventDescriptor+NDAppleScriptObject.h"
 
 @interface NSAppleScript (NSPrivate)
 + (struct ComponentInstanceRecord *)_defaultScriptingComponent;
@@ -102,22 +100,6 @@
 	return YES;
 }
 
-/*
- -(NSArray *)handlers {
-	 NSLog(@"id %d", _compiledScriptID);
-
-	 NSArray			* theNamesArray = nil;
-	 AEDescList		theNamesDescList;
-	 if ( OSAGetHandlerNames (OpenDefaultComponent( kOSAComponentType, kAppleScriptSubtype ), kOSAModeNull, _compiledScriptID, &theNamesDescList ) == noErr ) {
-
-
-		 theNamesArray = [NDAppleScriptObject objectForAEDesc: &theNamesDescList];
-		 AEDisposeDesc( &theNamesDescList );
-	 }
-
-	 return theNamesArray;
- }
- */
 @end
 
 @implementation NSAppleEventDescriptor (CocoaConversion)
