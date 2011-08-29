@@ -851,10 +851,6 @@ containg multiple objects with the same identifier. Best efforts should be made 
 	}
 	[self setIconLoaded:YES];
     
-	id handler = nil;
-	if (handler = [self handlerForSelector:@selector(loadIconForObject:)])
-		return [handler loadIconForObject:self];
-	
 	lastAccess = [NSDate timeIntervalSinceReferenceDate];
 	globalLastAccess = lastAccess;
 	[iconLoadedArray addObject:self];
@@ -876,6 +872,12 @@ containg multiple objects with the same identifier. Best efforts should be made 
 			[self setIcon:image];
 			return YES;
 		}
+	}
+
+	if (![self objectForType:QSURLType]) {
+		id handler = nil;
+		if (handler = [self handlerForSelector:@selector(loadIconForObject:)])
+			return [handler loadIconForObject:self];
 	}
 
 	//// if ([primaryType hasPrefix:@"QSCsontact"])
