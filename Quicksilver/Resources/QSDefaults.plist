@@ -113,5 +113,9 @@
 	<false/>
 	<key>Use Effects</key>
 	<true/>
+	<key>Feature Level</key>
+	<integer>1</integer>
+	<key>QSUseGlobalSelectionForGrab</key>
+	<true/>
 </dict>
 </plist>
