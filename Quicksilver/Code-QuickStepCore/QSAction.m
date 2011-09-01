@@ -283,10 +283,8 @@ static BOOL gModifiersAreIgnored;
 	item = (NSMenuItem *)[menu addItemWithTitle:@"Make Default" action:@selector(promoteAction:) keyEquivalent:@""];
 	[item setTarget:target];
 #if 0
-	if (fALPHA) {
-		item = (NSMenuItem *)[menu addItemWithTitle:@"Edit Actions..." action:@selector(editActions:) keyEquivalent:@""];
-		[item setTarget:self];
-	}
+	item = (NSMenuItem *)[menu addItemWithTitle:@"Edit Actions..." action:@selector(editActions:) keyEquivalent:@""];
+	[item setTarget:self];
 #endif
 	return [menu autorelease];
 }
