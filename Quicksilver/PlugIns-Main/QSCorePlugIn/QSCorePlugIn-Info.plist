@@ -1822,7 +1822,7 @@
 				</dict>
 				<dict>
 					<key>enabled</key>
-					<false/>
+					<true/>
 					<key>feature</key>
 					<integer>1</integer>
 					<key>ID</key>
