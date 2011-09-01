@@ -139,7 +139,7 @@
 		}
 	}
 	// TODO: Bring this back later
-//	if (fALPHA && ![QSAction modifiersAreIgnored] && mOptionKeyIsDown) {
+//	if (![QSAction modifiersAreIgnored] && mOptionKeyIsDown) {
 /*	if (mOptionKeyIsDown) {
 		id cont = [[NSClassFromString(@"QSSimpleWebWindowController") alloc] initWithWindow:nil];
 		[(QSSimpleWebWindowController *)cont openURL:[urlArray lastObject]];
@@ -169,7 +169,7 @@
 		}
 	}
 	// TODO: Bring this back later
-	//	if (fALPHA && ![QSAction modifiersAreIgnored] && mOptionKeyIsDown) {
+	//	if (![QSAction modifiersAreIgnored] && mOptionKeyIsDown) {
 	/*	if (mOptionKeyIsDown) {
 	 id cont = [[NSClassFromString(@"QSSimpleWebWindowController") alloc] initWithWindow:nil];
 	 [(QSSimpleWebWindowController *)cont openURL:[urlArray lastObject]];

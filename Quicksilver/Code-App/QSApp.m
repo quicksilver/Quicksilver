@@ -78,12 +78,6 @@ BOOL QSApplicationCompletedLaunch = NO;
 			[defaults setBool:NO forKey:kHideDockIcon];
 		}
 	}
-
-	featureLevel = [defaults integerForKey:kFeatureLevel];
-	if (featureLevel < 0)
-		featureLevel = 0;
-	else if (featureLevel > 2 && !([defaults boolForKey:kCuttingEdgeFeatures]) )
-		featureLevel = 2;
 	}
 	return self;
 }
@@ -104,11 +98,6 @@ BOOL QSApplicationCompletedLaunch = NO;
   if (!isUIElement)
 	[super setApplicationIconImage:image];
 }
-
-- (int)featureLevel {return featureLevel;}
-- (BOOL)betaLevel {return featureLevel>0;}
-- (BOOL)alphaLevel {return featureLevel>1;}
-- (BOOL)devLevel {return featureLevel>2;}
 
 - (BOOL)_handleKeyEquivalent:(NSEvent *)event {
 	if ([[self globalKeyEquivalentTarget] performKeyEquivalent:event])

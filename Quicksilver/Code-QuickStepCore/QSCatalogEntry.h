@@ -31,7 +31,6 @@
 - (NSDictionary *)dictionaryRepresentation;
 - (QSCatalogEntry *)childWithID:(NSString *)theID;
 - (QSCatalogEntry *)childWithPath:(NSString *)path;
-- (BOOL)isRestricted;
 - (BOOL)isSuppressed;
 - (BOOL)isPreset;
 - (BOOL)isSeparator;

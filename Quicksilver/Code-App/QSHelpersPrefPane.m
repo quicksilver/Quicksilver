@@ -98,7 +98,6 @@
 	foreachkey(key, header, [QSReg tableNamed:@"QSRegistryHeaders"]) {
 		if ([[header objectForKey:@"type"] isEqual:@"mediator"]) {
 			NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObject:header forKey:INFO];
-			if ([[header objectForKey:@"feature"] intValue] > [NSApp featureLevel]) continue;
 			NSMenu *menu = [self menuForTable:key includeDefault:[[header objectForKey:@"allowDefault"] boolValue]];
 			if (!menu) continue;
 			if (menu)

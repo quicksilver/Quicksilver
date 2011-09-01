@@ -136,8 +136,6 @@ id QSPrefs;
 			//NSLog(@"Not Loading Old-Style Prefs: %@", paneInfo);
 			continue;
 		}
-		//NSLog(@"feature %@ %d", [paneInfo objectForKey:@"feature"] , [NSApp featureLevel]);
-		if ([[paneInfo objectForKey:@"feature"] intValue] >[NSApp featureLevel]) continue;
 
 		NSString *imageName = [paneInfo objectForKey:@"icon"];
 		NSImage *image = [[QSResourceManager imageNamed:imageName] copy];

@@ -58,7 +58,6 @@
 - (NSString *)bundleIdentifier;
 - (NSString *)bundlePath;
 - (int) isLoaded;
-- (BOOL)meetsFeature;
 - (NSDictionary *)info;
 - (BOOL)isUniversal;
 - (BOOL)isSecret;

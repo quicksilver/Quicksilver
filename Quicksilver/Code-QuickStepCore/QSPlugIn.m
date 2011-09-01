@@ -273,7 +273,6 @@ NSMutableDictionary *plugInBundlePaths = nil;
 - (BOOL)isRecommended {
 	if ([[[self info] valueForKeyPath:@"QSPlugIn.recommended"] boolValue]) return YES;
 	if ([self isInstalled] >0) return NO;
-	if (![self meetsFeature]) return NO;
 	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
 	NSArray *related = [self relatedBundles];
 	//if (!related) return YES;
@@ -393,10 +392,6 @@ NSMutableDictionary *plugInBundlePaths = nil;
 - (BOOL)isHidden {
 	if (bundle == [NSBundle mainBundle]) return YES;
 	return [[[self info] valueForKeyPath:@"QSPlugIn.hidden"] boolValue];
-}
-- (BOOL)meetsFeature {
-	//return YES; // Override this for now
-	return [[[self info] valueForKeyPath:@"QSRequirements.feature"] intValue] <= [NSApp featureLevel];
 }
 
 - (int) isLoaded {return loaded;}
@@ -591,12 +586,6 @@ NSMutableDictionary *plugInBundlePaths = nil;
 				return NO;
 			}
 		}
-
-//		int feature = [[requirementsDict objectForKey:@"feature"] intValue];
-//		if (feature>[NSApp featureLevel]) {
-//			if (error) *error = @"Feature Level not Met";
-//			return NO;
-//		}
 	}
 	return YES;
 }

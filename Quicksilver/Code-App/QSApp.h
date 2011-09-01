@@ -5,13 +5,11 @@
 //extern BOOL QSApplicationCompletedLaunch;
 
 @interface QSApp : NSApplication {
-	int featureLevel;
 	BOOL isUIElement, shouldRelaunch;
 	IBOutlet NSMenu *hiddenMenu;
 	NSResponder *globalKeyEquivalentTarget;
 	NSMutableArray *eventDelegates;
 }
-- (int) featureLevel;
 
 - (BOOL)isUIElement;
 - (BOOL)setShouldBeUIElement:(BOOL)hidden; //Returns YES if successful
@@ -22,5 +20,4 @@
 - (void)setGlobalKeyEquivalentTarget:(NSResponder *)value;
 - (void)addEventDelegate:(id)eDelegate;
 - (void)removeEventDelegate:(id)eDelegate;
-- (BOOL)devLevel;
 @end
