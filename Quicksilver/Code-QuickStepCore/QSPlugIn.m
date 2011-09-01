@@ -110,20 +110,10 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	if (bundle) name = [bundle objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
 	if (!name) name = [data objectForKey:(NSString *)kCFBundleNameKey];
 
-	int feature = [[[self info] valueForKeyPath:@"QSRequirements.feature"] intValue];
-
 #ifdef DEBUG
 	if ([name hasSuffix:@" Module"]) name = [name substringToIndex:[name length] -7];
 #endif
-	
-	if (feature == 1) {
-		name = [name stringByAppendingFormat:@" (+) ", 0x25B8];
-	} else if (feature == 2) {
-		name = [name stringByAppendingFormat:@" (%C) ", 0x03B2];
-	} else if (feature>2) {
-		name = [name stringByAppendingFormat:@" (%C) ", 0x03B1];
-	}
-	
+		
 #ifdef DEBUG
 	if (!data) {
 		name = [name stringByAppendingFormat:@" - Private", 0x03B1];
