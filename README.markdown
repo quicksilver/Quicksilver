@@ -10,30 +10,42 @@ If you want more info about [Quicksilver](QSapp.com) you can read about it on [W
 just do a search on YouTube - there's tons of very helpful instructional and informational video tutorials.
 Or visit the [mailing list](http://groups.google.com/group/blacktree-quicksilver "Quicksilver Google Group") hosted at Google Groups.
 
+
 Where to find it ?
 ---------------------
 
 Visit [QSApp.com](http://qsapp.com/download.php), and download the right version for your operating system.
 
+
 Before You Try It Out
 ---------------------
-    
-Before trying out new Quicksilver versions **ALWAYS BACKUP** your user data!  
-This is easily done by backing up the following folders 
+
+Before trying out new Quicksilver versions, **ALWAYS BACKUP** your user data!  
+This is easily done by backing up the following 2 folders and preference file:
 
 (`<user>` stands for your short user name):
 
 `/Users/<user>/Library/Application Support/Quicksilver`  
-`/Users/<user>/Library/Caches/Quicksilver`
+`/Users/<user>/Library/Caches/Quicksilver`  
+`/Users/<user>/Library/Preferences/com.blacktree.Quicksilver.plist`  
 
-and just to be safe, let's also backup the present
+And just to be safe, you might want to backup the present
 
-`/Applications/Quicksilver.app`
+`/Applications/Quicksilver.app`  
 
 before you overwrite it with this version.  
+
+The following commands should make it easy to save these files into a backup [tarball](http://en.wikipedia.org/wiki/Tar_%28file_format%29):
+
+    QS_BACKUP_FILE=$(date "+Quicksilver Backup on %Y-%m-%d at %H-%M-%S")
+    tar -czf "${QS_BACKUP_FILE}.tgz" \
+    "${HOME}/Library/Application Support/Quicksilver" \
+    "${HOME}/Library/Caches/Quicksilver" \
+    "${HOME}/Library/Preferences/com.blacktree.Quicksilver.plist" \
+    "/Applications/Quicksilver.app"
+
 Now if anything happens you can always restore the exact state Quicksilver was in before
 your were trying out this version. 
-
 
 
 Facts, Features and Fixes 
@@ -108,6 +120,7 @@ Development
 -----------
 
 You should be able to build Quicksilver after following the instructions as seen in the Quicksilver Wiki on [Building Quicksilver](http://qsapp.com/wiki/Building_Quicksilver). Be aware that the build system **will overwrite** the Quicksilver located in your /Applications folder.
+
 
 A Few Notes on Working With Git
 -------------------------------
