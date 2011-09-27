@@ -1,14 +1,47 @@
 #!/usr/bin/env ruby
 # encoding: UTF-8
 
-require 'rest-client'
+#####################################################################
+# 
+#         Quicksilver Plugin Upload Script
+#         Created by Etienne Samson
+# 
+#   This script is intended to be used to interface with the online
+#   plugins system. It makes uploading and managing of plugins easier,
+#   without the need to go through the web interface. For use, please
+#   see the PRE-REQUISITS below
+# 
+#
+#
+#   PRE-REUQISITS
+#   This is a ruby script that requires the time, trollop, fileutils,
+#   pp and rest-client gems. Install them using e.g.
+#   `sudo gem install rest-client`
+#
+#   fileutils requires rmagick which in turn requires libmagick.
+#   p_j_r found using 'homebrew' the easiest way to install libmagick
+#   With these gems installed, the script should run without problems.
+#
+#
+#   USAGE
+#   Simply just use ruby -rubygems ./qs-push-plugin -p PASSWORD ./File.qsplugin
+#   to push a single file, or replace ./File.qsplugin with ./* to upload all in a folder
+#
+#   BUGS
+#   Uploading an updated plugin with this script does not delete the old on
+#   This must be done from within the web interface.
+#
+######################################################################
+
 require 'time'
 require 'trollop'
 require 'fileutils'
 require 'pp'
+require 'rest-client'
 
-DEFAULT_USER = "qsapp.com"
-DEFAULT_HOST = "http://localhost/qsapp.com"
+
+DEFAULT_USER = "qs"
+DEFAULT_HOST = "http://qs0.qsapp.com"
 
 # Argument can be an array of paths to bundles/archives, a single path to a bundle or nothing
 options = Trollop::options do
@@ -36,10 +69,10 @@ else
   files = files.select &file_matcher
 end
 
-# unless options[:password]
-#   print "Password for user \"#{options[:user]}\": "
-#   options[:password] = STDIN.gets.chomp
-# end
+unless options[:password]
+   print "Password for user \"#{options[:user]}\": "
+   options[:password] = STDIN.gets.chomp
+end
 
 # 
 # puts options.inspect
@@ -48,7 +81,7 @@ end
 
 # Now push those plugins !
 
-api_url = "#{options[:host]}/update/admin/add.php"
+api_url = "#{options[:host]}/plugins/admin/add.php"
 api = RestClient::Resource.new api_url, :user => options.user, :password => options.password
 archive_dir = File.join("/","var", "tmp", "qs-push-plugin")
 
