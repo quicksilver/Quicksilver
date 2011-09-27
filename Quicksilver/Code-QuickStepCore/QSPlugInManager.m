@@ -710,8 +710,8 @@
 	[manager createDirectoriesForPath:destinationFolder];
 	NSString *destinationPath = [destinationFolder stringByAppendingPathComponent:
                                [NSString stringWithFormat:@"%@.%@.qsplugin", bundleID, bundleVersion]];
-	if ([destinationPath isEqualToString:path]) {
-		if (![manager removeItemAtPath:destinationPath error:nil])
+	if (![destinationPath isEqualToString:path]) {
+		if ([manager fileExistsAtPath:destinationPath] && ![manager removeItemAtPath:destinationPath error:nil])
              NSLog(@"failed to remove %@ for installation of %@", destinationPath, path);
 	}
 	if (![manager moveItemAtPath:path toPath:destinationPath error:nil]) NSLog(@"move failed, %@, %@", path, destinationPath);
