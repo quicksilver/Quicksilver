@@ -167,32 +167,10 @@
 	NSString *fetchURLString = [self webInfoURLFromDate:(NSDate *)date forUpdateVersion:(NSString *)version];
 	NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:fetchURLString]
 															cachePolicy:NSURLRequestUseProtocolCachePolicy
-														timeoutInterval:20.0];
+														timeoutInterval:5.0];
 	[theRequest setValue:kQSUserAgent forHTTPHeaderField:@"User-Agent"];
-	//if (VERBOSE)
-	NSLog(@"Fetching plugin data from %@", fetchURLString);
 
-	//	[[localPlugIns allValues]
-	//	[theRequest setHTTPMethod:@"POST"];
-	//setting the headers:
-	//	[theRequest setHTTPMethod:@"POST"];
-	//	NSString *boundary = [NSString stringWithString:@"------------0xKhTmLbOuNdArY"];
-	//	NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary = %@", boundary];
-	//	[theRequest addValue:contentType forHTTPHeaderField: @"Content-Type"];
-	//
-	//	//adding the body:
-	//	NSMutableData *postBody = [NSMutableData data];
-	//	[postBody appendData:[[NSString stringWithFormat:@"%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-	//
-	//	[postBody appendData:[[NSString stringWithString:@"Content-Disposition: form-data; name = \"properties\"; filename = \"properties.plist\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-	//	[postBody appendData:[[NSString stringWithString: @"Content-Type: application/octet-stream\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-	//	[postBody appendData:[@"blah"];
-	//		[postBody appendData:[[NSString stringWithFormat:@"\r\n%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-	//
-	//
-	//	[theRequest setValue:@"multipart/form-data, boundary = AaB03x" forHTTPHeaderField:@"Content-Type"];
-	//	[theRequest setHTTPBody:postBody];
-	//	[theRequest setHTTPMethod:@"POST"];
+	NSLog(@"Fetching plugin data from %@", fetchURLString);
 
 	if (synchro) { // || receivedData) {
 		NSData *data = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:nil error:nil];
@@ -206,13 +184,15 @@
         }
         //   data must be retained here because it is needed for the callbacks
         receivedData = [[NSMutableData data] retain];
-
+		
+		// theConnection is released in connectionDidFinishLoading or connection:didFailWithError (p_j_r thinks...)
 		NSURLConnection *theConnection = [[NSURLConnection alloc] initWithRequest:theRequest
 																	 delegate:self];
 
 		if (theConnection) {
 			[QSTasks updateTask:@"UpdatePlugInInfo" status:@"Updating Plug-in Info" progress:0.0];
 		} else {
+			NSLog(@"Problem downloading plugin data. Perhaps an invalid URL");
             [receivedData release], receivedData = nil;
         }
 	}
@@ -257,6 +237,7 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+	[QSTasks updateTask:@"UpdatePlugInInfo" status:@"Updating Plug-in Info" progress:1.0];
     [connection release];
     [receivedData release];
 	receivedData = nil;
@@ -282,7 +263,8 @@
 	NSString *errorString;
 	NSDictionary *prop = [NSPropertyListSerialization propertyListFromData:data mutabilityOption:NSPropertyListImmutable format:nil errorDescription:&errorString];
 	if (!prop) {
-	errorCount++;
+		NSLog(@"Could not load new plugins data");
+		errorCount++;
 	} else {
 		NSLog(@"Downloaded info for %d plug-in(s) ", [[prop objectForKey:@"plugins"] count]);
 		//	NSEnumerator *e = [prop objectEnumerator];
@@ -302,6 +284,7 @@
 
 }
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+	[QSTasks updateTask:@"UpdatePlugInInfo" status:@"Updating Plug-in Info" progress:1.0];
 	[self loadNewWebData:receivedData];
 	[connection release];
 	[receivedData release];
@@ -668,26 +651,27 @@
 	[task setArguments:[NSArray arrayWithObjects:@"-x", @"-rsrc", path, tempDirectory, nil]];
 	[task launch];
 	[task waitUntilExit];
+	// if task was successful, returns 0
 	int status = [task terminationStatus];
 	if (status == 0) {
 		[manager removeItemAtPath:path error:nil];
 		[[NSWorkspace sharedWorkspace] noteFileSystemChanged:[path stringByDeletingLastPathComponent]];
 		return [manager contentsOfDirectoryAtPath:tempDirectory error:nil];
 	} else {
+		NSRunInformationalAlertPanel(@"Failed to Extract Plugin", @"There was a problem extracting the QSPkg.\nThe file is most likely corrupt.", nil, nil, nil);
 		return nil;
 	}
 
 }
 
 - (NSArray *)installPlugInFromCompressedFile:(NSString *)path {
-	NSFileManager *manager = [NSFileManager defaultManager];
-	NSString *destination = psMainPlugInsLocation;
+	NSFileManager *fm = [[NSFileManager alloc] init];
 	NSString *tempDirectory = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString uniqueString]];
-	[manager createDirectoryAtPath:tempDirectory withIntermediateDirectories:NO attributes:nil error:nil];
+	[fm createDirectoryAtPath:tempDirectory withIntermediateDirectories:NO attributes:nil error:nil];
 
+	// use ditto to extract QSPkg
 	NSArray *extracted = [self extractFilesFromQSPkg:path toPath:tempDirectory];
 
-	//NSLog(@"extra %@", extracted);
 	NSMutableArray *installedPlugIns = [NSMutableArray array];
 	NSString *file = nil;
 	for (file in extracted) {
@@ -695,9 +679,12 @@
 		NSString *destination = [self installPlugInFromFile:outFile];
 		if (destination) [installedPlugIns addObject:destination];
 	}
-	//NSLog(@"installed %@", installedPlugIns);
-	[[NSWorkspace sharedWorkspace] noteFileSystemChanged:destination];
-	[manager removeItemAtPath:tempDirectory error:nil];
+#ifdef DEBUG	
+	NSLog(@"installed %@", installedPlugIns);
+#endif
+	// remove the temporary file
+	[fm removeItemAtPath:tempDirectory error:nil];
+	[fm release];
 	return installedPlugIns;
 
 }
@@ -723,7 +710,7 @@
 	[manager createDirectoriesForPath:destinationFolder];
 	NSString *destinationPath = [destinationFolder stringByAppendingPathComponent:
                                [NSString stringWithFormat:@"%@.%@.qsplugin", bundleID, bundleVersion]];
-	if (![destinationPath isEqualToString:path]) {
+	if ([destinationPath isEqualToString:path]) {
 		if (![manager removeItemAtPath:destinationPath error:nil])
              NSLog(@"failed to remove %@ for installation of %@", destinationPath, path);
 	}
@@ -944,9 +931,7 @@
 	if (path && (plugInPath = [[self installPlugInFromCompressedFile:path] lastObject])) {
 		[self plugInWasInstalled:plugInPath];
     } else {
-#ifdef VERBOSE
         NSLog(@"Failed installing plugin at path %@ from url %@", path, [download URL]);
-#endif
 #warning tiennou: Report ! ATM the checkbox will just blink...
         [[self plugInWithID:[download userInfo]] downloadFailed];
     }
@@ -962,8 +947,7 @@
 - (void)download:(QSURLDownload *)download didFailWithError:(NSError *)error {
 	[[self plugInWithID:[download userInfo]] downloadFailed];
     NSLog(@"Download failed! Error - %@ %@ %@", [download URL], [error localizedDescription], [[error userInfo] objectForKey:NSErrorFailingURLStringKey]);
-#warning tiennou: This gets shown too, messy.
-    NSRunInformationalAlertPanel(@"Download Failed", @"%@\r%@", nil, nil, nil, [[download URL] absoluteString], [error localizedDescription]);
+    NSRunInformationalAlertPanel(@"Download Failed", @"Unfortunately something went wrong with the download.\nCheck Console.app for more information", nil, nil, nil);
 
     [queuedDownloads removeObject:download];
     [activeDownloads removeObject:download];
