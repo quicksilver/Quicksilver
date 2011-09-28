@@ -1,0 +1,2 @@
+#include "ReleaseUB.xcconfig"
+#include "QSPlugIn.xcconfig"

@@ -1,0 +1,4 @@
+#include "Release.xcconfig"
+ARCHS = i386 ppc
+LLVM_LTO = NO
+GCC_VERSION[arch=ppc] = 4.2                                     // GCC 4.2

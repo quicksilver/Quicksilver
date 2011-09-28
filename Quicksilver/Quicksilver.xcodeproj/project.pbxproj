@@ -885,6 +885,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		07400AB3139FB26400F946BC /* ReleaseUB.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = ReleaseUB.xcconfig; sourceTree = "<group>"; };
+		0785F3D3139FCCDB00BC408A /* QSPlugIn_ReleaseUB.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_ReleaseUB.xcconfig; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -1847,8 +1849,10 @@
 				4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */,
 				4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */,
 				4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */,
+				0785F3D3139FCCDB00BC408A /* QSPlugIn_ReleaseUB.xcconfig */,
 				4D002D52131147FF009040B7 /* Quicksilver.pch */,
 				4DC3DD130E0BB27B009902EF /* Release.xcconfig */,
+				07400AB3139FB26400F946BC /* ReleaseUB.xcconfig */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -3985,6 +3989,157 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		07400B9D139FBE1F00F946BC /* ReleaseUB */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 07400AB3139FB26400F946BC /* ReleaseUB.xcconfig */;
+			buildSettings = {
+			};
+			name = ReleaseUB;
+		};
+		07400B9E139FBE1F00F946BC /* ReleaseUB */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 07400AB3139FB26400F946BC /* ReleaseUB.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = Quicksilver;
+				WRAPPER_EXTENSION = app;
+			};
+			name = ReleaseUB;
+		};
+		07400B9F139FBE1F00F946BC /* ReleaseUB */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = QSScriptingDictionary;
+			};
+			name = ReleaseUB;
+		};
+		07400BA0139FBE1F00F946BC /* ReleaseUB */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 07400AB3139FB26400F946BC /* ReleaseUB.xcconfig */;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "PropertyLists/QSFoundation-Info.plist";
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				OTHER_LDFLAGS = (
+					"-weak_framework",
+					QuickLook,
+				);
+				PRODUCT_NAME = QSFoundation;
+			};
+			name = ReleaseUB;
+		};
+		07400BA1139FBE1F00F946BC /* ReleaseUB */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 07400AB3139FB26400F946BC /* ReleaseUB.xcconfig */;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "PropertyLists/QSEffects-Info.plist";
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				PRODUCT_NAME = QSEffects;
+			};
+			name = ReleaseUB;
+		};
+		07400BA2139FBE1F00F946BC /* ReleaseUB */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 07400AB3139FB26400F946BC /* ReleaseUB.xcconfig */;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "PropertyLists/QSCore-Info.plist";
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				PRODUCT_NAME = QSCore;
+			};
+			name = ReleaseUB;
+		};
+		07400BA3139FBE1F00F946BC /* ReleaseUB */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 07400AB3139FB26400F946BC /* ReleaseUB.xcconfig */;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "PropertyLists/QSInterface-Info.plist";
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				PRODUCT_NAME = QSInterface;
+			};
+			name = ReleaseUB;
+		};
+		07400BA4139FBE1F00F946BC /* ReleaseUB */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0785F3D3139FCCDB00BC408A /* QSPlugIn_ReleaseUB.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
+				PRODUCT_NAME = "Core Support";
+			};
+			name = ReleaseUB;
+		};
+		07400BA5139FBE1F00F946BC /* ReleaseUB */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0785F3D3139FCCDB00BC408A /* QSPlugIn_ReleaseUB.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = "PlugIns-Main/Bezel/Info.plist";
+				PRODUCT_NAME = "Bezel Interface";
+			};
+			name = ReleaseUB;
+		};
+		07400BA6139FBE1F00F946BC /* ReleaseUB */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0785F3D3139FCCDB00BC408A /* QSPlugIn_ReleaseUB.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = "PlugIns-Main/Finder/Info.plist";
+				PRODUCT_NAME = "Finder Module";
+			};
+			name = ReleaseUB;
+		};
+		07400BA7139FBE1F00F946BC /* ReleaseUB */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0785F3D3139FCCDB00BC408A /* QSPlugIn_ReleaseUB.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = "PlugIns-Main/PrimerInterface/Info.plist";
+				PRODUCT_NAME = "Primer Interface";
+			};
+			name = ReleaseUB;
+		};
+		07400BA8139FBE1F00F946BC /* ReleaseUB */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0785F3D3139FCCDB00BC408A /* QSPlugIn_ReleaseUB.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = "PlugIns-Main/QSHotKeyPlugIn/Info.plist";
+				PRODUCT_NAME = "HotKey Triggers";
+			};
+			name = ReleaseUB;
+		};
+		07400BA9139FBE1F00F946BC /* ReleaseUB */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = Preflight;
+			};
+			name = ReleaseUB;
+		};
+		07400BAA139FBE1F00F946BC /* ReleaseUB */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "QSDroplet/QSDroplet-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = QSDroplet;
+				WRAPPER_EXTENSION = app;
+			};
+			name = ReleaseUB;
+		};
+		07400BAB139FBE1F00F946BC /* ReleaseUB */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
+			buildSettings = {
+				PRODUCT_NAME = Distribution;
+			};
+			name = ReleaseUB;
+		};
 		4D002D041311465B009040B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */;
@@ -4306,6 +4461,7 @@
 			buildConfigurations = (
 				4D002D041311465B009040B7 /* Debug */,
 				4D002D051311465B009040B7 /* Release */,
+				07400BA5139FBE1F00F946BC /* ReleaseUB */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -4315,6 +4471,7 @@
 			buildConfigurations = (
 				4D002D63131148C3009040B7 /* Debug */,
 				4D002D64131148C3009040B7 /* Release */,
+				07400BA6139FBE1F00F946BC /* ReleaseUB */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -4324,6 +4481,7 @@
 			buildConfigurations = (
 				4D002D8A131149A4009040B7 /* Debug */,
 				4D002D8B131149A4009040B7 /* Release */,
+				07400BA7139FBE1F00F946BC /* ReleaseUB */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -4333,6 +4491,7 @@
 			buildConfigurations = (
 				4D002DAF13114A2E009040B7 /* Debug */,
 				4D002DB013114A2E009040B7 /* Release */,
+				07400BA8139FBE1F00F946BC /* ReleaseUB */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -4342,6 +4501,7 @@
 			buildConfigurations = (
 				7F6B3E46085CE68E000735A8 /* Debug */,
 				7F6B3E47085CE68E000735A8 /* Release */,
+				07400BA9139FBE1F00F946BC /* ReleaseUB */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -4351,6 +4511,7 @@
 			buildConfigurations = (
 				7F6B3E4B085CE68E000735A8 /* Debug */,
 				7F6B3E4C085CE68E000735A8 /* Release */,
+				07400BA0139FBE1F00F946BC /* ReleaseUB */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -4360,6 +4521,7 @@
 			buildConfigurations = (
 				7F6B3E50085CE68E000735A8 /* Debug */,
 				7F6B3E51085CE68E000735A8 /* Release */,
+				07400BA2139FBE1F00F946BC /* ReleaseUB */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -4369,6 +4531,7 @@
 			buildConfigurations = (
 				7F6B3E55085CE68E000735A8 /* Debug */,
 				7F6B3E56085CE68E000735A8 /* Release */,
+				07400BA1139FBE1F00F946BC /* ReleaseUB */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -4378,6 +4541,7 @@
 			buildConfigurations = (
 				7F6B3E5A085CE68E000735A8 /* Debug */,
 				7F6B3E5B085CE68E000735A8 /* Release */,
+				07400BA3139FBE1F00F946BC /* ReleaseUB */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -4387,6 +4551,7 @@
 			buildConfigurations = (
 				7F6B3E5F085CE68E000735A8 /* Debug */,
 				7F6B3E60085CE68E000735A8 /* Release */,
+				07400B9F139FBE1F00F946BC /* ReleaseUB */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -4396,6 +4561,7 @@
 			buildConfigurations = (
 				7F6B3E64085CE68E000735A8 /* Debug */,
 				7F6B3E65085CE68E000735A8 /* Release */,
+				07400BA4139FBE1F00F946BC /* ReleaseUB */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -4405,6 +4571,7 @@
 			buildConfigurations = (
 				7F6B3E69085CE68E000735A8 /* Debug */,
 				7F6B3E6A085CE68E000735A8 /* Release */,
+				07400B9E139FBE1F00F946BC /* ReleaseUB */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -4414,6 +4581,7 @@
 			buildConfigurations = (
 				7F6B3E6E085CE68E000735A8 /* Debug */,
 				7F6B3E6F085CE68E000735A8 /* Release */,
+				07400BAB139FBE1F00F946BC /* ReleaseUB */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -4423,6 +4591,7 @@
 			buildConfigurations = (
 				7F6B3E7D085CE68E000735A8 /* Debug */,
 				7F6B3E7E085CE68E000735A8 /* Release */,
+				07400B9D139FBE1F00F946BC /* ReleaseUB */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -4432,6 +4601,7 @@
 			buildConfigurations = (
 				7F9703D409AFEE8B00E9EA77 /* Debug */,
 				7F9703D509AFEE8B00E9EA77 /* Release */,
+				07400BAA139FBE1F00F946BC /* ReleaseUB */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
