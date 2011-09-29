@@ -159,9 +159,22 @@
 								 @"TRAVEL",@"TT",@"TV",@"TW",@"TZ",@"UA",@"UG",@"UK",@"US",@"UY",@"UZ",@"VA",@"VC",@"VE",@"VG",@"VI",@"VN",@"VU",@"WF",@"WS",@"XXX",@"YE",@"YT",@"ZA",@"ZM",@"ZW",nil] retain];
 				}
 				// check if the last component of the string is a tld or the URL is an IP address (e.g. 192.168.1.1)
-				if([tldArray containsObject:[[components lastObject] uppercaseString]] || ([components count] == 4 && [[components lastObject] rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]].location != NSNotFound)) {
-					[self assignURLTypesWithURL:urlString];
-					return;
+				if([tldArray containsObject:[[components lastObject] uppercaseString]] || ([components count] == 4)) {
+					BOOL isIPAddress = TRUE;
+					// Charset containing everything but decimal digits
+					NSCharacterSet *nonNumbersSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+					// more efficient to enumerate backwards - last components is often empty when user types '192.168.1.'
+					for (NSString *subPart in [components reverseObjectEnumerator]) {
+						// Ensure each part (Separated by '.' is only 3 or less digits
+						if (![subPart length] || [subPart length] > 3 || [subPart  rangeOfCharacterFromSet:nonNumbersSet].location != NSNotFound) {
+							isIPAddress = FALSE;
+							break;
+						}
+					}
+					if (isIPAddress) {
+						[self assignURLTypesWithURL:urlString];
+						return;
+					}
 				}
 			}
 		}
