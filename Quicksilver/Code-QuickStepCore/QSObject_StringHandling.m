@@ -158,20 +158,25 @@
 								 @"RS",@"RU",@"RW",@"SA",@"SB",@"SC",@"SD",@"SE",@"SG",@"SH",@"SI",@"SJ",@"SK",@"SL",@"SM",@"SN",@"SO",@"SR",@"ST",@"SU",@"SV",@"SY",@"SZ",@"TC",@"TD",@"TEL",@"TF",@"TG",@"TH",@"TJ",@"TK",@"TL",@"TM",@"TN",@"TO",@"TP",@"TR",
 								 @"TRAVEL",@"TT",@"TV",@"TW",@"TZ",@"UA",@"UG",@"UK",@"US",@"UY",@"UZ",@"VA",@"VC",@"VE",@"VG",@"VI",@"VN",@"VU",@"WF",@"WS",@"XXX",@"YE",@"YT",@"ZA",@"ZM",@"ZW",nil] retain];
 				}
-				// check if the last component of the string is a tld or the URL is an IP address (e.g. 192.168.1.1)
-				if([tldArray containsObject:[[components lastObject] uppercaseString]] || ([components count] == 4)) {
-					BOOL isIPAddress = TRUE;
+				// check if the last component of the string is a tld 
+				if([tldArray containsObject:[[components lastObject] uppercaseString]]) {
+					[self assignURLTypesWithURL:urlString];
+					return;
+				}
+				// Check if the string is an IP address (e.g. 192.168.1.1)
+				if ([components count] == 4) {
+					BOOL isValidIPAddress = TRUE;				
 					// Charset containing everything but decimal digits
 					NSCharacterSet *nonNumbersSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
 					// more efficient to enumerate backwards - last components is often empty when user types '192.168.1.'
 					for (NSString *subPart in [components reverseObjectEnumerator]) {
 						// Ensure each part (Separated by '.' is only 3 or less digits
 						if (![subPart length] || [subPart length] > 3 || [subPart  rangeOfCharacterFromSet:nonNumbersSet].location != NSNotFound) {
-							isIPAddress = FALSE;
+							isValidIPAddress = FALSE;
 							break;
 						}
 					}
-					if (isIPAddress) {
+					if (isValidIPAddress) {
 						[self assignURLTypesWithURL:urlString];
 						return;
 					}
