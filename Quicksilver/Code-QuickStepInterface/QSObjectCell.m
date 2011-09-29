@@ -72,8 +72,8 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 }
 - (void)dealloc{
 	[fieldEditor release];
-    [nameFont release];
-    [detailsFont release];
+	//[nameFont release];
+	//[detailsFont release];
 	[super dealloc];
 }
 - (id)initTextCell:(NSString *)aString {
