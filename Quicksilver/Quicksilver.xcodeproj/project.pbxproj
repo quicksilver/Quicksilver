@@ -928,6 +928,7 @@
 		4D00308213116376009040B7 /* QSOutlineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSOutlineView.m; sourceTree = "<group>"; };
 		4D00308313116376009040B7 /* QSTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTableView.h; sourceTree = "<group>"; };
 		4D00308413116376009040B7 /* QSTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSTableView.m; sourceTree = "<group>"; };
+		4D35B4DE143C7AB800E059A7 /* QuicksilverDMG.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = QuicksilverDMG.icns; sourceTree = "<group>"; };
 		4D4F32FC0E39EDE500668F94 /* QSEffects-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "QSEffects-Info.plist"; sourceTree = "<group>"; };
 		4D4F32FD0E39EDFD00668F94 /* QSFoundation-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "QSFoundation-Info.plist"; sourceTree = "<group>"; };
 		4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Release.xcconfig; sourceTree = "<group>"; };
@@ -2009,6 +2010,7 @@
 				92DC402B0E25A0C40091BD92 /* Action.png */,
 				7FDBC3100A0153CA00E496FF /* Button-AddMenu.png */,
 				7FDBC3110A0153CA00E496FF /* Button-Add.png */,
+				4D35B4DE143C7AB800E059A7 /* QuicksilverDMG.icns */,
 				E1D1F5BD07197D6B00F48DE5 /* QuicksilverMenuLight.png */,
 				E1C9DFB4070A37F1001BB625 /* CatalogGroup.icns */,
 				E1CF688A06F2897900C848F3 /* Recent.icns */,
