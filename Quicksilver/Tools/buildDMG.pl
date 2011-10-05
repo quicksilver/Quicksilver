@@ -149,8 +149,8 @@ die "FATAL: Couldn't read created dmg name\n" unless $dmgName;
 print "Changed dmgName to \"$dmgName\"\n" if $debug;
 
 # mount the dmg
-print "> hdiutil attach \"$buildDir/$dmgName\"\n" if $debug;
-$output = `hdiutil attach \"$buildDir/$dmgName\"`;
+print "> hdiutil attach -nobrowse \"$buildDir/$dmgName\"\n" if $debug;
+$output = `hdiutil attach -nobrowse \"$buildDir/$dmgName\"`;
 die "FATAL: Couldn't mount DMG $dmgName (Error: $?)\n" if $?;
 
 my ($dev)  = ($output =~ /(\/dev\/.+?)\s*GUID_partition_scheme/im);
