@@ -42,6 +42,7 @@ my $dmgName          = $ENV{DMG_NAME};
 my $internetEnabled  = $ENV{DMG_INTERNETENABLED};
 my $slaRsrcFile      = $ENV{DMG_SLA_RSRCFILE};
 my $deleteHeaders    = ($ENV{DMG_DELETEHEADERS} && ($ENV{DMG_DELETEHEADERS} =~ /^\s*yes\s*$/i));
+my $volIcon          = $ENV{DMG_VOLICON};
 my $files;
 
 # override them with command line options
@@ -55,7 +56,8 @@ GetOptions('help'               => \$help,
            'internetEnabled!'   => \$internetEnabled,
            'slaRsrcFile=s'      => \$slaRsrcFile,
            'volSize=i'          => \$volSize,
-           'volName=s'          => \$volName
+           'volName=s'          => \$volName,
+           'volIcon=s'          => \$volIcon
           );
 
 if ($help) {
@@ -126,6 +128,7 @@ if ($debug) {
     print STDERR "compressionLevel: ", $compressionLevel ? $compressionLevel : "", "\n";
     print STDERR "volSize: ", $volSize ? $volSize : "", "\n";
     print STDERR "volName: ", $volName ? $volName : "", "\n";
+    print STDERR "VolIcon: ", $volIcon ? $volIcon : "", "\n";
     print STDERR "dmgName: ", $dmgName ? $dmgName : "", "\n";
     print STDERR "internetEnabled: ", $internetEnabled ? $internetEnabled : "", "\n";
     print STDERR "slaRsrcFile: ", $slaRsrcFile ? $slaRsrcFile : "", "\n";
@@ -157,7 +160,24 @@ my ($dest) = ($output =~ /Apple_HFS\s+(.+?)\s*$/im);
 print "Copying files to $dest...\n";
 print "> /Developer/Tools/CpMac -r $files \"$dest\"\n" if $debug;
 $output = `/Developer/Tools/CpMac -r $files \"$dest\"`;
-$err = $?;
+
+die "FATAL: Error while copying files (Error: $err)\n" if $?;
+
+# set custom volume icon
+if ($volIcon) {
+    print "Setting custom volume icon...\n";
+    print "> cp $volIcon $dest/.VolumeIcon.icns\n" if $debug;
+    $output = `cp $volIcon \"$dest/.VolumeIcon.icns\"`;
+    print "FATAL: Failed to copy custom icon file\n" if $?;
+
+    print "> /Developer/Tools/SetFile -c icnC $dest/.VolumeIcon.icns\n" if $debug;
+    $output = `/Developer/Tools/SetFile -c icnC $dest/.VolumeIcon.icns`;
+    print "FATAL: Failed to set custom icon flags on file\n" if $?;
+
+    print "> /Developer/Tools/SetFile -a C $dest\n" if $debug;
+    $output = `/Developer/Tools/SetFile -a C $dest`;
+    print "FATAL: Failed to set custom icon flags on volume\n" if $?;
+}
 
 # delete headers
 if ($deleteHeaders) {
@@ -169,7 +189,6 @@ if ($deleteHeaders) {
 # unmount the dmg
 print "> hdiutil detach $dev\n" if $debug;
 $output = `hdiutil detach $dev`;
-die "FATAL: Error while copying files (Error: $err)\n" if $err;
 die "FATAL: Couldn't unmount device $dev: $?\n" if $?;
 
 # compress the dmg
@@ -309,6 +328,11 @@ Project Builder Support section below) the name of the first file will be used
 
 specifies the size of the volume to create in megabytes. The environment variable is B<DMG_VOLSIZE>. If no value or 0 is specified 
 B<buildDmg> will try to determine the size by looking at the files to copy
+
+=item B<-volIcon> I<file>
+
+specifies the custom icon to use as the volume icon. The environment variable is B<DMG_VOLICO>. If no value is specified, no custom
+icon will be used.
 
 =back
 
