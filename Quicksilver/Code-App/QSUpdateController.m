@@ -74,7 +74,7 @@
     NSString *thisVersionString = (NSString *)CFBundleGetValueForInfoDictionaryKey(CFBundleGetMainBundle(), kCFBundleVersionKey);
     
     NSString *versionType = nil;
-    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"QSNewUpdateReleaseLevel"]) {
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"QSUpdateReleaseLevel"]) {
         case 2:
             versionType = @"dev";
             break;
