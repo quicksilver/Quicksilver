@@ -161,6 +161,7 @@
 				// check if the last component of the string is a tld 
 				if([tldArray containsObject:[[components lastObject] uppercaseString]]) {
 					[self assignURLTypesWithURL:urlString];
+					[self setObject:host forType:QSRemoteHostsType];
 					return;
 				}
 				// Check if the string is an IP address (e.g. 192.168.1.1)
