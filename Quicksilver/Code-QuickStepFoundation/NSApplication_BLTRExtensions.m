@@ -32,10 +32,7 @@
 
 - (NSString *)versionString {
 	NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
-    NSString *level = @"";
-    if ([self featureLevel] != 0)
-        level = [[NSNumber numberWithInt:[self featureLevel]] stringValue];
-	return [NSString stringWithFormat:@"%@ %@(%@) ", [info objectForKey:@"CFBundleShortVersionString"], level, [info objectForKey:@"CFBundleVersion"]];
+	return [NSString stringWithFormat:@"%@ (%@) ", [info objectForKey:@"CFBundleShortVersionString"], [info objectForKey:@"CFBundleVersion"]];
 }
 
 - (int)featureLevel {return 0;}
