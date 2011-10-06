@@ -253,12 +253,15 @@
 	updateTask = nil;
 	NSRunInformationalAlertPanel(@"Download Failed", @"An error occured while updating: %@", @"OK", nil, nil, [error localizedDescription] );
     [appDownload cancel];
-	[appDownload release];
+	[appDownload release], appDownload = nil;
 }
 
 - (void)downloadDidFinish:(QSURLDownload *)download {
-    [download cancel];
-	[download release];
+    if (download != appDownload)
+        return;
+
+	[updateTask setStatus:@"Download Complete"];
+	[updateTask setProgress:1.0];
 
 	BOOL plugInUpdates = [[QSPlugInManager sharedInstance] updatePlugInsForNewVersion:newVersion];
 
@@ -294,9 +297,6 @@
 
 - (void)finishAppInstall {
 	NSString *path = [appDownload destination];
-
-	[updateTask setStatus:@"Download Complete"];
-	[updateTask setProgress:1.0];
     
     NSInteger selection = 0;
 	BOOL update = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSUpdateWithoutAsking"];
@@ -322,11 +322,12 @@
             relaunch = (selection == NSAlertDefaultReturn);
         }
         if (relaunch)
-            [NSApp relaunchFromPath:installPath];
+            [NSApp relaunchFromPath:nil];
     }
 
 	[updateTask stopTask:nil];
 	[updateTask release], updateTask = nil;
+    [appDownload release], appDownload = nil;
 }
 
 - (NSString *)installAppFromCompressedFile:(NSString *)path {
