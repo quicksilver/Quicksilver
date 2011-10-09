@@ -236,22 +236,42 @@
 }
 
 - (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
-	if ([[[dObject singleFilePath] stringByStandardizingPath] hasPrefix:@"/Volumes/"])
+	NSArray *paths = [dObject arrayForType:QSFilePathType];
+	BOOL valid = NO;
+	if (paths)
+	{
+		valid = YES;
+		for (NSString *path in paths) {
+			if (![[path stringByStandardizingPath] hasPrefix:@"/Volumes/"]) {
+				valid = NO;
+				break;
+			}
+		}
+	}
+	if (valid)
 		return [NSArray arrayWithObject:kDiskEjectAction];
-	else
+	else {
 		return nil;
+	}
 }
 
 - (QSObject *)performAction:(QSAction *)action directObject:(QSBasicObject *)dObject indirectObject:(QSBasicObject *)iObject {
-	NSString *firstFile = [dObject singleFilePath];
-	if ([[[NSWorkspace sharedWorkspace] mountedLocalVolumePaths] containsObject:[[dObject singleFilePath] stringByStandardizingPath]]) {
-        if (![[NSWorkspace sharedWorkspace] unmountAndEjectDeviceAtPath:firstFile]) {
-            NSDictionary *errorDict;
-            NSAppleScript *script = [[NSAppleScript alloc] initWithSource:[NSString stringWithFormat:@"tell application \"Finder\" to eject disk \"%@\"", [[NSFileManager defaultManager] displayNameAtPath:firstFile]]];
+	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
+	for (NSString *mountedVolume in [dObject arrayForType:QSFilePathType]) {
+	if ([[ws mountedLocalVolumePaths] containsObject:[mountedVolume stringByStandardizingPath]]) {
+		NSError *err = nil;
+        if (![ws unmountAndEjectDeviceAtURL:[NSURL fileURLWithPath:mountedVolume] error:&err]) {
+			NSLog(@"Error unmounting: %@\nTrying to use Finder (via Applescript)",err);
+            NSDictionary *errorDict = nil;
+            NSAppleScript *script = [[NSAppleScript alloc] initWithSource:[NSString stringWithFormat:@"tell application \"Finder\" to eject disk \"%@\"", [[NSFileManager defaultManager] displayNameAtPath:mountedVolume]]];
             [script executeAndReturnError:&errorDict];
             [script release];
-            if (errorDict) NSBeep();
+            if (errorDict) {
+				NSBeep();
+				NSLog(@"Error: %@",errorDict);
+			}
         }
+	}
 	}
 	return nil;
 }
