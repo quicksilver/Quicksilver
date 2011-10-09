@@ -317,10 +317,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 
 	if (directID) {
         object = [QSObject objectWithIdentifier:directID];
-		if (!object) {
-			object = [QSAction actionWithIdentifier:directID];
-		}
-    }
+	}
 	
 	if (!object) {
         object = [QSObject objectWithDictionary:[cmdDict objectForKey:@"directArchive"]];
