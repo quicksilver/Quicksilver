@@ -351,7 +351,7 @@
 		[plugin setEnabled:YES];
 	}
 
-	if (![self plugInIsMostRecent:plugin inGroup:nil]) return NO; 	//Skip if not most recent
+	if (![self plugInIsMostRecent:plugin inGroup:localPlugIns]) return NO; 	//Skip if not most recent
 	if (![self plugInMeetsRequirements:plugin]) return NO; 						//Skip if does not meet requirements
 	if (![self plugInMeetsDependencies:plugin]) return NO; 						//Skip if does not meet dependencies
 
@@ -419,7 +419,7 @@
     // QSPlugIn * plugin;
     // If plugin should be loaded, add it to the list
     for (QSPlugIn * plugin in newLocalPlugIns) {
-        if (![self plugInIsMostRecent:plugin inGroup:plugInsToLoadByID]) continue;      //Skip if not most recent
+        if (![self plugInIsMostRecent:plugin inGroup:localPlugIns]) continue;      //Skip if not most recent
 		if (![plugin identifier]) continue;
 		[localPlugIns setObject:plugin forKey:[plugin identifier]];
 		[knownPlugIns setObject:plugin forKey:[plugin identifier]];
@@ -563,16 +563,13 @@
 }
 
 - (void)suggestOldPlugInRemoval {
-	//NSLog(@"old: %@", oldPlugIns);
 	if ([oldPlugIns count]) {
-		//if (1) {//DEBUG || [[NSUserDefaults standardUserDefaults] boolForKey:@"QSIgnoreOldPlugIns"]) {
-		//	  //	if (VERBOSE) NSLog(@"Ignored Old Plugins: %@", [[oldPlugIns valueForKeyPath:@"path"] componentsJoinedByString:@"\r"]);
-		//} else {
-			for (QSPlugIn * plugIn in oldPlugIns) {
-				NSLog(@"Deleting Old Duplicate Plug-in:\r%@", [plugIn path]);
-				[[NSFileManager defaultManager] removeItemAtPath:[plugIn path] error:nil];
-			}
-		//}
+        NSError *error = nil;
+        for (QSPlugIn * plugIn in oldPlugIns) {
+            NSLog(@"Deleting Old Duplicate Plug-in:\r%@", [plugIn path]);
+            if (![[NSFileManager defaultManager] removeItemAtPath:[plugIn path] error:&error])
+                NSLog(@"Error deleting old plugin: %@, %@", [plugIn path], error);
+        }
 	}
 }
 
