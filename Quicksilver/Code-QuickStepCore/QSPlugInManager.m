@@ -22,6 +22,8 @@
 
 #import "NSException_TraceExtensions.h"
 
+#import "QSDefines.h"
+
 #define pPlugInInfo QSApplicationSupportSubPath(@"PlugIns.plist", NO)
 #define MAX_CONCURRENT_DOWNLOADS 2
 
@@ -405,8 +407,6 @@
 	}
 
 }
-#define kQSPluginCausedCrashAtLaunch @"QSPluginCausedCrashAtLaunch"
-#define kQSFaultPluginPath @"QSFaultyPluginPath"
 
 - (void)loadPlugInsAtLaunch {
 
@@ -414,6 +414,7 @@
 	NSDate *date = [NSDate date];
 #endif
 	
+	// Check to see if QS crashed whilst previously loading a plugin (registerPlugin method)
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *pluginName = [defaults objectForKey:kQSPluginCausedCrashAtLaunch];
 	if (pluginName) {
@@ -425,6 +426,7 @@
 		[alert addButtonWithTitle:@"Cancel"];
 		[alert setAlertStyle:NSCriticalAlertStyle];
 		if ([alert runModal] == NSAlertFirstButtonReturn) {
+			// If user says 'OK', attempt to delete the faulty plugin
 			NSString *faultyPluginPath = [defaults objectForKey:kQSFaultPluginPath];
 			if (faultyPluginPath) {
 				NSFileManager *fm = [[NSFileManager alloc] init];
@@ -470,18 +472,12 @@
     NSArray * localPlugins = [localPlugIns allValues];
     for (QSPlugIn *plugin in localPlugins) {
         if ([plugInsToLoad containsObject:plugin])
-			[defaults setObject:[[plugin info] objectForKey:@"CFBundleName"] forKey:kQSPluginCausedCrashAtLaunch];
-			[defaults setObject:[[plugin bundle] bundlePath] forKey:kQSFaultPluginPath];
-			[defaults synchronize];
 			[plugin registerPlugIn];
     }
 
 	[self checkForUnmetDependencies];
 	[self suggestOldPlugInRemoval];
 	
-	[defaults removeObjectForKey:kQSPluginCausedCrashAtLaunch];
-	[defaults removeObjectForKey:kQSFaultPluginPath];
-	[defaults synchronize];
 	startupLoadComplete = YES;
 	
 #ifdef DEBUG
