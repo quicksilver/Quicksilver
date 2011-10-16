@@ -405,12 +405,36 @@
 	}
 
 }
+#define kQSPluginCausedCrashAtLaunch @"QSPluginCausedCrashAtLaunch"
+#define kQSFaultPluginPath @"QSFaultyPluginPath"
 
 - (void)loadPlugInsAtLaunch {
 
 #ifdef DEBUG
 	NSDate *date = [NSDate date];
 #endif
+	
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString *pluginName = [defaults objectForKey:kQSPluginCausedCrashAtLaunch];
+	if (pluginName) {
+		NSAlert *alert = [[NSAlert alloc] init];
+		[alert setMessageText:@"Quicksilver crashed on launch"];
+		NSString *informativeText = [NSString stringWithFormat:@"Quicksilver crashed due to the %@ plugin not loading correctly.\nDo you wish to delete this plugin to launch Quicksilver?", pluginName];
+		[alert setInformativeText:informativeText];
+		[alert addButtonWithTitle:@"OK"];
+		[alert addButtonWithTitle:@"Cancel"];
+		[alert setAlertStyle:NSCriticalAlertStyle];
+		if ([alert runModal] == NSAlertFirstButtonReturn) {
+			NSString *faultyPluginPath = [defaults objectForKey:kQSFaultPluginPath];
+			if (faultyPluginPath) {
+				NSFileManager *fm = [[NSFileManager alloc] init];
+				if (![fm removeItemAtPath:faultyPluginPath error:nil]) {
+					NSLog(@"Error removing faulty plugin. Continuing to attempt a launch");
+				}
+			}
+		}
+	}
+	
 	
 	// load main bundle
 	[[QSPlugIn plugInWithBundle:[NSBundle mainBundle]]registerPlugIn];
@@ -446,17 +470,24 @@
     NSArray * localPlugins = [localPlugIns allValues];
     for (QSPlugIn *plugin in localPlugins) {
         if ([plugInsToLoad containsObject:plugin])
+			[defaults setObject:[[plugin info] objectForKey:@"CFBundleName"] forKey:kQSPluginCausedCrashAtLaunch];
+			[defaults setObject:[[plugin bundle] bundlePath] forKey:kQSFaultPluginPath];
+			[defaults synchronize];
 			[plugin registerPlugIn];
     }
 
 	[self checkForUnmetDependencies];
 	[self suggestOldPlugInRemoval];
 	
+	[defaults removeObjectForKey:kQSPluginCausedCrashAtLaunch];
+	[defaults removeObjectForKey:kQSFaultPluginPath];
+	[defaults synchronize];
+	startupLoadComplete = YES;
+	
 #ifdef DEBUG
-	if (DEBUG_STARTUP) NSLog(@"PlugIn Load Complete (%dms) ", (int)(-[date timeIntervalSinceNow] *1000));
+	NSLog(@"PlugIn Load Complete (%dms) ", (int)(-[date timeIntervalSinceNow] *1000));
 #endif
 	
-	startupLoadComplete = YES;
 }
 
 #define appSupportSubpath @"Application Support/Quicksilver/PlugIns"
