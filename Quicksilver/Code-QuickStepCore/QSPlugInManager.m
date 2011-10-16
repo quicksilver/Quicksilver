@@ -509,21 +509,16 @@
         }
         
 		[bundleSearchPaths addObject:QSApplicationSupportSubPath(@"PlugIns", NO)];
-		[bundleSearchPaths addObject:[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent]];
-		[bundleSearchPaths addObject:[[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"PlugIns"]];
-		[bundleSearchPaths addObject:[[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Embedded/PlugIns"]];
-		[bundleSearchPaths addObject:[[NSFileManager defaultManager] currentDirectoryPath]];
-		[bundleSearchPaths addObject:[[[NSFileManager defaultManager] currentDirectoryPath] stringByAppendingPathComponent:@"PlugIns"]];
-		[bundleSearchPaths addObject:[[[NSFileManager defaultManager] currentDirectoryPath] stringByAppendingPathComponent:@"Embedded/PlugIns"]];
 		//[bundleSearchPaths addObject:[[[NSFileManager defaultManager] currentDirectoryPath] stringByAppendingPathComponent:@"PrivatePlugIns"]];
 
 		NSArray *paths = [[NSUserDefaults standardUserDefaults] arrayForKey:@"QSAdditionalPlugInPaths"];
-		paths = [paths valueForKey:@"stringByStandardizingPath"];
-		[bundleSearchPaths addObjectsFromArray:paths];
+		if(paths) {
+			paths = [paths valueForKey:@"stringByStandardizingPath"];
+			[bundleSearchPaths addObjectsFromArray:paths];
+		}
 
-		[bundleSearchPaths addObject:[[[NSFileManager defaultManager] currentDirectoryPath] stringByAppendingPathComponent:@"PrivatePlugIns"]];
 	}
-
+	
 	for (NSString *currPath in bundleSearchPaths) {
 		NSString *curPlugInPath = nil;
         NSArray *dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:currPath error:nil];
