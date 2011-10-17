@@ -729,6 +729,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	[defaults removeObjectForKey:kQSPluginCausedCrashAtLaunch];
 	[defaults removeObjectForKey:kQSFaultPluginPath];
 	[defaults synchronize];
+	[defaults release];
 	
 	return YES;
 }
