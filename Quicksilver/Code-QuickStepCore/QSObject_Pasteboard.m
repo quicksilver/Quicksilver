@@ -238,8 +238,8 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 		[typeSet intersectSet:[NSSet setWithArray:[[self dataDictionary] allKeys]]];
 		types = [[[typeSet allObjects] mutableCopy] autorelease];
 	}
-	// If there's no string type for the object, we need to set one
-	if (![types containsObject:NSStringPboardType]) {
+	// If there are no types for the object, we need to set one (using stringValue)
+	if (![types count]) {
 		[(NSMutableArray *)types addObject:NSStringPboardType];
 		[[self dataDictionary] setObject:[self stringValue] forKey:NSStringPboardType];
 	}

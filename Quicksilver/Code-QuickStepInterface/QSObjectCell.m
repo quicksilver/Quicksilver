@@ -72,8 +72,8 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 }
 - (void)dealloc{
 	[fieldEditor release];
-    [nameFont release];
-    [detailsFont release];
+	//[nameFont release];
+	//[detailsFont release];
 	[super dealloc];
 }
 - (id)initTextCell:(NSString *)aString {
@@ -545,7 +545,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 }
 
 - (void)drawObjectImage:(QSObject *)drawObject inRect:(NSRect)drawingRect cellFrame:(NSRect)cellFrame controlView:(NSView *)controlView flipped:(BOOL)flipped opacity:(float)opacity {
-	NSImage *icon = [drawObject icon];
+	NSImage *icon = [[[drawObject icon] retain] autorelease];
 	NSImage *cornerBadge = nil;
 	// NSLog(@"icon");
 	BOOL proxyDraw = [[icon name] isEqualToString:QSDirectObjectIconProxy];

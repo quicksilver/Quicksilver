@@ -35,6 +35,7 @@
 	if ([handlers containsObject:@"DAEDopnt"]) {
 		[actionDict setObject:[NSArray arrayWithObject:QSTextType] forKey:kActionDirectTypes];
 		[actionDict setObject:@"QSOpenTextEventPlaceholder" forKey:kActionHandler];
+		[actionDict setObject:[NSArray arrayWithObject:QSTextType] forKey:kActionIndirectTypes];
 	}
 	if ([handlers containsObject:@"aevtodoc"]) {
 		[actionDict setObject:[NSArray arrayWithObject:QSFilePathType] forKey:kActionDirectTypes];
@@ -130,6 +131,7 @@
         } else {
 			event = [[NSAppleEventDescriptor alloc] initWithEventClass:kQSScriptSuite eventID:kQSOpenTextScriptCommand targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
 			[event setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:[iObject stringValue]] forKeyword:keyDirectObject];
+			[event setDescriptor:[NSAppleEventDescriptor descriptorWithString:@""] forKeyword:kQSOpenTextIndirectParameter];
 		}
 		[targetAddress release];
 		returnDesc = [script executeAppleEvent:event error:&errorInfo];
@@ -180,14 +182,26 @@
 		event = [[NSAppleEventDescriptor alloc] initWithEventClass:kCoreEventClass eventID:kAEOpenDocuments targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
 		[event setParamDescriptor:[NSAppleEventDescriptor aliasListDescriptorWithArray:files] forKeyword:keyDirectObject];
 	} else if ([handler isEqualToString:@"QSOpenTextEventPlaceholder"]) {
-        
-        event = [[NSAppleEventDescriptor alloc] initWithEventClass:kQSScriptSuite 
-                                                           eventID:kQSOpenTextScriptCommand 
-                                                  targetDescriptor:targetAddress 
-                                                          returnID:kAutoGenerateReturnID 
-                                                     transactionID:kAnyTransactionID];
-        
+    event = [[NSAppleEventDescriptor alloc] initWithEventClass:kQSScriptSuite
+                                                       eventID:kQSOpenTextScriptCommand
+                                              targetDescriptor:targetAddress
+                                                      returnID:kAutoGenerateReturnID
+                                                 transactionID:kAnyTransactionID];
 		[event setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:[dObject stringValue]] forKeyword:keyDirectObject];
+    NSArray *indirectPaths = [iObject validPaths];
+    NSAppleEventDescriptor *iObjectDescriptor = nil;
+    NSUInteger indirectPathCount = [indirectPaths count];
+    if (indirectPathCount == 1) {
+      iObjectDescriptor = [NSAppleEventDescriptor descriptorWithString:[indirectPaths objectAtIndex:0]];
+    } else if (indirectPathCount > 1) {
+      iObjectDescriptor = [NSAppleEventDescriptor listDescriptor];
+      for (NSString *path in indirectPaths) {
+        [iObjectDescriptor insertDescriptor:[NSAppleEventDescriptor descriptorWithString:path] atIndex:0];
+      }
+    } else {
+      iObjectDescriptor = [NSAppleEventDescriptor descriptorWithString:[iObject stringValue]];
+    }
+		[event setDescriptor:iObjectDescriptor forKeyword:kQSOpenTextIndirectParameter];
 	} else {
 		id object;
 		NSArray *types = [action directTypes];
