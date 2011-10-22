@@ -185,7 +185,16 @@
 }
 
 - (IBAction)threadedCheckForUpdate:(id)sender {
-	[self threadedCheckForUpdates:NO];
+	
+	// Test to see if the update request is an automatic request (e.g. on launch)
+	BOOL quiet = !sender || sender == self || [sender isKindOfClass:[NSTimer class]];
+
+	if (quiet) {
+		[self threadedCheckForUpdatesInBackground:NO];
+	}
+	else {
+		[self threadedCheckForUpdates:NO];
+	}
 }
 
 - (IBAction)threadedRequestedCheckForUpdate:(id)sender {
