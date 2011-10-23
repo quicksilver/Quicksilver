@@ -67,32 +67,6 @@
 	}
 }
 
-- (void)handleURL:(NSURL *)url {
-	NSLog(@"url %@", url);
-	[self threadedRequestedCheckForUpdate:nil];
-}
-
-- (IBAction)threadedCheckForUpdate:(id)sender {
-	[NSThread detachNewThreadSelector:@selector(checkForUpdate:) toTarget:self withObject:nil];
-}
-
-- (IBAction)threadedRequestedCheckForUpdate:(id)sender {
-	[NSThread detachNewThreadSelector:@selector(checkForUpdate:) toTarget:self withObject:mOptionKeyIsDown?@"Force":@"Requested"];
-}
-
-#if 0
-- (BOOL)networkIsReachable {
-	BOOL success = NO;
-	SCNetworkConnectionFlags reachabilityStatus;
-	success = SCNetworkCheckReachabilityByName("www.apple.com", &reachabilityStatus);
-	success = (success && (reachabilityStatus & 3) );
-#ifdef DEBUG
-	if (VERBOSE) NSLog(@"Blacktree reachable: %d", reachabilityStatus);
-#endif
-	return success;
-}
-#endif
-
 - (NSURL *)buildUpdateCheckURL {
 	NSString *checkURL = [[[NSProcessInfo processInfo] environment] objectForKey:@"QSCheckUpdateURL"];
     if (!checkURL)
@@ -100,7 +74,7 @@
     NSString *thisVersionString = (NSString *)CFBundleGetValueForInfoDictionaryKey(CFBundleGetMainBundle(), kCFBundleVersionKey);
     
     NSString *versionType = nil;
-    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"QSNewUpdateReleaseLevel"]) {
+    switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"QSUpdateReleaseLevel"]) {
         case 2:
             versionType = @"dev";
             break;
@@ -123,90 +97,108 @@
     return [NSURL URLWithString:checkURL];
 }
 
-- (IBAction)checkForUpdate:(id)sender {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+- (NSInteger)checkForUpdates:(BOOL)force {
+    NSString *thisVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+	NSString *checkVersionString = nil;
 
-	[[QSTaskController sharedInstance] updateTask:@"Check for Update" status:@"Check for Update" progress:-1];
+    NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:[self buildUpdateCheckURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0];
 
-	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    NSData *data = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:nil error:nil];
+    checkVersionString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 
-	BOOL quiet = !sender || sender == self || [sender isKindOfClass:[NSTimer class]];
-	BOOL success = YES;
-/*	BOOL success = [self networkIsReachable];
-	if (!success) {
-		NSLog(@"Blacktree unreacheable");
-		[[QSTaskController sharedInstance] removeTask:@"Check for Update"];
-		if (quiet) {
-			return;
-		} else {
-			int result = NSRunInformationalAlertPanel(@"Connection Error", @"Your internet connection does not appear to be active.", @"Cancel", @"Check Anyway", nil);
-			if (result == NSAlertDefaultReturn) return;
-		}
-	}
-*/
-	NSString *thisVersionString = (NSString *)CFBundleGetValueForInfoDictionaryKey(CFBundleGetMainBundle(), kCFBundleVersionKey);
+    [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:kLastUpdateCheck];
+    if (![checkVersionString length] && [checkVersionString length] > 10) {
+        NSLog(@"Unable to check for new version.");
+        [[QSTaskController sharedInstance] removeTask:@"Check for Update"];
+        return -1;
+    }
 
-	//NSLog(@"%@", sender);
-	//[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-	BOOL forceUpdate = [sender isEqual:@"Force"];
-	if (forceUpdate) NSLog(@"Forcing Update");
-    
-	BOOL newVersionAvailable = NO;
-    
-	NSURL *versionURL = [self buildUpdateCheckURL];
-    
-	NSString *testVersionString = nil;
-	if (success) {
-		NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:versionURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0];
-		[theRequest setValue:kQSUserAgent forHTTPHeaderField:@"User-Agent"];
-		NSData *data = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:nil error:nil];
-		testVersionString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-		NSLog(@"Version: %@", testVersionString);
-	}
-
-	[defaults setObject:[NSDate date] forKey:kLastUpdateCheck];
-	if ([testVersionString length] && [testVersionString length] <10) {
+    BOOL newVersionAvailable = [checkVersionString hexIntValue] > [thisVersionString hexIntValue];
+    /* We have to get the current available version, because it will get displayed to the user,
+     * so force happens only if there's a valid response from the server
+     */
+    newVersion = [checkVersionString retain];
 #ifdef DEBUG
-		if (VERBOSE) NSLog(@"Current Version:%d Installed Version:%d", [testVersionString hexIntValue], [thisVersionString hexIntValue]);
+    if (VERBOSE)
+        NSLog(@"Installed Version: %@, Available Version: %@, Valid: %@, Force update: %@", thisVersionString, checkVersionString, (newVersionAvailable ? @"YES" : @"NO"), (force ? @"YES" : @"NO"));
 #endif
-		newVersionAvailable = [testVersionString hexIntValue] > [thisVersionString hexIntValue];
-		if (newVersionAvailable)
-			newVersion = [testVersionString retain];
-	} else {
-		NSLog(@"Unable to check for new version.");
-		[[QSTaskController sharedInstance] removeTask:@"Check for Update"];
-		if (!quiet)
-			NSRunInformationalAlertPanel(@"Connection Error", @"Unable to check for updates.", @"OK", nil, nil);
-		[pool release];
-		return;
-	}
+    return newVersionAvailable ? 1 : 0;
+}
 
-	if (forceUpdate)
-		newVersionAvailable = YES;
+- (BOOL)checkForUpdatesInBackground:(BOOL)quiet force:(BOOL)force {
+	[[QSTaskController sharedInstance] updateTask:@"Check for Update" status:@"Check for Update" progress:-1];
+    BOOL updated = NO;
 
-	if (newVersionAvailable) {
-		//[NSApp activateIgnoringOtherApps:YES];
-		if (defaultBool(@"QSDownloadUpdatesInBackground") ) {
-			[self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
-		} else {
-			int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"New Version", nil], @"A new version of Quicksilver is available; would you like to download it now? (%@) ", @"Get New Version", @"Cancel", nil, newVersion); //, @"More Info");
-			if (selection == 1) {
-				[self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
-			} else if (selection == -1) {  //Go to web site
-				[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kDownloadUpdateURL]];
-			}
-		}
-	} else {
-		BOOL updated = [[QSPlugInManager sharedInstance] checkForPlugInUpdates];
-		if (!updated) {
-			NSLog(@"Quicksilver is up to date.");
-			// NSLog(@"sender: %@", sender);
-			if (!quiet) NSRunInformationalAlertPanel(@"No Updates Available", [NSString stringWithFormat:@"You already have the latest version of Quicksilver (v%@) and all installed plug-ins", thisVersionString] , @"OK", nil, nil);
-		}
+    NSInteger check = [self checkForUpdates:force];
+    [[QSTaskController sharedInstance] removeTask:@"Check for Update"];
+    if (check == -1) {
+        if (!quiet)
+            NSRunInformationalAlertPanel(@"Connection Error", @"Unable to check for updates.", @"OK", nil, nil);
+        return NO;
+    } else if (check == 1) {
+        if (!force && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSDownloadUpdatesInBackground"]) {
+            [self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
+        } else {
+            int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"New Version", nil], @"A new version of Quicksilver, version %@, is available; would you like to download it now?", @"Get New Version", @"Cancel", nil, newVersion); //, @"More Info");
+            if (selection == 1) {
+                [self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
+            } else if (selection == -1) {  //Go to web site
+                [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kWebSiteURL]];
+            }
+        }
+        return YES;
+    } else {
+        updated = [[QSPlugInManager sharedInstance] checkForPlugInUpdates];
+        if (!updated) {
+            NSLog(@"Quicksilver is up to date.");
+            if (!quiet)
+                NSRunInformationalAlertPanel(@"No Updates Available", [NSString stringWithFormat:@"You already have the latest version of Quicksilver (v%@) and all installed plug-ins", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]] , @"OK", nil, nil);
+        }
+    }
+
+    return updated;
+}
+
+- (BOOL)threadedCheckForUpdates:(BOOL)force {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    BOOL res = [self checkForUpdatesInBackground:NO force:force];
+    [pool release];
+    return res;
+}
+
+- (BOOL)threadedCheckForUpdatesInBackground:(BOOL)force {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    BOOL res = [self checkForUpdatesInBackground:YES force:force];
+    [pool release];
+    return res;
+}
+
+- (IBAction)checkForUpdate:(id)sender {
+	BOOL quiet = !sender || sender == self || [sender isKindOfClass:[NSTimer class]];
+	BOOL forceUpdate = [sender isEqual:@"Force"];
+
+    [self checkForUpdatesInBackground:quiet force:forceUpdate];
+}
+
+- (void)handleURL:(NSURL *)url {
+	[self threadedCheckForUpdatesInBackground:NO];
+}
+
+- (IBAction)threadedCheckForUpdate:(id)sender {
+	
+	// Test to see if the update request is an automatic request (e.g. on launch)
+	BOOL quiet = !sender || sender == self || [sender isKindOfClass:[NSTimer class]];
+
+	if (quiet) {
+		[self threadedCheckForUpdatesInBackground:NO];
 	}
-	[[QSTaskController sharedInstance] removeTask:@"Check for Update"];
-	//  [self setUpdateTimer];
-	[pool release];
+	else {
+		[self threadedCheckForUpdates:NO];
+	}
+}
+
+- (IBAction)threadedRequestedCheckForUpdate:(id)sender {
+	[self threadedCheckForUpdates:YES];
 }
 
 - (void)installAppUpdate {
@@ -242,7 +234,6 @@
         [updateTask setCancelAction:@selector(cancelUpdate:)];
 		[updateTask setCancelTarget:self];
 
-		//			[[QSTaskController sharedInstance] updateTask:@"QSAppUpdateInstalling" status:@"Downloading Update" progress:-1];
 		[QSTaskController showViewer];
 		[updateTask startTask:nil];
         [appDownload start];
@@ -271,12 +262,15 @@
 	updateTask = nil;
 	NSRunInformationalAlertPanel(@"Download Failed", @"An error occured while updating: %@", @"OK", nil, nil, [error localizedDescription] );
     [appDownload cancel];
-	[appDownload release];
+	[appDownload release], appDownload = nil;
 }
 
 - (void)downloadDidFinish:(QSURLDownload *)download {
-    [download cancel];
-	[download release];
+    if (download != appDownload)
+        return;
+
+	[updateTask setStatus:@"Download Complete"];
+	[updateTask setProgress:1.0];
 
 	BOOL plugInUpdates = [[QSPlugInManager sharedInstance] updatePlugInsForNewVersion:newVersion];
 
@@ -312,117 +306,101 @@
 
 - (void)finishAppInstall {
 	NSString *path = [appDownload destination];
+    
+    NSInteger selection = 0;
+	BOOL update = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSUpdateWithoutAsking"];
+	if (!update) {
+        selection = NSRunInformationalAlertPanel(@"Download Successful", @"A new version of Quicksilver has been downloaded. This version must be relaunched after it is installed.", @"Install and Relaunch", @"Cancel Update", nil);
+		update = (selection == NSAlertDefaultReturn);
+    }
+    
+    //[self installAppFromCompressedFile:path];
+    NSString *installPath = nil;
+    if (update) {
+        installPath = [self installAppFromDiskImage:path];
+        if (!installPath) {
+            selection = NSRunInformationalAlertPanel(@"Installation Failed", @"It was not possible to decompress downloaded file.", @"Cancel Update", @"Download manually", nil);
+            if (selection == NSAlertAlternateReturn)
+                [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kWebSiteURL]];
+        }
+    }
+    if (installPath) {
+        BOOL relaunch = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSRelaunchAutomaticallyAfterUpdate"];
+        if (!relaunch) {
+            selection = NSRunInformationalAlertPanel(@"Installation Successful", @"A new version of Quicksilver has been installed. This version must be relaunched after it is installed.", @"Relaunch", @"Relaunch Later", nil);
+            relaunch = (selection == NSAlertDefaultReturn);
+        }
+        if (relaunch)
+            [NSApp relaunchFromPath:nil];
+    }
 
-	//[self installAppFromCompressedFile:path];
-	[updateTask setStatus:@"Download Complete"];
-	[updateTask setProgress:1.0];
-	//	[[QSTaskController sharedInstance] updateTask:@"QSAppUpdateInstalling" status:@"Download Complete" progress:-1];
-	[self installAppFromDiskImage:path];
 	[updateTask stopTask:nil];
 	[updateTask release], updateTask = nil;
-
-}
-- (NSArray *)installAppFromCompressedFile:(NSString *)path {
-	int selection = defaultBool(@"QSUpdateWithoutAsking");
-	if (!selection)
-		selection = NSRunInformationalAlertPanel(@"Download Successful", @"A new version of Quicksilver has been downloaded. This version must be relaunched after it is installed.", @"Install and Relaunch", @"Cancel Update", nil);
-	if (selection == 1) {
-		NSFileManager *manager = [NSFileManager defaultManager];
-
-		NSString *tempDirectory = [NSTemporaryDirectory() stringByAppendingPathComponent:@"QSUpdate"];
-		[manager createDirectoryAtPath:tempDirectory withIntermediateDirectories:NO attributes:nil error:nil];
-		[updateTask setProgress:-1.0];
-
-		NSArray *extracted = [self extractFilesFromQSPkg:path toPath:tempDirectory];
-		if ([extracted count] != 1) {
-			NSLog(@"App Update Error");
-			return nil;
-		}
-
-		NSString *newAppVersionPath = [tempDirectory stringByAppendingPathComponent:[extracted lastObject]];
-		if (newAppVersionPath)
-			[NSApp relaunchAfterMovingFromPath:newAppVersionPath];
-	} 	else {
-
-		[updateTask stopTask:nil];
-		[updateTask release];
-		updateTask = nil;
-
-	}
-	return nil;
-}
-- (NSArray *)installAppFromDiskImage:(NSString *)path {
-	int selection = defaultBool(@"QSUpdateWithoutAsking");
-	if (!selection)
-		selection = NSRunInformationalAlertPanel(@"Download Successful", @"A new version of Quicksilver has been downloaded. This version must be relaunched after it is installed.", @"Install and Relaunch", @"Cancel Update", nil);
-	if (selection == 1) {
-		NSFileManager *manager = [NSFileManager defaultManager];
-
-		NSString *tempDirectory = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString uniqueString]];
-		[manager createDirectoryAtPath:tempDirectory withIntermediateDirectories:NO attributes:nil error:nil];
-
-		[updateTask setProgress:-1.0];
-		[updateTask setName:@"Installing Update"];
-		[updateTask setStatus:@"Verifying Data"];
-			//		[[QSTaskController sharedInstance] updateTask:@"QSAppUpdateInstalling" status:@"Verifying Data" progress:-1];
-		NSTask *task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/hdiutil"
-											 arguments:[NSArray arrayWithObjects:@"attach", path, @"-nobrowse", @"-mountpoint", tempDirectory, nil]];
-
-		[task waitUntilExit];
-
-		NSArray *extracted = [[manager contentsOfDirectoryAtPath:tempDirectory error:nil] pathsMatchingExtensions:[NSArray arrayWithObject:@"app"]];
-		//NSLog(@"extract %@ %@ %@",extracted, tempDirectory, [task arguments]);
-		if ([extracted count] != 1) {
-			NSLog(@"App Update Error");
-			return nil;
-		}
-
-//		[updateTask:@"Installing Update" progress:-1];
-
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWasMoved:) name:@"QSApplicationWillRelaunch" object:self];
-		NSString *newAppVersionPath = [tempDirectory stringByAppendingPathComponent:[extracted lastObject]];
-		if (newAppVersionPath) {
-			[updateTask setStatus:@"Copying Application"];
-			[NSApp replaceWithUpdateFromPath:newAppVersionPath];
-			[updateTask setStatus:@"Cleaning Up"];
-			//			[[QSTaskController sharedInstance] updateTask:@"QSAppUpdateInstalling" status:@"Cleaning Up" progress:-1];
-			task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/hdiutil"
-										 arguments:[NSArray arrayWithObjects:@"detach", tempDirectory, nil]];
-
-			[task waitUntilExit];
-			[[NSFileManager defaultManager] removeItemAtPath:tempDirectory error:nil];
-
-			[tempPath release];
-			tempPath = nil;
-
-			[updateTask stopTask:nil];
-			[updateTask release];
-			updateTask = nil;
-
-			//	[[QSTaskController sharedInstance] removeTask:@"QSAppUpdateInstalling"];
-			[QSTaskController hideViewer];
-			if (defaultBool(@"QSQuitAfterUpdate") )
-				[NSApp terminate:nil];
-			else
-				[NSApp relaunch:self];
-
-		} else {
-
-			[updateTask stopTask:nil];
-			[updateTask release];
-			updateTask = nil;
-
-		}
-	}
-	return nil;
+    [appDownload release], appDownload = nil;
 }
 
-- (void)applicationWasMoved:(NSNotification *)notif {
-	NSLog(@"notif %@ %@", notif, tempPath);
+- (NSString *)installAppFromCompressedFile:(NSString *)path {
+    NSFileManager *manager = [NSFileManager defaultManager];
+    
+    NSString *tempDirectory = [NSTemporaryDirectory() stringByAppendingPathComponent:@"QSUpdate"];
+    [manager createDirectoryAtPath:tempDirectory withIntermediateDirectories:NO attributes:nil error:nil];
+    
+    [updateTask setName:@"Installing Update"];
+    [updateTask setStatus:@"Extracting Data"];
+    [updateTask setProgress:-1.0];
+    NSArray *extracted = [self extractFilesFromQSPkg:path toPath:tempDirectory];
+    if ([extracted count] != 1) {
+        NSLog(@"App Update Error");
+        return nil;
+    }
+    
+    NSString *newAppVersionPath = [tempDirectory stringByAppendingPathComponent:[extracted lastObject]];
+    
+    [updateTask setStatus:@"Copying Application"];
+    [NSApp replaceWithUpdateFromPath:newAppVersionPath];
+    [updateTask setStatus:@"Cleaning Up"];
+
+    return newAppVersionPath;
 }
 
-- (void)finishInstallAndRelaunch {
-	//	[manager removeItemAtPath:tempDirectory error:nil];
+- (NSString *)installAppFromDiskImage:(NSString *)path {
+    NSFileManager *manager = [NSFileManager defaultManager];
+    
+    NSString *tempDirectory = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString uniqueString]];
+    [manager createDirectoryAtPath:tempDirectory withIntermediateDirectories:NO attributes:nil error:nil];
+    
+    [updateTask setName:@"Installing Update"];
+    [updateTask setStatus:@"Verifying Data"];
+    [updateTask setProgress:-1.0];
+    
+    NSTask *task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/hdiutil"
+                                            arguments:[NSArray arrayWithObjects:@"attach", path, @"-nobrowse", @"-mountpoint", tempDirectory, nil]];
+    
+    [task waitUntilExit];
+    
+    if ([task terminationStatus] != 0)
+        return nil;
+
+    NSArray *extracted = [[manager contentsOfDirectoryAtPath:tempDirectory error:nil] pathsMatchingExtensions:[NSArray arrayWithObject:@"app"]];
+    if ([extracted count] != 1)
+        return nil;
+
+    NSString *newAppVersionPath = [tempDirectory stringByAppendingPathComponent:[extracted lastObject]];
+    if (!newAppVersionPath)
+        return nil;
+    
+    [updateTask setStatus:@"Copying Application"];
+    [NSApp replaceWithUpdateFromPath:newAppVersionPath];
+    [updateTask setStatus:@"Cleaning Up"];
+    
+    task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/hdiutil"
+                                    arguments:[NSArray arrayWithObjects:@"detach", tempDirectory, nil]];
+    [task waitUntilExit];
+    [[NSFileManager defaultManager] removeItemAtPath:tempDirectory error:nil];
+    
+    [tempPath release];
+    tempPath = nil;
+    return newAppVersionPath;    
 }
 
 - (NSArray *)extractFilesFromQSPkg:(NSString *)path toPath:(NSString *)tempDirectory {
