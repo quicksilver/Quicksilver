@@ -1,3 +1,115 @@
+  * NEW: Quicksilver is now 10.6+ (Snow Leopard or highers) only
+  
+  * NEW: New Quicksilver icon thanks to [Dan Deming-Henes](http://strandeddesign.com) (Issue #383)
+  
+  * NEW: vi bindings in command interface (⌃h, ⌃j, ⌃k, ⌃l) (Issue #368)
+  
+  * NEW: Paste as Plain text action (Issue #230)
+  
+  * NEW: Quicksilver now stores RTF and HTML data for URLs, allowing more versatile pasting into Rich Text Editors (Issue #439)
+  
+  * NEW: New UI Agent. Fixes for remote plugin fetching (Issue #355, #374)
+  
+  * NEW: Added the ability for AppleScripts to use indirect (3rd pane) objects (Issue #366)
+  
+  * FIX: Drag multiple files onto 1st pane folder correctly 'moves' the files (rif residing on the same filesystem) (Issue #508)
+  
+  * FIX: Closing the Command window in the Triggers Pref pane could cause sporadic behaviour (Issue #89, #350)
+  
+  * FIX: Crash on image creation (unretained) (Issue #500)
+  
+  * FIX: Small interface changes for Lion compatibility (Issues #391, #411)
+  
+  * FIX: Docking window fixes to stop it sporadicaly appearing (Issue #321)
+  
+  * FIX: Latest Downloads proxy to show packages (e.g. .app, .pages) (Issue	#443)
+  
+  * FIX: Crash wihen rendering fonts in Quicksilver's 1st pane (Issue #386)
+  
+  * FIX: Display of plugin icons in the icons prefs (Issue #410)
+  
+  * FIX: Simlinks are correctly displayed and resolved (Issue #288, #351)
+  
+  * FIX: Assigning more reliable assignment of URL objects (Issue #370)
+  
+  * FIX: Plugin preference pane now displays the date in localised format (e.g. EU: dd/mm/yyy, US: mm/d/yy) (Issue #373)
+  
+  * FIX: Many more small fixes and changes, see the [commit history](https://github.com/quicksilver/Quicksilver/commits/master) for more detail
+  
+  * FIX: Split view fixes. Specify a (non-zero) default size to avoid confusion, and fix 'requires relaunch' prompt (Issue #349)
+  
+  * FIX: Allow QS's built-in browser to browse more URLs (PHP URLs ending in ?...) (Issue #379)
+  
+  * FIX: Re-evoking Quicksilver could cause the 1st pane object to be mistaken as the 3rd pane object (Issue #384)
+  
+  * FIX: Asynchronous icon loading is now more reliable, doesn't cause actions to reload (Issue #338, #339, #388)
+  
+  * FIX: Trash sound on Lion (Issue #389)
+  
+  * FIX: Current proxy object now works with multiple files (Issue #210)
+  
+  * FIX: Display the correct label for objects (Issue #405)
+  
+  * FIX: Avoid storing of useless mnemonics that clog up Quicksilver's Application Support folder (Issue #446)
+  
+  * FIX: Bug in the HTML parser when dealing with stangely-formatted links (Issue #345)
+  
+  * FIX: Fixed the trigger (null) bugs where objects were not saved to the catalog (Issue #27)
+  
+  * FIX: Encoding warnings in the console (Issue #403)
+  
+  * FIX: Bezel interface displaying on all spaces (Issue #358, #387)
+    
+  * CHANGE: Simplified splitObjects method: now the recommended method for plugin developers using the comma trick (Issue #422)
+  
+  * CHANGE: Method for determining IP Addresses is more thorough, only recognising a.b.c.d (where a,b,c,d are numbers of 1-3 digits only (Issue #455)
+  
+  * CHANGE: Xcodeproj now creates a .dmg on 'Release' building (Issue #496)
+  
+  * CHANGE: Renamed the 'Paste with Clipboard' action to simply 'Paste' (Issue #439)
+  
+  * CHANGE: Improved the stringValue method to return more reliable info (Issue #424)
+  
+  * CHANGE: Improved reliability of sniffing file path strings and turning them into file objects (Issue #430)
+  
+  * CHANGE: Removed #def DEBUG definitions from code, cleaning up the release version of Quicksilver. Speed improvements (Issue #334)
+  
+  * CHANGE: Small change to debug builds of Quicksilver and its dock itcon to make debugging easier (Issue #381)
+  
+  * CHANGE: Removed OS9 Applications catalog preset (Issue #384)
+  
+  * CHANGE: Minor changes to the way Quicksilver loads and saves plugins (Issue #352)
+  
+  * CHANGE: Interface classes to allow for further font customisation in interfaces (Issue #363)
+  
+  * CHANGE: Further improvements to the latest download proxy. More reliable and displays packages (Issues #377, #443)
+  
+  * CHANGE: Changes for Xcode 4 compatibility (Issue #444)
+  
+  * PLUGIN: Small fix for Constellation interface (Issue #239)
+  
+  * PLUGIN: Menu Interface fix for Mac OS X Lion (Issue #436)
+  
+  * PLUGIN: Various 1Password plugin fixes
+  
+  * PLUGIN: Fixes and improvements to the TextStart Ranker (Formely TextMate Ranker) (Issue #359, #376)
+  
+  * PLUGIN: New current document proxy object in the UI Access plugin (Issue #62)
+  
+  * PLUGIN: Terminal plugin fixes: Only open 1 Terminal window, improved actions
+  
+  * PLUGIN: NEW Microsoft Office plugin. Allows right arrowing into Office apps for recent documents
+  
+  * PLUGIN: Growl plugin update to make use of the latest framework
+  
+  * PLUGIN: Airport module rewrite for Mac OS X Snow Leopard and above
+  
+  * PLUGIN: Improvements to the calculator plugin. Now displays the results in realtime
+  
+
+Changes - ß60 (3850)
+-------
+
   * PLUGIN: Items labelled with this tag are for new/updated plugins available from http://qsapp.com/plugins
 
   * NEW: Search by file extension. e.g. type 'mp3' will show you all .mp3s (or files with mp3 in the name)
