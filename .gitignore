@@ -16,3 +16,4 @@ autom4te.cache
 Developer.xcconfig
 *.xcworkspace
 *.xcuserdatad
+Quicksilver*.dmg
