@@ -188,6 +188,7 @@ id QSPrefs;
 - (BOOL)windowShouldClose:(id)sender {
 	//		NSLog(@"shouldClose");
 	[[NSUserDefaults standardUserDefaults] synchronize];
+	[(NSPreferencePane *)currentPane willUnselect];
 	return YES;
 }
 
