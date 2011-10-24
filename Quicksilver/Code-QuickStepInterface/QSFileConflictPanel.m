@@ -14,8 +14,7 @@
 	QSImageAndTextCell *imageAndTextCell = [[QSImageAndTextCell alloc] init];
 	[imageAndTextCell setEditable:YES];
 	[imageAndTextCell setWraps:NO];
-	if ([(QSApp*)NSApp devLevel])
-		[smartReplaceButton setHidden:0];
+	[smartReplaceButton setHidden:0];
 	[[[nameTable tableColumns] objectAtIndex:0] setDataCell:imageAndTextCell];
 	[imageAndTextCell release];
 }

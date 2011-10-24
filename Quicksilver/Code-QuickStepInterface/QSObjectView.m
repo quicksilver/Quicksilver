@@ -262,7 +262,7 @@
 		cursor = [NSCursor informativeCursorWithString:@"Select"];
 		[cursor set];
 		[[self cell] setHighlighted:NO];
-	} else if (fDEV && [[NSApp currentEvent] modifierFlags] & NSControlKeyMask) {
+	} else if ([[NSApp currentEvent] modifierFlags] & NSControlKeyMask) {
 		cursor = [NSCursor informativeCursorWithString:@"Choose Action..."];
 		[cursor performSelector:@selector(set) withObject:nil afterDelay:0.0];
 		operation = NSDragOperationPrivate;
@@ -293,7 +293,7 @@
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
 	NSString *action = [[self objectValue] actionForDragOperation:lastDragMask withObject:draggedObject];
 
-	if (fDEV && [[NSApp currentEvent] modifierFlags] & NSControlKeyMask) {
+	if ([[NSApp currentEvent] modifierFlags] & NSControlKeyMask) {
         if ([[[self objectValue] resolvedObject] respondsToSelector:@selector(actionsMenu)]) {
             NSMenu *actionsMenu = [[[self objectValue] resolvedObject] performSelector:@selector(actionsMenu)];
             [NSMenu popUpContextMenu:actionsMenu withEvent:[NSApp currentEvent] forView:self];

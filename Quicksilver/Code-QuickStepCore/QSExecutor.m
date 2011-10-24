@@ -510,16 +510,6 @@ QSExecutor *QSExec = nil;
         NSDictionary *actionDict;
         for (NSString *key in info) {
             actionDict = [info objectForKey:key];
-            if ([[actionDict objectForKey:kItemFeatureLevel] intValue] > [NSApp featureLevel]) {
-                NSString * actionIdentifier = [actionDict objectForKey:kItemID];
-                if (!actionIdentifier) {
-                    NSLog(@"Prevented load of unidentified action from bundle %@ because the action's featureLevel (set from its Info.plist) is higher than NSApp's current featureLevel. This is not neccessarily an error. Sometimes this mechanism is used to prevent unstable actions from loading.", [[bundle bundlePath] lastPathComponent]);
-                } else {
-                    NSLog(@"Prevented load of action %@ because it's featureLevel (set from its Info.plist) is higher than NSApp's current featureLevel. This is not neccessarily an error. Sometimes this mechanism is used to prevent unstable actions from loading.", actionIdentifier);
-                }
-                continue;
-            }
-            
             QSAction *action = [QSAction actionWithDictionary:actionDict identifier:key];
             [action setBundle:bundle];
             

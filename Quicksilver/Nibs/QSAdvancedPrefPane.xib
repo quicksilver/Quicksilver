@@ -1012,22 +1012,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: alphaLevel</string>
-						<reference key="source" ref="871246652"/>
-						<reference key="destination" ref="383475829"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="871246652"/>
-							<reference key="NSDestination" ref="383475829"/>
-							<string key="NSLabel">enabled: alphaLevel</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">alphaLevel</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">156</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: values.QSUseGlobalSelectionForGrab</string>
 						<reference key="source" ref="814411778"/>
 						<reference key="destination" ref="1065059559"/>
@@ -1041,22 +1025,6 @@
 						</object>
 					</object>
 					<int key="connectionID">159</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: alphaLevel</string>
-						<reference key="source" ref="814411778"/>
-						<reference key="destination" ref="383475829"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="814411778"/>
-							<reference key="NSDestination" ref="383475829"/>
-							<string key="NSLabel">enabled: alphaLevel</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">alphaLevel</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">161</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">

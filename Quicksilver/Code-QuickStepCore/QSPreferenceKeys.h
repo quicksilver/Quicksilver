@@ -14,8 +14,6 @@ Following lines are no longer used in this project.
 #define kHotKeyCode @"HotKey Code"
 #define kHotKeyModifiers @"HotKey Modifiers"
 #define kUseEffects @"Use Effects"
-#define kCuttingEdgeFeatures @"Cutting Edge Features"
-#define kFeatureLevel @"Feature Level"
 #define kShowReleaseNotesOnUpgrade @"Show Release Notes on Upgrade"
 
 #define kSetupAssistantCompleted @"Setup Assistant Completed"

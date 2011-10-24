@@ -110,18 +110,6 @@ NSDictionary *enabledPresetDictionary;*/
 	return object;
 }
 
-
-
-- (BOOL)isRestricted {
-#ifdef DEBUG
-	return NO;
-#endif
-	NSString *sourceType = [info objectForKey:kItemSource];
-	if ([sourceType isEqualToString:@"QSGroupObjectSource"] || [QSReg sourceNamed:sourceType])
-		return [NSApp featureLevel] < [[info objectForKey:kItemFeatureLevel] intValue];
-	return YES;
-}
-
 - (BOOL)isSuppressed {
 #ifdef DEBUG
 	return NO;
@@ -196,9 +184,7 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (BOOL)isEnabled {
-	if ([self isRestricted])
-		return NO;
-	else if ([self isPreset]) {
+	if ([self isPreset]) {
 		NSNumber *value;
 		if (value = [[QSLibrarian sharedInstance] presetIsEnabled:self])
 			return [value boolValue];
@@ -206,8 +192,9 @@ NSDictionary *enabledPresetDictionary;*/
 			return [value boolValue];
 		// ***warning  * this is just a little silly...
 		return YES;
-	} else
+	} else {
 		return [[info objectForKey:kItemEnabled] boolValue];
+	}
 }
 
 - (void)setEnabled:(BOOL)enabled {
@@ -232,14 +219,7 @@ NSDictionary *enabledPresetDictionary;*/
 	NSMutableArray *children2 = [children copy];
 	for(QSCatalogEntry * child in children2) {
 		if ([child isSeparator]) break; //Stop when at end of presets
-		if ([child isRestricted]) {
-			
-#ifdef DEBUG
-			if (DEBUG_CATALOG) NSLog(@"Disabling Preset:%@", [child identifier]);
-#endif
-			
-			[children removeObject:child];
-		} else if (![[NSUserDefaults standardUserDefaults] boolForKey:@"Show All Catalog Entries"] && [child isSuppressed]) {
+		if (![[NSUserDefaults standardUserDefaults] boolForKey:@"Show All Catalog Entries"] && [child isSuppressed]) {
 			
 #ifdef DEBUG
 			if (DEBUG_CATALOG) NSLog(@"Suppressing Preset:%@", [child identifier]);

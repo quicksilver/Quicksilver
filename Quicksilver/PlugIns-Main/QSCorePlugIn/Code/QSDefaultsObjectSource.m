@@ -18,24 +18,21 @@
 #define kDefaultsObjectSourceKeyList @"keypath"
 #define kDefaultsObjectSourceType @"type"
 #import "QSVoyeur.h"
-#import "QSFeatureLevel.h"
 
 @implementation QSDefaultsObjectSource
 
-- (BOOL)isVisibleSource { return fALPHA; }
+- (BOOL)isVisibleSource { return YES; }
 - (BOOL)usesGlobalSettings { return NO; }
 
 - (void)enableEntry:(QSCatalogEntry *)entry {
-	if (fALPHA){
-		NSMutableDictionary *settings = [[entry info] objectForKey:kItemSettings];
-		if ([[settings objectForKey:@"watchTarget"] boolValue]) {
-			NSString *path = [self prefFileForBundle:[settings objectForKey:kDefaultsObjectSourceBundleID]];
-			[[QSVoyeur sharedInstance] addPathToQueue:path notifyingAbout:UKKQueueNotifyAboutDelete | UKKQueueNotifyAboutWrite];
+	NSMutableDictionary *settings = [[entry info] objectForKey:kItemSettings];
+	if ([[settings objectForKey:@"watchTarget"] boolValue]) {
+		NSString *path = [self prefFileForBundle:[settings objectForKey:kDefaultsObjectSourceBundleID]];
+		[[QSVoyeur sharedInstance] addPathToQueue:path notifyingAbout:UKKQueueNotifyAboutDelete | UKKQueueNotifyAboutWrite];
 #ifdef DEBUG
-			if (VERBOSE) NSLog(@"Watching Path %@", path);
+		if (VERBOSE) NSLog(@"Watching Path %@", path);
 #endif
-			[[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:entry selector:@selector(invalidateIndex:) name:nil object:path];
-		}
+		[[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:entry selector:@selector(invalidateIndex:) name:nil object:path];
 	}
 }
 

@@ -220,30 +220,6 @@
 		[NSApp requestRelaunch:nil];
 }
 
-- (int) featureLevel {
-	if (newFeatureLevel) return newFeatureLevel;
-	else return [NSApp featureLevel];
-}
-
-- (void)setFeatureLevel:(id)level {
-	int newLevel = [level intValue];
-	newFeatureLevel = newLevel;
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	if (newLevel == 1 && (GetCurrentKeyModifiers() & (optionKey | rightOptionKey) )) {
-        newLevel++;
-        NSBeep();
-    } 
-    if (newLevel == 2 && (GetCurrentKeyModifiers() & (shiftKey | optionKey | rightOptionKey))) {
-		newLevel++;
-		NSBeep();
-		[defaults setBool:YES forKey:kCuttingEdgeFeatures];
-	}
-	[defaults setInteger:newLevel forKey:kFeatureLevel];
-	[defaults synchronize];
-	if (newLevel != [NSApp featureLevel])
-		[NSApp requestRelaunch:nil];
-}
-
 - (IBAction)checkNow:(id)sender {
 	[[QSUpdateController sharedInstance] threadedRequestedCheckForUpdate:sender];
 }

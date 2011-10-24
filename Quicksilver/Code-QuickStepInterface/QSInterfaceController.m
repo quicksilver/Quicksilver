@@ -76,8 +76,7 @@
 	[nc addObserver:self selector:@selector(objectIconModified:) name:QSObjectIconModified object:nil];
 	[nc addObserver:self selector:@selector(searchObjectChanged:) name:@"SearchObjectChanged" object:nil];
 	[nc addObserver:self selector:@selector(appChanged:) name:QSActiveApplicationChanged object:nil];
-    if (fALPHA)
-        [QSHistoryController sharedInstance];
+	[QSHistoryController sharedInstance];
 	return self;
 }
 
@@ -591,8 +590,7 @@
 		[NSThread detachNewThreadSelector:@selector(executeCommandThreaded) toTarget:self withObject:nil];
 	else
 		[self executeCommandThreaded];
-	if (fALPHA)
-		[QSHist addCommand:[self currentCommand]];
+	[QSHist addCommand:[self currentCommand]];
 	[dSelector saveMnemonic];
  	[aSelector saveMnemonic];
 	if (argumentCount == 2) {

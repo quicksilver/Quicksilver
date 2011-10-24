@@ -16,8 +16,6 @@
 
 #import "NSBundle_BLTRExtensions.h"
 
-#import "QSFeatureLevel.h"
-
 #if 0
 @implementation QSEncapsulatedTextCell
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
@@ -278,7 +276,6 @@
 }
 
 - (void)enableEntry:(QSCatalogEntry *)entry {
-	if (!fALPHA) return;
 	NSMutableDictionary *settings = [[entry info] objectForKey:kItemSettings];
 	NSString *path = [self fullPathForSettings:settings];
 	NSNotificationCenter *wsNotif = [[NSWorkspace sharedWorkspace] notificationCenter];
@@ -300,7 +297,6 @@
 }
 
 - (void)disableEntry:(QSCatalogEntry *)entry {
-	if (!fALPHA) return;
 	NSMutableDictionary *settings = [[entry info] objectForKey:kItemSettings];
 	NSString *path = [self fullPathForSettings:settings];
 	if ([[settings objectForKey:@"watchTarget"] boolValue]) {

@@ -111,20 +111,10 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	if (bundle) name = [bundle objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
 	if (!name) name = [data objectForKey:(NSString *)kCFBundleNameKey];
 
-	int feature = [[[self info] valueForKeyPath:@"QSRequirements.feature"] intValue];
-
 #ifdef DEBUG
 	if ([name hasSuffix:@" Module"]) name = [name substringToIndex:[name length] -7];
 #endif
-	
-	if (feature == 1) {
-		name = [name stringByAppendingFormat:@" (+) ", 0x25B8];
-	} else if (feature == 2) {
-		name = [name stringByAppendingFormat:@" (%C) ", 0x03B2];
-	} else if (feature>2) {
-		name = [name stringByAppendingFormat:@" (%C) ", 0x03B1];
-	}
-	
+		
 #ifdef DEBUG
 	if (!data) {
 		name = [name stringByAppendingFormat:@" - Private", 0x03B1];
@@ -274,7 +264,6 @@ NSMutableDictionary *plugInBundlePaths = nil;
 - (BOOL)isRecommended {
 	if ([[[self info] valueForKeyPath:@"QSPlugIn.recommended"] boolValue]) return YES;
 	if ([self isInstalled] >0) return NO;
-	if (![self meetsFeature]) return NO;
 	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
 	NSArray *related = [self relatedBundles];
 	//if (!related) return YES;
@@ -394,10 +383,6 @@ NSMutableDictionary *plugInBundlePaths = nil;
 - (BOOL)isHidden {
 	if (bundle == [NSBundle mainBundle]) return YES;
 	return [[[self info] valueForKeyPath:@"QSPlugIn.hidden"] boolValue];
-}
-- (BOOL)meetsFeature {
-	//return YES; // Override this for now
-	return [[[self info] valueForKeyPath:@"QSRequirements.feature"] intValue] <= [NSApp featureLevel];
 }
 
 - (int) isLoaded {return loaded;}
@@ -592,12 +577,6 @@ NSMutableDictionary *plugInBundlePaths = nil;
 				return NO;
 			}
 		}
-
-//		int feature = [[requirementsDict objectForKey:@"feature"] intValue];
-//		if (feature>[NSApp featureLevel]) {
-//			if (error) *error = @"Feature Level not Met";
-//			return NO;
-//		}
 	}
 	return YES;
 }
