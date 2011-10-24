@@ -16,6 +16,7 @@
 #import "QSNotifications.h"
 #import "NSString+NDUtilities.h"
 #import "NSException_TraceExtensions.h"
+#import "QSDefines.h"
 
 //static
 NSMutableDictionary *plugInBundlePaths = nil;
@@ -704,7 +705,13 @@ NSMutableDictionary *plugInBundlePaths = nil;
 }
 
 - (BOOL)registerPlugIn {
-
+	
+	// Used for crash purposes
+	NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
+	[defaults setObject:[[self info] objectForKey:@"CFBundleName"] forKey:kQSPluginCausedCrashAtLaunch];
+	[defaults setObject:[[self bundle] bundlePath] forKey:kQSFaultPluginPath];
+	[defaults synchronize];
+	
 	//NSLog(@"%s", __PRETTY_FUNCTION__) ;
 	NS_DURING
 		[self _registerPlugIn];
@@ -718,6 +725,12 @@ NSMutableDictionary *plugInBundlePaths = nil;
 #endif
 		[self setLoadError:[localException reason]];
 	NS_ENDHANDLER
+	
+	[defaults removeObjectForKey:kQSPluginCausedCrashAtLaunch];
+	[defaults removeObjectForKey:kQSFaultPluginPath];
+	[defaults synchronize];
+	[defaults release];
+	
 	return YES;
 }
 
