@@ -13,7 +13,7 @@
 # 
 #
 #
-#   PRE-REUQISITS
+#   PRE-REQUISITS
 #   This is a ruby script that requires the time, trollop, fileutils,
 #   pp and rest-client gems. Install them using e.g.
 #   `sudo gem install rest-client`
@@ -24,12 +24,13 @@
 #
 #
 #   USAGE
-#   Simply just use ruby -rubygems ./qs-push-plugin -p PASSWORD ./File.qsplugin
+#   Simply use ruby -rubygems ./qs-push-plugin ./File.qsplugin
 #   to push a single file, or replace ./File.qsplugin with ./* to upload all in a folder
 #
-#   BUGS
-#   Uploading an updated plugin with this script does not delete the old on
-#   This must be done from within the web interface.
+#
+#   This script has not been updated to work with application (.dmg) type files yet.
+#   For these, you should use the online interface at qs0.qsapp.com/plugins/admin/add.php
+#
 #
 ######################################################################
 
