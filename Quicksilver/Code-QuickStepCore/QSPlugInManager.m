@@ -22,6 +22,8 @@
 
 #import "NSException_TraceExtensions.h"
 
+#import "QSDefines.h"
+
 #define pPlugInInfo QSApplicationSupportSubPath(@"PlugIns.plist", NO)
 #define MAX_CONCURRENT_DOWNLOADS 2
 
@@ -401,6 +403,30 @@
 	NSDate *date = [NSDate date];
 #endif
 	
+	// Check to see if QS crashed whilst previously loading a plugin (registerPlugin method)
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString *pluginName = [defaults objectForKey:kQSPluginCausedCrashAtLaunch];
+	if (pluginName) {
+		NSAlert *alert = [[NSAlert alloc] init];
+		[alert setMessageText:@"Quicksilver crashed on launch"];
+		NSString *informativeText = [NSString stringWithFormat:@"Quicksilver crashed due to the %@ plugin not loading correctly.\nDo you wish to delete this plugin to launch Quicksilver?", pluginName];
+		[alert setInformativeText:informativeText];
+		[alert addButtonWithTitle:@"OK"];
+		[alert addButtonWithTitle:@"Cancel"];
+		[alert setAlertStyle:NSCriticalAlertStyle];
+		if ([alert runModal] == NSAlertFirstButtonReturn) {
+			// If user says 'OK', attempt to delete the faulty plugin
+			NSString *faultyPluginPath = [defaults objectForKey:kQSFaultPluginPath];
+			if (faultyPluginPath) {
+				NSFileManager *fm = [[NSFileManager alloc] init];
+				if (![fm removeItemAtPath:faultyPluginPath error:nil]) {
+					NSLog(@"Error removing faulty plugin. Continuing to attempt a launch");
+				}
+			}
+		}
+	}
+	
+	
 	// load main bundle
 	[[QSPlugIn plugInWithBundle:[NSBundle mainBundle]]registerPlugIn];
 
@@ -441,11 +467,12 @@
 	[self checkForUnmetDependencies];
 	[self suggestOldPlugInRemoval];
 	
+	startupLoadComplete = YES;
+	
 #ifdef DEBUG
-	if (DEBUG_STARTUP) NSLog(@"PlugIn Load Complete (%dms) ", (int)(-[date timeIntervalSinceNow] *1000));
+	NSLog(@"PlugIn Load Complete (%dms) ", (int)(-[date timeIntervalSinceNow] *1000));
 #endif
 	
-	startupLoadComplete = YES;
 }
 
 #define appSupportSubpath @"Application Support/Quicksilver/PlugIns"
@@ -467,21 +494,16 @@
         }
         
 		[bundleSearchPaths addObject:QSApplicationSupportSubPath(@"PlugIns", NO)];
-		[bundleSearchPaths addObject:[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent]];
-		[bundleSearchPaths addObject:[[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"PlugIns"]];
-		[bundleSearchPaths addObject:[[[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Embedded/PlugIns"]];
-		[bundleSearchPaths addObject:[[NSFileManager defaultManager] currentDirectoryPath]];
-		[bundleSearchPaths addObject:[[[NSFileManager defaultManager] currentDirectoryPath] stringByAppendingPathComponent:@"PlugIns"]];
-		[bundleSearchPaths addObject:[[[NSFileManager defaultManager] currentDirectoryPath] stringByAppendingPathComponent:@"Embedded/PlugIns"]];
 		//[bundleSearchPaths addObject:[[[NSFileManager defaultManager] currentDirectoryPath] stringByAppendingPathComponent:@"PrivatePlugIns"]];
 
 		NSArray *paths = [[NSUserDefaults standardUserDefaults] arrayForKey:@"QSAdditionalPlugInPaths"];
-		paths = [paths valueForKey:@"stringByStandardizingPath"];
-		[bundleSearchPaths addObjectsFromArray:paths];
+		if(paths) {
+			paths = [paths valueForKey:@"stringByStandardizingPath"];
+			[bundleSearchPaths addObjectsFromArray:paths];
+		}
 
-		[bundleSearchPaths addObject:[[[NSFileManager defaultManager] currentDirectoryPath] stringByAppendingPathComponent:@"PrivatePlugIns"]];
 	}
-
+	
 	for (NSString *currPath in bundleSearchPaths) {
 		NSString *curPlugInPath = nil;
         NSArray *dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:currPath error:nil];
