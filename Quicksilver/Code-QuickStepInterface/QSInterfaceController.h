@@ -20,7 +20,6 @@
 	IBOutlet QSMenuButton *menuButton;
     
 	NSTimer *hideTimer;
-	NSTimer *actionsUpdateTimer;
 	BOOL hidingWindow;
 	BOOL preview;
 }
@@ -84,8 +83,6 @@
 - (NSProgressIndicator *)progressIndicator;
 
 - (NSSize)maxIconSize;
-
-- (void)fireActionUpdateTimer;
 
 // set to YES to prevent hiding, no to allow hiding again.
 - (BOOL)hiding;

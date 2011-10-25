@@ -1102,7 +1102,7 @@ NSMutableDictionary *bindingsDict = nil;
 	[[self window] makeFirstResponder:[self actionSelector]];
 	// ***warning  * toggle first responder on key up
     
-	[[self controller] fireActionUpdateTimer];
+	[[self controller] updateActionsNow];
 	[[self actionSelector] keyDown:theEvent];
 	return YES;
 }
