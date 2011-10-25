@@ -85,11 +85,8 @@
 		[actionsUpdateTimer invalidate];
 	if([hideTimer isValid])
 		[hideTimer invalidate];
-	if([clearTimer isValid])
-		[clearTimer invalidate];
 	[actionsUpdateTimer release];
 	[hideTimer release];
-	[clearTimer release];
 	//[progressIndicator release];
 	//[iSelector release];
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -439,15 +436,6 @@
 	}
 }
 
-- (void)setClearTimer {
-	if ([clearTimer isValid]) {
-		[clearTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:10*MINUTES]];
-	} else {
-		[clearTimer release];
-		clearTimer = [[NSTimer scheduledTimerWithTimeInterval:10*MINUTES target:self selector:@selector(clear:) userInfo:nil repeats:NO] retain];
-	}
-}
-
 - (void)clear:(NSTimer *)timer {
 	[dSelector clearObjectValue];
 	[self updateActionsNow];
@@ -488,7 +476,6 @@
 	if ([[self window] attachedSheet] == window)
 		return;
 	if (window == [self window]) {
-	 	[clearTimer invalidate];
 		[hideTimer invalidate];
 	} else if ([[notification object] level] <= [[self window] level]) {
 		//NSLog(@"hide! %@", window);
@@ -721,7 +708,6 @@
 
 - (IBAction)hideWindows:(id)sender {
 	[self hideMainWindow:self];
-	[self setClearTimer];
 }
 
 - (IBAction)showTasks:(id)sender {
