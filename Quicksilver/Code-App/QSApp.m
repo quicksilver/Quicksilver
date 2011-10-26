@@ -55,14 +55,9 @@ BOOL QSApplicationCompletedLaunch = NO;
 		for (i = 0; !kill(pid, 0) && i<50; i++) usleep(100000);
 	}
 	if ((self = [super init])) {
-		if (![NSApplication isSnowLeopard]) {
-			NSBundle *appBundle = [NSBundle mainBundle];
-			NSRunAlertPanel([[appBundle objectForInfoDictionaryKey:@"CFBundleName"] stringByAppendingString:@" requires Mac OS X 10.6+"] , @"Recent versions of Quicksilver require Mac OS 10.6 Snow Leopard. Older 10.5, 10.4 and 10.3 compatible versions are available from the http://qsapp.com.", @"OK", nil, nil, [appBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]);
-			[self terminate:self];
-		}
 
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        
 	// Honor dock hidden preference if new version
 	isUIElement = [self shouldBeUIElement];
 	if (!isUIElement && [defaults boolForKey:kHideDockIcon]) {
