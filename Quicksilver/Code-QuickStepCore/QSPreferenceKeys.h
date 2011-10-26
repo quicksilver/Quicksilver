@@ -60,3 +60,10 @@ Following lines are no longer used in this project.
 #define kQSAppearance3T @"QSAppearance3T"
 
 #define kResultTableSplit @"Result Table Split Width"
+
+#define kQSQuitGracefully @"QSQuitGracefully"
+
+// Name of the faulty plugin that caused Quicksilver to crash (for user alert)
+#define kQSPluginCausedCrashAtLaunch @"QSFaultyPluginName"
+// Path of faulty plugin (for deletion purposes)
+#define kQSFaultyPluginPath @"QSFaultyPluginPath"
