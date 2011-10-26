@@ -64,14 +64,15 @@
 		selectedRow = -1;
 		//	[self setSort:[[[NSSortDescriptor alloc] initWithKey:@"command" ascending:YES] autorelease]];
 		//		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectTrigger:) name:NSOutlin object:triggerTable];
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(triggerChanged:) name:QSTriggerChangedNotification object:nil];
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(populateTypeMenu) name:QSPlugInLoadedNotification object:nil];
-
+		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+		[nc addObserver:self selector:@selector(triggerChanged:) name:QSTriggerChangedNotification object:nil];
+		[nc addObserver:self selector:@selector(populateTypeMenu) name:QSPlugInLoadedNotification object:nil];
 		commandEditor = [[QSCommandBuilder alloc] init];
 		[self setCurrentSet:@"Custom Triggers"];
 	}
 	return self;
 }
+
 - (void)paneLoadedByController:(id)controller {
 	[optionsDrawer setParentWindow:[controller window]];
 	[optionsDrawer setLeadingOffset:48];
@@ -81,6 +82,7 @@
 }
 
 - (void)willUnselect {
+	[[QSTriggerCenter sharedInstance] writeTriggers];
     [optionsDrawer close];
 }
 - (int)tabViewIndex {
@@ -357,23 +359,19 @@
 	return [[[NSWorkspace sharedWorkspace] launchedApplications] valueForKey:@"NSApplicationName"];
 }
 
+// Enabling/disabling of the 'edit' button is done programmatically within the outlineClicked: method
 - (IBAction)editCommand:(id)sender {
-    // !!!:paulkohut:20100311
-    // if trigger is selected then edit the triggers command properties.  Otherwise ignore
-    // edit button press.  Note, this should be handled by the UI to disable the edit button
-    // if a trigger is not selected, however I could not find where to do in the code.
-
-    // [self editTriggerCommand:selectedTrigger callback:@selector(addSheetDidEnd:returnCode:contextInfo:)];
-
-    if([self selectedTrigger])
-        [self editTriggerCommand:selectedTrigger callback:@selector(editSheetDidEnd:returnCode:contextInfo:)];
+	[self editTriggerCommand:selectedTrigger callback:@selector(editSheetDidEnd:returnCode:contextInfo:)];
 }
+
 
 - (IBAction)showTriggerInfo:(id)sender {
     [optionsDrawer open:sender];
 }
 
+// Called when a trigger's info panel is closed
 - (IBAction)hideTriggerInfo:(id)sender {
+	[[QSTriggerCenter sharedInstance] triggerChanged:selectedTrigger];
     [optionsDrawer close:sender];    
 }
 
@@ -453,7 +451,6 @@
 }
 
 - (IBAction)editTrigger:(id)sender {
-	NSLog(@"edit");
 	if ([triggerTable selectedRow] >= 0) {
 		[self editTriggerCommand:[triggerArray objectAtIndex:[triggerTable selectedRow]] callback:@selector(editSheetDidEnd:returnCode:contextInfo:) ];
 	}
@@ -480,7 +477,9 @@
 }
 
 - (IBAction)outlineClicked:(id)sender {
+	// User has deselected a row
     if( [triggerTable clickedColumn] == -1 ) {
+		[editButton setEnabled:NO];
 #ifdef DEBUG
 		NSLog(@"%@ with column == -1", NSStringFromSelector(_cmd));
 #endif
@@ -506,6 +505,7 @@
 		}
 	}
 	selectedRow = [triggerTable clickedRow];
+	[editButton setEnabled:YES];
 }
 
 - (void)updateTriggerArray {
@@ -858,15 +858,20 @@
 	}
 }
 
+
 - (NSString *)tokenField:(NSTokenField *)tokenField editingStringForRepresentedObject:(id)representedObject {
 	NSString *path = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:representedObject];
 	return [[path lastPathComponent] stringByDeletingPathExtension];
 }
+
+// The method called when the token field (e.g. the 'scope' field completes/creates a new token
 - (NSString *)tokenField:(NSTokenField *)tokenField displayStringForRepresentedObject:(id)representedObject {
 	NSString *path = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:representedObject];
+	[[QSTriggerCenter sharedInstance] triggerChanged:selectedTrigger];
 	return [[path lastPathComponent] stringByDeletingPathExtension];
 }
 
+// The method called to find a representation for the entered string in the token field
 - (id)tokenField:(NSTokenField *)tokenField representedObjectForEditingString:(NSString *)editingString {
 	NSString *path = [[NSWorkspace sharedWorkspace] fullPathForApplication:editingString];
     return [[NSBundle bundleWithPath:path] bundleIdentifier];

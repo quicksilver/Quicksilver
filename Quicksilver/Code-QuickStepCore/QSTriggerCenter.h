@@ -28,10 +28,13 @@
 //-(BOOL)disableTrigger:(QSTrigger *)entry;
 - (void)triggerChanged:(QSTrigger *)trigger;
 - (void)activateTriggers;
+- (void)interfaceActivated;
+- (void)interfaceDeactivated;
 - (BOOL)executeTrigger:(QSTrigger *)trigger;
 - (BOOL)executeTriggerID:(NSString *)triggerID;
 - (QSTrigger *)triggerWithID:(NSString *)ident;
 - (void)writeTriggers;
+- (void)writeTriggersNow;
 - (NSMutableDictionary *)triggersDict;
 - (void)setTriggersDict:(NSMutableDictionary *)newTriggersDict;
 - (NSMutableArray *)triggers;

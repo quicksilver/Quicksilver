@@ -1,0 +1,148 @@
+#!/usr/bin/env ruby
+# encoding: UTF-8
+
+#####################################################################
+# 
+#         Quicksilver Plugin Upload Script
+#         Created by Etienne Samson
+# 
+#   This script is intended to be used to interface with the online
+#   plugins system. It makes uploading and managing of plugins easier,
+#   without the need to go through the web interface. For use, please
+#   see the PRE-REQUISITS below
+# 
+#
+#
+#   PRE-REQUISITS
+#   This is a ruby script that requires the time, trollop, fileutils,
+#   pp and rest-client gems. Install them using e.g.
+#   `sudo gem install rest-client`
+#
+#   fileutils requires rmagick which in turn requires libmagick.
+#   p_j_r found using 'homebrew' the easiest way to install libmagick
+#   With these gems installed, the script should run without problems.
+#
+#
+#   USAGE
+#   Simply use ruby -rubygems ./qs-push-plugin ./File.qsplugin
+#   to push a single file, or replace ./File.qsplugin with ./* to upload all in a folder
+#
+#
+#   This script has not been updated to work with application (.dmg) type files yet.
+#   For these, you should use the online interface at qs0.qsapp.com/plugins/admin/add.php
+#
+#
+######################################################################
+
+require 'time'
+require 'trollop'
+require 'fileutils'
+require 'pp'
+require 'rest-client'
+
+
+DEFAULT_USER = "qs"
+DEFAULT_HOST = "http://qs0.qsapp.com"
+
+# Argument can be an array of paths to bundles/archives, a single path to a bundle or nothing
+options = Trollop::options do
+  banner "Usage: qs-push-plugin [-h|--help] [ARGS]"
+  text "ARGS can be one or more paths to either .qspkg archives or .qsplugin bundles"
+  text ""
+  text "Options:"
+  opt :help, "Show this message", :short => "-h"
+  opt :user, "User to login as", :default => DEFAULT_USER, :short => "-u"
+  opt :password, "Password to use (will be asked if missing)", :type => :string, :short => "-p"
+  opt :host, "Push to a specific host. The default is #{DEFAULT_HOST}", :default => DEFAULT_HOST
+end
+
+files = ARGV
+
+type_regexp = /\.qsp[lugin|kg]/
+file_matcher = Proc.new {|file| File.extname(file) =~ type_regexp }
+case files
+when String then
+  files = [files]
+when Array then
+  files = files.select &file_matcher
+else
+  files = Dir.glob("*")
+  files = files.select &file_matcher
+end
+
+unless options[:password]
+   print "Password for user \"#{options[:user]}\": "
+   options[:password] = STDIN.gets.chomp
+end
+
+# 
+# puts options.inspect
+# puts files.inspect
+# exit
+
+# Now push those plugins !
+
+api_url = "#{options[:host]}/plugins/admin/add.php"
+api = RestClient::Resource.new api_url, :user => options.user, :password => options.password
+archive_dir = File.join("/","var", "tmp", "qs-push-plugin")
+
+puts "Submitting #{files.join ", "} to #{api_url}"
+begin
+  files.each do |file|
+    unless File.exists?(file)
+      puts "File not found: \"#{file}\""
+      next
+    end
+
+    # build arguments
+    args = {
+      :submit => "New",
+      :plugin_archive_file => nil,
+      :info_plist_file => nil,
+      :mod_date => nil
+    }
+    case File.extname(file)
+    when ".qspkg" then
+      parts = file.split(".")
+      parts.pop
+      parts.push "qsinfo"
+      info = parts.join "."
+      args[:plugin_archive_file] = File.new(file)
+      args[:info_plist_file] = File.new(info)
+      args[:mod_date] = args[:plugin_archive_file].mtime
+      args[:import] = true
+    when ".qsplugin" then
+      archive_path =  File.join(archive_dir, File.basename(file, File.extname(file)).gsub(" ", "_") + "-archive")
+      info_path = File.join(file, "Contents", "Info.plist")
+      # TODO: Image file (needs plist parsing)
+
+      cmd = "ditto -c -z --keepParent \"#{file}\" \"#{archive_path}\""
+      # puts "Creating ditto archive with #{cmd}..."
+      res = %x(#{cmd})
+
+      args[:plugin_archive_file] = File.new(archive_path)
+      args[:info_plist_file] = File.new(info_path)
+      args[:mod_date] = File.new(file).mtime
+    else
+      Trollop::die "Unknown type #{File.extname(file)}"
+    end
+
+    # perform the request
+    print "Submitting #{file}..."
+    begin
+      # pp "Performing request: #{args}"
+      res = api.post args
+    rescue RestClient::Exception => e
+      puts
+      Trollop::die e.response
+    end
+    if res.code != 200
+      puts
+      Trollop::die "Got error: #{res}"
+    end
+    puts " OK"
+    # pp res
+  end
+ensure
+  FileUtils.rm_r archive_dir
+end

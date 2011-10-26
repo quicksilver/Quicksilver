@@ -34,7 +34,7 @@
 
 	NSMutableArray *updatedPlugIns;
 	NSMutableArray *queuedDownloads;
-    int currentDownloads;
+    NSMutableSet *activeDownloads;
     
 	NSString *installStatus;
 	float installProgress;
@@ -99,7 +99,6 @@
 - (NSString *)urlStringForPlugIn:(NSString *)ident version:(NSString *)version;
 - (BOOL)supressRelaunchMessage;
 - (void)setSupressRelaunchMessage:(BOOL)flag;
-- (NSMutableArray *)downloadsQueue;
 - (NSString *)installPlugInFromFile:(NSString *)path;
 - (void)downloadWebPlugInInfo;
 - (void)downloadWebPlugInInfoIgnoringDate;

@@ -59,7 +59,7 @@
 		<key>category</key>
 		<string>Update</string>
 		<key>default</key>
-		<string>QSNewUpdateReleaseLevel</string>
+		<string>QSUpdateReleaseLevel</string>
 		<key>image</key>
 		<string>Quicksilver</string>
 		<key>items</key>
@@ -68,6 +68,8 @@
 			<string>Final Releases</string>
 			<key>1</key>
 			<string>Prerelease Candidates</string>
+			<key>2</key>
+			<string>Developer Previews</string>
 		</dict>
 		<key>requestRelaunch</key>
 		<true/>

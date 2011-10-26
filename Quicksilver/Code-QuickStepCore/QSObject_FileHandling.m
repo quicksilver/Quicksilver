@@ -462,7 +462,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	if ([dObject isApplication])
 		return NSDragOperationPrivate;
 	else if ([dObject isFolder]) {
-		NSDragOperation defaultOp = [[NSFileManager defaultManager] defaultDragOperationForMovingPaths:[dObject validPaths] toDestination:[(QSObject *)iObject singleFilePath]];
+		NSDragOperation defaultOp = [[NSFileManager defaultManager] defaultDragOperationForMovingPaths:[iObject	validPaths] toDestination:[dObject singleFilePath]];
 		if (defaultOp == NSDragOperationMove) {
 			if (sourceDragMask&NSDragOperationMove)
 				return NSDragOperationMove;

@@ -212,10 +212,8 @@
 		7F975A2607FC9C5E007FC20F /* QSDefaultsManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F975A2407FC9C5E007FC20F /* QSDefaultsManager.h */; };
 		7F975A2707FC9C5E007FC20F /* QSDefaultsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F975A2507FC9C5E007FC20F /* QSDefaultsManager.m */; };
 		7F975A6807FCA779007FC20F /* QSDefaults.plist in Copy Plists */ = {isa = PBXBuildFile; fileRef = E103EC5706471DBE00447FE0 /* QSDefaults.plist */; };
-		7F9BAA580886DA54003CB3A1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9BAA560886DA54003CB3A1 /* Security.framework */; };
 		7F9BAA590886DA54003CB3A1 /* SecurityFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9BAA570886DA54003CB3A1 /* SecurityFoundation.framework */; };
 		7F9BAAAE0886E5EB003CB3A1 /* SecurityFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9BAA570886DA54003CB3A1 /* SecurityFoundation.framework */; };
-		7F9BAAAF0886E5ED003CB3A1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9BAA560886DA54003CB3A1 /* Security.framework */; };
 		7F9BDB2F09F86D25004F6E7A /* QSHandledSplitView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9BDB2D09F86D25004F6E7A /* QSHandledSplitView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F9BDB3009F86D25004F6E7A /* QSHandledSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9BDB2E09F86D25004F6E7A /* QSHandledSplitView.m */; };
 		7F9BDBD609F9C40D004F6E7A /* QSSplitHandleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9BDBD409F9C40D004F6E7A /* QSSplitHandleView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -232,7 +230,6 @@
 		7FBDFEE507BDE17500CE446A /* QSActionsPrefPane.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FBDFEE307BDE17500CE446A /* QSActionsPrefPane.h */; };
 		7FBDFEE607BDE17500CE446A /* QSActionsPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBDFEE407BDE17500CE446A /* QSActionsPrefPane.m */; };
 		7FBE3D1209586FE60049CC78 /* QSFileTemplateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBE3D1009586FE60049CC78 /* QSFileTemplateManager.m */; };
-		7FBF16FC099F8F7600FFCF0B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9BAA560886DA54003CB3A1 /* Security.framework */; };
 		7FBF1749099F937900FFCF0B /* SecurityFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F9BAA570886DA54003CB3A1 /* SecurityFoundation.framework */; };
 		7FC20B5307FB589A00FDD3CA /* Quicksilver.scriptTerminology in Resources */ = {isa = PBXBuildFile; fileRef = 7F60F27907FA2C5300922645 /* Quicksilver.scriptTerminology */; };
 		7FC20B5407FB589B00FDD3CA /* Quicksilver.scriptSuite in Resources */ = {isa = PBXBuildFile; fileRef = 7F60F27A07FA2C5300922645 /* Quicksilver.scriptSuite */; };
@@ -1623,7 +1620,6 @@
 				E1AE913407A0815F00F75980 /* IOKit.framework in Frameworks */,
 				7F686D91080C151100449DEF /* QuartzCore.framework in Frameworks */,
 				7F8C65C1081172E30051113C /* WebKit.framework in Frameworks */,
-				7F9BAA580886DA54003CB3A1 /* Security.framework in Frameworks */,
 				7F9BAA590886DA54003CB3A1 /* SecurityFoundation.framework in Frameworks */,
 				7F8D135F09187AE20062C966 /* Quartz.framework in Frameworks */,
 				7F84021209691035006E6F0E /* SyncServices.framework in Frameworks */,
@@ -1643,7 +1639,6 @@
 				E133F1FC06ADCDF800D27A4E /* ExceptionHandling.framework in Frameworks */,
 				E1075DB10783CE27004053AF /* IOKit.framework in Frameworks */,
 				7F9BAAAE0886E5EB003CB3A1 /* SecurityFoundation.framework in Frameworks */,
-				7F9BAAAF0886E5ED003CB3A1 /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1668,7 +1663,6 @@
 				E1E5FB1507B2079E0044D6EF /* Security.framework in Frameworks */,
 				E1E5FB4F07B208C00044D6EF /* ExceptionHandling.framework in Frameworks */,
 				7F686DDE080C1CD900449DEF /* QuartzCore.framework in Frameworks */,
-				7FBF16FC099F8F7600FFCF0B /* Security.framework in Frameworks */,
 				7FBF1749099F937900FFCF0B /* SecurityFoundation.framework in Frameworks */,
 				4DFE7DC70E082132000B9AA3 /* Foundation.framework in Frameworks */,
 				4DFE7DC90E082160000B9AA3 /* AppKit.framework in Frameworks */,
@@ -3070,6 +3064,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 0420;
 			};
 			buildConfigurationList = 7F6B3E7C085CE68E000735A8 /* Build configuration list for PBXProject "Quicksilver" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -3995,6 +3990,7 @@
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = "PlugIns-Main/Bezel/Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "Bezel Interface";
 			};
 			name = Debug;
@@ -4004,6 +4000,7 @@
 			baseConfigurationReference = 4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "PlugIns-Main/Bezel/Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "Bezel Interface";
 			};
 			name = Release;
@@ -4014,6 +4011,7 @@
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = "PlugIns-Main/Finder/Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "Finder Module";
 			};
 			name = Debug;
@@ -4023,6 +4021,7 @@
 			baseConfigurationReference = 4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "PlugIns-Main/Finder/Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "Finder Module";
 			};
 			name = Release;
@@ -4033,6 +4032,7 @@
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = "PlugIns-Main/PrimerInterface/Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "Primer Interface";
 			};
 			name = Debug;
@@ -4042,6 +4042,7 @@
 			baseConfigurationReference = 4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "PlugIns-Main/PrimerInterface/Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "Primer Interface";
 			};
 			name = Release;
@@ -4052,6 +4053,7 @@
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = "PlugIns-Main/QSHotKeyPlugIn/Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "HotKey Triggers";
 			};
 			name = Debug;
@@ -4061,6 +4063,7 @@
 			baseConfigurationReference = 4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "PlugIns-Main/QSHotKeyPlugIn/Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "HotKey Triggers";
 			};
 			name = Release;
@@ -4090,6 +4093,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = "PropertyLists/QSFoundation-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					QuickLook,
@@ -4107,6 +4111,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "PropertyLists/QSFoundation-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					QuickLook,
@@ -4211,6 +4216,7 @@
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "Core Support";
 			};
 			name = Debug;
@@ -4220,6 +4226,7 @@
 			baseConfigurationReference = 4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "Core Support";
 			};
 			name = Release;
@@ -4231,6 +4238,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = Quicksilver;
 				WRAPPER_EXTENSION = app;
 			};
@@ -4242,6 +4250,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = Quicksilver;
 				WRAPPER_EXTENSION = app;
 			};
@@ -4269,6 +4278,7 @@
 			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -4277,6 +4287,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				SDKROOT = macosx;
 			};
 			name = Release;

@@ -1,6 +1,6 @@
 
-#define kQSUserAgent [NSString stringWithFormat:@"Quicksilver %@ (Mac OS X %@)",\
+#define kQSUserAgent [NSString stringWithFormat:@"Quicksilver/%@ OSX/%@ (%@)",\
 					 (NSString *)CFBundleGetValueForInfoDictionaryKey(CFBundleGetMainBundle(), kCFBundleVersionKey),\
-					 [NSApplication macOSXFullVersion]]
+					 [NSApplication macOSXFullVersion], @"x86"]
 
 #define QUERY_KEY @"***"
