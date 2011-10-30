@@ -307,8 +307,8 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 
 - (QSObject *)dObject {
 	QSObject *object = dObject;
-	// Return the object if it already exists
-	if (object) {
+	// Return the object if it already exists, and has been resolved (i.e. has an identifier)
+	if (object && [object identifier]) {
 		return object;
 	}
 	
