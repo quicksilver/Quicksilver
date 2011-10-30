@@ -391,7 +391,7 @@ NSMutableDictionary *bindingsDict = nil;
 #pragma mark Menu Items
 - (BOOL)validateMenuItem:(NSMenuItem*)anItem {
 	if ([anItem action] == @selector(newFile:) ) {
-		return fDEV;
+		return YES;
 	}
 	if ([anItem action] == @selector(goForward:) ) {
 		return historyIndex > 0;
@@ -934,14 +934,9 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)partialStringChanged {
 	[self setSearchString:[[partialString copy] autorelease]];
     
-	double searchDelay = 0.0f;
-	if (fALPHA)
-		searchDelay = [[QSLibrarian sharedInstance] estimatedTimeForSearchInSet:searchArray] * 0.9f;
-	else
-		searchDelay = [[NSUserDefaults standardUserDefaults] floatForKey:kSearchDelay];
-    
-    
-	if (fALPHA && moreComing) {
+	double searchDelay = [[NSUserDefaults standardUserDefaults] floatForKey:kSearchDelay];
+        
+	if (moreComing) {
 		if ([searchTimer isValid]) [searchTimer invalidate];
 	} else {
 		if (![searchTimer isValid]) {
@@ -1060,7 +1055,7 @@ NSMutableDictionary *bindingsDict = nil;
 	}
     
 	// check for additional keydowns up to now so the search isn't done too often.
-    if (fALPHA) moreComing = nil != [NSApp nextEventMatchingMask:NSKeyDownMask untilDate:[NSDate dateWithTimeIntervalSinceNow:SEARCH_RESULT_DELAY] inMode:NSDefaultRunLoopMode dequeue:NO];
+    moreComing = nil != [NSApp nextEventMatchingMask:NSKeyDownMask untilDate:[NSDate dateWithTimeIntervalSinceNow:SEARCH_RESULT_DELAY] inMode:NSDefaultRunLoopMode dequeue:NO];
 #ifdef DEBUG
     if (VERBOSE && moreComing) NSLog(@"moreComing");
 #endif
@@ -1127,7 +1122,7 @@ NSMutableDictionary *bindingsDict = nil;
 	} else if(!upEvent) {
 		[self setObjectValue:[QSObject fileObjectWithPath:@"/"]];
 		upEvent = [NSApp nextEventMatchingMask:NSKeyUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.25] inMode:NSDefaultRunLoopMode dequeue:YES];
-		if (fBETA && !upEvent)
+		if (!upEvent)
 			[self moveRight:self];
 	}
     

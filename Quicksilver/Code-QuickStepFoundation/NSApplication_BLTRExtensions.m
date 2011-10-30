@@ -35,8 +35,6 @@
 	return [NSString stringWithFormat:@"%@ (%@) ", [info objectForKey:@"CFBundleShortVersionString"], [info objectForKey:@"CFBundleVersion"]];
 }
 
-- (int)featureLevel {return 0;}
-
 - (NSDictionary *)processInformation {
 	ProcessSerialNumber currPSN;
 	OSStatus err = GetCurrentProcess (&currPSN);

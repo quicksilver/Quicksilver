@@ -569,8 +569,10 @@ static QSController *defaultController = nil;
 		object = [QSObject objectWithString:(NSString *)desc];
 	else if ([desc isKindOfClass:[NSArray class]])
 		object = [QSObject fileObjectWithArray:(NSArray *)desc];
-	else if (fDEV) {
+	else {
+#ifdef DEBUG
 		NSLog(@"descriptor %@ %@", NSStringFromClass([desc class]), desc);
+#endif
 		object = [QSObject objectWithAEDescriptor:desc];
 	}
 	NSLog(@"object %@", object);
@@ -631,7 +633,7 @@ static QSController *defaultController = nil;
 	int lastVersion = [lastVersionString respondsToSelector:@selector(hexIntValue)] ? [lastVersionString hexIntValue] : 0;
 	switch (status) {
 		case QSApplicationUpgradedLaunch:
-			if (fBETA && lastLocation && ![bundlePath isEqualToString:[lastLocation stringByStandardizingPath]]) {
+			if (lastLocation && ![bundlePath isEqualToString:[lastLocation stringByStandardizingPath]]) {
 				//New version in new location.
 				[NSApp activateIgnoringOtherApps:YES];
 				int selection = NSRunAlertPanel(@"Running from a new location", @"The previous version of Quicksilver was located in \"%@\". Would you like to move this new version to that location?", @"Move and Relaunch", @"Don't Move", nil, [[lastLocation stringByDeletingLastPathComponent] lastPathComponent]);
@@ -1034,11 +1036,11 @@ void QSSignalHandler(int i) {
 	signal(SIGBUS, QSSignalHandler);
 	signal(SIGSEGV, QSSignalHandler);
 
-	if (fDEV) {
-		NSExceptionHandler *handler = [NSExceptionHandler defaultExceptionHandler];
-		[handler setExceptionHandlingMask:NSLogAndHandleEveryExceptionMask];
-		[handler setDelegate:self];
-	}
+#ifdef DEBUG
+	NSExceptionHandler *handler = [NSExceptionHandler defaultExceptionHandler];
+	[handler setExceptionHandlingMask:NSLogAndHandleEveryExceptionMask];
+	[handler setDelegate:self];
+#endif
 }
 
 - (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldLogException:(NSException *)exception mask:(unsigned int)aMask {

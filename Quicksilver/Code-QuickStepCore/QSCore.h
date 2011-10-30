@@ -22,7 +22,6 @@
 #import "QSDefines.h"
 #import "QSense.h"
 #import "QSExecutor.h"
-#import "QSFeatureLevel.h"
 #import "QSGlobalSelectionProvider.h"
 #import "QSHandledObjectHandler.h"
 #import "QSHelp.h"

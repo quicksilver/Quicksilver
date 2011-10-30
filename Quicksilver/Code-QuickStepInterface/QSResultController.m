@@ -496,8 +496,7 @@ NSMutableDictionary *kindDescriptions = nil;
 	[[tableColumn dataCell] setFont:[NSFont systemFontOfSize:9]];
 	[[tableColumn dataCell] setTextColor:[NSColor darkGrayColor]];
 
-	if (1 || !fDEV)
-		[resultTable removeTableColumn:tableColumn];
+	[resultTable removeTableColumn:tableColumn];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewChanged:) name:NSViewBoundsDidChangeNotification object:[[resultTable enclosingScrollView] contentView]];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(childViewChanged:) name:NSViewBoundsDidChangeNotification object:[[resultChildTable enclosingScrollView] contentView]];
