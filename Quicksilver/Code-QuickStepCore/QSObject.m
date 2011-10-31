@@ -874,11 +874,9 @@ containg multiple objects with the same identifier. Best efforts should be made 
 		}
 	}
 
-	if (![self objectForType:QSURLType]) {
-		id handler = nil;
-		if (handler = [self handlerForSelector:@selector(loadIconForObject:)])
-			return [handler loadIconForObject:self];
-	}
+	id handler = nil;
+	if (handler = [self handlerForSelector:@selector(loadIconForObject:)])
+		return [handler loadIconForObject:self];
 
 	//// if ([primaryType hasPrefix:@"QSCsontact"])
 	//	 return NO;
