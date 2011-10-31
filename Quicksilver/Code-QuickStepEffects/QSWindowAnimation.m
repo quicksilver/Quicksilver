@@ -89,14 +89,14 @@
 	float _percent = progress;
 	 [super setCurrentProgress:progress];
 //- (void)_doAnimationStep {
-	if (effectFt) {
+	if (effectFt) { 
 		(*effectFt) (self);
 	}
 	if (transformFt) {
 		CGAffineTransform newTransform = (*transformFt) (self, _percent);
 
 
-		if (progress == 1.0f)
+		if (progress >= 0.99f )
 			newTransform = _transformA;
 		CGSSetWindowTransform(cgs, wid, newTransform);
 
