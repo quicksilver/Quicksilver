@@ -188,8 +188,14 @@
 	[self setHiding:YES];
 	if (effect && [[NSUserDefaults standardUserDefaults] boolForKey:kUseEffects])
 		[(QSWindow *)[self window] hideWithEffect:effect];
-	else
-		[[self window] orderOut:nil];
+	else {
+        if ([self isKindOfClass:[QSCommandBuilder class]]) {
+            [self hideWindows:nil];
+        }
+        else {
+            [[self window] orderOut:nil];
+        }
+    }
 	[self setHiding:NO];
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSReleaseOldCachesNotification object:self];
     
