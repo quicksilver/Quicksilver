@@ -557,6 +557,7 @@
 
 - (BOOL)plugInIsMostRecent:(QSPlugIn *)plugIn inGroup:(NSDictionary *)loadingBundles; {
 	//	if (![bundle isKindOfClass:[NSBundle class]]) return NO;
+    
 	NSString *ident = [plugIn bundleIdentifier];
 	QSPlugIn *dupPlugIn = nil;
 	//NSString *error;
@@ -568,6 +569,10 @@
 
 	} else if ((dupPlugIn = [loadingBundles objectForKey:ident]) && ![plugIn isEqual:dupPlugIn]) {
 		//	NSLog(@"Loading Duplicate %@ %@", dupPlugIn, plugIn);
+        // If the plugin's already in the list of plugins to delete, don't check it (set below in sorting >=0)
+        if ([oldPlugIns containsObject:plugIn]) {
+            return NO;
+        }
 		NSFileManager *manager = [NSFileManager defaultManager];
 		NSComparisonResult sorting = [[dupPlugIn buildVersion] versionCompare:[plugIn buildVersion]];
 		if (sorting == NSOrderedSame) {
@@ -575,8 +580,14 @@
 						compare:[[manager attributesOfItemAtPath:[plugIn bundlePath] error:nil] fileModificationDate]];
 		}
 		if (sorting >= 0) {
+            // Don't delete the plugin if it's in Quicksilver.app
+            if ([[plugIn bundlePath] rangeOfString:[[NSBundle mainBundle] bundlePath]].location == NSNotFound) {
 			[oldPlugIns addObject:plugIn];
 			return NO; // a newer version of this plugin has already been seen
+            }
+            else {
+                NSLog(@"Denying removal of %@ from Application (.app) folder.\nRemoving %@ instead",[plugIn bundlePath], [dupPlugIn bundlePath]);
+            }
 		}
 		[oldPlugIns addObject:dupPlugIn];
 	}
