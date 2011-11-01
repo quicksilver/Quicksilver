@@ -114,8 +114,9 @@ static QSController *defaultController = nil;
         
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         
+        
         // check to see if Quicksilver quit gracefully last time
-        if ([defaults boolForKey:kQSQuitGracefully] == NO) {
+        if ([defaults objectForKey:kQSQuitGracefully] && [defaults boolForKey:kQSQuitGracefully] == NO) {
             NSFileManager *fm = [[NSFileManager alloc] init];
             NSAlert *alert = [[NSAlert alloc] init];
             [alert setAlertStyle:NSCriticalAlertStyle];
