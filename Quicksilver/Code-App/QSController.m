@@ -105,15 +105,82 @@ static QSController *defaultController = nil;
 		if (DEBUG_STARTUP) NSLog(@"Controller Init");
 #endif
 
-		// Enforce Expiration Date
-		//Check if a devopment version has expired
-#if 0
-		if (PRERELEASEVERSION && [[NSDate date] timeIntervalSinceDate:[[[NSDate alloc] initWithTimeInterval:DAYS*(DEVELOPMENTVERSION?DEVEXPIRE:DEPEXPIRE) sinceDate:[[[NSFileManager defaultManager] attributesOfItemAtPath:[[NSBundle mainBundle] executablePath] error:nil] fileModificationDate]] autorelease]]>0) {
-			[self showExpireDialog];
-			if (!(GetCurrentKeyModifiers() & (optionKey | rightOptionKey) ))
-				[NSTimer scheduledTimerWithTimeInterval:13*HOURS target:self selector:@selector(showExpireDialog) userInfo:nil repeats:YES];
-		}
+        if (![NSApplication isSnowLeopard]) {
+			NSBundle *appBundle = [NSBundle mainBundle];
+			NSRunAlertPanel([[appBundle objectForInfoDictionaryKey:@"CFBundleName"] stringByAppendingString:@" requires Mac OS X 10.6+"] , @"Recent versions of Quicksilver require Mac OS 10.6 Snow Leopard. Older 10.5, 10.4 and 10.3 compatible versions are available from the http://qsapp.com.", @"OK", nil, nil, [appBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]);
+            // Quit - we don't want to be running :)
+            [NSApp terminate:nil];
+        }
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        
+        
+        // check to see if Quicksilver quit gracefully last time
+        if ([defaults objectForKey:kQSQuitGracefully] && [defaults boolForKey:kQSQuitGracefully] == NO) {
+            NSFileManager *fm = [[NSFileManager alloc] init];
+            NSAlert *alert = [[NSAlert alloc] init];
+            [alert setAlertStyle:NSCriticalAlertStyle];
+            [alert setMessageText:@"Quicksilver Crashed"];
+            // Check to see if QS crashed whilst previously loading a plugin (registerPlugin method)
+            NSString *pluginName = [defaults objectForKey:kQSPluginCausedCrashAtLaunch];
+            if (pluginName) {
+                NSString *informativeText = [NSString stringWithFormat:@"Quicksilver crashed due to the %@ plugin not loading correctly.\nDo you wish to delete this plugin to launch Quicksilver?", pluginName];
+                [alert setInformativeText:informativeText];
+                [alert addButtonWithTitle:@"OK"];
+                [alert addButtonWithTitle:@"Cancel"];
+                NSInteger buttonClicked = [alert runModal];
+                if (buttonClicked == NSAlertFirstButtonReturn) {
+                    // If user says 'OK', attempt to delete the faulty plugin
+                    NSString *faultyPluginPath = [defaults objectForKey:kQSFaultyPluginPath];
+                    if (faultyPluginPath) {
+                        if (![fm removeItemAtPath:faultyPluginPath error:nil]) {
+                            NSLog(@"Error removing faulty plugin. Continuing to attempt a launch");
+                        }
+                    }
+                }
+                else {
+                    [defaults removeObjectForKey:kQSPluginCausedCrashAtLaunch];
+                    [defaults removeObjectForKey:kQSFaultyPluginPath];
+                }
+            }
+            else {
+#ifdef DEBUG
+                NSLog(@"Ignoring crash protection. You most likely hit 'Stop' in Xcode.");
 #endif
+#ifndef DEBUG
+                [alert setInformativeText:@"Sorry, Quicksilver crashed on last use.\nDeleting caches may help solve the problem.\nOtherwise you can try to launch Quicksilver again, or quit and read the FAQ."];
+                [alert addButtonWithTitle:@"Clear Caches"];
+                [alert addButtonWithTitle:@"Read FAQ"];
+                [alert addButtonWithTitle:@"Do Nothing"];
+                NSInteger buttonClicked = [alert runModal];
+                switch (buttonClicked) {
+                    case NSAlertFirstButtonReturn: {
+                        NSError * err = nil;
+                        [fm removeItemAtPath:[[NSString stringWithString:@"~/Library/Caches/Quicksilver"] stringByExpandingTildeInPath] error:&err];
+                        if (err) {
+                            NSLog(@"Error removing Quicksilver caches. Attempting re-launch anyway");
+                        }
+                        break;
+                    }
+                    case NSAlertSecondButtonReturn: {
+                        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[kHelpURL stringByAppendingString:@"FAQ#Quicksilver_crashes"]]];
+                        [NSApp terminate:nil];
+                        break;
+                    }
+                    default: {
+                        break;
+                    }
+                }
+#endif                
+            }
+            [fm release];
+            [alert release];
+        }
+        
+        [defaults setBool:NO forKey:kQSQuitGracefully];
+        [defaults synchronize];
+      
+        
 		[self startMenuExtraConnection];
 
 		QSApplicationSupportPath = [[[[NSUserDefaults standardUserDefaults] stringForKey:@"QSApplicationSupportPath"] stringByStandardizingPath] retain];
@@ -749,7 +816,9 @@ static QSController *defaultController = nil;
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"WindowsShouldHide" object:self];
-	[[NSUserDefaults standardUserDefaults] synchronize];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:YES forKey:kQSQuitGracefully];
+	[defaults synchronize];
 //    if (DEBUG_MEMORY) [self writeLeaksToFileAtPath:QSApplicationSupportSubPath(@"QSLeaks.plist", NO)];
 }
 
