@@ -13,6 +13,12 @@
 	[dSelector setDropMode:QSSelectDropMode];
 	[aSelector setDropMode:QSRejectDropMode];
 	[iSelector setDropMode:QSSelectDropMode];
+	NSArray *theControls = [NSArray arrayWithObjects:dSelector, aSelector, iSelector, nil];
+	for(QSSearchObjectView *theControl in theControls) {
+		QSObjectCell *theCell = [theControl cell];
+		[theCell setHighlightColor:[NSColor lightGrayColor]];
+		[theCell setTextColor:[NSColor blackColor]];
+	}
 }
 
 - (IBAction)hideWindows:(id)sender {
