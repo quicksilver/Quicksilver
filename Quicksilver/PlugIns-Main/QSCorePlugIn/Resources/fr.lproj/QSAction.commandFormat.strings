@@ -13,7 +13,7 @@
 	<key>AppLaunchAgainAction</key>
 	<string>Lancer un autre exemple de %@</string>
 	<key>AppLaunchAsRootAction</key>
-	<string>Lancer %@ en tant qu'administrateur</string>
+	<string>Lancer %@ en tant qu&apos;administrateur</string>
 	<key>AppOpenFileAction</key>
 	<string>Ouvrir %@ avec %@</string>
 	<key>AppQuitAction</key>
@@ -25,7 +25,7 @@
 	<key>AppReopenAction</key>
 	<string>Relancer %@</string>
 	<key>AppRootLaunchAction</key>
-	<string>Lancer %@ en tant qu'administrateur</string>
+	<string>Lancer %@ en tant qu&apos;administrateur</string>
 	<key>AppleScriptOpenFilesAction</key>
 	<string>Ouvrir %@ avec %@</string>
 	<key>AppleScriptProcessTextAction</key>
@@ -33,7 +33,7 @@
 	<key>AppleScriptRunAction</key>
 	<string>Exécuter le script %@</string>
 	<key>AppleScriptRunTextAction</key>
-	<string>Éxecuter '%@'</string>
+	<string>Éxecuter &apos;%@&apos;</string>
 	<key>DiskEjectAction</key>
 	<string>Éjecter %@</string>
 	<key>DiskForceEjectAction</key>
@@ -53,7 +53,7 @@
 	<key>FileGetPathAction</key>
 	<string>Obtenir le chemin POSIX de %@</string>
 	<key>FileGetURLAction</key>
-	<string>Obtenir l'URL file:// de %@</string>
+	<string>Obtenir l&apos;URL file:// de %@</string>
 	<key>FileMakeAliasInAction</key>
 	<string>Créer un alias de %@ dans %#</string>
 	<key>FileMakeHardLinkInAction</key>
@@ -63,7 +63,7 @@
 	<key>FileMoveToAction</key>
 	<string>Déplacer %@ vers un autre %@</string>
 	<key>FileOpenAction</key>
-	<string>Ouvier %@</string>
+	<string>Ouvrir %@</string>
 	<key>FileOpenWithAction</key>
 	<string>Ouvrir %@ avec %@</string>
 	<key>FileRenameAction</key>
@@ -99,11 +99,11 @@
 	<key>QSEditAction</key>
 	<string>Editer %@</string>
 	<key>QSLargeTypeAction</key>
-	<string>Montrer "%@" en gros</string>
+	<string>Montrer &quot;%@&quot; en gros</string>
 	<key>QSLoginItemAddAction</key>
-	<string>Lancer %@ à l'ouverture de session</string>
+	<string>Lancer %@ à l&apos;ouverture de session</string>
 	<key>QSLoginItemRemoveAction</key>
-	<string>Ne plus lancer %@ à l'ouverture de session</string>
+	<string>Ne plus lancer %@ à l&apos;ouverture de session</string>
 	<key>QSNewFolderAction</key>
 	<string>Nouveau dossier dans %@ nommé %#</string>
 	<key>QSObjCSendMessageAction</key>
@@ -117,7 +117,7 @@
 	<key>QSObjectSearchChildrenAction</key>
 	<string>Chercher dans le contenu de %@</string>
 	<key>QSObjectSelectAction</key>
-	<string>Sélectionner %@ dans l'interface</string>
+	<string>Sélectionner %@ dans l&apos;interface</string>
 	<key>QSObjectShowActionMenu</key>
 	<string>Montrer le menu action pour %@</string>
 	<key>QSObjectShowChildMenu</key>
@@ -129,7 +129,7 @@
 	<key>QSObjectShowSourceAction</key>
 	<string>Montrer la source de %@ dans le Catalogue</string>
 	<key>QSPutOnShelfAction</key>
-	<string>Mettre %@ sur l'Étagère</string>
+	<string>Mettre %@ sur l&apos;Étagère</string>
 	<key>QSShelfShowAction</key>
 	<string>Montrer %@</string>
 	<key>QSShellScriptRunAction</key>
@@ -139,11 +139,11 @@
 	<key>QSTextDiffAction</key>
 	<string>Obtenir les différences entre %@ et %#</string>
 	<key>QSTextShowDialogAction</key>
-	<string>Montrer le dialogue pour \"%@\"</string>
+	<string>Montrer le dialogue pour \&quot;%@\&quot;</string>
 	<key>QSTextSpeakAction</key>
-	<string>Dire \"%@\"</string>
+	<string>Dire \&quot;%@\&quot;</string>
 	<key>QSTextTypeAction</key>
-	<string>Taper \"%@\"</string>
+	<string>Taper \&quot;%@\&quot;</string>
 	<key>ShellScriptRunAction</key>
 	<string>Exécuter %@</string>
 	<key>URLEmailAction</key>
@@ -155,7 +155,7 @@
 	<key>URLOpenAction</key>
 	<string>Ouvrir %@</string>
 	<key>URLOpenActionInBackground</key>
-	<string>Ouvrir %@ à l'arrière plan</string>
+	<string>Ouvrir %@ à l&apos;arrière plan</string>
 	<key>URLOpenWithAction</key>
 	<string>Ouvrir %@ avec %@</string>
 	<key>URLSearchAction</key>
