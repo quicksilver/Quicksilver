@@ -812,9 +812,9 @@ static QSController *defaultController = nil;
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"WindowsShouldHide" object:self];
-	NSMutableDictionary *state = [NSDictionary dictionaryWithContentsOfFile:pStateLocation];
-    [state setObject:@"YES" forKey:kQSQuitGracefully];
+	NSDictionary *state = [[NSDictionary alloc] initWithObjectsAndKeys:@"YES", kQSQuitGracefully, nil];
 	[state writeToFile:pStateLocation atomically:YES];
+	[state release];
 //    if (DEBUG_MEMORY) [self writeLeaksToFileAtPath:QSApplicationSupportSubPath(@"QSLeaks.plist", NO)];
 }
 
