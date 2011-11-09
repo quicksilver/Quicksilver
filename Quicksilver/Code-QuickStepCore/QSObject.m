@@ -316,16 +316,17 @@ NSSize QSMaxIconSize;
 
 - (const char *) gdbDataFormatter {
 #warning search URL icons crash this method
-    return [[NSString stringWithFormat:@"name: %@, label: %@, identifier: %@, primaryType: %@, primaryObject: %@, meta: %@, data: %@, cache: %@, icon: %@, lastAccess: %d",
+	return [[NSString stringWithFormat:@"name: %@, label: %@, identifier: %@, primaryType: %@, primaryObject: %@, meta: %@, data: %@, cache: %@, icon: %@, lastAccess: %f",
              (name ? name : @"nil"),
              (label ? label : @"nil"),
              (identifier ? identifier : @"nil"),
-             (primaryType ? primaryType : @"nil"),
+			 (primaryType ? primaryType : @"nil"),
+			 (primaryObject ? primaryObject : @"nil"),
              (meta ? [meta descriptionInStringsFileFormat] : @"nil"),
              (data ? [data descriptionInStringsFileFormat] : @"nil"),
              (cache ? [cache descriptionInStringsFileFormat] : @"nil"),
              (icon ? [icon description] : @"nil"),
-             (lastAccess ? lastAccess : 0.0f)] UTF8String];
+			 (lastAccess ? lastAccess : 0.0f)] UTF8String];
 }
 
 - (id)copyWithZone:(NSZone *)zone {
@@ -856,7 +857,7 @@ containg multiple objects with the same identifier. Best efforts should be made 
 	[iconLoadedArray addObject:self];
 
 #ifdef DEBUG
-	if (VERBOSE) NSLog(@"Load Icon for %@", [self gdbDataFormatter]);
+	if (VERBOSE) NSLog(@"Load Icon for %s", [self gdbDataFormatter]);
 #endif
 	
 	if (namedIcon) {
