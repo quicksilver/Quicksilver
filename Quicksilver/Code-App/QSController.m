@@ -115,7 +115,7 @@ static QSController *defaultController = nil;
 		NSMutableDictionary *state = [NSMutableDictionary dictionaryWithContentsOfFile:pStateLocation];
         
         // check to see if Quicksilver quit gracefully last time
-        if (state && [state objectForKey:kQSQuitGracefully] && [[state objectForKey:kQSQuitGracefully] isEqualToString:@"NO"]) {
+        if ([[state objectForKey:kQSQuitGracefully] isEqualToString:@"NO"]) {
             NSFileManager *fm = [[NSFileManager alloc] init];
             NSAlert *alert = [[NSAlert alloc] init];
             [alert setAlertStyle:NSCriticalAlertStyle];
