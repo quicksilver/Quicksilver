@@ -112,15 +112,10 @@ static QSController *defaultController = nil;
             [NSApp terminate:nil];
         }
         
-		NSMutableDictionary *state = [NSMutableDictionary dictionary];
-		state = [NSMutableDictionary dictionaryWithContentsOfFile:pStateLocation];
-		if (!state) {
-			// unable to read state information - use reasonable defaults
-			state = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"YES", kQSQuitGracefully, nil];
-		}
+		NSMutableDictionary *state = [NSMutableDictionary dictionaryWithContentsOfFile:pStateLocation];
         
         // check to see if Quicksilver quit gracefully last time
-        if ([state objectForKey:kQSQuitGracefully] && [[state valueForKey:kQSQuitGracefully] isEqualToString:@"NO"]) {
+        if (state && [state objectForKey:kQSQuitGracefully] && [[state objectForKey:kQSQuitGracefully] isEqualToString:@"NO"]) {
             NSFileManager *fm = [[NSFileManager alloc] init];
             NSAlert *alert = [[NSAlert alloc] init];
             [alert setAlertStyle:NSCriticalAlertStyle];
@@ -141,10 +136,6 @@ static QSController *defaultController = nil;
                             NSLog(@"Error removing faulty plugin. Continuing to attempt a launch");
                         }
                     }
-                }
-                else {
-                    [state removeObjectForKey:kQSPluginCausedCrashAtLaunch];
-                    [state removeObjectForKey:kQSFaultyPluginPath];
                 }
             }
             else {
@@ -181,8 +172,10 @@ static QSController *defaultController = nil;
             [alert release];
         }
         
-        [state setObject:@"NO" forKey:kQSQuitGracefully];
-        [state writeToFile:pStateLocation atomically:YES];
+		// store the typical "Quicksilver is running" state
+		NSDictionary *newState = [[NSDictionary alloc] initWithObjectsAndKeys:@"NO", kQSQuitGracefully, nil];
+        [newState writeToFile:pStateLocation atomically:YES];
+		[newState release];
 		
 		[self startMenuExtraConnection];
 
