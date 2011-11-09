@@ -1,3 +1,32 @@
+  * CHANGE: So called "advanced features" are now just on all the time
+  
+  * CHANGE: Proxy objects are enabled by default for new users
+  
+  * CHANGE: Selection is pulled from any application by default (instead of Finder only) for new users
+  
+  * NEW: Quicksilver will detect if it crashed perviously and offer some actions that might help
+  
+  * NEW: Quicksilver can identify (and optionally remove) plug-ins that cause it to crash
+  
+  * FIX: When replacing plug-ins, Quicksilver will no longer remove those inside the application itself (such as Core Support)
+  
+  * FIX: Mouse triggers will continue to work after a restart
+  
+  * FIX: The command builder (the panel used to create/edit triggers) can be dismissed with ⎋ repeatedly
+  
+  * FIX: The command builder uses consistent colors to ensure readability
+  
+  * FIX: Custom icons for actions in `~/Library/Application Support/Quicksilver/Actions` are displayed in the second pane
+  
+  * FIX: Corrected typos in the French localization
+  
+  * FIX: Prevent a rare crash when loading plug-ins
+  
+  * FIX: Respect the preference to NOT check for updates
+
+Changes - ß61 (3900)
+-------
+
   * NEW: Quicksilver is now 10.6+ (Snow Leopard or higher) only
   
   * NEW: New built-in plugins repository for downloading and automatic-updating of plugins (Issue #491)
