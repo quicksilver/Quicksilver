@@ -4,6 +4,7 @@
 #define pMnemonicStorage	QSApplicationSupportSubPath(@"Mnemonics.plist", NO)
 #define pCacheLocation		QSApplicationSupportSubPath(@"Caches/", NO)
 #define pIndexLocation		[@"~/Library/Caches/Quicksilver/Indexes/" stringByStandardizingPath]
+#define pStateLocation		[@"~/Library/Caches/Quicksilver/QuicksilverState.plist" stringByStandardizingPath]
 #define pShelfLocation		QSApplicationSupportSubPath(@"Shelves/", NO)
 
 #define psMainPlugInsLocation QSApplicationSupportSubPath(@"PlugIns/", NO)

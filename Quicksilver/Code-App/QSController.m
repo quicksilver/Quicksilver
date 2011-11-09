@@ -112,17 +112,16 @@ static QSController *defaultController = nil;
             [NSApp terminate:nil];
         }
         
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        
+		NSMutableDictionary *state = [NSMutableDictionary dictionaryWithContentsOfFile:pStateLocation];
         
         // check to see if Quicksilver quit gracefully last time
-        if ([defaults objectForKey:kQSQuitGracefully] && [defaults boolForKey:kQSQuitGracefully] == NO) {
+        if ([[state objectForKey:kQSQuitGracefully] isEqualToString:@"NO"]) {
             NSFileManager *fm = [[NSFileManager alloc] init];
             NSAlert *alert = [[NSAlert alloc] init];
             [alert setAlertStyle:NSCriticalAlertStyle];
             [alert setMessageText:@"Quicksilver Crashed"];
             // Check to see if QS crashed whilst previously loading a plugin (registerPlugin method)
-            NSString *pluginName = [defaults objectForKey:kQSPluginCausedCrashAtLaunch];
+            NSString *pluginName = [state objectForKey:kQSPluginCausedCrashAtLaunch];
             if (pluginName) {
                 NSString *informativeText = [NSString stringWithFormat:@"Quicksilver crashed due to the %@ plugin not loading correctly.\nDo you wish to delete this plugin to launch Quicksilver?", pluginName];
                 [alert setInformativeText:informativeText];
@@ -131,16 +130,12 @@ static QSController *defaultController = nil;
                 NSInteger buttonClicked = [alert runModal];
                 if (buttonClicked == NSAlertFirstButtonReturn) {
                     // If user says 'OK', attempt to delete the faulty plugin
-                    NSString *faultyPluginPath = [defaults objectForKey:kQSFaultyPluginPath];
+                    NSString *faultyPluginPath = [state objectForKey:kQSFaultyPluginPath];
                     if (faultyPluginPath) {
                         if (![fm removeItemAtPath:faultyPluginPath error:nil]) {
                             NSLog(@"Error removing faulty plugin. Continuing to attempt a launch");
                         }
                     }
-                }
-                else {
-                    [defaults removeObjectForKey:kQSPluginCausedCrashAtLaunch];
-                    [defaults removeObjectForKey:kQSFaultyPluginPath];
                 }
             }
             else {
@@ -177,10 +172,11 @@ static QSController *defaultController = nil;
             [alert release];
         }
         
-        [defaults setBool:NO forKey:kQSQuitGracefully];
-        [defaults synchronize];
-      
-        
+		// store the typical "Quicksilver is running" state
+		NSDictionary *newState = [[NSDictionary alloc] initWithObjectsAndKeys:@"NO", kQSQuitGracefully, nil];
+        [newState writeToFile:pStateLocation atomically:NO];
+		[newState release];
+		
 		[self startMenuExtraConnection];
 
 		QSApplicationSupportPath = [[[[NSUserDefaults standardUserDefaults] stringForKey:@"QSApplicationSupportPath"] stringByStandardizingPath] retain];
@@ -816,9 +812,9 @@ static QSController *defaultController = nil;
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"WindowsShouldHide" object:self];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:YES forKey:kQSQuitGracefully];
-	[defaults synchronize];
+	NSDictionary *state = [[NSDictionary alloc] initWithObjectsAndKeys:@"YES", kQSQuitGracefully, nil];
+	[state writeToFile:pStateLocation atomically:NO];
+	[state release];
 //    if (DEBUG_MEMORY) [self writeLeaksToFileAtPath:QSApplicationSupportSubPath(@"QSLeaks.plist", NO)];
 }
 
