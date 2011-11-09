@@ -97,7 +97,20 @@
     return [NSURL URLWithString:checkURL];
 }
 
-- (NSInteger)checkForUpdates:(BOOL)force {
+typedef enum {
+    kQSUpdateCheckSkip = -2,
+    kQSUpdateCheckError = -1,
+    kQSUpdateCheckNoUpdate = 0,
+    kQSUpdateCheckUpdateAvailable = 1,
+} QSUpdateCheckResult;
+
+- (QSUpdateCheckResult)checkForUpdates:(BOOL)force {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:@"QSPreventAutomaticUpdate"] || (![defaults boolForKey:kCheckForUpdates] && !force)) {
+        NSLog(@"Preventing update check.");
+        return kQSUpdateCheckSkip;
+    }
+
     NSString *thisVersionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
 	NSString *checkVersionString = nil;
 
@@ -106,11 +119,11 @@
     NSData *data = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:nil error:nil];
     checkVersionString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 
-    [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:kLastUpdateCheck];
+    [defaults setObject:[NSDate date] forKey:kLastUpdateCheck];
     if (![checkVersionString length] && [checkVersionString length] > 10) {
         NSLog(@"Unable to check for new version.");
         [[QSTaskController sharedInstance] removeTask:@"Check for Update"];
-        return -1;
+        return kQSUpdateCheckError;
     }
 
     BOOL newVersionAvailable = [checkVersionString hexIntValue] > [thisVersionString hexIntValue];
@@ -122,41 +135,49 @@
     if (VERBOSE)
         NSLog(@"Installed Version: %@, Available Version: %@, Valid: %@, Force update: %@", thisVersionString, checkVersionString, (newVersionAvailable ? @"YES" : @"NO"), (force ? @"YES" : @"NO"));
 #endif
-    return newVersionAvailable ? 1 : 0;
+    return newVersionAvailable ? kQSUpdateCheckUpdateAvailable : kQSUpdateCheckNoUpdate;
 }
 
 - (BOOL)checkForUpdatesInBackground:(BOOL)quiet force:(BOOL)force {
 	[[QSTaskController sharedInstance] updateTask:@"Check for Update" status:@"Check for Update" progress:-1];
     BOOL updated = NO;
-
+    
     NSInteger check = [self checkForUpdates:force];
     [[QSTaskController sharedInstance] removeTask:@"Check for Update"];
-    if (check == -1) {
-        if (!quiet)
-            NSRunInformationalAlertPanel(@"Connection Error", @"Unable to check for updates.", @"OK", nil, nil);
-        return NO;
-    } else if (check == 1) {
-        if (!force && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSDownloadUpdatesInBackground"]) {
-            [self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
-        } else {
-            int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"New Version", nil], @"A new version of Quicksilver, version %@, is available; would you like to download it now?", @"Get New Version", @"Cancel", nil, newVersion); //, @"More Info");
-            if (selection == 1) {
-                [self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
-            } else if (selection == -1) {  //Go to web site
-                [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kWebSiteURL]];
-            }
-        }
-        return YES;
-    } else {
-        updated = [[QSPlugInManager sharedInstance] checkForPlugInUpdates];
-        if (!updated) {
-            NSLog(@"Quicksilver is up to date.");
+    switch (check) {
+        case kQSUpdateCheckError:
             if (!quiet)
-                NSRunInformationalAlertPanel(@"No Updates Available", [NSString stringWithFormat:@"You already have the latest version of Quicksilver (v%@) and all installed plug-ins", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]] , @"OK", nil, nil);
-        }
+                NSRunInformationalAlertPanel(@"Connection Error", @"Unable to check for updates.", @"OK", nil, nil);
+            return NO;
+        break;
+        case kQSUpdateCheckUpdateAvailable:
+            if (!force && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSDownloadUpdatesInBackground"]) {
+                [self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
+            } else {
+                int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"New Version", nil], @"A new version of Quicksilver, version %@, is available; would you like to download it now?", @"Get New Version", @"Cancel", nil, newVersion); //, @"More Info");
+                if (selection == 1) {
+                    [self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
+                } else if (selection == -1) {  //Go to web site
+                    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kWebSiteURL]];
+                }
+            }
+            return YES;
+        break;
+        case kQSUpdateCheckNoUpdate:
+            updated = [[QSPlugInManager sharedInstance] checkForPlugInUpdates];
+            if (!updated) {
+                NSLog(@"Quicksilver is up to date.");
+                if (!quiet)
+                    NSRunInformationalAlertPanel(@"No Updates Available", [NSString stringWithFormat:@"You already have the latest version of Quicksilver (v%@) and all installed plug-ins", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]] , @"OK", nil, nil);
+            }
+            return updated;
+        break;
+        default:
+        case kQSUpdateCheckSkip:
+        break;
     }
 
-    return updated;
+    return NO;
 }
 
 - (BOOL)threadedCheckForUpdates:(BOOL)force {
