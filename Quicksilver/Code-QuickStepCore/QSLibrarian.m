@@ -55,6 +55,7 @@ static float searchSpeed = 0.0;
 			NSLog(@"Minimum Score set to %f", QSMinScore);
 		}
 		[QSLibrarian createDirectories];
+		enabledPresetsDictionary = [[NSMutableDictionary alloc] init];
 		scanTask = [[QSTask alloc] initWithIdentifier:@"QSLibrarianScanTask"];
 		[scanTask setName:@"Updating Catalog"];
 		[scanTask setIcon:[NSImage imageNamed:@"Catalog.icns"]];
@@ -183,7 +184,6 @@ static float searchSpeed = 0.0;
     
 	NSMutableDictionary *catalogStorage = [NSMutableDictionary dictionaryWithContentsOfFile:[pCatalogSettings stringByStandardizingPath]];
 
-	enabledPresetsDictionary = [[NSMutableDictionary alloc] init];
 	[enabledPresetsDictionary addEntriesFromDictionary:[catalogStorage objectForKey:@"enabledPresets"]];
 	omittedIDs = [[NSMutableSet setWithArray:[catalogStorage objectForKey:@"omittedItems"]] retain];
 
