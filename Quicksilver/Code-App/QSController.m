@@ -174,7 +174,7 @@ static QSController *defaultController = nil;
         
 		// store the typical "Quicksilver is running" state
 		NSDictionary *newState = [[NSDictionary alloc] initWithObjectsAndKeys:@"NO", kQSQuitGracefully, nil];
-        [newState writeToFile:pStateLocation atomically:YES];
+        [newState writeToFile:pStateLocation atomically:NO];
 		[newState release];
 		
 		[self startMenuExtraConnection];
@@ -813,7 +813,7 @@ static QSController *defaultController = nil;
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"WindowsShouldHide" object:self];
 	NSDictionary *state = [[NSDictionary alloc] initWithObjectsAndKeys:@"YES", kQSQuitGracefully, nil];
-	[state writeToFile:pStateLocation atomically:YES];
+	[state writeToFile:pStateLocation atomically:NO];
 	[state release];
 //    if (DEBUG_MEMORY) [self writeLeaksToFileAtPath:QSApplicationSupportSubPath(@"QSLeaks.plist", NO)];
 }

@@ -689,7 +689,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	NSMutableDictionary *state = [[NSMutableDictionary alloc] initWithContentsOfFile:pStateLocation];
 	[state setObject:[[self info] objectForKey:@"CFBundleName"] forKey:kQSPluginCausedCrashAtLaunch];
 	[state setObject:[[self bundle] bundlePath] forKey:kQSFaultyPluginPath];
-	[state writeToFile:pStateLocation atomically:YES];
+	[state writeToFile:pStateLocation atomically:NO];
 	
 	//NSLog(@"%s", __PRETTY_FUNCTION__) ;
 	NS_DURING
@@ -707,7 +707,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	
 	[state removeObjectForKey:kQSPluginCausedCrashAtLaunch];
 	[state removeObjectForKey:kQSFaultyPluginPath];
-	[state writeToFile:pStateLocation atomically:YES];
+	[state writeToFile:pStateLocation atomically:NO];
 	[state release];
 	
 	return YES;
