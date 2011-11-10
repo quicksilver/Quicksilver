@@ -856,10 +856,6 @@ containg multiple objects with the same identifier. Best efforts should be made 
 	globalLastAccess = lastAccess;
 	[iconLoadedArray addObject:self];
 
-#ifdef DEBUG
-	if (VERBOSE) NSLog(@"Load Icon for %s", [self gdbDataFormatter]);
-#endif
-	
 	if (namedIcon) {
     NSImage *image = nil;
 	  if ([namedIcon isEqualToString:@"ProxyIcon"]) {
