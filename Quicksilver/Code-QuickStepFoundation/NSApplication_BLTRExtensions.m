@@ -84,7 +84,7 @@
 
 - (int)moveToPath:(NSString *)launchPath fromPath:(NSString *)newPath {
 	NSFileManager *manager = [NSFileManager defaultManager];
-	NSString *tempPath = [[launchPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.old.app", [[NSProcessInfo processInfo] processName]]];
+	NSString *tempPath = [[launchPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:[NSString stringWithFormat:@"Quicksilver.old.app"]];
 	//NSLog(@"temp %@ new %@", tempPath, newPath);
 	BOOL status;
 #ifdef DEBUG
