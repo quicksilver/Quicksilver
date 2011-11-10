@@ -179,9 +179,8 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
         command = [QSCommand commandWithDictionary:info];
     } else if ([info isKindOfClass:[NSString class]]) {
         command = [QSCommand commandWithIdentifier:info];
-    } else if (![info isKindOfClass:[QSCommand class]]) {
-        [self release];
-        return nil;
+    } else if ([info isKindOfClass:[QSCommand class]]) {
+		command = info;
     }
     return command;
 }
