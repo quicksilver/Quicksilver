@@ -105,80 +105,6 @@ static QSController *defaultController = nil;
 		if (DEBUG_STARTUP) NSLog(@"Controller Init");
 #endif
 
-        if (![NSApplication isSnowLeopard]) {
-			NSBundle *appBundle = [NSBundle mainBundle];
-			NSRunAlertPanel([[appBundle objectForInfoDictionaryKey:@"CFBundleName"] stringByAppendingString:@" requires Mac OS X 10.6+"] , @"Recent versions of Quicksilver require Mac OS 10.6 Snow Leopard. Older 10.5, 10.4 and 10.3 compatible versions are available from the http://qsapp.com.", @"OK", nil, nil, [appBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]);
-            // Quit - we don't want to be running :)
-            [NSApp terminate:nil];
-        }
-        
-		NSMutableDictionary *state = [NSMutableDictionary dictionaryWithContentsOfFile:pStateLocation];
-        
-        // check to see if Quicksilver quit gracefully last time
-        if ([[state objectForKey:kQSQuitGracefully] isEqualToString:@"NO"]) {
-            NSFileManager *fm = [[NSFileManager alloc] init];
-            NSAlert *alert = [[NSAlert alloc] init];
-            [alert setAlertStyle:NSCriticalAlertStyle];
-            [alert setMessageText:@"Quicksilver Crashed"];
-            // Check to see if QS crashed whilst previously loading a plugin (registerPlugin method)
-            NSString *pluginName = [state objectForKey:kQSPluginCausedCrashAtLaunch];
-            if (pluginName) {
-                NSString *informativeText = [NSString stringWithFormat:@"Quicksilver crashed due to the %@ plugin not loading correctly.\nDo you wish to delete this plugin to launch Quicksilver?", pluginName];
-                [alert setInformativeText:informativeText];
-                [alert addButtonWithTitle:@"OK"];
-                [alert addButtonWithTitle:@"Cancel"];
-                NSInteger buttonClicked = [alert runModal];
-                if (buttonClicked == NSAlertFirstButtonReturn) {
-                    // If user says 'OK', attempt to delete the faulty plugin
-                    NSString *faultyPluginPath = [state objectForKey:kQSFaultyPluginPath];
-                    if (faultyPluginPath) {
-                        if (![fm removeItemAtPath:faultyPluginPath error:nil]) {
-                            NSLog(@"Error removing faulty plugin. Continuing to attempt a launch");
-                        }
-                    }
-                }
-            }
-            else {
-#ifdef DEBUG
-                NSLog(@"Ignoring crash protection. You most likely hit 'Stop' in Xcode.");
-#endif
-#ifndef DEBUG
-                [alert setInformativeText:@"Sorry, Quicksilver crashed on last use.\nDeleting caches may help solve the problem.\nOtherwise you can try to launch Quicksilver again, or quit and read the FAQ."];
-                [alert addButtonWithTitle:@"Clear Caches"];
-                [alert addButtonWithTitle:@"Read FAQ"];
-                [alert addButtonWithTitle:@"Do Nothing"];
-                NSInteger buttonClicked = [alert runModal];
-                switch (buttonClicked) {
-                    case NSAlertFirstButtonReturn: {
-                        NSError * err = nil;
-                        [fm removeItemAtPath:[[NSString stringWithString:@"~/Library/Caches/Quicksilver"] stringByExpandingTildeInPath] error:&err];
-                        if (err) {
-                            NSLog(@"Error removing Quicksilver caches. Attempting re-launch anyway");
-                        }
-                        break;
-                    }
-                    case NSAlertSecondButtonReturn: {
-                        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[kHelpURL stringByAppendingString:@"FAQ#Quicksilver_crashes"]]];
-                        [NSApp terminate:nil];
-                        break;
-                    }
-                    default: {
-                        break;
-                    }
-                }
-#endif                
-            }
-            [fm release];
-            [alert release];
-        }
-        
-		// store the typical "Quicksilver is running" state
-		NSDictionary *newState = [[NSDictionary alloc] initWithObjectsAndKeys:@"NO", kQSQuitGracefully, nil];
-        [newState writeToFile:pStateLocation atomically:NO];
-		[newState release];
-		
-		[self startMenuExtraConnection];
-
 		QSApplicationSupportPath = [[[[NSUserDefaults standardUserDefaults] stringForKey:@"QSApplicationSupportPath"] stringByStandardizingPath] retain];
 
 		if (![QSApplicationSupportPath length])
@@ -764,6 +690,73 @@ static QSController *defaultController = nil;
 	[NSApp updateLaunchStatusInfo];
 }
 
+- (void)checkForCrash {
+	NSMutableDictionary *state = [NSMutableDictionary dictionaryWithContentsOfFile:pStateLocation];
+	
+	// check to see if Quicksilver quit gracefully last time
+	if ([[state objectForKey:kQSQuitGracefully] isEqualToString:@"NO"]) {
+		NSFileManager *fm = [[NSFileManager alloc] init];
+		NSAlert *alert = [[NSAlert alloc] init];
+		[alert setAlertStyle:NSCriticalAlertStyle];
+		[alert setMessageText:@"Quicksilver Crashed"];
+		// Check to see if QS crashed whilst previously loading a plugin (registerPlugin method)
+		NSString *pluginName = [state objectForKey:kQSPluginCausedCrashAtLaunch];
+		if (pluginName) {
+			NSString *informativeText = [NSString stringWithFormat:@"Quicksilver crashed due to the %@ plugin not loading correctly.\nDo you wish to delete this plugin to launch Quicksilver?", pluginName];
+			[alert setInformativeText:informativeText];
+			[alert addButtonWithTitle:@"OK"];
+			[alert addButtonWithTitle:@"Cancel"];
+			NSInteger buttonClicked = [alert runModal];
+			if (buttonClicked == NSAlertFirstButtonReturn) {
+				// If user says 'OK', attempt to delete the faulty plugin
+				NSString *faultyPluginPath = [state objectForKey:kQSFaultyPluginPath];
+				if (faultyPluginPath) {
+					if (![fm removeItemAtPath:faultyPluginPath error:nil]) {
+						NSLog(@"Error removing faulty plugin. Continuing to attempt a launch");
+					}
+				}
+			}
+		}
+		else {
+#ifdef DEBUG
+			NSLog(@"Ignoring crash protection. You most likely hit 'Stop' in Xcode.");
+#endif
+#ifndef DEBUG
+			[alert setInformativeText:@"Sorry, Quicksilver crashed on last use.\nDeleting caches may help solve the problem.\nOtherwise you can try to launch Quicksilver again, or quit and read the FAQ."];
+			[alert addButtonWithTitle:@"Clear Caches"];
+			[alert addButtonWithTitle:@"Read FAQ"];
+			[alert addButtonWithTitle:@"Do Nothing"];
+			NSInteger buttonClicked = [alert runModal];
+			switch (buttonClicked) {
+				case NSAlertFirstButtonReturn: {
+					NSError * err = nil;
+					[fm removeItemAtPath:[[NSString stringWithString:@"~/Library/Caches/Quicksilver"] stringByExpandingTildeInPath] error:&err];
+					if (err) {
+						NSLog(@"Error removing Quicksilver caches. Attempting re-launch anyway");
+					}
+					break;
+				}
+				case NSAlertSecondButtonReturn: {
+					[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[kHelpURL stringByAppendingString:@"FAQ#Quicksilver_crashes"]]];
+					[NSApp terminate:nil];
+					break;
+				}
+				default: {
+					break;
+				}
+			}
+#endif
+		}
+		[fm release];
+		[alert release];
+	}
+	
+	// store the typical "Quicksilver is running" state
+	NSDictionary *newState = [[NSDictionary alloc] initWithObjectsAndKeys:@"NO", kQSQuitGracefully, nil];
+	[newState writeToFile:pStateLocation atomically:NO];
+	[newState release];
+}
+
 - (IBAction)showReleaseNotes:(id)sender { [[NSWorkspace sharedWorkspace] openFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/SharedSupport/Changes.html"]];  }
 
 - (QSInterfaceController *)interfaceController { return [QSReg preferredCommandInterface];  }
@@ -819,6 +812,16 @@ static QSController *defaultController = nil;
 }
 
 - (void)applicationWillFinishLaunching:(NSNotification *)aNotification {
+
+	if (![NSApplication isSnowLeopard]) {
+		NSBundle *appBundle = [NSBundle mainBundle];
+		NSRunAlertPanel([[appBundle objectForInfoDictionaryKey:@"CFBundleName"] stringByAppendingString:@" requires Mac OS X 10.6+"] , @"Recent versions of Quicksilver require Mac OS 10.6 Snow Leopard. Older 10.5, 10.4 and 10.3 compatible versions are available from the http://qsapp.com.", @"OK", nil, nil, [appBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]);
+		// Quit - we don't want to be running :)
+		[NSApp terminate:nil];
+	}
+	
+	[self startMenuExtraConnection];
+
     QSGetLocalizationStatus();
 #ifdef DEBUG
 	[self registerForErrors];
@@ -833,6 +836,7 @@ static QSController *defaultController = nil;
 }
 - (void)startQuicksilver:(id)sender {
 	[self checkForFirstRun];
+	[self checkForCrash];
 
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
