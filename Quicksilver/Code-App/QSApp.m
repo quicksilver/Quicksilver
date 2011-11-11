@@ -17,7 +17,6 @@ BOOL QSApplicationCompletedLaunch = NO;
 @end
 @interface NSApplication (NSPrivate)
 - (BOOL)_handleKeyEquivalent:(NSEvent *)event;
-- (void)_sendFinishLaunchingNotification;
 @end
 
 @implementation QSApp
@@ -75,16 +74,6 @@ BOOL QSApplicationCompletedLaunch = NO;
 	}
 	}
 	return self;
-}
-
-#if 0
-- (void)finishLaunching { [super finishLaunching];  }
-#endif
-
-- (void)_sendFinishLaunchingNotification {
-	[super _sendFinishLaunchingNotification];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"QSApplicationDidFinishLaunchingNotification" object:self];
-	QSApplicationCompletedLaunch = YES;
 }
 
 - (BOOL)completedLaunch { return QSApplicationCompletedLaunch;  }

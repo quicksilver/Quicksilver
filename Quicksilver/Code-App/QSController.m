@@ -1048,7 +1048,11 @@ static QSController *defaultController = nil;
 	[NSThread detachNewThreadSelector:@selector(hideSplash:) toTarget:self withObject:nil];
 }
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification { [self startQuicksilver:aNotification];  }
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+	[self startQuicksilver:aNotification];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"QSApplicationDidFinishLaunchingNotification" object:self];
+	QSApplicationCompletedLaunch = YES;
+}
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag {
 	[self activateInterface:theApplication];

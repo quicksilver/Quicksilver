@@ -2,7 +2,8 @@
 #import <Cocoa/Cocoa.h>
 #import <Carbon/Carbon.h>
 
-//extern BOOL QSApplicationCompletedLaunch;
+/* Deprecated. Use [NSApp completedLaunch] */
+extern BOOL QSApplicationCompletedLaunch;
 
 @interface QSApp : NSApplication {
 	BOOL isUIElement, shouldRelaunch;
