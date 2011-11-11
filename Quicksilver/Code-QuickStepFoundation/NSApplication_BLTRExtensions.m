@@ -84,13 +84,15 @@
 
 - (int)moveToPath:(NSString *)launchPath fromPath:(NSString *)newPath {
 	NSFileManager *manager = [NSFileManager defaultManager];
-	NSString *tempPath = [[launchPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:[NSString stringWithFormat:@"Quicksilver.old.app"]];
+	NSString *tempPath = [[launchPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.old.app",[[NSProcessInfo processInfo] processName]]];
 	//NSLog(@"temp %@ new %@", tempPath, newPath);
 	BOOL status;
-#ifdef DEBUG
 	status = [manager moveItemAtPath:launchPath toPath:tempPath error:nil];
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"Move Old %d", status);
+#endif
 	status = [manager copyItemAtPath:newPath toPath:launchPath error:nil];
+#ifdef DEBUG
 	if (VERBOSE) NSLog(@"Copy New %d", status);
 #endif
 	status = [manager movePathToTrash:tempPath];
