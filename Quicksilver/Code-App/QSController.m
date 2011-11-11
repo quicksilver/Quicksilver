@@ -100,16 +100,11 @@ static QSController *defaultController = nil;
 
 - (id)init {
 	if (self = [super init]) {
-		
-#ifdef DEBUG
-		if (DEBUG_STARTUP) NSLog(@"Controller Init");
-#endif
-
+		/* Modifying this is not recommended. Consider adding your stuff in -applicationWill/DidFinishLaunching: */
 		QSApplicationSupportPath = [[[[NSUserDefaults standardUserDefaults] stringForKey:@"QSApplicationSupportPath"] stringByStandardizingPath] retain];
 
 		if (![QSApplicationSupportPath length])
 			QSApplicationSupportPath = [[self applicationSupportFolder] retain];
-		//	NSLog(@"App Support: %@", QSApplicationSupportPath);
 	}
 	return self;
 }
@@ -121,12 +116,6 @@ static QSController *defaultController = nil;
 
 - (void)handleAppleEvent:(NSAppleEventDescriptor *)event withReplyEvent: (NSAppleEventDescriptor *)replyEvent {
 	//NSLog(@"handl");
-}
-- (void)appWillLaunch:(NSNotification *)notif {
-	if ([[[notif userInfo] objectForKey:@"NSApplicationBundleIdentifier"] isEqualToString:[[NSBundle mainBundle] bundleIdentifier]])
-		[NSApp terminate:self];
-//	else
-		//		NSLog(@"App: %@ %@", [[notif userInfo] objectForKey:@"NSApplicationBundleIdentifier"] , [[NSBundle mainBundle] bundleIdentifier]);
 }
 
 - (int) showMenuIcon {
@@ -579,6 +568,15 @@ static QSController *defaultController = nil;
 
 //Notifications
 
+/* NSWorkspaceWillLaunchApplicationNotification */
+- (void)appWillLaunch:(NSNotification *)notif {
+	if ([[[notif userInfo] objectForKey:@"NSApplicationBundleIdentifier"] isEqualToString:[[NSBundle mainBundle] bundleIdentifier]])
+		[NSApp terminate:self];
+	//	else
+	//		NSLog(@"App: %@ %@", [[notif userInfo] objectForKey:@"NSApplicationBundleIdentifier"] , [[NSBundle mainBundle] bundleIdentifier]);
+}
+
+/* NSWorkspaceDidLaunchApplicationNotification */
 - (void)appLaunched:(NSNotification*)notif {
 	NSString *launchedApp = [[notif userInfo] objectForKey:@"NSApplicationName"];
 	if ([launchedApp isEqualToString:@"Dock0"])
