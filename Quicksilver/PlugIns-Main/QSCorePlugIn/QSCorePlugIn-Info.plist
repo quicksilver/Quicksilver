@@ -634,7 +634,7 @@
 			<key>actionClass</key>
 			<string>QSCommandObjectHandler</string>
 			<key>actionSelector</key>
-			<string>addTrigger:withInfo:</string>
+			<string>addTrigger:</string>
 			<key>directTypes</key>
 			<array>
 				<string>qs.command</string>

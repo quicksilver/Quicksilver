@@ -118,7 +118,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	return [QSObject fileObjectWithPath:destination];
 }
 
-- (QSObject*)addTrigger:(QSObject *)dObject withInfo:(QSObject*)iObject {
+- (QSObject*)addTrigger:(QSObject *)dObject {
 #warning TODO: iObject contains a string which allows passing missing parameters (trigger type, mainly)
     /* More TODO: Ask the trigger's trigger manager to parse the iObject stringValue,
      * so that trigger manager get a chance to customize their properties */
