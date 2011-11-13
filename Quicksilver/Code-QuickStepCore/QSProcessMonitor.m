@@ -289,10 +289,6 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 - (void)addProcessWithPSN:(ProcessSerialNumber)psn {
 	NDProcess *thisProcess = [NDProcess processWithProcessSerialNumber:psn];
 
-	/* Don't add if this is a background process, and the user don't want those */
-	if ([thisProcess isBackground] && ![[NSUserDefaults standardUserDefaults] boolForKey:kQSShowBackgroundProcesses])
-		return;
-
 	NSDictionary *info = [self infoForPSN:psn];
     QSObject *procObject = [self imbuedFileProcessForDict:info];
 	NSValue *psnValue = [NSValue valueWithProcessSerialNumber:psn];
