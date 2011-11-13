@@ -43,6 +43,9 @@ OSStatus GetPSNForAppInfo(ProcessSerialNumber *psn, NSDictionary *theApp) {
 	return noErr;
 }
 
+#pragma mark -
+#pragma mark Carbon Process event handlers
+
 OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData) {
     ProcessSerialNumber psn;
     OSStatus result;
@@ -125,6 +128,26 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 	[super dealloc];
 }
 
+- (QSObject *)imbuedFileProcessForDict:(NSDictionary *)dict {
+	NSString *bundlePath = [[dict objectForKey:@"NSApplicationPath"] stringByDeletingLastPathComponent];
+	QSObject *newObject = nil;
+	if ([[bundlePath lastPathComponent] isEqualToString:@"MacOS"] || [[bundlePath lastPathComponent] isEqualToString:@"MacOSClassic"]) {
+		bundlePath = [bundlePath stringByDeletingLastPathComponent];
+		// ***warning  * check that this is the executable specified by the info.plist
+		if ([[bundlePath lastPathComponent] isEqualToString:@"Contents"]) {
+			bundlePath = [bundlePath stringByDeletingLastPathComponent];
+			newObject = [QSObject fileObjectWithPath:bundlePath];
+			//	NSLog(@"%@ %@", bundlePath, newObject);
+		}
+	}
+
+	if (!newObject)
+		newObject = [QSObject fileObjectWithPath:[dict objectForKey:@"NSApplicationPath"]];
+
+	[newObject setObject:dict forType:QSProcessType];
+	return newObject;
+}
+
 - (QSObject *)processObjectWithPSN:(ProcessSerialNumber)psn {
 	QSObject *thisProcess;
 	ProcessSerialNumber thisPSN;
@@ -136,6 +159,13 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 		SameProcess(&psn, &thisPSN, &match);
 		if (match) return thisProcess;
 	}
+	return nil;
+}
+
+- (QSObject *)processObjectWithDict:(NSDictionary *)dict {
+	ProcessSerialNumber psn;
+	if (noErr == GetPSNForAppInfo(&psn, dict) )
+		return [self processObjectWithPSN:psn];
 	return nil;
 }
 
@@ -163,6 +193,39 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 
 	return dict;
 }
+
+#pragma mark -
+#pragma mark Process array manipulation
+
+- (void)processTerminated:(QSObject *)thisProcess {
+	//NSLog(@"Terminate:%@", thisProcess);
+	[[thisProcess dataDictionary] removeObjectForKey:QSProcessType];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSObjectModified object:thisProcess];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"processesChanged" object:nil];
+	[processes removeObject:thisProcess];
+}
+
+- (void)removeProcessWithPSN:(ProcessSerialNumber)psn {
+	QSObject *thisProcess = [self processObjectWithPSN:psn];
+	//NSLog(@"psn %@", thisProcess);
+	[self processTerminated:thisProcess];
+}
+
+- (void)addProcessWithDict:(NSDictionary *)info {
+	if ([self processObjectWithDict:info]) return;
+
+	//	NSLog(@"addProcess %@", [info objectForKey:@"NSApplicationName"]);
+	QSObject *thisProcess = [self imbuedFileProcessForDict:info];
+	//	NSLog(@"process %@", thisProcess);
+    if (thisProcess != nil) {
+        [processes addObject:thisProcess];
+        [[NSNotificationCenter defaultCenter] postNotificationName:QSObjectModified object:thisProcess];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"processesChanged" object:nil];
+    }
+}
+
+#pragma mark -
+#pragma mark Process Notifications
 
 - (BOOL)handleProcessEvent:(NSEvent *)theEvent {
 	ProcessSerialNumber psn;
@@ -192,6 +255,21 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 	return YES;
 }
 
+- (void)appLaunched:(NSNotification *)notif {
+	if (![processes count])
+		[self reloadProcesses];
+	else
+		[self addProcessWithDict:[notif userInfo]];
+
+    QSObject *procObject = [self imbuedFileProcessForDict:[notif userInfo]];
+    if (procObject)
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSApplicationLaunchEvent" userInfo:[NSDictionary dictionaryWithObject:procObject forKey:@"object"]];
+}
+
+- (void)appTerminated:(NSNotification *)notif {
+	[self processTerminated:[self processObjectWithDict:[notif userInfo]]];
+}
+
 - (void)appChanged:(NSNotification *)aNotification {
 	/* TODO: tiennou This doesn't belong here */
 	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
@@ -207,41 +285,8 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 	[self setCurrentApplication:newApp];
 }
 
-- (void)processTerminated:(QSObject *)thisProcess {
-	//NSLog(@"Terminate:%@", thisProcess);
-	[[thisProcess dataDictionary] removeObjectForKey:QSProcessType];
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSObjectModified object:thisProcess];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"processesChanged" object:nil];
-	[processes removeObject:thisProcess];
-}
-
-- (void)removeProcessWithPSN:(ProcessSerialNumber)psn {
-	QSObject *thisProcess = [self processObjectWithPSN:psn];
-	//NSLog(@"psn %@", thisProcess);
-	[self processTerminated:thisProcess];
-}
-
-- (QSObject *)processObjectWithDict:(NSDictionary *)dict {
-	ProcessSerialNumber psn;
-	if (noErr == GetPSNForAppInfo(&psn, dict) )
-		return [self processObjectWithPSN:psn];
-	return nil;
-}
-
-- (void)appTerminated:(NSNotification *)notif {
-	[self processTerminated:[self processObjectWithDict:[notif userInfo]]];
-}
-
-- (void)appLaunched:(NSNotification *)notif {
-	if (![processes count])
-		[self reloadProcesses];
-	else
-		[self addProcessWithDict:[notif userInfo]];
-
-    QSObject *procObject = [self imbuedFileProcessForDict:[notif userInfo]];
-    if (procObject)
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSApplicationLaunchEvent" userInfo:[NSDictionary dictionaryWithObject:procObject forKey:@"object"]];
-}
+#pragma mark -
+#pragma mark Utilities
 
 - (void)addObserverForEvent:(NSString *)event trigger:(NSDictionary *)trigger {
 	NSLog(@"Add %@", event);
@@ -249,19 +294,6 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 
 - (void)removeObserverForEvent:(NSString *)event trigger:(NSDictionary *)trigger {
 	NSLog(@"Remove %@", event);
-}
-
-- (void)addProcessWithDict:(NSDictionary *)info {
-	if ([self processObjectWithDict:info]) return;
-
-//	NSLog(@"addProcess %@", [info objectForKey:@"NSApplicationName"]);
-	QSObject *thisProcess = [self imbuedFileProcessForDict:info];
-//	NSLog(@"process %@", thisProcess);
-    if (thisProcess != nil) {
-        [processes addObject:thisProcess];
-        [[NSNotificationCenter defaultCenter] postNotificationName:QSObjectModified object:thisProcess];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"processesChanged" object:nil];
-    }
 }
 
 - (NSArray *)getAllProcesses {
@@ -318,27 +350,6 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 	return objects;
 }
 
-- (QSObject *)imbuedFileProcessForDict:(NSDictionary *)dict {
-	NSString *bundlePath = [[dict objectForKey:@"NSApplicationPath"] stringByDeletingLastPathComponent];
-	QSObject *newObject = nil;
-	if ([[bundlePath lastPathComponent] isEqualToString:@"MacOS"] || [[bundlePath lastPathComponent] isEqualToString:@"MacOSClassic"]) {
-		bundlePath = [bundlePath stringByDeletingLastPathComponent];
-		// ***warning  * check that this is the executable specified by the info.plist
-		if ([[bundlePath lastPathComponent] isEqualToString:@"Contents"]) {
-			bundlePath = [bundlePath stringByDeletingLastPathComponent];
-			newObject = [QSObject fileObjectWithPath:bundlePath];
-			//	NSLog(@"%@ %@", bundlePath, newObject);
-
-		}
-	}
-
-	if (!newObject)
-		newObject = [QSObject fileObjectWithPath:[dict objectForKey:@"NSApplicationPath"]];
-
-	[newObject setObject:dict forType:QSProcessType];
-	return newObject;
-}
-
 - (void)reloadProcesses {
 	//NSLog(@"Reloading Processes");
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:kQSShowBackgroundProcesses])
@@ -358,6 +369,9 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 
 	return processes;
 }
+
+#pragma mark -
+#pragma mark Proxies
 
 - (id)resolveProxyObject:(id)proxy {
 	if ([[proxy identifier] isEqualToString:@"QSCurrentApplicationProxy"]) {
@@ -380,6 +394,9 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 - (NSTimeInterval) cacheTimeForProxy:(id)proxy {
 	return 0.0f;
 }
+
+#pragma mark -
+#pragma mark Accessors
 
 - (NSDictionary *)currentApplication {
 	return currentApplication;
