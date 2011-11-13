@@ -17,6 +17,7 @@
 
 #define kQSCatalogEntryShowAction @"QSCatalogEntryShowAction"
 #define kQSCatalogEntryRescanAction @"QSCatalogEntryRescanAction"
+#define kQSCatalogAddEntryAction @"QSCatalogAddEntryAction"
 
 static BOOL firstCheck = NO;
 static NSImage *prefsCatalogImage = nil;
@@ -128,7 +129,10 @@ static NSImage *prefsCatalogImage = nil;
 }
 
 - (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
-	return [NSArray arrayWithObjects:kQSCatalogEntryShowAction, kQSCatalogEntryRescanAction, nil];
+    if ([dObject count] == 1) {
+        return [NSArray arrayWithObjects:kQSCatalogEntryShowAction, kQSCatalogEntryRescanAction, kQSCatalogAddEntryAction, nil];
+    }
+    return nil;
 }
 
 - (QSObject *)show:(QSObject *)dObject {
