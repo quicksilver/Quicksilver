@@ -54,6 +54,8 @@
 	IBOutlet NSView *sidebar;
 }
 
++ (id)sharedInstance;
+
 - (IBAction)addSource:(id)sender;
 //- (IBAction)addSourcePreset:(id)sender;
 //- (IBAction)removeItem:(id)sender;
@@ -101,4 +103,6 @@
 - (void)selectEntry:(QSCatalogEntry *)entry;
 - (QSCatalogEntry *)entryForCatFile:(NSString *)path;
 - (id)preferencesSplitView;
+
+- (void)showOptionsDrawer;
 @end
