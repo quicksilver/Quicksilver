@@ -319,7 +319,7 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 	psn.highLongOfPSN = [theEvent data1];
 	psn.lowLongOfPSN = [theEvent data2];
 
-	NSDictionary *processInfo = [self infoForPSN:psn];
+	NSDictionary *processInfo;
 
     switch ([theEvent subtype]) {
 		case NSProcessDidLaunchSubType:
@@ -329,8 +329,8 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 			[self removeProcessWithPSN:psn];
 			break;
 		case NSFrontProcessSwitched:
+			processInfo = [self infoForPSN:psn];
 			[[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorFrontApplicationSwitched object: processInfo];
-			[self appChanged:nil];
 			break;
 		default:
 	 break;
