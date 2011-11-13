@@ -35,13 +35,15 @@
 		processes = [[NSMutableArray arrayWithCapacity:1] retain];
 
 		[[QSProcessMonitor sharedInstance] addObserver:self forKeyPath:@"allProcesses" options:NSKeyValueObservingOptionNew context:QSProcessSourceObservationContext];
+		[[NSUserDefaultsController sharedUserDefaultsController] addObserver:self forKeyPath:@"values." kQSShowBackgroundProcesses options:NSKeyValueObservingOptionNew context:QSProcessSourceObservationContext];
 	}
 	return self;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if (context == QSProcessSourceObservationContext) {
-		if ([keyPath isEqualToString:@"allProcesses"])
+		if ([keyPath isEqualToString:@"allProcesses"]
+			|| [keyPath isEqualToString:@"values." kQSShowBackgroundProcesses])
 			[self invalidateSelf];
 	}
 }
