@@ -601,6 +601,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)clearObjectValue {
 	[self updateHistory];
+    browsingHistory = NO;
 	[super setObjectValue:nil];
 	selection--;
 	//	[[NSNotificationCenter defaultCenter] postNotificationNamse:@"SearchObjectChanged" object:self];
@@ -711,6 +712,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)clearSearch {
 	[resetTimer invalidate];
 	[resultTimer invalidate];
+    browsingHistory = NO;
 	[self resetString];
 	[partialString setString:@""];
     
@@ -1645,7 +1647,11 @@ NSMutableDictionary *bindingsDict = nil;
 
     historyIndex = -1;
     if (state) {
-        [historyArray insertObject:state atIndex:0];
+        // Do not add the object to the history if it is already the 1st object
+        if (![historyArray count] || 
+                     ([historyArray count] && ![objectValue isEqual:[[historyArray objectAtIndex:0] objectForKey:@"selection"]])) {
+            [historyArray insertObject:state atIndex:0];
+        }
     }
 
 	if ([historyArray count] >MAX_HISTORY_COUNT) [historyArray removeLastObject];
