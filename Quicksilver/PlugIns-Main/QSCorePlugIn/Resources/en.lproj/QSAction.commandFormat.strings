@@ -13,7 +13,7 @@
 	<key>AppShowHideAction</key>
 	<string>Toggle Visibility of %@</string>
 	<key>FileAlwaysOpenTypeWithAction</key>
-	<string>Always Open %@'s Filetype With %@</string>
+	<string>Always Open %@&apos;s Filetype With %@</string>
 	<key>QSCommandSaveAction</key>
 	<string>Save %@ to File</string>
 	<key>PasteboardPasteActionAsPlainText</key>
@@ -53,7 +53,7 @@
 	<key>AppleScriptRunAction</key>
 	<string>Run Script: %@</string>
 	<key>AppleScriptRunTextAction</key>
-	<string>Run '%@'</string>
+	<string>Run &apos;%@&apos;</string>
 	<key>DiskEjectAction</key>
 	<string>Eject %@</string>
 	<key>DiskForceEjectAction</key>
@@ -76,6 +76,8 @@
 	<string>Get absolute path of %@</string>
 	<key>FileGetURLAction</key>
 	<string>Get file:// URL of %@</string>
+	<key>New item</key>
+	<string></string>
 	<key>FileMakeAliasInAction</key>
 	<string>Make alias of %@ in %#</string>
 	<key>FileMakeHardLinkInAction</key>
@@ -112,6 +114,8 @@
 	<string>Resume %@</string>
 	<key>ProcessSuspendAction</key>
 	<string>Suspend %@</string>
+	<key>QSCatalogAddEntryAction</key>
+	<string>Add %@ to the Catalog</string>
 	<key>QSCatalogEntryRescanAction</key>
 	<string>Rescan %@</string>
 	<key>QSCatalogEntryShowAction</key>
@@ -121,7 +125,7 @@
 	<key>QSEditAction</key>
 	<string>Edit %@</string>
 	<key>QSLargeTypeAction</key>
-	<string>Show "%@" in large type</string>
+	<string>Show &quot;%@&quot; in large type</string>
 	<key>QSLoginItemAddAction</key>
 	<string>Add %@ to login items</string>
 	<key>QSLoginItemRemoveAction</key>
@@ -161,11 +165,11 @@
 	<key>QSTextDiffAction</key>
 	<string>Diff %@ and %#</string>
 	<key>QSTextShowDialogAction</key>
-	<string>Show dialog: \"%@\"</string>
+	<string>Show dialog: \&quot;%@\&quot;</string>
 	<key>QSTextSpeakAction</key>
-	<string>Say \"%@\"</string>
+	<string>Say \&quot;%@\&quot;</string>
 	<key>QSTextTypeAction</key>
-	<string>Type \"%@\"</string>
+	<string>Type \&quot;%@\&quot;</string>
 	<key>ShellScriptRunAction</key>
 	<string>Run script: %@</string>
 	<key>URLEmailAction</key>

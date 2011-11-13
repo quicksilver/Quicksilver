@@ -1313,6 +1313,23 @@
 			<key>feature</key>
 			<integer>1</integer>
 		</dict>
+		<key>QSCatalogAddEntryAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSCatalogEntrySource</string>
+			<key>directTypes</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+			</array>
+			<key>precedence</key>
+			<real>0.05</real>
+			<key>enabled</key>
+			<string>NO</string>
+			<key>actionSelector</key>
+			<string>addCatalogEntry:</string>
+			<key>icon</key>
+			<string>Catalog</string>
+		</dict>
 		<key>QSCatalogEntryShowAction</key>
 		<dict>
 			<key>actionClass</key>
