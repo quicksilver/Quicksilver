@@ -13,6 +13,10 @@
 - (NSDictionary *)infoForPSN:(ProcessSerialNumber)processSerialNumber;
 @end
 
+NSString *QSProcessMonitorFrontApplicationSwitched = @"QSProcessMonitorFrontApplicationSwitched";
+NSString *QSProcessMonitorApplicationLaunched = @"QSProcessMonitorApplicationLaunched";
+NSString *QSProcessMonitorApplicationTerminated = @"QSProcessMonitorApplicationTerminated";
+
 OSStatus GetPSNForAppInfo(ProcessSerialNumber *psn, NSDictionary *theApp) {
 	if (!theApp) return 1;
 	psn->highLongOfPSN = [[theApp objectForKey:@"NSApplicationProcessSerialNumberHigh"] longValue];

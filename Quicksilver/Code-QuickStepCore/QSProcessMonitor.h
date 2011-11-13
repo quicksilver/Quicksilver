@@ -38,3 +38,8 @@
 - (void)setPreviousApplication:(NSDictionary *)newPreviousApplication ;
 - (void)setCurrentApplication:(NSDictionary *)newCurrentApplication ;
 @end
+
+/* QSProcessMonitor notifications */
+extern NSString *QSProcessMonitorFrontApplicationSwitched;
+extern NSString *QSProcessMonitorApplicationLaunched;
+extern NSString *QSProcessMonitorApplicationTerminated;
