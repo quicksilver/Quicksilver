@@ -125,7 +125,11 @@ static NSImage *prefsCatalogImage = nil;
 	[action2 setIcon:[QSResourceManager imageNamed:@"prefsCatalog"]];
 	[action2 setProvider:self];
 	[action2 setAction:@selector(rescan:)];
-	return [NSArray arrayWithObjects:action, action2, nil];
+    QSAction *action3 = [QSAction actionWithIdentifier:kQSCatalogAddEntryAction];
+	[action3 setIcon:[QSResourceManager imageNamed:@"prefsCatalog"]];
+	[action3 setProvider:self];
+	[action3 setAction:@selector(addCatalogEntry:)];
+	return [NSArray arrayWithObjects:action, action2, action3 nil];
 }
 
 - (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {

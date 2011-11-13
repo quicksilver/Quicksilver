@@ -132,6 +132,8 @@
 	<string>Rescan Catalog Entry</string>
 	<key>QSCatalogEntryShowAction</key>
 	<string>Show Entry in Catalog</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Add To Catalog</string>
 	<key>QSComposeEmailItemAction</key>
 	<string>Email Item... (Compose)</string>
 	<key>QSComposeEmailItemReverseAction</key>
