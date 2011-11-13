@@ -8,14 +8,15 @@
 #import "QSTypes.h"
 
 #import "NSEvent+BLTRExtensions.h"
+
 @interface QSProcessMonitor (QSInternal)
 - (NSDictionary *)infoForPSN:(ProcessSerialNumber)processSerialNumber;
 @end
 
 OSStatus GetPSNForAppInfo(ProcessSerialNumber *psn, NSDictionary *theApp) {
 	if (!theApp) return 1;
-	(*psn) .highLongOfPSN = [[theApp objectForKey:@"NSApplicationProcessSerialNumberHigh"] longValue];
-	(*psn) .lowLongOfPSN = [[theApp objectForKey:@"NSApplicationProcessSerialNumberLow"] longValue];
+	psn->highLongOfPSN = [[theApp objectForKey:@"NSApplicationProcessSerialNumberHigh"] longValue];
+	psn->lowLongOfPSN = [[theApp objectForKey:@"NSApplicationProcessSerialNumberLow"] longValue];
 	return noErr;
 }
 
@@ -25,8 +26,8 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
     result = GetEventParameter(theEvent,
                                kEventParamProcessID,
                                typeProcessSerialNumber, NULL,
-                               sizeof(psn), NULL, 
-                               &psn );
+                               sizeof(psn), NULL,
+                               &psn);
     if( result == noErr ) {
         NSDictionary *dict = [(QSProcessMonitor*)userData infoForPSN:psn];
         [[NSNotificationCenter defaultCenter] postNotificationName:QSActiveApplicationChanged object:userData userInfo:dict];
@@ -37,6 +38,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 }
 
 @implementation QSProcessMonitor
+
 + (id)sharedInstance {
 	static id _sharedInstance;
 	if (!_sharedInstance) _sharedInstance = [[self allocWithZone:[self zone]] init];
@@ -45,22 +47,20 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 
 + (NSArray *)processes {
 	NSMutableArray *resultsArray = [NSMutableArray array];
-//	OSErr resultCode = noErr;
 	ProcessSerialNumber serialNumber;
-	ProcessInfoRec			 procInfo;
-	FSSpec			 appFSSpec;
+	ProcessInfoRec		procInfo;
+	FSSpec				appFSSpec;
+	Str255				procName;
 
-	Str255							 procName;
-	serialNumber.highLongOfPSN = kNoProcess;
-	serialNumber.lowLongOfPSN = kNoProcess;
+	serialNumber.highLongOfPSN	= kNoProcess;
+	serialNumber.lowLongOfPSN	= kNoProcess;
 
-	procInfo.processInfoLength			 = sizeof(ProcessInfoRec);
-	procInfo.processName					 = procName;
-	procInfo.processAppSpec			 = &appFSSpec;
-//	procInfo.processAppSpec			 = &appFSSpec;
+	procInfo.processInfoLength	= sizeof(ProcessInfoRec);
+	procInfo.processName		= procName;
+	procInfo.processAppSpec		= &appFSSpec;
 
-	while (procNotFound != (/*resultCode = */GetNextProcess(&serialNumber) )) {
-		if (noErr == (/*resultCode = */GetProcessInformation(&serialNumber, &procInfo) )) {
+	while (procNotFound != (GetNextProcess(&serialNumber) )) {
+		if (noErr == (GetProcessInformation(&serialNumber, &procInfo) )) {
 			if ('\0' == procName[1])
 				procName[1] = '0';
             NSString *processName = (NSString*)CFStringCreateWithPascalString(NULL, procInfo.processName, kCFStringEncodingUTF8);
@@ -107,7 +107,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 	ProcessSerialNumber thisPSN;
 	Boolean match;
 
-	for(thisProcess in processes) {
+	for (thisProcess in processes) {
 		NSDictionary *info = [thisProcess objectForType:QSProcessType];
 		GetPSNForAppInfo(&thisPSN, info);
 		SameProcess(&psn, &thisPSN, &match);
@@ -119,25 +119,25 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 - (NSDictionary *)infoForPSN:(ProcessSerialNumber)processSerialNumber {
     NSDictionary *dict = (NSDictionary *)ProcessInformationCopyDictionary(&processSerialNumber, kProcessDictionaryIncludeAllInformationMask);
     dict = [[[dict autorelease] mutableCopy] autorelease];
-    
+
     [dict setValue:[dict objectForKey:@"CFBundleName"]
             forKey:@"NSApplicationName"];
-    
+
     [dict setValue:[dict objectForKey:@"BundlePath"]
             forKey:@"NSApplicationPath"];
-    
+
     [dict setValue:[dict objectForKey:@"CFBundleIdentifier"]
             forKey:@"NSApplicationBundleIdentifier"];
-    
+
     [dict setValue:[dict objectForKey:@"pid"]
             forKey:@"NSApplicationProcessIdentifier"];
-    
+
     [dict setValue:[NSNumber numberWithLong:processSerialNumber.highLongOfPSN]
             forKey:@"NSApplicationProcessSerialNumberHigh"];
-    
+
     [dict setValue:[NSNumber numberWithLong:processSerialNumber.lowLongOfPSN]
             forKey:@"NSApplicationProcessSerialNumberLow"];
-    
+
 	return dict;
 }
 
@@ -170,6 +170,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 }
 
 - (void)appChanged:(NSNotification *)aNotification {
+	/* TODO: tiennou This doesn't belong here */
 	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
 	NSDictionary *newApp = [workspace activeApplication];
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Hide Other Apps When Switching"]) {
@@ -222,9 +223,9 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 - (void)addObserverForEvent:(NSString *)event trigger:(NSDictionary *)trigger {
 	NSLog(@"Add %@", event);
 }
+
 - (void)removeObserverForEvent:(NSString *)event trigger:(NSDictionary *)trigger {
 	NSLog(@"Remove %@", event);
-
 }
 
 - (void)addProcessWithDict:(NSDictionary *)info {
@@ -256,9 +257,8 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 			NSLog(@"ignoring process id %d", pid);
 	}
 	return objects;
-
-	return nil;
 }
+
 - (NSArray *)getVisibleProcesses {
 	NSMutableArray *objects = [NSMutableArray arrayWithCapacity:1];
 	QSObject *newObject;
@@ -274,8 +274,6 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 
 	}
 	return objects;
-
-	return nil;
 }
 
 - (NSArray *)processesWithHiddenState:(BOOL)hidden {
@@ -284,9 +282,7 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 	NSArray *newProcesses = [NDProcess everyProcess];
 
 	NDProcess *thisProcess;
-//	pid_t pid = -1;
-	//ProcessSerialNumber psn;
-	for(thisProcess in newProcesses) {
+	for (thisProcess in newProcesses) {
 		newObject = nil;
 		if (hidden && [thisProcess isVisible]) continue;
 		else if ((!hidden) && (![thisProcess isVisible])) continue;
@@ -297,9 +293,6 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 	}
 
 	return objects;
-
-	return nil;
-
 }
 
 - (QSObject *)imbuedFileProcessForDict:(NSDictionary *)dict {
@@ -330,22 +323,17 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 	else
 		[processes setArray:[self getVisibleProcesses]];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"processesChanged" object:nil];
-
-	//[self invalidateSelf];
 }
 
 - (NSArray *)visibleProcesses {
 	return [self allProcesses];
-
 }
+
 - (NSArray *)allProcesses {
 	if (![processes count])
 		[self reloadProcesses];
-//	NSLog(@"proc %@", processes);
+
 	return processes;
-}
-- (NSDictionary *)previousApplication {
-	return previousApplication;
 }
 
 - (id)resolveProxyObject:(id)proxy {
@@ -358,7 +346,9 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 		return [QSObject objectByMergingObjects:[self processesWithHiddenState:YES]];
 	} else if ([[proxy identifier] isEqualToString:@"QSVisibleApplicationsProxy"]) {
 		return [QSObject objectByMergingObjects:[self processesWithHiddenState:NO]];
-  } else if ([[proxy identifier] isEqualToString:@"QSRunningApplicationsProxy"]) {
+	} else if ([[proxy identifier] isEqualToString:@"QSRunningApplicationsProxy"]) {
+	  /* TODO: tiennou Optimization : use the processes cache. This rebuilds the list.
+	   * Should we also show background apps if that's in defaults ? */
 		return [QSObject objectByMergingObjects:[self getVisibleProcesses]];
 	}
 	return nil;
@@ -371,11 +361,16 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
 - (NSDictionary *)currentApplication {
 	return currentApplication;
 }
+
 - (void)setCurrentApplication:(NSDictionary *)newCurrentApplication {
 	if (currentApplication != newCurrentApplication) {
 		[currentApplication release];
 		currentApplication = [newCurrentApplication copy];
 	}
+}
+
+- (NSDictionary *)previousApplication {
+	return previousApplication;
 }
 
 - (void)setPreviousApplication:(NSDictionary *)newPreviousApplication {
