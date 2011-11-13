@@ -138,6 +138,7 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 
 - (id)init {
 	if (self = [super init]) {
+		isReloading = NO;
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appTerminated:) name:QSProcessMonitorApplicationTerminated object: nil];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appLaunched:) name:QSProcessMonitorApplicationLaunched object: nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appChanged:) name:QSProcessMonitorFrontApplicationSwitched object: nil];
@@ -268,10 +269,20 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 	NSValue *psnValue = [NSValue valueWithProcessSerialNumber:psn];
 
 	if (procObject) {
+		if (!isReloading) {
+			/* We're forced to send notifications for everything because we don't know anymore if the application was background or not */
+			[self willChangeValueForKey:@"allProcesses"];
+			[self willChangeValueForKey:@"backgroundProcesses"];
+			[self willChangeValueForKey:@"visibleProcesses"];
+		}
 		[procObject setObject:nil forType:QSProcessType];
 		[[self processesDict] removeObjectForKey:psnValue];
+		if (!isReloading) {
+			[self didChangeValueForKey:@"visibleProcesses"];
+			[self didChangeValueForKey:@"backgroundProcesses"];
+			[self didChangeValueForKey:@"allProcesses"];
+		}
 		[[NSNotificationCenter defaultCenter] postNotificationName:QSObjectModified object:procObject];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"processesChanged" object:nil];
 	}
 }
 
@@ -287,9 +298,16 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 	NSValue *psnValue = [NSValue valueWithProcessSerialNumber:psn];
 
     if (procObject) {
+		if (!isReloading) {
+			[self willChangeValueForKey:@"allProcesses"];
+			[self willChangeValueForKey:[thisProcess isBackground] ? @"backgroundProcesses" : @"visibleProcesses"];
+		}
 		[[self processesDict] setObject:procObject forKey:psnValue];
+		if (!isReloading) {
+			[self didChangeValueForKey:[thisProcess isBackground] ? @"backgroundProcesses" : @"visibleProcesses"];
+			[self didChangeValueForKey:@"allProcesses"];
+		}
         [[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSApplicationLaunchEvent" userInfo:[NSDictionary dictionaryWithObject:procObject forKey:@"object"]];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"processesChanged" object:nil];
 	}
 }
 
@@ -381,10 +399,22 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 }
 
 - (void)reloadProcesses {
+	/* Mark us as reloading to prevent -addProcessWithPSN from sending one notification per found process, and handle KVO ourselves. */
+	isReloading = YES;
+	[self willChangeValueForKey:@"visibleProcesses"];
+	[self willChangeValueForKey:@"backgroundProcesses"];
+	[self willChangeValueForKey:@"allProcesses"];
+
+	[processes removeAllObjects];
 	id thisProcess = nil;
 	for (thisProcess in [NDProcess everyProcess]) {
 		[self addProcessWithPSN:[thisProcess processSerialNumber]];
 	}
+
+	[self didChangeValueForKey:@"allProcesses"];
+	[self didChangeValueForKey:@"backgroundProcesses"];
+	[self didChangeValueForKey:@"visibleProcesses"];
+	isReloading = NO;
 }
 
 #pragma mark -

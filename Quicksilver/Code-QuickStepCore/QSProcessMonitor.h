@@ -13,6 +13,7 @@
     EventHandlerRef changeHandler;
 	EventHandlerRef launchHandler;
 	EventHandlerRef terminateHandler;
+	BOOL isReloading;
 }
 + (id)sharedInstance;
 + (NSArray *)processes; /* NDProcesses */
