@@ -129,7 +129,7 @@ static NSImage *prefsCatalogImage = nil;
 	[action3 setIcon:[QSResourceManager imageNamed:@"prefsCatalog"]];
 	[action3 setProvider:self];
 	[action3 setAction:@selector(addCatalogEntry:)];
-	return [NSArray arrayWithObjects:action, action2, action3 nil];
+	return [NSArray arrayWithObjects:action, action2, action3, nil];
 }
 
 - (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
@@ -140,7 +140,10 @@ static NSImage *prefsCatalogImage = nil;
 }
 
 - (QSObject *)show:(QSObject *)dObject {
-	[NSClassFromString(@"QSCatalogPrefPane") showEntryInCatalog:[[QSLibrarian sharedInstance] entryForID:[dObject objectForType:QSCatalogEntryPboardType]]];
+    id catalogPrefsClass = NSClassFromString(@"QSCatalogPrefPane");
+    
+	[catalogPrefsClass showEntryInCatalog:[[QSLibrarian sharedInstance] entryForID:[dObject objectForType:QSCatalogEntryPboardType]]];
+    [[catalogPrefsClass sharedInstance] performSelectorOnMainThread:@selector(showOptionsDrawer) withObject:nil waitUntilDone:YES];
 	return nil;
 }
 

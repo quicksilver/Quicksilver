@@ -1390,7 +1390,7 @@
 			<string>QSCatalogEntrySource</string>
 			<key>directTypes</key>
 			<array>
-				<string>NSFilenamesPBoardType</string>
+				<string>NSFilenamesPboardType</string>
 			</array>
 			<key>precedence</key>
 			<real>0.05</real>
