@@ -9,6 +9,25 @@
 
 #import "NSEvent+BLTRExtensions.h"
 
+@implementation NSValue (ProcessSerialNumberExtension)
+
++ (id)valueWithProcessSerialNumber:(ProcessSerialNumber)psn {
+	return [[[self alloc] initWithProcessSerialNumber:psn] autorelease];
+}
+
+- (id)initWithProcessSerialNumber:(ProcessSerialNumber)psn {
+	self = [self initWithBytes:(const void *)&psn objCType:@encode(ProcessSerialNumber)];
+	return self;
+}
+
+- (ProcessSerialNumber)processSerialNumberValue {
+	ProcessSerialNumber psn;
+	[self getValue:&psn];
+	return psn;
+}
+
+@end
+
 @interface QSProcessMonitor (QSInternal)
 - (NSDictionary *)infoForPSN:(ProcessSerialNumber)processSerialNumber;
 @end
