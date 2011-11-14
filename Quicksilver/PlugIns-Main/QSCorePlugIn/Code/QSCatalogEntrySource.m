@@ -166,6 +166,8 @@ static NSImage *prefsCatalogImage = nil;
     QSCatalogEntry *childEntry = [QSCatalogEntry entryWithDictionary:childDict];
     
     [[parentEntry children] addObject:childEntry];
+    [[childEntry source] populateFields];
+    [childEntry scanForced:YES];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogStructureChanged object:nil];
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChanged object:childEntry];
