@@ -719,7 +719,7 @@ static QSController *defaultController = nil;
 #ifdef DEBUG
 			NSLog(@"Ignoring crash protection. You most likely hit 'Stop' in Xcode.");
 #endif
-//#ifndef DEBUG
+#ifndef DEBUG
 			[alert setInformativeText:@"Sorry, Quicksilver crashed on last use.\nClearing caches may solve the problem.\nOtherwise you can do nothing and launch Quicksilver normally, or quit and read the FAQ."];
 			[alert addButtonWithTitle:@"Clear Caches"];
 			[alert addButtonWithTitle:@"Read FAQ"];
@@ -743,7 +743,7 @@ static QSController *defaultController = nil;
 					break;
 				}
 			}
-//#endif
+#endif
 		}
 		[fm release];
 		[alert release];
