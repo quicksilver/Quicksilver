@@ -720,7 +720,7 @@ static QSController *defaultController = nil;
 			NSLog(@"Ignoring crash protection. You most likely hit 'Stop' in Xcode.");
 #endif
 #ifndef DEBUG
-			[alert setInformativeText:@"Sorry, Quicksilver crashed on last use.\nDeleting caches may help solve the problem.\nOtherwise you can try to launch Quicksilver again, or quit and read the FAQ."];
+			[alert setInformativeText:@"Sorry, Quicksilver crashed on last use.\nClearing caches may solve the problem.\nOtherwise you can do nothing and launch Quicksilver normally, or quit and read the FAQ."];
 			[alert addButtonWithTitle:@"Clear Caches"];
 			[alert addButtonWithTitle:@"Read FAQ"];
 			[alert addButtonWithTitle:@"Do Nothing"];
@@ -728,9 +728,9 @@ static QSController *defaultController = nil;
 			switch (buttonClicked) {
 				case NSAlertFirstButtonReturn: {
 					NSError * err = nil;
-					[fm removeItemAtPath:[[NSString stringWithString:@"~/Library/Caches/Quicksilver"] stringByExpandingTildeInPath] error:&err];
+					[fm removeItemAtPath:pIndexLocation error:&err];
 					if (err) {
-						NSLog(@"Error removing Quicksilver caches. Attempting re-launch anyway");
+						NSLog(@"Error removing Quicksilver caches. Attempting re-launch anyway\nError: %@",err);
 					}
 					break;
 				}
