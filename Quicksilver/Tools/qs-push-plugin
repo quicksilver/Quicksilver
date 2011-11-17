@@ -34,31 +34,34 @@
 #
 ######################################################################
 
+require 'rest-client'
 require 'time'
 require 'trollop'
 require 'fileutils'
+require 'open-uri'
+require 'plist'
 require 'pp'
-require 'rest-client'
-
 
 DEFAULT_USER = "qs"
-DEFAULT_HOST = "http://qs0.qsapp.com"
+DEFAULT_HOST = "http://qs0.qsapp.com/plugins"
 
-# Argument can be an array of paths to bundles/archives, a single path to a bundle or nothing
 options = Trollop::options do
   banner "Usage: qs-push-plugin [-h|--help] [ARGS]"
-  text "ARGS can be one or more paths to either .qspkg archives or .qsplugin bundles"
+  text "ARGS can be one or more paths to .qsplugin bundles or .dmg images"
   text ""
   text "Options:"
+
   opt :help, "Show this message", :short => "-h"
   opt :user, "User to login as", :default => DEFAULT_USER, :short => "-u"
   opt :password, "Password to use (will be asked if missing)", :type => :string, :short => "-p"
   opt :host, "Push to a specific host. The default is #{DEFAULT_HOST}", :default => DEFAULT_HOST
+  opt :level, "Override the level at which to publish the update", :type => :int, :default => nil
+  opt :secret, "Override the secret parameter from the plist", :type => :bool, :default => nil
 end
 
 files = ARGV
 
-type_regexp = /\.qsp[lugin|kg]/
+type_regexp = /\.[qsplugin|dmg]/
 file_matcher = Proc.new {|file| File.extname(file) =~ type_regexp }
 case files
 when String then
@@ -71,29 +74,34 @@ else
 end
 
 unless options[:password]
-   print "Password for user \"#{options[:user]}\": "
-   options[:password] = STDIN.gets.chomp
+  print "Password for user \"#{options[:user]}\": "
+  options[:password] = STDIN.gets.chomp
 end
 
-# 
 # puts options.inspect
 # puts files.inspect
 # exit
 
 # Now push those plugins !
 
-api_url = "#{options[:host]}/plugins/admin/add.php"
+api_url = "#{options[:host]}/admin/add.php"
 api = RestClient::Resource.new api_url, :user => options.user, :password => options.password
 archive_dir = File.join("/","var", "tmp", "qs-push-plugin")
+dmg_path = nil
 
-puts "Submitting #{files.join ", "} to #{api_url}"
-begin
-  files.each do |file|
-    unless File.exists?(file)
-      puts "File not found: \"#{file}\""
-      next
-    end
+unless files.empty?
+  puts "Submitting \"#{files.join "\", \""}\" to \"#{api_url}\""
+else
+  Trollop::die "No known files passed"
+end
 
+files.each do |file|
+  unless File.exists?(file)
+    puts "File not found: \"#{file}\""
+    next
+  end
+
+  begin
     # build arguments
     args = {
       :submit => "New",
@@ -101,48 +109,73 @@ begin
       :info_plist_file => nil,
       :mod_date => nil
     }
-    case File.extname(file)
-    when ".qspkg" then
-      parts = file.split(".")
-      parts.pop
-      parts.push "qsinfo"
-      info = parts.join "."
-      args[:plugin_archive_file] = File.new(file)
-      args[:info_plist_file] = File.new(info)
-      args[:mod_date] = args[:plugin_archive_file].mtime
-      args[:import] = true
-    when ".qsplugin" then
-      archive_path =  File.join(archive_dir, File.basename(file, File.extname(file)).gsub(" ", "_") + "-archive")
-      info_path = File.join(file, "Contents", "Info.plist")
-      # TODO: Image file (needs plist parsing)
+    args[:secret] = options.secret if options.secret
+    args[:level] = options.level if options.level
 
-      cmd = "ditto -c -z --keepParent \"#{file}\" \"#{archive_path}\""
-      # puts "Creating ditto archive with #{cmd}..."
-      res = %x(#{cmd})
+    case File.extname(file)
+    when ".qsplugin" then
+      # Plugin bundle
+      archive_path = File.join(archive_dir, File.basename(file, File.extname(file)).gsub(" ", "_") + "-archive")
+      info_path = File.join(file, "Contents", "Info.plist")
+
+      # Try to find an icon...
+      plist = Plist::parse_xml(info_path)
+      image_file = if image_path = plist['QSPlugIn']['icon']
+        path = Dir.glob(File.join(file, "Contents", "Resources", image_path + ".[jpg|png]"))
+        File.new(path.first) if path.first
+      elsif image_path = plist['QSPlugIn']['webIcon']
+      else
+        nil
+      end
+      puts "Sending image \"#{image_path}\"" if image_file
+
+      res = %x(ditto -c -z --keepParent \"#{file}\" \"#{archive_path}\")
 
       args[:plugin_archive_file] = File.new(archive_path)
       args[:info_plist_file] = File.new(info_path)
+      args[:image_file] = image_file if image_file
+      args[:image_ext] = File.extname(image_file) if image_file
       args[:mod_date] = File.new(file).mtime
+
+    when ".dmg" then
+      # Disk image
+      puts "Attaching \"#{file}\""
+      res = `hdiutil attach -plist -nobrowse \"#{file}\"`
+      plist = Plist::parse_xml(res)
+      if plist.nil?
+        Trollop::die "Failed to attach \"#{file}\""
+      else
+        # pp plist
+        dmg_path = plist['system-entities'].collect {|a| a['mount-point'] }.compact.first
+        # pp dmg_path
+        qs_app = File.join('/', 'Volumes', 'Quicksilver', 'Quicksilver.app')
+        info_path = File.join(qs_app, 'Contents', 'Info.plist')
+
+        args[:plugin_archive_file] = File.new(file)
+        args[:info_plist_file] = File.new(info_path)
+        args[:mod_date] = args[:plugin_archive_file].mtime
+        args[:is_app] = true
+      end
     else
       Trollop::die "Unknown type #{File.extname(file)}"
     end
 
     # perform the request
-    print "Submitting #{file}..."
+    print "Submitting \"#{file}\"..."
     begin
       # pp "Performing request: #{args}"
       res = api.post args
+      puts " OK"
     rescue RestClient::Exception => e
-      puts
-      Trollop::die e.response
+      puts e.response
     end
-    if res.code != 200
-      puts
-      Trollop::die "Got error: #{res}"
-    end
-    puts " OK"
     # pp res
+  ensure
+    FileUtils.rm_r archive_dir if File.exists?(archive_dir)
+    if dmg_path
+      puts "Detaching \"#{dmg_path}\""
+      `hdiutil detach \"#{dmg_path}\"`
+      dmg_path = nil
+    end
   end
-ensure
-  FileUtils.rm_r archive_dir
 end
