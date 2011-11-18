@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Add Quicksilver to your login items</key>
+	<string>Add Quicksilver to your login items</string>
+	<key>Box</key>
+	<string>Box</string>
+	<key>Cancel</key>
+	<string>Cancel</string>
+	<key>Check for update immediately</key>
+	<string>Check for update immediately</string>
+	<key>Check for updates:</key>
+	<string>Check for updates:</string>
+	<key>Current version:</key>
+	<string>Current version:</string>
+	<key>Daily</key>
+	<string>Daily</string>
+	<key>Download updates in the background</key>
+	<string>Download updates in the background</string>
+	<key>Enable update checking</key>
+	<string>Enable update checking</string>
+	<key>Include access to full contents of menu bar</key>
+	<string>Include access to full contents of menu bar</string>
+	<key>Install updates without asking</key>
+	<string>Install updates without asking</string>
+	<key>Last check:</key>
+	<string>Last check:</string>
+	<key>Left</key>
+	<string>Left</string>
+	<key>Monthly</key>
+	<string>Monthly</string>
+	<key>Normal</key>
+	<string>Normal</string>
+	<key>Now</key>
+	<string>Now</string>
+	<key>On Launch</key>
+	<string>On Launch</string>
+	<key>Prevent accidental quitting</key>
+	<string>Prevent accidental quitting</string>
+	<key>Reset Preferences</key>
+	<string>Reset Preferences</string>
+	<key>Restart immediately</key>
+	<string>Restart immediately</string>
+	<key>Right</key>
+	<string>Right</string>
+	<key>Run Setup</key>
+	<string>Run Setup</string>
+	<key>Show icon in dock</key>
+	<string>Show icon in dock</string>
+	<key>Show icon in menu bar</key>
+	<string>Show icon in menu bar</string>
+	<key>Start at login</key>
+	<string>Start at login</string>
+	<key>Toggle dock icon and menu visibility. (Requires relaunch)</key>
+	<string>Toggle dock icon and menu visibility. (Requires relaunch)</string>
+	<key>Uninstall Quicksilver</key>
+	<string>Uninstall Quicksilver</string>
+	<key>Update frequency</key>
+	<string>Update frequency</string>
+	<key>Warn before quitting</key>
+	<string>Warn before quitting</string>
+	<key>Weekly</key>
+	<string>Weekly</string>
+	<key>⌽</key>
+	<string>⌽</string>
+</dict>
+</plist>

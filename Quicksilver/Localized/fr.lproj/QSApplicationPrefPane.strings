@@ -1,0 +1,39 @@
+/* 
+  QSApplicationPrefPane.strings
+  Quicksilver
+
+  Created by Etienne on 17/11/11.
+  Copyright 2011 __MyCompanyName__. All rights reserved.
+*/
+
+"Warn before quitting" = "Avertir avant de quitter";
+"Prevent accidental quitting" = "Empêche de quitter par accident";
+"Show icon in menu bar" = "Montrer l'icône dans la barre de menu";
+"⌽" = "⌽";
+"Start at login" = "Lancer à l'ouverture de session";
+"Add Quicksilver to your login items" = "Ajoute Quicksilver à vos élements d'ouverture de session";
+"Show icon in dock" = "Montrer l'icône dans le Dock";
+"Toggle dock icon and menu visibility. (Requires relaunch)" = "Toggle dock icon and menu visibility. (Requires relaunch)";
+"Now" = "Maintenant";
+"Cancel" = "Annuler";
+"Check for update immediately" = "Vérifier immédiatement";
+"Last check:" = "Dernière vérification :";
+"Check for updates:" = "Vérifier les mises à jour :";
+"Enable update checking" = "Activer les mises à jour";
+"On Launch" = "Au lancement";
+"Daily" = "Tous les jours";
+"Weekly" = "Toutes les semaines";
+"Monthly" = "Tous les mois";
+"Update frequency" = "Fréquence de mise à jour";
+"Box" = "Box";
+"Normal" = "Normal";
+"Left" = "Gauche";
+"Right" = "Droite";
+"Include access to full contents of menu bar" = "Permettre l'accès à toute la barre de menus";
+"Current version:" = "Version courante : ";
+"Download updates in the background" = "Télécharger les mises à jour silencieusement";
+"Install updates without asking" = "Installer les mises à jours sans demander";
+"Restart immediately" = "Relancer immédiatement";
+"Uninstall Quicksilver" = "Déinstaller Quicksilver";
+"Reset Preferences" = "RAZ Préférences";
+"Run Setup" = "Run Setup";
