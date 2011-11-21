@@ -46,13 +46,6 @@ BOOL QSApplicationCompletedLaunch = NO;
 }
 
 - (id)init {
-	char *relaunchingFromPid = getenv("relaunchFromPid");
-	if (relaunchingFromPid) {
-		unsetenv("relaunchFromPid");
-		int pid = atoi(relaunchingFromPid);
-		int i;
-		for (i = 0; !kill(pid, 0) && i<50; i++) usleep(100000);
-	}
 	if ((self = [super init])) {
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
