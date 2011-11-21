@@ -1,3 +1,12 @@
+  * FIX: Fixed a serious bug in ß62 that could cause user's custom catalogs to be erased
+  
+  * FIX: Fixed a bugin Quicksilver's internal updating mechanism. **Note:** ß63 will need to be downloaded manually by all users
+  
+  * FIX: Ensured the new 'Clear caches' option in the crash dialogue only clears the catalog cache (Issue #582)
+
+  Changes - ß62 (3901)
+-------
+  
   * CHANGE: So called "advanced features" are now just on all the time (Issues #479, #341)
   
   * CHANGE: Proxy objects are enabled by default for new users (Issue #479)
