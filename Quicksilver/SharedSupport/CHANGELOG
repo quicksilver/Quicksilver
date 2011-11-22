@@ -3,6 +3,8 @@
   * FIX: Fixed a bugin Quicksilver's internal updating mechanism. **Note:** ß63 will need to be downloaded manually by all users
   
   * FIX: Ensured the new 'Clear caches' option in the crash dialogue only clears the catalog cache (Issue #582)
+  
+  * FIX: Fixed a bug that could cause Quicksilver to launch twice when honouring the dock icon preferences (Issue #585)
 
   Changes - ß62 (3901)
 -------
