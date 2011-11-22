@@ -1533,14 +1533,7 @@ NSMutableDictionary *bindingsDict = nil;
 	[super doCommandBySelector:aSelector];
 }
 
-- (void)setMarkedText:(id)aString selectedRange:(NSRange)selRange {
-	if ([(NSString *)aString length]) {
-		NSLog(@"setmark %@ %d, %d", aString, selRange.location, selRange.length);
-		aString = [[aString purifiedString] lowercaseString];
-		[partialString setString:aString];
-		[self partialStringChanged];
-	}
-}
+- (void)setMarkedText:(id)aString selectedRange:(NSRange)selRange {}
 
 - (void)unmarkText {}
 - (BOOL)hasMarkedText { return NO; }
