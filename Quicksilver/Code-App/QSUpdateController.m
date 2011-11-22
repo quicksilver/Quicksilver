@@ -276,7 +276,7 @@ typedef enum {
 - (void)download:(QSURLDownload *)download didFailWithError:(NSError *)error {
     if (download != appDownload)
         return;
-	NSLog(@"Download Failed");
+	NSLog(@"Download Failed: %@", error);
 	//	[[QSTaskController sharedInstance] removeTask:@"QSAppUpdateInstalling"];
 	[updateTask stopTask:nil];
 	[updateTask release];

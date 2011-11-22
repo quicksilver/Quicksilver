@@ -67,7 +67,7 @@
 }
 
 - (double)progress {
-	if (!expectedContentLength) return 0.0;
+	if (expectedContentLength == NSURLResponseUnknownLength) return 0.0;
 	return (double)currentContentLength / expectedContentLength;
 }
 
@@ -113,10 +113,20 @@
 
 - (void)download:(NSURLDownload *)download didReceiveResponse:(NSURLResponse *)response {
     expectedContentLength = [response expectedContentLength];
+	if (expectedContentLength == NSURLResponseUnknownLength) {
+		NSNumber *contentLength = [[(NSHTTPURLResponse *)response allHeaderFields] objectForKey:@"Content-Length"];
+		if (contentLength)
+			expectedContentLength = [contentLength longLongValue];
+	}
 }
 
 - (void)download:(NSURLDownload *)download willResumeWithResponse:(NSURLResponse *)response fromByte:(long long)startingByte {
     expectedContentLength = [response expectedContentLength];
+	if (expectedContentLength == NSURLResponseUnknownLength) {
+		NSNumber *contentLength = [[(NSHTTPURLResponse *)response allHeaderFields] objectForKey:@"Content-Length"];
+		if (contentLength)
+			expectedContentLength = [contentLength longLongValue];
+	}
     currentContentLength = startingByte;
 }
 

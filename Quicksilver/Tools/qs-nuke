@@ -1,4 +1,4 @@
-# !/bin/sh
+#!/bin/sh
 
 USER_LIBRARY_PATH=$HOME/Library
 QS_APPSUPPORT_PATH=$USER_LIBRARY_PATH/Application\ Support/Quicksilver
