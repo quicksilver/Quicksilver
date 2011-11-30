@@ -111,6 +111,12 @@
 		4D66BBFC1487018700351C42 /* NDHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BBF61487018700351C42 /* NDHotKeyEvent.m */; };
 		4D66BBFD1487018800351C42 /* NDKeyboardLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBF71487018700351C42 /* NDKeyboardLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D66BBFE1487018800351C42 /* NDKeyboardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BBF81487018700351C42 /* NDKeyboardLayout.m */; };
+		4D66BC05148701B800351C42 /* NDProgrammerUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBFF148701B800351C42 /* NDProgrammerUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D66BC06148701B800351C42 /* NDProgrammerUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC00148701B800351C42 /* NDProgrammerUtilities.m */; };
+		4D66BC07148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC01148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D66BC08148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC02148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.m */; };
+		4D66BC09148701B800351C42 /* NSValue+NDFourCharCode.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC03148701B800351C42 /* NSValue+NDFourCharCode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D66BC0A148701B800351C42 /* NSValue+NDFourCharCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC04148701B800351C42 /* NSValue+NDFourCharCode.m */; };
 		4D6A663410AB2A2F00898CA4 /* QSTreeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 92D9C9680D134BDD00D91825 /* QSTreeController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D89177514758620009C1C14 /* QSMainMenuPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D89177714758620009C1C14 /* QSMainMenuPrefPane.strings */; };
 		4D89177B14758DC6009C1C14 /* QSApplicationPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D89177D14758DC6009C1C14 /* QSApplicationPrefPane.strings */; };
@@ -1054,6 +1060,12 @@
 		4D66BBF61487018700351C42 /* NDHotKeyEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDHotKeyEvent.m; sourceTree = "<group>"; };
 		4D66BBF71487018700351C42 /* NDKeyboardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDKeyboardLayout.h; sourceTree = "<group>"; };
 		4D66BBF81487018700351C42 /* NDKeyboardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDKeyboardLayout.m; sourceTree = "<group>"; };
+		4D66BBFF148701B800351C42 /* NDProgrammerUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDProgrammerUtilities.h; sourceTree = "<group>"; };
+		4D66BC00148701B800351C42 /* NDProgrammerUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDProgrammerUtilities.m; sourceTree = "<group>"; };
+		4D66BC01148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAppleEventDescriptor+NDCoercion.h"; sourceTree = "<group>"; };
+		4D66BC02148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAppleEventDescriptor+NDCoercion.m"; sourceTree = "<group>"; };
+		4D66BC03148701B800351C42 /* NSValue+NDFourCharCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValue+NDFourCharCode.h"; sourceTree = "<group>"; };
+		4D66BC04148701B800351C42 /* NSValue+NDFourCharCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValue+NDFourCharCode.m"; sourceTree = "<group>"; };
 		4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Release.xcconfig; sourceTree = "<group>"; };
 		4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Debug.xcconfig; sourceTree = "<group>"; };
 		4D89177614758620009C1C14 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/QSMainMenuPrefPane.strings; sourceTree = "<group>"; };
@@ -2834,6 +2846,12 @@
 		E1F1D63306BD97B2004E3DC3 /* NDClasses */ = {
 			isa = PBXGroup;
 			children = (
+				4D66BBFF148701B800351C42 /* NDProgrammerUtilities.h */,
+				4D66BC00148701B800351C42 /* NDProgrammerUtilities.m */,
+				4D66BC01148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.h */,
+				4D66BC02148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.m */,
+				4D66BC03148701B800351C42 /* NSValue+NDFourCharCode.h */,
+				4D66BC04148701B800351C42 /* NSValue+NDFourCharCode.m */,
 				4D66BBF31487018700351C42 /* NDHotKeyControl.h */,
 				4D66BBF41487018700351C42 /* NDHotKeyControl.m */,
 				4D66BBF51487018700351C42 /* NDHotKeyEvent.h */,
@@ -3065,6 +3083,9 @@
 				4D66BBF91487018700351C42 /* NDHotKeyControl.h in Headers */,
 				4D66BBFB1487018700351C42 /* NDHotKeyEvent.h in Headers */,
 				4D66BBFD1487018800351C42 /* NDKeyboardLayout.h in Headers */,
+				4D66BC05148701B800351C42 /* NDProgrammerUtilities.h in Headers */,
+				4D66BC07148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.h in Headers */,
+				4D66BC09148701B800351C42 /* NSValue+NDFourCharCode.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4151,6 +4172,9 @@
 				4D66BBFA1487018700351C42 /* NDHotKeyControl.m in Sources */,
 				4D66BBFC1487018700351C42 /* NDHotKeyEvent.m in Sources */,
 				4D66BBFE1487018800351C42 /* NDKeyboardLayout.m in Sources */,
+				4D66BC06148701B800351C42 /* NDProgrammerUtilities.m in Sources */,
+				4D66BC08148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.m in Sources */,
+				4D66BC0A148701B800351C42 /* NSValue+NDFourCharCode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

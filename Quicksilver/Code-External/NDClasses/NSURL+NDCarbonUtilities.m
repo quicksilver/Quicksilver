@@ -37,8 +37,12 @@
 {
 	CFURLRef theURL = CFURLCreateFromFSRef( kCFAllocatorDefault, aFsRef );
 
+#ifdef __OBJC_GC__
 	/* To support GC and non-GC, we need this contortion. */
 	return [NSMakeCollectable(theURL) autorelease];
+#else
+	return [(NSURL*)theURL autorelease];
+#endif
 }
 
 /*
@@ -48,8 +52,12 @@
 {
 	CFURLRef theURL = CFURLCreateWithFileSystemPath( kCFAllocatorDefault, (CFStringRef)aHFSString, kCFURLHFSPathStyle, [aHFSString hasSuffix:@":"] );
 
+#ifdef __OBJC_GC__
 	/* To support GC and non-GC, we need this contortion. */
 	return [NSMakeCollectable(theURL) autorelease];
+#else
+	return [(NSURL*)theURL autorelease];
+#endif
 }
 
 /*
@@ -81,9 +89,12 @@
 - (NSURL *)URLByDeletingLastPathComponent
 {
 	CFURLRef theURL = CFURLCreateCopyDeletingLastPathComponent( kCFAllocatorDefault, (CFURLRef)self);
-
+#ifdef __OBJC_GC__
 	/* To support GC and non-GC, we need this contortion. */
 	return [NSMakeCollectable(theURL) autorelease];
+#else
+	return [(NSURL*)theURL autorelease];
+#endif
 }
 
 /*
@@ -93,8 +104,12 @@
 {
 	CFStringRef	theString = CFURLCopyFileSystemPath((CFURLRef)self, kCFURLHFSPathStyle);
 
+#ifdef __OBJC_GC__
 	/* To support GC and non-GC, we need this contortion. */
 	return [NSMakeCollectable(theString) autorelease];
+#else
+	return [(NSURL*)theString autorelease];
+#endif
 }
 
 /*
