@@ -68,7 +68,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		2E34ED9F134C9EB9005E66A1 /* CPS.h in Headers */ = {isa = PBXBuildFile; fileRef = E103EE2906471DDE00447FE0 /* CPS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2E34EDA0134C9ED9005E66A1 /* NSButton-NTExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E3CB8F0653BE030026BAF2 /* NSButton-NTExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2E34EDA1134C9EEE005E66A1 /* NTLocalizedString.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E3CB910653BE030026BAF2 /* NTLocalizedString.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2E34EDA2134C9EEE005E66A1 /* NTViewLocalizer.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E3CB950653BE030026BAF2 /* NTViewLocalizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -100,6 +99,7 @@
 		4D62E31C1476919300362E9A /* QSTriggersPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E3161476919300362E9A /* QSTriggersPrefPane.strings */; };
 		4D62E324147694D800362E9A /* QSAction.description.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E326147694D800362E9A /* QSAction.description.plist */; };
 		4D62E32A1476A6BF00362E9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E3281476A6BF00362E9A /* Localizable.strings */; };
+		4D66BBDA1486FCF400351C42 /* CPSPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBD91486FCDE00351C42 /* CPSPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D6A663410AB2A2F00898CA4 /* QSTreeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 92D9C9680D134BDD00D91825 /* QSTreeController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D89177514758620009C1C14 /* QSMainMenuPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D89177714758620009C1C14 /* QSMainMenuPrefPane.strings */; };
 		4D89177B14758DC6009C1C14 /* QSApplicationPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D89177D14758DC6009C1C14 /* QSApplicationPrefPane.strings */; };
@@ -380,7 +380,6 @@
 		E103ED4206471DBF00447FE0 /* QuicksilverMenuPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = E103ECAD06471DBF00447FE0 /* QuicksilverMenuPressed.png */; };
 		E103ED4706471DBF00447FE0 /* ResizeWidget.png in Resources */ = {isa = PBXBuildFile; fileRef = E103ECB206471DBF00447FE0 /* ResizeWidget.png */; };
 		E103ED5D06471DBF00447FE0 /* ResourceLocations.plist in Resources */ = {isa = PBXBuildFile; fileRef = E103ECCC06471DBF00447FE0 /* ResourceLocations.plist */; };
-		E103EF7106471DDF00447FE0 /* CPS.h in Headers */ = {isa = PBXBuildFile; fileRef = E103EE2906471DDE00447FE0 /* CPS.h */; };
 		E103F3340647211700447FE0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		E103F5110647238E00447FE0 /* ActionsPrecedence.plist in Resources */ = {isa = PBXBuildFile; fileRef = E103EC5106471DBE00447FE0 /* ActionsPrecedence.plist */; };
 		E103F5A20647698200447FE0 /* QSCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E103F1600647200700447FE0 /* QSCore.framework */; };
@@ -1057,6 +1056,7 @@
 		4D62E327147694E000362E9A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = fr; path = fr.lproj/QSAction.description.plist; sourceTree = "<group>"; };
 		4D62E3291476A6BF00362E9A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4D62E32B1476A6C600362E9A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4D66BBD91486FCDE00351C42 /* CPSPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPSPrivate.h; sourceTree = "<group>"; };
 		4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Release.xcconfig; sourceTree = "<group>"; };
 		4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Debug.xcconfig; sourceTree = "<group>"; };
 		4D89177614758620009C1C14 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/QSMainMenuPrefPane.strings; sourceTree = "<group>"; };
@@ -1412,7 +1412,6 @@
 		E103ECAD06471DBF00447FE0 /* QuicksilverMenuPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuicksilverMenuPressed.png; sourceTree = "<group>"; };
 		E103ECB206471DBF00447FE0 /* ResizeWidget.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ResizeWidget.png; sourceTree = "<group>"; };
 		E103ECCC06471DBF00447FE0 /* ResourceLocations.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = ResourceLocations.plist; sourceTree = "<group>"; };
-		E103EE2906471DDE00447FE0 /* CPS.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CPS.h; sourceTree = "<group>"; };
 		E103EE5B06471DDE00447FE0 /* QSImageAndTextCell.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSImageAndTextCell.h; sourceTree = "<group>"; };
 		E103EE5C06471DDE00447FE0 /* QSImageAndTextCell.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSImageAndTextCell.m; sourceTree = "<group>"; };
 		E103F1600647200700447FE0 /* QSCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QSCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2346,6 +2345,7 @@
 		E103EE2406471DDE00447FE0 /* Code-External */ = {
 			isa = PBXGroup;
 			children = (
+				4D66BBD91486FCDE00351C42 /* CPSPrivate.h */,
 				E12444CB07297FF300043A01 /* CGSPrivate.h */,
 				4DFE7D9E0E081A30000B9AA3 /* NSImageQuickLook */,
 				7FA4ED3F09132402007DB407 /* UKKQueue */,
@@ -2359,7 +2359,6 @@
 				E1E3CB920653BE030026BAF2 /* NTLocalizedString.m */,
 				E1E3CB950653BE030026BAF2 /* NTViewLocalizer.h */,
 				E1E3CB960653BE040026BAF2 /* NTViewLocalizer.m */,
-				E103EE2906471DDE00447FE0 /* CPS.h */,
 				E1F1D63306BD97B2004E3DC3 /* NDClasses */,
 			);
 			path = "Code-External";
@@ -2900,7 +2899,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E103EF7106471DDF00447FE0 /* CPS.h in Headers */,
 				E1E3CB970653BE040026BAF2 /* NSButton-NTExtensions.h in Headers */,
 				E180021807B2BBB900010DB0 /* AppKitPrivate.h in Headers */,
 				E180021D07B2BBB900010DB0 /* QSApp.h in Headers */,
@@ -3054,7 +3052,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DD89EF90EBDD97B005A15AE /* CGSPrivate.h in Headers */,
-				2E34ED9F134C9EB9005E66A1 /* CPS.h in Headers */,
 				E1E5FB1607B207D10044D6EF /* NDAlias+AliasFile.h in Headers */,
 				E1E5FAA407B204BF0044D6EF /* NDAlias+QSMods.h in Headers */,
 				E1E5FB1807B207D20044D6EF /* NDAlias.h in Headers */,
@@ -3118,6 +3115,7 @@
 				7F26503608DB09B20076E4E6 /* UKDirectoryEnumerator.h in Headers */,
 				4D6A663410AB2A2F00898CA4 /* QSTreeController.h in Headers */,
 				D4E0060F1523951500FDF185 /* NSMetadataQuery+Synchronous.h in Headers */,
+				4D66BBDA1486FCF400351C42 /* CPSPrivate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

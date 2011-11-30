@@ -1,5 +1,5 @@
 #import "CGSPrivate.h"
-#import "CPS.h"
+#import "CPSPrivate.h"
 #import "NDAlias+AliasFile.h"
 #import "NDAlias.h"
 #import "NDAppleScriptObject.h"
