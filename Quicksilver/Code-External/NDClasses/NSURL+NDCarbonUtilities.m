@@ -2,7 +2,7 @@
 	NSURL+NDCarbonUtilities.m
 
 	Created by Nathan Day on 05.12.01 under a MIT-style license. 
-	Copyright (c) 2008 Nathan Day
+	Copyright (c) 2008-2011 Nathan Day
 
 	Permission is hereby granted, free of charge, to any person obtaining a copy
 	of this software and associated documentation files (the "Software"), to deal
@@ -37,12 +37,8 @@
 {
 	CFURLRef theURL = CFURLCreateFromFSRef( kCFAllocatorDefault, aFsRef );
 
-#ifdef __OBJC_GC__
 	/* To support GC and non-GC, we need this contortion. */
 	return [NSMakeCollectable(theURL) autorelease];
-#else
-	return [(NSURL*)theURL autorelease];
-#endif
 }
 
 /*
@@ -52,12 +48,8 @@
 {
 	CFURLRef theURL = CFURLCreateWithFileSystemPath( kCFAllocatorDefault, (CFStringRef)aHFSString, kCFURLHFSPathStyle, [aHFSString hasSuffix:@":"] );
 
-#ifdef __OBJC_GC__
 	/* To support GC and non-GC, we need this contortion. */
 	return [NSMakeCollectable(theURL) autorelease];
-#else
-	return [(NSURL*)theURL autorelease];
-#endif
 }
 
 /*
@@ -86,16 +78,15 @@
 /*
 	- URLByDeletingLastPathComponent
  */
+#if (MAC_OS_X_VERSION_MIN_REQUIRED < 1060)
 - (NSURL *)URLByDeletingLastPathComponent
 {
 	CFURLRef theURL = CFURLCreateCopyDeletingLastPathComponent( kCFAllocatorDefault, (CFURLRef)self);
-#ifdef __OBJC_GC__
+
 	/* To support GC and non-GC, we need this contortion. */
 	return [NSMakeCollectable(theURL) autorelease];
-#else
-	return [(NSURL*)theURL autorelease];
-#endif
 }
+#endif
 
 /*
 	- fileSystemPathHFSStyle
@@ -104,12 +95,8 @@
 {
 	CFStringRef	theString = CFURLCopyFileSystemPath((CFURLRef)self, kCFURLHFSPathStyle);
 
-#ifdef __OBJC_GC__
 	/* To support GC and non-GC, we need this contortion. */
 	return [NSMakeCollectable(theString) autorelease];
-#else
-	return [(NSURL*)theString autorelease];
-#endif
 }
 
 /*
@@ -118,13 +105,13 @@
 - (NSURL *)resolveAliasFile
 {
 	FSRef			theRef;
-	Boolean		theIsTargetFolder,
+	Boolean			theIsTargetFolder,
 					theWasAliased;
-	NSURL			* theResolvedAlias = nil;;
+	NSURL			* theResolvedAlias = nil;
 
-	[self getFSRef:&theRef];
+	BOOL			theSuccess = [self getFSRef:&theRef];
 
-	if( (FSResolveAliasFile ( &theRef, YES, &theIsTargetFolder, &theWasAliased ) == noErr) )
+	if (theSuccess && FSResolveAliasFileWithMountFlags ( &theRef, true, &theIsTargetFolder, &theWasAliased, 0 ) == noErr)
 	{
 		theResolvedAlias = (theWasAliased) ? [NSURL URLWithFSRef:&theRef] : self;
 	}
@@ -142,10 +129,11 @@
 
 	if( [self getFSRef:&theFSRef] && FSGetCatalogInfo( &theFSRef, kFSCatInfoFinderInfo, &theInfo, NULL, NULL, NULL) == noErr )
 	{
-		FileInfo*	theFileInfo = (FileInfo*)(&theInfo.finderInfo);
-		if( aFlags ) *aFlags = theFileInfo->finderFlags;
-		if( aType ) *aType = theFileInfo->fileType;
-		if( aCreator ) *aCreator = theFileInfo->fileCreator;
+		FileInfo	theFileInfo;
+		memcpy(&theFileInfo, &theInfo.finderInfo, sizeof(theFileInfo));
+		if( aFlags ) *aFlags = theFileInfo.finderFlags;
+		if( aType ) *aType = theFileInfo.fileType;
+		if( aCreator ) *aCreator = theFileInfo.fileCreator;
 
 		return YES;
 	}
@@ -156,17 +144,18 @@
 /*
 	- finderLocation
  */
-- (NSPoint)finderLocation
+- (Point)finderLocation
 {
 	FSRef			theFSRef;
 	FSCatalogInfo	theInfo;
-	NSPoint			thePoint = NSMakePoint( 0, 0 );
+	Point			thePoint = { 0, 0 };
 
 	if( [self getFSRef:&theFSRef] && FSGetCatalogInfo( &theFSRef, kFSCatInfoFinderInfo, &theInfo, NULL, NULL, NULL) == noErr )
 	{
-		FileInfo*	theFileInfo = (FileInfo*)(&theInfo.finderInfo);
-		thePoint = NSMakePoint(theFileInfo->location.h, theFileInfo->location.v );
- 	}
+		FileInfo	theFileInfo;
+		memcpy(&theFileInfo, &theInfo.finderInfo, sizeof(theFileInfo));
+		thePoint = theFileInfo.location;
+	}
 
 	return thePoint;
 }
@@ -176,17 +165,22 @@
  */
 - (BOOL)setFinderInfoFlags:(UInt16)aFlags mask:(UInt16)aMask type:(OSType)aType creator:(OSType)aCreator
 {
-	BOOL				theResult = NO;
+	BOOL			theResult = NO;
 	FSRef			theFSRef;
 	FSCatalogInfo	theInfo;
 
 	if( [self getFSRef:&theFSRef] && FSGetCatalogInfo( &theFSRef, kFSCatInfoFinderInfo, &theInfo, NULL, NULL, NULL) == noErr )
 	{
-		FileInfo*	theFileInfo = (FileInfo*)(&theInfo.finderInfo);
-		theFileInfo->finderFlags = ((aFlags & aMask) | (theFileInfo->finderFlags & ~aMask)) & ~kHasBeenInited;
-		theFileInfo->fileType = aType;
-		theFileInfo->fileCreator = aCreator;
+		// Copy to a temporary, mutate, and copy back. Coercing with a cast would likely work, but violates alignment rules.
+		FileInfo	theFileInfo;
+		memcpy(&theFileInfo, &theInfo.finderInfo, sizeof(theFileInfo));
+		
+		theFileInfo.finderFlags = ((aFlags & aMask) | (theFileInfo.finderFlags & ~aMask)) & ~kHasBeenInited;
+		theFileInfo.fileType = aType;
+		theFileInfo.fileCreator = aCreator;
 
+		memcpy(&theInfo.finderInfo, &theFileInfo, sizeof(theFileInfo));
+		
 		theResult = FSSetCatalogInfo( &theFSRef, kFSCatInfoFinderInfo, &theInfo) == noErr;
 	}
 
@@ -196,18 +190,23 @@
 /*
 	- setFinderLocation:
  */
-- (BOOL)setFinderLocation:(NSPoint)aLocation
+- (BOOL)setFinderLocation:(Point)aLocation
 {
-	BOOL				theResult = NO;
+	BOOL			theResult = NO;
 	FSRef			theFSRef;
 	FSCatalogInfo	theInfo;
 
 	if( [self getFSRef:&theFSRef] && FSGetCatalogInfo( &theFSRef, kFSCatInfoFinderInfo, &theInfo, NULL, NULL, NULL) == noErr )
 	{
-		FileInfo*	theFileInfo = (FileInfo*)(&theInfo.finderInfo);
-		theFileInfo->location.h = aLocation.x;
-		theFileInfo->location.v = aLocation.y;
+		// Copy to a temporary, mutate, and copy back. Coercing with a cast would likely work, but violates alignment rules.
+		FileInfo	theFileInfo;
+		memcpy(&theFileInfo, &theInfo.finderInfo, sizeof(theFileInfo));
+		
+		theFileInfo.location.h = aLocation.h;
+		theFileInfo.location.v = aLocation.v;
 
+		memcpy(&theInfo.finderInfo, &theFileInfo, sizeof(theFileInfo));
+		
 		theResult = FSSetCatalogInfo( &theFSRef, kFSCatInfoFinderInfo, &theInfo) == noErr;
 	}
 
@@ -221,10 +220,9 @@
 - (BOOL)hasCustomIcon
 {
 	UInt16	theFlags;
-	return [self finderInfoFlags:&theFlags type:NULL creator:NULL] == YES && (theFlags & kHasCustomIcon) != 0;
+	BOOL	theSuccess = [self finderInfoFlags:&theFlags type:NULL creator:NULL];
+	
+	return theSuccess && (theFlags & kHasCustomIcon) != 0;
 }
 
 @end
-
-
-
