@@ -100,6 +100,11 @@
 		4D62E324147694D800362E9A /* QSAction.description.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E326147694D800362E9A /* QSAction.description.plist */; };
 		4D62E32A1476A6BF00362E9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E3281476A6BF00362E9A /* Localizable.strings */; };
 		4D66BBDA1486FCF400351C42 /* CPSPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBD91486FCDE00351C42 /* CPSPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D66BC5A1487027E00351C42 /* NDProcess.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBEE1486FFEF00351C42 /* NDProcess.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D66BC5B1487027E00351C42 /* NDProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BBEF1486FFEF00351C42 /* NDProcess.m */; };
+		4D66BC5C1487027E00351C42 /* NDSDKCompatibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBF01486FFF000351C42 /* NDSDKCompatibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D66BC5D1487027E00351C42 /* NSURL+NDCarbonUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBF11486FFF000351C42 /* NSURL+NDCarbonUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D66BC5E1487027E00351C42 /* NSURL+NDCarbonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BBF21486FFF000351C42 /* NSURL+NDCarbonUtilities.m */; };
 		4D6A663410AB2A2F00898CA4 /* QSTreeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 92D9C9680D134BDD00D91825 /* QSTreeController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D89177514758620009C1C14 /* QSMainMenuPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D89177714758620009C1C14 /* QSMainMenuPrefPane.strings */; };
 		4D89177B14758DC6009C1C14 /* QSApplicationPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D89177D14758DC6009C1C14 /* QSApplicationPrefPane.strings */; };
@@ -1032,6 +1037,11 @@
 		4D62E3291476A6BF00362E9A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4D62E32B1476A6C600362E9A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4D66BBD91486FCDE00351C42 /* CPSPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPSPrivate.h; sourceTree = "<group>"; };
+		4D66BBEE1486FFEF00351C42 /* NDProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDProcess.h; sourceTree = "<group>"; };
+		4D66BBEF1486FFEF00351C42 /* NDProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDProcess.m; sourceTree = "<group>"; };
+		4D66BBF01486FFF000351C42 /* NDSDKCompatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDSDKCompatibility.h; sourceTree = "<group>"; };
+		4D66BBF11486FFF000351C42 /* NSURL+NDCarbonUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+NDCarbonUtilities.h"; sourceTree = "<group>"; };
+		4D66BBF21486FFF000351C42 /* NSURL+NDCarbonUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+NDCarbonUtilities.m"; sourceTree = "<group>"; };
 		4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Release.xcconfig; sourceTree = "<group>"; };
 		4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Debug.xcconfig; sourceTree = "<group>"; };
 		4D89177614758620009C1C14 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/QSMainMenuPrefPane.strings; sourceTree = "<group>"; };
@@ -2812,6 +2822,11 @@
 		E1F1D63306BD97B2004E3DC3 /* NDClasses */ = {
 			isa = PBXGroup;
 			children = (
+				4D66BBEE1486FFEF00351C42 /* NDProcess.h */,
+				4D66BBEF1486FFEF00351C42 /* NDProcess.m */,
+				4D66BBF01486FFF000351C42 /* NDSDKCompatibility.h */,
+				4D66BBF11486FFF000351C42 /* NSURL+NDCarbonUtilities.h */,
+				4D66BBF21486FFF000351C42 /* NSURL+NDCarbonUtilities.m */,
 			);
 			path = NDClasses;
 			sourceTree = "<group>";
@@ -3026,6 +3041,9 @@
 				4D6A663410AB2A2F00898CA4 /* QSTreeController.h in Headers */,
 				D4E0060F1523951500FDF185 /* NSMetadataQuery+Synchronous.h in Headers */,
 				4D66BBDA1486FCF400351C42 /* CPSPrivate.h in Headers */,
+				4D66BC5A1487027E00351C42 /* NDProcess.h in Headers */,
+				4D66BC5C1487027E00351C42 /* NDSDKCompatibility.h in Headers */,
+				4D66BC5D1487027E00351C42 /* NSURL+NDCarbonUtilities.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4107,6 +4125,8 @@
 				7F943F6608033961007EDC31 /* QSUTI.m in Sources */,
 				7F26503708DB09B20076E4E6 /* UKDirectoryEnumerator.m in Sources */,
 				D4E006101523951500FDF185 /* NSMetadataQuery+Synchronous.m in Sources */,
+				4D66BC5B1487027E00351C42 /* NDProcess.m in Sources */,
+				4D66BC5E1487027E00351C42 /* NSURL+NDCarbonUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
