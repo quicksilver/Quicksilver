@@ -1,7 +1,7 @@
 /*
-	NDSDKCompatibility.h
+	IntegerMath.c
 
-	Created by Nick Zitzmann on 22.10.07 under a MIT-style license. 
+	Created by Nathan Day on 29.06.03 under a MIT-style license. 
 	Copyright (c) 2008 Nathan Day
 
 	Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,26 +23,21 @@
 	THE SOFTWARE.
  */
 
-#import <Foundation/Foundation.h>
+#include "IntegerMath.h"
 
-#ifndef NSINTEGER_DEFINED
-	#ifdef NS_BUILD_32_LIKE_64
-		typedef long NSInteger;
-		typedef unsigned long NSUInteger;
-	#else
-		typedef int NSInteger;
-		typedef unsigned int NSUInteger;
-	#endif
-	#define NSIntegerMax    LONG_MAX
-	#define NSIntegerMin    LONG_MIN
-	#define NSUIntegerMax   ULONG_MAX
-	#define NSINTEGER_DEFINED 1
-#endif
+unsigned short log10I( const unsigned long aValue )
+{
+	unsigned short		theExp = 0;
+	unsigned long		theCmpValue[] = {10U,100U,1000U,10000U,100000U,1000000U,10000000U,100000000U,1000000000U};
+	
+	while( aValue >= theCmpValue[theExp] && theExp < sizeof(theCmpValue)/sizeof(unsigned long int) )
+		theExp++;
 
-#ifndef CGFLOAT_DEFINED
-	typedef float CGFloat;
-	#define CGFLOAT_MIN FLT_MIN
-	#define CGFLOAT_MAX FLT_MAX
-	#define CGFLOAT_IS_DOUBLE 0
-	#define CGFLOAT_DEFINED 1
-#endif
+	return theExp;
+}
+
+unsigned long greatestCommonDivisor( unsigned long a, unsigned long b )
+{
+	return b == 0 ? a : greatestCommonDivisor( b, a%b);
+}
+

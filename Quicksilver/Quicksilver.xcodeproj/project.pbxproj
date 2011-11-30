@@ -137,6 +137,16 @@
 		4D66BC301487021500351C42 /* NDResourceFork+PascalStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC2C1487021400351C42 /* NDResourceFork+PascalStrings.m */; };
 		4D66BC311487021500351C42 /* NDResourceInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC2D1487021500351C42 /* NDResourceInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D66BC321487021500351C42 /* NDResourceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC2E1487021500351C42 /* NDResourceInfo.m */; };
+		4D66BC3D1487024500351C42 /* IntegerMath.c in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC331487024400351C42 /* IntegerMath.c */; };
+		4D66BC3E1487024500351C42 /* IntegerMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC341487024400351C42 /* IntegerMath.h */; };
+		4D66BC3F1487024500351C42 /* NDComponentInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC351487024400351C42 /* NDComponentInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D66BC401487024500351C42 /* NDComponentInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC361487024400351C42 /* NDComponentInstance.m */; };
+		4D66BC411487024500351C42 /* NDScript.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC371487024400351C42 /* NDScript.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D66BC421487024500351C42 /* NDScriptData_Protocols.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC381487024400351C42 /* NDScriptData_Protocols.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D66BC431487024500351C42 /* NDScriptData.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC391487024400351C42 /* NDScriptData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D66BC441487024500351C42 /* NDScriptData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC3A1487024500351C42 /* NDScriptData.m */; };
+		4D66BC451487024500351C42 /* NSString+NDUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC3B1487024500351C42 /* NSString+NDUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D66BC461487024500351C42 /* NSString+NDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC3C1487024500351C42 /* NSString+NDUtilities.m */; };
 		4D6A663410AB2A2F00898CA4 /* QSTreeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 92D9C9680D134BDD00D91825 /* QSTreeController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D89177514758620009C1C14 /* QSMainMenuPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D89177714758620009C1C14 /* QSMainMenuPrefPane.strings */; };
 		4D89177B14758DC6009C1C14 /* QSApplicationPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D89177D14758DC6009C1C14 /* QSApplicationPrefPane.strings */; };
@@ -1106,6 +1116,16 @@
 		4D66BC2C1487021400351C42 /* NDResourceFork+PascalStrings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NDResourceFork+PascalStrings.m"; sourceTree = "<group>"; };
 		4D66BC2D1487021500351C42 /* NDResourceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDResourceInfo.h; sourceTree = "<group>"; };
 		4D66BC2E1487021500351C42 /* NDResourceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDResourceInfo.m; sourceTree = "<group>"; };
+		4D66BC331487024400351C42 /* IntegerMath.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IntegerMath.c; sourceTree = "<group>"; };
+		4D66BC341487024400351C42 /* IntegerMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntegerMath.h; sourceTree = "<group>"; };
+		4D66BC351487024400351C42 /* NDComponentInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDComponentInstance.h; sourceTree = "<group>"; };
+		4D66BC361487024400351C42 /* NDComponentInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDComponentInstance.m; sourceTree = "<group>"; };
+		4D66BC371487024400351C42 /* NDScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDScript.h; sourceTree = "<group>"; };
+		4D66BC381487024400351C42 /* NDScriptData_Protocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDScriptData_Protocols.h; sourceTree = "<group>"; };
+		4D66BC391487024400351C42 /* NDScriptData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDScriptData.h; sourceTree = "<group>"; };
+		4D66BC3A1487024500351C42 /* NDScriptData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDScriptData.m; sourceTree = "<group>"; };
+		4D66BC3B1487024500351C42 /* NSString+NDUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NDUtilities.h"; sourceTree = "<group>"; };
+		4D66BC3C1487024500351C42 /* NSString+NDUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NDUtilities.m"; sourceTree = "<group>"; };
 		4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Release.xcconfig; sourceTree = "<group>"; };
 		4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Debug.xcconfig; sourceTree = "<group>"; };
 		4D89177614758620009C1C14 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/QSMainMenuPrefPane.strings; sourceTree = "<group>"; };
@@ -2886,6 +2906,16 @@
 		E1F1D63306BD97B2004E3DC3 /* NDClasses */ = {
 			isa = PBXGroup;
 			children = (
+				4D66BC331487024400351C42 /* IntegerMath.c */,
+				4D66BC341487024400351C42 /* IntegerMath.h */,
+				4D66BC351487024400351C42 /* NDComponentInstance.h */,
+				4D66BC361487024400351C42 /* NDComponentInstance.m */,
+				4D66BC371487024400351C42 /* NDScript.h */,
+				4D66BC381487024400351C42 /* NDScriptData_Protocols.h */,
+				4D66BC391487024400351C42 /* NDScriptData.h */,
+				4D66BC3A1487024500351C42 /* NDScriptData.m */,
+				4D66BC3B1487024500351C42 /* NSString+NDUtilities.h */,
+				4D66BC3C1487024500351C42 /* NSString+NDUtilities.m */,
 				4D66BC2B1487021400351C42 /* NDResourceFork+PascalStrings.h */,
 				4D66BC2C1487021400351C42 /* NDResourceFork+PascalStrings.m */,
 				4D66BC2D1487021500351C42 /* NDResourceInfo.h */,
@@ -3156,6 +3186,12 @@
 				4D66BC29148701EA00351C42 /* NSString+NDCarbonUtilities.h in Headers */,
 				4D66BC2F1487021500351C42 /* NDResourceFork+PascalStrings.h in Headers */,
 				4D66BC311487021500351C42 /* NDResourceInfo.h in Headers */,
+				4D66BC3E1487024500351C42 /* IntegerMath.h in Headers */,
+				4D66BC3F1487024500351C42 /* NDComponentInstance.h in Headers */,
+				4D66BC411487024500351C42 /* NDScript.h in Headers */,
+				4D66BC421487024500351C42 /* NDScriptData_Protocols.h in Headers */,
+				4D66BC431487024500351C42 /* NDScriptData.h in Headers */,
+				4D66BC451487024500351C42 /* NSString+NDUtilities.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4255,6 +4291,10 @@
 				4D66BC2A148701EA00351C42 /* NSString+NDCarbonUtilities.m in Sources */,
 				4D66BC301487021500351C42 /* NDResourceFork+PascalStrings.m in Sources */,
 				4D66BC321487021500351C42 /* NDResourceInfo.m in Sources */,
+				4D66BC3D1487024500351C42 /* IntegerMath.c in Sources */,
+				4D66BC401487024500351C42 /* NDComponentInstance.m in Sources */,
+				4D66BC441487024500351C42 /* NDScriptData.m in Sources */,
+				4D66BC461487024500351C42 /* NSString+NDUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

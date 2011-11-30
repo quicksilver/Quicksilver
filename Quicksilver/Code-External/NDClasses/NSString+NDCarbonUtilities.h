@@ -1,11 +1,38 @@
+/*
+	NSString+NDCarbonUtilities.h
+
+	Created by Nathan Day on 03.08.02 under a MIT-style license. 
+	Copyright (c) 2008 Nathan Day
+
+	Permission is hereby granted, free of charge, to any person obtaining a copy
+	of this software and associated documentation files (the "Software"), to deal
+	in the Software without restriction, including without limitation the rights
+	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+	copies of the Software, and to permit persons to whom the Software is
+	furnished to do so, subject to the following conditions:
+
+	The above copyright notice and this permission notice shall be included in
+	all copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+	THE SOFTWARE.
+ */
+
 /*!
 	@header NSString+NDCarbonUtilities
 	@abstract Decalres the category <tt>NSString (NDCarbonUtilities)</tt>
 	@discussion Provides method for interacting with Carbon APIs.
+	@author Nathan Day
  */
 
 #import <Cocoa/Cocoa.h>
 #import <Carbon/Carbon.h>
+#import "NDSDKCompatibility.h"
 
 /*!
 	@category NSString(NDCarbonUtilities)
@@ -35,10 +62,11 @@
 	@method getFSSpec:
 	@abstract Get a <tt>FSSpec</tt>.
 	@discussion Obtain a <tt>FSSpec</tt> for a POSIX path.
+	@deprecated in version 10.5
 	@param fsSpec A pointer to a <tt>FSSpec</tt> struct, to be filled by the method.
 	@result Returns <tt>YES</tt> if successful, if the method returns <tt>NO</tt> then <tt>fsSpec</tt> contains garbage.
  */
-- (BOOL)getFSSpec:(FSSpec *)fsSpec;
+- (BOOL)getFSSpec:(FSSpec *)fsSpec AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER_BUT_DEPRECATED;
 
 /*!
 	@method fileSystemPathHFSStyle
@@ -85,9 +113,10 @@
 	@method pascalString
 	@abstract Obtain a pascal string equivelent to the receveiver.
 	@discussion  Returns a representation of the receiver as a pascal string. The returned pascal string will be automatically freed just as a returned object would be released; your code should copy the pascal string or use <tt>getPascalString:length:</tt> if it needs to store the pascal string outside of the autorelease context in which the pascal string is create.
+	@deprecated in version 10.5
 	@result A pointer to a pascal string.
  */
-- (const char *)pascalString;
+- (const char *)pascalString AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER_BUT_DEPRECATED;
 
 /*!
 	@method trimWhitespace
@@ -173,4 +202,100 @@
 	@result Returns <tt>YES</tt> if successful.
  */
 - (BOOL)setFinderLocation:(NSPoint)location;
+
+@end
+
+@interface NSString (NDCarbonUtilitiesFinderInfoFlags)
+
+/*!
+	@method hasCustomIconFinderInfoFlag
+	@abstract <#abstract#>
+	@discussion <#discussion#>
+	@result <#result#>
+ */
+- (BOOL)hasCustomIconFinderInfoFlag;
+/*!
+	@method isStationeryFinderInfoFlag
+	@abstract <#abstract#>
+	@discussion <#discussion#>
+	@result <#result#>
+ */
+- (BOOL)isStationeryFinderInfoFlag;
+/*!
+	@method hasNameLockedFinderInfoFlag
+	@abstract <#abstract#>
+	@discussion <#discussion#>
+	@result <#result#>
+ */
+- (BOOL)hasNameLockedFinderInfoFlag;
+/*!
+	@method hasBundleFinderInfoFlag
+	@abstract <#abstract#>
+	@discussion <#discussion#>
+	@result <#result#>
+ */
+- (BOOL)hasBundleFinderInfoFlag;
+/*!
+	@method isInvisibleFinderInfoFlag
+	@abstract <#abstract#>
+	@discussion <#discussion#>
+	@result <#result#>
+ */
+- (BOOL)isInvisibleFinderInfoFlag;
+/*!
+	@method isAliasFinderInfoFlag
+	@abstract <#abstract#>
+	@discussion <#discussion#>
+	@result <#result#>
+ */
+- (BOOL)isAliasFinderInfoFlag;
+
+/*!
+	@method setHasCustomIconFinderInfoFlag:
+	@abstract <#abstract#>
+	@discussion <#discussion#>
+	@result <#result#>
+ */
+- (BOOL)setHasCustomIconFinderInfoFlag:(BOOL)aFlag;
+/*!
+	@method setIsStationeryFinderInfoFlag:
+	@abstract <#abstract#>
+	@discussion <#discussion#>
+	@param flag <#discussion#>
+	@result <#result#>
+ */
+- (BOOL)setIsStationeryFinderInfoFlag:(BOOL)aFlag;
+/*!
+	@method setHasNameLockedFinderInfoFlag:
+	@abstract <#abstract#>
+	@discussion <#discussion#>
+	@param flag <#discussion#>
+	@result <#result#>
+ */
+- (BOOL)setHasNameLockedFinderInfoFlag:(BOOL)aFlag;
+/*!
+	@method setHasBundleFinderInfoFlag:
+	@abstract <#abstract#>
+	@discussion <#discussion#>
+	@param flag <#discussion#>
+	@result <#result#>
+ */
+- (BOOL)setHasBundleFinderInfoFlag:(BOOL)aFlag;
+/*!
+	@method setIsInvisibleFinderInfoFlag:
+	@abstract <#abstract#>
+	@discussion <#discussion#>
+	@param flag <#discussion#>
+	@result <#result#>
+ */
+- (BOOL)setIsInvisibleFinderInfoFlag:(BOOL)aFlag;
+/*!
+	@method setIsAliasFinderInfoFlag:
+	@abstract <#abstract#>
+	@discussion <#discussion#>
+	@param flag <#discussion#>
+	@result <#result#>
+ */
+- (BOOL)setIsAliasFinderInfoFlag:(BOOL)aFlag;
+
 @end
