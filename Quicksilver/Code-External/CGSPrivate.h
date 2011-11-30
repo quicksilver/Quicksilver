@@ -250,6 +250,15 @@ extern "C" {
 
 # pragma mark Miscellaneous
 
+  // Global Hotkey
+  typedef enum {
+    CGSGlobalHotKeyEnable = 0,
+    CGSGlobalHotKeyDisable = 1,
+  } CGSGlobalHotKeyOperatingMode;
+
+  extern CGError CGSGetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlobalHotKeyOperatingMode *mode);
+  extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlobalHotKeyOperatingMode mode);
+
   // Regions
   typedef void *CGSRegionRef;
   extern CGError CGSNewRegionWithRect(CGRect const *inRect, CGSRegionRef *outRegion);
