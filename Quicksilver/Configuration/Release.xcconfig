@@ -1,7 +1,5 @@
 #include "Common.xcconfig"
 
-ARCHS = $(ARCHS_STANDARD_32_64_BIT)
-
 DEBUG_INFORMATION_FORMAT = dwarf-with-dsym
 
 DEPLOYMENT_POSTPROCESSING = YES

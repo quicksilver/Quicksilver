@@ -1,7 +1,5 @@
 #include "Common.xcconfig"
 
-ARCHS = $(NATIVE_ARCH_ACTUAL)
-
 DEBUG_INFORMATION_FORMAT = dwarf
 
 STRIP_INSTALLED_PRODUCT = NO
