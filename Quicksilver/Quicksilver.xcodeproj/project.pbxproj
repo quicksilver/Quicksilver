@@ -133,6 +133,10 @@
 		4D66BC28148701EA00351C42 /* NSSavePanel+NDAlias.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC18148701EA00351C42 /* NSSavePanel+NDAlias.m */; };
 		4D66BC29148701EA00351C42 /* NSString+NDCarbonUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC19148701EA00351C42 /* NSString+NDCarbonUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D66BC2A148701EA00351C42 /* NSString+NDCarbonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC1A148701EA00351C42 /* NSString+NDCarbonUtilities.m */; };
+		4D66BC2F1487021500351C42 /* NDResourceFork+PascalStrings.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC2B1487021400351C42 /* NDResourceFork+PascalStrings.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D66BC301487021500351C42 /* NDResourceFork+PascalStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC2C1487021400351C42 /* NDResourceFork+PascalStrings.m */; };
+		4D66BC311487021500351C42 /* NDResourceInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC2D1487021500351C42 /* NDResourceInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D66BC321487021500351C42 /* NDResourceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC2E1487021500351C42 /* NDResourceInfo.m */; };
 		4D6A663410AB2A2F00898CA4 /* QSTreeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 92D9C9680D134BDD00D91825 /* QSTreeController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D89177514758620009C1C14 /* QSMainMenuPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D89177714758620009C1C14 /* QSMainMenuPrefPane.strings */; };
 		4D89177B14758DC6009C1C14 /* QSApplicationPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D89177D14758DC6009C1C14 /* QSApplicationPrefPane.strings */; };
@@ -1098,6 +1102,10 @@
 		4D66BC18148701EA00351C42 /* NSSavePanel+NDAlias.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSSavePanel+NDAlias.m"; sourceTree = "<group>"; };
 		4D66BC19148701EA00351C42 /* NSString+NDCarbonUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NDCarbonUtilities.h"; sourceTree = "<group>"; };
 		4D66BC1A148701EA00351C42 /* NSString+NDCarbonUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NDCarbonUtilities.m"; sourceTree = "<group>"; };
+		4D66BC2B1487021400351C42 /* NDResourceFork+PascalStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NDResourceFork+PascalStrings.h"; sourceTree = "<group>"; };
+		4D66BC2C1487021400351C42 /* NDResourceFork+PascalStrings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NDResourceFork+PascalStrings.m"; sourceTree = "<group>"; };
+		4D66BC2D1487021500351C42 /* NDResourceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDResourceInfo.h; sourceTree = "<group>"; };
+		4D66BC2E1487021500351C42 /* NDResourceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDResourceInfo.m; sourceTree = "<group>"; };
 		4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Release.xcconfig; sourceTree = "<group>"; };
 		4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Debug.xcconfig; sourceTree = "<group>"; };
 		4D89177614758620009C1C14 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/QSMainMenuPrefPane.strings; sourceTree = "<group>"; };
@@ -2878,6 +2886,10 @@
 		E1F1D63306BD97B2004E3DC3 /* NDClasses */ = {
 			isa = PBXGroup;
 			children = (
+				4D66BC2B1487021400351C42 /* NDResourceFork+PascalStrings.h */,
+				4D66BC2C1487021400351C42 /* NDResourceFork+PascalStrings.m */,
+				4D66BC2D1487021500351C42 /* NDResourceInfo.h */,
+				4D66BC2E1487021500351C42 /* NDResourceInfo.m */,
 				4D66BC0B148701E900351C42 /* NDAlias.h */,
 				4D66BC0C148701E900351C42 /* NDAlias.m */,
 				4D66BC0D148701E900351C42 /* NDAlias+AliasFile.h */,
@@ -3142,6 +3154,8 @@
 				4D66BC25148701EA00351C42 /* NSPathControl+NDAlias.h in Headers */,
 				4D66BC27148701EA00351C42 /* NSSavePanel+NDAlias.h in Headers */,
 				4D66BC29148701EA00351C42 /* NSString+NDCarbonUtilities.h in Headers */,
+				4D66BC2F1487021500351C42 /* NDResourceFork+PascalStrings.h in Headers */,
+				4D66BC311487021500351C42 /* NDResourceInfo.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4239,6 +4253,8 @@
 				4D66BC26148701EA00351C42 /* NSPathControl+NDAlias.m in Sources */,
 				4D66BC28148701EA00351C42 /* NSSavePanel+NDAlias.m in Sources */,
 				4D66BC2A148701EA00351C42 /* NSString+NDCarbonUtilities.m in Sources */,
+				4D66BC301487021500351C42 /* NDResourceFork+PascalStrings.m in Sources */,
+				4D66BC321487021500351C42 /* NDResourceInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

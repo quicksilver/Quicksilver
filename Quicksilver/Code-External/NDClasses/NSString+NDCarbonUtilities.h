@@ -1,38 +1,11 @@
-/*
-	NSString+NDCarbonUtilities.h
-
-	Created by Nathan Day on 03.08.02 under a MIT-style license. 
-	Copyright (c) 2008-2010 Nathan Day
-
-	Permission is hereby granted, free of charge, to any person obtaining a copy
-	of this software and associated documentation files (the "Software"), to deal
-	in the Software without restriction, including without limitation the rights
-	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-	copies of the Software, and to permit persons to whom the Software is
-	furnished to do so, subject to the following conditions:
-
-	The above copyright notice and this permission notice shall be included in
-	all copies or substantial portions of the Software.
-
-	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-	THE SOFTWARE.
- */
-
 /*!
 	@header NSString+NDCarbonUtilities
 	@abstract Decalres the category <tt>NSString (NDCarbonUtilities)</tt>
 	@discussion Provides method for interacting with Carbon APIs.
-	@author Nathan Day
  */
 
 #import <Cocoa/Cocoa.h>
-#import <CoreServices/CoreServices.h>
-#import "NDSDKCompatibility.h"
+#import <Carbon/Carbon.h>
 
 /*!
 	@category NSString(NDCarbonUtilities)
@@ -62,11 +35,10 @@
 	@method getFSSpec:
 	@abstract Get a <tt>FSSpec</tt>.
 	@discussion Obtain a <tt>FSSpec</tt> for a POSIX path.
-	@deprecated in version 10.5
 	@param fsSpec A pointer to a <tt>FSSpec</tt> struct, to be filled by the method.
 	@result Returns <tt>YES</tt> if successful, if the method returns <tt>NO</tt> then <tt>fsSpec</tt> contains garbage.
  */
-- (BOOL)getFSSpec:(FSSpec *)fsSpec AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER_BUT_DEPRECATED;
+- (BOOL)getFSSpec:(FSSpec *)fsSpec;
 
 /*!
 	@method fileSystemPathHFSStyle
@@ -85,7 +57,7 @@
 /*!
 	@method resolveAliasFile
 	@abstract Resolve an alias file.
-	@discussion If the receiver does not refer to an alias file, the receiver itself is returned.  If the receiver does refer to an alias file, alias resolution is attepted.  If successful, a POSIX path <tt>NSString</tt> of the original is returned, else nil is returned.
+	@discussion Returns an POSIX path <tt>NSString</tt> refered to by the receveive if the receveive refers to an alias file. If it does not refer to an alias file the a string identical to the receveive is returned.
 	@result An POSIX path <tt>NSString</tt>.
   */
 - (NSString *)resolveAliasFile;
@@ -101,8 +73,8 @@
 
 /*!
 	@method getPascalString:length:
-	@abstract Obtain a pascal string equivelent to the receiver.
-	@discussion Fill the <tt>StringPtr</tt> with a pascal string equivelent to the receiver.
+	@abstract Obtain a pascal string equivelent to the receveiver.
+	@discussion Fill the <tt>StringPtr</tt> with a pascal string equivelent to the receveiver.
 	@param buffer A <tt>StringPtr</tt> that contains the pascal string on completion.
 	@param length The maximum length the string can be. Pascal string can be no longer than <tt>255</tt> bytes long, <tt>256</tt> if you include the first length byte.
 	@result Returns <tt>YES</tt> if the method was successful, if <tt>NO</tt> is returns then <tt>buffer</tt> contains garbage.
@@ -111,17 +83,16 @@
 
 /*!
 	@method pascalString
-	@abstract Obtain a pascal string equivelent to the receiver.
-	@discussion  Returns a representation of the receiver as a pascal string. The returned pascal string will be automatically freed just as a returned object would be released; your code should copy the pascal string or use <tt>getPascalString:length:</tt> if it needs to store the pascal string outside of the autorelease context in which the pascal string is created. Do not use this method in a Garbage Collected application, it has undefined behaviour!
-	@deprecated in version 10.5
+	@abstract Obtain a pascal string equivelent to the receveiver.
+	@discussion  Returns a representation of the receiver as a pascal string. The returned pascal string will be automatically freed just as a returned object would be released; your code should copy the pascal string or use <tt>getPascalString:length:</tt> if it needs to store the pascal string outside of the autorelease context in which the pascal string is create.
 	@result A pointer to a pascal string.
  */
-- (const char *)pascalString AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER_BUT_DEPRECATED;
+- (const char *)pascalString;
 
 /*!
 	@method trimWhitespace
 	@abstract Trims white space from a <tt>NSString</tt>.
-	@discussion Returns a new <tt>NSString</tt> equivelent to the receiver but without any white space (return, new line, space, tab) at the begining or end of the string.
+	@discussion Returns a new <tt>NSString</tt> equivelent to the receveiver but without any white space (return, new line, space, tab) at the begining or end of the string.
 	@result A new <tt>NSString</tt>.
  */
 - (NSString *)trimWhitespace;
@@ -157,11 +128,11 @@
 
 /*!
 	@method finderLocation
-	@abstract Return a finder item's location.
-	@discussion Returns a finder item's location within its parent window and in QuickDraw coordinates.
-	@result A <tt>Point</tt>
+	@abstract Return a finder items location.
+	@discussion Returns a finder items location within its parent window.
+	@result A <tt>NSPoint</tt>
  */
-- (Point)finderLocation;
+- (NSPoint)finderLocation;
 
 /*!
 	@method setFinderInfoFlags:mask:type:creator:
@@ -196,106 +167,10 @@
 
 /*!
 	@method setFinderLocation:
-	@abstract Sets the location of a finder item.
-	@discussion Set the location of a finder item within in container and in QuickDraw coordinates.
+	@abstract Sets the location a finder item.
+	@discussion Set the location of a finder item within in container.
 	@param location The location
 	@result Returns <tt>YES</tt> if successful.
  */
-- (BOOL)setFinderLocation:(Point)location;
-
-@end
-
-@interface NSString (NDCarbonUtilitiesFinderInfoFlags)
-
-/*!
-	@method hasCustomIconFinderInfoFlag
-	@abstract <#abstract#>
-	@discussion <#discussion#>
-	@result <#result#>
- */
-- (BOOL)hasCustomIconFinderInfoFlag;
-/*!
-	@method isStationeryFinderInfoFlag
-	@abstract <#abstract#>
-	@discussion <#discussion#>
-	@result <#result#>
- */
-- (BOOL)isStationeryFinderInfoFlag;
-/*!
-	@method hasNameLockedFinderInfoFlag
-	@abstract <#abstract#>
-	@discussion <#discussion#>
-	@result <#result#>
- */
-- (BOOL)hasNameLockedFinderInfoFlag;
-/*!
-	@method hasBundleFinderInfoFlag
-	@abstract <#abstract#>
-	@discussion <#discussion#>
-	@result <#result#>
- */
-- (BOOL)hasBundleFinderInfoFlag;
-/*!
-	@method isInvisibleFinderInfoFlag
-	@abstract <#abstract#>
-	@discussion <#discussion#>
-	@result <#result#>
- */
-- (BOOL)isInvisibleFinderInfoFlag;
-/*!
-	@method isAliasFinderInfoFlag
-	@abstract <#abstract#>
-	@discussion <#discussion#>
-	@result <#result#>
- */
-- (BOOL)isAliasFinderInfoFlag;
-
-/*!
-	@method setHasCustomIconFinderInfoFlag:
-	@abstract <#abstract#>
-	@discussion <#discussion#>
-	@result <#result#>
- */
-- (BOOL)setHasCustomIconFinderInfoFlag:(BOOL)aFlag;
-/*!
-	@method setIsStationeryFinderInfoFlag:
-	@abstract <#abstract#>
-	@discussion <#discussion#>
-	@param flag <#discussion#>
-	@result <#result#>
- */
-- (BOOL)setIsStationeryFinderInfoFlag:(BOOL)aFlag;
-/*!
-	@method setHasNameLockedFinderInfoFlag:
-	@abstract <#abstract#>
-	@discussion <#discussion#>
-	@param flag <#discussion#>
-	@result <#result#>
- */
-- (BOOL)setHasNameLockedFinderInfoFlag:(BOOL)aFlag;
-/*!
-	@method setHasBundleFinderInfoFlag:
-	@abstract <#abstract#>
-	@discussion <#discussion#>
-	@param flag <#discussion#>
-	@result <#result#>
- */
-- (BOOL)setHasBundleFinderInfoFlag:(BOOL)aFlag;
-/*!
-	@method setIsInvisibleFinderInfoFlag:
-	@abstract <#abstract#>
-	@discussion <#discussion#>
-	@param flag <#discussion#>
-	@result <#result#>
- */
-- (BOOL)setIsInvisibleFinderInfoFlag:(BOOL)aFlag;
-/*!
-	@method setIsAliasFinderInfoFlag:
-	@abstract <#abstract#>
-	@discussion <#discussion#>
-	@param flag <#discussion#>
-	@result <#result#>
- */
-- (BOOL)setIsAliasFinderInfoFlag:(BOOL)aFlag;
-
+- (BOOL)setFinderLocation:(NSPoint)location;
 @end
