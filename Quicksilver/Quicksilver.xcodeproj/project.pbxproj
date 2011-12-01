@@ -449,16 +449,6 @@
 		E180026907B2BBB900010DB0 /* QSUpdateController.h in Headers */ = {isa = PBXBuildFile; fileRef = E180021407B2BBB900010DB0 /* QSUpdateController.h */; };
 		E180026A07B2BBB900010DB0 /* QSUpdateController.m in Sources */ = {isa = PBXBuildFile; fileRef = E180021507B2BBB900010DB0 /* QSUpdateController.m */; };
 		E18002D307B2F0B800010DB0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E18001C507B2BBB800010DB0 /* main.m */; };
-		E180041607B35E2300010DB0 /* NDHotKeyEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D63F06BD97B2004E3DC3 /* NDHotKeyEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E180041707B35E2400010DB0 /* NDHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D64006BD97B2004E3DC3 /* NDHotKeyEvent.m */; };
-		E180041C07B35E2F00010DB0 /* NSAppleEventDescriptor+NDAppleScriptObject.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D64906BD97B2004E3DC3 /* NSAppleEventDescriptor+NDAppleScriptObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E180041D07B35E3100010DB0 /* NSAppleEventDescriptor+NDAppleScriptObject.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D64A06BD97B2004E3DC3 /* NSAppleEventDescriptor+NDAppleScriptObject.m */; };
-		E180041E07B35E3200010DB0 /* NSString+NDCarbonUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D64D06BD97B2004E3DC3 /* NSString+NDCarbonUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E180041F07B35E3300010DB0 /* NSString+NDCarbonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D64E06BD97B2004E3DC3 /* NSString+NDCarbonUtilities.m */; settings = {COMPILER_FLAGS = "-w"; }; };
-		E180042007B35E3300010DB0 /* NSString+NDUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D64F06BD97B2004E3DC3 /* NSString+NDUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E180042107B35E3400010DB0 /* NSString+NDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D65006BD97B2004E3DC3 /* NSString+NDUtilities.m */; };
-		E180042207B35E3500010DB0 /* NSURL+NDCarbonUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D65106BD97B2004E3DC3 /* NSURL+NDCarbonUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E180043D07B35E3B00010DB0 /* NSURL+NDCarbonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D65206BD97B2004E3DC3 /* NSURL+NDCarbonUtilities.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		E188856706A4884F00B75D22 /* System Events.scpt in Resources */ = {isa = PBXBuildFile; fileRef = E188856606A4884F00B75D22 /* System Events.scpt */; };
 		E18986C00657DDCE001286AA /* QSPlugIn.icns in Resources */ = {isa = PBXBuildFile; fileRef = E18986BF0657DDCE001286AA /* QSPlugIn.icns */; };
 		E18F8D2A072DBB1C00057774 /* PlugInVersionRequirements.plist in Resources */ = {isa = PBXBuildFile; fileRef = E18F8D29072DBB1C00057774 /* PlugInVersionRequirements.plist */; };
@@ -548,21 +538,6 @@
 		E1E5FAE307B207180044D6EF /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1075DB00783CE27004053AF /* IOKit.framework */; };
 		E1E5FAE407B207450044D6EF /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E103F3390647212400447FE0 /* Carbon.framework */; };
 		E1E5FB1507B2079E0044D6EF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E103F60706476C7700447FE0 /* Security.framework */; };
-		E1E5FB1607B207D10044D6EF /* NDAlias+AliasFile.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D63406BD97B2004E3DC3 /* NDAlias+AliasFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1E5FB1707B207D10044D6EF /* NDAlias+AliasFile.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D63506BD97B2004E3DC3 /* NDAlias+AliasFile.m */; };
-		E1E5FB1807B207D20044D6EF /* NDAlias.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D63606BD97B2004E3DC3 /* NDAlias.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1E5FB1907B207D20044D6EF /* NDAlias.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D63706BD97B2004E3DC3 /* NDAlias.m */; };
-		E1E5FB1A07B207D60044D6EF /* NDAppleScriptObject.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D63806BD97B2004E3DC3 /* NDAppleScriptObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1E5FB1B07B207D70044D6EF /* NDAppleScriptObject.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D63906BD97B2004E3DC3 /* NDAppleScriptObject.m */; };
-		E1E5FB1C07B207D80044D6EF /* NDAppleScriptObject_Protocols.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D63A06BD97B2004E3DC3 /* NDAppleScriptObject_Protocols.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1E5FB1D07B207DA0044D6EF /* NDComponentInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D63C06BD97B2004E3DC3 /* NDComponentInstance.m */; };
-		E1E5FB1F07B207DC0044D6EF /* NDComponentInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D63B06BD97B2004E3DC3 /* NDComponentInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1E5FB2007B2080E0044D6EF /* NDProcess.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D64306BD97B2004E3DC3 /* NDProcess.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1E5FB2107B208100044D6EF /* NDProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D64406BD97B2004E3DC3 /* NDProcess.m */; settings = {COMPILER_FLAGS = "-w"; }; };
-		E1E5FB2207B208120044D6EF /* NDResourceFork+OtherSorces.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D64506BD97B2004E3DC3 /* NDResourceFork+OtherSorces.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1E5FB2307B208140044D6EF /* NDResourceFork+OtherSorces.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D64606BD97B2004E3DC3 /* NDResourceFork+OtherSorces.m */; };
-		E1E5FB2407B208140044D6EF /* NDResourceFork.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F1D64706BD97B2004E3DC3 /* NDResourceFork.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1E5FB2507B208150044D6EF /* NDResourceFork.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F1D64806BD97B2004E3DC3 /* NDResourceFork.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		E1E5FB4F07B208C00044D6EF /* ExceptionHandling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E133F1FB06ADCDF800D27A4E /* ExceptionHandling.framework */; };
 		E1E5FBD207B20DD20044D6EF /* NSString_Purification.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FB6507B20DD10044D6EF /* NSString_Purification.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FBD307B20DD20044D6EF /* NSString_Purification.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FB6607B20DD10044D6EF /* NSString_Purification.m */; };
@@ -1699,31 +1674,6 @@
 		E1E5FC7307B20E4D0044D6EF /* QSSearchObjectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSearchObjectView.h; sourceTree = "<group>"; };
 		E1E5FC7407B20E4D0044D6EF /* QSSearchObjectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSearchObjectView.m; sourceTree = "<group>"; };
 		E1EF4203070FDF7700D6DA03 /* QSHelpersPrefPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSHelpersPrefPane.xib; sourceTree = "<group>"; };
-		E1F1D63406BD97B2004E3DC3 /* NDAlias+AliasFile.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NDAlias+AliasFile.h"; sourceTree = "<group>"; };
-		E1F1D63506BD97B2004E3DC3 /* NDAlias+AliasFile.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NDAlias+AliasFile.m"; sourceTree = "<group>"; };
-		E1F1D63606BD97B2004E3DC3 /* NDAlias.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NDAlias.h; sourceTree = "<group>"; };
-		E1F1D63706BD97B2004E3DC3 /* NDAlias.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NDAlias.m; sourceTree = "<group>"; };
-		E1F1D63806BD97B2004E3DC3 /* NDAppleScriptObject.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NDAppleScriptObject.h; sourceTree = "<group>"; };
-		E1F1D63906BD97B2004E3DC3 /* NDAppleScriptObject.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NDAppleScriptObject.m; sourceTree = "<group>"; };
-		E1F1D63A06BD97B2004E3DC3 /* NDAppleScriptObject_Protocols.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NDAppleScriptObject_Protocols.h; sourceTree = "<group>"; };
-		E1F1D63B06BD97B2004E3DC3 /* NDComponentInstance.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NDComponentInstance.h; sourceTree = "<group>"; };
-		E1F1D63C06BD97B2004E3DC3 /* NDComponentInstance.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NDComponentInstance.m; sourceTree = "<group>"; };
-		E1F1D63F06BD97B2004E3DC3 /* NDHotKeyEvent.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NDHotKeyEvent.h; sourceTree = "<group>"; };
-		E1F1D64006BD97B2004E3DC3 /* NDHotKeyEvent.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NDHotKeyEvent.m; sourceTree = "<group>"; };
-		E1F1D64306BD97B2004E3DC3 /* NDProcess.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NDProcess.h; sourceTree = "<group>"; };
-		E1F1D64406BD97B2004E3DC3 /* NDProcess.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NDProcess.m; sourceTree = "<group>"; };
-		E1F1D64506BD97B2004E3DC3 /* NDResourceFork+OtherSorces.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NDResourceFork+OtherSorces.h"; sourceTree = "<group>"; };
-		E1F1D64606BD97B2004E3DC3 /* NDResourceFork+OtherSorces.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NDResourceFork+OtherSorces.m"; sourceTree = "<group>"; };
-		E1F1D64706BD97B2004E3DC3 /* NDResourceFork.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NDResourceFork.h; sourceTree = "<group>"; };
-		E1F1D64806BD97B2004E3DC3 /* NDResourceFork.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NDResourceFork.m; sourceTree = "<group>"; };
-		E1F1D64906BD97B2004E3DC3 /* NSAppleEventDescriptor+NDAppleScriptObject.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NSAppleEventDescriptor+NDAppleScriptObject.h"; sourceTree = "<group>"; };
-		E1F1D64A06BD97B2004E3DC3 /* NSAppleEventDescriptor+NDAppleScriptObject.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NSAppleEventDescriptor+NDAppleScriptObject.m"; sourceTree = "<group>"; };
-		E1F1D64D06BD97B2004E3DC3 /* NSString+NDCarbonUtilities.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NSString+NDCarbonUtilities.h"; sourceTree = "<group>"; };
-		E1F1D64E06BD97B2004E3DC3 /* NSString+NDCarbonUtilities.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NSString+NDCarbonUtilities.m"; sourceTree = "<group>"; };
-		E1F1D64F06BD97B2004E3DC3 /* NSString+NDUtilities.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NSString+NDUtilities.h"; sourceTree = "<group>"; };
-		E1F1D65006BD97B2004E3DC3 /* NSString+NDUtilities.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NSString+NDUtilities.m"; sourceTree = "<group>"; };
-		E1F1D65106BD97B2004E3DC3 /* NSURL+NDCarbonUtilities.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NSURL+NDCarbonUtilities.h"; sourceTree = "<group>"; };
-		E1F1D65206BD97B2004E3DC3 /* NSURL+NDCarbonUtilities.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NSURL+NDCarbonUtilities.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2862,32 +2812,6 @@
 		E1F1D63306BD97B2004E3DC3 /* NDClasses */ = {
 			isa = PBXGroup;
 			children = (
-				4DF2B3950EB8933D009CEC3C /* NDSDKCompatibility.h */,
-				E1F1D63406BD97B2004E3DC3 /* NDAlias+AliasFile.h */,
-				E1F1D63506BD97B2004E3DC3 /* NDAlias+AliasFile.m */,
-				E1F1D63606BD97B2004E3DC3 /* NDAlias.h */,
-				E1F1D63706BD97B2004E3DC3 /* NDAlias.m */,
-				E1F1D63806BD97B2004E3DC3 /* NDAppleScriptObject.h */,
-				E1F1D63906BD97B2004E3DC3 /* NDAppleScriptObject.m */,
-				E1F1D63A06BD97B2004E3DC3 /* NDAppleScriptObject_Protocols.h */,
-				E1F1D63B06BD97B2004E3DC3 /* NDComponentInstance.h */,
-				E1F1D63C06BD97B2004E3DC3 /* NDComponentInstance.m */,
-				E1F1D63F06BD97B2004E3DC3 /* NDHotKeyEvent.h */,
-				E1F1D64006BD97B2004E3DC3 /* NDHotKeyEvent.m */,
-				E1F1D64306BD97B2004E3DC3 /* NDProcess.h */,
-				E1F1D64406BD97B2004E3DC3 /* NDProcess.m */,
-				E1F1D64506BD97B2004E3DC3 /* NDResourceFork+OtherSorces.h */,
-				E1F1D64606BD97B2004E3DC3 /* NDResourceFork+OtherSorces.m */,
-				E1F1D64706BD97B2004E3DC3 /* NDResourceFork.h */,
-				E1F1D64806BD97B2004E3DC3 /* NDResourceFork.m */,
-				E1F1D64906BD97B2004E3DC3 /* NSAppleEventDescriptor+NDAppleScriptObject.h */,
-				E1F1D64A06BD97B2004E3DC3 /* NSAppleEventDescriptor+NDAppleScriptObject.m */,
-				E1F1D64D06BD97B2004E3DC3 /* NSString+NDCarbonUtilities.h */,
-				E1F1D64E06BD97B2004E3DC3 /* NSString+NDCarbonUtilities.m */,
-				E1F1D64F06BD97B2004E3DC3 /* NSString+NDUtilities.h */,
-				E1F1D65006BD97B2004E3DC3 /* NSString+NDUtilities.m */,
-				E1F1D65106BD97B2004E3DC3 /* NSURL+NDCarbonUtilities.h */,
-				E1F1D65206BD97B2004E3DC3 /* NSURL+NDCarbonUtilities.m */,
 			);
 			path = NDClasses;
 			sourceTree = "<group>";
@@ -3052,19 +2976,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DD89EF90EBDD97B005A15AE /* CGSPrivate.h in Headers */,
-				E1E5FB1607B207D10044D6EF /* NDAlias+AliasFile.h in Headers */,
 				E1E5FAA407B204BF0044D6EF /* NDAlias+QSMods.h in Headers */,
-				E1E5FB1807B207D20044D6EF /* NDAlias.h in Headers */,
-				E1E5FB1A07B207D60044D6EF /* NDAppleScriptObject.h in Headers */,
-				E1E5FB1C07B207D80044D6EF /* NDAppleScriptObject_Protocols.h in Headers */,
-				E1E5FB1F07B207DC0044D6EF /* NDComponentInstance.h in Headers */,
-				E180041607B35E2300010DB0 /* NDHotKeyEvent.h in Headers */,
 				E1E5FAA607B204BF0044D6EF /* NDProcess+QSMods.h in Headers */,
-				E1E5FB2007B2080E0044D6EF /* NDProcess.h in Headers */,
-				E1E5FB2207B208120044D6EF /* NDResourceFork+OtherSorces.h in Headers */,
-				E1E5FB2407B208140044D6EF /* NDResourceFork.h in Headers */,
-				4DF2B3960EB8933D009CEC3C /* NDSDKCompatibility.h in Headers */,
-				E180041C07B35E2F00010DB0 /* NSAppleEventDescriptor+NDAppleScriptObject.h in Headers */,
 				E1E5FAA807B204BF0044D6EF /* NSAppleEventDescriptor_QSMods.h in Headers */,
 				E1E5FAAA07B204BF0044D6EF /* NSAppleScript_BLTRExtensions.h in Headers */,
 				E1E5FAAC07B204BF0044D6EF /* NSApplication_BLTRExtensions.h in Headers */,
@@ -3091,12 +3004,9 @@
 				7FDF342507F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.h in Headers */,
 				2E34EDD5134CA14F005E66A1 /* NSStatusItem_BLTRExtensions.h in Headers */,
 				7F26503408DB09B20076E4E6 /* NSString+CarbonUtilities.h in Headers */,
-				E180041E07B35E3200010DB0 /* NSString+NDCarbonUtilities.h in Headers */,
-				E180042007B35E3300010DB0 /* NSString+NDUtilities.h in Headers */,
 				E1E5FACB07B204BF0044D6EF /* NSString_BLTRExtensions.h in Headers */,
 				E1E5FACD07B204BF0044D6EF /* NSTableView_BLTRExtensions.h in Headers */,
 				7FF8BB3807B816A20088CEEF /* NSTask+BLTRExtensions.h in Headers */,
-				E180042207B35E3500010DB0 /* NSURL+NDCarbonUtilities.h in Headers */,
 				E1E5FACF07B204BF0044D6EF /* NSURL_BLTRExtensions.h in Headers */,
 				E1E5FAD107B204BF0044D6EF /* NSUserDefaults_BLTRExtensions.h in Headers */,
 				E1E5FAD307B204BF0044D6EF /* NSView_BLTRExtensions.h in Headers */,
@@ -4153,17 +4063,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1E5FB1707B207D10044D6EF /* NDAlias+AliasFile.m in Sources */,
 				E1E5FAA507B204BF0044D6EF /* NDAlias+QSMods.m in Sources */,
-				E1E5FB1907B207D20044D6EF /* NDAlias.m in Sources */,
-				E1E5FB1B07B207D70044D6EF /* NDAppleScriptObject.m in Sources */,
-				E1E5FB1D07B207DA0044D6EF /* NDComponentInstance.m in Sources */,
-				E180041707B35E2400010DB0 /* NDHotKeyEvent.m in Sources */,
 				E1E5FAA707B204BF0044D6EF /* NDProcess+QSMods.m in Sources */,
-				E1E5FB2107B208100044D6EF /* NDProcess.m in Sources */,
-				E1E5FB2307B208140044D6EF /* NDResourceFork+OtherSorces.m in Sources */,
-				E1E5FB2507B208150044D6EF /* NDResourceFork.m in Sources */,
-				E180041D07B35E3100010DB0 /* NSAppleEventDescriptor+NDAppleScriptObject.m in Sources */,
 				E1E5FAA907B204BF0044D6EF /* NSAppleEventDescriptor_QSMods.m in Sources */,
 				E1E5FAAB07B204BF0044D6EF /* NSAppleScript_BLTRExtensions.m in Sources */,
 				E1E5FAAD07B204BF0044D6EF /* NSApplication_BLTRExtensions.m in Sources */,
@@ -4188,12 +4089,9 @@
 				E1E5FAC807B204BF0044D6EF /* NSScreen_BLTRExtensions.m in Sources */,
 				7FDF342607F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.m in Sources */,
 				7F26503508DB09B20076E4E6 /* NSString+CarbonUtilities.m in Sources */,
-				E180041F07B35E3300010DB0 /* NSString+NDCarbonUtilities.m in Sources */,
-				E180042107B35E3400010DB0 /* NSString+NDUtilities.m in Sources */,
 				E1E5FACC07B204BF0044D6EF /* NSString_BLTRExtensions.m in Sources */,
 				E1E5FACE07B204BF0044D6EF /* NSTableView_BLTRExtensions.m in Sources */,
 				7FF8BB3907B816A20088CEEF /* NSTask+BLTRExtensions.m in Sources */,
-				E180043D07B35E3B00010DB0 /* NSURL+NDCarbonUtilities.m in Sources */,
 				E1E5FAD007B204BF0044D6EF /* NSURL_BLTRExtensions.m in Sources */,
 				E1E5FAD207B204BF0044D6EF /* NSUserDefaults_BLTRExtensions.m in Sources */,
 				E1E5FAD407B204BF0044D6EF /* NSView_BLTRExtensions.m in Sources */,
