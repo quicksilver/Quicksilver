@@ -26,7 +26,7 @@
 #import "NDScriptData.h"
 #import "NDResourceFork.h"
 #import "NDComponentInstance.h"
-#import "NSAppleEventDescriptor+NDScriptData.h"
+#import "NSAppleEventDescriptor+NDCoercion.h"
 #import "NSArray+NDUtilities.h"
 #import "NDProgrammerUtilities.h"
 

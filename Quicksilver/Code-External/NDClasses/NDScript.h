@@ -57,6 +57,6 @@
 #import "NDComponentInstance.h"
 #import "NDScriptData.h"
 #import "NSValue+NDFourCharCode.h"
-#import "NSAppleEventDescriptor+NDScriptData.h"
+#import "NSAppleEventDescriptor+NDCoercion.h"
 
 

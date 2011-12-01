@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "NSAppleEventDescriptor+NDAppleScriptObject.h"
+#import "NSAppleEventDescriptor+NDCoercion.h"
 @interface NSAppleEventDescriptor (NDAppleScriptObject_QSMods)
 
 //+ (NSAppleEventDescriptor *)targetDescriptorWithBundleID:(NSString *)bundleID;

@@ -18,7 +18,7 @@
 
 #import "NSAppleScript_BLTRExtensions.h"
 
-#import "NSAppleEventDescriptor+NDAppleScriptObject.h"
+#import "NSAppleEventDescriptor+NDCoercion.h"
 
 @implementation QSAppleScriptActions
 

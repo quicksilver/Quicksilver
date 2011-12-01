@@ -10,7 +10,6 @@
 #import "NSFileManager_BLTRExtensions.h"
 #import "NSString_BLTRExtensions.h"
 #import <unistd.h>
-#import "CPS.h"
 
 @implementation NSApplication (Info)
 - (BOOL)wasLaunchedAtLogin {

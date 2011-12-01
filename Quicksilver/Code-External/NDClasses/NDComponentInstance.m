@@ -24,7 +24,7 @@
  */
 
 #import "NDComponentInstance.h"
-#import "NSAppleEventDescriptor+NDScriptData.h"
+#import "NSAppleEventDescriptor+NDCoercion.h"
 #include "NDProgrammerUtilities.h"
 
 const OSType		kFinderCreatorCode = 'MACS';

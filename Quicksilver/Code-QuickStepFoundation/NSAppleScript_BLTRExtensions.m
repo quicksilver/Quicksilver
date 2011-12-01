@@ -8,12 +8,12 @@
 
 #import "NSAppleScript_BLTRExtensions.h"
 #import "NSData_RangeExtensions.h"
-#import "NDAppleScriptObject.h"
+#import "NDScript.h"
 #import "NDResourceFork.h"
 
 #import <Carbon/Carbon.h>
 
-#import "NSAppleEventDescriptor+NDAppleScriptObject.h"
+#import "NSAppleEventDescriptor+NDCoercion.h"
 
 @interface NSAppleScript (NSPrivate)
 + (struct ComponentInstanceRecord *)_defaultScriptingComponent;
