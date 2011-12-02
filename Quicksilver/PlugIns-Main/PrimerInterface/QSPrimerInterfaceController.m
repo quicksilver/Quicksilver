@@ -13,8 +13,6 @@
 
 #define DIFF 84
 
-NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
-
 @implementation QSPrimerInterfaceController
 
 

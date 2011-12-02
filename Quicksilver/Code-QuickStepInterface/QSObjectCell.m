@@ -51,10 +51,6 @@ void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, int count) {
 	[numString drawInRect:countTextRect withAttributes:numAttributes];
 }
 
-
-
-NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
-
 @implementation QSObjectCell
 
 
