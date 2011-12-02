@@ -8,11 +8,11 @@
 
 #import <AppKit/AppKit.h>
 
-typedef enum _QSBackgroundType {
-    Crop=1,
-    FillScreen=2,
-    Centered=3,
-    Tiled=4
+typedef enum {
+    QSDesktopBackgroundCrop         = 1,
+    QSDesktopBackgroundFillScreen   = 2,
+    QSDesktopBackgroundCentered     = 3,
+    QSDesktopBackgroundTiled        = 4,
 } QSBackgroundType;
 
 

@@ -485,6 +485,7 @@ QSExecutor *QSExec = nil;
 - (void)writeActionsInfo {
 	[self performSelector:@selector(writeActionsInfoNow) withObject:nil afterDelay:3.0 extend:YES];
 }
+
 - (void)writeActionsInfoNow {
 	NSDictionary *tmpDict = [[NSDictionary alloc] initWithObjectsAndKeys:
 							 actionPrecedence, @"actionPrecedence",
@@ -501,7 +502,6 @@ QSExecutor *QSExec = nil;
 #endif
 }
 @end
-
 
 @implementation QSExecutor (QSPlugInInfo)
 - (BOOL)handleInfo:(id)info ofType:(NSString *)type fromBundle:(NSBundle *)bundle {

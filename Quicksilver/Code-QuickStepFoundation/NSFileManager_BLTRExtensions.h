@@ -11,7 +11,7 @@ NSString *QSUTIOfFile(NSString *path);
 NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec);
 
 @interface NSFileManager (Carbon)
-- (bool)isVisible:(NSString *)chem;
+- (BOOL)isVisible:(NSString *)chem;
 - (BOOL)movePathToTrash:(NSString *)filepath;
 
 @end

@@ -20,7 +20,7 @@
 
 @implementation NSFileManager (Carbon)
 
-- (bool)isVisible:(NSString *)path {
+- (BOOL)isVisible:(NSString *)path {
 	LSItemInfoRecord infoRec;
 	OSStatus status = LSCopyItemInfoForURL((CFURLRef)[NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);
 /*	BOOL result = ! ( (infoRec.flags & kLSItemInfoIsInvisible) || ([[path stringByDeletingLastPathComponent] isEqualToString:@"/"] && [HIDDENROOT containsObject:[path lastPathComponent]]) || (status && [[path lastPathComponent] hasPrefix:@"."]) );

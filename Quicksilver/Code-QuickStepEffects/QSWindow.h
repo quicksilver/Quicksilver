@@ -24,17 +24,17 @@
 
 @interface QSWindow : NSPanel {
 	NSRect trueRect;
-	bool resizing;
-	bool hidden;
+	BOOL resizing;
+	BOOL hidden;
 	NSPoint mouseDownPoint;
 	NSPoint hideOffset;
 	NSPoint showOffset;
-	bool fastShow;
-	bool animationInvalid;
-	bool isMoving;
-	bool hadShadow;
-	bool liesAboutKey;
-	bool delegatesEvents;
+	BOOL fastShow;
+	BOOL animationInvalid;
+	BOOL isMoving;
+	BOOL hadShadow;
+	BOOL liesAboutKey;
+	BOOL delegatesEvents;
 	QSMoveHelper *helper;
 	NSMutableDictionary *properties;
 	NSMutableArray *eventDelegates;
@@ -55,12 +55,12 @@
 - (void)setShowOffset:(NSPoint)newShowOffset;
 - (void)reallyOrderFront:(id)sender;
 - (void)fakeResignKey;
-- (bool)liesAboutKey;
-- (void)setLiesAboutKey:(bool)flag;
-- (bool)delegatesEvents;
-- (void)setDelegatesEvents:(bool)flag;
-- (bool)fastShow;
-- (void)setFastShow:(bool)flag;
+- (BOOL)liesAboutKey;
+- (void)setLiesAboutKey:(BOOL)flag;
+- (BOOL)delegatesEvents;
+- (void)setDelegatesEvents:(BOOL)flag;
+- (BOOL)fastShow;
+- (void)setFastShow:(BOOL)flag;
 
 - (QSMoveHelper *)helper;
 - (void)setHelper:(QSMoveHelper *)aHelper;

@@ -22,7 +22,7 @@
 - (id)initWithFrame:(NSRect)frame {
 	self = [super initWithFrame:frame];
 	if (self) {
-dividerThickness = 1.0;
+		dividerThickness = 1.0;
 		drawsDivider = YES;
 	}
 	return self;

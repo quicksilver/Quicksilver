@@ -369,18 +369,18 @@
 	NSEnableScreenUpdates();
 }
 
-- (bool)liesAboutKey { return liesAboutKey;  }
-- (void)setLiesAboutKey:(bool)flag {
+- (BOOL)liesAboutKey { return liesAboutKey;  }
+- (void)setLiesAboutKey:(BOOL)flag {
 	liesAboutKey = flag;
 }
 
-- (bool)fastShow { return fastShow;  }
-- (void)setFastShow:(bool)flag {
+- (BOOL)fastShow { return fastShow;  }
+- (void)setFastShow:(BOOL)flag {
 	fastShow = flag;
 }
 
-- (bool)delegatesEvents { return delegatesEvents;  }
-- (void)setDelegatesEvents:(bool)flag {
+- (BOOL)delegatesEvents { return delegatesEvents;  }
+- (void)setDelegatesEvents:(BOOL)flag {
 	delegatesEvents = flag;
 }
 

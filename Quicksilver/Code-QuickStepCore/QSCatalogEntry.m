@@ -291,10 +291,6 @@ NSDictionary *enabledPresetDictionary;*/
 	for (i = 0; i < ([anc count]-1); i++) {
 		index = [[[anc objectAtIndex:i] children] indexOfObject:[anc objectAtIndex:i+1]];
 		p = (p) ? [p indexPathByAddingIndex:index] : [NSIndexPath indexPathWithIndex:index];
-/*		if (!p)
-			p = [NSIndexPath indexPathWithIndex:index];
-		else
-			p = [p indexPathByAddingIndex:index];*/
 	}
 	return p;
 }
@@ -307,10 +303,6 @@ NSDictionary *enabledPresetDictionary;*/
 	for (i = 1; i<([anc count] -1); i++) {
 		index = [[[anc objectAtIndex:i] children] indexOfObject:[anc objectAtIndex:i+1]];
 		p = (p) ? [p indexPathByAddingIndex:index] : [NSIndexPath indexPathWithIndex:index];
-/*		if (!p)
-			p = [NSIndexPath indexPathWithIndex:index];
-		else
-			p = [p indexPathByAddingIndex:index];*/
 	}
 	return p;
 }
@@ -487,13 +479,14 @@ else
 		[self setIsScanning:YES];
 		NSArray *itemContents = nil;
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-		NS_DURING
+		@try {
 			QSObjectSource *source = [self source];
 			itemContents = [[source objectsForEntry:info] retain];
-		NS_HANDLER
-			NSLog(@"An error ocurred while scanning \"%@\": %@", [self name], localException);
-			[localException printStackTrace];
-		NS_ENDHANDLER
+		}
+		@catch (NSException *exception) {
+			NSLog(@"An error ocurred while scanning \"%@\": %@", [self name], exception);
+			[exception printStackTrace];
+		}
 		[pool drain];
 		[self setIsScanning:NO];
 		return [itemContents autorelease];

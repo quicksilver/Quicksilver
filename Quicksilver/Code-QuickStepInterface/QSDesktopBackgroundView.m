@@ -29,26 +29,23 @@
     NSSize imgSize=[[self backgroundImage] size];
     NSRect srcRect=NSMakeRect(0,0,imgSize.width,imgSize.height);
     NSPoint centerOffset=NSMakePoint(NSMidX(rect)-NSMidX(srcRect),NSMidY(rect)-NSMidY(srcRect));
-    if (backgroundType==Tiled){
+    if (backgroundType == QSDesktopBackgroundTiled) {
         [[NSColor colorWithPatternImage:[self backgroundImage]] set];
         [[NSGraphicsContext currentContext]setPatternPhase:centerOffset];
         NSRectFill(rect);
         return;
-    }
-    else if (backgroundType==Centered){
+    } else if (backgroundType == QSDesktopBackgroundCentered) {
         [[self backgroundColor] set];
         NSRectFill(rect);
         dstRect=NSOffsetRect(srcRect,centerOffset.x,centerOffset.y);
-    }
-    else if (backgroundType==FillScreen){
+    } else if (backgroundType == QSDesktopBackgroundFillScreen) {
         dstRect=rect;
-    }
-    else if (backgroundType==Crop){
+    } else if (backgroundType == QSDesktopBackgroundCrop) {
         float proportion=NSWidth(srcRect)/NSHeight(srcRect);
         NSRect lrgRect = NSUnionRect(NSMakeRect(0,0,rect.size.width,rect.size.width/proportion),NSMakeRect(0,0,rect.size.height*proportion,rect.size.height));
         dstRect=NSOffsetRect(lrgRect,NSMidX(rect)-NSMidX(lrgRect),NSMidY(rect)-NSMidY(lrgRect));
-    }else{
-		        dstRect=rect;
+    } else {
+		dstRect=rect;
 	}
 
     [[self backgroundImage] drawInRect:dstRect fromRect:srcRect operation:NSCompositeCopy fraction:1];
