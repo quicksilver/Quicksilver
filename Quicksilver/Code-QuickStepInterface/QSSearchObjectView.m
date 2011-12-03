@@ -49,7 +49,6 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)awakeFromNib {
 	[super awakeFromNib];
 	resetTimer = nil;
-	searchTimer = nil;
 	resultTimer = nil;
 	preferredEdge = NSMaxXEdge;
 	partialString = [[NSMutableString alloc] initWithCapacity:1];
@@ -92,7 +91,6 @@ NSMutableDictionary *bindingsDict = nil;
 	[matchedString release], matchedString = nil;
 	[visibleString release], visibleString = nil;
 	[resetTimer release], resetTimer = nil;
-	[searchTimer release], searchTimer = nil;
 	[resultTimer release], resultTimer = nil;
 	[selectedObject release], selectedObject = nil;
 	[currentEditor release], currentEditor = nil;
@@ -894,13 +892,6 @@ NSMutableDictionary *bindingsDict = nil;
 		[resultController->searchStringField setTextColor:[NSColor redColor]];
 	}
     
-	// Extend Timers
-	if ([searchTimer isValid]) {
-		// NSLog(@"extend");
-		[searchTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:[[NSUserDefaults standardUserDefaults] floatForKey:kSearchDelay]]];
-        
-	}
-    
 	if ([resetTimer isValid]) {
 		float resetDelay = [[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay];
 		if (resetDelay) [resetTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:resetDelay]];
@@ -934,20 +925,8 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)partialStringChanged {
 	[self setSearchString:[[partialString copy] autorelease]];
     
-	double searchDelay = [[NSUserDefaults standardUserDefaults] floatForKey:kSearchDelay];
-        
-	if (moreComing) {
-		if ([searchTimer isValid]) [searchTimer invalidate];
-	} else {
-		if (![searchTimer isValid]) {
-			[searchTimer release];
-			searchTimer = [[NSTimer scheduledTimerWithTimeInterval:searchDelay target:self selector:@selector(performSearch:) userInfo:nil repeats:NO] retain];
-		}
-		[searchTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:searchDelay]];
-        
-		if ([self searchMode] != SearchFilterAll) [searchTimer fire];
-        
-	}
+	[self performSearch:nil];
+
 	if (validSearch) {
 		[resultController->searchStringField setTextColor:[NSColor blueColor]];
 	}
@@ -967,11 +946,8 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)executeCommand:(id)sender {
 	[resultTimer invalidate];
-	if ([searchTimer isValid]) {
-		[searchTimer invalidate];
-		[self performSearchFor:partialString from:self];
-		[self display];
-	}
+    [self performSearchFor:partialString from:self];
+    [self display];
 	[resetTimer fire];
 	[[self controller] executeCommand:self];
 }

@@ -27,6 +27,7 @@ typedef enum QSSearchMode {
 
 	BOOL validSearch;
 
+#warning When we go 64 bit, remove NSTimer *searchTimer. It is kept here (but unused) to avoid crashes in interfaces
 	NSTimer *resetTimer;
 	NSTimer *searchTimer;
 	NSTimer *resultTimer;
