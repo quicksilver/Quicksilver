@@ -2,59 +2,40 @@
 # encoding: UTF-8
 
 #####################################################################
+# Quicksilver Plugin Upload Script
+# Created by Etienne Samson
 # 
-#         Quicksilver Plugin Upload Script
-#         Created by Etienne Samson
+# INSTALLATION
+# Symlink somewhere in your path so that your shell sees it with
+# `ln -s <absolute-path-to-script> ~/bin/`. My own preference is ~/bin,
+# since that's in my path, but change that to anywhere else you like.
 # 
-#   This script is intended to be used to interface with the online
-#   plugins system. It makes uploading and managing of plugins easier,
-#   without the need to go through the web interface. For use, please
-#   see the PRE-REQUISITS below
-# 
-#
-#
-#   PRE-REQUISITS
-#   This is a ruby script that requires the time, trollop, fileutils,
-#   pp and rest-client gems. Install them using e.g.
-#   `sudo gem install rest-client`
-#
-#   fileutils requires rmagick which in turn requires libmagick.
-#   p_j_r found using 'homebrew' the easiest way to install libmagick
-#   With these gems installed, the script should run without problems.
-#
-#
-#   USAGE
-#   Simply use ruby -rubygems ./qs-push-plugin ./File.qsplugin
-#   to push a single file, or replace ./File.qsplugin with ./* to upload all in a folder
-#
-#
-#   This script has not been updated to work with application (.dmg) type files yet.
-#   For these, you should use the online interface at qs0.qsapp.com/plugins/admin/add.php
-#
-#
+# Don't forget to make executable again (chmod +x qs-push-plugin), and
+# install the required gems (`gem install trollop rest-client`)
 ######################################################################
 
-require 'rest-client'
+# Ruby StdLib
 require 'time'
-require 'trollop'
 require 'fileutils'
-require 'open-uri'
-require 'plist'
-require 'pp'
+
+# Rubygems
+require 'trollop'
+require 'rest-client'
 
 DEFAULT_USER = "qs"
 DEFAULT_HOST = "http://qs0.qsapp.com/plugins"
 
 options = Trollop::options do
   banner "Usage: qs-push-plugin [-h|--help] [ARGS]"
-  text "ARGS can be one or more paths to .qsplugin bundles or .dmg images"
+  text "This script is intended as a command-line interface to the plugin update system. It makes uploading plugins and application updates easier, without the need to go through the web interface."
   text ""
-  text "Options:"
-
+  text "ARGS can be an array of paths to bundles/archives, a single path to a bundle or nothing. Simply use `qs-push-plugin <path-to-file>` to push a single file, or use a file glob like <path-to-plugins/*.qsplugin> to upload all in a folder"
+  text ""
+  banner "OPTIONS:"
   opt :help, "Show this message", :short => "-h"
   opt :user, "User to login as", :default => DEFAULT_USER, :short => "-u"
   opt :password, "Password to use (will be asked if missing)", :type => :string, :short => "-p"
-  opt :host, "Push to a specific host. The default is #{DEFAULT_HOST}", :default => DEFAULT_HOST
+  opt :host, "Push to a specific host.", :default => DEFAULT_HOST
   opt :level, "Override the level at which to publish the update", :type => :int, :default => nil
   opt :secret, "Override the secret parameter from the plist", :type => :bool, :default => nil
 end
@@ -73,14 +54,12 @@ else
   files = files.select &file_matcher
 end
 
+# TODO: Only ask the password if the remote asks for it.
 unless options[:password]
   print "Password for user \"#{options[:user]}\": "
   options[:password] = STDIN.gets.chomp
 end
 
-# puts options.inspect
-# puts files.inspect
-# exit
 
 # Now push those plugins !
 
