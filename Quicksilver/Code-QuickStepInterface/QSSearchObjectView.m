@@ -1453,21 +1453,17 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)textDidChange:(NSNotification *)aNotification {
-    NSString *string = [[[aNotification object] string] copy];
-	if ([[[aNotification object] string] isEqualToString:@" "]) {
-        //		[(QSInterfaceController *)[[self window] windowController] shortCircuit:self];
+    NSString *string = [[aNotification object] string];
+	if ([string isEqualToString:@" "]) {
         [self shortCircuit:self];
-        [string release];
 		return;
 	}
 	[self setObjectValue:[QSObject objectWithString:string]];
-	[string release];
 	[self setMatchedString:nil];
 }
 
 - (void)textDidEndEditing:(NSNotification *)aNotification {
-	NSString *string = [[[[aNotification object] string] copy] autorelease];
-	[self setObjectValue:[QSObject objectWithString:string]];
+	[self setObjectValue:[QSObject objectWithString:[[aNotification object] string]]];
 	[self setMatchedString:nil];
 	[[[self currentEditor] enclosingScrollView] removeFromSuperview];
     [[self cell] setImagePosition:-1];
