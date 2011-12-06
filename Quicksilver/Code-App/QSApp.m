@@ -63,7 +63,6 @@ BOOL QSApplicationCompletedLaunch = NO;
 		if (![defaults objectForKey:@"QSShowMenuIcon"])
 			[defaults setInteger:0 forKey:@"QSShowMenuIcon"];
 
-	  NSLog(@"Relaunching to honor Dock Icon Preference");
             [self setShouldBeUIElement:NO];
 	}
     }
