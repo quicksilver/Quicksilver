@@ -487,11 +487,11 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 		//NSLog(@"usingname: %@", nameString);
 		NSSize nameSize = [nameString sizeWithAttributes:nameAttributes];
         
-        BOOL detailsAndNameDifferent = NO;
+        BOOL validDetailsString = NO;
         
         NSString *detailsString = [drawObject details];
         if(detailsString && [detailsString length] && ![detailsString isEqualToString:nameString]) {
-            detailsAndNameDifferent = YES;
+            validDetailsString = YES;
         }
         
 		BOOL useAlternateColor = [controlView isKindOfClass:[NSTableView class]] && [(NSTableView *)controlView isRowSelected:[(NSTableView *)controlView rowAtPoint:cellFrame.origin]];
@@ -529,7 +529,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 			[titleString addAttribute:NSBaselineOffsetAttributeName value:[NSNumber numberWithFloat:-1.0] range:NSMakeRange(0, [titleString length])];
 		}
         
-        if (detailsAndNameDifferent) {
+        if (validDetailsString) {
             NSSize detailsSize = NSZeroSize;
             detailsSize = [detailsString sizeWithAttributes:detailsAttributes];
             
