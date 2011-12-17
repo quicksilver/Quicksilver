@@ -382,7 +382,14 @@ NSSize QSMaxIconSize;
 
 - (NSString *)details {
 	NSString *details = [meta objectForKey:kQSObjectDetails];
-	if (details) return details;
+	if (details) {
+		if ([details isEqualToString:[self displayName]]) {
+			// don't show details if they match the label/name
+			return nil;
+		} else {
+			return details;
+		}
+	}
 
 	id handler = nil;
 	if (handler = [self handlerForSelector:@selector(detailsOfObject:)]) {
