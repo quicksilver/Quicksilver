@@ -114,9 +114,7 @@
  */
 - (unsigned int)indexOfCharacter:(unichar)aCharacter range:(NSRange)aRange
 {
-	unsigned int	theIndex,
-						theCount = [self length],
-						theFoundIndex = NSNotFound;
+	NSUInteger theIndex, theCount = [self length], theFoundIndex = NSNotFound;
 
 	if( aRange.length + aRange.location > theCount )
 		[NSException raise:NSRangeException format:@"[%@ %@]: Range or index out of bounds", NSStringFromClass([self class]), NSStringFromSelector(_cmd)];
@@ -268,7 +266,7 @@
 + (NSString *)stringFromDictionary:(NSDictionary *)aDictionary withFormat:(NSString *)aFormat, ...;
 {
 	NSString		*theResult = nil;
-	va_list			theArgument = NULL;
+	va_list			theArgument;
 	va_start( theArgument, aFormat );
 	theResult = [NSString stringFromDictionary:aDictionary withFormat:aFormat arguments:theArgument];
 	va_end( theArgument );

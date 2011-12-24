@@ -346,7 +346,7 @@ extern NSString		* NDAppleEventDescriptorCoercionError,
 	@param value The unsigned int.
 	@result A <tt>NSAppleEventDescriptor</tt> containing a unsigned integer descriptor.
  */
-+ (NSAppleEventDescriptor *)descriptorWithUnsignedInt:(unsigned int)value;
++ (NSAppleEventDescriptor *)descriptorWithUnsignedInt:(UInt32)value;
 /*!
 	@method descriptorWithCString:
 	@abstract Returns a <tt>NSAppleEventDescriptor</tt> containing a string the c string..

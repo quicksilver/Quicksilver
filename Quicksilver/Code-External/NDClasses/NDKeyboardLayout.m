@@ -168,7 +168,7 @@ static struct UnmappedEntry * _unmappedEntryForKeyCode( UInt16 aKeyCode )
 static NSUInteger _characterForModifierFlags( unichar aBuff[4], UInt32 aModifierFlags )
 {
 	NSUInteger		thePos = 0;
-	memset( aBuff, 0, sizeof(aBuff) );
+	memset( aBuff, 0, sizeof(*aBuff) );
 	if(aModifierFlags & NSControlKeyMask)
 		aBuff[thePos++] = kControlUnicode;
 	

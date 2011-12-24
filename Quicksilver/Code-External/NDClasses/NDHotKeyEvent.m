@@ -569,11 +569,11 @@ struct HotKeyMappingEntry
 
 - (void)dealloc
 {
-	if( reference )
-	{
-		if( UnregisterEventHotKey( reference ) != noErr )	// in lock from release
-			NSLog( @"Failed to unregister hot key %@", self );
-	}
+    if (reference) {
+        OSStatus err = UnregisterEventHotKey( reference );
+        if( err != noErr )	// in lock from release
+            NSLog( @"Failed to unregister hot key %@ with error %ld", self, (long)err );
+    }
 	[super dealloc];
 }
 
@@ -828,15 +828,15 @@ struct HotKeyMappingEntry
  */
 - (BOOL)isEqual:(id)anObject
 {
-	return [super isEqual:anObject] || ([anObject isKindOfClass:[self class]] == YES && [self keyCode] == [(NDHotKeyEvent*)anObject keyCode] && [self modifierFlags] == [anObject modifierFlags]);
+	return [super isEqual:anObject] || ([anObject isKindOfClass:[self class]] == YES && [self keyCode] == [(NDHotKeyEvent*)anObject keyCode] && [self modifierFlags] == [(NDHotKeyEvent*)anObject modifierFlags]);
 }
 
 /*
  * -hash
  */
-- (unsigned int)hash
+- (NSUInteger)hash
 {
-	return ((unsigned int)keyCode & ~modifierFlags) | (modifierFlags & ~((unsigned int)keyCode));		// xor
+	return ((NSUInteger)keyCode & ~modifierFlags) | (modifierFlags & ~((NSUInteger)keyCode));		// xor
 }
 
 /*

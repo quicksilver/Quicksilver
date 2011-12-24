@@ -65,11 +65,11 @@ extern const NSString	* NDAppleScriptOffendingObject,
 	id<NDScriptDataAppleEventResumeHandler>		appleEventResumeHandler;
 //	id<NDScriptDataAppleEventSpecialHandler>	appleEventSpecialHandler;
 	OSASendUPP									defaultSendProcPtr;
-	long int									defaultSendProcRefCon;
+	SRefCon										defaultSendProcRefCon;
 	OSAActiveProcPtr							defaultActiveProcPtr;
-	long int									defaultActiveProcRefCon;
+	SRefCon										defaultActiveProcRefCon;
 	AEEventHandlerUPP							defaultResumeProcPtr;
-	long int									defaultResumeProcRefCon;
+	SRefCon										defaultResumeProcRefCon;
 	BOOL										executeAppleEventInMainThread;
 }
 

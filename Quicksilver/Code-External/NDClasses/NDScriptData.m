@@ -445,9 +445,9 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 /*
 	- hash
  */
-- (unsigned int)hash
+- (NSUInteger)hash
 {
-	return (unsigned int)[self instanceRecord] ^ (unsigned int)[self scriptID];
+	return (NSUInteger)[self instanceRecord] ^ (NSUInteger)[self scriptID];
 }
 
 @end

@@ -251,9 +251,9 @@
 /*
 	- hash
  */
-- (unsigned int)hash
+- (NSUInteger)hash
 {
-	return (unsigned int)fourCharCode;
+	return (NSUInteger)fourCharCode;
 }
 
 /*

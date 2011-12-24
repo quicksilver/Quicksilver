@@ -69,7 +69,7 @@
 
 	if( [aSender isKindOfClass:[NSButton class]] || [aSender isKindOfClass:[NSButtonCell class]] )
 	{
-		if( [aSender state] == NSOnState )
+		if( [(NSButton *)aSender state] == NSOnState )
 		{
 			[self setReadyForHotKeyEvent:YES];
 			lastReadyForEventSender = aSender;

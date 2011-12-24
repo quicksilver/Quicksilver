@@ -47,9 +47,9 @@ BOOL NDLogOSStatusBody( const OSStatus anError, const char * aFileName, const ch
 	if( anError != noErr )
 	{
 		if( aErrToStringFunc != NULL )
-			fprintf( stderr, "Error result [%s] OSStatus %d:\n\t%s\n\tfile: %s\n\tfunction: %s\n\tline: %u\n\tdescription: %s\n", [[[NSDate date] description] UTF8String], anError, aCodeLine, aFileName, aFuncName, aLine, [aErrToStringFunc(anError) UTF8String] );
+			fprintf( stderr, "Error result [%s] OSStatus %ld:\n\t%s\n\tfile: %s\n\tfunction: %s\n\tline: %u\n\tdescription: %s\n", [[[NSDate date] description] UTF8String], (long)anError, aCodeLine, aFileName, aFuncName, aLine, [aErrToStringFunc(anError) UTF8String] );
 		else
-			fprintf( stderr, "Error result [%s] OSStatus %d:\n\t%s\n\tfile: %s\n\tfunction: %s\n\tline: %u\n", [[[NSDate date] description] UTF8String], anError, aCodeLine, aFileName, aFuncName, aLine );
+			fprintf( stderr, "Error result [%s] OSStatus %ld:\n\t%s\n\tfile: %s\n\tfunction: %s\n\tline: %u\n", [[[NSDate date] description] UTF8String], (long)anError, aCodeLine, aFileName, aFuncName, aLine );
 	}
 #endif
 
