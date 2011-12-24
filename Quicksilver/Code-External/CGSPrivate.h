@@ -84,20 +84,20 @@ extern "C" {
   extern CGError CGSSetWindowTransforms(const CGSConnection cid, CGSWindow *wids, CGAffineTransform *transform, int n);
 
   // Alpha
-  extern CGError CGSSetWindowAlpha(const CGSConnection cid, const CGSWindow wid, float alpha);
-  extern CGError CGSSetWindowListAlpha(const CGSConnection cid, CGSWindow *wids, int count, float alpha);
-  extern CGError CGSGetWindowAlpha(const CGSConnection cid, const CGSWindow wid, float* alpha);
+  extern CGError CGSSetWindowAlpha(const CGSConnection cid, const CGSWindow wid, CGFloat alpha);
+  extern CGError CGSSetWindowListAlpha(const CGSConnection cid, CGSWindow *wids, int count, CGFloat alpha);
+  extern CGError CGSGetWindowAlpha(const CGSConnection cid, const CGSWindow wid, CGFloat* alpha);
 
   // Brightness
-  extern CGError CGSSetWindowListBrightness(const CGSConnection cid, CGSWindow *wids, float *brightness, int count);
+  extern CGError CGSSetWindowListBrightness(const CGSConnection cid, CGSWindow *wids, CGFloat *brightness, int count);
 
   // Workspace
   extern CGError CGSMoveWorkspaceWindows(const CGSConnection connection, CGSWorkspace toWorkspace, CGSWorkspace fromWorkspace);
   extern CGError CGSMoveWorkspaceWindowList(const CGSConnection connection, CGSWindow *wids, int count, CGSWorkspace toWorkspace);
 
   // Shadow
-  extern CGError CGSSetWindowShadowAndRimParameters(const CGSConnection cid, CGSWindow wid, float standardDeviation, float density, int offsetX, int offsetY, unsigned int flags);
-  extern CGError CGSGetWindowShadowAndRimParameters(const CGSConnection cid, CGSWindow wid, float* standardDeviation, float* density, int *offsetX, int *offsetY, unsigned int *flags);
+  extern CGError CGSSetWindowShadowAndRimParameters(const CGSConnection cid, CGSWindow wid, CGFloat standardDeviation, CGFloat density, int offsetX, int offsetY, unsigned int flags);
+  extern CGError CGSGetWindowShadowAndRimParameters(const CGSConnection cid, CGSWindow wid, CGFloat* standardDeviation, CGFloat* density, int *offsetX, int *offsetY, unsigned int *flags);
 
   // Properties
   extern CGError CGSGetWindowProperty(const CGSConnection cid, CGSWindow wid, CGSValue key, CGSValue *outValue);
@@ -132,7 +132,7 @@ extern "C" {
     CGPoint global;
   } CGPointWarp;
 
-  extern CGError CGSSetWindowWarp(const CGSConnection cid, const CGSWindow wid, int w, int h, CGPointWarp mesh[h][w]);
+  extern CGError CGSSetWindowWarp(const CGSConnection cid, const CGSWindow wid, uint32_t w, uint32_t h, CGPointWarp *mesh);
 
 # pragma mark Window Core Image Filters
 
@@ -183,11 +183,11 @@ extern "C" {
     CGSTransitionType type;
     CGSTransitionOption option;
     CGSWindow wid;      /* Can be 0 for full-screen */
-    float *backColour;  /* Null for black otherwise pointer to 3 float array with RGB value */
+    CGFloat *backColour;  /* Null for black otherwise pointer to 3 float array with RGB value */
   } CGSTransitionSpec;
 
   extern CGError CGSNewTransition(const CGSConnection cid, const CGSTransitionSpec* spec, int *pTransitionHandle);
-  extern CGError CGSInvokeTransition(const CGSConnection cid, int transitionHandle, float duration);
+  extern CGError CGSInvokeTransition(const CGSConnection cid, int transitionHandle, CGFloat duration);
   extern CGError CGSReleaseTransition(const CGSConnection cid, int transitionHandle);
 
 #pragma mark Workspaces
@@ -195,7 +195,7 @@ extern "C" {
   extern CGError CGSGetWorkspace(const CGSConnection cid, CGSWorkspace *workspace);
   extern CGError CGSGetWindowWorkspace(const CGSConnection cid, const CGSWindow wid, CGSWorkspace *workspace);
   extern CGError CGSSetWorkspace(const CGSConnection cid, CGSWorkspace workspace);
-  extern CGError CGSSetWorkspaceWithTransition(const CGSConnection cid, CGSWorkspace workspace, CGSTransitionType transition, CGSTransitionOption subtype, float time);
+  extern CGError CGSSetWorkspaceWithTransition(const CGSConnection cid, CGSWorkspace workspace, CGSTransitionType transition, CGSTransitionOption subtype, CGFloat time);
 
   typedef enum {
     CGSScreenResolutionChangedEvent = 100,
@@ -266,7 +266,7 @@ extern "C" {
   extern CGError CGSReleaseRegion(CGSRegionRef region);
 
   // Creating Windows
-  extern CGError CGSNewWindowWithOpaqueShape(CGSConnection cid, int always2, float x, float y, CGSRegionRef shape, CGSRegionRef opaqueShape, int unknown1, void *unknownPtr, int always32, CGSWindowID *outWID);
+  extern CGError CGSNewWindowWithOpaqueShape(CGSConnection cid, int always2, CGFloat x, CGFloat y, CGSRegionRef shape, CGSRegionRef opaqueShape, int unknown1, void *unknownPtr, int always32, CGSWindowID *outWID);
   extern CGError CGSReleaseWindow(CGSConnection cid, CGSWindowID wid);
   extern CGContextRef CGWindowContextCreate(CGSConnection cid, CGSWindowID wid, void *unknown);
 
