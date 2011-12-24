@@ -751,13 +751,15 @@
     //		[thisTrigger setValue:anObject forKey:[aTableColumn identifier]];
     //	}
     //
-    NS_DURING
+    @try {
     [[QSTriggerCenter sharedInstance] triggerChanged:thisTrigger];
-    NS_HANDLER
-    NSBeep();
-    NS_ENDHANDLER
-
-    return;
+    }
+    @catch (NSException *e) {
+#if DEBUG
+        NSLog(@"Exception while changing trigger %@ : %@", thisTrigger, e);
+#endif
+        NSBeep();
+    }
 }
 
 // drag and drop

@@ -399,23 +399,24 @@ NSDictionary *enabledPresetDictionary;*/
 	if ([self isEnabled]) {
 		NSString *path = [self indexLocation];
 		NSMutableArray *dictionaryArray = nil;
-		NS_DURING
+		@try {
 #if 0
-if(kUseNSArchiveForIndexes)
-	dictionaryArray = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-else
+            if(kUseNSArchiveForIndexes)
+                dictionaryArray = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+            else
 #endif
 			dictionaryArray = [QSObject objectsWithDictionaryArray:[NSMutableArray arrayWithContentsOfFile:path]];
-		NS_HANDLER
-			NSLog(@"Error loading index of %@: %@", [self name] , localException);
-		NS_ENDHANDLER
+        }
+        @catch (NSException *e) {
+            NSLog(@"Error loading index of %@: %@", [self name] , e);
+        }
+        
+        if (!dictionaryArray)        
+            return NO;
 
-			if (dictionaryArray)
-				[self setContents:dictionaryArray];
-			else
-				return NO;
-			[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryIndexed object:self];
-			[[QSLibrarian sharedInstance] recalculateTypeArraysForItem:self];
+        [self setContents:dictionaryArray];
+        [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryIndexed object:self];
+        [[QSLibrarian sharedInstance] recalculateTypeArraysForItem:self];
 	}
 	return YES;
 }

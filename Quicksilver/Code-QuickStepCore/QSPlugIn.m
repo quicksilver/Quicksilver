@@ -738,13 +738,12 @@ NSMutableDictionary *plugInBundlePaths = nil;
 }
 
 - (BOOL)registerPlugIn {
-	
 	// Used for crash purposes, save the current plugin being loaded incase it crashes QS
 	NSDictionary *state = [NSDictionary dictionaryWithObjectsAndKeys:
                                   [[self info] objectForKey:@"CFBundleName"], kQSPluginCausedCrashAtLaunch,
                                   [[self bundle] bundlePath], kQSFaultyPluginPath, nil];
 	[state writeToFile:pStateLocation atomically:NO];
-	
+
 	@try {
 		[self _registerPlugIn];
     } @catch (NSException *exc) {
