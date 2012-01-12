@@ -239,13 +239,12 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	}
 	return nil;
 }
+
 - (NSString *)detailsOfObject:(QSObject *)object {
 	NSArray *theFiles = [object arrayForType:QSFilePathType];
 	if ([theFiles count] == 1) {
 		NSString *path = [theFiles lastObject];
-		if (QSGetLocalizationStatus())
-			return [[[NSFileManager defaultManager] componentsToDisplayForPath:path] componentsJoinedByString:@":"];
-		else if ([path hasPrefix:NSTemporaryDirectory()])
+		if ([path hasPrefix:NSTemporaryDirectory()])
 			return [@"(Quicksilver) " stringByAppendingPathComponent:[path lastPathComponent]];
 		else
 			return [path stringByAbbreviatingWithTildeInPath];
