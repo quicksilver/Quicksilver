@@ -12,23 +12,30 @@
 
 @implementation QSDownloads
 - (id)resolveProxyObject:(id)proxy {
-    NSString *downloads = [@"~/Downloads" stringByStandardizingPath];
+    NSString *downloads = [[@"~/Downloads" stringByExpandingTildeInPath] stringByResolvingSymlinksInPath];
     NSFileManager *manager = [[NSFileManager alloc] init];
-	NSString *downloadPath, *mrdpath;
+
+	NSURL *downloadsURL = [NSURL URLWithString:downloads];
+	NSError *err = nil;
+	// An array of the directory contents, keeping the isDirectory key, attributeModificationDate key and skipping hidden files
+	NSArray *contents = [manager contentsOfDirectoryAtURL:downloadsURL
+							   includingPropertiesForKeys:[NSArray arrayWithObjects:NSURLIsDirectoryKey,NSURLAttributeModificationDateKey,nil]
+												  options:NSDirectoryEnumerationSkipsHiddenFiles
+													error:&err];
+	if (err) {
+		NSLog(@"Error resolving downloads path: %@", err);
+		return nil;
+	}
+
+	NSString *downloadPath = nil;
+	NSString *mrdpath = nil;
 	NSDate *modified = nil;
     NSDate *mostRecent = [NSDate distantPast];
 
 	NSNumber *isDir;
 	NSNumber *isPackage;
-	NSURL *downloadsURL = [NSURL URLWithString:downloads];
-	// An array of the directory contents, keeping the isDirectory key, attributeModificationDate key and skipping hidden files
-	NSArray *contents = [manager contentsOfDirectoryAtURL:downloadsURL
-							   includingPropertiesForKeys:[NSArray arrayWithObjects:NSURLIsDirectoryKey,NSURLAttributeModificationDateKey,nil]
-												  options:NSDirectoryEnumerationSkipsHiddenFiles
-													error:nil];
 	for (NSURL *downloadedFile in contents) {
-		NSError *err = nil;
-		
+		err = nil;
 		NSString *fileExtension = [downloadedFile pathExtension];
 		if ([fileExtension isEqualToString:@"download"] ||
 			[fileExtension isEqualToString:@"part"] ||
@@ -67,6 +74,11 @@
 		}
 	}
 	[manager release];
-    return [QSObject fileObjectWithPath:mrdpath];
+    if (mrdpath) {
+        return [QSObject fileObjectWithPath:mrdpath]; 
+    }
+    else {
+        return nil;
+    }
 }
 @end
