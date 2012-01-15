@@ -91,11 +91,14 @@ static QSController *defaultController = nil;
 #endif
 
 - (NSString *)applicationSupportFolder {
-	FSRef foundRef;
-	FSFindFolder(kUserDomain, kApplicationSupportFolderType, kDontCreateFolder, &foundRef);
-	unsigned char path[1024];
-	FSRefMakePath(&foundRef, path, sizeof(path) );
-	return [[NSString stringWithUTF8String:(char *)path] stringByAppendingPathComponent:@"Quicksilver"];
+    NSArray *userSupportPathArray = NSSearchPathForDirectoriesInDomains (NSApplicationSupportDirectory, NSUserDomainMask, YES);
+    if ([userSupportPathArray count]) {
+        return [[userSupportPathArray objectAtIndex:0] stringByAppendingPathComponent:@"Quicksilver"];
+    }
+    else {
+        NSLog(@"Unable to find user Application Support folder");
+        return nil;
+    }
 }
 
 - (id)init {
