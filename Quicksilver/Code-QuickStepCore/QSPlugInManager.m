@@ -467,9 +467,7 @@
 		for (NSString *currPath in librarySearchPaths) {
             [bundleSearchPaths addObject:[currPath stringByAppendingPathComponent:appSupportSubpath]];
         }
-        
-		[bundleSearchPaths addObject:QSApplicationSupportSubPath(@"PlugIns", NO)];
-		//[bundleSearchPaths addObject:[[[NSFileManager defaultManager] currentDirectoryPath] stringByAppendingPathComponent:@"PrivatePlugIns"]];
+        		//[bundleSearchPaths addObject:[[[NSFileManager defaultManager] currentDirectoryPath] stringByAppendingPathComponent:@"PrivatePlugIns"]];
 
 		NSArray *paths = [[NSUserDefaults standardUserDefaults] arrayForKey:@"QSAdditionalPlugInPaths"];
 		if(paths) {
