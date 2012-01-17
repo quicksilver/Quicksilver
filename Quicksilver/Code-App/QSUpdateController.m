@@ -120,7 +120,7 @@ typedef enum {
     checkVersionString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 
     [defaults setObject:[NSDate date] forKey:kLastUpdateCheck];
-    if (![checkVersionString length] && [checkVersionString length] > 10) {
+    if (![checkVersionString length] || [checkVersionString length] > 10) {
         NSLog(@"Unable to check for new version.");
         [[QSTaskController sharedInstance] removeTask:@"Check for Update"];
         return kQSUpdateCheckError;
