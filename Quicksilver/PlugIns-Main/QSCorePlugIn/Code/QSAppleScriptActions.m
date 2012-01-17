@@ -85,17 +85,26 @@
 }
 
 - (QSObject *)doAppleScriptRunAction:(QSObject *)dObject withArguments:(QSObject *)iObject {
-	[self runAppleScript:[dObject singleFilePath] withArguments:iObject];
+    NSString *path = [dObject singleFilePath];
+    if (path) {
+        [self runAppleScript:[dObject singleFilePath] withArguments:iObject];
+    }
 	return nil;
 }
 
 - (QSObject *)doAppleScriptRunWithArgumentsAction:(QSObject *)dObject withArguments:(QSObject *)iObject {
-	[self runAppleScript:[dObject singleFilePath] withArguments:iObject];
+    NSString *path = [dObject singleFilePath];
+    if (path) {
+        [self runAppleScript:[dObject singleFilePath] withArguments:iObject];
+    }
 	return nil;
 }
 
 - (QSObject *)doAppleScriptRunAction:(QSObject *)dObject {
-	[self runAppleScript:[dObject singleFilePath] withArguments:nil];
+    NSString *path = [dObject singleFilePath];
+    if (path) {
+        [self runAppleScript:[dObject singleFilePath] withArguments:nil];
+    }
 	return nil;
 }
 
