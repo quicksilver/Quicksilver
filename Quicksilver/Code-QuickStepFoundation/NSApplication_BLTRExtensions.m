@@ -117,9 +117,12 @@
 	else
 		path = [[NSBundle mainBundle] executablePath];
 	NSLog(@"Relaunch from path %@", path);
+	char pidstr[10];
+	sprintf(pidstr, "%d", getpid() );
+	setenv("relaunchFromPid", pidstr, YES);
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSApplicationWillRelaunchNotification object:self userInfo:nil];
 	[NSTask launchedTaskWithLaunchPath:path arguments:[NSArray array]];
-    usleep(1000000);
+
 	[self terminate:self];
 }
 
