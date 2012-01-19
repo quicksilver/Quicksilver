@@ -501,10 +501,7 @@ static QSController *defaultController = nil;
 
 - (void)receiveObject:(QSObject *)object {
 	[[self interfaceController] selectObject:object];
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSJumpToActionOnResult"]) {
-        [[[self interfaceController] window] makeFirstResponder:[[self interfaceController] aSelector]];
-    }
-	[[self interfaceController] showMainWindow:[self interfaceController]];
+    [[self interfaceController] displayResultInInterface];
 }
 
 - (NSObject *)dropletProxy { return dropletProxy;  }
