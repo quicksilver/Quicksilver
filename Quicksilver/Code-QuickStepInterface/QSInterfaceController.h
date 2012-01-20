@@ -71,8 +71,6 @@
 - (void)executeCommandThreaded;
 - (void)executePartialCommand:(NSArray *)array;
 
-- (void)displayResultInInterface;
-
 - (void)objectModified:(NSNotification *)notif;
 - (void)objectIconModified:(NSNotification *)notif;
 

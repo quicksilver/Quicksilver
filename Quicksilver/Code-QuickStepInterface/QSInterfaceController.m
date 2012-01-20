@@ -489,15 +489,6 @@
 	}
 }
 
-// Method that detects which pane should be focused on re-activating of Quicksilver interface
-- (void)displayResultInInterface {
-    // send focus to the second pane if the user has set the preference
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSJumpToActionOnResult"]) {
-        [[self window] makeFirstResponder:aSelector];
-    }
-    [self showMainWindow:self];
-}
-
 
 #pragma mark -
 #pragma mark Command Execution
@@ -543,7 +534,7 @@
             }
             // bring the interface back to show the result
             if ([action displaysResult]) {
-                [self displayResultInInterface];
+                [self actionActivate:nil];
             }
         }
 	}
@@ -679,11 +670,13 @@
 	[self showInterface:self];
 }
 
+// Method that detects which pane should be focused on re-activating of Quicksilver interface
 - (IBAction)actionActivate:(id)sender {
-	[self updateActionsNow];
-	[iSelector reset:self];
-	//[[dSelector objectValue] loadIcon];
-	[[self window] makeFirstResponder:aSelector];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSJumpToActionOnResult"]) {
+        [self updateActionsNow];
+        [iSelector reset:self];
+        [[self window] makeFirstResponder:aSelector];
+    }
 	[self showInterface:self];
 }
 
