@@ -509,6 +509,9 @@
 #endif
 	}
     QSObject *dObject = [dSelector objectValue];
+	if ([[dObject primaryType] isEqualToString:QSProxyType]) {
+		dObject = (QSObject *)[dObject resolvedObject];
+	}
     QSObject *iObject = [iSelector objectValue];
     if( [dObject isKindOfClass:[QSRankedObject class]] )
         dObject = [(QSRankedObject*)dObject object];
