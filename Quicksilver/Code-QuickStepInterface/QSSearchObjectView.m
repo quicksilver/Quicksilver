@@ -1040,7 +1040,7 @@ NSMutableDictionary *bindingsDict = nil;
     // Send events to the preview panel if it's open
     if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
         NSString* key = [theEvent charactersIgnoringModifiers];
-        if([key isEqual:@" "] || ([key isEqual:@"y"] && [theEvent modifierFlags] & NSCommandKeyMask)) {
+        if([key isEqual:@" "]) {
             [self togglePreviewPanel:nil];
         }
         else {
@@ -1911,6 +1911,11 @@ NSMutableDictionary *bindingsDict = nil;
 {
     // We've already dealt with keyDowns in QSSearchObjectView's keyDown method. If the preview pane can't do anything
     // with the event, leave it (and NSBeep())
+    NSString *key = [event charactersIgnoringModifiers];
+    if (([key isEqual:@"y"] && [event modifierFlags] & NSCommandKeyMask)) {
+        [self togglePreviewPanel:nil];
+        return YES;
+    }
     return NO;
 }
 
