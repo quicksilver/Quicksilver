@@ -1021,11 +1021,7 @@ NSMutableDictionary *bindingsDict = nil;
 	return [super becomeFirstResponder];
 }
 
-- (BOOL)resignFirstResponder {
-    if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
-        NSBeep();
-        return NO;
-    }
+- (BOOL)resignFirstResponder {  
 	//NSLog(@"resign first");
 	if ([self currentEditor]) {
 		// NSLog(@"resign first with monkey %@", self);
@@ -1886,7 +1882,6 @@ NSMutableDictionary *bindingsDict = nil;
     // change the panel's delegate, data source or refresh it.
     [previewPanel release];
     previewPanel = nil;
-    [[self window] makeKeyAndOrderFront:nil];
 }
 
 // Quick Look panel data source
