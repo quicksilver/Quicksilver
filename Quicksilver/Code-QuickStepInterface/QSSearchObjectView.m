@@ -1037,6 +1037,17 @@ NSMutableDictionary *bindingsDict = nil;
 
 // This method deals with all keydowns. Some very interesting things could be done by manipulating this method
 - (void)keyDown:(NSEvent *)theEvent {
+    // Send events to the preview panel if it's open
+    if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
+        NSString* key = [theEvent charactersIgnoringModifiers];
+        if([key isEqual:@" "] || ([key isEqual:@"y"] && [theEvent modifierFlags] & NSCommandKeyMask)) {
+            [self togglePreviewPanel:nil];
+        }
+        else {
+            [previewPanel keyDown:theEvent];
+        }
+        return;
+    }
 	[NSThread setThreadPriority:1.0];
 	NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
 	NSTimeInterval delay = [theEvent timestamp] -lastTime;
@@ -1048,7 +1059,6 @@ NSMutableDictionary *bindingsDict = nil;
 		[partialString setString:@""];
 		validSearch = YES;
 		if ([self searchMode] == SearchFilterAll) {
-            
 			[self setSourceArray:nil];
 		}
 		[self setShouldResetSearchString:NO];
@@ -1069,7 +1079,9 @@ NSMutableDictionary *bindingsDict = nil;
         return;
     
 	if ([[theEvent charactersIgnoringModifiers] isEqualToString:@" "]) {
-		[self insertSpace:nil];
+        if ([theEvent type] == NSKeyDown) {
+            [self insertSpace:nil];
+        }
 		return;
 	}
     
@@ -1348,6 +1360,8 @@ NSMutableDictionary *bindingsDict = nil;
 				[self moveLeft:sender];
 			else
 				[self moveRight:sender];
+        case 6: // Show Quicklook window
+            [self togglePreviewPanel:nil];
 			break;
 	}
 }
@@ -1812,6 +1826,110 @@ NSMutableDictionary *bindingsDict = nil;
             NSBeep();
     }
 }
+
+
+@end
+
+#pragma mark Quicklook support
+
+@implementation QSSearchObjectView (Quicklook) 
+
+- (IBAction)togglePreviewPanel:(id)previewPanel
+{
+    if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
+        [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
+    } else {
+        // Check to see if the object to preview is a file (can only preview those)
+        QSObject *object = [self objectValue];
+        if ([object isKindOfClass:[QSRankedObject class]]) {
+            object = [(QSRankedObject *)object object];
+        }
+        if ([object validPaths]) {
+            [NSApp activateIgnoringOtherApps:YES];
+            // makeKeyAndOrderFront closes the QS interface. This way, the interface stays open behind the preview panel
+            [[QLPreviewPanel sharedPreviewPanel] orderFront:nil];
+            [[QLPreviewPanel sharedPreviewPanel] makeKeyWindow];
+        }
+        else {
+            NSBeep();
+        }
+    }
+}
+
+// Quick Look panel support
+
+- (BOOL)acceptsPreviewPanelControl:(QLPreviewPanel *)panel;
+{
+    return YES;
+}
+
+- (void)beginPreviewPanelControl:(QLPreviewPanel *)panel
+{
+    // This document is now responsible of the preview panel
+    // It is allowed to set the delegate, data source and refresh panel.
+    previewPanel = [panel retain];
+    [panel setDelegate:self];
+    [panel setDataSource:self];
+    // Put the panel just above Quicksilver's window
+    [previewPanel setLevel:([[self window] level] + 1)];
+//    [panel setFloatingPanel:YES];
+}
+
+- (void)endPreviewPanelControl:(QLPreviewPanel *)panel
+{
+    // This document loses its responsisibility on the preview panel
+    // Until the next call to -beginPreviewPanelControl: it must not
+    // change the panel's delegate, data source or refresh it.
+    [previewPanel release];
+    previewPanel = nil;
+    [[self window] makeKeyAndOrderFront:nil];
+}
+
+// Quick Look panel data source
+
+- (NSInteger)numberOfPreviewItemsInPreviewPanel:(QLPreviewPanel *)panel
+{
+    QSObject *object = [self objectValue];
+    if ([object isKindOfClass:[QSRankedObject class]]) {
+        object = [(QSRankedObject *)object object];
+    }
+    return [object count];
+}
+
+- (id <QLPreviewItem>)previewPanel:(QLPreviewPanel *)panel previewItemAtIndex:(NSInteger)index
+{
+    QSObject *object = [self objectValue];
+    if ([object isKindOfClass:[QSRankedObject class]]) {
+        object = [(QSRankedObject *)object object];
+    }
+    return [[object splitObjects] objectAtIndex:index];
+}
+
+// Quick Look panel delegate
+
+- (BOOL)previewPanel:(QLPreviewPanel *)panel handleEvent:(NSEvent *)event
+{
+    // We've already dealt with keyDowns in QSSearchObjectView's keyDown method. If the preview pane can't do anything
+    // with the event, leave it (and NSBeep())
+    return NO;
+}
+
+// This delegate method provides the rect on screen from which the panel will zoom.
+- (NSRect)previewPanel:(QLPreviewPanel *)panel sourceFrameOnScreenForPreviewItem:(id <QLPreviewItem>)item
+{
+    
+    // check that the icon rect is visible on screen
+    return [[self window] frame];
+   
+}
+
+// This delegate method provides a transition image between the table view and the preview panel
+//- (id)previewPanel:(QLPreviewPanel *)panel transitionImageForPreviewItem:(id <QLPreviewItem>)item contentRect:(NSRect *)contentRect
+//{
+//    DownloadItem* downloadItem = (DownloadItem *)item;
+//    
+//    return downloadItem.iconImage;
+//}
 
 
 @end
