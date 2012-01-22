@@ -947,3 +947,17 @@ containg multiple objects with the same identifier. Best efforts should be made 
     
 }
 @end
+
+@implementation QSObject (Quicklook)
+
+- (NSURL *)previewItemURL
+{
+    return [NSURL fileURLWithPath :[self singleFilePath]];
+}
+
+- (NSString *)previewItemTitle
+{
+    return [self name];
+}
+
+@end
