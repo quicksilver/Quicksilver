@@ -8,7 +8,8 @@
 		<string>insertSpace:</string>
 		<key>"</key>
 		<string>conditionalTransmogrify:</string>
-		<key>$</key>
+		<key>$
+</key>
 		<string>executeCommandAndContinue:</string>
 		<key>$ </key>
 		<string>insertSpace:</string>
@@ -40,7 +41,8 @@
 		<string>goForward:</string>
 		<key>@g</key>
 		<string>grabSelection:</string>
-		<key>^</key>
+		<key>^
+</key>
 		<string>encapsulateCommand:</string>
 		<key>^@[</key>
 		<string>showHistoryObjects</string>
@@ -56,6 +58,8 @@
 		<string>dropSelection:</string>
 		<key>~@v</key>
 		<string>dropClipboard:</string>
+        <key>@y</key>
+        <string>togglePreviewPanel:</string>
 	</dict>
 </dict>
 </plist>
