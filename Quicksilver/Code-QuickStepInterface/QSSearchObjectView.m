@@ -1022,6 +1022,10 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (BOOL)resignFirstResponder {
+    if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
+        NSBeep();
+        return NO;
+    }
 	//NSLog(@"resign first");
 	if ([self currentEditor]) {
 		// NSLog(@"resign first with monkey %@", self);
