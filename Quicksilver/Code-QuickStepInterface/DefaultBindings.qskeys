@@ -60,6 +60,8 @@
 		<string>dropClipboard:</string>
         <key>@y</key>
         <string>togglePreviewPanel:</string>
+        <key>~@y</key>
+        <string>togglePreviewPanelFullScreen:</string>
 	</dict>
 </dict>
 </plist>
