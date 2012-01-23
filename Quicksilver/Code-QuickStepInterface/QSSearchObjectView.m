@@ -1926,19 +1926,9 @@ NSMutableDictionary *bindingsDict = nil;
     // check that the icon rect is visible on screen
     NSRect rect = [self frame];
     NSRect windowFrame = [[self window] frame];
-    rect.origin.x = windowFrame.origin.x + rect.origin.x;
-    rect.origin.y = windowFrame.origin.y + rect.origin.y;
-    return rect;
-   
+    NSRect imageRect = [[self cell] imageRectForBounds:rect];
+    imageRect.origin.x = windowFrame.origin.x + imageRect.origin.x;
+    imageRect.origin.y = windowFrame.origin.y + imageRect.origin.y;
+    return imageRect;
 }
-
-// This delegate method provides a transition image between the table view and the preview panel
-//- (id)previewPanel:(QLPreviewPanel *)panel transitionImageForPreviewItem:(id <QLPreviewItem>)item contentRect:(NSRect *)contentRect
-//{
-//    DownloadItem* downloadItem = (DownloadItem *)item;
-//    
-//    return downloadItem.iconImage;
-//}
-
-
 @end
