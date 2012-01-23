@@ -1040,6 +1040,7 @@ NSMutableDictionary *bindingsDict = nil;
     // Send events to the preview panel if it's open
     if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
         NSString* key = [theEvent charactersIgnoringModifiers];
+        // space key
         if([key isEqual:@" "]) {
             [self togglePreviewPanel:nil];
         }
@@ -1923,7 +1924,11 @@ NSMutableDictionary *bindingsDict = nil;
 {
     
     // check that the icon rect is visible on screen
-    return [[self window] frame];
+    NSRect rect = [self frame];
+    NSRect windowFrame = [[self window] frame];
+    rect.origin.x = windowFrame.origin.x + rect.origin.x;
+    rect.origin.y = windowFrame.origin.y + rect.origin.y;
+    return rect;
    
 }
 
