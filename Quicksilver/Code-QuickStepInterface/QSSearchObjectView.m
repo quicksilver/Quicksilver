@@ -1039,12 +1039,8 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)keyDown:(NSEvent *)theEvent {
     // Send events to the preview panel if it's open
     if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
-        NSString* key = [theEvent charactersIgnoringModifiers];
         // space key
-        if([key isEqual:@" "]) {
-            [self togglePreviewPanel:nil];
-        }
-        else {
+        if(![self handleBoundKey:theEvent]) {
             [previewPanel keyDown:theEvent];
         }
         return;
@@ -1509,7 +1505,6 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)textDidChange:(NSNotification *)aNotification {
     NSString *string = [[[aNotification object] string] copy];
 	if ([[[aNotification object] string] isEqualToString:@" "]) {
-        NSLog(@"Got a space");
         //		[(QSInterfaceController *)[[self window] windowController] shortCircuit:self];
         [self shortCircuit:self];
         [string release];
@@ -1846,16 +1841,36 @@ NSMutableDictionary *bindingsDict = nil;
             object = [(QSRankedObject *)object object];
         }
         if ([object validPaths]) {
-            [NSApp activateIgnoringOtherApps:YES];
             // makeKeyAndOrderFront closes the QS interface. This way, the interface stays open behind the preview panel
             [[QLPreviewPanel sharedPreviewPanel] orderFront:nil];
-            [[QLPreviewPanel sharedPreviewPanel] makeKeyWindow];
         }
         else {
             NSBeep();
         }
     }
 }
+
+- (IBAction)togglePreviewPanelFullScreen:(id)previewPanel
+{
+    if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
+        [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
+    } else {
+        // Check to see if the object to preview is a file (can only preview those)
+        QSObject *object = [self objectValue];
+        if ([object isKindOfClass:[QSRankedObject class]]) {
+            object = [(QSRankedObject *)object object];
+        }
+        if ([object validPaths]) {
+            // makeKeyAndOrderFront closes the QS interface. This way, the interface stays open behind the preview panel
+            [NSApp activateIgnoringOtherApps:YES];
+            [[QLPreviewPanel sharedPreviewPanel] enterFullScreenMode:nil withOptions:nil];
+        }
+        else {
+            NSBeep();
+        }
+    }
+}
+
 
 // Quick Look panel support
 
@@ -1909,14 +1924,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (BOOL)previewPanel:(QLPreviewPanel *)panel handleEvent:(NSEvent *)event
 {
-    // We've already dealt with keyDowns in QSSearchObjectView's keyDown method. If the preview pane can't do anything
-    // with the event, leave it (and NSBeep())
-    NSString *key = [event charactersIgnoringModifiers];
-    if (([key isEqual:@"y"] && [event modifierFlags] & NSCommandKeyMask)) {
-        [self togglePreviewPanel:nil];
-        return YES;
-    }
-    return NO;
+    return YES;
 }
 
 // This delegate method provides the rect on screen from which the panel will zoom.

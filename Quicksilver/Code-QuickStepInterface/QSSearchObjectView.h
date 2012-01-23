@@ -198,4 +198,5 @@ typedef enum QSSearchMode {
 
 @interface QSSearchObjectView (Quicklook) <QLPreviewPanelDataSource, QLPreviewPanelDelegate>
 - (IBAction)togglePreviewPanel:(id)previewPanel;
+- (IBAction)togglePreviewPanelFullScreen:(id)previewPanel;
 @end
