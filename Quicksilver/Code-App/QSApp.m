@@ -126,6 +126,14 @@ BOOL QSApplicationCompletedLaunch = NO;
 			[QSModifierKeyEvent checkForModifierEvent:theEvent];
 			break;
 	}
+    if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isInFullScreenMode]) {
+        if ([theEvent type] == NSKeyDown) {
+            if ([[theEvent charactersIgnoringModifiers] isEqual:@"y"] && ([theEvent modifierFlags] & (NSCommandKeyMask | NSAlternateKeyMask))) {
+                [[self mainWindow] sendEvent:theEvent];
+                return;
+            }
+        }
+    }
 	[super sendEvent:theEvent];
 }
 - (void)forwardWindowlessRightClick:(NSEvent *)theEvent {
