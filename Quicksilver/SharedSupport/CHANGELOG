@@ -1,6 +1,8 @@
 Changes - ß64 (3913)
 -------
 
+  * FIX: Prevent all plug-ins from being deleted on launch
+  
   * FIX: Prevent some interfaces from showing `<QSCommand 0xffff>` as the command
   
   * FIX: The plug-in download progress bar works
@@ -20,6 +22,8 @@ Changes - ß64 (3913)
   * CHANGE: If the name and details are identical, don't show both
   
   * CHANGE: Simplified the wording in the Setup Assistant
+  
+  * CHANGE: Updated QSDroplet icon to reflect the new style
 
 Changes - ß63 (3912)
 -------
