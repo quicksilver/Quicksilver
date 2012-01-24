@@ -11,7 +11,7 @@ PREBINDING = NO
 
 INFOPLIST_PREPROCESS = YES
 
-FRAMEWORK_SEARCH_PATHS = /System/Library/PrivateFrameworks ~/Library/Frameworks $(BUILT_PRODUCTS_DIR)
+FRAMEWORK_SEARCH_PATHS = /System/Library/PrivateFrameworks $(BUILT_PRODUCTS_DIR)
 
 //GCC_VERSION = com.apple.compilers.llvmgcc42
 
