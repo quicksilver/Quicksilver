@@ -1,0 +1,706 @@
+<h2>Changes - ß64 (3913)</h2>
+<ul>
+<li>
+<p>FIX: Prevent all plug-ins from being deleted on launch</p>
+</li>
+<li>
+<p>FIX: Prevent some interfaces from showing <code>&lt;QSCommand 0xffff&gt;</code> as the command</p>
+</li>
+<li>
+<p>FIX: The plug-in download progress bar works</p>
+</li>
+<li>
+<p>FIX: Accented characters no longer wipe out the search string (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/539">#539</a>)</p>
+</li>
+<li>
+<p>FIX: Latest Download proxy object works with a symlinked Downloads folder (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/596">#596</a>, <a href="https://github.com/quicksilver/Quicksilver/issues/616">#616</a>)</p>
+</li>
+<li>
+<p>FIX: Correctly display dynamically generated details for objects and actions (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/591">#591</a>)</p>
+</li>
+<li>
+<p>FIX: Correctly notify the user when there's no internet connection (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/640">#640</a>)</p>
+</li>
+<li>
+<p>FIX: Prevent a crash when trying to run an AppleScript that was moved or deleted</p>
+</li>
+<li>
+<p>FIX: Better handling of Dock icon preferences and crash protection (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/587">#587</a>)</p>
+</li>
+<li>
+<p>CHANGE: If the name and details are identical, don't show both</p>
+</li>
+<li>
+<p>CHANGE: Simplified the wording in the Setup Assistant</p>
+</li>
+<li>
+<p>CHANGE: Updated QSDroplet icon to reflect the new style</p>
+</li>
+</ul>
+<h2>Changes - ß63 (3912)</h2>
+<ul>
+<li>
+<p>FIX: Fixed a serious bug in ß62 that could cause user's custom catalogs to be erased</p>
+</li>
+<li>
+<p>FIX: Fixed a bugin Quicksilver's internal updating mechanism. <strong>Note:</strong> ß63 will need to be downloaded manually by all users</p>
+</li>
+<li>
+<p>FIX: Ensured the new 'Clear caches' option in the crash dialogue only clears the catalog cache (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/582">#582</a>)</p>
+</li>
+<li>
+<p>FIX: Fixed a bug that could cause Quicksilver to launch twice when honouring the dock icon preferences (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/585">#585</a>)</p>
+</li>
+</ul>
+<h2>Changes - ß62 (3901)</h2>
+<ul>
+<li>
+<p>CHANGE: So called "advanced features" are now just on all the time (Issues <a href="https://github.com/quicksilver/Quicksilver/issues/479">#479</a>, <a href="https://github.com/quicksilver/Quicksilver/issues/341">#341</a>)</p>
+</li>
+<li>
+<p>CHANGE: Proxy objects are enabled by default for new users (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/479">#479</a>)</p>
+</li>
+<li>
+<p>CHANGE: Selection is pulled from any application by default (instead of Finder only) for new users (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/479">#479</a>)</p>
+</li>
+<li>
+<p>NEW: Quicksilver will detect if it crashed previously and offer some actions that might help (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/532">#532</a>)</p>
+</li>
+<li>
+<p>NEW: Quicksilver can identify (and optionally remove) plug-ins that cause it to crash (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/532">#532</a>)</p>
+</li>
+<li>
+<p>FIX: When replacing plug-ins, Quicksilver will no longer remove those inside the application itself (such as Core Support) (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/534">#534</a>)</p>
+</li>
+<li>
+<p>FIX: Trigger scoping now correctly works (Issues <a href="https://github.com/quicksilver/Quicksilver/issues/174">#174</a>, <a href="https://github.com/quicksilver/Quicksilver/issues/85">#85</a>)</p>
+</li>
+<li>
+<p>FIX: Triggers are saved more reliably during editing (Issues <a href="https://github.com/quicksilver/Quicksilver/issues/240">#240</a>, <a href="https://github.com/quicksilver/Quicksilver/issues/248">#248</a>)</p>
+</li>
+<li>
+<p>FIX: Mouse triggers will continue to work after a restart (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/542">#542</a>)</p>
+</li>
+<li>
+<p>FIX: The command builder (the panel used to create/edit triggers) can be dismissed with ⎋ repeatedly (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/537">#537</a>)</p>
+</li>
+<li>
+<p>FIX: The command builder uses consistent colors to ensure readability (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/549">#549</a>)</p>
+</li>
+<li>
+<p>FIX: Custom icons for actions in <code>~/Library/Application Support/Quicksilver/Actions</code> are displayed in the second pane (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/361">#361</a>)</p>
+</li>
+<li>
+<p>FIX: Corrected typos in the French localization (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/554">#554</a>)</p>
+</li>
+<li>
+<p>FIX: Prevent a rare crash when loading plug-ins (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/561">#561</a>)</p>
+</li>
+<li>
+<p>FIX: Respect the preference to NOT check for updates (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/560">#560</a>)</p>
+</li>
+</ul>
+<h2>Changes - ß61 (3900)</h2>
+<ul>
+<li>
+<p>NEW: Quicksilver is now 10.6+ (Snow Leopard or higher) only</p>
+</li>
+<li>
+<p>NEW: New built-in plugins repository for downloading and automatic-updating of plugins (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/491">#491</a>)</p>
+</li>
+<li>
+<p>NEW: New Quicksilver icon thanks to <a href="http://strandeddesign.com">Dan Deming-Henes</a> (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/383">#383</a>)</p>
+</li>
+<li>
+<p>NEW: vi bindings in command interface (⌃h, ⌃j, ⌃k, ⌃l) (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/368">#368</a>)</p>
+</li>
+<li>
+<p>NEW: Paste as Plain text action (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/230">#230</a>)</p>
+</li>
+<li>
+<p>NEW: Quicksilver now stores RTF and HTML data for URLs, allowing more versatile pasting into Rich Text Editors (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/439">#439</a>)</p>
+</li>
+<li>
+<p>NEW: New UI Agent. Fixes for remote plugin fetching (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/355">#355</a>, <a href="https://github.com/quicksilver/Quicksilver/issues/374">#374</a>)</p>
+</li>
+<li>
+<p>NEW: Added the ability for AppleScripts to use indirect (3rd pane) objects (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/366">#366</a>)</p>
+</li>
+<li>
+<p>FIX: Drag multiple files onto 1st pane folder correctly 'moves' the files (if residing on the same filesystem) (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/508">#508</a>)</p>
+</li>
+<li>
+<p>FIX: Closing the Command window in the Triggers Pref pane could cause sporadic behaviour (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/89">#89</a>, <a href="https://github.com/quicksilver/Quicksilver/issues/350">#350</a>)</p>
+</li>
+<li>
+<p>FIX: Crash on image creation (unretained) (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/500">#500</a>)</p>
+</li>
+<li>
+<p>FIX: Small interface changes for Lion compatibility (Issues <a href="https://github.com/quicksilver/Quicksilver/issues/391">#391</a>, <a href="https://github.com/quicksilver/Quicksilver/issues/411">#411</a>)</p>
+</li>
+<li>
+<p>FIX: Docking window fixes to stop it sporadicaly appearing (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/321">#321</a>)</p>
+</li>
+<li>
+<p>FIX: Latest Downloads proxy to show packages (e.g. .app, .pages) (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/443">#443</a>)</p>
+</li>
+<li>
+<p>FIX: Crash when rendering fonts in Quicksilver's 1st pane (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/386">#386</a>)</p>
+</li>
+<li>
+<p>FIX: Display of plugin icons in the icons prefs (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/410">#410</a>)</p>
+</li>
+<li>
+<p>FIX: Symlinks are correctly displayed and resolved (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/288">#288</a>, <a href="https://github.com/quicksilver/Quicksilver/issues/351">#351</a>)</p>
+</li>
+<li>
+<p>FIX: Assigning more reliable assignment of URL objects (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/370">#370</a>)</p>
+</li>
+<li>
+<p>FIX: Plugin preference pane now displays the date in localised format (e.g. EU: dd/mm/yyy, US: mm/d/yy) (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/373">#373</a>)</p>
+</li>
+<li>
+<p>FIX: Many more small fixes and changes, see the <a href="https://github.com/quicksilver/Quicksilver/commits/master">commit history</a> for more detail</p>
+</li>
+<li>
+<p>FIX: Split view fixes. Specify a (non-zero) default size to avoid confusion, and fix 'requires relaunch' prompt (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/349">#349</a>)</p>
+</li>
+<li>
+<p>FIX: Allow QS's built-in browser to browse more URLs (PHP URLs ending in ?...) (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/379">#379</a>)</p>
+</li>
+<li>
+<p>FIX: Re-evoking Quicksilver could cause the 1st pane object to be mistaken as the 3rd pane object (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/384">#384</a>)</p>
+</li>
+<li>
+<p>FIX: Asynchronous icon loading is now more reliable, doesn't cause actions to reload (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/338">#338</a>, <a href="https://github.com/quicksilver/Quicksilver/issues/339">#339</a>, <a href="https://github.com/quicksilver/Quicksilver/issues/388">#388</a>)</p>
+</li>
+<li>
+<p>FIX: Trash sound on Lion (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/389">#389</a>)</p>
+</li>
+<li>
+<p>FIX: Current proxy object now works with multiple files (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/210">#210</a>)</p>
+</li>
+<li>
+<p>FIX: Display the correct label for objects (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/405">#405</a>)</p>
+</li>
+<li>
+<p>FIX: Avoid storing of useless mnemonics that clog up Quicksilver's Application Support folder (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/446">#446</a>)</p>
+</li>
+<li>
+<p>FIX: Bug in the HTML parser when dealing with strangely-formatted links (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/345">#345</a>)</p>
+</li>
+<li>
+<p>FIX: Fixed the trigger (null) bugs where objects were not saved to the catalog (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/27">#27</a>)</p>
+</li>
+<li>
+<p>FIX: Encoding warnings in the console (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/403">#403</a>)</p>
+</li>
+<li>
+<p>FIX: Bezel interface displaying on all spaces (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/358">#358</a>, <a href="https://github.com/quicksilver/Quicksilver/issues/387">#387</a>)</p>
+</li>
+<li>
+<p>CHANGE: Simplified splitObjects method: now the recommended method for plugin developers using the comma trick (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/422">#422</a>)</p>
+</li>
+<li>
+<p>CHANGE: Method for determining IP Addresses is more thorough, only recognising a.b.c.d (where a,b,c,d are numbers of 1-3 digits only (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/455">#455</a>)</p>
+</li>
+<li>
+<p>CHANGE: Xcodeproj now creates a .dmg on 'Release' building (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/496">#496</a>)</p>
+</li>
+<li>
+<p>CHANGE: Renamed the 'Paste with Clipboard' action to simply 'Paste' (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/439">#439</a>)</p>
+</li>
+<li>
+<p>CHANGE: Improved the stringValue method to return more reliable info (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/424">#424</a>)</p>
+</li>
+<li>
+<p>CHANGE: Improved reliability of sniffing file path strings and turning them into file objects (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/430">#430</a>)</p>
+</li>
+<li>
+<p>CHANGE: Removed #def DEBUG definitions from code, cleaning up the release version of Quicksilver. Speed improvements (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/334">#334</a>)</p>
+</li>
+<li>
+<p>CHANGE: Small change to debug builds of Quicksilver and its dock icon to make debugging easier (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/381">#381</a>)</p>
+</li>
+<li>
+<p>CHANGE: Removed OS9 Applications catalog preset (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/384">#384</a>)</p>
+</li>
+<li>
+<p>CHANGE: Minor changes to the way Quicksilver loads and saves plugins (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/352">#352</a>)</p>
+</li>
+<li>
+<p>CHANGE: Interface classes to allow for further font customisation in interfaces (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/363">#363</a>)</p>
+</li>
+<li>
+<p>CHANGE: Further improvements to the latest download proxy. More reliable and displays packages (Issues <a href="https://github.com/quicksilver/Quicksilver/issues/377">#377</a>, <a href="https://github.com/quicksilver/Quicksilver/issues/443">#443</a>)</p>
+</li>
+<li>
+<p>CHANGE: Changes for Xcode 4 compatibility (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/444">#444</a>)</p>
+</li>
+<li>
+<p>PLUGIN: Small fix for Constellation interface (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/239">#239</a>)</p>
+</li>
+<li>
+<p>PLUGIN: Menu Interface fix for Mac OS X Lion (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/436">#436</a>)</p>
+</li>
+<li>
+<p>PLUGIN: Various 1Password plugin fixes</p>
+</li>
+<li>
+<p>PLUGIN: Fixes and improvements to the TextStart Ranker (Formerly TextMate Ranker) (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/359">#359</a>, <a href="https://github.com/quicksilver/Quicksilver/issues/376">#376</a>)</p>
+</li>
+<li>
+<p>PLUGIN: New current document proxy object in the UI Access plugin (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/62">#62</a>)</p>
+</li>
+<li>
+<p>PLUGIN: Terminal plugin fixes: Only open 1 Terminal window, improved actions</p>
+</li>
+<li>
+<p>PLUGIN: NEW Microsoft Office plugin. Allows right arrowing into Office apps for recent documents</p>
+</li>
+<li>
+<p>PLUGIN: Growl plugin update to make use of the latest framework</p>
+</li>
+<li>
+<p>PLUGIN: Airport module rewrite for Mac OS X Snow Leopard and above</p>
+</li>
+<li>
+<p>PLUGIN: Improvements to the calculator plugin. Now displays the results in realtime</p>
+</li>
+</ul>
+<h2>Changes - ß60 (3850)</h2>
+<ul>
+<li>
+<p>PLUGIN: Items labelled with this tag are for new/updated plugins available from http://qsapp.com/plugins</p>
+</li>
+<li>
+<p>NEW: Search by file extension. e.g. type 'mp3' will show you all .mp3s (or files with mp3 in the name)</p>
+</li>
+<li>
+<p>NEW: 'Delete' and 'Move to Trash' actions now give sound notification of completion (like Finder's behaviour)</p>
+</li>
+<li>
+<p>NEW: 'Running Applications' proxy object (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/221">#221</a>)</p>
+</li>
+<li>
+<p>NEW: Interfaces sorted by name within the Preferences (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/294">#294</a>)</p>
+</li>
+<li>
+<p>NEW: Optimisation and memory management improvements using CLang's static analyser</p>
+</li>
+<li>
+<p>NEW: Recent documents for applications by right arrowing into them (e.g. Preview) in 10.6 (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/109">#109</a>)</p>
+</li>
+<li>
+<p>NEW: Creation of 'Actions' folder in Quicksilver's support folder to make saving custom actions easier (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/266">#266</a>)</p>
+</li>
+<li>
+<p>NEW: Superior string sniffing. Quicksilver now knows that define:word and a.b.c.d are not a URLs. (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/214">#214</a>)</p>
+</li>
+<li>
+<p>NEW: Quicksilver correctly selects the 1st item in the list after using the 'show contents' action (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/226">#226</a>)</p>
+</li>
+<li>
+<p>NEW: ß60+ versions of Quicksilver will not launch on 10.4 machines or below (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/279">#279</a>)</p>
+</li>
+<li>
+<p>NEW: 1st object in the results list is selected by default when viewing children of objects (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/226">#226</a>)</p>
+</li>
+<li>
+<p>NEW: Quicksilver source is now distributed via MacPorts (for install, see http://qsapp.com/wiki/Building_Quicksilver )</p>
+</li>
+<li>
+<p>NEW: Asynchronous loading of icons; no beach balling when finding file icons (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/98">#98</a>)</p>
+</li>
+<li>
+<p>NEW: Show link's images when browsing URLs/websites in Quicksilver (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/316">#316</a>)</p>
+</li>
+<li>
+<p>NEW: Web Search Icons now show the magnifying glass and the URLs favIcon (thanks to http://g.etfv.co and http://potatolondon.com) (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/315">#315</a>)</p>
+</li>
+<li>
+<p>NEW: Python HTML Link extractor for browsing in Quicksilver. Adds image title or alt to image labels (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/317">#317</a>)</p>
+</li>
+<li>
+<p>NEW: Reduced open/close/resize times for the Bezel Interface. Now feels more responsive (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/323">#323</a>)</p>
+</li>
+<li>
+<p>NEW: Rename action no longer selects the file extension in the 3rd pane (mimicking Finder's behaviour) (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/328">#328</a>)</p>
+</li>
+<li>
+<p>NEW: Preference that allows jumping to the action automatically for actions that return results (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/225">#225</a>)</p>
+</li>
+<li>
+<p>PLUGIN: Renamed the 'Current Webpage' proxies to reflect which browser they come from (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/59">#59</a>)</p>
+</li>
+<li>
+<p>PLUGIN: Fixed right arrowing into 'Current Web Page (Safari)' proxy object (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/59">#59</a>)</p>
+</li>
+<li>
+<p>PLUGIN: Mail Module rewritten to fix right arrowing into Mail.app</p>
+</li>
+<li>
+<p>PLUGIN: OmniWeb plugin rewritten to be more consistent with naming of proxies and added documentation</p>
+</li>
+<li>
+<p>PLUGIN: UI Access plugin fixed to show icons of windows for 'Windows...' actions, speed increases</p>
+</li>
+<li>
+<p>PLUGIN: UI Access plugin includes a new 'Show all Menu Items' action </p>
+</li>
+<li>
+<p>PLUGIN: Made Window Interface appear on all spaces (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/61">#61</a>)</p>
+</li>
+<li>
+<p>CHANGED: Task Viewer modified to make it more robust</p>
+</li>
+<li>
+<p>CHANGED: Localisation improvements and refactoring (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/260">#260</a>)</p>
+</li>
+<li>
+<p>CHANGED: Implementation of fast enumeration for easier reading and possible speed improvements (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/323">#323</a>)</p>
+</li>
+<li>
+<p>CHANGED: Small speed improvement to object ranking (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/336">#336</a>)</p>
+</li>
+<li>
+<p>CHANGED: Get Path renamed to Get Absolute Path, new Get Path action returns things like <code>~/Documents</code> (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/331">#331</a>)</p>
+</li>
+<li>
+<p>FIX: Crash when Quicksilver tries to combine the same object (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/342">#342</a>)</p>
+</li>
+<li>
+<p>FIX: Searches like "Itchy &amp; Scratchy" are now correctly passed to the browser (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/313">#313</a>)</p>
+</li>
+<li>
+<p>FIX: When using Quicksilver to browse the web (right arrow into URLs), the correct icons are shown (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/302">#302</a>)</p>
+</li>
+<li>
+<p>FIX: Websites with any top level domain (e.g. .uk) can now be browsed within Quicksilver (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/316">#316</a>)</p>
+</li>
+<li>
+<p>FIX: Link parser now correctly returns all the links on a page (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/316">#316</a>)</p>
+</li>
+<li>
+<p>FIX: Crash when changing interfaces (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/272">#272</a>)</p>
+</li>
+<li>
+<p>FIX: Task Viewer no longer shows 'null' when rescanning catalog entries (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/276">#276</a>)</p>
+</li>
+<li>
+<p>FIX: Down arrow does not wipe the result of an action, returned to Quicksilver (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/282">#282</a>)</p>
+</li>
+<li>
+<p>FIX: 'Latest Download' proxy no longer causes conflicts with cataloged items (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/308">#308</a>)</p>
+</li>
+<li>
+<p>FIX: Correct numbering of results (1 of 1) when an action returns an object to Quicksilver (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/282">#282</a>)</p>
+</li>
+<li>
+<p>FIX: Exception when entering nonBaseCharacters (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/275">#275</a>)</p>
+</li>
+<li>
+<p>FIX: TextMate String Ranker now works as previously (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/14">#14</a>)</p>
+</li>
+<li>
+<p>FIX: 'Type to Search' text in the command window panes (and more localisation fixes) (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/250">#250</a>)</p>
+</li>
+<li>
+<p>FIX: Pressing '/' to enter items could accidentally drill down to the root (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/63">#63</a>)</p>
+</li>
+<li>
+<p>FIX: The about window stops rendering images when closed</p>
+</li>
+<li>
+<p>FIX: Assignment of mailto: strings as objects with Email actions (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/267">#267</a>)</p>
+</li>
+<li>
+<p>FIX: Always display the interface when Quicksilver returns a result (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/232">#232</a>)</p>
+</li>
+<li>
+<p>FIX: URLs with &lt;&gt;|#"?$! characters are parsed properly </p>
+</li>
+<li>
+<p>FIX: Copy To… action only shows folders in the 3rd pane</p>
+</li>
+<li>
+<p>FIX: 'Visible Applications' proxy displays only apps that aren't hidden (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/221">#221</a>)</p>
+</li>
+<li>
+<p>FIX: Bezel and Primer interface names display correctly in the preferences (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/190">#190</a>)</p>
+</li>
+<li>
+<p>FIX: Changing interface properly registers '.' as a special character to enter text mode (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/233">#233</a>)</p>
+</li>
+<li>
+<p>FIX: Incorrect size settings for two .xibs</p>
+</li>
+<li>
+<p>FIX: Size of result window remembered on relaunch (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/176">#176</a>)</p>
+</li>
+<li>
+<p>FIX: Possible crashes when installing plugins (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/241">#241</a>)</p>
+</li>
+<li>
+<p>FIX: 1st pane (and comma items) are cleared when an action returns an object (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/203">#203</a>)</p>
+</li>
+<li>
+<p>FIX: Primer interface appears on all spaces (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/64">#64</a>)</p>
+</li>
+<li>
+<p>FIX: Preference pane appears on all spaces (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/64">#64</a>)</p>
+</li>
+<li>
+<p>FIX: Result window size saved on relaunch (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/176">#176</a>)</p>
+</li>
+<li>
+<p>FIX: Get Path action returns strings instead of files (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/182">#182</a>)</p>
+</li>
+<li>
+<p>FIX: Get Path action works with the comma trick (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/203">#203</a>)</p>
+</li>
+<li>
+<p>FIX: Search results 'x of y' showing correctly in the result window (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/207">#207</a>)</p>
+</li>
+<li>
+<p>FIX: Clicking 'Defaults' in the Appearance Preferences would crash Quicksilver (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/212">#212</a>)</p>
+</li>
+<li>
+<p>FIX: PlugIn file path renamed correctly for compilation on case-sensitive systems (MacPorts) (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/309">#309</a>)</p>
+</li>
+<li>
+<p>FIX: Compilation fixes for 10.5 and isSnowLeopard method (moved to a new class) (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/287">#287</a>)</p>
+</li>
+</ul>
+<p>Special thanks to:
+Potatolondon.com for providing the favIcon lookup service ( http://f.etfv.com )</p>
+<h2>Changes - ß59(3842)</h2>
+<ul>
+<li>
+<p>PLUGIN: Items labelled with this tag are for plugins available from http://qsapp.com/plugins</p>
+</li>
+<li>
+<p>NEW: New 'Latest Download' proxy, corresponding to the latest file in the ~/Downloads folder (Bug <a href="https://github.com/quicksilver/Quicksilver/issues/70">#70</a>)</p>
+</li>
+<li>
+<p>NEW: Auto Update of Application using QSApp.com (this is the last time you'll ever have to go looking for a new release!)</p>
+</li>
+<li>
+<p>NEW: New menu bar icon</p>
+</li>
+<li>
+<p>NEW: French localisation for the Finder Module</p>
+</li>
+<li>
+<p>NEW: German localisation for actions</p>
+</li>
+<li>
+<p>NEW: an 'Open Url in Background action'. Also set as alternate action to 'Open URL' (hit CMD+RTN)</p>
+</li>
+<li>
+<p>NEW: Speed improvements through the use of 'fast enumeration' in Leopard and Snow Leopard</p>
+</li>
+<li>
+<p>NEW: Added 'descend into bundle' option for catalog entries (containing Mac OS X bundles)</p>
+</li>
+<li>
+<p>NEW: Changes to build Quicksilver as a 64 bit application in the future</p>
+</li>
+<li>
+<p>NEW: Proxy objects for applications and windows use the correct application's icon</p>
+</li>
+<li>
+<p>NEW: PPC build support removed</p>
+</li>
+<li>
+<p>PLUGIN: New Cyberduck Plugin</p>
+</li>
+<li>
+<p>PLUGIN: Mail Module fixed to allow right arrowing</p>
+</li>
+<li>
+<p>PLUGIN: UI Elements plugin updated to enable menu services (Bug <a href="https://github.com/quicksilver/Quicksilver/issues/19">#19</a>)</p>
+</li>
+<li>
+<p>PLUGIN: Fix small clipboard leak</p>
+</li>
+<li>
+<p>PLUGIN: New Yojimbo plugin</p>
+</li>
+<li>
+<p>PLUGIN: New 1Password Module for interaction with 1Password</p>
+</li>
+<li>
+<p>PLUGIN: New Remote Hosts Module</p>
+</li>
+<li>
+<p>PLUGIN: Fixed Dictionary Plugin to work with 10.5+</p>
+</li>
+<li>
+<p>PLUGIN: Pinboard.in added to del.icio.us Plugin</p>
+</li>
+<li>
+<p>PLUGIN: Added 'Current Focused Window' proxy to UI Elements Plugin</p>
+</li>
+<li>
+<p>PLUGIN: Newly written documentation on plugin development (see Quicksilver Plugins source on GitHub)</p>
+</li>
+<li>
+<p>CHANGE: Framework and source code tidy up</p>
+</li>
+<li>
+<p>CHANGE: Updated deprecated NSFileManager actions (10.5+)</p>
+</li>
+<li>
+<p>CHANGE: Changed links to reflect change to QSApp.com website</p>
+</li>
+<li>
+<p>CHANGE: Quietened noisy logs, giving less (unwanted) console logs</p>
+</li>
+<li>
+<p>FIX: AppleScript 'Process Text' fix (Bug <a href="https://github.com/quicksilver/Quicksilver/issues/144">#144</a>)</p>
+</li>
+<li>
+<p>FIX: 'Do Not Open At Login' action fixed (Bug <a href="https://github.com/quicksilver/Quicksilver/issues/35">#35</a>)</p>
+</li>
+<li>
+<p>FIX: Proxy Objects now work again as previously (Bug <a href="https://github.com/quicksilver/Quicksilver/issues/8">#8</a> &amp; more)</p>
+</li>
+<li>
+<p>FIX: A crash when installing an already installed plugin</p>
+</li>
+<li>
+<p>FIX: Application actions now work again (Bug <a href="https://github.com/quicksilver/Quicksilver/issues/102">#102</a> &amp; <a href="https://github.com/quicksilver/Quicksilver/issues/7">#7</a>)</p>
+</li>
+<li>
+<p>FIX: Calling AppleScripts now works as expected (revert old commit)</p>
+</li>
+<li>
+<p>FIX: Disabled items in catalog are now ignored</p>
+</li>
+<li>
+<p>FIX: Typos and incorrect tooltips (Bug <a href="https://github.com/quicksilver/Quicksilver/issues/138">#138</a> &amp; more)</p>
+</li>
+<li>
+<p>FIX: 'Make Hard Link' and 'Make Link' actions fixed</p>
+</li>
+<li>
+<p>FIX: Memory leak fixes as returned by Clang checker</p>
+</li>
+<li>
+<p>FIX: Show Quicksilver Command Window when a result is required to be shown</p>
+</li>
+<li>
+<p>FIX: AppleScript actions now show the result in the Quicksilver Command Window</p>
+</li>
+<li>
+<p>FIX: Fixed build warnings within XCode, and made Source Code compiling much quicker and easier</p>
+</li>
+<li>
+<p>FIX: Crashes on interface rapid changing</p>
+</li>
+<li>
+<p>FIX: Make the 'Eject' action validate to reduce lag/wait times (Bug <a href="https://github.com/quicksilver/Quicksilver/issues/56">#56</a>)</p>
+</li>
+<li>
+<p>FIX: Sizing of drawers in the Quicksilver preferences (Bug <a href="https://github.com/quicksilver/Quicksilver/issues/71">#71</a>)</p>
+</li>
+<li>
+<p>FIX: Task viewer now reliably loads (Bug <a href="https://github.com/quicksilver/Quicksilver/issues/119">#119</a>)</p>
+</li>
+<li>
+<p>FIX: Webkit fixes (Bug <a href="https://github.com/quicksilver/Quicksilver/issues/113">#113</a>)</p>
+</li>
+</ul>
+<p>Thanks for this release goes to:</p>
+<p>Development from:</p>
+<p>Patrick Robertson, Rob McBroom, Etienne Samson, Qiushi (Billy) He, Matt Beshara, Henning Jungkurth, Michael Guntsche, Paul Kohut, Yiwen Wu, Florian Heckl.</p>
+<p>Also, special thanks to:</p>
+<p>'scotnery' for the new Menu Bar icon.</p>
+<p>Jeff Cox for his support for the development team.</p>
+<p>Philip Dooher for setting up @LoveQuicksilver &amp; lovequicksilver.com.</p>
+<p>Patrick Robertson for initiating QSApp.com.</p>
+<p>Rob McBroom for his Plugin Development documentation.</p>
+<p>All contributors to the Wiki at http://qsapp.com/wiki.</p>
+<p>GitHub for hosting the source and downloads.</p>
+<h2>Changes - ß58 (3841)</h2>
+<ul>
+<li>
+<p>NEW: Make shell scripts with "additional shebang" info work. </p>
+</li>
+<li>
+<p>README: Make real links.</p>
+</li>
+<li>
+<p>CHANGE: Disable Info.plist preprocessing on Plugins. <br>
+</p>
+</li>
+<li>
+<p>CHANGE: Removed dangling NSLog calls </p>
+</li>
+<li>
+<p>CHANGE: Add Core Plugins to Release Build</p>
+</li>
+<li>
+<p>CHANGE: Menus improved</p>
+</li>
+<li>
+<p>CHANGE: Object context menus improved<br>
+</p>
+</li>
+<li>
+<p>CHANGE: Update score ranking code</p>
+</li>
+<li>
+<p>CHANGE: NSEnumerator - loop optimization</p>
+</li>
+<li>
+<p>CHANGE: Turn on a couple release optimizations </p>
+</li>
+<li>
+<p>FIX: Error messages</p>
+</li>
+<li>
+<p>FIX: Droplets work again, using the 10.5+ NSConnection vending method</p>
+</li>
+<li>
+<p>FIX: The G in BROWSING no longer gets cut off in the result window</p>
+</li>
+<li>
+<p>FIX: Don't show object descriptions in the result window if there's not enough room (rows &lt;34px high)</p>
+</li>
+<li>
+<p>FIX: Recent Items made Snow Leopard compatible</p>
+</li>
+<li>
+<p>FIX: Text fields only allow plain text </p>
+</li>
+<li>
+<p>FIX: Bug creating an indexSet from the UI Access plugin</p>
+</li>
+<li>
+<p>FIX: 10.5 compilation issue </p>
+</li>
+<li>
+<p>FIX: Do Not Open At Login Action now working (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/35">#35</a>)</p>
+</li>
+<li>
+<p>FIX: Issue <a href="https://github.com/quicksilver/Quicksilver/issues/34">#34</a></p>
+</li>
+<li>
+<p>FIX: relaunch action for fussy apps that did not quit straight away </p>
+</li>
+<li>
+<p>FIX: Incorrect display of Websearch (Issue <a href="https://github.com/quicksilver/Quicksilver/issues/39">#39</a>)</p>
+</li>
+<li>
+<p>FIX: Issues 26, 47, 57 and 61 </p>
+</li>
+<li>
+<p>FIX: lingering issue PjRobertson found </p>
+</li>
+<li>
+<p>FIX: single/double tap Modifier Key Activation</p>
+</li>
+</ul>
+<p>And thanks to any other I may have inadvertently missed.</p>
