@@ -820,7 +820,7 @@
 		4D8A0B3410AB23B6006AF163 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /tmp/QS;
+			dstPath = $QS_BUILD_ROOT;
 			dstSubfolderSpec = 0;
 			files = (
 				4D8A0B3F10AB2404006AF163 /* Configuration in CopyFiles */,
