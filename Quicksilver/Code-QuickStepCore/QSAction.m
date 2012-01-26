@@ -104,7 +104,12 @@ static BOOL gModifiersAreIgnored;
 // end patch
 
 - (NSMutableDictionary*)actionDict {
-    return [self objectForType:QSActionType];
+    NSMutableDictionary *dict = [self objectForType:QSActionType];
+    if (!dict) {
+        dict = [[NSMutableDictionary alloc] init];
+        [self setObject:dict forType:QSActionType];
+    }
+    return dict;
 }
 
 - (id)objectForKey:(NSString*)key {
