@@ -1841,8 +1841,10 @@ NSMutableDictionary *bindingsDict = nil;
             object = [(QSRankedObject *)object object];
         }
         if ([object validPaths]) {
+            [NSApp activateIgnoringOtherApps:YES];
             // makeKeyAndOrderFront closes the QS interface. This way, the interface stays open behind the preview panel
             [[QLPreviewPanel sharedPreviewPanel] orderFront:nil];
+            [[QLPreviewPanel sharedPreviewPanel] makeKeyWindow];
         }
         else {
             NSBeep();
@@ -1924,7 +1926,12 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (BOOL)previewPanel:(QLPreviewPanel *)panel handleEvent:(NSEvent *)event
 {
-    return YES;
+    NSString *key = [event charactersIgnoringModifiers];
+    if (([key isEqual:@"y"] && [event modifierFlags] & NSCommandKeyMask)) {
+        [self togglePreviewPanel:nil];
+        return YES;
+    }
+    return NO;
 }
 
 // This delegate method provides the rect on screen from which the panel will zoom.
@@ -1939,4 +1946,5 @@ NSMutableDictionary *bindingsDict = nil;
     imageRect.origin.y = windowFrame.origin.y + imageRect.origin.y;
     return imageRect;
 }
+
 @end
