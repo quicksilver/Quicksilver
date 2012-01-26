@@ -343,9 +343,14 @@
 		return [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@"untitled folder"]];
 	} else if ([action isEqualToString:kFileMoveToAction] || [action isEqualToString:kFileCopyToAction]) {
 		// We only want folders for the move to / copy to actions (can't move to anything else)
-		NSArray *fileObjects = [[QSLibrarian sharedInstance] arrayForType:QSFilePathType];
+        NSArray *fileObjects = [[QSLibrarian sharedInstance] arrayForType:QSFilePathType];
+        NSMutableArray *mutableFileObjects = [NSMutableArray arrayWithCapacity:[fileObjects count]];
+        [mutableFileObjects addObjectsFromArray:fileObjects];
 		BOOL isDirectory;
-		for(QSObject *thisObject in fileObjects) {
+        QSObject *currentFolderObject = [QSObject fileObjectWithPath:[[[[dObject splitObjects] lastObject] singleFilePath] stringByDeletingLastPathComponent]];
+        [mutableFileObjects removeObject:currentFolderObject];
+        [mutableFileObjects insertObject:currentFolderObject atIndex:0];
+		for(QSObject *thisObject in mutableFileObjects) {
 			NSString *path = [thisObject singleFilePath];
 			if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory]) {
 				if (isDirectory && ![[path pathExtension] length])
