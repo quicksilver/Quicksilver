@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">11D46</string>
+		<string key="IBDocument.SystemVersion">11D50</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1938</string>
 		<string key="IBDocument.AppKitVersion">1138.32</string>
 		<string key="IBDocument.HIToolboxVersion">568.00</string>
@@ -708,7 +708,18 @@
 								</object>
 								<int key="NSPeriodicDelay">400</int>
 								<int key="NSPeriodicInterval">75</int>
-								<nil key="NSMenuItem"/>
+								<object class="NSMenuItem" key="NSMenuItem" id="965330973">
+									<reference key="NSMenu" ref="804124846"/>
+									<string key="NSTitle">Normal</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<int key="NSState">1</int>
+									<reference key="NSOnImage" ref="24320793"/>
+									<reference key="NSMixedImage" ref="658238179"/>
+									<string key="NSAction">_popUpItemAction:</string>
+									<int key="NSTag">1</int>
+									<reference key="NSTarget" ref="274069028"/>
+								</object>
 								<bool key="NSMenuItemRespectAlignment">YES</bool>
 								<object class="NSMenu" key="NSMenu" id="804124846">
 									<object class="NSMutableString" key="NSTitle">
@@ -716,17 +727,7 @@
 									</object>
 									<object class="NSMutableArray" key="NSMenuItems">
 										<bool key="EncodedWithXMLCoder">YES</bool>
-										<object class="NSMenuItem" id="965330973">
-											<reference key="NSMenu" ref="804124846"/>
-											<string key="NSTitle">Normal</string>
-											<string key="NSKeyEquiv"/>
-											<int key="NSMnemonicLoc">2147483647</int>
-											<reference key="NSOnImage" ref="24320793"/>
-											<reference key="NSMixedImage" ref="658238179"/>
-											<string key="NSAction">_popUpItemAction:</string>
-											<int key="NSTag">1</int>
-											<reference key="NSTarget" ref="274069028"/>
-										</object>
+										<reference ref="965330973"/>
 										<object class="NSMenuItem" id="786746326">
 											<reference key="NSMenu" ref="804124846"/>
 											<string key="NSTitle">Select Next Result</string>
@@ -773,7 +774,7 @@
 										</object>
 										<object class="NSMenuItem" id="22456819">
 											<reference key="NSMenu" ref="804124846"/>
-											<string key="NSTitle">Quick Look Item</string>
+											<string key="NSTitle">Quick Look</string>
 											<string key="NSKeyEquiv"/>
 											<int key="NSMnemonicLoc">2147483647</int>
 											<reference key="NSOnImage" ref="24320793"/>
@@ -784,7 +785,6 @@
 										</object>
 									</object>
 								</object>
-								<int key="NSSelectedIndex">-1</int>
 								<int key="NSPreferredEdge">3</int>
 								<bool key="NSUsesItemFromMenu">YES</bool>
 								<bool key="NSAltersState">YES</bool>
@@ -1583,7 +1583,6 @@
 							<reference ref="126931782"/>
 							<reference ref="621610687"/>
 							<reference ref="386934001"/>
-							<reference ref="151921610"/>
 							<reference ref="242277331"/>
 							<reference ref="6514072"/>
 							<reference ref="524028010"/>
@@ -1603,6 +1602,7 @@
 							<reference ref="248346902"/>
 							<reference ref="56014405"/>
 							<reference ref="525749660"/>
+							<reference ref="151921610"/>
 						</object>
 						<reference key="parent" ref="755988772"/>
 					</object>
