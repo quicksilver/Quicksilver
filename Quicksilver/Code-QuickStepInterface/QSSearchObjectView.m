@@ -1022,6 +1022,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (BOOL)resignFirstResponder {  
+    
 	//NSLog(@"resign first");
 	if ([self currentEditor]) {
 		// NSLog(@"resign first with monkey %@", self);
@@ -1237,8 +1238,7 @@ NSMutableDictionary *bindingsDict = nil;
      editor = nil;
      }
 	 */
-//	NSLog(@"The Event is...: %@\ and currentEditor: %@ ",theEvent,[[[self control] dSelector] currentEditor]);
-	
+    
 	if ([theEvent clickCount] > 1) {
 		[(QSInterfaceController *)[[self window] windowController] executeCommand:self];
 	} else {
@@ -1279,6 +1279,9 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)scrollWheel:(NSEvent *)theEvent {
 	// ***warning  * this still goes to the wrong view if over another search view
+    if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
+        return;
+    }
 	if (![[resultController window] isVisible]) {
 		[self showResultView:self];
 	}

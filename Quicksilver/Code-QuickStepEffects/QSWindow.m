@@ -201,6 +201,9 @@
 }
 
 - (BOOL)canBecomeMainWindow {
+    if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
+        [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
+    }
 	return YES;
 }
 
