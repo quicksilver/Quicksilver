@@ -346,11 +346,8 @@
         NSMutableArray *fileObjects = [[[QSLibrarian sharedInstance] arrayForType:QSFilePathType] mutableCopy];
 		BOOL isDirectory;
         NSString *currentFolderPath = [[[[dObject splitObjects] lastObject] singleFilePath] stringByDeletingLastPathComponent];
-        QSObject *currentFolderObject = [QSObject objectWithIdentifier:currentFolderPath];
-        if (!currentFolderObject) {
-            // if it wasn't in the catalog, create it from scratch
-            currentFolderObject = [QSObject fileObjectWithPath:currentFolderPath];
-        }
+        // if it wasn't in the catalog, create it from scratch
+        QSObject *currentFolderObject = [QSObject fileObjectWithPath:currentFolderPath];
         [fileObjects removeObject:currentFolderObject];
         [fileObjects insertObject:currentFolderObject atIndex:0];
         NSWorkspace *ws = [[NSWorkspace sharedWorkspace] retain];
