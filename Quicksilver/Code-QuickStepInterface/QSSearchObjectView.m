@@ -293,8 +293,8 @@ NSMutableDictionary *bindingsDict = nil;
 		[(id)[self controller] searchView:self changedResults:newResultArray];
 }
 
-- (NSArray *)searchArray { return searchArray;  }
-- (void)setSearchArray:(NSArray *)newSearchArray {
+- (NSMutableArray *)searchArray { return searchArray;  }
+- (void)setSearchArray:(NSMutableArray *)newSearchArray {
     if (searchArray != newSearchArray) {
         [searchArray release];
         searchArray = [newSearchArray retain];
