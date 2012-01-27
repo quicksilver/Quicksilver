@@ -580,7 +580,16 @@ NSMutableDictionary *bindingsDict = nil;
 #pragma mark -
 #pragma mark Object Value
 - (void)selectObjectValue:(QSObject *)newObject {
-	if (newObject != [self objectValue]) {
+    QSObject *currentObject = [self objectValue];
+    QSObject *tempNewObject;
+    QSObject *tempCurrentObject;
+    if ([newObject isKindOfClass:[QSRankedObject class]]) {
+        tempNewObject = [(QSRankedObject *)newObject object];
+    }
+    if ([currentObject isKindOfClass:[QSRankedObject class]]) {
+        tempCurrentObject = [(QSRankedObject *)currentObject object];
+    }
+	if ((tempNewObject ? tempNewObject : newObject) != (tempCurrentObject ? tempCurrentObject : currentObject)) {
 		[self updateHistory];
 		[super setObjectValue:newObject];
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
