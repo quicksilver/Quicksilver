@@ -1929,9 +1929,17 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (BOOL)previewPanel:(QLPreviewPanel *)panel handleEvent:(NSEvent *)event
 {
+    // Toggle the QL panel with cmd Y
     NSString *key = [event charactersIgnoringModifiers];
-    if (([key isEqual:@"y"] && [event modifierFlags] & NSCommandKeyMask)) {
+    unichar c = [key characterAtIndex:0];
+    if ([key isEqual:@"y"] && [event modifierFlags] & NSCommandKeyMask) {
         [self togglePreviewPanel:nil];
+        return YES;
+    }
+    // Allow the defualt action to be executed (if enter is pressed)
+    else if (c == NSEnterCharacter || c ==  NSCarriageReturnCharacter) {
+        [self interpretKeyEvents:[NSArray arrayWithObject:event]];
+        [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
         return YES;
     }
     return NO;
