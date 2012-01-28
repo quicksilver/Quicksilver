@@ -46,26 +46,26 @@ BOOL QSApplicationCompletedLaunch = NO;
 }
 
 - (id)init {
+	char *relaunchingFromPid = getenv("relaunchFromPid");
+	if (relaunchingFromPid) {
+		unsetenv("relaunchFromPid");
+		int pid = atoi(relaunchingFromPid);
+		int i;
+		for (i = 0; !kill(pid, 0) && i<50; i++) usleep(100000);
+	}
 	if ((self = [super init])) {
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         
 	// Honor dock hidden preference if new version
 	isUIElement = [self shouldBeUIElement];
-	if (!isUIElement && [defaults boolForKey:kHideDockIcon]) {
+        if (isUIElement && [defaults objectForKey:kHideDockIcon] && ![defaults boolForKey:kHideDockIcon]) {
 		if (![defaults objectForKey:@"QSShowMenuIcon"])
-			[defaults setInteger:1 forKey:@"QSShowMenuIcon"];
+			[defaults setInteger:0 forKey:@"QSShowMenuIcon"];
 
-	  NSLog(@"Relaunching to honor Dock Icon Preference");
-		if ([self setShouldBeUIElement:YES]) {
-#ifndef DEBUG
-			[self relaunch:nil];
-#endif
-		} else {
-			[defaults setBool:NO forKey:kHideDockIcon];
-		}
+            [self setShouldBeUIElement:NO];
 	}
-	}
+    }
 	return self;
 }
 
