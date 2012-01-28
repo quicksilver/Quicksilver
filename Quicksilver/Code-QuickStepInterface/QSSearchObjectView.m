@@ -1868,7 +1868,6 @@ NSMutableDictionary *bindingsDict = nil;
         [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
     } else {
         if ([self canQuicklookCurrentObject]) {
-            // makeKeyAndOrderFront closes the QS interface. This way, the interface stays open behind the preview panel
             [NSApp activateIgnoringOtherApps:YES];
             [[QLPreviewPanel sharedPreviewPanel] enterFullScreenMode:nil withOptions:nil];
         }
