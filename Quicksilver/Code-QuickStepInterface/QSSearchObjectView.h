@@ -197,6 +197,14 @@ typedef enum QSSearchMode {
 @end
 
 @interface QSSearchObjectView (Quicklook) <QLPreviewPanelDataSource, QLPreviewPanelDelegate>
+/*!
+ @canQuicklookCurrentObject
+ @abstract Checks an object's eligibility for Quick Looking
+ @discussion returns whether the currently selected object can by shown in the Quicklook panel
+ @result YES if the object is a file or URL object, otherwise NO
+ */
+- (BOOL)canQuicklookCurrentObject;
+
 - (IBAction)togglePreviewPanel:(id)previewPanel;
 - (IBAction)togglePreviewPanelFullScreen:(id)previewPanel;
 @end

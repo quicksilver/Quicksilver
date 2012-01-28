@@ -1833,17 +1833,24 @@ NSMutableDictionary *bindingsDict = nil;
 
 @implementation QSSearchObjectView (Quicklook) 
 
+
+-(BOOL)canQuicklookCurrentObject {
+    QSObject *object = [self objectValue];
+    if ([object isKindOfClass:[QSRankedObject class]]) {
+        object = [(QSRankedObject *)object object];
+    }
+    if ([object validPaths] || [[object primaryType] isEqualToString:QSURLType]) {
+        return YES;
+    }
+    return NO;
+}
+
 - (IBAction)togglePreviewPanel:(id)previewPanel
 {
     if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
         [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
     } else {
-        // Check to see if the object to preview is a file (can only preview those)
-        QSObject *object = [self objectValue];
-        if ([object isKindOfClass:[QSRankedObject class]]) {
-            object = [(QSRankedObject *)object object];
-        }
-        if ([object validPaths]) {
+       if ([self canQuicklookCurrentObject]) {
             [NSApp activateIgnoringOtherApps:YES];
             // makeKeyAndOrderFront closes the QS interface. This way, the interface stays open behind the preview panel
             [[QLPreviewPanel sharedPreviewPanel] orderFront:nil];
@@ -1860,12 +1867,7 @@ NSMutableDictionary *bindingsDict = nil;
     if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
         [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
     } else {
-        // Check to see if the object to preview is a file (can only preview those)
-        QSObject *object = [self objectValue];
-        if ([object isKindOfClass:[QSRankedObject class]]) {
-            object = [(QSRankedObject *)object object];
-        }
-        if ([object validPaths]) {
+        if ([self canQuicklookCurrentObject]) {
             // makeKeyAndOrderFront closes the QS interface. This way, the interface stays open behind the preview panel
             [NSApp activateIgnoringOtherApps:YES];
             [[QLPreviewPanel sharedPreviewPanel] enterFullScreenMode:nil withOptions:nil];
