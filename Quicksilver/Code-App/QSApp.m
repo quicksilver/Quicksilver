@@ -59,7 +59,7 @@ BOOL QSApplicationCompletedLaunch = NO;
         
 	// Honor dock hidden preference if new version
 	isUIElement = [self shouldBeUIElement];
-    if (isUIElement && (![defaults objectForKey:kHideDockIcon] || ![defaults boolForKey:kHideDockIcon])) {
+    if (isUIElement && ![defaults boolForKey:kHideDockIcon]) {
         [defaults setObject:[NSNumber numberWithBool:NO] forKey:kHideDockIcon];
         if (![defaults objectForKey:@"QSShowMenuIcon"])
 			[defaults setInteger:0 forKey:@"QSShowMenuIcon"];
