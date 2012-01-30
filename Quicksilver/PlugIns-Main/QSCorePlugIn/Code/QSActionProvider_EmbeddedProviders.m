@@ -343,15 +343,25 @@
 		return [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@"untitled folder"]];
 	} else if ([action isEqualToString:kFileMoveToAction] || [action isEqualToString:kFileCopyToAction]) {
 		// We only want folders for the move to / copy to actions (can't move to anything else)
-		NSArray *fileObjects = [[QSLibrarian sharedInstance] arrayForType:QSFilePathType];
+        NSMutableArray *fileObjects = [[[QSLibrarian sharedInstance] arrayForType:QSFilePathType] mutableCopy];
 		BOOL isDirectory;
+        NSString *currentFolderPath = [[[[dObject splitObjects] lastObject] singleFilePath] stringByDeletingLastPathComponent];
+        // if it wasn't in the catalog, create it from scratch
+        QSObject *currentFolderObject = [QSObject fileObjectWithPath:currentFolderPath];
+        [fileObjects removeObject:currentFolderObject];
+        [fileObjects insertObject:currentFolderObject atIndex:0];
+        NSWorkspace *ws = [[NSWorkspace sharedWorkspace] retain];
+        NSFileManager *fm = [[NSFileManager alloc] init];
 		for(QSObject *thisObject in fileObjects) {
 			NSString *path = [thisObject singleFilePath];
-			if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory]) {
-				if (isDirectory && ![[path pathExtension] length])
+			if ([fm fileExistsAtPath:path isDirectory:&isDirectory]) {
+				if (isDirectory && ![ws isFilePackageAtPath:path])
 					[validIndirects addObject:thisObject];
 			}
 		}
+        [fileObjects release];
+        [ws release];
+        [fm release];
 		return validIndirects;
 	}
 	return nil;
