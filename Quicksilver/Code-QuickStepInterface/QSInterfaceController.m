@@ -515,29 +515,8 @@
         dObject = [(QSRankedObject*)dObject object];
     if( [iObject isKindOfClass:[QSRankedObject class]] )
         iObject = [(QSRankedObject*)iObject object];
-	QSObject *returnValue = [action performOnDirectObject:dObject indirectObject:iObject];
-	if (returnValue) {
-        // if the action returns something, wipe out the first pane
-        /* (The main object would get replaced anyway. This is only done to
-           remove objects selected by the comma trick before the action was run.) */
-        [self clearObjectView:dSelector];
-        // put the result in the first pane and in the results list
-        [dSelector performSelectorOnMainThread:@selector(setObjectValue:) withObject:returnValue waitUntilDone:YES];
-		if (action) {
-            if ([action isKindOfClass:[QSRankedObject class]] && [(QSRankedObject *)action object]) {
-                QSAction* rankedAction = [(QSRankedObject *)action object];
-                if (rankedAction != action) {
-                    [rankedAction retain];
-                    [action release];
-                    action = rankedAction;
-                }
-            }
-            // bring the interface back to show the result
-            if ([action displaysResult]) {
-                [self actionActivate:nil];
-            }
-        }
-	}
+	QSCommand *command = [QSCommand commandWithDirectObject:dObject actionObject:action indirectObject:iObject];
+	[command execute];
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"Command executed (%dms) ", (int)(-[startDate timeIntervalSinceNow] *1000));
 #endif

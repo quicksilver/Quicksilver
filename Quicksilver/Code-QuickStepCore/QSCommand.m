@@ -398,6 +398,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"Execute Command: %@", self);
 #endif
+	QSInterfaceController *controller = [(QSController *)[NSApp delegate] interfaceController];
 	int argumentCount = [(QSAction *)actionObject argumentCount];
 	if (argumentCount == 2 && (!indirectObject || [[indirectObject primaryType] isEqualToString:QSTextProxyType])) {
 		// indirect object required, but is either missing or asking for text input
@@ -414,10 +415,37 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 			}
 		}
 		// use Quicksilver's interface to get the missing object
-		[[(QSController *)[NSApp delegate] interfaceController] executePartialCommand:[NSArray arrayWithObjects:directObject, actionObject, indirectObject, nil]];
+		[controller executePartialCommand:[NSArray arrayWithObjects:directObject, actionObject, indirectObject, nil]];
 	} else {
 		// indirect object is either present, or unnecessary - run the action
-		return [actionObject performOnDirectObject:directObject indirectObject:indirectObject];
+		QSObject *returnValue = [actionObject performOnDirectObject:directObject indirectObject:indirectObject];
+		if (returnValue) {
+			// if the action returns something, wipe out the first pane
+			/* (The main object would get replaced anyway. This is only done to
+			 remove objects selected by the comma trick before the action was run.) */
+			[controller clearObjectView:[controller dSelector]];
+			// put the result in the first pane and in the results list
+			[[controller dSelector] performSelectorOnMainThread:@selector(setObjectValue:) withObject:returnValue waitUntilDone:YES];
+			if (actionObject) {
+				if ([actionObject isKindOfClass:[QSRankedObject class]] && [(QSRankedObject *)actionObject object]) {
+					QSAction* rankedAction = [(QSRankedObject *)actionObject object];
+					if (rankedAction != actionObject) {
+						[rankedAction retain];
+						[actionObject release];
+						actionObject = rankedAction;
+					}
+				}
+				// bring the interface back to show the result
+				if ([actionObject displaysResult]) {
+					// send focus to the second pane if the user has set the preference
+					if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSJumpToActionOnResult"]) {
+						[controller actionActivate:nil];
+					}
+					[controller showMainWindow:controller];
+				}
+			}
+			return returnValue;
+		}
 	}
 	return nil;
 }
