@@ -399,33 +399,29 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	if (VERBOSE) NSLog(@"Execute Command: %@", self);
 #endif
 	int argumentCount = [(QSAction *)actionObject argumentCount];
-	if (argumentCount<2) {
-		return [actionObject performOnDirectObject:directObject indirectObject:indirectObject];
-	} else if (argumentCount == 2) {
-		if ([indirectObject objectForType:QSTextProxyType]) {
-			[[(QSController *)[NSApp delegate] interfaceController] executePartialCommand:[NSArray arrayWithObjects:directObject, actionObject, indirectObject, nil]];
-		} else if (indirectObject) {
-			return [aObject performOnDirectObject:directObject indirectObject:indirectObject];
-		} else {
-			if (!indirectObject) {
-				NSString *selectClass = [[NSUserDefaults standardUserDefaults] stringForKey:@"QSUnidentifiedObjectSelector"];
-				id handler = [QSReg getClassInstance:selectClass];
-				NSLog(@"handler %@ %@", selectClass, handler);
-				if (handler && [handler respondsToSelector:@selector(completeAndExecuteCommand:)]) {
-					[handler completeAndExecuteCommand:self];
-					return nil;
-				}
+	if (argumentCount == 2 && (!indirectObject || [[indirectObject primaryType] isEqualToString:QSTextProxyType])) {
+		// indirect object required, but is either missing or asking for text input
+		if (!indirectObject) {
+			// attempt to use the Missing Object Selector
+			NSString *selectClass = [[NSUserDefaults standardUserDefaults] stringForKey:@"QSUnidentifiedObjectSelector"];
+			id handler = [QSReg getClassInstance:selectClass];
+#ifdef DEBUG
+			NSLog(@"handler %@ %@", selectClass, handler);
+#endif
+			if (handler && [handler respondsToSelector:@selector(completeAndExecuteCommand:)]) {
+				[handler completeAndExecuteCommand:self];
+				return nil;
 			}
-			[[(QSController *)[NSApp delegate] interfaceController] executePartialCommand:[NSArray arrayWithObjects:directObject, actionObject, indirectObject, nil]];
 		}
-		return nil;
+		// use Quicksilver's interface to get the missing object
+		[[(QSController *)[NSApp delegate] interfaceController] executePartialCommand:[NSArray arrayWithObjects:directObject, actionObject, indirectObject, nil]];
+	} else {
+		// indirect object is either present, or unnecessary - run the action
+		return [actionObject performOnDirectObject:directObject indirectObject:indirectObject];
 	}
 	return nil;
-//		NS_DURING
-//	NS_HANDLER
-//		;
-//	NS_ENDHANDLER
 }
+
 - (void)executeFromMenu:(id)sender {
 	//NSLog(@"sender %@", NSStringFromClass([sender class]) );
 	QSObject *object = [self execute];
