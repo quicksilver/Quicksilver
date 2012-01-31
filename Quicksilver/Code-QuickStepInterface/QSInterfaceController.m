@@ -525,6 +525,8 @@
 }
 
 - (void)executePartialCommand:(NSArray *)array {
+	// remove objects previously selected by the comma trick
+	[self clearObjectView:dSelector];
 	[dSelector setObjectValue:[array objectAtIndex:0]];
 	if ([array count] == 1) {
 		[self updateActionsNow];
