@@ -501,7 +501,7 @@ static QSController *defaultController = nil;
 
 - (void)receiveObject:(QSObject *)object {
 	[[self interfaceController] selectObject:object];
-	[self activateInterface:self];
+    [[self interfaceController] actionActivate:nil];
 }
 
 - (NSObject *)dropletProxy { return dropletProxy;  }
