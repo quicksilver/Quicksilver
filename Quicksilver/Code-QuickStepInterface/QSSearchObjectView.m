@@ -1931,21 +1931,28 @@ NSMutableDictionary *bindingsDict = nil;
 - (BOOL)previewPanel:(QLPreviewPanel *)panel handleEvent:(NSEvent *)event
 {
     // Toggle the QL panel with cmd Y
+    if (![event type]  == NSKeyDown) {
+        return NO;
+    }
     NSString *key = [event charactersIgnoringModifiers];
-    unichar c = [key characterAtIndex:0];
-    if ([key isEqual:@"y"] && [event modifierFlags] & NSCommandKeyMask) {
-        // Cmd + Optn + Y shortcut (full screen)
-        if ([event modifierFlags] & NSAlternateKeyMask) {
+    NSUInteger eventModifierFlags = [event modifierFlags];
+    if ([key isEqual:@"y"] && eventModifierFlags & NSCommandKeyMask) {
+        if (eventModifierFlags & NSAlternateKeyMask) {
+            // Cmd + Optn + Y shortcut (full screen)
             [self togglePreviewPanelFullScreen:nil];
-        }
-        else {
+        } else {
+            // Cmd + Y shortcut (small quicklook panel)
             [self togglePreviewPanel:nil];
         }
         return YES;
     }
-    // Allow the defualt action to be executed (if enter is pressed)
-    else if (c == NSEnterCharacter || c ==  NSCarriageReturnCharacter) {
-        [self interpretKeyEvents:[NSArray arrayWithObject:event]];
+    // Allow the defualt action to be executed (if CMD+ENTR or ENTR is pressed)
+    if ([key isEqualToString:@"\r"] && (eventModifierFlags & NSCommandKeyMask || ((eventModifierFlags & NSDeviceIndependentModifierFlagsMask) == 0))) {
+        if (eventModifierFlags & NSCommandKeyMask) {
+            [self insertNewline:nil];
+        } else {
+            [self interpretKeyEvents:[NSArray arrayWithObject:event]];
+        }
         [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
         return YES;
     }
