@@ -1864,7 +1864,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (IBAction)togglePreviewPanelFullScreen:(id)previewPanel
 {
-    if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
+    if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isInFullScreenMode]) {
         [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
     } else {
         if ([self canQuicklookCurrentObject]) {
@@ -1934,7 +1934,13 @@ NSMutableDictionary *bindingsDict = nil;
     NSString *key = [event charactersIgnoringModifiers];
     unichar c = [key characterAtIndex:0];
     if ([key isEqual:@"y"] && [event modifierFlags] & NSCommandKeyMask) {
-        [self togglePreviewPanel:nil];
+        // Cmd + Optn + Y shortcut (full screen)
+        if ([event modifierFlags] & NSAlternateKeyMask) {
+            [self togglePreviewPanelFullScreen:nil];
+        }
+        else {
+            [self togglePreviewPanel:nil];
+        }
         return YES;
     }
     // Allow the defualt action to be executed (if enter is pressed)
