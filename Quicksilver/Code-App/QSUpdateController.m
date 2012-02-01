@@ -154,7 +154,7 @@ typedef enum {
             if (!force && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSDownloadUpdatesInBackground"]) {
                 [self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
             } else {
-                int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"New Version", nil], @"A new version of Quicksilver, version %@, is available; would you like to download it now?", @"Get New Version", @"Cancel", nil, newVersion); //, @"More Info");
+                int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"New Version of Quicksilver Available", nil], @"Version %@ is available - you have %@.\nWould you like to update now?", @"Install Update", @"Later", nil, newVersion, [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]); //, @"More Info");
                 if (selection == 1) {
                     [self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
                 } else if (selection == -1) {  //Go to web site
@@ -168,7 +168,7 @@ typedef enum {
             if (!updated) {
                 NSLog(@"Quicksilver is up to date.");
                 if (!quiet)
-                    NSRunInformationalAlertPanel(@"No Updates Available", [NSString stringWithFormat:@"You already have the latest version of Quicksilver (v%@) and all installed plug-ins", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]] , @"OK", nil, nil);
+                    NSRunInformationalAlertPanel(@"No Updates Available", [NSString stringWithFormat:@"You already have the latest version of Quicksilver (%@) and all installed plug-ins", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]] , @"OK", nil, nil);
             }
             return updated;
         break;
