@@ -1930,7 +1930,6 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (BOOL)previewPanel:(QLPreviewPanel *)panel handleEvent:(NSEvent *)event
 {
-    // Toggle the QL panel with cmd Y
     if (![event type]  == NSKeyDown) {
         return NO;
     }
