@@ -85,17 +85,26 @@
 }
 
 - (QSObject *)doAppleScriptRunAction:(QSObject *)dObject withArguments:(QSObject *)iObject {
-	[self runAppleScript:[dObject singleFilePath] withArguments:iObject];
+    NSString *path = [dObject singleFilePath];
+    if (path) {
+        [self runAppleScript:[dObject singleFilePath] withArguments:iObject];
+    }
 	return nil;
 }
 
 - (QSObject *)doAppleScriptRunWithArgumentsAction:(QSObject *)dObject withArguments:(QSObject *)iObject {
-	[self runAppleScript:[dObject singleFilePath] withArguments:iObject];
+    NSString *path = [dObject singleFilePath];
+    if (path) {
+        [self runAppleScript:[dObject singleFilePath] withArguments:iObject];
+    }
 	return nil;
 }
 
 - (QSObject *)doAppleScriptRunAction:(QSObject *)dObject {
-	[self runAppleScript:[dObject singleFilePath] withArguments:nil];
+    NSString *path = [dObject singleFilePath];
+    if (path) {
+        [self runAppleScript:[dObject singleFilePath] withArguments:nil];
+    }
 	return nil;
 }
 
@@ -247,7 +256,7 @@
     QSAction *action = [QSAction actionWithIdentifier:actionId];
 	NSString *scriptPath = [action objectForKey:kActionScript];
     
-    if ([actionId isEqualToString:kAppleScriptOpenTextAction])
+    if ([actionId isEqualToString:kAppleScriptOpenTextAction] || [actionId isEqualToString:kAppleScriptOpenFilesAction])
         argumentCount = 2;
     
     // TODO: figure out why all this code is here - scriptPath always seems to be nil

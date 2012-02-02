@@ -461,6 +461,7 @@
 	if ((int) getenv("QSDisableExternalPlugIns")) {
 		NSLog(@"External PlugIns Disabled");
 	} else {
+        /* Build our plugin search path */
 		NSArray *librarySearchPaths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSAllDomainsMask - NSSystemDomainMask, YES);
 
 		for (NSString *currPath in librarySearchPaths) {
@@ -505,12 +506,13 @@
 	}
 	return YES;
 }
-/*!
-@method
- @abstract  (brief description)
- @discussion (comprehensive description)
- */
 
+/** Check if a plugin's dependencies have been met
+ * Returns NO if a plugin has unmet dependencies, YES otherwise
+ * 
+ * @note The dependency will be registered in dependingPlugIns, in case the
+ * missing plugin ever loads.
+ */
 - (BOOL)plugInMeetsDependencies:(QSPlugIn *)plugIn; {
 	NSArray *unmet = [plugIn unmetDependencies];
 
@@ -529,6 +531,7 @@
 	return YES;
 }
 
+/** Check if a plugin is the most recent one in a list of bundles */
 - (BOOL)plugInIsMostRecent:(QSPlugIn *)plugIn inGroup:(NSDictionary *)loadingBundles; {
 	//	if (![bundle isKindOfClass:[NSBundle class]]) return NO;
     
@@ -608,6 +611,11 @@
 	return [self checkForPlugInUpdatesForVersion:nil];
 }
 
+/** Start a plugin check with a specific application version
+ *
+ * If plugin updates are available, the user is presented with a dialog,
+ * then installation proceeds
+ */
 - (BOOL)checkForPlugInUpdatesForVersion:(NSString *)version {
 	if (!plugInWebData)
 		[self loadWebPlugInInfo];

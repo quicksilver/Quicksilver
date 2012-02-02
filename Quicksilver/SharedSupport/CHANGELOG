@@ -1,3 +1,44 @@
+Changes - ß64 (3913)
+-------
+
+  * FIX: Prevent all plug-ins from being deleted on launch
+  
+  * FIX: Prevent some interfaces from showing `<QSCommand 0xffff>` as the command
+  
+  * FIX: The plug-in download progress bar works
+  
+  * FIX: Accented characters no longer wipe out the search string (Issue #539)
+  
+  * FIX: Latest Download proxy object works with a symlinked Downloads folder (Issue #596, #616)
+  
+  * FIX: Correctly display dynamically generated details for objects and actions (Issue #591)
+  
+  * FIX: Correctly notify the user when there's no internet connection (Issue #640)
+  
+  * FIX: Prevent a crash when trying to run an AppleScript that was moved or deleted
+  
+  * FIX: Better handling of Dock icon preferences and crash protection (Issue #587)
+  
+  * CHANGE: If the name and details are identical, don't show both
+  
+  * CHANGE: Simplified the wording in the Setup Assistant
+  
+  * CHANGE: Updated QSDroplet icon to reflect the new style
+
+Changes - ß63 (3912)
+-------
+
+  * FIX: Fixed a serious bug in ß62 that could cause user's custom catalogs to be erased
+  
+  * FIX: Fixed a bugin Quicksilver's internal updating mechanism. **Note:** ß63 will need to be downloaded manually by all users
+  
+  * FIX: Ensured the new 'Clear caches' option in the crash dialogue only clears the catalog cache (Issue #582)
+  
+  * FIX: Fixed a bug that could cause Quicksilver to launch twice when honouring the dock icon preferences (Issue #585)
+
+Changes - ß62 (3901)
+-------
+  
   * CHANGE: So called "advanced features" are now just on all the time (Issues #479, #341)
   
   * CHANGE: Proxy objects are enabled by default for new users (Issue #479)

@@ -389,14 +389,15 @@ NSSize QSMaxIconSize;
 		details = [handler detailsOfObject:self];
 	}
 
-    if (details)
-        details = [[self bundle] safeLocalizedStringForKey:details
-                                                     value:nil
-                                                     table:@"QSObject.details"];    
-    else
-        details = [[self bundle] safeLocalizedStringForKey:[self identifier]
-                                                     value:nil
-                                                     table:@"QSObject.details"];
+	NSBundle *mybundle = [self bundle];
+	// this is almost always (null) so test it first
+	if (mybundle) {
+		if (details) {
+			details = [mybundle safeLocalizedStringForKey:details value:details table:@"QSObject.details"];
+		} else {
+			details = [mybundle safeLocalizedStringForKey:[self identifier] value:details table:@"QSObject.details"];
+		}
+	}
     if (details != nil) {
         [self setObject:details forMeta:kQSObjectDetails];
     }
@@ -856,10 +857,6 @@ containg multiple objects with the same identifier. Best efforts should be made 
 	globalLastAccess = lastAccess;
 	[iconLoadedArray addObject:self];
 
-#ifdef DEBUG
-	if (VERBOSE) NSLog(@"Load Icon for %s", [self gdbDataFormatter]);
-#endif
-	
 	if (namedIcon) {
     NSImage *image = nil;
 	  if ([namedIcon isEqualToString:@"ProxyIcon"]) {

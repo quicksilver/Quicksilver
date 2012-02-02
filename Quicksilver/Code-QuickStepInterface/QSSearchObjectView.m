@@ -293,8 +293,8 @@ NSMutableDictionary *bindingsDict = nil;
 		[(id)[self controller] searchView:self changedResults:newResultArray];
 }
 
-- (NSArray *)searchArray { return searchArray;  }
-- (void)setSearchArray:(NSArray *)newSearchArray {
+- (NSMutableArray *)searchArray { return searchArray;  }
+- (void)setSearchArray:(NSMutableArray *)newSearchArray {
     if (searchArray != newSearchArray) {
         [searchArray release];
         searchArray = [newSearchArray retain];
@@ -580,7 +580,16 @@ NSMutableDictionary *bindingsDict = nil;
 #pragma mark -
 #pragma mark Object Value
 - (void)selectObjectValue:(QSObject *)newObject {
-	if (newObject != [self objectValue]) {
+    QSObject *currentObject = [self objectValue];
+    QSObject *tempNewObject;
+    QSObject *tempCurrentObject;
+    if ([newObject isKindOfClass:[QSRankedObject class]]) {
+        tempNewObject = [(QSRankedObject *)newObject object];
+    }
+    if ([currentObject isKindOfClass:[QSRankedObject class]]) {
+        tempCurrentObject = [(QSRankedObject *)currentObject object];
+    }
+	if ((tempNewObject ? tempNewObject : newObject) != (tempCurrentObject ? tempCurrentObject : currentObject)) {
 		[self updateHistory];
 		[super setObjectValue:newObject];
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
@@ -1536,14 +1545,7 @@ NSMutableDictionary *bindingsDict = nil;
 	[super doCommandBySelector:aSelector];
 }
 
-- (void)setMarkedText:(id)aString selectedRange:(NSRange)selRange {
-	if ([(NSString *)aString length]) {
-		NSLog(@"setmark %@ %d, %d", aString, selRange.location, selRange.length);
-		aString = [[aString purifiedString] lowercaseString];
-		[partialString setString:aString];
-		[self partialStringChanged];
-	}
-}
+- (void)setMarkedText:(id)aString selectedRange:(NSRange)selRange {}
 
 - (void)unmarkText {}
 - (BOOL)hasMarkedText { return NO; }

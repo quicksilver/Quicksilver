@@ -86,8 +86,8 @@ typedef enum QSSearchMode {
 
 - (NSMutableArray *)sourceArray;
 - (void)setSourceArray:(NSMutableArray *)newSourceArray;
-- (NSArray *)searchArray;
-- (void)setSearchArray:(NSArray *)newSearchArray;
+- (NSMutableArray *)searchArray;
+- (void)setSearchArray:(NSMutableArray *)newSearchArray;
 - (NSMutableArray *)resultArray;
 - (void)setResultArray:(NSMutableArray *)newResultArray;
 

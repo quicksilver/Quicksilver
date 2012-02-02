@@ -91,11 +91,14 @@ static QSController *defaultController = nil;
 #endif
 
 - (NSString *)applicationSupportFolder {
-	FSRef foundRef;
-	FSFindFolder(kUserDomain, kApplicationSupportFolderType, kDontCreateFolder, &foundRef);
-	unsigned char path[1024];
-	FSRefMakePath(&foundRef, path, sizeof(path) );
-	return [[NSString stringWithUTF8String:(char *)path] stringByAppendingPathComponent:@"Quicksilver"];
+    NSArray *userSupportPathArray = NSSearchPathForDirectoriesInDomains (NSApplicationSupportDirectory, NSUserDomainMask, YES);
+    if ([userSupportPathArray count]) {
+        return [[userSupportPathArray objectAtIndex:0] stringByAppendingPathComponent:@"Quicksilver"];
+    }
+    else {
+        NSLog(@"Unable to find user Application Support folder");
+        return nil;
+    }
 }
 
 - (id)init {
@@ -498,7 +501,7 @@ static QSController *defaultController = nil;
 
 - (void)receiveObject:(QSObject *)object {
 	[[self interfaceController] selectObject:object];
-	[self activateInterface:self];
+    [[self interfaceController] actionActivate:nil];
 }
 
 - (NSObject *)dropletProxy { return dropletProxy;  }
@@ -720,7 +723,7 @@ static QSController *defaultController = nil;
 			NSLog(@"Ignoring crash protection. You most likely hit 'Stop' in Xcode.");
 #endif
 #ifndef DEBUG
-			[alert setInformativeText:@"Sorry, Quicksilver crashed on last use.\nDeleting caches may help solve the problem.\nOtherwise you can try to launch Quicksilver again, or quit and read the FAQ."];
+			[alert setInformativeText:@"Sorry, Quicksilver crashed on last use.\nClearing caches may solve the problem.\nOtherwise you can do nothing and launch Quicksilver normally, or quit and read the FAQ."];
 			[alert addButtonWithTitle:@"Clear Caches"];
 			[alert addButtonWithTitle:@"Read FAQ"];
 			[alert addButtonWithTitle:@"Do Nothing"];
@@ -728,9 +731,9 @@ static QSController *defaultController = nil;
 			switch (buttonClicked) {
 				case NSAlertFirstButtonReturn: {
 					NSError * err = nil;
-					[fm removeItemAtPath:[[NSString stringWithString:@"~/Library/Caches/Quicksilver"] stringByExpandingTildeInPath] error:&err];
+					[fm removeItemAtPath:pIndexLocation error:&err];
 					if (err) {
-						NSLog(@"Error removing Quicksilver caches. Attempting re-launch anyway");
+						NSLog(@"Error removing Quicksilver caches. Attempting re-launch anyway\nError: %@",err);
 					}
 					break;
 				}

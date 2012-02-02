@@ -473,46 +473,52 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 		NSString *abbreviationString = nil;
 		if ([controlView respondsToSelector:@selector(matchedString)])
 			abbreviationString = [(QSSearchObjectView *)controlView matchedString];
-
+        
 		NSString *nameString = nil;
 		NSIndexSet *hitMask = nil;
+        
         id ranker = [drawObject ranker];
-		if (ranker && abbreviationString)
+		if (ranker && abbreviationString) {
 			nameString = [ranker matchedStringForAbbreviation:abbreviationString hitmask:&hitMask inContext:nil];
+        }
 		if (!nameString) nameString = [drawObject displayName];
 		if (!nameString) nameString = @"<Unknown>";
-
+        
 		//NSLog(@"usingname: %@", nameString);
-		NSString *detailsString = [drawObject details];
 		NSSize nameSize = [nameString sizeWithAttributes:nameAttributes];
-		NSSize detailsSize = NSZeroSize;
-		if (detailsString) detailsSize = [detailsString sizeWithAttributes:detailsAttributes];
+        
+        BOOL validDetailsString = NO;
+        
+        NSString *detailsString = [drawObject details];
+        if(detailsString && [detailsString length] && ![detailsString isEqualToString:nameString]) {
+            validDetailsString = YES;
+        }
         
 		BOOL useAlternateColor = [controlView isKindOfClass:[NSTableView class]] && [(NSTableView *)controlView isRowSelected:[(NSTableView *)controlView rowAtPoint:cellFrame.origin]];
-		NSColor *mainColor = (textColor?textColor:(useAlternateColor?[NSColor alternateSelectedControlTextColor] :[NSColor controlTextColor]) );
+		NSColor *mainColor = (textColor?textColor:(useAlternateColor?[NSColor alternateSelectedControlTextColor] :[NSColor controlTextColor]));
 		NSColor *fadedColor = [mainColor colorWithAlphaComponent:0.80];
         
 		NSRect textDrawRect = [self titleRectForBounds:cellFrame];
-
+        
 		NSMutableAttributedString *titleString = [[[NSMutableAttributedString alloc] initWithString:nameString] autorelease];
 		[titleString setAttributes:nameAttributes range:NSMakeRange(0, [titleString length])];
-
+        
 		if (abbreviationString && ![abbreviationString hasPrefix:@"QSActionMnemonic"]) {
 			[titleString addAttribute:NSForegroundColorAttributeName value:fadedColor range:NSMakeRange(0, [titleString length])];
-
+            
 			// Organise displaying the text, underlining the letters typed (in the name)
 			int i = 0;
 			int j = 0;
 			unsigned int hits[[titleString length]];
 			int count = [hitMask getIndexes:(unsigned int *)&hits maxCount:[titleString length] inIndexRange:nil];
 			NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-				mainColor, NSForegroundColorAttributeName,
-				mainColor, NSUnderlineColorAttributeName,
-				[NSNumber numberWithInt:2.0] , NSUnderlineStyleAttributeName,
-				[NSNumber numberWithFloat:1.0] , NSBaselineOffsetAttributeName,
-				nil];
-
-		 //	  NSLog(@"hit %@ %@", [titleString string] , hitMask);
+                                        mainColor, NSForegroundColorAttributeName,
+                                        mainColor, NSUnderlineColorAttributeName,
+                                        [NSNumber numberWithInt:2.0] , NSUnderlineStyleAttributeName,
+                                        [NSNumber numberWithFloat:1.0] , NSBaselineOffsetAttributeName,
+                                        nil];
+            
+            //	  NSLog(@"hit %@ %@", [titleString string] , hitMask);
 			for(i = 0; i<count; i += j) {
 				for (j = 1; i+j<count && hits[i+j-1] +1 == hits[i+j]; j++);
 				//	 NSLog(@"hit (%d, %d) ", hits[i] , j);
@@ -522,21 +528,26 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 		} else {
 			[titleString addAttribute:NSBaselineOffsetAttributeName value:[NSNumber numberWithFloat:-1.0] range:NSMakeRange(0, [titleString length])];
 		}
-
-		if (([[NSUserDefaults standardUserDefaults] integerForKey:@"QSResultViewRowHeight"] >= 34) && showDetails && [detailsString length]) {
-            //NSLog(@"Strings are %@, %@, sizes are %@, %@", nameString, detailsString, NSStringFromSize(nameSize), NSStringFromSize(detailsSize));
-			float detailHeight = NSHeight(textDrawRect) -nameSize.height;
-			NSRange returnRange;
-			if (detailHeight<detailsSize.height && (returnRange = [detailsString rangeOfString:@"\n"]) .location != NSNotFound)
-				detailsString = [detailsString substringToIndex:returnRange.location];
-			if ([detailsString length] >100) detailsString = [detailsString substringWithRange:NSMakeRange(0, 100)];
-			// ***warning  ** this should take first line only?
-			//if ([titleString length]) [titleString appendAttributedString:;
-			[titleString appendAttributedString:
-				[[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", [titleString length] ?@"\r":@"", detailsString] attributes:detailsAttributes] autorelease]
-				];
-
-		}
+        
+        if (validDetailsString) {
+            NSSize detailsSize = NSZeroSize;
+            detailsSize = [detailsString sizeWithAttributes:detailsAttributes];
+            
+            if (showDetails && ([[NSUserDefaults standardUserDefaults] integerForKey:@"QSResultViewRowHeight"] >= 34)) {
+                //NSLog(@"Strings are %@, %@, sizes are %@, %@", nameString, detailsString, NSStringFromSize(nameSize), NSStringFromSize(detailsSize));
+                float detailHeight = NSHeight(textDrawRect) -nameSize.height;
+                NSRange returnRange;
+                if (detailHeight<detailsSize.height && (returnRange = [detailsString rangeOfString:@"\n"]) .location != NSNotFound)
+                    detailsString = [detailsString substringToIndex:returnRange.location];
+                if ([detailsString length] >100) detailsString = [detailsString substringWithRange:NSMakeRange(0, 100)];
+                // ***warning  ** this should take first line only?
+                //if ([titleString length]) [titleString appendAttributedString:;
+                [titleString appendAttributedString:
+                 [[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", [titleString length] ?@"\r":@"", detailsString] attributes:detailsAttributes] autorelease]
+                 ];
+                
+            }
+        }
 		NSRect centerRect = rectFromSize([titleString size]);
 		centerRect.size.width = NSWidth(textDrawRect);
 		centerRect.size.height = MIN(NSHeight(textDrawRect), centerRect.size.height);

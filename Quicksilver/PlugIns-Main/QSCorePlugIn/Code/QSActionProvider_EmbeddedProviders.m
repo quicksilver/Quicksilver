@@ -304,8 +304,6 @@
 }
 
 // This method validates the 3rd pane for the core plugin actions
-// kFileSomethingActions are defined in the corresponding .h file
-#warning p_j_r 11/05/11, this method shouldn't be called if the action isn't a validActionsForDirectObject, see bug #310 on GitHub for more information
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
 	// Only return an array if the dObject is a file
 	if(![dObject validPaths]) {
@@ -343,15 +341,25 @@
 		return [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@"untitled folder"]];
 	} else if ([action isEqualToString:kFileMoveToAction] || [action isEqualToString:kFileCopyToAction]) {
 		// We only want folders for the move to / copy to actions (can't move to anything else)
-		NSArray *fileObjects = [[QSLibrarian sharedInstance] arrayForType:QSFilePathType];
+        NSMutableArray *fileObjects = [[[QSLibrarian sharedInstance] arrayForType:QSFilePathType] mutableCopy];
 		BOOL isDirectory;
+        NSString *currentFolderPath = [[[[dObject splitObjects] lastObject] singleFilePath] stringByDeletingLastPathComponent];
+        // if it wasn't in the catalog, create it from scratch
+        QSObject *currentFolderObject = [QSObject fileObjectWithPath:currentFolderPath];
+        [fileObjects removeObject:currentFolderObject];
+        [fileObjects insertObject:currentFolderObject atIndex:0];
+        NSWorkspace *ws = [[NSWorkspace sharedWorkspace] retain];
+        NSFileManager *fm = [[NSFileManager alloc] init];
 		for(QSObject *thisObject in fileObjects) {
 			NSString *path = [thisObject singleFilePath];
-			if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory]) {
-				if (isDirectory && ![[path pathExtension] length])
+			if ([fm fileExistsAtPath:path isDirectory:&isDirectory]) {
+				if (isDirectory && ![ws isFilePackageAtPath:path])
 					[validIndirects addObject:thisObject];
 			}
 		}
+        [fileObjects release];
+        [ws release];
+        [fm release];
 		return validIndirects;
 	}
 	return nil;

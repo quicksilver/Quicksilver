@@ -80,12 +80,16 @@ static float searchSpeed = 0.0;
 			[NSMutableArray array] , kItemChildren,
 			[NSNumber numberWithBool:YES] , kItemEnabled, nil];
 
+#ifdef DEBUG
 		if ((int) getenv("QSDisableCatalog") || GetCurrentKeyModifiers() & shiftKey) {
 			NSLog(@"Disabling Catalog");
 		} else {
+#endif
 			[self setCatalog:[QSCatalogEntry entryWithDictionary:
 			[NSMutableDictionary dictionaryWithObjectsAndKeys:@"QSCATALOGROOT", kItemName, @"QSGroupObjectSource", kItemSource, [NSMutableArray arrayWithObjects:modulesEntry, nil] , kItemChildren, [NSNumber numberWithBool:YES] , kItemEnabled, nil]]];
+#ifdef DEBUG
 		}
+#endif
 
 		// Register for Notifications
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(writeCatalog:) name:QSCatalogEntryChanged object:nil];

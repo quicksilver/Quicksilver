@@ -280,6 +280,10 @@
 	[[self window] close];
 	[NSApp stopModal];
 
+// return the setup assistant to the first screen
+    [setupTabView selectFirstTabViewItem:self];
+    [self selectedItem:[setupTabView selectedTabViewItem]];
+    
 	[(QSController *)[NSApp delegate] setupAssistantCompleted:nil];
 	[(QSController *)[NSApp delegate] activateInterface:nil];
 }

@@ -14,7 +14,6 @@
 
 	IBOutlet NSTextField *scanStatusField;
 	int plugInInfoStatus;
-	int step;
 	BOOL scanComplete;
 	BOOL setupComplete;
 	NSDictionary *identifiers;
