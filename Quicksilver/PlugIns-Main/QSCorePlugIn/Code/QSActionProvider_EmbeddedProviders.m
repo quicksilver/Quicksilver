@@ -304,8 +304,6 @@
 }
 
 // This method validates the 3rd pane for the core plugin actions
-// kFileSomethingActions are defined in the corresponding .h file
-#warning p_j_r 11/05/11, this method shouldn't be called if the action isn't a validActionsForDirectObject, see bug #310 on GitHub for more information
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
 	// Only return an array if the dObject is a file
 	if(![dObject validPaths]) {
