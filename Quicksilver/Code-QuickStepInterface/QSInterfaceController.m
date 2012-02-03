@@ -81,15 +81,9 @@
 }
 
 - (void)dealloc {
-	if([actionsUpdateTimer isValid])
-		[actionsUpdateTimer invalidate];
-	if([hideTimer isValid])
+    if([hideTimer isValid])
 		[hideTimer invalidate];
-	if([clearTimer isValid])
-		[clearTimer invalidate];
-	[actionsUpdateTimer release];
 	[hideTimer release];
-	[clearTimer release];
 	//[progressIndicator release];
 	//[iSelector release];
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -148,7 +142,6 @@
 
 - (void)setCommandWithArray:(NSArray *)array {
 	[dSelector setObjectValue:[array objectAtIndex:0]];
-	[actionsUpdateTimer invalidate];
 	[aSelector setObjectValue:[array objectAtIndex:1]];
 	if ([array count] > 2)
 		[iSelector setObjectValue:[array objectAtIndex:2]];
@@ -260,23 +253,6 @@
 	[control selectObject:defaultSelection];
 }
 
-- (void)setActionUpdateTimer {
-	if ([actionsUpdateTimer isValid]) {
-		// *** this was causing actions not to update for the search contents action
-		[actionsUpdateTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:0.30]];
-		//[actionsUpdateTimer fire];
-		//	NSLog(@"action %@", [actionsUpdateTimer fireDate]);
-	} else {
-		[actionsUpdateTimer invalidate];
-		[actionsUpdateTimer release];
-		actionsUpdateTimer = [[NSTimer scheduledTimerWithTimeInterval:0.30 target:self selector:@selector(updateActionsNow) userInfo:nil repeats:NO] retain];
-	}
-}
-
-- (void)fireActionUpdateTimer {
-	[actionsUpdateTimer fire];
-}
-
 - (NSArray *)rankedActions {
     id dObject = [dSelector objectValue];
     id iObject = [iSelector objectValue];
@@ -292,11 +268,10 @@
 - (void)updateActions {
 	[aSelector setResultArray:nil];
 	[aSelector clearObjectValue];
-	[self performSelectorOnMainThread:@selector(setActionUpdateTimer) withObject:nil waitUntilDone:YES];
+    [self updateActionsNow];
 }
 
 - (void)updateActionsNow {
-	[actionsUpdateTimer invalidate];
 
 	[aSelector setEnabled:YES];
 	NSString *type = [NSString stringWithFormat:@"QSActionMnemonic:%@", [[dSelector objectValue] primaryType]];
@@ -349,7 +324,6 @@
 }
 
 - (void)showArray:(NSArray *)array withDirectObject:(QSObject *)dObject {
-    [actionsUpdateTimer invalidate];
     [self clearObjectView:dSelector];
     NSMutableArray *mutArray = [[array mutableCopy] autorelease];
     [dSelector setSourceArray:mutArray];
@@ -435,15 +409,6 @@
 	}
 }
 
-- (void)setClearTimer {
-	if ([clearTimer isValid]) {
-		[clearTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:10*MINUTES]];
-	} else {
-		[clearTimer release];
-		clearTimer = [[NSTimer scheduledTimerWithTimeInterval:10*MINUTES target:self selector:@selector(clear:) userInfo:nil repeats:NO] retain];
-	}
-}
-
 - (void)clear:(NSTimer *)timer {
 	[dSelector clearObjectValue];
 	[self updateActionsNow];
@@ -480,7 +445,6 @@
 	if ([[self window] attachedSheet] == window)
 		return;
 	if (window == [self window]) {
-	 	[clearTimer invalidate];
 		[hideTimer invalidate];
 	} else if ([[notification object] level] <= [[self window] level]) {
 		//NSLog(@"hide! %@", window);
@@ -551,7 +515,6 @@
 		[self updateActionsNow];
 		[[self window] makeFirstResponder:aSelector];
 	} else {
-		[actionsUpdateTimer invalidate];
 		[aSelector setObjectValue:[array objectAtIndex:1]];
 		if ([array count] > 2) {
 			[iSelector setObjectValue:[array objectAtIndex:2]];
@@ -563,9 +526,6 @@
 }
 
 - (void)executeCommand:(id)sender cont:(BOOL)cont encapsulate:(BOOL)encapsulate {
-	if ([actionsUpdateTimer isValid]) {
-		[actionsUpdateTimer fire];
-	}
 	if (![aSelector objectValue]) {
 		NSBeep();
 		return;
@@ -692,7 +652,7 @@
 
 - (IBAction)shortCircuit:(id)sender {
 	//NSLog(@"scirr");
-	[self fireActionUpdateTimer];
+    [self updateActionsNow];
 	NSArray *array = [aSelector resultArray];
     
 	int argumentCount = [(QSAction *)[aSelector objectValue] argumentCount];
@@ -732,7 +692,6 @@
 
 - (IBAction)hideWindows:(id)sender {
 	[self hideMainWindow:self];
-	[self setClearTimer];
 }
 
 - (IBAction)showTasks:(id)sender {
