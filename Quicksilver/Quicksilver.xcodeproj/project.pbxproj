@@ -1306,7 +1306,7 @@
 		E180011607B2B48900010DB0 /* QSTextSource.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSTextSource.m; sourceTree = "<group>"; };
 		E180011707B2B48900010DB0 /* QSWebSource.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSWebSource.h; sourceTree = "<group>"; };
 		E180011807B2B48900010DB0 /* QSWebSource.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSWebSource.m; sourceTree = "<group>"; };
-		E180011907B2B48900010DB0 /* QSCorePlugIn-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "QSCorePlugIn-Info.plist"; sourceTree = "<group>"; };
+		E180011907B2B48900010DB0 /* QSCorePlugIn-Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist.info; fileEncoding = 30; path = "QSCorePlugIn-Info.plist"; sourceTree = "<group>"; };
 		E18001C307B2BBB800010DB0 /* AppKitPrivate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AppKitPrivate.h; sourceTree = "<group>"; };
 		E18001C507B2BBB800010DB0 /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E18001C807B2BBB800010DB0 /* QSApp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSApp.h; sourceTree = "<group>"; };
