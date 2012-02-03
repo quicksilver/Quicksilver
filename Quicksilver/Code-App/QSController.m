@@ -180,6 +180,9 @@ static QSController *defaultController = nil;
 
 	theItem = [debugMenu addItemWithTitle:@"Crash..." action:@selector(crashQS) keyEquivalent:@""];
 	[theItem setTarget:self];
+	
+	theItem = [debugMenu addItemWithTitle:@"Output missing localizations" action:@selector(outputMissingLocalizations:) keyEquivalent:@""];
+	[theItem setTarget:self];
 
 	theItem = [debugMenu addItemWithTitle:@"New Prefs..." action:@selector(showPrefs) keyEquivalent:@""];
 	[theItem setTarget:[QSPreferencesController class]];
@@ -248,6 +251,28 @@ static QSController *defaultController = nil;
 - (IBAction)showTriggers:(id)sender { [QSPreferencesController showPaneWithIdentifier:@"QSTriggersPrefPane"];  }
 - (IBAction)showHelp:(id)sender { [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kHelpURL]];  }
 - (IBAction)getMorePlugIns:(id)sender { [QSPlugInsPrefPane getMorePlugIns];  }
+- (IBAction)outputMissingLocalizations:(id)sender {
+#if DEBUG
+	/* missingLocalizedValuesForAllTables *only* exists in debug ! */
+	NSMutableDictionary *missingBundles = [NSBundle performSelector:@selector(missingLocalizedValuesForAllBundles)];
+	NSLog(@"Missing: %@", missingBundles);
+	
+	NSString *localizationPath = QSApplicationSupportSubPath(@"Localization", YES);
+	for (NSString *bundleIdentifier in missingBundles) {
+		NSMutableDictionary *missingLocales = [missingBundles objectForKey:bundleIdentifier];
+		for (NSString *missingLocaleKey in missingLocales) {
+			NSMutableDictionary *missingTables = [missingLocales objectForKey:missingLocaleKey];
+			for (NSString *missingTableKey in missingTables) {
+				NSMutableDictionary *missingTable = [missingTables objectForKey:missingTableKey];
+				NSString *tablePath = [[localizationPath stringByAppendingPathComponent:bundleIdentifier] stringByAppendingPathComponent:missingLocaleKey];
+				NSString *tableName = [[tablePath stringByAppendingPathComponent:missingTableKey] stringByAppendingPathExtension:@"strings"];
+				[[NSFileManager defaultManager] createDirectoriesForPath:tablePath];
+				[missingTable writeToFile:tableName atomically:NO];
+			}
+		}
+	}
+#endif
+}
 
 - (IBAction)unsureQuit:(id)sender {
 	// NSLog(@"sender (%@) %@", sender, [NSApp currentEvent]);

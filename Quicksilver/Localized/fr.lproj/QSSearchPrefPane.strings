@@ -1,0 +1,46 @@
+/* 
+  QSSearchPrefPane.strings
+  Quicksilver
+
+  Created by Etienne on 17/11/11.
+  Copyright 2011 __MyCompanyName__. All rights reserved.
+*/
+
+"none" = "aucun";
+"Edit" = "Editer";
+"Row Height:" = "Hauteur de ligne :";
+"Spacebar behavior:" = "Comportement de la barre Espace : ";
+"Delay before searching to improve performance on slow machines" = "Délai avant de chercher pour améliorer les performances sur les machines lentes";
+"Switch to text mode if no match is found" = "Passer en mode texte si rien ne correspond";
+"Never" = "Jamais";
+"Immediately" = "Immédiatement";
+"Delayed" = "Avec un délai";
+"Delay before showing alternatives" = "Délai avant de montrer les alternatives";
+"Reset search after:" = "Réinitialiser la recherche après : ";
+"Show other matches" = "Montrer les autres résultats";
+"Show children in result list" = "Montrer les enfants dans la liste de résultats";
+"The children of the object that is selected in the resultlist are displayed in a second list." = "The children of the object that is selected in the resultlist are displayed in a second list.";
+"Time to wait before new letters typed are considered a new search" = "Time to wait before new letters typed are considered a new search";
+"Wait before searching:" = "Attendre avant de chercher : ";
+"Normal" = "Normal";
+"Select Next Result" = "Sélectionner le résultat suivant";
+"Jump to Argument Field" = "Passer au champ d'argument";
+"Switch to Text Mode" = "Passer en Mode Texte";
+"Show Item's Contents" = "Montrer le contenu";
+"HotKey Activation:" = "Activation par Touche : ";
+"Command" = "Commande";
+"Option" = "Option";
+"Control" = "Contrôle";
+"Shift" = "Majuscule";
+"Function" = "Fonction";
+"Caps Lock (Double Only)" = "Maj Verr. (Double seulement)";
+"Off" = "Off";
+"Single" = "Simple";
+"Double" = "Double";
+"Hide if pressed when already visible" = "Masquer si pressé en étant déjà visible";
+"Hide instead of resetting search" = "Masquer plutôt que de réinitialiser la recherche";
+"Box" = "Box";
+"Modifier-only Activation:" = "Activation par modificateur : ";
+"Use a single key command to activate" = "Activez en n'utilisant qu'une seule touche de commande";
+"Alternate Services Menu Key:" = "Touche alternative pour le service : ";
+"Jump to action when getting results" = "Saute à l'action lorsque les résultats arrivent";

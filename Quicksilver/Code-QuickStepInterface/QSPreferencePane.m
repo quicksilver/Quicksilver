@@ -111,7 +111,7 @@
 	//NSLog(@"window %@", _window);
 	_mainView = [[_window contentView] retain];
 	if (QSGetLocalizationStatus())
-		[NTViewLocalizer localizeView:_mainView table:[[self mainNibName] stringByAppendingPathExtension:@"nib"] bundle:[self mainNibBundle]];
+		[NTViewLocalizer localizeView:_mainView table:[self mainNibName] bundle:[self mainNibBundle]];
 	[_window release];
 	_window = nil;
 	[nib release];
