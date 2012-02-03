@@ -1373,14 +1373,16 @@
 		<dict>
 			<key>actionClass</key>
 			<string>QSCatalogEntrySource</string>
+			<key>directTypes</key>
+			<array>
+				<string>qs.catalogentry</string>
+			</array>
 			<key>precedence</key>
 			<integer>3</integer>
 			<key>actionSelector</key>
 			<string>show:</string>
 			<key>icon</key>
 			<string>Catalog</string>
-			<key>validatesObjects</key>
-			<true/>
 		</dict>
 		<key>AppHideOthersAction</key>
 		<dict>
