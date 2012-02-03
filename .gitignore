@@ -18,3 +18,4 @@ Developer.xcconfig
 *.xcuserdatad
 Quicksilver*.dmg
 *.pyc
+Quicksilver/SharedSupport/Changes*.html
