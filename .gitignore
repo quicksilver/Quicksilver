@@ -17,3 +17,5 @@ Developer.xcconfig
 *.xcworkspace
 *.xcuserdatad
 Quicksilver*.dmg
+*.pyc
+Quicksilver/SharedSupport/Changes*.html
