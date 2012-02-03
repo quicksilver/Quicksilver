@@ -1483,16 +1483,14 @@
 			<integer>1</integer>
 			<key>actionClass</key>
 			<string>QSObjectActions</string>
-			<key>directTypes</key>
-			<array>
-				<string>*</string>
-			</array>
 			<key>precedence</key>
 			<integer>0</integer>
 			<key>actionSelector</key>
 			<string>findObjectInCatalog:</string>
 			<key>name</key>
 			<string>Show Source in Catalog</string>
+			<key>validatesObjects</key>
+			<true/>
 		</dict>
 		<key>QSObjectAssignMnemonic</key>
 		<dict>
