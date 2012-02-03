@@ -17,3 +17,4 @@ Developer.xcconfig
 *.xcworkspace
 *.xcuserdatad
 Quicksilver*.dmg
+*.pyc
