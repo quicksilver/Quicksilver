@@ -102,7 +102,9 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	id commandObject = [(QSCommand*)dObject dObject];
 	BOOL asDroplet = [[commandObject identifier] isEqualToString:@"QSDropletItemProxy"];
     
+#ifdef DEBUG
 	NSLog(@"droplet %d", asDroplet);
+#endif
 	NSString *destination = [[[[iObject singleFilePath] stringByAppendingPathComponent:[dObject name]] stringByAppendingPathExtension:asDroplet?@"app":@"qscommand"] firstUnusedFilePath];
 	if (asDroplet) {
 		[[NSFileManager defaultManager] copyItemAtPath:[[NSBundle mainBundle] pathForResource:@"QSDroplet" ofType:@"app"] toPath:destination error:nil];
