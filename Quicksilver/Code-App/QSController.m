@@ -359,9 +359,18 @@ static QSController *defaultController = nil;
 	[newMenu addItem:[[modulesItem copy] autorelease]];
 
 	[newMenu addItem:[NSMenuItem separatorItem]];
-	NSMenuItem *quitItem = [[[NSMenuItem alloc] initWithTitle:@"Quit Quicksilver" action:@selector(terminate:) keyEquivalent:@""] autorelease];
+    
+//    Quit Quicksilver Menu Item
+	NSMenuItem *quitItem = [[[NSMenuItem alloc] initWithTitle:@"Quit Quicksilver" action:@selector(terminate:) keyEquivalent:@"q"] autorelease];
+    [quitItem setKeyEquivalentModifierMask:NSCommandKeyMask];
 	[quitItem setTarget:NSApp];
 	[newMenu addItem:quitItem];
+    
+//    Relaunch Quicksilver Menu Item
+    NSMenuItem *relaunchItem = [[[NSMenuItem alloc] initWithTitle:@"Relaunch Quicksilver" action:@selector(relaunch:) keyEquivalent:@"q"] autorelease];
+    [relaunchItem setKeyEquivalentModifierMask:(NSCommandKeyMask | NSControlKeyMask)];
+	[relaunchItem setTarget:NSApp];
+	[newMenu addItem:relaunchItem];
 
 	return newMenu;
 }
