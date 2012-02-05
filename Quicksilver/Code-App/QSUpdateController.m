@@ -147,7 +147,7 @@ typedef enum {
     switch (check) {
         case kQSUpdateCheckError:
             if (!quiet)
-                NSRunInformationalAlertPanel(@"Connection Error", @"Unable to check for updates.", @"OK", nil, nil);
+                NSRunInformationalAlertPanel(@"Internet Connection Error", @"Unable to check for updates, the server could not be reached. Please check your internet connection", @"OK", nil, nil);
             return NO;
         break;
         case kQSUpdateCheckUpdateAvailable:
