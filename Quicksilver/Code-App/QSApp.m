@@ -55,17 +55,17 @@ BOOL QSApplicationCompletedLaunch = NO;
 	}
 	if ((self = [super init])) {
 
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         
-	// Honor dock hidden preference if new version
-	isUIElement = [self shouldBeUIElement];
-    if (isUIElement && ![defaults boolForKey:kHideDockIcon]) {
-        [defaults setObject:[NSNumber numberWithBool:NO] forKey:kHideDockIcon];
-        if (![defaults objectForKey:@"QSShowMenuIcon"])
-			[defaults setInteger:0 forKey:@"QSShowMenuIcon"];
-
+        // Honor dock hidden preference if new version. Only try and change the preference if the QS.app Info.plist is editable
+        isUIElement = [self shouldBeUIElement];
+        if (isUIElement && ![defaults boolForKey:kHideDockIcon] && [[NSFileManager defaultManager] isWritableFileAtPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/Info.plist"]]) {
+            [defaults setObject:[NSNumber numberWithBool:NO] forKey:kHideDockIcon];
+            if (![defaults objectForKey:@"QSShowMenuIcon"])
+                [defaults setInteger:0 forKey:@"QSShowMenuIcon"];
+            
             [self setShouldBeUIElement:NO];
-	}
+        }
     }
 	return self;
 }
