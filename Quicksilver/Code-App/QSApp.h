@@ -6,14 +6,13 @@
 extern BOOL QSApplicationCompletedLaunch;
 
 @interface QSApp : NSApplication {
-	BOOL isUIElement, shouldRelaunch;
+	BOOL shouldRelaunch;
 	IBOutlet NSMenu *hiddenMenu;
 	NSResponder *globalKeyEquivalentTarget;
 	NSMutableArray *eventDelegates;
 }
 
-- (BOOL)isUIElement;
-- (BOOL)setShouldBeUIElement:(BOOL)hidden; //Returns YES if successful
+- (void)hideDockIcon;
 - (void)forwardWindowlessRightClick:(NSEvent *)theEvent;
 - (BOOL)completedLaunch;
 - (BOOL)isPrerelease;

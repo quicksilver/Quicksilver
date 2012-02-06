@@ -55,27 +55,19 @@ BOOL QSApplicationCompletedLaunch = NO;
 	}
 	if ((self = [super init])) {
 
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         
-	// Honor dock hidden preference if new version
-	isUIElement = [self shouldBeUIElement];
-    if (isUIElement && ![defaults boolForKey:kHideDockIcon]) {
-        [defaults setObject:[NSNumber numberWithBool:NO] forKey:kHideDockIcon];
-        if (![defaults objectForKey:@"QSShowMenuIcon"])
-			[defaults setInteger:0 forKey:@"QSShowMenuIcon"];
-
-            [self setShouldBeUIElement:NO];
-	}
+        // Honor dock preference (if statement true if icon is NOT set to hide)
+        if (![defaults boolForKey:kHideDockIcon]) {
+            if (![defaults objectForKey:@"QSShowMenuIcon"])
+                [defaults setInteger:0 forKey:@"QSShowMenuIcon"];
+            [self hideDockIcon];
+        }
     }
 	return self;
 }
 
 - (BOOL)completedLaunch { return QSApplicationCompletedLaunch;  }
-
-- (void)setApplicationIconImage:(NSImage *)image {
-  if (!isUIElement)
-	[super setApplicationIconImage:image];
-}
 
 - (BOOL)_handleKeyEquivalent:(NSEvent *)event {
 	if ([[self globalKeyEquivalentTarget] performKeyEquivalent:event])
@@ -145,16 +137,9 @@ BOOL QSApplicationCompletedLaunch = NO;
 #endif
 }
 
-- (BOOL)isUIElement { return isUIElement;  }
-- (BOOL)setShouldBeUIElement:(BOOL)hidden {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setBool:hidden forKey:kHideDockIcon];
-	[defaults synchronize];
-	if (!hidden) {
+- (void)hideDockIcon {
 		ProcessSerialNumber psn = { 0, kCurrentProcess } ;
 		TransformProcessType(&psn, kProcessTransformToForegroundApplication);
-	}
-	return [super setShouldBeUIElement:hidden];
 }
 
 - (NSResponder *)globalKeyEquivalentTarget { return globalKeyEquivalentTarget;  }
