@@ -12,7 +12,7 @@ extern BOOL QSApplicationCompletedLaunch;
 	NSMutableArray *eventDelegates;
 }
 
-- (void)hideDockIcon;
+- (void)showDockIcon;
 - (void)forwardWindowlessRightClick:(NSEvent *)theEvent;
 - (BOOL)completedLaunch;
 - (BOOL)isPrerelease;

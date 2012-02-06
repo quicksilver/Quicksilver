@@ -61,7 +61,7 @@ BOOL QSApplicationCompletedLaunch = NO;
         if (![defaults boolForKey:kHideDockIcon]) {
             if (![defaults objectForKey:@"QSShowMenuIcon"])
                 [defaults setInteger:0 forKey:@"QSShowMenuIcon"];
-            [self hideDockIcon];
+            [self showDockIcon];
         }
     }
 	return self;
@@ -137,7 +137,7 @@ BOOL QSApplicationCompletedLaunch = NO;
 #endif
 }
 
-- (void)hideDockIcon {
+- (void)showDockIcon {
 		ProcessSerialNumber psn = { 0, kCurrentProcess } ;
 		TransformProcessType(&psn, kProcessTransformToForegroundApplication);
 }
