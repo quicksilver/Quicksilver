@@ -201,23 +201,17 @@
 	QSSetItemShouldLaunchAtLogin([[NSBundle mainBundle] bundlePath] ,launch, NO);
 }
 
-- (BOOL)appPlistIsEditable {
-	return [[NSFileManager defaultManager] isWritableFileAtPath:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/Info.plist"]];
-}
-
 - (BOOL)dockIconIsHidden {
-	return [NSApp shouldBeUIElement];
+	return ![[NSUserDefaults standardUserDefaults] boolForKey:kHideDockIcon];
 }
 
 - (void)setDockIconIsHidden:(BOOL)flag {
-	[NSApp setShouldBeUIElement:flag];
-	if (flag) {
-		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-		if (![defaults objectForKey:@"QSShowMenuIcon"])
-			[defaults setInteger:1 forKey:@"QSShowMenuIcon"];
-	}
-	if ([NSApp isUIElement] != flag)
-		[NSApp requestRelaunch:nil];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:!flag forKey:kHideDockIcon];
+    if (![defaults objectForKey:@"QSShowMenuIcon"])
+        [defaults setInteger:1 forKey:@"QSShowMenuIcon"];
+    [defaults synchronize];
+	[NSApp requestRelaunch:nil];
 }
 
 - (IBAction)checkNow:(id)sender {
