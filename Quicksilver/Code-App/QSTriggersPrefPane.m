@@ -279,6 +279,8 @@
 //}
 
 - (IBAction)triggerChanged:(id)sender {
+	[self willChangeValueForKey:@"triggerArray"];
+	[self didChangeValueForKey:@"triggerArray"];
 	[triggerTable reloadData];
 }
 
