@@ -40,7 +40,10 @@
 
 		[newActions addObject:kQSObjectShowChildrenAction];
 	}
-
+    if ([[QSLibrarian sharedInstance] firstEntryContainingObject:dObject])
+    {
+            [newActions addObject:kQSObjectShowSourceAction];
+    }
 	return newActions;
 }
 
