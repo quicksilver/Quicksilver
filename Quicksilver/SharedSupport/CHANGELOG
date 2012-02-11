@@ -1,3 +1,9 @@
+Changes - ß64 (3915)
+-------
+
+   * FIX: Honour the 'show icon in dock' preference if not set #669
+
+
 Changes - ß64 (3913)
 -------
 
