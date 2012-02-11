@@ -1,3 +1,26 @@
+Changes - ß65 (3920)
+-------
+
+   * FIX: Honour 'jump to action' preference when grabbing objects using the 'Get Selection' service #643
+   
+   * FIX: Disable editing of tab names in Plugin Preference pane #644
+   
+   * FIX: Resolve proxy objects consistently #652 #621
+   
+   * FIX: Make 3rd pane visible for AppleScript actions that expect a file #661 #603
+   
+   * FIX: 'Show Entry in Catalog' action only shows for objects in the catalog #678
+   
+   * CHANGE: Allow non-admin users to set the dock icon preference #690 #686 #689
+   
+   * CHANGE: Only allow disabling of the Catalog (by holding ⌥ on luanch) in Debug builds
+   
+   * CHANGE: When using the Move To.../Copy To... actions display the file's parent folder in the 3rd pane #665
+
+   * CHANGE: Allow Quicksilver to set URLs as 'remote host' types #497
+   
+   * CHANGE: Development settings and CHANGELOG creation method #599 #658
+   
 Changes - ß64 (3915)
 -------
 
