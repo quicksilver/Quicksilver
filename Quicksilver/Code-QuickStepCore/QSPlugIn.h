@@ -43,6 +43,8 @@
 - (NSDate *)latestVersionDate;
 - (NSString *)version;
 - (NSString *)buildVersion;
+- (NSString *)installedVersion;
+- (NSString *)latestVersion;
 
 - (BOOL)isRecommended;
 - (NSArray *)categories;

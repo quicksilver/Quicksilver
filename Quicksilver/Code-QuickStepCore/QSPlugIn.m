@@ -252,22 +252,40 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	return nil;
 }
 
-- (NSString *)version {
-	if (bundle) {
-		NSString *version = [bundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-		if (!version) version = [bundle objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
-		return version;
+- (NSString *)version
+{
+	NSString *version = [self installedVersion];
+	if (!version) {
+		version = [self latestVersion];
 	}
-	NSString *version = [data objectForKey:@"CFBundleShortVersionString"];
-	if (!version) version = [data objectForKey:(NSString *)kCFBundleVersionKey];
 	return version;
-
 }
 
 - (NSString *)buildVersion {
 	return (bundle) ? [bundle objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey] : [data objectForKey:(NSString *)kCFBundleVersionKey];
-
 }
+
+- (NSString *)installedVersion
+{
+	if (bundle) {
+		NSString *version = [bundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+		if (!version) {
+			version = [bundle objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+		}
+		return version;
+	}
+	return nil;
+}
+
+- (NSString *)latestVersion
+{
+	NSString *version = [data objectForKey:@"CFBundleShortVersionString"];
+	if (!version) {
+		version = [data objectForKey:(NSString *)kCFBundleVersionKey];
+	}
+	return version;
+}
+
 - (BOOL)isSecret {
 	return [[[self info] valueForKeyPath:@"QSPlugIn.secret"] boolValue];
 }
