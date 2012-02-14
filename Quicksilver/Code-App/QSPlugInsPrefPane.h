@@ -6,6 +6,7 @@
 @interface QSPlugInsPrefPane : QSPreferencePane {
 	IBOutlet NSTableView *pluginSetsTable;
 	IBOutlet NSTableView *plugInTable;
+	NSString *plugInName;
 	IBOutlet id plugInText;
 	IBOutlet NSTextField *statusField;
 	IBOutlet NSDrawer *infoDrawer;
@@ -22,6 +23,7 @@
 	IBOutlet NSView *sidebar;
 	IBOutlet NSPanel *pluginInfoPanel;
 }
+@property NSString *plugInName;
 + (void)getMorePlugIns;
 - (int) viewMode;
 - (void)setViewMode:(int)newViewMode;

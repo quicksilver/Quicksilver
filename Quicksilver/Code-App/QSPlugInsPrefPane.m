@@ -19,6 +19,8 @@
 
 @implementation QSPlugInsPrefPane
 
+@synthesize plugInName;
+
 - (id)preferencesSplitView {
 	return [sidebar superview];
 }
@@ -138,9 +140,12 @@
 		NSArray *selection = [arrayController selectedObjects];
 		BOOL isMainThread = [NSThread isMainThread];
 		NSString *htmlString;
+		NSString *defaultTitle = @"Plug-in Documentation";
 		if ([selection count] == 1) {
+			[self setPlugInName:[NSString stringWithFormat:@"%@: %@", defaultTitle, [[selection objectAtIndex:0] name]]];
 			htmlString = [[selection objectAtIndex:0] infoHTML];
 		} else {
+			[self setPlugInName:defaultTitle];
 			htmlString = @"";
 		}
 		if (isMainThread) {
@@ -148,7 +153,6 @@
 		} else {
 			[self performSelectorOnMainThread:@selector(updateWithHTMLString:) withObject:htmlString waitUntilDone:NO];
 		}
-
 	}
 }
 

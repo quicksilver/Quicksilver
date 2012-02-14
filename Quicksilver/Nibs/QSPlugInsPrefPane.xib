@@ -1895,6 +1895,22 @@
 					</object>
 					<int key="connectionID">487</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">title: plugInName</string>
+						<reference key="source" ref="752278448"/>
+						<reference key="destination" ref="352175396"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="752278448"/>
+							<reference key="NSDestination" ref="352175396"/>
+							<string key="NSLabel">title: plugInName</string>
+							<string key="NSBinding">title</string>
+							<string key="NSKeyPath">plugInName</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">520</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -2701,7 +2717,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">518</int>
+			<int key="maxID">520</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
