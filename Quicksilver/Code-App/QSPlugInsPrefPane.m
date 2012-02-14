@@ -218,15 +218,6 @@
 	return bundles;
 }
 
-- (BOOL)selectedPlugInsHaveInfo {
-	[self selectedPlugIns];
-	NSMutableArray *array = [[[self selectedPlugIns] valueForKeyPath:@"infoDictionary.QSPlugIn.infoFile"] mutableCopy];
-	[array removeObject:[NSNull null]];
-	BOOL result = [array count];
-	[array release];
-	return result;
-}
-
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem { return YES;  }
 
 - (IBAction)deleteSelection:(id)sender {
@@ -252,19 +243,8 @@
 	[[NSWorkspace sharedWorkspace] openURLs:[[self selectedPlugIns] valueForKey:@"downloadURL"] withAppBundleIdentifier:nil options:NSWorkspaceLaunchDefault additionalEventParamDescriptor:nil launchIdentifiers:nil];
 }
 
-- (BOOL)showInfoForPlugIn:(QSPlugIn *)aPlugin {
-	NSBundle  *bundle; NSString *helpFile;
-	if((bundle = [aPlugin bundle]) && (helpFile = [[bundle objectForInfoDictionaryKey:@"QSPlugIn"] objectForKey:@"infoFile"]))
-		if([helpFile length]){
-			[[NSWorkspace sharedWorkspace] openFile:[[[bundle bundlePath] stringByAppendingPathComponent:@"Contents/Resources/"] stringByAppendingPathComponent:helpFile]];
-			return YES;
-		}
-	return NO;
-}
-
 - (IBAction)getInfo:(id)sender
 {
-	//[pluginInfoPanel setTitle:[[[arrayController selectedObjects] objectAtIndex:0] name]];
 	[pluginInfoPanel makeKeyAndOrderFront:sender];
 }
 

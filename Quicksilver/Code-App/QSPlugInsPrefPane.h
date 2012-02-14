@@ -41,7 +41,6 @@
 - (IBAction)deleteSelection:(id)sender;
 
 - (void)reloadPlugInsList:(NSNotification *)notif;
-- (BOOL)showInfoForPlugIn:(QSPlugIn *)aPlugin;
 
 - (NSMutableArray *)plugins;
 - (void)setPlugins:(NSArray *)newPlugins;
