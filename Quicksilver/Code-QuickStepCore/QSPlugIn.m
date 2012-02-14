@@ -228,19 +228,30 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	return [NSDate date];
 }
 - (NSDate *)modifiedDate {
+	NSDate *modifiedDate = [self installedDate];
+	if (!modifiedDate) {
+		modifiedDate = [self latestVersionDate];
+	}
+	return modifiedDate;
+}
+
+- (NSDate *)installedDate
+{
+	NSDate *buildDate = [[[NSFileManager defaultManager] attributesOfItemAtPath:[bundle executablePath] error:nil] fileModificationDate];
+	if (!buildDate) {
+		buildDate = [[[NSFileManager defaultManager] attributesOfItemAtPath:[bundle bundlePath] error:nil] fileModificationDate];
+	}
+	return buildDate;
+}
+
+- (NSDate *)latestVersionDate
+{
 	if (data) {
 		return [NSDate dateWithString:[data valueForKeyPath:@"QSModifiedDate"]];
-
-		return [NSDate date];
-	} else 	if (bundle) {
-		NSDate *buildDate = [[[NSFileManager defaultManager] attributesOfItemAtPath:[bundle executablePath] error:nil] fileModificationDate];
-		if (!buildDate)
-			buildDate = [[[NSFileManager defaultManager] attributesOfItemAtPath:[bundle bundlePath] error:nil] fileModificationDate];
-
-		return buildDate;
 	}
 	return nil;
 }
+
 - (NSString *)version {
 	if (bundle) {
 		NSString *version = [bundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];

@@ -39,6 +39,8 @@
 - (NSString *)author;
 - (NSDate *)createdDate;
 - (NSDate *)modifiedDate;
+- (NSDate *)installedDate;
+- (NSDate *)latestVersionDate;
 - (NSString *)version;
 - (NSString *)buildVersion;
 
