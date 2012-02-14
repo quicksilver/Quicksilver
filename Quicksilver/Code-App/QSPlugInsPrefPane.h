@@ -20,6 +20,7 @@
 	NSString *category;
 
 	IBOutlet NSView *sidebar;
+	IBOutlet NSPanel *pluginInfoPanel;
 }
 + (void)getMorePlugIns;
 - (int) viewMode;

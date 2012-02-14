@@ -258,11 +258,10 @@
 	return NO;
 }
 
-- (IBAction)getInfo:(id)sender {
-	BOOL filesOpened = NO;
-	for (QSPlugIn *bundle in [self selectedPlugIns])
-		filesOpened |= [self showInfoForPlugIn:bundle];
-	if (!filesOpened) NSBeep();
+- (IBAction)getInfo:(id)sender
+{
+	//[pluginInfoPanel setTitle:[[[arrayController selectedObjects] objectAtIndex:0] name]];
+	[pluginInfoPanel makeKeyAndOrderFront:sender];
 }
 
 - (IBAction)updatePlugIns:(id)sender { [[QSPlugInManager sharedInstance] checkForPlugInUpdates];  }
