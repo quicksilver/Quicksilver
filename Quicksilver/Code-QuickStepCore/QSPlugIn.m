@@ -313,6 +313,11 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	return [[self info] valueForKeyPath:@"QSPlugIn.categories"];
 }
 
+- (NSString *)categoriesAsString
+{
+	return [[self categories] componentsJoinedByString:@", "];
+}
+
 - (NSArray *)relatedBundles {
 	return [[self info] valueForKeyPath:@"QSPlugIn.relatedBundles"];
 }

@@ -48,6 +48,7 @@
 
 - (BOOL)isRecommended;
 - (NSArray *)categories;
+- (NSString *)categoriesAsString;
 - (NSArray *)relatedBundles;
 
 - (NSData *)attributedDescription;
