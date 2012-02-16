@@ -160,8 +160,6 @@
 }
 
 - (IBAction)hide:(id)sender {
-	if (hidden) return;
-	
 	[self saveFrame];
 	if ([self isKeyWindow])
 		[self fakeResignKey];
