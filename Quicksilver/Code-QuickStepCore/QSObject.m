@@ -947,3 +947,21 @@ containg multiple objects with the same identifier. Best efforts should be made 
     
 }
 @end
+
+@implementation QSObject (Quicklook)
+
+- (NSURL *)previewItemURL
+{
+    if ([[self primaryType] isEqualToString:QSURLType]) {
+        NSString *urlString = [[[self dataDictionary] objectForKey:QSURLType] URLEncoding];
+        return [NSURL URLWithString:urlString];
+    }
+    return [NSURL fileURLWithPath :[self singleFilePath]];
+}
+
+- (NSString *)previewItemTitle
+{
+    return [self name];
+}
+
+@end
