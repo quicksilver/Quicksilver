@@ -315,7 +315,8 @@
 	NSMutableArray *setDicts = [NSMutableArray array];
 	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:2] , @"viewMode", @"Recommended", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
 	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:1] , @"viewMode", @"Installed", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
-	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:4] , @"viewMode", @"Uninstalled", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
+	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:5] , @"viewMode", @"Disabled", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
+	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:4] , @"viewMode", @"Not Installed", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
 	NSArray *categories = [NSArray arrayWithObjects:@"Applications", @"Calendar", @"Contacts", @"Development", @"Files", @"Images", @"Interfaces", @"Mail & Chat", @"Miscellaneous", @"Music", @"Quicksilver", @"Search", @"System", @"Text", @"Web", nil];
 	NSMutableArray *categoryDicts = [NSMutableArray array];
 	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:3] , @"viewMode", categoryDicts, @"children", @"All Plug-ins", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
@@ -350,7 +351,9 @@
 			case 4: //UnInstalled
 				[predicates addObject:[NSPredicate predicateWithFormat:@"isInstalled <= 0"]];
 				break;
-//			case 5: //New
+			case 5: //Installed, but disabled
+				[predicates addObject:[NSPredicate predicateWithFormat:@"installed == YES && enabled == NO"]];
+				break;
 			default:
 				break;
 		}
