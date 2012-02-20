@@ -500,6 +500,7 @@ static QSController *defaultController = nil;
 }
 
 - (void)receiveObject:(QSObject *)object {
+	[[self interfaceController] clearObjectView:[[self interfaceController] dSelector]];
 	[[self interfaceController] selectObject:object];
     [[self interfaceController] actionActivate:nil];
 }
