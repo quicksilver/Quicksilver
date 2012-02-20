@@ -64,14 +64,21 @@
 	static NSArray *tldArray = nil;
 
 	NSString *stringValue = [self objectForType:QSTextType];
-
-	// A string for the calculator
-	if ([stringValue hasPrefix:@"="]) {
-		[self setObject:stringValue forType:QSFormulaType];
-		[self setObject:nil forType:QSTextType];
-		[self setPrimaryType:QSFormulaType];
-		return;
-	}
+    if (![stringValue length]) {
+        return;
+    }
+    
+    id calculatorHandler = [self handlerForType:QSFormulaType selector:nil];
+    if (calculatorHandler) {
+        QSObject *calculatorResult = [calculatorHandler performCalculation:self];
+        if (![calculatorResult isEqual:self]) {
+            [self setObject:stringValue forType:QSFormulaType];
+            [self setObject:nil forType:QSTextType];
+            [self setDetails:[calculatorResult stringValue]];
+            [self setPrimaryType:QSFormulaType];
+            [self loadIcon];
+         }
+    }
 	
 	// It's an AppleScript
 	if ([stringValue hasPrefix:@"tell app"]) {
