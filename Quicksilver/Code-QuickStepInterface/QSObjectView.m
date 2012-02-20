@@ -194,7 +194,12 @@
     
     // Set the button cell's title, which is used by VoiceOver to announce the name of the button.
     // Then post notifications of a change in the GUI using the accessibility API.
-    [[self cell] setTitle:[newObject displayName]];
+    if (newObject == nil) {
+        NSString *defaultText = NSLocalizedStringWithDefaultValue(@"Type to search", nil, [NSBundle mainBundle], @"Type to search", @"Hint that appears in the first pane of the QS interface when it's empty.");
+        [[self cell] setTitle:defaultText];
+    } else {
+        [[self cell] setTitle:[newObject displayName]];
+    }
     NSAccessibilityPostNotification([self cell], NSAccessibilityTitleChangedNotification);
     NSAccessibilityPostNotification([self cell], NSAccessibilityFocusedWindowChangedNotification);
 }

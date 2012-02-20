@@ -13,7 +13,7 @@
 
     // outlet for pull-down menu button
     // connected to QSBezelInterface.xib in Interface Builder
-    IBOutlet QSMenuButton *qsMenuButton;
+    //IBOutlet QSMenuButton *menuButton;
 }
 
 - (NSRect) rectForState:(BOOL)expanded;

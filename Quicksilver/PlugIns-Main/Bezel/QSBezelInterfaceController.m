@@ -10,7 +10,7 @@
 @implementation QSBezelInterfaceController
 
 - (IBAction)qsMenuButtonPressed:(id)sender {
-    [qsMenuButton qsMenuButtonWasPressed];
+    [menuButton qsMenuButtonWasPressed];
 }
 
 
@@ -55,7 +55,7 @@
 		[theControl setPreferredEdge:NSMinYEdge];
 		[(QSWindow *)[(theControl)->resultController window] setHideOffset:NSMakePoint(0, NSMinY([iSelector frame]))];
 		[(QSWindow *)[(theControl)->resultController window] setShowOffset:NSMakePoint(0, NSMinY([dSelector frame]))];
-
+        
 		[theCell setShowDetails:NO];
 		[theCell setTextColor:[NSColor whiteColor]];
 		[theCell setState:NSOnState];
