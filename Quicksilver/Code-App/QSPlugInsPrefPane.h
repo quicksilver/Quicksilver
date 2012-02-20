@@ -24,6 +24,7 @@
 	IBOutlet NSPanel *pluginInfoPanel;
 }
 @property NSString *plugInName;
+@property (readonly) NSPanel *pluginInfoPanel;
 + (void)getMorePlugIns;
 - (int) viewMode;
 - (void)setViewMode:(int)newViewMode;
