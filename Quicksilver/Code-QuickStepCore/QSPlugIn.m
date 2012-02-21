@@ -129,32 +129,29 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 	return name;
 }
-- (NSString *)status {
-
+- (NSString *)status
+{
 	NSString *error = [self loadError];
-	NSString *status = nil;
-
-	if (!bundle) {
-		if (installing)
-			return @"Downloading";
-		else
-			return @"Downloadable";
+	if (error) {
+		return [NSString stringWithFormat:@"Error (%@) ", error];
 	}
-	if ([self isLoaded]) {
-		if ( [bundle isLoaded]) {
-			int fileSize = [[[[NSFileManager defaultManager] attributesOfItemAtPath:[bundle executablePath] error:nil] objectForKey:NSFileSize] intValue];
-
-			status = [NSString stringWithFormat:@"Loaded (%dk) ", fileSize/1024];
-		} else {
+	NSString *status = nil;
+	if (bundle) {
+		if ([self isLoaded]) {
 			status = @"Loaded";
+		} else {
+			status = @"Disabled";
 		}
-	} else if (error) {
-		status = [NSString stringWithFormat:@"Error (%@) ", error];
 	} else {
-		status = @"Disabled";
+		if (installing) {
+			status = @"Downloading";
+		} else {
+			status = @"Downloadable";
+		}
 	}
 	return status;
 }
+
 - (NSString *)statusBullet {
 	  if ([self isLoaded]) {
 		  if ([bundle isLoaded])
