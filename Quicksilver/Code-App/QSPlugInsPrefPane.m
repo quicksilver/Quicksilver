@@ -343,7 +343,7 @@
 				[predicates addObject:[NSPredicate predicateWithFormat:@"installed == YES"]];
 				break;
 			case 2: //Recommended
-				[predicates addObject:[NSPredicate predicateWithFormat:@"installed == YES || isRecommended == YES"]];
+				[predicates addObject:[NSPredicate predicateWithFormat:@"isRecommended == YES"]];
 				break;
 			case 3: //All
 				[predicates addObject:[NSPredicate predicateWithFormat:@"1 == 1"]];

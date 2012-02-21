@@ -288,13 +288,15 @@ NSMutableDictionary *plugInBundlePaths = nil;
 }
 
 - (BOOL)isRecommended {
-	if ([[[self info] valueForKeyPath:@"QSPlugIn.recommended"] boolValue]) return YES;
-	if ([self isInstalled] >0) return NO;
+	if ([[[self info] valueForKeyPath:@"QSPlugIn.recommended"] boolValue]) {
+		return YES;
+	}
 	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
 	NSArray *related = [self relatedBundles];
-	//if (!related) return YES;
-	for(NSString * bundleID in related) {
-		if ([ws absolutePathForAppBundleWithIdentifier:bundleID]) return YES;
+	for(NSString *bundleID in related) {
+		if ([ws absolutePathForAppBundleWithIdentifier:bundleID]) {
+			return YES;
+		}
 	}
 	return NO;
 }
