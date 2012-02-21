@@ -119,6 +119,8 @@
 		6535A98A1086F627009D5C90 /* About.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6535A9891086F627009D5C90 /* About.strings */; };
 		6535A98C1086F627009D5C90 /* Catalog.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6535A98B1086F627009D5C90 /* Catalog.strings */; };
 		6535A98E1086F627009D5C90 /* Preferences.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6535A98D1086F627009D5C90 /* Preferences.strings */; };
+		66448DF214F427B8000FA2E2 /* QSFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9AF07B1FCFC0044D6EF /* QSFoundation.framework */; };
+		66448E1314F42A4E000FA2E2 /* TestPathWildcards.m in Sources */ = {isa = PBXBuildFile; fileRef = 66448E1214F42A4E000FA2E2 /* TestPathWildcards.m */; };
 		7F05F1E20852441C00A8EC0C /* NSObject+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F05F1E00852441C00A8EC0C /* NSObject+BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F05F1E30852441C00A8EC0C /* NSObject+BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F05F1E10852441C00A8EC0C /* NSObject+BLTRExtensions.m */; };
 		7F0843CE098ACB2F00F136CC /* QSLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F0843CC098ACB2F00F136CC /* QSLog.h */; };
@@ -741,6 +743,13 @@
 			remoteGlobalIDString = 8D1107260486CEB800E47090;
 			remoteInfo = Quicksilver;
 		};
+		66448D9B14F42796000FA2E2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E1E5F97107B1FCFC0044D6EF /* QuickStep Foundation */;
+			remoteInfo = "QuickStep Foundation";
+		};
 		7F039993080EE21A001A9FA3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -1003,6 +1012,10 @@
 		6552BC9F109D0DED003B4892 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Catalog.strings; sourceTree = "<group>"; };
 		6552BCA0109D0DF6003B4892 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Preferences.strings; sourceTree = "<group>"; };
 		6552BCA1109D0E00003B4892 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/About.strings; sourceTree = "<group>"; };
+		66448D9614F42790000FA2E2 /* FoundationTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoundationTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		66448D9714F42790000FA2E2 /* FoundationTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FoundationTests-Info.plist"; sourceTree = "<group>"; };
+		66448E1114F42A4E000FA2E2 /* TestPathWildcards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestPathWildcards.h; path = "Tests/Tests-QuickStepFoundation/TestPathWildcards.h"; sourceTree = "<group>"; };
+		66448E1214F42A4E000FA2E2 /* TestPathWildcards.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestPathWildcards.m; path = "Tests/Tests-QuickStepFoundation/TestPathWildcards.m"; sourceTree = "<group>"; };
 		7F05F1E00852441C00A8EC0C /* NSObject+BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+BLTRExtensions.h"; sourceTree = "<group>"; };
 		7F05F1E10852441C00A8EC0C /* NSObject+BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+BLTRExtensions.m"; sourceTree = "<group>"; };
 		7F0737A10927023A00782D10 /* CHANGELOG */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CHANGELOG; path = SharedSupport/CHANGELOG; sourceTree = "<group>"; wrapsLines = 1; };
@@ -1598,6 +1611,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		66448D9314F42790000FA2E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66448DF214F427B8000FA2E2 /* QSFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7F9703CE09AFEE8700E9EA77 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1739,6 +1760,7 @@
 				4D002D61131148C2009040B7 /* Finder Module.qsplugin */,
 				4D002D88131149A3009040B7 /* Primer Interface.qsplugin */,
 				4D002DAD13114A2E009040B7 /* HotKey Triggers.qsplugin */,
+				66448D9614F42790000FA2E2 /* FoundationTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1746,6 +1768,7 @@
 		29B97314FDCFA39411CA2CEA /* Quicksilver */ = {
 			isa = PBXGroup;
 			children = (
+				66448E0714F428DA000FA2E2 /* Tests */,
 				7F0737A10927023A00782D10 /* CHANGELOG */,
 				4D8A0B3510AB23F7006AF163 /* Configuration */,
 				4DC3DD0B0E0BB27B009902EF /* Configuration */,
@@ -1863,6 +1886,23 @@
 			path = NSImageQuickLook;
 			sourceTree = "<group>";
 		};
+		66448E0714F428DA000FA2E2 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				66448E0814F428E7000FA2E2 /* Tests-QuickStepFoundation */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
+		66448E0814F428E7000FA2E2 /* Tests-QuickStepFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				66448E1114F42A4E000FA2E2 /* TestPathWildcards.h */,
+				66448E1214F42A4E000FA2E2 /* TestPathWildcards.m */,
+			);
+			name = "Tests-QuickStepFoundation";
+			sourceTree = "<group>";
+		};
 		7F515D3307B533D2003EA91C /* Localized */ = {
 			isa = PBXGroup;
 			children = (
@@ -1960,6 +2000,7 @@
 				E103EB8906471D5900447FE0 /* Quicksilver-Info.plist */,
 				E103EB8806471D5900447FE0 /* QSCore-Info.plist */,
 				E1B5F31306573C8100FCFBE2 /* QSInterface-Info.plist */,
+				66448D9714F42790000FA2E2 /* FoundationTests-Info.plist */,
 			);
 			path = PropertyLists;
 			sourceTree = "<group>";
@@ -2918,6 +2959,25 @@
 			productReference = 4D002DAD13114A2E009040B7 /* HotKey Triggers.qsplugin */;
 			productType = "com.apple.product-type.bundle";
 		};
+		66448D9514F42790000FA2E2 /* FoundationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 66448D9A14F42791000FA2E2 /* Build configuration list for PBXNativeTarget "FoundationTests" */;
+			buildPhases = (
+				66448D9114F42790000FA2E2 /* Resources */,
+				66448D9214F42790000FA2E2 /* Sources */,
+				66448D9314F42790000FA2E2 /* Frameworks */,
+				66448D9414F42790000FA2E2 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				66448D9C14F42796000FA2E2 /* PBXTargetDependency */,
+			);
+			name = FoundationTests;
+			productName = FoundationTests;
+			productReference = 66448D9614F42790000FA2E2 /* FoundationTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 		7F9703CF09AFEE8700E9EA77 /* QSDroplet */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7F9703D309AFEE8B00E9EA77 /* Build configuration list for PBXNativeTarget "QSDroplet" */;
@@ -3117,6 +3177,7 @@
 				7F0399E9080EE58D001A9FA3 /* Preflight */,
 				7F9703CF09AFEE8700E9EA77 /* QSDroplet */,
 				7F039992080EE210001A9FA3 /* Quicksilver Distribution */,
+				66448D9514F42790000FA2E2 /* FoundationTests */,
 			);
 		};
 /* End PBXProject section */
@@ -3154,6 +3215,13 @@
 			files = (
 				4D002DB413114A5F009040B7 /* Keyboard.tiff in Resources */,
 				4D002DB513114A5F009040B7 /* QSHotKeyTrigger.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66448D9114F42790000FA2E2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3323,6 +3391,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		66448D9414F42790000FA2E2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
 		7F0399E8080EE58D001A9FA3 /* Remove PlugIns */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3431,6 +3512,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D002DB613114A61009040B7 /* QSHotKeyTriggerManager.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66448D9214F42790000FA2E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66448E1314F42A4E000FA2E2 /* TestPathWildcards.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3758,6 +3847,11 @@
 			target = 8D1107260486CEB800E47090 /* Quicksilver */;
 			targetProxy = 4DAAEB9E0E0BBF720088C72D /* PBXContainerItemProxy */;
 		};
+		66448D9C14F42796000FA2E2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E1E5F97107B1FCFC0044D6EF /* QuickStep Foundation */;
+			targetProxy = 66448D9B14F42796000FA2E2 /* PBXContainerItemProxy */;
+		};
 		7F039994080EE21A001A9FA3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8D1107260486CEB800E47090 /* Quicksilver */;
@@ -4073,6 +4167,62 @@
 			};
 			name = Release;
 		};
+		66448D9814F42791000FA2E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "PropertyLists/FoundationTests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = FoundationTests;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		66448D9914F42791000FA2E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "FoundationTests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = FoundationTests;
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		7F6B3E46085CE68E000735A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4330,6 +4480,15 @@
 			buildConfigurations = (
 				4D002DAF13114A2E009040B7 /* Debug */,
 				4D002DB013114A2E009040B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		66448D9A14F42791000FA2E2 /* Build configuration list for PBXNativeTarget "FoundationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				66448D9814F42791000FA2E2 /* Debug */,
+				66448D9914F42791000FA2E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
