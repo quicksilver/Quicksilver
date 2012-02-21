@@ -336,6 +336,12 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	if (!text) text = @"No documentation available";
 	return [NSString stringWithFormat:@"<html><link rel=\"stylesheet\" href=\"resource:QSStyle.css\"><body>%@</body></html>", text];
 }
+
+- (BOOL)hasExtendedDescription
+{
+	return ([[[self info] valueForKeyPath:@"QSPlugIn.extendedDescription"] length] > 0);
+}
+
 - (NSComparisonResult) compare:(id)other {
 	return [[self name] compare:[other name]];
 }

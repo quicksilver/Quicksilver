@@ -80,6 +80,7 @@
 - (void)downloadFailed;
 + (id)plugInWithBundle:(NSBundle *)aBundle;
 - (NSString *)infoHTML;
+- (BOOL)hasExtendedDescription;
 - (NSString *)shortName;
 - (void)setEnabled:(BOOL)flag;
 - (NSString *)text;

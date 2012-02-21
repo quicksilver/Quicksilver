@@ -1656,6 +1656,22 @@
 					<int key="connectionID">109</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: selection.hasExtendedDescription</string>
+						<reference key="source" ref="445065045"/>
+						<reference key="destination" ref="514305483"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="445065045"/>
+							<reference key="NSDestination" ref="514305483"/>
+							<string key="NSLabel">enabled: selection.hasExtendedDescription</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">selection.hasExtendedDescription</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">618</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">menu</string>
 						<reference key="source" ref="148481552"/>
@@ -1766,6 +1782,22 @@
 						</object>
 					</object>
 					<int key="connectionID">264</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: selection.hasExtendedDescription</string>
+						<reference key="source" ref="875271046"/>
+						<reference key="destination" ref="514305483"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="875271046"/>
+							<reference key="NSDestination" ref="514305483"/>
+							<string key="NSLabel">enabled: selection.hasExtendedDescription</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">selection.hasExtendedDescription</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">615</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -3156,7 +3188,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">612</int>
+			<int key="maxID">618</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
