@@ -106,6 +106,12 @@
 	[setsArrayController addObserver:self forKeyPath:@"selectedObjects" options:0 context:nil];
 	[pluginSetsTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
     //[pluginSetsTable selectRow:0 byExtendingSelection:NO];
+	// update the list of plug-ins to match the selected category
+	NSArray *selection = [setsArrayController performSelector:@selector(selectedObjects)];
+	NSDictionary *dict = [selection lastObject];
+	if ([dict objectForKey:@"viewMode"]) {
+		[self setViewMode:[[dict objectForKey:@"viewMode"] intValue]];
+	}
 }
 
 - (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id)listener {
