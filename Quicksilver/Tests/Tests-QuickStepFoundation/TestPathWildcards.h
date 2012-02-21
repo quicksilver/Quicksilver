@@ -10,7 +10,7 @@
 
 
 @interface TestPathWildcards : SenTestCase {
-
+	NSString *basePath;
 }
 
 @end

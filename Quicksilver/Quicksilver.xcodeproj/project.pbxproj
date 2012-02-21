@@ -119,6 +119,7 @@
 		6535A98A1086F627009D5C90 /* About.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6535A9891086F627009D5C90 /* About.strings */; };
 		6535A98C1086F627009D5C90 /* Catalog.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6535A98B1086F627009D5C90 /* Catalog.strings */; };
 		6535A98E1086F627009D5C90 /* Preferences.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6535A98D1086F627009D5C90 /* Preferences.strings */; };
+		6615228414F43355006FDCB4 /* PathWildcardsData in Resources */ = {isa = PBXBuildFile; fileRef = 6615228314F43355006FDCB4 /* PathWildcardsData */; };
 		66448DF214F427B8000FA2E2 /* QSFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9AF07B1FCFC0044D6EF /* QSFoundation.framework */; };
 		66448E1314F42A4E000FA2E2 /* TestPathWildcards.m in Sources */ = {isa = PBXBuildFile; fileRef = 66448E1214F42A4E000FA2E2 /* TestPathWildcards.m */; };
 		7F05F1E20852441C00A8EC0C /* NSObject+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F05F1E00852441C00A8EC0C /* NSObject+BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -747,7 +748,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = E1E5F97107B1FCFC0044D6EF /* QuickStep Foundation */;
+			remoteGlobalIDString = E1E5F97107B1FCFC0044D6EF;
 			remoteInfo = "QuickStep Foundation";
 		};
 		7F039993080EE21A001A9FA3 /* PBXContainerItemProxy */ = {
@@ -1012,6 +1013,7 @@
 		6552BC9F109D0DED003B4892 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Catalog.strings; sourceTree = "<group>"; };
 		6552BCA0109D0DF6003B4892 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Preferences.strings; sourceTree = "<group>"; };
 		6552BCA1109D0E00003B4892 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/About.strings; sourceTree = "<group>"; };
+		6615228314F43355006FDCB4 /* PathWildcardsData */ = {isa = PBXFileReference; explicitFileType = folder; name = PathWildcardsData; path = Tests/TestData/PathWildcardsData; sourceTree = "<group>"; };
 		66448D9614F42790000FA2E2 /* FoundationTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoundationTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		66448D9714F42790000FA2E2 /* FoundationTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FoundationTests-Info.plist"; sourceTree = "<group>"; };
 		66448E1114F42A4E000FA2E2 /* TestPathWildcards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestPathWildcards.h; path = "Tests/Tests-QuickStepFoundation/TestPathWildcards.h"; sourceTree = "<group>"; };
@@ -1768,7 +1770,6 @@
 		29B97314FDCFA39411CA2CEA /* Quicksilver */ = {
 			isa = PBXGroup;
 			children = (
-				66448E0714F428DA000FA2E2 /* Tests */,
 				7F0737A10927023A00782D10 /* CHANGELOG */,
 				4D8A0B3510AB23F7006AF163 /* Configuration */,
 				4DC3DD0B0E0BB27B009902EF /* Configuration */,
@@ -1788,6 +1789,7 @@
 				E103EC5006471DBE00447FE0 /* Resources */,
 				E1A567CA06FFEBFB00BAD045 /* Scripting */,
 				E1DADBB30666606900BB655F /* SharedSupport */,
+				66448E0714F428DA000FA2E2 /* Tests */,
 			);
 			name = Quicksilver;
 			sourceTree = "<group>";
@@ -1886,9 +1888,18 @@
 			path = NSImageQuickLook;
 			sourceTree = "<group>";
 		};
+		6615227B14F43347006FDCB4 /* TestData */ = {
+			isa = PBXGroup;
+			children = (
+				6615228314F43355006FDCB4 /* PathWildcardsData */,
+			);
+			name = TestData;
+			sourceTree = "<group>";
+		};
 		66448E0714F428DA000FA2E2 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				6615227B14F43347006FDCB4 /* TestData */,
 				66448E0814F428E7000FA2E2 /* Tests-QuickStepFoundation */,
 			);
 			name = Tests;
@@ -3222,6 +3233,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6615228414F43355006FDCB4 /* PathWildcardsData in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
