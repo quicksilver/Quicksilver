@@ -692,7 +692,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 + (QSObject *)fileObjectWithArray:(NSArray *)paths {
-	QSObject *newObject = [QSObject objectWithIdentifier:identifierForPaths(paths)];
+	QSObject *newObject = [QSObject objectByMergingObjects:[self fileObjectsWithPathArray:paths]];
 	if (!newObject) {
 		if ([paths count] > 1)
 			newObject = [[[QSObject alloc] initWithArray:paths] autorelease];

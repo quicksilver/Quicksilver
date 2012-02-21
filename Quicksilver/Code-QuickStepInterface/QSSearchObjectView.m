@@ -1030,7 +1030,8 @@ NSMutableDictionary *bindingsDict = nil;
 	return [super becomeFirstResponder];
 }
 
-- (BOOL)resignFirstResponder {
+- (BOOL)resignFirstResponder {  
+    
 	//NSLog(@"resign first");
 	if ([self currentEditor]) {
 		// NSLog(@"resign first with monkey %@", self);
@@ -1046,6 +1047,14 @@ NSMutableDictionary *bindingsDict = nil;
 
 // This method deals with all keydowns. Some very interesting things could be done by manipulating this method
 - (void)keyDown:(NSEvent *)theEvent {
+    // Send events to the preview panel if it's open
+    if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
+        // space key
+        if(![self handleBoundKey:theEvent]) {
+            [previewPanel keyDown:theEvent];
+        }
+        return;
+    }
 	[NSThread setThreadPriority:1.0];
 	NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
 	NSTimeInterval delay = [theEvent timestamp] -lastTime;
@@ -1057,7 +1066,6 @@ NSMutableDictionary *bindingsDict = nil;
 		[partialString setString:@""];
 		validSearch = YES;
 		if ([self searchMode] == SearchFilterAll) {
-            
 			[self setSourceArray:nil];
 		}
 		[self setShouldResetSearchString:NO];
@@ -1078,7 +1086,9 @@ NSMutableDictionary *bindingsDict = nil;
         return;
     
 	if ([[theEvent charactersIgnoringModifiers] isEqualToString:@" "]) {
-		[self insertSpace:nil];
+        if ([theEvent type] == NSKeyDown) {
+            [self insertSpace:nil];
+        }
 		return;
 	}
     
@@ -1237,8 +1247,7 @@ NSMutableDictionary *bindingsDict = nil;
      editor = nil;
      }
 	 */
-//	NSLog(@"The Event is...: %@\ and currentEditor: %@ ",theEvent,[[[self control] dSelector] currentEditor]);
-	
+    
 	if ([theEvent clickCount] > 1) {
 		[(QSInterfaceController *)[[self window] windowController] executeCommand:self];
 	} else {
@@ -1279,6 +1288,9 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)scrollWheel:(NSEvent *)theEvent {
 	// ***warning  * this still goes to the wrong view if over another search view
+    if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
+        return;
+    }
 	if (![[resultController window] isVisible]) {
 		[self showResultView:self];
 	}
@@ -1357,6 +1369,8 @@ NSMutableDictionary *bindingsDict = nil;
 				[self moveLeft:sender];
 			else
 				[self moveRight:sender];
+        case 6: // Show Quicklook window
+            [self togglePreviewPanel:nil];
 			break;
 	}
 }
@@ -1503,7 +1517,6 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)textDidChange:(NSNotification *)aNotification {
     NSString *string = [[[aNotification object] string] copy];
 	if ([[[aNotification object] string] isEqualToString:@" "]) {
-        NSLog(@"Got a space");
         //		[(QSInterfaceController *)[[self window] windowController] shortCircuit:self];
         [self shortCircuit:self];
         [string release];
@@ -1822,5 +1835,149 @@ NSMutableDictionary *bindingsDict = nil;
     }
 }
 
+
+@end
+
+#pragma mark Quicklook support
+
+@implementation QSSearchObjectView (Quicklook) 
+
+
+-(BOOL)canQuicklookCurrentObject {
+    QSObject *object = [self objectValue];
+    if ([object isKindOfClass:[QSRankedObject class]]) {
+        object = [(QSRankedObject *)object object];
+    }
+    if ([object validPaths] || [[object primaryType] isEqualToString:QSURLType]) {
+        return YES;
+    }
+    return NO;
+}
+
+- (IBAction)togglePreviewPanel:(id)previewPanel
+{
+    if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
+        [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
+    } else {
+       if ([self canQuicklookCurrentObject]) {
+            [NSApp activateIgnoringOtherApps:YES];
+            // makeKeyAndOrderFront closes the QS interface. This way, the interface stays open behind the preview panel
+            [[QLPreviewPanel sharedPreviewPanel] orderFront:nil];
+            [[QLPreviewPanel sharedPreviewPanel] makeKeyWindow];
+        }
+        else {
+            NSBeep();
+        }
+    }
+}
+
+- (IBAction)togglePreviewPanelFullScreen:(id)previewPanel
+{
+    if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isInFullScreenMode]) {
+        [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
+    } else {
+        if ([self canQuicklookCurrentObject]) {
+            [NSApp activateIgnoringOtherApps:YES];
+            [[QLPreviewPanel sharedPreviewPanel] enterFullScreenMode:nil withOptions:nil];
+        }
+        else {
+            NSBeep();
+        }
+    }
+}
+
+
+// Quick Look panel support
+
+- (BOOL)acceptsPreviewPanelControl:(QLPreviewPanel *)panel;
+{
+    return YES;
+}
+
+- (void)beginPreviewPanelControl:(QLPreviewPanel *)panel
+{
+    // This document is now responsible of the preview panel
+    // It is allowed to set the delegate, data source and refresh panel.
+    previewPanel = [panel retain];
+    [panel setDelegate:self];
+    [panel setDataSource:self];
+    // Put the panel just above Quicksilver's window
+    [previewPanel setLevel:([[self window] level] + 1)];
+//    [panel setFloatingPanel:YES];
+}
+
+- (void)endPreviewPanelControl:(QLPreviewPanel *)panel
+{
+    // This document loses its responsisibility on the preview panel
+    // Until the next call to -beginPreviewPanelControl: it must not
+    // change the panel's delegate, data source or refresh it.
+    [previewPanel release];
+    previewPanel = nil;
+}
+
+// Quick Look panel data source
+
+- (NSInteger)numberOfPreviewItemsInPreviewPanel:(QLPreviewPanel *)panel
+{
+    QSObject *object = [self objectValue];
+    if ([object isKindOfClass:[QSRankedObject class]]) {
+        object = [(QSRankedObject *)object object];
+    }
+    return [object count];
+}
+
+- (id <QLPreviewItem>)previewPanel:(QLPreviewPanel *)panel previewItemAtIndex:(NSInteger)index
+{
+    QSObject *object = [self objectValue];
+    if ([object isKindOfClass:[QSRankedObject class]]) {
+        object = [(QSRankedObject *)object object];
+    }
+    return [[object splitObjects] objectAtIndex:index];
+}
+
+// Quick Look panel delegate
+
+- (BOOL)previewPanel:(QLPreviewPanel *)panel handleEvent:(NSEvent *)event
+{
+    if (![event type]  == NSKeyDown) {
+        return NO;
+    }
+    NSString *key = [event charactersIgnoringModifiers];
+    NSUInteger eventModifierFlags = [event modifierFlags];
+    if ([key isEqual:@"y"] && eventModifierFlags & NSCommandKeyMask) {
+        if (eventModifierFlags & NSAlternateKeyMask) {
+            // Cmd + Optn + Y shortcut (full screen)
+            [self togglePreviewPanelFullScreen:nil];
+        } else {
+            // Cmd + Y shortcut (small quicklook panel)
+            [self togglePreviewPanel:nil];
+        }
+        return YES;
+    }
+    // Allow the defualt action to be executed (if CMD+ENTR or ENTR is pressed)
+    if ([key isEqualToString:@"\r"] && (eventModifierFlags & NSCommandKeyMask || ((eventModifierFlags & NSDeviceIndependentModifierFlagsMask) == 0))) {
+        if (eventModifierFlags & NSCommandKeyMask) {
+            [self insertNewline:nil];
+        } else {
+            [self interpretKeyEvents:[NSArray arrayWithObject:event]];
+        }
+        [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
+        return YES;
+    }
+    return NO;
+}
+
+// This delegate method provides the rect on screen from which the panel will zoom.
+- (NSRect)previewPanel:(QLPreviewPanel *)panel sourceFrameOnScreenForPreviewItem:(id <QLPreviewItem>)item
+{
+    
+    // check that the icon rect is visible on screen
+    NSRect rect = [self frame];
+    NSRect windowFrame = [[self window] frame];
+    NSRect imageRect = [[self cell] imageRectForBounds:rect];
+    imageRect.origin.x = windowFrame.origin.x + imageRect.origin.x;
+    imageRect.origin.y = windowFrame.origin.y + imageRect.origin.y;
+    return imageRect;
+}
 
 @end

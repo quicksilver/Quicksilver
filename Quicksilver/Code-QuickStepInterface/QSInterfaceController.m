@@ -184,6 +184,10 @@
 }
 
 - (void)hideMainWindowWithEffect:(id)effect {
+    // Close the Quicklook panel if the QS window closes
+    if([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
+        [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
+    }
 	[self willHideMainWindow:nil];
 	[self setHiding:YES];
 	if (effect && [[NSUserDefaults standardUserDefaults] boolForKey:kUseEffects])

@@ -1,6 +1,8 @@
 #import <Foundation/Foundation.h>
 #import "QSObjectView.h"
 
+#import <Quartz/Quartz.h>
+
 @interface NSObject (QSSearchViewController)
 - (void)searchView:(id)view changedResults:(id)array;
 - (void)searchView:(id)view changedString:(id)string;
@@ -56,6 +58,8 @@ typedef enum QSSearchMode {
     
     NSFont *textCellFont; // for text entry mode
     NSColor *textCellFontColor; // for text entry mode
+    QLPreviewPanel* previewPanel;
+
 
 @public
 	QSResultController *resultController;
@@ -190,4 +194,17 @@ typedef enum QSSearchMode {
 
 @interface QSSearchObjectView (Browsing)
 - (void)browse:(int)direction;
+@end
+
+@interface QSSearchObjectView (Quicklook) <QLPreviewPanelDataSource, QLPreviewPanelDelegate>
+/*!
+ @canQuicklookCurrentObject
+ @abstract Checks an object's eligibility for Quick Looking
+ @discussion returns whether the currently selected object can by shown in the Quicklook panel
+ @result YES if the object is a file or URL object, otherwise NO
+ */
+- (BOOL)canQuicklookCurrentObject;
+
+- (IBAction)togglePreviewPanel:(id)previewPanel;
+- (IBAction)togglePreviewPanelFullScreen:(id)previewPanel;
 @end
