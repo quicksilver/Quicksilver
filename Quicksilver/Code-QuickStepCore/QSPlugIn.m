@@ -332,7 +332,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	NSDictionary *plist = [self info];
 	NSString *text = [plist valueForKeyPath:@"QSPlugIn.extendedDescription"];
 	if (![text length]) text = [plist valueForKeyPath:@"QSPlugIn.description"];
-	if (!text) text = @"No documentation available";
+	if (![text length]) text = @"<span style='color: #CCC'>No documentation available</span>";
 	return [NSString stringWithFormat:@"<html><link rel=\"stylesheet\" href=\"resource:QSStyle.css\"><body>%@</body></html>", text];
 }
 
