@@ -1337,7 +1337,7 @@ NSMutableDictionary *bindingsDict = nil;
 	[resultTimer invalidate];
 }
 
-- (IBAction)insertSpace:(id)sender {
+- (void)insertSpace:(id)sender {
 	int behavior = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSSearchSpaceBarBehavior"];
 	switch(behavior) {
 		case 1: //Normal
@@ -1835,11 +1835,17 @@ NSMutableDictionary *bindingsDict = nil;
 
 
 -(BOOL)canQuicklookCurrentObject {
-    QSObject *object = [self objectValue];
+    id object = [self objectValue];
+    // resolve ranked objects
     if ([object isKindOfClass:[QSRankedObject class]]) {
         object = [(QSRankedObject *)object object];
     }
+    // resolve proxy objects
+    if ([object isKindOfClass:[QSProxyObject class]]) {
+        object = [(QSProxyObject *)object resolvedObject];
+    }
     if ([object validPaths] || [[object primaryType] isEqualToString:QSURLType]) {
+        quicklookObject = [object retain];
         return YES;
     }
     return NO;
@@ -1849,6 +1855,8 @@ NSMutableDictionary *bindingsDict = nil;
 {
     if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
         [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
+        [quicklookObject release];
+        quicklookObject = nil;
     } else {
        if ([self canQuicklookCurrentObject]) {
             [NSApp activateIgnoringOtherApps:YES];
@@ -1866,6 +1874,8 @@ NSMutableDictionary *bindingsDict = nil;
 {
     if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isInFullScreenMode]) {
         [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
+        [quicklookObject release];
+        quicklookObject = nil;
     } else {
         if ([self canQuicklookCurrentObject]) {
             [NSApp activateIgnoringOtherApps:YES];
@@ -1910,20 +1920,18 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (NSInteger)numberOfPreviewItemsInPreviewPanel:(QLPreviewPanel *)panel
 {
-    QSObject *object = [self objectValue];
-    if ([object isKindOfClass:[QSRankedObject class]]) {
-        object = [(QSRankedObject *)object object];
+    if (quicklookObject) {
+        return [quicklookObject count];
     }
-    return [object count];
+    return nil;
 }
 
 - (id <QLPreviewItem>)previewPanel:(QLPreviewPanel *)panel previewItemAtIndex:(NSInteger)index
 {
-    QSObject *object = [self objectValue];
-    if ([object isKindOfClass:[QSRankedObject class]]) {
-        object = [(QSRankedObject *)object object];
+    if (quicklookObject) {
+        return [[quicklookObject splitObjects] objectAtIndex:index];
     }
-    return [[object splitObjects] objectAtIndex:index];
+    return nil;
 }
 
 // Quick Look panel delegate
