@@ -27,6 +27,7 @@
 	BOOL loaded;
 	BOOL shouldInstall;
 	NSString *loadError;
+	NSString *status;
 
 }
 + (id)plugInWithBundle:(NSBundle *)aBundle;
@@ -34,7 +35,6 @@
 + (NSString *)bundleIDForPluginAt:(NSString*)path andVersion:(NSString**)version;
 - (int) isInstalled;
 - (NSString *)name;
-- (NSString *)status;
 - (NSString *)statusBullet;
 - (NSString *)author;
 - (NSDate *)createdDate;
@@ -85,6 +85,7 @@
 - (void)setEnabled:(BOOL)flag;
 - (NSString *)text;
 - (NSImage *)image;
+@property NSString *status;
 @end
 
 

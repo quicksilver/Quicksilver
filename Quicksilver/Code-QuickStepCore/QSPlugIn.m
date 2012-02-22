@@ -23,6 +23,8 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 @implementation QSPlugIn
 
+@synthesize status;
+
 + (void)initialize {
 	plugInBundlePaths = [[NSMutableDictionary alloc] init];
 	[self setKeys:[NSArray arrayWithObject:@"bundle"] triggerChangeNotificationsForDependentKey:@"smallIcon"];
@@ -38,6 +40,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	if (self = [super init]) {
 		[self setBundle:aBundle];
 	}
+	[self setStatus:@"Disabled"];
 	return self;
 }
 
@@ -46,6 +49,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 		data = [webInfo retain];
 		bundle = nil;
 	}
+	[self setStatus:@"Downloadable"];
 	return self;
 }
 
@@ -93,10 +97,12 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 - (void)install {
 	installing = YES;
+	[self setStatus:@"Installing"];
 	NSString *identifier = [data objectForKey:@"CFBundleIdentifier"];
 	[[QSPlugInManager sharedInstance] installPlugInsForIdentifiers:[NSArray arrayWithObject:identifier]];
 	[self willChangeValueForKey:@"enabled"];
 	[self didChangeValueForKey:@"enabled"];
+	[self setStatus:@"Loaded"];
 }
 
 - (NSString *)shortName {
@@ -128,28 +134,6 @@ NSMutableDictionary *plugInBundlePaths = nil;
 #endif
 
 	return name;
-}
-- (NSString *)status
-{
-	NSString *error = [self loadError];
-	if (error) {
-		return [NSString stringWithFormat:@"Error (%@) ", error];
-	}
-	NSString *status = nil;
-	if (bundle) {
-		if ([self isLoaded]) {
-			status = @"Loaded";
-		} else {
-			status = @"Disabled";
-		}
-	} else {
-		if (installing) {
-			status = @"Downloading";
-		} else {
-			status = @"Downloadable";
-		}
-	}
-	return status;
 }
 
 - (NSString *)statusBullet {
@@ -449,8 +433,10 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 		if (flag) {
 			[disabledPlugInsSet removeObject:identifier];
+			[self setStatus:@"Loaded"];
 		} else {
 			[disabledPlugInsSet addObject:identifier];
+			[self setStatus:@"Disabled"];
 		}
 
 		[[NSUserDefaults standardUserDefaults] setObject:[disabledPlugInsSet allObjects] forKey:@"QSDisabledPlugIns"];
@@ -534,6 +520,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 - (void)setLoadError:(NSString *)newLoadError {
 	[loadError autorelease];
 	loadError = [newLoadError retain];
+	[self setStatus:[NSString stringWithFormat:@"Error (%@) ", loadError]];
 }
 
 @end
@@ -725,6 +712,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	//if (complete)
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSPlugInLoadedNotification object:self];
 	loaded = YES;
+	[self setStatus:@"Loaded"];
 	return YES;
 }
 
