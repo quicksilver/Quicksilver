@@ -671,5 +671,9 @@ id QSPrefs;
 //- (float) splitView:(NSSplitView *)splitView constrainSplitPosition:(float)proposedPosition ofSubviewAt:(int)index {
 //
 //}
-
+- (void)windowWillClose:(NSNotification *)notification
+{
+	// close the plug-in help panel
+	[[[[modulesByID objectForKey:@"QSPlugInsPrefPane"] objectForKey:@"instance"] pluginInfoPanel] close];
+}
 @end
