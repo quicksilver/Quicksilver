@@ -1,6 +1,36 @@
-body{font-family:lucida grande, gill sans, verdana;font-size:11px;margin:10px;padding:0px}
-h3{font-weight:bold;background-color:#C0C0C0;color:white;padding:2px 2px 2px 4px;font-size:11px;margin:0px -10px 0px -10px}
-ul.featurelist{margin:10px 10px 10px 10px;padding:0px}
-ul.featurelist li{list-style-type:none;list-style-position:default;margin:3px;padding:3px 6px 3px 6px;border-color:#CCC;border-width:1px 1px 1px 3px;border-style:solid solid solid double}
-a{color:blue;border-bottom:1px dotted gray;text-decoration:none}
-a:hover{border-bottom:1px solid blue}
+body, th, td {
+  font-family: "Lucida Grande", "Gill Sans", Verdana;
+  font-size: 11px;
+  margin: 10px;
+  padding: 0px;
+}
+a {
+  color: blue;
+  border-bottom: 1px dotted gray;
+  text-decoration: none;
+}
+a: hover {
+  border-bottom:  1px solid blue;
+}
+pre, code {
+  font-family: Menlo;
+}
+pre {
+  border-radius: 0.4em;
+  background-color: #EDEDED;
+  padding: 0.5em;
+}
+code {
+  color: #4B3E88;
+}
+pre code {
+  color: #000000;
+}
+table {
+  margin: 0.5em 1em;
+  border-collapse: collapse;
+}
+td, th {
+  padding: 0.25em 0.5em;
+  border: 1px solid #EDEDED;
+}

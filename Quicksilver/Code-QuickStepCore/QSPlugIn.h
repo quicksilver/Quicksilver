@@ -27,6 +27,7 @@
 	BOOL loaded;
 	BOOL shouldInstall;
 	NSString *loadError;
+	NSString *status;
 
 }
 + (id)plugInWithBundle:(NSBundle *)aBundle;
@@ -34,16 +35,20 @@
 + (NSString *)bundleIDForPluginAt:(NSString*)path andVersion:(NSString**)version;
 - (int) isInstalled;
 - (NSString *)name;
-- (NSString *)status;
 - (NSString *)statusBullet;
 - (NSString *)author;
 - (NSDate *)createdDate;
 - (NSDate *)modifiedDate;
+- (NSDate *)installedDate;
+- (NSDate *)latestVersionDate;
 - (NSString *)version;
 - (NSString *)buildVersion;
+- (NSString *)installedVersion;
+- (NSString *)latestVersion;
 
 - (BOOL)isRecommended;
 - (NSArray *)categories;
+- (NSString *)categoriesAsString;
 - (NSArray *)relatedBundles;
 
 - (NSData *)attributedDescription;
@@ -75,10 +80,12 @@
 - (void)downloadFailed;
 + (id)plugInWithBundle:(NSBundle *)aBundle;
 - (NSString *)infoHTML;
+- (BOOL)hasExtendedDescription;
 - (NSString *)shortName;
 - (void)setEnabled:(BOOL)flag;
 - (NSString *)text;
 - (NSImage *)image;
+@property NSString *status;
 @end
 
 
