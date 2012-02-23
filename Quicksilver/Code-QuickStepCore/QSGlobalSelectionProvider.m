@@ -38,8 +38,8 @@
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"Get Selection: %@ %d", userData, [userData characterAtIndex:0]);
 #endif
-    if(resultPboard)
-        [resultPboard release]; 
+	if(resultPboard)
+		[resultPboard release]; 
 	resultPboard = [pboard retain];
 }
 
@@ -52,15 +52,11 @@
 #endif
 
 - (NSPasteboard *)getSelectionFromFrontApp {
-	
 	//NSLog(@"GET SEL");
 	id oldServicesProvider = [[NSApp servicesProvider] retain];
 	[NSApp setServicesProvider:self];
-	//[self invokeService];
 	[NSThread detachNewThreadSelector:@selector(invokeService)
 							 toTarget:self withObject:nil];
-	
-	//	return nil;
 	NSRunLoop *loop = [NSRunLoop currentRunLoop];
 	NSDate *date = [NSDate date];
 	while(!resultPboard && [date timeIntervalSinceNow] >-2) {
@@ -69,7 +65,7 @@
 	}
 	//	NSLog(@"got %@", resultPboard);
 	[NSApp setServicesProvider:oldServicesProvider];
-    [oldServicesProvider release];
+	[oldServicesProvider release];
 	id result = [resultPboard autorelease];
 	resultPboard = nil;
 	return result;
@@ -85,24 +81,33 @@
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	if ([NSApplication isLion]) {
 		//AXUIElement* is unable to post keys into sandboxed app since 10.7, use Quartz Event Services instead
-		CGEventRef keyDown = CGEventCreateKeyboardEvent (NULL, (CGKeyCode)53, true); //Escape
+		pid_t pid = [[[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationProcessIdentifier"] intValue];
+		ProcessSerialNumber psn;
+		BOOL usePID = GetProcessForPID(pid, &psn) == 0;
+		CGEventSourceRef source = CGEventSourceCreate(kCGEventSourceStatePrivate);
+		CGEventRef keyDown = CGEventCreateKeyboardEvent (source, (CGKeyCode)53, true); //Escape
 		CGEventSetFlags(keyDown, kCGEventFlagMaskCommand);
-		CGEventPost(kCGHIDEventTap, keyDown);
-		CGEventRef keyUp = CGEventCreateKeyboardEvent (NULL, (CGKeyCode)53, false); //Escape
+		if (usePID) {
+			CGEventPostToPSN(&psn, keyDown);
+		} else {
+			CGEventPost(kCGHIDEventTap, keyDown);
+		}
+		CGEventRef keyUp = CGEventCreateKeyboardEvent (source, (CGKeyCode)53, false); //Escape
 		CGEventSetFlags(keyUp, kCGEventFlagMaskCommand);
-		CGEventPost(kCGHIDEventTap, keyUp);
+		if (usePID) {
+			CGEventPostToPSN(&psn, keyUp);
+		} else {
+			CGEventPost(kCGHIDEventTap, keyUp);
+		}
 		CFRelease(keyDown);
 		CFRelease(keyUp);
+		CFRelease(source);
 	} else {
 		pid_t pid = [[[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationProcessIdentifier"] intValue];
 		AXUIElementRef app = AXUIElementCreateApplication (pid);
-		//NDProcess *proc = [NDProcess frontProcess];
-		//BOOL carbon = [proc isCarbon];
 		AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)55, true ); //Command
-		//if (carbon) AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)56, true ); //Shift
 		AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)53, true ); //Escape
 		AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)53, false ); //Escape
-		//if (carbon) AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)56, false ); //Shift
 		AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)55, true ); //Command
 		CFRelease( app );
 	}
