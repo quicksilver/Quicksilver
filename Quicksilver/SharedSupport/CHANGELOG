@@ -1,3 +1,20 @@
+Changes - ß66 (3921)
+-------
+
+   * NEW: Quick Look support. Quick look files or URLs (including proxy objects) from Quicksilver using ⌘Y, ⌘⌥Y or ␣ (spacebar - set in preferences) #23, #115 #660, #715
+   
+   * NEW: Updated Plugins Preferences sidebars and new 'Extended Documentation' window #697
+   
+   * CHANGE: Improved wording for the Application Updater #662, 682
+   
+   * FIX: 'Show Entry in Catalog' and 'Show Source in Catalog' actions crash #714, #716
+   
+   * FIX: Clear Quicksilver's 1st pane when objects are passed to it #670, #699
+   
+   * FIX: Triggers now work for actions that display a result #623, #699
+   
+
+
 Changes - ß65 (3920)
 -------
 
