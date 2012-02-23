@@ -96,4 +96,5 @@
 - (BOOL)preview;
 - (void)setPreview:(BOOL)flag;
 
+- (void)clearObjectView:(QSSearchObjectView *)view;
 @end
