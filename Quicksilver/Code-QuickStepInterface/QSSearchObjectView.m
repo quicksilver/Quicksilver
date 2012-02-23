@@ -1834,7 +1834,7 @@ NSMutableDictionary *bindingsDict = nil;
 @implementation QSSearchObjectView (Quicklook) 
 
 
--(BOOL)canQuicklookCurrentObject {
+- (BOOL)canQuicklookCurrentObject {
     id object = [self objectValue];
     // resolve ranked objects
     if ([object isKindOfClass:[QSRankedObject class]]) {
@@ -1846,17 +1846,24 @@ NSMutableDictionary *bindingsDict = nil;
     }
     if ([object validPaths] || [[object primaryType] isEqualToString:QSURLType]) {
         quicklookObject = [object retain];
+        savedSearchMode = searchMode;
         return YES;
     }
     return NO;
 }
 
+- (void)closePreviewPanel {
+    [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
+    [quicklookObject release];
+    quicklookObject = nil;
+    searchMode = savedSearchMode;
+}
+
+
 - (IBAction)togglePreviewPanel:(id)previewPanel
 {
     if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
-        [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
-        [quicklookObject release];
-        quicklookObject = nil;
+        [self closePreviewPanel];
     } else {
        if ([self canQuicklookCurrentObject]) {
             [NSApp activateIgnoringOtherApps:YES];
@@ -1873,9 +1880,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (IBAction)togglePreviewPanelFullScreen:(id)previewPanel
 {
     if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isInFullScreenMode]) {
-        [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
-        [quicklookObject release];
-        quicklookObject = nil;
+        [self closePreviewPanel];
     } else {
         if ([self canQuicklookCurrentObject]) {
             [NSApp activateIgnoringOtherApps:YES];
@@ -1923,7 +1928,7 @@ NSMutableDictionary *bindingsDict = nil;
     if (quicklookObject) {
         return [quicklookObject count];
     }
-    return nil;
+    return 0;
 }
 
 - (id <QLPreviewItem>)previewPanel:(QLPreviewPanel *)panel previewItemAtIndex:(NSInteger)index
