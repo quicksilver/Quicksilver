@@ -83,20 +83,29 @@
 
 - (void)invokeService {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	pid_t pid = [[[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationProcessIdentifier"] intValue];
-	AXUIElementRef app = AXUIElementCreateApplication (pid);
-	
-	//	NDProcess *proc = [NDProcess frontProcess];
-	
-	//BOOL carbon = [proc isCarbon];
-	
-	AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)55, true ); //Command
-//	if (carbon) AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)56, true ); //Shift
-	AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)53, true ); //Escape
-	AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)53, false ); //Escape
-//	if (carbon) AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)56, false ); //Shift
-	AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)55, true ); //Command
-    CFRelease( app );
+	if ([NSApplication isLion]) {
+		//AXUIElement* is unable to post keys into sandboxed app since 10.7, use Quartz Event Services instead
+		CGEventRef keyDown = CGEventCreateKeyboardEvent (NULL, (CGKeyCode)53, true); //Escape
+		CGEventSetFlags(keyDown, kCGEventFlagMaskCommand);
+		CGEventPost(kCGHIDEventTap, keyDown);
+		CGEventRef keyUp = CGEventCreateKeyboardEvent (NULL, (CGKeyCode)53, false); //Escape
+		CGEventSetFlags(keyUp, kCGEventFlagMaskCommand);
+		CGEventPost(kCGHIDEventTap, keyUp);
+		CFRelease(keyDown);
+		CFRelease(keyUp);
+	} else {
+		pid_t pid = [[[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationProcessIdentifier"] intValue];
+		AXUIElementRef app = AXUIElementCreateApplication (pid);
+		//NDProcess *proc = [NDProcess frontProcess];
+		//BOOL carbon = [proc isCarbon];
+		AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)55, true ); //Command
+		//if (carbon) AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)56, true ); //Shift
+		AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)53, true ); //Escape
+		AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)53, false ); //Escape
+		//if (carbon) AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)56, false ); //Shift
+		AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)55, true ); //Command
+		CFRelease( app );
+	}
 	[pool release];
 }
 
