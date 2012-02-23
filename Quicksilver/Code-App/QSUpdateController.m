@@ -147,14 +147,14 @@ typedef enum {
     switch (check) {
         case kQSUpdateCheckError:
             if (!quiet)
-                NSRunInformationalAlertPanel(@"Connection Error", @"Unable to check for updates.", @"OK", nil, nil);
+                NSRunInformationalAlertPanel(@"Internet Connection Error", @"Unable to check for updates, the server could not be reached. Please check your internet connection", @"OK", nil, nil);
             return NO;
         break;
         case kQSUpdateCheckUpdateAvailable:
             if (!force && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSDownloadUpdatesInBackground"]) {
                 [self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
             } else {
-                int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"New Version", nil], @"A new version of Quicksilver, version %@, is available; would you like to download it now?", @"Get New Version", @"Cancel", nil, newVersion); //, @"More Info");
+                int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"New Version of Quicksilver Available", nil], @"A new version of Quicksilver is available, would you like to update now?\n\n(Update from %@ → %@)", @"Install Update", @"Later", nil, [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey],newVersion); //, @"More Info");
                 if (selection == 1) {
                     [self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
                 } else if (selection == -1) {  //Go to web site
@@ -168,7 +168,7 @@ typedef enum {
             if (!updated) {
                 NSLog(@"Quicksilver is up to date.");
                 if (!quiet)
-                    NSRunInformationalAlertPanel(@"No Updates Available", [NSString stringWithFormat:@"You already have the latest version of Quicksilver (v%@) and all installed plug-ins", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]] , @"OK", nil, nil);
+                    NSRunInformationalAlertPanel(@"You're up-to-date!", [NSString stringWithFormat:@"You already have the latest version of Quicksilver (%@) and all installed plug-ins", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]] , @"OK", nil, nil);
             }
             return updated;
         break;
@@ -331,7 +331,7 @@ typedef enum {
     NSInteger selection = 0;
 	BOOL update = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSUpdateWithoutAsking"];
 	if (!update) {
-        selection = NSRunInformationalAlertPanel(@"Download Successful", @"A new version of Quicksilver has been downloaded. This version must be relaunched after it is installed.", @"Install and Relaunch", @"Cancel Update", nil);
+        selection = NSRunInformationalAlertPanel(@"Download Successful", @"A new version of Quicksilver has been downloaded. Quicksilver must relaunch to install it.", @"Install and Relaunch", @"Cancel Update", nil);
 		update = (selection == NSAlertDefaultReturn);
     }
     
@@ -348,7 +348,7 @@ typedef enum {
     if (installPath) {
         BOOL relaunch = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSRelaunchAutomaticallyAfterUpdate"];
         if (!relaunch) {
-            selection = NSRunInformationalAlertPanel(@"Installation Successful", @"A new version of Quicksilver has been installed. This version must be relaunched after it is installed.", @"Relaunch", @"Relaunch Later", nil);
+            selection = NSRunInformationalAlertPanel(@"Installation Successful", @"A new version of Quicksilver has been installed. Quicksilver must relaunch to install it.", @"Relaunch", @"Relaunch Later", nil);
             relaunch = (selection == NSAlertDefaultReturn);
         }
         if (relaunch)
