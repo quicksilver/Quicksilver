@@ -954,9 +954,17 @@ containg multiple objects with the same identifier. Best efforts should be made 
 {
     if ([[self primaryType] isEqualToString:QSURLType]) {
         NSString *urlString = [[[self dataDictionary] objectForKey:QSURLType] URLEncoding];
+        if (urlString) {
         return [NSURL URLWithString:urlString];
+        }
     }
-    return [NSURL fileURLWithPath :[self singleFilePath]];
+    else {
+        NSString *filePathString = [self singleFilePath];
+        if (filePathString) {
+        return [NSURL fileURLWithPath:filePathString];
+        }
+    }
+    return nil;
 }
 
 - (NSString *)previewItemTitle

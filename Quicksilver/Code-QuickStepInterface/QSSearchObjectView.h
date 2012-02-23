@@ -76,6 +76,8 @@ typedef enum QSSearchMode {
 	BOOL moreComing;
 	BOOL allowText;
 	BOOL allowNonActions;
+    
+    QSObject *quicklookObject;
 }
 
 - (void)clearSearch;
