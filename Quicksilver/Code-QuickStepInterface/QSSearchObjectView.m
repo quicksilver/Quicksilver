@@ -1047,15 +1047,8 @@ NSMutableDictionary *bindingsDict = nil;
 
 // This method deals with all keydowns. Some very interesting things could be done by manipulating this method
 - (void)keyDown:(NSEvent *)theEvent {
-    // Send events to the preview panel if it's open
-    if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
-        // space key
-        if(![self handleBoundKey:theEvent]) {
-            [previewPanel keyDown:theEvent];
-        }
-        return;
-    }
-	[NSThread setThreadPriority:1.0];
+   
+    [NSThread setThreadPriority:1.0];
 	NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
 	NSTimeInterval delay = [theEvent timestamp] -lastTime;
 	//if (VERBOSE) NSLog(@"KeyD: %@\r%@", [theEvent characters] , theEvent);
@@ -1952,12 +1945,12 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (BOOL)previewPanel:(QLPreviewPanel *)panel handleEvent:(NSEvent *)event
 {
-    if (![event type]  == NSKeyDown) {
+    if ([event type]  != NSKeyDown) {
         return NO;
     }
     NSString *key = [event charactersIgnoringModifiers];
     NSUInteger eventModifierFlags = [event modifierFlags];
-    if ([key isEqual:@"y"] && eventModifierFlags & NSCommandKeyMask) {
+       if ([key isEqual:@"y"] && eventModifierFlags & NSCommandKeyMask) {
         if (eventModifierFlags & NSAlternateKeyMask) {
             // Cmd + Optn + Y shortcut (full screen)
             [self togglePreviewPanelFullScreen:nil];
@@ -1974,7 +1967,7 @@ NSMutableDictionary *bindingsDict = nil;
         } else {
             [self interpretKeyEvents:[NSArray arrayWithObject:event]];
         }
-        [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
+        [self closePreviewPanel];
         return YES;
     }
     return NO;
