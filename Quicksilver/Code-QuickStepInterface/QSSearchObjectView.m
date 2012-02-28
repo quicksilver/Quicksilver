@@ -1362,6 +1362,7 @@ NSMutableDictionary *bindingsDict = nil;
 				[self moveLeft:sender];
 			else
 				[self moveRight:sender];
+            break;
         case 6: // Show Quicklook window
             [self togglePreviewPanel:nil];
 			break;
