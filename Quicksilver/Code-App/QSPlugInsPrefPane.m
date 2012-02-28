@@ -173,6 +173,11 @@
 	[infoDrawer setPreferredEdge:NSMaxXEdge];
 }
 
+- (void)willUnselect
+{
+	[infoDrawer close];
+}
+
 #if 0
 - (void)tableAction:(id)sender {
 	if ([sender clickedRow] <0) return;
