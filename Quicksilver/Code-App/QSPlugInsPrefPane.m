@@ -19,7 +19,7 @@
 
 @implementation QSPlugInsPrefPane
 
-@synthesize plugInName, pluginInfoPanel;
+@synthesize plugInName;
 
 - (id)preferencesSplitView {
 	return [sidebar superview];
@@ -171,6 +171,12 @@
 	[infoDrawer setLeadingOffset:48];
 	[infoDrawer setTrailingOffset:24];
 	[infoDrawer setPreferredEdge:NSMaxXEdge];
+}
+
+- (void)willUnselect
+{
+	[infoDrawer close];
+	[pluginInfoPanel close];
 }
 
 #if 0
@@ -346,7 +352,7 @@
 	if (!ignoreView) {
 		switch (viewMode) {
 			case 1: //installed
-				[predicates addObject:[NSPredicate predicateWithFormat:@"installed == YES"]];
+				[predicates addObject:[NSPredicate predicateWithFormat:@"isInstalled == 1"]];
 				break;
 			case 2: //Recommended
 				[predicates addObject:[NSPredicate predicateWithFormat:@"isRecommended == YES"]];
@@ -358,7 +364,7 @@
 				[predicates addObject:[NSPredicate predicateWithFormat:@"isInstalled <= 0"]];
 				break;
 			case 5: //Installed, but disabled
-				[predicates addObject:[NSPredicate predicateWithFormat:@"installed == YES && enabled == NO"]];
+				[predicates addObject:[NSPredicate predicateWithFormat:@"isInstalled == 1 && enabled == 0"]];
 				break;
 			default:
 				break;
@@ -375,9 +381,6 @@
 	if ([predicates count])
 		filterPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicates];
 	[arrayController setFilterPredicate:filterPredicate];
-	if (!ignoreView && ![[arrayController arrangedObjects] count]) {
-		[self reloadFiltersIgnoringViewMode:YES];
-	}
 }
 
 @end
