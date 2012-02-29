@@ -176,6 +176,7 @@
 - (void)willUnselect
 {
 	[infoDrawer close];
+	[pluginInfoPanel close];
 }
 
 #if 0
