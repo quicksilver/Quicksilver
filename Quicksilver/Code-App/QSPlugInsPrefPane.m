@@ -19,7 +19,7 @@
 
 @implementation QSPlugInsPrefPane
 
-@synthesize plugInName, pluginInfoPanel;
+@synthesize plugInName;
 
 - (id)preferencesSplitView {
 	return [sidebar superview];
