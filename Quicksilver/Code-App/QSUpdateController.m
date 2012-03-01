@@ -39,6 +39,10 @@
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 	if (DEVELOPMENTVERSION ? ![defaults boolForKey:@"QSPreventAutomaticUpdate"] : [defaults boolForKey:kCheckForUpdates]) {
 		NSDate *lastCheck = [defaults objectForKey:kLastUpdateCheck];
+		// leaving this `nil` can cause Quicksilver to hang if it starts very soon after login
+		if (!lastCheck) {
+			lastCheck = [NSDate distantPast];
+		}
 		int frequency = [defaults integerForKey:kCheckForUpdateFrequency];
 		int versionType = [defaults integerForKey:@"QSUpdateReleaseLevel"];
 	//	if (DEVELOPMENTVERSION && frequency>7)
