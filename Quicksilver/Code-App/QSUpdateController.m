@@ -41,7 +41,7 @@
 		NSDate *lastCheck = [defaults objectForKey:kLastUpdateCheck];
 		// leaving this `nil` can cause Quicksilver to hang if it starts very soon after login
 		if (!lastCheck) {
-			lastCheck = [NSDate date];
+			lastCheck = [NSDate distantPast];
 		}
 		int frequency = [defaults integerForKey:kCheckForUpdateFrequency];
 		int versionType = [defaults integerForKey:@"QSUpdateReleaseLevel"];
