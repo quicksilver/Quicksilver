@@ -354,9 +354,9 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 		return nil;
 	}
 	
-	for (int i = 0; i < [contents count]; i++) {
+	for (NSString *resolvedPathPart in contents) {
 		resolved = [[[basePath
-		   stringByAppendingPathComponent:[contents objectAtIndex:i]]
+		   stringByAppendingPathComponent:resolvedPathPart]
 		   stringByAppendingPathComponent:remainingPath] stringByResolvingWildcardsInPath];
 		if (resolved != nil) {
 			return resolved;
