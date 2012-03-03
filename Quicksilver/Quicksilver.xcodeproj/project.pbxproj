@@ -122,6 +122,12 @@
 		6615228414F43355006FDCB4 /* PathWildcardsData in Resources */ = {isa = PBXBuildFile; fileRef = 6615228314F43355006FDCB4 /* PathWildcardsData */; };
 		66448DF214F427B8000FA2E2 /* QSFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9AF07B1FCFC0044D6EF /* QSFoundation.framework */; };
 		66448E1314F42A4E000FA2E2 /* TestPathWildcards.m in Sources */ = {isa = PBXBuildFile; fileRef = 66448E1214F42A4E000FA2E2 /* TestPathWildcards.m */; };
+		666E45FF150226200034E60A /* QSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E103F1600647200700447FE0 /* QSCore.framework */; };
+		666E4624150228FF0034E60A /* CoreDummyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 666E4623150228FF0034E60A /* CoreDummyTest.m */; };
+		66D11C6B15022A82002EE6E5 /* QSEffects.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9C307B1FD100044D6EF /* QSEffects.framework */; };
+		66D11C7815022AEA002EE6E5 /* EffectsDummyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D11C7715022AEA002EE6E5 /* EffectsDummyTests.m */; };
+		66D11C9215022B4D002EE6E5 /* QSInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1B5F31206573C2900FCFBE2 /* QSInterface.framework */; };
+		66D11C9815022B7A002EE6E5 /* InterfaceDummyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D11C9715022B7A002EE6E5 /* InterfaceDummyTest.m */; };
 		7F05F1E20852441C00A8EC0C /* NSObject+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F05F1E00852441C00A8EC0C /* NSObject+BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F05F1E30852441C00A8EC0C /* NSObject+BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F05F1E10852441C00A8EC0C /* NSObject+BLTRExtensions.m */; };
 		7F0843CE098ACB2F00F136CC /* QSLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F0843CC098ACB2F00F136CC /* QSLog.h */; };
@@ -751,6 +757,27 @@
 			remoteGlobalIDString = E1E5F97107B1FCFC0044D6EF;
 			remoteInfo = "QuickStep Foundation";
 		};
+		666E45F3150225F10034E60A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E103F15F0647200700447FE0;
+			remoteInfo = "QuickStep Core";
+		};
+		66D11C6915022A7E002EE6E5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E1E5F9B107B1FD100044D6EF /* QuickStep Effects */;
+			remoteInfo = "QuickStep Effects";
+		};
+		66D11C9015022B49002EE6E5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E1B5F2AB06573C2900FCFBE2 /* QuickStep Interface */;
+			remoteInfo = "QuickStep Interface";
+		};
 		7F039993080EE21A001A9FA3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -1014,10 +1041,22 @@
 		6552BCA0109D0DF6003B4892 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Preferences.strings; sourceTree = "<group>"; };
 		6552BCA1109D0E00003B4892 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/About.strings; sourceTree = "<group>"; };
 		6615228314F43355006FDCB4 /* PathWildcardsData */ = {isa = PBXFileReference; explicitFileType = folder; name = PathWildcardsData; path = Tests/TestData/PathWildcardsData; sourceTree = "<group>"; };
-		66448D9614F42790000FA2E2 /* FoundationTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoundationTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		66448D9714F42790000FA2E2 /* FoundationTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FoundationTests-Info.plist"; sourceTree = "<group>"; };
-		66448E1114F42A4E000FA2E2 /* TestPathWildcards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestPathWildcards.h; path = "Tests/Tests-QuickStepFoundation/TestPathWildcards.h"; sourceTree = "<group>"; };
-		66448E1214F42A4E000FA2E2 /* TestPathWildcards.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestPathWildcards.m; path = "Tests/Tests-QuickStepFoundation/TestPathWildcards.m"; sourceTree = "<group>"; };
+		66448D9614F42790000FA2E2 /* QSFoundationTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QSFoundationTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		66448D9714F42790000FA2E2 /* QSFoundationTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QSFoundationTests-Info.plist"; sourceTree = "<group>"; };
+		66448E1114F42A4E000FA2E2 /* TestPathWildcards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestPathWildcards.h; path = "Tests/Tests-QSFoundation/TestPathWildcards.h"; sourceTree = "<group>"; };
+		66448E1214F42A4E000FA2E2 /* TestPathWildcards.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestPathWildcards.m; path = "Tests/Tests-QSFoundation/TestPathWildcards.m"; sourceTree = "<group>"; };
+		666E45EE150225EA0034E60A /* QSCoreTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QSCoreTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		666E45EF150225EA0034E60A /* QSCoreTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QSCoreTests-Info.plist"; sourceTree = "<group>"; };
+		666E4622150228FF0034E60A /* CoreDummyTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDummyTest.h; path = "Tests/Tests-QSCore/CoreDummyTest.h"; sourceTree = "<group>"; };
+		666E4623150228FF0034E60A /* CoreDummyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDummyTest.m; path = "Tests/Tests-QSCore/CoreDummyTest.m"; sourceTree = "<group>"; };
+		66D11C6415022A75002EE6E5 /* QSEffectsTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QSEffectsTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		66D11C6515022A75002EE6E5 /* QSEffectsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QSEffectsTests-Info.plist"; sourceTree = "<group>"; };
+		66D11C7615022AEA002EE6E5 /* EffectsDummyTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EffectsDummyTests.h; path = "Tests/Tests-QSEffects/EffectsDummyTests.h"; sourceTree = "<group>"; };
+		66D11C7715022AEA002EE6E5 /* EffectsDummyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EffectsDummyTests.m; path = "Tests/Tests-QSEffects/EffectsDummyTests.m"; sourceTree = "<group>"; };
+		66D11C8B15022B08002EE6E5 /* QSInterfaceTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QSInterfaceTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		66D11C8C15022B08002EE6E5 /* QSInterfaceTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QSInterfaceTests-Info.plist"; sourceTree = "<group>"; };
+		66D11C9615022B7A002EE6E5 /* InterfaceDummyTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InterfaceDummyTest.h; path = "Tests/Tests-QSInterface/InterfaceDummyTest.h"; sourceTree = "<group>"; };
+		66D11C9715022B7A002EE6E5 /* InterfaceDummyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InterfaceDummyTest.m; path = "Tests/Tests-QSInterface/InterfaceDummyTest.m"; sourceTree = "<group>"; };
 		7F05F1E00852441C00A8EC0C /* NSObject+BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+BLTRExtensions.h"; sourceTree = "<group>"; };
 		7F05F1E10852441C00A8EC0C /* NSObject+BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+BLTRExtensions.m"; sourceTree = "<group>"; };
 		7F0737A10927023A00782D10 /* CHANGELOG */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CHANGELOG; path = SharedSupport/CHANGELOG; sourceTree = "<group>"; wrapsLines = 1; };
@@ -1621,6 +1660,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		666E45EB150225EA0034E60A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				666E45FF150226200034E60A /* QSCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66D11C6115022A75002EE6E5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66D11C6B15022A82002EE6E5 /* QSEffects.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66D11C8815022B08002EE6E5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66D11C9215022B4D002EE6E5 /* QSInterface.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7F9703CE09AFEE8700E9EA77 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1762,7 +1825,10 @@
 				4D002D61131148C2009040B7 /* Finder Module.qsplugin */,
 				4D002D88131149A3009040B7 /* Primer Interface.qsplugin */,
 				4D002DAD13114A2E009040B7 /* HotKey Triggers.qsplugin */,
-				66448D9614F42790000FA2E2 /* FoundationTests.octest */,
+				66448D9614F42790000FA2E2 /* QSFoundationTests.octest */,
+				666E45EE150225EA0034E60A /* QSCoreTests.octest */,
+				66D11C6415022A75002EE6E5 /* QSEffectsTests.octest */,
+				66D11C8B15022B08002EE6E5 /* QSInterfaceTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1899,19 +1965,60 @@
 		66448E0714F428DA000FA2E2 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				666E46011502264C0034E60A /* QSCoreTests */,
+				666E4603150226670034E60A /* QSEffectsTests */,
+				66448E0814F428E7000FA2E2 /* QSFoundationTests */,
+				666E46021502265A0034E60A /* QSInterfaceTests */,
 				6615227B14F43347006FDCB4 /* TestData */,
-				66448E0814F428E7000FA2E2 /* Tests-QuickStepFoundation */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
 		};
-		66448E0814F428E7000FA2E2 /* Tests-QuickStepFoundation */ = {
+		66448E0814F428E7000FA2E2 /* QSFoundationTests */ = {
 			isa = PBXGroup;
 			children = (
 				66448E1114F42A4E000FA2E2 /* TestPathWildcards.h */,
 				66448E1214F42A4E000FA2E2 /* TestPathWildcards.m */,
 			);
-			name = "Tests-QuickStepFoundation";
+			name = QSFoundationTests;
+			sourceTree = "<group>";
+		};
+		666E46011502264C0034E60A /* QSCoreTests */ = {
+			isa = PBXGroup;
+			children = (
+				666E4622150228FF0034E60A /* CoreDummyTest.h */,
+				666E4623150228FF0034E60A /* CoreDummyTest.m */,
+			);
+			name = QSCoreTests;
+			sourceTree = "<group>";
+		};
+		666E46021502265A0034E60A /* QSInterfaceTests */ = {
+			isa = PBXGroup;
+			children = (
+				66D11C9615022B7A002EE6E5 /* InterfaceDummyTest.h */,
+				66D11C9715022B7A002EE6E5 /* InterfaceDummyTest.m */,
+			);
+			name = QSInterfaceTests;
+			sourceTree = "<group>";
+		};
+		666E4603150226670034E60A /* QSEffectsTests */ = {
+			isa = PBXGroup;
+			children = (
+				66D11C7615022AEA002EE6E5 /* EffectsDummyTests.h */,
+				66D11C7715022AEA002EE6E5 /* EffectsDummyTests.m */,
+			);
+			name = QSEffectsTests;
+			sourceTree = "<group>";
+		};
+		666E460F150227D40034E60A /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				666E45EF150225EA0034E60A /* QSCoreTests-Info.plist */,
+				66D11C6515022A75002EE6E5 /* QSEffectsTests-Info.plist */,
+				66448D9714F42790000FA2E2 /* QSFoundationTests-Info.plist */,
+				66D11C8C15022B08002EE6E5 /* QSInterfaceTests-Info.plist */,
+			);
+			name = Tests;
 			sourceTree = "<group>";
 		};
 		7F515D3307B533D2003EA91C /* Localized */ = {
@@ -2011,7 +2118,7 @@
 				E103EB8906471D5900447FE0 /* Quicksilver-Info.plist */,
 				E103EB8806471D5900447FE0 /* QSCore-Info.plist */,
 				E1B5F31306573C8100FCFBE2 /* QSInterface-Info.plist */,
-				66448D9714F42790000FA2E2 /* FoundationTests-Info.plist */,
+				666E460F150227D40034E60A /* Tests */,
 			);
 			path = PropertyLists;
 			sourceTree = "<group>";
@@ -2970,9 +3077,9 @@
 			productReference = 4D002DAD13114A2E009040B7 /* HotKey Triggers.qsplugin */;
 			productType = "com.apple.product-type.bundle";
 		};
-		66448D9514F42790000FA2E2 /* FoundationTests */ = {
+		66448D9514F42790000FA2E2 /* QSFoundationTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 66448D9A14F42791000FA2E2 /* Build configuration list for PBXNativeTarget "FoundationTests" */;
+			buildConfigurationList = 66448D9A14F42791000FA2E2 /* Build configuration list for PBXNativeTarget "QSFoundationTests" */;
 			buildPhases = (
 				66448D9114F42790000FA2E2 /* Resources */,
 				66448D9214F42790000FA2E2 /* Sources */,
@@ -2984,9 +3091,66 @@
 			dependencies = (
 				66448D9C14F42796000FA2E2 /* PBXTargetDependency */,
 			);
-			name = FoundationTests;
+			name = QSFoundationTests;
 			productName = FoundationTests;
-			productReference = 66448D9614F42790000FA2E2 /* FoundationTests.octest */;
+			productReference = 66448D9614F42790000FA2E2 /* QSFoundationTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+		666E45ED150225EA0034E60A /* QSCoreTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 666E45F2150225EB0034E60A /* Build configuration list for PBXNativeTarget "QSCoreTests" */;
+			buildPhases = (
+				666E45E9150225EA0034E60A /* Resources */,
+				666E45EA150225EA0034E60A /* Sources */,
+				666E45EB150225EA0034E60A /* Frameworks */,
+				666E45EC150225EA0034E60A /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				666E45F4150225F10034E60A /* PBXTargetDependency */,
+			);
+			name = QSCoreTests;
+			productName = QSCoreTests;
+			productReference = 666E45EE150225EA0034E60A /* QSCoreTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+		66D11C6315022A75002EE6E5 /* QSEffectsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 66D11C6815022A76002EE6E5 /* Build configuration list for PBXNativeTarget "QSEffectsTests" */;
+			buildPhases = (
+				66D11C5F15022A75002EE6E5 /* Resources */,
+				66D11C6015022A75002EE6E5 /* Sources */,
+				66D11C6115022A75002EE6E5 /* Frameworks */,
+				66D11C6215022A75002EE6E5 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				66D11C6A15022A7E002EE6E5 /* PBXTargetDependency */,
+			);
+			name = QSEffectsTests;
+			productName = QSEffectsTests;
+			productReference = 66D11C6415022A75002EE6E5 /* QSEffectsTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+		66D11C8A15022B08002EE6E5 /* QSInterfaceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 66D11C8F15022B08002EE6E5 /* Build configuration list for PBXNativeTarget "QSInterfaceTests" */;
+			buildPhases = (
+				66D11C8615022B08002EE6E5 /* Resources */,
+				66D11C8715022B08002EE6E5 /* Sources */,
+				66D11C8815022B08002EE6E5 /* Frameworks */,
+				66D11C8915022B08002EE6E5 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				66D11C9115022B49002EE6E5 /* PBXTargetDependency */,
+			);
+			name = QSInterfaceTests;
+			productName = QSInterfaceTests;
+			productReference = 66D11C8B15022B08002EE6E5 /* QSInterfaceTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 		7F9703CF09AFEE8700E9EA77 /* QSDroplet */ = {
@@ -3188,7 +3352,10 @@
 				7F0399E9080EE58D001A9FA3 /* Preflight */,
 				7F9703CF09AFEE8700E9EA77 /* QSDroplet */,
 				7F039992080EE210001A9FA3 /* Quicksilver Distribution */,
-				66448D9514F42790000FA2E2 /* FoundationTests */,
+				66448D9514F42790000FA2E2 /* QSFoundationTests */,
+				666E45ED150225EA0034E60A /* QSCoreTests */,
+				66D11C6315022A75002EE6E5 /* QSEffectsTests */,
+				66D11C8A15022B08002EE6E5 /* QSInterfaceTests */,
 			);
 		};
 /* End PBXProject section */
@@ -3234,6 +3401,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				6615228414F43355006FDCB4 /* PathWildcardsData in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		666E45E9150225EA0034E60A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66D11C5F15022A75002EE6E5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66D11C8615022B08002EE6E5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3416,6 +3604,45 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
+		666E45EC150225EA0034E60A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		66D11C6215022A75002EE6E5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		66D11C8915022B08002EE6E5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
 		7F0399E8080EE58D001A9FA3 /* Remove PlugIns */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3532,6 +3759,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				66448E1314F42A4E000FA2E2 /* TestPathWildcards.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		666E45EA150225EA0034E60A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				666E4624150228FF0034E60A /* CoreDummyTest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66D11C6015022A75002EE6E5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66D11C7815022AEA002EE6E5 /* EffectsDummyTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		66D11C8715022B08002EE6E5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66D11C9815022B7A002EE6E5 /* InterfaceDummyTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3864,6 +4115,21 @@
 			target = E1E5F97107B1FCFC0044D6EF /* QuickStep Foundation */;
 			targetProxy = 66448D9B14F42796000FA2E2 /* PBXContainerItemProxy */;
 		};
+		666E45F4150225F10034E60A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E103F15F0647200700447FE0 /* QuickStep Core */;
+			targetProxy = 666E45F3150225F10034E60A /* PBXContainerItemProxy */;
+		};
+		66D11C6A15022A7E002EE6E5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E1E5F9B107B1FD100044D6EF /* QuickStep Effects */;
+			targetProxy = 66D11C6915022A7E002EE6E5 /* PBXContainerItemProxy */;
+		};
+		66D11C9115022B49002EE6E5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E1B5F2AB06573C2900FCFBE2 /* QuickStep Interface */;
+			targetProxy = 66D11C9015022B49002EE6E5 /* PBXContainerItemProxy */;
+		};
 		7F039994080EE21A001A9FA3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8D1107260486CEB800E47090 /* Quicksilver */;
@@ -4193,7 +4459,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
-				INFOPLIST_FILE = "PropertyLists/FoundationTests-Info.plist";
+				INFOPLIST_FILE = "PropertyLists/QSFoundationTests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -4202,7 +4468,7 @@
 					SenTestingKit,
 				);
 				PREBINDING = NO;
-				PRODUCT_NAME = FoundationTests;
+				PRODUCT_NAME = QSFoundationTests;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -4220,7 +4486,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
-				INFOPLIST_FILE = "FoundationTests-Info.plist";
+				INFOPLIST_FILE = "PropertyLists/QSFoundationTests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -4229,7 +4495,169 @@
 					SenTestingKit,
 				);
 				PREBINDING = NO;
-				PRODUCT_NAME = FoundationTests;
+				PRODUCT_NAME = QSFoundationTests;
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		666E45F0150225EA0034E60A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "PropertyLists/QSCoreTests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = QSCoreTests;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		666E45F1150225EA0034E60A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "PropertyLists/QSCoreTests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = QSCoreTests;
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		66D11C6615022A76002EE6E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "PropertyLists/QSEffectsTests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = QSEffectsTests;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		66D11C6715022A76002EE6E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "PropertyLists/QSEffectsTests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = QSEffectsTests;
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		66D11C8D15022B08002EE6E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "PropertyLists/QSInterfaceTests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = QSInterfaceTests;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		66D11C8E15022B08002EE6E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "PropertyLists/QSInterfaceTests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = QSInterfaceTests;
 				WRAPPER_EXTENSION = octest;
 				ZERO_LINK = NO;
 			};
@@ -4496,11 +4924,38 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		66448D9A14F42791000FA2E2 /* Build configuration list for PBXNativeTarget "FoundationTests" */ = {
+		66448D9A14F42791000FA2E2 /* Build configuration list for PBXNativeTarget "QSFoundationTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				66448D9814F42791000FA2E2 /* Debug */,
 				66448D9914F42791000FA2E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		666E45F2150225EB0034E60A /* Build configuration list for PBXNativeTarget "QSCoreTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				666E45F0150225EA0034E60A /* Debug */,
+				666E45F1150225EA0034E60A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		66D11C6815022A76002EE6E5 /* Build configuration list for PBXNativeTarget "QSEffectsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				66D11C6615022A76002EE6E5 /* Debug */,
+				66D11C6715022A76002EE6E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		66D11C8F15022B08002EE6E5 /* Build configuration list for PBXNativeTarget "QSInterfaceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				66D11C8D15022B08002EE6E5 /* Debug */,
+				66D11C8E15022B08002EE6E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
