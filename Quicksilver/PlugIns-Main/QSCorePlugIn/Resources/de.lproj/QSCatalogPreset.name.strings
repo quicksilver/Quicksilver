@@ -132,9 +132,9 @@
 	<string>Quicksilver Katalogeinträge</string>
 	<key>QSPresetQSGroup</key>
 	<string>Quicksilver</string>
-	<key>QSPresetRecentApplications</key>
+	<key>QSPresetRecentApplications106</key>
 	<string>Benutzte Programme</string>
-	<key>QSPresetRecentDocuments</key>
+	<key>QSPresetRecentDocuments106</key>
 	<string>Benutzte Dokumente</string>
 	<key>QSPresetRecentItems</key>
 	<string>Benutzte Objekte</string>
