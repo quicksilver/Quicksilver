@@ -222,12 +222,17 @@ NSSize QSMaxIconSize;
 }
 
 - (NSArray *)splitObjects {
-	
+    
 	if ([self count] == 1) {
 		return [NSArray arrayWithObject:self];
 	}
 	
-	return [self objectForCache:kQSObjectComponents];
+	NSArray *splitObjects = [self objectForCache:kQSObjectComponents];
+    
+    if (!splitObjects) {
+        splitObjects = [self children];
+    }
+    return splitObjects;
 }
 
 // Method to merge objects into a single 'combined' object
