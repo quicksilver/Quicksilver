@@ -1911,7 +1911,7 @@ NSMutableDictionary *bindingsDict = nil;
     [panel setDelegate:self];
     [panel setDataSource:self];
     // Put the panel just above Quicksilver's window
-    [previewPanel setLevel:([[self window] level] + 1)];
+    [previewPanel setLevel:([[self window] level] + 2)];
 //    [panel setFloatingPanel:YES];
 }
 
@@ -1961,7 +1961,7 @@ NSMutableDictionary *bindingsDict = nil;
         }
         return YES;
     }
-    // Allow the defualt action to be executed (if CMD+ENTR or ENTR is pressed)
+    // Allow the default action to be executed (if CMD+ENTR or ENTR is pressed)
     if ([key isEqualToString:@"\r"] && (eventModifierFlags & NSCommandKeyMask || ((eventModifierFlags & NSDeviceIndependentModifierFlagsMask) == 0))) {
         if (eventModifierFlags & NSCommandKeyMask) {
             [self insertNewline:nil];
@@ -1969,6 +1969,11 @@ NSMutableDictionary *bindingsDict = nil;
             [self interpretKeyEvents:[NSArray arrayWithObject:event]];
         }
         [self closePreviewPanel];
+        return YES;
+    }
+    
+    // trap the 'delete' key from being pressed
+    if ([key length] && [key characterAtIndex:0] == NSDeleteCharacter ) {
         return YES;
     }
     return NO;
