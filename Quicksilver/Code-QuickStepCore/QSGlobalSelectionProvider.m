@@ -79,9 +79,9 @@
 
 - (void)invokeService {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    pid_t pid = [[[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationProcessIdentifier"] intValue];
 	if ([NSApplication isLion]) {
 		//AXUIElement* is unable to post keys into sandboxed app since 10.7, use Quartz Event Services instead
-		pid_t pid = [[[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationProcessIdentifier"] intValue];
 		ProcessSerialNumber psn;
 		BOOL usePID = GetProcessForPID(pid, &psn) == 0;
 		CGEventSourceRef source = CGEventSourceCreate(kCGEventSourceStatePrivate);
@@ -102,8 +102,7 @@
 		CFRelease(keyDown);
 		CFRelease(keyUp);
 		CFRelease(source);
-	} else {
-		pid_t pid = [[[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationProcessIdentifier"] intValue];
+	} else { // 10.6 method (apps don't lose focus when service is invoked)
 		AXUIElementRef app = AXUIElementCreateApplication (pid);
 		AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)55, true ); //Command
 		AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)53, true ); //Escape
