@@ -76,8 +76,9 @@ void QSShowLargeType(NSString *aString) {
 		index = NSMaxRange(lineRange);
 	}
 	//NSLog(@"size %f %d %f", height, numberOfLines, numberOfLines*[layoutManager defaultLineHeightForFont:[NSFont boldSystemFontOfSize:size]]);
-	textFrame.size.height = (numberOfLines+0.1) *[layoutManager defaultLineHeightForFont:[NSFont boldSystemFontOfSize:size]];
+	textFrame.size.height = (numberOfLines) *[layoutManager defaultLineHeightForFont:[NSFont boldSystemFontOfSize:size]] + 2*EDGEINSET;
 	textFrame.size.height = MIN(NSHeight(screenRect) -80, NSHeight(textFrame));
+    textFrame.size.width = MIN(NSWidth(screenRect) - 80, textSize.width + 2*EDGEINSET);
 	[textView setFrame:textFrame];
 	//[numberView setAlignment:NSCenterTextAlignment];
 	NSRect windowRect = centerRectInRect(textFrame, screenRect);
