@@ -1912,7 +1912,6 @@ NSMutableDictionary *bindingsDict = nil;
     [panel setDataSource:self];
     // Put the panel just above Quicksilver's window
     [previewPanel setLevel:([[self window] level] + 2)];
-//    [panel setFloatingPanel:YES];
 }
 
 - (void)endPreviewPanelControl:(QLPreviewPanel *)panel
@@ -1928,6 +1927,10 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (NSInteger)numberOfPreviewItemsInPreviewPanel:(QLPreviewPanel *)panel
 {
+    /* Put the panel just above Quicksilver's window
+    Note: 10.6 seems to revert the panel level set in beginPreviewPanelControl above.
+    This 'hack' is required for 10.6 support only (10.7+ is OK) */
+    [previewPanel setLevel:([[self window] level] + 2)];
     if (quicklookObject) {
         return [quicklookObject count];
     }
