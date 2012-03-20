@@ -119,10 +119,13 @@ BOOL QSApplicationCompletedLaunch = NO;
 			[QSModifierKeyEvent checkForModifierEvent:theEvent];
 			break;
 	}
-    if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isInFullScreenMode]) {
+    if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
         if ([theEvent type] == NSKeyDown) {
-            if ([[theEvent charactersIgnoringModifiers] isEqual:@"y"] && ([theEvent modifierFlags] & (NSCommandKeyMask | NSAlternateKeyMask))) {
-                [[self mainWindow] sendEvent:theEvent];
+            // Close the Quicksilver window when ⌘⌥Y is pressed in full screen, or the spacebar or ESC key is pressed (send event to QSSearchObjectView:keyDown)
+            QLPreviewPanel *quicklookPanel = [QLPreviewPanel sharedPreviewPanel];
+            NSString *key = [theEvent charactersIgnoringModifiers];
+            if (([quicklookPanel isInFullScreenMode] && [key isEqualToString:@"y"] && ([theEvent modifierFlags] & (NSCommandKeyMask | NSAlternateKeyMask))) || [key isEqualToString:@" "] || [theEvent keyCode] == 53) {
+                [(QSSearchObjectView *)[quicklookPanel delegate] closePreviewPanel];
                 return;
             }
         }

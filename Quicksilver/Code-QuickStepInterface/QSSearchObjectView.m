@@ -1047,15 +1047,8 @@ NSMutableDictionary *bindingsDict = nil;
 
 // This method deals with all keydowns. Some very interesting things could be done by manipulating this method
 - (void)keyDown:(NSEvent *)theEvent {
-    // Send events to the preview panel if it's open
-    if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
-        // space key
-        if(![self handleBoundKey:theEvent]) {
-            [previewPanel keyDown:theEvent];
-        }
-        return;
-    }
-	[NSThread setThreadPriority:1.0];
+   
+    [NSThread setThreadPriority:1.0];
 	NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
 	NSTimeInterval delay = [theEvent timestamp] -lastTime;
 	//if (VERBOSE) NSLog(@"KeyD: %@\r%@", [theEvent characters] , theEvent);
@@ -1369,6 +1362,7 @@ NSMutableDictionary *bindingsDict = nil;
 				[self moveLeft:sender];
 			else
 				[self moveRight:sender];
+            break;
         case 6: // Show Quicklook window
             [self togglePreviewPanel:nil];
 			break;
@@ -1843,7 +1837,7 @@ NSMutableDictionary *bindingsDict = nil;
 @implementation QSSearchObjectView (Quicklook) 
 
 
--(BOOL)canQuicklookCurrentObject {
+- (BOOL)canQuicklookCurrentObject {
     id object = [self objectValue];
     // resolve ranked objects
     if ([object isKindOfClass:[QSRankedObject class]]) {
@@ -1855,17 +1849,24 @@ NSMutableDictionary *bindingsDict = nil;
     }
     if ([object validPaths] || [[object primaryType] isEqualToString:QSURLType]) {
         quicklookObject = [object retain];
+        savedSearchMode = searchMode;
         return YES;
     }
     return NO;
 }
 
+- (void)closePreviewPanel {
+    [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
+    [quicklookObject release];
+    quicklookObject = nil;
+    searchMode = savedSearchMode;
+}
+
+
 - (IBAction)togglePreviewPanel:(id)previewPanel
 {
     if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
-        [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
-        [quicklookObject release];
-        quicklookObject = nil;
+        [self closePreviewPanel];
     } else {
        if ([self canQuicklookCurrentObject]) {
             [NSApp activateIgnoringOtherApps:YES];
@@ -1882,9 +1883,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (IBAction)togglePreviewPanelFullScreen:(id)previewPanel
 {
     if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isInFullScreenMode]) {
-        [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
-        [quicklookObject release];
-        quicklookObject = nil;
+        [self closePreviewPanel];
     } else {
         if ([self canQuicklookCurrentObject]) {
             [NSApp activateIgnoringOtherApps:YES];
@@ -1912,8 +1911,7 @@ NSMutableDictionary *bindingsDict = nil;
     [panel setDelegate:self];
     [panel setDataSource:self];
     // Put the panel just above Quicksilver's window
-    [previewPanel setLevel:([[self window] level] + 1)];
-//    [panel setFloatingPanel:YES];
+    [previewPanel setLevel:([[self window] level] + 2)];
 }
 
 - (void)endPreviewPanelControl:(QLPreviewPanel *)panel
@@ -1929,10 +1927,14 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (NSInteger)numberOfPreviewItemsInPreviewPanel:(QLPreviewPanel *)panel
 {
+    /* Put the panel just above Quicksilver's window
+    Note: 10.6 seems to revert the panel level set in beginPreviewPanelControl above.
+    This 'hack' is required for 10.6 support only (10.7+ is OK) */
+    [previewPanel setLevel:([[self window] level] + 2)];
     if (quicklookObject) {
         return [quicklookObject count];
     }
-    return nil;
+    return 0;
 }
 
 - (id <QLPreviewItem>)previewPanel:(QLPreviewPanel *)panel previewItemAtIndex:(NSInteger)index
@@ -1947,12 +1949,12 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (BOOL)previewPanel:(QLPreviewPanel *)panel handleEvent:(NSEvent *)event
 {
-    if (![event type]  == NSKeyDown) {
+    if ([event type]  != NSKeyDown) {
         return NO;
     }
     NSString *key = [event charactersIgnoringModifiers];
     NSUInteger eventModifierFlags = [event modifierFlags];
-    if ([key isEqual:@"y"] && eventModifierFlags & NSCommandKeyMask) {
+       if ([key isEqual:@"y"] && eventModifierFlags & NSCommandKeyMask) {
         if (eventModifierFlags & NSAlternateKeyMask) {
             // Cmd + Optn + Y shortcut (full screen)
             [self togglePreviewPanelFullScreen:nil];
@@ -1962,14 +1964,19 @@ NSMutableDictionary *bindingsDict = nil;
         }
         return YES;
     }
-    // Allow the defualt action to be executed (if CMD+ENTR or ENTR is pressed)
+    // Allow the default action to be executed (if CMD+ENTR or ENTR is pressed)
     if ([key isEqualToString:@"\r"] && (eventModifierFlags & NSCommandKeyMask || ((eventModifierFlags & NSDeviceIndependentModifierFlagsMask) == 0))) {
         if (eventModifierFlags & NSCommandKeyMask) {
             [self insertNewline:nil];
         } else {
             [self interpretKeyEvents:[NSArray arrayWithObject:event]];
         }
-        [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
+        [self closePreviewPanel];
+        return YES;
+    }
+    
+    // trap the 'delete' key from being pressed
+    if ([key length] && [key characterAtIndex:0] == NSDeleteCharacter ) {
         return YES;
     }
     return NO;
