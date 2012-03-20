@@ -13,6 +13,7 @@ Changes - ß66 (3921)
    
    * FIX: Triggers now work for actions that display a result #623, #699
    
+   * FIX: Prevent Quicksilver from freezing and ignoring input on login #580
 
 
 Changes - ß65 (3920)
