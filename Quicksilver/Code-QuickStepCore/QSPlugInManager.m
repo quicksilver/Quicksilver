@@ -41,6 +41,7 @@
 		receivedData = nil;
 		oldPlugIns = [[NSMutableArray alloc] init];
 		dependingPlugIns = [[NSMutableDictionary alloc] init];
+		obsoletePlugIns = [[NSMutableSet alloc] init];
 
         // download queues
 		queuedDownloads = [[NSMutableArray alloc] init];
@@ -87,6 +88,10 @@
 			[self liveLoadPlugIn:dep];
 	}
 	[dependingPlugIns removeObjectForKey:[plugin identifier]];
+	[obsoletePlugIns unionSet:[plugin obsoletes]];
+	if ([obsoletePlugIns count]) {
+		[self removeObsoletePlugIns];
+	}
 }
 
 - (NSMutableArray *)oldPlugIns { return oldPlugIns; }
@@ -393,6 +398,18 @@
 		}
 	}
 
+}
+
+- (void)removeObsoletePlugIns
+{
+	NSSet *currentlyLoaded = [NSSet setWithArray:[loadedPlugIns allKeys]];
+	for (NSString *oplugin in obsoletePlugIns) {
+		if ([currentlyLoaded containsObject:oplugin]) {
+			QSPlugIn *obsolete = (QSPlugIn *)[loadedPlugIns objectForKey:oplugin];
+			NSLog(@"removing obsolete plug-in: %@", [obsolete name]);
+			[obsolete delete];
+		}
+	}
 }
 
 - (void)loadPlugInsAtLaunch {

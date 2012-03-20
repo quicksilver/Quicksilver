@@ -77,6 +77,7 @@
 - (BOOL)delete;
 - (BOOL)reveal;
 - (NSArray *)dependencies;
+- (NSSet *)obsoletes;
 - (void)downloadFailed;
 + (id)plugInWithBundle:(NSBundle *)aBundle;
 - (NSString *)infoHTML;

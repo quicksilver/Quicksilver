@@ -23,6 +23,7 @@
 
 	NSMutableArray 					*oldPlugIns; 		// Plugins with newer versions overriding, these are not included in local plugins
 	NSMutableDictionary 			*dependingPlugIns; 	// Dictionary of dependencies -> array of waiting
+	NSMutableSet					*obsoletePlugIns;   // plug-ins that are made obsolete by another
 
 	NSMutableData *receivedData;
 	NSMutableDictionary *plugInWebData;
@@ -70,6 +71,7 @@
 - (QSPlugIn *)plugInBundleWasInstalled:(NSBundle *)bundle;
 - (void)deletePlugIns:(NSArray *)deletePlugIns fromWindow:(NSWindow *)window;
 - (void)checkForUnmetDependencies;
+- (void)removeObsoletePlugIns;
 //- (NSMutableDictionary *)validPlugIns;
 //- (void)setValidPlugIns:(NSMutableDictionary *)newValidPlugIns;
 
