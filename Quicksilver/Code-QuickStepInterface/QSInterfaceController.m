@@ -181,13 +181,13 @@
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"InterfaceDeactivated" object:self];
 		[[self window] makeFirstResponder:nil];
 	}
+    // Close the Quicklook panel if the QS window closes
+    if([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
+        [(QSSearchObjectView *)[[QLPreviewPanel sharedPreviewPanel] delegate] closePreviewPanel];
+    }
 }
 
 - (void)hideMainWindowWithEffect:(id)effect {
-    // Close the Quicklook panel if the QS window closes
-    if([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
-        [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
-    }
 	[self willHideMainWindow:nil];
 	[self setHiding:YES];
 	if (effect && [[NSUserDefaults standardUserDefaults] boolForKey:kUseEffects])
@@ -465,6 +465,10 @@
 - (void)windowDidResignMain:(NSNotification *)aNotification {}
 
 - (void)windowDidResignKey:(NSNotification *)aNotification {
+    // Close the Quicklook panel if the QS window closes
+    if([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
+        return;
+    }
 	if ([aNotification object] == [self window]) {
 		if (hidingWindow) return;
 		if ([hideTimer isValid]) {
