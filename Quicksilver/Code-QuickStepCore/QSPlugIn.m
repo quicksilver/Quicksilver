@@ -100,7 +100,6 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	[self setStatus:@"Installing"];
 	NSString *identifier = [data objectForKey:@"CFBundleIdentifier"];
 	[[QSPlugInManager sharedInstance] installPlugInsForIdentifiers:[NSArray arrayWithObject:identifier]];
-	//[[QSPlugInManager sharedInstance] removeObsoletePlugIns];
 	[self willChangeValueForKey:@"enabled"];
 	[self didChangeValueForKey:@"enabled"];
 	[self setStatus:@"Loaded"];
