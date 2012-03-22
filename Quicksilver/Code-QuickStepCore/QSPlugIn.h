@@ -55,6 +55,7 @@
 - (NSImage *)icon;
 - (int) enabled;
 - (BOOL)canBeDisabled;
+- (BOOL)isObsolete;
 - (BOOL)needsUpdate;
 - (NSString *)identifier;
 

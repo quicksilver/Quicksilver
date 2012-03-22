@@ -41,7 +41,7 @@
 		receivedData = nil;
 		oldPlugIns = [[NSMutableArray alloc] init];
 		dependingPlugIns = [[NSMutableDictionary alloc] init];
-		obsoletePlugIns = [[NSMutableSet alloc] init];
+		obsoletePlugIns = [[NSMutableDictionary alloc] init];
 
         // download queues
 		queuedDownloads = [[NSMutableArray alloc] init];
@@ -88,10 +88,11 @@
 			[self liveLoadPlugIn:dep];
 	}
 	[dependingPlugIns removeObjectForKey:[plugin identifier]];
-	[obsoletePlugIns unionSet:[plugin obsoletes]];
-	if ([obsoletePlugIns count]) {
-		[self removeObsoletePlugIns];
+	// store a list of obsolete plug-ins and the one that replaces it
+	for (NSString *obsoletePlugIn in [plugin obsoletes]) {
+		[obsoletePlugIns setObject:[plugin identifier] forKey:obsoletePlugIn];
 	}
+	[self removeObsoletePlugIns];
 }
 
 - (NSMutableArray *)oldPlugIns { return oldPlugIns; }
@@ -402,8 +403,11 @@
 
 - (void)removeObsoletePlugIns
 {
+	if (![obsoletePlugIns count]) {
+		return;
+	}
 	NSSet *currentlyLoaded = [NSSet setWithArray:[loadedPlugIns allKeys]];
-	for (NSString *oplugin in obsoletePlugIns) {
+	for (NSString *oplugin in [obsoletePlugIns allKeys]) {
 		if ([currentlyLoaded containsObject:oplugin]) {
 			QSPlugIn *obsolete = (QSPlugIn *)[loadedPlugIns objectForKey:oplugin];
 			NSLog(@"removing obsolete plug-in: %@", [obsolete name]);
@@ -624,6 +628,11 @@
 	loadedPlugIns = [newLoadedPlugIns retain];
 }
 
+- (NSMutableDictionary *)obsoletePlugIns
+{
+	return obsoletePlugIns;
+}
+
 - (BOOL)checkForPlugInUpdates {
 	return [self checkForPlugInUpdatesForVersion:nil];
 }
@@ -637,28 +646,36 @@
 	if (!plugInWebData)
 		[self loadWebPlugInInfo];
 
-	int newPlugInsAvailable = 0;
 	//NSDictionary *bundleIDs = [QSReg identifierBundles];
 
-	if (!updatedPlugIns) updatedPlugIns = [[NSMutableArray array] retain];
-	else [updatedPlugIns removeAllObjects];
+	if (!updatedPlugIns) {
+		updatedPlugIns = [[NSMutableSet alloc] init];
+	} else {
+		[updatedPlugIns removeAllObjects];
+	}
 
 	[self downloadWebPlugInInfoFromDate:plugInWebDownloadDate forUpdateVersion:version synchronously:YES];
 
+	NSMutableArray *names = [NSMutableArray arrayWithCapacity:1];
 	for (QSPlugIn *thisPlugIn in [self knownPlugInsWithWebInfo]) {
-		if ([thisPlugIn needsUpdate]) {
-			[updatedPlugIns addObject:thisPlugIn];
-			newPlugInsAvailable++;
+		// don't update obsolete plug-ins, but list them when alerting the user
+		if ([thisPlugIn isObsolete]) {
+			NSString *replacementID = [obsoletePlugIns objectForKey:[thisPlugIn identifier]];
+			[updatedPlugIns addObject:replacementID];
+			QSPlugIn *replacement = [self plugInWithID:replacementID];
+			[names addObject:[NSString stringWithFormat:@"%@ (replaced by %@)", [thisPlugIn name], [replacement name]]];
+		} else if ([thisPlugIn needsUpdate]) {
+			[updatedPlugIns addObject:[thisPlugIn identifier]];
+			[names addObject:[thisPlugIn name]];
 		}
 	}
-
-	if (newPlugInsAvailable) {
-		NSArray *names = [updatedPlugIns valueForKey:@"name"];
+	
+	if ([updatedPlugIns count]) {
 		int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"Plug-in Updates are available", nil] ,
 												  @"%@", @"Install", @"Cancel", nil, [names componentsJoinedByString:@", "]);
 		if (selection == 1) {
 			updatingPlugIns = YES;
-			[self installPlugInsForIdentifiers:[updatedPlugIns valueForKey:@"identifier"] version:version];
+			[self installPlugInsForIdentifiers:[updatedPlugIns allObjects] version:version];
 			return YES;
 		}
 		return NO;
@@ -749,7 +766,7 @@
 	return destinationPath;
 }
 
-- (NSMutableArray *)updatedPlugIns { return updatedPlugIns;  }
+- (NSMutableSet *)updatedPlugIns { return updatedPlugIns;  }
 
 - (void)updateDownloadCount {
 	if (![queuedDownloads count]) {

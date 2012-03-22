@@ -294,10 +294,14 @@ NSMutableDictionary *plugInBundlePaths = nil;
 			return YES;
 		}
 	}
-	// makes an loaded plug-in obsolete
+	// makes a loaded plug-in obsolete
 	NSSet *currentlyLoaded = [NSSet setWithArray:[[[QSPlugInManager sharedInstance] loadedPlugIns] allKeys]];
 	return [currentlyLoaded intersectsSet:[self obsoletes]];
-	return NO;
+}
+
+- (BOOL)isObsolete
+{
+	return [[[[QSPlugInManager sharedInstance] obsoletePlugIns] allKeys] containsObject:[self identifier]];
 }
 
 - (BOOL)needsUpdate {
