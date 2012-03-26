@@ -17,7 +17,7 @@
 
 #define QSDebugLogRequest @"QSDebugLogRequest"
 
-#define QSActiveApplicationChanged @"QSActiveApplicationChanged"
+#define QSActiveApplicationChanged QSProcessMonitorFrontApplicationSwitched
 
 // Notification for when an object icon has been loaded and needs updating in the display
 #define QSObjectIconModified @"QSObjectIconModified"
