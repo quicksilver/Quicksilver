@@ -221,6 +221,9 @@ QSExecutor *QSExec = nil;
 			[[self actionsArrayForFileType:type] addObject:action];
 		}
 	}
+    if ([action bundle] && [[action bundle] bundleIdentifier]) {
+    [[self makeArrayForSource:[[action bundle] bundleIdentifier]] addObject:action];
+    }
 }
 
 - (void)updateRanks {
@@ -518,7 +521,6 @@ QSExecutor *QSExec = nil;
             
             if (action) {
                 [self addAction:action];
-                [[self makeArrayForSource:[bundle bundleIdentifier]] addObject:action];
             }
         }
 	} else {
