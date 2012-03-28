@@ -251,7 +251,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 		//			[pboard declareTypes:includeTypes owner:self];
 		else if ([types containsObject:NSURLPboardType])
 			// for urls, define plain text, rtf and html
-			includeTypes = [NSArray arrayWithObjects:NSURLPboardType,NSHTMLPboardType,NSRTFPboardType,nil];
+			includeTypes = [NSArray arrayWithObjects:NSURLPboardType,NSHTMLPboardType,NSRTFPboardType,NSStringPboardType,nil];
 		else if ([types containsObject:NSColorPboardType])
 			includeTypes = [NSArray arrayWithObject:NSColorPboardType];
 	}
