@@ -571,12 +571,6 @@ static id _sharedInstance;
 	[[itemTable window] makeFirstResponder:[itemTable window]];
 	if (currentItem) {
 		[NSThread detachNewThreadSelector:@selector(scanForcedInThread:) toTarget:currentItem withObject:self];
-//		[[QSTaskController sharedInstance] removeTask:@"Scan"];
-	} else {
-		//[[[QSLibrarian sharedInstance] catalog] scanForced:YES];
-//		[NSThread detachNewThreadSelector:@selector(scanForcedInThread:)
-//								 toTarget:currentItem withObject:self];
-//		[QSLib startThreadedAndForcedScan];
 	}
 }
 
