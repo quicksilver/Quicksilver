@@ -73,7 +73,6 @@ typedef enum QSSearchMode {
 	BOOL browsing;
 	BOOL validMnemonic;
 	BOOL hasHistory;
-	BOOL moreComing;
 	BOOL allowText;
 	BOOL allowNonActions;
     
