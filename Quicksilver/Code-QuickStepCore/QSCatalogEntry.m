@@ -528,10 +528,10 @@ if (kUseNSArchiveForIndexes)
 	return itemContents;
 }
 
-- (void)scanForcedInThread:(BOOL)force {
+- (void)scanForcedInThread:(NSNumber *)force {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	[[[QSLibrarian sharedInstance] scanTask] startTask:nil];
-	[self scanForced:force];
+	[self scanForced:[force boolValue]];
 	[[[QSLibrarian sharedInstance] scanTask] stopTask:nil];
 	[pool release];
 }
