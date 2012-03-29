@@ -334,12 +334,12 @@
 	[self activate:self];
 }
 
-- (void)searchArray:(NSArray *)array {
+- (void)searchArray:(NSMutableArray *)array {
     // show the results list with the first pane empty
     [self showArray:array withDirectObject:nil];
 }
 
-- (void)showArray:(NSArray *)array {
+- (void)showArray:(NSMutableArray *)array {
     // display the results list with these items
     if (array && [array count] > 0) {
         // put the first item from the array into the first pane
@@ -352,12 +352,11 @@
     [dSelector showResultView:self];
 }
 
-- (void)showArray:(NSArray *)array withDirectObject:(QSObject *)dObject {
+- (void)showArray:(NSMutableArray *)array withDirectObject:(QSObject *)dObject {
     [actionsUpdateTimer invalidate];
     [self clearObjectView:dSelector];
-    NSMutableArray *mutArray = [[array mutableCopy] autorelease];
-    [dSelector setSourceArray:mutArray];
-    [dSelector setResultArray:mutArray];
+    [dSelector setSourceArray:array];
+    [dSelector setResultArray:array];
     [dSelector setSearchMode:SearchFilter];
     if (dObject) {
         // show an item from this array if set
