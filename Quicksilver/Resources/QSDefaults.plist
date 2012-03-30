@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>Capture Pasteboard History</key>
@@ -11,11 +11,7 @@
 	<key>Delay Before Quitting</key>
 	<false/>
 	<key>QSAccentColor</key>
-	<data>
-	BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANA
-	QECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYFHNlbGVjdGVkQ29udHJvbENvbG9y
-	hoSTlQOEAmZmAQGGhg==
-	</data>
+	<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANAQECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYFHNlbGVjdGVkQ29udHJvbENvbG9yhoSTlQOEAmZmAQGGhg==</data>
 	<key>QSActionAppReopenBehavior</key>
 	<integer>0</integer>
 	<key>QSActivationHotKey</key>
@@ -27,60 +23,26 @@
 	</dict>
 	<key>QSAlwaysInstallPrerequisites</key>
 	<true/>
-  <key>QSLoadImagePreviews</key>
+	<key>QSLoadImagePreviews</key>
 	<true/>
 	<key>QSAppearance1A</key>
-	<data>
-	BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMBhARm
-	ZmZmAQEBgz6ZmZqG
-	</data>
+	<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMBhARmZmZmAQEBgz6ZmZqG</data>
 	<key>QSAppearance1B</key>
-	<data>
-	BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMBhARm
-	ZmZmgz4HtDaDPcv0R4M+SlKUgz9MzM2G
-	</data>
+	<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMBhARmZmZmgz4HtDaDPcv0R4M+SlKUgz9MzM2G</data>
 	<key>QSAppearance1T</key>
-	<data>
-	BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANA
-	QECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYIWFsdGVybmF0ZVNlbGVjdGVkQ29u
-	dHJvbFRleHRDb2xvcoaEk5UDhAJmZgEBhoY=
-	</data>
+	<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANAQECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYIWFsdGVybmF0ZVNlbGVjdGVkQ29udHJvbFRleHRDb2xvcoaEk5UDhAJmZgEBhoY=</data>
 	<key>QSAppearance2A</key>
-	<data>
-	BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANA
-	QECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYG3NlbGVjdGVkVGV4dEJhY2tncm91
-	bmRDb2xvcoaEk5UDhAJmZoM/KqqrAYaG
-	</data>
+	<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANAQECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYG3NlbGVjdGVkVGV4dEJhY2tncm91bmRDb2xvcoaEk5UDhAJmZoM/KqqrAYaG</data>
 	<key>QSAppearance2B</key>
-	<data>
-	BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANA
-	QECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYFWNvbnRyb2xIaWdobGlnaHRDb2xv
-	coaEk5UDhAJmZgEBhoY=
-	</data>
+	<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANAQECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYFWNvbnRyb2xIaWdobGlnaHRDb2xvcoaEk5UDhAJmZgEBhoY=</data>
 	<key>QSAppearance2T</key>
-	<data>
-	BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANA
-	QECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYFHdpbmRvd0ZyYW1lVGV4dENvbG9y
-	hoSTlQOEAmZmAQGGhg==
-	</data>
+	<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANAQECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYFHdpbmRvd0ZyYW1lVGV4dENvbG9yhoSTlQOEAmZmAQGGhg==</data>
 	<key>QSAppearance3A</key>
-	<data>
-	BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANA
-	QECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYG3NlbGVjdGVkVGV4dEJhY2tncm91
-	bmRDb2xvcoaEk5UDhAJmZoM/KqqrAYaG
-	</data>
+	<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANAQECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYG3NlbGVjdGVkVGV4dEJhY2tncm91bmRDb2xvcoaEk5UDhAJmZoM/KqqrAYaG</data>
 	<key>QSAppearance3B</key>
-	<data>
-	BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANA
-	QECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYE3RleHRCYWNrZ3JvdW5kQ29sb3KG
-	hJOVA4QCZmYBAYaG
-	</data>
+	<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANAQECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYE3RleHRCYWNrZ3JvdW5kQ29sb3KGhJOVA4QCZmYBAYaG</data>
 	<key>QSAppearance3T</key>
-	<data>
-	BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANA
-	QECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYCXRleHRDb2xvcoaEk5UDhAJmZgAB
-	hoY=
-	</data>
+	<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANAQECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYCXRleHRDb2xvcoaEk5UDhAJmZgABhoY=</data>
 	<key>QSBezelHasShadow</key>
 	<false/>
 	<key>QSCatalogRescanFrequency</key>
@@ -102,13 +64,13 @@
 	<key>QSUpdateReleaseLevel</key>
 	<integer>0</integer>
 	<key>Reset Delay</key>
-	<real>2.0000000000000004</real>
+	<real>2</real>
 	<key>Hide Dock Icon</key>
 	<false/>
 	<key>Result Window Behavior</key>
 	<integer>1</integer>
 	<key>Search Delay</key>
-	<real>0.10000000000000001</real>
+	<real>0.05</real>
 	<key>Show Icons</key>
 	<true/>
 	<key>Show Release Notes on Upgrade</key>
