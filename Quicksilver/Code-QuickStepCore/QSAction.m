@@ -299,8 +299,12 @@ static BOOL gModifiersAreIgnored;
 	NSString *class = [dict objectForKey:kActionClass];
 	QSActionProvider *provider = [dict objectForKey:kActionProvider];
 	if (class || provider) {
-		if (!provider)
+		if (!provider) {
 			provider = [QSReg getClassInstance:class];
+		}
+		if ([[dObject primaryType] isEqualToString:QSProxyType]) {
+			dObject = (QSObject *)[dObject resolvedObject];
+		}
 		if ([[dict objectForKey:kActionSplitPluralArguments] boolValue] && [dObject count] > 1) {
 			NSArray *objects = [dObject splitObjects];
 			id object;

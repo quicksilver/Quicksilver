@@ -102,7 +102,9 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	id commandObject = [(QSCommand*)dObject dObject];
 	BOOL asDroplet = [[commandObject identifier] isEqualToString:@"QSDropletItemProxy"];
     
+#ifdef DEBUG
 	NSLog(@"droplet %d", asDroplet);
+#endif
 	NSString *destination = [[[[iObject singleFilePath] stringByAppendingPathComponent:[dObject name]] stringByAppendingPathExtension:asDroplet?@"app":@"qscommand"] firstUnusedFilePath];
 	if (asDroplet) {
 		[[NSFileManager defaultManager] copyItemAtPath:[[NSBundle mainBundle] pathForResource:@"QSDroplet" ofType:@"app"] toPath:destination error:nil];
@@ -398,34 +400,58 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"Execute Command: %@", self);
 #endif
+	QSInterfaceController *controller = [(QSController *)[NSApp delegate] interfaceController];
 	int argumentCount = [(QSAction *)actionObject argumentCount];
-	if (argumentCount<2) {
-		return [actionObject performOnDirectObject:directObject indirectObject:indirectObject];
-	} else if (argumentCount == 2) {
-		if ([indirectObject objectForType:QSTextProxyType]) {
-			[[(QSController *)[NSApp delegate] interfaceController] executePartialCommand:[NSArray arrayWithObjects:directObject, actionObject, indirectObject, nil]];
-		} else if (indirectObject) {
-			return [aObject performOnDirectObject:directObject indirectObject:indirectObject];
-		} else {
-			if (!indirectObject) {
-				NSString *selectClass = [[NSUserDefaults standardUserDefaults] stringForKey:@"QSUnidentifiedObjectSelector"];
-				id handler = [QSReg getClassInstance:selectClass];
-				NSLog(@"handler %@ %@", selectClass, handler);
-				if (handler && [handler respondsToSelector:@selector(completeAndExecuteCommand:)]) {
-					[handler completeAndExecuteCommand:self];
-					return nil;
+	if (argumentCount == 2 && (!indirectObject || [[indirectObject primaryType] isEqualToString:QSTextProxyType])) {
+		// indirect object required, but is either missing or asking for text input
+		if (!indirectObject) {
+			// attempt to use the Missing Object Selector
+			NSString *selectClass = [[NSUserDefaults standardUserDefaults] stringForKey:@"QSUnidentifiedObjectSelector"];
+			id handler = [QSReg getClassInstance:selectClass];
+#ifdef DEBUG
+			NSLog(@"handler %@ %@", selectClass, handler);
+#endif
+			if (handler && [handler respondsToSelector:@selector(completeAndExecuteCommand:)]) {
+				[handler completeAndExecuteCommand:self];
+				return nil;
+			}
+		}
+		// use Quicksilver's interface to get the missing object
+		[controller executePartialCommand:[NSArray arrayWithObjects:directObject, actionObject, indirectObject, nil]];
+	} else {
+		// indirect object is either present, or unnecessary - run the action
+		QSObject *returnValue = [actionObject performOnDirectObject:directObject indirectObject:indirectObject];
+		if (returnValue) {
+			// if the action returns something, wipe out the first pane
+			/* (The main object would get replaced anyway. This is only done to
+			 remove objects selected by the comma trick before the action was run.) */
+			[controller clearObjectView:[controller dSelector]];
+			// put the result in the first pane and in the results list
+			[[controller dSelector] performSelectorOnMainThread:@selector(setObjectValue:) withObject:returnValue waitUntilDone:YES];
+			if (actionObject) {
+				if ([actionObject isKindOfClass:[QSRankedObject class]] && [(QSRankedObject *)actionObject object]) {
+					QSAction* rankedAction = [(QSRankedObject *)actionObject object];
+					if (rankedAction != actionObject) {
+						[rankedAction retain];
+						[actionObject release];
+						actionObject = rankedAction;
+					}
+				}
+				// bring the interface back to show the result
+				if ([actionObject displaysResult]) {
+					// send focus to the second pane if the user has set the preference
+					if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSJumpToActionOnResult"]) {
+						[controller actionActivate:nil];
+					}
+					[controller showMainWindow:controller];
 				}
 			}
-			[[(QSController *)[NSApp delegate] interfaceController] executePartialCommand:[NSArray arrayWithObjects:directObject, actionObject, indirectObject, nil]];
+			return returnValue;
 		}
-		return nil;
 	}
 	return nil;
-//		NS_DURING
-//	NS_HANDLER
-//		;
-//	NS_ENDHANDLER
 }
+
 - (void)executeFromMenu:(id)sender {
 	//NSLog(@"sender %@", NSStringFromClass([sender class]) );
 	QSObject *object = [self execute];

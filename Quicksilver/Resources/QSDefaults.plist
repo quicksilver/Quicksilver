@@ -103,6 +103,8 @@
 	<integer>0</integer>
 	<key>Reset Delay</key>
 	<real>2.0000000000000004</real>
+	<key>Hide Dock Icon</key>
+	<false/>
 	<key>Result Window Behavior</key>
 	<integer>1</integer>
 	<key>Search Delay</key>

@@ -26,15 +26,26 @@
 	}
 	return [super settingsView];
 }
+
+#define QSProcessSourceObservationContext "QSProcessSourceObservationContext"
+
 - (id)init {
 	if (self = [super init]) {
 		processScanDate = [NSDate timeIntervalSinceReferenceDate];
 		processes = [[NSMutableArray arrayWithCapacity:1] retain];
 
-		[[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(appTerminated:) name:NSWorkspaceDidTerminateApplicationNotification object: nil];
-		[[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(appLaunched:) name:NSWorkspaceDidLaunchApplicationNotification object: nil];
+		[[QSProcessMonitor sharedInstance] addObserver:self forKeyPath:@"allProcesses" options:NSKeyValueObservingOptionNew context:QSProcessSourceObservationContext];
+		[[NSUserDefaultsController sharedUserDefaultsController] addObserver:self forKeyPath:@"values." kQSShowBackgroundProcesses options:NSKeyValueObservingOptionNew context:QSProcessSourceObservationContext];
 	}
 	return self;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if (context == QSProcessSourceObservationContext) {
+		if ([keyPath isEqualToString:@"allProcesses"]
+			|| [keyPath isEqualToString:@"values." kQSShowBackgroundProcesses])
+			[self invalidateSelf];
+	}
 }
 
 - (void)invalidateSelf {
@@ -51,17 +62,10 @@
 }
 
 - (NSArray *)objectsForEntry:(NSDictionary *)theEntry {
-	return [[QSProcessMonitor sharedInstance] allProcesses];
+	BOOL showBackground = [[NSUserDefaults standardUserDefaults] boolForKey:kQSShowBackgroundProcesses];
+	return showBackground ? [[QSProcessMonitor sharedInstance] allProcesses] : [[QSProcessMonitor sharedInstance] visibleProcesses];
 }
 
-- (void)appTerminated:(NSNotification *)notif {
-	[self invalidateSelf];
-}
-
-- (void)appLaunched:(NSNotification *)notif {
-	//	NSLog(@"notif %@", notif);
-	[self invalidateSelf];
-}
 @end
 
 @implementation QSProcessActionProvider

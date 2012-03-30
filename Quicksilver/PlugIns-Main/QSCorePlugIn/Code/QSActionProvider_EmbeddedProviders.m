@@ -345,9 +345,11 @@
 		BOOL isDirectory;
         NSString *currentFolderPath = [[[[dObject splitObjects] lastObject] singleFilePath] stringByDeletingLastPathComponent];
         // if it wasn't in the catalog, create it from scratch
-        QSObject *currentFolderObject = [QSObject fileObjectWithPath:currentFolderPath];
-        [fileObjects removeObject:currentFolderObject];
-        [fileObjects insertObject:currentFolderObject atIndex:0];
+        if (currentFolderPath) {
+            QSObject *currentFolderObject = [QSObject fileObjectWithPath:currentFolderPath];
+            [fileObjects removeObject:currentFolderObject];
+            [fileObjects insertObject:currentFolderObject atIndex:0];
+        }
         NSWorkspace *ws = [[NSWorkspace sharedWorkspace] retain];
         NSFileManager *fm = [[NSFileManager alloc] init];
 		for(QSObject *thisObject in fileObjects) {

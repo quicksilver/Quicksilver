@@ -40,7 +40,10 @@
 
 		[newActions addObject:kQSObjectShowChildrenAction];
 	}
-
+    if ([[QSLibrarian sharedInstance] firstEntryContainingObject:dObject])
+    {
+            [newActions addObject:kQSObjectShowSourceAction];
+    }
 	return newActions;
 }
 
@@ -74,8 +77,9 @@
 
 	QSCatalogEntry *theEntry = [[QSLibrarian sharedInstance] firstEntryContainingObject:dObject];
 
-	[NSClassFromString(@"QSCatalogPrefPane") showEntryInCatalog:theEntry];
-	return nil;
+    [NSClassFromString(@"QSCatalogPrefPane") performSelectorOnMainThread:@selector(showEntryInCatalog:) withObject:theEntry waitUntilDone:NO];
+    
+    return nil;
 }
 
 - (NSWindow *)windowForObject:(QSObject *)object atPoint:(NSPoint)loc {

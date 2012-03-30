@@ -500,6 +500,7 @@ static QSController *defaultController = nil;
 }
 
 - (void)receiveObject:(QSObject *)object {
+	[[self interfaceController] clearObjectView:[[self interfaceController] dSelector]];
 	[[self interfaceController] selectObject:object];
     [[self interfaceController] actionActivate:nil];
 }
@@ -781,11 +782,7 @@ static QSController *defaultController = nil;
 //- (void)applicationDidResignActive:(NSNotification *)aNotification {}
 
 - (NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication *)sender {
-#if 0
-	[[NSImage imageNamed:@"NSApplicationIcon"] setSize:NSMakeSize(128, 128)];
-	[NSApp setApplicationIconImage:[NSImage imageNamed:@"NSApplicationIcon"]];
-#endif
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSQuicksilverWillQuitEvent" userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSQuicksilverWillQuitEvent" userInfo:nil];
 	return YES;
 }
 

@@ -222,12 +222,17 @@ NSSize QSMaxIconSize;
 }
 
 - (NSArray *)splitObjects {
-	
+    
 	if ([self count] == 1) {
 		return [NSArray arrayWithObject:self];
 	}
 	
-	return [self objectForCache:kQSObjectComponents];
+	NSArray *splitObjects = [self objectForCache:kQSObjectComponents];
+    
+    if (!splitObjects) {
+        splitObjects = [self children];
+    }
+    return splitObjects;
 }
 
 // Method to merge objects into a single 'combined' object
@@ -946,4 +951,30 @@ containg multiple objects with the same identifier. Best efforts should be made 
 	}
     
 }
+@end
+
+@implementation QSObject (Quicklook)
+
+- (NSURL *)previewItemURL
+{
+    if ([[self primaryType] isEqualToString:QSURLType]) {
+        NSString *urlString = [[[self dataDictionary] objectForKey:QSURLType] URLEncoding];
+        if (urlString) {
+        return [NSURL URLWithString:urlString];
+        }
+    }
+    else {
+        NSString *filePathString = [self singleFilePath];
+        if (filePathString) {
+        return [NSURL fileURLWithPath:filePathString];
+        }
+    }
+    return nil;
+}
+
+- (NSString *)previewItemTitle
+{
+    return [self name];
+}
+
 @end

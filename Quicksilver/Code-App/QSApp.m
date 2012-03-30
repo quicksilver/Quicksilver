@@ -55,27 +55,19 @@ BOOL QSApplicationCompletedLaunch = NO;
 	}
 	if ((self = [super init])) {
 
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         
-	// Honor dock hidden preference if new version
-	isUIElement = [self shouldBeUIElement];
-    if (isUIElement && ![defaults boolForKey:kHideDockIcon]) {
-        [defaults setObject:[NSNumber numberWithBool:NO] forKey:kHideDockIcon];
-        if (![defaults objectForKey:@"QSShowMenuIcon"])
-			[defaults setInteger:0 forKey:@"QSShowMenuIcon"];
-
-            [self setShouldBeUIElement:NO];
-	}
+        // Honor dock preference (if statement true if icon is NOT set to hide)
+        if (![defaults boolForKey:kHideDockIcon]) {
+            if (![defaults objectForKey:@"QSShowMenuIcon"])
+                [defaults setInteger:0 forKey:@"QSShowMenuIcon"];
+            [self showDockIcon];
+        }
     }
 	return self;
 }
 
 - (BOOL)completedLaunch { return QSApplicationCompletedLaunch;  }
-
-- (void)setApplicationIconImage:(NSImage *)image {
-  if (!isUIElement)
-	[super setApplicationIconImage:image];
-}
 
 - (BOOL)_handleKeyEquivalent:(NSEvent *)event {
 	if ([[self globalKeyEquivalentTarget] performKeyEquivalent:event])
@@ -127,6 +119,17 @@ BOOL QSApplicationCompletedLaunch = NO;
 			[QSModifierKeyEvent checkForModifierEvent:theEvent];
 			break;
 	}
+    if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
+        if ([theEvent type] == NSKeyDown) {
+            // Close the Quicksilver window when ⌘⌥Y is pressed in full screen, or the spacebar or ESC key is pressed (send event to QSSearchObjectView:keyDown)
+            QLPreviewPanel *quicklookPanel = [QLPreviewPanel sharedPreviewPanel];
+            NSString *key = [theEvent charactersIgnoringModifiers];
+            if (([quicklookPanel isInFullScreenMode] && [key isEqualToString:@"y"] && ([theEvent modifierFlags] & (NSCommandKeyMask | NSAlternateKeyMask))) || [key isEqualToString:@" "] || [theEvent keyCode] == 53) {
+                [(QSSearchObjectView *)[quicklookPanel delegate] closePreviewPanel];
+                return;
+            }
+        }
+    }
 	[super sendEvent:theEvent];
 }
 - (void)forwardWindowlessRightClick:(NSEvent *)theEvent {
@@ -145,16 +148,9 @@ BOOL QSApplicationCompletedLaunch = NO;
 #endif
 }
 
-- (BOOL)isUIElement { return isUIElement;  }
-- (BOOL)setShouldBeUIElement:(BOOL)hidden {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setBool:hidden forKey:kHideDockIcon];
-	[defaults synchronize];
-	if (!hidden) {
+- (void)showDockIcon {
 		ProcessSerialNumber psn = { 0, kCurrentProcess } ;
 		TransformProcessType(&psn, kProcessTransformToForegroundApplication);
-	}
-	return [super setShouldBeUIElement:hidden];
 }
 
 - (NSResponder *)globalKeyEquivalentTarget { return globalKeyEquivalentTarget;  }

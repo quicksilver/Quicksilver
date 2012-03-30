@@ -130,30 +130,6 @@
 
 @end
 
-#warning update these to the new NSApplicationPresentationOptions API. 
-@implementation NSApplication (LSUIElementManipulation)
-
-- (BOOL)shouldBeUIElement {
-	return [[[[NSBundle mainBundle] infoDictionary] objectForKey:@"LSUIElement"] boolValue];
-}
-
-- (BOOL)setShouldBeUIElement:(BOOL)hidden {
-	NSString * plistPath = nil;
-	NSFileManager *manager = [NSFileManager defaultManager];
-	if (plistPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/Info.plist"]) {
-		if ([manager isWritableFileAtPath:plistPath]) {
-			NSMutableDictionary *infoDict = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
-			[infoDict setObject:[NSNumber numberWithBool:hidden] forKey:@"LSUIElement"];
-			[infoDict writeToFile:plistPath atomically:NO];
-			[manager setAttributes:[NSDictionary dictionaryWithObject:[NSDate date] forKey:NSFileModificationDate] ofItemAtPath:[[NSBundle mainBundle] bundlePath] error:nil];
-			return YES;
-		}
-	}
-	return NO;
-}
-
-@end
-
 @implementation NSApplication (LaunchStatus)
 - (int)checkLaunchStatus {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

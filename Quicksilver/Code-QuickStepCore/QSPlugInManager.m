@@ -322,7 +322,7 @@
 		result = NSRunCriticalAlertPanel(@"Delete plug-ins?", @"Would you like to delete the selected plug-ins?", @"Delete", @"Cancel", nil);
 
 	if (result) {
-		BOOL success = 1;
+		BOOL success = YES;
 		for(QSPlugIn * plugin in deletePlugIns) {
 			success = success && [plugin delete];
 		}

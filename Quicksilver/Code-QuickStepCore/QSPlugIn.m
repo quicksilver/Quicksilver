@@ -23,6 +23,8 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 @implementation QSPlugIn
 
+@synthesize status;
+
 + (void)initialize {
 	plugInBundlePaths = [[NSMutableDictionary alloc] init];
 	[self setKeys:[NSArray arrayWithObject:@"bundle"] triggerChangeNotificationsForDependentKey:@"smallIcon"];
@@ -38,6 +40,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	if (self = [super init]) {
 		[self setBundle:aBundle];
 	}
+	[self setStatus:@"Disabled"];
 	return self;
 }
 
@@ -46,6 +49,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 		data = [webInfo retain];
 		bundle = nil;
 	}
+	[self setStatus:@"Downloadable"];
 	return self;
 }
 
@@ -93,10 +97,12 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 - (void)install {
 	installing = YES;
+	[self setStatus:@"Installing"];
 	NSString *identifier = [data objectForKey:@"CFBundleIdentifier"];
 	[[QSPlugInManager sharedInstance] installPlugInsForIdentifiers:[NSArray arrayWithObject:identifier]];
 	[self willChangeValueForKey:@"enabled"];
 	[self didChangeValueForKey:@"enabled"];
+	[self setStatus:@"Loaded"];
 }
 
 - (NSString *)shortName {
@@ -129,32 +135,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 	return name;
 }
-- (NSString *)status {
 
-	NSString *error = [self loadError];
-	NSString *status = nil;
-
-	if (!bundle) {
-		if (installing)
-			return @"Downloading";
-		else
-			return @"Downloadable";
-	}
-	if ([self isLoaded]) {
-		if ( [bundle isLoaded]) {
-			int fileSize = [[[[NSFileManager defaultManager] attributesOfItemAtPath:[bundle executablePath] error:nil] objectForKey:NSFileSize] intValue];
-
-			status = [NSString stringWithFormat:@"Loaded (%dk) ", fileSize/1024];
-		} else {
-			status = @"Loaded";
-		}
-	} else if (error) {
-		status = [NSString stringWithFormat:@"Error (%@) ", error];
-	} else {
-		status = @"Disabled";
-	}
-	return status;
-}
 - (NSString *)statusBullet {
 	  if ([self isLoaded]) {
 		  if ([bundle isLoaded])
@@ -228,47 +209,78 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	return [NSDate date];
 }
 - (NSDate *)modifiedDate {
+	NSDate *modifiedDate = [self installedDate];
+	if (!modifiedDate) {
+		modifiedDate = [self latestVersionDate];
+	}
+	return modifiedDate;
+}
+
+- (NSDate *)installedDate
+{
+	NSDate *buildDate = [[[NSFileManager defaultManager] attributesOfItemAtPath:[bundle executablePath] error:nil] fileModificationDate];
+	if (!buildDate) {
+		buildDate = [[[NSFileManager defaultManager] attributesOfItemAtPath:[bundle bundlePath] error:nil] fileModificationDate];
+	}
+	return buildDate;
+}
+
+- (NSDate *)latestVersionDate
+{
 	if (data) {
 		return [NSDate dateWithString:[data valueForKeyPath:@"QSModifiedDate"]];
-
-		return [NSDate date];
-	} else 	if (bundle) {
-		NSDate *buildDate = [[[NSFileManager defaultManager] attributesOfItemAtPath:[bundle executablePath] error:nil] fileModificationDate];
-		if (!buildDate)
-			buildDate = [[[NSFileManager defaultManager] attributesOfItemAtPath:[bundle bundlePath] error:nil] fileModificationDate];
-
-		return buildDate;
 	}
 	return nil;
 }
-- (NSString *)version {
-	if (bundle) {
-		NSString *version = [bundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-		if (!version) version = [bundle objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
-		return version;
-	}
-	NSString *version = [data objectForKey:@"CFBundleShortVersionString"];
-	if (!version) version = [data objectForKey:(NSString *)kCFBundleVersionKey];
-	return version;
 
+- (NSString *)version
+{
+	NSString *version = [self installedVersion];
+	if (!version) {
+		version = [self latestVersion];
+	}
+	return version;
 }
 
 - (NSString *)buildVersion {
 	return (bundle) ? [bundle objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey] : [data objectForKey:(NSString *)kCFBundleVersionKey];
-
 }
+
+- (NSString *)installedVersion
+{
+	if (bundle) {
+		NSString *version = [bundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+		if (!version) {
+			version = [bundle objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+		}
+		return version;
+	}
+	return nil;
+}
+
+- (NSString *)latestVersion
+{
+	NSString *version = [data objectForKey:@"CFBundleShortVersionString"];
+	if (!version) {
+		version = [data objectForKey:(NSString *)kCFBundleVersionKey];
+	}
+	return version;
+}
+
 - (BOOL)isSecret {
 	return [[[self info] valueForKeyPath:@"QSPlugIn.secret"] boolValue];
 }
 
 - (BOOL)isRecommended {
-	if ([[[self info] valueForKeyPath:@"QSPlugIn.recommended"] boolValue]) return YES;
-	if ([self isInstalled] >0) return NO;
+	if ([[[self info] valueForKeyPath:@"QSPlugIn.recommended"] boolValue]) {
+		return YES;
+	}
 	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
 	NSArray *related = [self relatedBundles];
-	//if (!related) return YES;
-	for(NSString * bundleID in related) {
-		if ([ws absolutePathForAppBundleWithIdentifier:bundleID]) return YES;
+	for(NSString *bundleID in related) {
+		if ([ws absolutePathForAppBundleWithIdentifier:bundleID]) {
+			return YES;
+		}
 	}
 	return NO;
 }
@@ -282,6 +294,11 @@ NSMutableDictionary *plugInBundlePaths = nil;
 }
 - (NSArray *)categories {
 	return [[self info] valueForKeyPath:@"QSPlugIn.categories"];
+}
+
+- (NSString *)categoriesAsString
+{
+	return [[self categories] componentsJoinedByString:@", "];
 }
 
 - (NSArray *)relatedBundles {
@@ -299,9 +316,15 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	NSDictionary *plist = [self info];
 	NSString *text = [plist valueForKeyPath:@"QSPlugIn.extendedDescription"];
 	if (![text length]) text = [plist valueForKeyPath:@"QSPlugIn.description"];
-	if (!text) text = @"";
+	if (![text length]) text = @"<span style='color: #CCC'>No documentation available</span>";
 	return [NSString stringWithFormat:@"<html><link rel=\"stylesheet\" href=\"resource:QSStyle.css\"><body>%@</body></html>", text];
 }
+
+- (BOOL)hasExtendedDescription
+{
+	return ([[[self info] valueForKeyPath:@"QSPlugIn.extendedDescription"] length] > 0);
+}
+
 - (NSComparisonResult) compare:(id)other {
 	return [[self name] compare:[other name]];
 }
@@ -410,8 +433,10 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 		if (flag) {
 			[disabledPlugInsSet removeObject:identifier];
+			[self setStatus:@"Loaded"];
 		} else {
 			[disabledPlugInsSet addObject:identifier];
+			[self setStatus:@"Disabled"];
 		}
 
 		[[NSUserDefaults standardUserDefaults] setObject:[disabledPlugInsSet allObjects] forKey:@"QSDisabledPlugIns"];
@@ -439,18 +464,24 @@ NSMutableDictionary *plugInBundlePaths = nil;
 						  inFileViewerRootedAtPath:@""];
 }
 - (BOOL)delete {
-	NSString *ident/*, *path*/;
-	if(bundle) {
+	NSString *ident, *path;
+	if (bundle) {
 		ident = [bundle bundleIdentifier];
-//		path = [bundle bundlePath];
+		path = [bundle bundlePath];
 	} else {
 		ident = [data objectForKey:@"CFBundleIdentifier"];
-//		path = nil;
+		path = nil;
 	}
 	id manager = [QSPlugInManager sharedInstance];
 	[[manager localPlugIns] removeObjectForKey:ident];
 	[[manager knownPlugIns] removeObjectForKey:ident];
-	return [[NSFileManager defaultManager] removeItemAtPath:[bundle bundlePath] error:nil];
+	NSFileManager *fm = [NSFileManager defaultManager];
+	if ([fm fileExistsAtPath:path]) {
+		return [fm removeItemAtPath:path error:nil];
+	} else {
+		return NO;
+	}
+	return YES;
 }
 
 //------------------------
@@ -489,6 +520,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 - (void)setLoadError:(NSString *)newLoadError {
 	[loadError autorelease];
 	loadError = [newLoadError retain];
+	[self setStatus:[NSString stringWithFormat:@"Error (%@) ", loadError]];
 }
 
 @end
@@ -680,6 +712,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	//if (complete)
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSPlugInLoadedNotification object:self];
 	loaded = YES;
+	[self setStatus:@"Loaded"];
 	return YES;
 }
 

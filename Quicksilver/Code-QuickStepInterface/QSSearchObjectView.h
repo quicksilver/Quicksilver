@@ -1,6 +1,8 @@
 #import <Foundation/Foundation.h>
 #import "QSObjectView.h"
 
+#import <Quartz/Quartz.h>
+
 @interface NSObject (QSSearchViewController)
 - (void)searchView:(id)view changedResults:(id)array;
 - (void)searchView:(id)view changedString:(id)string;
@@ -59,6 +61,8 @@ typedef enum QSSearchMode {
     
     NSFont *textCellFont; // for text entry mode
     NSColor *textCellFontColor; // for text entry mode
+    QLPreviewPanel* previewPanel;
+    QSSearchMode savedSearchMode;
 
 @public
 	QSResultController *resultController;
@@ -72,9 +76,10 @@ typedef enum QSSearchMode {
 	BOOL browsing;
 	BOOL validMnemonic;
 	BOOL hasHistory;
-	BOOL moreComing;
 	BOOL allowText;
 	BOOL allowNonActions;
+    
+    QSObject *quicklookObject;
 }
 
 - (void)clearSearch;
@@ -193,4 +198,22 @@ typedef enum QSSearchMode {
 
 @interface QSSearchObjectView (Browsing)
 - (void)browse:(int)direction;
+@end
+
+@interface QSSearchObjectView (Quicklook) <QLPreviewPanelDataSource, QLPreviewPanelDelegate>
+/*!
+ @canQuicklookCurrentObject
+ @abstract Checks an object's eligibility for Quick Looking
+ @discussion returns whether the currently selected object can by shown in the Quicklook panel
+ @result YES if the object is a file or URL object, otherwise NO
+ */
+- (BOOL)canQuicklookCurrentObject;
+/*!
+ @closePreviewPanel
+ @abstract Method to close the preview panel
+ @discussion Closes the preview panel, returning Quicksilver to the state it was in before the panel was open
+ */
+- (void)closePreviewPanel;
+- (IBAction)togglePreviewPanel:(id)previewPanel;
+- (IBAction)togglePreviewPanelFullScreen:(id)previewPanel;
 @end

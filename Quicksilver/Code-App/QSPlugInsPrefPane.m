@@ -19,6 +19,8 @@
 
 @implementation QSPlugInsPrefPane
 
+@synthesize plugInName;
+
 - (id)preferencesSplitView {
 	return [sidebar superview];
 }
@@ -104,6 +106,12 @@
 	[setsArrayController addObserver:self forKeyPath:@"selectedObjects" options:0 context:nil];
 	[pluginSetsTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
     //[pluginSetsTable selectRow:0 byExtendingSelection:NO];
+	// update the list of plug-ins to match the selected category
+	NSArray *selection = [setsArrayController performSelector:@selector(selectedObjects)];
+	NSDictionary *dict = [selection lastObject];
+	if ([dict objectForKey:@"viewMode"]) {
+		[self setViewMode:[[dict objectForKey:@"viewMode"] intValue]];
+	}
 }
 
 - (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id)listener {
@@ -138,9 +146,12 @@
 		NSArray *selection = [arrayController selectedObjects];
 		BOOL isMainThread = [NSThread isMainThread];
 		NSString *htmlString;
+		NSString *defaultTitle = @"Plug-in Documentation";
 		if ([selection count] == 1) {
+			[self setPlugInName:[NSString stringWithFormat:@"%@: %@", defaultTitle, [[selection objectAtIndex:0] name]]];
 			htmlString = [[selection objectAtIndex:0] infoHTML];
 		} else {
+			[self setPlugInName:defaultTitle];
 			htmlString = @"";
 		}
 		if (isMainThread) {
@@ -148,7 +159,6 @@
 		} else {
 			[self performSelectorOnMainThread:@selector(updateWithHTMLString:) withObject:htmlString waitUntilDone:NO];
 		}
-
 	}
 }
 
@@ -161,6 +171,12 @@
 	[infoDrawer setLeadingOffset:48];
 	[infoDrawer setTrailingOffset:24];
 	[infoDrawer setPreferredEdge:NSMaxXEdge];
+}
+
+- (void)willUnselect
+{
+	[infoDrawer close];
+	[pluginInfoPanel close];
 }
 
 #if 0
@@ -214,15 +230,6 @@
 	return bundles;
 }
 
-- (BOOL)selectedPlugInsHaveInfo {
-	[self selectedPlugIns];
-	NSMutableArray *array = [[[self selectedPlugIns] valueForKeyPath:@"infoDictionary.QSPlugIn.infoFile"] mutableCopy];
-	[array removeObject:[NSNull null]];
-	BOOL result = [array count];
-	[array release];
-	return result;
-}
-
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem { return YES;  }
 
 - (IBAction)deleteSelection:(id)sender {
@@ -248,21 +255,9 @@
 	[[NSWorkspace sharedWorkspace] openURLs:[[self selectedPlugIns] valueForKey:@"downloadURL"] withAppBundleIdentifier:nil options:NSWorkspaceLaunchDefault additionalEventParamDescriptor:nil launchIdentifiers:nil];
 }
 
-- (BOOL)showInfoForPlugIn:(QSPlugIn *)aPlugin {
-	NSBundle  *bundle; NSString *helpFile;
-	if((bundle = [aPlugin bundle]) && (helpFile = [[bundle objectForInfoDictionaryKey:@"QSPlugIn"] objectForKey:@"infoFile"]))
-		if([helpFile length]){
-			[[NSWorkspace sharedWorkspace] openFile:[[[bundle bundlePath] stringByAppendingPathComponent:@"Contents/Resources/"] stringByAppendingPathComponent:helpFile]];
-			return YES;
-		}
-	return NO;
-}
-
-- (IBAction)getInfo:(id)sender {
-	BOOL filesOpened = NO;
-	for (QSPlugIn *bundle in [self selectedPlugIns])
-		filesOpened |= [self showInfoForPlugIn:bundle];
-	if (!filesOpened) NSBeep();
+- (IBAction)getInfo:(id)sender
+{
+	[pluginInfoPanel makeKeyAndOrderFront:sender];
 }
 
 - (IBAction)updatePlugIns:(id)sender { [[QSPlugInManager sharedInstance] checkForPlugInUpdates];  }
@@ -332,7 +327,8 @@
 	NSMutableArray *setDicts = [NSMutableArray array];
 	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:2] , @"viewMode", @"Recommended", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
 	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:1] , @"viewMode", @"Installed", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
-	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:4] , @"viewMode", @"Uninstalled", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
+	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:5] , @"viewMode", @"Disabled", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
+	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:4] , @"viewMode", @"Not Installed", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
 	NSArray *categories = [NSArray arrayWithObjects:@"Applications", @"Calendar", @"Contacts", @"Development", @"Files", @"Images", @"Interfaces", @"Mail & Chat", @"Miscellaneous", @"Music", @"Quicksilver", @"Search", @"System", @"Text", @"Web", nil];
 	NSMutableArray *categoryDicts = [NSMutableArray array];
 	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:3] , @"viewMode", categoryDicts, @"children", @"All Plug-ins", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
@@ -356,10 +352,10 @@
 	if (!ignoreView) {
 		switch (viewMode) {
 			case 1: //installed
-				[predicates addObject:[NSPredicate predicateWithFormat:@"installed == YES"]];
+				[predicates addObject:[NSPredicate predicateWithFormat:@"isInstalled == 1"]];
 				break;
 			case 2: //Recommended
-				[predicates addObject:[NSPredicate predicateWithFormat:@"installed == YES || isRecommended == YES"]];
+				[predicates addObject:[NSPredicate predicateWithFormat:@"isRecommended == YES"]];
 				break;
 			case 3: //All
 				[predicates addObject:[NSPredicate predicateWithFormat:@"1 == 1"]];
@@ -367,7 +363,9 @@
 			case 4: //UnInstalled
 				[predicates addObject:[NSPredicate predicateWithFormat:@"isInstalled <= 0"]];
 				break;
-//			case 5: //New
+			case 5: //Installed, but disabled
+				[predicates addObject:[NSPredicate predicateWithFormat:@"isInstalled == 1 && enabled == 0"]];
+				break;
 			default:
 				break;
 		}
@@ -383,9 +381,6 @@
 	if ([predicates count])
 		filterPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicates];
 	[arrayController setFilterPredicate:filterPredicate];
-	if (!ignoreView && ![[arrayController arrangedObjects] count]) {
-		[self reloadFiltersIgnoringViewMode:YES];
-	}
 }
 
 @end
