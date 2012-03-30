@@ -1486,8 +1486,6 @@ NSMutableDictionary *bindingsDict = nil;
 	if (commandSelector == @selector(insertNewline:) ) {
 		[[self window] makeFirstResponder:self];
 		[[[self window] windowController] executeCommand:self];
-		if ([[self window] isVisible])
-			[[self window] selectKeyViewFollowingView:self];
 		return YES;
 	}
 	if (commandSelector == @selector(complete:) ) {
