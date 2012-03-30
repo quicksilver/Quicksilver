@@ -69,7 +69,6 @@ NSMutableDictionary *bindingsDict = nil;
 	[self setTextCellFontColor:[NSColor blackColor]];
     
 	searchMode = SearchFilterAll;
-	moreComing = NO;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideResultView:) name:@"NSWindowDidResignKeyNotification" object:[self window]];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sourceArrayChanged:) name:@"QSSourceArrayUpdated" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearAll) name:QSReleaseAllNotification object:nil];
@@ -946,18 +945,13 @@ NSMutableDictionary *bindingsDict = nil;
     
 	double searchDelay = [[NSUserDefaults standardUserDefaults] floatForKey:kSearchDelay];
         
-	if (moreComing) {
-		if ([searchTimer isValid]) [searchTimer invalidate];
-	} else {
-		if (![searchTimer isValid]) {
-			[searchTimer release];
-			searchTimer = [[NSTimer scheduledTimerWithTimeInterval:searchDelay target:self selector:@selector(performSearch:) userInfo:nil repeats:NO] retain];
-		}
-		[searchTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:searchDelay]];
-        
-		if ([self searchMode] != SearchFilterAll) [searchTimer fire];
-        
+	if (![searchTimer isValid]) {
+		[searchTimer release];
+		searchTimer = [[NSTimer scheduledTimerWithTimeInterval:searchDelay target:self selector:@selector(performSearch:) userInfo:nil repeats:NO] retain];
 	}
+	[searchTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:searchDelay]];
+	
+	if ([self searchMode] != SearchFilterAll) [searchTimer fire];
 	if (validSearch) {
 		[resultController->searchStringField setTextColor:[NSColor blueColor]];
 	}
@@ -1064,12 +1058,6 @@ NSMutableDictionary *bindingsDict = nil;
 		}
 		[self setShouldResetSearchString:NO];
 	}
-    
-	// check for additional keydowns up to now so the search isn't done too often.
-    moreComing = nil != [NSApp nextEventMatchingMask:NSKeyDownMask untilDate:[NSDate dateWithTimeIntervalSinceNow:SEARCH_RESULT_DELAY] inMode:NSDefaultRunLoopMode dequeue:NO];
-#ifdef DEBUG
-    if (VERBOSE && moreComing) NSLog(@"moreComing");
-#endif
     
 	// ***warning  * have downshift move to indirect object
 	if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"/"] && [self handleSlashEvent:theEvent])
