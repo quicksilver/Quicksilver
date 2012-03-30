@@ -267,13 +267,13 @@
 - (void)setActionUpdateTimer {
 	if ([actionsUpdateTimer isValid]) {
 		// *** this was causing actions not to update for the search contents action
-		[actionsUpdateTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:0.30]];
+		[actionsUpdateTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:0.10]];
 		//[actionsUpdateTimer fire];
 		//	NSLog(@"action %@", [actionsUpdateTimer fireDate]);
 	} else {
 		[actionsUpdateTimer invalidate];
 		[actionsUpdateTimer release];
-		actionsUpdateTimer = [[NSTimer scheduledTimerWithTimeInterval:0.30 target:self selector:@selector(updateActionsNow) userInfo:nil repeats:NO] retain];
+		actionsUpdateTimer = [[NSTimer scheduledTimerWithTimeInterval:0.10 target:self selector:@selector(updateActionsNow) userInfo:nil repeats:NO] retain];
 	}
 }
 
