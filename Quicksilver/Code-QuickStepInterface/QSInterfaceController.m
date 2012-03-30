@@ -85,11 +85,8 @@
 		[actionsUpdateTimer invalidate];
 	if([hideTimer isValid])
 		[hideTimer invalidate];
-	if([clearTimer isValid])
-		[clearTimer invalidate];
 	[actionsUpdateTimer release];
 	[hideTimer release];
-	[clearTimer release];
 	//[progressIndicator release];
 	//[iSelector release];
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -267,13 +264,13 @@
 - (void)setActionUpdateTimer {
 	if ([actionsUpdateTimer isValid]) {
 		// *** this was causing actions not to update for the search contents action
-		[actionsUpdateTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:0.30]];
+		[actionsUpdateTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:0.10]];
 		//[actionsUpdateTimer fire];
 		//	NSLog(@"action %@", [actionsUpdateTimer fireDate]);
 	} else {
 		[actionsUpdateTimer invalidate];
 		[actionsUpdateTimer release];
-		actionsUpdateTimer = [[NSTimer scheduledTimerWithTimeInterval:0.30 target:self selector:@selector(updateActionsNow) userInfo:nil repeats:NO] retain];
+		actionsUpdateTimer = [[NSTimer scheduledTimerWithTimeInterval:0.10 target:self selector:@selector(updateActionsNow) userInfo:nil repeats:NO] retain];
 	}
 }
 
@@ -439,15 +436,6 @@
 	}
 }
 
-- (void)setClearTimer {
-	if ([clearTimer isValid]) {
-		[clearTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:10*MINUTES]];
-	} else {
-		[clearTimer release];
-		clearTimer = [[NSTimer scheduledTimerWithTimeInterval:10*MINUTES target:self selector:@selector(clear:) userInfo:nil repeats:NO] retain];
-	}
-}
-
 - (void)clear:(NSTimer *)timer {
 	[dSelector clearObjectValue];
 	[self updateActionsNow];
@@ -488,7 +476,6 @@
 	if ([[self window] attachedSheet] == window)
 		return;
 	if (window == [self window]) {
-	 	[clearTimer invalidate];
 		[hideTimer invalidate];
 	} else if ([[notification object] level] <= [[self window] level]) {
 		//NSLog(@"hide! %@", window);
@@ -721,7 +708,6 @@
 
 - (IBAction)hideWindows:(id)sender {
 	[self hideMainWindow:self];
-	[self setClearTimer];
 }
 
 - (IBAction)showTasks:(id)sender {
