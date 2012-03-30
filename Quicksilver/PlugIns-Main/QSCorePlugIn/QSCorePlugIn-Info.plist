@@ -1599,45 +1599,6 @@
 			<key>feature</key>
 			<integer>1</integer>
 		</dict>
-		<key>QSSoundPlayAction</key>
-		<dict>
-			<key>actionClass</key>
-			<string>QSSoundActions</string>
-			<key>directTypes</key>
-			<array>
-				<string>NSFilenamesPboardType</string>
-			</array>
-			<key>actionSelector</key>
-			<string>playSound:</string>
-			<key>directFileTypes</key>
-			<array>
-				<string>aiff</string>
-				<string>AIFF</string>
-				<string>&apos;AIFF&apos;</string>
-				<string>aif</string>
-				<string>AIF</string>
-				<string>aifc</string>
-				<string>AIFC</string>
-				<string>wav</string>
-				<string>WAV</string>
-				<string>&apos;WAVE&apos;</string>
-				<string>snd</string>
-				<string>SND</string>
-				<string>au</string>
-				<string>AU</string>
-				<string>&apos;ULAW&apos;</string>
-				<string>&apos;ALAW&apos;</string>
-				<string>mp3</string>
-				<string>MP3</string>
-				<string>&apos;Mp3 &apos;</string>
-				<string>ulw</string>
-				<string>ULW</string>
-				<string>m4p</string>
-				<string>m4a</string>
-			</array>
-			<key>name</key>
-			<string>Play Sound</string>
-		</dict>
 		<key>FileCopyToAction</key>
 		<dict>
 			<key>displaysResult</key>
@@ -2308,52 +2269,7 @@
 			</dict>
 		</dict>
 		<key>QSURLTypeParsers</key>
-		<dict>
-			<key></key>
-			<string>QSHTMLLinkParser</string>
-			<key>php</key>
-			<string>QSHTMLLinkParser</string>
-			<key>htm</key>
-			<string>QSHTMLLinkParser</string>
-			<key>html</key>
-			<string>QSHTMLLinkParser</string>
-			<key>tld</key>
-			<string>QSHTMLLinkParser</string>
-			<key>txt</key>
-			<string>QSTextLineParser</string>
-		</dict>
-		<key>QSFSFileTypeParsers</key>
-		<dict>
-			<key>public.plain-text</key>
-			<string>QSTextLineParser</string>
-			<key>public.html</key>
-			<string>QSHTMLLinkParser</string>
-		</dict>
-		<key>QSFSParsers</key>
-		<dict>
-			<key>QSHTMLLinkParser</key>
-			<string>QSHTMLLinkParser</string>
-			<key>QSDirectoryParser</key>
-			<string>QSDirectoryParser</string>
-			<key>QSTextLineParser</key>
-			<string>QSTextLineParser</string>
-		</dict>
+		<dict/>
 	</dict>
-	<key>QSResourceAdditions</key>
-	<dict>
-		<key>Rocket</key>
-		<dict>
-			<key>bundle</key>
-			<string>com.blacktree.Quicksilver.QSCorePlugIn</string>
-			<key>resource</key>
-			<string>Rocket.png</string>
-		</dict>
-	</dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2004, Blacktree, Inc.</string>
-	<key>CFBundleShortVersionString</key>
-	<string>0.6.0</string>
 </dict>
 </plist>
