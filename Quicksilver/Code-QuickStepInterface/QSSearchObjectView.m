@@ -590,7 +590,6 @@ NSMutableDictionary *bindingsDict = nil;
         tempCurrentObject = [(QSRankedObject *)currentObject object];
     }
 	if ((tempNewObject ? tempNewObject : newObject) != (tempCurrentObject ? tempCurrentObject : currentObject)) {
-		[self updateHistory];
 		[super setObjectValue:newObject];
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
 	}
@@ -1034,6 +1033,9 @@ NSMutableDictionary *bindingsDict = nil;
 		// NSLog(@"resign first with monkey %@", self);
 		// [[self currentEditor] endEditing];
 	}
+    if ([self isEqual:[self directSelector]]) {
+        [self updateHistory];
+    }
 	[resultTimer invalidate];
 	[self hideResultView:self];
 	[self setShouldResetSearchString:YES];
