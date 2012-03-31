@@ -612,7 +612,7 @@
 }
 
 - (IBAction)activate:(id)sender {
-	if ([[self window] isVisible] && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSInterfaceReactivationDeactivates"]) {
+	if ([[self window] isVisible]) {
 		[self hideMainWindowFromCancel:sender];
 		return;
 	}

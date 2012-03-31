@@ -49,8 +49,6 @@
 	<string>QSBezelInterfaceController</string>
 	<key>QSFSBrowserMediators</key>
 	<string>com.apple.finder</string>
-	<key>QSInterfaceReactivationDeactivates</key>
-	<true/>
 	<key>QSNotifiers</key>
 	<string>com.blacktree.Quicksilver</string>
 	<key>QSResultViewRowHeight</key>
