@@ -21,8 +21,6 @@
 	</dict>
 	<key>QSAlwaysInstallPrerequisites</key>
 	<true/>
-	<key>QSLoadImagePreviews</key>
-	<true/>
 	<key>QSAppearance1A</key>
 	<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMBhARmZmZmAQEBgz6ZmZqG</data>
 	<key>QSAppearance1B</key>
