@@ -266,7 +266,7 @@
                 [removeButton setEnabled:NO];
             }
             [infoButton setEnabled:NO];
-        
+        }
 		[self setSelectedTrigger:[selection lastObject]];
 	}
 }
