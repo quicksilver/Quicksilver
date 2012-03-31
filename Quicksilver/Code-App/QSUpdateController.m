@@ -332,12 +332,8 @@ typedef enum {
 - (void)finishAppInstall {
 	NSString *path = [appDownload destination];
     
-    NSInteger selection = 0;
-	BOOL update = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSUpdateWithoutAsking"];
-	if (!update) {
-        selection = NSRunInformationalAlertPanel(@"Download Successful", @"A new version of Quicksilver has been downloaded. Quicksilver must relaunch to install it.", @"Install and Relaunch", @"Cancel Update", nil);
-		update = (selection == NSAlertDefaultReturn);
-    }
+    NSInteger selection = NSRunInformationalAlertPanel(@"Download Successful", @"A new version of Quicksilver has been downloaded. Quicksilver must relaunch to install it.", @"Install and Relaunch", @"Cancel Update", nil);
+    BOOL update = (selection == NSAlertDefaultReturn);
     
     //[self installAppFromCompressedFile:path];
     NSString *installPath = nil;
