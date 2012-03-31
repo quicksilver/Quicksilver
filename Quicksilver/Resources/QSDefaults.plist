@@ -69,8 +69,6 @@
 	<integer>1</integer>
 	<key>Search Delay</key>
 	<real>0.1</real>
-	<key>Show Icons</key>
-	<true/>
 	<key>Show Release Notes on Upgrade</key>
 	<false/>
 	<key>Use Effects</key>

@@ -23,7 +23,6 @@ Following lines are no longer used in this project.
 #define kDoubleDeleteClearsObject @"Double Delete Clears Object"
 #define kBrowseMode @"Browse Mode"
 #define kResultWindowBehavior @"Result Window Behavior"
-#define kShowIcons @"Show Icons"
 #define kSuppressHotKeysInCommand @"Suppress HotKeys in Command"
 #define kExecuteInThread @"Multithreaded Execute"
 
