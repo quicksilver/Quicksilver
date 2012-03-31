@@ -22,6 +22,9 @@
 
 	IBOutlet NSView *sidebar;
 	IBOutlet NSPanel *pluginInfoPanel;
+    
+    IBOutlet NSButton *refreshButton;
+    IBOutlet NSButton *infoButton;
 }
 @property NSString *plugInName;
 + (void)getMorePlugIns;
