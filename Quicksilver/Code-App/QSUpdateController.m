@@ -346,13 +346,11 @@ typedef enum {
         }
     }
     if (installPath) {
-        BOOL relaunch = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSRelaunchAutomaticallyAfterUpdate"];
-        if (!relaunch) {
-            selection = NSRunInformationalAlertPanel(@"Installation Successful", @"A new version of Quicksilver has been installed. Quicksilver must relaunch to install it.", @"Relaunch", @"Relaunch Later", nil);
-            relaunch = (selection == NSAlertDefaultReturn);
-        }
-        if (relaunch)
+        selection = NSRunInformationalAlertPanel(@"Installation Successful", @"A new version of Quicksilver has been installed. Quicksilver must relaunch to install it.", @"Relaunch", @"Relaunch Later", nil);
+        BOOL relaunch = (selection == NSAlertDefaultReturn);
+        if (relaunch) {
             [NSApp relaunchFromPath:nil];
+        }
     }
 
 	[updateTask stopTask:nil];
