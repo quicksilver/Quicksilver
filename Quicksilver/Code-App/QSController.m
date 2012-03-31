@@ -252,7 +252,7 @@ static QSController *defaultController = nil;
 - (IBAction)unsureQuit:(id)sender {
 	// NSLog(@"sender (%@) %@", sender, [NSApp currentEvent]);
 
-	if ([[NSApp currentEvent] type] == NSKeyDown && [[NSUserDefaults standardUserDefaults] boolForKey:kDelayQuit]) {
+	if ([[NSApp currentEvent] type] == NSKeyDown) {
 		if ([[NSApp currentEvent] isARepeat]) return;
 
 		QSWindow *quitWindow = nil;
@@ -337,7 +337,7 @@ static QSController *defaultController = nil;
 			[anItem setImage:[[NSImage imageNamed:@"Triggers"] duplicateOfSize:QSSize16]];
 		return [[QSReg tableNamed:@"QSTriggerManagers"] count];
 	} else if ([anItem action] == @selector(unsureQuit:) ) {
-		[anItem setTitle:([[NSUserDefaults standardUserDefaults] boolForKey:kDelayQuit] ?@"Quit Quicksilver...":@"Quit Quicksilver")];
+		[anItem setTitle:@"Quit Quicksilver"];
 		return YES;
 	}
 	return YES;
