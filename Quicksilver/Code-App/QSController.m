@@ -124,23 +124,16 @@ static QSController *defaultController = nil;
 - (int) showMenuIcon {
 	return -1;
 }
-- (void)setShowMenuIcon:(NSNumber *)mode {
-	int priority = 0;
-
+- (void)setShowMenuIcon:(NSNumber *)mode {    
 	if (statusItem) {
 		[[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
 		[statusItem release];
 		statusItem = nil;
 	}
-
-	switch ([mode intValue]) {
-		case 1: priority = NSNormalStatusItemPriority; break;
-		case 2: priority = NSLeftStatusItemPriority; break;
-		case 3: priority = NSRightStatusItemPriority; break;
-		case 4: priority = NSFarRightStatusItemPriority; break;
-		default: return;
-	}
-	statusItem = [[NSStatusBar systemStatusBar] _statusItemWithLength:29.0f withPriority:priority];
+    if (mode) {
+        return;
+    }
+    statusItem = [[NSStatusBar systemStatusBar] _statusItemWithLength:29.0f withPriority:NSLeftStatusItemPriority];
 	[statusItem retain];
 	[statusItem setImage:[NSImage imageNamed:@"QuicksilverMenu"]];
 	[statusItem setAlternateImage:[NSImage imageNamed:@"QuicksilverMenuPressed"]];
