@@ -130,7 +130,7 @@ static QSController *defaultController = nil;
 		[statusItem release];
 		statusItem = nil;
 	}
-    if (mode) {
+    if (![mode boolValue]) {
         return;
     }
     statusItem = [[NSStatusBar systemStatusBar] _statusItemWithLength:29.0f withPriority:NSLeftStatusItemPriority];
