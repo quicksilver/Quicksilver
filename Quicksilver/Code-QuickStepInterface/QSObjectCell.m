@@ -393,6 +393,12 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 			  [find drawInRect:findImageRect fromRect:rectFromSize([find size]) operation:NSCompositeSourceOver fraction:0.25];
 
 		  [defaultText drawInRect:textRect withAttributes:detailsAttributes];
+          
+          // Set the button cell's title, which is used by VoiceOver to announce the name of the button.
+          // Then post notifications of a change in the GUI using the accessibility API.
+          [[controlView cell] setTitle:defaultText];
+          NSAccessibilityPostNotification([controlView cell], NSAccessibilityTitleChangedNotification);
+          NSAccessibilityPostNotification([controlView cell], NSAccessibilityFocusedWindowChangedNotification);
 	  }
 }
 - (id)objectValue {
@@ -541,6 +547,12 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant);
 		centerRect.size.width = NSWidth(textDrawRect);
 		centerRect.size.height = MIN(NSHeight(textDrawRect), centerRect.size.height);
 		[titleString drawInRect:centerRectInRect(centerRect, textDrawRect)];
+        
+        // Set the button cell's title, which is used by VoiceOver to announce the name of the button.
+        // Then post notifications of a change in the GUI using the accessibility API.
+        [[controlView cell] setTitle:[titleString string]];
+        NSAccessibilityPostNotification([controlView cell], NSAccessibilityTitleChangedNotification);
+        NSAccessibilityPostNotification([controlView cell], NSAccessibilityFocusedWindowChangedNotification);
 	}
 }
 
