@@ -853,19 +853,7 @@
 								</object>
 								<int key="NSPeriodicDelay">400</int>
 								<int key="NSPeriodicInterval">75</int>
-								<object class="NSMenuItem" key="NSMenuItem" id="716978169">
-									<reference key="NSMenu" ref="397097228"/>
-									<string key="NSTitle">Caps Lock (Double Only)</string>
-									<string key="NSKeyEquiv"/>
-									<int key="NSKeyEquivModMask">1048576</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<int key="NSState">1</int>
-									<reference key="NSOnImage" ref="24320793"/>
-									<reference key="NSMixedImage" ref="658238179"/>
-									<string key="NSAction">_popUpItemAction:</string>
-									<int key="NSTag">16</int>
-									<reference key="NSTarget" ref="67232536"/>
-								</object>
+								<nil key="NSMenuItem"/>
 								<bool key="NSMenuItemRespectAlignment">YES</bool>
 								<object class="NSMenu" key="NSMenu" id="397097228">
 									<object class="NSMutableString" key="NSTitle">
@@ -921,7 +909,18 @@
 											<int key="NSTag">17</int>
 											<reference key="NSTarget" ref="67232536"/>
 										</object>
-										<reference ref="716978169"/>
+										<object class="NSMenuItem" id="716978169">
+											<reference key="NSMenu" ref="397097228"/>
+											<string key="NSTitle">Caps Lock (Double Only)</string>
+											<string key="NSKeyEquiv"/>
+											<int key="NSKeyEquivModMask">1048576</int>
+											<int key="NSMnemonicLoc">2147483647</int>
+											<reference key="NSOnImage" ref="24320793"/>
+											<reference key="NSMixedImage" ref="658238179"/>
+											<string key="NSAction">_popUpItemAction:</string>
+											<int key="NSTag">16</int>
+											<reference key="NSTarget" ref="67232536"/>
+										</object>
 										<object class="NSMenuItem" id="8230935">
 											<reference key="NSMenu" ref="397097228"/>
 											<string key="NSTitle">Function</string>
@@ -936,7 +935,7 @@
 										</object>
 									</object>
 								</object>
-								<int key="NSSelectedIndex">4</int>
+								<int key="NSSelectedIndex">-1</int>
 								<int key="NSPreferredEdge">3</int>
 								<bool key="NSUsesItemFromMenu">YES</bool>
 								<bool key="NSAltersState">YES</bool>
@@ -1415,22 +1414,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">hidden: self</string>
-						<reference key="source" ref="716978169"/>
-						<reference key="destination" ref="204909127"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="716978169"/>
-							<reference key="NSDestination" ref="204909127"/>
-							<string key="NSLabel">hidden: self</string>
-							<string key="NSBinding">hidden</string>
-							<string key="NSKeyPath">self</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">318</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">hidden: values.QSModifierActivationCount</string>
 						<reference key="source" ref="524028010"/>
 						<reference key="destination" ref="1039794070"/>
@@ -1464,22 +1447,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">contentValues: self</string>
-						<reference key="source" ref="524028010"/>
-						<reference key="destination" ref="204909127"/>
-						<object class="NSNibBindingConnector" key="connector" id="967357329">
-							<reference key="NSSource" ref="524028010"/>
-							<reference key="NSDestination" ref="204909127"/>
-							<string key="NSLabel">contentValues: self</string>
-							<string key="NSBinding">contentValues</string>
-							<string key="NSKeyPath">self</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">321</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">selectedTag: values.QSModifierActivationCount</string>
 						<reference key="source" ref="524028010"/>
 						<reference key="destination" ref="1039794070"/>
@@ -1489,11 +1456,10 @@
 							<string key="NSLabel">selectedTag: values.QSModifierActivationCount</string>
 							<string key="NSBinding">selectedTag</string>
 							<string key="NSKeyPath">values.QSModifierActivationCount</string>
-							<reference key="NSPreviousConnector" ref="967357329"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">322</int>
+					<int key="connectionID">323</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -2505,7 +2471,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">322</int>
+			<int key="maxID">323</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
