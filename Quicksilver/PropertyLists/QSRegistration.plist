@@ -192,8 +192,6 @@
 	<dict>
 		<key>QSActionsPrefPane</key>
 		<dict>
-			<key>autosize</key>
-			<true/>
 			<key>class</key>
 			<string>QSActionsPrefPane</string>
 			<key>description</key>
