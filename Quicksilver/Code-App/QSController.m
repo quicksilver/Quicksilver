@@ -828,16 +828,7 @@ static QSController *defaultController = nil;
 - (void)startQuicksilver:(id)sender {
 	[self checkForFirstRun];
 	[self checkForCrash];
-
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-	NSString *equiv = [defaults objectForKey:@"QSServiceMenuKeyEquivalent"];
-	//NSLog(@"Setting service %@", equiv);
-	if (equiv && ![equiv isEqualToString:[NSApp keyEquivalentForService:@"Quicksilver/Send to Quicksilver"]]) {
-		NSLog(@"Setting Service Key Equivalent to %@", equiv);
-		[NSApp setKeyEquivalent:equiv forService:@"Quicksilver/Send to Quicksilver"];
-	}
-
+    
 	// Show Splash Screen
 	BOOL atLogin = [NSApp wasLaunchedAtLogin];
 	if (!atLogin)
@@ -913,6 +904,7 @@ static QSController *defaultController = nil;
 	[NSApp setServicesProvider:self];
 
 	// Setup Activation Hotkey
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
 	if ([defaults integerForKey:@"QSModifierActivationCount"] >0) {
 		QSModifierKeyEvent *modActivation = [[[QSModifierKeyEvent alloc] init] autorelease];

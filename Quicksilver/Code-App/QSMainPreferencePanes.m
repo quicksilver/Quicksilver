@@ -16,7 +16,6 @@
 #import "QSNotifications.h"
 #import "QSController.h"
 
-#import "NSApplication+ServicesModification.h"
 #import "QSLoginItemFunctions.h"
 #import "QSInterfaceMediator.h"
 #import "QSPreferenceKeys.h"
@@ -61,15 +60,6 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[self setModifier:[defaults integerForKey:@"QSModifierActivationKey"] count:[defaults integerForKey:@"QSModifierActivationCount"]];
-}
-
-- (NSString *)serviceMenuKeyEquivalent {
-	return [NSApp keyEquivalentForService:@"Quicksilver/Send to Quicksilver"];
-}
-
-- (void)setServiceMenuKeyEquivalent:(NSString *)string {
-	[[NSUserDefaults standardUserDefaults] setObject:string forKey:@"QSServiceMenuKeyEquivalent"];
-	[NSApp setKeyEquivalent:string forService:@"Quicksilver/Send to Quicksilver"];
 }
 
 - (BOOL)showChildrenInSplitView {

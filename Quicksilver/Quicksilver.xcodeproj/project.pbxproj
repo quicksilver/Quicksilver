@@ -165,8 +165,6 @@
 		7F26503708DB09B20076E4E6 /* UKDirectoryEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F26503308DB09B20076E4E6 /* UKDirectoryEnumerator.m */; };
 		7F35FC7D07F8D8BB0056051D /* QSPaths.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F35FC7C07F8D8BB0056051D /* QSPaths.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F3DB4BB0926D1620062EDFD /* NSEvent+BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3DB4BA0926D1620062EDFD /* NSEvent+BLTRExtensions.m */; };
-		7F3F72D50952F00E009B4B2D /* NSApplication+ServicesModification.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F3F72D30952F00D009B4B2D /* NSApplication+ServicesModification.h */; };
-		7F3F72D60952F00E009B4B2D /* NSApplication+ServicesModification.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3F72D40952F00E009B4B2D /* NSApplication+ServicesModification.m */; };
 		7F46BFDD0A87F37F002D31E8 /* prefsGeneral.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F46BFDC0A87F37F002D31E8 /* prefsGeneral.png */; };
 		7F4AD9160A4DA3D1002A2A1B /* Guide.html in Copy SharedSupport */ = {isa = PBXBuildFile; fileRef = 7F4AD9150A4DA3D1002A2A1B /* Guide.html */; };
 		7F4ADAFE0A4DDA33002A2A1B /* Pref-Catalog.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F4ADAFA0A4DDA33002A2A1B /* Pref-Catalog.png */; };
@@ -784,56 +782,56 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = E1E5F9B107B1FD100044D6EF /* QuickStep Effects */;
+			remoteGlobalIDString = E1E5F9B107B1FD100044D6EF;
 			remoteInfo = "QuickStep Effects";
 		};
 		66D11C9015022B49002EE6E5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = E1B5F2AB06573C2900FCFBE2 /* QuickStep Interface */;
+			remoteGlobalIDString = E1B5F2AB06573C2900FCFBE2;
 			remoteInfo = "QuickStep Interface";
 		};
 		66D11CB915022C8D002EE6E5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 8D1107260486CEB800E47090 /* Quicksilver */;
+			remoteGlobalIDString = 8D1107260486CEB800E47090;
 			remoteInfo = Quicksilver;
 		};
 		66D11CE415022DD7002EE6E5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 66448D9514F42790000FA2E2 /* QSFoundationTests */;
+			remoteGlobalIDString = 66448D9514F42790000FA2E2;
 			remoteInfo = QSFoundationTests;
 		};
 		66D11CE615022DD7002EE6E5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 666E45ED150225EA0034E60A /* QSCoreTests */;
+			remoteGlobalIDString = 666E45ED150225EA0034E60A;
 			remoteInfo = QSCoreTests;
 		};
 		66D11CE815022DD7002EE6E5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 66D11C6315022A75002EE6E5 /* QSEffectsTests */;
+			remoteGlobalIDString = 66D11C6315022A75002EE6E5;
 			remoteInfo = QSEffectsTests;
 		};
 		66D11CEA15022DD7002EE6E5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 66D11C8A15022B08002EE6E5 /* QSInterfaceTests */;
+			remoteGlobalIDString = 66D11C8A15022B08002EE6E5;
 			remoteInfo = QSInterfaceTests;
 		};
 		66D11CEC15022DD7002EE6E5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 66D11CB315022C82002EE6E5 /* QuicksilverTests */;
+			remoteGlobalIDString = 66D11CB315022C82002EE6E5;
 			remoteInfo = QuicksilverTests;
 		};
 		7F039993080EE21A001A9FA3 /* PBXContainerItemProxy */ = {
@@ -1144,8 +1142,6 @@
 		7F26503308DB09B20076E4E6 /* UKDirectoryEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = UKDirectoryEnumerator.m; path = UKClasses/UKDirectoryEnumerator/UKDirectoryEnumerator.m; sourceTree = "<group>"; };
 		7F35FC7C07F8D8BB0056051D /* QSPaths.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSPaths.h; sourceTree = "<group>"; };
 		7F3DB4BA0926D1620062EDFD /* NSEvent+BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSEvent+BLTRExtensions.m"; sourceTree = "<group>"; };
-		7F3F72D30952F00D009B4B2D /* NSApplication+ServicesModification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSApplication+ServicesModification.h"; sourceTree = "<group>"; };
-		7F3F72D40952F00E009B4B2D /* NSApplication+ServicesModification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSApplication+ServicesModification.m"; sourceTree = "<group>"; };
 		7F46BFDC0A87F37F002D31E8 /* prefsGeneral.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = prefsGeneral.png; sourceTree = "<group>"; };
 		7F4AD9150A4DA3D1002A2A1B /* Guide.html */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; path = Guide.html; sourceTree = "<group>"; };
 		7F4ADAFA0A4DDA33002A2A1B /* Pref-Catalog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pref-Catalog.png"; sourceTree = "<group>"; };
@@ -2371,8 +2367,6 @@
 			children = (
 				E18001C307B2BBB800010DB0 /* AppKitPrivate.h */,
 				E18001C507B2BBB800010DB0 /* main.m */,
-				7F3F72D30952F00D009B4B2D /* NSApplication+ServicesModification.h */,
-				7F3F72D40952F00E009B4B2D /* NSApplication+ServicesModification.m */,
 				7F8C658108116FD10051113C /* QSAboutWindowController.h */,
 				7F8C658208116FD10051113C /* QSAboutWindowController.m */,
 				7FBDFEE307BDE17500CE446A /* QSActionsPrefPane.h */,
@@ -2866,7 +2860,6 @@
 				7FFA83FD08124B5600A858CD /* QSSimpleNotifier.h in Headers */,
 				7F73BD46084794CB00D01BDB /* QSSimpleWebWindowController.h in Headers */,
 				7FFF2D7A09383B8C008572B2 /* QSTaskView.h in Headers */,
-				7F3F72D50952F00E009B4B2D /* NSApplication+ServicesModification.h in Headers */,
 				7F84023009691459006E6F0E /* QSSyncManager.h in Headers */,
 				7F0843CE098ACB2F00F136CC /* QSLog.h in Headers */,
 				7FE2EE8B09FF0BD50046DBBF /* QSTitleToolbarItem.h in Headers */,
@@ -3949,7 +3942,6 @@
 				7FFA83FE08124B5600A858CD /* QSSimpleNotifier.m in Sources */,
 				7F73BD47084794CB00D01BDB /* QSSimpleWebWindowController.m in Sources */,
 				7FFF2D7B09383B8C008572B2 /* QSTaskView.m in Sources */,
-				7F3F72D60952F00E009B4B2D /* NSApplication+ServicesModification.m in Sources */,
 				7F84023109691459006E6F0E /* QSSyncManager.m in Sources */,
 				7F0843CF098ACB2F00F136CC /* QSLog.m in Sources */,
 				7F9703E309AFEFCB00E9EA77 /* QSDropletApplication.m in Sources */,

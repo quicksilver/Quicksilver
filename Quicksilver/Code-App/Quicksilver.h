@@ -12,7 +12,6 @@
 #import <QSEffects/QSEffects.h>
 #import <QSInterface/QSInterface.h>
 
-#import "NSApplication+ServicesModification.h"
 #import "QSAboutWindowController.h"
 #import "QSActionsPrefPane.h"
 #import "QSAdvancedPrefPane.h"
