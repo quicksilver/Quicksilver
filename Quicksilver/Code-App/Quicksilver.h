@@ -13,7 +13,6 @@
 #import <QSInterface/QSInterface.h>
 
 #import "QSAboutWindowController.h"
-#import "QSActionsPrefPane.h"
 #import "QSAdvancedPrefPane.h"
 #import "QSApp.h"
 #import "QSCatalogPrefPane.h"
