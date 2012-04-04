@@ -204,6 +204,10 @@
 			<string>defaultAction</string>
 			<key>name</key>
 			<string>Actions</string>
+			<key>type</key>
+			<string>Main</string>
+			<key>priority</key>
+			<integer>1</integer>
 		</dict>
 		<key>QSAdvancedPrefPane</key>
 		<dict>
@@ -232,6 +236,8 @@
 			<string>Appearance</string>
 			<key>type</key>
 			<string>Main</string>
+			<key>priority</key>
+			<integer>4</integer>
 		</dict>
 		<key>QSApplicationPrefPane</key>
 		<dict>
@@ -314,6 +320,8 @@
 			<string>Command</string>
 			<key>type</key>
 			<string>Main</string>
+			<key>priority</key>
+			<integer>7</integer>
 		</dict>
 		<key>QSTriggersPrefPane</key>
 		<dict>
