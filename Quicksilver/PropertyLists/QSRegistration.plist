@@ -196,8 +196,6 @@
 			<string>QSActionsPrefPane</string>
 			<key>description</key>
 			<string>Modify the list and ordering of actions</string>
-			<key>feature</key>
-			<integer>0</integer>
 			<key>icon</key>
 			<string>defaultAction</string>
 			<key>name</key>
@@ -213,8 +211,6 @@
 			<string>QSAdvancedPrefPane</string>
 			<key>description</key>
 			<string>The Kitchen Sink</string>
-			<key>feature</key>
-			<integer>1</integer>
 			<key>icon</key>
 			<string>ToolbarCustomizeIcon</string>
 			<key>name</key>
@@ -469,8 +465,6 @@
 			<true/>
 			<key>defaultPermitted</key>
 			<true/>
-			<key>feature</key>
-			<integer>0</integer>
 			<key>name</key>
 			<string>String Ranker</string>
 			<key>requiresRelaunch</key>
@@ -482,8 +476,6 @@
 		<dict>
 			<key>classTable</key>
 			<true/>
-			<key>feature</key>
-			<integer>1</integer>
 			<key>name</key>
 			<string>Missing Object Selector</string>
 			<key>type</key>
