@@ -135,7 +135,6 @@
 							<string key="NSFrame">{{372, 0}, {24, 23}}</string>
 							<reference key="NSSuperview" ref="577688970"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="630343255">
 								<int key="NSCellFlags">67239424</int>
@@ -509,7 +508,7 @@
 						<object class="NSSearchField" id="667404331">
 							<reference key="NSNextResponder" ref="577688970"/>
 							<int key="NSvFlags">260</int>
-							<string key="NSFrame">{{52, 2}, {101, 19}}</string>
+							<string key="NSFrame">{{52, 2}, {128, 19}}</string>
 							<reference key="NSSuperview" ref="577688970"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="254319864"/>
@@ -1039,7 +1038,6 @@
 						<string key="NSFrame">{{239, 9}, {25, 25}}</string>
 						<reference key="NSSuperview" ref="579154697"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="369465965">
 							<int key="NSCellFlags">67239424</int>
@@ -1163,7 +1161,6 @@
 						<string key="NSFrame">{{106, 0}, {22, 23}}</string>
 						<reference key="NSSuperview" ref="39630381"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSClassName">QSSplitHandleView</string>
 						<string key="NSExtension">NSView</string>
 					</object>
