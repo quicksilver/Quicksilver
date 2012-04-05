@@ -15,8 +15,6 @@
 //#include <Carbon/Carbon.h>
 #include <ApplicationServices/ApplicationServices.h>
 
-static void KeyArrayCallback(const void *key, const void *value, void *context) { CFArrayAppendValue(context, key);  }
-
 @implementation NSScreen (BLTRExtensions)
 
 + (NSScreen *)screenWithNumber:(int)number {
