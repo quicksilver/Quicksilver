@@ -82,16 +82,6 @@
 		<key>category</key>
 		<string>Command</string>
 		<key>default</key>
-		<string>QSUseGlobalSelectionForGrab</string>
-		<key>title</key>
-		<string>Pull selection from front application instead of Finder</string>
-		<key>type</key>
-		<string>checkbox</string>
-	</dict>
-	<dict>
-		<key>category</key>
-		<string>Command</string>
-		<key>default</key>
 		<string>Shift Actions</string>
 		<key>title</key>
 		<string>Capitalized keys modify action in command window</string>

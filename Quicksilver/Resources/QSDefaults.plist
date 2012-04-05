@@ -69,7 +69,5 @@
 	<false/>
 	<key>Use Effects</key>
 	<true/>
-	<key>QSUseGlobalSelectionForGrab</key>
-	<true/>
 </dict>
 </plist>
