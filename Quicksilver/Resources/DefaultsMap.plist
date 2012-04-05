@@ -51,7 +51,7 @@
 		<key>subtext</key>
 		<string>Reopening the current application shows all windows</string>
 		<key>title</key>
-		<string>Application reopen behavior. Reopening an application:</string>
+		<string>Reopening an application:</string>
 		<key>type</key>
 		<string>popupTag</string>
 	</dict>
@@ -84,7 +84,7 @@
 		<key>default</key>
 		<string>Shift Actions</string>
 		<key>title</key>
-		<string>Allow capitalised keys to modify the action in the command window</string>
+		<string>Allow capitalised keys to select the action</string>
 		<key>type</key>
 		<string>checkbox</string>
 	</dict>
@@ -94,7 +94,7 @@
 		<key>default</key>
 		<string>Suppress HotKeys in Command</string>
 		<key>title</key>
-		<string>Suppress Trigger HotKeys when the command window is open</string>
+		<string>Disable Trigger HotKeys when Quicksilver is focused</string>
 		<key>type</key>
 		<string>checkbox</string>
 	</dict>
