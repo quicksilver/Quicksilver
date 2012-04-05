@@ -38,9 +38,7 @@ static void KeyArrayCallback(const void *key, const void *value, void *context) 
 }
 
 - (NSString *)deviceName {
-	CFArrayRef langKeys;
     io_connect_t displayPort;
-    CFDictionaryRef names;
     NSString *localName = nil;
     
 	displayPort = CGDisplayIOServicePort((CGDirectDisplayID)_screenNumber);
