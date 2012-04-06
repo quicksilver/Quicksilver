@@ -783,7 +783,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     
     // Fall back on using NSFileManager to get the name
     if (!bundleName) {
-        [[NSFileManager defaultManager] displayNameAtPath:path];
+        bundleName = [[NSFileManager defaultManager] displayNameAtPath:path];
     }
     
 	if (includeKind) {
