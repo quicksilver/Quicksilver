@@ -715,7 +715,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 + (NSMutableArray *)fileObjectsWithURLArray:(NSArray *)pathArray {
-	NSMutableArray *fileObjectArray = [NSMutableArray arrayWithCapacity:1];
+	NSMutableArray *fileObjectArray = [NSMutableArray arrayWithCapacity:[pathArray count]];
 	for (id loopItem in pathArray) {
 		[fileObjectArray addObject:[QSObject fileObjectWithPath:[loopItem path]]];
 	}
@@ -728,7 +728,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	// return an already-created object if it exists
 	QSObject *existingObject = [QSObject objectWithIdentifier:thisIdentifier];
 	if (existingObject) {
-		return existingObject;
+        // autorelease since this method will have been called from [QSObject alloc...] increasing its retain count
+		return [existingObject autorelease];
 	}
 	
 	// if no previous object has been created, then create a new one
@@ -777,9 +778,14 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 - (NSString *)descriptiveNameForPackage:(NSString *)path withKindSuffix:(BOOL)includeKind {
     NSURL *fileURL = [NSURL fileURLWithPath:path];
-	CFBundleRef bundleRef = CFBundleCreate(kCFAllocatorDefault, (CFURLRef)fileURL);
-	NSString *bundleName = (NSString *)CFBundleGetValueForInfoDictionaryKey(bundleRef, kCFBundleNameKey);
-
+    
+    NSString *bundleName = [[[NSBundle bundleWithURL:fileURL] localizedInfoDictionary] objectForKey:@"CFBundleDisplayName"];
+    
+    // Fall back on using NSFileManager to get the name
+    if (!bundleName) {
+        [[NSFileManager defaultManager] displayNameAtPath:path];
+    }
+    
 	if (includeKind) {
         NSString *kind = nil;
 		if ([[path pathExtension] caseInsensitiveCompare:@"prefPane"] == NSOrderedSame) {
@@ -793,17 +799,18 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
       if (DEBUG_LOCALIZATION) NSLog(@"kind: %@", kind);
 #endif
 		
-		if (bundleName && [kind length])
+        if (bundleName && [kind length]) {
 			bundleName = [NSString stringWithFormat:@"%@ %@", bundleName, kind];
+        }
+        
 	} else {
         bundleName = [[bundleName retain] autorelease];
     }
-    CFRelease(bundleRef);
 	return bundleName;
 }
 
 - (void)getNameFromFiles {
-	NSFileManager *manager = [NSFileManager defaultManager];
+	NSFileManager *manager = [[NSFileManager alloc] init];
 	NSString *newName = nil;
 	NSString *newLabel = nil;
 	if ([self count] >1) {
@@ -832,6 +839,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		}
 		if ([path isEqualToString:@"/"]) newLabel = [manager displayNameAtPath:path];
 	}
+    [manager release];
 	[self setName:newName];
 	[self setLabel:newLabel];
 }
@@ -865,7 +873,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		if ([type isEqualToString:@"'fold'"]) {
 			filesOnly = NO;
 			appsOnly = NO;
-		} else if ([type isEqualToString:@"app"] || [type isEqualToString:@"'APPL'"]) {
+            // application type (or Finder 'FNDR')
+		} else if ([type isEqualToString:@"app"] || [type isEqualToString:@"'APPL'"] || [type isEqualToString:@"'FNDR'"]) {
 			foldersOnly = NO;
 			filesOnly = NO;
 		} else {
