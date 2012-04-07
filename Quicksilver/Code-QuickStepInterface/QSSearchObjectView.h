@@ -176,6 +176,14 @@ typedef enum QSSearchMode {
 - (NSString *)visibleString;
 - (void)setVisibleString:(NSString *)newVisibleString;
 
+/*!
+ @handleChangeSearchModeEvent
+ @abstract Checks for the  ⌘→ or ⌘← keys to change search mode
+ @discussion If a search mode switching keyboard shortcut is pressed, this method changes the search mode,
+ depending on the direction keys (forwards or backwards)
+ @result YES if ⌘→ or ⌘← is pressed and the search mode changed, otherwise NO
+ */
+- (BOOL)handleChangeSearchModeEvent:(NSEvent *)theEvent;
 - (BOOL)handleShiftedKeyEvent:(NSEvent *)theEvent;
 - (BOOL)handleSlashEvent:(NSEvent *)theEvent;
 - (BOOL)handleTildeEvent:(NSEvent *)theEvent;

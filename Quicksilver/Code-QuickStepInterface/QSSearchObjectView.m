@@ -1092,41 +1092,11 @@ NSMutableDictionary *bindingsDict = nil;
 		return;
 	}
 	
-	if ([theEvent modifierFlags] &NSCommandKeyMask) {
-		if ([[theEvent characters] characterAtIndex:0] == NSRightArrowFunctionKey) {
-			QSSearchMode aNewSearchMode;
-			switch (searchMode) {
-				case SearchFilterAll:
-					aNewSearchMode = SearchFilter;
-					break;
-					case SearchFilter:
-					aNewSearchMode = SearchSnap;
-						break;
-				default:
-					aNewSearchMode = SearchFilterAll;
-					break;
-			}
-			[self setSearchMode:aNewSearchMode];
-			return;
-		}
-		else if ([[theEvent characters] characterAtIndex:0] == NSLeftArrowFunctionKey) {
-			QSSearchMode aNewSearchMode;
-			switch (searchMode) {
-				case SearchFilterAll:
-					aNewSearchMode = SearchSnap;
-					break;
-				case SearchSnap:
-					aNewSearchMode = SearchFilter;
-					break;
-				default:
-					aNewSearchMode = SearchFilterAll;
-					break;
-			}
-			[self setSearchMode:aNewSearchMode];
-			return;
-		}
-	}
-    
+    // check if the event is a keyboard shortcut to change the search mode 
+	if ([self handleChangeSearchModeEvent:theEvent]) {
+        return;
+    }  
+         
 	if ([theEvent isARepeat] && !([theEvent modifierFlags] &NSFunctionKeyMask) )
         if ([self handleRepeaterEvent:theEvent]) return;
     
@@ -1134,6 +1104,43 @@ NSMutableDictionary *bindingsDict = nil;
 	//if (VERBOSE) NSLog(@"interpret");
 	[self interpretKeyEvents:[NSArray arrayWithObject:theEvent]];
 	return;
+}
+
+// Change the search mode if ⌘→ or ⌘← is pressed
+- (BOOL)handleChangeSearchModeEvent:(NSEvent *)theEvent {
+  
+    if ([theEvent modifierFlags] &NSCommandKeyMask) {
+        QSSearchMode aNewSearchMode;
+        unichar aChar = [[theEvent characters] characterAtIndex:0];
+        BOOL changeSearchModeRight;
+        if (aChar == NSRightArrowFunctionKey) {
+            changeSearchModeRight = YES;
+        }
+        else if (aChar == NSLeftArrowFunctionKey) {
+            changeSearchModeRight = NO;
+        }
+        else {
+            return NO;
+        }
+        
+        // Set the new search mode depending on the direction:
+        // Filter All → Filter → Snap to Best (left gives reverse direction)
+        switch (searchMode) {
+            case SearchFilterAll:
+                aNewSearchMode = changeSearchModeRight ? SearchFilter : SearchSnap;
+                break;
+            case SearchFilter:
+                aNewSearchMode = changeSearchModeRight ? SearchSnap : SearchFilterAll;
+                break;
+            default:
+                aNewSearchMode = changeSearchModeRight ? SearchFilterAll : SearchFilter;
+                break;
+        }
+        [self setSearchMode:aNewSearchMode];
+        return YES;
+    }
+    
+    return NO;
 }
 
 - (BOOL)handleShiftedKeyEvent:(NSEvent *)theEvent {
