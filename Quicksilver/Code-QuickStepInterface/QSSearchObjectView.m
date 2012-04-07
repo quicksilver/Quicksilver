@@ -341,19 +341,6 @@ NSMutableDictionary *bindingsDict = nil;
 	if (!([[self class] isEqual:[QSSearchObjectView class]] && newSearchMode == SearchFilterAll)) {
 		searchMode = newSearchMode;
 	}
-//	// When not browsing (haven't → into an object) we should only use the 'filter catalog' mode
-//	if (!browsing && ((newSearchMode == SearchFilter) || (newSearchMode == SearchSnap))) {
-//		NSBeep();
-//		searchMode = SearchFilterAll;
-//	}
-//	// When browsing (HAVE → into an object) 'filter catalog' should not be usable
-//	else if (browsing && newSearchMode == SearchFilterAll) {
-//		NSBeep();
-//	}
-//	else {
-//		searchMode = newSearchMode;
-//	}
-
 	
     [resultController->resultTable setNeedsDisplay:YES];	
 	if (browsing) {
