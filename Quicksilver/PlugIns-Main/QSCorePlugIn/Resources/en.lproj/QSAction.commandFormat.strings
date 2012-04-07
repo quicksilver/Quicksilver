@@ -33,7 +33,7 @@
 	<key>AppleScriptRunAction</key>
 	<string>Run Script: %@</string>
 	<key>AppleScriptRunTextAction</key>
-	<string>Run '%@'</string>
+	<string>Run &apos;%@&apos;</string>
 	<key>DiskEjectAction</key>
 	<string>Eject %@</string>
 	<key>DiskForceEjectAction</key>
@@ -101,7 +101,7 @@
 	<key>QSEditAction</key>
 	<string>Edit %@</string>
 	<key>QSLargeTypeAction</key>
-	<string>Show "%@" in large type</string>
+	<string>Show &quot;%@&quot; in large type</string>
 	<key>QSLoginItemAddAction</key>
 	<string>Add %@ to login items</string>
 	<key>QSLoginItemRemoveAction</key>
@@ -136,16 +136,14 @@
 	<string>Show %@</string>
 	<key>QSShellScriptRunAction</key>
 	<string>Run script: %@</string>
-	<key>QSSoundPlayAction</key>
-	<string>Play %@</string>
 	<key>QSTextDiffAction</key>
 	<string>Diff %@ and %#</string>
 	<key>QSTextShowDialogAction</key>
-	<string>Show dialog: \"%@\"</string>
+	<string>Show dialog: \&quot;%@\&quot;</string>
 	<key>QSTextSpeakAction</key>
-	<string>Say \"%@\"</string>
+	<string>Say \&quot;%@\&quot;</string>
 	<key>QSTextTypeAction</key>
-	<string>Type \"%@\"</string>
+	<string>Type \&quot;%@\&quot;</string>
 	<key>ShellScriptRunAction</key>
 	<string>Run script: %@</string>
 	<key>URLEmailAction</key>

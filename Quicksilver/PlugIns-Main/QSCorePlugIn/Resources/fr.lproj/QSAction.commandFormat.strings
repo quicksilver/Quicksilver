@@ -134,8 +134,6 @@
 	<string>Montrer %@</string>
 	<key>QSShellScriptRunAction</key>
 	<string>Exécuter le script shell %@</string>
-	<key>QSSoundPlayAction</key>
-	<string>Lire %@</string>
 	<key>QSTextDiffAction</key>
 	<string>Obtenir les différences entre %@ et %#</string>
 	<key>QSTextShowDialogAction</key>
