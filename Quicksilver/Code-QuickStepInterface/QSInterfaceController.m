@@ -468,6 +468,14 @@
 	[self updateActionsNow];
 }
 
+- (void)ignoreInterfaceNotifications
+{
+	// subclasses (namely the Command Builder) need a way to overlook notifications meant for the main interface
+	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+	[nc removeObserver:self name:@"QSSourceArrayCreated" object:nil];
+	[nc removeObserver:self name:@"QSSourceArrayUpdated" object:nil];
+}
+
 #pragma mark -
 #pragma mark NSWindow
 #pragma mark Delegate
