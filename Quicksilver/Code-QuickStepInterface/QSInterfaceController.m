@@ -428,7 +428,11 @@
 			[dSelector->resultController updateSelectionInfo];
 		}
 		if (![[dSelector sourceArray] containsObject:[dSelector selectedObject]]) {
-			[dSelector clearObjectValue];
+			if ([[dSelector sourceArray] count]) {
+				[dSelector selectObjectValue:[[dSelector sourceArray] objectAtIndex:0]];
+			} else {
+				[dSelector clearObjectValue];
+			}
 		}
 		if ([self respondsToSelector:@selector(searchView:changedResults:)])
 			[self searchView:dSelector changedResults:[dSelector resultArray]];
