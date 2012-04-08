@@ -584,7 +584,6 @@ static id _sharedInstance;
 }
 
 - (IBAction)rescanCurrentItem:(id)sender {
-	[[itemTable window] makeFirstResponder:[itemTable window]];
 	if (currentItem) {
 		[NSThread detachNewThreadSelector:@selector(scanForcedInThread:) toTarget:currentItem withObject:[NSNumber numberWithBool:YES]];
 	}
