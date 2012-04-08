@@ -75,6 +75,7 @@
 	[nc addObserver:self selector:@selector(objectModified:) name:QSObjectModified object:nil];
 	[nc addObserver:self selector:@selector(objectIconModified:) name:QSObjectIconModified object:nil];
 	[nc addObserver:self selector:@selector(searchObjectChanged:) name:@"SearchObjectChanged" object:nil];
+	[nc addObserver:self selector:@selector(sourceArrayCreated:) name:@"QSSourceArrayCreated" object:nil];
 	[nc addObserver:self selector:@selector(sourceArrayChanged:) name:@"QSSourceArrayUpdated" object:nil];
 	[nc addObserver:self selector:@selector(appChanged:) name:QSActiveApplicationChanged object:nil];
 	[QSHistoryController sharedInstance];
@@ -410,6 +411,11 @@
 		[self updateViewLocations];
 	}
 	[[self window] enableFlushWindow];
+}
+
+- (void)sourceArrayCreated:(NSNotification *)notif
+{
+	[self showArray:[notif object]];
 }
 
 - (void)sourceArrayChanged:(NSNotification *)notif
