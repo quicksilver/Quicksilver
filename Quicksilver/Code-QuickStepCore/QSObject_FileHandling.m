@@ -728,8 +728,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	// return an already-created object if it exists
 	QSObject *existingObject = [QSObject objectWithIdentifier:thisIdentifier];
 	if (existingObject) {
-        // autorelease since this method will have been called from [QSObject alloc...] increasing its retain count
-		return [existingObject autorelease];
+		return existingObject;
 	}
 	
 	// if no previous object has been created, then create a new one
