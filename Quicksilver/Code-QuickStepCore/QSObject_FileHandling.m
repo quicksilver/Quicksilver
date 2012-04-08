@@ -776,14 +776,33 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	return prefPaneKindString;
 }
 
+- (NSString *)bundleNameFromInfoDict:(NSDictionary *)infoDict {
+    // First try the display name
+    NSString *bundleName = [infoDict objectForKey:@"CFBundleDisplayName"];
+    if (!bundleName) {
+        // next try the bundle name
+        bundleName = [infoDict objectForKey:(NSString *)kCFBundleNameKey];
+    }
+    return bundleName;
+}
+
 - (NSString *)descriptiveNameForPackage:(NSString *)path withKindSuffix:(BOOL)includeKind {
     NSURL *fileURL = [NSURL fileURLWithPath:path];
-    
-    NSString *bundleName = [[[NSBundle bundleWithURL:fileURL] localizedInfoDictionary] objectForKey:@"CFBundleDisplayName"];
-    
-    // Fall back on using NSFileManager to get the name
+
+    NSString *bundleName = nil;
+    // First try the localised info Dict
+    NSDictionary *infoDict = [[NSBundle bundleWithURL:fileURL] localizedInfoDictionary];
+    if (infoDict) {
+        bundleName = [self bundleNameFromInfoDict:infoDict];
+    }
+    // Get the general info Dict
     if (!bundleName) {
-        bundleName = [[NSFileManager defaultManager] displayNameAtPath:path];
+        infoDict = [[NSBundle bundleWithURL:fileURL] infoDictionary];
+        bundleName = [self bundleNameFromInfoDict:infoDict];
+    }
+    
+    if ([bundleName isEqualToString:@"PrinterProxy"]) {
+        bundleName = nil;
     }
     
 	if (includeKind) {
@@ -803,7 +822,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			bundleName = [NSString stringWithFormat:@"%@ %@", bundleName, kind];
         }
         
-	} else {
+	} else if (bundleName) {
         bundleName = [[bundleName retain] autorelease];
     }
 	return bundleName;
@@ -829,10 +848,11 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			newLabel = [self descriptiveNameForPackage:(NSString *)path withKindSuffix:!(infoRec.flags & kLSItemInfoIsApplication)];
 			if ([newLabel isEqualToString:newName]) newLabel = nil;
 		}
+        // Fall back on using NSFileManager to get the name
 		if (!newName) {
-			newName = [path lastPathComponent];
-		 //  if (infoRec.flags & kLSItemInfoExtensionIsHidden) newName = [newName stringByDeletingPathExtension];
-		}
+			newName = [[NSFileManager defaultManager] displayNameAtPath:path];
+        }
+        
 		if (!newLabel && ![self label]) {
 			newLabel = [manager displayNameAtPath:path];
 			if ([newName isEqualToString:newLabel]) newLabel = nil;
