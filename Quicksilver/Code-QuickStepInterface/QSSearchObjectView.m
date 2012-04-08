@@ -70,7 +70,6 @@ NSMutableDictionary *bindingsDict = nil;
     
 	searchMode = SearchFilterAll;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideResultView:) name:@"NSWindowDidResignKeyNotification" object:[self window]];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sourceArrayChanged:) name:@"QSSourceArrayUpdated" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearAll) name:QSReleaseAllNotification object:nil];
 
 	resultsPadding = 0;
@@ -921,23 +920,6 @@ NSMutableDictionary *bindingsDict = nil;
 	// NSLog(@"resetting");
 	[resultController->searchStringField setTextColor:[[resultController->searchStringField textColor] colorWithAlphaComponent:0.5]];
 	[resultController->searchStringField display];
-}
-
-- (void)sourceArrayChanged:(NSNotification *)notif {
-	//	NSLog(@"notif change %@", notif, [self sourceArray]);
-	if ([[self sourceArray] isEqual:[notif object]]) {
-		//NSLog(@"arraychanged");
-        
-		if ([[resultController window] isVisible]) {
-			[self reloadResultTable];
-			[resultController updateSelectionInfo];
-		}
-		if (![[self sourceArray] containsObject:[self selectedObject]]) {
-			[self clearObjectValue];
-		}
-		if ([[self controller] respondsToSelector:@selector(searchView:changedResults:)])
-			[(id)[self controller] searchView:self changedResults:resultArray];
-	}
 }
 
 - (void)partialStringChanged {
