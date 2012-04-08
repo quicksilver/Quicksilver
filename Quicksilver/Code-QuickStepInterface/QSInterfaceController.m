@@ -75,6 +75,7 @@
 	[nc addObserver:self selector:@selector(objectModified:) name:QSObjectModified object:nil];
 	[nc addObserver:self selector:@selector(objectIconModified:) name:QSObjectIconModified object:nil];
 	[nc addObserver:self selector:@selector(searchObjectChanged:) name:@"SearchObjectChanged" object:nil];
+	[nc addObserver:self selector:@selector(sourceArrayChanged:) name:@"QSSourceArrayUpdated" object:nil];
 	[nc addObserver:self selector:@selector(appChanged:) name:QSActiveApplicationChanged object:nil];
 	[QSHistoryController sharedInstance];
 	return self;
@@ -409,6 +410,23 @@
 		[self updateViewLocations];
 	}
 	[[self window] enableFlushWindow];
+}
+
+- (void)sourceArrayChanged:(NSNotification *)notif
+{
+	//NSLog(@"notif %@ - change to %@", notif, [self sourceArray]);
+	if ([[dSelector sourceArray] isEqual:[notif object]]) {
+		//NSLog(@"arraychanged");
+		if ([[dSelector->resultController window] isVisible]) {
+			[dSelector reloadResultTable];
+			[dSelector->resultController updateSelectionInfo];
+		}
+		if (![[dSelector sourceArray] containsObject:[dSelector selectedObject]]) {
+			[dSelector clearObjectValue];
+		}
+		if ([self respondsToSelector:@selector(searchView:changedResults:)])
+			[self searchView:dSelector changedResults:[dSelector resultArray]];
+	}
 }
 
 - (void)appChanged:(NSNotification *)aNotification {
