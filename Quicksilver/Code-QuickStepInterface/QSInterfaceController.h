@@ -95,4 +95,5 @@
 - (void)setPreview:(BOOL)flag;
 
 - (void)clearObjectView:(QSSearchObjectView *)view;
+- (void)ignoreInterfaceNotifications;
 @end
