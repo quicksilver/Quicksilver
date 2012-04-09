@@ -24,7 +24,9 @@
 
 @interface QSActionProvider : NSObject <QSActionProvider> {
 //	NSArray *actions;
+	BOOL sendResults;
 }
+@property BOOL sendResults;
 + (id)provider;
 //- (NSArray *)actions;
 //- (void)setActions:(NSArray *)newActions;

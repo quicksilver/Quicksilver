@@ -3,6 +3,7 @@
 #import "NSBundle_BLTRExtensions.h"
 
 @implementation QSActionProvider
+@synthesize sendResults;
 + (void)initialize {
 	if (![NSImage imageNamed:QSDirectObjectIconProxy]){
 		NSImage *theImg = (NSImage *)[[NSImage imageNamed:@"defaultAction"] copy];
@@ -11,6 +12,15 @@
 	}
 }
 + (id)provider { return [[[[self class] alloc] init] autorelease];  }
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+		[self setSendResults:YES];
+    }
+    return self;
+}
 - (NSArray *)types { return nil;  }
 - (NSArray *)fileTypes { return nil;}
 - (QSAction *)initializeAction:(QSAction *)action { return action;  }
