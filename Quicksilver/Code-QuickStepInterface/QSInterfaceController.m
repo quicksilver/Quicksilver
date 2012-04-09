@@ -421,21 +421,29 @@
 - (void)sourceArrayChanged:(NSNotification *)notif
 {
 	//NSLog(@"notif %@ - change to %@", [notif name], [notif userInfo]);
-	if ([[dSelector sourceArray] isEqual:[[notif userInfo] objectForKey:@"sourceArray"]]) {
+	// resultArray and sourceArray point to the same object until the user starts typing.
+	// We want to stop getting updates at that point, so we compare to the resultArray instead.
+	if ([[dSelector resultArray] isEqual:[[notif userInfo] objectForKey:@"sourceArray"]]) {
 		//NSLog(@"arraychanged");
 		if ([[dSelector->resultController window] isVisible]) {
 			[dSelector reloadResultTable];
 			[dSelector->resultController updateSelectionInfo];
+		} else {
+			// tell the action provider to stop sending updates
+			[[notif object] setSendResults:NO];
 		}
-		if (![[dSelector sourceArray] containsObject:[dSelector selectedObject]]) {
-			if ([[dSelector sourceArray] count]) {
-				[dSelector selectObjectValue:[[dSelector sourceArray] objectAtIndex:0]];
+		if (![[dSelector resultArray] containsObject:[dSelector selectedObject]]) {
+			if ([[dSelector resultArray] count]) {
+				[dSelector selectObjectValue:[[dSelector resultArray] objectAtIndex:0]];
 			} else {
 				[dSelector clearObjectValue];
 			}
 		}
 		if ([self respondsToSelector:@selector(searchView:changedResults:)])
 			[self searchView:dSelector changedResults:[dSelector resultArray]];
+	} else {
+		// tell the action provider to stop sending updates
+		[[notif object] setSendResults:NO];
 	}
 }
 
