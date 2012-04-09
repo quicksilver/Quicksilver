@@ -415,13 +415,13 @@
 
 - (void)sourceArrayCreated:(NSNotification *)notif
 {
-	[self showArray:[notif object]];
+	[self showArray:[[notif userInfo] objectForKey:@"sourceArray"]];
 }
 
 - (void)sourceArrayChanged:(NSNotification *)notif
 {
-	//NSLog(@"notif %@ - change to %@", notif, [self sourceArray]);
-	if ([[dSelector sourceArray] isEqual:[notif object]]) {
+	//NSLog(@"notif %@ - change to %@", [notif name], [notif userInfo]);
+	if ([[dSelector sourceArray] isEqual:[[notif userInfo] objectForKey:@"sourceArray"]]) {
 		//NSLog(@"arraychanged");
 		if ([[dSelector->resultController window] isVisible]) {
 			[dSelector reloadResultTable];
