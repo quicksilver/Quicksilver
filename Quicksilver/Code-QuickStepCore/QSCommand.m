@@ -422,7 +422,10 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 		// indirect object is either present, or unnecessary - run the action
 		QSObject *returnValue = [actionObject performOnDirectObject:directObject indirectObject:indirectObject];
 		// if this action is finished, it's OK to send results again
-		[[actionObject provider] setSendResults:YES];
+		id provider = [actionObject provider];
+		if ([provider isKindOfClass:[QSActionProvider class]]) {
+			[provider setSendResults:YES];
+		}
 		if (returnValue) {
 			// if the action returns something, wipe out the first pane
 			/* (The main object would get replaced anyway. This is only done to
