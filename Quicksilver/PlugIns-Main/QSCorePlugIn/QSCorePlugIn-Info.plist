@@ -1599,45 +1599,6 @@
 			<key>feature</key>
 			<integer>1</integer>
 		</dict>
-		<key>QSSoundPlayAction</key>
-		<dict>
-			<key>actionClass</key>
-			<string>QSSoundActions</string>
-			<key>directTypes</key>
-			<array>
-				<string>NSFilenamesPboardType</string>
-			</array>
-			<key>actionSelector</key>
-			<string>playSound:</string>
-			<key>directFileTypes</key>
-			<array>
-				<string>aiff</string>
-				<string>AIFF</string>
-				<string>&apos;AIFF&apos;</string>
-				<string>aif</string>
-				<string>AIF</string>
-				<string>aifc</string>
-				<string>AIFC</string>
-				<string>wav</string>
-				<string>WAV</string>
-				<string>&apos;WAVE&apos;</string>
-				<string>snd</string>
-				<string>SND</string>
-				<string>au</string>
-				<string>AU</string>
-				<string>&apos;ULAW&apos;</string>
-				<string>&apos;ALAW&apos;</string>
-				<string>mp3</string>
-				<string>MP3</string>
-				<string>&apos;Mp3 &apos;</string>
-				<string>ulw</string>
-				<string>ULW</string>
-				<string>m4p</string>
-				<string>m4a</string>
-			</array>
-			<key>name</key>
-			<string>Play Sound</string>
-		</dict>
 		<key>FileCopyToAction</key>
 		<dict>
 			<key>displaysResult</key>
