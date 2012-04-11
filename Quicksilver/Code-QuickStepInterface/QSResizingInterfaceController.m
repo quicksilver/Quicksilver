@@ -70,8 +70,8 @@
 	if (aResponder == iSelector || aResponder == [iSelector currentEditor]) {
 		QSAction *action = (QSAction *)[aSelector objectValue];
 		int argumentCount = [action argumentCount];
-		BOOL indirectOptional = [[aSelector objectValue] indirectOptional];
-
+		BOOL indirectOptional = [action indirectOptional];
+		
 		if (argumentCount == 2 && indirectOptional)
 			[self adjustWindow:self];
 	}
