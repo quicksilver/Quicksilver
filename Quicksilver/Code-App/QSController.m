@@ -245,7 +245,7 @@ static QSController *defaultController = nil;
 - (IBAction)unsureQuit:(id)sender {
 	// NSLog(@"sender (%@) %@", sender, [NSApp currentEvent]);
 
-	if ([[NSApp currentEvent] type] == NSKeyDown) {
+	if ([[NSApp currentEvent] type] == NSKeyDown && [[NSUserDefaults standardUserDefaults] boolForKey:kDelayQuit]) {
 		if ([[NSApp currentEvent] isARepeat]) return;
 
 		QSWindow *quitWindow = nil;

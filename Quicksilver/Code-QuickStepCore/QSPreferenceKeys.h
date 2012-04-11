@@ -28,6 +28,8 @@ Following lines are no longer used in this project.
 
 #define kAutomaticTaskViewer @"Show Task Viewer Automatically"
 
+#define kDelayQuit @"Delay Before Quitting"
+
 #define kResetDelay @"Reset Delay"
 #define kSearchDelay @"Search Delay"
 
