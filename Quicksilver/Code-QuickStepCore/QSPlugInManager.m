@@ -626,7 +626,7 @@
 	if (!updatedPlugIns) updatedPlugIns = [[NSMutableArray array] retain];
 	else [updatedPlugIns removeAllObjects];
 
-	[self downloadWebPlugInInfoFromDate:plugInWebDownloadDate forUpdateVersion:version synchronously:YES];
+	[self downloadWebPlugInInfoFromDate:nil forUpdateVersion:version synchronously:YES];
 
 	for (QSPlugIn *thisPlugIn in [self knownPlugInsWithWebInfo]) {
 		if ([thisPlugIn needsUpdate]) {
