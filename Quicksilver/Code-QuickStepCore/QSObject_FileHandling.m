@@ -330,7 +330,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
 		
 	// try preview icon
-	if (!theImage && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
+	if (!theImage) {
 		// do preview icon loading in separate thread (using NSOperationQueue)
 		theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSMaxIconSize asIcon:YES];
 	}
@@ -351,7 +351,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	}
 	
 	// try QS's own methods to generate a preview
-	if (!theImage && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
+	if (!theImage) {
 		NSString *type = [manager typeOfFile:path];
 		if ([[NSImage imageUnfilteredFileTypes] containsObject:type])
 			theImage = [[[NSImage alloc] initWithContentsOfFile:path] autorelease];

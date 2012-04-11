@@ -332,12 +332,8 @@ typedef enum {
 - (void)finishAppInstall {
 	NSString *path = [appDownload destination];
     
-    NSInteger selection = 0;
-	BOOL update = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSUpdateWithoutAsking"];
-	if (!update) {
-        selection = NSRunInformationalAlertPanel(@"Download Successful", @"A new version of Quicksilver has been downloaded. Quicksilver must relaunch to install it.", @"Install and Relaunch", @"Cancel Update", nil);
-		update = (selection == NSAlertDefaultReturn);
-    }
+    NSInteger selection = NSRunInformationalAlertPanel(@"Download Successful", @"A new version of Quicksilver has been downloaded. Quicksilver must relaunch to install it.", @"Install and Relaunch", @"Cancel Update", nil);
+    BOOL update = (selection == NSAlertDefaultReturn);
     
     //[self installAppFromCompressedFile:path];
     NSString *installPath = nil;
@@ -350,13 +346,11 @@ typedef enum {
         }
     }
     if (installPath) {
-        BOOL relaunch = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSRelaunchAutomaticallyAfterUpdate"];
-        if (!relaunch) {
-            selection = NSRunInformationalAlertPanel(@"Installation Successful", @"A new version of Quicksilver has been installed. Quicksilver must relaunch to install it.", @"Relaunch", @"Relaunch Later", nil);
-            relaunch = (selection == NSAlertDefaultReturn);
-        }
-        if (relaunch)
+        selection = NSRunInformationalAlertPanel(@"Installation Successful", @"A new version of Quicksilver has been installed. Quicksilver must relaunch to install it.", @"Relaunch", @"Relaunch Later", nil);
+        BOOL relaunch = (selection == NSAlertDefaultReturn);
+        if (relaunch) {
             [NSApp relaunchFromPath:nil];
+        }
     }
 
 	[updateTask stopTask:nil];

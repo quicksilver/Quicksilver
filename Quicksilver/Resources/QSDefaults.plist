@@ -8,8 +8,8 @@
 	<integer>9</integer>
 	<key>Check for Update Frequency</key>
 	<integer>7</integer>
-	<key>Delay Before Quitting</key>
-	<false/>
+    <key>Delay Before Quitting</key>
+    <true/>
 	<key>QSAccentColor</key>
 	<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANAQECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYFHNlbGVjdGVkQ29udHJvbENvbG9yhoSTlQOEAmZmAQGGhg==</data>
 	<key>QSActionAppReopenBehavior</key>
@@ -22,8 +22,6 @@
 		<integer>262401</integer>
 	</dict>
 	<key>QSAlwaysInstallPrerequisites</key>
-	<true/>
-	<key>QSLoadImagePreviews</key>
 	<true/>
 	<key>QSAppearance1A</key>
 	<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMBhARmZmZmAQEBgz6ZmZqG</data>
@@ -53,8 +51,6 @@
 	<string>QSBezelInterfaceController</string>
 	<key>QSFSBrowserMediators</key>
 	<string>com.apple.finder</string>
-	<key>QSInterfaceReactivationDeactivates</key>
-	<true/>
 	<key>QSNotifiers</key>
 	<string>com.blacktree.Quicksilver</string>
 	<key>QSResultViewRowHeight</key>
@@ -71,13 +67,9 @@
 	<integer>1</integer>
 	<key>Search Delay</key>
 	<real>0.05</real>
-	<key>Show Icons</key>
-	<true/>
 	<key>Show Release Notes on Upgrade</key>
 	<false/>
 	<key>Use Effects</key>
-	<true/>
-	<key>QSUseGlobalSelectionForGrab</key>
 	<true/>
 </dict>
 </plist>
