@@ -72,7 +72,7 @@
 		int argumentCount = [action argumentCount];
 		BOOL indirectOptional = [[aSelector objectValue] indirectOptional];
 
-		if (argumentCount == 2 && indirectOptional && (aResponder == iSelector || aResponder == [iSelector currentEditor]) )
+		if (argumentCount == 2 && indirectOptional)
 			[self adjustWindow:self];
 	}
 }
