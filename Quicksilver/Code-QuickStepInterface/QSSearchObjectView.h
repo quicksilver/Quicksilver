@@ -29,6 +29,9 @@ typedef enum QSSearchMode {
 
 	BOOL validSearch;
 
+    BOOL browsingHistory;
+
+    
 	NSTimer *resetTimer;
 	NSTimer *searchTimer;
 	NSTimer *resultTimer;

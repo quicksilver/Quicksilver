@@ -52,6 +52,9 @@ id QSHist;
 }
 
 - (void)addObject:(id)object {
+    if ([object isKindOfClass:[QSRankedObject class]] ) {
+        object = [object object];
+    }
 	[objectHistory removeObject:object];
 	[objectHistory insertObject:object atIndex:0];
 	while ([objectHistory count] > MAXHIST)

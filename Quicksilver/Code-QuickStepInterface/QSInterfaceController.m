@@ -546,6 +546,10 @@
 		NSBeep();
 		return;
 	}
+    
+    // add the object being executed to the history
+    [dSelector updateHistory];
+    
 	int argumentCount = [(QSAction *)[aSelector objectValue] argumentCount];
 	if (argumentCount == 2) {
 		BOOL indirectIsRequired = ![[aSelector objectValue] indirectOptional];
