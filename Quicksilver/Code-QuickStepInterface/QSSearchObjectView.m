@@ -682,10 +682,7 @@ NSMutableDictionary *bindingsDict = nil;
 #pragma mark -
 #pragma mark Utilities
 - (id)externalSelection {
-	if (defaultBool(@"QSUseGlobalSelectionForGrab") )
 		return [QSGlobalSelectionProvider currentSelection];
-	else
-		return [QSObject fileObjectWithArray:[[QSReg getMediator:kQSFSBrowserMediators] selection]];
 }
 
 - (void)dropObject:(QSBasicObject *)newSelection {

@@ -310,8 +310,7 @@ NSMutableDictionary *kindDescriptions = nil;
 	//visibleRange = [resultTable rowsInRect:[resultTable visibleRect]];
 	//	NSLog(@"arraychanged %d", [[self currentResults] count]);
 	//[self threadedIconLoad];
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:kShowIcons])
-		[[self resultIconLoader] loadIconsInRange:[resultTable rowsInRect:[resultTable visibleRect]]];
+    [[self resultIconLoader] loadIconsInRange:[resultTable rowsInRect:[resultTable visibleRect]]];
 }
 
 - (void)updateSelectionInfo {
@@ -390,8 +389,7 @@ NSMutableDictionary *kindDescriptions = nil;
 #pragma mark NSWindow Delegate
 // called twice when a user resized the results window
 - (void)windowDidResize:(NSNotification *)aNotification {
-	if ([self numberOfRowsInTableView:resultTable] && [[NSUserDefaults standardUserDefaults] boolForKey:kShowIcons])
-		[[self resultIconLoader] loadIconsInRange:[resultTable rowsInRect:[resultTable visibleRect]]];
+    [[self resultIconLoader] loadIconsInRange:[resultTable rowsInRect:[resultTable visibleRect]]];
 	if (!NSEqualRects(NSZeroRect, [resultChildTable visibleRect]) && [self numberOfRowsInTableView:resultChildTable])
 		[[self resultChildIconLoader] loadIconsInRange:[resultChildTable rowsInRect:[resultChildTable visibleRect]]];
 
@@ -509,8 +507,7 @@ NSMutableDictionary *kindDescriptions = nil;
     
 	//[self iconsAreLoading];
 	//	NSBeep();
-	if ([self numberOfRowsInTableView:resultTable] && [[NSUserDefaults standardUserDefaults] boolForKey:kShowIcons])
-		[[self resultIconLoader] loadIconsInRange:newRange];
+    [[self resultIconLoader] loadIconsInRange:newRange];
 	//	[self threadedIconLoad];
     
 	// loadingRange = newRange;
@@ -521,8 +518,7 @@ NSMutableDictionary *kindDescriptions = nil;
 	//visibleRange = [resultTable rowsInRect:[resultTable visibleRect]];
 	//s NSLog(@"%d-%d are visible", visibleRange.location, visibleRange.location+visibleRange.length); /
 	// [self threadedChildIconLoad];
-	if ([self numberOfRowsInTableView:resultTable] && [[NSUserDefaults standardUserDefaults] boolForKey:kShowIcons])
-		[[self resultChildIconLoader] loadIconsInRange:newRange];
+    [[self resultChildIconLoader] loadIconsInRange:newRange];
 }
 
 - (int)numberOfRowsInTableView:(NSTableView *)tableView {
