@@ -1,4 +1,58 @@
-Changes - ß66 (3921)
+Changes - ß67 (3925)
+-------
+
+   * NEW: Running applications and processes are monitored in real time (improves use of 'Quit' actions and application proxy objects) (#575)
+
+   * NEW: Allow browsing of Quicksilver's objects using ⌘[ and ⌘] (#573)
+
+   * NEW: Simplification of preferences and addition of section titles (#788)
+
+   * NEW: Icons for preferences items (#788)
+
+   * CHANGE: Improve speed of action loading for objects (#340, #782)
+
+   * CHANGE: Improve speed of catalog searches (#758, #780, #782)
+
+   * FIX: 'Current Selection' proxy object in Sandboxed apps in OS X Lion (#710)
+
+   * FIX: Do not prepend 'http://' to URLs copied and pasted to the Quicksilver clipboard (#775, #776)
+
+   * FIX: Consistently honour the 'focus action when returning results to Quicksilver' setting (#283, #784)
+
+   * FIX: Correctly scan for new plugins when checking for updates (#803)
+
+   * FIX: Do not duplicate objects in the catalog when adding them to the object history (#573)
+
+   * FIX: Correctly obtain localised names of connected displays (for Displays Module) (#790)
+
+   * FIX: Crash when getting display names (for Displays Module) (#789, #790)
+
+   * FIX: Do not lose focus of the selected Quicksilver pane when the results window displays (#325)
+
+   * FIX: Odd behaviour when grabbing multiple items from Finder (#753, #755)
+
+   * FIX: Correctly resolve wildcards in paths (#633, #713)
+
+   * FIX: Get localised names of displays for the 'Displays' module (#789, #790)
+
+   * FIX: Crash when getting displays for the 'Displays' module (#789, #790)
+
+   * FIX: Correctly restore docked panels when Quicksilver starts (#691, #692)
+
+   * FIX: Correctly display multi-line 'Large Type' text (#733)
+
+   * FIX: Only scan catalog items once when the rescan entry button is pressed (#765)
+
+   * CHANGE: Do not clear the 1st pane object after 10 minutes (#399, #782)
+
+   * CHANGE: Improved handling of plugin actions within Quicksilver (#773)
+
+   * CHANGE: Removal of deprecated methods and use 10.6+ methods only (#648, #781)
+
+   * CHANGE: Make the 'Unsure Quit' dialogue a hidden preference (#788)
+
+
+Changes - ß66 (3923)
 -------
 
    * NEW: Quick Look support. Quick look files or URLs (including proxy objects) from Quicksilver using ⌘Y, ⌘⌥Y or ␣ (spacebar - set in preferences) #23, #115 #660, #715
