@@ -92,7 +92,7 @@
 	NSEvent *earlyExit = [NSApp nextEventMatchingMask:NSMouseExitedMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.2] inMode:NSDefaultRunLoopMode dequeue:YES];
 	
 	// Open the docking window if it's on the edge of the screen
-	if ([self canFade] && earlyExit != nil && !locked) {
+	if ([self canFade] && earlyExit == nil && !locked) {
 		[self show:self];
 	}
 }
