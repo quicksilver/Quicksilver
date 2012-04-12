@@ -107,6 +107,10 @@
 
 // mouse exited the docking window
 - (void)mouseExited:(NSEvent *)theEvent {
+	// don't dismiss the window unless it's docked to an edge
+	if (![self canFade]) {
+		return;
+	}
 	
 	// if the mouse never entered the window, it shouldn't close
 	if(timeEntered == 0.0) {
