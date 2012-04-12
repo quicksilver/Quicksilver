@@ -10,7 +10,6 @@
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(unsigned int)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
 	if (self = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag]) {
 		[self setOpaque:NO];
-		[self center];
 		[self setMovableByWindowBackground:YES];
 		[self setShowsResizeIndicator:YES];
 		hideTimer = nil;
