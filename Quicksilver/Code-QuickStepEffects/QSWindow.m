@@ -127,24 +127,25 @@
 @implementation QSWindow
 
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
-	NSWindow* result = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag];
- 	//NSLog(@">%@ %d", result, aStyle);
-	//[self setBackgroundColor: [NSColor clearColor]]; //colorWithCalibratedWhite:0.75 alpha:0.5]];
-	// [self setBackgroundColor: [NSColor clearColor]];
-	//[self setOpaque:NO];
-	// [self center];
-	[self setMovableByWindowBackground:YES];
-	[self setHasShadow:YES];
-	[self setLevel:NSNormalWindowLevel];
-	//[self setBottomCornerRounded:YES];
-	//[self setLevel:26];
-	[self setShowOffset:NSMakePoint(0, 50)];
-	[self setHideOffset:NSMakePoint(0, -50)];
-	//  NSLog(@"%@", self);
-	trueRect = contentRect;
-	// logRect([[self _borderView] frame]);
-	// NSLog(@"%@", [self _borderView]);
-	return result;
+	if (self = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag]) {
+		//NSLog(@">%@ %d", result, aStyle);
+		//[self setBackgroundColor: [NSColor clearColor]]; //colorWithCalibratedWhite:0.75 alpha:0.5]];
+		// [self setBackgroundColor: [NSColor clearColor]];
+		//[self setOpaque:NO];
+		// [self center];
+		[self setMovableByWindowBackground:YES];
+		[self setHasShadow:YES];
+		[self setLevel:NSNormalWindowLevel];
+		//[self setBottomCornerRounded:YES];
+		//[self setLevel:26];
+		[self setShowOffset:NSMakePoint(0, 50)];
+		[self setHideOffset:NSMakePoint(0, -50)];
+		//  NSLog(@"%@", self);
+		trueRect = contentRect;
+		// logRect([[self _borderView] frame]);
+		// NSLog(@"%@", [self _borderView]);
+	}
+	return self;
 }
 
 - (void)dealloc {

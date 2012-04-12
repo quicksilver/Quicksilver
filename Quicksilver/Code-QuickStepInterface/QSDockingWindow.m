@@ -8,25 +8,26 @@
 
 @implementation QSDockingWindow
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(unsigned int)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
-	NSWindow *result = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag];
-	[self setOpaque:NO];
-	[self center];
-	[self setMovableByWindowBackground:YES];
-	[self setShowsResizeIndicator:YES];
-	hideTimer = nil;
-	[self setCanHide:NO];
-	[self setLevel:NSFloatingWindowLevel];
-    [self setSticky:YES];
-    [self setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
-	hidden = YES;
-    
-	NSMutableArray *types = [standardPasteboardTypes mutableCopy];
-	[types addObjectsFromArray:[[QSReg objectHandlers] allKeys]];
-	[self registerForDraggedTypes:types];
-	[types release];
-	
-	[self updateTrackingRect:self];
-	return result;
+	if (self = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag]) {
+		[self setOpaque:NO];
+		[self center];
+		[self setMovableByWindowBackground:YES];
+		[self setShowsResizeIndicator:YES];
+		hideTimer = nil;
+		[self setCanHide:NO];
+		[self setLevel:NSFloatingWindowLevel];
+		[self setSticky:YES];
+		[self setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
+		hidden = YES;
+		
+		NSMutableArray *types = [standardPasteboardTypes mutableCopy];
+		[types addObjectsFromArray:[[QSReg objectHandlers] allKeys]];
+		[self registerForDraggedTypes:types];
+		[types release];
+		
+		[self updateTrackingRect:self];
+	}
+	return self;
 }
 
 #if 0
@@ -75,15 +76,14 @@
 	[super draggingExited:theEvent];
 }
 
-// mouse entered the docing window
+// mouse entered the docking window
 - (void)mouseEntered:(NSEvent *)theEvent {
 	// Set time when mouse entered the window
 	// Case 1: If the window's a floating window that's hidden, set = 0.0 (allows for case where you mouse over the area where the window was as it's fading)
 	// Case 2: If the window's a sliding-into-edge window, always set the time to the current time (it's always 'hidden', so must check for the canFade case)
-	if(!hidden || [self canFade]) {
+	if (!hidden || [self canFade]) {
 		timeEntered = [NSDate timeIntervalSinceReferenceDate];
-	}
-	else{
+	} else {
 		timeEntered = 0.0;
 	}
 
@@ -92,7 +92,7 @@
 	NSEvent *earlyExit = [NSApp nextEventMatchingMask:NSMouseExitedMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.2] inMode:NSDefaultRunLoopMode dequeue:YES];
 	
 	// Open the docking window if it's on the edge of the screen
-	if ([self canFade] && !earlyExit && !locked) {
+	if ([self canFade] && earlyExit != nil && !locked) {
 		[self show:self];
 	}
 }
