@@ -23,10 +23,6 @@ Changes - ß67 (3925)
 
    * FIX: Do not duplicate objects in the catalog when adding them to the object history (#573)
 
-   * FIX: Correctly obtain localised names of connected displays (for Displays Module) (#790)
-
-   * FIX: Crash when getting display names (for Displays Module) (#789, #790)
-
    * FIX: Do not lose focus of the selected Quicksilver pane when the results window displays (#325)
 
    * FIX: Odd behaviour when grabbing multiple items from Finder (#753, #755)
