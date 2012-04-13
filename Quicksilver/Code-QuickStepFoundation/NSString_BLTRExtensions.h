@@ -73,7 +73,8 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString);
 /**
  Resolves file paths that contain wildcards (*).
  Returns the first path it can find, with all the wildcards resolved.
- If it can't find a file with all wildcards resolved, it returns nil.
+ If it can't find a file with all wildcards resolved, it returns the 
+ original path (possibly with wildcards).
  Also standardizes path (resolves ~ for home path).
  **/
 - (NSString *)stringByResolvingWildcardsInPath;
