@@ -6,9 +6,14 @@
 //  Copyright 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "TestPathWildcards.h"
+#import <SenTestingKit/SenTestingKit.h>
+
 #import "NSString_BLTRExtensions.h"
 
+@interface TestPathWildcards : SenTestCase {
+	NSString *basePath;
+}
+@end
 
 @implementation TestPathWildcards
 
@@ -55,6 +60,15 @@
 	NSString *resolvedPath = [unresolvedPath stringByResolvingWildcardsInPath];
 	NSString *correctPath = [@"~/Library" stringByStandardizingPath];
 	
+	STAssertTrue([resolvedPath isEqualToString:correctPath], @"Path not resolved correctly. Got %@ instead of %@", resolvedPath, correctPath);
+}
+
+-(void) testResolvedPathNotFound {
+	// issue 814
+	NSString *unresolvedPath = @"Contents/Resources/ExtraScripts/";
+	NSString *resolvedPath = [unresolvedPath stringByResolvingWildcardsInPath];
+	NSString *correctPath = unresolvedPath;
+
 	STAssertTrue([resolvedPath isEqualToString:correctPath], @"Path not resolved correctly. Got %@ instead of %@", resolvedPath, correctPath);
 }
 
