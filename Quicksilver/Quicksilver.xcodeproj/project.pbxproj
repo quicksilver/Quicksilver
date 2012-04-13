@@ -1097,7 +1097,6 @@
 		6615228314F43355006FDCB4 /* PathWildcardsData */ = {isa = PBXFileReference; explicitFileType = folder; name = PathWildcardsData; path = Tests/TestData/PathWildcardsData; sourceTree = "<group>"; };
 		66448D9614F42790000FA2E2 /* QSFoundationTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QSFoundationTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		66448D9714F42790000FA2E2 /* QSFoundationTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QSFoundationTests-Info.plist"; sourceTree = "<group>"; };
-		66448E1114F42A4E000FA2E2 /* TestPathWildcards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestPathWildcards.h; path = "Tests/Tests-QSFoundation/TestPathWildcards.h"; sourceTree = "<group>"; };
 		66448E1214F42A4E000FA2E2 /* TestPathWildcards.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestPathWildcards.m; path = "Tests/Tests-QSFoundation/TestPathWildcards.m"; sourceTree = "<group>"; };
 		666E45EE150225EA0034E60A /* QSCoreTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QSCoreTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		666E45EF150225EA0034E60A /* QSCoreTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QSCoreTests-Info.plist"; sourceTree = "<group>"; };
@@ -2040,7 +2039,6 @@
 		66448E0814F428E7000FA2E2 /* QSFoundationTests */ = {
 			isa = PBXGroup;
 			children = (
-				66448E1114F42A4E000FA2E2 /* TestPathWildcards.h */,
 				66448E1214F42A4E000FA2E2 /* TestPathWildcards.m */,
 			);
 			name = QSFoundationTests;
