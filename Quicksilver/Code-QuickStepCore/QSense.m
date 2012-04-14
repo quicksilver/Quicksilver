@@ -21,9 +21,6 @@ float QSScoreForAbbreviation(CFStringRef str, CFStringRef abbr, id mask) {
 }
 
 float QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mask, CFRange strRange, CFRange abbrRange) {
-	float score = 0.0, remainingScore = 0.0;
-	int i, j;
-	CFRange matchedRange, remainingStrRange, adjustedStrRange = strRange;
     
 	if (!abbrRange.length)
         return IGNORED_SCORE; //deduct some points for all remaining letters
@@ -37,6 +34,10 @@ float QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mas
 	CFStringInitInlineBuffer(str, &inlineBuffer, strRange);
 	CFLocaleRef userLoc = CFLocaleCopyCurrent();
 
+    float score = 0.0, remainingScore = 0.0;
+	int i, j;
+	CFRange matchedRange, remainingStrRange, adjustedStrRange = strRange;
+    
 	for (i = abbrRange.length; i > 0; i--) { //Search for steadily smaller portions of the abbreviation
 		CFStringRef curAbbr = CFStringCreateWithSubstring (NULL, abbr, CFRangeMake(abbrRange.location, i) );
 		//terminality
