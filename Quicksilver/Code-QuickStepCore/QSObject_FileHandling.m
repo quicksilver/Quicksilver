@@ -35,42 +35,10 @@ static NSDictionary *bundlePresetChildren;
 //static BOOL useSmallIcons = NO;
 
 NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
-    if (bundleIdentifier == nil)
-        return nil;
-	
-	NSMutableArray *documentsArray = [NSMutableArray arrayWithCapacity:0];
-	NSArray *recentDocuments = nil;
-	NSURL *url;
-	NSError *err;
-
-	// If QuickTime Player, use specific format
-	if ([bundleIdentifier isEqualToString:@"com.apple.QuickTimePlayerX"]) {
-		// make sure latest changes are available
-		CFPreferencesSynchronize((CFStringRef) bundleIdentifier,
-								 kCFPreferencesCurrentUser,
-								 kCFPreferencesAnyHost);
-		recentDocuments = [(NSArray *)CFPreferencesCopyValue((CFStringRef) @"MGRecentURLPropertyLists",
-															 (CFStringRef) bundleIdentifier,
-															 kCFPreferencesCurrentUser,
-															 kCFPreferencesAnyHost) autorelease];
-		
-		for(NSData *bookmarkData in recentDocuments) {
-			err = nil;
-			url = [NSURL URLByResolvingBookmarkData:bookmarkData
-											options:NSURLBookmarkResolutionWithoutMounting|NSURLBookmarkResolutionWithoutUI
-									  relativeToURL:nil
-								bookmarkDataIsStale:NO
-											  error:&err];
-			if (url == nil || err != nil) {
-				// couldn't resolve bookmark, so skip
-				continue;
-			}
-			[documentsArray addObject:[url path]];
-		}
-		return documentsArray;
+    if (bundleIdentifier == nil) {
+		return nil;
 	}
 
-	// Use LSSharedFileList.plist files for other apps
 	// make sure latest changes are available
 	CFPreferencesSynchronize((CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"],
 							 kCFPreferencesCurrentUser,
@@ -79,8 +47,12 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 																		  (CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"],
 																		  kCFPreferencesCurrentUser,
 																		  kCFPreferencesAnyHost) autorelease];
-	recentDocuments = [recentDocuments106 objectForKey:@"CustomListItems"];
+	NSArray *recentDocuments = [recentDocuments106 objectForKey:@"CustomListItems"];
+
+	NSMutableArray *documentsArray = [NSMutableArray arrayWithCapacity:0];
 	NSData *bookmarkData;
+	NSURL *url;
+	NSError *err;
 	for(NSDictionary *documentStorage in recentDocuments) {
 		bookmarkData = [documentStorage objectForKey:@"Bookmark"];
 		err = nil;
