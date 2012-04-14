@@ -39,71 +39,27 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
         return nil;
 	
 	NSMutableArray *documentsArray = [NSMutableArray arrayWithCapacity:0];
-	
-	// for before 10.6
-	NSArray *recentDocuments = [(NSArray *)CFPreferencesCopyValue((CFStringRef) @"NSRecentDocumentRecords", 
-																  (CFStringRef) bundleIdentifier, 
-																  kCFPreferencesCurrentUser, 
-																  kCFPreferencesAnyHost) autorelease];
-	if ([recentDocuments count] > 0) {
-		NSFileManager *manager = [NSFileManager defaultManager];
-		NSData *aliasData;
-		NSString *path;
-		for (id loopItem in recentDocuments) {
-			aliasData = [[loopItem objectForKey:@"_NSLocator"] objectForKey:@"_NSAlias"];
-			path = [[NDAlias aliasWithData:aliasData] quickPath];
-			// ***warning * eventually include aliases
-			if (path && [manager fileExistsAtPath:path])
-				[documentsArray addObject:path];
-		}
-#if MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5
-	}
-	return documentsArray;
-#else
-	return documentsArray;
-	}
+	NSArray *recentDocuments = nil;
+	NSURL *url;
+	NSError *err;
 
-	// for 10.6
-	if ([NSApplication isSnowLeopard]) {
-		NSURL *url;
-		NSError *err;
-		// If QuickTime Player, use specific format
-		if ([bundleIdentifier isEqualToString:@"com.apple.QuickTimePlayerX"]) {
-			recentDocuments = [(NSArray *)CFPreferencesCopyValue((CFStringRef) @"MGRecentURLPropertyLists", 
-																 (CFStringRef) bundleIdentifier, 
-																 kCFPreferencesCurrentUser, 
-																 kCFPreferencesAnyHost) autorelease];
-			
-			for(NSData *bookmarkData in recentDocuments) {
-				err = nil;
-				url = [NSURL URLByResolvingBookmarkData:bookmarkData 
-												options:NSURLBookmarkResolutionWithoutMounting|NSURLBookmarkResolutionWithoutUI 
-										  relativeToURL:nil 
-									bookmarkDataIsStale:NO 
-												  error:&err];
-				if (url == nil || err != nil) {
-					// couldn't resolve bookmark, so skip
-					continue;
-				}
-				[documentsArray addObject:[url path]];
-			}
-			return documentsArray;
-		}
+	// If QuickTime Player, use specific format
+	if ([bundleIdentifier isEqualToString:@"com.apple.QuickTimePlayerX"]) {
+		// make sure latest changes are available
+		CFPreferencesSynchronize((CFStringRef) bundleIdentifier,
+								 kCFPreferencesCurrentUser,
+								 kCFPreferencesAnyHost);
+		recentDocuments = [(NSArray *)CFPreferencesCopyValue((CFStringRef) @"MGRecentURLPropertyLists",
+															 (CFStringRef) bundleIdentifier,
+															 kCFPreferencesCurrentUser,
+															 kCFPreferencesAnyHost) autorelease];
 		
-		// Use LSSharedFileList.plist files for other apps
-		NSDictionary *recentDocuments106 = [(NSArray *)CFPreferencesCopyValue((CFStringRef) @"RecentDocuments", 
-																			  (CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"], 
-																			  kCFPreferencesCurrentUser, 
-																			  kCFPreferencesAnyHost) autorelease];
-		recentDocuments = [recentDocuments106 objectForKey:@"CustomListItems"];
-		NSData *bookmarkData;
-		for(NSDictionary *documentStorage in recentDocuments) {
-			bookmarkData = [documentStorage objectForKey:@"Bookmark"];
+		for(NSData *bookmarkData in recentDocuments) {
 			err = nil;
-			url = [NSURL URLByResolvingBookmarkData:bookmarkData 
-											options:NSURLBookmarkResolutionWithoutMounting|NSURLBookmarkResolutionWithoutUI 
-									  relativeToURL:nil 
-								bookmarkDataIsStale:NO 
+			url = [NSURL URLByResolvingBookmarkData:bookmarkData
+											options:NSURLBookmarkResolutionWithoutMounting|NSURLBookmarkResolutionWithoutUI
+									  relativeToURL:nil
+								bookmarkDataIsStale:NO
 											  error:&err];
 			if (url == nil || err != nil) {
 				// couldn't resolve bookmark, so skip
@@ -111,9 +67,35 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			}
 			[documentsArray addObject:[url path]];
 		}
-	}	
+		return documentsArray;
+	}
+
+	// Use LSSharedFileList.plist files for other apps
+	// make sure latest changes are available
+	CFPreferencesSynchronize((CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"],
+							 kCFPreferencesCurrentUser,
+							 kCFPreferencesAnyHost);
+	NSDictionary *recentDocuments106 = [(NSArray *)CFPreferencesCopyValue((CFStringRef) @"RecentDocuments",
+																		  (CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"],
+																		  kCFPreferencesCurrentUser,
+																		  kCFPreferencesAnyHost) autorelease];
+	recentDocuments = [recentDocuments106 objectForKey:@"CustomListItems"];
+	NSData *bookmarkData;
+	for(NSDictionary *documentStorage in recentDocuments) {
+		bookmarkData = [documentStorage objectForKey:@"Bookmark"];
+		err = nil;
+		url = [NSURL URLByResolvingBookmarkData:bookmarkData
+										options:NSURLBookmarkResolutionWithoutMounting|NSURLBookmarkResolutionWithoutUI
+								  relativeToURL:nil
+							bookmarkDataIsStale:NO
+										  error:&err];
+		if (url == nil || err != nil) {
+			// couldn't resolve bookmark, so skip
+			continue;
+		}
+		[documentsArray addObject:[url path]];
+	}
 	return documentsArray;
-#endif
 }
 
 @interface QSFileSystemObjectHandler (hidden)
