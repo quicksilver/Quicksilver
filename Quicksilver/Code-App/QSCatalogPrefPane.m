@@ -571,6 +571,7 @@ static id _sharedInstance;
 	[[itemTable window] makeFirstResponder:[itemTable window]];
 	if (currentItem) {
 		[NSThread detachNewThreadSelector:@selector(scanForcedInThread:) toTarget:currentItem withObject:[NSNumber numberWithBool:YES]];
+        [self updateEntrySelection];
 	}
 }
 
