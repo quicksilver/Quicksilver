@@ -100,43 +100,39 @@ NSSize QSMaxIconSize;
  // NSString *thisKey = nil;
 
 	QSObject *thisObject;
-    NSMutableArray * tempArray = [NSMutableArray array];
-    for (thisObject in iconLoadedArray) {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    for (thisObject in [iconLoadedArray allObjects]) {
 		//	NSLog(@"i%@ %f", thisObject, thisObject->lastAccess);
         if (thisObject->lastAccess && thisObject->lastAccess < (globalLastAccess - interval) ) {
-            [tempArray addObject:thisObject];
+            if ([thisObject unloadIcon]) {
+                
+#ifdef DEBUG
+                imagecount++;
+#endif
+            }
         }
     }
-    for( thisObject in tempArray ) {
-        if ([thisObject unloadIcon]) {
-			
-#ifdef DEBUG
-            imagecount++;
-#endif
-		}
-    }
+    [pool drain];
     
-    tempArray = [NSMutableArray array];
-    for (thisObject in childLoadedArray) {
+    pool = [[NSAutoreleasePool alloc] init];
+    for (thisObject in [childLoadedArray allObjects]) {
 		//	NSLog(@"c%@ %f", thisObject, thisObject->lastAccess);
         if (thisObject->lastAccess && thisObject->lastAccess < (globalLastAccess - interval)) {
-            [tempArray addObject:thisObject];
+            if ([thisObject unloadChildren]) {
+                
+#ifdef DEBUG
+                childcount++;
+#endif		
+            }  
         }
     }
-    
-    for( thisObject in tempArray ) {
-        if ([thisObject unloadChildren]) {
-			
-#ifdef DEBUG
-            childcount++;
-#endif		
-		}
-    }
+    [pool drain];
 
 #ifdef DEBUG
 	if (DEBUG_MEMORY && (imagecount || childcount) )
 		NSLog(@"Released %i images and %i children (items before %d) ", imagecount, childcount, (int)interval);
 #endif
+
 }
 
 + (void)purgeIdentifiers {
