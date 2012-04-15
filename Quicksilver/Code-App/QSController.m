@@ -611,12 +611,13 @@ static QSController *defaultController = nil;
 	int status = [NSApp checkLaunchStatus];
 
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *lastLocation = [defaults objectForKey:kLastUsedLocation];
 	NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
 	NSString *lastVersionString = [defaults objectForKey:kLastUsedVersion];
 	int lastVersion = [lastVersionString respondsToSelector:@selector(hexIntValue)] ? [lastVersionString hexIntValue] : 0;
 	switch (status) {
 		case QSApplicationUpgradedLaunch:
+#ifndef DEBUG     
+            NSString *lastLocation = [defaults objectForKey:kLastUsedLocation];
 			if (lastLocation && ![bundlePath isEqualToString:[lastLocation stringByStandardizingPath]]) {
 				//New version in new location.
 				[NSApp activateIgnoringOtherApps:YES];
@@ -624,8 +625,6 @@ static QSController *defaultController = nil;
 				if (selection)
 					[NSApp relaunchAtPath:lastLocation movedFromPath:bundlePath];
 			}
-			
-#ifndef DEBUG
 			if ([defaults boolForKey:kShowReleaseNotesOnUpgrade]) {
 				[NSApp activateIgnoringOtherApps:YES];
 				int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"Quicksilver has been updated", nil] , @"You are using a new version of Quicksilver. Would you like to see the Release Notes?", @"Show Release Notes", @"Ignore", nil);
