@@ -385,9 +385,11 @@ static BOOL gModifiersAreIgnored;
 	if (!icon && name)
 		icon = [QSResourceManager imageNamed:name inBundle:[object bundle]];
     if(!icon) {
+        if ([object respondsToSelector:@selector(provider)]) {
         NSObject <QSActionProvider> *provider = [(QSAction*)object provider];
         if(provider && [provider respondsToSelector:@selector(iconForAction:)])
             icon = [provider iconForAction:[object identifier]];
+        }
     }
 	if (icon) {
 		[object setIcon:icon];
