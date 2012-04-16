@@ -615,7 +615,7 @@ static QSController *defaultController = nil;
 	NSString *lastVersionString = [defaults objectForKey:kLastUsedVersion];
 	int lastVersion = [lastVersionString respondsToSelector:@selector(hexIntValue)] ? [lastVersionString hexIntValue] : 0;
 	switch (status) {
-		case QSApplicationUpgradedLaunch:
+		case QSApplicationUpgradedLaunch: {
 /** Turn off "running from a new location" and "you are using a new version of QS" popups for DEBUG builds **/
 #ifndef DEBUG     
             NSString *lastLocation = [defaults objectForKey:kLastUsedLocation];
@@ -642,7 +642,8 @@ static QSController *defaultController = nil;
 			}
 				newVersion = YES;
 			break;
-		case QSApplicationDowngradedLaunch:
+        }
+		case QSApplicationDowngradedLaunch: {
 /** Turn off "you have previously used a newer version" popup for DEBUG builds **/
 #ifndef DEBUG
 			[NSApp activateIgnoringOtherApps:YES];
@@ -651,6 +652,7 @@ static QSController *defaultController = nil;
 				[[NSWorkspace sharedWorkspace] selectFile:[[NSBundle mainBundle] bundlePath] inFileViewerRootedAtPath:@""];
 #endif
 				break;
+        }
 		case QSApplicationFirstLaunch: {
 			NSString *containerPath = [[bundlePath stringByDeletingLastPathComponent] stringByStandardizingPath];
 			BOOL shouldInstall = [containerPath isEqualToString:@"/Volumes/Quicksilver"] || [containerPath isEqualToString:[self internetDownloadLocation]];
