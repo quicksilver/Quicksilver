@@ -815,9 +815,10 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
         if ([kind length]) {
 			bundleName = [NSString stringWithFormat:@"%@ %@", bundleName, kind];
         }
+    }
         
+    bundleName = [[bundleName retain] autorelease];
     
-        bundleName = [[bundleName retain] autorelease];
 	return bundleName;
 }
 
