@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleName</key>
 	<string>Core Support</string>
+	<key>CFBundleDisplayName</key>
+	<string>Core Support</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.blacktree.Quicksilver.QSCorePlugIn</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -788,7 +790,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>95</string>
+	<string>98</string>
 	<key>QSTriggerAdditions</key>
 	<array>
 		<dict>
@@ -2315,6 +2317,6 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2004, Blacktree, Inc.</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.6.0</string>
+	<string>1.0.0</string>
 </dict>
 </plist>
