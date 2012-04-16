@@ -156,6 +156,8 @@ typedef enum {
         break;
         case kQSUpdateCheckUpdateAvailable:
             if (!force && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSDownloadUpdatesInBackground"]) {
+/** Diable automatically checking for updates in the background for DEBUG builds
+ You can still check for updates by clicking the "Check Now" button **/
 #ifndef DEBUG
                 [self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
 #endif

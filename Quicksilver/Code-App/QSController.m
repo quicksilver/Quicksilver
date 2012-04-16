@@ -616,6 +616,7 @@ static QSController *defaultController = nil;
 	int lastVersion = [lastVersionString respondsToSelector:@selector(hexIntValue)] ? [lastVersionString hexIntValue] : 0;
 	switch (status) {
 		case QSApplicationUpgradedLaunch:
+/** Turn off "running from a new location" and "you are using a new version of QS" popups for DEBUG builds **/
 #ifndef DEBUG     
             NSString *lastLocation = [defaults objectForKey:kLastUsedLocation];
 			if (lastLocation && ![bundlePath isEqualToString:[lastLocation stringByStandardizingPath]]) {
@@ -642,6 +643,7 @@ static QSController *defaultController = nil;
 				newVersion = YES;
 			break;
 		case QSApplicationDowngradedLaunch:
+/** Turn off "you have previously used a newer version" popup for DEBUG builds **/
 #ifndef DEBUG
 			[NSApp activateIgnoringOtherApps:YES];
 			int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"This is an old version of Quicksilver", nil] , @"You have previously used a newer version. Perhaps you have duplicate copies?", @"Reveal this copy", @"Ignore", nil);
