@@ -402,7 +402,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 #endif
 	QSInterfaceController *controller = [(QSController *)[NSApp delegate] interfaceController];
 	int argumentCount = [(QSAction *)actionObject argumentCount];
-	if (argumentCount == 2 && (!indirectObject || [[indirectObject primaryType] isEqualToString:QSTextProxyType])) {
+	if (argumentCount == 2 && ![actionObject indirectOptional] && (!indirectObject || [[indirectObject primaryType] isEqualToString:QSTextProxyType])) {
 		// indirect object required, but is either missing or asking for text input
 		if (!indirectObject) {
 			// attempt to use the Missing Object Selector
