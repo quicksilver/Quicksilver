@@ -548,8 +548,6 @@ static id _sharedInstance;
 - (void)catalogIndexed:(NSNotification *)notification {
     [itemContentsTable reloadData];
     [itemTable reloadData];
-
-	// ***warning  * should update a group whose child changed
 }
 
 - (IBAction)rescanCurrentItem:(id)sender {
