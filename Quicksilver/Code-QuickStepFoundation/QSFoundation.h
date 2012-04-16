@@ -44,6 +44,7 @@
 #import "NSObject+ReaperExtensions.h"
 #import "NSObject+BLTRExtensions.h"
 #import "NSMetadataItem+BLTRExtensions.h"
+#import "NSMetadataQuery+Synchronous.h"
 #import "NSIndexSet+Extensions.h"
 #import "NSImage_BLTRExtensions.h"
 #import "NSGeometry_BLTRExtensions.h"
