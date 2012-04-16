@@ -23,8 +23,6 @@
 		[types addObjectsFromArray:[[QSReg objectHandlers] allKeys]];
 		[self registerForDraggedTypes:types];
 		[types release];
-		
-		[self updateTrackingRect:self];
 	}
 	return self;
 }
@@ -263,5 +261,6 @@
 	[autosaveName release];
 	autosaveName = [newAutosaveName retain];
 	[self setFrameUsingName:autosaveName force:YES];
+	[self updateTrackingRect:self];
 }
 @end
