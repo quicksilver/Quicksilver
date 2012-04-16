@@ -642,10 +642,12 @@ static QSController *defaultController = nil;
 				newVersion = YES;
 			break;
 		case QSApplicationDowngradedLaunch:
+#ifndef DEBUG
 			[NSApp activateIgnoringOtherApps:YES];
 			int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"This is an old version of Quicksilver", nil] , @"You have previously used a newer version. Perhaps you have duplicate copies?", @"Reveal this copy", @"Ignore", nil);
 			if (selection == 1)
 				[[NSWorkspace sharedWorkspace] selectFile:[[NSBundle mainBundle] bundlePath] inFileViewerRootedAtPath:@""];
+#endif
 				break;
 		case QSApplicationFirstLaunch: {
 			NSString *containerPath = [[bundlePath stringByDeletingLastPathComponent] stringByStandardizingPath];
