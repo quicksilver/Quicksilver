@@ -112,9 +112,7 @@ NSSize QSMaxIconSize;
             }
         }
     }
-    [pool drain];
-    
-    pool = [[NSAutoreleasePool alloc] init];
+
     for (thisObject in [childLoadedArray allObjects]) {
 		//	NSLog(@"c%@ %f", thisObject, thisObject->lastAccess);
         if (thisObject->lastAccess && thisObject->lastAccess < (globalLastAccess - interval)) {
