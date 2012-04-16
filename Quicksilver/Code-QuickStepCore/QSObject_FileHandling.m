@@ -776,13 +776,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 - (NSString *)bundleNameFromInfoDict:(NSDictionary *)infoDict {
-    // First try the display name
-    NSString *bundleName = [infoDict objectForKey:@"CFBundleDisplayName"];
-    if (!bundleName) {
-        // next try the bundle name
-        bundleName = [infoDict objectForKey:(NSString *)kCFBundleNameKey];
-    }
-    return bundleName;
+    // Use the display name
+    return [infoDict objectForKey:@"CFBundleDisplayName"];
 }
 
 - (NSString *)descriptiveNameForPackage:(NSString *)path withKindSuffix:(BOOL)includeKind {
@@ -800,8 +795,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
         bundleName = [self bundleNameFromInfoDict:infoDict];
     }
     
-    if ([bundleName isEqualToString:@"PrinterProxy"]) {
-        bundleName = nil;
+    if (!bundleName) {
+        return nil;
     }
     
 	if (includeKind) {
@@ -817,13 +812,12 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
       if (DEBUG_LOCALIZATION) NSLog(@"kind: %@", kind);
 #endif
 		
-        if (bundleName && [kind length]) {
+        if ([kind length]) {
 			bundleName = [NSString stringWithFormat:@"%@ %@", bundleName, kind];
         }
         
-	} else if (bundleName) {
+    
         bundleName = [[bundleName retain] autorelease];
-    }
 	return bundleName;
 }
 
