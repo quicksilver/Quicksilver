@@ -184,14 +184,10 @@
 	<string>Scripts (QS Extras)</string>
 	<key>QSPresetQSGroup</key>
 	<string>Quicksilver</string>
-	<key>QSPresetRecentApplications</key>
-	<string>Recent Applications</string>
-	<key>QSPresetRecentDocuments</key>
-	<string>Recent Documents</string>
 	<key>QSPresetRecentApplications106</key>
-	<string>Recent Applications (10.6)</string>
+	<string>Recent Applications</string>
 	<key>QSPresetRecentDocuments106</key>
-	<string>Recent Documents (10.6)</string>
+	<string>Recent Documents</string>
 	<key>QSPresetRecentItems</key>
 	<string>Recent Items</string>
 	<key>QSPresetRecentSelections</key>
