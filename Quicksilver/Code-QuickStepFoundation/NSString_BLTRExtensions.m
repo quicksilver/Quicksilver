@@ -333,7 +333,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	return array;
 }
 
-- (NSString *)stringByResolvingWildcardsInPath {
+- (NSString *)subStringByResolvingWildcardsInPath {
 	NSRange index = [self rangeOfString:@"*"];
 	NSString *resolved;
 	if (index.location == NSNotFound) {
@@ -356,13 +356,21 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	
 	for (NSString *resolvedPathPart in contents) {
 		resolved = [[[basePath
-		   stringByAppendingPathComponent:resolvedPathPart]
-		   stringByAppendingPathComponent:remainingPath] stringByResolvingWildcardsInPath];
+					  stringByAppendingPathComponent:resolvedPathPart]
+					 stringByAppendingPathComponent:remainingPath] subStringByResolvingWildcardsInPath];
 		if (resolved != nil) {
 			return resolved;
 		}
 	}
 	return nil;
+}
+
+- (NSString *)stringByResolvingWildcardsInPath {
+	NSString *resolvedString = [self subStringByResolvingWildcardsInPath];
+	if (resolvedString == nil) {
+		return self;
+	}
+	return resolvedString;
 }
 
 - (NSString *)firstUnusedFilePath {
