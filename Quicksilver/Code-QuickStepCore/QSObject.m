@@ -100,7 +100,6 @@ NSSize QSMaxIconSize;
  // NSString *thisKey = nil;
 
 	QSObject *thisObject;
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     for (thisObject in [iconLoadedArray allObjects]) {
 		//	NSLog(@"i%@ %f", thisObject, thisObject->lastAccess);
         if (thisObject->lastAccess && thisObject->lastAccess < (globalLastAccess - interval) ) {
@@ -112,7 +111,6 @@ NSSize QSMaxIconSize;
             }
         }
     }
-
     for (thisObject in [childLoadedArray allObjects]) {
 		//	NSLog(@"c%@ %f", thisObject, thisObject->lastAccess);
         if (thisObject->lastAccess && thisObject->lastAccess < (globalLastAccess - interval)) {
@@ -124,7 +122,6 @@ NSSize QSMaxIconSize;
             }  
         }
     }
-    [pool drain];
 
 #ifdef DEBUG
 	if (DEBUG_MEMORY && (imagecount || childcount) )
