@@ -43,7 +43,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	CFPreferencesSynchronize((CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"],
 							 kCFPreferencesCurrentUser,
 							 kCFPreferencesAnyHost);
-	NSDictionary *recentDocuments106 = [(NSArray *)CFPreferencesCopyValue((CFStringRef) @"RecentDocuments",
+	NSDictionary *recentDocuments106 = [(NSDictionary *)CFPreferencesCopyValue((CFStringRef) @"RecentDocuments",
 																		  (CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"],
 																		  kCFPreferencesCurrentUser,
 																		  kCFPreferencesAnyHost) autorelease];
