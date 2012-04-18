@@ -3273,6 +3273,7 @@
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				E103F595064768A300447FE0 /* Embed Frameworks */,
 				E1D4E804064DF34A0083ECD3 /* Copy SharedSupport */,
+				66CAE628153EF9AE0021BC65 /* Adjust Version-String */,
 			);
 			buildRules = (
 			);
@@ -3716,6 +3717,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		66CAE628153EF9AE0021BC65 /* Adjust Version-String */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Adjust Version-String";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# \n# Script to append development information to the QS version string\n#\n# When building a DEBUG version, \" DEBUG (<git-branch>)\" is appended.\n# When building a RELEASE version, \" RELEASE (<git-branch>)\" is appended, \n# UNLESS you're on the \"master\" or \"release\" branch. Therefore, in the \n# released versions of QS, the version will be displayed as before (just\n# the normal version string, e.g. \"ß67\").\n#\n# Created by Henning Jungkurth on Apr 18 2012\n\n\nCURRENT_BRANCH=`git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \\\\(.*\\\\)/\\\\1/'`\n\nADD_TO_VERSION=\"\"\nif [ $BUILD_STYLE == \"Debug\" ] ; then\n\tADD_TO_VERSION=\" DEBUG ($CURRENT_BRANCH)\"\nelse\n\tif [ $CURRENT_BRANCH != \"master\" ] && [ $CURRENT_BRANCH != \"release\" ] ; then\n\t\techo \"Adding branch to QS version name.\"\n\t\tADD_TO_VERSION=\" RELEASE ($CURRENT_BRANCH)\"\n\tfi\nfi\n\nif [ -n \"$ADD_TO_VERSION\" ] ; then\n\tNEW_VERSION_STRING=\"$QS_INFO_VERSION$ADD_TO_VERSION\"\n\tdefaults write $QS_APP_CONTENTS_FOLDER/Info CFBundleShortVersionString \"\\\"$NEW_VERSION_STRING\\\"\"\nfi";
 		};
 		66D11C6215022A75002EE6E5 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
