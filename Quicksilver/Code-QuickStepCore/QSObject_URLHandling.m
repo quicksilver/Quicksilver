@@ -18,6 +18,95 @@
 	return [object objectForType:QSURLType];
 }
 
+
+#pragma mark Search URL Images
+
+- (NSImage *)getFavIcon:(NSString *)urlString { 
+	NSURL *favIconURL = [NSURL URLWithString:[urlString URLEncoding]];
+	// URLs without a scheme, NSURL's 'host' method returns nil
+	if (![favIconURL host]) {
+		return nil;
+	}
+    NSString *faviconScheme = [favIconURL scheme];
+    if ([faviconScheme hasPrefix:@"qss-"]) {
+        faviconScheme = [faviconScheme substringFromIndex:4];
+    } else if ([faviconScheme hasPrefix:@"qssp-"]) {
+        faviconScheme = [faviconScheme substringFromIndex:5];
+    }
+    if (!faviconScheme) {
+        faviconScheme = @"http";
+    }
+    
+	NSString *favIconString = [NSString stringWithFormat:@"http://g.etfv.co/%@://%@?defaulticon=none&extension=.ico", faviconScheme, [favIconURL host]];
+	NSImage *favicon = [[[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:favIconString]] autorelease];
+	return favicon;
+}
+
+- (void)buildWebSearchIconForObject:(QSObject *)object {
+    
+	NSImage *webSearchImage = nil;
+	NSImage *image = [NSImage imageNamed:@"DefaultBookmarkIcon"];
+	if(!image) {
+        return;
+    }
+    NSRect rect = NSMakeRect(0, 0, 128, 128);
+    [image setSize:[[image bestRepresentationForSize:rect.size] size]];
+    NSSize imageSize = [image size];
+    NSBitmapImageRep *bitmap = [[[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+                                                                        pixelsWide:imageSize.width
+                                                                        pixelsHigh:imageSize.height
+                                                                     bitsPerSample:8
+                                                                   samplesPerPixel:4
+                                                                          hasAlpha:YES
+                                                                          isPlanar:NO
+                                                                    colorSpaceName:NSCalibratedRGBColorSpace
+                                                                      bitmapFormat:0
+                                                                       bytesPerRow:0
+                                                                      bitsPerPixel:0]
+                                autorelease];
+    if(!bitmap) {
+        return;
+    }
+    NSGraphicsContext *graphicsContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:bitmap];
+    
+    if(!graphicsContext){
+        return;
+    }
+    
+    [NSGraphicsContext saveGraphicsState];
+    [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithBitmapImageRep:bitmap]];
+    rect = NSMakeRect(0, 0, imageSize.width, imageSize.height);
+    [image setFlipped:NO];
+    [image setSize:rect.size];
+    [image drawInRect:rect fromRect:rectFromSize([image size]) operation:NSCompositeSourceOver fraction:1.0];
+    
+    NSImage *findImage = [NSImage imageNamed:@"Find"];
+    NSImage *favIcon;
+    if(findImage) {
+        [findImage setSize:rect.size];
+        // Try and load the site's favicon
+        favIcon = [self getFavIcon:[object objectForType:QSURLType]];
+        if(favIcon) {
+            [favIcon setSize:rect.size];
+            [favIcon drawInRect:NSMakeRect(rect.origin.x+NSWidth(rect)*0.48, rect.origin.y+NSWidth(rect)*0.32, 30, 30) fromRect:rect operation:NSCompositeSourceOver fraction:1.0];
+        }
+        [findImage drawInRect:NSMakeRect(rect.origin.x+NSWidth(rect) *1/3, rect.origin.y, NSWidth(rect)*2/3, NSHeight(rect)*2/3) fromRect:rect operation:NSCompositeSourceOver fraction:1.0];
+    }
+    [NSGraphicsContext restoreGraphicsState];
+    webSearchImage = [[[NSImage alloc] initWithData:[bitmap TIFFRepresentation]] autorelease];
+    NSImageRep *fav16 = [favIcon bestRepresentationForSize:(NSSize){16.0f, 16.0f}];
+    if (fav16) [webSearchImage addRepresentation:fav16];
+    
+    [webSearchImage setName:@"Web Search Icon"];
+
+    [object setIcon:webSearchImage];
+    [[NSNotificationCenter defaultCenter] postNotificationName:QSObjectIconModified object:object];
+
+     return;
+}
+
+#pragma mark image handling
+
 - (void)setQuickIconForObject:(QSObject *)object {
 	if ([[object types] containsObject:QSEmailAddressType])
 		[object setIcon:[NSImage imageNamed:@"ContactEmail"]];
@@ -46,10 +135,13 @@
 - (BOOL)loadIconForObject:(QSObject *)object {
 	NSString *urlString = [object objectForType:QSURLType];
 	if (!urlString) return NO;
-
+    
 	// For search URLs
 	if([[object stringValue] rangeOfString:QUERY_KEY].location !=NSNotFound) {
-		[object setIcon:[[QSResourceManager sharedInstance] buildWebSearchIconForURL:[object stringValue]]];
+        NSInvocationOperation *theOp = [[[NSInvocationOperation alloc] initWithTarget:self
+																			 selector:@selector(buildWebSearchIconForObject:)
+																			   object:object] autorelease];
+		[[[QSLibrarian sharedInstance] previewImageQueue] addOperation:theOp];
 		return YES;
 	}
 	
@@ -66,6 +158,8 @@
 	}
 	return NO;
 }
+
+#pragma mark children
 
 - (BOOL)loadChildrenForObject:(QSObject *)object {
 	// Need a list of TLDs to compare
@@ -88,18 +182,18 @@
 		type = @"tld";
 	}
 	id <QSParser> parser = [QSReg instanceForKey:type inTable:@"QSURLTypeParsers"];
-
+    
 	[QSTasks updateTask:@"DownloadPage" status:@"Downloading Page" progress:0];
-
+    
 	NSArray *children = [parser objectsFromURL:[NSURL URLWithString:urlString] withSettings:nil];
-
+    
 	[QSTasks removeTask:@"DownloadPage"];
-
+    
 	if (children) {
 		[object setChildren:children];
 		return YES;
 	}
-
+    
 	return NO;
 }
 @end
@@ -109,7 +203,7 @@
 + (QSObject *)URLObjectWithURL:(NSString *)urlString title:(NSString *)title {
 	if ([urlString hasPrefix:@"file://"] || [urlString hasPrefix:@"/"]) {
 		return [QSObject fileObjectWithPath:[[NSURL URLWithString:urlString] path]];
-
+        
 	}
 	return [[[QSObject alloc] initWithURL:urlString title:title] autorelease];
 }
@@ -118,18 +212,18 @@
 	if ([query rangeOfString:@"\%s"] .location != NSNotFound) {
 		//NSLog(@"%@ > %@", query, [query stringByReplacing:@"\%s" with:QUERY_KEY]);
 		return [query stringByReplacing:@"\%s" with:QUERY_KEY];
-
+        
 	}
 	return query;
 }
 - (id)initWithURL:(NSString *)urlString title:(NSString *)title {
-
+    
 	if (!urlString) {
 		[self release];
 		return nil;
 	}
 	if (self = [self init]) {
-
+        
 		urlString = [self cleanQueryURL:urlString];
 		[self setName:(title?title:urlString)];
 		[self assignURLTypesWithURL:urlString];
@@ -139,23 +233,23 @@
 
 - (void)assignURLTypesWithURL:(NSString *)urlString
 {
-		[[self dataDictionary] setObject:urlString forKey:QSURLType];
-		if ([[NSURL URLWithString:[urlString URLEncoding]] scheme])
-		{
-			[self setObject:urlString forType:QSURLType];
-		} else {
-			// a plain string (host or FQDN?) was passed - add a scheme prefix
-			[self setObject:[@"http://" stringByAppendingString:urlString] forType:QSURLType];
-		}
-		if ([urlString hasPrefix:@"mailto:"]) {
-			NSString *email = [urlString substringWithRange:NSMakeRange(7, [urlString length] -7)];
-			[self setObject:email forType:QSEmailAddressType];
-			[self setObject:email forType:QSTextType];
-			[self setPrimaryType:QSEmailAddressType];
-		} else {
-			[self setObject:urlString forType:QSTextType];
-			[self setPrimaryType:QSURLType];
-		}
+    [[self dataDictionary] setObject:urlString forKey:QSURLType];
+    if ([[NSURL URLWithString:[urlString URLEncoding]] scheme])
+    {
+        [self setObject:urlString forType:QSURLType];
+    } else {
+        // a plain string (host or FQDN?) was passed - add a scheme prefix
+        [self setObject:[@"http://" stringByAppendingString:urlString] forType:QSURLType];
+    }
+    if ([urlString hasPrefix:@"mailto:"]) {
+        NSString *email = [urlString substringWithRange:NSMakeRange(7, [urlString length] -7)];
+        [self setObject:email forType:QSEmailAddressType];
+        [self setObject:email forType:QSTextType];
+        [self setPrimaryType:QSEmailAddressType];
+    } else {
+        [self setObject:urlString forType:QSTextType];
+        [self setPrimaryType:QSURLType];
+    }
 }
 
 @end

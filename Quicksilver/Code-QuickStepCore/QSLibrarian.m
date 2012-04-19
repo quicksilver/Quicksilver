@@ -61,7 +61,7 @@ static float searchSpeed = 0.0;
 		[scanTask setIcon:[NSImage imageNamed:@"Catalog.icns"]];
 		
 		previewImageQueue = [[NSOperationQueue alloc] init];
-		[previewImageQueue setMaxConcurrentOperationCount:1];
+		[previewImageQueue setMaxConcurrentOperationCount:NSOperationQueueDefaultMaxConcurrentOperationCount];
 		//Initialize Variables
 		appSearchArrays = nil;
 		typeArrays = [[NSMutableDictionary dictionaryWithCapacity:1] retain];
