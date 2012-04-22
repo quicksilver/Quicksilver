@@ -167,49 +167,37 @@ id QSRez;
 }
 
 - (NSImage *)imageNamed:(NSString *)name inBundle:(NSBundle *)bundle {
-
-	if (!name) return nil;
+	if (!name) { return nil; }
 
 	NSImage *image = [NSImage imageNamed:name];
 	if (!image && resourceOverrideList) {
 		NSString *file = [resourceOverrideList objectForKey:name];
-		if (file)
+		if (file) {
 			image = [[[NSImage alloc] initByReferencingFile:[resourceOverrideFolder stringByAppendingPathComponent:file]] autorelease];
+		}
 		[image setName:name];
+	}
 
-	}
-	if (!image && bundle) image = [bundle imageNamed:name];
-	if (image) {
-		return image;
-	}
+	if (!image && bundle) { image = [bundle imageNamed:name]; }
+
+	if (image) { return image; }
 
 	id locator = [resourceDict objectForKey:name];
-	if ([locator isKindOfClass:[NSNull class]]) return nil;
-	if (locator)
+	if ([locator isKindOfClass:[NSNull class]]) { return nil; }
+	if (locator) {
 		image = [self imageWithLocatorInformation:locator];
-    else if (!image && ([name hasPrefix:@"/"] || [name hasPrefix:@"~"])) { // !!! Andre Berg 20091007: Try iconForFile first if name looks like ordinary path
+	} else if (!image && ([name hasPrefix:@"/"] || [name hasPrefix:@"~"])) { // !!! Andre Berg 20091007: Try iconForFile first if name looks like ordinary path
 		NSString *path = [name stringByStandardizingPath];
-		if ([[NSImage imageUnfilteredFileTypes] containsObject:[path pathExtension]])
+		if ([[NSImage imageUnfilteredFileTypes] containsObject:[path pathExtension]]) {
 			image = [[[NSImage alloc] initByReferencingFile:path] autorelease];
-		else
+		} else {
 			image = [[NSWorkspace sharedWorkspace] iconForFile:path];
+		}
     } else {// Try the systemicons bundle
 		image = [self sysIconNamed:name];
-
-		
-		// Check if item represents one of the Firefox profile files.
-		// (this should be considered a temporary patch until the
-		// Firefox plugin can be fixed to set its own images)
-		if(!image && [name rangeOfString:@"/Library/Application%20Support/Firefox/Profiles/"].length > 0) {
-			if([name hasSuffix:@"bookmarks.html"]) {
-				image = [NSImage imageNamed:@"DefaultBookmarkIcon"];
-			}
-		}
-
-
-		if (!image) // Try by bundle id
+		if (!image) { // Try by bundle id
 			image = [self imageWithLocatorInformation:[NSDictionary dictionaryWithObjectsAndKeys:name, @"bundle", nil]];
-
+		}
 	}
 	if (!image && [locator isKindOfClass:[NSString class]]) {
 		image = [self imageNamed:locator];
@@ -217,35 +205,22 @@ id QSRez;
 
 	if(!image) {
 		SEL selector = NSSelectorFromString([NSString stringWithFormat:@"%@Image", name]);
-		if ([self respondsToSelector:selector])
+		if ([self respondsToSelector:selector]) {
 			image = [self performSelector:selector];
-	}
-#warning: This check is just if(0), removed by p_j_r 22/05/11
-#if 0
-	if (0 && !image) {
-#ifdef DEBUG
-		if (VERBOSE) NSLog(@"Searching for image: %@", name);
-#endif
-
-		for (NSBundle *bundle in [NSBundle allBundles]) {
-			NSString *path = [bundle pathForImageResource:name];
-			if (path) {
-				image = [[[NSImage alloc] initByReferencingFile:path] autorelease];
-			}
 		}
 	}
-#endif
 
 	if (!image) {
-		// if (VERBOSE) NSLog(@"Image Not Found:: %@", name);
 		[resourceDict setObject:[NSNull null] forKey:name];
 	} else {
-			[image setName:name];
+		[image setName:name];
 
-		if (![image representationOfSize:NSMakeSize(32, 32)])
+		if (![image representationOfSize:NSMakeSize(32, 32)]) {
 			[image createRepresentationOfSize:NSMakeSize(32, 32)];
-		if (![image representationOfSize:NSMakeSize(16, 16)])
+		}
+		if (![image representationOfSize:NSMakeSize(16, 16)]) {
 			[image createRepresentationOfSize:NSMakeSize(16, 16)];
+		}
 	}
 	return image;
 }
