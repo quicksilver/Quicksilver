@@ -45,29 +45,6 @@
 	NSRect centeredRect = NSOffsetRect(windowRect, NSMidX(screenRect) -NSMidX(windowRect), NSMidY(screenRect)-NSMidY(windowRect));
 	[self setFrame:centeredRect display:NO];
 }
-- (void)setFrame:(NSRect)frameRect alphaValue:(float)alpha display:(BOOL)displayFlag animate:(BOOL)animationFlag {
-	if (alpha == [self alphaValue])
-		[self setFrame:frameRect display:displayFlag animate:animationFlag];
-
-//	float newAlpha, elapsed;
-	float elapsed;
-	float seconds = (float) [self animationResizeTime:frameRect];
-	NSTimeInterval fadeStart = [NSDate timeIntervalSinceReferenceDate];
-	NSRect startRect = [self frame];
-	float fadeIn = [self alphaValue];
-	float distance = alpha-fadeIn;
-//	newAlpha = (([NSDate timeIntervalSinceReferenceDate] - fadeStart) /seconds);
-#warning this is no real loop, it's only executed once
-	for(elapsed = 0; elapsed<1; elapsed = (([NSDate timeIntervalSinceReferenceDate] - fadeStart) /seconds)) {
-		[self setAlphaValue:fadeIn+elapsed*distance];
-		[self setFrame:blendRects(startRect, frameRect, elapsed) display:displayFlag];
-		[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:seconds/20]];
-	}
-#warning shouldn't the following alpha here really be newAlpha? otherwise newAlpha is entirely calculated in vein...
-	[self setAlphaValue:alpha];
-	[self setFrame:frameRect display:displayFlag];
- }
-
 
 +(NSWindow *)windowWithImage:(NSImage *)image {
 	NSRect windowRect = NSMakeRect(0, 0, [image size] .width, [image size] .height);
