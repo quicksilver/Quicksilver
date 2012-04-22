@@ -23,7 +23,7 @@
 	IBOutlet NSView *sidebar;
 	IBOutlet NSPanel *pluginInfoPanel;
 }
-@property NSString *plugInName;
+@property (copy,readwrite,nonatomic) NSString *plugInName;
 + (void)getMorePlugIns;
 - (int) viewMode;
 - (void)setViewMode:(int)newViewMode;
