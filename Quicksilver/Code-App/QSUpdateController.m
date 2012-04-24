@@ -156,7 +156,11 @@ typedef enum {
         break;
         case kQSUpdateCheckUpdateAvailable:
             if (!force && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSDownloadUpdatesInBackground"]) {
+/** Diable automatically checking for updates in the background for DEBUG builds
+ You can still check for updates by clicking the "Check Now" button **/
+#ifndef DEBUG
                 [self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
+#endif
             } else {
                 int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"New Version of Quicksilver Available", nil], @"A new version of Quicksilver is available, would you like to update now?\n\n(Update from %@ → %@)", @"Install Update", @"Later", nil, [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey],newVersion); //, @"More Info");
                 if (selection == 1) {

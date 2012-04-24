@@ -100,43 +100,34 @@ NSSize QSMaxIconSize;
  // NSString *thisKey = nil;
 
 	QSObject *thisObject;
-    NSMutableArray * tempArray = [NSMutableArray array];
-    for (thisObject in iconLoadedArray) {
+    for (thisObject in [iconLoadedArray allObjects]) {
 		//	NSLog(@"i%@ %f", thisObject, thisObject->lastAccess);
         if (thisObject->lastAccess && thisObject->lastAccess < (globalLastAccess - interval) ) {
-            [tempArray addObject:thisObject];
+            if ([thisObject unloadIcon]) {
+                
+#ifdef DEBUG
+                imagecount++;
+#endif
+            }
         }
     }
-    for( thisObject in tempArray ) {
-        if ([thisObject unloadIcon]) {
-			
-#ifdef DEBUG
-            imagecount++;
-#endif
-		}
-    }
-    
-    tempArray = [NSMutableArray array];
-    for (thisObject in childLoadedArray) {
+    for (thisObject in [childLoadedArray allObjects]) {
 		//	NSLog(@"c%@ %f", thisObject, thisObject->lastAccess);
         if (thisObject->lastAccess && thisObject->lastAccess < (globalLastAccess - interval)) {
-            [tempArray addObject:thisObject];
-        }
-    }
-    
-    for( thisObject in tempArray ) {
-        if ([thisObject unloadChildren]) {
-			
+            if ([thisObject unloadChildren]) {
+                
 #ifdef DEBUG
-            childcount++;
+                childcount++;
 #endif		
-		}
+            }  
+        }
     }
 
 #ifdef DEBUG
 	if (DEBUG_MEMORY && (imagecount || childcount) )
 		NSLog(@"Released %i images and %i children (items before %d) ", imagecount, childcount, (int)interval);
 #endif
+
 }
 
 + (void)purgeIdentifiers {
