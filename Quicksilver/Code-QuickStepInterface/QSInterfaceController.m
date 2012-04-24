@@ -379,15 +379,8 @@
 
 - (void)objectIconModified:(NSNotification *)notif {
 	QSObject *object = [notif object];
-	if ([[dSelector objectValue] isEqual:object]) {
-		// redraw dObject icon
-		[dSelector updateObject:object];
-	}
-	if ([[iSelector objectValue] isEqual:object]) {
-		// redraw iObject icon
-		[iSelector updateObject:object];
-	}
-	
+	[dSelector compareAndUpdateWithObject:object];
+	[iSelector compareAndUpdateWithObject:object];
 }
 
 - (void)searchObjectChanged:(NSNotification*)notif {

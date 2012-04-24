@@ -1626,6 +1626,28 @@ NSMutableDictionary *bindingsDict = nil;
 		[resultController rowModified:ind];
 	}
 }
+
+-(void)compareAndUpdateWithObject:(QSObject *)object {
+	id selectorObject = [self objectValue];
+	
+	// Resolve any proxy objects (e.g. Latest Download)
+	if ([selectorObject isKindOfClass:[QSRankedObject class]]) {
+		selectorObject = [selectorObject object];
+	}
+	
+	if ([selectorObject isKindOfClass:[QSProxyObject class]]) {
+		// The icon of the proxy object needs to be that of the actual file
+		[[self objectValue] setIcon:[object icon]];
+		selectorObject = [selectorObject resolvedObject];
+	}
+	
+	if ([selectorObject isEqual:object] ) {
+		// redraw dObject icon
+		[self updateObject:[self objectValue]];
+	}
+	
+}
+
 @end
 
 @implementation QSSearchObjectView (History)
