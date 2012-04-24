@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">11E27</string>
+		<string key="IBDocument.SystemVersion">11E46</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2182</string>
-		<string key="IBDocument.AppKitVersion">1138.37</string>
+		<string key="IBDocument.AppKitVersion">1138.45</string>
 		<string key="IBDocument.HIToolboxVersion">569.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -135,6 +135,7 @@
 							<string key="NSFrame">{{372, 0}, {24, 23}}</string>
 							<reference key="NSSuperview" ref="577688970"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="630343255">
 								<int key="NSCellFlags">67239424</int>
@@ -599,7 +600,7 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="627912686"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
 				<string key="NSMinSize">{213, 129}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
@@ -1038,6 +1039,7 @@
 						<string key="NSFrame">{{239, 9}, {25, 25}}</string>
 						<reference key="NSSuperview" ref="579154697"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="369465965">
 							<int key="NSCellFlags">67239424</int>
@@ -1046,10 +1048,10 @@
 							<reference key="NSSupport" ref="296117349"/>
 							<reference key="NSControlView" ref="875271046"/>
 							<int key="NSButtonFlags">-2038284033</int>
-							<int key="NSButtonFlags2">268435489</int>
+							<int key="NSButtonFlags2">33</int>
 							<reference key="NSAlternateImage" ref="296117349"/>
 							<string key="NSAlternateContents"/>
-							<string key="NSKeyEquivalent">?</string>
+							<string key="NSKeyEquivalent"/>
 							<int key="NSPeriodicDelay">200</int>
 							<int key="NSPeriodicInterval">25</int>
 						</object>
@@ -1161,6 +1163,7 @@
 						<string key="NSFrame">{{106, 0}, {22, 23}}</string>
 						<reference key="NSSuperview" ref="39630381"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSClassName">QSSplitHandleView</string>
 						<string key="NSExtension">NSView</string>
 					</object>
@@ -1388,7 +1391,7 @@
 					<reference key="NSNextKeyView" ref="367425696"/>
 					<string key="NSReuseIdentifierKey">_NS:207</string>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
