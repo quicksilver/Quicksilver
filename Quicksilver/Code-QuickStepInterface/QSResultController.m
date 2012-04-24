@@ -27,6 +27,11 @@
 
 #define IconLoadNotification @"IconsLoaded"
 
+// These should be localizable, but I'm not sure how to do that
+#define filterResultsString @"Filter Results"
+#define filterCatalogString @"Filter Catalog"
+#define snapToBestString @"Snap to Best"
+
 #import "QSTextProxy.h"
 
 NSMutableDictionary *kindDescriptions = nil;
@@ -176,8 +181,47 @@ NSMutableDictionary *kindDescriptions = nil;
 	scrollViewTrackingRect = [view addTrackingRect:[view frame] owner:self userData:nil assumeInside:NO];
 }
 
+- (void)setSearchFilterAllActivated {
+	if ([filterCatalog state] == NSOffState) {
+		[filterCatalog setState:NSOnState];
+		[filterResults setState:NSOffState];
+		[snapToBest setState:NSOffState];
+		[searchModeField setStringValue:filterCatalogString];
+	}
+}
+
+- (IBAction)setSearchFilterActivated {
+	if ([filterResults state] == NSOffState) {
+		[filterResults setState:NSOnState];
+		[filterCatalog setState:NSOffState];
+		[snapToBest setState:NSOffState];
+		[searchModeField setStringValue:filterResultsString];
+	}
+}
+
+- (IBAction)setSearchSnapActivated {
+	if ([snapToBest state] == NSOffState) {
+		[snapToBest setState:NSOnState];
+		[filterResults setState:NSOffState];
+		[filterCatalog setState:NSOffState];
+		[searchModeField setStringValue:snapToBestString];
+	}
+}
+
 - (IBAction)setSearchMode:(id)sender {
     [focus setSearchMode:[sender tag]];
+}
+
+- (IBAction)sortByName:(id)sender{
+	[sortByName setState:NSOnState];
+	[sortByScore setState:NSOffState];
+    [focus sortByName:sender];
+}
+
+- (IBAction)sortByScore:(id)sender {
+	[sortByName setState:NSOffState];
+	[sortByScore setState:NSOnState];
+    [focus sortByScore:sender];
 }
 
 - (void)bump:(int)i {
@@ -632,14 +676,6 @@ NSMutableDictionary *kindDescriptions = nil;
         [NSMenu popUpContextMenu:[thisObject rankMenuWithTarget:focus] withEvent:theEvent forView:sender];
 
 	}
-}
-
-- (IBAction)sortByName:(id)sender {
-    [focus sortByName:sender];
-}
-
-- (IBAction)sortByScore:(id)sender {
-    [focus sortByScore:sender];
 }
 
 - (IBAction)tableViewDoubleAction:(id)sender {

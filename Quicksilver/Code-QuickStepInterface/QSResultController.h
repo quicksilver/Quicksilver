@@ -10,7 +10,8 @@
 #endif
 {
  @public
-	IBOutlet NSTextField *	searchStringField;
+	IBOutlet NSTextField *	searchStringField;	// What the user types when searching (seen in the results view)
+	IBOutlet NSTextField * searchModeField;	// Seen in the result view. Either: @"Filter Catalog", @"Filter Results" or @"Snap to Best"
 	IBOutlet NSView *	selectionView;
 	IBOutlet NSSplitView *	splitView;
 
@@ -19,7 +20,14 @@
 	QSIconLoader *resultIconLoader;
 	QSIconLoader *resultChildIconLoader;
 	IBOutlet NSTextField *	resultCountField;
-	IBOutlet NSMenu *searchModeMenu;
+
+	IBOutlet NSMenuItem *filterCatalog; // NSMenuItem (see ResultController.xib)
+	IBOutlet NSMenuItem *filterResults; // NSMenuItem (see ResultController.xib)
+	IBOutlet NSMenuItem *snapToBest; //  NSMenuItem (see ResultController.xib)
+ 	IBOutlet NSMenu *searchModeMenu; // NSMenu opened when clicking the gear (see ResultController.xib)
+	IBOutlet NSMenuItem *sortByScore; // NSMenuItem (see ResultController.xib)
+	IBOutlet NSMenuItem *sortByName; // NSMenuItem (see ResultController.xib)
+	
 	int selectedResult;
 	QSObject *selectedItem;
 	BOOL browsing;
@@ -41,6 +49,7 @@
    // NSRange visibleChildRange;
 }
 
++ (id)sharedInstance;
 
 - (IBAction)defineMnemonic:(id)sender;
 - (IBAction)setScore:(id)sender;
@@ -53,6 +62,33 @@
 //- (void)setSplitLocation;
 
 - (void)loadChildren;
+/*!
+ setSearchFilterAllActivated
+ @abstract   Sets the results view to show the 'Filter Catalog' search mode is activated
+ @discussion  Sets the results view to show the 'Filter Catalog' search mode is selected 
+ by setting the NSMenuItem's state and the 'searchModeField' string value to @"(Filter Catalog")
+ */
+- (void)setSearchFilterAllActivated;
+/*!
+ setSearchFilterActivated
+ @abstract   Sets the results view to show the 'Filter Results' search mode is activated
+ @discussion  Sets the results view to show the 'Filter Catalog' search mode is selected 
+ by setting the NSMenuItem's state and the 'searchModeField' string value to @"(Filter Results")
+ */
+- (void)setSearchFilterActivated;
+/*!
+ setSearchSnapActivated
+ @abstract   Sets the results view to show the 'Snap to Best' search mode is activated
+ @discussion  Sets the results view to show the 'Filter Catalog' search mode is selected 
+ by setting the NSMenuItem's state and the 'searchModeField' string value to @"(Snap to Best")
+ */
+- (void)setSearchSnapActivated;
+/*!
+ setSearchMode
+ @abstract   Sets the search mode for Quicksilver
+ @discussion Sets the search mode which can be one of: 'Filter Results, 'Filter Catalog' or 'Snap to Best'
+ @param      sender IB NSMenuItem within the 'Search Mode' menu
+ */
 - (IBAction)setSearchMode:(id)sender;
 - (void)arrayChanged:(NSNotification*)notif;
 - (void)bump:(int)i;
@@ -70,8 +106,22 @@
 - (void)setResultChildIconLoader:(QSIconLoader *)aResultChildIconLoader;
 
 -(void)rowModified:(int)index;
-//- (IBAction)sortByName:(id)sender;
-//- (IBAction)sortByScore:(id)sender;
+/*!
+ sortByName
+ @abstract   Sets the results view to show the 'Sort by Name' search mode is activated
+ @discussion  Sets the results view to show the 'Sort by Name' search mode is selected 
+by altering its state to enabled (Adds a checkmark in the menu)
+ @param sender The NSMenuItem clicked in the interface
+ */
+- (IBAction)sortByName:(id)sender;
+/*!
+ sortByScore
+ @abstract   Sets the results view to show the 'Sort by Score' search mode is activated
+ @discussion  Sets the results view to show the 'Sort by Score' search mode is selected 
+ by altering its state to enabled (Adds a checkmark in the menu)
+ @param sender The NSMenuItem clicked in the interface
+ */
+- (IBAction)sortByScore:(id)sender;
 @end
 
 

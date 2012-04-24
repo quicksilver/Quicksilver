@@ -9,17 +9,19 @@
 - (void)searchView:(id)view resultsVisible:(BOOL)visible;
 @end
 
+// These tags are set within Interface Builder, and are used to define the current search mode
 typedef enum QSSearchMode {
-	SearchFilterAll = 1,
-	SearchFilter = 2,
-	SearchSnap = 3,
-	SearchShuffle = 4,
+	SearchFilterAll = 1, // Filter Catalog
+	SearchFilter = 2, // Filter Results
+	SearchSnap = 3, // Snap to Best
+	SearchShuffle = 4, // Not Sure (not used?)
 } QSSearchMode;
 
 @class QSResultController;
 @interface QSSearchObjectView : QSObjectView <NSTextInput
 #if (MAC_OS_X_VERSION_MAX_ALLOWED >= 1060)
-	, NSTextDelegate
+// NSTextViewDelegate for the NSTextView (the text mode view) as used in transmogrifyWithText:(NSString *)string
+	, NSTextViewDelegate
 #endif
 > 
 {   
@@ -177,6 +179,14 @@ typedef enum QSSearchMode {
 - (NSString *)visibleString;
 - (void)setVisibleString:(NSString *)newVisibleString;
 
+/*!
+ @handleChangeSearchModeEvent
+ @abstract Checks for the  ⌘→ or ⌘← keys to change search mode
+ @discussion If a search mode switching keyboard shortcut is pressed, this method changes the search mode,
+ depending on the direction keys (forwards or backwards)
+ @result YES if ⌘→ or ⌘← is pressed and the search mode changed, otherwise NO
+ */
+- (BOOL)handleChangeSearchModeEvent:(NSEvent *)theEvent;
 - (BOOL)handleShiftedKeyEvent:(NSEvent *)theEvent;
 - (BOOL)handleSlashEvent:(NSEvent *)theEvent;
 - (BOOL)handleTildeEvent:(NSEvent *)theEvent;
