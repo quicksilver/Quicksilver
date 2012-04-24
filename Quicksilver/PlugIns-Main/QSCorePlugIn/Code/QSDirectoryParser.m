@@ -37,8 +37,7 @@
 - (NSArray *)objectsFromPath:(NSString *)path withSettings:(NSDictionary *)settings {
 	NSNumber *depth = [settings objectForKey:kItemFolderDepth];
 	int depthValue = (depth?[depth intValue] : 1);
-    CFBooleanRef descendValue = (CFBooleanRef)[settings objectForKey:kItemDescendIntoBundles];
-	BOOL descendIntoBundles = descendValue == kCFBooleanTrue ? YES : NO;
+    BOOL descendIntoBundles = [[settings objectForKey:kItemDescendIntoBundles] boolValue];
 
 	NSMutableArray *types = [NSMutableArray array];
 	for (NSString *type in [settings objectForKey:kItemFolderTypes]) {
