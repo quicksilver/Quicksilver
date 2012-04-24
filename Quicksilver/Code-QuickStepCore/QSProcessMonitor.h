@@ -29,6 +29,8 @@
 - (QSObject *)imbuedFileProcessForDict:(NSDictionary *)dict;
 - (QSObject *)processObjectWithPSN:(ProcessSerialNumber)psn;
 
+- (BOOL)handleProcessEvent:(NSEvent *)theEvent;
+
 - (NSDictionary *)currentApplication;
 - (NSDictionary *)previousApplication;
 @end

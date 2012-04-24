@@ -266,8 +266,9 @@
 
 - (void)showWithEffect:(id)showEffect {
 	trueRect = [self frame];
-	if (!showEffect)
+	if (!showEffect) {
 		showEffect = [self showEffect];
+	}
 	if (!showEffect) {
 		showEffect = [NSDictionary dictionaryWithObjectsAndKeys:@"QSDefaultGrowEffect", @"transformFn", @"show", @"type", [NSNumber numberWithFloat:0.2] , @"duration", nil];
 	}
@@ -285,27 +286,6 @@
 		[[self helper] _resizeWindow:self toFrame:trueRect alpha:1.0 display:YES];
 		//NSLog(@"show");
 	}
-#if 0
-	return;
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-
-	[NSThread setThreadPriority:1.0];
-	if (!isMoving)
-		trueRect = [self frame];
-	isMoving++;
-
-	//  logRect(NSOffsetRect(trueRect, showOffset.x, showOffset.y) );
-	[self setFrame:NSOffsetRect(trueRect, showOffset.x, showOffset.y) display:YES animate:NO];
-
-	[self setFrame:trueRect alphaValue:1.0 display:NO animate:YES];
-
-	[self setAlphaValue:1.0];
-	[self display];
-	if ([self drawers])
-		[self performSelector:@selector(_unhideAllDrawers)];
-	isMoving--;
-	[pool release];
-#endif
 }
 
 - (IBAction)showThreaded:(id)sender {
@@ -337,11 +317,9 @@
 }
 
 - (void)hideWithEffect:(id)hideEffect {
-////	[self retain];
-	// NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	//if (!helper) {
-	if ([self drawers])
+	if ([self drawers]) {
 		[self performSelector:@selector(_hideAllDrawers)];
+	}
 
 	trueRect = [self frame];
 	hadShadow = [self hasShadow];
@@ -359,30 +337,6 @@
 		[[self helper] setAction:@selector(finishHide:)];
 		[[self helper] _resizeWindow:self toFrame:NSOffsetRect(trueRect, hideOffset.x, hideOffset.y) alpha:0.0 display:YES];
 	}
-#if 0
-	return;
-	//}
-	if (isMoving) {
-		animationInvalid = YES;
-		NSDate *startDate = [NSDate date];
-		while (isMoving && ([startDate timeIntervalSinceNow] >-1) )
-			[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-	}
-	// [NSThread setThreadPriority:0.0];
-	trueRect = [self frame];
-
-	if ([self drawers])
-	[self performSelector:@selector(_hideAllDrawers)];
-
-	[self setFrame:NSOffsetRect(trueRect, hideOffset.x, hideOffset.y) alphaValue:0.0 display:NO animate:YES];
-	[self setFrame:trueRect display:NO animate:NO];
-	[super orderOut:self];
-	if (hadShadow) [self setHasShadow:YES];
-	[self setAlphaValue:1.0];
-	animationInvalid = NO;
-	//  [pool release];
-////	[self release];
-#endif
 }
 
 //#define RESIZE_SIZE 16
