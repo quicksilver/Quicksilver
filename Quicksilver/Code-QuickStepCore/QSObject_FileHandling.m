@@ -715,7 +715,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 + (NSMutableArray *)fileObjectsWithURLArray:(NSArray *)pathArray {
-	NSMutableArray *fileObjectArray = [NSMutableArray arrayWithCapacity:1];
+	NSMutableArray *fileObjectArray = [NSMutableArray arrayWithCapacity:[pathArray count]];
 	for (id loopItem in pathArray) {
 		[fileObjectArray addObject:[QSObject fileObjectWithPath:[loopItem path]]];
 	}
@@ -775,11 +775,30 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	return prefPaneKindString;
 }
 
+- (NSString *)bundleNameFromInfoDict:(NSDictionary *)infoDict {
+    // Use the display name
+    return [infoDict objectForKey:@"CFBundleDisplayName"];
+}
+
 - (NSString *)descriptiveNameForPackage:(NSString *)path withKindSuffix:(BOOL)includeKind {
     NSURL *fileURL = [NSURL fileURLWithPath:path];
-	CFBundleRef bundleRef = CFBundleCreate(kCFAllocatorDefault, (CFURLRef)fileURL);
-	NSString *bundleName = (NSString *)CFBundleGetValueForInfoDictionaryKey(bundleRef, kCFBundleNameKey);
 
+    NSString *bundleName = nil;
+    // First try the localised info Dict
+    NSDictionary *infoDict = [[NSBundle bundleWithURL:fileURL] localizedInfoDictionary];
+    if (infoDict) {
+        bundleName = [self bundleNameFromInfoDict:infoDict];
+    }
+    // Get the general info Dict
+    if (!bundleName) {
+        infoDict = [[NSBundle bundleWithURL:fileURL] infoDictionary];
+        bundleName = [self bundleNameFromInfoDict:infoDict];
+    }
+    
+    if (!bundleName) {
+        return nil;
+    }
+    
 	if (includeKind) {
         NSString *kind = nil;
 		if ([[path pathExtension] caseInsensitiveCompare:@"prefPane"] == NSOrderedSame) {
@@ -793,17 +812,18 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
       if (DEBUG_LOCALIZATION) NSLog(@"kind: %@", kind);
 #endif
 		
-		if (bundleName && [kind length])
+        if ([kind length]) {
 			bundleName = [NSString stringWithFormat:@"%@ %@", bundleName, kind];
-	} else {
-        bundleName = [[bundleName retain] autorelease];
+        }
     }
-    CFRelease(bundleRef);
+        
+    bundleName = [[bundleName retain] autorelease];
+    
 	return bundleName;
 }
 
 - (void)getNameFromFiles {
-	NSFileManager *manager = [NSFileManager defaultManager];
+	NSFileManager *manager = [[NSFileManager alloc] init];
 	NSString *newName = nil;
 	NSString *newLabel = nil;
 	if ([self count] >1) {
@@ -822,16 +842,18 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			newLabel = [self descriptiveNameForPackage:(NSString *)path withKindSuffix:!(infoRec.flags & kLSItemInfoIsApplication)];
 			if ([newLabel isEqualToString:newName]) newLabel = nil;
 		}
+        // Fall back on using NSFileManager to get the name
 		if (!newName) {
-			newName = [path lastPathComponent];
-		 //  if (infoRec.flags & kLSItemInfoExtensionIsHidden) newName = [newName stringByDeletingPathExtension];
-		}
+			newName = [[NSFileManager defaultManager] displayNameAtPath:path];
+        }
+        
 		if (!newLabel && ![self label]) {
 			newLabel = [manager displayNameAtPath:path];
 			if ([newName isEqualToString:newLabel]) newLabel = nil;
 		}
 		if ([path isEqualToString:@"/"]) newLabel = [manager displayNameAtPath:path];
 	}
+    [manager release];
 	[self setName:newName];
 	[self setLabel:newLabel];
 }
@@ -865,7 +887,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		if ([type isEqualToString:@"'fold'"]) {
 			filesOnly = NO;
 			appsOnly = NO;
-		} else if ([type isEqualToString:@"app"] || [type isEqualToString:@"'APPL'"]) {
+            // application type (or Finder 'FNDR')
+		} else if ([type isEqualToString:@"app"] || [type isEqualToString:@"'APPL'"] || [type isEqualToString:@"'FNDR'"]) {
 			foldersOnly = NO;
 			filesOnly = NO;
 		} else {

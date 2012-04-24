@@ -305,16 +305,15 @@
 	}
 }
 
-- (NSArray *)objectsForEntry:(NSMutableDictionary *)theEntry {
+- (NSArray *)objectsForEntry:(NSDictionary *)theEntry {
 	NSMutableDictionary *settings = [theEntry objectForKey:kItemSettings];
 	NSFileManager *manager = [NSFileManager defaultManager];
-	BOOL isDirectory; //, scanContents;
 	NSString *path = nil;
 	NSMutableArray *containedItems = [NSMutableArray arrayWithCapacity:1];
 
 	path = [self fullPathForSettings:settings];
 
-	if (![manager fileExistsAtPath:path isDirectory:&isDirectory]) return [NSArray array];
+	if (![manager fileExistsAtPath:path isDirectory:nil]) return [NSArray array];
 	if ([[settings objectForKey:@"watchTarget"] boolValue]) {
 		[[QSVoyeur sharedInstance] addPathToQueue:path];
 	}
