@@ -3273,6 +3273,7 @@
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				E103F595064768A300447FE0 /* Embed Frameworks */,
 				E1D4E804064DF34A0083ECD3 /* Copy SharedSupport */,
+				66CAE628153EF9AE0021BC65 /* Adjust Version-String */,
 			);
 			buildRules = (
 			);
@@ -3716,6 +3717,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		66CAE628153EF9AE0021BC65 /* Adjust Version-String */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Adjust Version-String";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# \n# Script to append development information to the QS version string\n#\n# The format of the appended version string is as follows:\n#\n# Debug build from branch \"testBranch\": \t\t\tß66:testBranch:Debug\n# Release build from branch \"testBranch\": \t\tß66:testBranch\n# Release build from branch \"master\" or \"release\":\tß66 \n#\n# As described in http://groups.google.com/group/quicksilver---development/browse_thread/thread/b12b53d7680b3c3f\n#\n# Created by Henning Jungkurth on Apr 18 2012\n\nCURRENT_BRANCH=`git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \\\\(.*\\\\)/\\\\1/'`\n\nNEW_VERSION_STRING=\"\"\nif [ $CONFIGURATION == \"Debug\" ] ; then\n\tNEW_VERSION_STRING=\"$QS_INFO_VERSION:$CURRENT_BRANCH:$CONFIGURATION\"\nelse\n\tif [ $CURRENT_BRANCH != \"master\" ] && [ $CURRENT_BRANCH != \"release\" ] ; then\n\t\tNEW_VERSION_STRING=\"$QS_INFO_VERSION:$CURRENT_BRANCH\"\n\tfi\nfi\n\nif [ -n \"$NEW_VERSION_STRING\" ] ; then\n\tdefaults write $QS_APP_CONTENTS_FOLDER/Info CFBundleShortVersionString \"\\\"$NEW_VERSION_STRING\\\"\"\nfi";
 		};
 		66D11C6215022A75002EE6E5 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
