@@ -546,25 +546,8 @@ static id _sharedInstance;
 - (void)catalogChanged:(NSNotification *)notification { [itemTable reloadData]; }
 
 - (void)catalogIndexed:(NSNotification *)notification {
-	/*if ([notification object] == currentItem)
-      [self updateCurrentItemContents];*/
-      
-   [itemContentsTable reloadData];
-	[itemTable reloadItem:[notification object]];
-
-	//int row = [itemTable rowForItem:[notification object]];
-	//id parent = nil;
-	//	while(row != NSNotFound) {
-	//	parent = [self outlineView:itemTable parentOfRow:row childIndex:nil];
-	//		if (parent) {
-	//			[itemTable reloadItem:parent reloadChildren:NO];
-	//			row = [itemTable rowForItem:parent];
-	//		} else {
-	//			row = NSNotFound;
-	//		}
-	//	}
-
-	// ***warning  * should update a group whose child changed
+    [itemContentsTable reloadData];
+    [itemTable reloadData];
 }
 
 - (IBAction)rescanCurrentItem:(id)sender {
