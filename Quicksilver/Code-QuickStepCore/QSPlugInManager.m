@@ -659,7 +659,7 @@
 	NSMutableArray *names = [NSMutableArray arrayWithCapacity:1];
 	for (QSPlugIn *thisPlugIn in [self knownPlugInsWithWebInfo]) {
 		// don't update obsolete plug-ins, but list them when alerting the user
-		if ([thisPlugIn isObsolete]) {
+		if ([thisPlugIn isObsolete] && [thisPlugIn isLoaded]) {
 			NSString *replacementID = [obsoletePlugIns objectForKey:[thisPlugIn identifier]];
 			[updatedPlugIns addObject:replacementID];
 			QSPlugIn *replacement = [self plugInWithID:replacementID];
