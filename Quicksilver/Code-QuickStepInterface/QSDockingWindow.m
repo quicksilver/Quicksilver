@@ -243,8 +243,10 @@
 }
 
 - (void)saveFrame {
-	if ([self autosaveName])
+	if ([self autosaveName]) {
 		[self saveFrameUsingName:[self autosaveName]];
+		[[NSUserDefaults standardUserDefaults] synchronize];
+	}
 }
 
 - (void)orderOut:(id)sender {
