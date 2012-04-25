@@ -191,12 +191,14 @@
 		[self orderFront:sender];
 	}
 }
-// method to close command window when Esc key is pressed
+
+// prevent docked windows from closing when Esc key is pressed
 - (void)keyDown:(NSEvent *)theEvent {
-	if ([self canFade] && [theEvent keyCode] == 53)
+	if ([theEvent keyCode] == 53) {
 		[self hideOrOrderOut:nil];
-	else
+	} else {
 		[super keyDown:theEvent];
+	}
 }
 
 - (void)performClose:(id)sender {
