@@ -188,7 +188,7 @@
 		[self hide:sender];
 		[self reallyOrderFront:self];
 	} else {
-		[self orderFront:sender];
+		[self show:sender];
 	}
 }
 
