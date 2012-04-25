@@ -151,12 +151,13 @@
 }
 
 - (IBAction)toggle:(id)sender {
-	if (hidden)
+	if (hidden) {
 		[self show:sender];
-	else if ([self isVisible])
+	} else if ([self isVisible]) {
 		[self hideOrOrderOut:sender];
-	else
+	} else {
 		[self makeKeyAndOrderFront:sender];
+	}
 }
 
 - (IBAction)hide:(id)sender {
