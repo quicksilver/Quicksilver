@@ -23,6 +23,7 @@
 
 	NSMutableArray 					*oldPlugIns; 		// Plugins with newer versions overriding, these are not included in local plugins
 	NSMutableDictionary 			*dependingPlugIns; 	// Dictionary of dependencies -> array of waiting
+	NSMutableDictionary				*obsoletePlugIns;   // plug-ins that are made obsolete by another
 
 	NSMutableData *receivedData;
 	NSMutableDictionary *plugInWebData;
@@ -32,7 +33,7 @@
 	BOOL updatingPlugIns;
 	BOOL warnedOfRelaunch;
 
-	NSMutableArray *updatedPlugIns;
+	NSMutableSet *updatedPlugIns;
 	NSMutableArray *queuedDownloads;
     NSMutableSet *activeDownloads;
     
@@ -70,6 +71,7 @@
 - (QSPlugIn *)plugInBundleWasInstalled:(NSBundle *)bundle;
 - (void)deletePlugIns:(NSArray *)deletePlugIns fromWindow:(NSWindow *)window;
 - (void)checkForUnmetDependencies;
+- (void)removeObsoletePlugIns;
 //- (NSMutableDictionary *)validPlugIns;
 //- (void)setValidPlugIns:(NSMutableDictionary *)newValidPlugIns;
 
@@ -88,7 +90,7 @@
 - (void)setKnownPlugIns:(NSMutableDictionary *)newKnownPlugIns;
 - (NSMutableDictionary *)loadedPlugIns;
 - (void)setLoadedPlugIns:(NSMutableDictionary *)newLoadedPlugIns;
-
+- (NSMutableDictionary *)obsoletePlugIns;
 - (NSString *)installStatus;
 - (void)setInstallStatus:(NSString *)newInstallStatus;
 - (float) installProgress;
@@ -104,7 +106,7 @@
 - (void)downloadWebPlugInInfoIgnoringDate;
 - (BOOL)updatePlugInsForNewVersion:(NSString *)version;
 - (float)downloadProgress;
-- (NSMutableArray *)updatedPlugIns;
+- (NSMutableSet *)updatedPlugIns;
 - (BOOL)handleInstallURL:(NSURL *)url;
 - (BOOL)installPlugInsFromFiles:(NSArray *)fileList;
 

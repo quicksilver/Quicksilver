@@ -199,6 +199,15 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	return [[self info] valueForKeyPath:@"QSRequirements.plugins"];
 }
 
+- (NSSet *)obsoletes
+{
+	// a list of bundle IDs (as strings) for plug-ins made obsolete by this one
+	if ([[self info] valueForKeyPath:@"QSRequirements.obsoletes"]) {
+		return [NSSet setWithArray:[[self info] valueForKeyPath:@"QSRequirements.obsoletes"]];
+	}
+	return nil;
+}
+
 - (void)showHelp {
 	NSString *urlString = [NSString stringWithFormat:kHelpSearchURL, [self helpPage]];
 	NSLog(@"%@", urlString);
@@ -271,10 +280,13 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	return [[[self info] valueForKeyPath:@"QSPlugIn.secret"] boolValue];
 }
 
-- (BOOL)isRecommended {
+- (BOOL)isRecommended
+{
+	// explicitly recommended
 	if ([[[self info] valueForKeyPath:@"QSPlugIn.recommended"] boolValue]) {
 		return YES;
 	}
+	// corresponds to an installed application or other bundle
 	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
 	NSArray *related = [self relatedBundles];
 	for(NSString *bundleID in related) {
@@ -282,7 +294,14 @@ NSMutableDictionary *plugInBundlePaths = nil;
 			return YES;
 		}
 	}
-	return NO;
+	// makes a loaded plug-in obsolete
+	NSSet *currentlyLoaded = [NSSet setWithArray:[[[QSPlugInManager sharedInstance] loadedPlugIns] allKeys]];
+	return [currentlyLoaded intersectsSet:[self obsoletes]];
+}
+
+- (BOOL)isObsolete
+{
+	return [[[[QSPlugInManager sharedInstance] obsoletePlugIns] allKeys] containsObject:[self identifier]];
 }
 
 - (BOOL)needsUpdate {
@@ -446,6 +465,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 		if (flag) {
 			[[QSPlugInManager sharedInstance] liveLoadPlugIn:self];
 			[[QSPlugInManager sharedInstance] checkForUnmetDependencies];
+			[[QSPlugInManager sharedInstance] removeObsoletePlugIns];
 		}
 	} else if (![self isInstalled]) {
 		[self install];
@@ -475,6 +495,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	id manager = [QSPlugInManager sharedInstance];
 	[[manager localPlugIns] removeObjectForKey:ident];
 	[[manager knownPlugIns] removeObjectForKey:ident];
+	[[manager loadedPlugIns] removeObjectForKey:ident];
 	NSFileManager *fm = [NSFileManager defaultManager];
 	if ([fm fileExistsAtPath:path]) {
 		return [fm removeItemAtPath:path error:nil];

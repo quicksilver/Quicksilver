@@ -55,6 +55,7 @@
 - (NSImage *)icon;
 - (int) enabled;
 - (BOOL)canBeDisabled;
+- (BOOL)isObsolete;
 - (BOOL)needsUpdate;
 - (NSString *)identifier;
 
@@ -77,6 +78,7 @@
 - (BOOL)delete;
 - (BOOL)reveal;
 - (NSArray *)dependencies;
+- (NSSet *)obsoletes;
 - (void)downloadFailed;
 + (id)plugInWithBundle:(NSBundle *)aBundle;
 - (NSString *)infoHTML;
