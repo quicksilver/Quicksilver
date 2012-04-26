@@ -15,6 +15,7 @@
 	IBOutlet WebView *crashReporterWebView;
     IBOutlet NSButton *deletePluginButton;
     IBOutlet NSTextField *commentsField;
+    NSDictionary *faultyPluginInfoDict;
 
 }
 

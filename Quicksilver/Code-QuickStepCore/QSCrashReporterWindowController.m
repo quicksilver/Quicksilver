@@ -23,11 +23,9 @@
 {
     [super windowDidLoad];
 
-    [[crashReporterWebView preferences] setDefaultTextEncodingName:@"utf-8"];
-	[crashReporterWebView setDrawsBackground:NO];
-	[crashReporterWebView setPolicyDelegate:self];
-    [[self window] setDelegate:self];
-    [[self window] setLevel:NSModalPanelWindowLevel];
+    // var used to store the faulty plugin's info.plist dict (since it won't exist if the user deletes the plugin)
+    faultyPluginInfoDict = nil;
+    
     if ([[QSController sharedInstance] crashReportPath]) {
         [[crashReporterWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:[[NSBundle mainBundle] URLForResource:@"CrashReporterText" withExtension:@"html"]]];
         [deletePluginButton setHidden:YES];
@@ -35,10 +33,16 @@
         NSString *resourcePath = [[NSBundle mainBundle] pathForResource:@"PluginReporterText" ofType:@"html"];
         NSString *htmlString = [NSString stringWithContentsOfFile:resourcePath encoding:NSUTF8StringEncoding error:nil];
         NSDictionary *state = [NSDictionary dictionaryWithContentsOfFile:pStateLocation];
-
+        faultyPluginInfoDict = [[[NSBundle bundleWithPath:[state objectForKey:kQSFaultyPluginPath]] infoDictionary] retain];
         htmlString = [htmlString stringByReplacingOccurrencesOfString:@"***" withString:[state objectForKey:kQSPluginCausedCrashAtLaunch]];
         [[crashReporterWebView mainFrame] loadHTMLString:htmlString baseURL:[NSURL fileURLWithPath:[resourcePath stringByDeletingLastPathComponent]]];
     }
+    [[crashReporterWebView preferences] setDefaultTextEncodingName:@"utf-8"];
+	[crashReporterWebView setDrawsBackground:NO];
+	[crashReporterWebView setPolicyDelegate:self];
+    [[self window] setDelegate:self];
+    [[self window] setLevel:NSModalPanelWindowLevel];
+
     // clear the caches incase they caused a crash
     [self clearCaches];
 }
@@ -62,7 +66,7 @@
     NSString *faultyPluginPath = [state objectForKey:kQSFaultyPluginPath];
     if (faultyPluginPath) {
         if (![fm removeItemAtPath:faultyPluginPath error:nil]) {
-            NSLog(@"Error removing faulty plugin. Continuing to attempt a launch");
+            NSLog(@"Error removing faulty plugin from %@", faultyPluginPath);
         }
     }
     [fm release];
@@ -91,7 +95,7 @@
         NSDictionary *state =[NSDictionary dictionaryWithContentsOfFile:pStateLocation];
         // name the crash file Plugin-NAME_OF_PLUGIN-UNIQUE_STRING.crash
         name = [[NSString stringWithFormat:@"Plugin-%@-%@.crash",[state objectForKey:kQSPluginCausedCrashAtLaunch], [NSString uniqueString]] URLEncodeValue];
-        crashLogContent = [NSString stringWithFormat:@"Crashed Plugin Information\n\n%@",[[[NSBundle bundleWithPath:[state objectForKey:kQSFaultyPluginPath]] infoDictionary] description]];
+        crashLogContent = [NSString stringWithFormat:@"Crashed Plugin Information\n\n%@",[faultyPluginInfoDict description]];
     }
 
     crashLogContent = [crashLogContent stringByReplacingOccurrencesOfString:[@"~" stringByExpandingTildeInPath] withString:@"USER_DIR"];
@@ -105,7 +109,6 @@
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
     
     [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    
     [crashReportPath release];
     [self close];
 }
@@ -116,6 +119,9 @@
 }
 
 - (void)windowWillClose:(id)sender {
+    if (faultyPluginInfoDict) {
+        [faultyPluginInfoDict release];
+    }
     [NSApp stopModal];
 }
 
