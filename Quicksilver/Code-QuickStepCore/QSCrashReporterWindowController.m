@@ -64,15 +64,19 @@
         [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
         NSError *err = nil;
         
-        NSString *crashLog = [NSString stringWithContentsOfFile:crashReportPath encoding:NSUTF8StringEncoding error:&err];
+        NSString *crashLogContent = [NSString stringWithContentsOfFile:crashReportPath encoding:NSUTF8StringEncoding error:&err];
         if (err) {
             NSLog(@"Error getting crash log: %@",err);
         }
+        crashLogContent = [crashLogContent stringByReplacingOccurrencesOfString:[@"~" stringByExpandingTildeInPath] withString:@"USER_DIR"];
+        // encode the crash log contents. URLEncoding (correctly) leaves '&' as they are. It must be done manually here.
         
-        [request setValue:[NSString stringWithFormat:@"%d", [crashLog length]]
+        NSString *postString = [NSString stringWithFormat:@"name=%@&data=%@",[[crashReportPath lastPathComponent] URLEncodeValue], [crashLogContent URLEncodeValue]];
+        
+        [request setValue:[NSString stringWithFormat:@"%d", [postString length]]
        forHTTPHeaderField:@"Content-length"];
         
-        [request setHTTPBody:[crashLog dataUsingEncoding:NSUTF8StringEncoding]];
+        [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
         
         [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
         [crashReportPath release];
