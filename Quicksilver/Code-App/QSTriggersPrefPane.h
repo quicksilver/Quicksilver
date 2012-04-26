@@ -19,12 +19,13 @@
 @end
 
 @interface QSTriggersPrefPane : QSPreferencePane {
-	IBOutlet id addButton;
+	IBOutlet NSButton *addButton;
 	IBOutlet NSDrawer * optionsDrawer;
 	IBOutlet NSView *sidebar;
 
+    IBOutlet NSButton *infoButton;
 	IBOutlet id hotKeyOptions;
-	IBOutlet id removeButton;
+	IBOutlet NSButton *removeButton;
 	IBOutlet NSOutlineView * triggerTable;
 
 	IBOutlet NSTableView * triggerSetsTable;
