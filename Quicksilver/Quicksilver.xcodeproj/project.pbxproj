@@ -322,6 +322,7 @@
 		CD3F9ECE13619CE00013FCB7 /* UKFileWatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FA4ED4009132402007DB407 /* UKFileWatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD53FEB3151A0ACF006B734B /* PluginReporterText.html in Resources */ = {isa = PBXBuildFile; fileRef = CD53FEB2151A0ACF006B734B /* PluginReporterText.html */; };
 		CD790FA314D21C2100225950 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8D135E09187AE20062C966 /* Quartz.framework */; };
+		CDA9D3DE1549D13B00607BE4 /* AlertCautionIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDA9D3DD1549D13B00607BE4 /* AlertCautionIcon.icns */; };
 		CDC9C6C513DA2B6D0053B09C /* Clipboard.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDC9C6C413DA2B6D0053B09C /* Clipboard.icns */; };
 		CDCC201010A4C14B009C4EED /* QSMDPredicate.h in Headers */ = {isa = PBXBuildFile; fileRef = CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDCC201110A4C14B009C4EED /* QSMDPredicate.m in Sources */ = {isa = PBXBuildFile; fileRef = CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */; };
@@ -1324,6 +1325,7 @@
 		92E946170D04CCEF0013377F /* QSModifierKeyEvents.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSModifierKeyEvents.h; sourceTree = "<group>"; };
 		92E946180D04CCEF0013377F /* QSModifierKeyEvents.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSModifierKeyEvents.m; sourceTree = "<group>"; };
 		CD53FEB2151A0ACF006B734B /* PluginReporterText.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = PluginReporterText.html; sourceTree = "<group>"; };
+		CDA9D3DD1549D13B00607BE4 /* AlertCautionIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AlertCautionIcon.icns; sourceTree = "<group>"; };
 		CDC9C6C413DA2B6D0053B09C /* Clipboard.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Clipboard.icns; sourceTree = "<group>"; };
 		CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSMDPredicate.h; sourceTree = "<group>"; };
 		CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSMDPredicate.m; sourceTree = "<group>"; };
@@ -2241,6 +2243,7 @@
 		E103EC8506471DBF00447FE0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CDA9D3DD1549D13B00607BE4 /* AlertCautionIcon.icns */,
 				7F46BFDC0A87F37F002D31E8 /* prefsGeneral.png */,
 				7F4ADB5E0A4EB766002A2A1B /* BackArrow.png */,
 				7F4ADB5F0A4EB766002A2A1B /* ForwardArrow.png */,
@@ -3653,6 +3656,7 @@
 				6535A98E1086F627009D5C90 /* Preferences.strings in Resources */,
 				6535A98A1086F627009D5C90 /* About.strings in Resources */,
 				CDDB44E41518C53300800B66 /* QSCrashReporter.xib in Resources */,
+				CDA9D3DE1549D13B00607BE4 /* AlertCautionIcon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
