@@ -912,6 +912,10 @@
 			<array>
 				<string>NSStringPboardType</string>
 			</array>
+			<key>indirectTypes</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+			</array>
 			<key>indirectOptional</key>
 			<true/>
 			<key>actionSelector</key>
@@ -921,7 +925,7 @@
 			<key>icon</key>
 			<string>GenericDocumentIcon</string>
 			<key>name</key>
-			<string>Create File...</string>
+			<string>Create File [...]</string>
 		</dict>
 		<key>QSObjectShowChildrenAction</key>
 		<dict>
