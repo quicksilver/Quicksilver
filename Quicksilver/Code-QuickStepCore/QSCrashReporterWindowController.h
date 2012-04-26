@@ -22,5 +22,7 @@
 - (IBAction)sendCrashReport:(id)sender;
 - (IBAction)doNothing:(id)sender;
 - (void)clearCaches;
+- (IBAction)deletePlugin:(id)sender;
+- (IBAction)openCrashReportsWikiPage:(id)sender;
 
 @end

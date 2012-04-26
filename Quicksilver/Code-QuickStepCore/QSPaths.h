@@ -22,6 +22,7 @@
 #define kHelpURL				@"http://qsapp.com/wiki/"
 #define kHelpSearchURL			@"http://qsapp.com/w/index.php?title=Special:Search&search=%@&go=Go"
 #define kCrashReporterURL       @"http://qs0.qsapp.com/crashreports/reporter.php"
+#define kCrashReportsWikiURL     @"http://qsapp.com/wiki/Crash_Reports"
 
 extern NSString *QSApplicationSupportPath;
 NSString *QSApplicationSupportSubPath(NSString *subpath, BOOL create);

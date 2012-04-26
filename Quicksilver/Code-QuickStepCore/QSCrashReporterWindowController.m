@@ -130,5 +130,9 @@
 }
 
 
+- (IBAction)openCrashReportsWikiPage:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kCrashReportsWikiURL]];
+}
+
 
 @end
