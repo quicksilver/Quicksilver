@@ -8,8 +8,8 @@
 	<integer>9</integer>
 	<key>Check for Update Frequency</key>
 	<integer>7</integer>
-    <key>Delay Before Quitting</key>
-    <true/>
+	<key>Delay Before Quitting</key>
+	<true/>
 	<key>QSAccentColor</key>
 	<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMGhANAQECEhIQITlNTdHJpbmcBlIQBKwZTeXN0ZW2GhJaYFHNlbGVjdGVkQ29udHJvbENvbG9yhoSTlQOEAmZmAQGGhg==</data>
 	<key>QSActionAppReopenBehavior</key>
@@ -51,6 +51,8 @@
 	<string>QSBezelInterfaceController</string>
 	<key>QSFSBrowserMediators</key>
 	<string>com.apple.finder</string>
+	<key>QSLoadImagePreviews</key>
+	<true/>
 	<key>QSNotifiers</key>
 	<string>com.blacktree.Quicksilver</string>
 	<key>QSResultViewRowHeight</key>
