@@ -71,7 +71,7 @@
 	<key>ProcessSuspendAction</key>
 	<string>Suspends a running process</string>
     <key>QSCreateFileAction</key>
-    <string>Add the text to new file [... in folder]</string>
+    <string>Create new file with text [... in folder]</string>
 	<key>QSDialNumberAction</key>
 	<string>Dial a number</string>
 	<key>QSEditAction</key>
