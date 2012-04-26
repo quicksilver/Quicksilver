@@ -20,5 +20,6 @@
 
 - (IBAction)sendCrashReport:(id)sender;
 - (IBAction)doNothing:(id)sender;
+- (void)clearCaches;
 
 @end

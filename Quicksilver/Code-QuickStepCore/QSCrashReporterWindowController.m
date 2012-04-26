@@ -40,6 +40,8 @@
         [doNothingButton setTitle:@"Do Nothing"];
         [reportOrFixButton setTitle:@"Delete Plugin"];
     }
+    // clear the caches incase they caused a crash
+    [self clearCaches];
 }
 
 // If links are clicked, open them in the default browser (not the web view in the crash reporter window)
@@ -66,7 +68,7 @@
         
         NSString *crashLogContent = [NSString stringWithContentsOfFile:crashReportPath encoding:NSUTF8StringEncoding error:&err];
         if (err) {
-            NSLog(@"Error getting crash log: %@",err);
+            NSLog(@"Error getting crash log: %@",err);  
         }
         crashLogContent = [crashLogContent stringByReplacingOccurrencesOfString:[@"~" stringByExpandingTildeInPath] withString:@"USER_DIR"];
         // encode the crash log contents. URLEncoding (correctly) leaves '&' as they are. It must be done manually here.
@@ -94,6 +96,11 @@
     [self close];
 }
 
+- (void)clearCaches {
+    [QSLibrarian removeIndexes];
+    [QSLib startThreadedAndForcedScan];
+}
+
 - (void)windowWillClose:(id)sender {
     [NSApp stopModal];
 }
@@ -102,16 +109,6 @@
     [self close];
 }
 
-// Required delegate methods for URLConnections
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse*)response {
-    return;
-}
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    return;
-}
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    return;
-}
 
 
 @end
