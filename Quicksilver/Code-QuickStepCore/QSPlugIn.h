@@ -85,7 +85,7 @@
 - (void)setEnabled:(BOOL)flag;
 - (NSString *)text;
 - (NSImage *)image;
-@property NSString *status;
+@property (copy,readwrite,nonatomic) NSString *status;
 @end
 
 

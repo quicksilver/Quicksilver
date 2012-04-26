@@ -26,7 +26,6 @@
 - (BOOL)enabled;
 - (void)setEnabled:(BOOL)enabled;
 - (void)setEnabledDoNotNotify:(BOOL)enabled;
-- (void)disable;
 - (id)manager;
 - (BOOL)usesPresetCommand;
 - (id)objectForKey:(NSString *)key;
