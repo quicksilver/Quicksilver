@@ -13,8 +13,8 @@
 {
 
 	IBOutlet WebView *crashReporterWebView;
-    IBOutlet NSButton *doNothingButton;
-    IBOutlet NSButton *reportOrFixButton;
+    IBOutlet NSButton *deletePluginButton;
+    IBOutlet NSTextField *commentsField;
 
 }
 
