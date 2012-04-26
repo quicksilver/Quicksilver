@@ -719,9 +719,9 @@ NSMutableDictionary *plugInBundlePaths = nil;
 - (BOOL)registerPlugIn {
 	
 	// Used for crash purposes
-	NSMutableDictionary *state = [[NSMutableDictionary alloc] initWithContentsOfFile:pStateLocation];
-	[state setObject:[[self info] objectForKey:@"CFBundleName"] forKey:kQSPluginCausedCrashAtLaunch];
-	[state setObject:[[self bundle] bundlePath] forKey:kQSFaultyPluginPath];
+	NSDictionary *state = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  [[self info] objectForKey:@"CFBundleName"], kQSPluginCausedCrashAtLaunch,
+                                  [[self bundle] bundlePath], kQSFaultyPluginPath, nil];
 	[state writeToFile:pStateLocation atomically:NO];
 	
 	//NSLog(@"%s", __PRETTY_FUNCTION__) ;
@@ -737,11 +737,6 @@ NSMutableDictionary *plugInBundlePaths = nil;
 #endif
 		[self setLoadError:[localException reason]];
 	NS_ENDHANDLER
-	
-	[state removeObjectForKey:kQSPluginCausedCrashAtLaunch];
-	[state removeObjectForKey:kQSFaultyPluginPath];
-	[state writeToFile:pStateLocation atomically:NO];
-	[state release];
 	
 	return YES;
 }

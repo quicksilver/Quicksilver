@@ -428,15 +428,16 @@
 		if (![self plugInMeetsDependencies:plugin]) continue;                           //Skip if does not meet dependencies
 		[plugInsToLoadByID setObject:plugin forKey:[plugin identifier]];
     }
-
-	//	NSLog(@"toload %@", plugInsToLoadByID);
 	// load all valid plugins    
     NSArray * plugInsToLoad = [plugInsToLoadByID allValues];
     NSArray * localPlugins = [localPlugIns allValues];
-    for (QSPlugIn *plugin in localPlugins) {
-        if ([plugInsToLoad containsObject:plugin])
-			[plugin registerPlugIn];
-    }
+    
+        for (QSPlugIn *plugin in localPlugins) {
+            if ([plugInsToLoad containsObject:plugin])
+                [plugin registerPlugIn];
+        }
+    // write an empty file to the state location since QS launched fine
+    [[NSDictionary dictionary] writeToFile:pStateLocation atomically:NO];
 
 	[self checkForUnmetDependencies];
 	[self suggestOldPlugInRemoval];
