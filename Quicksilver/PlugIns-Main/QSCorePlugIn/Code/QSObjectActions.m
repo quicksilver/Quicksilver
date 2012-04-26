@@ -164,8 +164,9 @@
 
 	if (!filename) filename = [dObject displayName];
 
-    if ([filename length] > 200)
+    if ([filename length] > 200) {
 		filename = [filename substringToIndex:200];
+    }
     
     NSString *savePath = nil;
     
@@ -190,11 +191,10 @@
         [savePanel setTitle:@"Choose a file name and location to save the file"];
 		[savePanel setCanCreateDirectories:YES];
 		[savePanel setAllowedFileTypes:[NSArray arrayWithObject:[filename pathExtension]]];
-		//if (![openPanel runModalForDirectory:oldFile file:nil types:nil]) return;
-		// beginSheetForDirectory:file:types:modalForWindow:modalDelegate:didEndSelector:contextInfo:
 		[savePanel runModal];
-		if ([savePanel URL])
+		if ([savePanel URL]) {
 			savePath = [[savePanel URL] path];
+        }
     }
     
     // No filename, beep and return the original object
