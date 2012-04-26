@@ -11,7 +11,7 @@
 @class WebView;
 @interface QSCrashReporterWindowController : NSWindowController <NSWindowDelegate, NSURLConnectionDelegate>
 {
-
+    // Connections to QSCrashReporter.xib
 	IBOutlet WebView *crashReporterWebView;
     IBOutlet NSButton *deletePluginButton;
     IBOutlet NSTextField *commentsField;

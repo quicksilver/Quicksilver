@@ -21,7 +21,9 @@
 #define kWebSiteURL             @"http://qsapp.com/"
 #define kHelpURL				@"http://qsapp.com/wiki/"
 #define kHelpSearchURL			@"http://qsapp.com/w/index.php?title=Special:Search&search=%@&go=Go"
+// URL to crash reporter server/script
 #define kCrashReporterURL       @"http://qs0.qsapp.com/crashreports/reporter.php"
+// Wiki page detailing why we collect crash reports
 #define kCrashReportsWikiURL     @"http://qsapp.com/wiki/Crash_Reports"
 
 extern NSString *QSApplicationSupportPath;

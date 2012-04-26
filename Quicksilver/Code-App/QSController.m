@@ -694,14 +694,17 @@ static QSController *defaultController = nil;
 - (void)checkForCrash {
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    // obtain the last known crash date from the prefs
     NSDate *lastKnownCrashDate = [defaults objectForKey:kLastKnownCrashDate];
     
 	NSFileManager *fm = [[NSFileManager alloc] init];
     
+    // get a list of files beginning with 'Quicksilver' from the crash reporter folder
     NSArray *files = [fm contentsOfDirectoryAtPath:pCrashReporterFolder error:nil];
     NSArray *filteredFiles = [files filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF BEGINSWITH[c] 'Quicksilver'"]];
 
     NSDate *mostRecentCrashDate = [NSDate distantPast];
+    // Enumerate crash files to find most recent crash report
     for (NSString *individualFile in filteredFiles) {
         NSDate *individualDate = [[fm attributesOfItemAtPath:[pCrashReporterFolder stringByAppendingPathComponent:individualFile] error:nil] objectForKey:NSFileCreationDate];
         if ([individualDate compare:mostRecentCrashDate] == NSOrderedDescending) {
@@ -709,32 +712,37 @@ static QSController *defaultController = nil;
             crashReportPath = individualFile;
         }
     }
-    crashReportPath = [[pCrashReporterFolder stringByAppendingPathComponent:crashReportPath] retain];
     [mostRecentCrashDate retain];
+
+    // path to the most recent crash report (used by the crash reporter for sending the file to the server)
+    crashReportPath = [[pCrashReporterFolder stringByAppendingPathComponent:crashReportPath] retain];
     
+    // Check the QuicksilverState.plist file to see if a plugin caused a crash
     NSDictionary *state = [NSDictionary dictionaryWithContentsOfFile:pStateLocation];
     NSString *pluginName = [state objectForKey:kQSPluginCausedCrashAtLaunch];
 
-	// check to see if Quicksilver crashed since last used (there's a newer crash report)
+	// check to see if Quicksilver crashed since last used (there's a newer crash report or a plugin crashed)
 	if ((lastKnownCrashDate && [mostRecentCrashDate compare:lastKnownCrashDate] == NSOrderedDescending) ||  pluginName) {
+        // Crash occurred, load the crash reporter window
         NSWindowController *QSCrashController = [[QSCrashReporterWindowController alloc] initWithWindowNibName:@"QSCrashReporter"];
 
         // Crash due to faulty plugin
         if (pluginName) {
-            // There are no crash reports for these
+            // There are no crash reports for these, so release the crashReportPath file and set to nil
             [crashReportPath release];
             crashReportPath = nil;
         }
+        // Open the crash reporter window
         [NSApp runModalForWindow:[QSCrashController window]];
     }
+    [mostRecentCrashDate release];
+
+    // synchronise prefs and QuicksilverState file
     [fm removeItemAtPath:pStateLocation error:nil];
-    
     [defaults setObject:mostRecentCrashDate forKey:kLastKnownCrashDate];
     [defaults synchronize];
 
     [fm release];
-    [mostRecentCrashDate release];
-
 }
 
 - (IBAction)showReleaseNotes:(id)sender { [[NSWorkspace sharedWorkspace] openFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/SharedSupport/Changes.html"]];  }
