@@ -100,6 +100,14 @@ static id _sharedInstance;
 	[itemAddButton setMenu:itemAddButtonMenu];
 	[itemAddButtonMenu release];
 
+    [itemAddButton setKeyEquivalent:@"+"];
+    [itemRemoveButton setKeyEquivalent:@"-"];
+    [infoButton setKeyEquivalent:@"i"];
+    [refreshButton setKeyEquivalent:@"r"];
+    for (NSButton *aButton in [NSArray arrayWithObjects:itemAddButton,itemRemoveButton,infoButton,refreshButton, nil]) {
+        [aButton setKeyEquivalentModifierMask:NSCommandKeyMask];
+    }
+    
 	for (NSString *theID in sources) {
 		id source = [[QSReg objectSources] objectForKey:theID];
 		if (!([source respondsToSelector:@selector(isVisibleSource)]
@@ -349,6 +357,8 @@ static id _sharedInstance;
 
 - (void)updateEntrySelection {
 	if ([itemTable numberOfSelectedRows] == 1) {
+        [infoButton setEnabled:YES];
+        [refreshButton setEnabled:YES];
 		id newItem = nil;
 		if ([itemTable selectedRow] >= 0)
 			newItem = [[treeController selectedObjects] lastObject];
@@ -377,10 +387,16 @@ static id _sharedInstance;
 		}
 	} else {
 		[self setCurrentItem:nil];
-		if ([itemTable numberOfSelectedRows] > 1)
+		if ([itemTable numberOfSelectedRows] > 1) {
+            [infoButton setEnabled:NO];
+            [refreshButton setEnabled:YES];
 			[messageTextField setStringValue:@"Multiple Items Selected"];
-		else
+        }
+		else {
 			[messageTextField setStringValue:@"No Selection"];
+            [infoButton setEnabled:NO];
+            [refreshButton setEnabled:NO];
+        }
 
 //		/*[self updateCurrentItemContents];*/[itemContentsTable reloadData];
 		[self populateCatalogEntryFields];
@@ -551,7 +567,6 @@ static id _sharedInstance;
 }
 
 - (IBAction)rescanCurrentItem:(id)sender {
-	[[itemTable window] makeFirstResponder:[itemTable window]];
 	if (currentItem) {
 		[NSThread detachNewThreadSelector:@selector(scanForcedInThread:) toTarget:currentItem withObject:[NSNumber numberWithBool:YES]];
 	}
