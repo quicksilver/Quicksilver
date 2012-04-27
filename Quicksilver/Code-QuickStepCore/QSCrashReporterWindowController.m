@@ -35,7 +35,13 @@
         NSString *resourcePath = [[NSBundle mainBundle] pathForResource:@"PluginReporterText" ofType:@"html"];
         NSString *htmlString = [NSString stringWithContentsOfFile:resourcePath encoding:NSUTF8StringEncoding error:nil];
         NSDictionary *state = [NSDictionary dictionaryWithContentsOfFile:pStateLocation];
-        htmlString = [htmlString stringByReplacingOccurrencesOfString:@"***" withString:[state objectForKey:kQSPluginCausedCrashAtLaunch]];
+        
+        // remove the words 'plugin' or 'module' from the plugin name, so the word doesn't display twice in the crash reporter window
+        // e.g. we don't want "The 1Password Module plugin caused Quicksilver to crash..."
+        NSString *pluginName = [state objectForKey:kQSPluginCausedCrashAtLaunch]; 
+        pluginName = [pluginName stringByReplacingOccurrencesOfString:@" Plugin" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [pluginName length])];
+        pluginName = [pluginName stringByReplacingOccurrencesOfString:@" Module" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [pluginName length])];
+        htmlString = [htmlString stringByReplacingOccurrencesOfString:@"***" withString:pluginName];
         [[crashReporterWebView mainFrame] loadHTMLString:htmlString baseURL:[NSURL fileURLWithPath:[resourcePath stringByDeletingLastPathComponent]]];
    
         // store the faulty plugin's info.plist (for sending to the server)
