@@ -117,6 +117,7 @@
     // Set the POST keys and names (for receiving the by the server using $_POST['key']
     NSString *postString = [NSString stringWithFormat:@"name=%@&data=%@&comments=%@",name, crashLogContent, userComments];
 
+    [request setValue:kQSUserAgent forHTTPHeaderField:@"User-Agent"];
     [request setValue:[NSString stringWithFormat:@"%d", [postString length]]
    forHTTPHeaderField:@"Content-length"];
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
