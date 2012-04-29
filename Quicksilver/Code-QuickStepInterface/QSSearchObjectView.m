@@ -1033,12 +1033,11 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (BOOL)resignFirstResponder {  
     
-	//NSLog(@"resign first");
-	if ([self currentEditor]) {
-		// NSLog(@"resign first with monkey %@", self);
-		// [[self currentEditor] endEditing];
-	}
     if ([self isEqual:[self directSelector]]) {
+        if ([self objectValue] == nil) {
+            // Don't lose focus of the 1st pane if it's empty
+            return NO;
+        }
         [self updateHistory];
     }
 	[resultTimer invalidate];
