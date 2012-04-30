@@ -400,9 +400,9 @@
         // If the previous and current objects have the same primary type, don't update the action
         if (![[[[notif userInfo] objectForKey:@"previousObject"] types] isEqual:[[[notif userInfo] objectForKey:@"currentObject"] types]]
             ) {
-		[iSelector setObjectValue:nil];
-		[self updateActions];
-		[self updateViewLocations];
+            [iSelector setObjectValue:nil];
+            [self updateActions];
+            [self updateViewLocations];
         }
 	} else if ([notif object] == aSelector) {
         QSAction *obj = [aSelector objectValue];
