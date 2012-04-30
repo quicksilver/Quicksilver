@@ -177,15 +177,16 @@
 	}
 	NSString *urlString = [object objectForType:QSURLType];
 	// Check the extension of the URL. We're looking for a tld, .php, .html or .htm (set in QSCorePlugin-Info.plist)
-	NSString *type = [[[urlString pathExtension] componentsSeparatedByString:@"?"] objectAtIndex:0];
+	NSString *URLExtension = [[[urlString pathExtension] componentsSeparatedByString:@"?"] objectAtIndex:0];
 	// Check if the URL is a tld
-	if(type.length > 0 && [tldArray containsObject:[type uppercaseString]]) {
-		type = @"tld";
+	if(URLExtension.length > 0 && [tldArray containsObject:[URLExtension uppercaseString]]) {
+		URLExtension = @"tld";
 	}
-	id <QSParser> parser = [QSReg instanceForKey:type inTable:@"QSURLTypeParsers"];
+	id <QSParser> parser = [QSReg instanceForKey:URLExtension inTable:@"QSURLTypeParsers"];
     
     if (parser) {
-        [object setObject:type forMeta:QSURLTypeParsersTableKey];
+        // Store the key for the QSURLTypeParsers table (see QSReg) to save having to load the URL extension again
+        [object setObject:URLExtension forMeta:QSURLTypeParsersTableKey];
         return YES;
     }
     
