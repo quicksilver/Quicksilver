@@ -8,7 +8,7 @@
 #import "QSTaskController.h"
 #import <QSFoundation/QSFoundation.h>
 
-#define QSURLParserType @"QSURLParserType"
+#define QSURLTypeParsersTableKey @"QSURLTypeParsersTableKey"
 
 @implementation QSURLObjectHandler
 // Object Handler Methods
@@ -104,7 +104,6 @@
     [object setIcon:webSearchImage];
     [[NSNotificationCenter defaultCenter] postNotificationName:QSObjectIconModified object:object];
 
-     return;
 }
 
 #pragma mark image handling
@@ -186,7 +185,7 @@
 	id <QSParser> parser = [QSReg instanceForKey:type inTable:@"QSURLTypeParsers"];
     
     if (parser) {
-        [object setObject:type forMeta:QSURLParserType];
+        [object setObject:type forMeta:QSURLTypeParsersTableKey];
         return YES;
     }
     
@@ -199,7 +198,7 @@
     
 	[QSTasks updateTask:@"DownloadPage" status:@"Downloading Page" progress:0];
     
-    id <QSParser> parser = [QSReg instanceForKey:[object objectForMeta:QSURLParserType] inTable:@"QSURLTypeParsers"];
+    id <QSParser> parser = [QSReg instanceForKey:[object objectForMeta:QSURLTypeParsersTableKey] inTable:@"QSURLTypeParsers"];
     
 	NSArray *children = [parser objectsFromURL:[NSURL URLWithString:[object objectForType:QSURLType]] withSettings:nil];
     

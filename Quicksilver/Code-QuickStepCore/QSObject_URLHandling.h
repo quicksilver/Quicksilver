@@ -13,7 +13,7 @@
  Called in QSObject_URLHandling.m
  @param      object The web search object to set the favicon for
  */
-- (NSImage *)buildWebSearchIconForObject:(QSObject *)object;
+- (void)buildWebSearchIconForObject:(QSObject *)object;
 
 /*!
  *    favIcon
