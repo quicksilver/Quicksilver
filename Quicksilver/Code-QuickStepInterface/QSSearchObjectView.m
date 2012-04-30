@@ -1010,7 +1010,13 @@ NSMutableDictionary *bindingsDict = nil;
 
 #pragma mark -
 #pragma mark NSResponder
-- (BOOL)acceptsFirstResponder { return YES; }
+- (BOOL)acceptsFirstResponder {
+    if (self != [self directSelector] && [[self directSelector] objectValue] == nil) {
+        // Don't let the aSelctor or iSelector gain focus if the dSelector is empty
+        return NO;
+    }
+    return YES;
+}
 
 - (BOOL)becomeFirstResponder {
 	if ([[[self objectValue] primaryType] isEqual:QSTextProxyType]) {
@@ -1034,10 +1040,6 @@ NSMutableDictionary *bindingsDict = nil;
 - (BOOL)resignFirstResponder {  
     
     if ([self isEqual:[self directSelector]]) {
-        if ([self objectValue] == nil) {
-            // Don't lose focus of the 1st pane if it's empty
-            return NO;
-        }
         [self updateHistory];
     }
 	[resultTimer invalidate];
