@@ -291,12 +291,14 @@
 }
 
 - (void)updateActions {
-	[aSelector setResultArray:nil];
-	[aSelector clearObjectValue];
+    // update the actions after a delay (see setActionUpdateTimer for the delay length)
 	[self performSelectorOnMainThread:@selector(setActionUpdateTimer) withObject:nil waitUntilDone:YES];
 }
 
 - (void)updateActionsNow {
+    // Clear the current results in the aSelector ready for the new results
+    [aSelector setResultArray:nil];
+    [aSelector clearObjectValue];
 	[actionsUpdateTimer invalidate];
 
 	[aSelector setEnabled:YES];
@@ -390,12 +392,18 @@
 	
 }
 
+/* [notif userInfo] contains 2 objects and keys: a 'previousObject' key and a 'currentObject' key
+ corresponding to the previously selected object and the current selected object respectively */
 - (void)searchObjectChanged:(NSNotification*)notif {
 	[[self window] disableFlushWindow];
 	if ([notif object] == dSelector) {
+        // If the previous and current objects have the same primary type, don't update the action
+        if (![[[[notif userInfo] objectForKey:@"previousObject"] types] isEqual:[[[notif userInfo] objectForKey:@"currentObject"] types]]
+            ) {
 		[iSelector setObjectValue:nil];
 		[self updateActions];
 		[self updateViewLocations];
+        }
 	} else if ([notif object] == aSelector) {
         QSAction *obj = [aSelector objectValue];
         if ([obj isKindOfClass:[QSRankedObject class]])
