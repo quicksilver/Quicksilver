@@ -8,6 +8,8 @@
 #import "QSTaskController.h"
 #import <QSFoundation/QSFoundation.h>
 
+#define QSURLParserType @"QSURLParserType"
+
 @implementation QSURLObjectHandler
 // Object Handler Methods
 
@@ -161,8 +163,8 @@
 
 #pragma mark children
 
-- (BOOL)loadChildrenForObject:(QSObject *)object {
-	// Need a list of TLDs to compare
+- (BOOL)objectHasChildren:(QSObject *)object { 
+    // Need a list of TLDs to compare
 	static NSArray *tldArray = nil;
 	if(tldArray == nil) {
 		tldArray = [[NSArray arrayWithObjects:@"AC",@"AD",@"AE",@"AERO",@"AF",@"AG",@"AI",@"AL",@"AM",@"AN",@"AO",@"AQ",@"AR",@"ARPA",@"AS",@"ASIA",@"AT",@"AU",@"AW",@"AX",@"AZ",@"BA",@"BB",@"BD",@"BE",@"BF",@"BG",@"BH",@"BI",@"BIZ",
@@ -183,9 +185,23 @@
 	}
 	id <QSParser> parser = [QSReg instanceForKey:type inTable:@"QSURLTypeParsers"];
     
+    if (parser) {
+        [object setObject:type forMeta:QSURLParserType];
+        return YES;
+    }
+    
+    return NO;
+}
+
+
+- (BOOL)loadChildrenForObject:(QSObject *)object {
+	
+    
 	[QSTasks updateTask:@"DownloadPage" status:@"Downloading Page" progress:0];
     
-	NSArray *children = [parser objectsFromURL:[NSURL URLWithString:urlString] withSettings:nil];
+    id <QSParser> parser = [QSReg instanceForKey:[object objectForMeta:QSURLParserType] inTable:@"QSURLTypeParsers"];
+    
+	NSArray *children = [parser objectsFromURL:[NSURL URLWithString:[object objectForType:QSURLType]] withSettings:nil];
     
 	[QSTasks removeTask:@"DownloadPage"];
     
