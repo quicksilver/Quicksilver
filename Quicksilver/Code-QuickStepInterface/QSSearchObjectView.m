@@ -595,7 +595,7 @@ NSMutableDictionary *bindingsDict = nil;
     // if the two objects are not the same, send an 'object chagned' notif
 	if (newObject != currentObject) {
 		[super setObjectValue:newObject];
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:currentObject,@"previousObject",newObject,@"currentObject",nil]];
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
 	}
 }
 
@@ -614,7 +614,7 @@ NSMutableDictionary *bindingsDict = nil;
         [self setResultArray:[NSArray arrayWithObjects:newObject, nil]];
         [super setObjectValue:newObject];
         
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:currentObject,@"previousObject",newObject,@"currentObject",nil]];
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
     }
 }
 
