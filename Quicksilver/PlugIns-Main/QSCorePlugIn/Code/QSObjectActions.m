@@ -187,7 +187,7 @@
 		[NSApp activateIgnoringOtherApps:YES];
 		NSSavePanel *savePanel = [NSSavePanel savePanel];
 		[savePanel setRepresentedFilename:filename];
-		[savePanel setPrompt:@"Filename"];
+		[savePanel setPrompt:@"Create"];
         [savePanel setTitle:@"Choose a file name and location to save the file"];
 		[savePanel setCanCreateDirectories:YES];
 		[savePanel setAllowedFileTypes:[NSArray arrayWithObject:[filename pathExtension]]];
