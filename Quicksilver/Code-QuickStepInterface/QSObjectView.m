@@ -133,7 +133,9 @@
 	return YES;
 }
 
-- (void)delete:(id)sender { [self setObjectValue:nil]; }
+- (void)delete:(id)sender {
+    [self setObjectValue:nil];
+}
 
 - (void)paste:(id)sender { [self readSelectionFromPasteboard:[NSPasteboard generalPasteboard]]; }
 
