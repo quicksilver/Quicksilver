@@ -791,8 +791,10 @@ NSMutableDictionary *bindingsDict = nil;
 			[editor setSelectedRange:NSMakeRange([[editor string] length] , 0)];
 		} else {
 			NSString *stringValue = [[self objectValue] stringValue];
-			if (stringValue) [editor setString:stringValue];
-			[editor setSelectedRange:NSMakeRange(0, [[editor string] length])];
+			if (stringValue) { 
+                [editor setString:stringValue];
+                [editor setSelectedRange:NSMakeRange(0, [[editor string] length])];
+            }
 		}
 		NSRect titleFrame = [self frame];
 		NSRect editorFrame = NSInsetRect(titleFrame, NSHeight(titleFrame) /16, NSHeight(titleFrame)/16);
@@ -1447,10 +1449,12 @@ NSMutableDictionary *bindingsDict = nil;
 #pragma mark -
 #pragma mark NSResponder Key Bindings
 - (void)deleteBackward:(id)sender {
-    if(defaultBool(kDoubleDeleteClearsObject) && [self matchedString] == nil)
+    if(defaultBool(kDoubleDeleteClearsObject) && [self matchedString] == nil) {
+        
         [super delete:sender];
-    else
+    } else {
         [self clearSearch];
+    }
 }
 
 - (void)pageUp:(id)sender {[self pageScroll:-1];}
