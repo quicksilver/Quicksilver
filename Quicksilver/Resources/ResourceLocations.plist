@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>AFPClient</key>
@@ -28,7 +28,7 @@
 	<array>
 		<dict>
 			<key>type</key>
-			<string>'osas'</string>
+			<string>&apos;osas&apos;</string>
 		</dict>
 	</array>
 	<key>Computer</key>
@@ -94,13 +94,13 @@
 	<key>commandIcon</key>
 	<string>ForwardArrowIcon</string>
 	<key>countBadge1&amp;2</key>
-	<string>/Applications/Mail.app/Contents/Resources/newMailBadge1&amp;2.tiff</string>
+	<string>/System/Library/Frameworks/Quartz.framework/Versions/A/Frameworks/ImageKit.framework/Versions/A/Resources/ty-normal-badge1&amp;2.tiff</string>
 	<key>countBadge3</key>
-	<string>/Applications/Mail.app/Contents/Resources/newMailBadge3.tiff</string>
+	<string>/System/Library/Frameworks/Quartz.framework/Versions/A/Frameworks/ImageKit.framework/Versions/A/Resources/ty-normal-badge3.tiff</string>
 	<key>countBadge4</key>
-	<string>/Applications/Mail.app/Contents/Resources/newMailBadge4.tiff</string>
+	<string>/System/Library/Frameworks/Quartz.framework/Versions/A/Frameworks/ImageKit.framework/Versions/A/Resources/ty-normal-badge4.tiff</string>
 	<key>countBadge5</key>
-	<string>/Applications/Mail.app/Contents/Resources/newMailBadge5.tiff</string>
+	<string>/System/Library/Frameworks/Quartz.framework/Versions/A/Frameworks/ImageKit.framework/Versions/A/Resources/ty-normal-badge5.tiff</string>
 	<key>extrasIcon</key>
 	<string>AlertNoteIcon</string>
 	<key>genericPerson</key>
