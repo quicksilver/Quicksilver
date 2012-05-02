@@ -34,7 +34,7 @@
 	NSString *name = [[[object stringValue] lines] objectAtIndex:0];
 	return [name stringByAppendingPathExtension:@"txt"];
 }
-- (BOOL)objectHasChildren:(QSObject *)object { return YES;  }
+- (BOOL)objectHasChildren:(QSObject *)object { return NO;  }
 - (void)setQuickIconForObject:(QSObject *)object { [object setIcon:[[NSWorkspace sharedWorkspace] iconForFileType:@"'clpt'"]];  }
 - (BOOL)loadIconForObject:(QSObject *)object { return NO;  }
 - (NSString *)identifierForObject:(QSObject *)object { return nil;  }
