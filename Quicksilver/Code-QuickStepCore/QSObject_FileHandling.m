@@ -375,12 +375,13 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
             }
             // Does the app have valid recent documents
             if (bundleIdentifier) {
-                NSDictionary *recentDocuments = [(NSDictionary *)CFPreferencesCopyValue((CFStringRef) @"RecentDocuments",
+                NSDictionary *recentDocuments = (NSDictionary *)CFPreferencesCopyValue((CFStringRef) @"RecentDocuments",
                                                                                        (CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"],
                                                                                        kCFPreferencesCurrentUser,
-                                                                                       kCFPreferencesAnyHost) autorelease];
+                                                                                       kCFPreferencesAnyHost);
                 if (recentDocuments) {
                     NSArray *recentDocumentsArray = [recentDocuments objectForKey:@"CustomListItems"];
+                    [recentDocuments release];
                     if (recentDocumentsArray && [recentDocumentsArray count]) {
                         return YES;
                     }
