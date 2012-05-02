@@ -177,7 +177,6 @@
 	if ([self isVisible]) {
 		// hide on mouse out
 		[[self helper] _resizeWindow:self toFrame:hideRect alpha:0.1 display:YES];
-		[self saveFrame];
 	} else {
 		// hide on application launch
 		[self setFrame:hideRect display:YES];
@@ -245,10 +244,8 @@
 }
 
 - (void)saveFrame {
-	if ([self autosaveName]) {
-		[self saveFrameUsingName:[self autosaveName]];
-		[[NSUserDefaults standardUserDefaults] synchronize];
-	}
+	// remove this method once we switch to ARC/64-bit
+	return;
 }
 
 - (void)orderOut:(id)sender {
@@ -257,7 +254,6 @@
 	} else {
 		// Set the state that the window is hidden
 		hidden = YES;
-		[self saveFrame];
 		[super orderOut:sender];
 	}
 }
@@ -267,6 +263,7 @@
 	[autosaveName release];
 	autosaveName = [newAutosaveName retain];
 	[self setFrameUsingName:autosaveName force:YES];
+	[self setFrameAutosaveName:autosaveName];
 	[self updateTrackingRect:self];
 }
 @end
