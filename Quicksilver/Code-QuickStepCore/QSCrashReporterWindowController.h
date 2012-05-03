@@ -16,7 +16,6 @@
     BOOL crashReporterIsWorking;
     IBOutlet NSButton *deletePluginCheckbox;
     IBOutlet NSTextField *commentsField;
-    NSDictionary *faultyPluginInfoDict;
 
 }
 

@@ -25,7 +25,6 @@
 - (void)windowDidLoad
 {
     [super windowDidLoad];
-    faultyPluginInfoDict = nil;
     [self setCrashReporterIsWorking:NO];
     
     // if there is a 'crashReportPath' (i.e. Quicksilver crashed)
@@ -47,9 +46,6 @@
         pluginName = [pluginName stringByReplacingOccurrencesOfString:@" Module" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [pluginName length])];
         htmlString = [htmlString stringByReplacingOccurrencesOfString:@"***" withString:pluginName];
         [[crashReporterWebView mainFrame] loadHTMLString:htmlString baseURL:[NSURL fileURLWithPath:[resourcePath stringByDeletingLastPathComponent]]];
-   
-        // store the faulty plugin's info.plist (for sending to the server)
-        faultyPluginInfoDict = [[[NSBundle bundleWithPath:[state objectForKey:kQSFaultyPluginPath]] infoDictionary] retain];
         
     }
     // set up the crash reporter web view (that loads the HTML files
@@ -82,7 +78,7 @@
     NSDictionary *state = [NSDictionary dictionaryWithContentsOfFile:pStateLocation];
     NSString *faultyPluginPath = [state objectForKey:kQSFaultyPluginPath];
     if (faultyPluginPath) {
-        QSPlugin *pluginToDelete = [QSPlugin pluginWithBundle:[NSBundle bundleWithPath:faultyPluginPath]];
+        QSPlugIn *pluginToDelete = [QSPlugIn plugInWithBundle:[NSBundle bundleWithPath:faultyPluginPath]];
         [pluginToDelete delete];
     }
 }
@@ -114,6 +110,9 @@
         NSDictionary *state =[NSDictionary dictionaryWithContentsOfFile:pStateLocation];
         // name the crash file Plugin-NAME_OF_PLUGIN-UNIQUE_STRING.crash
         name = [[NSString stringWithFormat:@"Plugin-%@-%@.crash",[state objectForKey:kQSPluginCausedCrashAtLaunch], [NSString uniqueString]] URLEncodeValue];
+        // Obtain the plugin's Info.plist (for sending to the server)
+        NSDictionary *faultyPluginInfoDict = [[NSBundle bundleWithPath:[state objectForKey:kQSFaultyPluginPath]] infoDictionary];
+        
         // create a crash log file with the plugin name and Info.plist dictionary
         crashLogContent = [NSString stringWithFormat:@"Crashed Plugin Information\n\n%@",[faultyPluginInfoDict description]];
     }
@@ -146,10 +145,6 @@
 }
 
 - (void)windowWillClose:(id)sender {
-    // ensure the plugin's info.dict is released
-    if (faultyPluginInfoDict) {
-        [faultyPluginInfoDict release];
-    }
     // release the crashReportPath
     if ([[QSController sharedInstance] crashReportPath]) {
         [[[QSController sharedInstance] crashReportPath] release];
