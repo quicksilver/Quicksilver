@@ -3,13 +3,14 @@
 //  Quicksilver
 //
 //  Created by Patrick Robertson on 20/03/2012.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012. All rights reserved.
 //
 
 #import "QSCrashReporterWindowController.h"
 #import <WebKit/WebKit.h>
 #import "QSController.h"
 #import "QSPaths.h"
+#import "QSPlugIn.h"
 
 @implementation QSCrashReporterWindowController
 
@@ -77,16 +78,13 @@
 }
 
 - (void)deletePlugin {
-    NSFileManager *fm = [[NSFileManager alloc] init];
     // delete the faulty plugin
     NSDictionary *state = [NSDictionary dictionaryWithContentsOfFile:pStateLocation];
     NSString *faultyPluginPath = [state objectForKey:kQSFaultyPluginPath];
     if (faultyPluginPath) {
-        if (![fm removeItemAtPath:faultyPluginPath error:nil]) {
-            NSLog(@"Error removing faulty plugin from %@", faultyPluginPath);
-        }
+        QSPlugin *pluginToDelete = [QSPlugin pluginWithBundle:[NSBundle bundleWithPath:faultyPluginPath]];
+        [pluginToDelete delete];
     }
-    [fm release];
 }
 
 - (IBAction)sendCrashReport:(id)sender {
