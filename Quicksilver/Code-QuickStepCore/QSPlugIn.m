@@ -724,20 +724,21 @@ NSMutableDictionary *plugInBundlePaths = nil;
                                   [[self bundle] bundlePath], kQSFaultyPluginPath, nil];
 	[state writeToFile:pStateLocation atomically:NO];
 	
-	//NSLog(@"%s", __PRETTY_FUNCTION__) ;
-	NS_DURING
+	@try {
 		[self _registerPlugIn];
-	NS_HANDLER
-		NSString *errorMessage = [NSString stringWithFormat:@"An error ocurred while loading plug-in \"%@\": %@", self, localException];
+    } @catch (NSException *exc) {
+		NSString *errorMessage = [NSString stringWithFormat:@"An error ocurred while loading plug-in \"%@\": %@", self, exc];
 #ifdef DEBUG
 		if (VERBOSE) {
 			NSLog(@"%@", errorMessage);
-			[localException printStackTrace];
+			[exc printStackTrace];
 		}
 #endif
-		[self setLoadError:[localException reason]];
-	NS_ENDHANDLER
-	
+		[self setLoadError:[exc reason]];
+	}
+    // write an empty file to the state location since QS launched fine
+
+    [[NSDictionary dictionary] writeToFile:pStateLocation atomically:NO];
 	return YES;
 }
 

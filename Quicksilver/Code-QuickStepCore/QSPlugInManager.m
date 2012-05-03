@@ -436,9 +436,6 @@
             if ([plugInsToLoad containsObject:plugin])
                 [plugin registerPlugIn];
         }
-    // write an empty file to the state location since QS launched fine
-    [[NSDictionary dictionary] writeToFile:pStateLocation atomically:NO];
-
 	[self checkForUnmetDependencies];
 	[self suggestOldPlugInRemoval];
 	
