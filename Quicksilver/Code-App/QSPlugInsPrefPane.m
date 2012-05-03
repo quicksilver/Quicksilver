@@ -372,8 +372,8 @@
 			case 4: //UnInstalled
 				[predicates addObject:[NSPredicate predicateWithFormat:@"isInstalled <= 0"]];
 				break;
-			case 5: //Installed, but disabled
-				[predicates addObject:[NSPredicate predicateWithFormat:@"isInstalled == 1 && enabled == 0"]];
+			case 5: //Installed, but disabled (either by the user or some error loading)
+				[predicates addObject:[NSPredicate predicateWithFormat:@"isInstalled == 1 && isLoaded == 0"]];
 				break;
 			default:
 				break;
