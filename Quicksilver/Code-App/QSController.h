@@ -16,6 +16,9 @@
 	NSObject *dropletProxy;
     NSString *crashReportPath;
 }
+
+@property (retain) NSString* crashReportPath;
+
 + (id)sharedInstance;
 - (IBAction)runSetupAssistant:(id)sender;
 - (NSProgressIndicator *)progressIndicator;

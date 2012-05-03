@@ -26,6 +26,9 @@
 static QSController *defaultController = nil;
 
 @implementation QSController
+
+@synthesize crashReportPath;
+
 - (void)awakeFromNib { if (!defaultController) defaultController = [self retain];  }
 + (id)sharedInstance {
 	if (!defaultController)
@@ -709,31 +712,33 @@ static QSController *defaultController = nil;
         NSDate *individualDate = [[fm attributesOfItemAtPath:[pCrashReporterFolder stringByAppendingPathComponent:individualFile] error:nil] objectForKey:NSFileCreationDate];
         if ([individualDate compare:mostRecentCrashDate] == NSOrderedDescending) {
             mostRecentCrashDate = individualDate;
-            crashReportPath = individualFile;
+            [self setCrashReportPath:individualFile];
         }
     }
     [mostRecentCrashDate retain];
 
     // path to the most recent crash report (used by the crash reporter for sending the file to the server)
-    crashReportPath = [[pCrashReporterFolder stringByAppendingPathComponent:crashReportPath] retain];
+    [self setCrashReportPath:[pCrashReporterFolder stringByAppendingPathComponent:crashReportPath]];
     
     // Check the QuicksilverState.plist file to see if a plugin caused a crash
     NSDictionary *state = [NSDictionary dictionaryWithContentsOfFile:pStateLocation];
     NSString *pluginName = [state objectForKey:kQSPluginCausedCrashAtLaunch];
-
+    NSWindowController *QSCrashController = nil;
 	// check to see if Quicksilver crashed since last used (there's a newer crash report or a plugin crashed)
 	if ((lastKnownCrashDate && [mostRecentCrashDate compare:lastKnownCrashDate] == NSOrderedDescending) ||  pluginName) {
-        // Crash occurred, load the crash reporter window
-        NSWindowController *QSCrashController = [[QSCrashReporterWindowController alloc] initWithWindowNibName:@"QSCrashReporter"];
-
+        
         // Crash due to faulty plugin
         if (pluginName) {
             // There are no crash reports for these, so release the crashReportPath file and set to nil
-            [crashReportPath release];
+            [[self crashReportPath] release];
             crashReportPath = nil;
         }
+
+        // Crash occurred, load the crash reporter window
+        QSCrashController = [[QSCrashReporterWindowController alloc] initWithWindowNibName:@"QSCrashReporter"];
         // Open the crash reporter window
         [NSApp runModalForWindow:[QSCrashController window]];
+        [QSCrashController release];
     }
     [mostRecentCrashDate release];
 
@@ -1099,8 +1104,5 @@ void QSSignalHandler(int i) {
 	return YES;
 }
 
-- (NSString *)crashReportPath {
-    return crashReportPath;
-}
 
 @end
