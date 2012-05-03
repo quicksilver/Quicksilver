@@ -13,6 +13,8 @@
 
 @implementation QSCrashReporterWindowController
 
+@synthesize crashReporterIsWorking;
+
 - (id)initWithWindow:(NSWindow *)window
 {
     self = [super initWithWindow:window];    
@@ -23,12 +25,12 @@
 {
     [super windowDidLoad];
     faultyPluginInfoDict = nil;
+    [self setCrashReporterIsWorking:NO];
     
     // if there is a 'crashReportPath' (i.e. Quicksilver crashed)
     if ([[QSController sharedInstance] crashReportPath]) {
         // populate the HTML field in the reporter window with the text from CrashReporterText.html
         [[crashReporterWebView mainFrame] loadRequest:[NSURLRequest requestWithURL:[[NSBundle mainBundle] URLForResource:@"CrashReporterText" withExtension:@"html"]]];
-        [deletePluginButton setHidden:YES];
     // else if there's no 'crashReportPath' (i.e. a plugin caused Quicksilver to crash
     } else {
         // Populate the HTML field in reporter window with the PluginReporterText.html file, replacing *** with the plugin name
@@ -36,6 +38,7 @@
         NSString *htmlString = [NSString stringWithContentsOfFile:resourcePath encoding:NSUTF8StringEncoding error:nil];
         NSDictionary *state = [NSDictionary dictionaryWithContentsOfFile:pStateLocation];
         
+        [deletePluginCheckbox setHidden:NO];
         // remove the words 'plugin' or 'module' from the plugin name, so the word doesn't display twice in the crash reporter window
         // e.g. we don't want "The 1Password Module plugin caused Quicksilver to crash..."
         NSString *pluginName = [state objectForKey:kQSPluginCausedCrashAtLaunch]; 
@@ -73,7 +76,7 @@
 	}
 }
 
-- (IBAction)deletePlugin:(id)sender {
+- (void)deletePlugin {
     NSFileManager *fm = [[NSFileManager alloc] init];
     // delete the faulty plugin
     NSDictionary *state = [NSDictionary dictionaryWithContentsOfFile:pStateLocation];
@@ -88,6 +91,8 @@
 
 - (IBAction)sendCrashReport:(id)sender {
     
+    [self setCrashReporterIsWorking:YES];
+    
     // Get the user comments from the text field
     NSString *userComments = [[commentsField stringValue] URLEncodeValue];
     
@@ -98,16 +103,15 @@
 
     NSString *crashLogContent, *name;
     
-    NSString *crashReportPath = [[QSController sharedInstance] crashReportPath];
-    if (crashReportPath) {
+    if ([[QSController sharedInstance] crashReportPath]) {
         // Report Quicksilver Crash
         NSError *err = nil;
         // pull the crash log from the .crash file (located at crashReportPath)
-        crashLogContent = [NSString stringWithContentsOfFile:crashReportPath encoding:NSUTF8StringEncoding error:&err];
+        crashLogContent = [NSString stringWithContentsOfFile:[[QSController sharedInstance] crashReportPath] encoding:NSUTF8StringEncoding error:&err];
         if (err) {
             NSLog(@"Error getting crash log: %@",err);  
         }
-        name = [[crashReportPath lastPathComponent] URLEncodeValue];
+        name = [[[[QSController sharedInstance] crashReportPath] lastPathComponent] URLEncodeValue];
     } else {
         NSDictionary *state =[NSDictionary dictionaryWithContentsOfFile:pStateLocation];
         // name the crash file Plugin-NAME_OF_PLUGIN-UNIQUE_STRING.crash
@@ -130,7 +134,10 @@
     
     // Launch request to server
     [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    [crashReportPath release];
+    // Delete the plugin if the checkbox is selected
+    if ([deletePluginCheckbox integerValue]) {
+        [self deletePlugin];
+    }
     [self close];
 }
 
@@ -145,11 +152,21 @@
     if (faultyPluginInfoDict) {
         [faultyPluginInfoDict release];
     }
+    // release the crashReportPath
+    if ([[QSController sharedInstance] crashReportPath]) {
+        [[[QSController sharedInstance] crashReportPath] release];
+    }
+    [self setCrashReporterIsWorking:NO];
     [NSApp stopModal];
 }
 
 // Corresponds to the Don't Send button on the crash reporter. Closes the window
 - (IBAction)doNothing:(id)sender {
+    crashReporterIsWorking = YES;
+    // Delete the plugin if the checkbox is selected
+    if ([deletePluginCheckbox integerValue]) {
+        [self deletePlugin];
+    }
     [self close];
 }
 

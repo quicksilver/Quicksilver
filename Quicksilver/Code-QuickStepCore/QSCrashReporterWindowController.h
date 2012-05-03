@@ -13,16 +13,19 @@
 {
     // Connections to QSCrashReporter.xib
 	IBOutlet WebView *crashReporterWebView;
-    IBOutlet NSButton *deletePluginButton;
+    BOOL crashReporterIsWorking;
+    IBOutlet NSButton *deletePluginCheckbox;
     IBOutlet NSTextField *commentsField;
     NSDictionary *faultyPluginInfoDict;
 
 }
 
+@property BOOL crashReporterIsWorking;
+
 - (IBAction)sendCrashReport:(id)sender;
 - (IBAction)doNothing:(id)sender;
 - (void)clearCaches;
-- (IBAction)deletePlugin:(id)sender;
+- (void)deletePlugin;
 - (IBAction)openCrashReportsWikiPage:(id)sender;
 
 @end
