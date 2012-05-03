@@ -355,27 +355,53 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	BOOL isDirectory;
 	NSString *path = [object singleFilePath];
 	if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory]) {
-
+        
 		LSItemInfoRecord infoRec;
 		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
+        
+        // A plain folder (not a package) has children
+        if (isDirectory && !(infoRec.flags & kLSItemInfoIsPackage)) {
+            return YES;
+        }
 
-		if (infoRec.flags & kLSItemInfoIsAliasFile) return YES;
-
+        // If it's an app check to see if there's a handler for it (e.g. a plugin) or if there are recent documents
 		if (infoRec.flags & kLSItemInfoIsApplication) {
 			NSString *bundleIdentifier = [[NSBundle bundleWithPath:path] bundleIdentifier];
-			//CFBundleRef bundle = CFBundleCreate (NULL, (CFURLRef) [NSURL fileURLWithPath:path]);
-			//NSString *bundleIdentifier = CFBundleGetIdentifier(bundle);
-
+            
+            // Does the app have an external handler? (e.g. a plugin)
 			NSString *handlerName = [[QSReg tableNamed:@"QSBundleChildHandlers"] objectForKey:bundleIdentifier];
-			if (handlerName) return YES;
-        if (!bundleIdentifier) return NO;
-			NSArray *recentDocuments = (NSArray *)CFPreferencesCopyValue((CFStringRef) @"NSRecentDocumentRecords", (CFStringRef) bundleIdentifier, kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
-			[recentDocuments autorelease];
-			if (recentDocuments) return YES;
+			if (handlerName) {
+                return YES;
+            }
+            // Does the app have valid recent documents
+            if (bundleIdentifier) {
+                NSDictionary *recentDocuments = (NSDictionary *)CFPreferencesCopyValue((CFStringRef) @"RecentDocuments",
+                                                                                       (CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"],
+                                                                                       kCFPreferencesCurrentUser,
+                                                                                       kCFPreferencesAnyHost);
+                if (recentDocuments) {
+                    NSArray *recentDocumentsArray = [recentDocuments objectForKey:@"CustomListItems"];
+                    [recentDocuments release];
+                    if (recentDocumentsArray && [recentDocumentsArray count]) {
+                        return YES;
+                    }
+                }
+            }
 		}
-
-		return isDirectory && !(infoRec.flags & kLSItemInfoIsPackage);
+        
+        // If there is a valid file parser (text or HTML parser) the object has children    
+        NSString *uti = QSUTIWithLSInfoRec(path, &infoRec);
+        id <QSParser> parser = [QSReg instanceForKey:uti inTable:@"QSFSFileTypeParsers"];
+        if (parser) {
+            return YES;
+        }
+        
+        // An alias has children (the resolved file)
+		if (infoRec.flags & kLSItemInfoIsAliasFile) {
+            return YES;
+        }
 	}
+    
 	return NO;
 
 }
@@ -534,15 +560,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			//NSString *type = [[NSFileManager defaultManager] typeOfFile:path];
 
 			NSString *uti = QSUTIWithLSInfoRec(path, &infoRec);
-			//QSUTIForExtensionOrType((NSString *)infoRec.extension, infoRec.filetype);
-
-			//NSLog(@"uti %@ %@", uti, UTTypeCopyDescription(uti) );
-
-			id handler = [QSReg instanceForKey:uti inTable:@"QSFSFileTypeChildHandlers"];
-			if (handler) {
-				return [handler loadChildrenForObject:object];
-            }
-
+            
 			id <QSParser> parser = [QSReg instanceForKey:uti inTable:@"QSFSFileTypeParsers"];
 			NSArray *children = [parser objectsFromPath:path withSettings:nil];
 			if (children) {

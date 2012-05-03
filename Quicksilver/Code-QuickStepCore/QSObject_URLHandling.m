@@ -8,6 +8,8 @@
 #import "QSTaskController.h"
 #import <QSFoundation/QSFoundation.h>
 
+#define QSURLTypeParsersTableKey @"QSURLTypeParsersTableKey"
+
 @implementation QSURLObjectHandler
 // Object Handler Methods
 
@@ -102,7 +104,6 @@
     [object setIcon:webSearchImage];
     [[NSNotificationCenter defaultCenter] postNotificationName:QSObjectIconModified object:object];
 
-     return;
 }
 
 #pragma mark image handling
@@ -161,8 +162,8 @@
 
 #pragma mark children
 
-- (BOOL)loadChildrenForObject:(QSObject *)object {
-	// Need a list of TLDs to compare
+- (BOOL)objectHasChildren:(QSObject *)object { 
+    // Need a list of TLDs to compare
 	static NSArray *tldArray = nil;
 	if(tldArray == nil) {
 		tldArray = [[NSArray arrayWithObjects:@"AC",@"AD",@"AE",@"AERO",@"AF",@"AG",@"AI",@"AL",@"AM",@"AN",@"AO",@"AQ",@"AR",@"ARPA",@"AS",@"ASIA",@"AT",@"AU",@"AW",@"AX",@"AZ",@"BA",@"BB",@"BD",@"BE",@"BF",@"BG",@"BH",@"BI",@"BIZ",
@@ -176,16 +177,31 @@
 	}
 	NSString *urlString = [object objectForType:QSURLType];
 	// Check the extension of the URL. We're looking for a tld, .php, .html or .htm (set in QSCorePlugin-Info.plist)
-	NSString *type = [[[urlString pathExtension] componentsSeparatedByString:@"?"] objectAtIndex:0];
+	NSString *URLExtension = [[[urlString pathExtension] componentsSeparatedByString:@"?"] objectAtIndex:0];
 	// Check if the URL is a tld
-	if(type.length > 0 && [tldArray containsObject:[type uppercaseString]]) {
-		type = @"tld";
+	if(URLExtension.length > 0 && [tldArray containsObject:[URLExtension uppercaseString]]) {
+		URLExtension = @"tld";
 	}
-	id <QSParser> parser = [QSReg instanceForKey:type inTable:@"QSURLTypeParsers"];
+	id <QSParser> parser = [QSReg instanceForKey:URLExtension inTable:@"QSURLTypeParsers"];
+    
+    if (parser) {
+        // Store the key for the QSURLTypeParsers table (see QSReg) to save having to load the URL extension again
+        [object setObject:URLExtension forMeta:QSURLTypeParsersTableKey];
+        return YES;
+    }
+    
+    return NO;
+}
+
+
+- (BOOL)loadChildrenForObject:(QSObject *)object {
+	
     
 	[QSTasks updateTask:@"DownloadPage" status:@"Downloading Page" progress:0];
     
-	NSArray *children = [parser objectsFromURL:[NSURL URLWithString:urlString] withSettings:nil];
+    id <QSParser> parser = [QSReg instanceForKey:[object objectForMeta:QSURLTypeParsersTableKey] inTable:@"QSURLTypeParsers"];
+    
+	NSArray *children = [parser objectsFromURL:[NSURL URLWithString:[object objectForType:QSURLType]] withSettings:nil];
     
 	[QSTasks removeTask:@"DownloadPage"];
     
