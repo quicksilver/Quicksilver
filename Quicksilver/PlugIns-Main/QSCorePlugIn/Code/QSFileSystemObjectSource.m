@@ -121,19 +121,23 @@
 	return representedObject;
 }
 - (id)tokenField:(NSTokenField *)tokenField representedObjectForEditingString:(NSString *)editingString {
+    // show types such as .jpg as JPEG Image
+    if ([editingString hasPrefix:@"."]) {
+        editingString = [editingString substringFromIndex:1];
+    }
+    // Try and work out the type of file to display a nice name in the token field
 	NSString *type = QSUTIForAnyTypeString(editingString);
 	if (!type) {
-		if ([editingString hasPrefix:@"'"])
+		if ([editingString hasPrefix:@"'"]) {
 			return editingString;
-		if ([editingString hasPrefix:@"."])
-			return [editingString substringFromIndex:1];
-		type = editingString;
+        } 
+        type = editingString;
 	}
 	return type;
 }
 
 - (BOOL)tokenField:(NSTokenField *)tokenField hasMenuForRepresentedObject:(id)representedObject {
-	if ([representedObject hasPrefix:@"'"] || [representedObject hasPrefix:@"."])
+	if ([representedObject hasPrefix:@"'"])
 		return NO;
 	return YES;
 }
@@ -233,15 +237,21 @@
 		[[self currentEntry] setObject:settings forKey:kItemSettings];
 	}
 
-	if (sender == itemLocationField)
+	if (sender == itemLocationField) {
+        // Box showing the path to the current catalog item
 		[settings setObject:[sender stringValue] forKey:kItemPath];
-	else if (sender == itemSkipItemSwitch)
+    }
+	else if (sender == itemSkipItemSwitch) {
+        // "Omit source" checkbox
 		[settings setObject:[NSNumber numberWithBool:[sender state]] forKey:kItemSkipItem];
+    }
 	else if (sender == itemFolderDepthSlider) {
+        // Slider for setting depth
 		int depth = (9-[itemFolderDepthSlider intValue]);
 		if (depth>7) depth = -1;
 		[settings setObject:[NSNumber numberWithInt:depth] forKey:kItemFolderDepth];
 	} else if (sender == itemParserPopUp) {
+        // 'Include Contents' popup menu
 		NSString *parserName = [[sender selectedItem] representedObject];
 		if (parserName)
 			[settings setObject:[[sender selectedItem] representedObject] forKey:kItemParser];
@@ -249,7 +259,10 @@
 			[settings removeObjectForKey:kItemParser];
 	}
 	[currentEntry setObject:[NSNumber numberWithFloat:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
+    
+    [[self selection] scanAndCache];
 	[self populateFields];
+    
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChanged object:[self currentEntry]];
 }
 
