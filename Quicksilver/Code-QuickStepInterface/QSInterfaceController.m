@@ -291,19 +291,27 @@
 }
 
 - (void)updateActions {
-	[aSelector setResultArray:nil];
-	[aSelector clearObjectValue];
+    // update the actions after a delay (see setActionUpdateTimer for the delay length)
 	[self performSelectorOnMainThread:@selector(setActionUpdateTimer) withObject:nil waitUntilDone:YES];
 }
 
 - (void)updateActionsNow {
+    NSArray *actions = [self rankedActions];
+    // Don't reload the 2nd pane if the actions are identical
+    if ([actions isEqualToArray:[aSelector resultArray]]) {
+        return;
+    }
+
+    // Clear the current results in the aSelector ready for the new results
+    [aSelector setResultArray:nil];
+    [aSelector clearObjectValue];
 	[actionsUpdateTimer invalidate];
 
 	[aSelector setEnabled:YES];
-	NSString *type = [NSString stringWithFormat:@"QSActionMnemonic:%@", [[dSelector objectValue] primaryType]];
-	NSArray *actions = [self rankedActions];
 
-	[self updateControl:aSelector withArray:actions];
+    [self updateControl:aSelector withArray:actions];
+
+    NSString *type = [NSString stringWithFormat:@"QSActionMnemonic:%@", [[dSelector objectValue] primaryType]];
 
 	[aSelector setMatchedString:type];
 	[aSelector setSearchString:nil];
@@ -393,9 +401,9 @@
 - (void)searchObjectChanged:(NSNotification*)notif {
 	[[self window] disableFlushWindow];
 	if ([notif object] == dSelector) {
-		[iSelector setObjectValue:nil];
-		[self updateActions];
-		[self updateViewLocations];
+            [iSelector setObjectValue:nil];
+            [self updateActions];
+            [self updateViewLocations];
 	} else if ([notif object] == aSelector) {
         QSAction *obj = [aSelector objectValue];
         if ([obj isKindOfClass:[QSRankedObject class]])
