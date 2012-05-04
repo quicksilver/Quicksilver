@@ -58,7 +58,8 @@ Following lines are no longer used in this project.
 
 #define kResultTableSplit @"Result Table Split Width"
 
-#define kQSQuitGracefully @"QSQuitGracefully"
+// Date of last known Quicksilver Crash
+#define kLastKnownCrashDate @"lastKnownCrashDate"
 
 // Name of the faulty plugin that caused Quicksilver to crash (for user alert)
 #define kQSPluginCausedCrashAtLaunch @"QSFaultyPluginName"

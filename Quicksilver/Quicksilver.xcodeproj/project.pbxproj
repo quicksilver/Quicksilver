@@ -320,12 +320,18 @@
 		CD3F9ECC13619CE00013FCB7 /* UKMainThreadProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FA4ED4609132402007DB407 /* UKMainThreadProxy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD3F9ECD13619CE00013FCB7 /* UKKQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FA4ED4409132402007DB407 /* UKKQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD3F9ECE13619CE00013FCB7 /* UKFileWatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FA4ED4009132402007DB407 /* UKFileWatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD53FEB3151A0ACF006B734B /* PluginReporterText.html in Resources */ = {isa = PBXBuildFile; fileRef = CD53FEB2151A0ACF006B734B /* PluginReporterText.html */; };
 		CD790FA314D21C2100225950 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8D135E09187AE20062C966 /* Quartz.framework */; };
+		CDA9D3DE1549D13B00607BE4 /* AlertCautionIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDA9D3DD1549D13B00607BE4 /* AlertCautionIcon.icns */; };
 		CDC9C6C513DA2B6D0053B09C /* Clipboard.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDC9C6C413DA2B6D0053B09C /* Clipboard.icns */; };
 		CDCC201010A4C14B009C4EED /* QSMDPredicate.h in Headers */ = {isa = PBXBuildFile; fileRef = CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDCC201110A4C14B009C4EED /* QSMDPredicate.m in Sources */ = {isa = PBXBuildFile; fileRef = CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */; };
 		CDD36AF414CD50CC00F5CEC4 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8D135E09187AE20062C966 /* Quartz.framework */; };
 		CDD36AF514CD50CD00F5CEC4 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8D135E09187AE20062C966 /* Quartz.framework */; };
+		CDDB44E41518C53300800B66 /* QSCrashReporter.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDDB44E31518C53300800B66 /* QSCrashReporter.xib */; };
+		CDDB44E71518C78F00800B66 /* QSCrashReporterWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = CDDB44E51518C78F00800B66 /* QSCrashReporterWindowController.h */; };
+		CDDB44E81518C78F00800B66 /* QSCrashReporterWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDDB44E61518C78F00800B66 /* QSCrashReporterWindowController.m */; };
+		CDDB44EE1518ED3800800B66 /* CrashReporterText.html in Resources */ = {isa = PBXBuildFile; fileRef = CDDB44ED1518ED3800800B66 /* CrashReporterText.html */; };
 		D493990D1350078E00B908C6 /* QSDownloads.h in Headers */ = {isa = PBXBuildFile; fileRef = D49399091350078E00B908C6 /* QSDownloads.h */; };
 		D493990E1350078E00B908C6 /* QSDownloads.m in Sources */ = {isa = PBXBuildFile; fileRef = D493990A1350078E00B908C6 /* QSDownloads.m */; };
 		D4A43887137CCF0300F15F7F /* QSURLExtractor.py in Resources */ = {isa = PBXBuildFile; fileRef = D4A4383B137CCCF500F15F7F /* QSURLExtractor.py */; };
@@ -1318,9 +1324,15 @@
 		92DC402B0E25A0C40091BD92 /* Action.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Action.png; sourceTree = "<group>"; };
 		92E946170D04CCEF0013377F /* QSModifierKeyEvents.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSModifierKeyEvents.h; sourceTree = "<group>"; };
 		92E946180D04CCEF0013377F /* QSModifierKeyEvents.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSModifierKeyEvents.m; sourceTree = "<group>"; };
+		CD53FEB2151A0ACF006B734B /* PluginReporterText.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = PluginReporterText.html; sourceTree = "<group>"; };
+		CDA9D3DD1549D13B00607BE4 /* AlertCautionIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AlertCautionIcon.icns; sourceTree = "<group>"; };
 		CDC9C6C413DA2B6D0053B09C /* Clipboard.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Clipboard.icns; sourceTree = "<group>"; };
 		CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSMDPredicate.h; sourceTree = "<group>"; };
 		CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSMDPredicate.m; sourceTree = "<group>"; };
+		CDDB44E31518C53300800B66 /* QSCrashReporter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSCrashReporter.xib; sourceTree = "<group>"; };
+		CDDB44E51518C78F00800B66 /* QSCrashReporterWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCrashReporterWindowController.h; sourceTree = "<group>"; };
+		CDDB44E61518C78F00800B66 /* QSCrashReporterWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCrashReporterWindowController.m; sourceTree = "<group>"; };
+		CDDB44ED1518ED3800800B66 /* CrashReporterText.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = CrashReporterText.html; sourceTree = "<group>"; };
 		D49399091350078E00B908C6 /* QSDownloads.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDownloads.h; sourceTree = "<group>"; };
 		D493990A1350078E00B908C6 /* QSDownloads.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDownloads.m; sourceTree = "<group>"; };
 		D4A4383B137CCCF500F15F7F /* QSURLExtractor.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = QSURLExtractor.py; sourceTree = "<group>"; };
@@ -2155,6 +2167,7 @@
 		E102F97B06625D7300843027 /* Nibs */ = {
 			isa = PBXGroup;
 			children = (
+				CDDB44E31518C53300800B66 /* QSCrashReporter.xib */,
 				E102F97C06625D7300843027 /* About.xib */,
 				E102F97E06625D7300843027 /* CommandBuilder.xib */,
 				E102F98206625D7300843027 /* MainMenu.xib */,
@@ -2207,6 +2220,8 @@
 				7FDBC51E0A02DB0700E496FF /* DefaultsMap.plist */,
 				7F8403BD096A05E4006E6F0E /* GettingStarted.html */,
 				7F841766096CB23B006E6F0E /* GettingSupport.html */,
+				CDDB44ED1518ED3800800B66 /* CrashReporterText.html */,
+				CD53FEB2151A0ACF006B734B /* PluginReporterText.html */,
 				7F5D70CF091D9C76007A22C4 /* QSSplash.qtz */,
 				7F8401D009690F00006E6F0E /* ClientDescription.plist */,
 				E129F348071DD65A001E1D5A /* License.rtf */,
@@ -2228,6 +2243,7 @@
 		E103EC8506471DBF00447FE0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CDA9D3DD1549D13B00607BE4 /* AlertCautionIcon.icns */,
 				7F46BFDC0A87F37F002D31E8 /* prefsGeneral.png */,
 				7F4ADB5E0A4EB766002A2A1B /* BackArrow.png */,
 				7F4ADB5F0A4EB766002A2A1B /* ForwardArrow.png */,
@@ -2590,6 +2606,8 @@
 		E1E5FB6407B20DD10044D6EF /* Code-QuickStepCore */ = {
 			isa = PBXGroup;
 			children = (
+				CDDB44E51518C78F00800B66 /* QSCrashReporterWindowController.h */,
+				CDDB44E61518C78F00800B66 /* QSCrashReporterWindowController.m */,
 				E1E5FB6507B20DD10044D6EF /* NSString_Purification.h */,
 				E1E5FB6607B20DD10044D6EF /* NSString_Purification.m */,
 				E1E5FB6707B20DD10044D6EF /* QSAction.h */,
@@ -2864,6 +2882,7 @@
 				7F4E4B380A3CD83D0070336A /* QSMainMenuPrefPane.h in Headers */,
 				92E946190D04CCEF0013377F /* QSModifierKeyEvents.h in Headers */,
 				4D00307613116304009040B7 /* Quicksilver.h in Headers */,
+				CDDB44E71518C78F00800B66 /* QSCrashReporterWindowController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3544,6 +3563,8 @@
 				7F73BC66084787A500D01BDB /* QSStyle.css in Resources */,
 				7F8403BE096A05E4006E6F0E /* GettingStarted.html in Resources */,
 				7F841767096CB23B006E6F0E /* GettingSupport.html in Resources */,
+				CDDB44EE1518ED3800800B66 /* CrashReporterText.html in Resources */,
+				CD53FEB3151A0ACF006B734B /* PluginReporterText.html in Resources */,
 				E103ED3606471DBF00447FE0 /* Catalog.icns in Resources */,
 				E1C9DFB5070A37F1001BB625 /* CatalogGroup.icns in Resources */,
 				E1087B42069BD5D300971A69 /* ContactAddress.icns in Resources */,
@@ -3634,6 +3655,8 @@
 				6535A98C1086F627009D5C90 /* Catalog.strings in Resources */,
 				6535A98E1086F627009D5C90 /* Preferences.strings in Resources */,
 				6535A98A1086F627009D5C90 /* About.strings in Resources */,
+				CDDB44E41518C53300800B66 /* QSCrashReporter.xib in Resources */,
+				CDA9D3DE1549D13B00607BE4 /* AlertCautionIcon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3961,6 +3984,7 @@
 				7FDBC5020A02D93400E496FF /* QSAdvancedPrefPane.m in Sources */,
 				7F4E4B390A3CD83D0070336A /* QSMainMenuPrefPane.m in Sources */,
 				92E9461A0D04CCEF0013377F /* QSModifierKeyEvents.m in Sources */,
+				CDDB44E81518C78F00800B66 /* QSCrashReporterWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

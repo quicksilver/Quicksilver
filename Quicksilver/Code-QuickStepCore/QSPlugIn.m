@@ -739,31 +739,27 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 - (BOOL)registerPlugIn {
 	
-	// Used for crash purposes
-	NSMutableDictionary *state = [[NSMutableDictionary alloc] initWithContentsOfFile:pStateLocation];
-	[state setObject:[[self info] objectForKey:@"CFBundleName"] forKey:kQSPluginCausedCrashAtLaunch];
-	[state setObject:[[self bundle] bundlePath] forKey:kQSFaultyPluginPath];
+	// Used for crash purposes, save the current plugin being loaded incase it crashes QS
+	NSDictionary *state = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  [[self info] objectForKey:@"CFBundleName"], kQSPluginCausedCrashAtLaunch,
+                                  [[self bundle] bundlePath], kQSFaultyPluginPath, nil];
 	[state writeToFile:pStateLocation atomically:NO];
 	
-	//NSLog(@"%s", __PRETTY_FUNCTION__) ;
-	NS_DURING
+	@try {
 		[self _registerPlugIn];
-	NS_HANDLER
-		NSString *errorMessage = [NSString stringWithFormat:@"An error ocurred while loading plug-in \"%@\": %@", self, localException];
+    } @catch (NSException *exc) {
+		NSString *errorMessage = [NSString stringWithFormat:@"An error ocurred while loading plug-in \"%@\": %@", self, exc];
 #ifdef DEBUG
 		if (VERBOSE) {
 			NSLog(@"%@", errorMessage);
-			[localException printStackTrace];
+			[exc printStackTrace];
 		}
 #endif
-		[self setLoadError:[localException reason]];
-	NS_ENDHANDLER
-	
-	[state removeObjectForKey:kQSPluginCausedCrashAtLaunch];
-	[state removeObjectForKey:kQSFaultyPluginPath];
-	[state writeToFile:pStateLocation atomically:NO];
-	[state release];
-	
+		[self setLoadError:[exc reason]];
+	}
+    // write an empty file to the state location since QS launched fine
+
+    [[NSDictionary dictionary] writeToFile:pStateLocation atomically:NO];
 	return YES;
 }
 

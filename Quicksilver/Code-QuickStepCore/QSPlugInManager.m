@@ -449,16 +449,14 @@
 		if (![self plugInMeetsDependencies:plugin]) continue;                           //Skip if does not meet dependencies
 		[plugInsToLoadByID setObject:plugin forKey:[plugin identifier]];
     }
-
-	//	NSLog(@"toload %@", plugInsToLoadByID);
 	// load all valid plugins    
     NSArray * plugInsToLoad = [plugInsToLoadByID allValues];
     NSArray * localPlugins = [localPlugIns allValues];
-    for (QSPlugIn *plugin in localPlugins) {
-        if ([plugInsToLoad containsObject:plugin])
-			[plugin registerPlugIn];
-    }
-
+    
+        for (QSPlugIn *plugin in localPlugins) {
+            if ([plugInsToLoad containsObject:plugin])
+                [plugin registerPlugIn];
+        }
 	[self checkForUnmetDependencies];
 	[self suggestOldPlugInRemoval];
 	

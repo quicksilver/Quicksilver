@@ -147,16 +147,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 
 - (NSString *)URLEncoding {
 	
-	NSString *string = self;
-	
-	// For when we have to deal with % characters
-	if([string rangeOfString:@"%"].location != NSNotFound) {
-		// Decode the string first
-		string = [string URLDecoding];
-	}
-	
-	// escape embedded %-signs that don't appear to actually be escape sequences, and pre-decode the result to avoid double-encoding
- 	return [(NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) string, CFSTR("#"), NULL, kCFStringEncodingUTF8) autorelease];
+    return [self URLEncodingWithEncoding:kCFStringEncodingUTF8];
 }
 
 - (NSString *)URLEncodingWithEncoding:(CFStringEncoding) encoding {
@@ -169,6 +160,11 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	
 	// escape embedded %-signs that don't appear to actually be escape sequences, and pre-decode the result to avoid double-encoding
 	return [(NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) string, CFSTR("#"), NULL, encoding) autorelease];
+}
+
+- (NSString *)URLEncodeValue {
+    NSString *result = (NSString *) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self, NULL, CFSTR("?=&+"), kCFStringEncodingUTF8);
+    return [result autorelease];
 }
 
 - (NSString *)URLDecoding {
