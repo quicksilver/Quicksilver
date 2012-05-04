@@ -415,7 +415,7 @@
 
 - (void)sourceArrayCreated:(NSNotification *)notif
 {
-	[self showArray:[[notif userInfo] objectForKey:@"sourceArray"]];
+	[self showArray:[[notif userInfo] objectForKey:kQSResultArrayKey]];
 }
 
 - (void)sourceArrayChanged:(NSNotification *)notif
@@ -423,7 +423,7 @@
 	//NSLog(@"notif %@ - change to %@", [notif name], [notif userInfo]);
 	// resultArray and sourceArray point to the same object until the user starts typing.
 	// We want to stop getting updates at that point, so we compare to the resultArray instead.
-	if ([[dSelector resultArray] isEqual:[[notif userInfo] objectForKey:@"sourceArray"]]) {
+	if ([[dSelector resultArray] isEqual:[[notif userInfo] objectForKey:kQSResultArrayKey]]) {
 		//NSLog(@"arraychanged");
 		if ([[dSelector->resultController window] isVisible]) {
 			[dSelector reloadResultTable];
