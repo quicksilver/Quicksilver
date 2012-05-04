@@ -32,6 +32,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString);
 @interface NSString (URLEncoding)
 - (NSString *)URLEncoding;
 - (NSString *)URLDecoding;
+- (NSString *)URLEncodeValue;
 @end
 
 @interface NSString(uuid)

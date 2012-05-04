@@ -14,7 +14,11 @@
 	NSConnection *controllerConnection, *dropletConnection;
 	BOOL newVersion, runningSetupAssistant;
 	NSObject *dropletProxy;
+    NSString *crashReportPath;
 }
+
+@property (retain) NSString* crashReportPath;
+
 + (id)sharedInstance;
 - (IBAction)runSetupAssistant:(id)sender;
 - (NSProgressIndicator *)progressIndicator;
@@ -58,6 +62,9 @@
 - (void)setDropletProxy:(NSObject *)newDropletProxy;
 
 - (void)executeCommandAtPath:(NSString *)path;
+
+- (NSString *)crashReportPath;
+
 @end
 
 #if 0
