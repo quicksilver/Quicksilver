@@ -796,6 +796,9 @@ NSMutableDictionary *bindingsDict = nil;
                 [editor setSelectedRange:NSMakeRange(0, [[editor string] length])];
             }
 		}
+        
+        [self setObjectValue:[QSObject objectWithString:[editor string]]];
+        
 		NSRect titleFrame = [self frame];
 		NSRect editorFrame = NSInsetRect(titleFrame, NSHeight(titleFrame) /16, NSHeight(titleFrame)/16);
 		editorFrame.origin = NSMakePoint(NSHeight(titleFrame) /16, NSHeight(titleFrame)/16);
