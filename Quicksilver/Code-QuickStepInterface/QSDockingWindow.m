@@ -8,25 +8,23 @@
 
 @implementation QSDockingWindow
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(unsigned int)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
-	NSWindow *result = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag];
-	[self setOpaque:NO];
-	[self center];
-	[self setMovableByWindowBackground:YES];
-	[self setShowsResizeIndicator:YES];
-	hideTimer = nil;
-	[self setCanHide:NO];
-	[self setLevel:NSFloatingWindowLevel];
-    [self setSticky:YES];
-    [self setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
-	hidden = YES;
-    
-	NSMutableArray *types = [standardPasteboardTypes mutableCopy];
-	[types addObjectsFromArray:[[QSReg objectHandlers] allKeys]];
-	[self registerForDraggedTypes:types];
-	[types release];
-	
-	[self updateTrackingRect:self];
-	return result;
+	if (self = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag]) {
+		[self setOpaque:NO];
+		[self setMovableByWindowBackground:YES];
+		[self setShowsResizeIndicator:YES];
+		hideTimer = nil;
+		[self setCanHide:NO];
+		[self setLevel:NSFloatingWindowLevel];
+		[self setSticky:YES];
+		[self setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
+		hidden = YES;
+		
+		NSMutableArray *types = [standardPasteboardTypes mutableCopy];
+		[types addObjectsFromArray:[[QSReg objectHandlers] allKeys]];
+		[self registerForDraggedTypes:types];
+		[types release];
+	}
+	return self;
 }
 
 #if 0
@@ -35,7 +33,6 @@
 
 - (void)awakeFromNib {
 	[self center];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideOrOrderOut:) name:QSActiveApplicationChanged object:nil];
 	// Notification for when the menu items list is opened in a docking window (e.g. clipboard menu)
 	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(lock) name:@"com.apple.HIToolbox.beginMenuTrackingNotification" object:nil];
 	// Notification for when the menu item list is closed in a docking window
@@ -75,15 +72,14 @@
 	[super draggingExited:theEvent];
 }
 
-// mouse entered the docing window
+// mouse entered the docking window
 - (void)mouseEntered:(NSEvent *)theEvent {
 	// Set time when mouse entered the window
 	// Case 1: If the window's a floating window that's hidden, set = 0.0 (allows for case where you mouse over the area where the window was as it's fading)
-	// Case 2: If the window's a sliding-into-edge window, always set the time to the current time (it's always 'hidden', so must check for the canFade case)
-	if(!hidden || [self canFade]) {
+	// Case 2: If the window's a sliding-into-edge window, always set the time to the current time (it's always 'hidden', so must check for the isDocked case)
+	if (!hidden || [self isDocked]) {
 		timeEntered = [NSDate timeIntervalSinceReferenceDate];
-	}
-	else{
+	} else {
 		timeEntered = 0.0;
 	}
 
@@ -92,7 +88,7 @@
 	NSEvent *earlyExit = [NSApp nextEventMatchingMask:NSMouseExitedMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.2] inMode:NSDefaultRunLoopMode dequeue:YES];
 	
 	// Open the docking window if it's on the edge of the screen
-	if ([self canFade] && !earlyExit && !locked) {
+	if ([self isDocked] && !earlyExit && !locked) {
 		[self show:self];
 	}
 }
@@ -108,6 +104,10 @@
 
 // mouse exited the docking window
 - (void)mouseExited:(NSEvent *)theEvent {
+	// don't dismiss the window unless it's docked to an edge
+	if (![self isDocked]) {
+		return;
+	}
 	
 	// if the mouse never entered the window, it shouldn't close
 	if(timeEntered == 0.0) {
@@ -126,8 +126,15 @@
 	}
 }
 
-- (BOOL)canFade {
+- (BOOL)isDocked
+{
 	return ((int)touchingEdgeForRectInRect([self frame], [[self screen] frame]) >= 0);
+}
+
+- (BOOL)canFade
+{
+	NSLog(@"`canFade` (in QSDockingWindow) is deprecated as of B68. Please use `isDocked` instead.");
+	return [self isDocked];
 }
 
 - (BOOL)canBecomeKeyWindow {
@@ -137,7 +144,7 @@
 - (BOOL)hidden {return hidden;}
 
 - (IBAction)hideOrOrderOut:(id)sender {
-	if ([self canFade]) {
+	if ([self isDocked]) {
 		[self hide:self];
 	} else {
 		[self orderOut:self];
@@ -151,16 +158,16 @@
 }
 
 - (IBAction)toggle:(id)sender {
-	if (hidden)
+	if (hidden) {
 		[self show:sender];
-	else if ([self isVisible])
+	} else if ([self isVisible]) {
 		[self hideOrOrderOut:sender];
-	else
+	} else {
 		[self makeKeyAndOrderFront:sender];
+	}
 }
 
 - (IBAction)hide:(id)sender {
-	[self saveFrame];
 	if ([self isKeyWindow])
 		[self fakeResignKey];
 	int edge = touchingEdgeForRectInRect([self frame], [[self screen] frame]);
@@ -175,8 +182,11 @@
 	}
 	hidden = YES;
 	if ([self isVisible]) {
+		// hide on mouse out
 		[[self helper] _resizeWindow:self toFrame:hideRect alpha:0.1 display:YES];
+		[self saveFrame];
 	} else {
+		// hide on application launch
 		[self setFrame:hideRect display:YES];
 		[self setAlphaValue:0.1];
 	}
@@ -184,19 +194,21 @@
 }
 
 - (IBAction)orderFrontHidden:(id)sender {
-	if ([self canFade]) {
+	if ([self isDocked]) {
 		[self hide:sender];
 		[self reallyOrderFront:self];
 	} else {
-		[self orderFront:sender];
+		[self show:sender];
 	}
 }
-// method to close command window when Esc key is pressed
+
+// prevent docked windows from closing when Esc key is pressed
 - (void)keyDown:(NSEvent *)theEvent {
-	if ([self canFade] && [theEvent keyCode] == 53)
+	if ([theEvent keyCode] == 53) {
 		[self hideOrOrderOut:nil];
-	else
+	} else {
 		[super keyDown:theEvent];
+	}
 }
 
 - (void)performClose:(id)sender {
@@ -240,8 +252,10 @@
 }
 
 - (void)saveFrame {
-	if ([self autosaveName])
+	if ([self autosaveName]) {
 		[self saveFrameUsingName:[self autosaveName]];
+		[[NSUserDefaults standardUserDefaults] synchronize];
+	}
 }
 
 - (void)orderOut:(id)sender {
@@ -260,5 +274,6 @@
 	[autosaveName release];
 	autosaveName = [newAutosaveName retain];
 	[self setFrameUsingName:autosaveName force:YES];
+	[self updateTrackingRect:self];
 }
 @end

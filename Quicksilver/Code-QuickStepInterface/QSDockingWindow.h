@@ -39,11 +39,12 @@
 - (void)unlock;
 
 /*
- @canFade
+ @isDocked
  @abstract Defines how the QSDocking window appears/disappears
  @discussion If the QSDocking window is touching a screen edge, returns YES otherwise NO
  @result YES if window is hidden into the screen edge, otherwise NO
 */
+- (BOOL)isDocked;
 - (BOOL)canFade;
 
 - (NSString *)autosaveName;
