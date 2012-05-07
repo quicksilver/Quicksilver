@@ -45,9 +45,9 @@
 - (void)selectObject:(QSBasicObject *)object;
 - (QSBasicObject *)selection;
 
-- (void)searchArray:(NSArray *)array;
-- (void)showArray:(NSArray *)array;
-- (void)showArray:(NSArray *)array withDirectObject:(QSObject *)dObject;
+- (void)searchArray:(NSMutableArray *)array;
+- (void)showArray:(NSMutableArray *)array;
+- (void)showArray:(NSMutableArray *)array withDirectObject:(QSObject *)dObject;
 
 - (void)showMainWindow:(id)sender;
 - (void)hideMainWindow:(id)sender;
@@ -95,4 +95,5 @@
 - (void)setPreview:(BOOL)flag;
 
 - (void)clearObjectView:(QSSearchObjectView *)view;
+- (void)ignoreInterfaceNotifications;
 @end
