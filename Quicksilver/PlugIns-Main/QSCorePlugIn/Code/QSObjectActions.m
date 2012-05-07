@@ -163,30 +163,48 @@
 		filename = [handler filenameForObject:dObject];
 
 	if (!filename) filename = [dObject displayName];
-	if ([filename length] >200)
-		filename = [filename substringToIndex:200];
 
-//	if (![QSAction modifiersAreIgnored] && mOptionKeyIsDown) {
-	if (mOptionKeyIsDown) {
-		NSString *path = [iObject singleFilePath];
-		if (!path) path = NSTemporaryDirectory();
-		filename = [path stringByAppendingPathComponent:filename];
-	} else {
+    if ([filename length] > 200) {
+		filename = [filename substringToIndex:200];
+    }
+    
+    NSString *savePath = nil;
+    
+    // attempt to get a path for the file from the iObject
+	if (iObject) {
+		savePath = [iObject singleFilePath];
+        NSFileManager *fm = [[NSFileManager alloc] init];
+        if ([fm fileExistsAtPath:savePath]) {
+            savePath = [savePath stringByAppendingPathComponent:filename];
+        } else {
+            savePath = nil;
+        }
+        [fm release];
+	}
+    
+    // If there is no iObject or the iObject path doesn't exist, ask the user for a path
+    if (!savePath) {
 		[NSApp activateIgnoringOtherApps:YES];
 		NSSavePanel *savePanel = [NSSavePanel savePanel];
 		[savePanel setRepresentedFilename:filename];
-		[savePanel setNameFieldLabel:@"Save Path:"];
+		[savePanel setPrompt:@"Create"];
+        [savePanel setTitle:@"Choose a file name and location to save the file"];
 		[savePanel setCanCreateDirectories:YES];
-		[savePanel setRequiredFileType:[filename pathExtension]];
-		//if (![openPanel runModalForDirectory:oldFile file:nil types:nil]) return;
-		// beginSheetForDirectory:file:types:modalForWindow:modalDelegate:didEndSelector:contextInfo:
+		[savePanel setAllowedFileTypes:[NSArray arrayWithObject:[filename pathExtension]]];
 		[savePanel runModal];
-		if ([savePanel filename])
-			filename = [savePanel filename];
-		}
-
-	[data writeToFile:filename atomically:NO];
-	return [QSObject fileObjectWithPath:filename];
+		if ([savePanel URL]) {
+			savePath = [[savePanel URL] path];
+        }
+    }
+    
+    // No filename, beep and return the original object
+    if(!savePath) {
+        NSBeep();
+        return dObject;
+    }
+    
+	[data writeToFile:savePath atomically:NO];
+	return [QSObject fileObjectWithPath:savePath];
 
 }
 
