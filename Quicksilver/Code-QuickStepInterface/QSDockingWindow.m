@@ -76,8 +76,8 @@
 - (void)mouseEntered:(NSEvent *)theEvent {
 	// Set time when mouse entered the window
 	// Case 1: If the window's a floating window that's hidden, set = 0.0 (allows for case where you mouse over the area where the window was as it's fading)
-	// Case 2: If the window's a sliding-into-edge window, always set the time to the current time (it's always 'hidden', so must check for the canFade case)
-	if (!hidden || [self canFade]) {
+	// Case 2: If the window's a sliding-into-edge window, always set the time to the current time (it's always 'hidden', so must check for the isDocked case)
+	if (!hidden || [self isDocked]) {
 		timeEntered = [NSDate timeIntervalSinceReferenceDate];
 	} else {
 		timeEntered = 0.0;
@@ -88,7 +88,7 @@
 	NSEvent *earlyExit = [NSApp nextEventMatchingMask:NSMouseExitedMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.2] inMode:NSDefaultRunLoopMode dequeue:YES];
 	
 	// Open the docking window if it's on the edge of the screen
-	if ([self canFade] && !earlyExit && !locked) {
+	if ([self isDocked] && !earlyExit && !locked) {
 		[self show:self];
 	}
 }
@@ -105,7 +105,7 @@
 // mouse exited the docking window
 - (void)mouseExited:(NSEvent *)theEvent {
 	// don't dismiss the window unless it's docked to an edge
-	if (![self canFade]) {
+	if (![self isDocked]) {
 		return;
 	}
 	
@@ -126,8 +126,15 @@
 	}
 }
 
-- (BOOL)canFade {
+- (BOOL)isDocked
+{
 	return ((int)touchingEdgeForRectInRect([self frame], [[self screen] frame]) >= 0);
+}
+
+- (BOOL)canFade
+{
+	NSLog(@"`canFade` (in QSDockingWindow) is deprecated as of B68. Please use `isDocked` instead.");
+	return [self isDocked];
 }
 
 - (BOOL)canBecomeKeyWindow {
@@ -137,7 +144,7 @@
 - (BOOL)hidden {return hidden;}
 
 - (IBAction)hideOrOrderOut:(id)sender {
-	if ([self canFade]) {
+	if ([self isDocked]) {
 		[self hide:self];
 	} else {
 		[self orderOut:self];
@@ -187,7 +194,7 @@
 }
 
 - (IBAction)orderFrontHidden:(id)sender {
-	if ([self canFade]) {
+	if ([self isDocked]) {
 		[self hide:sender];
 		[self reallyOrderFront:self];
 	} else {
