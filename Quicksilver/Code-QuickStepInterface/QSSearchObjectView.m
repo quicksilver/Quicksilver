@@ -584,29 +584,38 @@ NSMutableDictionary *bindingsDict = nil;
 #pragma mark Object Value
 - (void)selectObjectValue:(QSObject *)newObject {
     QSObject *currentObject = [self objectValue];
-    QSObject *tempNewObject;
-    QSObject *tempCurrentObject;
+    
+    // resolve the current and new objects in order to compare them
     if ([newObject isKindOfClass:[QSRankedObject class]]) {
-        tempNewObject = [(QSRankedObject *)newObject object];
+        newObject = [(QSRankedObject *)newObject object];
     }
     if ([currentObject isKindOfClass:[QSRankedObject class]]) {
-        tempCurrentObject = [(QSRankedObject *)currentObject object];
+        currentObject = [(QSRankedObject *)currentObject object];
     }
-	if ((tempNewObject ? tempNewObject : newObject) != (tempCurrentObject ? tempCurrentObject : currentObject)) {
+    // if the two objects are not the same, send an 'object chagned' notif
+	if (newObject != currentObject) {
 		[super setObjectValue:newObject];
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
 	}
 }
 
 - (void)setObjectValue:(QSBasicObject *)newObject {
-	//if (newObject) NSLog(@"%p set value %@", self, newObject);
-	[self hideResultView:self];
-	[self clearSearch];
-	[parentStack removeAllObjects];
-	[self setResultArray:[NSArray arrayWithObjects:newObject, nil]];
-	[super setObjectValue:newObject];
-    
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
+    QSObject *currentObject = [self objectValue];
+    if ([newObject isKindOfClass:[QSRankedObject class]]) {
+        newObject = [(QSRankedObject *)newObject object];
+    }
+    if ([currentObject isKindOfClass:[QSRankedObject class]]) {
+        currentObject = [(QSRankedObject *)currentObject object];
+    }
+	if (newObject != currentObject) {
+        [self hideResultView:self];
+        [self clearSearch];
+        [parentStack removeAllObjects];
+        [self setResultArray:[NSArray arrayWithObjects:newObject, nil]];
+        [super setObjectValue:newObject];
+        
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
+    }
 }
 
 - (void)clearObjectValue {
