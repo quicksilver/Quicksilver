@@ -78,6 +78,8 @@
 	<string>Suspendre l'exécution d'un processus</string>
 	<key>QSComposeEmailItemAction</key>
 	<string>Écrire un message avec l'élément joint</string>
+    <key>QSCreateFileAction</key>
+    <string>Créer un nouveau fichier avec texte [... dans le dossier]</string>
 	<key>QSComposeEmailItemReverseAction</key>
 	<string>Écrire un message avec l'élément joint à...</string>
 	<key>QSDialNumberAction</key>

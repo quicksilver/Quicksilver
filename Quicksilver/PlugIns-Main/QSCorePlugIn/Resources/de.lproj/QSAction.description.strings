@@ -82,6 +82,8 @@
 	<string>Katalogeintrag auf den neuesten Stand bringen</string>
 	<key>QSCatalogEntryShowAction</key>
 	<string>Katalogeintrag zeigen</string>
+	<key>QSCreateFileAction</key>
+	<string>Erstelle neue Datei mit Text [...in Verzeichnis]</string>
 	<key>QSEditAction</key>
 	<string>Bearbeiten</string>
 	<key>QSHFSLockAction</key>
