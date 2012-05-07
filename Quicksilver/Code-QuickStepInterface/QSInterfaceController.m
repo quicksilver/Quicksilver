@@ -298,22 +298,16 @@
 }
 
 - (void)updateActionsNow {
-    NSArray *actions = [self rankedActions];
-    // Don't reload the 2nd pane if the actions are identical
-    if ([actions isEqualToArray:[aSelector resultArray]]) {
-        return;
-    }
-
     // Clear the current results in the aSelector ready for the new results
     [aSelector setResultArray:nil];
     [aSelector clearObjectValue];
 	[actionsUpdateTimer invalidate];
 
 	[aSelector setEnabled:YES];
+	NSString *type = [NSString stringWithFormat:@"QSActionMnemonic:%@", [[dSelector objectValue] primaryType]];
+	NSArray *actions = [self rankedActions];
 
-    [self updateControl:aSelector withArray:actions];
-
-    NSString *type = [NSString stringWithFormat:@"QSActionMnemonic:%@", [[dSelector objectValue] primaryType]];
+	[self updateControl:aSelector withArray:actions];
 
 	[aSelector setMatchedString:type];
 	[aSelector setSearchString:nil];
