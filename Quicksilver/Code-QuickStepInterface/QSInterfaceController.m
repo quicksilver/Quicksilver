@@ -75,6 +75,8 @@
 	[nc addObserver:self selector:@selector(objectModified:) name:QSObjectModified object:nil];
 	[nc addObserver:self selector:@selector(objectIconModified:) name:QSObjectIconModified object:nil];
 	[nc addObserver:self selector:@selector(searchObjectChanged:) name:@"SearchObjectChanged" object:nil];
+	[nc addObserver:self selector:@selector(sourceArrayCreated:) name:@"QSSourceArrayCreated" object:nil];
+	[nc addObserver:self selector:@selector(sourceArrayChanged:) name:@"QSSourceArrayUpdated" object:nil];
 	[nc addObserver:self selector:@selector(appChanged:) name:QSActiveApplicationChanged object:nil];
 	[QSHistoryController sharedInstance];
 	return self;
@@ -339,12 +341,12 @@
 	[self activate:self];
 }
 
-- (void)searchArray:(NSArray *)array {
+- (void)searchArray:(NSMutableArray *)array {
     // show the results list with the first pane empty
     [self showArray:array withDirectObject:nil];
 }
 
-- (void)showArray:(NSArray *)array {
+- (void)showArray:(NSMutableArray *)array {
     // display the results list with these items
     if (array && [array count] > 0) {
         // put the first item from the array into the first pane
@@ -357,12 +359,11 @@
     [dSelector showResultView:self];
 }
 
-- (void)showArray:(NSArray *)array withDirectObject:(QSObject *)dObject {
+- (void)showArray:(NSMutableArray *)array withDirectObject:(QSObject *)dObject {
     [actionsUpdateTimer invalidate];
     [self clearObjectView:dSelector];
-    NSMutableArray *mutArray = [[array mutableCopy] autorelease];
-    [dSelector setSourceArray:mutArray];
-    [dSelector setResultArray:mutArray];
+    [dSelector setSourceArray:array];
+    [dSelector setResultArray:array];
     [dSelector setSearchMode:SearchFilter];
     if (dObject) {
         // show an item from this array if set
@@ -420,6 +421,34 @@
 	[[self window] enableFlushWindow];
 }
 
+- (void)sourceArrayCreated:(NSNotification *)notif
+{
+	[self showArray:[[notif userInfo] objectForKey:kQSResultArrayKey]];
+}
+
+- (void)sourceArrayChanged:(NSNotification *)notif
+{
+	//NSLog(@"notif %@ - change to %@", [notif name], [notif userInfo]);
+	// resultArray and sourceArray point to the same object until the user starts typing.
+	// We want to stop getting updates at that point, so we compare to the resultArray instead.
+	if ([[dSelector resultArray] isEqual:[[notif userInfo] objectForKey:kQSResultArrayKey]]) {
+		//NSLog(@"arraychanged");
+		if ([[dSelector->resultController window] isVisible]) {
+			[dSelector reloadResultTable];
+			[dSelector->resultController updateSelectionInfo];
+		}
+		if (![[dSelector resultArray] containsObject:[dSelector selectedObject]]) {
+			if ([[dSelector resultArray] count]) {
+				[dSelector selectObjectValue:[[dSelector resultArray] objectAtIndex:0]];
+			} else {
+				[dSelector clearObjectValue];
+			}
+		}
+		if ([self respondsToSelector:@selector(searchView:changedResults:)])
+			[self searchView:dSelector changedResults:[dSelector resultArray]];
+	}
+}
+
 - (void)appChanged:(NSNotification *)aNotification {
 	NSString *currentApp = [[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationBundleIdentifier"];
 	if (![currentApp isEqualToString:@"com.blacktree.Quicksilver"])
@@ -447,6 +476,14 @@
 - (void)clear:(NSTimer *)timer {
 	[dSelector clearObjectValue];
 	[self updateActionsNow];
+}
+
+- (void)ignoreInterfaceNotifications
+{
+	// subclasses (namely the Command Builder) need a way to overlook notifications meant for the main interface
+	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+	[nc removeObserver:self name:@"QSSourceArrayCreated" object:nil];
+	[nc removeObserver:self name:@"QSSourceArrayUpdated" object:nil];
 }
 
 #pragma mark -
