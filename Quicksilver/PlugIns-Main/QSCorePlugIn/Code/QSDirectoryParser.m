@@ -116,7 +116,7 @@
 			if (depth && isDirectory && shouldDescend) {
 				NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 				[array addObjectsFromArray:[self objectsFromPath:file depth:depth types:types excludeTypes:excludedTypes descend:descendIntoBundles]];
-				[pool release];
+				[pool drain];
 			}
 		}
 	}

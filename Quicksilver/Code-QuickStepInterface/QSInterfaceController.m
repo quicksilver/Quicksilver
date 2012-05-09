@@ -555,7 +555,7 @@
 	if (VERBOSE) NSLog(@"Command executed (%dms) ", (int)(-[startDate timeIntervalSinceNow] *1000));
 #endif
 	[action release];
-	[pool release];
+	[pool drain];
 }
 
 - (void)executePartialCommand:(NSArray *)array {

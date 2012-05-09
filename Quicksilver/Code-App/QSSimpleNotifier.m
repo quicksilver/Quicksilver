@@ -191,7 +191,6 @@
 	//		[[attributes objectForKey:QSNotifierIcon] TIFFRepresentation] , GROWL_NOTIFICATION_ICON,
 }
 - (void)hideNotification:(NSTimer *)timer {
-	//NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSWindow *window = [timer userInfo];
 	if (window) [self hideWindow:window early:NO];
 
@@ -199,7 +198,6 @@
 		[curTimer release];
 		curTimer = nil;
 	}
-	//[pool release];
 }
 
 - (NSString *)thisTitle {
