@@ -271,7 +271,6 @@ QSExecutor *QSExec = nil;
 }
 
 - (QSObject *)performAction:(NSString *)action directObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
-	// NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	QSAction *actionObject = [actionIdentifiers objectForKey:action];
 	if (actionObject)
 		return [actionObject performOnDirectObject:dObject indirectObject:iObject];

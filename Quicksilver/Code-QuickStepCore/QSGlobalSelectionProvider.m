@@ -110,7 +110,7 @@
 		AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)55, true ); //Command
 		CFRelease( app );
 	}
-	[pool release];
+	[pool drain];
 }
 
 @end

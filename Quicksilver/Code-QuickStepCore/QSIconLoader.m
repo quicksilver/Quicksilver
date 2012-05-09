@@ -71,7 +71,7 @@
 		}
 	}
 	loadThread = nil;
-	[pool release];
+	[pool drain];
 }
 
 - (void)loadIconsInRange:(NSRange)range {

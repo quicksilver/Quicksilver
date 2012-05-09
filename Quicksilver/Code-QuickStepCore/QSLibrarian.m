@@ -56,6 +56,8 @@ static float searchSpeed = 0.0;
 		}
 		[QSLibrarian createDirectories];
 		enabledPresetsDictionary = [[NSMutableDictionary alloc] init];
+        defaultSearchSet = [[NSMutableSet alloc] init];
+        
 		scanTask = [[QSTask alloc] initWithIdentifier:@"QSLibrarianScanTask"];
 		[scanTask setName:@"Updating Catalog"];
 		[scanTask setIcon:[NSImage imageNamed:@"Catalog.icns"]];
@@ -541,7 +543,7 @@ static float searchSpeed = 0.0;
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogIndexingCompleted object:nil];
 	scannerCount--;
-	[pool release];
+	[pool drain];
 }
 
 
@@ -570,7 +572,7 @@ static float searchSpeed = 0.0;
 	[catalog scanForced:NO];
   // [activityController removeTask:@"Scan"];
 	[scanTask stopTask:self];
-	[pool release];
+	[pool drain];
 }
 
 - (BOOL)itemIsOmitted:(QSBasicObject *)item {
@@ -614,7 +616,7 @@ static float searchSpeed = 0.0;
 			/*newResultArray = */[self scoredArrayForString:string inSet:nil mnemonicsOnly:NO];
 			//if (VERBOSE) NSLog(@"Searched for \"%@\" in %3fms (%d items) ", string, (1000 * -[date timeIntervalSinceNow]) , [newResultArray count]);
 
-			[pool release];
+			[pool drain];
 		}
 		if (VERBOSE) NSLog(@"SearchTest in %3fs, %3fs", -[date timeIntervalSinceNow] , -[totalDate timeIntervalSinceNow]);
 	}

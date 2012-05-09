@@ -328,7 +328,7 @@
 	[actionObject retain];
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	[actionObject performOnDirectObject:[self draggedObject] indirectObject:[self objectValue]];
-	[pool release];
+	[pool drain];
 	[actionObject release];
 }
 
