@@ -36,6 +36,7 @@ Changes - ß68 (3926)
   * FIX: Docking windows (Clipboard/Shelf) correctly retain their state between launches (#811, #824)
   * FIX: Don't run unecessary code when switching applications (#872)
   * FIX: Various code optimisations and stability improvements (#817, #834, #824, #870)
+  * FIX: Typo in the setup routine (#876)
 
 Changes - ß67 (3925)
 -------
