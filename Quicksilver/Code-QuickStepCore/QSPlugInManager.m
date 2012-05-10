@@ -660,14 +660,18 @@
 	[self downloadWebPlugInInfoFromDate:nil forUpdateVersion:version synchronously:YES];
 
 	NSMutableArray *names = [NSMutableArray arrayWithCapacity:1];
-	for (QSPlugIn *thisPlugIn in [self knownPlugInsWithWebInfo]) {
-		// don't update obsolete plug-ins, but list them when alerting the user
-		if ([thisPlugIn isObsolete] && [thisPlugIn isLoaded]) {
+	// don't update obsolete plug-ins, but list them when alerting the user
+	for (QSPlugIn *thisPlugIn in [[self localPlugIns] allValues]) {
+		if ([thisPlugIn isObsolete]) {
 			NSString *replacementID = [obsoletePlugIns objectForKey:[thisPlugIn identifier]];
 			[updatedPlugIns addObject:replacementID];
 			QSPlugIn *replacement = [self plugInWithID:replacementID];
 			[names addObject:[NSString stringWithFormat:@"%@ (replaced by %@)", [thisPlugIn name], [replacement name]]];
-		} else if ([thisPlugIn needsUpdate]) {
+		}
+	}
+	// compare to plug-ins that are availble for download
+	for (QSPlugIn *thisPlugIn in [self knownPlugInsWithWebInfo]) {
+		if ([thisPlugIn needsUpdate]) {
 			[updatedPlugIns addObject:[thisPlugIn identifier]];
 			[names addObject:[thisPlugIn name]];
 		}
