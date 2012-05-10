@@ -333,7 +333,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 				NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 				moddate = [self path:file wasModifiedAfter:date depth:depth--];
 				[moddate retain];
-				[pool release];
+				[pool drain];
 				[moddate autorelease];
 				if (moddate)
 					return moddate;
