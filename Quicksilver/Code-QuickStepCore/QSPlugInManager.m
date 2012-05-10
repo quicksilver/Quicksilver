@@ -410,12 +410,11 @@
 	if (![obsoletePlugIns count]) {
 		return;
 	}
-	NSSet *currentlyLoaded = [NSSet setWithArray:[loadedPlugIns allKeys]];
-	for (NSString *oplugin in [obsoletePlugIns allKeys]) {
-		if ([currentlyLoaded containsObject:oplugin]) {
-			QSPlugIn *obsolete = (QSPlugIn *)[loadedPlugIns objectForKey:oplugin];
-			NSLog(@"removing obsolete plug-in: %@", [obsolete name]);
-			[obsolete delete];
+	for (QSPlugIn *plugin in [[self localPlugIns] allValues]) {
+		if ([plugin isObsolete] && [[localPlugIns allKeys] containsObject:[obsoletePlugIns objectForKey:[plugin identifier]]]) {
+			// plug-in is obsolete AND the one that replaces it is currently installed
+			NSLog(@"removing obsolete plug-in: %@", [plugin name]);
+			[plugin delete];
 		}
 	}
 }
