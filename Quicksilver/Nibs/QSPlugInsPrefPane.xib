@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">11D50</string>
+		<string key="IBDocument.SystemVersion">11E46</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2182</string>
-		<string key="IBDocument.AppKitVersion">1138.32</string>
-		<string key="IBDocument.HIToolboxVersion">568.00</string>
+		<string key="IBDocument.AppKitVersion">1138.45</string>
+		<string key="IBDocument.HIToolboxVersion">569.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
@@ -184,10 +184,13 @@
 												<reference key="NSNextKeyView" ref="960875112"/>
 												<reference key="NSTableView" ref="49071574"/>
 											</object>
-											<object class="_NSCornerView" key="NSCornerView">
-												<nil key="NSNextResponder"/>
+											<object class="_NSCornerView" key="NSCornerView" id="395668144">
+												<reference key="NSNextResponder" ref="627912686"/>
 												<int key="NSvFlags">-2147483392</int>
 												<string key="NSFrame">{{-26, 0}, {16, 17}}</string>
+												<reference key="NSSuperview" ref="627912686"/>
+												<reference key="NSWindow"/>
+												<reference key="NSNextKeyView" ref="547067227"/>
 											</object>
 											<object class="NSMutableArray" key="NSTableColumns">
 												<bool key="EncodedWithXMLCoder">YES</bool>
@@ -319,7 +322,6 @@
 													</object>
 													<int key="NSResizingMask">3</int>
 													<bool key="NSIsResizeable">YES</bool>
-													<bool key="NSIsEditable">YES</bool>
 													<reference key="NSTableView" ref="49071574"/>
 												</object>
 												<object class="NSTableColumn" id="765263272">
@@ -354,14 +356,13 @@
 																	<integer value="0"/>
 																</object>
 															</object>
-															<string key="NS.format">yyyy/MM/dd</string>
+															<string key="NS.format">dd/MM/yyyy</string>
 															<bool key="NS.natural">NO</bool>
 														</object>
 														<reference key="NSControlView" ref="49071574"/>
 														<reference key="NSBackgroundColor" ref="818841675"/>
 														<reference key="NSTextColor" ref="919842704"/>
 													</object>
-													<bool key="NSIsEditable">YES</bool>
 													<reference key="NSTableView" ref="49071574"/>
 												</object>
 											</object>
@@ -410,7 +411,7 @@
 									<string key="NSFrame">{{-100, -100}, {361, 15}}</string>
 									<reference key="NSSuperview" ref="627912686"/>
 									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView" ref="547067227"/>
+									<reference key="NSNextKeyView" ref="395668144"/>
 									<bool key="NSEnabled">YES</bool>
 									<int key="NSsFlags">1</int>
 									<reference key="NSTarget" ref="627912686"/>
@@ -432,6 +433,7 @@
 									<reference key="NSBGColor" ref="818841675"/>
 									<int key="NScvFlags">4</int>
 								</object>
+								<reference ref="395668144"/>
 							</object>
 							<string key="NSFrame">{{0, 23}, {418, 375}}</string>
 							<reference key="NSSuperview" ref="577688970"/>
@@ -442,6 +444,7 @@
 							<reference key="NSHScroller" ref="729919048"/>
 							<reference key="NSContentView" ref="614330514"/>
 							<reference key="NSHeaderClipView" ref="547067227"/>
+							<reference key="NSCornerView" ref="395668144"/>
 							<bytes key="NSScrollAmts">AAAAAAAAAABBkAAAQZAAAA</bytes>
 						</object>
 						<object class="NSTextField" id="376083478">
@@ -1138,7 +1141,7 @@
 				<object class="_NSManagedProxy" key="_NSManagedProxy"/>
 			</object>
 			<object class="NSCustomView" id="39630381">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">256</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1147,6 +1150,7 @@
 						<int key="NSvFlags">290</int>
 						<string key="NSFrameSize">{128, 23}</string>
 						<reference key="NSSuperview" ref="39630381"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="12330969"/>
 						<string key="NSClassName">QSGlossyBarView</string>
 						<string key="NSExtension">NSView</string>
@@ -1156,6 +1160,8 @@
 						<int key="NSvFlags">289</int>
 						<string key="NSFrame">{{106, 0}, {22, 23}}</string>
 						<reference key="NSSuperview" ref="39630381"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSClassName">QSSplitHandleView</string>
 						<string key="NSExtension">NSView</string>
 					</object>
@@ -1174,7 +1180,8 @@
 										<int key="NSvFlags">4352</int>
 										<string key="NSFrameSize">{128, 233}</string>
 										<reference key="NSSuperview" ref="529612027"/>
-										<reference key="NSNextKeyView" ref="588698808"/>
+										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView" ref="225022707"/>
 										<bool key="NSEnabled">YES</bool>
 										<object class="_NSCornerView" key="NSCornerView">
 											<nil key="NSNextResponder"/>
@@ -1237,6 +1244,7 @@
 								</object>
 								<string key="NSFrameSize">{128, 233}</string>
 								<reference key="NSSuperview" ref="814967940"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="661068819"/>
 								<reference key="NSDocView" ref="661068819"/>
 								<reference key="NSBGColor" ref="818841675"/>
@@ -1247,6 +1255,7 @@
 								<int key="NSvFlags">-2147483392</int>
 								<string key="NSFrame">{{-30, 0}, {15, 233}}</string>
 								<reference key="NSSuperview" ref="814967940"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="529612027"/>
 								<reference key="NSTarget" ref="814967940"/>
 								<string key="NSAction">_doScroller:</string>
@@ -1257,6 +1266,7 @@
 								<int key="NSvFlags">-2147483392</int>
 								<string key="NSFrame">{{-100, -100}, {128, 15}}</string>
 								<reference key="NSSuperview" ref="814967940"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="274709879"/>
 								<int key="NSsFlags">1</int>
 								<reference key="NSTarget" ref="814967940"/>
@@ -1266,7 +1276,8 @@
 						</object>
 						<string key="NSFrame">{{0, 23}, {128, 233}}</string>
 						<reference key="NSSuperview" ref="39630381"/>
-						<reference key="NSNextKeyView" ref="529612027"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="588698808"/>
 						<int key="NSsFlags">133648</int>
 						<reference key="NSVScroller" ref="274709879"/>
 						<reference key="NSHScroller" ref="588698808"/>
@@ -1275,6 +1286,8 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{128, 256}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="814967940"/>
 				<string key="NSClassName">NSView</string>
 				<string key="NSExtension">NSResponder</string>
@@ -1313,7 +1326,7 @@
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="768367607">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1343,6 +1356,7 @@
 							</object>
 							<string key="NSFrameSize">{600, 400}</string>
 							<reference key="NSSuperview" ref="768367607"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:51</string>
 							<string key="FrameName"/>
@@ -1370,6 +1384,8 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{600, 400}</string>
+					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="367425696"/>
 					<string key="NSReuseIdentifierKey">_NS:207</string>
 				</object>
@@ -1395,7 +1411,7 @@
 						<integer value="0"/>
 					</object>
 				</object>
-				<string key="NS.format">yyyy/MM/dd</string>
+				<string key="NS.format">dd/MM/yyyy</string>
 				<bool key="NS.natural">NO</bool>
 			</object>
 		</object>

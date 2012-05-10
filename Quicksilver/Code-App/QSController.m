@@ -452,7 +452,7 @@ static QSController *defaultController = nil;
 		[animation setAnimationBlockingMode:NSAnimationBlocking];
 		[animation startAnimation];
 	}
-	[pool release];
+	[pool drain];
 }
 - (void)hideSplash:sender {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -462,7 +462,7 @@ static QSController *defaultController = nil;
 		[splashWindow close];
 		splashWindow = nil;
 	}
-	[pool release];
+	[pool drain];
 }
 - (void)startDropletConnection {
 	if (dropletConnection) return;
@@ -606,7 +606,7 @@ static QSController *defaultController = nil;
 	[task startTask:self];
 	[[QSLibrarian sharedInstance] loadMissingIndexes];
 	[task stopTask:self];
-	[pool release];
+	[pool drain];
 }
 
 - (NSString *)internetDownloadLocation { return [[[NDAlias aliasWithData:[[[[(NSDictionary *)CFPreferencesCopyValue((CFStringRef) @"Version 2.5.4", (CFStringRef) @"com.apple.internetconfig", kCFPreferencesCurrentUser, kCFPreferencesAnyHost) autorelease] objectForKey:@"ic-added"] objectForKey:@"DownloadFolder"] objectForKey:@"ic-data"]] path] stringByStandardizingPath];  }

@@ -984,6 +984,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1011467D14BEA45B000E7177 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1011467F14BEA6DA000E7177 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Catalog.strings; sourceTree = "<group>"; };
+		1011468014BEA6EB000E7177 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Preferences.strings; sourceTree = "<group>"; };
+		1011468114BEA6FF000E7177 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/About.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -4415,6 +4419,7 @@
 				6535A93A1086F0E7009D5C90 /* fi */,
 				6535A9381086F0E2009D5C90 /* no */,
 				6552BC9E109D0DDE003B4892 /* sv */,
+				1011467D14BEA45B000E7177 /* ja */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -4432,6 +4437,7 @@
 				6535A9A51086F6B0009D5C90 /* fi */,
 				6535A9A61086F6B3009D5C90 /* no */,
 				6552BCA1109D0E00003B4892 /* sv */,
+				1011468114BEA6FF000E7177 /* ja */,
 			);
 			name = About.strings;
 			sourceTree = "<group>";
@@ -4449,6 +4455,7 @@
 				6535A9941086F64E009D5C90 /* fi */,
 				6535A9961086F65F009D5C90 /* no */,
 				6552BC9F109D0DED003B4892 /* sv */,
+				1011467F14BEA6DA000E7177 /* ja */,
 			);
 			name = Catalog.strings;
 			sourceTree = "<group>";
@@ -4466,6 +4473,7 @@
 				6535A99D1086F695009D5C90 /* fi */,
 				6535A99E1086F697009D5C90 /* no */,
 				6552BCA0109D0DF6003B4892 /* sv */,
+				1011468014BEA6EB000E7177 /* ja */,
 			);
 			name = Preferences.strings;
 			sourceTree = "<group>";
