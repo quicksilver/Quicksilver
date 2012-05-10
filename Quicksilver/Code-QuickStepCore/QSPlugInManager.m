@@ -89,7 +89,6 @@
 	}
 	[dependingPlugIns removeObjectForKey:[plugin identifier]];
 	[self checkForObsoletes:plugin];
-	[self removeObsoletePlugIns];
 }
 
 - (NSMutableArray *)oldPlugIns { return oldPlugIns; }
@@ -464,6 +463,7 @@
         }
 	[self checkForUnmetDependencies];
 	[self suggestOldPlugInRemoval];
+	[self removeObsoletePlugIns];
 	
 	startupLoadComplete = YES;
 	
