@@ -88,10 +88,7 @@
 			[self liveLoadPlugIn:dep];
 	}
 	[dependingPlugIns removeObjectForKey:[plugin identifier]];
-	// store a list of obsolete plug-ins and the one that replaces it
-	for (NSString *obsoletePlugIn in [plugin obsoletes]) {
-		[obsoletePlugIns setObject:[plugin identifier] forKey:obsoletePlugIn];
-	}
+	[self checkForObsoletes:plugin];
 	[self removeObsoletePlugIns];
 }
 
@@ -222,8 +219,8 @@
 			//if (VERBOSE) NSLog(@"Created New %@", key);
 			//		NSLog(@"known %@", knownPlugIns);
 		}
+		[self checkForObsoletes:plugin];
 	}
-
 }
 
 - (void)loadWebPlugInInfo {
@@ -399,6 +396,14 @@
 		}
 	}
 
+}
+
+- (void)checkForObsoletes:(QSPlugIn *)plugin
+{
+	// store a list of obsolete plug-ins and the one that replaces it
+	for (NSString *obsoletePlugIn in [plugin obsoletes]) {
+		[obsoletePlugIns setObject:[plugin identifier] forKey:obsoletePlugIn];
+	}
 }
 
 - (void)removeObsoletePlugIns
