@@ -1,7 +1,7 @@
 Changes - ß68 (3926)
 -------
 
-  * NEW: Better management of plugins. Automatic replacement and removal of obsolete plugins. (#764)
+  * NEW: Better management of plugins. Automatic replacement and removal of obsolete plugins. (#764, #875)
   * NEW: Display the search mode (Filter Catalog, Filter Results, Snap to Best) in results window (#413, #786)
   * NEW: Allow the search mode to be changed using ⌘→ and ⌘← (toggle through all 3 states) (#67, #786)
   * NEW: Add keyboard shortcuts to preferences buttons (⌘+, ⌘R, ⌘I for add, refresh and info) (#527, #785)
@@ -34,7 +34,8 @@ Changes - ß68 (3926)
   * FIX: Better handling of paths containing wildcards (#814, #815)
   * FIX: Allow actions to return multiple results and change the results after the fact (#804)
   * FIX: Docking windows (Clipboard/Shelf) correctly retain their state between launches (#811, #824)
-  * FIX: Various code optimisations and stability improvements (#817, #834, #824)
+  * FIX: Don't run unecessary code when switching applications (#872)
+  * FIX: Various code optimisations and stability improvements (#817, #834, #824, #870)
 
 Changes - ß67 (3925)
 -------
