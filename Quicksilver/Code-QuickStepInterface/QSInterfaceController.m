@@ -444,9 +444,10 @@
 }
 
 - (void)appChanged:(NSNotification *)aNotification {
-	NSString *currentApp = [[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationBundleIdentifier"];
-	if (![currentApp isEqualToString:@"com.blacktree.Quicksilver"])
+    // Close the QS window if it's visible and the Quicksilver itself isn't the application gaining focus
+	if ([[self window] isVisible] && ![[[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationBundleIdentifier"] isEqualToString:@"com.blacktree.Quicksilver"]) {
 		[self hideWindows:self];
+    }
 }
 
 - (void)invalidateHide {
