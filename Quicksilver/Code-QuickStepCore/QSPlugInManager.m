@@ -825,8 +825,17 @@
 	NSImage *image = [NSImage imageNamed:@"QSPlugIn"];
 	[image setSize:NSMakeSize(128, 128)];
 
-	if (showNotifications)
-		QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:@"QSPlugInInstalledNotification", QSNotifierType, image, QSNotifierIcon, title, QSNotifierTitle, (liveLoaded?nil:@"Relaunch required"), QSNotifierText, nil]);
+	if (showNotifications) {
+		// see if this obsoletes an installed plug-in
+		BOOL relaunchForObsoletes = NO;
+		for (NSString *obsolete in [plugin obsoletes]) {
+			if ([[localPlugIns allKeys] containsObject:obsolete]) {
+				relaunchForObsoletes = YES;
+			}
+		}
+		BOOL suggestRelaunch = (!liveLoaded || relaunchForObsoletes);
+		QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:@"QSPlugInInstalledNotification", QSNotifierType, image, QSNotifierIcon, title, QSNotifierTitle, suggestRelaunch?@"Relaunch required":nil, QSNotifierText, nil]);
+	}
 	return YES;
 }
 
