@@ -68,7 +68,7 @@ NSSize QSMaxIconSize;
 	QSObject *thisObject;
     NSMutableArray *keysToDeleteFromObjectDict = [[NSMutableArray alloc] init];
     @synchronized(objectDictionary) {
-        for (NSString *thisKey in objectDictionary) {
+        for (NSString *thisKey in [objectDictionary allKeys]) {
             thisObject = [objectDictionary objectForKey:thisKey];
             if ([thisObject retainCount] < 2) {
                 [keysToDeleteFromObjectDict addObject:thisKey];
@@ -84,7 +84,6 @@ NSSize QSMaxIconSize;
 	if (DEBUG_MEMORY && count)
 		NSLog(@"Released %i objects", count);
 #endif
-	
     [keysToDeleteFromObjectDict release];
 }
 
@@ -251,7 +250,9 @@ NSSize QSMaxIconSize;
 		}
 		for(type in typesSet) {
 			array = [combinedData objectForKey:type];
-			if (!array) [combinedData setObject:(array = [NSMutableArray array]) forKey:type];
+			if (!array) {
+                [combinedData setObject:(array = [NSMutableArray array]) forKey:type];
+            }
 			
 			[array addObjectsFromArray:[thisObject arrayForType:type]];
 			// add the object to the setOfObjects to keep track of which objects we've added to combinedData
@@ -278,7 +279,9 @@ NSSize QSMaxIconSize;
 	// Create the 'combined' object
 	QSObject *object = [[[QSObject alloc] init] autorelease];
 	[object setDataDictionary:combinedData];
-	[object setObject:objects forCache:kQSObjectComponents];
+    if (objects) {
+        [object setObject:objects forCache:kQSObjectComponents];
+    }
 	if ([combinedData objectForKey:QSFilePathType])
 		// try to guess a name based on the file types
 		[object guessName];
@@ -373,7 +376,9 @@ NSSize QSMaxIconSize;
 }
 
 - (void)setDetails:(NSString *)newDetails {
-	[self setObject:newDetails forMeta:kQSObjectDetails];
+    if (newDetails) {
+        [self setObject:newDetails forMeta:kQSObjectDetails];
+    }
 }
 
 - (NSString *)details {
@@ -442,14 +447,35 @@ NSSize QSMaxIconSize;
 }
 
 - (void)setObject:(id)object forType:(id)aKey {
-	if (object) [data setObject:object forKey:aKey];
-	else [data removeObjectForKey:aKey];
+    if (!aKey) {
+        return;
+    }
+	if (object) {
+        [data setObject:object forKey:aKey];
+    } else {
+        [data removeObjectForKey:aKey];
+    }
 }
 
-- (id)objectForCache:(id)aKey {return [cache objectForKey:aKey];}
-- (void)setObject:(id)object forCache:(id)aKey {if (object) [[self cache] setObject:object forKey:aKey];}
-- (id)objectForMeta:(id)aKey {return [meta objectForKey:aKey];}
-- (void)setObject:(id)object forMeta:(id)aKey {if (object) [meta setObject:object forKey:aKey];}
+- (id)objectForCache:(id)aKey {
+    return [cache objectForKey:aKey];
+}
+
+- (void)setObject:(id)object forCache:(id)aKey {
+    if (object && aKey) {
+        [[self cache] setObject:object forKey:aKey];
+    }
+}
+
+- (id)objectForMeta:(id)aKey {
+    return [meta objectForKey:aKey];
+}
+
+- (void)setObject:(id)object forMeta:(id)aKey {
+    if (object && aKey)
+        [meta setObject:object forKey:aKey];
+}
+
 - (NSMutableDictionary *)cache {
 	if (!cache) [self setCache:[NSMutableDictionary dictionaryWithCapacity:1]];
 	return cache;
@@ -529,7 +555,9 @@ NSSize QSMaxIconSize;
 }
 
 - (void)setParentID:(NSString *)parentID {
-	if (parentID) [meta setObject:parentID forKey:kQSObjectParentID];
+	if (parentID) {
+        [meta setObject:parentID forKey:kQSObjectParentID];
+    }
 }
 
 - (BOOL)childrenValid {
@@ -647,7 +675,9 @@ containg multiple objects with the same identifier. Best efforts should be made 
 	// ***warning  ** this should take first line only?
 
 	name = [newName retain];
-	if (newName) [meta setObject:newName forKey:kQSObjectPrimaryName];
+	if (newName) {
+        [meta setObject:newName forKey:kQSObjectPrimaryName];
+    }
 }
 
 - (NSArray *)children {
@@ -658,7 +688,9 @@ containg multiple objects with the same identifier. Best efforts should be made 
 }
 
 - (void)setChildren:(NSArray *)newChildren {
-	if (newChildren) [[self cache] setObject:newChildren forKey:kQSObjectChildren];
+	if (newChildren) {
+        [[self cache] setObject:newChildren forKey:kQSObjectChildren];
+    }
 	//	[children release];
 	//  children = [newChildren retain];
 }
@@ -670,8 +702,9 @@ containg multiple objects with the same identifier. Best efforts should be made 
 }
 
 - (void)setAltChildren:(NSArray *)newAltChildren {
-	if (newAltChildren)
+	if (newAltChildren) {
 		[[self cache] setObject:newAltChildren forKey:kQSObjectAltChildren];
+    }
 	//	[altChildren release];
 	// altChildren = [newAltChildren retain];
 }
@@ -692,10 +725,11 @@ containg multiple objects with the same identifier. Best efforts should be made 
 	if (newLabel != label) {
 		[label release];
 		label = [newLabel retain];
-		if (newLabel)
+		if (newLabel) {
             [meta setObject:newLabel forKey:kQSObjectAlternateName];
-		else
+		} else {
             [meta removeObjectForKey:kQSObjectAlternateName];
+        }
 	}
 }
 
@@ -725,7 +759,11 @@ containg multiple objects with the same identifier. Best efforts should be made 
 - (void)setPrimaryType:(NSString *)newPrimaryType {
 	[primaryType release];
 	primaryType = [newPrimaryType retain];
-	[meta setObject:newPrimaryType forKey:kQSObjectPrimaryType];
+    if (newPrimaryType) {
+        [meta setObject:newPrimaryType forKey:kQSObjectPrimaryType];
+    } else {
+        [meta removeObjectForKey:kQSObjectPrimaryType];
+    }
 }
 
 - (NSMutableDictionary *)dataDictionary {
