@@ -279,9 +279,7 @@ NSSize QSMaxIconSize;
 	// Create the 'combined' object
 	QSObject *object = [[[QSObject alloc] init] autorelease];
 	[object setDataDictionary:combinedData];
-    if (objects) {
-        [object setObject:objects forCache:kQSObjectComponents];
-    }
+    [object setObject:objects forCache:kQSObjectComponents];
 	if ([combinedData objectForKey:QSFilePathType])
 		// try to guess a name based on the file types
 		[object guessName];
@@ -462,8 +460,13 @@ NSSize QSMaxIconSize;
 }
 
 - (void)setObject:(id)object forCache:(id)aKey {
-    if (object && aKey) {
+    if (!aKey) {
+        return;
+    }
+    if (object) {
         [[self cache] setObject:object forKey:aKey];
+    } else {
+        [[self cache] removeObjectForKey:aKey];
     }
 }
 
@@ -472,8 +475,14 @@ NSSize QSMaxIconSize;
 }
 
 - (void)setObject:(id)object forMeta:(id)aKey {
-    if (object && aKey)
+    if (!aKey) {
+        return;
+    }
+    if (object) {
         [meta setObject:object forKey:aKey];
+    } else {
+        [meta removeObjectForKey:aKey];
+    }
 }
 
 - (NSMutableDictionary *)cache {
