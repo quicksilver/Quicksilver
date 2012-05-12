@@ -167,7 +167,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="965810884">
 								<int key="NSCellFlags">-2079195584</int>
 								<int key="NSCellFlags2">4195328</int>
-								<string key="NSContents">©2000-2011 Blacktree, Inc.</string>
+								<string key="NSContents">©2000-2012 Blacktree, Inc.</string>
 								<object class="NSFont" key="NSSupport" id="25">
 									<string key="NSName">LucidaGrande-Bold</string>
 									<double key="NSSize">10</double>
