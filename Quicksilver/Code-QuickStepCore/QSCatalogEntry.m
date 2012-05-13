@@ -437,12 +437,11 @@ else
 	[self setIndexDate:[NSDate date]];
 	NSString *key = [self identifier];
 	NSString *path = [pIndexLocation stringByStandardizingPath];
-#if 0
-if (kUseNSArchiveForIndexes)
-	[NSKeyedArchiver archiveRootObject:[self contents] toFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"]];
-	else
-#endif
-	[[[self contents] arrayByPerformingSelector:@selector(dictionaryRepresentation)] writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
+   
+    // Lock the 'contents' mutablearray so that it cannot be changed whilst it's being written to file
+    @synchronized(contents) {
+            [[[self contents] arrayByPerformingSelector:@selector(dictionaryRepresentation)] writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
+    }
 }
 
 
