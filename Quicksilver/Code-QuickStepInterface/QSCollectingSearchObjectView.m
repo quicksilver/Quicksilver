@@ -119,10 +119,10 @@
 	if (!collecting) {
         [self emptyCollection:self];
     }
-    // If the new object is 'nil' (i.e. the pane has been cleared) then also clear the underlying text editor
-    if (!newObject) {
+    // If the new object is 'nil' (i.e. the pane has been cleared) then also clear the underlying text editor (for the 1st pane only)
+    if (!newObject && self == [[super controller] dSelector]) {
         NSTextView *editor = (NSTextView *)[[self window] fieldEditor:NO forObject: self];
-        if (editor && ![editor string]) {
+        if (editor) {
             [editor setString:@""];
         }
     }
