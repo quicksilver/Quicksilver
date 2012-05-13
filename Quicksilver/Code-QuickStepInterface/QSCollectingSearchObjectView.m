@@ -122,7 +122,7 @@
     // If the new object is 'nil' (i.e. the pane has been cleared) then also clear the underlying text editor
     if (!newObject) {
         NSTextView *editor = (NSTextView *)[[self window] fieldEditor:NO forObject: self];
-        if (editor) {
+        if (editor && ![editor string]) {
             [editor setString:@""];
         }
     }
