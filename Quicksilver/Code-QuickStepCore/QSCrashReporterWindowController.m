@@ -61,16 +61,10 @@
     [self clearCaches];
 }
 
-// If links are clicked, open them in the default browser (not the web view in the crash reporter window)
-- (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation
-		request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id)listener {
-	if ([[request URL] isFileURL]) {
-		[listener use];
-    }
-	else {
-		[[NSWorkspace sharedWorkspace] openURL:[request URL]];
-		[listener ignore];
-	}
+- (void)clearCaches {
+    // Use QSLibrarian to clear caches and force a new scan
+    [QSLibrarian removeIndexes];
+    [QSLib startThreadedAndForcedScan];
 }
 
 - (void)deletePlugin {
@@ -82,6 +76,8 @@
         [pluginToDelete delete];
     }
 }
+
+#pragma mark Button Press Methods
 
 - (IBAction)sendCrashReport:(id)sender {
     
@@ -138,21 +134,6 @@
     [self close];
 }
 
-- (void)clearCaches {
-    // Use QSLibrarian to clear caches and force a new scan
-    [QSLibrarian removeIndexes];
-    [QSLib startThreadedAndForcedScan];
-}
-
-- (void)windowWillClose:(id)sender {
-    // release the crashReportPath
-    if ([[QSController sharedInstance] crashReportPath]) {
-        [[[QSController sharedInstance] crashReportPath] release];
-    }
-    [self setCrashReporterIsWorking:NO];
-    [NSApp stopModal];
-}
-
 // Corresponds to the Don't Send button on the crash reporter. Closes the window
 - (IBAction)doNothing:(id)sender {
     crashReporterIsWorking = YES;
@@ -168,5 +149,42 @@
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kCrashReportsWikiURL]];
 }
 
+#pragma mark NSURLConnection Delegate Methods
+
+// If links are clicked, open them in the default browser (not the web view in the crash reporter window)
+- (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation
+		request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id)listener {
+	if ([[request URL] isFileURL]) {
+		[listener use];
+    }
+	else {
+		[[NSWorkspace sharedWorkspace] openURL:[request URL]];
+		[listener ignore];
+	}
+}
+
+#pragma mark NSWindow Delegate Methods
+
+- (void)windowWillClose:(id)sender {
+    // release the crashReportPath
+    if ([[QSController sharedInstance] crashReportPath]) {
+        [[[QSController sharedInstance] crashReportPath] release];
+    }
+    [self setCrashReporterIsWorking:NO];
+    [NSApp stopModal];
+}
+
+#pragma mark NSTextField Delegate Methods
+
+// Allow the user to use the return key to enter a newline in the text cell
+- (BOOL)control:(NSControl *)control textView:(NSTextView *)fieldEditor doCommandBySelector:(SEL)commandSelector {
+    
+    BOOL retval = NO;
+    if (commandSelector == @selector(insertNewline:)) {
+        retval = YES;
+        [fieldEditor insertNewlineIgnoringFieldEditor:nil];
+    }
+    return retval;
+}
 
 @end
