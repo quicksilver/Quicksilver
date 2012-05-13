@@ -599,22 +599,14 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)setObjectValue:(QSBasicObject *)newObject {
-    QSObject *currentObject = [self objectValue];
-    if ([newObject isKindOfClass:[QSRankedObject class]]) {
-        newObject = [(QSRankedObject *)newObject object];
-    }
-    if ([currentObject isKindOfClass:[QSRankedObject class]]) {
-        currentObject = [(QSRankedObject *)currentObject object];
-    }
-	if (newObject != currentObject) {
-        [self hideResultView:self];
-        [self clearSearch];
-        [parentStack removeAllObjects];
-        [self setResultArray:[NSArray arrayWithObjects:newObject, nil]];
-        [super setObjectValue:newObject];
-        
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
-    }
+    
+    [self hideResultView:self];
+    [self clearSearch];
+    [parentStack removeAllObjects];
+    [self setResultArray:[NSArray arrayWithObjects:newObject, nil]];
+    [super setObjectValue:newObject];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
 }
 
 - (void)clearObjectValue {
