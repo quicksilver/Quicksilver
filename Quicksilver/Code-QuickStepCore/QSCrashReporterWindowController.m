@@ -110,7 +110,7 @@
         NSDictionary *faultyPluginInfoDict = [[NSBundle bundleWithPath:[state objectForKey:kQSFaultyPluginPath]] infoDictionary];
         
         // create a crash log file with the plugin name and Info.plist dictionary
-        crashLogContent = [NSString stringWithFormat:@"Crashed Plugin Information\n\n%@",[faultyPluginInfoDict description]];
+        crashLogContent = [NSString stringWithFormat:@"Mac OS X: %@\nQuicksilver: %@\n\nCrashed Plugin:\n%@",[NSApplication macOSXFullVersion],[NSApp versionString],[faultyPluginInfoDict description]];
     }
 
     // Anonymise the crash report
