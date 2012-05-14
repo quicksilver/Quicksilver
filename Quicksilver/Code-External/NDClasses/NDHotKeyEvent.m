@@ -8,8 +8,6 @@
 
 #import "NDHotKeyEvent.h"
 
-#define NDHotKeyEventThreadSafe 1
-
 @interface NDHotKeyEvent (Private)
 + (NSHashTable *)allHotKeyEvents;
 - (BOOL)addHotKey;
@@ -32,21 +30,8 @@ static OSStatus	switchHotKey( NDHotKeyEvent * self, BOOL aFlag );
  */
 @implementation NDHotKeyEvent
 
-#ifdef NDHotKeyEventThreadSafe
-	#warning Thread saftey has been enabled for NDHotKeyEvent class methods
-	#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_4
-		#define	NDHotKeyEventLock @synchronized([self class]) {
-		#define	NDHotKeyEventUnlock }
-	#else
-		static NSLock				* hotKeysLock = NULL;
-		#define	NDHotKeyEventLock [hotKeysLock lock]
-		#define	NDHotKeyEventUnlock [hotKeysLock unlock]
-	#endif
-#else
-	#warning The NDHotKeyEvent class methods are NOT thread safe
-	#define	NDHotKeyEventLock // lock
-	#define	NDHotKeyEventUnlock // unlock
-#endif
+#define	NDHotKeyEventLock @synchronized([self class]) {
+#define	NDHotKeyEventUnlock }
 
 static NSHashTable		* allHotKeyEvents = NULL;
 static BOOL					isInstalled = NO;
@@ -98,24 +83,6 @@ struct HotKeyMappingEntry
 
 	return isInstalled;
 }
-
-#ifdef NDHotKeyEventThreadSafe
-#if MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_4
-/*
- * +initialize:
- */
-+ (void)initialize
-{
-	while( hotKeysLock == nil )
-	{
-		NSLock		* theInstance = [[NSLock alloc] init];
-
-		if( !CompareAndSwap( nil, (unsigned long int)theInstance, (unsigned long int*)&hotKeysLock) )
-			[theInstance release];			// did not use instance
-	}
-}
-#endif
-#endif
 
 /*
  * +setSignature:

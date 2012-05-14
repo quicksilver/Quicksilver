@@ -132,8 +132,8 @@ static NSImage *prefsCatalogImage = nil;
 }
 
 - (QSObject *)show:(QSObject *)dObject {
-	[NSClassFromString(@"QSCatalogPrefPane") showEntryInCatalog:[[QSLibrarian sharedInstance] entryForID:[dObject objectForType:QSCatalogEntryPboardType]]];
-	return nil;
+    [NSClassFromString(@"QSCatalogPrefPane") performSelectorOnMainThread:@selector(showEntryInCatalog:) withObject:[[QSLibrarian sharedInstance] entryForID:[dObject objectForType:QSCatalogEntryPboardType]] waitUntilDone:NO];
+    return nil;
 }
 
 - (QSObject *)rescan:(QSObject *)dObject {

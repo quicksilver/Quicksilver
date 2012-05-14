@@ -100,43 +100,34 @@ NSSize QSMaxIconSize;
  // NSString *thisKey = nil;
 
 	QSObject *thisObject;
-    NSMutableArray * tempArray = [NSMutableArray array];
-    for (thisObject in iconLoadedArray) {
+    for (thisObject in [iconLoadedArray allObjects]) {
 		//	NSLog(@"i%@ %f", thisObject, thisObject->lastAccess);
         if (thisObject->lastAccess && thisObject->lastAccess < (globalLastAccess - interval) ) {
-            [tempArray addObject:thisObject];
+            if ([thisObject unloadIcon]) {
+                
+#ifdef DEBUG
+                imagecount++;
+#endif
+            }
         }
     }
-    for( thisObject in tempArray ) {
-        if ([thisObject unloadIcon]) {
-			
-#ifdef DEBUG
-            imagecount++;
-#endif
-		}
-    }
-    
-    tempArray = [NSMutableArray array];
-    for (thisObject in childLoadedArray) {
+    for (thisObject in [childLoadedArray allObjects]) {
 		//	NSLog(@"c%@ %f", thisObject, thisObject->lastAccess);
         if (thisObject->lastAccess && thisObject->lastAccess < (globalLastAccess - interval)) {
-            [tempArray addObject:thisObject];
-        }
-    }
-    
-    for( thisObject in tempArray ) {
-        if ([thisObject unloadChildren]) {
-			
+            if ([thisObject unloadChildren]) {
+                
 #ifdef DEBUG
-            childcount++;
+                childcount++;
 #endif		
-		}
+            }  
+        }
     }
 
 #ifdef DEBUG
 	if (DEBUG_MEMORY && (imagecount || childcount) )
 		NSLog(@"Released %i images and %i children (items before %d) ", imagecount, childcount, (int)interval);
 #endif
+
 }
 
 + (void)purgeIdentifiers {
@@ -222,12 +213,17 @@ NSSize QSMaxIconSize;
 }
 
 - (NSArray *)splitObjects {
-	
+    
 	if ([self count] == 1) {
 		return [NSArray arrayWithObject:self];
 	}
 	
-	return [self objectForCache:kQSObjectComponents];
+	NSArray *splitObjects = [self objectForCache:kQSObjectComponents];
+    
+    if (!splitObjects) {
+        splitObjects = [self children];
+    }
+    return splitObjects;
 }
 
 // Method to merge objects into a single 'combined' object
@@ -389,14 +385,15 @@ NSSize QSMaxIconSize;
 		details = [handler detailsOfObject:self];
 	}
 
-    if (details)
-        details = [[self bundle] safeLocalizedStringForKey:details
-                                                     value:nil
-                                                     table:@"QSObject.details"];    
-    else
-        details = [[self bundle] safeLocalizedStringForKey:[self identifier]
-                                                     value:nil
-                                                     table:@"QSObject.details"];
+	NSBundle *mybundle = [self bundle];
+	// this is almost always (null) so test it first
+	if (mybundle) {
+		if (details) {
+			details = [mybundle safeLocalizedStringForKey:details value:details table:@"QSObject.details"];
+		} else {
+			details = [mybundle safeLocalizedStringForKey:[self identifier] value:details table:@"QSObject.details"];
+		}
+	}
     if (details != nil) {
         [self setObject:details forMeta:kQSObjectDetails];
     }
@@ -856,10 +853,6 @@ containg multiple objects with the same identifier. Best efforts should be made 
 	globalLastAccess = lastAccess;
 	[iconLoadedArray addObject:self];
 
-#ifdef DEBUG
-	if (VERBOSE) NSLog(@"Load Icon for %s", [self gdbDataFormatter]);
-#endif
-	
 	if (namedIcon) {
     NSImage *image = nil;
 	  if ([namedIcon isEqualToString:@"ProxyIcon"]) {
@@ -949,4 +942,30 @@ containg multiple objects with the same identifier. Best efforts should be made 
 	}
     
 }
+@end
+
+@implementation QSObject (Quicklook)
+
+- (NSURL *)previewItemURL
+{
+    if ([[self primaryType] isEqualToString:QSURLType]) {
+        NSString *urlString = [[[self dataDictionary] objectForKey:QSURLType] URLEncoding];
+        if (urlString) {
+        return [NSURL URLWithString:urlString];
+        }
+    }
+    else {
+        NSString *filePathString = [self singleFilePath];
+        if (filePathString) {
+        return [NSURL fileURLWithPath:filePathString];
+        }
+    }
+    return nil;
+}
+
+- (NSString *)previewItemTitle
+{
+    return [self name];
+}
+
 @end

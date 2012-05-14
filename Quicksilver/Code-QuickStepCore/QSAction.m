@@ -104,7 +104,12 @@ static BOOL gModifiersAreIgnored;
 // end patch
 
 - (NSMutableDictionary*)actionDict {
-    return [self objectForType:QSActionType];
+    NSMutableDictionary *dict = [self objectForType:QSActionType];
+    if (!dict) {
+        dict = [[NSMutableDictionary alloc] init];
+        [self setObject:dict forType:QSActionType];
+    }
+    return dict;
 }
 
 - (id)objectForKey:(NSString*)key {
@@ -294,8 +299,12 @@ static BOOL gModifiersAreIgnored;
 	NSString *class = [dict objectForKey:kActionClass];
 	QSActionProvider *provider = [dict objectForKey:kActionProvider];
 	if (class || provider) {
-		if (!provider)
+		if (!provider) {
 			provider = [QSReg getClassInstance:class];
+		}
+		if ([[dObject primaryType] isEqualToString:QSProxyType]) {
+			dObject = (QSObject *)[dObject resolvedObject];
+		}
 		if ([[dict objectForKey:kActionSplitPluralArguments] boolValue] && [dObject count] > 1) {
 			NSArray *objects = [dObject splitObjects];
 			id object;
@@ -376,9 +385,11 @@ static BOOL gModifiersAreIgnored;
 	if (!icon && name)
 		icon = [QSResourceManager imageNamed:name inBundle:[object bundle]];
     if(!icon) {
+        if ([object respondsToSelector:@selector(provider)]) {
         NSObject <QSActionProvider> *provider = [(QSAction*)object provider];
         if(provider && [provider respondsToSelector:@selector(iconForAction:)])
             icon = [provider iconForAction:[object identifier]];
+        }
     }
 	if (icon) {
 		[object setIcon:icon];

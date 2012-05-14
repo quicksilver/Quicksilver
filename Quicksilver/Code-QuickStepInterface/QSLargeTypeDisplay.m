@@ -13,33 +13,36 @@
 
 #define EDGEINSET 16
 
-void QSShowLargeType(NSString *number) {
+void QSShowLargeType(NSString *aString) {
 	NSRect screenRect = [[NSScreen mainScreen] frame];
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSColor *textColor = [defaults colorForKey:@"QSAppearance1T"];
 	NSColor *backColor = [defaults colorForKey:@"QSAppearance1B"];
-	if (![number length]) {
+	if (![aString length]) {
 		NSBeep();
 		return;
 	}
 	float displayWidth = NSWidth(screenRect) *11/12-2*EDGEINSET;
-	NSRange fullRange = NSMakeRange(0, [number length]);
-	NSMutableAttributedString *formattedNumber = [[NSMutableAttributedString alloc] initWithString:number];
+    float displayHeight = NSHeight(screenRect) * 11/12 - 2*EDGEINSET;
+	NSRange fullRange = NSMakeRange(0, [aString length]);
+    
+	NSMutableAttributedString *formattedNumber = [[NSMutableAttributedString alloc] initWithString:aString];
 	int size;
 	NSSize textSize;
 	NSFont *textFont;
 	for (size = 24; size<300; size++) {
 		textFont = [NSFont boldSystemFontOfSize:size+1];
-		textSize = [number sizeWithAttributes:[NSDictionary dictionaryWithObject:textFont forKey:NSFontAttributeName]];
-		if (textSize.width> displayWidth+[textFont descender] *2) break;
-		// ***warning  * use ascenders to calculate
+		textSize = [aString sizeWithAttributes:[NSDictionary dictionaryWithObject:textFont forKey:NSFontAttributeName]];
+        if (textSize.width > displayWidth+[textFont descender] *2 || (textSize.height > displayHeight+[textFont descender] *2)) {
+            break;
+        }		// ***warning  * use ascenders to calculate
 
 	}
 	[formattedNumber addAttribute:NSFontAttributeName value:[NSFont boldSystemFontOfSize:size] range:fullRange];
 	[formattedNumber addAttribute:NSForegroundColorAttributeName value:textColor range:fullRange];
 
 	NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-	if ([number rangeOfString:@"\n"] .location == NSNotFound && [number rangeOfString:@"\r"] .location == NSNotFound)
+	if ([aString rangeOfString:@"\n"] .location == NSNotFound && [aString rangeOfString:@"\r"] .location == NSNotFound)
 		[style setAlignment:NSCenterTextAlignment];
 		[style setLineBreakMode: NSLineBreakByWordWrapping];
 

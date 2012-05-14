@@ -1,23 +1,27 @@
 #import <Foundation/Foundation.h>
 #import "QSObjectView.h"
 
+#import <Quartz/Quartz.h>
+
 @interface NSObject (QSSearchViewController)
 - (void)searchView:(id)view changedResults:(id)array;
 - (void)searchView:(id)view changedString:(id)string;
 - (void)searchView:(id)view resultsVisible:(BOOL)visible;
 @end
 
+// These tags are set within Interface Builder, and are used to define the current search mode
 typedef enum QSSearchMode {
-	SearchFilterAll = 1,
-	SearchFilter = 2,
-	SearchSnap = 3,
-	SearchShuffle = 4,
+	SearchFilterAll = 1, // Filter Catalog
+	SearchFilter = 2, // Filter Results
+	SearchSnap = 3, // Snap to Best
+	SearchShuffle = 4, // Not Sure (not used?)
 } QSSearchMode;
 
 @class QSResultController;
 @interface QSSearchObjectView : QSObjectView <NSTextInput
 #if (MAC_OS_X_VERSION_MAX_ALLOWED >= 1060)
-	, NSTextDelegate
+// NSTextViewDelegate for the NSTextView (the text mode view) as used in transmogrifyWithText:(NSString *)string
+	, NSTextViewDelegate
 #endif
 > 
 {   
@@ -27,6 +31,9 @@ typedef enum QSSearchMode {
 
 	BOOL validSearch;
 
+    BOOL browsingHistory;
+
+    
 	NSTimer *resetTimer;
 	NSTimer *searchTimer;
 	NSTimer *resultTimer;
@@ -56,6 +63,8 @@ typedef enum QSSearchMode {
     
     NSFont *textCellFont; // for text entry mode
     NSColor *textCellFontColor; // for text entry mode
+    QLPreviewPanel* previewPanel;
+    QSSearchMode savedSearchMode;
 
 @public
 	QSResultController *resultController;
@@ -69,9 +78,10 @@ typedef enum QSSearchMode {
 	BOOL browsing;
 	BOOL validMnemonic;
 	BOOL hasHistory;
-	BOOL moreComing;
 	BOOL allowText;
 	BOOL allowNonActions;
+    
+    QSObject *quicklookObject;
 }
 
 - (void)clearSearch;
@@ -83,8 +93,8 @@ typedef enum QSSearchMode {
 
 - (NSMutableArray *)sourceArray;
 - (void)setSourceArray:(NSMutableArray *)newSourceArray;
-- (NSArray *)searchArray;
-- (void)setSearchArray:(NSArray *)newSearchArray;
+- (NSMutableArray *)searchArray;
+- (void)setSearchArray:(NSMutableArray *)newSearchArray;
 - (NSMutableArray *)resultArray;
 - (void)setResultArray:(NSMutableArray *)newResultArray;
 
@@ -169,6 +179,14 @@ typedef enum QSSearchMode {
 - (NSString *)visibleString;
 - (void)setVisibleString:(NSString *)newVisibleString;
 
+/*!
+ @handleChangeSearchModeEvent
+ @abstract Checks for the  ⌘→ or ⌘← keys to change search mode
+ @discussion If a search mode switching keyboard shortcut is pressed, this method changes the search mode,
+ depending on the direction keys (forwards or backwards)
+ @result YES if ⌘→ or ⌘← is pressed and the search mode changed, otherwise NO
+ */
+- (BOOL)handleChangeSearchModeEvent:(NSEvent *)theEvent;
 - (BOOL)handleShiftedKeyEvent:(NSEvent *)theEvent;
 - (BOOL)handleSlashEvent:(NSEvent *)theEvent;
 - (BOOL)handleTildeEvent:(NSEvent *)theEvent;
@@ -190,4 +208,22 @@ typedef enum QSSearchMode {
 
 @interface QSSearchObjectView (Browsing)
 - (void)browse:(int)direction;
+@end
+
+@interface QSSearchObjectView (Quicklook) <QLPreviewPanelDataSource, QLPreviewPanelDelegate>
+/*!
+ @canQuicklookCurrentObject
+ @abstract Checks an object's eligibility for Quick Looking
+ @discussion returns whether the currently selected object can by shown in the Quicklook panel
+ @result YES if the object is a file or URL object, otherwise NO
+ */
+- (BOOL)canQuicklookCurrentObject;
+/*!
+ @closePreviewPanel
+ @abstract Method to close the preview panel
+ @discussion Closes the preview panel, returning Quicksilver to the state it was in before the panel was open
+ */
+- (void)closePreviewPanel;
+- (IBAction)togglePreviewPanel:(id)previewPanel;
+- (IBAction)togglePreviewPanelFullScreen:(id)previewPanel;
 @end

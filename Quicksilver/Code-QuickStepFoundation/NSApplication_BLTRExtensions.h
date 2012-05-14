@@ -31,12 +31,6 @@
 - (void)replaceWithUpdateFromPath:(NSString *)newPath;
 @end
 
-@interface NSApplication (LSUIElementManipulation)
-- (BOOL)shouldBeUIElement;
-- (BOOL)setShouldBeUIElement:(BOOL)hidden;
-@end
-
-
 typedef enum {
 	QSApplicationNormalLaunch = 0,
 	QSApplicationUpgradedLaunch = 1,

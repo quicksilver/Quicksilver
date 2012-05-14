@@ -10,6 +10,7 @@
 #import "QSPreferencesController.h"
 #import "QSSetupAssistant.h"
 #import "QSTaskViewer.h"
+#import "QSCrashReporterWindowController.h"
 
 #define DEVEXPIRE 180.0f
 #define DEPEXPIRE 365.24219878f
@@ -25,6 +26,9 @@
 static QSController *defaultController = nil;
 
 @implementation QSController
+
+@synthesize crashReportPath;
+
 - (void)awakeFromNib { if (!defaultController) defaultController = [self retain];  }
 + (id)sharedInstance {
 	if (!defaultController)
@@ -91,11 +95,14 @@ static QSController *defaultController = nil;
 #endif
 
 - (NSString *)applicationSupportFolder {
-	FSRef foundRef;
-	FSFindFolder(kUserDomain, kApplicationSupportFolderType, kDontCreateFolder, &foundRef);
-	unsigned char path[1024];
-	FSRefMakePath(&foundRef, path, sizeof(path) );
-	return [[NSString stringWithUTF8String:(char *)path] stringByAppendingPathComponent:@"Quicksilver"];
+    NSArray *userSupportPathArray = NSSearchPathForDirectoriesInDomains (NSApplicationSupportDirectory, NSUserDomainMask, YES);
+    if ([userSupportPathArray count]) {
+        return [[userSupportPathArray objectAtIndex:0] stringByAppendingPathComponent:@"Quicksilver"];
+    }
+    else {
+        NSLog(@"Unable to find user Application Support folder");
+        return nil;
+    }
 }
 
 - (id)init {
@@ -121,23 +128,16 @@ static QSController *defaultController = nil;
 - (int) showMenuIcon {
 	return -1;
 }
-- (void)setShowMenuIcon:(NSNumber *)mode {
-	int priority = 0;
-
+- (void)setShowMenuIcon:(NSNumber *)mode {    
 	if (statusItem) {
 		[[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
 		[statusItem release];
 		statusItem = nil;
 	}
-
-	switch ([mode intValue]) {
-		case 1: priority = NSNormalStatusItemPriority; break;
-		case 2: priority = NSLeftStatusItemPriority; break;
-		case 3: priority = NSRightStatusItemPriority; break;
-		case 4: priority = NSFarRightStatusItemPriority; break;
-		default: return;
-	}
-	statusItem = [[NSStatusBar systemStatusBar] _statusItemWithLength:29.0f withPriority:priority];
+    if (![mode boolValue]) {
+        return;
+    }
+    statusItem = [[NSStatusBar systemStatusBar] _statusItemWithLength:29.0f withPriority:NSLeftStatusItemPriority];
 	[statusItem retain];
 	[statusItem setImage:[NSImage imageNamed:@"QuicksilverMenu"]];
 	[statusItem setAlternateImage:[NSImage imageNamed:@"QuicksilverMenuPressed"]];
@@ -334,7 +334,7 @@ static QSController *defaultController = nil;
 			[anItem setImage:[[NSImage imageNamed:@"Triggers"] duplicateOfSize:QSSize16]];
 		return [[QSReg tableNamed:@"QSTriggerManagers"] count];
 	} else if ([anItem action] == @selector(unsureQuit:) ) {
-		[anItem setTitle:([[NSUserDefaults standardUserDefaults] boolForKey:kDelayQuit] ?@"Quit Quicksilver...":@"Quit Quicksilver")];
+		[anItem setTitle:@"Quit Quicksilver"];
 		return YES;
 	}
 	return YES;
@@ -452,7 +452,7 @@ static QSController *defaultController = nil;
 		[animation setAnimationBlockingMode:NSAnimationBlocking];
 		[animation startAnimation];
 	}
-	[pool release];
+	[pool drain];
 }
 - (void)hideSplash:sender {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -462,7 +462,7 @@ static QSController *defaultController = nil;
 		[splashWindow close];
 		splashWindow = nil;
 	}
-	[pool release];
+	[pool drain];
 }
 - (void)startDropletConnection {
 	if (dropletConnection) return;
@@ -497,8 +497,9 @@ static QSController *defaultController = nil;
 }
 
 - (void)receiveObject:(QSObject *)object {
+	[[self interfaceController] clearObjectView:[[self interfaceController] dSelector]];
 	[[self interfaceController] selectObject:object];
-	[self activateInterface:self];
+    [[self interfaceController] actionActivate:nil];
 }
 
 - (NSObject *)dropletProxy { return dropletProxy;  }
@@ -605,7 +606,7 @@ static QSController *defaultController = nil;
 	[task startTask:self];
 	[[QSLibrarian sharedInstance] loadMissingIndexes];
 	[task stopTask:self];
-	[pool release];
+	[pool drain];
 }
 
 - (NSString *)internetDownloadLocation { return [[[NDAlias aliasWithData:[[[[(NSDictionary *)CFPreferencesCopyValue((CFStringRef) @"Version 2.5.4", (CFStringRef) @"com.apple.internetconfig", kCFPreferencesCurrentUser, kCFPreferencesAnyHost) autorelease] objectForKey:@"ic-added"] objectForKey:@"DownloadFolder"] objectForKey:@"ic-data"]] path] stringByStandardizingPath];  }
@@ -614,12 +615,14 @@ static QSController *defaultController = nil;
 	int status = [NSApp checkLaunchStatus];
 
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *lastLocation = [defaults objectForKey:kLastUsedLocation];
 	NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
 	NSString *lastVersionString = [defaults objectForKey:kLastUsedVersion];
 	int lastVersion = [lastVersionString respondsToSelector:@selector(hexIntValue)] ? [lastVersionString hexIntValue] : 0;
 	switch (status) {
-		case QSApplicationUpgradedLaunch:
+		case QSApplicationUpgradedLaunch: {
+/** Turn off "running from a new location" and "you are using a new version of QS" popups for DEBUG builds **/
+#ifndef DEBUG     
+            NSString *lastLocation = [defaults objectForKey:kLastUsedLocation];
 			if (lastLocation && ![bundlePath isEqualToString:[lastLocation stringByStandardizingPath]]) {
 				//New version in new location.
 				[NSApp activateIgnoringOtherApps:YES];
@@ -627,8 +630,6 @@ static QSController *defaultController = nil;
 				if (selection)
 					[NSApp relaunchAtPath:lastLocation movedFromPath:bundlePath];
 			}
-			
-#ifndef DEBUG
 			if ([defaults boolForKey:kShowReleaseNotesOnUpgrade]) {
 				[NSApp activateIgnoringOtherApps:YES];
 				int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:NSLocalizedString(@"Quicksilver has been updated",nil), nil] , NSLocalizedString(@"You are using a new version of Quicksilver. Would you like to see the Release Notes?",nil), NSLocalizedString(@"Show Release Notes",nil), NSLocalizedString(@"Ignore",nil), nil);
@@ -646,12 +647,17 @@ static QSController *defaultController = nil;
 			}
 				newVersion = YES;
 			break;
-		case QSApplicationDowngradedLaunch:
+        }
+		case QSApplicationDowngradedLaunch: {
+/** Turn off "you have previously used a newer version" popup for DEBUG builds **/
+#ifndef DEBUG
 			[NSApp activateIgnoringOtherApps:YES];
 			int selection = NSRunInformationalAlertPanel(NSLocalizedString(@"This is an old version of Quicksilver",nil), NSLocalizedString(@"You have previously used a newer version. Perhaps you have duplicate copies?",nil), NSLocalizedString(@"Reveal this copy",nil), NSLocalizedString(@"Ignore",nil), nil);
 			if (selection == 1)
 				[[NSWorkspace sharedWorkspace] selectFile:[[NSBundle mainBundle] bundlePath] inFileViewerRootedAtPath:@""];
+#endif
 				break;
+        }
 		case QSApplicationFirstLaunch: {
 			NSString *containerPath = [[bundlePath stringByDeletingLastPathComponent] stringByStandardizingPath];
 			BOOL shouldInstall = [containerPath isEqualToString:@"/Volumes/Quicksilver"] || [containerPath isEqualToString:[self internetDownloadLocation]];
@@ -690,6 +696,7 @@ static QSController *defaultController = nil;
 }
 
 - (void)checkForCrash {
+<<<<<<< HEAD
 	NSMutableDictionary *state = [NSMutableDictionary dictionaryWithContentsOfFile:pStateLocation];
 	
 	// check to see if Quicksilver quit gracefully last time
@@ -754,6 +761,61 @@ static QSController *defaultController = nil;
 	NSDictionary *newState = [[NSDictionary alloc] initWithObjectsAndKeys:@"NO", kQSQuitGracefully, nil];
 	[newState writeToFile:pStateLocation atomically:NO];
 	[newState release];
+=======
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    // obtain the last known crash date from the prefs
+    NSDate *lastKnownCrashDate = [defaults objectForKey:kLastKnownCrashDate];
+    
+	NSFileManager *fm = [[NSFileManager alloc] init];
+    
+    // get a list of files beginning with 'Quicksilver' from the crash reporter folder
+    NSArray *files = [fm contentsOfDirectoryAtPath:pCrashReporterFolder error:nil];
+    NSArray *filteredFiles = [files filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF BEGINSWITH[c] 'Quicksilver'"]];
+
+    NSDate *mostRecentCrashDate = [NSDate distantPast];
+    // Enumerate crash files to find most recent crash report
+    for (NSString *individualFile in filteredFiles) {
+        NSDate *individualDate = [[fm attributesOfItemAtPath:[pCrashReporterFolder stringByAppendingPathComponent:individualFile] error:nil] objectForKey:NSFileCreationDate];
+        if ([individualDate compare:mostRecentCrashDate] == NSOrderedDescending) {
+            mostRecentCrashDate = individualDate;
+            [self setCrashReportPath:individualFile];
+        }
+    }
+    [mostRecentCrashDate retain];
+
+    // path to the most recent crash report (used by the crash reporter for sending the file to the server)
+    [self setCrashReportPath:[pCrashReporterFolder stringByAppendingPathComponent:crashReportPath]];
+    
+    // Check the QuicksilverState.plist file to see if a plugin caused a crash
+    NSDictionary *state = [NSDictionary dictionaryWithContentsOfFile:pStateLocation];
+    NSString *pluginName = [state objectForKey:kQSPluginCausedCrashAtLaunch];
+    NSWindowController *QSCrashController = nil;
+	// check to see if Quicksilver crashed since last used (there's a newer crash report or a plugin crashed)
+	if ((lastKnownCrashDate && [mostRecentCrashDate compare:lastKnownCrashDate] == NSOrderedDescending) ||  pluginName) {
+        
+        // Crash due to faulty plugin
+        if (pluginName) {
+            // There are no crash reports for these, so release the crashReportPath file and set to nil
+            [[self crashReportPath] release];
+            crashReportPath = nil;
+        }
+
+        // Crash occurred, load the crash reporter window
+        QSCrashController = [[QSCrashReporterWindowController alloc] initWithWindowNibName:@"QSCrashReporter"];
+        // Open the crash reporter window
+        [NSApp runModalForWindow:[QSCrashController window]];
+        [QSCrashController release];
+    }
+    [mostRecentCrashDate release];
+
+    // synchronise prefs and QuicksilverState file
+    [fm removeItemAtPath:pStateLocation error:nil];
+    [defaults setObject:mostRecentCrashDate forKey:kLastKnownCrashDate];
+    [defaults synchronize];
+
+    [fm release];
+>>>>>>> master
 }
 
 - (IBAction)showReleaseNotes:(id)sender { [[NSWorkspace sharedWorkspace] openFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/SharedSupport/Changes.html"]];  }
@@ -779,11 +841,7 @@ static QSController *defaultController = nil;
 //- (void)applicationDidResignActive:(NSNotification *)aNotification {}
 
 - (NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication *)sender {
-#if 0
-	[[NSImage imageNamed:@"NSApplicationIcon"] setSize:NSMakeSize(128, 128)];
-	[NSApp setApplicationIconImage:[NSImage imageNamed:@"NSApplicationIcon"]];
-#endif
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSQuicksilverWillQuitEvent" userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSQuicksilverWillQuitEvent" userInfo:nil];
 	return YES;
 }
 
@@ -804,9 +862,6 @@ static QSController *defaultController = nil;
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"WindowsShouldHide" object:self];
-	NSDictionary *state = [[NSDictionary alloc] initWithObjectsAndKeys:@"YES", kQSQuitGracefully, nil];
-	[state writeToFile:pStateLocation atomically:NO];
-	[state release];
 //    if (DEBUG_MEMORY) [self writeLeaksToFileAtPath:QSApplicationSupportSubPath(@"QSLeaks.plist", NO)];
 }
 
@@ -836,16 +891,7 @@ static QSController *defaultController = nil;
 - (void)startQuicksilver:(id)sender {
 	[self checkForFirstRun];
 	[self checkForCrash];
-
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-	NSString *equiv = [defaults objectForKey:@"QSServiceMenuKeyEquivalent"];
-	//NSLog(@"Setting service %@", equiv);
-	if (equiv && ![equiv isEqualToString:[NSApp keyEquivalentForService:@"Quicksilver/Send to Quicksilver"]]) {
-		NSLog(@"Setting Service Key Equivalent to %@", equiv);
-		[NSApp setKeyEquivalent:equiv forService:@"Quicksilver/Send to Quicksilver"];
-	}
-
+    
 	// Show Splash Screen
 	BOOL atLogin = [NSApp wasLaunchedAtLogin];
 	if (!atLogin)
@@ -921,6 +967,7 @@ static QSController *defaultController = nil;
 	[NSApp setServicesProvider:self];
 
 	// Setup Activation Hotkey
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
 	if ([defaults integerForKey:@"QSModifierActivationCount"] >0) {
 		QSModifierKeyEvent *modActivation = [[[QSModifierKeyEvent alloc] init] autorelease];
@@ -1124,5 +1171,6 @@ void QSSignalHandler(int i) {
 
 	return YES;
 }
+
 
 @end

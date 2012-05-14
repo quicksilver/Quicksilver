@@ -75,6 +75,8 @@
 	[nc addObserver:self selector:@selector(objectModified:) name:QSObjectModified object:nil];
 	[nc addObserver:self selector:@selector(objectIconModified:) name:QSObjectIconModified object:nil];
 	[nc addObserver:self selector:@selector(searchObjectChanged:) name:@"SearchObjectChanged" object:nil];
+	[nc addObserver:self selector:@selector(sourceArrayCreated:) name:@"QSSourceArrayCreated" object:nil];
+	[nc addObserver:self selector:@selector(sourceArrayChanged:) name:@"QSSourceArrayUpdated" object:nil];
 	[nc addObserver:self selector:@selector(appChanged:) name:QSActiveApplicationChanged object:nil];
 	[QSHistoryController sharedInstance];
 	return self;
@@ -85,11 +87,8 @@
 		[actionsUpdateTimer invalidate];
 	if([hideTimer isValid])
 		[hideTimer invalidate];
-	if([clearTimer isValid])
-		[clearTimer invalidate];
 	[actionsUpdateTimer release];
 	[hideTimer release];
-	[clearTimer release];
 	//[progressIndicator release];
 	//[iSelector release];
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -181,6 +180,10 @@
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"InterfaceDeactivated" object:self];
 		[[self window] makeFirstResponder:nil];
 	}
+    // Close the Quicklook panel if the QS window closes
+    if([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
+        [(QSSearchObjectView *)[[QLPreviewPanel sharedPreviewPanel] delegate] closePreviewPanel];
+    }
 }
 
 - (void)hideMainWindowWithEffect:(id)effect {
@@ -263,13 +266,13 @@
 - (void)setActionUpdateTimer {
 	if ([actionsUpdateTimer isValid]) {
 		// *** this was causing actions not to update for the search contents action
-		[actionsUpdateTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:0.30]];
+		[actionsUpdateTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:0.10]];
 		//[actionsUpdateTimer fire];
 		//	NSLog(@"action %@", [actionsUpdateTimer fireDate]);
 	} else {
 		[actionsUpdateTimer invalidate];
 		[actionsUpdateTimer release];
-		actionsUpdateTimer = [[NSTimer scheduledTimerWithTimeInterval:0.30 target:self selector:@selector(updateActionsNow) userInfo:nil repeats:NO] retain];
+		actionsUpdateTimer = [[NSTimer scheduledTimerWithTimeInterval:0.10 target:self selector:@selector(updateActionsNow) userInfo:nil repeats:NO] retain];
 	}
 }
 
@@ -290,12 +293,14 @@
 }
 
 - (void)updateActions {
-	[aSelector setResultArray:nil];
-	[aSelector clearObjectValue];
+    // update the actions after a delay (see setActionUpdateTimer for the delay length)
 	[self performSelectorOnMainThread:@selector(setActionUpdateTimer) withObject:nil waitUntilDone:YES];
 }
 
 - (void)updateActionsNow {
+    // Clear the current results in the aSelector ready for the new results
+    [aSelector setResultArray:nil];
+    [aSelector clearObjectValue];
 	[actionsUpdateTimer invalidate];
 
 	[aSelector setEnabled:YES];
@@ -330,12 +335,12 @@
 	[self activate:self];
 }
 
-- (void)searchArray:(NSArray *)array {
+- (void)searchArray:(NSMutableArray *)array {
     // show the results list with the first pane empty
     [self showArray:array withDirectObject:nil];
 }
 
-- (void)showArray:(NSArray *)array {
+- (void)showArray:(NSMutableArray *)array {
     // display the results list with these items
     if (array && [array count] > 0) {
         // put the first item from the array into the first pane
@@ -348,12 +353,11 @@
     [dSelector showResultView:self];
 }
 
-- (void)showArray:(NSArray *)array withDirectObject:(QSObject *)dObject {
+- (void)showArray:(NSMutableArray *)array withDirectObject:(QSObject *)dObject {
     [actionsUpdateTimer invalidate];
     [self clearObjectView:dSelector];
-    NSMutableArray *mutArray = [[array mutableCopy] autorelease];
-    [dSelector setSourceArray:mutArray];
-    [dSelector setResultArray:mutArray];
+    [dSelector setSourceArray:array];
+    [dSelector setResultArray:array];
     [dSelector setSearchMode:SearchFilter];
     if (dObject) {
         // show an item from this array if set
@@ -392,9 +396,9 @@
 - (void)searchObjectChanged:(NSNotification*)notif {
 	[[self window] disableFlushWindow];
 	if ([notif object] == dSelector) {
-		[iSelector setObjectValue:nil];
-		[self updateActions];
-		[self updateViewLocations];
+            [iSelector setObjectValue:nil];
+            [self updateActions];
+            [self updateViewLocations];
 	} else if ([notif object] == aSelector) {
         QSAction *obj = [aSelector objectValue];
         if ([obj isKindOfClass:[QSRankedObject class]])
@@ -411,10 +415,39 @@
 	[[self window] enableFlushWindow];
 }
 
+- (void)sourceArrayCreated:(NSNotification *)notif
+{
+	[self showArray:[[notif userInfo] objectForKey:kQSResultArrayKey]];
+}
+
+- (void)sourceArrayChanged:(NSNotification *)notif
+{
+	//NSLog(@"notif %@ - change to %@", [notif name], [notif userInfo]);
+	// resultArray and sourceArray point to the same object until the user starts typing.
+	// We want to stop getting updates at that point, so we compare to the resultArray instead.
+	if ([[dSelector resultArray] isEqual:[[notif userInfo] objectForKey:kQSResultArrayKey]]) {
+		//NSLog(@"arraychanged");
+		if ([[dSelector->resultController window] isVisible]) {
+			[dSelector reloadResultTable];
+			[dSelector->resultController updateSelectionInfo];
+		}
+		if (![[dSelector resultArray] containsObject:[dSelector selectedObject]]) {
+			if ([[dSelector resultArray] count]) {
+				[dSelector selectObjectValue:[[dSelector resultArray] objectAtIndex:0]];
+			} else {
+				[dSelector clearObjectValue];
+			}
+		}
+		if ([self respondsToSelector:@selector(searchView:changedResults:)])
+			[self searchView:dSelector changedResults:[dSelector resultArray]];
+	}
+}
+
 - (void)appChanged:(NSNotification *)aNotification {
-	NSString *currentApp = [[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationBundleIdentifier"];
-	if (![currentApp isEqualToString:@"com.blacktree.Quicksilver"])
+    // Close the QS window if it's visible and the Quicksilver itself isn't the application gaining focus
+	if ([[self window] isVisible] && ![[[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationBundleIdentifier"] isEqualToString:@"com.blacktree.Quicksilver"]) {
 		[self hideWindows:self];
+    }
 }
 
 - (void)invalidateHide {
@@ -435,18 +468,17 @@
 	}
 }
 
-- (void)setClearTimer {
-	if ([clearTimer isValid]) {
-		[clearTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:10*MINUTES]];
-	} else {
-		[clearTimer release];
-		clearTimer = [[NSTimer scheduledTimerWithTimeInterval:10*MINUTES target:self selector:@selector(clear:) userInfo:nil repeats:NO] retain];
-	}
-}
-
 - (void)clear:(NSTimer *)timer {
 	[dSelector clearObjectValue];
 	[self updateActionsNow];
+}
+
+- (void)ignoreInterfaceNotifications
+{
+	// subclasses (namely the Command Builder) need a way to overlook notifications meant for the main interface
+	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+	[nc removeObserver:self name:@"QSSourceArrayCreated" object:nil];
+	[nc removeObserver:self name:@"QSSourceArrayUpdated" object:nil];
 }
 
 #pragma mark -
@@ -461,6 +493,10 @@
 - (void)windowDidResignMain:(NSNotification *)aNotification {}
 
 - (void)windowDidResignKey:(NSNotification *)aNotification {
+    // Close the Quicklook panel if the QS window closes
+    if([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
+        return;
+    }
 	if ([aNotification object] == [self window]) {
 		if (hidingWindow) return;
 		if ([hideTimer isValid]) {
@@ -480,7 +516,6 @@
 	if ([[self window] attachedSheet] == window)
 		return;
 	if (window == [self window]) {
-	 	[clearTimer invalidate];
 		[hideTimer invalidate];
 	} else if ([[notification object] level] <= [[self window] level]) {
 		//NSLog(@"hide! %@", window);
@@ -488,6 +523,7 @@
 		[self hideWindows:self];
 	}
 }
+
 
 #pragma mark -
 #pragma mark Command Execution
@@ -514,41 +550,18 @@
         dObject = [(QSRankedObject*)dObject object];
     if( [iObject isKindOfClass:[QSRankedObject class]] )
         iObject = [(QSRankedObject*)iObject object];
-	QSObject *returnValue = [action performOnDirectObject:dObject indirectObject:iObject];
-	if (returnValue) {
-        // if the action returns something, wipe out the first pane
-        /* (The main object would get replaced anyway. This is only done to
-           remove objects selected by the comma trick before the action was run.) */
-        [self clearObjectView:dSelector];
-        // put the result in the first pane and in the results list
-        [dSelector performSelectorOnMainThread:@selector(setObjectValue:) withObject:returnValue waitUntilDone:YES];
-		if (action) {
-            if ([action isKindOfClass:[QSRankedObject class]] && [(QSRankedObject *)action object]) {
-                QSAction* rankedAction = [(QSRankedObject *)action object];
-                if (rankedAction != action) {
-                    [rankedAction retain];
-                    [action release];
-                    action = rankedAction;
-                }
-            }
-            // bring the interface back to show the result
-            if ([action displaysResult]) {
-                // send focus to the second pane if the user has set the preference
-                if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSJumpToActionOnResult"]) {
-                    [[self window] makeFirstResponder:aSelector];
-                }
-                [self showMainWindow:self];
-            }
-        }
-	}
+	QSCommand *command = [QSCommand commandWithDirectObject:dObject actionObject:action indirectObject:iObject];
+	[command execute];
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"Command executed (%dms) ", (int)(-[startDate timeIntervalSinceNow] *1000));
 #endif
 	[action release];
-	[pool release];
+	[pool drain];
 }
 
 - (void)executePartialCommand:(NSArray *)array {
+	// remove objects previously selected by the comma trick
+	[self clearObjectView:dSelector];
 	[dSelector setObjectValue:[array objectAtIndex:0]];
 	if ([array count] == 1) {
 		[self updateActionsNow];
@@ -573,6 +586,10 @@
 		NSBeep();
 		return;
 	}
+    
+    // add the object being executed to the history
+    [dSelector updateHistory];
+    
 	int argumentCount = [(QSAction *)[aSelector objectValue] argumentCount];
 	if (argumentCount == 2) {
 		BOOL indirectIsRequired = ![[aSelector objectValue] indirectOptional];
@@ -626,7 +643,7 @@
 }
 
 - (IBAction)activate:(id)sender {
-	if ([[self window] isVisible] && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSInterfaceReactivationDeactivates"]) {
+	if ([[self window] isVisible]) {
 		[self hideMainWindowFromCancel:sender];
 		return;
 	}
@@ -673,11 +690,13 @@
 	[self showInterface:self];
 }
 
+// Method that detects which pane should be focused on re-activating of Quicksilver interface
 - (IBAction)actionActivate:(id)sender {
-	[self updateActionsNow];
-	[iSelector reset:self];
-	//[[dSelector objectValue] loadIcon];
-	[[self window] makeFirstResponder:aSelector];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSJumpToActionOnResult"]) {
+        [self updateActionsNow];
+        [iSelector reset:self];
+        [[self window] makeFirstResponder:aSelector];
+    }
 	[self showInterface:self];
 }
 
@@ -733,7 +752,6 @@
 
 - (IBAction)hideWindows:(id)sender {
 	[self hideMainWindow:self];
-	[self setClearTimer];
 }
 
 - (IBAction)showTasks:(id)sender {

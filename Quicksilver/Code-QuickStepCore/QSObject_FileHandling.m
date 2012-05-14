@@ -35,85 +35,39 @@ static NSDictionary *bundlePresetChildren;
 //static BOOL useSmallIcons = NO;
 
 NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
-    if (bundleIdentifier == nil)
-        return nil;
-	
-	NSMutableArray *documentsArray = [NSMutableArray arrayWithCapacity:0];
-	
-	// for before 10.6
-	NSArray *recentDocuments = [(NSArray *)CFPreferencesCopyValue((CFStringRef) @"NSRecentDocumentRecords", 
-																  (CFStringRef) bundleIdentifier, 
-																  kCFPreferencesCurrentUser, 
-																  kCFPreferencesAnyHost) autorelease];
-	if ([recentDocuments count] > 0) {
-		NSFileManager *manager = [NSFileManager defaultManager];
-		NSData *aliasData;
-		NSString *path;
-		for (id loopItem in recentDocuments) {
-			aliasData = [[loopItem objectForKey:@"_NSLocator"] objectForKey:@"_NSAlias"];
-			path = [[NDAlias aliasWithData:aliasData] quickPath];
-			// ***warning * eventually include aliases
-			if (path && [manager fileExistsAtPath:path])
-				[documentsArray addObject:path];
-		}
-#if MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5
-	}
-	return documentsArray;
-#else
-	return documentsArray;
+    if (bundleIdentifier == nil) {
+		return nil;
 	}
 
-	// for 10.6
-	if ([NSApplication isSnowLeopard]) {
-		NSURL *url;
-		NSError *err;
-		// If QuickTime Player, use specific format
-		if ([bundleIdentifier isEqualToString:@"com.apple.QuickTimePlayerX"]) {
-			recentDocuments = [(NSArray *)CFPreferencesCopyValue((CFStringRef) @"MGRecentURLPropertyLists", 
-																 (CFStringRef) bundleIdentifier, 
-																 kCFPreferencesCurrentUser, 
-																 kCFPreferencesAnyHost) autorelease];
-			
-			for(NSData *bookmarkData in recentDocuments) {
-				err = nil;
-				url = [NSURL URLByResolvingBookmarkData:bookmarkData 
-												options:NSURLBookmarkResolutionWithoutMounting|NSURLBookmarkResolutionWithoutUI 
-										  relativeToURL:nil 
-									bookmarkDataIsStale:NO 
-												  error:&err];
-				if (url == nil || err != nil) {
-					// couldn't resolve bookmark, so skip
-					continue;
-				}
-				[documentsArray addObject:[url path]];
-			}
-			return documentsArray;
+	// make sure latest changes are available
+	CFPreferencesSynchronize((CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"],
+							 kCFPreferencesCurrentUser,
+							 kCFPreferencesAnyHost);
+	NSDictionary *recentDocuments106 = [(NSDictionary *)CFPreferencesCopyValue((CFStringRef) @"RecentDocuments",
+																		  (CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"],
+																		  kCFPreferencesCurrentUser,
+																		  kCFPreferencesAnyHost) autorelease];
+	NSArray *recentDocuments = [recentDocuments106 objectForKey:@"CustomListItems"];
+
+	NSMutableArray *documentsArray = [NSMutableArray arrayWithCapacity:0];
+	NSData *bookmarkData;
+	NSURL *url;
+	NSError *err;
+	for(NSDictionary *documentStorage in recentDocuments) {
+		bookmarkData = [documentStorage objectForKey:@"Bookmark"];
+		err = nil;
+		url = [NSURL URLByResolvingBookmarkData:bookmarkData
+										options:NSURLBookmarkResolutionWithoutMounting|NSURLBookmarkResolutionWithoutUI
+								  relativeToURL:nil
+							bookmarkDataIsStale:NO
+										  error:&err];
+		if (url == nil || err != nil) {
+			// couldn't resolve bookmark, so skip
+			continue;
 		}
-		
-		// Use LSSharedFileList.plist files for other apps
-		NSDictionary *recentDocuments106 = [(NSArray *)CFPreferencesCopyValue((CFStringRef) @"RecentDocuments", 
-																			  (CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"], 
-																			  kCFPreferencesCurrentUser, 
-																			  kCFPreferencesAnyHost) autorelease];
-		recentDocuments = [recentDocuments106 objectForKey:@"CustomListItems"];
-		NSData *bookmarkData;
-		for(NSDictionary *documentStorage in recentDocuments) {
-			bookmarkData = [documentStorage objectForKey:@"Bookmark"];
-			err = nil;
-			url = [NSURL URLByResolvingBookmarkData:bookmarkData 
-											options:NSURLBookmarkResolutionWithoutMounting|NSURLBookmarkResolutionWithoutUI 
-									  relativeToURL:nil 
-								bookmarkDataIsStale:NO 
-											  error:&err];
-			if (url == nil || err != nil) {
-				// couldn't resolve bookmark, so skip
-				continue;
-			}
-			[documentsArray addObject:[url path]];
-		}
-	}	
+		[documentsArray addObject:[url path]];
+	}
 	return documentsArray;
-#endif
 }
 
 @interface QSFileSystemObjectHandler (hidden)
@@ -239,13 +193,12 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	}
 	return nil;
 }
+
 - (NSString *)detailsOfObject:(QSObject *)object {
 	NSArray *theFiles = [object arrayForType:QSFilePathType];
 	if ([theFiles count] == 1) {
 		NSString *path = [theFiles lastObject];
-		if (QSGetLocalizationStatus())
-			return [[[NSFileManager defaultManager] componentsToDisplayForPath:path] componentsJoinedByString:@":"];
-		else if ([path hasPrefix:NSTemporaryDirectory()])
+		if ([path hasPrefix:NSTemporaryDirectory()])
 			return [@"(Quicksilver) " stringByAppendingPathComponent:[path lastPathComponent]];
 		else
 			return [path stringByAbbreviatingWithTildeInPath];
@@ -402,27 +355,53 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	BOOL isDirectory;
 	NSString *path = [object singleFilePath];
 	if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory]) {
-
+        
 		LSItemInfoRecord infoRec;
 		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
+        
+        // A plain folder (not a package) has children
+        if (isDirectory && !(infoRec.flags & kLSItemInfoIsPackage)) {
+            return YES;
+        }
 
-		if (infoRec.flags & kLSItemInfoIsAliasFile) return YES;
-
+        // If it's an app check to see if there's a handler for it (e.g. a plugin) or if there are recent documents
 		if (infoRec.flags & kLSItemInfoIsApplication) {
 			NSString *bundleIdentifier = [[NSBundle bundleWithPath:path] bundleIdentifier];
-			//CFBundleRef bundle = CFBundleCreate (NULL, (CFURLRef) [NSURL fileURLWithPath:path]);
-			//NSString *bundleIdentifier = CFBundleGetIdentifier(bundle);
-
+            
+            // Does the app have an external handler? (e.g. a plugin)
 			NSString *handlerName = [[QSReg tableNamed:@"QSBundleChildHandlers"] objectForKey:bundleIdentifier];
-			if (handlerName) return YES;
-        if (!bundleIdentifier) return NO;
-			NSArray *recentDocuments = (NSArray *)CFPreferencesCopyValue((CFStringRef) @"NSRecentDocumentRecords", (CFStringRef) bundleIdentifier, kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
-			[recentDocuments autorelease];
-			if (recentDocuments) return YES;
+			if (handlerName) {
+                return YES;
+            }
+            // Does the app have valid recent documents
+            if (bundleIdentifier) {
+                NSDictionary *recentDocuments = (NSDictionary *)CFPreferencesCopyValue((CFStringRef) @"RecentDocuments",
+                                                                                       (CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"],
+                                                                                       kCFPreferencesCurrentUser,
+                                                                                       kCFPreferencesAnyHost);
+                if (recentDocuments) {
+                    NSArray *recentDocumentsArray = [recentDocuments objectForKey:@"CustomListItems"];
+                    [recentDocuments release];
+                    if (recentDocumentsArray && [recentDocumentsArray count]) {
+                        return YES;
+                    }
+                }
+            }
 		}
-
-		return isDirectory && !(infoRec.flags & kLSItemInfoIsPackage);
+        
+        // If there is a valid file parser (text or HTML parser) the object has children    
+        NSString *uti = QSUTIWithLSInfoRec(path, &infoRec);
+        id <QSParser> parser = [QSReg instanceForKey:uti inTable:@"QSFSFileTypeParsers"];
+        if (parser) {
+            return YES;
+        }
+        
+        // An alias has children (the resolved file)
+		if (infoRec.flags & kLSItemInfoIsAliasFile) {
+            return YES;
+        }
 	}
+    
 	return NO;
 
 }
@@ -581,15 +560,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			//NSString *type = [[NSFileManager defaultManager] typeOfFile:path];
 
 			NSString *uti = QSUTIWithLSInfoRec(path, &infoRec);
-			//QSUTIForExtensionOrType((NSString *)infoRec.extension, infoRec.filetype);
-
-			//NSLog(@"uti %@ %@", uti, UTTypeCopyDescription(uti) );
-
-			id handler = [QSReg instanceForKey:uti inTable:@"QSFSFileTypeChildHandlers"];
-			if (handler) {
-				return [handler loadChildrenForObject:object];
-            }
-
+            
 			id <QSParser> parser = [QSReg instanceForKey:uti inTable:@"QSFSFileTypeParsers"];
 			NSArray *children = [parser objectsFromPath:path withSettings:nil];
 			if (children) {
@@ -693,7 +664,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 + (QSObject *)fileObjectWithArray:(NSArray *)paths {
-	QSObject *newObject = [QSObject objectWithIdentifier:identifierForPaths(paths)];
+	QSObject *newObject = [QSObject objectByMergingObjects:[self fileObjectsWithPathArray:paths]];
 	if (!newObject) {
 		if ([paths count] > 1)
 			newObject = [[[QSObject alloc] initWithArray:paths] autorelease];
@@ -716,7 +687,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 + (NSMutableArray *)fileObjectsWithURLArray:(NSArray *)pathArray {
-	NSMutableArray *fileObjectArray = [NSMutableArray arrayWithCapacity:1];
+	NSMutableArray *fileObjectArray = [NSMutableArray arrayWithCapacity:[pathArray count]];
 	for (id loopItem in pathArray) {
 		[fileObjectArray addObject:[QSObject fileObjectWithPath:[loopItem path]]];
 	}
@@ -776,11 +747,30 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	return prefPaneKindString;
 }
 
+- (NSString *)bundleNameFromInfoDict:(NSDictionary *)infoDict {
+    // Use the display name
+    return [infoDict objectForKey:@"CFBundleDisplayName"];
+}
+
 - (NSString *)descriptiveNameForPackage:(NSString *)path withKindSuffix:(BOOL)includeKind {
     NSURL *fileURL = [NSURL fileURLWithPath:path];
-	CFBundleRef bundleRef = CFBundleCreate(kCFAllocatorDefault, (CFURLRef)fileURL);
-	NSString *bundleName = (NSString *)CFBundleGetValueForInfoDictionaryKey(bundleRef, kCFBundleNameKey);
 
+    NSString *bundleName = nil;
+    // First try the localised info Dict
+    NSDictionary *infoDict = [[NSBundle bundleWithURL:fileURL] localizedInfoDictionary];
+    if (infoDict) {
+        bundleName = [self bundleNameFromInfoDict:infoDict];
+    }
+    // Get the general info Dict
+    if (!bundleName) {
+        infoDict = [[NSBundle bundleWithURL:fileURL] infoDictionary];
+        bundleName = [self bundleNameFromInfoDict:infoDict];
+    }
+    
+    if (!bundleName) {
+        return nil;
+    }
+    
 	if (includeKind) {
         NSString *kind = nil;
 		if ([[path pathExtension] caseInsensitiveCompare:@"prefPane"] == NSOrderedSame) {
@@ -794,17 +784,18 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
       if (DEBUG_LOCALIZATION) NSLog(@"kind: %@", kind);
 #endif
 		
-		if (bundleName && [kind length])
+        if ([kind length]) {
 			bundleName = [NSString stringWithFormat:@"%@ %@", bundleName, kind];
-	} else {
-        bundleName = [[bundleName retain] autorelease];
+        }
     }
-    CFRelease(bundleRef);
+        
+    bundleName = [[bundleName retain] autorelease];
+    
 	return bundleName;
 }
 
 - (void)getNameFromFiles {
-	NSFileManager *manager = [NSFileManager defaultManager];
+	NSFileManager *manager = [[NSFileManager alloc] init];
 	NSString *newName = nil;
 	NSString *newLabel = nil;
 	if ([self count] >1) {
@@ -823,16 +814,18 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			newLabel = [self descriptiveNameForPackage:(NSString *)path withKindSuffix:!(infoRec.flags & kLSItemInfoIsApplication)];
 			if ([newLabel isEqualToString:newName]) newLabel = nil;
 		}
+        // Fall back on using NSFileManager to get the name
 		if (!newName) {
-			newName = [path lastPathComponent];
-		 //  if (infoRec.flags & kLSItemInfoExtensionIsHidden) newName = [newName stringByDeletingPathExtension];
-		}
+			newName = [[NSFileManager defaultManager] displayNameAtPath:path];
+        }
+        
 		if (!newLabel && ![self label]) {
 			newLabel = [manager displayNameAtPath:path];
 			if ([newName isEqualToString:newLabel]) newLabel = nil;
 		}
 		if ([path isEqualToString:@"/"]) newLabel = [manager displayNameAtPath:path];
 	}
+    [manager release];
 	[self setName:newName];
 	[self setLabel:newLabel];
 }
@@ -866,7 +859,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		if ([type isEqualToString:@"'fold'"]) {
 			filesOnly = NO;
 			appsOnly = NO;
-		} else if ([type isEqualToString:@"app"] || [type isEqualToString:@"'APPL'"]) {
+            // application type (or Finder 'FNDR')
+		} else if ([type isEqualToString:@"app"] || [type isEqualToString:@"'APPL'"] || [type isEqualToString:@"'FNDR'"]) {
 			foldersOnly = NO;
 			filesOnly = NO;
 		} else {

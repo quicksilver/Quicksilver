@@ -169,7 +169,7 @@
 	<key>LSHasLocalizedDisplayName</key>
 	<integer>1</integer>
 	<key>LSUIElement</key>
-	<false/>
+	<true/>
 	<key>NSAppleScriptEnabled</key>
 	<true/>
 	<key>NSHumanReadableCopyright</key>

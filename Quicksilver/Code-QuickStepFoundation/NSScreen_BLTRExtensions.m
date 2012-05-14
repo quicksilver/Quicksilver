@@ -15,8 +15,6 @@
 //#include <Carbon/Carbon.h>
 #include <ApplicationServices/ApplicationServices.h>
 
-static void KeyArrayCallback(const void *key, const void *value, void *context) { CFArrayAppendValue(context, key);  }
-
 @implementation NSScreen (BLTRExtensions)
 
 + (NSScreen *)screenWithNumber:(int)number {
@@ -38,38 +36,25 @@ static void KeyArrayCallback(const void *key, const void *value, void *context) 
 }
 
 - (NSString *)deviceName {
-	CFArrayRef langKeys, orderLangKeys;
-    CFStringRef langKey;
     io_connect_t displayPort;
-    CFDictionaryRef dict, names;
     NSString *localName = nil;
     
 	displayPort = CGDisplayIOServicePort((CGDirectDisplayID)_screenNumber);
 	if ( displayPort == MACH_PORT_NULL )
 		return NULL; /* No physical device to get a name from */
-	dict = IODisplayCreateInfoDictionary(displayPort, 0);
+	NSDictionary *dict = (NSDictionary *)IODisplayCreateInfoDictionary(displayPort, kIODisplayOnlyPreferredName);
 
-	names = CFDictionaryGetValue( dict, CFSTR(kDisplayProductName) );
-	/* Extract all the display name locale keys */
-	langKeys = CFArrayCreateMutable( kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks );
-	CFDictionaryApplyFunction( names, KeyArrayCallback, (void *)langKeys );
-	/* Get the preferred order of localizations */
-	orderLangKeys = CFBundleCopyPreferredLocalizationsFromArray( langKeys );
-	CFRelease( langKeys );
+    NSDictionary *localizedNames = [dict objectForKey:[NSString stringWithUTF8String:kDisplayProductName]];
+    
+	if ([localizedNames count] > 0) {
+        localName = [localizedNames objectForKey:[[localizedNames allKeys] objectAtIndex:0]];
+    }
+    if (localName) {
+        [[localName retain] autorelease];
+    }
 
-	if ( orderLangKeys && CFArrayGetCount(orderLangKeys) ) {
-		langKey = CFArrayGetValueAtIndex( orderLangKeys, 0 );
-		localName = (NSString*)CFDictionaryGetValue( names, langKey );
-		// Caution: do not remove this according to Clang's static analyzer suggestions
-        if (localName) {
-            [[localName retain] autorelease];
-		}
-	}
-	if (orderLangKeys) {
-		CFRelease(orderLangKeys);
-	}
-	CFRelease(dict);
-
+    [dict release];
+    
 	if (!localName) {
 		uint32_t model = CGDisplayModelNumber((CGDirectDisplayID) _screenNumber);
 		uint32_t vendor = CGDisplayVendorNumber((CGDirectDisplayID) _screenNumber);

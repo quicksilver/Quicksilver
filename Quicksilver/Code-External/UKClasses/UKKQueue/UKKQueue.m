@@ -345,7 +345,7 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
 			NSLog(@"Error in UKKQueue watcherThread: %@", localException);
 		NS_ENDHANDLER
 
-		[pool release];
+		[pool drain];
 	}
 
 	// Close our kqueue's file descriptor:

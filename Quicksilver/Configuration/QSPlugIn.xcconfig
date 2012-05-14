@@ -6,3 +6,4 @@ INFOPLIST_FILE = Info.plist
 INFOPLIST_PREPROCESS = NO
 OTHER_LDFLAGS = -undefined dynamic_lookup
 BUNDLE_LOADER = $(QS_APP_CONTENTS_FOLDER)/MacOS/Quicksilver
+PYTHONPATH = $(QS_BUILD_ROOT)/Tools/python-support

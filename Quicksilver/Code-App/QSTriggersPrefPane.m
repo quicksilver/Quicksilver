@@ -172,6 +172,14 @@
 - (void)awakeFromNib {
 	typeMenu = nil;
 	[self populateTypeMenu];
+    
+    [addButton setKeyEquivalent:@"+"];
+    [removeButton setKeyEquivalent:@"-"];
+    [infoButton setKeyEquivalent:@"i"];
+    for (NSButton *aButton in [NSArray arrayWithObjects:addButton,removeButton,infoButton, nil]) {
+        [aButton setKeyEquivalentModifierMask:NSCommandKeyMask];
+    }
+    
 	[triggerTable registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, QSTriggerDragType, nil]];
 
 	[triggerTable setVerticalMotionCanBeginDrag: TRUE];
@@ -249,7 +257,16 @@
 	} else {
 		//	NSLog(@"trig2 %@", keyPath);
 
+        [infoButton setEnabled:YES];
+        [removeButton setEnabled:YES];
+        
 		NSArray *selection = [triggerTreeController selectedObjects];
+        if ([selection count] != 1) {
+            if ([selection count] == 0 ) {
+                [removeButton setEnabled:NO];
+            }
+            [infoButton setEnabled:NO];
+        }
 		[self setSelectedTrigger:[selection lastObject]];
 	}
 }
@@ -294,11 +311,12 @@
 - (IBAction)selectTrigger:(id)sender {
 
 	NSArray *triggers = [triggerTreeController selectedObjects];
-
+    
 	if ([triggers count] != 1) {
 		[settingsItem setView:[[[NSView alloc] init] autorelease]];
 		return;
 	}
+    
 	QSTrigger *thisTrigger = [triggers lastObject];
 
 	//	NSLog(@"trig %@", thisTrigger);

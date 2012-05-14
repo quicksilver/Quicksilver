@@ -101,115 +101,38 @@ id QSRez;
 	return image;
 }
 
-- (NSImage *)getFavIcon:(NSString *)urlString { 
-	NSURL *favIconURL = [NSURL URLWithString:[urlString URLEncoding]];
-	// URLs without a scheme, NSURL's 'host' method returns nil
-	if (![favIconURL host]) {
-		return nil;
-	}
-	NSString *favIconString = [NSString stringWithFormat:@"http://g.etfv.co/http://%@?defaulticon=none&extension=.ico", [favIconURL host]];
-	NSImage *favicon = [[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:favIconString]];
-	return favicon;
-}
-
-- (NSImage *)buildWebSearchIconForURL:(NSString *)urlString {
-
-	NSImage *webSearchImage = nil;
-	NSImage *image = [NSImage imageNamed:@"DefaultBookmarkIcon"];
-	if(image) {
-		NSRect rect = NSMakeRect(0, 0, 128, 128);
-		[image setSize:[[image bestRepresentationForSize:rect.size] size]];
-		NSSize imageSize = [image size];
-		NSBitmapImageRep *bitmap = [[[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
-																			pixelsWide:imageSize.width
-																			pixelsHigh:imageSize.height
-																		 bitsPerSample:8
-																	   samplesPerPixel:4
-																			  hasAlpha:YES
-																			  isPlanar:NO
-																		colorSpaceName:NSCalibratedRGBColorSpace
-																		  bitmapFormat:0
-																		   bytesPerRow:0
-																		  bitsPerPixel:0]
-									autorelease];
-		if(bitmap) {
-			NSGraphicsContext *graphicsContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:bitmap];
-			if(graphicsContext){
-				[NSGraphicsContext saveGraphicsState];
-				[NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithBitmapImageRep:bitmap]];
-				rect = NSMakeRect(0, 0, imageSize.width, imageSize.height);
-				[image setFlipped:NO];
-				[image setSize:rect.size];
-				[image drawInRect:rect fromRect:rectFromSize([image size]) operation:NSCompositeSourceOver fraction:1.0];
-				
-				NSImage *findImage = [NSImage imageNamed:@"Find"];
-				NSImage *favIcon = nil;
-				if(findImage) {
-					[findImage setSize:rect.size];
-					// Try and load the site's favicon
-					favIcon = [self getFavIcon:urlString];
-					if(favIcon) {
-						[favIcon setSize:rect.size];
-						[favIcon drawInRect:NSMakeRect(rect.origin.x+NSWidth(rect)*0.48, rect.origin.y+NSWidth(rect)*0.32, 30, 30) fromRect:rect operation:NSCompositeSourceOver fraction:1.0];
-					}
-						[findImage drawInRect:NSMakeRect(rect.origin.x+NSWidth(rect) *1/3, rect.origin.y, NSWidth(rect)*2/3, NSHeight(rect)*2/3) fromRect:rect operation:NSCompositeSourceOver fraction:1.0];
-				}
-				[NSGraphicsContext restoreGraphicsState];
-				webSearchImage = [[[NSImage alloc] initWithData:[bitmap TIFFRepresentation]] autorelease];
-				NSImageRep *fav16 = [favIcon bestRepresentationForSize:(NSSize){16.0f, 16.0f}];
-				if (fav16) [webSearchImage addRepresentation:fav16];
-			}
-		}
-	}
-	[image setName:@"Web Search Icon"];
-	
-	return webSearchImage;
-}
-
 - (NSImage *)imageNamed:(NSString *)name inBundle:(NSBundle *)bundle {
-
-	if (!name) return nil;
+	if (!name) { return nil; }
 
 	NSImage *image = [NSImage imageNamed:name];
 	if (!image && resourceOverrideList) {
 		NSString *file = [resourceOverrideList objectForKey:name];
-		if (file)
+		if (file) {
 			image = [[[NSImage alloc] initByReferencingFile:[resourceOverrideFolder stringByAppendingPathComponent:file]] autorelease];
+		}
 		[image setName:name];
+	}
 
-	}
-	if (!image && bundle) image = [bundle imageNamed:name];
-	if (image) {
-		return image;
-	}
+	if (!image && bundle) { image = [bundle imageNamed:name]; }
+
+	if (image) { return image; }
 
 	id locator = [resourceDict objectForKey:name];
-	if ([locator isKindOfClass:[NSNull class]]) return nil;
-	if (locator)
+	if ([locator isKindOfClass:[NSNull class]]) { return nil; }
+	if (locator) {
 		image = [self imageWithLocatorInformation:locator];
-    else if (!image && ([name hasPrefix:@"/"] || [name hasPrefix:@"~"])) { // !!! Andre Berg 20091007: Try iconForFile first if name looks like ordinary path
+	} else if (!image && ([name hasPrefix:@"/"] || [name hasPrefix:@"~"])) { // !!! Andre Berg 20091007: Try iconForFile first if name looks like ordinary path
 		NSString *path = [name stringByStandardizingPath];
-		if ([[NSImage imageUnfilteredFileTypes] containsObject:[path pathExtension]])
+		if ([[NSImage imageUnfilteredFileTypes] containsObject:[path pathExtension]]) {
 			image = [[[NSImage alloc] initByReferencingFile:path] autorelease];
-		else
+		} else {
 			image = [[NSWorkspace sharedWorkspace] iconForFile:path];
+		}
     } else {// Try the systemicons bundle
 		image = [self sysIconNamed:name];
-
-		
-		// Check if item represents one of the Firefox profile files.
-		// (this should be considered a temporary patch until the
-		// Firefox plugin can be fixed to set its own images)
-		if(!image && [name rangeOfString:@"/Library/Application%20Support/Firefox/Profiles/"].length > 0) {
-			if([name hasSuffix:@"bookmarks.html"]) {
-				image = [NSImage imageNamed:@"DefaultBookmarkIcon"];
-			}
-		}
-
-
-		if (!image) // Try by bundle id
+		if (!image) { // Try by bundle id
 			image = [self imageWithLocatorInformation:[NSDictionary dictionaryWithObjectsAndKeys:name, @"bundle", nil]];
-
+		}
 	}
 	if (!image && [locator isKindOfClass:[NSString class]]) {
 		image = [self imageNamed:locator];
@@ -217,35 +140,22 @@ id QSRez;
 
 	if(!image) {
 		SEL selector = NSSelectorFromString([NSString stringWithFormat:@"%@Image", name]);
-		if ([self respondsToSelector:selector])
+		if ([self respondsToSelector:selector]) {
 			image = [self performSelector:selector];
-	}
-#warning: This check is just if(0), removed by p_j_r 22/05/11
-#if 0
-	if (0 && !image) {
-#ifdef DEBUG
-		if (VERBOSE) NSLog(@"Searching for image: %@", name);
-#endif
-
-		for (NSBundle *bundle in [NSBundle allBundles]) {
-			NSString *path = [bundle pathForImageResource:name];
-			if (path) {
-				image = [[[NSImage alloc] initByReferencingFile:path] autorelease];
-			}
 		}
 	}
-#endif
 
 	if (!image) {
-		// if (VERBOSE) NSLog(@"Image Not Found:: %@", name);
 		[resourceDict setObject:[NSNull null] forKey:name];
 	} else {
-			[image setName:name];
+		[image setName:name];
 
-		if (![image representationOfSize:NSMakeSize(32, 32)])
+		if (![image representationOfSize:NSMakeSize(32, 32)]) {
 			[image createRepresentationOfSize:NSMakeSize(32, 32)];
-		if (![image representationOfSize:NSMakeSize(16, 16)])
+		}
+		if (![image representationOfSize:NSMakeSize(16, 16)]) {
 			[image createRepresentationOfSize:NSMakeSize(16, 16)];
+		}
 	}
 	return image;
 }

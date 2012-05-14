@@ -4,7 +4,6 @@
 @interface NSWindow (Fade)
 - (void)setSticky:(BOOL)flag;
 - (void)setAlphaValue:(float)fadeOut fadeTime:(float)seconds;
-- (void)setFrame:(NSRect)frameRect alphaValue:(float)alpha display:(BOOL)displayFlag animate:(BOOL)animationFlag;
 - (void)reallyCenter;
 +(NSWindow *)windowWithImage:(NSImage *)image;
 - (id)windowPropertyForKey:(NSString *)key;

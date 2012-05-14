@@ -68,10 +68,8 @@ NSMutableDictionary *bindingsDict = nil;
 	[self setTextCellFont:[NSFont systemFontOfSize:12.0]];
 	[self setTextCellFontColor:[NSColor blackColor]];
     
-	searchMode = SearchFilterAll;
-	moreComing = NO;
+	searchMode = SearchFilter;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideResultView:) name:@"NSWindowDidResignKeyNotification" object:[self window]];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sourceArrayChanged:) name:@"QSSourceArrayUpdated" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearAll) name:QSReleaseAllNotification object:nil];
 
 	resultsPadding = 0;
@@ -293,8 +291,8 @@ NSMutableDictionary *bindingsDict = nil;
 		[(id)[self controller] searchView:self changedResults:newResultArray];
 }
 
-- (NSArray *)searchArray { return searchArray;  }
-- (void)setSearchArray:(NSArray *)newSearchArray {
+- (NSMutableArray *)searchArray { return searchArray;  }
+- (void)setSearchArray:(NSMutableArray *)newSearchArray {
     if (searchArray != newSearchArray) {
         [searchArray release];
         searchArray = [newSearchArray retain];
@@ -338,24 +336,27 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (QSSearchMode)searchMode { return searchMode;  }
 - (void)setSearchMode:(QSSearchMode)newSearchMode {
-    searchMode = newSearchMode;
-    
-	if (searchMode != SearchFilterAll) {
-		//		[resultController->resultTable setBackgroundColor:[[NSColor selectedControlColor] blendedColorWithFraction:0.75 ofColor:[NSColor whiteColor]]];
-		//	[[self cell] setState:NSOnState];
-	} else {
-		//		[resultController->resultTable setBackgroundColor:[NSColor colorWithCalibratedHue:0.0 saturation:0.0 brightness:1.0 alpha:0.95]];
-		//	[[self cell] setState:NSOffState];
+	// Do not allow the setting of 'Filter Catalog' when in the aSelector (action)
+	if (!([[self class] isEqual:[QSSearchObjectView class]] && newSearchMode == SearchFilterAll)) {
+		searchMode = newSearchMode;
 	}
-    
-    [resultController->resultTable setNeedsDisplay:YES];
-    
-	if (browsing) [[NSUserDefaults standardUserDefaults] setInteger:newSearchMode forKey:kBrowseMode];
-    
-	// ***warning  * set default browse mode
-    
-	//if ([[resultController window] isVisible])
-	//	[resultController->searchModeMenu selectItemAtIndex:[resultController->searchModePopUp indexOfItemWithTag:searchMode]];
+	
+    [resultController->resultTable setNeedsDisplay:YES];	
+	if (browsing) {
+	[[NSUserDefaults standardUserDefaults] setInteger:searchMode forKey:kBrowseMode];
+	}
+		switch (searchMode) {
+			case SearchSnap:
+				[resultController setSearchSnapActivated];
+				break;
+			case SearchFilter:
+				[resultController setSearchFilterActivated];
+				break;
+			default:
+				[resultController setSearchFilterAllActivated];
+				break;
+		}
+
 }
 
 - (NSText *)currentEditor {
@@ -489,7 +490,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (IBAction)showResultView:(id)sender {
-	if ([[self window] firstResponder] != self) [[self window] makeFirstResponder:self];
+	if ([[self window] firstResponder] != self) return;
 	if ([[resultController window] isVisible]) return; //[resultController->resultTable reloadData];
     
 	[[resultController window] setLevel:[[self window] level] +1];
@@ -548,6 +549,7 @@ NSMutableDictionary *bindingsDict = nil;
     
 	if ([[self window] isVisible]) {
 		[[resultController window] orderFront:nil];
+		// Show the results window
 		[[self window] addChildWindow:[resultController window] ordered:NSWindowAbove];
 	}
 }
@@ -580,27 +582,44 @@ NSMutableDictionary *bindingsDict = nil;
 #pragma mark -
 #pragma mark Object Value
 - (void)selectObjectValue:(QSObject *)newObject {
-	if (newObject != [self objectValue]) {
-		[self updateHistory];
+    QSObject *currentObject = [self objectValue];
+    
+    // resolve the current and new objects in order to compare them
+    if ([newObject isKindOfClass:[QSRankedObject class]]) {
+        newObject = [(QSRankedObject *)newObject object];
+    }
+    if ([currentObject isKindOfClass:[QSRankedObject class]]) {
+        currentObject = [(QSRankedObject *)currentObject object];
+    }
+    // if the two objects are not the same, send an 'object chagned' notif
+	if (newObject != currentObject) {
 		[super setObjectValue:newObject];
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
 	}
 }
 
 - (void)setObjectValue:(QSBasicObject *)newObject {
-	//if (newObject) NSLog(@"%p set value %@", self, newObject);
-	[self hideResultView:self];
-    
-	[self clearSearch];
-	[parentStack removeAllObjects];
-	[self setResultArray:[NSArray arrayWithObjects:newObject, nil]];
-	[super setObjectValue:newObject];
-    
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
+    QSObject *currentObject = [self objectValue];
+    if ([newObject isKindOfClass:[QSRankedObject class]]) {
+        newObject = [(QSRankedObject *)newObject object];
+    }
+    if ([currentObject isKindOfClass:[QSRankedObject class]]) {
+        currentObject = [(QSRankedObject *)currentObject object];
+    }
+	if (newObject != currentObject) {
+        [self hideResultView:self];
+        [self clearSearch];
+        [parentStack removeAllObjects];
+        [self setResultArray:[NSArray arrayWithObjects:newObject, nil]];
+        [super setObjectValue:newObject];
+        
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
+    }
 }
 
 - (void)clearObjectValue {
 	[self updateHistory];
+    browsingHistory = NO;
 	[super setObjectValue:nil];
 	selection--;
 	//	[[NSNotificationCenter defaultCenter] postNotificationNamse:@"SearchObjectChanged" object:self];
@@ -673,10 +692,7 @@ NSMutableDictionary *bindingsDict = nil;
 #pragma mark -
 #pragma mark Utilities
 - (id)externalSelection {
-	if (defaultBool(@"QSUseGlobalSelectionForGrab") )
 		return [QSGlobalSelectionProvider currentSelection];
-	else
-		return [QSObject fileObjectWithArray:[[QSReg getMediator:kQSFSBrowserMediators] selection]];
 }
 
 - (void)dropObject:(QSBasicObject *)newSelection {
@@ -711,6 +727,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)clearSearch {
 	[resetTimer invalidate];
 	[resultTimer invalidate];
+    browsingHistory = NO;
 	[self resetString];
 	[partialString setString:@""];
     
@@ -771,7 +788,9 @@ NSMutableDictionary *bindingsDict = nil;
 	if ([self currentEditor]) {
 		[[self window] makeFirstResponder: self];
 	} else {
-		NSText *editor = [[self window] fieldEditor:YES forObject: self];
+		// Whilst the definition states fieldEditor:forObject returns an NSText object, the docs state 
+		// it's an NSTextView object. Source on the internet suggest the latter is correct
+		NSTextView *editor = (NSTextView *)[[self window] fieldEditor:YES forObject: self];
 		if (string) {
 			[editor setString:string];
 			[editor setSelectedRange:NSMakeRange([[editor string] length] , 0)];
@@ -780,13 +799,19 @@ NSMutableDictionary *bindingsDict = nil;
 			[editor setSelectedRange:NSMakeRange([[editor string] length] , 0)];
 		} else {
 			NSString *stringValue = [[self objectValue] stringValue];
-			if (stringValue) [editor setString:stringValue];
-			[editor setSelectedRange:NSMakeRange(0, [[editor string] length])];
+			if (stringValue) { 
+                [editor setString:stringValue];
+                [editor setSelectedRange:NSMakeRange(0, [[editor string] length])];
+            }
 		}
+		// Set the underlying object of the pane to be a text object
+		[self setObjectValue:[QSObject objectWithString:[editor string]]];
+		
 		NSRect titleFrame = [self frame];
 		NSRect editorFrame = NSInsetRect(titleFrame, NSHeight(titleFrame) /16, NSHeight(titleFrame)/16);
 		editorFrame.origin = NSMakePoint(NSHeight(titleFrame) /16, NSHeight(titleFrame)/16);
-        
+
+		[editor setAllowsUndo:YES];
 		[editor setHorizontallyResizable: YES];
 		[editor setVerticallyResizable: YES];
 		[editor setDrawsBackground: NO];
@@ -832,7 +857,7 @@ NSMutableDictionary *bindingsDict = nil;
 	// NSLog(@"search performed");
 }
 
-
+	
 - (void)performSearchFor:(NSString *)string from:(id)sender {
 #ifdef DEBUG
 	NSDate *date = [NSDate date];
@@ -856,8 +881,11 @@ NSMutableDictionary *bindingsDict = nil;
 		if ([self searchMode] == SearchFilterAll || [self searchMode] == SearchFilter)
 			[self setResultArray:newResultArray];
 		if ([self searchMode] == SearchFilterAll) {
+			// ! Don't search the entire catalog if we're in the aSelector (actions)
+			if (![[self class] isEqual:[QSSearchObjectView class]]) {
 			[self setSearchArray:newResultArray];
 			[parentStack removeAllObjects];
+			}
 		}
         
 		if ([self searchMode] == SearchSnap) {
@@ -914,40 +942,18 @@ NSMutableDictionary *bindingsDict = nil;
 	[resultController->searchStringField display];
 }
 
-- (void)sourceArrayChanged:(NSNotification *)notif {
-	//	NSLog(@"notif change %@", notif, [self sourceArray]);
-	if ([[self sourceArray] isEqual:[notif object]]) {
-		//NSLog(@"arraychanged");
-        
-		if ([[resultController window] isVisible]) {
-			[self reloadResultTable];
-			[resultController updateSelectionInfo];
-		}
-		if (![[self sourceArray] containsObject:[self selectedObject]]) {
-			[self clearObjectValue];
-		}
-		if ([[self controller] respondsToSelector:@selector(searchView:changedResults:)])
-			[(id)[self controller] searchView:self changedResults:resultArray];
-	}
-}
-
 - (void)partialStringChanged {
 	[self setSearchString:[[partialString copy] autorelease]];
     
 	double searchDelay = [[NSUserDefaults standardUserDefaults] floatForKey:kSearchDelay];
         
-	if (moreComing) {
-		if ([searchTimer isValid]) [searchTimer invalidate];
-	} else {
-		if (![searchTimer isValid]) {
-			[searchTimer release];
-			searchTimer = [[NSTimer scheduledTimerWithTimeInterval:searchDelay target:self selector:@selector(performSearch:) userInfo:nil repeats:NO] retain];
-		}
-		[searchTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:searchDelay]];
-        
-		if ([self searchMode] != SearchFilterAll) [searchTimer fire];
-        
+	if (![searchTimer isValid]) {
+		[searchTimer release];
+		searchTimer = [[NSTimer scheduledTimerWithTimeInterval:searchDelay target:self selector:@selector(performSearch:) userInfo:nil repeats:NO] retain];
 	}
+	[searchTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:searchDelay]];
+	
+	if ([self searchMode] != SearchFilterAll) [searchTimer fire];
 	if (validSearch) {
 		[resultController->searchStringField setTextColor:[NSColor blueColor]];
 	}
@@ -1000,7 +1006,13 @@ NSMutableDictionary *bindingsDict = nil;
 
 #pragma mark -
 #pragma mark NSResponder
-- (BOOL)acceptsFirstResponder { return YES; }
+- (BOOL)acceptsFirstResponder {
+    if (self != [self directSelector] && [[self directSelector] objectValue] == nil) {
+        // Don't let the aSelctor or iSelector gain focus if the dSelector is empty
+        return NO;
+    }
+    return YES;
+}
 
 - (BOOL)becomeFirstResponder {
 	if ([[[self objectValue] primaryType] isEqual:QSTextProxyType]) {
@@ -1021,12 +1033,11 @@ NSMutableDictionary *bindingsDict = nil;
 	return [super becomeFirstResponder];
 }
 
-- (BOOL)resignFirstResponder {
-	//NSLog(@"resign first");
-	if ([self currentEditor]) {
-		// NSLog(@"resign first with monkey %@", self);
-		// [[self currentEditor] endEditing];
-	}
+- (BOOL)resignFirstResponder {  
+    
+    if ([self isEqual:[self directSelector]]) {
+        [self updateHistory];
+    }
 	[resultTimer invalidate];
 	[self hideResultView:self];
 	[self setShouldResetSearchString:YES];
@@ -1037,7 +1048,8 @@ NSMutableDictionary *bindingsDict = nil;
 
 // This method deals with all keydowns. Some very interesting things could be done by manipulating this method
 - (void)keyDown:(NSEvent *)theEvent {
-	[NSThread setThreadPriority:1.0];
+   
+    [NSThread setThreadPriority:1.0];
 	NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
 	NSTimeInterval delay = [theEvent timestamp] -lastTime;
 	//if (VERBOSE) NSLog(@"KeyD: %@\r%@", [theEvent characters] , theEvent);
@@ -1048,17 +1060,10 @@ NSMutableDictionary *bindingsDict = nil;
 		[partialString setString:@""];
 		validSearch = YES;
 		if ([self searchMode] == SearchFilterAll) {
-            
 			[self setSourceArray:nil];
 		}
 		[self setShouldResetSearchString:NO];
 	}
-    
-	// check for additional keydowns up to now so the search isn't done too often.
-    moreComing = nil != [NSApp nextEventMatchingMask:NSKeyDownMask untilDate:[NSDate dateWithTimeIntervalSinceNow:SEARCH_RESULT_DELAY] inMode:NSDefaultRunLoopMode dequeue:NO];
-#ifdef DEBUG
-    if (VERBOSE && moreComing) NSLog(@"moreComing");
-#endif
     
 	// ***warning  * have downshift move to indirect object
 	if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"/"] && [self handleSlashEvent:theEvent])
@@ -1069,7 +1074,9 @@ NSMutableDictionary *bindingsDict = nil;
         return;
     
 	if ([[theEvent charactersIgnoringModifiers] isEqualToString:@" "]) {
-		[self insertSpace:nil];
+        if ([theEvent type] == NSKeyDown) {
+            [self insertSpace:nil];
+        }
 		return;
 	}
     
@@ -1082,7 +1089,12 @@ NSMutableDictionary *bindingsDict = nil;
 		[self handleShiftedKeyEvent:theEvent];
 		return;
 	}
-    
+	
+    // check if the event is a keyboard shortcut to change the search mode 
+	if ([self handleChangeSearchModeEvent:theEvent]) {
+        return;
+    }  
+         
 	if ([theEvent isARepeat] && !([theEvent modifierFlags] &NSFunctionKeyMask) )
         if ([self handleRepeaterEvent:theEvent]) return;
     
@@ -1090,6 +1102,43 @@ NSMutableDictionary *bindingsDict = nil;
 	//if (VERBOSE) NSLog(@"interpret");
 	[self interpretKeyEvents:[NSArray arrayWithObject:theEvent]];
 	return;
+}
+
+// Change the search mode if ⌘→ or ⌘← is pressed
+- (BOOL)handleChangeSearchModeEvent:(NSEvent *)theEvent {
+  
+    if ([theEvent modifierFlags] &NSCommandKeyMask) {
+        QSSearchMode aNewSearchMode;
+        unichar aChar = [[theEvent characters] characterAtIndex:0];
+        BOOL changeSearchModeRight;
+        if (aChar == NSRightArrowFunctionKey) {
+            changeSearchModeRight = YES;
+        }
+        else if (aChar == NSLeftArrowFunctionKey) {
+            changeSearchModeRight = NO;
+        }
+        else {
+            return NO;
+        }
+        
+        // Set the new search mode depending on the direction:
+        // Filter All → Filter → Snap to Best (left gives reverse direction)
+        switch (searchMode) {
+            case SearchFilterAll:
+                aNewSearchMode = changeSearchModeRight ? SearchFilter : SearchSnap;
+                break;
+            case SearchFilter:
+                aNewSearchMode = changeSearchModeRight ? SearchSnap : SearchFilterAll;
+                break;
+            default:
+                aNewSearchMode = changeSearchModeRight ? SearchFilterAll : SearchFilter;
+                break;
+        }
+        [self setSearchMode:aNewSearchMode];
+        return YES;
+    }
+    
+    return NO;
 }
 
 - (BOOL)handleShiftedKeyEvent:(NSEvent *)theEvent {
@@ -1228,8 +1277,7 @@ NSMutableDictionary *bindingsDict = nil;
      editor = nil;
      }
 	 */
-//	NSLog(@"The Event is...: %@\ and currentEditor: %@ ",theEvent,[[[self control] dSelector] currentEditor]);
-	
+    
 	if ([theEvent clickCount] > 1) {
 		[(QSInterfaceController *)[[self window] windowController] executeCommand:self];
 	} else {
@@ -1270,6 +1318,9 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)scrollWheel:(NSEvent *)theEvent {
 	// ***warning  * this still goes to the wrong view if over another search view
+    if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
+        return;
+    }
 	if (![[resultController window] isVisible]) {
 		[self showResultView:self];
 	}
@@ -1325,7 +1376,7 @@ NSMutableDictionary *bindingsDict = nil;
 	[resultTimer invalidate];
 }
 
-- (IBAction)insertSpace:(id)sender {
+- (void)insertSpace:(id)sender {
 	int behavior = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSSearchSpaceBarBehavior"];
 	switch(behavior) {
 		case 1: //Normal
@@ -1348,6 +1399,9 @@ NSMutableDictionary *bindingsDict = nil;
 				[self moveLeft:sender];
 			else
 				[self moveRight:sender];
+            break;
+        case 6: // Show Quicklook window
+            [self togglePreviewPanel:nil];
 			break;
 	}
 }
@@ -1389,10 +1443,12 @@ NSMutableDictionary *bindingsDict = nil;
 #pragma mark -
 #pragma mark NSResponder Key Bindings
 - (void)deleteBackward:(id)sender {
-    if(defaultBool(kDoubleDeleteClearsObject) && [self matchedString] == nil)
+    if(defaultBool(kDoubleDeleteClearsObject) && [self matchedString] == nil) {
+        
         [super delete:sender];
-    else
+    } else {
         [self clearSearch];
+    }
 }
 
 - (void)pageUp:(id)sender {[self pageScroll:-1];}
@@ -1422,6 +1478,7 @@ NSMutableDictionary *bindingsDict = nil;
 	if ([[resultController window] isVisible]) {
 		[self hideResultView:self];
 	}
+    browsingHistory = NO;
 	if (browsing) {
 		browsing = NO;
 		[self setSearchMode:SearchFilterAll];
@@ -1480,8 +1537,6 @@ NSMutableDictionary *bindingsDict = nil;
 	if (commandSelector == @selector(insertNewline:) ) {
 		[[self window] makeFirstResponder:self];
 		[[[self window] windowController] executeCommand:self];
-		if ([[self window] isVisible])
-			[[self window] selectKeyViewFollowingView:self];
 		return YES;
 	}
 	if (commandSelector == @selector(complete:) ) {
@@ -1494,7 +1549,6 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)textDidChange:(NSNotification *)aNotification {
     NSString *string = [[[aNotification object] string] copy];
 	if ([[[aNotification object] string] isEqualToString:@" "]) {
-        NSLog(@"Got a space");
         //		[(QSInterfaceController *)[[self window] windowController] shortCircuit:self];
         [self shortCircuit:self];
         [string release];
@@ -1533,14 +1587,7 @@ NSMutableDictionary *bindingsDict = nil;
 	[super doCommandBySelector:aSelector];
 }
 
-- (void)setMarkedText:(id)aString selectedRange:(NSRange)selRange {
-	if ([(NSString *)aString length]) {
-		NSLog(@"setmark %@ %d, %d", aString, selRange.location, selRange.length);
-		aString = [[aString purifiedString] lowercaseString];
-		[partialString setString:aString];
-		[self partialStringChanged];
-	}
-}
+- (void)setMarkedText:(id)aString selectedRange:(NSRange)selRange {}
 
 - (void)unmarkText {}
 - (BOOL)hasMarkedText { return NO; }
@@ -1584,7 +1631,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)showHistoryObjects {
 	NSMutableArray *array = [historyArray valueForKey:@"selection"];
 	[self setSourceArray:array];
-	[self setResultArray:array];
+    [self setResultArray:array];
 }
 
 - (NSDictionary *)historyState {
@@ -1617,7 +1664,7 @@ NSMutableDictionary *bindingsDict = nil;
 	if (VERBOSE) NSLog(@"select in history %d %@", i, [historyArray valueForKeyPath:@"selection.displayName"]);
 #endif
 	//
-	if (i<[historyArray count])
+	if (i<[(NSArray *)historyArray count])
 		[self setHistoryState:[historyArray objectAtIndex:i]];
 }
 - (void)clearHistory {
@@ -1627,18 +1674,30 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)updateHistory {
 	if (!recordsHistory) return;
+    
+    // Only alter the history array if we're not browsing the history
+    if (browsingHistory) {
+        return;
+    }
 	// [NSDictionary dictionaryWithObjectsAndKeys:[self objectValue] , @"object", nil];
 	//
 
-	if ( [self objectValue])
-		[QSHist addObject:[self objectValue]];
-	NSDictionary *state = [self historyState];
-	//	if (!state)
-	//		[history removeObject:currentValue];
+    id objectValue = [self objectValue];
+	if (objectValue) {
+       [QSHist addObject:objectValue];
+    }
+    
+    NSDictionary *state = [self historyState];
 
-	historyIndex = -1;
-	if (state)
-		[historyArray insertObject:state atIndex:0];
+    historyIndex = -1;
+    if (state) {
+        // Do not add the object to the history if it is already the 1st object
+        if (![historyArray count] || 
+                     ([historyArray count] && ![objectValue isEqual:[[historyArray objectAtIndex:0] objectForKey:@"selection"]])) {
+            [historyArray insertObject:state atIndex:0];
+        }
+    }
+
 	if ([historyArray count] >MAX_HISTORY_COUNT) [historyArray removeLastObject];
 //	if (VERBOSE) NSLog(@"history %d items", [historyArray count]);
 }
@@ -1647,7 +1706,10 @@ NSMutableDictionary *bindingsDict = nil;
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"goForward");
 #endif
-	if (historyIndex>0) {
+    if (!browsingHistory) {
+        browsingHistory = YES;
+    }
+	if (historyIndex>=0) {
 		[self switchToHistoryState:--historyIndex];
 	} else {
 		[resultController bump:(4)];
@@ -1657,11 +1719,14 @@ NSMutableDictionary *bindingsDict = nil;
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"goBackward");
 #endif
+    
+    // Ensure the last object (most recent) is set before we start browsing
+    if (!browsingHistory) {
+        [self updateHistory];
+        historyIndex = 0;
+        browsingHistory = YES;
+    }
 
-	if (historyIndex == -1) {
-		[self updateHistory];
-		historyIndex = 0;
-	}
 	if (historyIndex+1<[historyArray count]) {
 		[self switchToHistoryState:++historyIndex];
 	} else {
@@ -1798,7 +1863,7 @@ NSMutableDictionary *bindingsDict = nil;
         [self saveMnemonic];
         [self clearSearch];
         int defaultMode = [[NSUserDefaults standardUserDefaults] integerForKey:kBrowseMode];
-        [self setSearchMode:(defaultMode ? defaultMode : SearchSnap)];
+        [self setSearchMode:(defaultMode ? defaultMode  : SearchSnap)];
         [self setResultArray:(NSMutableArray *)newObjects]; // !!!:nicholas:20040319
         [self setSourceArray:(NSMutableArray *)newObjects];
         
@@ -1820,5 +1885,170 @@ NSMutableDictionary *bindingsDict = nil;
     }
 }
 
+
+@end
+
+#pragma mark Quicklook support
+
+@implementation QSSearchObjectView (Quicklook) 
+
+
+- (BOOL)canQuicklookCurrentObject {
+    id object = [self objectValue];
+    // resolve ranked objects
+    if ([object isKindOfClass:[QSRankedObject class]]) {
+        object = [(QSRankedObject *)object object];
+    }
+    // resolve proxy objects
+    if ([object isKindOfClass:[QSProxyObject class]]) {
+        object = [(QSProxyObject *)object resolvedObject];
+    }
+    if ([object validPaths] || [[object primaryType] isEqualToString:QSURLType]) {
+        quicklookObject = [object retain];
+        savedSearchMode = searchMode;
+        return YES;
+    }
+    return NO;
+}
+
+- (void)closePreviewPanel {
+    [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
+    [quicklookObject release];
+    quicklookObject = nil;
+    searchMode = savedSearchMode;
+}
+
+
+- (IBAction)togglePreviewPanel:(id)previewPanel
+{
+    if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
+        [self closePreviewPanel];
+    } else {
+       if ([self canQuicklookCurrentObject]) {
+            [NSApp activateIgnoringOtherApps:YES];
+            // makeKeyAndOrderFront closes the QS interface. This way, the interface stays open behind the preview panel
+            [[QLPreviewPanel sharedPreviewPanel] orderFront:nil];
+            [[QLPreviewPanel sharedPreviewPanel] makeKeyWindow];
+        }
+        else {
+            NSBeep();
+        }
+    }
+}
+
+- (IBAction)togglePreviewPanelFullScreen:(id)previewPanel
+{
+    if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isInFullScreenMode]) {
+        [self closePreviewPanel];
+    } else {
+        if ([self canQuicklookCurrentObject]) {
+            [NSApp activateIgnoringOtherApps:YES];
+            [[QLPreviewPanel sharedPreviewPanel] enterFullScreenMode:nil withOptions:nil];
+        }
+        else {
+            NSBeep();
+        }
+    }
+}
+
+
+// Quick Look panel support
+
+- (BOOL)acceptsPreviewPanelControl:(QLPreviewPanel *)panel;
+{
+    return YES;
+}
+
+- (void)beginPreviewPanelControl:(QLPreviewPanel *)panel
+{
+    // This document is now responsible of the preview panel
+    // It is allowed to set the delegate, data source and refresh panel.
+    previewPanel = [panel retain];
+    [panel setDelegate:self];
+    [panel setDataSource:self];
+    // Put the panel just above Quicksilver's window
+    [previewPanel setLevel:([[self window] level] + 2)];
+}
+
+- (void)endPreviewPanelControl:(QLPreviewPanel *)panel
+{
+    // This document loses its responsisibility on the preview panel
+    // Until the next call to -beginPreviewPanelControl: it must not
+    // change the panel's delegate, data source or refresh it.
+    [previewPanel release];
+    previewPanel = nil;
+}
+
+// Quick Look panel data source
+
+- (NSInteger)numberOfPreviewItemsInPreviewPanel:(QLPreviewPanel *)panel
+{
+    /* Put the panel just above Quicksilver's window
+    Note: 10.6 seems to revert the panel level set in beginPreviewPanelControl above.
+    This 'hack' is required for 10.6 support only (10.7+ is OK) */
+    [previewPanel setLevel:([[self window] level] + 2)];
+    if (quicklookObject) {
+        return [quicklookObject count];
+    }
+    return 0;
+}
+
+- (id <QLPreviewItem>)previewPanel:(QLPreviewPanel *)panel previewItemAtIndex:(NSInteger)index
+{
+    if (quicklookObject) {
+        return [[quicklookObject splitObjects] objectAtIndex:index];
+    }
+    return nil;
+}
+
+// Quick Look panel delegate
+
+- (BOOL)previewPanel:(QLPreviewPanel *)panel handleEvent:(NSEvent *)event
+{
+    if ([event type]  != NSKeyDown) {
+        return NO;
+    }
+    NSString *key = [event charactersIgnoringModifiers];
+    NSUInteger eventModifierFlags = [event modifierFlags];
+       if ([key isEqual:@"y"] && eventModifierFlags & NSCommandKeyMask) {
+        if (eventModifierFlags & NSAlternateKeyMask) {
+            // Cmd + Optn + Y shortcut (full screen)
+            [self togglePreviewPanelFullScreen:nil];
+        } else {
+            // Cmd + Y shortcut (small quicklook panel)
+            [self togglePreviewPanel:nil];
+        }
+        return YES;
+    }
+    // Allow the default action to be executed (if CMD+ENTR or ENTR is pressed)
+    if ([key isEqualToString:@"\r"] && (eventModifierFlags & NSCommandKeyMask || ((eventModifierFlags & NSDeviceIndependentModifierFlagsMask) == 0))) {
+        if (eventModifierFlags & NSCommandKeyMask) {
+            [self insertNewline:nil];
+        } else {
+            [self interpretKeyEvents:[NSArray arrayWithObject:event]];
+        }
+        [self closePreviewPanel];
+        return YES;
+    }
+    
+    // trap the 'delete' key from being pressed
+    if ([key length] && [key characterAtIndex:0] == NSDeleteCharacter ) {
+        return YES;
+    }
+    return NO;
+}
+
+// This delegate method provides the rect on screen from which the panel will zoom.
+- (NSRect)previewPanel:(QLPreviewPanel *)panel sourceFrameOnScreenForPreviewItem:(id <QLPreviewItem>)item
+{
+    
+    // check that the icon rect is visible on screen
+    NSRect rect = [self frame];
+    NSRect windowFrame = [[self window] frame];
+    NSRect imageRect = [[self cell] imageRectForBounds:rect];
+    imageRect.origin.x = windowFrame.origin.x + imageRect.origin.x;
+    imageRect.origin.y = windowFrame.origin.y + imageRect.origin.y;
+    return imageRect;
+}
 
 @end
