@@ -252,7 +252,7 @@ static QSController *defaultController = nil;
 #if DEBUG
 	/* missingLocalizedValuesForAllTables *only* exists in debug ! */
 	NSMutableDictionary *missingBundles = [NSBundle performSelector:@selector(missingLocalizedValuesForAllBundles)];
-	NSLog(@"Missing: %@", missingBundles);
+	NSLog(@"Missing localisations for bundles: %@", missingBundles);
 	
 	NSString *localizationPath = QSApplicationSupportSubPath(@"Localization", YES);
 	for (NSString *bundleIdentifier in missingBundles) {
@@ -985,8 +985,7 @@ static QSController *defaultController = nil;
 #ifdef DEBUG
 	if (DEBUG_STARTUP) NSLog(@"Will Finish Launching");
 
-	if (PRERELEASEVERSION)
-		[self activateDebugMenu];
+    [self activateDebugMenu];
 #endif
 
 	if (runningSetupAssistant) {

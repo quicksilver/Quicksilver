@@ -124,7 +124,6 @@
 		4DD2CF370E7B345500BA1128 /* QSBasicObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2CF350E7B345500BA1128 /* QSBasicObject.m */; };
 		4DD89EF90EBDD97B005A15AE /* CGSPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = E12444CB07297FF300043A01 /* CGSPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD89F0C0EBDDA7A005A15AE /* NTViewLocalizer.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E3CB960653BE040026BAF2 /* NTViewLocalizer.m */; };
-		4DD89F230EBDDBA9005A15AE /* QSBuildOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F1A0EBDDBA9005A15AE /* QSBuildOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD89F240EBDDBA9005A15AE /* QSDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F1B0EBDDBA9005A15AE /* QSDebug.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD89F250EBDDBA9005A15AE /* QSDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F1C0EBDDBA9005A15AE /* QSDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD89F270EBDDBA9005A15AE /* QSKeys.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F1E0EBDDBA9005A15AE /* QSKeys.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1086,7 +1085,6 @@
 		4DC493DE0E8D15CB000EEF1C /* QSPopUpTextButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPopUpTextButtonCell.m; sourceTree = "<group>"; };
 		4DD2CF340E7B345500BA1128 /* QSBasicObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSBasicObject.h; sourceTree = "<group>"; };
 		4DD2CF350E7B345500BA1128 /* QSBasicObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSBasicObject.m; sourceTree = "<group>"; };
-		4DD89F1A0EBDDBA9005A15AE /* QSBuildOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSBuildOptions.h; sourceTree = "<group>"; };
 		4DD89F1B0EBDDBA9005A15AE /* QSDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDebug.h; sourceTree = "<group>"; };
 		4DD89F1C0EBDDBA9005A15AE /* QSDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDefines.h; sourceTree = "<group>"; };
 		4DD89F1E0EBDDBA9005A15AE /* QSKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSKeys.h; sourceTree = "<group>"; };
@@ -2668,7 +2666,6 @@
 				E1E5FB6E07B20DD10044D6EF /* QSBadgeImage.m */,
 				4DD2CF340E7B345500BA1128 /* QSBasicObject.h */,
 				4DD2CF350E7B345500BA1128 /* QSBasicObject.m */,
-				4DD89F1A0EBDDBA9005A15AE /* QSBuildOptions.h */,
 				7FB8D6FA07B98B1300062022 /* QSCatalogEntry.h */,
 				7FB8D6FB07B98B1300062022 /* QSCatalogEntry.m */,
 				42ADF4FD1317237900C68070 /* QSClangAnalyzer.h */,
@@ -2945,7 +2942,6 @@
 				E1E5FBD807B20DD20044D6EF /* QSAlertManager.h in Headers */,
 				E1E5FBDA07B20DD20044D6EF /* QSBadgeImage.h in Headers */,
 				4DD2CF360E7B345500BA1128 /* QSBasicObject.h in Headers */,
-				4DD89F230EBDDBA9005A15AE /* QSBuildOptions.h in Headers */,
 				7FB8D6FC07B98B1300062022 /* QSCatalogEntry.h in Headers */,
 				E1E5FBDC07B20DD20044D6EF /* QSCollection.h in Headers */,
 				E1E5FBDE07B20DD20044D6EF /* QSCommand.h in Headers */,
