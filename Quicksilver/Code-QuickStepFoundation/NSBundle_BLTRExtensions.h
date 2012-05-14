@@ -20,11 +20,11 @@
 
 #undef NSLocalizedStringFromTable
 #define NSLocalizedStringFromTable(key, tbl, comment) \
-[[NSBundle mainBundle] safeLocalizedStringForKey:(key) value:nil table:(tbl)]
+[[NSBundle mainBundle] safeLocalizedStringForKey:(key) value:(key) table:(tbl)]
 
 #undef NSLocalizedStringFromTableInBundle
 #define NSLocalizedStringFromTableInBundle(key, tbl, bundle, comment) \
-[bundle safeLocalizedStringForKey:(key) value:nil table:(tbl)]
+[bundle safeLocalizedStringForKey:(key) value:(key) table:(tbl)]
 
 #undef NSLocalizedStringWithDefaultValue
 #define NSLocalizedStringWithDefaultValue(key, tbl, bundle, val, comment) \
