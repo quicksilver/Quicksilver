@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Add source...</key>
+	<string>Ajouter source...</string>
+	<key>Delete selected source</key>
+	<string>Supprimer la source sélectionnée</string>
+	<key>Every 10 minutes</key>
+	<string>Toutes les 10 minutes</string>
+	<key>Every day</key>
+	<string>Tous les jours</string>
+	<key>Every half hour</key>
+	<string>Toutes les demies-heures</string>
+	<key>Every hour</key>
+	<string>Toutes les heures</string>
+	<key>Manually</key>
+	<string>Manuellement</string>
+	<key>Rescan</key>
+	<string>Rescanner</string>
+	<key>Rescan frequency</key>
+	<string>Fréquence de rescan</string>
+	<key>Rescan source</key>
+	<string>Rescanner la source</string>
+	<key>Show Info</key>
+	<string>Afficher les infos</string>
+	<key>Sources</key>
+	<string>Sources</string>
+</dict>
+</plist>
