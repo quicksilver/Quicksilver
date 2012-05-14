@@ -10,15 +10,15 @@
 }
 - (void)windowDidLoad {
 	[super windowDidLoad];
-	[dSelector setDropMode:QSSelectDropMode];
-	[aSelector setDropMode:QSRejectDropMode];
-	[iSelector setDropMode:QSSelectDropMode];
 	NSArray *theControls = [NSArray arrayWithObjects:dSelector, aSelector, iSelector, nil];
 	for(QSSearchObjectView *theControl in theControls) {
+		[theControl setDropMode:QSSelectDropMode];
 		QSObjectCell *theCell = [theControl cell];
 		[theCell setHighlightColor:[NSColor lightGrayColor]];
 		[theCell setTextColor:[NSColor blackColor]];
 	}
+	// don't observe notifications meant for the main interface
+	[self ignoreInterfaceNotifications];
 }
 
 - (IBAction)hideWindows:(id)sender {

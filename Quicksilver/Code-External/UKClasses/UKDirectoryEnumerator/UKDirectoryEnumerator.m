@@ -442,7 +442,7 @@ void			UKFSCatInfoFromDictionary( NSDictionary* attrs, FSCatalogInfo* currInfo, 
 			[arr removeObjectsInArray: hiddenList];
 		}
 		// End of autoreleased area.
-	[pool release];
+	[pool drain];
 
 	return arr;
 }

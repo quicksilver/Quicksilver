@@ -56,12 +56,14 @@ static float searchSpeed = 0.0;
 		}
 		[QSLibrarian createDirectories];
 		enabledPresetsDictionary = [[NSMutableDictionary alloc] init];
+        defaultSearchSet = [[NSMutableSet alloc] init];
+        
 		scanTask = [[QSTask alloc] initWithIdentifier:@"QSLibrarianScanTask"];
 		[scanTask setName:@"Updating Catalog"];
 		[scanTask setIcon:[NSImage imageNamed:@"Catalog.icns"]];
 		
 		previewImageQueue = [[NSOperationQueue alloc] init];
-		[previewImageQueue setMaxConcurrentOperationCount:1];
+		[previewImageQueue setMaxConcurrentOperationCount:NSOperationQueueDefaultMaxConcurrentOperationCount];
 		//Initialize Variables
 		appSearchArrays = nil;
 		typeArrays = [[NSMutableDictionary dictionaryWithCapacity:1] retain];
@@ -80,12 +82,16 @@ static float searchSpeed = 0.0;
 			[NSMutableArray array] , kItemChildren,
 			[NSNumber numberWithBool:YES] , kItemEnabled, nil];
 
+#ifdef DEBUG
 		if ((int) getenv("QSDisableCatalog") || GetCurrentKeyModifiers() & shiftKey) {
 			NSLog(@"Disabling Catalog");
 		} else {
+#endif
 			[self setCatalog:[QSCatalogEntry entryWithDictionary:
 			[NSMutableDictionary dictionaryWithObjectsAndKeys:@"QSCATALOGROOT", kItemName, @"QSGroupObjectSource", kItemSource, [NSMutableArray arrayWithObjects:modulesEntry, nil] , kItemChildren, [NSNumber numberWithBool:YES] , kItemEnabled, nil]]];
+#ifdef DEBUG
 		}
+#endif
 
 		// Register for Notifications
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(writeCatalog:) name:QSCatalogEntryChanged object:nil];
@@ -537,7 +543,7 @@ static float searchSpeed = 0.0;
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogIndexingCompleted object:nil];
 	scannerCount--;
-	[pool release];
+	[pool drain];
 }
 
 
@@ -566,7 +572,7 @@ static float searchSpeed = 0.0;
 	[catalog scanForced:NO];
   // [activityController removeTask:@"Scan"];
 	[scanTask stopTask:self];
-	[pool release];
+	[pool drain];
 }
 
 - (BOOL)itemIsOmitted:(QSBasicObject *)item {
@@ -610,7 +616,7 @@ static float searchSpeed = 0.0;
 			/*newResultArray = */[self scoredArrayForString:string inSet:nil mnemonicsOnly:NO];
 			//if (VERBOSE) NSLog(@"Searched for \"%@\" in %3fms (%d items) ", string, (1000 * -[date timeIntervalSinceNow]) , [newResultArray count]);
 
-			[pool release];
+			[pool drain];
 		}
 		if (VERBOSE) NSLog(@"SearchTest in %3fs, %3fs", -[date timeIntervalSinceNow] , -[totalDate timeIntervalSinceNow]);
 	}

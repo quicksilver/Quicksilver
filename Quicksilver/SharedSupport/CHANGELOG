@@ -1,3 +1,141 @@
+Changes - ß67 (3925)
+-------
+
+   * NEW: Running applications and processes are monitored in real time (improves use of 'Quit' actions and application proxy objects) (#575)
+
+   * NEW: Allow browsing of Quicksilver's objects using ⌘[ and ⌘] (#573)
+
+   * NEW: Simplification of preferences and addition of section titles (#788)
+
+   * NEW: Icons for preferences items (#788)
+
+   * CHANGE: Improve speed of action loading for objects (#340, #782)
+
+   * CHANGE: Improve speed of catalog searches (#758, #780, #782)
+
+   * FIX: 'Current Selection' proxy object in Sandboxed apps in OS X Lion (#710)
+
+   * FIX: Do not prepend 'http://' to URLs copied and pasted to the Quicksilver clipboard (#775, #776)
+
+   * FIX: Consistently honour the 'focus action when returning results to Quicksilver' setting (#283, #784)
+
+   * FIX: Correctly scan for new plugins when checking for updates (#803)
+
+   * FIX: Do not duplicate objects in the catalog when adding them to the object history (#573)
+
+   * FIX: Do not lose focus of the selected Quicksilver pane when the results window displays (#325)
+
+   * FIX: Odd behaviour when grabbing multiple items from Finder (#753, #755)
+
+   * FIX: Correctly resolve wildcards in paths (#633, #713)
+
+   * FIX: Get localised names of displays for the 'Displays' module (#789, #790)
+
+   * FIX: Crash when getting displays for the 'Displays' module (#789, #790)
+
+   * FIX: Correctly restore docked panels when Quicksilver starts (#691, #692)
+
+   * FIX: Correctly display multi-line 'Large Type' text (#733)
+
+   * FIX: Only scan catalog items once when the rescan entry button is pressed (#765)
+
+   * CHANGE: Do not clear the 1st pane object after 10 minutes (#399, #782)
+
+   * CHANGE: Improved handling of plugin actions within Quicksilver (#773)
+
+   * CHANGE: Removal of deprecated methods and use 10.6+ methods only (#648, #781)
+
+   * CHANGE: Make the 'Unsure Quit' dialogue a hidden preference (#788)
+
+
+Changes - ß66 (3923)
+-------
+
+   * NEW: Quick Look support. Quick look files or URLs (including proxy objects) from Quicksilver using ⌘Y, ⌘⌥Y or ␣ (spacebar - set in preferences) #23, #115 #660, #715
+   
+   * NEW: Updated Plugins Preferences sidebars and new 'Extended Documentation' window #697
+   
+   * CHANGE: Improved wording for the Application Updater #662, 682
+   
+   * FIX: 'Show Entry in Catalog' and 'Show Source in Catalog' actions crash #714, #716
+   
+   * FIX: Clear Quicksilver's 1st pane when objects are passed to it #670, #699
+   
+   * FIX: Triggers now work for actions that display a result #623, #699
+   
+   * FIX: Prevent Quicksilver from freezing and ignoring input on login #580
+
+
+Changes - ß65 (3920)
+-------
+
+   * FIX: Honour 'jump to action' preference when grabbing objects using the 'Get Selection' service #643
+   
+   * FIX: Disable editing of tab names in Plugin Preference pane #644
+   
+   * FIX: Resolve proxy objects consistently #652 #621
+   
+   * FIX: Make 3rd pane visible for AppleScript actions that expect a file #661 #603
+   
+   * FIX: 'Show Entry in Catalog' action only shows for objects in the catalog #678
+   
+   * CHANGE: Allow non-admin users to set the dock icon preference #690 #686 #689
+   
+   * CHANGE: Only allow disabling of the Catalog (by holding ⌥ on luanch) in Debug builds
+   
+   * CHANGE: When using the Move To.../Copy To... actions display the file's parent folder in the 3rd pane #665
+
+   * CHANGE: Allow Quicksilver to set URLs as 'remote host' types #497
+   
+   * CHANGE: Development settings and CHANGELOG creation method #599 #658
+   
+Changes - ß64 (3915)
+-------
+
+   * FIX: Honour the 'show icon in dock' preference if not set #669
+
+
+Changes - ß64 (3913)
+-------
+
+  * FIX: Prevent all plug-ins from being deleted on launch
+  
+  * FIX: Prevent some interfaces from showing `<QSCommand 0xffff>` as the command
+  
+  * FIX: The plug-in download progress bar works
+  
+  * FIX: Accented characters no longer wipe out the search string (Issue #539)
+  
+  * FIX: Latest Download proxy object works with a symlinked Downloads folder (Issue #596, #616)
+  
+  * FIX: Correctly display dynamically generated details for objects and actions (Issue #591)
+  
+  * FIX: Correctly notify the user when there's no internet connection (Issue #640)
+  
+  * FIX: Prevent a crash when trying to run an AppleScript that was moved or deleted
+  
+  * FIX: Better handling of Dock icon preferences and crash protection (Issue #587)
+  
+  * CHANGE: If the name and details are identical, don't show both
+  
+  * CHANGE: Simplified the wording in the Setup Assistant
+  
+  * CHANGE: Updated QSDroplet icon to reflect the new style
+
+Changes - ß63 (3912)
+-------
+
+  * FIX: Fixed a serious bug in ß62 that could cause user's custom catalogs to be erased
+  
+  * FIX: Fixed a bugin Quicksilver's internal updating mechanism. **Note:** ß63 will need to be downloaded manually by all users
+  
+  * FIX: Ensured the new 'Clear caches' option in the crash dialogue only clears the catalog cache (Issue #582)
+  
+  * FIX: Fixed a bug that could cause Quicksilver to launch twice when honouring the dock icon preferences (Issue #585)
+
+Changes - ß62 (3901)
+-------
+  
   * CHANGE: So called "advanced features" are now just on all the time (Issues #479, #341)
   
   * CHANGE: Proxy objects are enabled by default for new users (Issue #479)

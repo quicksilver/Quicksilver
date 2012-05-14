@@ -70,6 +70,8 @@
 	<string>Resumes a suspended process</string>
 	<key>ProcessSuspendAction</key>
 	<string>Suspends a running process</string>
+    <key>QSCreateFileAction</key>
+    <string>Create new file with text [... in folder]</string>
 	<key>QSDialNumberAction</key>
 	<string>Dial a number</string>
 	<key>QSEditAction</key>

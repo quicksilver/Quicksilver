@@ -192,18 +192,18 @@
 	<dict>
 		<key>QSActionsPrefPane</key>
 		<dict>
-			<key>autosize</key>
-			<true/>
 			<key>class</key>
 			<string>QSActionsPrefPane</string>
 			<key>description</key>
 			<string>Modify the list and ordering of actions</string>
-			<key>feature</key>
-			<integer>0</integer>
 			<key>icon</key>
 			<string>defaultAction</string>
 			<key>name</key>
 			<string>Actions</string>
+			<key>type</key>
+			<string>Main</string>
+			<key>priority</key>
+			<integer>1</integer>
 		</dict>
 		<key>QSAdvancedPrefPane</key>
 		<dict>
@@ -211,8 +211,6 @@
 			<string>QSAdvancedPrefPane</string>
 			<key>description</key>
 			<string>The Kitchen Sink</string>
-			<key>feature</key>
-			<integer>1</integer>
 			<key>icon</key>
 			<string>ToolbarCustomizeIcon</string>
 			<key>name</key>
@@ -232,6 +230,8 @@
 			<string>Appearance</string>
 			<key>type</key>
 			<string>Main</string>
+			<key>priority</key>
+			<integer>4</integer>
 		</dict>
 		<key>QSApplicationPrefPane</key>
 		<dict>
@@ -314,6 +314,8 @@
 			<string>Command</string>
 			<key>type</key>
 			<string>Main</string>
+			<key>priority</key>
+			<integer>7</integer>
 		</dict>
 		<key>QSTriggersPrefPane</key>
 		<dict>
@@ -463,8 +465,6 @@
 			<true/>
 			<key>defaultPermitted</key>
 			<true/>
-			<key>feature</key>
-			<integer>0</integer>
 			<key>name</key>
 			<string>String Ranker</string>
 			<key>requiresRelaunch</key>
@@ -476,8 +476,6 @@
 		<dict>
 			<key>classTable</key>
 			<true/>
-			<key>feature</key>
-			<integer>1</integer>
 			<key>name</key>
 			<string>Missing Object Selector</string>
 			<key>type</key>

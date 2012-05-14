@@ -30,6 +30,9 @@
 	IBOutlet NSTableView *itemContentsTable;
 	IBOutlet NSImageView *itemIconField;
 	IBOutlet NSButton *itemAddButton;
+    IBOutlet NSButton *infoButton;
+    IBOutlet NSButton *refreshButton;
+    IBOutlet NSButton *itemRemoveButton;
 
 	IBOutlet NSBox *itemOptionsView;
 

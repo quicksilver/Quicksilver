@@ -4,3 +4,4 @@
 					 [NSApplication macOSXFullVersion], @"x86"]
 
 #define QUERY_KEY @"***"
+#define kQSResultArrayKey @"resultArray"

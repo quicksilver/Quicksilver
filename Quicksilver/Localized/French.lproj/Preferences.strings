@@ -1,4 +1,4 @@
-﻿/* NSTextField (0.00) : <title:0.00> (oid:2137) */
+/* NSTextField (0.00) : <title:0.00> (oid:2137) */
 "0.00" = "0.00";
 
 /* NSTextField (10) : <title:10> (oid:2129) */
@@ -15,6 +15,9 @@
 
 /* NSTextField (Activation:) : <title:Activation:> (oid:2087) */
 "Activation:" = "Raccourci clavier :\n)";
+
+/* NSIBHelpConnector : <title:Add Quicksilver to your login items> (oid:2182) */
+"Add Quicksilver to your login items" = "Add Quicksilver to your login items";
 
 /* NSIBHelpConnector : <title:Add actions from the services menu> (oid:2203) */
 "Add actions from the services menu" = "Add actions from the services menu";
@@ -56,8 +59,14 @@
 /* NSButton (Check Now) : <title:Check Now> (oid:2095) */
 "Check Now" = "Vérifier maintenant";
 
+/* NSIBHelpConnector : <title:Check for update immediately> (oid:2158) */
+"Check for update immediately" = "Check for update immediately";
+
+/* NSButton (Check for updates:) : <title:Check for updates:> (oid:2056) */
+"Check for updates:" = "Vérifier si mise à jour:";
+
 /* NSTabViewItem : <title:Clipboard> (oid:2058) */
-"Clipboard" = "Presse-papiers";
+"Clipboard" = "Press-papiers";
 
 /* NSTabViewItem : <title:Command> (oid:2097) */
 "Command" = "Commande";
@@ -70,6 +79,9 @@
 
 /* NSIBHelpConnector : <title:Create new threads for tasks> (oid:2168) */
 "Create new threads for tasks" = "Create new threads for tasks";
+
+/* NSMenuItem : <title:Daily> (oid:2048) */
+"Daily" = "Chaque jour";
 
 /* NSMenuItem : <title:Default Chat Client> (oid:506) */
 "Default Chat Client" = "Messagerie instantanée par défaut";
@@ -118,6 +130,12 @@
 
 /* NSButton (Enable Services) : <title:Enable Services> (oid:2187) */
 "Enable Services" = "Activer les services";
+
+/* NSIBHelpConnector : <title:Enable eye-candy> (oid:2160) */
+"Enable eye-candy" = "Enable eye-candy";
+
+/* NSIBHelpConnector : <title:Enable update checking> (oid:2172) */
+"Enable update checking" = "Enable update checking";
 
 /* NSTabViewItem : <title:Extras> (oid:2152) */
 "Extras" = "Extras";
@@ -188,6 +206,9 @@
 /* NSTextField (Kind:) : <title:Kind:> (oid:525) */
 "Kind:" = "Genre :";
 
+/* NSTextField (Last Check:) : <title:Last Check:> (oid:2062) */
+"Last Check:" = "Dernière mise à jour:";
+
 /* NSMenuItem : <title:Last Used Item> (oid:2139) */
 "Last Used Item" = "Dernier élément utilisé";
 
@@ -209,6 +230,9 @@
 /* NSTableColumn : <title:Module> (oid:2205) */
 "Module" = "Module";
 
+/* NSMenuItem : <title:Monthly> (oid:2064) */
+"Monthly" = "Chaque mois";
+
 /* NSNibBindingConnector : <title:NSIsNotNil> (oid:2253) */
 "NSIsNotNil" = "NSIsNotNil";
 
@@ -227,6 +251,9 @@
 /* NSIBHelpConnector : <title:Number of items to save> (oid:2159) */
 "Number of items to save" = "Number of items to save";
 
+/* NSMenuItem : <title:On Launch> (oid:2040) */
+"On Launch" = "Au lancement";
+
 /* NSButton (One-hand matching) : <title:One-hand matching> (oid:2042) */
 "One-hand matching" = "Résultat en un coup";
 
@@ -241,6 +268,9 @@
 
 /* QSWindow (Preferences) : <title:Preferences> (oid:12) */
 "Preferences" = "Préférences";
+
+/* NSIBHelpConnector : <title:Prevent accidental quitting> (oid:2162) */
+"Prevent accidental quitting" = "Prevent accidental quitting";
 
 /* NSButton (Recieve Items) : <title:Recieve Items> (oid:2130) */
 "Recieve Items" = "Réception des éléments";
@@ -323,6 +353,12 @@
 /* NSIBHelpConnector : <title:Stable features only> (oid:2171) */
 "Stable features only" = "Stable features only";
 
+/* NSButton (Start at login) : <title:Start at login> (oid:2148) */
+"Start at login" = "Lancement au démarrage de session";
+
+/* NSButton (Superfluous visual effects) : <title:Superfluous visual effects> (oid:2045) */
+"Superfluous visual effects" = "Effets visuels superflus";
+
 /* NSButton (Suppress HotKeys in Command) : <title:Suppress HotKeys in Command> (oid:2106) */
 "Suppress HotKeys in Command" = "Supprimez les racourcis-clavier aux commandes";
 
@@ -340,6 +376,9 @@
 
 /* NSBox : <title:Title> (oid:2209) */
 "Title" = "Title";
+
+/* NSIBHelpConnector : <title:Toggle dock icon and menu visibility. (Requires relaunch)> (oid:2177) */
+"Toggle dock icon and menu visibility. (Requires relaunch)" = "Toggle dock icon and menu visibility. (Requires relaunch)";
 
 /* NSButton (0) : <title:Type a HotKey> (oid:2154) */
 "Type a HotKey" = "Type a HotKey";
@@ -361,6 +400,12 @@
 
 /* NSTextField (Wait for) : <title:Wait for> (oid:2122) */
 "Wait for" = "Attendre";
+
+/* NSButton (Warn before quitting) : <title:Warn before quitting> (oid:2107) */
+"Warn before quitting" = "Retard avant de quitter";
+
+/* NSMenuItem : <title:Weekly> (oid:2146) */
+"Weekly" = "Chaque semaine";
 
 /* NSMenuItem : <title:Window> (oid:2046) */
 "Window" = "Fenêtre";

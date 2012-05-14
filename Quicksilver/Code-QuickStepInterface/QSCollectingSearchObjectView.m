@@ -100,10 +100,11 @@
 	return [collection containsObject:thisObject];
 }
 - (void)deleteBackward:(id)sender {
-	if ([collection count] && ![partialString length])
+	if ([collection count] && ![partialString length]) {
 		[self uncollectLast:sender];
-	else
+	} else {
 		[super deleteBackward:sender];
+    }
 }
 - (void)reset:(id)sender {
 	collecting = NO;
@@ -115,7 +116,17 @@
 	[super selectObjectValue:newObject];
 }
 - (void)setObjectValue:(QSBasicObject *)newObject {
-	if (!collecting) [self emptyCollection:self];
+	if (!collecting) {
+        [self emptyCollection:self];
+    }
+    // If the new object is 'nil' (i.e. the pane has been cleared) then also clear the underlying text editor
+    if (!newObject) {
+        NSTextView *editor = (NSTextView *)[[self window] fieldEditor:NO forObject: self];
+        if (editor) {
+            [editor setString:@""];
+        }
+    }
+    
 	[super setObjectValue:newObject];
 }
 - (NSRectEdge)collectionEdge {

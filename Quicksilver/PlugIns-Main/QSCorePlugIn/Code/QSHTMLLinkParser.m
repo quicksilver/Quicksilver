@@ -27,7 +27,7 @@
 }
 
 - (NSArray *)objectsFromData:(NSData *)data encoding:(NSStringEncoding)encoding settings:(NSDictionary *)settings source:(NSURL *)source {
-	NSString *string = [[[NSString alloc] initWithData:data encoding:encoding?encoding:NSISOLatin1StringEncoding] autorelease];
+	NSString *string = [[[NSString alloc] initWithData:data encoding:encoding?encoding:NSUTF8StringEncoding] autorelease];
 	//NSLog(@"data %d %@, settings %@, source %@", [data length] , string, settings, source);
 	NSString *prefix;
 	if (prefix = [settings objectForKey:@"contentPrefix"]) {
@@ -67,7 +67,7 @@
 		[returnData appendData:readData];
 	}
 	
-	string = [[NSString alloc] initWithData:returnData encoding:encoding?encoding:NSISOLatin1StringEncoding];
+	string = [[NSString alloc] initWithData:returnData encoding:encoding?encoding:NSUTF8StringEncoding];
 	[returnData release];
 	NSArray *array = [string componentsSeparatedByStrings:[NSArray arrayWithObjects:@"\n", @"\t", nil]];
 	[string release];

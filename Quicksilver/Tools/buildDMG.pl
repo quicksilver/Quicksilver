@@ -44,6 +44,7 @@ my $slaRsrcFile      = $ENV{DMG_SLA_RSRCFILE};
 my $deleteHeaders    = ($ENV{DMG_DELETEHEADERS} && ($ENV{DMG_DELETEHEADERS} =~ /^\s*yes\s*$/i));
 my $volIcon          = $ENV{DMG_VOLICON};
 my $files;
+my $FlatCarbon;
 
 # override them with command line options
 GetOptions('help'               => \$help,
@@ -158,8 +159,8 @@ my ($dest) = ($output =~ /Apple_HFS\s+(.+?)\s*$/im);
 
 # copy the files onto the dmg
 print "Copying files to $dest...\n";
-print "> /Developer/Tools/CpMac -r $files \"$dest\"\n" if $debug;
-$output = `/Developer/Tools/CpMac -r $files \"$dest\"`;
+print "> CpMac -r $files \"$dest\"\n" if $debug;
+$output = `CpMac -r $files \"$dest\"`;
 
 die "FATAL: Error while copying files (Error: $err)\n" if $?;
 
@@ -170,12 +171,12 @@ if ($volIcon) {
     $output = `cp $volIcon \"$dest/.VolumeIcon.icns\"`;
     print "FATAL: Failed to copy custom icon file\n" if $?;
 
-    print "> /Developer/Tools/SetFile -c icnC $dest/.VolumeIcon.icns\n" if $debug;
-    $output = `/Developer/Tools/SetFile -c icnC $dest/.VolumeIcon.icns`;
+    print "> SetFile -c icnC $dest/.VolumeIcon.icns\n" if $debug;
+    $output = `SetFile -c icnC $dest/.VolumeIcon.icns`;
     print "FATAL: Failed to set custom icon flags on file\n" if $?;
 
-    print "> /Developer/Tools/SetFile -a C $dest\n" if $debug;
-    $output = `/Developer/Tools/SetFile -a C $dest`;
+    print "> SetFile -a C $dest\n" if $debug;
+    $output = `SetFile -a C $dest`;
     print "FATAL: Failed to set custom icon flags on volume\n" if $?;
 }
 
@@ -214,8 +215,15 @@ if ($slaRsrcFile) {
     die "Couldn't unflatten dmg (Error:$?)\n" if $?;
     
     unless ($?) {
-        print "> /Developer/Tools/Rez /Developer/Headers/FlatCarbon/*.r \"$slaRsrcFile\" -a -o \"$buildDir/$dmgName\"\n" if $debug;
-        $output = `/Developer/Tools/Rez /Developer/Headers/FlatCarbon/*.r "$slaRsrcFile" -a -o "$buildDir/$dmgName"`;
+        if (-e "/Applications/Xcode.app/Contents/Developer/Headers/FlatCarbon") {
+            ## Xcode 4.3
+            $FlatCarbon = "/Applications/Xcode.app/Contents/Developer/Headers/FlatCarbon";
+        } else {
+            $FlatCarbon = "/Developer/Headers/FlatCarbon";
+        }
+        
+        print "> Rez $FlatCarbon/*.r \"$slaRsrcFile\" -a -o \"$buildDir/$dmgName\"\n" if $debug;
+        $output = `Rez $FlatCarbon/*.r "$slaRsrcFile" -a -o "$buildDir/$dmgName"`;
         print STDERR "Couldn't add SLA (Error: $?)\n" if $?;
         
         print "> hdiutil flatten \"$buildDir/$dmgName\"\n" if $debug;

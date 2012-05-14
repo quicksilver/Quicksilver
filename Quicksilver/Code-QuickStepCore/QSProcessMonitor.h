@@ -7,34 +7,35 @@
 @class QSObject;
 
 @interface QSProcessMonitor : NSObject {
-	NSMutableArray *processes;
+	NSMutableDictionary *processes;
 	NSDictionary *currentApplication;
 	NSDictionary *previousApplication;
-    EventHandlerRef eventHandler;
+    EventHandlerRef changeHandler;
+	EventHandlerRef launchHandler;
+	EventHandlerRef terminateHandler;
+	BOOL isReloading;
 }
 + (id)sharedInstance;
-- (NSArray *)visibleProcesses;
-- (NSArray *)allProcesses;
-- (void)reloadProcesses;
-- (QSObject *)imbuedFileProcessForDict:(NSDictionary *)dict;
++ (NSArray *)processes; /* NDProcesses */
 
-+ (id)sharedInstance;
-+ (NSArray *)processes;
-- (QSObject *)processObjectWithPSN:(ProcessSerialNumber)psn;
-- (BOOL)handleProcessEvent:(NSEvent *)theEvent;
-- (void)appChanged:(NSNotification *)aNotification;
-- (void)processTerminated:(QSObject *)thisProcess;
-- (void)removeProcessWithPSN:(ProcessSerialNumber)psn;
-- (QSObject *)processObjectWithDict:(NSDictionary *)dict;
-- (void)appTerminated:(NSNotification *)notif;
-- (void)appLaunched:(NSNotification *)notif;
-- (void)addProcessWithDict:(NSDictionary *)info;
+- (NSArray *)allProcesses; /* QSObjects */
+- (NSArray *)visibleProcesses; /* QSObjects */
+- (NSArray *)backgroundProcesses; /* QSObjects */
 
+/* Deprecated, equivalent to the above without KVO */
 - (NSArray *)getAllProcesses;
 - (NSArray *)getVisibleProcesses;
+
 - (QSObject *)imbuedFileProcessForDict:(NSDictionary *)dict;
-- (void)reloadProcesses;
+- (QSObject *)processObjectWithPSN:(ProcessSerialNumber)psn;
+
+- (BOOL)handleProcessEvent:(NSEvent *)theEvent;
+
+- (NSDictionary *)currentApplication;
 - (NSDictionary *)previousApplication;
-- (void)setPreviousApplication:(NSDictionary *)newPreviousApplication ;
-- (void)setCurrentApplication:(NSDictionary *)newCurrentApplication ;
 @end
+
+/* QSProcessMonitor notifications */
+extern NSString *QSProcessMonitorFrontApplicationSwitched;
+extern NSString *QSProcessMonitorApplicationLaunched;
+extern NSString *QSProcessMonitorApplicationTerminated;

@@ -4,6 +4,9 @@
 
 #import <QSCore/QSBasicObject.h>
 
+// Quartz framework provides the QLPreviewPanel public API
+#import <Quartz/Quartz.h> 
+
 @class QSObject, QSBasicObject;
 
 extern NSSize QSMaxIconSize;
@@ -200,6 +203,8 @@ extern NSSize QSMaxIconSize;
 @end
 
 
+@interface QSObject (Quicklook) <QLPreviewItem>
+@end
 
 //
 //AEDescriptorValue:

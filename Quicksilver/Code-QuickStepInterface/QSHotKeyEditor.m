@@ -1,5 +1,6 @@
 NSString * stringForModifiers( unsigned int aModifierFlags );
 
+#import "QSApp.h"
 #import "QSHotKeyEditor.h"
 
 #import "QSHotKeyEvent.h"
@@ -52,12 +53,12 @@ NSString * stringForModifiers( unsigned int aModifierFlags );
 - (void)_disableHotKeyOperationMode {
 	CGSConnection conn = _CGSDefaultConnection();
 	CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyDisable);
-	[NSApp setGlobalKeyEquivalentTarget:self];
+	[(QSApp *)NSApp setGlobalKeyEquivalentTarget:self];
 }
 - (void)_restoreHotKeyOperationMode {
 	CGSConnection conn = _CGSDefaultConnection();
 	CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyEnable);
-	[NSApp setGlobalKeyEquivalentTarget:nil];
+	[(QSApp *)NSApp setGlobalKeyEquivalentTarget:nil];
 }
 - (void)_windowDidBecomeKeyNotification:(id)fp8 { [self _disableHotKeyOperationMode];  }
 - (void)_windowDidResignKeyNotification:(id)fp8 { [self _restoreHotKeyOperationMode];  }

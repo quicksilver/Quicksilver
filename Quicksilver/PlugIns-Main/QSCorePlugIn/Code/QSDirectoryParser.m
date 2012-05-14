@@ -37,8 +37,7 @@
 - (NSArray *)objectsFromPath:(NSString *)path withSettings:(NSDictionary *)settings {
 	NSNumber *depth = [settings objectForKey:kItemFolderDepth];
 	int depthValue = (depth?[depth intValue] : 1);
-    CFBooleanRef descendValue = (CFBooleanRef)[settings objectForKey:kItemDescendIntoBundles];
-	BOOL descendIntoBundles = descendValue == kCFBooleanTrue ? YES : NO;
+    BOOL descendIntoBundles = [[settings objectForKey:kItemDescendIntoBundles] boolValue];
 
 	NSMutableArray *types = [NSMutableArray array];
 	for (NSString *type in [settings objectForKey:kItemFolderTypes]) {
@@ -117,7 +116,7 @@
 			if (depth && isDirectory && shouldDescend) {
 				NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 				[array addObjectsFromArray:[self objectsFromPath:file depth:depth types:types excludeTypes:excludedTypes descend:descendIntoBundles]];
-				[pool release];
+				[pool drain];
 			}
 		}
 	}

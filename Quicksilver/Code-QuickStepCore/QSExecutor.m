@@ -221,6 +221,9 @@ QSExecutor *QSExec = nil;
 			[[self actionsArrayForFileType:type] addObject:action];
 		}
 	}
+    if ([action bundle] && [[action bundle] bundleIdentifier]) {
+        [[self makeArrayForSource:[[action bundle] bundleIdentifier]] addObject:action];	
+    }
 }
 
 - (void)updateRanks {
@@ -268,7 +271,6 @@ QSExecutor *QSExec = nil;
 }
 
 - (QSObject *)performAction:(NSString *)action directObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
-	// NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	QSAction *actionObject = [actionIdentifiers objectForKey:action];
 	if (actionObject)
 		return [actionObject performOnDirectObject:dObject indirectObject:iObject];
@@ -484,19 +486,16 @@ QSExecutor *QSExec = nil;
 	[self performSelector:@selector(writeActionsInfoNow) withObject:nil afterDelay:3.0 extend:YES];
 }
 - (void)writeActionsInfoNow {
-#warning should sort out #if 1 - p_j_r 22/05/11
-#if 1
-	[[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:actionPrecedence, actionRanking, actionActivation, actionMenuActivation, actionIndirects, actionNames, nil] forKeys:[NSArray arrayWithObjects:@"actionPrecedence", @"actionRanking", @"actionActivation", @"actionMenuActivation", @"actionIndirects", @"actionNames", nil]] writeToFile:pQSActionsLocation atomically:YES];
-#else
-	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-	[dict setObject:actionPrecedence forKey:@"actionPrecedence"];
-	[dict setObject:actionRanking forKey:@"actionRanking"];
-	[dict setObject:actionActivation forKey:@"actionActivation"];
-	[dict setObject:actionMenuActivation forKey:@"actionMenuActivation"];
-	[dict setObject:actionIndirects forKey:@"actionIndirects"];
-	[dict setObject:actionNames forKey:@"actionNames"];
-	[dict writeToFile:pQSActionsLocation atomically:YES];
-#endif
+	NSDictionary *tmpDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+							 actionPrecedence, @"actionPrecedence",
+							 actionRanking, @"actionRanking",
+							 actionActivation, @"actionActivation",
+							 actionMenuActivation, @"actionMenuActivation",
+							 actionIndirects, @"actionIndirects",
+							 actionNames, @"actionNames",
+							 nil];
+	[tmpDict writeToFile:pQSActionsLocation atomically:YES];
+	[tmpDict release];
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"Wrote Actions Info");
 #endif
@@ -518,7 +517,6 @@ QSExecutor *QSExec = nil;
             
             if (action) {
                 [self addAction:action];
-                [[self makeArrayForSource:[bundle bundleIdentifier]] addObject:action];
             }
         }
 	} else {

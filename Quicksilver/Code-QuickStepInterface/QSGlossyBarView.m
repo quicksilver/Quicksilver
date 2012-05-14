@@ -113,6 +113,15 @@ void QSDrawGlossyRect(NSRect rect, BOOL topOnly, BOOL lightSides, BOOL flipped) 
 	}
 	return self;
 }
+
+-(BOOL)performKeyEquivalent:(NSEvent *)theEvent {
+    BOOL keyIsGood = [super performKeyEquivalent:theEvent];
+    if (keyIsGood) {
+        [[self menu] popUpMenuPositioningItem:nil atLocation:NSMakePoint(0,-4) inView:[self superview]];
+    }
+    return keyIsGood;
+}
+
 @end
 
 @implementation QSGlossyBarView

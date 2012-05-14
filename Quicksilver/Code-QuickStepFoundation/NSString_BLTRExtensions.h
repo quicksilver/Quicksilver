@@ -32,6 +32,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString);
 @interface NSString (URLEncoding)
 - (NSString *)URLEncoding;
 - (NSString *)URLDecoding;
+- (NSString *)URLEncodeValue;
 @end
 
 @interface NSString(uuid)
@@ -70,6 +71,13 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString);
 
 
 @interface NSString (Blacktree)
+/**
+ Resolves file paths that contain wildcards (*).
+ Returns the first path it can find, with all the wildcards resolved.
+ If it can't find a file with all wildcards resolved, it returns the 
+ original path (possibly with wildcards).
+ Also standardizes path (resolves ~ for home path).
+ **/
 - (NSString *)stringByResolvingWildcardsInPath;
 - (NSString *)firstUnusedFilePath;
 - (NSArray *)componentsSeparatedByStrings:(NSArray *)strings;

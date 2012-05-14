@@ -39,6 +39,10 @@
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 	if (DEVELOPMENTVERSION ? ![defaults boolForKey:@"QSPreventAutomaticUpdate"] : [defaults boolForKey:kCheckForUpdates]) {
 		NSDate *lastCheck = [defaults objectForKey:kLastUpdateCheck];
+		// leaving this `nil` can cause Quicksilver to hang if it starts very soon after login
+		if (!lastCheck) {
+			lastCheck = [NSDate distantPast];
+		}
 		int frequency = [defaults integerForKey:kCheckForUpdateFrequency];
 		int versionType = [defaults integerForKey:@"QSUpdateReleaseLevel"];
 	//	if (DEVELOPMENTVERSION && frequency>7)
@@ -120,7 +124,7 @@ typedef enum {
     checkVersionString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 
     [defaults setObject:[NSDate date] forKey:kLastUpdateCheck];
-    if (![checkVersionString length] && [checkVersionString length] > 10) {
+    if (![checkVersionString length] || [checkVersionString length] > 10) {
         NSLog(@"Unable to check for new version.");
         [[QSTaskController sharedInstance] removeTask:@"Check for Update"];
         return kQSUpdateCheckError;
@@ -147,14 +151,18 @@ typedef enum {
     switch (check) {
         case kQSUpdateCheckError:
             if (!quiet)
-                NSRunInformationalAlertPanel(@"Connection Error", @"Unable to check for updates.", @"OK", nil, nil);
+                NSRunInformationalAlertPanel(@"Internet Connection Error", @"Unable to check for updates, the server could not be reached. Please check your internet connection", @"OK", nil, nil);
             return NO;
         break;
         case kQSUpdateCheckUpdateAvailable:
             if (!force && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSDownloadUpdatesInBackground"]) {
+/** Diable automatically checking for updates in the background for DEBUG builds
+ You can still check for updates by clicking the "Check Now" button **/
+#ifndef DEBUG
                 [self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
+#endif
             } else {
-                int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"New Version", nil], @"A new version of Quicksilver, version %@, is available; would you like to download it now?", @"Get New Version", @"Cancel", nil, newVersion); //, @"More Info");
+                int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"New Version of Quicksilver Available", nil], @"A new version of Quicksilver is available, would you like to update now?\n\n(Update from %@ → %@)", @"Install Update", @"Later", nil, [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey],newVersion); //, @"More Info");
                 if (selection == 1) {
                     [self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
                 } else if (selection == -1) {  //Go to web site
@@ -168,7 +176,7 @@ typedef enum {
             if (!updated) {
                 NSLog(@"Quicksilver is up to date.");
                 if (!quiet)
-                    NSRunInformationalAlertPanel(@"No Updates Available", [NSString stringWithFormat:@"You already have the latest version of Quicksilver (v%@) and all installed plug-ins", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]] , @"OK", nil, nil);
+                    NSRunInformationalAlertPanel(@"You're up-to-date!", [NSString stringWithFormat:@"You already have the latest version of Quicksilver (%@) and all installed plug-ins", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]] , @"OK", nil, nil);
             }
             return updated;
         break;
@@ -183,7 +191,7 @@ typedef enum {
 - (BOOL)threadedCheckForUpdates:(BOOL)force {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     BOOL res = [self checkForUpdatesInBackground:NO force:force];
-    [pool release];
+    [pool drain];
     return res;
 }
 
@@ -276,7 +284,7 @@ typedef enum {
 - (void)download:(QSURLDownload *)download didFailWithError:(NSError *)error {
     if (download != appDownload)
         return;
-	NSLog(@"Download Failed");
+	NSLog(@"Download Failed: %@", error);
 	//	[[QSTaskController sharedInstance] removeTask:@"QSAppUpdateInstalling"];
 	[updateTask stopTask:nil];
 	[updateTask release];
@@ -328,12 +336,8 @@ typedef enum {
 - (void)finishAppInstall {
 	NSString *path = [appDownload destination];
     
-    NSInteger selection = 0;
-	BOOL update = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSUpdateWithoutAsking"];
-	if (!update) {
-        selection = NSRunInformationalAlertPanel(@"Download Successful", @"A new version of Quicksilver has been downloaded. This version must be relaunched after it is installed.", @"Install and Relaunch", @"Cancel Update", nil);
-		update = (selection == NSAlertDefaultReturn);
-    }
+    NSInteger selection = NSRunInformationalAlertPanel(@"Download Successful", @"A new version of Quicksilver has been downloaded. Quicksilver must relaunch to install it.", @"Install and Relaunch", @"Cancel Update", nil);
+    BOOL update = (selection == NSAlertDefaultReturn);
     
     //[self installAppFromCompressedFile:path];
     NSString *installPath = nil;
@@ -346,13 +350,11 @@ typedef enum {
         }
     }
     if (installPath) {
-        BOOL relaunch = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSRelaunchAutomaticallyAfterUpdate"];
-        if (!relaunch) {
-            selection = NSRunInformationalAlertPanel(@"Installation Successful", @"A new version of Quicksilver has been installed. This version must be relaunched after it is installed.", @"Relaunch", @"Relaunch Later", nil);
-            relaunch = (selection == NSAlertDefaultReturn);
-        }
-        if (relaunch)
+        selection = NSRunInformationalAlertPanel(@"Installation Successful", @"A new version of Quicksilver has been installed. Quicksilver must relaunch to install it.", @"Relaunch", @"Relaunch Later", nil);
+        BOOL relaunch = (selection == NSAlertDefaultReturn);
+        if (relaunch) {
             [NSApp relaunchFromPath:nil];
+        }
     }
 
 	[updateTask stopTask:nil];

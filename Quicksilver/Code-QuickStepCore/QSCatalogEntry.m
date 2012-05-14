@@ -495,7 +495,7 @@ if (kUseNSArchiveForIndexes)
 			NSLog(@"An error ocurred while scanning \"%@\": %@", [self name], localException);
 			[localException printStackTrace];
 		NS_ENDHANDLER
-		[pool release];
+		[pool drain];
 		[self setIsScanning:NO];
 		return [itemContents autorelease];
 	}
@@ -528,12 +528,12 @@ if (kUseNSArchiveForIndexes)
 	return itemContents;
 }
 
-- (void)scanForcedInThread:(BOOL)force {
+- (void)scanForcedInThread:(NSNumber *)force {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	[[[QSLibrarian sharedInstance] scanTask] startTask:nil];
-	[self scanForced:force];
+	[self scanForced:[force boolValue]];
 	[[[QSLibrarian sharedInstance] scanTask] stopTask:nil];
-	[pool release];
+	[pool drain];
 }
 
 - (NSArray *)scanForced:(BOOL)force {
@@ -543,7 +543,7 @@ if (kUseNSArchiveForIndexes)
 		for(QSCatalogEntry * child in children) {
 			[child scanForced:force];
 		}
-		[pool release];
+		[pool drain];
 		return nil;
 	}
 	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:@"Checking:%@", [self name]]];

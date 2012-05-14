@@ -34,7 +34,7 @@
 	NSString *name = [[[object stringValue] lines] objectAtIndex:0];
 	return [name stringByAppendingPathExtension:@"txt"];
 }
-- (BOOL)objectHasChildren:(QSObject *)object { return YES;  }
+- (BOOL)objectHasChildren:(QSObject *)object { return NO;  }
 - (void)setQuickIconForObject:(QSObject *)object { [object setIcon:[[NSWorkspace sharedWorkspace] iconForFileType:@"'clpt'"]];  }
 - (BOOL)loadIconForObject:(QSObject *)object { return NO;  }
 - (NSString *)identifierForObject:(QSObject *)object { return nil;  }
@@ -46,7 +46,9 @@
 
 + (id)objectWithString:(NSString *)string { return [[(QSObject *)[QSObject alloc] initWithString:string] autorelease];  }
 - (id)initWithString:(NSString *)string {
-    if (!string) string = @"unknown";
+    if (![string length]) {
+        return nil;
+    }
 	if (self = [self init]) {
 		[data setObject:string forKey:QSTextType];
 		[self setName:string];
@@ -161,6 +163,7 @@
 				// check if the last component of the string is a tld 
 				if([tldArray containsObject:[[components lastObject] uppercaseString]]) {
 					[self assignURLTypesWithURL:urlString];
+					[self setObject:host forType:QSRemoteHostsType];
 					return;
 				}
 				// Check if the string is an IP address (e.g. 192.168.1.1)
@@ -178,6 +181,7 @@
 					}
 					if (isValidIPAddress) {
 						[self assignURLTypesWithURL:urlString];
+                        [self setObject:host forType:QSRemoteHostsType];
 						return;
 					}
 				}
