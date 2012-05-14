@@ -474,7 +474,7 @@
 								<integer>3</integer>
 								<key>keypath</key>
 								<array>
-									<string>Servers</string>
+									<string>RecentServers</string>
 									<string>CustomListItems</string>
 									<string>*</string>
 									<string>Alias</string>
