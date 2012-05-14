@@ -16,7 +16,7 @@
 
 #undef NSLocalizedString
 #define NSLocalizedString(key, comment) \
-[[NSBundle mainBundle] safeLocalizedStringForKey:(key) value:nil table:nil]
+[[NSBundle mainBundle] safeLocalizedStringForKey:(key) value:(key) table:nil]
 
 #undef NSLocalizedStringFromTable
 #define NSLocalizedStringFromTable(key, tbl, comment) \
