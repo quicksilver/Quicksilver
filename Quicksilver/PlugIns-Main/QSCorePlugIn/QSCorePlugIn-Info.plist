@@ -429,7 +429,7 @@
 									<string>RecentApplications</string>
 									<string>CustomListItems</string>
 									<string>*</string>
-									<string>Alias</string>
+									<string>Bookmark</string>
 								</array>
 							</dict>
 							<key>icon</key>
@@ -453,7 +453,7 @@
 									<string>RecentDocuments</string>
 									<string>CustomListItems</string>
 									<string>*</string>
-									<string>Alias</string>
+									<string>Bookmark</string>
 								</array>
 							</dict>
 							<key>icon</key>
@@ -484,27 +484,6 @@
 							<string>GenericFileServerIcon</string>
 							<key>ID</key>
 							<string>QSPresetRecentServers</string>
-						</dict>
-						<dict>
-							<key>source</key>
-							<string>QSFileSystemObjectSource</string>
-							<key>enabled</key>
-							<false/>
-							<key>settings</key>
-							<dict>
-								<key>parser</key>
-								<string>QSDirectoryParser</string>
-								<key>folderDepth</key>
-								<integer>1</integer>
-								<key>path</key>
-								<string>~/Library/Favorites</string>
-								<key>skipItem</key>
-								<integer>1</integer>
-							</dict>
-							<key>icon</key>
-							<string>FavoritesIcon</string>
-							<key>ID</key>
-							<string>QSPresetFavorites</string>
 						</dict>
 						<dict>
 							<key>source</key>
