@@ -104,7 +104,7 @@
     NSFileManager *fm = [NSFileManager defaultManager];
     switch (type) {
       case DefaultsPathEntry:
-        newObject = [fm fileExistsAtPath:thisObject] ?[QSObject fileObjectWithPath:thisObject] :nil;
+        newObject = [fm fileExistsAtPath:[(NSString *)thisObject stringByExpandingTildeInPath]] ?[QSObject fileObjectWithPath:thisObject] :nil;
         break;
       case DefaultsURLEntry:
         newObject = [QSObject URLObjectWithURL:thisObject title:nil];

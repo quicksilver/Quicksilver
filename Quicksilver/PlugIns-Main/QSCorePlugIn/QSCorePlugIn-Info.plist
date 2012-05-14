@@ -493,7 +493,7 @@
 								<key>bundle</key>
 								<string>.GlobalPreferences</string>
 								<key>type</key>
-								<integer>2</integer>
+								<integer>1</integer>
 								<key>keypath</key>
 								<array>
 									<string>NSNavRecentPlaces</string>
