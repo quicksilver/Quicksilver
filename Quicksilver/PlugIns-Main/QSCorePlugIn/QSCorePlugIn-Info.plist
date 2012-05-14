@@ -426,7 +426,7 @@
 								<integer>3</integer>
 								<key>keypath</key>
 								<array>
-									<string>Applications</string>
+									<string>RecentApplications</string>
 									<string>CustomListItems</string>
 									<string>*</string>
 									<string>Alias</string>
@@ -450,7 +450,7 @@
 								<integer>3</integer>
 								<key>keypath</key>
 								<array>
-									<string>Documents</string>
+									<string>RecentDocuments</string>
 									<string>CustomListItems</string>
 									<string>*</string>
 									<string>Alias</string>
