@@ -696,72 +696,6 @@ static QSController *defaultController = nil;
 }
 
 - (void)checkForCrash {
-<<<<<<< HEAD
-	NSMutableDictionary *state = [NSMutableDictionary dictionaryWithContentsOfFile:pStateLocation];
-	
-	// check to see if Quicksilver quit gracefully last time
-	if ([[state objectForKey:kQSQuitGracefully] isEqualToString:@"NO"]) {
-		NSFileManager *fm = [[NSFileManager alloc] init];
-		NSAlert *alert = [[NSAlert alloc] init];
-		[alert setAlertStyle:NSCriticalAlertStyle];
-		[alert setMessageText:NSLocalizedString(@"Quicksilver Crashed", nil)];
-		// Check to see if QS crashed whilst previously loading a plugin (registerPlugin method)
-		NSString *pluginName = [state objectForKey:kQSPluginCausedCrashAtLaunch];
-		if (pluginName) {
-			NSString *informativeText = [NSString stringWithFormat:NSLocalizedString(@"Quicksilver crashed when loading the %@ plugin.\nDo you wish to delete this plugin and continue launching Quicksilver?",nil), pluginName];
-			[alert setInformativeText:informativeText];
-			[alert addButtonWithTitle:NSLocalizedString(@"OK",nil)];
-			[alert addButtonWithTitle:NSLocalizedString(@"Cancel",nil)];
-			NSInteger buttonClicked = [alert runModal];
-			if (buttonClicked == NSAlertFirstButtonReturn) {
-				// If user says 'OK', attempt to delete the faulty plugin
-				NSString *faultyPluginPath = [state objectForKey:kQSFaultyPluginPath];
-				if (faultyPluginPath) {
-					if (![fm removeItemAtPath:faultyPluginPath error:nil]) {
-						NSLog(@"Error removing faulty plugin. Continuing to attempt a launch");
-					}
-				}
-			}
-		}
-		else {
-#ifdef DEBUG
-			NSLog(@"Ignoring crash protection. You most likely hit 'Stop' in Xcode.");
-#endif
-//#ifndef DEBUG
-			[alert setInformativeText:NSLocalizedString(@"Sorry. Quicksilver crashed on last use.\nDeleting caches may help solve the problem.\nOtherwise you can try to launch Quicksilver again, or quit and read the FAQ.",nil)];
-			[alert addButtonWithTitle:NSLocalizedString(@"Clear Caches",nil)];
-			[alert addButtonWithTitle:NSLocalizedString(@"Read FAQ",nil)];
-			[alert addButtonWithTitle:NSLocalizedString(@"Do Nothing",nil)];
-			NSInteger buttonClicked = [alert runModal];
-			switch (buttonClicked) {
-				case NSAlertFirstButtonReturn: {
-					NSError * err = nil;
-					[fm removeItemAtPath:[[NSString stringWithString:@"~/Library/Caches/Quicksilver"] stringByExpandingTildeInPath] error:&err];
-					if (err) {
-						NSLog(@"Error removing Quicksilver caches. Attempting re-launch anyway");
-					}
-					break;
-				}
-				case NSAlertSecondButtonReturn: {
-					[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[kHelpURL stringByAppendingString:@"FAQ#Quicksilver_crashes"]]];
-					[NSApp terminate:nil];
-					break;
-				}
-				default: {
-					break;
-				}
-			}
-//#endif
-		}
-		[fm release];
-		[alert release];
-	}
-	
-	// store the typical "Quicksilver is running" state
-	NSDictionary *newState = [[NSDictionary alloc] initWithObjectsAndKeys:@"NO", kQSQuitGracefully, nil];
-	[newState writeToFile:pStateLocation atomically:NO];
-	[newState release];
-=======
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     // obtain the last known crash date from the prefs
@@ -815,7 +749,6 @@ static QSController *defaultController = nil;
     [defaults synchronize];
 
     [fm release];
->>>>>>> master
 }
 
 - (IBAction)showReleaseNotes:(id)sender { [[NSWorkspace sharedWorkspace] openFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/SharedSupport/Changes.html"]];  }
