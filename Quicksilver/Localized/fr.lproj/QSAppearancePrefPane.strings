@@ -1,0 +1,28 @@
+/* 
+  QSAppearancePrefPane.strings
+  Quicksilver
+
+  Created by Etienne on 17/11/11.
+  Copyright 2011 __MyCompanyName__. All rights reserved.
+*/
+
+"Superfluous visual effects" = "Effets visuels superflus";
+"Enable eye-candy" = "Activer les effets spéciaux";
+"Command Interface:" = "Interface de Commande : ";
+"Bezels are glass" = "Les bezels sont en verre";
+"Bezels have shadows" = "Les bezels ont des ombres";
+"Menu Bar" = "Menu Bar";
+"Window" = "Fenêtre";
+"Interface type" = "Type d'interface";
+"Background" = "Background";
+"Box" = "Box";
+"Text" = "Texte";
+"Headers:" = "Entête : ";
+"Lists:" = "Listes : ";
+"Selection & Accents" = "Sélection & Accents";
+"Bezels:" = "Bezels :";
+"Defaults" = "Défauts";
+"Load Previews" = "Charger les aperçus";
+"Load Icons for all results" = "Charger les icônes pour tous les résultats";
+"Customize" = "Personnaliser";
+"Preview" = "Aperçu";

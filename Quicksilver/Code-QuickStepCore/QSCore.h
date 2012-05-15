@@ -13,7 +13,6 @@
 #import "QSAlertManager.h"
 #import "QSBadgeImage.h"
 #import "QSBasicObject.h"
-#import "QSBuildOptions.h"
 #import "QSCatalogEntry.h"
 #import "QSCollection.h"
 #import "QSCommand.h"

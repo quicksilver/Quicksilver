@@ -104,6 +104,10 @@
 	<string>Répertoires récents (Ouverts et Enregistrés)</string>
 	<key>QSPresetHome</key>
 	<string>Dossier de l'utilisateur</string>
+	<key>QSPresetInternalMessages</key>
+	<string>Commandes internes</string>
+	<key>QSPresetInternalObjects</key>
+	<string>Objets internes</string>
 	<key>QSPresetIEBookmarks</key>
 	<string>Favoris d'Internet Explorer</string>
 	<key>QSPresetILifeGroup</key>
@@ -148,8 +152,12 @@
 	<string>Quicksilver</string>
 	<key>QSPresetRecentApplications</key>
 	<string>Applications récentes</string>
+	<key>QSPresetRecentApplications106</key>
+	<string>Applications récentes (10.6)</string>
 	<key>QSPresetRecentDocuments</key>
-	<string>Documents récentes</string>
+	<string>Documents récents</string>
+	<key>QSPresetRecentDocuments106</key>
+	<string>Documents récents (10.6)</string>
 	<key>QSPresetRecentItems</key>
 	<string>Éléments utilisés récemment</string>
 	<key>QSPresetRecentSelections</key>

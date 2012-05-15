@@ -32,5 +32,13 @@
 	<string>iPhoto Library</string>
 	<key>QSiTunesObjectSource</key>
 	<string>iTunes Music Library</string>
+	<key>QSHistoryObjectSource</key>
+	<string>Object History</string>
+	<key>QSInternalObjectSource</key>
+	<string>Internal Objects</string>
+	<key>QSObjCMessageSource</key>
+	<string>Objective-C Messages</string>
+	<key>QSProxyObjectSource</key>
+	<string>Proxies</string>
 </dict>
 </plist>

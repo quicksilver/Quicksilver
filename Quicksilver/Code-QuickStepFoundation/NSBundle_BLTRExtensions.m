@@ -20,11 +20,67 @@
 	return image;
 }
 
+#if DEBUG
++ (NSMutableDictionary *)missingLocalizedValuesForAllBundles {
+	static NSMutableDictionary *missingKeysDict = nil;
+	if (!missingKeysDict) {
+		missingKeysDict = [[NSMutableDictionary alloc] initWithCapacity:1];
+	}
+	return missingKeysDict;
+}
+
++ (NSMutableDictionary *)missingLocalizedValuesForBundle:(NSString *)bundleId {
+	if (!bundleId)
+		bundleId = @"missing";
+	NSMutableDictionary *missingBundles = [self missingLocalizedValuesForAllBundles];
+	NSMutableDictionary *missingBundleLocales = [missingBundles objectForKey:bundleId];
+	if (!missingBundleLocales) {
+		[missingBundles setObject:(missingBundleLocales = [NSMutableDictionary dictionary]) forKey:bundleId];
+	}
+	return missingBundleLocales;
+}
+
+
+- (NSMutableDictionary *)missingLocalizedValuesForTablesInLocale:(NSString *)locale {
+	if (!locale)
+		locale = @"en";
+	NSMutableDictionary *missingTables = [[self class] missingLocalizedValuesForBundle:[self bundleIdentifier]];
+	NSMutableDictionary *missingKeysDict = [missingTables objectForKey:locale];
+	if (!missingKeysDict)
+		[missingTables setObject:(missingKeysDict = [NSMutableDictionary dictionary]) forKey:locale];
+	return missingKeysDict;
+}
+
+- (NSMutableDictionary *)missingLocalizedValuesForKeysInTable:(NSString *)tableName inLocale:(NSString *)locale {
+	if (!tableName)
+		tableName = @"Localizable";
+	NSMutableDictionary *missingTables = [self missingLocalizedValuesForTablesInLocale:locale];
+	NSMutableDictionary *missingValues = [missingTables objectForKey:tableName];
+	if (!missingValues) {
+		[missingTables setObject:(missingValues = [NSMutableDictionary dictionary]) forKey:tableName];
+	}
+	return missingValues;
+}
+
+- (NSMutableDictionary *)missingLocalizedValuesForKey:(NSString *)key inTable:(NSString *)tableName inLocale:(NSString *)locale {
+	return [[self missingLocalizedValuesForKeysInTable:tableName inLocale:locale] objectForKey:key];
+}
+
+- (void)setValue:(NSString *)value forLocalizedKey:(NSString *)key inTable:(NSString *)tableName inLocale:(NSString *)locale {
+	if (value)
+		[[self missingLocalizedValuesForKeysInTable:tableName inLocale:locale] setObject:value forKey:key];
+}
+#endif
+
 - (NSString *)safeLocalizedStringForKey:(NSString *)key value:(NSString *)defaultValue table:(NSString *)tableName {
 	NSString *locString;
 	
-	// 1. look up in tableName for current localization (skip, if default table)
-	if (tableName && ![tableName isEqualToString:@"Localizable"]) {
+	// Skip if default table
+	if ([tableName isEqualToString:@"Localizable"])
+		tableName = nil;
+	
+	// 1. look up in tableName for current localization
+	if (tableName) {
 		locString = [self localizedStringForKey:key value:missingString table:tableName];
 		if (locString && ![locString isEqualToString:missingString]) { 
 			return locString; 
@@ -38,38 +94,45 @@
 	}
 	
 #ifdef DEBUG
-	if(DEBUG_LOCALIZATION) { 
-		NSLog(@"Localization: Missing localized key %@ in table %@ for localization \"%@\", trying for English",
+	if(DEBUG_LOCALIZATION) {
+		NSString *preferred = [[self preferredLocalizations] objectAtIndex:0];
+		[self setValue:defaultValue forLocalizedKey:key inTable:tableName inLocale:preferred];
+		NSLog(@"Localization: Missing localized key \"%@\" in table \"%@\" for localization \"%@\", falling back",
 			  key,
 			  tableName,
-			  [[self preferredLocalizations] objectAtIndex:0]);
+			  preferred);
 	}
 #endif
+	NSArray *defaultLocalizations = [NSArray arrayWithObjects:@"English", @"en", nil];
 	
-	// 3. look up in tableName for default (English) localization (skip, if default table)
-	NSDictionary *dictionary;
-	if (tableName && ![tableName isEqualToString:@"Localizable"]) {
+	for (NSString *locale in defaultLocalizations) {
+		// 3. look up in tableName for default localizations
+		NSDictionary *dictionary;
+		if (tableName) {
+			dictionary = [NSDictionary dictionaryWithContentsOfFile:
+						  [self pathForResource:tableName ofType:@"strings" inDirectory:nil forLocalization:locale]];
+			locString = [dictionary objectForKey:key];
+			if (locString) {
+				return locString;
+			}
+		}
+		
+		// 4. look up in Localizable.strings for default (English) localization
 		dictionary = [NSDictionary dictionaryWithContentsOfFile:
-					  [self pathForResource:tableName ofType:@"strings" inDirectory:nil forLocalization:@"English"]];
+					  [self pathForResource:@"Localizable" ofType:@"strings" inDirectory:nil forLocalization:locale]];
 		locString = [dictionary objectForKey:key];
 		if (locString) {
 			return locString;
 		}
 	}
 	
-	// 4. look up in Localizable.strings for default (English) localization
-	dictionary = [NSDictionary dictionaryWithContentsOfFile:
-				  [self pathForResource:@"Localizable" ofType:@"strings" inDirectory:nil forLocalization:@"English"]];
-	locString = [dictionary objectForKey:key];
-	if (locString) {
-		return locString;
-	}
-	
 #ifdef DEBUG
 	if(DEBUG_LOCALIZATION) {
-		NSLog(@"Localization: Missing localized key %@ in table %@ for localization English",
+		[self setValue:defaultValue forLocalizedKey:key inTable:tableName inLocale:@"en"];
+		NSLog(@"Localization: Missing localized key \"%@\" in table \"%@\" for localizations \"%@\"",
 			  key,
-			  tableName);
+			  tableName,
+			  defaultLocalizations);
 	}
 #endif
 	

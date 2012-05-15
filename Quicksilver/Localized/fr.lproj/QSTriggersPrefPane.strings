@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Add trigger...</key>
+	<string>Ajouter un déclencheur...</string>
+	<key>Command</key>
+	<string>Commande</string>
+	<key>Delete selected trigger</key>
+	<string>Supprimer le déclencheur sélectionné</string>
+	<key>Trigger</key>
+	<string>Déclencheur</string>
+	<key>Trigger Info</key>
+	<string>Infos sur le déclencheur</string>
+</dict>
+</plist>

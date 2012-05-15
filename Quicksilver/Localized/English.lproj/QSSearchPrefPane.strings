@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Alternate Services Menu Key:</key>
+	<string>Alternate Services Menu Key:</string>
+	<key>Box</key>
+	<string>Box</string>
+	<key>Caps Lock (Double Only)</key>
+	<string>Caps Lock (Double Only)</string>
+	<key>Command</key>
+	<string>Command</string>
+	<key>Control</key>
+	<string>Control</string>
+	<key>Delay before searching to improve performance on slow machines</key>
+	<string>Delay before searching to improve performance on slow machines</string>
+	<key>Delay before showing alternatives</key>
+	<string>Delay before showing alternatives</string>
+	<key>Delayed</key>
+	<string>Delayed</string>
+	<key>Double</key>
+	<string>Double</string>
+	<key>Edit</key>
+	<string>Edit</string>
+	<key>Function</key>
+	<string>Function</string>
+	<key>Hide if pressed when already visible</key>
+	<string>Hide if pressed when already visible</string>
+	<key>Hide instead of resetting search</key>
+	<string>Hide instead of resetting search</string>
+	<key>HotKey Activation:</key>
+	<string>HotKey Activation:</string>
+	<key>Immediately</key>
+	<string>Immediately</string>
+	<key>Jump to Argument Field</key>
+	<string>Jump to Argument Field</string>
+	<key>Jump to action when getting results</key>
+	<string>Jump to action when getting results</string>
+	<key>Modifier-only Activation:</key>
+	<string>Modifier-only Activation:</string>
+	<key>Never</key>
+	<string>Never</string>
+	<key>Normal</key>
+	<string>Normal</string>
+	<key>Off</key>
+	<string>Off</string>
+	<key>Option</key>
+	<string>Option</string>
+	<key>Reset search after:</key>
+	<string>Reset search after:</string>
+	<key>Row Height:</key>
+	<string>Row Height:</string>
+	<key>Select Next Result</key>
+	<string>Select Next Result</string>
+	<key>Shift</key>
+	<string>Shift</string>
+	<key>Show Item's Contents</key>
+	<string>Show Item's Contents</string>
+	<key>Show children in result list</key>
+	<string>Show children in result list</string>
+	<key>Show other matches</key>
+	<string>Show other matches</string>
+	<key>Single</key>
+	<string>Single</string>
+	<key>Spacebar behavior:</key>
+	<string>Spacebar behavior:</string>
+	<key>Switch to Text Mode</key>
+	<string>Switch to Text Mode</string>
+	<key>Switch to text mode if no match is found</key>
+	<string>Switch to text mode if no match is found</string>
+	<key>The children of the object that is selected in the resultlist are displayed in a second list.</key>
+	<string>The children of the object that is selected in the resultlist are displayed in a second list.</string>
+	<key>Time to wait before new letters typed are considered a new search</key>
+	<string>Time to wait before new letters typed are considered a new search</string>
+	<key>Use a single key command to activate</key>
+	<string>Use a single key command to activate</string>
+	<key>Wait before searching:</key>
+	<string>Wait before searching:</string>
+	<key>none</key>
+	<string>none</string>
+</dict>
+</plist>

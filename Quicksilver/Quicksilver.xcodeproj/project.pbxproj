@@ -93,7 +93,18 @@
 		4D00308813116376009040B7 /* QSOutlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D00308213116376009040B7 /* QSOutlineView.m */; };
 		4D00308913116376009040B7 /* QSTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D00308313116376009040B7 /* QSTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D00308A13116376009040B7 /* QSTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D00308413116376009040B7 /* QSTableView.m */; };
+		4D62E3181476919300362E9A /* QSActionsPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E30E1476919300362E9A /* QSActionsPrefPane.strings */; };
+		4D62E3191476919300362E9A /* QSCatalog.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E3101476919300362E9A /* QSCatalog.strings */; };
+		4D62E31A1476919300362E9A /* QSHelpersPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E3121476919300362E9A /* QSHelpersPrefPane.strings */; };
+		4D62E31B1476919300362E9A /* QSPlugInsPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E3141476919300362E9A /* QSPlugInsPrefPane.strings */; };
+		4D62E31C1476919300362E9A /* QSTriggersPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E3161476919300362E9A /* QSTriggersPrefPane.strings */; };
+		4D62E324147694D800362E9A /* QSAction.description.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E326147694D800362E9A /* QSAction.description.plist */; };
+		4D62E32A1476A6BF00362E9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E3281476A6BF00362E9A /* Localizable.strings */; };
 		4D6A663410AB2A2F00898CA4 /* QSTreeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 92D9C9680D134BDD00D91825 /* QSTreeController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D89177514758620009C1C14 /* QSMainMenuPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D89177714758620009C1C14 /* QSMainMenuPrefPane.strings */; };
+		4D89177B14758DC6009C1C14 /* QSApplicationPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D89177D14758DC6009C1C14 /* QSApplicationPrefPane.strings */; };
+		4D891783147595A5009C1C14 /* QSAppearancePrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D891785147595A5009C1C14 /* QSAppearancePrefPane.strings */; };
+		4D891787147595AE009C1C14 /* QSSearchPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D891789147595AE009C1C14 /* QSSearchPrefPane.strings */; };
 		4D8A0B3F10AB2404006AF163 /* Configuration in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4D8A0B3510AB23F7006AF163 /* Configuration */; };
 		4DB4A0210E1007EA0010C540 /* QSKeyCodeTranslator.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FADD07B205950044D6EF /* QSKeyCodeTranslator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DB4A0220E1007EB0010C540 /* QSKeyCodeTranslator.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FADE07B205950044D6EF /* QSKeyCodeTranslator.m */; };
@@ -113,7 +124,6 @@
 		4DD2CF370E7B345500BA1128 /* QSBasicObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2CF350E7B345500BA1128 /* QSBasicObject.m */; };
 		4DD89EF90EBDD97B005A15AE /* CGSPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = E12444CB07297FF300043A01 /* CGSPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD89F0C0EBDDA7A005A15AE /* NTViewLocalizer.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E3CB960653BE040026BAF2 /* NTViewLocalizer.m */; };
-		4DD89F230EBDDBA9005A15AE /* QSBuildOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F1A0EBDDBA9005A15AE /* QSBuildOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD89F240EBDDBA9005A15AE /* QSDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F1B0EBDDBA9005A15AE /* QSDebug.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD89F250EBDDBA9005A15AE /* QSDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F1C0EBDDBA9005A15AE /* QSDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD89F270EBDDBA9005A15AE /* QSKeys.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F1E0EBDDBA9005A15AE /* QSKeys.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1033,8 +1043,30 @@
 		4D35B4DE143C7AB800E059A7 /* QuicksilverDMG.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = QuicksilverDMG.icns; sourceTree = "<group>"; };
 		4D4F32FC0E39EDE500668F94 /* QSEffects-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "QSEffects-Info.plist"; sourceTree = "<group>"; };
 		4D4F32FD0E39EDFD00668F94 /* QSFoundation-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "QSFoundation-Info.plist"; sourceTree = "<group>"; };
+		4D62E30F1476919300362E9A /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/QSActionsPrefPane.strings; sourceTree = "<group>"; };
+		4D62E3111476919300362E9A /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/QSCatalog.strings; sourceTree = "<group>"; };
+		4D62E3131476919300362E9A /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/QSHelpersPrefPane.strings; sourceTree = "<group>"; };
+		4D62E3151476919300362E9A /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/QSPlugInsPrefPane.strings; sourceTree = "<group>"; };
+		4D62E3171476919300362E9A /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/QSTriggersPrefPane.strings; sourceTree = "<group>"; };
+		4D62E31D147691B400362E9A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSActionsPrefPane.strings; sourceTree = "<group>"; };
+		4D62E31E147691C500362E9A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSCatalog.strings; sourceTree = "<group>"; };
+		4D62E31F147691CC00362E9A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSHelpersPrefPane.strings; sourceTree = "<group>"; };
+		4D62E320147691D600362E9A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSPlugInsPrefPane.strings; sourceTree = "<group>"; };
+		4D62E321147691E000362E9A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSTriggersPrefPane.strings; sourceTree = "<group>"; };
+		4D62E325147694D800362E9A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/QSAction.description.plist; sourceTree = "<group>"; };
+		4D62E327147694E000362E9A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = fr; path = fr.lproj/QSAction.description.plist; sourceTree = "<group>"; };
+		4D62E3291476A6BF00362E9A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4D62E32B1476A6C600362E9A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Release.xcconfig; sourceTree = "<group>"; };
 		4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Debug.xcconfig; sourceTree = "<group>"; };
+		4D89177614758620009C1C14 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/QSMainMenuPrefPane.strings; sourceTree = "<group>"; };
+		4D89177814758641009C1C14 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSMainMenuPrefPane.strings; sourceTree = "<group>"; };
+		4D89177C14758DC6009C1C14 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/QSApplicationPrefPane.strings; sourceTree = "<group>"; };
+		4D89177E14758DCD009C1C14 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSApplicationPrefPane.strings; sourceTree = "<group>"; };
+		4D891784147595A5009C1C14 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/QSAppearancePrefPane.strings; sourceTree = "<group>"; };
+		4D891786147595AB009C1C14 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSAppearancePrefPane.strings; sourceTree = "<group>"; };
+		4D891788147595AE009C1C14 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/QSSearchPrefPane.strings; sourceTree = "<group>"; };
+		4D89178A147595C3009C1C14 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSSearchPrefPane.strings; sourceTree = "<group>"; };
 		4D8A0B3510AB23F7006AF163 /* Configuration */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Configuration; sourceTree = "<group>"; };
 		4DA1CCCF0E0BB61100CA6002 /* Developer.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Developer.xcconfig; sourceTree = "<group>"; };
 		4DB8915A0E13E93200F57EF7 /* QSDesktopBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDesktopBackgroundView.h; sourceTree = "<group>"; };
@@ -1053,7 +1085,6 @@
 		4DC493DE0E8D15CB000EEF1C /* QSPopUpTextButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPopUpTextButtonCell.m; sourceTree = "<group>"; };
 		4DD2CF340E7B345500BA1128 /* QSBasicObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSBasicObject.h; sourceTree = "<group>"; };
 		4DD2CF350E7B345500BA1128 /* QSBasicObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSBasicObject.m; sourceTree = "<group>"; };
-		4DD89F1A0EBDDBA9005A15AE /* QSBuildOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSBuildOptions.h; sourceTree = "<group>"; };
 		4DD89F1B0EBDDBA9005A15AE /* QSDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDebug.h; sourceTree = "<group>"; };
 		4DD89F1C0EBDDBA9005A15AE /* QSDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDefines.h; sourceTree = "<group>"; };
 		4DD89F1E0EBDDBA9005A15AE /* QSKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSKeys.h; sourceTree = "<group>"; };
@@ -1965,6 +1996,7 @@
 		4D002CA91311460B009040B7 /* Finder */ = {
 			isa = PBXGroup;
 			children = (
+				4D62E3281476A6BF00362E9A /* Localizable.strings */,
 				4D002CC01311460B009040B7 /* Finder */,
 				4D002CC31311460B009040B7 /* Finder.original.scpt */,
 				4D002CC41311460B009040B7 /* Finder.scpt */,
@@ -1973,6 +2005,7 @@
 				4D002CCC1311460B009040B7 /* QSFinderProxy.h */,
 				4D002CCD1311460B009040B7 /* QSFinderProxy.m */,
 				423DA024132F7A2C005ED70F /* QSAction.name.strings */,
+				4D62E326147694D800362E9A /* QSAction.description.plist */,
 			);
 			path = Finder;
 			sourceTree = "<group>";
@@ -2115,10 +2148,19 @@
 		7F515D3307B533D2003EA91C /* Localized */ = {
 			isa = PBXGroup;
 			children = (
+				4D62E30E1476919300362E9A /* QSActionsPrefPane.strings */,
+				4D62E3101476919300362E9A /* QSCatalog.strings */,
+				4D62E3121476919300362E9A /* QSHelpersPrefPane.strings */,
+				4D62E3141476919300362E9A /* QSPlugInsPrefPane.strings */,
+				4D62E3161476919300362E9A /* QSTriggersPrefPane.strings */,
+				4D89177714758620009C1C14 /* QSMainMenuPrefPane.strings */,
 				6535A9191086EF4D009D5C90 /* Localizable.strings */,
 				6535A98B1086F627009D5C90 /* Catalog.strings */,
 				6535A98D1086F627009D5C90 /* Preferences.strings */,
 				6535A9891086F627009D5C90 /* About.strings */,
+				4D89177D14758DC6009C1C14 /* QSApplicationPrefPane.strings */,
+				4D891785147595A5009C1C14 /* QSAppearancePrefPane.strings */,
+				4D891789147595AE009C1C14 /* QSSearchPrefPane.strings */,
 			);
 			path = Localized;
 			sourceTree = "<group>";
@@ -2624,7 +2666,6 @@
 				E1E5FB6E07B20DD10044D6EF /* QSBadgeImage.m */,
 				4DD2CF340E7B345500BA1128 /* QSBasicObject.h */,
 				4DD2CF350E7B345500BA1128 /* QSBasicObject.m */,
-				4DD89F1A0EBDDBA9005A15AE /* QSBuildOptions.h */,
 				7FB8D6FA07B98B1300062022 /* QSCatalogEntry.h */,
 				7FB8D6FB07B98B1300062022 /* QSCatalogEntry.m */,
 				42ADF4FD1317237900C68070 /* QSClangAnalyzer.h */,
@@ -2901,7 +2942,6 @@
 				E1E5FBD807B20DD20044D6EF /* QSAlertManager.h in Headers */,
 				E1E5FBDA07B20DD20044D6EF /* QSBadgeImage.h in Headers */,
 				4DD2CF360E7B345500BA1128 /* QSBasicObject.h in Headers */,
-				4DD89F230EBDDBA9005A15AE /* QSBuildOptions.h in Headers */,
 				7FB8D6FC07B98B1300062022 /* QSCatalogEntry.h in Headers */,
 				E1E5FBDC07B20DD20044D6EF /* QSCollection.h in Headers */,
 				E1E5FBDE07B20DD20044D6EF /* QSCommand.h in Headers */,
@@ -3492,6 +3532,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D002E1213114B17009040B7 /* Finder.scpt in Resources */,
+				4D62E324147694D800362E9A /* QSAction.description.plist in Resources */,
+				4D62E32A1476A6BF00362E9A /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3659,6 +3701,15 @@
 				6535A98C1086F627009D5C90 /* Catalog.strings in Resources */,
 				6535A98E1086F627009D5C90 /* Preferences.strings in Resources */,
 				6535A98A1086F627009D5C90 /* About.strings in Resources */,
+				4D89177514758620009C1C14 /* QSMainMenuPrefPane.strings in Resources */,
+				4D89177B14758DC6009C1C14 /* QSApplicationPrefPane.strings in Resources */,
+				4D891783147595A5009C1C14 /* QSAppearancePrefPane.strings in Resources */,
+				4D891787147595AE009C1C14 /* QSSearchPrefPane.strings in Resources */,
+				4D62E3181476919300362E9A /* QSActionsPrefPane.strings in Resources */,
+				4D62E3191476919300362E9A /* QSCatalog.strings in Resources */,
+				4D62E31A1476919300362E9A /* QSHelpersPrefPane.strings in Resources */,
+				4D62E31B1476919300362E9A /* QSPlugInsPrefPane.strings in Resources */,
+				4D62E31C1476919300362E9A /* QSTriggersPrefPane.strings in Resources */,
 				CDDB44E41518C53300800B66 /* QSCrashReporter.xib in Resources */,
 				CDA9D3DE1549D13B00607BE4 /* AlertCautionIcon.icns in Resources */,
 			);
@@ -4404,6 +4455,105 @@
 				4D002CE713114628009040B7 /* en */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		4D62E30E1476919300362E9A /* QSActionsPrefPane.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D62E30F1476919300362E9A /* English */,
+				4D62E31D147691B400362E9A /* fr */,
+			);
+			name = QSActionsPrefPane.strings;
+			sourceTree = "<group>";
+		};
+		4D62E3101476919300362E9A /* QSCatalog.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D62E3111476919300362E9A /* English */,
+				4D62E31E147691C500362E9A /* fr */,
+			);
+			name = QSCatalog.strings;
+			sourceTree = "<group>";
+		};
+		4D62E3121476919300362E9A /* QSHelpersPrefPane.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D62E3131476919300362E9A /* English */,
+				4D62E31F147691CC00362E9A /* fr */,
+			);
+			name = QSHelpersPrefPane.strings;
+			sourceTree = "<group>";
+		};
+		4D62E3141476919300362E9A /* QSPlugInsPrefPane.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D62E3151476919300362E9A /* English */,
+				4D62E320147691D600362E9A /* fr */,
+			);
+			name = QSPlugInsPrefPane.strings;
+			sourceTree = "<group>";
+		};
+		4D62E3161476919300362E9A /* QSTriggersPrefPane.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D62E3171476919300362E9A /* English */,
+				4D62E321147691E000362E9A /* fr */,
+			);
+			name = QSTriggersPrefPane.strings;
+			sourceTree = "<group>";
+		};
+		4D62E326147694D800362E9A /* QSAction.description.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D62E325147694D800362E9A /* en */,
+				4D62E327147694E000362E9A /* fr */,
+			);
+			name = QSAction.description.plist;
+			sourceTree = "<group>";
+		};
+		4D62E3281476A6BF00362E9A /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D62E3291476A6BF00362E9A /* en */,
+				4D62E32B1476A6C600362E9A /* fr */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		4D89177714758620009C1C14 /* QSMainMenuPrefPane.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D89177614758620009C1C14 /* English */,
+				4D89177814758641009C1C14 /* fr */,
+			);
+			name = QSMainMenuPrefPane.strings;
+			sourceTree = "<group>";
+		};
+		4D89177D14758DC6009C1C14 /* QSApplicationPrefPane.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D89177C14758DC6009C1C14 /* English */,
+				4D89177E14758DCD009C1C14 /* fr */,
+			);
+			name = QSApplicationPrefPane.strings;
+			sourceTree = "<group>";
+		};
+		4D891785147595A5009C1C14 /* QSAppearancePrefPane.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D891784147595A5009C1C14 /* English */,
+				4D891786147595AB009C1C14 /* fr */,
+			);
+			name = QSAppearancePrefPane.strings;
+			sourceTree = "<group>";
+		};
+		4D891789147595AE009C1C14 /* QSSearchPrefPane.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D891788147595AE009C1C14 /* English */,
+				4D89178A147595C3009C1C14 /* fr */,
+			);
+			name = QSSearchPrefPane.strings;
 			sourceTree = "<group>";
 		};
 		6535A9191086EF4D009D5C90 /* Localizable.strings */ = {

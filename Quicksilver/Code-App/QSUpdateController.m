@@ -37,7 +37,12 @@
 - (void)setUpdateTimer {
 	// ***warning  * fix me
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-	if (DEVELOPMENTVERSION ? ![defaults boolForKey:@"QSPreventAutomaticUpdate"] : [defaults boolForKey:kCheckForUpdates]) {
+
+#ifdef DEBUG
+	if (![defaults boolForKey:@"QSPreventAutomaticUpdate"]) {
+#else
+    if ([defaults boolForKey:kCheckForUpdates]) {
+#endif
 		NSDate *lastCheck = [defaults objectForKey:kLastUpdateCheck];
 		// leaving this `nil` can cause Quicksilver to hang if it starts very soon after login
 		if (!lastCheck) {
@@ -45,8 +50,6 @@
 		}
 		int frequency = [defaults integerForKey:kCheckForUpdateFrequency];
 		int versionType = [defaults integerForKey:@"QSUpdateReleaseLevel"];
-	//	if (DEVELOPMENTVERSION && frequency>7)
-//			frequency = 7;
 #ifdef DEBUG
 		if (versionType>0 && frequency>1)
 			frequency = 1;
@@ -55,7 +58,6 @@
 		NSTimeInterval checkInterval = frequency*24*60*60;
 		//NSLog(@"Last Version Check at : %@", [lastCheck description]);
 		NSDate *nextCheck = [[NSDate alloc] initWithTimeInterval:checkInterval sinceDate:lastCheck];
-		//if (DEVELOPMENTVERSION)
 		//nextCheck = [NSDate distantPast];
 		//nextCheck = [NSDate dateWithTimeIntervalSinceNow: 20.0];
 		if (updateTimer) {
@@ -90,7 +92,6 @@
             break;
     }
 #ifdef DEBUG
-    if (PRERELEASEVERSION)
         versionType = @"pre";
 #endif
     
