@@ -152,11 +152,8 @@
 	<string>Quicksilver</string>
 	<key>QSPresetRecentApplications106</key>
 	<string>Applications récentes</string>
-	<string>Applications récentes (10.6)</string>
-	<key>QSPresetRecentDocuments</key>
-	<string>Documents récents</string>
 	<key>QSPresetRecentDocuments106</key>
-	<string>Documents récents (10.6)</string>
+	<string>Documents récents</string>
 	<key>QSPresetRecentItems</key>
 	<string>Éléments utilisés récemment</string>
 	<key>QSPresetRecentSelections</key>
