@@ -818,7 +818,7 @@
 	[image setSize:NSMakeSize(128, 128)];
 
 	if (showNotifications)
-		QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:@"QSPlugInInstalledNotification", QSNotifierType, image, QSNotifierIcon, title, QSNotifierTitle, (liveLoaded?nil:@"Relaunch required"), QSNotifierText, nil]);
+		QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:@"QSPlugInInstalledNotification", QSNotifierType, image, QSNotifierIcon, title, QSNotifierTitle, (liveLoaded?nil:@"Relaunch required (⌘⌃Q)"), QSNotifierText, nil]);
 	return YES;
 }
 
