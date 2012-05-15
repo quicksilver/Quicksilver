@@ -18,6 +18,8 @@
 
 #import "QSObject_Menus.h"
 
+#import "QSMenuButton.h"
+
 #define MAX_VISIBLE_COLUMNS 4
 #define COLUMNID_TYPE		@"TypeColumn"
 #define COLUMNID_NAME		@"NameColumn"
@@ -681,4 +683,11 @@ NSMutableDictionary *kindDescriptions = nil;
 - (IBAction)tableViewDoubleAction:(id)sender {
     [[focus controller] executeCommand:self];
 }
+
+
+// this calls the generic handler defined for all QSMenuButton objects
+- (IBAction)searchModeMenuButtonPressed:(id)sender {
+    [searchModeMenuButton qsMenuButtonWasPressed];
+}
+
 @end
