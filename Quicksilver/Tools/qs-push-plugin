@@ -42,6 +42,7 @@ options = Trollop::options do
   opt :host, "Push to a specific host.", :default => DEFAULT_HOST
   opt :level, "Override the level at which to publish the update", :type => :int, :default => nil
   opt :secret, "Override the secret parameter from the plist", :type => :bool, :default => nil
+  opt :changes, "Add a list of changes for the plugin in HTML format", :type => :string, :short "-c", :default => nil
 end
 
 files = ARGV
@@ -120,6 +121,10 @@ files.each do |file|
       args[:image_ext] = File.extname(image_file) if image_file
       args[:mod_date] = File.new(file).mtime
 
+      if options[:changes]
+        args[:changes] = options[:changes]
+      end
+      
     when ".dmg" then
       # Disk image
       puts "Attaching \"#{file}\""
