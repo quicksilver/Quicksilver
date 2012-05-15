@@ -150,9 +150,8 @@
 	<string>Catalogue des entrées de Quicksilver</string>
 	<key>QSPresetQSGroup</key>
 	<string>Quicksilver</string>
-	<key>QSPresetRecentApplications</key>
-	<string>Applications récentes</string>
 	<key>QSPresetRecentApplications106</key>
+	<string>Applications récentes</string>
 	<string>Applications récentes (10.6)</string>
 	<key>QSPresetRecentDocuments</key>
 	<string>Documents récents</string>

@@ -170,9 +170,9 @@
 	<string>Script (Extra QS)</string>
 	<key>QSPresetQSGroup</key>
 	<string>Quicksilver</string>
-	<key>QSPresetRecentApplications</key>
+	<key>QSPresetRecentApplications106</key>
 	<string>Applicazioni Recenti</string>
-	<key>QSPresetRecentDocuments</key>
+	<key>QSPresetRecentDocuments106</key>
 	<string>Documenti Recenti</string>
 	<key>QSPresetRecentItems</key>
 	<string>Elementi Recenti</string>
