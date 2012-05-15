@@ -4,14 +4,16 @@
 #####################################################################
 # Quicksilver Plugin Upload Script
 # Created by Etienne Samson
-# 
+#
 # INSTALLATION
 # Symlink somewhere in your path so that your shell sees it with
 # `ln -s <absolute-path-to-script> ~/bin/`. My own preference is ~/bin,
 # since that's in my path, but change that to anywhere else you like.
-# 
+#
 # Don't forget to make executable again (chmod +x qs-push-plugin), and
-# install the required gems (`gem install trollop rest-client`)
+# install the required gems (`gem install trollop rest-client plist`)
+#
+# Try qs-push-plugin -h for usage.
 ######################################################################
 
 # Ruby StdLib
@@ -21,6 +23,7 @@ require 'fileutils'
 # Rubygems
 require 'trollop'
 require 'rest-client'
+require 'plist'
 
 DEFAULT_USER = "qs"
 DEFAULT_HOST = "http://qs0.qsapp.com/plugins"
