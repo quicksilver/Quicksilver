@@ -1134,7 +1134,7 @@
 		7F0AB6CA07C4045700DF7D52 /* QSPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSPlugIn.h; sourceTree = "<group>"; };
 		7F0AB6CB07C4045700DF7D52 /* QSPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSPlugIn.m; sourceTree = "<group>"; };
 		7F0AB6CC07C4045700DF7D52 /* QSPlugInManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSPlugInManager.h; sourceTree = "<group>"; };
-		7F0AB6CD07C4045700DF7D52 /* QSPlugInManager.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSPlugInManager.m; sourceTree = "<group>"; };
+		7F0AB6CD07C4045700DF7D52 /* QSPlugInManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPlugInManager.m; sourceTree = "<group>"; };
 		7F0BD5DD07B52EA8003F3DC3 /* Core Support.qsplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Core Support.qsplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F0BDE4207FC962E002CBDDF /* Get Quicksilver Selection.action */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Get Quicksilver Selection.action"; path = "Scripting/Automator/Get Quicksilver Selection.action"; sourceTree = SOURCE_ROOT; };
 		7F0BDE5007FC962E002CBDDF /* Send to Quicksilver.action */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Send to Quicksilver.action"; path = "Scripting/Automator/Send to Quicksilver.action"; sourceTree = SOURCE_ROOT; };
