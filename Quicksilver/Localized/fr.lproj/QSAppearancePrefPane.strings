@@ -8,13 +8,16 @@
 
 "Superfluous visual effects" = "Effets visuels superflus";
 "Enable eye-candy" = "Activer les effets spéciaux";
-"Command Interface:" = "Interface de Commande : ";
+"Select Interface:" = "Choisir l'interface: ";
 "Bezels are glass" = "Les bezels sont en verre";
 "Bezels have shadows" = "Les bezels ont des ombres";
 "Menu Bar" = "Menu Bar";
+"Make the interface pop in and out" = "Faire l'interface apparaître avec les effets spéciaux";
 "Window" = "Fenêtre";
 "Interface type" = "Type d'interface";
 "Background" = "Background";
+"Colours" = "Couleurs";
+"Interface" = "Interface";
 "Box" = "Box";
 "Text" = "Texte";
 "Headers:" = "Entête : ";
