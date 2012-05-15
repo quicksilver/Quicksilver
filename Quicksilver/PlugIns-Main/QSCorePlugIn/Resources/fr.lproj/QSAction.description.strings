@@ -5,21 +5,21 @@
 	<key>AppActivateAction</key>
 	<string>Activer</string>
 	<key>AppHideAction</key>
-	<string>Enlever</string>
+	<string>Masquer</string>
 	<key>AppLaunchAction</key>
 	<string>Lancer l'application</string>
 	<key>AppLaunchAgainAction</key>
 	<string>Lancer un autre exemple d'application</string>
 	<key>AppOpenFileAction</key>
-	<string>Choisir le fichier a ouvrir</string>
+	<string>Choisir le fichier à ouvrir</string>
 	<key>AppQuitAction</key>
 	<string>Quitter l'application</string>
 	<key>AppReopenAction</key>
 	<string>Réouvrir l'application</string>
 	<key>AppRootLaunchAction</key>
-	<string>Lancer une application en tant que administrateur</string>
+	<string>Lancer une application en tant qu'administrateur</string>
 	<key>AppleScriptRunAction</key>
-	<string>Executer un AppleScript</string>
+	<string>Exécuter un AppleScript</string>
 	<key>ContactEditAction</key>
 	<string>Editer l'élément</string>
 	<key>ContactEmailAction</key>
@@ -33,19 +33,19 @@
 	<key>ContactSendTextEmailAction</key>
 	<string>Envoyer le texte à un contact</string>
 	<key>ContactShowAction</key>
-	<string>Afficher le contact dans le carnet d'adresse</string>
+	<string>Afficher le contact dans le carnet d'adresses</string>
 	<key>DiskEjectAction</key>
 	<string>Éjecter un disque</string>
 	<key>DiskForceEjectAction</key>
 	<string>Forcer un disque à s'éjecter</string>
 	<key>FileCompressAction</key>
-	<string>Compression de fichiers</string>
+	<string>Compresser des fichiers</string>
 	<key>FileCopyToAction</key>
-	<string>Copier dans un autre endroit</string>
+	<string>Copier à un autre endroit</string>
 	<key>FileDecompressAction</key>
-	<string>Décompression du fichier</string>
+	<string>Décompresser des fichiers</string>
 	<key>FileDeleteAction</key>
-	<string>Effacer l'élément</string>
+	<string>Effacer des fichiers</string>
 	<key>FileGetPathAction</key>
 	<string>Montrer le chemin des répertoires</string>
 	<key>FileMakeLinkInAction</key>

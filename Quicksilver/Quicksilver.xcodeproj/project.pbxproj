@@ -1099,7 +1099,7 @@
 		4DFE7DAD0E081BFD000B9AA3 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = /System/Library/Frameworks/QuickLook.framework; sourceTree = "<absolute>"; };
 		6535A8DE1086EF23009D5C90 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6535A91C1086EF5F009D5C90 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
-		6535A91D1086EF67009D5C90 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6535A91D1086EF67009D5C90 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6535A9341086F027009D5C90 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6535A9361086F0BE009D5C90 /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Dutch; path = Dutch.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6535A9371086F0CA009D5C90 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Italian; path = Italian.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1111,14 +1111,14 @@
 		6535A9871086F61F009D5C90 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/About.strings; sourceTree = "<group>"; };
 		6535A98F1086F63E009D5C90 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Catalog.strings; sourceTree = "<group>"; };
 		6535A9901086F642009D5C90 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Italian; path = Italian.lproj/Catalog.strings; sourceTree = "<group>"; };
-		6535A9911086F645009D5C90 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Catalog.strings; sourceTree = "<group>"; };
+		6535A9911086F645009D5C90 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = fr.lproj/Catalog.strings; sourceTree = "<group>"; };
 		6535A9921086F648009D5C90 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/Catalog.strings; sourceTree = "<group>"; };
 		6535A9931086F64C009D5C90 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Catalog.strings; sourceTree = "<group>"; };
 		6535A9941086F64E009D5C90 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Catalog.strings; sourceTree = "<group>"; };
 		6535A9951086F651009D5C90 /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Dutch; path = Dutch.lproj/Catalog.strings; sourceTree = "<group>"; };
 		6535A9961086F65F009D5C90 /* no */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = no; path = no.lproj/Catalog.strings; sourceTree = "<group>"; };
 		6535A9971086F680009D5C90 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Preferences.strings; sourceTree = "<group>"; };
-		6535A9981086F683009D5C90 /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Preferences.strings; sourceTree = "<group>"; };
+		6535A9981086F683009D5C90 /* French */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = French; path = fr.lproj/Preferences.strings; sourceTree = "<group>"; };
 		6535A9991086F689009D5C90 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Italian; path = Italian.lproj/Preferences.strings; sourceTree = "<group>"; };
 		6535A99A1086F68C009D5C90 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/Preferences.strings; sourceTree = "<group>"; };
 		6535A99B1086F68F009D5C90 /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Dutch; path = Dutch.lproj/Preferences.strings; sourceTree = "<group>"; };
@@ -1126,7 +1126,7 @@
 		6535A99D1086F695009D5C90 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Preferences.strings; sourceTree = "<group>"; };
 		6535A99E1086F697009D5C90 /* no */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = no; path = no.lproj/Preferences.strings; sourceTree = "<group>"; };
 		6535A99F1086F69E009D5C90 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/About.strings; sourceTree = "<group>"; };
-		6535A9A01086F6A0009D5C90 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/About.strings; sourceTree = "<group>"; };
+		6535A9A01086F6A0009D5C90 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = fr.lproj/About.strings; sourceTree = "<group>"; };
 		6535A9A11086F6A4009D5C90 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Italian; path = Italian.lproj/About.strings; sourceTree = "<group>"; };
 		6535A9A21086F6A7009D5C90 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/About.strings; sourceTree = "<group>"; };
 		6535A9A31086F6AA009D5C90 /* Dutch */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Dutch; path = Dutch.lproj/About.strings; sourceTree = "<group>"; };

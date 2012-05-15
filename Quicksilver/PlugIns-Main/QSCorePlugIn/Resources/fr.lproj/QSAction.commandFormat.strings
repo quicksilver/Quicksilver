@@ -33,7 +33,7 @@
 	<key>AppleScriptRunAction</key>
 	<string>Exécuter le script %@</string>
 	<key>AppleScriptRunTextAction</key>
-	<string>Éxecuter &apos;%@&apos;</string>
+	<string>Exécuter &apos;%@&apos;</string>
 	<key>DiskEjectAction</key>
 	<string>Éjecter %@</string>
 	<key>DiskForceEjectAction</key>
@@ -53,7 +53,7 @@
 	<key>FileGetPathAction</key>
 	<string>Obtenir le chemin POSIX de %@</string>
 	<key>FileGetURLAction</key>
-	<string>Obtenir l&apos;URL file:// de %@</string>
+	<string>Obtenir l&apos;URL fichier de %@</string>
 	<key>FileMakeAliasInAction</key>
 	<string>Créer un alias de %@ dans %#</string>
 	<key>FileMakeHardLinkInAction</key>
@@ -137,7 +137,7 @@
 	<key>QSSoundPlayAction</key>
 	<string>Lire %@</string>
 	<key>QSTextDiffAction</key>
-	<string>Obtenir les différences entre %@ et %#</string>
+	<string>Obtenir les différences entre %@ et %@</string>
 	<key>QSTextShowDialogAction</key>
 	<string>Montrer le dialogue pour \&quot;%@\&quot;</string>
 	<key>QSTextSpeakAction</key>

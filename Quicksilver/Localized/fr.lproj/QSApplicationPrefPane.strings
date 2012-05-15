@@ -19,7 +19,7 @@
 "Check Now" = "Maintenant";
 "Cancel" = "Annuler";
 "Check for update immediately" = "Vérifier immédiatement";
-"Last check:" = "Dernière vérification:";
+"Last check:" = "Dernière vérification :";
 "Check for updates:" = "Vérifier les mises à jour:";
 "Enable update checking" = "Activer les mises à jour";
 "On Launch" = "Au lancement";
@@ -36,6 +36,6 @@
 "Download updates in the background" = "Télécharger les mises à jour silencieusement";
 "Install updates without asking" = "Installer les mises à jours sans demander";
 "Restart immediately" = "Relancer immédiatement";
-"Uninstall Quicksilver" = "Déinstaller";
+"Uninstall Quicksilver" = "Désinstaller";
 "Reset Preferences" = "RAZ Préférences";
 "Run Setup" = "Run Setup";
