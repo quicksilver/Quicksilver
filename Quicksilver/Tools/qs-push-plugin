@@ -21,6 +21,7 @@ require 'time'
 require 'fileutils'
 
 # Rubygems
+require 'rubygems'
 require 'trollop'
 require 'rest-client'
 require 'plist'
