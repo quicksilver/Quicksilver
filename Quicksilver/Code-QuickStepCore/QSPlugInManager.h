@@ -71,6 +71,7 @@
 - (QSPlugIn *)plugInBundleWasInstalled:(NSBundle *)bundle;
 - (void)deletePlugIns:(NSArray *)deletePlugIns fromWindow:(NSWindow *)window;
 - (void)checkForUnmetDependencies;
+- (void)checkForObsoletes:(QSPlugIn *)plugin;
 - (void)removeObsoletePlugIns;
 //- (NSMutableDictionary *)validPlugIns;
 //- (void)setValidPlugIns:(NSMutableDictionary *)newValidPlugIns;
