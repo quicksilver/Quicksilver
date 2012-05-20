@@ -4,6 +4,8 @@
 
 @class QSObjectView, QSSearchObjectView;
 
+@class QSMenuButton;
+
 @interface QSResultController : NSWindowController
 #if (MAC_OS_X_VERSION_MAX_ALLOWED >= 1060)
    <NSTableViewDataSource>
@@ -27,6 +29,8 @@
  	IBOutlet NSMenu *searchModeMenu; // NSMenu opened when clicking the gear (see ResultController.xib)
 	IBOutlet NSMenuItem *sortByScore; // NSMenuItem (see ResultController.xib)
 	IBOutlet NSMenuItem *sortByName; // NSMenuItem (see ResultController.xib)
+	
+	IBOutlet QSMenuButton *searchModeMenuButton; // Search button used for voiceover input
 	
 	int selectedResult;
 	QSObject *selectedItem;
@@ -56,6 +60,9 @@
 - (IBAction)clearMnemonics:(id)sender;
 - (IBAction)omitItem:(id)sender;
 - (IBAction)assignAbbreviation:(id)sender;
+
+// event handler triggered by searchModeMenuButton - this link is made in Interface Builder
+- (IBAction)searchModeMenuButtonPressed:(id)sender;
 
 - (id)initWithFocus:(id)myFocus;
 
