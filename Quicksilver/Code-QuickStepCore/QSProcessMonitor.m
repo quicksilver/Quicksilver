@@ -114,7 +114,6 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 	NSMutableArray *resultsArray = [NSMutableArray array];
 	ProcessSerialNumber serialNumber;
 	ProcessInfoRec		procInfo;
-	FSSpec				appFSSpec;
 	Str255				procName;
 
 	serialNumber.highLongOfPSN	= kNoProcess;
@@ -122,7 +121,14 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 
 	procInfo.processInfoLength	= sizeof(ProcessInfoRec);
 	procInfo.processName		= procName;
-	procInfo.processAppSpec		= &appFSSpec;
+
+    #ifdef __LP64__
+        FSRef appFSRef;
+        procInfo.processAppRef = &appFSRef;
+    #else
+        FSSpec appFSSpec;
+        procInfo.processAppSpec = &appFSSpec;
+    #endif
 
 	while (procNotFound != (GetNextProcess(&serialNumber) )) {
 		if (noErr == (GetProcessInformation(&serialNumber, &procInfo) )) {
