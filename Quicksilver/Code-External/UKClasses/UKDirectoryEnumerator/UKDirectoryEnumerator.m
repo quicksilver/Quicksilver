@@ -363,6 +363,22 @@ void            UKFSCatInfoFromDictionary( NSDictionary* attrs, FSCatalogInfo* c
 		return NO;
 }
 
+// -----------------------------------------------------------------------------
+//  isAlias
+//      If you passed the kFSCatInfoFinderInfo flag to setDesiredInfo:, this
+//      will tell you whether an item is an alias (not a symlink) or not.
+//      Otherwise this will ruthlessly claim it was a file.
+// -----------------------------------------------------------------------------
+- (BOOL)		isAlias
+{
+    FSCatalogInfo*			currInfo = &(infoCache[currIndex -1]);
+
+    if ( UK_BTST(whichInfo, kFSCatInfoFinderInfo) ) {
+        FileInfo*		fInfo = (FileInfo*)currInfo->finderInfo;
+        return UK_BTST(fInfo->finderFlags, kIsAlias);
+    } else
+        return NO;
+}
 
 // -----------------------------------------------------------------------------
 //  setDesiredInfo:

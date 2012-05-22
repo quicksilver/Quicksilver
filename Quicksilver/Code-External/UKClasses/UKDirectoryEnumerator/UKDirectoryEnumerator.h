@@ -108,6 +108,7 @@
 -(BOOL)					isInvisible;		// You must set whichInfo to include kFSCatInfoFinderInfo to get something except NO here.
 -(BOOL)					shouldBeDisplayed;	// This checks isInvisible *and* the file name to determine whether this file should be shown in file listings.
 -(BOOL)					isDirectory;		// You must set whichInfo to include kFSCatInfoNodeFlags to get something except NO here.
+-(BOOL)					isAlias;            // You must set whichInfo to include kFSCatInfoFinderInfo to get something except NO here.
 
 -(void)					setCacheSize: (ItemCount)c; // How many files to cache. Defaults to UKDirectoryEnumeratorCacheSize
 -(ItemCount)			cacheSize;
