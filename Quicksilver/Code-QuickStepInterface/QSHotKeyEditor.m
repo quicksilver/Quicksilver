@@ -1,5 +1,3 @@
-NSString * stringForModifiers( unsigned int aModifierFlags );
-
 #import "QSApp.h"
 #import "QSHotKeyEditor.h"
 
@@ -138,7 +136,7 @@ NSString * stringForModifiers( unsigned int aModifierFlags );
 	}
 }
 - (void)flagsChanged:(NSEvent *)theEvent {
-	NSString *newString = stringForModifiers([theEvent modifierFlags]);
+    NSString *newString = [[NDKeyboardLayout keyboardLayout] stringForKeyCode:[theEvent keyCode] modifierFlags:[theEvent modifierFlags]];
 	[self setString:[newString length] ? newString:defaultString];
 }
 - (void)setDictionaryStringWithEvent:(NSEvent *)theEvent {
@@ -289,7 +287,7 @@ NSString * stringForModifiers( unsigned int aModifierFlags );
 			}
 			break;
 			case NSFlagsChanged: {
-				NSString *newString = stringForModifiers([theEvent modifierFlags]);
+                NSString *newString = [[NDKeyboardLayout keyboardLayout] stringForKeyCode:[theEvent keyCode] modifierFlags:[theEvent modifierFlags]];
 				NSLog(@"%@", newString);
 				[self setStringValue:[newString length] ? newString : @""];
 				[self display];

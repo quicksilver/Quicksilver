@@ -31,7 +31,6 @@
 #import "QSLSTools.h"
 #import "QSLoginItemFunctions.h"
 #import "QSLog.h"
-#import "QSKeyCodeTranslator.h"
 #import "QSHotKeyEvent.h"
 #import "NSWorkspace_BLTRExtensions.h"
 #import "NSWindow_BLTRExtensions.h"

@@ -153,8 +153,6 @@
 		4D891783147595A5009C1C14 /* QSAppearancePrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D891785147595A5009C1C14 /* QSAppearancePrefPane.strings */; };
 		4D891787147595AE009C1C14 /* QSSearchPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D891789147595AE009C1C14 /* QSSearchPrefPane.strings */; };
 		4D8A0B3F10AB2404006AF163 /* Configuration in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4D8A0B3510AB23F7006AF163 /* Configuration */; };
-		4DB4A0210E1007EA0010C540 /* QSKeyCodeTranslator.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FADD07B205950044D6EF /* QSKeyCodeTranslator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4DB4A0220E1007EB0010C540 /* QSKeyCodeTranslator.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FADE07B205950044D6EF /* QSKeyCodeTranslator.m */; };
 		4DB4A03D0E100B020010C540 /* QSImageAndTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E103EE5C06471DDE00447FE0 /* QSImageAndTextCell.m */; };
 		4DB4A03E0E100B020010C540 /* QSImageAndTextCell.h in Headers */ = {isa = PBXBuildFile; fileRef = E103EE5B06471DDE00447FE0 /* QSImageAndTextCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DB8915C0E13E93200F57EF7 /* QSDesktopBackgroundView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DB8915A0E13E93200F57EF7 /* QSDesktopBackgroundView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1646,8 +1644,6 @@
 		E1E5FAA007B204BE0044D6EF /* NSWindow_BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NSWindow_BLTRExtensions.m; sourceTree = "<group>"; };
 		E1E5FAA107B204BE0044D6EF /* NSWorkspace_BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NSWorkspace_BLTRExtensions.h; sourceTree = "<group>"; };
 		E1E5FAA207B204BE0044D6EF /* NSWorkspace_BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NSWorkspace_BLTRExtensions.m; sourceTree = "<group>"; };
-		E1E5FADD07B205950044D6EF /* QSKeyCodeTranslator.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSKeyCodeTranslator.h; sourceTree = "<group>"; };
-		E1E5FADE07B205950044D6EF /* QSKeyCodeTranslator.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSKeyCodeTranslator.m; sourceTree = "<group>"; };
 		E1E5FB6507B20DD10044D6EF /* NSString_Purification.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NSString_Purification.h; sourceTree = "<group>"; };
 		E1E5FB6607B20DD10044D6EF /* NSString_Purification.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NSString_Purification.m; sourceTree = "<group>"; };
 		E1E5FB6707B20DD10044D6EF /* QSAction.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSAction.h; sourceTree = "<group>"; };
@@ -2603,8 +2599,6 @@
 				7FDF341707F7D59E00594789 /* NSDictionary+BLTRExtensions.m */,
 				7FF8BB3607B816A20088CEEF /* NSTask+BLTRExtensions.h */,
 				7FF8BB3707B816A20088CEEF /* NSTask+BLTRExtensions.m */,
-				E1E5FADD07B205950044D6EF /* QSKeyCodeTranslator.h */,
-				E1E5FADE07B205950044D6EF /* QSKeyCodeTranslator.m */,
 				E1E5FA6D07B204BE0044D6EF /* QSFoundation.h */,
 				E1E5FA6E07B204BE0044D6EF /* NDAlias+QSMods.h */,
 				E1E5FA6F07B204BE0044D6EF /* NDAlias+QSMods.m */,
@@ -2676,8 +2670,6 @@
 				E1E5FA6D07B204BE0044D6EF /* QSFoundation.h */,
 				4DC493C90E8D1340000EEF1C /* QSHotKeyEvent.h */,
 				4DC493CA0E8D1340000EEF1C /* QSHotKeyEvent.m */,
-				E1E5FADD07B205950044D6EF /* QSKeyCodeTranslator.h */,
-				E1E5FADE07B205950044D6EF /* QSKeyCodeTranslator.m */,
 				7F0843CC098ACB2F00F136CC /* QSLog.h */,
 				7F0843CD098ACB2F00F136CC /* QSLog.m */,
 				7F95531E0A25DC4A0004FCC3 /* QSLoginItemFunctions.h */,
@@ -3157,7 +3149,6 @@
 				2E34EDA2134C9EEE005E66A1 /* NTViewLocalizer.h in Headers */,
 				E1E5FAA307B204BF0044D6EF /* QSFoundation.h in Headers */,
 				4DC493CB0E8D1340000EEF1C /* QSHotKeyEvent.h in Headers */,
-				4DB4A0210E1007EA0010C540 /* QSKeyCodeTranslator.h in Headers */,
 				2E34EDAA134C9F25005E66A1 /* QSLog.h in Headers */,
 				7F9553200A25DC4A0004FCC3 /* QSLoginItemFunctions.h in Headers */,
 				7FF447EA080479E200316DB6 /* QSLSTools.h in Headers */,
@@ -4266,7 +4257,6 @@
 				4DD89F0C0EBDDA7A005A15AE /* NTViewLocalizer.m in Sources */,
 				CDCC201110A4C14B009C4EED /* QSMDPredicate.m in Sources */,
 				4DC493CC0E8D1340000EEF1C /* QSHotKeyEvent.m in Sources */,
-				4DB4A0220E1007EB0010C540 /* QSKeyCodeTranslator.m in Sources */,
 				7F9553210A25DC4B0004FCC3 /* QSLoginItemFunctions.m in Sources */,
 				7FF447EB080479E200316DB6 /* QSLSTools.m in Sources */,
 				92D9C96B0D134BDD00D91825 /* QSTreeController.m in Sources */,
