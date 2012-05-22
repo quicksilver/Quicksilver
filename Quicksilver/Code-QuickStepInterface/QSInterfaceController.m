@@ -456,7 +456,7 @@
 
 - (void)timerHide:(NSTimer *)timer {
 	if (preview) return;
-	bool stayOpen = StillDown();
+	bool stayOpen = [NSEvent pressedMouseButtons];
 	if (!stayOpen) {
 		 // NSLog(@"Window Closing");
 		if ([[NSApp keyWindow] level] <= [[self window] level])

@@ -121,7 +121,7 @@
 	if ([reentry windowNumber] != [self windowNumber])
 		reentry = nil;
 	// no re-entry of mouse into window and was inside the window for more than 0.2s (best time found from trial and error)
-	if (!reentry && !StillDown() && (timeExited - timeEntered > 0.2)) {
+	if (!reentry && ![NSEvent pressedMouseButtons] && (timeExited - timeEntered > 0.2)) {
 		[self hideOrOrderOut:self];
 	}
 }
