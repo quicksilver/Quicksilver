@@ -79,7 +79,7 @@
 
 	 {	if ( [self isCompiled] && (noErr == OSAStore( [NSAppleScript _defaultScriptingComponent] , [self _compiledScriptID] , typeOSAGenericStorage, kOSAModeNull, &theDesc ) ) )
 
-		theData = [[NSAppleEventDescriptor descriptorWithAEDescNoCpy:&theDesc] data];
+		theData = [[NSAppleEventDescriptor descriptorWithAEDescNoCopy:&theDesc] data];
 	}
 	return theData;
 }
@@ -134,8 +134,8 @@
 	NSAppleEventDescriptor *descriptorObject = nil;
 	if ([object isKindOfClass:[NSArray class]]) {
 		descriptorObject = [NSAppleEventDescriptor listDescriptor];
-		int i;
-		for (i = 0; i<[object count]; i++) {
+		NSUInteger i;
+		for (i = 0; i < [(NSArray *)object count]; i++) {
 			[descriptorObject insertDescriptor:[NSAppleEventDescriptor descriptorWithObject:[object objectAtIndex:i]] atIndex:i+1];
 		}
 		return descriptorObject;

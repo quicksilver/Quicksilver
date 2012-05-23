@@ -32,7 +32,7 @@
 	rect = [self bounds];
 
 	NSBezierPath *roundRect = [NSBezierPath bezierPath];
-	float minRadius = MIN(NSWidth(rect), NSHeight(rect) )/2;
+	CGFloat minRadius = MIN(NSWidth(rect), NSHeight(rect) )/2;
 
 	if (radius < 0)
 		[roundRect appendBezierPathWithRoundedRectangle:rect withRadius:minRadius];
@@ -48,10 +48,10 @@
 		QSFillRectWithGradientFromEdge(rect, highlightColor, shadowColor, NSMinYEdge);
 
 		[QSGlossClipPathForRectAndStyle(rect, glassStyle) addClip];
-		float brightnessGloss = MIN(0.7, MAX(0.2, [color brightnessComponent]) );
-		float desaturationGloss = MIN(0.7, MAX(0.3, 1-[color saturationComponent]) );
-		float hueGloss = 0.25*MAX(0, [color greenComponent] +[color redComponent] -[color blueComponent] *0.5-1.0);
-		float alpha = MIN(0.7, brightnessGloss*desaturationGloss+hueGloss);
+		CGFloat brightnessGloss = MIN(0.7, MAX(0.2, [color brightnessComponent]) );
+		CGFloat desaturationGloss = MIN(0.7, MAX(0.3, 1-[color saturationComponent]) );
+		CGFloat hueGloss = 0.25*MAX(0, [color greenComponent] +[color redComponent] -[color blueComponent] *0.5-1.0);
+		CGFloat alpha = MIN(0.7, brightnessGloss*desaturationGloss+hueGloss);
 		[[NSColor colorWithCalibratedWhite:1.0 alpha:alpha] set];
 		NSRectFillUsingOperation(rect, NSCompositeSourceOver);
 	} else {
@@ -69,8 +69,8 @@
 	[self setNeedsDisplay:YES];
 }
 
-- (float) radius { return radius;  }
-- (void)setRadius:(float)newRadius {
+- (CGFloat) radius { return radius;  }
+- (void)setRadius:(CGFloat)newRadius {
 	radius = newRadius;
 	[self setNeedsDisplay:YES];
 }

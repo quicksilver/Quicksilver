@@ -17,7 +17,7 @@
 
 float QSMinScore = 0.333333;
 
-static int presetSort(id item1, id item2, QSLibrarian *librarian) {
+static NSInteger presetSort(id item1, id item2, void *librarian) {
 	return [[item1 name] caseInsensitiveCompare:[item2 name]];
 }
 
@@ -164,7 +164,7 @@ static float searchSpeed = 0.0;
 		}
 		children = [parent getChildren];
 		[children addObject:entry];
-		[children sortUsingFunction:(int (*)(id, id, void *))presetSort context:(void *)self];
+		[children sortUsingFunction:presetSort context:self];
 		if (scan) [entry scanForced:YES];
 	}
 	//[catalogChildren replaceObjectsInRange:NSMakeRange(0, 0) withObjectsFromArray:newPresets];

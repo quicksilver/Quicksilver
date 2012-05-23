@@ -16,5 +16,5 @@
 @end
 
 @interface NSTableView (Separator)
-- (void)drawSeparatorForRow:(int)rowIndex clipRect:(NSRect)clipRect;
+- (void)drawSeparatorForRow:(NSInteger)rowIndex clipRect:(NSRect)clipRect;
 @end

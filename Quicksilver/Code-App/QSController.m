@@ -88,7 +88,7 @@ static QSController *defaultController = nil;
 #if 0
 - (void)showExpireDialog {
 	[NSApp activateIgnoringOtherApps:YES];
-	int result = NSRunInformationalAlertPanel(@"", @"This version of Quicksilver has expired. Please download the latest version.", @"Download", @"OK", nil);
+	NSInteger result = NSRunInformationalAlertPanel(@"", @"This version of Quicksilver has expired. Please download the latest version.", @"Download", @"OK", nil);
 	if (result)
 		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kWebSiteURL]];
 }
@@ -286,8 +286,8 @@ static QSController *defaultController = nil;
 			[quitWindow setLevel:kCGPopUpMenuWindowLevel+1];
 			[quitWindow setIgnoresMouseEvents:YES];
 			[quitWindow center];
-			[quitWindow setShowEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSVExpandEffect", @"transformFn", @"show", @"type", [NSNumber numberWithFloat:0.15] , @"duration", nil]];
-			[quitWindow setHideEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSShrinkEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithFloat:0.25] , @"duration", nil]];
+			[quitWindow setShowEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSVExpandEffect", @"transformFn", @"show", @"type", [NSNumber numberWithDouble:0.15] , @"duration", nil]];
+			[quitWindow setHideEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSShrinkEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithDouble:0.25] , @"duration", nil]];
 		} else {
 			quitWindow = (QSWindow *)[quitWindowController window];
 		}
@@ -651,13 +651,14 @@ static QSController *defaultController = nil;
 			if (lastLocation && ![bundlePath isEqualToString:[lastLocation stringByStandardizingPath]]) {
 				//New version in new location.
 				[NSApp activateIgnoringOtherApps:YES];
-				int selection = NSRunAlertPanel(NSLocalizedString(@"Running from a new location",nil), NSLocalizedString(@"The previous version of Quicksilver was located in \"%@\". Would you like to move this new version to that location?",nil), NSLocalizedString(@"Move and Relaunch",nil), NSLocalizedString(@"Don't Move",nil), nil, [[lastLocation stringByDeletingLastPathComponent] lastPathComponent]);
+				NSInteger selection = NSRunAlertPanel(NSLocalizedString(@"Running from a new location",nil), NSLocalizedString(@"The previous version of Quicksilver was located in \"%@\". Would you like to move this new version to that location?",nil), NSLocalizedString(@"Move and Relaunch",nil), NSLocalizedString(@"Don't Move",nil), nil, [[lastLocation stringByDeletingLastPathComponent] lastPathComponent]);
 				if (selection)
 					[NSApp relaunchAtPath:lastLocation movedFromPath:bundlePath];
 			}
 			if ([defaults boolForKey:kShowReleaseNotesOnUpgrade]) {
 				[NSApp activateIgnoringOtherApps:YES];
-				int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:NSLocalizedString(@"Quicksilver has been updated",nil), nil] , NSLocalizedString(@"You are using a new version of Quicksilver. Would you like to see the Release Notes?",nil), NSLocalizedString(@"Show Release Notes",nil), NSLocalizedString(@"Ignore",nil), nil);
+#warning 64BIT: Check formatting arguments
+				NSInteger selection = NSRunInformationalAlertPanel([NSString stringWithFormat:NSLocalizedString(@"Quicksilver has been updated",nil), nil] , NSLocalizedString(@"You are using a new version of Quicksilver. Would you like to see the Release Notes?",nil), NSLocalizedString(@"Show Release Notes",nil), NSLocalizedString(@"Ignore",nil), nil);
 				if (selection == 1)
 					[self showReleaseNotes:self];
 			}
@@ -677,7 +678,7 @@ static QSController *defaultController = nil;
 /** Turn off "you have previously used a newer version" popup for DEBUG builds **/
 #ifndef DEBUG
 			[NSApp activateIgnoringOtherApps:YES];
-			int selection = NSRunInformationalAlertPanel(NSLocalizedString(@"This is an old version of Quicksilver",nil), NSLocalizedString(@"You have previously used a newer version. Perhaps you have duplicate copies?",nil), NSLocalizedString(@"Reveal this copy",nil), NSLocalizedString(@"Ignore",nil), nil);
+			NSInteger selection = NSRunInformationalAlertPanel(NSLocalizedString(@"This is an old version of Quicksilver",nil), NSLocalizedString(@"You have previously used a newer version. Perhaps you have duplicate copies?",nil), NSLocalizedString(@"Reveal this copy",nil), NSLocalizedString(@"Ignore",nil), nil);
 			if (selection == 1)
 				[[NSWorkspace sharedWorkspace] selectFile:[[NSBundle mainBundle] bundlePath] inFileViewerRootedAtPath:@""];
 #endif
@@ -689,7 +690,7 @@ static QSController *defaultController = nil;
 			if (shouldInstall) {
 				//New version in new location.
 				[NSApp activateIgnoringOtherApps:YES];
-				int selection = NSRunAlertPanel(NSLocalizedString(@"Would you like to install Quicksilver?",nil), NSLocalizedString(@"Quicksilver was launched from a download location.\rWould you like to copy Quicksilver to your applications folder?",nil), NSLocalizedString(@"Install in \"Applications\"",nil), NSLocalizedString(@"Quit",nil), NSLocalizedString(@"Choose Location...",nil));
+				NSInteger selection = NSRunAlertPanel(NSLocalizedString(@"Would you like to install Quicksilver?",nil), NSLocalizedString(@"Quicksilver was launched from a download location.\rWould you like to copy Quicksilver to your applications folder?",nil), NSLocalizedString(@"Install in \"Applications\"",nil), NSLocalizedString(@"Quit",nil), NSLocalizedString(@"Choose Location...",nil));
 				NSString *installPath = nil;
 				if (selection == 1) {
 					installPath = @"/Applications";
@@ -961,11 +962,12 @@ static QSController *defaultController = nil;
 
 	quitWindowController = nil;
 
-	int rescanInterval = [defaults integerForKey:@"QSCatalogRescanFrequency"];
+	NSInteger rescanInterval = [defaults integerForKey:@"QSCatalogRescanFrequency"];
 
 	if (rescanInterval>0) {
 		
 #ifdef DEBUG
+#warning 64BIT: Check formatting arguments
 		if (DEBUG_STARTUP) NSLog(@"Rescanning every %d minutes", rescanInterval);
 #endif
 		
@@ -1100,8 +1102,8 @@ void QSSignalHandler(int i) {
 	printf("signal %d", i);
 	NSLog(@"Current Tasks %@", [[QSTaskController sharedInstance] tasks]);
 	[NSApp activateIgnoringOtherApps:YES];
-	int result = NSRunCriticalAlertPanel(NSLocalizedString(@"An error has occured",nil), NSLocalizedString(@"Quicksilver must be relaunched to regain stability.",nil), NSLocalizedString(@"Relaunch",nil), NSLocalizedString(@"Quit",nil), nil, i);
-	NSLog(@"result %d", result);
+	NSInteger result = NSRunCriticalAlertPanel(NSLocalizedString(@"An error has occured",nil), NSLocalizedString(@"Quicksilver must be relaunched to regain stability.",nil), NSLocalizedString(@"Relaunch",nil), NSLocalizedString(@"Quit",nil), nil, i);
+	NSLog(@"result %d", (long)result);
 	if (result == 1)
 		[NSApp relaunch:nil];
 	exit(-1);
@@ -1119,12 +1121,12 @@ void QSSignalHandler(int i) {
 #endif
 }
 
-- (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldLogException:(NSException *)exception mask:(unsigned int)aMask {
+- (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldLogException:(NSException *)exception mask:(NSUInteger)aMask {
 	[exception printStackTrace];
 	return NO;
 } // mask is NSLog<exception type>Mask, exception's userInfo has stack trace for key NSStackTraceKey
 
-- (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldHandleException:(NSException *)exception mask:(unsigned int)aMask {
+- (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldHandleException:(NSException *)exception mask:(NSUInteger)aMask {
 
 	return YES;
 }

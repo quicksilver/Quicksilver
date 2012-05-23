@@ -37,7 +37,7 @@
 
 	BOOL rangeValid = NO;
 
-	int i, j, m;
+	NSUInteger i, j, m;
 	id <NSObject, QSObject> thisObject;
 	while (!(rangeValid) && loaderValid) {
 		loadRange = newRange;
@@ -51,7 +51,7 @@
 				j = loadRange.length/2-j/2+j*(j%2); //Center Modulation
 			}
 			m += j;
-			if (m<0 || m >= [array count]) continue;
+			if (m >= [array count]) continue;
 			thisObject = [array objectAtIndex:m];
 
 			/*
@@ -108,9 +108,9 @@
 
 - (BOOL)isLoading { return loadThread != nil; }
 
-- (int) modulation { return modulation;  }
+- (NSInteger) modulation { return modulation;  }
 
-- (void)setModulation:(int)newModulation {
+- (void)setModulation:(NSInteger)newModulation {
 	modulation = newModulation;
 }
 

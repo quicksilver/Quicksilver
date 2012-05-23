@@ -192,7 +192,7 @@ QSExecutor *QSExec = nil;
 
 	if (index == NSNotFound) {
 		float prec = [action precedence];
-		int i;
+		NSUInteger i;
 		float otherPrec;
 		for(i = 0; i < [actionRanking count]; i++) {
 			otherPrec = [[actionPrecedence valueForKey:[actionRanking objectAtIndex:i]] floatValue];
@@ -202,7 +202,7 @@ QSExecutor *QSExec = nil;
 		[actionPrecedence setObject:[NSNumber numberWithFloat:prec] forKey:ident];
 		[action setRank:i];
 #ifdef DEBUG
-		if (VERBOSE) NSLog(@"inserting action %@ at %d (%f) ", action, i, prec);
+		if (VERBOSE) NSLog(@"inserting action %@ at %ld (%f) ", action, (unsigned long)i, prec);
 #endif
 	} else {
 		[action _setRank:index];
@@ -227,8 +227,8 @@ QSExecutor *QSExec = nil;
 }
 
 - (void)updateRanks {
-	int i;
-	for(i = 0; i<[actionRanking count]; i++) {
+	NSUInteger i;
+	for(i = 0; i < [actionRanking count]; i++) {
 		[[actionIdentifiers objectForKey:[actionRanking objectAtIndex:i]] _setRank:i];
 	}
 	[self writeActionsInfo];

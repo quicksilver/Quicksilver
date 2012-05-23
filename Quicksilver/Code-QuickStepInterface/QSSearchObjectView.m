@@ -386,7 +386,7 @@ NSMutableDictionary *bindingsDict = nil;
 	recordsHistory = flag;
 }
 
-- (void)setResultsPadding:(float)aResultsPadding { resultsPadding = aResultsPadding; }
+- (void)setResultsPadding:(CGFloat)aResultsPadding { resultsPadding = aResultsPadding; }
 
 #pragma mark -
 #pragma mark Menu Items
@@ -445,7 +445,7 @@ NSMutableDictionary *bindingsDict = nil;
 	[QSIC setHiding:NO];
 }
 
-- (void)savePanelDidEnd:(NSOpenPanel *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+- (void)savePanelDidEnd:(NSOpenPanel *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
 	[self setObjectValue:[QSObject fileObjectWithPath:[sheet filename]]];
 }
 
@@ -476,7 +476,7 @@ NSMutableDictionary *bindingsDict = nil;
 	[QSIC setHiding:NO];
 }
 
-- (void)openPanelDidEnd:(NSOpenPanel *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+- (void)openPanelDidEnd:(NSOpenPanel *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
 	[self setObjectValue:[QSObject fileObjectWithPath:[sheet filename]]];
 }
 
@@ -527,7 +527,7 @@ NSMutableDictionary *bindingsDict = nil;
 	} else {
 		NSPoint resultPoint = [[self window] convertBaseToScreen:[self frame] .origin];
 		//resultPoint.x;
-		float extraHeight = windowRect.size.height-(resultPoint.y-screenRect.origin.y);
+		CGFloat extraHeight = windowRect.size.height-(resultPoint.y-screenRect.origin.y);
         
 		//resultPoint.y += 2;
 		windowRect.origin.x = resultPoint.x;
@@ -636,11 +636,11 @@ NSMutableDictionary *bindingsDict = nil;
 //	[self setObjectValue:entry];
 //}
 
-- (void)rowClicked:(int)index {
+- (void)rowClicked:(NSInteger)index {
     
 }
 
-- (void)selectIndex:(int)index {
+- (void)selectIndex:(NSInteger)index {
 	// NSLog(@"selectindex %d %d", self, index);
     
 	if (index<0)
@@ -665,7 +665,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)selectObject:(QSBasicObject *)obj {
-	int index = 0;
+	NSInteger index = 0;
 	//[self updateHistory];
 	if (obj) {
 		index = [resultArray indexOfObject:obj];
@@ -728,19 +728,20 @@ NSMutableDictionary *bindingsDict = nil;
 	[self setShouldResetSearchString:YES];
 }
 
-- (void)pageScroll:(int)direction {
+- (void)pageScroll:(NSInteger)direction {
 	if (![[resultController window] isVisible]) [self showResultView:self];
     
-	int movement = direction * (NSHeight([[resultController->resultTable enclosingScrollView] frame]) /[resultController->resultTable rowHeight]);
+	NSInteger movement = direction * (NSHeight([[resultController->resultTable enclosingScrollView] frame]) /[resultController->resultTable rowHeight]);
 	//NSLog(@"%d", movement);
 	[self moveSelectionBy:movement];
 }
 
-- (void)moveSelectionBy:(int)d {
+- (void)moveSelectionBy:(NSInteger)d {
 	[self selectIndex:selection+d];
 }
 
 - (void)selectHome:(id)sender {
+#warning 64BIT: Check formatting arguments
 	NSLog(@"act%d", allowNonActions);
 	//	if (allowNonActions)
 	//		[self setObjectValue:[QSObject fileObjectWithPath:NSHomeDirectory()]];
@@ -861,7 +862,7 @@ NSMutableDictionary *bindingsDict = nil;
 	//t NSLog(@"scores %@", scores);
 	
 #ifdef DEBUG
-	if (DEBUG_RANKING) NSLog(@"Searched for \"%@\" in %3fms (%d items) ", string, 1000 * -[date timeIntervalSinceNow] , [newResultArray count]);
+	if (DEBUG_RANKING) NSLog(@"Searched for \"%@\" in %3fms (%d items) ", string, 1000 * -[date timeIntervalSinceNow] , (long)[newResultArray count]);
 #endif
 	
     // NSLog (@"search for %@", string);
@@ -890,7 +891,7 @@ NSMutableDictionary *bindingsDict = nil;
 			[self selectIndex:0];
 		}
         
-		int resultBehavior = [[NSUserDefaults standardUserDefaults] integerForKey:kResultWindowBehavior];
+		NSInteger resultBehavior = [[NSUserDefaults standardUserDefaults] integerForKey:kResultWindowBehavior];
         
 		if ([resultArray count] > 1) {
 			if (resultBehavior == 0)
@@ -1321,7 +1322,7 @@ NSMutableDictionary *bindingsDict = nil;
 		[resultController scrollWheel:theEvent];
 		return;
 	}
-	float delta = [theEvent deltaY];
+	CGFloat delta = [theEvent deltaY];
     
 	// This is really really awful.
 	UnsignedWide currentTime;
@@ -1369,7 +1370,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)insertSpace:(id)sender {
-	int behavior = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSSearchSpaceBarBehavior"];
+	NSInteger behavior = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSSearchSpaceBarBehavior"];
 	switch(behavior) {
 		case 1: //Normal
 			[self insertText:@" "];
@@ -1592,7 +1593,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (NSRange)selectedRange { return NSMakeRange(NSNotFound, 0); }
 
 - (NSRect)firstRectForCharacterRange:(NSRange)theRange { return NSZeroRect; }
-- (unsigned int)characterIndexForPoint:(NSPoint)thePoint { return 0; }
+- (NSUInteger)characterIndexForPoint:(NSPoint)thePoint { return 0; }
 
 - (NSArray *)validAttributesForMarkedText {
 	return [NSArray array];
@@ -1600,8 +1601,8 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)updateObject:(QSObject *)object {
 	// find index of object in the resultlist
-	int ind = [resultArray indexOfObject:object];
-	int count = [resultArray count];
+	NSInteger ind = [resultArray indexOfObject:object];
+	NSInteger count = [resultArray count];
 	// for cases where there's only 1 object in the results, it's not always selected
 	if (ind == NSNotFound && count != 1) {
 		return;
@@ -1651,7 +1652,7 @@ NSMutableDictionary *bindingsDict = nil;
 //		return [historyArray objectAtIndex:0];
 //	return nil;
 //}
-- (void)switchToHistoryState:(int)i {
+- (void)switchToHistoryState:(NSInteger)i {
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"select in history %d %@", i, [historyArray valueForKeyPath:@"selection.displayName"]);
 #endif
@@ -1751,7 +1752,7 @@ NSMutableDictionary *bindingsDict = nil;
 	[self browse:-1];
 }
 
-- (void)browse:(int)direction {
+- (void)browse:(NSInteger)direction {
 	NSArray *newObjects = nil;
 	QSBasicObject * newSelectedObject = [super objectValue];
 	QSBasicObject * parent = nil;
@@ -1854,7 +1855,7 @@ NSMutableDictionary *bindingsDict = nil;
         [self updateHistory];
         [self saveMnemonic];
         [self clearSearch];
-        int defaultMode = [[NSUserDefaults standardUserDefaults] integerForKey:kBrowseMode];
+        NSInteger defaultMode = [[NSUserDefaults standardUserDefaults] integerForKey:kBrowseMode];
         [self setSearchMode:(defaultMode ? defaultMode  : SearchSnap)];
         [self setResultArray:(NSMutableArray *)newObjects]; // !!!:nicholas:20040319
         [self setSourceArray:(NSMutableArray *)newObjects];

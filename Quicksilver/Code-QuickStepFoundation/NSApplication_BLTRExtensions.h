@@ -31,18 +31,20 @@
 - (void)replaceWithUpdateFromPath:(NSString *)newPath;
 @end
 
-typedef enum {
+enum {
 	QSApplicationNormalLaunch = 0,
 	QSApplicationUpgradedLaunch = 1,
 	QSApplicationDowngradedLaunch = -1,
 	QSApplicationFirstLaunch = 2
-} QSApplicationLaunchStatusFlags;
+};
+
+typedef NSInteger QSApplicationLaunchStatusFlags;
 
 #define kLastUsedVersion @"Last Used Version"
 #define kLastUsedLocation @"Last Used Location"
 
 @interface NSApplication (LaunchStatus)
-- (int) checkLaunchStatus;
+- (QSApplicationLaunchStatusFlags)checkLaunchStatus;
 - (void)updateLaunchStatusInfo;
 @end
 

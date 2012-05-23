@@ -17,7 +17,7 @@ IMPORTANT: This Apple software is supplied to you by Apple Computer, Inc. ("Appl
  redistribute this Apple software.
 
  In consideration of your agreement to abide by the following terms, and subject to these
- terms, Apple grants you a personal, non-exclusive license, under Apple’s copyrights in
+ terms, Apple grants you a personal, non-exclusive license, under Apple's copyrights in
  this original Apple software (the "Apple Software"), to use, reproduce, modify and
  redistribute the Apple Software, with or without modifications, in source and/or binary
  forms; provided that if you redistribute the Apple Software in its entirety and without
@@ -101,7 +101,7 @@ IMPORTANT: This Apple software is supplied to you by Apple Computer, Inc. ("Appl
 	}
 }
 
-- (float) imageWidthForFrame:(NSRect)frame {
+- (CGFloat) imageWidthForFrame:(NSRect)frame {
 	if (imageSize.width) {
 		return imageSize.width;
 	} else {
@@ -130,7 +130,7 @@ IMPORTANT: This Apple software is supplied to you by Apple Computer, Inc. ("Appl
 //	return textObj;
 //
 //}
-- (void)selectWithFrame:(NSRect)aRect inView:(NSView *)controlView editor:(NSText *)textObj delegate:(id)anObject start:(int)selStart length:(int)selLength {
+- (void)selectWithFrame:(NSRect)aRect inView:(NSView *)controlView editor:(NSText *)textObj delegate:(id)anObject start:(NSInteger)selStart length:(NSInteger)selLength {
 	NSRect textFrame = [self textRectForFrame:aRect];
 	[super selectWithFrame: textFrame inView: controlView editor:textObj delegate:anObject start:selStart length:selLength];
 }
@@ -166,7 +166,7 @@ IMPORTANT: This Apple software is supplied to you by Apple Computer, Inc. ("Appl
 
 		NSImageRep *bestRep = [image bestRepresentationForSize:theImageSize];
 		[image setSize:[bestRep size]];
-		float opacity = [self isEnabled] ? 1.0 : 0.5;
+		CGFloat opacity = [self isEnabled] ? 1.0 : 0.5;
 
 		[image drawInRect:imageFrame fromRect:rectFromSize([image size]) operation:NSCompositeSourceOver fraction:opacity];
 

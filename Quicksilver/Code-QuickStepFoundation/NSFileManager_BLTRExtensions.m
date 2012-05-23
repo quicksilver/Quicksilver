@@ -230,7 +230,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 	return nil;
 }
 
-- (NSArray *)itemsForPath:(NSString *)path depth:(int)depth types:(NSArray *)types {
+- (NSArray *)itemsForPath:(NSString *)path depth:(NSInteger)depth types:(NSArray *)types {
 	NSFileManager *manager = [NSFileManager defaultManager];
 	BOOL isDirectory;
 	if (![manager fileExistsAtPath:path isDirectory:&isDirectory])
@@ -279,7 +279,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 
 }
 
-- (NSDate *)bulkPath:(NSString *)path wasModifiedAfter:(NSDate *)date depth:(int)depth {
+- (NSDate *)bulkPath:(NSString *)path wasModifiedAfter:(NSDate *)date depth:(NSInteger)depth {
 	if (depth) depth--;
 	UKDirectoryEnumerator *enumerator = [[UKDirectoryEnumerator alloc] initWithPath:path];
 	NSDate *fileDate;
@@ -312,7 +312,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 }
 
 
-- (NSDate *)path:(NSString *)path wasModifiedAfter:(NSDate *)date depth:(int)depth {
+- (NSDate *)path:(NSString *)path wasModifiedAfter:(NSDate *)date depth:(NSInteger)depth {
 	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
 	BOOL isDirectory;
 	if (![self fileExistsAtPath:path isDirectory:&isDirectory]) return nil;
@@ -344,7 +344,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 	return nil;
 }
 
-- (NSDate *)modifiedDate:(NSString *)path depth:(int)depth {
+- (NSDate *)modifiedDate:(NSString *)path depth:(NSInteger)depth {
 	BOOL isDirectory;
 	if (![self fileExistsAtPath:path isDirectory:&isDirectory])
 		return nil;
@@ -390,9 +390,9 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 		return [self createDirectoryAtPath:path withIntermediateDirectories:NO attributes:nil error:nil];
 	} else return NO;
 }
-- (int)defaultDragOperationForMovingPaths:(NSArray *)sources toDestination:(NSString *)destination {
+- (NSInteger)defaultDragOperationForMovingPaths:(NSArray *)sources toDestination:(NSString *)destination {
 	NSDictionary *dAttr = [self attributesOfItemAtPath:destination error:NULL];
-	int i;
+	NSInteger i;
 	for (i = 0; i<[sources count]; i++) {
 		if ([[sources objectAtIndex:0] isEqualToString:destination])
 			return NSDragOperationNone;

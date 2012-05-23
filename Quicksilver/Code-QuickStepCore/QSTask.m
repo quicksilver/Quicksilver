@@ -118,7 +118,7 @@ static NSMutableDictionary *tasksDictionary = nil;
 	if (running) {
 		
 #ifdef DEBUG
-		if (VERBOSE) NSLog(@"End Task: %@ %d", [self identifier], [self retainCount]);
+		if (VERBOSE) NSLog(@"End Task: %@ %ld", [self identifier], (long)[self retainCount]);
 #endif
 		
 		running = NO;

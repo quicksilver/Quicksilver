@@ -219,7 +219,7 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 		AEBuildError error;
 		OSStatus err = AEBuildAppleEvent('misc', 'actv', typeProcessSerialNumber, &psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event, &error, "");
 		if (err)
-			NSLog(@"%ld:%ld at \"%@\"", error.fError, error.fErrorPos, @"");
+			NSLog(@"%ld:%ld at \"%@\"", (long)error.fError, (long)error.fErrorPos, @"");
 		else {
 			AppleEvent reply;
 			AESend(&event, &reply, kAEWaitReply, kAENormalPriority, 100, NULL, NULL);
@@ -260,7 +260,7 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 
 	OSStatus err = AEBuildAppleEvent(kCoreEventClass, kAEQuitApplication, typeProcessSerialNumber, &psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event, &error, "");
 	if (err)
-		NSLog(@"%ld:%ld at \"%@\"", error.fError, error.fErrorPos, @"");
+		NSLog(@"%ld:%ld at \"%@\"", (long)error.fError, (long)error.fErrorPos, @"");
 	else {
 		err = AESend(&event, NULL, kAENoReply, kAENormalPriority, kAEDefaultTimeout, NULL, NULL);
 		AEDisposeDesc(&event); // we must dispose of this and the reply.
@@ -275,7 +275,7 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 		AEBuildError error;
 		OSStatus err = AEBuildAppleEvent(kCoreEventClass, kAEQuitApplication, typeProcessSerialNumber, &psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event, &error, "");
 		if (err)
-			NSLog(@"%ld:%ld at \"%@\"", error.fError, error.fErrorPos, @"");
+			NSLog(@"%ld:%ld at \"%@\"", (long)error.fError, (long)error.fErrorPos, @"");
 		else {
 			err = AESend(&event, NULL, kAEWaitReply, kAENormalPriority, kAEDefaultTimeout, NULL, NULL);
 			AEDisposeDesc(&event); // we must dispose of this and the reply.
@@ -296,7 +296,7 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 	spec.launchFlags	 = kLSLaunchNewInstance;
 	spec.asyncRefCon	 = NULL;
 	err = LSOpenFromURLSpec( &spec, NULL );
-	NSLog(@"err %ld", err);
+	NSLog(@"err %ld", (long)err);
 	//CFRelease( spec.appURL );
 }
 - (BOOL)openFileInBackground:(NSString *)fullPath {

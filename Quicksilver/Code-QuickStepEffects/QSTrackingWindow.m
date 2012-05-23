@@ -64,7 +64,7 @@
 	[[self delegate] mouseExited:theEvent];
 }
 
-- (unsigned int) draggingEntered:(id <NSDraggingInfo>)theEvent {
+- (NSUInteger) draggingEntered:(id <NSDraggingInfo>)theEvent {
 	
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"dragging tracking");

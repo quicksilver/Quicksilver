@@ -285,10 +285,10 @@ NSDictionary *enabledPresetDictionary;*/
 
 - (NSIndexPath *)catalogIndexPath {
 	NSArray *anc = [self ancestors];
-	int i;
-	int index;
+	NSUInteger i;
+	NSUInteger index;
 	NSIndexPath *p = nil;
-	for (i = 0; i < ([anc count]-1); i++) {
+	for (i = 0; i < ([anc count] - 1); i++) {
 		index = [[[anc objectAtIndex:i] children] indexOfObject:[anc objectAtIndex:i+1]];
 		p = (p) ? [p indexPathByAddingIndex:index] : [NSIndexPath indexPathWithIndex:index];
 	}
@@ -297,10 +297,10 @@ NSDictionary *enabledPresetDictionary;*/
 
 - (NSIndexPath *)catalogSetIndexPath {
 	NSArray *anc = [self ancestors];
-	int i;
-	int index;
+	NSUInteger i;
+	NSUInteger index;
 	NSIndexPath *p = nil;
-	for (i = 1; i<([anc count] -1); i++) {
+	for (i = 1; i < ([anc count] - 1); i++) {
 		index = [[[anc objectAtIndex:i] children] indexOfObject:[anc objectAtIndex:i+1]];
 		p = (p) ? [p indexPathByAddingIndex:index] : [NSIndexPath indexPathWithIndex:index];
 	}
@@ -312,11 +312,11 @@ NSDictionary *enabledPresetDictionary;*/
 	NSArray *groups = [catalog deepChildrenWithGroups:YES leaves:NO disabled:YES];
 	NSMutableArray *entryChain = [NSMutableArray arrayWithCapacity:0];
 	id thisItem = self;
-	int i;
+	NSUInteger i;
 	[entryChain addObject:self];
 	id theGroup = nil;
 	while(thisItem != catalog) {
-		for(i = 0; i<[groups count]; i++) {
+		for (i = 0; i < [groups count]; i++) {
 			theGroup = [groups objectAtIndex:i];
 			if ([[theGroup children] containsObject:thisItem]) {
 				[entryChain insertObject:theGroup atIndex:0];
@@ -379,15 +379,15 @@ NSDictionary *enabledPresetDictionary;*/
 		return nil;
 }
 
-- (int)count {
+- (NSUInteger)count {
 	return [self deepObjectCount];
 }
 
-- (int)deepObjectCount {
+- (NSUInteger)deepObjectCount {
 	NSArray *leaves = [self deepChildrenWithGroups:NO leaves:YES disabled:NO];
-	int i, count = 0;
-	for (i = 0; i<[leaves count]; i++)
-		count += [[[leaves objectAtIndex:i] contents] count];
+	NSUInteger i, count = 0;
+	for (i = 0; i < [leaves count]; i++)
+		count += [(NSArray *)[[leaves objectAtIndex:i] contents] count];
 	return count;
 }
 

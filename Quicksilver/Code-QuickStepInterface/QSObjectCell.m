@@ -207,7 +207,7 @@ void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, int count) {
 			break;
 	}
 	if ([self isBezeled] && NSHeight(theRect) <= 20) {
-		theRect.origin.y += 1+(int) ((NSHeight(theRect)-16)/2);
+		theRect.origin.y += 1 + ((NSHeight(theRect)-16) / 2);
 		theRect.size.height = 15;
 
 	}
@@ -503,15 +503,15 @@ void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, int count) {
 			[titleString addAttribute:NSForegroundColorAttributeName value:fadedColor range:NSMakeRange(0, [titleString length])];
             
 			// Organise displaying the text, underlining the letters typed (in the name)
-			int i = 0;
-			int j = 0;
-			unsigned int hits[[titleString length]];
-			int count = [hitMask getIndexes:(unsigned int *)&hits maxCount:[titleString length] inIndexRange:nil];
+			NSUInteger i = 0;
+			NSUInteger j = 0;
+			NSUInteger hits[[titleString length]];
+			NSUInteger count = [hitMask getIndexes:(NSUInteger *)&hits maxCount:[titleString length] inIndexRange:nil];
 			NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                         mainColor, NSForegroundColorAttributeName,
                                         mainColor, NSUnderlineColorAttributeName,
-                                        [NSNumber numberWithInt:2.0] , NSUnderlineStyleAttributeName,
-                                        [NSNumber numberWithFloat:1.0] , NSBaselineOffsetAttributeName,
+                                        [NSNumber numberWithInteger:2.0] , NSUnderlineStyleAttributeName,
+                                        [NSNumber numberWithDouble:1.0] , NSBaselineOffsetAttributeName,
                                         nil];
             
             //	  NSLog(@"hit %@ %@", [titleString string] , hitMask);
@@ -522,7 +522,7 @@ void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, int count) {
 				//				 NSLog(@"5");
 			}
 		} else {
-			[titleString addAttribute:NSBaselineOffsetAttributeName value:[NSNumber numberWithFloat:-1.0] range:NSMakeRange(0, [titleString length])];
+			[titleString addAttribute:NSBaselineOffsetAttributeName value:[NSNumber numberWithDouble:-1.0] range:NSMakeRange(0, [titleString length])];
 		}
         
         if (validDetailsString) {
@@ -531,7 +531,7 @@ void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, int count) {
             
             if (showDetails && ([[NSUserDefaults standardUserDefaults] integerForKey:@"QSResultViewRowHeight"] >= 34)) {
                 //NSLog(@"Strings are %@, %@, sizes are %@, %@", nameString, detailsString, NSStringFromSize(nameSize), NSStringFromSize(detailsSize));
-                float detailHeight = NSHeight(textDrawRect) -nameSize.height;
+                CGFloat detailHeight = NSHeight(textDrawRect) -nameSize.height;
                 NSRange returnRange;
                 if (detailHeight<detailsSize.height && (returnRange = [detailsString rangeOfString:@"\n"]) .location != NSNotFound)
                     detailsString = [detailsString substringToIndex:returnRange.location];
@@ -758,17 +758,17 @@ void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, int count) {
 }
 //text attachment cell
 
-- (NSRect) cellFrameForTextContainer:(NSTextContainer *)textContainer proposedLineFragment:(NSRect)lineFrag glyphPosition:(NSPoint)position characterIndex:(unsigned)charIndex {
+- (NSRect) cellFrameForTextContainer:(NSTextContainer *)textContainer proposedLineFragment:(NSRect)lineFrag glyphPosition:(NSPoint)position characterIndex:(NSUInteger)charIndex {
 	return lineFrag;
 }
 - (BOOL)wantsToTrackMouse {return NO;} ;
-- (BOOL)trackMouse:(NSEvent *)theEvent inRect:(NSRect)cellFrame ofView:(NSView *)aTextView atCharacterIndex:(unsigned)charIndex untilMouseUp:(BOOL)flag {return NO;} ;
+- (BOOL)trackMouse:(NSEvent *)theEvent inRect:(NSRect)cellFrame ofView:(NSView *)aTextView atCharacterIndex:(NSUInteger)charIndex untilMouseUp:(BOOL)flag {return NO;} ;
 - (NSPoint) cellBaselineOffset {return NSZeroPoint;}
 - (NSTextAttachment *)attachment { return attachment;  }
 - (void)setAttachment:(NSTextAttachment *)newAttachment {attachment = newAttachment;}
 - (void)highlight:(BOOL)flag withFrame:(NSRect)cellFrame inView:(NSView *)aView {return;}
-- (BOOL)wantsToTrackMouseForEvent:(NSEvent *)theEvent inRect:(NSRect)cellFrame ofView:(NSView *)controlView atCharacterIndex:(unsigned)charIndex {return NO;}
-- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)aView characterIndex:(unsigned)charIndex {return;}
-- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView characterIndex:(unsigned)charIndex layoutManager:(NSLayoutManager *)layoutManager {return;}
+- (BOOL)wantsToTrackMouseForEvent:(NSEvent *)theEvent inRect:(NSRect)cellFrame ofView:(NSView *)controlView atCharacterIndex:(NSUInteger)charIndex {return NO;}
+- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)aView characterIndex:(NSUInteger)charIndex {return;}
+- (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView characterIndex:(NSUInteger)charIndex layoutManager:(NSLayoutManager *)layoutManager {return;}
 - (BOOL)trackMouse:(NSEvent *)theEvent inRect:(NSRect)cellFrame ofView:(NSView *)aTextView untilMouseUp:(BOOL)flag {return NO;}
 @end

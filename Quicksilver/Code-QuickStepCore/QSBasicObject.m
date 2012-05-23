@@ -72,7 +72,7 @@
 	return [NSImage imageNamed:@"Object"];
 }
 - (NSComparisonResult)compare:(id)other {
-	return [[self name] compare:[other name]];
+	return [[self name] compare:[(QSObject *)other name]];
 }
 
 - (NSImage *)loadedIcon {

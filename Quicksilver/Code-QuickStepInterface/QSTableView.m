@@ -6,7 +6,7 @@
 #import "NSColor_QSModifications.h"
 
 @interface NSTableView (SingleRowDisplay)
-- (void)_setNeedsDisplayInRow:(int)fp8;
+- (void)_setNeedsDisplayInRow:(NSInteger)fp8;
 @end
 
 
@@ -54,7 +54,7 @@
 - (void)setOpaque:(BOOL)flag {
 	opaque = flag;
 }
-- (void)drawRow:(int)rowIndex clipRect:(NSRect)clipRect {
+- (void)drawRow:(NSInteger)rowIndex clipRect:(NSRect)clipRect {
 	// drawingRow = rowIndex;
 
 	if ([[self delegate] respondsToSelector:@selector(tableView:rowIsSeparator:)]
@@ -140,8 +140,8 @@
 - (NSMenu*)menuForEvent:(NSEvent*)evt {
 	// NSLog (@"event");
 	NSPoint point = [self convertPoint:[evt locationInWindow] fromView:NULL];
-	int column = [self columnAtPoint:point];
-	int row = [self rowAtPoint:point];
+	NSInteger column = [self columnAtPoint:point];
+	NSInteger row = [self rowAtPoint:point];
 	if ( column >= 0 && row >= 0 && [[self delegate] respondsToSelector:@selector(tableView:menuForTableColumn:row:)] )
 		return [[self delegate] tableView:self menuForTableColumn:[[self tableColumns] objectAtIndex:column] row:row];
 	return [super menuForEvent:evt];
@@ -169,8 +169,8 @@
 
 - (NSMenu*)menuForEvent:(NSEvent*)evt {
 	NSPoint point = [self convertPoint:[evt locationInWindow] fromView:NULL];
-	int column = [self columnAtPoint:point];
-	int row = [self rowAtPoint:point];
+	NSInteger column = [self columnAtPoint:point];
+	NSInteger row = [self rowAtPoint:point];
 	if ( column >= 0 && row >= 0 && [[self delegate] respondsToSelector:@selector(tableView:menuForTableColumn:row:)] )
 		return [(id <QSTableViewDelegate>)[self delegate] tableView:(QSTableView *)self menuForTableColumn:[[self tableColumns] objectAtIndex:column] row:row];
 	return [super menuForEvent:evt];

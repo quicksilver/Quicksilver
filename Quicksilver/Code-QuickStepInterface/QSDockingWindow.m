@@ -7,7 +7,7 @@
 #import <QSFoundation/QSFoundation.h>
 
 @implementation QSDockingWindow
-- (id)initWithContentRect:(NSRect)contentRect styleMask:(unsigned int)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
+- (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
 	if (self = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag]) {
 		[self setOpaque:NO];
 		[self setMovableByWindowBackground:YES];
@@ -51,12 +51,12 @@
 - (void)lock {locked = YES;}
 - (void)unlock {locked = NO;}
 
-- (unsigned int)draggingEntered:(id <NSDraggingInfo>)theEvent {
+- (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)theEvent {
 	[self show:self];
 	return [super draggingEntered:theEvent];
 }
 
-- (unsigned int)draggingUpdated:(id <NSDraggingInfo>)theEvent {
+- (NSDragOperation)draggingUpdated:(id <NSDraggingInfo>)theEvent {
 	return [super draggingUpdated:theEvent];
 }
 

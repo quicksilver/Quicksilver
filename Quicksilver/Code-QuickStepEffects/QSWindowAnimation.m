@@ -93,7 +93,7 @@
 		(*effectFt) (self);
 	}
 	if (transformFt) {
-		CGAffineTransform newTransform = (*transformFt) (self, _percent);
+		CGAffineTransform newTransform = (*transformFt) (self, (CGFloat)_percent);
 
 
 		if (progress >= 0.99f )
@@ -111,7 +111,7 @@
 		free(mesh);
 	}
 	if (alphaFt) {
-		float alpha = (*alphaFt) (self, progress);
+		CGFloat alpha = (*alphaFt) (self, progress);
 
 	//	NSLog(@"step a %f", alpha);
 	//	alpha = progress;
@@ -125,7 +125,7 @@
 
 	}
 	if (brightFt) {
-		float brightness = (*brightFt) (self, _percent);
+		CGFloat brightness = (*brightFt) (self, _percent);
 		CGSSetWindowListBrightness(cgs, &wid, &brightness, 1);
 	}
 	if (progress == 1.0f)

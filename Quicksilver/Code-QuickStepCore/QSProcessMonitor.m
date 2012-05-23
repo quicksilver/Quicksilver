@@ -158,21 +158,21 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 		handlerFunction = NewEventHandlerUPP(appChanged);
 		err = InstallApplicationEventHandler(handlerFunction, 1, &eventType, self, &changeHandler);
 		if (err)
-			NSLog(@"QSProcessMonitor Change registration err %ld", err);
+			NSLog(@"QSProcessMonitor Change registration err %ld", (long)err);
 
 		eventType.eventClass = kEventClassApplication;
 		eventType.eventKind = kEventAppLaunched;
 		handlerFunction = NewEventHandlerUPP(appLaunched);
 		err = InstallApplicationEventHandler(handlerFunction, 1, &eventType, self, &launchHandler);
 		if (err)
-			NSLog(@"QSProcessMonitor Launch registration err %ld", err);
+			NSLog(@"QSProcessMonitor Launch registration err %ld", (long)err);
 
 		eventType.eventClass = kEventClassApplication;
 		eventType.eventKind = kEventAppTerminated;
 		handlerFunction = NewEventHandlerUPP(appTerminated);
 		err = InstallApplicationEventHandler(handlerFunction, 1, &eventType, self, &terminateHandler);
 		if (err)
-			NSLog(@"QSProcessMonitor Terminate registration err %ld", err);
+			NSLog(@"QSProcessMonitor Terminate registration err %ld", (long)err);
     }
 	return self;
 }
@@ -181,13 +181,15 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
     OSStatus err;
 	err = RemoveEventHandler(changeHandler);
     if(err)
-        NSLog(@"error %ld removing change handler", err);
+#warning 64BIT: Inspect use of long
+        NSLog(@"error %ld removing change handler", (long)err);
     err = RemoveEventHandler(launchHandler);
     if(err)
-        NSLog(@"error %ld removing launch handler", err);
+#warning 64BIT: Inspect use of long
+        NSLog(@"error %ld removing launch handler", (long)err);
     err = RemoveEventHandler(terminateHandler);
     if(err)
-        NSLog(@"error %ld removing terminate handler", err);
+        NSLog(@"error %ld removing terminate handler", (long)err);
 	[currentApplication release], currentApplication = nil;
 	[previousApplication release], previousApplication = nil;
 	[processes release], processes = nil;

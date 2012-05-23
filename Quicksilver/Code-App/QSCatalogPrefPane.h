@@ -1,5 +1,3 @@
-
-
 #import <Cocoa/Cocoa.h>
 #import "QSLibrarian.h"
 
@@ -94,7 +92,7 @@
 
 - (void)updateEntrySelection;
 
-- (BOOL)tableView:(NSTableView *)aTableView rowIsSeparator:(int)rowIndex;
+- (BOOL)tableView:(NSTableView *)aTableView rowIsSeparator:(NSInteger)rowIndex;
 
 - (QSCatalogEntry *)currentItem;
 - (void)setCurrentItem:(QSCatalogEntry *)newCurrentItem;

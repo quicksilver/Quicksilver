@@ -517,7 +517,7 @@
 		return;
 	if (window == [self window]) {
 		[hideTimer invalidate];
-	} else if ([[notification object] level] <= [[self window] level]) {
+	} else if ([window level] <= [[self window] level]) {
 		//NSLog(@"hide! %@", window);
 		// ***warning  * this needs to be better
 		[self hideWindows:self];

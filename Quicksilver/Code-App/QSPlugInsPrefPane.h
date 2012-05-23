@@ -15,7 +15,7 @@
 	NSMutableArray *plugInArray;
 	NSMutableArray *plugins;
 	NSMutableSet *disabledPlugIns;
-	int viewMode;
+	NSInteger viewMode;
 
 	NSString *search;
 	NSString *category;
@@ -28,8 +28,8 @@
 }
 @property (copy,readwrite,nonatomic) NSString *plugInName;
 + (void)getMorePlugIns;
-- (int) viewMode;
-- (void)setViewMode:(int)newViewMode;
+- (NSInteger) viewMode;
+- (void)setViewMode:(NSInteger)newViewMode;
 
 
 - (IBAction)showPlugInsFolder:(id)sender;
@@ -58,7 +58,7 @@
 - (void)reloadFilters;
 - (NSArray *)selectedPlugIns;
 
-- (void)setViewMode:(int)newViewMode;
+- (void)setViewMode:(NSInteger)newViewMode;
 - (void)reloadFiltersIgnoringViewMode:(BOOL)ignoreView;
 
 - (id)preferencesSplitView;

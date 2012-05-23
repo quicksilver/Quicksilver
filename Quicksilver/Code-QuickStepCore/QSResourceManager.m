@@ -179,8 +179,8 @@ id QSRez;
 			return locator;
 		}
 	} else if ([locator isKindOfClass:[NSArray class]]) {
-		int i;
-		for (i = 0; i<[locator count]; i++) {
+		NSUInteger i;
+		for (i = 0; i < [locator count]; i++) {
 			path = [self pathWithLocatorInformation:[locator objectAtIndex:i]];
 			if (path) break;
 		}
@@ -214,7 +214,7 @@ id QSRez;
 - (NSImage *)imageWithLocatorInformation:(id)locator {
 	NSImage *image = nil;
 	if ([locator isKindOfClass:[NSArray class]]) {
-		int i;
+		NSUInteger i;
 		for (i = 0; i<[locator count]; i++) {
 			image = [self imageWithLocatorInformation:[locator objectAtIndex:i]];
 			if (image) break;

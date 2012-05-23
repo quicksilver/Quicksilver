@@ -209,7 +209,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 	} else {
 		NSString *names[] = {[itemForKey(NSStringPboardType) stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], @"PDF Image", @"Finder Icon", @"PICT Image", @"PostScript Image", @"TIFF Image", @"Color Data", @"File Contents", @"Font Information", @"HTML Data", @"Paragraph Formatting", @"Tabular Text", @"VCard Data", @"Promised Files"} ;
 		NSString *keys[] = {NSStringPboardType, NSPDFPboardType, [@"'icns'" encodedPasteboardType] , NSPICTPboardType, NSPostScriptPboardType, NSTIFFPboardType, NSColorPboardType, NSFileContentsPboardType, NSFontPboardType, NSHTMLPboardType, NSRulerPboardType, NSTabularTextPboardType, NSVCardPboardType, NSFilesPromisePboardType} ;
-		int i;
+		size_t i;
 		for (i = 0; i < sizeof(keys) / sizeof(keys[0]); i++) {
 			if (itemForKey(keys[i]) )
 				[self setName:names[i]];

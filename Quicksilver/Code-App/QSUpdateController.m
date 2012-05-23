@@ -48,8 +48,8 @@
 		if (!lastCheck) {
 			lastCheck = [NSDate distantPast];
 		}
-		int frequency = [defaults integerForKey:kCheckForUpdateFrequency];
-		int versionType = [defaults integerForKey:@"QSUpdateReleaseLevel"];
+		NSInteger frequency = [defaults integerForKey:kCheckForUpdateFrequency];
+		NSInteger versionType = [defaults integerForKey:@"QSUpdateReleaseLevel"];
 #ifdef DEBUG
 		if (versionType>0 && frequency>1)
 			frequency = 1;
@@ -163,7 +163,7 @@ typedef enum {
                 [self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
 #endif
             } else {
-                int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"New Version of Quicksilver Available", nil], @"A new version of Quicksilver is available, would you like to update now?\n\n(Update from %@ → %@)", @"Install Update", @"Later", nil, [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey],newVersion); //, @"More Info");
+                NSInteger selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"New Version of Quicksilver Available", nil], @"A new version of Quicksilver is available, would you like to update now?\n\n(Update from %@ → %@)", @"Install Update", @"Later", nil, [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey],newVersion); //, @"More Info");
                 if (selection == 1) {
                     [self performSelectorOnMainThread:@selector(installAppUpdate) withObject:nil waitUntilDone:NO];
                 } else if (selection == -1) {  //Go to web site
@@ -240,7 +240,7 @@ typedef enum {
 
     fileURL = [fileURL stringByAppendingFormat:@"?id=%@&type=dmg&new=yes", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleIdentifierKey]];
 
-    int versionType = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSUpdateReleaseLevel"];
+    NSInteger versionType = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSUpdateReleaseLevel"];
     if (versionType == 2)
         fileURL = [fileURL stringByAppendingString:@"&dev=1"];
     else if (versionType == 1)

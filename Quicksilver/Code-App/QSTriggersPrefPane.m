@@ -85,10 +85,10 @@
 	[[QSTriggerCenter sharedInstance] writeTriggers];
     [optionsDrawer close];
 }
-- (int)tabViewIndex {
+- (NSInteger)tabViewIndex {
     return [drawerTabView indexOfTabViewItem:[drawerTabView selectedTabViewItem]];
 }
-- (void)setTabViewIndex:(int)index {
+- (void)setTabViewIndex:(NSInteger)index {
     [drawerTabView selectTabViewItemAtIndex:index];
 }
 
@@ -199,7 +199,7 @@
 	//	[[triggerTable tableColumnWithIdentifier: @"command"] setDataCell:imageAndTextCell];
 
 	NSColor *color = [triggerSetsTable backgroundColor];
-	float hue, saturation, brightness, alpha;
+	CGFloat hue, saturation, brightness, alpha;
 	[color getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
 	// NSLog(@"hu %f %f %f %f", hue, saturation, brightness, alpha);
 
@@ -400,7 +400,7 @@
 	return YES;
 }
 
-- (void)editSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+- (void)editSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
 	QSCommand *command = [commandEditor representedCommand];
 	QSTrigger *trigger = (QSTrigger *)contextInfo;
 	if (command) {
@@ -411,7 +411,7 @@
 	[sheet orderOut:self];
 }
 
-- (void)addSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+- (void)addSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
 	QSCommand *command = [commandEditor representedCommand];
 	QSTrigger *trigger = (QSTrigger*)contextInfo;
 	if (command) {
@@ -458,7 +458,7 @@
 	[triggerTable reloadData];
 
 	if ([[trigger type] isEqualToString:@"QSGroupTrigger"]) {
-		int row = [triggerTable selectedRow];
+		NSInteger row = [triggerTable selectedRow];
 		//NSLog(@"row %d %@", row, [[triggerArrayController selectedObjects] lastObject]);
 		[triggerTable editColumn:[triggerTable columnWithIdentifier:@"command"]
 							 row:row withEvent:[NSApp currentEvent] select:YES];
@@ -478,7 +478,7 @@
 	if (anObject == triggerTable) {
 		if ([triggerTable clickedColumn] == [triggerTable columnWithIdentifier:@"trigger"] || [triggerTable editedColumn] == [triggerTable columnWithIdentifier:@"trigger"]) {
 			NSArray *triggers = [triggerArrayController arrangedObjects];
-			int index = [triggerTable clickedRow];
+			NSInteger index = [triggerTable clickedRow];
 			if (index<0) return nil;
 			id manager = [(QSTrigger *)[triggers objectAtIndex:index] manager];
 			//NSLog(@"othereditor %@ %@", manager, thisTrigger);
@@ -617,9 +617,9 @@
 	}
 }
 
-- (id)outlineView:(NSOutlineView *)outlineView child:(int)index ofItem:(id)item {return nil;}
+- (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item {return nil;}
 - (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item {return NO;}
-- (int) outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item {return 0;}
+- (NSInteger) outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item {return 0;}
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {return nil;}
 
 - (void)outlineView:(NSOutlineView *)outlineView willDisplayCell:(NSCell *)aCell forTableColumn:(NSTableColumn *)aTableColumn item:(id)item {
@@ -682,7 +682,7 @@
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)aTableColumn item:(id)item {
 	//- (BOOL)tableView:(NSTableView *)aTableView shouldEditTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
 	item = [item respondsToSelector:@selector(representedObject)] ?[item representedObject] :[item observedObject];
-	id theSelectedTrigger = item; //[[triggerArrayController selectedObjects] lastObject];
+	QSTrigger *theSelectedTrigger = item; //[[triggerArrayController selectedObjects] lastObject];
 	if ([[aTableColumn identifier] isEqualToString:@"trigger"]) {
 		//BOOL shouldEdit = NO;
 		id manager = [theSelectedTrigger manager];
@@ -724,7 +724,7 @@
     if ([[aTableColumn identifier] isEqualToString: @"type"]) {
         //NSLog(@"anobject %@", anObject);
 
-        int typeIndex = [anObject intValue];
+        NSInteger typeIndex = [anObject integerValue];
         if (typeIndex == -1) return;
         NSString *type = [[typeMenu itemAtIndex:typeIndex] representedObject];
         [thisTrigger setType:type];
@@ -776,10 +776,10 @@
 	return YES;
 }
 
-- (NSDragOperation)outlineView:(NSOutlineView *)outlineView validateDrop:(id <NSDraggingInfo>)info proposedItem:(id)item proposedChildIndex:(int)index {
+- (NSDragOperation)outlineView:(NSOutlineView *)outlineView validateDrop:(id <NSDraggingInfo>)info proposedItem:(id)item proposedChildIndex:(NSInteger)index {
 	id realItem = item;
 	item = [item respondsToSelector:@selector(representedObject)] ? [item representedObject] : [item observedObject];
-    int dragOperation = (([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) ? NSDragOperationCopy : NSDragOperationMove);
+    NSInteger dragOperation = (([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) ? NSDragOperationCopy : NSDragOperationMove);
 
     /*    if ([draggedEntries containsObject:item])
      return NSDragOperationNone;*/
@@ -803,7 +803,7 @@
     return dragOperation;
 }
 
-- (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(int)index {
+- (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)index {
 	//id treeItem = item;
 	//NSIndexPath *indexPath = [item indexPath];
 	item = [item respondsToSelector:@selector(representedObject)] ? [item representedObject] : [item observedObject];

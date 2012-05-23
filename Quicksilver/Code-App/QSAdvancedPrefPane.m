@@ -22,7 +22,7 @@
 // !!! Andre Berg 20091017: This is needed to get rid of the bug described in "tableView:dataCellForTableColumn:row:" below
 // Also of course registering as observer and unregistering in dealloc.
 - (void)columnResized:(id)sender {
-	[prefSetsTable noteHeightOfRowsWithIndexesChanged:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [[prefSetsController arrangedObjects] count] )]]; // was calling self
+	[prefSetsTable noteHeightOfRowsWithIndexesChanged:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [(NSArray *)[prefSetsController arrangedObjects] count] )]]; // was calling self
 }
 
 - (IBAction)setValue:(id)sender {
@@ -45,7 +45,7 @@
 	return [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"DefaultsMap" ofType:@"plist"]];
 }
 
-- (float) tableView:(NSTableView *)tableView heightOfRow:(int)row {
+- (CGFloat) tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
 	NSTableColumn *column = [tableView tableColumnWithIdentifier:@"title"];
 	NSCell *cell = [column dataCell];
 	[cell setStringValue:[[[prefSetsController arrangedObjects] objectAtIndex:row] objectForKey:@"title"]];
@@ -53,11 +53,11 @@
 	return MAX(24, size.height+6);
 }
 
-- (NSString *)tableView:(NSTableView *)aTableView toolTipForCell:(NSCell *)aCell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)aTableColumn row:(int)row mouseLocation:(NSPoint)mouseLocation {
+- (NSString *)tableView:(NSTableView *)aTableView toolTipForCell:(NSCell *)aCell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)row mouseLocation:(NSPoint)mouseLocation {
    return [[aCell objectValue] description];
 }
 
-- (NSCell *)tableView:(NSTableView *)aTableView dataCellForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
+- (NSCell *)tableView:(NSTableView *)aTableView dataCellForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
     
     id thisInfo = nil;
     // !!! Andre Berg 20091015: there seems to be a bug where the first load of the Extras table view has an index out of bound error 
@@ -114,14 +114,14 @@
     return cell;
 }
 
-- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
+- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
 	if ([[aTableColumn identifier] isEqualToString:@"value"]) {
 		id defaultKey = [[[prefSetsController arrangedObjects] objectAtIndex:rowIndex] objectForKey:@"default"];
 		return defaultKey ? [[NSUserDefaults standardUserDefaults] objectForKey:defaultKey] : nil;
 	}
 	return nil;
 }
-- (void)tableView:(NSTableView *)aTableView setObjectValue:(id)anObject forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
+- (void)tableView:(NSTableView *)aTableView setObjectValue:(id)anObject forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
 	if ([[aTableColumn identifier] isEqualToString:@"value"]) {
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		[defaults setObject:anObject forKey:[[[prefSetsController arrangedObjects] objectAtIndex:rowIndex] objectForKey:@"default"]];
@@ -129,12 +129,12 @@
 	}
 }
 
-- (BOOL)tableView:(NSTableView *)tableView shouldEditTableColumn:(NSTableColumn *)tableColumn row:(int)row {
+- (BOOL)tableView:(NSTableView *)tableView shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
 	return NO; //[[tableColumn identifier] isEqualToString:@"value"];
 }
 
 #if 0
-- (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(int)row {
+- (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
 	if ([[tableColumn identifier] isEqualToString:@"value"]) {
 	//	id thisInfo = [[prefSetsController arrangedObjects] objectAtIndex:row];
 		//NSString *type = [thisInfo objectForKey:@"type"];

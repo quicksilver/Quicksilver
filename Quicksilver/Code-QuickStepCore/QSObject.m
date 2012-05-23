@@ -529,9 +529,9 @@ NSSize QSMaxIconSize;
 	return decodedTypes;
 }
 
-- (int) count {
+- (NSUInteger) count {
 	if (![self primaryType]) {
-		int count = 1;
+		NSUInteger count = 1;
 		for(id value in [[self dataDictionary] allValues]) {
 			if ([value isKindOfClass:[NSArray class]]) count = MAX([(NSArray *)value count] , count);
 		}
@@ -543,7 +543,7 @@ NSSize QSMaxIconSize;
 	return 1;
 }
 
-- (int) primaryCount {
+- (NSUInteger) primaryCount {
 	return [self count];
 }
 

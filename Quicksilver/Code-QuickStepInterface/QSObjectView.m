@@ -223,7 +223,7 @@
 	// [self setNeedsDisplay:YES];
 }
 
-- (unsigned int) draggingSourceOperationMaskForLocal:(BOOL)isLocal {
+- (NSUInteger) draggingSourceOperationMaskForLocal:(BOOL)isLocal {
 	if (isLocal) return NSDragOperationMove;
 	else return ([[NSApp currentEvent] modifierFlags] & NSCommandKeyMask) ? NSDragOperationNone : NSDragOperationEvery;
 }

@@ -268,7 +268,7 @@
 		NSLog(@"Could not load new plugins data");
 		errorCount++;
 	} else {
-		NSLog(@"Downloaded info for %d plug-in(s) ", [[prop objectForKey:@"plugins"] count]);
+		NSLog(@"Downloaded info for %ld plug-in(s) ", (long)[(NSArray *)[prop objectForKey:@"plugins"] count]);
 		//	NSEnumerator *e = [prop objectEnumerator];
 		if ([prop count] && [[prop objectForKey:@"fullIndex"] boolValue])
 			[self clearOldWebData];
@@ -317,7 +317,7 @@
 	NSArray *loaded = [[self loadedPlugIns] allValues];
 	BOOL needsRelaunch = nil != [deletePlugIns firstObjectCommonWithArray:loaded];
 
-	int result;
+	NSInteger result;
 	if (needsRelaunch)
 		result = NSRunCriticalAlertPanel(@"Delete plug-ins?", @"Would you like to delete the selected plug-ins? A relaunch will be required", @"Delete and Relaunch", @"Cancel", nil);
 	else
@@ -382,7 +382,7 @@
 
 	} else {
 		//[NSApp activateIgnoringOtherApps:YES];
-		int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"Plug-in Requirements", nil] ,
+		NSInteger selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"Plug-in Requirements", nil] ,
 												  @"Using [%@] requires installation of [%@] .", @"Install", @"Disable", @"Always Install Requirements",
 												  [[dependingNames allObjects] componentsJoinedByString:@", "] ,
 												  [[array valueForKey:@"name"] componentsJoinedByString:@", "]);
@@ -677,7 +677,7 @@
 	}
 	
 	if ([updatedPlugIns count]) {
-		int selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"Plug-in Updates are available", nil] ,
+		NSInteger selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"Plug-in Updates are available", nil] ,
 												  @"%@", @"Install", @"Cancel", nil, [names componentsJoinedByString:@", "]);
 		if (selection == 1) {
 			updatingPlugIns = YES;
@@ -811,7 +811,7 @@
     }
 
 	if (!liveLoaded && (updatingPlugIns || !warnedOfRelaunch) && ![queuedDownloads count] && !supressRelaunchMessage) {
-		int selection = NSRunInformationalAlertPanel(@"Install complete", @"Some plug-ins will not be available until Quicksilver is relaunched.", @"Relaunch", @"Later", nil);
+		NSInteger selection = NSRunInformationalAlertPanel(@"Install complete", @"Some plug-ins will not be available until Quicksilver is relaunched.", @"Relaunch", @"Later", nil);
 
 		if (selection == 1) {
 			[NSApp relaunch:self];
@@ -914,8 +914,8 @@
 }
 
 - (void)startDownloadQueue {
-    int queuedCount = [queuedDownloads count];
-    int activeCount = [activeDownloads count];
+    NSInteger queuedCount = [queuedDownloads count];
+    NSInteger activeCount = [activeDownloads count];
     if (activeCount < MAX_CONCURRENT_DOWNLOADS && queuedCount != 0) {
         NSArray* array = [queuedDownloads objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, (queuedCount < MAX_CONCURRENT_DOWNLOADS ? queuedCount : MAX_CONCURRENT_DOWNLOADS))]];
         for (QSURLDownload *download in array) {
@@ -971,14 +971,14 @@
 
 - (void)updateDownloadProgressInfo {
 	//NSLog(@"count %d %d %f", [queuedDownloads count], downloadsCount, [[queuedDownloads objectAtIndex:0] progress]);
-    float progress = 1.0;
+    CGFloat progress = 1.0;
     for (QSURLDownload *download in queuedDownloads) {
         progress *= [download progress];
     }
 	[self setInstallProgress:progress];
 }
 
-- (float) downloadProgress {return [self installProgress];}
+- (CGFloat) downloadProgress {return [self installProgress];}
 
 - (void)downloadDidUpdate:(QSURLDownload *)download {
 	[self updateDownloadProgressInfo];
@@ -1033,10 +1033,10 @@
 	}
 }
 
-- (float) installProgress {
+- (CGFloat) installProgress {
 	return installProgress;
 }
-- (void)setInstallProgress:(float)newInstallProgress {
+- (void)setInstallProgress:(CGFloat)newInstallProgress {
 	//NSLog(@"prof %f", newInstallProgress);
 	installProgress = newInstallProgress;
 }

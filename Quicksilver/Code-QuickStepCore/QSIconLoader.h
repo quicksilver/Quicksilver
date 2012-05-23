@@ -3,7 +3,7 @@
 @class QSIconLoader;
 
 @interface NSObject (QSIconLoaderDelegate)
-- (void)iconLoader:(QSIconLoader *)loader loadedIndex:(int)i inArray:(NSArray *)array;
+- (void)iconLoader:(QSIconLoader *)loader loadedIndex:(NSInteger)i inArray:(NSArray *)array;
 @end
 
 #define QSIconLoaderDelegateCanceled @"QSIconLoaderDelegateCanceled"
@@ -17,7 +17,7 @@
 	NSRange loadRange;
 	NSRange newRange;
 	NSObject *delegate;
-	int modulation;
+	NSInteger modulation;
 }
 + (id)loaderWithArray:(NSArray *)newArray;
 - (void)loadIconsInRange:(NSRange)range;
@@ -27,7 +27,7 @@
 - (void)invalidate;
 - (BOOL)isLoading;
 
-- (int) modulation;
-- (void)setModulation:(int)newModulation;
+- (NSInteger) modulation;
+- (void)setModulation:(NSInteger)newModulation;
 + (void)invalidateLoaderForDelegate:(id)delegate;
 @end

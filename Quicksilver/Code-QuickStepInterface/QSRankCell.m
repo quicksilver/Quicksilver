@@ -21,7 +21,7 @@
 	NSBezierPath *roundRect = [NSBezierPath bezierPath];
 	[roundRect appendBezierPathWithRoundedRectangle:cellFrame withRadius:NSHeight(cellFrame) /2];
 
-	float size = MIN(NSHeight(cellFrame), NSWidth(cellFrame) );
+	CGFloat size = MIN(NSHeight(cellFrame), NSWidth(cellFrame) );
 	NSRect drawRect = centerRectInRect(NSMakeRect(0, 0, size*1/3, size*1/3), cellFrame);
 	NSBezierPath *path = [NSBezierPath bezierPathWithOvalInRect:drawRect];
 	[[[NSColor whiteColor] colorWithAlphaComponent:0.667] set];

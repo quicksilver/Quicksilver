@@ -48,7 +48,7 @@ id QSPrefs;
 }
 
 - (void)splitViewDidResizeSubviews:(NSNotification *)aNotification {
-	float width = NSWidth([[[[aNotification object] subviews] objectAtIndex:0] frame]);
+	CGFloat width = NSWidth([[[[aNotification object] subviews] objectAtIndex:0] frame]);
 	//NSLog(@"width %f", width);
 	[[NSUserDefaults standardUserDefaults] setFloat:width forKey:kQSPreferencesSplitWidth];
 }
@@ -267,23 +267,23 @@ id QSPrefs;
 //	return nil;
 //}
 
-- (float) tableView:(NSTableView *)tableView heightOfRow:(int)row {
+- (CGFloat) tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
 	return ([[modules objectAtIndex:row] objectForKey:@"separator"]) ? 8 : 16;
 	//return [[[modules objectAtIndex:row] objectForKey:@"type"] isEqualToString:@"Main"] ?32:16;
 }
 
-- (BOOL)tableView:(NSTableView *)aTableView rowIsSeparator:(int)rowIndex {
+- (BOOL)tableView:(NSTableView *)aTableView rowIsSeparator:(NSInteger)rowIndex {
 	if (aTableView == internalPrefsTable)
 		return nil != [[modules objectAtIndex:rowIndex] objectForKey:@"separator"];
 	else
 		return NO;
 }
 
-- (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(int)rowIndex {
+- (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(NSInteger)rowIndex {
 	return (aTableView == internalPrefsTable) ? ![self tableView:aTableView rowIsSeparator:rowIndex] : NO;
 }
 
-- (BOOL)tableView:(NSTableView *)tableView shouldShowCellExpansionForTableColumn:(NSTableColumn *)tableColumn row:(int)row {
+- (BOOL)tableView:(NSTableView *)tableView shouldShowCellExpansionForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
 	return NO;
 }
 
@@ -433,7 +433,7 @@ id QSPrefs;
 
 	}
 
-	float height = [[newPane mainView] frame].size.height;
+	CGFloat height = [[newPane mainView] frame].size.height;
 	BOOL dynamicSize = height >= 384;
 
 	[prefsBox setContentView:nil];
@@ -497,9 +497,9 @@ id QSPrefs;
 	NSArray *subviews = [split subviews];
 	NSRect frame0 = [[subviews objectAtIndex:0] frame];
 	NSRect frame1 = [[subviews objectAtIndex:1] frame];
-	float width = 160; //[[NSUserDefaults standardUserDefaults] floatForKey:kQSPreferencesSplitWidth];
+	CGFloat width = 160; //[[NSUserDefaults standardUserDefaults] floatForKey:kQSPreferencesSplitWidth];
 	if (width>0) {
-	float change = width-NSWidth(frame0);
+	CGFloat change = width-NSWidth(frame0);
 		//NSLog(@"setWidth %f %f %f %f", width, NSWidth(frame0), NSWidth(frame1), change);
 
 	NSRect newFrame0 = frame0;
@@ -643,12 +643,12 @@ id QSPrefs;
 
 //- (void)splitView:(NSSplitView *)sender resizeSubviewsWithOldSize:(NSSize)oldSize;
 
-- (float) splitView:(NSSplitView *)sender constrainMaxCoordinate:(float)proposedMax ofSubviewAt:(int)offset {
+- (CGFloat) splitView:(NSSplitView *)sender constrainMaxCoordinate:(CGFloat)proposedMax ofSubviewAt:(NSInteger)offset {
 	// return proposedMax-36;
 	return proposedMax - 384;
 }
 
-- (float) splitView:(NSSplitView *)sender constrainMinCoordinate:(float)proposedMin ofSubviewAt:(int)offset {
+- (CGFloat) splitView:(NSSplitView *)sender constrainMinCoordinate:(CGFloat)proposedMin ofSubviewAt:(NSInteger)offset {
 	return (offset) ? NSWidth([sender frame]) / 2 : 160;
 }
 
@@ -656,7 +656,7 @@ id QSPrefs;
 	NSArray *subviews = [sender subviews];
 //	NSRect newFrame0 = [[subviews objectAtIndex:0] frame];
 	NSRect newFrame1 = [[subviews objectAtIndex:1] frame];
-	float change = NSWidth([sender frame]) -oldSize.width;
+	CGFloat change = NSWidth([sender frame]) -oldSize.width;
 	newFrame1.size.width += change;
 //	[[subviews objectAtIndex:0] setFrame:newFrame0];
 	[[subviews objectAtIndex:1] setFrame:newFrame1];

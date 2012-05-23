@@ -47,7 +47,7 @@
 - (NSArray *)ancestors;
 - (NSString *)name;
 - (NSImage *)icon;
-- (int) deepObjectCount;
+- (NSUInteger) deepObjectCount;
 - (BOOL)loadIndex;
 - (void)saveIndex;
 - (BOOL)indexIsValid;
@@ -77,6 +77,6 @@
 - (void)setIsScanning:(BOOL)flag;
 //- (NSString *)countString;
 
-- (int) count;
+- (NSUInteger) count;
 - (NSIndexPath *)catalogSetIndexPath;
 @end

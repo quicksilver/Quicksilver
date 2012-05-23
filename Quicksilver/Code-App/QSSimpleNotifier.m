@@ -56,7 +56,7 @@
 	NSRect screenRect = [[NSScreen mainScreen] frame];
 	NSRect windowRect = [[super window] frame];
 	[window setIgnoresMouseEvents:YES];
-	int quadrant = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSNotifierDefaultQuadrant"];
+	NSInteger quadrant = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSNotifierDefaultQuadrant"];
 
 	NSRect centeredRect = NSOffsetRect(windowRect, NSMidX(screenRect) -NSMidX(windowRect), NSMidY(screenRect)-NSMidY(windowRect)); //-NSHeight(screenRect)/4);
 	if (quadrant)
@@ -114,10 +114,10 @@
 
 	//	[titleString attribute
 
-	float oldHeight = [[textView enclosingScrollView] frame] .size.height;
+	CGFloat oldHeight = [[textView enclosingScrollView] frame] .size.height;
 	NSSize size = [newAttributedString size];
 	//NSLog(@"size should be %f not %f", size.height, oldHeight);
-	float sizeChange = size.height-oldHeight+1;
+	CGFloat sizeChange = size.height-oldHeight+1;
 	NSRect frame = [[self window] frame];
 	//NSLog(@"size %f", sizeChange);
 	frame.size.height += sizeChange;

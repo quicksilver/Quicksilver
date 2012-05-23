@@ -113,7 +113,7 @@
 }
 
 - (void)selectItemInPopUp:(NSPopUpButton *)popUp representedObject:(id)object {
-	int index = [popUp indexOfItemWithRepresentedObject:object];
+	NSInteger index = [popUp indexOfItemWithRepresentedObject:object];
 	if (index == -1 && [popUp numberOfItems]) index = 0;
 	[popUp selectItemAtIndex:index];
 }
@@ -179,7 +179,7 @@
 #endif
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *keys[] = { kQSAppearance1B, kQSAppearance1A, kQSAppearance1T, kQSAppearance2B, kQSAppearance2A, kQSAppearance2T, kQSAppearance3B, kQSAppearance3A, kQSAppearance3T };
-	int i;
+	unsigned long i;
 	for(i = 0; i < sizeof(keys) / sizeof(keys[0]); i++){
 		[defaults willChangeValueForKey:keys[i]];
 		[defaults removeObjectForKey:keys[i]];
@@ -193,7 +193,7 @@
 @implementation QSApplicationPrefPane
 
 - (NSNumber *)panePriority {
-	return [NSNumber numberWithInt:10];
+	return [NSNumber numberWithInteger:10];
 }
 
 - (BOOL)shouldLaunchAtLogin {
@@ -371,8 +371,8 @@
 	}
 }
 
-- (int) displayMode { return displayMode;  }
-- (void)setDisplayMode:(int)newDisplayMode {
+- (NSInteger) displayMode { return displayMode;  }
+- (void)setDisplayMode:(NSInteger)newDisplayMode {
 	displayMode = newDisplayMode;
 	[self updateGroups];
 	[groupController setSelectionIndex:0];
@@ -422,7 +422,7 @@
 	[self setGroups:array];
 }
 
-- (NSDragOperation)tableView:(NSTableView *)view validateDrop:(id <NSDraggingInfo>)info proposedRow:(int)row proposedDropOperation:(NSTableViewDropOperation)operation {
+- (NSDragOperation)tableView:(NSTableView *)view validateDrop:(id <NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)operation {
 	NSArray *data = [[info draggingPasteboard] propertyListForType:QSTableRowsType];
 	NSIndexSet *indexes = [NSIndexSet indexSetFromArray:data];
 	if ([indexes containsIndex:row] || [indexes containsIndex:row-1])
@@ -431,20 +431,20 @@
 		return operation == NSTableViewDropAbove ? NSDragOperationMove : NSDragOperationNone;
 }
 
-- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(int)row {
+- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
 	if ([[tableColumn identifier] isEqualToString:@"enabled"] && mOptionKeyIsDown)
 		[[actionController arrangedObjects] setValue:object forKey:@"enabled"];
 	if ([[tableColumn identifier] isEqualToString:@"rank"]) {
 		NSArray *currentActions = [actionController arrangedObjects];
-		int newRow = [object intValue] -1;
-		if (row != newRow && row >= 0 && row<[currentActions count] && newRow >= 0 && newRow<[currentActions count]) {
+		NSInteger newRow = [object integerValue] -1;
+		if (row != newRow && row >= 0 && row < [currentActions count] && newRow >= 0 && newRow<[currentActions count]) {
 			[QSExec orderActions:[NSArray arrayWithObject:[currentActions objectAtIndex:row]] aboveActions:[NSArray arrayWithObject:[currentActions objectAtIndex:newRow]]];
 		}
 		[actionController rearrangeObjects];
 	}
 }
 
-- (BOOL)tableView:(NSTableView *)view acceptDrop:(id <NSDraggingInfo>)info row:(int)row dropOperation:(NSTableViewDropOperation)operation {
+- (BOOL)tableView:(NSTableView *)view acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)operation {
 	[view registerForDraggedTypes:nil];
 	NSArray *data = [[info draggingPasteboard] propertyListForType:QSTableRowsType];
 	NSIndexSet *indexes = [NSIndexSet indexSetFromArray:data];

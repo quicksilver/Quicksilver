@@ -65,10 +65,10 @@
 NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	NSScanner *scanner = [NSScanner scannerWithString:intervalString];
     
-	float h = 0.0f;
-	float m = 0.0f;
-	float s = 0.0f;
-	float f;
+	CGFloat h = 0.0f;
+	CGFloat m = 0.0f;
+	CGFloat s = 0.0f;
+	CGFloat f;
 	NSString *string;
 	while (![scanner isAtEnd]) {
 		[scanner scanFloat:&f];
@@ -484,7 +484,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	  NSArray *indirects = [self validIndirects];
 	  NSMenuItem *item;
 	  if ([indirects count]) {
-		  int i;
+		  NSUInteger i;
 		  for (i = 0; i < [indirects count] && i < 10; i++) {
 			  QSObject *indirect = [indirects objectAtIndex:i];
 			  if ([indirect isKindOfClass:[NSNull class]]) continue;

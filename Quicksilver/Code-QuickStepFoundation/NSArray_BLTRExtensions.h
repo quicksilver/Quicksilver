@@ -32,8 +32,8 @@
 
 
 @interface NSMutableArray (Moving)
-- (void)moveIndex:(int)fromIndex toIndex:(int)toIndex;
-- (void)insertObjectsFromArray:(NSArray *)array atIndex:(unsigned)index;
+- (void)moveIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex;
+- (void)insertObjectsFromArray:(NSArray *)array atIndex:(NSUInteger)index;
 @end
 
 

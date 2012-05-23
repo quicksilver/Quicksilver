@@ -9,11 +9,11 @@
 #endif
 
 @optional
-- (BOOL)tableView:(QSTableView *)aTableView shouldDrawRow:(int)rowIndex inClipRect:(NSRect)clipRect;
-- (BOOL)tableView:(QSTableView *)aTableView rowIsSeparator:(int)rowIndex;
-- (NSMenu *)tableView:(QSTableView*)tableView menuForTableColumn:(NSTableColumn *)column row:(int)row;
+- (BOOL)tableView:(QSTableView *)aTableView shouldDrawRow:(NSInteger)rowIndex inClipRect:(NSRect)clipRect;
+- (BOOL)tableView:(QSTableView *)aTableView rowIsSeparator:(NSInteger)rowIndex;
+- (NSMenu *)tableView:(QSTableView*)tableView menuForTableColumn:(NSTableColumn *)column row:(NSInteger)row;
 - (void)tableView:(QSTableView *)tv dropEndedWithOperation:(NSDragOperation)operation;
-- (void)drawSeparatorForRow:(int)rowIndex clipRect:(NSRect)clipRect;
+- (void)drawSeparatorForRow:(NSInteger)rowIndex clipRect:(NSRect)clipRect;
 @end
 
 @protocol QSTableViewDataSource 
@@ -26,7 +26,7 @@
 @end
 
 @interface QSTableView : NSTableView {
-	int drawingRowIsSelected;
+	NSInteger drawingRowIsSelected;
 	NSColor *highlightColor;
 	id draggingDelegate;
 	BOOL opaque;

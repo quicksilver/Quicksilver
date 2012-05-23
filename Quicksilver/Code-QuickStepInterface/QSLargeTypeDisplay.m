@@ -22,12 +22,12 @@ void QSShowLargeType(NSString *aString) {
 		NSBeep();
 		return;
 	}
-	float displayWidth = NSWidth(screenRect) *11/12-2*EDGEINSET;
-    float displayHeight = NSHeight(screenRect) * 11/12 - 2*EDGEINSET;
+	CGFloat displayWidth = NSWidth(screenRect) *11/12-2*EDGEINSET;
+    CGFloat displayHeight = NSHeight(screenRect) * 11/12 - 2*EDGEINSET;
 	NSRange fullRange = NSMakeRange(0, [aString length]);
     
 	NSMutableAttributedString *formattedNumber = [[NSMutableAttributedString alloc] initWithString:aString];
-	int size;
+	NSInteger size;
 	NSSize textSize;
 	NSFont *textFont;
 	for (size = 24; size<300; size++) {
@@ -67,9 +67,9 @@ void QSShowLargeType(NSString *aString) {
 	NSRect textFrame = [textView frame];
 
 	NSLayoutManager *layoutManager = [textView layoutManager];
-	unsigned numberOfLines, index, numberOfGlyphs = [layoutManager numberOfGlyphs];
+	NSUInteger numberOfLines, index, numberOfGlyphs = [layoutManager numberOfGlyphs];
 	NSRange lineRange;
-	float height = 0;
+	CGFloat height = 0;
 	for (numberOfLines = 0, index = 0; index < numberOfGlyphs; numberOfLines++) {
 		NSRect rect = [layoutManager lineFragmentRectForGlyphAtIndex:index effectiveRange:&lineRange];
 		height += NSHeight(rect);
@@ -116,7 +116,7 @@ void QSShowLargeType(NSString *aString) {
 
 
 @implementation QSVanishingWindow
-- (id)initWithContentRect:(NSRect)contentRect styleMask:(unsigned int)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
+- (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
 	if (self = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag]) {
 		[self setReleasedWhenClosed:YES];
 	}

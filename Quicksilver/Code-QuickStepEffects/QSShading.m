@@ -26,7 +26,7 @@ struct QSGradientPoint {
 void QSColorFade(void *info, const CGFloat *in, CGFloat *out) {
 	CGFloat v = *in;
 	CGFloat *colors = info;
-	int i;
+	NSInteger i;
 	for (i = 0; i<4; i++)
 		*out++ = colors[i] *(1-v) +colors[i+4] *(v);
 
@@ -40,7 +40,7 @@ void QSFillRectWithGradientFromEdge(NSRect rect, NSColor *start, NSColor *end, N
 	static const CGFloat range[10] = { 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 } ;
 	static const CGFunctionCallbacks callbacks = { 0, &QSColorFade, NULL } ;
 
-	float colors[8] = {
+	CGFloat colors[8] = {
 		[start redComponent] , [start greenComponent] , [start blueComponent] , [start alphaComponent] ,
 		[end redComponent] , [end greenComponent] , [end blueComponent] , [end alphaComponent] } ;
 
@@ -86,7 +86,7 @@ NSBezierPath *QSGlossClipPathForRectAndStyle(NSRect rect, QSGlossStyle style) {
 		case QSGlossControl:
 			[gloss setWindingRule:NSNonZeroWindingRule];
 
-			float radius = NSHeight(rect) /2;
+			CGFloat radius = NSHeight(rect) /2;
 			[gloss appendBezierPathWithArcWithCenter:NSMakePoint(NSMinX(rect) +radius, NSMinY(rect))
 											 radius:radius
 										 startAngle:180.0
@@ -107,7 +107,7 @@ NSBezierPath *QSGlossClipPathForRectAndStyle(NSRect rect, QSGlossStyle style) {
 
 			break;
 		case QSGlossFlat:
-			rect.origin.y += (int) (NSHeight(rect)/2);
+			rect.origin.y += (NSHeight(rect)/2);
 			//rect.size.height /= 2;
 			[gloss appendBezierPathWithRect:rect];
 			break;

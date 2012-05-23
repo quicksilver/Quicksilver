@@ -53,7 +53,7 @@
 
 	QSTrigger *selectedTrigger;
 	NSSplitView *splitView;
-	int selectedRow;
+	NSInteger selectedRow;
 }
 - (NSString *)currentSet;
 - (void)setCurrentSet:(NSString *)value;
@@ -82,8 +82,8 @@
 
 - (IBAction)showTriggerInfo:(id)sender;
 - (IBAction)hideTriggerInfo:(id)sender;
-- (int)tabViewIndex;
-- (void)setTabViewIndex:(int)index;
+- (NSInteger)tabViewIndex;
+- (void)setTabViewIndex:(NSInteger)index;
 
 - (IBAction)editCommand:(id)sender;
 

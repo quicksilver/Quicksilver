@@ -224,9 +224,9 @@ NSMutableDictionary *kindDescriptions = nil;
     [focus sortByScore:sender];
 }
 
-- (void)bump:(int)i {
+- (void)bump:(NSInteger)i {
 	NSRect frame = [[self window] frame];
-	int j;
+	NSInteger j;
 	for (j = 1; j <= 8; j++)
 		[[self window] setFrameOrigin:NSOffsetRect(frame, i*j/8, 0) .origin];
 	for (; j >= 0; j--)
@@ -239,7 +239,7 @@ NSMutableDictionary *kindDescriptions = nil;
 	[resultChildTable reloadData];
 }
 
--(void)rowModified:(int)index {
+-(void)rowModified:(NSInteger)index {
 	[resultTable setNeedsDisplayInRect:[resultTable rectOfRow:index]];
 }
 
@@ -278,7 +278,7 @@ NSMutableDictionary *kindDescriptions = nil;
 	return YES;
 }
 
-- (void)iconLoader:(QSIconLoader *)loader loadedIndex:(int)m inArray:(NSArray *)array {
+- (void)iconLoader:(QSIconLoader *)loader loadedIndex:(NSInteger)m inArray:(NSArray *)array {
 	//	NSLog(@"loaded");
 	NSTableView *table = nil;
 	if (loader == resultIconLoader) {
@@ -403,7 +403,7 @@ NSMutableDictionary *kindDescriptions = nil;
 - (void)keyDown:(NSEvent *)theEvent {
 	NSString *characters;
 	unichar c;
-	unsigned int characterIndex, characterCount;
+	NSUInteger characterIndex, characterCount;
 
 	// There could be multiple characters in the event.
 	characters = [theEvent charactersIgnoringModifiers];
@@ -445,13 +445,13 @@ NSMutableDictionary *kindDescriptions = nil;
 
 #pragma mark -
 #pragma mark NSSplitView Delegate
-- (float) splitView:(NSSplitView *)sender constrainMaxCoordinate:(float)proposedMax ofSubviewAt:(int)offset {
+- (CGFloat) splitView:(NSSplitView *)sender constrainMaxCoordinate:(CGFloat)proposedMax ofSubviewAt:(NSInteger)offset {
 	//NSLog(@"constrainMax: %f, %d", proposedMax, offset);
 	// return proposedMax-36;
 	return proposedMax; // - 165;
 }
 
-- (float) splitView:(NSSplitView *)sender constrainMinCoordinate:(float)proposedMin ofSubviewAt:(int)offset {
+- (CGFloat) splitView:(NSSplitView *)sender constrainMinCoordinate:(CGFloat)proposedMin ofSubviewAt:(NSInteger)offset {
 	//NSLog(@"constrainMin: %f, %d", proposedMin, offset);
 	return NSWidth([sender frame]) / 2;
 }
@@ -464,7 +464,7 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 - (void)splitView:(NSSplitView *)sender resizeSubviewsWithOldSize:(NSSize)oldSize {
-	float dividerThickness = [sender dividerThickness];
+	CGFloat dividerThickness = [sender dividerThickness];
 	id sv1 = [[sender subviews] objectAtIndex:0];
 	id sv2 = [[sender subviews] objectAtIndex:1];
 	NSRect leftFrame = [sv1 frame];
@@ -565,7 +565,7 @@ NSMutableDictionary *kindDescriptions = nil;
     [[self resultChildIconLoader] loadIconsInRange:newRange];
 }
 
-- (int)numberOfRowsInTableView:(NSTableView *)tableView {
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
 	if (tableView == resultChildTable) {
 		return [[selectedItem children] count];
 	} else {
@@ -573,11 +573,11 @@ NSMutableDictionary *kindDescriptions = nil;
 	}
 }
 
-- (BOOL)tableView:(NSTableView *)aTableView rowIsSeparator:(int)rowIndex {
+- (BOOL)tableView:(NSTableView *)aTableView rowIsSeparator:(NSInteger)rowIndex {
 	return NO;
 }
 
-- (BOOL)tableView:(NSTableView *)aTableView shouldDrawRow:(int)rowIndex inClipRect:(NSRect)clipRect {
+- (BOOL)tableView:(NSTableView *)aTableView shouldDrawRow:(NSInteger)rowIndex inClipRect:(NSRect)clipRect {
 	clipRect = [aTableView rectOfRow:rowIndex];
 	// clipRect.origin.y += (int) (NSHeight(clipRect)/2);
 	// clipRect.size.height = 1.0;
@@ -591,7 +591,7 @@ NSMutableDictionary *kindDescriptions = nil;
 	return NO;
 }
 
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row {
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
 	if (tableView == resultTable && [[self currentResults] count] >row) {
 		QSObject *thisObject = [[self currentResults] objectAtIndex:row];
 
@@ -613,7 +613,7 @@ NSMutableDictionary *kindDescriptions = nil;
 	return nil;
 }
 
-- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
+- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
 	if ([[aTableColumn identifier] isEqualToString:COLUMNID_NAME]) {
 		NSArray *array = [self currentResults];
 		if (aTableView == resultChildTable) array = [selectedItem children];
@@ -635,7 +635,7 @@ NSMutableDictionary *kindDescriptions = nil;
 	}
 	return;
 }
-- (NSMenu *)tableView:(NSTableView*)tableView menuForTableColumn:(NSTableColumn *)column row:(int)row {
+- (NSMenu *)tableView:(NSTableView*)tableView menuForTableColumn:(NSTableColumn *)column row:(NSInteger)row {
 	[tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:(row ? row : 0)] byExtendingSelection:NO];
 
 	NSArray *array = [self currentResults];
@@ -645,7 +645,7 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 - (BOOL)tableView:(NSTableView *)tv writeRows:(NSArray*)rows toPasteboard:(NSPasteboard*)pboard {
-	[[[self currentResults] objectAtIndex:[[rows objectAtIndex:0] intValue]]putOnPasteboard:pboard includeDataForTypes:nil];
+	[[[self currentResults] objectAtIndex:[[rows objectAtIndex:0] integerValue]]putOnPasteboard:pboard includeDataForTypes:nil];
 	return YES;
 }
 

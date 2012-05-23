@@ -41,7 +41,7 @@ typedef enum QSSearchMode {
 	NSTimeInterval lastTime;
 	NSTimeInterval lastProc;
 
-	float resultsPadding;
+	CGFloat resultsPadding;
 	NSRectEdge preferredEdge;
 	NSRectEdge lastEdge;
 
@@ -57,7 +57,7 @@ typedef enum QSSearchMode {
 
 	BOOL 			recordsHistory; //ACC
 	NSMutableArray *historyArray;
-	int 			historyIndex;
+	NSInteger 			historyIndex;
 	NSMutableArray *parentStack; // The parents for the current browse session
 	NSMutableArray *childStack; // The children for the current browse session
     
@@ -74,7 +74,7 @@ typedef enum QSSearchMode {
 	NSMutableArray *searchArray; // Interim array for searching smaller and smaller pieces
 	NSMutableArray *resultArray; // Final filtered array for current search string
 
-	unsigned selection;
+	NSUInteger selection;
 	BOOL browsing;
 	BOOL validMnemonic;
 	BOOL hasHistory;
@@ -87,9 +87,9 @@ typedef enum QSSearchMode {
 - (void)clearSearch;
 
 - (void)clearObjectValue;
-- (void)moveSelectionBy:(int)d;
+- (void)moveSelectionBy:(NSInteger)d;
 - (void)selectObjectValue:( QSObject *)newObject ;
-- (void)pageScroll:(int)direction;
+- (void)pageScroll:(NSInteger)direction;
 
 - (NSMutableArray *)sourceArray;
 - (void)setSourceArray:(NSMutableArray *)newSourceArray;
@@ -106,7 +106,7 @@ typedef enum QSSearchMode {
 - (void)setMatchedString:(NSString *)newMatchedString;
 
 - (IBAction)toggleResultView:sender;
-- (void)selectIndex:(int)index;
+- (void)selectIndex:(NSInteger)index;
 - (void)selectObject:(QSBasicObject *)obj;
 - (void)resetString;
 - (IBAction)defineMnemonic:(id)sender;
@@ -128,7 +128,7 @@ typedef enum QSSearchMode {
 - (IBAction)sortByName:(id)sender;
 - (void)reloadResultTable;
 - (BOOL)executeText:(NSEvent *)theEvent;
-- (void)selectIndex:(int)index;
+- (void)selectIndex:(NSInteger)index;
 - (void)performSearchFor:(NSString *)string from:(id)sender;
 - (IBAction)hideResultView:sender;
 - (BOOL)handleBoundKey:(NSEvent *)theEvent;
@@ -157,14 +157,14 @@ typedef enum QSSearchMode {
 - (NSText *)currentEditor;
 - (void)setCurrentEditor:(NSText *)aCurrentEditor;
 
-- (void)setResultsPadding:(float)aResultsPadding;
+- (void)setResultsPadding:(CGFloat)aResultsPadding;
 - (NSString *)stringForEvent:(NSEvent *)theEvent;
 - (void)insertSpace:(id)sender;
 
 	//TextInputMethods
 - (NSAttributedString *)attributedSubstringFromRange:(NSRange)theRange;
-- (unsigned int) characterIndexForPoint:(NSPoint)thePoint;
-- (long) conversationIdentifier;
+- (NSUInteger) characterIndexForPoint:(NSPoint)thePoint;
+- (NSInteger) conversationIdentifier;
 - (NSRect) firstRectForCharacterRange:(NSRange)theRange;
 - (BOOL)hasMarkedText;
 - (NSRange) markedRange;
@@ -207,7 +207,7 @@ typedef enum QSSearchMode {
 
 
 @interface QSSearchObjectView (Browsing)
-- (void)browse:(int)direction;
+- (void)browse:(NSInteger)direction;
 @end
 
 @interface QSSearchObjectView (Quicklook) <QLPreviewPanelDataSource, QLPreviewPanelDelegate>

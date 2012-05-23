@@ -41,7 +41,7 @@
 	[self drawInRect:alignRectInRect(countImageRect, rect, 3) fromRect:countImageRect operation:NSCompositeSourceOver fraction:1.0];
 }
 
-- (void)drawInRect:(NSRect)rect fromRect:(NSRect)fromRect operation:(NSCompositingOperation)op fraction:(float)delta {
+- (void)drawInRect:(NSRect)rect fromRect:(NSRect)fromRect operation:(NSCompositingOperation)op fraction:(CGFloat)delta {
 	[super drawInRect:rect fromRect:rectFromSize([self size]) operation:op fraction:delta];
 
 	NSString *numString = [NSString stringWithFormat:@"%d", count];

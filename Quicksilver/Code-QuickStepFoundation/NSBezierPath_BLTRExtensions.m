@@ -10,7 +10,7 @@
 #import <math.h>
 
 @implementation NSBezierPath(RoundRect)
-- (void)appendBezierPathWithRoundedRectangle:(NSRect) aRect withRadius:(float) radius {
+- (void)appendBezierPathWithRoundedRectangle:(NSRect) aRect withRadius:(CGFloat) radius {
 	NSPoint topMid = NSMakePoint(NSMidX(aRect), NSMaxY(aRect) );
 	NSPoint topLeft = NSMakePoint(NSMinX(aRect), NSMaxY(aRect) );
 	NSPoint topRight = NSMakePoint(NSMaxX(aRect), NSMaxY(aRect) );
@@ -24,7 +24,7 @@
 	[self closePath];
 }
 
-- (void)appendBezierPathWithRoundedRectangle:(NSRect)aRect withRadius:(float)radius indent:(int)indent {
+- (void)appendBezierPathWithRoundedRectangle:(NSRect)aRect withRadius:(CGFloat)radius indent:(NSInteger)indent {
 	NSPoint topMid = NSMakePoint(NSMidX(aRect), NSMaxY(aRect) );
 	NSPoint topLeft = NSMakePoint(NSMinX(aRect), NSMaxY(aRect) );
 	NSPoint topRight = NSMakePoint(NSMaxX(aRect), NSMaxY(aRect) );

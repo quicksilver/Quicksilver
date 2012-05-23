@@ -134,7 +134,7 @@
 	}
 	return YES;
 }
-- (void)alertDidEnd:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+- (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
 	[[alert window] close];
 	if (returnCode)
 		[NSApp terminate:self];
@@ -157,7 +157,7 @@
 }
 
 - (IBAction)cancelPlugInInstall:(id)sender { [NSApp endSheet:pluginStatusPanel returnCode:0]; }
-- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
 	[sheet close];
 	[[QSPlugInManager sharedInstance] cancelPlugInInstall];
 	[[self recommendedPlugIns] setValue:[NSNumber numberWithBool:NO] forKey:@"shouldInstall"];
@@ -236,7 +236,7 @@
 }
 
 - (void)installStatusChanged:(NSNotification *)notif {
-	float progress = [[QSPlugInManager sharedInstance] downloadProgress];
+	CGFloat progress = [[QSPlugInManager sharedInstance] downloadProgress];
 	[installProgress setDoubleValue:progress];
 	[installProgress displayIfNeeded];
 	if (progress == 1) {

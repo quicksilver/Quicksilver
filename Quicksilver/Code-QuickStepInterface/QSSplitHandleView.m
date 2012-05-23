@@ -46,7 +46,7 @@
 		origin.x += NSWidth(frame) -12;
 		origin.x += 0.5;
 		[NSBezierPath setDefaultLineWidth:1.0];
-		int i;
+		NSInteger i;
 		for (i = 0; i<3; i++) {
 			[[NSColor colorWithDeviceWhite:0.0 alpha:0.5] set];
 			[NSBezierPath strokeLineFromPoint:NSMakePoint(origin.x+i*3, origin.y+6)
@@ -69,11 +69,11 @@
 	NSRect frame1 = [[subviews objectAtIndex:1] frame];
 
 
-	float min = [[splitView delegate] splitView:splitView
+	CGFloat min = [[splitView delegate] splitView:splitView
 					 constrainMinCoordinate:0
 								 ofSubviewAt:0];
 
-	float max = [[splitView delegate] splitView:splitView
+	CGFloat max = [[splitView delegate] splitView:splitView
 					 constrainMaxCoordinate:NSWidth([splitView frame]) -[splitView dividerThickness]
 								 ofSubviewAt:0];
 
@@ -84,7 +84,7 @@
 		} else {
 			[[NSNotificationCenter defaultCenter] postNotificationName:NSSplitViewWillResizeSubviewsNotification
 															  object:splitView];
-			float change = curPoint.x-origPoint.x;
+			CGFloat change = curPoint.x-origPoint.x;
 
 
 			NSRect newFrame0 = frame0;

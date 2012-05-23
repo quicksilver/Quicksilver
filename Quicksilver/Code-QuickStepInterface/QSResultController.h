@@ -28,14 +28,14 @@
 	IBOutlet NSMenuItem *sortByScore; // NSMenuItem (see ResultController.xib)
 	IBOutlet NSMenuItem *sortByName; // NSMenuItem (see ResultController.xib)
 	
-	int selectedResult;
+	NSInteger selectedResult;
 	QSObject *selectedItem;
 	BOOL browsing;
 	BOOL needsReload;
 	NSRange loadingRange;
 	NSArray *currentResults;
 	QSSearchObjectView *focus;
-	int scrollViewTrackingRect;
+	NSInteger scrollViewTrackingRect;
 
 //	NSArray **sourceArrayPointer;
 	NSTimer *iconTimer;
@@ -91,7 +91,7 @@
  */
 - (IBAction)setSearchMode:(id)sender;
 - (void)arrayChanged:(NSNotification*)notif;
-- (void)bump:(int)i;
+- (void)bump:(NSInteger)i;
 
 - (void)updateSelectionInfo;
 - (QSObject *)selectedItem;
@@ -105,7 +105,7 @@
 - (QSIconLoader *)resultChildIconLoader;
 - (void)setResultChildIconLoader:(QSIconLoader *)aResultChildIconLoader;
 
--(void)rowModified:(int)index;
+-(void)rowModified:(NSInteger)index;
 /*!
  sortByName
  @abstract   Sets the results view to show the 'Sort by Name' search mode is activated

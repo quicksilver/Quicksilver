@@ -194,7 +194,7 @@
 /*                                                          [NSNumber numberWithUnsignedInt:NSPropertyListOpenStepFormat],
  * Because it fails most writing */
                                                             nil];
-            int failCount = 0;
+            NSUInteger failCount = 0;
             for(NSNumber *num in plistTypes ) {
                 int plistType = [num unsignedIntValue];
                 BOOL valid = [NSPropertyListSerialization propertyList:rep isValidForFormat:plistType];
@@ -233,7 +233,7 @@
     }
 	
 #ifdef DEBUG
-    NSLog(@"Wrote %d triggers", [cleanedTriggerArray count]);
+    NSLog(@"Wrote %ld triggers", (long)[cleanedTriggerArray count]);
 #endif
 	
 	// manual memory management (better for ARC)

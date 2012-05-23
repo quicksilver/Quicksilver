@@ -51,7 +51,7 @@ static inline int get_bit(unsigned char *arr, unsigned long bit_num) {
 
 @implementation NSImage (Dragging)
 
-- (NSImage *)imageWithAlphaComponent:(float)alpha {
+- (NSImage *)imageWithAlphaComponent:(CGFloat)alpha {
 	NSImage *fadedImage = [[NSImage alloc] initWithData:[self TIFFRepresentation]];
 	[fadedImage setCacheMode:NSImageCacheNever];
 
@@ -82,7 +82,7 @@ static inline int get_bit(unsigned char *arr, unsigned long bit_num) {
 }
 
 #if 0
-- (NSImage *)imageByAdjustingHue:(float)hue saturation:(float)saturation {
+- (NSImage *)imageByAdjustingHue:(CGFloat)hue saturation:(CGFloat)saturation {
 	hue = fmod(hue+1, 1.0);
 	CIFilter *hueAdjust = [CIFilter filterWithName:@"CIHueAdjust" keysAndValues:@"inputAngle", [NSNumber numberWithFloat:hue*2*M_PI] , @"inputImage", [CIImage imageWithData:[self TIFFRepresentation]], nil];
 	CIFilter *satAdjust = [CIFilter filterWithName:@"CIColorControls" keysAndValues:@"inputSaturation", [NSNumber numberWithFloat:saturation] , @"inputBrightness", [NSNumber numberWithFloat:0.0f] , @"inputContrast", [NSNumber numberWithFloat:1.0f] , @"inputImage", [hueAdjust valueForKey:@"outputImage"] , nil];
@@ -101,11 +101,11 @@ static inline int get_bit(unsigned char *arr, unsigned long bit_num) {
 	if (bestRep)
 		return bestRep;
 	NSArray *reps = [self representations];
-	float repDistance = 65536.0;
+	CGFloat repDistance = 65536.0;
 	NSImageRep *thisRep;
-	float thisDistance;
-	int i;
-	for (i = 0; i<(int) [reps count]; i++) {
+	CGFloat thisDistance;
+	NSUInteger i;
+	for (i = 0; i < [reps count]; i++) {
 		thisRep = [reps objectAtIndex:i];
 		thisDistance = MIN(theSize.width-[thisRep size] .width, theSize.height-[thisRep size] .height);
 		if (repDistance<0 && thisDistance>0) continue;
@@ -119,8 +119,8 @@ static inline int get_bit(unsigned char *arr, unsigned long bit_num) {
 
 - (NSImageRep *)representationOfSize:(NSSize)theSize {
 	NSArray *reps = [self representations];
-	int i;
-	for (i = 0; i<(int) [reps count]; i++)
+	NSUInteger i;
+	for (i = 0; i < [reps count]; i++)
 		if (NSEqualSizes([[reps objectAtIndex:i] size] , theSize) )
 			return [reps objectAtIndex:i];
 	return nil;
@@ -214,12 +214,12 @@ static inline int get_bit(unsigned char *arr, unsigned long bit_num) {
         return rect;
     }
 
-	int minX = [bitmap pixelsWide];
-	int minY = [bitmap pixelsHigh];
-	int maxX = 0;
-	int maxY = 0;
+	NSInteger minX = [bitmap pixelsWide];
+	NSInteger minY = [bitmap pixelsHigh];
+	NSInteger maxX = 0;
+	NSInteger maxY = 0;
 
-	int i, j;
+	NSInteger i, j;
 	unsigned char* pixels = [bitmap bitmapData];
 
 	for(i = 0; i<[bitmap pixelsWide]; i++) {
@@ -261,9 +261,9 @@ static inline int get_bit(unsigned char *arr, unsigned long bit_num) {
 	if (![rep isKindOfClass:[NSBitmapImageRep class]]) return nil;
 	unsigned char *pixels = [rep bitmapData];
 
-	int red = 0, blue = 0, green = 0; //, alpha = 0;
-	int n = [rep size] .width * [rep size] .height;
-	int i = 0;
+	NSInteger red = 0, blue = 0, green = 0; //, alpha = 0;
+	NSInteger n = [rep size] .width * [rep size] .height;
+	NSInteger i = 0;
 	for (i = 0; i < n; i++) {
 		//	pixels[(j*imageWidthInPixels+i) *bitsPerPixel+channel]
 		//NSLog(@"%d %d %d %d", pixels[0] , pixels[1] , pixels[2] , pixels[3]);
@@ -274,7 +274,7 @@ static inline int get_bit(unsigned char *arr, unsigned long bit_num) {
 	}
 
 	//NSLog(@"%d %f %d", blue, (float) blue/n/256, n);
-	return [NSColor colorWithDeviceRed:(float) red/n/256 green:(float) green/n/256 blue:(float)blue/n/256 alpha:1.0];
+	return [NSColor colorWithDeviceRed:(CGFloat) red/n/256 green:(CGFloat) green/n/256 blue:(CGFloat)blue/n/256 alpha:1.0];
 }
 
 @end

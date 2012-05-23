@@ -19,7 +19,7 @@
 
 @interface NSImage (Dragging)
 
-- (NSImage *)imageWithAlphaComponent:(float)alpha;
+- (NSImage *)imageWithAlphaComponent:(CGFloat)alpha;
 
 @end
 
@@ -27,7 +27,7 @@
 
 + (NSImage *)imageWithCIFilter:(CIFilter *)filter;
 + (NSImage *)imageWithCIImage:(CIImage *)ciimage;
-- (NSImage *)imageByAdjustingHue:(float)hue;
+- (NSImage *)imageByAdjustingHue:(CGFloat)hue;
 //- (NSImage *)imageByAdjustingHue:(float)hue saturation:(float)saturation;
 - (NSImageRep *)representationOfSize:(NSSize)theSize;
 - (NSImageRep *)bestRepresentationForSize:(NSSize)theSize;

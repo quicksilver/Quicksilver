@@ -89,19 +89,19 @@
 		files = [files arrayByPerformingSelector:@selector(stringByStandardizingPath)];
 		//NSString *path = [stringValue stringByStandardizingPath];
 		//NSLog(@"%@", files);
-		int line = -1;
+		NSInteger line = -1;
 		if ([files count]) {
 			NSString *path = [files objectAtIndex:0];
 			NSArray *extComp = [[path pathExtension] componentsSeparatedByString:@":"];
 			if ([extComp count] == 2) {
-				line = [[extComp lastObject] intValue];
+				line = [[extComp lastObject] integerValue];
 				files = [NSArray arrayWithObject:[path substringToIndex:[path length] -1-[[extComp lastObject] length]]];
 				//NSLog(@"files %@", files);
 			}
 		}
 		if ([[NSFileManager defaultManager] filesExistAtPaths:files]) {
 			if (line >= 0) {
-				[self setObject:[NSDictionary dictionaryWithObjectsAndKeys:[files lastObject] , @"path", [NSNumber numberWithInt:line] , @"line", nil] forType:@"QSLineReferenceType"];
+				[self setObject:[NSDictionary dictionaryWithObjectsAndKeys:[files lastObject] , @"path", [NSNumber numberWithInteger:line] , @"line", nil] forType:@"QSLineReferenceType"];
 			}
 			[self setObject:files forType:QSFilePathType];
 			[self setPrimaryType:QSFilePathType];

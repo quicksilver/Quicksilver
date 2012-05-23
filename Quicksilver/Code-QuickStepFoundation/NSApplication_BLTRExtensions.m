@@ -130,7 +130,7 @@
 @end
 
 @implementation NSApplication (LaunchStatus)
-- (int)checkLaunchStatus {
+- (QSApplicationLaunchStatusFlags)checkLaunchStatus {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *lastLocation = [defaults objectForKey:kLastUsedLocation];
 

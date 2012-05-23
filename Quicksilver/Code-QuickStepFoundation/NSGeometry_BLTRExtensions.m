@@ -9,7 +9,7 @@
 #import "NSGeometry_BLTRExtensions.h"
 #import "math.h"
 
-BTFloatRange BTMakeFloatRange(float value, float location, float length) {
+BTFloatRange BTMakeFloatRange(CGFloat value, CGFloat location, CGFloat length) {
 	BTFloatRange fRange;
 	fRange.value = value;
 	fRange.location = location;
@@ -17,11 +17,11 @@ BTFloatRange BTMakeFloatRange(float value, float location, float length) {
 	return fRange;
 }
 
-float BTFloatRangeMod(BTFloatRange range) {
+CGFloat BTFloatRangeMod(BTFloatRange range) {
 	return fmod(range.value-range.location, range.length) +range.location;
 }
 
-float BTFloatRangeUnit(BTFloatRange range) {
+CGFloat BTFloatRangeUnit(BTFloatRange range) {
 	return (range.value-range.location) /range.length;
 }
 
@@ -29,21 +29,21 @@ NSPoint offsetPoint(NSPoint fromPoint, NSPoint toPoint) {
 	return NSMakePoint(toPoint.x-fromPoint.x, toPoint.y-fromPoint.y);
 }
 
-int oppositeQuadrant(int quadrant) {
+NSInteger oppositeQuadrant(NSInteger quadrant) {
 	quadrant = quadrant+2;
 	quadrant %= 4;
 	if (!quadrant) quadrant = 4;
 	return quadrant;
 }
 
-NSPoint rectOffset(NSRect innerRect, NSRect outerRect, int quadrant) {
+NSPoint rectOffset(NSRect innerRect, NSRect outerRect, NSInteger quadrant) {
 	if (quadrant)
 		return NSMakePoint((quadrant == 3 || quadrant == 2) ? NSMaxX(outerRect)-NSMaxX(innerRect) : NSMinX(outerRect)-NSMinX(innerRect),
 						 (quadrant == 4 || quadrant == 3) ? NSMaxY(outerRect)-NSMaxY(innerRect) : NSMinY(outerRect)-NSMinY(innerRect));
 	return NSMakePoint(NSMidX(outerRect)-NSMidX(innerRect), NSMidY(outerRect)-NSMidY(innerRect)); //Center Rects
 }
 
-NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant) {
+NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, NSInteger quadrant) {
 	NSPoint offset = rectOffset(innerRect, outerRect, quadrant);
 	return NSOffsetRect(innerRect, offset.x, offset.y);
 }
@@ -51,7 +51,7 @@ NSRect alignRectInRect(NSRect innerRect, NSRect outerRect, int quadrant) {
 
 
 
-NSRect rectZoom(NSRect rect, float zoom, int quadrant) {
+NSRect rectZoom(NSRect rect, CGFloat zoom, NSInteger quadrant) {
 	NSSize newSize = NSMakeSize(NSWidth(rect) *zoom, NSHeight(rect)*zoom);
 	NSRect newRect = rect;
 	newRect.size = newSize;
@@ -60,7 +60,7 @@ NSRect rectZoom(NSRect rect, float zoom, int quadrant) {
 
 
 NSRect sizeRectInRect(NSRect innerRect, NSRect outerRect, bool expand) {
-	float proportion = NSWidth(innerRect) /NSHeight(innerRect);
+	CGFloat proportion = NSWidth(innerRect) /NSHeight(innerRect);
 	NSRect xRect = NSMakeRect(0, 0, outerRect.size.width, outerRect.size.width/proportion);
 	NSRect yRect = NSMakeRect(0, 0, outerRect.size.height*proportion, outerRect.size.height);
 	NSRect newRect;
@@ -73,7 +73,7 @@ NSRect fitRectInRect(NSRect innerRect, NSRect outerRect, bool expand) {
 	return centerRectInRect(sizeRectInRect(innerRect, outerRect, expand), outerRect);
 }
 
-NSRect rectWithProportion(NSRect innerRect, float proportion, bool expand) {
+NSRect rectWithProportion(NSRect innerRect, CGFloat proportion, bool expand) {
 	NSRect xRect = NSMakeRect(0, 0, innerRect.size.width, innerRect.size.width/proportion);
 	NSRect yRect = NSMakeRect(0, 0, innerRect.size.height*proportion, innerRect.size.height);
 	NSRect newRect;
@@ -99,14 +99,14 @@ NSRect constrainRectToRect(NSRect innerRect, NSRect outerRect) {
 	return NSOffsetRect(innerRect, offset.x, offset.y);
 }
 
-NSRect expelRectFromRect(NSRect innerRect, NSRect outerRect, float peek) {
+NSRect expelRectFromRect(NSRect innerRect, NSRect outerRect, CGFloat peek) {
 	NSPoint offset = NSZeroPoint;
 
-	float leftDistance = NSMaxX(innerRect) - NSMinX(outerRect);
-	float rightDistance = NSMaxX(outerRect) -NSMinX(innerRect);
-	float topDistance = NSMaxY(outerRect) -NSMinY(innerRect);
-	float bottomDistance = NSMaxY(innerRect) - NSMinY(outerRect);
-	float minDistance = MIN(MIN(MIN(leftDistance, rightDistance), topDistance), bottomDistance);
+	CGFloat leftDistance = NSMaxX(innerRect) - NSMinX(outerRect);
+	CGFloat rightDistance = NSMaxX(outerRect) -NSMinX(innerRect);
+	CGFloat topDistance = NSMaxY(outerRect) -NSMinY(innerRect);
+	CGFloat bottomDistance = NSMaxY(innerRect) - NSMinY(outerRect);
+	CGFloat minDistance = MIN(MIN(MIN(leftDistance, rightDistance), topDistance), bottomDistance);
 
 	if (minDistance == leftDistance)
 		offset.x -= leftDistance-peek;
@@ -120,7 +120,7 @@ NSRect expelRectFromRect(NSRect innerRect, NSRect outerRect, float peek) {
 	return NSOffsetRect(innerRect, offset.x, offset.y);
 }
 
-NSRect expelRectFromRectOnEdge(NSRect innerRect, NSRect outerRect, NSRectEdge edge, float peek) {
+NSRect expelRectFromRectOnEdge(NSRect innerRect, NSRect outerRect, NSRectEdge edge, CGFloat peek) {
 	NSPoint offset = NSZeroPoint;
 
 	switch(edge) {
@@ -153,16 +153,16 @@ NSRect rectFromSize(NSSize size) {
 	return NSMakeRect(0, 0, size.width, size.height);
 }
 
-float distanceFromOrigin(NSPoint point) {
+CGFloat distanceFromOrigin(NSPoint point) {
 	return hypot(point.x, point.y);
 }
 
-int closestCorner(NSRect innerRect, NSRect outerRect) {
-	float bestDistance = -1;
-	int closestCorner = 0;
-	int i;
+NSInteger closestCorner(NSRect innerRect, NSRect outerRect) {
+	CGFloat bestDistance = -1;
+	NSInteger closestCorner = 0;
+	NSInteger i;
 	for(i = 0; i<5; i++) {
-		float distance = distanceFromOrigin(rectOffset(innerRect, outerRect, i) );
+		CGFloat distance = distanceFromOrigin(rectOffset(innerRect, outerRect, i) );
 		if (distance < bestDistance || bestDistance<0) {
 			bestDistance = distance;
 			closestCorner = i;
@@ -171,7 +171,7 @@ int closestCorner(NSRect innerRect, NSRect outerRect) {
 	return closestCorner;
 }
 
-NSRect blendRects(NSRect start, NSRect end, float b) {
+NSRect blendRects(NSRect start, NSRect end, CGFloat b) {
 	return NSMakeRect( round(NSMinX(start) *(1-b) + NSMinX(end)*b), round(NSMinY(start) *(1-b) + NSMinY(end)*b), round(NSWidth(start) *(1-b) + NSWidth(end)*b), round(NSHeight(start) *(1-b) + NSHeight(end)*b));
 }
 

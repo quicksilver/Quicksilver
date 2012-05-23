@@ -9,8 +9,8 @@
 #import <Cocoa/Cocoa.h>
 
 @interface NSColor (Contrast)
-- (NSColor *)colorWithLighting:(float)light;
-- (NSColor *)colorWithLighting:(float)light plasticity:(float)plastic;
+- (NSColor *)colorWithLighting:(CGFloat)light;
+- (NSColor *)colorWithLighting:(CGFloat)light plasticity:(CGFloat)plastic;
 - (NSColor *)readableTextColor;
 
 //+ (NSColor *)accentColor;

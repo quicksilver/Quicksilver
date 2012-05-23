@@ -114,7 +114,7 @@
 	[self applyIconToMenuItem:item];
 
 }
-- (NSMenuItem *)menuItemWithChildren:(BOOL)includeChildren; {
+- (NSMenuItem *)menuItemWithChildren:(BOOL)includeChildren {
 	NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:[self name] action:nil keyEquivalent:@""] autorelease];
 	[self configureMenuItem:item includeChildren:(BOOL)includeChildren];
 	return item;
@@ -148,8 +148,8 @@
 	return menu;
 }
 
-- (BOOL)addChildrenInArray:(NSArray *)children count:(int)count toMenu:(NSMenu *)menu indent:(int)indent {
-	int index;
+- (BOOL)addChildrenInArray:(NSArray *)children count:(NSUInteger)count toMenu:(NSMenu *)menu indent:(NSInteger)indent {
+	NSUInteger index;
 	count = MIN(count, [children count]);
 	for (index = 0; index<count; index++) {
 		QSObject *child = [[self children] objectAtIndex:index];
@@ -160,9 +160,9 @@
 	return YES;
 }
 
-- (BOOL)addActionsInArray:(NSArray *)actions count:(int)count toMenu:(NSMenu *)menu indent:(int)indent {
+- (BOOL)addActionsInArray:(NSArray *)actions count:(NSUInteger)count toMenu:(NSMenu *)menu indent:(NSInteger)indent {
 	count = MIN(count, [actions count]);
-	int i;
+	NSUInteger i;
 	NSMenuItem *item;
 
 	for (i = 0; i<count; i++) {

@@ -12,7 +12,7 @@
 + (NSIndexSet *)indexSetFromArray:(NSArray *)indexes {
 	NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
 	for(NSNumber * idx in indexes)
-		[indexSet addIndex:[idx intValue]];
+        [indexSet addIndex:[idx unsignedIntegerValue]];
 	return indexSet;
 }
 @end

@@ -28,7 +28,7 @@
 	if (isLocal) return NSDragOperationMove;
 	else return NSDragOperationCopy;
 }
-- (void)drawRow:(int)rowIndex clipRect:(NSRect)clipRect {
+- (void)drawRow:(NSInteger)rowIndex clipRect:(NSRect)clipRect {
 	if ([[self delegate] respondsToSelector:@selector(outlineView:itemIsSeparator:)]
 		 && [[self delegate] outlineView:self itemIsSeparator:[self itemAtRow:rowIndex]]) {
 		[self drawSeparatorForRow:rowIndex clipRect:clipRect];
