@@ -6,7 +6,6 @@
 // Copyright (c) 2003 Blacktree, Inc. All rights reserved.
 //
 
-#import "NSString+CarbonUtilities.h"
 #import "NSWorkspace_BLTRExtensions.h"
 #import "NSApplication_BLTRExtensions.h"
 #include <signal.h>

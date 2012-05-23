@@ -22,7 +22,7 @@
 #import "NSURL+NDCarbonUtilities.h"
 #import "NTLocalizedString.h"
 #import "NTViewLocalizer.h"
-#import "NSString+CarbonUtilities.h"
+#import "NSString+NDCarbonUtilities.h"
 #import "UKDirectoryEnumerator.h"
 
 #import "QSUTI.h"

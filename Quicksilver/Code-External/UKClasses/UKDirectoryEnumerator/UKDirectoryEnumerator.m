@@ -30,7 +30,7 @@
 // -----------------------------------------------------------------------------
 
 #import "UKDirectoryEnumerator.h"
-#import "NSString+CarbonUtilities.h"
+#import "NSString+NDCarbonUtilities.h"
 
 
 // -----------------------------------------------------------------------------

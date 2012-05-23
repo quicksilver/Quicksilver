@@ -36,6 +36,8 @@
 + (NSString *)stringWithFSRef:(const FSRef *)aFSRef
 {
 	NSString		* thePath = nil;
+    if( !aFSRef )
+		return nil;
 	CFURLRef theURL = CFURLCreateFromFSRef( kCFAllocatorDefault, aFSRef );
 	if ( theURL )
 	{
