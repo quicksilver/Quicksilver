@@ -9,8 +9,8 @@
 #import <Cocoa/Cocoa.h>
 
 @interface NSScreen (BLTRExtensions)
-+ (NSScreen *)screenWithNumber:(int)number;
-- (int) screenNumber;
++ (NSScreen *)screenWithNumber:(NSInteger)number;
+- (NSInteger) screenNumber;
 - (NSString *)deviceName;
 - (BOOL)usesOpenGLAcceleration;
 @end

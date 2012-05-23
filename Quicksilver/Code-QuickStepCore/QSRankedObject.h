@@ -1,30 +1,28 @@
-
-
 #import <Foundation/Foundation.h>
 
 
 @interface QSRankedObject : NSObject {
 	@public
 
-	int order;
-	float score;
+	NSInteger order;
+	CGFloat score;
 	id object;
 	NSString *rankedString;
 }
 //+ (NSMutableArray *)rankedArrayWithObjects:(id *)objects scores:(float *)scores count:(int)count;
 //+ (id)rankedObjectWithObject:(id)newObject matchString:(NSString *)matchString order:(int)order score:(float)newScore;
 
-- (id)initWithObject:(id)newObject matchString:(NSString *)matchString order:(int)newOrder score:(float)newScore;
+- (id)initWithObject:(id)newObject matchString:(NSString *)matchString order:(NSInteger)newOrder score:(CGFloat)newScore;
 - (NSComparisonResult)nameCompare:(QSRankedObject *)compareObject;
 
-- (float)score;
-- (void)setScore:(float)newScore;
+- (CGFloat)score;
+- (void)setScore:(CGFloat)newScore;
 
 - (id)object;
 - (void)setObject:(id)newObject;
 
-- (int)order;
-- (void)setOrder:(int)newOrder;
+- (NSInteger)order;
+- (void)setOrder:(NSInteger)newOrder;
 
 - (NSString *)rankedString;
 - (void)setRankedString:(NSString *)newRankedString;

@@ -79,9 +79,10 @@ NSSize QSMaxIconSize;
     }
 	
 #ifdef DEBUG
-	unsigned count = 0;
+	NSUInteger count = 0;
     count = [keysToDeleteFromObjectDict count];
 	if (DEBUG_MEMORY && count)
+#warning 64BIT: Check formatting arguments
 		NSLog(@"Released %i objects", count);
 #endif
     [keysToDeleteFromObjectDict release];
@@ -93,8 +94,8 @@ NSSize QSMaxIconSize;
 + (void)purgeImagesAndChildrenOlderThan:(NSTimeInterval)interval {
 
 #ifdef DEBUG
-	unsigned imagecount = 0;
-	unsigned childcount = 0;
+	NSUInteger imagecount = 0;
+	NSUInteger childcount = 0;
 #endif
  // NSString *thisKey = nil;
 
@@ -124,7 +125,8 @@ NSSize QSMaxIconSize;
 
 #ifdef DEBUG
 	if (DEBUG_MEMORY && (imagecount || childcount) )
-		NSLog(@"Released %i images and %i children (items before %d) ", imagecount, childcount, (int)interval);
+#warning 64BIT: Check formatting arguments
+		NSLog(@"Released %i images and %i children (items before %d) ", imagecount, childcount, (NSInteger)interval);
 #endif
 
 }
@@ -260,7 +262,7 @@ NSSize QSMaxIconSize;
 		}
 	}
 	// get the number of objects added to combinedData, then release setOfObjects
-	int objectCount = [setOfObjects count];
+	NSInteger objectCount = [setOfObjects count];
 	[setOfObjects release];
 	
 	// If there's still only 1 object (case: if the comma trick is used on the same object multiple times)
@@ -313,6 +315,7 @@ NSSize QSMaxIconSize;
 
 - (const char *) gdbDataFormatter {
 #warning search URL icons crash this method
+#warning 64BIT: Check formatting arguments
 	return [[NSString stringWithFormat:@"name: %@, label: %@, identifier: %@, primaryType: %@, primaryObject: %@, meta: %@, data: %@, cache: %@, icon: %@, lastAccess: %f",
              (name ? name : @"nil"),
              (label ? label : @"nil"),
@@ -340,12 +343,13 @@ NSSize QSMaxIconSize;
 
 - (NSString *)toolTip {
 #ifdef DEBUG
+#warning 64BIT: Check formatting arguments
 	return [NSString stringWithFormat:@"%@ (%d) \r%@\rTypes:\r\t%@", [self name] , self, [self details] , [[self decodedTypes] componentsJoinedByString:@"\r\t"]];
 #endif
 	return nil; //[self displayName];
 }
 
-- (NSString *)descriptionWithLocale:(NSDictionary *)locale indent:(unsigned)level {
+- (NSString *)descriptionWithLocale:(NSDictionary *)locale indent:(NSUInteger)level {
 	return [data descriptionWithLocale:locale indent:level];
 }
 

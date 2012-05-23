@@ -66,7 +66,7 @@
 	return [[self types] containsObject:aType];
 }
 
-- (int)primaryCount {return 0;}
+- (NSInteger)primaryCount {return 0;}
 
 - (NSImage *)icon {
 	return [NSImage imageNamed:@"Object"];
@@ -123,9 +123,9 @@
 	[self ranker];
 }
 
-- (float)score { return 0.0f; }
+- (CGFloat)score { return 0.0f; }
 
-- (int)order { return NSNotFound; }
+- (NSInteger)order { return NSNotFound; }
 
 - (NSComparisonResult)nameCompare:(QSBasicObject*)object {
 	return [[self name] caseInsensitiveCompare:[object name]];

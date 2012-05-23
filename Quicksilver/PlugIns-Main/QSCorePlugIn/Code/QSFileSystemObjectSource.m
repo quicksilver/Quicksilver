@@ -206,7 +206,7 @@
 
 	[itemParserPopUp setMenu:[QSFileSystemObjectSource parserMenuForPath:fullPath]];
 
-	int parserEntry = [itemParserPopUp indexOfItemWithRepresentedObject:parser];
+	NSInteger parserEntry = [itemParserPopUp indexOfItemWithRepresentedObject:parser];
 	[itemParserPopUp selectItemAtIndex:(parserEntry == -1?0:parserEntry)];
 
 	BOOL isDirectory, exists;
@@ -215,9 +215,9 @@
 	if ([[settings objectForKey:kItemParser] isEqualToString:@"QSDirectoryParser"] && (exists) ) {
 		[itemOptionsView setContentView:itemFolderOptions];
 		NSNumber *depth = [settings objectForKey:kItemFolderDepth];
-		int depthInt = (depth?[depth intValue] : 1);
+		NSInteger depthInt = (depth?[depth integerValue] : 1);
 		if (depthInt == -1 || depthInt > 8) depthInt = 8;
-		[itemFolderDepthSlider setFloatValue:9-depthInt];
+		[itemFolderDepthSlider setDoubleValue:9-depthInt];
 	} else {
 		[itemOptionsView setContentView:nil];
 	}
@@ -251,9 +251,9 @@
     }
 	else if (sender == itemFolderDepthSlider) {
         // Slider for setting depth
-		int depth = (9-[itemFolderDepthSlider intValue]);
+		NSInteger depth = (9-[itemFolderDepthSlider integerValue]);
 		if (depth>7) depth = -1;
-		[settings setObject:[NSNumber numberWithInt:depth] forKey:kItemFolderDepth];
+		[settings setObject:[NSNumber numberWithInteger:depth] forKey:kItemFolderDepth];
 	} else if (sender == itemParserPopUp) {
         // 'Include Contents' popup menu
 		NSString *parserName = [[sender selectedItem] representedObject];
@@ -262,7 +262,7 @@
 		else
 			[settings removeObjectForKey:kItemParser];
 	}
-	[currentEntry setObject:[NSNumber numberWithFloat:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
+	[currentEntry setObject:[NSNumber numberWithDouble:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
     
     [[self selection] scanAndCache];
 	[self populateFields];
@@ -273,8 +273,8 @@
 - (BOOL)textShouldEndEditing:(NSText *)aTextObject { return YES;  }
 
 #if 0
-- (int) numberOfRowsInTableView:(NSTableView *)tableView { return [typeSets count];  }
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(int)row {
+- (NSInteger) numberOfRowsInTableView:(NSTableView *)tableView { return [typeSets count];  }
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
 	if ([[tableColumn identifier] isEqualToString:@"Set"]) {
 		return [[typeSets allKeys] objectAtIndex:row];
 		return @"name";
@@ -369,7 +369,7 @@
 	[itemLocationField setStringValue:[[openPanel filename] stringByAbbreviatingWithTildeInPath]];
 	[self setValueForSender:itemLocationField];
 	[[self selection] setName:[[openPanel filename] lastPathComponent]];
-	[currentEntry setObject:[NSNumber numberWithFloat:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
+	[currentEntry setObject:[NSNumber numberWithDouble:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChanged object:[self currentEntry]];
 	return YES;
 }
@@ -394,12 +394,12 @@
 	NSFileManager *manager = [NSFileManager defaultManager];
 	if (![manager fileExistsAtPath:itemPath isDirectory:nil]) return YES;
 
-	NSDate *specDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[[settings objectForKey:kItemModificationDate] floatValue]];
+	NSDate *specDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[[settings objectForKey:kItemModificationDate] doubleValue]];
 
 	if ([specDate compare:indexDate] == NSOrderedDescending) return NO; //Catalog Specification is more recent than index
 
 	NSNumber *depth = [settings objectForKey:kItemFolderDepth];
-	 NSDate *modDate = [manager path:itemPath wasModifiedAfter:indexDate depth:[depth intValue]];
+	 NSDate *modDate = [manager path:itemPath wasModifiedAfter:indexDate depth:[depth integerValue]];
 	 return modDate == nil;
 }
 

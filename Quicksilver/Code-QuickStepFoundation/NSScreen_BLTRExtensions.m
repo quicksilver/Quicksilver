@@ -17,7 +17,7 @@
 
 @implementation NSScreen (BLTRExtensions)
 
-+ (NSScreen *)screenWithNumber:(int)number {
++ (NSScreen *)screenWithNumber:(NSInteger)number {
 	for(NSScreen *screen in [self screens]) {
 		if ([screen screenNumber] == number) {
 			return screen;
@@ -27,8 +27,8 @@
 	return nil;
 }
 
-- (int)screenNumber {
-	unsigned int screenNumber;
+- (NSInteger)screenNumber {
+	NSUInteger screenNumber;
 	object_getInstanceVariable(self, "_screenNumber", (void*)&screenNumber);
 	return screenNumber;//[[[self deviceDescription]objectForKey:@"NSScreenNumber"]intValue]; 
 } 

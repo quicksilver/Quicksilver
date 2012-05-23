@@ -48,7 +48,7 @@
 
 - (void)typeString:(NSString *)string {
 	const char *s = [string UTF8String];
-	int i;
+	NSInteger i;
 	BOOL upper;
 	for (i = 0; i<strlen(s); i++) {
 		CGKeyCode code = [[NDKeyboardLayout keyboardLayout] keyCodeForCharacter:s[i]];

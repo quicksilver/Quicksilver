@@ -50,10 +50,13 @@ QSTextViewer * QSShowTextViewerWithFile(NSString *path) {
 
 	NSTextView *theTextView = [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, contentSize.width, contentSize.height)];
 	[theTextView setMinSize:NSMakeSize(0.0, contentSize.height)];
+#warning 64BIT: Inspect use of MAX/MIN constant; consider one of LONG_MAX/LONG_MIN/ULONG_MAX/DBL_MAX/DBL_MIN, or better yet, NSIntegerMax/Min, NSUIntegerMax, CGFLOAT_MAX/MIN
+#warning 64BIT: Inspect use of MAX/MIN constant; consider one of LONG_MAX/LONG_MIN/ULONG_MAX/DBL_MAX/DBL_MIN, or better yet, NSIntegerMax/Min, NSUIntegerMax, CGFLOAT_MAX/MIN
 	[theTextView setMaxSize:NSMakeSize(FLT_MAX, FLT_MAX)];
 	[theTextView setVerticallyResizable:YES];
 	[theTextView setHorizontallyResizable:NO];
 	[theTextView setAutoresizingMask:NSViewWidthSizable];
+#warning 64BIT: Inspect use of MAX/MIN constant; consider one of LONG_MAX/LONG_MIN/ULONG_MAX/DBL_MAX/DBL_MIN, or better yet, NSIntegerMax/Min, NSUIntegerMax, CGFLOAT_MAX/MIN
 	[[theTextView textContainer] setContainerSize:NSMakeSize(contentSize.width, FLT_MAX)];
 	[[theTextView textContainer] setWidthTracksTextView:YES];
 
@@ -65,6 +68,8 @@ QSTextViewer * QSShowTextViewerWithFile(NSString *path) {
 	[[theTextView enclosingScrollView] setHasHorizontalScroller:YES];
 	[theTextView setHorizontallyResizable:YES];
 	[theTextView setAutoresizingMask:(NSViewWidthSizable | NSViewHeightSizable)];
+#warning 64BIT: Inspect use of MAX/MIN constant; consider one of LONG_MAX/LONG_MIN/ULONG_MAX/DBL_MAX/DBL_MIN, or better yet, NSIntegerMax/Min, NSUIntegerMax, CGFLOAT_MAX/MIN
+#warning 64BIT: Inspect use of MAX/MIN constant; consider one of LONG_MAX/LONG_MIN/ULONG_MAX/DBL_MAX/DBL_MIN, or better yet, NSIntegerMax/Min, NSUIntegerMax, CGFLOAT_MAX/MIN
 	[[theTextView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
 	[[theTextView textContainer] setWidthTracksTextView:YES];
 

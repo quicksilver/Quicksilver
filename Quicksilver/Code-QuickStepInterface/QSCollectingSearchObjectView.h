@@ -16,7 +16,7 @@
 	NSMutableArray *collection;
 	BOOL 			collecting;
 	NSRectEdge		collectionEdge;
-	float			collectionSpace;
+	CGFloat			collectionSpace;
 }
 
 - (IBAction)emptyCollection:(id)sender;
@@ -25,8 +25,8 @@
 - (NSRectEdge) collectionEdge;
 - (void)setCollectionEdge:(NSRectEdge)value;
 
-- (float) collectionSpace;
-- (void)setCollectionSpace:(float)value;
+- (CGFloat) collectionSpace;
+- (void)setCollectionSpace:(CGFloat)value;
 
 
 @end

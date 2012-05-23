@@ -34,7 +34,7 @@
 
 - (NSWindow *)triggerDisplayWindowWithTrigger:(QSTrigger *)trigger {
 	NSImage *image = [[trigger command] icon];
-	int quadrant = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSNotifierDefaultQuadrant"];
+	NSInteger quadrant = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSNotifierDefaultQuadrant"];
 	NSImage *splashImage = image;
 	[splashImage createRepresentationOfSize:NSMakeSize(128, 128)];
 	[splashImage setSize:NSMakeSize(128, 128)];

@@ -74,8 +74,8 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 	return apps;
 }
 
-- (int) pidForApplication:(NSDictionary *)theApp {
-	return [[theApp objectForKey: @"NSApplicationProcessIdentifier"] intValue];
+- (NSInteger) pidForApplication:(NSDictionary *)theApp {
+	return [[theApp objectForKey: @"NSApplicationProcessIdentifier"] integerValue];
 }
 - (BOOL)applicationIsRunning:(NSString *)pathOrID {
 	return ([self dictForApplicationName:pathOrID] || [self dictForApplicationIdentifier:pathOrID]);
@@ -99,7 +99,7 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 - (void)killApplication:(NSString *)path {
 	NSDictionary *theApp = [self dictForApplicationName:path];
 	if (theApp)
-		kill((pid_t)[[theApp objectForKey:@"NSApplicationProcessIdentifier"] intValue], SIGKILL);
+		kill((pid_t)[[theApp objectForKey:@"NSApplicationProcessIdentifier"] integerValue], SIGKILL);
 }
 
 - (BOOL)applicationIsHidden:(NSDictionary *)theApp {
@@ -146,8 +146,8 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 
 - (void)hideOtherApplications:(NSArray *)theApps {
 	NSDictionary *theApp = [theApps lastObject];
-	int count = [theApps count];
-	int i;
+	NSInteger count = [theApps count];
+	NSInteger i;
 	ProcessSerialNumber psn[count];
 	for (i = 0; i<count; i++)
 		[self PSN:psn+i forApplication:[theApps objectAtIndex:i]];
@@ -168,8 +168,8 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 
 - (void)quitOtherApplications:(NSArray *)theApps {
 	NSDictionary *theApp = [theApps lastObject];
-	int count = [theApps count];
-	int i;
+	NSInteger count = [theApps count];
+	NSInteger i;
 	ProcessSerialNumber psn[count];
 	for (i = 0; i<count; i++)
 		[self PSN:psn+i forApplication:[theApps objectAtIndex:i]];
@@ -217,8 +217,11 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 	if ([self PSN:&psn forApplication:theApp]){
 		AppleEvent event = {typeNull, 0};
 		AEBuildError error;
+#warning 64BIT: Inspect use of sizeof
 		OSStatus err = AEBuildAppleEvent('misc', 'actv', typeProcessSerialNumber, &psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event, &error, "");
 		if (err)
+#warning 64BIT: Inspect use of long
+#warning 64BIT: Inspect use of long
 			NSLog(@"%ld:%ld at \"%@\"", (long)error.fError, (long)error.fErrorPos, @"");
 		else {
 			AppleEvent reply;
@@ -237,8 +240,10 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 	AppleEvent event = {typeNull, 0} ;
 	AEBuildError error;
 
+#warning 64BIT: Inspect use of sizeof
 	OSStatus err = AEBuildAppleEvent(kCoreEventClass, kAEQuitApplication, typeProcessSerialNumber, &psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event, &error, "");
 
+#warning 64BIT: Check formatting arguments
 	if (err) NSLog(@"%d:%d at \"%@\"", error.fError, error.fErrorPos, @"");
 	else {
 		err = AESend(&event, NULL, kAENoReply, kAENormalPriority, kAEDefaultTimeout, NULL, NULL);
@@ -258,8 +263,11 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 	AppleEvent event = {typeNull, 0};
 	AEBuildError error;
 
+#warning 64BIT: Inspect use of sizeof
 	OSStatus err = AEBuildAppleEvent(kCoreEventClass, kAEQuitApplication, typeProcessSerialNumber, &psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event, &error, "");
 	if (err)
+#warning 64BIT: Inspect use of long
+#warning 64BIT: Inspect use of long
 		NSLog(@"%ld:%ld at \"%@\"", (long)error.fError, (long)error.fErrorPos, @"");
 	else {
 		err = AESend(&event, NULL, kAENoReply, kAENormalPriority, kAEDefaultTimeout, NULL, NULL);
@@ -273,8 +281,11 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 	if ([self PSN:&psn forApplication:theApp]){
 		AppleEvent event = {typeNull, 0};
 		AEBuildError error;
+#warning 64BIT: Inspect use of sizeof
 		OSStatus err = AEBuildAppleEvent(kCoreEventClass, kAEQuitApplication, typeProcessSerialNumber, &psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event, &error, "");
 		if (err)
+#warning 64BIT: Inspect use of long
+#warning 64BIT: Inspect use of long
 			NSLog(@"%ld:%ld at \"%@\"", (long)error.fError, (long)error.fErrorPos, @"");
 		else {
 			err = AESend(&event, NULL, kAEWaitReply, kAENormalPriority, kAEDefaultTimeout, NULL, NULL);
@@ -296,6 +307,7 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 	spec.launchFlags	 = kLSLaunchNewInstance;
 	spec.asyncRefCon	 = NULL;
 	err = LSOpenFromURLSpec( &spec, NULL );
+#warning 64BIT: Inspect use of long
 	NSLog(@"err %ld", (long)err);
 	//CFRelease( spec.appURL );
 }
@@ -310,13 +322,13 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 	return !LSOpenFromURLSpec(&launchSpec, NULL);
 }
 - (void)relaunchApplication:(NSDictionary *)theApp {
-	if ([[theApp objectForKey:@"NSApplicationProcessIdentifier"] intValue] == [[NSProcessInfo processInfo] processIdentifier])
+	if ([[theApp objectForKey:@"NSApplicationProcessIdentifier"] integerValue] == [[NSProcessInfo processInfo] processIdentifier])
 		[NSApp relaunch:nil];
 
 	ProcessSerialNumber psn;
 	if ([self PSN:&psn forApplication:theApp]){
 		[self quitApplicationAndWait:theApp];
-		int pid;
+		NSInteger pid;
 		NSString *bundlePath = [[theApp objectForKey:@"NSApplicationPath"] stringByDeletingLastPathComponent];
 		if ([[bundlePath lastPathComponent] isEqualToString:@"MacOS"] || [[bundlePath lastPathComponent] isEqualToString:@"MacOSClassic"]) {
 			bundlePath = [bundlePath stringByDeletingLastPathComponent];
@@ -326,7 +338,8 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 			bundlePath = [theApp objectForKey:@"NSApplicationPath"];
 		}
 		while(1) {
-			int status = GetProcessPID(&psn, &pid);
+			NSInteger status = GetProcessPID(&psn, &pid);
+#warning 64BIT: Check formatting arguments
 			NSLog(@"waiting for %@ to quit, current status :%d for PID %d", bundlePath, status, pid);
 			// wait for half a second
 			usleep(500000);
@@ -339,7 +352,7 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 	}
 }
 
-- (NSString *)nameForPID:(int)pid {
+- (NSString *)nameForPID:(NSInteger)pid {
 	ProcessSerialNumber psn;
 	if (!GetProcessForPID(pid, &psn) ) {
 		NSString *name = nil;
@@ -349,7 +362,7 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 	return nil;
 }
 
-- (NSString *)pathForPID:(int)pid {
+- (NSString *)pathForPID:(NSInteger)pid {
 	ProcessSerialNumber psn;
 	FSRef ref;
 	if (!GetProcessForPID(pid, &psn) && !GetProcessBundleLocation(&psn, &ref))

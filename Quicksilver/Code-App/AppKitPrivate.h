@@ -32,8 +32,8 @@
 - (void)removeServiceProvider:fp8;
 - providerRespondingToSelector:(SEL) fp8;
 - _doInvokeServiceIn:fp8 msg:fp12 pb:fp16 userData:fp20 error:(id *)fp24 unhide:(char)fp28;
-- (int) invokeServiceIn:fp8 msg:fp12 pb:fp16 userData:fp20 error:(id *)fp24;
-- (int) invokeServiceIn:fp8 msg:fp12 pb:fp16 userData:fp20 menu:fp24 remoteServices:fp28;
+- (NSInteger) invokeServiceIn:fp8 msg:fp12 pb:fp16 userData:fp20 error:(id *)fp24;
+- (NSInteger) invokeServiceIn:fp8 msg:fp12 pb:fp16 userData:fp20 menu:fp24 remoteServices:fp28;
 - (void)asyncInvokeServiceIn:fp8 msg:fp12 pb:fp16 userData:fp20 menu:fp24 remoteServices:fp28 unhide:(char)fp32;
 - (void)serviceError:fp8 error:fp12;
 @end

@@ -58,7 +58,7 @@
 
 - (void)localizeView:(NSView*)view; {
 	NSArray* items;
-	int i, cnt;
+	NSInteger i, cnt;
 	NSTabViewItem* tabViewItem;
 
 	if ([view isKindOfClass:[NSButton class]]) {

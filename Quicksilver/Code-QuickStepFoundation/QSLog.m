@@ -9,13 +9,15 @@
 #import "QSLog.h"
 
 @implementation QSLog
-+(void)logFile:(char*)sourceFile lineNumber:(int)lineNumber format:(NSString*)format, ... {
++(void)logFile:(char*)sourceFile lineNumber:(NSInteger)lineNumber format:(NSString*)format, ... {
 	va_list ap;
 	NSString *print, *file;
 	va_start(ap, format);
 	file = [[NSString alloc] initWithBytes:sourceFile length:strlen(sourceFile) encoding:NSUTF8StringEncoding];
+#warning 64BIT: Check formatting arguments
 	print = [[NSString alloc] initWithFormat:format arguments:ap];
 	va_end(ap);
+#warning 64BIT: Check formatting arguments
 	NSLog(@"%s:%d %@", [[file lastPathComponent] UTF8String], lineNumber, print);
 	[print release];
 	[file release];
@@ -32,6 +34,7 @@ void QuietLog (NSString *format, ...) {
 	// NSString luckily provides us with this handy method which
 	// will do all the work for us, including %@
 	NSString *string;
+#warning 64BIT: Check formatting arguments
 	string = [[NSString alloc] initWithFormat: format
 									arguments: argList];
 	va_end (argList);

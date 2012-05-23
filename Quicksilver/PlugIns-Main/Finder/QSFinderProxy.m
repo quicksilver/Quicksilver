@@ -40,7 +40,7 @@
         return nil;
     }
 	NSMutableArray *files = [NSMutableArray arrayWithCapacity:[desc numberOfItems]];
-	int i;
+	NSInteger i;
 	for (i = 0; i<[desc numberOfItems]; i++)
 		[files addObject:[[desc descriptorAtIndex:i+1] stringValue]];
 	return files;

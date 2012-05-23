@@ -55,7 +55,7 @@
 	NSEvent *upEvent = nil;
 
 	if ([[trigger objectForKey:@"delay"] boolValue]) {
-		NSDate *delayDate = [NSDate dateWithTimeIntervalSinceNow:[[trigger objectForKey:@"delayInterval"] floatValue]];
+		NSDate *delayDate = [NSDate dateWithTimeIntervalSinceNow:[[trigger objectForKey:@"delayInterval"] doubleValue]];
 		upEvent = [self nextHotKeyUpEventUntilDate:delayDate];
 		if (upEvent) {
 			[window performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"0.125", @"duration", @"QSShrinkEffect", @"transformFn", @"hide", @"type", nil]];
@@ -68,7 +68,7 @@
 		[trigger execute];
 
 	if (onRepeat) {
-		float repeatInterval = [[trigger objectForKey:@"onRepeatInterval"] floatValue];
+		CGFloat repeatInterval = [[trigger objectForKey:@"onRepeatInterval"] doubleValue];
 		NSDate *repeatDate = [NSDate dateWithTimeIntervalSinceNow:repeatInterval];
 		while (!(upEvent = [self nextHotKeyUpEventUntilDate:repeatDate]) ) {
 			repeatDate = [NSDate dateWithTimeIntervalSinceNow:repeatInterval];
@@ -108,7 +108,7 @@
 - (BOOL)enableTrigger:(QSTrigger *)trigger {
 	NSDictionary *entry = (NSDictionary*)[trigger info];
 	if ([entry objectForKey:@"keyCode"]) {
-		QSHotKeyEvent *activationKey = [QSHotKeyEvent getHotKeyForKeyCode:[[entry objectForKey:@"keyCode"] shortValue] character:([[entry objectForKey:@"characters"] length]) ? [[entry objectForKey:@"characters"] characterAtIndex:0] :0 safeModifierFlags:[[entry objectForKey:@"modifiers"] intValue]];
+		QSHotKeyEvent *activationKey = [QSHotKeyEvent getHotKeyForKeyCode:[[entry objectForKey:@"keyCode"] shortValue] character:([[entry objectForKey:@"characters"] length]) ? [[entry objectForKey:@"characters"] characterAtIndex:0] :0 safeModifierFlags:[[entry objectForKey:@"modifiers"] integerValue]];
 
 		[activationKey setTarget:self selectorReleased:@selector(hotKeyReleased:) selectorPressed:@selector(hotKeyPressed:)];
 		[activationKey setIdentifier:[entry objectForKey:kItemID]];
@@ -125,7 +125,7 @@
 
 - (NSString *)descriptionForTrigger:(NSDictionary *)thisTrigger {
 	if ([thisTrigger objectForKey:@"keyCode"] && [thisTrigger objectForKey:@"modifiers"])
-		return [[QSHotKeyEvent getHotKeyForKeyCode:[[thisTrigger objectForKey:@"keyCode"] shortValue] character:0 safeModifierFlags:[[thisTrigger objectForKey:@"modifiers"] intValue]] stringValue];
+		return [[QSHotKeyEvent getHotKeyForKeyCode:[[thisTrigger objectForKey:@"keyCode"] shortValue] character:0 safeModifierFlags:[[thisTrigger objectForKey:@"modifiers"] integerValue]] stringValue];
 	else
 		return @"None";
 }

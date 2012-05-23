@@ -33,7 +33,7 @@
 + (id)plugInWithBundle:(NSBundle *)aBundle;
 + (id)plugInWithWebInfo:(NSDictionary *)webInfo;
 + (NSString *)bundleIDForPluginAt:(NSString*)path andVersion:(NSString**)version;
-- (int) isInstalled;
+- (NSInteger) isInstalled;
 - (NSString *)name;
 - (NSString *)statusBullet;
 - (NSString *)author;
@@ -53,7 +53,7 @@
 
 - (NSData *)attributedDescription;
 - (NSImage *)icon;
-- (int) enabled;
+- (NSInteger) enabled;
 - (BOOL)canBeDisabled;
 - (BOOL)isObsolete;
 - (BOOL)needsUpdate;
@@ -63,7 +63,7 @@
 
 - (NSString *)bundleIdentifier;
 - (NSString *)bundlePath;
-- (int) isLoaded;
+- (NSInteger) isLoaded;
 - (NSDictionary *)info;
 - (BOOL)isUniversal;
 - (BOOL)isSecret;

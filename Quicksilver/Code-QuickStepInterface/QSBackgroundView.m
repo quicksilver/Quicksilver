@@ -36,13 +36,13 @@
 
 - (void)_drawRect:(NSRect)rect withGradientFrom:(NSColor*)colorStart to:(NSColor*)colorEnd start:(NSRectEdge)edge {
 	NSRect remainingRect;
-	int i;
-	int index = (edge == NSMinXEdge || edge == NSMaxXEdge) ? rect.size.width : rect.size.height;
+	NSInteger i;
+	NSInteger index = (edge == NSMinXEdge || edge == NSMaxXEdge) ? rect.size.width : rect.size.height;
 	remainingRect = rect;
 	NSColor *colors[index];
 	NSRect rects[index];
 	for ( i = 0; i < index; i++ ) {
-		float fraction = sqrt((float) i/(float)index);
+		CGFloat fraction = sqrt((CGFloat) i/(CGFloat)index);
 		NSDivideRect ( remainingRect, &rects[i] , &remainingRect, 1.0, edge);
 		colors[i] = [colorStart blendedColorWithFraction:fraction ofColor:colorEnd];
 	}
@@ -83,6 +83,6 @@
 	}
 }
 
-- (float) depth { return depth;  }
-- (void)setDepth:(float)aDepth { depth = aDepth;  }
+- (CGFloat) depth { return depth;  }
+- (void)setDepth:(CGFloat)aDepth { depth = aDepth;  }
 @end

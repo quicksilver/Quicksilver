@@ -84,5 +84,5 @@
 @end
 
 @interface NSWindow (CGSTransitionRedraw)
-- (void)displayWithTransition:(CGSTransitionType) type option:(CGSTransitionOption)option duration:(float)duration;
+- (void)displayWithTransition:(CGSTransitionType) type option:(CGSTransitionOption)option duration:(CGFloat)duration;
 @end

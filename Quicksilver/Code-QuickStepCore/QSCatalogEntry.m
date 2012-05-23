@@ -158,7 +158,7 @@ NSDictionary *enabledPresetDictionary;*/
 - (BOOL)isSeparator { return [[self identifier] hasPrefix:@"QSSeparator"]; }
 - (BOOL)isGroup { return [[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]; }
 - (BOOL)isLeaf { return ![self isGroup]; }
-- (int)state {
+- (NSInteger)state {
 	BOOL enabled = [self isEnabled];
 	if (!enabled) return 0;
 	if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
@@ -169,7 +169,7 @@ NSDictionary *enabledPresetDictionary;*/
 	return enabled;
 }
 
-- (int)hasEnabledChildren {
+- (NSInteger)hasEnabledChildren {
 	if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
 		BOOL hasEnabledChildren = NO;
 		for (id loopItem in children)
@@ -372,8 +372,9 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (NSString *)getCount {
-	int num;
+	NSInteger num;
 	if((num = [self count]))
+#warning 64BIT: Check formatting arguments
 		return [NSString stringWithFormat:@"%d", num];
 	else
 		return nil;
@@ -455,7 +456,7 @@ NSDictionary *enabledPresetDictionary;*/
 		[self setIndexDate:[[manager attributesOfItemAtPath:indexPath error:NULL] fileModificationDate]];
 	NSNumber *modInterval = [info objectForKey:kItemModificationDate];
 	if (modInterval) {
-		NSDate *specDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[modInterval floatValue]];
+		NSDate *specDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[modInterval doubleValue]];
 		if ([specDate compare:indexDate] == NSOrderedDescending) return NO; //Catalog Specification is more recent than index
 	}
 	return [[self source] indexIsValidFromDate:indexDate forEntry:info];

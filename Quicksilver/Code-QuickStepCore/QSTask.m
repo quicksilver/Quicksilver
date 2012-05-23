@@ -63,6 +63,7 @@ static NSMutableDictionary *tasksDictionary = nil;
 	return icon;
 }
 - (NSString *)description {
+#warning 64BIT: Check formatting arguments
 	return [NSString stringWithFormat:@"[%@:%@:%@ %2d] ", identifier, name, status, [self retainCount]];
 }
 - (id)init {
@@ -118,6 +119,7 @@ static NSMutableDictionary *tasksDictionary = nil;
 	if (running) {
 		
 #ifdef DEBUG
+#warning 64BIT: Inspect use of long
 		if (VERBOSE) NSLog(@"End Task: %@ %ld", [self identifier], (long)[self retainCount]);
 #endif
 		
@@ -194,10 +196,10 @@ static NSMutableDictionary *tasksDictionary = nil;
 	}
 }
 
-- (float) progress {
+- (CGFloat) progress {
 	return progress;
 }
-- (void)setProgress:(float)value {
+- (void)setProgress:(CGFloat)value {
 	if (progress != value) {
 		progress = value;
 	}

@@ -3,7 +3,7 @@
 
 #define kCustomCatalogID @"QSCatalogCustom"
 
-extern float QSMinScore;
+extern CGFloat QSMinScore;
 
 @class QSBasicObject;
 @class QSObject;
@@ -42,7 +42,7 @@ extern QSLibrarian *QSLib; // Shared Instance
 	NSMutableDictionary *entriesByID;
 
 	NSMutableArray *invalidIndexes;
-	int scannerCount;
+	NSInteger scannerCount;
 }
 
 + (id)sharedInstance;
@@ -79,7 +79,7 @@ extern QSLibrarian *QSLib; // Shared Instance
 - (void)scanCatalogWithDelay:(id)sender;
 - (BOOL)itemIsOmitted:(QSBasicObject *)item;
 - (void)setItem:(QSBasicObject *)item isOmitted:(BOOL)omit;
-- (float) estimatedTimeForSearchInSet:(id)set;
+- (CGFloat) estimatedTimeForSearchInSet:(id)set;
 - (NSMutableArray *)scoreTest:(id)sender;
 - (NSMutableArray *)scoredArrayForString:(NSString *)string;
 - (NSMutableArray *)scoredArrayForString:(NSString *)string inNamedSet:(NSString *)setName __attribute__((deprecated));

@@ -1,4 +1,3 @@
-
 #import <Carbon/Carbon.h>
 #import "NSEvent+BLTRExtensions.h"
 
@@ -7,7 +6,7 @@
 + (NSTimeInterval) doubleClickTime {
 	return (double) [NSEvent doubleClickInterval] / 60.0;
 }
-- (int)standardModifierFlags {
+- (NSInteger)standardModifierFlags {
 	return [self modifierFlags] & (NSCommandKeyMask | NSAlternateKeyMask | NSControlKeyMask | NSShiftKeyMask | NSFunctionKeyMask);
 }
 

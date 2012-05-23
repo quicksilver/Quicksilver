@@ -25,9 +25,9 @@
 	[window setHideOffset:NSMakePoint(0, 0)];
 	[window setShowOffset:NSMakePoint(0, 0)];
 
-	[window setWindowProperty:[NSDictionary dictionaryWithObjectsAndKeys:@"QSExplodeEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithFloat:0.15], @"duration", nil] forKey:kQSWindowExecEffect];
-	[window setWindowProperty:[NSDictionary dictionaryWithObjectsAndKeys:@"hide", @"type", [NSNumber numberWithFloat:0.15], @"duration", nil] forKey:kQSWindowFadeEffect];
-	[window setWindowProperty:[NSDictionary dictionaryWithObjectsAndKeys:@"QSVContractEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithFloat:0.25], @"duration", nil, [NSNumber numberWithFloat:0.25] , @"brightnessB", @"QSStandardBrightBlending", @"brightnessFn", nil] forKey:kQSWindowCancelEffect];
+	[window setWindowProperty:[NSDictionary dictionaryWithObjectsAndKeys:@"QSExplodeEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithDouble:0.15], @"duration", nil] forKey:kQSWindowExecEffect];
+	[window setWindowProperty:[NSDictionary dictionaryWithObjectsAndKeys:@"hide", @"type", [NSNumber numberWithDouble:0.15], @"duration", nil] forKey:kQSWindowFadeEffect];
+	[window setWindowProperty:[NSDictionary dictionaryWithObjectsAndKeys:@"QSVContractEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithDouble:0.25], @"duration", nil, [NSNumber numberWithDouble:0.25] , @"brightnessB", @"QSStandardBrightBlending", @"brightnessFn", nil] forKey:kQSWindowCancelEffect];
 
 	[(QSBezelBackgroundView *)[[self window] contentView] setRadius:24.0];
 	[(QSBezelBackgroundView *)[[self window] contentView] setGlassStyle:QSGlossUpArc];

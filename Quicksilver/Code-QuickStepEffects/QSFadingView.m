@@ -23,8 +23,8 @@
 	}
 	return self;
 }
-- (float)opacity { return opacity;  }
-- (void)setOpacity:(float)newOpacity {
+- (CGFloat)opacity { return opacity;  }
+- (void)setOpacity:(CGFloat)newOpacity {
 	if (opacity != newOpacity)
 		[self setNeedsDisplay:YES];
 	opacity = newOpacity;

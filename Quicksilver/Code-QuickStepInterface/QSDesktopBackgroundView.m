@@ -41,7 +41,7 @@
     } else if (backgroundType == QSDesktopBackgroundFillScreen) {
         dstRect=rect;
     } else if (backgroundType == QSDesktopBackgroundCrop) {
-        float proportion=NSWidth(srcRect)/NSHeight(srcRect);
+        CGFloat proportion=NSWidth(srcRect)/NSHeight(srcRect);
         NSRect lrgRect = NSUnionRect(NSMakeRect(0,0,rect.size.width,rect.size.width/proportion),NSMakeRect(0,0,rect.size.height*proportion,rect.size.height));
         dstRect=NSOffsetRect(lrgRect,NSMidX(rect)-NSMidX(lrgRect),NSMidY(rect)-NSMidY(lrgRect));
     } else {
@@ -57,8 +57,8 @@
     NSArray *colorArray = [backgroundDict objectForKey:@"BackgroundColor"];
 //	[SLog(@"back %@",[backgroundDict objectForKey:@"ImageFilePath"]);
     [self setBackgroundImage:[[[NSImage allocWithZone:[self zone]] initWithContentsOfFile: [backgroundDict objectForKey:@"ImageFilePath"]] autorelease]];
-    [self setBackgroundColor:[NSColor colorWithCalibratedRed:[[colorArray objectAtIndex:0]floatValue] green:[[colorArray objectAtIndex:1]floatValue] blue:[[colorArray objectAtIndex:2]floatValue] alpha:1]];
-    [self setBackgroundType:[[backgroundDict objectForKey:@"PlacementKeyTag"]intValue]];
+    [self setBackgroundColor:[NSColor colorWithCalibratedRed:[[colorArray objectAtIndex:0] doubleValue] green:[[colorArray objectAtIndex:1] doubleValue] blue:[[colorArray objectAtIndex:2] doubleValue] alpha:1]];
+    [self setBackgroundType:[[backgroundDict objectForKey:@"PlacementKeyTag"] integerValue]];
     [self setNeedsDisplay:YES];
 }
 
@@ -70,7 +70,7 @@
 	
 	NSString *key=@"default";
 	if (screenNumber)
-		key=[NSString stringWithFormat:@"%d",screenNumber];
+		key=[NSString stringWithFormat:@"%d", (long)screenNumber];
 	NSDictionary *dict=[backgroundsDict objectForKey:key];
 	//	QSLog(@"Screen %d %@, %@",screenNumber,dict,[backgroundsDict description]);
 	
@@ -78,8 +78,8 @@
 	
 }
 
-- (int)screenNumber { return screenNumber; }
-- (void)setScreenNumber:(int)newScreenNumber{
+- (NSInteger)screenNumber { return screenNumber; }
+- (void)setScreenNumber:(NSInteger)newScreenNumber{
 	if (screenNumber!=newScreenNumber){
 		screenNumber = newScreenNumber;
 		[self updateDisplay];

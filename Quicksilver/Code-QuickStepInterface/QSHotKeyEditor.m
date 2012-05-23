@@ -140,12 +140,12 @@
 	[self setString:[newString length] ? newString:defaultString];
 }
 - (void)setDictionaryStringWithEvent:(NSEvent *)theEvent {
-	unsigned int modifiers = [theEvent modifierFlags];
+	NSUInteger modifiers = [theEvent modifierFlags];
 	unsigned short keyCode = [theEvent keyCode];
 	NSString *characters = (keyCode == 48) ? @"\t" : [theEvent charactersIgnoringModifiers];
 	//	NSLog(@"event %@", theEvent);
 	if ([theEvent modifierFlags] & (NSCommandKeyMask | NSFunctionKeyMask | NSControlKeyMask | NSAlternateKeyMask) ) {
-	  	NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithUnsignedInt:modifiers] , @"modifiers", [NSNumber numberWithUnsignedShort:keyCode], @"keyCode", characters, @"character", nil];
+	  	NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithUnsignedInteger:modifiers] , @"modifiers", [NSNumber numberWithUnsignedShort:keyCode], @"keyCode", characters, @"character", nil];
 		validCombo = YES;
 		NSString *string = [[NSString alloc] initWithData:[NSPropertyListSerialization dataFromPropertyList:dict format:NSPropertyListXMLFormat_v1_0 errorDescription:nil] encoding:NSUTF8StringEncoding];
 		[self setString:string];
@@ -203,10 +203,10 @@
 }
 
 - (NSDictionary *)hotKeyDictForEvent:(NSEvent *)event {
-	unsigned int modifiers = [event modifierFlags];
+	NSUInteger modifiers = [event modifierFlags];
 	unsigned short keyCode = [event keyCode];
 //	NSString *character = (keyCode == 48) ? @"\t" : [event charactersIgnoringModifiers];
-	return [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithUnsignedInt:modifiers] , @"modifiers", [NSNumber numberWithUnsignedShort:keyCode] , @"keyCode", nil];
+	return [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithUnsignedInteger:modifiers] , @"modifiers", [NSNumber numberWithUnsignedShort:keyCode] , @"keyCode", nil];
 }
 
 - (NSDictionary *)hotKey { return hotKey;  }

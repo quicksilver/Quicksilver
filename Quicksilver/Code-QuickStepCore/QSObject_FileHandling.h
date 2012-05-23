@@ -24,7 +24,7 @@
 - (NSString *)validSingleFilePath;
 - (NSArray *)validPaths;
 - (NSArray *)validPathsResolvingAliases:(BOOL)resolve;
-- (int) fileCount;
+- (NSInteger) fileCount;
 @end
 
 @interface NSObject (QSFilePreviewProvider)

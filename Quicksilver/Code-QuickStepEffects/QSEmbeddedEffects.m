@@ -9,16 +9,16 @@
 #import "QSEffects.h"
 #import "QSWindowAnimation.h"
 
-float QSStandardAlphaBlending(QSWindowAnimation *hl, float f) {
+CGFloat QSStandardAlphaBlending(QSWindowAnimation *hl, CGFloat f) {
 	return (1-f) *hl->_alphaA + f*hl->_alphaB;
 }
 
-float QSStandardBrightBlending(QSWindowAnimation *hl, float f) {
+CGFloat QSStandardBrightBlending(QSWindowAnimation *hl, CGFloat f) {
 	f = f/4;
 	return (1-f) *hl->_brightA + f*hl->_brightB;
 }
 
-CGAffineTransform QSStandardTransformBlending(QSWindowAnimation *hl, float f) {
+CGAffineTransform QSStandardTransformBlending(QSWindowAnimation *hl, CGFloat f) {
 	CGAffineTransform start = hl->_transformA;
 	CGAffineTransform end = hl->_transformB;
 	CGAffineTransform t;
@@ -31,100 +31,100 @@ CGAffineTransform QSStandardTransformBlending(QSWindowAnimation *hl, float f) {
 	return t;
 }
 
-CGAffineTransform QSPurgeEffect(QSWindowAnimation *hl, float f) {
+CGAffineTransform QSPurgeEffect(QSWindowAnimation *hl, CGFloat f) {
 	NSSize size = [hl->_window frame].size;
 	f = cos(f*M_PI_2);
-	float s = pow(f, 2);
+	CGFloat s = pow(f, 2);
 	CGAffineTransform modTransform = CGAffineTransformMakeScale(1/s, 1);
 	modTransform = CGAffineTransformTranslate(modTransform, -size.width/2 + size.width/2*s, 0);
 	return CGAffineTransformConcat(hl->_transformA, modTransform);
 }
 
-CGAffineTransform QSBingeEffect(QSWindowAnimation *hl, float f) {
+CGAffineTransform QSBingeEffect(QSWindowAnimation *hl, CGFloat f) {
 	NSSize size = [hl->_window frame] .size;
 	f = sin(f*M_PI_2);
-	float s = pow(f, 2);
+	CGFloat s = pow(f, 2);
 	CGAffineTransform modTransform = CGAffineTransformMakeScale(1/s, 1);
 	modTransform = CGAffineTransformTranslate(modTransform, -size.width/2 + size.width/2*s, 0);
 	return CGAffineTransformConcat(hl->_transformA, modTransform);
 }
 
-CGAffineTransform QSVContractEffect(QSWindowAnimation *hl, float f) {
+CGAffineTransform QSVContractEffect(QSWindowAnimation *hl, CGFloat f) {
 	NSSize size = [hl->_window frame] .size;
 	f = cos(f*M_PI_2);
-	float s = pow(f, 2);
-	float s2 = pow(f, 16);
+	CGFloat s = pow(f, 2);
+	CGFloat s2 = pow(f, 16);
 	CGAffineTransform t = CGAffineTransformMakeTranslation(size.width/2, size.height/2);
 	t = CGAffineTransformScale(t, s, 1/s2);
 	t = CGAffineTransformTranslate(t, -size.width/2, -size.height/2);
 	return CGAffineTransformConcat(hl->_transformA, t);
 }
 
-CGAffineTransform QSVExpandEffect(QSWindowAnimation *hl, float f) {
+CGAffineTransform QSVExpandEffect(QSWindowAnimation *hl, CGFloat f) {
 	NSSize size = [hl->_window frame] .size;
 	f = sin(f*M_PI_2);
-	float s = pow(f, 2);
+	CGFloat s = pow(f, 2);
 	CGAffineTransform modTransform = CGAffineTransformMakeScale(1, 1/s);
 	modTransform = CGAffineTransformTranslate(modTransform, 0, size.height/2 * (s-1) );
 	return CGAffineTransformConcat(hl->_transformA, modTransform);
 }
 
-CGAffineTransform QSSlightGrowEffect(QSWindowAnimation *hl, float f) {
+CGAffineTransform QSSlightGrowEffect(QSWindowAnimation *hl, CGFloat f) {
 	NSSize size = [hl->_window frame] .size;
-	float s = pow(f, 0.5);
+	CGFloat s = pow(f, 0.5);
 	s = s/8+0.875f;
 	CGAffineTransform newTransform = CGAffineTransformConcat(hl->_transformA, CGAffineTransformTranslate(CGAffineTransformMakeScale(1/s, 1/s), -size.width/2 + size.width/2*s, -size.height/2+size.height/2*s) );
 	return newTransform;
 }
 
-CGAffineTransform QSSlightShrinkEffect(QSWindowAnimation *hl, float f) {
+CGAffineTransform QSSlightShrinkEffect(QSWindowAnimation *hl, CGFloat f) {
 	NSSize size = [hl->_window frame] .size;
-	float s = 1-f; //pow(1-f, 4);
+	CGFloat s = 1-f; //pow(1-f, 4);
 	s = s/8+0.875f;
 	CGAffineTransform newTransform = CGAffineTransformConcat(hl->_transformA, CGAffineTransformTranslate(CGAffineTransformMakeScale(1/s, 1/s), -size.width/2 + size.width/2*s, -size.height/2+size.height/2*s) );
 	return newTransform;
 }
 
-CGAffineTransform QSDefaultGrowEffect(QSWindowAnimation *hl, float f) {
+CGAffineTransform QSDefaultGrowEffect(QSWindowAnimation *hl, CGFloat f) {
 	NSSize size = [hl->_window frame] .size;
-	float s = pow(f, 0.5);
+	CGFloat s = pow(f, 0.5);
 	s = s/20+0.95f;
 	CGAffineTransform newTransform = CGAffineTransformConcat(hl->_transformA, CGAffineTransformTranslate(CGAffineTransformMakeScale(1/s, 1/s), -size.width/2 + size.width/2*s, -size.height/2+size.height/2*s+(1-f) *40));
 	return newTransform;
 }
 
-CGAffineTransform QSDefaultShrinkEffect(QSWindowAnimation *hl, float f) {
+CGAffineTransform QSDefaultShrinkEffect(QSWindowAnimation *hl, CGFloat f) {
 	NSSize size = [hl->_window frame] .size;
-	float s = 1-f; //pow(1-f, 4);
+	CGFloat s = 1-f; //pow(1-f, 4);
 		s = s/20+0.95f;
 		CGAffineTransform newTransform = CGAffineTransformConcat(hl->_transformA, CGAffineTransformTranslate(CGAffineTransformMakeScale(1/s, 1/s), -size.width/2 + size.width/2*s, -size.height/2+size.height/2*s-f*20) );
 		return newTransform;
 }
 
-CGAffineTransform QSGrowEffect(QSWindowAnimation *hl, float f) {
+CGAffineTransform QSGrowEffect(QSWindowAnimation *hl, CGFloat f) {
 	NSSize size = [hl->_window frame] .size;
-	float s = pow(f, 4);
+	CGFloat s = pow(f, 4);
 	CGAffineTransform newTransform = CGAffineTransformConcat(hl->_transformA, CGAffineTransformTranslate(CGAffineTransformMakeScale(1/s, 1/s), -size.width/2 + size.width/2*s, -size.height/2+size.height/2*s) );
 	return newTransform;
 }
 
-CGAffineTransform QSShrinkEffect(QSWindowAnimation *hl, float f) {
+CGAffineTransform QSShrinkEffect(QSWindowAnimation *hl, CGFloat f) {
 	NSSize size = [hl->_window frame] .size;
-	float s = pow(1-f, 4);
+	CGFloat s = pow(1-f, 4);
 	CGAffineTransform newTransform = CGAffineTransformConcat(hl->_transformA, CGAffineTransformTranslate(CGAffineTransformMakeScale(1/s, 1/s), -size.width/2 + size.width/2*s, -size.height/2+size.height/2*s) );
 	return newTransform;
 }
 
-CGAffineTransform QSVillainousKryptonianEffect(QSWindowAnimation *hl, float f) {
+CGAffineTransform QSVillainousKryptonianEffect(QSWindowAnimation *hl, CGFloat f) {
 	//NSSize size = [hl->_window frame] .size;
 	//float s = pow(1-f, 4);
 //	CGAffineTransform newTransform = CGAffineTransformConcat(hl->_transformA, CGAffineTransformTranslate(CGAffineTransformMakeScale(1/s, 1/s), -size.width/2 + size.width/2*s, -size.height/2+size.height/2*s) );
 	return hl->_transformA;
 }
 
-CGAffineTransform QSShakeItLikeAPolaroidPictureEffect(QSWindowAnimation *hl, float f) {
+CGAffineTransform QSShakeItLikeAPolaroidPictureEffect(QSWindowAnimation *hl, CGFloat f) {
 //	NSSize size = [hl->_window frame] .size;
-	float s = 0.1*sin(f*M_PI*3);
+	CGFloat s = 0.1*sin(f*M_PI*3);
 	CGAffineTransform t = CGAffineTransformIdentity;
 	//t.b = 1+.25*sin(f*M_PI*4);
 	t.c = s;
@@ -135,11 +135,11 @@ CGAffineTransform QSShakeItLikeAPolaroidPictureEffect(QSWindowAnimation *hl, flo
 	return CGAffineTransformConcat(hl->_transformA, t);
 }
 
-CGAffineTransform QSLudicrousSpeedEffect(QSWindowAnimation *hl, float f) {
+CGAffineTransform QSLudicrousSpeedEffect(QSWindowAnimation *hl, CGFloat f) {
 	NSSize size = [hl->_window frame].size;
 //	float s = pow(f, 2);
-	float r = pow(1-f, 2);
-	float h = 1-pow(f, 4);
+	CGFloat r = pow(1-f, 2);
+	CGFloat h = 1-pow(f, 4);
 	CGAffineTransform t = CGAffineTransformMakeTranslation(size.width/2, size.height/2);
 	//t = CGAffineTransformScale(t, 1/s, (2-s) /s);
 	t.c = h*2.0;
@@ -147,10 +147,10 @@ CGAffineTransform QSLudicrousSpeedEffect(QSWindowAnimation *hl, float f) {
 	return CGAffineTransformConcat(hl->_transformA, t);
 }
 
-CGAffineTransform QSExtraExtraEffect(QSWindowAnimation *hl, float f) {
+CGAffineTransform QSExtraExtraEffect(QSWindowAnimation *hl, CGFloat f) {
 	NSSize size = [hl->_window frame] .size;
-	float s = pow(f, 2);
-	float r = -pow(1-f, 2);
+	CGFloat s = pow(f, 2);
+	CGFloat r = -pow(1-f, 2);
 	CGAffineTransform t = CGAffineTransformMakeTranslation(size.width/2, size.height/2);
 	t = CGAffineTransformRotate(t, 4*M_PI*r);
 	t = CGAffineTransformScale(t, 1/s, 1/s);
@@ -158,9 +158,9 @@ CGAffineTransform QSExtraExtraEffect(QSWindowAnimation *hl, float f) {
 	return CGAffineTransformConcat(hl->_transformA, t);
 }
 
-CGAffineTransform QSMMBlowEffect(QSWindowAnimation *hl, float f) {
+CGAffineTransform QSMMBlowEffect(QSWindowAnimation *hl, CGFloat f) {
 	NSSize size = [hl->_window frame] .size;
-	float s = pow(f, 2);
+	CGFloat s = pow(f, 2);
 //	float r = pow(1-f, 2);
 	CGAffineTransform t = CGAffineTransformMakeTranslation(size.width/2, size.height/2);
 	t = CGAffineTransformScale(t, 1/s, 1/s);
@@ -169,14 +169,15 @@ CGAffineTransform QSMMBlowEffect(QSWindowAnimation *hl, float f) {
 	return CGAffineTransformConcat(hl->_transformA, t);
 }
 
-CGAffineTransform QSExplodeEffect(QSWindowAnimation *hl, float f) {
+CGAffineTransform QSExplodeEffect(QSWindowAnimation *hl, CGFloat f) {
 	NSSize size = [hl->_window frame] .size;
 	//float s = pow(f, 4);
-	float s = .97+1*pow(f-0.1, 2);
+	CGFloat s = .97+1*pow(f-0.1, 2);
 	CGAffineTransform newTransform = CGAffineTransformConcat(hl->_transformA, CGAffineTransformTranslate(CGAffineTransformMakeScale(1/s, 1/s), -size.width/2 + size.width/2*s, -size.height/2+size.height/2*s) );
 	return newTransform;
 }
 
 void CGSTransformLog(CGAffineTransform t) {
+#warning 64BIT: Check formatting arguments
 	NSLog(@" a:%f b:%f c:%f d:%f tx:%f ty:%f", t.a, t.b, t.c, t.d, t.tx, t.ty);
 }

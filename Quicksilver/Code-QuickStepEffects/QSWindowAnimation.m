@@ -58,7 +58,7 @@
 	if (value = [attr objectForKey:kQSGSAlphaF])
 		alphaFt = CFBundleGetFunctionPointerForName (CFBundleGetBundleWithIdentifier(kQSEffectsID), (CFStringRef) value);
 	if (value = [attr objectForKey:kQSGSDuration])
-		[self setDuration:[value floatValue]];
+		[self setDuration:[value doubleValue]];
 	if (value = [attr objectForKey:kQSGSType]) {
 		[self setType:value];
 		if ([value isEqualToString:@"show"]) {
@@ -74,19 +74,19 @@
 		}
 	}
 	if (value = [attr objectForKey:kQSGSBrightA])
-		_brightA = [value floatValue];
+		_brightA = [value doubleValue];
 	if (value = [attr objectForKey:kQSGSBrightB])
-		_brightB = [value floatValue];
+		_brightB = [value doubleValue];
 	if (value = [attr objectForKey:kQSGSAlphaA])
-		_alphaA = [value floatValue];
+		_alphaA = [value doubleValue];
 	if (value = [attr objectForKey:kQSGSAlphaB])
-		_alphaB = [value floatValue];
+		_alphaB = [value doubleValue];
 }
 
 - (void)setCurrentProgress:(NSAnimationProgress)progress {
 	NSArray *childWindows = [_window childWindows];
 //	NSLog(@"step %f", progress);
-	float _percent = progress;
+	CGFloat _percent = progress;
 	 [super setCurrentProgress:progress];
 //- (void)_doAnimationStep {
 	if (effectFt) { 
@@ -105,7 +105,7 @@
 //		}
 	}
 	if (warpFt) {
-		int w, h;
+		NSInteger w, h;
 		CGPointWarp *mesh = (*warpFt)(self, _percent, &w, &h);
         CGSSetWindowWarp(cgs, wid, w, h, mesh);
 		free(mesh);
@@ -133,6 +133,7 @@
 }
 
 - (NSString *)description {
+#warning 64BIT: Check formatting arguments
 	return [NSString stringWithFormat:@"Window:%@\rAlpha:%f %f\rBright:%f %f\rTime ?\rTransform %p %p",
 		[self window] , _alphaA, _alphaB, _brightA, _brightB,
 		QSExtraExtraEffect, transformFt];

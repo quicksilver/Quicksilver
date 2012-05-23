@@ -30,7 +30,7 @@
 - (void)populateFields {return;}
 
 - (void)updateCurrentEntryModificationDate {
-	[currentEntry setObject:[NSNumber numberWithFloat:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
+	[currentEntry setObject:[NSNumber numberWithDouble:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
 }
 
 - (NSMutableDictionary *)currentEntry {

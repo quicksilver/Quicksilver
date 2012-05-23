@@ -9,7 +9,7 @@
 #import "NSCursor_InformExtensions.h"
 #import "NSBezierPath_BLTRExtensions.h"
 
-#define informAttributes [NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:9] , NSFontAttributeName, [NSColor darkGrayColor] , NSForegroundColorAttributeName, [NSNumber numberWithFloat:1] , NSBaselineOffsetAttributeName, nil]
+#define informAttributes [NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:9] , NSFontAttributeName, [NSColor darkGrayColor] , NSForegroundColorAttributeName, [NSNumber numberWithDouble:1] , NSBaselineOffsetAttributeName, nil]
 
 
 @implementation NSCursor (InformExtensions)

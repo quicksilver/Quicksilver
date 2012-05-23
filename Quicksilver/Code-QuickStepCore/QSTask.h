@@ -16,7 +16,7 @@
 	NSString *identifier;
 	NSString *name;
 	NSString *status;
-	float progress; //0 to 1, -1 is indeterminate
+	CGFloat progress; //0 to 1, -1 is indeterminate
 	QSObject *result;
 	NSImage *icon;
 	id delegate;
@@ -44,8 +44,8 @@
 - (NSString *)status;
 - (void)setStatus:(NSString *)value;
 
-- (float) progress;
-- (void)setProgress:(float)value;
+- (CGFloat) progress;
+- (void)setProgress:(CGFloat)value;
 
 - (QSObject *)result;
 - (void)setResult:(QSObject *)value;

@@ -53,13 +53,13 @@
 
 
 
-- (float) score { return score;  }
-- (void)setScore:(float)newScore {
+- (CGFloat) score { return score;  }
+- (void)setScore:(CGFloat)newScore {
 	score = newScore;
 }
 
-- (int) order { return order;  }
-- (void)setOrder:(int)newOrder {
+- (NSInteger) order { return order;  }
+- (void)setOrder:(NSInteger)newOrder {
 	order = newOrder;
 }
 @end

@@ -22,7 +22,7 @@ Class QSCurrentStringRanker = nil;
 
 typedef QSRankedObject * (*QSScoreForObjectIMP) (id instance, SEL selector, QSBasicObject *object, NSString* anAbbreviation, NSString *context, NSArray * mnemonics, BOOL mnemonicsOnly);
 
-typedef float (*QSScoreForAbbrevIMP) (id object, SEL selector, NSString * abbreviation);
+typedef CGFloat (*QSScoreForAbbrevIMP) (id object, SEL selector, NSString * abbreviation);
 QSScoreForAbbrevIMP scoreForAbbrevIMP;
 
 @implementation QSDefaultObjectRanker
@@ -105,13 +105,14 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 }
 
 - (NSString*)description {
+#warning 64BIT: Check formatting arguments
     return [NSString stringWithFormat:@"%@ for object %@ with %d mnemonics:\n%@", [super description], [nameRanker rankedString], [usageMnemonics count], usageMnemonics];
 }
 
 - (NSString*)matchedStringForAbbreviation:(NSString*)anAbbreviation hitmask:(NSIndexSet **)hitmask inContext:(NSString *)context {
 	if (!anAbbreviation) return nil;
     
-	float nameScore = [nameRanker scoreForAbbreviation:anAbbreviation];
+	CGFloat nameScore = [nameRanker scoreForAbbreviation:anAbbreviation];
 	if (labelRanker && [labelRanker scoreForAbbreviation:anAbbreviation] > nameScore) {
 		*hitmask = [labelRanker maskForAbbreviation:anAbbreviation];
 		return [labelRanker rankedString];
@@ -134,9 +135,9 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 		anAbbreviation = @"";
 		//	mnemonicsOnly = YES;
 	}
-	float newScore = 1.0;
+	CGFloat newScore = 1.0;
 	//float modifier = 0.0;
-	int newOrder = NSNotFound;
+	NSInteger newOrder = NSNotFound;
 	//	QSRankInfo *info = object->rankData;
 	//	if (!info) info = [object getRankData];
 
@@ -151,7 +152,7 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
         
 		if (labelRanker) {
 			//float labelScore = [labelRanker scoreForAbbreviation:anAbbreviation]; //QSScoreForAbbreviation((CFStringRef) info->label, (CFStringRef)searchString, nil);
-			float labelScore = (*scoreForAbbrevIMP) (labelRanker, @selector(scoreForAbbreviation:), anAbbreviation);
+			CGFloat labelScore = (*scoreForAbbrevIMP) (labelRanker, @selector(scoreForAbbreviation:), anAbbreviation);
 
 			if (labelScore > newScore) {
 				newScore = labelScore;
@@ -176,11 +177,11 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 #endif
 		}
 
-		int useCount = 0;
+		NSInteger useCount = 0;
 
 		// get number of times this abbrev. has been used
 		if ([anAbbreviation length])
-			useCount = [[usageMnemonics objectForKey:anAbbreviation] intValue];
+			useCount = [[usageMnemonics objectForKey:anAbbreviation] integerValue];
 
 		if (useCount) {
 			newScore += (1-1/(useCount+1) );
@@ -189,7 +190,7 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 			// otherwise add points for similar starting abbreviations
 			for (id key in usageMnemonics) {
 				if (prefixCompare(key, anAbbreviation) == NSOrderedSame) {
-					newScore += (1-1/([[usageMnemonics objectForKey:key] floatValue]) )/4;
+					newScore += (1-1/([[usageMnemonics objectForKey:key] doubleValue]) )/4;
 				}
 			}
 

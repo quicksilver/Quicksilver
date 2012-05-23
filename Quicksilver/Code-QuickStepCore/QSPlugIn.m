@@ -409,7 +409,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	return smallIcon;
 }
 
-- (int) isInstalled {
+- (NSInteger) isInstalled {
 	if (bundle) return 1;
 	else if (installing) return -1;
 	else return 0;
@@ -427,7 +427,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	return [[[self info] valueForKeyPath:@"QSPlugIn.hidden"] boolValue];
 }
 
-- (int) isLoaded {return loaded;}
+- (NSInteger) isLoaded {return loaded;}
 #define disabledPlugIns [[NSUserDefaults standardUserDefaults] arrayForKey:@"QSDisabledPlugIns"]
 - (NSColor *)enabledColor {
 	return [self isInstalled] ?[NSColor blackColor] :[NSColor grayColor];
@@ -437,7 +437,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 - (NSString *)path {return [bundle bundlePath];}
 - (NSString *)bundlePath {return [bundle bundlePath];}
 
-- (int) enabled {
+- (NSInteger) enabled {
 	if (!bundle)
 		return installing?-1:0;
 	return ![disabledPlugIns containsObject:[bundle bundleIdentifier]];

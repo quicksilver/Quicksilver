@@ -10,20 +10,20 @@
 
 @class QSWindowAnimation;
 
-float QSStandardAlphaBlending(QSWindowAnimation *h, float f);
-float QSStandardBrightBlending(QSWindowAnimation *h, float f);
-CGAffineTransform QSStandardTransformBlending(QSWindowAnimation *h, float f);
+CGFloat QSStandardAlphaBlending(QSWindowAnimation *h, CGFloat f);
+CGFloat QSStandardBrightBlending(QSWindowAnimation *h, CGFloat f);
+CGAffineTransform QSStandardTransformBlending(QSWindowAnimation *h, CGFloat f);
 
-CGAffineTransform QSShrinkEffect(QSWindowAnimation *h, float f);
-CGAffineTransform QSGrowEffect(QSWindowAnimation *hl, float f);
+CGAffineTransform QSShrinkEffect(QSWindowAnimation *h, CGFloat f);
+CGAffineTransform QSGrowEffect(QSWindowAnimation *hl, CGFloat f);
 
-CGAffineTransform QSVillainousKryptonianEffect(QSWindowAnimation *h, float f);
-CGAffineTransform QSShakeItLikeAPolaroidPictureEffect(QSWindowAnimation *h, float f);
-CGAffineTransform QSLudicrousSpeedEffect(QSWindowAnimation *h, float f);
-CGAffineTransform QSExtraExtraEffect(QSWindowAnimation *h, float f);
-CGAffineTransform QSBoobTubeEffect(QSWindowAnimation *h, float f);
-CGAffineTransform QSMMBlowEffect(QSWindowAnimation *h, float f);
-CGAffineTransform QSBingeEffect(QSWindowAnimation *h, float f);
-CGAffineTransform QSPurgeEffect(QSWindowAnimation *h, float f);
+CGAffineTransform QSVillainousKryptonianEffect(QSWindowAnimation *h, CGFloat f);
+CGAffineTransform QSShakeItLikeAPolaroidPictureEffect(QSWindowAnimation *h, CGFloat f);
+CGAffineTransform QSLudicrousSpeedEffect(QSWindowAnimation *h, CGFloat f);
+CGAffineTransform QSExtraExtraEffect(QSWindowAnimation *h, CGFloat f);
+CGAffineTransform QSBoobTubeEffect(QSWindowAnimation *h, CGFloat f);
+CGAffineTransform QSMMBlowEffect(QSWindowAnimation *h, CGFloat f);
+CGAffineTransform QSBingeEffect(QSWindowAnimation *h, CGFloat f);
+CGAffineTransform QSPurgeEffect(QSWindowAnimation *h, CGFloat f);
 
 void CGSTransformLog(CGAffineTransform t);

@@ -44,7 +44,7 @@
 - (void)awakeFromNib {
 #if 0
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NDHotKeyEvent *activationKey = [NDHotKeyEvent getHotKeyForKeyCode:[[defaults objectForKey:kHotKeyCode] unsignedShortValue] character:0 modifierFlags:[[defaults objectForKey:kHotKeyModifiers] unsignedIntValue]];
+	NDHotKeyEvent *activationKey = [NDHotKeyEvent getHotKeyForKeyCode:[[defaults objectForKey:kHotKeyCode] unsignedShortValue] character:0 modifierFlags:[[defaults objectForKey:kHotKeyModifiers] unsignedIntegerValue]];
 	[hotKeyButton setTitle:[activationKey stringValue]];
 #endif
 	NSUserDefaultsController *defaultsController = [NSUserDefaultsController sharedUserDefaultsController];
@@ -57,7 +57,7 @@
 	[super dealloc];
 }
 
-- (void)setModifier:(int)modifier count:(int)count {
+- (void)setModifier:(NSInteger)modifier count:(NSInteger)count {
 	QSModifierKeyEvent *event = [QSModifierKeyEvent eventWithIdentifier:@"QSModKeyActivation"];
 	[event disable];
 	if (count) {
@@ -179,7 +179,10 @@
 #endif
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *keys[] = { kQSAppearance1B, kQSAppearance1A, kQSAppearance1T, kQSAppearance2B, kQSAppearance2A, kQSAppearance2T, kQSAppearance3B, kQSAppearance3A, kQSAppearance3T };
+#warning 64BIT: Inspect use of unsigned long
 	unsigned long i;
+#warning 64BIT: Inspect use of sizeof
+#warning 64BIT: Inspect use of sizeof
 	for(i = 0; i < sizeof(keys) / sizeof(keys[0]); i++){
 		[defaults willChangeValueForKey:keys[i]];
 		[defaults removeObjectForKey:keys[i]];
@@ -405,6 +408,7 @@
 				if (!name) name = [plugin identifier];
 				NSArray *actionsArray = [QSExec getArrayForSource:[plugin identifier]];
 				if ([actionsArray count]) {
+#warning 64BIT: Check formatting arguments
 					name = [name stringByAppendingFormat:@" - %d", [actionsArray count]];
 					[array addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                       [plugin identifier] , @"group", name, @"name", [plugin icon] , @"icon", nil]];

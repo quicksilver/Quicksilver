@@ -14,5 +14,6 @@
 //+ (NSAppleEventDescriptor *)targetDescriptorWithBundleID:(NSString *)bundleID;
 + (NSAppleEventDescriptor *)targetDescriptorWithTypeSignature:(OSType)type;
 - (NSAppleEventDescriptor *)AESend;
+#warning 64BIT: Inspect use of long
 - (NSAppleEventDescriptor *)AESendWithSendMode:(AESendMode)sendMode priority:(AESendPriority)sendPriority timeout:(long) timeOutInTicks;
 @end

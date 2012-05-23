@@ -36,7 +36,7 @@
 
 - (NSArray *)objectsFromPath:(NSString *)path withSettings:(NSDictionary *)settings {
 	NSNumber *depth = [settings objectForKey:kItemFolderDepth];
-	int depthValue = (depth?[depth intValue] : 1);
+	NSInteger depthValue = (depth?[depth integerValue] : 1);
     BOOL descendIntoBundles = [[settings objectForKey:kItemDescendIntoBundles] boolValue];
 
 	NSMutableArray *types = [NSMutableArray array];
@@ -53,7 +53,7 @@
 	return [[NSSet setWithArray:[self objectsFromPath:path depth:depthValue types:types excludeTypes:excludedTypes descend:descendIntoBundles]] allObjects];
 }
 
-- (NSArray *)objectsFromPath:(NSString *)path depth:(int)depth types:(NSArray *)types excludeTypes:(NSArray *)excludedTypes descend:(BOOL)descendIntoBundles {
+- (NSArray *)objectsFromPath:(NSString *)path depth:(NSInteger)depth types:(NSArray *)types excludeTypes:(NSArray *)excludedTypes descend:(BOOL)descendIntoBundles {
 	BOOL isDirectory; NSFileManager *manager = [NSFileManager defaultManager];
 	if (![manager fileExistsAtPath:path isDirectory:&isDirectory] || !isDirectory)
 		return nil;

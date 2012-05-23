@@ -14,7 +14,7 @@
 - (NSArray *)types { return nil;  }
 - (NSArray *)fileTypes { return nil;}
 - (QSAction *)initializeAction:(QSAction *)action { return action;  }
-- (int)argumentCountForAction:(NSString *)action {
+- (NSInteger)argumentCountForAction:(NSString *)action {
     return [[[[QSAction actionWithIdentifier:action] objectForKey:kActionSelector] componentsSeparatedByString:@":"] count] - 1;
 }
 

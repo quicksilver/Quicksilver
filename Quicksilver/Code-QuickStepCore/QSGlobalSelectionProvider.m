@@ -36,6 +36,7 @@
 
 - (void)getSelection:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
 #ifdef DEBUG
+#warning 64BIT: Check formatting arguments
 	if (VERBOSE) NSLog(@"Get Selection: %@ %d", userData, [userData characterAtIndex:0]);
 #endif
 	if(resultPboard)
@@ -47,6 +48,7 @@
 - (void)performService:(NSPasteboard *)pboard
 			  userData:(NSString *)userData
 				 error:(NSString **)error {
+#warning 64BIT: Check formatting arguments
 	if (VERBOSE) NSLog(@"xPerform Service: %@ %d", userData, [userData characterAtIndex:0]);
 }
 #endif
@@ -79,7 +81,7 @@
 
 - (void)invokeService {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    pid_t pid = [[[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationProcessIdentifier"] intValue];
+    pid_t pid = [[[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationProcessIdentifier"] integerValue];
 	if ([NSApplication isLion]) {
 		//AXUIElement* is unable to post keys into sandboxed app since 10.7, use Quartz Event Services instead
 		ProcessSerialNumber psn;

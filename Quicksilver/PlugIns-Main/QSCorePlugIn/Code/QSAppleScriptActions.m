@@ -251,8 +251,8 @@
 	return ([action isEqualToString:kAppleScriptOpenTextAction] ? [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@""]] : nil);
 }
 
-- (int)argumentCountForAction:(NSString *)actionId {
-    int argumentCount = 1;
+- (NSInteger)argumentCountForAction:(NSString *)actionId {
+    NSInteger argumentCount = 1;
     QSAction *action = [QSAction actionWithIdentifier:actionId];
 	NSString *scriptPath = [action objectForKey:kActionScript];
     
@@ -293,6 +293,7 @@
     }
 
 #ifdef DEBUG
+#warning 64BIT: Check formatting arguments
 	NSLog(@"argument count for %@ is %d", actionId, argumentCount);
 #endif
     

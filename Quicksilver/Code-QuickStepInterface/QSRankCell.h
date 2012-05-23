@@ -1,14 +1,12 @@
-
-
 #import <Foundation/Foundation.h>
 
 
 @interface QSRankCell : NSCell {
-	float score;
-	int order;
+	CGFloat score;
+	NSInteger order;
 }
-- (float) score;
-- (void)setScore:(float)newScore;
-- (int) order;
-- (void)setOrder:(int)newOrder;
+- (CGFloat) score;
+- (void)setScore:(CGFloat)newScore;
+- (NSInteger) order;
+- (void)setOrder:(NSInteger)newOrder;
 @end

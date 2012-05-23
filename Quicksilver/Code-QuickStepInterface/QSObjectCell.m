@@ -19,9 +19,10 @@
 #define countBadgeTextAttributes [NSDictionary dictionaryWithObjectsAndKeys:[NSFont boldSystemFontOfSize:24] , NSFontAttributeName, [NSColor whiteColor] , NSForegroundColorAttributeName, nil]
 
 
-NSImage *QSBadgeImageForCount(int count) {
+NSImage *QSBadgeImageForCount(NSInteger count) {
 	if (count <= 1) return nil;
 	NSImage *badgeImage = nil;
+#warning 64BIT: Check formatting arguments
 	NSString *numString = [NSString stringWithFormat:@"%d", count];
 	if ([numString length] <3)
 		badgeImage = [QSResourceManager imageNamed:@"dragBadge1-2"];
@@ -36,8 +37,9 @@ NSImage *QSBadgeImageForCount(int count) {
 	return badgeImage;
 }
 
-void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, int count) {
+void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, NSInteger count) {
 	[countImage drawInRect:badgeRect fromRect:rectFromSize([countImage size]) operation:NSCompositeSourceOver fraction:1.0];
+#warning 64BIT: Check formatting arguments
 	NSString *numString = [NSString stringWithFormat:@"%d", count];
 	NSRect textRect = NSInsetRect(badgeRect, NSHeight(badgeRect) /4, NSHeight(badgeRect)/4);
 	NSDictionary *numAttributes = [numString attributesToFitNumbersInRect:textRect withAttributes:countBadgeTextAttributes];
@@ -303,7 +305,7 @@ void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, int count) {
 		if ([self highlightsBy] || isFirstResponder) {
 			QSObject *drawObject = [self representedObject];
 			BOOL action = [drawObject respondsToSelector:@selector(argumentCount)];
-			int argCount = (action ? [(QSAction *)drawObject argumentCount] : 0);
+			NSInteger argCount = (action ? [(QSAction *)drawObject argumentCount] : 0);
 			//BOOL indentRight = (indentLeft && [drawObject argumentCount] >1);
 			NSRect borderRect = NSInsetRect(cellFrame, 2.25, 2.25);
 			[roundRect setLineWidth:1.5];
@@ -551,7 +553,7 @@ void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, int count) {
 	}
 }
 
-- (void)drawObjectImage:(QSObject *)drawObject inRect:(NSRect)drawingRect cellFrame:(NSRect)cellFrame controlView:(NSView *)controlView flipped:(BOOL)flipped opacity:(float)opacity {
+- (void)drawObjectImage:(QSObject *)drawObject inRect:(NSRect)drawingRect cellFrame:(NSRect)cellFrame controlView:(NSView *)controlView flipped:(BOOL)flipped opacity:(CGFloat)opacity {
 	NSImage *icon = [[[drawObject icon] retain] autorelease];
 	NSImage *cornerBadge = nil;
 	// NSLog(@"icon");
@@ -727,11 +729,11 @@ void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, int count) {
     [[self controlView] setNeedsDisplay:YES];
 }
 
-- (float)cellRadiusFactor {
+- (CGFloat)cellRadiusFactor {
     return cellRadiusFactor;
 }
 
-- (void)setCellRadiusFactor:(float)newRadius {
+- (void)setCellRadiusFactor:(CGFloat)newRadius {
     if (cellRadiusFactor == newRadius) {
         return;
     }

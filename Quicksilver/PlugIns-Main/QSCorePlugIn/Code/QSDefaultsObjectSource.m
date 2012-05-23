@@ -81,15 +81,15 @@
 		thisObject = (NSArray *)CFPreferencesCopyAppValue((CFStringRef) [keyList objectAtIndex:0] , (CFStringRef) applicationID);
 		[thisObject autorelease];
 	}
-	[self addObjectsForKeyList:keyList keyNumber:1 ofType:[[settings objectForKey:kDefaultsObjectSourceType] intValue] inObject:thisObject toArray:array];
+	[self addObjectsForKeyList:keyList keyNumber:1 ofType:[[settings objectForKey:kDefaultsObjectSourceType] integerValue] inObject:thisObject toArray:array];
 	return array;
 }
 
-- (void)addObjectsForKeyList:(NSArray *)keyList keyNumber:(int)index ofType:(int)type inObject:(id)thisObject toArray:(NSMutableArray *)array {
+- (void)addObjectsForKeyList:(NSArray *)keyList keyNumber:(NSInteger)index ofType:(NSInteger)type inObject:(id)thisObject toArray:(NSMutableArray *)array {
   if ([keyList count] > index) {
     NSString *thisKey = [keyList objectAtIndex:index];
     if ([thisKey isEqualToString:@"*"] && [thisObject isKindOfClass:[NSArray class]]) {
-      int i;
+      NSInteger i;
       for (i = 0 ; i<[(NSArray *)thisObject count]; i++) {
         [self addObjectsForKeyList:keyList keyNumber:index+1 ofType:type inObject:[thisObject objectAtIndex:i] toArray:array];
       }
@@ -146,7 +146,7 @@
 	NSArray *keys = [settings objectForKey:kDefaultsObjectSourceKeyList];
 	[keyField setStringValue:(keys?[keys componentsJoinedByString:@"\n"] :@"")];
 	[bundleIDField setStringValue:([settings objectForKey:kDefaultsObjectSourceBundleID] ? [settings objectForKey:kDefaultsObjectSourceBundleID] : @"")];
-	[entryTypePopUp selectItemAtIndex:[entryTypePopUp indexOfItemWithTag:[[settings objectForKey:kDefaultsObjectSourceType] intValue]]];
+	[entryTypePopUp selectItemAtIndex:[entryTypePopUp indexOfItemWithTag:[[settings objectForKey:kDefaultsObjectSourceType] integerValue]]];
 }
 
 - (IBAction)setValueForSender:(id)sender {
@@ -163,9 +163,9 @@
 			[settings setObject:[[sender stringValue] componentsSeparatedByString:@"\n"] forKey:kDefaultsObjectSourceKeyList];
 		else [settings removeObjectForKey:kDefaultsObjectSourceKeyList];
 	} else if (sender == entryTypePopUp) {
-		[settings setObject:[NSNumber numberWithInt:[[sender selectedItem] tag]] forKey:kDefaultsObjectSourceType];
+		[settings setObject:[NSNumber numberWithInteger:[[sender selectedItem] tag]] forKey:kDefaultsObjectSourceType];
 	}
-	[[self currentEntry] setObject:[NSNumber numberWithFloat:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
+	[[self currentEntry] setObject:[NSNumber numberWithDouble:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
 	[self populateFields];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"CatalogEntryChanged" object:[self currentEntry]];
 }

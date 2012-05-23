@@ -9,8 +9,8 @@
 #import <Cocoa/Cocoa.h>
 
 @interface QSFadingView : NSView {
-	float opacity;
+	CGFloat opacity;
 }
-- (float)opacity;
-- (void)setOpacity:(float)newOpacity;
+- (CGFloat)opacity;
+- (void)setOpacity:(CGFloat)newOpacity;
 @end

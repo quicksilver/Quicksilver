@@ -24,11 +24,11 @@
 	}
 }
 
-- (void)setAlphaValue:(float)fadeOut fadeTime:(float)seconds {
-	float elapsed;
+- (void)setAlphaValue:(CGFloat)fadeOut fadeTime:(CGFloat)seconds {
+	CGFloat elapsed;
 	NSTimeInterval fadeStart = [NSDate timeIntervalSinceReferenceDate];
-	float fadeIn = [self alphaValue];
-	float distance = fadeOut - fadeIn;
+	CGFloat fadeIn = [self alphaValue];
+	CGFloat distance = fadeOut - fadeIn;
     
 	for (elapsed = 0; elapsed < 1; elapsed = (([NSDate timeIntervalSinceReferenceDate] - fadeStart) / seconds)) {
 		[self setAlphaValue:fadeIn + elapsed * distance];
@@ -64,11 +64,11 @@
 
 
 @implementation NSWindow (Physics)
-- (void)animateVelocity:(float)velocity inDirection:(float)angle withFriction:(float)friction startTime:(NSTimeInterval)startTime {
+- (void)animateVelocity:(CGFloat)velocity inDirection:(CGFloat)angle withFriction:(CGFloat)friction startTime:(NSTimeInterval)startTime {
 	//NSLog(@"Animating Velocity:%f, %f, %f", velocity, angle, friction);
 	//friction = friction/10;
 
-	float v = velocity;
+	CGFloat v = velocity;
 	// NSTimeInterval startTime = [NSDate timeIntervalSinceReferenceDate];
 	//NSTimeInterval thisTime, elapsedTime;
     //thisTime = startTime;
@@ -91,10 +91,10 @@
 		if (!NSContainsRect([[self screen] frame] , newFrame) ) {
 			//NSLog(@"---------");
 
-			float dMaxX = NSMaxX(newFrame) - NSMaxX([[self screen] frame]);
-			float dMinX = NSMinX(newFrame) - NSMinX([[self screen] frame]);
-			float dMaxY = NSMaxY(newFrame) - NSMaxY([[self screen] frame]);
-			float dMinY = NSMinY(newFrame) - NSMinY([[self screen] frame]);
+			CGFloat dMaxX = NSMaxX(newFrame) - NSMaxX([[self screen] frame]);
+			CGFloat dMinX = NSMinX(newFrame) - NSMinX([[self screen] frame]);
+			CGFloat dMaxY = NSMaxY(newFrame) - NSMaxY([[self screen] frame]);
+			CGFloat dMinY = NSMinY(newFrame) - NSMinY([[self screen] frame]);
 
 			NSPoint coordVelocity = NSMakePoint(sin(angle), cos(angle) );
 			//NSLog(@"bounce %f %f, %f", coordVelocity.x, coordVelocity.y, angle*180/pi);
@@ -138,8 +138,8 @@
 		//[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:.001]];
 
 	}
-	newFrame.origin.x = (int) newFrame.origin.x;
-	newFrame.origin.y = (int) newFrame.origin.y;
+	newFrame.origin.x = (NSInteger) newFrame.origin.x;
+	newFrame.origin.y = (NSInteger) newFrame.origin.y;
  [self setFrame:newFrame display:YES animate:NO];
 }
 @end
@@ -150,7 +150,7 @@
 }
 
 
-- (void)addInternalWidgetsForStyleMask:(int) styleMask closeOnly:(BOOL)closeOnly {
+- (void)addInternalWidgetsForStyleMask:(NSInteger) styleMask closeOnly:(BOOL)closeOnly {
 	NSButton *closeButton = [NSWindow standardWindowButton:NSWindowCloseButton forStyleMask:styleMask];
 	NSPoint widgetOrigin = NSMakePoint(3, NSHeight([self frame]) -NSHeight([closeButton frame])-3);
 	[closeButton setFrameOrigin:widgetOrigin];
@@ -175,7 +175,7 @@
 //	[zoomButton cell] ._hasRollover = YES;
 
 }
-- (void)addInternalWidgetsForStyleMask:(int) styleMask {
-	[self addInternalWidgetsForStyleMask:(int) styleMask closeOnly:NO];
+- (void)addInternalWidgetsForStyleMask:(NSInteger) styleMask {
+	[self addInternalWidgetsForStyleMask:(NSInteger) styleMask closeOnly:NO];
 }
 @end

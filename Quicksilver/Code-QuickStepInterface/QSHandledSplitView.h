@@ -10,10 +10,10 @@
 
 @interface QSHandledSplitView : NSSplitView {
 	BOOL drawsDivider;
-	float dividerThickness;
+	CGFloat dividerThickness;
 }
 - (BOOL)drawsDivider;
 - (void)setDrawsDivider:(BOOL)flag;
-- (float)dividerThickness;
-- (void)setDividerThickness:(float)newDividerThickness;
+- (CGFloat)dividerThickness;
+- (void)setDividerThickness:(CGFloat)newDividerThickness;
 @end

@@ -92,8 +92,8 @@
 
 	[setupTabView setTabViewType:NSNoTabsBezelBorder];
 
-	[(QSWindow *)[self window] setShowEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSGrowEffect", @"transformFn", @"show", @"type", [NSNumber numberWithFloat:0.5] , @"duration", nil]];
-	[(QSWindow *)[self window] setHideEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSShrinkEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithFloat:0.5] , @"duration", nil]];
+	[(QSWindow *)[self window] setShowEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSGrowEffect", @"transformFn", @"show", @"type", [NSNumber numberWithDouble:0.5] , @"duration", nil]];
+	[(QSWindow *)[self window] setHideEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSShrinkEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithDouble:0.5] , @"duration", nil]];
 	[[agreementView performSelector:@selector(documentView)] replaceCharactersInRange:NSMakeRange(0, 0) withRTF:[NSData dataWithContentsOfFile:[[NSBundle bundleForClass:[self class]] pathForResource:@"License" ofType:@"rtf"]]];
 
 	[self selectedItem:[setupTabView selectedTabViewItem]];
@@ -176,7 +176,7 @@
 		[self finish:sender];
 		return;
 	}
-	int transitions[5] = {CGSUp, CGSLeft, CGSLeft, CGSLeft, CGSUp} ;
+	NSInteger transitions[5] = {CGSUp, CGSLeft, CGSLeft, CGSLeft, CGSUp} ;
 	QSCGSTransition *transition = [QSCGSTransition transitionWithWindow:[self window] type:CGSCube option:transitions[ [setupTabView indexOfTabViewItem:[setupTabView selectedTabViewItem]]] ];
 	[self deselectedItem:[setupTabView selectedTabViewItem]];
 	[setupTabView selectNextTabViewItem:self];
@@ -226,7 +226,7 @@
 }
 
 - (IBAction)prevSection:(id)sender {
-	int transitions[6] = {CGSUp, CGSDown, CGSRight, CGSRight, CGSRight, CGSDown} ;
+	NSInteger transitions[6] = {CGSUp, CGSDown, CGSRight, CGSRight, CGSRight, CGSDown} ;
 	QSCGSTransition *transition = [QSCGSTransition transitionWithWindow:[self window] type:CGSCube option:transitions[ [setupTabView indexOfTabViewItem:[setupTabView selectedTabViewItem]]] ];
 	[self deselectedItem:[setupTabView selectedTabViewItem]];
 	[setupTabView selectPreviousTabViewItem:self];

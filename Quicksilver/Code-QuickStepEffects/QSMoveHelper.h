@@ -5,7 +5,7 @@
 
 	NSTimeInterval _startTime;
 	NSTimeInterval _totalTime;
-	float _percent;
+	CGFloat _percent;
 
 	id target;
 	SEL endAction;
@@ -34,9 +34,9 @@
 	NSWindow *_window;
 	NSRect _endFrame;
 	NSRect _startFrame;
-	float _startAlpha;
-	float _endAlpha;
+	CGFloat _startAlpha;
+	CGFloat _endAlpha;
 	BOOL _displayFlag;
 }
-- (void)_resizeWindow:(id)window toFrame:(NSRect)frameRect alpha:(float)alpha display:(BOOL)flag;
+- (void)_resizeWindow:(id)window toFrame:(NSRect)frameRect alpha:(CGFloat)alpha display:(BOOL)flag;
 @end

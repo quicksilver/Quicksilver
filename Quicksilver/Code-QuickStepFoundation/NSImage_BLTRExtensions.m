@@ -11,7 +11,8 @@
 #import <QuartzCore/QuartzCore.h>
 
 #if 0
-static inline int get_bit(unsigned char *arr, unsigned long bit_num) {
+#warning 64BIT: Inspect use of unsigned long
+static inline NSInteger get_bit(unsigned char *arr, unsigned long bit_num) {
 	return ( arr[(bit_num/8)] & (1 << (bit_num%8)) );
 }
 #endif
@@ -77,15 +78,15 @@ static inline int get_bit(unsigned char *arr, unsigned long bit_num) {
 	return [image autorelease];
 }
 
-- (NSImage *)imageByAdjustingHue:(float)hue {
-	return [NSImage imageWithCIFilter:[CIFilter filterWithName:@"CIHueAdjust" keysAndValues:@"inputAngle", [NSNumber numberWithFloat:fmod(hue+1, 1.0)*2*M_PI] , @"inputImage", [CIImage imageWithData:[self TIFFRepresentation]], nil]];
+- (NSImage *)imageByAdjustingHue:(CGFloat)hue {
+	return [NSImage imageWithCIFilter:[CIFilter filterWithName:@"CIHueAdjust" keysAndValues:@"inputAngle", [NSNumber numberWithDouble:fmod(hue+1, 1.0)*2*M_PI] , @"inputImage", [CIImage imageWithData:[self TIFFRepresentation]], nil]];
 }
 
 #if 0
 - (NSImage *)imageByAdjustingHue:(CGFloat)hue saturation:(CGFloat)saturation {
 	hue = fmod(hue+1, 1.0);
-	CIFilter *hueAdjust = [CIFilter filterWithName:@"CIHueAdjust" keysAndValues:@"inputAngle", [NSNumber numberWithFloat:hue*2*M_PI] , @"inputImage", [CIImage imageWithData:[self TIFFRepresentation]], nil];
-	CIFilter *satAdjust = [CIFilter filterWithName:@"CIColorControls" keysAndValues:@"inputSaturation", [NSNumber numberWithFloat:saturation] , @"inputBrightness", [NSNumber numberWithFloat:0.0f] , @"inputContrast", [NSNumber numberWithFloat:1.0f] , @"inputImage", [hueAdjust valueForKey:@"outputImage"] , nil];
+	CIFilter *hueAdjust = [CIFilter filterWithName:@"CIHueAdjust" keysAndValues:@"inputAngle", [NSNumber numberWithDouble:hue*2*M_PI] , @"inputImage", [CIImage imageWithData:[self TIFFRepresentation]], nil];
+	CIFilter *satAdjust = [CIFilter filterWithName:@"CIColorControls" keysAndValues:@"inputSaturation", [NSNumber numberWithDouble:saturation] , @"inputBrightness", [NSNumber numberWithDouble:0.0f] , @"inputContrast", [NSNumber numberWithDouble:1.0f] , @"inputImage", [hueAdjust valueForKey:@"outputImage"] , nil];
 	return [NSImage imageWithCIFilter:satAdjust];
 }
 #endif

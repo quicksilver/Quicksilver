@@ -14,13 +14,13 @@
 
 
 
-float QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mask, CFRange strRange, CFRange abbrRange);
+CGFloat QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mask, CFRange strRange, CFRange abbrRange);
 
-float QSScoreForAbbreviation(CFStringRef str, CFStringRef abbr, id mask) {
+CGFloat QSScoreForAbbreviation(CFStringRef str, CFStringRef abbr, id mask) {
 	return QSScoreForAbbreviationWithRanges(str, abbr, mask, CFRangeMake(0, CFStringGetLength(str) ), CFRangeMake(0, CFStringGetLength(abbr)));
 }
 
-float QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mask, CFRange strRange, CFRange abbrRange) {
+CGFloat QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mask, CFRange strRange, CFRange abbrRange) {
     
 	if (!abbrRange.length)
         return IGNORED_SCORE; //deduct some points for all remaining letters
@@ -34,8 +34,8 @@ float QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mas
 	CFStringInitInlineBuffer(str, &inlineBuffer, strRange);
 	CFLocaleRef userLoc = CFLocaleCopyCurrent();
 
-    float score = 0.0, remainingScore = 0.0;
-	int i, j;
+    CGFloat score = 0.0, remainingScore = 0.0;
+	NSInteger i, j;
 	CFRange matchedRange, remainingStrRange, adjustedStrRange = strRange;
     
 	for (i = abbrRange.length; i > 0; i--) { //Search for steadily smaller portions of the abbreviation
@@ -77,12 +77,12 @@ float QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id mas
 				static CFCharacterSetRef uppercase = NULL;
 				if (!uppercase) uppercase = CFCharacterSetGetPredefined(kCFCharacterSetUppercaseLetter);
 				if (CFCharacterSetIsCharacterMember(wordSeparator, CFStringGetCharacterFromInlineBuffer(&inlineBuffer, matchedRange.location-1) )) {
-					for (j = matchedRange.location-2; j >= (int) strRange.location; j--) {
+					for (j = matchedRange.location-2; j >= (NSInteger) strRange.location; j--) {
 						if (CFCharacterSetIsCharacterMember(wordSeparator, CFStringGetCharacterFromInlineBuffer(&inlineBuffer, j) )) score--;
 						else score -= SKIPPED_SCORE;
 					}
 				} else if (CFCharacterSetIsCharacterMember(uppercase, CFStringGetCharacterFromInlineBuffer(&inlineBuffer, matchedRange.location) )) {
-					for (j = matchedRange.location-1; j >= (int) strRange.location; j--) {
+					for (j = matchedRange.location-1; j >= (NSInteger) strRange.location; j--) {
 						if (CFCharacterSetIsCharacterMember(uppercase, CFStringGetCharacterFromInlineBuffer(&inlineBuffer, j) ))
 							score--;
 						else

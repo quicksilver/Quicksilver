@@ -13,11 +13,12 @@
 #define countBadgeTextAttributes [NSDictionary dictionaryWithObjectsAndKeys:[NSFont fontWithName:@"Helvetica Bold" size:24] , NSFontAttributeName, [NSColor whiteColor] , NSForegroundColorAttributeName, nil]
 
 @implementation QSCountBadgeImage
-- (void)setCount:(int)newCount { count = newCount; }
+- (void)setCount:(NSInteger)newCount { count = newCount; }
 
-+ (QSCountBadgeImage *)badgeForCount:(int)num {
++ (QSCountBadgeImage *)badgeForCount:(NSInteger)num {
 	if (num <= 0) return nil;
 	NSImage *badgeImage;
+#warning 64BIT: Check formatting arguments
 	NSString *numString = [NSString stringWithFormat:@"%d", num];
 	if ([numString length] < 3)
 		badgeImage = [QSResourceManager imageNamed:@"countBadge1&2"];
@@ -44,6 +45,7 @@
 - (void)drawInRect:(NSRect)rect fromRect:(NSRect)fromRect operation:(NSCompositingOperation)op fraction:(CGFloat)delta {
 	[super drawInRect:rect fromRect:rectFromSize([self size]) operation:op fraction:delta];
 
+#warning 64BIT: Check formatting arguments
 	NSString *numString = [NSString stringWithFormat:@"%d", count];
 	NSRect textRect = NSInsetRect(rect, NSHeight(rect) /4, NSHeight(rect)/4);
 	NSDictionary *numAttributes = [numString attributesToFitNumbersInRect:textRect withAttributes:countBadgeTextAttributes];

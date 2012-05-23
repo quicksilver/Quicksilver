@@ -638,7 +638,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	return nil;
 }
 
-- (int) fileCount {
+- (NSInteger) fileCount {
 	return [[self arrayForType:QSFilePathType] count];
 }
 
@@ -802,6 +802,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		NSString *container = [self filesContainer];
 		NSString *type = [self filesType];
 		BOOL onDesktop = [container isEqualToString:[@"~/Desktop/" stringByStandardizingPath]];
+#warning 64BIT: Check formatting arguments
 		newName = [NSString stringWithFormat:@"%d %@ %@ \"%@\"", [paths count] , type, onDesktop?@"on":@"in", [container lastPathComponent]];
 	} else {
 		NSString *path = [self objectForType:QSFilePathType];

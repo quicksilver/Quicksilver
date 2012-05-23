@@ -15,7 +15,7 @@
 //#define compGT(a, b) (a < b)
 #import "UKMainThreadProxy.h"
 
-float QSMinScore = 0.333333;
+CGFloat QSMinScore = 0.333333;
 
 static NSInteger presetSort(id item1, id item2, void *librarian) {
 	return [[item1 name] caseInsensitiveCompare:[item2 name]];
@@ -23,7 +23,7 @@ static NSInteger presetSort(id item1, id item2, void *librarian) {
 
 QSLibrarian *QSLib = nil;
 
-static float searchSpeed = 0.0;
+static CGFloat searchSpeed = 0.0;
 
 @implementation QSLibrarian
 
@@ -51,7 +51,8 @@ static float searchSpeed = 0.0;
 	if (self = [super init]) {
 		NSNumber *minScore = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSMinimumScore"];
 		if (minScore) {
-			QSMinScore = [minScore floatValue];
+			QSMinScore = [minScore doubleValue];
+#warning 64BIT: Check formatting arguments
 			NSLog(@"Minimum Score set to %f", QSMinScore);
 		}
 		[QSLibrarian createDirectories];
@@ -83,7 +84,7 @@ static float searchSpeed = 0.0;
 			[NSNumber numberWithBool:YES] , kItemEnabled, nil];
 
 #ifdef DEBUG
-		if ((int) getenv("QSDisableCatalog") || GetCurrentKeyModifiers() & shiftKey) {
+		if ((NSInteger) getenv("QSDisableCatalog") || GetCurrentKeyModifiers() & shiftKey) {
 			NSLog(@"Disabling Catalog");
 		} else {
 #endif
@@ -407,7 +408,8 @@ static float searchSpeed = 0.0;
 
 #ifdef DEBUG
 	if (DEBUG_CATALOG)
-		NSLog(@"Indexes loaded (%dms) ", (int)(-[date timeIntervalSinceNow] *1000));
+#warning 64BIT: Check formatting arguments
+		NSLog(@"Indexes loaded (%dms) ", (NSInteger)(-[date timeIntervalSinceNow] *1000));
 #endif
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryIndexed object:nil];
@@ -531,10 +533,10 @@ static float searchSpeed = 0.0;
 	scannerCount++;
 	[NSThread setThreadPriority:0];
 	NSArray *children = [catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
-	int i;
-	int c = [children count];
+	NSInteger i;
+	NSInteger c = [children count];
 	for (i = 0; i<c; i++) {
-		[mtScanTask setProgress:(float) i/c];
+		[mtScanTask setProgress:(CGFloat) i/c];
 		[[children objectAtIndex:i] scanForced:force];
 	}
 
@@ -585,11 +587,12 @@ static float searchSpeed = 0.0;
 	[self writeCatalog:self];
 }
 
-- (float) estimatedTimeForSearchInSet:(id)set {
-	float estimate = (set ? [set count] : [defaultSearchSet count]) * searchSpeed;
+- (CGFloat) estimatedTimeForSearchInSet:(id)set {
+	CGFloat estimate = (set ? [set count] : [defaultSearchSet count]) * searchSpeed;
 #ifdef DEBUG
 	if (VERBOSE)
-        NSLog(@"Estimate: %fms avg: %dµs", estimate * 1000, (int)(searchSpeed * 1000000));
+#warning 64BIT: Check formatting arguments
+        NSLog(@"Estimate: %fms avg: %dµs", estimate * 1000, (NSInteger)(searchSpeed * 1000000));
 #endif
 	return MIN(estimate, 0.5);
 }
@@ -597,8 +600,8 @@ static float searchSpeed = 0.0;
 #ifdef DEBUG
 - (NSMutableArray *)scoreTest:(id)sender {
 	NSArray *array = [NSArray arrayWithObjects:@"a", @"b", @"c", @"d", @"e", @"f", @"g", @"h", @"i", @"j", @"k", @"l", @"m", @"n", @"o", @"p", @"q", @"r", @"s", @"t", @"u", @"v", @"w", @"x", @"y", @"z", nil];
-	int i, j;
-	int count = [array count];
+	NSInteger i, j;
+	NSInteger count = [array count];
 
 	NSDate *totalDate = [NSDate date];
 	NSDate *date;
@@ -618,6 +621,7 @@ static float searchSpeed = 0.0;
 
 			[pool drain];
 		}
+#warning 64BIT: Check formatting arguments
 		if (VERBOSE) NSLog(@"SearchTest in %3fs, %3fs", -[date timeIntervalSinceNow] , -[totalDate timeIntervalSinceNow]);
 	}
 	return nil;
@@ -642,13 +646,14 @@ static float searchSpeed = 0.0;
 #ifdef DEBUG
 	NSDate *date = [NSDate date];
 	
-	int count = [set count];
-	float speed = -[date timeIntervalSinceNow] / count;
+	NSInteger count = [set count];
+	CGFloat speed = -[date timeIntervalSinceNow] / count;
 	if (count)
         searchSpeed = ((speed + searchSpeed) / 2.0f);
 
 	if (VERBOSE)
-        NSLog(@"Ranking: %fms avg: %d¬µs", -([date timeIntervalSinceNow] * 1000), (int)(speed * 1000000));
+#warning 64BIT: Check formatting arguments
+        NSLog(@"Ranking: %fms avg: %d¬µs", -([date timeIntervalSinceNow] * 1000), (NSInteger)(speed * 1000000));
 
 #endif
  	[rankObjects sortUsingSelector:@selector(scoreCompare:)];

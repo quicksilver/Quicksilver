@@ -20,12 +20,12 @@ typedef enum {
     NSImage *backgroundImage;
     NSColor *backgroundColor;
     QSBackgroundType backgroundType;
-	int screenNumber;
+	NSInteger screenNumber;
 }
 - (void)updateWithDictionary:(NSDictionary *)backgroundDict;
 
-- (int)screenNumber;
-- (void)setScreenNumber:(int)newScreenNumber;
+- (NSInteger)screenNumber;
+- (void)setScreenNumber:(NSInteger)newScreenNumber;
 //
 - (NSImage *)backgroundImage;
 - (void)setBackgroundImage:(NSImage *)newBackgroundImage;

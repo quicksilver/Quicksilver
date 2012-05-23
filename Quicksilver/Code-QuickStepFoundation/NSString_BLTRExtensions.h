@@ -13,20 +13,20 @@ NSAttributedString * highlightString(NSString *string, NSString *keyString);
 NSComparisonResult prefixCompare(NSString *aString, NSString *bString);
 
 @interface NSString (Abbreviation)
-- (float) scoreForString:(NSString *)string;
+- (CGFloat) scoreForString:(NSString *)string;
 
 - (NSArray *)hitsForString:(NSString *)testString;
 
-- (float) scoreForAbbreviation:(NSString *)abbreviation;
+- (CGFloat) scoreForAbbreviation:(NSString *)abbreviation;
 //- (float) oldScoreForAbbreviation:(NSString *)abbreviation;
-- (float) scoreForAbbreviation:(NSString *)abbreviation hitMask:(NSMutableIndexSet *)mask;
+- (CGFloat) scoreForAbbreviation:(NSString *)abbreviation hitMask:(NSMutableIndexSet *)mask;
 //- (float) oldScoreForAbbreviation:(NSString *)abbreviation hitMask:(NSMutableIndexSet *)mask;
-- (float) scoreForAbbreviation:(NSString *)abbreviation inRange:(NSRange)searchRange fromRange:(NSRange)abbreviationRange hitMask:(NSMutableIndexSet *)mask;
+- (CGFloat) scoreForAbbreviation:(NSString *)abbreviation inRange:(NSRange)searchRange fromRange:(NSRange)abbreviationRange hitMask:(NSMutableIndexSet *)mask;
 
 @end
 
 @interface NSAttributedString (Sizing)
-- (NSSize) sizeForWidth:(float)width;
+- (NSSize) sizeForWidth:(CGFloat)width;
 @end
 
 @interface NSString (URLEncoding)
@@ -41,7 +41,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString);
 
 @interface NSString (Truncation)
 
-- (NSString *)stringTruncatedToWidth:(float) width withAttributes:(NSDictionary *)attributes;
+- (NSString *)stringTruncatedToWidth:(CGFloat) width withAttributes:(NSDictionary *)attributes;
 @end
 
 
@@ -52,7 +52,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString);
 
 - (NSString *)encodedPasteboardType;
 - (NSString *)encodedHexString;
-- (unsigned) hexIntValue;
+- (NSUInteger) hexIntValue;
 - (NSComparisonResult) versionCompare:(NSString *)other;
 - (NSString *)encodedPasteboardType;
 @end

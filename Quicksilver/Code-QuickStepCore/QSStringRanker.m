@@ -30,6 +30,7 @@
 }
 
 - (NSString *)description {
+#warning 64BIT: Check formatting arguments
 	return [NSString stringWithFormat:@"%@ @%", [super description], normString];
 }
 
@@ -41,7 +42,7 @@
     }
 }
 
-- (float)scoreForAbbreviation:(NSString*)anAbbreviation {
+- (CGFloat)scoreForAbbreviation:(NSString*)anAbbreviation {
 	return QSScoreForAbbreviation((CFStringRef) normString, (CFStringRef)anAbbreviation, nil);
 }
 

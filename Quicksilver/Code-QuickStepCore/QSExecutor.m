@@ -41,7 +41,7 @@ QSExecutor *QSExec = nil;
 @end
 
 @interface QSAction (QSPrivate)
-- (void)_setRank:(int)newRank;
+- (void)_setRank:(NSInteger)newRank;
 @end
 
 @implementation QSExecutor
@@ -188,20 +188,22 @@ QSExecutor *QSExec = nil;
         activation = [action defaultEnabled];
 	[action setMenuEnabled:activation];    
 
-	int index = [actionRanking indexOfObject:ident];
+	NSInteger index = [actionRanking indexOfObject:ident];
 
 	if (index == NSNotFound) {
-		float prec = [action precedence];
+		CGFloat prec = [action precedence];
 		NSUInteger i;
-		float otherPrec;
+		CGFloat otherPrec;
 		for(i = 0; i < [actionRanking count]; i++) {
-			otherPrec = [[actionPrecedence valueForKey:[actionRanking objectAtIndex:i]] floatValue];
+			otherPrec = [[actionPrecedence valueForKey:[actionRanking objectAtIndex:i]] doubleValue];
 			if (otherPrec < prec) break;
 		}
 		[actionRanking insertObject:ident atIndex:i];
-		[actionPrecedence setObject:[NSNumber numberWithFloat:prec] forKey:ident];
+		[actionPrecedence setObject:[NSNumber numberWithDouble:prec] forKey:ident];
 		[action setRank:i];
 #ifdef DEBUG
+#warning 64BIT: Inspect use of unsigned long
+#warning 64BIT: Check formatting arguments
 		if (VERBOSE) NSLog(@"inserting action %@ at %ld (%f) ", action, (unsigned long)i, prec);
 #endif
 	} else {
@@ -439,8 +441,9 @@ QSExecutor *QSExec = nil;
 }
 
 - (void)orderActions:(NSArray *)actions aboveActions:(NSArray *)lowerActions {
-	int index = [[lowerActions valueForKeyPath:@"@min.rank"] intValue];
+	NSInteger index = [[lowerActions valueForKeyPath:@"@min.rank"] integerValue];
 #ifdef DEBUG
+#warning 64BIT: Check formatting arguments
 	if (VERBOSE) NSLog(@"Promote to %d", index);
 #endif
 	NSString *targetIdentifier = [actionRanking objectAtIndex:index];
@@ -451,7 +454,7 @@ QSExecutor *QSExec = nil;
 	[self updateRanks];
 }
 - (void)orderActions:(NSArray *)actions belowActions:(NSArray *)higherActions {
-	int index = [[higherActions valueForKeyPath:@"@max.rank"] intValue];
+	NSInteger index = [[higherActions valueForKeyPath:@"@max.rank"] integerValue];
 	//NSLog(@"demote to %d", index);
 	NSString *targetIdentifier = [actionRanking objectAtIndex:index];
 	NSArray *identifiers = [actions valueForKey:@"identifier"];

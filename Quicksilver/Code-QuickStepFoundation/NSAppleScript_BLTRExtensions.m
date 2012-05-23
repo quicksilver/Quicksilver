@@ -30,7 +30,7 @@
 - (NSAppleEventDescriptor *)descriptorByTranslatingObject:(id)object ofType:(id)type inSuite:(id)suite;
 - (id)objectByTranslatingDescriptor:(NSAppleEventDescriptor *)descriptor toType:(id)type inSuite:(id)suite;
 - (void)registerTranslator:(id)translator selector:(SEL) selector toTranslateFromClass:(Class) class;
-- (void)registerTranslator:(id)translator selector:(SEL) selector toTranslateFromDescriptorType:(unsigned int) type;
+- (void)registerTranslator:(id)translator selector:(SEL) selector toTranslateFromDescriptorType:(NSUInteger) type;
 @end
 
 @implementation NSAppleScript (Constructors)
@@ -57,7 +57,8 @@
 		[argumentList insertDescriptor:arguments atIndex:[arguments numberOfItems] +1];
 		arguments = argumentList;
 	}
-	int pid = [[NSProcessInfo processInfo] processIdentifier];
+	NSInteger pid = [[NSProcessInfo processInfo] processIdentifier];
+#warning 64BIT: Inspect use of sizeof
 	targetAddress = [[NSAppleEventDescriptor alloc] initWithDescriptorType:typeKernelProcessID bytes:&pid length:sizeof(pid)];
 	event = [[NSAppleEventDescriptor alloc] initWithEventClass:kASAppleScriptSuite eventID:kASSubroutineEvent targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
 	subroutineDescriptor = [NSAppleEventDescriptor descriptorWithString:name];
@@ -142,7 +143,7 @@
 	} else if ([object isKindOfClass:[NSString class]]) {
 		return [NSAppleEventDescriptor descriptorWithString:object];
 	} else if ([object isKindOfClass:[NSNumber class]]) {
-		return [NSAppleEventDescriptor descriptorWithInt32:[object intValue]];
+		return [NSAppleEventDescriptor descriptorWithInt32:[object integerValue]];
 	} else if ([object isKindOfClass:[NSAppleEventDescriptor class]]) {
 		return object;
 	} else if ([object isKindOfClass:[NSNull class]]) {
@@ -159,7 +160,7 @@
 			return nil;
 		case cAEList: {
 			NSMutableArray *array = [NSMutableArray arrayWithCapacity:[self numberOfItems]];
-			int i;
+			NSInteger i;
 			id theItem;
 			for (i = 0; i<[self numberOfItems]; i++) {
 				theItem = [[self descriptorAtIndex:i+1] objectValue];
@@ -189,6 +190,7 @@
 	if (err != noErr) return nil;
 	err = FSNewAliasMinimal(&fileRef, &fileAlias);
 	if (err != noErr) return nil;
+#warning 64BIT: Inspect use of sizeof
 	return [NSAppleEventDescriptor descriptorWithDescriptorType:typeAlias bytes:fileAlias length:sizeof(*fileAlias)];
 
 }

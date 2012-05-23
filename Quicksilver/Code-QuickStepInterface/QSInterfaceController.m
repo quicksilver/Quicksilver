@@ -404,7 +404,7 @@
         if ([obj isKindOfClass:[QSRankedObject class]])
             obj = [(QSRankedObject*)obj object];
         if ([obj isKindOfClass:[QSAction class]]) {
-            int argumentCount = [obj argumentCount];
+            NSInteger argumentCount = [obj argumentCount];
             if (argumentCount == 2)
                 [self updateIndirectObjects];
             [self updateViewLocations];
@@ -553,7 +553,8 @@
 	QSCommand *command = [QSCommand commandWithDirectObject:dObject actionObject:action indirectObject:iObject];
 	[command execute];
 #ifdef DEBUG
-	if (VERBOSE) NSLog(@"Command executed (%dms) ", (int)(-[startDate timeIntervalSinceNow] *1000));
+#warning 64BIT: Check formatting arguments
+	if (VERBOSE) NSLog(@"Command executed (%dms) ", (NSInteger)(-[startDate timeIntervalSinceNow] *1000));
 #endif
 	[action release];
 	[pool drain];
@@ -590,7 +591,7 @@
     // add the object being executed to the history
     [dSelector updateHistory];
     
-	int argumentCount = [(QSAction *)[aSelector objectValue] argumentCount];
+	NSInteger argumentCount = [(QSAction *)[aSelector objectValue] argumentCount];
 	if (argumentCount == 2) {
 		BOOL indirectIsRequired = ![[aSelector objectValue] indirectOptional];
 		BOOL indirectIsInvalid = ![iSelector objectValue];
@@ -715,11 +716,11 @@
 	[self fireActionUpdateTimer];
 	NSArray *array = [aSelector resultArray];
     
-	int argumentCount = [(QSAction *)[aSelector objectValue] argumentCount];
+	NSInteger argumentCount = [(QSAction *)[aSelector objectValue] argumentCount];
     
 	if (sender == iSelector) {
-		int index = [array indexOfObject:[aSelector objectValue]];
-		int count = [array count];
+		NSInteger index = [array indexOfObject:[aSelector objectValue]];
+		NSInteger count = [array count];
 		if (index != count-1)
 			array = [[array subarrayWithRange:NSMakeRange(index+1, count-index-1)] arrayByAddingObjectsFromArray:
                      [array subarrayWithRange:NSMakeRange(0, index+1)]];

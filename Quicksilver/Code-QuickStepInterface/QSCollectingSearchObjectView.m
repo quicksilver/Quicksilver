@@ -25,9 +25,9 @@
 }
 - (void)drawRect:(NSRect)rect {
 	NSRect frame = [self frame];
-	int count = [collection count];
+	NSInteger count = [collection count];
 	if (![self currentEditor] && count) {
-		float totalSpace = collectionSpace+4;
+		CGFloat totalSpace = collectionSpace+4;
 		if (collectionSpace < 0.0001) {
 			totalSpace = count*16+8;
 		}
@@ -38,9 +38,9 @@
 		[[NSColor colorWithDeviceWhite:1.0 alpha:0.92] set];
 		if (collectionSpace < 0.0001)
 			collectRect.origin.x += 8;
-		int i;
-		float iconSize = collectionSpace?collectionSpace:16;
-		float opacity = collecting?1.0:0.5;
+		NSInteger i;
+		CGFloat iconSize = collectionSpace?collectionSpace:16;
+		CGFloat opacity = collecting?1.0:0.5;
 		QSObject *object;
 		for (i = 0; i<count; i++) {
 			object = [collection objectAtIndex:i];
@@ -135,10 +135,10 @@
 - (void)setCollectionEdge:(NSRectEdge)value {
 	collectionEdge = value;
 }
-- (float)collectionSpace {
+- (CGFloat)collectionSpace {
 	return collectionSpace;
 }
-- (void)setCollectionSpace:(float)value {
+- (void)setCollectionSpace:(CGFloat)value {
 	collectionSpace = value;
 }
 - (void)dealloc {

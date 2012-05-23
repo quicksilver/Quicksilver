@@ -235,7 +235,7 @@ extern OSErr CPSGetCurrentProcess( CPSProcessSerNum *psn);
 extern OSErr CPSGetFrontProcess( CPSProcessSerNum *psn);
 extern OSErr CPSGetNextProcess( CPSProcessSerNum *psn);
 extern OSErr CPSGetNextToFrontProcess( CPSProcessSerNum *psn);
-extern OSErr CPSGetProcessInfo( CPSProcessSerNum *psn, CPSProcessInfoRec *info, char *path, int maxPathLen, int *len, char *name, int maxNameLen);
+extern OSErr CPSGetProcessInfo( CPSProcessSerNum *psn, CPSProcessInfoRec *info, char *path, NSInteger maxPathLen, NSInteger *len, char *name, NSInteger maxNameLen);
 extern OSErr CPSPostHideMostReq( CPSProcessSerNum *psn);
 extern OSErr CPSPostHideReq( CPSProcessSerNum *psn);
 extern OSErr CPSPostKillRequest( CPSProcessSerNum *psn, CPSKillOptions options);

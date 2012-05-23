@@ -1,5 +1,3 @@
-
-
 #import <Foundation/Foundation.h>
 
 @class QSObject;
@@ -10,7 +8,7 @@
 	BOOL autosize;
 	NSFont *nameFont;
 	NSFont *detailsFont;
-    float cellRadiusFactor;
+    CGFloat cellRadiusFactor;
 	NSColor *textColor;
 	NSColor *highlightColor;
 	NSSize iconSize;
@@ -32,8 +30,8 @@
 - (NSFont *)detailsFont;
 - (void)setDetailsFont:(NSFont *)newDetailsFont;
 // (cell height / cellRadiusFactor) will become the radius for rounded corners
-- (float)cellRadiusFactor;
-- (void)setCellRadiusFactor:(float)newRadius;
+- (CGFloat)cellRadiusFactor;
+- (void)setCellRadiusFactor:(CGFloat)newRadius;
 - (NSColor *)textColor;
 - (void)setTextColor:(NSColor *)newTextColor;
 - (NSColor *)highlightColor;
@@ -43,7 +41,7 @@
 - (void)setIconSize:(NSSize)anIconSize;
 //- (BOOL)objectIsInCollection:(QSObject *)thisObject;
 - (void)drawTextForObject:(QSObject *)drawObject withFrame:(NSRect)cellFrame inView:(NSView *)controlView;
-- (void)drawObjectImage:(QSObject *)drawObject inRect:(NSRect)drawingRect cellFrame:(NSRect)cellFrame controlView:(NSView *)controlView flipped:(BOOL)flipped opacity:(float)opacity;
+- (void)drawObjectImage:(QSObject *)drawObject inRect:(NSRect)drawingRect cellFrame:(NSRect)cellFrame controlView:(NSView *)controlView flipped:(BOOL)flipped opacity:(CGFloat)opacity;
 - (void)drawIconForObject:(QSObject *)object withFrame:(NSRect)cellFrame inView:(NSView *)controlView;
 - (void)buildStylesForFrame:(NSRect)cellFrame inView:(NSView *)controlView;
 @end

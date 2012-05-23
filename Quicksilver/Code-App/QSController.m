@@ -1,4 +1,3 @@
-
 #import <ExceptionHandling/NSExceptionHandler.h>
 #import "Quicksilver.h"
 
@@ -125,7 +124,7 @@ static QSController *defaultController = nil;
 	//NSLog(@"handl");
 }
 
-- (int) showMenuIcon {
+- (NSInteger) showMenuIcon {
 	return -1;
 }
 - (void)setShowMenuIcon:(NSNumber *)mode {    
@@ -505,12 +504,14 @@ static QSController *defaultController = nil;
 - (void)executeCommandAtPath:(NSString *)path { [[QSCommand commandWithFile:path] execute];  }
 - (void)performService:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
 #ifdef DEBUG
+#warning 64BIT: Check formatting arguments
 	if (VERBOSE) NSLog(@"Perform Service: %@ %d", userData, [userData characterAtIndex:0]);
 #endif
 	[self receiveObject:[[[QSObject alloc] initWithPasteboard:pboard] autorelease]];
 }
 - (void)getSelection:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
 #ifdef DEBUG
+#warning 64BIT: Check formatting arguments
 	if (VERBOSE) NSLog(@"GetSel Service: %@ %d", userData, [userData characterAtIndex:0]);
 #endif
 	[self receiveObject:[[[QSObject alloc] initWithPasteboard:pboard] autorelease]];
@@ -637,12 +638,12 @@ static QSController *defaultController = nil;
 - (NSString *)internetDownloadLocation { return [[[NDAlias aliasWithData:[[[[(NSDictionary *)CFPreferencesCopyValue((CFStringRef) @"Version 2.5.4", (CFStringRef) @"com.apple.internetconfig", kCFPreferencesCurrentUser, kCFPreferencesAnyHost) autorelease] objectForKey:@"ic-added"] objectForKey:@"DownloadFolder"] objectForKey:@"ic-data"]] path] stringByStandardizingPath];  }
 
 - (void)checkForFirstRun {
-	int status = [NSApp checkLaunchStatus];
+	QSApplicationLaunchStatusFlags status = [NSApp checkLaunchStatus];
 
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
 	NSString *lastVersionString = [defaults objectForKey:kLastUsedVersion];
-	int lastVersion = [lastVersionString respondsToSelector:@selector(hexIntValue)] ? [lastVersionString hexIntValue] : 0;
+	NSInteger lastVersion = [lastVersionString respondsToSelector:@selector(hexIntValue)] ? [lastVersionString hexIntValue] : 0;
 	switch (status) {
 		case QSApplicationUpgradedLaunch: {
 /** Turn off "running from a new location" and "you are using a new version of QS" popups for DEBUG builds **/
@@ -810,6 +811,7 @@ static QSController *defaultController = nil;
         output = [NSFileHandle fileHandleWithStandardError];
     NSTask * leaksTask = [NSTask taskWithLaunchPath:@"/usr/bin/leaks"
                                           arguments:[NSArray arrayWithObjects:
+#warning 64BIT: Check formatting arguments
                                                      [NSString stringWithFormat:@"%d", getpid()],
                                                      nil]];
     [leaksTask setStandardOutput:output];
@@ -944,10 +946,11 @@ static QSController *defaultController = nil;
 	//Update hotkey prefs
 
 	if (oldModifiers && oldKeyCode) {
-		int modifiers = [oldModifiers unsignedIntValue];
+		NSInteger modifiers = [oldModifiers unsignedIntegerValue];
 		if (modifiers < (1 << (rightControlKeyBit+1) )) {
+#warning 64BIT: Check formatting arguments
 			NSLog(@"updating hotkey %d", modifiers);
-			[defaults setValue:[NSNumber numberWithInt:carbonModifierFlagsToCocoaModifierFlags(modifiers)] forKey:kHotKeyModifiers];
+			[defaults setValue:[NSNumber numberWithInteger:carbonModifierFlagsToCocoaModifierFlags(modifiers)] forKey:kHotKeyModifiers];
 			[defaults synchronize];
 		}
 
@@ -1092,6 +1095,7 @@ static QSController *defaultController = nil;
 }
 
 - (NSApplicationPrintReply) application:(NSApplication *)application printFiles:(NSArray *)fileNames withSettings:(NSDictionary *)printSettings showPrintPanels:(BOOL)showPrintPanels {
+#warning 64BIT: Check formatting arguments
 	NSLog(@"Print %@ using %@ show %d", fileNames, printSettings, showPrintPanels) 	;
 	return NSPrintingFailure;
 }

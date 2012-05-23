@@ -10,7 +10,7 @@
 	CGAffineTransform transform;
 	CGSGetWindowTransform(conn, [self windowNumber] , &transform);
 	NSSize size = [self frame] .size;
-	float f;
+	CGFloat f;
 	for (f = 1.0; f <= 1.01; f += 0.001) {
 		CGAffineTransform newTransform = CGAffineTransformConcat(transform, CGAffineTransformTranslate(CGAffineTransformMakeScale(1/f, 1/f), -size.width/2 + size.width/2*f, -size.height/2+size.height/2*f) );
 		//CGSSetWindowAlpha(conn, [self windowNumber] , f);
@@ -26,12 +26,12 @@
 	CGAffineTransform transform;
 	CGSGetWindowTransform(conn, [self windowNumber] , &transform);
 	NSSize size = [self frame] .size;
-	float f;
+	CGFloat f;
 	NSDate *date = [NSDate date];
-	float elapsed;
+	CGFloat elapsed;
 	while ((elapsed = -[date timeIntervalSinceNow]) <FLAREDURATION) {
 		f = elapsed/FLAREDURATION;
-		float s = .97+3*pow(f-0.1, 2);
+		CGFloat s = .97+3*pow(f-0.1, 2);
 		CGAffineTransform newTransform = CGAffineTransformConcat(transform, CGAffineTransformTranslate(CGAffineTransformMakeScale(1/s, 1/s), -size.width/2 + size.width/2*s, -size.height/2+size.height/2*s) );
 		CGSSetWindowAlpha(conn, [self windowNumber] , pow(1-f, 2) );
 		CGSSetWindowTransform(conn, [self windowNumber] , newTransform);
@@ -45,15 +45,15 @@
 	CGAffineTransform transform;
 	CGSGetWindowTransform(conn, [self windowNumber] , &transform);
 	NSSize size = [self frame] .size;
-	float f;
+	CGFloat f;
 	NSDate *date = [NSDate date];
 
-	float elapsed;
+	CGFloat elapsed;
 	while ((elapsed = -[date timeIntervalSinceNow]) <FLAREDURATION) {
 		f = elapsed/FLAREDURATION;
 		//float s = 1+3*pow(f, 4);
 
-		float s = pow(1-f, 4);
+		CGFloat s = pow(1-f, 4);
 		CGAffineTransform newTransform = CGAffineTransformConcat(transform, CGAffineTransformTranslate(CGAffineTransformMakeScale(1/s, 1/s), -size.width/2 + size.width/2*s, -size.height/2+size.height/2*s) );
 		CGSSetWindowAlpha(conn, [self windowNumber] , pow(1-f, 2) );
 		CGSSetWindowTransform(conn, [self windowNumber] , newTransform);
@@ -67,15 +67,15 @@
 	CGAffineTransform transform;
 	CGSGetWindowTransform(conn, [self windowNumber] , &transform);
 	NSSize size = [self frame] .size;
-	float f;
+	CGFloat f;
 	NSDate *date = [NSDate date];
 
-	float elapsed;
+	CGFloat elapsed;
 	while ((elapsed = -[date timeIntervalSinceNow]) <FOLDDURATION) {
 		f = elapsed/FOLDDURATION;
 		//float s = 1+3*pow(f, 4);
 
-		float s = pow(1-f, 2);
+		CGFloat s = pow(1-f, 2);
 		CGAffineTransform modTransform = CGAffineTransformMakeScale(1/s, 1);
 		modTransform = CGAffineTransformTranslate(modTransform, -size.width/2 + size.width/2*s, 0);
 		CGAffineTransform newTransform = CGAffineTransformConcat(transform, modTransform);
@@ -94,14 +94,14 @@
 	CGAffineTransform transform;
 	CGSGetWindowTransform(conn, [self windowNumber] , &transform);
 	NSSize size = [self frame] .size;
-	float f;
+	CGFloat f;
 	NSDate *date = [NSDate date];
 
-	float elapsed;
+	CGFloat elapsed;
 	while ((elapsed = -[date timeIntervalSinceNow]) <FLIPDURATION) {
 		f = elapsed/FLIPDURATION;
 		f = cos(f*M_PI_2);
-		float s = pow(f, 2);
+		CGFloat s = pow(f, 2);
 		CGAffineTransform modTransform = CGAffineTransformMakeScale(1/s, 1);
 		modTransform = CGAffineTransformTranslate(modTransform, -size.width/2 + size.width/2*s, 0);
 		CGAffineTransform newTransform = CGAffineTransformConcat(transform, modTransform);
@@ -112,7 +112,7 @@
 	while ((elapsed = -[date timeIntervalSinceNow]) <FLIPDURATION) {
 		f = elapsed/FLIPDURATION;
 		f = sin(f*M_PI_2);
-		float s = pow(f, 2);
+		CGFloat s = pow(f, 2);
 
 		CGAffineTransform modTransform = CGAffineTransformMakeScale(1/s, 1);
 		modTransform = CGAffineTransformTranslate(modTransform, -size.width/2 + size.width/2*s, 0);
@@ -261,7 +261,7 @@
 		showEffect = [self showEffect];
 	}
 	if (!showEffect) {
-		showEffect = [NSDictionary dictionaryWithObjectsAndKeys:@"QSDefaultGrowEffect", @"transformFn", @"show", @"type", [NSNumber numberWithFloat:0.2] , @"duration", nil];
+		showEffect = [NSDictionary dictionaryWithObjectsAndKeys:@"QSDefaultGrowEffect", @"transformFn", @"show", @"type", [NSNumber numberWithDouble:0.2] , @"duration", nil];
 	}
 	if (showEffect) {
 		//[self disableScreenUpdatesUntilFlush];
@@ -317,7 +317,7 @@
 
 	[self setHasShadow:NO];
 	if (!hideEffect) {
-		hideEffect = [NSDictionary dictionaryWithObjectsAndKeys:@"QSDefaultShrinkEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithFloat:0.2] , @"duration", nil];
+		hideEffect = [NSDictionary dictionaryWithObjectsAndKeys:@"QSDefaultShrinkEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithDouble:0.2] , @"duration", nil];
 	}
 	if (hideEffect) {
 		id hl = [QSWindowAnimation effectWithWindow:self attributes:hideEffect];
@@ -483,9 +483,9 @@
 @end
 
 @implementation NSWindow (CGSTransitionRedraw)
-- (void)displayWithTransition:(CGSTransitionType) type option:(CGSTransitionOption)option duration:(float)duration; {
+- (void)displayWithTransition:(CGSTransitionType) type option:(CGSTransitionOption)option duration:(CGFloat)duration; {
 	CGSConnection cgs = _CGSDefaultConnection();
-	int handle;
+	NSInteger handle;
 	CGSTransitionSpec spec;
 	spec.unknown1 = 0;
 	spec.type = type;

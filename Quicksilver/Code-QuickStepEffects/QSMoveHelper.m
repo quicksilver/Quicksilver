@@ -3,7 +3,7 @@
 #import "NSGeometry_BLTRExtensions.h"*/
 
 
-NSRect QSBlendRects(NSRect start, NSRect end, float b) {
+NSRect QSBlendRects(NSRect start, NSRect end, CGFloat b) {
 	return NSMakeRect(	round(NSMinX(start) *(1-b) + NSMinX(end)*b),
 						round(NSMinY(start) *(1-b) + NSMinY(end)*b),
 						round(NSWidth(start) *(1-b) + NSWidth(end)*b),
@@ -11,7 +11,7 @@ NSRect QSBlendRects(NSRect start, NSRect end, float b) {
 }
 
 @implementation QSAnimationHelper
-+ (float) _windowAnimationVelocity {
++ (CGFloat) _windowAnimationVelocity {
 	return 0.1;
 }
 
@@ -113,7 +113,7 @@ NSRect QSBlendRects(NSRect start, NSRect end, float b) {
 	}
 }
 
-- (void)_resizeWindow:(id)window toFrame:(NSRect)frameRect alpha:(float)alpha display:(BOOL)flag {
+- (void)_resizeWindow:(id)window toFrame:(NSRect)frameRect alpha:(CGFloat)alpha display:(BOOL)flag {
 	_startTime = [NSDate timeIntervalSinceReferenceDate];
 	_totalTime = [window animationResizeTime:frameRect];
 

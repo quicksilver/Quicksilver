@@ -1,5 +1,3 @@
-
-
 #import <AppKit/AppKit.h>
 
 @class WebView;
@@ -13,7 +11,7 @@
 	IBOutlet NSProgressIndicator *scanProgress;
 
 	IBOutlet NSTextField *scanStatusField;
-	int plugInInfoStatus;
+	NSInteger plugInInfoStatus;
 	BOOL scanComplete;
 	BOOL setupComplete;
 	NSDictionary *identifiers;

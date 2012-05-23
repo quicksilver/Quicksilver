@@ -148,8 +148,10 @@
 			[date descriptionWithCalendarFormat:@"%Y%m%d%H%M%S" timeZone:nil locale:nil]]];
 	}
 	if (version) {
+#warning 64BIT: Check formatting arguments
 		[query addObject:[NSString stringWithFormat:@"updateVersion=%d", [version hexIntValue]]];
 	} else {
+#warning 64BIT: Check formatting arguments
 		[query addObject:[NSString stringWithFormat:@"qsversion=%d", [[NSApp buildVersion] hexIntValue]]];
 	}
 	NSArray *webPlugIns = [[knownPlugIns allValues] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isSecret == 1"]];
@@ -268,6 +270,7 @@
 		NSLog(@"Could not load new plugins data");
 		errorCount++;
 	} else {
+#warning 64BIT: Inspect use of long
 		NSLog(@"Downloaded info for %ld plug-in(s) ", (long)[(NSArray *)[prop objectForKey:@"plugins"] count]);
 		//	NSEnumerator *e = [prop objectEnumerator];
 		if ([prop count] && [[prop objectForKey:@"fullIndex"] boolValue])
@@ -467,7 +470,8 @@
 	startupLoadComplete = YES;
 	
 #ifdef DEBUG
-	NSLog(@"PlugIn Load Complete (%dms) ", (int)(-[date timeIntervalSinceNow] *1000));
+#warning 64BIT: Check formatting arguments
+	NSLog(@"PlugIn Load Complete (%dms) ", (NSInteger)(-[date timeIntervalSinceNow] *1000));
 #endif
 	
 }
@@ -704,7 +708,7 @@
 	[task launch];
 	[task waitUntilExit];
 	// if task was successful, returns 0
-	int status = [task terminationStatus];
+	NSInteger status = [task terminationStatus];
 	if (status == 0) {
 		[manager removeItemAtPath:path error:nil];
 		[[NSWorkspace sharedWorkspace] noteFileSystemChanged:[path stringByDeletingLastPathComponent]];
@@ -782,6 +786,7 @@
 
 		[self setIsInstalling:NO];
 	} else {
+#warning 64BIT: Check formatting arguments
 		NSString *status = [NSString stringWithFormat:@"Installing %d Plug-in(s)", [queuedDownloads count]];
 		//NSString *status = [NSString stringWithFormat:@"Installing %@ (%d of %d) ", [[self currentDownload] name] , [queuedDownloads count] , downloadsCount];
 		[self setInstallStatus:status];
@@ -843,7 +848,7 @@
 	//NSBeep();
 
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-	int selection = [defaults boolForKey:kClickInstallWithoutAsking];
+	NSInteger selection = [defaults boolForKey:kClickInstallWithoutAsking];
 
 	if (!selection) {//[NSApp activateIgnoringOtherApps:YES];
 		selection = NSRunInformationalAlertPanel(@"Install plug-ins?", @"Do you wish to move selected items to Quicksilver's plug-in folder?", @"Install", @"Cancel", @"Always Install Plug-ins");
@@ -882,6 +887,7 @@
 
 	if (!version)
         version = [NSApp buildVersion];
+#warning 64BIT: Check formatting arguments
 	return [NSString stringWithFormat:@"%@?qsversion=%d&id=%@", downloadURL, [version hexIntValue], ident];
 }
 
@@ -897,6 +903,7 @@
 		[self performSelectorOnMainThread:@selector(installPlugInWithInfo:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:ident, @"id", url, @"url", nil] waitUntilDone:YES];
 	}
 
+#warning 64BIT: Check formatting arguments
 	NSString *status = [NSString stringWithFormat:@"Installing %d Plug-in(s) ", [queuedDownloads count]];
 	[[QSTaskController sharedInstance] updateTask:@"QSPlugInInstalling" status:status progress:-1];
 	[self setInstallStatus:status];
@@ -951,7 +958,7 @@
 
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 
-	int selection = [defaults boolForKey:kWebInstallWithoutAsking];
+	NSInteger selection = [defaults boolForKey:kWebInstallWithoutAsking];
 	if (!selection)
 		selection = NSRunInformationalAlertPanel(name, @"Do you wish to install the %@?", @"Install", @"Cancel", @"Always Install Plug-ins", name);
 	if (selection) {
@@ -966,6 +973,7 @@
 }
 
 - (NSString *)currentStatus {
+#warning 64BIT: Check formatting arguments
 	return [NSString stringWithFormat:@"%d remaining", [queuedDownloads count]];
 }
 

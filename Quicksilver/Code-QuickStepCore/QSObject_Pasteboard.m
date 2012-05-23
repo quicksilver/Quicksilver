@@ -48,8 +48,8 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 
 	if (!theObject && [[pasteboard types] containsObject:@"QSObjectAddress"]) {
 		NSArray *objectIdentifier = [[pasteboard stringForType:@"QSObjectAddress"] componentsSeparatedByString:@":"];
-		if ([[objectIdentifier objectAtIndex:0] intValue] == [[NSProcessInfo processInfo] processIdentifier])
-			return (QSObject *)[[objectIdentifier lastObject] intValue];
+		if ([[objectIdentifier objectAtIndex:0] integerValue] == [[NSProcessInfo processInfo] processIdentifier])
+			return (QSObject *)[[objectIdentifier lastObject] integerValue];
 #ifdef DEBUG
 		else if (VERBOSE)
 			NSLog(@"Ignored old object: %@", objectIdentifier);
@@ -300,6 +300,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 - (void)pasteboard:(NSPasteboard *)sender provideDataForType:(NSString *)type {
 	//if (VERBOSE) NSLog(@"Provide: %@", [type decodedPasteboardType]);
 	if ([type isEqualToString:@"QSObjectAddress"]) {
+#warning 64BIT: Check formatting arguments
 		writeObjectToPasteboard(sender, type, [NSString stringWithFormat:@"%d:%d", [[NSProcessInfo processInfo] processIdentifier] , self]);
 	} else {
 		id theData = nil;

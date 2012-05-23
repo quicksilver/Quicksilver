@@ -16,6 +16,7 @@ static BOOL gModifiersAreIgnored;
 + (BOOL)modifiersAreIgnored {
 #ifdef DEBUG
 	if (VERBOSE && gModifiersAreIgnored)
+#warning 64BIT: Check formatting arguments
 		NSLog(@"ignoring modifiers %d", gModifiersAreIgnored);
 #endif
 	return gModifiersAreIgnored;
@@ -115,18 +116,18 @@ static BOOL gModifiersAreIgnored;
     return [[self actionDict] objectForKey:key];
 }
 
-- (float)precedence {
+- (CGFloat)precedence {
 	NSNumber *num = [[self actionDict] objectForKey:kActionPrecedence];
-	return num ? [num floatValue] : 0.0;
+	return num ? [num doubleValue] : 0.0;
 }
 
-- (int)rank { return rank;  }
-- (void)_setRank:(int)newRank {
+- (NSInteger)rank { return rank;  }
+- (void)_setRank:(NSInteger)newRank {
 	[self willChangeValueForKey:@"rank"];
 	rank = newRank;
 	[self didChangeValueForKey:@"rank"];
 }
-- (void)setRank:(int)newRank {
+- (void)setRank:(NSInteger)newRank {
 	rank = newRank;
 	[QSExec updateRanks];
 }
@@ -163,8 +164,8 @@ static BOOL gModifiersAreIgnored;
 	[QSExec noteNewName:dname forAction:self];
 }
 
-- (int)userRank { return rank+1;  }
-- (void)setUserRank:(int)newRank {
+- (NSInteger)userRank { return rank+1;  }
+- (void)setUserRank:(NSInteger)newRank {
 	rank = newRank-1;
 	[QSExec updateRanks];
 }
@@ -193,10 +194,10 @@ static BOOL gModifiersAreIgnored;
 		[[self actionDict] removeObjectForKey:kActionSelector];
 }
 
-- (int)argumentCount {
+- (NSInteger)argumentCount {
     id obj = [[self actionDict] objectForKey:kActionArgumentCount];
     if (obj)
-        return [obj intValue];
+        return [obj integerValue];
     
     id provider = [self provider];
     if ([provider respondsToSelector:@selector(argumentCountForAction:)])
@@ -205,8 +206,8 @@ static BOOL gModifiersAreIgnored;
     return [[QSActionProvider provider] argumentCountForAction:[self identifier]];
 }
 
-- (void)setArgumentCount:(int)newArgumentCount {
-    [[self actionDict] setObject:[NSNumber numberWithInt:newArgumentCount]
+- (void)setArgumentCount:(NSInteger)newArgumentCount {
+    [[self actionDict] setObject:[NSNumber numberWithInteger:newArgumentCount]
                           forKey:kActionArgumentCount];
 }
 
@@ -220,13 +221,13 @@ static BOOL gModifiersAreIgnored;
 }
 
 - (void)setIndirectOptional:(BOOL)flag {
- 	[[self actionDict] setObject:[NSNumber numberWithInt:flag] forKey:kActionIndirectOptional];
+ 	[[self actionDict] setObject:[NSNumber numberWithInteger:flag] forKey:kActionIndirectOptional];
 }
 
 - (BOOL)displaysResult { 
    return [[[self actionDict] objectForKey:kActionDisplaysResult] boolValue]; 
 }
-- (void)setDisplaysResult:(BOOL)flag { [[self actionDict] setObject:[NSNumber numberWithInt:flag] forKey:kActionDisplaysResult]; }
+- (void)setDisplaysResult:(BOOL)flag { [[self actionDict] setObject:[NSNumber numberWithInteger:flag] forKey:kActionDisplaysResult]; }
 
 - (id)provider {
 	NSDictionary *dict = [self actionDict];
@@ -281,6 +282,7 @@ static BOOL gModifiersAreIgnored;
 	NSMenu *menu = [[NSMenu alloc] initWithTitle:@"RankMenu"];
 
 	NSMenuItem *item;
+#warning 64BIT: Check formatting arguments
 	item = (NSMenuItem *)[menu addItemWithTitle:[NSString stringWithFormat:@"Rank: %d", [self rank] +1] action:NULL keyEquivalent:@""];
 	[item setTarget:nil];
 	[menu addItem:[NSMenuItem separatorItem]];
@@ -345,16 +347,17 @@ static BOOL gModifiersAreIgnored;
     
 	//Fallback format
 	if (!format)
+#warning 64BIT: Check formatting arguments
 		format = [NSString stringWithFormat:@"%%@ (%@) %@", [self name], ([self argumentCount] > 1 ? @" %@" : @"")];
     
     return format;
 }
 
-- (float)score {
+- (CGFloat)score {
     return 0.0;
 }
 
-- (int)order {
+- (NSInteger)order {
     return [self rank];
 }
 

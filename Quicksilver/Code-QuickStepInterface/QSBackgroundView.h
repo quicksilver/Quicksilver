@@ -3,12 +3,12 @@
 @interface QSBackgroundView : NSView {
 //	NSButtonCell *background;
 	NSColor *backgroundColor;
-	float depth;
+	CGFloat depth;
 }
 - (NSColor *)backgroundColor;
 - (void)setBackgroundColor:(NSColor *)aBackgroundColor;
-- (float)depth;
-- (void)setDepth:(float)aDepth;
+- (CGFloat)depth;
+- (void)setDepth:(CGFloat)aDepth;
 
 - (void)bindColors;
 @end

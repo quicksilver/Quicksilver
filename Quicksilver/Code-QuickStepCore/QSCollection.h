@@ -13,5 +13,5 @@
 	NSMutableArray *array;
 //	QSObject *objectValue;
 }
-- (unsigned) count;
+- (NSUInteger) count;
 @end

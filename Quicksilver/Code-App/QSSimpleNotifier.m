@@ -133,7 +133,7 @@
 	[imageView setImage:splashImage];
 	[[textView textStorage] setAttributedString:newAttributedString];
 
-	int direction = 1;
+	NSInteger direction = 1;
 
 	if ([titleString isEqualToString:lastTitle])
 		direction = -1;
@@ -145,7 +145,7 @@
 		[curTimer release];
 		curTimer = nil;
 
-		int transition = CGSLeft;
+		NSInteger transition = CGSLeft;
 
 		if (direction == -1)
 			transition = CGSRight;

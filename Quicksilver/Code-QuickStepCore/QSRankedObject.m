@@ -1,5 +1,3 @@
-
-
 #import "QSRankedObject.h"
 
 @implementation QSRankedObject
@@ -43,7 +41,7 @@
 }
 
 #pragma mark Lifecycle
-- (id)initWithObject:(id)newObject matchString:(NSString *)matchString order:(int)newOrder score:(float)newScore {
+- (id)initWithObject:(id)newObject matchString:(NSString *)matchString order:(NSInteger)newOrder score:(CGFloat)newScore {
     if (!newObject)
         [NSException raise:NSInvalidArgumentException
                     format:@"object can't be nil"];
@@ -60,15 +58,15 @@
 - (id)initWithCoder:(NSCoder *)coder {
 	self = [self initWithObject:[coder decodeObjectForKey:@"object"]
 				 matchString:[coder decodeObjectForKey:@"string"]
-						order:[coder decodeIntForKey:@"order"]
-						score:[coder decodeFloatForKey:@"score"]];
+						order:[coder decodeIntegerForKey:@"order"]
+						score:[coder decodeDoubleForKey:@"score"]];
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
 	[coder encodeObject:object forKey:@"object"];
 	[coder encodeObject:rankedString forKey:@"string"];
-	[coder encodeFloat:score forKey:@"score"];
+	[coder encodeDouble:score forKey:@"score"];
 }
 
 - (void)dealloc {
@@ -77,6 +75,7 @@
 	[super dealloc];
 }
 
+#warning 64BIT: Check formatting arguments
 - (NSString *)description {return [NSString stringWithFormat:@"[%@ %f] ", object, score];}
 
 #pragma mark Comparison/Equality
@@ -111,11 +110,11 @@
 
 #pragma mark Accessors
 
-- (float)score { return score; }
-- (void)setScore:(float)newScore { score = newScore; }
+- (CGFloat)score { return score; }
+- (void)setScore:(CGFloat)newScore { score = newScore; }
 
-- (int)order { return order;  }
-- (void)setOrder:(int)newOrder { order = newOrder; }
+- (NSInteger)order { return order;  }
+- (void)setOrder:(NSInteger)newOrder { order = newOrder; }
 
 - (id)object { return object; }
 - (void)setObject:(id)newObject {
@@ -154,9 +153,11 @@
 
 	NSMenuItem *item;
 
-	int myOrder = [self order];
+	NSInteger myOrder = [self order];
+#warning 64BIT: Check formatting arguments
 	NSString *title = [NSString stringWithFormat:@"Score: %.0f", [self score] *100];
 	if (myOrder != NSNotFound)
+#warning 64BIT: Check formatting arguments
 		title = [NSString stringWithFormat:@"Rank: %d, %@", myOrder+1, title];
 
 	item = (NSMenuItem *)[menu addItemWithTitle:title action:NULL keyEquivalent:@""];

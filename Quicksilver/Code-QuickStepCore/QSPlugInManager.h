@@ -38,10 +38,10 @@
     NSMutableSet *activeDownloads;
     
 	NSString *installStatus;
-	float installProgress;
+	CGFloat installProgress;
 	BOOL isInstalling;
 	BOOL supressRelaunchMessage;
-    int errorCount;
+    NSInteger errorCount;
     NSTimeInterval lastCheck;
 }
 
@@ -94,8 +94,8 @@
 - (NSMutableDictionary *)obsoletePlugIns;
 - (NSString *)installStatus;
 - (void)setInstallStatus:(NSString *)newInstallStatus;
-- (float) installProgress;
-- (void)setInstallProgress:(float)newInstallProgress;
+- (CGFloat) installProgress;
+- (void)setInstallProgress:(CGFloat)newInstallProgress;
 - (BOOL)isInstalling;
 - (void)setIsInstalling:(BOOL)flag;
 - (void)updateDownloadProgressInfo;
@@ -106,7 +106,7 @@
 - (void)downloadWebPlugInInfo;
 - (void)downloadWebPlugInInfoIgnoringDate;
 - (BOOL)updatePlugInsForNewVersion:(NSString *)version;
-- (float)downloadProgress;
+- (CGFloat)downloadProgress;
 - (NSMutableSet *)updatedPlugIns;
 - (BOOL)handleInstallURL:(NSURL *)url;
 - (BOOL)installPlugInsFromFiles:(NSArray *)fileList;

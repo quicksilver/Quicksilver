@@ -128,7 +128,7 @@
 
 - (BOOL)isDocked
 {
-	return ((int)touchingEdgeForRectInRect([self frame], [[self screen] frame]) >= 0);
+	return ((NSInteger)touchingEdgeForRectInRect([self frame], [[self screen] frame]) >= 0);
 }
 
 - (BOOL)canFade
@@ -170,7 +170,7 @@
 - (IBAction)hide:(id)sender {
 	if ([self isKeyWindow])
 		[self fakeResignKey];
-	int edge = touchingEdgeForRectInRect([self frame], [[self screen] frame]);
+	NSInteger edge = touchingEdgeForRectInRect([self frame], [[self screen] frame]);
 	if (edge < 0)
 		return;
 	NSArray *screens = [NSScreen screens];

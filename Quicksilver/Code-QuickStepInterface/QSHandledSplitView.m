@@ -40,7 +40,7 @@
 - (BOOL)drawsDivider { return drawsDivider; }
 - (void)setDrawsDivider:(BOOL)flag { drawsDivider = flag; }
 
-- (float)dividerThickness { return dividerThickness; }
-- (void)setDividerThickness:(float)newDividerThickness { dividerThickness = newDividerThickness; }
+- (CGFloat)dividerThickness { return dividerThickness; }
+- (void)setDividerThickness:(CGFloat)newDividerThickness { dividerThickness = newDividerThickness; }
 
 @end

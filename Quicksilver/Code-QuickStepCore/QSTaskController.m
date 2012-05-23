@@ -66,7 +66,7 @@ QSTaskController *QSTasks;
 	[task startTask:nil];
 	return task;
 }
-- (void)updateTask:(NSString *)taskKey status:(NSString *)status progress:(float)progress {
+- (void)updateTask:(NSString *)taskKey status:(NSString *)status progress:(CGFloat)progress {
 	QSTask *task = [self taskWithIdentifier:taskKey];
 
 	[task setStatus:status];

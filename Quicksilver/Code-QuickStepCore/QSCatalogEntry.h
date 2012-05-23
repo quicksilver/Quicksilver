@@ -34,8 +34,8 @@
 - (BOOL)isPreset;
 - (BOOL)isSeparator;
 - (BOOL)isGroup;
-- (int) state;
-- (int) hasEnabledChildren;
+- (NSInteger) state;
+- (NSInteger) hasEnabledChildren;
 - (BOOL)isEnabled;
 - (void)setEnabled:(BOOL)enabled;
 - (void)setDeepEnabled:(BOOL)enabled;

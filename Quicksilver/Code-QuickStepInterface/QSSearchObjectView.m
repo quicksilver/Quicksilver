@@ -704,7 +704,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (NSString *)stringForEvent:(NSEvent *)theEvent {
-	int flags = [theEvent modifierFlags];
+	NSInteger flags = [theEvent modifierFlags];
 	NSString *string = [NSString stringWithFormat:@"%@%@%@%@%@%@",
                         flags&NSShiftKeyMask?@"$":@"",
                         flags&NSControlKeyMask?@"^":@"",
@@ -825,6 +825,8 @@ NSMutableDictionary *bindingsDict = nil;
         
 		NSSize contentSize = [scrollView contentSize];
 		[editor setMinSize:NSMakeSize(0, contentSize.height)];
+#warning 64BIT: Inspect use of MAX/MIN constant; consider one of LONG_MAX/LONG_MIN/ULONG_MAX/DBL_MAX/DBL_MIN, or better yet, NSIntegerMax/Min, NSUIntegerMax, CGFLOAT_MAX/MIN
+#warning 64BIT: Inspect use of MAX/MIN constant; consider one of LONG_MAX/LONG_MIN/ULONG_MAX/DBL_MAX/DBL_MIN, or better yet, NSIntegerMax/Min, NSUIntegerMax, CGFLOAT_MAX/MIN
 		[editor setMaxSize:NSMakeSize(FLT_MAX, FLT_MAX)];
         
 		[editor setVerticallyResizable:YES];
@@ -862,6 +864,8 @@ NSMutableDictionary *bindingsDict = nil;
 	//t NSLog(@"scores %@", scores);
 	
 #ifdef DEBUG
+#warning 64BIT: Inspect use of long
+#warning 64BIT: Check formatting arguments
 	if (DEBUG_RANKING) NSLog(@"Searched for \"%@\" in %3fms (%d items) ", string, 1000 * -[date timeIntervalSinceNow] , (long)[newResultArray count]);
 #endif
 	
@@ -923,7 +927,7 @@ NSMutableDictionary *bindingsDict = nil;
 	}
     
 	if ([resetTimer isValid]) {
-		float resetDelay = [[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay];
+		CGFloat resetDelay = [[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay];
 		if (resetDelay) [resetTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:resetDelay]];
 	}
     
@@ -953,7 +957,7 @@ NSMutableDictionary *bindingsDict = nil;
     
 	[self setVisibleString:[partialString uppercaseString]];
     
-	float resetDelay = [[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay];
+	CGFloat resetDelay = [[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay];
 	if (resetDelay) {
 		if ([resetTimer isValid]) {
 			[resetTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:resetDelay]];
@@ -1048,7 +1052,7 @@ NSMutableDictionary *bindingsDict = nil;
 	//if (VERBOSE) NSLog(@"KeyD: %@\r%@", [theEvent characters] , theEvent);
 	lastTime = [theEvent timestamp];
 	lastProc = now;
-	float resetDelay = [[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay];
+	CGFloat resetDelay = [[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay];
 	if ((resetDelay && delay > resetDelay) || [self shouldResetSearchString]) {
 		[partialString setString:@""];
 		validSearch = YES;
@@ -1337,7 +1341,7 @@ NSMutableDictionary *bindingsDict = nil;
 		delta += [theEvent deltaY];
 	}
     
-	[self moveSelectionBy:-(int) delta];
+	[self moveSelectionBy:-(NSInteger) delta];
 	// [resultController->resultTable scrollWheel:theEvent];
 }
 
@@ -1584,7 +1588,8 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)unmarkText {}
 - (BOOL)hasMarkedText { return NO; }
-- (long)conversationIdentifier { return (long)self; }
+#warning 64BIT: Inspect use of long
+- (NSInteger)conversationIdentifier { return (long)self; }
 
 - (NSAttributedString *)attributedSubstringFromRange:(NSRange)theRange {
 	return [[[NSAttributedString alloc] initWithString:[partialString substringWithRange:theRange]] autorelease];
@@ -1654,6 +1659,7 @@ NSMutableDictionary *bindingsDict = nil;
 //}
 - (void)switchToHistoryState:(NSInteger)i {
 #ifdef DEBUG
+#warning 64BIT: Check formatting arguments
 	if (VERBOSE) NSLog(@"select in history %d %@", i, [historyArray valueForKeyPath:@"selection.displayName"]);
 #endif
 	//

@@ -11,7 +11,7 @@
 #define QSAppIsRunning(x) [[NSWorkspace sharedWorkspace] applicationIsRunning:x]
 @interface NSWorkspace (Misc)
 - (NSArray *)allApplications;
-- (int) pidForApplication:(NSDictionary *)theApp;
+- (NSInteger) pidForApplication:(NSDictionary *)theApp;
 - (BOOL)applicationIsRunning:(NSString *)pathOrID;
 - (NSDictionary *)dictForApplicationName:(NSString *)path;
 - (void)killApplication:(NSString *)path;
@@ -26,8 +26,8 @@
 - (void)activateApplication:(NSDictionary *)theApp;
 - (void)reopenApplication:(NSDictionary *)theApp;
 - (void)quitApplication:(NSDictionary *)theApp;
-- (NSString *)nameForPID:(int)pid;
-- (NSString *)pathForPID:(int)pid;
+- (NSString *)nameForPID:(NSInteger)pid;
+- (NSString *)pathForPID:(NSInteger)pid;
 - (void)quitPSN:(ProcessSerialNumber)psn;
 - (void)quitOtherApplications:(NSArray *)theApps;
 - (NSDictionary *)dictForApplicationIdentifier:(NSString *)ident;

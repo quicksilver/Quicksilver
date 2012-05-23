@@ -320,6 +320,7 @@ typedef enum {
 }
 
 - (void)downloadDidUpdate:(QSURLDownload *)download {
+#warning 64BIT: Check formatting arguments
     NSString * status = [NSString stringWithFormat:@"%.0fk of %.0fk", (double) [download currentContentLength] /1024, (double)[download expectedContentLength] /1024];
     [updateTask setStatus:status];
 	[updateTask setProgress:[(QSURLDownload *)download progress]];
@@ -436,7 +437,7 @@ typedef enum {
 	[task setArguments:[NSArray arrayWithObjects:@"-x", @"-rsrc", path, tempDirectory, nil]];
 	[task launch];
 	[task waitUntilExit];
-	int status = [task terminationStatus];
+	NSInteger status = [task terminationStatus];
 	if (status == 0) {
 		[manager removeItemAtPath:path error:nil];
 		[[NSWorkspace sharedWorkspace] noteFileSystemChanged:[path stringByDeletingLastPathComponent]];

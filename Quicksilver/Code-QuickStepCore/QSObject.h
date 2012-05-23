@@ -1,4 +1,3 @@
-
 #import <Foundation/Foundation.h>
 #import <AddressBook/AddressBook.h>
 
@@ -117,7 +116,7 @@ extern NSSize QSMaxIconSize;
 - (NSArray *)splitObjects;
 - (NSString *)displayName;
 - (NSString *)toolTip;
-- (NSString *)descriptionWithLocale:(NSDictionary *)locale indent:(unsigned)level;
+- (NSString *)descriptionWithLocale:(NSDictionary *)locale indent:(NSUInteger)level;
 - (NSString *)details;
 - (id)primaryObject;
 

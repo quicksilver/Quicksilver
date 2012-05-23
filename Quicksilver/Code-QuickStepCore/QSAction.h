@@ -42,7 +42,7 @@
 #define kActionPrecedence @"precedence"
 
 @interface QSAction : QSObject {
-	int rank;
+	NSInteger rank;
 }
 #if 0
 + (void)setModifiersAreIgnored:(BOOL)flag;
@@ -69,17 +69,17 @@
 - (SEL)action;
 - (void)setAction:(SEL)newAction;
 
-- (int)rank;
-- (void)setRank:(int)newRank;
-- (float)precedence;
+- (NSInteger)rank;
+- (void)setRank:(NSInteger)newRank;
+- (CGFloat)precedence;
 - (BOOL)enabled;
 - (void)setEnabled:(BOOL)flag;
 - (BOOL)menuEnabled;
 - (void)setMenuEnabled:(BOOL)flag;
 - (BOOL)defaultEnabled;
 
-- (int)argumentCount;
-- (void)setArgumentCount:(int)newArgumentCount;
+- (NSInteger)argumentCount;
+- (void)setArgumentCount:(NSInteger)newArgumentCount;
 - (BOOL)reverse;
 - (void)setReverse:(BOOL)flag;
 - (BOOL)canThread;

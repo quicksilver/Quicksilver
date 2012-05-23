@@ -81,21 +81,24 @@
 	[self relaunchAtPath:[[NSBundle mainBundle] bundlePath] movedFromPath:newPath];
 }
 
-- (int)moveToPath:(NSString *)launchPath fromPath:(NSString *)newPath {
+- (NSInteger)moveToPath:(NSString *)launchPath fromPath:(NSString *)newPath {
 	NSFileManager *manager = [NSFileManager defaultManager];
 	NSString *tempPath = [[launchPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.old.app",[[NSProcessInfo processInfo] processName]]];
 	//NSLog(@"temp %@ new %@", tempPath, newPath);
 	BOOL status;
 	status = [manager moveItemAtPath:launchPath toPath:tempPath error:nil];
 #ifdef DEBUG
+#warning 64BIT: Check formatting arguments
 	if (VERBOSE) NSLog(@"Move Old %d", status);
 #endif
 	status = [manager copyItemAtPath:newPath toPath:launchPath error:nil];
 #ifdef DEBUG
+#warning 64BIT: Check formatting arguments
 	if (VERBOSE) NSLog(@"Copy New %d", status);
 #endif
 	status = [manager movePathToTrash:tempPath];
 #ifdef DEBUG
+#warning 64BIT: Check formatting arguments
 	if (VERBOSE) NSLog(@"Trash Old %d", status);
 #endif
 	return status;
@@ -140,8 +143,8 @@
 	if (! (lastLocation || lastVersionString) )
 		return QSApplicationFirstLaunch;
 
-	int lastVersion = [lastVersionString respondsToSelector:@selector(hexIntValue)] ? [lastVersionString hexIntValue] : 0;
-	int thisVersion = [thisVersionString hexIntValue];
+	NSInteger lastVersion = [lastVersionString respondsToSelector:@selector(hexIntValue)] ? [lastVersionString hexIntValue] : 0;
+	NSInteger thisVersion = [thisVersionString hexIntValue];
 
 	if (thisVersion>lastVersion) return QSApplicationUpgradedLaunch;
 	if (thisVersion<lastVersion) return QSApplicationDowngradedLaunch;
