@@ -136,7 +136,7 @@ static QSController *defaultController = nil;
     if (![mode boolValue]) {
         return;
     }
-    statusItem = [[NSStatusBar systemStatusBar] _statusItemWithLength:29.0f withPriority:NSLeftStatusItemPriority];
+    statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:29.0f];
 	[statusItem retain];
 	[statusItem setImage:[NSImage imageNamed:@"QuicksilverMenu"]];
 	[statusItem setAlternateImage:[NSImage imageNamed:@"QuicksilverMenuPressed"]];

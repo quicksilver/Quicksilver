@@ -72,7 +72,6 @@
 		2E34EDA1134C9EEE005E66A1 /* NTLocalizedString.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E3CB910653BE030026BAF2 /* NTLocalizedString.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2E34EDA2134C9EEE005E66A1 /* NTViewLocalizer.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E3CB950653BE030026BAF2 /* NTViewLocalizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2E34EDAA134C9F25005E66A1 /* QSLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F0843CC098ACB2F00F136CC /* QSLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2E34EDD5134CA14F005E66A1 /* NSStatusItem_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA9307B204BE0044D6EF /* NSStatusItem_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2E3B550013B3566B00130C11 /* dragToTrash.aif in Resources */ = {isa = PBXBuildFile; fileRef = 2E3B54FF13B3566B00130C11 /* dragToTrash.aif */; };
 		2E476B80135C408400F67250 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D002C9D131145DD009040B7 /* Localizable.strings */; };
 		2E476B81135C408E00F67250 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D002CE613114628009040B7 /* Localizable.strings */; };
@@ -1623,7 +1622,6 @@
 		E1E5FA9007B204BE0044D6EF /* NSPasteboard_BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NSPasteboard_BLTRExtensions.m; sourceTree = "<group>"; };
 		E1E5FA9107B204BE0044D6EF /* NSScreen_BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NSScreen_BLTRExtensions.h; sourceTree = "<group>"; };
 		E1E5FA9207B204BE0044D6EF /* NSScreen_BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NSScreen_BLTRExtensions.m; sourceTree = "<group>"; };
-		E1E5FA9307B204BE0044D6EF /* NSStatusItem_BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NSStatusItem_BLTRExtensions.h; sourceTree = "<group>"; };
 		E1E5FA9507B204BE0044D6EF /* NSString_BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NSString_BLTRExtensions.h; sourceTree = "<group>"; };
 		E1E5FA9607B204BE0044D6EF /* NSString_BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NSString_BLTRExtensions.m; sourceTree = "<group>"; };
 		E1E5FA9707B204BE0044D6EF /* NSTableView_BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NSTableView_BLTRExtensions.h; sourceTree = "<group>"; };
@@ -2642,7 +2640,6 @@
 				E1E5FA9207B204BE0044D6EF /* NSScreen_BLTRExtensions.m */,
 				7FDF342307F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.h */,
 				7FDF342407F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.m */,
-				E1E5FA9307B204BE0044D6EF /* NSStatusItem_BLTRExtensions.h */,
 				E1E5FA9507B204BE0044D6EF /* NSString_BLTRExtensions.h */,
 				E1E5FA9607B204BE0044D6EF /* NSString_BLTRExtensions.m */,
 				E1E5FA9707B204BE0044D6EF /* NSTableView_BLTRExtensions.h */,
@@ -3127,7 +3124,6 @@
 				E1E5FAC507B204BF0044D6EF /* NSPasteboard_BLTRExtensions.h in Headers */,
 				E1E5FAC707B204BF0044D6EF /* NSScreen_BLTRExtensions.h in Headers */,
 				7FDF342507F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.h in Headers */,
-				2E34EDD5134CA14F005E66A1 /* NSStatusItem_BLTRExtensions.h in Headers */,
 				E1E5FACB07B204BF0044D6EF /* NSString_BLTRExtensions.h in Headers */,
 				E1E5FACD07B204BF0044D6EF /* NSTableView_BLTRExtensions.h in Headers */,
 				7FF8BB3807B816A20088CEEF /* NSTask+BLTRExtensions.h in Headers */,
