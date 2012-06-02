@@ -445,6 +445,5 @@ QSRegistry* QSReg = nil;
 	NSBundle *bundle = [NSBundle bundleWithIdentifier:[header objectForKey:@"bundle"]];
 	if (bundle && ![bundle isLoaded]) [bundle load];
 	SEL sel = NSSelectorFromString(selector);
-	return (sel) ? [self performSelector:sel withObject:name] : nil;
-}
+    return (sel && [name respondsToSelector:@selector(sel)]) ? [self performSelector:sel withObject:name] : nil;}
 @end
