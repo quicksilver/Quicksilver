@@ -30,13 +30,7 @@
 }
 - (void)textDidEndEditing:(NSNotification*)aNotification { NSLog(@"notif %@", aNotification);  }
 - (void)setStringValue:(NSString *)string {
-	NSLog(@"string %@", string);
-	//if ([thisTrigger objectForKey:@"keyCode"] && [thisTrigger objectForKey:@"modifiers"]) {
-	//		QSHotKeyEvent *activationKey = (QSHotKeyEvent *)[QSHotKeyEvent getHotKeyForKeyCode:[[thisTrigger objectForKey:@"keyCode"] shortValue]
-	//																			  character:0
-	//																	  safeModifierFlags:[[thisTrigger objectForKey:@"modifiers"] intValue]];
-	//		return [activationKey stringValue];
-	//		return @"nil";
+//	NSLog(@"string %@", string);
 	[super setStringValue:string];
 }
 @end
@@ -136,7 +130,7 @@
 	}
 }
 - (void)flagsChanged:(NSEvent *)theEvent {
-    NSString *newString = [[NDKeyboardLayout keyboardLayout] stringForKeyCode:[theEvent keyCode] modifierFlags:[theEvent modifierFlags]];
+    NSString *newString = [[NDKeyboardLayout keyboardLayout] stringForKeyCode:[theEvent keyCode] modifierFlags:(UInt32)[theEvent modifierFlags]];
 	[self setString:[newString length] ? newString:defaultString];
 }
 - (void)setDictionaryStringWithEvent:(NSEvent *)theEvent {
@@ -287,8 +281,8 @@
 			}
 			break;
 			case NSFlagsChanged: {
-                NSString *newString = [[NDKeyboardLayout keyboardLayout] stringForKeyCode:[theEvent keyCode] modifierFlags:[theEvent modifierFlags]];
-				NSLog(@"%@", newString);
+                NSString *newString = [[NDKeyboardLayout keyboardLayout] stringForKeyCode:[theEvent keyCode] modifierFlags:(UInt32)[theEvent modifierFlags]];
+				//NSLog(@"%@", newString);
 				[self setStringValue:[newString length] ? newString : @""];
 				[self display];
 				[setButton display];
