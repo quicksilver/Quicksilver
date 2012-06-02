@@ -346,7 +346,7 @@ static BOOL gModifiersAreIgnored;
     
 	//Fallback format
 	if (!format)
-		format = [NSString stringWithFormat:@"%@ (%@) %@", [self name], ([self argumentCount] > 1 ? @" %@" : @"")];
+		format = [NSString stringWithFormat:@"%%@ (%@) %@", [self name], ([self argumentCount] > 1 ? @" %@" : @"")];
     
     return format;
 }
