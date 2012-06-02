@@ -88,18 +88,15 @@
 	BOOL status;
 	status = [manager moveItemAtPath:launchPath toPath:tempPath error:nil];
 #ifdef DEBUG
-#warning 64BIT: Check formatting arguments
-	if (VERBOSE) NSLog(@"Move Old %d", status);
+	if (VERBOSE) NSLog(@"Move Old %@", status ? @"DONE" : @"FAILED");
 #endif
 	status = [manager copyItemAtPath:newPath toPath:launchPath error:nil];
 #ifdef DEBUG
-#warning 64BIT: Check formatting arguments
-	if (VERBOSE) NSLog(@"Copy New %d", status);
+	if (VERBOSE) NSLog(@"Copy New %@", status ? @"DONE" : @"FAILED");
 #endif
 	status = [manager movePathToTrash:tempPath];
 #ifdef DEBUG
-#warning 64BIT: Check formatting arguments
-	if (VERBOSE) NSLog(@"Trash Old %d", status);
+	if (VERBOSE) NSLog(@"Trash Old %@", status? @"DONE" : @"FAILED");
 #endif
 	return status;
 }
