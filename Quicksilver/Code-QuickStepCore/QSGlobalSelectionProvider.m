@@ -36,8 +36,7 @@
 
 - (void)getSelection:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
 #ifdef DEBUG
-#warning 64BIT: Check formatting arguments
-	if (VERBOSE) NSLog(@"Get Selection: %@ %d", userData, [userData characterAtIndex:0]);
+	if (VERBOSE) NSLog(@"Get Selection: %@ %C", userData, [userData characterAtIndex:0]);
 #endif
 	if(resultPboard)
 		[resultPboard release]; 
@@ -48,8 +47,7 @@
 - (void)performService:(NSPasteboard *)pboard
 			  userData:(NSString *)userData
 				 error:(NSString **)error {
-#warning 64BIT: Check formatting arguments
-	if (VERBOSE) NSLog(@"xPerform Service: %@ %d", userData, [userData characterAtIndex:0]);
+	if (VERBOSE) NSLog(@"xPerform Service: %@ %C", userData, [userData characterAtIndex:0]);
 }
 #endif
 

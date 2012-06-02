@@ -467,8 +467,7 @@
 	startupLoadComplete = YES;
 	
 #ifdef DEBUG
-#warning 64BIT: Check formatting arguments
-	NSLog(@"PlugIn Load Complete (%dms) ", (NSInteger)(-[date timeIntervalSinceNow] *1000));
+	NSLog(@"PlugIn Load Complete (%fms) ", (-[date timeIntervalSinceNow] *1000));
 #endif
 	
 }

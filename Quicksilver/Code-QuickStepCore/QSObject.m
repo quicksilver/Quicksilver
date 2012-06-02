@@ -82,8 +82,7 @@ NSSize QSMaxIconSize;
 	NSUInteger count = 0;
     count = [keysToDeleteFromObjectDict count];
 	if (DEBUG_MEMORY && count)
-#warning 64BIT: Check formatting arguments
-		NSLog(@"Released %i objects", count);
+		NSLog(@"Released %lu objects", (unsigned long)count);
 #endif
     [keysToDeleteFromObjectDict release];
 }
@@ -125,8 +124,7 @@ NSSize QSMaxIconSize;
 
 #ifdef DEBUG
 	if (DEBUG_MEMORY && (imagecount || childcount) )
-#warning 64BIT: Check formatting arguments
-		NSLog(@"Released %i images and %i children (items before %d) ", imagecount, childcount, (NSInteger)interval);
+		NSLog(@"Released %lu images and %lu children (items before %f) ", (unsigned long)imagecount, (unsigned long)childcount, interval);
 #endif
 
 }
@@ -342,7 +340,6 @@ NSSize QSMaxIconSize;
 
 - (NSString *)toolTip {
 #ifdef DEBUG
-#warning 64BIT: Check formatting arguments
 	return [NSString stringWithFormat:@"%@ (%d) \r%@\rTypes:\r\t%@", [self name] , self, [self details] , [[self decodedTypes] componentsJoinedByString:@"\r\t"]];
 #endif
 	return nil; //[self displayName];

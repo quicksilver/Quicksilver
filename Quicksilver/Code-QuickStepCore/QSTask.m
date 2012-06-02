@@ -118,8 +118,7 @@ static NSMutableDictionary *tasksDictionary = nil;
 	if (running) {
 		
 #ifdef DEBUG
-#warning 64BIT: Inspect use of long
-		if (VERBOSE) NSLog(@"End Task: %@ %ld", [self identifier], (long)[self retainCount]);
+		if (VERBOSE) NSLog(@"End Task: %@ %lu", [self identifier], (unsigned long)[self retainCount]);
 #endif
 		
 		running = NO;

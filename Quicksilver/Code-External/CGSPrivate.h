@@ -126,7 +126,7 @@ typedef struct {
 } CGSTransitionSpec;
 
 /* Transition handling. */
-extern OSStatus CGSNewTransition(const CGSConnection cid, const CGSTransitionSpec* spec, int *pTransitionHandle);
+extern OSStatus CGSNewTransition(const CGSConnection cid, const CGSTransitionSpec* spec, NSInteger *pTransitionHandle);
 extern OSStatus CGSInvokeTransition(const CGSConnection cid, int transitionHandle, float duration);
 extern OSStatus CGSReleaseTransition(const CGSConnection cid, int transitionHandle);
 

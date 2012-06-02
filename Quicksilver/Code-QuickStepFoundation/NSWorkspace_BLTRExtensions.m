@@ -219,7 +219,7 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 		AEBuildError error;
 		OSStatus err = AEBuildAppleEvent('misc', 'actv', typeProcessSerialNumber, &psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event, &error, "");
 		if (err)
-			NSLog(@"%u:%u at \"%@\"", error.fError, error.fErrorPos, @"");
+			NSLog(@"%lu:%lu at \"%@\"", (unsigned long)error.fError, (unsigned long)error.fErrorPos, @"");
 		else {
 			AppleEvent reply;
 			AESend(&event, &reply, kAEWaitReply, kAENormalPriority, 100, NULL, NULL);
@@ -325,7 +325,7 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 	ProcessSerialNumber psn;
 	if ([self PSN:&psn forApplication:theApp]){
 		[self quitApplicationAndWait:theApp];
-		NSInteger pid;
+		pid_t pid;
 		NSString *bundlePath = [[theApp objectForKey:@"NSApplicationPath"] stringByDeletingLastPathComponent];
 		if ([[bundlePath lastPathComponent] isEqualToString:@"MacOS"] || [[bundlePath lastPathComponent] isEqualToString:@"MacOSClassic"]) {
 			bundlePath = [bundlePath stringByDeletingLastPathComponent];
@@ -335,8 +335,7 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 			bundlePath = [theApp objectForKey:@"NSApplicationPath"];
 		}
 		while(1) {
-			NSInteger status = GetProcessPID(&psn, &pid);
-#warning 64BIT: Check formatting arguments
+			SInt32 status = GetProcessPID(&psn, &pid);
 			NSLog(@"waiting for %@ to quit, current status :%d for PID %d", bundlePath, status, pid);
 			// wait for half a second
 			usleep(500000);

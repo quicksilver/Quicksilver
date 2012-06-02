@@ -202,9 +202,7 @@ QSExecutor *QSExec = nil;
 		[actionPrecedence setObject:[NSNumber numberWithDouble:prec] forKey:ident];
 		[action setRank:i];
 #ifdef DEBUG
-#warning 64BIT: Inspect use of unsigned long
-#warning 64BIT: Check formatting arguments
-		if (VERBOSE) NSLog(@"inserting action %@ at %ld (%f) ", action, (unsigned long)i, prec);
+		if (VERBOSE) NSLog(@"inserting action %@ at %lu (%f) ", action, (unsigned long)i, prec);
 #endif
 	} else {
 		[action _setRank:index];
@@ -443,8 +441,7 @@ QSExecutor *QSExec = nil;
 - (void)orderActions:(NSArray *)actions aboveActions:(NSArray *)lowerActions {
 	NSInteger index = [[lowerActions valueForKeyPath:@"@min.rank"] integerValue];
 #ifdef DEBUG
-#warning 64BIT: Check formatting arguments
-	if (VERBOSE) NSLog(@"Promote to %d", index);
+	if (VERBOSE) NSLog(@"Promote to %ld", (long)index);
 #endif
 	NSString *targetIdentifier = [actionRanking objectAtIndex:index];
 	NSArray *identifiers = [actions valueForKey:@"identifier"];

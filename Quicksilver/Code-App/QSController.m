@@ -504,15 +504,13 @@ static QSController *defaultController = nil;
 - (void)executeCommandAtPath:(NSString *)path { [[QSCommand commandWithFile:path] execute];  }
 - (void)performService:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
 #ifdef DEBUG
-#warning 64BIT: Check formatting arguments
-	if (VERBOSE) NSLog(@"Perform Service: %@ %d", userData, [userData characterAtIndex:0]);
+	if (VERBOSE) NSLog(@"Perform Service: %@ %C", userData, [userData characterAtIndex:0]);
 #endif
 	[self receiveObject:[[[QSObject alloc] initWithPasteboard:pboard] autorelease]];
 }
 - (void)getSelection:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
 #ifdef DEBUG
-#warning 64BIT: Check formatting arguments
-	if (VERBOSE) NSLog(@"GetSel Service: %@ %d", userData, [userData characterAtIndex:0]);
+	if (VERBOSE) NSLog(@"GetSel Service: %@ %C", userData, [userData characterAtIndex:0]);
 #endif
 	[self receiveObject:[[[QSObject alloc] initWithPasteboard:pboard] autorelease]];
 }
@@ -967,8 +965,7 @@ static QSController *defaultController = nil;
 	if (rescanInterval>0) {
 		
 #ifdef DEBUG
-#warning 64BIT: Check formatting arguments
-		if (DEBUG_STARTUP) NSLog(@"Rescanning every %d minutes", rescanInterval);
+		if (DEBUG_STARTUP) NSLog(@"Rescanning every %ld minutes", (long)rescanInterval);
 #endif
 		
 		[NSTimer scheduledTimerWithTimeInterval:rescanInterval*60 target:self selector:@selector(rescanItems:) userInfo:nil repeats:YES];

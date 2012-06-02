@@ -861,9 +861,7 @@ NSMutableDictionary *bindingsDict = nil;
 	//t NSLog(@"scores %@", scores);
 	
 #ifdef DEBUG
-#warning 64BIT: Inspect use of long
-#warning 64BIT: Check formatting arguments
-	if (DEBUG_RANKING) NSLog(@"Searched for \"%@\" in %3fms (%d items) ", string, 1000 * -[date timeIntervalSinceNow] , (long)[newResultArray count]);
+	if (DEBUG_RANKING) NSLog(@"Searched for \"%@\" in %3fms (%lu items) ", string, 1000 * -[date timeIntervalSinceNow] , (unsigned long)[newResultArray count]);
 #endif
 	
     // NSLog (@"search for %@", string);
@@ -1621,8 +1619,7 @@ NSMutableDictionary *bindingsDict = nil;
 //}
 - (void)switchToHistoryState:(NSInteger)i {
 #ifdef DEBUG
-#warning 64BIT: Check formatting arguments
-	if (VERBOSE) NSLog(@"select in history %d %@", i, [historyArray valueForKeyPath:@"selection.displayName"]);
+	if (VERBOSE) NSLog(@"select in history %ld %@", (long)i, [historyArray valueForKeyPath:@"selection.displayName"]);
 #endif
 	//
 	if (i<[(NSArray *)historyArray count])

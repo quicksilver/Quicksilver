@@ -407,8 +407,7 @@ static CGFloat searchSpeed = 0.0;
 
 #ifdef DEBUG
 	if (DEBUG_CATALOG)
-#warning 64BIT: Check formatting arguments
-		NSLog(@"Indexes loaded (%dms) ", (NSInteger)(-[date timeIntervalSinceNow] *1000));
+		NSLog(@"Indexes loaded (%fms) ", (-[date timeIntervalSinceNow] *1000));
 #endif
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryIndexed object:nil];
@@ -590,8 +589,7 @@ static CGFloat searchSpeed = 0.0;
 	CGFloat estimate = (set ? [set count] : [defaultSearchSet count]) * searchSpeed;
 #ifdef DEBUG
 	if (VERBOSE)
-#warning 64BIT: Check formatting arguments
-        NSLog(@"Estimate: %fms avg: %dµs", estimate * 1000, (NSInteger)(searchSpeed * 1000000));
+        NSLog(@"Estimate: %fms avg: %ldµs", estimate * 1000, (long)(searchSpeed * 1000000));
 #endif
 	return MIN(estimate, 0.5);
 }
@@ -648,8 +646,7 @@ static CGFloat searchSpeed = 0.0;
         searchSpeed = ((speed + searchSpeed) / 2.0f);
 
 	if (VERBOSE)
-#warning 64BIT: Check formatting arguments
-        NSLog(@"Ranking: %fms avg: %d¬µs", -([date timeIntervalSinceNow] * 1000), (NSInteger)(speed * 1000000));
+        NSLog(@"Ranking: %fms avg: %f¬µs", -([date timeIntervalSinceNow] * 1000), (speed * 1000000));
 
 #endif
  	[rankObjects sortUsingSelector:@selector(scoreCompare:)];
