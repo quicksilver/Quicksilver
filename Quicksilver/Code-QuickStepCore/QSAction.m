@@ -282,8 +282,7 @@ static BOOL gModifiersAreIgnored;
 	NSMenu *menu = [[NSMenu alloc] initWithTitle:@"RankMenu"];
 
 	NSMenuItem *item;
-#warning 64BIT: Check formatting arguments
-	item = (NSMenuItem *)[menu addItemWithTitle:[NSString stringWithFormat:@"Rank: %d", [self rank] +1] action:NULL keyEquivalent:@""];
+	item = (NSMenuItem *)[menu addItemWithTitle:[NSString stringWithFormat:@"Rank: %ld", (long)[self rank] +1] action:NULL keyEquivalent:@""];
 	[item setTarget:nil];
 	[menu addItem:[NSMenuItem separatorItem]];
 	item = (NSMenuItem *)[menu addItemWithTitle:@"Make Default" action:@selector(promoteAction:) keyEquivalent:@""];
@@ -347,8 +346,7 @@ static BOOL gModifiersAreIgnored;
     
 	//Fallback format
 	if (!format)
-#warning 64BIT: Check formatting arguments
-		format = [NSString stringWithFormat:@"%%@ (%@) %@", [self name], ([self argumentCount] > 1 ? @" %@" : @"")];
+		format = [NSString stringWithFormat:@"%@ (%@) %@", [self name], ([self argumentCount] > 1 ? @" %@" : @"")];
     
     return format;
 }

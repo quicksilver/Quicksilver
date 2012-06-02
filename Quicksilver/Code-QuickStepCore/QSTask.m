@@ -63,8 +63,7 @@ static NSMutableDictionary *tasksDictionary = nil;
 	return icon;
 }
 - (NSString *)description {
-#warning 64BIT: Check formatting arguments
-	return [NSString stringWithFormat:@"[%@:%@:%@ %2d] ", identifier, name, status, [self retainCount]];
+	return [NSString stringWithFormat:@"[%@:%@:%@ %lu] ", identifier, name, status, (unsigned long)[self retainCount]];
 }
 - (id)init {
 	return [self initWithIdentifier:nil];

@@ -25,9 +25,9 @@ NSInteger NSAllModifierKeysMask = NSShiftKeyMask | NSControlKeyMask | NSAlternat
 void logKeyMap(char *keyMap) {
 	NSMutableString *string = [NSMutableString string];
 	NSInteger i;
-	for (i = 0; i<16; i++)
-#warning 64BIT: Check formatting arguments
+	for (i = 0; i<16; i++) {
 		[string appendFormat:@" %02hhX", keyMap[i]];
+    }
 
 	NSLog(@"KeyMap %@", string);
 
@@ -60,10 +60,8 @@ BOOL KeyMapAND(char *keymap, char *keymap2) {
 OSStatus keyPressed(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData) {
     OSStatus err;
 	UInt32 modifiers;
-#warning 64BIT: Inspect use of sizeof
     err = GetEventParameter( theEvent, kEventParamKeyModifiers, typeUInt32, 0, sizeof(modifiers), 0, &modifiers );
     if( err != 0 ) {
-#warning 64BIT: Inspect use of long
         NSLog( @"Failed getting event modifiers param! %ld\n", (long)err );
     }
     
@@ -188,7 +186,6 @@ NSUInteger previousModifier = 0;
 	eventType.eventKind = kEventRawKeyModifiersChanged;
 	EventHandlerUPP handlerFunction = NewEventHandlerUPP(keyPressed);
 	OSStatus err = InstallEventHandler(GetEventMonitorTarget(), handlerFunction, 1, &eventType, NULL, NULL);
-#warning 64BIT: Inspect use of long
 	if (err) NSLog(@"gmod registration err %ld", (long)err);
 }
 

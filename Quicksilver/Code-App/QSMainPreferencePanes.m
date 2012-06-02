@@ -179,9 +179,7 @@
 #endif
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *keys[] = { kQSAppearance1B, kQSAppearance1A, kQSAppearance1T, kQSAppearance2B, kQSAppearance2A, kQSAppearance2T, kQSAppearance3B, kQSAppearance3A, kQSAppearance3T };
-#warning 64BIT: Inspect use of unsigned long
-	unsigned long i;
-#warning 64BIT: Inspect use of sizeof
+	unsigned int i;
 #warning 64BIT: Inspect use of sizeof
 	for(i = 0; i < sizeof(keys) / sizeof(keys[0]); i++){
 		[defaults willChangeValueForKey:keys[i]];
@@ -408,8 +406,7 @@
 				if (!name) name = [plugin identifier];
 				NSArray *actionsArray = [QSExec getArrayForSource:[plugin identifier]];
 				if ([actionsArray count]) {
-#warning 64BIT: Check formatting arguments
-					name = [name stringByAppendingFormat:@" - %d", [actionsArray count]];
+					name = [name stringByAppendingFormat:@" - %lu", (unsigned long)[actionsArray count]];
 					[array addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                                       [plugin identifier] , @"group", name, @"name", [plugin icon] , @"icon", nil]];
 				}

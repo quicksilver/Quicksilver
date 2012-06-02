@@ -741,8 +741,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)selectHome:(id)sender {
-#warning 64BIT: Check formatting arguments
-	NSLog(@"act%d", allowNonActions);
+	NSLog(@"act %@", allowNonActions ? @"YES" : @"NO");
 	//	if (allowNonActions)
 	//		[self setObjectValue:[QSObject fileObjectWithPath:NSHomeDirectory()]];
 }
@@ -825,9 +824,7 @@ NSMutableDictionary *bindingsDict = nil;
         
 		NSSize contentSize = [scrollView contentSize];
 		[editor setMinSize:NSMakeSize(0, contentSize.height)];
-#warning 64BIT: Inspect use of MAX/MIN constant; consider one of LONG_MAX/LONG_MIN/ULONG_MAX/DBL_MAX/DBL_MIN, or better yet, NSIntegerMax/Min, NSUIntegerMax, CGFLOAT_MAX/MIN
-#warning 64BIT: Inspect use of MAX/MIN constant; consider one of LONG_MAX/LONG_MIN/ULONG_MAX/DBL_MAX/DBL_MIN, or better yet, NSIntegerMax/Min, NSUIntegerMax, CGFLOAT_MAX/MIN
-		[editor setMaxSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+		[editor setMaxSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MIN)];
         
 		[editor setVerticallyResizable:YES];
 		[editor setHorizontallyResizable:YES];
@@ -1203,8 +1200,6 @@ NSMutableDictionary *bindingsDict = nil;
     
 	[[self window] makeFirstResponder:[self window]];
     
-#warning FIXME: What was the purpose of this ?
-#if 1
 	[self insertNewline:self];
     
 	NSEvent *nextEvent;
@@ -1219,38 +1214,6 @@ NSMutableDictionary *bindingsDict = nil;
         
 	}
 	return YES;
-#else
-	while(1) {
-		NSEvent *nextEvent = [NSApp nextEventMatchingMask:NSKeyUpMask | NSKeyDownMask untilDate:[NSDate distantFuture] inMode:NSDefaultRunLoopMode dequeue:YES];
-		if ([nextEvent isARepeat] && [[nextEvent charactersIgnoringModifiers] isEqualToString:[theEvent charactersIgnoringModifiers]]) continue;
-        
-		if ([nextEvent type] == NSKeyUp && [[nextEvent charactersIgnoringModifiers] isEqualToString:[theEvent charactersIgnoringModifiers]]) {
-			////NSLog(@"exec");
-			[NSApp discardEventsMatchingMask:NSAnyEventMask beforeEvent:nextEvent];
-			[self insertNewline:self];
-			return NO;
-		} else if ([nextEvent keyCode] == 53) { //Escape key
-            //if (VERBOSE) NSLog(@"Escape chord");
-			[[self window] makeFirstResponder:self];
-			break;
-		} else if ([nextEvent type] == NSKeyDown) {
-			// NSLog(@"otherchar %@", [theEvent charactersIgnoringModifiers]);
-            
-			[[self window] makeFirstResponder:[self actionSelector]];
-			// ***warning  * toggle first responder on key up
-			[[self actionSelector] keyDown:nextEvent];
-            
-			[NSApp discardEventsMatchingMask:NSAnyEventMask beforeEvent:nextEvent];
-			[[self window] makeFirstResponder:[self actionSelector]];
-			return NO;
-			//[self insertNewline:self];
-			// return;
-		} else {
-			//NSLog(@"event %@", nextEvent);
-		}
-	}
-#endif
-	return NO;
 }
 
 - (BOOL)handleBoundKey:(NSEvent *)theEvent {
@@ -1588,7 +1551,6 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)unmarkText {}
 - (BOOL)hasMarkedText { return NO; }
-#warning 64BIT: Inspect use of long
 - (NSInteger)conversationIdentifier { return (long)self; }
 
 - (NSAttributedString *)attributedSubstringFromRange:(NSRange)theRange {

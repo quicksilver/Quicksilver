@@ -12,7 +12,7 @@
 @implementation QSCollectingSearchObjectView
 - (void)awakeFromNib {
 	[super awakeFromNib];
-	collection = [[QSCollection alloc] init];
+	collection = (NSMutableArray *)[[QSCollection alloc] init];
 	collecting = NO;
 	collectionEdge = NSMinYEdge;
 	collectionSpace = 16.0;

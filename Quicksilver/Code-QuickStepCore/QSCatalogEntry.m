@@ -52,7 +52,7 @@ NSDictionary *enabledPresetDictionary;*/
 
 - (QSCatalogEntry *)initWithDictionary:(NSDictionary *)dict {
 	if (self = [super init]) {
-		info = [dict retain];
+		info = [dict mutableCopy];
 		children = nil; contents = nil; indexDate = nil;
 
 		NSArray *childDicts = [dict objectForKey:kItemChildren];
@@ -374,8 +374,7 @@ NSDictionary *enabledPresetDictionary;*/
 - (NSString *)getCount {
 	NSInteger num;
 	if((num = [self count]))
-#warning 64BIT: Check formatting arguments
-		return [NSString stringWithFormat:@"%d", num];
+		return [NSString stringWithFormat:@"%ld", (long)num];
 	else
 		return nil;
 }
@@ -401,11 +400,6 @@ NSDictionary *enabledPresetDictionary;*/
 		NSString *path = [self indexLocation];
 		NSMutableArray *dictionaryArray = nil;
 		@try {
-#if 0
-            if(kUseNSArchiveForIndexes)
-                dictionaryArray = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-            else
-#endif
 			dictionaryArray = [QSObject objectsWithDictionaryArray:[NSMutableArray arrayWithContentsOfFile:path]];
         }
         @catch (NSException *e) {
@@ -570,7 +564,7 @@ NSDictionary *enabledPresetDictionary;*/
 - (void)setChildren:(NSArray *)newChildren {
 	if(newChildren != children){
 		[children release];
-		children = [newChildren retain];
+		children = [newChildren mutableCopy];
 	}
 }
 
@@ -579,7 +573,7 @@ NSDictionary *enabledPresetDictionary;*/
 - (void)setContents:(NSArray *)newContents {
 	if(newContents != contents){
 		[contents release];
-		contents = [newContents retain];
+		contents = [newContents mutableCopy];
 	}
 }
 

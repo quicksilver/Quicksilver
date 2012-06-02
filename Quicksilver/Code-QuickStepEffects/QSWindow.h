@@ -80,7 +80,10 @@
 - (void)setWindowProperty:(id)prop forKey:(NSString *)key;
 @end
 
-@interface QSBorderlessWindow : QSWindow
+@interface QSBorderlessWindow : QSWindow 
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_6
+<NSDraggingDestination>
+#endif
 @end
 
 @interface NSWindow (CGSTransitionRedraw)

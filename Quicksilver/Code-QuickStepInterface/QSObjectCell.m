@@ -22,8 +22,7 @@
 NSImage *QSBadgeImageForCount(NSInteger count) {
 	if (count <= 1) return nil;
 	NSImage *badgeImage = nil;
-#warning 64BIT: Check formatting arguments
-	NSString *numString = [NSString stringWithFormat:@"%d", count];
+	NSString *numString = [NSString stringWithFormat:@"%ld", (long)count];
 	if ([numString length] <3)
 		badgeImage = [QSResourceManager imageNamed:@"dragBadge1-2"];
 	else if ([numString length] <4)
@@ -39,8 +38,7 @@ NSImage *QSBadgeImageForCount(NSInteger count) {
 
 void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, NSInteger count) {
 	[countImage drawInRect:badgeRect fromRect:rectFromSize([countImage size]) operation:NSCompositeSourceOver fraction:1.0];
-#warning 64BIT: Check formatting arguments
-	NSString *numString = [NSString stringWithFormat:@"%d", count];
+	NSString *numString = [NSString stringWithFormat:@"%ld", (long)count];
 	NSRect textRect = NSInsetRect(badgeRect, NSHeight(badgeRect) /4, NSHeight(badgeRect)/4);
 	NSDictionary *numAttributes = [numString attributesToFitNumbersInRect:textRect withAttributes:countBadgeTextAttributes];
 	//	NSLog(@"font metric: %f %f", [[numAttributes objectForKey:NSFontAttributeName] ascender] , [[numAttributes objectForKey:NSFontAttributeName] descender]);

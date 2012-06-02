@@ -175,5 +175,6 @@ NSRect blendRects(NSRect start, NSRect end, CGFloat b) {
 	return NSMakeRect( round(NSMinX(start) *(1-b) + NSMinX(end)*b), round(NSMinY(start) *(1-b) + NSMinY(end)*b), round(NSWidth(start) *(1-b) + NSWidth(end)*b), round(NSHeight(start) *(1-b) + NSHeight(end)*b));
 }
 
-#warning 64BIT: Check formatting arguments
-void logRect(NSRect rect) {NSLog(@"(%f, %f) (%fx%f)", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);}
+void logRect(NSRect rect) {
+    NSLog(@"(%f, %f) (%fx%f)", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
+}

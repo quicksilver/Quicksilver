@@ -80,7 +80,9 @@ extern QSLibrarian *QSLib; // Shared Instance
 - (BOOL)itemIsOmitted:(QSBasicObject *)item;
 - (void)setItem:(QSBasicObject *)item isOmitted:(BOOL)omit;
 - (CGFloat) estimatedTimeForSearchInSet:(id)set;
+#ifdef DEBUG
 - (NSMutableArray *)scoreTest:(id)sender;
+#endif
 - (NSMutableArray *)scoredArrayForString:(NSString *)string;
 - (NSMutableArray *)scoredArrayForString:(NSString *)string inNamedSet:(NSString *)setName __attribute__((deprecated));
 - (NSMutableArray *)scoredArrayForString:(NSString *)searchString inSet:(id)set;

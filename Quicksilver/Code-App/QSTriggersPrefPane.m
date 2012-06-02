@@ -807,8 +807,7 @@
 	//id treeItem = item;
 	//NSIndexPath *indexPath = [item indexPath];
 	item = [item respondsToSelector:@selector(representedObject)] ? [item representedObject] : [item observedObject];
-#warning 64BIT: Check formatting arguments
-    NSLog(@"drop on %@ - %@ at index %d", item, [item identifier], index);
+    NSLog(@"drop on %@ - %@ at index %ld", item, [item identifier], (long)index);
 
     NSPasteboard *pb = [info draggingPasteboard];
     NSData *data = [pb dataForType:QSTriggerDragType];

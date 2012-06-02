@@ -133,7 +133,6 @@
 }
 
 - (NSString *)description {
-#warning 64BIT: Check formatting arguments
 	return [NSString stringWithFormat:@"Window:%@\rAlpha:%f %f\rBright:%f %f\rTime ?\rTransform %p %p",
 		[self window] , _alphaA, _alphaB, _brightA, _brightB,
 		QSExtraExtraEffect, transformFt];

@@ -49,8 +49,8 @@
 			lastCheck = [NSDate distantPast];
 		}
 		NSInteger frequency = [defaults integerForKey:kCheckForUpdateFrequency];
-		NSInteger versionType = [defaults integerForKey:@"QSUpdateReleaseLevel"];
 #ifdef DEBUG
+        NSInteger versionType = [defaults integerForKey:@"QSUpdateReleaseLevel"];
 		if (versionType>0 && frequency>1)
 			frequency = 1;
 #endif
@@ -255,7 +255,7 @@ typedef enum {
 	// NSLog(@"app %@", theRequest);
 	// create the connection with the request
 	// and start loading the data
-	appDownload = [[QSURLDownload alloc] initWithRequest:theRequest delegate:self];
+	appDownload = [[QSURLDownload alloc] initWithRequest:theRequest delegate:(id)self];
 	if (appDownload) {
 		updateTask = [[QSTask taskWithIdentifier:@"QSAppUpdateInstalling"] retain];
 		[updateTask setName:@"Downloading Update"];
@@ -320,7 +320,6 @@ typedef enum {
 }
 
 - (void)downloadDidUpdate:(QSURLDownload *)download {
-#warning 64BIT: Check formatting arguments
     NSString * status = [NSString stringWithFormat:@"%.0fk of %.0fk", (double) [download currentContentLength] /1024, (double)[download expectedContentLength] /1024];
     [updateTask setStatus:status];
 	[updateTask setProgress:[(QSURLDownload *)download progress]];

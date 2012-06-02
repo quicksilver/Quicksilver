@@ -52,7 +52,6 @@ static CGFloat searchSpeed = 0.0;
 		NSNumber *minScore = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSMinimumScore"];
 		if (minScore) {
 			QSMinScore = [minScore doubleValue];
-#warning 64BIT: Check formatting arguments
 			NSLog(@"Minimum Score set to %f", QSMinScore);
 		}
 		[QSLibrarian createDirectories];
@@ -587,7 +586,7 @@ static CGFloat searchSpeed = 0.0;
 	[self writeCatalog:self];
 }
 
-- (CGFloat) estimatedTimeForSearchInSet:(id)set {
+- (CGFloat) estimatedTimeForSearchInSet:(NSArray *)set {
 	CGFloat estimate = (set ? [set count] : [defaultSearchSet count]) * searchSpeed;
 #ifdef DEBUG
 	if (VERBOSE)

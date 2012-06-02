@@ -40,7 +40,6 @@
 #import "NSTask+BLTRExtensions.h"
 #import "NSTableView_BLTRExtensions.h"
 #import "NSString_BLTRExtensions.h"
-#import "NSStatusItem_BLTRExtensions.h"
 #import "NSSortDescriptor+BLTRExtensions.h"
 #import "NSScreen_BLTRExtensions.h"
 #import "NSPasteboard_BLTRExtensions.h"

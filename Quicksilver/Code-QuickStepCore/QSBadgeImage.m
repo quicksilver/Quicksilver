@@ -18,8 +18,7 @@
 + (QSCountBadgeImage *)badgeForCount:(NSInteger)num {
 	if (num <= 0) return nil;
 	NSImage *badgeImage;
-#warning 64BIT: Check formatting arguments
-	NSString *numString = [NSString stringWithFormat:@"%d", num];
+	NSString *numString = [NSString stringWithFormat:@"%ld", (long)num];
 	if ([numString length] < 3)
 		badgeImage = [QSResourceManager imageNamed:@"countBadge1&2"];
 	else if ([numString length] < 4)
@@ -46,7 +45,7 @@
 	[super drawInRect:rect fromRect:rectFromSize([self size]) operation:op fraction:delta];
 
 #warning 64BIT: Check formatting arguments
-	NSString *numString = [NSString stringWithFormat:@"%d", count];
+	NSString *numString = [NSString stringWithFormat:@"%ld", (long)count];
 	NSRect textRect = NSInsetRect(rect, NSHeight(rect) /4, NSHeight(rect)/4);
 	NSDictionary *numAttributes = [numString attributesToFitNumbersInRect:textRect withAttributes:countBadgeTextAttributes];
 

@@ -178,6 +178,5 @@ CGAffineTransform QSExplodeEffect(QSWindowAnimation *hl, CGFloat f) {
 }
 
 void CGSTransformLog(CGAffineTransform t) {
-#warning 64BIT: Check formatting arguments
 	NSLog(@" a:%f b:%f c:%f d:%f tx:%f ty:%f", t.a, t.b, t.c, t.d, t.tx, t.ty);
 }

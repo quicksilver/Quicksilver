@@ -658,7 +658,6 @@ static QSController *defaultController = nil;
 			}
 			if ([defaults boolForKey:kShowReleaseNotesOnUpgrade]) {
 				[NSApp activateIgnoringOtherApps:YES];
-#warning 64BIT: Check formatting arguments
 				NSInteger selection = NSRunInformationalAlertPanel([NSString stringWithFormat:NSLocalizedString(@"Quicksilver has been updated",nil), nil] , NSLocalizedString(@"You are using a new version of Quicksilver. Would you like to see the Release Notes?",nil), NSLocalizedString(@"Show Release Notes",nil), NSLocalizedString(@"Ignore",nil), nil);
 				if (selection == 1)
 					[self showReleaseNotes:self];
@@ -811,8 +810,7 @@ static QSController *defaultController = nil;
         output = [NSFileHandle fileHandleWithStandardError];
     NSTask * leaksTask = [NSTask taskWithLaunchPath:@"/usr/bin/leaks"
                                           arguments:[NSArray arrayWithObjects:
-#warning 64BIT: Check formatting arguments
-                                                     [NSString stringWithFormat:@"%d", getpid()],
+                                                     [NSString stringWithFormat:@"%u", getpid()],
                                                      nil]];
     [leaksTask setStandardOutput:output];
     [leaksTask setStandardError:output];
@@ -948,8 +946,7 @@ static QSController *defaultController = nil;
 	if (oldModifiers && oldKeyCode) {
 		NSInteger modifiers = [oldModifiers unsignedIntegerValue];
 		if (modifiers < (1 << (rightControlKeyBit+1) )) {
-#warning 64BIT: Check formatting arguments
-			NSLog(@"updating hotkey %d", modifiers);
+			NSLog(@"updating hotkey %ld", (long)modifiers);
 			[defaults setValue:[NSNumber numberWithInteger:carbonModifierFlagsToCocoaModifierFlags(modifiers)] forKey:kHotKeyModifiers];
 			[defaults synchronize];
 		}
@@ -1096,7 +1093,7 @@ static QSController *defaultController = nil;
 
 - (NSApplicationPrintReply) application:(NSApplication *)application printFiles:(NSArray *)fileNames withSettings:(NSDictionary *)printSettings showPrintPanels:(BOOL)showPrintPanels {
 #warning 64BIT: Check formatting arguments
-	NSLog(@"Print %@ using %@ show %d", fileNames, printSettings, showPrintPanels) 	;
+	NSLog(@"Print %@ using %@ show %@", fileNames, printSettings, showPrintPanels ? @"YES" : @"NO");
 	return NSPrintingFailure;
 }
 
@@ -1107,7 +1104,7 @@ void QSSignalHandler(int i) {
 	NSLog(@"Current Tasks %@", [[QSTaskController sharedInstance] tasks]);
 	[NSApp activateIgnoringOtherApps:YES];
 	NSInteger result = NSRunCriticalAlertPanel(NSLocalizedString(@"An error has occured",nil), NSLocalizedString(@"Quicksilver must be relaunched to regain stability.",nil), NSLocalizedString(@"Relaunch",nil), NSLocalizedString(@"Quit",nil), nil, i);
-	NSLog(@"result %d", (long)result);
+	NSLog(@"result %ld", (long)result);
 	if (result == 1)
 		[NSApp relaunch:nil];
 	exit(-1);

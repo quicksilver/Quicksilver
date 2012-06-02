@@ -36,7 +36,6 @@
 	BOOL validCombo;
 
 	unichar				character;
-#warning 64BIT: Inspect use of unsigned long
 	unsigned long		modifierFlags;
 	id					oldWindowDelegate;
 	BOOL				oldWindowDelegateHandledEvents;

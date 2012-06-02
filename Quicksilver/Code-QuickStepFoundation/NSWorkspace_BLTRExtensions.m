@@ -217,12 +217,9 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 	if ([self PSN:&psn forApplication:theApp]){
 		AppleEvent event = {typeNull, 0};
 		AEBuildError error;
-#warning 64BIT: Inspect use of sizeof
 		OSStatus err = AEBuildAppleEvent('misc', 'actv', typeProcessSerialNumber, &psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event, &error, "");
 		if (err)
-#warning 64BIT: Inspect use of long
-#warning 64BIT: Inspect use of long
-			NSLog(@"%ld:%ld at \"%@\"", (long)error.fError, (long)error.fErrorPos, @"");
+			NSLog(@"%u:%u at \"%@\"", error.fError, error.fErrorPos, @"");
 		else {
 			AppleEvent reply;
 			AESend(&event, &reply, kAEWaitReply, kAENormalPriority, 100, NULL, NULL);

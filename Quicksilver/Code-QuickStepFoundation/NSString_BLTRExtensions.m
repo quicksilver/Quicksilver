@@ -241,9 +241,8 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 }
 
 - (NSString *)decodedHexString {
-	char s[4]; NSUInteger x; NSInteger i;
+	char s[4]; unsigned x; NSInteger i;
 	for (i = 0; i<((NSInteger) [self length] / 2); i++) {
-#warning 64BIT: scanHexInt: argument is pointer to int, not NSInteger
 		[[NSScanner scannerWithString:[self substringWithRange:NSMakeRange(i*2, 2)]] scanHexInt:&x];
 		s[i] = (char)x;
 	}
@@ -253,8 +252,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 }
 
 - (NSUInteger) hexIntValue {
-	NSUInteger x;
-#warning 64BIT: scanHexInt: argument is pointer to int, not NSInteger
+	unsigned x;
 	[[NSScanner scannerWithString:self] scanHexInt:&x];
 	return x;
 }
@@ -263,8 +261,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	NSMutableString *myHexString = [NSMutableString string];
 	short index = 0;
 	for (; index < [self length]; index++) {
-#warning 64BIT: Check formatting arguments
-		[myHexString appendFormat:@"%x", [self characterAtIndex:index]];
+		[myHexString appendFormat:@"%C", [self characterAtIndex:index]];
 	}
 	return myHexString;
 }

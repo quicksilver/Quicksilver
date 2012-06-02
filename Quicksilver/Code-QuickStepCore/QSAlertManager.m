@@ -31,7 +31,6 @@ NSInteger QSRunAlertSheet(NSWindow *attachToWin, NSString *title, NSString *msg,
 	if (attachToWin == nil)
 		returnVal = NSRunAlertPanel(title, msg, defaultButton, alternateButton, otherButton);
 	else {
-#warning 64BIT: Check formatting arguments
 		returnVal = QSRunSheet(NSGetAlertPanel(title, msg, defaultButton, alternateButton, otherButton), attachToWin, title, msg, defaultButton, alternateButton, otherButton);
 	}
 

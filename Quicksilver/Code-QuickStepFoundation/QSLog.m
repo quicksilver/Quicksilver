@@ -14,11 +14,9 @@
 	NSString *print, *file;
 	va_start(ap, format);
 	file = [[NSString alloc] initWithBytes:sourceFile length:strlen(sourceFile) encoding:NSUTF8StringEncoding];
-#warning 64BIT: Check formatting arguments
 	print = [[NSString alloc] initWithFormat:format arguments:ap];
 	va_end(ap);
-#warning 64BIT: Check formatting arguments
-	NSLog(@"%s:%d %@", [[file lastPathComponent] UTF8String], lineNumber, print);
+	NSLog(@"%s:%ld %@", [[file lastPathComponent] UTF8String], (long)lineNumber, print);
 	[print release];
 	[file release];
 }

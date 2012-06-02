@@ -30,8 +30,7 @@
 }
 
 - (NSString *)description {
-#warning 64BIT: Check formatting arguments
-	return [NSString stringWithFormat:@"%@ @%", [super description], normString];
+	return [NSString stringWithFormat:@"%@ %@", [super description], normString];
 }
 
 - (NSString*)rankedString { return normString; }

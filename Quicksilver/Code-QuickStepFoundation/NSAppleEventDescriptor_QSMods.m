@@ -25,7 +25,6 @@
 	AppleEvent reply;
 	OSStatus err = AESend([self aeDesc] , &reply, sendMode, priority, timeout, NULL, NULL);
 	if (err) {
-#warning 64BIT: Inspect use of long
 		NSLog(@"sendAppleEventError %ld", (long)err);
 		return nil;
 	} else {

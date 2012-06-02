@@ -365,8 +365,7 @@ NSMutableDictionary *kindDescriptions = nil;
     
 	// HenningJ 20110419 there is no localized version of "%d of %d". Additionally, something goes wrong while trying to localize it.
 	// NSString *fmt = NSLocalizedStringFromTableInBundle(@"%d of %d", nil, [NSBundle bundleForClass:[self class]], @"");
-#warning 64BIT: Check formatting arguments
-	NSString *status = [NSString stringWithFormat:@"%d of %d", selectedResult + 1, [[self currentResults] count]];
+	NSString *status = [NSString stringWithFormat:@"%ld of %ld", (long)selectedResult + 1, (long)[[self currentResults] count]];
 	NSString *details = [selectedItem details] ? [selectedItem details] : @"";
     
 	if ([resultTable rowHeight] < 34 && details)
