@@ -436,12 +436,12 @@ static QSController *defaultController = nil;
 }
 
 - (void)showSplash:sender {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSImage *splashImage = [NSImage imageNamed:@"QSLigature"];
- {
-		splashWindow = [[NSWindow windowWithImage:splashImage] retain];
+    @autoreleasepool {
+        NSImage *splashImage = [NSImage imageNamed:@"QSLigature"];
+        {
+            splashWindow = [[NSWindow windowWithImage:splashImage] retain];
 #if 0
-//		if ([NSApp isPrerelease]) {
+            //		if ([NSApp isPrerelease]) {
 			NSRect rect = NSInsetRect(NSMakeRect(28, 108, 88, 24), 1, 1);
 			NSBezierPath *path = [NSBezierPath bezierPath];
 			[path appendBezierPathWithRoundedRectangle:rect withRadius:12];
@@ -454,39 +454,39 @@ static QSController *defaultController = nil;
 			[QSGlossClipPathForRectAndStyle(rect, 4) addClip];
 			[[NSColor colorWithCalibratedWhite:1.0 alpha:0.1] set];
 			NSRectFillUsingOperation(rect, NSCompositeSourceOver);
-
+            
 			[[splashWindow contentView] unlockFocus];
-//		}
+            //		}
 #endif
- }
-
-	[splashWindow reallyCenter];
-	[splashWindow setAlphaValue:0];
-	[splashWindow setSticky:YES];
-
-	if ([NSApp wasLaunchedAtLogin]) {
-		[splashWindow setLevel:NSNormalWindowLevel-1];
-		[splashWindow orderFront:self];
-		[splashWindow setAlphaValue:0.25 fadeTime:0.333];
-	} else {
-		[splashWindow orderFront:self];
-		QSWindowAnimation *animation = [QSWindowAnimation showHelperForWindow:splashWindow];
-		[animation setTransformFt:QSExtraExtraEffect];
-		[animation setDuration:1.0];
-		[animation setAnimationBlockingMode:NSAnimationBlocking];
-		[animation startAnimation];
-	}
-	[pool drain];
+        }
+        
+        [splashWindow reallyCenter];
+        [splashWindow setAlphaValue:0];
+        [splashWindow setSticky:YES];
+        
+        if ([NSApp wasLaunchedAtLogin]) {
+            [splashWindow setLevel:NSNormalWindowLevel-1];
+            [splashWindow orderFront:self];
+            [splashWindow setAlphaValue:0.25 fadeTime:0.333];
+        } else {
+            [splashWindow orderFront:self];
+            QSWindowAnimation *animation = [QSWindowAnimation showHelperForWindow:splashWindow];
+            [animation setTransformFt:QSExtraExtraEffect];
+            [animation setDuration:1.0];
+            [animation setAnimationBlockingMode:NSAnimationBlocking];
+            [animation startAnimation];
+        }
+    }
 }
 - (void)hideSplash:sender {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	if (splashWindow) {
-		[splashWindow setLevel:NSFloatingWindowLevel];
-		[splashWindow flare:self];
-		[splashWindow close];
-		splashWindow = nil;
-	}
-	[pool drain];
+    @autoreleasepool {
+        if (splashWindow) {
+            [splashWindow setLevel:NSFloatingWindowLevel];
+            [splashWindow flare:self];
+            [splashWindow close];
+            splashWindow = nil;
+        }
+    }
 }
 - (void)startDropletConnection {
 	if (dropletConnection) return;
@@ -620,19 +620,19 @@ static QSController *defaultController = nil;
 - (IBAction)forceRescanItems:sender { [QSLib startThreadedAndForcedScan];  }
 
 - (void)delayedStartup {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
+    @autoreleasepool {
+        
 #ifdef DEBUG
-	if (DEBUG_STARTUP) NSLog(@"Delayed Startup");
+        if (DEBUG_STARTUP) NSLog(@"Delayed Startup");
 #endif
-	
-	[NSThread setThreadPriority:0.0];
-	QSTask *task = [QSTask taskWithIdentifier:@"QSDelayedStartup"];
-	[task setStatus:@"Updating Catalog"];
-	[task startTask:self];
-	[[QSLibrarian sharedInstance] loadMissingIndexes];
-	[task stopTask:self];
-	[pool drain];
+        
+        [NSThread setThreadPriority:0.0];
+        QSTask *task = [QSTask taskWithIdentifier:@"QSDelayedStartup"];
+        [task setStatus:@"Updating Catalog"];
+        [task startTask:self];
+        [[QSLibrarian sharedInstance] loadMissingIndexes];
+        [task stopTask:self];
+    }
 }
 
 - (NSString *)internetDownloadLocation { return [[[NDAlias aliasWithData:[[[[(NSDictionary *)CFPreferencesCopyValue((CFStringRef) @"Version 2.5.4", (CFStringRef) @"com.apple.internetconfig", kCFPreferencesCurrentUser, kCFPreferencesAnyHost) autorelease] objectForKey:@"ic-added"] objectForKey:@"DownloadFolder"] objectForKey:@"ic-data"]] path] stringByStandardizingPath];  }

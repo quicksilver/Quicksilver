@@ -28,50 +28,41 @@
 }
 
 - (void)loadIcons {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-
-	[[self retain] autorelease];
-	loadThread = [NSThread currentThread];
-	// [NSThread setThreadPriority:0.0];
-	NSArray *sourceArray = nil;
-
-	BOOL rangeValid = NO;
-
-	NSUInteger i, j, m;
-	id <NSObject, QSObject> thisObject;
-	while (!(rangeValid) && loaderValid) {
-		loadRange = newRange;
- 		rangeValid = YES;
-		for (i = 0; i <= loadRange.length && loaderValid && rangeValid; i++) {
-			m = loadRange.location;
-			j = i;
-			if (modulation) {
-				j = loadRange.length/2-j/2+j*(j%2); //Center Modulation
-				j = loadRange.length/2-j/2+j*(j%2); //Center Modulation
-				j = loadRange.length/2-j/2+j*(j%2); //Center Modulation
-			}
-			m += j;
-			if (m >= [array count]) continue;
-			thisObject = [array objectAtIndex:m];
-
-			/*
-			 //////////////////////////////////////////////////////////////////
-			 This looks like a good spot to override the image if the object is
-			 a WebSearchPlugin.  Tried a bunch of stuff, but nothing worked 100%.
-			 Once again, fixing the WebSearchPlugin proper will probably eliminate
-			 the need for workarounds.  Anyways, just marking this spot for future
-			 reference.
-			 //////////////////////////////////////////////////////////////////
-			 */
-			if (![thisObject isKindOfClass:[NSNull class]] && ![thisObject iconLoaded]) {
-				[thisObject loadIcon];
-				[delegate iconLoader:self loadedIndex:m inArray:sourceArray];
-			}
-			rangeValid = NSEqualRanges(loadRange, newRange);
-		}
-	}
-	loadThread = nil;
-	[pool drain];
+    @autoreleasepool {
+        
+        [[self retain] autorelease];
+        loadThread = [NSThread currentThread];
+        // [NSThread setThreadPriority:0.0];
+        NSArray *sourceArray = nil;
+        
+        BOOL rangeValid = NO;
+        
+        NSUInteger i, j, m;
+        id <NSObject, QSObject> thisObject;
+        while (!(rangeValid) && loaderValid) {
+            loadRange = newRange;
+            rangeValid = YES;
+            for (i = 0; i <= loadRange.length && loaderValid && rangeValid; i++) {
+                m = loadRange.location;
+                j = i;
+                if (modulation) {
+                    j = loadRange.length/2-j/2+j*(j%2); //Center Modulation
+                    j = loadRange.length/2-j/2+j*(j%2); //Center Modulation
+                    j = loadRange.length/2-j/2+j*(j%2); //Center Modulation
+                }
+                m += j;
+                if (m >= [array count]) continue;
+                thisObject = [array objectAtIndex:m];
+                
+                if (![thisObject isKindOfClass:[NSNull class]] && ![thisObject iconLoaded]) {
+                    [thisObject loadIcon];
+                    [delegate iconLoader:self loadedIndex:m inArray:sourceArray];
+                }
+                rangeValid = NSEqualRanges(loadRange, newRange);
+            }
+        }
+        loadThread = nil;
+    }
 }
 
 - (void)loadIconsInRange:(NSRange)range {

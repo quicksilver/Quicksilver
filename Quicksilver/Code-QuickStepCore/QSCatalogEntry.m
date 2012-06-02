@@ -474,16 +474,16 @@ NSDictionary *enabledPresetDictionary;*/
 	} else {
 		[self setIsScanning:YES];
 		NSArray *itemContents = nil;
-		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-		@try {
-			QSObjectSource *source = [self source];
-			itemContents = [[source objectsForEntry:info] retain];
-		}
-		@catch (NSException *exception) {
-			NSLog(@"An error ocurred while scanning \"%@\": %@", [self name], exception);
-			[exception printStackTrace];
-		}
-		[pool drain];
+        @autoreleasepool {
+            @try {
+                QSObjectSource *source = [self source];
+                itemContents = [[source objectsForEntry:info] retain];
+            }
+            @catch (NSException *exception) {
+                NSLog(@"An error ocurred while scanning \"%@\": %@", [self name], exception);
+                [exception printStackTrace];
+            }
+        }
 		[self setIsScanning:NO];
 		return [itemContents autorelease];
 	}
@@ -517,21 +517,22 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (void)scanForcedInThread:(NSNumber *)force {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	[[[QSLibrarian sharedInstance] scanTask] startTask:nil];
-	[self scanForced:[force boolValue]];
-	[[[QSLibrarian sharedInstance] scanTask] stopTask:nil];
-	[pool drain];
+
+	@autoreleasepool {
+        [[[QSLibrarian sharedInstance] scanTask] startTask:nil];
+        [self scanForced:[force boolValue]];
+        [[[QSLibrarian sharedInstance] scanTask] stopTask:nil];
+    }
 }
 
 - (NSArray *)scanForced:(BOOL)force {
 	if ([self isSeparator] || ![self isEnabled]) return nil;
 	if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
-		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-		for(QSCatalogEntry * child in children) {
-			[child scanForced:force];
-		}
-		[pool drain];
+        @autoreleasepool {
+            for(QSCatalogEntry * child in children) {
+                [child scanForced:force];
+            }
+        }
 		return nil;
 	}
 	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:@"Checking:%@", [self name]]];

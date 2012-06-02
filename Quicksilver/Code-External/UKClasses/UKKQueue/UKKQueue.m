@@ -313,9 +313,9 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
 	int					theFD = queueFD; 	// So we don't have to risk accessing iVars when the thread is terminated.
 
 	while( keepThreadRunning ) {
-		NSAutoreleasePool*  pool = [[NSAutoreleasePool alloc] init];
-
-		NS_DURING
+        @autoreleasepool {
+            
+            NS_DURING
 			n = kevent( queueFD, NULL, 0, &ev, 1, &timeout );
 			if ( n > 0 ) {
 				if ( ev.filter == EVFILT_VNODE ) {
@@ -323,7 +323,7 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
 						NSString*		fpath = [[(NSString *)ev.udata retain] autorelease]; 	// In case one of the notified folks removes the path.
 						//NSLog(@"UKKQueue: Detected file change: %@", fpath);
 						[[NSWorkspace sharedWorkspace] noteFileSystemChanged: fpath];
-
+                        
 						if ( (ev.fflags & NOTE_RENAME) == NOTE_RENAME )
 							[self postNotification: UKKQueueFileRenamedNotification forFile: fpath];
 						if ( (ev.fflags & NOTE_WRITE) == NOTE_WRITE )
@@ -341,11 +341,11 @@ static UKKQueue * gUKKQueueSharedQueueSingleton = nil;
 					}
 				}
 			}
-		NS_HANDLER
+            NS_HANDLER
 			NSLog(@"Error in UKKQueue watcherThread: %@", localException);
-		NS_ENDHANDLER
-
-		[pool drain];
+            NS_ENDHANDLER
+            
+        }
 	}
 
 	// Close our kqueue's file descriptor:

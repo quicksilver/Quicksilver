@@ -190,17 +190,17 @@ typedef enum {
 }
 
 - (BOOL)threadedCheckForUpdates:(BOOL)force {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    BOOL res = [self checkForUpdatesInBackground:NO force:force];
-    [pool drain];
-    return res;
+    @autoreleasepool {
+        BOOL res = [self checkForUpdatesInBackground:NO force:force];
+        return res;
+    }
 }
 
 - (BOOL)threadedCheckForUpdatesInBackground:(BOOL)force {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    BOOL res = [self checkForUpdatesInBackground:YES force:force];
-    [pool release];
-    return res;
+    @autoreleasepool {
+        BOOL res = [self checkForUpdatesInBackground:YES force:force];
+        return res;
+    }
 }
 
 - (IBAction)checkForUpdate:(id)sender {

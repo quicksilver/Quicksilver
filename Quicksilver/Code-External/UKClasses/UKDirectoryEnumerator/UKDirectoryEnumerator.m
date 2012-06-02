@@ -533,7 +533,7 @@ void            UKFSCatInfoFromDictionary( NSDictionary* attrs, FSCatalogInfo* c
 -(NSArray*)	visibleDirectoryContentsAtPath: (NSString*)path
 {
     NSMutableArray*         arr = [NSMutableArray array];
-    NSAutoreleasePool*      pool = [[NSAutoreleasePool alloc] init];
+    @autoreleasepool {
         // Everything created now will be autoreleased if it isn't in arr:
         UKDirectoryEnumerator*  enny = [[[UKDirectoryEnumerator alloc] initWithPath: path] autorelease];
         NSString*               fname;
@@ -559,7 +559,7 @@ void            UKFSCatInfoFromDictionary( NSDictionary* attrs, FSCatalogInfo* c
             [arr removeObjectsInArray: hiddenList];
         }
         // End of autoreleased area.
-    [pool release];
+    }
     
     return arr;
 }

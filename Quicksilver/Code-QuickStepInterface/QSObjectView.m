@@ -326,9 +326,9 @@
 
 - (void)concludeDragWithAction:(QSAction *)actionObject {
 	[actionObject retain];
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	[actionObject performOnDirectObject:[self draggedObject] indirectObject:[self objectValue]];
-	[pool drain];
+    @autoreleasepool {
+        [actionObject performOnDirectObject:[self draggedObject] indirectObject:[self objectValue]];
+    }
 	[actionObject release];
 }
 

@@ -528,36 +528,35 @@
 #pragma mark -
 #pragma mark Command Execution
 - (void)executeCommandThreaded {
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    @autoreleasepool {
 #ifdef DEBUG
-	NSDate *startDate = [NSDate date];
+        NSDate *startDate = [NSDate date];
 #endif
-	QSAction *action = [[aSelector objectValue] retain];
-	if ([[NSApp currentEvent] modifierFlags] & NSCommandKeyMask && !([[NSApp currentEvent] modifierFlags] & NSShiftKeyMask) ) {
-		QSAction* alternate = [action alternate];
-		if (alternate != action) {
-			[alternate retain];
-			[action release];
-			action = alternate;
-		}
+        QSAction *action = [[aSelector objectValue] retain];
+        if ([[NSApp currentEvent] modifierFlags] & NSCommandKeyMask && !([[NSApp currentEvent] modifierFlags] & NSShiftKeyMask) ) {
+            QSAction* alternate = [action alternate];
+            if (alternate != action) {
+                [alternate retain];
+                [action release];
+                action = alternate;
+            }
 #ifdef DEBUG
-		if (VERBOSE) NSLog(@"Using Alternate Action: %@", action);
+            if (VERBOSE) NSLog(@"Using Alternate Action: %@", action);
 #endif
-	}
-    QSObject *dObject = [dSelector objectValue];
-    QSObject *iObject = [iSelector objectValue];
-    if( [dObject isKindOfClass:[QSRankedObject class]] )
-        dObject = [(QSRankedObject*)dObject object];
-    if( [iObject isKindOfClass:[QSRankedObject class]] )
-        iObject = [(QSRankedObject*)iObject object];
-	QSCommand *command = [QSCommand commandWithDirectObject:dObject actionObject:action indirectObject:iObject];
-	[command execute];
+        }
+        QSObject *dObject = [dSelector objectValue];
+        QSObject *iObject = [iSelector objectValue];
+        if( [dObject isKindOfClass:[QSRankedObject class]] )
+            dObject = [(QSRankedObject*)dObject object];
+        if( [iObject isKindOfClass:[QSRankedObject class]] )
+            iObject = [(QSRankedObject*)iObject object];
+        QSCommand *command = [QSCommand commandWithDirectObject:dObject actionObject:action indirectObject:iObject];
+        [command execute];
 #ifdef DEBUG
-#warning 64BIT: Check formatting arguments
-	if (VERBOSE) NSLog(@"Command executed (%dms) ", (NSInteger)(-[startDate timeIntervalSinceNow] *1000));
+        if (VERBOSE) NSLog(@"Command executed (%ldms) ", (long)(-[startDate timeIntervalSinceNow] *1000));
 #endif
-	[action release];
-	[pool drain];
+        [action release];
+    }
 }
 
 - (void)executePartialCommand:(NSArray *)array {

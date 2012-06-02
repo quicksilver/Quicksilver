@@ -330,10 +330,10 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 			if (![self fileExistsAtPath:file isDirectory:&isDirectory]) continue;
 
 			if (depth && isDirectory && ![workspace isFilePackageAtPath:file]) {
-				NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-				moddate = [self path:file wasModifiedAfter:date depth:depth--];
-				[moddate retain];
-				[pool drain];
+                @autoreleasepool {
+                    moddate = [self path:file wasModifiedAfter:date depth:depth--];
+                    [moddate retain];
+                }
 				[moddate autorelease];
 				if (moddate)
 					return moddate;

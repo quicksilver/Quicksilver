@@ -524,27 +524,27 @@ static CGFloat searchSpeed = 0.0;
 		return;
 	}
 
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	QSTask *mtScanTask = [scanTask mainThreadProxy];
-	[mtScanTask setStatus:@"Catalog Rescan"];
-	[mtScanTask startTask:self];
-	[mtScanTask setProgress:-1];
-	scannerCount++;
-	[NSThread setThreadPriority:0];
-	NSArray *children = [catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
-	NSInteger i;
-	NSInteger c = [children count];
-	for (i = 0; i<c; i++) {
-		[mtScanTask setProgress:(CGFloat) i/c];
-		[[children objectAtIndex:i] scanForced:force];
-	}
-
-	[mtScanTask setProgress:1.0];
-	[mtScanTask stopTask:self];
-
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogIndexingCompleted object:nil];
-	scannerCount--;
-	[pool drain];
+    @autoreleasepool {
+        QSTask *mtScanTask = [scanTask mainThreadProxy];
+        [mtScanTask setStatus:@"Catalog Rescan"];
+        [mtScanTask startTask:self];
+        [mtScanTask setProgress:-1];
+        scannerCount++;
+        [NSThread setThreadPriority:0];
+        NSArray *children = [catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
+        NSInteger i;
+        NSInteger c = [children count];
+        for (i = 0; i<c; i++) {
+            [mtScanTask setProgress:(CGFloat) i/c];
+            [[children objectAtIndex:i] scanForced:force];
+        }
+        
+        [mtScanTask setProgress:1.0];
+        [mtScanTask stopTask:self];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogIndexingCompleted object:nil];
+        scannerCount--;
+    }
 }
 
 
@@ -563,17 +563,17 @@ static CGFloat searchSpeed = 0.0;
 	//NSLog(@"scanned");
 }
 - (void)scanCatalogWithDelay:(id)sender {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	// NSLog(@"delayed load");
-
-	[scanTask setStatus:@"Rescanning Catalog"];
-	[scanTask startTask:self];
-	[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:8.0]];
-	[NSThread setThreadPriority:0];
-	[catalog scanForced:NO];
-  // [activityController removeTask:@"Scan"];
-	[scanTask stopTask:self];
-	[pool drain];
+    @autoreleasepool {
+        // NSLog(@"delayed load");
+        
+        [scanTask setStatus:@"Rescanning Catalog"];
+        [scanTask startTask:self];
+        [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:8.0]];
+        [NSThread setThreadPriority:0];
+        [catalog scanForced:NO];
+        // [activityController removeTask:@"Scan"];
+        [scanTask stopTask:self];
+    }
 }
 
 - (BOOL)itemIsOmitted:(QSBasicObject *)item {
@@ -606,21 +606,18 @@ static CGFloat searchSpeed = 0.0;
 	NSDate *date;
 	//NSMutableArray *newResultArray;
 
-	//NSTimeInterval moo = 0;
-	//NSTimeInterval moo2 = 0;
-	NSAutoreleasePool *pool;
+
 	for(i = 0; i<count; i++) {
 		date = [NSDate date];
 		for(j = 0; j<25; j++) {
 			//	NSData *scores;
 			NSString *string = [array objectAtIndex:i];
-			pool = [[NSAutoreleasePool alloc] init];
-			/*newResultArray = */[self scoredArrayForString:string inSet:nil mnemonicsOnly:NO];
-			//if (VERBOSE) NSLog(@"Searched for \"%@\" in %3fms (%d items) ", string, (1000 * -[date timeIntervalSinceNow]) , [newResultArray count]);
-
-			[pool drain];
+            @autoreleasepool {
+                /*newResultArray = */[self scoredArrayForString:string inSet:nil mnemonicsOnly:NO];
+                //if (VERBOSE) NSLog(@"Searched for \"%@\" in %3fms (%d items) ", string, (1000 * -[date timeIntervalSinceNow]) , [newResultArray count]);
+                
+            }
 		}
-#warning 64BIT: Check formatting arguments
 		if (VERBOSE) NSLog(@"SearchTest in %3fs, %3fs", -[date timeIntervalSinceNow] , -[totalDate timeIntervalSinceNow]);
 	}
 	return nil;
