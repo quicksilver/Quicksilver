@@ -315,7 +315,6 @@ NSSize QSMaxIconSize;
 
 - (const char *) gdbDataFormatter {
 #warning search URL icons crash this method
-#warning 64BIT: Check formatting arguments
 	return [[NSString stringWithFormat:@"name: %@, label: %@, identifier: %@, primaryType: %@, primaryObject: %@, meta: %@, data: %@, cache: %@, icon: %@, lastAccess: %f",
              (name ? name : @"nil"),
              (label ? label : @"nil"),

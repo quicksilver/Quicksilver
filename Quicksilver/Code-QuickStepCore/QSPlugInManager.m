@@ -148,11 +148,9 @@
 			[date descriptionWithCalendarFormat:@"%Y%m%d%H%M%S" timeZone:nil locale:nil]]];
 	}
 	if (version) {
-#warning 64BIT: Check formatting arguments
-		[query addObject:[NSString stringWithFormat:@"updateVersion=%d", [version hexIntValue]]];
+		[query addObject:[NSString stringWithFormat:@"updateVersion=%u", [version hexIntValue]]];
 	} else {
-#warning 64BIT: Check formatting arguments
-		[query addObject:[NSString stringWithFormat:@"qsversion=%d", [[NSApp buildVersion] hexIntValue]]];
+		[query addObject:[NSString stringWithFormat:@"qsversion=%u", [[NSApp buildVersion] hexIntValue]]];
 	}
 	NSArray *webPlugIns = [[knownPlugIns allValues] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isSecret == 1"]];
 	NSArray *secretIdentifiers = [webPlugIns valueForKey:@"identifier"];
@@ -270,7 +268,6 @@
 		NSLog(@"Could not load new plugins data");
 		errorCount++;
 	} else {
-#warning 64BIT: Inspect use of long
 		NSLog(@"Downloaded info for %ld plug-in(s) ", (long)[(NSArray *)[prop objectForKey:@"plugins"] count]);
 		//	NSEnumerator *e = [prop objectEnumerator];
 		if ([prop count] && [[prop objectForKey:@"fullIndex"] boolValue])
@@ -370,7 +367,7 @@
 	NSMutableArray *array = [NSMutableArray array];
 	NSMutableSet *dependingNames = [NSMutableSet set];
 	foreachkey(ident, plugins, dependingPlugIns) {
-		if ([plugins count]) {
+		if ((NSArray *)[plugins count]) {
 			NSArray *dependencies = [[plugins lastObject] dependencies];
 			[array addObject:[dependencies objectWithValue:ident forKey:@"id"]];
 
@@ -786,8 +783,7 @@
 
 		[self setIsInstalling:NO];
 	} else {
-#warning 64BIT: Check formatting arguments
-		NSString *status = [NSString stringWithFormat:@"Installing %d Plug-in(s)", [queuedDownloads count]];
+		NSString *status = [NSString stringWithFormat:@"Installing %ld Plug-in(s)", (long)[queuedDownloads count]];
 		//NSString *status = [NSString stringWithFormat:@"Installing %@ (%d of %d) ", [[self currentDownload] name] , [queuedDownloads count] , downloadsCount];
 		[self setInstallStatus:status];
 		//[self setInstallProgress:[self downloadProgress]];
@@ -887,8 +883,7 @@
 
 	if (!version)
         version = [NSApp buildVersion];
-#warning 64BIT: Check formatting arguments
-	return [NSString stringWithFormat:@"%@?qsversion=%d&id=%@", downloadURL, [version hexIntValue], ident];
+	return [NSString stringWithFormat:@"%@?qsversion=%u&id=%@", downloadURL, [version hexIntValue], ident];
 }
 
 - (BOOL)installPlugInsForIdentifiers:(NSArray *)bundleIDs version:(NSString *)version {
@@ -903,8 +898,7 @@
 		[self performSelectorOnMainThread:@selector(installPlugInWithInfo:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:ident, @"id", url, @"url", nil] waitUntilDone:YES];
 	}
 
-#warning 64BIT: Check formatting arguments
-	NSString *status = [NSString stringWithFormat:@"Installing %d Plug-in(s) ", [queuedDownloads count]];
+	NSString *status = [NSString stringWithFormat:@"Installing %lu Plug-in(s) ", (unsigned long)[queuedDownloads count]];
 	[[QSTaskController sharedInstance] updateTask:@"QSPlugInInstalling" status:status progress:-1];
 	[self setInstallStatus:status];
 	[self setIsInstalling:YES];
@@ -973,8 +967,7 @@
 }
 
 - (NSString *)currentStatus {
-#warning 64BIT: Check formatting arguments
-	return [NSString stringWithFormat:@"%d remaining", [queuedDownloads count]];
+	return [NSString stringWithFormat:@"%ld remaining", (long)[queuedDownloads count]];
 }
 
 - (void)updateDownloadProgressInfo {

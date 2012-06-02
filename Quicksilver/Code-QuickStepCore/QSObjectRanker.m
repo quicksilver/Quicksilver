@@ -105,8 +105,7 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 }
 
 - (NSString*)description {
-#warning 64BIT: Check formatting arguments
-    return [NSString stringWithFormat:@"%@ for object %@ with %d mnemonics:\n%@", [super description], [nameRanker rankedString], [usageMnemonics count], usageMnemonics];
+    return [NSString stringWithFormat:@"%@ for object %@ with %lu mnemonics:\n%@", [super description], [nameRanker rankedString], (unsigned long)[usageMnemonics count], usageMnemonics];
 }
 
 - (NSString*)matchedStringForAbbreviation:(NSString*)anAbbreviation hitmask:(NSIndexSet **)hitmask inContext:(NSString *)context {

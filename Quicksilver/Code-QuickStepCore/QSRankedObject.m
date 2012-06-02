@@ -75,7 +75,6 @@
 	[super dealloc];
 }
 
-#warning 64BIT: Check formatting arguments
 - (NSString *)description {return [NSString stringWithFormat:@"[%@ %f] ", object, score];}
 
 #pragma mark Comparison/Equality
@@ -154,11 +153,9 @@
 	NSMenuItem *item;
 
 	NSInteger myOrder = [self order];
-#warning 64BIT: Check formatting arguments
 	NSString *title = [NSString stringWithFormat:@"Score: %.0f", [self score] *100];
 	if (myOrder != NSNotFound)
-#warning 64BIT: Check formatting arguments
-		title = [NSString stringWithFormat:@"Rank: %d, %@", myOrder+1, title];
+		title = [NSString stringWithFormat:@"Rank: %ld, %@", (long)myOrder+1, title];
 
 	item = (NSMenuItem *)[menu addItemWithTitle:title action:NULL keyEquivalent:@""];
 	[item setTarget:nil];

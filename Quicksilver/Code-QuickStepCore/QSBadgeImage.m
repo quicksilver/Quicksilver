@@ -44,7 +44,6 @@
 - (void)drawInRect:(NSRect)rect fromRect:(NSRect)fromRect operation:(NSCompositingOperation)op fraction:(CGFloat)delta {
 	[super drawInRect:rect fromRect:rectFromSize([self size]) operation:op fraction:delta];
 
-#warning 64BIT: Check formatting arguments
 	NSString *numString = [NSString stringWithFormat:@"%ld", (long)count];
 	NSRect textRect = NSInsetRect(rect, NSHeight(rect) /4, NSHeight(rect)/4);
 	NSDictionary *numAttributes = [numString attributesToFitNumbersInRect:textRect withAttributes:countBadgeTextAttributes];

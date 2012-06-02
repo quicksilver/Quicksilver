@@ -251,7 +251,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
     return [NSString stringWithCString:s encoding:NSUTF8StringEncoding];
 }
 
-- (NSUInteger) hexIntValue {
+- (unsigned) hexIntValue {
 	unsigned x;
 	[[NSScanner scannerWithString:self] scanHexInt:&x];
 	return x;
@@ -375,8 +375,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	NSString *alternatePath = self;
 	NSInteger i;
 	for (i = 1; [[NSFileManager defaultManager] fileExistsAtPath:alternatePath]; i++)
-#warning 64BIT: Check formatting arguments
-		alternatePath = [NSString stringWithFormat:@"%@ %d.%@", basePath, i, extension];
+		alternatePath = [NSString stringWithFormat:@"%@ %ld.%@", basePath, (long)i, extension];
 	return alternatePath;
 }
 + (NSData *)dataForObject:(id)object forType:(NSString *)type {

@@ -15,8 +15,7 @@
 	NSString *stackTrace = [[self userInfo] objectForKey:NSStackTraceKey];
 	if (!stackTrace) return;
 
-#warning 64BIT: Check formatting arguments
-	FILE *file = popen( [[NSString stringWithFormat:@"/usr/bin/atos -p %d %@ | tail -n +3 | head -n +%d | c++filt | cat -n", [[NSProcessInfo processInfo] processIdentifier], stackTrace, ([[stackTrace componentsSeparatedByString:@" "] count] - 4)] UTF8String], "r" );
+	FILE *file = popen( [[NSString stringWithFormat:@"/usr/bin/atos -p %d %@ | tail -n +3 | head -n +%ld | c++filt | cat -n", [[NSProcessInfo processInfo] processIdentifier], stackTrace, (long)([[stackTrace componentsSeparatedByString:@" "] count] - 4)] UTF8String], "r" );
 	if ( file ) {
 		char buffer[512];
 		size_t length;
@@ -24,7 +23,6 @@
 		fprintf( stderr, "An exception of type %s occured.\n%s\n", [[self name] UTF8String] , [[self reason] UTF8String] );
 		fprintf( stderr, "Stack trace:\n" );
 
-#warning 64BIT: Inspect use of sizeof
 		while( length = fread( buffer, 1, sizeof( buffer ), file ) )
 			fwrite( buffer, 1, length, stderr );
 

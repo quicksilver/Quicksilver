@@ -1092,7 +1092,6 @@ static QSController *defaultController = nil;
 }
 
 - (NSApplicationPrintReply) application:(NSApplication *)application printFiles:(NSArray *)fileNames withSettings:(NSDictionary *)printSettings showPrintPanels:(BOOL)showPrintPanels {
-#warning 64BIT: Check formatting arguments
 	NSLog(@"Print %@ using %@ show %@", fileNames, printSettings, showPrintPanels ? @"YES" : @"NO");
 	return NSPrintingFailure;
 }

@@ -109,7 +109,7 @@
 	defaultString = [[self string] copy];
 	BOOL status = [super becomeFirstResponder];
 	validCombo = NO;
-	[QSApp *)[NSApplication sharedApplication] addEventDelegate:self];
+	[(QSApp *)[NSApplication sharedApplication] addEventDelegate:self];
 	[self _disableHotKeyOperationMode];
 	[self setSelectedRange:NSMakeRange(0, [[self string] length])];
 	return status;
@@ -122,7 +122,7 @@
 - (BOOL)resignFirstResponder {
 	[defaultString release];
 	defaultString = nil;
-	[QSApp *)[NSApplication sharedApplication] removeEventDelegate:self];
+	[(QSApp *)[NSApplication sharedApplication] removeEventDelegate:self];
 	[self _restoreHotKeyOperationMode];
 	return [super resignFirstResponder];
 }

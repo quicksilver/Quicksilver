@@ -181,11 +181,9 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
     OSStatus err;
 	err = RemoveEventHandler(changeHandler);
     if(err)
-#warning 64BIT: Inspect use of long
         NSLog(@"error %ld removing change handler", (long)err);
     err = RemoveEventHandler(launchHandler);
     if(err)
-#warning 64BIT: Inspect use of long
         NSLog(@"error %ld removing launch handler", (long)err);
     err = RemoveEventHandler(terminateHandler);
     if(err)

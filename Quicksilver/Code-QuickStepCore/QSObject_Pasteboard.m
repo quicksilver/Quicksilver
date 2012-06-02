@@ -231,7 +231,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 		// get the different pboard types from the object's data dictionary -- they're all stored here
 		types = [[[[self dataDictionary] allKeys] mutableCopy] autorelease];
 		if ([types containsObject:QSProxyType])
-			[(NSMutableArray *)types addObjectsFromArray:[[[self resolvedObject] dataDictionary] allKeys]];
+			[(NSMutableArray *)types addObjectsFromArray:[[(QSObject *)[self resolvedObject] dataDictionary] allKeys]];
 	}
 	else {
 		NSMutableSet *typeSet = [NSMutableSet setWithArray:types];
@@ -300,7 +300,6 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 - (void)pasteboard:(NSPasteboard *)sender provideDataForType:(NSString *)type {
 	//if (VERBOSE) NSLog(@"Provide: %@", [type decodedPasteboardType]);
 	if ([type isEqualToString:@"QSObjectAddress"]) {
-#warning 64BIT: Check formatting arguments
 		writeObjectToPasteboard(sender, type, [NSString stringWithFormat:@"%d:%d", [[NSProcessInfo processInfo] processIdentifier] , self]);
 	} else {
 		id theData = nil;
