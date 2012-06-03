@@ -16,10 +16,6 @@
 #import "QSTypes.h"
 #import "QSExecutor.h"
 
-#import "NSAppleScript_BLTRExtensions.h"
-
-#import "NSAppleEventDescriptor+NDCoercion.h"
-
 @implementation QSAppleScriptActions
 
 - (QSAction *)scriptActionForPath:(NSString *)path {
