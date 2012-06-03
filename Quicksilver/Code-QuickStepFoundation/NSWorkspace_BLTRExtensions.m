@@ -230,24 +230,6 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 
 - (void)reopenApplication:(NSDictionary *)theApp {
 	[self launchApplication:[theApp objectForKey:@"NSApplicationPath"]];
-	// ***warning  * should learn to use reopen aevnt
-#if 0
-	ProcessSerialNumber psn;
-	if (![self PSN:&psn forApplication:theApp]) return;
-	AppleEvent event = {typeNull, 0} ;
-	AEBuildError error;
-
-#warning 64BIT: Inspect use of sizeof
-	OSStatus err = AEBuildAppleEvent(kCoreEventClass, kAEQuitApplication, typeProcessSerialNumber, &psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event, &error, "");
-
-#warning 64BIT: Check formatting arguments
-	if (err) NSLog(@"%d:%d at \"%@\"", error.fError, error.fErrorPos, @"");
-	else {
-		err = AESend(&event, NULL, kAENoReply, kAENormalPriority, kAEDefaultTimeout, NULL, NULL);
-		AEDisposeDesc(&event); // we must dispose of this and the reply.
-	}
-	if (err) NSLog(@"error");
-#endif
 }
 
 - (void)quitApplication:(NSDictionary *)theApp {
@@ -260,11 +242,8 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 	AppleEvent event = {typeNull, 0};
 	AEBuildError error;
 
-#warning 64BIT: Inspect use of sizeof
 	OSStatus err = AEBuildAppleEvent(kCoreEventClass, kAEQuitApplication, typeProcessSerialNumber, &psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event, &error, "");
 	if (err)
-#warning 64BIT: Inspect use of long
-#warning 64BIT: Inspect use of long
 		NSLog(@"%ld:%ld at \"%@\"", (long)error.fError, (long)error.fErrorPos, @"");
 	else {
 		err = AESend(&event, NULL, kAENoReply, kAENormalPriority, kAEDefaultTimeout, NULL, NULL);
@@ -278,11 +257,8 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 	if ([self PSN:&psn forApplication:theApp]){
 		AppleEvent event = {typeNull, 0};
 		AEBuildError error;
-#warning 64BIT: Inspect use of sizeof
 		OSStatus err = AEBuildAppleEvent(kCoreEventClass, kAEQuitApplication, typeProcessSerialNumber, &psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event, &error, "");
 		if (err)
-#warning 64BIT: Inspect use of long
-#warning 64BIT: Inspect use of long
 			NSLog(@"%ld:%ld at \"%@\"", (long)error.fError, (long)error.fErrorPos, @"");
 		else {
 			err = AESend(&event, NULL, kAEWaitReply, kAENormalPriority, kAEDefaultTimeout, NULL, NULL);
@@ -304,7 +280,6 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 	spec.launchFlags	 = kLSLaunchNewInstance;
 	spec.asyncRefCon	 = NULL;
 	err = LSOpenFromURLSpec( &spec, NULL );
-#warning 64BIT: Inspect use of long
 	NSLog(@"err %ld", (long)err);
 	//CFRelease( spec.appURL );
 }
@@ -319,33 +294,30 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 	return !LSOpenFromURLSpec(&launchSpec, NULL);
 }
 - (void)relaunchApplication:(NSDictionary *)theApp {
-	if ([[theApp objectForKey:@"NSApplicationProcessIdentifier"] integerValue] == [[NSProcessInfo processInfo] processIdentifier])
+	if ([[theApp objectForKey:@"NSApplicationProcessIdentifier"] integerValue] == [[NSProcessInfo processInfo] processIdentifier]) {
 		[NSApp relaunch:nil];
+    }
+    NSRunningApplication *runningApplication = [NSRunningApplication runningApplicationWithProcessIdentifier:[[theApp objectForKey:@"NSApplicationProcessIdentifier"] intValue]];
 
-	ProcessSerialNumber psn;
-	if ([self PSN:&psn forApplication:theApp]){
-		[self quitApplicationAndWait:theApp];
-		pid_t pid;
-		NSString *bundlePath = [[theApp objectForKey:@"NSApplicationPath"] stringByDeletingLastPathComponent];
-		if ([[bundlePath lastPathComponent] isEqualToString:@"MacOS"] || [[bundlePath lastPathComponent] isEqualToString:@"MacOSClassic"]) {
-			bundlePath = [bundlePath stringByDeletingLastPathComponent];
-			if ([[bundlePath lastPathComponent] isEqualToString:@"Contents"])
-				bundlePath = [bundlePath stringByDeletingLastPathComponent];
-		} else {
-			bundlePath = [theApp objectForKey:@"NSApplicationPath"];
-		}
-		while(1) {
-			SInt32 status = GetProcessPID(&psn, &pid);
-			NSLog(@"waiting for %@ to quit, current status :%d for PID %d", bundlePath, status, pid);
-			// wait for half a second
-			usleep(500000);
-			// Status -600 means process not found. 
-			// Fix to 'relaunch' action bug done by removing if(status == 0).
-			if (status == -600) break;
+    if (!runningApplication) {
+        NSBeep();
+        NSLog(@"Unable to find application %@ to restart", theApp);
+        return;
+    }
+    NSDate *now = [NSDate date];
+    while(![runningApplication isTerminated]) {
+        [runningApplication terminate];
+        
+        
+        if ([now timeIntervalSinceNow] > 20) {
+            NSLog(@"Could not terminate %@, abandoning restart",[runningApplication localizedName]);
+            break;
+        }
+        
+        
 		}
 		usleep(500000);
-		[self openFile:bundlePath];
-	}
+		[self openURL:[runningApplication bundleURL]];
 }
 
 - (NSString *)nameForPID:(NSInteger)pid {
