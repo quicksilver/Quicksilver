@@ -282,7 +282,7 @@
         
         NSAppleEventDescriptor *result = [script executeAppleEvent:event error:&errorDict];
         if( result ) {
-            argumentCount = [result int32Value];
+            argumentCount = [result integerValue];
         } else if( errorDict != nil )
             NSLog(@"error %@", errorDict);
         
@@ -293,8 +293,7 @@
     }
 
 #ifdef DEBUG
-#warning 64BIT: Check formatting arguments
-	NSLog(@"argument count for %@ is %d", actionId, argumentCount);
+	NSLog(@"argument count for %@ is %ld", actionId, (long)argumentCount);
 #endif
     
     return argumentCount;

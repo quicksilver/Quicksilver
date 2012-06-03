@@ -71,9 +71,11 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
     // use temporary double for storing scanf floats.
     // See http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/Strings/Articles/formatSpecifiers.html
 	CGFloat f;
+    double temp;
 	NSString *string;
 	while (![scanner isAtEnd]) {
-		[scanner scanDouble:&f];
+		[scanner scanDouble:&temp];
+        f  = temp;
 		if (![scanner scanUpToCharactersFromSet:[NSCharacterSet decimalDigitCharacterSet] intoString:&string])
 			string = nil;
         

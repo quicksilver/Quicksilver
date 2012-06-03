@@ -178,13 +178,11 @@
 	}
 #endif
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *keys[] = { kQSAppearance1B, kQSAppearance1A, kQSAppearance1T, kQSAppearance2B, kQSAppearance2A, kQSAppearance2T, kQSAppearance3B, kQSAppearance3A, kQSAppearance3T };
-	unsigned int i;
-#warning 64BIT: Inspect use of sizeof
-	for(i = 0; i < sizeof(keys) / sizeof(keys[0]); i++){
-		[defaults willChangeValueForKey:keys[i]];
-		[defaults removeObjectForKey:keys[i]];
-		[defaults didChangeValueForKey:keys[i]];		
+	NSArray *colourDefaults = [NSArray arrayWithObjects: kQSAppearance1B, kQSAppearance1A, kQSAppearance1T, kQSAppearance2B, kQSAppearance2A, kQSAppearance2T, kQSAppearance3B, kQSAppearance3A, kQSAppearance3T, nil];
+    for (NSString *eachDefault in colourDefaults) {
+		[defaults willChangeValueForKey:eachDefault];
+		[defaults removeObjectForKey:eachDefault];
+		[defaults didChangeValueForKey:eachDefault];		
 	}
 	[defaults synchronize];
 }
