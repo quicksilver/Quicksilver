@@ -8,9 +8,12 @@
 
 #import "NSAppleScript_BLTRExtensions.h"
 #import "NSData_RangeExtensions.h"
+#import "NDScript.h"
 #import "NDResourceFork.h"
 
 #import <Carbon/Carbon.h>
+
+#import "NSAppleEventDescriptor+NDCoercion.h"
 
 @interface NSAppleScript (NSPrivate)
 + (struct ComponentInstanceRecord *)_defaultScriptingComponent;
@@ -71,6 +74,17 @@
 	return nil;
 }
 
+- (NSData *)data {
+	AEDesc				theDesc = { typeNull, NULL } ;
+	NSData				* theData = nil;
+
+	 {	if ( [self isCompiled] && (noErr == OSAStore( [NSAppleScript _defaultScriptingComponent] , [self _compiledScriptID] , typeOSAGenericStorage, kOSAModeNull, &theDesc ) ) )
+
+		theData = [[NSAppleEventDescriptor descriptorWithAEDescNoCopy:&theDesc] data];
+	}
+	return theData;
+}
+
 
 - (BOOL)storeInFile:(NSString *)path {
 	FSRef ref;
@@ -83,6 +97,28 @@
 	return YES;
 }
 
+
+- (BOOL)writeToFile:(NSString *)path atomically:(BOOL)flag {
+	[[self data] writeToFile:path atomically:flag];
+	return YES;
+}
+
+/*
+ -(NSArray *)handlers {
+	 NSLog(@"id %d", _compiledScriptID);
+
+	 NSArray			* theNamesArray = nil;
+	 AEDescList		theNamesDescList;
+	 if ( OSAGetHandlerNames (OpenDefaultComponent( kOSAComponentType, kAppleScriptSubtype ), kOSAModeNull, _compiledScriptID, &theNamesDescList ) == noErr ) {
+
+
+		 theNamesArray = [NDAppleScriptObject objectForAEDesc: &theNamesDescList];
+		 AEDisposeDesc( &theNamesDescList );
+	 }
+
+	 return theNamesArray;
+ }
+ */
 @end
 
 @implementation NSAppleEventDescriptor (CocoaConversion)
@@ -95,6 +131,54 @@
 	return [[NSAEDescriptorTranslator sharedAEDescriptorTranslator] objectByTranslatingDescriptor:self toType:nil inSuite:nil];
 }
 
++ (NSAppleEventDescriptor *)XdescriptorWithObject:(id)object {
+	NSAppleEventDescriptor *descriptorObject = nil;
+	if ([object isKindOfClass:[NSArray class]]) {
+		descriptorObject = [NSAppleEventDescriptor listDescriptor];
+		NSUInteger i;
+		for (i = 0; i < [(NSArray *)object count]; i++) {
+			[descriptorObject insertDescriptor:[NSAppleEventDescriptor descriptorWithObject:[object objectAtIndex:i]] atIndex:i+1];
+		}
+		return descriptorObject;
+	} else if ([object isKindOfClass:[NSString class]]) {
+		return [NSAppleEventDescriptor descriptorWithString:object];
+	} else if ([object isKindOfClass:[NSNumber class]]) {
+		return [NSAppleEventDescriptor descriptorWithInt32:[object integerValue]];
+	} else if ([object isKindOfClass:[NSAppleEventDescriptor class]]) {
+		return object;
+	} else if ([object isKindOfClass:[NSNull class]]) {
+		return [NSAppleEventDescriptor nullDescriptor];
+	} else {
+		return nil;
+	}
+}
+
+- (id)xobjectValue {
+	// NSLog(@"Convert type: %@", NSFileTypeForHFSTypeCode([self descriptorType]) );
+	switch ([self descriptorType]) {
+		case kAENullEvent:
+			return nil;
+		case cAEList: {
+			NSMutableArray *array = [NSMutableArray arrayWithCapacity:[self numberOfItems]];
+			NSInteger i;
+			id theItem;
+			for (i = 0; i<[self numberOfItems]; i++) {
+				theItem = [[self descriptorAtIndex:i+1] objectValue];
+				if (theItem) [array addObject:theItem];
+			}
+			return array;
+		}
+		case cBoolean:
+			return [NSNumber numberWithBool:[self booleanValue]];
+
+			// if (typeAERecord == [self descriptorType]) {
+			//	 return [NSNumber numberWithBool:[self booleanValue]];
+			//	}
+		default:
+			return [self stringValue];
+	}
+	return nil;
+}
 
 + (NSAppleEventDescriptor *)descriptorWithPath:(NSString *)path {
 	if (!path) return 0;
