@@ -156,7 +156,7 @@
 		NSString *defaultTitle = @"Plug-in Documentation";
 		if ([selection count] == 1) {
             [infoButton setEnabled:YES];
-			[self setPlugInName:[NSString stringWithFormat:@"%@: %@", defaultTitle, [[(NSDictionary *)selection objectAtIndex:0] name]]];
+			[self setPlugInName:[NSString stringWithFormat:@"%@: %@", defaultTitle, [[selection objectAtIndex:0] name]]];
 			htmlString = [[selection objectAtIndex:0] infoHTML];
 		} else {
             [infoButton setEnabled:NO];
