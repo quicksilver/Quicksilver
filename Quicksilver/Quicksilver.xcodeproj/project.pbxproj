@@ -107,6 +107,8 @@
 		4D66BBFE1487018800351C42 /* NDKeyboardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BBF81487018700351C42 /* NDKeyboardLayout.m */; };
 		4D66BC05148701B800351C42 /* NDProgrammerUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBFF148701B800351C42 /* NDProgrammerUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D66BC06148701B800351C42 /* NDProgrammerUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC00148701B800351C42 /* NDProgrammerUtilities.m */; };
+		4D66BC07148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC01148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D66BC08148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC02148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.m */; };
 		4D66BC09148701B800351C42 /* NSValue+NDFourCharCode.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC03148701B800351C42 /* NSValue+NDFourCharCode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D66BC0A148701B800351C42 /* NSValue+NDFourCharCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC04148701B800351C42 /* NSValue+NDFourCharCode.m */; };
 		4D66BC1B148701EA00351C42 /* NDAlias.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC0B148701E900351C42 /* NDAlias.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -131,6 +133,12 @@
 		4D66BC321487021500351C42 /* NDResourceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC2E1487021500351C42 /* NDResourceInfo.m */; };
 		4D66BC3D1487024500351C42 /* IntegerMath.c in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC331487024400351C42 /* IntegerMath.c */; };
 		4D66BC3E1487024500351C42 /* IntegerMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC341487024400351C42 /* IntegerMath.h */; };
+		4D66BC3F1487024500351C42 /* NDComponentInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC351487024400351C42 /* NDComponentInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D66BC401487024500351C42 /* NDComponentInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC361487024400351C42 /* NDComponentInstance.m */; };
+		4D66BC411487024500351C42 /* NDScript.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC371487024400351C42 /* NDScript.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D66BC421487024500351C42 /* NDScriptData_Protocols.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC381487024400351C42 /* NDScriptData_Protocols.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D66BC431487024500351C42 /* NDScriptData.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC391487024400351C42 /* NDScriptData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D66BC441487024500351C42 /* NDScriptData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC3A1487024500351C42 /* NDScriptData.m */; };
 		4D66BC451487024500351C42 /* NSString+NDUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC3B1487024500351C42 /* NSString+NDUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D66BC461487024500351C42 /* NSString+NDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC3C1487024500351C42 /* NSString+NDUtilities.m */; };
 		4D66BC5A1487027E00351C42 /* NDProcess.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBEE1486FFEF00351C42 /* NDProcess.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -521,6 +529,10 @@
 		E1E5FAA507B204BF0044D6EF /* NDAlias+QSMods.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA6F07B204BE0044D6EF /* NDAlias+QSMods.m */; };
 		E1E5FAA607B204BF0044D6EF /* NDProcess+QSMods.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7007B204BE0044D6EF /* NDProcess+QSMods.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAA707B204BF0044D6EF /* NDProcess+QSMods.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA7107B204BE0044D6EF /* NDProcess+QSMods.m */; };
+		E1E5FAA807B204BF0044D6EF /* NSAppleEventDescriptor_QSMods.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7207B204BE0044D6EF /* NSAppleEventDescriptor_QSMods.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E1E5FAA907B204BF0044D6EF /* NSAppleEventDescriptor_QSMods.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA7307B204BE0044D6EF /* NSAppleEventDescriptor_QSMods.m */; };
+		E1E5FAAA07B204BF0044D6EF /* NSAppleScript_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7407B204BE0044D6EF /* NSAppleScript_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E1E5FAAB07B204BF0044D6EF /* NSAppleScript_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA7507B204BE0044D6EF /* NSAppleScript_BLTRExtensions.m */; };
 		E1E5FAAC07B204BF0044D6EF /* NSApplication_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7607B204BE0044D6EF /* NSApplication_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAAD07B204BF0044D6EF /* NSApplication_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA7707B204BE0044D6EF /* NSApplication_BLTRExtensions.m */; };
 		E1E5FAAE07B204BF0044D6EF /* NSArray_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7807B204BE0044D6EF /* NSArray_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1072,6 +1084,8 @@
 		4D66BBF81487018700351C42 /* NDKeyboardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDKeyboardLayout.m; sourceTree = "<group>"; };
 		4D66BBFF148701B800351C42 /* NDProgrammerUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDProgrammerUtilities.h; sourceTree = "<group>"; };
 		4D66BC00148701B800351C42 /* NDProgrammerUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDProgrammerUtilities.m; sourceTree = "<group>"; };
+		4D66BC01148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAppleEventDescriptor+NDCoercion.h"; sourceTree = "<group>"; };
+		4D66BC02148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAppleEventDescriptor+NDCoercion.m"; sourceTree = "<group>"; };
 		4D66BC03148701B800351C42 /* NSValue+NDFourCharCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValue+NDFourCharCode.h"; sourceTree = "<group>"; };
 		4D66BC04148701B800351C42 /* NSValue+NDFourCharCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValue+NDFourCharCode.m"; sourceTree = "<group>"; };
 		4D66BC0B148701E900351C42 /* NDAlias.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDAlias.h; sourceTree = "<group>"; };
@@ -1096,6 +1110,12 @@
 		4D66BC2E1487021500351C42 /* NDResourceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDResourceInfo.m; sourceTree = "<group>"; };
 		4D66BC331487024400351C42 /* IntegerMath.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IntegerMath.c; sourceTree = "<group>"; };
 		4D66BC341487024400351C42 /* IntegerMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntegerMath.h; sourceTree = "<group>"; };
+		4D66BC351487024400351C42 /* NDComponentInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDComponentInstance.h; sourceTree = "<group>"; };
+		4D66BC361487024400351C42 /* NDComponentInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDComponentInstance.m; sourceTree = "<group>"; };
+		4D66BC371487024400351C42 /* NDScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDScript.h; sourceTree = "<group>"; };
+		4D66BC381487024400351C42 /* NDScriptData_Protocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDScriptData_Protocols.h; sourceTree = "<group>"; };
+		4D66BC391487024400351C42 /* NDScriptData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDScriptData.h; sourceTree = "<group>"; };
+		4D66BC3A1487024500351C42 /* NDScriptData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDScriptData.m; sourceTree = "<group>"; };
 		4D66BC3B1487024500351C42 /* NSString+NDUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NDUtilities.h"; sourceTree = "<group>"; };
 		4D66BC3C1487024500351C42 /* NSString+NDUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NDUtilities.m"; sourceTree = "<group>"; };
 		4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Release.xcconfig; sourceTree = "<group>"; };
@@ -1567,6 +1587,10 @@
 		E1E5FA6F07B204BE0044D6EF /* NDAlias+QSMods.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NDAlias+QSMods.m"; sourceTree = "<group>"; };
 		E1E5FA7007B204BE0044D6EF /* NDProcess+QSMods.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NDProcess+QSMods.h"; sourceTree = "<group>"; };
 		E1E5FA7107B204BE0044D6EF /* NDProcess+QSMods.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NDProcess+QSMods.m"; sourceTree = "<group>"; };
+		E1E5FA7207B204BE0044D6EF /* NSAppleEventDescriptor_QSMods.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NSAppleEventDescriptor_QSMods.h; sourceTree = "<group>"; };
+		E1E5FA7307B204BE0044D6EF /* NSAppleEventDescriptor_QSMods.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NSAppleEventDescriptor_QSMods.m; sourceTree = "<group>"; };
+		E1E5FA7407B204BE0044D6EF /* NSAppleScript_BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NSAppleScript_BLTRExtensions.h; sourceTree = "<group>"; };
+		E1E5FA7507B204BE0044D6EF /* NSAppleScript_BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NSAppleScript_BLTRExtensions.m; sourceTree = "<group>"; };
 		E1E5FA7607B204BE0044D6EF /* NSApplication_BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NSApplication_BLTRExtensions.h; sourceTree = "<group>"; };
 		E1E5FA7707B204BE0044D6EF /* NSApplication_BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NSApplication_BLTRExtensions.m; sourceTree = "<group>"; };
 		E1E5FA7807B204BE0044D6EF /* NSArray_BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NSArray_BLTRExtensions.h; sourceTree = "<group>"; };
@@ -2566,6 +2590,10 @@
 				E1E5FA6F07B204BE0044D6EF /* NDAlias+QSMods.m */,
 				E1E5FA7007B204BE0044D6EF /* NDProcess+QSMods.h */,
 				E1E5FA7107B204BE0044D6EF /* NDProcess+QSMods.m */,
+				E1E5FA7207B204BE0044D6EF /* NSAppleEventDescriptor_QSMods.h */,
+				E1E5FA7307B204BE0044D6EF /* NSAppleEventDescriptor_QSMods.m */,
+				E1E5FA7407B204BE0044D6EF /* NSAppleScript_BLTRExtensions.h */,
+				E1E5FA7507B204BE0044D6EF /* NSAppleScript_BLTRExtensions.m */,
 				E1E5FA7607B204BE0044D6EF /* NSApplication_BLTRExtensions.h */,
 				E1E5FA7707B204BE0044D6EF /* NSApplication_BLTRExtensions.m */,
 				E1E5FA7807B204BE0044D6EF /* NSArray_BLTRExtensions.h */,
@@ -2853,6 +2881,12 @@
 			children = (
 				4D66BC331487024400351C42 /* IntegerMath.c */,
 				4D66BC341487024400351C42 /* IntegerMath.h */,
+				4D66BC351487024400351C42 /* NDComponentInstance.h */,
+				4D66BC361487024400351C42 /* NDComponentInstance.m */,
+				4D66BC371487024400351C42 /* NDScript.h */,
+				4D66BC381487024400351C42 /* NDScriptData_Protocols.h */,
+				4D66BC391487024400351C42 /* NDScriptData.h */,
+				4D66BC3A1487024500351C42 /* NDScriptData.m */,
 				4D66BC3B1487024500351C42 /* NSString+NDUtilities.h */,
 				4D66BC3C1487024500351C42 /* NSString+NDUtilities.m */,
 				4D66BC2B1487021400351C42 /* NDResourceFork+PascalStrings.h */,
@@ -2877,6 +2911,8 @@
 				4D66BC1A148701EA00351C42 /* NSString+NDCarbonUtilities.m */,
 				4D66BBFF148701B800351C42 /* NDProgrammerUtilities.h */,
 				4D66BC00148701B800351C42 /* NDProgrammerUtilities.m */,
+				4D66BC01148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.h */,
+				4D66BC02148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.m */,
 				4D66BC03148701B800351C42 /* NSValue+NDFourCharCode.h */,
 				4D66BC04148701B800351C42 /* NSValue+NDFourCharCode.m */,
 				4D66BBF31487018700351C42 /* NDHotKeyControl.h */,
@@ -3056,6 +3092,8 @@
 				4DD89EF90EBDD97B005A15AE /* CGSPrivate.h in Headers */,
 				E1E5FAA407B204BF0044D6EF /* NDAlias+QSMods.h in Headers */,
 				E1E5FAA607B204BF0044D6EF /* NDProcess+QSMods.h in Headers */,
+				E1E5FAA807B204BF0044D6EF /* NSAppleEventDescriptor_QSMods.h in Headers */,
+				E1E5FAAA07B204BF0044D6EF /* NSAppleScript_BLTRExtensions.h in Headers */,
 				E1E5FAAC07B204BF0044D6EF /* NSApplication_BLTRExtensions.h in Headers */,
 				E1E5FAAE07B204BF0044D6EF /* NSArray_BLTRExtensions.h in Headers */,
 				E1E5FAB007B204BF0044D6EF /* NSBezierPath_BLTRExtensions.h in Headers */,
@@ -3104,6 +3142,7 @@
 				4D66BBFB1487018700351C42 /* NDHotKeyEvent.h in Headers */,
 				4D66BBFD1487018800351C42 /* NDKeyboardLayout.h in Headers */,
 				4D66BC05148701B800351C42 /* NDProgrammerUtilities.h in Headers */,
+				4D66BC07148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.h in Headers */,
 				4D66BC09148701B800351C42 /* NSValue+NDFourCharCode.h in Headers */,
 				4D66BC1B148701EA00351C42 /* NDAlias.h in Headers */,
 				4D66BC1D148701EA00351C42 /* NDAlias+AliasFile.h in Headers */,
@@ -3116,6 +3155,10 @@
 				4D66BC2F1487021500351C42 /* NDResourceFork+PascalStrings.h in Headers */,
 				4D66BC311487021500351C42 /* NDResourceInfo.h in Headers */,
 				4D66BC3E1487024500351C42 /* IntegerMath.h in Headers */,
+				4D66BC3F1487024500351C42 /* NDComponentInstance.h in Headers */,
+				4D66BC411487024500351C42 /* NDScript.h in Headers */,
+				4D66BC421487024500351C42 /* NDScriptData_Protocols.h in Headers */,
+				4D66BC431487024500351C42 /* NDScriptData.h in Headers */,
 				CD4FA6E0157A13D600E549BD /* QSHotKeyEvent.h in Headers */,
 				4D66BC451487024500351C42 /* NSString+NDUtilities.h in Headers */,
 			);
@@ -4157,6 +4200,8 @@
 			files = (
 				E1E5FAA507B204BF0044D6EF /* NDAlias+QSMods.m in Sources */,
 				E1E5FAA707B204BF0044D6EF /* NDProcess+QSMods.m in Sources */,
+				E1E5FAA907B204BF0044D6EF /* NSAppleEventDescriptor_QSMods.m in Sources */,
+				E1E5FAAB07B204BF0044D6EF /* NSAppleScript_BLTRExtensions.m in Sources */,
 				E1E5FAAD07B204BF0044D6EF /* NSApplication_BLTRExtensions.m in Sources */,
 				E1E5FAAF07B204BF0044D6EF /* NSArray_BLTRExtensions.m in Sources */,
 				E1E5FAB107B204BF0044D6EF /* NSBezierPath_BLTRExtensions.m in Sources */,
@@ -4199,6 +4244,7 @@
 				4D66BBFC1487018700351C42 /* NDHotKeyEvent.m in Sources */,
 				4D66BBFE1487018800351C42 /* NDKeyboardLayout.m in Sources */,
 				4D66BC06148701B800351C42 /* NDProgrammerUtilities.m in Sources */,
+				4D66BC08148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.m in Sources */,
 				4D66BC0A148701B800351C42 /* NSValue+NDFourCharCode.m in Sources */,
 				4D66BC1C148701EA00351C42 /* NDAlias.m in Sources */,
 				4D66BC1E148701EA00351C42 /* NDAlias+AliasFile.m in Sources */,
@@ -4211,6 +4257,8 @@
 				4D66BC301487021500351C42 /* NDResourceFork+PascalStrings.m in Sources */,
 				4D66BC321487021500351C42 /* NDResourceInfo.m in Sources */,
 				4D66BC3D1487024500351C42 /* IntegerMath.c in Sources */,
+				4D66BC401487024500351C42 /* NDComponentInstance.m in Sources */,
+				4D66BC441487024500351C42 /* NDScriptData.m in Sources */,
 				4D66BC461487024500351C42 /* NSString+NDUtilities.m in Sources */,
 				CD4FA6E2157A13DE00E549BD /* QSHotKeyEvent.m in Sources */,
 			);
