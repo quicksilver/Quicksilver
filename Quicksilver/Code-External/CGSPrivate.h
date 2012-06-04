@@ -29,9 +29,9 @@
  */
 
 // Internal CoreGraphics typedefs
-typedef int		CGSConnection;
-typedef int		CGSWindow;
-typedef int		CGSValue;
+typedef NSInteger		CGSConnection;
+typedef NSInteger		CGSWindow;
+typedef NSInteger		CGSValue;
 
 //// CONSTANTS ////
 
@@ -209,7 +209,7 @@ struct CGPointWarp {
 };
 
 extern CGError CGSSetWindowWarp(const CGSConnection cid, const CGSWindow wid, uint32_t w, uint32_t h, CGPointWarp *mesh);
-extern OSStatus CGSSetWindowListBrightness(const CGSConnection cid, CGSWindow *wids, float *brightness, int count);
+extern OSStatus CGSSetWindowListBrightness(const CGSConnection cid, CGSWindow *wids, CGFloat *brightness, NSInteger count);
 
 // Global Hotkey
 typedef enum {
