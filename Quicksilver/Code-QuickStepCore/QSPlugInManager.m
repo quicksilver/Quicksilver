@@ -367,7 +367,7 @@
 	NSMutableArray *array = [NSMutableArray array];
 	NSMutableSet *dependingNames = [NSMutableSet set];
 	foreachkey(ident, plugins, dependingPlugIns) {
-		if ((NSArray *)[plugins count]) {
+		if ([(NSArray *)plugins count]) {
 			NSArray *dependencies = [[plugins lastObject] dependencies];
 			[array addObject:[dependencies objectWithValue:ident forKey:@"id"]];
 

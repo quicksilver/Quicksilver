@@ -485,7 +485,7 @@
 @implementation NSWindow (CGSTransitionRedraw)
 - (void)displayWithTransition:(CGSTransitionType) type option:(CGSTransitionOption)option duration:(CGFloat)duration; {
 	CGSConnection cgs = _CGSDefaultConnection();
-	int handle;
+	NSInteger handle;
 	CGSTransitionSpec spec;
 	spec.unknown1 = 0;
 	spec.type = type;

@@ -181,7 +181,7 @@ NSMutableDictionary *kindDescriptions = nil;
 	scrollViewTrackingRect = [view addTrackingRect:[view frame] owner:self userData:nil assumeInside:NO];
 }
 
-- (void)setSearchFilterAllActivated {
+- (IBAction)setSearchFilterAllActivated {
 	if ([filterCatalog state] == NSOffState) {
 		[filterCatalog setState:NSOnState];
 		[filterResults setState:NSOffState];

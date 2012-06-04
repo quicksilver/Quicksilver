@@ -68,21 +68,21 @@
  @discussion  Sets the results view to show the 'Filter Catalog' search mode is selected 
  by setting the NSMenuItem's state and the 'searchModeField' string value to @"(Filter Catalog")
  */
-- (void)setSearchFilterAllActivated;
+- (IBAction)setSearchFilterAllActivated;
 /*!
  setSearchFilterActivated
  @abstract   Sets the results view to show the 'Filter Results' search mode is activated
  @discussion  Sets the results view to show the 'Filter Catalog' search mode is selected 
  by setting the NSMenuItem's state and the 'searchModeField' string value to @"(Filter Results")
  */
-- (void)setSearchFilterActivated;
+- (IBAction)setSearchFilterActivated;
 /*!
  setSearchSnapActivated
  @abstract   Sets the results view to show the 'Snap to Best' search mode is activated
  @discussion  Sets the results view to show the 'Filter Catalog' search mode is selected 
  by setting the NSMenuItem's state and the 'searchModeField' string value to @"(Snap to Best")
  */
-- (void)setSearchSnapActivated;
+- (IBAction)setSearchSnapActivated;
 /*!
  setSearchMode
  @abstract   Sets the search mode for Quicksilver

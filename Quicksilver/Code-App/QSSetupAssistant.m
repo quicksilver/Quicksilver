@@ -151,7 +151,7 @@
 		[[self window] display];
 	}
 }
-- (void)catalogIndexed:(id)notif {
+- (void)catalogIndexed:(NSNotification *)notif {
 	if ([[notif name] isEqualToString:QSCatalogEntryIsIndexing])
 		[scanStatusField setStringValue:[NSString stringWithFormat:@"Scanning %@", [[notif object] name]]];
 }

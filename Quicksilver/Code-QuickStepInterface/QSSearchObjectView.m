@@ -769,7 +769,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 #ifdef DEBUG
 - (IBAction)logObjectDictionary:(id)sender {
-	NSLog(@"Printing Object\r%@", [[self objectValue] name]);
+	NSLog(@"Printing Object\r%@", [(QSObject *)[self objectValue] name]);
 	NSLog(@"Dictionary\r%@", [[self objectValue] dictionaryRepresentation]);
 	NSLog(@"Icon\r%@", [[self objectValue] icon]);    
 }
