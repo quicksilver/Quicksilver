@@ -379,6 +379,7 @@
 		CDDB44E71518C78F00800B66 /* QSCrashReporterWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = CDDB44E51518C78F00800B66 /* QSCrashReporterWindowController.h */; };
 		CDDB44E81518C78F00800B66 /* QSCrashReporterWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDDB44E61518C78F00800B66 /* QSCrashReporterWindowController.m */; };
 		CDDB44EE1518ED3800800B66 /* CrashReporterText.html in Resources */ = {isa = PBXBuildFile; fileRef = CDDB44ED1518ED3800800B66 /* CrashReporterText.html */; };
+		CDE6C624157E39AE006E66BD /* QSFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = CDE6C623157E39AE006E66BD /* QSFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D493990D1350078E00B908C6 /* QSDownloads.h in Headers */ = {isa = PBXBuildFile; fileRef = D49399091350078E00B908C6 /* QSDownloads.h */; };
 		D493990E1350078E00B908C6 /* QSDownloads.m in Sources */ = {isa = PBXBuildFile; fileRef = D493990A1350078E00B908C6 /* QSDownloads.m */; };
 		D4A43887137CCF0300F15F7F /* QSURLExtractor.py in Resources */ = {isa = PBXBuildFile; fileRef = D4A4383B137CCCF500F15F7F /* QSURLExtractor.py */; };
@@ -520,7 +521,6 @@
 		E1E5FA6607B204580044D6EF /* QSTrackingWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA5607B204580044D6EF /* QSTrackingWindow.m */; };
 		E1E5FA6907B204580044D6EF /* QSWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA5907B204580044D6EF /* QSWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FA6A07B204580044D6EF /* QSWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA5A07B204580044D6EF /* QSWindow.m */; };
-		E1E5FAA307B204BF0044D6EF /* QSFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA6D07B204BE0044D6EF /* QSFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAA407B204BF0044D6EF /* NDAlias+QSMods.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA6E07B204BE0044D6EF /* NDAlias+QSMods.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAA507B204BF0044D6EF /* NDAlias+QSMods.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA6F07B204BE0044D6EF /* NDAlias+QSMods.m */; };
 		E1E5FAA607B204BF0044D6EF /* NDProcess+QSMods.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA7007B204BE0044D6EF /* NDProcess+QSMods.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1418,6 +1418,7 @@
 		CDDB44E51518C78F00800B66 /* QSCrashReporterWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCrashReporterWindowController.h; sourceTree = "<group>"; };
 		CDDB44E61518C78F00800B66 /* QSCrashReporterWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCrashReporterWindowController.m; sourceTree = "<group>"; };
 		CDDB44ED1518ED3800800B66 /* CrashReporterText.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = CrashReporterText.html; sourceTree = "<group>"; };
+		CDE6C623157E39AE006E66BD /* QSFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSFoundation.h; sourceTree = "<group>"; };
 		D49399091350078E00B908C6 /* QSDownloads.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDownloads.h; sourceTree = "<group>"; };
 		D493990A1350078E00B908C6 /* QSDownloads.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDownloads.m; sourceTree = "<group>"; };
 		D4A4383B137CCCF500F15F7F /* QSURLExtractor.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = QSURLExtractor.py; sourceTree = "<group>"; };
@@ -1574,7 +1575,6 @@
 		E1E5FA5607B204580044D6EF /* QSTrackingWindow.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSTrackingWindow.m; sourceTree = "<group>"; };
 		E1E5FA5907B204580044D6EF /* QSWindow.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSWindow.h; sourceTree = "<group>"; };
 		E1E5FA5A07B204580044D6EF /* QSWindow.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSWindow.m; sourceTree = "<group>"; };
-		E1E5FA6D07B204BE0044D6EF /* QSFoundation.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSFoundation.h; sourceTree = "<group>"; };
 		E1E5FA6E07B204BE0044D6EF /* NDAlias+QSMods.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NDAlias+QSMods.h"; sourceTree = "<group>"; };
 		E1E5FA6F07B204BE0044D6EF /* NDAlias+QSMods.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NDAlias+QSMods.m"; sourceTree = "<group>"; };
 		E1E5FA7007B204BE0044D6EF /* NDProcess+QSMods.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NDProcess+QSMods.h"; sourceTree = "<group>"; };
@@ -2557,6 +2557,7 @@
 		E1E5FA6C07B204BE0044D6EF /* Code-QuickStepFoundation */ = {
 			isa = PBXGroup;
 			children = (
+				CDE6C623157E39AE006E66BD /* QSFoundation.h */,
 				CD4FA6DF157A13D600E549BD /* QSHotKeyEvent.h */,
 				CD4FA6E1157A13DE00E549BD /* QSHotKeyEvent.m */,
 				CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */,
@@ -2577,7 +2578,6 @@
 				7FDF341707F7D59E00594789 /* NSDictionary+BLTRExtensions.m */,
 				7FF8BB3607B816A20088CEEF /* NSTask+BLTRExtensions.h */,
 				7FF8BB3707B816A20088CEEF /* NSTask+BLTRExtensions.m */,
-				E1E5FA6D07B204BE0044D6EF /* QSFoundation.h */,
 				E1E5FA6E07B204BE0044D6EF /* NDAlias+QSMods.h */,
 				E1E5FA6F07B204BE0044D6EF /* NDAlias+QSMods.m */,
 				E1E5FA7007B204BE0044D6EF /* NDProcess+QSMods.h */,
@@ -2642,7 +2642,6 @@
 				E1E5FAA007B204BE0044D6EF /* NSWindow_BLTRExtensions.m */,
 				E1E5FAA107B204BE0044D6EF /* NSWorkspace_BLTRExtensions.h */,
 				E1E5FAA207B204BE0044D6EF /* NSWorkspace_BLTRExtensions.m */,
-				E1E5FA6D07B204BE0044D6EF /* QSFoundation.h */,
 				7F0843CC098ACB2F00F136CC /* QSLog.h */,
 				7F0843CD098ACB2F00F136CC /* QSLog.m */,
 				7F95531E0A25DC4A0004FCC3 /* QSLoginItemFunctions.h */,
@@ -3113,7 +3112,6 @@
 				E1E5FAD707B204BF0044D6EF /* NSWorkspace_BLTRExtensions.h in Headers */,
 				2E34EDA1134C9EEE005E66A1 /* NTLocalizedString.h in Headers */,
 				2E34EDA2134C9EEE005E66A1 /* NTViewLocalizer.h in Headers */,
-				E1E5FAA307B204BF0044D6EF /* QSFoundation.h in Headers */,
 				2E34EDAA134C9F25005E66A1 /* QSLog.h in Headers */,
 				7F9553200A25DC4A0004FCC3 /* QSLoginItemFunctions.h in Headers */,
 				7FF447EA080479E200316DB6 /* QSLSTools.h in Headers */,
@@ -3146,6 +3144,7 @@
 				4D66BC421487024500351C42 /* NDScriptData_Protocols.h in Headers */,
 				4D66BC431487024500351C42 /* NDScriptData.h in Headers */,
 				CD4FA6E0157A13D600E549BD /* QSHotKeyEvent.h in Headers */,
+				CDE6C624157E39AE006E66BD /* QSFoundation.h in Headers */,
 				4D66BC451487024500351C42 /* NSString+NDUtilities.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
