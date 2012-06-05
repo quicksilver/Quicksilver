@@ -47,18 +47,13 @@
 }
 
 - (void)typeString:(NSString *)string {
-	const char *s = [string UTF8String];
-	NSInteger i;
-	BOOL upper;
-	for (i = 0; i<strlen(s); i++) {
-		CGKeyCode code = [[NDKeyboardLayout keyboardLayout] keyCodeForCharacter:s[i]];
-		// NSLog(@"%d", code);
-		upper = isupper(s[i]);
-		if (upper) CGPostKeyboardEvent( (CGCharCode) 0, (CGKeyCode)56, true ); // shift down
-		CGPostKeyboardEvent( (CGCharCode) s[i] , (CGKeyCode)code, true ); // 'z' down
-		CGPostKeyboardEvent( (CGCharCode) s[i] , (CGKeyCode)code, false ); // 'z' up
-		if (upper) CGPostKeyboardEvent( (CGCharCode) 0, (CGKeyCode)56, false ); // 'shift up
-	}
+    NSUInteger length = [string length];
+    UniChar s[length];
+    [string getCharacters:s range:NSMakeRange(0, length)];
+	CGEventRef keyEvent = CGEventCreateKeyboardEvent(NULL, 0, true);
+    CGEventKeyboardSetUnicodeString(keyEvent, (UniCharCount)length, s);
+    CGEventPost(kCGSessionEventTap, keyEvent);
+	CFRelease(keyEvent);
 }
 
 - (void)typeString2:(NSString *)string {
