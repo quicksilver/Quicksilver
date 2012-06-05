@@ -29,9 +29,9 @@
  */
 
 // Internal CoreGraphics typedefs
-typedef NSInteger		CGSConnection;
-typedef NSInteger		CGSWindow;
-typedef NSInteger		CGSValue;
+typedef int		CGSConnection;
+typedef int		CGSWindow;
+typedef int		CGSValue;
 
 //// CONSTANTS ////
 
@@ -126,7 +126,7 @@ typedef struct {
 } CGSTransitionSpec;
 
 /* Transition handling. */
-extern OSStatus CGSNewTransition(const CGSConnection cid, const CGSTransitionSpec* spec, NSInteger *pTransitionHandle);
+extern OSStatus CGSNewTransition(const CGSConnection cid, const CGSTransitionSpec* spec, int *pTransitionHandle);
 extern OSStatus CGSInvokeTransition(const CGSConnection cid, int transitionHandle, float duration);
 extern OSStatus CGSReleaseTransition(const CGSConnection cid, int transitionHandle);
 
