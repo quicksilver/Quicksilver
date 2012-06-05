@@ -99,28 +99,39 @@ NSSize QSMaxIconSize;
  // NSString *thisKey = nil;
 
 	QSObject *thisObject;
-    for (thisObject in [iconLoadedArray allObjects]) {
+    NSMutableArray * tempArray = [NSMutableArray array];
+    for (thisObject in iconLoadedArray) {
 		//	NSLog(@"i%@ %f", thisObject, thisObject->lastAccess);
         if (thisObject->lastAccess && thisObject->lastAccess < (globalLastAccess - interval) ) {
-            if ([thisObject unloadIcon]) {
-                
-#ifdef DEBUG
-                imagecount++;
-#endif
-            }
+            [tempArray addObject:thisObject];
         }
     }
-    for (thisObject in [childLoadedArray allObjects]) {
+    for( thisObject in tempArray ) {
+        if ([thisObject unloadIcon]) {
+			
+#ifdef DEBUG
+            imagecount++;
+#endif
+		}
+    }
+    
+    tempArray = [NSMutableArray array];
+    for (thisObject in childLoadedArray) {
 		//	NSLog(@"c%@ %f", thisObject, thisObject->lastAccess);
         if (thisObject->lastAccess && thisObject->lastAccess < (globalLastAccess - interval)) {
-            if ([thisObject unloadChildren]) {
-                
-#ifdef DEBUG
-                childcount++;
-#endif		
-            }  
+            [tempArray addObject:thisObject];
         }
     }
+    
+    for( thisObject in tempArray ) {
+        if ([thisObject unloadChildren]) {
+			
+#ifdef DEBUG
+            childcount++;
+#endif		
+		}
+    }
+
 
 #ifdef DEBUG
 	if (DEBUG_MEMORY && (imagecount || childcount) )
