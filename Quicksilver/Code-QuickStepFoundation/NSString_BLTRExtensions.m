@@ -251,10 +251,10 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
     return [NSString stringWithCString:s encoding:NSUTF8StringEncoding];
 }
 
-- (unsigned) hexIntValue {
+- (NSUInteger) hexIntValue {
 	unsigned x;
 	[[NSScanner scannerWithString:self] scanHexInt:&x];
-	return x;
+	return (NSUInteger)x;
 }
 
 - (NSString *)encodedHexString {
@@ -266,7 +266,11 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	return myHexString;
 }
 
-- (NSComparisonResult) versionCompare:(NSString *)other { return [self hexIntValue] - [other hexIntValue]; }
+- (NSComparisonResult) versionCompare:(NSString *)other {
+    NSUInteger selfToInt = [self hexIntValue];
+    NSUInteger otherToInt = [other hexIntValue];
+    return selfToInt - otherToInt;
+}
 
 @end
 

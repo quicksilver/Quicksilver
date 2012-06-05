@@ -308,8 +308,8 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	if (!bundle) return NO;
 	//if (VERBOSE) NSLog(@"%@, %@->%@", [self name] , [bundle objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey] , [data objectForKey:(NSString *)kCFBundleVersionKey]);
 
-	return[[data objectForKey:(NSString *)kCFBundleVersionKey] versionCompare:
-		[bundle objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]]>0;
+	return ([[data objectForKey:(NSString *)kCFBundleVersionKey] versionCompare:
+		[bundle objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]] > 0);
 }
 - (NSArray *)categories {
 	return [[self info] valueForKeyPath:@"QSPlugIn.categories"];

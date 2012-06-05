@@ -140,7 +140,6 @@ static QSController *defaultController = nil;
 
 #ifdef DEBUG
 - (void)activateDebugMenu {
-	NSLog(@"debug menu");
 	NSMenu *debugMenu = [[[NSMenu alloc] initWithTitle:@"Debug"] autorelease];
 
 	NSMenuItem *theItem;
