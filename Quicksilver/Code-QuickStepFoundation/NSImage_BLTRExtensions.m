@@ -58,6 +58,9 @@ static inline NSInteger get_bit(unsigned char *arr, unsigned long bit_num) {
 
 	[[NSColor colorWithDeviceWhite:0.0 alpha:alpha] set];
 	for(NSImageRep *rep in [fadedImage representations]) {
+        [fadedImage lockFocus];
+        [rep drawInRect:NSMakeRect(0,0,[fadedImage size].width, [fadedImage size].height)];
+        [fadedImage unlockFocus];
 		[fadedImage lockFocusOnRepresentation:rep];
 		NSRectFillUsingOperation(rectFromSize([rep size]), NSCompositeDestinationIn);
 		[fadedImage unlockFocus];
@@ -98,24 +101,8 @@ static inline NSInteger get_bit(unsigned char *arr, unsigned long bit_num) {
 }
 
 - (NSImageRep *)bestRepresentationForSize:(NSSize)theSize {
-	NSImageRep *bestRep = [self representationOfSize:theSize];
-	if (bestRep)
-		return bestRep;
-	NSArray *reps = [self representations];
-	CGFloat repDistance = 65536.0;
-	NSImageRep *thisRep;
-	CGFloat thisDistance;
-	NSUInteger i;
-	for (i = 0; i < [reps count]; i++) {
-		thisRep = [reps objectAtIndex:i];
-		thisDistance = MIN(theSize.width-[thisRep size] .width, theSize.height-[thisRep size] .height);
-		if (repDistance<0 && thisDistance>0) continue;
-		if (ABS(thisDistance) <ABS(repDistance) || (thisDistance<0 && repDistance>0) ) {
-			repDistance = thisDistance;
-			bestRep = thisRep;
-		}
-	}
-	return (bestRep) ? bestRep : [self bestRepresentationForDevice:nil];
+    NSRect rect = NSMakeRect(0,0,theSize.width, theSize.height);
+    return [self bestRepresentationForRect:rect context:nil hints:nil];
 }
 
 - (NSImageRep *)representationOfSize:(NSSize)theSize {
@@ -128,11 +115,9 @@ static inline NSInteger get_bit(unsigned char *arr, unsigned long bit_num) {
 }
 
 - (BOOL)createIconRepresentations {
-	[self setFlipped:NO];
-	//[self createRepresentationOfSize:NSMakeSize(128, 128)];
+	[self createRepresentationOfSize:NSMakeSize(128, 128)];
 	[self createRepresentationOfSize:NSMakeSize(32, 32)];
 	[self createRepresentationOfSize:NSMakeSize(16, 16)];
-	[self setScalesWhenResized:NO];
 	return YES;
 }
 
@@ -191,7 +176,6 @@ static inline NSInteger get_bit(unsigned char *arr, unsigned long bit_num) {
 - (NSImage *)duplicateOfSize:(NSSize)newSize {
 	NSImage *dup = [self copy];
 	[dup shrinkToSize:newSize];
-	[dup setFlipped:NO];
 	return [dup autorelease];
 }
 
@@ -258,7 +242,7 @@ static inline NSInteger get_bit(unsigned char *arr, unsigned long bit_num) {
 
 @implementation NSImage (Average)
 - (NSColor *)averageColor {
-	NSBitmapImageRep *rep = (NSBitmapImageRep *)[self bestRepresentationForDevice:nil];
+	NSBitmapImageRep *rep = (NSBitmapImageRep *)[self bestRepresentationForRect:NSMakeRect(0,0,self.size.width, self.size.height) context:nil hints:nil];
 	if (![rep isKindOfClass:[NSBitmapImageRep class]]) return nil;
 	unsigned char *pixels = [rep bitmapData];
 

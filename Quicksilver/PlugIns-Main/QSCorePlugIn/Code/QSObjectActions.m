@@ -86,29 +86,7 @@
 	NSWindow *window = [[NSWindow alloc] initWithContentRect:NSMakeRect(loc.x, loc.y, 1, 1) styleMask:NSBorderlessWindowMask backing: NSBackingStoreBuffered defer:NO];
 	[window orderFront:nil];
 	[window setReleasedWhenClosed:YES];
-	//	if (0) {
-	//	[dObject loadIcon];
-	//		window = [[NSWindow alloc] initWithContentRect:NSMakeRect(loc.x-64, loc.y-64, 128, 128) styleMask:NSBorderlessWindowMask backing: NSBackingStoreBuffered defer:NO];
-	//		//[window setBackgroundColor:[NSColor clearColor]];
-	//		[window setOpaque:NO];
-	//		[window setAlphaValue:0.0];
-	//		[[window contentView] lockFocus];
-	//		[[dObject icon] setSize:QSSize128];
-	//		[[dObject icon] compositeToPoint:NSZeroPoint operation:NSCompositeCopy];
-	//		[[window contentView] unlockFocus];
-	//		[window setAutodisplay:NO];
-	//		[window setLevel:NSFloatingWindowLevel];
-	//		[window orderFront:nil];
-	//
-	//		QSWindowAnimation *helper = [QSWindowAnimation showHelperForWindow:window];
-	//		[helper setTransformFt:QSMMBlowEffect];
-	//		[helper setTotalTime:0.25];
-	//		[helper animate:nil];
-	//
-	//		[window setAlphaValue:1.0 fadeTime:0.2];
-	//		[window setReleasedWhenClosed:YES];
-	//
-	return window;
+    return window;
 }
 
 - (NSWindow *)showMenu:(NSMenu *)menu forObject:(QSObject *)object {

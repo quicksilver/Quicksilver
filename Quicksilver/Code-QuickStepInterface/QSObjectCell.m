@@ -382,12 +382,11 @@ void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, NSInteger cou
 	  if (isFirstResponder && [controlView isKindOfClass:[QSSearchObjectView class]]) {
 		  NSImage *find = [NSImage imageNamed:@"Find"];
 		  [find setSize:NSMakeSize(128, 128)];
-		  [find setFlipped:NO];
 		  NSRect findImageRect = fitRectInRect(rectFromSize([find size]), cellFrame, 0);
 
-		  if (NSHeight(findImageRect) >= 64)
+		  if (NSHeight(findImageRect) >= 64) {
 			  [find drawInRect:findImageRect fromRect:rectFromSize([find size]) operation:NSCompositeSourceOver fraction:0.25];
-
+          }
 		  [defaultText drawInRect:textRect withAttributes:detailsAttributes];
 	  }
 }
@@ -418,13 +417,9 @@ void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, NSInteger cou
 - (void)drawIconForObject:(QSObject *)object withFrame:(NSRect)cellFrame inView:(NSView *)controlView {
 	NSRect drawingRect = NSIntegralRect(fitRectInRect(NSMakeRect(0, 0, 1, 1), [self imageRectForBounds:cellFrame] , NO) );
 	[self drawObjectImage:object inRect:drawingRect cellFrame:cellFrame controlView:controlView flipped:[controlView isFlipped] opacity:1.0];
-	//[self drawObjectImage:object inRect:NSOffsetRect(drawingRect, 0, -NSHeight(drawingRect) *1.1) cellFrame:cellFrame controlView:controlView flipped:!flipped opacity:0.25];
 }
 
 - (void)buildStylesForFrame:(NSRect)cellFrame inView:(NSView *)controlView {
-	//	BOOL wideDraw = NSWidth(cellFrame) /NSHeight(cellFrame) > 2;
-	//  BOOL isFirstResponder = [[controlView window] firstResponder] == controlView && ![controlView isKindOfClass:[NSTableView class]];
-
 
 	NSMutableParagraphStyle *style = [[[NSMutableParagraphStyle alloc] init] autorelease];
 	[style setLineBreakMode:NSLineBreakByTruncatingTail];
@@ -571,30 +566,23 @@ void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, NSInteger cou
 	if (NSWidth(drawingRect) >64)
 		handlerDraw = [drawObject drawIconInRect:(NSRect) drawingRect flipped:flipped];
 	if (!handlerDraw) {
-		[icon setFlipped:flipped];
-
 		NSImageRep *bestRep = [icon bestRepresentationForSize:drawingRect.size];
 		if (bestRep) [icon setSize:[bestRep size]];
 
 		BOOL noInterpolation = (NSHeight(drawingRect) /[bestRep size] .width >= 4);
-		//NSLog(@"noInterpolation %f", [bestRep size] .width);
 		[[NSGraphicsContext currentContext] setImageInterpolation:noInterpolation?NSImageInterpolationNone:NSImageInterpolationHigh];
 		BOOL faded = ![drawObject iconLoaded];
 		drawingRect = fitRectInRect(rectFromSize([icon size]), drawingRect, NO);
-
-		[icon drawInRect:drawingRect fromRect:rectFromSize([icon size]) operation:NSCompositeSourceOver fraction:faded?0.5:1.0];
+		[icon drawInRect:drawingRect fromRect:rectFromSize([icon size]) operation:NSCompositeSourceOver fraction:faded?0.5:1.0 respectFlipped:flipped hints:nil];
 		if (noInterpolation) [[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
 
 		if (proxyDraw && NSWidth(drawingRect) >= 32) {
-			// [cornerBadge setSize:NSMakeSize(128, 128)];
-			[cornerBadge setFlipped:flipped];
 			NSRect badgeRect = NSMakeRect(0, 0, NSWidth(drawingRect) /2, NSHeight(drawingRect)/2);
 			NSImageRep *bestBadgeRep = [cornerBadge bestRepresentationForSize:badgeRect.size];
 			[cornerBadge setSize:[bestBadgeRep size]];
 			NSPoint offset = rectOffset(badgeRect, drawingRect, 2);
 			badgeRect = NSOffsetRect(badgeRect, offset.x, offset.y);
-
-			[cornerBadge drawInRect:badgeRect fromRect:rectFromSize([cornerBadge size]) operation:NSCompositeSourceOver fraction:1.0];
+			[cornerBadge drawInRect:badgeRect fromRect:rectFromSize([cornerBadge size]) operation:NSCompositeSourceOver fraction:1.0 respectFlipped:flipped hints:nil];
 		}
 
 		if ([drawObject primaryCount] >1 && MIN(NSWidth(drawingRect), NSHeight(drawingRect) ) >= 64) {
@@ -602,7 +590,7 @@ void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, NSInteger cou
 			//NSImage *countImage = QSBadgeImageForCount([drawObject primaryCount]);
 			if (countImage) {
 				NSRect badgeRect = [self badgeRectForBounds:cellFrame badgeImage:countImage];
-				[countImage drawInRect:badgeRect fromRect:rectFromSize([countImage size]) operation:NSCompositeSourceOver fraction:1.0];
+				[countImage drawInRect:badgeRect fromRect:rectFromSize([countImage size]) operation:NSCompositeSourceOver fraction:1.0 respectFlipped:flipped hints:nil];
 			}
 		}
 	}
@@ -632,7 +620,6 @@ void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, NSInteger cou
         [action loadIcon];
 				NSImage *icon = [[[action icon] copy] autorelease];
 				[icon setSize:NSMakeSize(16, 16)];
-				[icon setFlipped:NO];
 
 				id command = [QSCommand commandWithDirectObject:object actionObject:action indirectObject:nil];
 				// NSLog(@"%@", command);

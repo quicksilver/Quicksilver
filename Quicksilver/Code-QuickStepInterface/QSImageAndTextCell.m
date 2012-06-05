@@ -155,22 +155,13 @@ IMPORTANT: This Apple software is supplied to you by Apple Computer, Inc. ("Appl
 		imageFrame.origin.x += 3;
 		imageFrame.size = theImageSize;
 
-		// [image setScalesWhenResized:NO];
-		if ([controlView isFlipped]) {
-			[image setFlipped:YES];
-			// imageFrame.origin.y += ceil((cellFrame.size.height + imageFrame.size.height) / 2);
-		} else {
-			// [image setFlipped:NO];
-			// imageFrame.origin.y += ceil((cellFrame.size.height - imageFrame.size.height) / 2);
-		}
-
+        
 		NSImageRep *bestRep = [image bestRepresentationForSize:theImageSize];
 		[image setSize:[bestRep size]];
 		CGFloat opacity = [self isEnabled] ? 1.0 : 0.5;
 
-		[image drawInRect:imageFrame fromRect:rectFromSize([image size]) operation:NSCompositeSourceOver fraction:opacity];
+		[image drawInRect:imageFrame fromRect:rectFromSize([image size]) operation:NSCompositeSourceOver fraction:opacity respectFlipped:[controlView isFlipped] hints:nil];
 
-		[image setFlipped:NO];
 	}
 
 	cellFrame = [self textRectForFrame:cellFrame];

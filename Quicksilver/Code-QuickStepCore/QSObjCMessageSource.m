@@ -38,8 +38,6 @@
 	//[perm rotateHueByDegrees:154 preservingLuminance:NO fromScratch:YES];
 	//[perm changeSaturationBy:0.95 fromScratch:NO];
 
-	//[perm applyToBitmapImageRep:(NSBitmapImageRep *)[image bestRepresentationForDevice:nil]];
-
 	[image setName:@"ObjCMessageIcon"];
 	return image;
 }

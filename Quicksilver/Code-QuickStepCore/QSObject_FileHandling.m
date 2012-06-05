@@ -114,11 +114,6 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		return NO;
 	NSString *path = [object singleFilePath];
     
-    // !!! Andre Berg 20091017:  will need to disable this again when I understand why
-	//icon
-	//	cache? - use
-	//	loader?
-#if 1
 	if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:nil]) {
 		LSItemInfoRecord infoRec;
 		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
@@ -136,7 +131,6 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			}
 		}
 	}
-#endif
   return NO;
   
 	if (!path || [[path pathExtension] caseInsensitiveCompare:@"prefpane"] != NSOrderedSame)
@@ -146,13 +140,11 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 	[image setSize:[[image bestRepresentationForSize:rect.size] size]];
 	//[image adjustSizeToDrawAtSize:rect.size];
-	[image setFlipped:flipped];
 	[image drawInRect:rect fromRect:rectFromSize([image size]) operation:NSCompositeSourceOver fraction:1.0f];
 
 	if ([object iconLoaded]) {
 		NSImage *cornerBadge = [object icon];
 		if (cornerBadge != image) {
-			[cornerBadge setFlipped:flipped];
 
 			NSRect badgeRect = NSMakeRect(16+48+rect.origin.x, 16+36+rect.origin.y, 32, 32);
 			NSImageRep *bestBadgeRep = [cornerBadge bestRepresentationForSize:badgeRect.size];

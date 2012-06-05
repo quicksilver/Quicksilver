@@ -117,7 +117,6 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 		[dObject writeToFile:destination];
 		[commandObject loadIcon];
 		NSImage *image = [commandObject icon];
-		[image setFlipped:NO];
 		[image setSize:QSSize128];
 		[[NSWorkspace sharedWorkspace] setIcon:image forFile:destination options:NSExcludeQuickDrawElementsIconCreationOption];
 	}
@@ -501,7 +500,6 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	  } else {
 		  item = [menu addItemWithTitle:@"Choose..." action:@selector(executeFromMenu:) keyEquivalent:@""];
 		  [item setImage:[[NSImage imageNamed:@"Quicksilver"] duplicateOfSize:QSSize16]];
-		  [[item image] setFlipped:NO];
 		  [item setTarget:self];
 	  }
 	  [menu setDelegate:nil];

@@ -55,12 +55,6 @@ static QSController *defaultController = nil;
 
 	[QSVoyeur sharedInstance];
 
-#if 0
-	NSImage *defaultActionImage = [NSImage imageNamed:@"defaultAction"];
-	[[defaultActionImage retain] setScalesWhenResized:NO];
-	[defaultActionImage setCacheMode:NSImageCacheNever];
-#endif
-
 #ifdef DEBUG
 	if (defaultBool(@"verbose") )
 		setenv("verbose", "1", YES);
@@ -308,7 +302,6 @@ static QSController *defaultController = nil;
 		if (shouldQuit) {
 			[(NSButton *)[quitWindow initialFirstResponder] setState:NSOnState];
 			[[(NSButton *)[quitWindow initialFirstResponder] alternateImage] setSize:QSSize128];
-			[[(NSButton *)[quitWindow initialFirstResponder] alternateImage] setFlipped:NO];
 			[quitWindow display];
 			[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.333]];
 			[quitWindow orderOut:self];

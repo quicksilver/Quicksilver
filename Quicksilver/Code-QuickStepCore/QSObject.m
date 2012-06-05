@@ -991,12 +991,7 @@ containg multiple objects with the same identifier. Best efforts should be made 
 	if (newIcon != icon) {
 		[icon autorelease];
 		icon = [newIcon retain];
-		[icon setScalesWhenResized:YES];
 		[icon setCacheMode:NSImageCacheNever];
-
-		//[[self cache] setObject:newIcon forKey:kQSObjectIcon];
-		//	} else {
-		//[[self cache] removeObjectForKey:kQSObjectIcon];
 	}
     
 }

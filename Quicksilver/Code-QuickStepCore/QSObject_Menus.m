@@ -71,7 +71,6 @@
 - (BOOL)applyIconToMenuItem:(NSMenuItem *)item {
 	NSImage *iconCopy = [[[self icon] copy] autorelease];
 	[iconCopy setSize:NSMakeSize(16, 16)];
-	[iconCopy setFlipped:NO];
 	[item setImage:iconCopy];
 	return YES;
 }
@@ -172,7 +171,6 @@
 			[action loadIcon];
 			NSImage *iconCopy = [[[action icon] copy] autorelease];
 			[iconCopy setSize:NSMakeSize(16, 16)];
-			[iconCopy setFlipped:NO];
 
 			id command = [QSCommand commandWithDirectObject:self actionObject:action indirectObject:nil];
 			if ([componentArray count] >1) {

@@ -54,7 +54,7 @@
 	[window setOpaque:NO];
 	[window setHasShadow:NO];
 	[[window contentView] lockFocus];
-	[image compositeToPoint:NSZeroPoint operation:NSCompositeCopy];
+	[image drawAtPoint:NSZeroPoint fromRect:windowRect operation:NSCompositeCopy fraction:1.0];
 	[[window contentView] unlockFocus];
 	[window setAutodisplay:NO];
 	[window setReleasedWhenClosed:YES];

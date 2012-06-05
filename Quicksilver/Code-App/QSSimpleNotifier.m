@@ -86,7 +86,6 @@
 	//splashImage = nil;
 	[splashImage createRepresentationOfSize:NSMakeSize(128, 128)];
 	[splashImage setSize:NSMakeSize(128, 128)];
-	[splashImage setFlipped:NO];
 
 	NSString *titleString = [attributes objectForKey:QSNotifierTitle];
 	NSString *textString = [attributes objectForKey:QSNotifierText];

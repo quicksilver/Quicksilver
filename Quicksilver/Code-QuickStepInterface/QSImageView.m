@@ -26,7 +26,6 @@
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
 	[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
 	NSImage *image = [self image];
-	[image setFlipped:NO];
 	if (adjustResolution) {
 		[image setSize:[[image bestRepresentationForSize:cellFrame.size] size]];
 	}

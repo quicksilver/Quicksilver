@@ -78,10 +78,8 @@
     [NSGraphicsContext saveGraphicsState];
     [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithBitmapImageRep:bitmap]];
     rect = NSMakeRect(0, 0, imageSize.width, imageSize.height);
-    [image setFlipped:NO];
     [image setSize:rect.size];
     [image drawInRect:rect fromRect:rectFromSize([image size]) operation:NSCompositeSourceOver fraction:1.0];
-    
     NSImage *findImage = [NSImage imageNamed:@"Find"];
     NSImage *favIcon;
     if(findImage) {

@@ -6,31 +6,8 @@ NSString *gSysIconBundle = nil;
 id QSRez;
 
 @implementation QSResourceManager
-#if 0
-- (NSImage *)daedalusImage {
-	static NSImage *daedalusImage = nil;
-	if (!daedalusImage) {
-		daedalusImage = [[NSImage alloc] initWithData:[[self imageNamed:@"FinderIcon"] TIFFRepresentation]];
-		[daedalusImage setCacheMode:NSImageCacheNever];
-		[daedalusImage setScalesWhenResized:NO];
-		DRColorPermutator *perm = [[[DRColorPermutator alloc] init] autorelease];
-		[perm rotateHueByDegrees:140 preservingLuminance:YES fromScratch:YES];
-		[perm applyToBitmapImageRep:(NSBitmapImageRep *)[daedalusImage bestRepresentationForDevice:nil]];
 
-		[daedalusImage lockFocus];
-		[[NSColor whiteColor] set];
-		NSRectFill(NSMakeRect(37, 84, 5, 13) );
-		NSRectFill(NSMakeRect(82, 84, 5, 13) );
-		[daedalusImage unlockFocus];
-
-		[daedalusImage createIconRepresentations];
-		//	NSLog(@"daed");
-	}
-	return daedalusImage;
-}
-#endif
 + (void)initialize {
-	//[[NSImage imageNamed:@"DefaultBookmarkIcon"] setScalesWhenResized:YES];
 	//SInt32 version;
 	//Gestalt (gestaltSystemVersion, &version);
 	//if (version < 0x1040)
