@@ -61,9 +61,7 @@ static inline NSInteger get_bit(unsigned char *arr, unsigned long bit_num) {
         [fadedImage lockFocus];
         [rep drawInRect:NSMakeRect(0,0,[fadedImage size].width, [fadedImage size].height)];
         [fadedImage unlockFocus];
-		[fadedImage lockFocusOnRepresentation:rep];
 		NSRectFillUsingOperation(rectFromSize([rep size]), NSCompositeDestinationIn);
-		[fadedImage unlockFocus];
 	}
 	return [fadedImage autorelease];
 }
