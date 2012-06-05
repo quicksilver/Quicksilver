@@ -304,6 +304,7 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
         NSLog(@"Unable to find application %@ to restart", theApp);
         return;
     }
+    NSURL *bundleURL = [runningApplication bundleURL];
     NSDate *now = [NSDate date];
     while(![runningApplication isTerminated]) {
         [runningApplication terminate];
@@ -317,7 +318,7 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
         
 		}
 		usleep(500000);
-		[self openURL:[runningApplication bundleURL]];
+		[self openURL:bundleURL];
 }
 
 - (NSString *)nameForPID:(NSInteger)pid {
