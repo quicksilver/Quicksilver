@@ -312,7 +312,7 @@
 	return [[QSTriggerCenter sharedInstance] triggerWithID:[self parentID]];
 }
 
-- (NSComparisonResult) compare:(id)compareObject {
+- (NSComparisonResult) compare:(QSTrigger *)compareObject {
 	return [[self name] compare:[compareObject name]];
 }
 

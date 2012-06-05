@@ -323,7 +323,6 @@ NSSize QSMaxIconSize;
 // and display the result. The advantage is that this formatter will go less out of scope
 
 - (const char *) gdbDataFormatter {
-#warning search URL icons crash this method
 	return [[NSString stringWithFormat:@"name: %@, label: %@, identifier: %@, primaryType: %@, primaryObject: %@, meta: %@, data: %@, cache: %@, icon: %@, lastAccess: %f",
              (name ? name : @"nil"),
              (label ? label : @"nil"),

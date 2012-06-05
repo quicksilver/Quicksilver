@@ -141,10 +141,6 @@
 	[self updateDetailsString];
 }
 
-@end
-
-@implementation NSWindow (QSBezelInterfaceController)
-
 -(NSTimeInterval)animationResizeTime:(NSRect)newWindowFrame
 {
 	return 0.01;

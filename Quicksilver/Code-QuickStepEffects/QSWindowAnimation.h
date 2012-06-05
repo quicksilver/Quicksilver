@@ -24,7 +24,7 @@
 @interface QSWindowAnimation : NSAnimation {
 	@public
 	NSWindow *_window;
-	NSInteger wid;
+	int wid;
 	CGSConnection cgs;
 
 	void (*effectFt) (QSWindowAnimation *);

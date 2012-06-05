@@ -58,7 +58,6 @@
 		arguments = argumentList;
 	}
 	NSInteger pid = [[NSProcessInfo processInfo] processIdentifier];
-#warning 64BIT: Inspect use of sizeof
 	targetAddress = [[NSAppleEventDescriptor alloc] initWithDescriptorType:typeKernelProcessID bytes:&pid length:sizeof(pid)];
 	event = [[NSAppleEventDescriptor alloc] initWithEventClass:kASAppleScriptSuite eventID:kASSubroutineEvent targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
 	subroutineDescriptor = [NSAppleEventDescriptor descriptorWithString:name];
@@ -190,7 +189,6 @@
 	if (err != noErr) return nil;
 	err = FSNewAliasMinimal(&fileRef, &fileAlias);
 	if (err != noErr) return nil;
-#warning 64BIT: Inspect use of sizeof
 	return [NSAppleEventDescriptor descriptorWithDescriptorType:typeAlias bytes:fileAlias length:sizeof(*fileAlias)];
 
 }

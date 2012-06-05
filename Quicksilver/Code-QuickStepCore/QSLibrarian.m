@@ -17,7 +17,7 @@
 
 CGFloat QSMinScore = 0.333333;
 
-static NSInteger presetSort(id item1, id item2, void *librarian) {
+static NSInteger presetSort(QSCatalogEntry *item1, QSCatalogEntry *item2, void *librarian) {
 	return [[item1 name] caseInsensitiveCompare:[item2 name]];
 }
 
@@ -58,7 +58,7 @@ static CGFloat searchSpeed = 0.0;
 		enabledPresetsDictionary = [[NSMutableDictionary alloc] init];
         defaultSearchSet = [[NSMutableSet alloc] init];
         
-		scanTask = [[QSTask alloc] initWithIdentifier:@"QSLibrarianScanTask"];
+		scanTask = [[QSTask taskWithIdentifier:@"QSLibrarianScanTask"] retain];
 		[scanTask setName:@"Updating Catalog"];
 		[scanTask setIcon:[NSImage imageNamed:@"Catalog.icns"]];
 		
@@ -278,10 +278,6 @@ static CGFloat searchSpeed = 0.0;
 	//	if (DEBUG) [presetEntries writeToFile:[pCatalogPresetsDebugLocation stringByStandardizingPath] atomically:YES];
 	//	if (VERBOSE) NSLog(@"Catalog Saved");
 }
-
-//- (NSArray *)entriesForSource:(NSString *)source {
-//	NSArray *[self leafEntriesOfEntry:catalog];
-//s}
 
 - (void)reloadSource:(NSNotification *)notif {
 	  NSArray *entries = [entriesBySource objectForKey:[notif object]];

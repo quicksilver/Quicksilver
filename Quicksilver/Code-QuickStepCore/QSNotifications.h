@@ -3,8 +3,6 @@
 #define QSReleaseAllNotification @"QSReleaseAllNotification"
 #define QSInterfaceChangedNotification @"QSInterfaceChangedNotification"
 
-#define QSCatalogIndexed @"QSCatalogIndexed"
-
 #define QSActionsChanged @"QSActionsChanged"
 #define QSReleaseCaches @"QSReleaseCaches"
 #define QSCatalogStructureChanged @"QSCatalogStructureChanged"

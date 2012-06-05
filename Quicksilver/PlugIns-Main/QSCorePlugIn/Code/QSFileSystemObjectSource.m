@@ -247,7 +247,7 @@
     }
 	else if (sender == itemSkipItemSwitch) {
         // "Omit source" checkbox
-		[settings setObject:[NSNumber numberWithBool:[sender state]] forKey:kItemSkipItem];
+		[settings setObject:[NSNumber numberWithBool:[(NSButton *)sender state]] forKey:kItemSkipItem];
     }
 	else if (sender == itemFolderDepthSlider) {
         // Slider for setting depth

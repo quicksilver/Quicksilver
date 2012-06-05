@@ -647,10 +647,7 @@
 		[self hideMainWindowFromCancel:sender];
 		return;
 	}
-    // This will be called on line 575 [self showInterface:self], there's no point calling it twice
-	// Only thing that uses this notification is triggers at the moment (p_j_r change 24/04/2011)
-	// [[NSNotificationCenter defaultCenter] postNotificationName:@"InterfaceActivated" object:self];
-    
+
 	[hideTimer invalidate];
 	[dSelector reset:self];
 	[self updateActions];
@@ -677,7 +674,7 @@
                                    isARepeat:[theEvent isARepeat]
                                      keyCode:[theEvent keyCode]];
 #ifdef DEBUG
-		if (VERBOSE) NSLog(@"Ignoring Modifiers for characters: %@", [theEvent characters]);
+		NSLog(@"Ignoring Modifiers for characters: %@", [theEvent characters]);
 #endif
 		[NSApp postEvent:theEvent atStart:YES];
 		//NSLog(@"time2 %f", [theEvent timestamp]);

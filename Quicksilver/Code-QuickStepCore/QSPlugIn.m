@@ -46,7 +46,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 - (id)initWithWebInfo:(NSDictionary *)webInfo {
 	if (self = [super init]) {
-		data = [webInfo retain];
+		data = [webInfo mutableCopy];
 		bundle = nil;
 	}
 	[self setStatus:@"Downloadable"];
@@ -344,7 +344,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	return ([[[self info] valueForKeyPath:@"QSPlugIn.extendedDescription"] length] > 0);
 }
 
-- (NSComparisonResult) compare:(id)other {
+- (NSComparisonResult) compare:(QSPlugIn *)other {
 	return [[self name] compare:[other name]];
 }
 
@@ -567,16 +567,6 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	NSDictionary *requirementsDict = [bundle dictionaryForFileOrPlistKey:@"QSRequirements"];
 
 	*error = nil;
-	//NSString *ident = [self bundleIdentifier];
-	//	NSString *restriction = [[self restrictionsDict] objectForKey:ident];
-	//	if (restriction) {
-	//		NSString *curVersion = [bundle objectForInfoDictionaryKey:@"CFBundleVersion"];
-	//		if ([curVersion versionCompare:restriction] <0) {
-	//			if (error) *error = [NSString stringWithFormat:@"Newer Version Required: %@ (%@) %d", restriction, curVersion, [curVersion versionCompare:restriction]];
-	//			return NO;
-	//		}
-	//	}
-
 	if (requirementsDict) {
 		NSArray *bundles = [requirementsDict objectForKey:@"bundles"];
 		if (![[NSUserDefaults standardUserDefaults] boolForKey:@"QSIgnorePlugInBundleRequirements"]) {

@@ -551,7 +551,7 @@ NSDictionary *enabledPresetDictionary;*/
 		NSLog(@"Scanning source: %@%@", [self name] , (force?@" (forced) ":@""));
 #endif
 	
-	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:@"Scanning:%@", [self name]]];
+	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:@"Scanning: %@", [self name]]];
 	[self scanAndCache];
 	return nil;
 }

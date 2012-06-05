@@ -282,7 +282,7 @@
         
         NSAppleEventDescriptor *result = [script executeAppleEvent:event error:&errorDict];
         if( result ) {
-            argumentCount = [result integerValue];
+            argumentCount = (NSInteger)[result int32Value];
         } else if( errorDict != nil )
             NSLog(@"error %@", errorDict);
         

@@ -43,7 +43,7 @@ NSUInteger cocoaModifierFlagsToCarbonModifierFlags( NSUInteger aModifierFlags );
 
 pascal OSErr eventHandlerCallback( EventHandlerCallRef anInHandlerCallRef, EventRef anInEvent, void * self );
 
-unsigned hashValueHashFunction( NSHashTable * aTable, const void * aHotKeyEvent );
+NSUInteger hashValueHashFunction( NSHashTable * aTable, const void * aHotKeyEvent );
 BOOL isEqualHashFunction( NSHashTable * aTable, const void * aFirstHotKeyEvent, const void * aSecondHotKeyEvent);
 NSString * describeHashFunction( NSHashTable * aTable, const void * aHotKeyEvent );
 
@@ -435,7 +435,7 @@ NDHotKeyEvent		* hotKeyEvent;
     if(reference) {
         OSStatus err = UnregisterEventHotKey( reference );
         if( err != noErr )	// in lock from release
-            NSLog( @"Failed to unregister hot key %@ with error %ld", self, err );
+            NSLog( @"Failed to unregister hot key %@ with error %ld", self, (long)err );
     }
 	[super dealloc];
 }
@@ -713,7 +713,7 @@ pascal OSErr eventHandlerCallback( EventHandlerCallRef anInHandlerCallRef, Event
 /*
  * hashValueHashFunction()
  */
-unsigned hashValueHashFunction( NSHashTable * aTable, const void * aHotKeyEntry )
+NSUInteger hashValueHashFunction( NSHashTable * aTable, const void * aHotKeyEntry )
 {
 	struct HotKeyMappingEntry		* theHotKeyEntry;
 	NSUInteger		theKeyCode,
@@ -970,9 +970,9 @@ unichar unicharForKeyCode( unsigned short aKeyCode )
 	if(uchrDataRef) {
 		if(theKeyboardLayoutData = CFDataGetBytePtr(uchrDataRef)) {
 			NSUInteger keyboardType = LMGetKbdType();
-			NSUInteger deadKeyState = 0;
+			UInt32 deadKeyState = 0;
 			unichar s[8];
-			NSUInteger len;
+			UniCharCount len;
 			
 			OSStatus err = UCKeyTranslate((UCKeyboardLayout *) theKeyboardLayoutData,
 										  aKeyCode, kUCKeyActionDown, 0,

@@ -257,8 +257,6 @@
 	[knownPlugIns removeObjectsForKeys:webPlugIns];
 	[plugInWebData removeAllObjects];
 	[[knownPlugIns allValues] makeObjectsPerformSelector:@selector(clearWebData)];
-
-#warning allow remote invalidation of installed web plugin data
 }
 
 - (void)loadNewWebData:(NSData *)data {

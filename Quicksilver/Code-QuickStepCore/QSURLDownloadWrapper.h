@@ -9,7 +9,11 @@
 #import <Cocoa/Cocoa.h>
 
 @protocol QSURLDownloadDelegate;
-@interface QSURLDownload : NSObject {
+@interface QSURLDownload : NSObject 
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_6
+<NSURLDownloadDelegate>
+#endif
+{
     NSURLRequest *request;
     NSURLDownload *download;
 	long long expectedContentLength;
