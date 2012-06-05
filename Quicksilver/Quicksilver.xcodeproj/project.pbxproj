@@ -99,12 +99,8 @@
 		4D62E324147694D800362E9A /* QSAction.description.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E326147694D800362E9A /* QSAction.description.plist */; };
 		4D62E32A1476A6BF00362E9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E3281476A6BF00362E9A /* Localizable.strings */; };
 		4D66BBDA1486FCF400351C42 /* CPSPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBD91486FCDE00351C42 /* CPSPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4D66BBF91487018700351C42 /* NDHotKeyControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBF31487018700351C42 /* NDHotKeyControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4D66BBFA1487018700351C42 /* NDHotKeyControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BBF41487018700351C42 /* NDHotKeyControl.m */; };
 		4D66BBFB1487018700351C42 /* NDHotKeyEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBF51487018700351C42 /* NDHotKeyEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D66BBFC1487018700351C42 /* NDHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BBF61487018700351C42 /* NDHotKeyEvent.m */; };
-		4D66BBFD1487018800351C42 /* NDKeyboardLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBF71487018700351C42 /* NDKeyboardLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4D66BBFE1487018800351C42 /* NDKeyboardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BBF81487018700351C42 /* NDKeyboardLayout.m */; };
 		4D66BC05148701B800351C42 /* NDProgrammerUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBFF148701B800351C42 /* NDProgrammerUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D66BC06148701B800351C42 /* NDProgrammerUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC00148701B800351C42 /* NDProgrammerUtilities.m */; };
 		4D66BC07148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC01148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1076,12 +1072,8 @@
 		4D66BBF01486FFF000351C42 /* NDSDKCompatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDSDKCompatibility.h; sourceTree = "<group>"; };
 		4D66BBF11486FFF000351C42 /* NSURL+NDCarbonUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+NDCarbonUtilities.h"; sourceTree = "<group>"; };
 		4D66BBF21486FFF000351C42 /* NSURL+NDCarbonUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+NDCarbonUtilities.m"; sourceTree = "<group>"; };
-		4D66BBF31487018700351C42 /* NDHotKeyControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDHotKeyControl.h; sourceTree = "<group>"; };
-		4D66BBF41487018700351C42 /* NDHotKeyControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDHotKeyControl.m; sourceTree = "<group>"; };
 		4D66BBF51487018700351C42 /* NDHotKeyEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDHotKeyEvent.h; sourceTree = "<group>"; };
 		4D66BBF61487018700351C42 /* NDHotKeyEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDHotKeyEvent.m; sourceTree = "<group>"; };
-		4D66BBF71487018700351C42 /* NDKeyboardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDKeyboardLayout.h; sourceTree = "<group>"; };
-		4D66BBF81487018700351C42 /* NDKeyboardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDKeyboardLayout.m; sourceTree = "<group>"; };
 		4D66BBFF148701B800351C42 /* NDProgrammerUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDProgrammerUtilities.h; sourceTree = "<group>"; };
 		4D66BC00148701B800351C42 /* NDProgrammerUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDProgrammerUtilities.m; sourceTree = "<group>"; };
 		4D66BC01148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAppleEventDescriptor+NDCoercion.h"; sourceTree = "<group>"; };
@@ -2915,12 +2907,8 @@
 				4D66BC02148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.m */,
 				4D66BC03148701B800351C42 /* NSValue+NDFourCharCode.h */,
 				4D66BC04148701B800351C42 /* NSValue+NDFourCharCode.m */,
-				4D66BBF31487018700351C42 /* NDHotKeyControl.h */,
-				4D66BBF41487018700351C42 /* NDHotKeyControl.m */,
 				4D66BBF51487018700351C42 /* NDHotKeyEvent.h */,
 				4D66BBF61487018700351C42 /* NDHotKeyEvent.m */,
-				4D66BBF71487018700351C42 /* NDKeyboardLayout.h */,
-				4D66BBF81487018700351C42 /* NDKeyboardLayout.m */,
 				4D66BBEE1486FFEF00351C42 /* NDProcess.h */,
 				4D66BBEF1486FFEF00351C42 /* NDProcess.m */,
 				4D66BBF01486FFF000351C42 /* NDSDKCompatibility.h */,
@@ -3138,9 +3126,7 @@
 				4D66BC5A1487027E00351C42 /* NDProcess.h in Headers */,
 				4D66BC5C1487027E00351C42 /* NDSDKCompatibility.h in Headers */,
 				4D66BC5D1487027E00351C42 /* NSURL+NDCarbonUtilities.h in Headers */,
-				4D66BBF91487018700351C42 /* NDHotKeyControl.h in Headers */,
 				4D66BBFB1487018700351C42 /* NDHotKeyEvent.h in Headers */,
-				4D66BBFD1487018800351C42 /* NDKeyboardLayout.h in Headers */,
 				4D66BC05148701B800351C42 /* NDProgrammerUtilities.h in Headers */,
 				4D66BC07148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.h in Headers */,
 				4D66BC09148701B800351C42 /* NSValue+NDFourCharCode.h in Headers */,
@@ -4240,9 +4226,7 @@
 				D4E006101523951500FDF185 /* NSMetadataQuery+Synchronous.m in Sources */,
 				4D66BC5B1487027E00351C42 /* NDProcess.m in Sources */,
 				4D66BC5E1487027E00351C42 /* NSURL+NDCarbonUtilities.m in Sources */,
-				4D66BBFA1487018700351C42 /* NDHotKeyControl.m in Sources */,
 				4D66BBFC1487018700351C42 /* NDHotKeyEvent.m in Sources */,
-				4D66BBFE1487018800351C42 /* NDKeyboardLayout.m in Sources */,
 				4D66BC06148701B800351C42 /* NDProgrammerUtilities.m in Sources */,
 				4D66BC08148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.m in Sources */,
 				4D66BC0A148701B800351C42 /* NSValue+NDFourCharCode.m in Sources */,
