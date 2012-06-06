@@ -556,6 +556,8 @@
 		E1E5FAC407B204BF0044D6EF /* NSObject+ReaperExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA8E07B204BE0044D6EF /* NSObject+ReaperExtensions.m */; };
 		E1E5FAC507B204BF0044D6EF /* NSPasteboard_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA8F07B204BE0044D6EF /* NSPasteboard_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FAC607B204BF0044D6EF /* NSPasteboard_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA9007B204BE0044D6EF /* NSPasteboard_BLTRExtensions.m */; };
+		E1E5FAC707B204BF0044D6EF /* NSScreen_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA9107B204BE0044D6EF /* NSScreen_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E1E5FAC807B204BF0044D6EF /* NSScreen_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA9207B204BE0044D6EF /* NSScreen_BLTRExtensions.m */; };
 		E1E5FACB07B204BF0044D6EF /* NSString_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA9507B204BE0044D6EF /* NSString_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1E5FACC07B204BF0044D6EF /* NSString_BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E5FA9607B204BE0044D6EF /* NSString_BLTRExtensions.m */; };
 		E1E5FACD07B204BF0044D6EF /* NSTableView_BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5FA9707B204BE0044D6EF /* NSTableView_BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1610,6 +1612,8 @@
 		E1E5FA8E07B204BE0044D6EF /* NSObject+ReaperExtensions.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ReaperExtensions.m"; sourceTree = "<group>"; };
 		E1E5FA8F07B204BE0044D6EF /* NSPasteboard_BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NSPasteboard_BLTRExtensions.h; sourceTree = "<group>"; };
 		E1E5FA9007B204BE0044D6EF /* NSPasteboard_BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NSPasteboard_BLTRExtensions.m; sourceTree = "<group>"; };
+		E1E5FA9107B204BE0044D6EF /* NSScreen_BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NSScreen_BLTRExtensions.h; sourceTree = "<group>"; };
+		E1E5FA9207B204BE0044D6EF /* NSScreen_BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NSScreen_BLTRExtensions.m; sourceTree = "<group>"; };
 		E1E5FA9507B204BE0044D6EF /* NSString_BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NSString_BLTRExtensions.h; sourceTree = "<group>"; };
 		E1E5FA9607B204BE0044D6EF /* NSString_BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = NSString_BLTRExtensions.m; sourceTree = "<group>"; };
 		E1E5FA9707B204BE0044D6EF /* NSTableView_BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NSTableView_BLTRExtensions.h; sourceTree = "<group>"; };
@@ -2624,6 +2628,8 @@
 				E1E5FA8E07B204BE0044D6EF /* NSObject+ReaperExtensions.m */,
 				E1E5FA8F07B204BE0044D6EF /* NSPasteboard_BLTRExtensions.h */,
 				E1E5FA9007B204BE0044D6EF /* NSPasteboard_BLTRExtensions.m */,
+				E1E5FA9107B204BE0044D6EF /* NSScreen_BLTRExtensions.h */,
+				E1E5FA9207B204BE0044D6EF /* NSScreen_BLTRExtensions.m */,
 				7FDF342307F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.h */,
 				7FDF342407F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.m */,
 				E1E5FA9507B204BE0044D6EF /* NSString_BLTRExtensions.h */,
@@ -3101,6 +3107,7 @@
 				7F05F1E20852441C00A8EC0C /* NSObject+BLTRExtensions.h in Headers */,
 				E1E5FAC307B204BF0044D6EF /* NSObject+ReaperExtensions.h in Headers */,
 				E1E5FAC507B204BF0044D6EF /* NSPasteboard_BLTRExtensions.h in Headers */,
+				E1E5FAC707B204BF0044D6EF /* NSScreen_BLTRExtensions.h in Headers */,
 				7FDF342507F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.h in Headers */,
 				E1E5FACB07B204BF0044D6EF /* NSString_BLTRExtensions.h in Headers */,
 				E1E5FACD07B204BF0044D6EF /* NSTableView_BLTRExtensions.h in Headers */,
@@ -4206,6 +4213,7 @@
 				7F05F1E30852441C00A8EC0C /* NSObject+BLTRExtensions.m in Sources */,
 				E1E5FAC407B204BF0044D6EF /* NSObject+ReaperExtensions.m in Sources */,
 				E1E5FAC607B204BF0044D6EF /* NSPasteboard_BLTRExtensions.m in Sources */,
+				E1E5FAC807B204BF0044D6EF /* NSScreen_BLTRExtensions.m in Sources */,
 				7FDF342607F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.m in Sources */,
 				E1E5FACC07B204BF0044D6EF /* NSString_BLTRExtensions.m in Sources */,
 				E1E5FACE07B204BF0044D6EF /* NSTableView_BLTRExtensions.m in Sources */,
