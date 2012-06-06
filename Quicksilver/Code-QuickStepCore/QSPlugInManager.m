@@ -1006,8 +1006,12 @@
 - (void)download:(QSURLDownload *)download didFailWithError:(NSError *)error {
 	[[self plugInWithID:[download userInfo]] downloadFailed];
     NSLog(@"Download failed! Error - %@ %@ %@", [download URL], [error localizedDescription], [[error userInfo] objectForKey:NSErrorFailingURLStringKey]);
-    NSRunInformationalAlertPanel(@"Download Failed", @"Unfortunately something went wrong with the download.\nCheck Console.app for more information", nil, nil, nil);
-
+    // -1009 means no internet connection, don't bother the user in this case
+    if ([error code] != -1009) {
+        QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:@"Download Failed",QSNotifierTitle,@"Plugin Download Failed",QSNotifierText,[QSResourceManager imageNamed:@"com.blacktree.quicksilver"],QSNotifierIcon,nil]);
+    }
+    [[QSTaskController sharedInstance] removeTask:@"QSPlugInInstalling"];
+    
     [queuedDownloads removeObject:download];
     [activeDownloads removeObject:download];
     [download cancel];
