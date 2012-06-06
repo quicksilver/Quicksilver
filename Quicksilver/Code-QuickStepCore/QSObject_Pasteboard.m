@@ -48,8 +48,8 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 
 	if (!theObject && [[pasteboard types] containsObject:@"QSObjectAddress"]) {
 		NSArray *objectIdentifier = [[pasteboard stringForType:@"QSObjectAddress"] componentsSeparatedByString:@":"];
-		if ([[objectIdentifier objectAtIndex:0] integerValue] == [[NSProcessInfo processInfo] processIdentifier])
-			return (QSObject *)[[objectIdentifier lastObject] integerValue];
+		if ([[objectIdentifier objectAtIndex:0] intValue] == [[NSProcessInfo processInfo] processIdentifier])
+			return (QSObject *)[[objectIdentifier lastObject] intValue];
 #ifdef DEBUG
 		else if (VERBOSE)
 			NSLog(@"Ignored old object: %@", objectIdentifier);
@@ -149,70 +149,18 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 }
 
 - (void)guessName {
-#if 0
-	//NSLog(@"webtitl %@", [pasteboard propertyListForType:@"WebURLsWithTitlesPboardType"]);
-	if (itemForKey(NSFilenamesPboardType) ) {
-		[self setPrimaryType:NSFilenamesPboardType];
-		[self getNameFromFiles];
-	} else if (itemForKey(NSStringPboardType) ) {
-		NSString *newName = [itemForKey(NSStringPboardType) stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		[self setName:newName];
-	} else if (itemForKey(NSPDFPboardType) )
-		[self setName:@"PDF Image"];
-	else if (itemForKey([@"'icns'" encodedPasteboardType]) )
-		[self setName:@"Finder Icon"];
-	else if (itemForKey(NSPICTPboardType) )
-		[self setName:@"PICT Image"];
-	else if (itemForKey(NSPostScriptPboardType) )
-		[self setName:@"PostScript Image"];
-	else if (itemForKey(NSTIFFPboardType) )
-		[self setName:@"TIFF Image"];
-	else if (itemForKey(NSTIFFPboardType) )
-		[self setName:@"TIFF Image"];
-	else if (itemForKey(NSTIFFPboardType) )
-		[self setName:@"TIFF Image"];
-	else if (itemForKey(NSColorPboardType) )
-		[self setName:@"Color Data"];
-	else if (itemForKey(NSFileContentsPboardType) )
-		[self setName:@"File Contents"];
-	else if (itemForKey(NSFontPboardType) )
-		[self setName:@"Font Information"];
-	else if (itemForKey(NSHTMLPboardType) )
-		[self setName:@"HTML Data"];
-	else if (itemForKey(NSRulerPboardType) )
-		[self setName:@"Paragraph formatting"];
-	else if (itemForKey(NSHTMLPboardType) )
-		[self setName:@"HTML Data"];
-	else if (itemForKey(NSTabularTextPboardType) )
-		[self setName:@"Tabular Text"];
-	else if (itemForKey(NSVCardPboardType) )
-		[self setName:@"VCard data"];
-	else if (itemForKey(NSFilesPromisePboardType) )
-		[self setName:@"Promised Files"];
-
-	/*
-	 also
-
-	 NSRTFPboardType
-	 Rich Text Format (RTF)
-
-	 NSRTFDPboardType
-	 RTFD formatted file contents
-
-	 NSStringPboardType
-	 NSString data
-	 */
-#endif
 	if (itemForKey(NSFilenamesPboardType) ) {
 		[self setPrimaryType:NSFilenamesPboardType];
 		[self getNameFromFiles];
 	} else {
-		NSString *names[] = {[itemForKey(NSStringPboardType) stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], @"PDF Image", @"Finder Icon", @"PICT Image", @"PostScript Image", @"TIFF Image", @"Color Data", @"File Contents", @"Font Information", @"HTML Data", @"Paragraph Formatting", @"Tabular Text", @"VCard Data", @"Promised Files"} ;
-		NSString *keys[] = {NSStringPboardType, NSPDFPboardType, [@"'icns'" encodedPasteboardType] , NSPICTPboardType, NSPostScriptPboardType, NSTIFFPboardType, NSColorPboardType, NSFileContentsPboardType, NSFontPboardType, NSHTMLPboardType, NSRulerPboardType, NSTabularTextPboardType, NSVCardPboardType, NSFilesPromisePboardType} ;
-		size_t i;
-		for (i = 0; i < sizeof(keys) / sizeof(keys[0]); i++) {
-			if (itemForKey(keys[i]) )
-				[self setName:names[i]];
+		NSDictionary *namesAndKeys = [NSDictionary dictionaryWithObjects:
+                                      [NSArray arrayWithObjects:[itemForKey(NSStringPboardType) stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], @"PDF Image", @"Finder Icon", @"PICT Image", @"PostScript Image", @"TIFF Image", @"Color Data", @"File Contents", @"Font Information", @"HTML Data", @"Paragraph Formatting", @"Tabular Text", @"VCard Data", @"Promised Files",nil]
+                                    forKeys:[NSArray arrayWithObjects:NSStringPboardType, NSPDFPboardType, [@"'icns'" encodedPasteboardType] , NSPICTPboardType, NSPostScriptPboardType, NSTIFFPboardType, NSColorPboardType, NSFileContentsPboardType, NSFontPboardType, NSHTMLPboardType, NSRulerPboardType, NSTabularTextPboardType, NSVCardPboardType, NSFilesPromisePboardType,nil]];
+        for (NSString *key in [namesAndKeys allKeys]) {
+			if (itemForKey(key) ) {
+				[self setName:[namesAndKeys objectForKey:key]];
+                break;
+            }
 		}
 	}
 }
