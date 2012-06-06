@@ -47,9 +47,10 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 		theObject = [QSObject objectWithIdentifier:[pasteboard stringForType:@"QSObjectID"]];
 
 	if (!theObject && [[pasteboard types] containsObject:@"QSObjectAddress"]) {
-		NSArray *objectIdentifier = [[pasteboard stringForType:@"QSObjectAddress"] componentsSeparatedByString:@":"];
-		if ([[objectIdentifier objectAtIndex:0] intValue] == [[NSProcessInfo processInfo] processIdentifier])
-			return [QSObject objectWithIdentifier:[objectIdentifier lastObject]];
+		NSString *objectIdentifier = [pasteboard stringForType:@"QSObjectAddress"];
+		NSUInteger firstColon = [objectIdentifier rangeOfString:@":"].location;
+		if ([[objectIdentifier substringToIndex:firstColon] intValue] == [[NSProcessInfo processInfo] processIdentifier])
+			return [QSObject objectWithIdentifier:[objectIdentifier substringFromIndex:firstColon + 1]];
 #ifdef DEBUG
 		else if (VERBOSE)
 			NSLog(@"Ignored old object: %@", objectIdentifier);
