@@ -2,7 +2,6 @@
 #import "QSResourceManager.h"
 #import "QSObject.h"
 
-#import "NDProcess.h"
 #import <signal.h>
 #include <sys/time.h>
 #include <sys/resource.h>

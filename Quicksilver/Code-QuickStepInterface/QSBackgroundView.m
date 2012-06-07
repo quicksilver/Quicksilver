@@ -1,7 +1,6 @@
 #import "QSBackgroundView.h"
 #import "NSColor_QSModifications.h"
 #import "QSShading.h"
-#import <QSFoundation/QSFoundation.h>
 
 @implementation QSBackgroundView
 - (id)initWithFrame:(NSRect)frame {

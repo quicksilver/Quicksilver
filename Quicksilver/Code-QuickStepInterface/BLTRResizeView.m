@@ -7,7 +7,6 @@
 //
 
 #import "BLTRResizeView.h"
-#import <QSFoundation/QSFoundation.h>
 
 @implementation BLTRResizeView
 

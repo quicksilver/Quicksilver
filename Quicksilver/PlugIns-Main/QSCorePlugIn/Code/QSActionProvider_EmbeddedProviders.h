@@ -1,7 +1,6 @@
 
 
 #import <Foundation/Foundation.h>
-#import <QSCore/QSActionProvider.h>
 
 # define kFileOpenAction @"FileOpenAction"
 # define kFileOpenWithAction @"FileOpenWithAction"
@@ -21,7 +20,6 @@
 # define kFileGetPathAction @"FileGetPathAction"
 # define kFileGetInfoAction @"FileGetInfoAction"
 
-#import <QSCore/QSClangAnalyzer.h>
 
 @interface FSActions : QSActionProvider {
 	NSArray *universalApps;

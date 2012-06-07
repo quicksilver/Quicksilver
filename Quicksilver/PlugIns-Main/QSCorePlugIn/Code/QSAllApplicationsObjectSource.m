@@ -8,7 +8,6 @@
 
 #import "QSObject_FileHandling.h"
 #import "QSAllApplicationsObjectSource.h"
-#import <QSCore/QSObject.h>
 
 @implementation QSAllApplicationsObjectSource
 - (NSImage *)iconForEntry:(NSDictionary *)dict { return [[NSWorkspace sharedWorkspace] iconForFile:@"/Applications"]; }

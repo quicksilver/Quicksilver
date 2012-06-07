@@ -7,7 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "NDProcess.h"
 
 @interface NDProcess (QSMods)
 - (pid_t) pid;

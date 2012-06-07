@@ -465,7 +465,7 @@
 	startupLoadComplete = YES;
 	
 #ifdef DEBUG
-	NSLog(@"PlugIn Load Complete (%fms) ", (-[date timeIntervalSinceNow] *1000));
+	NSLog(@"PlugIn Load Complete (%.0fms) ", (-[date timeIntervalSinceNow] *1000));
 #endif
 	
 }

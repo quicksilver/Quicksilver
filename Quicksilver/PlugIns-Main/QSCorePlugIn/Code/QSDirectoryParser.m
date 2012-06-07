@@ -8,8 +8,6 @@
 
 #import "QSDirectoryParser.h"
 
-#import <QSFoundation/NDAlias.h>
-#import <QSCore/QSCore.h>
 #import "UKDirectoryEnumerator.h"
 #import "NDAlias+AliasFile.h"
 

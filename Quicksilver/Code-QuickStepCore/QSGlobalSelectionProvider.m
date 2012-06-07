@@ -14,7 +14,6 @@
 #import "QSObject_StringHandling.h"
 #import "QSObject_Pasteboard.h"
 
-#import "NDProcess.h"
 
 #import "NDProcess+QSMods.h"
 
