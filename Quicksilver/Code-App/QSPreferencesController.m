@@ -574,7 +574,7 @@ id QSPrefs;
 		[newItem setLabel:@"Preferences"];
 		[newItem setPaletteLabel:@"Preferences"];
 		[newItem setImage:[QSResourceManager imageNamed:@"Pref-Settings"]];
-		[newItem setToolTip:@"Application and Plug-in Preferences"];
+		[newItem setToolTip:@"Application and Plugin Preferences"];
 		[newItem setTarget:self];
 		[newItem setAction:@selector(selectSettingsPane:)];
 		return [newItem autorelease];

@@ -2,8 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>QSReleaseStatus</key>
+	<integer>0</integer>
+	<key>CFBundleName</key>
+	<string>${PRODUCT_NAME}</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2000-2008 Blacktree, Inc.</string>
+	<key>LSHasLocalizedDisplayName</key>
+	<integer>1</integer>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
+	<key>CFBundleVersion</key>
+	<string>${QS_BUNDLE_VERSION}</string>
+	<key>NSPrincipalClass</key>
+	<string>QSApp</string>
+	<key>NSMainNibFile</key>
+	<string>MainMenu</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -11,124 +25,120 @@
 			<array>
 				<string>silver</string>
 			</array>
-			<key>CFBundleTypeIconFile</key>
-			<string>silver</string>
-			<key>CFBundleTypeName</key>
-			<string>Quicksilver Archive</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
 			<key>LSTypeIsPackage</key>
 			<false/>
+			<key>CFBundleTypeName</key>
+			<string>Quicksilver Archive</string>
+			<key>CFBundleTypeIconFile</key>
+			<string>silver</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>qsshelf</string>
 			</array>
-			<key>CFBundleTypeIconFile</key>
-			<string>qsshelf</string>
-			<key>CFBundleTypeName</key>
-			<string>Quicksilver Shelf</string>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
 			<key>LSTypeIsPackage</key>
 			<false/>
+			<key>CFBundleTypeName</key>
+			<string>Quicksilver Shelf</string>
+			<key>CFBundleTypeIconFile</key>
+			<string>qsshelf</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>*</string>
 			</array>
-			<key>CFBundleTypeName</key>
-			<string>Everything</string>
 			<key>CFBundleTypeOSTypes</key>
 			<array>
 				<string>****</string>
 				<string>fold</string>
 				<string>disk</string>
 			</array>
-			<key>CFBundleTypeRole</key>
-			<string>None</string>
 			<key>LSTypeIsPackage</key>
 			<false/>
+			<key>CFBundleTypeName</key>
+			<string>Everything</string>
+			<key>CFBundleTypeRole</key>
+			<string>None</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>qsplugin</string>
 			</array>
-			<key>CFBundleTypeIconFile</key>
-			<string>QSPlugIn</string>
-			<key>CFBundleTypeName</key>
-			<string>Quicksilver Plug-in</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
 			<key>LSTypeIsPackage</key>
 			<true/>
+			<key>CFBundleTypeName</key>
+			<string>Quicksilver Plugin</string>
+			<key>CFBundleTypeIconFile</key>
+			<string>QSPlugIn</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>qscatalogentry</string>
 			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
 			<key>CFBundleTypeName</key>
 			<string>Quicksilver Catalog Entries</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>qspkg</string>
 			</array>
-			<key>CFBundleTypeIconFile</key>
-			<string>qspkg</string>
-			<key>CFBundleTypeName</key>
-			<string>Quicksilver Package</string>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
 			<key>LSTypeIsPackage</key>
 			<false/>
+			<key>CFBundleTypeName</key>
+			<string>Quicksilver Package</string>
+			<key>CFBundleTypeIconFile</key>
+			<string>qspkg</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>qscommand</string>
 			</array>
-			<key>CFBundleTypeIconFile</key>
-			<string>qscommand</string>
-			<key>CFBundleTypeName</key>
-			<string>Quicksilver Command</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
 			<key>LSTypeIsPackage</key>
 			<false/>
 			<key>NSPersistentStoreTypeKey</key>
 			<string>Binary</string>
+			<key>CFBundleTypeName</key>
+			<string>Quicksilver Command</string>
+			<key>CFBundleTypeIconFile</key>
+			<string>qscommand</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 		</dict>
 	</array>
-	<key>CFBundleExecutable</key>
-	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleHelpBookFolder</key>
-	<string>QSHelp</string>
-	<key>CFBundleHelpBookName</key>
-	<string>Quicksilver Help</string>
-	<key>CFBundleIconFile</key>
-	<string>Quicksilver</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.blacktree.Quicksilver</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>${PRODUCT_NAME}</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>CFBundleIconFile</key>
+	<string>Quicksilver</string>
 	<key>CFBundleShortVersionString</key>
 	<string>${QS_INFO_VERSION}</string>
-	<key>CFBundleSignature</key>
-	<string>daed</string>
+	<key>CFBundleHelpBookName</key>
+	<string>Quicksilver Help</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleHelpBookFolder</key>
+	<string>QSHelp</string>
+	<key>NSAppleScriptEnabled</key>
+	<true/>
+	<key>CFBundleExecutable</key>
+	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -164,37 +174,59 @@
 			</array>
 		</dict>
 	</array>
-	<key>CFBundleVersion</key>
-	<string>${QS_BUNDLE_VERSION}</string>
-	<key>LSHasLocalizedDisplayName</key>
-	<integer>1</integer>
-	<key>LSUIElement</key>
-	<true/>
-	<key>NSAppleScriptEnabled</key>
-	<true/>
-	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2000-2008 Blacktree, Inc.</string>
-	<key>NSMainNibFile</key>
-	<string>MainMenu</string>
-	<key>NSPrincipalClass</key>
-	<string>QSApp</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.blacktree.Quicksilver</string>
+	<key>CFBundleSignature</key>
+	<string>daed</string>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>com.apple.bom-compressed-cpio</string>
+			</array>
+			<key>UTTypeIconFile</key>
+			<string>QSPkg.icns</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.blacktree.qspkg</string>
+			<key>UTTypeDescription</key>
+			<string>Quicksilver PKG</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>qspkg</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>com.apple.bundle</string>
+			</array>
+			<key>UTTypeIconFile</key>
+			<string>QSPlugIn.icns</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.blacktree.qsplugin</string>
+			<key>UTTypeDescription</key>
+			<string>Quicksilver Plugin</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>qsplugin</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 	<key>NSServices</key>
 	<array>
 		<dict>
-			<key>NSKeyEquivalent</key>
-			<dict>
-				<key>default</key>
-				<string></string>
-			</dict>
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
 				<string>Quicksilver/Get Current Selection (Internal)</string>
 			</dict>
-			<key>NSMessage</key>
-			<string>getSelection</string>
-			<key>NSPortName</key>
-			<string>Quicksilver</string>
 			<key>NSRequiredContext</key>
 			<dict/>
 			<key>NSSendTypes</key>
@@ -217,26 +249,28 @@
 				<string>NSVCardPboardType</string>
 				<string>NSFilesPromisePboardType</string>
 			</array>
+			<key>NSPortName</key>
+			<string>Quicksilver</string>
 			<key>NSTimeout</key>
 			<string>10000</string>
 			<key>NSUserData</key>
 			<string>GetSelection</string>
-		</dict>
-		<dict>
+			<key>NSMessage</key>
+			<string>getSelection</string>
 			<key>NSKeyEquivalent</key>
 			<dict>
 				<key>default</key>
-				<string></string>
+				<string></string>
 			</dict>
+		</dict>
+		<dict>
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
 				<string>Quicksilver/Send to Quicksilver</string>
 			</dict>
-			<key>NSMessage</key>
-			<string>performService</string>
-			<key>NSPortName</key>
-			<string>Quicksilver</string>
+			<key>NSUserData</key>
+			<string>Send</string>
 			<key>NSSendTypes</key>
 			<array>
 				<string>NSFilenamesPboardType</string>
@@ -257,54 +291,20 @@
 				<string>NSVCardPboardType</string>
 				<string>NSFilesPromisePboardType</string>
 			</array>
+			<key>NSPortName</key>
+			<string>Quicksilver</string>
 			<key>NSTimeout</key>
 			<string>60000</string>
-			<key>NSUserData</key>
-			<string>Send</string>
-		</dict>
-	</array>
-	<key>QSReleaseStatus</key>
-	<integer>0</integer>
-	<key>UTExportedTypeDeclarations</key>
-	<array>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>com.apple.bom-compressed-cpio</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>Quicksilver PKG</string>
-			<key>UTTypeIconFile</key>
-			<string>QSPkg.icns</string>
-			<key>UTTypeIdentifier</key>
-			<string>com.blacktree.qspkg</string>
-			<key>UTTypeTagSpecification</key>
+			<key>NSMessage</key>
+			<string>performService</string>
+			<key>NSKeyEquivalent</key>
 			<dict>
-				<key>public.filename-extension</key>
-				<array>
-					<string>qspkg</string>
-				</array>
-			</dict>
-		</dict>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>com.apple.bundle</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>Quicksilver Plug-in</string>
-			<key>UTTypeIconFile</key>
-			<string>QSPlugIn.icns</string>
-			<key>UTTypeIdentifier</key>
-			<string>com.blacktree.qsplugin</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-extension</key>
-				<array>
-					<string>qsplugin</string>
-				</array>
+				<key>default</key>
+				<string></string>
 			</dict>
 		</dict>
 	</array>
+	<key>LSUIElement</key>
+	<true/>
 </dict>
 </plist>

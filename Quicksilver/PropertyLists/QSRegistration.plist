@@ -294,11 +294,11 @@
 			<key>color</key>
 			<data>BAt0eXBlZHN0cmVhbYED6IQBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMBhARmZmZmgz9XjNiDPzZRtoM/bRvtAYY=</data>
 			<key>description</key>
-			<string>Find and install plug-ins</string>
+			<string>Find and install plugins</string>
 			<key>icon</key>
 			<string>Pref-PlugIns</string>
 			<key>name</key>
-			<string>Plug-ins</string>
+			<string>Plugins</string>
 			<key>type</key>
 			<string>Toolbar</string>
 		</dict>

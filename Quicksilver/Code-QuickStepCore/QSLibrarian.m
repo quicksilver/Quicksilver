@@ -75,7 +75,7 @@ static CGFloat searchSpeed = 0.0;
 		[self setCatalogArrays:[NSMutableDictionary dictionaryWithCapacity:1]];
 
 		NSDictionary *modulesEntry = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-			@"Modules", kItemName,
+			@"Plugins", kItemName,
 			@"PlugInIcon", kItemIcon,
 			@"QSPresetModules", kItemID,
 			@"QSGroupObjectSource", kItemSource,

@@ -192,7 +192,7 @@
 																	 delegate:self];
 
 		if (theConnection) {
-			[QSTasks updateTask:@"UpdatePlugInInfo" status:@"Updating Plug-in Info" progress:0.0];
+			[QSTasks updateTask:@"UpdatePlugInInfo" status:@"Updating Plugin Info" progress:0.0];
 		} else {
 			NSLog(@"Problem downloading plugin data. Perhaps an invalid URL");
             [receivedData release], receivedData = nil;
@@ -239,7 +239,7 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	[QSTasks updateTask:@"UpdatePlugInInfo" status:@"Updating Plug-in Info" progress:1.0];
+	[QSTasks updateTask:@"UpdatePlugInInfo" status:@"Updating Plugin Info" progress:1.0];
     [connection release];
     [receivedData release];
 	receivedData = nil;
@@ -266,7 +266,7 @@
 		NSLog(@"Could not load new plugins data");
 		errorCount++;
 	} else {
-		NSLog(@"Downloaded info for %ld plug-in(s) ", (long)[(NSArray *)[prop objectForKey:@"plugins"] count]);
+		NSLog(@"Downloaded info for %ld plugin%@ ", (long)[(NSArray *)[prop objectForKey:@"plugins"] count], ([(NSArray *)[prop objectForKey:@"plugins"] count] > 1 ? @"s" : @""));
 		//	NSEnumerator *e = [prop objectEnumerator];
 		if ([prop count] && [[prop objectForKey:@"fullIndex"] boolValue])
 			[self clearOldWebData];
@@ -284,7 +284,7 @@
 
 }
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-	[QSTasks updateTask:@"UpdatePlugInInfo" status:@"Updating Plug-in Info" progress:1.0];
+	[QSTasks updateTask:@"UpdatePlugInInfo" status:@"Updating Plugin Info" progress:1.0];
 	[self loadNewWebData:receivedData];
 	[connection release];
 	[receivedData release];
@@ -317,9 +317,9 @@
 
 	NSInteger result;
 	if (needsRelaunch)
-		result = NSRunCriticalAlertPanel(@"Delete plug-ins?", @"Would you like to delete the selected plug-ins? A relaunch will be required", @"Delete and Relaunch", @"Cancel", nil);
+		result = NSRunCriticalAlertPanel(@"Delete plugins?", @"Would you like to delete the selected plugins? A relaunch will be required", @"Delete and Relaunch", @"Cancel", nil);
 	else
-		result = NSRunCriticalAlertPanel(@"Delete plug-ins?", @"Would you like to delete the selected plug-ins?", @"Delete", @"Cancel", nil);
+		result = NSRunCriticalAlertPanel(@"Delete plugins?", @"Would you like to delete the selected plugins?", @"Delete", @"Cancel", nil);
 
 	if (result) {
 		BOOL success = YES;
@@ -380,7 +380,7 @@
 
 	} else {
 		//[NSApp activateIgnoringOtherApps:YES];
-		NSInteger selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"Plug-in Requirements", nil] ,
+		NSInteger selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"Plugin Requirements", nil] ,
 												  @"Using [%@] requires installation of [%@] .", @"Install", @"Disable", @"Always Install Requirements",
 												  [[dependingNames allObjects] componentsJoinedByString:@", "] ,
 												  [[array valueForKey:@"name"] componentsJoinedByString:@", "]);
@@ -397,7 +397,7 @@
 
 - (void)checkForObsoletes:(QSPlugIn *)plugin
 {
-	// store a list of obsolete plug-ins and the one that replaces it
+	// store a list of obsolete plugins and the one that replaces it
 	for (NSString *obsoletePlugIn in [plugin obsoletes]) {
 		[obsoletePlugIns setObject:[plugin identifier] forKey:obsoletePlugIn];
 	}
@@ -410,8 +410,8 @@
 	}
 	for (QSPlugIn *plugin in [[self localPlugIns] allValues]) {
 		if ([plugin isObsolete] && [[localPlugIns allKeys] containsObject:[obsoletePlugIns objectForKey:[plugin identifier]]]) {
-			// plug-in is obsolete AND the one that replaces it is currently installed
-			NSLog(@"removing obsolete plug-in: %@", [plugin name]);
+			// plugin is obsolete AND the one that replaces it is currently installed
+			NSLog(@"removing obsolete plugin: %@", [plugin name]);
 			[plugin delete];
 		}
 	}
@@ -597,7 +597,7 @@
 	if ([oldPlugIns count]) {
         NSError *error = nil;
         for (QSPlugIn * plugIn in oldPlugIns) {
-            NSLog(@"Deleting Old Duplicate Plug-in:\r%@", [plugIn path]);
+            NSLog(@"Deleting Old Duplicate Plugin:\r%@", [plugIn path]);
             if (![[NSFileManager defaultManager] removeItemAtPath:[plugIn path] error:&error])
                 NSLog(@"Error deleting old plugin: %@, %@", [plugIn path], error);
         }
@@ -657,7 +657,7 @@
 	[self downloadWebPlugInInfoFromDate:nil forUpdateVersion:version synchronously:YES];
 
 	NSMutableArray *names = [NSMutableArray arrayWithCapacity:1];
-	// don't update obsolete plug-ins, but list them when alerting the user
+	// don't update obsolete plugins, but list them when alerting the user
 	for (QSPlugIn *thisPlugIn in [[self localPlugIns] allValues]) {
 		if ([thisPlugIn isObsolete]) {
 			NSString *replacementID = [obsoletePlugIns objectForKey:[thisPlugIn identifier]];
@@ -666,7 +666,7 @@
 			[names addObject:[NSString stringWithFormat:@"%@ (replaced by %@)", [thisPlugIn name], [replacement name]]];
 		}
 	}
-	// compare to plug-ins that are availble for download
+	// compare to plugins that are availble for download
 	for (QSPlugIn *thisPlugIn in [self knownPlugInsWithWebInfo]) {
 		if ([thisPlugIn needsUpdate]) {
 			[updatedPlugIns addObject:[thisPlugIn identifier]];
@@ -675,7 +675,7 @@
 	}
 	
 	if ([updatedPlugIns count]) {
-		NSInteger selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"Plug-in Updates are available", nil] ,
+		NSInteger selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"Plugin Updates are available", nil] ,
 												  @"%@", @"Install", @"Cancel", nil, [names componentsJoinedByString:@", "]);
 		if (selection == 1) {
 			updatingPlugIns = YES;
@@ -780,7 +780,7 @@
 
 		[self setIsInstalling:NO];
 	} else {
-		NSString *status = [NSString stringWithFormat:@"Installing %ld Plug-in(s)", (long)[queuedDownloads count]];
+		NSString *status = [NSString stringWithFormat:@"Installing %ld Plugin%@", (long)[queuedDownloads count], ([queuedDownloads count] > 1 ? @"s" : @"") ];
 		//NSString *status = [NSString stringWithFormat:@"Installing %@ (%d of %d) ", [[self currentDownload] name] , [queuedDownloads count] , downloadsCount];
 		[self setInstallStatus:status];
 		//[self setInstallProgress:[self downloadProgress]];
@@ -809,7 +809,7 @@
     }
 
 	if (!liveLoaded && (updatingPlugIns || !warnedOfRelaunch) && ![queuedDownloads count] && !supressRelaunchMessage) {
-		NSInteger selection = NSRunInformationalAlertPanel(@"Install complete", @"Some plug-ins will not be available until Quicksilver is relaunched.", @"Relaunch", @"Later", nil);
+		NSInteger selection = NSRunInformationalAlertPanel(@"Install complete", @"Some plugins will not be available until Quicksilver is relaunched.", @"Relaunch", @"Later", nil);
 
 		if (selection == 1) {
 			[NSApp relaunch:self];
@@ -818,13 +818,13 @@
 		warnedOfRelaunch = YES;
 		return YES;
 	}
-	NSString *title = [NSString stringWithFormat:@"%@ Installed", (name?name:@"Plug-in")];
+	NSString *title = [NSString stringWithFormat:@"%@ Installed", (name?name:@"Plugin")];
 
 	NSImage *image = [NSImage imageNamed:@"QSPlugIn"];
 	[image setSize:NSMakeSize(128, 128)];
 
 	if (showNotifications) {
-		// see if this obsoletes an installed plug-in
+		// see if this obsoletes an installed plugin
 		BOOL relaunchForObsoletes = NO;
 		for (NSString *obsolete in [plugin obsoletes]) {
 			if ([[localPlugIns allKeys] containsObject:obsolete]) {
@@ -844,7 +844,7 @@
 	NSInteger selection = [defaults boolForKey:kClickInstallWithoutAsking];
 
 	if (!selection) {//[NSApp activateIgnoringOtherApps:YES];
-		selection = NSRunInformationalAlertPanel(@"Install plug-ins?", @"Do you wish to move selected items to Quicksilver's plug-in folder?", @"Install", @"Cancel", @"Always Install Plug-ins");
+		selection = NSRunInformationalAlertPanel(@"Install plugins?", @"Do you wish to move selected items to Quicksilver's plugin folder?", @"Install", @"Cancel", @"Always Install Plugins");
 	}
 	if (selection) {
 		if (selection<0) {
@@ -895,7 +895,7 @@
 		[self performSelectorOnMainThread:@selector(installPlugInWithInfo:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:ident, @"id", url, @"url", nil] waitUntilDone:YES];
 	}
 
-	NSString *status = [NSString stringWithFormat:@"Installing %lu Plug-in(s) ", (unsigned long)[queuedDownloads count]];
+	NSString *status = [NSString stringWithFormat:@"Installing %lu Plugin%@", (unsigned long)[queuedDownloads count], ([queuedDownloads count] > 1 ? @"s" : @"")];
 	[[QSTaskController sharedInstance] updateTask:@"QSPlugInInstalling" status:status progress:-1];
 	[self setInstallStatus:status];
 	[self setIsInstalling:YES];
@@ -943,7 +943,7 @@
 		idString = [idString substringFromIndex:3];
 
 	NSString *nameString = [components lastObject];
-	NSString *name = @"<Unknown Plug-in>";
+	NSString *name = @"<Unknown Plugin>";
 	if ([nameString hasPrefix:@"name="])
 		name = [[nameString substringFromIndex:5] URLDecoding];
 
@@ -951,7 +951,7 @@
 
 	NSInteger selection = [defaults boolForKey:kWebInstallWithoutAsking];
 	if (!selection)
-		selection = NSRunInformationalAlertPanel(name, @"Do you wish to install the %@?", @"Install", @"Cancel", @"Always Install Plug-ins", name);
+		selection = NSRunInformationalAlertPanel(name, @"Do you wish to install the %@?", @"Install", @"Cancel", @"Always Install Plugins", name);
 	if (selection) {
 		if (selection<0) {
 			[defaults setBool:YES forKey:kWebInstallWithoutAsking];

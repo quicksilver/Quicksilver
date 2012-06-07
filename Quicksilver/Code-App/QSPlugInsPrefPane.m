@@ -113,7 +113,7 @@
 	[setsArrayController addObserver:self forKeyPath:@"selectedObjects" options:0 context:nil];
 	[pluginSetsTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
     //[pluginSetsTable selectRow:0 byExtendingSelection:NO];
-	// update the list of plug-ins to match the selected category
+	// update the list of plugins to match the selected category
 	NSArray *selection = [setsArrayController performSelector:@selector(selectedObjects)];
 	NSDictionary *dict = [selection lastObject];
 	if ([dict objectForKey:@"viewMode"]) {
@@ -153,7 +153,7 @@
 		NSArray *selection = [arrayController selectedObjects];
 		BOOL isMainThread = [NSThread isMainThread];
 		NSString *htmlString;
-		NSString *defaultTitle = @"Plug-in Documentation";
+		NSString *defaultTitle = @"Plugin Documentation";
 		if ([selection count] == 1) {
             [infoButton setEnabled:YES];
 			[self setPlugInName:[NSString stringWithFormat:@"%@: %@", defaultTitle, [(QSPlugIn *)[selection objectAtIndex:0] name]]];
@@ -340,7 +340,7 @@
 	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:4] , @"viewMode", @"Not Installed", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
 	NSArray *categories = [NSArray arrayWithObjects:@"Applications", @"Calendar", @"Contacts", @"Development", @"Files", @"Images", @"Interfaces", @"Mail & Chat", @"Miscellaneous", @"Music", @"Quicksilver", @"Search", @"System", @"Text", @"Web", nil];
 	NSMutableArray *categoryDicts = [NSMutableArray array];
-	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:3] , @"viewMode", categoryDicts, @"children", @"All Plug-ins", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
+	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:3] , @"viewMode", categoryDicts, @"children", @"All Plugins", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
 
 	for(NSString * categoryName in categories)
 		[categoryDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:3] , @"viewMode", categoryName, @"category", categoryName, @"text", @"category", @"type", nil]];

@@ -10,8 +10,8 @@
 	<string>Rank</string>
 	<key>Type</key>
 	<string>Type</string>
-	<key>by Plug-in</key>
-	<string>by Plug-in</string>
+	<key>by Plugin</key>
+	<string>by Plugin</string>
 	<key>by Type</key>
 	<string>by Type</string>
 </dict>

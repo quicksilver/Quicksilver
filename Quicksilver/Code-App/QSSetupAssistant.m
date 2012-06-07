@@ -260,7 +260,7 @@
 	//[scanProgress displayIfNeeded];
 	[installTextField setHidden:NO];
 
-	[installTextField setStringValue:@"Downloading plug-ins"];
+	[installTextField setStringValue:@"Downloading plugins"];
 	NSMutableArray *array = [[[plugInsToInstall allKeysForObject:[NSNumber numberWithBool:YES]] mutableCopy] autorelease];
 
 	[array removeObjectsInArray:[installedPlugIns allKeys]];

@@ -2,10 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Plug-ins</key>
-	<string>Plug-ins</string>
-	<key>Reload plug-in list</key>
-	<string>Recharger la liste des plug-ins</string>
+	<key>Plugins</key>
+	<string>Plugins</string>
+	<key>Reload plugin list</key>
+	<string>Recharger la liste des plugins</string>
 	<key>Updated</key>
 	<string>Mis à jour</string>
 	<key>Vers.</key>

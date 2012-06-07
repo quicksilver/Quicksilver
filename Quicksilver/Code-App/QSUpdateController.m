@@ -30,7 +30,7 @@
 }
 
 - (void)forceStartupCheck {
-	NSLog(@"Updated: Forcing Plug-in Check");
+	NSLog(@"Updated: Forcing Plugin Check");
 	doStartupCheck = YES;
 }
 
@@ -177,7 +177,7 @@ typedef enum {
             if (!updated) {
                 NSLog(@"Quicksilver is up to date.");
                 if (!quiet)
-                    NSRunInformationalAlertPanel(@"You're up-to-date!", [NSString stringWithFormat:@"You already have the latest version of Quicksilver (%@) and all installed plug-ins", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]] , @"OK", nil, nil);
+                    NSRunInformationalAlertPanel(@"You're up-to-date!", [NSString stringWithFormat:@"You already have the latest version of Quicksilver (%@) and all installed plugins", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]] , @"OK", nil, nil);
             }
             return updated;
         break;
@@ -314,7 +314,7 @@ typedef enum {
 													name:@"QSPlugInUpdatesFailed"
 												 object:nil];
 	} else {
-		NSLog(@"Plug-ins don't need update");
+		NSLog(@"Plugins don't need update");
 		[self finishAppInstall];
 	}
 }

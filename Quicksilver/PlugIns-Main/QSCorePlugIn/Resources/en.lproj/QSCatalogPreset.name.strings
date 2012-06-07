@@ -137,7 +137,7 @@
 	<key>QSPresetMiscellaneousGroup</key>
 	<string>Miscellaneous</string>
 	<key>QSPresetModules</key>
-	<string>Modules</string>
+	<string>Plugins</string>
 	<key>QSPresetMozillaBookmarks</key>
 	<string>Mozilla Bookmarks</string>
 	<key>QSPresetNNWSubscriptions</key>

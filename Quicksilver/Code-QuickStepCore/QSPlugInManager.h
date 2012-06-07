@@ -23,7 +23,7 @@
 
 	NSMutableArray 					*oldPlugIns; 		// Plugins with newer versions overriding, these are not included in local plugins
 	NSMutableDictionary 			*dependingPlugIns; 	// Dictionary of dependencies -> array of waiting
-	NSMutableDictionary				*obsoletePlugIns;   // plug-ins that are made obsolete by another
+	NSMutableDictionary				*obsoletePlugIns;   // plugins that are made obsolete by another
 
 	NSMutableData *receivedData;
 	NSMutableDictionary *plugInWebData;

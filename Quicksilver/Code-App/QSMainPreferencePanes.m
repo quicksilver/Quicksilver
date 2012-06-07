@@ -412,7 +412,7 @@
 			NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
 			[array sortUsingDescriptors:[NSArray arrayWithObject:desc]];
 			[desc release];
-			[array insertObject:[NSDictionary dictionaryWithObjectsAndKeys:kQSAllActionsCategory, @"group", @"All Plug-ins", @"name", [QSResourceManager imageNamed:@"Quicksilver"] , @"icon", nil] atIndex:0];
+			[array insertObject:[NSDictionary dictionaryWithObjectsAndKeys:kQSAllActionsCategory, @"group", @"All Plugins", @"name", [QSResourceManager imageNamed:@"Quicksilver"] , @"icon", nil] atIndex:0];
 			break;
 		}
 		default:

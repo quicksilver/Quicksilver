@@ -201,7 +201,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 - (NSSet *)obsoletes
 {
-	// a list of bundle IDs (as strings) for plug-ins made obsolete by this one
+	// a list of bundle IDs (as strings) for plugins made obsolete by this one
 	if ([[self info] valueForKeyPath:@"QSRequirements.obsoletes"]) {
 		return [NSSet setWithArray:[[self info] valueForKeyPath:@"QSRequirements.obsoletes"]];
 	}
@@ -294,7 +294,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 			return YES;
 		}
 	}
-	// makes a loaded plug-in obsolete
+	// makes a loaded plugin obsolete
 	NSSet *currentlyLoaded = [NSSet setWithArray:[[[QSPlugInManager sharedInstance] loadedPlugIns] allKeys]];
 	return [currentlyLoaded intersectsSet:[self obsoletes]];
 }
@@ -738,7 +738,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 		[self _registerPlugIn];
     } @catch (NSException *exc) {
 #ifdef DEBUG
-        NSString *errorMessage = [NSString stringWithFormat:@"An error ocurred while loading plug-in \"%@\": %@", self, exc];
+        NSString *errorMessage = [NSString stringWithFormat:@"An error ocurred while loading plugin \"%@\": %@", self, exc];
 		if (VERBOSE) {
 			NSLog(@"%@", errorMessage);
 			[exc printStackTrace];

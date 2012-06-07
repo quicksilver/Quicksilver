@@ -115,7 +115,7 @@
 								</object>
 								<object class="NSMenuItem" id="376488485">
 									<reference key="NSMenu" ref="469989283"/>
-									<string key="NSTitle">Plug-ins...</string>
+									<string key="NSTitle">Plugins...</string>
 									<string key="NSKeyEquiv">"</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -266,7 +266,7 @@
 					</object>
 					<object class="NSMenuItem" id="494558281">
 						<reference key="NSMenu" ref="183106149"/>
-						<string key="NSTitle">Plug-ins</string>
+						<string key="NSTitle">Plugins</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSKeyEquivModMask">1048576</int>
 						<int key="NSMnemonicLoc">2147483647</int>
@@ -275,7 +275,7 @@
 						<string key="NSAction">submenuAction:</string>
 						<int key="NSTag">128</int>
 						<object class="NSMenu" key="NSSubmenu" id="506821487">
-							<string key="NSTitle">Plug-ins</string>
+							<string key="NSTitle">Plugins</string>
 							<object class="NSMutableArray" key="NSMenuItems">
 								<bool key="EncodedWithXMLCoder">YES</bool>
 							</object>
@@ -1157,7 +1157,7 @@
 					</object>
 					<object class="NSMenuItem" id="295541375">
 						<reference key="NSMenu" ref="793043102"/>
-						<string key="NSTitle">Plug-ins...</string>
+						<string key="NSTitle">Plugins...</string>
 						<string key="NSKeyEquiv">"</string>
 						<int key="NSKeyEquivModMask">1048576</int>
 						<int key="NSMnemonicLoc">2147483647</int>
@@ -3243,199 +3243,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSApplication</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">relaunch:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">relaunch:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">relaunch:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/NSApplication.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">QSApp</string>
-					<string key="superclassName">NSApplication</string>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">hiddenMenu</string>
-						<string key="NS.object.0">NSMenu</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">hiddenMenu</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">hiddenMenu</string>
-							<string key="candidateClassName">NSMenu</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/QSApp.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">QSController</string>
-					<string key="superclassName">NSWindowController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>forceRescanItems:</string>
-							<string>getMorePlugIns:</string>
-							<string>openIRCChannel:</string>
-							<string>reportABug:</string>
-							<string>rescanItems:</string>
-							<string>runSetupAssistant:</string>
-							<string>showAbout:</string>
-							<string>showCatalog:</string>
-							<string>showForums:</string>
-							<string>showGuide:</string>
-							<string>showHelp:</string>
-							<string>showPreferences:</string>
-							<string>showReleaseNotes:</string>
-							<string>showSettings:</string>
-							<string>showTaskViewer:</string>
-							<string>showTriggers:</string>
-							<string>unsureQuit:</string>
-						</object>
-						<object class="NSArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>forceRescanItems:</string>
-							<string>getMorePlugIns:</string>
-							<string>openIRCChannel:</string>
-							<string>reportABug:</string>
-							<string>rescanItems:</string>
-							<string>runSetupAssistant:</string>
-							<string>showAbout:</string>
-							<string>showCatalog:</string>
-							<string>showForums:</string>
-							<string>showGuide:</string>
-							<string>showHelp:</string>
-							<string>showPreferences:</string>
-							<string>showReleaseNotes:</string>
-							<string>showSettings:</string>
-							<string>showTaskViewer:</string>
-							<string>showTriggers:</string>
-							<string>unsureQuit:</string>
-						</object>
-						<object class="NSArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBActionInfo">
-								<string key="name">forceRescanItems:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">getMorePlugIns:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">openIRCChannel:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">reportABug:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">rescanItems:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">runSetupAssistant:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showAbout:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showCatalog:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showForums:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showGuide:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showHelp:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showPreferences:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showReleaseNotes:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showSettings:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showTaskViewer:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showTriggers:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">unsureQuit:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">statusMenu</string>
-						<string key="NS.object.0">NSMenu</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">statusMenu</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">statusMenu</string>
-							<string key="candidateClassName">NSMenu</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/QSController.h</string>
 					</object>
 				</object>
 			</object>
