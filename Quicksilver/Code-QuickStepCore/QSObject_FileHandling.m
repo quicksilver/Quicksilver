@@ -10,7 +10,6 @@
 #import "QSPreferenceKeys.h"
 #import "NDResourceFork.h"
 #import "QSCatalogEntry.h"
-#import "NDAlias.h"
 #import "NDAlias+QSMods.h"
 #import "QSUTI.h"
 #import "QSExecutor.h"

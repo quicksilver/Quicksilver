@@ -5,7 +5,6 @@
 #import "QSObject_FileHandling.h"
 #import "QSObject_URLHandling.h"
 #import "QSObject_StringHandling.h"
-#import "NDAlias.h"
 #import "NDAlias+AliasFile.h"
 #import "NDAlias+QSMods.h"
 

@@ -9,7 +9,6 @@
 #import "NSFileManager_BLTRExtensions.h"
 
 #import "NSString_BLTRExtensions.h"
-#import "UKDirectoryEnumerator.h"
 
 @interface UKDirectoryEnumerator (Private)
 - (NSDate *)fileModificationDate;

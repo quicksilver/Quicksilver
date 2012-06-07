@@ -9,7 +9,6 @@
 #import "QSCatalogEntry.h"
 
 #import "QSObject_StringHandling.h"
-#import "NDAlias.h"
 #import "NDAlias+QSMods.h"
 
 #import "QSResourceManager.h"

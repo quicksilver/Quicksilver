@@ -7,7 +7,6 @@
 //
 
 #import "QSLoginItemFunctions.h"
-#import "NDAlias.h"
 
 BOOL QSItemShouldLaunchAtLogin(NSString *path) {
 	NSArray *loginItems = [(NSArray *)CFPreferencesCopyValue((CFStringRef) @"AutoLaunchedApplicationDictionary", (CFStringRef) @"loginwindow", kCFPreferencesCurrentUser, kCFPreferencesAnyHost) autorelease];

@@ -8,7 +8,6 @@
 #import <Carbon/Carbon.h>
 
 #import "QSController.h"
-#import "NDAlias.h"
 #import "QSRegistry.h"
 #import "QSSimpleWebWindowController.h"
 
