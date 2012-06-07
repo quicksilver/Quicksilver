@@ -305,16 +305,19 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
         return;
     }
     NSURL *bundleURL = [runningApplication bundleURL];
-    NSDate *now = [NSDate date];
-    while(![runningApplication isTerminated]) {
-        [runningApplication terminate];
+    [runningApplication terminate];
+    NSDate *aDate = [NSDate date];
+    while(![runningApplication isTerminated]) {       
         
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
         
-        if ([now timeIntervalSinceNow] > 20) {
+        usleep(500000);
+        
+        // break: it's been 20s since the action was called
+        if (-[aDate timeIntervalSinceNow] > 12) {
             NSLog(@"Could not terminate %@, abandoning restart",[runningApplication localizedName]);
-            break;
+            return;
         }
-        
         
 		}
 		usleep(500000);
