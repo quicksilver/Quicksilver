@@ -59,12 +59,15 @@ else
   files = files.select &file_matcher
 end
 
+unless options[:changes]
+  Trollop::die "You must add a changelog using the '-c' option"
+end
+
 # TODO: Only ask the password if the remote asks for it.
 unless options[:password]
   print "Password for user \"#{options[:user]}\": "
   options[:password] = STDIN.gets.chomp
 end
-
 
 # Now push those plugins !
 
@@ -120,10 +123,7 @@ files.each do |file|
       args[:image_file] = image_file if image_file
       args[:image_ext] = File.extname(image_file) if image_file
       args[:mod_date] = File.new(file).mtime
-
-      if options[:changes]
-        args[:changes] = options[:changes]
-      end
+      args[:changes] = options[:changes]
       
     when ".dmg" then
       # Disk image
