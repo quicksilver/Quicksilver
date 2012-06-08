@@ -11,14 +11,15 @@
 #import "NDResourceFork.h"
 
 void QSForcePaste() {
-
+    
+    CGKeyCode pasteKeyCode = [[NDKeyboardLayout keyboardLayout] keyCodeForCharacter:'v'];
 
 	CGEventSourceRef source = CGEventSourceCreate(kCGEventSourceStateCombinedSessionState);
     CGEventSourceSetLocalEventsFilterDuringSuppressionState(source, kCGEventFilterMaskPermitLocalMouseEvents | kCGEventFilterMaskPermitSystemDefinedEvents,kCGEventSuppressionStateSuppressionInterval);
-	CGEventRef pasteCommandDown = CGEventCreateKeyboardEvent(source, (CGKeyCode)9, YES);
+	CGEventRef pasteCommandDown = CGEventCreateKeyboardEvent(source, pasteKeyCode, YES);
 	CGEventSetFlags(pasteCommandDown, kCGEventFlagMaskCommand);
-	CGEventRef pasteCommandUp = CGEventCreateKeyboardEvent(source, (CGKeyCode)9, NO);
-	
+	CGEventRef pasteCommandUp = CGEventCreateKeyboardEvent(source, pasteKeyCode, NO);
+
 	CGEventPost(kCGAnnotatedSessionEventTap, pasteCommandDown);
 	CGEventPost(kCGAnnotatedSessionEventTap, pasteCommandUp);
 	
@@ -26,7 +27,6 @@ void QSForcePaste() {
 	CFRelease(pasteCommandDown);
 	CFRelease(source);
 }
-
 
 @implementation NSPasteboard (Clippings)
 + (NSPasteboard *)pasteboardByFilteringClipping:(NSString *)path { // Not thread safe?
