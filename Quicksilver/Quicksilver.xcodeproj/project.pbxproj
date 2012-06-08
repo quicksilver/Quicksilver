@@ -380,6 +380,8 @@
 		CDDB44E81518C78F00800B66 /* QSCrashReporterWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDDB44E61518C78F00800B66 /* QSCrashReporterWindowController.m */; };
 		CDDB44EE1518ED3800800B66 /* CrashReporterText.html in Resources */ = {isa = PBXBuildFile; fileRef = CDDB44ED1518ED3800800B66 /* CrashReporterText.html */; };
 		CDE6C624157E39AE006E66BD /* QSFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = CDE6C623157E39AE006E66BD /* QSFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CDE8ADBB15824E3E0099CC83 /* NDKeyboardLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = CDE8ADB915824E3E0099CC83 /* NDKeyboardLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CDE8ADBC15824E3E0099CC83 /* NDKeyboardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE8ADBA15824E3E0099CC83 /* NDKeyboardLayout.m */; };
 		D493990D1350078E00B908C6 /* QSDownloads.h in Headers */ = {isa = PBXBuildFile; fileRef = D49399091350078E00B908C6 /* QSDownloads.h */; };
 		D493990E1350078E00B908C6 /* QSDownloads.m in Sources */ = {isa = PBXBuildFile; fileRef = D493990A1350078E00B908C6 /* QSDownloads.m */; };
 		D4A43887137CCF0300F15F7F /* QSURLExtractor.py in Resources */ = {isa = PBXBuildFile; fileRef = D4A4383B137CCCF500F15F7F /* QSURLExtractor.py */; };
@@ -1421,6 +1423,8 @@
 		CDDB44E61518C78F00800B66 /* QSCrashReporterWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCrashReporterWindowController.m; sourceTree = "<group>"; };
 		CDDB44ED1518ED3800800B66 /* CrashReporterText.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = CrashReporterText.html; sourceTree = "<group>"; };
 		CDE6C623157E39AE006E66BD /* QSFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSFoundation.h; sourceTree = "<group>"; };
+		CDE8ADB915824E3E0099CC83 /* NDKeyboardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDKeyboardLayout.h; sourceTree = "<group>"; };
+		CDE8ADBA15824E3E0099CC83 /* NDKeyboardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDKeyboardLayout.m; sourceTree = "<group>"; };
 		D49399091350078E00B908C6 /* QSDownloads.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDownloads.h; sourceTree = "<group>"; };
 		D493990A1350078E00B908C6 /* QSDownloads.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDownloads.m; sourceTree = "<group>"; };
 		D4A4383B137CCCF500F15F7F /* QSURLExtractor.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = QSURLExtractor.py; sourceTree = "<group>"; };
@@ -1716,7 +1720,7 @@
 		E1E5FBCD07B20DD20044D6EF /* QSVoyeur.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSVoyeur.m; sourceTree = "<group>"; };
 		E1E5FC4807B20E4C0044D6EF /* BLTRResizeView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = BLTRResizeView.h; sourceTree = "<group>"; };
 		E1E5FC4907B20E4C0044D6EF /* BLTRResizeView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = BLTRResizeView.m; sourceTree = "<group>"; };
-		E1E5FC4A07B20E4C0044D6EF /* DefaultBindings.qskeys */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = DefaultBindings.qskeys; sourceTree = "<group>"; };
+		E1E5FC4A07B20E4C0044D6EF /* DefaultBindings.qskeys */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = DefaultBindings.qskeys; sourceTree = "<group>"; };
 		E1E5FC4D07B20E4D0044D6EF /* QSBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSBackgroundView.h; sourceTree = "<group>"; };
 		E1E5FC4E07B20E4D0044D6EF /* QSBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSBackgroundView.m; sourceTree = "<group>"; };
 		E1E5FC4F07B20E4D0044D6EF /* QSBezelBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSBezelBackgroundView.h; sourceTree = "<group>"; };
@@ -2894,6 +2898,8 @@
 				4D66BC0C148701E900351C42 /* NDAlias.m */,
 				4D66BC0D148701E900351C42 /* NDAlias+AliasFile.h */,
 				4D66BC0E148701E900351C42 /* NDAlias+AliasFile.m */,
+				CDE8ADB915824E3E0099CC83 /* NDKeyboardLayout.h */,
+				CDE8ADBA15824E3E0099CC83 /* NDKeyboardLayout.m */,
 				4D66BC0F148701E900351C42 /* NDResourceFork.h */,
 				4D66BC10148701E900351C42 /* NDResourceFork.m */,
 				4D66BC11148701E900351C42 /* NDResourceFork+OtherSorces.h */,
@@ -3153,6 +3159,7 @@
 				CD4FA6E0157A13D600E549BD /* QSHotKeyEvent.h in Headers */,
 				CDE6C624157E39AE006E66BD /* QSFoundation.h in Headers */,
 				4D66BC451487024500351C42 /* NSString+NDUtilities.h in Headers */,
+				CDE8ADBB15824E3E0099CC83 /* NDKeyboardLayout.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4252,6 +4259,7 @@
 				4D66BC441487024500351C42 /* NDScriptData.m in Sources */,
 				4D66BC461487024500351C42 /* NSString+NDUtilities.m in Sources */,
 				CD4FA6E2157A13DE00E549BD /* QSHotKeyEvent.m in Sources */,
+				CDE8ADBC15824E3E0099CC83 /* NDKeyboardLayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
