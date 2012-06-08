@@ -1008,7 +1008,7 @@
     NSLog(@"Download failed! Error - %@ %@ %@", [download URL], [error localizedDescription], [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
     // -1009 means no internet connection, don't bother the user in this case
     if ([error code] != -1009) {
-        QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:@"Download Failed",QSNotifierTitle,@"Plugin Download Failed",QSNotifierText,[QSResourceManager imageNamed:@"com.blacktree.quicksilver"],QSNotifierIcon,nil]);
+        QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:@"Download Failed",QSNotifierTitle,@"Plugin Download Failed",QSNotifierText,[QSResourceManager imageNamed:@"com.blacktree.Quicksilver"],QSNotifierIcon,nil]);
     }
     [[QSTaskController sharedInstance] removeTask:@"QSPlugInInstalling"];
     

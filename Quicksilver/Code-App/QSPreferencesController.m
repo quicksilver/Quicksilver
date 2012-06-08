@@ -197,14 +197,27 @@ id QSPrefs;
 }
 
 - (void)setWindowTitleWithInfo:(NSDictionary *)info {
-	NSImage *image = info?[QSResourceManager imageNamed:[info objectForKey:kItemIcon]]:nil;
+    
+	NSImage *image = info ? [QSResourceManager imageNamed:[info objectForKey:kItemIcon]] : nil;
 	NSString *string = [info objectForKey:kItemName];
 	NSString *path = [info objectForKey:kItemPath];
-	if (!string) string = @"Preferences";
-	if (!image) image = [QSResourceManager imageNamed:@"prefsGeneral"];
-	if (!path) path = @"~/Library/Preferences/com.blacktree.Quicksilver.plist";
+    
+	if (!string) {
+        string = @"Preferences";
+    }
+    
+	if (!image) {
+        image = [QSResourceManager imageNamed:@"prefsGeneral"];
+    }
+    
+	if (!path) {
+        path = [@"~/Library/Preferences/com.blacktree.Quicksilver.plist" stringByStandardizingPath];
+    }
+    
 	[[self window] setTitle:string];
-	[[self window] setRepresentedFilename:[path stringByStandardizingPath]];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        [[self window] setRepresentedFilename:[path stringByStandardizingPath]];
+    }
 	[[[self window] standardWindowButton:NSWindowDocumentIconButton] setImage:[image duplicateOfSize:QSSize16]];
 }
 
