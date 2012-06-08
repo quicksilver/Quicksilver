@@ -7,6 +7,7 @@
 #import "NDScriptData.h"
 #import "NDComponentInstance.h"
 #import "NDHotKeyEvent.h"
+#import "NDKeyboardLayout.h"
 #import "NDProcess.h"
 #import "NDResourceFork.h"
 #import "NDResourceFork+OtherSorces.h"
