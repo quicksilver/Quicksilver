@@ -809,9 +809,12 @@
     }
 
 	if (!liveLoaded && (updatingPlugIns || !warnedOfRelaunch) && ![queuedDownloads count] && !supressRelaunchMessage) {
-		NSInteger selection = NSRunInformationalAlertPanel(@"Install complete", @"Some plugins will not be available until Quicksilver is relaunched.", @"Relaunch", @"Later", nil);
-
-		if (selection == 1) {
+        BOOL relaunch = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSUpdateWithoutAsking"];
+        if (!relaunch) {
+            NSInteger selection = NSRunInformationalAlertPanel(@"Install complete", @"Some plugins will not be available until Quicksilver is relaunched.", @"Relaunch", @"Later", nil);
+            relaunch = (selection == NSAlertDefaultReturn);
+        }
+		if (relaunch) {
 			[NSApp relaunch:self];
 		}
 		updatingPlugIns = NO;
