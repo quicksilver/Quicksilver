@@ -157,7 +157,6 @@ typedef enum QSSearchMode {
 - (void)setCurrentEditor:(NSText *)aCurrentEditor;
 
 - (void)setResultsPadding:(CGFloat)aResultsPadding;
-- (NSString *)stringForEvent:(NSEvent *)theEvent;
 - (void)insertSpace:(id)sender;
 
 	//TextInputMethods

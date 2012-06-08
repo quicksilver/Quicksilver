@@ -678,19 +678,6 @@ NSMutableDictionary *bindingsDict = nil;
 	}
 }
 
-- (NSString *)stringForEvent:(NSEvent *)theEvent {
-	NSInteger flags = [theEvent modifierFlags];
-	NSString *string = [NSString stringWithFormat:@"%@%@%@%@%@%@",
-                        flags&NSShiftKeyMask?@"$":@"",
-                        flags&NSControlKeyMask?@"^":@"",
-                        flags&NSAlternateKeyMask?@"~":@"",
-                        flags&NSCommandKeyMask?@"@":@"",
-                        flags&NSFunctionKeyMask?@"#":@"",
-                        [theEvent charactersIgnoringModifiers]];
-	return string;
-	//	return [[[self window] delegate] performKeyEquivalent:(NSEvent *)theEvent];
-}
-
 - (void)clearSearch {
 	[resetTimer invalidate];
 	[resultTimer invalidate];
@@ -1190,7 +1177,8 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (BOOL)handleBoundKey:(NSEvent *)theEvent {
-	NSString *selectorString = [bindingsDict objectForKey:[self stringForEvent:theEvent]];
+    NSString *theEventString = [[NDKeyboardLayout keyboardLayout] stringForKeyCode:[theEvent keyCode] modifierFlags:[theEvent modifierFlags]];
+	NSString *selectorString = [bindingsDict objectForKey:theEventString];
     
 	if (selectorString) {
 		SEL selector = NSSelectorFromString(selectorString);
@@ -1747,7 +1735,7 @@ NSMutableDictionary *bindingsDict = nil;
 			//Should show parent's level
 			newSelectedObject = parent;
 			if (newSelectedObject) {
-				if ((NSInteger)[historyArray count] > historyIndex) {
+				if ((NSInteger)[historyArray count] > historyIndex + 1) {
 					if ([[[historyArray objectAtIndex:historyIndex+1] valueForKey:@"selection"] isEqual:parent]) {
 #ifdef DEBUG
 						if (VERBOSE) NSLog(@"Parent Missing, Using History");
