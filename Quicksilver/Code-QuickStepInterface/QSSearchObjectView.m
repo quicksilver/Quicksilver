@@ -615,12 +615,12 @@ NSMutableDictionary *bindingsDict = nil;
 	[childStack removeAllObjects];
 }
 
-- (void)selectIndex:(NSUInteger)index {
+- (void)selectIndex:(NSInteger)index {
 	// NSLog(@"selectindex %d %d", self, index);
     
-	if (index == 0)
+	if (index<0)
 		selection = 0;
-	else if (index >= [resultArray count])
+	else if (index >= (NSInteger)[resultArray count])
 		selection = [resultArray count] -1;
 	else
 		selection = index;
@@ -640,10 +640,10 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)selectObject:(QSBasicObject *)obj {
-	NSUInteger index = 0;
+	NSInteger index = 0;
 	//[self updateHistory];
 	if (obj) {
-		index = [resultArray indexOfObject:obj];
+		index = (NSInteger)[resultArray indexOfObject:obj];
 		//NSLog(@"index %d %@", index, obj);
 		if (index == NSNotFound) {
 			//if (VERBOSE) NSLog(@"Unable To Select Object : %@ in \r %@", [obj identifier] , resultArray);
@@ -1622,7 +1622,7 @@ NSMutableDictionary *bindingsDict = nil;
     
     NSDictionary *state = [self historyState];
 
-    historyIndex = 0;
+    historyIndex = -1;
     if (state) {
         // Do not add the object to the history if it is already the 1st object
         if (![historyArray count] || 
@@ -1642,7 +1642,7 @@ NSMutableDictionary *bindingsDict = nil;
     if (!browsingHistory) {
         browsingHistory = YES;
     }
-	if (historyIndex>=0) {
+	if (historyIndex>0) {
 		[self switchToHistoryState:--historyIndex];
 	} else {
 		[resultController bump:(4)];
@@ -1660,7 +1660,7 @@ NSMutableDictionary *bindingsDict = nil;
         browsingHistory = YES;
     }
 
-	if ((NSUInteger)(historyIndex+1)<[historyArray count]) {
+	if (historyIndex+1<(NSInteger)[historyArray count]) {
 		[self switchToHistoryState:++historyIndex];
 	} else {
 		[resultController bump:(-4)];
@@ -1747,7 +1747,7 @@ NSMutableDictionary *bindingsDict = nil;
 			//Should show parent's level
 			newSelectedObject = parent;
 			if (newSelectedObject) {
-				if ([historyArray count] > (NSUInteger)historyIndex) {
+				if ((NSInteger)[historyArray count] > historyIndex) {
 					if ([[[historyArray objectAtIndex:historyIndex+1] valueForKey:@"selection"] isEqual:parent]) {
 #ifdef DEBUG
 						if (VERBOSE) NSLog(@"Parent Missing, Using History");

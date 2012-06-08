@@ -811,42 +811,13 @@
 
     NSPasteboard *pb = [info draggingPasteboard];
     NSData *data = [pb dataForType:QSTriggerDragType];
-    NSArray *indexes = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    NSLog(@"indexes: %@", indexes);
 
-	if ([info draggingSourceOperationMask] == NSDragOperationMove
-        && [info draggingSource] == triggerTable) {
-        /*        [triggerTreeController
-         [triggerTreeController moveNodes:<#(NSArray *)nodes#> toIndexPath:<#(NSIndexPath *)startingIndexPath#>*/
-        //		[draggedEntries setValue:[item identifier] forKey:@"parentID"];
-
-		//NSLog(@"dragged %@", [draggedEntries valueForKey:@"parentID"]);
-		//	[treeController removeObjectsAtArrangedObjectIndexPaths:draggedIndexPaths];
-	}
-	//
-	//	//	NSLog(@"objects %@", objects);
-	//	insertionArray = (NSMutableArray *)[item children];
-	//	//	[treeController insertObject:[objects lastObject] atArrangedObjectIndexPath:indexPath];
-	//
-	//	if (index >= 0) [insertionArray replaceObjectsInRange:NSMakeRange(index, 0) withObjectsFromArray:objects];
-	//	else [insertionArray addObjectsFromArray:objects];
-	//
 	[triggerArrayController rearrangeObjects];
 	[triggerTreeController rearrangeObjects];
-	//
-	//
+	
 	[triggerTable reloadData];
 	[[QSTriggerCenter sharedInstance] triggerChanged:nil];
-	//
-	//
-	//	//[treeController setSelectionIndexPath:indexPath];
-	//
-	//	[self selectEntry:[objects lastObject]];
-	//if (shouldShowOptions) {
-	//		[self showOptionsDrawer];
-	//	}
-	//
-	//	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogStructureChanged object:nil];
+	
 	return YES;
 }
 

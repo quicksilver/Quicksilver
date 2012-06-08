@@ -106,7 +106,7 @@ typedef enum QSSearchMode {
 - (void)setMatchedString:(NSString *)newMatchedString;
 
 - (IBAction)toggleResultView:sender;
-- (void)selectIndex:(NSUInteger)index;
+- (void)selectIndex:(NSInteger)index;
 - (void)selectObject:(QSBasicObject *)obj;
 - (void)resetString;
 - (IBAction)defineMnemonic:(id)sender;
