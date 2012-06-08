@@ -430,23 +430,18 @@ NSMutableDictionary *bindingsDict = nil;
 	[savePanel setNameFieldLabel:@"Create Item:"];
 	[savePanel setCanCreateDirectories:YES];
 	NSString *oldFile = [[self objectValue] singleFilePath];
-    
-	//if (![openPanel runModalForDirectory:oldFile file:nil types:nil]) return;
-	// beginSheetForDirectory:file:types:modalForWindow:modalDelegate:didEndSelector:contextInfo:
+  
 	id QSIC = [[NSApp delegate] interfaceController];
 	[QSIC setHiding:YES];
-    
-	[savePanel beginSheetForDirectory:oldFile
-								 file:nil
-                       modalForWindow:[self window]
-						modalDelegate:self
-                       didEndSelector:@selector(savePanelDidEnd:returnCode:contextInfo:)
-                          contextInfo:sender];
-	[QSIC setHiding:NO];
-}
+    [savePanel setDirectoryURL:[NSURL fileURLWithPath:oldFile]];
+	[savePanel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result)
+     {
+         if (result == NSFileHandlingPanelOKButton) {
+             [self setObjectValue:[QSObject fileObjectWithFileURL:[savePanel URL]]];
 
-- (void)savePanelDidEnd:(NSOpenPanel *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-	[self setObjectValue:[QSObject fileObjectWithPath:[sheet filename]]];
+         }
+     }];
+	[QSIC setHiding:NO];
 }
 
 - (IBAction)openFile:(id)sender {
@@ -461,23 +456,16 @@ NSMutableDictionary *bindingsDict = nil;
 	}
 	NSString *oldFile = [[self objectValue] singleFilePath];
     
-	//if (![openPanel runModalForDirectory:oldFile file:nil types:nil]) return;
-	// beginSheetForDirectory:file:types:modalForWindow:modalDelegate:didEndSelector:contextInfo:
-    
 	id QSIC = [[NSApp delegate] interfaceController];
 	[QSIC setHiding:YES];
-	[openPanel beginSheetForDirectory:oldFile
-								 file:nil
-								types:nil
-                       modalForWindow:[self window]
-						modalDelegate:self
-                       didEndSelector:@selector(openPanelDidEnd:returnCode:contextInfo:)
-                          contextInfo:sender];
+    [openPanel setDirectoryURL:[NSURL fileURLWithPath:oldFile]];
+	[openPanel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result)
+     {
+         if (result == NSFileHandlingPanelOKButton) {
+             [self setObjectValue:[QSObject fileObjectWithFileURL:[openPanel URL]]];
+         }
+     }];
 	[QSIC setHiding:NO];
-}
-
-- (void)openPanelDidEnd:(NSOpenPanel *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-	[self setObjectValue:[QSObject fileObjectWithPath:[sheet filename]]];
 }
 
 #pragma mark -

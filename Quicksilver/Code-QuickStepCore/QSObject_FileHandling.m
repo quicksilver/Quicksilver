@@ -653,6 +653,10 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	return newObject;
 }
 
++ (QSObject *)fileObjectWithFileURL:(NSURL *)fileURL {
+    return [self fileObjectWithPath:[fileURL path]];
+}
+
 + (QSObject *)fileObjectWithArray:(NSArray *)paths {
 	QSObject *newObject = [QSObject objectByMergingObjects:[self fileObjectsWithPathArray:paths]];
 	if (!newObject) {

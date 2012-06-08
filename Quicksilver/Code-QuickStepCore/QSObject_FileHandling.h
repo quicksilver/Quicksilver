@@ -33,6 +33,7 @@
 
 @interface QSObject (QSObjectFileHandling)
 + (QSObject *)fileObjectWithPath:(NSString *)path;
++ (QSObject *)fileObjectWithFileURL:(NSURL *)fileURL;
 + (QSObject *)fileObjectWithArray:(NSArray *)paths;
 + (NSArray *)fileObjectsWithPathArray:(NSArray *)pathArray;
 + (NSMutableArray *)fileObjectsWithURLArray:(NSArray *)pathArray;

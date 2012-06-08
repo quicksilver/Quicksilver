@@ -184,7 +184,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 		self = [self initWithScriptID:theScriptID componentInstance:aComponentInstance];
 		if( aLoadedFrom ) *aLoadedFrom = LoadedFromResourceFork;
 	}
-	else if( (theScriptID = [[self class] compileString:[NSString stringWithContentsOfFile:aPath] scriptID:kOSANullScript componentInstance:aComponentInstance]) != kOSANullScript )
+	else if( (theScriptID = [[self class] compileString:[NSString stringWithContentsOfFile:aPath usedEncoding:nil error:nil] scriptID:kOSANullScript componentInstance:aComponentInstance]) != kOSANullScript )
 	{
 		self = [self initWithScriptID:theScriptID componentInstance:aComponentInstance];
 		if( aLoadedFrom ) *aLoadedFrom = LoadedFromTextFile;
@@ -225,7 +225,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 		self = [self initWithScriptID:theScriptID componentInstance:aComponentInstance];
 		if( aLoadedFrom ) *aLoadedFrom = LoadedFromResourceFork;
 	}
-	else if( (theScriptID = [[self class] compileString:[NSString stringWithContentsOfURL:anURL] scriptID:kOSANullScript componentInstance:aComponentInstance]) != kOSANullScript )
+	else if( (theScriptID = [[self class] compileString:[NSString stringWithContentsOfURL:anURL usedEncoding:nil error:nil] scriptID:kOSANullScript componentInstance:aComponentInstance]) != kOSANullScript )
 	{
 		self = [self initWithScriptID:theScriptID componentInstance:aComponentInstance];
 		if( aLoadedFrom ) *aLoadedFrom = LoadedFromTextFile;
@@ -914,7 +914,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 - (BOOL)setEventClass:(AEEventClass)anEventClass eventID:(AEEventID)anEventID toScriptHandler:(NDScriptHandler *)aScriptHandler
 {
 	OSType		theString[3] = { anEventClass, anEventID, 0 };
-	return [self setSubroutineNamed:[NSString stringWithCString:(char*)theString] toScriptHandler:aScriptHandler];
+	return [self setSubroutineNamed:[NSString stringWithCString:(char*)theString encoding:NSUTF8StringEncoding] toScriptHandler:aScriptHandler];
 }
 
 /*
@@ -946,7 +946,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 - (BOOL)replaceEventClass:(AEEventClass)anEventClass eventID:(AEEventID)anEventID withScriptHandler:(NDScriptHandler *)aScriptHandler
 {
 	OSType		theString[3] = { anEventClass, anEventID, 0 };
-	return [self replaceSubroutineNamed:[NSString stringWithCString:(char*)theString] withScriptHandler:aScriptHandler];
+	return [self replaceSubroutineNamed:[NSString stringWithCString:(char*)theString encoding:NSUTF8StringEncoding] withScriptHandler:aScriptHandler];
 }
 
 /*

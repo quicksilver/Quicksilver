@@ -288,12 +288,12 @@ static id _sharedInstance;
 	NSSavePanel *savePanel = [NSSavePanel savePanel];
 	[savePanel setNameFieldLabel:@"Save Catalog:"];
 	[savePanel setCanCreateDirectories:YES];
-	[savePanel setRequiredFileType:@"qscatalogentry"];
+	[savePanel setAllowedFileTypes:[NSArray arrayWithObject:@"qscatalogentry"]];
 	[savePanel runModal];
-	if ([savePanel filename]){
+	if ([savePanel URL]){
 		NSMutableDictionary *item = [currentItem mutableCopy];
 		[item removeObjectForKey:kItemID];
-		[[NSArray arrayWithObject:item] writeToFile:[savePanel filename] atomically:NO];
+		[[NSArray arrayWithObject:item] writeToURL:[savePanel URL] atomically:NO];
 		[item release];
 	}
 }

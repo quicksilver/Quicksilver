@@ -12,12 +12,9 @@
 
 void QSForcePaste() {
 
-	CGInhibitLocalEvents(YES);
-	CGEnableEventStateCombining(NO);
-
-	CGSetLocalEventsFilterDuringSupressionState(kCGEventFilterMaskPermitAllEvents, kCGEventSupressionStateSupressionInterval);
 
 	CGEventSourceRef source = CGEventSourceCreate(kCGEventSourceStateCombinedSessionState);
+    CGEventSourceSetLocalEventsFilterDuringSuppressionState(source, kCGEventFilterMaskPermitLocalMouseEvents | kCGEventFilterMaskPermitSystemDefinedEvents,kCGEventSuppressionStateSuppressionInterval);
 	CGEventRef pasteCommandDown = CGEventCreateKeyboardEvent(source, (CGKeyCode)9, YES);
 	CGEventSetFlags(pasteCommandDown, kCGEventFlagMaskCommand);
 	CGEventRef pasteCommandUp = CGEventCreateKeyboardEvent(source, (CGKeyCode)9, NO);
@@ -28,10 +25,8 @@ void QSForcePaste() {
 	CFRelease(pasteCommandUp);
 	CFRelease(pasteCommandDown);
 	CFRelease(source);
-
-	CGEnableEventStateCombining(YES);
-	CGInhibitLocalEvents(NO);
 }
+
 
 @implementation NSPasteboard (Clippings)
 + (NSPasteboard *)pasteboardByFilteringClipping:(NSString *)path { // Not thread safe?

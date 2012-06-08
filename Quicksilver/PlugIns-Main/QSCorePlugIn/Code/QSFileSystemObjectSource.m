@@ -365,10 +365,19 @@
 	NSOpenPanel *openPanel = [NSOpenPanel openPanel];
 	NSString *oldFile = [[itemLocationField stringValue] stringByStandardizingPath];
 	[openPanel setCanChooseDirectories:YES];
-	if (![openPanel runModalForDirectory:[oldFile stringByDeletingLastPathComponent] file:[oldFile lastPathComponent] types:nil]) return NO;
-	[itemLocationField setStringValue:[[openPanel filename] stringByAbbreviatingWithTildeInPath]];
+    [openPanel setDirectoryURL:[NSURL fileURLWithPath:[oldFile stringByDeletingLastPathComponent]]];
+
+    // open the choose file dialog box
+	NSInteger result = [openPanel runModal];
+    
+    // user clicked cancel
+    if (result == NSFileHandlingPanelCancelButton) {
+        return NO;
+    }
+    
+	[itemLocationField setStringValue:[[[openPanel URL] path] stringByAbbreviatingWithTildeInPath]];
 	[self setValueForSender:itemLocationField];
-	[[self selection] setName:[[openPanel filename] lastPathComponent]];
+	[[self selection] setName:[[openPanel URL] lastPathComponent]];
 	[currentEntry setObject:[NSNumber numberWithDouble:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChanged object:[self currentEntry]];
 	return YES;

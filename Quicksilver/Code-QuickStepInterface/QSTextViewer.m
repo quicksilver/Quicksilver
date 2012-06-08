@@ -16,7 +16,7 @@ QSTextViewer * QSShowTextViewerWithString(NSString *string) {
 }
 
 QSTextViewer * QSShowTextViewerWithFile(NSString *path) {
-	NSString *string = [NSString stringWithContentsOfFile:path];
+	NSString *string = [NSString stringWithContentsOfFile:path usedEncoding:nil error:nil];
 	QSTextViewer *tv = [[QSTextViewer alloc] initWithWindow:nil];
 	[tv setString:string];
 	return [tv autorelease];

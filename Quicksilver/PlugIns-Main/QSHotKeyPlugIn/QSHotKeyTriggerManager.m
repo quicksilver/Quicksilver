@@ -15,7 +15,15 @@
 
 @implementation QSHotKeyTriggerManager
 
-+ (void)initialize { [self setKeys:[NSArray arrayWithObject:@"currentTrigger"] triggerChangeNotificationsForDependentKey:@"hotKey"];  }
+// KVO
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+    NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
+    
+    if ([key isEqualToString:@"hotKey"]) {
+        keyPaths = [keyPaths setByAddingObject:@"currentTrigger"];
+    }
+    return keyPaths;
+}
 
 - (void)awakeFromNib { [self addObserver:self forKeyPath:@"currentTrigger" options:0 context:nil];  }
 

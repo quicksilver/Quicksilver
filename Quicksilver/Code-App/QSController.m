@@ -690,8 +690,8 @@ static QSController *defaultController = nil;
 					[openPanel setCanChooseFiles:NO];
 					[openPanel setPrompt:NSLocalizedString(@"Install Here",nil)];
 					[openPanel setTitle:NSLocalizedString(@"Install Quicksilver",nil)];
-					if (NSFileHandlingPanelOKButton == [openPanel runModalForDirectory:[NSHomeDirectory() stringByAppendingPathComponent:@"Applications"] file:nil]) {
-						installPath = [openPanel filename];
+					if (NSFileHandlingPanelOKButton == [openPanel runModal]) {
+						installPath = [[openPanel URL] path];
 					}
 				}
 				if (installPath) {

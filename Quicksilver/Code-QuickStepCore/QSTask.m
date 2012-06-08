@@ -23,9 +23,14 @@ static NSMutableDictionary *tasksDictionary = nil;
 	tasksDictionary = [[NSMutableDictionary alloc] init];
 }
 
-+ (void)initialize {
-	[self setKeys:[NSArray arrayWithObject:@"progress"] triggerChangeNotificationsForDependentKey:@"indeterminateProgress"];
-	[self setKeys:[NSArray arrayWithObject:@"progress"] triggerChangeNotificationsForDependentKey:@"animateProgress"];
+// KVO
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+    NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
+
+    if ([key isEqualToString:@"indeterminateProgress"] || [key isEqualToString:@"animateProgress"]) {
+        keyPaths = [keyPaths setByAddingObject:@"progress"];
+    }
+    return keyPaths;
 }
 
 + (QSTask *)taskWithIdentifier:(NSString *)identifier {

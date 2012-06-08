@@ -46,7 +46,6 @@ static NSMutableDictionary *hotKeyDictionary;
 	CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyEnable);
 }
 
-
 - (NSString *)identifier {
 	NSArray *array = [hotKeyDictionary allKeysForObject:self];
 	if ([array count]) return [array lastObject];

@@ -23,7 +23,7 @@ NSString *QSGetShebangPathForScript(NSString *path) {
 }
 NSArray *QSGetShebangArgsForScript(NSString *path) {
 	NSString *taskArgs = nil;
-	NSScanner *scanner = [NSScanner scannerWithString:[NSString stringWithContentsOfFile:path]];
+	NSScanner *scanner = [NSScanner scannerWithString:[NSString stringWithContentsOfFile:path usedEncoding:nil error:nil]];
 	[scanner scanString:@"#!" intoString:nil];
 	[scanner scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"\r\n"] intoString:&taskArgs];
 	return [taskArgs componentsSeparatedByString:@" "];
@@ -35,7 +35,7 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
 		return NO;
 	BOOL executable = [[NSFileManager defaultManager] isExecutableFileAtPath:path];
 	if (!executable) {
-		if ([[NSString stringWithContentsOfFile:path] hasPrefix:@"#!"]) executable = YES;
+		if ([[NSString stringWithContentsOfFile:path usedEncoding:nil error:nil] hasPrefix:@"#!"]) executable = YES;
 #ifdef DEBUG
 		else if (VERBOSE) NSLog(@"No Shebang found");
 #endif
@@ -51,7 +51,7 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
 @implementation QSShellScriptRunAction
 - (QSAction *)scriptActionForPath:(NSString *)path {
 
-	NSString *script = [NSString stringWithContentsOfFile:path];
+	NSString *script = [NSString stringWithContentsOfFile:path usedEncoding:nil error:nil];
 
 	NSMutableDictionary *scriptDict = [NSMutableDictionary dictionary];
 	for(NSString * component in [script componentsSeparatedByString: @"%%%"]) {

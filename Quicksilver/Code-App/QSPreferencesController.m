@@ -38,8 +38,14 @@ id QSPrefs;
 	return QSPrefs;
 }
 
-+ (void)initialize {
-	[self setKeys:[NSArray arrayWithObject:@"currentItem"] triggerChangeNotificationsForDependentKey:@"selectedCatalogEntryIsEditable"];
+// KVO
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+    NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
+
+    if ([key isEqualToString:@"selectedCatalogEntryIsEditable"]) {
+        keyPaths = [keyPaths setByAddingObject:@"currentItem"];
+    }
+    return keyPaths;
 }
 
 + (void)showPrefs {

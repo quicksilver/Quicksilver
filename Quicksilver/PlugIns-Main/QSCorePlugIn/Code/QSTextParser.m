@@ -47,11 +47,11 @@
 	return [self linesFromString:(NSString *)string atPath:(NSString *)path lineType:nil];
 }
 - (NSArray *)objectsFromPath:(NSString *)path withSettings:(NSDictionary *)settings {
-	NSString *string = [NSString stringWithContentsOfFile: [path stringByStandardizingPath]];
+	NSString *string = [NSString stringWithContentsOfFile: [path stringByStandardizingPath] usedEncoding:nil error:nil];
 	return [self linesFromString:string atPath:path lineType:[settings objectForKey:@"lineContentType"]];
 }
 - (NSArray *)objectsFromURL:(NSURL *)url withSettings:(NSDictionary *)settings {
-	NSString *string = [NSString stringWithContentsOfURL:url];
+	NSString *string = [NSString stringWithContentsOfURL:url usedEncoding:nil error:nil];
 	return [self linesFromString:string atPath:nil lineType:[settings objectForKey:@"lineContentType"]];
 }
 @end

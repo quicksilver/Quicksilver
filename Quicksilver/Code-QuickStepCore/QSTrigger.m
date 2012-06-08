@@ -15,9 +15,17 @@
 #import "QSRegistry.h"
 
 @implementation QSTrigger
-+ (void)initialize {
-	[self setKeys:[NSArray arrayWithObject:@"command"] triggerChangeNotificationsForDependentKey:@"name"];
-	[self setKeys:[NSArray arrayWithObjects:@"name", @"icon", nil] triggerChangeNotificationsForDependentKey:@"imageAndText"];
+
+// KVO
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+    NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
+
+    if ([key isEqualToString:@"name"]) {
+        keyPaths = [keyPaths setByAddingObject:@"command"];
+    } else if ([key isEqualToString:@"imageAndText"]) {
+        keyPaths = [keyPaths setByAddingObjectsFromSet:[NSSet setWithObjects:@"name",@"icon",nil]];
+    }
+    return keyPaths;
 }
 
 + (id)triggerWithInfo:(NSDictionary *)dict {

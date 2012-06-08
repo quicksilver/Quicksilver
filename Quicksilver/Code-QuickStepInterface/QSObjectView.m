@@ -52,7 +52,7 @@
 
 - (void)awakeFromNib {
 ////	[self viewDidMoveToWindow];
-	[self registerForDraggedTypes:[NSArray arrayWithObjects:NSURLPboardType, NSColorPboardType, NSFileContentsPboardType, NSFilenamesPboardType, NSFontPboardType, NSHTMLPboardType, NSPDFPboardType, NSPICTPboardType, NSPostScriptPboardType, NSRulerPboardType, NSRTFPboardType, NSRTFDPboardType, NSStringPboardType, NSTabularTextPboardType, NSTIFFPboardType, NSURLPboardType, NSVCardPboardType, NSFilesPromisePboardType, nil]];
+	[self registerForDraggedTypes:[NSArray arrayWithObjects:NSURLPboardType, NSColorPboardType, NSFileContentsPboardType, NSFilenamesPboardType, NSFontPboardType, NSHTMLPboardType, NSPDFPboardType, NSPostScriptPboardType, NSRulerPboardType, NSRTFPboardType, NSRTFDPboardType, NSStringPboardType, NSTabularTextPboardType, NSTIFFPboardType, NSURLPboardType, NSVCardPboardType, NSFilesPromisePboardType, nil]];
 	// [self setToolTip:@"No Selection"];
 	draggedObject = nil;
 	[self setDropMode:QSFullDropMode];

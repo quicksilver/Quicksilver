@@ -35,11 +35,19 @@ NSDictionary *enabledPresetDictionary;*/
 
 + (QSCatalogEntry *)entriesWithArray:(NSArray *)array { return nil; }
 
-+ (void)initialize {
-	[self setKeys:[NSArray arrayWithObject:@"contents"] triggerChangeNotificationsForDependentKey:@"deepObjectCount"];
-	[self setKeys:[NSArray arrayWithObject:@"enabled"] triggerChangeNotificationsForDependentKey:@"deepObjectCount"];
-	[self setKeys:[NSArray arrayWithObject:@"selection"] triggerChangeNotificationsForDependentKey:@"currentEntry"];
-	[self setKeys:[NSArray arrayWithObject:@"count"] triggerChangeNotificationsForDependentKey:@"self"];
+// KVO
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+    NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
+    
+    if ([key isEqualToString:@"deepObjectCount"]) {
+        NSSet *affectingKeys = [NSSet setWithObjects:@"contents", @"enabled",nil];
+        keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKeys];
+    } else if ([key isEqualToString:@"currentEntry"]) {
+        keyPaths = [keyPaths setByAddingObject:@"selection"];
+    } else if ([key isEqualToString:@"self"] ) {
+        keyPaths = [keyPaths setByAddingObject:@"count"];
+    }
+    return keyPaths;
 }
 
 + (QSCatalogEntry *)entryWithDictionary:(NSDictionary *)dict {
