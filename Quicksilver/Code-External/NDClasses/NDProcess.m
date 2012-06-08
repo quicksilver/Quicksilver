@@ -186,8 +186,8 @@ NSString		* kBundleExecutableKey = @"CFBundleExecutable";
 		theOSType = [self type];
 		theSignature = [self signature];
 
-		theOSTypeString = (theOSType) ? [NSString stringWithCString:(char*)&theOSType length:4] : @"NULL";
-		theSignatureString = (theSignature) ? [NSString stringWithCString:(char*)&theSignature length:4] : @"NULL";
+		theOSTypeString = (theOSType) ? [NSString stringWithUTF8String:(char*)&theOSType] : @"NULL";
+		theSignatureString = (theSignature) ? [NSString stringWithUTF8String:(char*)&theSignature] : @"NULL";
 
 		theLaunchTime = [self launchTime];
 		return [NSString stringWithFormat:@"name:\"%@\", procces ID: %i, time:[%ih %im %.1fs], type:'%@', signature:'%@'", [self name], [self processID], (int)theLaunchTime/3600,((int)theLaunchTime/60)%60,fmod(theLaunchTime, 60.0), theOSTypeString, theSignatureString];
@@ -587,14 +587,14 @@ NSString		* kBundleExecutableKey = @"CFBundleExecutable";
 #endif
 		else
 		{
-			unsigned char			theProcessName[32];
+			NSString *theProcessName;
 		
 			infoRec.processInfoLength = 0;			// set to zero to force retireve process info
 			infoRec.processName = theProcessName;
 		
 			if( [self fillProcessInfoRec] && infoRec.processName != NULL )
 			{
-				name = [[NSString alloc] initWithCString:(const char *)(theProcessName + 1) length:*theProcessName];
+				name = theProcessName;
 				infoRec.processName = NULL;		// not valid after this method call
 			}
 		}

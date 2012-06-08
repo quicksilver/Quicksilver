@@ -9,9 +9,17 @@
 #import "QSCatalogEntry.h"
 
 @implementation QSObjectSource
-+ (void)initialize {
-	[self setKeys:[NSArray arrayWithObject:@"selection"] triggerChangeNotificationsForDependentKey:@"currentEntry"];
+
+// KVO
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+    NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
+
+    if ([key isEqualToString:@"currentEntry"]) {
+        keyPaths = [keyPaths setByAddingObject:@"selection"];
+    }
+    return keyPaths;
 }
+
 - (NSImage *)iconForEntry:(NSDictionary *)theEntry {return nil;}
 - (NSString *)nameForEntry:(NSDictionary *)theEntry {return nil;}
 - (NSArray *)objectsForEntry:(NSDictionary *)theEntry {return nil;}

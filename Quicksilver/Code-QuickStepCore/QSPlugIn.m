@@ -27,7 +27,15 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 + (void)initialize {
 	plugInBundlePaths = [[NSMutableDictionary alloc] init];
-	[self setKeys:[NSArray arrayWithObject:@"bundle"] triggerChangeNotificationsForDependentKey:@"smallIcon"];
+}
+
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+    NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
+
+    if ([key isEqualToString:@"smallIcon"]) {
+        keyPaths = [keyPaths setByAddingObject:@"bundle"];
+    }
+    return keyPaths;
 }
 
 - (NSString *)description {return [NSString stringWithFormat:@"<%@ %p>", [self name], self];}
