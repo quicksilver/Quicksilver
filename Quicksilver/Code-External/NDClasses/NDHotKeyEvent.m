@@ -528,7 +528,7 @@ NDHotKeyEvent		* hotKeyEvent;
  */
 - (BOOL)setTarget:(id)aTarget selector:(SEL)aSelector
 {
-	return [self setTarget:aTarget selectorReleased:aSelector selectorPressed:(SEL)0];
+	return [self setTarget:aTarget selectorReleased:(SEL)0 selectorPressed:aSelector];
 }
 
 /*

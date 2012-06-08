@@ -11,7 +11,7 @@
 
 @implementation NSData (RangeExtensions)
 // This function is a modification of OmniFoundation's - (BOOL)containsData:(NSData *)data; to return an offset
-- (NSUInteger)offsetOfData:(NSData *)data; {
+- (NSUInteger)offsetOfData:(NSData *)data {
 	unsigned const char *selfPtr, *selfEnd, *selfRestart, *ptr, *ptrRestart, *end;
 	NSUInteger myLength, otherLength;
 

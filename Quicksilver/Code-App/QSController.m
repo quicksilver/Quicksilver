@@ -633,7 +633,7 @@ static QSController *defaultController = nil;
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
 	NSString *lastVersionString = [defaults objectForKey:kLastUsedVersion];
-	NSInteger lastVersion = [lastVersionString respondsToSelector:@selector(hexIntValue)] ? [lastVersionString hexIntValue] : 0;
+	NSUInteger lastVersion = [lastVersionString respondsToSelector:@selector(hexIntValue)] ? [lastVersionString hexIntValue] : 0;
 	switch (status) {
 		case QSApplicationUpgradedLaunch: {
 /** Turn off "running from a new location" and "you are using a new version of QS" popups for DEBUG builds **/

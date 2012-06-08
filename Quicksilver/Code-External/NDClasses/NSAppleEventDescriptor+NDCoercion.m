@@ -644,7 +644,7 @@ static NSScriptObjectSpecifier * objectSpecifierForAppleEventDescriptor( NSApple
 + (NSAppleEventDescriptor *)descriptorWithScriptObjectSpecifier:(NSScriptObjectSpecifier *)anObjectSpecifier
 {
 	NSAppleEventDescriptor		* theDescriptor = nil;
-	AEDesc							theDesc = {0};
+	AEDesc							theDesc = {0, NULL};
 	if( aeDescForObjectSpecifier( &theDesc, anObjectSpecifier ) )
 	{
 		theDescriptor = [NSAppleEventDescriptor descriptorWithAEDescNoCopy:&theDesc];

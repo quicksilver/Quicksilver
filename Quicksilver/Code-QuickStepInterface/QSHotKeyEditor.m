@@ -158,7 +158,7 @@
 	[[self window] makeFirstResponder:nil];
 }
 - (void)keyDown:(NSEvent *)theEvent { [self setDictionaryStringWithEvent:theEvent]; }
-- (BOOL)performKeyEquivalent:(id)theEvent; {
+- (BOOL)performKeyEquivalent:(id)theEvent {
 	[self setDictionaryStringWithEvent:theEvent];
 	return YES;
 }

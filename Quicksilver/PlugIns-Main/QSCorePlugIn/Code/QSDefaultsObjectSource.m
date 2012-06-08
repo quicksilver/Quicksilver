@@ -84,11 +84,11 @@
 	return array;
 }
 
-- (void)addObjectsForKeyList:(NSArray *)keyList keyNumber:(NSInteger)index ofType:(NSInteger)type inObject:(id)thisObject toArray:(NSMutableArray *)array {
+- (void)addObjectsForKeyList:(NSArray *)keyList keyNumber:(NSUInteger)index ofType:(NSInteger)type inObject:(id)thisObject toArray:(NSMutableArray *)array {
   if ([keyList count] > index) {
     NSString *thisKey = [keyList objectAtIndex:index];
     if ([thisKey isEqualToString:@"*"] && [thisObject isKindOfClass:[NSArray class]]) {
-      NSInteger i;
+      NSUInteger i;
       for (i = 0 ; i<[(NSArray *)thisObject count]; i++) {
         [self addObjectsForKeyList:keyList keyNumber:index+1 ofType:type inObject:[thisObject objectAtIndex:i] toArray:array];
       }

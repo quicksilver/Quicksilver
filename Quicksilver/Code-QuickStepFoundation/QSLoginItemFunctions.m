@@ -35,7 +35,7 @@ void QSSetItemShouldLaunchAtLogin(NSString *path, BOOL launch, BOOL includeAlias
 		NSLog(@"Enabling Launch at login: %@", path);
 		[loginItems addObject:[NSDictionary dictionaryWithObjectsAndKeys:path, @"Path", [NSNumber numberWithBool:NO] , @"Hide", includeAlias?[[NDAlias aliasWithPath:path] data] :nil, @"AliasData", nil]];
 	} else if (!launch) {
-		NSInteger i;
+		NSUInteger i;
 		for (i = 0; i<[loginItems count]; i++)
 			if ([[[[loginItems objectAtIndex:i] objectForKey:@"Path"] stringByStandardizingPath] isEqualToString:path]) break;
 		if (i<[loginItems count])

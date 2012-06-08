@@ -10,6 +10,6 @@
 
 
 @interface NSCursor (InformExtensions)
-+ informativeCursorWithString:(NSString *)string;
++(NSCursor *)informativeCursorWithString:(NSString *)string;
 
 @end

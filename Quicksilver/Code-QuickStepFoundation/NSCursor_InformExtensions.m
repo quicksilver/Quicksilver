@@ -13,7 +13,7 @@
 
 
 @implementation NSCursor (InformExtensions)
-+ informativeCursorWithString:(NSString *)string {
++(NSCursor *) informativeCursorWithString:(NSString *)string {
 	if (![string length]) return [self arrowCursor];
 	NSSize size = [string sizeWithAttributes:informAttributes];
 	NSImage *arrowImage = [[self arrowCursor] image];

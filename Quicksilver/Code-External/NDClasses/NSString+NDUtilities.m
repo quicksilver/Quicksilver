@@ -263,7 +263,7 @@
 	return theRange;
 }
 
-+ (NSString *)stringFromDictionary:(NSDictionary *)aDictionary withFormat:(NSString *)aFormat, ...;
++ (NSString *)stringFromDictionary:(NSDictionary *)aDictionary withFormat:(NSString *)aFormat, ...
 {
 	NSString		*theResult = nil;
 	va_list			theArgument;
@@ -273,7 +273,7 @@
 	return theResult;
 }
 
-+ (NSString *)stringFromDictionary:(NSDictionary *)aDictionary withFormat:(NSString *)aFormat arguments:(va_list)anArguments;
++ (NSString *)stringFromDictionary:(NSDictionary *)aDictionary withFormat:(NSString *)aFormat arguments:(va_list)anArguments
 {
 	NSMutableString		* theResult = nil;
 	NSScanner			* theScanner = [NSScanner scannerWithString:aFormat];

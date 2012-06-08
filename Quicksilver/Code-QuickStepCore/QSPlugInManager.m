@@ -514,7 +514,7 @@
 
 	return allBundles;
 }
-- (BOOL)plugInMeetsRequirements:(QSPlugIn *)plugIn; {
+- (BOOL)plugInMeetsRequirements:(QSPlugIn *)plugIn {
 	NSString *error;
 	if (![plugIn meetsRequirements:&error]) {
 		if (error) [plugIn setLoadError:error];
@@ -534,7 +534,7 @@
  * @note The dependency will be registered in dependingPlugIns, in case the
  * missing plugin ever loads.
  */
-- (BOOL)plugInMeetsDependencies:(QSPlugIn *)plugIn; {
+- (BOOL)plugInMeetsDependencies:(QSPlugIn *)plugIn {
 	NSArray *unmet = [plugIn unmetDependencies];
 
 	if ([unmet count]) {
@@ -553,7 +553,7 @@
 }
 
 /** Check if a plugin is the most recent one in a list of bundles */
-- (BOOL)plugInIsMostRecent:(QSPlugIn *)plugIn inGroup:(NSDictionary *)loadingBundles; {
+- (BOOL)plugInIsMostRecent:(QSPlugIn *)plugIn inGroup:(NSDictionary *)loadingBundles {
 	//	if (![bundle isKindOfClass:[NSBundle class]]) return NO;
     
 	NSString *ident = [plugIn bundleIdentifier];

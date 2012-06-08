@@ -436,7 +436,7 @@
 	if ([[tableColumn identifier] isEqualToString:@"rank"]) {
 		NSArray *currentActions = [actionController arrangedObjects];
 		NSInteger newRow = [object integerValue] -1;
-		if (row != newRow && row >= 0 && row < [currentActions count] && newRow >= 0 && newRow<[currentActions count]) {
+		if (row != newRow && row >= 0 && row < (NSInteger)[currentActions count] && newRow >= 0 && (NSUInteger)newRow<[currentActions count]) {
 			[QSExec orderActions:[NSArray arrayWithObject:[currentActions objectAtIndex:row]] aboveActions:[NSArray arrayWithObject:[currentActions objectAtIndex:newRow]]];
 		}
 		[actionController rearrangeObjects];
@@ -452,7 +452,7 @@
 	NSArray *draggedActions = [[actionController arrangedObjects] objectsAtIndexes:indexes];
     
 	BOOL ascending = [[[view sortDescriptors] objectAtIndex:0] ascending];
-	if ((ascending ? [indexes lastIndex] > row : [indexes lastIndex] < row))
+	if ((ascending ? [indexes lastIndex] > (NSUInteger)row : [indexes lastIndex] < (NSUInteger)row))
 		// An upward or mixed drag (promotion for the most part)
 		[QSExec orderActions:draggedActions aboveActions:[NSArray arrayWithObject:[currentActions objectAtIndex:ascending?row:row-1]]];
 	else // A downward drag (demotion)

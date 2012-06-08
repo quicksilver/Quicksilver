@@ -391,10 +391,11 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 }
 - (NSInteger)defaultDragOperationForMovingPaths:(NSArray *)sources toDestination:(NSString *)destination {
 	NSDictionary *dAttr = [self attributesOfItemAtPath:destination error:NULL];
-	NSInteger i;
-	for (i = 0; i<[sources count]; i++) {
-		if ([[sources objectAtIndex:0] isEqualToString:destination])
+    
+	for (NSString *aString in sources) {
+		if ([aString isEqualToString:destination]) {
 			return NSDragOperationNone;
+        }
 		NSDictionary *sAttr = [self attributesOfItemAtPath:[sources objectAtIndex:0] error:NULL];
 		if (![[sAttr objectForKey:NSFileSystemNumber] isEqualTo:[dAttr objectForKey:NSFileSystemNumber]])
 			return NSDragOperationCopy;

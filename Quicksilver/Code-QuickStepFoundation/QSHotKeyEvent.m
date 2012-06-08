@@ -82,8 +82,4 @@ static NSMutableDictionary *hotKeyDictionary;
     
 }
 
-- (BOOL)setTarget:(id)aTarget selector:(SEL)aSelector {
-    return [self setTarget:aTarget selectorReleased:(SEL)0 selectorPressed:aSelector];
-}
-
 @end

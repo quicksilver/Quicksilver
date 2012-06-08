@@ -592,7 +592,7 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-	if (tableView == resultTable && [[self currentResults] count] >row) {
+	if (tableView == resultTable && [[self currentResults] count] > (NSUInteger)row) {
 		QSObject *thisObject = [[self currentResults] objectAtIndex:row];
 
 		if ([[tableColumn identifier] isEqualToString:COLUMNID_TYPE]) {

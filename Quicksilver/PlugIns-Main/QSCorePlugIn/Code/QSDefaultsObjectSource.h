@@ -18,7 +18,7 @@ typedef enum QSDefaultsType {
 	IBOutlet NSTextField *keyField;
 	IBOutlet NSPopUpButton *entryTypePopUp;
 }
-- (void)addObjectsForKeyList:(NSArray *)keyList keyNumber:(NSInteger)index ofType:(NSInteger)type inObject:(id)thisObject toArray:(NSMutableArray *)array;
+- (void)addObjectsForKeyList:(NSArray *)keyList keyNumber:(NSUInteger)index ofType:(NSInteger)type inObject:(id)thisObject toArray:(NSMutableArray *)array;
 
 - (IBAction)setValueForSender:(id)sender;
 - (NSString *)prefFileForBundle:(NSString *)bundleID;

@@ -37,7 +37,7 @@ void QSForcePaste() {
 	NSData *dragData = [resource dataForType:'drag' Id:128];
 
 	NSMutableDictionary *typesDictionary = [NSMutableDictionary dictionaryWithCapacity:1];
-	NSInteger i;
+	NSUInteger i;
 	ResType type;
 	unsigned long resID;
 	NSData *resData;

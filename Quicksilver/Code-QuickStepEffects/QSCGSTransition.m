@@ -10,10 +10,10 @@
 #import <unistd.h>
 
 @implementation QSCGSTransition
-+ (id)transitionWithType:(CGSTransitionType)type option:(CGSTransitionOption)option duration:(CGFloat)duration; {
++ (id)transitionWithType:(CGSTransitionType)type option:(CGSTransitionOption)option duration:(CGFloat)duration {
 	return [[[self alloc] initWithType:(CGSTransitionType) type option:(CGSTransitionOption)option] autorelease];
 }
-+ (id)transitionWithWindow:(NSWindow *)window type:(CGSTransitionType)type option:(CGSTransitionOption)option duration:(CGFloat)duration; {
++ (id)transitionWithWindow:(NSWindow *)window type:(CGSTransitionType)type option:(CGSTransitionOption)option duration:(CGFloat)duration {
 	id transition = [[self alloc] initWithType:(CGSTransitionType)type option:(CGSTransitionOption)option];
 	[transition attachToWindow:window];
 	return [transition autorelease];

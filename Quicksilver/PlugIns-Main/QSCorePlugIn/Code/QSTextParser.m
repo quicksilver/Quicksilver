@@ -23,10 +23,8 @@
 	QSObject *newObject;
 	string = [string stringByReplacing:@"\n" with:@"\r"];
 	NSArray *lines = [string componentsSeparatedByString:@"\r"];
-	NSString *line;
-    NSInteger i;
-	for (i = 0; i<[lines count]; i++) {
-		line = [lines objectAtIndex:i];
+    NSInteger i = 0;
+	for (id line in lines) {
 		if (lineType)
 			newObject = [QSObject objectWithType:lineType value:line name:line];
 		else
@@ -35,11 +33,13 @@
 		[newObject setDetails:nil];
 
 		if (path) {
-			[newObject setObject:[NSDictionary dictionaryWithObjectsAndKeys:path, @"path", [NSNumber numberWithInteger:i+1] , @"line", nil]
+			[newObject setObject:[NSDictionary dictionaryWithObjectsAndKeys:path, @"path", [NSNumber numberWithUnsignedInteger:i+1] , @"line", nil]
 						 forType:@"QSLineReferenceType"];
 		}
-		if (newObject)
+		if (newObject) {
 			[array addObject:newObject];
+        }
+        i = i+1;
 	}
 				return array;
 }

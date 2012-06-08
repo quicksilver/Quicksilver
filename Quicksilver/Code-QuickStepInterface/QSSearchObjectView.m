@@ -615,23 +615,10 @@ NSMutableDictionary *bindingsDict = nil;
 	[childStack removeAllObjects];
 }
 
-//
-//- (IBAction)getFinderSelection:sender {
-//	if (!allowNonActions) return;
-//	QSObject *entry = [QSObject fileObjectWithArray:[[QSReg getMediator:kQSFSBrowserMediators] selection]];
-//	// [entry loadIcon];
-//	[self setSearchString:nil];
-//	[self setObjectValue:entry];
-//}
-
-- (void)rowClicked:(NSInteger)index {
-    
-}
-
-- (void)selectIndex:(NSInteger)index {
+- (void)selectIndex:(NSUInteger)index {
 	// NSLog(@"selectindex %d %d", self, index);
     
-	if (index<0)
+	if (index == 0)
 		selection = 0;
 	else if (index >= [resultArray count])
 		selection = [resultArray count] -1;
@@ -653,7 +640,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)selectObject:(QSBasicObject *)obj {
-	NSInteger index = 0;
+	NSUInteger index = 0;
 	//[self updateHistory];
 	if (obj) {
 		index = [resultArray indexOfObject:obj];
@@ -1554,8 +1541,8 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)updateObject:(QSObject *)object {
 	// find index of object in the resultlist
-	NSInteger ind = [resultArray indexOfObject:object];
-	NSInteger count = [resultArray count];
+	NSUInteger ind = [resultArray indexOfObject:object];
+	NSUInteger count = [resultArray count];
 	// for cases where there's only 1 object in the results, it's not always selected
 	if (ind == NSNotFound && count != 1) {
 		return;
@@ -1610,7 +1597,7 @@ NSMutableDictionary *bindingsDict = nil;
 	if (VERBOSE) NSLog(@"select in history %ld %@", (long)i, [historyArray valueForKeyPath:@"selection.displayName"]);
 #endif
 	//
-	if (i<[(NSArray *)historyArray count])
+	if (i<(NSInteger)[(NSArray *)historyArray count])
 		[self setHistoryState:[historyArray objectAtIndex:i]];
 }
 - (void)clearHistory {
@@ -1635,7 +1622,7 @@ NSMutableDictionary *bindingsDict = nil;
     
     NSDictionary *state = [self historyState];
 
-    historyIndex = -1;
+    historyIndex = 0;
     if (state) {
         // Do not add the object to the history if it is already the 1st object
         if (![historyArray count] || 
@@ -1673,7 +1660,7 @@ NSMutableDictionary *bindingsDict = nil;
         browsingHistory = YES;
     }
 
-	if (historyIndex+1<[historyArray count]) {
+	if ((NSUInteger)(historyIndex+1)<[historyArray count]) {
 		[self switchToHistoryState:++historyIndex];
 	} else {
 		[resultController bump:(-4)];
@@ -1760,7 +1747,7 @@ NSMutableDictionary *bindingsDict = nil;
 			//Should show parent's level
 			newSelectedObject = parent;
 			if (newSelectedObject) {
-				if ([historyArray count] > historyIndex) {
+				if ([historyArray count] > (NSUInteger)historyIndex) {
 					if ([[[historyArray objectAtIndex:historyIndex+1] valueForKey:@"selection"] isEqual:parent]) {
 #ifdef DEBUG
 						if (VERBOSE) NSLog(@"Parent Missing, Using History");
@@ -1900,7 +1887,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 // Quick Look panel support
 
-- (BOOL)acceptsPreviewPanelControl:(QLPreviewPanel *)panel;
+- (BOOL)acceptsPreviewPanelControl:(QLPreviewPanel *)panel
 {
     return YES;
 }

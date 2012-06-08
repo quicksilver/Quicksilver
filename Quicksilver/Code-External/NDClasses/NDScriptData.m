@@ -321,7 +321,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
  */
 - (NSString *)stringValue
 {
-	AEDesc		theDesc = {0};
+	AEDesc		theDesc = {0, NULL};
 	DescType		theBestType = bestType( [self scriptID], [self instanceRecord] );
 	BOOL			theSuccess = NO;
 	
@@ -483,7 +483,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
  */
 - (NSString *)source
 {
-	AEDesc		theDesc = {0};
+	AEDesc		theDesc = {0, NULL};
 	return canGetSource( [self scriptID], [self instanceRecord] ) && NDLogOSAError( OSAGetSource( [self instanceRecord], [self scriptID], kTXNUnicodeTextData, &theDesc))
 			? [[NSAppleEventDescriptor descriptorWithAEDescNoCopy:&theDesc] stringValue]
 			: nil;
@@ -869,7 +869,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 {
 	OSAID		theResultScriptID = kOSANullScript;
 	return NDLogOSAError( OSAGetHandler( [self instanceRecord], kOSAModeNull, [self scriptID], [[NSAppleEventDescriptor descriptorWithString:aName] aeDesc], &theResultScriptID ))
-		? [[NDScriptData newWithScriptID:theResultScriptID componentInstance:[self componentInstance]] autorelease]
+		? (NDScriptHandler *)[[NDScriptData newWithScriptID:theResultScriptID componentInstance:[self componentInstance]] autorelease]
 		: nil;
 }
 
@@ -880,7 +880,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 {
 	OSAID		theResultScriptID = kOSANullScript;
 	return NDLogOSAError( OSAGetHandler( [self instanceRecord], kOSAModeNull, [self scriptID], [[NSAppleEventDescriptor descriptorWithEventClass:anEventClass eventID:anEventID] aeDesc], &theResultScriptID ))
-		? [[NDScriptData newWithScriptID:theResultScriptID componentInstance:[self componentInstance]] autorelease]
+		? (NDScriptHandler *)[[NDScriptData newWithScriptID:theResultScriptID componentInstance:[self componentInstance]] autorelease]
 		: nil;
 }
 
@@ -1032,7 +1032,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
  */
 - (BOOL)setPropertyCode:(DescType)aPropCode toScriptData:(NDScriptData *)aScriptData
 {
-	AEDesc		thePropDesc = {0};
+	AEDesc		thePropDesc = {0, NULL};
 	BOOL			theResult = NO;
 	BOOL			theNeedToRelease = NO;
 	

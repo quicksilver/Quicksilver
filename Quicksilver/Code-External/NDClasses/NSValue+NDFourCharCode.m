@@ -224,7 +224,7 @@
 	return fourCharCode == [aNumber fourCharCode];
 }
 
-- (NSString *)descriptionWithLocale:(NSDictionary *)aLocale;
+- (NSString *)descriptionWithLocale:(NSDictionary *)aLocale
 {
 	return [NSString stringWithFormat:@"'%c%c%c%c'", (char)(fourCharCode>>24),(char)(fourCharCode>>16),(char)(fourCharCode>>8),(char)fourCharCode ];
 }

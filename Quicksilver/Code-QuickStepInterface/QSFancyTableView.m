@@ -13,12 +13,12 @@
 
 @implementation QSFancyTableView
 
-- (void)dealloc; {
+- (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[super dealloc];
 }
 
-- (void)viewWillMoveToWindow:(NSWindow *)newWindow; {
+- (void)viewWillMoveToWindow:(NSWindow *)newWindow {
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc removeObserver:self name:NSWindowDidResignKeyNotification object:nil];
 	[nc addObserver:self selector:@selector(_windowDidChangeKeyNotification:) name:NSWindowDidResignKeyNotification object:newWindow];
@@ -41,23 +41,23 @@
 	[self highlightSelectionInClipRect:rect withGradientColor:[self highlightColor]];
 }
 
-- (void)selectRowIndexes:(NSIndexSet *)indexes byExtendingSelection:(BOOL)extend; {
+- (void)selectRowIndexes:(NSIndexSet *)indexes byExtendingSelection:(BOOL)extend {
 	[super selectRowIndexes:indexes byExtendingSelection:extend];
 	[self setNeedsDisplay:YES]; // we display extra because we draw
                                 // multiple contiguous selected rows differently, so changing
                                 // one row's selection can change how others draw.
 }
 
-- (void)deselectRow:(NSInteger)row; {
+- (void)deselectRow:(NSInteger)row {
 	[super deselectRow:row];
 	[self setNeedsDisplay:YES];					   
 }
 
-- (id)_highlightColorForCell:(NSCell *)cell; {
+- (id)_highlightColorForCell:(NSCell *)cell {
 	return nil;
 }
 
-- (void)_windowDidChangeKeyNotification:(NSNotification *)notification; {
+- (void)_windowDidChangeKeyNotification:(NSNotification *)notification {
 	[self setNeedsDisplay:YES];
 }
 
@@ -97,23 +97,23 @@
 	[self highlightSelectionInClipRect:rect withGradientColor:[self highlightColor]];
 }
 
-- (void)selectRowIndexes:(NSIndexSet *)indexes byExtendingSelection:(BOOL)extend; {
+- (void)selectRowIndexes:(NSIndexSet *)indexes byExtendingSelection:(BOOL)extend {
 	[super selectRowIndexes:indexes byExtendingSelection:extend];
 	[self setNeedsDisplay:YES]; // we display extra because we draw
                                 // multiple contiguous selected rows differently, so changing
                                 // one row's selection can change how others draw.
 }
 
-- (void)deselectRow:(NSInteger)row; {
+- (void)deselectRow:(NSInteger)row {
 	[super deselectRow:row];
 	[self setNeedsDisplay:YES];						   
 }
 
-- (id)_highlightColorForCell:(NSCell *)cell; {
+- (id)_highlightColorForCell:(NSCell *)cell {
 	return nil;
 }
 
-- (void)_windowDidChangeKeyNotification:(NSNotification *)notification; {
+- (void)_windowDidChangeKeyNotification:(NSNotification *)notification {
 	[self setNeedsDisplay:YES];
 }
 

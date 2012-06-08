@@ -16,7 +16,7 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 
 @implementation NSWorkspace (Misc)
 
-- (NSString *)commentForFile:(NSString *)path; {
+- (NSString *)commentForFile:(NSString *)path {
 	if(path){
 		if ([self applicationIsRunning:@"com.apple.finder"]) {
 			NSString *hfsPath;
@@ -39,7 +39,7 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 	return nil;
 }
 
-- (BOOL)setComment:(NSString*)comment forFile:(NSString *)path; {
+- (BOOL)setComment:(NSString*)comment forFile:(NSString *)path {
 	BOOL result = NO;
 
 	// only call if Finder is running
@@ -146,8 +146,8 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 
 - (void)hideOtherApplications:(NSArray *)theApps {
 	NSDictionary *theApp = [theApps lastObject];
-	NSInteger count = [theApps count];
-	NSInteger i;
+	NSUInteger count = [theApps count];
+	NSUInteger i;
 	ProcessSerialNumber psn[count];
 	for (i = 0; i<count; i++)
 		[self PSN:psn+i forApplication:[theApps objectAtIndex:i]];
@@ -168,8 +168,8 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 
 - (void)quitOtherApplications:(NSArray *)theApps {
 	NSDictionary *theApp = [theApps lastObject];
-	NSInteger count = [theApps count];
-	NSInteger i;
+	NSUInteger count = [theApps count];
+	NSUInteger i;
 	ProcessSerialNumber psn[count];
 	for (i = 0; i<count; i++)
 		[self PSN:psn+i forApplication:[theApps objectAtIndex:i]];

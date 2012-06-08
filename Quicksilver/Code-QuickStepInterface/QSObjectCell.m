@@ -104,7 +104,7 @@ void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, NSInteger cou
 }
 
 - (void)setImagePosition:(NSCellImagePosition)aPosition {
-	autosize = (aPosition == -1);
+	autosize = (aPosition > 5);
 	[super setImagePosition:aPosition];
 }
 

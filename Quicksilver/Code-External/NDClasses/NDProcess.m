@@ -312,7 +312,7 @@ NSString		* kBundleExecutableKey = @"CFBundleExecutable";
 /*
  * -initWithCurrentProcess
  */
-- (id)initWithCurrentProcess;
+- (id)initWithCurrentProcess
 {
 	ProcessSerialNumber		theProcessSerialNumber;
 
@@ -587,14 +587,14 @@ NSString		* kBundleExecutableKey = @"CFBundleExecutable";
 #endif
 		else
 		{
-			NSString *theProcessName;
+			unsigned char			theProcessName[32];
 		
 			infoRec.processInfoLength = 0;			// set to zero to force retireve process info
 			infoRec.processName = theProcessName;
 		
 			if( [self fillProcessInfoRec] && infoRec.processName != NULL )
 			{
-				name = theProcessName;
+				name = [[NSString alloc] initWithUTF8String:(const char *)(theProcessName + 1)];
 				infoRec.processName = NULL;		// not valid after this method call
 			}
 		}

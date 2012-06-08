@@ -98,15 +98,17 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 
 - (NSArray *)hitsForString:(NSString *)testString {
 	NSMutableArray *hitsArray = [NSMutableArray arrayWithCapacity:[self length]];
-	NSInteger i;
+	NSUInteger i;
 	NSString *characterString;
 	NSRange currentRange = NSMakeRange(0, [testString length]);
-	NSInteger index;
+	NSUInteger index;
 	for (i = 0; i<[self length]; i++) {
 		characterString = [self substringWithRange:NSMakeRange(i, 1)];
 		index = [testString rangeOfString:characterString options:NSCaseInsensitiveSearch range:currentRange].location;
-		if (index == NSNotFound) return hitsArray;
-		[hitsArray addObject:[NSNumber numberWithInteger:index]];
+		if (index == NSNotFound) {
+            return hitsArray;
+        }
+		[hitsArray addObject:[NSNumber numberWithUnsignedInteger:index]];
 		currentRange.location = index+1;
 		currentRange.length = [testString length]-index-1;
 	}
@@ -259,8 +261,8 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 
 - (NSString *)encodedHexString {
 	NSMutableString *myHexString = [NSMutableString string];
-	short index = 0;
-	for (; index < [self length]; index++) {
+	NSUInteger index;
+	for (index = 0; index < [self length]; index++) {
 		[myHexString appendFormat:@"%C", [self characterAtIndex:index]];
 	}
 	return myHexString;

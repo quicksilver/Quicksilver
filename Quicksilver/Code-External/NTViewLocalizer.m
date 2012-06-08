@@ -27,19 +27,19 @@
 	return self;
 }
 
-- (void)dealloc; {
+- (void)dealloc {
 	[_table release];
 	[_bundle release];
 	[super dealloc];
 }
 
-+ (void)localizeWindow:(NSWindow*)window table:(NSString*)table bundle:(NSBundle*)bundle; {
++ (void)localizeWindow:(NSWindow*)window table:(NSString*)table bundle:(NSBundle*)bundle {
 	NTViewLocalizer* localizer = [[NTViewLocalizer alloc] initWithTable:table bundle:bundle];
 	[localizer localizeWindow:window];
 	[localizer release];
 }
 
-+ (void)localizeView:(NSView*)view table:(NSString*)table bundle:(NSBundle*)bundle; {
++ (void)localizeView:(NSView*)view table:(NSString*)table bundle:(NSBundle*)bundle {
 	NTViewLocalizer* localizer = [[NTViewLocalizer alloc] initWithTable:table bundle:bundle];
 	[localizer localizeView:view];
 	[localizer release];
@@ -49,14 +49,14 @@
 
 @implementation NTViewLocalizer (Private)
 
-- (void)localizeWindow:(NSWindow*)window; {
+- (void)localizeWindow:(NSWindow*)window {
 	NSString *windowTitle = [self localizedString:[window title]];
 	if (windowTitle)
 		[window setTitle:windowTitle];
 	[self localizeView:[window contentView]];
 }
 
-- (void)localizeView:(NSView*)view; {
+- (void)localizeView:(NSView*)view {
 	NSArray* items;
 	NSInteger i, cnt;
 	NSTabViewItem* tabViewItem;
@@ -138,7 +138,7 @@
 	}
 }
 
-- (NSString*)localizedString:(NSString*)string; {
+- (NSString*)localizedString:(NSString*)string {
 	if ([string length])
 		return [_bundle distributedLocalizedStringForKey:string value:string table:_table];
 	return string;
