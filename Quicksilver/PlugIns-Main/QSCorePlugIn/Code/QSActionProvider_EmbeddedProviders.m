@@ -322,12 +322,8 @@
 
 		validIndirects = [[QSLibrarian sharedInstance] scoredArrayForString:nil inSet:[QSObject fileObjectsWithURLArray:[set allObjects]]];
 
-		id preferred = [QSObject fileObjectWithPath:[appURL path]];
-		if (!preferred)
-			preferred = [NSNull null];
-
         [appURL release];
-		return [NSArray arrayWithObjects:preferred, validIndirects, nil];
+		return [NSArray arrayWithObjects:[NSNull null], validIndirects, nil];
 	} else if ([action isEqualToString:kFileRenameAction]) {
 		// return a text object (empty text box) to rename a file
 		NSString *path = [dObject singleFilePath];
