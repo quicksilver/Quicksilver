@@ -1840,8 +1840,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 
-- (IBAction)togglePreviewPanel:(id)previewPanel
-{
+- (IBAction)togglePreviewPanel:(id)previewPanel {
     if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
         [self closePreviewPanel];
     } else {
@@ -1857,8 +1856,7 @@ NSMutableDictionary *bindingsDict = nil;
     }
 }
 
-- (IBAction)togglePreviewPanelFullScreen:(id)previewPanel
-{
+- (IBAction)togglePreviewPanelFullScreen:(id)previewPanel {
     if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isInFullScreenMode]) {
         [self closePreviewPanel];
     } else {
@@ -1873,15 +1871,14 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 
-// Quick Look panel support
+#pragma mark QLPReviewPanel delegate methods
 
-- (BOOL)acceptsPreviewPanelControl:(QLPreviewPanel *)panel
-{
+
+- (BOOL)acceptsPreviewPanelControl:(QLPreviewPanel *)panel {
     return YES;
 }
 
-- (void)beginPreviewPanelControl:(QLPreviewPanel *)panel
-{
+- (void)beginPreviewPanelControl:(QLPreviewPanel *)panel {
     // This document is now responsible of the preview panel
     // It is allowed to set the delegate, data source and refresh panel.
     previewPanel = [panel retain];
@@ -1891,8 +1888,7 @@ NSMutableDictionary *bindingsDict = nil;
     [previewPanel setLevel:([[self window] level] + 2)];
 }
 
-- (void)endPreviewPanelControl:(QLPreviewPanel *)panel
-{
+- (void)endPreviewPanelControl:(QLPreviewPanel *)panel {
     // This document loses its responsisibility on the preview panel
     // Until the next call to -beginPreviewPanelControl: it must not
     // change the panel's delegate, data source or refresh it.
@@ -1902,8 +1898,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 // Quick Look panel data source
 
-- (NSInteger)numberOfPreviewItemsInPreviewPanel:(QLPreviewPanel *)panel
-{
+- (NSInteger)numberOfPreviewItemsInPreviewPanel:(QLPreviewPanel *)panel {
     /* Put the panel just above Quicksilver's window
     Note: 10.6 seems to revert the panel level set in beginPreviewPanelControl above.
     This 'hack' is required for 10.6 support only (10.7+ is OK) */
@@ -1914,8 +1909,7 @@ NSMutableDictionary *bindingsDict = nil;
     return 0;
 }
 
-- (id <QLPreviewItem>)previewPanel:(QLPreviewPanel *)panel previewItemAtIndex:(NSInteger)index
-{
+- (id <QLPreviewItem>)previewPanel:(QLPreviewPanel *)panel previewItemAtIndex:(NSInteger)index {
     if (quicklookObject) {
         return [[quicklookObject splitObjects] objectAtIndex:index];
     }
@@ -1924,8 +1918,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 // Quick Look panel delegate
 
-- (BOOL)previewPanel:(QLPreviewPanel *)panel handleEvent:(NSEvent *)event
-{
+- (BOOL)previewPanel:(QLPreviewPanel *)panel handleEvent:(NSEvent *)event {
     if ([event type]  != NSKeyDown) {
         return NO;
     }
@@ -1943,12 +1936,14 @@ NSMutableDictionary *bindingsDict = nil;
     }
     // Allow the default action to be executed (if CMD+ENTR or ENTR is pressed)
     if ([key isEqualToString:@"\r"] && (eventModifierFlags & NSCommandKeyMask || ((eventModifierFlags & NSDeviceIndependentModifierFlagsMask) == 0))) {
+        // close the preview panel first to avoid any quirkiness
+        [[QLPreviewPanel sharedPreviewPanel] close];
+        [self closePreviewPanel];
         if (eventModifierFlags & NSCommandKeyMask) {
             [self insertNewline:nil];
         } else {
             [self interpretKeyEvents:[NSArray arrayWithObject:event]];
         }
-        [self closePreviewPanel];
         return YES;
     }
     
@@ -1959,17 +1954,35 @@ NSMutableDictionary *bindingsDict = nil;
     return NO;
 }
 
+// defines the image which is used during the zoom process
+- (NSImage *)previewPanel:(QLPreviewPanel *)panel transitionImageForPreviewItem:(id <QLPreviewItem>)item contentRect:(NSRect *)contentRect {
+    NSImage *iconImage = [(QSObject *)item icon];
+    return iconImage;
+}
+
 // This delegate method provides the rect on screen from which the panel will zoom.
-- (NSRect)previewPanel:(QLPreviewPanel *)panel sourceFrameOnScreenForPreviewItem:(id <QLPreviewItem>)item
-{
+- (NSRect)previewPanel:(QLPreviewPanel *)panel sourceFrameOnScreenForPreviewItem:(id <QLPreviewItem>)item {
     
-    // check that the icon rect is visible on screen
+    // get the location of the icon in the interface. This is a tricky process since all interfaces are different.
+    // Basic method: get the 1st pane/3rd pane rect, from within this rect, get the image rect where the image is placed
+    // then get the image size, and offset the based on the image size (typically smaller than the image rect, but not always the case - Primer)
     NSRect rect = [self frame];
     NSRect windowFrame = [[self window] frame];
-    NSRect imageRect = [[self cell] imageRectForBounds:rect];
-    imageRect.origin.x = windowFrame.origin.x + imageRect.origin.x;
-    imageRect.origin.y = windowFrame.origin.y + imageRect.origin.y;
-    return imageRect;
+    rect = [[self cell] imageRectForBounds:rect];
+    NSSize iconSize = [[(QSObject *)item icon] size];
+    BOOL imageIsWider = (iconSize.width > rect.size.width);
+    BOOL imageIsHigher = (iconSize.height > rect.size.height);
+    rect.origin.x = windowFrame.origin.x + rect.origin.x;
+    if (!imageIsWider) {
+        rect.origin.x += (rect.size.width - iconSize.width)/2;
+    }
+    if (!imageIsHigher) {
+        rect.origin.y += (rect.size.height - iconSize.height)/2;
+    }
+    rect.origin.y = windowFrame.origin.y + rect.origin.y;
+    rect.size.width = !imageIsWider ? iconSize.width : rect.size.width;
+    rect.size.height = !imageIsHigher ? iconSize.height : rect.size.height;
+    return rect;
 }
 
 @end
