@@ -660,6 +660,8 @@
     
 	[dSelector setSearchMode:SearchFilterAll];
     
+    // If the user still has a mofidier key down (just activated the interface) then for 0.075s, ignore the modifiers and post just the letter
+    // incase the user has started typing to search. ***IS THIS REALLY NECESSARY***? p_j_r 09/06/12
 	NSEvent *theEvent = [NSApp nextEventMatchingMask:NSKeyDownMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.075] inMode:NSDefaultRunLoopMode dequeue:YES];
 #warning dont do this unless the character is alphabetic
 	if (theEvent) {
