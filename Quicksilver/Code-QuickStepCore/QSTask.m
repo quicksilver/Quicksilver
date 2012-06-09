@@ -193,10 +193,12 @@ static NSMutableDictionary *tasksDictionary = nil;
 }
 
 - (void)setStatus:(NSString *)value {
-	if (status != value) {
-		[status release];
-		status = [value copy];
-	}
+    @synchronized(status) {
+        if (status != value) {
+            [status release];
+            status = [value copy];
+        }
+    }
 }
 
 - (CGFloat) progress {

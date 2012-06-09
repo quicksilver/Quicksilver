@@ -319,13 +319,17 @@ static CGFloat searchSpeed = 0.0;
 - (void)reloadSets:(NSNotification *)notif {
 	NSMutableSet *newDefaultSet = [NSMutableSet setWithCapacity:1];
 	//NSLog(@"cat %@ %@", catalog, [catalog leafEntries]);
-	for(QSCatalogEntry * entry in [catalog leafEntries]) {
-		//NSLog(@"entry %@", entry);
-		[newDefaultSet addObjectsFromArray:[entry contents]];
-	}
+    @synchronized(catalog) {
+        for(QSCatalogEntry * entry in [catalog leafEntries]) {
+            //NSLog(@"entry %@", entry);
+            if ([entry contents]) {
+                [newDefaultSet addObjectsFromArray:[entry contents]];
+            }
+        }
+    }
 
 	//NSLog(@"%@", newDefaultSet);
-	[self setDefaultSearchSet:newDefaultSet];
+    [self setDefaultSearchSet:newDefaultSet];
 	//NSLog(@"Total %4d items in search set", [newDefaultSet count]);
 	//	NSLog(@"Rebuilt Default Set in %f seconds", -[date timeIntervalSinceNow]);
 	if ([notif object])
@@ -527,8 +531,8 @@ static CGFloat searchSpeed = 0.0;
         scannerCount++;
         [NSThread setThreadPriority:0];
         NSArray *children = [catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
-        NSInteger i;
-        NSInteger c = [children count];
+        NSUInteger i;
+        NSUInteger c = [children count];
         for (i = 0; i<c; i++) {
             [mtScanTask setProgress:(CGFloat) i/c];
             [[children objectAtIndex:i] scanForced:force];
@@ -677,10 +681,14 @@ static CGFloat searchSpeed = 0.0;
 - (NSMutableSet *)defaultSearchSet { return defaultSearchSet;  }
 - (void)setDefaultSearchSet:(NSMutableSet *)newDefaultSearchSet {
 	//NSLog(@"SetSet %@", newDefaultSearchSet);
-	if(newDefaultSearchSet != defaultSearchSet){
-		[defaultSearchSet release];
-		defaultSearchSet = [newDefaultSearchSet retain];
-	}
+    
+    // avoid multiple threads from trying to release defaultSearchSet all at the same time
+    @synchronized(defaultSearchSet) {
+        if(newDefaultSearchSet != defaultSearchSet){
+            [defaultSearchSet release];
+            defaultSearchSet = [newDefaultSearchSet retain];
+        }
+    }
 }
 
 

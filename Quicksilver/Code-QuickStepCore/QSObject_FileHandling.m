@@ -73,6 +73,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 @end
 
+#pragma mark QSFileSystemObjectHandler
 
 @implementation QSFileSystemObjectHandler
 
