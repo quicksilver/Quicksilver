@@ -176,7 +176,8 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	NSString *replacedString = [self stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	// Try Cocoa's way of replacing % escapes
 	if (replacedString !=nil) {
-		// Return the replaced string if Cocoa's method works
+		// Return the replaced string if Cocoa's method works, but we don't want to decode the '+' symbol
+        replacedString = [replacedString stringByReplacingOccurrencesOfString:@"%2B" withString:@"+"];
 		return replacedString;
 	}
 	else {
