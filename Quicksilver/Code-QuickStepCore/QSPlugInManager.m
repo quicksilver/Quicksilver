@@ -684,7 +684,7 @@
 		}
 		return NO;
 	}
-	return YES;
+	return NO;
 }
 
 - (BOOL)updatePlugInsForNewVersion:(NSString *)version {
