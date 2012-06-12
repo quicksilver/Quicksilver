@@ -808,10 +808,7 @@
 	//NSIndexPath *indexPath = [item indexPath];
 	item = [item respondsToSelector:@selector(representedObject)] ? [item representedObject] : [item observedObject];
     NSLog(@"drop on %@ - %@ at index %ld", item, [item identifier], (long)index);
-
-    NSPasteboard *pb = [info draggingPasteboard];
-    NSData *data = [pb dataForType:QSTriggerDragType];
-
+    
 	[triggerArrayController rearrangeObjects];
 	[triggerTreeController rearrangeObjects];
 	

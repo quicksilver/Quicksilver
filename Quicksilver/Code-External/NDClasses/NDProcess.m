@@ -668,8 +668,11 @@ NSString		* kBundleExecutableKey = @"CFBundleExecutable";
 		if( [self fillProcessInfoRec] && infoRec.processAppSpec != NULL )
 		{
 			FSRef			theRef;
-// unused in 64 bit
+// unused in 64 bit, ignore the warning
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 			FSpMakeFSRef ( &theSpec, &theRef );			// I known this is deprecated, but that is because FSSpec is deprecated, so I have no choice but to use this
+#pragma clang diagnostic pop
 			url = [[NSURL URLWithFSRef:&theRef] retain];
 		}
 		
