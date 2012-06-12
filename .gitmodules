@@ -1,0 +1,3 @@
+[submodule "Quicksilver/Code-External/Sparkle"]
+	path = Quicksilver/Code-External/Sparkle
+	url = git://github.com/andymatuschak/Sparkle.git
