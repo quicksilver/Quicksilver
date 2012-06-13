@@ -120,7 +120,8 @@
 	sprintf(pidstr, "%d", getpid() );
 	setenv("relaunchFromPid", pidstr, YES);
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSApplicationWillRelaunchNotification object:self userInfo:nil];
-	[NSTask launchedTaskWithLaunchPath:path arguments:[NSArray array]];
+    NSString *arch = @"/usr/bin/arch";
+	[NSTask launchedTaskWithLaunchPath:arch arguments:[NSArray arrayWithObjects:@"-i386", @"-x86_64", path,nil]];
 
 	[self terminate:self];
 }
