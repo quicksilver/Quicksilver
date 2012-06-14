@@ -41,7 +41,7 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
             }
         }
         if (!QSCurrentStringRanker) {
-            QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"Ranker Changed", nil), QSNotifierTitle, NSLocalizedString(@"Could not load preferred string ranker. Switching to default", nil), QSNotifierText, [QSResourceManager imageNamed:@"com.blacktree.Quicksilver"], QSNotifierIcon, nil]);
+            QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"Ranker Changed", nil), QSNotifierTitle, NSLocalizedString(@"Could not load preferred string ranker. Switching to default", nil), QSNotifierText, [QSResourceManager imageNamed:kQSBundleID], QSNotifierIcon, nil]);
             className = @"QSDefaultStringRanker";
             QSCurrentStringRanker = NSClassFromString(className);
         }
