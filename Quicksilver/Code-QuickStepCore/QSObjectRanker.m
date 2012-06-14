@@ -28,23 +28,30 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 @implementation QSDefaultObjectRanker
 + (void)initialize {
     NSString *className = [[NSUserDefaults standardUserDefaults] stringForKey:@"QSStringRankers"];
-    if (!className)
-        className = @"QSDefaultStringRanker";
     
-    QSCurrentStringRanker = NSClassFromString(className);
-	if (!QSCurrentStringRanker) {
-		// ok, maybe the bundle wasn't loaded right away, let's try to load it now
-		NSBundle *rankerBundle = [QSReg bundleForClassName:className];
-		if (rankerBundle && [rankerBundle load]) {
-			QSCurrentStringRanker = NSClassFromString(className);
-		}
-	}
-    
-    if (QSCurrentStringRanker)
-        scoreForAbbrevIMP = (QSScoreForAbbrevIMP) [QSCurrentStringRanker instanceMethodForSelector:@selector(scoreForAbbreviation:)];
-    else
-        [NSException raise:NSInternalInconsistencyException format:@"No %@ class found !", className];
-}
+	if (className) {
+        QSCurrentStringRanker = NSClassFromString(className);
+        
+        if (!QSCurrentStringRanker) {
+            
+            // ok, maybe the bundle wasn't loaded right away, let's try to load it now
+            NSBundle *rankerBundle = [QSReg bundleForClassName:className];
+            if (rankerBundle && [rankerBundle load]) {
+                QSCurrentStringRanker = NSClassFromString(className);
+            }
+        }
+        if (!QSCurrentStringRanker) {
+            QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"Ranker Changed", nil), QSNotifierTitle, NSLocalizedString(@"Could not load preferred string ranker. Switching to default", nil), QSNotifierText, [QSResourceManager imageNamed:@"com.blacktree.Quicksilver"], QSNotifierIcon, nil]);
+            className = @"QSDefaultStringRanker";
+            QSCurrentStringRanker = NSClassFromString(className);
+        }
+        
+        if (QSCurrentStringRanker)
+            scoreForAbbrevIMP = (QSScoreForAbbrevIMP) [QSCurrentStringRanker instanceMethodForSelector:@selector(scoreForAbbreviation:)];
+        else
+            [NSException raise:NSInternalInconsistencyException format:@"No %@ class found !", className];
+    }
+} 
 
 + (id)rankerForObject:(QSBasicObject *)object {
 	return [[[self alloc] initWithObject:object] autorelease];
