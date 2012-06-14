@@ -40,18 +40,18 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
                 QSCurrentStringRanker = NSClassFromString(className);
             }
         }
-        if (!QSCurrentStringRanker) {
-            QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"Ranker Changed", nil), QSNotifierTitle, NSLocalizedString(@"Could not load preferred string ranker. Switching to default", nil), QSNotifierText, [QSResourceManager imageNamed:kQSBundleID], QSNotifierIcon, nil]);
-            className = @"QSDefaultStringRanker";
-            QSCurrentStringRanker = NSClassFromString(className);
-        }
-        
-        if (QSCurrentStringRanker)
-            scoreForAbbrevIMP = (QSScoreForAbbrevIMP) [QSCurrentStringRanker instanceMethodForSelector:@selector(scoreForAbbreviation:)];
-        else
-            [NSException raise:NSInternalInconsistencyException format:@"No %@ class found !", className];
     }
-} 
+    if (!QSCurrentStringRanker) {
+        QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"Ranker Changed", nil), QSNotifierTitle, NSLocalizedString(@"Could not load preferred string ranker. Switching to default", nil), QSNotifierText, [QSResourceManager imageNamed:kQSBundleID], QSNotifierIcon, nil]);
+        className = @"QSDefaultStringRanker";
+        QSCurrentStringRanker = NSClassFromString(className);
+    }
+    
+    if (QSCurrentStringRanker)
+        scoreForAbbrevIMP = (QSScoreForAbbrevIMP) [QSCurrentStringRanker instanceMethodForSelector:@selector(scoreForAbbreviation:)];
+    else
+        [NSException raise:NSInternalInconsistencyException format:@"No %@ class found !", className];
+}
 
 + (id)rankerForObject:(QSBasicObject *)object {
 	return [[[self alloc] initWithObject:object] autorelease];
