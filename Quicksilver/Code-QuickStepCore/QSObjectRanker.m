@@ -28,6 +28,9 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 @implementation QSDefaultObjectRanker
 + (void)initialize {
     NSString *className = [[NSUserDefaults standardUserDefaults] stringForKey:@"QSStringRankers"];
+    if (!className) {
+        className = @"QSDefaultStringRanker"
+    }
     
 	if (className) {
         QSCurrentStringRanker = NSClassFromString(className);
