@@ -21,19 +21,22 @@
         downloads = [[NDAlias aliasWithData:downloadsData] quickPath];
         [downloadsData release];
     }
+    
+    // fall back to the deafult downloads folder if the above couldn't be resolved
     if (!downloads) {
         downloads = [[@"~/Downloads" stringByExpandingTildeInPath] stringByResolvingSymlinksInPath];
     }
     
-    NSFileManager *manager = [[NSFileManager alloc] init];
-
 	NSURL *downloadsURL = [NSURL URLWithString:downloads];
     
+    // For some reason the downloads string couldn't be converted to a URL. Return
     if (!downloadsURL) {
-        NSLog(@"Unable to locate downloads folder");
+        NSLog(@"Unable to locate downloads folder (path: %@)",downloads);
         NSBeep();
         return nil;
     }
+    
+    NSFileManager *manager = [NSFileManager defaultManager];
     
     NSError *err = nil;
     // An array of the directory contents, keeping the isDirectory key, attributeModificationDate key and skipping hidden files
@@ -92,7 +95,7 @@
 			mrdpath = downloadPath;
 		}
 	}
-	[manager release];
+
     if (mrdpath) {
         return [QSObject fileObjectWithPath:mrdpath]; 
     }
