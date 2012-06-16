@@ -13,7 +13,6 @@
 
 #import "QSTaskController.h"
 //#define compGT(a, b) (a < b)
-#import "UKMainThreadProxy.h"
 
 CGFloat QSMinScore = 0.333333;
 
@@ -524,34 +523,41 @@ static CGFloat searchSpeed = 0.0;
 	}
 
     @autoreleasepool {
-        QSTask *mtScanTask = [scanTask mainThreadProxy];
-        [mtScanTask setStatus:@"Catalog Rescan"];
-        [mtScanTask startTask:self];
-        [mtScanTask setProgress:-1];
-        scannerCount++;
-        [NSThread setThreadPriority:0];
-        NSArray *children = [catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
-        NSUInteger i;
-        NSUInteger c = [children count];
-        for (i = 0; i<c; i++) {
-            [mtScanTask setProgress:(CGFloat) i/c];
-            [[children objectAtIndex:i] scanForced:force];
-        }
-        
-        [mtScanTask setProgress:1.0];
-        [mtScanTask stopTask:self];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogIndexingCompleted object:nil];
-        scannerCount--;
+        // run on the main thread using GCD
+        dispatch_async(dispatch_get_main_queue(),^{
+            [scanTask setStatus:@"Catalog Rescan"];
+            [scanTask startTask:self];
+            [scanTask setProgress:-1];
+            scannerCount++;
+            NSArray *children = [catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
+            NSUInteger i;
+            NSUInteger c = [children count];
+            for (i = 0; i<c; i++) {
+                [scanTask setProgress:(CGFloat) i/c];
+                [[children objectAtIndex:i] scanForced:force];
+            }
+            
+            [scanTask setProgress:1.0];
+            [scanTask stopTask:self];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogIndexingCompleted object:nil];
+            scannerCount--;
+        });
     }
 }
 
 
 - (void)startThreadedScan {
-	[NSThread detachNewThreadSelector:@selector(scanCatalog:) toTarget:self withObject:nil];
+    // use GCD to dispatch to another queue
+    dispatch_async(dispatch_get_global_queue(0,0),^{
+        [self scanCatalog:nil];
+    });
 }
 - (void)startThreadedAndForcedScan {
-	[NSThread detachNewThreadSelector:@selector(forceScanCatalog:) toTarget:self withObject:nil];
+    // use GCD to dispatch to another queue
+    dispatch_async(dispatch_get_global_queue(0,0),^{
+        [self forceScanCatalog:nil];
+    });
 }
 - (IBAction)forceScanCatalog:(id)sender {
 	[self scanCatalogIgnoringIndexes:YES];

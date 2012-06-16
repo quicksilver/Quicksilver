@@ -99,7 +99,6 @@ static NSMutableDictionary *tasksDictionary = nil;
 - (void)cancel:(id)sender {
 	if (cancelTarget) {
 		NSLog(@"Cancel Task: %@", self);
-
 		[cancelTarget performSelector:cancelAction withObject:sender];
 	}
 }
@@ -161,9 +160,9 @@ static NSMutableDictionary *tasksDictionary = nil;
 }
 - (void)setIdentifier:(NSString *)value {
 	if (identifier != value) {
-		NSString *oldIdentifier = [identifier copy];
+		NSString *oldIdentifier = [identifier retain];
 		[identifier release];
-		identifier = [value copy];
+		identifier = [value retain];
 		if (tasksDictionary) {
 			if (value) {
 				[tasksDictionary setObject:self forKey:value];
@@ -184,7 +183,7 @@ static NSMutableDictionary *tasksDictionary = nil;
 - (void)setName:(NSString *)value {
 	if (name != value) {
 		[name release];
-		name = [value copy];
+		name = [value retain];
 	}
 }
 
@@ -196,7 +195,7 @@ static NSMutableDictionary *tasksDictionary = nil;
     @synchronized(status) {
         if (status != value) {
             [status release];
-            status = [value copy];
+            status = [value retain];
         }
     }
 }

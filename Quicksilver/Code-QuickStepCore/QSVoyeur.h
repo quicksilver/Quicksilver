@@ -1,13 +1,9 @@
 
-
 #import <Foundation/Foundation.h>
 
-#import "UKKQueue.h"
+#import "VDKQueue.h"
 
-#import "UKFileWatcher.h"
-
-@interface QSVoyeur : UKKQueue {
-	NSMutableArray *watchArray;
+@interface QSVoyeur : VDKQueue <VDKQueueDelegate> {
 }
 
 + (id)sharedInstance;

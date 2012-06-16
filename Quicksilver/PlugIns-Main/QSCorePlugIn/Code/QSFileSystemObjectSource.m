@@ -297,7 +297,7 @@
 	NSString *path = [self fullPathForSettings:settings];
 	NSNotificationCenter *wsNotif = [[NSWorkspace sharedWorkspace] notificationCenter];
 	if ([[settings objectForKey:@"watchTarget"] boolValue]) {
-		[[QSVoyeur sharedInstance] addPathToQueue:path notifyingAbout:UKKQueueNotifyAboutDelete | UKKQueueNotifyAboutWrite];
+		[[QSVoyeur sharedInstance] addPath:path notifyingAbout:NOTE_DELETE | NOTE_WRITE];
 #ifdef DEBUG
 		if (VERBOSE) NSLog(@"Watching Path %@", path);
 #endif
@@ -305,11 +305,11 @@
 	}
 	NSArray *paths = [settings objectForKey:@"watchPaths"];
 	for (NSString * p in paths) {
-		[[QSVoyeur sharedInstance] addPathToQueue:p];
+		[[QSVoyeur sharedInstance] addPath:p];
 #ifdef DEBIG
 		if (VERBOSE) NSLog(@"Watching Path %@", p);
 #endif
-		[wsNotif addObserver:entry selector:@selector(invalidateIndex:) name:UKKQueueFileWrittenToNotification object:p];
+		[wsNotif addObserver:entry selector:@selector(invalidateIndex:) name:VDKQueueWriteNotification object:p];
 	}
 }
 
@@ -317,7 +317,7 @@
 	NSMutableDictionary *settings = [[entry info] objectForKey:kItemSettings];
 	NSString *path = [self fullPathForSettings:settings];
 	if ([[settings objectForKey:@"watchTarget"] boolValue]) {
-		[[QSVoyeur sharedInstance] removePathFromQueue:path];
+		[[QSVoyeur sharedInstance] removePath:path];
 		[[NSNotificationCenter defaultCenter] removeObserver:entry];
 	}
 }
@@ -332,7 +332,7 @@
 
 	if (![manager fileExistsAtPath:path isDirectory:nil]) return [NSArray array];
 	if ([[settings objectForKey:@"watchTarget"] boolValue]) {
-		[[QSVoyeur sharedInstance] addPathToQueue:path];
+		[[QSVoyeur sharedInstance] addPath:path];
 	}
 
 	NSString *parser = [settings objectForKey:kItemParser];
