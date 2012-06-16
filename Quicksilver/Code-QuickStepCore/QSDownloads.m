@@ -12,12 +12,31 @@
 
 @implementation QSDownloads
 - (id)resolveProxyObject:(id)proxy {
-    NSString *downloads = [[@"~/Downloads" stringByExpandingTildeInPath] stringByResolvingSymlinksInPath];
+    NSData *downloadsData = (NSData *)CFPreferencesCopyValue((CFStringRef) @"DownloadFolder", 
+                                                                                          (CFStringRef) @"com.apple.internetconfigpriv", 
+                                                                                          kCFPreferencesCurrentUser, 
+                                                                                          kCFPreferencesAnyHost);
+    NSString *downloads = nil;
+    if (downloadsData) {
+        downloads = [[NDAlias aliasWithData:downloadsData] quickPath];
+        [downloadsData release];
+    }
+    if (!downloads) {
+        downloads = [[@"~/Downloads" stringByExpandingTildeInPath] stringByResolvingSymlinksInPath];
+    }
+    
     NSFileManager *manager = [[NSFileManager alloc] init];
 
 	NSURL *downloadsURL = [NSURL URLWithString:downloads];
-	NSError *err = nil;
-	// An array of the directory contents, keeping the isDirectory key, attributeModificationDate key and skipping hidden files
+    
+    if (!downloadsURL) {
+        NSLog(@"Unable to locate downloads folder");
+        NSBeep();
+        return nil;
+    }
+    
+    NSError *err = nil;
+    // An array of the directory contents, keeping the isDirectory key, attributeModificationDate key and skipping hidden files
 	NSArray *contents = [manager contentsOfDirectoryAtURL:downloadsURL
 							   includingPropertiesForKeys:[NSArray arrayWithObjects:NSURLIsDirectoryKey,NSURLAttributeModificationDateKey,nil]
 												  options:NSDirectoryEnumerationSkipsHiddenFiles
