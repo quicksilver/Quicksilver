@@ -12,6 +12,7 @@
 
 @implementation QSDownloads
 - (id)resolveProxyObject:(id)proxy {
+    // Try and get the user's downloads folder setting (set in Safari)
     NSData *downloadsData = (NSData *)CFPreferencesCopyValue((CFStringRef) @"DownloadFolder", 
                                                                                           (CFStringRef) @"com.apple.internetconfigpriv", 
                                                                                           kCFPreferencesCurrentUser, 
@@ -22,14 +23,13 @@
         [downloadsData release];
     }
     
-    // fall back to the deafult downloads folder if the above couldn't be resolved
+    // fall back to the default downloads folder if the user settings couldn't be resolved
     if (!downloads) {
         downloads = [[@"~/Downloads" stringByExpandingTildeInPath] stringByResolvingSymlinksInPath];
     }
     
 	NSURL *downloadsURL = [NSURL URLWithString:downloads];
     
-    // For some reason the downloads string couldn't be converted to a URL. Return
     if (!downloadsURL) {
         NSLog(@"Unable to locate downloads folder (path: %@)",downloads);
         NSBeep();
