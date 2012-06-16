@@ -160,9 +160,9 @@ static NSMutableDictionary *tasksDictionary = nil;
 }
 - (void)setIdentifier:(NSString *)value {
 	if (identifier != value) {
-		NSString *oldIdentifier = [identifier retain];
+		NSString *oldIdentifier = [identifier copy];
 		[identifier release];
-		identifier = [value retain];
+		identifier = [value copy];
 		if (tasksDictionary) {
 			if (value) {
 				[tasksDictionary setObject:self forKey:value];
@@ -183,7 +183,7 @@ static NSMutableDictionary *tasksDictionary = nil;
 - (void)setName:(NSString *)value {
 	if (name != value) {
 		[name release];
-		name = [value retain];
+		name = [value copy];
 	}
 }
 
@@ -195,7 +195,7 @@ static NSMutableDictionary *tasksDictionary = nil;
     @synchronized(status) {
         if (status != value) {
             [status release];
-            status = [value retain];
+            status = [value copy];
         }
     }
 }
