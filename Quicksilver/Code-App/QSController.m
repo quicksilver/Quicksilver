@@ -618,6 +618,7 @@ static QSController *defaultController = nil;
         
         [NSThread setThreadPriority:0.0];
         QSTask *task = [QSTask taskWithIdentifier:@"QSDelayedStartup"];
+        [task setName:@"Starting Up..."];
         [task setStatus:@"Updating Catalog"];
         [task startTask:self];
         [[QSLibrarian sharedInstance] loadMissingIndexes];
