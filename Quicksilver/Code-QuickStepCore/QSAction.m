@@ -106,7 +106,7 @@ static BOOL gModifiersAreIgnored;
 - (NSMutableDictionary*)actionDict {
     NSMutableDictionary *dict = [self objectForType:QSActionType];
     if (!dict) {
-        dict = [[NSMutableDictionary alloc] init];
+        dict = [NSMutableDictionary dictionary];
         [self setObject:dict forType:QSActionType];
     }
     return dict;

@@ -79,6 +79,9 @@
         checkURL = kCheckUpdateURL;
     NSString *thisVersionString = (NSString *)CFBundleGetValueForInfoDictionaryKey(CFBundleGetMainBundle(), kCFBundleVersionKey);
     
+#ifdef DEBUG
+	NSString *versionType = @"pre";
+#else
     NSString *versionType = nil;
     switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"QSUpdateReleaseLevel"]) {
         case 2:
@@ -91,8 +94,6 @@
             versionType = @"rel";
             break;
     }
-#ifdef DEBUG
-        versionType = @"pre";
 #endif
     
     checkURL = [checkURL stringByAppendingFormat:@"?type=%@&current=%@", versionType, thisVersionString];

@@ -746,9 +746,8 @@ static QSController *defaultController = nil;
         
         // Crash due to faulty plugin
         if (pluginName) {
-            // There are no crash reports for these, so release the crashReportPath file and set to nil
-            [[self crashReportPath] release];
-            crashReportPath = nil;
+            // There are no crash reports for these, so set the crashReportPath to nil
+            [self setCrashReportPath:nil];
         }
 
         // Crash occurred, load the crash reporter window

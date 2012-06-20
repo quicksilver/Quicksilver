@@ -131,6 +131,7 @@
     if ([deletePluginCheckbox integerValue]) {
         [self deletePlugin];
     }
+	[request release];
     [self close];
 }
 
@@ -166,10 +167,6 @@
 #pragma mark NSWindow Delegate Methods
 
 - (void)windowWillClose:(id)sender {
-    // release the crashReportPath
-    if ([[QSController sharedInstance] crashReportPath]) {
-        [[[QSController sharedInstance] crashReportPath] release];
-    }
     [self setCrashReporterIsWorking:NO];
     [NSApp stopModal];
 }

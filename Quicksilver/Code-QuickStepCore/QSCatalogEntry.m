@@ -621,7 +621,7 @@ NSDictionary *enabledPresetDictionary;*/
 	if ([self children])
 		[newEntry setChildren:[[self children] valueForKey:@"uniqueCopy"]];
 
-	return newEntry;
+	return [newEntry autorelease];
 }
 
 - (NSDate *)indexDate { return indexDate;  }

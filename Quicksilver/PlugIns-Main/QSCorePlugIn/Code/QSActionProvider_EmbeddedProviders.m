@@ -83,7 +83,6 @@
 	// only for 'Open URL with...' action
 	if ([action isEqualToString:@"URLOpenWithAction"]) {
 
-		NSMutableArray *validIndirects = [NSMutableArray arrayWithCapacity:1];
 		NSMutableSet *set = [NSMutableSet set];
 		
 		// Base the list of apps on the URL in dObject (1st object if multiple are selected)
@@ -105,7 +104,7 @@
 		}
 				
 		[set addObjectsFromArray:[(NSArray *)LSCopyApplicationURLsForURL((CFURLRef)url, kLSRolesAll) autorelease]];
-		validIndirects = [[QSLibrarian sharedInstance] scoredArrayForString:nil inSet:[QSObject fileObjectsWithURLArray:[set allObjects]]];
+		NSMutableArray *validIndirects = [[QSLibrarian sharedInstance] scoredArrayForString:nil inSet:[QSObject fileObjectsWithURLArray:[set allObjects]]];
 		
 		return [NSArray arrayWithObjects:preferred, validIndirects, nil];
 	}
@@ -479,7 +478,7 @@
 	NSInteger choice = QSRunCriticalAlertSheet([(NSWindowController *)QSIC window], @"Delete File", [NSString stringWithFormat:@"Are you sure you want to PERMANENTLY delete:\r %@?", [selection componentsJoinedByString:@", "]], @"Delete", @"Cancel", nil);
 	[QSIC setHiding:NO];
 	if (choice == 1) {
-		NSString *lastDeletedFile;
+		NSString *lastDeletedFile = nil;
 		for(NSString *thisFile in [dObject arrayForType:QSFilePathType]) {
 			if ([[NSFileManager defaultManager] removeItemAtPath:thisFile error:nil]) {
 				[[NSWorkspace sharedWorkspace] noteFileSystemChanged:[thisFile stringByDeletingLastPathComponent]];
@@ -511,7 +510,7 @@
 
 - (QSBasicObject *)trashFile:(QSObject *)dObject {
 	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
-	NSString *lastDeletedFile;
+	NSString *lastDeletedFile = nil;
 	for(NSString *thisFile in [dObject arrayForType:QSFilePathType]) {
 		[ws performFileOperation:NSWorkspaceRecycleOperation source:[thisFile stringByDeletingLastPathComponent] destination:@"" files:[NSArray arrayWithObject:[thisFile lastPathComponent]] tag:nil];
 		[ws noteFileSystemChanged:[thisFile stringByDeletingLastPathComponent]];

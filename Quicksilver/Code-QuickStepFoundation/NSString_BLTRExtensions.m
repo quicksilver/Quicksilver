@@ -296,7 +296,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 
 - (NSDictionary *)attributesToFitNumbersInRect:(NSRect) rect withAttributes:(NSDictionary *)attributes {
 	NSMutableDictionary *newAttributes = [attributes mutableCopy];
-	if (!newAttributes) newAttributes = [NSMutableDictionary dictionaryWithCapacity:1];
+	if (!newAttributes) newAttributes = [[NSMutableDictionary alloc] initWithCapacity:1];
 	NSFont *font = [NSFont fontWithName:[[newAttributes objectForKey:NSFontAttributeName] fontName] size:12];
 	[newAttributes setObject:font forKey:NSFontAttributeName];
 
@@ -395,7 +395,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 																	forKey:NSLinkAttributeName];
 	
 	// create the attributed string
-	NSAttributedString *attString = [[NSAttributedString alloc] initWithString:titleString attributes:attStringAttributes];
+	NSAttributedString *attString = [[[NSAttributedString alloc] initWithString:titleString attributes:attStringAttributes] autorelease];
 	
 	// For HTML pasteboard types, create a HTML data object
 	if([type isEqualToString:NSHTMLPboardType]) {
