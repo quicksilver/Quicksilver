@@ -15,7 +15,7 @@ Changes - ß69 (3929)
   * FIX: Fix the 'Relaunch' action to time out if the application doesn't quit
   * FIX: Make the Automator actions universal
   * FIX: Fixed a crash during startup for Quicksilver (#871)
-  * FIX: Further crash fixes and clean up (#910, #923, #928, #929)
+  * FIX: Further crash fixes and clean up (#910, #923, #928, #929, #943)
   * FIX: Fix the 'Type Text' action to work in sandboxed applications
   * FIX: Fix the display of upside down icons that could occur at random
   * CHANGE: Use a consistent name 'Plugin' across all aspects of Quicksilver
@@ -28,6 +28,7 @@ Changes - ß69 (3929)
   * CHANGE: Increase the time the '/' key must be held for to browse to the root folder of your system
   * CHANGE: Improve the handling of exceptions/crashes in Quicksilver (@try/@catch handlers)
   * CHANGE: Leave the 3rd pane blank for the 'Open With…' action so that capitalised key shortcuts work (e.g. ⌘⇧O for 'Open With…' move focus to the 3rd pane)
+  * CHANGE: Toggle action no longer hides background applications (#939)
 
 Changes - ß68 (3928)
 -------
