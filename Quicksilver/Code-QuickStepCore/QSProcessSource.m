@@ -125,13 +125,13 @@
 	NSArray *array = [dObject arrayForType:QSProcessType];
 	//NSLog(@"arr %@", array);
 	if (array) {
-		if ([[NSWorkspace sharedWorkspace] applicationIsHidden:[array lastObject]]) {
+		if ([[NSWorkspace sharedWorkspace] applicationIsFrontmost:[array lastObject]]) {
 		//	NSLog(@"showing");
-			[[NSWorkspace sharedWorkspace] performSelector:@selector(activateApplication:) onObjectsInArray:array
-											 returnValues:NO];
+            [[NSWorkspace sharedWorkspace] performSelector:@selector(hideApplication:) onObjectsInArray:array
+                                              returnValues:NO];
 		} else {
-			[[NSWorkspace sharedWorkspace] performSelector:@selector(hideApplication:) onObjectsInArray:array
-											 returnValues:NO];
+            [[NSWorkspace sharedWorkspace] performSelector:@selector(activateApplication:) onObjectsInArray:array
+                                              returnValues:NO];		
 		}
 	} else {
 		array = [dObject validPaths];
