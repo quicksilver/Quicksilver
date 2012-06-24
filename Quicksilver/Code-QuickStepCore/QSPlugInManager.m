@@ -192,7 +192,7 @@
 																	 delegate:self];
 
 		if (theConnection) {
-			[QSTasks updateTask:@"UpdatePlugInInfo" status:@"Updating Plugin Info" progress:0.0];
+			[QSTasks updateTask:@"Retrieving Plugins..." status:@"Updating Plugin Info" progress:0.0];
 		} else {
 			NSLog(@"Problem downloading plugin data. Perhaps an invalid URL");
             [receivedData release], receivedData = nil;
@@ -239,13 +239,13 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	[QSTasks updateTask:@"UpdatePlugInInfo" status:@"Updating Plugin Info" progress:1.0];
+	[QSTasks updateTask:@"Retrieving Plugins..." status:@"Updating Plugin Info" progress:1.0];
     [connection release];
     [receivedData release];
 	receivedData = nil;
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSPlugInInfoFailedNotification object:self userInfo:nil];
-	[QSTasks removeTask:@"UpdatePlugInInfo"];
+	[QSTasks removeTask:@"Retrieving Plugins..."];
 }
 
 - (void)clearOldWebData {
@@ -279,12 +279,12 @@
 		[self willChangeValueForKey:@"knownPlugInsWithWebInfo"];
 		[self didChangeValueForKey:@"knownPlugInsWithWebInfo"];
 	}
-	[QSTasks removeTask:@"UpdatePlugInInfo"];
+	[QSTasks removeTask:@"Retrieving Plugins..."];
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSPlugInInfoLoadedNotification object:knownPlugIns];
 
 }
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-	[QSTasks updateTask:@"UpdatePlugInInfo" status:@"Updating Plugin Info" progress:1.0];
+	[QSTasks updateTask:@"Retrieving Plugins..." status:@"Updating Plugin Info" progress:1.0];
 	[self loadNewWebData:receivedData];
 	[connection release];
 	[receivedData release];

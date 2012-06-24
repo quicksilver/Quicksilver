@@ -2,7 +2,6 @@
 #include <Cocoa/Cocoa.h>
 
 #import "QSVoyeur.h"
-#import "UKMainThreadProxy.h"
 
 id QSVoy;
 
@@ -19,15 +18,15 @@ id QSVoy;
 - (id)init {
 	self = [super init];
 	if (self != nil) {
-		[self setDelegate:[self mainThreadProxy]];
+		[self setDelegate:self];
 	}
 	return self;
 }
 
-- (void)watcher:(id)kq receivedNotification:(NSString*)nm forPath:(NSString*)fpath {
-	if ([nm isEqualToString:UKFileWatcherDeleteNotification]) {
-		[self removePathFromQueue:fpath];
-		[self addPathToQueue:fpath notifyingAbout:NOTE_DELETE];
+- (void)VDKQueue:(id)kq receivedNotification:(NSString*)nm forPath:(NSString*)fpath {
+	if ([nm isEqualToString:@"VDKQueueFileDeletedNotification"]) {
+		[self removePath:fpath];
+		[self addPath:fpath notifyingAbout:NOTE_DELETE];
 	}
 	[[[NSWorkspace sharedWorkspace] notificationCenter] postNotificationName:nm object:fpath];
 }

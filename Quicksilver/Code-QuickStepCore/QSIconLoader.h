@@ -10,7 +10,6 @@
 
 @interface QSIconLoader : NSObject {
 	NSArray *array;
-	NSIndexSet *loadedIndexes;
 	BOOL loaderValid;
 	NSThread *loadThread;
 
