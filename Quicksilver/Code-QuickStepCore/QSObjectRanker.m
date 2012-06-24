@@ -29,7 +29,7 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 + (void)initialize {
     NSString *className = [[NSUserDefaults standardUserDefaults] stringForKey:@"QSStringRankers"];
     if (!className) {
-        className = @"QSDefaultStringRanker"
+        className = @"QSDefaultStringRanker";
     }
     
 	if (className) {
