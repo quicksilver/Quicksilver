@@ -725,6 +725,9 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 // Checks to see if the object in question is an application
 - (BOOL)isApplication {
 	NSString *path = [self singleFilePath];
+    if(!path) {
+        return NO;
+    }
 	LSItemInfoRecord infoRec;
 	LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);
 	return (infoRec.flags & kLSItemInfoIsApplication);
