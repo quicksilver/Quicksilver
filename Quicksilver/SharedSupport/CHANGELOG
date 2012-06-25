@@ -15,7 +15,7 @@ Changes - ß69 (3929)
   * FIX: Fix the 'Relaunch' action to time out if the application doesn't quit
   * FIX: Make the Automator actions universal
   * FIX: Fixed a crash during startup for Quicksilver (#871)
-  * FIX: Further crash fixes and clean up (#910, #923, #928, #929, #943)
+  * FIX: Further crash fixes and clean up (#910, #923, #928, #929, #943, #944, #950)
   * FIX: Fix the 'Type Text' action to work in sandboxed applications
   * FIX: Fix the display of upside down icons that could occur at random
   * CHANGE: Use a consistent name 'Plugin' across all aspects of Quicksilver
