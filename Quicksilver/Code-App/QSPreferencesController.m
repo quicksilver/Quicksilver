@@ -211,7 +211,7 @@ id QSPrefs;
     }
     
 	if (!path) {
-        path = [@"~/Library/Preferences/com.blacktree.Quicksilver.plist" stringByStandardizingPath];
+        path = [[NSString stringWithFormat:@"~/Library/Preferences/%@.plist",kQSBundleID] stringByStandardizingPath];
     }
     
 	[[self window] setTitle:string];

@@ -156,8 +156,13 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 		[self setPrimaryType:NSFilenamesPboardType];
 		[self getNameFromFiles];
 	} else {
+        // Sometimes no dataForType:NSStringPboardType exists, so fall back to using the word "text" (avoids a crash)
+        NSString *textString = [itemForKey(NSStringPboardType) stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if (!textString) {
+            textString = @"Text";
+        }
 		NSDictionary *namesAndKeys = [NSDictionary dictionaryWithObjects:
-                                      [NSArray arrayWithObjects:[itemForKey(NSStringPboardType) stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]], @"PDF Image", @"Finder Icon", @"PostScript Image", @"TIFF Image", @"Color Data", @"File Contents", @"Font Information", @"HTML Data", @"Paragraph Formatting", @"Tabular Text", @"VCard Data", @"Promised Files",nil]
+                                      [NSArray arrayWithObjects:textString, @"PDF Image", @"Finder Icon", @"PostScript Image", @"TIFF Image", @"Color Data", @"File Contents", @"Font Information", @"HTML Data", @"Paragraph Formatting", @"Tabular Text", @"VCard Data", @"Promised Files",nil]
                                     forKeys:[NSArray arrayWithObjects:NSStringPboardType, NSPDFPboardType, [@"'icns'" encodedPasteboardType], NSPostScriptPboardType, NSTIFFPboardType, NSColorPboardType, NSFileContentsPboardType, NSFontPboardType, NSHTMLPboardType, NSRulerPboardType, NSTabularTextPboardType, NSVCardPboardType, NSFilesPromisePboardType,nil]];
         for (NSString *key in [namesAndKeys allKeys]) {
 			if (itemForKey(key) ) {
