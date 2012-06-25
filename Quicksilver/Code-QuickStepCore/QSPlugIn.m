@@ -685,6 +685,12 @@ NSMutableDictionary *plugInBundlePaths = nil;
 }
 
 - (BOOL)_registerPlugIn {
+    NSRunningApplication *Quicksilver = [NSRunningApplication currentApplication];
+    NSNumber *myArch = [NSNumber numberWithInteger:[Quicksilver executableArchitecture]];
+    if ([bundle executableArchitectures] && ![[bundle executableArchitectures] containsObject:myArch]) {
+        [NSException raise:@"QSWrongPluginArchitecture" format:@"Current architecture unsupported"];
+    }
+    
 	if (!bundle) return NO;
     
 #ifdef DEBUG
