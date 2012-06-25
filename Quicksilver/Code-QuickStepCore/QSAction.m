@@ -251,6 +251,14 @@ static BOOL gModifiersAreIgnored;
     [[self actionDict] setObject:types forKey:kActionDirectTypes];
 }
 
+- (NSArray*)directFileTypes {
+    return [[self actionDict] objectForKey:kActionDirectFileTypes];
+}
+
+- (void)setDirectFileTypes:(NSArray *)types {
+    [[self actionDict] setObject:types forKey:kActionDirectFileTypes];
+}
+
 - (NSArray*)indirectTypes {
     return [[self actionDict] objectForKey:kActionIndirectTypes];
 }

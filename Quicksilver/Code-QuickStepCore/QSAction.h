@@ -2,45 +2,6 @@
 #import <QSCore/QSObject.h>
 #import <QSCore/QSObjectRanker.h>
 
-/* TODO : Split this in QSAppleScript action ? */
-
-// strings:
-#define kActionClass                @"actionClass"
-#define kActionProvider             @"actionProvider"
-#define kActionSelector             @"actionSelector"
-#define kActionSendMessageToClass   @"actionSendToClass"
-#define kActionAlternate            @"alternateAction"
-#define kActionScript               @"actionScript"
-#define kActionHandler              @"actionHandler"
-#define kActionEventClass           @"actionEventClass"
-#define kActionEventID              @"actionEventID"
-
-#define kActionArgumentCount        @"argumentCount" // Number, if undefined, calculates from selector
-
-// strings:
-#define kActionIcon                 @"icon"
-#define kActionName                 @"name"
-#define kActionUserData             @"userData"
-#define kActionIdentifier           @"id"
-
-// arrays:
-#define kActionDirectTypes          @"directTypes"
-#define kActionIndirectTypes        @"indirectTypes"
-#define kActionResultType           @"resultTypes" // Unused ?
-
-// BOOLs:
-#define kActionRunsInMainThread     @"runInMainThread"
-#define kActionDisplaysResult       @"displaysResult"
-#define kActionIndirectOptional     @"indirectOptional"
-#define kActionReverseArguments     @"reverseArguments"
-#define kActionSplitPluralArguments @"splitPlural"
-#define kActionValidatesObjects     @"validatesObjects"
-#define kActionInitialize           @"initialize"
-#define kActionEnabled              @"enabled"
-
-// NSNumber (float) :
-#define kActionPrecedence @"precedence"
-
 @interface QSAction : QSObject {
 	NSInteger rank;
 }
@@ -90,8 +51,10 @@
 
 - (NSArray*)directTypes;
 - (void)setDirectTypes:(NSArray*)types;
+- (NSArray*)directFileTypes;
+- (void)setDirectFileTypes:(NSArray *)types;
 - (NSArray*)indirectTypes;
-- (void)setIndirectTypes:(NSArray*)types;
+- (void)setIndirectTypes:(NSArray *)types;
 /*- (NSArray*)resultTypes;
 - (void)setResultTypes:(NSArray*)types;*/
 
