@@ -743,13 +743,19 @@ static QSController *defaultController = nil;
     NSWindowController *QSCrashController = nil;
 	// check to see if Quicksilver crashed since last used (there's a newer crash report or a plugin crashed)
 	if ((lastKnownCrashDate && [mostRecentCrashDate compare:lastKnownCrashDate] == NSOrderedDescending) ||  pluginName) {
+        
+        // Crash due to faulty plugin
+        if (pluginName) {
+            // There are no crash reports for these, so set the crashReportPath to nil
+            [self setCrashReportPath:nil];
+        }
+
         // Crash occurred, load the crash reporter window
         QSCrashController = [[QSCrashReporterWindowController alloc] initWithWindowNibName:@"QSCrashReporter"];
         // Open the crash reporter window
         [NSApp runModalForWindow:[QSCrashController window]];
         [QSCrashController release];
     }
-	[crashReportPath release];
     [mostRecentCrashDate release];
 
     // synchronise prefs and QuicksilverState file
