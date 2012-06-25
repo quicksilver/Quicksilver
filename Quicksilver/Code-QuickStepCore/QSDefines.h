@@ -5,3 +5,5 @@
 
 #define QUERY_KEY @"***"
 #define kQSResultArrayKey @"resultArray"
+
+#define kQSBundleID @"com.blacktree.Quicksilver"
