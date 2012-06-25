@@ -60,7 +60,7 @@
 - (id)taskController {return QSTasks;}
 
 - (void)taskAdded:(NSNotification *)notif {
-	[self performSelector:@selector(showIfNeeded:) withObject:self afterDelay:0.5 extend:NO];
+	[self showIfNeeded:notif];
 }
 
 - (void)tasksEnded:(NSNotification *)notif {
@@ -90,10 +90,8 @@
 	NSMutableArray *oldTaskViews = [[tasksView subviews] mutableCopy];
 	NSArray *oldTasks = [oldTaskViews valueForKey:@"task"];
 	NSMutableArray *newTaskViews = [NSMutableArray array];
-	
-	NSInteger i, count;
-	for (i = 0, count = [[self tasks] count]; i<count; i++) {
-		QSTask *task = [[self tasks] objectAtIndex:i];
+	NSUInteger i = 0;
+	for (QSTask *task in [self tasks]) {
 		NSInteger index = [oldTasks indexOfObject:task];
 		NSView *view = nil;
 		if (index != NSNotFound) {
@@ -105,9 +103,11 @@
 			frame.origin = NSMakePoint(0, NSHeight([tasksView frame]) -NSHeight([view frame])*(i+1));
 			frame.size.width = NSWidth([[tasksView enclosingScrollView] frame]);
 			[view setFrame:frame];
+            [view setNeedsDisplay:YES];
 			[tasksView addSubview:view];
 			[newTaskViews addObject:view];
 		}
+        i = i+1;
 	}
 	
 	[oldTaskViews removeObjectsInArray:newTaskViews];
