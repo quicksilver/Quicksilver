@@ -217,9 +217,9 @@ NSSize QSMaxIconSize;
 	if ([objects containsObject:object] || !object)
 		return [self objectByMergingObjects:objects];
 
-	NSMutableArray *array = [objects mutableCopy];
+	NSMutableArray *array = [[objects mutableCopy] autorelease];
 	[array addObject:object];
-	return	[self objectByMergingObjects:array];
+	return [self objectByMergingObjects:array];
 }
 
 - (NSArray *)splitObjects {

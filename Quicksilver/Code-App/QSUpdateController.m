@@ -91,9 +91,6 @@
             versionType = @"rel";
             break;
     }
-#ifdef DEBUG
-        versionType = @"pre";
-#endif
     
     checkURL = [checkURL stringByAppendingFormat:@"?type=%@&current=%@", versionType, thisVersionString];
 #ifdef DEBUG

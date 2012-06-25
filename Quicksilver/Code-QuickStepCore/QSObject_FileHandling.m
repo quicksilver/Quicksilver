@@ -695,6 +695,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	// return an already-created object if it exists
 	QSObject *existingObject = [QSObject objectWithIdentifier:thisIdentifier];
 	if (existingObject) {
+		[existingObject retain];
 		return existingObject;
 	}
 	
