@@ -687,7 +687,6 @@ NSMutableDictionary *plugInBundlePaths = nil;
 - (BOOL)_registerPlugIn {
     static NSNumber *myArch = nil;
     if (myArch == nil) {
-        NSLog(@"setting myArch");
         NSRunningApplication *Quicksilver = [NSRunningApplication currentApplication];
         myArch = [NSNumber numberWithInteger:[Quicksilver executableArchitecture]];
     }
