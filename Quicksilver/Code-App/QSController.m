@@ -756,6 +756,7 @@ static QSController *defaultController = nil;
         [NSApp runModalForWindow:[QSCrashController window]];
         [QSCrashController release];
     }
+    [crashReportPath release];
     [mostRecentCrashDate release];
 
     // synchronise prefs and QuicksilverState file
