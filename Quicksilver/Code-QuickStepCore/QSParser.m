@@ -26,17 +26,21 @@
 
 - (NSArray *)objectsFromURL:(NSURL *)url withSettings:(NSDictionary *)settings {
  // NSData *data = [NSData dataWithContentsOfURL:url];
-	NSError *error;
+	NSError *error = nil;
 
 	NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url
 															cachePolicy:NSURLRequestUseProtocolCachePolicy
-														timeoutInterval:10.0];
+														timeoutInterval:5.0];
 	[theRequest setValue:kQSUserAgent forHTTPHeaderField:@"User-Agent"];
 	NSStringEncoding encoding = NSUTF8StringEncoding;
 
 	NSURLResponse *response = nil;
 	//if (VERBOSE) NSLog(@"Downloading from %@", url);
 	NSData *data = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:&response error:&error];
+    // in the case where an error occurred, returning 'nil' causes the original catalog entry contents to be returned (see QSWebSource ojectsForEntry: )
+    if (error) {
+        return nil;
+    }
 	  if ([response textEncodingName])
 		  encoding = CFStringConvertEncodingToNSStringEncoding(CFStringConvertIANACharSetNameToEncoding((CFStringRef) [response textEncodingName]));
 //if (VERBOSE) NSLog(@"Downloading complete - %@", url);
