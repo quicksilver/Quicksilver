@@ -817,6 +817,11 @@ NSMutableDictionary *bindingsDict = nil;
 	NSDate *date = [NSDate date];
 #endif
 	
+    // Treat capitalised and non-capitalised keys as the same for actions
+    if ([self isEqual:[self actionSelector]]) {
+        string = [string lowercaseString];
+    }
+    
 	//	NSData *scores;
 	NSMutableArray *newResultArray = [[QSLibrarian sharedInstance] scoredArrayForString:string inSet:searchArray];
     
