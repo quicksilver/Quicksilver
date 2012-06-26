@@ -208,14 +208,14 @@ QSExecutor *QSExec = nil;
 		[action _setRank:index];
 	}
 	NSDictionary *actionDict = [action objectForType:QSActionType];
-	NSArray *directTypes = [actionDict objectForKey:@"directTypes"];
+	NSArray *directTypes = [actionDict objectForKey:kActionDirectTypes];
 	if (![directTypes count]) directTypes = [NSArray arrayWithObject:@"*"];
 	for (NSString *type in directTypes) {
         [[self actionsArrayForType:type] addObject:action];
     }
     
 	if ([directTypes containsObject:QSFilePathType]) {
-		directTypes = [actionDict objectForKey:@"directFileTypes"];
+		directTypes = [actionDict objectForKey:kActionDirectFileTypes];
 		if (![directTypes count]) directTypes = [NSArray arrayWithObject:@"*"];
 		for (NSString *type in directTypes) {
 			[[self actionsArrayForFileType:type] addObject:action];
