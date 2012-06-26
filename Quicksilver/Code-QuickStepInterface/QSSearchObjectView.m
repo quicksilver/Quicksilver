@@ -337,7 +337,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (QSSearchMode)searchMode { return searchMode;  }
 - (void)setSearchMode:(QSSearchMode)newSearchMode {
 	// Do not allow the setting of 'Filter Catalog' when in the aSelector (action)
-	if (!([[self class] isEqual:[QSSearchObjectView class]] && newSearchMode == SearchFilterAll)) {
+	if (!((self == [self actionSelector]) && newSearchMode == SearchFilterAll)) {
 		searchMode = newSearchMode;
 	}
 	
