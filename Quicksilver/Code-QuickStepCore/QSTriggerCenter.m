@@ -51,7 +51,7 @@
 // Method to set the scope when the QS UI is activated
 - (void)interfaceActivated {
 	NSArray *theTriggers = [triggersDict allValues];
-	[theTriggers makeObjectsPerformSelector:@selector(rescope:) withObject:@"com.blacktree.Quicksilver"];
+	[theTriggers makeObjectsPerformSelector:@selector(rescope:) withObject:kQSBundleID];
 }
 
 // Method to set the scope when the QS UI is deactivated
