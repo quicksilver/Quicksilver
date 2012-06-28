@@ -547,6 +547,7 @@
 			[depending addObject:plugIn];
 			//NSLog(@"depends %@", depending);
 		}
+		[plugIn setLoadError:@"Unmet dependencies"];
 		return NO;
 	}
 	return YES;
