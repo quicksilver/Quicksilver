@@ -894,6 +894,9 @@
 	NSString *ident = nil;
 	if (!version) version = [NSApp buildVersion];
 	for(ident in bundleIDs) {
+		if ([[localPlugIns allKeys] containsObject:ident]) {
+			continue; // already installed - skip it
+		}
 		NSString *url = [self urlStringForPlugIn:ident version:version];
 		NSLog(@"Downloading %@", url);
 		[self performSelectorOnMainThread:@selector(installPlugInWithInfo:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:ident, @"id", url, @"url", nil] waitUntilDone:YES];
