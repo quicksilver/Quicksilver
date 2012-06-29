@@ -366,11 +366,11 @@
 	NSMutableSet *dependingNames = [NSMutableSet set];
 	foreachkey(ident, plugins, dependingPlugIns) {
 		if ([(NSArray *)plugins count]) {
-			// ignore dependencies for plug-ins that can't load
+			// ignore dependencies for plug-ins that won't load under the current architecture
 			BOOL loadDependencies = NO;
 			for (QSPlugIn *plugin in plugins) {
 				if ([plugin isSupported]) {
-					// if any one of the depending plug-ins will load, get the prerequisite
+					// if any one of the depending plug-ins is supported, get the prerequisite
 					loadDependencies = YES;
 				}
 			}
