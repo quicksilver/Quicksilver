@@ -163,7 +163,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 		NSRunningApplication *Quicksilver = [NSRunningApplication currentApplication];
 		myArch = [NSNumber numberWithInteger:[Quicksilver executableArchitecture]];
 	}
-	return ([bundle executableArchitectures] && [[bundle executableArchitectures] containsObject:myArch]);
+	return (![bundle executableArchitectures] || [[bundle executableArchitectures] containsObject:myArch]);
 }
 
 - (NSDictionary *)info {
