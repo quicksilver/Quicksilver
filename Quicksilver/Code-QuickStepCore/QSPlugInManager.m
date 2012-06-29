@@ -366,10 +366,19 @@
 	NSMutableSet *dependingNames = [NSMutableSet set];
 	foreachkey(ident, plugins, dependingPlugIns) {
 		if ([(NSArray *)plugins count]) {
-			NSArray *dependencies = [[plugins lastObject] dependencies];
-			[array addObject:[dependencies objectWithValue:ident forKey:@"id"]];
-
-			[dependingNames addObjectsFromArray:[plugins valueForKey:@"name"]];
+			// ignore dependencies for plug-ins that can't load
+			BOOL loadDependencies = NO;
+			for (QSPlugIn *plugin in plugins) {
+				if ([plugin isSupported]) {
+					// if any one of the depending plug-ins will load, get the prerequisite
+					loadDependencies = YES;
+				}
+			}
+			if (loadDependencies) {
+				NSArray *dependencies = [[plugins lastObject] dependencies];
+				[array addObject:[dependencies objectWithValue:ident forKey:@"id"]];
+				[dependingNames addObjectsFromArray:[plugins valueForKey:@"name"]];
+			}
 		}
 	}
 	//	NSLog(@"installing! %@", array);
