@@ -83,10 +83,19 @@
 
 	// Load dependencies
 	NSArray *deps = [dependingPlugIns objectForKey:[plugin identifier]];
+    // Bool to specify whether a plugin's dependencies can all be loaded
+    BOOL allDependenciesLoaded = YES;
 	for(QSPlugIn * dep in deps) {
 		if (![[dep unmetDependencies] count])
-			[self liveLoadPlugIn:dep];
+			if (![self liveLoadPlugIn:dep]) {
+                // Dependency couldn't be loaded
+                allDependenciesLoaded = NO;
+            }
 	}
+    if (allDependenciesLoaded) {
+        // All the dependencies were correctly installed, so remove the 'Unmet Dependencies' load error
+        [plugin setLoadError:nil];
+    }
 	[dependingPlugIns removeObjectForKey:[plugin identifier]];
 	[self checkForObsoletes:plugin];
 }
