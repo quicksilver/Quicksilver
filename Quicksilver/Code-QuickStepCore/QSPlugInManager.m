@@ -366,10 +366,24 @@
 	NSMutableSet *dependingNames = [NSMutableSet set];
 	foreachkey(ident, plugins, dependingPlugIns) {
 		if ([(NSArray *)plugins count]) {
-			NSArray *dependencies = [[plugins lastObject] dependencies];
-			[array addObject:[dependencies objectWithValue:ident forKey:@"id"]];
-
-			[dependingNames addObjectsFromArray:[plugins valueForKey:@"name"]];
+			// ignore dependencies for plug-ins that won't load under the current architecture
+			BOOL loadDependencies = NO;
+			for (QSPlugIn *plugin in plugins) {
+				if ([plugin isSupported]) {
+					// if any one of the depending plug-ins is supported, get the prerequisite
+					loadDependencies = YES;
+					break;
+				}
+			}
+			if (loadDependencies) {
+				NSArray *dependencies = [[plugins lastObject] dependencies];
+				NSDictionary *supportingPlugIn = [dependencies objectWithValue:ident forKey:@"id"];
+				if (![[localPlugIns allKeys] containsObject:[supportingPlugIn objectForKey:@"id"]]) {
+					// supporting plug-in is not yet installed
+					[array addObject:supportingPlugIn];
+					[dependingNames addObjectsFromArray:[plugins valueForKey:@"name"]];
+				}
+			}
 		}
 	}
 	//	NSLog(@"installing! %@", array);
@@ -547,6 +561,7 @@
 			[depending addObject:plugIn];
 			//NSLog(@"depends %@", depending);
 		}
+		[plugIn setLoadError:@"Unmet dependencies"];
 		return NO;
 	}
 	return YES;
@@ -897,13 +912,15 @@
 		NSLog(@"Downloading %@", url);
 		[self performSelectorOnMainThread:@selector(installPlugInWithInfo:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:ident, @"id", url, @"url", nil] waitUntilDone:YES];
 	}
-
-	NSString *status = [NSString stringWithFormat:@"Installing %lu Plugin%@", (unsigned long)[queuedDownloads count], ([queuedDownloads count] > 1 ? @"s" : @"")];
-	[[QSTaskController sharedInstance] updateTask:@"QSPlugInInstalling" status:status progress:-1];
-	[self setInstallStatus:status];
-	[self setIsInstalling:YES];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"QSUpdateControllerStatusChanged" object:self];
-	[self performSelectorOnMainThread:@selector(startDownloadQueue) withObject:nil waitUntilDone:YES];
+	
+	if ([queuedDownloads count]) {
+		NSString *status = [NSString stringWithFormat:@"Installing %lu Plugin%@", (unsigned long)[queuedDownloads count], ([queuedDownloads count] > 1 ? @"s" : @"")];
+		[[QSTaskController sharedInstance] updateTask:@"QSPlugInInstalling" status:status progress:-1];
+		[self setInstallStatus:status];
+		[self setIsInstalling:YES];
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"QSUpdateControllerStatusChanged" object:self];
+		[self performSelectorOnMainThread:@selector(startDownloadQueue) withObject:nil waitUntilDone:YES];
+	}
 	return YES;
 }
 
