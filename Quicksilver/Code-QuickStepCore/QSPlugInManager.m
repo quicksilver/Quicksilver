@@ -372,6 +372,7 @@
 				if ([plugin isSupported]) {
 					// if any one of the depending plug-ins is supported, get the prerequisite
 					loadDependencies = YES;
+					break;
 				}
 			}
 			if (loadDependencies) {
