@@ -376,8 +376,12 @@
 			}
 			if (loadDependencies) {
 				NSArray *dependencies = [[plugins lastObject] dependencies];
-				[array addObject:[dependencies objectWithValue:ident forKey:@"id"]];
-				[dependingNames addObjectsFromArray:[plugins valueForKey:@"name"]];
+				NSDictionary *supportingPlugIn = [dependencies objectWithValue:ident forKey:@"id"];
+				if (![[localPlugIns allKeys] containsObject:[supportingPlugIn objectForKey:@"id"]]) {
+					// supporting plug-in is not yet installed
+					[array addObject:supportingPlugIn];
+					[dependingNames addObjectsFromArray:[plugins valueForKey:@"name"]];
+				}
 			}
 		}
 	}
@@ -903,9 +907,6 @@
 	NSString *ident = nil;
 	if (!version) version = [NSApp buildVersion];
 	for(ident in bundleIDs) {
-		if ([[localPlugIns allKeys] containsObject:ident]) {
-			continue; // already installed - skip it
-		}
 		NSString *url = [self urlStringForPlugIn:ident version:version];
 		NSLog(@"Downloading %@", url);
 		[self performSelectorOnMainThread:@selector(installPlugInWithInfo:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:ident, @"id", url, @"url", nil] waitUntilDone:YES];
