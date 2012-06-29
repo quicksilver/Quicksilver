@@ -901,13 +901,15 @@
 		NSLog(@"Downloading %@", url);
 		[self performSelectorOnMainThread:@selector(installPlugInWithInfo:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:ident, @"id", url, @"url", nil] waitUntilDone:YES];
 	}
-
-	NSString *status = [NSString stringWithFormat:@"Installing %lu Plugin%@", (unsigned long)[queuedDownloads count], ([queuedDownloads count] > 1 ? @"s" : @"")];
-	[[QSTaskController sharedInstance] updateTask:@"QSPlugInInstalling" status:status progress:-1];
-	[self setInstallStatus:status];
-	[self setIsInstalling:YES];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"QSUpdateControllerStatusChanged" object:self];
-	[self performSelectorOnMainThread:@selector(startDownloadQueue) withObject:nil waitUntilDone:YES];
+	
+	if ([queuedDownloads count]) {
+		NSString *status = [NSString stringWithFormat:@"Installing %lu Plugin%@", (unsigned long)[queuedDownloads count], ([queuedDownloads count] > 1 ? @"s" : @"")];
+		[[QSTaskController sharedInstance] updateTask:@"QSPlugInInstalling" status:status progress:-1];
+		[self setInstallStatus:status];
+		[self setIsInstalling:YES];
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"QSUpdateControllerStatusChanged" object:self];
+		[self performSelectorOnMainThread:@selector(startDownloadQueue) withObject:nil waitUntilDone:YES];
+	}
 	return YES;
 }
 
