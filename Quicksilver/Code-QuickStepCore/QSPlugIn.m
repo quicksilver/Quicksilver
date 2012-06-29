@@ -133,9 +133,6 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	if (!data) {
 		name = [name stringByAppendingFormat:@" - Private", 0x03B1];
 	}
-//	if (DEBUG && [self isUniversal]) {
-//		name = [name stringByAppendingFormat:@" - U"];
-//	}
     if ([self isSecret]) {
 		name = [name stringByAppendingFormat:@" - Secret"];
 	}
@@ -157,28 +154,6 @@ NSMutableDictionary *plugInBundlePaths = nil;
 		  return @"";
 	  }
 	return @"*";
-}
-
-- (BOOL)isUniversal {
-	if (![bundle executablePath])
-        return NO;
-    /* TODO: Use NSTask */
-	NSString *str = [NSString stringWithFormat:@"/usr/bin/lipo -info \"%@\"", [bundle executablePath]];
-	FILE *file = popen( [str UTF8String] , "r" );
-	NSString *output = nil;
-	NSMutableData *pipeData = [NSMutableData data];
-	if ( file ) {
-		char buffer[1024];
-		size_t length;
-		while (length = fread( buffer, 1, sizeof( buffer ), file ) )[pipeData appendBytes:buffer length:length];
-		output = [[[NSString alloc] initWithData:pipeData encoding:NSUTF8StringEncoding] autorelease];
-		pclose( file );
-        return [output rangeOfString:@"i386"].location != NSNotFound;
-	}
-
-    return NO;
-	//	NSLog(@"output%@", output);
-	
 }
 
 - (BOOL)isSupported
