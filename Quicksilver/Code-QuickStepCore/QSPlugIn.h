@@ -66,6 +66,7 @@
 - (NSInteger) isLoaded;
 - (NSDictionary *)info;
 - (BOOL)isUniversal;
+- (BOOL)isSupported; // plug-in provides an architecture matching Quicksilver's
 - (BOOL)isSecret;
 //---------
 - (NSBundle *)bundle;

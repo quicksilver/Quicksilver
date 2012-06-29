@@ -181,6 +181,16 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	
 }
 
+- (BOOL)isSupported
+{
+	static NSNumber *myArch = nil;
+	if (myArch == nil) {
+		NSRunningApplication *Quicksilver = [NSRunningApplication currentApplication];
+		myArch = [NSNumber numberWithInteger:[Quicksilver executableArchitecture]];
+	}
+	return ([bundle executableArchitectures] && [[bundle executableArchitectures] containsObject:myArch]);
+}
+
 - (NSDictionary *)info {
 	if (bundle)
 		return [bundle infoDictionary];
@@ -685,12 +695,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 }
 
 - (BOOL)_registerPlugIn {
-    static NSNumber *myArch = nil;
-    if (myArch == nil) {
-        NSRunningApplication *Quicksilver = [NSRunningApplication currentApplication];
-        myArch = [NSNumber numberWithInteger:[Quicksilver executableArchitecture]];
-    }
-    if ([bundle executableArchitectures] && ![[bundle executableArchitectures] containsObject:myArch]) {
+    if (![self isSupported]) {
         [NSException raise:@"QSWrongPluginArchitecture" format:@"Current architecture unsupported"];
     }
     
