@@ -121,7 +121,9 @@
 	setenv("relaunchFromPid", pidstr, YES);
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSApplicationWillRelaunchNotification object:self userInfo:nil];
     NSString *arch = @"/usr/bin/arch";
-	[NSTask launchedTaskWithLaunchPath:arch arguments:[NSArray arrayWithObjects:@"-i386", @"-x86_64", path,nil]];
+    NSRunningApplication *Quicksilver = [NSRunningApplication currentApplication];
+    NSString *currentArchitecture = ([Quicksilver executableArchitecture] == NSBundleExecutableArchitectureX86_64) ? @"-x86_64" : @"-i386";
+	[NSTask launchedTaskWithLaunchPath:arch arguments:[NSArray arrayWithObjects:currentArchitecture, path,nil]];
 
 	[self terminate:self];
 }
