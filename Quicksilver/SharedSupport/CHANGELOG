@@ -1,7 +1,8 @@
-Changes - ß69 (3929)
+Changes - ß69 (3930)
 --------------------
 
-  * NEW: Quicksilver is now 64 bit
+  * NEW: Quicksilver is now 64-bit
+  * NEW: Graceful handling of plug-ins with no 64-bit support (#936, #968, #970)
   * NEW: Support for Mac OS X 10.8 (Mountain Lion)
   * NEW: Made Quicksilver's alerts localisable (#568)
   * NEW: Further tweaks to the localisation system to allow the Preferences to be localised
@@ -15,7 +16,7 @@ Changes - ß69 (3929)
   * FIX: Fix the 'Relaunch' action to time out if the application doesn't quit
   * FIX: Make the Automator actions universal
   * FIX: Fixed a crash during startup for Quicksilver (#871)
-  * FIX: Further crash fixes and clean up (#910, #923, #928, #929, #943, #944, #950)
+  * FIX: Further crash fixes and clean up (#910, #923, #928, #929, #943, #944, #949, #950)
   * FIX: Fix the 'Type Text' action to work in sandboxed applications
   * FIX: Fix the display of upside down icons that could occur at random
   * CHANGE: Use a consistent name 'Plugin' across all aspects of Quicksilver
@@ -29,6 +30,7 @@ Changes - ß69 (3929)
   * CHANGE: Improve the handling of exceptions/crashes in Quicksilver (@try/@catch handlers)
   * CHANGE: Leave the 3rd pane blank for the 'Open With…' action so that capitalised key shortcuts work (e.g. ⌘⇧O for 'Open With…' move focus to the 3rd pane)
   * CHANGE: Toggle action no longer hides background applications (#939)
+  * CHANGE: Plug-ins can progrmatically set file types supported by actions (#958)
 
 Changes - ß68 (3928)
 -------
