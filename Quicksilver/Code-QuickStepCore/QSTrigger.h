@@ -22,6 +22,11 @@
 - (QSCommand *)command;
 - (void)setCommand:(QSCommand*)newCommand;
 
+// Naming methods
+- (NSString *)name;
+- (BOOL)hasCustomName;
+- (void)setName:(NSString *)name;
+
 - (BOOL)isPreset;
 - (BOOL)enabled;
 - (void)setEnabled:(BOOL)enabled;
