@@ -653,6 +653,10 @@ static QSController *defaultController = nil;
 				if (selection == 1)
 					[self showReleaseNotes:self];
 			}
+			if (lastVersion < [@"3929" hexIntValue] && [[NSRunningApplication currentApplication] executableArchitecture] == NSBundleExecutableArchitectureX86_64) {
+				// first time-running a 64-bit version
+				NSRunInformationalAlertPanel(NSLocalizedString(@"Quicksilver is now 64-bit", nil), NSLocalizedString(@"64-bit details", nil), NSLocalizedString(@"OK", nil), nil, nil);
+			}
 #endif
 			
             // Not localizing this, as it's pretty much obsolete
