@@ -315,8 +315,11 @@ static volatile NDKeyboardLayout		* kCurrentKeyboardLayout = nil;
 	{
 		@synchronized(self)
 		{
-			if( kCurrentKeyboardLayout == nil )
-				kCurrentKeyboardLayout = [[self alloc] initWithInputSource:TISCopyCurrentKeyboardInputSource()];
+			if( kCurrentKeyboardLayout == nil ) {
+                TISInputSourceRef currentKeyboard = TISCopyCurrentKeyboardInputSource();
+				kCurrentKeyboardLayout = [[self alloc] initWithInputSource:currentKeyboard];
+                CFRelease(currentKeyboard);
+            }
 		}
 	}
 	
@@ -335,8 +338,8 @@ static volatile NDKeyboardLayout		* kCurrentKeyboardLayout = nil;
 	{
 		if( aSounce != NULL )
 		{
-			keyboardLayoutData = (CFDataRef)CFMakeCollectable(TISGetInputSourceProperty(aSounce, kTISPropertyUnicodeKeyLayoutData));
-			CFRetain( keyboardLayoutData );
+            keyboardLayoutData = TISGetInputSourceProperty(aSounce, kTISPropertyUnicodeKeyLayoutData);
+            CFRetain( keyboardLayoutData );
 		}
 		else
 		{

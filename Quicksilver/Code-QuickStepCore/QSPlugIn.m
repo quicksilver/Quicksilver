@@ -161,7 +161,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	static NSNumber *myArch = nil;
 	if (myArch == nil) {
 		NSRunningApplication *Quicksilver = [NSRunningApplication currentApplication];
-		myArch = [NSNumber numberWithInteger:[Quicksilver executableArchitecture]];
+		myArch = [[NSNumber numberWithInteger:[Quicksilver executableArchitecture]] retain];
 	}
 	return (![bundle executableArchitectures] || [[bundle executableArchitectures] containsObject:myArch]);
 }
