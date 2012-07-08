@@ -225,12 +225,16 @@
 }
 
 - (void)showIndirectSelector:(id)sender {
-	[[[self window] contentView] addSubview:iSelector];
-	[aSelector setNextKeyView:iSelector];
+    if (![[[[self window] contentView] subviews] containsObject:iSelector]) {
+        [[[self window] contentView] addSubview:iSelector];
+        [aSelector setNextKeyView:iSelector];
+    }
 }
 
 - (void)hideIndirectSelector:(id)sender {
-	[iSelector removeFromSuperview];
+    if ([[[[self window] contentView] subviews] containsObject:iSelector]) {
+        [iSelector removeFromSuperview];
+    }
 }
 
 - (void)clearObjectView:(QSSearchObjectView *)view {
@@ -261,6 +265,10 @@
 	[control setResultArray:(NSMutableArray *)array];
     
 	[control selectObject:defaultSelection];
+}
+
+- (NSTimer *)actionsUpdateTimer {
+    return actionsUpdateTimer;
 }
 
 - (void)setActionUpdateTimer {
@@ -396,9 +404,10 @@
 - (void)searchObjectChanged:(NSNotification*)notif {
 	[[self window] disableFlushWindow];
 	if ([notif object] == dSelector) {
+        if ([iSelector objectValue] != nil) {
             [iSelector setObjectValue:nil];
-            [self updateActions];
-            [self updateViewLocations];
+        }
+        [self updateActions];
 	} else if ([notif object] == aSelector) {
         QSAction *obj = [aSelector objectValue];
         if ([obj isKindOfClass:[QSRankedObject class]])
@@ -409,9 +418,7 @@
                 [self updateIndirectObjects];
             [self updateViewLocations];
         }
-	} else if ([notif object] == iSelector) {
-		[self updateViewLocations];
-	}
+    }
 	[[self window] enableFlushWindow];
 }
 
