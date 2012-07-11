@@ -436,7 +436,7 @@ NSDictionary *enabledPresetDictionary;*/
    
     // Lock the 'contents' mutablearray so that it cannot be changed whilst it's being written to file
     @synchronized(contents) {
-        NSArray *writeArray = [[self _contents] arrayByPerformingSelector:@selector(dictionaryRepresentation)];
+        NSArray *writeArray = [contents arrayByPerformingSelector:@selector(dictionaryRepresentation)];
         [writeArray writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
     }
 }
