@@ -70,9 +70,11 @@ id QSPrefs;
 }
 
 - (void)applicationWillRelaunch:(NSNotification *)notif {
-	id theID;
-	if (theID = [[[moduleController selectedObjects] lastObject] objectForKey:kItemID])
-		setenv("QSVisiblePrefPane", [theID UTF8String] , YES);
+    if ([[self window] isVisible]) {
+        id theID;
+        if (theID = [[[moduleController selectedObjects] lastObject] objectForKey:kItemID])
+            setenv("QSVisiblePrefPane", [theID UTF8String] , YES);
+    }
 }
 
 - (void)awakeFromNib {
