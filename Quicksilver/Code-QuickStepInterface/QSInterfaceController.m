@@ -1,7 +1,6 @@
 #import "QSPreferenceKeys.h"
 #import "QSInterfaceController.h"
 #import "QSHistoryController.h"
-#import <Carbon/Carbon.h>
 #import "QSObject.h"
 
 #import "QSActionProvider.h"
@@ -169,6 +168,12 @@
 		CGSConnection conn = _CGSDefaultConnection();
 		CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyDisable);
 	}
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSForceUSKeyboardOnActivation"]) {
+        savedInputSource = TISCopyCurrentKeyboardLayoutInputSource();
+        TISInputSourceRef usInputSource = TISCopyInputSourceForLanguage((CFStringRef)@"en");
+        TISSelectInputSource(usInputSource);
+    }
 }
 
 - (void)willHideMainWindow:(id)sender {
@@ -183,6 +188,10 @@
     // Close the Quicklook panel if the QS window closes
     if([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
         [(QSSearchObjectView *)[[QLPreviewPanel sharedPreviewPanel] delegate] closePreviewPanel];
+    }
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSForceUSKeyboardOnActivation"]) {
+        TISSelectInputSource(savedInputSource);
     }
 }
 
