@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+# -*- encoding: utf-8 -*-
+
+import sys
+import os
+import platform
+import plistlib
+import codecs
+## fake the deployment target to make distutils happy
+os.environ['MACOSX_DEPLOYMENT_TARGET'] = '.'.join(platform.mac_ver()[0].split('.')[0:2])
+import markdown
+
+info_plist = sys.argv[1]
+
+if not os.path.exists(info_plist):
+    sys.exit(78) # configuration error
+
+info = plistlib.readPlist(info_plist)
+
+## increment version
+version_hex = info['CFBundleVersion']
+version_int = int(version_hex, 16)
+new_version = hex(version_int + 1)[2:].upper() # uppercase, without 0x prefix
+info['CFBundleVersion'] = new_version
+
+## look for documentation and convert to HTML
+srcroot = os.getenv('SRCROOT')
+if srcroot is not None and os.path.exists(srcroot + "/Documentation.mdown"):
+    docfile = srcroot + "/Documentation.mdown"
+    doctext = codecs.open(docfile, mode = "r", encoding = "utf8").read()
+    md = markdown.Markdown(extensions = ['extra'], output_format = 'html4')
+    extended_description = md.convert(doctext)
+    info['QSPlugIn']['extendedDescription'] = extended_description
+
+plistlib.writePlist(info, info_plist)
