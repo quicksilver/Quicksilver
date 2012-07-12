@@ -20,6 +20,7 @@ Changes - ß69 (3930)
   * FIX: Fix the 'Type Text' action to work in sandboxed applications
   * FIX: Fix the display of upside down icons that could occur at random
   * FIX: Small changes to keyboard layout code (#975)
+  * FIX: The Preferences window is correctly opened (or not opened) when relaunching (#962)
   * CHANGE: Use a consistent name 'Plugin' across all aspects of Quicksilver
   * CHANGE: Remove references to pre 10.6 catalog items in the Catalog preferences
   * CHANGE: Update the 'Recent Servers' and 'Favorites' catalog entries
