@@ -985,8 +985,10 @@ static QSController *defaultController = nil;
 		[self runSetupAssistant:nil];
 	}
 	char *visiblePref = getenv("QSVisiblePrefPane");
-	if (visiblePref)
+	if (visiblePref) {
 		[QSPreferencesController showPaneWithIdentifier:[NSString stringWithUTF8String:visiblePref]];
+        unsetenv("QSVisiblePrefPane");
+    }
 
 	[QSResourceManager sharedInstance];
 	[[QSTriggerCenter sharedInstance] activateTriggers];
