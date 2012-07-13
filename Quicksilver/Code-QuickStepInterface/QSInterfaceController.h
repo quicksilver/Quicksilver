@@ -25,7 +25,7 @@
 	BOOL hidingWindow;
 	BOOL preview;
     
-    TISInputSourceRef savedInputSource;
+    TISInputSourceRef savedKeyboard;
 }
 - (QSCommand *)currentCommand;
 - (void)setCommand:(QSCommand *)command;

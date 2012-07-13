@@ -39,6 +39,20 @@
 #import "QSPlugInManager.h"
 #import "QSPlugIn.h"
 
+@interface QSPreferencePane (Helper)
+- (void)selectItemInPopUp:(NSPopUpButton *)popUp representedObject:(id)object;
+@end
+
+@implementation QSPreferencePane (Helper)
+
+- (void)selectItemInPopUp:(NSPopUpButton *)popUp representedObject:(id)object {
+	NSInteger index = [popUp indexOfItemWithRepresentedObject:object];
+	if (index == -1 && [popUp numberOfItems]) index = 0;
+	[popUp selectItemAtIndex:index];
+}
+
+@end
+
 @implementation QSSearchPrefPane
 
 - (void)awakeFromNib {
@@ -50,10 +64,17 @@
 	NSUserDefaultsController *defaultsController = [NSUserDefaultsController sharedUserDefaultsController];
 	[defaultsController addObserver:self forKeyPath:@"values.QSModifierActivationCount" options:0 context:nil];
 	[defaultsController addObserver:self forKeyPath:@"values.QSModifierActivationKey" options:0 context:nil];
+
+    [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(updateKeyboardPopUp) name:(NSString*)kTISNotifyEnabledKeyboardInputSourcesChanged object:nil];
+}
+
+- (void)didSelect {
+    [self updateKeyboardPopUp];
 }
 
 - (void)dealloc {
 	[[NSUserDefaultsController sharedUserDefaultsController] removeObserver:self];
+    [[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
 	[super dealloc];
 }
 
@@ -88,6 +109,39 @@
 	[NSApp requestRelaunch:nil];
 }
 
+- (void)updateKeyboardPopUp {
+    [keyboardPopUp removeAllItems];
+
+    CFArrayRef sourceList= TISCreateInputSourceList(NULL,false);
+    CFIndex count = CFArrayGetCount(sourceList);
+
+    NSMutableDictionary *sourceNames = [NSMutableDictionary dictionaryWithCapacity:count];
+    for (int i = 0; i < count; i++ ) {
+        TISInputSourceRef source = (TISInputSourceRef)CFArrayGetValueAtIndex(sourceList, i);
+        NSString *type = (NSString *)TISGetInputSourceProperty(source, kTISPropertyInputSourceType);
+        NSString *title = (NSString *)TISGetInputSourceProperty(source, kTISPropertyLocalizedName);
+        NSString *sourceId = TISGetInputSourceProperty(source, kTISPropertyInputSourceID);
+
+        if ([type isEqualToString:(NSString *)kTISTypeKeyboardLayout] || [type isEqualToString:(NSString *)kTISTypeKeyboardInputMode]) {
+            [sourceNames setObject:sourceId forKey:title];
+        }
+    }
+
+    for(NSString *title in [sourceNames allKeys]) {
+        NSMenuItem *item = [[keyboardPopUp menu] addItemWithTitle:title action:nil keyEquivalent:@""];
+        [item setRepresentedObject:[sourceNames objectForKey:title]];
+    }
+
+    NSString *forcedKeyboardId = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSForcedKeyboardIDOnActivation"];
+    [self selectItemInPopUp:keyboardPopUp representedObject:forcedKeyboardId];
+    NSString *selectedKeyboardId = [[keyboardPopUp selectedItem] representedObject];
+    if (![selectedKeyboardId isEqualToString:forcedKeyboardId]) {
+        [[NSUserDefaults standardUserDefaults] setObject:selectedKeyboardId forKey:@"QSForcedKeyboardIDOnActivation"];
+    }
+
+    CFRelease(sourceList);
+}
+
 @end
 
 @implementation QSAppearancePrefPane
@@ -110,12 +164,6 @@
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[super dealloc];
-}
-
-- (void)selectItemInPopUp:(NSPopUpButton *)popUp representedObject:(id)object {
-	NSInteger index = [popUp indexOfItemWithRepresentedObject:object];
-	if (index == -1 && [popUp numberOfItems]) index = 0;
-	[popUp selectItemAtIndex:index];
 }
 
 - (void)updateInterfacePopUp {
