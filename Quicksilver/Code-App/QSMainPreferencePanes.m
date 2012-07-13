@@ -65,11 +65,8 @@
 	[defaultsController addObserver:self forKeyPath:@"values.QSModifierActivationCount" options:0 context:nil];
 	[defaultsController addObserver:self forKeyPath:@"values.QSModifierActivationKey" options:0 context:nil];
 
-    [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(updateKeyboardPopUp) name:(NSString*)kTISNotifyEnabledKeyboardInputSourcesChanged object:nil];
-}
-
-- (void)didSelect {
     [self updateKeyboardPopUp];
+    [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(updateKeyboardPopUp) name:(NSString*)kTISNotifyEnabledKeyboardInputSourcesChanged object:nil];
 }
 
 - (void)dealloc {
