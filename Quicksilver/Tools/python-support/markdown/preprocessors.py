@@ -116,7 +116,7 @@ class HtmlBlockPreprocessor(Preprocessor):
         if (right_tag == "--" and left_tag == "--"):
             return True
         elif left_tag == right_tag[1:] \
-            and right_tag[0] != "<":
+            and right_tag[0] == "/":
             return True
         else:
             return False
@@ -147,7 +147,7 @@ class HtmlBlockPreprocessor(Preprocessor):
 
                     if block[1] == "!":
                         # is a comment block
-                        left_tag, left_index, attrs  = "--", 2, ()
+                        left_tag, left_index, attrs  = "--", 2, {}
                     else:
                         left_tag, left_index, attrs = self._get_left_tag(block)
                     right_tag, data_index = self._get_right_tag(left_tag, 
@@ -257,25 +257,26 @@ class HtmlBlockPreprocessor(Preprocessor):
 class ReferencePreprocessor(Preprocessor):
     """ Remove reference definitions from text and store for later use. """
 
-    RE = re.compile(r'^(\ ?\ ?\ ?)\[([^\]]*)\]:\s*([^ ]*)(.*)$', re.DOTALL)
+    TITLE = r'[ ]*(\"(.*)\"|\'(.*)\'|\((.*)\))[ ]*'
+    RE = re.compile(r'^[ ]{0,3}\[([^\]]*)\]:\s*([^ ]*)[ ]*(%s)?$' % TITLE, re.DOTALL)
+    TITLE_RE = re.compile(r'^%s$' % TITLE)
 
     def run (self, lines):
         new_text = [];
-        for line in lines:
+        while lines:
+            line = lines.pop(0)
             m = self.RE.match(line)
             if m:
-                id = m.group(2).strip().lower()
-                link = m.group(3).lstrip('<').rstrip('>')
-                t = m.group(4).strip()  # potential title
+                id = m.group(1).strip().lower()
+                link = m.group(2).lstrip('<').rstrip('>')
+                t = m.group(5) or m.group(6) or m.group(7)
                 if not t:
-                    self.markdown.references[id] = (link, t)
-                elif (len(t) >= 2
-                      and (t[0] == t[-1] == "\""
-                           or t[0] == t[-1] == "\'"
-                           or (t[0] == "(" and t[-1] == ")") ) ):
-                    self.markdown.references[id] = (link, t[1:-1])
-                else:
-                    new_text.append(line)
+                    # Check next line for title
+                    tm = self.TITLE_RE.match(lines[0])
+                    if tm:
+                        lines.pop(0)
+                        t = tm.group(2) or tm.group(3) or tm.group(4)
+                self.markdown.references[id] = (link, t)
             else:
                 new_text.append(line)
 
