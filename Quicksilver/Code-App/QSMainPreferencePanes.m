@@ -109,19 +109,21 @@
 - (void)updateKeyboardPopUp {
     [keyboardPopUp removeAllItems];
 
-    CFArrayRef sourceList= TISCreateInputSourceList(NULL,false);
-    CFIndex count = CFArrayGetCount(sourceList);
+    NSMutableDictionary *sourceNames = [NSMutableDictionary dictionaryWithCapacity:5];
 
-    NSMutableDictionary *sourceNames = [NSMutableDictionary dictionaryWithCapacity:count];
-    for (int i = 0; i < count; i++ ) {
-        TISInputSourceRef source = (TISInputSourceRef)CFArrayGetValueAtIndex(sourceList, i);
-        NSString *type = (NSString *)TISGetInputSourceProperty(source, kTISPropertyInputSourceType);
-        NSString *title = (NSString *)TISGetInputSourceProperty(source, kTISPropertyLocalizedName);
-        NSString *sourceId = TISGetInputSourceProperty(source, kTISPropertyInputSourceID);
+    for (NSString *type in [NSArray arrayWithObjects:(NSString *)kTISTypeKeyboardLayout, (NSString *)kTISTypeKeyboardInputMode, nil]) {
+        NSDictionary *filter = [NSDictionary dictionaryWithObject:type forKey:(NSString *)kTISPropertyInputSourceType];
+        CFArrayRef sourceList= TISCreateInputSourceList((CFDictionaryRef)filter, false);
+        CFIndex count = CFArrayGetCount(sourceList);
 
-        if ([type isEqualToString:(NSString *)kTISTypeKeyboardLayout] || [type isEqualToString:(NSString *)kTISTypeKeyboardInputMode]) {
+        for (int i = 0; i < count; i++ ) {
+            TISInputSourceRef source = (TISInputSourceRef)CFArrayGetValueAtIndex(sourceList, i);
+            NSString *title = (NSString *)TISGetInputSourceProperty(source, kTISPropertyLocalizedName);
+            NSString *sourceId = TISGetInputSourceProperty(source, kTISPropertyInputSourceID);
             [sourceNames setObject:sourceId forKey:title];
         }
+
+        CFRelease(sourceList);
     }
 
     for(NSString *title in [sourceNames allKeys]) {
@@ -135,8 +137,6 @@
     if (![selectedKeyboardId isEqualToString:forcedKeyboardId]) {
         [[NSUserDefaults standardUserDefaults] setObject:selectedKeyboardId forKey:@"QSForcedKeyboardIDOnActivation"];
     }
-
-    CFRelease(sourceList);
 }
 
 @end
