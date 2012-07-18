@@ -165,10 +165,11 @@ static struct UnmappedEntry * _unmappedEntryForKeyCode( UInt16 aKeyCode )
     return '\0';
 }
 
-static NSUInteger _characterForModifierFlags( unichar aBuff[4], UInt32 aModifierFlags )
+static const size_t			kBufferSize = 4;
+static NSUInteger _characterForModifierFlags( unichar aBuff[kBufferSize], UInt32 aModifierFlags )
 {
 	NSUInteger		thePos = 0;
-	memset( aBuff, 0, sizeof(aBuff) );
+	memset( aBuff, 0, kBufferSize );
 	if(aModifierFlags & NSControlKeyMask)
 		aBuff[thePos++] = kControlUnicode;
 	
@@ -230,8 +231,6 @@ NSUInteger NDCarbonModifierFlagsForCocoaModifierFlags( NSUInteger aModifierFlags
 @interface NDKeyboardLayout (Private)
 - (const UCKeyboardLayout *)keyboardLayout;
 @end
-
-static volatile NDKeyboardLayout		* kCurrentKeyboardLayout = nil;
 
 @implementation NDKeyboardLayout
 
@@ -311,18 +310,22 @@ static volatile NDKeyboardLayout		* kCurrentKeyboardLayout = nil;
 
 + (id)keyboardLayout
 {
+	static volatile NDKeyboardLayout		* kCurrentKeyboardLayout = nil;
 	if( kCurrentKeyboardLayout == nil )
 	{
 		@synchronized(self)
-		{
-			if( kCurrentKeyboardLayout == nil ) {
-                TISInputSourceRef currentKeyboard = TISCopyCurrentKeyboardInputSource();
-				kCurrentKeyboardLayout = [[self alloc] initWithInputSource:currentKeyboard];
-                CFRelease(currentKeyboard);
-            }
+		{	/*
+				Try different method until we succeed.
+			 */
+			if( kCurrentKeyboardLayout == nil )
+				kCurrentKeyboardLayout = [[self alloc] initWithInputSource:TISCopyInputMethodKeyboardLayoutOverride()];
+			if( kCurrentKeyboardLayout == nil )
+				kCurrentKeyboardLayout = [[self alloc] initWithInputSource:TISCopyCurrentKeyboardLayoutInputSource()];
+			if( kCurrentKeyboardLayout == nil )
+				kCurrentKeyboardLayout = [[self alloc] initWithInputSource:TISCopyCurrentASCIICapableKeyboardLayoutInputSource()];
 		}
 	}
-	
+
 	return kCurrentKeyboardLayout;
 }
 
@@ -332,15 +335,17 @@ static volatile NDKeyboardLayout		* kCurrentKeyboardLayout = nil;
 	return [[NDKeyboardLayout keyboardLayout] retain];
 }
 
-- (id)initWithInputSource:(TISInputSourceRef)aSounce
+- (id)initWithLanguage:(NSString *)aLangauge
+{
+	return [self initWithInputSource:TISCopyInputSourceForLanguage((CFStringRef)aLangauge)];
+}
+
+- (id)initWithInputSource:(TISInputSourceRef)aSource
 {
 	if( (self = [super init]) != nil )
 	{
-		if( aSounce != NULL )
-		{
-            keyboardLayoutData = TISGetInputSourceProperty(aSounce, kTISPropertyUnicodeKeyLayoutData);
-            CFRetain( keyboardLayoutData );
-		}
+		if( aSource != NULL && (keyboardLayoutData = (CFDataRef)CFMakeCollectable(TISGetInputSourceProperty(aSource, kTISPropertyUnicodeKeyLayoutData))) != nil )
+			CFRetain( keyboardLayoutData );
 		else
 		{
 			self = nil;
