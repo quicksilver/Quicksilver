@@ -65,14 +65,14 @@ Use with MetaData extension:
 
 Copyright 2007-2011 [Waylan Limberg](http://achinghead.com/).
 
-Project website: <http://www.freewisdom.org/project/python-markdown/HeaderId>
+Project website: <http://packages.python.org/Markdown/extensions/header_id.html>
 Contact: markdown@freewisdom.org
 
 License: BSD (see ../docs/LICENSE for details) 
 
 Dependencies:
 * [Python 2.3+](http://python.org)
-* [Markdown 2.0+](http://www.freewisdom.org/projects/python-markdown/)
+* [Markdown 2.0+](http://packages.python.org/Markdown/)
 
 """
 
@@ -97,7 +97,7 @@ def slugify(value, separator):
 
 def unique(id, ids):
     """ Ensure id is unique in set of ids. Append '_1', '_2'... if not """
-    while id in ids:
+    while id in ids or not id:
         m = IDCOUNT_RE.match(id)
         if m:
             id = '%s_%d'% (m.group(1), int(m.group(2))+1)
