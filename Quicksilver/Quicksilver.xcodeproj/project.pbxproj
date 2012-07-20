@@ -286,8 +286,6 @@
 		7F9BDB3009F86D25004F6E7A /* QSHandledSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9BDB2E09F86D25004F6E7A /* QSHandledSplitView.m */; };
 		7F9BDBD609F9C40D004F6E7A /* QSSplitHandleView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F9BDBD409F9C40D004F6E7A /* QSSplitHandleView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F9BDBD709F9C40D004F6E7A /* QSSplitHandleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9BDBD509F9C40D004F6E7A /* QSSplitHandleView.m */; };
-		7FA4ED4D09132402007DB407 /* UKKQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA4ED4509132402007DB407 /* UKKQueue.m */; settings = {COMPILER_FLAGS = "-w"; }; };
-		7FA4ED4F09132402007DB407 /* UKMainThreadProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA4ED4709132402007DB407 /* UKMainThreadProxy.m */; };
 		7FA4EF270913AF3B007DB407 /* Changes.html in Copy SharedSupport */ = {isa = PBXBuildFile; fileRef = 7FA4EF240913AF27007DB407 /* Changes.html */; };
 		7FADDCE208B4D805004559C1 /* QSHistoryObjectSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FADDCE008B4D805004559C1 /* QSHistoryObjectSource.m */; };
 		7FB37EB4080997EF00A2B2B4 /* QSURLDownloadWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FB37EB2080997EF00A2B2B4 /* QSURLDownloadWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -361,10 +359,9 @@
 		92DC402D0E25A0C40091BD92 /* Action.png in Resources */ = {isa = PBXBuildFile; fileRef = 92DC402B0E25A0C40091BD92 /* Action.png */; };
 		92E946190D04CCEF0013377F /* QSModifierKeyEvents.h in Headers */ = {isa = PBXBuildFile; fileRef = 92E946170D04CCEF0013377F /* QSModifierKeyEvents.h */; };
 		92E9461A0D04CCEF0013377F /* QSModifierKeyEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E946180D04CCEF0013377F /* QSModifierKeyEvents.m */; };
+		CD1B17D9158A573000E4A030 /* VDKQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE1E661158A4D0900355A9F /* VDKQueue.m */; };
+		CD1B17DA158A573200E4A030 /* VDKQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = CDE1E660158A4D0900355A9F /* VDKQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD3F9D68136183250013FCB7 /* QSClangAnalyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42ADF4FD1317237900C68070 /* QSClangAnalyzer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CD3F9ECC13619CE00013FCB7 /* UKMainThreadProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FA4ED4609132402007DB407 /* UKMainThreadProxy.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CD3F9ECD13619CE00013FCB7 /* UKKQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FA4ED4409132402007DB407 /* UKKQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CD3F9ECE13619CE00013FCB7 /* UKFileWatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FA4ED4009132402007DB407 /* UKFileWatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD4FA6E0157A13D600E549BD /* QSHotKeyEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = CD4FA6DF157A13D600E549BD /* QSHotKeyEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD4FA6E2157A13DE00E549BD /* QSHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4FA6E1157A13DE00E549BD /* QSHotKeyEvent.m */; };
 		CD53FEB3151A0ACF006B734B /* PluginReporterText.html in Resources */ = {isa = PBXBuildFile; fileRef = CD53FEB2151A0ACF006B734B /* PluginReporterText.html */; };
@@ -1334,11 +1331,6 @@
 		7F9BDB2E09F86D25004F6E7A /* QSHandledSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHandledSplitView.m; sourceTree = "<group>"; };
 		7F9BDBD409F9C40D004F6E7A /* QSSplitHandleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSplitHandleView.h; sourceTree = "<group>"; };
 		7F9BDBD509F9C40D004F6E7A /* QSSplitHandleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSplitHandleView.m; sourceTree = "<group>"; };
-		7FA4ED4009132402007DB407 /* UKFileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = UKFileWatcher.h; sourceTree = "<group>"; };
-		7FA4ED4409132402007DB407 /* UKKQueue.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = UKKQueue.h; sourceTree = "<group>"; };
-		7FA4ED4509132402007DB407 /* UKKQueue.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = UKKQueue.m; sourceTree = "<group>"; };
-		7FA4ED4609132402007DB407 /* UKMainThreadProxy.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = UKMainThreadProxy.h; sourceTree = "<group>"; };
-		7FA4ED4709132402007DB407 /* UKMainThreadProxy.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = UKMainThreadProxy.m; sourceTree = "<group>"; };
 		7FA4EF240913AF27007DB407 /* Changes.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Changes.html; sourceTree = "<group>"; };
 		7FADDCDF08B4D805004559C1 /* QSHistoryObjectSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHistoryObjectSource.h; sourceTree = "<group>"; };
 		7FADDCE008B4D805004559C1 /* QSHistoryObjectSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHistoryObjectSource.m; sourceTree = "<group>"; };
@@ -1422,6 +1414,8 @@
 		CDDB44E51518C78F00800B66 /* QSCrashReporterWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCrashReporterWindowController.h; sourceTree = "<group>"; };
 		CDDB44E61518C78F00800B66 /* QSCrashReporterWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCrashReporterWindowController.m; sourceTree = "<group>"; };
 		CDDB44ED1518ED3800800B66 /* CrashReporterText.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = CrashReporterText.html; sourceTree = "<group>"; };
+		CDE1E660158A4D0900355A9F /* VDKQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VDKQueue.h; path = VDKQueue/VDKQueue.h; sourceTree = "<group>"; };
+		CDE1E661158A4D0900355A9F /* VDKQueue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = VDKQueue.m; path = VDKQueue/VDKQueue.m; sourceTree = "<group>"; };
 		CDE6C623157E39AE006E66BD /* QSFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSFoundation.h; sourceTree = "<group>"; };
 		CDE8ADB915824E3E0099CC83 /* NDKeyboardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDKeyboardLayout.h; sourceTree = "<group>"; };
 		CDE8ADBA15824E3E0099CC83 /* NDKeyboardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDKeyboardLayout.m; sourceTree = "<group>"; };
@@ -2224,17 +2218,13 @@
 			path = QSDroplet;
 			sourceTree = "<group>";
 		};
-		7FA4ED3F09132402007DB407 /* UKKQueue */ = {
+		CDE1E65F158A4CFD00355A9F /* VDKQueue */ = {
 			isa = PBXGroup;
 			children = (
-				7FA4ED4009132402007DB407 /* UKFileWatcher.h */,
-				7FA4ED4409132402007DB407 /* UKKQueue.h */,
-				7FA4ED4509132402007DB407 /* UKKQueue.m */,
-				7FA4ED4609132402007DB407 /* UKMainThreadProxy.h */,
-				7FA4ED4709132402007DB407 /* UKMainThreadProxy.m */,
+				CDE1E660158A4D0900355A9F /* VDKQueue.h */,
+				CDE1E661158A4D0900355A9F /* VDKQueue.m */,
 			);
-			name = UKKQueue;
-			path = UKClasses/UKKQueue;
+			name = VDKQueue;
 			sourceTree = "<group>";
 		};
 		E102F97B06625D7300843027 /* Nibs */ = {
@@ -2373,10 +2363,10 @@
 		E103EE2406471DDE00447FE0 /* Code-External */ = {
 			isa = PBXGroup;
 			children = (
+				CDE1E65F158A4CFD00355A9F /* VDKQueue */,
 				4D66BBD91486FCDE00351C42 /* CPSPrivate.h */,
 				E12444CB07297FF300043A01 /* CGSPrivate.h */,
 				4DFE7D9E0E081A30000B9AA3 /* NSImageQuickLook */,
-				7FA4ED3F09132402007DB407 /* UKKQueue */,
 				7F26503208DB09B20076E4E6 /* UKDirectoryEnumerator.h */,
 				7F26503308DB09B20076E4E6 /* UKDirectoryEnumerator.m */,
 				E1E3CB8F0653BE030026BAF2 /* NSButton-NTExtensions.h */,
@@ -3031,15 +3021,13 @@
 				E1E5FC3207B20DD20044D6EF /* QSTaskController.h in Headers */,
 				E1E5FC3407B20DD20044D6EF /* QSTextProxy.h in Headers */,
 				7FF791CB0865BB4D001A0F63 /* QSTrigger.h in Headers */,
-				CD3F9ECC13619CE00013FCB7 /* UKMainThreadProxy.h in Headers */,
-				CD3F9ECD13619CE00013FCB7 /* UKKQueue.h in Headers */,
-				CD3F9ECE13619CE00013FCB7 /* UKFileWatcher.h in Headers */,
 				7FF791C40865BB3C001A0F63 /* QSTriggerCenter.h in Headers */,
 				7FF792DC0865C013001A0F63 /* QSTriggerManager.h in Headers */,
 				4DD89F2B0EBDDBA9005A15AE /* QSTypes.h in Headers */,
 				7FB37EB4080997EF00A2B2B4 /* QSURLDownloadWrapper.h in Headers */,
 				E1E5FC3907B20DD20044D6EF /* QSVoyeur.h in Headers */,
 				D493990D1350078E00B908C6 /* QSDownloads.h in Headers */,
+				CD1B17DA158A573200E4A030 /* VDKQueue.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4147,9 +4135,8 @@
 				E1E5FC3807B20DD20044D6EF /* QSTypes.m in Sources */,
 				7FB37EB5080997EF00A2B2B4 /* QSURLDownloadWrapper.m in Sources */,
 				E1E5FC3A07B20DD20044D6EF /* QSVoyeur.m in Sources */,
-				7FA4ED4D09132402007DB407 /* UKKQueue.m in Sources */,
-				7FA4ED4F09132402007DB407 /* UKMainThreadProxy.m in Sources */,
 				D493990E1350078E00B908C6 /* QSDownloads.m in Sources */,
+				CD1B17D9158A573000E4A030 /* VDKQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -618,6 +618,7 @@ static QSController *defaultController = nil;
         
         [NSThread setThreadPriority:0.0];
         QSTask *task = [QSTask taskWithIdentifier:@"QSDelayedStartup"];
+        [task setName:@"Starting Up..."];
         [task setStatus:@"Updating Catalog"];
         [task startTask:self];
         [[QSLibrarian sharedInstance] loadMissingIndexes];
@@ -651,6 +652,10 @@ static QSController *defaultController = nil;
 				NSInteger selection = NSRunInformationalAlertPanel([NSString stringWithFormat:NSLocalizedString(@"Quicksilver has been updated",nil), nil] , NSLocalizedString(@"You are using a new version of Quicksilver. Would you like to see the Release Notes?",nil), NSLocalizedString(@"Show Release Notes",nil), NSLocalizedString(@"Ignore",nil), nil);
 				if (selection == 1)
 					[self showReleaseNotes:self];
+			}
+			if (lastVersion < [@"3929" hexIntValue] && [[NSRunningApplication currentApplication] executableArchitecture] == NSBundleExecutableArchitectureX86_64) {
+				// first time-running a 64-bit version
+				NSRunInformationalAlertPanel(NSLocalizedString(@"Quicksilver is now 64-bit", nil), NSLocalizedString(@"64-bit details", nil), NSLocalizedString(@"OK", nil), nil, nil);
 			}
 #endif
 			
@@ -746,9 +751,8 @@ static QSController *defaultController = nil;
         
         // Crash due to faulty plugin
         if (pluginName) {
-            // There are no crash reports for these, so release the crashReportPath file and set to nil
-            [[self crashReportPath] release];
-            crashReportPath = nil;
+            // There are no crash reports for these, so set the crashReportPath to nil
+            [self setCrashReportPath:nil];
         }
 
         // Crash occurred, load the crash reporter window
@@ -757,6 +761,7 @@ static QSController *defaultController = nil;
         [NSApp runModalForWindow:[QSCrashController window]];
         [QSCrashController release];
     }
+    [crashReportPath release];
     [mostRecentCrashDate release];
 
     // synchronise prefs and QuicksilverState file

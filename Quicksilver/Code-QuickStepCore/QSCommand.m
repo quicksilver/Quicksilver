@@ -435,8 +435,6 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 				if ([actionObject isKindOfClass:[QSRankedObject class]] && [(QSRankedObject *)actionObject object]) {
 					QSAction* rankedAction = [(QSRankedObject *)actionObject object];
 					if (rankedAction != actionObject) {
-						[rankedAction retain];
-						[actionObject release];
 						actionObject = rankedAction;
 					}
 				}

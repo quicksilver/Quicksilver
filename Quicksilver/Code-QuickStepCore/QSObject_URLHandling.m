@@ -81,7 +81,7 @@
     [image setSize:rect.size];
     [image drawInRect:rect fromRect:rectFromSize([image size]) operation:NSCompositeSourceOver fraction:1.0];
     NSImage *findImage = [NSImage imageNamed:@"Find"];
-    NSImage *favIcon;
+    NSImage *favIcon = nil;
     if(findImage) {
         [findImage setSize:rect.size];
         // Try and load the site's favicon

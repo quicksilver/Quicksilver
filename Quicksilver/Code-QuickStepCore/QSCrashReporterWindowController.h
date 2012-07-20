@@ -9,7 +9,11 @@
 #import <AppKit/AppKit.h>
 
 @class WebView;
-@interface QSCrashReporterWindowController : NSWindowController <NSWindowDelegate, NSURLConnectionDelegate, NSControlTextEditingDelegate>
+@interface QSCrashReporterWindowController : NSWindowController <NSWindowDelegate,
+#if (MAC_OS_X_VERSION_MIN_REQUIRED >= 1070)
+NSURLConnectionDelegate,
+#endif
+NSControlTextEditingDelegate>
 {
     // Connections to QSCrashReporter.xib
 	IBOutlet WebView *crashReporterWebView;

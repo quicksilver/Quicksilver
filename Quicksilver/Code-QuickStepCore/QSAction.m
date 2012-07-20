@@ -106,7 +106,7 @@ static BOOL gModifiersAreIgnored;
 - (NSMutableDictionary*)actionDict {
     NSMutableDictionary *dict = [self objectForType:QSActionType];
     if (!dict) {
-        dict = [[NSMutableDictionary alloc] init];
+        dict = [NSMutableDictionary dictionary];
         [self setObject:dict forType:QSActionType];
     }
     return dict;
@@ -249,6 +249,14 @@ static BOOL gModifiersAreIgnored;
 
 - (void)setDirectTypes:(NSArray*)types {
     [[self actionDict] setObject:types forKey:kActionDirectTypes];
+}
+
+- (NSArray*)directFileTypes {
+    return [[self actionDict] objectForKey:kActionDirectFileTypes];
+}
+
+- (void)setDirectFileTypes:(NSArray *)types {
+    [[self actionDict] setObject:types forKey:kActionDirectFileTypes];
 }
 
 - (NSArray*)indirectTypes {

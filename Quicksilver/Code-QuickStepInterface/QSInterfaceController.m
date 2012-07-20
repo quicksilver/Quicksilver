@@ -321,7 +321,7 @@
 
 - (void)updateViewLocations {
     QSAction *obj = [aSelector objectValue];
-	if (([obj respondsToSelector:@selector(argumentCount)]) && ([obj argumentCount] == 2))
+	if (obj && ([obj respondsToSelector:@selector(argumentCount)]) && ([obj argumentCount] == 2))
 		[self showIndirectSelector:nil];
 	else
 		[self hideIndirectSelector:nil];
@@ -397,6 +397,9 @@
 	[[self window] disableFlushWindow];
 	if ([notif object] == dSelector) {
             [iSelector setObjectValue:nil];
+        if (![dSelector objectValue]) {
+            [aSelector setObjectValue:nil];
+        }
             [self updateActions];
             [self updateViewLocations];
 	} else if ([notif object] == aSelector) {
@@ -445,7 +448,7 @@
 
 - (void)appChanged:(NSNotification *)aNotification {
     // Close the QS window if it's visible and the Quicksilver itself isn't the application gaining focus
-	if ([[self window] isVisible] && ![[[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationBundleIdentifier"] isEqualToString:@"com.blacktree.Quicksilver"]) {
+	if ([[self window] isVisible] && ![[[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationBundleIdentifier"] isEqualToString:kQSBundleID]) {
 		[self hideWindows:self];
     }
 }

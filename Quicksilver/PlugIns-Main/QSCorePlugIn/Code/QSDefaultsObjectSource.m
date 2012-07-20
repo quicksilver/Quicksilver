@@ -27,7 +27,8 @@
 	NSMutableDictionary *settings = [[entry info] objectForKey:kItemSettings];
 	if ([[settings objectForKey:@"watchTarget"] boolValue]) {
 		NSString *path = [self prefFileForBundle:[settings objectForKey:kDefaultsObjectSourceBundleID]];
-		[[QSVoyeur sharedInstance] addPathToQueue:path notifyingAbout:UKKQueueNotifyAboutDelete | UKKQueueNotifyAboutWrite];
+        // See VDKQueue.h for more information on queues
+		[[QSVoyeur sharedInstance] addPath:path notifyingAbout:NOTE_DELETE | NOTE_WRITE];
 #ifdef DEBUG
 		if (VERBOSE) NSLog(@"Watching Path %@", path);
 #endif

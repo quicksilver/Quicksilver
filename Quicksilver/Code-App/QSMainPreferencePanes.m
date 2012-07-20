@@ -265,7 +265,7 @@
         err = nil;
     }
 	[[NSUserDefaults standardUserDefaults] synchronize];
-	[fm removeItemAtPath:[@"~/Library/Preferences/com.blacktree.Quicksilver.plist" stringByStandardizingPath] error:&err];
+	[fm removeItemAtPath:[[NSString stringWithFormat:@"~/Library/Preferences/%@.plist",kQSBundleID]stringByStandardizingPath] error:&err];
     if (err) {
         NSLog(@"QSMainPreferencePanes:%s: Error: %@", __PRETTY_FUNCTION__, err);
         err = nil;

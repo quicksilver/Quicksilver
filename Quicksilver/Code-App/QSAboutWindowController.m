@@ -46,6 +46,9 @@
 		[window setBackgroundColor:[NSColor clearColor]];
 		[window setOpaque:NO];
 		[window setHasShadow:NO];
+		/* 2012-06-20 Rob McBroom
+		   The analyzer might complain that `window` needs to be autoreleased, but this takes care of it.
+		*/
 		[window setReleasedWhenClosed:YES];
 		QCView *content = [[QCView alloc] init];
 		[content loadCompositionFromFile:[appBundle pathForResource:@"QSSplash" ofType:@"qtz"]];

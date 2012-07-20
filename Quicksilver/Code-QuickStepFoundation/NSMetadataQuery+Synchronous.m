@@ -20,7 +20,7 @@
 	NSPredicate *search = [NSPredicate predicateWithFormat:searchString];
 	[self setPredicate:search];
 	if (![paths isEqual:nil]) {
-		NSMutableArray *pathURLs = [[NSMutableArray alloc] init];
+		NSMutableArray *pathURLs = [NSMutableArray array];
 		for (NSString *path in paths) {
 			NSURL *pathURL = [NSURL fileURLWithPath:path];
 			[pathURLs addObject:pathURL];

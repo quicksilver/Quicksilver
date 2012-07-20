@@ -1,15 +1,13 @@
 
-
 #import <Foundation/Foundation.h>
 
 #import "QSInterfaceController.h"
 
 @interface QSResizingInterfaceController : QSInterfaceController {
 	BOOL expanded;
-	NSTimer *expandTimer;
 }
 - (void)firstResponderChanged:(NSResponder *)aResponder;
-- (void)resetAdjustTimer;
+- (void)resetAdjustTimer DEPRECATED_ATTRIBUTE;
 - (void)expandWindow:(id)sender;
 - (void)contractWindow:(id)sender;
 

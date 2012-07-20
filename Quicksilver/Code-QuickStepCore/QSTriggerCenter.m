@@ -51,7 +51,7 @@
 // Method to set the scope when the QS UI is activated
 - (void)interfaceActivated {
 	NSArray *theTriggers = [triggersDict allValues];
-	[theTriggers makeObjectsPerformSelector:@selector(rescope:) withObject:@"com.blacktree.Quicksilver"];
+	[theTriggers makeObjectsPerformSelector:@selector(rescope:) withObject:kQSBundleID];
 }
 
 // Method to set the scope when the QS UI is deactivated
@@ -224,11 +224,15 @@
                                                     errorDescription:&errorStr];
     if(data == nil || errorStr) {
         NSLog(@"Failed converting triggers: %@", errorStr);
+		[triggerDict release];
+		[cleanedTriggerArray release];
         return;
     }
     
 	if (![data writeToFile:[pTriggerSettings stringByStandardizingPath] options:0 error:&error]) {
         NSLog(@"Failed writing triggers : %@", error );
+		[triggerDict release];
+		[cleanedTriggerArray release];
         return;
     }
 	
