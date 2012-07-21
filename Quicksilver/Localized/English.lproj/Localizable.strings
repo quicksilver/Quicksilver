@@ -56,6 +56,6 @@
 "Show Release Notes" = "Show Release Notes";
 
 "Quicksilver is now 64-bit" = "Quicksilver is now 64-bit";
-"64-bit details" = "Some older plugins will not load. A list of disabled plugins is available in the Preferences.\n\nIf you absolutely can't live without an older plugin, Quicksivler can be run in 32-bit mode. (32-bit support will be dropped in a future release.)";
+"64-bit details" = "Some older plugins will not load. A list of disabled plugins is available in the Preferences.\n\nIf you absolutely can't live without an older plugin, Quicksilver can be run in 32-bit mode. (32-bit support will be dropped in a future release.)";
 
 "Type to search" = "Type to search";
