@@ -867,10 +867,12 @@ NSMutableDictionary *bindingsDict = nil;
 			}
 		}
 	} else {
-		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSTransformBadSearchToText"])
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSTransformBadSearchToText"] && [self searchMode] == SearchFilterAll) {
+            // activate text mode if the prefs setting is set and QS is in the 'Search Catalog' mode
 			[self transmogrifyWithText:partialString];
-		else
+		} else { 
 			NSBeep();
+        }
         
 		validMnemonic = NO;
 		[resultController->searchStringField setTextColor:[NSColor redColor]];
