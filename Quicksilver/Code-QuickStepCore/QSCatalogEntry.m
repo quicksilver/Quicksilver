@@ -436,7 +436,7 @@ NSDictionary *enabledPresetDictionary;*/
    
     // Lock the 'contents' mutablearray so that it cannot be changed whilst it's being written to file
     @synchronized(contents) {
-        NSArray *writeArray = [[[self contents] arrayByPerformingSelector:@selector(dictionaryRepresentation)] copy];
+        NSArray *writeArray = [contents arrayByPerformingSelector:@selector(dictionaryRepresentation)];
         [writeArray writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
         [writeArray release];
     }
@@ -476,27 +476,18 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (NSArray *)scannedObjects {
-	if (isScanning) {
-#ifdef DEBUG
-		if (VERBOSE) NSLog(@"%@ is already being scanned", [self name]);
-#endif
-		return nil;
-	} else {
-		[self setIsScanning:YES];
-		NSArray *itemContents = nil;
-        @autoreleasepool {
-            @try {
-                QSObjectSource *source = [self source];
-                itemContents = [[source objectsForEntry:info] retain];
-            }
-            @catch (NSException *exception) {
-                NSLog(@"An error ocurred while scanning \"%@\": %@", [self name], exception);
-                [exception printStackTrace];
-            }
+    NSArray *itemContents = nil;
+    @autoreleasepool {
+        @try {
+            QSObjectSource *source = [self source];
+            itemContents = [[source objectsForEntry:info] retain];
         }
-		[self setIsScanning:NO];
-		return [itemContents autorelease];
-	}
+        @catch (NSException *exception) {
+            NSLog(@"An error ocurred while scanning \"%@\": %@", [self name], exception);
+            [exception printStackTrace];
+        }
+    }
+    return [itemContents autorelease];
 }
 
 - (BOOL)canBeIndexed {
@@ -505,25 +496,34 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (NSArray *)scanAndCache {
-	NSString *ID = [self identifier];
-	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-	[nc postNotificationName:QSCatalogEntryIsIndexing object:self];
-	NSArray *itemContents = [self scannedObjects];
+    if (isScanning) {
+#ifdef DEBUG
+		if (VERBOSE) NSLog(@"%@ is already being scanned", [self name]);
+#endif
+		return nil;
+	} else {
+		[self setIsScanning:YES];
+        NSString *ID = [self identifier];
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        [nc postNotificationName:QSCatalogEntryIsIndexing object:self];
+        NSArray *itemContents = [self scannedObjects];
 		if (itemContents && ID) {
-		[self setContents:itemContents];
-		QSObjectSource *source = [self source];
-		if (![source respondsToSelector:@selector(entryCanBeIndexed:)] || [source entryCanBeIndexed:[self info]]) {
-			[self saveIndex];
-		} else {
-			//	NSLog(@"not caching %@", [self name]);
-		}
-	} else if (ID) {
-		[self setContents:nil]; //[catalogArrays removeObjectForKey:ID];
-	}
-	[self willChangeValueForKey:@"self"];
-	[self didChangeValueForKey:@"self"];
-	[nc postNotificationName:QSCatalogEntryIndexed object:self];
-	return itemContents;
+            [self setContents:itemContents];
+            QSObjectSource *source = [self source];
+            if (![source respondsToSelector:@selector(entryCanBeIndexed:)] || [source entryCanBeIndexed:[self info]]) {
+                [self saveIndex];
+            } else {
+                //	NSLog(@"not caching %@", [self name]);
+            }
+        } else if (ID) {
+            [self setContents:nil]; //[catalogArrays removeObjectForKey:ID];
+        }
+        [self willChangeValueForKey:@"self"];
+        [self didChangeValueForKey:@"self"];
+        [nc postNotificationName:QSCatalogEntryIndexed object:self];
+        [self setIsScanning:NO];
+        return itemContents;
+    }
 }
 
 - (void)scanForcedInThread:(NSNumber *)force {
