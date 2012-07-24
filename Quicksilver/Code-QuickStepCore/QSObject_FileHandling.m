@@ -805,22 +805,22 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		newName = [NSString stringWithFormat:@"%ld %@ %@ \"%@\"", (long)[paths count] , type, onDesktop?@"on":@"in", [container lastPathComponent]];
 	} else {
 		NSString *path = [self objectForType:QSFilePathType];
+        // use NSFileManager to get the name
+		newName = [manager displayNameAtPath:path];
 
 		LSItemInfoRecord infoRec;
 		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
-
 		if (infoRec.flags & kLSItemInfoIsPackage) {
 			newLabel = [self descriptiveNameForPackage:(NSString *)path withKindSuffix:!(infoRec.flags & kLSItemInfoIsApplication)];
 			if ([newLabel isEqualToString:newName]) newLabel = nil;
 		}
-        // Fall back on using NSFileManager to get the name
-		if (!newName) {
-			newName = [[NSFileManager defaultManager] displayNameAtPath:path];
-        }
-        
-		if (!newLabel && ![self label]) {
-			newLabel = [manager displayNameAtPath:path];
-			if ([newName isEqualToString:newLabel]) newLabel = nil;
+        // try getting display name (kMDItemDisplayName)
+		if (!newLabel) {
+			MDItemRef mdItem = MDItemCreate(kCFAllocatorDefault, (CFStringRef)path);
+			if (mdItem) {
+				newLabel = (NSString *)MDItemCopyAttribute(mdItem, CFSTR("kMDItemDisplayName"));
+				if ([newLabel isEqualToString:newName]) newLabel = nil;
+			}
 		}
 		if ([path isEqualToString:@"/"]) newLabel = [manager displayNameAtPath:path];
 	}
