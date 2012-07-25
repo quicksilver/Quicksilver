@@ -512,11 +512,8 @@ NSDictionary *enabledPresetDictionary;*/
             QSObjectSource *source = [self source];
             if (![source respondsToSelector:@selector(entryCanBeIndexed:)] || [source entryCanBeIndexed:[self info]]) {
                 [self saveIndex];
-            } else {
-                //	NSLog(@"not caching %@", [self name]);
-            }
         } else if (ID) {
-            [self setContents:nil]; //[catalogArrays removeObjectForKey:ID];
+            [self setContents:nil];
         }
         [self willChangeValueForKey:@"self"];
         [self didChangeValueForKey:@"self"];
