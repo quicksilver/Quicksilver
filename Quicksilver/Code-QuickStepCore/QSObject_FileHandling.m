@@ -804,25 +804,25 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		BOOL onDesktop = [container isEqualToString:[@"~/Desktop/" stringByStandardizingPath]];
 		newName = [NSString stringWithFormat:@"%ld %@ %@ \"%@\"", (long)[paths count] , type, onDesktop?@"on":@"in", [container lastPathComponent]];
 	} else {
+		// generally: name = what you see in Terminal, label = what you see in Finder
 		NSString *path = [self objectForType:QSFilePathType];
-        // use NSFileManager to get the name
-		newName = [manager displayNameAtPath:path];
+		newName = [path lastPathComponent];
+        // try getting kMDItemDisplayName first
+		// tends to work better than `displayNameAtPath:` for things like Preference Panes
+		MDItemRef mdItem = MDItemCreate(kCFAllocatorDefault, (CFStringRef)path);
+		if (mdItem) {
+			newLabel = (NSString *)MDItemCopyAttribute(mdItem, CFSTR("kMDItemDisplayName"));
+		}
+		if (!newLabel) {
+			newLabel = [manager displayNameAtPath:path];
+		}
 
 		LSItemInfoRecord infoRec;
 		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
 		if (infoRec.flags & kLSItemInfoIsPackage) {
 			newLabel = [self descriptiveNameForPackage:(NSString *)path withKindSuffix:!(infoRec.flags & kLSItemInfoIsApplication)];
-			if ([newLabel isEqualToString:newName]) newLabel = nil;
 		}
-        // try getting display name (kMDItemDisplayName)
-		if (!newLabel) {
-			MDItemRef mdItem = MDItemCreate(kCFAllocatorDefault, (CFStringRef)path);
-			if (mdItem) {
-				newLabel = (NSString *)MDItemCopyAttribute(mdItem, CFSTR("kMDItemDisplayName"));
-				if ([newLabel isEqualToString:newName]) newLabel = nil;
-			}
-		}
-		if ([path isEqualToString:@"/"]) newLabel = [manager displayNameAtPath:path];
+		if ([newLabel isEqualToString:newName]) newLabel = nil;
 	}
     [manager release];
 	[self setName:newName];
