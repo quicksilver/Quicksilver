@@ -807,21 +807,25 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		// generally: name = what you see in Terminal, label = what you see in Finder
 		NSString *path = [self objectForType:QSFilePathType];
 		newName = [path lastPathComponent];
-        // try getting kMDItemDisplayName first
-		// tends to work better than `displayNameAtPath:` for things like Preference Panes
-		MDItemRef mdItem = MDItemCreate(kCFAllocatorDefault, (CFStringRef)path);
-		if (mdItem) {
-			newLabel = (NSString *)MDItemCopyAttribute(mdItem, CFSTR("kMDItemDisplayName"));
-		}
-		if (!newLabel) {
-			newLabel = [manager displayNameAtPath:path];
-		}
-
+		// check packages for a descriptive name
 		LSItemInfoRecord infoRec;
 		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
 		if (infoRec.flags & kLSItemInfoIsPackage) {
 			newLabel = [self descriptiveNameForPackage:(NSString *)path withKindSuffix:!(infoRec.flags & kLSItemInfoIsApplication)];
 		}
+		// look for a more suitable display name
+		if (!newLabel || [newLabel isEqualToString:newName]) {
+			// try getting kMDItemDisplayName first
+			// tends to work better than `displayNameAtPath:` for things like Preference Panes
+			MDItemRef mdItem = MDItemCreate(kCFAllocatorDefault, (CFStringRef)path);
+			if (mdItem) {
+				newLabel = (NSString *)MDItemCopyAttribute(mdItem, CFSTR("kMDItemDisplayName"));
+			}
+			if (!newLabel) {
+				newLabel = [manager displayNameAtPath:path];
+			}
+		}
+		// discard the label if it's still identical to name
 		if ([newLabel isEqualToString:newName]) newLabel = nil;
 	}
     [manager release];
