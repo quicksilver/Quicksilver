@@ -42,6 +42,7 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
         if ([string containsString:@"#!"]) {
             executable = YES;
         }
+        [string release];
 	} else if (!allowApps) {
 		LSItemInfoRecord infoRec;
 		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);
