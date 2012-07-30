@@ -51,58 +51,8 @@ your were trying out this version.
 Facts, Features and Fixes 
 -------------------------
 
-The biggest change first and foremost:  
 
-    Minimum runtime requirement for this version is Mac OS X 10.5 ("Leopard"). 
-    There are no plans for supporting Mac OS X 10.4 ("Tiger").
-
-<br />
-
-The following is a short, assorted list of facts and enhancements you may find in this version.   
-For a more comprehensive list take a look at the commit messages.  
-<br />
-
-* Default compiler changed to Clang, Apple's and the Open Source community's next gen compiler.  
-
-    By doing that a 20 to 40% increase in runtime speed was gained while managing a catalog library with approx. 13k items. Quicksilver also feels a lot snappier too. This, of course, is mostly subjective (read: YMMV).
-
-* Actions should now appear localized again where appropriate.  
-
-    (e.g. 'Copy to...' for example in German could also be typed as 'Bewegen nach...' or 'Open' as 'Ouvrir' in French.   
-    .lproj folders for English, French, Italian, German, Spanish, Danish, Finish, Norwegian, Polish, and Swedish have been included. Mind you, the end result really depends on how Mac OS X handles this in the target language as Quicksilver just asks the OS for the localized representation of some common actions).
-
-* Composed characters like German umlauts (e.g. 'ä') will now show both parts (the letter 'a' and the 'dots'. Previously only letters would show up).
-
-* The broken action menu now shows up with a cross-selection of all enabled actions from the Actions preferences. 
-
-* The Smart Replace and Replace dialog actions no longer crash Quicksilver and will now actually append numbers via a smart numbering system if a file to be copied or moved already exists at the destination.  
-
-    In order to use the Smart Replace dialog you will need to set the feature level equal to or higher than 3.To do that enter the following _exactly_ into the Terminal and press Return:  `defaults write com.blacktree.Quicksilver "Feature Level" 3`
-
-* File operation requiring credentials no longer crash QS after providing the password. 
-
-* The Large Type action now keeps the text visible again for prolonged periods.
-
-* Icons associated with custom file actions (e.g. like custom AppleScript actions) are now correctly displayed instead of a generic file placeholder icon.
-
-* AppleScript actions which return something now cause Quicksilver to reappear again ready to use the result for the next action.
-
-* Mouse tracking for triggers ('Mouse entered' / 'Mouse exited')  now seems to work more reliably. 
-
-* The Extras pref pane no longer has a row spacing issue upon first loading of the associated NIB file.
-
-* Excessive log outputs have been silenced to only occur if certain debugging environment variables are set in order to avoid spamming the Console.
-
-* Dozens of API upgrades like replacing deprecated methods with safer variants or adding declaration names for the new way of handling informal protocols.
-
-* All NIB files were converted to a SCM and collaboration friendly XIB format. A lot of clipping warnings have been fixed.
-
-* Triggers with wierd keys (like Function keys) are now displayed again.
-
-* Updated French and German localization.
-
-* Various other housekeeping tasks.
-
+    Minimum runtime requirement for this version is Mac OS X 10.6 ("Leopard"). 
 
 Notes Specific to Snow Leopard and Lion
 ---------------------------------------
