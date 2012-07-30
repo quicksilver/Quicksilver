@@ -35,10 +35,13 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
 		return NO;
 	BOOL executable = [[NSFileManager defaultManager] isExecutableFileAtPath:path];
 	if (!executable) {
-		if ([[NSString stringWithContentsOfFile:path usedEncoding:nil error:nil] hasPrefix:@"#!"]) executable = YES;
-#ifdef DEBUG
-		else if (VERBOSE) NSLog(@"No Shebang found");
-#endif
+        NSFileHandle * fileHandle = [NSFileHandle fileHandleForReadingAtPath:path];
+        // Read in the first 5 bytes of the file to see if it contains #! (5 bytes, because some files contain byte order marks (3 bytes)
+        NSData * buffer = [fileHandle readDataOfLength:5];
+        NSString *string = [[NSString alloc] initWithData:buffer encoding:NSUTF8StringEncoding];
+        if ([string isEqualToString:@"#!"]) {
+            executable = YES;
+        }
 	} else if (!allowApps) {
 		LSItemInfoRecord infoRec;
 		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);
