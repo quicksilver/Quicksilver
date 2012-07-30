@@ -438,7 +438,6 @@ NSDictionary *enabledPresetDictionary;*/
     @synchronized(contents) {
         NSArray *writeArray = [contents arrayByPerformingSelector:@selector(dictionaryRepresentation)];
         [writeArray writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
-        [writeArray release];
     }
 }
 
@@ -512,6 +511,7 @@ NSDictionary *enabledPresetDictionary;*/
             QSObjectSource *source = [self source];
             if (![source respondsToSelector:@selector(entryCanBeIndexed:)] || [source entryCanBeIndexed:[self info]]) {
                 [self saveIndex];
+            }
         } else if (ID) {
             [self setContents:nil];
         }
