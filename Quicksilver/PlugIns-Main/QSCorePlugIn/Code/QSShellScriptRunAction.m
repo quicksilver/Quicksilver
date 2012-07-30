@@ -39,7 +39,7 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
         // Read in the first 5 bytes of the file to see if it contains #! (5 bytes, because some files contain byte order marks (3 bytes)
         NSData * buffer = [fileHandle readDataOfLength:5];
         NSString *string = [[NSString alloc] initWithData:buffer encoding:NSUTF8StringEncoding];
-        if ([string isEqualToString:@"#!"]) {
+        if ([string containsString:@"#!"]) {
             executable = YES;
         }
 	} else if (!allowApps) {
