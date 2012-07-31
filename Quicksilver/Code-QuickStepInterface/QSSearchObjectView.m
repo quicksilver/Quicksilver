@@ -798,6 +798,7 @@ NSMutableDictionary *bindingsDict = nil;
 	
 	//	NSData *scores;
 	NSMutableArray *newResultArray = [[QSLibrarian sharedInstance] scoredArrayForString:string inSet:searchArray];
+    [self setSearchArray:newResultArray];
     
 	//t NSLog(@"scores %@", scores);
 	
