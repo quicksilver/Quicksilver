@@ -239,7 +239,8 @@
 	if (self = [self init]) {
         
 		urlString = [self cleanQueryURL:urlString];
-		[self setName:(title?title:urlString)];
+        [self setLabel:(title?title:urlString)];
+		[self setName:(title?urlString:nil)];
 		[self assignURLTypesWithURL:urlString];
 	}
 	return self;
