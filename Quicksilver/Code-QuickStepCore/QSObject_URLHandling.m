@@ -240,7 +240,7 @@
         
 		urlString = [self cleanQueryURL:urlString];
         [self setName:urlString];
-        [self setLabel:(title?title:nil)];
+        [self setLabel:title];
 		[self assignURLTypesWithURL:urlString];
 	}
 	return self;
