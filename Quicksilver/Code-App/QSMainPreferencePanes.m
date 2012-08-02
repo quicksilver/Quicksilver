@@ -114,6 +114,9 @@
     for (NSString *type in [NSArray arrayWithObjects:(NSString *)kTISTypeKeyboardLayout, (NSString *)kTISTypeKeyboardInputMode, nil]) {
         NSDictionary *filter = [NSDictionary dictionaryWithObject:type forKey:(NSString *)kTISPropertyInputSourceType];
         CFArrayRef sourceList= TISCreateInputSourceList((CFDictionaryRef)filter, false);
+        if (!sourceList) {
+            continue;
+        }
         CFIndex count = CFArrayGetCount(sourceList);
 
         for (int i = 0; i < count; i++ ) {
