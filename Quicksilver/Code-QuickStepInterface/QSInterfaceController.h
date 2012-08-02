@@ -1,6 +1,7 @@
 /* QSController */
 
 #import <Cocoa/Cocoa.h>
+#import <Carbon/Carbon.h>
 
 @class QSSearchObjectView;
 @class QSActionMatrix;
@@ -23,6 +24,8 @@
 	NSTimer *actionsUpdateTimer;
 	BOOL hidingWindow;
 	BOOL preview;
+    
+    TISInputSourceRef savedKeyboard;
 }
 - (QSCommand *)currentCommand;
 - (void)setCommand:(QSCommand *)command;

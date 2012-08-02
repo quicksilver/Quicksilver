@@ -1,7 +1,6 @@
 #import "QSPreferenceKeys.h"
 #import "QSInterfaceController.h"
 #import "QSHistoryController.h"
-#import <Carbon/Carbon.h>
 #import "QSObject.h"
 
 #import "QSActionProvider.h"
@@ -169,6 +168,21 @@
 		CGSConnection conn = _CGSDefaultConnection();
 		CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyDisable);
 	}
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSSwitchKeyboardOnActivation"]) {
+        savedKeyboard = TISCopyCurrentKeyboardLayoutInputSource();
+        NSString *forcedKeyboardId = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSForcedKeyboardIDOnActivation"];
+        NSDictionary *filter = [NSDictionary dictionaryWithObject:forcedKeyboardId forKey:(NSString *)kTISPropertyInputSourceID];
+        CFArrayRef keyboards = TISCreateInputSourceList((CFDictionaryRef)filter, false);
+        if (keyboards) {
+            TISInputSourceRef selected = (TISInputSourceRef)CFArrayGetValueAtIndex(keyboards, 0);
+            TISSelectInputSource(selected);
+            CFRelease(keyboards);
+        } else {
+            // If previously selected keyboard is no longer available, turn off automatic switch
+            [[NSUserDefaults standardUserDefaults] setBool:false forKey:@"QSSwitchKeyboardOnActivation"];
+        }
+    }
 }
 
 - (void)willHideMainWindow:(id)sender {
@@ -183,6 +197,11 @@
     // Close the Quicklook panel if the QS window closes
     if([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
         [(QSSearchObjectView *)[[QLPreviewPanel sharedPreviewPanel] delegate] closePreviewPanel];
+    }
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSSwitchKeyboardOnActivation"] && savedKeyboard) {
+        TISSelectInputSource(savedKeyboard);
+        CFRelease(savedKeyboard);
     }
 }
 
