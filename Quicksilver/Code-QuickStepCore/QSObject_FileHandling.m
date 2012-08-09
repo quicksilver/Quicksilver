@@ -189,10 +189,13 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	NSArray *theFiles = [object arrayForType:QSFilePathType];
 	if ([theFiles count] == 1) {
 		NSString *path = [theFiles lastObject];
-		if ([path hasPrefix:NSTemporaryDirectory()])
+		if ([path hasPrefix:NSTemporaryDirectory()]) {
 			return [@"(Quicksilver) " stringByAppendingPathComponent:[path lastPathComponent]];
-		else
+		} else if ([path hasPrefix:[@"~/Library/Mobile Documents/" stringByStandardizingPath]]) {
+			return @"iCloud";
+		} else {
 			return [path stringByAbbreviatingWithTildeInPath];
+		}
 	} else if ([theFiles count] >1) {
 		return [[theFiles arrayByPerformingSelector:@selector(lastPathComponent)] componentsJoinedByString:@", "];
 	}
