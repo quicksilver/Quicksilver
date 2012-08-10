@@ -798,12 +798,10 @@ NSMutableDictionary *bindingsDict = nil;
 	
 	//	NSData *scores;
 	NSMutableArray *newResultArray = [[QSLibrarian sharedInstance] scoredArrayForString:string inSet:searchArray];
-    [self setSearchArray:newResultArray];
-    
 	//t NSLog(@"scores %@", scores);
 	
 #ifdef DEBUG
-	if (DEBUG_RANKING) NSLog(@"Searched for \"%@\" in %3fms (%lu items) ", string, 1000 * -[date timeIntervalSinceNow] , (unsigned long)[newResultArray count]);
+    if (DEBUG_RANKING) NSLog(@"Searched for \"%@\" in %3fms (%lu items) ", string, 1000 * -[date timeIntervalSinceNow] , (unsigned long)[newResultArray count]);
 #endif
 	
     // NSLog (@"search for %@", string);
@@ -812,12 +810,13 @@ NSMutableDictionary *bindingsDict = nil;
 		[self setMatchedString:string];
 		//		[self setScoreData:scores];
 		validMnemonic = YES;
-		if ([self searchMode] == SearchFilterAll || [self searchMode] == SearchFilter)
+		if ([self searchMode] == SearchFilterAll || [self searchMode] == SearchFilter) {
 			[self setResultArray:newResultArray];
+            [self setSearchArray:newResultArray];
+        }
 		if ([self searchMode] == SearchFilterAll) {
 			// ! Don't search the entire catalog if we're in the aSelector (actions)
 			if (![[self class] isEqual:[QSSearchObjectView class]]) {
-			[self setSearchArray:newResultArray];
 			[parentStack removeAllObjects];
 			}
 		}
