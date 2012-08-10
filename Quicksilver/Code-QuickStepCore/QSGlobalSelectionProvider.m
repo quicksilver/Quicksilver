@@ -78,12 +78,7 @@
 
 - (void)invokeService {
     @autoreleasepool {
-        // If the active application is Quicksilver, grab the selection from the previous app (QS most likely stole focus)
-        NSDictionary *activeApplication = [[QSProcessMonitor sharedInstance] currentApplication];
-        if ([[activeApplication objectForKey:@"NSApplicationBundleIdentifier"] isEqualToString:@"com.blacktree.Quicksilver"]) {
-            activeApplication = [[QSProcessMonitor sharedInstance] previousApplication];
-        }
-        pid_t pid = [[activeApplication objectForKey:@"NSApplicationProcessIdentifier"] intValue];
+        pid_t pid = [[[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationProcessIdentifier"] integerValue];
         if ([NSApplication isLion]) {
             //AXUIElement* is unable to post keys into sandboxed app since 10.7, use Quartz Event Services instead
             ProcessSerialNumber psn;
@@ -125,9 +120,10 @@
 NSTimeInterval failDate = 0;
 
 + (id)currentSelection {
-    NSString *identifier = [[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationBundleIdentifier"];
-    NSDictionary *info = [[QSReg tableNamed:@"QSProxies"] objectForKey:identifier];
-    if (info) {
+  NSString *identifier = [[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationBundleIdentifier"];
+  if ([identifier isEqualToString:kQSBundleID]) return nil;
+	NSDictionary *info = [[QSReg tableNamed:@"QSProxies"] objectForKey:identifier];
+	if (info) {
 		id provider = [QSReg getClassInstance:[info objectForKey:kQSProxyProviderClass]];
 		//if (VERBOSE)
 		//	NSLog(@"Using provider %@ for %@", provider, identifier);
