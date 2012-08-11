@@ -595,9 +595,9 @@ static CGFloat searchSpeed = 0.0;
 	CGFloat estimate = (set ? [set count] : [defaultSearchSet count]) * searchSpeed;
 	if (VERBOSE)
         NSLog(@"Estimate: %fms avg: %ldµs", estimate * 1000, (long)(searchSpeed * 1000000));
-#endif
 	return MIN(estimate, 0.5);
 }
+#endif
 
 #ifdef DEBUG
 - (NSMutableArray *)scoreTest:(id)sender {
