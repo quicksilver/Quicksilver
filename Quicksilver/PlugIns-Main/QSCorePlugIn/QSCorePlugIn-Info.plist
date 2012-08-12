@@ -2,705 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleName</key>
-	<string>Core Support</string>
-	<key>CFBundleDisplayName</key>
-	<string>Core Support</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.blacktree.Quicksilver.QSCorePlugIn</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>QSPresetAdditions</key>
-	<array>
-		<dict>
-			<key>name</key>
-			<string>Applications</string>
-			<key>source</key>
-			<string>QSGroupObjectSource</string>
-			<key>children</key>
-			<array>
-				<dict>
-					<key>source</key>
-					<string>QSFileSystemObjectSource</string>
-					<key>settings</key>
-					<dict>
-						<key>parser</key>
-						<string>QSDirectoryParser</string>
-						<key>folderTypes</key>
-						<array>
-							<string>com.apple.application</string>
-						</array>
-						<key>folderDepth</key>
-						<integer>3</integer>
-						<key>scanContents</key>
-						<integer>1</integer>
-						<key>watchTarget</key>
-						<true/>
-						<key>kind</key>
-						<string>Folder</string>
-						<key>path</key>
-						<string>/Applications/</string>
-						<key>type</key>
-						<string></string>
-						<key>watchPaths</key>
-						<array>
-							<string>/Applications/Utilities</string>
-						</array>
-					</dict>
-					<key>ID</key>
-					<string>QSPresetMainApplications</string>
-					<key>name</key>
-					<string>Applications</string>
-				</dict>
-				<dict>
-					<key>source</key>
-					<string>QSFileSystemObjectSource</string>
-					<key>requiresSettingsPath</key>
-					<true/>
-					<key>watchTarget</key>
-					<true/>
-					<key>settings</key>
-					<dict>
-						<key>parser</key>
-						<string>QSDirectoryParser</string>
-						<key>folderTypes</key>
-						<array>
-							<string>com.apple.application</string>
-						</array>
-						<key>folderDepth</key>
-						<integer>3</integer>
-						<key>scanContents</key>
-						<integer>1</integer>
-						<key>kind</key>
-						<string>Folder</string>
-						<key>path</key>
-						<string>~/Applications/</string>
-						<key>skipItem</key>
-						<false/>
-					</dict>
-					<key>ID</key>
-					<string>QSPresetUserApplications</string>
-					<key>name</key>
-					<string>Applications (User)</string>
-				</dict>
-				<dict>
-					<key>source</key>
-					<string>QSProcessObjectSource</string>
-					<key>ID</key>
-					<string>QSPresetRunningProcesses</string>
-				</dict>
-				<dict>
-					<key>source</key>
-					<string>QSAllApplicationsObjectSource</string>
-					<key>enabled</key>
-					<false/>
-					<key>ID</key>
-					<string>QSPresetAllApplications</string>
-				</dict>
-			</array>
-			<key>catalogPath</key>
-			<string>/</string>
-			<key>icon</key>
-			<string>GenericApplicationIcon</string>
-			<key>ID</key>
-			<string>QSPresetApplications</string>
-		</dict>
-		<dict>
-			<key>source</key>
-			<string>QSGroupObjectSource</string>
-			<key>children</key>
-			<array>
-				<dict>
-					<key>source</key>
-					<string>QSGroupObjectSource</string>
-					<key>children</key>
-					<array>
-						<dict>
-							<key>source</key>
-							<string>QSGroupObjectSource</string>
-							<key>supressChildren</key>
-							<true/>
-							<key>children</key>
-							<array>
-								<dict>
-									<key>source</key>
-									<string>QSFileSystemObjectSource</string>
-									<key>requiresSettingsPath</key>
-									<true/>
-									<key>settings</key>
-									<dict>
-										<key>parser</key>
-										<string>QSDirectoryParser</string>
-										<key>folderTypes</key>
-										<array>
-											<string>com.apple.systempreference.prefpane</string>
-										</array>
-										<key>folderDepth</key>
-										<integer>1</integer>
-										<key>scanContents</key>
-										<integer>1</integer>
-										<key>kind</key>
-										<string>Folder</string>
-										<key>path</key>
-										<string>/Library/PreferencePanes</string>
-										<key>skipItem</key>
-										<integer>1</integer>
-									</dict>
-									<key>icon</key>
-									<string>PrefFileIcon</string>
-									<key>ID</key>
-									<string>QSPresetLibraryPreferencePanes</string>
-								</dict>
-								<dict>
-									<key>name</key>
-									<string>System Preferences (User)</string>
-									<key>requiresSettingsPath</key>
-									<true/>
-									<key>source</key>
-									<string>QSFileSystemObjectSource</string>
-									<key>settings</key>
-									<dict>
-										<key>parser</key>
-										<string>QSDirectoryParser</string>
-										<key>folderTypes</key>
-										<array>
-											<string>com.apple.systempreference.prefpane</string>
-										</array>
-										<key>folderDepth</key>
-										<integer>1</integer>
-										<key>scanContents</key>
-										<integer>1</integer>
-										<key>kind</key>
-										<string>Folder</string>
-										<key>path</key>
-										<string>~/Library/PreferencePanes</string>
-										<key>skipItem</key>
-										<integer>1</integer>
-										<key>type</key>
-										<string></string>
-									</dict>
-									<key>icon</key>
-									<string>PrefFileIcon</string>
-									<key>ID</key>
-									<string>QSPresetUserPreferencePanes</string>
-								</dict>
-								<dict>
-									<key>name</key>
-									<string>System Preferences (System)</string>
-									<key>source</key>
-									<string>QSFileSystemObjectSource</string>
-									<key>settings</key>
-									<dict>
-										<key>parser</key>
-										<string>QSDirectoryParser</string>
-										<key>folderTypes</key>
-										<array>
-											<string>com.apple.systempreference.prefpane</string>
-										</array>
-										<key>folderDepth</key>
-										<integer>1</integer>
-										<key>scanContents</key>
-										<integer>1</integer>
-										<key>kind</key>
-										<string>Folder</string>
-										<key>path</key>
-										<string>/System/Library/PreferencePanes</string>
-										<key>skipItem</key>
-										<integer>1</integer>
-									</dict>
-									<key>icon</key>
-									<string>PrefFileIcon</string>
-									<key>ID</key>
-									<string>QSPresetSystemPreferencePanes</string>
-								</dict>
-							</array>
-							<key>icon</key>
-							<string>SystemPreferencesIcon</string>
-							<key>ID</key>
-							<string>QSPresetPreferencePanes</string>
-						</dict>
-					</array>
-					<key>icon</key>
-					<string>prefsGeneral</string>
-					<key>ID</key>
-					<string>QSPresetConfiguration</string>
-				</dict>
-				<dict>
-					<key>source</key>
-					<string>QSGroupObjectSource</string>
-					<key>children</key>
-					<array>
-						<dict>
-							<key>source</key>
-							<string>QSVolumesObjectSource</string>
-							<key>ID</key>
-							<string>QSPresetVolumes</string>
-						</dict>
-						<dict>
-							<key>source</key>
-							<string>QSFileSystemObjectSource</string>
-							<key>settings</key>
-							<dict>
-								<key>parser</key>
-								<string>QSDirectoryParser</string>
-								<key>folderTypes</key>
-								<array>
-									<string>com.apple.application</string>
-								</array>
-								<key>folderDepth</key>
-								<integer>1</integer>
-								<key>scanContents</key>
-								<integer>1</integer>
-								<key>path</key>
-								<string>~/Library/Printers</string>
-								<key>skipItem</key>
-								<integer>1</integer>
-							</dict>
-							<key>icon</key>
-							<string>PrintCenterIcon</string>
-							<key>ID</key>
-							<string>QSPresetPrinters</string>
-						</dict>
-					</array>
-					<key>ID</key>
-					<string>QSPresetDevices</string>
-				</dict>
-			</array>
-			<key>catalogPath</key>
-			<string>/</string>
-			<key>icon</key>
-			<string>FinderIcon</string>
-			<key>ID</key>
-			<string>QSPresetSystemGroup</string>
-		</dict>
-		<dict>
-			<key>source</key>
-			<string>QSGroupObjectSource</string>
-			<key>children</key>
-			<array>
-				<dict>
-					<key>source</key>
-					<string>QSFileSystemObjectSource</string>
-					<key>settings</key>
-					<dict>
-						<key>parser</key>
-						<string>QSDirectoryParser</string>
-						<key>folderDepth</key>
-						<integer>1</integer>
-						<key>watchTarget</key>
-						<true/>
-						<key>path</key>
-						<string>~</string>
-					</dict>
-					<key>ID</key>
-					<string>QSPresetHome</string>
-				</dict>
-				<dict>
-					<key>source</key>
-					<string>QSFileSystemObjectSource</string>
-					<key>settings</key>
-					<dict>
-						<key>parser</key>
-						<string>QSDirectoryParser</string>
-						<key>folderDepth</key>
-						<integer>2</integer>
-						<key>watchTarget</key>
-						<true/>
-						<key>path</key>
-						<string>~/Downloads</string>
-					</dict>
-					<key>ID</key>
-					<string>QSPresetDownloads</string>
-				</dict>
-				<dict>
-					<key>source</key>
-					<string>QSFileSystemObjectSource</string>
-					<key>settings</key>
-					<dict>
-						<key>parser</key>
-						<string>QSDirectoryParser</string>
-						<key>folderDepth</key>
-						<integer>1</integer>
-						<key>watchTarget</key>
-						<true/>
-						<key>path</key>
-						<string>~/Documents</string>
-					</dict>
-					<key>ID</key>
-					<string>QSPresetDocuments</string>
-				</dict>
-				<dict>
-					<key>source</key>
-					<string>QSFileSystemObjectSource</string>
-					<key>settings</key>
-					<dict>
-						<key>parser</key>
-						<string>QSDirectoryParser</string>
-						<key>watchTarget</key>
-						<true/>
-						<key>path</key>
-						<string>~/Desktop</string>
-					</dict>
-					<key>ID</key>
-					<string>QSPresetDesktop</string>
-				</dict>
-				<dict>
-					<key>source</key>
-					<string>QSFileSystemObjectSource</string>
-					<key>settings</key>
-					<dict>
-						<key>path</key>
-						<string>~/.Trash</string>
-					</dict>
-					<key>icon</key>
-					<string>TrashIcon</string>
-					<key>ID</key>
-					<string>QSPresetTrash</string>
-				</dict>
-				<dict>
-					<key>source</key>
-					<string>QSGroupObjectSource</string>
-					<key>children</key>
-					<array>
-						<dict>
-							<key>source</key>
-							<string>QSDefaultsObjectSource</string>
-							<key>settings</key>
-							<dict>
-								<key>bundle</key>
-								<string>com.apple.dock</string>
-								<key>type</key>
-								<integer>5</integer>
-								<key>keypath</key>
-								<array>
-									<string>persistent-apps</string>
-									<string>*</string>
-									<string>tile-data</string>
-									<string>file-data</string>
-								</array>
-							</dict>
-							<key>ID</key>
-							<string>QSPresetDockApplications</string>
-						</dict>
-						<dict>
-							<key>source</key>
-							<string>QSDefaultsObjectSource</string>
-							<key>settings</key>
-							<dict>
-								<key>bundle</key>
-								<string>com.apple.dock</string>
-								<key>type</key>
-								<integer>5</integer>
-								<key>keypath</key>
-								<array>
-									<string>persistent-others</string>
-									<string>*</string>
-									<string>tile-data</string>
-									<string>file-data</string>
-								</array>
-							</dict>
-							<key>ID</key>
-							<string>QSPresetDockOthers</string>
-						</dict>
-					</array>
-					<key>icon</key>
-					<string>DockIcon</string>
-					<key>ID</key>
-					<string>QSPresetDockGroup</string>
-				</dict>
-				<dict>
-					<key>source</key>
-					<string>QSGroupObjectSource</string>
-					<key>children</key>
-					<array>
-						<dict>
-							<key>source</key>
-							<string>QSDefaultsObjectSource</string>
-							<key>settings</key>
-							<dict>
-								<key>bundle</key>
-								<string>com.apple.recentitems</string>
-								<key>watchTarget</key>
-								<true/>
-								<key>type</key>
-								<integer>3</integer>
-								<key>keypath</key>
-								<array>
-									<string>RecentApplications</string>
-									<string>CustomListItems</string>
-									<string>*</string>
-									<string>Bookmark</string>
-								</array>
-							</dict>
-							<key>icon</key>
-							<string>GenericApplicationIcon</string>
-							<key>ID</key>
-							<string>QSPresetRecentApplications106</string>
-						</dict>
-						<dict>
-							<key>source</key>
-							<string>QSDefaultsObjectSource</string>
-							<key>watchTarget</key>
-							<true/>
-							<key>settings</key>
-							<dict>
-								<key>bundle</key>
-								<string>com.apple.recentitems</string>
-								<key>type</key>
-								<integer>3</integer>
-								<key>keypath</key>
-								<array>
-									<string>RecentDocuments</string>
-									<string>CustomListItems</string>
-									<string>*</string>
-									<string>Bookmark</string>
-								</array>
-							</dict>
-							<key>icon</key>
-							<string>GenericDocumentIcon</string>
-							<key>ID</key>
-							<string>QSPresetRecentDocuments106</string>
-						</dict>
-						<dict>
-							<key>source</key>
-							<string>QSDefaultsObjectSource</string>
-							<key>watchTarget</key>
-							<true/>
-							<key>settings</key>
-							<dict>
-								<key>bundle</key>
-								<string>com.apple.recentitems</string>
-								<key>type</key>
-								<integer>3</integer>
-								<key>keypath</key>
-								<array>
-									<string>RecentServers</string>
-									<string>CustomListItems</string>
-									<string>*</string>
-									<string>Alias</string>
-								</array>
-							</dict>
-							<key>icon</key>
-							<string>GenericFileServerIcon</string>
-							<key>ID</key>
-							<string>QSPresetRecentServers</string>
-						</dict>
-						<dict>
-							<key>source</key>
-							<string>QSDefaultsObjectSource</string>
-							<key>settings</key>
-							<dict>
-								<key>bundle</key>
-								<string>.GlobalPreferences</string>
-								<key>type</key>
-								<integer>1</integer>
-								<key>keypath</key>
-								<array>
-									<string>NSNavRecentPlaces</string>
-									<string>*</string>
-								</array>
-							</dict>
-							<key>icon</key>
-							<string>GenericFolderIcon</string>
-							<key>ID</key>
-							<string>QSPresetGlobalPrefsRecentFolders</string>
-						</dict>
-					</array>
-					<key>icon</key>
-					<string>SafariHistoryIcon</string>
-					<key>ID</key>
-					<string>QSPresetRecentItems</string>
-				</dict>
-			</array>
-			<key>catalogPath</key>
-			<string>/</string>
-			<key>icon</key>
-			<string>HomeFolderIcon</string>
-			<key>ID</key>
-			<string>QSPresetUserGroup</string>
-		</dict>
-		<dict>
-			<key>source</key>
-			<string>QSGroupObjectSource</string>
-			<key>children</key>
-			<array>
-				<dict>
-					<key>source</key>
-					<string>QSCatalogEntrySource</string>
-					<key>ID</key>
-					<string>QSPresetQSCatalogEntries</string>
-				</dict>
-				<dict>
-					<key>source</key>
-					<string>QSProxyObjectSource</string>
-					<key>enabled</key>
-					<true/>
-					<key>ID</key>
-					<string>QSPresetProxies</string>
-					<key>feature</key>
-					<integer>1</integer>
-				</dict>
-				<dict>
-					<key>source</key>
-					<string>QSObjCMessageSource</string>
-					<key>enabled</key>
-					<false/>
-					<key>ID</key>
-					<string>QSPresetInternalMessages</string>
-					<key>feature</key>
-					<integer>1</integer>
-				</dict>
-				<dict>
-					<key>source</key>
-					<string>QSHandledObjectHandler</string>
-					<key>enabled</key>
-					<false/>
-					<key>ID</key>
-					<string>QSPresetInternalObjects</string>
-					<key>feature</key>
-					<integer>1</integer>
-				</dict>
-				<dict>
-					<key>source</key>
-					<string>QSHistoryObjectSource</string>
-					<key>userInfo</key>
-					<string>commands</string>
-					<key>enabled</key>
-					<false/>
-					<key>ID</key>
-					<string>QSPresetCommandHistory</string>
-					<key>feature</key>
-					<integer>3</integer>
-				</dict>
-				<dict>
-					<key>name</key>
-					<string>Recent Objects</string>
-					<key>source</key>
-					<string>QSHistoryObjectSource</string>
-					<key>enabled</key>
-					<false/>
-					<key>userInfo</key>
-					<string>objects</string>
-					<key>ID</key>
-					<string>QSPresetObjectHistory</string>
-					<key>feature</key>
-					<integer>1</integer>
-				</dict>
-			</array>
-			<key>catalogPath</key>
-			<string>/</string>
-			<key>icon</key>
-			<string>Quicksilver</string>
-			<key>ID</key>
-			<string>QSPresetQSGroup</string>
-		</dict>
-		<dict>
-			<key>source</key>
-			<string>QSGroupObjectSource</string>
-			<key>children</key>
-			<array>
-				<dict>
-					<key>source</key>
-					<string>QSFileSystemObjectSource</string>
-					<key>requiresSettingsPath</key>
-					<integer>1</integer>
-					<key>enabled</key>
-					<false/>
-					<key>settings</key>
-					<dict>
-						<key>parser</key>
-						<string>QSDirectoryParser</string>
-						<key>folderTypes</key>
-						<array>
-							<string>public.script</string>
-							<string>public.plain-text</string>
-							<string>com.apple.applescript.script</string>
-							<string>dyn.age8u</string>
-						</array>
-						<key>folderDepth</key>
-						<integer>3</integer>
-						<key>scanContents</key>
-						<integer>1</integer>
-						<key>path</key>
-						<string>/Library/Scripts</string>
-						<key>skipItem</key>
-						<integer>1</integer>
-					</dict>
-					<key>icon</key>
-					<string>ScriptIcon</string>
-					<key>ID</key>
-					<string>QSPresetLibraryScripts</string>
-				</dict>
-				<dict>
-					<key>name</key>
-					<string>Scripts (User)</string>
-					<key>requiresSettingsPath</key>
-					<integer>1</integer>
-					<key>source</key>
-					<string>QSFileSystemObjectSource</string>
-					<key>modificationDate</key>
-					<real>103923120</real>
-					<key>settings</key>
-					<dict>
-						<key>parser</key>
-						<string>QSDirectoryParser</string>
-						<key>folderTypes</key>
-						<array>
-							<string>public.script</string>
-							<string>public.plain-text</string>
-							<string>com.apple.applescript.script</string>
-							<string>dyn.age8u</string>
-						</array>
-						<key>folderDepth</key>
-						<integer>4</integer>
-						<key>scanContents</key>
-						<integer>1</integer>
-						<key>path</key>
-						<string>~/Library/Scripts</string>
-						<key>skipItem</key>
-						<integer>1</integer>
-					</dict>
-					<key>icon</key>
-					<string>ScriptIcon</string>
-					<key>ID</key>
-					<string>QSPresetUserScripts</string>
-				</dict>
-				<dict>
-					<key>source</key>
-					<string>QSFileSystemObjectSource</string>
-					<key>requiresSettingsPath</key>
-					<integer>1</integer>
-					<key>settings</key>
-					<dict>
-						<key>parser</key>
-						<string>QSDirectoryParser</string>
-						<key>folderTypes</key>
-						<array>
-							<string>com.apple.applescript.script</string>
-						</array>
-						<key>folderDepth</key>
-						<integer>3</integer>
-						<key>path</key>
-						<string>~/Library/Application Support/DVD Player Scripts</string>
-						<key>skipItem</key>
-						<integer>1</integer>
-					</dict>
-					<key>icon</key>
-					<string>com.apple.DVDPlayer</string>
-					<key>ID</key>
-					<string>QSPresetDVDPlayerScripts</string>
-				</dict>
-			</array>
-			<key>catalogPath</key>
-			<string>/</string>
-			<key>icon</key>
-			<string>CompiledScriptIcon</string>
-			<key>ID</key>
-			<string>QSPresetScriptsGroup</string>
-		</dict>
-	</array>
-	<key>CFBundleVersion</key>
-	<string>98</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2004, Blacktree, Inc.</string>
 	<key>QSTriggerAdditions</key>
 	<array>
 		<dict>
@@ -724,35 +27,34 @@
 			<string>QSActivateTextModeTrigger</string>
 		</dict>
 	</array>
+	<key>CFBundleIdentifier</key>
+	<string>com.blacktree.Quicksilver.QSCorePlugIn</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleVersion</key>
+	<string>98</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.0</string>
 	<key>CFBundleExecutable</key>
 	<string>Core Support</string>
-	<key>QSPlugIn</key>
-	<dict>
-		<key>author</key>
-		<string>Blacktree, Inc.</string>
-		<key>extendedDescription</key>
-		<string>Provides support and actions for basic types such as files, strings, and URLs.</string>
-		<key>helpPage</key>
-		<string>plugins:Core Support</string>
-		<key>hidden</key>
-		<true/>
-		<key>description</key>
-		<string>Provides basic file and URL handling</string>
-		<key>icon</key>
-		<string>Quicksilver</string>
-	</dict>
+	<key>CFBundleDisplayName</key>
+	<string>Core Support</string>
 	<key>QSActions</key>
 	<dict>
-		<key>FileToTrashAction</key>
+		<key>QSObjectSelectAction</key>
 		<dict>
 			<key>actionClass</key>
-			<string>FSActions</string>
+			<string>QSObjectActions</string>
 			<key>directTypes</key>
 			<array>
-				<string>NSFilenamesPboardType</string>
+				<string>*</string>
 			</array>
+			<key>enabled</key>
+			<false/>
 			<key>actionSelector</key>
-			<string>trashFile:</string>
+			<string>selectObjectInCommandWindow:</string>
+			<key>icon</key>
+			<string>Quicksilver</string>
 		</dict>
 		<key>QSCommandAddTriggerAction</key>
 		<dict>
@@ -799,44 +101,6 @@
 			<key>icon</key>
 			<string>QSDirectObjectIconProxy</string>
 		</dict>
-		<key>FileGetInfoAction</key>
-		<dict>
-			<key>actionClass</key>
-			<string>FSActions</string>
-			<key>directTypes</key>
-			<array>
-				<string>NSFilenamesPboardType</string>
-			</array>
-			<key>actionSelector</key>
-			<string>getInfo:</string>
-		</dict>
-		<key>QSCreateFileAction</key>
-		<dict>
-			<key>displaysResult</key>
-			<integer>1</integer>
-			<key>validatesObjects</key>
-			<false/>
-			<key>actionClass</key>
-			<string>QSObjectActions</string>
-			<key>directTypes</key>
-			<array>
-				<string>NSStringPboardType</string>
-			</array>
-			<key>indirectTypes</key>
-			<array>
-				<string>NSFilenamesPboardType</string>
-			</array>
-			<key>indirectOptional</key>
-			<true/>
-			<key>actionSelector</key>
-			<string>saveObject:toDirectory:</string>
-			<key>runInMainThread</key>
-			<true/>
-			<key>icon</key>
-			<string>GenericDocumentIcon</string>
-			<key>name</key>
-			<string>Create File [...]</string>
-		</dict>
 		<key>QSObjectShowChildrenAction</key>
 		<dict>
 			<key>validatesObjects</key>
@@ -851,6 +115,59 @@
 			<string>showChildren:</string>
 			<key>icon</key>
 			<string>Find</string>
+		</dict>
+		<key>QSCreateFileAction</key>
+		<dict>
+			<key>displaysResult</key>
+			<integer>1</integer>
+			<key>validatesObjects</key>
+			<false/>
+			<key>actionClass</key>
+			<string>QSObjectActions</string>
+			<key>directTypes</key>
+			<array>
+				<string>NSStringPboardType</string>
+			</array>
+			<key>indirectOptional</key>
+			<true/>
+			<key>indirectTypes</key>
+			<array>
+				<string>public.folder</string>
+			</array>
+			<key>actionSelector</key>
+			<string>saveObject:toDirectory:</string>
+			<key>runInMainThread</key>
+			<true/>
+			<key>icon</key>
+			<string>GenericDocumentIcon</string>
+			<key>name</key>
+			<string>Create File [...]</string>
+		</dict>
+		<key>QSTextShowDialogAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSTextActions</string>
+			<key>directTypes</key>
+			<array>
+				<string>NSStringPboardType</string>
+			</array>
+			<key>enabled</key>
+			<false/>
+			<key>actionSelector</key>
+			<string>showDialog:</string>
+			<key>name</key>
+			<string>Display Dialog</string>
+		</dict>
+		<key>FileGetInfoAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>FSActions</string>
+			<key>directTypes</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+			</array>
+			<key>actionSelector</key>
+			<string>getInfo:</string>
 		</dict>
 		<key>QSShellScriptRunAction</key>
 		<dict>
@@ -883,35 +200,25 @@
 			<key>name</key>
 			<string>Run</string>
 		</dict>
-		<key>QSTextShowDialogAction</key>
+		<key>FileOpenWithAction</key>
 		<dict>
 			<key>actionClass</key>
-			<string>QSTextActions</string>
+			<string>FSActions</string>
 			<key>directTypes</key>
 			<array>
-				<string>NSStringPboardType</string>
+				<string>NSFilenamesPboardType</string>
 			</array>
-			<key>enabled</key>
-			<false/>
-			<key>actionSelector</key>
-			<string>showDialog:</string>
-			<key>name</key>
-			<string>Display Dialog</string>
-		</dict>
-		<key>URLOpenWithAction</key>
-		<dict>
-			<key>validatesObjects</key>
-			<true/>
-			<key>actionClass</key>
-			<string>URLActions</string>
-			<key>directTypes</key>
+			<key>precedence</key>
+			<real>0.1</real>
+			<key>indirectTypes</key>
 			<array>
-				<string>Apple URL pasteboard type</string>
+				<string>com.apple.application-bundle</string>
+				<string>com.apple.application-file</string>
 			</array>
-			<key>enabled</key>
-			<false/>
 			<key>actionSelector</key>
-			<string>doURLOpenAction:with:</string>
+			<string>openFile:with:</string>
+			<key>icon</key>
+			<string>GenericApplicationIcon</string>
 		</dict>
 		<key>PasteboardPasteActionAsPlainText</key>
 		<dict>
@@ -961,7 +268,7 @@
 			</array>
 			<key>indirectTypes</key>
 			<array>
-				<string>NSFilenamesPboardType</string>
+				<string>public.folder</string>
 			</array>
 			<key>actionSelector</key>
 			<string>moveFiles:toFolder:</string>
@@ -1008,6 +315,10 @@
 			<array>
 				<string>NSFilenamesPboardType</string>
 			</array>
+			<key>indirectTypes</key>
+			<array>
+				<string>public.folder</string>
+			</array>
 			<key>enabled</key>
 			<false/>
 			<key>precedence</key>
@@ -1045,8 +356,8 @@
 		</dict>
 		<key>QSObjectShowChildMenu</key>
 		<dict>
-			<key>name</key>
-			<string>Show Contents Menu</string>
+			<key>feature</key>
+			<integer>1</integer>
 			<key>actionClass</key>
 			<string>QSObjectActions</string>
 			<key>directTypes</key>
@@ -1057,10 +368,10 @@
 			<string>showChildMenu:</string>
 			<key>runInMainThread</key>
 			<true/>
+			<key>name</key>
+			<string>Show Contents Menu</string>
 			<key>icon</key>
 			<string>Menu</string>
-			<key>feature</key>
-			<integer>1</integer>
 		</dict>
 		<key>FileMakeAliasInAction</key>
 		<dict>
@@ -1071,6 +382,10 @@
 			<key>directTypes</key>
 			<array>
 				<string>NSFilenamesPboardType</string>
+			</array>
+			<key>indirectTypes</key>
+			<array>
+				<string>public.folder</string>
 			</array>
 			<key>precedence</key>
 			<real>-0.5</real>
@@ -1117,8 +432,8 @@
 		<dict>
 			<key>displaysResult</key>
 			<integer>1</integer>
-			<key>reverseArguments</key>
-			<true/>
+			<key>name</key>
+			<string>Make New...</string>
 			<key>actionClass</key>
 			<string>QSFileTemplateManager</string>
 			<key>directTypes</key>
@@ -1138,8 +453,8 @@
 			<false/>
 			<key>icon</key>
 			<string>GenericDocumentIcon</string>
-			<key>name</key>
-			<string>Make New...</string>
+			<key>reverseArguments</key>
+			<true/>
 		</dict>
 		<key>URLOpenAction</key>
 		<dict>
@@ -1202,6 +517,11 @@
 			<key>directTypes</key>
 			<array>
 				<string>NSFilenamesPboardType</string>
+			</array>
+			<key>indirectTypes</key>
+			<array>
+				<string>com.apple.application-file</string>
+				<string>com.apple.application-bundle</string>
 			</array>
 			<key>actionSelector</key>
 			<string>openFile:with:</string>
@@ -1317,8 +637,8 @@
 		</dict>
 		<key>QSLoginItemRemoveAction</key>
 		<dict>
-			<key>name</key>
-			<string>Do Not Open at Login</string>
+			<key>feature</key>
+			<integer>1</integer>
 			<key>actionClass</key>
 			<string>FSActions</string>
 			<key>directTypes</key>
@@ -1329,10 +649,29 @@
 			<false/>
 			<key>actionSelector</key>
 			<string>doNotOpenItemAtLogin:</string>
+			<key>name</key>
+			<string>Do Not Open at Login</string>
 			<key>icon</key>
 			<string>HomeFolderIcon</string>
+		</dict>
+		<key>QSObjectShowMenu</key>
+		<dict>
 			<key>feature</key>
 			<integer>1</integer>
+			<key>actionClass</key>
+			<string>QSObjectActions</string>
+			<key>directTypes</key>
+			<array>
+				<string>*</string>
+			</array>
+			<key>actionSelector</key>
+			<string>showMenu:</string>
+			<key>runInMainThread</key>
+			<true/>
+			<key>name</key>
+			<string>Show Menu</string>
+			<key>icon</key>
+			<string>Menu</string>
 		</dict>
 		<key>PasteboardPasteAction</key>
 		<dict>
@@ -1352,25 +691,6 @@
 			<string>pasteObject:</string>
 			<key>icon</key>
 			<string>Clipboard</string>
-		</dict>
-		<key>QSObjectShowMenu</key>
-		<dict>
-			<key>name</key>
-			<string>Show Menu</string>
-			<key>actionClass</key>
-			<string>QSObjectActions</string>
-			<key>directTypes</key>
-			<array>
-				<string>*</string>
-			</array>
-			<key>actionSelector</key>
-			<string>showMenu:</string>
-			<key>runInMainThread</key>
-			<true/>
-			<key>icon</key>
-			<string>Menu</string>
-			<key>feature</key>
-			<integer>1</integer>
 		</dict>
 		<key>FileGetPathAction</key>
 		<dict>
@@ -1397,6 +717,8 @@
 		<dict>
 			<key>displaysResult</key>
 			<integer>1</integer>
+			<key>validatesObjects</key>
+			<true/>
 			<key>actionClass</key>
 			<string>QSObjectActions</string>
 			<key>precedence</key>
@@ -1405,8 +727,6 @@
 			<string>findObjectInCatalog:</string>
 			<key>name</key>
 			<string>Show Source in Catalog</string>
-			<key>validatesObjects</key>
-			<true/>
 		</dict>
 		<key>QSObjectAssignMnemonic</key>
 		<dict>
@@ -1521,6 +841,10 @@
 			<integer>1</integer>
 			<key>actionClass</key>
 			<string>FSActions</string>
+			<key>indirectTypes</key>
+			<array>
+				<string>public.folder</string>
+			</array>
 			<key>directTypes</key>
 			<array>
 				<string>NSFilenamesPboardType</string>
@@ -1551,7 +875,8 @@
 			<real>0.1</real>
 			<key>indirectTypes</key>
 			<array>
-				<string>NSFilenamesPboardType</string>
+				<string>com.apple.application-bundle</string>
+				<string>com.apple.application-file</string>
 			</array>
 			<key>actionSelector</key>
 			<string>alwaysOpenFile:with:</string>
@@ -1560,8 +885,8 @@
 		</dict>
 		<key>QSObjectShowActionMenu</key>
 		<dict>
-			<key>name</key>
-			<string>Show Action Menu</string>
+			<key>feature</key>
+			<integer>1</integer>
 			<key>actionClass</key>
 			<string>QSObjectActions</string>
 			<key>directTypes</key>
@@ -1572,10 +897,10 @@
 			<string>showActionMenu:</string>
 			<key>runInMainThread</key>
 			<true/>
+			<key>name</key>
+			<string>Show Action Menu</string>
 			<key>icon</key>
 			<string>Menu</string>
-			<key>feature</key>
-			<integer>1</integer>
 		</dict>
 		<key>QSLoginItemAddAction</key>
 		<dict>
@@ -1625,6 +950,10 @@
 			</array>
 			<key>enabled</key>
 			<false/>
+			<key>indirectTypes</key>
+			<array>
+				<string>public.folder</string>
+			</array>
 			<key>precedence</key>
 			<real>-0.5</real>
 			<key>actionSelector</key>
@@ -1814,6 +1143,26 @@
 			<key>name</key>
 			<string>Quit Others</string>
 		</dict>
+		<key>URLOpenWithAction</key>
+		<dict>
+			<key>validatesObjects</key>
+			<true/>
+			<key>actionClass</key>
+			<string>URLActions</string>
+			<key>directTypes</key>
+			<array>
+				<string>Apple URL pasteboard type</string>
+			</array>
+			<key>indirectTypes</key>
+			<array>
+				<string>com.apple.application-file</string>
+				<string>com.apple.application-bundle</string>
+			</array>
+			<key>enabled</key>
+			<false/>
+			<key>actionSelector</key>
+			<string>doURLOpenAction:with:</string>
+		</dict>
 		<key>QSCommandExecuteAction</key>
 		<dict>
 			<key>actionClass</key>
@@ -1844,22 +1193,7 @@
 			<key>icon</key>
 			<string>Rocket</string>
 		</dict>
-		<key>QSObjectSelectAction</key>
-		<dict>
-			<key>actionClass</key>
-			<string>QSObjectActions</string>
-			<key>directTypes</key>
-			<array>
-				<string>*</string>
-			</array>
-			<key>enabled</key>
-			<false/>
-			<key>actionSelector</key>
-			<string>selectObjectInCommandWindow:</string>
-			<key>icon</key>
-			<string>Quicksilver</string>
-		</dict>
-		<key>FileOpenWithAction</key>
+		<key>FileToTrashAction</key>
 		<dict>
 			<key>actionClass</key>
 			<string>FSActions</string>
@@ -1867,20 +1201,27 @@
 			<array>
 				<string>NSFilenamesPboardType</string>
 			</array>
-			<key>precedence</key>
-			<real>0.1</real>
-			<key>indirectTypes</key>
-			<array>
-				<string>NSFilenamesPboardType</string>
-			</array>
 			<key>actionSelector</key>
-			<string>openFile:with:</string>
-			<key>icon</key>
-			<string>GenericApplicationIcon</string>
+			<string>trashFile:</string>
 		</dict>
 	</dict>
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
+	<key>QSPlugIn</key>
+	<dict>
+		<key>author</key>
+		<string>Blacktree, Inc.</string>
+		<key>extendedDescription</key>
+		<string>Provides support and actions for basic types such as files, strings, and URLs.</string>
+		<key>helpPage</key>
+		<string>plugins:Core Support</string>
+		<key>hidden</key>
+		<true/>
+		<key>description</key>
+		<string>Provides basic file and URL handling</string>
+		<key>icon</key>
+		<string>Quicksilver</string>
+	</dict>
 	<key>QSRegistration</key>
 	<dict>
 		<key>QSObjectSources</key>
@@ -2226,11 +1567,698 @@
 			<string>Rocket.png</string>
 		</dict>
 	</dict>
+	<key>QSPresetAdditions</key>
+	<array>
+		<dict>
+			<key>source</key>
+			<string>QSGroupObjectSource</string>
+			<key>ID</key>
+			<string>QSPresetApplications</string>
+			<key>children</key>
+			<array>
+				<dict>
+					<key>source</key>
+					<string>QSFileSystemObjectSource</string>
+					<key>settings</key>
+					<dict>
+						<key>parser</key>
+						<string>QSDirectoryParser</string>
+						<key>folderTypes</key>
+						<array>
+							<string>com.apple.application</string>
+						</array>
+						<key>folderDepth</key>
+						<integer>3</integer>
+						<key>scanContents</key>
+						<integer>1</integer>
+						<key>watchTarget</key>
+						<true/>
+						<key>kind</key>
+						<string>Folder</string>
+						<key>path</key>
+						<string>/Applications/</string>
+						<key>type</key>
+						<string></string>
+						<key>watchPaths</key>
+						<array>
+							<string>/Applications/Utilities</string>
+						</array>
+					</dict>
+					<key>ID</key>
+					<string>QSPresetMainApplications</string>
+					<key>name</key>
+					<string>Applications</string>
+				</dict>
+				<dict>
+					<key>source</key>
+					<string>QSFileSystemObjectSource</string>
+					<key>requiresSettingsPath</key>
+					<true/>
+					<key>watchTarget</key>
+					<true/>
+					<key>settings</key>
+					<dict>
+						<key>parser</key>
+						<string>QSDirectoryParser</string>
+						<key>folderTypes</key>
+						<array>
+							<string>com.apple.application</string>
+						</array>
+						<key>folderDepth</key>
+						<integer>3</integer>
+						<key>scanContents</key>
+						<integer>1</integer>
+						<key>kind</key>
+						<string>Folder</string>
+						<key>path</key>
+						<string>~/Applications/</string>
+						<key>skipItem</key>
+						<false/>
+					</dict>
+					<key>ID</key>
+					<string>QSPresetUserApplications</string>
+					<key>name</key>
+					<string>Applications (User)</string>
+				</dict>
+				<dict>
+					<key>source</key>
+					<string>QSProcessObjectSource</string>
+					<key>ID</key>
+					<string>QSPresetRunningProcesses</string>
+				</dict>
+				<dict>
+					<key>source</key>
+					<string>QSAllApplicationsObjectSource</string>
+					<key>enabled</key>
+					<false/>
+					<key>ID</key>
+					<string>QSPresetAllApplications</string>
+				</dict>
+			</array>
+			<key>catalogPath</key>
+			<string>/</string>
+			<key>name</key>
+			<string>Applications</string>
+			<key>icon</key>
+			<string>GenericApplicationIcon</string>
+		</dict>
+		<dict>
+			<key>source</key>
+			<string>QSGroupObjectSource</string>
+			<key>children</key>
+			<array>
+				<dict>
+					<key>source</key>
+					<string>QSGroupObjectSource</string>
+					<key>children</key>
+					<array>
+						<dict>
+							<key>source</key>
+							<string>QSGroupObjectSource</string>
+							<key>ID</key>
+							<string>QSPresetPreferencePanes</string>
+							<key>children</key>
+							<array>
+								<dict>
+									<key>source</key>
+									<string>QSFileSystemObjectSource</string>
+									<key>requiresSettingsPath</key>
+									<true/>
+									<key>settings</key>
+									<dict>
+										<key>parser</key>
+										<string>QSDirectoryParser</string>
+										<key>folderTypes</key>
+										<array>
+											<string>com.apple.systempreference.prefpane</string>
+										</array>
+										<key>folderDepth</key>
+										<integer>1</integer>
+										<key>scanContents</key>
+										<integer>1</integer>
+										<key>kind</key>
+										<string>Folder</string>
+										<key>path</key>
+										<string>/Library/PreferencePanes</string>
+										<key>skipItem</key>
+										<integer>1</integer>
+									</dict>
+									<key>icon</key>
+									<string>PrefFileIcon</string>
+									<key>ID</key>
+									<string>QSPresetLibraryPreferencePanes</string>
+								</dict>
+								<dict>
+									<key>source</key>
+									<string>QSFileSystemObjectSource</string>
+									<key>requiresSettingsPath</key>
+									<true/>
+									<key>ID</key>
+									<string>QSPresetUserPreferencePanes</string>
+									<key>settings</key>
+									<dict>
+										<key>parser</key>
+										<string>QSDirectoryParser</string>
+										<key>folderTypes</key>
+										<array>
+											<string>com.apple.systempreference.prefpane</string>
+										</array>
+										<key>folderDepth</key>
+										<integer>1</integer>
+										<key>scanContents</key>
+										<integer>1</integer>
+										<key>kind</key>
+										<string>Folder</string>
+										<key>path</key>
+										<string>~/Library/PreferencePanes</string>
+										<key>skipItem</key>
+										<integer>1</integer>
+										<key>type</key>
+										<string></string>
+									</dict>
+									<key>name</key>
+									<string>System Preferences (User)</string>
+									<key>icon</key>
+									<string>PrefFileIcon</string>
+								</dict>
+								<dict>
+									<key>source</key>
+									<string>QSFileSystemObjectSource</string>
+									<key>ID</key>
+									<string>QSPresetSystemPreferencePanes</string>
+									<key>settings</key>
+									<dict>
+										<key>parser</key>
+										<string>QSDirectoryParser</string>
+										<key>folderTypes</key>
+										<array>
+											<string>com.apple.systempreference.prefpane</string>
+										</array>
+										<key>folderDepth</key>
+										<integer>1</integer>
+										<key>scanContents</key>
+										<integer>1</integer>
+										<key>kind</key>
+										<string>Folder</string>
+										<key>path</key>
+										<string>/System/Library/PreferencePanes</string>
+										<key>skipItem</key>
+										<integer>1</integer>
+									</dict>
+									<key>name</key>
+									<string>System Preferences (System)</string>
+									<key>icon</key>
+									<string>PrefFileIcon</string>
+								</dict>
+							</array>
+							<key>supressChildren</key>
+							<true/>
+							<key>icon</key>
+							<string>SystemPreferencesIcon</string>
+						</dict>
+					</array>
+					<key>icon</key>
+					<string>prefsGeneral</string>
+					<key>ID</key>
+					<string>QSPresetConfiguration</string>
+				</dict>
+				<dict>
+					<key>source</key>
+					<string>QSGroupObjectSource</string>
+					<key>children</key>
+					<array>
+						<dict>
+							<key>source</key>
+							<string>QSVolumesObjectSource</string>
+							<key>ID</key>
+							<string>QSPresetVolumes</string>
+						</dict>
+						<dict>
+							<key>source</key>
+							<string>QSFileSystemObjectSource</string>
+							<key>settings</key>
+							<dict>
+								<key>parser</key>
+								<string>QSDirectoryParser</string>
+								<key>folderTypes</key>
+								<array>
+									<string>com.apple.application</string>
+								</array>
+								<key>folderDepth</key>
+								<integer>1</integer>
+								<key>scanContents</key>
+								<integer>1</integer>
+								<key>path</key>
+								<string>~/Library/Printers</string>
+								<key>skipItem</key>
+								<integer>1</integer>
+							</dict>
+							<key>icon</key>
+							<string>PrintCenterIcon</string>
+							<key>ID</key>
+							<string>QSPresetPrinters</string>
+						</dict>
+					</array>
+					<key>ID</key>
+					<string>QSPresetDevices</string>
+				</dict>
+			</array>
+			<key>catalogPath</key>
+			<string>/</string>
+			<key>icon</key>
+			<string>FinderIcon</string>
+			<key>ID</key>
+			<string>QSPresetSystemGroup</string>
+		</dict>
+		<dict>
+			<key>source</key>
+			<string>QSGroupObjectSource</string>
+			<key>children</key>
+			<array>
+				<dict>
+					<key>source</key>
+					<string>QSFileSystemObjectSource</string>
+					<key>settings</key>
+					<dict>
+						<key>parser</key>
+						<string>QSDirectoryParser</string>
+						<key>folderDepth</key>
+						<integer>1</integer>
+						<key>watchTarget</key>
+						<true/>
+						<key>path</key>
+						<string>~</string>
+					</dict>
+					<key>ID</key>
+					<string>QSPresetHome</string>
+				</dict>
+				<dict>
+					<key>source</key>
+					<string>QSFileSystemObjectSource</string>
+					<key>settings</key>
+					<dict>
+						<key>parser</key>
+						<string>QSDirectoryParser</string>
+						<key>folderDepth</key>
+						<integer>2</integer>
+						<key>watchTarget</key>
+						<true/>
+						<key>path</key>
+						<string>~/Downloads</string>
+					</dict>
+					<key>ID</key>
+					<string>QSPresetDownloads</string>
+				</dict>
+				<dict>
+					<key>source</key>
+					<string>QSFileSystemObjectSource</string>
+					<key>settings</key>
+					<dict>
+						<key>parser</key>
+						<string>QSDirectoryParser</string>
+						<key>folderDepth</key>
+						<integer>1</integer>
+						<key>watchTarget</key>
+						<true/>
+						<key>path</key>
+						<string>~/Documents</string>
+					</dict>
+					<key>ID</key>
+					<string>QSPresetDocuments</string>
+				</dict>
+				<dict>
+					<key>source</key>
+					<string>QSFileSystemObjectSource</string>
+					<key>settings</key>
+					<dict>
+						<key>parser</key>
+						<string>QSDirectoryParser</string>
+						<key>watchTarget</key>
+						<true/>
+						<key>path</key>
+						<string>~/Desktop</string>
+					</dict>
+					<key>ID</key>
+					<string>QSPresetDesktop</string>
+				</dict>
+				<dict>
+					<key>source</key>
+					<string>QSFileSystemObjectSource</string>
+					<key>settings</key>
+					<dict>
+						<key>path</key>
+						<string>~/.Trash</string>
+					</dict>
+					<key>icon</key>
+					<string>TrashIcon</string>
+					<key>ID</key>
+					<string>QSPresetTrash</string>
+				</dict>
+				<dict>
+					<key>source</key>
+					<string>QSGroupObjectSource</string>
+					<key>children</key>
+					<array>
+						<dict>
+							<key>source</key>
+							<string>QSDefaultsObjectSource</string>
+							<key>settings</key>
+							<dict>
+								<key>bundle</key>
+								<string>com.apple.dock</string>
+								<key>type</key>
+								<integer>5</integer>
+								<key>keypath</key>
+								<array>
+									<string>persistent-apps</string>
+									<string>*</string>
+									<string>tile-data</string>
+									<string>file-data</string>
+								</array>
+							</dict>
+							<key>ID</key>
+							<string>QSPresetDockApplications</string>
+						</dict>
+						<dict>
+							<key>source</key>
+							<string>QSDefaultsObjectSource</string>
+							<key>settings</key>
+							<dict>
+								<key>bundle</key>
+								<string>com.apple.dock</string>
+								<key>type</key>
+								<integer>5</integer>
+								<key>keypath</key>
+								<array>
+									<string>persistent-others</string>
+									<string>*</string>
+									<string>tile-data</string>
+									<string>file-data</string>
+								</array>
+							</dict>
+							<key>ID</key>
+							<string>QSPresetDockOthers</string>
+						</dict>
+					</array>
+					<key>icon</key>
+					<string>DockIcon</string>
+					<key>ID</key>
+					<string>QSPresetDockGroup</string>
+				</dict>
+				<dict>
+					<key>source</key>
+					<string>QSGroupObjectSource</string>
+					<key>children</key>
+					<array>
+						<dict>
+							<key>source</key>
+							<string>QSDefaultsObjectSource</string>
+							<key>settings</key>
+							<dict>
+								<key>bundle</key>
+								<string>com.apple.recentitems</string>
+								<key>watchTarget</key>
+								<true/>
+								<key>type</key>
+								<integer>3</integer>
+								<key>keypath</key>
+								<array>
+									<string>RecentApplications</string>
+									<string>CustomListItems</string>
+									<string>*</string>
+									<string>Bookmark</string>
+								</array>
+							</dict>
+							<key>icon</key>
+							<string>GenericApplicationIcon</string>
+							<key>ID</key>
+							<string>QSPresetRecentApplications106</string>
+						</dict>
+						<dict>
+							<key>source</key>
+							<string>QSDefaultsObjectSource</string>
+							<key>watchTarget</key>
+							<true/>
+							<key>settings</key>
+							<dict>
+								<key>bundle</key>
+								<string>com.apple.recentitems</string>
+								<key>type</key>
+								<integer>3</integer>
+								<key>keypath</key>
+								<array>
+									<string>RecentDocuments</string>
+									<string>CustomListItems</string>
+									<string>*</string>
+									<string>Bookmark</string>
+								</array>
+							</dict>
+							<key>icon</key>
+							<string>GenericDocumentIcon</string>
+							<key>ID</key>
+							<string>QSPresetRecentDocuments106</string>
+						</dict>
+						<dict>
+							<key>source</key>
+							<string>QSDefaultsObjectSource</string>
+							<key>watchTarget</key>
+							<true/>
+							<key>settings</key>
+							<dict>
+								<key>bundle</key>
+								<string>com.apple.recentitems</string>
+								<key>type</key>
+								<integer>3</integer>
+								<key>keypath</key>
+								<array>
+									<string>RecentServers</string>
+									<string>CustomListItems</string>
+									<string>*</string>
+									<string>Alias</string>
+								</array>
+							</dict>
+							<key>icon</key>
+							<string>GenericFileServerIcon</string>
+							<key>ID</key>
+							<string>QSPresetRecentServers</string>
+						</dict>
+						<dict>
+							<key>source</key>
+							<string>QSDefaultsObjectSource</string>
+							<key>settings</key>
+							<dict>
+								<key>bundle</key>
+								<string>.GlobalPreferences</string>
+								<key>type</key>
+								<integer>1</integer>
+								<key>keypath</key>
+								<array>
+									<string>NSNavRecentPlaces</string>
+									<string>*</string>
+								</array>
+							</dict>
+							<key>icon</key>
+							<string>GenericFolderIcon</string>
+							<key>ID</key>
+							<string>QSPresetGlobalPrefsRecentFolders</string>
+						</dict>
+					</array>
+					<key>icon</key>
+					<string>SafariHistoryIcon</string>
+					<key>ID</key>
+					<string>QSPresetRecentItems</string>
+				</dict>
+			</array>
+			<key>catalogPath</key>
+			<string>/</string>
+			<key>icon</key>
+			<string>HomeFolderIcon</string>
+			<key>ID</key>
+			<string>QSPresetUserGroup</string>
+		</dict>
+		<dict>
+			<key>source</key>
+			<string>QSGroupObjectSource</string>
+			<key>children</key>
+			<array>
+				<dict>
+					<key>source</key>
+					<string>QSCatalogEntrySource</string>
+					<key>ID</key>
+					<string>QSPresetQSCatalogEntries</string>
+				</dict>
+				<dict>
+					<key>source</key>
+					<string>QSProxyObjectSource</string>
+					<key>enabled</key>
+					<true/>
+					<key>ID</key>
+					<string>QSPresetProxies</string>
+					<key>feature</key>
+					<integer>1</integer>
+				</dict>
+				<dict>
+					<key>source</key>
+					<string>QSObjCMessageSource</string>
+					<key>enabled</key>
+					<false/>
+					<key>ID</key>
+					<string>QSPresetInternalMessages</string>
+					<key>feature</key>
+					<integer>1</integer>
+				</dict>
+				<dict>
+					<key>source</key>
+					<string>QSHandledObjectHandler</string>
+					<key>enabled</key>
+					<false/>
+					<key>ID</key>
+					<string>QSPresetInternalObjects</string>
+					<key>feature</key>
+					<integer>1</integer>
+				</dict>
+				<dict>
+					<key>source</key>
+					<string>QSHistoryObjectSource</string>
+					<key>feature</key>
+					<integer>3</integer>
+					<key>enabled</key>
+					<false/>
+					<key>userInfo</key>
+					<string>commands</string>
+					<key>ID</key>
+					<string>QSPresetCommandHistory</string>
+				</dict>
+				<dict>
+					<key>source</key>
+					<string>QSHistoryObjectSource</string>
+					<key>ID</key>
+					<string>QSPresetObjectHistory</string>
+					<key>enabled</key>
+					<false/>
+					<key>feature</key>
+					<integer>1</integer>
+					<key>name</key>
+					<string>Recent Objects</string>
+					<key>userInfo</key>
+					<string>objects</string>
+				</dict>
+			</array>
+			<key>catalogPath</key>
+			<string>/</string>
+			<key>icon</key>
+			<string>Quicksilver</string>
+			<key>ID</key>
+			<string>QSPresetQSGroup</string>
+		</dict>
+		<dict>
+			<key>source</key>
+			<string>QSGroupObjectSource</string>
+			<key>children</key>
+			<array>
+				<dict>
+					<key>source</key>
+					<string>QSFileSystemObjectSource</string>
+					<key>requiresSettingsPath</key>
+					<integer>1</integer>
+					<key>enabled</key>
+					<false/>
+					<key>settings</key>
+					<dict>
+						<key>parser</key>
+						<string>QSDirectoryParser</string>
+						<key>folderTypes</key>
+						<array>
+							<string>public.script</string>
+							<string>public.plain-text</string>
+							<string>com.apple.applescript.script</string>
+							<string>dyn.age8u</string>
+						</array>
+						<key>folderDepth</key>
+						<integer>3</integer>
+						<key>scanContents</key>
+						<integer>1</integer>
+						<key>path</key>
+						<string>/Library/Scripts</string>
+						<key>skipItem</key>
+						<integer>1</integer>
+					</dict>
+					<key>icon</key>
+					<string>ScriptIcon</string>
+					<key>ID</key>
+					<string>QSPresetLibraryScripts</string>
+				</dict>
+				<dict>
+					<key>source</key>
+					<string>QSFileSystemObjectSource</string>
+					<key>requiresSettingsPath</key>
+					<integer>1</integer>
+					<key>ID</key>
+					<string>QSPresetUserScripts</string>
+					<key>modificationDate</key>
+					<real>103923120</real>
+					<key>settings</key>
+					<dict>
+						<key>parser</key>
+						<string>QSDirectoryParser</string>
+						<key>folderTypes</key>
+						<array>
+							<string>public.script</string>
+							<string>public.plain-text</string>
+							<string>com.apple.applescript.script</string>
+							<string>dyn.age8u</string>
+						</array>
+						<key>folderDepth</key>
+						<integer>4</integer>
+						<key>scanContents</key>
+						<integer>1</integer>
+						<key>path</key>
+						<string>~/Library/Scripts</string>
+						<key>skipItem</key>
+						<integer>1</integer>
+					</dict>
+					<key>name</key>
+					<string>Scripts (User)</string>
+					<key>icon</key>
+					<string>ScriptIcon</string>
+				</dict>
+				<dict>
+					<key>source</key>
+					<string>QSFileSystemObjectSource</string>
+					<key>requiresSettingsPath</key>
+					<integer>1</integer>
+					<key>settings</key>
+					<dict>
+						<key>parser</key>
+						<string>QSDirectoryParser</string>
+						<key>folderTypes</key>
+						<array>
+							<string>com.apple.applescript.script</string>
+						</array>
+						<key>folderDepth</key>
+						<integer>3</integer>
+						<key>path</key>
+						<string>~/Library/Application Support/DVD Player Scripts</string>
+						<key>skipItem</key>
+						<integer>1</integer>
+					</dict>
+					<key>icon</key>
+					<string>com.apple.DVDPlayer</string>
+					<key>ID</key>
+					<string>QSPresetDVDPlayerScripts</string>
+				</dict>
+			</array>
+			<key>catalogPath</key>
+			<string>/</string>
+			<key>icon</key>
+			<string>CompiledScriptIcon</string>
+			<key>ID</key>
+			<string>QSPresetScriptsGroup</string>
+		</dict>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
-	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2004, Blacktree, Inc.</string>
-	<key>CFBundleShortVersionString</key>
-	<string>1.0.0</string>
+	<key>CFBundleName</key>
+	<string>Core Support</string>
 </dict>
 </plist>
