@@ -337,7 +337,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (QSSearchMode)searchMode { return searchMode;  }
 - (void)setSearchMode:(QSSearchMode)newSearchMode {
 	// Do not allow the setting of 'Filter Catalog' when in the aSelector (action)
-	if (!([[self class] isEqual:[QSSearchObjectView class]] && newSearchMode == SearchFilterAll)) {
+	if (!((self == [self actionSelector]) && newSearchMode == SearchFilterAll)) {
 		searchMode = newSearchMode;
 	}
 	
@@ -873,10 +873,12 @@ NSMutableDictionary *bindingsDict = nil;
 			}
 		}
 	} else {
-		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSTransformBadSearchToText"])
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSTransformBadSearchToText"] && [self searchMode] == SearchFilterAll) {
+            // activate text mode if the prefs setting is set and QS is in the 'Search Catalog' mode
 			[self transmogrifyWithText:partialString];
-		else
+		} else { 
 			NSBeep();
+        }
         
 		validMnemonic = NO;
 		[resultController->searchStringField setTextColor:[NSColor redColor]];

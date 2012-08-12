@@ -20,11 +20,11 @@ def parse_options():
     usage = """%prog [options] [INPUTFILE]
        (STDIN is assumed if no INPUTFILE is given)"""
     desc = "A Python implementation of John Gruber's Markdown. " \
-           "http://www.freewisdom.org/projects/python-markdown/"
+           "http://packages.python.org/Markdown/"
     ver = "%%prog %s" % markdown.version
     
     parser = optparse.OptionParser(usage=usage, description=desc, version=ver)
-    parser.add_option("-f", "--file", dest="filename", default=sys.stdout,
+    parser.add_option("-f", "--file", dest="filename", default=None,
                       help="Write output to OUTPUT_FILE. Defaults to STDOUT.",
                       metavar="OUTPUT_FILE")
     parser.add_option("-e", "--encoding", dest="encoding",

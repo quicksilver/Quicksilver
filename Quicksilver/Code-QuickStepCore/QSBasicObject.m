@@ -66,7 +66,7 @@
 	return [[self types] containsObject:aType];
 }
 
-- (NSInteger)primaryCount {return 0;}
+- (NSUInteger)primaryCount {return 0;}
 
 - (NSImage *)icon {
 	return [NSImage imageNamed:@"Object"];

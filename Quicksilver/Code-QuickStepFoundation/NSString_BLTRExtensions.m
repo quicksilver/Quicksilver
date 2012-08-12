@@ -176,7 +176,8 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	NSString *replacedString = [self stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	// Try Cocoa's way of replacing % escapes
 	if (replacedString !=nil) {
-		// Return the replaced string if Cocoa's method works
+		// Return the replaced string if Cocoa's method works, but we don't want to decode the '+' symbol
+        replacedString = [replacedString stringByReplacingOccurrencesOfString:@"%2B" withString:@"+"];
 		return replacedString;
 	}
 	else {
@@ -296,7 +297,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 
 - (NSDictionary *)attributesToFitNumbersInRect:(NSRect) rect withAttributes:(NSDictionary *)attributes {
 	NSMutableDictionary *newAttributes = [attributes mutableCopy];
-	if (!newAttributes) newAttributes = [NSMutableDictionary dictionaryWithCapacity:1];
+	if (!newAttributes) newAttributes = [[NSMutableDictionary alloc] initWithCapacity:1];
 	NSFont *font = [NSFont fontWithName:[[newAttributes objectForKey:NSFontAttributeName] fontName] size:12];
 	[newAttributes setObject:font forKey:NSFontAttributeName];
 
@@ -395,7 +396,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 																	forKey:NSLinkAttributeName];
 	
 	// create the attributed string
-	NSAttributedString *attString = [[NSAttributedString alloc] initWithString:titleString attributes:attStringAttributes];
+	NSAttributedString *attString = [[[NSAttributedString alloc] initWithString:titleString attributes:attStringAttributes] autorelease];
 	
 	// For HTML pasteboard types, create a HTML data object
 	if([type isEqualToString:NSHTMLPboardType]) {

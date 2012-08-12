@@ -19,7 +19,6 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[delegate release];
 	[array release];
-	[loadedIndexes release];
 	[super dealloc];
 }
 

@@ -121,7 +121,7 @@ NSTimeInterval failDate = 0;
 
 + (id)currentSelection {
   NSString *identifier = [[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationBundleIdentifier"];
-  if ([identifier isEqualToString:@"com.blacktree.Quicksilver"]) return nil;
+  if ([identifier isEqualToString:kQSBundleID]) return nil;
 	NSDictionary *info = [[QSReg tableNamed:@"QSProxies"] objectForKey:identifier];
 	if (info) {
 		id provider = [QSReg getClassInstance:[info objectForKey:kQSProxyProviderClass]];
@@ -153,7 +153,7 @@ NSTimeInterval failDate = 0;
 - (BOOL)bypassValidation {
 	NSDictionary *appDictionary = [[NSWorkspace sharedWorkspace] activeApplication];
 	NSString *identifier = [appDictionary objectForKey:@"NSApplicationBundleIdentifier"];
-	if ([identifier isEqualToString:@"com.blacktree.Quicksilver"])
+	if ([identifier isEqualToString:kQSBundleID])
 		return YES;
 	else
 		return NO;
@@ -162,7 +162,7 @@ NSTimeInterval failDate = 0;
 - (NSArray *)typesForProxyObject:(id)proxy {
 	NSDictionary *appDictionary = [[NSWorkspace sharedWorkspace] activeApplication];
 	NSString *identifier = [appDictionary objectForKey:@"NSApplicationBundleIdentifier"];
-	if ([identifier isEqualToString:@"com.blacktree.Quicksilver"]) {
+	if ([identifier isEqualToString:kQSBundleID]) {
 	  appDictionary = [[QSProcessMonitor sharedInstance] previousApplication];
 	  identifier = [appDictionary objectForKey:@"NSApplicationBundleIdentifier"];
 	}

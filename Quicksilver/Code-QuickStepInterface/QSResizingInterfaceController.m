@@ -10,7 +10,6 @@
 - (id)initWithWindowNibName:(NSString *)nib {
 	self = [super initWithWindowNibName:nib];
 	if (self) {
-		expandTimer = nil;
 		expanded = YES;
 	}
 	return self;
@@ -18,25 +17,16 @@
 
 - (void)showIndirectSelector:(id)sender {
 	[super showIndirectSelector:sender];
-	[self resetAdjustTimer];
+	[self adjustWindow:nil];
 }
 - (void)hideIndirectSelector:(id)sender {
 	[super hideIndirectSelector:sender];
-	[self resetAdjustTimer];
+	[self adjustWindow:nil];
 }
 
 - (void)resetAdjustTimer {
-
-	if ([[self window] isVisible]) {
-		if (![expandTimer isValid]) {
-			[expandTimer release];
-			expandTimer = [[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(adjustWindow:) userInfo:nil repeats:NO] retain];
-		} else {
-			[expandTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-		}
-	} else {
-		[self adjustWindow:self];
-	}
+    NSLog(@"This method is deprecated, call [self adjustWindow:nil] instead\nUsing interface: %@",[[NSUserDefaults standardUserDefaults] stringForKey:@"QSCommandInterfaceControllers"]);
+    [self adjustWindow:nil];
 }
 
 - (void)adjustWindow:(id)sender {
@@ -67,14 +57,7 @@
 }
 
 - (void)firstResponderChanged:(NSResponder *)aResponder {
-	if (aResponder == iSelector || aResponder == [iSelector currentEditor]) {
-		QSAction *action = (QSAction *)[aSelector objectValue];
-		NSInteger argumentCount = [action argumentCount];
-		BOOL indirectOptional = [action indirectOptional];
-		
-		if (argumentCount == 2 && indirectOptional)
-			[self adjustWindow:self];
-	}
+    [self adjustWindow:nil];
 }
 
 - (void)expandWindow:(id)sender {

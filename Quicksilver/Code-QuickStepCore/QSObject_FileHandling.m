@@ -189,10 +189,13 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	NSArray *theFiles = [object arrayForType:QSFilePathType];
 	if ([theFiles count] == 1) {
 		NSString *path = [theFiles lastObject];
-		if ([path hasPrefix:NSTemporaryDirectory()])
+		if ([path hasPrefix:NSTemporaryDirectory()]) {
 			return [@"(Quicksilver) " stringByAppendingPathComponent:[path lastPathComponent]];
-		else
+		} else if ([path hasPrefix:[@"~/Library/Mobile Documents/" stringByStandardizingPath]]) {
+			return @"iCloud";
+		} else {
 			return [path stringByAbbreviatingWithTildeInPath];
+		}
 	} else if ([theFiles count] >1) {
 		return [[theFiles arrayByPerformingSelector:@selector(lastPathComponent)] componentsJoinedByString:@", "];
 	}
@@ -695,6 +698,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	// return an already-created object if it exists
 	QSObject *existingObject = [QSObject objectWithIdentifier:thisIdentifier];
 	if (existingObject) {
+		[existingObject retain];
 		return existingObject;
 	}
 	
@@ -725,6 +729,9 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 // Checks to see if the object in question is an application
 - (BOOL)isApplication {
 	NSString *path = [self singleFilePath];
+    if(!path) {
+        return NO;
+    }
 	LSItemInfoRecord infoRec;
 	LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);
 	return (infoRec.flags & kLSItemInfoIsApplication);

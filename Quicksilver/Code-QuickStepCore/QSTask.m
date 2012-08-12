@@ -99,7 +99,6 @@ static NSMutableDictionary *tasksDictionary = nil;
 - (void)cancel:(id)sender {
 	if (cancelTarget) {
 		NSLog(@"Cancel Task: %@", self);
-
 		[cancelTarget performSelector:cancelAction withObject:sender];
 	}
 }

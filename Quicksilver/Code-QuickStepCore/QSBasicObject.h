@@ -48,7 +48,7 @@
 	NSObject <QSObjectRanker> *ranker;
     NSBundle                  *bundle;
 }
-- (NSInteger)primaryCount;
+- (NSUInteger)primaryCount;
 - (NSImage *)icon;
 - (NSString *)displayName;
 - (NSString *)details;

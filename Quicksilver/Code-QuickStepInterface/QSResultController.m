@@ -617,6 +617,11 @@ NSMutableDictionary *kindDescriptions = nil;
 	if ([[aTableColumn identifier] isEqualToString:COLUMNID_NAME]) {
 		NSArray *array = [self currentResults];
 		if (aTableView == resultChildTable) array = [selectedItem children];
+        
+        // avoid attempting to access objects in a nonexistent array or an index out of bounds
+        if (!array || rowIndex >= (NSInteger)[array count]) {
+            return;
+        }
 		QSObject *thisObject = [array objectAtIndex:rowIndex];
 
 		[aCell setRepresentedObject:thisObject];
@@ -625,6 +630,9 @@ NSMutableDictionary *kindDescriptions = nil;
 	if ([[aTableColumn identifier] isEqualToString:COLUMNID_RANK]) {
 		NSArray *array = [self currentResults];
 
+        if (!array || rowIndex >= (NSInteger)[array count]) {
+            return;
+        }
 		QSRankedObject *thisObject = [array objectAtIndex:rowIndex];
 
 		[(QSRankCell *)aCell setScore:[thisObject score]];

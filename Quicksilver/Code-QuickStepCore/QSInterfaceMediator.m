@@ -19,8 +19,13 @@
 	QSInterfaceController *mediator = [prefInstances objectForKey:kQSCommandInterfaceControllers];
 	if (!mediator) {
 		mediator = [self instanceForKey:[self preferredCommandInterfaceID] inTable:kQSCommandInterfaceControllers];
-		if (mediator)
+		if (mediator) {
 			[prefInstances setObject:mediator forKey:kQSCommandInterfaceControllers];
+        } else {
+            QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:@"QSNotification", QSNotifierType, [QSResourceManager imageNamed:kQSBundleID], QSNotifierIcon, NSLocalizedString(@"Interface Changed", nil), QSNotifierTitle, NSLocalizedString(@"Interface could not be loaded. Switching to Bezel",nil),  QSNotifierText, nil]);
+            mediator = [self instanceForKey:@"QSPrimerInterfaceController" inTable:kQSCommandInterfaceControllers];
+            [prefInstances setObject:mediator forKey:kQSCommandInterfaceControllers];
+        }
 	}
 	return mediator;
 }

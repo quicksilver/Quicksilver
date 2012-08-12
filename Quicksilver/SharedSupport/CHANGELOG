@@ -1,4 +1,41 @@
-Changes - ß68 (3926)
+Changes - ß69 (3932)
+--------------------
+
+  * NEW: Quicksilver is now 64-bit
+  * NEW: Graceful handling of plug-ins with no 64-bit support (#936, #968, #970, #979)
+  * NEW: Support for Mac OS X 10.8 (Mountain Lion)
+  * NEW: Made Quicksilver's alerts localisable (#568)
+  * NEW: Further tweaks to the localisation system to allow the Preferences to be localised
+  * NEW: French localisations
+  * NEW: Add a ⌘⌥? shortcut for opening plugin documentation (when viewing the plugin preferences) (#890)
+  * NEW: Display the keyboard shortcut ⌘⌃Q as an option for restarting Quicksilver in plugin update notifications (#890)
+  * FIX: Allow the 'paste' action to work for all keyboard layouts (#626)
+  * FIX: Allow Quicksilver's internal shortcuts to work for all keyboard layouts (#290, #576, #807)
+  * FIX: Fix the 'Recent Items' catalog entry
+  * FIX: Sporadic opening and closing of the Quicklook panel, and smooth zoom from the item's icon
+  * FIX: Fix the 'Relaunch' action to time out if the application doesn't quit
+  * FIX: Make the Automator actions universal
+  * FIX: Fixed a crash during startup for Quicksilver (#871)
+  * FIX: Further crash fixes and clean up (#910, #923, #928, #929, #943, #944, #949, #950)
+  * FIX: Fix the 'Type Text' action to work in sandboxed applications
+  * FIX: Fix the display of upside down icons that could occur at random
+  * FIX: Small changes to keyboard layout code (#975)
+  * FIX: The Preferences window is correctly opened (or not opened) when relaunching (#962)
+  * FIX: Prevent a crash realted to input method (#942)
+  * CHANGE: Use a consistent name 'Plugin' across all aspects of Quicksilver
+  * CHANGE: Remove references to pre 10.6 catalog items in the Catalog preferences
+  * CHANGE: Update the 'Recent Servers' and 'Favorites' catalog entries
+  * CHANGE: Update to the latest external frameworks/code, fixing crashes and performance improvements (#327)
+  * CHANGE: Update APIs to latest available from Apple (remove deprecated functions)
+  * CHANGE: Don't notify the user of a failed update download if there's no internet connection
+  * CHANGE: Re-add the "Update without asking" preference as a hidden preference. See http://qsapp.com/wiki/Hidden_Defaults
+  * CHANGE: Increase the time the '/' key must be held for to browse to the root folder of your system
+  * CHANGE: Improve the handling of exceptions/crashes in Quicksilver (@try/@catch handlers)
+  * CHANGE: Leave the 3rd pane blank for the 'Open With…' action so that capitalised key shortcuts work (e.g. ⌘⇧O for 'Open With…' move focus to the 3rd pane)
+  * CHANGE: Toggle action no longer hides background applications (#939)
+  * CHANGE: Plug-ins can progrmatically set file types supported by actions (#958)
+
+Changes - ß68 (3928)
 -------
 
   * NEW: Better management of plugins. Automatic replacement and removal of obsolete plugins. (#764, #875)

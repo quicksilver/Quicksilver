@@ -39,6 +39,20 @@
 #import "QSPlugInManager.h"
 #import "QSPlugIn.h"
 
+@interface QSPreferencePane (Helper)
+- (void)selectItemInPopUp:(NSPopUpButton *)popUp representedObject:(id)object;
+@end
+
+@implementation QSPreferencePane (Helper)
+
+- (void)selectItemInPopUp:(NSPopUpButton *)popUp representedObject:(id)object {
+	NSInteger index = [popUp indexOfItemWithRepresentedObject:object];
+	if (index == -1 && [popUp numberOfItems]) index = 0;
+	[popUp selectItemAtIndex:index];
+}
+
+@end
+
 @implementation QSSearchPrefPane
 
 - (void)awakeFromNib {
@@ -50,10 +64,14 @@
 	NSUserDefaultsController *defaultsController = [NSUserDefaultsController sharedUserDefaultsController];
 	[defaultsController addObserver:self forKeyPath:@"values.QSModifierActivationCount" options:0 context:nil];
 	[defaultsController addObserver:self forKeyPath:@"values.QSModifierActivationKey" options:0 context:nil];
+
+    [self updateKeyboardPopUp];
+    [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(updateKeyboardPopUp) name:(NSString*)kTISNotifyEnabledKeyboardInputSourcesChanged object:nil];
 }
 
 - (void)dealloc {
 	[[NSUserDefaultsController sharedUserDefaultsController] removeObserver:self];
+    [[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
 	[super dealloc];
 }
 
@@ -88,6 +106,42 @@
 	[NSApp requestRelaunch:nil];
 }
 
+- (void)updateKeyboardPopUp {
+    [keyboardPopUp removeAllItems];
+
+    NSMutableDictionary *sourceNames = [NSMutableDictionary dictionaryWithCapacity:5];
+
+    for (NSString *type in [NSArray arrayWithObjects:(NSString *)kTISTypeKeyboardLayout, (NSString *)kTISTypeKeyboardInputMode, nil]) {
+        NSDictionary *filter = [NSDictionary dictionaryWithObject:type forKey:(NSString *)kTISPropertyInputSourceType];
+        CFArrayRef sourceList= TISCreateInputSourceList((CFDictionaryRef)filter, false);
+        if (!sourceList) {
+            continue;
+        }
+        CFIndex count = CFArrayGetCount(sourceList);
+
+        for (int i = 0; i < count; i++ ) {
+            TISInputSourceRef source = (TISInputSourceRef)CFArrayGetValueAtIndex(sourceList, i);
+            NSString *title = (NSString *)TISGetInputSourceProperty(source, kTISPropertyLocalizedName);
+            NSString *sourceId = TISGetInputSourceProperty(source, kTISPropertyInputSourceID);
+            [sourceNames setObject:sourceId forKey:title];
+        }
+
+        CFRelease(sourceList);
+    }
+
+    for(NSString *title in [sourceNames allKeys]) {
+        NSMenuItem *item = [[keyboardPopUp menu] addItemWithTitle:title action:nil keyEquivalent:@""];
+        [item setRepresentedObject:[sourceNames objectForKey:title]];
+    }
+
+    NSString *forcedKeyboardId = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSForcedKeyboardIDOnActivation"];
+    [self selectItemInPopUp:keyboardPopUp representedObject:forcedKeyboardId];
+    NSString *selectedKeyboardId = [[keyboardPopUp selectedItem] representedObject];
+    if (![selectedKeyboardId isEqualToString:forcedKeyboardId]) {
+        [[NSUserDefaults standardUserDefaults] setObject:selectedKeyboardId forKey:@"QSForcedKeyboardIDOnActivation"];
+    }
+}
+
 @end
 
 @implementation QSAppearancePrefPane
@@ -110,12 +164,6 @@
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[super dealloc];
-}
-
-- (void)selectItemInPopUp:(NSPopUpButton *)popUp representedObject:(id)object {
-	NSInteger index = [popUp indexOfItemWithRepresentedObject:object];
-	if (index == -1 && [popUp numberOfItems]) index = 0;
-	[popUp selectItemAtIndex:index];
 }
 
 - (void)updateInterfacePopUp {
@@ -265,7 +313,7 @@
         err = nil;
     }
 	[[NSUserDefaults standardUserDefaults] synchronize];
-	[fm removeItemAtPath:[@"~/Library/Preferences/com.blacktree.Quicksilver.plist" stringByStandardizingPath] error:&err];
+	[fm removeItemAtPath:[[NSString stringWithFormat:@"~/Library/Preferences/%@.plist",kQSBundleID]stringByStandardizingPath] error:&err];
     if (err) {
         NSLog(@"QSMainPreferencePanes:%s: Error: %@", __PRETTY_FUNCTION__, err);
         err = nil;

@@ -113,7 +113,7 @@
 
 	[indirectView setHidden:YES];
 
-	[self resetAdjustTimer];
+	[self adjustWindow:nil];
 }
 
 
@@ -125,7 +125,7 @@
 
 		//  [super showIndirectSelector:sender];
 
-		[self resetAdjustTimer];
+		[self adjustWindow:nil];
 	}
 }
 

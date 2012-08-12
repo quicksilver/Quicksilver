@@ -24,10 +24,16 @@
 - (NSArray *)objectsForEntry:(NSDictionary *)theEntry {
 	NSMutableDictionary *settings = [theEntry objectForKey:kItemSettings];
 	NSString *location = [settings objectForKey:kItemPath];
-	if (location)
-		return [(QSHTMLLinkParser *)[QSReg getClassInstance:@"QSHTMLLinkParser"] objectsFromURL:[NSURL URLWithString:location] withSettings:settings];
-	else
-		return nil;
+	if (location) {
+		NSArray *contents = [(QSHTMLLinkParser *)[QSReg getClassInstance:@"QSHTMLLinkParser"] objectsFromURL:[NSURL URLWithString:location] withSettings:settings];
+        if (!contents) {
+            // return the original contents of the catalog entry if there was a problem getting data from the internet
+            return [[QSLib entryForID:[theEntry objectForKey:kItemID]] _contents];
+        } else {
+            return contents;    
+        }
+    }
+    return nil;
 }
 
 - (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry {

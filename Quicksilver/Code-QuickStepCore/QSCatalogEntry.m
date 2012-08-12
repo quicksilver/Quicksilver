@@ -436,7 +436,9 @@ NSDictionary *enabledPresetDictionary;*/
    
     // Lock the 'contents' mutablearray so that it cannot be changed whilst it's being written to file
     @synchronized(contents) {
-            [[[self contents] arrayByPerformingSelector:@selector(dictionaryRepresentation)] writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
+        NSArray *writeArray = [[[self contents] arrayByPerformingSelector:@selector(dictionaryRepresentation)] copy];
+        [writeArray writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
+        [writeArray release];
     }
 }
 
@@ -543,7 +545,7 @@ NSDictionary *enabledPresetDictionary;*/
         }
 		return nil;
 	}
-	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:@"Checking:%@", [self name]]];
+	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:@"Checking: %@", [self name]]];
 	BOOL valid = [self indexIsValid];
 	if (valid && !force) {
 		
@@ -619,7 +621,7 @@ NSDictionary *enabledPresetDictionary;*/
 	if ([self children])
 		[newEntry setChildren:[[self children] valueForKey:@"uniqueCopy"]];
 
-	return newEntry;
+	return [newEntry autorelease];
 }
 
 - (NSDate *)indexDate { return indexDate;  }

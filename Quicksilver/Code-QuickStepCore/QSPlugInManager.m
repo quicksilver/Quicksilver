@@ -83,10 +83,19 @@
 
 	// Load dependencies
 	NSArray *deps = [dependingPlugIns objectForKey:[plugin identifier]];
+    // Bool to specify whether a plugin's dependencies can all be loaded
+    BOOL allDependenciesLoaded = YES;
 	for(QSPlugIn * dep in deps) {
 		if (![[dep unmetDependencies] count])
-			[self liveLoadPlugIn:dep];
+			if (![self liveLoadPlugIn:dep]) {
+                // Dependency couldn't be loaded
+                allDependenciesLoaded = NO;
+            }
 	}
+    if (allDependenciesLoaded) {
+        // All the dependencies were correctly installed, so remove the 'Unmet Dependencies' load error
+        [plugin setLoadError:nil];
+    }
 	[dependingPlugIns removeObjectForKey:[plugin identifier]];
 	[self checkForObsoletes:plugin];
 }
@@ -192,7 +201,7 @@
 																	 delegate:self];
 
 		if (theConnection) {
-			[QSTasks updateTask:@"UpdatePlugInInfo" status:@"Updating Plugin Info" progress:0.0];
+			[QSTasks updateTask:@"Retrieving Plugins..." status:@"Updating Plugin Info" progress:0.0];
 		} else {
 			NSLog(@"Problem downloading plugin data. Perhaps an invalid URL");
             [receivedData release], receivedData = nil;
@@ -239,13 +248,13 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	[QSTasks updateTask:@"UpdatePlugInInfo" status:@"Updating Plugin Info" progress:1.0];
+	[QSTasks updateTask:@"Retrieving Plugins..." status:@"Updating Plugin Info" progress:1.0];
     [connection release];
     [receivedData release];
 	receivedData = nil;
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSPlugInInfoFailedNotification object:self userInfo:nil];
-	[QSTasks removeTask:@"UpdatePlugInInfo"];
+	[QSTasks removeTask:@"Retrieving Plugins..."];
 }
 
 - (void)clearOldWebData {
@@ -279,12 +288,12 @@
 		[self willChangeValueForKey:@"knownPlugInsWithWebInfo"];
 		[self didChangeValueForKey:@"knownPlugInsWithWebInfo"];
 	}
-	[QSTasks removeTask:@"UpdatePlugInInfo"];
+	[QSTasks removeTask:@"Retrieving Plugins..."];
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSPlugInInfoLoadedNotification object:knownPlugIns];
 
 }
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-	[QSTasks updateTask:@"UpdatePlugInInfo" status:@"Updating Plugin Info" progress:1.0];
+	[QSTasks updateTask:@"Retrieving Plugins..." status:@"Updating Plugin Info" progress:1.0];
 	[self loadNewWebData:receivedData];
 	[connection release];
 	[receivedData release];
@@ -366,10 +375,24 @@
 	NSMutableSet *dependingNames = [NSMutableSet set];
 	foreachkey(ident, plugins, dependingPlugIns) {
 		if ([(NSArray *)plugins count]) {
-			NSArray *dependencies = [[plugins lastObject] dependencies];
-			[array addObject:[dependencies objectWithValue:ident forKey:@"id"]];
-
-			[dependingNames addObjectsFromArray:[plugins valueForKey:@"name"]];
+			// ignore dependencies for plug-ins that won't load under the current architecture
+			BOOL loadDependencies = NO;
+			for (QSPlugIn *plugin in plugins) {
+				if ([plugin isSupported]) {
+					// if any one of the depending plug-ins is supported, get the prerequisite
+					loadDependencies = YES;
+					break;
+				}
+			}
+			if (loadDependencies) {
+				NSArray *dependencies = [[plugins lastObject] dependencies];
+				NSDictionary *supportingPlugIn = [dependencies objectWithValue:ident forKey:@"id"];
+				if (![[localPlugIns allKeys] containsObject:[supportingPlugIn objectForKey:@"id"]]) {
+					// supporting plug-in is not yet installed
+					[array addObject:supportingPlugIn];
+					[dependingNames addObjectsFromArray:[plugins valueForKey:@"name"]];
+				}
+			}
 		}
 	}
 	//	NSLog(@"installing! %@", array);
@@ -547,6 +570,7 @@
 			[depending addObject:plugIn];
 			//NSLog(@"depends %@", depending);
 		}
+		[plugIn setLoadError:@"Unmet dependencies"];
 		return NO;
 	}
 	return YES;
@@ -684,7 +708,7 @@
 		}
 		return NO;
 	}
-	return YES;
+	return NO;
 }
 
 - (BOOL)updatePlugInsForNewVersion:(NSString *)version {
@@ -897,13 +921,15 @@
 		NSLog(@"Downloading %@", url);
 		[self performSelectorOnMainThread:@selector(installPlugInWithInfo:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:ident, @"id", url, @"url", nil] waitUntilDone:YES];
 	}
-
-	NSString *status = [NSString stringWithFormat:@"Installing %lu Plugin%@", (unsigned long)[queuedDownloads count], ([queuedDownloads count] > 1 ? @"s" : @"")];
-	[[QSTaskController sharedInstance] updateTask:@"QSPlugInInstalling" status:status progress:-1];
-	[self setInstallStatus:status];
-	[self setIsInstalling:YES];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"QSUpdateControllerStatusChanged" object:self];
-	[self performSelectorOnMainThread:@selector(startDownloadQueue) withObject:nil waitUntilDone:YES];
+	
+	if ([queuedDownloads count]) {
+		NSString *status = [NSString stringWithFormat:@"Installing %lu Plugin%@", (unsigned long)[queuedDownloads count], ([queuedDownloads count] > 1 ? @"s" : @"")];
+		[[QSTaskController sharedInstance] updateTask:@"QSPlugInInstalling" status:status progress:-1];
+		[self setInstallStatus:status];
+		[self setIsInstalling:YES];
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"QSUpdateControllerStatusChanged" object:self];
+		[self performSelectorOnMainThread:@selector(startDownloadQueue) withObject:nil waitUntilDone:YES];
+	}
 	return YES;
 }
 
@@ -1011,7 +1037,7 @@
     NSLog(@"Download failed! Error - %@ %@ %@", [download URL], [error localizedDescription], [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
     // -1009 means no internet connection, don't bother the user in this case
     if ([error code] != -1009) {
-        QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:@"Download Failed",QSNotifierTitle,@"Plugin Download Failed",QSNotifierText,[QSResourceManager imageNamed:@"com.blacktree.Quicksilver"],QSNotifierIcon,nil]);
+        QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:@"Download Failed",QSNotifierTitle,@"Plugin Download Failed",QSNotifierText,[QSResourceManager imageNamed:kQSBundleID],QSNotifierIcon,nil]);
     }
     [[QSTaskController sharedInstance] removeTask:@"QSPlugInInstalling"];
     
