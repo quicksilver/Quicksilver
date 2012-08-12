@@ -529,6 +529,8 @@
 					<string>QSCatalogEntrySource</string>
 					<key>ID</key>
 					<string>QSPresetQSCatalogEntries</string>
+					<key>enabled</key>
+					<false/>
 				</dict>
 				<dict>
 					<key>source</key>
