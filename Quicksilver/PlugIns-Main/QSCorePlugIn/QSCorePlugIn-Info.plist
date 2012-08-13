@@ -2150,6 +2150,8 @@
 			<string>Quicksilver</string>
 			<key>ID</key>
 			<string>QSPresetQSGroup</string>
+			<key>enabled</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>source</key>
