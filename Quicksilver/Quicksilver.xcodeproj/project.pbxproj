@@ -1111,8 +1111,6 @@
 		4D66BC3A1487024500351C42 /* NDScriptData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDScriptData.m; sourceTree = "<group>"; };
 		4D66BC3B1487024500351C42 /* NSString+NDUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NDUtilities.h"; sourceTree = "<group>"; };
 		4D66BC3C1487024500351C42 /* NSString+NDUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NDUtilities.m"; sourceTree = "<group>"; };
-		4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Release.xcconfig; sourceTree = "<group>"; };
-		4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = QSPlugIn_Debug.xcconfig; sourceTree = "<group>"; };
 		4D89177614758620009C1C14 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/QSMainMenuPrefPane.strings; sourceTree = "<group>"; };
 		4D89177814758641009C1C14 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSMainMenuPrefPane.strings; sourceTree = "<group>"; };
 		4D89177C14758DC6009C1C14 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/QSApplicationPrefPane.strings; sourceTree = "<group>"; };
@@ -2071,8 +2069,6 @@
 				4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */,
 				4DA1CCCF0E0BB61100CA6002 /* Developer.xcconfig */,
 				4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */,
-				4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */,
-				4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */,
 				4D002D52131147FF009040B7 /* Quicksilver.pch */,
 				4DC3DD130E0BB27B009902EF /* Release.xcconfig */,
 			);
@@ -4758,7 +4754,7 @@
 /* Begin XCBuildConfiguration section */
 		4D002D041311465B009040B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */;
+			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "PlugIns-Main/Bezel/Info.plist";
 				PRODUCT_NAME = "Bezel Interface";
@@ -4767,7 +4763,7 @@
 		};
 		4D002D051311465B009040B7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */;
+			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "PlugIns-Main/Bezel/Info.plist";
 				PRODUCT_NAME = "Bezel Interface";
@@ -4776,7 +4772,7 @@
 		};
 		4D002D63131148C3009040B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */;
+			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "PlugIns-Main/Finder/Info.plist";
 				PRODUCT_NAME = "Finder Module";
@@ -4785,7 +4781,7 @@
 		};
 		4D002D64131148C3009040B7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */;
+			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "PlugIns-Main/Finder/Info.plist";
 				PRODUCT_NAME = "Finder Module";
@@ -4794,7 +4790,7 @@
 		};
 		4D002D8A131149A4009040B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */;
+			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "PlugIns-Main/PrimerInterface/Info.plist";
 				PRODUCT_NAME = "Primer Interface";
@@ -4803,7 +4799,7 @@
 		};
 		4D002D8B131149A4009040B7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */;
+			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "PlugIns-Main/PrimerInterface/Info.plist";
 				PRODUCT_NAME = "Primer Interface";
@@ -4812,7 +4808,7 @@
 		};
 		4D002DAF13114A2E009040B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */;
+			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "PlugIns-Main/QSHotKeyPlugIn/Info.plist";
 				PRODUCT_NAME = "HotKey Triggers";
@@ -4821,7 +4817,7 @@
 		};
 		4D002DB013114A2E009040B7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */;
+			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "PlugIns-Main/QSHotKeyPlugIn/Info.plist";
 				PRODUCT_NAME = "HotKey Triggers";
@@ -5257,7 +5253,7 @@
 		};
 		7F6B3E64085CE68E000735A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D7A90020E39E7C200A7E6BE /* QSPlugIn_Debug.xcconfig */;
+			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
 				PRODUCT_NAME = "Core Support";
@@ -5266,7 +5262,7 @@
 		};
 		7F6B3E65085CE68E000735A8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D7A90010E39E7B400A7E6BE /* QSPlugIn_Release.xcconfig */;
+			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
 				PRODUCT_NAME = "Core Support";
