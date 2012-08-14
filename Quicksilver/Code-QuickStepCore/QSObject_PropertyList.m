@@ -102,9 +102,10 @@
 }
 
 - (NSDictionary *)dictionaryRepresentation {
+    // copies of data and meta are made to avoid them being mutated down the line
     return [NSDictionary dictionaryWithObjectsAndKeys:
-            data, kData,
-            meta, kMeta,
+            [[data copy] autorelease], kData,
+            [[meta copy] autorelease], kMeta,
             NSStringFromClass([self class]), kQSObjectClass,
             nil];
 }
