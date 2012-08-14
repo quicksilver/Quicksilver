@@ -75,6 +75,12 @@
 	</suite>
 	<suite name="Script Handlers" code="DAEH" description="Handlers for Actions and other scripts.">
 		<cocoa name="QuicksilverHandlers"/>
+        <command name="open files" code="DAEDopfl" description="Open files from Quicksilver">
+            <cocoa class="NSScriptCommand" />
+            <direct-parameter description="File to open" type="any" />
+            <parameter name="with" code="IdOb" description="indirect object" type="any" optional="yes" />
+            <result description="value to return to Quicksilver" type="any" />
+        </command>
 		<command name="process text" code="DAEDopnt" description="Process some text. Scripts with this handler gain a &apos;Process Text&apos; action">
 			<cocoa class="NSScriptCommand"/>
 			<direct-parameter description="text to process" type="text"/>

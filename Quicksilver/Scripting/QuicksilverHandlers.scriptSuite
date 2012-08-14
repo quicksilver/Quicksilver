@@ -19,6 +19,36 @@
 			<key>Type</key>
 			<string>NSNumber&lt;Int&gt;</string>
 		</dict>
+		<key>OpenFiles</key>
+		<dict>
+			<key>AppleEventClassCode</key>
+			<string>DAED</string>
+			<key>AppleEventCode</key>
+			<string>opfl</string>
+			<key>Arguments</key>
+			<dict>
+				<key>with</key>
+				<dict>
+					<key>AppleEventCode</key>
+					<string>IdOb</string>
+					<key>Optional</key>
+					<string>YES</string>
+					<key>Type</key>
+					<string>NSObject</string>
+				</dict>
+			</dict>
+			<key>CommandClass</key>
+			<string>NSScriptCommand</string>
+			<key>ResultAppleEventCode</key>
+			<string>****</string>
+			<key>Type</key>
+			<string>NSObject</string>
+			<key>UnnamedArgument</key>
+			<dict>
+				<key>Type</key>
+				<string>NSObject</string>
+			</dict>
+		</dict>
 		<key>ProcessText</key>
 		<dict>
 			<key>AppleEventClassCode</key>

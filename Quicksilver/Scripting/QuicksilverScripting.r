@@ -472,6 +472,23 @@ resource 'aete' (0, "Quicksilver") {
 		{
 			/* Events */
 
+			"open files",
+			"Open files from Quicksilver",
+			'DAED', 'opfl',
+			'****',
+			"value to return to Quicksilver",
+			replyRequired, singleItem, notEnumerated, Reserved13,
+			'****',
+			"File to open",
+			directParamRequired,
+			singleItem, notEnumerated, Reserved13,
+			{
+				"with", 'IdOb', '****',
+				"indirect object",
+				optional,
+				singleItem, notEnumerated, Reserved13
+			},
+
 			"process text",
 			"Process some text. Scripts with this handler gain a 'Process Text' action",
 			'DAED', 'opnt',

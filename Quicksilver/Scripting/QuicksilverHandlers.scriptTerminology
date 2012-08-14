@@ -11,6 +11,28 @@
 			<key>Name</key>
 			<string>get argument count</string>
 		</dict>
+		<key>OpenFiles</key>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>with</key>
+				<dict>
+					<key>Description</key>
+					<string>indirect object</string>
+					<key>Name</key>
+					<string>with</string>
+				</dict>
+			</dict>
+			<key>Description</key>
+			<string>Open files from Quicksilver</string>
+			<key>Name</key>
+			<string>open files</string>
+			<key>UnnamedArgument</key>
+			<dict>
+				<key>Description</key>
+				<string>File to open</string>
+			</dict>
+		</dict>
 		<key>ProcessText</key>
 		<dict>
 			<key>Arguments</key>
