@@ -22,7 +22,9 @@ static NSInteger presetSort(QSCatalogEntry *item1, QSCatalogEntry *item2, void *
 
 QSLibrarian *QSLib = nil;
 
+#ifdef DEBUG
 static CGFloat searchSpeed = 0.0;
+#endif
 
 @implementation QSLibrarian
 
@@ -588,14 +590,14 @@ static CGFloat searchSpeed = 0.0;
 	[self writeCatalog:self];
 }
 
+#ifdef DEBUG
 - (CGFloat) estimatedTimeForSearchInSet:(NSArray *)set {
 	CGFloat estimate = (set ? [set count] : [defaultSearchSet count]) * searchSpeed;
-#ifdef DEBUG
 	if (VERBOSE)
         NSLog(@"Estimate: %fms avg: %ldµs", estimate * 1000, (long)(searchSpeed * 1000000));
-#endif
 	return MIN(estimate, 0.5);
 }
+#endif
 
 #ifdef DEBUG
 - (NSMutableArray *)scoreTest:(id)sender {
