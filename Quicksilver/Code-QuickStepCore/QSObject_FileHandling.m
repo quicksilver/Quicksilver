@@ -491,23 +491,25 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 		NSMutableArray *fileChildren = [NSMutableArray arrayWithCapacity:1];
 		NSMutableArray *visibleFileChildren = [NSMutableArray arrayWithCapacity:1];
-
-// 		NSString *file;
-// 		NSEnumerator *enumerator = [[manager contentsOfDirectoryAtPath:path error:nil] objectEnumerator];
-// 		while (file = [enumerator nextObject]) {
-// 			file = [path stringByAppendingPathComponent:file];
-// 			[fileChildren addObject:file];
-// 			if ([manager isVisible:file])
-// 				[visibleFileChildren addObject:file];
-// 		}
         
-        NSArray * dirContents = [manager contentsOfDirectoryAtPath:path error:nil];
-		for(NSString * file in dirContents) {
-			file = [path stringByAppendingPathComponent:file];
-			[fileChildren addObject:file];
-			if ([manager isVisible:file])
-				[visibleFileChildren addObject:file];
-		}
+        NSError *err = nil;
+        // pre-fetch the required info (hidden key) for the dir contents to speed up the task
+        NSArray *dirContents = [manager contentsOfDirectoryAtURL:[NSURL fileURLWithPath:path] includingPropertiesForKeys:[NSArray arrayWithObject:NSURLIsHiddenKey] options:0 error:&err];
+        if (err) {
+            NSLog(@"Error loading files: %@",err);
+        }
+        for (NSURL *individualURL in dirContents) {
+            [fileChildren addObject:[individualURL path]];
+            NSNumber *isHidden = 0;
+            [individualURL getResourceValue:&isHidden forKey:NSURLIsHiddenKey error:nil];
+            if (![isHidden boolValue]) {
+                [visibleFileChildren addObject:[individualURL path]];
+            }
+ 		}
+        // sort the files like Finder does. Note: Casting array to NSMutable array so don't try and alter these arrays later on
+        fileChildren = (NSMutableArray *)[fileChildren sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
+        visibleFileChildren = (NSMutableArray *)[visibleFileChildren sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
+        
 
 		newChildren = [QSObject fileObjectsWithPathArray:visibleFileChildren];
 		newAltChildren = [QSObject fileObjectsWithPathArray:fileChildren];

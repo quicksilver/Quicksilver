@@ -54,7 +54,7 @@
 }
 - (IBAction)collect:(id)sender { //Adds additional objects to a collection
 	if (!collecting) collecting = YES;
-	if ([super objectValue]) {
+	if ([super objectValue] && ![collection containsObject:[super objectValue]]) {
 		[collection addObject:[super objectValue]];
         [[[super controller] dSelector] saveMnemonic];
 		[self setNeedsDisplay:YES];
