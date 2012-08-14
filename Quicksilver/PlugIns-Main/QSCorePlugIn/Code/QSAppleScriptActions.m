@@ -23,7 +23,7 @@
 @implementation QSAppleScriptActions
 
 - (QSAction *)scriptActionForPath:(NSString *)path {
-	NSArray *handlers = [NSAppleScript validHandlersFromArray:[NSArray arrayWithObjects:@"aevtoapp", @"DAEDopnt", @"aevtodoc", nil] inScriptFile:path];
+	NSArray *handlers = [NSAppleScript validHandlersFromArray:[NSArray arrayWithObjects:@"aevtoapp", @"DAEDopnt", @"aevtodoc",@"DAEDopfl", nil] inScriptFile:path];
 
 	NSMutableDictionary *actionDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                        NSStringFromClass([self class]),    kActionClass,
@@ -32,14 +32,15 @@
                                        [NSNumber numberWithBool:YES],      kActionDisplaysResult,
                                        nil];
     
-	if ([handlers containsObject:@"DAEDopnt"]) {
+    if ([handlers containsObject:@"aevtodoc"] || [handlers containsObject:@"DAEDopfl"]) {
+		[actionDict setObject:[NSArray arrayWithObject:QSFilePathType] forKey:kActionDirectTypes];
+		[actionDict setObject:[handlers containsObject:@"DAEDopfl"] ? @"QSOpenFileWithEventPlaceholder" : @"QSOpenFileEventPlaceholder" forKey:kActionHandler];
+        [actionDict setObject:[NSArray arrayWithObject:QSFilePathType] forKey:kActionIndirectTypes];
+	}
+	if ([handlers containsObject:@"DAEDopnt"] && ![handlers containsObject:@"DAEDopfl"]) {
 		[actionDict setObject:[NSArray arrayWithObject:QSTextType] forKey:kActionDirectTypes];
 		[actionDict setObject:@"QSOpenTextEventPlaceholder" forKey:kActionHandler];
 		[actionDict setObject:[NSArray arrayWithObject:QSTextType] forKey:kActionIndirectTypes];
-	}
-	if ([handlers containsObject:@"aevtodoc"]) {
-		[actionDict setObject:[NSArray arrayWithObject:QSFilePathType] forKey:kActionDirectTypes];
-		[actionDict setObject:@"QSOpenFileEventPlaceholder" forKey:kActionHandler];
 	}
     NSString *actionName = [[path lastPathComponent] stringByDeletingPathExtension];
     QSAction *action = [QSAction actionWithDictionary:actionDict identifier:[@"[Action]:" stringByAppendingString:path]];
@@ -140,7 +141,7 @@
         } else {
 			event = [[NSAppleEventDescriptor alloc] initWithEventClass:kQSScriptSuite eventID:kQSOpenTextScriptCommand targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
 			[event setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:[iObject stringValue]] forKeyword:keyDirectObject];
-			[event setDescriptor:[NSAppleEventDescriptor descriptorWithString:@""] forKeyword:kQSOpenTextIndirectParameter];
+			[event setDescriptor:[NSAppleEventDescriptor descriptorWithString:@""] forKeyword:kQSIndirectParameter];
 		}
 		[targetAddress release];
 		returnDesc = [script executeAppleEvent:event error:&errorInfo];
@@ -166,6 +167,17 @@
 		return nil;
 }
 
+-(NSAppleEventDescriptor *)eventDescriptorForObject:(QSObject *)object {
+    NSArray *paths = [object validPaths];
+    NSAppleEventDescriptor *objectDescriptor = nil;
+    if ([paths count] > 0) {
+        objectDescriptor = [NSAppleEventDescriptor aliasListDescriptorWithArray:paths];
+    } else {
+        objectDescriptor = [NSAppleEventDescriptor descriptorWithString:[object stringValue]];
+    }
+    return objectDescriptor;
+}
+
 - (QSObject *)performAction:(QSAction *)action directObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
 	NSDictionary *dict = [action objectForType:QSActionType];
 	NSString *scriptPath = [dict objectForKey:kActionScript];
@@ -186,10 +198,19 @@
 	NSDictionary *errorDict = nil;
 	NSAppleScript *script = [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:scriptPath] error:&errorDict];
 
-	if ([handler isEqualToString:@"QSOpenFileEventPlaceholder"]) {
+	if ([handler isEqualToString:@"QSOpenFileEventPlaceholder"] || [handler isEqualToString:@"QSOpenFileWithEventPlaceholder"]) {
+        event = [[NSAppleEventDescriptor alloc] initWithEventClass:[handler isEqualToString:@"QSOpenFileEventPlaceholder"] ? kCoreEventClass :kQSScriptSuite
+                                                           eventID:[handler isEqualToString:@"QSOpenFileEventPlaceholder"] ? kAEOpenDocuments : kQSOpenFileScriptCommand
+                                                  targetDescriptor:targetAddress
+                                                          returnID:kAutoGenerateReturnID
+                                                     transactionID:kAnyTransactionID];
 		NSArray *files = [dObject validPaths];
-		event = [[NSAppleEventDescriptor alloc] initWithEventClass:kCoreEventClass eventID:kAEOpenDocuments targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
 		[event setParamDescriptor:[NSAppleEventDescriptor aliasListDescriptorWithArray:files] forKeyword:keyDirectObject];
+        if(iObject && ![[iObject primaryType] isEqualToString:QSTextProxyType]) {
+            NSAppleEventDescriptor *iObjectDescriptor = [self eventDescriptorForObject:iObject];
+            [event setDescriptor:iObjectDescriptor forKeyword:kQSIndirectParameter];
+        }
+        
 	} else if ([handler isEqualToString:@"QSOpenTextEventPlaceholder"]) {
     event = [[NSAppleEventDescriptor alloc] initWithEventClass:kQSScriptSuite
                                                        eventID:kQSOpenTextScriptCommand
@@ -197,20 +218,8 @@
                                                       returnID:kAutoGenerateReturnID
                                                  transactionID:kAnyTransactionID];
 		[event setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:[dObject stringValue]] forKeyword:keyDirectObject];
-    NSArray *indirectPaths = [iObject validPaths];
-    NSAppleEventDescriptor *iObjectDescriptor = nil;
-    NSUInteger indirectPathCount = [indirectPaths count];
-    if (indirectPathCount == 1) {
-      iObjectDescriptor = [NSAppleEventDescriptor descriptorWithString:[indirectPaths objectAtIndex:0]];
-    } else if (indirectPathCount > 1) {
-      iObjectDescriptor = [NSAppleEventDescriptor listDescriptor];
-      for (NSString *path in indirectPaths) {
-        [iObjectDescriptor insertDescriptor:[NSAppleEventDescriptor descriptorWithString:path] atIndex:0];
-      }
-    } else {
-      iObjectDescriptor = [NSAppleEventDescriptor descriptorWithString:[iObject stringValue]];
-    }
-		[event setDescriptor:iObjectDescriptor forKeyword:kQSOpenTextIndirectParameter];
+        NSAppleEventDescriptor *iObjectDescriptor = [self eventDescriptorForObject:iObject];
+		[event setDescriptor:iObjectDescriptor forKeyword:kQSIndirectParameter];
 	} else {
 		id object;
 		NSArray *types = [action directTypes];
