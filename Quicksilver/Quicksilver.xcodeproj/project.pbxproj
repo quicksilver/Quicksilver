@@ -206,8 +206,6 @@
 		7F24E8B807EDC67D00943D5A /* QSObject_AEConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F24E8B607EDC67D00943D5A /* QSObject_AEConversion.m */; };
 		7F257BD6090DB26F00045D08 /* QSWindowAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F257BD4090DB26F00045D08 /* QSWindowAnimation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F257BD7090DB26F00045D08 /* QSWindowAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F257BD5090DB26F00045D08 /* QSWindowAnimation.m */; };
-		7F26503608DB09B20076E4E6 /* UKDirectoryEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F26503208DB09B20076E4E6 /* UKDirectoryEnumerator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7F26503708DB09B20076E4E6 /* UKDirectoryEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F26503308DB09B20076E4E6 /* UKDirectoryEnumerator.m */; };
 		7F35FC7D07F8D8BB0056051D /* QSPaths.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F35FC7C07F8D8BB0056051D /* QSPaths.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F3DB4BB0926D1620062EDFD /* NSEvent+BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3DB4BA0926D1620062EDFD /* NSEvent+BLTRExtensions.m */; };
 		7F46BFDD0A87F37F002D31E8 /* prefsGeneral.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F46BFDC0A87F37F002D31E8 /* prefsGeneral.png */; };
@@ -1225,8 +1223,6 @@
 		7F24E8B607EDC67D00943D5A /* QSObject_AEConversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSObject_AEConversion.m; sourceTree = "<group>"; };
 		7F257BD4090DB26F00045D08 /* QSWindowAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWindowAnimation.h; sourceTree = "<group>"; };
 		7F257BD5090DB26F00045D08 /* QSWindowAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSWindowAnimation.m; sourceTree = "<group>"; };
-		7F26503208DB09B20076E4E6 /* UKDirectoryEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = UKDirectoryEnumerator.h; path = UKClasses/UKDirectoryEnumerator/UKDirectoryEnumerator.h; sourceTree = "<group>"; };
-		7F26503308DB09B20076E4E6 /* UKDirectoryEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = UKDirectoryEnumerator.m; path = UKClasses/UKDirectoryEnumerator/UKDirectoryEnumerator.m; sourceTree = "<group>"; };
 		7F35FC7C07F8D8BB0056051D /* QSPaths.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSPaths.h; sourceTree = "<group>"; };
 		7F3DB4BA0926D1620062EDFD /* NSEvent+BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSEvent+BLTRExtensions.m"; sourceTree = "<group>"; };
 		7F46BFDC0A87F37F002D31E8 /* prefsGeneral.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = prefsGeneral.png; sourceTree = "<group>"; };
@@ -2363,8 +2359,6 @@
 				4D66BBD91486FCDE00351C42 /* CPSPrivate.h */,
 				E12444CB07297FF300043A01 /* CGSPrivate.h */,
 				4DFE7D9E0E081A30000B9AA3 /* NSImageQuickLook */,
-				7F26503208DB09B20076E4E6 /* UKDirectoryEnumerator.h */,
-				7F26503308DB09B20076E4E6 /* UKDirectoryEnumerator.m */,
 				E1E3CB8F0653BE030026BAF2 /* NSButton-NTExtensions.h */,
 				E1E3CB900653BE030026BAF2 /* NSButton-NTExtensions.m */,
 				E1E3CB910653BE030026BAF2 /* NTLocalizedString.h */,
@@ -3114,7 +3108,6 @@
 				7FF447EA080479E200316DB6 /* QSLSTools.h in Headers */,
 				CDCC201010A4C14B009C4EED /* QSMDPredicate.h in Headers */,
 				7F943F6508033961007EDC31 /* QSUTI.h in Headers */,
-				7F26503608DB09B20076E4E6 /* UKDirectoryEnumerator.h in Headers */,
 				4D6A663410AB2A2F00898CA4 /* QSTreeController.h in Headers */,
 				D4E0060F1523951500FDF185 /* NSMetadataQuery+Synchronous.h in Headers */,
 				4D66BBDA1486FCF400351C42 /* CPSPrivate.h in Headers */,
@@ -4219,7 +4212,6 @@
 				7FF447EB080479E200316DB6 /* QSLSTools.m in Sources */,
 				92D9C96B0D134BDD00D91825 /* QSTreeController.m in Sources */,
 				7F943F6608033961007EDC31 /* QSUTI.m in Sources */,
-				7F26503708DB09B20076E4E6 /* UKDirectoryEnumerator.m in Sources */,
 				D4E006101523951500FDF185 /* NSMetadataQuery+Synchronous.m in Sources */,
 				4D66BC5B1487027E00351C42 /* NDProcess.m in Sources */,
 				4D66BC5E1487027E00351C42 /* NSURL+NDCarbonUtilities.m in Sources */,
