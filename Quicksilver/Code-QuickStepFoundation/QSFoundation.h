@@ -22,7 +22,6 @@
 #import "NTLocalizedString.h"
 #import "NTViewLocalizer.h"
 #import "NSString+NDCarbonUtilities.h"
-#import "UKDirectoryEnumerator.h"
 
 #import "QSUTI.h"
 #import "QSTreeController.h"

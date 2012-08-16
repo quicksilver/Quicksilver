@@ -26,6 +26,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec);
 - (NSDate *)path:(NSString *)path wasModifiedAfter:(NSDate *)date depth:(NSInteger)depth;
 - (NSString *)fullyResolvedPathForPath:(NSString *)sourcePath;
 - (NSString *)UTIOfFile:(NSString *)path;
+- (NSString *)UTIOfURL:(NSURL *)fileURL;
 @end
 
 @interface NSFileManager (BLTRExtensions)
