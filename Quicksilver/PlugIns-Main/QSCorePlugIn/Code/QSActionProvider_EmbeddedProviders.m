@@ -11,7 +11,6 @@
 #import "QSRegistry.h"
 #import "QSSimpleWebWindowController.h"
 
-#import "QSLoginItemFunctions.h"
 #import "QSFSBrowserMediator.h"
 #import "QSNullObject.h"
 #import "QSObject_PropertyList.h"
@@ -51,6 +50,8 @@
 #import "QSInterfaceController.h"
 
 #import <AudioToolbox/AudioServices.h>
+
+#import "LaunchAtLoginController.h"
 
 @implementation URLActions
 
@@ -535,16 +536,20 @@
 }
 
 - (QSObject *)openItemAtLogin:(QSObject *)dObject {
-	for(NSString * path in [dObject arrayForType:QSFilePathType]) {
-		QSSetItemShouldLaunchAtLogin(path, YES, YES);
+	LaunchAtLoginController *launch = [[LaunchAtLoginController alloc] init];
+	for (NSString * path in [dObject arrayForType:QSFilePathType]) {
+		[launch setLaunchAtLogin:YES forURL:[NSURL fileURLWithPath:path]];
 	}
+	[launch release];
 	return nil;
 }
 
 - (QSObject *)doNotOpenItemAtLogin:(QSObject *)dObject {
-	for(NSString *path in [dObject arrayForType:QSFilePathType]) {
-		QSSetItemShouldLaunchAtLogin(path, NO, YES);
+	LaunchAtLoginController *launch = [[LaunchAtLoginController alloc] init];
+	for (NSString *path in [dObject arrayForType:QSFilePathType]) {
+		[launch setLaunchAtLogin:NO forURL:[NSURL fileURLWithPath:path]];
 	}
+	[launch release];
 	return nil;
 }
 
