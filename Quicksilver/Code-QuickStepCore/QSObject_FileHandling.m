@@ -191,7 +191,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		NSString *path = [theFiles lastObject];
 		if ([path hasPrefix:NSTemporaryDirectory()]) {
 			return [@"(Quicksilver) " stringByAppendingPathComponent:[path lastPathComponent]];
-		} else if ([path hasPrefix:[@"~/Library/Mobile Documents/" stringByStandardizingPath]]) {
+		} else if ([path hasPrefix:pICloudDocumentsPrefix]) {
+			// when 10.6 is dropped, test ([[NSFileManager defaultManager] isUbiquitousItemAtURL:[NSURL fileURLWithPath:path]]) instead
 			return @"iCloud";
 		} else {
 			return [path stringByAbbreviatingWithTildeInPath];
