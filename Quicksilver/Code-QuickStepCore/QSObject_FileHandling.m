@@ -802,7 +802,14 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	} else {
 		// generally: name = what you see in Terminal, label = what you see in Finder
 		NSString *path = [self objectForType:QSFilePathType];
-		newName = [path lastPathComponent];
+		MDItemRef mdItem = MDItemCreate(kCFAllocatorDefault, (CFStringRef)path);
+		if (mdItem) {
+			// get the actual filesystem name, in case we were passed a localized path
+			newName = (NSString *)MDItemCopyAttribute(mdItem, CFSTR("kMDItemFSName"));
+		}
+		if (!newName) {
+			newName = [path lastPathComponent];
+		}
 		// check packages for a descriptive name
 		LSItemInfoRecord infoRec;
 		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
@@ -813,7 +820,6 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		if (!newLabel || [newLabel isEqualToString:newName]) {
 			// try getting kMDItemDisplayName first
 			// tends to work better than `displayNameAtPath:` for things like Preference Panes
-			MDItemRef mdItem = MDItemCreate(kCFAllocatorDefault, (CFStringRef)path);
 			if (mdItem) {
 				newLabel = (NSString *)MDItemCopyAttribute(mdItem, CFSTR("kMDItemDisplayName"));
 			}
