@@ -4,6 +4,3 @@
 [submodule "Quicksilver/Code-External/VDKQueue"]
 	path = Quicksilver/Code-External/VDKQueue
 	url = git://github.com/bdkjones/VDKQueue.git
-[submodule "Quicksilver/Code-External/LaunchAtLoginController"]
-	path = Quicksilver/Code-External/LaunchAtLoginController
-	url = git://github.com/Mozketo/LaunchAtLoginController.git
