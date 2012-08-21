@@ -336,6 +336,8 @@
 					<string>iDiskGenericIcon</string>
 					<key>ID</key>
 					<string>QSPresetICloudDocuments</string>
+					<key>requiresPath</key>
+					<string>~/Library/Mobile Documents</string>
 				</dict>
 				<dict>
 					<key>source</key>
