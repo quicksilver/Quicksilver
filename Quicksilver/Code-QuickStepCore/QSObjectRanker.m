@@ -122,7 +122,7 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 	if (!anAbbreviation) return nil;
     
 	CGFloat nameScore = [nameRanker scoreForAbbreviation:anAbbreviation];
-	if (labelRanker && [labelRanker scoreForAbbreviation:anAbbreviation] > nameScore) {
+	if (labelRanker && [labelRanker scoreForAbbreviation:anAbbreviation] >= nameScore) {
 		*hitmask = [labelRanker maskForAbbreviation:anAbbreviation];
 		return [labelRanker rankedString];
 	} else {
