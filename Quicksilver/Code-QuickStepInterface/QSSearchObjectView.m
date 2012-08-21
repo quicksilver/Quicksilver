@@ -802,6 +802,9 @@ NSMutableDictionary *bindingsDict = nil;
 	NSDate *date = [NSDate date];
 #endif
 	
+    // ***Quicksilver's search algorithm is case insensitive
+    string = [string lowercaseString];
+    
 	//	NSData *scores;
 	NSMutableArray *newResultArray = [[QSLibrarian sharedInstance] scoredArrayForString:string inSet:searchArray];
 	//t NSLog(@"scores %@", scores);
@@ -1027,6 +1030,11 @@ NSMutableDictionary *bindingsDict = nil;
         && ([[theEvent characters] length] >= 1)
         && [[NSCharacterSet uppercaseLetterCharacterSet] characterIsMember:[[theEvent characters] characterAtIndex:0]]
         && self == [self directSelector]) {
+        // Don't try and change the action using shift keys if the dObject is empty
+        if (![[self directSelector] objectValue]) {
+            NSBeep();
+            return;
+        }
 		[self handleShiftedKeyEvent:theEvent];
 		return;
 	}
@@ -1469,7 +1477,6 @@ NSMutableDictionary *bindingsDict = nil;
 #pragma mark -
 #pragma mark NSTextInput Protocol
 - (void)insertText:(id)aString {
-    //	aString = [[aString purifiedString] lowercaseString];
 	if (![partialString length]) {
 		[self updateHistory];
 		[self setSearchArray:sourceArray];
