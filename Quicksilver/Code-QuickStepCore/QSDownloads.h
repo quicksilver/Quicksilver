@@ -13,4 +13,5 @@
 @interface QSDownloads : NSObject {
 }
 - (id)resolveProxyObject:(id)proxy;
++ (NSArray *)iCloudDocumentsForBundleID:(NSString *)bundleIdentifier;
 @end
