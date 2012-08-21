@@ -776,14 +776,10 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     }
     
 	if (includeKind) {
-        NSString *kind = nil;
-		if ([[path pathExtension] caseInsensitiveCompare:@"prefPane"] == NSOrderedSame) {
-			kind = QSGetLocalizationStatus() ? [self localizedPrefPaneKind] : @"Preference Pane";
-		} else {
-			LSCopyKindStringForURL((CFURLRef)fileURL, (CFStringRef *)&kind);
-      [kind autorelease];
-		}
-		
+		NSString *kind = nil;
+		LSCopyKindStringForURL((CFURLRef)fileURL, (CFStringRef *)&kind);
+		[kind autorelease];
+	
 #ifdef DEBUG
       if (DEBUG_LOCALIZATION) NSLog(@"kind: %@", kind);
 #endif
@@ -809,25 +805,35 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		BOOL onDesktop = [container isEqualToString:[@"~/Desktop/" stringByStandardizingPath]];
 		newName = [NSString stringWithFormat:@"%ld %@ %@ \"%@\"", (long)[paths count] , type, onDesktop?@"on":@"in", [container lastPathComponent]];
 	} else {
+		// generally: name = what you see in Terminal, label = what you see in Finder
 		NSString *path = [self objectForType:QSFilePathType];
-
+		MDItemRef mdItem = MDItemCreate(kCFAllocatorDefault, (CFStringRef)path);
+		if (mdItem) {
+			// get the actual filesystem name, in case we were passed a localized path
+			newName = (NSString *)MDItemCopyAttribute(mdItem, CFSTR("kMDItemFSName"));
+		}
+		if (!newName) {
+			newName = [path lastPathComponent];
+		}
+		// check packages for a descriptive name
 		LSItemInfoRecord infoRec;
 		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
-
 		if (infoRec.flags & kLSItemInfoIsPackage) {
 			newLabel = [self descriptiveNameForPackage:(NSString *)path withKindSuffix:!(infoRec.flags & kLSItemInfoIsApplication)];
-			if ([newLabel isEqualToString:newName]) newLabel = nil;
 		}
-        // Fall back on using NSFileManager to get the name
-		if (!newName) {
-			newName = [[NSFileManager defaultManager] displayNameAtPath:path];
-        }
-        
-		if (!newLabel && ![self label]) {
-			newLabel = [manager displayNameAtPath:path];
-			if ([newName isEqualToString:newLabel]) newLabel = nil;
+		// look for a more suitable display name
+		if (!newLabel || [newLabel isEqualToString:newName]) {
+			// try getting kMDItemDisplayName first
+			// tends to work better than `displayNameAtPath:` for things like Preference Panes
+			if (mdItem) {
+				newLabel = (NSString *)MDItemCopyAttribute(mdItem, CFSTR("kMDItemDisplayName"));
+			}
+			if (!newLabel) {
+				newLabel = [manager displayNameAtPath:path];
+			}
 		}
-		if ([path isEqualToString:@"/"]) newLabel = [manager displayNameAtPath:path];
+		// discard the label if it's still identical to name
+		if ([newLabel isEqualToString:newName]) newLabel = nil;
 	}
     [manager release];
 	[self setName:newName];
