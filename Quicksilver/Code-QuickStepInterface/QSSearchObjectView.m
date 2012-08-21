@@ -577,7 +577,7 @@ NSMutableDictionary *bindingsDict = nil;
     [parentStack removeAllObjects];
     [self setResultArray:[NSArray arrayWithObjects:newObject, nil]];
     [super setObjectValue:newObject];
-    
+
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
 }
 
@@ -709,7 +709,13 @@ NSMutableDictionary *bindingsDict = nil;
 - (BOOL)executeText:(NSEvent *)theEvent {
 	[self clearSearch];
 	[self insertText:[theEvent charactersIgnoringModifiers]];
-	[self insertNewline:self];
+    if ([[self objectValue] argumentCount] == 2) {
+        [[self window] makeFirstResponder:[self indirectSelector]];
+        // Invalidate the actionsUpdateTimer, otherwise it will fire and cause the default action to display (instead of that typed). actionsUpdateTimer gets set when the dObject loses 1st responder
+        [[(QSInterfaceController *)[[self window] windowController] actionsUpdateTimer] invalidate];
+    } else {
+        [self insertNewline:self];
+    }
 	return YES;
 }
 

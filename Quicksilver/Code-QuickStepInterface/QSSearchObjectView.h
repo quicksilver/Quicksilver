@@ -150,7 +150,7 @@ typedef enum QSSearchMode {
 
 
 - (QSSearchObjectView *)directSelector;
-- (QSSearchObjectView *)indirectSelector;
+- (QSSearchObjectView *)actionSelector;
 - (QSSearchObjectView *)indirectSelector;
 
 - (BOOL)allowText;
