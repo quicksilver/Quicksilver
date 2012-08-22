@@ -369,7 +369,7 @@ NSMutableDictionary *kindDescriptions = nil;
 	NSString *details = [selectedItem details] ? [selectedItem details] : @"";
     
 	if ([resultTable rowHeight] < 34 && details)
-		status = [status stringByAppendingFormat:@" %C %@", 0x25B8, details];
+		status = [status stringByAppendingFormat:@" %C %@", (unsigned short)0x25B8, details];
     
 	[(NSTextField *)selectionView setStringValue:status];
     

@@ -60,6 +60,10 @@
 }
 
 - (void)addAbbrevMnemonic:(NSString *)mnem forID:(NSString *)key relativeToID:(NSString *)above immediately:(BOOL)immediately {
+    
+    // Abbreviations are case insensitive
+    mnem = [mnem lowercaseString];
+    
 	if (!key) return;
     if (!mnem) return;
 
@@ -113,7 +117,9 @@
 }
 - (void)addObjectMnemonic:(NSString *)mnem forID:(NSString *)key {
 	if (!mnem) mnem = @"";
-
+    
+    mnem = [mnem lowercaseString];
+    
 	if (!key || [key isEqualToString:@""]) return;
 	NSMutableDictionary *objectEntry;
 	if (!(objectEntry = [objectMnemonics objectForKey:key]) ) {

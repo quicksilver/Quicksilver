@@ -10,10 +10,6 @@
 
 #import "NSString_BLTRExtensions.h"
 
-@interface UKDirectoryEnumerator (Private)
-- (NSDate *)fileModificationDate;
-@end
-
 #import "Carbon/Carbon.h"
 #define HIDDENROOT [NSArray arrayWithObjects:@"automount", @"bin", @"cores", @"dev", @"etc", @"mach", @"mach.sym", @"mach_kernel", @"private", @"sbin", @"sbin", @"tmp", @"usr", @"var", nil]
 
@@ -83,6 +79,12 @@
 
 NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec);
 
+NSString *QSUTIOfURL(NSURL *fileURL) {
+    LSItemInfoRecord infoRec;
+	LSCopyItemInfoForURL((CFURLRef)fileURL, kLSRequestTypeCreator|kLSRequestBasicFlagsOnly, &infoRec);
+	return QSUTIWithLSInfoRec([fileURL path], &infoRec);
+}
+
 NSString *QSUTIOfFile(NSString *path) {
 	LSItemInfoRecord infoRec;
 	LSCopyItemInfoForURL((CFURLRef)[NSURL fileURLWithPath:path], kLSRequestTypeCreator|kLSRequestBasicFlagsOnly, &infoRec);
@@ -124,6 +126,10 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 @implementation NSFileManager (Scanning)
 - (NSString *)UTIOfFile:(NSString *)path {
 	return QSUTIOfFile(path);
+}
+
+- (NSString *)UTIOfURL:(NSURL *)fileURL {
+	return QSUTIOfURL(fileURL);
 }
 
 - (NSString *)typeOfFile:(NSString *)path {
@@ -276,38 +282,6 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 - (BOOL)touchPath:(NSString *)path {
 	return [self setAttributes:[NSDictionary dictionaryWithObject:[NSDate date] forKey:NSFileModificationDate] ofItemAtPath:path error:nil];
 
-}
-
-- (NSDate *)bulkPath:(NSString *)path wasModifiedAfter:(NSDate *)date depth:(NSInteger)depth {
-	if (depth) depth--;
-	UKDirectoryEnumerator *enumerator = [[UKDirectoryEnumerator alloc] initWithPath:path];
-	NSDate *fileDate;
-	NSDate *newDate = nil;
-	NSString *child;
-	[enumerator setDesiredInfo:kFSCatInfoContentMod | kFSCatInfoNodeFlags];
-	while (child = [enumerator nextObjectFullPath]) {
-		fileDate = [enumerator fileModificationDate];
-		if ([date compare:fileDate] == NSOrderedAscending && [date compare:[NSDate date]] == NSOrderedAscending) {
-			newDate = fileDate;
-			break;
-		}
-		if (depth && [enumerator isDirectory]) {
-			static LSItemInfoRecord info;
-			//OSStatus err =
-				LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:child] , kLSRequestBasicFlagsOnly, &info);
-			if (info.flags & kLSItemInfoIsPackage) {
-				//NSLog(@"skipping %@", child);
-				continue;
-			}
-			if (fileDate = [self bulkPath:child wasModifiedAfter:date depth:depth--]) {
-				//NSLog(@"date of %@ %@ %@ %d", date, fileDate, child, [enumerator isDirectory]);
-				newDate = fileDate;
-				break;
-			}
-		}
-	}
-	[enumerator release];
-	return newDate;
 }
 
 

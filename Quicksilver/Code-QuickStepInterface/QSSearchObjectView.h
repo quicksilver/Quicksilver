@@ -24,7 +24,10 @@ typedef enum QSSearchMode {
 	, NSTextViewDelegate
 #endif
 > 
-{   
+{
+    // the text mode text editor object
+    NSTextView *textModeEditor;
+    
 	NSMutableString *partialString;
 	NSString 		*matchedString;
 	NSString 		*visibleString;
@@ -83,6 +86,8 @@ typedef enum QSSearchMode {
     
     QSObject *quicklookObject;
 }
+
+@property (retain) NSTextView *textModeEditor;
 
 - (void)clearSearch;
 
@@ -145,7 +150,7 @@ typedef enum QSSearchMode {
 
 
 - (QSSearchObjectView *)directSelector;
-- (QSSearchObjectView *)indirectSelector;
+- (QSSearchObjectView *)actionSelector;
 - (QSSearchObjectView *)indirectSelector;
 
 - (BOOL)allowText;

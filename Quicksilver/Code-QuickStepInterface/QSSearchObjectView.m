@@ -36,6 +36,9 @@
 NSMutableDictionary *bindingsDict = nil;
 
 @implementation QSSearchObjectView
+
+@synthesize textModeEditor;
+
 + (void)initialize {
     if( bindingsDict == nil ) {
         NSDictionary *defaultBindings = [[NSMutableDictionary alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[QSSearchObjectView class]] pathForResource:@"DefaultBindings" ofType:@"qskeys"]];
@@ -66,7 +69,11 @@ NSMutableDictionary *bindingsDict = nil;
 	allowText = YES;
 	resultController = [[QSResultController alloc] initWithFocus:self];
 	[self setTextCellFont:[NSFont systemFontOfSize:12.0]];
-	[self setTextCellFontColor:[NSColor blackColor]];
+    [self setTextCellFontColor:[NSColor blackColor]];
+    
+    [self setTextModeEditor:(NSTextView *)[[self window] fieldEditor:YES forObject:self]];
+    
+    [[self textModeEditor] bind:@"textColor" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSAppearance3T" options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:@"NSValueTransformerName"]];
     
 	searchMode = SearchFilter;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideResultView:) name:@"NSWindowDidResignKeyNotification" object:[self window]];
@@ -86,6 +93,9 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)dealloc {
 	[self unbind:@"highlightColor"];
+    [self unbind:@"textColor"];
+    [self unbind:@"backgroundColor"];
+    [self setTextModeEditor:nil];
 	[partialString release], partialString = nil;
 	[matchedString release], matchedString = nil;
 	[visibleString release], visibleString = nil;
@@ -186,40 +196,6 @@ NSMutableDictionary *bindingsDict = nil;
 		[resultController->resultTable reloadData];
 }
 
-
-/*
- - (void)selectionChange:(NSNotification*)notif {
-	 //NSLog(@"selection changed to %d", [resultTable selectedRow]);
-
-	 if (!browsing) {
-		 if (selectedResult == [resultTable selectedRow]) return;
-
-		 selectedResult = [resultTable selectedRow];
-
-		 id selection = [resultArray objectAtIndex:selectedResult];
-		 if (selection != primaryResult) {
-			 [self setPrimaryResult:selection];
-		 }
-
-		 [resultView setObjectValue:selection];
-		 if (searchString)
-			 [(QSObjectView *)focus setSearchString:searchString];
-
-		 [resultCountField setStringValue:[NSString stringWithFormat:@"%d of %d", selectedResult+1, [resultArray count]]];
-		 if (!loadingIcons) [NSThread detachNewThreadSelector:@selector(loadIcons) toTarget:self withObject:nil];
-		 else iconLoadInvalid = YES;
-
-	 } else {
-		 QSObject *selection = [QSObject fileObjectWithPath:[resultBrowser path]];
-		 [selection loadImage];
-		 [self setPrimaryResult:selection];
-		 [(QSObjectView *)focus setSearchString:nil];
-
-		 [resultView setObjectValue:selection];
-	 }
- }
- */
-
 #pragma mark -
 #pragma mark NSView
 - (void)drawRect:(NSRect)rect {
@@ -232,16 +208,24 @@ NSMutableDictionary *bindingsDict = nil;
 			CGContextRef context = (CGContextRef) ([[NSGraphicsContext currentContext] graphicsPort]);
 			CGContextSetAlpha(context, 0.92);
 		}
-		[[NSColor colorWithDeviceWhite:1.0 alpha:0.92] set];
-		NSBezierPath *roundRect = [NSBezierPath bezierPath];
+        // Use the background colour from the prefs for the text editor bg color (with a slight transparency)
+        NSColor *highlightColor = [[NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:@"QSAppearance3A"]] colorWithLighting:0.3 plasticity:0.8 ];
+        [highlightColor set];
+        NSBezierPath *roundRect = [NSBezierPath bezierPath];
 		rect = [self frame];
 		rect.origin = NSZeroPoint;
-		[roundRect appendBezierPathWithRoundedRectangle:NSInsetRect(rect, 3, 3) withRadius:NSHeight(rect) /16];
+        CGFloat radius = 0;
+        NSRect drawRect;
+        // Interfaces that have 'bezeled' cells are very picky. See QSObjectCell.m (search for [self isBezeled])
+        if ([[self cell] isBezeled] ){
+            drawRect = NSInsetRect(rect, 2.25, 2.25);
+            radius = drawRect.size.height/2;
+        } else {
+            radius = [self frame].size.height/[[self cell] cellRadiusFactor];
+            drawRect = rect;
+        }
+        [roundRect appendBezierPathWithRoundedRectangle:drawRect withRadius:radius];
 		[roundRect fill];
-
-		[[NSColor alternateSelectedControlColor] set];
-		[roundRect stroke];
-
 	} else {
 		[super drawRect:rect];
 	}
@@ -593,7 +577,7 @@ NSMutableDictionary *bindingsDict = nil;
     [parentStack removeAllObjects];
     [self setResultArray:[NSArray arrayWithObjects:newObject, nil]];
     [super setObjectValue:newObject];
-    
+
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
 }
 
@@ -725,7 +709,13 @@ NSMutableDictionary *bindingsDict = nil;
 - (BOOL)executeText:(NSEvent *)theEvent {
 	[self clearSearch];
 	[self insertText:[theEvent charactersIgnoringModifiers]];
-	[self insertNewline:self];
+    if ([[self objectValue] argumentCount] == 2) {
+        [[self window] makeFirstResponder:[self indirectSelector]];
+        // Invalidate the actionsUpdateTimer, otherwise it will fire and cause the default action to display (instead of that typed). actionsUpdateTimer gets set when the dObject loses 1st responder
+        [[(QSInterfaceController *)[[self window] windowController] actionsUpdateTimer] invalidate];
+    } else {
+        [self insertNewline:self];
+    }
 	return YES;
 }
 
@@ -742,41 +732,36 @@ NSMutableDictionary *bindingsDict = nil;
 	if ([self currentEditor]) {
 		[[self window] makeFirstResponder: self];
 	} else {
-		// Whilst the definition states fieldEditor:forObject returns an NSText object, the docs state 
-		// it's an NSTextView object. Source on the internet suggest the latter is correct
-		NSTextView *editor = (NSTextView *)[[self window] fieldEditor:YES forObject: self];
 		if (string) {
-			[editor setString:string];
-			[editor setSelectedRange:NSMakeRange([[editor string] length] , 0)];
+			[[self textModeEditor] setString:string];
+			[[self textModeEditor] setSelectedRange:NSMakeRange([[[self textModeEditor] string] length] , 0)];
 		} else if ([partialString length] && ([resetTimer isValid] || ![[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay]) ) {
-			[editor setString:[partialString stringByAppendingString:[[NSApp currentEvent] charactersIgnoringModifiers]]];
-			[editor setSelectedRange:NSMakeRange([[editor string] length] , 0)];
+			[[self textModeEditor] setString:[partialString stringByAppendingString:[[NSApp currentEvent] charactersIgnoringModifiers]]];
+			[[self textModeEditor] setSelectedRange:NSMakeRange([[[self textModeEditor] string] length] , 0)];
 		} else {
 			NSString *stringValue = [[self objectValue] stringValue];
 			if (stringValue) { 
-                [editor setString:stringValue];
-                [editor setSelectedRange:NSMakeRange(0, [[editor string] length])];
+                [[self textModeEditor] setString:stringValue];
+                [[self textModeEditor] setSelectedRange:NSMakeRange(0, [[[self textModeEditor] string] length])];
             }
 		}
 		// Set the underlying object of the pane to be a text object
-		[self setObjectValue:[QSObject objectWithString:[editor string]]];
+		[self setObjectValue:[QSObject objectWithString:[[self textModeEditor] string]]];
 		
 		NSRect titleFrame = [self frame];
 		NSRect editorFrame = NSInsetRect(titleFrame, NSHeight(titleFrame) /16, NSHeight(titleFrame)/16);
 		editorFrame.origin = NSMakePoint(NSHeight(titleFrame) /16, NSHeight(titleFrame)/16);
+    
+        [[self textModeEditor] setMaxSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+        [[self textModeEditor] setFocusRingType:NSFocusRingTypeNone];        
+        [[self textModeEditor] setDelegate: self];
+        [[self textModeEditor] setAllowsUndo:YES];
+        [[self textModeEditor] setHorizontallyResizable: YES];
+        [[self textModeEditor] setVerticallyResizable: YES];
+        [[self textModeEditor] setDrawsBackground: NO];
+        [[self textModeEditor] setEditable:YES];
+        [[self textModeEditor] setSelectable:YES];
 
-		[editor setAllowsUndo:YES];
-		[editor setHorizontallyResizable: YES];
-		[editor setVerticallyResizable: YES];
-		[editor setDrawsBackground: NO];
-		[editor setDelegate: self];
-		[editor setMinSize: editorFrame.size];
-		[editor setFont:textCellFont];
-		[editor setTextColor:textCellFontColor];
-//		[editor setContinuousSpellCheckingEnabled:YES];
-		[editor setEditable:YES];
-		[editor setSelectable:YES];
-//		[editor setTextContainerInset:NSZeroSize];
         
 		NSScrollView *scrollView = [[[NSScrollView alloc] initWithFrame:editorFrame] autorelease];
 		[scrollView setBorderType:NSNoBorder];
@@ -784,19 +769,19 @@ NSMutableDictionary *bindingsDict = nil;
 		[scrollView setAutohidesScrollers:YES];
 		[scrollView setDrawsBackground:NO];
         
-		NSSize contentSize = [scrollView contentSize];
-		[editor setMinSize:NSMakeSize(0, contentSize.height)];
-		[editor setMaxSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MIN)];
+        NSSize contentSize = [scrollView contentSize];
+        [[self textModeEditor] setMinSize:NSMakeSize(0, contentSize.height)];        
+        [[self textModeEditor] setFont:textCellFont];
         
-		[editor setVerticallyResizable:YES];
-		[editor setHorizontallyResizable:YES];
+		[[self textModeEditor] setFieldEditor:YES];
         
-		[editor setFieldEditor:YES];
-		[scrollView setDocumentView:editor];
+        [scrollView setDocumentView:[self textModeEditor]];
 		[self addSubview:scrollView];
         
-		[[self window] makeFirstResponder:editor];
-		[self setCurrentEditor:editor];
+        // Don't show the text being entered in the background, just the icon
+        [[self cell] setImagePosition:NSImageOnly];
+		[[self window] makeFirstResponder:[self textModeEditor]];
+		[self setCurrentEditor:[self textModeEditor]];
 	}
 }
 
@@ -817,13 +802,15 @@ NSMutableDictionary *bindingsDict = nil;
 	NSDate *date = [NSDate date];
 #endif
 	
+    // ***Quicksilver's search algorithm is case insensitive
+    string = [string lowercaseString];
+    
 	//	NSData *scores;
 	NSMutableArray *newResultArray = [[QSLibrarian sharedInstance] scoredArrayForString:string inSet:searchArray];
-    
 	//t NSLog(@"scores %@", scores);
 	
 #ifdef DEBUG
-	if (DEBUG_RANKING) NSLog(@"Searched for \"%@\" in %3fms (%lu items) ", string, 1000 * -[date timeIntervalSinceNow] , (unsigned long)[newResultArray count]);
+    if (DEBUG_RANKING) NSLog(@"Searched for \"%@\" in %3fms (%lu items) ", string, 1000 * -[date timeIntervalSinceNow] , (unsigned long)[newResultArray count]);
 #endif
 	
     // NSLog (@"search for %@", string);
@@ -832,12 +819,13 @@ NSMutableDictionary *bindingsDict = nil;
 		[self setMatchedString:string];
 		//		[self setScoreData:scores];
 		validMnemonic = YES;
-		if ([self searchMode] == SearchFilterAll || [self searchMode] == SearchFilter)
+		if ([self searchMode] == SearchFilterAll || [self searchMode] == SearchFilter) {
 			[self setResultArray:newResultArray];
+            [self setSearchArray:newResultArray];
+        }
 		if ([self searchMode] == SearchFilterAll) {
 			// ! Don't search the entire catalog if we're in the aSelector (actions)
 			if (![[self class] isEqual:[QSSearchObjectView class]]) {
-			[self setSearchArray:newResultArray];
 			[parentStack removeAllObjects];
 			}
 		}
@@ -1042,6 +1030,11 @@ NSMutableDictionary *bindingsDict = nil;
         && ([[theEvent characters] length] >= 1)
         && [[NSCharacterSet uppercaseLetterCharacterSet] characterIsMember:[[theEvent characters] characterAtIndex:0]]
         && self == [self directSelector]) {
+        // Don't try and change the action using shift keys if the dObject is empty
+        if (![[self directSelector] objectValue]) {
+            NSBeep();
+            return;
+        }
 		[self handleShiftedKeyEvent:theEvent];
 		return;
 	}
@@ -1191,16 +1184,6 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)mouseDown:(NSEvent *)theEvent {
-	//NSPoint p = [self convertPoint: [theEvent locationInWindow] fromView: nil];
-	/*
-     if (editor != nil) {
-     [self setNeedsDisplayInRect: [self frame]];
-     [[self window] makeFirstResponder: nil];
-     [editor removeFromSuperview];
-     editor = nil;
-     }
-	 */
-    
 	if ([theEvent clickCount] > 1) {
 		[(QSInterfaceController *)[[self window] windowController] executeCommand:self];
 	} else {
@@ -1487,13 +1470,13 @@ NSMutableDictionary *bindingsDict = nil;
 	[self setObjectValue:[QSObject objectWithString:string]];
 	[self setMatchedString:nil];
 	[[[self currentEditor] enclosingScrollView] removeFromSuperview];
+    [[self cell] setImagePosition:-1];
 	[self setCurrentEditor:nil];
 }
 
 #pragma mark -
 #pragma mark NSTextInput Protocol
 - (void)insertText:(id)aString {
-    //	aString = [[aString purifiedString] lowercaseString];
 	if (![partialString length]) {
 		[self updateHistory];
 		[self setSearchArray:sourceArray];

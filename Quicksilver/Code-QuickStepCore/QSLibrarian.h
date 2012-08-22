@@ -79,8 +79,8 @@ extern QSLibrarian *QSLib; // Shared Instance
 - (void)scanCatalogWithDelay:(id)sender;
 - (BOOL)itemIsOmitted:(QSBasicObject *)item;
 - (void)setItem:(QSBasicObject *)item isOmitted:(BOOL)omit;
-- (CGFloat) estimatedTimeForSearchInSet:(id)set;
 #ifdef DEBUG
+- (CGFloat) estimatedTimeForSearchInSet:(id)set;
 - (NSMutableArray *)scoreTest:(id)sender;
 #endif
 - (NSMutableArray *)scoredArrayForString:(NSString *)string;

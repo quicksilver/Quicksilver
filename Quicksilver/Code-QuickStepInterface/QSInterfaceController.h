@@ -82,6 +82,9 @@
 - (QSSearchObjectView *)aSelector;
 - (QSSearchObjectView *)iSelector;
 
+-(NSTimer *)actionsUpdateTimer;
+- (void)setActionUpdateTimer;
+
 - (QSMenuButton *)menuButton;
 
 - (NSProgressIndicator *)progressIndicator;

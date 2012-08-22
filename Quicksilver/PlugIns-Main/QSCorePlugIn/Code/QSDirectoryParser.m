@@ -8,20 +8,7 @@
 
 #import "QSDirectoryParser.h"
 
-#import "UKDirectoryEnumerator.h"
 #import "NDAlias+AliasFile.h"
-
-@interface UKDirectoryEnumerator (QSFinderInfo)
-- (FSCatalogInfo *)currInfo;
-@end
-
-@implementation UKDirectoryEnumerator (QSFinderInfo)
-- (FSCatalogInfo *)currInfo {
-	if (infoCache == NULL) return NULL;
-	FSCatalogInfo *currInfo = &(infoCache[currIndex-1]);
-	return currInfo;
-}
-@end
 
 
 @implementation QSDirectoryParser
@@ -52,73 +39,85 @@
 }
 
 - (NSArray *)objectsFromPath:(NSString *)path depth:(NSInteger)depth types:(NSArray *)types excludeTypes:(NSArray *)excludedTypes descend:(BOOL)descendIntoBundles {
+#ifdef DEBUG
+    NSDate *startDate = [NSDate date];
+#endif
 	BOOL isDirectory; NSFileManager *manager = [NSFileManager defaultManager];
 	if (![manager fileExistsAtPath:path isDirectory:&isDirectory] || !isDirectory)
 		return nil;
 
 	if (depth) depth--;
-
-	UKDirectoryEnumerator *enumerator = [[UKDirectoryEnumerator alloc] initWithPath:path];
+    
+    NSDirectoryEnumerator *enumerator = [manager enumeratorAtURL:[NSURL fileURLWithPath:path] includingPropertiesForKeys:[NSArray arrayWithObjects:NSURLIsDirectoryKey,NSURLIsSymbolicLinkKey,NSURLIsPackageKey,nil] options:NSDirectoryEnumerationSkipsHiddenFiles | NSDirectoryEnumerationSkipsPackageDescendants | NSDirectoryEnumerationSkipsSubdirectoryDescendants errorHandler:nil];
 	if (!enumerator) return nil;
 
 	NSString *file, *aliasFile, *type;
 	NSMutableArray *array = [NSMutableArray array];
 	NDAlias *aliasSource;
 	QSObject *obj;
-
-	[enumerator setDesiredInfo: kFSCatInfoGettableInfo | kFSCatInfoFinderInfo];
-	while (file = [enumerator nextObjectFullPath]) {
+    NSNumber *URLIsSymbolicLink;
+    NSNumber *URLIsDirectory;
+    NSNumber *URLIsPackage;
+    
+	for (NSURL *theURL in enumerator) {
 		aliasSource = nil; aliasFile = nil;
-		isDirectory = [enumerator isDirectory];
-		if ([enumerator isAlias]) {
+        [theURL getResourceValue:&URLIsSymbolicLink forKey:NSURLIsSymbolicLinkKey error:nil];
+		if ([URLIsSymbolicLink boolValue]) {
+            file = [theURL path];
             /* If this is an alias, try to resolve it to get the remaining checks right */
             NSString *targetFile = [manager resolveAliasAtPath:file];
-			 if (targetFile) {
-				 aliasSource = [NDAlias aliasWithContentsOfFile:file];
-				 aliasFile = file;
-				 file = targetFile;
-				 [manager fileExistsAtPath:file isDirectory:&isDirectory];
+            if (targetFile) {
+                aliasSource = [NDAlias aliasWithContentsOfFile:file];
+                aliasFile = file;
+                file = targetFile;
+                [manager fileExistsAtPath:file isDirectory:&isDirectory];
 			}
-		}
-		if (aliasFile || (![enumerator isInvisible] && ![[file lastPathComponent] hasPrefix:@"."] && ![file isEqualToString:@"/mach.sym"]) ) {
-            type = [manager UTIOfFile:file];
-			// if we are an alias or the file has no reason to be included
-			BOOL include = NO;
-			if (![types count]) {
-				include = YES;
-			} else {
-				for(NSString * requiredType in types) {
-					if (UTTypeConformsTo((CFStringRef)type, (CFStringRef)requiredType)) {
-						include = YES;
-						break;
-					}
-				}
-			}
-            for (NSString *excludedType in excludedTypes) {
-                if (UTTypeConformsTo((CFStringRef)type, (CFStringRef)excludedType)) {
-                    include = NO;
+		} else {
+            [theURL getResourceValue:&URLIsDirectory forKey:NSURLIsDirectoryKey error:nil];
+            isDirectory = [URLIsDirectory boolValue];
+        }
+        type = [manager UTIOfURL:theURL];
+        // if we are an alias or the file has no reason to be included
+        BOOL include = NO;
+        if (![types count]) {
+            include = YES;
+        } else {
+            for(NSString * requiredType in types) {
+                if (UTTypeConformsTo((CFStringRef)type, (CFStringRef)requiredType)) {
+                    include = YES;
+                    break;
                 }
             }
-			
-			if (include) {
-				obj = [QSObject fileObjectWithPath:file];
-				if (aliasSource) [obj setObject:[aliasSource data] forType:QSAliasDataType];
-				if (aliasFile) [obj setObject:aliasFile forType:QSAliasFilePathType];
-				if (obj) [array addObject:obj];
-			}
-			
-			BOOL shouldDescend = YES;
-			if ([[NSWorkspace sharedWorkspace] isFilePackageAtPath:file] && !descendIntoBundles)
-				shouldDescend = NO;
-			
-			if (depth && isDirectory && shouldDescend) {
-                @autoreleasepool {
-                    [array addObjectsFromArray:[self objectsFromPath:file depth:depth types:types excludeTypes:excludedTypes descend:descendIntoBundles]];
-                }
-			}
-		}
-	}
-	[enumerator release];
+        }
+        for (NSString *excludedType in excludedTypes) {
+            if (UTTypeConformsTo((CFStringRef)type, (CFStringRef)excludedType)) {
+                include = NO;
+            }
+        }
+        
+        if (include) {
+            obj = [QSObject fileObjectWithFileURL:theURL];
+            if (aliasSource) [obj setObject:[aliasSource data] forType:QSAliasDataType];
+            if (aliasFile) [obj setObject:aliasFile forType:QSAliasFilePathType];
+            if (obj) [array addObject:obj];
+        }
+        
+        BOOL shouldDescend = YES;
+        [theURL getResourceValue:&URLIsPackage forKey:NSURLIsPackageKey error:nil];
+        if ([URLIsPackage boolValue] && !descendIntoBundles)
+            shouldDescend = NO;
+        
+        if (depth && isDirectory && shouldDescend) {
+            @autoreleasepool {
+                [array addObjectsFromArray:[self objectsFromPath:[theURL path] depth:depth types:types excludeTypes:excludedTypes descend:descendIntoBundles]];
+            }
+        }
+    }
+#ifdef DEBUG
+    if (VERBOSE) {
+        NSLog(@"Scanning %@ took %ld µs",path,(long)(-[startDate timeIntervalSinceNow]*1000000));
+    }
+#endif
 	return array;
 }
 

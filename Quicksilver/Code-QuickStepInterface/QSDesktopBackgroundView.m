@@ -70,7 +70,7 @@
 	
 	NSString *key=@"default";
 	if (screenNumber)
-		key=[NSString stringWithFormat:@"%d", (long)screenNumber];
+		key=[NSString stringWithFormat:@"%ld", (long)screenNumber];
 	NSDictionary *dict=[backgroundsDict objectForKey:key];
 	//	QSLog(@"Screen %d %@, %@",screenNumber,dict,[backgroundsDict description]);
 	
