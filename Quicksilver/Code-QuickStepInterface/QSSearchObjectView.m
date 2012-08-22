@@ -1679,18 +1679,41 @@ NSMutableDictionary *bindingsDict = nil;
 	if (direction>0) {
 		//Should show childrenLevel
 		newObjects = (alt?[newSelectedObject altChildren] :[newSelectedObject children]);
-		if ([newObjects count]) {
-			[parentStack addObject:newSelectedObject];
-			// if (VERBOSE) NSLog(@"addobject %@ %@", newSelectedObject, newObjects);
-		}
-		//		newSelectedObject = [[self nextHistoryState] objectForKey:@"selection"];
-		//		if (![newObjects containsObject:newSelectedObject]) {
-		//			NSLog(@"notsel %@", newSelectedObject);
-		//		} else {
-		//			NSLog(@"reselecting %@", newSelectedObject);
-		//		}
-		newSelectedObject = nil;
-	} else {
+		if ([newObjects count] && !alt) {
+            // filter the results to only contain types as defined in the indirectTypes .plist array.
+            // If the user is holding alt, don't filter
+            if (self == [self indirectSelector] && [[[self actionSelector] objectValue] indirectTypes]) {
+                NSArray *indirectTypes = [[[self actionSelector] objectValue] indirectTypes];
+                NSMutableArray *filteredObjects = [NSMutableArray arrayWithCapacity:1];
+                BOOL includeObject;
+                for (NSString *indirectType in indirectTypes) {
+                    for (QSObject *individual in newObjects) {
+                        includeObject = NO;
+                        // check the UTI for files
+                        if ([individual singleFilePath]) {
+                            NSString *type = [[NSFileManager defaultManager] UTIOfFile:[individual singleFilePath]];
+                            // if the file type is a folder (Always show them) or it conforms to a set indirectType
+                            if ([type isEqualToString:(NSString *)kUTTypeFolder] || UTTypeConformsTo((CFStringRef)type, (CFStringRef)indirectType)) {
+                                includeObject = YES;
+                            }
+                        }
+                        // for QSTypes set in the indirectType
+                        if (!includeObject && [[individual types] containsObject:indirectType]) {
+                            includeObject = YES;
+                        }
+                        if (includeObject && ![filteredObjects containsObject:individual]) {
+                            [filteredObjects addObject:individual];
+                        }
+                    }
+                }
+                newObjects = (NSArray *)filteredObjects;
+            }
+            if ([newObjects count]) {
+                [parentStack addObject:newSelectedObject];
+            }
+            newSelectedObject = nil;
+        }
+    } else {
 		parent = [newSelectedObject parent];
 
 
@@ -1704,12 +1727,7 @@ NSMutableDictionary *bindingsDict = nil;
 			[[parent retain] autorelease];
 			[parentStack removeLastObject];
 
-			//		if (VERBOSE) NSLog(@"Using parent from stack: %@ (%@) ", parent, [parentStack componentsJoinedByString:@", "]);
-			//	if (
-			//	 && ![[parent children] containsObject:newSelectedObject])
 		}
-
-		//[[parent children] containsObject:newSelectedObject]
 
 		if (!browsing && [self searchMode] == SearchFilterAll && [[resultController window] isVisible]) {
 			//Maintain selection, but show siblings
