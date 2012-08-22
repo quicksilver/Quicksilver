@@ -826,7 +826,7 @@
 			</array>
 			<key>indirectTypes</key>
 			<array>
-				<string>NSFilenamesPboardType</string>
+				<string>public.folder</string>
 			</array>
 			<key>indirectOptional</key>
 			<true/>
@@ -910,6 +910,11 @@
 			<array>
 				<string>Apple URL pasteboard type</string>
 			</array>
+			<key>indirectTypes</key>
+			<array>
+				<string>com.apple.application-file</string>
+				<string>com.apple.application-bundle</string>
+			</array>
 			<key>enabled</key>
 			<false/>
 			<key>actionSelector</key>
@@ -963,7 +968,7 @@
 			</array>
 			<key>indirectTypes</key>
 			<array>
-				<string>NSFilenamesPboardType</string>
+				<string>public.folder</string>
 			</array>
 			<key>actionSelector</key>
 			<string>moveFiles:toFolder:</string>
@@ -1009,6 +1014,10 @@
 			<key>directTypes</key>
 			<array>
 				<string>NSFilenamesPboardType</string>
+			</array>
+			<key>indirectTypes</key>
+			<array>
+				<string>public.folder</string>
 			</array>
 			<key>enabled</key>
 			<false/>
@@ -1074,6 +1083,10 @@
 			<array>
 				<string>NSFilenamesPboardType</string>
 			</array>
+			<key>indirectTypes</key>
+			<array>
+				<string>public.folder</string>
+			</array>
 			<key>precedence</key>
 			<real>-0.5</real>
 			<key>actionSelector</key>
@@ -1126,6 +1139,10 @@
 			<key>directTypes</key>
 			<array>
 				<string>NSFilenamesPboardType</string>
+			</array>
+			<key>indirectTypes</key>
+			<array>
+				<string>public.folder</string>
 			</array>
 			<key>indirectOptional</key>
 			<false/>
@@ -1211,6 +1228,11 @@
 			<array>
 				<string>&apos;APPL&apos;</string>
 				<string>app</string>
+			</array>
+			<key>indirectTypes</key>
+			<array>
+				<string>com.apple.application-file</string>
+				<string>com.apple.application-bundle</string>
 			</array>
 			<key>icon</key>
 			<string>QSDirectObjectIconProxy</string>
@@ -1527,6 +1549,10 @@
 			<array>
 				<string>NSFilenamesPboardType</string>
 			</array>
+			<key>indirectTypes</key>
+			<array>
+				<string>public.folder</string>
+			</array>
 			<key>actionSelector</key>
 			<string>copyFiles:toFolder:</string>
 		</dict>
@@ -1553,7 +1579,8 @@
 			<real>0.1</real>
 			<key>indirectTypes</key>
 			<array>
-				<string>NSFilenamesPboardType</string>
+				<string>com.apple.application-file</string>
+				<string>com.apple.application-bundle</string>
 			</array>
 			<key>actionSelector</key>
 			<string>alwaysOpenFile:with:</string>
@@ -1624,6 +1651,10 @@
 			<key>directTypes</key>
 			<array>
 				<string>NSFilenamesPboardType</string>
+			</array>
+			<key>indirectTypes</key>
+			<array>
+				<string>public.folder</string>
 			</array>
 			<key>enabled</key>
 			<false/>
@@ -1873,7 +1904,8 @@
 			<real>0.1</real>
 			<key>indirectTypes</key>
 			<array>
-				<string>NSFilenamesPboardType</string>
+				<string>com.apple.application-file</string>
+				<string>com.apple.application-bundle</string>
 			</array>
 			<key>actionSelector</key>
 			<string>openFile:with:</string>
