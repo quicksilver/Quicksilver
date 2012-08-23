@@ -103,4 +103,25 @@
         return nil;
     }
 }
+
++ (NSArray *)iCloudDocumentsForBundleID:(NSString *)bundleIdentifier
+{
+	if (!bundleIdentifier) {
+		return nil;
+	}
+	NSString *bundleFolderName = [bundleIdentifier stringByReplacingOccurrencesOfString:@"." withString:@"~"];
+	NSString *documentsPath = [[pICloudDocumentsPrefix stringByAppendingPathComponent:bundleFolderName] stringByAppendingPathComponent:@"Documents"];
+	if ([[NSFileManager defaultManager] fileExistsAtPath:documentsPath]) {
+		// return a list of documents' paths
+		NSDictionary *settings = [NSDictionary dictionaryWithObjectsAndKeys:
+								  [NSNumber numberWithInteger:2], kItemFolderDepth, // iCloud only allows one level of nesting
+								  [NSNumber numberWithBool:YES], kItemSkipItem,     // don't include the parent folder
+								  [NSArray arrayWithObject:@"public.folder"], kItemExcludeFiletypes, // ignore folders
+								  nil];
+		id dirParser = [QSReg getClassInstance:@"QSDirectoryParser"];
+		return [dirParser objectsFromPath:documentsPath withSettings:settings];
+	}
+	return nil;
+}
+
 @end

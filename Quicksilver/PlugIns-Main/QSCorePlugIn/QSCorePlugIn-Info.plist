@@ -331,6 +331,16 @@
 				</dict>
 				<dict>
 					<key>source</key>
+					<string>QSICloudDocumentSource</string>
+					<key>icon</key>
+					<string>iDiskGenericIcon</string>
+					<key>ID</key>
+					<string>QSPresetICloudDocuments</string>
+					<key>requiresPath</key>
+					<string>~/Library/Mobile Documents</string>
+				</dict>
+				<dict>
+					<key>source</key>
 					<string>QSFileSystemObjectSource</string>
 					<key>settings</key>
 					<dict>
@@ -702,7 +712,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>98</string>
+	<string>99</string>
 	<key>QSTriggerAdditions</key>
 	<array>
 		<dict>
@@ -1945,6 +1955,8 @@
 			<string>QSVolumesObjectSource</string>
 			<key>QSGroupObjectSource</key>
 			<string>QSGroupObjectSource</string>
+			<key>QSICloudDocumentSource</key>
+			<string>QSICloudDocumentSource</string>
 		</dict>
 		<key>QSFileActionCreators</key>
 		<dict>

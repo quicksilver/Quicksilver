@@ -17,6 +17,7 @@
 #import "QSAction.h"
 #import "QSObject_PropertyList.h"
 #include "QSLocalization.h"
+#import "QSDownloads.h"
 
 #import "NSApplication_BLTRExtensions.h"
 
@@ -191,7 +192,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		NSString *path = [theFiles lastObject];
 		if ([path hasPrefix:NSTemporaryDirectory()]) {
 			return [@"(Quicksilver) " stringByAppendingPathComponent:[path lastPathComponent]];
-		} else if ([path hasPrefix:[@"~/Library/Mobile Documents/" stringByStandardizingPath]]) {
+		} else if ([path hasPrefix:pICloudDocumentsPrefix]) {
+			// when 10.6 is dropped, test ([[NSFileManager defaultManager] isUbiquitousItemAtURL:[NSURL fileURLWithPath:path]]) instead
 			return @"iCloud";
 		} else {
 			return [path stringByAbbreviatingWithTildeInPath];
@@ -544,7 +546,13 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 					newChildren = [theEntry contentsScanIfNeeded:YES];
 				} else {
 					NSArray *recentDocuments = recentDocumentsForBundle(bundleIdentifier);
-					newChildren = [QSObject fileObjectsWithPathArray:recentDocuments];
+					NSArray *iCloudDocuments = [QSDownloads iCloudDocumentsForBundleID:bundleIdentifier];
+					// combine recent and iCloud documents, removing duplicates
+					NSMutableSet *childPaths = [NSMutableSet setWithArray:recentDocuments];
+					for (QSObject *icdoc in iCloudDocuments) {
+						[childPaths addObject:[icdoc objectForType:QSFilePathType]];
+					}
+					newChildren = [QSObject fileObjectsWithPathArray:[childPaths allObjects]];
 
 					for(QSObject * child in newChildren) {
 						[child setObject:bundleIdentifier forMeta:@"QSPreferredApplication"];
