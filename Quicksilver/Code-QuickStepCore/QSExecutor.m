@@ -246,21 +246,6 @@ QSExecutor *QSExec = nil;
 	return array;
 }
 
-//- (void)registerActions:(id)actionObject {
-//	if (!actionObject) return;
-//	[oldActionObjects addObject:actionObject];
-//	[self performSelectorOnMainThread:@selector(loadActionsForObject:) withObject:actionObject waitUntilDone:YES];
-//}
-
-//- (void)loadActionsForObject:(id)actionObject {
-//	NSEnumerator *actionEnumerator = [[actionObject actions] objectEnumerator];
-//	id action;
-//	while (action = [actionEnumerator nextObject]) {
-//		if ([action identifier])
-//			[actionIdentifiers setObject:action forKey:[action identifier]];
-//	}
-//}
-
 
 - (NSArray *)actions {
 	return [actionIdentifiers allValues];
@@ -346,31 +331,19 @@ QSExecutor *QSExec = nil;
 
 - (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
 	if (!dObject) return nil;
-	NSMutableArray *actions = [NSMutableArray arrayWithCapacity:1];
-	// unsigned i;
+
+    NSMutableArray *validActions = [NSMutableArray arrayWithCapacity:1];
 	id aObject = nil;
-	NSString *fileType = [dObject singleFileType];
+	NSArray *fileUTIAndType = nil;
+    // get the file type and UTI to check against an action's 'directFileTypes' array
+    if ([dObject singleFilePath]) {
+        fileUTIAndType = [NSArray arrayWithObjects:[dObject singleFileType],[[NSFileManager defaultManager] UTIOfFile:[dObject singleFilePath]],nil];
+    }
 
 	NSMutableDictionary *validatedActionsBySource = [NSMutableDictionary dictionary];
 	NSArray *validSourceActions;
 
-	//	for(i = 0; i<[oldActionObjects count]; i++) {
-	//		aObject = [oldActionObjects objectAtIndex:i];
-	//		validSourceActions = [self validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject fromSource:aObject types:(NSSet *)types fileType:(NSString *)fileType];
-	//		if (validSourceActions) {
-	//			//[validatedActionsBySource setObject:validSourceActions forKey:NSStringFromClass([aObject class])];
-	//			[actions addObjectsFromArray:validSourceActions];
-	//		}
-	//	}
-	//	NSLog(@"oldActionObjects %@", oldActionObjects);
-	//
-	//if (bypassValidation) NSLog(@"bypasssing validation");
-	NSMutableArray *validActions = [[[actionIdentifiers objectsForKeys:actions notFoundMarker:[NSNull null]]mutableCopy] autorelease]; //
-	[validActions removeObject:[NSNull null]];
-
-	//NSArray *newActions = bypassValidation?validActions
-	//									:
-	NSArray *newActions = [self actionsForTypes:[dObject types] fileTypes:(fileType ? [NSArray arrayWithObject:fileType] : nil)];
+	NSArray *newActions = [self actionsForTypes:[dObject types] fileTypes:fileUTIAndType];
 	BOOL isValid;
     
     for (QSAction *thisAction in newActions) {
@@ -378,9 +351,7 @@ QSExecutor *QSExec = nil;
 		validSourceActions = nil;
 		NSDictionary *actionDict = [thisAction objectForType:QSActionType];
 		isValid = ![[actionDict objectForKey:kActionValidatesObjects] boolValue];
-        
-		//NSLog(@"thisact %@", thisAction);
-        
+                
 		if (!isValid) {
 			validSourceActions = [validatedActionsBySource objectForKey:[actionDict objectForKey:kActionClass]];
 			if (!validSourceActions) {
@@ -390,10 +361,6 @@ QSExecutor *QSExec = nil;
 				NSString *className = NSStringFromClass([aObject class]);
 				if (className)
 					[validatedActionsBySource setObject:validSourceActions?validSourceActions:[NSArray array] forKey:className];
-                
-				if (validSourceActions) {
-					[actions addObjectsFromArray:validSourceActions];
-				}
 			}
             
 			isValid = [validSourceActions containsObject:[thisAction identifier]];
@@ -407,7 +374,7 @@ QSExecutor *QSExec = nil;
 	// NSLog(@"Actions for %@:%@", [dObject name] , validActions);
 	if (![validActions count]) {
 		NSLog(@"unable to find actions for %@", actionIdentifiers);
-		NSLog(@"types %@ %@", [NSSet setWithArray:[dObject types]], fileType);
+		NSLog(@"types %@ %@", [NSSet setWithArray:[dObject types]], fileUTIAndType);
 	}
 	return [[validActions mutableCopy] autorelease];
 }
