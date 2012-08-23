@@ -27,7 +27,6 @@
 #import "QSTreeController.h"
 #import "QSMDPredicate.h"
 #import "QSLSTools.h"
-#import "QSLoginItemFunctions.h"
 #import "QSLog.h"
 #import "QSHotKeyEvent.h"
 #import "NSWorkspace_BLTRExtensions.h"

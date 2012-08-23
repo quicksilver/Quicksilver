@@ -18,8 +18,6 @@
 
 #import "QSLocalization.h"
 
-
-#import "QSLoginItemFunctions.h"
 #import "QSInterfaceMediator.h"
 #import "QSPreferenceKeys.h"
 

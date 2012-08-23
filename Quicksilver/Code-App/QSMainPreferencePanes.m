@@ -16,7 +16,6 @@
 #import "QSNotifications.h"
 #import "QSController.h"
 
-#import "QSLoginItemFunctions.h"
 #import "QSInterfaceMediator.h"
 #import "QSPreferenceKeys.h"
 
@@ -38,6 +37,7 @@
 #import "NSIndexSet+Extensions.h"
 #import "QSPlugInManager.h"
 #import "QSPlugIn.h"
+#import "LaunchAtLoginController.h"
 
 @interface QSPreferencePane (Helper)
 - (void)selectItemInPopUp:(NSPopUpButton *)popUp representedObject:(id)object;
@@ -244,11 +244,16 @@
 }
 
 - (BOOL)shouldLaunchAtLogin {
-	return QSItemShouldLaunchAtLogin([[NSBundle mainBundle] bundlePath]);
+	LaunchAtLoginController *launchController = [[LaunchAtLoginController alloc] init];
+	BOOL shouldLaunch = [launchController willLaunchAtLogin:[[NSBundle mainBundle] bundleURL]];
+	[launchController release];
+	return shouldLaunch;
 }
 
 - (void)setShouldLaunchAtLogin:(BOOL)launch {
-	QSSetItemShouldLaunchAtLogin([[NSBundle mainBundle] bundlePath] ,launch, NO);
+	LaunchAtLoginController *launchController = [[LaunchAtLoginController alloc] init];
+	[launchController setLaunchAtLogin:launch forURL:[[NSBundle mainBundle] bundleURL]];
+	[launchController release];
 }
 
 - (BOOL)dockIconIsHidden {
