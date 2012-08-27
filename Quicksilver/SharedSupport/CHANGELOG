@@ -21,7 +21,7 @@
 
   * Don't automatically switch to text mode unless searching the main catalog (#650, #981)
   * Don't read whole files into memory when checking for executables (#1026)
-  * The "Quicksilver Catalog Entries" preset is disabled by default for new users (#1041)
+  * The "Quicksilver Catalog Entries" preset is disabled by default (#1041)
   * Browsing through folders should be faster (#1029)
   * Only search items matched by previous keystrokes (should speed matching) (#1029)
   * Don't distinguish upper and lower case letters. Ensures that holding ⇧ to select an action gives the same results as typing in the second pane normally. (#961, #853)
@@ -30,7 +30,7 @@
 
   * Removed unused `.xcconfig` files (#956)
   * Streamlined documentation process for plug-ins (#988)
-  * New `indirectTypes` key for actions to filter what's acceptable in the third pane (#620, #1057)
+  * New `indirectTypes` key for actions to filter what's acceptable in the third pane (#620, #1057, #1074)
 
 Changes - ß69 (3932)
 --------------------
