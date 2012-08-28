@@ -576,13 +576,12 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	if (requirementsDict) {
 		NSArray *bundles = [requirementsDict objectForKey:@"bundles"];
 		if (![[NSUserDefaults standardUserDefaults] boolForKey:@"QSIgnorePlugInBundleRequirements"]) {
-			for(NSDictionary * bundleDict in bundles) {
-				break;
+			for (NSDictionary *bundleDict in bundles) {
 				NSString *identifier = [bundleDict objectForKey:@"id"];
 				NSString *path = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:identifier];
 				if (!path) {
 					NSString *name = [bundleDict objectForKey:@"name"];
-					if (error) *error = [NSString stringWithFormat:@"Requires Bundle '%@'", name?name:identifier];
+					if (error) *error = [NSString stringWithFormat:@"Requires installation of '%@'", name?name:identifier];
 					return NO;
 				}
 #warning add support for version checking
