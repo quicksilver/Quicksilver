@@ -45,6 +45,7 @@
 }
 - (void)plugInInfoLoaded {
 	plugInInfoStatus = 1;
+	[[QSPlugInManager sharedInstance] downloadWebPlugInInfoIgnoringDate];
 	NSArray *plugins = [[QSPlugInManager sharedInstance] knownPlugInsWithWebInfo];
 	plugins = [plugins filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isInstalled == NO && isRecommended == YES"]];
 
