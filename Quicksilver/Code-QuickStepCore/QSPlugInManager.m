@@ -1016,6 +1016,8 @@
 - (void)downloadDidFinish:(QSURLDownload *)download {
 	//NSLog(@"path %@", download);
 	//NSLog(@"FINISHED %@ %@", download, currentDownload);
+    [queuedDownloads removeObject:download];
+    [activeDownloads removeObject:download];
 	NSString *path = [download destination];
     NSString *plugInPath = nil;
 	if (path && (plugInPath = [[self installPlugInFromCompressedFile:path] lastObject])) {
@@ -1025,9 +1027,6 @@
 #warning tiennou: Report ! ATM the checkbox will just blink...
         [[self plugInWithID:[download userInfo]] downloadFailed];
     }
-    
-    [queuedDownloads removeObject:download];
-    [activeDownloads removeObject:download];
     [download cancel];
     
 	[self startDownloadQueue];
