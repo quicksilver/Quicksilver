@@ -41,12 +41,12 @@
 	plugInInfoStatus = 0;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(plugInInfoLoaded) name:QSPlugInInfoLoadedNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(plugInInfoFailed) name:QSPlugInInfoFailedNotification object:nil];
-	[[QSPlugInManager sharedInstance] downloadWebPlugInInfoIgnoringDate];
+	[[self plugInManager] downloadWebPlugInInfoIgnoringDate];
 }
 - (void)plugInInfoLoaded {
 	plugInInfoStatus = 1;
-	[[QSPlugInManager sharedInstance] downloadWebPlugInInfoIgnoringDate];
-	NSArray *plugins = [[QSPlugInManager sharedInstance] knownPlugInsWithWebInfo];
+	[[self plugInManager] downloadWebPlugInInfoIgnoringDate];
+	NSArray *plugins = [[self plugInManager] knownPlugInsWithWebInfo];
 	plugins = [plugins filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isInstalled == NO && isRecommended == YES"]];
 
 	[self setRecommendedPlugIns:plugins];
@@ -159,7 +159,7 @@
 - (IBAction)cancelPlugInInstall:(id)sender { [NSApp endSheet:pluginStatusPanel returnCode:0]; }
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
 	[sheet close];
-	[[QSPlugInManager sharedInstance] cancelPlugInInstall];
+	[[self plugInManager] cancelPlugInInstall];
 	[[self recommendedPlugIns] setValue:[NSNumber numberWithBool:NO] forKey:@"shouldInstall"];
 	[self nextSection:nil];
 }
@@ -167,7 +167,7 @@
 	if ([[[setupTabView selectedTabViewItem] identifier] isEqualToString:@"plugins"]) {
 		NSArray *plugins = [[self recommendedPlugIns] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"shouldInstall == YES"]];
 		if ([plugins count]) {
-			[[QSPlugInManager sharedInstance] installPlugInsForIdentifiers:[plugins valueForKey:@"identifier"]];
+			[[self plugInManager] installPlugInsForIdentifiers:[plugins valueForKey:@"identifier"]];
 			[NSApp beginSheet:pluginStatusPanel modalForWindow:[self window] modalDelegate:self didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:nil];
 			return;
 		}
@@ -236,7 +236,7 @@
 }
 
 - (void)installStatusChanged:(NSNotification *)notif {
-	CGFloat progress = [[QSPlugInManager sharedInstance] downloadProgress];
+	CGFloat progress = [[self plugInManager] downloadProgress];
 	[installProgress setDoubleValue:progress];
 	[installProgress displayIfNeeded];
 	if (progress == 1) {
@@ -267,7 +267,7 @@
 	[array removeObjectsInArray:[installedPlugIns allKeys]];
 	NSArray *plugInsToAdd = [identifiers objectsForKeys:array notFoundMarker:@""];
 
-	[[QSPlugInManager sharedInstance] installPlugInsForIdentifiers:plugInsToAdd];
+	[[self plugInManager] installPlugInsForIdentifiers:plugInsToAdd];
 }
 
 - (IBAction)finish:(id)sender {
@@ -288,8 +288,9 @@
 	[(QSController *)[NSApp delegate] activateInterface:nil];
 }
 
-//- (id)updateController { return [QSUpdateController sharedInstance];  }
-- (id)plugInManager { return [QSPlugInManager sharedInstance];  }
-- (id)manager { return [QSPlugInManager sharedInstance];  }
+- (id)plugInManager
+{
+	return [QSPlugInManager sharedInstance];
+}
 
 @end
