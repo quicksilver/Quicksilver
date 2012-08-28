@@ -907,7 +907,9 @@
 
 	if (!version)
         version = [NSApp buildVersion];
-	return [NSString stringWithFormat:@"%@?qsversion=%u&id=%@", downloadURL, [version hexIntValue], ident];
+	QSPlugIn *target = [knownPlugIns objectForKey:ident];
+	NSUInteger pluginVersion = [[target buildVersion] hexIntValue];
+	return [NSString stringWithFormat:@"%@?qsversion=%lu&id=%@&version=%lu", downloadURL, (long)[version hexIntValue], ident, (long)pluginVersion];
 }
 
 - (BOOL)installPlugInsForIdentifiers:(NSArray *)bundleIDs version:(NSString *)version {
