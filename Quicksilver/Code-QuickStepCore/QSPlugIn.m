@@ -279,6 +279,12 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	if ([[[self info] valueForKeyPath:@"QSPlugIn.recommended"] boolValue]) {
 		return YES;
 	}
+	// a related file or directory exists on the system
+	for (NSString *path in [self relatedPaths]) {
+		if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+			return YES;
+		}
+	}
 	// corresponds to an installed application or other bundle
 	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
 	NSArray *related = [self relatedBundles];
@@ -316,6 +322,13 @@ NSMutableDictionary *plugInBundlePaths = nil;
 - (NSArray *)relatedBundles {
 	return [[self info] valueForKeyPath:@"QSPlugIn.relatedBundles"];
 }
+
+- (NSArray *)relatedPaths
+{
+	NSArray *rawRelatedPaths = [[self info] valueForKeyPath:@"QSPlugIn.relatedPaths"];
+	return [rawRelatedPaths arrayByPerformingSelector:@selector(stringByStandardizingPath)];
+}
+
 - (NSArray *)recommendations {
 	return [[self info] valueForKeyPath:@"QSPlugIn.recommendations"];
 }
