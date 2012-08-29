@@ -829,7 +829,7 @@
 
 	if (![queuedDownloads count]) {
         [manager checkForUnmetDependencies];
-        //[self updateDownloadCount];
+        [self removeObsoletePlugIns];
     }
 
 	if (!liveLoaded && (updatingPlugIns || !warnedOfRelaunch) && ![queuedDownloads count] && !supressRelaunchMessage) {
