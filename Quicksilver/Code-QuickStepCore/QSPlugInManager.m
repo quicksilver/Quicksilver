@@ -907,8 +907,8 @@
 
 	if (!version)
         version = [NSApp buildVersion];
-	QSPlugIn *target = [knownPlugIns objectForKey:ident];
-	NSUInteger pluginVersion = [[target buildVersion] hexIntValue];
+	NSDictionary *target = [plugInWebData objectForKey:ident];
+	NSUInteger pluginVersion = [[target objectForKey:@"CFBundleVersion"] hexIntValue];
 	return [NSString stringWithFormat:@"%@?qsversion=%lu&id=%@&version=%lu", downloadURL, (long)[version hexIntValue], ident, (long)pluginVersion];
 }
 
