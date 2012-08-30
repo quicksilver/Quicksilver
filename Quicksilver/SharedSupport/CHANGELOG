@@ -30,7 +30,7 @@
 
   * Removed unused `.xcconfig` files (#956)
   * Streamlined documentation process for plug-ins (#988)
-  * New `indirectTypes` key for actions to filter what's acceptable in the third pane (#620, #1057, #1074)
+  * New `indirectTypes` key for actions to filter what's acceptable in the third pane (#620, #1057, #1074, #1088)
 
 Changes - ß69 (3932)
 --------------------
