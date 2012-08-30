@@ -1229,11 +1229,6 @@
 				<string>&apos;APPL&apos;</string>
 				<string>app</string>
 			</array>
-			<key>indirectTypes</key>
-			<array>
-				<string>com.apple.application-file</string>
-				<string>com.apple.application-bundle</string>
-			</array>
 			<key>icon</key>
 			<string>QSDirectObjectIconProxy</string>
 			<key>reverseArguments</key>
