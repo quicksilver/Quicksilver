@@ -423,9 +423,8 @@
 - (void)searchObjectChanged:(NSNotification*)notif {
 	[[self window] disableFlushWindow];
 	if ([notif object] == dSelector) {
-        if ([iSelector objectValue] != nil) {
-            [iSelector setObjectValue:nil];
-        }
+        [iSelector setObjectValue:nil];
+        [self updateViewLocations];
         [self updateActions];
 	} else if ([notif object] == aSelector) {
         QSAction *obj = [aSelector objectValue];
