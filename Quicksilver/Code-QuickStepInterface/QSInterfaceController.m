@@ -437,6 +437,8 @@
                 [self updateIndirectObjects];
             [self updateViewLocations];
         }
+    } else if ([notif object] == iSelector) {
+        [self updateViewLocations];
     }
 	[[self window] enableFlushWindow];
 }
