@@ -1,3 +1,37 @@
+## Changes - ß70 (3933) ##
+
+### New ###
+
+  * Option under "Command" preferences to switch keyboard layout when Quicksilver is active (#987, #371)
+  * Show the location for iCloud documents as "iCloud" instead of the actual path (#1018)
+  * Allow searching on both filsystem and localized names for files and folders (#730, #952, #1017)
+  * Search both title and URL for bookmarks and other URLs (not just title) (#1029)
+  * Files with numbers in their name are sorted like Finder (#1029)
+  * Text entry mode will more closely match the chosen interface. Text no longer shows in the background as you type. (#1029)
+
+### Fixed ###
+
+  * Preserve existing web sources when no network connection is available (#960, #634)
+  * Crash prevention (#986, #1015, #1045, #828, #912, #1013)
+  * Prevent the same thing from being added more than once via the comma trick (#1029)
+  * Jump to the third pane when ⇧⌘[Letter] shortcuts trigger an action that requires it (#982, #966)
+  * The "Start at login" preference and "Open at Login"/"Do Not Open at Login" actions work under 10.8 (#831, #1055)
+
+### Changed ###
+
+  * Don't automatically switch to text mode unless searching the main catalog (#650, #981)
+  * Don't read whole files into memory when checking for executables (#1026)
+  * The "Quicksilver Catalog Entries" preset is disabled by default (#1041)
+  * Browsing through folders should be faster (#1029)
+  * Only search items matched by previous keystrokes (should speed matching) (#1029)
+  * Don't distinguish upper and lower case letters. Ensures that holding ⇧ to select an action gives the same results as typing in the second pane normally. (#961, #853)
+
+### Development ###
+
+  * Removed unused `.xcconfig` files (#956)
+  * Streamlined documentation process for plug-ins (#988)
+  * New `indirectTypes` key for actions to filter what's acceptable in the third pane (#620, #1057, #1074, #1088)
+
 Changes - ß69 (3932)
 --------------------
 

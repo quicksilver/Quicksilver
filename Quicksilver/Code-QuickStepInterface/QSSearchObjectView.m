@@ -1708,11 +1708,11 @@ NSMutableDictionary *bindingsDict = nil;
                 }
                 newObjects = (NSArray *)filteredObjects;
             }
-            if ([newObjects count]) {
-                [parentStack addObject:newSelectedObject];
-            }
-            newSelectedObject = nil;
         }
+        if ([newObjects count]) {
+            [parentStack addObject:newSelectedObject];
+        }
+        newSelectedObject = nil;
     } else {
 		parent = [newSelectedObject parent];
 
