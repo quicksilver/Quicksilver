@@ -157,9 +157,9 @@
 			[date descriptionWithCalendarFormat:@"%Y%m%d%H%M%S" timeZone:nil locale:nil]]];
 	}
 	if (version) {
-		[query addObject:[NSString stringWithFormat:@"updateVersion=%u", [version hexIntValue]]];
+		[query addObject:[NSString stringWithFormat:@"updateVersion=%lu", (long)[version hexIntValue]]];
 	} else {
-		[query addObject:[NSString stringWithFormat:@"qsversion=%u", [[NSApp buildVersion] hexIntValue]]];
+		[query addObject:[NSString stringWithFormat:@"qsversion=%lu", (long)[[NSApp buildVersion] hexIntValue]]];
 	}
 	NSArray *webPlugIns = [[knownPlugIns allValues] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isSecret == 1"]];
 	NSArray *secretIdentifiers = [webPlugIns valueForKey:@"identifier"];
