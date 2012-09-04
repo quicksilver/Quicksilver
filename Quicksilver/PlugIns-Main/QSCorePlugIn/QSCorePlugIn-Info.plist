@@ -969,6 +969,7 @@
 			<key>indirectTypes</key>
 			<array>
 				<string>public.folder</string>
+				<string>public.directory</string>
 			</array>
 			<key>actionSelector</key>
 			<string>moveFiles:toFolder:</string>
@@ -1547,6 +1548,7 @@
 			<key>indirectTypes</key>
 			<array>
 				<string>public.folder</string>
+				<string>public.directory</string>
 			</array>
 			<key>actionSelector</key>
 			<string>copyFiles:toFolder:</string>
