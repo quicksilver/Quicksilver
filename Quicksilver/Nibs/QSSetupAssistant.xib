@@ -1612,15 +1612,15 @@ bWludXRlcy4gWW91IGNhbiAgYWx0ZXIgdGhlIGZyZXF1ZW5jeSBiZWxvdy4</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">contentObject: manager</string>
+						<string key="label">contentObject: plugInManager</string>
 						<reference key="source" ref="548175385"/>
 						<reference key="destination" ref="774798320"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="548175385"/>
 							<reference key="NSDestination" ref="774798320"/>
-							<string key="NSLabel">contentObject: manager</string>
+							<string key="NSLabel">contentObject: plugInManager</string>
 							<string key="NSBinding">contentObject</string>
-							<string key="NSKeyPath">manager</string>
+							<string key="NSKeyPath">plugInManager</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>

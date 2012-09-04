@@ -157,9 +157,9 @@
 			[date descriptionWithCalendarFormat:@"%Y%m%d%H%M%S" timeZone:nil locale:nil]]];
 	}
 	if (version) {
-		[query addObject:[NSString stringWithFormat:@"updateVersion=%u", [version hexIntValue]]];
+		[query addObject:[NSString stringWithFormat:@"updateVersion=%lu", (long)[version hexIntValue]]];
 	} else {
-		[query addObject:[NSString stringWithFormat:@"qsversion=%u", [[NSApp buildVersion] hexIntValue]]];
+		[query addObject:[NSString stringWithFormat:@"qsversion=%lu", (long)[[NSApp buildVersion] hexIntValue]]];
 	}
 	NSArray *webPlugIns = [[knownPlugIns allValues] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isSecret == 1"]];
 	NSArray *secretIdentifiers = [webPlugIns valueForKey:@"identifier"];
@@ -829,7 +829,7 @@
 
 	if (![queuedDownloads count]) {
         [manager checkForUnmetDependencies];
-        //[self updateDownloadCount];
+        [self removeObsoletePlugIns];
     }
 
 	if (!liveLoaded && (updatingPlugIns || !warnedOfRelaunch) && ![queuedDownloads count] && !supressRelaunchMessage) {
@@ -907,7 +907,9 @@
 
 	if (!version)
         version = [NSApp buildVersion];
-	return [NSString stringWithFormat:@"%@?qsversion=%u&id=%@", downloadURL, [version hexIntValue], ident];
+	NSDictionary *target = [plugInWebData objectForKey:ident];
+	NSUInteger pluginVersion = [[target objectForKey:@"CFBundleVersion"] hexIntValue];
+	return [NSString stringWithFormat:@"%@?qsversion=%lu&id=%@&version=%lu", downloadURL, (long)[version hexIntValue], ident, (long)pluginVersion];
 }
 
 - (BOOL)installPlugInsForIdentifiers:(NSArray *)bundleIDs version:(NSString *)version {
@@ -1014,6 +1016,8 @@
 - (void)downloadDidFinish:(QSURLDownload *)download {
 	//NSLog(@"path %@", download);
 	//NSLog(@"FINISHED %@ %@", download, currentDownload);
+    [queuedDownloads removeObject:download];
+    [activeDownloads removeObject:download];
 	NSString *path = [download destination];
     NSString *plugInPath = nil;
 	if (path && (plugInPath = [[self installPlugInFromCompressedFile:path] lastObject])) {
@@ -1023,9 +1027,6 @@
 #warning tiennou: Report ! ATM the checkbox will just blink...
         [[self plugInWithID:[download userInfo]] downloadFailed];
     }
-    
-    [queuedDownloads removeObject:download];
-    [activeDownloads removeObject:download];
     [download cancel];
     
 	[self startDownloadQueue];
