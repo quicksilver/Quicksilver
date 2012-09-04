@@ -50,6 +50,7 @@
 - (NSArray *)categories;
 - (NSString *)categoriesAsString;
 - (NSArray *)relatedBundles;
+- (NSArray *)relatedPaths;
 
 - (NSData *)attributedDescription;
 - (NSImage *)icon;

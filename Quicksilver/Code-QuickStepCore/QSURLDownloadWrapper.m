@@ -10,7 +10,9 @@
 
 @implementation QSURLDownload
 + (id)downloadWithURL:(NSURL*)url delegate:(id)aDelegate {
-    return [[[self alloc] initWithRequest:[NSURLRequest requestWithURL:url] delegate:aDelegate] autorelease];
+	NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];
+	[theRequest setValue:kQSUserAgent forHTTPHeaderField:@"User-Agent"];
+    return [[[self alloc] initWithRequest:theRequest delegate:aDelegate] autorelease];
 }
 
 - (id)initWithRequest:(NSURLRequest*)aRequest delegate:(id)aDelegate {
