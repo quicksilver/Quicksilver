@@ -1,4 +1,4 @@
-## Changes - ß70 (3933) ##
+## Changes - ß70 (3934) ##
 
 ### New ###
 
@@ -15,6 +15,11 @@
   * Prevent the same thing from being added more than once via the comma trick (#1029)
   * Jump to the third pane when ⇧⌘[Letter] shortcuts trigger an action that requires it (#982, #966)
   * The "Start at login" preference and "Open at Login"/"Do Not Open at Login" actions work under 10.8 (#831, #1055)
+  * Required bundles are taken into consideration when loading plug-ins (#1002, #1079)
+  * After going through the Setup Assistant, new users no longer need to manually refresh to download the list of plug-ins (#1052, #1079)
+  * The latest version of a plug-in for the current operating system will be downloaded instead of the latest overall version (#1063, #1079)
+  * Plug-ins that satisfy dependencies will be downloaded immediately, instead of on the next relaunch (#1079)
+  * When obsolete plug-ins are replaced, only one relaunch is required to fully get rid of it (#1079)
 
 ### Changed ###
 
@@ -24,12 +29,14 @@
   * Browsing through folders should be faster (#1029)
   * Only search items matched by previous keystrokes (should speed matching) (#1029)
   * Don't distinguish upper and lower case letters. Ensures that holding ⇧ to select an action gives the same results as typing in the second pane normally. (#961, #853)
+  * Quicksilver uses a custom User-Agent string when downloading plug-ins (#1079)
 
 ### Development ###
 
   * Removed unused `.xcconfig` files (#956)
   * Streamlined documentation process for plug-ins (#988)
   * New `indirectTypes` key for actions to filter what's acceptable in the third pane (#620, #1057, #1074, #1088, #1091)
+  * New `relatedPaths` key. Plug-ins can now be recommended based on the existence of a file or directory. (#1001, #1079)
 
 Changes - ß69 (3932)
 --------------------
