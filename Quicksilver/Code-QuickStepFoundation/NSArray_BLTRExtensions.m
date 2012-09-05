@@ -44,26 +44,34 @@
 }
 
 - (id)head { return [self count] ? [self objectAtIndex:0] : nil; }
+
 - (NSArray *)tail { return [self count] > 1 ? [self subarrayWithRange:NSMakeRange(1, [self count]-1)] : nil; }
+
 - (NSMutableArray *)arrayByPerformingSelector:(SEL)aSelector {
-	NSMutableArray *resultArray = [NSMutableArray arrayWithCapacity:[self count]];
+    NSMutableArray *resultArray = nil;
 	id result;
-	for (id anObject in self)
-	{
-		result = [anObject performSelector:aSelector];
-		[resultArray addObject:(result?result:[NSNull null])];
-	}
+    @synchronized(self) {
+        resultArray = [NSMutableArray arrayWithCapacity:[self count]];
+        for (id anObject in self)
+        {
+            result = [anObject performSelector:aSelector];
+            [resultArray addObject:(result?result:[NSNull null])];
+        }
+    }
 	return resultArray;
 }
 
 - (NSMutableArray *)arrayByPerformingSelector:(SEL)aSelector withObject:(id)object {
-	NSMutableArray *resultArray = [NSMutableArray arrayWithCapacity:[self count]];
+    NSMutableArray *resultArray = nil;
 	NSUInteger i;
-	id result = nil;
-	for (i = 0; i < [self count]; i++) {
-		result = [[self objectAtIndex:i] performSelector:aSelector withObject:object];
-		[resultArray addObject:(result?result:[NSNull null])];
-	}
+    id result;
+    @synchronized(self) {
+        resultArray = [NSMutableArray arrayWithCapacity:[self count]];
+        for (id obj in self) {
+            result = [obj performSelector:aSelector withObject:object];
+            [resultArray addObject:(result?result:[NSNull null])];
+        }
+    }
 	return resultArray;
 }
 
@@ -81,28 +89,33 @@
 
 + (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(id)array returnValues:(BOOL)flag {
 	NSMutableArray *resultArray = nil;
-	if (flag)
-		resultArray = [NSMutableArray arrayWithCapacity:[(NSArray *)array count]];
-	NSUInteger i;
-	id result;
-	for (i = 0; i < [(NSArray *)array count]; i++) {
-		result = [self performSelector:aSelector withObject:[array objectAtIndex:i]];
-		if (flag)
-			[resultArray addObject:(result?result:[NSNull null])];
-	}
+    id result;
+    @synchronized(array) {
+        if (flag)
+            resultArray = [NSMutableArray arrayWithCapacity:[(NSArray *)array count]];
+
+        for (id obj in array) {
+            result = [self performSelector:aSelector withObject:obj];
+            if (flag)
+                [resultArray addObject:(result?result:[NSNull null])];
+        }
+    }
 	return resultArray;
 }
 
 - (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(id)array returnValues:(BOOL)flag {
 	NSMutableArray *resultArray = nil;
-	if (flag)
-		resultArray = [NSMutableArray arrayWithCapacity:[(NSArray *)array count]];
-	NSUInteger i;
-	id result;
-	for (i = 0; i < [(NSArray *)array count]; i++) {
-		result = [self performSelector:aSelector withObject:[array objectAtIndex:i]];
-		if (flag) [resultArray addObject:(result?result:[NSNull null])];
-	}
+    id result;
+    
+    @synchronized(array) {
+        if (flag)
+            resultArray = [NSMutableArray arrayWithCapacity:[(NSArray *)array count]];
+
+        for (id obj in array) {
+            result = [self performSelector:aSelector withObject:obj];
+            if (flag) [resultArray addObject:(result?result:[NSNull null])];
+        }
+    }
 	return resultArray;
 }
 
