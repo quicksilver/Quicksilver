@@ -1,17 +1,17 @@
-## Changes - ß70 (3934) ##
+## Changes - ß70 (3935) ##
 
 ### New ###
 
   * Option under "Command" preferences to switch keyboard layout when Quicksilver is active (#987, #371)
   * Show the location for iCloud documents as "iCloud" instead of the actual path (#1018)
-  * Allow searching on both filsystem and localized names for files and folders (#730, #952, #1017)
+  * Allow searching on both filesystem and localized names for files and folders (#730, #952, #1017)
   * Files with numbers in their name are sorted like Finder (#1029)
   * Text entry mode will more closely match the chosen interface. Text no longer shows in the background as you type. (#1029)
 
 ### Fixed ###
 
   * Preserve existing web sources when no network connection is available (#960, #634)
-  * Crash prevention (#986, #1015, #1045, #828, #912, #1013, #1094)
+  * Crash prevention (#986, #1015, #1045, #828, #912, #1013, #1094, #1100)
   * Prevent the same thing from being added more than once via the comma trick (#1029)
   * Jump to the third pane when ⇧⌘[Letter] shortcuts trigger an action that requires it (#982, #966)
   * The "Start at login" preference and "Open at Login"/"Do Not Open at Login" actions work under 10.8 (#831, #1055)
@@ -20,6 +20,7 @@
   * The latest version of a plug-in for the current operating system will be downloaded instead of the latest overall version (#1063, #1079)
   * Plug-ins that satisfy dependencies will be downloaded immediately, instead of on the next relaunch (#1079)
   * When obsolete plug-ins are replaced, only one relaunch is required to fully get rid of it (#1079)
+  * Prevent the third pane from looking strange when typing text in Primer (#1100)
 
 ### Changed ###
 
