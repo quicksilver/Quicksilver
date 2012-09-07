@@ -227,11 +227,13 @@
 #endif
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSArray *colourDefaults = [NSArray arrayWithObjects: kQSAppearance1B, kQSAppearance1A, kQSAppearance1T, kQSAppearance2B, kQSAppearance2A, kQSAppearance2T, kQSAppearance3B, kQSAppearance3A, kQSAppearance3T, nil];
+    @synchronized(defaults) {
     for (NSString *eachDefault in colourDefaults) {
-		[defaults willChangeValueForKey:eachDefault];
-		[defaults removeObjectForKey:eachDefault];
-		[defaults didChangeValueForKey:eachDefault];		
-	}
+            [defaults willChangeValueForKey:eachDefault];
+            [defaults removeObjectForKey:eachDefault];
+            [defaults didChangeValueForKey:eachDefault];
+        }
+    }
 	[defaults synchronize];
 }
 
