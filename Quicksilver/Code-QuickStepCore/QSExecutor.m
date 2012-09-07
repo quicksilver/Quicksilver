@@ -126,7 +126,7 @@ QSExecutor *QSExec = nil;
 	NSMutableSet *set = [NSMutableSet set];
 	for (NSString *type in types) {
 		if ([type isEqualToString:QSFilePathType]) {
-			[set addObjectsFromArray:[self actionsForFileTypes:fileTypes]];
+            [set addObjectsFromArray:[self actionsForFileTypes:fileTypes]];
 		} else {
 			[set addObjectsFromArray:[directObjectTypes objectForKey:type]];
 		}
@@ -211,7 +211,9 @@ QSExecutor *QSExec = nil;
 	NSArray *directTypes = [actionDict objectForKey:kActionDirectTypes];
 	if (![directTypes count]) directTypes = [NSArray arrayWithObject:@"*"];
 	for (NSString *type in directTypes) {
-        [[self actionsArrayForType:type] addObject:action];
+        if (!([type isEqualToString:QSFilePathType] && [[action directFileTypes] containsObject:@"'APPL'"])) {
+            [[self actionsArrayForType:type] addObject:action];
+        }
     }
     
 	if ([directTypes containsObject:QSFilePathType]) {
