@@ -6,7 +6,7 @@
   * Show the location for iCloud documents as "iCloud" instead of the actual path (#1018)
   * Allow searching on both filesystem and localized names for files and folders (#730, #952, #1017)
   * Files with numbers in their name are sorted like Finder (#1029)
-  * Text entry mode will more closely match the chosen interface. Text no longer shows in the background as you type. (#1029)
+  * Colors in text entry mode are based on those of the results list (adjustable in the Appearance prefs next to "Lists"). Text no longer shows in the background as you type. (#1029)
 
 ### Fixed ###
 
