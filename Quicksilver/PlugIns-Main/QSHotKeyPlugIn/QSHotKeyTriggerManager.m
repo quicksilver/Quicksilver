@@ -25,7 +25,8 @@
     return keyPaths;
 }
 
-- (void)awakeFromNib { [self addObserver:self forKeyPath:@"currentTrigger" options:0 context:nil];  }
+- (void)awakeFromNib { [self addObserver:self forKeyPath:@"currentTrigger" options:0 context:nil];
+    [self addObserver:self forKeyPath:@"hotKey" options:0 context:nil];}
 
 - (NSString *)name { return @"HotKey";  }
 
@@ -150,8 +151,11 @@
 - (BOOL)control:(NSControl *)control textView:(NSTextView *)fieldEditor doCommandBySelector:(SEL)commandSelector { return NO;  }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if (![keyPath isEqualToString:@"hotKey"]) {
+
 	[self willChangeValueForKey:@"hotKey"];
 	[self didChangeValueForKey:@"hotKey"];
+    }
 }
 
 - (BOOL)shouldEditTrigger:(QSTrigger *)trigger { return NO;  }
@@ -159,10 +163,16 @@
 
 - (void)setHotKey:(NSDictionary *)dict {
 	QSTrigger *trigger = [self currentTrigger];
-	if (!dict || [[dict allKeys] count] == 0)
+	if (!dict || [[dict allKeys] count] == 0) {
 		[[trigger info] removeObjectsForKeys:[NSArray arrayWithObjects:@"modifiers", @"keyCode", @"character", nil]];
-	else
+    } else {
 		[[trigger info] addEntriesFromDictionary:dict];
+    }
+    
+    // 'Disable' the trigger so that the hotkey is freed. Disable in this send just means disable the hotkey associated with the trigger
+    [self disableTrigger:trigger];
+
+    // This KVC call to 'triggerDescription' sets the new hotKey
 	[[self currentTrigger] willChangeValueForKey:@"triggerDescription"];
 	[[self currentTrigger] didChangeValueForKey:@"triggerDescription"];
 	[self willChangeValueForKey:@"hotKey"];
