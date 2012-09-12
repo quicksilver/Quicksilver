@@ -68,6 +68,7 @@
 	//- (void)populateItemFields;
 
 - (void)populateCatalogEntryFields;
+- (IBAction)removeItem:(id)sender;
 
 - (IBAction)setValueForSenderForCatalogEntry:(id)sender;
 			   //- (IBAction)restoreDefaults:(id)sender;
