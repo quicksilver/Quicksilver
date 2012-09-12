@@ -12,31 +12,40 @@
 
 @implementation QSDownloads
 - (id)resolveProxyObject:(id)proxy {
-    // Try and get the user's downloads folder setting (set in Safari)
-    NSData *downloadsData = (NSData *)CFPreferencesCopyValue((CFStringRef) @"DownloadFolder", 
-                                                                                          (CFStringRef) @"com.apple.internetconfigpriv", 
-                                                                                          kCFPreferencesCurrentUser, 
-                                                                                          kCFPreferencesAnyHost);
+    NSFileManager *manager = [NSFileManager defaultManager];
     NSString *downloads = nil;
-    if (downloadsData) {
-        downloads = [[NDAlias aliasWithData:downloadsData] quickPath];
-        [downloadsData release];
-    }
+	NSURL *downloadsURL = nil;
+    // Try and get the user's downloads folder setting (set in Safari)
+	if ([NSApplication isMountainLion]) {
+		// check Safari directly in 10.8+
+		NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
+		NSDictionary *safariPrefs = [defaults persistentDomainForName:@"com.apple.Safari"];
+		downloads = [[safariPrefs objectForKey:@"DownloadsPath"] stringByStandardizingPath];
+		[defaults release];
+	} else {
+		NSData *downloadsData = (NSData *)CFPreferencesCopyValue((CFStringRef) @"DownloadFolder", (CFStringRef) @"com.apple.internetconfigpriv", kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
+		if (downloadsData) {
+			downloads = [[NDAlias aliasWithData:downloadsData] quickPath];
+			[downloadsData release];
+		}
+	}
     
-    // fall back to the default downloads folder if the user settings couldn't be resolved
-    if (!downloads) {
-        downloads = [[@"~/Downloads" stringByExpandingTildeInPath] stringByResolvingSymlinksInPath];
-    }
-    
-	NSURL *downloadsURL = [NSURL URLWithString:downloads];
+    if (downloads) {
+		downloads = [downloads stringByResolvingSymlinksInPath];
+		downloadsURL = [NSURL URLWithString:downloads];
+    } else {
+		// fall back to the default downloads folder if the user settings couldn't be resolved
+		NSArray *downloadURLs = [manager URLsForDirectory:NSDownloadsDirectory inDomains:NSUserDomainMask];
+		if ([downloadURLs count]) {
+			downloadsURL = [downloadURLs objectAtIndex:0];
+		}
+	}
     
     if (!downloadsURL) {
         NSLog(@"Unable to locate downloads folder (path: %@)",downloads);
         NSBeep();
         return nil;
     }
-    
-    NSFileManager *manager = [NSFileManager defaultManager];
     
     NSError *err = nil;
     // An array of the directory contents, keeping the isDirectory key, attributeModificationDate key and skipping hidden files
@@ -56,16 +65,15 @@
 
 	NSNumber *isDir;
 	NSNumber *isPackage;
+	NSSet *ignoredExtensions = [NSSet setWithObjects:@"download", @"part", @"dtapart", @"crdownload", nil];
 	for (NSURL *downloadedFile in contents) {
 		err = nil;
 		NSString *fileExtension = [downloadedFile pathExtension];
-		if ([fileExtension isEqualToString:@"download"] ||
-			[fileExtension isEqualToString:@"part"] ||
-			[fileExtension isEqualToString:@"dtapart"] ||
-			[fileExtension isEqualToString:@"crdownload"]) {
+		if ([ignoredExtensions containsObject:fileExtension]) {
 			continue;
 		}
 		
+		downloadPath = [downloadedFile path];
 		// Do not show folders
 		if ([downloadedFile getResourceValue:&isDir forKey:NSURLIsDirectoryKey error:&err] && [isDir boolValue]) {
 			if (err != nil) {
@@ -80,7 +88,6 @@
 				continue;
 			}
 		}
-		downloadPath = [downloadedFile path];
 		if([manager fileExistsAtPath:[downloadPath stringByAppendingPathExtension:@"part"]]) {
 			continue;
 		}
