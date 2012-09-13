@@ -16,19 +16,10 @@
     NSString *downloads = nil;
 	NSURL *downloadsURL = nil;
     // Try and get the user's downloads folder setting (set in Safari)
-	if ([NSApplication isMountainLion]) {
-		// check Safari directly in 10.8+
-		NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
-		NSDictionary *safariPrefs = [defaults persistentDomainForName:@"com.apple.Safari"];
-		downloads = [[safariPrefs objectForKey:@"DownloadsPath"] stringByStandardizingPath];
-		[defaults release];
-	} else {
-		NSData *downloadsData = (NSData *)CFPreferencesCopyValue((CFStringRef) @"DownloadFolder", (CFStringRef) @"com.apple.internetconfigpriv", kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
-		if (downloadsData) {
-			downloads = [[NDAlias aliasWithData:downloadsData] quickPath];
-			[downloadsData release];
-		}
-	}
+	NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
+	NSDictionary *safariPrefs = [defaults persistentDomainForName:@"com.apple.Safari"];
+	downloads = [[safariPrefs objectForKey:@"DownloadsPath"] stringByStandardizingPath];
+	[defaults release];
     
     if (downloads) {
 		downloads = [downloads stringByResolvingSymlinksInPath];
