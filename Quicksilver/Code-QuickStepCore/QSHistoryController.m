@@ -49,6 +49,7 @@ id QSHist;
 		[commandHistory insertObject:[command objectValue] atIndex:0];
 	while ([commandHistory count] > MAXHIST)
 		[commandHistory removeLastObject];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryInvalidated object:@"QSPresetCommandHistory"];
 }
 
 - (void)addObject:(id)object {
@@ -59,6 +60,7 @@ id QSHist;
 	[objectHistory insertObject:object atIndex:0];
 	while ([objectHistory count] > MAXHIST)
 		[objectHistory removeLastObject];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryInvalidated object:@"QSPresetObjectHistory"];
 }
 
 @end

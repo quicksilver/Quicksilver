@@ -100,6 +100,7 @@ static CGFloat searchSpeed = 0.0;
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadIDDictionary:) name:QSCatalogStructureChanged object:nil];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSets:) name:QSCatalogEntryIndexed object:nil];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSource:) name:QSCatalogSourceInvalidated object:nil];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadEntry:) name:QSCatalogEntryInvalidated object:nil];
 #if 0
 		//Create proxy Images
 		[(NSImage *)[[NSImage alloc] initWithSize:NSZeroSize] setName:@"QSDirectProxyImage"];
@@ -305,6 +306,14 @@ static CGFloat searchSpeed = 0.0;
 		}
 
 		[sourceArray addObject:thisEntry];
+	}
+}
+
+- (void)reloadEntry:(NSNotification *)notif
+{
+	QSCatalogEntry *entry = [self entryForID:[notif object]];
+	if (entry) {
+		[entry scanForced:NO];
 	}
 }
 
