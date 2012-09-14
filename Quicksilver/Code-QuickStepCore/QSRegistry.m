@@ -142,33 +142,36 @@ QSRegistry* QSReg = nil;
 	if (instance = [classInstances objectForKey:className]) return instance;
 
 	Class providerClass = NSClassFromString(className);
-	//NSLog(@"Class <%@>", NSStringFromClass(providerClass) );
 	if (!providerClass) {
         NSBundle * bundle = [classBundles objectForKey:className];
-        NSError *err = nil;
-		if([bundle loadAndReturnError:&err] == NO) {
-            NSLog(@"Failed loading bundle %@", bundle);
-#ifdef DEBUG
-            if (err) {
-                NSLog(@"Error: %@",err);
+        if (bundle) {
+            NSError *err = nil;
+            if (![bundle loadAndReturnError:&err]) {
+                NSLog(@"Failed loading bundle %@ error: %@", bundle, err);
             }
-#endif
+            providerClass = NSClassFromString(className);
         }
-		providerClass = NSClassFromString(className);
 	}
-	if (providerClass) {
-		if ([providerClass respondsToSelector:@selector(sharedInstance)])
-			instance = [providerClass sharedInstance];
-		else
-			instance = [[[providerClass alloc] init] autorelease];
-		[classInstances setObject:instance forKey:className];
-		return instance;
+    if (!providerClass) {
 #ifdef DEBUG
-	} else {
 		if (VERBOSE) NSLog(@"Can't find class %@ %@", className, [classBundles objectForKey:className]);
 #endif
-	}
-	return nil;
+        return nil;
+    }
+    if ([providerClass respondsToSelector:@selector(sharedInstance)])
+        instance = [providerClass sharedInstance];
+    else {
+        @try {
+            instance = [[[providerClass alloc] init] autorelease];
+        }
+        @catch (NSException *exception) {
+#ifdef DEBUG
+            NSLog(@"Failed to instantiate provider for class %@, exception: %@", className, exception);
+#endif
+        }
+    }
+    [classInstances setObject:instance forKey:className];
+    return instance;
 }
 
 - (NSMutableDictionary *)identifierBundles { return identifierBundles;  }
