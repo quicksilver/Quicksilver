@@ -465,6 +465,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 - (NSString *)identifierForObject:(QSObject *)object {
+    if ([object count] != 0)
+        return nil;
 	return identifierForPaths([object arrayForType:QSFilePathType]);
 }
 - (BOOL)loadChildrenForObject:(QSObject *)object {
