@@ -59,6 +59,7 @@ extern QSLibrarian *QSLib; // Shared Instance
 //- (NSArray *)entriesForSource:(NSString *)source;
 - (void)reloadSource:(NSNotification *)notif;
 - (void)reloadEntrySources:(NSNotification *)notif;
+- (void)reloadEntry:(NSNotification *)notif;
 - (void)reloadIDDictionary:(NSNotification *)notif;
 - (void)reloadSets:(NSNotification *)notif;
 - (QSCatalogEntry *)firstEntryContainingObject:(QSObject *)object;

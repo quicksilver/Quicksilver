@@ -23,7 +23,7 @@
 }
 
 - (BOOL)entryCanBeIndexed:(NSDictionary *)theEntry {return NO;}
-- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry { return NO; }
+- (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry { return YES; }
 - (NSImage *)iconForEntry:(NSDictionary *)dict { return [QSResourceManager imageNamed:@"Quicksilver"]; }
 - (NSArray *)objectsForEntry:(NSDictionary *)dict {
 	if ([[dict objectForKey:@"userInfo"] isEqualToString:@"commands"])
