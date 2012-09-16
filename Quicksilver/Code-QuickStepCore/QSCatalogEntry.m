@@ -211,7 +211,8 @@ NSDictionary *enabledPresetDictionary;*/
 		[[QSLibrarian sharedInstance] setPreset:self isEnabled:enabled];
 	else
 		[info setObject:[NSNumber numberWithBool:enabled] forKey:kItemEnabled];
-	if (enabled && ![[self contents] count]) [self scanForced:NO];
+	if (enabled && ![[self contents] count])
+		[NSThread detachNewThreadSelector:@selector(scanForcedInThread:) toTarget:self withObject:[NSNumber numberWithBool:NO]];
 }
 
 - (void)setDeepEnabled:(BOOL)enabled {
