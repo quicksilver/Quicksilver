@@ -103,43 +103,6 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
         }
     }
     return NO;
-
-	if (!path || [[path pathExtension] caseInsensitiveCompare:@"prefpane"] != NSOrderedSame)
-		return NO;
-
-	NSImage *image = [NSImage imageNamed:@"PrefPaneTemplate"];
-
-	[image setSize:[[image bestRepresentationForSize:rect.size] size]];
-	//[image adjustSizeToDrawAtSize:rect.size];
-	[image drawInRect:rect fromRect:rectFromSize([image size]) operation:NSCompositeSourceOver fraction:1.0f];
-
-	if ([object iconLoaded]) {
-		NSImage *cornerBadge = [object icon];
-		if (cornerBadge != image) {
-
-			NSRect badgeRect = NSMakeRect(16+48+rect.origin.x, 16+36+rect.origin.y, 32, 32);
-			NSImageRep *bestBadgeRep = [cornerBadge bestRepresentationForSize:badgeRect.size];
-
-			[cornerBadge setSize:[bestBadgeRep size]];
-
-			[[NSColor colorWithDeviceWhite:1.0 alpha:0.8] set];
-			//NSRectFillUsingOperation(NSInsetRect(badgeRect, -14, -14), NSCompositeSourceOver);
-			NSBezierPath *path = [NSBezierPath bezierPath];
-			[path appendBezierPathWithRoundedRectangle:NSInsetRect(badgeRect, -10, -10) withRadius:4];
-
-			[[NSColor colorWithDeviceWhite:1.0 alpha:1.0] setFill];
-			[[NSColor colorWithDeviceWhite:0.75 alpha:1.0] setStroke];
-			[path fill];
-			[path stroke];
-
-			NSFrameRectWithWidth(NSInsetRect(badgeRect, -5, -5), 2);
-
-			[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationNone];
-			[cornerBadge drawInRect:badgeRect fromRect:rectFromSize([cornerBadge size]) operation:NSCompositeSourceOver fraction:1.0];
-			[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
-		}
-	}
-	return YES;
 }
 
 - (NSString *)kindOfObject:(QSObject *)object {
