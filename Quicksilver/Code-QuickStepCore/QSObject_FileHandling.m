@@ -452,8 +452,9 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
         NSError *err = nil;
         // pre-fetch the required info (hidden key) for the dir contents to speed up the task
         NSArray *dirContents = [manager contentsOfDirectoryAtURL:[NSURL fileURLWithPath:path] includingPropertiesForKeys:[NSArray arrayWithObject:NSURLIsHiddenKey] options:0 error:&err];
-        if (err) {
-            NSLog(@"Error loading files: %@",err);
+        if (!dirContents) {
+            NSLog(@"Error loading files: %@", err);
+            return NO;
         }
         for (NSURL *individualURL in dirContents) {
             [fileChildren addObject:[individualURL path]];
