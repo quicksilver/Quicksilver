@@ -473,8 +473,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 	if ([object fileCount] == 1) {
 		NSString *path = [object singleFilePath];
-		if (![path length]) return NO;
-		BOOL isDirectory;
+		if (!path || ![path length]) return NO;
 		NSFileManager *manager = [NSFileManager defaultManager];
 
 		LSItemInfoRecord infoRec;
@@ -482,8 +481,14 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
         [(NSString*)infoRec.extension autorelease];
 
 		if (infoRec.flags & kLSItemInfoIsAliasFile) {
+            /* Resolve the alias before loading its children */
+            BOOL isDirectory;
 			path = [manager resolveAliasAtPath:path];
-			if ([manager fileExistsAtPath:path isDirectory:&isDirectory] && !isDirectory) {
+			if (![manager fileExistsAtPath:path isDirectory:&isDirectory]) {
+                /* Alias can't be resolved : no children */
+                return NO;
+            } else if (!isDirectory) {
+                /* Alias is a file, set it as object's child */
 				[object setChildren:[NSArray arrayWithObject:[QSObject fileObjectWithPath:path]]];
 				return YES;
 			}
