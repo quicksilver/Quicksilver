@@ -42,6 +42,10 @@
 - (NSString *)filesType;
 - (BOOL)isApplication;
 - (BOOL)isFolder;
+- (BOOL)isPackage;
+- (BOOL)isAlias;
+- (NSString *)fileExtension;
+- (NSString *)fileUTI;
 - (NSString *)singleFileType;
 
 - (void)previewIcon:(id)file;

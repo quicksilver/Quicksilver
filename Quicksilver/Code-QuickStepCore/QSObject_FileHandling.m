@@ -717,20 +717,73 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	return self;
 }
 
-// Checks to see if the object in question is an application
-- (BOOL)isApplication {
-	NSString *path = [self singleFilePath];
-    if(!path) {
-        return NO;
+- (NSDictionary *)infoRecord {
+    NSString *path = [self validSingleFilePath];
+    if (!path)
+        return nil;
+
+    NSDictionary *dict;
+    if (dict = [self objectForCache:@"QSItemInfoRecord"])
+        return dict;
+
+	/* Try to get information for this file */
+    LSItemInfoRecord record;
+    OSStatus status = LSCopyItemInfoForURL((CFURLRef)[NSURL fileURLWithPath:path], kLSRequestAllInfo, &record);
+    if (status) {
+        NSLog(@"LSCopyItemInfoForURL error: %ld", (long)status);
+        return nil;
     }
-	LSItemInfoRecord infoRec;
-	LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);
-	return (infoRec.flags & kLSItemInfoIsApplication);
+
+	NSString *uti = QSUTIForExtensionOrType((NSString *)record.extension, record.filetype);
+	/* Now build a dictionary with that record */
+	dict = [NSDictionary dictionaryWithObjectsAndKeys:
+			[NSNumber numberWithUnsignedInt:record.flags], @"flags",
+			[NSValue valueWithOSType:record.filetype],     @"filetype",
+			[NSValue valueWithOSType:record.creator],      @"creator",
+			[(NSString *)record.extension copy],           @"extension",
+			uti,                                           @"uti",
+			nil];
+	/* Release the file's extension if one was returned */
+	if (record.extension)
+		CFRelease(record.extension);
+
+    [self setObject:dict forCache:@"QSItemInfoRecord"];
+    return dict;
+}
+
+- (BOOL)checkInfoRecordFlags:(LSItemInfoFlags)infoFlags {
+	NSDictionary *infoRec = [self infoRecord];
+	NSNumber *fileFlags = [infoRec objectForKey:@"flags"];
+	if (!fileFlags)
+		return NO;
+	unsigned int numFlags = [fileFlags unsignedIntValue];
+	return numFlags & infoFlags;
+}
+
+- (BOOL)isApplication {
+	return [self checkInfoRecordFlags:kLSItemInfoIsApplication];
 }
 
 - (BOOL)isFolder {
-	BOOL isDirectory;
-	return ([[NSFileManager defaultManager] fileExistsAtPath:[self singleFilePath] isDirectory:&isDirectory]) ? isDirectory : NO;
+	return [self checkInfoRecordFlags:kLSItemInfoIsContainer];
+}
+
+- (BOOL)isPackage {
+	return [self checkInfoRecordFlags:kLSItemInfoIsPackage];
+}
+
+- (BOOL)isAlias {
+	return [self checkInfoRecordFlags:kLSItemInfoIsAliasFile];
+}
+
+- (NSString *)fileExtension {
+	NSDictionary *infoRec = [self infoRecord];
+    return [infoRec objectForKey:@"extension"];
+}
+
+- (NSString *)fileUTI {
+    NSDictionary *infoRec = [self infoRecord];
+    return [infoRec objectForKey:@"uti"];
 }
 
 - (NSString *)localizedPrefPaneKind {
