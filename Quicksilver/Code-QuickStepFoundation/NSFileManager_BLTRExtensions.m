@@ -39,7 +39,22 @@
 #endif
 
 - (BOOL)movePathToTrash:(NSString *)filepath {
-	return [self moveItemAtPath:filepath toPath:[[[@"~/.Trash/" stringByStandardizingPath] stringByAppendingPathComponent:[filepath lastPathComponent]] firstUnusedFilePath] error:nil];
+    const char *strPath = [filepath fileSystemRepresentation];
+    OSStatus result = FSPathMoveObjectToTrashSync(strPath, NULL, kFSFileOperationDefaultOptions);
+    if (result != noErr) {
+        NSLog(@"Failed to move file %@ to Trash: %ld", filepath, (long)result);
+    }
+    /* Use that on 10.8+ */
+#if 0
+    NSError *error = nil;
+    BOOL result = [[NSFileManager defaultManager] trashItemAtURL:[NSURL fileURLWithPath:filepath]
+                                                resultingItemURL:NULL
+                                                           error:&error];
+    if (!result) {
+        NSLog(@"Failed to move file %@ to Trash: %@", filepath, error);
+    }
+#endif
+    return result == noErr;
 }
 
 #if 0
