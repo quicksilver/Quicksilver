@@ -461,65 +461,52 @@ void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, NSInteger cou
 // method for drawing the text (e.g. object label, name etc.) on the interface
 - (void)drawTextForObject:(QSObject *)drawObject withFrame:(NSRect)cellFrame inView:(NSView *)controlView {
 	if ([self imagePosition] != NSImageOnly) { // Text Drawing Routines
+
+        NSRect textDrawRect = [self titleRectForBounds:cellFrame];
+
 		NSString *abbreviationString = nil;
-		if ([controlView respondsToSelector:@selector(matchedString)])
+		if ([controlView respondsToSelector:@selector(matchedString)]) {
 			abbreviationString = [(QSSearchObjectView *)controlView matchedString];
+        }
         
-		NSString *nameString = nil;
+		NSString *nameString = [drawObject displayName];
+        NSSize nameSize = [nameString sizeWithAttributes:nameAttributes];
+
 		NSIndexSet *hitMask = nil;
-        
+        NSString *rankedString = nil, *detailsString = nil;
         id ranker = [drawObject ranker];
 		if (ranker && abbreviationString) {
-			nameString = [ranker matchedStringForAbbreviation:abbreviationString hitmask:&hitMask inContext:nil];
+			rankedString = [ranker matchedStringForAbbreviation:abbreviationString hitmask:&hitMask inContext:nil];
         }
-		if (!nameString) nameString = [drawObject displayName];
-		if (!nameString) nameString = @"<Unknown>";
         
-		//NSLog(@"usingname: %@", nameString);
-		NSSize nameSize = [nameString sizeWithAttributes:nameAttributes];
         
+        // BOOL to determine if the details string is valid (unique)
         BOOL validDetailsString = NO;
+        // BOOL to determine if the ranker matched against the name (NO) or the details (YES)
+        BOOL detailsStringIsMatched = NO;
         
-        NSString *detailsString = [drawObject details];
-        if(detailsString && [detailsString length] && ![detailsString isEqualToString:nameString]) {
+        if (rankedString && ![rankedString isEqualToString:nameString]) {
+            detailsString = rankedString;
+            detailsStringIsMatched = YES;
+        } else {
+            detailsString = [drawObject details];
+        }
+        
+        if(detailsString && [detailsString length] && (![detailsString isEqualToString:nameString] || [detailsString rangeOfString:nameString].location != 0)) {
             validDetailsString = YES;
         }
         
+        // Colours for the text
 		BOOL useAlternateColor = [controlView isKindOfClass:[NSTableView class]] && [(NSTableView *)controlView isRowSelected:[(NSTableView *)controlView rowAtPoint:cellFrame.origin]];
 		NSColor *mainColor = (textColor?textColor:(useAlternateColor?[NSColor alternateSelectedControlTextColor] :[NSColor controlTextColor]));
 		NSColor *fadedColor = [mainColor colorWithAlphaComponent:0.80];
         
-		NSRect textDrawRect = [self titleRectForBounds:cellFrame];
-        
-		NSMutableAttributedString *titleString = [[[NSMutableAttributedString alloc] initWithString:nameString] autorelease];
-		[titleString setAttributes:nameAttributes range:NSMakeRange(0, [titleString length])];
-        
-		if (abbreviationString && ![abbreviationString hasPrefix:@"QSActionMnemonic"]) {
-			[titleString addAttribute:NSForegroundColorAttributeName value:fadedColor range:NSMakeRange(0, [titleString length])];
-            
-			// Organise displaying the text, underlining the letters typed (in the name)
-			NSUInteger i = 0;
-			NSUInteger j = 0;
-			NSUInteger hits[[titleString length]];
-			NSUInteger count = [hitMask getIndexes:(NSUInteger *)&hits maxCount:[titleString length] inIndexRange:nil];
-			NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        mainColor, NSForegroundColorAttributeName,
-                                        mainColor, NSUnderlineColorAttributeName,
-                                        [NSNumber numberWithInteger:2.0] , NSUnderlineStyleAttributeName,
-                                        [NSNumber numberWithDouble:1.0] , NSBaselineOffsetAttributeName,
-                                        nil];
-            
-            //	  NSLog(@"hit %@ %@", [titleString string] , hitMask);
-			for(i = 0; i<count; i += j) {
-				for (j = 1; i+j<count && hits[i+j-1] +1 == hits[i+j]; j++);
-				//	 NSLog(@"hit (%d, %d) ", hits[i] , j);
-				[titleString addAttributes:attributes range:NSMakeRange(hits[i], j)];
-				//				 NSLog(@"5");
-			}
-		} else {
-			[titleString addAttribute:NSBaselineOffsetAttributeName value:[NSNumber numberWithDouble:-1.0] range:NSMakeRange(0, [titleString length])];
-		}
-        
+
+        NSMutableAttributedString *titleString = nil, *attributedDetailsString = nil;
+        NSMutableAttributedString *attributedNameString = [[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", nameString, (validDetailsString ? @"\n" : @"")]] autorelease];
+           [attributedNameString setAttributes:nameAttributes range:NSMakeRange(0, [attributedNameString length])];
+           
+        // Stylize the details string (based on the row height etc. in the prefs)
         if (validDetailsString) {
             NSSize detailsSize = NSZeroSize;
             detailsSize = [detailsString sizeWithAttributes:detailsAttributes];
@@ -530,19 +517,55 @@ void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, NSInteger cou
                 NSRange returnRange;
                 if (detailHeight<detailsSize.height && (returnRange = [detailsString rangeOfString:@"\n"]) .location != NSNotFound)
                     detailsString = [detailsString substringToIndex:returnRange.location];
-                if ([detailsString length] >100) detailsString = [detailsString substringWithRange:NSMakeRange(0, 100)];
                 // ***warning  ** this should take first line only?
                 //if ([titleString length]) [titleString appendAttributedString:;
-                [titleString appendAttributedString:
-                 [[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", [titleString length] ?@"\r":@"", detailsString] attributes:detailsAttributes] autorelease]
-                 ];
+                
+                attributedDetailsString = [[[NSMutableAttributedString alloc] initWithString:detailsString attributes:detailsAttributes] autorelease];
                 
             }
         }
-		NSRect centerRect = rectFromSize([titleString size]);
+        
+        // set the 'titleString' - the string that is matched against and underlined in the UI        
+        if (detailsStringIsMatched) {
+            titleString = attributedDetailsString;
+        } else {
+            titleString = attributedNameString;
+        }
+        
+        // Underline the matched letters in the 'titleString'
+        if (abbreviationString && ![abbreviationString hasPrefix:@"QSActionMnemonic"]) {
+            [titleString addAttribute:NSForegroundColorAttributeName value:fadedColor range:NSMakeRange(0, [titleString length])];
+            
+            // Organise displaying the text, underlining the letters typed (in the name)
+            NSUInteger i = 0;
+            NSUInteger j = 0;
+            NSUInteger hits[[titleString length]];
+            NSUInteger count = [hitMask getIndexes:(NSUInteger *)&hits maxCount:[titleString length] inIndexRange:nil];
+            NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                        mainColor, NSForegroundColorAttributeName,
+                                        mainColor, NSUnderlineColorAttributeName,
+                                        [NSNumber numberWithInteger:2.0] , NSUnderlineStyleAttributeName,
+                                        [NSNumber numberWithDouble:1.0] , NSBaselineOffsetAttributeName,
+                                        nil];
+            
+            for(i = 0; i<count; i += j) {
+                for (j = 1; i+j<count && hits[i+j-1] +1 == hits[i+j]; j++);
+                [titleString addAttributes:attributes range:NSMakeRange(hits[i], j)];
+            }
+        } else {
+            [titleString addAttribute:NSBaselineOffsetAttributeName value:[NSNumber numberWithDouble:-1.0] range:NSMakeRange(0, [titleString length])];
+        }
+        if (attributedDetailsString && [attributedDetailsString length]) {
+            // Truncate the details string if it's over 100 chars           
+            if ([attributedDetailsString length] >100) {
+                attributedDetailsString = (NSMutableAttributedString *)[attributedDetailsString attributedSubstringFromRange:NSMakeRange(0, 100)];
+            }
+            [attributedNameString appendAttributedString:attributedDetailsString];
+        }
+		NSRect centerRect = rectFromSize([attributedNameString size]);
 		centerRect.size.width = NSWidth(textDrawRect);
 		centerRect.size.height = MIN(NSHeight(textDrawRect), centerRect.size.height);
-		[titleString drawInRect:centerRectInRect(centerRect, textDrawRect)];
+		[attributedNameString drawInRect:centerRectInRect(centerRect, textDrawRect)];
 	}
 }
 
