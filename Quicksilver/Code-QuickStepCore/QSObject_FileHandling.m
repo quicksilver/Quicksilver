@@ -26,8 +26,6 @@ NSString *identifierForPaths(NSArray *paths) {
 	return [paths componentsJoinedByString:@" "];
 }
 
-static NSDictionary *bundlePresetChildren;
-
 NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     if (bundleIdentifier == nil) {
 		return nil;
@@ -486,13 +484,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			if (handler) {
 				return [handler loadChildrenForObject:object];
 			} else {
-				if (!bundlePresetChildren) {
-					bundlePresetChildren = [QSReg tableNamed:@"QSBundleChildPresets"];
-					//[[NSDictionary dictionaryWithContentsOfFile:
-					//	[[NSBundle mainBundle] pathForResource:@"BundleChildPresets" ofType:@"plist"]]retain];
-				}
-
-				NSString *childPreset = [bundlePresetChildren objectForKey:bundleIdentifier];
+				NSString *childPreset = [[QSReg tableNamed:@"QSBundleChildPresets"] objectForKey:bundleIdentifier];
 				if (childPreset) {
 #ifdef DEBUG
 					if (VERBOSE) NSLog(@"using preset %@", childPreset);
