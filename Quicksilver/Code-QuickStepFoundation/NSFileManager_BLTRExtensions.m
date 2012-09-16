@@ -202,32 +202,27 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 }
 
 - (NSString *)resolveAliasAtPath:(NSString *)aliasFullPath {
-	NSString *outString = nil;
-	NSURL *url;
-	FSRef aliasRef;
-	Boolean targetIsFolder;
-	Boolean wasAliased;
-
-	if (!CFURLGetFSRef((CFURLRef) [NSURL fileURLWithPath:aliasFullPath], &aliasRef) || FSResolveAliasFileWithMountFlags(&aliasRef, true, &targetIsFolder, &wasAliased, kResolveAliasFileNoUI) != noErr)
-		return nil;
-	if (url = (NSURL *)CFURLCreateFromFSRef(kCFAllocatorDefault, &aliasRef)) {
-		outString = [url path];
-		CFRelease(url);
-		return outString;
-	}
-	return nil;
+    return [self resolveAliasAtPath:aliasFullPath usingUI:NO];
 }
 
 - (NSString *)resolveAliasAtPathWithUI:(NSString *)aliasFullPath {
+    return [self resolveAliasAtPath:aliasFullPath usingUI:YES];
+}
+
+- (NSString *)resolveAliasAtPath:(NSString *)aliasFullPath usingUI:(BOOL)usingUI {
 	NSString *outString = nil;
-	NSURL *url;
+	NSURL *url = [NSURL fileURLWithPath:aliasFullPath];
 	FSRef aliasRef;
 	Boolean targetIsFolder;
 	Boolean wasAliased;
 
-	if (!CFURLGetFSRef((CFURLRef) [NSURL fileURLWithPath:aliasFullPath] , &aliasRef) || FSResolveAliasFileWithMountFlags(&aliasRef, true, &targetIsFolder, &wasAliased, 0) != noErr)
+	if (!CFURLGetFSRef((CFURLRef)url, &aliasRef))
 		return nil;
-	if (url = (NSURL *)CFURLCreateFromFSRef(kCFAllocatorDefault, &aliasRef) ) {
+
+    if (FSResolveAliasFileWithMountFlags(&aliasRef, true, &targetIsFolder, &wasAliased, (!usingUI ? kResolveAliasFileNoUI : 0)))
+        return nil;
+
+	if (url = (NSURL *)CFURLCreateFromFSRef(kCFAllocatorDefault, &aliasRef)) {
 		outString = [url path];
 		CFRelease(url);
 		return outString;
