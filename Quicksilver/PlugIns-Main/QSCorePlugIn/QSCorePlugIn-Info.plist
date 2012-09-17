@@ -1128,6 +1128,8 @@
 			<string>renameFile:withName:</string>
 			<key>feature</key>
 			<integer>1</integer>
+			<key>validatesObjects</key>
+			<true/>
 		</dict>
 		<key>QSCreateFileTemplate</key>
 		<dict>
