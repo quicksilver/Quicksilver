@@ -209,7 +209,7 @@ NSMutableDictionary *bindingsDict = nil;
 			CGContextSetAlpha(context, 0.92);
 		}
         // Use the background colour from the prefs for the text editor bg color (with a slight transparency)
-        NSColor *highlightColor = [[NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:@"QSAppearance3A"]] colorWithLighting:0.3 plasticity:0.8 ];
+        NSColor *highlightColor = [[NSUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:@"QSAppearance3B"]] colorWithAlphaComponent:0.7];
         [highlightColor set];
         NSBezierPath *roundRect = [NSBezierPath bezierPath];
 		rect = [self frame];
@@ -1708,11 +1708,11 @@ NSMutableDictionary *bindingsDict = nil;
                 }
                 newObjects = (NSArray *)filteredObjects;
             }
-            if ([newObjects count]) {
-                [parentStack addObject:newSelectedObject];
-            }
-            newSelectedObject = nil;
         }
+        if ([newObjects count]) {
+            [parentStack addObject:newSelectedObject];
+        }
+        newSelectedObject = nil;
     } else {
 		parent = [newSelectedObject parent];
 

@@ -9,7 +9,6 @@
 #import "QSFadingView.h"
 
 @interface NSView (QSAppKitPrivate)
-- (void)_setDrawsOwnDescendants:(BOOL)flag;
 - (void)_recursiveDisplayAllDirtyWithLockFocus:(BOOL)lock visRect:(NSRect)rect;
 @end
 
@@ -19,7 +18,6 @@
 	self = [super initWithFrame:frame];
 	if (self) {
 		opacity = 1.0;
-		[self _setDrawsOwnDescendants:YES];
 	}
 	return self;
 }
