@@ -811,7 +811,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		MDItemRef mdItem = MDItemCreate(kCFAllocatorDefault, (CFStringRef)path);
 		if (mdItem) {
 			// get the actual filesystem name, in case we were passed a localized path
-			newName = (NSString *)MDItemCopyAttribute(mdItem, CFSTR("kMDItemFSName"));
+			newName = [(NSString *)MDItemCopyAttribute(mdItem, kMDItemFSName) autorelease];
 		}
 		if (!newName) {
 			newName = [path lastPathComponent];
@@ -827,7 +827,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			// try getting kMDItemDisplayName first
 			// tends to work better than `displayNameAtPath:` for things like Preference Panes
 			if (mdItem) {
-				newLabel = (NSString *)MDItemCopyAttribute(mdItem, CFSTR("kMDItemDisplayName"));
+				newLabel = [(NSString *)MDItemCopyAttribute(mdItem, kMDItemDisplayName) autorelease];
 			}
 			if (!newLabel) {
 				newLabel = [manager displayNameAtPath:path];
