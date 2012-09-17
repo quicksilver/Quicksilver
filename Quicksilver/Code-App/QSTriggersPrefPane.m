@@ -45,6 +45,7 @@
 	}
 	return _sharedInstance;
 }
+
 - (NSView *)loadMainView {
 	NSView *oldMainView = [super loadMainView];
 
@@ -58,12 +59,8 @@
 }
 
 - (id)init {
-	//	self = [self initWithWindowNibName:@"Triggers"];
 	self = [super initWithBundle:[NSBundle bundleForClass:[self class]]];
 	if (self) {
-		selectedRow = -1;
-		//	[self setSort:[[[NSSortDescriptor alloc] initWithKey:@"command" ascending:YES] autorelease]];
-		//		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectTrigger:) name:NSOutlin object:triggerTable];
 		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 		[nc addObserver:self selector:@selector(triggerChanged:) name:QSTriggerChangedNotification object:nil];
 		[nc addObserver:self selector:@selector(populateTypeMenu) name:QSPlugInLoadedNotification object:nil];
@@ -119,46 +116,37 @@
 	[typeMenu autorelease];
 	typeMenu = [[NSMenu alloc] initWithTitle:@"Types"];
 
-	NSMenu *addMenu = [[NSMenu alloc] initWithTitle:@"Types"];
-
-	//NSLog(@"add %@ %@", addButton, typeMenu);
-	id item;
-
-	NSDictionary *managers = [QSReg instancesForTable:@"QSTriggerManagers"];
-
-	//	NSLog(@"populate %@", managers);
-	id manager = nil;
-	NSMutableArray *items = [NSMutableArray array];
+	NSMutableArray *menuItems = [NSMutableArray array];
 
 	id groupItem = nil;
-	for(NSString *key in managers) {
-		manager = [managers objectForKey:key];
-		item = [[[NSMenuItem alloc] initWithTitle:[(QSTriggerManager *)manager name] action:NULL keyEquivalent:@""] autorelease];
+	NSDictionary *managers = [[QSTriggerCenter sharedInstance] triggerManagers];
+	for (NSString *key in managers) {
+		QSTriggerManager *manager = [managers objectForKey:key];
+		NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:[manager name]
+													   action:NULL
+												keyEquivalent:@""] autorelease];
+
 		[item setRepresentedObject:key];
 		[item setImage:[manager image]];
-		//	[item setAction:@selector(addTrigger:)];
 		if ([key isEqualToString:@"QSGroupTrigger"])
 			groupItem = item;
 		else
-			[items addObject:item];
+			[menuItems addObject:item];
 	}
 
-	[items sortUsingDescriptors:[NSSortDescriptor descriptorArrayWithKey:@"title" ascending:YES]];
+	[menuItems sortUsingDescriptors:[NSSortDescriptor descriptorArrayWithKey:@"title" ascending:YES]];
 
-	[typeMenu performSelector:@selector(addItem:) onObjectsInArray:items returnValues:NO];
+	[typeMenu performSelector:@selector(addItem:) onObjectsInArray:menuItems returnValues:NO];
 
-	// Make a copy for addMenu
-	//NSLog(@"items %@", items);
-	items = [items valueForKeyPath:@"copy.autorelease"];
-
-	[addMenu performSelector:@selector(addItem:) onObjectsInArray:items returnValues:NO];
+	// Make a copy for for the add button menu, and add the Group type there
+	NSMenu *addMenu = [typeMenu copy];
 
 	if (groupItem) {
 		[addMenu addItem:[NSMenuItem separatorItem]];
 		[addMenu addItem:groupItem];
 	}
 
-	for(id menuItem in [addMenu itemArray]) {
+	for (id menuItem in [addMenu itemArray]) {
 		[menuItem setTarget:self];
 		[menuItem setAction:@selector(addTrigger:)];
 	}
@@ -181,22 +169,9 @@
     }
     
 	[triggerTable registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, QSTriggerDragType, nil]];
-
 	[triggerTable setVerticalMotionCanBeginDrag: TRUE];
-
-	//[[self window] setRepresentedFilename:[pTriggerSettings stringByStandardizingPath]];
-	//[[[self window] standardWindowButton:NSWindowDocumentIconButton] setImage:[NSImage imageNamed:@"DocTriggers"]];
-
-	[triggerTable setAction:@selector(outlineClicked:)];
-	[triggerTable setTarget:self];
 	[triggerTable setOutlineTableColumn:[triggerTable tableColumnWithIdentifier:@"command"]];
 	[[[triggerTable tableColumnWithIdentifier:@"type"] dataCell] setArrowPosition:NSPopUpNoArrow];
-
-	//  QSImageAndTextCell *imageAndTextCell = [[[QSImageAndTextCell alloc] initTextCell:@""] autorelease];
-	//	[imageAndTextCell setEditable: YES];
-	//	[imageAndTextCell setWraps:NO];
-	//	[imageAndTextCell setFont:[[[triggerTable tableColumnWithIdentifier: @"command"] dataCell] font]];
-	//	[[triggerTable tableColumnWithIdentifier: @"command"] setDataCell:imageAndTextCell];
 
 	NSColor *color = [triggerSetsTable backgroundColor];
 	CGFloat hue, saturation, brightness, alpha;
@@ -215,23 +190,6 @@
 	[(QSTableView *)triggerSetsTable setHighlightColor:highlightColor];
 	[(QSOutlineView *)triggerTable setHighlightColor:highlightColor];
 
-	//[[triggerTable tableColumnWithIdentifier: @"command"] bind:@"objectValue"
-	//												 toObject:triggerTreeController
-	//											 withKeyPath:@"arrangedObjects"
-	//												 options:nil];
-
-	// NSView *border = [[optionsDrawer _drawerWindow] _borderView];
-	// NSView *background = [[QSBackgroundView alloc] initWithFrame:NSMakeRect(0, 0, 200, 200)];
-
-	// [border addSubview:background];
-	// NSLog(@"%@", [[optionsDrawer _drawerWindow] _borderView]);
-	//  NSLog(@"%@", [triggerTable columnWithIdentifier:@"type"]);
-	//	[[[triggerTable columnWithIdentifier:@"type"] dataCell] setMenu:nil];
-
-	[triggerTreeController addObserver:self
-							forKeyPath:@"selectedObjects"
-							   options:0
-							   context:nil];
     [triggerTreeController addObserver:self
                             forKeyPath:@"selection.info.applicationScopeType"
                                options:0
@@ -240,74 +198,41 @@
                             forKeyPath:@"selection.info.applicationScope"
                                options:0
                                context:nil];
-	NSSortDescriptor* aSortDesc = [[[NSSortDescriptor alloc]
-                                    initWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)] autorelease];
-	[triggerArrayController setSortDescriptors:[NSArray arrayWithObject: aSortDesc]];
+	NSSortDescriptor *aSortDesc = [[[NSSortDescriptor alloc] initWithKey:@"name"
+															   ascending:YES
+																selector:@selector(caseInsensitiveCompare:)] autorelease];
+	[triggerArrayController setSortDescriptors:[NSArray arrayWithObject:aSortDesc]];
 	[triggerArrayController rearrangeObjects];
-
 	[self reloadFilters];
 
-	[triggerSetsController addObserver:self
-							forKeyPath:@"selection"
-							   options:0
-							   context:triggerSetsController];
+	/* Bind the trigger set list selection to our currentSet property */
+	[self bind:@"currentSet"
+	  toObject:triggerSetsController
+   withKeyPath:@"selection.text"
+	   options:nil];
+
+	/* Bind the list of triggers to our triggerArray property */
+	[self bind:@"triggerArray"
+	  toObject:[QSTriggerCenter sharedInstance]
+   withKeyPath:@"triggers"
+	   options:nil];
+
+	[self bind:@"selectedTrigger"
+	  toObject:triggerTreeController
+   withKeyPath:@"selection.self"
+	   options:nil];
 }
-//- (int) numberOfRowsInTableView:(NSTableView *)aTableView {
-//	return [triggerArray count];
-//}
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath rangeOfString:@"selection.info"].location != NSNotFound) {
         [[QSTriggerCenter sharedInstance] triggerChanged:[self selectedTrigger]];
         return;
     }
-	if (context == triggerSetsController) {
-
-		//	NSLog(@"trig %@", keyPath);
-		NSArray *selection = [(NSArrayController *)triggerSetsController selectedObjects];
-		[self setCurrentSet:[[selection lastObject] objectForKey:@"text"]];
-	} else {
-		//	NSLog(@"trig2 %@", keyPath);
-
-        [infoButton setEnabled:YES];
-        [removeButton setEnabled:YES];
-        
-		NSArray *selection = [triggerTreeController selectedObjects];
-        if ([selection count] != 1) {
-            if ([selection count] == 0 ) {
-                [removeButton setEnabled:NO];
-            }
-            [infoButton setEnabled:NO];
-        }
-		[self setSelectedTrigger:[selection lastObject]];
-	}
 }
 
-//- (void)outlineView:(NSOutlineView *)outlineView didClickTableColumn:(NSTableColumn *)tableColumn {
-//NSLog()
-//}
-
-//- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
-//	// theValue =
-//	NSDictionary *thisTrigger = rowIndex<0?nil:[triggerArray objectAtIndex:rowIndex];
-//	id manager = [QSReg instanceForKey:[thisTrigger objectForKey:@"type"] inTable:QSTriggerManagers];
-//
-//	if ([[aTableColumn identifier] isEqualToString: @"command"]) {
-//		return [thisTrigger name];
-////		NSMutableParagraphStyle *style = [[[NSMutableParagraphStyle alloc] init] autorelease];
-////		[style setLineBreakMode:NSLineBreakByTruncatingTail];
-////		NSMutableAttributedString *truncString = [[[NSMutableAttributedString alloc] initWithString:[command description]]autorelease];
-////		[truncString addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, [truncString length])];
-////		return truncString;
-//	} else if ([[aTableColumn identifier] isEqualToString: @"trigger"]) {
-//		return [thisTrigger description];
-//	} else {
-//		return [thisTrigger objectForKey:[aTableColumn identifier]];
-//	}
-//	return nil;
-//}
-
 - (IBAction)triggerChanged:(id)sender {
+	[triggerSetsController rearrangeObjects];
+	[triggerArrayController rearrangeObjects];
 	[triggerTable reloadData];
 }
 
@@ -321,17 +246,7 @@
 }
 
 - (IBAction)selectTrigger:(id)sender {
-
-	NSArray *triggers = [triggerTreeController selectedObjects];
-    
-	if ([triggers count] != 1) {
-		[settingsItem setView:[[[NSView alloc] init] autorelease]];
-		return;
-	}
-    
-	QSTrigger *thisTrigger = [triggers lastObject];
-
-	//	NSLog(@"trig %@", thisTrigger);
+	QSTrigger *thisTrigger = [self selectedTrigger];
 
 	id manager = [thisTrigger manager];
 	NSView *settingsView = nil;
@@ -339,43 +254,14 @@
 	if ([manager respondsToSelector:@selector(settingsView)])
 		settingsView = [manager settingsView];
 
-	if (!settingsView) settingsView = [[[NSView alloc] init] autorelease];
+	if (!settingsView)
+		settingsView = [[[NSView alloc] init] autorelease];
 
 	[settingsItem setView:settingsView];
 
 	if ([manager respondsToSelector:@selector(setCurrentTrigger:)])
 		[manager setCurrentTrigger:thisTrigger];
 }
-
-/*
- + (NSString*)_stringForModifiers: (long)modifiers
- {
- static long modToChar[4] [2] =
- {
- { cmdKey, 		 } ,
- { optionKey, 	 } ,
- { controlKey, 	 } ,
- { shiftKey, 		 }
- } ;
-
- NSString* str;
- NSString* charStr;
- long i;
-
- str = [NSString string];
-
- for( i = 0; i < 4; i++ )
- {
- if ( modifiers & modToChar[i] [0] )
- {
- charStr = [NSString stringWithCharacters: (const unichar*)&modToChar[i] [1] length: 1];
- str = [str stringByAppendingString: charStr];
- }
- }
-
- return str;
- }
- */
 
 - (QSTrigger *)selectedTrigger { return [[selectedTrigger retain] autorelease];  }
 - (void)setSelectedTrigger:(QSTrigger *)newSelectedTrigger {
@@ -393,7 +279,6 @@
 - (IBAction)editCommand:(id)sender {
 	[self editTriggerCommand:selectedTrigger callback:@selector(editSheetDidEnd:returnCode:contextInfo:)];
 }
-
 
 - (IBAction)showTriggerInfo:(id)sender {
     [optionsDrawer open:sender];
@@ -432,7 +317,7 @@
 		[[QSTriggerCenter sharedInstance] triggerChanged:trigger];
 	} else {
 		[[QSTriggerCenter sharedInstance] removeTrigger:trigger];
-		[self updateTriggerArray];
+//		[self updateTriggerArray];
 	}
     [trigger release];
 	[sheet orderOut:self];
@@ -462,9 +347,6 @@
     [info release];
 	[trigger initializeTrigger];
 	[[QSTriggerCenter sharedInstance] addTrigger:trigger];
-	[self updateTriggerArray];
-	//	[triggerArrayController
-	//[triggerTreeController setSelectedObjects:[NSArray arrayWithObject:trigger]];
 	[self selectTrigger:nil];
 
 	[triggerTable reloadData];
@@ -501,75 +383,33 @@
 	} else if ([anObject isDescendantOf:[optionsDrawer contentView]]) {
 		id manager = [[self currentTrigger] manager];
 		if ([manager respondsToSelector:@selector(windowWillReturnFieldEditor:toObject:)])
-			return [manager windowWillReturnFieldEditor:(NSWindow *)sender toObject:(id)anObject];
+			return [manager windowWillReturnFieldEditor:sender toObject:anObject];
 	}
 	return nil;
 }
 
-- (IBAction)outlineClicked:(id)sender {
-	// User has deselected a row
-    if( [triggerTable clickedColumn] == -1 ) {
-		[editButton setEnabled:NO];
-#ifdef DEBUG
-		NSLog(@"%@ with column == -1", NSStringFromSelector(_cmd));
-#endif
-        return;
-    }
-	NSTableColumn *col = [[triggerTable tableColumns] objectAtIndex:[triggerTable clickedColumn]];
-	id item = [triggerTable itemAtRow:[triggerTable clickedRow]];
-	item = [item respondsToSelector:@selector(representedObject)] ?[item representedObject] :[item observedObject];
-    //	NSLog(@"%@ %@ %d %d", item, [col identifier] , selectedRow, [triggerTable clickedRow]);
-
-  // check that the event is a mouse event (all events up to and including NSMouseExited) before doing anything else
-  if ([[NSApp currentEvent] type] <= NSMouseExited && selectedRow == [triggerTable clickedRow] && [sender clickedRow] >= 0) {
-		if ([[NSApp currentEvent] clickCount] >1) return;
-		if ( [[col identifier] isEqualToString:@"command"]) {
-			id theSelectedTrigger = item; //[[triggerArrayController arrangedObjects] objectAtIndex:[sender clickedRow]];
-			if ([theSelectedTrigger isPreset]) return;
-			[[triggerTable window] setAcceptsMouseMovedEvents:YES];
-			NSEvent *theEvent = [NSApp nextEventMatchingMask:NSLeftMouseDownMask | NSKeyDownMask | NSLeftMouseDraggedMask | NSMouseMovedMask untilDate:[NSDate dateWithTimeIntervalSinceNow:[NSEvent doubleClickTime]] inMode:NSDefaultRunLoopMode dequeue:NO];
-
-			if (!theEvent)
-				[sender editColumn:[sender clickedColumn] row:[sender clickedRow] withEvent:[NSApp currentEvent] select:YES];
-			[[triggerTable window] setAcceptsMouseMovedEvents:NO];
-		}
-	}
-	selectedRow = [triggerTable clickedRow];
-	[editButton setEnabled:YES];
-}
-
-- (void)updateTriggerArray {
-	[self setTriggerArray:[[[[[QSTriggerCenter sharedInstance] triggersDict] allValues] mutableCopy] autorelease]];
-	[triggerArrayController rearrangeObjects];
-	[triggerTreeController rearrangeObjects];
-	[triggerTable reloadData];
-}
-
-- (NSSortDescriptor *)sort { return sort;  }
+- (NSSortDescriptor *)sort { return sort; }
 
 - (void)setSort:(NSSortDescriptor *)newSort {
 	[sort release];
 	sort = [newSort retain];
 }
 
-- (NSArray *)triggerArray { return [[[QSTriggerCenter sharedInstance] triggersDict] allValues];  }
+- (NSArray *)triggerArray { return triggerArray; }
 
 - (void)setTriggerArray:(NSMutableArray *)newTriggerArray {
 	[triggerArray release];
 	triggerArray = [newTriggerArray retain];
-	//[triggerArray sortUsingDescriptors:[NSArray arrayWithObject:sort]];
 }
 
 - (IBAction)removeTrigger:(id)sender {
-	if ([triggerTable selectedRow] <0) return;
-	for(QSTrigger * trigger in [triggerTreeController selectedObjects]) {
-		//NSLog(@"trig %@", trigger);
-		if ([trigger isPreset])
-			[trigger setEnabled:NO];
-		else
-			[[QSTriggerCenter sharedInstance] removeTrigger:trigger];
-	}
-	[self updateTriggerArray];
+	if ([triggerTable selectedRow] < 0)
+		return;
+	QSTrigger *trigger = [self selectedTrigger];
+	if ([trigger isPreset])
+		[trigger setEnabled:NO];
+	else
+		[[QSTriggerCenter sharedInstance] removeTrigger:trigger];
 }
 
 - (NSString *)currentSet { return currentSet;  }
@@ -583,18 +423,18 @@
 
 - (void)showTrigger:(QSTrigger *)trigger {
 	[self showTriggerGroupWithIdentifier:[trigger triggerSet]];
-    //	NSLog(@"trig %@ %@", trigger, set);
 }
+
 - (void)showTriggerWithIdentifier:(NSString *)triggerID {
 	[self showTrigger:[[QSTriggerCenter sharedInstance] triggerWithID:triggerID]];
 }
+
 - (void)showTriggerGroupWithIdentifier:(NSString *)groupID {
 	[self setCurrentSet:groupID];
-    //	NSLog(@"index %d", index);
-	[(NSArrayController *)triggerSetsController setSelectionIndex:[[[self triggerSets] valueForKey:@"text"] indexOfObject:groupID]];
+	[triggerSetsController setSelectionIndex:[[[self triggerSets] valueForKey:@"text"] indexOfObject:groupID]];
 }
 
-- (void)handleURL:(NSURL *)url { [self showTriggerWithIdentifier:[url fragment]];  }
+- (void)handleURL:(NSURL *)url { [self showTriggerWithIdentifier:[url fragment]]; }
 
 - (void)reloadFilters {
 	NSPredicate *predicate = nil;
@@ -635,28 +475,8 @@
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {return nil;}
 
 - (void)outlineView:(NSOutlineView *)outlineView willDisplayCell:(NSCell *)aCell forTableColumn:(NSTableColumn *)aTableColumn item:(id)item {
-	item = [item respondsToSelector:@selector(representedObject)] ?[item representedObject] :[item observedObject];
-
-	//- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
-	QSTrigger *thisTrigger = item; //[[triggerArrayController arrangedObjects] objectAtIndex:rowIndex];
+	QSTrigger *thisTrigger = [item representedObject];
 	BOOL isGroup = [thisTrigger isGroup];
-
-	//	if ([[aTableColumn identifier] isEqualToString: @"command"]) {
-	//
-	//
-	//		if ([aCell isHighlighted]) {
-	//			[aCell setTextColor:[NSColor selectedTextColor]];
-	//			NSLog(@"white");
-	//		} else {
-	//			[aCell setTextColor:[NSColor textColor]];
-	//			NSLog(@"black");
-	//		}
-	//		if (![aCell isEnabled]) {
-	//			[aCell setTextColor:[[aCell textColor] colorWithAlphaComponent:0.5]];
-	//			NSLog(@"gray");
-	//		}
-	//
-	//	}
 
 	if ([[aTableColumn identifier] isEqualToString: @"type"]) {
 		if ([aCell isMemberOfClass:[NSPopUpButtonCell class]]) {
@@ -666,43 +486,20 @@
 
 			[aCell setEnabled:!isGroup && ([typeMenu numberOfItems] >1 || ![type length])];
 		}
-		return;
-	}
-	if ([[aTableColumn identifier] isEqualToString: @"enabled"]) {
-		[(NSButtonCell*)aCell setTransparent:isGroup];
-		return;
-	}
-
-	if ([[aTableColumn identifier] isEqualToString: @"trigger"]) {
-        id desc = [item triggerDescription];
-        [aCell setStringValue:( desc ? desc : @"Unknown" )];
-		[aCell setRepresentedObject:item];
-		return;
 	}
 }
 
 - (NSCell *)outlineView:(NSOutlineView *)outlineView dataCellForTableColumn:(NSTableColumn *)aTableColumn byItem:(id)item {
+	QSTrigger *thisTrigger = [item representedObject];
 
-	//- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
-	QSTrigger *thisTrigger = [item respondsToSelector:@selector(representedObject)] ?[item representedObject] :[item observedObject]; //[[triggerArrayController arrangedObjects] objectAtIndex:rowIndex];
-	//NSLog(@"cell for %@", item);
-
-	id manager = [thisTrigger manager];
-	return ([manager respondsToSelector:@selector(descriptionCellForTrigger:)]) ? [manager performSelector:@selector(descriptionCellForTrigger:) withObject:thisTrigger] : nil;
+	QSTriggerManager *manager = [thisTrigger manager];
+	return ([manager respondsToSelector:@selector(descriptionCellForTrigger:)]) ? [manager descriptionCellForTrigger:thisTrigger] : nil;
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)aTableColumn item:(id)item {
-	//- (BOOL)tableView:(NSTableView *)aTableView shouldEditTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
-	item = [item respondsToSelector:@selector(representedObject)] ?[item representedObject] :[item observedObject];
-	QSTrigger *theSelectedTrigger = item; //[[triggerArrayController selectedObjects] lastObject];
+	QSTrigger *theSelectedTrigger = [item representedObject];
 	if ([[aTableColumn identifier] isEqualToString:@"trigger"]) {
-		//BOOL shouldEdit = NO;
 		id manager = [theSelectedTrigger manager];
-		//NSLog(@"othereditor %@ %@", manager, thisTrigger);
-		//	if ([manager respondsToSelector:@selector(shouldEditTrigger:)])
-		//			shouldEdit = [manager shouldEditTrigger:theSelectedTrigger];
-		//
-		//		if (!shouldEdit)
 		[optionsDrawer open];
 		if ([manager respondsToSelector:@selector(triggerDoubleClicked:)])
 			[manager performSelector:@selector(triggerDoubleClicked:) withObject:theSelectedTrigger];
@@ -720,51 +517,32 @@
 
 		[self editTriggerCommand:theSelectedTrigger callback:@selector(editSheetDidEnd:returnCode:contextInfo:)];
 		return NO;
-		// return YES;
-	} /*else if ([[aTableColumn identifier] isEqualToString: @"type"]) { this block commented out by me
-       //NSLog(@"edit type");
-       return NO;
-       } */
+	}
 	return NO;
 }
 
 - (void)outlineView:(NSOutlineView *)outlineView setObjectValue:(id)anObject forTableColumn:(NSTableColumn *)aTableColumn byItem:(id)item {
-	//- (void)outlineView:(NSTableView *)aTableView setObjectValue:(id)anObject forTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
-	item = [item respondsToSelector:@selector(representedObject)] ?[item representedObject] :[item observedObject];
-	QSTrigger *thisTrigger = item; //[[triggerArrayController arrangedObjects] objectAtIndex:rowIndex];
+	QSTrigger *thisTrigger = [item representedObject];
 
     if ([[aTableColumn identifier] isEqualToString: @"type"]) {
-        //NSLog(@"anobject %@", anObject);
 
         NSInteger typeIndex = [anObject integerValue];
-        if (typeIndex == -1) return;
+        if (typeIndex == -1)
+			return;
         NSString *type = [[typeMenu itemAtIndex:typeIndex] representedObject];
         [thisTrigger setType:type];
         [triggerTable reloadData];
         [optionsDrawer open];
 
         [self selectTrigger:self];
-        //	} else if ([[aTableColumn identifier] isEqualToString: @"command"]) {
-        //		if (![(NSString *)anObject length])anObject = nil;
-        //		[thisTrigger setName:anObject];
-        //		[aTableView reloadData];
-
     } else if ([[aTableColumn identifier] isEqualToString: @"trigger"]) {
-        //NSLog(@"setdescrip %@", anObject);
         id manager = [thisTrigger manager];
         if ([manager respondsToSelector:@selector(trigger:setTriggerDescription:)])
             [manager trigger:[self currentTrigger] setTriggerDescription:anObject];
-
-    } else if ([[aTableColumn identifier] isEqualToString: @"enabled"]) {
-        return;
-
     }
-    //else {
-    //		[thisTrigger setValue:anObject forKey:[aTableColumn identifier]];
-    //	}
-    //
+	
     @try {
-    [[QSTriggerCenter sharedInstance] triggerChanged:thisTrigger];
+		[[QSTriggerCenter sharedInstance] triggerChanged:thisTrigger];
     }
     @catch (NSException *e) {
 #if DEBUG
@@ -831,25 +609,30 @@
 }
 
 - (NSMutableArray *)triggerSets {
-    {
-		NSMutableDictionary *sets = [QSReg tableNamed:@"QSTriggerSets"];
-		//[[[[NSSet setWithArray:[[[[QSTriggerCenter sharedInstance] triggersDict] allValues] valueForKey:@"triggerSet"]]allObjects] mutableCopy] autorelease];
-		//[sets removeObject:[NSNull null]];
-
-		NSMutableArray *setDicts = [NSMutableArray array];
-		[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"Custom Triggers", @"text", [NSImage imageNamed:@"Triggers"] , @"image", nil]];
-
-		foreachkey(key, set, sets) {
-
-			[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                                 [set objectForKey:@"name"] , @"text", [QSResourceManager imageNamed:[set objectForKey:@"icon"]], @"image", nil]];
+	if (!triggerSets) {
+		NSMutableDictionary *registrySets = [[QSReg tableNamed:@"QSTriggerSets"] mutableCopy];
+		
+		triggerSets = [[NSMutableArray alloc] initWithCapacity:[registrySets count] + 2];
+		[triggerSets addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+								@"Custom Triggers", @"text",
+								[NSImage imageNamed:@"Triggers"], @"image",
+								nil]];
+		
+		for (NSString *key in registrySets) {
+			NSDictionary *set = [registrySets objectForKey:key];
+			NSImage *icon = [QSResourceManager imageNamed:[set objectForKey:@"icon"]];
+			[triggerSets addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+									[set objectForKey:@"name"], @"text",
+									icon, @"image",
+									nil]];
 		}
-		[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"All Triggers", @"text", [NSImage imageNamed:@"Pref-Triggers"] , @"image", nil]];
-
-		//NSLog(@"sets %@", setDicts);
-		return setDicts;
+		[triggerSets addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+								@"All Triggers", @"text",
+								[NSImage imageNamed:@"Pref-Triggers"], @"image",
+								nil]];
 	}
-	return [[triggerSets retain] autorelease];
+	//NSLog(@"sets %@", setDicts);
+	return triggerSets;
 }
 - (void)setTriggerSets:(NSMutableArray *)newTriggerSets {
 	if (triggerSets != newTriggerSets) {
@@ -857,7 +640,6 @@
 		triggerSets = [newTriggerSets retain];
 	}
 }
-
 
 - (NSString *)tokenField:(NSTokenField *)tokenField editingStringForRepresentedObject:(id)representedObject {
 	NSString *path = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:representedObject];
@@ -867,7 +649,6 @@
 // The method called when the token field (e.g. the 'scope' field completes/creates a new token
 - (NSString *)tokenField:(NSTokenField *)tokenField displayStringForRepresentedObject:(id)representedObject {
 	NSString *path = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:representedObject];
-	[[QSTriggerCenter sharedInstance] triggerChanged:selectedTrigger];
 	return [[path lastPathComponent] stringByDeletingPathExtension];
 }
 
@@ -876,48 +657,15 @@
 	NSString *path = [[NSWorkspace sharedWorkspace] fullPathForApplication:editingString];
     return [[NSBundle bundleWithPath:path] bundleIdentifier];
 }
+
 - (NSTokenStyle) tokenField:(NSTokenField *)tokenField styleForRepresentedObject:(id)representedObject {
 
 	if ([representedObject hasPrefix:@"."]) return NSPlainTextTokenStyle;
 	return NSRoundedTokenStyle;
 }
+
 - (BOOL)tokenField:(NSTokenField *)tokenField hasMenuForRepresentedObject:(id)representedObject {
-	//if ([representedObject hasPrefix:@"'"] || [representedObject hasPrefix:@"."]) return NO;
 	return NO;
 }
 
 @end
-
-//Disabling "Return moves editing to next cell" in TableView (NSTableView->General)
-//When you edit cells in a tableview, pressing return, tab, or shift-tab will end the current editing (which is good), and starts editing the next cell. But of times you don't want that to happen - the user wants to edit an attribute of a given row, but it doesn't ever want to do batch changes to everything.
-//To make editing end, you need to subclass NSTableView and add code to catch the textDidEndEditing delegate notification, massage the text movement value to be something other than the return and tab text movement, and then let NSTableView handle things.
-//
-//// make return and tab only end editing, and not cause other cells to edit
-//
-//- (void)textDidEndEditing: (NSNotification *)notification
-// {
-//	NSDictionary *userInfo = [notification userInfo];
-//
-//	int textMovement = [[userInfo valueForKey:@"NSTextMovement"] intValue];
-//
-//	if (textMovement == NSReturnTextMovement
-//		 || textMovement == NSTabTextMovement
-//		 || textMovement == NSBacktabTextMovement) {
-//
-//		NSMutableDictionary *newInfo;
-//		newInfo = [NSMutableDictionary dictionaryWithDictionary: userInfo];
-//
-//		[newInfo setObject: [NSNumber numberWithInt: NSIllegalTextMovement]
-//					forKey: @"NSTextMovement"];
-//
-//		notification =
-//			[NSNotification notificationWithName: [notification name]
-//										 object: [notification object]
-//										userInfo: newInfo];
-//
-//	}
-//
-//	[super textDidEndEditing: notification];
-//	[[self window] makeFirstResponder:self];
-//
-//} // textDidEndEditing
