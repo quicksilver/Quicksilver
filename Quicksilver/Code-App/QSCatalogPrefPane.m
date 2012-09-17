@@ -179,9 +179,18 @@ static id _sharedInstance;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateEntrySelection) name:NSOutlineViewSelectionDidChangeNotification object:nil];
 
 	[itemTable reloadData];
+    
     // !!! Andre Berg 20091015:  an empty index set will deselect everything? Is this intended here?
 	//[itemTable selectRowIndexes:[NSIndexSet indexSet] byExtendingSelection:NO];
 	[self updateEntrySelection];
+}
+
+
+- (IBAction)removeItem:(id)sender {
+//    remove the item from the tree controller
+    [treeController remove:sender];
+//    Write the catalog to save the changes
+    [QSLib writeCatalog:sender];
 }
 
 - (IBAction)restoreDefaultCatalog:(id)sender {
@@ -362,7 +371,6 @@ static id _sharedInstance;
 		if ([itemTable selectedRow] >= 0)
 			newItem = [[treeController selectedObjects] lastObject];
 		if (currentItem != newItem) {
-			[[QSLibrarian sharedInstance] writeCatalog:self];
 			[self setCurrentItem:newItem];
 /* [self updateCurrentItemContents];*/ [itemContentsTable reloadData];
 			[self populateCatalogEntryFields];
