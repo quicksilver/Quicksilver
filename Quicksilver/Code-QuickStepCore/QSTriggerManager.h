@@ -20,7 +20,6 @@
 
 - (QSTrigger *)settingsSelection;
 - (NSWindow *)triggerDisplayWindowWithTrigger:(QSTrigger *)trigger;
-- (NSString *)name;
 @end
 
 @interface QSGroupTriggerManager : QSTriggerManager
