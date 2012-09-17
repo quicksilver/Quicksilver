@@ -21,9 +21,9 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 // writes the selected data to the general pasteboard
 bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) {
 	if ([NSURLPboardType isEqualToString:type]) {
-		[[NSURL URLWithString:data] writeToPasteboard:pasteboard];
-		[pasteboard addTypes:[NSArray arrayWithObject:NSStringPboardType] owner:nil];
+		[pasteboard addTypes:[NSArray arrayWithObjects:NSURLPboardType, NSStringPboardType, nil] owner:nil];
 		[pasteboard setString:([data hasPrefix:@"mailto:"]) ?[data substringFromIndex:7] :data forType:NSStringPboardType];
+		[pasteboard setString:[data URLDecoding] forType:NSURLPboardType];
 	} else if ([PLISTTYPES containsObject:type] || [data isKindOfClass:[NSDictionary class]] || [data isKindOfClass:[NSArray class]])
 		[pasteboard setPropertyList:data forType:type];
 	else if ([data isKindOfClass:[NSString class]])

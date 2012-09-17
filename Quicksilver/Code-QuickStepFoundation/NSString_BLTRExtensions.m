@@ -161,7 +161,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	}
 	
 	// escape embedded %-signs that don't appear to actually be escape sequences, and pre-decode the result to avoid double-encoding
-	return [(NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) string, CFSTR("#"), NULL, encoding) autorelease];
+	return [(NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) string, NULL, NULL, encoding) autorelease];
 }
 
 - (NSString *)URLEncodeValue {
