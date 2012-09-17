@@ -11,10 +11,11 @@
 #import "QSDownloads.h"
 
 @implementation QSDownloads
-- (id)resolveProxyObject:(id)proxy {
-    NSFileManager *manager = [NSFileManager defaultManager];
+
++ (NSURL *)downloadsLocation
+{
+	NSFileManager *manager = [NSFileManager defaultManager];
     NSString *downloads = nil;
-	NSURL *downloadsURL = nil;
     // Try and get the user's downloads folder setting (set in Safari)
 	NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
 	NSDictionary *safariPrefs = [defaults persistentDomainForName:@"com.apple.Safari"];
@@ -23,21 +24,26 @@
     
     if (downloads) {
 		downloads = [downloads stringByResolvingSymlinksInPath];
-		downloadsURL = [NSURL URLWithString:downloads];
+		return [NSURL URLWithString:downloads];
     } else {
 		// fall back to the default downloads folder if the user settings couldn't be resolved
 		NSArray *downloadURLs = [manager URLsForDirectory:NSDownloadsDirectory inDomains:NSUserDomainMask];
 		if ([downloadURLs count]) {
-			downloadsURL = [downloadURLs objectAtIndex:0];
+			return [downloadURLs objectAtIndex:0];
 		}
 	}
-    
+	return nil;
+}
+
+- (id)resolveProxyObject:(id)proxy {
+	NSURL *downloadsURL = [QSDownloads downloadsLocation];
     if (!downloadsURL) {
-        NSLog(@"Unable to locate downloads folder (path: %@)",downloads);
+        NSLog(@"Unable to locate downloads folder");
         NSBeep();
         return nil;
     }
     
+	NSFileManager *manager = [NSFileManager defaultManager];
     NSError *err = nil;
     // An array of the directory contents, keeping the isDirectory key, attributeModificationDate key and skipping hidden files
 	NSArray *contents = [manager contentsOfDirectoryAtURL:downloadsURL
