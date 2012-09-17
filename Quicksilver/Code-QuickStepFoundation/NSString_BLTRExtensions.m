@@ -161,7 +161,12 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	}
 	
 	// escape embedded %-signs that don't appear to actually be escape sequences, and pre-decode the result to avoid double-encoding
-	return [(NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) string, NULL, NULL, encoding) autorelease];
+	string = [(NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) string, NULL, NULL, encoding) autorelease];
+	// decode the first occurence of '#' since it's valid
+	NSRange poundSymbolRange = [string rangeOfString:@"%23"];
+	if (poundSymbolRange.location != NSNotFound)
+		string = [string stringByReplacingCharactersInRange:poundSymbolRange withString:@"#"];
+	return string;
 }
 
 - (NSString *)URLEncodeValue {
