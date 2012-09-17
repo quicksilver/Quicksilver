@@ -579,7 +579,17 @@
 
 	if ([[NSFileManager defaultManager] moveItemAtPath:path toPath:destinationFile error:nil]) {
 		[[NSWorkspace sharedWorkspace] noteFileSystemChanged:container];
-		return [QSObject fileObjectWithPath:destinationFile];
+		QSObject *renamed = [QSObject fileObjectWithPath:destinationFile];
+		if ([[renamed displayName] isEqualToString:[dObject displayName]]) {
+			/* label is preferred over name. They should be the same here,
+			   but since label comes from Spotlight metadata, there can be
+			   a delay causing the original filename to appear. If that
+			   happens, ignore (wipe out) the invalid label, allowing the
+			   new name to appear.
+			*/
+			[renamed setLabel:nil];
+		}
+		return renamed;
 	} else {
 		[[NSAlert alertWithMessageText:@"error" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Error renaming File: %@ to %@", path, destinationFile] runModal];
 	}
