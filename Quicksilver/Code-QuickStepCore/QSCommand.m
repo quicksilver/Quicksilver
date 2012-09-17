@@ -137,12 +137,16 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
     
 	QSTrigger *trigger = [QSTrigger triggerWithDictionary:info];
 	[trigger initializeTrigger];
-	[[QSTriggerCenter sharedInstance] addTrigger:trigger];
+	[(QSTriggerCenter *)[QSTriggerCenter sharedInstance] addTrigger:trigger];
+	[self performSelectorOnMainThread:@selector(selectTriggerInPrefPane:) withObject:trigger waitUntilDone:YES];
+	return nil;
+}
+
+- (void)selectTriggerInPrefPane:(QSTrigger *)trigger {
 	[[NSClassFromString(@"QSPreferencesController") sharedInstance] showPaneWithIdentifier:@"QSTriggersPrefPane"];
 	[[NSClassFromString(@"QSTriggersPrefPane") sharedInstance] showTrigger:trigger];
-    [[NSClassFromString(@"QSTriggersPrefPane") sharedInstance] setTabViewIndex:0];
-    [[NSClassFromString(@"QSTriggersPrefPane") sharedInstance] showTriggerInfo:trigger];
-    return nil;
+	[[NSClassFromString(@"QSTriggersPrefPane") sharedInstance] setTabViewIndex:0];
+	[[NSClassFromString(@"QSTriggersPrefPane") sharedInstance] showTriggerInfo:trigger];
 }
 
 - (QSObject *)executeCommand:(QSObject *)dObject afterDelay:(QSObject *)iObject {
