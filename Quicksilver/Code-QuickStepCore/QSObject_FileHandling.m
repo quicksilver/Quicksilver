@@ -826,7 +826,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			// try getting kMDItemDisplayName first
 			// tends to work better than `displayNameAtPath:` for things like Preference Panes
 			if (mdItem) {
-				newLabel = (NSString *)MDItemCopyAttribute(mdItem, CFSTR("kMDItemDisplayName"));
+				newLabel = [(NSString *)MDItemCopyAttribute(mdItem, CFSTR("kMDItemDisplayName")) autorelease];
 			}
 			if (!newLabel) {
 				newLabel = [manager displayNameAtPath:path];
