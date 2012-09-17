@@ -577,11 +577,13 @@
 
 	NSString *destinationFile = [container stringByAppendingPathComponent:newName];
 
-	if ([[NSFileManager defaultManager] moveItemAtPath:path toPath:destinationFile error:nil])
+	if ([[NSFileManager defaultManager] moveItemAtPath:path toPath:destinationFile error:nil]) {
 		[[NSWorkspace sharedWorkspace] noteFileSystemChanged:container];
-	else
+		return [QSObject fileObjectWithPath:destinationFile];
+	} else {
 		[[NSAlert alertWithMessageText:@"error" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Error renaming File: %@ to %@", path, destinationFile] runModal];
-	return [QSObject fileObjectWithPath:destinationFile];
+	}
+	return nil;
 }
 
 - (QSObject *)duplicateFile:(QSObject *)dObject {
