@@ -456,14 +456,16 @@ void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, NSInteger cou
 		fadedColor, NSForegroundColorAttributeName,
 		style, NSParagraphStyleAttributeName,
 		nil];
+    
 }
 
 // method for drawing the text (e.g. object label, name etc.) on the interface
 - (void)drawTextForObject:(QSObject *)drawObject withFrame:(NSRect)cellFrame inView:(NSView *)controlView {
 	if ([self imagePosition] != NSImageOnly) { // Text Drawing Routines
 		NSString *abbreviationString = nil;
-		if ([controlView respondsToSelector:@selector(matchedString)])
-			abbreviationString = [(QSSearchObjectView *)controlView matchedString];
+		if ([controlView respondsToSelector:@selector(matchedString)]) {
+			abbreviationString = [(QSSearchObjectView *)controlView matchedString];   
+        }
         
 		NSString *nameString = nil;
 		NSIndexSet *hitMask = nil;
@@ -472,12 +474,9 @@ void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, NSInteger cou
 		if (ranker && abbreviationString) {
 			nameString = [ranker matchedStringForAbbreviation:abbreviationString hitmask:&hitMask inContext:nil];
         }
+        
 		if (!nameString) nameString = [drawObject displayName];
-		if (!nameString) nameString = @"<Unknown>";
-        
-		//NSLog(@"usingname: %@", nameString);
-		NSSize nameSize = [nameString sizeWithAttributes:nameAttributes];
-        
+                
         BOOL validDetailsString = NO;
         
         NSString *detailsString = [drawObject details];
@@ -492,7 +491,8 @@ void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, NSInteger cou
 		NSRect textDrawRect = [self titleRectForBounds:cellFrame];
         
 		NSMutableAttributedString *titleString = [[[NSMutableAttributedString alloc] initWithString:nameString] autorelease];
-		[titleString setAttributes:nameAttributes range:NSMakeRange(0, [titleString length])];
+        [titleString setAttributes:nameAttributes range:NSMakeRange(0, [titleString length])];
+        
         
 		if (abbreviationString && ![abbreviationString hasPrefix:@"QSActionMnemonic"]) {
 			[titleString addAttribute:NSForegroundColorAttributeName value:fadedColor range:NSMakeRange(0, [titleString length])];
@@ -509,12 +509,9 @@ void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, NSInteger cou
                                         [NSNumber numberWithDouble:1.0] , NSBaselineOffsetAttributeName,
                                         nil];
             
-            //	  NSLog(@"hit %@ %@", [titleString string] , hitMask);
 			for(i = 0; i<count; i += j) {
 				for (j = 1; i+j<count && hits[i+j-1] +1 == hits[i+j]; j++);
-				//	 NSLog(@"hit (%d, %d) ", hits[i] , j);
 				[titleString addAttributes:attributes range:NSMakeRange(hits[i], j)];
-				//				 NSLog(@"5");
 			}
 		} else {
 			[titleString addAttribute:NSBaselineOffsetAttributeName value:[NSNumber numberWithDouble:-1.0] range:NSMakeRange(0, [titleString length])];
@@ -525,7 +522,8 @@ void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, NSInteger cou
             detailsSize = [detailsString sizeWithAttributes:detailsAttributes];
             
             if (showDetails && ([[NSUserDefaults standardUserDefaults] integerForKey:@"QSResultViewRowHeight"] >= 34)) {
-                //NSLog(@"Strings are %@, %@, sizes are %@, %@", nameString, detailsString, NSStringFromSize(nameSize), NSStringFromSize(detailsSize));
+                NSSize nameSize = [nameString sizeWithAttributes:nameAttributes];
+
                 CGFloat detailHeight = NSHeight(textDrawRect) -nameSize.height;
                 NSRange returnRange;
                 if (detailHeight<detailsSize.height && (returnRange = [detailsString rangeOfString:@"\n"]) .location != NSNotFound)
@@ -533,11 +531,27 @@ void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, NSInteger cou
                 if ([detailsString length] >100) detailsString = [detailsString substringWithRange:NSMakeRange(0, 100)];
                 // ***warning  ** this should take first line only?
                 //if ([titleString length]) [titleString appendAttributedString:;
-                [titleString appendAttributedString:
-                 [[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", [titleString length] ?@"\r":@"", detailsString] attributes:detailsAttributes] autorelease]
-                 ];
                 
             }
+        }
+        
+        // Ranked string and ranked string aren't the same. Show 'nameString [rankedString]' in the UI
+        if (![nameString isEqualToString:[drawObject displayName]]) {
+            [titleString addAttribute:NSFontAttributeName value:detailsFont range:NSMakeRange(0,[titleString length])];
+            NSMutableAttributedString *attributedNameString = [[NSMutableAttributedString alloc] initWithString:[drawObject displayName]];
+            [attributedNameString setAttributes:nameAttributes range:NSMakeRange(0, [[drawObject displayName] length])];
+            // Make the 'nameString' slightly ligher since it didn't match
+            [attributedNameString addAttribute:NSForegroundColorAttributeName value:[fadedColor colorWithAlphaComponent:0.8] range:NSMakeRange(0, [[drawObject displayName] length])];
+            [attributedNameString appendAttributedString:[[[NSAttributedString alloc] initWithString:@" [" attributes:detailsAttributes] autorelease]];
+            // the replaceCharacters... method inserts the new string into the receiver if
+            [titleString appendAttributedString:[[[NSAttributedString alloc] initWithString:@"]" attributes:detailsAttributes] autorelease]];
+            [titleString replaceCharactersInRange:NSMakeRange(0,0) withAttributedString:attributedNameString];
+            [attributedNameString release];
+        }
+        
+        if (detailsString != nil && detailsString.length) {
+            [titleString appendAttributedString:
+             [[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@",detailsString] attributes:detailsAttributes] autorelease]];
         }
 		NSRect centerRect = rectFromSize([titleString size]);
 		centerRect.size.width = NSWidth(textDrawRect);
