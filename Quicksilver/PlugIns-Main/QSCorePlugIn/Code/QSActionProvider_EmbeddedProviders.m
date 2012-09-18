@@ -591,7 +591,8 @@
 		}
 		return renamed;
 	} else {
-		[[NSAlert alertWithMessageText:@"error" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Error renaming File: %@ to %@", path, destinationFile] runModal];
+		NSString *errorMessage = [NSString stringWithFormat:@"Error renaming File: %@ to %@", path, destinationFile];
+		QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:@"QSRenameFileFailed", QSNotifierType, [QSResourceManager imageNamed:@"AlertStopIcon"], QSNotifierIcon, @"Quicksilver File Rename", QSNotifierTitle, errorMessage, QSNotifierText, nil]);
 	}
 	return nil;
 }
