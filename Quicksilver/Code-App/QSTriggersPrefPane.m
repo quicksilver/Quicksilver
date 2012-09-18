@@ -61,8 +61,14 @@
 	self = [super initWithBundle:[NSBundle bundleForClass:[self class]]];
 	if (self) {
 		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-		[nc addObserver:self selector:@selector(triggerChanged:) name:QSTriggerChangedNotification object:nil];
-		[nc addObserver:self selector:@selector(populateTypeMenu) name:QSPlugInLoadedNotification object:nil];
+		[nc addObserver:self
+			   selector:@selector(triggerChanged:)
+				   name:QSTriggerChangedNotification
+				 object:nil];
+		[nc addObserver:self
+			   selector:@selector(populateTypeMenu)
+				   name:QSPlugInLoadedNotification
+				 object:nil];
 		commandEditor = [[QSCommandBuilder alloc] init];
 		[self setCurrentSet:@"Custom Triggers"];
 	}
@@ -208,6 +214,7 @@
    withKeyPath:@"triggers"
 	   options:nil];
 
+	/* Bind the trigger tree selection to our selectedTrigger property */
 	[self bind:@"selectedTrigger"
 	  toObject:triggerTreeController
    withKeyPath:@"selection.self"
@@ -447,7 +454,7 @@
 		else
 			predicate = searchPredicate;
 	}
-    //	NSLog(@"arranged %@", [triggerArrayController arrangedObjects]);
+
 	[triggerArrayController setFilterPredicate:predicate];
 }
 
