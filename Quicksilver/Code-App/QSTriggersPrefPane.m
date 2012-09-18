@@ -98,15 +98,6 @@
 
 - (NSArray *)typeMenuNames { return [[typeMenu itemArray] valueForKey:@"title"];  }
 
-- (NSArray *)setNames {
-	NSMutableArray *sets = [[[[NSSet setWithArray:[[[[QSTriggerCenter sharedInstance] triggersDict] allValues] valueForKey:@"triggerSet"]]allObjects] mutableCopy] autorelease];
-	[sets removeObject:[NSNull null]];
-	//	[sets addObject:@"- "];
-	[sets addObject:@"All Triggers"];
-	[sets addObject:@"Custom"];
-	return sets;
-}
-
 - (BOOL)currentSetIsEnabled { return YES;  }
 
 - (void)setCurrentSetIsEnabled:(BOOL)flag {}
@@ -159,6 +150,7 @@
 - (void)awakeFromNib {
 	typeMenu = nil;
 	[self populateTypeMenu];
+	[self buildTriggerSets];
     
     [addButton setKeyEquivalent:@"+"];
     [removeButton setKeyEquivalent:@"-"];
@@ -606,32 +598,34 @@
 	return YES;
 }
 
-- (NSMutableArray *)triggerSets {
-	if (!triggerSets) {
-		NSMutableDictionary *registrySets = [[QSReg tableNamed:@"QSTriggerSets"] mutableCopy];
-		
-		triggerSets = [[NSMutableArray alloc] initWithCapacity:[registrySets count] + 2];
-		[triggerSets addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-								@"Custom Triggers", @"text",
-								[NSImage imageNamed:@"Triggers"], @"image",
-								nil]];
-		
-		for (NSString *key in registrySets) {
-			NSDictionary *set = [registrySets objectForKey:key];
-			NSImage *icon = [QSResourceManager imageNamed:[set objectForKey:@"icon"]];
-			[triggerSets addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-									[set objectForKey:@"name"], @"text",
-									icon, @"image",
-									nil]];
-		}
-		[triggerSets addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-								@"All Triggers", @"text",
-								[NSImage imageNamed:@"Pref-Triggers"], @"image",
-								nil]];
+- (void)buildTriggerSets {
+	NSMutableDictionary *registrySets = [[QSReg tableNamed:@"QSTriggerSets"] mutableCopy];
+
+	NSMutableArray *sets = [[NSMutableArray alloc] initWithCapacity:[registrySets count] + 2];
+	[sets addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+					 @"Custom Triggers", @"text",
+					 [NSImage imageNamed:@"Triggers"], @"image",
+					 nil]];
+
+	for (NSString *key in registrySets) {
+		NSDictionary *set = [registrySets objectForKey:key];
+		NSImage *icon = [QSResourceManager imageNamed:[set objectForKey:@"icon"]];
+		[sets addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+						 [set objectForKey:@"name"], @"text",
+						 icon, @"image",
+						 nil]];
 	}
-	//NSLog(@"sets %@", setDicts);
-	return triggerSets;
+	[sets addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+					 @"All Triggers", @"text",
+					 [NSImage imageNamed:@"Pref-Triggers"], @"image",
+					 nil]];
+	[self setTriggerSets:sets];
 }
+
+- (NSMutableArray *)triggerSets {
+	return [[triggerSets retain] autorelease];
+}
+
 - (void)setTriggerSets:(NSMutableArray *)newTriggerSets {
 	if (triggerSets != newTriggerSets) {
 		[triggerSets release];
