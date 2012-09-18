@@ -25,12 +25,6 @@
 #import "QSTableView.h"
 #import "QSOutlineView.h"
 
-@interface QSObject (NSTreeNodePrivate)
-//- (NSIndexPath *)indexPath;
-- (id)observedObject;
-//- (id)objectAtIndexPath:(NSIndexPath *)path;
-@end
-
 @implementation QSTriggersArrayController
 - (void)prepareContent {}
 @end
@@ -556,7 +550,6 @@
 - (BOOL)outlineView:(NSOutlineView *)outlineView writeItems:(NSArray *)items toPasteboard:(NSPasteboard *)pboard {
     if([items count] == 0)
         return NO;
-    //    items = ([items count] && [[items lastObject] respondsToSelector:@selector(representedObject)]) ? [items valueForKey:@"representedObject"] : [items valueForKey:@"observedObject"];
 
 	[pboard declareTypes:[NSArray arrayWithObject:QSTriggerDragType] owner:self];
     NSArray *indexes = [items valueForKey:@"indexPath"];
@@ -568,7 +561,7 @@
 
 - (NSDragOperation)outlineView:(NSOutlineView *)outlineView validateDrop:(id <NSDraggingInfo>)info proposedItem:(id)item proposedChildIndex:(NSInteger)index {
 	id realItem = item;
-	item = [item respondsToSelector:@selector(representedObject)] ? [item representedObject] : [item observedObject];
+	item = [item representedObject];
     NSInteger dragOperation = (([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) ? NSDragOperationCopy : NSDragOperationMove);
 
     /*    if ([draggedEntries containsObject:item])
@@ -596,7 +589,7 @@
 - (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)index {
 	//id treeItem = item;
 	//NSIndexPath *indexPath = [item indexPath];
-	item = [item respondsToSelector:@selector(representedObject)] ? [item representedObject] : [item observedObject];
+	item = [item representedObject];
     NSLog(@"drop on %@ - %@ at index %ld", item, [item identifier], (long)index);
     
 	[triggerArrayController rearrangeObjects];
