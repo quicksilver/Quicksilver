@@ -552,7 +552,9 @@ void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, NSInteger cou
             [attributedNameString release];
         }
         
-        if (detailsString != nil && detailsString.length) {
+        // Append the details string if it exists, and the UI wants it (showDetails BOOL)
+        if (detailsString != nil && detailsString.length &&
+            showDetails && ([[NSUserDefaults standardUserDefaults] integerForKey:@"QSResultViewRowHeight"] >= 34)) {
             [titleString appendAttributedString:
              [[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@",detailsString] attributes:detailsAttributes] autorelease]];
         }
