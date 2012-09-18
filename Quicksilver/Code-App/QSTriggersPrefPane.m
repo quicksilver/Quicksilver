@@ -35,9 +35,14 @@
 + (QSTriggersPrefPane *)sharedInstance {
 	static QSTriggersPrefPane *_sharedInstance = nil;
 	if (!_sharedInstance) {
-		_sharedInstance = [[[self class] allocWithZone:[self zone]] init];
+		_sharedInstance = [[super allocWithZone:[self zone]] init];
 	}
 	return _sharedInstance;
+}
+
++ (id)allocWithZone:(NSZone *)zone
+{
+    return [[self sharedInstance] retain];
 }
 
 - (NSView *)loadMainView {
