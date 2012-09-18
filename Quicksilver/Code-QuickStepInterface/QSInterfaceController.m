@@ -341,7 +341,25 @@
 }
 
 - (void)updateIndirectObjects {
-	NSArray *indirects = [[[aSelector objectValue] provider] validIndirectObjectsForAction:[[aSelector objectValue] identifier] directObject:[dSelector objectValue]];
+    QSAction *aObj = [aSelector objectValue];
+    id actionProvider = [aObj provider];
+    NSArray *indirects = nil;
+    if (actionProvider && [actionProvider respondsToSelector:@selector(validIndirectObjectsForAction:directObject:)]) {
+        indirects = [actionProvider validIndirectObjectsForAction:[aObj identifier] directObject:[dSelector objectValue]];
+    }
+    // If the validIndirectObjectsForAction... method hasn't been implemented, attempt to get valid indirects from the action's 'indirectTypes'
+    if(!indirects) {
+        if ([aObj indirectTypes]) {
+            NSMutableArray *indirectsForAllTypes = [[NSMutableArray alloc] initWithCapacity:0];
+            for (NSString *eachType in [aObj indirectTypes]) {
+                [indirectsForAllTypes addObjectsFromArray:[QSLib arrayForType:eachType]];
+            }
+            if ([indirectsForAllTypes count]) {
+                indirects = [[indirectsForAllTypes copy] autorelease];
+            }
+            [indirectsForAllTypes release];
+        }
+    }
 	[self updateControl:iSelector withArray:indirects];
 	[iSelector setSearchMode:(indirects?SearchFilter:SearchFilterAll)];
 }
