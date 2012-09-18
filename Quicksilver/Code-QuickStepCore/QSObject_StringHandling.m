@@ -47,6 +47,7 @@
 + (id)objectWithString:(NSString *)string { return [[(QSObject *)[QSObject alloc] initWithString:string] autorelease];  }
 - (id)initWithString:(NSString *)string {
     if (![string length]) {
+		[self release];
         return nil;
     }
 	if (self = [self init]) {
