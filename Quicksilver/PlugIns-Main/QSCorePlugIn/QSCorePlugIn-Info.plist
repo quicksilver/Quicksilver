@@ -1257,8 +1257,6 @@
 			</array>
 			<key>precedence</key>
 			<real>1</real>
-			<key>commandFormat</key>
-			<string>Open %@</string>
 			<key>validatesObjects</key>
 			<true/>
 			<key>actionSelector</key>
