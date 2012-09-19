@@ -874,8 +874,6 @@
 				<string>rb</string>
 				<string></string>
 			</array>
-			<key>description</key>
-			<string>Run a Shell Script</string>
 			<key>icon</key>
 			<string>ExecutableBinaryIcon</string>
 		</dict>
