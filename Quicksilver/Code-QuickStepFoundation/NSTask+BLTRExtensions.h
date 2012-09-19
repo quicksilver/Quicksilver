@@ -11,5 +11,6 @@
 
 @interface NSTask (BLTRExtensions)
 + (NSTask *)taskWithLaunchPath:(NSString *)path arguments:(NSArray *)arguments;
++ (NSTask *)taskWithLaunchPath:(NSString *)path arguments:(NSArray *)arguments input:(NSData *)inputData;
 - (NSData *)launchAndReturnOutput;
 @end
