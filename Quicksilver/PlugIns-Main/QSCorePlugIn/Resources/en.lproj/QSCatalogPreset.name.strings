@@ -214,8 +214,6 @@
 	<string>Scripts</string>
 	<key>QSPresetShelves</key>
 	<string>Shelf &amp; Clipboard</string>
-	<key>QSPresetSherlockChannels</key>
-	<string>Sherlock Channels</string>
 	<key>QSPresetSidebarItems</key>
 	<string>Finder Sidebar</string>
 	<key>QSPresetSogudiShortcuts</key>

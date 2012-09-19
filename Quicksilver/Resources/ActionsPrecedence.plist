@@ -42,8 +42,6 @@
 	<integer>1</integer>
 	<key>QSPutOnShelfAction</key>
 	<real>-0.5</real>
-	<key>QSSherlockChannelShowAction</key>
-	<integer>5</integer>
 	<key>QSUserSwitchAction</key>
 	<integer>2</integer>
 	<key>QSiPhotoAlbumShowAction</key>

@@ -208,8 +208,6 @@
 	<string>Show</string>
     <key>QSShellScriptRunAction</key>
     <string>Run [...]</string>
-    <key>QSSherlockChannelShowAction</key>
-    <string>Show Channel</string>
 	<key>QSTextShowDialogAction</key>
 	<string>Display Dialog</string>
     <key>QSTextSpeakAction</key>

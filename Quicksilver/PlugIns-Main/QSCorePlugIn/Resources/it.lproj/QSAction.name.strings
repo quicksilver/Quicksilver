@@ -140,8 +140,6 @@
 	<string>Metti sullo Shelf</string>
 	<key>QSShelfShowAction</key>
 	<string>Mostra</string>
-	<key>QSSherlockChannelShowAction</key>
-	<string>Mostra Canale</string>
 	<key>QSTextAppendAction</key>
 	<string>Aggiungi Testo In Coda A...</string>
 	<key>QSTextDiffAction</key>
