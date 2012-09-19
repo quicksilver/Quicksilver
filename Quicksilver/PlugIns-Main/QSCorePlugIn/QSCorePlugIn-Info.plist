@@ -471,13 +471,13 @@
 								<key>bundle</key>
 								<string>com.apple.recentitems</string>
 								<key>type</key>
-								<integer>3</integer>
+								<integer>2</integer>
 								<key>keypath</key>
 								<array>
-									<string>RecentServers</string>
+									<string>Hosts</string>
 									<string>CustomListItems</string>
 									<string>*</string>
-									<string>Alias</string>
+									<string>URL</string>
 								</array>
 							</dict>
 							<key>icon</key>
@@ -510,6 +510,30 @@
 					<string>SafariHistoryIcon</string>
 					<key>ID</key>
 					<string>QSPresetRecentItems</string>
+				</dict>
+				<dict>
+					<key>ID</key>
+					<string>QSPresetFavoriteServers</string>
+					<key>enabled</key>
+					<true/>
+					<key>icon</key>
+					<string>GenericFileServerIcon</string>
+					<key>settings</key>
+					<dict>
+						<key>bundle</key>
+						<string>com.apple.sidebarlists</string>
+						<key>keypath</key>
+						<array>
+							<string>favoriteservers</string>
+							<string>CustomListItems</string>
+							<string>*</string>
+							<string>URL</string>
+						</array>
+						<key>type</key>
+						<integer>2</integer>
+					</dict>
+					<key>source</key>
+					<string>QSDefaultsObjectSource</string>
 				</dict>
 			</array>
 			<key>catalogPath</key>
