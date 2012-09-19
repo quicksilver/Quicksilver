@@ -1,14 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>Plugins</key>
-	<string>Plugins</string>
-	<key>Reload plugin list</key>
-	<string>Recharger la liste des plugins</string>
-	<key>Updated</key>
-	<string>Mis à jour</string>
-	<key>Vers.</key>
-	<string>Vers.</string>
-</dict>
-</plist>
+"Vers." = "Vers.";
+"Updated" = "Mis à jour";
+"Reload plugin list" = "Recharger la liste des plugins";
+"Plugins" = "Plugins";

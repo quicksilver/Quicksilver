@@ -1,30 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>Add source...</key>
-	<string>Add source...</string>
-	<key>Delete selected source</key>
-	<string>Delete selected source</string>
-	<key>Every 10 minutes</key>
-	<string>Every 10 minutes</string>
-	<key>Every day</key>
-	<string>Every day</string>
-	<key>Every half hour</key>
-	<string>Every half hour</string>
-	<key>Every hour</key>
-	<string>Every hour</string>
-	<key>Manually</key>
-	<string>Manually</string>
-	<key>Rescan</key>
-	<string>Rescan</string>
-	<key>Rescan frequency</key>
-	<string>Rescan frequency</string>
-	<key>Rescan source</key>
-	<string>Rescan source</string>
-	<key>Show Info</key>
-	<string>Show Info</string>
-	<key>Sources</key>
-	<string>Sources</string>
-</dict>
-</plist>
+"Every 10 minutes" = "Every 10 minutes";
+"Manually" = "Manually";
+"Rescan" = "Rescan";
+"Show Info" = "Show Info";
+"Delete selected source" = "Delete selected source";
+"Every day" = "Every day";
+"Add source..." = "Add source...";
+"Every half hour" = "Every half hour";
+"Rescan source" = "Rescan source";
+"Sources" = "Sources";
+"Every hour" = "Every hour";
+"Rescan frequency" = "Rescan frequency";

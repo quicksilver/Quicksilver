@@ -1,18 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>Actions</key>
-	<string>Actions</string>
-	<key>Box</key>
-	<string>Box</string>
-	<key>Rank</key>
-	<string>Rank</string>
-	<key>Type</key>
-	<string>Type</string>
-	<key>by Plugin</key>
-	<string>by Plugin</string>
-	<key>by Type</key>
-	<string>by Type</string>
-</dict>
-</plist>
+"Box" = "Box";
+"by Type" = "by Type";
+"Rank" = "Rank";
+"Actions" = "Actions";
+"Type" = "Type";
+"by Plugin" = "by Plugin";

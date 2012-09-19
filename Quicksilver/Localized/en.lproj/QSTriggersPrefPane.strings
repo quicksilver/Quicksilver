@@ -1,16 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>Add trigger...</key>
-	<string>Add trigger...</string>
-	<key>Command</key>
-	<string>Command</string>
-	<key>Delete selected trigger</key>
-	<string>Delete selected trigger</string>
-	<key>Trigger</key>
-	<string>Trigger</string>
-	<key>Trigger Info</key>
-	<string>Trigger Info</string>
-</dict>
-</plist>
+"Trigger" = "Trigger";
+"Trigger Info" = "Trigger Info";
+"Delete selected trigger" = "Delete selected trigger";
+"Command" = "Command";
+"Add trigger..." = "Add trigger...";

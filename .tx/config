@@ -22,3 +22,28 @@ file_filter = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/<lang>.lproj/QSAct
 source_file = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/en.lproj/QSAction.name.strings
 source_lang = en
 
+[quicksilver.QSCatalogPresetName]
+file_filter = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/<lang>.lproj/QSCatalogPreset.name.strings
+source_file = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/en.lproj/QSCatalogPreset.name.strings
+source_lang = en
+
+[quicksilver.QSParserName]
+file_filter = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/<lang>.lproj/QSParser.name.strings
+source_file = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/en.lproj/QSParser.name.strings
+source_lang = en
+
+[quicksilver.QSObjectSourceName]
+file_filter = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/<lang>.lproj/QSObjectSource.name.strings
+source_file = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/en.lproj/QSObjectSource.name.strings
+source_lang = en
+
+[quicksilver.QSActionPrefPane]
+file_filter = Quicksilver/Localized/<lang>.lproj/QSActionsPrefPane.strings
+source_file = Quicksilver/Localized/en.lproj/QSActionsPrefPane.strings
+source_lang = en
+
+[quicksilver.QSAppearancePrefPane]
+file_filter = Quicksilver/Localized/<lang>.lproj/QSAppearancePrefPane.strings
+source_file = Quicksilver/Localized/en.lproj/QSAppearancePrefPane.strings
+source_lang = en
+
