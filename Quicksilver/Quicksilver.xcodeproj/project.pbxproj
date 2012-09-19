@@ -250,9 +250,6 @@
 		7F840FEE096C3356006E6F0E /* QSObjectSource.name.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F840FCE096C3356006E6F0E /* QSObjectSource.name.strings */; };
 		7F840FEF096C3356006E6F0E /* QSParser.name.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F840FD0096C3356006E6F0E /* QSParser.name.strings */; };
 		7F840FF0096C3356006E6F0E /* QSAction.commandFormat.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F840FD2096C3356006E6F0E /* QSAction.commandFormat.strings */; };
-		7F840FF1096C3356006E6F0E /* About.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F840FD9096C3356006E6F0E /* About.strings */; };
-		7F840FF2096C3356006E6F0E /* Catalog.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F840FDB096C3356006E6F0E /* Catalog.strings */; };
-		7F840FF3096C3356006E6F0E /* Preferences.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F840FDD096C3356006E6F0E /* Preferences.strings */; };
 		7F841767096CB23B006E6F0E /* GettingSupport.html in Resources */ = {isa = PBXBuildFile; fileRef = 7F841766096CB23B006E6F0E /* GettingSupport.html */; };
 		7F841BB6096CCCBF006E6F0E /* Rocket.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F841BB5096CCCBF006E6F0E /* Rocket.png */; };
 		7F86016408FA092500622BEF /* QSCGSTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F15A6AC08F9CAB20058D25E /* QSCGSTransition.m */; };
@@ -1277,9 +1274,6 @@
 		7F840FD6096C3356006E6F0E /* en */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = en; path = en.lproj/QSCatalogPreset.name.strings; sourceTree = "<group>"; };
 		7F840FD7096C3356006E6F0E /* en */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = en; path = en.lproj/QSObjectSource.name.strings; sourceTree = "<group>"; };
 		7F840FD8096C3356006E6F0E /* en */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = en; path = en.lproj/QSParser.name.strings; sourceTree = "<group>"; };
-		7F840FDA096C3356006E6F0E /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/About.strings; sourceTree = "<group>"; };
-		7F840FDC096C3356006E6F0E /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Catalog.strings; sourceTree = "<group>"; };
-		7F840FDE096C3356006E6F0E /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Preferences.strings; sourceTree = "<group>"; };
 		7F840FDF096C3356006E6F0E /* fr */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; fileEncoding = 30; name = fr; path = fr.lproj/QSAction.commandFormat.strings; sourceTree = "<group>"; };
 		7F840FE0096C3356006E6F0E /* fr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = fr; path = fr.lproj/QSAction.description.strings; sourceTree = "<group>"; };
 		7F840FE1096C3356006E6F0E /* fr */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = fr; path = fr.lproj/QSAction.name.strings; sourceTree = "<group>"; };
@@ -2190,9 +2184,6 @@
 				7F840FCE096C3356006E6F0E /* QSObjectSource.name.strings */,
 				7F840FD0096C3356006E6F0E /* QSParser.name.strings */,
 				7F840FD2096C3356006E6F0E /* QSAction.commandFormat.strings */,
-				7F840FD9096C3356006E6F0E /* About.strings */,
-				7F840FDB096C3356006E6F0E /* Catalog.strings */,
-				7F840FDD096C3356006E6F0E /* Preferences.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -3781,9 +3772,6 @@
 				7F840FEE096C3356006E6F0E /* QSObjectSource.name.strings in Resources */,
 				7F840FEF096C3356006E6F0E /* QSParser.name.strings in Resources */,
 				7F840FF0096C3356006E6F0E /* QSAction.commandFormat.strings in Resources */,
-				7F840FF1096C3356006E6F0E /* About.strings in Resources */,
-				7F840FF2096C3356006E6F0E /* Catalog.strings in Resources */,
-				7F840FF3096C3356006E6F0E /* Preferences.strings in Resources */,
 				7F841BB6096CCCBF006E6F0E /* Rocket.png in Resources */,
 				D4A43887137CCF0300F15F7F /* QSURLExtractor.py in Resources */,
 				D4B1E9EA1396C0E500AF68A7 /* BeautifulSoup.py in Resources */,
@@ -4721,30 +4709,6 @@
 				7F840FE5096C3356006E6F0E /* it */,
 			);
 			name = QSAction.commandFormat.strings;
-			sourceTree = "<group>";
-		};
-		7F840FD9096C3356006E6F0E /* About.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7F840FDA096C3356006E6F0E /* fr */,
-			);
-			name = About.strings;
-			sourceTree = "<group>";
-		};
-		7F840FDB096C3356006E6F0E /* Catalog.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7F840FDC096C3356006E6F0E /* fr */,
-			);
-			name = Catalog.strings;
-			sourceTree = "<group>";
-		};
-		7F840FDD096C3356006E6F0E /* Preferences.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7F840FDE096C3356006E6F0E /* fr */,
-			);
-			name = Preferences.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
