@@ -1,0 +1,24 @@
+[main]
+host = https://www.transifex.com
+type = STRINGS
+
+[quicksilver.About]
+file_filter = Quicksilver/Localized/<lang>.lproj/About.strings
+source_file = Quicksilver/Localized/en.lproj/About.strings
+source_lang = en
+
+[quicksilver.QSActionCommandFormat]
+file_filter = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/<lang>.lproj/QSAction.commandFormat.strings
+source_file = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/en.lproj/QSAction.commandFormat.strings
+source_lang = en
+
+[quicksilver.QSActionDescription]
+file_filter = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/<lang>.lproj/QSAction.description.strings
+source_file = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/en.lproj/QSAction.description.strings
+source_lang = en
+
+[quicksilver.QSActionName]
+file_filter = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/<lang>.lproj/QSAction.name.strings
+source_file = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/en.lproj/QSAction.name.strings
+source_lang = en
+
