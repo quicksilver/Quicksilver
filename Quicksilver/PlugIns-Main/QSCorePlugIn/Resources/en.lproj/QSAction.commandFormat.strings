@@ -2,6 +2,26 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>QSCommandExecuteAtTimeAction</key>
+	<string>Execute %@ at Time</string>
+	<key>QSCreateFileAction</key>
+	<string>Create a new File containing %@ in Folder %@</string>
+	<key>QSCommandAddTriggerAction</key>
+	<string>Add %@ as Trigger</string>
+	<key>QSCommandExecuteAction</key>
+	<string>Execute %@</string>
+	<key>AppShowHideAction</key>
+	<string>Toggle Visibility of %@</string>
+	<key>FileAlwaysOpenTypeWithAction</key>
+	<string>Always Open %@'s Filetype With %@</string>
+	<key>QSCommandSaveAction</key>
+	<string>Save %@ to File</string>
+	<key>PasteboardPasteActionAsPlainText</key>
+	<string>Paste %@ as Plain Text</string>
+	<key>QSCreateFileTemplate</key>
+	<string>In Folder %@ Create a new Template File %@</string>
+	<key>QSCommandExecuteAfterDelayAction</key>
+	<string>Execute %@ after Delay</string>
 	<key>AppActivateAction</key>
 	<string>Activate %@</string>
 	<key>AppHideAction</key>
