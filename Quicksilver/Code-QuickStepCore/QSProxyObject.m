@@ -105,10 +105,6 @@
 	return [self proxyTypes];
 }
 
-- (void)becameSelected {
-	[self releaseProxy];
-}
-
 - (BOOL)bypassValidation {
 	return [[self proxyProvider] respondsToSelector:@selector(bypassValidation)] && [[self proxyProvider] bypassValidation];
 }
