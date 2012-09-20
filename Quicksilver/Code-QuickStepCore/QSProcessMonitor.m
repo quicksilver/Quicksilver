@@ -427,14 +427,6 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 		return [self imbuedFileProcessForDict:[[NSWorkspace sharedWorkspace] activeApplication]];
 	} else if ([[proxy identifier] isEqualToString:@"QSPreviousApplicationProxy"]) {
 		return [self imbuedFileProcessForDict:previousApplication];
-	} else if ([[proxy identifier] isEqualToString:@"QSHiddenApplicationsProxy"]) {
-		return [QSObject objectByMergingObjects:[self processesWithHiddenState:YES]];
-	} else if ([[proxy identifier] isEqualToString:@"QSVisibleApplicationsProxy"]) {
-		return [QSObject objectByMergingObjects:[self processesWithHiddenState:NO]];
-	} else if ([[proxy identifier] isEqualToString:@"QSRunningApplicationsProxy"]) {
-	  /* TODO: tiennou Optimization : use the processes cache. This rebuilds the list.
-	   * Should we also show background apps if that's in defaults ? */
-		return [QSObject objectByMergingObjects:[self getVisibleProcesses]];
 	}
 	return nil;
 }

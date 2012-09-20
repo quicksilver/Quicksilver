@@ -174,8 +174,6 @@
     <string>Zeigen</string>
     <key>QSShellScriptRunAction</key>
     <string>Ausführen [...]</string>
-    <key>QSSherlockChannelShowAction</key>
-    <string>Channel Zeigen</string>
     <key>QSTextAppendAction</key>
     <string>Text Anhängen...</string>
     <key>QSTextDiffAction</key>

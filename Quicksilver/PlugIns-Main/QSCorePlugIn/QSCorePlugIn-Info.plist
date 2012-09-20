@@ -261,6 +261,14 @@
 							<key>ID</key>
 							<string>QSPresetPrinters</string>
 						</dict>
+						<dict>
+							<key>source</key>
+							<string>QSVolumesObjectSource</string>
+							<key>icon</key>
+							<string>RemovableVolumeIcon</string>
+							<key>ID</key>
+							<string>QSPresetRemovableVolumes</string>
+						</dict>
 					</array>
 					<key>ID</key>
 					<string>QSPresetDevices</string>
@@ -471,13 +479,13 @@
 								<key>bundle</key>
 								<string>com.apple.recentitems</string>
 								<key>type</key>
-								<integer>3</integer>
+								<integer>2</integer>
 								<key>keypath</key>
 								<array>
-									<string>RecentServers</string>
+									<string>Hosts</string>
 									<string>CustomListItems</string>
 									<string>*</string>
-									<string>Alias</string>
+									<string>URL</string>
 								</array>
 							</dict>
 							<key>icon</key>
@@ -510,6 +518,30 @@
 					<string>SafariHistoryIcon</string>
 					<key>ID</key>
 					<string>QSPresetRecentItems</string>
+				</dict>
+				<dict>
+					<key>ID</key>
+					<string>QSPresetFavoriteServers</string>
+					<key>enabled</key>
+					<true/>
+					<key>icon</key>
+					<string>GenericFileServerIcon</string>
+					<key>settings</key>
+					<dict>
+						<key>bundle</key>
+						<string>com.apple.sidebarlists</string>
+						<key>keypath</key>
+						<array>
+							<string>favoriteservers</string>
+							<string>CustomListItems</string>
+							<string>*</string>
+							<string>URL</string>
+						</array>
+						<key>type</key>
+						<integer>2</integer>
+					</dict>
+					<key>source</key>
+					<string>QSDefaultsObjectSource</string>
 				</dict>
 			</array>
 			<key>catalogPath</key>
@@ -1908,32 +1940,6 @@
 		</dict>
 		<key>QSProxies</key>
 		<dict>
-			<key>QSMountedVolumesProxy</key>
-			<dict>
-				<key>providerClass</key>
-				<string>QSVolumesObjectSource</string>
-				<key>types</key>
-				<array>
-					<string>NSFilenamesPboardType</string>
-				</array>
-				<key>icon</key>
-				<string>Object</string>
-				<key>name</key>
-				<string>Mounted Disks</string>
-			</dict>
-			<key>QSRemoveableVolumesProxy</key>
-			<dict>
-				<key>providerClass</key>
-				<string>QSVolumesObjectSource</string>
-				<key>types</key>
-				<array>
-					<string>NSFilenamesPboardType</string>
-				</array>
-				<key>icon</key>
-				<string>Object</string>
-				<key>name</key>
-				<string>Removeable Disks</string>
-			</dict>
 			<key>QSLastCommandProxy</key>
 			<dict>
 				<key>providerClass</key>
@@ -1959,19 +1965,6 @@
 				<string>Quicksilver</string>
 				<key>name</key>
 				<string>Quicksilver Selection</string>
-			</dict>
-			<key>QSNetworkVolumesProxy</key>
-			<dict>
-				<key>providerClass</key>
-				<string>QSVolumesObjectSource</string>
-				<key>types</key>
-				<array>
-					<string>NSFilenamesPboardType</string>
-				</array>
-				<key>icon</key>
-				<string>GenericFileServerIcon</string>
-				<key>name</key>
-				<string>Network Disks</string>
 			</dict>
 			<key>QSLastObjectProxy</key>
 			<dict>
@@ -2123,6 +2116,8 @@
 			<string>QSStringObjectHandler</string>
 			<key>NSFilenamesPboardType</key>
 			<string>QSFileSystemObjectHandler</string>
+			<key>QSRemovableVolumesParentType</key>
+			<string>QSVolumesObjectSource</string>
 		</dict>
 		<key>QSRegistryHeaders</key>
 		<dict>

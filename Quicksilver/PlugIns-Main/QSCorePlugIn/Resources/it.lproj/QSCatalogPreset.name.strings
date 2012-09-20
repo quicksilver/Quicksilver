@@ -198,8 +198,6 @@
 	<string>Script</string>
 	<key>QSPresetShelves</key>
 	<string>Shelf e Appunti</string>
-	<key>QSPresetSherlockChannels</key>
-	<string>Canali Sherlock</string>
 	<key>QSPresetSidebarItems</key>
 	<string>Barra Laterale Finder</string>
 	<key>QSPresetSogudiShortcuts</key>
