@@ -591,7 +591,8 @@
 		}
 		return renamed;
 	} else {
-		NSString *errorMessage = [NSString stringWithFormat:@"Error renaming File: %@ to %@", path, destinationFile];
+		NSString *localizedErrorFormat = NSLocalizedStringFromTableInBundle(@"Error renaming File: %@ to %@", nil, [NSBundle bundleForClass:[self class]], nil);
+		NSString *errorMessage = [NSString stringWithFormat:localizedErrorFormat, path, destinationFile];
 		QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:@"QSRenameFileFailed", QSNotifierType, [QSResourceManager imageNamed:@"AlertStopIcon"], QSNotifierIcon, @"Quicksilver File Rename", QSNotifierTitle, errorMessage, QSNotifierText, nil]);
 	}
 	return nil;
