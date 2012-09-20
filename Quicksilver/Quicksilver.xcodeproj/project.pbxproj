@@ -363,6 +363,7 @@
 		CDC9C6C513DA2B6D0053B09C /* Clipboard.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDC9C6C413DA2B6D0053B09C /* Clipboard.icns */; };
 		CDCC201010A4C14B009C4EED /* QSMDPredicate.h in Headers */ = {isa = PBXBuildFile; fileRef = CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDCC201110A4C14B009C4EED /* QSMDPredicate.m in Sources */ = {isa = PBXBuildFile; fileRef = CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */; };
+		CDD30969160AEB0800CD34EC /* QSAction.name.strings in Resources */ = {isa = PBXBuildFile; fileRef = 423DA024132F7A2C005ED70F /* QSAction.name.strings */; };
 		CDD36AF414CD50CC00F5CEC4 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8D135E09187AE20062C966 /* Quartz.framework */; };
 		CDD36AF514CD50CD00F5CEC4 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8D135E09187AE20062C966 /* Quartz.framework */; };
 		CDDB44E41518C53300800B66 /* QSCrashReporter.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDDB44E31518C53300800B66 /* QSCrashReporter.xib */; };
@@ -3549,6 +3550,7 @@
 			files = (
 				4D002E1213114B17009040B7 /* Finder.scpt in Resources */,
 				4D62E324147694D800362E9A /* QSAction.description.plist in Resources */,
+				CDD30969160AEB0800CD34EC /* QSAction.name.strings in Resources */,
 				4D62E32A1476A6BF00362E9A /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
