@@ -41,35 +41,32 @@
 	[super invalidateSelf];
 }
 
-- (NSImage *)iconForEntry:(NSDictionary *)dict
+- (void)setQuickIconForObject:(QSObject *)object
 {
-	return [[NSWorkspace sharedWorkspace] iconForFile:@"/"];
+	[object setIcon:[QSResourceManager imageNamed:@"RemovableVolumeIcon"]];
 }
 
-- (NSArray *)objectsForEntry:(NSDictionary *)dict {
-	NSArray *volumes = [QSObject fileObjectsWithPathArray:[[NSWorkspace sharedWorkspace] mountedLocalVolumePaths]];
-
-	// NSLog(@"Added %4d volumes", [volumes count]);
-	return volumes;
+- (NSArray *)objectsForEntry:(NSDictionary *)entry
+{
+	QSObject *volumesParent = [QSObject makeObjectWithIdentifier:@"QSRemovableVolumesParent"];
+	[volumesParent setName:@"Network and Removable Disks"];
+	[volumesParent setPrimaryType:@"QSRemovableVolumesParentType"];
+	return [NSArray arrayWithObject:volumesParent];
 }
 
-- (id)resolveProxyObject:(id)proxy {
-	if ([[proxy identifier] isEqualToString:@"QSNetworkVolumesProxy"]) {
-		NSArray *paths = [[NSWorkspace sharedWorkspace] mountedRemovableMedia];
-		NSMutableArray *netPaths = [NSMutableArray array];
-		for(NSString * path in paths) {
-			if ([path hasPrefix:@"/Network"]) [netPaths addObject:path];
-		}
-		return [QSObject fileObjectWithArray:paths];
-	}
-	if ([[proxy identifier] isEqualToString:@"QSMountedVolumesProxy"]) {
-		return [QSObject fileObjectWithArray:[[NSWorkspace sharedWorkspace] mountedLocalVolumePaths]];
-	}
-	if ([[proxy identifier] isEqualToString:@"QSRemoveableVolumesProxy"]) {
-		return [QSObject fileObjectWithArray:[[NSWorkspace sharedWorkspace] mountedRemovableMedia]];
-	}
-	return nil;
+- (BOOL)objectHasChildren:(QSObject *)object
+{
+	NSArray *volumes = [[NSFileManager defaultManager] mountedVolumeURLsIncludingResourceValuesForKeys:nil options:NSVolumeEnumerationSkipHiddenVolumes];
+	return ([volumes count] > 1);
+}
 
+- (BOOL)loadChildrenForObject:(QSObject *)object
+{
+	NSArray *volumes = [[NSFileManager defaultManager] mountedVolumeURLsIncludingResourceValuesForKeys:nil options:NSVolumeEnumerationSkipHiddenVolumes];
+	NSMutableArray *volumePaths = [[volumes arrayByPerformingSelector:@selector(path)] mutableCopy];
+	[volumePaths removeObject:@"/"];
+	[object setChildren:[QSObject fileObjectsWithPathArray:volumePaths]];
+	return ([volumePaths count] > 0);
 }
 
 @end

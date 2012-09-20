@@ -158,5 +158,7 @@
 		</dict>
 		<string>/System/Library/Frameworks/AddressBook.framework/Versions/A/Resources/SingleCard.tif</string>
 	</array>
+	<key>RemovableVolumeIcon</key>
+	<string>/System/Library/Extensions/IOSCSIArchitectureModelFamily.kext/Contents/Resources/Removable.icns</string>
 </dict>
 </plist>
