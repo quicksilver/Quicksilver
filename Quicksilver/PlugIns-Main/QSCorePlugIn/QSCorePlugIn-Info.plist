@@ -235,6 +235,8 @@
 							<string>QSVolumesObjectSource</string>
 							<key>ID</key>
 							<string>QSPresetVolumes</string>
+							<key>icon</key>
+							<string>DriveIcon</string>
 						</dict>
 						<dict>
 							<key>source</key>

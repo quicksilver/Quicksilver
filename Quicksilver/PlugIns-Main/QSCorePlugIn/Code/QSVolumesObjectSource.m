@@ -48,11 +48,18 @@
 
 - (NSArray *)objectsForEntry:(NSDictionary *)entry
 {
-	QSObject *volumesParent = [QSObject makeObjectWithIdentifier:@"QSRemovableVolumesParent"];
-	NSString *name = NSLocalizedString(@"Network and Removable Disks", nil);
-	[volumesParent setName:name];
-	[volumesParent setPrimaryType:@"QSRemovableVolumesParentType"];
-	return [NSArray arrayWithObject:volumesParent];
+	NSString *identifier = [entry objectForKey:@"ID"];
+	if ([identifier isEqualToString:@"QSPresetRemovableVolumes"]) {
+		QSObject *volumesParent = [QSObject makeObjectWithIdentifier:@"QSRemovableVolumesParent"];
+		NSString *name = NSLocalizedString(@"Network and Removable Disks", nil);
+		[volumesParent setName:name];
+		[volumesParent setPrimaryType:@"QSRemovableVolumesParentType"];
+		return [NSArray arrayWithObject:volumesParent];
+	}
+	if ([identifier isEqualToString:@"QSPresetVolumes"]) {
+		return [QSObject fileObjectsWithPathArray:[[NSWorkspace sharedWorkspace] mountedLocalVolumePaths]];
+	}
+	return nil;
 }
 
 - (BOOL)objectHasChildren:(QSObject *)object
