@@ -49,7 +49,8 @@
 - (NSArray *)objectsForEntry:(NSDictionary *)entry
 {
 	QSObject *volumesParent = [QSObject makeObjectWithIdentifier:@"QSRemovableVolumesParent"];
-	[volumesParent setName:@"Network and Removable Disks"];
+	NSString *name = NSLocalizedString(@"Network and Removable Disks", nil);
+	[volumesParent setName:name];
 	[volumesParent setPrimaryType:@"QSRemovableVolumesParentType"];
 	return [NSArray arrayWithObject:volumesParent];
 }
