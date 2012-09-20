@@ -10,6 +10,7 @@
 #import "QSSetupAssistant.h"
 #import "QSTaskViewer.h"
 #import "QSCrashReporterWindowController.h"
+#import "QSDownloads.h"
 
 #define DEVEXPIRE 180.0f
 #define DEPEXPIRE 365.24219878f
@@ -626,8 +627,6 @@ static QSController *defaultController = nil;
     }
 }
 
-- (NSString *)internetDownloadLocation { return [[[NDAlias aliasWithData:[[[[(NSDictionary *)CFPreferencesCopyValue((CFStringRef) @"Version 2.5.4", (CFStringRef) @"com.apple.internetconfig", kCFPreferencesCurrentUser, kCFPreferencesAnyHost) autorelease] objectForKey:@"ic-added"] objectForKey:@"DownloadFolder"] objectForKey:@"ic-data"]] path] stringByStandardizingPath];  }
-
 - (void)checkForFirstRun {
 	QSApplicationLaunchStatusFlags status = [NSApp checkLaunchStatus];
 
@@ -681,7 +680,7 @@ static QSController *defaultController = nil;
         }
 		case QSApplicationFirstLaunch: {
 			NSString *containerPath = [[bundlePath stringByDeletingLastPathComponent] stringByStandardizingPath];
-			BOOL shouldInstall = [containerPath isEqualToString:@"/Volumes/Quicksilver"] || [containerPath isEqualToString:[self internetDownloadLocation]];
+			BOOL shouldInstall = [containerPath isEqualToString:@"/Volumes/Quicksilver"] || [containerPath isEqualToString:[[QSDownloads downloadsLocation] path]];
 			if (shouldInstall) {
 				//New version in new location.
 				[NSApp activateIgnoringOtherApps:YES];

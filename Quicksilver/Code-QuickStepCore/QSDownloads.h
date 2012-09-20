@@ -12,5 +12,6 @@
 
 @interface QSDownloads : NSObject {
 }
++ (NSURL *)downloadsLocation;
 - (id)resolveProxyObject:(id)proxy;
 @end

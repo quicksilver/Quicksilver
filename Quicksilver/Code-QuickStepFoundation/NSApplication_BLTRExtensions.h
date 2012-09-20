@@ -94,4 +94,11 @@ typedef NSInteger QSApplicationLaunchStatusFlags;
  @returns YES, if 10.7+. NO otherwise
  */
 + (BOOL)isLion;
+
+/**
+ Checks, if system is at least Mac OS X 10.8 (Mountain Lion)
+ 
+ @returns YES, if 10.8+. NO otherwise
+ */
++ (BOOL)isMountainLion;
 @end
