@@ -77,8 +77,12 @@
 			if (path) {
 				image = [workspace iconForFile:path];
 			}
-			if (!image)
+			if (!image) {
+				image = [QSResourceManager imageNamed:key];
+			}
+			if (!image) {
 				image = [QSResourceManager imageNamed:@"PlugInIcon"];
+			}
 			[item setImage:image];
 		}
 		[[item image] setSize:NSMakeSize(16, 16)];
