@@ -71,10 +71,14 @@
 - (BOOL)loadChildrenForObject:(QSObject *)object
 {
 	NSArray *volumes = [[NSFileManager defaultManager] mountedVolumeURLsIncludingResourceValuesForKeys:nil options:NSVolumeEnumerationSkipHiddenVolumes];
+	if ([volumes count] < 2) {
+		return NO;
+	}
 	NSMutableArray *volumePaths = [[volumes arrayByPerformingSelector:@selector(path)] mutableCopy];
 	[volumePaths removeObject:@"/"];
 	[object setChildren:[QSObject fileObjectsWithPathArray:volumePaths]];
-	return ([volumePaths count] > 0);
+	[volumePaths release];
+	return YES;
 }
 
 @end
