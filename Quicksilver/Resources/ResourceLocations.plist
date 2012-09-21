@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>AFPClient</key>
@@ -158,5 +158,7 @@
 		</dict>
 		<string>/System/Library/Frameworks/AddressBook.framework/Versions/A/Resources/SingleCard.tif</string>
 	</array>
+	<key>com.apple.NotificationCenter</key>
+	<string>/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/Notifications.icns</string>
 </dict>
 </plist>
