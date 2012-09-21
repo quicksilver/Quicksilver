@@ -555,7 +555,7 @@
 		if ([drawObject primaryCount] > 1 && MIN(NSWidth(drawingRect), NSHeight(drawingRect) ) >= 64) {
 			QSCountBadgeImage *countImage = [QSCountBadgeImage badgeForCount:[drawObject primaryCount]];
 			if (countImage) {
-				NSRect badgeRect = [self badgeRectForBounds:cellFrame badgeImage:countImage];
+				NSRect badgeRect = [self badgeRectForBounds:drawingRect badgeImage:countImage];
 				[countImage drawInRect:badgeRect fromRect:rectFromSize([countImage size]) operation:NSCompositeSourceOver fraction:1.0 respectFlipped:flipped hints:nil];
 			}
 		}
