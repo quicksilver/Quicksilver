@@ -66,6 +66,10 @@ typedef NSInteger QSApplicationLaunchStatusFlags;
 */
 + (SInt32)macOSXSystemVersion;
 /**
+ Returns the major release of Mac OS X, for example 10.7
+ */
++ (NSString *)macOSXReleaseVersion;
+/**
   Returns the full Mac OS X version of the current system as a string
  
  @returns an NSString of the user's current Mac OS X version, for example 10.6.7
