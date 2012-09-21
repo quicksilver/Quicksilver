@@ -121,7 +121,7 @@
 		// Escape characters (but not # or %)
 		NSURL *url = [NSURL URLWithString:[urlString URLEncoding]];
 		// replace QUERY_KEY *** with nothing if we're just opening the URL
-		if ([urlString rangeOfString:QUERY_KEY].location != NSNotFound) {
+		if ([dObject containsType:QSSearchURLType]) {
 			NSInteger pathLoc = [urlString rangeOfString:[url path]].location;
 			if (pathLoc != NSNotFound)
 				url = [NSURL URLWithString:[[urlString substringWithRange:NSMakeRange(0, pathLoc)] URLEncoding]];
@@ -151,7 +151,7 @@
 
 	for (NSString *urlString in [dObject arrayForType:QSURLType]) {
 		NSURL *url = [NSURL URLWithString:[urlString URLEncoding]];
-		if ([urlString rangeOfString:QUERY_KEY].location != NSNotFound) {
+		if ([dObject containsType:QSSearchURLType]) {
 			NSInteger pathLoc = [urlString rangeOfString:[url path]].location;
 			if (pathLoc != NSNotFound)
 				url = [NSURL URLWithString:[[urlString substringWithRange:NSMakeRange(0, pathLoc)] URLEncoding]];

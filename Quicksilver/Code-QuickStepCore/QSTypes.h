@@ -6,6 +6,7 @@ extern NSString *QSTextType; 			//NSString
 extern NSString *QSAliasDataType; 		//NSData
 extern NSString *QSAliasFilePathType; 	//NSString
 extern NSString *QSURLType; 				//NSString
+extern NSString *QSSearchURLType; 		//NSString
 extern NSString *QSEmailAddressType; 	//NSString
 //extern NSString *QSContactEmailType; 	//NSString
 extern NSString *QSContactPhoneType; 	//NSString

@@ -136,7 +136,7 @@
 	if (!urlString) return NO;
     
 	// For search URLs
-	if([[object stringValue] rangeOfString:QUERY_KEY].location !=NSNotFound) {
+	if([object containsType:QSSearchURLType]) {
         NSInvocationOperation *theOp = [[[NSInvocationOperation alloc] initWithTarget:self
 																			 selector:@selector(buildWebSearchIconForObject:)
 																			   object:object] autorelease];
@@ -264,6 +264,11 @@
         [self setObject:urlString forType:QSTextType];
         [self setPrimaryType:QSURLType];
     }
+	// search URLs
+	if ([urlString rangeOfString:QUERY_KEY].location != NSNotFound) {
+		[self setObject:urlString forType:QSSearchURLType];
+		[self setPrimaryType:QSSearchURLType];
+	}
 }
 
 @end
