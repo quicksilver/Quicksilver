@@ -296,7 +296,7 @@ NSSize QSMaxIconSize;
 		[object guessName];
 	else
 		// fall back on setting a simple name
-		[object setName:@"combined objects"];
+		[object setName:NSLocalizedString(@"Combined Objects", nil)];
 	return object;
 }
 

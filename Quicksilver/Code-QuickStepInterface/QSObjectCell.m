@@ -18,39 +18,6 @@
 
 #define countBadgeTextAttributes [NSDictionary dictionaryWithObjectsAndKeys:[NSFont boldSystemFontOfSize:24] , NSFontAttributeName, [NSColor whiteColor] , NSForegroundColorAttributeName, nil]
 
-
-NSImage *QSBadgeImageForCount(NSInteger count) {
-	if (count <= 1) return nil;
-	NSImage *badgeImage = nil;
-	NSString *numString = [NSString stringWithFormat:@"%ld", (long)count];
-	if ([numString length] <3)
-		badgeImage = [QSResourceManager imageNamed:@"dragBadge1-2"];
-	else if ([numString length] <4)
-		badgeImage = [QSResourceManager imageNamed:@"dragBadge3"];
-	else if ([numString length] <5)
-		badgeImage = [QSResourceManager imageNamed:@"dragBadge4"];
-	else
-		badgeImage = [QSResourceManager imageNamed:@"dragBadge5"];
-
-	if (!badgeImage) return nil;
-	return badgeImage;
-}
-
-void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, NSInteger count) {
-	[countImage drawInRect:badgeRect fromRect:rectFromSize([countImage size]) operation:NSCompositeSourceOver fraction:1.0];
-	NSString *numString = [NSString stringWithFormat:@"%ld", (long)count];
-	NSRect textRect = NSInsetRect(badgeRect, NSHeight(badgeRect) /4, NSHeight(badgeRect)/4);
-	NSDictionary *numAttributes = [numString attributesToFitNumbersInRect:textRect withAttributes:countBadgeTextAttributes];
-	//	NSLog(@"font metric: %f %f", [[numAttributes objectForKey:NSFontAttributeName] ascender] , [[numAttributes objectForKey:NSFontAttributeName] descender]);
-	NSRect glyphRect = rectFromSize([numString sizeWithAttributes:numAttributes]);
-	NSRect countTextRect = centerRectInRect(glyphRect, badgeRect);
-	countTextRect.origin.y += (NSHeight(glyphRect) -[[numAttributes objectForKey:NSFontAttributeName] ascender])/2;
-
-	//	[[NSColor blackColor] set];
-	//	NSFrameRect(countTextRect);
-	[numString drawInRect:countTextRect withAttributes:numAttributes];
-}
-
 @implementation QSObjectCell
 
 
@@ -585,11 +552,10 @@ void QSDrawCountBadgeInRect(NSImage *countImage, NSRect badgeRect, NSInteger cou
 			[cornerBadge drawInRect:badgeRect fromRect:rectFromSize([cornerBadge size]) operation:NSCompositeSourceOver fraction:1.0 respectFlipped:flipped hints:nil];
 		}
 
-		if ([drawObject primaryCount] >1 && MIN(NSWidth(drawingRect), NSHeight(drawingRect) ) >= 64) {
-			NSImage *countImage = [QSCountBadgeImage badgeForCount:[drawObject primaryCount]];
-			//NSImage *countImage = QSBadgeImageForCount([drawObject primaryCount]);
+		if ([drawObject primaryCount] > 1 && MIN(NSWidth(drawingRect), NSHeight(drawingRect) ) >= 64) {
+			QSCountBadgeImage *countImage = [QSCountBadgeImage badgeForCount:[drawObject primaryCount]];
 			if (countImage) {
-				NSRect badgeRect = [self badgeRectForBounds:cellFrame badgeImage:countImage];
+				NSRect badgeRect = [self badgeRectForBounds:drawingRect badgeImage:countImage];
 				[countImage drawInRect:badgeRect fromRect:rectFromSize([countImage size]) operation:NSCompositeSourceOver fraction:1.0 respectFlipped:flipped hints:nil];
 			}
 		}
