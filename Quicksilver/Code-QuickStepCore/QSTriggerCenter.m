@@ -138,7 +138,6 @@
 //}
 
 
-// Stupidly, this isn't called when the scope of a trigger is changed. Why not?!
 - (void)triggerChanged:(QSTrigger *)trigger {
 	[self writeTriggers];
 

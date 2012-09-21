@@ -41,11 +41,12 @@
 	[self drawInRect:alignRectInRect(countImageRect, rect, 3) fromRect:countImageRect operation:NSCompositeSourceOver fraction:1.0];
 }
 
-- (void)drawInRect:(NSRect)rect fromRect:(NSRect)fromRect operation:(NSCompositingOperation)op fraction:(CGFloat)delta {
-	[super drawInRect:rect fromRect:rectFromSize([self size]) operation:op fraction:delta];
+- (void)drawInRect:(NSRect)rect fromRect:(NSRect)fromRect operation:(NSCompositingOperation)op fraction:(CGFloat)delta respectFlipped:(BOOL)respectContextIsFlipped hints:(NSDictionary *)hints {
+    
+	[super drawInRect:rect fromRect:rectFromSize([self size]) operation:op fraction:delta respectFlipped:respectContextIsFlipped hints:hints];
 
 	NSString *numString = [NSString stringWithFormat:@"%ld", (long)count];
-	NSRect textRect = NSInsetRect(rect, NSHeight(rect) /4, NSHeight(rect)/4);
+	NSRect textRect = NSInsetRect(rect, NSHeight(rect) /3.5, NSHeight(rect)/4);
 	NSDictionary *numAttributes = [numString attributesToFitNumbersInRect:textRect withAttributes:countBadgeTextAttributes];
 
 	NSRect glyphRect = rectFromSize([numString sizeWithAttributes:numAttributes]);

@@ -19,10 +19,10 @@
 - (BOOL)objectHasChildren:(QSObject *)object {return NO;}
 - (void)setQuickIconForObject:(QSObject *)object { [object setIcon:[[NSWorkspace sharedWorkspace] iconForFileType:@"'clpt'"]];  }
 - (BOOL)loadIconForObject:(QSObject *)object {
-	// need to handle other sizes, not just QSSize128
-	NSImage *image = [[NSImage alloc] initWithSize:NSMakeSize(128, 128)];
+
+	NSImage *image = [[NSImage alloc] initWithSize:QSMaxIconSize];
 	NSBezierPath *roundRect = [NSBezierPath bezierPath];
-	[roundRect appendBezierPathWithRoundedRectangle:NSMakeRect(0, 0, 128, 128) withRadius:16];
+	[roundRect appendBezierPathWithRoundedRectangle:NSMakeRect(0, 0, QSMaxIconSize.width, QSMaxIconSize.height) withRadius:16];
 	[image lockFocus];
 	[[object colorValue] set];
 	[roundRect fill];

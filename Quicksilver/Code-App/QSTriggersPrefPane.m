@@ -232,6 +232,14 @@
 							forKeyPath:@"selectedObjects"
 							   options:0
 							   context:nil];
+    [triggerTreeController addObserver:self
+                            forKeyPath:@"selection.info.applicationScopeType"
+                               options:0
+                               context:nil];
+    [triggerTreeController addObserver:self
+                            forKeyPath:@"selection.info.applicationScope"
+                               options:0
+                               context:nil];
 	NSSortDescriptor* aSortDesc = [[[NSSortDescriptor alloc]
                                     initWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)] autorelease];
 	[triggerArrayController setSortDescriptors:[NSArray arrayWithObject: aSortDesc]];
@@ -249,6 +257,10 @@
 //}
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath rangeOfString:@"selection.info"].location != NSNotFound) {
+        [[QSTriggerCenter sharedInstance] triggerChanged:[self selectedTrigger]];
+        return;
+    }
 	if (context == triggerSetsController) {
 
 		//	NSLog(@"trig %@", keyPath);

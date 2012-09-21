@@ -30,6 +30,8 @@
 			<string>QSFinderProxy</string>
 			<key>actionSelector</key>
 			<string>emptyTrash:</string>
+			<key>enabled</key>
+			<false/>
 		</dict>
 		<key>FinderOpenTrashAction</key>
 		<dict>
@@ -37,6 +39,8 @@
 			<string>QSFinderProxy</string>
 			<key>actionSelector</key>
 			<string>openTrash:</string>
+			<key>enabled</key>
+			<false/>
 		</dict>
 	</dict>
 	<key>QSPlugIn</key>

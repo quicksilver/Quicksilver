@@ -768,8 +768,6 @@
 			<string>addTrigger:withInfo:</string>
 			<key>icon</key>
 			<string>Quicksilver</string>
-			<key>name</key>
-			<string>Add Trigger</string>
 		</dict>
 		<key>QSLargeTypeAction</key>
 		<dict>
@@ -836,8 +834,6 @@
 			<true/>
 			<key>icon</key>
 			<string>GenericDocumentIcon</string>
-			<key>name</key>
-			<string>Create File [...]</string>
 		</dict>
 		<key>QSObjectShowChildrenAction</key>
 		<dict>
@@ -878,12 +874,8 @@
 				<string>rb</string>
 				<string></string>
 			</array>
-			<key>description</key>
-			<string>Run a Shell Script</string>
 			<key>icon</key>
 			<string>ExecutableBinaryIcon</string>
-			<key>name</key>
-			<string>Run</string>
 		</dict>
 		<key>QSTextShowDialogAction</key>
 		<dict>
@@ -897,8 +889,6 @@
 			<false/>
 			<key>actionSelector</key>
 			<string>showDialog:</string>
-			<key>name</key>
-			<string>Display Dialog</string>
 		</dict>
 		<key>URLOpenWithAction</key>
 		<dict>
@@ -953,8 +943,6 @@
 			<true/>
 			<key>icon</key>
 			<string>Recent</string>
-			<key>name</key>
-			<string>Run after Delay...</string>
 		</dict>
 		<key>FileMoveToAction</key>
 		<dict>
@@ -969,6 +957,7 @@
 			<key>indirectTypes</key>
 			<array>
 				<string>public.folder</string>
+				<string>public.directory</string>
 			</array>
 			<key>actionSelector</key>
 			<string>moveFiles:toFolder:</string>
@@ -1025,8 +1014,6 @@
 			<real>-0.5</real>
 			<key>actionSelector</key>
 			<string>makeLinkTo:inFolder:</string>
-			<key>name</key>
-			<string>Make Symbolic Link In...</string>
 			<key>feature</key>
 			<integer>1</integer>
 		</dict>
@@ -1051,13 +1038,9 @@
 			</array>
 			<key>icon</key>
 			<string>QSDirectObjectIconProxy</string>
-			<key>name</key>
-			<string>Toggle Application</string>
 		</dict>
 		<key>QSObjectShowChildMenu</key>
 		<dict>
-			<key>name</key>
-			<string>Show Contents Menu</string>
 			<key>actionClass</key>
 			<string>QSObjectActions</string>
 			<key>directTypes</key>
@@ -1091,8 +1074,6 @@
 			<real>-0.5</real>
 			<key>actionSelector</key>
 			<string>makeAliasTo:inFolder:</string>
-			<key>name</key>
-			<string>Make Alias In...</string>
 		</dict>
 		<key>FileGetURLAction</key>
 		<dict>
@@ -1157,8 +1138,6 @@
 			<false/>
 			<key>icon</key>
 			<string>GenericDocumentIcon</string>
-			<key>name</key>
-			<string>Make New...</string>
 		</dict>
 		<key>URLOpenAction</key>
 		<dict>
@@ -1229,11 +1208,6 @@
 				<string>&apos;APPL&apos;</string>
 				<string>app</string>
 			</array>
-			<key>indirectTypes</key>
-			<array>
-				<string>com.apple.application-file</string>
-				<string>com.apple.application-bundle</string>
-			</array>
 			<key>icon</key>
 			<string>QSDirectObjectIconProxy</string>
 			<key>reverseArguments</key>
@@ -1255,8 +1229,6 @@
 			<true/>
 			<key>icon</key>
 			<string>Recent</string>
-			<key>name</key>
-			<string>Run at Time...</string>
 		</dict>
 		<key>FileRevealAction</key>
 		<dict>
@@ -1285,8 +1257,6 @@
 			</array>
 			<key>precedence</key>
 			<real>1</real>
-			<key>commandFormat</key>
-			<string>Open %@</string>
 			<key>validatesObjects</key>
 			<true/>
 			<key>actionSelector</key>
@@ -1341,8 +1311,6 @@
 		</dict>
 		<key>QSLoginItemRemoveAction</key>
 		<dict>
-			<key>name</key>
-			<string>Do Not Open at Login</string>
 			<key>actionClass</key>
 			<string>FSActions</string>
 			<key>directTypes</key>
@@ -1379,8 +1347,6 @@
 		</dict>
 		<key>QSObjectShowMenu</key>
 		<dict>
-			<key>name</key>
-			<string>Show Menu</string>
 			<key>actionClass</key>
 			<string>QSObjectActions</string>
 			<key>directTypes</key>
@@ -1427,8 +1393,6 @@
 			<integer>0</integer>
 			<key>actionSelector</key>
 			<string>findObjectInCatalog:</string>
-			<key>name</key>
-			<string>Show Source in Catalog</string>
 			<key>validatesObjects</key>
 			<true/>
 		</dict>
@@ -1469,8 +1433,6 @@
 			<true/>
 			<key>icon</key>
 			<string>Quicksilver</string>
-			<key>name</key>
-			<string>Save Command to File...</string>
 		</dict>
 		<key>QSNewFolderAction</key>
 		<dict>
@@ -1552,6 +1514,7 @@
 			<key>indirectTypes</key>
 			<array>
 				<string>public.folder</string>
+				<string>public.directory</string>
 			</array>
 			<key>actionSelector</key>
 			<string>copyFiles:toFolder:</string>
@@ -1589,8 +1552,6 @@
 		</dict>
 		<key>QSObjectShowActionMenu</key>
 		<dict>
-			<key>name</key>
-			<string>Show Action Menu</string>
 			<key>actionClass</key>
 			<string>QSObjectActions</string>
 			<key>directTypes</key>
@@ -1622,8 +1583,6 @@
 			<string>openItemAtLogin:</string>
 			<key>icon</key>
 			<string>HomeFolderIcon</string>
-			<key>name</key>
-			<string>Open at Login</string>
 		</dict>
 		<key>AppQuitAction</key>
 		<dict>
@@ -1662,8 +1621,6 @@
 			<real>-0.5</real>
 			<key>actionSelector</key>
 			<string>makeHardLinkTo:inFolder:</string>
-			<key>name</key>
-			<string>Make Hard Link In...</string>
 			<key>feature</key>
 			<integer>1</integer>
 		</dict>
@@ -1844,8 +1801,6 @@
 			<string>quitOtherApplications:</string>
 			<key>icon</key>
 			<string>QSDirectObjectIconProxy</string>
-			<key>name</key>
-			<string>Quit Others</string>
 		</dict>
 		<key>QSCommandExecuteAction</key>
 		<dict>
@@ -1861,8 +1816,6 @@
 			<string>executeCommand:</string>
 			<key>icon</key>
 			<string>Quicksilver</string>
-			<key>name</key>
-			<string>Run</string>
 		</dict>
 		<key>AppRelaunchAction</key>
 		<dict>
