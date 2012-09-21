@@ -13,6 +13,7 @@ NSString *QSTextType = @"NSStringPboardType";
 NSString *QSAliasDataType = @"public.data.alias";
 NSString *QSAliasFilePathType = @"public.alias";
 NSString *QSURLType = @"Apple URL pasteboard type";
+NSString *QSSearchURLType = @"qs.url.search";
 NSString *QSEmailAddressType = @"qs.contact.email";
 NSString *QSContactEmailType = @"qs.contact.email";
 NSString *QSContactPhoneType = @"qs.contact.phone";

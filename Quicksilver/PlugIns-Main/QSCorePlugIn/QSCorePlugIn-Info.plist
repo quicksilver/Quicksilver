@@ -2117,6 +2117,8 @@
 			<string>QSHandledObjectHandler</string>
 			<key>Apple URL pasteboard type</key>
 			<string>QSURLObjectHandler</string>
+			<key>qs.url.search</key>
+			<string>QSURLObjectHandler</string>
 			<key>NSColor pasteboard type</key>
 			<string>QSColorObjectHandler</string>
 			<key>NSStringPboardType</key>
