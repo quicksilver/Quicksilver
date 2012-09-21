@@ -13,6 +13,7 @@
 "QSApplicationPrefPane" = "Application";
 "QSCatalogController" = "Catalog";
 "QSSilverNotifier" = "Quicksilver (Built-in)";
+"QSNotificationCenterNotifier" = "Notification Center";
 "QSDefaultStringRanker" = "Default (Built-in)";
 
 // QSController.m Alerts
