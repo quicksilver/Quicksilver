@@ -14,4 +14,5 @@
 }
 + (NSURL *)downloadsLocation;
 - (id)resolveProxyObject:(id)proxy;
++ (NSArray *)iCloudDocumentsForBundleID:(NSString *)bundleIdentifier;
 @end

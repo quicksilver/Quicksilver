@@ -10,6 +10,8 @@
 	<string>Downloads</string>
 	<key>QSPresetDocuments</key>
 	<string>Documents</string>
+	<key>QSPresetICloudDocuments</key>
+	<string>iCloud Documents</string>
 	<key>QSPresetAccounts</key>
 	<string>User Accounts</string>
 	<key>QSPresetProxies</key>

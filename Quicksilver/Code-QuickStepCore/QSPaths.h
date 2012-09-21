@@ -7,6 +7,7 @@
 #define pStateLocation		[@"~/Library/Caches/Quicksilver/QuicksilverState.plist" stringByStandardizingPath]
 #define pCrashReporterFolder [@"~/Library/Logs/DiagnosticReports" stringByStandardizingPath]
 #define pShelfLocation		QSApplicationSupportSubPath(@"Shelves/", NO)
+#define pICloudDocumentsPrefix [@"~/Library/Mobile Documents/" stringByStandardizingPath]
 
 #define psMainPlugInsLocation QSApplicationSupportSubPath(@"PlugIns/", NO)
 #define psMainPlugInsToInstallLocation QSApplicationSupportSubPath(@"PlugIns/Incoming/", NO)
