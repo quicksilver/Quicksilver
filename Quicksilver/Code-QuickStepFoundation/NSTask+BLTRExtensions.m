@@ -18,6 +18,15 @@
 	return [task autorelease];
 }
 
++ (NSTask *)taskWithLaunchPath:(NSString *)path arguments:(NSArray *)arguments input:(NSData *)inputData {
+	NSTask *task = [self taskWithLaunchPath:path arguments:arguments];
+    NSPipe *inputPipe = [NSPipe pipe];
+    NSFileHandle *inputHandle = [inputPipe fileHandleForWriting];
+    [task setStandardInput:inputPipe];
+    [inputHandle writeData:inputData];
+	return task;
+}
+
 - (NSData *)launchAndReturnOutput {
 	[self setStandardOutput:[NSPipe pipe]];
 	[self launch];
