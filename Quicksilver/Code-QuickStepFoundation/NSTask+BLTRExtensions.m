@@ -12,19 +12,20 @@
 @implementation NSTask (BLTRExtensions)
 
 + (NSTask *)taskWithLaunchPath:(NSString *)path arguments:(NSArray *)arguments {
-	NSTask *task = [[NSTask alloc] init];
-	[task setLaunchPath:path];
-	[task setArguments:arguments];
-	return [task autorelease];
+    return [NSTask taskWithLaunchPath:path arguments:arguments input:nil];
 }
 
 + (NSTask *)taskWithLaunchPath:(NSString *)path arguments:(NSArray *)arguments input:(NSData *)inputData {
-	NSTask *task = [self taskWithLaunchPath:path arguments:arguments];
-    NSPipe *inputPipe = [NSPipe pipe];
-    NSFileHandle *inputHandle = [inputPipe fileHandleForWriting];
-    [task setStandardInput:inputPipe];
-    [inputHandle writeData:inputData];
-	return task;
+    NSTask *task = [[NSTask alloc] init];
+	[task setLaunchPath:path];
+	[task setArguments:arguments];
+    if (inputData) {
+        NSPipe *inputPipe = [NSPipe pipe];
+        NSFileHandle *inputHandle = [inputPipe fileHandleForWriting];
+        [task setStandardInput:inputPipe];
+        [inputHandle writeData:inputData];
+    }
+	return [task autorelease];
 }
 
 - (NSData *)launchAndReturnOutput {
