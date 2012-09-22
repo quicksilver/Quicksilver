@@ -31,6 +31,8 @@ NSDictionary *enabledPresetDictionary;*/
 
 @implementation QSCatalogEntry
 
+@synthesize isSavingIndex;
+
 + (BOOL)accessInstanceVariablesDirectly {return YES;}
 
 + (QSCatalogEntry *)entriesWithArray:(NSArray *)array { return nil; }
@@ -425,7 +427,12 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (void)saveIndex {
-	
+	// If an index is currently being scanned, do not try to save it now (saving will be done once the entry has been scanned)
+    if (isScanning || isSavingIndex) {
+        return;
+    }
+    
+    [self setIsSavingIndex:YES];
 #ifdef DEBUG
 	if (DEBUG_CATALOG) NSLog(@"saving index for %@", self);
 #endif
@@ -439,6 +446,7 @@ NSDictionary *enabledPresetDictionary;*/
         NSArray *writeArray = [contents arrayByPerformingSelector:@selector(dictionaryRepresentation)];
         [writeArray writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
     }
+    [self setIsSavingIndex:NO];
 }
 
 
@@ -475,6 +483,9 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (NSArray *)scannedObjects {
+    if (isScanning) {
+        return nil;
+    }
     NSArray *itemContents = nil;
     @autoreleasepool {
         @try {
@@ -500,27 +511,26 @@ NSDictionary *enabledPresetDictionary;*/
 		if (VERBOSE) NSLog(@"%@ is already being scanned", [self name]);
 #endif
 		return nil;
-	} else {
-		[self setIsScanning:YES];
-        NSString *ID = [self identifier];
-        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-        [nc postNotificationName:QSCatalogEntryIsIndexing object:self];
-        NSArray *itemContents = [self scannedObjects];
-		if (itemContents && ID) {
-            [self setContents:itemContents];
-            QSObjectSource *source = [self source];
-            if (![source respondsToSelector:@selector(entryCanBeIndexed:)] || [source entryCanBeIndexed:[self info]]) {
-                [self saveIndex];
-            }
-        } else if (ID) {
-            [self setContents:nil];
+	}
+    [self setIsScanning:YES];
+    NSString *ID = [self identifier];
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc postNotificationName:QSCatalogEntryIsIndexing object:self];
+    NSArray *itemContents = [self scannedObjects];
+    if (itemContents && ID) {
+        [self setContents:itemContents];
+        QSObjectSource *source = [self source];
+        if (![source respondsToSelector:@selector(entryCanBeIndexed:)] || [source entryCanBeIndexed:[self info]]) {
+            [self saveIndex];
         }
-        [self willChangeValueForKey:@"self"];
-        [self didChangeValueForKey:@"self"];
-        [nc postNotificationName:QSCatalogEntryIndexed object:self];
-        [self setIsScanning:NO];
-        return itemContents;
+    } else if (ID) {
+        [self setContents:nil];
     }
+    [self willChangeValueForKey:@"self"];
+    [self didChangeValueForKey:@"self"];
+    [nc postNotificationName:QSCatalogEntryIndexed object:self];
+    [self setIsScanning:NO];
+    return itemContents;
 }
 
 - (void)scanForcedInThread:(NSNumber *)force {
