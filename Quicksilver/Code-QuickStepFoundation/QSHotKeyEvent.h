@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 #import "NDHotKeyEvent.h"
-NSUInteger carbonModifierFlagsToCocoaModifierFlags( NSUInteger aModifierFlags );
+
 @interface QSHotKeyEvent : NDHotKeyEvent {
 	NSString *identifier;
 }
@@ -22,5 +22,5 @@ NSUInteger carbonModifierFlagsToCocoaModifierFlags( NSUInteger aModifierFlags );
 @end
 
 @interface NDHotKeyEvent (QSMods)
-+ (id)getHotKeyForKeyCode:(unsigned short)aKeyCode character:(unichar)aChar safeModifierFlags:(NSUInteger)aModifierFlags;
++ (id)getHotKeyForKeyCode:(unsigned short)aKeyCode character:(unichar)aChar safeModifierFlags:(NSUInteger)aModifierFlags DEPRECATED_ATTRIBUTE;
 @end

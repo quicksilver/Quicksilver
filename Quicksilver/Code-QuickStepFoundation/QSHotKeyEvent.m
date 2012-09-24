@@ -83,22 +83,26 @@ static NSMutableDictionary *hotKeyDictionary;
 	if (![dict objectForKey:@"keyCode"] || ![dict objectForKey:@"modifiers"]) {
         return nil;
     }
-    
-	return (QSHotKeyEvent *)[self getHotKeyForKeyCode:[[dict objectForKey:@"keyCode"] shortValue] character:[[dict objectForKey:@"character"] characterAtIndex:0] modifierFlags:[[dict objectForKey:@"modifiers"] unsignedIntegerValue]];
+
+    UInt16 keyCode = [[dict objectForKey:@"keyCode"] shortValue];
+    NSUInteger modifiers = [[dict objectForKey:@"modifiers"] unsignedIntegerValue];
+//    unichar character = [[dict objectForKey:@"character"] characterAtIndex:0];
+
+    return (QSHotKeyEvent *)[self getHotKeyForKeyCode:keyCode modifierFlags:modifiers];
 }
 @end
 
 @implementation NDHotKeyEvent (QSMods)
 
-+ (id)getHotKeyForKeyCode:(unsigned short)aKeyCode character:(unichar)aChar carbonModifierFlags:(NSUInteger)aModifierFlags {
-	return [self getHotKeyForKeyCode:aKeyCode character:aChar modifierFlags:carbonModifierFlagsToCocoaModifierFlags(aModifierFlags)];
++ (id)getHotKeyForKeyCode:(UInt16)aKeyCode character:(unichar)aChar carbonModifierFlags:(NSUInteger)aModifierFlags {
+    return [self getHotKeyForKeyCode:aKeyCode modifierFlags:carbonModifierFlagsToCocoaModifierFlags(aModifierFlags)];
 }
 
-+ (id)getHotKeyForKeyCode:(unsigned short)aKeyCode character:(unichar)aChar safeModifierFlags:(NSUInteger)aModifierFlags {
++ (id)getHotKeyForKeyCode:(UInt16)aKeyCode character:(unichar)aChar safeModifierFlags:(NSUInteger)aModifierFlags {
 	if (aModifierFlags< (1 << (rightControlKeyBit+1) )) //Carbon Modifiers
 		return [self getHotKeyForKeyCode:aKeyCode character:aChar carbonModifierFlags:aModifierFlags];
 	else
-		return [self getHotKeyForKeyCode:aKeyCode character:aChar modifierFlags:aModifierFlags];
+		return [self getHotKeyForKeyCode:aKeyCode modifierFlags:aModifierFlags];
     
 }
 
