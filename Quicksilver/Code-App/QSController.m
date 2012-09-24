@@ -1054,7 +1054,7 @@ static QSController *defaultController = nil;
 		NSInteger modifiers = [oldModifiers unsignedIntegerValue];
 		if (modifiers < (1 << (rightControlKeyBit+1) )) {
 			NSLog(@"updating shortcut %ld", (long)modifiers);
-			[defaults setValue:[NSNumber numberWithInteger:carbonModifierFlagsToCocoaModifierFlags(modifiers)] forKey:kHotKeyModifiers];
+			[defaults setValue:[NSNumber numberWithInteger:NDCocoaModifierFlagsForCarbonModifierFlags(modifiers)] forKey:kHotKeyModifiers];
 			[defaults synchronize];
 		}
         

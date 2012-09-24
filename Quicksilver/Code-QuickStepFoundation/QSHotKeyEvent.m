@@ -9,28 +9,6 @@
 #import "QSHotKeyEvent.h"
 #import "CGSPrivate.h"
 
-/*
- * cocoaModifierFlagsToCarbonModifierFlags()
- */
-NSUInteger carbonModifierFlagsToCocoaModifierFlags( NSUInteger aModifierFlags ) {
-	NSUInteger theCocoaModifierFlags = 0;
-	if (aModifierFlags & shiftKey)
-		theCocoaModifierFlags |= NSShiftKeyMask;
-    if (aModifierFlags & alphaLock)
-		theCocoaModifierFlags |= NSAlphaShiftKeyMask;
-	if (aModifierFlags & controlKey)
-		theCocoaModifierFlags |= NSControlKeyMask;
-	if (aModifierFlags & optionKey)
-		theCocoaModifierFlags |= NSAlternateKeyMask;
-	if (aModifierFlags & cmdKey)
-		theCocoaModifierFlags |= NSCommandKeyMask;
-    if (aModifierFlags & kEventKeyModifierFnMask)
-        theCocoaModifierFlags |= NSFunctionKeyMask;
-    if (aModifierFlags & kEventKeyModifierNumLockMask)
-        theCocoaModifierFlags |= NSNumericPadKeyMask;
-	return theCocoaModifierFlags;
-}
-
 static NSMutableDictionary *hotKeyDictionary;
 
 @implementation QSHotKeyEvent
@@ -95,7 +73,7 @@ static NSMutableDictionary *hotKeyDictionary;
 @implementation NDHotKeyEvent (QSMods)
 
 + (id)getHotKeyForKeyCode:(UInt16)aKeyCode character:(unichar)aChar carbonModifierFlags:(NSUInteger)aModifierFlags {
-    return [self getHotKeyForKeyCode:aKeyCode modifierFlags:carbonModifierFlagsToCocoaModifierFlags(aModifierFlags)];
+    return [self getHotKeyForKeyCode:aKeyCode modifierFlags:NDCocoaModifierFlagsForCarbonModifierFlags(aModifierFlags)];
 }
 
 + (id)getHotKeyForKeyCode:(UInt16)aKeyCode character:(unichar)aChar safeModifierFlags:(NSUInteger)aModifierFlags {
