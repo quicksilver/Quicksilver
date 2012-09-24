@@ -20,6 +20,13 @@
 	[self setMovableByWindowBackground:NO];
 	[self setHasShadow:YES];
 	[self setLevel:NSFloatingWindowLevel];
+    // show the results list on all spaces and above full-screen applications
+#if (MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_7)
+    [self setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | 256];
+#else
+#warning remove the 10.6 code above
+    [self setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary];
+#endif
     return (QSResultWindow *)result;
 }
 

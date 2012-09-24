@@ -16,7 +16,12 @@
 		[self setCanHide:NO];
 		[self setLevel:NSFloatingWindowLevel];
 		[self setSticky:YES];
-		[self setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
+#if (MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_7)
+        [self setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | 256];
+#else
+#warning remove the 10.6 code above
+        [self setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary];
+#endif
 		hidden = YES;
 		
 		NSMutableArray *types = [standardPasteboardTypes mutableCopy];

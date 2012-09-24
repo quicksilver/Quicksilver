@@ -234,7 +234,12 @@ id QSPrefs;
 	[win setFrame:frame display:YES];
 
 	// Set the window to be visible on all spaces
-	[win setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
+#if (MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_7)
+    [win setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | 256];
+#else
+#warning remove the 10.6 code above
+    [win setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary];
+#endif
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadPlugInInfo:) name:QSPlugInLoadedNotification object:nil];
 	[moduleController addObserver:self forKeyPath:@"selectedObjects" options:0 context:nil];
