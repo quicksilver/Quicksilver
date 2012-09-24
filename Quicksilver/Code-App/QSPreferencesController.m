@@ -233,9 +233,6 @@ id QSPrefs;
 	frame = constrainRectToRect(frame, [[win screen] visibleFrame]);
 	[win setFrame:frame display:YES];
 
-	// Set the window to be visible on all spaces
-	[win setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
-	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadPlugInInfo:) name:QSPlugInLoadedNotification object:nil];
 	[moduleController addObserver:self forKeyPath:@"selectedObjects" options:0 context:nil];
 

@@ -131,6 +131,7 @@
 		[self setMovableByWindowBackground:YES];
 		[self setHasShadow:YES];
 		[self setLevel:NSNormalWindowLevel];
+        [self useQuicksilverCollectionBehavior];
 		[self setShowOffset:NSMakePoint(0, 50)];
 		[self setHideOffset:NSMakePoint(0, -50)];
 		trueRect = contentRect;

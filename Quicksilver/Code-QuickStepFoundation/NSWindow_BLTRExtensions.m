@@ -179,3 +179,18 @@
 	[self addInternalWidgetsForStyleMask:(NSInteger) styleMask closeOnly:NO];
 }
 @end
+
+@implementation NSWindow (Visibility)
+
+- (void)useQuicksilverCollectionBehavior
+{
+    // make windows visible in all spaces
+#if (MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_7)
+    [self setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | 256];
+#else
+#warning remove the 10.6 code above
+    [self setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary];
+#endif
+}
+
+@end
