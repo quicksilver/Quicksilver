@@ -75,6 +75,8 @@
 		4D00308813116376009040B7 /* QSOutlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D00308213116376009040B7 /* QSOutlineView.m */; };
 		4D00308913116376009040B7 /* QSTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D00308313116376009040B7 /* QSTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D00308A13116376009040B7 /* QSTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D00308413116376009040B7 /* QSTableView.m */; };
+		4D4B284B16109250002B0ADB /* NDHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4B284716109250002B0ADB /* NDHotKeyEvent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4D4B284D16109250002B0ADB /* NDKeyboardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4B284916109250002B0ADB /* NDKeyboardLayout.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4D62E3181476919300362E9A /* QSActionsPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E30E1476919300362E9A /* QSActionsPrefPane.strings */; };
 		4D62E3191476919300362E9A /* QSCatalog.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E3101476919300362E9A /* QSCatalog.strings */; };
 		4D62E31A1476919300362E9A /* QSHelpersPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E3121476919300362E9A /* QSHelpersPrefPane.strings */; };
@@ -83,8 +85,6 @@
 		4D62E324147694D800362E9A /* QSAction.description.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E326147694D800362E9A /* QSAction.description.plist */; };
 		4D62E32A1476A6BF00362E9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D62E3281476A6BF00362E9A /* Localizable.strings */; };
 		4D66BBDA1486FCF400351C42 /* CPSPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBD91486FCDE00351C42 /* CPSPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4D66BBFB1487018700351C42 /* NDHotKeyEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBF51487018700351C42 /* NDHotKeyEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4D66BBFC1487018700351C42 /* NDHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BBF61487018700351C42 /* NDHotKeyEvent.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4D66BC05148701B800351C42 /* NDProgrammerUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BBFF148701B800351C42 /* NDProgrammerUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D66BC06148701B800351C42 /* NDProgrammerUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BC00148701B800351C42 /* NDProgrammerUtilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4D66BC07148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D66BC01148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -148,6 +148,8 @@
 		4DC493E20E8D15CB000EEF1C /* QSImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC493DC0E8D15CB000EEF1C /* QSImageView.m */; };
 		4DC493E30E8D15CB000EEF1C /* QSPopUpTextButtonCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DC493DD0E8D15CB000EEF1C /* QSPopUpTextButtonCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DC493E40E8D15CB000EEF1C /* QSPopUpTextButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC493DE0E8D15CB000EEF1C /* QSPopUpTextButtonCell.m */; };
+		4DC95B6A1D510C86004C3A6F /* NDHotKeyEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D4B284616109250002B0ADB /* NDHotKeyEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DC95B6B1D510C8B004C3A6F /* NDKeyboardLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D4B284816109250002B0ADB /* NDKeyboardLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD2CF360E7B345500BA1128 /* QSBasicObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD2CF340E7B345500BA1128 /* QSBasicObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD2CF370E7B345500BA1128 /* QSBasicObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD2CF350E7B345500BA1128 /* QSBasicObject.m */; };
 		4DD89EF90EBDD97B005A15AE /* CGSPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = E12444CB07297FF300043A01 /* CGSPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -390,8 +392,6 @@
 		CDDB44E81518C78F00800B66 /* QSCrashReporterWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDDB44E61518C78F00800B66 /* QSCrashReporterWindowController.m */; };
 		CDDB44EE1518ED3800800B66 /* CrashReporterText.html in Resources */ = {isa = PBXBuildFile; fileRef = CDDB44ED1518ED3800800B66 /* CrashReporterText.html */; };
 		CDE6C624157E39AE006E66BD /* QSFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = CDE6C623157E39AE006E66BD /* QSFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CDE8ADBB15824E3E0099CC83 /* NDKeyboardLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = CDE8ADB915824E3E0099CC83 /* NDKeyboardLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CDE8ADBC15824E3E0099CC83 /* NDKeyboardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE8ADBA15824E3E0099CC83 /* NDKeyboardLayout.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D413172F15DEE5D90021479B /* LaunchAtLoginController.h in Headers */ = {isa = PBXBuildFile; fileRef = D413172C15DEE5D90021479B /* LaunchAtLoginController.h */; };
 		D413173015DEE5D90021479B /* LaunchAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = D413172D15DEE5D90021479B /* LaunchAtLoginController.m */; };
 		D42A065816E1381F00BFD9C8 /* TestQSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D42A065716E1381F00BFD9C8 /* TestQSObject.m */; };
@@ -1076,6 +1076,10 @@
 		4D00308313116376009040B7 /* QSTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTableView.h; sourceTree = "<group>"; usesTabs = 1; };
 		4D00308413116376009040B7 /* QSTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSTableView.m; sourceTree = "<group>"; usesTabs = 1; };
 		4D35B4DE143C7AB800E059A7 /* QuicksilverDMG.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = QuicksilverDMG.icns; sourceTree = "<group>"; };
+		4D4B284616109250002B0ADB /* NDHotKeyEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NDHotKeyEvent.h; path = NDHotKeyEvent/Classes/NDHotKeyEvent.h; sourceTree = "<group>"; };
+		4D4B284716109250002B0ADB /* NDHotKeyEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NDHotKeyEvent.m; path = NDHotKeyEvent/Classes/NDHotKeyEvent.m; sourceTree = "<group>"; };
+		4D4B284816109250002B0ADB /* NDKeyboardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NDKeyboardLayout.h; path = NDHotKeyEvent/Classes/NDKeyboardLayout.h; sourceTree = "<group>"; };
+		4D4B284916109250002B0ADB /* NDKeyboardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NDKeyboardLayout.m; path = NDHotKeyEvent/Classes/NDKeyboardLayout.m; sourceTree = "<group>"; };
 		4D4F32FC0E39EDE500668F94 /* QSEffects-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "QSEffects-Info.plist"; sourceTree = "<group>"; };
 		4D4F32FD0E39EDFD00668F94 /* QSFoundation-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "QSFoundation-Info.plist"; sourceTree = "<group>"; };
 		4D62E30F1476919300362E9A /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = en.lproj/QSActionsPrefPane.strings; sourceTree = "<group>"; };
@@ -1098,8 +1102,6 @@
 		4D66BBF01486FFF000351C42 /* NDSDKCompatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDSDKCompatibility.h; sourceTree = "<group>"; };
 		4D66BBF11486FFF000351C42 /* NSURL+NDCarbonUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+NDCarbonUtilities.h"; sourceTree = "<group>"; };
 		4D66BBF21486FFF000351C42 /* NSURL+NDCarbonUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+NDCarbonUtilities.m"; sourceTree = "<group>"; };
-		4D66BBF51487018700351C42 /* NDHotKeyEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDHotKeyEvent.h; sourceTree = "<group>"; };
-		4D66BBF61487018700351C42 /* NDHotKeyEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDHotKeyEvent.m; sourceTree = "<group>"; };
 		4D66BBFF148701B800351C42 /* NDProgrammerUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDProgrammerUtilities.h; sourceTree = "<group>"; };
 		4D66BC00148701B800351C42 /* NDProgrammerUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDProgrammerUtilities.m; sourceTree = "<group>"; };
 		4D66BC01148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAppleEventDescriptor+NDCoercion.h"; sourceTree = "<group>"; };
@@ -1736,8 +1738,6 @@
 		CDE1E660158A4D0900355A9F /* VDKQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VDKQueue.h; path = VDKQueue/VDKQueue.h; sourceTree = "<group>"; };
 		CDE1E661158A4D0900355A9F /* VDKQueue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = VDKQueue.m; path = VDKQueue/VDKQueue.m; sourceTree = "<group>"; };
 		CDE6C623157E39AE006E66BD /* QSFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSFoundation.h; sourceTree = "<group>"; usesTabs = 1; };
-		CDE8ADB915824E3E0099CC83 /* NDKeyboardLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NDKeyboardLayout.h; sourceTree = "<group>"; };
-		CDE8ADBA15824E3E0099CC83 /* NDKeyboardLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDKeyboardLayout.m; sourceTree = "<group>"; };
 		CDEA57F316C551CB00B3897A /* ca-ES */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = "ca-ES"; path = "ca-ES.lproj/QSAdvancedPrefPane.strings"; sourceTree = "<group>"; };
 		CDEA57F416C551CB00B3897A /* ca-ES */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = "ca-ES"; path = "ca-ES.lproj/QSActionsPrefPane.strings"; sourceTree = "<group>"; };
 		CDEA57F516C551CB00B3897A /* ca-ES */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = "ca-ES"; path = "ca-ES.lproj/QSCatalog.strings"; sourceTree = "<group>"; };
@@ -2594,6 +2594,17 @@
 			path = QSHotKeyPlugIn;
 			sourceTree = "<group>";
 		};
+		4D4B284516109237002B0ADB /* NDHotKeyEvent */ = {
+			isa = PBXGroup;
+			children = (
+				4D4B284616109250002B0ADB /* NDHotKeyEvent.h */,
+				4D4B284716109250002B0ADB /* NDHotKeyEvent.m */,
+				4D4B284816109250002B0ADB /* NDKeyboardLayout.h */,
+				4D4B284916109250002B0ADB /* NDKeyboardLayout.m */,
+			);
+			name = NDHotKeyEvent;
+			sourceTree = "<group>";
+		};
 		4DC3DD0B0E0BB27B009902EF /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -2986,6 +2997,7 @@
 			children = (
 				CDA5253416AED83900D2017F /* DisableSubviews */,
 				CDC10E6D16221459005FA734 /* Sparkle */,
+				4D4B284516109237002B0ADB /* NDHotKeyEvent */,
 				D413172B15DEE5D90021479B /* LaunchAtLoginController */,
 				CDE1E65F158A4CFD00355A9F /* VDKQueue */,
 				4D66BBD91486FCDE00351C42 /* CPSPrivate.h */,
@@ -3514,8 +3526,6 @@
 				4D66BC0C148701E900351C42 /* NDAlias.m */,
 				4D66BC0D148701E900351C42 /* NDAlias+AliasFile.h */,
 				4D66BC0E148701E900351C42 /* NDAlias+AliasFile.m */,
-				CDE8ADB915824E3E0099CC83 /* NDKeyboardLayout.h */,
-				CDE8ADBA15824E3E0099CC83 /* NDKeyboardLayout.m */,
 				4D66BC0F148701E900351C42 /* NDResourceFork.h */,
 				4D66BC10148701E900351C42 /* NDResourceFork.m */,
 				4D66BC11148701E900351C42 /* NDResourceFork+OtherSorces.h */,
@@ -3534,8 +3544,6 @@
 				4D66BC02148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.m */,
 				4D66BC03148701B800351C42 /* NSValue+NDFourCharCode.h */,
 				4D66BC04148701B800351C42 /* NSValue+NDFourCharCode.m */,
-				4D66BBF51487018700351C42 /* NDHotKeyEvent.h */,
-				4D66BBF61487018700351C42 /* NDHotKeyEvent.m */,
 				4D66BBEE1486FFEF00351C42 /* NDProcess.h */,
 				4D66BBEF1486FFEF00351C42 /* NDProcess.m */,
 				4D66BBF01486FFF000351C42 /* NDSDKCompatibility.h */,
@@ -3760,12 +3768,13 @@
 				D4BDCC2019E7F8F50080710C /* SUVersionComparisonProtocol.h in Headers */,
 				4D66BC5C1487027E00351C42 /* NDSDKCompatibility.h in Headers */,
 				4D66BC5D1487027E00351C42 /* NSURL+NDCarbonUtilities.h in Headers */,
-				4D66BBFB1487018700351C42 /* NDHotKeyEvent.h in Headers */,
 				4D66BC05148701B800351C42 /* NDProgrammerUtilities.h in Headers */,
 				4D66BC07148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.h in Headers */,
 				4D66BC09148701B800351C42 /* NSValue+NDFourCharCode.h in Headers */,
+				4DC95B6B1D510C8B004C3A6F /* NDKeyboardLayout.h in Headers */,
 				4D66BC1B148701EA00351C42 /* NDAlias.h in Headers */,
 				4D66BC1D148701EA00351C42 /* NDAlias+AliasFile.h in Headers */,
+				4DC95B6A1D510C86004C3A6F /* NDHotKeyEvent.h in Headers */,
 				4D66BC1F148701EA00351C42 /* NDResourceFork.h in Headers */,
 				4D66BC21148701EA00351C42 /* NDResourceFork+OtherSorces.h in Headers */,
 				4D66BC23148701EA00351C42 /* NSOpenPanel+NDAlias.h in Headers */,
@@ -3785,7 +3794,6 @@
 				CD4FA6E0157A13D600E549BD /* QSHotKeyEvent.h in Headers */,
 				CDE6C624157E39AE006E66BD /* QSFoundation.h in Headers */,
 				4D66BC451487024500351C42 /* NSString+NDUtilities.h in Headers */,
-				CDE8ADBB15824E3E0099CC83 /* NDKeyboardLayout.h in Headers */,
 				CDC10E721622146C005FA734 /* SUConstants.h in Headers */,
 				CDC10E741622146C005FA734 /* SUPlainInstallerInternals.h in Headers */,
 				CDA5253716AED84400D2017F /* NSView+DisableSubviews.h in Headers */,
@@ -4836,7 +4844,6 @@
 				D4E006101523951500FDF185 /* NSMetadataQuery+Synchronous.m in Sources */,
 				4D66BC5B1487027E00351C42 /* NDProcess.m in Sources */,
 				4D66BC5E1487027E00351C42 /* NSURL+NDCarbonUtilities.m in Sources */,
-				4D66BBFC1487018700351C42 /* NDHotKeyEvent.m in Sources */,
 				4D66BC06148701B800351C42 /* NDProgrammerUtilities.m in Sources */,
 				4D66BC08148701B800351C42 /* NSAppleEventDescriptor+NDCoercion.m in Sources */,
 				4D66BC0A148701B800351C42 /* NSValue+NDFourCharCode.m in Sources */,
@@ -4855,12 +4862,13 @@
 				4D66BC441487024500351C42 /* NDScriptData.m in Sources */,
 				4D66BC461487024500351C42 /* NSString+NDUtilities.m in Sources */,
 				CD4FA6E2157A13DE00E549BD /* QSHotKeyEvent.m in Sources */,
-				CDE8ADBC15824E3E0099CC83 /* NDKeyboardLayout.m in Sources */,
 				CDC10E731622146C005FA734 /* SUConstants.m in Sources */,
 				CDC10E751622146C005FA734 /* SUPlainInstallerInternals.m in Sources */,
 				CDA5253816AED84400D2017F /* NSView+DisableSubviews.m in Sources */,
 				CDA5253A16AED89100D2017F /* QSGCD.m in Sources */,
 				CDD6F3FB17EB4DED00ACE129 /* QSIntValueTransformer.m in Sources */,
+				4D4B284B16109250002B0ADB /* NDHotKeyEvent.m in Sources */,
+				4D4B284D16109250002B0ADB /* NDKeyboardLayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
