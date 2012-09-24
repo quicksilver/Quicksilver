@@ -171,7 +171,7 @@
 	Gestalt (gestaltSystemVersionMinor, &versionMinor);
 	Gestalt (gestaltSystemVersionBugFix, &versionBugfix);
 	
-	return [NSString stringWithFormat:@"%i.%i.%i",versionMajor,versionMinor,versionBugfix];
+	return [NSString stringWithFormat:@"%i.%i.%i",(int)versionMajor,(int)versionMinor,(int)versionBugfix];
 }
 
 + (SInt32)macOSXSystemVersion {

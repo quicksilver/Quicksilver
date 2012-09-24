@@ -2,14 +2,15 @@
 #import <QSCore/QSClangAnalyzer.h>
 #import "QSObject.h"
 
-@interface QSObject (QSFileObjectCreationProtocol)
-//
-- (id)initFileObject:(QSObject *)object ofType:(NSString *)type NS_RETURNS_RETAINED;
+@protocol QSFileObjectCreationProtocol
+- (id)createFileObject:(QSObject *)object ofType:(NSString *)type;
 @end
-@interface NSObject (QSFileCreatingHandlingProtocol)
+
+@protocol QSFileCreatingHandlingProtocol
 - (NSData *)fileRepresentationForObject:(QSObject *)object;
 - (NSString *)filenameForObject:(QSObject *)object;
 @end
+
 @interface QSFileSystemObjectHandler : NSObject {
     NSMutableDictionary *applicationIcons;
 }

@@ -133,7 +133,7 @@
 	id groupItem = nil;
 	for(NSString *key in managers) {
 		manager = [managers objectForKey:key];
-		item = [[[NSMenuItem alloc] initWithTitle:[manager name] action:NULL keyEquivalent:@""] autorelease];
+		item = [[[NSMenuItem alloc] initWithTitle:[(QSTriggerManager *)manager name] action:NULL keyEquivalent:@""] autorelease];
 		[item setRepresentedObject:key];
 		[item setImage:[manager image]];
 		//	[item setAction:@selector(addTrigger:)];

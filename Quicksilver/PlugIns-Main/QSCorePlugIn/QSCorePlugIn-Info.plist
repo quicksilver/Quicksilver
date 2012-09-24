@@ -1433,8 +1433,10 @@
 			<array>
 				<string>qs.command</string>
 			</array>
-			<key>indirectOptional</key>
-			<true/>
+			<key>indirectTypes</key>
+			<array>
+				<string>public.folder</string>
+			</array>
 			<key>precedence</key>
 			<integer>2</integer>
 			<key>actionSelector</key>

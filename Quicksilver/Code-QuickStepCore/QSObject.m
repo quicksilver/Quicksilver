@@ -350,7 +350,7 @@ NSSize QSMaxIconSize;
 
 - (NSString *)toolTip {
 #ifdef DEBUG
-	return [NSString stringWithFormat:@"%@ (%d) \r%@\rTypes:\r\t%@", [self name] , self, [self details] , [[self decodedTypes] componentsJoinedByString:@"\r\t"]];
+	return [NSString stringWithFormat:@"%@ (%p) \r%@\rTypes:\r\t%@", [self name] , self, [self details] , [[self decodedTypes] componentsJoinedByString:@"\r\t"]];
 #endif
 	return nil; //[self displayName];
 }

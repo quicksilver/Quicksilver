@@ -348,8 +348,8 @@ NSUInteger NDCarbonModifierFlagsForCocoaModifierFlags( NSUInteger aModifierFlags
 			CFRetain( keyboardLayoutData );
 		else
 		{
-			self = nil;
 			[self release];
+			self = nil;
 		}
 	}
 	return self;

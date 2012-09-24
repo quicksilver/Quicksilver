@@ -131,7 +131,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 		
 #ifdef DEBUG
 	if (!data) {
-		name = [name stringByAppendingFormat:@" - Private", 0x03B1];
+		name = [name stringByAppendingFormat:@" - Private"];
 	}
     if ([self isSecret]) {
 		name = [name stringByAppendingFormat:@" - Secret"];
@@ -144,8 +144,8 @@ NSMutableDictionary *plugInBundlePaths = nil;
 - (NSString *)statusBullet {
 	  if ([self isLoaded]) {
 		  if ([bundle isLoaded])
-			  return [NSString stringWithFormat:@"%C", 0x25C6];
-		  else return [NSString stringWithFormat:@"%C", 0x25C7];
+			  return [NSString stringWithFormat:@"%C", (unichar)0x25C6];
+		  else return [NSString stringWithFormat:@"%C", (unichar)0x25C7];
 		  //BOOL selected = [[aTableView selectedRowIndexes] containsIndex:rowIndex];
 		  //[aCell setTextColor:(! && !selected?[NSColor blueColor] :[NSColor blackColor])];
 		  //

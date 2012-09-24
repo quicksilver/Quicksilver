@@ -586,7 +586,7 @@ NSMutableDictionary *kindDescriptions = nil;
 	NSRectFill(clipRect);
 
 	id object = [[self currentResults] objectAtIndex:rowIndex];
-	[[object name] drawInRect:clipRect withAttributes:nil];
+	[[(QSObject *)object name] drawInRect:clipRect withAttributes:nil];
 
 	return NO;
 }

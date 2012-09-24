@@ -392,10 +392,9 @@ static BOOL gModifiersAreIgnored;
 	NSString *name = [[object objectForType:QSActionType] objectForKey:kActionIcon];
 	if (!icon && name)
 		icon = [QSResourceManager imageNamed:name inBundle:[object bundle]];
-    if(!icon) {
-        if ([object respondsToSelector:@selector(provider)]) {
+    if(!icon && [object respondsToSelector:@selector(provider)]) {
         NSObject <QSActionProvider> *provider = [(QSAction*)object provider];
-        if(provider && [provider respondsToSelector:@selector(iconForAction:)])
+        if(provider && [provider respondsToSelector:@selector(iconForAction:)]) {
             icon = [provider iconForAction:[object identifier]];
         }
     }
