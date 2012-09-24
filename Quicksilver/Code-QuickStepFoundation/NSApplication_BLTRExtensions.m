@@ -179,7 +179,7 @@
 	Gestalt (gestaltSystemVersionMajor, &versionMajor);
 	Gestalt (gestaltSystemVersionMinor, &versionMinor);
 	
-	return [NSString stringWithFormat:@"%li.%li", (long)versionMajor, (long)versionMinor];
+	return [NSString stringWithFormat:@"%i.%i", (int)versionMajor, (int)versionMinor];
 }
 
 + (SInt32)macOSXSystemVersion {
