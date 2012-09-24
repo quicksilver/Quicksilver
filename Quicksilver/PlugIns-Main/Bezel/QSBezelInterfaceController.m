@@ -20,7 +20,12 @@
 	[window setBackgroundColor:[NSColor clearColor]];
 	
 	// Set the window to be visible on all spaces
-    [[self window] setCollectionBehavior:NSWindowCollectionBehaviorTransient];
+#if (MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_7)
+    [[self window] setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | 256];
+#else
+#warning remove the 10.6 code above
+    [[self window] setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary];
+#endif
 
 	[window setHideOffset:NSMakePoint(0, 0)];
 	[window setShowOffset:NSMakePoint(0, 0)];

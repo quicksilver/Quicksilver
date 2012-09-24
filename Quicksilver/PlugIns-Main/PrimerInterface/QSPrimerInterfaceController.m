@@ -32,7 +32,12 @@
 	[[self window] setFrameAutosaveName:@"PrimerInterfaceWindow"];
     
     // Set the window to be visible on all spaces
-    [[self window] setCollectionBehavior:NSWindowCollectionBehaviorTransient];
+#if (MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_7)
+    [[self window] setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | 256];
+#else
+#warning remove the 10.6 code above
+    [[self window] setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary];
+#endif
 
 	//  [[self window] setFrame:constrainRectToRect([[self window] frame] , [[[self window] screen] visibleFrame]) display:NO];
 	//	[(QSWindow *)[self window] setHideOffset:NSMakePoint(0, -99)];
