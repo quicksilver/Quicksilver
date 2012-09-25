@@ -423,14 +423,21 @@
 		fadedColor, NSForegroundColorAttributeName,
 		style, NSParagraphStyleAttributeName,
 		nil];
+    [rankedNameAttributes release];
+    rankedNameAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:
+                         detailsFont, NSFontAttributeName,
+                         [fadedColor colorWithAlphaComponent:0.8], NSForegroundColorAttributeName,
+                         style, NSParagraphStyleAttributeName,
+                         nil];
 }
 
 // method for drawing the text (e.g. object label, name etc.) on the interface
 - (void)drawTextForObject:(QSObject *)drawObject withFrame:(NSRect)cellFrame inView:(NSView *)controlView {
 	if ([self imagePosition] != NSImageOnly) { // Text Drawing Routines
 		NSString *abbreviationString = nil;
-		if ([controlView respondsToSelector:@selector(matchedString)])
-			abbreviationString = [(QSSearchObjectView *)controlView matchedString];
+		if ([controlView respondsToSelector:@selector(matchedString)]) {
+			abbreviationString = [(QSSearchObjectView *)controlView matchedString];   
+        }
         
 		NSString *nameString = nil;
 		NSIndexSet *hitMask = nil;
@@ -439,13 +446,11 @@
 		if (ranker && abbreviationString) {
 			nameString = [ranker matchedStringForAbbreviation:abbreviationString hitmask:&hitMask inContext:nil];
         }
+        
 		if (!nameString) nameString = [drawObject displayName];
-		if (!nameString) nameString = @"<Unknown>";
-        
-		//NSLog(@"usingname: %@", nameString);
-		NSSize nameSize = [nameString sizeWithAttributes:nameAttributes];
-        
+                
         BOOL validDetailsString = NO;
+        BOOL rankedStringIsLabel = [nameString isEqualToString:[drawObject displayName]];
         
         NSString *detailsString = [drawObject details];
         if(detailsString && [detailsString length] && ![detailsString isEqualToString:nameString]) {
@@ -455,14 +460,14 @@
 		BOOL useAlternateColor = [controlView isKindOfClass:[NSTableView class]] && [(NSTableView *)controlView isRowSelected:[(NSTableView *)controlView rowAtPoint:cellFrame.origin]];
 		NSColor *mainColor = (textColor?textColor:(useAlternateColor?[NSColor alternateSelectedControlTextColor] :[NSColor controlTextColor]));
 		NSColor *fadedColor = [mainColor colorWithAlphaComponent:0.80];
-        
 		NSRect textDrawRect = [self titleRectForBounds:cellFrame];
         
 		NSMutableAttributedString *titleString = [[[NSMutableAttributedString alloc] initWithString:nameString] autorelease];
-		[titleString setAttributes:nameAttributes range:NSMakeRange(0, [titleString length])];
+        [titleString setAttributes:rankedStringIsLabel ? nameAttributes : detailsAttributes range:NSMakeRange(0, [titleString length])];
+        
         
 		if (abbreviationString && ![abbreviationString hasPrefix:@"QSActionMnemonic"]) {
-			[titleString addAttribute:NSForegroundColorAttributeName value:fadedColor range:NSMakeRange(0, [titleString length])];
+			[titleString addAttribute:NSForegroundColorAttributeName value:rankedStringIsLabel ? fadedColor : [fadedColor colorWithAlphaComponent:0.8] range:NSMakeRange(0, [titleString length])];
             
 			// Organise displaying the text, underlining the letters typed (in the name)
 			NSUInteger i = 0;
@@ -470,18 +475,15 @@
 			NSUInteger hits[[titleString length]];
 			NSUInteger count = [hitMask getIndexes:(NSUInteger *)&hits maxCount:[titleString length] inIndexRange:nil];
 			NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        mainColor, NSForegroundColorAttributeName,
-                                        mainColor, NSUnderlineColorAttributeName,
+                                        rankedStringIsLabel ? mainColor : fadedColor, NSForegroundColorAttributeName,
+                                        rankedStringIsLabel ? mainColor : fadedColor, NSUnderlineColorAttributeName,
                                         [NSNumber numberWithInteger:2.0] , NSUnderlineStyleAttributeName,
                                         [NSNumber numberWithDouble:1.0] , NSBaselineOffsetAttributeName,
                                         nil];
             
-            //	  NSLog(@"hit %@ %@", [titleString string] , hitMask);
 			for(i = 0; i<count; i += j) {
 				for (j = 1; i+j<count && hits[i+j-1] +1 == hits[i+j]; j++);
-				//	 NSLog(@"hit (%d, %d) ", hits[i] , j);
 				[titleString addAttributes:attributes range:NSMakeRange(hits[i], j)];
-				//				 NSLog(@"5");
 			}
 		} else {
 			[titleString addAttribute:NSBaselineOffsetAttributeName value:[NSNumber numberWithDouble:-1.0] range:NSMakeRange(0, [titleString length])];
@@ -492,7 +494,8 @@
             detailsSize = [detailsString sizeWithAttributes:detailsAttributes];
             
             if (showDetails && ([[NSUserDefaults standardUserDefaults] integerForKey:@"QSResultViewRowHeight"] >= 34)) {
-                //NSLog(@"Strings are %@, %@, sizes are %@, %@", nameString, detailsString, NSStringFromSize(nameSize), NSStringFromSize(detailsSize));
+                NSSize nameSize = [nameString sizeWithAttributes:nameAttributes];
+
                 CGFloat detailHeight = NSHeight(textDrawRect) -nameSize.height;
                 NSRange returnRange;
                 if (detailHeight<detailsSize.height && (returnRange = [detailsString rangeOfString:@"\n"]) .location != NSNotFound)
@@ -500,11 +503,27 @@
                 if ([detailsString length] >100) detailsString = [detailsString substringWithRange:NSMakeRange(0, 100)];
                 // ***warning  ** this should take first line only?
                 //if ([titleString length]) [titleString appendAttributedString:;
-                [titleString appendAttributedString:
-                 [[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@%@", [titleString length] ?@"\r":@"", detailsString] attributes:detailsAttributes] autorelease]
-                 ];
                 
             }
+        }
+        
+        // Ranked string and ranked string aren't the same. Show 'nameString  ⟷ rankedString' in the UI
+        if (!rankedStringIsLabel) {
+            [titleString addAttribute:NSFontAttributeName value:detailsFont range:NSMakeRange(0,[titleString length])];
+            NSMutableAttributedString *attributedNameString = [[NSMutableAttributedString alloc] initWithString:[drawObject displayName]];
+            [attributedNameString setAttributes:nameAttributes range:NSMakeRange(0, [[drawObject displayName] length])];
+            
+            [attributedNameString appendAttributedString:[[[NSAttributedString alloc] initWithString:@" ⟷ " attributes:rankedNameAttributes] autorelease]];
+            // the replaceCharacters... method inserts the new string into the receiver at the start of the work (range.location and range.length are 0)
+            [titleString replaceCharactersInRange:NSMakeRange(0,0) withAttributedString:attributedNameString];
+            [attributedNameString release];
+        }
+        
+        // Append the details string if it exists, and the UI wants it (showDetails BOOL)
+        if (detailsString != nil && detailsString.length &&
+            showDetails && ([[NSUserDefaults standardUserDefaults] integerForKey:@"QSResultViewRowHeight"] >= 34)) {
+            [titleString appendAttributedString:
+             [[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@",detailsString] attributes:detailsAttributes] autorelease]];
         }
 		NSRect centerRect = rectFromSize([titleString size]);
 		centerRect.size.width = NSWidth(textDrawRect);
