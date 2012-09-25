@@ -63,7 +63,6 @@
 
 - (NSMutableArray *)arrayByPerformingSelector:(SEL)aSelector withObject:(id)object {
     NSMutableArray *resultArray = nil;
-	NSUInteger i;
     id result;
     @synchronized(self) {
         resultArray = [NSMutableArray arrayWithCapacity:[self count]];
