@@ -577,11 +577,26 @@
 
 	NSString *destinationFile = [container stringByAppendingPathComponent:newName];
 
-	if ([[NSFileManager defaultManager] moveItemAtPath:path toPath:destinationFile error:nil])
+	if ([[NSFileManager defaultManager] moveItemAtPath:path toPath:destinationFile error:nil]) {
 		[[NSWorkspace sharedWorkspace] noteFileSystemChanged:container];
-	else
-		[[NSAlert alertWithMessageText:@"error" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Error renaming File: %@ to %@", path, destinationFile] runModal];
-	return [QSObject fileObjectWithPath:destinationFile];
+		QSObject *renamed = [QSObject fileObjectWithPath:destinationFile];
+		if ([[renamed displayName] isEqualToString:[dObject displayName]]) {
+			/* label is preferred over name. They should be the same here,
+			   but since label comes from Spotlight metadata, there can be
+			   a delay causing the original filename to appear. If that
+			   happens, ignore (wipe out) the invalid label, allowing the
+			   new name to appear.
+			*/
+			[renamed setLabel:nil];
+		}
+		return renamed;
+	} else {
+		NSString *localizedErrorFormat = NSLocalizedStringFromTableInBundle(@"Error renaming File: %@ to %@", nil, [NSBundle bundleForClass:[self class]], nil);
+        NSString *localizedTitle = NSLocalizedStringFromTableInBundle(@"Quicksilver File Rename", nil, [NSBundle bundleForClass:[self class]], nil);
+		NSString *errorMessage = [NSString stringWithFormat:localizedErrorFormat, path, destinationFile];
+		QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:@"QSRenameFileFailed", QSNotifierType, [QSResourceManager imageNamed:@"AlertStopIcon"], QSNotifierIcon, localizedTitle, QSNotifierTitle, errorMessage, QSNotifierText, nil]);
+	}
+	return nil;
 }
 
 - (QSObject *)duplicateFile:(QSObject *)dObject {
