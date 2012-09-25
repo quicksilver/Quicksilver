@@ -148,8 +148,6 @@
 	<string>Mettre sur l'étagère</string>
 	<key>QSShelfShowAction</key>
 	<string>Montrer l'étagère</string>
-    <key>QSSherlockChannelShowAction</key>
-    <string>Montrer le canal</string>
     <key>QSTextSpeakAction</key>
     <string>Dire</string>
 	<key>QSTextAppendAction</key>

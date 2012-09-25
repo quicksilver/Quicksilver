@@ -69,8 +69,10 @@
 	<string>KEXT</string>
 	<key>PrefFileIcon</key>
 	<string>/Applications/System Preferences.app/Contents/Resources/PrefFile.icns</string>
+	<key>PrintCenterIcon[10.8]</key>
+	<string>/System/Library/CoreServices/AddPrinter.app/Contents/Resources/Printer.icns</string>
 	<key>PrintCenterIcon</key>
-	<string>/Applications/Utilities/Printer Setup Utility.app/Contents/Resources/PrintCenter.icns</string>
+	<string>/System/Library/CoreServices/AddPrinter.app/Contents/Resources/GenericPostscriptPrinter.icns</string>
 	<key>RecentItemsIcon</key>
 	<string>Recent</string>
 	<key>SafariHistoryIcon</key>
@@ -150,5 +152,7 @@
 		</dict>
 		<string>/System/Library/Frameworks/AddressBook.framework/Versions/A/Resources/SingleCard.tif</string>
 	</array>
+	<key>RemovableVolumeIcon</key>
+	<string>/System/Library/Extensions/IOStorageFamily.kext/Contents/Resources/Removable.icns</string>
 </dict>
 </plist>

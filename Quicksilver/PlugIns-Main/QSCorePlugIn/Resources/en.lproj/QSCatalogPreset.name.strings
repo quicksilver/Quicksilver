@@ -196,6 +196,8 @@
 	<string>Recent Selections</string>
 	<key>QSPresetRecentServers</key>
 	<string>Recent Servers</string>
+	<key>QSPresetFavoriteServers</key>
+	<string>Favorite Servers</string>
 	<key>QSPresetRendezvous</key>
 	<string>Rendezvous Servers</string>
 	<key>QSPresetRendezvousMachines</key>
@@ -214,8 +216,6 @@
 	<string>Scripts</string>
 	<key>QSPresetShelves</key>
 	<string>Shelf &amp; Clipboard</string>
-	<key>QSPresetSherlockChannels</key>
-	<string>Sherlock Channels</string>
 	<key>QSPresetSidebarItems</key>
 	<string>Finder Sidebar</string>
 	<key>QSPresetSogudiShortcuts</key>
@@ -252,5 +252,7 @@
 	<string>iTunes Music</string>
 	<key>QSPresetiTunesScripts</key>
 	<string>iTunes Scripts</string>
+	<key>QSPresetRemovableVolumes</key>
+	<string>Network and Removable Disks</string>
 </dict>
 </plist>
