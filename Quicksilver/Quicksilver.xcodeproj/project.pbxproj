@@ -1732,7 +1732,7 @@
 		E1E5FC6307B20E4D0044D6EF /* QSMenuButton.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSMenuButton.h; sourceTree = "<group>"; };
 		E1E5FC6407B20E4D0044D6EF /* QSMenuButton.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSMenuButton.m; sourceTree = "<group>"; };
 		E1E5FC6707B20E4D0044D6EF /* QSObjectCell.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSObjectCell.h; sourceTree = "<group>"; };
-		E1E5FC6807B20E4D0044D6EF /* QSObjectCell.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSObjectCell.m; sourceTree = "<group>"; };
+		E1E5FC6807B20E4D0044D6EF /* QSObjectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSObjectCell.m; sourceTree = "<group>"; };
 		E1E5FC6907B20E4D0044D6EF /* QSObjectView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSObjectView.h; sourceTree = "<group>"; };
 		E1E5FC6A07B20E4D0044D6EF /* QSObjectView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSObjectView.m; sourceTree = "<group>"; };
 		E1E5FC6B07B20E4D0044D6EF /* QSRankCell.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSRankCell.h; sourceTree = "<group>"; };
