@@ -514,11 +514,9 @@
 }
 
 - (QSBasicObject *)trashFile:(QSObject *)dObject {
-	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
 	NSString *lastDeletedFile = nil;
 	for(NSString *thisFile in [dObject arrayForType:QSFilePathType]) {
-		[ws performFileOperation:NSWorkspaceRecycleOperation source:[thisFile stringByDeletingLastPathComponent] destination:@"" files:[NSArray arrayWithObject:[thisFile lastPathComponent]] tag:nil];
-		[ws noteFileSystemChanged:[thisFile stringByDeletingLastPathComponent]];
+        [[NSFileManager defaultManager] movePathToTrash:thisFile];
 		lastDeletedFile = thisFile;
 	}
 	

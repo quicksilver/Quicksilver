@@ -39,23 +39,16 @@
 #endif
 
 - (BOOL)movePathToTrash:(NSString *)filepath {
-#if (MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_8)
-    const char *strPath = [filepath fileSystemRepresentation];
-    OSStatus result = FSPathMoveObjectToTrashSync(strPath, NULL, kFSFileOperationDefaultOptions);
-    if (result != noErr) {
-        NSLog(@"Failed to move file %@ to Trash: %ld", filepath, (long)result);
-    }
-#else
-#warning Using new 10.8 method
-    NSError *error = nil;
-    BOOL result = [[NSFileManager defaultManager] trashItemAtURL:[NSURL fileURLWithPath:filepath]
-                                                resultingItemURL:NULL
-                                                           error:&error];
+    NSWorkspace *ws = [NSWorkspace sharedWorkspace];
+    BOOL result = [ws performFileOperation:NSWorkspaceRecycleOperation
+                                    source:[filepath stringByDeletingLastPathComponent]
+                               destination:@""
+                                     files:[NSArray arrayWithObject:[filepath lastPathComponent]]
+                                       tag:nil];
     if (!result) {
-        NSLog(@"Failed to move file %@ to Trash: %@", filepath, error);
+        NSLog(@"Failed to move file %@ to Trash", filepath);
     }
-#endif
-    return result == noErr;
+    return result;
 }
 
 #if 0
