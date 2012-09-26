@@ -11,6 +11,7 @@
 @interface QSCatalogEntry : NSObject {
 	NSDate *indexDate;
 	BOOL isPreset;
+
 	NSString *name;
 
 	id parent;
@@ -20,7 +21,6 @@
 	NSMutableArray *contents;
 	NSBundle *bundle;
 	BOOL isScanning;
-    BOOL isSavingIndex;
 }
 
 + (QSCatalogEntry *)entryWithDictionary:(NSDictionary *)dict;
@@ -79,6 +79,4 @@
 
 - (NSUInteger) count;
 - (NSIndexPath *)catalogSetIndexPath;
-
-@property BOOL isSavingIndex;
 @end
