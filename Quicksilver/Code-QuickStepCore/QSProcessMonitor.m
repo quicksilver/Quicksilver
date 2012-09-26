@@ -292,24 +292,26 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 }
 
 - (void)addProcessWithPSN:(ProcessSerialNumber)psn {
-	NDProcess *thisProcess = [NDProcess processWithProcessSerialNumber:psn];
-
-	NSDictionary *info = [self infoForPSN:psn];
-    QSObject *procObject = [self imbuedFileProcessForDict:info];
-	NSValue *psnValue = [NSValue valueWithProcessSerialNumber:psn];
-
-    if (procObject) {
-		if (!isReloading) {
-			[self willChangeValueForKey:@"allProcesses"];
-			[self willChangeValueForKey:[thisProcess isBackground] ? @"backgroundProcesses" : @"visibleProcesses"];
-		}
-		[[self processesDict] setObject:procObject forKey:psnValue];
-		if (!isReloading) {
-			[self didChangeValueForKey:[thisProcess isBackground] ? @"backgroundProcesses" : @"visibleProcesses"];
-			[self didChangeValueForKey:@"allProcesses"];
-		}
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSApplicationLaunchEvent" userInfo:[NSDictionary dictionaryWithObject:procObject forKey:@"object"]];
-	}
+    @synchronized(self) {
+        NDProcess *thisProcess = [NDProcess processWithProcessSerialNumber:psn];
+        
+        NSDictionary *info = [self infoForPSN:psn];
+        QSObject *procObject = [self imbuedFileProcessForDict:info];
+        NSValue *psnValue = [NSValue valueWithProcessSerialNumber:psn];
+        
+        if (procObject) {
+            if (!isReloading) {
+                [self willChangeValueForKey:@"allProcesses"];
+                [self willChangeValueForKey:[thisProcess isBackground] ? @"backgroundProcesses" : @"visibleProcesses"];
+            }
+            [[self processesDict] setObject:procObject forKey:psnValue];
+            if (!isReloading) {
+                [self didChangeValueForKey:[thisProcess isBackground] ? @"backgroundProcesses" : @"visibleProcesses"];
+                [self didChangeValueForKey:@"allProcesses"];
+            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSApplicationLaunchEvent" userInfo:[NSDictionary dictionaryWithObject:procObject forKey:@"object"]];
+        }
+    }
 }
 
 #pragma mark -
