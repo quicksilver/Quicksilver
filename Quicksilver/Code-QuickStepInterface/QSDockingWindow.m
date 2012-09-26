@@ -183,12 +183,12 @@
 	hidden = YES;
 	if ([self isVisible]) {
 		// hide on mouse out
-		[[self helper] _resizeWindow:self toFrame:hideRect alpha:0.1 display:YES];
+		[[self helper] _resizeWindow:self toFrame:hideRect alpha:0 display:YES];
 		[self saveFrame];
 	} else {
 		// hide on application launch
 		[self setFrame:hideRect display:YES];
-		[self setAlphaValue:0.1];
+		[self setAlphaValue:0];
 	}
 	[self setHasShadow:NO];
 }
