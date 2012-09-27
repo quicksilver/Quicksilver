@@ -280,7 +280,7 @@ NSMutableDictionary *kindDescriptions = nil;
 	} else {
 		//NSLog(@"RogueLoader %d", m);
 	}
-	[table performSelectorOnMainThread:@selector(redisplayRows:) withObject:[NSIndexSet indexSetWithIndex:(m ? m : 0)] waitUntilDone:NO];
+	[table setNeedsDisplay:YES];
 }
 
 - (BOOL)iconsAreLoading {
