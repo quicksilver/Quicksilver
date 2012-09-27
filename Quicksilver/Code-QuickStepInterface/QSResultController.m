@@ -267,16 +267,6 @@ NSMutableDictionary *kindDescriptions = nil;
 
 #pragma mark -
 #pragma mark Icon Loading
-- (BOOL)iconLoadValidForTable:(NSTableView *)table {
-	if (table == resultTable && !iconLoadValid) {
-		iconLoadValid = YES;
-		return NO;
-	} else if (table == resultChildTable && !childIconLoadValid) {
-		childIconLoadValid = YES;
-		return NO;
-	}
-	return YES;
-}
 
 - (void)iconLoader:(QSIconLoader *)loader loadedIndex:(NSInteger)m inArray:(NSArray *)array {
 	//	NSLog(@"loaded");
