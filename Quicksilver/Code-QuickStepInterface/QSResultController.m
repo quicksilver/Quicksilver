@@ -284,7 +284,8 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 - (BOOL)iconsAreLoading {
-	return [resultIconLoader isLoading];
+    BOOL resultsIconLoading = [resultIconLoader isLoading];
+    return (resultsIconLoading ? YES : [resultChildIconLoader isLoading]);
 }
 
 - (QSIconLoader *)resultIconLoader {
