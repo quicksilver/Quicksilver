@@ -30,8 +30,6 @@
 
 - (void)loadIcons {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        NSArray *sourceArray = nil;
-        
         BOOL rangeValid = NO;
         
         NSUInteger i, j, m;
@@ -54,7 +52,7 @@
                 
                 if (![thisObject isKindOfClass:[NSNull class]] && ![thisObject iconLoaded]) {
                     [thisObject loadIcon];
-                    [delegate iconLoader:self loadedIndex:m inArray:sourceArray];
+                    [delegate iconLoader:self loadedIndex:m inArray:array];
                 }
                 rangeValid = NSEqualRanges(loadRange, newRange);
             }
