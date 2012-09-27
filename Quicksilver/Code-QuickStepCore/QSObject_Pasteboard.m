@@ -137,7 +137,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 		if ([self objectForType:kQSObjectPrimaryName])
 			[self setName:[self objectForType:kQSObjectPrimaryName]];
 		else {
-			[self setName:@"Unknown Clipboard Object"];
+			[self setName:NSLocalizedString(@"Unknown Clipboard Object", @"Name for an unknown clipboard object")];
 			[self guessName];
 		}
 		[self loadIcon];
@@ -164,11 +164,25 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
         // Sometimes no dataForType:NSStringPboardType exists, so fall back to using the word "text" (avoids a crash)
         NSString *textString = [itemForKey(NSStringPboardType) stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         if (!textString) {
-            textString = @"Text";
+            textString = NSLocalizedString(@"Text", @"Name of text object");
         }
-		NSDictionary *namesAndKeys = [NSDictionary dictionaryWithObjects:
-                                      [NSArray arrayWithObjects:textString, @"PDF Image", @"Finder Icon", @"PostScript Image", @"TIFF Image", @"Color Data", @"File Contents", @"Font Information", @"HTML Data", @"Paragraph Formatting", @"Tabular Text", @"VCard Data", @"Promised Files",nil]
-                                    forKeys:[NSArray arrayWithObjects:NSStringPboardType, NSPDFPboardType, [@"'icns'" encodedPasteboardType], NSPostScriptPboardType, NSTIFFPboardType, NSColorPboardType, NSFileContentsPboardType, NSFontPboardType, NSHTMLPboardType, NSRulerPboardType, NSTabularTextPboardType, NSVCardPboardType, NSFilesPromisePboardType,nil]];
+
+		NSDictionary *namesAndKeys = [NSDictionary dictionaryWithObjectsAndKeys:
+                                      textString,                                                                           NSStringPboardType,
+                                      NSLocalizedString(@"PDF Image", @"Name of PDF image "),                               NSPDFPboardType,
+                                      NSLocalizedString(@"Finder Icon", @"Name of icon file object"),                       [@"'icns'" encodedPasteboardType],
+                                      NSLocalizedString(@"PostScript Image", @"Name of PostScript image object"),           NSPostScriptPboardType,
+                                      NSLocalizedString(@"TIFF Image", @"Name of TIFF image object"),                       NSTIFFPboardType,
+                                      NSLocalizedString(@"Color Data", @"Name of Color data object"),                       NSColorPboardType,
+                                      NSLocalizedString(@"File Contents", @"Name of File contents object"),                 NSFileContentsPboardType,
+                                      NSLocalizedString(@"Font Information", @"Name of Font information object"),           NSFontPboardType,
+                                      NSLocalizedString(@"HTML Data", @"Name of HTML data object"),                         NSHTMLPboardType,
+                                      NSLocalizedString(@"Paragraph Formatting", @"Name of Paragraph Formatting object"),   NSRulerPboardType,
+                                      NSLocalizedString(@"Tabular Text", @"Name of Tabular text object"),                   NSTabularTextPboardType,
+                                      NSLocalizedString(@"VCard Data", @"Name of VCard data object"),                       NSVCardPboardType,
+                                      NSLocalizedString(@"Promised Files", @"Name of Promised files object"),               NSFilesPromisePboardType,
+                                      nil];
+
         for (NSString *key in [namesAndKeys allKeys]) {
 			if (itemForKey(key) ) {
 				[self setName:[namesAndKeys objectForKey:key]];
