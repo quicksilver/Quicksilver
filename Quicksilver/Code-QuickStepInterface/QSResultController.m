@@ -386,9 +386,9 @@ NSMutableDictionary *kindDescriptions = nil;
 
 #pragma mark -
 #pragma mark NSResponder
-- (void)scrollWheel:(NSEvent *)theEvent {
-	[resultTable scrollWheel:theEvent];
-}
+//- (void)scrollWheel:(NSEvent *)theEvent {
+//	[resultTable scrollWheel:theEvent];
+//}
 
 - (void)keyDown:(NSEvent *)theEvent {
 	NSString *characters;
