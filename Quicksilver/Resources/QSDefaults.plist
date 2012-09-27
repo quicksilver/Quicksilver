@@ -54,7 +54,7 @@
 	<key>QSLoadImagePreviews</key>
 	<true/>
 	<key>QSNotifiers</key>
-	<string>com.blacktree.Quicksilver</string>
+	<string>com.apple.NotificationCenter</string>
 	<key>QSResultViewRowHeight</key>
 	<string>34</string>
 	<key>QSSearchSpaceBarBehavior</key>
