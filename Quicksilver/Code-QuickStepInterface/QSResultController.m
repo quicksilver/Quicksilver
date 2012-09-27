@@ -305,9 +305,17 @@ NSMutableDictionary *kindDescriptions = nil;
 	}
 }
 
-- (QSIconLoader *)resultChildIconLoader { return resultChildIconLoader;  }
+- (QSIconLoader *)resultChildIconLoader {
+    if (!resultChildIconLoader) {
+        [self setResultChildIconLoader:[QSIconLoader loaderWithArray:[selectedItem children]]];
+        [resultChildIconLoader setDelegate:self];
+    }
+    return [[resultChildIconLoader retain] autorelease];
+}
+
 - (void)setResultChildIconLoader:(QSIconLoader *)aResultChildIconLoader {
 	if (resultChildIconLoader != aResultChildIconLoader) {
+		[resultChildIconLoader invalidate];
 		[resultChildIconLoader release];
 		resultChildIconLoader = [aResultChildIconLoader retain];
 	}
@@ -381,8 +389,11 @@ NSMutableDictionary *kindDescriptions = nil;
 		} else {
 			[self loadChildren];
 		}
-        
 	}
+
+    /* Restart the icon loading for the children view */
+    [self setResultChildIconLoader:nil];
+    [[self resultChildIconLoader] loadIconsInRange:[resultChildTable rowsInRect:[resultChildTable visibleRect]]];
 }
 
 #pragma mark -
