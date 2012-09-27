@@ -65,6 +65,7 @@ static CGFloat searchSpeed = 0.0;
 		
 		previewImageQueue = [[NSOperationQueue alloc] init];
 		[previewImageQueue setMaxConcurrentOperationCount:NSOperationQueueDefaultMaxConcurrentOperationCount];
+        indexationQueue = dispatch_queue_create("QSLibrarian indexationQueue", DISPATCH_QUEUE_CONCURRENT);
 		//Initialize Variables
 		appSearchArrays = nil;
 		typeArrays = [[NSMutableDictionary dictionaryWithCapacity:1] retain];
@@ -212,6 +213,7 @@ static CGFloat searchSpeed = 0.0;
 	[omittedIDs release];
 	[scanTask release];
 	[previewImageQueue release];
+    dispatch_release(indexationQueue), indexationQueue = NULL;
 	[activityController release];
 	[catalogArrays release];
 	[typeArrays release];
@@ -532,41 +534,38 @@ static CGFloat searchSpeed = 0.0;
 #endif
 		return;
 	}
+    dispatch_async(indexationQueue, ^{
+        @autoreleasepool {
+            [scanTask setStatus:NSLocalizedString(@"Rescanning Catalog", "Catalog rescan task name")];
+            [scanTask startTask:self];
+            [scanTask setProgress:-1];
+            scannerCount++;
+            NSArray *children = [catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
+            NSUInteger i;
+            NSUInteger c = [children count];
+            for (i = 0; i < c; i++) {
+                [scanTask setProgress:(CGFloat) i/c];
+                [[children objectAtIndex:i] scanForced:force];
+            }
 
-    @autoreleasepool {
-        [scanTask setStatus:@"Catalog Rescan"];
-        [scanTask startTask:self];
-        [scanTask setProgress:-1];
-        scannerCount++;
-        NSArray *children = [catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
-        NSUInteger i;
-        NSUInteger c = [children count];
-        for (i = 0; i<c; i++) {
-            [scanTask setProgress:(CGFloat) i/c];
-            [[children objectAtIndex:i] scanForced:force];
+            [scanTask setProgress:1.0];
+            [scanTask stopTask:self];
+
+            [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogIndexingCompleted object:nil];
+            scannerCount--;
         }
-        
-        [scanTask setProgress:1.0];
-        [scanTask stopTask:self];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogIndexingCompleted object:nil];
-        scannerCount--;
-    }
+    });
 }
 
 
 - (void)startThreadedScan {
-    // use GCD to dispatch to another queue
-    dispatch_async(dispatch_get_global_queue(0,0),^{
-        [self scanCatalog:nil];
-    });
+    [self scanCatalog:nil];
 }
+
 - (void)startThreadedAndForcedScan {
-    // use GCD to dispatch to another queue
-    dispatch_async(dispatch_get_global_queue(0,0),^{
-        [self forceScanCatalog:nil];
-    });
+    [self forceScanCatalog:nil];
 }
+
 - (IBAction)forceScanCatalog:(id)sender {
 	[self scanCatalogIgnoringIndexes:YES];
 }
@@ -575,18 +574,9 @@ static CGFloat searchSpeed = 0.0;
 	[self scanCatalogIgnoringIndexes:NO];
 	//NSLog(@"scanned");
 }
+
 - (void)scanCatalogWithDelay:(id)sender {
-    @autoreleasepool {
-        // NSLog(@"delayed load");
-        
-        [scanTask setStatus:@"Rescanning Catalog"];
-        [scanTask startTask:self];
-        [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:8.0]];
-        [NSThread setThreadPriority:0];
-        [catalog scanForced:NO];
-        // [activityController removeTask:@"Scan"];
-        [scanTask stopTask:self];
-    }
+    [self scanCatalogIgnoringIndexes:NO];
 }
 
 - (BOOL)itemIsOmitted:(QSBasicObject *)item {
@@ -750,6 +740,10 @@ static CGFloat searchSpeed = 0.0;
 
 - (NSOperationQueue *)previewImageQueue {
 	return previewImageQueue;
+}
+
+- (dispatch_queue_t)indexationQueue {
+    return indexationQueue;
 }
 
 @end

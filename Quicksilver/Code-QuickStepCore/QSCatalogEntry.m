@@ -425,20 +425,17 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (void)saveIndex {
-	
+	dispatch_barrier_async([[QSLibrarian sharedInstance] indexationQueue], ^{
 #ifdef DEBUG
-	if (DEBUG_CATALOG) NSLog(@"saving index for %@", self);
+    if (DEBUG_CATALOG) NSLog(@"saving index for %@", self);
 #endif
-	
-	[self setIndexDate:[NSDate date]];
-	NSString *key = [self identifier];
-	NSString *path = [pIndexLocation stringByStandardizingPath];
-   
-    // Lock the 'contents' mutablearray so that it cannot be changed whilst it's being written to file
-    @synchronized(contents) {
+        [self setIndexDate:[NSDate date]];
+        NSString *key = [self identifier];
+        NSString *path = [pIndexLocation stringByStandardizingPath];
+
         NSArray *writeArray = [contents arrayByPerformingSelector:@selector(dictionaryRepresentation)];
         [writeArray writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
-    }
+    });
 }
 
 
@@ -559,7 +556,9 @@ NSDictionary *enabledPresetDictionary;*/
 #endif
 	
 	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:@"Scanning: %@", [self name]]];
-	[self scanAndCache];
+    dispatch_async([[QSLibrarian sharedInstance] indexationQueue], ^{
+        [self scanAndCache];
+    });
 	return nil;
 }
 
