@@ -4,6 +4,9 @@
 
 #import "QSObject.h"
 
+extern NSString *QSPasteboardObjectIdentifier;
+extern NSString *QSPasteboardObjectAddress;
+
 @interface QSObject (Pasteboard)
 + (id)objectWithPasteboard:(NSPasteboard *)pasteboard;
 - (id)initWithPasteboard:(NSPasteboard *)pasteboard;

@@ -3,6 +3,11 @@
 #import "QSObject_FileHandling.h"
 #import "QSObject_StringHandling.h"
 
+NSString *QSPasteboardObjectIdentifier = @"QSObjectID";
+NSString *QSPasteboardObjectAddress = @"QSObjectAddress";
+
+#define QSPasteboardIgnoredTypes [NSArray arrayWithObjects:QSPasteboardObjectAddress, @"CorePasteboardFlavorType 0x4D555246", @"CorePasteboardFlavorType 0x54455854", nil]
+
 id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	if ([PLISTTYPES containsObject:type])
 		return [pasteboard propertyListForType:type];
@@ -43,11 +48,11 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 	if ([[pasteboard types] containsObject:QSPrivatePboardType] || [[pasteboard types] containsObject:@"de.petermaurer.TransientPasteboardType"])
 		return nil;
 
-	if ([[pasteboard types] containsObject:@"QSObjectID"])
-		theObject = [QSObject objectWithIdentifier:[pasteboard stringForType:@"QSObjectID"]];
+	if ([[pasteboard types] containsObject:QSPasteboardObjectIdentifier])
+		theObject = [QSObject objectWithIdentifier:[pasteboard stringForType:QSPasteboardObjectIdentifier]];
 
-	if (!theObject && [[pasteboard types] containsObject:@"QSObjectAddress"]) {
-		NSArray *objectIdentifier = [[pasteboard stringForType:@"QSObjectAddress"] componentsSeparatedByString:@":"];
+	if (!theObject && [[pasteboard types] containsObject:QSPasteboardObjectAddress]) {
+		NSArray *objectIdentifier = [[pasteboard stringForType:QSPasteboardObjectAddress] componentsSeparatedByString:@":"];
 		if ([[objectIdentifier objectAtIndex:0] intValue] == [[NSProcessInfo processInfo] processIdentifier]) {
             QSObject *anObject = nil;
             sscanf([[objectIdentifier lastObject] cStringUsingEncoding:NSUTF8StringEncoding], "%p", &anObject);
@@ -64,6 +69,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 - (id)initWithPasteboard:(NSPasteboard *)pasteboard {
 	return [self initWithPasteboard:pasteboard types:nil];
 }
+
 - (void)addContentsOfClipping:(NSString *)path { // Not thread safe?
 	NSPasteboard *pasteboard = [NSPasteboard pasteboardByFilteringClipping:path];
 	[self addContentsOfPasteboard:pasteboard types:nil];
@@ -72,9 +78,8 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 
 - (void)addContentsOfPasteboard:(NSPasteboard *)pasteboard types:(NSArray *)types {
 	NSMutableArray *typeArray = [NSMutableArray arrayWithCapacity:1];
-	NSArray *ignoreTypes = [NSArray arrayWithObjects:@"QSObjectAddress", @"CorePasteboardFlavorType 0x4D555246", @"CorePasteboardFlavorType 0x54455854", nil];
 	for(NSString *thisType in (types?types:[pasteboard types])) {
-		if ([[pasteboard types] containsObject:thisType] && ![ignoreTypes containsObject:thisType]) {
+		if ([[pasteboard types] containsObject:thisType] && ![QSPasteboardIgnoredTypes containsObject:thisType]) {
 			id theObject = objectForPasteboardType(pasteboard, thisType);
 			if (theObject && thisType)
 				[self setObject:theObject forType:thisType];
@@ -244,18 +249,18 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 		}
 	}
 	if ([self identifier]) {
-		[pboard addTypes:[NSArray arrayWithObject:@"QSObjectID"] owner:self];
-		writeObjectToPasteboard(pboard, @"QSObjectID", [self stringValue]);
+		[pboard addTypes:[NSArray arrayWithObject:QSPasteboardObjectIdentifier] owner:self];
+		writeObjectToPasteboard(pboard, QSPasteboardObjectIdentifier, [self stringValue]);
 	}
 	
-	[pboard addTypes:[NSArray arrayWithObject:@"QSObjectAddress"] owner:self];
+	[pboard addTypes:[NSArray arrayWithObject:QSPasteboardObjectAddress] owner:self];
 	//  NSLog(@"types %@", [pboard types]);
 	return YES;
 }
 
 - (void)pasteboard:(NSPasteboard *)sender provideDataForType:(NSString *)type {
 	//if (VERBOSE) NSLog(@"Provide: %@", [type decodedPasteboardType]);
-	if ([type isEqualToString:@"QSObjectAddress"]) {
+	if ([type isEqualToString:QSPasteboardObjectAddress]) {
 		writeObjectToPasteboard(sender, type, [NSString stringWithFormat:@"%d:%p", [[NSProcessInfo processInfo] processIdentifier] , self]);	
     } else {
 		id theData = nil;
