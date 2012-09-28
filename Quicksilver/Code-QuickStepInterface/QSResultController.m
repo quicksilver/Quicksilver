@@ -392,8 +392,10 @@ NSMutableDictionary *kindDescriptions = nil;
 	}
 
     /* Restart the icon loading for the children view */
-    [self setResultChildIconLoader:nil];
-    [[self resultChildIconLoader] loadIconsInRange:[resultChildTable rowsInRect:[resultChildTable visibleRect]]];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
+        [self setResultChildIconLoader:nil];
+        [[self resultChildIconLoader] loadIconsInRange:[resultChildTable rowsInRect:[resultChildTable visibleRect]]];
+    }
 }
 
 #pragma mark -
