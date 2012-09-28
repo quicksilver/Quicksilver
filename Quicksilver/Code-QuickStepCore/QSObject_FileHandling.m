@@ -255,11 +255,9 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	// this has to be started after the temporary icon is set, so the preview icon
 	// wont be overwritten by the temporary icon
 	if ([theFiles count] == 1) {
-		// do complicated preview icon loading in separate thread
-		NSInvocationOperation *theOp = [[[NSInvocationOperation alloc] initWithTarget:self
-																			 selector:@selector(previewIcon:)
-																			   object:object] autorelease];
-		[[[QSLibrarian sharedInstance] previewImageQueue] addOperation:theOp];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            [self previewIcon:object];
+        });
 	}
 	return YES;
 }

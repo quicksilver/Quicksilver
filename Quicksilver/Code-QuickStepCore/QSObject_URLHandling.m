@@ -137,10 +137,9 @@
     
 	// For search URLs
 	if([object containsType:QSSearchURLType]) {
-        NSInvocationOperation *theOp = [[[NSInvocationOperation alloc] initWithTarget:self
-																			 selector:@selector(buildWebSearchIconForObject:)
-																			   object:object] autorelease];
-		[[[QSLibrarian sharedInstance] previewImageQueue] addOperation:theOp];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            [self buildWebSearchIconForObject:object];
+        });
 		return YES;
 	}
 	
