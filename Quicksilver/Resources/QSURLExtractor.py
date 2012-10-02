@@ -51,10 +51,9 @@ if __name__ == '__main__':
                     thisLink['title'] = path.basename(img['src'])
             
         if thisLink['title'] is None:
-            ## check for a span inside the link text
-            span = link.find('span')
-            if span:
-                thisLink['title'] = span.string
+            ## check for text inside the link
+            if len(link.contents):
+                thisLink['title'] = ' '.join(link.stripped_strings)
         if thisLink['title'] is None:
             ## if there's *still* no title (empty tag), skip it
             continue
