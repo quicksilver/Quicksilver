@@ -13,7 +13,7 @@ output tab separated lines with the following fields:
 """
 
 from os import path
-from BeautifulSoup import BeautifulSoup
+from bs4 import BeautifulSoup
 import fileinput
 from sys import stdout
 import codecs
