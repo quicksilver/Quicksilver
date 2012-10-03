@@ -489,24 +489,6 @@
 			[titleString addAttribute:NSBaselineOffsetAttributeName value:[NSNumber numberWithDouble:-1.0] range:NSMakeRange(0, [titleString length])];
 		}
         
-        if (validDetailsString) {
-            NSSize detailsSize = NSZeroSize;
-            detailsSize = [detailsString sizeWithAttributes:detailsAttributes];
-            
-            if (showDetails) {
-                NSSize nameSize = [nameString sizeWithAttributes:nameAttributes];
-
-                CGFloat detailHeight = NSHeight(textDrawRect) -nameSize.height;
-                NSRange returnRange;
-                if (detailHeight<detailsSize.height && (returnRange = [detailsString rangeOfString:@"\n"]) .location != NSNotFound)
-                    detailsString = [detailsString substringToIndex:returnRange.location];
-                if ([detailsString length] >100) detailsString = [detailsString substringWithRange:NSMakeRange(0, 100)];
-                // ***warning  ** this should take first line only?
-                //if ([titleString length]) [titleString appendAttributedString:;
-                
-            }
-        }
-        
         // Ranked string and ranked string aren't the same. Show 'nameString  ⟷ rankedString' in the UI
         if (!rankedStringIsLabel) {
             [titleString addAttribute:NSFontAttributeName value:detailsFont range:NSMakeRange(0,[titleString length])];
@@ -519,11 +501,24 @@
             [attributedNameString release];
         }
         
-        // Append the details string if it exists, and the UI wants it (showDetails BOOL)
-        if (detailsString != nil && detailsString.length && showDetails) {
-            [titleString appendAttributedString:
-             [[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@",detailsString] attributes:detailsAttributes] autorelease]];
+        if (showDetails && validDetailsString) {
+            NSSize detailsSize = NSZeroSize;
+            detailsSize = [detailsString sizeWithAttributes:detailsAttributes];
+            NSSize nameSize = [nameString sizeWithAttributes:nameAttributes];
+            
+            CGFloat detailHeight = NSHeight(textDrawRect) - nameSize.height;
+            NSRange returnRange;
+            if (detailHeight<detailsSize.height && (returnRange = [detailsString rangeOfString:@"\n"]) .location != NSNotFound)
+                detailsString = [detailsString substringToIndex:returnRange.location];
+            if ([detailsString length] > 100) detailsString = [detailsString substringWithRange:NSMakeRange(0, 100)];
+            // ***warning  ** this should take first line only?
+            //if ([titleString length]) [titleString appendAttributedString:;
+            // Append the details string if it exists, and the UI wants it (showDetails BOOL)
+            if (detailsString != nil && detailsString.length) {
+                [titleString appendAttributedString:[[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@",detailsString] attributes:detailsAttributes] autorelease]];
+            }
         }
+        
 		NSRect centerRect = rectFromSize([titleString size]);
 		centerRect.size.width = NSWidth(textDrawRect);
 		centerRect.size.height = MIN(NSHeight(textDrawRect), centerRect.size.height);
