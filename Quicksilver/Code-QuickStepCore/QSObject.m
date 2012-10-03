@@ -414,7 +414,7 @@ NSSize QSMaxIconSize;
     if ([itemForKey([self primaryType]) isKindOfClass:[NSString class]])
         return itemForKey([self primaryType]);
     
-	return nil;
+	return details;
 }
 
 - (id)primaryObject {return itemForKey([self primaryType]);}
