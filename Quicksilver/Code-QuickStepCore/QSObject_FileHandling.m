@@ -720,10 +720,11 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			NSString *uti = QSUTIOfFile(path);
 			id handler = [QSReg instanceForKey:uti inTable:@"QSFileObjectCreationHandlers"];
 			if (handler) {
-				// fheckl 2011-02-25
-				// XCode CLang analysis: incorrect decrement of reference count
-				//   because method name starts with init -> no problem
-				[handler initFileObject:self ofType:uti];
+				if ([handler respondsToSelector:@selector(createFileObject:ofType:)])
+					[handler createFileObject:self ofType:uti];
+				else if ([handler respondsToSelector:@selector(initFileObject:ofType:)])
+					/* Try with the old selector */
+					[handler performSelector:@selector(initFileObject:ofType:) withObject:self withObject:uti];
 				return self;
 			}
 		} else {
@@ -818,7 +819,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		MDItemRef mdItem = MDItemCreate(kCFAllocatorDefault, (CFStringRef)path);
 		if (mdItem) {
 			// get the actual filesystem name, in case we were passed a localized path
-			newName = (NSString *)MDItemCopyAttribute(mdItem, CFSTR("kMDItemFSName"));
+			newName = [(NSString *)MDItemCopyAttribute(mdItem, kMDItemFSName) autorelease];
 		}
 		if (!newName) {
 			newName = [path lastPathComponent];
@@ -834,7 +835,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			// try getting kMDItemDisplayName first
 			// tends to work better than `displayNameAtPath:` for things like Preference Panes
 			if (mdItem) {
-				newLabel = (NSString *)MDItemCopyAttribute(mdItem, CFSTR("kMDItemDisplayName"));
+				newLabel = [(NSString *)MDItemCopyAttribute(mdItem, kMDItemDisplayName) autorelease];
 			}
 			if (!newLabel) {
 				newLabel = [manager displayNameAtPath:path];

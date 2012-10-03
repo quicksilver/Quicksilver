@@ -68,6 +68,7 @@
 	//   but that's ok since the window is released on close, so no autorelease here
 	return splashWindow;
 }
+- (NSString *)name { return @""; }
 @end
 
 @implementation QSGroupTriggerManager

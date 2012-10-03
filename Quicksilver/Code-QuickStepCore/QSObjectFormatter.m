@@ -12,7 +12,7 @@
 	return YES;
 }
 - (NSString *)stringForObjectValue:(id)anObject {
-	return [anObject name];
+	return [(QSObject *)anObject name];
 }
 - (NSString *)editingStringForObjectValue:(id)anObject {
 	return [anObject details];
