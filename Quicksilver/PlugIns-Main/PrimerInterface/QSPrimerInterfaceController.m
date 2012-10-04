@@ -31,9 +31,6 @@
 	[[self window] setLevel:NSPopUpMenuWindowLevel];
 	[[self window] setFrameAutosaveName:@"PrimerInterfaceWindow"];
     
-    // Set the window to be visible on all spaces
-    [[self window] setCollectionBehavior:NSWindowCollectionBehaviorTransient];
-
 	//  [[self window] setFrame:constrainRectToRect([[self window] frame] , [[[self window] screen] visibleFrame]) display:NO];
 	//	[(QSWindow *)[self window] setHideOffset:NSMakePoint(0, -99)];
 	//   [(QSWindow *)[self window] setShowOffset:NSMakePoint(0, 99)];

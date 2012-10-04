@@ -246,6 +246,10 @@
 	return [[info objectForKey:@"enabled"] boolValue];
 }
 
+- (void)disable {
+	[self setEnabled:NO];
+}
+
 - (void)setEnabled:(BOOL)enabled {
 	[info setObject:[NSNumber numberWithBool:enabled] forKey:@"enabled"];
     enabled ? [[self manager] enableTrigger:self] : [[self manager] disableTrigger:self];

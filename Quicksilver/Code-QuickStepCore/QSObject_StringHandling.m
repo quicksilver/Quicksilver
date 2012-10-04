@@ -47,6 +47,7 @@
 + (id)objectWithString:(NSString *)string { return [[(QSObject *)[QSObject alloc] initWithString:string] autorelease];  }
 - (id)initWithString:(NSString *)string {
     if (![string length]) {
+		[self release];
         return nil;
     }
 	if (self = [self init]) {
@@ -109,6 +110,16 @@
 			[self getNameFromFiles];
 		}
 		return;
+	}
+	// It's a file URL
+	if ([stringValue hasPrefix:@"file://"]) {
+		NSURL *fileURL = [NSURL URLWithString:stringValue];
+		if ([[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]]) {
+			[self setObject:[fileURL path] forType:QSFilePathType];
+			[self setPrimaryType:QSFilePathType];
+			[self getNameFromFiles];
+			return;
+		}
 	}
 	
 	// trimWhitespace calls a CFStringTrimWhitespace to remove whitespace from start and end of string

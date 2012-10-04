@@ -15,9 +15,9 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleVersion</key>
-	<string>186B</string>
+	<string>186C</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.0</string>
+	<string>1.0.1</string>
 	<key>CFBundleDisplayName</key>
 	<string>Bezel Interface</string>
 	<key>NSHumanReadableCopyright</key>

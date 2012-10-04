@@ -13,7 +13,7 @@ output tab separated lines with the following fields:
 """
 
 from os import path
-from BeautifulSoup import BeautifulSoup
+from bs4 import BeautifulSoup
 import fileinput
 from sys import stdout
 import codecs
@@ -21,7 +21,7 @@ streamWriter = codecs.lookup('utf-8')[-1]
 stdout = streamWriter(stdout)
 
 ## a place to store the links we find
-links = set()
+links = []
 
 if __name__ == '__main__':
     page = ''.join([line for line in fileinput.input()])
@@ -51,10 +51,9 @@ if __name__ == '__main__':
                     thisLink['title'] = path.basename(img['src'])
             
         if thisLink['title'] is None:
-            ## check for a span inside the link text
-            span = link.find('span')
-            if span:
-                thisLink['title'] = span.string
+            ## check for text inside the link
+            if len(link.contents):
+                thisLink['title'] = ' '.join(link.stripped_strings)
         if thisLink['title'] is None:
             ## if there's *still* no title (empty tag), skip it
             continue
@@ -64,7 +63,8 @@ if __name__ == '__main__':
                         thisLink['shortcut'].strip(),
                         thisLink['image'].strip())
         ## store the result
-        links.add(hashableLink)
+        if hashableLink not in links:
+            links.append(hashableLink)
 
 ## print the results
 for link in links:

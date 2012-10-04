@@ -206,10 +206,7 @@ BOOL operateOnResourceUsingFunction( ResFileRefNum afileRef, ResType aType, NSSt
 - (void)dealloc
 {
 	if( fileReference > 0 )
-	{
 		[self closeFile];
-		NSLog (@"NDAlias ERROR: you neglected to call closeFile: before disposing this NDResourceFork");
-	}
 	[super dealloc];
 }
 
