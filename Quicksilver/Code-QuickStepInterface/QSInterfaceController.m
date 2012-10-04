@@ -113,6 +113,7 @@
 	[self hideIndirectSelector:nil];
 
 	[[self window] setHidesOnDeactivate:NO];
+    [[self window] useQuicksilverCollectionBehavior];
 	[[self menuButton] setMenu:[(QSController *)[NSApp delegate] statusMenuWithQuit]];
 
 #if 0

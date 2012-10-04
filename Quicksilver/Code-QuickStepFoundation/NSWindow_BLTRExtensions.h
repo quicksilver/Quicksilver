@@ -19,3 +19,6 @@
 - (void)addInternalWidgetsForStyleMask:(NSInteger) styleMask closeOnly:(BOOL)closeOnly;
 @end
 
+@interface NSWindow (Visibility)
+- (void)useQuicksilverCollectionBehavior;
+@end
