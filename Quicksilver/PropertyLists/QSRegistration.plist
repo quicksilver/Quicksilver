@@ -152,6 +152,8 @@
 		<string>QSConsoleNotifier</string>
 		<key>com.blacktree.Quicksilver</key>
 		<string>QSSilverNotifier</string>
+		<key>com.apple.NotificationCenter</key>
+		<string>QSNotificationCenterNotifier</string>
 	</dict>
 	<key>QSObjectHandlers</key>
 	<dict>

@@ -6,9 +6,6 @@
 //  Copyright Blacktree 2004. All rights reserved.
 //
 
-#import <QSCore/QSObject.h>
-#import "QSSimpleNotifier.h"
-
 @interface QSSilverNotifier : NSWindowController {
 	NSTimer *curTimer;
 	IBOutlet NSTextView *textView;
