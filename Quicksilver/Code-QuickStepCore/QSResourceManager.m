@@ -56,26 +56,8 @@ id QSRez;
 - (NSString *)resourceNamed:(NSString *)name inBundle:(NSBundle *)bundle {
 	return nil;
 }
-
-- (id)locatorForImageNamed:(NSString *)name
-{
-	// check for an icon specific to this version of OS X (10.x.x)
-	NSString *nameWithOS = [NSString stringWithFormat:@"%@[%@]", name, [NSApplication macOSXFullVersion]];
-	id locator = [resourceDict objectForKey:nameWithOS];
-	if (!locator) {
-		// check for an icon specific to this release of OS X (10.x)
-		nameWithOS = [NSString stringWithFormat:@"%@[%@]", name, [NSApplication macOSXReleaseVersion]];
-		locator = [resourceDict objectForKey:nameWithOS];
-	}
-	if (!locator) {
-		// check for an icon using only the name
-		locator = [resourceDict objectForKey:name];
-	}
-	return locator;
-}
-
 - (NSString *)pathForImageNamed:(NSString *)name {
-	id locator = [self locatorForImageNamed:name];
+	id locator = [resourceDict objectForKey:name];
 	return [self pathWithLocatorInformation:locator];
 }
 
@@ -89,7 +71,7 @@ id QSRez;
 
 	}
 
-	id locator = [self locatorForImageNamed:name];
+	id locator = [resourceDict objectForKey:name];
 	if ([locator isKindOfClass:[NSNull class]]) return nil;
 	if (locator)
 		image = [self imageWithLocatorInformation:locator];
@@ -112,7 +94,7 @@ id QSRez;
 
 	if (image) { return image; }
 
-	id locator = [self locatorForImageNamed:name];
+	id locator = [resourceDict objectForKey:name];
 	if ([locator isKindOfClass:[NSNull class]]) { return nil; }
 	if (locator) {
 		image = [self imageWithLocatorInformation:locator];
