@@ -26,7 +26,7 @@
 	[window setWindowProperty:[NSDictionary dictionaryWithObjectsAndKeys:@"hide", @"type", [NSNumber numberWithDouble:0.15], @"duration", nil] forKey:kQSWindowFadeEffect];
 	[window setWindowProperty:[NSDictionary dictionaryWithObjectsAndKeys:@"QSVContractEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithDouble:0.25], @"duration", nil, [NSNumber numberWithDouble:0.25] , @"brightnessB", @"QSStandardBrightBlending", @"brightnessFn", nil] forKey:kQSWindowCancelEffect];
 
-	[(QSBezelBackgroundView *)[[self window] contentView] setRadius:24.0];
+	[(QSBezelBackgroundView *)[[self window] contentView] setRadius:12.0];
 	[(QSBezelBackgroundView *)[[self window] contentView] setGlassStyle:QSGlossUpArc];
 
 	[[self window] setFrame:standardRect display:YES];
@@ -53,6 +53,8 @@
 		[theCell setTextColor:[NSColor whiteColor]];
 		[theCell setState:NSOnState];
 
+        [theCell setCellRadiusFactor:16];
+        
 		[theCell bind:@"highlightColor" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSAppearance1A" options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:@"NSValueTransformerName"]];
 		[theCell bind:@"textColor" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSAppearance1T" options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:@"NSValueTransformerName"]];
 	 }
@@ -87,6 +89,7 @@
 	[[self window] setFrame:[self rectForState:[self expanded]]  display:YES];
 	if ([[self window] isVisible]) [[self window] pulse:self];
 	[super showMainWindow:sender];
+//    Does this need to be here?
 	[[[self window] contentView] setNeedsDisplay:YES];
 }
 
