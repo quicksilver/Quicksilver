@@ -342,7 +342,6 @@ typedef enum {
         update = (selection == NSAlertDefaultReturn);
     }
     
-    //[self installAppFromCompressedFile:path];
     NSString *installPath = nil;
     if (update) {
         installPath = [self installAppFromDiskImage:path];
@@ -368,40 +367,19 @@ typedef enum {
     [appDownload release], appDownload = nil;
 }
 
-- (NSString *)installAppFromCompressedFile:(NSString *)path {
-    NSFileManager *manager = [NSFileManager defaultManager];
-    
-    NSString *tempDirectory = [NSTemporaryDirectory() stringByAppendingPathComponent:@"QSUpdate"];
-    [manager createDirectoryAtPath:tempDirectory withIntermediateDirectories:NO attributes:nil error:nil];
-    
-    [updateTask setName:@"Installing Update"];
-    [updateTask setStatus:@"Extracting Data"];
-    [updateTask setProgress:-1.0];
-    NSArray *extracted = [self extractFilesFromQSPkg:path toPath:tempDirectory];
-    if ([extracted count] != 1) {
-        NSLog(@"App Update Error");
-        return nil;
-    }
-    
-    NSString *newAppVersionPath = [tempDirectory stringByAppendingPathComponent:[extracted lastObject]];
-    
-    [updateTask setStatus:@"Copying Application"];
-    [NSApp replaceWithUpdateFromPath:newAppVersionPath];
-    [updateTask setStatus:@"Cleaning Up"];
-
-    return newAppVersionPath;
-}
-
 - (NSString *)installAppFromDiskImage:(NSString *)path {
     NSFileManager *manager = [NSFileManager defaultManager];
     
+    // Create a temp directory to mount the .dmg
     NSString *tempDirectory = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString uniqueString]];
-    [manager createDirectoryAtPath:tempDirectory withIntermediateDirectories:NO attributes:nil error:nil];
+    [manager createDirectoryAtPath:tempDirectory withIntermediateDirectories:YES
+                        attributes:nil error:nil];
     
     [updateTask setName:@"Installing Update"];
     [updateTask setStatus:@"Verifying Data"];
     [updateTask setProgress:-1.0];
     
+    // mount the .dmg
     NSTask *task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/hdiutil"
                                             arguments:[NSArray arrayWithObjects:@"attach", path, @"-nobrowse", @"-mountpoint", tempDirectory, nil]];
     
@@ -409,27 +387,46 @@ typedef enum {
     
     if ([task terminationStatus] != 0)
         return nil;
-
+    
     NSArray *extracted = [[manager contentsOfDirectoryAtPath:tempDirectory error:nil] pathsMatchingExtensions:[NSArray arrayWithObject:@"app"]];
     if ([extracted count] != 1)
         return nil;
-
-    NSString *newAppVersionPath = [tempDirectory stringByAppendingPathComponent:[extracted lastObject]];
-    if (!newAppVersionPath)
-        return nil;
     
+    NSString *mountedAppPath = [tempDirectory stringByAppendingPathComponent:[extracted lastObject]];
+    if (!mountedAppPath) {
+        return nil;
+    }
+    
+    // Copy Quicksilver.app from the .dmg to a writeable folder (QS App Support folder)
+    NSString *tempHoldDir = [QSApplicationSupportPath stringByAppendingPathComponent:[NSString uniqueString]];
+    [manager createDirectoryAtPath:tempHoldDir withIntermediateDirectories:YES attributes:nil error:nil];
+    NSString *storedAppPath = [tempHoldDir stringByAppendingPathComponent:[mountedAppPath lastPathComponent]];
+    NSError *copyErr = nil;
+    [manager copyItemAtPath:mountedAppPath toPath:storedAppPath error:&copyErr];
+    if (copyErr) {
+        NSLog(@"Error: %@",copyErr);
+    }
+    
+    
+    // Copy the Application over the current app
     [updateTask setStatus:@"Copying Application"];
-    [NSApp replaceWithUpdateFromPath:newAppVersionPath];
+    BOOL copySuccess = [NSApp moveToPath:[[NSBundle mainBundle] bundlePath] fromPath:storedAppPath];
     [updateTask setStatus:@"Cleaning Up"];
     
+    // Unmount .dmg and tidyup
     task = [NSTask launchedTaskWithLaunchPath:@"/usr/bin/hdiutil"
                                     arguments:[NSArray arrayWithObjects:@"detach", tempDirectory, nil]];
     [task waitUntilExit];
-    [[NSFileManager defaultManager] removeItemAtPath:tempDirectory error:nil];
+    [manager removeItemAtPath:tempDirectory error:nil];
+    [manager removeItemAtPath:tempHoldDir error:nil];
     
     [tempPath release];
     tempPath = nil;
-    return newAppVersionPath;    
+    if(!copySuccess) {
+        // Move failed, so return nil and display an error message
+        return nil;
+    }
+    return tempHoldDir;
 }
 
 - (NSArray *)extractFilesFromQSPkg:(NSString *)path toPath:(NSString *)tempDirectory {
