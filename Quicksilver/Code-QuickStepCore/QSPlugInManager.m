@@ -493,7 +493,6 @@
 	
 }
 
-#define appSupportSubpath @"Application Support/Quicksilver/PlugIns"
 
 - (NSMutableArray *)allBundles {
 	NSMutableSet *bundleSearchPaths = [NSMutableSet set];
