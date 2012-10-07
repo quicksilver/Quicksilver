@@ -19,5 +19,4 @@ Developer.xcconfig
 Quicksilver*.dmg
 *.pyc
 Quicksilver/SharedSupport/Changes*.html
-Quicksilver/Code-External/Sparkle
 Quicksilver/Code-External/VDKQueue
