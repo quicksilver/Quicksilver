@@ -1255,6 +1255,9 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (BOOL)performKeyEquivalent:(NSEvent *)theEvent {
+    if (![[self directSelector] objectValue]) {
+        return NO;
+    }
 	if ([[theEvent charactersIgnoringModifiers] isEqualToString:@"\r"] && ([theEvent modifierFlags] & NSCommandKeyMask) > 0) {
 		[self insertNewline:nil];
 		return YES;
