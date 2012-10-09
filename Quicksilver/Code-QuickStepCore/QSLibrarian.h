@@ -68,6 +68,7 @@ extern QSLibrarian *QSLib; // Shared Instance
 //- (BOOL)loadIndexesForEntries:(NSArray *)theEntries;
 - (void)recalculateTypeArraysForItem:(QSCatalogEntry *)entry;
 - (NSArray *)arrayForType:(NSString *)string;
+- (NSArray *)scoredArrayForType:(NSString *)string;
 - (NSDictionary *)typeArraysFromArray:(NSArray *)array;
 - (void)loadMissingIndexes;
 - (void)savePasteboardHistory;

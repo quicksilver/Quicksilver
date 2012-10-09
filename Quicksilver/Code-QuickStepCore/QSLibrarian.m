@@ -478,6 +478,11 @@ static CGFloat searchSpeed = 0.0;
 	return [typeSet allObjects];
 }
 
+- (NSArray *)scoredArrayForType:(NSString *)string
+{
+    // return all objects of this type, sorted by rank
+    return [self scoredArrayForString:nil inSet:[self arrayForType:string] mnemonicsOnly:YES];
+}
 
 - (NSDictionary *)typeArraysFromArray:(NSArray *)array {
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:1];
