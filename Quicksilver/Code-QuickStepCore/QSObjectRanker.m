@@ -192,8 +192,7 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 			useCount = [[usageMnemonics objectForKey:anAbbreviation] integerValue];
 
 		if (useCount) {
-			newScore += (1-1/(useCount+1) );
-
+			newScore += 1.0 - 1.0 / (useCount + 1.0);
 		} else if (newScore) {
 			// otherwise add points for similar starting abbreviations
 			for (id key in usageMnemonics) {
