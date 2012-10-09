@@ -185,11 +185,16 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 #endif
 		}
 
-		NSInteger useCount = 0;
-
 		// get number of times this abbrev. has been used
-		if ([anAbbreviation length])
+		NSUInteger useCount = 0;
+		if ([anAbbreviation length]) {
 			useCount = [[usageMnemonics objectForKey:anAbbreviation] integerValue];
+        } else {
+            // for an empty string, consider the total use count
+            for (id key in usageMnemonics) {
+                useCount += [[usageMnemonics objectForKey:key] integerValue];
+            }
+        }
 
 		if (useCount) {
 			newScore += 1.0 - 1.0 / (useCount + 1.0);
