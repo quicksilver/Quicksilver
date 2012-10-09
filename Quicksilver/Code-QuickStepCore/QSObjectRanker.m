@@ -193,7 +193,7 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 
 		if (useCount) {
 			newScore += 1.0 - 1.0 / (useCount + 1.0);
-		} else if (newScore) {
+		} else if (newScore && [anAbbreviation length]) {
 			// otherwise add points for similar starting abbreviations
 			for (id key in usageMnemonics) {
 				if (prefixCompare(key, anAbbreviation) == NSOrderedSame) {
