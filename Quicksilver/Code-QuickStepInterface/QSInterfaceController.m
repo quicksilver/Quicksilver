@@ -579,17 +579,6 @@
         NSDate *startDate = [NSDate date];
 #endif
         QSAction *action = [[aSelector objectValue] retain];
-        if ([[NSApp currentEvent] modifierFlags] & NSCommandKeyMask && !([[NSApp currentEvent] modifierFlags] & NSShiftKeyMask) ) {
-            QSAction* alternate = [action alternate];
-            if (alternate != action) {
-                [alternate retain];
-                [action release];
-                action = alternate;
-            }
-#ifdef DEBUG
-            if (VERBOSE) NSLog(@"Using Alternate Action: %@", action);
-#endif
-        }
         QSObject *dObject = [dSelector objectValue];
         QSObject *iObject = [iSelector objectValue];
         if( [dObject isKindOfClass:[QSRankedObject class]] )

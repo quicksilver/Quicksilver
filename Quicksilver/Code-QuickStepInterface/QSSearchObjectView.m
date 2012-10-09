@@ -672,6 +672,7 @@ NSMutableDictionary *bindingsDict = nil;
 	[self setVisibleString:@""];
 	[self setMatchedString:nil];
 	[self setShouldResetSearchString:YES];
+    [[self actionSelector] setAlternateActionCounterpart:nil];
 }
 
 - (void)pageScroll:(NSInteger)direction {
@@ -988,6 +989,25 @@ NSMutableDictionary *bindingsDict = nil;
 	[self resetString];
 	[self setNeedsDisplay:YES];
 	return YES;
+}
+
+- (void)flagsChanged:(NSEvent *)theEvent {
+    QSSearchObjectView *aSelector = [self actionSelector];
+	if ([theEvent modifierFlags] &NSCommandKeyMask) {
+		// change the image
+		QSAction *theAction = [aSelector objectValue];
+		if (theAction && [theAction alternate]) {
+			[aSelector setObjectValue:[theAction alternate]];
+			[aSelector setNeedsDisplay:YES];
+			[aSelector setAlternateActionCounterpart:theAction];
+		}
+	}
+	// when keys are lifted so there are no modifiers
+	else if ([aSelector alternateActionCounterpart]) {
+			[aSelector setObjectValue:[aSelector alternateActionCounterpart]];
+            [aSelector setNeedsDisplay:YES];
+            [aSelector setAlternateActionCounterpart:nil];
+	}
 }
 
 // This method deals with all keydowns. Some very interesting things could be done by manipulating this method
