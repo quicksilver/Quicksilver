@@ -1022,7 +1022,6 @@ NSMutableDictionary *bindingsDict = nil;
             [currentResultArray removeObjectAtIndex:currentResultIndex];
             [currentResultArray insertObject:[aSelector alternateActionCounterpart] atIndex:currentResultIndex];
             
-            [aSelector selectObject:[theAction alternate]];
             [[aSelector resultController] arrayChanged:nil];
             [aSelector selectObject:[aSelector alternateActionCounterpart]];
         }
