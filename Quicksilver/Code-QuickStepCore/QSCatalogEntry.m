@@ -425,20 +425,17 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (void)saveIndex {
-	
+	dispatch_barrier_async([[QSLibrarian sharedInstance] indexationQueue], ^{
 #ifdef DEBUG
-	if (DEBUG_CATALOG) NSLog(@"saving index for %@", self);
+    if (DEBUG_CATALOG) NSLog(@"saving index for %@", self);
 #endif
-	
-	[self setIndexDate:[NSDate date]];
-	NSString *key = [self identifier];
-	NSString *path = [pIndexLocation stringByStandardizingPath];
-   
-    // Lock the 'contents' mutablearray so that it cannot be changed whilst it's being written to file
-    @synchronized(contents) {
+        [self setIndexDate:[NSDate date]];
+        NSString *key = [self identifier];
+        NSString *path = [pIndexLocation stringByStandardizingPath];
+
         NSArray *writeArray = [contents arrayByPerformingSelector:@selector(dictionaryRepresentation)];
         [writeArray writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
-    }
+    });
 }
 
 
@@ -542,7 +539,8 @@ NSDictionary *enabledPresetDictionary;*/
         }
 		return nil;
 	}
-	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:@"Checking: %@", [self name]]];
+
+	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:NSLocalizedString(@"Checking: %@", @"Catalog task checking (%@ => source name)"), [self name]]];
 	BOOL valid = [self indexIsValid];
 	if (valid && !force) {
 		
@@ -558,8 +556,10 @@ NSDictionary *enabledPresetDictionary;*/
 		NSLog(@"Scanning source: %@%@", [self name] , (force?@" (forced) ":@""));
 #endif
 	
-	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:@"Scanning: %@", [self name]]];
-	[self scanAndCache];
+	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:NSLocalizedString(@"Scanning: %@", @"Catalog task scanning (%@ => source name)"), [self name]]];
+    dispatch_async([[QSLibrarian sharedInstance] indexationQueue], ^{
+        [self scanAndCache];
+    });
 	return nil;
 }
 
