@@ -41,6 +41,9 @@ NSMutableDictionary *kindDescriptions = nil;
 @end
 
 @implementation QSResultController
+
+@synthesize resultTable=resultTable;
+
 + (void)initialize {
     if (!kindDescriptions)
         kindDescriptions = [[NSMutableDictionary alloc] initWithContentsOfFile:

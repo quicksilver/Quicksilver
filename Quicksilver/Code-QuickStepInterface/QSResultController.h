@@ -49,6 +49,9 @@
    // NSRange visibleChildRange;
 }
 
+
+@property (retain) IBOutlet NSTableView *resultTable;
+
 + (id)sharedInstance;
 
 - (IBAction)defineMnemonic:(id)sender;

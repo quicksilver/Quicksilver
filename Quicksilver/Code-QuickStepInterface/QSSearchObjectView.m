@@ -37,7 +37,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 @implementation QSSearchObjectView
 
-@synthesize textModeEditor;
+@synthesize textModeEditor, alternateActionCounterpart, resultController;
 
 + (void)initialize {
     if( bindingsDict == nil ) {
@@ -193,7 +193,7 @@ NSMutableDictionary *bindingsDict = nil;
 	//[[QSLibrarian sharedInstance] scoredArrayForString:[self matchedString] inSet:[NSArray arrayWithObject:[self objectValue]] mnemonicsOnly:![self matchedString]];
 	[[QSLibrarian sharedInstance] scoredArrayForString:[self matchedString] inSet:[NSArray arrayWithObject:[self objectValue]]];
 	if ([[resultController window] isVisible])
-		[resultController->resultTable reloadData];
+		[resultController.resultTable reloadData];
 }
 
 #pragma mark -
@@ -325,7 +325,7 @@ NSMutableDictionary *bindingsDict = nil;
 		searchMode = newSearchMode;
 	}
 	
-    [resultController->resultTable setNeedsDisplay:YES];	
+    [resultController.resultTable setNeedsDisplay:YES];
 	if (browsing) {
 	[[NSUserDefaults standardUserDefaults] setInteger:searchMode forKey:kBrowseMode];
 	}
@@ -547,7 +547,7 @@ NSMutableDictionary *bindingsDict = nil;
 	//[resultController->searchModePopUp selectItemAtIndex:[resultController->searchModePopUp indexOfItemWithTag:searchMode]];
 	[self reloadResultTable];
 	if (selection > NSNotFound - 1) selection = 0;
-	[resultController->resultTable selectRowIndexes:[NSIndexSet indexSetWithIndex:(selection ? selection : 0)] byExtendingSelection:NO];
+	[resultController.resultTable selectRowIndexes:[NSIndexSet indexSetWithIndex:(selection ? selection : 0)] byExtendingSelection:NO];
 	[resultController updateSelectionInfo];
 }
 
@@ -575,7 +575,7 @@ NSMutableDictionary *bindingsDict = nil;
     [self hideResultView:self];
     [self clearSearch];
     [parentStack removeAllObjects];
-    [self setResultArray:[NSArray arrayWithObjects:newObject, nil]];
+    [self setResultArray:[NSMutableArray arrayWithObjects:newObject, nil]];
     [super setObjectValue:newObject];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
@@ -613,9 +613,9 @@ NSMutableDictionary *bindingsDict = nil;
 		QSObject *object = [resultArray objectAtIndex:selection];
         
 		[self selectObjectValue:object];
-		[resultController->resultTable scrollRowToVisible:selection];
+		[resultController.resultTable scrollRowToVisible:selection];
 		//[resultController->resultTable centerRowInView:selection];
-		[resultController->resultTable selectRowIndexes:[NSIndexSet indexSetWithIndex:(selection ? selection : 0)] byExtendingSelection:NO];
+		[resultController.resultTable selectRowIndexes:[NSIndexSet indexSetWithIndex:(selection ? selection : 0)] byExtendingSelection:NO];
 	} else
 		[self selectObjectValue:nil];
     
@@ -678,7 +678,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)pageScroll:(NSInteger)direction {
 	if (![[resultController window] isVisible]) [self showResultView:self];
     
-	NSInteger movement = direction * (NSHeight([[resultController->resultTable enclosingScrollView] frame]) /[resultController->resultTable rowHeight]);
+	NSInteger movement = direction * (NSHeight([[resultController.resultTable enclosingScrollView] frame]) /[resultController.resultTable rowHeight]);
 	//NSLog(@"%d", movement);
 	[self moveSelectionBy:movement];
 }
@@ -997,16 +997,37 @@ NSMutableDictionary *bindingsDict = nil;
 		// change the image
 		QSAction *theAction = [aSelector objectValue];
 		if (theAction && [theAction alternate]) {
-			[aSelector setObjectValue:[theAction alternate]];
-			[aSelector setNeedsDisplay:YES];
+            NSMutableArray *currentResultArray = [aSelector resultArray];
+            if ([currentResultArray containsObject:[theAction alternate]]) {
+                [aSelector selectObject:[theAction alternate]];
+            } else {
+                NSUInteger currentResultIndex = [currentResultArray indexOfObject:theAction];
+                [currentResultArray removeObjectAtIndex:currentResultIndex];
+                [currentResultArray insertObject:[theAction alternate] atIndex:currentResultIndex];
+                [aSelector selectObject:[theAction alternate]];
+                [[aSelector resultController] arrayChanged:nil];
+            }
+            [aSelector setNeedsDisplay:YES];
 			[aSelector setAlternateActionCounterpart:theAction];
 		}
 	}
 	// when keys are lifted so there are no modifiers
 	else if ([aSelector alternateActionCounterpart]) {
-			[aSelector setObjectValue:[aSelector alternateActionCounterpart]];
-            [aSelector setNeedsDisplay:YES];
-            [aSelector setAlternateActionCounterpart:nil];
+        QSAction *theAction = [aSelector objectValue];
+        NSMutableArray *currentResultArray = [aSelector resultArray];
+        if ([currentResultArray containsObject:[aSelector alternateActionCounterpart]]) {
+            [aSelector selectObject:[aSelector alternateActionCounterpart]];
+        } else {
+            NSUInteger currentResultIndex = [currentResultArray indexOfObject:theAction];
+            [currentResultArray removeObjectAtIndex:currentResultIndex];
+            [currentResultArray insertObject:[aSelector alternateActionCounterpart] atIndex:currentResultIndex];
+            
+            [aSelector selectObject:[theAction alternate]];
+            [[aSelector resultController] arrayChanged:nil];
+            [aSelector selectObject:[aSelector alternateActionCounterpart]];
+        }
+        [aSelector setNeedsDisplay:YES];
+        [aSelector setAlternateActionCounterpart:nil];
 	}
 }
 
@@ -1807,8 +1828,8 @@ NSMutableDictionary *bindingsDict = nil;
         [self clearSearch];
         NSInteger defaultMode = [[NSUserDefaults standardUserDefaults] integerForKey:kBrowseMode];
         [self setSearchMode:(defaultMode ? defaultMode  : SearchSnap)];
-        [self setResultArray:(NSMutableArray *)newObjects]; // !!!:nicholas:20040319
-        [self setSourceArray:(NSMutableArray *)newObjects];
+        [self setResultArray:[[newObjects mutableCopy] autorelease]]; // !!!:nicholas:20040319
+        [self setSourceArray:[[newObjects mutableCopy] autorelease]];
         
         if (!newSelectedObject)
             [self selectIndex:0];

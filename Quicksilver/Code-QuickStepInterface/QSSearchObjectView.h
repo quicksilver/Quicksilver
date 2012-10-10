@@ -85,9 +85,11 @@ typedef enum QSSearchMode {
 	BOOL allowNonActions;
     
     QSObject *quicklookObject;
+    QSAction *alternateActionCounterpart;
 
 }
 
+@property (retain) QSResultController *resultController;
 @property (retain) QSAction *alternateActionCounterpart;
 @property (retain) NSTextView *textModeEditor;
 

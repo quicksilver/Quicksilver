@@ -281,8 +281,8 @@
 		[control clearObjectValue];
 	}
 	[control clearSearch];
-	[control setSourceArray:(NSMutableArray *)array];
-	[control setResultArray:(NSMutableArray *)array];
+	[control setSourceArray:[[array mutableCopy] autorelease]];
+	[control setResultArray:[[array mutableCopy] autorelease]];
     
 	[control selectObject:defaultSelection];
 }
