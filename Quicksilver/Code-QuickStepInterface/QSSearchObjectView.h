@@ -68,6 +68,8 @@ typedef enum QSSearchMode {
     NSColor *textCellFontColor; // for text entry mode
     QLPreviewPanel* previewPanel;
     QSSearchMode savedSearchMode;
+    BOOL updatesSilently;
+    QSAction *alternateActionCounterpart;
 
 @public
 	QSResultController *resultController;
@@ -85,10 +87,10 @@ typedef enum QSSearchMode {
 	BOOL allowNonActions;
     
     QSObject *quicklookObject;
-    QSAction *alternateActionCounterpart;
 
 }
 
+@property (assign) BOOL updatesSilently;
 @property (retain) QSResultController *resultController;
 @property (retain) QSAction *alternateActionCounterpart;
 @property (retain) NSTextView *textModeEditor;

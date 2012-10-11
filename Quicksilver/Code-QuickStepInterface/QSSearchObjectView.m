@@ -37,7 +37,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 @implementation QSSearchObjectView
 
-@synthesize textModeEditor, alternateActionCounterpart, resultController;
+@synthesize textModeEditor, alternateActionCounterpart, resultController, updatesSilently;
 
 + (void)initialize {
     if( bindingsDict == nil ) {
@@ -67,6 +67,7 @@ NSMutableDictionary *bindingsDict = nil;
 	shouldResetSearchArray = YES;
 	allowNonActions = YES;
 	allowText = YES;
+    updatesSilently = NO;
 	resultController = [[QSResultController alloc] initWithFocus:self];
 	[self setTextCellFont:[NSFont systemFontOfSize:12.0]];
     [self setTextCellFontColor:[NSColor blackColor]];
@@ -169,7 +170,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)saveMnemonic {
 	NSString *mnemonicKey = [self matchedString];
 	if (!mnemonicKey || [mnemonicKey isEqualToString:@""]) return;
-	QSObject *mnemonicValue = [self objectValue];
+	QSObject *mnemonicValue = [self alternateActionCounterpart] ? [self alternateActionCounterpart] : [self objectValue];
 	if ([mnemonicValue count] > 1) {
 		mnemonicValue = [[[self objectValue] splitObjects] lastObject];
 	}
@@ -566,7 +567,9 @@ NSMutableDictionary *bindingsDict = nil;
     // if the two objects are not the same, send an 'object chagned' notif
 	if (newObject != currentObject) {
 		[super setObjectValue:newObject];
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
+        if (!updatesSilently) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
+        }
 	}
 }
 
@@ -993,6 +996,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)flagsChanged:(NSEvent *)theEvent {
     QSSearchObjectView *aSelector = [self actionSelector];
+    [aSelector setUpdatesSilently:YES];
 	if ([theEvent modifierFlags] &NSCommandKeyMask) {
 		// change the image
 		QSAction *theAction = [aSelector objectValue];
@@ -1028,6 +1032,7 @@ NSMutableDictionary *bindingsDict = nil;
         [aSelector setNeedsDisplay:YES];
         [aSelector setAlternateActionCounterpart:nil];
 	}
+    [aSelector setUpdatesSilently:NO];
 }
 
 // This method deals with all keydowns. Some very interesting things could be done by manipulating this method
