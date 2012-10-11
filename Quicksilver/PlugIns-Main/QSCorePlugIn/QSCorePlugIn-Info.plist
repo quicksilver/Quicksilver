@@ -956,6 +956,8 @@
 		</dict>
 		<key>PasteboardPasteActionAsPlainText</key>
 		<dict>
+			<key>validatesObjects</key>
+			<true/>
 			<key>actionClass</key>
 			<string>ClipboardActions</string>
 			<key>directTypes</key>
@@ -1374,6 +1376,8 @@
 		</dict>
 		<key>PasteboardPasteAction</key>
 		<dict>
+			<key>validatesObjects</key>
+			<true/>
 			<key>alternateAction</key>
 			<string>PasteboardPasteActionAsPlainText</string>
 			<key>actionClass</key>
