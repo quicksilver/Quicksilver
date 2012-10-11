@@ -694,7 +694,7 @@
 															<object class="NSTableHeaderCell" key="NSHeaderCell">
 																<int key="NSCellFlags">75628096</int>
 																<int key="NSCellFlags2">2048</int>
-																<string key="NSContents">Action</string>
+																<string key="NSContents">Action (↩)</string>
 																<reference key="NSSupport" ref="26"/>
 																<reference key="NSBackgroundColor" ref="208415659"/>
 																<reference key="NSTextColor" ref="737682426"/>
@@ -719,7 +719,7 @@
 															<object class="NSTableHeaderCell" key="NSHeaderCell">
 																<int key="NSCellFlags">75628096</int>
 																<int key="NSCellFlags2">2048</int>
-																<string key="NSContents">Alternate Action</string>
+																<string key="NSContents">Alternate Action (⌘↩)</string>
 																<reference key="NSSupport" ref="26"/>
 																<reference key="NSBackgroundColor" ref="208415659"/>
 																<reference key="NSTextColor" ref="737682426"/>
@@ -828,6 +828,7 @@
 							<string key="NSFrame">{{237, 21}, {129, 14}}</string>
 							<reference key="NSSuperview" ref="237570604"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="62567589">
 								<int key="NSCellFlags">67239424</int>
