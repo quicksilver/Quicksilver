@@ -81,7 +81,7 @@
 	<key>ScriptIcon</key>
 	<string>/Applications/AppleScript/Script Editor.app/Contents/Resources/SEScriptDocument.icns</string>
 	<key>SidebarIcon</key>
-	<string>/System/Library/CoreServices/Finder.app/Contents/Resources/sidebarpref.icns</string>
+	<string>com.apple.Finder</string>
 	<key>SystemPreferencesIcon</key>
 	<string>/Applications/System Preferences.app/Contents/Resources/PrefApp.icns</string>
 	<key>TerminalIcon</key>
