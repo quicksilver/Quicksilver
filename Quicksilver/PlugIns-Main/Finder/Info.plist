@@ -109,27 +109,6 @@
 					<key>source</key>
 					<string>QSDefaultsObjectSource</string>
 				</dict>
-				<dict>
-					<key>ID</key>
-					<string>QSPresetFinderSpecificSearchPlaces</string>
-					<key>name</key>
-					<string>Finder Search Locations</string>
-					<key>settings</key>
-					<dict>
-						<key>bundle</key>
-						<string>com.apple.finder</string>
-						<key>keypath</key>
-						<array>
-							<string>FXSpecificSearchPlaces</string>
-							<string>*</string>
-							<string>file-data</string>
-						</array>
-						<key>type</key>
-						<integer>5</integer>
-					</dict>
-					<key>source</key>
-					<string>QSDefaultsObjectSource</string>
-				</dict>
 			</array>
 			<key>icon</key>
 			<string>FinderIcon</string>
