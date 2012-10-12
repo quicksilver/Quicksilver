@@ -67,7 +67,7 @@
 					<key>ID</key>
 					<string>QSPresetSidebarItems</string>
 					<key>icon</key>
-					<string>SidebarIcon</string>
+					<string>FinderIcon</string>
 					<key>name</key>
 					<string>Finder Sidebar Items</string>
 					<key>settings</key>

@@ -80,8 +80,6 @@
 	<string>Recent</string>
 	<key>ScriptIcon</key>
 	<string>/Applications/AppleScript/Script Editor.app/Contents/Resources/SEScriptDocument.icns</string>
-	<key>SidebarIcon</key>
-	<string>com.apple.Finder</string>
 	<key>SystemPreferencesIcon</key>
 	<string>/Applications/System Preferences.app/Contents/Resources/PrefApp.icns</string>
 	<key>TerminalIcon</key>
