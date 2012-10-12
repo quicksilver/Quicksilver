@@ -98,12 +98,13 @@
 						<string>com.apple.finder</string>
 						<key>keypath</key>
 						<array>
-							<string>FXToolbarItems</string>
+							<string>NSToolbar Configuration Browser</string>
+							<string>TB Item Plists</string>
 							<string>*</string>
-							<string>file-data</string>
+							<string>_CFURLAliasData</string>
 						</array>
 						<key>type</key>
-						<integer>5</integer>
+						<integer>3</integer>
 					</dict>
 					<key>source</key>
 					<string>QSDefaultsObjectSource</string>
