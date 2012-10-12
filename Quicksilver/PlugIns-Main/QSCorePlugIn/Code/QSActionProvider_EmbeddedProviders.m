@@ -788,8 +788,17 @@
 @end
 
 # define kPasteboardPasteAction @"PasteboardPasteAction"
+# define kPasteboardPasteActionAsPlainText @"PasteboardPasteActionAsPlainText"
 
 @implementation ClipboardActions
+
+- (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
+	if ([dObject count] == 1) {
+		return [NSArray arrayWithObjects:kPasteboardPasteAction,kPasteboardPasteActionAsPlainText,nil];	
+	}
+	return nil;
+}
+	 
 - (QSObject *)copyObject:(QSObject *)dObject {
 	[dObject putOnPasteboard:[NSPasteboard generalPasteboard]];
 	return nil;
