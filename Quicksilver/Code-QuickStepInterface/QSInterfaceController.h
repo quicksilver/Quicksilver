@@ -27,6 +27,7 @@
     
     TISInputSourceRef savedKeyboard;
 }
+
 - (QSCommand *)currentCommand;
 - (void)setCommand:(QSCommand *)command;
 - (void)setCommandWithArray:(NSArray *)array;
