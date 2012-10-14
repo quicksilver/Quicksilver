@@ -22,6 +22,8 @@
     
 	NSTimer *hideTimer;
 	NSTimer *actionsUpdateTimer;
+    /* A BOOL that can be used to override whether or not the interface is dismissed on resiging key
+     if set to 'YES', when the interface resigns key, it does not close */
 	BOOL hidingWindow;
 	BOOL preview;
     
