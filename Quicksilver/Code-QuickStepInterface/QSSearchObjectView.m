@@ -77,6 +77,8 @@ NSMutableDictionary *bindingsDict = nil;
     [[self textModeEditor] bind:@"insertionPointColor" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSAppearance3T" options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:@"NSValueTransformerName"]];
     [[self textModeEditor] setAllowsUndo:YES];
     
+    [[self textModeEditor] setAutomaticTextReplacementEnabled:YES];
+    
 	searchMode = SearchFilter;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideResultView:) name:@"NSWindowDidResignKeyNotification" object:[self window]];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearAll) name:QSReleaseAllNotification object:nil];
