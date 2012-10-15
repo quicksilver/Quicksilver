@@ -806,7 +806,6 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 - (void)getNameFromFiles {
-	NSFileManager *manager = [[NSFileManager alloc] init];
 	NSString *newName = nil;
 	NSString *newLabel = nil;
 	if ([self count] >1) {
@@ -840,13 +839,12 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 				newLabel = [(NSString *)MDItemCopyAttribute(mdItem, kMDItemDisplayName) autorelease];
 			}
 			if (!newLabel) {
-				newLabel = [manager displayNameAtPath:path];
+				newLabel = [[NSFileManager defaultManager] displayNameAtPath:path];
 			}
 		}
 		// discard the label if it's still identical to name
 		if ([newLabel isEqualToString:newName]) newLabel = nil;
 	}
-    [manager release];
 	[self setName:newName];
 	[self setLabel:newLabel];
 }
