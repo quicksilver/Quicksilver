@@ -73,5 +73,12 @@
 	<false/>
 	<key>Use Effects</key>
 	<true/>
+	<key>QSFilePreviewTypes</key>
+	<array>
+		<string>public.image</string>
+		<string>public.movie</string>
+		<string>public.audio</string>
+		<string>com.adobe.pdf</string>
+	</array>
 </dict>
 </plist>
