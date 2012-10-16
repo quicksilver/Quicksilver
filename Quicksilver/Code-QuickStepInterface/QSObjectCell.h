@@ -17,7 +17,6 @@
 	NSDictionary *nameAttributes;
 	NSDictionary *detailsAttributes;
     NSDictionary *rankedNameAttributes;
-	NSRect lastFrame;
 	NSTextView *fieldEditor;
 }
 
