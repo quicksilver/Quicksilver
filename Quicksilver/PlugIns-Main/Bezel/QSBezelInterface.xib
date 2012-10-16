@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">11G56</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2549</string>
-		<string key="IBDocument.AppKitVersion">1138.51</string>
-		<string key="IBDocument.HIToolboxVersion">569.00</string>
+		<string key="IBDocument.SystemVersion">12C60</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2843</string>
+		<string key="IBDocument.AppKitVersion">1187.34</string>
+		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">2549</string>
+			<string key="NS.object.0">2843</string>
 		</object>
 		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -97,7 +97,7 @@
 							<reference key="NSNextKeyView" ref="220680343"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="684642459">
-								<int key="NSCellFlags">-2079195584</int>
+								<int key="NSCellFlags">-2079326144</int>
 								<int key="NSCellFlags2">138413056</int>
 								<string key="NSContents">▾</string>
 								<object class="NSFont" key="NSSupport">
@@ -120,11 +120,11 @@
 									<bytes key="NSWhite">MAA</bytes>
 								</object>
 							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 						<object class="NSProgressIndicator" id="541557247">
 							<reference key="NSNextResponder" ref="708947105"/>
 							<int key="NSvFlags">1281</int>
-							<object class="NSPSMatrix" key="NSDrawMatrix"/>
 							<string key="NSFrame">{{505, 4}, {16, 16}}</string>
 							<reference key="NSSuperview" ref="708947105"/>
 							<reference key="NSWindow"/>
@@ -141,8 +141,8 @@
 							<reference key="NSNextKeyView" ref="541557247"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="106227149">
-								<int key="NSCellFlags">68288064</int>
-								<int key="NSCellFlags2">138413056</int>
+								<int key="NSCellFlags">67108928</int>
+								<int key="NSCellFlags2">138414592</int>
 								<string key="NSContents">Small System Font Text</string>
 								<object class="NSFont" key="NSSupport">
 									<string key="NSName">LucidaGrande</string>
@@ -166,6 +166,7 @@
 									<reference key="NSColor" ref="22562272"/>
 								</object>
 							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 						<object class="NSButton" id="220680343">
 							<reference key="NSNextResponder" ref="708947105"/>
@@ -176,7 +177,7 @@
 							<reference key="NSNextKeyView" ref="177189960"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="875065009">
-								<int key="NSCellFlags">67239424</int>
+								<int key="NSCellFlags">67108864</int>
 								<int key="NSCellFlags2">134217728</int>
 								<string key="NSContents">▾</string>
 								<object class="NSFont" key="NSSupport" id="267833496">
@@ -185,7 +186,7 @@
 									<int key="NSfFlags">1044</int>
 								</object>
 								<reference key="NSControlView" ref="220680343"/>
-								<int key="NSButtonFlags">134660351</int>
+								<int key="NSButtonFlags">134660096</int>
 								<int key="NSButtonFlags2">6</int>
 								<reference key="NSAlternateImage" ref="267833496"/>
 								<string key="NSAlternateContents"/>
@@ -195,6 +196,7 @@
 								<int key="NSPeriodicDelay">200</int>
 								<int key="NSPeriodicInterval">25</int>
 							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 					</object>
 					<string key="NSFrameSize">{530, 202}</string>

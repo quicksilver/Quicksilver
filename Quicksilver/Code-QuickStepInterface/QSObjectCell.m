@@ -389,7 +389,7 @@
 - (void)buildStylesForFrame:(NSRect)cellFrame inView:(NSView *)controlView {
 
 	NSMutableParagraphStyle *style = [[[NSMutableParagraphStyle alloc] init] autorelease];
-	[style setLineBreakMode:NSLineBreakByTruncatingTail];
+	[style setLineBreakMode:NSLineBreakByTruncatingMiddle];
 	[style setFirstLineHeadIndent:1.0];
 	[style setHeadIndent:1.0];
 	[style setAlignment:[self alignment]];
@@ -508,11 +508,9 @@
             
             CGFloat detailHeight = NSHeight(textDrawRect) - nameSize.height;
             NSRange returnRange;
-            if (detailHeight<detailsSize.height && (returnRange = [detailsString rangeOfString:@"\n"]) .location != NSNotFound)
+            if (detailHeight<detailsSize.height && (returnRange = [detailsString rangeOfString:@"\n"]) .location != NSNotFound) {
                 detailsString = [detailsString substringToIndex:returnRange.location];
-            if ([detailsString length] > 100) detailsString = [detailsString substringWithRange:NSMakeRange(0, 100)];
-            // ***warning  ** this should take first line only?
-            //if ([titleString length]) [titleString appendAttributedString:;
+            }
             // Append the details string if it exists, and the UI wants it (showDetails BOOL)
             if (detailsString != nil && detailsString.length) {
                 [titleString appendAttributedString:[[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@",detailsString] attributes:detailsAttributes] autorelease]];
