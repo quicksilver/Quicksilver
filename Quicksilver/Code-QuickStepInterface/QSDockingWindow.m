@@ -1,6 +1,7 @@
 #import "QSDockingWindow.h"
 #import <Carbon/Carbon.h>
 #import "QSRegistry.h"
+#import "QSController.h"
 
 #import "QSTypes.h"
 
@@ -152,7 +153,10 @@
 
 - (void)makeKeyAndOrderFront:(id)sender {
 	allowKey = YES;
+    QSInterfaceController *interfaceController = [(QSController *)[NSApp delegate] interfaceController];
+    [interfaceController setHiding:YES];
 	[super makeKeyAndOrderFront:sender];
+    [interfaceController setHiding:NO];
 	allowKey = NO;
 }
 
