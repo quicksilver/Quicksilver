@@ -700,6 +700,11 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     return [infoRec objectForKey:@"uti"];
 }
 
+- (BOOL)conformsToUTI:(NSString *)type
+{
+    return UTTypeConformsTo((CFStringRef)[self fileUTI], (CFStringRef)type);
+}
+
 - (NSString *)localizedPrefPaneKind {
 	static NSString *prefPaneKindString = nil;
 	if (!prefPaneKindString)

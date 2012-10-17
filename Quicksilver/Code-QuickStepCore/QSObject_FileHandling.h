@@ -46,6 +46,7 @@
 - (BOOL)isAlias;
 - (NSString *)fileExtension;
 - (NSString *)fileUTI;
+- (BOOL)conformsToUTI:(NSString *)type;
 - (NSString *)singleFileType;
 
 - (void)previewIcon:(id)file;
