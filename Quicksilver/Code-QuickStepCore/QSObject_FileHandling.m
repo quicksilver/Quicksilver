@@ -704,13 +704,6 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     return UTTypeConformsTo((CFStringRef)[self fileUTI], (CFStringRef)type);
 }
 
-- (NSString *)localizedPrefPaneKind {
-	static NSString *prefPaneKindString = nil;
-	if (!prefPaneKindString)
-		prefPaneKindString = [[[NSBundle bundleWithPath:[[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:@"com.apple.systempreferences"]] localizedStringForKey:@"PREF_PANE" value:@" Preferences" table:nil] retain];
-	return prefPaneKindString;
-}
-
 - (NSString *)bundleNameFromInfoDict:(NSDictionary *)infoDict {
     // Use the display name
     return [infoDict objectForKey:@"CFBundleDisplayName"];
