@@ -611,8 +611,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		if ([paths count] == 1) {
 			NSString *path = [paths lastObject];
 			[[self dataDictionary] setObject:path forKey:QSFilePathType];
-			NSString *uti = QSUTIOfFile(path);
-            [self setObject:uti forMeta:@"UTI"];
+			NSString *uti = [self fileUTI];
 			id handler = [QSReg instanceForKey:uti inTable:@"QSFileObjectCreationHandlers"];
 			if (handler) {
 				if ([handler respondsToSelector:@selector(createFileObject:ofType:)])
