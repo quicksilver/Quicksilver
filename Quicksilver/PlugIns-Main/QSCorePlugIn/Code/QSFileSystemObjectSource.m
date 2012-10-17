@@ -133,7 +133,7 @@
         } 
         // if the user has entered 'folder' (to exclude a folder)
         if ([[editingString lowercaseString] isEqualToString:@"folder"]) {
-            return @"public.folder";
+            return (NSString *)kUTTypeFolder;
         }
         type = editingString;
 	}

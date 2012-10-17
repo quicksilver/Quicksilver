@@ -39,7 +39,16 @@
 #endif
 
 - (BOOL)movePathToTrash:(NSString *)filepath {
-	return [self moveItemAtPath:filepath toPath:[[[@"~/.Trash/" stringByStandardizingPath] stringByAppendingPathComponent:[filepath lastPathComponent]] firstUnusedFilePath] error:nil];
+    NSWorkspace *ws = [NSWorkspace sharedWorkspace];
+    BOOL result = [ws performFileOperation:NSWorkspaceRecycleOperation
+                                    source:[filepath stringByDeletingLastPathComponent]
+                               destination:@""
+                                     files:[NSArray arrayWithObject:[filepath lastPathComponent]]
+                                       tag:nil];
+    if (!result) {
+        NSLog(@"Failed to move file %@ to Trash", filepath);
+    }
+    return result;
 }
 
 #if 0
@@ -76,52 +85,6 @@
 #endif
 
 @end
-
-NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec);
-
-NSString *QSUTIOfURL(NSURL *fileURL) {
-    LSItemInfoRecord infoRec;
-	LSCopyItemInfoForURL((CFURLRef)fileURL, kLSRequestTypeCreator|kLSRequestBasicFlagsOnly, &infoRec);
-	return QSUTIWithLSInfoRec([fileURL path], &infoRec);
-}
-
-NSString *QSUTIOfFile(NSString *path) {
-	LSItemInfoRecord infoRec;
-	LSCopyItemInfoForURL((CFURLRef)[NSURL fileURLWithPath:path], kLSRequestTypeCreator|kLSRequestBasicFlagsOnly, &infoRec);
-	return QSUTIWithLSInfoRec(path, &infoRec);
-}
-
-NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
-	NSString *extension = [path pathExtension];
-	if (![extension length])
-		extension = nil;
-	BOOL isDirectory;
-	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory])
-		return nil;
-
-	if (infoRec->flags & kLSItemInfoIsAliasFile)
-		return (NSString *)kUTTypeAliasFile;
-	if (infoRec->flags & kLSItemInfoIsVolume)
-		return (NSString *)kUTTypeVolume;
-
-	NSString *extensionUTI = [(NSString *)UTTypeCreatePreferredIdentifierForTag (kUTTagClassFilenameExtension, (CFStringRef)extension, NULL) autorelease];
-	if (extensionUTI && ![extensionUTI hasPrefix:@"dyn"])
-		return extensionUTI;
-
-	NSString *hfsType = [(NSString *)UTCreateStringForOSType(infoRec->filetype) autorelease];
-	if (![hfsType length] && isDirectory)
-		return (NSString *)kUTTypeFolder;
-
-	NSString *hfsUTI = [(NSString *)UTTypeCreatePreferredIdentifierForTag (kUTTagClassOSType, (CFStringRef)hfsType, NULL) autorelease];
-	if (![hfsUTI hasPrefix:@"dyn"])
-		return hfsUTI;
-
-	if ([[NSFileManager defaultManager] isExecutableFileAtPath:path])
-		return @"public.executable";
-
-	return (extensionUTI?extensionUTI:hfsUTI);
-}
-
 
 @implementation NSFileManager (Scanning)
 - (NSString *)UTIOfFile:(NSString *)path {
@@ -202,32 +165,27 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 }
 
 - (NSString *)resolveAliasAtPath:(NSString *)aliasFullPath {
-	NSString *outString = nil;
-	NSURL *url;
-	FSRef aliasRef;
-	Boolean targetIsFolder;
-	Boolean wasAliased;
-
-	if (!CFURLGetFSRef((CFURLRef) [NSURL fileURLWithPath:aliasFullPath], &aliasRef) || FSResolveAliasFileWithMountFlags(&aliasRef, true, &targetIsFolder, &wasAliased, kResolveAliasFileNoUI) != noErr)
-		return nil;
-	if (url = (NSURL *)CFURLCreateFromFSRef(kCFAllocatorDefault, &aliasRef)) {
-		outString = [url path];
-		CFRelease(url);
-		return outString;
-	}
-	return nil;
+    return [self resolveAliasAtPath:aliasFullPath usingUI:NO];
 }
 
 - (NSString *)resolveAliasAtPathWithUI:(NSString *)aliasFullPath {
+    return [self resolveAliasAtPath:aliasFullPath usingUI:YES];
+}
+
+- (NSString *)resolveAliasAtPath:(NSString *)aliasFullPath usingUI:(BOOL)usingUI {
 	NSString *outString = nil;
-	NSURL *url;
+	NSURL *url = [NSURL fileURLWithPath:aliasFullPath];
 	FSRef aliasRef;
 	Boolean targetIsFolder;
 	Boolean wasAliased;
 
-	if (!CFURLGetFSRef((CFURLRef) [NSURL fileURLWithPath:aliasFullPath] , &aliasRef) || FSResolveAliasFileWithMountFlags(&aliasRef, true, &targetIsFolder, &wasAliased, 0) != noErr)
+	if (!CFURLGetFSRef((CFURLRef)url, &aliasRef))
 		return nil;
-	if (url = (NSURL *)CFURLCreateFromFSRef(kCFAllocatorDefault, &aliasRef) ) {
+
+    if (FSResolveAliasFileWithMountFlags(&aliasRef, true, &targetIsFolder, &wasAliased, (!usingUI ? kResolveAliasFileNoUI : 0)))
+        return nil;
+
+	if (url = (NSURL *)CFURLCreateFromFSRef(kCFAllocatorDefault, &aliasRef)) {
 		outString = [url path];
 		CFRelease(url);
 		return outString;

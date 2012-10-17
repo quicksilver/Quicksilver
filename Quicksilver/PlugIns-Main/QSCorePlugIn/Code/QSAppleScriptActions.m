@@ -52,7 +52,7 @@
 	NSArray *paths = [scripts pathsMatchingExtensions:[NSArray arrayWithObjects:@"scpt", @"app", nil]];
     NSMutableArray *array = [NSMutableArray array]; 
 	for (NSString *path in paths) {
-		if ([QSUTIOfFile(path) isEqualToString:QSUTIForExtensionOrType(@"scpt", 0)]) {
+		if (UTTypeConformsTo((CFStringRef)QSUTIOfFile(path), (CFStringRef)QSUTIForAnyTypeString(@"scpt"))) {
 			[array addObject:[self scriptActionForPath:path]];
 		}
 	}
