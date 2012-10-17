@@ -198,11 +198,10 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
         // try to create a preview icon
-        NSString *uti = [object objectForMeta:@"UTI"];
         // try customized methods (from plug-ins) to generate a preview
         NSArray *specialTypes = [[QSReg tableNamed:@"QSFSFileTypePreviewers"] allKeys];
         for (NSString *type in specialTypes) {
-            if (UTTypeConformsTo((CFStringRef)uti, (CFStringRef)type)) {
+            if ([object conformsToUTI:type]) {
                 id provider = [QSReg instanceForKey:type inTable:@"QSFSFileTypePreviewers"];
                 if (provider) {
                     //NSLog(@"provider %@", [QSReg tableNamed:@"QSFSFileTypePreviewers"]);
@@ -214,7 +213,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
         if (!theImage) {
             NSArray *previewTypes = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSFilePreviewTypes"];
             for (NSString *type in previewTypes) {
-                if (UTTypeConformsTo((CFStringRef)uti, (CFStringRef)type)) {
+                if ([object conformsToUTI:type]) {
                     // do preview icon loading in separate thread
                     theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSMaxIconSize asIcon:YES];
                     break;
