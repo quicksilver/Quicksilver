@@ -266,53 +266,41 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 -(void)previewIcon:(id)object {
 	NSImage *theImage = nil;
-	NSArray *theFiles = [object arrayForType:QSFilePathType];
-	NSString *path = [theFiles lastObject];
-	NSString *firstFile = [theFiles objectAtIndex:0];
+	NSString *path = [[object arrayForType:QSFilePathType] lastObject];
 	NSFileManager *manager = [NSFileManager defaultManager];
 	
 	// the object isn't a file/doesn't exist, so return. shouldn't actually happen
 	if (![manager fileExistsAtPath:path]) {
 		return;
 	}
-	LSItemInfoRecord infoRec;
-	//OSStatus status=
-	LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
-		
-	// try preview icon
-	if (!theImage && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
-		// do preview icon loading in separate thread (using NSOperationQueue)
-		theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSMaxIconSize asIcon:YES];
-	}
-		
-	// Just for prefpanes?
-	if (!theImage && infoRec.flags & kLSItemInfoIsPackage) {
-		NSBundle *bundle = [NSBundle bundleWithPath:firstFile];
-		NSString *bundleImageName = nil;
-		if ([[firstFile pathExtension] isEqualToString:@"prefPane"]) {
-			bundleImageName = [[bundle infoDictionary] objectForKey:@"NSPrefPaneIconFile"];
-			
-			if (!bundleImageName) bundleImageName = [[bundle infoDictionary] objectForKey:@"CFBundleIconFile"];
-			if (bundleImageName) {
-				NSString *bundleImagePath = [bundle pathForResource:bundleImageName ofType:nil];
-				theImage = [[[NSImage alloc] initWithContentsOfFile:bundleImagePath] autorelease];
-			}
-		}
-	}
-	
-	// try QS's own methods to generate a preview
-	if (!theImage && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
-		NSString *type = [manager typeOfFile:path];
-		if ([[NSImage imageUnfilteredFileTypes] containsObject:type])
-			theImage = [[[NSImage alloc] initWithContentsOfFile:path] autorelease];
-		else {
-			id provider = [QSReg instanceForKey:type inTable:@"QSFSFileTypePreviewers"];
-			//NSLog(@"provider %@", [QSReg tableNamed:@"QSFSFileTypePreviewers"]);
-			theImage = [provider iconForFile:path ofType:type];
-		}
-	}
-	
-	// fallback, if no of the other methods worked: just use icon for filetype
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
+        // try to create a preview icon
+        NSString *uti = [object objectForMeta:@"UTI"];
+        // try customized methods (from plug-ins) to generate a preview
+        NSArray *specialTypes = [[QSReg tableNamed:@"QSFSFileTypePreviewers"] allKeys];
+        for (NSString *type in specialTypes) {
+            if (UTTypeConformsTo((CFStringRef)uti, (CFStringRef)type)) {
+                id provider = [QSReg instanceForKey:type inTable:@"QSFSFileTypePreviewers"];
+                if (provider) {
+                    //NSLog(@"provider %@", [QSReg tableNamed:@"QSFSFileTypePreviewers"]);
+                    theImage = [provider iconForFile:path ofType:type];
+                }
+                break;
+            }
+        }
+        if (!theImage) {
+            NSArray *previewTypes = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSFilePreviewTypes"];
+            for (NSString *type in previewTypes) {
+                if (UTTypeConformsTo((CFStringRef)uti, (CFStringRef)type)) {
+                    // do preview icon loading in separate thread
+                    theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSMaxIconSize asIcon:YES];
+                    break;
+                }
+            }
+        }
+    }
+	// if no of the other methods worked or previews are disabled: just use icon for filetype
 	if (!theImage) {
 		theImage = [[NSWorkspace sharedWorkspace] iconForFile:path];
 	}
@@ -720,6 +708,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			NSString *path = [paths lastObject];
 			[[self dataDictionary] setObject:path forKey:QSFilePathType];
 			NSString *uti = QSUTIOfFile(path);
+            [self setObject:uti forMeta:@"UTI"];
 			id handler = [QSReg instanceForKey:uti inTable:@"QSFileObjectCreationHandlers"];
 			if (handler) {
 				if ([handler respondsToSelector:@selector(createFileObject:ofType:)])
@@ -806,7 +795,6 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 - (void)getNameFromFiles {
-	NSFileManager *manager = [[NSFileManager alloc] init];
 	NSString *newName = nil;
 	NSString *newLabel = nil;
 	if ([self count] >1) {
@@ -840,13 +828,12 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 				newLabel = [(NSString *)MDItemCopyAttribute(mdItem, kMDItemDisplayName) autorelease];
 			}
 			if (!newLabel) {
-				newLabel = [manager displayNameAtPath:path];
+				newLabel = [[NSFileManager defaultManager] displayNameAtPath:path];
 			}
 		}
 		// discard the label if it's still identical to name
 		if ([newLabel isEqualToString:newName]) newLabel = nil;
 	}
-    [manager release];
 	[self setName:newName];
 	[self setLabel:newLabel];
 }
