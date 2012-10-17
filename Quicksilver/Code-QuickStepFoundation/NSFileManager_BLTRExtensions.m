@@ -39,7 +39,7 @@
 #endif
 
 - (BOOL)movePathToTrash:(NSString *)filepath {
-#if (MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_8)
+#if (MAC_OS_X_VERSION_MIN_REQUIRED < 1080)
     const char *strPath = [filepath fileSystemRepresentation];
     OSStatus result = FSPathMoveObjectToTrashSync(strPath, NULL, kFSFileOperationDefaultOptions);
     if (result != noErr) {
