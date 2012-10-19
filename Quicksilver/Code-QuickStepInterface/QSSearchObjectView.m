@@ -1696,7 +1696,7 @@ NSMutableDictionary *bindingsDict = nil;
                         if ([individual singleFilePath]) {
                             NSString *type = [[NSFileManager defaultManager] UTIOfFile:[individual singleFilePath]];
                             // if the file type is a folder (Always show them) or it conforms to a set indirectType
-                            if ([type isEqualToString:(NSString *)kUTTypeFolder] || [individual conformsToUTI:indirectType]) {
+                            if ([type isEqualToString:(NSString *)kUTTypeFolder] || UTTypeConformsTo((CFStringRef)type, (CFStringRef)indirectType)) {
                                 includeObject = YES;
                             }
                         }
