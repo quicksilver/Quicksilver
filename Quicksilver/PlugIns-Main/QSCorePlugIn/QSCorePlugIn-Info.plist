@@ -824,7 +824,7 @@
 			</array>
 			<key>directFileTypes</key>
 			<array>
-				<string>public.plain-text</string>	
+				<string>public.plain-text</string>
 			</array>
 			<key>precedence</key>
 			<real>1</real>
