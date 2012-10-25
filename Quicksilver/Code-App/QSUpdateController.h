@@ -36,6 +36,6 @@
 - (NSArray *)extractFilesFromQSPkg:(NSString *)path toPath:(NSString *)tempDirectory;
 - (IBAction)threadedRequestedCheckForUpdate:(id)sender;
 - (void)finishAppInstall;
-- (NSString *)installAppFromDiskImage:(NSString *)path;
+- (BOOL)installAppFromDiskImage:(NSString *)path;
 - (IBAction)threadedCheckForUpdate:(id)sender;
 @end
