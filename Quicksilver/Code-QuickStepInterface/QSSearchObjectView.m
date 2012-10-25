@@ -675,7 +675,9 @@ NSMutableDictionary *bindingsDict = nil;
 	[self setVisibleString:@""];
 	[self setMatchedString:nil];
 	[self setShouldResetSearchString:YES];
-    [[self actionSelector] setAlternateActionCounterpart:nil];
+    if([self isEqual:[self actionSelector]]) {
+        [self setAlternateActionCounterpart:nil];
+    }
 }
 
 - (void)pageScroll:(NSInteger)direction {
@@ -997,7 +999,9 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)flagsChanged:(NSEvent *)theEvent {
     QSSearchObjectView *aSelector = [self actionSelector];
     [aSelector setUpdatesSilently:YES];
-	if ([theEvent modifierFlags] &NSCommandKeyMask) {
+    NSUInteger flags = [theEvent modifierFlags] & NSDeviceIndependentModifierFlagsMask;
+    // if only the command key is pressed
+	if (flags == NSCommandKeyMask) {
 		// change the image
 		QSAction *theAction = [aSelector objectValue];
 		if (theAction && [theAction alternate]) {
@@ -1015,7 +1019,6 @@ NSMutableDictionary *bindingsDict = nil;
 			[aSelector setAlternateActionCounterpart:theAction];
 		}
 	}
-	// when keys are lifted so there are no modifiers
 	else if ([aSelector alternateActionCounterpart]) {
         QSAction *theAction = [aSelector objectValue];
         NSMutableArray *currentResultArray = [aSelector resultArray];
