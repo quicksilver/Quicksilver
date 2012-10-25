@@ -21,7 +21,17 @@
 @implementation QSTextActions
 
 - (QSObject *)showLargeType:(QSObject *)dObject {
-	QSShowLargeType([dObject stringValue]);
+    NSString *display = nil;
+    if ([dObject singleFilePath]) {
+        NSError *err = nil;
+        display = [[[NSString alloc] initWithContentsOfFile:[dObject singleFilePath] usedEncoding:nil error:&err] autorelease];
+        if (err) {
+            NSLog(@"Error: %@",[err description]);
+        }
+    } else {
+        display = [dObject stringValue];
+    }
+	QSShowLargeType(display);
 	return nil;
 }
 

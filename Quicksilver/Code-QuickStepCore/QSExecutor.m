@@ -119,7 +119,7 @@ QSExecutor *QSExec = nil;
         CFStringRef UTIDescription =  UTTypeCopyDescription((CFStringRef)type);
         if (UTIDescription) {
             CFRelease(UTIDescription);
-            UTIDeclaration = nil;
+            UTIDescription = nil;
             for (NSString *conformedType in [directObjectFileTypes allKeys]) {
                 if (UTTypeConformsTo((CFStringRef)type, (CFStringRef)conformedType)) {
                     [set addObjectsFromArray:[directObjectFileTypes objectForKey:conformedType]];
