@@ -198,7 +198,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
         // try to create a preview icon
-        NSString *uti = [object objectForMeta:@"UTI"];
+        NSString *uti = [object fileUTI];
         // try customized methods (from plug-ins) to generate a preview
         NSArray *specialTypes = [[QSReg tableNamed:@"QSFSFileTypePreviewers"] allKeys];
         for (NSString *type in specialTypes) {
