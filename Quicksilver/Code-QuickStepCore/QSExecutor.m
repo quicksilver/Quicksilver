@@ -116,7 +116,18 @@ QSExecutor *QSExec = nil;
 - (NSArray *)actionsForFileTypes:(NSArray *)types {
 	NSMutableSet *set = [NSMutableSet set];
 	for (NSString *type in types) {
-		[set addObjectsFromArray:[directObjectFileTypes objectForKey:type]];
+        CFStringRef UTIDescription =  UTTypeCopyDescription((CFStringRef)type);
+        if (UTIDescription) {
+            CFRelease(UTIDescription);
+            UTIDeclaration = nil;
+            for (NSString *conformedType in [directObjectFileTypes allKeys]) {
+                if (UTTypeConformsTo((CFStringRef)type, (CFStringRef)conformedType)) {
+                    [set addObjectsFromArray:[directObjectFileTypes objectForKey:conformedType]];
+                }
+            }
+        } else {
+            [set addObjectsFromArray:[directObjectFileTypes objectForKey:type]];
+        }
 	}
 	[set addObjectsFromArray:[directObjectFileTypes objectForKey:@"*"]];
 	return [set allObjects];
