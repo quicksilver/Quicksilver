@@ -799,6 +799,8 @@
 			</array>
 			<key>actionSelector</key>
 			<string>trashFile:</string>
+			<key>validatesObjects</key>
+			<true/>
 		</dict>
 		<key>QSCommandAddTriggerAction</key>
 		<dict>

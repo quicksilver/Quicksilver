@@ -377,6 +377,13 @@
 		[newActions addObject:kFileGetInfoAction];
       // !!! Andre Berg 20091112: shouldn't the following also be added?
       [newActions addObject:kFileAlwaysOpenWithAction];
+        // can all files be trashed?
+        for (QSObject *file in [dObject splitObjects]) {
+            if (![file isOnLocalVolume]) {
+                [newActions removeObject:kFileToTrashAction];
+                break;
+            }
+        }
 	}
 	if ([dObject validSingleFilePath])
 		[newActions addObject:kFileRenameAction];
