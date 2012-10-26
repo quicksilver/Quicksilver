@@ -567,9 +567,7 @@ NSMutableDictionary *bindingsDict = nil;
     // if the two objects are not the same, send an 'object chagned' notif
 	if (newObject != currentObject) {
 		[super setObjectValue:newObject];
-        if (!updatesSilently) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
-        }
 	}
 }
 

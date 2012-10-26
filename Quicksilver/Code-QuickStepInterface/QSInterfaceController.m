@@ -342,6 +342,10 @@
 }
 
 - (void)updateIndirectObjects {
+    // Don't update the indirect objects if this is a 'silent' update.
+    if ([aSelector updatesSilently]) {
+        return;
+    }
     QSAction *aObj = [aSelector objectValue];
     id actionProvider = [aObj provider];
     NSArray *indirects = nil;
