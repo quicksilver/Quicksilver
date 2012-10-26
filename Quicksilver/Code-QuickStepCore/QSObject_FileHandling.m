@@ -18,6 +18,7 @@
 #import "QSObject_PropertyList.h"
 #include "QSLocalization.h"
 #import "QSDownloads.h"
+#import <sys/mount.h>
 
 #import "NSApplication_BLTRExtensions.h"
 
@@ -649,12 +650,20 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     }
 
 	NSString *uti = QSUTIForExtensionOrType((NSString *)record.extension, record.filetype);
+    
+    /* local or network volume? does it support Trash? */
+    struct statfs sfsb;
+    statfs([path UTF8String], &sfsb);
+    NSString *device = [NSString stringWithCString:sfsb.f_mntfromname encoding:NSUTF8StringEncoding];
+    BOOL isLocal = [device hasPrefix:@"/dev/"];
+    
 	/* Now build a dictionary with that record */
 	dict = [NSDictionary dictionaryWithObjectsAndKeys:
 			[NSNumber numberWithUnsignedInt:record.flags], @"flags",
 			[NSValue valueWithOSType:record.filetype],     @"filetype",
 			[NSValue valueWithOSType:record.creator],      @"creator",
 			[(NSString *)record.extension copy],           @"extension",
+            [NSNumber numberWithBool:isLocal],             @"localVolume",
 			uti,                                           @"uti",
 			nil];
 	/* Release the file's extension if one was returned */
@@ -688,6 +697,11 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 - (BOOL)isAlias {
 	return [self checkInfoRecordFlags:kLSItemInfoIsAliasFile];
+}
+
+- (BOOL)isOnLocalVolume {
+	NSDictionary *infoRec = [self infoRecord];
+    return [[infoRec objectForKey:@"localVolume"] boolValue];
 }
 
 - (NSString *)fileExtension {

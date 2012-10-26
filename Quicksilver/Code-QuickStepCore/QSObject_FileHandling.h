@@ -44,6 +44,7 @@
 - (BOOL)isFolder;
 - (BOOL)isPackage;
 - (BOOL)isAlias;
+- (BOOL)isOnLocalVolume;
 - (NSString *)fileExtension;
 - (NSString *)fileUTI;
 - (NSString *)singleFileType;
