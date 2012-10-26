@@ -694,28 +694,6 @@
 	[[self window] makeFirstResponder:dSelector];
     
 	[dSelector setSearchMode:SearchFilterAll];
-    
-    // If the user still has a mofidier key down (just activated the interface) then for 0.075s, ignore the modifiers and post just the letter
-    // incase the user has started typing to search. ***IS THIS REALLY NECESSARY***? p_j_r 09/06/12
-	NSEvent *theEvent = [NSApp nextEventMatchingMask:NSKeyDownMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.075] inMode:NSDefaultRunLoopMode dequeue:YES];
-#warning dont do this unless the character is alphabetic
-	if (theEvent) {
-		theEvent = [NSEvent keyEventWithType:[theEvent type]
-                                    location:[theEvent locationInWindow]
-                               modifierFlags:0
-                                   timestamp:[theEvent timestamp]
-                                windowNumber:[theEvent windowNumber]
-                                     context:[theEvent context]
-                                  characters:[theEvent charactersIgnoringModifiers]
-                 charactersIgnoringModifiers:[theEvent charactersIgnoringModifiers]
-                                   isARepeat:[theEvent isARepeat]
-                                     keyCode:[theEvent keyCode]];
-#ifdef DEBUG
-		NSLog(@"Ignoring Modifiers for characters: %@", [theEvent characters]);
-#endif
-		[NSApp postEvent:theEvent atStart:YES];
-		//NSLog(@"time2 %f", [theEvent timestamp]);
-	}
 }
 
 - (IBAction)activateInTextMode:(id)sender {

@@ -366,19 +366,16 @@ NSMutableDictionary *kindDescriptions = nil;
 	if (selectedResult < 0 || ![[self currentResults] count]) return;
 	QSObject *newSelectedItem = [[self currentResults] objectAtIndex:selectedResult];
     
-	// HenningJ 20110419 there is no localized version of "%d of %d". Additionally, something goes wrong while trying to localize it.
-	// NSString *fmt = NSLocalizedStringFromTableInBundle(@"%d of %d", nil, [NSBundle bundleForClass:[self class]], @"");
-	NSString *status = [NSString stringWithFormat:@"%ld of %ld", (long)selectedResult + 1, (long)[[self currentResults] count]];
-	NSString *details = [selectedItem details] ? [selectedItem details] : @"";
-    
-	if ([resultTable rowHeight] < 34 && details)
-		status = [status stringByAppendingFormat:@" %C %@", (unsigned short)0x25B8, details];
-    
-	[(NSTextField *)selectionView setStringValue:status];
-    
 	if (selectedItem != newSelectedItem) {
 		[self setSelectedItem:newSelectedItem];
 		[resultChildTable noteNumberOfRowsChanged];
+        // HenningJ 20110419 there is no localized version of "%d of %d". Additionally, something goes wrong while trying to localize it.
+        // NSString *fmt = NSLocalizedStringFromTableInBundle(@"%d of %d", nil, [NSBundle bundleForClass:[self class]], @"");
+        NSString *status = [NSString stringWithFormat:@"%ld of %ld", (long)selectedResult + 1, (long)[[self currentResults] count]];
+        if ([resultTable rowHeight] < 34 && [selectedItem details]) {
+            status = [status stringByAppendingFormat:@" %C %@", (unsigned short)0x25B8, [selectedItem details]];
+        }
+        [(NSTextField *)selectionView setStringValue:status];
         
 		if ([[NSApp currentEvent] modifierFlags] & NSFunctionKeyMask && [[NSApp currentEvent] isARepeat]) {
 			if ([childrenLoadTimer isValid]) {
