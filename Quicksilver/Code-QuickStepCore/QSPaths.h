@@ -3,11 +3,13 @@
 #define pCatalogPresetsDebugLocation QSApplicationSupportSubPath(@"Presets.plist", NO)
 #define pMnemonicStorage	QSApplicationSupportSubPath(@"Mnemonics.plist", NO)
 #define pCacheLocation		QSApplicationSupportSubPath(@"Caches/", NO)
+#define pUpdatePath         QSApplicationSupportSubPath(@"QSAppUpdateFolder", NO)
 #define pIndexLocation		[@"~/Library/Caches/Quicksilver/Indexes/" stringByStandardizingPath]
 #define pStateLocation		[@"~/Library/Caches/Quicksilver/QuicksilverState.plist" stringByStandardizingPath]
 #define pCrashReporterFolder [@"~/Library/Logs/DiagnosticReports" stringByStandardizingPath]
 #define pShelfLocation		QSApplicationSupportSubPath(@"Shelves/", NO)
 #define pICloudDocumentsPrefix [@"~/Library/Mobile Documents/" stringByStandardizingPath]
+#define appSupportSubpath @"Application Support/Quicksilver/PlugIns"
 
 #define psMainPlugInsLocation QSApplicationSupportSubPath(@"PlugIns/", NO)
 #define psMainPlugInsToInstallLocation QSApplicationSupportSubPath(@"PlugIns/Incoming/", NO)

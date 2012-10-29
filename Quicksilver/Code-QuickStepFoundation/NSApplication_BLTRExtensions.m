@@ -9,6 +9,8 @@
 #import "NSApplication_BLTRExtensions.h"
 #import "NSFileManager_BLTRExtensions.h"
 #import "NSString_BLTRExtensions.h"
+#import "SUPlainInstallerInternals.h"
+
 #import <unistd.h>
 
 @implementation NSApplication (Info)
@@ -77,37 +79,15 @@
 		[self relaunch:self];
 }
 
-- (void)relaunchAfterMovingFromPath:(NSString *)newPath {
-	[self relaunchAtPath:[[NSBundle mainBundle] bundlePath] movedFromPath:newPath];
-}
-
-- (NSInteger)moveToPath:(NSString *)launchPath fromPath:(NSString *)newPath {
-	NSFileManager *manager = [NSFileManager defaultManager];
-	NSString *tempPath = [[launchPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.old.app",[[NSProcessInfo processInfo] processName]]];
-	//NSLog(@"temp %@ new %@", tempPath, newPath);
-	BOOL status;
-	status = [manager moveItemAtPath:launchPath toPath:tempPath error:nil];
-#ifdef DEBUG
-	if (VERBOSE) NSLog(@"Move Old %@", status ? @"DONE" : @"FAILED");
-#endif
-	status = [manager copyItemAtPath:newPath toPath:launchPath error:nil];
-#ifdef DEBUG
-	if (VERBOSE) NSLog(@"Copy New %@", status ? @"DONE" : @"FAILED");
-#endif
-	status = [manager movePathToTrash:tempPath];
-#ifdef DEBUG
-	if (VERBOSE) NSLog(@"Trash Old %@", status? @"DONE" : @"FAILED");
-#endif
-	return status;
-}
-
-- (void)replaceWithUpdateFromPath:(NSString *)newPath {
-	[self moveToPath:[[NSBundle mainBundle] bundlePath] fromPath:newPath];
+// Use a method taken from Sparkle that deals with: Authentication, Quarantine and more
+- (BOOL)moveToPath:(NSString *)launchPath fromPath:(NSString *)newPath {
+    return [SUPlainInstaller copyPathWithAuthentication:newPath overPath:launchPath temporaryName:nil error:nil];
 }
 
 - (void)relaunchAtPath:(NSString *)launchPath movedFromPath:(NSString *)newPath {
-	[self moveToPath:launchPath fromPath:newPath];
-	[self relaunchFromPath:launchPath];
+	if([self moveToPath:launchPath fromPath:newPath]) {
+        [self relaunchFromPath:launchPath];
+    }
 }
 
 - (void)relaunchFromPath:(NSString *)path {

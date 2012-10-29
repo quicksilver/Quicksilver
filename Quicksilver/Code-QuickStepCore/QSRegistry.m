@@ -365,8 +365,6 @@ QSRegistry* QSReg = nil;
 }
 #endif
 
-#define appSupportSubpath @"Application Support/Quicksilver/PlugIns"
-
 - (NSMutableArray *)allBundles {
 	NSBundle *appBundle = [NSBundle mainBundle];
 	NSFileManager *fm = [NSFileManager defaultManager];

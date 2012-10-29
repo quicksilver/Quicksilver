@@ -1,6 +1,9 @@
 #import "QSNotifyMediator.h"
 #import "QSResourceManager.h"
 
+BOOL QSShowAppNotifWithAttributes(NSString *type, NSString *title, NSString *message) {
+    QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:type, QSNotifierType, [QSResourceManager imageNamed:kQSBundleID], QSNotifierIcon, title, QSNotifierTitle, message, QSNotifierText, nil]);}
+
 BOOL QSShowNotifierWithAttributes(NSDictionary *attributes) {
 	if ([attributes count]) {
 		[[QSReg preferredNotifier] displayNotificationWithAttributes:attributes];

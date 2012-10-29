@@ -360,6 +360,10 @@
 		CD53FEB3151A0ACF006B734B /* PluginReporterText.html in Resources */ = {isa = PBXBuildFile; fileRef = CD53FEB2151A0ACF006B734B /* PluginReporterText.html */; };
 		CD790FA314D21C2100225950 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8D135E09187AE20062C966 /* Quartz.framework */; };
 		CDA9D3DE1549D13B00607BE4 /* AlertCautionIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDA9D3DD1549D13B00607BE4 /* AlertCautionIcon.icns */; };
+		CDC10E721622146C005FA734 /* SUConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = CDC10E6E1622146C005FA734 /* SUConstants.h */; };
+		CDC10E731622146C005FA734 /* SUConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC10E6F1622146C005FA734 /* SUConstants.m */; };
+		CDC10E741622146C005FA734 /* SUPlainInstallerInternals.h in Headers */ = {isa = PBXBuildFile; fileRef = CDC10E701622146C005FA734 /* SUPlainInstallerInternals.h */; };
+		CDC10E751622146C005FA734 /* SUPlainInstallerInternals.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC10E711622146C005FA734 /* SUPlainInstallerInternals.m */; };
 		CDC9C6C513DA2B6D0053B09C /* Clipboard.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDC9C6C413DA2B6D0053B09C /* Clipboard.icns */; };
 		CDCC201010A4C14B009C4EED /* QSMDPredicate.h in Headers */ = {isa = PBXBuildFile; fileRef = CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDCC201110A4C14B009C4EED /* QSMDPredicate.m in Sources */ = {isa = PBXBuildFile; fileRef = CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */; };
@@ -1400,6 +1404,10 @@
 		CD4FA6E1157A13DE00E549BD /* QSHotKeyEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHotKeyEvent.m; sourceTree = "<group>"; };
 		CD53FEB2151A0ACF006B734B /* PluginReporterText.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = PluginReporterText.html; sourceTree = "<group>"; };
 		CDA9D3DD1549D13B00607BE4 /* AlertCautionIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AlertCautionIcon.icns; sourceTree = "<group>"; };
+		CDC10E6E1622146C005FA734 /* SUConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUConstants.h; path = Sparkle/SUConstants.h; sourceTree = "<group>"; };
+		CDC10E6F1622146C005FA734 /* SUConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SUConstants.m; path = Sparkle/SUConstants.m; sourceTree = "<group>"; };
+		CDC10E701622146C005FA734 /* SUPlainInstallerInternals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUPlainInstallerInternals.h; path = Sparkle/SUPlainInstallerInternals.h; sourceTree = "<group>"; };
+		CDC10E711622146C005FA734 /* SUPlainInstallerInternals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SUPlainInstallerInternals.m; path = Sparkle/SUPlainInstallerInternals.m; sourceTree = "<group>"; };
 		CDC9C6C413DA2B6D0053B09C /* Clipboard.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Clipboard.icns; sourceTree = "<group>"; };
 		CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSMDPredicate.h; sourceTree = "<group>"; };
 		CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSMDPredicate.m; sourceTree = "<group>"; };
@@ -2215,6 +2223,17 @@
 			path = QSDroplet;
 			sourceTree = "<group>";
 		};
+		CDC10E6D16221459005FA734 /* Sparkle */ = {
+			isa = PBXGroup;
+			children = (
+				CDC10E6E1622146C005FA734 /* SUConstants.h */,
+				CDC10E6F1622146C005FA734 /* SUConstants.m */,
+				CDC10E701622146C005FA734 /* SUPlainInstallerInternals.h */,
+				CDC10E711622146C005FA734 /* SUPlainInstallerInternals.m */,
+			);
+			name = Sparkle;
+			sourceTree = "<group>";
+		};
 		CDD30972160B860C00CD34EC /* Count Badges */ = {
 			isa = PBXGroup;
 			children = (
@@ -2380,6 +2399,7 @@
 		E103EE2406471DDE00447FE0 /* Code-External */ = {
 			isa = PBXGroup;
 			children = (
+				CDC10E6D16221459005FA734 /* Sparkle */,
 				D413172B15DEE5D90021479B /* LaunchAtLoginController */,
 				CDE1E65F158A4CFD00355A9F /* VDKQueue */,
 				4D66BBD91486FCDE00351C42 /* CPSPrivate.h */,
@@ -3164,6 +3184,8 @@
 				CDE6C624157E39AE006E66BD /* QSFoundation.h in Headers */,
 				4D66BC451487024500351C42 /* NSString+NDUtilities.h in Headers */,
 				CDE8ADBB15824E3E0099CC83 /* NDKeyboardLayout.h in Headers */,
+				CDC10E721622146C005FA734 /* SUConstants.h in Headers */,
+				CDC10E741622146C005FA734 /* SUPlainInstallerInternals.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4279,6 +4301,8 @@
 				4D66BC461487024500351C42 /* NSString+NDUtilities.m in Sources */,
 				CD4FA6E2157A13DE00E549BD /* QSHotKeyEvent.m in Sources */,
 				CDE8ADBC15824E3E0099CC83 /* NDKeyboardLayout.m in Sources */,
+				CDC10E731622146C005FA734 /* SUConstants.m in Sources */,
+				CDC10E751622146C005FA734 /* SUPlainInstallerInternals.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
