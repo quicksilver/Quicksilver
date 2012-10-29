@@ -58,7 +58,13 @@ NSMutableDictionary *kindDescriptions = nil;
 
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	[self reloadColors];
+    if ([keyPath isEqualToString:@"values.QSAppearance3B"]) {
+        [self reloadColors];
+    } else if ([keyPath isEqualToString:@"rowHeight"]) {
+        if ([change objectForKey:NSKeyValueChangeNewKey]) {
+            [(QSObjectCell *)[[resultTable tableColumnWithIdentifier: COLUMNID_NAME] dataCell] setShowDetails:([[change objectForKey:NSKeyValueChangeNewKey] doubleValue] >= 34.0)];
+        }
+    }
 }
 
 #pragma mark -
@@ -126,7 +132,10 @@ NSMutableDictionary *kindDescriptions = nil;
 		 withKeyPath:@"values.QSAppearance3A"
 			 options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName
 												 forKey:@"NSValueTransformerName"]];
-    
+    [resultTable addObserver:self
+           forKeyPath:@"rowHeight"
+              options:NSKeyValueObservingOptionNew
+              context:nil];
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
 		[[[resultChildTable tableColumnWithIdentifier:@"NameColumn"] dataCell] bind:@"textColor"
                                                                            toObject:sucd
