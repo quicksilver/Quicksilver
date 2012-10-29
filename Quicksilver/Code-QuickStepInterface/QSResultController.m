@@ -522,6 +522,9 @@ NSMutableDictionary *kindDescriptions = nil;
 
 	QSObjectCell *objectCell = [[[QSObjectCell alloc] init] autorelease];
 	tableColumn = [resultTable tableColumnWithIdentifier: COLUMNID_NAME];
+    if ([resultTable rowHeight] < 34.0) {
+        [objectCell setShowDetails:NO];
+    }
 	[tableColumn setDataCell:objectCell];
 
 	tableColumn = [resultChildTable tableColumnWithIdentifier: COLUMNID_NAME];
