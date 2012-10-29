@@ -25,6 +25,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+BOOL QSShowAppNotifWithAttributes(NSString *type, NSString *title, NSString *message);
 BOOL QSShowNotifierWithAttributes(NSDictionary *attributes);
 
 @protocol QSNotifier
