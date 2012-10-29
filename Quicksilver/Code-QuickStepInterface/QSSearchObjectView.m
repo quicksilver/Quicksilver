@@ -37,7 +37,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 @implementation QSSearchObjectView
 
-@synthesize textModeEditor;
+@synthesize textModeEditor, alternateActionCounterpart, resultController, updatesSilently;
 
 + (void)initialize {
     if( bindingsDict == nil ) {
@@ -67,6 +67,7 @@ NSMutableDictionary *bindingsDict = nil;
 	shouldResetSearchArray = YES;
 	allowNonActions = YES;
 	allowText = YES;
+    updatesSilently = NO;
 	resultController = [[QSResultController alloc] initWithFocus:self];
 	[self setTextCellFont:[NSFont systemFontOfSize:12.0]];
     [self setTextCellFontColor:[NSColor blackColor]];
@@ -173,7 +174,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)saveMnemonic {
 	NSString *mnemonicKey = [self matchedString];
 	if (!mnemonicKey || [mnemonicKey isEqualToString:@""]) return;
-	QSObject *mnemonicValue = [self objectValue];
+	QSObject *mnemonicValue = [self alternateActionCounterpart] ? [self alternateActionCounterpart] : [self objectValue];
 	if ([mnemonicValue count] > 1) {
 		mnemonicValue = [[[self objectValue] splitObjects] lastObject];
 	}
@@ -197,7 +198,7 @@ NSMutableDictionary *bindingsDict = nil;
 	//[[QSLibrarian sharedInstance] scoredArrayForString:[self matchedString] inSet:[NSArray arrayWithObject:[self objectValue]] mnemonicsOnly:![self matchedString]];
 	[[QSLibrarian sharedInstance] scoredArrayForString:[self matchedString] inSet:[NSArray arrayWithObject:[self objectValue]]];
 	if ([[resultController window] isVisible])
-		[resultController->resultTable reloadData];
+		[resultController.resultTable reloadData];
 }
 
 #pragma mark -
@@ -329,7 +330,7 @@ NSMutableDictionary *bindingsDict = nil;
 		searchMode = newSearchMode;
 	}
 	
-    [resultController->resultTable setNeedsDisplay:YES];	
+    [resultController.resultTable setNeedsDisplay:YES];
 	if (browsing) {
 	[[NSUserDefaults standardUserDefaults] setInteger:searchMode forKey:kBrowseMode];
 	}
@@ -551,7 +552,7 @@ NSMutableDictionary *bindingsDict = nil;
 	//[resultController->searchModePopUp selectItemAtIndex:[resultController->searchModePopUp indexOfItemWithTag:searchMode]];
 	[self reloadResultTable];
 	if (selection > NSNotFound - 1) selection = 0;
-	[resultController->resultTable selectRowIndexes:[NSIndexSet indexSetWithIndex:(selection ? selection : 0)] byExtendingSelection:NO];
+	[resultController.resultTable selectRowIndexes:[NSIndexSet indexSetWithIndex:(selection ? selection : 0)] byExtendingSelection:NO];
 	[resultController updateSelectionInfo];
 }
 
@@ -570,7 +571,7 @@ NSMutableDictionary *bindingsDict = nil;
     // if the two objects are not the same, send an 'object chagned' notif
 	if (newObject != currentObject) {
 		[super setObjectValue:newObject];
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
 	}
 }
 
@@ -579,7 +580,7 @@ NSMutableDictionary *bindingsDict = nil;
     [self hideResultView:self];
     [self clearSearch];
     [parentStack removeAllObjects];
-    [self setResultArray:[NSArray arrayWithObjects:newObject, nil]];
+    [self setResultArray:[NSMutableArray arrayWithObjects:newObject, nil]];
     [super setObjectValue:newObject];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
@@ -617,9 +618,9 @@ NSMutableDictionary *bindingsDict = nil;
 		QSObject *object = [resultArray objectAtIndex:selection];
         
 		[self selectObjectValue:object];
-		[resultController->resultTable scrollRowToVisible:selection];
+		[resultController.resultTable scrollRowToVisible:selection];
 		//[resultController->resultTable centerRowInView:selection];
-		[resultController->resultTable selectRowIndexes:[NSIndexSet indexSetWithIndex:(selection ? selection : 0)] byExtendingSelection:NO];
+		[resultController.resultTable selectRowIndexes:[NSIndexSet indexSetWithIndex:(selection ? selection : 0)] byExtendingSelection:NO];
 	} else
 		[self selectObjectValue:nil];
     
@@ -676,12 +677,15 @@ NSMutableDictionary *bindingsDict = nil;
 	[self setVisibleString:@""];
 	[self setMatchedString:nil];
 	[self setShouldResetSearchString:YES];
+    if([self isEqual:[self actionSelector]]) {
+        [self setAlternateActionCounterpart:nil];
+    }
 }
 
 - (void)pageScroll:(NSInteger)direction {
 	if (![[resultController window] isVisible]) [self showResultView:self];
     
-	NSInteger movement = direction * (NSHeight([[resultController->resultTable enclosingScrollView] frame]) /[resultController->resultTable rowHeight]);
+	NSInteger movement = direction * (NSHeight([[resultController.resultTable enclosingScrollView] frame]) /[resultController.resultTable rowHeight]);
 	//NSLog(@"%d", movement);
 	[self moveSelectionBy:movement];
 }
@@ -992,6 +996,48 @@ NSMutableDictionary *bindingsDict = nil;
 	[self resetString];
 	[self setNeedsDisplay:YES];
 	return YES;
+}
+
+- (void)flagsChanged:(NSEvent *)theEvent {
+    QSSearchObjectView *aSelector = [self actionSelector];
+    [aSelector setUpdatesSilently:YES];
+    NSUInteger flags = [theEvent modifierFlags] & NSDeviceIndependentModifierFlagsMask;
+    // if only the command key is pressed
+	if (flags == NSCommandKeyMask) {
+		// change the image
+		QSAction *theAction = [aSelector objectValue];
+		if (theAction && [theAction alternate]) {
+            NSMutableArray *currentResultArray = [aSelector resultArray];
+            if ([currentResultArray containsObject:[theAction alternate]]) {
+                [aSelector selectObject:[theAction alternate]];
+            } else {
+                NSUInteger currentResultIndex = [currentResultArray indexOfObject:theAction];
+                [currentResultArray removeObjectAtIndex:currentResultIndex];
+                [currentResultArray insertObject:[theAction alternate] atIndex:currentResultIndex];
+                [aSelector selectObject:[theAction alternate]];
+                [[aSelector resultController] arrayChanged:nil];
+            }
+            [aSelector setNeedsDisplay:YES];
+			[aSelector setAlternateActionCounterpart:theAction];
+		}
+	}
+	else if ([aSelector alternateActionCounterpart]) {
+        QSAction *theAction = [aSelector objectValue];
+        NSMutableArray *currentResultArray = [aSelector resultArray];
+        if ([currentResultArray containsObject:[aSelector alternateActionCounterpart]]) {
+            [aSelector selectObject:[aSelector alternateActionCounterpart]];
+        } else {
+            NSUInteger currentResultIndex = [currentResultArray indexOfObject:theAction];
+            [currentResultArray removeObjectAtIndex:currentResultIndex];
+            [currentResultArray insertObject:[aSelector alternateActionCounterpart] atIndex:currentResultIndex];
+            
+            [[aSelector resultController] arrayChanged:nil];
+            [aSelector selectObject:[aSelector alternateActionCounterpart]];
+        }
+        [aSelector setNeedsDisplay:YES];
+        [aSelector setAlternateActionCounterpart:nil];
+	}
+    [aSelector setUpdatesSilently:NO];
 }
 
 // This method deals with all keydowns. Some very interesting things could be done by manipulating this method
@@ -1791,8 +1837,8 @@ NSMutableDictionary *bindingsDict = nil;
         [self clearSearch];
         NSInteger defaultMode = [[NSUserDefaults standardUserDefaults] integerForKey:kBrowseMode];
         [self setSearchMode:(defaultMode ? defaultMode  : SearchSnap)];
-        [self setResultArray:(NSMutableArray *)newObjects]; // !!!:nicholas:20040319
-        [self setSourceArray:(NSMutableArray *)newObjects];
+        [self setResultArray:[[newObjects mutableCopy] autorelease]]; // !!!:nicholas:20040319
+        [self setSourceArray:[[newObjects mutableCopy] autorelease]];
         
         if (!newSelectedObject)
             [self selectIndex:0];

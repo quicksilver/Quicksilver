@@ -390,13 +390,22 @@ NSSize QSMaxIconSize;
 }
 
 - (NSString *)details {
-	NSString *details = [meta objectForKey:kQSObjectDetails];
-	if (details) return details;
+	NSString *details = nil;
 
-	id handler = nil;
+	// check the object handler for this type
+    id handler = nil;
 	if (handler = [self handlerForSelector:@selector(detailsOfObject:)]) {
 		details = [handler detailsOfObject:self];
 	}
+    
+    // check the cache
+    if (!details) {
+        details = [meta objectForKey:kQSObjectDetails];
+    }
+    
+	if (details) return details;
+    
+    // no details from the handler or cache, so find them some other way and cache the result
 
 	NSBundle *mybundle = [self bundle];
 	// this is almost always (null) so test it first
@@ -409,12 +418,11 @@ NSSize QSMaxIconSize;
 	}
     if (details != nil) {
         [self setObject:details forMeta:kQSObjectDetails];
+    } else if ([itemForKey([self primaryType]) isKindOfClass:[NSString class]]) {
+        details = itemForKey([self primaryType]);
     }
     
-    if ([itemForKey([self primaryType]) isKindOfClass:[NSString class]])
-        return itemForKey([self primaryType]);
-    
-	return nil;
+	return details;
 }
 
 - (id)primaryObject {return itemForKey([self primaryType]);}

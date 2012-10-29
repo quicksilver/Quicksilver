@@ -68,6 +68,10 @@ typedef enum QSSearchMode {
     NSColor *textCellFontColor; // for text entry mode
     QLPreviewPanel* previewPanel;
     QSSearchMode savedSearchMode;
+    
+    // Indicates if extras (such as indirect objects) should be updated when the 'search object' is changed. Default is NO
+    BOOL updatesSilently;
+    QSAction *alternateActionCounterpart;
 
 @public
 	QSResultController *resultController;
@@ -85,8 +89,12 @@ typedef enum QSSearchMode {
 	BOOL allowNonActions;
     
     QSObject *quicklookObject;
+
 }
 
+@property (assign) BOOL updatesSilently;
+@property (retain) QSResultController *resultController;
+@property (retain) QSAction *alternateActionCounterpart;
 @property (retain) NSTextView *textModeEditor;
 
 - (void)clearSearch;

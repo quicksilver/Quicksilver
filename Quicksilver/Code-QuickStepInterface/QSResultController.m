@@ -41,6 +41,9 @@ NSMutableDictionary *kindDescriptions = nil;
 @end
 
 @implementation QSResultController
+
+@synthesize resultTable=resultTable;
+
 + (void)initialize {
     if (!kindDescriptions)
         kindDescriptions = [[NSMutableDictionary alloc] initWithContentsOfFile:
@@ -55,7 +58,13 @@ NSMutableDictionary *kindDescriptions = nil;
 
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	[self reloadColors];
+    if ([keyPath isEqualToString:@"values.QSAppearance3B"]) {
+        [self reloadColors];
+    } else if ([keyPath isEqualToString:@"rowHeight"]) {
+        if ([change objectForKey:NSKeyValueChangeNewKey]) {
+            [(QSObjectCell *)[[resultTable tableColumnWithIdentifier: COLUMNID_NAME] dataCell] setShowDetails:([[change objectForKey:NSKeyValueChangeNewKey] doubleValue] >= 34.0)];
+        }
+    }
 }
 
 #pragma mark -
@@ -123,7 +132,10 @@ NSMutableDictionary *kindDescriptions = nil;
 		 withKeyPath:@"values.QSAppearance3A"
 			 options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName
 												 forKey:@"NSValueTransformerName"]];
-    
+    [resultTable addObserver:self
+           forKeyPath:@"rowHeight"
+              options:NSKeyValueObservingOptionNew
+              context:nil];
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
 		[[[resultChildTable tableColumnWithIdentifier:@"NameColumn"] dataCell] bind:@"textColor"
                                                                            toObject:sucd
@@ -363,19 +375,16 @@ NSMutableDictionary *kindDescriptions = nil;
 	if (selectedResult < 0 || ![[self currentResults] count]) return;
 	QSObject *newSelectedItem = [[self currentResults] objectAtIndex:selectedResult];
     
-	// HenningJ 20110419 there is no localized version of "%d of %d". Additionally, something goes wrong while trying to localize it.
-	// NSString *fmt = NSLocalizedStringFromTableInBundle(@"%d of %d", nil, [NSBundle bundleForClass:[self class]], @"");
-	NSString *status = [NSString stringWithFormat:@"%ld of %ld", (long)selectedResult + 1, (long)[[self currentResults] count]];
-	NSString *details = [selectedItem details] ? [selectedItem details] : @"";
-    
-	if ([resultTable rowHeight] < 34 && details)
-		status = [status stringByAppendingFormat:@" %C %@", (unsigned short)0x25B8, details];
-    
-	[(NSTextField *)selectionView setStringValue:status];
-    
 	if (selectedItem != newSelectedItem) {
 		[self setSelectedItem:newSelectedItem];
 		[resultChildTable noteNumberOfRowsChanged];
+        // HenningJ 20110419 there is no localized version of "%d of %d". Additionally, something goes wrong while trying to localize it.
+        // NSString *fmt = NSLocalizedStringFromTableInBundle(@"%d of %d", nil, [NSBundle bundleForClass:[self class]], @"");
+        NSString *status = [NSString stringWithFormat:@"%ld of %ld", (long)selectedResult + 1, (long)[[self currentResults] count]];
+        if ([resultTable rowHeight] < 34 && [selectedItem details]) {
+            status = [status stringByAppendingFormat:@" %C %@", (unsigned short)0x25B8, [selectedItem details]];
+        }
+        [(NSTextField *)selectionView setStringValue:status];
         
 		if ([[NSApp currentEvent] modifierFlags] & NSFunctionKeyMask && [[NSApp currentEvent] isARepeat]) {
 			if ([childrenLoadTimer isValid]) {
@@ -522,6 +531,9 @@ NSMutableDictionary *kindDescriptions = nil;
 
 	QSObjectCell *objectCell = [[[QSObjectCell alloc] init] autorelease];
 	tableColumn = [resultTable tableColumnWithIdentifier: COLUMNID_NAME];
+    if ([resultTable rowHeight] < 34.0) {
+        [objectCell setShowDetails:NO];
+    }
 	[tableColumn setDataCell:objectCell];
 
 	tableColumn = [resultChildTable tableColumnWithIdentifier: COLUMNID_NAME];
