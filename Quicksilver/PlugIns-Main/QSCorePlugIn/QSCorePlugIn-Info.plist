@@ -820,6 +820,11 @@
 			<key>directTypes</key>
 			<array>
 				<string>NSStringPboardType</string>
+				<string>NSFilenamesPboardType</string>
+			</array>
+			<key>directFileTypes</key>
+			<array>
+				<string>public.plain-text</string>
 			</array>
 			<key>precedence</key>
 			<real>1</real>
