@@ -997,6 +997,8 @@
 		</dict>
 		<key>FileMoveToAction</key>
 		<dict>
+			<key>alternateAction</key>
+			<string>FileCopyToAction</string>
 			<key>displaysResult</key>
 			<integer>1</integer>
 			<key>actionClass</key>
@@ -1047,6 +1049,8 @@
 		</dict>
 		<key>FileMakeLinkInAction</key>
 		<dict>
+			<key>alternateAction</key>
+			<string>FileMakeHardLinkInAction</string>
 			<key>displaysResult</key>
 			<integer>0</integer>
 			<key>actionClass</key>
@@ -1268,6 +1272,8 @@
 		</dict>
 		<key>QSCommandExecuteAtTimeAction</key>
 		<dict>
+			<key>alternateAction</key>
+			<string>QSCommandExecuteAfterDelayAction</string>
 			<key>actionClass</key>
 			<string>QSCommandObjectHandler</string>
 			<key>directTypes</key>
@@ -1560,6 +1566,8 @@
 		</dict>
 		<key>FileCopyToAction</key>
 		<dict>
+			<key>alternateAction</key>
+			<string>FileMoveToAction</string>
 			<key>displaysResult</key>
 			<integer>1</integer>
 			<key>actionClass</key>
@@ -1904,6 +1912,8 @@
 		</dict>
 		<key>FileOpenWithAction</key>
 		<dict>
+			<key>alternateAction</key>
+			<string>FileAlwaysOpenTypeWithAction</string>
 			<key>actionClass</key>
 			<string>FSActions</string>
 			<key>directTypes</key>

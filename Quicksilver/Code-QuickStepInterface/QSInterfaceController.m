@@ -281,8 +281,8 @@
 		[control clearObjectValue];
 	}
 	[control clearSearch];
-	[control setSourceArray:(NSMutableArray *)array];
-	[control setResultArray:(NSMutableArray *)array];
+	[control setSourceArray:[[array mutableCopy] autorelease]];
+	[control setResultArray:[[array mutableCopy] autorelease]];
     
 	[control selectObject:defaultSelection];
 }
@@ -342,6 +342,10 @@
 }
 
 - (void)updateIndirectObjects {
+    // Don't update the indirect objects if this is a 'silent' update.
+    if ([aSelector updatesSilently]) {
+        return;
+    }
     QSAction *aObj = [aSelector objectValue];
     id actionProvider = [aObj provider];
     NSArray *indirects = nil;
@@ -579,17 +583,6 @@
         NSDate *startDate = [NSDate date];
 #endif
         QSAction *action = [[aSelector objectValue] retain];
-        if ([[NSApp currentEvent] modifierFlags] & NSCommandKeyMask && !([[NSApp currentEvent] modifierFlags] & NSShiftKeyMask) ) {
-            QSAction* alternate = [action alternate];
-            if (alternate != action) {
-                [alternate retain];
-                [action release];
-                action = alternate;
-            }
-#ifdef DEBUG
-            if (VERBOSE) NSLog(@"Using Alternate Action: %@", action);
-#endif
-        }
         QSObject *dObject = [dSelector objectValue];
         QSObject *iObject = [iSelector objectValue];
         if( [dObject isKindOfClass:[QSRankedObject class]] )
@@ -705,28 +698,6 @@
 	[[self window] makeFirstResponder:dSelector];
     
 	[dSelector setSearchMode:SearchFilterAll];
-    
-    // If the user still has a mofidier key down (just activated the interface) then for 0.075s, ignore the modifiers and post just the letter
-    // incase the user has started typing to search. ***IS THIS REALLY NECESSARY***? p_j_r 09/06/12
-	NSEvent *theEvent = [NSApp nextEventMatchingMask:NSKeyDownMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.075] inMode:NSDefaultRunLoopMode dequeue:YES];
-#warning dont do this unless the character is alphabetic
-	if (theEvent) {
-		theEvent = [NSEvent keyEventWithType:[theEvent type]
-                                    location:[theEvent locationInWindow]
-                               modifierFlags:0
-                                   timestamp:[theEvent timestamp]
-                                windowNumber:[theEvent windowNumber]
-                                     context:[theEvent context]
-                                  characters:[theEvent charactersIgnoringModifiers]
-                 charactersIgnoringModifiers:[theEvent charactersIgnoringModifiers]
-                                   isARepeat:[theEvent isARepeat]
-                                     keyCode:[theEvent keyCode]];
-#ifdef DEBUG
-		NSLog(@"Ignoring Modifiers for characters: %@", [theEvent characters]);
-#endif
-		[NSApp postEvent:theEvent atStart:YES];
-		//NSLog(@"time2 %f", [theEvent timestamp]);
-	}
 }
 
 - (IBAction)activateInTextMode:(id)sender {

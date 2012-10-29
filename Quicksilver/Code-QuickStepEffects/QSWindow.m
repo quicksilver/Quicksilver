@@ -246,7 +246,6 @@
 
 - (void)finishShow:(id)sender {
 	[self setAlphaValue:1.0];
-	[self display];
 	if ([self drawers])
 		[self performSelector:@selector(_unhideAllDrawers)];
 	[self setHelper:nil];
