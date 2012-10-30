@@ -279,16 +279,6 @@ NSMutableDictionary *kindDescriptions = nil;
 
 #pragma mark -
 #pragma mark Icon Loading
-- (BOOL)iconLoadValidForTable:(NSTableView *)table {
-	if (table == resultTable && !iconLoadValid) {
-		iconLoadValid = YES;
-		return NO;
-	} else if (table == resultChildTable && !childIconLoadValid) {
-		childIconLoadValid = YES;
-		return NO;
-	}
-	return YES;
-}
 
 - (void)iconLoader:(QSIconLoader *)loader loadedIndex:(NSInteger)m inArray:(NSArray *)array {
 	//	NSLog(@"loaded");
@@ -302,11 +292,12 @@ NSMutableDictionary *kindDescriptions = nil;
 	} else {
 		//NSLog(@"RogueLoader %d", m);
 	}
-	[table performSelectorOnMainThread:@selector(redisplayRows:) withObject:[NSIndexSet indexSetWithIndex:(m ? m : 0)] waitUntilDone:NO];
+	[table setNeedsDisplay:YES];
 }
 
 - (BOOL)iconsAreLoading {
-	return [resultIconLoader isLoading];
+    BOOL resultsIconLoading = [resultIconLoader isLoading];
+    return (resultsIconLoading ? YES : [resultChildIconLoader isLoading]);
 }
 
 - (QSIconLoader *)resultIconLoader {
@@ -326,9 +317,17 @@ NSMutableDictionary *kindDescriptions = nil;
 	}
 }
 
-- (QSIconLoader *)resultChildIconLoader { return resultChildIconLoader;  }
+- (QSIconLoader *)resultChildIconLoader {
+    if (!resultChildIconLoader) {
+        [self setResultChildIconLoader:[QSIconLoader loaderWithArray:[selectedItem children]]];
+        [resultChildIconLoader setDelegate:self];
+    }
+    return [[resultChildIconLoader retain] autorelease];
+}
+
 - (void)setResultChildIconLoader:(QSIconLoader *)aResultChildIconLoader {
 	if (resultChildIconLoader != aResultChildIconLoader) {
+		[resultChildIconLoader invalidate];
 		[resultChildIconLoader release];
 		resultChildIconLoader = [aResultChildIconLoader retain];
 	}
@@ -399,15 +398,20 @@ NSMutableDictionary *kindDescriptions = nil;
 		} else {
 			[self loadChildren];
 		}
-        
 	}
+
+    /* Restart the icon loading for the children view */
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
+        [self setResultChildIconLoader:nil];
+        [[self resultChildIconLoader] loadIconsInRange:[resultChildTable rowsInRect:[resultChildTable visibleRect]]];
+    }
 }
 
 #pragma mark -
 #pragma mark NSResponder
-- (void)scrollWheel:(NSEvent *)theEvent {
-	[resultTable scrollWheel:theEvent];
-}
+//- (void)scrollWheel:(NSEvent *)theEvent {
+//	[resultTable scrollWheel:theEvent];
+//}
 
 - (void)keyDown:(NSEvent *)theEvent {
 	NSString *characters;

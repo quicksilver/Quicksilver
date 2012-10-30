@@ -11,6 +11,7 @@
 	if (self = [super init]) {
 		array = [newArray retain];
 		loaderValid = YES;
+        isLoading = NO;
 	}
 	return self;
 }
@@ -23,22 +24,18 @@
 }
 
 - (void)invalidate {
+    isLoading = NO;
 	loaderValid = NO;
 }
 
 - (void)loadIcons {
-    @autoreleasepool {
-        
-        [[self retain] autorelease];
-        loadThread = [NSThread currentThread];
-        // [NSThread setThreadPriority:0.0];
-        NSArray *sourceArray = nil;
-        
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         BOOL rangeValid = NO;
         
         NSUInteger i, j, m;
         id <NSObject, QSObject> thisObject;
         while (!(rangeValid) && loaderValid) {
+            isLoading = YES;
             loadRange = newRange;
             rangeValid = YES;
             for (i = 0; i <= loadRange.length && loaderValid && rangeValid; i++) {
@@ -55,20 +52,19 @@
                 
                 if (![thisObject isKindOfClass:[NSNull class]] && ![thisObject iconLoaded]) {
                     [thisObject loadIcon];
-                    [delegate iconLoader:self loadedIndex:m inArray:sourceArray];
+                    [delegate iconLoader:self loadedIndex:m inArray:array];
                 }
                 rangeValid = NSEqualRanges(loadRange, newRange);
             }
         }
-        loadThread = nil;
-    }
+        isLoading = NO;
+    });
 }
 
 - (void)loadIconsInRange:(NSRange)range {
 	if (!NSEqualRanges(range, newRange) ) {
 		newRange = range;
-		//NSLog(@"%d, %d", range, NSMaxRange(range) );
-		if (!loadThread) [NSThread detachNewThreadSelector:@selector(loadIcons) toTarget:self withObject:nil];
+        [self loadIcons];
 	}
 }
 
@@ -96,7 +92,7 @@
 	return YES;
 }
 
-- (BOOL)isLoading { return loadThread != nil; }
+- (BOOL)isLoading { return isLoading; }
 
 - (NSInteger) modulation { return modulation;  }
 

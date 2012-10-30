@@ -5,11 +5,6 @@
 
 #import "NSColor_QSModifications.h"
 
-@interface NSTableView (SingleRowDisplay)
-- (void)_setNeedsDisplayInRow:(NSInteger)fp8;
-@end
-
-
 @implementation QSTableView
 
 //- (void)awakeFromNib {
@@ -132,11 +127,9 @@
 
 
 - (void)redisplayRows:(NSIndexSet *)indexes {
-	if ([self respondsToSelector:@selector(_setNeedsDisplayInRow:)])
-		[self _setNeedsDisplayInRow:[indexes firstIndex]];
-	// ***warning  * incomplete
-	else [self setNeedsDisplay:YES];
+     [self setNeedsDisplay:YES];
 }
+
 - (NSMenu*)menuForEvent:(NSEvent*)evt {
 	// NSLog (@"event");
 	NSPoint point = [self convertPoint:[evt locationInWindow] fromView:NULL];
