@@ -11,7 +11,7 @@
 @interface QSIconLoader : NSObject {
 	NSArray *array;
 	BOOL loaderValid;
-	NSThread *loadThread;
+    BOOL isLoading;
 
 	NSRange loadRange;
 	NSRange newRange;
@@ -19,6 +19,8 @@
 	NSInteger modulation;
 }
 + (id)loaderWithArray:(NSArray *)newArray;
++ (void)invalidateLoaderForDelegate:(id)delegate;
+
 - (void)loadIconsInRange:(NSRange)range;
 - (NSObject *)delegate;
 - (void)setDelegate:(NSObject *)aDelegate;
@@ -28,5 +30,4 @@
 
 - (NSInteger) modulation;
 - (void)setModulation:(NSInteger)newModulation;
-+ (void)invalidateLoaderForDelegate:(id)delegate;
 @end
