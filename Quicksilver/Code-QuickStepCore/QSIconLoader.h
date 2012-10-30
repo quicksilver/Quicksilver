@@ -11,10 +11,10 @@
 @interface QSIconLoader : NSObject {
 	NSArray *array;
 	BOOL loaderValid;
-    BOOL isLoading;
+    __block BOOL isLoading;
 
-	NSRange loadRange;
-	NSRange newRange;
+	__block NSRange loadRange;
+	__block NSRange newRange;
 	NSObject *delegate;
 	NSInteger modulation;
 }
