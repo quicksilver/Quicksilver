@@ -77,7 +77,6 @@
 - (void)executePartialCommand:(NSArray *)array;
 
 - (void)objectModified:(NSNotification *)notif;
-- (void)objectIconModified:(NSNotification *)notif;
 
 - (void)searchObjectChanged:(NSNotification*)notif;
 
