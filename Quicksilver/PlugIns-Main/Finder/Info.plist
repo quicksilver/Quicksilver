@@ -67,7 +67,7 @@
 					<key>ID</key>
 					<string>QSPresetSidebarItems</string>
 					<key>icon</key>
-					<string>SidebarIcon</string>
+					<string>FinderIcon</string>
 					<key>name</key>
 					<string>Finder Sidebar Items</string>
 					<key>settings</key>
@@ -76,8 +76,8 @@
 						<string>com.apple.sidebarlists</string>
 						<key>keypath</key>
 						<array>
-							<string>useritems</string>
-							<string>CustomListItems</string>
+							<string>favorites</string>
+							<string>VolumesList</string>
 							<string>*</string>
 							<string>Alias</string>
 						</array>
@@ -98,33 +98,13 @@
 						<string>com.apple.finder</string>
 						<key>keypath</key>
 						<array>
-							<string>FXToolbarItems</string>
+							<string>NSToolbar Configuration Browser</string>
+							<string>TB Item Plists</string>
 							<string>*</string>
-							<string>file-data</string>
+							<string>_CFURLAliasData</string>
 						</array>
 						<key>type</key>
-						<integer>5</integer>
-					</dict>
-					<key>source</key>
-					<string>QSDefaultsObjectSource</string>
-				</dict>
-				<dict>
-					<key>ID</key>
-					<string>QSPresetFinderSpecificSearchPlaces</string>
-					<key>name</key>
-					<string>Finder Search Locations</string>
-					<key>settings</key>
-					<dict>
-						<key>bundle</key>
-						<string>com.apple.finder</string>
-						<key>keypath</key>
-						<array>
-							<string>FXSpecificSearchPlaces</string>
-							<string>*</string>
-							<string>file-data</string>
-						</array>
-						<key>type</key>
-						<integer>5</integer>
+						<integer>3</integer>
 					</dict>
 					<key>source</key>
 					<string>QSDefaultsObjectSource</string>
