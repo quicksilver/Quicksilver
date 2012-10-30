@@ -652,6 +652,10 @@ NSMutableDictionary *bindingsDict = nil;
     if ([[self objectValue] isEqual:object]) {
         [self setNeedsDisplay:YES];
     }
+    // if results are showing, check them for the object too
+    if (![[resultController window] isVisible]) {
+        return;
+    }
     // if updated object is is in the results, update it in the list
     NSUInteger ind = [[self resultArray] indexOfObject:object];
     if (ind != NSNotFound) {
