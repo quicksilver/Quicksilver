@@ -83,6 +83,7 @@ NSMutableDictionary *bindingsDict = nil;
 	searchMode = SearchFilter;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideResultView:) name:@"NSWindowDidResignKeyNotification" object:[self window]];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearAll) name:QSReleaseAllNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectIconModified:) name:QSObjectIconModified object:nil];
 
 	resultsPadding = 0;
 	historyArray = [[NSMutableArray alloc] initWithCapacity:10];
@@ -643,6 +644,27 @@ NSMutableDictionary *bindingsDict = nil;
 		return;
 	}
 	[self selectIndex:index];
+}
+
+- (void)objectIconModified:(NSNotification *)notif {
+	QSObject *object = [notif object];
+    // if updated object is the currently active object, update it in the pane
+    if ([[self objectValue] isEqual:object]) {
+        [self setNeedsDisplay:YES];
+    }
+    // if updated object is is in the results, update it in the list
+    NSUInteger ind = [[self resultArray] indexOfObject:object];
+    if (ind != NSNotFound) {
+        [resultController rowModified:ind];
+    }
+    // if updated object is is in the child results, update it in the list
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
+        ind = [[[resultController selectedItem] children] indexOfObject:object];
+        if (ind != NSNotFound) {
+            NSTableView *childView = resultController->resultChildTable;
+            [childView setNeedsDisplayInRect:[childView rectOfRow:ind]];
+        }
+    }
 }
 
 #pragma mark -
@@ -1559,26 +1581,6 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (NSArray *)validAttributesForMarkedText {
 	return [NSArray array];
-}
-
-- (void)updateObject:(QSObject *)object {
-	// find index of object in the resultlist
-	NSUInteger ind = [resultArray indexOfObject:object];
-	NSUInteger count = [resultArray count];
-	// for cases where there's only 1 object in the results, it's not always selected
-	if (ind == NSNotFound && count != 1) {
-		return;
-	}
-	
-	// if object is the currently active object, update it in the pane
-	if ((ind == selection) || (count == 1)) {
-		[self setNeedsDisplay:YES];
-	}
-	
-	// update it in the resultlist
-	if ([[resultController window] isVisible]) {
-		[resultController rowModified:ind];
-	}
 }
 @end
 
