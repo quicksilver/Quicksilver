@@ -402,27 +402,26 @@
 - (QSObject *)openFile:(QSObject *)dObject {
 	NSFileManager *manager = [NSFileManager defaultManager];
 	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
-	LSItemInfoRecord infoRec;
-	for(NSString *thisFile in [dObject validPaths]) {
-		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:thisFile] , kLSRequestBasicFlagsOnly, &infoRec);
-		if (!(infoRec.flags & kLSItemInfoIsContainer) || (infoRec.flags & kLSItemInfoIsPackage) || ![mQSFSBrowser openFile:thisFile]) {
-			if (infoRec.flags & kLSItemInfoIsAliasFile) {
-				NSString *aliasFile = [manager resolveAliasAtPathWithUI:thisFile];
+	for (QSObject *thisFile in [dObject splitObjects]) {
+        NSString *thisPath = [thisFile singleFilePath];
+		if (![thisFile isFolder] || [thisFile isPackage] || ![mQSFSBrowser openFile:thisPath]) {
+			if ([thisFile isAlias]) {
+				NSString *aliasFile = [manager resolveAliasAtPathWithUI:thisPath];
 				if (aliasFile && [manager fileExistsAtPath:aliasFile])
-					thisFile = aliasFile;
+					thisPath = aliasFile;
 			}
 			NSString *fileHandler = [dObject objectForMeta:@"QSPreferredApplication"];
 			if (fileHandler) {
 #ifdef DEBUG
 				if (VERBOSE) NSLog(@"Using %@", fileHandler);
 #endif
-				[ws openFile:thisFile withApplication:[ws absolutePathForAppBundleWithIdentifier:fileHandler]];
+				[ws openFile:thisPath withApplication:[ws absolutePathForAppBundleWithIdentifier:fileHandler]];
 			} else {
 //				if (![QSAction modifiersAreIgnored] && (GetCurrentKeyModifiers() & shiftKey)) { // Open in background
 //					NSLog(@"Launching in Background");
 //					[ws openFileInBackground:thisFile];
 //				} else {
-					[ws openFile:thisFile];
+					[ws openFile:thisPath];
 //				}
 			}
 		}
