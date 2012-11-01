@@ -107,6 +107,7 @@
 
 - (QSIconLoader *)resultChildIconLoader;
 - (void)setResultChildIconLoader:(QSIconLoader *)aResultChildIconLoader;
+- (void)objectIconModified:(NSNotification *)notif;
 
 -(void)rowModified:(NSInteger)index;
 /*!
