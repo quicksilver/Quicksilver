@@ -650,6 +650,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     }
 
 	NSString *uti = QSUTIForExtensionOrType((NSString *)record.extension, record.filetype);
+    NSString *extension = [(NSString *)record.extension copy];
     
     /* local or network volume? does it support Trash? */
     struct statfs sfsb;
@@ -658,14 +659,19 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     BOOL isLocal = [device hasPrefix:@"/dev/"];
     
 	/* Now build a dictionary with that record */
-	dict = [NSDictionary dictionaryWithObjectsAndKeys:
+	NSMutableDictionary *tempDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
 			[NSNumber numberWithUnsignedInt:record.flags], @"flags",
 			[NSValue valueWithOSType:record.filetype],     @"filetype",
 			[NSValue valueWithOSType:record.creator],      @"creator",
             [NSNumber numberWithBool:isLocal],             @"localVolume",
-			uti,                                           @"uti",
-			[(NSString *)record.extension copy],           @"extension",
 			nil];
+    if (uti) {
+        [tempDict setObject:uti forKey:@"uti"];
+    }
+    if (extension) {
+        [tempDict setObject:extension forKey:@"extension"];
+    }
+    dict = [NSDictionary dictionaryWithDictionary:tempDict];
 	/* Release the file's extension if one was returned */
 	if (record.extension)
 		CFRelease(record.extension);
