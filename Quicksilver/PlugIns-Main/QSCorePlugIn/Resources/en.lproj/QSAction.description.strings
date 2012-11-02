@@ -83,7 +83,7 @@
 	<key>AppQuitOthersAction</key>
 	<string>Quit all other Applications</string>
 	<key>URLEmailAction</key>
-	<string>Compose an Email to an Email Address</string>
+	<string>Compose an E-mail using mailto:</string>
 	<key>AppleScriptProcessTextAction</key>
 	<string>Execute an AppleScript with Text</string>
 	<key>FileToTrashAction</key>

@@ -1527,6 +1527,8 @@
 			<true/>
 			<key>actionClass</key>
 			<string>URLActions</string>
+			<key>actionSelector</key>
+			<string>doURLOpenAction:</string>
 			<key>directTypes</key>
 			<array>
 				<string>Apple URL pasteboard type</string>
