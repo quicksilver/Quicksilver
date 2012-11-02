@@ -252,10 +252,6 @@ NSMutableDictionary *kindDescriptions = nil;
 	[resultChildTable reloadData];
 }
 
--(void)rowModified:(NSInteger)index {
-	[resultTable setNeedsDisplayInRect:[resultTable rectOfRow:index]];
-}
-
 /*- (void)setSplitLocation {
 	NSNumber *resultWidth = [[NSUserDefaults standardUserDefaults] objectForKey:kResultTableSplit];
     
@@ -335,7 +331,7 @@ NSMutableDictionary *kindDescriptions = nil;
         // if updated object is is in the results, update it in the list
         NSUInteger ind = [currentResults indexOfObject:object];
         if (ind != NSNotFound) {
-            [self rowModified:ind];
+            [resultTable setNeedsDisplayInRect:[resultTable rectOfRow:ind]];
         }
         // if updated object is is in the child results, update it in the list
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
