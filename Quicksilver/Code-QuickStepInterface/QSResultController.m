@@ -282,18 +282,11 @@ NSMutableDictionary *kindDescriptions = nil;
 #pragma mark Icon Loading
 
 - (void)iconLoader:(QSIconLoader *)loader loadedIndex:(NSInteger)m inArray:(NSArray *)array {
-	//	NSLog(@"loaded");
-	NSTableView *table = nil;
 	if (loader == resultIconLoader) {
-		table = resultTable;
-		if (m == [resultTable selectedRow])
-            [focus setNeedsDisplay:YES];
+        [resultTable setNeedsDisplayInRect:[resultTable rectOfRow:m]];
 	} else if (loader == resultChildIconLoader) {
-		table = resultChildTable;
-	} else {
-		//NSLog(@"RogueLoader %d", m);
+        [resultChildTable setNeedsDisplayInRect:[resultChildTable rectOfRow:m]];
 	}
-	[table setNeedsDisplay:YES];
 }
 
 - (BOOL)iconsAreLoading {
