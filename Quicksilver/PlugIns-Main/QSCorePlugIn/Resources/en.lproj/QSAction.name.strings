@@ -233,7 +233,7 @@
 	<key>ShellScriptRunAction</key>
 	<string>Run Shell Script</string>
 	<key>URLEmailAction</key>
-	<string>Email</string>
+	<string>Open E-mail URL</string>
 	<key>URLFindWithAction</key>
 	<string>Find on Site...</string>
 	<key>URLJSAction</key>
