@@ -647,9 +647,14 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)objectIconModified:(NSNotification *)notif {
-	QSObject *object = [notif object];
+	QSObject *updatedObject = [notif object];
+    QSObject *interfaceObject = [self objectValue];
     // if updated object is the currently active object, update it in the pane
-    if ([[self objectValue] isEqual:object]) {
+    if ([interfaceObject isEqual:updatedObject]) {
+        [self setNeedsDisplay:YES];
+    } else if ([[interfaceObject primaryType] isEqualToString:QSProxyType] && [[interfaceObject resolvedObject] isEqual:updatedObject]) {
+        // freshen the icon for proxy objects
+        [interfaceObject setIcon:[updatedObject icon]];
         [self setNeedsDisplay:YES];
     }
 }
