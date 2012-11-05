@@ -1000,7 +1000,12 @@ containg multiple objects with the same identifier. Best efforts should be made 
 		icon = [newIcon retain];
 		[icon setCacheMode:NSImageCacheNever];
 	}
-    
+}
+
+- (void)updateIcon:(NSImage *)newIcon
+{
+    [self setIcon:newIcon];
+    [[NSNotificationCenter defaultCenter] postNotificationName:QSObjectIconModified object:self];
 }
 @end
 
