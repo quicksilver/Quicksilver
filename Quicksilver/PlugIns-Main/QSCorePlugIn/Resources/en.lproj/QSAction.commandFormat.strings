@@ -169,7 +169,7 @@
 	<key>ShellScriptRunAction</key>
 	<string>Run script: %@</string>
 	<key>URLEmailAction</key>
-	<string>Email %@</string>
+	<string>E-mail %@</string>
 	<key>URLFindWithAction</key>
 	<string>Find %@ With %@</string>
 	<key>URLJSAction</key>
