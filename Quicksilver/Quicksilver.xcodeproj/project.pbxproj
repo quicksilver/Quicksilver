@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		4DD757111647D2A90095F55B /* Build Documentation */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 4DD757141647D2A90095F55B /* Build configuration list for PBXAggregateTarget "Build Documentation" */;
+			buildPhases = (
+				4DD757151647D2AF0095F55B /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Build Documentation";
+			productName = "Build Documentation";
+		};
 		66D11CE115022DCF002EE6E5 /* Run All Tests */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 66D11CF015022DF5002EE6E5 /* Build configuration list for PBXAggregateTarget "Run All Tests" */;
@@ -4176,6 +4187,7 @@
 				66D11C8A15022B08002EE6E5 /* QSInterfaceTests */,
 				66D11CB315022C82002EE6E5 /* QuicksilverTests */,
 				66D11CE115022DCF002EE6E5 /* Run All Tests */,
+				4DD757111647D2A90095F55B /* Build Documentation */,
 			);
 		};
 /* End PBXProject section */
@@ -4462,6 +4474,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4DD757151647D2AF0095F55B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/Tools/build_docs.sh -d";
+		};
 		66448D9414F42790000FA2E2 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -5972,6 +5997,20 @@
 			};
 			name = Release;
 		};
+		4DD757121647D2A90095F55B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4DD757131647D2A90095F55B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		66448D9814F42791000FA2E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
@@ -6560,6 +6599,15 @@
 			buildConfigurations = (
 				4D002DAF13114A2E009040B7 /* Debug */,
 				4D002DB013114A2E009040B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		4DD757141647D2A90095F55B /* Build configuration list for PBXAggregateTarget "Build Documentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4DD757121647D2A90095F55B /* Debug */,
+				4DD757131647D2A90095F55B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
