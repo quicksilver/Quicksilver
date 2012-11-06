@@ -1002,11 +1002,6 @@ containg multiple objects with the same identifier. Best efforts should be made 
 	}
 }
 
-- (void)updateIcon:(NSImage *)newIcon
-{
-    [self setIcon:newIcon];
-    [[NSNotificationCenter defaultCenter] postNotificationName:QSObjectIconModified object:self];
-}
 @end
 
 @implementation QSObject (Quicklook)

@@ -99,7 +99,7 @@
     
     [webSearchImage setName:@"Web Search Icon"];
 
-    [object updateIcon:webSearchImage];
+    [object setIcon:webSearchImage];
 }
 
 #pragma mark image handling

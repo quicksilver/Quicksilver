@@ -83,7 +83,6 @@ NSMutableDictionary *bindingsDict = nil;
 	searchMode = SearchFilter;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideResultView:) name:@"NSWindowDidResignKeyNotification" object:[self window]];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearAll) name:QSReleaseAllNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectIconModified:) name:QSObjectIconModified object:nil];
 
 	resultsPadding = 0;
 	historyArray = [[NSMutableArray alloc] initWithCapacity:10];
@@ -644,14 +643,6 @@ NSMutableDictionary *bindingsDict = nil;
 		return;
 	}
 	[self selectIndex:index];
-}
-
-- (void)objectIconModified:(NSNotification *)notif {
-	QSObject *object = [notif object];
-    // if updated object is the currently active object, update it in the pane
-    if ([[self objectValue] isEqual:object]) {
-        [self setNeedsDisplay:YES];
-    }
 }
 
 #pragma mark -

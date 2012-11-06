@@ -317,7 +317,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	
 	theImage = [self prepareImageforIcon:theImage];
 	
-	[object updateIcon:theImage];
+	[object setIcon:theImage];
 }
 
 -(NSImage *)prepareImageforIcon:(NSImage *)theImage {

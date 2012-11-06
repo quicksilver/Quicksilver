@@ -121,7 +121,6 @@ typedef enum QSSearchMode {
 - (IBAction)toggleResultView:sender;
 - (void)selectIndex:(NSInteger)index;
 - (void)selectObject:(QSBasicObject *)obj;
-- (void)objectIconModified:(NSNotification *)notif;
 - (void)resetString;
 - (IBAction)defineMnemonic:(id)sender;
 - (void)saveMnemonic;

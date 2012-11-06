@@ -39,7 +39,6 @@
 - (BOOL)bypassValidation;
 - (NSArray *)proxyTypes;
 //- (id)proxyObjectWithProviderClass:(NSString *)providerClass;
-- (void)objectIconModified:(NSNotification *)notif;
 @end
 
 
