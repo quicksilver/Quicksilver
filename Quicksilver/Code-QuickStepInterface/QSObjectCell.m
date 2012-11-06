@@ -378,6 +378,8 @@
 {
     if ([keyPath isEqualToString:@"icon"]) {
         [[self controlView] setNeedsDisplay:YES];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 

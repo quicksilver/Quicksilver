@@ -141,6 +141,8 @@
 {
     if ([keyPath isEqualToString:@"icon"]) {
         [self setIcon:[[self proxyObject] icon]];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 @end
