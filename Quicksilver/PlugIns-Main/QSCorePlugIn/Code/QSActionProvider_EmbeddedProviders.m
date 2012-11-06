@@ -517,26 +517,46 @@
 
 - (QSBasicObject *)trashFile:(QSObject *)dObject {
 	NSString *lastDeletedFile = nil;
+    BOOL trashed = NO;
+    NSMutableSet *failed = [[NSMutableSet alloc] init];
 	for(NSString *thisFile in [dObject arrayForType:QSFilePathType]) {
-        [[NSFileManager defaultManager] movePathToTrash:thisFile];
-		lastDeletedFile = thisFile;
+        // if at least one file was trashed
+        if ([[NSFileManager defaultManager] movePathToTrash:thisFile]) {
+            trashed = YES;
+            lastDeletedFile = thisFile;
+        } else {
+            [failed addObject:[thisFile lastPathComponent]];
+        }
 	}
 	
-	// get settings for playing sound
-	Boolean isSet;
-	CFIndex val = CFPreferencesGetAppIntegerValue(CFSTR("com.apple.sound.uiaudio.enabled"),
-												   CFSTR("com.apple.systemsound"),
-												   &isSet);
-	if (val == 1 || !isSet) {
-		// play trash sound
-		CFURLRef soundURL = (CFURLRef)[NSURL fileURLWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"dragToTrash" ofType:@"aif"]];
-		SystemSoundID soundId;
-		AudioServicesCreateSystemSoundID(soundURL, &soundId);
-		AudioServicesPlaySystemSound(soundId);
-	}
+    if (trashed) {
+        // get settings for playing sound
+        Boolean isSet;
+        CFIndex val = CFPreferencesGetAppIntegerValue(CFSTR("com.apple.sound.uiaudio.enabled"),
+                                                      CFSTR("com.apple.systemsound"),
+                                                      &isSet);
+        if (val == 1 || !isSet) {
+            // play trash sound
+            CFURLRef soundURL = (CFURLRef)[NSURL fileURLWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"dragToTrash" ofType:@"aif"]];
+            SystemSoundID soundId;
+            AudioServicesCreateSystemSoundID(soundURL, &soundId);
+            AudioServicesPlaySystemSound(soundId);
+        }
+    }
+    if ([failed count]) {
+        //NSLog(@"unable to trash: %@", failed);
+		NSString *localizedErrorFormat = NSLocalizedStringFromTableInBundle(@"Unable to Trash:\n%@", nil, [NSBundle bundleForClass:[self class]], nil);
+        NSString *localizedTitle = NSLocalizedStringFromTableInBundle(@"Quicksilver Move to Trash", nil, [NSBundle bundleForClass:[self class]], nil);
+		NSString *errorMessage = [NSString stringWithFormat:localizedErrorFormat, [[failed allObjects] componentsJoinedByString:@", "]];
+		QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:@"QSTrashFileFailed", QSNotifierType, [QSResourceManager imageNamed:@"AlertCautionIcon"], QSNotifierIcon, localizedTitle, QSNotifierTitle, errorMessage, QSNotifierText, nil]);
+    }
+    [failed release];
 
 	// return folder that contained the last file that was deleted
-	return [QSObject fileObjectWithPath:[lastDeletedFile stringByDeletingLastPathComponent]];;
+    if (lastDeletedFile) {
+        return [QSObject fileObjectWithPath:[lastDeletedFile stringByDeletingLastPathComponent]];;
+    }
+    return nil;
 }
 
 - (QSObject *)openItemAtLogin:(QSObject *)dObject {
