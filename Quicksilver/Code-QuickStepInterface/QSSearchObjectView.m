@@ -1560,26 +1560,6 @@ NSMutableDictionary *bindingsDict = nil;
 - (NSArray *)validAttributesForMarkedText {
 	return [NSArray array];
 }
-
-- (void)updateObject:(QSObject *)object {
-	// find index of object in the resultlist
-	NSUInteger ind = [resultArray indexOfObject:object];
-	NSUInteger count = [resultArray count];
-	// for cases where there's only 1 object in the results, it's not always selected
-	if (ind == NSNotFound && count != 1) {
-		return;
-	}
-	
-	// if object is the currently active object, update it in the pane
-	if ((ind == selection) || (count == 1)) {
-		[self setNeedsDisplay:YES];
-	}
-	
-	// update it in the resultlist
-	if ([[resultController window] isVisible]) {
-		[resultController rowModified:ind];
-	}
-}
 @end
 
 @implementation QSSearchObjectView (History)

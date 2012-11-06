@@ -68,8 +68,10 @@
     if ([self isEqual:proxy]) return nil;
     
     //NSLog(@"Proxy: %@", proxy);
-    if (proxy)
+    if (proxy) {
         [self setObject:proxy forCache:QSProxyTargetCache];
+        [proxy addObserver:self forKeyPath:@"icon" options:NSKeyValueObservingOptionNew context:nil];
+    }
     
     NSTimeInterval interval = 3.0f;
     
@@ -83,6 +85,7 @@
 
 - (void)releaseProxy {
 	//NSLog(@"release proxy");
+    [[cache objectForKey:QSProxyTargetCache] removeObserver:self forKeyPath:@"icon" context:nil];
 	[cache removeObjectForKey:QSProxyTargetCache];
 }
 
@@ -134,4 +137,12 @@
 	return [[self resolvedObject] methodSignatureForSelector:sel];
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"icon"]) {
+        [self setIcon:[[self proxyObject] icon]];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
 @end

@@ -365,6 +365,24 @@
 	[self setRepresentedObject:value];
 }
 
+- (void)setRepresentedObject:(id)value
+{
+    if ([self representedObject]) {
+        [[self representedObject] removeObserver:self forKeyPath:@"icon" context:nil];
+    }
+    [value addObserver:self forKeyPath:@"icon" options:NSKeyValueObservingOptionNew context:nil];
+    [super setRepresentedObject:value];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"icon"]) {
+        [[self controlView] setNeedsDisplay:YES];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
 - (void)drawInteriorWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
 	QSObject *drawObject = [self representedObject];
 

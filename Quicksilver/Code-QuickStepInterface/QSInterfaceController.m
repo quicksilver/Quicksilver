@@ -72,7 +72,6 @@
 	[nc addObserver:self selector:@selector(windowDidBecomeKey:) name:NSWindowDidBecomeKeyNotification object:self];
 	[nc addObserver:self selector:@selector(windowDidResignKey:) name:NSWindowDidResignKeyNotification object:self];
 	[nc addObserver:self selector:@selector(objectModified:) name:QSObjectModified object:nil];
-	[nc addObserver:self selector:@selector(objectIconModified:) name:QSObjectIconModified object:nil];
 	[nc addObserver:self selector:@selector(searchObjectChanged:) name:@"SearchObjectChanged" object:nil];
 	[nc addObserver:self selector:@selector(sourceArrayCreated:) name:@"QSSourceArrayCreated" object:nil];
 	[nc addObserver:self selector:@selector(sourceArrayChanged:) name:@"QSSourceArrayUpdated" object:nil];
@@ -428,19 +427,6 @@
 #endif
 		[self updateActions];
 	}
-}
-
-- (void)objectIconModified:(NSNotification *)notif {
-	QSObject *object = [notif object];
-	if ([[dSelector objectValue] isEqual:object]) {
-		// redraw dObject icon
-		[dSelector updateObject:object];
-	}
-	if ([[iSelector objectValue] isEqual:object]) {
-		// redraw iObject icon
-		[iSelector updateObject:object];
-	}
-	
 }
 
 - (void)searchObjectChanged:(NSNotification*)notif {

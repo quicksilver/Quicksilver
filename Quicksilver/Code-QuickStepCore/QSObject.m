@@ -1000,8 +1000,8 @@ containg multiple objects with the same identifier. Best efforts should be made 
 		icon = [newIcon retain];
 		[icon setCacheMode:NSImageCacheNever];
 	}
-    
 }
+
 @end
 
 @implementation QSObject (Quicklook)

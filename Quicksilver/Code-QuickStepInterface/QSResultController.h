@@ -107,8 +107,6 @@
 
 - (QSIconLoader *)resultChildIconLoader;
 - (void)setResultChildIconLoader:(QSIconLoader *)aResultChildIconLoader;
-
--(void)rowModified:(NSInteger)index;
 /*!
  sortByName
  @abstract   Sets the results view to show the 'Sort by Name' search mode is activated

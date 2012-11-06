@@ -144,7 +144,7 @@ extern NSSize QSMaxIconSize;
 - (BOOL)loadIcon;
 - (BOOL)unloadIcon;
 - (NSImage *)icon;
-- (void)setIcon:(NSImage *)newIcon ;
+- (void)setIcon:(NSImage *)newIcon;
 @end
 
 @interface QSObject (Hierarchy)

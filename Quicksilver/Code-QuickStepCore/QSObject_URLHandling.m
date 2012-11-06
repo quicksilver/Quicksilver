@@ -100,8 +100,6 @@
     [webSearchImage setName:@"Web Search Icon"];
 
     [object setIcon:webSearchImage];
-    [[NSNotificationCenter defaultCenter] postNotificationName:QSObjectIconModified object:object];
-
 }
 
 #pragma mark image handling
