@@ -71,7 +71,11 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 
 	QSScoreForObjectIMP scoreForObjectIMP =
 		(QSScoreForObjectIMP) [self instanceMethodForSelector:@selector(rankedObject:forAbbreviation:inContext:withMnemonics:mnemonicsOnly:)];
-    QSSearchMode searchMode = [(QSSearchObjectView *)[[[(QSController *)[NSApp delegate] interfaceController] window] firstResponder] searchMode];
+    id firstResponder = [(QSSearchObjectView *)[[[(QSController *)[NSApp delegate] interfaceController] window] firstResponder]];
+    QSSearchMode searchMode = SearchFilterAll;
+    if ([firstResponder isKindOfClass:[QSSearchObjectView class]]) {
+        searchMode = [(QSSearchObjectView *)firstResponder searchMode];
+    }
 	for (thisObject in set) {
         if (searchMode == SearchFilterAll && [[QSLibrarian sharedInstance] itemIsOmitted:thisObject]) {
             continue;
