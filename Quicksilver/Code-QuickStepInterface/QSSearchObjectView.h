@@ -92,6 +92,7 @@ typedef enum QSSearchMode {
 
 }
 
+@property (assign) QSSearchMode searchMode;
 @property (assign) BOOL updatesSilently;
 @property (retain) QSResultController *resultController;
 @property (retain) QSAction *alternateActionCounterpart;
