@@ -71,7 +71,6 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 		(QSScoreForObjectIMP) [self instanceMethodForSelector:@selector(rankedObject:forAbbreviation:inContext:withMnemonics:mnemonicsOnly:)];
 
 	for (thisObject in set) {
-    if ([[QSLibrarian sharedInstance] itemIsOmitted:thisObject]) continue;
 		id ranker = [thisObject ranker];
 
         QSRankedObject *rankedObject;

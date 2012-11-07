@@ -813,8 +813,21 @@ NSMutableDictionary *bindingsDict = nil;
     // ***Quicksilver's search algorithm is case insensitive
     string = [string lowercaseString];
     
+    NSArray *tempSearchArray;
+    if (!searchArray) {
+        tempSearchArray = [[QSLib defaultSearchSet] allObjects];
+        if (searchMode == SearchFilterAll) {
+            NSIndexSet *validSearchArrayIndexes = [tempSearchArray indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^(id obj, NSUInteger idx, BOOL *stop){
+                return (BOOL) ![[QSLibrarian sharedInstance] itemIsOmitted:obj];
+            }];
+            tempSearchArray = [tempSearchArray objectsAtIndexes:validSearchArrayIndexes];
+        }
+    } else {
+        tempSearchArray = searchArray;
+    }
+    
 	//	NSData *scores;
-	NSMutableArray *newResultArray = [[QSLibrarian sharedInstance] scoredArrayForString:string inSet:searchArray];
+	NSMutableArray *newResultArray = [[QSLibrarian sharedInstance] scoredArrayForString:string inSet:tempSearchArray];
 	//t NSLog(@"scores %@", scores);
 	
 #ifdef DEBUG
