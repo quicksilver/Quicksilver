@@ -8,6 +8,8 @@
 
 #import "QSObjectRanker.h"
 #import "QSStringRanker.h"
+#import "QSController.h"
+
 
 #import "QSRankedObject.h"
 #import "QSMnemonics.h"
@@ -69,9 +71,11 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 
 	QSScoreForObjectIMP scoreForObjectIMP =
 		(QSScoreForObjectIMP) [self instanceMethodForSelector:@selector(rankedObject:forAbbreviation:inContext:withMnemonics:mnemonicsOnly:)];
-
+    QSSearchMode searchMode = [(QSSearchObjectView *)[[[(QSController *)[NSApp delegate] interfaceController] window] firstResponder] searchMode];
 	for (thisObject in set) {
-    if ([[QSLibrarian sharedInstance] itemIsOmitted:thisObject]) continue;
+        if (searchMode == SearchFilterAll && [[QSLibrarian sharedInstance] itemIsOmitted:thisObject]) {
+            continue;
+        }
 		id ranker = [thisObject ranker];
 
         QSRankedObject *rankedObject;
