@@ -139,13 +139,6 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
 	return nil;
 }
 
-- (QSObject *)runShellScript:(QSObject *)dObject {
-	NSString *result = [self runScript:[dObject singleFilePath]];
-	if ([result length])
-		return [QSObject objectWithString:result];
-	return nil;
-}
-
 - (NSString *)runScript:(NSString *)path {
 	NSString *taskPath = path;
 	NSMutableArray *taskArgs = [NSMutableArray array];
