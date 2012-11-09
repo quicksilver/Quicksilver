@@ -633,13 +633,13 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 - (NSDictionary *)infoRecord {
-    NSString *path = [self validSingleFilePath];
-    if (!path)
-        return nil;
-
     NSDictionary *dict;
     if (dict = [self objectForCache:@"QSItemInfoRecord"])
         return dict;
+    
+    NSString *path = [self validSingleFilePath];
+    if (!path)
+        return nil;
 
 	/* Try to get information for this file */
     LSItemInfoRecord record;
