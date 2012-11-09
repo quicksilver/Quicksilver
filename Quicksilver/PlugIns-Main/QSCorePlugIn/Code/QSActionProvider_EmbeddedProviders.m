@@ -276,36 +276,12 @@
 
 @implementation FSActions
 
-- (NSArray *)universalApps {
-	if (!universalApps) {
-		QSTaskController *qstc = [QSTaskController sharedInstance];
-		[qstc updateTask:@"Updating Application Database" status:@"Updating Applications" progress:-1];
-		universalApps = (NSArray *)LSCopyApplicationURLsForURL((CFURLRef)[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"wildcard" ofType:@"*"]], kLSRolesAll);
-		[qstc removeTask:@"Updating Application Database"];
-	}
-	[self performSelector:@selector(setUniversalApps:) withObject:nil afterDelay:10*MINUTES extend:YES];
-	return universalApps;
-}
-
-- (void)setUniversalApps:(NSArray *)anUniversalApps {
-	if (universalApps != anUniversalApps) {
-		[universalApps release];
-		universalApps = [anUniversalApps retain];
-	}
-}
-
-- (void)dealloc {
-	[universalApps release];
-	[super dealloc];
-}
-
 // This method validates the 3rd pane for the core plugin actions
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
 	// Only return an array if the dObject is a file
 	if(![dObject validPaths]) {
 		return nil;
 	}
-	NSMutableArray *validIndirects = [NSMutableArray arrayWithCapacity:1];
 	if ([action isEqualToString:kFileOpenWithAction]) {
 		NSURL *fileURL = nil;
 		// comma trick - get a list of apps based on the 1st selected file
@@ -315,19 +291,21 @@
 
 		if (fileURL) LSGetApplicationForURL((CFURLRef) fileURL, kLSRolesAll, NULL, (CFURLRef *)&appURL);
 
-		NSMutableSet *set = [NSMutableSet set];
-
-		[set addObjectsFromArray:[(NSArray *)LSCopyApplicationURLsForURL((CFURLRef)fileURL, kLSRolesAll) autorelease]];
-		[set addObjectsFromArray:[self universalApps]];
-
-		validIndirects = [[QSLibrarian sharedInstance] scoredArrayForString:nil inSet:[QSObject fileObjectsWithURLArray:[set allObjects]]];
-
+        NSMutableArray *fileObjects = [[QSLib arrayForType:QSFilePathType] mutableCopy];
+        
 		id preferred = [QSObject fileObjectWithPath:[appURL path]];
-		if (!preferred)
-			preferred = [NSNull null];
+		if (preferred) {
+			[fileObjects removeObject:preferred];
+            [fileObjects insertObject:preferred atIndex:0];
+        }
+        
+        NSIndexSet *applicationIndexes = [fileObjects indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(id thisObject, NSUInteger i, BOOL *stop) {
+            return ([thisObject isApplication]);
+        }];
 
         [appURL release];
-		return [NSArray arrayWithObjects:preferred, validIndirects, nil];
+        [fileObjects autorelease];
+		return [fileObjects objectsAtIndexes:applicationIndexes];
 	} else if ([action isEqualToString:kFileRenameAction]) {
 		// return a text object (empty text box) to rename a file
 		NSString *path = [dObject singleFilePath];
