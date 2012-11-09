@@ -208,8 +208,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
                 if (provider) {
                     //NSLog(@"provider %@", [QSReg tableNamed:@"QSFSFileTypePreviewers"]);
                     theImage = [provider iconForFile:path ofType:type];
+                    break;
                 }
-                break;
             }
         }
         if (!theImage) {
