@@ -47,65 +47,67 @@
 
 - (BOOL)hotKeyPressed:(QSHotKeyEvent *)hotKey {
     hotKeyPressed = YES;
-	BOOL result = NO;
-	QSTrigger *trigger = [[NSClassFromString(@"QSTriggerCenter") sharedInstance] performSelector:@selector(triggerWithID:) withObject:[hotKey identifier]];
-
-	QSWindow *window = nil;
-	if ([[trigger objectForKey:@"showWindow"] boolValue]) {
-		window = (QSWindow*)[self triggerDisplayWindowWithTrigger:trigger];
-		[window setAlphaValue:0];
-		[window reallyOrderFront:self];
-		[window performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"0.125", @"duration", @"QSGrowEffect", @"transformFn", @"show", @"type", nil]];
-	}
-
-	BOOL onPress = [[trigger objectForKey:@"onPress"] boolValue];
-	BOOL onRelease = [[trigger objectForKey:@"onRelease"] boolValue];
-	BOOL onRepeat = [[trigger objectForKey:@"onRepeat"] boolValue];
-
-	if (!(onPress || onRepeat || onRelease) )
-		onPress = YES;
-
-	NSEvent *upEvent = nil;
-
-	if ([[trigger objectForKey:@"delay"] boolValue]) {
-		NSDate *delayDate = [NSDate dateWithTimeIntervalSinceNow:[[trigger objectForKey:@"delayInterval"] doubleValue]];
-		upEvent = [self nextHotKeyUpEventUntilDate:delayDate];
-		if (upEvent) {
-            if (window) {
-                [window performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"0.125", @"duration", @"QSShrinkEffect", @"transformFn", @"hide", @"type", nil]];
-                [window reallyOrderOut:self];
-            }
-			result = YES;
-		}
-	}
-
-	if (onPress && !result) {
-		[trigger execute];
-    }
-
-	if (onRepeat) {
-        if ([trigger objectForKey:@"onRepeatInterval"] == nil) {
-            QSShowAppNotifWithAttributes(@"TriggerError", NSLocalizedString(@"Trigger Repeat Failure", @"Title of the notif when a 'repeat' trigger fails (interval not set)"), NSLocalizedString(@"Repeat interval not set", @"Message of 'trigger interval not set' error notif"));
-        } else {
-            CGFloat repeatInterval = [[trigger objectForKey:@"onRepeatInterval"] doubleValue];
-            while (hotKeyPressed) {
-                NSDate *repeatDate = [NSDate dateWithTimeIntervalSinceNow:repeatInterval];
-                if (upEvent = [self nextHotKeyUpEventUntilDate:repeatDate]) {
-                    break;
+	BOOL result;
+	NSArray *triggers = [[NSClassFromString(@"QSTriggerCenter") sharedInstance] performSelector:@selector(triggersWithIDs:) withObject:[hotKey identifiers]];
+  for (QSTrigger *trigger in triggers) {
+        result = NO;
+        QSWindow *window = nil;
+        if ([[trigger objectForKey:@"showWindow"] boolValue]) {
+            window = (QSWindow*)[self triggerDisplayWindowWithTrigger:trigger];
+            [window setAlphaValue:0];
+            [window reallyOrderFront:self];
+            [window performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"0.125", @"duration", @"QSGrowEffect", @"transformFn", @"show", @"type", nil]];
+        }
+        
+        BOOL onPress = [[trigger objectForKey:@"onPress"] boolValue];
+        BOOL onRelease = [[trigger objectForKey:@"onRelease"] boolValue];
+        BOOL onRepeat = [[trigger objectForKey:@"onRepeat"] boolValue];
+        
+        if (!(onPress || onRepeat || onRelease) )
+            onPress = YES;
+        
+        NSEvent *upEvent = nil;
+        
+        if ([[trigger objectForKey:@"delay"] boolValue]) {
+            NSDate *delayDate = [NSDate dateWithTimeIntervalSinceNow:[[trigger objectForKey:@"delayInterval"] doubleValue]];
+            upEvent = [self nextHotKeyUpEventUntilDate:delayDate];
+            if (upEvent) {
+                if (window) {
+                    [window performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"0.125", @"duration", @"QSShrinkEffect", @"transformFn", @"hide", @"type", nil]];
+                    [window reallyOrderOut:self];
                 }
-                repeatDate = [NSDate dateWithTimeIntervalSinceNow:repeatInterval];
-                [trigger execute];
+                result = YES;
             }
         }
-	} else if (onRelease) {
-		upEvent = [self nextHotKeyUpEventUntilDate:[NSDate distantFuture]];
-	}
-	if (onRelease && upEvent) {
-		[trigger execute];
+        
+        if (onPress && !result) {
+            [trigger execute];
+        }
+        
+        if (onRepeat) {
+            if ([trigger objectForKey:@"onRepeatInterval"] == nil) {
+                QSShowAppNotifWithAttributes(@"TriggerError", NSLocalizedString(@"Trigger Repeat Failure", @"Title of the notif when a 'repeat' trigger fails (interval not set)"), NSLocalizedString(@"Repeat interval not set", @"Message of 'trigger interval not set' error notif"));
+            } else {
+                CGFloat repeatInterval = [[trigger objectForKey:@"onRepeatInterval"] doubleValue];
+                while (hotKeyPressed) {
+                    NSDate *repeatDate = [NSDate dateWithTimeIntervalSinceNow:repeatInterval];
+                    if (upEvent = [self nextHotKeyUpEventUntilDate:repeatDate]) {
+                        break;
+                    }
+                    repeatDate = [NSDate dateWithTimeIntervalSinceNow:repeatInterval];
+                    [trigger execute];
+                }
+            }
+        } else if (onRelease) {
+            upEvent = [self nextHotKeyUpEventUntilDate:[NSDate distantFuture]];
+        }
+        if (onRelease && upEvent) {
+            [trigger execute];
+        }
+        [window flare:self];
+        [window reallyOrderOut:self];
+        [window close];
     }
-	[window flare:self];
-	[window reallyOrderOut:self];
-	[window close];
     if (result) {
         [hotKey typeHotkey];
     }
