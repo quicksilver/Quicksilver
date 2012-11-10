@@ -239,7 +239,20 @@
 	if (![[info objectForKey:@"enabled"] boolValue])
 		return;
     activated = flag;
-	[[QSHotKeyEvent hotKeyWithIdentifier:[[self info] objectForKey:kItemID]] setEnabled:flag];
+    QSHotKeyEvent *hotKeyEvent = [QSHotKeyEvent hotKeyWithIdentifier:[[self info] objectForKey:kItemID]];
+    
+    // list of triggers with the same hotkey (i.e. the same ID)
+    NSArray *triggersWithSameID = [[QSTriggerCenter sharedInstance] triggersWithIDs:[hotKeyEvent identifiers]];
+    // get indexes of any triggers that are activated
+    NSIndexSet *ind = [triggersWithSameID indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSTrigger *trig, NSUInteger idx, BOOL *stop) {
+        return [trig activated];
+    }];
+    // set whether or not the hotkey is enabled (Quicksilver 'grabs' the hotkey) based on whether or not any triggers are active
+    if (flag) {
+        [hotKeyEvent setEnabled:([ind count] >= 1)];
+    } else {
+        [hotKeyEvent setEnabled:([ind count])];
+    }
 }
 
 - (BOOL)enabled {

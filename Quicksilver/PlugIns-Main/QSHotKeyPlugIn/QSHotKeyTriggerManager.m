@@ -47,9 +47,13 @@
 
 - (BOOL)hotKeyPressed:(QSHotKeyEvent *)hotKey {
     hotKeyPressed = YES;
+    BOOL triggerExecuted = NO;
 	BOOL result;
 	NSArray *triggers = [[NSClassFromString(@"QSTriggerCenter") sharedInstance] performSelector:@selector(triggersWithIDs:) withObject:[hotKey identifiers]];
   for (QSTrigger *trigger in triggers) {
+      if (![trigger activated]) {
+          continue;
+      }
         result = NO;
         QSWindow *window = nil;
         if ([[trigger objectForKey:@"showWindow"] boolValue]) {
@@ -82,8 +86,9 @@
         
         if (onPress && !result) {
             [trigger execute];
+            triggerExecuted = YES;
         }
-        
+      
         if (onRepeat) {
             if ([trigger objectForKey:@"onRepeatInterval"] == nil) {
                 QSShowAppNotifWithAttributes(@"TriggerError", NSLocalizedString(@"Trigger Repeat Failure", @"Title of the notif when a 'repeat' trigger fails (interval not set)"), NSLocalizedString(@"Repeat interval not set", @"Message of 'trigger interval not set' error notif"));
@@ -96,6 +101,7 @@
                     }
                     repeatDate = [NSDate dateWithTimeIntervalSinceNow:repeatInterval];
                     [trigger execute];
+                    triggerExecuted = YES;
                 }
             }
         } else if (onRelease) {
@@ -103,12 +109,13 @@
         }
         if (onRelease && upEvent) {
             [trigger execute];
+            triggerExecuted = YES;
         }
         [window flare:self];
         [window reallyOrderOut:self];
         [window close];
     }
-    if (result) {
+    if (!triggerExecuted) {
         [hotKey typeHotkey];
     }
 	return result;
