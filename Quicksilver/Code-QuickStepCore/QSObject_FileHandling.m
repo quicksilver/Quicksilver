@@ -399,32 +399,34 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			}
 		}
 
-		NSMutableArray *fileChildren = [NSMutableArray arrayWithCapacity:1];
-		NSMutableArray *visibleFileChildren = [NSMutableArray arrayWithCapacity:1];
-
-        NSError *err = nil;
-        // pre-fetch the required info (hidden key) for the dir contents to speed up the task
-        NSArray *dirContents = [manager contentsOfDirectoryAtURL:[NSURL fileURLWithPath:path] includingPropertiesForKeys:[NSArray arrayWithObject:NSURLIsHiddenKey] options:0 error:&err];
-        if (!dirContents) {
-            NSLog(@"Error loading files: %@", err);
-            return NO;
-        }
-        for (NSURL *individualURL in dirContents) {
-            [fileChildren addObject:[individualURL path]];
-            NSNumber *isHidden = 0;
-            [individualURL getResourceValue:&isHidden forKey:NSURLIsHiddenKey error:nil];
-            if (![isHidden boolValue]) {
-                [visibleFileChildren addObject:[individualURL path]];
+        if ([object isDirectory]) {
+            NSMutableArray *fileChildren = [NSMutableArray arrayWithCapacity:1];
+            NSMutableArray *visibleFileChildren = [NSMutableArray arrayWithCapacity:1];
+            
+            NSError *err = nil;
+            // pre-fetch the required info (hidden key) for the dir contents to speed up the task
+            NSArray *dirContents = [manager contentsOfDirectoryAtURL:[NSURL fileURLWithPath:path] includingPropertiesForKeys:[NSArray arrayWithObject:NSURLIsHiddenKey] options:0 error:&err];
+            if (!dirContents) {
+                NSLog(@"Error loading files: %@", err);
+                return NO;
             }
- 		}
-        // sort the files like Finder does. Note: Casting array to NSMutable array so don't try and alter these arrays later on
-        fileChildren = (NSMutableArray *)[fileChildren sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
-        visibleFileChildren = (NSMutableArray *)[visibleFileChildren sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
+            for (NSURL *individualURL in dirContents) {
+                [fileChildren addObject:[individualURL path]];
+                NSNumber *isHidden = 0;
+                [individualURL getResourceValue:&isHidden forKey:NSURLIsHiddenKey error:nil];
+                if (![isHidden boolValue]) {
+                    [visibleFileChildren addObject:[individualURL path]];
+                }
+            }
+            // sort the files like Finder does. Note: Casting array to NSMutable array so don't try and alter these arrays later on
+            fileChildren = (NSMutableArray *)[fileChildren sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
+            visibleFileChildren = (NSMutableArray *)[visibleFileChildren sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
 
-		newChildren = [QSObject fileObjectsWithPathArray:visibleFileChildren];
-		newAltChildren = [QSObject fileObjectsWithPathArray:fileChildren];
+            newChildren = [QSObject fileObjectsWithPathArray:visibleFileChildren];
+            newAltChildren = [QSObject fileObjectsWithPathArray:fileChildren];
 
-		if (newAltChildren) [object setAltChildren:newAltChildren];
+            if (newAltChildren) [object setAltChildren:newAltChildren];
+        }
 
 		if ([object isApplication]) {
 			// ***warning * omit other types of bundles
