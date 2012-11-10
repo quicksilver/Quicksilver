@@ -67,14 +67,17 @@
 		NSDate *delayDate = [NSDate dateWithTimeIntervalSinceNow:[[trigger objectForKey:@"delayInterval"] doubleValue]];
 		upEvent = [self nextHotKeyUpEventUntilDate:delayDate];
 		if (upEvent) {
-			[window performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"0.125", @"duration", @"QSShrinkEffect", @"transformFn", @"hide", @"type", nil]];
-			[window reallyOrderOut:self];
-			return NO;
+            if (window) {
+                [window performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"0.125", @"duration", @"QSShrinkEffect", @"transformFn", @"hide", @"type", nil]];
+                [window reallyOrderOut:self];
+            }
+			result = YES;
 		}
 	}
 
-	if (onPress)
+	if (onPress && !result) {
 		[trigger execute];
+    }
 
 	if (onRepeat) {
 		CGFloat repeatInterval = [[trigger objectForKey:@"onRepeatInterval"] doubleValue];
@@ -86,27 +89,28 @@
 	} else if (onRelease) {
 		upEvent = [self nextHotKeyUpEventUntilDate:[NSDate distantFuture]];
 	}
-	if (onRelease && upEvent)
+	if (onRelease && upEvent) {
 		[trigger execute];
+    }
 	[window flare:self];
 	[window reallyOrderOut:self];
 	[window close];
+    if (result) {
+        [hotKey typeHotkey];
+    }
 	return result;
 }
+
 - (NSEvent *)nextHotKeyUpEventUntilDate:(NSDate *)date {
 	NSEvent *event;
-	while(1) {
-		event = [NSApp nextEventMatchingMask:NSAnyEventMask untilDate:date inMode:NSDefaultRunLoopMode dequeue:YES];
-		if ([event type] == NSSystemDefined && [event subtype] == 9) // A hotkey up event
-			return event;
+    event = [NSApp nextEventMatchingMask:NSAnyEventMask untilDate:date inMode:NSDefaultRunLoopMode dequeue:YES];
+    if ([event type] == NSSystemDefined && [event subtype] == 9) // A hotkey up event
+        return event;
 #ifdef DEBUG
-		else if (event)
-			if (VERBOSE) NSLog(@"Foreign Event Ignored %@", event);
+    else if (event)
+        if (VERBOSE) NSLog(@"Foreign Event Ignored %@", event);
 #endif
-		else
-			return nil;
-	}
-	return nil;
+    return nil;
 }
 
 

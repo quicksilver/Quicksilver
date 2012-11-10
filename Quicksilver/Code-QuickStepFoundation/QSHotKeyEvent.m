@@ -56,6 +56,22 @@ static NSMutableDictionary *hotKeyDictionary;
 	[hotKeyDictionary setObject:self forKey:anIdentifier];
 }
 
+- (void)typeHotkey {
+    CGKeyCode keyCode = [self keyCode];
+    
+    CGEventSourceRef source = CGEventSourceCreate(kCGEventSourceStateCombinedSessionState);
+    CGEventSourceSetLocalEventsFilterDuringSuppressionState(source, kCGEventFilterMaskPermitLocalMouseEvents | kCGEventFilterMaskPermitSystemDefinedEvents,kCGEventSuppressionStateSuppressionInterval);
+    CGEventRef keyDown = CGEventCreateKeyboardEvent(source, keyCode, YES);
+    CGEventSetFlags(keyDown, [self modifierFlags]);
+    CGEventRef keyUp = CGEventCreateKeyboardEvent(source, keyCode, NO);
+    
+    CGEventPost(kCGAnnotatedSessionEventTap, keyDown);
+    CGEventPost(kCGAnnotatedSessionEventTap, keyUp);
+    CFRelease(keyUp);
+    CFRelease(keyDown);
+    CFRelease(source);
+}
+
 + (QSHotKeyEvent *)hotKeyWithIdentifier:(NSString *)anIdentifier {
 	return [hotKeyDictionary objectForKey:anIdentifier];
 }
