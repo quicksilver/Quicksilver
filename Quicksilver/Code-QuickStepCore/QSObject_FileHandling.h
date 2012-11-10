@@ -41,7 +41,7 @@
 - (NSString *)filesContainer;
 - (NSString *)filesType;
 - (BOOL)isApplication;
-- (BOOL)isFolder;
+- (BOOL)isDirectory;
 - (BOOL)isPackage;
 - (BOOL)isAlias;
 - (BOOL)isOnLocalVolume;

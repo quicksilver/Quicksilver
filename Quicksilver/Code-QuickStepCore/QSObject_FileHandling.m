@@ -134,7 +134,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 - (void)setQuickIconForObject:(QSObject *)object {
     if ([object isApplication])
         [object setIcon:[QSResourceManager imageNamed:@"GenericApplicationIcon"]];
-	else if ([object isFolder])
+	else if ([object isDirectory])
         [object setIcon:[QSResourceManager imageNamed:@"GenericFolderIcon"]];
 	else
 		[object setIcon:[QSResourceManager imageNamed:@"UnknownFSObjectIcon"]];
@@ -264,7 +264,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory]) {
 
         // A plain folder (not a package) has children
-        if ([object isFolder] && ![object isPackage]) {
+        if ([object isDirectory] && ![object isPackage]) {
             return YES;
         }
 
@@ -341,7 +341,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	NSDragOperation sourceDragMask = [sender draggingSourceOperationMask];
 	if ([dObject isApplication])
 		return NSDragOperationPrivate;
-	else if ([dObject isFolder]) {
+	else if ([dObject isDirectory]) {
 		NSDragOperation defaultOp = [[NSFileManager defaultManager] defaultDragOperationForMovingPaths:[iObject validPaths] toDestination:[dObject singleFilePath]];
 		if (defaultOp == NSDragOperationMove) {
 			if (sourceDragMask & NSDragOperationMove)
@@ -358,7 +358,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		return 0;
 	if ([dObject isApplication]) {
 		return @"FileOpenWithAction";
-	} else if ([dObject isFolder]) {
+	} else if ([dObject isDirectory]) {
 		if (operation & NSDragOperationMove)
 			return @"FileMoveToAction";
 		else if (operation & NSDragOperationCopy)
@@ -462,7 +462,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 				}
 			}
 
-		} else if ([object isPackage] || ![object isFolder]) {
+		} else if ([object isPackage] || ![object isDirectory]) {
 			//NSString *type = [[NSFileManager defaultManager] typeOfFile:path];
 
 			NSString *uti = [object fileUTI];
@@ -693,7 +693,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	return [self checkInfoRecordFlags:kLSItemInfoIsApplication];
 }
 
-- (BOOL)isFolder {
+- (BOOL)isDirectory {
 	return [self checkInfoRecordFlags:kLSItemInfoIsContainer];
 }
 

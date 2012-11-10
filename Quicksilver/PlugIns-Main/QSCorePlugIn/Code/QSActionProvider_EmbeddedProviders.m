@@ -299,7 +299,7 @@
             [fileObjects insertObject:preferred atIndex:0];
         }
         
-        NSIndexSet *applicationIndexes = [fileObjects indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(id thisObject, NSUInteger i, BOOL *stop) {
+        NSIndexSet *applicationIndexes = [fileObjects indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *thisObject, NSUInteger i, BOOL *stop) {
             return ([thisObject isApplication]);
         }];
 
@@ -323,8 +323,8 @@
             [fileObjects removeObject:currentFolderObject];
             [fileObjects insertObject:currentFolderObject atIndex:0];
         }
-        NSIndexSet *folderIndexes = [fileObjects indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(id thisObject, NSUInteger i, BOOL *stop) {
-            return ([thisObject isFolder] && ![thisObject isPackage]);
+        NSIndexSet *folderIndexes = [fileObjects indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *thisObject, NSUInteger i, BOOL *stop) {
+            return ([thisObject isDirectory] && ![thisObject isPackage]);
         }];
         [fileObjects autorelease];
         return [fileObjects objectsAtIndexes:folderIndexes];
