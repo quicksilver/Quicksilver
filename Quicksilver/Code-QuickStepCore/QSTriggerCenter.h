@@ -33,6 +33,7 @@
 - (BOOL)executeTrigger:(QSTrigger *)trigger;
 - (BOOL)executeTriggerID:(NSString *)triggerID;
 - (QSTrigger *)triggerWithID:(NSString *)ident;
+- (NSArray *)triggersWithIDs:(NSArray *)idents;
 - (void)writeTriggers;
 - (void)writeTriggersNow;
 - (NSMutableDictionary *)triggersDict;
