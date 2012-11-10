@@ -40,9 +40,13 @@
 
 - (void)initializeTrigger:(NSMutableDictionary *)trigger { [trigger setObject:[NSNumber numberWithBool:YES] forKey:@"onPress"];  }
 
-- (BOOL)hotKeyReleased:(QSHotKeyEvent *)hotKey { return NO;  }
+- (BOOL)hotKeyReleased:(QSHotKeyEvent *)hotKey {
+    hotKeyPressed = NO;
+    return NO;
+}
 
 - (BOOL)hotKeyPressed:(QSHotKeyEvent *)hotKey {
+    hotKeyPressed = YES;
 	BOOL result = NO;
 	QSTrigger *trigger = [[NSClassFromString(@"QSTriggerCenter") sharedInstance] performSelector:@selector(triggerWithID:) withObject:[hotKey identifier]];
 
@@ -80,12 +84,19 @@
     }
 
 	if (onRepeat) {
-		CGFloat repeatInterval = [[trigger objectForKey:@"onRepeatInterval"] doubleValue];
-		NSDate *repeatDate = [NSDate dateWithTimeIntervalSinceNow:repeatInterval];
-		while (!(upEvent = [self nextHotKeyUpEventUntilDate:repeatDate]) ) {
-			repeatDate = [NSDate dateWithTimeIntervalSinceNow:repeatInterval];
-			[trigger execute];
-		}
+        if ([trigger objectForKey:@"onRepeatInterval"] == nil) {
+            QSShowAppNotifWithAttributes(@"TriggerError", NSLocalizedString(@"Trigger Repeat Failure", @"Title of the notif when a 'repeat' trigger fails (interval not set)"), NSLocalizedString(@"Repeat interval not set", @"Message of 'trigger interval not set' error notif"));
+        } else {
+            CGFloat repeatInterval = [[trigger objectForKey:@"onRepeatInterval"] doubleValue];
+            while (hotKeyPressed) {
+                NSDate *repeatDate = [NSDate dateWithTimeIntervalSinceNow:repeatInterval];
+                if (upEvent = [self nextHotKeyUpEventUntilDate:repeatDate]) {
+                    break;
+                }
+                repeatDate = [NSDate dateWithTimeIntervalSinceNow:repeatInterval];
+                [trigger execute];
+            }
+        }
 	} else if (onRelease) {
 		upEvent = [self nextHotKeyUpEventUntilDate:[NSDate distantFuture]];
 	}

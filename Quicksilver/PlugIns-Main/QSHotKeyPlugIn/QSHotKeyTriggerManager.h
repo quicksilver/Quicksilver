@@ -15,6 +15,7 @@
 @class QSHotKeyField;
 @interface QSHotKeyTriggerManager : QSTriggerManager {
 	IBOutlet QSHotKeyField *hotKeyField;
+    BOOL hotKeyPressed;
 }
 - (NSEvent *)nextHotKeyUpEventUntilDate:(NSDate *)date;
 - (void)setHotKey:(NSDictionary *)dict;
