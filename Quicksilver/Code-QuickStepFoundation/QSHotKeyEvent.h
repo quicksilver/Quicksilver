@@ -14,6 +14,7 @@ NSUInteger carbonModifierFlagsToCocoaModifierFlags( NSUInteger aModifierFlags );
 	NSString *identifier;
 }
 - (NSString *)identifier;
+- (NSArray *)identifiers;
 - (void)setIdentifier:(NSString *)anIdentifier;
 - (void)typeHotkey;
 + (QSHotKeyEvent *)hotKeyWithIdentifier:(NSString *)identifier;

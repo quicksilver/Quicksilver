@@ -52,6 +52,10 @@ static NSMutableDictionary *hotKeyDictionary;
 	return nil;
 }
 
+- (NSArray *)identifiers {
+    return [hotKeyDictionary allKeysForObject:self];
+}
+
 - (void)setIdentifier:(NSString *)anIdentifier {
 	[hotKeyDictionary setObject:self forKey:anIdentifier];
 }
