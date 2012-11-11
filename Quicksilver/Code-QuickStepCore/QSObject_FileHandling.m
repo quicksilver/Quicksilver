@@ -317,8 +317,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	
 	theImage = [self prepareImageforIcon:theImage];
 	
-	[object setIcon:theImage];
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSObjectIconModified object:object];
+	[object updateIcon:theImage];
 }
 
 -(NSImage *)prepareImageforIcon:(NSImage *)theImage {

@@ -80,6 +80,7 @@ NSMutableDictionary *kindDescriptions = nil;
 		selectedItem = nil;
 		loadingRange = NSMakeRange(0, 0);
 		scrollViewTrackingRect = 0;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectIconModified:) name:QSObjectIconModified object:nil];
 	}
 	return self;
 }
@@ -251,10 +252,6 @@ NSMutableDictionary *kindDescriptions = nil;
 	[resultChildTable reloadData];
 }
 
--(void)rowModified:(NSInteger)index {
-	[resultTable setNeedsDisplayInRect:[resultTable rectOfRow:index]];
-}
-
 /*- (void)setSplitLocation {
 	NSNumber *resultWidth = [[NSUserDefaults standardUserDefaults] objectForKey:kResultTableSplit];
     
@@ -281,18 +278,11 @@ NSMutableDictionary *kindDescriptions = nil;
 #pragma mark Icon Loading
 
 - (void)iconLoader:(QSIconLoader *)loader loadedIndex:(NSInteger)m inArray:(NSArray *)array {
-	//	NSLog(@"loaded");
-	NSTableView *table = nil;
 	if (loader == resultIconLoader) {
-		table = resultTable;
-		if (m == [resultTable selectedRow])
-            [focus setNeedsDisplay:YES];
+        [resultTable setNeedsDisplayInRect:[resultTable rectOfRow:m]];
 	} else if (loader == resultChildIconLoader) {
-		table = resultChildTable;
-	} else {
-		//NSLog(@"RogueLoader %d", m);
+        [resultChildTable setNeedsDisplayInRect:[resultChildTable rectOfRow:m]];
 	}
-	[table setNeedsDisplay:YES];
 }
 
 - (BOOL)iconsAreLoading {
@@ -332,6 +322,27 @@ NSMutableDictionary *kindDescriptions = nil;
 		resultChildIconLoader = [aResultChildIconLoader retain];
 	}
 }
+
+- (void)objectIconModified:(NSNotification *)notif
+{
+    // if results are showing, check for icons that need updating
+    if ([[self window] isVisible]) {
+        QSObject *object = [notif object];
+        // if updated object is is in the results, update it in the list
+        NSUInteger ind = [currentResults indexOfObject:object];
+        if (ind != NSNotFound) {
+            [resultTable setNeedsDisplayInRect:[resultTable rectOfRow:ind]];
+        }
+        // if updated object is is in the child results, update it in the list
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
+            ind = [[[self selectedItem] children] indexOfObject:object];
+            if (ind != NSNotFound) {
+                [resultChildTable setNeedsDisplayInRect:[resultChildTable rectOfRow:ind]];
+            }
+        }
+    }
+}
+
 #pragma mark -
 #pragma mark Actions
 - (IBAction)defineMnemonic:(id)sender {

@@ -68,8 +68,10 @@
     if ([self isEqual:proxy]) return nil;
     
     //NSLog(@"Proxy: %@", proxy);
-    if (proxy)
+    if (proxy) {
         [self setObject:proxy forCache:QSProxyTargetCache];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectIconModified:) name:QSObjectIconModified object:proxy];
+    }
     
     NSTimeInterval interval = 3.0f;
     
@@ -83,6 +85,7 @@
 
 - (void)releaseProxy {
 	//NSLog(@"release proxy");
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:QSObjectIconModified object:[cache objectForKey:QSProxyTargetCache]];
 	[cache removeObjectForKey:QSProxyTargetCache];
 }
 
@@ -134,4 +137,8 @@
 	return [[self resolvedObject] methodSignatureForSelector:sel];
 }
 
+- (void)objectIconModified:(NSNotification *)notif
+{
+    [self updateIcon:[[self proxyObject] icon]];
+}
 @end
