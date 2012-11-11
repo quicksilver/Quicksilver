@@ -121,6 +121,7 @@ typedef enum QSSearchMode {
 - (IBAction)toggleResultView:sender;
 - (void)selectIndex:(NSInteger)index;
 - (void)selectObject:(QSBasicObject *)obj;
+- (void)objectIconModified:(NSNotification *)notif;
 - (void)resetString;
 - (IBAction)defineMnemonic:(id)sender;
 - (void)saveMnemonic;
@@ -202,8 +203,6 @@ typedef enum QSSearchMode {
 - (BOOL)handleSlashEvent:(NSEvent *)theEvent;
 - (BOOL)handleTildeEvent:(NSEvent *)theEvent;
 - (BOOL)handleRepeaterEvent:(NSEvent *)theEvent;
-
-- (void)updateObject:(QSObject *)object;
 @end
 
 

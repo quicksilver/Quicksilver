@@ -34,3 +34,15 @@ td, th {
   padding: 0.25em 0.5em;
   border: 1px solid #EDEDED;
 }
+dd {
+  margin: 0.25em 0 1em 2em;
+}
+dt {
+  font-weight: bold;
+}
+dd p {
+  margin-top: 0px;
+}
+dd pre {
+  margin: 1em 0px;
+}
