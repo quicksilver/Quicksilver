@@ -8,5 +8,8 @@
  */
 
 
+NSString *QSUTIOfFile(NSString *path);
+NSString *QSUTIOfURL(NSURL *url);
+NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec);
 NSString *QSUTIForAnyTypeString(NSString *type);
 NSString *QSUTIForExtensionOrType(NSString *extension, OSType filetype);

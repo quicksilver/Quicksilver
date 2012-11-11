@@ -746,13 +746,8 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	@try {
 		[self _registerPlugIn];
     } @catch (NSException *exc) {
-#ifdef DEBUG
         NSString *errorMessage = [NSString stringWithFormat:@"An error ocurred while loading plugin \"%@\": %@", self, exc];
-		if (VERBOSE) {
-			NSLog(@"%@", errorMessage);
-			[exc printStackTrace];
-		}
-#endif
+        NSLog(@"%@", errorMessage);
 		[self setLoadError:[exc reason]];
 	}
     // write an empty file to the state location since QS launched fine
