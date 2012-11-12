@@ -19,6 +19,5 @@ NSString *QSGetShebangPathForScript(NSString *path);
 #define kQSShellScriptRunAction @"QSShellScriptRunAction"
 @interface QSShellScriptRunAction : NSObject
 
-- (NSString *)runScript:(NSString *)path;
 - (NSString *)runExecutable:(NSString *)path withArguments:(NSArray *)arguments;
 @end
