@@ -899,33 +899,6 @@
 			<key>icon</key>
 			<string>Find</string>
 		</dict>
-		<key>QSShellScriptRunAction</key>
-		<dict>
-			<key>validatesObjects</key>
-			<true/>
-			<key>actionClass</key>
-			<string>QSShellScriptRunAction</string>
-			<key>directTypes</key>
-			<array>
-				<string>NSFilenamesPboardType</string>
-			</array>
-			<key>precedence</key>
-			<real>2</real>
-			<key>actionSelector</key>
-			<string>runShellScript:</string>
-			<key>directFileTypes</key>
-			<array>
-				<string>sh</string>
-				<string>pl</string>
-				<string>command</string>
-				<string>php</string>
-				<string>py</string>
-				<string>rb</string>
-				<string></string>
-			</array>
-			<key>icon</key>
-			<string>ExecutableBinaryIcon</string>
-		</dict>
 		<key>QSTextShowDialogAction</key>
 		<dict>
 			<key>actionClass</key>
