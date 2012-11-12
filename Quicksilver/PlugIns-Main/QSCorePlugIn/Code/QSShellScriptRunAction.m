@@ -139,40 +139,6 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
 	return nil;
 }
 
-- (QSObject *)runShellScript:(QSObject *)dObject {
-	NSString *result = [self runScript:[dObject singleFilePath]];
-	if ([result length])
-		return [QSObject objectWithString:result];
-	return nil;
-}
-
-- (NSString *)runScript:(NSString *)path {
-	NSString *taskPath = path;
-	NSMutableArray *taskArgs = [NSMutableArray array];
-    NSString *taskOutput = nil; 
-    
-    NSTask *task = [[[NSTask alloc] init] autorelease];
-    [task setLaunchPath:taskPath];
-    [task setArguments:taskArgs];
-    [task setStandardOutput:[NSPipe pipe]];
-    
-    @try {
-        [task launch];
-        [task waitUntilExit];
-        
-        taskOutput = [[[NSString alloc] initWithData:[[[task standardOutput] fileHandleForReading] readDataToEndOfFile] encoding:NSUTF8StringEncoding] autorelease];
-        if ([task terminationStatus] != 0) {
-            NSLog(@"Task failed %@", taskOutput);
-            taskOutput = nil;
-        }
-    }
-    @catch (NSException *e) {
-        NSLog(@"Task raised %@ %@, %@", [e name], [e reason], (![[NSFileManager defaultManager] isExecutableFileAtPath:taskPath] ? @" file is not executable" : @""));
-    }
-    
-	return taskOutput;
-}
-
 - (NSString *)runExecutable:(NSString *)path withArguments:(NSArray *)arguments {
 	NSString *taskPath = path;
 	NSMutableArray *taskArgs = [NSMutableArray array];
