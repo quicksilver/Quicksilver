@@ -41,7 +41,8 @@
 - (NSString *)filesContainer;
 - (NSString *)filesType;
 - (BOOL)isApplication;
-- (BOOL)isDirectory;
+- (BOOL)isDirectory; // YES for all directories
+- (BOOL)isFolder;    // YES for directories that aren't packages
 - (BOOL)isPackage;
 - (BOOL)isAlias;
 - (BOOL)isOnLocalVolume;

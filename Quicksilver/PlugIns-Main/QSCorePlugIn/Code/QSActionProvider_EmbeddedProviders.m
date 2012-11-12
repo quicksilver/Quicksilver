@@ -324,7 +324,7 @@
             [fileObjects insertObject:currentFolderObject atIndex:0];
         }
         NSIndexSet *folderIndexes = [fileObjects indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *thisObject, NSUInteger i, BOOL *stop) {
-            return ([thisObject isDirectory] && ![thisObject isPackage]);
+            return [thisObject isFolder];
         }];
         [fileObjects autorelease];
         return [fileObjects objectsAtIndexes:folderIndexes];

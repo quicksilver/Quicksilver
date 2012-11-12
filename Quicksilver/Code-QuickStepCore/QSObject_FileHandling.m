@@ -699,6 +699,10 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	return [self checkInfoRecordFlags:kLSItemInfoIsContainer];
 }
 
+- (BOOL)isFolder {
+    return ([self isDirectory] && ![self isPackage]);
+}
+
 - (BOOL)isPackage {
 	return [self checkInfoRecordFlags:kLSItemInfoIsPackage];
 }
