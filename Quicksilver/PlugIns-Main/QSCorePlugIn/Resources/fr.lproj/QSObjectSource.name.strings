@@ -1,34 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>QSABMailRecentsObjectSource</key>
-	<string>Destinataires Mail précédents</string>
-	<key>QSAddressBookObjectSource</key>
-	<string>Carnet d'adresses</string>
-	<key>QSAllApplicationsObjectSource</key>
-	<string>Toutes les applications</string>
-	<key>QSCatalogEntrySource</key>
-	<string>Catalogue des entrées</string>
-	<key>QSDefaultsObjectSource</key>
-	<string>Lecteurs par défaut</string>
-	<key>QSFileSystemObjectSource</key>
-	<string>Scruteur de répertoire et de fichier</string>
-	<key>QSGroupObjectSource</key>
-	<string>Groupes</string>
-	<key>QSMachineSource</key>
-	<string>Appareils</string>
-	<key>QSNUDCSource</key>
-	<string>Connection et mise à jour de suite</string>
-	<key>QSNetworkLocationObjectSource</key>
-	<string>Configurations réseau</string>
-	<key>QSProcessObjectSource</key>
-	<string>Processus en cours</string>
-	<key>QSVolumesObjectSource</key>
-	<string>Volumes montés</string>
-	<key>QSiPhotoObjectSource</key>
-	<string>Bibliothèque d'iPhoto</string>
-	<key>QSiTunesObjectSource</key>
-	<string>Bibliothèque d'iTunes</string>
-</dict>
+  <dict>
+    <key>QSABMailRecentsObjectSource</key>
+    <string>Destinataires Mail précédents</string>
+    <key>QSAddressBookObjectSource</key>
+    <string>Carnet d&apos;adresses</string>
+    <key>QSAirPortNetworkObjectSource</key>
+    <string>Réseaux AirPort</string>
+    <key>QSAllApplicationsObjectSource</key>
+    <string>Toutes les applications</string>
+    <key>QSCatalogEntrySource</key>
+    <string>Catalogue des entrées</string>
+    <key>QSDefaultsObjectSource</key>
+    <string>Lecteurs par défaut</string>
+    <key>QSFileSystemObjectSource</key>
+    <string>Scruteur de répertoire et de fichier</string>
+    <key>QSGroupObjectSource</key>
+    <string>Groupes</string>
+    <key>QSMachineSource</key>
+    <string>Appareils</string>
+    <key>QSNUDCSource</key>
+    <string>Connection et mise à jour de suite</string>
+    <key>QSNetworkLocationObjectSource</key>
+    <string>Configurations réseau</string>
+    <key>QSProcessObjectSource</key>
+    <string>Processus en cours</string>
+    <key>QSVolumesObjectSource</key>
+    <string>Volumes montés</string>
+    <key>QSiPhotoObjectSource</key>
+    <string>Bibliothèque d&apos;iPhoto</string>
+    <key>QSiTunesObjectSource</key>
+    <string>Bibliothèque d&apos;iTunes</string>
+    <key>QSHistoryObjectSource</key>
+    <string>Historique des objets</string>
+    <key>QSInternalObjectSource</key>
+    <string>Objets internes</string>
+    <key>QSObjCMessageSource</key>
+    <string>Messages Objective-C</string>
+    <key>QSProxyObjectSource</key>
+    <string>Proxies</string>
+  </dict>
 </plist>

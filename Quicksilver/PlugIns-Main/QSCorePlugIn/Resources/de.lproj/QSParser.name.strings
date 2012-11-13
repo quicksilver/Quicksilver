@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>QSDirectoryParser</key>
-	<string>Ordnerinhalte</string>
-	<key>QSHTMLLinkParser</key>
-	<string>HTML-Links</string>
-	<key>QSSafariBookmarksParser</key>
-	<string>Safari Lesezeichen</string>
-	<key>QSSafariHistoryParser</key>
-	<string>Safari Verlauf</string>
-</dict>
+  <dict>
+    <key>QSCaminoBookmarksParser</key>
+    <string>Camino-Lesezeichen</string>
+    <key>QSDirectoryParser</key>
+    <string>Ordnerinhalte</string>
+    <key>QSHTMLLinkParser</key>
+    <string>HTML-Links</string>
+    <key>QSTextLineParser</key>
+    <string>Textzeilen</string>
+    <key>QSOldCaminoBookmarksParser</key>
+    <string>Camino-Lesezeichen (alt)</string>
+    <key>QSOmniWebShortcutsParser</key>
+    <string>OmniWeb-Shortcuts</string>
+    <key>QSOperaBookmarksParser</key>
+    <string>Opera-Lesezeichen</string>
+    <key>QSPresetOmniWebHistoryParser</key>
+    <string>OmniWeb-Verlauf</string>
+    <key>QSSafariBookmarksParser</key>
+    <string>Safari-Lesezeichen</string>
+    <key>QSSafariHistoryParser</key>
+    <string>Safari-Verlauf</string>
+    <key>QSSogudiLinkParser</key>
+    <string>Sogudi-Shortcuts</string>
+  </dict>
 </plist>
