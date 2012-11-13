@@ -1010,7 +1010,7 @@ NSMutableDictionary *bindingsDict = nil;
     [aSelector setUpdatesSilently:YES];
     NSUInteger flags = [theEvent modifierFlags] & NSDeviceIndependentModifierFlagsMask;
     // if only the command key is pressed
-	if (flags == NSCommandKeyMask) {
+	if (flags == NSCommandKeyMask || flags == (NSCommandKeyMask | NSAlphaShiftKeyMask)) {
 		// change the image
 		QSAction *theAction = [aSelector objectValue];
 		if (theAction && [theAction alternate]) {
