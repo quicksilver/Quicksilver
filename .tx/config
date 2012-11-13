@@ -8,6 +8,12 @@ source_file = Quicksilver/Localized/en.lproj/About.strings
 source_lang = en_US
 type = STRINGS
 
+[quicksilver.Quicksilver-AdvancedPreferences]
+file_filter = Quicksilver/Resources/<lang>.lproj/DefaultsMap.plist
+source_file = Quicksilver/Resources/en.lproj/DefaultsMap.plist
+source_lang = en_US
+type = PLIST
+
 [quicksilver.Quicksilver-Preferences]
 file_filter = Quicksilver/Localized/<lang>.lproj/Preferences.strings
 source_file = Quicksilver/Localized/en.lproj/Preferences.strings
