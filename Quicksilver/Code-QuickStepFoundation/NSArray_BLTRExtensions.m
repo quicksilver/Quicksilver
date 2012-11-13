@@ -25,16 +25,6 @@
 
 @end
 
-@implementation NSArray (IndexSet)
-- (NSArray *)objectsAtIndexes:(NSIndexSet *)indexes {
-	NSMutableArray *array = [NSMutableArray array];
-	NSUInteger index;
-	for (index = [indexes firstIndex]; index != NSNotFound; index = [indexes indexGreaterThanIndex:index])
-		[array addObject:[self objectAtIndex:index]];
-	return array;
-}
-@end
-
 @implementation NSArray (Transformation)
 
 - (BOOL)hasPrefix:(NSArray *)prefixArray { return NO; }
