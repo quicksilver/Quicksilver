@@ -291,21 +291,16 @@
 
 		if (fileURL) LSGetApplicationForURL((CFURLRef) fileURL, kLSRolesAll, NULL, (CFURLRef *)&appURL);
 
-        NSMutableArray *fileObjects = [[QSLib arrayForType:QSFilePathType] mutableCopy];
+        NSArray *fileObjects = [QSLib arrayForType:QSFilePathType];
         
 		id preferred = [QSObject fileObjectWithPath:[appURL path]];
-		if (preferred) {
-			[fileObjects removeObject:preferred];
-            [fileObjects insertObject:preferred atIndex:0];
-        }
+        [appURL release];
+
         
         NSIndexSet *applicationIndexes = [fileObjects indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *thisObject, NSUInteger i, BOOL *stop) {
-            return ([thisObject isApplication]);
+            return ([thisObject isApplication] && thisObject != preferred);
         }];
-
-        [appURL release];
-        [fileObjects autorelease];
-		return [fileObjects objectsAtIndexes:applicationIndexes];
+        return [[NSArray arrayWithObject:preferred] arrayByAddingObjectsFromArray:[fileObjects objectsAtIndexes:applicationIndexes]];
 	} else if ([action isEqualToString:kFileRenameAction]) {
 		// return a text object (empty text box) to rename a file
 		NSString *path = [dObject singleFilePath];
@@ -317,17 +312,15 @@
         // We only want folders for the move to / copy to actions (can't move to anything else)
         NSMutableArray *fileObjects = [[[QSLibrarian sharedInstance] arrayForType:QSFilePathType] mutableCopy];
         NSString *currentFolderPath = [[[[dObject splitObjects] lastObject] singleFilePath] stringByDeletingLastPathComponent];
-        // if it wasn't in the catalog, create it from scratch
-        if (currentFolderPath) {
-            QSObject *currentFolderObject = [QSObject fileObjectWithPath:currentFolderPath];
-            [fileObjects removeObject:currentFolderObject];
-            [fileObjects insertObject:currentFolderObject atIndex:0];
-        }
+
+        // if the object already exists, get that object. Otherwise create a new one
+        QSObject *currentFolderObject = [QSObject fileObjectWithPath:currentFolderPath];
+        
         NSIndexSet *folderIndexes = [fileObjects indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *thisObject, NSUInteger i, BOOL *stop) {
-            return [thisObject isFolder];
+            return ([thisObject isFolder] && (thisObject != currentFolderObject));
         }];
-        [fileObjects autorelease];
-        return [fileObjects objectsAtIndexes:folderIndexes];
+        
+        return [[NSArray arrayWithObject:currentFolderObject] arrayByAddingObjectsFromArray:[fileObjects objectsAtIndexes:folderIndexes]];
 	}
 	return nil;
 }

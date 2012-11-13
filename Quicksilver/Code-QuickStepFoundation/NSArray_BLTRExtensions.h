@@ -8,10 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSArray (IndexSet)
-- (NSArray *)objectsAtIndexes:(NSIndexSet *)indexes;
-@end
-
 @interface NSObject (BLTRArrayPerform)
 + (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(id)array returnValues:(BOOL)flag;
 - (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(id)array returnValues:(BOOL)flag;
