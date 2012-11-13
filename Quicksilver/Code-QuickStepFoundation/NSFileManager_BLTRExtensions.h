@@ -7,8 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-NSString *QSUTIOfFile(NSString *path);
-NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec);
 
 @interface NSFileManager (Carbon)
 - (BOOL)isVisible:(NSString *)chem;

@@ -18,20 +18,14 @@
 #import "QSObject_PropertyList.h"
 #include "QSLocalization.h"
 #import "QSDownloads.h"
+#import <sys/mount.h>
 
 #import "NSApplication_BLTRExtensions.h"
-
-
-// Ankur, 21 Dec 07: 'useSmallIcons' not used anywhere. Commented out.
-// Ankur, 12 Feb 08: as above for 'applicationIcons'
 
 NSString *identifierForPaths(NSArray *paths) {
 	if ([paths count] == 1) return [paths lastObject];
 	return [paths componentsJoinedByString:@" "];
 }
-
-static NSDictionary *bundlePresetChildren;
-//static BOOL useSmallIcons = NO;
 
 NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     if (bundleIdentifier == nil) {
@@ -78,25 +72,6 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 @implementation QSFileSystemObjectHandler
 
-// !!! Andre Berg 20091017: Not so good to disable init when subclassing... re-enabling.
-
-// Object Handler Methods
-// +(void)initialize {
-// 	useSmallIcons = [[NSUserDefaults standardUserDefaults] boolForKey:kUseSmallIcons];
-// }
-#if 1
-- (id)init {
-	self = [super init];
-	if (self != nil) {
-		applicationIcons = [[NSMutableDictionary alloc] init];
-	}
-	return self;
-}
-- (NSMutableDictionary *)applicationIcons {
-	return applicationIcons;
-}
-#endif
-
 - (QSObject *)parentOfObject:(QSObject *)object {
 	QSObject * parent = nil;
 	if ([object singleFilePath]) {
@@ -114,76 +89,28 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	if (NSWidth(rect) <= 32)
 		return NO;
 	NSString *path = [object singleFilePath];
-    
-	if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:nil]) {
-		LSItemInfoRecord infoRec;
-		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
-		if (infoRec.flags & kLSItemInfoIsApplication) {
-			NSString *bundleIdentifier = [[NSBundle bundleWithPath:path] bundleIdentifier];
 
-			NSString *handlerName = [[QSReg tableNamed:@"QSBundleDrawingHandlers"] objectForKey:bundleIdentifier];
-			if (handlerName) {
-				id handler = [QSReg getClassInstance:handlerName];
-				if (handler) {
-					if ([handler respondsToSelector:@selector(drawIconForObject:inRect:flipped:)])
-						return [handler drawIconForObject:(QSObject *)object inRect:(NSRect)rect flipped:(BOOL)flipped];
-					return NO;
-				}
-			}
-		}
-	}
-  return NO;
-  
-	if (!path || [[path pathExtension] caseInsensitiveCompare:@"prefpane"] != NSOrderedSame)
-		return NO;
+	if ([object isApplication]) {
+        NSString *bundleIdentifier = [[NSBundle bundleWithPath:path] bundleIdentifier];
 
-	NSImage *image = [NSImage imageNamed:@"PrefPaneTemplate"];
-
-	[image setSize:[[image bestRepresentationForSize:rect.size] size]];
-	//[image adjustSizeToDrawAtSize:rect.size];
-	[image drawInRect:rect fromRect:rectFromSize([image size]) operation:NSCompositeSourceOver fraction:1.0f];
-
-	if ([object iconLoaded]) {
-		NSImage *cornerBadge = [object icon];
-		if (cornerBadge != image) {
-
-			NSRect badgeRect = NSMakeRect(16+48+rect.origin.x, 16+36+rect.origin.y, 32, 32);
-			NSImageRep *bestBadgeRep = [cornerBadge bestRepresentationForSize:badgeRect.size];
-
-			[cornerBadge setSize:[bestBadgeRep size]];
-
-			[[NSColor colorWithDeviceWhite:1.0 alpha:0.8] set];
-			//NSRectFillUsingOperation(NSInsetRect(badgeRect, -14, -14), NSCompositeSourceOver);
-			NSBezierPath *path = [NSBezierPath bezierPath];
-			[path appendBezierPathWithRoundedRectangle:NSInsetRect(badgeRect, -10, -10) withRadius:4];
-
-			[[NSColor colorWithDeviceWhite:1.0 alpha:1.0] setFill];
-			[[NSColor colorWithDeviceWhite:0.75 alpha:1.0] setStroke];
-			[path fill];
-			[path stroke];
-
-			NSFrameRectWithWidth(NSInsetRect(badgeRect, -5, -5), 2);
-
-			[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationNone];
-			[cornerBadge drawInRect:badgeRect fromRect:rectFromSize([cornerBadge size]) operation:NSCompositeSourceOver fraction:1.0];
-			[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
-		}
-	}
-	return YES;
+        NSString *handlerName = [[QSReg tableNamed:@"QSBundleDrawingHandlers"] objectForKey:bundleIdentifier];
+        if (handlerName) {
+            id handler = [QSReg getClassInstance:handlerName];
+            if (handler) {
+                if ([handler respondsToSelector:@selector(drawIconForObject:inRect:flipped:)])
+                    return [handler drawIconForObject:object inRect:rect flipped:flipped];
+                return NO;
+            }
+        }
+    }
+    return NO;
 }
 
 - (NSString *)kindOfObject:(QSObject *)object {
-	NSString *path = [object singleFilePath];
-	LSItemInfoRecord infoRec;
-	LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
-	if (infoRec.flags & kLSItemInfoIsApplication) {
-		LSItemInfoRecord infoRec;
-		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
-		if (infoRec.flags & kLSItemInfoIsApplication) {
-			return @"QSKindApplication";
-		}
-	}
-	return nil;
+    if ([object isApplication])
+        return @"QSKindApplication";
+
+    return nil;
 }
 
 - (NSString *)detailsOfObject:(QSObject *)object {
@@ -198,21 +125,17 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		} else {
 			return [path stringByAbbreviatingWithTildeInPath];
 		}
-	} else if ([theFiles count] >1) {
+	} else if ([theFiles count] > 1) {
 		return [[theFiles arrayByPerformingSelector:@selector(lastPathComponent)] componentsJoinedByString:@", "];
 	}
 	return nil;
 }
 
 - (void)setQuickIconForObject:(QSObject *)object {
-	NSString *path = [object singleFilePath];
-	BOOL isDirectory;
-	[[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory];
-	if (isDirectory)
-		if ([[path pathExtension] isEqualToString:@"app"] || [[NSArray arrayWithObject:@"'APPL'"] containsObject:NSHFSTypeOfFile(path)])
-			[object setIcon:[QSResourceManager imageNamed:@"GenericApplicationIcon"]];
-		else
-			[object setIcon:[QSResourceManager imageNamed:@"GenericFolderIcon"]];
+    if ([object isApplication])
+        [object setIcon:[QSResourceManager imageNamed:@"GenericApplicationIcon"]];
+	else if ([object isDirectory])
+        [object setIcon:[QSResourceManager imageNamed:@"GenericFolderIcon"]];
 	else
 		[object setIcon:[QSResourceManager imageNamed:@"UnknownFSObjectIcon"]];
 }
@@ -239,7 +162,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			[set removeObject:@"'fold'"];
 			[set addObject:@"'fldr'"];
 		}
-		
+
 		if ([set count] == 1) {
 			theImage = [w iconForFileType:[set anyObject]];
 		} else {
@@ -250,7 +173,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	// set temporary image until preview icon is generated
 	theImage = [self prepareImageforIcon:theImage];
 	[object setIcon:theImage];
-	
+
 	// if it's a single file, try to create preview icon
 	// this has to be started after the temporary icon is set, so the preview icon
 	// wont be overwritten by the temporary icon
@@ -262,65 +185,53 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	return YES;
 }
 
--(void)previewIcon:(id)object {
+- (void)previewIcon:(QSObject *)object {
 	NSImage *theImage = nil;
-	NSArray *theFiles = [object arrayForType:QSFilePathType];
-	NSString *path = [theFiles lastObject];
-	NSString *firstFile = [theFiles objectAtIndex:0];
+	NSString *path = [[object arrayForType:QSFilePathType] lastObject];
 	NSFileManager *manager = [NSFileManager defaultManager];
-	
+
 	// the object isn't a file/doesn't exist, so return. shouldn't actually happen
 	if (![manager fileExistsAtPath:path]) {
 		return;
 	}
-	LSItemInfoRecord infoRec;
-	//OSStatus status=
-	LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
-		
-	// try preview icon
-	if (!theImage && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
-		// do preview icon loading in separate thread (using NSOperationQueue)
-		theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSMaxIconSize asIcon:YES];
-	}
-		
-	// Just for prefpanes?
-	if (!theImage && infoRec.flags & kLSItemInfoIsPackage) {
-		NSBundle *bundle = [NSBundle bundleWithPath:firstFile];
-		NSString *bundleImageName = nil;
-		if ([[firstFile pathExtension] isEqualToString:@"prefPane"]) {
-			bundleImageName = [[bundle infoDictionary] objectForKey:@"NSPrefPaneIconFile"];
-			
-			if (!bundleImageName) bundleImageName = [[bundle infoDictionary] objectForKey:@"CFBundleIconFile"];
-			if (bundleImageName) {
-				NSString *bundleImagePath = [bundle pathForResource:bundleImageName ofType:nil];
-				theImage = [[[NSImage alloc] initWithContentsOfFile:bundleImagePath] autorelease];
-			}
-		}
-	}
-	
-	// try QS's own methods to generate a preview
-	if (!theImage && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
-		NSString *type = [manager typeOfFile:path];
-		if ([[NSImage imageUnfilteredFileTypes] containsObject:type])
-			theImage = [[[NSImage alloc] initWithContentsOfFile:path] autorelease];
-		else {
-			id provider = [QSReg instanceForKey:type inTable:@"QSFSFileTypePreviewers"];
-			//NSLog(@"provider %@", [QSReg tableNamed:@"QSFSFileTypePreviewers"]);
-			theImage = [provider iconForFile:path ofType:type];
-		}
-	}
-	
-	// fallback, if no of the other methods worked: just use icon for filetype
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
+        // try to create a preview icon
+        NSString *uti = [object fileUTI];
+        // try customized methods (from plug-ins) to generate a preview
+        NSArray *specialTypes = [[QSReg tableNamed:@"QSFSFileTypePreviewers"] allKeys];
+        for (NSString *type in specialTypes) {
+            if (UTTypeConformsTo((CFStringRef)uti, (CFStringRef)type)) {
+                id provider = [QSReg instanceForKey:type inTable:@"QSFSFileTypePreviewers"];
+                if (provider) {
+                    //NSLog(@"provider %@", [QSReg tableNamed:@"QSFSFileTypePreviewers"]);
+                    theImage = [provider iconForFile:path ofType:type];
+                    break;
+                }
+            }
+        }
+        if (!theImage) {
+            NSArray *previewTypes = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSFilePreviewTypes"];
+            for (NSString *type in previewTypes) {
+                if (UTTypeConformsTo((CFStringRef)uti, (CFStringRef)type)) {
+                    // do preview icon loading in separate thread
+                    theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSMaxIconSize asIcon:YES];
+                    break;
+                }
+            }
+        }
+    }
+	// if no of the other methods worked or previews are disabled: just use icon for filetype
 	if (!theImage) {
 		theImage = [[NSWorkspace sharedWorkspace] iconForFile:path];
 	}
-	
+
 	theImage = [self prepareImageforIcon:theImage];
 	
 	[object updateIcon:theImage];
 }
 
--(NSImage *)prepareImageforIcon:(NSImage *)theImage {
+- (NSImage *)prepareImageforIcon:(NSImage *)theImage {
 	// last fallback, other methods didn't work
 	if (!theImage) theImage = [QSResourceManager imageNamed:@"GenericQuestionMarkIcon"];
 
@@ -329,7 +240,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		[theImage createRepresentationOfSize:NSMakeSize(32, 32)];
 		[theImage createRepresentationOfSize:NSMakeSize(16, 16)];
 	}
-	
+
 	// remove all image representations that are larger then QSMaxIconSize
 	// not really sure if this is needed or even makes sense
 	// but it was in here before, but only removing exactly the 
@@ -340,7 +251,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			[theImage removeRepresentation:imgRep];
 		}
 	}
-	
+
 	return theImage;
 }
 
@@ -348,19 +259,16 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	BOOL isDirectory;
 	NSString *path = [object singleFilePath];
 	if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory]) {
-        
-		LSItemInfoRecord infoRec;
-		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
-        
+
         // A plain folder (not a package) has children
-        if (isDirectory && !(infoRec.flags & kLSItemInfoIsPackage)) {
+        if ([object isDirectory] && ![object isPackage]) {
             return YES;
         }
 
         // If it's an app check to see if there's a handler for it (e.g. a plugin) or if there are recent documents
-		if (infoRec.flags & kLSItemInfoIsApplication) {
+		if ([object isApplication]) {
 			NSString *bundleIdentifier = [[NSBundle bundleWithPath:path] bundleIdentifier];
-            
+
             // Does the app have an external handler? (e.g. a plugin)
 			NSString *handlerName = [[QSReg tableNamed:@"QSBundleChildHandlers"] objectForKey:bundleIdentifier];
 			if (handlerName) {
@@ -381,30 +289,27 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
                 }
             }
 		}
-        
-        // If there is a valid file parser (text or HTML parser) the object has children    
-        NSString *uti = QSUTIWithLSInfoRec(path, &infoRec);
+
+        // If there is a valid file parser (text or HTML parser) the object has children
+        NSString *uti = [object fileUTI];
         id <QSParser> parser = [QSReg instanceForKey:uti inTable:@"QSFSFileTypeParsers"];
         if (parser) {
             return YES;
         }
-        
+
         // An alias has children (the resolved file)
-		if (infoRec.flags & kLSItemInfoIsAliasFile) {
+		if ([object isAlias]) {
             return YES;
         }
 	}
-    
 	return NO;
-
 }
+
 - (BOOL)objectHasValidChildren:(QSObject *)object {
 	if ([object fileCount] == 1) {
 		NSString *path = [object singleFilePath];
 
-		LSItemInfoRecord infoRec;
-		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
-		if (infoRec.flags & kLSItemInfoIsApplication) {
+		if ([object isApplication]) {
 			NSString *bundleIdentifier = [[NSBundle bundleWithPath:path] bundleIdentifier];
 			NSString *handlerName = [[QSReg tableNamed:@"QSBundleChildHandlers"] objectForKey:bundleIdentifier];
 			if (handlerName) {
@@ -419,41 +324,41 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		}
 
 		NSTimeInterval modDate = [[[[NSFileManager defaultManager] attributesOfItemAtPath:path error:NULL] fileModificationDate] timeIntervalSinceReferenceDate];
-		if (modDate>[object childrenLoadedDate]) return NO;
+		if (modDate > [object childrenLoadedDate]) return NO;
 	}
 	return YES;
 
 }
 
-- (NSDragOperation) operationForDrag:(id <NSDraggingInfo>)sender ontoObject:(QSObject *)dObject withObject:(QSBasicObject *)iObject {
+- (NSDragOperation)operationForDrag:(id <NSDraggingInfo>)sender ontoObject:(QSObject *)dObject withObject:(QSBasicObject *)iObject {
 	if (![iObject arrayForType:QSFilePathType])
 		return 0;
-	if ([dObject fileCount] >1)
+	if ([dObject fileCount] > 1)
 		return NSDragOperationGeneric;
 	NSDragOperation sourceDragMask = [sender draggingSourceOperationMask];
 	if ([dObject isApplication])
 		return NSDragOperationPrivate;
-	else if ([dObject isFolder]) {
-		NSDragOperation defaultOp = [[NSFileManager defaultManager] defaultDragOperationForMovingPaths:[iObject	validPaths] toDestination:[dObject singleFilePath]];
+	else if ([dObject isDirectory]) {
+		NSDragOperation defaultOp = [[NSFileManager defaultManager] defaultDragOperationForMovingPaths:[iObject validPaths] toDestination:[dObject singleFilePath]];
 		if (defaultOp == NSDragOperationMove) {
-			if (sourceDragMask&NSDragOperationMove)
+			if (sourceDragMask & NSDragOperationMove)
 				return NSDragOperationMove;
-			else if (sourceDragMask&NSDragOperationCopy)
+			else if (sourceDragMask & NSDragOperationCopy)
 				return NSDragOperationCopy;
 		} else if (defaultOp == NSDragOperationCopy)
 			return NSDragOperationCopy;
 	}
-	return sourceDragMask&NSDragOperationGeneric;
+	return sourceDragMask & NSDragOperationGeneric;
 }
 - (NSString *)actionForDragMask:(NSDragOperation)operation ontoObject:(QSObject *)dObject withObject:(QSBasicObject *)iObject {
-	if ([dObject fileCount] >1)
+	if ([dObject fileCount] > 1)
 		return 0;
 	if ([dObject isApplication]) {
 		return @"FileOpenWithAction";
-	} else if ([dObject isFolder]) {
-		if (operation&NSDragOperationMove)
+	} else if ([dObject isDirectory]) {
+		if (operation & NSDragOperationMove)
 			return @"FileMoveToAction";
-		else if (operation&NSDragOperationCopy)
+		else if (operation & NSDragOperationCopy)
 			return @"FileCopyToAction";
 	}
 	return 0;
@@ -474,50 +379,53 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 	if ([object fileCount] == 1) {
 		NSString *path = [object singleFilePath];
-		if (![path length]) return NO;
-		BOOL isDirectory;
+		if (!path || ![path length]) return NO;
 		NSFileManager *manager = [NSFileManager defaultManager];
 
-		LSItemInfoRecord infoRec;
-		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path], kLSRequestAllInfo, &infoRec);
-        [(NSString*)infoRec.extension autorelease];
-
-		if (infoRec.flags & kLSItemInfoIsAliasFile) {
+        if ([object isAlias]) {
+            /* Resolve the alias before loading its children */
+            BOOL isDirectory;
 			path = [manager resolveAliasAtPath:path];
-			if ([manager fileExistsAtPath:path isDirectory:&isDirectory] && !isDirectory) {
+			if (![manager fileExistsAtPath:path isDirectory:&isDirectory]) {
+                /* Alias can't be resolved : no children */
+                return NO;
+            } else if (!isDirectory) {
+                /* Alias is a file, set it as object's child */
 				[object setChildren:[NSArray arrayWithObject:[QSObject fileObjectWithPath:path]]];
 				return YES;
 			}
 		}
 
-		NSMutableArray *fileChildren = [NSMutableArray arrayWithCapacity:1];
-		NSMutableArray *visibleFileChildren = [NSMutableArray arrayWithCapacity:1];
-        
-        NSError *err = nil;
-        // pre-fetch the required info (hidden key) for the dir contents to speed up the task
-        NSArray *dirContents = [manager contentsOfDirectoryAtURL:[NSURL fileURLWithPath:path] includingPropertiesForKeys:[NSArray arrayWithObject:NSURLIsHiddenKey] options:0 error:&err];
-        if (err) {
-            NSLog(@"Error loading files: %@",err);
-        }
-        for (NSURL *individualURL in dirContents) {
-            [fileChildren addObject:[individualURL path]];
-            NSNumber *isHidden = 0;
-            [individualURL getResourceValue:&isHidden forKey:NSURLIsHiddenKey error:nil];
-            if (![isHidden boolValue]) {
-                [visibleFileChildren addObject:[individualURL path]];
+        if ([object isDirectory]) {
+            NSMutableArray *fileChildren = [NSMutableArray arrayWithCapacity:1];
+            NSMutableArray *visibleFileChildren = [NSMutableArray arrayWithCapacity:1];
+            
+            NSError *err = nil;
+            // pre-fetch the required info (hidden key) for the dir contents to speed up the task
+            NSArray *dirContents = [manager contentsOfDirectoryAtURL:[NSURL fileURLWithPath:path] includingPropertiesForKeys:[NSArray arrayWithObject:NSURLIsHiddenKey] options:0 error:&err];
+            if (!dirContents) {
+                NSLog(@"Error loading files: %@", err);
+                return NO;
             }
- 		}
-        // sort the files like Finder does. Note: Casting array to NSMutable array so don't try and alter these arrays later on
-        fileChildren = (NSMutableArray *)[fileChildren sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
-        visibleFileChildren = (NSMutableArray *)[visibleFileChildren sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
-        
+            for (NSURL *individualURL in dirContents) {
+                [fileChildren addObject:[individualURL path]];
+                NSNumber *isHidden = 0;
+                [individualURL getResourceValue:&isHidden forKey:NSURLIsHiddenKey error:nil];
+                if (![isHidden boolValue]) {
+                    [visibleFileChildren addObject:[individualURL path]];
+                }
+            }
+            // sort the files like Finder does. Note: Casting array to NSMutable array so don't try and alter these arrays later on
+            fileChildren = (NSMutableArray *)[fileChildren sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
+            visibleFileChildren = (NSMutableArray *)[visibleFileChildren sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
 
-		newChildren = [QSObject fileObjectsWithPathArray:visibleFileChildren];
-		newAltChildren = [QSObject fileObjectsWithPathArray:fileChildren];
+            newChildren = [QSObject fileObjectsWithPathArray:visibleFileChildren];
+            newAltChildren = [QSObject fileObjectsWithPathArray:fileChildren];
 
-		if (newAltChildren) [object setAltChildren:newAltChildren];
+            if (newAltChildren) [object setAltChildren:newAltChildren];
+        }
 
-		if (infoRec.flags & kLSItemInfoIsApplication) {
+		if ([object isApplication]) {
 			// ***warning * omit other types of bundles
 			//newChildren = nil;
 
@@ -530,13 +438,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			if (handler) {
 				return [handler loadChildrenForObject:object];
 			} else {
-				if (!bundlePresetChildren) {
-					bundlePresetChildren = [QSReg tableNamed:@"QSBundleChildPresets"];
-					//[[NSDictionary dictionaryWithContentsOfFile:
-					//	[[NSBundle mainBundle] pathForResource:@"BundleChildPresets" ofType:@"plist"]]retain];
-				}
-
-				NSString *childPreset = [bundlePresetChildren objectForKey:bundleIdentifier];
+				NSString *childPreset = [[QSReg tableNamed:@"QSBundleChildPresets"] objectForKey:bundleIdentifier];
 				if (childPreset) {
 #ifdef DEBUG
 					if (VERBOSE) NSLog(@"using preset %@", childPreset);
@@ -559,11 +461,11 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 				}
 			}
 
-		} else if ((infoRec.flags & kLSItemInfoIsPackage) || !(infoRec.flags & kLSItemInfoIsContainer) ) {
+		} else if ([object isPackage] || ![object isDirectory]) {
 			//NSString *type = [[NSFileManager defaultManager] typeOfFile:path];
 
-			NSString *uti = QSUTIWithLSInfoRec(path, &infoRec);
-            
+			NSString *uti = [object fileUTI];
+
 			id <QSParser> parser = [QSReg instanceForKey:uti inTable:@"QSFSFileTypeParsers"];
 			NSArray *children = [parser objectsFromPath:path withSettings:nil];
 			if (children) {
@@ -578,33 +480,27 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	}
 
 	if (newChildren) [object setChildren:newChildren];
-    
+
 	return YES;
 }
 
 - (NSArray *)actionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
-    NSString *path = [dObject objectForType:QSFilePathType];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:nil]) {
-        LSItemInfoRecord infoRec;
-        LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);
-        if (infoRec.flags & kLSItemInfoIsApplication) {
-            NSMutableArray *actions = (NSMutableArray *)[QSExec validActionsForDirectObject:dObject indirectObject:iObject];
-            NSString *bundleIdentifier = [[NSBundle bundleWithPath:path] bundleIdentifier];
+    if ([dObject isApplication]) {
+        NSMutableArray *actions = (NSMutableArray *)[QSExec validActionsForDirectObject:dObject indirectObject:iObject];
+        NSString *path = [dObject singleFilePath];
+        NSString *bundleIdentifier = [[NSBundle bundleWithPath:path] bundleIdentifier];
 
-            //NSLog(@"actions %d", [actions count]);
-            NSDictionary *appActions = [[QSReg tableNamed:@"QSApplicationActions"] objectForKey:bundleIdentifier];
-			if([appActions count]) {
+        //NSLog(@"actions %d", [actions count]);
+        NSDictionary *appActions = [[QSReg tableNamed:@"QSApplicationActions"] objectForKey:bundleIdentifier];
+        if([appActions count]) {
             for(NSString *actionID in appActions) {
 				NSDictionary *actionDict = [appActions objectForKey:actionID];
                 actionDict = [[actionDict copy] autorelease];
                 [actions addObject:[QSAction actionWithDictionary:actionDict identifier:actionID]];
             }
-			}
-            //    NSLog(@"actions %d", [actions count]);
-
-            return actions;
-
         }
+        //    NSLog(@"actions %d", [actions count]);
+        return actions;
     }
     return nil;
 }
@@ -613,8 +509,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 @implementation QSBasicObject (FileHandling)
 
-- (NSString *)singleFilePath {return [self objectForType:QSFilePathType];
-}
+- (NSString *)singleFilePath {return [self objectForType:QSFilePathType];}
 
 - (NSString *)validSingleFilePath {
 	NSString *path = [self objectForType:QSFilePathType];
@@ -710,13 +605,13 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		[existingObject retain];
 		return existingObject;
 	}
-	
+
 	// if no previous object has been created, then create a new one
 	if (self = [self init]) {
 		if ([paths count] == 1) {
 			NSString *path = [paths lastObject];
 			[[self dataDictionary] setObject:path forKey:QSFilePathType];
-			NSString *uti = QSUTIOfFile(path);
+			NSString *uti = [self fileUTI];
 			id handler = [QSReg instanceForKey:uti inTable:@"QSFileObjectCreationHandlers"];
 			if (handler) {
 				if ([handler respondsToSelector:@selector(createFileObject:ofType:)])
@@ -736,27 +631,96 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	return self;
 }
 
-// Checks to see if the object in question is an application
-- (BOOL)isApplication {
-	NSString *path = [self singleFilePath];
-    if(!path) {
-        return NO;
+- (NSDictionary *)infoRecord {
+    NSDictionary *dict;
+    if (dict = [self objectForCache:@"QSItemInfoRecord"])
+        return dict;
+    
+    NSString *path = [self validSingleFilePath];
+    if (!path)
+        return nil;
+
+	/* Try to get information for this file */
+    LSItemInfoRecord record;
+    OSStatus status = LSCopyItemInfoForURL((CFURLRef)[NSURL fileURLWithPath:path], kLSRequestAllInfo, &record);
+    if (status) {
+        NSLog(@"LSCopyItemInfoForURL error: %ld", (long)status);
+        return nil;
     }
-	LSItemInfoRecord infoRec;
-	LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);
-	return (infoRec.flags & kLSItemInfoIsApplication);
+
+	NSString *uti = QSUTIForExtensionOrType((NSString *)record.extension, record.filetype);
+    NSString *extension = [(NSString *)record.extension copy];
+    
+    /* local or network volume? does it support Trash? */
+    struct statfs sfsb;
+    statfs([path UTF8String], &sfsb);
+    NSString *device = [NSString stringWithCString:sfsb.f_mntfromname encoding:NSUTF8StringEncoding];
+    BOOL isLocal = [device hasPrefix:@"/dev/"];
+    
+	/* Now build a dictionary with that record */
+	NSMutableDictionary *tempDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+			[NSNumber numberWithUnsignedInt:record.flags], @"flags",
+			[NSValue valueWithOSType:record.filetype],     @"filetype",
+			[NSValue valueWithOSType:record.creator],      @"creator",
+            [NSNumber numberWithBool:isLocal],             @"localVolume",
+			nil];
+    if (uti) {
+        [tempDict setObject:uti forKey:@"uti"];
+    }
+    if (extension) {
+        [tempDict setObject:extension forKey:@"extension"];
+    }
+    dict = [NSDictionary dictionaryWithDictionary:tempDict];
+	/* Release the file's extension if one was returned */
+	if (record.extension)
+		CFRelease(record.extension);
+
+    [self setObject:dict forCache:@"QSItemInfoRecord"];
+    return dict;
+}
+
+- (BOOL)checkInfoRecordFlags:(LSItemInfoFlags)infoFlags {
+	NSDictionary *infoRec = [self infoRecord];
+	NSNumber *fileFlags = [infoRec objectForKey:@"flags"];
+	if (!fileFlags)
+		return NO;
+	unsigned int numFlags = [fileFlags unsignedIntValue];
+	return numFlags & infoFlags;
+}
+
+- (BOOL)isApplication {
+	return [self checkInfoRecordFlags:kLSItemInfoIsApplication];
+}
+
+- (BOOL)isDirectory {
+	return [self checkInfoRecordFlags:kLSItemInfoIsContainer];
 }
 
 - (BOOL)isFolder {
-	BOOL isDirectory;
-	return ([[NSFileManager defaultManager] fileExistsAtPath:[self singleFilePath] isDirectory:&isDirectory]) ? isDirectory : NO;
+    return ([self isDirectory] && ![self isPackage]);
 }
 
-- (NSString *)localizedPrefPaneKind {
-	static NSString *prefPaneKindString = nil;
-	if (!prefPaneKindString)
-		prefPaneKindString = [[[NSBundle bundleWithPath:[[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:@"com.apple.systempreferences"]] localizedStringForKey:@"PREF_PANE" value:@" Preferences" table:nil] retain];
-	return prefPaneKindString;
+- (BOOL)isPackage {
+	return [self checkInfoRecordFlags:kLSItemInfoIsPackage];
+}
+
+- (BOOL)isAlias {
+	return [self checkInfoRecordFlags:kLSItemInfoIsAliasFile];
+}
+
+- (BOOL)isOnLocalVolume {
+	NSDictionary *infoRec = [self infoRecord];
+    return [[infoRec objectForKey:@"localVolume"] boolValue];
+}
+
+- (NSString *)fileExtension {
+	NSDictionary *infoRec = [self infoRecord];
+    return [infoRec objectForKey:@"extension"];
+}
+
+- (NSString *)fileUTI {
+    NSDictionary *infoRec = [self infoRecord];
+    return [infoRec objectForKey:@"uti"];
 }
 
 - (NSString *)bundleNameFromInfoDict:(NSDictionary *)infoDict {
@@ -803,7 +767,6 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 - (void)getNameFromFiles {
-	NSFileManager *manager = [[NSFileManager alloc] init];
 	NSString *newName = nil;
 	NSString *newLabel = nil;
 	if ([self count] >1) {
@@ -824,10 +787,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			newName = [path lastPathComponent];
 		}
 		// check packages for a descriptive name
-		LSItemInfoRecord infoRec;
-		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path] , kLSRequestBasicFlagsOnly, &infoRec);
-		if (infoRec.flags & kLSItemInfoIsPackage) {
-			newLabel = [self descriptiveNameForPackage:(NSString *)path withKindSuffix:!(infoRec.flags & kLSItemInfoIsApplication)];
+		if ([self isPackage]) {
+			newLabel = [self descriptiveNameForPackage:path withKindSuffix:![self isApplication]];
 		}
 		// look for a more suitable display name
 		if (!newLabel || [newLabel isEqualToString:newName]) {
@@ -837,13 +798,12 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 				newLabel = [(NSString *)MDItemCopyAttribute(mdItem, kMDItemDisplayName) autorelease];
 			}
 			if (!newLabel) {
-				newLabel = [manager displayNameAtPath:path];
+				newLabel = [[NSFileManager defaultManager] displayNameAtPath:path];
 			}
 		}
 		// discard the label if it's still identical to name
 		if ([newLabel isEqualToString:newName]) newLabel = nil;
 	}
-    [manager release];
 	[self setName:newName];
 	[self setLabel:newLabel];
 }
@@ -904,13 +864,6 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	NSString *kind;
 	return (!path || LSCopyKindStringForURL((CFURLRef) [NSURL fileURLWithPath:path], (CFStringRef *)&kind)) ? nil : [kind autorelease];
 }
-
-#if 0
-- (QSObject *)fileObjectByMergingWith:(QSObject *)mergeObject {
-	// NSArray *moreFiles = [[mergeObject dataDictionary] objectForKey:QSFilePathType;
-	return nil;
-}
-#endif
 
 @end
 

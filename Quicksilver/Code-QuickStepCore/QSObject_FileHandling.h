@@ -10,10 +10,7 @@
 - (NSData *)fileRepresentationForObject:(QSObject *)object;
 - (NSString *)filenameForObject:(QSObject *)object;
 @end
-
-@interface QSFileSystemObjectHandler : NSObject {
-    NSMutableDictionary *applicationIcons;
-}
+@interface QSFileSystemObjectHandler : NSObject
 
 // Added by Patrick Robertson 30/06/11 in Pull #388. QSObject_FileHandling.h/.m are a mess and it's unclear as to wether
 // this is required. Any developers working on tidying these files should check the necessity/requirement of this definition
@@ -25,7 +22,7 @@
 - (NSString *)validSingleFilePath;
 - (NSArray *)validPaths;
 - (NSArray *)validPathsResolvingAliases:(BOOL)resolve;
-- (NSInteger) fileCount;
+- (NSInteger)fileCount;
 @end
 
 @interface NSObject (QSFilePreviewProvider)
@@ -41,16 +38,18 @@
 - (id)initWithArray:(NSArray *)paths;
 - (void)getNameFromFiles;
 - (NSString *)kindOfFile:(NSString *)path;
-	//		NSLog(@"name %@ %@ %@", newName, newLabel, [path lastPathComponent]);
 - (NSString *)filesContainer;
 - (NSString *)filesType;
-//- (QSObject *)fileObjectByMergingWith:(QSObject *)mergeObject;
 - (BOOL)isApplication;
-- (BOOL)isFolder;
+- (BOOL)isDirectory; // YES for all directories
+- (BOOL)isFolder;    // YES for directories that aren't packages
+- (BOOL)isPackage;
+- (BOOL)isAlias;
+- (BOOL)isOnLocalVolume;
+- (NSString *)fileExtension;
+- (NSString *)fileUTI;
 - (NSString *)singleFileType;
-- (NSArray *)validPaths;
-- (NSArray *)validPathsResolvingAliases:(BOOL)resolve;
 
--(void)previewIcon:(id)file;
+- (void)previewIcon:(id)file;
 @end
 

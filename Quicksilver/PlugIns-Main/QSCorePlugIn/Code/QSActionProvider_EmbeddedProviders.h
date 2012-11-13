@@ -22,10 +22,7 @@
 
 
 @interface FSActions : QSActionProvider {
-	NSArray *universalApps;
 }
-- (NSArray *)universalApps;
-- (void)setUniversalApps:(NSArray *)anUniversalApps;
 - (BOOL)filesExist:(NSArray *)paths;
 - (QSObject *)moveFiles:(QSObject *)dObject toFolder:(QSObject *)iObject;
 - (QSObject *)copyFiles:(QSObject *)dObject toFolder:(QSObject *)iObject NS_RETURNS_NOT_RETAINED;

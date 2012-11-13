@@ -276,36 +276,12 @@
 
 @implementation FSActions
 
-- (NSArray *)universalApps {
-	if (!universalApps) {
-		QSTaskController *qstc = [QSTaskController sharedInstance];
-		[qstc updateTask:@"Updating Application Database" status:@"Updating Applications" progress:-1];
-		universalApps = (NSArray *)LSCopyApplicationURLsForURL((CFURLRef)[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"wildcard" ofType:@"*"]], kLSRolesAll);
-		[qstc removeTask:@"Updating Application Database"];
-	}
-	[self performSelector:@selector(setUniversalApps:) withObject:nil afterDelay:10*MINUTES extend:YES];
-	return universalApps;
-}
-
-- (void)setUniversalApps:(NSArray *)anUniversalApps {
-	if (universalApps != anUniversalApps) {
-		[universalApps release];
-		universalApps = [anUniversalApps retain];
-	}
-}
-
-- (void)dealloc {
-	[universalApps release];
-	[super dealloc];
-}
-
 // This method validates the 3rd pane for the core plugin actions
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
 	// Only return an array if the dObject is a file
 	if(![dObject validPaths]) {
 		return nil;
 	}
-	NSMutableArray *validIndirects = [NSMutableArray arrayWithCapacity:1];
 	if ([action isEqualToString:kFileOpenWithAction]) {
 		NSURL *fileURL = nil;
 		// comma trick - get a list of apps based on the 1st selected file
@@ -315,19 +291,21 @@
 
 		if (fileURL) LSGetApplicationForURL((CFURLRef) fileURL, kLSRolesAll, NULL, (CFURLRef *)&appURL);
 
-		NSMutableSet *set = [NSMutableSet set];
-
-		[set addObjectsFromArray:[(NSArray *)LSCopyApplicationURLsForURL((CFURLRef)fileURL, kLSRolesAll) autorelease]];
-		[set addObjectsFromArray:[self universalApps]];
-
-		validIndirects = [[QSLibrarian sharedInstance] scoredArrayForString:nil inSet:[QSObject fileObjectsWithURLArray:[set allObjects]]];
-
+        NSMutableArray *fileObjects = [[QSLib arrayForType:QSFilePathType] mutableCopy];
+        
 		id preferred = [QSObject fileObjectWithPath:[appURL path]];
-		if (!preferred)
-			preferred = [NSNull null];
+		if (preferred) {
+			[fileObjects removeObject:preferred];
+            [fileObjects insertObject:preferred atIndex:0];
+        }
+        
+        NSIndexSet *applicationIndexes = [fileObjects indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *thisObject, NSUInteger i, BOOL *stop) {
+            return ([thisObject isApplication]);
+        }];
 
         [appURL release];
-		return [NSArray arrayWithObjects:preferred, validIndirects, nil];
+        [fileObjects autorelease];
+		return [fileObjects objectsAtIndexes:applicationIndexes];
 	} else if ([action isEqualToString:kFileRenameAction]) {
 		// return a text object (empty text box) to rename a file
 		NSString *path = [dObject singleFilePath];
@@ -336,9 +314,8 @@
 	} else if ([action isEqualToString:@"QSNewFolderAction"]) {
 		return [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@"untitled folder"]];
 	} else if ([action isEqualToString:kFileMoveToAction] || [action isEqualToString:kFileCopyToAction]) {
-		// We only want folders for the move to / copy to actions (can't move to anything else)
+        // We only want folders for the move to / copy to actions (can't move to anything else)
         NSMutableArray *fileObjects = [[[QSLibrarian sharedInstance] arrayForType:QSFilePathType] mutableCopy];
-		BOOL isDirectory;
         NSString *currentFolderPath = [[[[dObject splitObjects] lastObject] singleFilePath] stringByDeletingLastPathComponent];
         // if it wasn't in the catalog, create it from scratch
         if (currentFolderPath) {
@@ -346,19 +323,11 @@
             [fileObjects removeObject:currentFolderObject];
             [fileObjects insertObject:currentFolderObject atIndex:0];
         }
-        NSWorkspace *ws = [[NSWorkspace sharedWorkspace] retain];
-        NSFileManager *fm = [[NSFileManager alloc] init];
-		for(QSObject *thisObject in fileObjects) {
-			NSString *path = [thisObject singleFilePath];
-			if ([fm fileExistsAtPath:path isDirectory:&isDirectory]) {
-				if (isDirectory && ![ws isFilePackageAtPath:path])
-					[validIndirects addObject:thisObject];
-			}
-		}
-        [fileObjects release];
-        [ws release];
-        [fm release];
-		return validIndirects;
+        NSIndexSet *folderIndexes = [fileObjects indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *thisObject, NSUInteger i, BOOL *stop) {
+            return [thisObject isFolder];
+        }];
+        [fileObjects autorelease];
+        return [fileObjects objectsAtIndexes:folderIndexes];
 	}
 	return nil;
 }
@@ -377,6 +346,13 @@
 		[newActions addObject:kFileGetInfoAction];
       // !!! Andre Berg 20091112: shouldn't the following also be added?
       [newActions addObject:kFileAlwaysOpenWithAction];
+        // can all files be trashed?
+        for (QSObject *file in [dObject splitObjects]) {
+            if (![file isOnLocalVolume]) {
+                [newActions removeObject:kFileToTrashAction];
+                break;
+            }
+        }
 	}
 	if ([dObject validSingleFilePath])
 		[newActions addObject:kFileRenameAction];
@@ -395,30 +371,25 @@
 - (QSObject *)openFile:(QSObject *)dObject {
 	NSFileManager *manager = [NSFileManager defaultManager];
 	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
-	LSItemInfoRecord infoRec;
-	for(NSString *thisFile in [dObject validPaths]) {
-		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:thisFile] , kLSRequestBasicFlagsOnly, &infoRec);
-		if (!(infoRec.flags & kLSItemInfoIsContainer) || (infoRec.flags & kLSItemInfoIsPackage) || ![mQSFSBrowser openFile:thisFile]) {
-			if (infoRec.flags & kLSItemInfoIsAliasFile) {
-				NSString *aliasFile = [manager resolveAliasAtPathWithUI:thisFile];
-				if (aliasFile && [manager fileExistsAtPath:aliasFile])
-					thisFile = aliasFile;
-			}
-			NSString *fileHandler = [dObject objectForMeta:@"QSPreferredApplication"];
-			if (fileHandler) {
+	for (QSObject *thisFile in [dObject splitObjects]) {
+        NSString *thisPath = [thisFile singleFilePath];
+        if ([thisFile isAlias]) {
+            NSString *aliasFile = [manager resolveAliasAtPathWithUI:thisPath];
+            if (aliasFile && [manager fileExistsAtPath:aliasFile])
+                thisPath = aliasFile;
+        }
+        NSString *fileHandler = [thisFile objectForMeta:@"QSPreferredApplication"];
+        if (fileHandler) {
 #ifdef DEBUG
-				if (VERBOSE) NSLog(@"Using %@", fileHandler);
+            if (VERBOSE) NSLog(@"Using %@", fileHandler);
 #endif
-				[ws openFile:thisFile withApplication:[ws absolutePathForAppBundleWithIdentifier:fileHandler]];
-			} else {
-//				if (![QSAction modifiersAreIgnored] && (GetCurrentKeyModifiers() & shiftKey)) { // Open in background
-//					NSLog(@"Launching in Background");
-//					[ws openFileInBackground:thisFile];
-//				} else {
-					[ws openFile:thisFile];
-//				}
-			}
-		}
+            // don't open with this app on subsequent calls
+            [thisFile setObject:nil forMeta:@"QSPreferredApplication"];
+            [ws openFile:thisPath withApplication:[ws absolutePathForAppBundleWithIdentifier:fileHandler]];
+        } else if (![mQSFSBrowser openFile:thisPath]) {  // try the File System Browser handler
+            // fallback to the workspace manager
+            [ws openFile:thisPath];
+        }
 	}
 	return nil;
 }
@@ -514,29 +485,47 @@
 }
 
 - (QSBasicObject *)trashFile:(QSObject *)dObject {
-	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
 	NSString *lastDeletedFile = nil;
+    BOOL trashed = NO;
+    NSMutableSet *failed = [[NSMutableSet alloc] init];
 	for(NSString *thisFile in [dObject arrayForType:QSFilePathType]) {
-		[ws performFileOperation:NSWorkspaceRecycleOperation source:[thisFile stringByDeletingLastPathComponent] destination:@"" files:[NSArray arrayWithObject:[thisFile lastPathComponent]] tag:nil];
-		[ws noteFileSystemChanged:[thisFile stringByDeletingLastPathComponent]];
-		lastDeletedFile = thisFile;
+        // if at least one file was trashed
+        if ([[NSFileManager defaultManager] movePathToTrash:thisFile]) {
+            trashed = YES;
+            lastDeletedFile = thisFile;
+        } else {
+            [failed addObject:[thisFile lastPathComponent]];
+        }
 	}
 	
-	// get settings for playing sound
-	Boolean isSet;
-	CFIndex val = CFPreferencesGetAppIntegerValue(CFSTR("com.apple.sound.uiaudio.enabled"),
-												   CFSTR("com.apple.systemsound"),
-												   &isSet);
-	if (val == 1 || !isSet) {
-		// play trash sound
-		CFURLRef soundURL = (CFURLRef)[NSURL fileURLWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"dragToTrash" ofType:@"aif"]];
-		SystemSoundID soundId;
-		AudioServicesCreateSystemSoundID(soundURL, &soundId);
-		AudioServicesPlaySystemSound(soundId);
-	}
+    if (trashed) {
+        // get settings for playing sound
+        Boolean isSet;
+        CFIndex val = CFPreferencesGetAppIntegerValue(CFSTR("com.apple.sound.uiaudio.enabled"),
+                                                      CFSTR("com.apple.systemsound"),
+                                                      &isSet);
+        if (val == 1 || !isSet) {
+            // play trash sound
+            CFURLRef soundURL = (CFURLRef)[NSURL fileURLWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"dragToTrash" ofType:@"aif"]];
+            SystemSoundID soundId;
+            AudioServicesCreateSystemSoundID(soundURL, &soundId);
+            AudioServicesPlaySystemSound(soundId);
+        }
+    }
+    if ([failed count]) {
+        //NSLog(@"unable to trash: %@", failed);
+		NSString *localizedErrorFormat = NSLocalizedStringFromTableInBundle(@"Unable to Trash:\n%@", nil, [NSBundle bundleForClass:[self class]], nil);
+        NSString *localizedTitle = NSLocalizedStringFromTableInBundle(@"Quicksilver Move to Trash", nil, [NSBundle bundleForClass:[self class]], nil);
+		NSString *errorMessage = [NSString stringWithFormat:localizedErrorFormat, [[failed allObjects] componentsJoinedByString:@", "]];
+		QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:@"QSTrashFileFailed", QSNotifierType, [QSResourceManager imageNamed:@"AlertCautionIcon"], QSNotifierIcon, localizedTitle, QSNotifierTitle, errorMessage, QSNotifierText, nil]);
+    }
+    [failed release];
 
 	// return folder that contained the last file that was deleted
-	return [QSObject fileObjectWithPath:[lastDeletedFile stringByDeletingLastPathComponent]];;
+    if (lastDeletedFile) {
+        return [QSObject fileObjectWithPath:[lastDeletedFile stringByDeletingLastPathComponent]];;
+    }
+    return nil;
 }
 
 - (QSObject *)openItemAtLogin:(QSObject *)dObject {
