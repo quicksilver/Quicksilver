@@ -25,7 +25,7 @@ extern id QSHist; // Shared Instance
 - (NSArray *)recentActions;
 
 - (void)addAction:(id)action;
-- (void)addCommand:(id)command;
+- (void)addCommand:(QSCommand *)command;
 - (void)addObject:(id)object;
 
 @end
