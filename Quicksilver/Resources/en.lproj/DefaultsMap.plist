@@ -84,7 +84,7 @@
 		<key>default</key>
 		<string>Shift Actions</string>
 		<key>title</key>
-		<string>Allow capitalised keys to select the action</string>
+		<string>Allow capitalized keys to select the action</string>
 		<key>type</key>
 		<string>checkbox</string>
 	</dict>

@@ -310,7 +310,6 @@
 		7FDBC3160A0153CA00E496FF /* Button-Add.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDBC3110A0153CA00E496FF /* Button-Add.png */; };
 		7FDBC5010A02D93400E496FF /* QSAdvancedPrefPane.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FDBC4FF0A02D93400E496FF /* QSAdvancedPrefPane.h */; };
 		7FDBC5020A02D93400E496FF /* QSAdvancedPrefPane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDBC5000A02D93400E496FF /* QSAdvancedPrefPane.m */; };
-		7FDBC51F0A02DB0700E496FF /* DefaultsMap.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7FDBC51E0A02DB0700E496FF /* DefaultsMap.plist */; };
 		7FDE06E909B1FFB900D394DF /* QSDroplet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F9703DD09AFEF8900E9EA77 /* QSDroplet.xib */; };
 		7FDF328A07F7B11800594789 /* QSObjectActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDF328807F7B11800594789 /* QSObjectActions.m */; };
 		7FDF341807F7D59E00594789 /* NSDictionary+BLTRExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FDF341607F7D59E00594789 /* NSDictionary+BLTRExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -381,6 +380,7 @@
 		CDE6C624157E39AE006E66BD /* QSFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = CDE6C623157E39AE006E66BD /* QSFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDE8ADBB15824E3E0099CC83 /* NDKeyboardLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = CDE8ADB915824E3E0099CC83 /* NDKeyboardLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDE8ADBC15824E3E0099CC83 /* NDKeyboardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE8ADBA15824E3E0099CC83 /* NDKeyboardLayout.m */; };
+		CDFAC91A1652EFAF006A0C5B /* DefaultsMap.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDFAC91C1652EFAF006A0C5B /* DefaultsMap.plist */; };
 		D413172F15DEE5D90021479B /* LaunchAtLoginController.h in Headers */ = {isa = PBXBuildFile; fileRef = D413172C15DEE5D90021479B /* LaunchAtLoginController.h */; };
 		D413173015DEE5D90021479B /* LaunchAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = D413172D15DEE5D90021479B /* LaunchAtLoginController.m */; };
 		D439387E15E2C4CF008F6548 /* QSICloudDocumentSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D439387D15E2C4CF008F6548 /* QSICloudDocumentSource.m */; };
@@ -1356,7 +1356,6 @@
 		7FDBC3110A0153CA00E496FF /* Button-Add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button-Add.png"; sourceTree = "<group>"; };
 		7FDBC4FF0A02D93400E496FF /* QSAdvancedPrefPane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSAdvancedPrefPane.h; sourceTree = "<group>"; };
 		7FDBC5000A02D93400E496FF /* QSAdvancedPrefPane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSAdvancedPrefPane.m; sourceTree = "<group>"; };
-		7FDBC51E0A02DB0700E496FF /* DefaultsMap.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = DefaultsMap.plist; sourceTree = "<group>"; };
 		7FDF328707F7B11800594789 /* QSObjectActions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSObjectActions.h; sourceTree = "<group>"; };
 		7FDF328807F7B11800594789 /* QSObjectActions.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSObjectActions.m; sourceTree = "<group>"; };
 		7FDF341607F7D59E00594789 /* NSDictionary+BLTRExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+BLTRExtensions.h"; sourceTree = "<group>"; };
@@ -1569,6 +1568,7 @@
 		CDFAC9111652E832006A0C5B /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CDFAC9121652E859006A0C5B /* zh-Hant-TW */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant-TW"; path = "zh-Hant-TW.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		CDFAC9191652E88D006A0C5B /* cy-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "cy-GB"; path = "cy-GB.lproj/About.strings"; sourceTree = "<group>"; };
+		CDFAC91B1652EFAF006A0C5B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/DefaultsMap.plist; sourceTree = "<group>"; };
 		D413172C15DEE5D90021479B /* LaunchAtLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchAtLoginController.h; sourceTree = "<group>"; };
 		D413172D15DEE5D90021479B /* LaunchAtLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchAtLoginController.m; sourceTree = "<group>"; };
 		D439387C15E2C4CF008F6548 /* QSICloudDocumentSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSICloudDocumentSource.h; sourceTree = "<group>"; };
@@ -2460,7 +2460,7 @@
 			children = (
 				D4A4383B137CCCF500F15F7F /* QSURLExtractor.py */,
 				7F4AD9150A4DA3D1002A2A1B /* Guide.html */,
-				7FDBC51E0A02DB0700E496FF /* DefaultsMap.plist */,
+				CDFAC91C1652EFAF006A0C5B /* DefaultsMap.plist */,
 				7F8403BD096A05E4006E6F0E /* GettingStarted.html */,
 				7F841766096CB23B006E6F0E /* GettingSupport.html */,
 				CDDB44ED1518ED3800800B66 /* CrashReporterText.html */,
@@ -3848,7 +3848,7 @@
 				E103F5110647238E00447FE0 /* ActionsPrecedence.plist in Resources */,
 				7F8401D109690F00006E6F0E /* ClientDescription.plist in Resources */,
 				E103ECF606471DBF00447FE0 /* DefaultMnemonics.plist in Resources */,
-				7FDBC51F0A02DB0700E496FF /* DefaultsMap.plist in Resources */,
+				CDFAC91A1652EFAF006A0C5B /* DefaultsMap.plist in Resources */,
 				E103ED1A06471DBF00447FE0 /* FileTypeGroups.plist in Resources */,
 				E18F8D2A072DBB1C00057774 /* PlugInVersionRequirements.plist in Resources */,
 				E1186AD606A6D6F700F3EA8E /* QSKindDescriptions.plist in Resources */,
@@ -5081,6 +5081,14 @@
 				CDFAC8BD1652E53E006A0C5B /* zh-Hant-TW */,
 			);
 			name = QSAction.commandFormat.strings;
+			sourceTree = "<group>";
+		};
+		CDFAC91C1652EFAF006A0C5B /* DefaultsMap.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CDFAC91B1652EFAF006A0C5B /* en */,
+			);
+			name = DefaultsMap.plist;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
