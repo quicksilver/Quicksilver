@@ -1,5 +1,6 @@
 [main]
 host = https://www.transifex.com
+lang_map = cy_GB: cy-GB, es_ES: es-ES, zh_TW: zh-Hant-TW, pt_BR: pt-BR
 
 [quicksilver.Quicksilver-About]
 file_filter = Quicksilver/Localized/<lang>.lproj/About.strings

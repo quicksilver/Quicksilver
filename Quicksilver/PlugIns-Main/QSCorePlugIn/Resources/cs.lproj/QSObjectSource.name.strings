@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>QSABMailRecentsObjectSource</key>
+	<string>Mail Previous Recipients</string>
+	<key>QSAddressBookObjectSource</key>
+	<string>Address Book</string>
+	<key>QSAirPortNetworkObjectSource</key>
+	<string>AirPort Networks</string>
+	<key>QSAllApplicationsObjectSource</key>
+	<string>All Applications</string>
+	<key>QSCatalogEntrySource</key>
+	<string>Catalog Entries</string>
+	<key>QSDefaultsObjectSource</key>
+	<string>Defaults Reader</string>
+	<key>QSFileSystemObjectSource</key>
+	<string>File &amp; Folder Scanner</string>
+	<key>QSGroupObjectSource</key>
+	<string>Group</string>
+	<key>QSMachineSource</key>
+	<string>Quicksilver Machines</string>
+	<key>QSNUDCSource</key>
+	<string>Now Up-To-Date and Contact</string>
+	<key>QSNetworkLocationObjectSource</key>
+	<string>Network Locations</string>
+	<key>QSProcessObjectSource</key>
+	<string>Running Processes</string>
+	<key>QSVolumesObjectSource</key>
+	<string>Mounted Volumes</string>
+	<key>QSiPhotoObjectSource</key>
+	<string>iPhoto Library</string>
+	<key>QSiTunesObjectSource</key>
+	<string>iTunes Music Library</string>
+	<key>QSHistoryObjectSource</key>
+	<string>Object History</string>
+	<key>QSInternalObjectSource</key>
+	<string>Internal Objects</string>
+	<key>QSObjCMessageSource</key>
+	<string>Objective-C Messages</string>
+	<key>QSProxyObjectSource</key>
+	<string>Proxies</string>
+</dict>
+</plist>
