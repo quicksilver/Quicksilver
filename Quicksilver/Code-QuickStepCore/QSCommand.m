@@ -503,10 +503,9 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	  [menu setDelegate:nil];
 }
 
-- (QSObject *)objectValue {    
-	QSCommand *commandObject = [QSCommand objectWithName:[self name]];
-    [commandObject setDirectObject:self];
-	return commandObject;
+- (QSObject *)objectValue {
+    NSLog(@"objectValue is deprecated. Returns 'self' (which you should use instead)");
+    return self;
 }
 
 - (NSArray *)types {return [NSArray arrayWithObject:QSCommandType];}
