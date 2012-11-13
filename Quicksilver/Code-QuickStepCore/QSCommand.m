@@ -341,7 +341,9 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	
 	// For cases where we really can't determine the object
 	if (!object) {
+#ifdef DEBUG
 		NSLog(@"Warning: no direct object for Command %@\nCommand Dictionary: %@", self, cmdDict);
+#endif
 	}
 	else {
 		[self setDirectObject:object];
