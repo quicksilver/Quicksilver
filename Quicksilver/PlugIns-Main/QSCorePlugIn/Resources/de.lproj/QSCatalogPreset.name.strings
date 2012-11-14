@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
     <key>QSPresetABMailRecents</key>
@@ -10,6 +10,8 @@
     <string>Downloads</string>
     <key>QSPresetDocuments</key>
     <string>Dokumente</string>
+    <key>QSPresetICloudDocuments</key>
+    <string>iCloud Dokumente</string>
     <key>QSPresetAccounts</key>
     <string>Benutzeraccount</string>
     <key>QSPresetProxies</key>
@@ -194,6 +196,8 @@
     <string>Benutzte Auswahlen (Recent Selections) ???</string>
     <key>QSPresetRecentServers</key>
     <string>Benutzte Server</string>
+    <key>QSPresetFavoriteServers</key>
+    <string>Favorisierte Server</string>
     <key>QSPresetRendezvous</key>
     <string>Rendezvous-Server</string>
     <key>QSPresetRendezvousMachines</key>
@@ -212,8 +216,6 @@
     <string>Scripts</string>
     <key>QSPresetShelves</key>
     <string>Shelf &amp; Zwischenablage</string>
-    <key>QSPresetSherlockChannels</key>
-    <string>Sherlock Kanäle</string>
     <key>QSPresetSidebarItems</key>
     <string>Finder Seitenleiste</string>
     <key>QSPresetSogudiShortcuts</key>
@@ -250,5 +252,7 @@
     <string>iTunes Wiedergabelisten</string>
     <key>QSPresetiTunesScripts</key>
     <string>Scripts (iTunes)</string>
+    <key>QSPresetRemovableVolumes</key>
+    <string>Netzwerk und Externe Festplatten</string>
   </dict>
 </plist>
