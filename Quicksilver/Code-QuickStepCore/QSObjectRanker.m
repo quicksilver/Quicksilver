@@ -16,11 +16,9 @@
 #import "QSRegistry.h"
 #import "QSLibrarian.h"
 
-#define QSUsePureStringRanking [[NSUserDefaults standardUserDefaults] boolForKey:@"QSUsePureStringRanking"]
-
 Class QSCurrentStringRanker = nil;
 
-typedef QSRankedObject * (*QSScoreForObjectIMP) (id instance, SEL selector, QSBasicObject *object, NSString* anAbbreviation, NSString *context, NSArray * mnemonics, BOOL mnemonicsOnly);
+typedef QSRankedObject * (*QSScoreForObjectIMP) (id instance, SEL selector, QSBasicObject *object, NSString *anAbbreviation, NSDictionary *options);
 
 typedef CGFloat (*QSScoreForAbbrevIMP) (id object, SEL selector, NSString * abbreviation);
 QSScoreForAbbrevIMP scoreForAbbrevIMP;
@@ -60,35 +58,70 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 	return [[[self alloc] initWithObject:object] autorelease];
 }
 
-+ (NSMutableArray *)rankedObjectsForAbbreviation:(NSString*)anAbbreviation inSet:(NSArray *)set inContext:(NSString *)context mnemonicsOnly:(BOOL)mnemonicsOnly {
-	NSArray *abbreviationMnemonics = [[QSMnemonics sharedInstance] abbrevMnemonicsForString:anAbbreviation];
-    
-	NSMutableArray *rankObjects = [NSMutableArray arrayWithCapacity:[set count]];
-    
+NSString *QSRankingMnemonicsOnly = @"QSRankingMnemonicsOnly";   // BOOL
+NSString *QSRankingObjectsInSet = @"QSRankingObjectsInSet";     // NSArray
+NSString *QSRankingContext = @"QSRankingContext";               // NSString, unused ?
+NSString *QSRankingUsePureString = @"QSRankingUsePureString";   // BOOL
+NSString *QSRankingIncludeOmitted = @"QSRankingIncludeOmitted"; // BOOL
+
+NSString *QSRankingAbbreviationMnemonics = @"QSRankingAbbreviationMnemonics"; // NSArray (internal)
+
+
++ (NSMutableArray *)rankedObjectsForAbbreviation:(NSString *)anAbbreviation options:(NSDictionary *)anOptions {
+    NSArray *abbreviationMnemonics = [[QSMnemonics sharedInstance] abbrevMnemonicsForString:anAbbreviation];
+
+    NSMutableDictionary *options = [anOptions mutableCopy];
+    if (abbreviationMnemonics)
+        [options setObject:abbreviationMnemonics forKey:QSRankingAbbreviationMnemonics];
+
+    NSArray *objectsInSet = [options objectForKey:QSRankingObjectsInSet];
+	NSMutableArray *rankObjects = [NSMutableArray arrayWithCapacity:[objectsInSet count]];
+
+    BOOL includeOmitted = [[options objectForKey:QSRankingIncludeOmitted] boolValue];
 	QSBasicObject *thisObject;
 
 	QSScoreForObjectIMP scoreForObjectIMP =
-		(QSScoreForObjectIMP) [self instanceMethodForSelector:@selector(rankedObject:forAbbreviation:inContext:withMnemonics:mnemonicsOnly:)];
+    (QSScoreForObjectIMP) [self instanceMethodForSelector:@selector(rankedObject:forAbbreviation:options:)];
 
-	for (thisObject in set) {
-    if ([[QSLibrarian sharedInstance] itemIsOmitted:thisObject]) continue;
+	for (thisObject in objectsInSet) {
+        if (!includeOmitted && [[QSLibrarian sharedInstance] itemIsOmitted:thisObject]) continue;
 		id ranker = [thisObject ranker];
 
         QSRankedObject *rankedObject;
-        if([ranker isKindOfClass:[QSDefaultObjectRanker class]])
-            rankedObject = (*scoreForObjectIMP) (ranker, @selector(rankedObject:forAbbreviation:inContext:withMnemonics:),
-                                                 thisObject, anAbbreviation, context, abbreviationMnemonics, mnemonicsOnly);
-        else
-            rankedObject = [ranker rankedObject:thisObject forAbbreviation:anAbbreviation
+        if ([ranker isKindOfClass:[QSDefaultObjectRanker class]]) {
+            rankedObject = (*scoreForObjectIMP) (ranker, @selector(rankedObject:forAbbreviation:options:),
+                                                 thisObject, anAbbreviation, options);
+        } else if ([ranker respondsToSelector:@selector(rankedObject:forAbbreviation:options:)]) {
+            rankedObject = [ranker rankedObject:thisObject
+                                forAbbreviation:anAbbreviation
+                                        options:options];
+        } else {
+            /* Old non-option compat call */
+            BOOL mnemonicsOnly = [[options objectForKey:QSRankingObjectsInSet] boolValue];
+            NSString *context = [options objectForKey:QSRankingContext];
+            rankedObject = [ranker rankedObject:thisObject
+                                forAbbreviation:anAbbreviation
                                       inContext:context
                                   withMnemonics:abbreviationMnemonics
                                   mnemonicsOnly:mnemonicsOnly];
+        }
 
 		if (rankedObject) {
 			[rankObjects addObject:rankedObject];
 		}
 	}
 	return rankObjects;
+}
+
++ (NSMutableArray *)rankedObjectsForAbbreviation:(NSString *)anAbbreviation inSet:(NSArray *)set inContext:(NSString *)context mnemonicsOnly:(BOOL)mnemonicsOnly {
+    NSMutableDictionary *options = [NSMutableDictionary dictionary];
+    if (set)
+        [options setObject:set forKey:QSRankingObjectsInSet];
+    if (context)
+        [options setObject:context forKey:QSRankingContext];
+    if (mnemonicsOnly)
+        [options setObject:[NSNumber numberWithBool:mnemonicsOnly] forKey:QSRankingMnemonicsOnly];
+    return [self rankedObjectsForAbbreviation:anAbbreviation options:options];
 }
 
 - (id)initWithObject:(QSBasicObject *)object {
@@ -131,7 +164,10 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 	return nil;
 }
 
-- (QSRankedObject *)rankedObject:(QSBasicObject *)object forAbbreviation:(NSString*)anAbbreviation inContext:(NSString *)context withMnemonics:(NSArray *)mnemonics mnemonicsOnly:(BOOL)mnemonicsOnly {
+- (QSRankedObject *)rankedObject:(QSBasicObject *)object forAbbreviation:(NSString *)anAbbreviation options:(NSDictionary *)options {
+    NSArray *mnemonics = [options objectForKey:QSRankingAbbreviationMnemonics];
+    BOOL mnemonicsOnly = [[options objectForKey:QSRankingMnemonicsOnly] boolValue];
+    BOOL usePureString = [[options objectForKey:QSRankingUsePureString] boolValue];
 	QSRankedObject *rankedObject = nil;
 	if ([object isKindOfClass:[QSRankedObject class]]) { // Reuse old ranked object if possible
 		rankedObject = (QSRankedObject *)object;
@@ -171,7 +207,7 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 
 	//	NSLog(@"newscore %f %@", newScore, rankedObject);
 
-	if (!QSUsePureStringRanking || mnemonicsOnly) {
+	if (!usePureString || mnemonicsOnly) {
 		//NSLog(@"mnem");
 		if (newScore) { // Add modifiers
 			if (mnemonics)
