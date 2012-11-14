@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSCaminoBookmarksParser</key>
+    <string>Záložky Camino</string>
+    <key>QSDirectoryParser</key>
+    <string>Obsah složky</string>
+    <key>QSHTMLLinkParser</key>
+    <string>Odkazy HTML</string>
+    <key>QSTextLineParser</key>
+    <string>Řádky textu</string>
+    <key>QSOldCaminoBookmarksParser</key>
+    <string>Záložky Camino (staré)</string>
+    <key>QSOmniWebShortcutsParser</key>
+    <string>Klávesové zkratky OmniWeb</string>
+    <key>QSOperaBookmarksParser</key>
+    <string>Záložky Opera</string>
+    <key>QSPresetOmniWebHistoryParser</key>
+    <string>Historie OmniWeb</string>
+    <key>QSSafariBookmarksParser</key>
+    <string>Záložky Safari</string>
+    <key>QSSafariHistoryParser</key>
+    <string>Historie Safari</string>
+    <key>QSSogudiLinkParser</key>
+    <string>Klávesové zkratky Sogudi</string>
+  </dict>
+</plist>

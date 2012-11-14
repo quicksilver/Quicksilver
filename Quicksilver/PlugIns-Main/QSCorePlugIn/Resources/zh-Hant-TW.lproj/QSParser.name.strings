@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSCaminoBookmarksParser</key>
+    <string>Camino 書籤</string>
+    <key>QSDirectoryParser</key>
+    <string>目錄內容</string>
+    <key>QSHTMLLinkParser</key>
+    <string>HTML 連結</string>
+    <key>QSTextLineParser</key>
+    <string>文字行列</string>
+    <key>QSOldCaminoBookmarksParser</key>
+    <string>Camino 書籤 (舊的)</string>
+    <key>QSOmniWebShortcutsParser</key>
+    <string>OmniWeb 捷徑</string>
+    <key>QSOperaBookmarksParser</key>
+    <string>Opera 書籤</string>
+    <key>QSPresetOmniWebHistoryParser</key>
+    <string>OmniWeb 瀏覽記錄</string>
+    <key>QSSafariBookmarksParser</key>
+    <string>Safari 書籤</string>
+    <key>QSSafariHistoryParser</key>
+    <string>Safari 瀏覽紀錄</string>
+    <key>QSSogudiLinkParser</key>
+    <string>Sogudi 捷徑</string>
+  </dict>
+</plist>
