@@ -264,7 +264,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
         if ([object isDirectory] && ![object isPackage]) {
             return YES;
         }
-
+        
         // If it's an app check to see if there's a handler for it (e.g. a plugin) or if there are recent documents
 		if ([object isApplication]) {
 			NSString *bundleIdentifier = [[NSBundle bundleWithPath:path] bundleIdentifier];
@@ -381,10 +381,10 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		NSString *path = [object singleFilePath];
 		if (!path || ![path length]) return NO;
 		NSFileManager *manager = [NSFileManager defaultManager];
-
+        // Boolean as to whether or not the alias is a directory
+        BOOL isDirectory = NO;
         if ([object isAlias]) {
             /* Resolve the alias before loading its children */
-            BOOL isDirectory;
 			path = [manager resolveAliasAtPath:path];
 			if (![manager fileExistsAtPath:path isDirectory:&isDirectory]) {
                 /* Alias can't be resolved : no children */
@@ -396,7 +396,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			}
 		}
 
-        if ([object isDirectory]) {
+        if ([object isDirectory] || isDirectory) {
             NSMutableArray *fileChildren = [NSMutableArray arrayWithCapacity:1];
             NSMutableArray *visibleFileChildren = [NSMutableArray arrayWithCapacity:1];
             
@@ -659,7 +659,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     
 	/* Now build a dictionary with that record */
 	NSMutableDictionary *tempDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-			[NSNumber numberWithUnsignedInt:record.flags], @"flags",
+			[NSNumber numberWithUnsignedLong:record.flags], @"flags",
 			[NSValue valueWithOSType:record.filetype],     @"filetype",
 			[NSValue valueWithOSType:record.creator],      @"creator",
             [NSNumber numberWithBool:isLocal],             @"localVolume",
