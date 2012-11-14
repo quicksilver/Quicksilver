@@ -633,6 +633,7 @@
 							<string key="NSFrame">{{79, 28}, {72, 16}}</string>
 							<reference key="NSSuperview" ref="1045943695"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="343489348">
 								<int key="NSCellFlags">67108864</int>
@@ -699,7 +700,7 @@
 							<object class="NSButtonCell" key="NSCell" id="59748965">
 								<int key="NSCellFlags">67108864</int>
 								<int key="NSCellFlags2">134348800</int>
-								<string key="NSContents">Customise</string>
+								<string key="NSContents">Customize</string>
 								<reference key="NSSupport" ref="26"/>
 								<reference key="NSControlView" ref="1067307282"/>
 								<int key="NSButtonFlags">-2038284288</int>
