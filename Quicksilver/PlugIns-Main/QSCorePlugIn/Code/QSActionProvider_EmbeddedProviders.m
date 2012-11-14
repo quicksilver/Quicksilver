@@ -300,7 +300,11 @@
         NSIndexSet *applicationIndexes = [fileObjects indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *thisObject, NSUInteger i, BOOL *stop) {
             return ([thisObject isApplication] && thisObject != preferred);
         }];
-        return [[NSArray arrayWithObject:preferred] arrayByAddingObjectsFromArray:[fileObjects objectsAtIndexes:applicationIndexes]];
+        if (!preferred) {
+            // no default app, leave the 1st pane blank
+            preferred = [NSNull null];
+        }
+        return [[NSArray arrayWithObject:preferred] arrayByAddingObject:[fileObjects objectsAtIndexes:applicationIndexes]];
 	} else if ([action isEqualToString:kFileRenameAction]) {
 		// return a text object (empty text box) to rename a file
 		NSString *path = [dObject singleFilePath];
