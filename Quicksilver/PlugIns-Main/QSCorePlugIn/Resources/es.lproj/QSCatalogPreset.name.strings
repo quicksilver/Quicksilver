@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
     <key>QSPresetABMailRecents</key>
@@ -10,6 +10,8 @@
     <string>Descargas</string>
     <key>QSPresetDocuments</key>
     <string>Documentos</string>
+    <key>QSPresetICloudDocuments</key>
+    <string>iCloud Documents</string>
     <key>QSPresetAccounts</key>
     <string>Cuentas de Usuario</string>
     <key>QSPresetProxies</key>
@@ -194,6 +196,8 @@
     <string>Selecciones Recientes</string>
     <key>QSPresetRecentServers</key>
     <string>Servidores Recientes</string>
+    <key>QSPresetFavoriteServers</key>
+    <string>Favorite Servers</string>
     <key>QSPresetRendezvous</key>
     <string>Servidores Rendezvous</string>
     <key>QSPresetRendezvousMachines</key>
@@ -212,8 +216,6 @@
     <string>Scripts</string>
     <key>QSPresetShelves</key>
     <string>Repisa &amp; Portapapeles</string>
-    <key>QSPresetSherlockChannels</key>
-    <string>Canales Sherlock</string>
     <key>QSPresetSidebarItems</key>
     <string>Barra Lateral del Finder</string>
     <key>QSPresetSogudiShortcuts</key>
@@ -250,5 +252,7 @@
     <string>Música de iTunes</string>
     <key>QSPresetiTunesScripts</key>
     <string>Scripts de iTunes</string>
+    <key>QSPresetRemovableVolumes</key>
+    <string>Network and Removable Disks</string>
   </dict>
 </plist>
