@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSABMailRecentsObjectSource</key>
+    <string>Předchozí přijemci Mail</string>
+    <key>QSAddressBookObjectSource</key>
+    <string>Adresář</string>
+    <key>QSAirPortNetworkObjectSource</key>
+    <string>Sítě AirPort</string>
+    <key>QSAllApplicationsObjectSource</key>
+    <string>Všechny aplikace</string>
+    <key>QSCatalogEntrySource</key>
+    <string>Položky katalogu</string>
+    <key>QSDefaultsObjectSource</key>
+    <string>Výchozí čtečky</string>
+    <key>QSFileSystemObjectSource</key>
+    <string>Skener souborů a složek</string>
+    <key>QSGroupObjectSource</key>
+    <string>Skupina</string>
+    <key>QSMachineSource</key>
+    <string>Stroje Quicksilver</string>
+    <key>QSNUDCSource</key>
+    <string>Now Up-To-Date a kontakty</string>
+    <key>QSNetworkLocationObjectSource</key>
+    <string>Místa v síti</string>
+    <key>QSProcessObjectSource</key>
+    <string>Běžící procesy</string>
+    <key>QSVolumesObjectSource</key>
+    <string>Připojené svazky</string>
+    <key>QSiPhotoObjectSource</key>
+    <string>Knihovna iPhoto</string>
+    <key>QSiTunesObjectSource</key>
+    <string>Knihovna iTunes</string>
+    <key>QSHistoryObjectSource</key>
+    <string>Historie objektů</string>
+    <key>QSInternalObjectSource</key>
+    <string>Vnitřní objekty</string>
+    <key>QSObjCMessageSource</key>
+    <string>Zprávy Objective-C</string>
+    <key>QSProxyObjectSource</key>
+    <string>Proxies</string>
+  </dict>
+</plist>

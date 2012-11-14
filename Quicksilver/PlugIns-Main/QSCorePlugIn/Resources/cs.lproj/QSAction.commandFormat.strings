@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSCommandExecuteAtTimeAction</key>
+    <string>Vykonat %@ v čase</string>
+    <key>QSCreateFileAction</key>
+    <string>Vytvořit nový soubor obsahující %@ ve složce %@</string>
+    <key>QSCommandAddTriggerAction</key>
+    <string>Přidat %@ jako spouštěč</string>
+    <key>QSCommandExecuteAction</key>
+    <string>Vykonat %@</string>
+    <key>AppShowHideAction</key>
+    <string>Přepnout viditelnost %@</string>
+    <key>FileAlwaysOpenTypeWithAction</key>
+    <string>Vždy otevřít %@ pomocí %@</string>
+    <key>QSCommandSaveAction</key>
+    <string>Uložit %@ do souboru</string>
+    <key>PasteboardPasteActionAsPlainText</key>
+    <string>Vložti %@ jako prostý text</string>
+    <key>QSCreateFileTemplate</key>
+    <string>Ve složce %@ vytvořit nový soubor předlohy %@</string>
+    <key>QSCommandExecuteAfterDelayAction</key>
+    <string>Vykonat %@ po prodlevě</string>
+    <key>AppActivateAction</key>
+    <string>Přepnout do popředí %@</string>
+    <key>AppHideAction</key>
+    <string>Skrýt %@</string>
+    <key>AppHideOthersAction</key>
+    <string>%@ skrýt ostatní</string>
+    <key>AppLaunchAction</key>
+    <string>Spustit %@</string>
+    <key>AppLaunchAgainAction</key>
+    <string>Spustit další instanci %@</string>
+    <key>AppLaunchAsRootAction</key>
+    <string>Spusit %@ jako administrátor</string>
+    <key>AppOpenFileAction</key>
+    <string>Otevřít %@ pomocí %@</string>
+    <key>AppQuitAction</key>
+    <string>Ukončit %@</string>
+    <key>AppQuitOthersAction</key>
+    <string>%@ ukončit ostatní</string>
+    <key>AppRelaunchAction</key>
+    <string>Znovu spustit %@</string>
+    <key>AppReopenAction</key>
+    <string>Spustit %@</string>
+    <key>AppRootLaunchAction</key>
+    <string>Spustit %@ jako administrátor</string>
+    <key>AppleScriptOpenFilesAction</key>
+    <string>Otevřít %@ pomocí %@</string>
+    <key>AppleScriptProcessTextAction</key>
+    <string>Zpracovat %@ pomocí %@</string>
+    <key>AppleScriptRunAction</key>
+    <string>Spustit skript: %@</string>
+    <key>AppleScriptRunTextAction</key>
+    <string>Spustit &apos;%@&apos;</string>
+    <key>DiskEjectAction</key>
+    <string>Vysunout %@</string>
+    <key>DiskForceEjectAction</key>
+    <string>Vynutit vysunutí %@</string>
+    <key>FileCompressAction</key>
+    <string>Zkomprimovat %@</string>
+    <key>FileCopyToAction</key>
+    <string>Kopírovat %@ do %@</string>
+    <key>FileDecompressAction</key>
+    <string>Dekomprimovat %@</string>
+    <key>FileDeleteAction</key>
+    <string>Smazat %@</string>
+    <key>FileGetHFSPathAction</key>
+    <string>Získat HFS cestu %@</string>
+    <key>FileGetInfoAction</key>
+    <string>Získat informace o %@</string>
+    <key>FileGetPathAction</key>
+    <string>Získat POSIX cestu %@</string>
+    <key>FileGetPosixPathAction</key>
+    <string>Získat absolutní cestu %@</string>
+    <key>FileGetURLAction</key>
+    <string>Získat file:// URL cestu %@</string>
+    <key>FileMakeAliasInAction</key>
+    <string>Vytvořit zástupce %@ do %@</string>
+    <key>FileMakeHardLinkInAction</key>
+    <string>Vytvořit hard link %@ do %@</string>
+    <key>FileMakeLinkInAction</key>
+    <string>Vytvořit link %@ do %@</string>
+    <key>FileMoveToAction</key>
+    <string>Přesunout %@ do %@</string>
+    <key>FileOpenAction</key>
+    <string>Otevřít %@</string>
+    <key>FileOpenWithAction</key>
+    <string>Otevřít %@ pomocí %@</string>
+    <key>FileRenameAction</key>
+    <string>Přejmenovat %@ na %@</string>
+    <key>FileRevealAction</key>
+    <string>Zobrazit %@</string>
+    <key>FileToTrashAction</key>
+    <string>Přesunout %@ do Koše</string>
+    <key>ItemSendToContactEmailAction</key>
+    <string>E-mail %@ pro %@</string>
+    <key>ItemSendToContactIMAction</key>
+    <string>IM %@ pro %@</string>
+    <key>PasteboardCopyAction</key>
+    <string>Kopírovat %@ do Schránky</string>
+    <key>PasteboardPasteAction</key>
+    <string>Vložit %@ pomocí aktuální aplikace</string>
+    <key>ProcessKillAction</key>
+    <string>Vynutit ukončení %@</string>
+    <key>ProcessLowerPriorityAction</key>
+    <string>Nízká důležitost %@</string>
+    <key>ProcessRaisePriorityAction</key>
+    <string>Zvýšit důležitost %@</string>
+    <key>ProcessResumeAction</key>
+    <string>Dokončit %@</string>
+    <key>ProcessSuspendAction</key>
+    <string>Pozastavit %@</string>
+    <key>QSCatalogEntryRescanAction</key>
+    <string>Znovu načíst %@</string>
+    <key>QSCatalogEntryShowAction</key>
+    <string>Zobrazit %@</string>
+    <key>QSDialNumberAction</key>
+    <string>Vytočit %@</string>
+    <key>QSEditAction</key>
+    <string>Upravit %@</string>
+    <key>QSLargeTypeAction</key>
+    <string>Zobrazit „%@“ velkými písmeny</string>
+    <key>QSLoginItemAddAction</key>
+    <string>Přidat %@ do položek po přihlášení</string>
+    <key>QSLoginItemRemoveAction</key>
+    <string>Odstranit %@ z položek po přihlášení</string>
+    <key>QSNewFolderAction</key>
+    <string>Vytvořit novou složku %# v %@</string>
+    <key>QSObjCSendMessageAction</key>
+    <string>Vykonat %@</string>
+    <key>QSObjectAssignLabelAction</key>
+    <string>Nastavit visačku %# položce %@</string>
+    <key>QSObjectAssignMnemonic</key>
+    <string>Nastavit mnemotechnickou pomůcku %@ na %#</string>
+    <key>QSObjectOmitAction</key>
+    <string>Odstranit %@ z katalogu</string>
+    <key>QSObjectSearchChildrenAction</key>
+    <string>Hledat obsah %@</string>
+    <key>QSObjectSelectAction</key>
+    <string>Vybrat %@ v okně příkazů</string>
+    <key>QSObjectShowActionMenu</key>
+    <string>Zobrazit nabídku akcí pro %@</string>
+    <key>QSObjectShowChildMenu</key>
+    <string>Zobrazit obsah nabídky pro %@</string>
+    <key>QSObjectShowChildrenAction</key>
+    <string>Zobrazit obsah %@</string>
+    <key>QSObjectShowMenu</key>
+    <string>Zobrazit nabídku akcí pro %@</string>
+    <key>QSObjectShowSourceAction</key>
+    <string>Zobrazit zdroj %@ v katalogu</string>
+    <key>QSPutOnShelfAction</key>
+    <string>Vložit %@ do přihrádky</string>
+    <key>QSShelfShowAction</key>
+    <string>Zobrazit %@</string>
+    <key>QSShellScriptRunAction</key>
+    <string>Spustit skript: %@</string>
+    <key>QSSoundPlayAction</key>
+    <string>Přehrát %@</string>
+    <key>QSTextDiffAction</key>
+    <string>Najít rozdíly mezi %@ a %#</string>
+    <key>QSTextShowDialogAction</key>
+    <string>Zobrazit dialog: „%@“</string>
+    <key>QSTextSpeakAction</key>
+    <string>Říci „%@“</string>
+    <key>QSTextTypeAction</key>
+    <string>Napsat „%@“</string>
+    <key>ShellScriptRunAction</key>
+    <string>Spustit skript: %@</string>
+    <key>URLEmailAction</key>
+    <string>E-mail %@</string>
+    <key>URLFindWithAction</key>
+    <string>Hledat %@ pomocí %@</string>
+    <key>URLJSAction</key>
+    <string>Spustit %@</string>
+    <key>URLOpenAction</key>
+    <string>Otevřít %@</string>
+    <key>URLOpenActionInBackground</key>
+    <string>Otevřít %@ na pozadí</string>
+    <key>URLOpenWithAction</key>
+    <string>Otevřít %@ pomocí %@</string>
+    <key>URLSearchAction</key>
+    <string>Hledat %@</string>
+    <key>URLSearchForAction</key>
+    <string>Hledat %@ v %@</string>
+  </dict>
+</plist>

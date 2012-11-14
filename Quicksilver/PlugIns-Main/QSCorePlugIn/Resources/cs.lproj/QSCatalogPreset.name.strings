@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSPresetABMailRecents</key>
+    <string>Předchozí příjemci Mail</string>
+    <key>QSPresetUserGroup</key>
+    <string>Uživatel</string>
+    <key>QSPresetDownloads</key>
+    <string>Zkopírované (download)</string>
+    <key>QSPresetDocuments</key>
+    <string>Dokumenty</string>
+    <key>QSPresetICloudDocuments</key>
+    <string>Dokumenty iCloud</string>
+    <key>QSPresetAccounts</key>
+    <string>Uživatelské účty</string>
+    <key>QSPresetProxies</key>
+    <string>Objekty proxy</string>
+    <key>QSPresetAddressBook</key>
+    <string>Vizitky Adresáře</string>
+    <key>QSPresetAddressBookGroup</key>
+    <string>Adresář</string>
+    <key>QSPresetAddressBookScripts</key>
+    <string>Skripty (Adresář)</string>
+    <key>QSPresetAllApplications</key>
+    <string>Hledat všechny aplikace</string>
+    <key>QSPresetAllRecentDocuments</key>
+    <string>Všechny poslední dokumenty</string>
+    <key>QSPresetApplicationSpecificGroup</key>
+    <string>Sady aplikací</string>
+    <key>QSPresetApplications</key>
+    <string>Aplikace</string>
+    <key>QSPresetBrowsersGroup</key>
+    <string>Záložky</string>
+    <key>QSPresetBuffers</key>
+    <string>Obsah zásobníku</string>
+    <key>QSPresetCaminoBookmarks</key>
+    <string>Záložky Camino</string>
+    <key>QSPresetClassicApplications</key>
+    <string>Aplikace (Mac OS 9)</string>
+    <key>QSPresetClipboardContents</key>
+    <string>Obsah Schránky</string>
+    <key>QSPresetCommandHistory</key>
+    <string>Poslední příkazy</string>
+    <key>QSPresetConfiguration</key>
+    <string>Nastavení</string>
+    <key>QSPresetContacts</key>
+    <string>Vizitky</string>
+    <key>QSPresetDVDPlayerScripts</key>
+    <string>Slripty DVD přehrávače</string>
+    <key>QSPresetDesktop</key>
+    <string>Plocha</string>
+    <key>QSPresetDeveloper</key>
+    <string>Vývojář</string>
+    <key>QSPresetDeveloperAddressBookDocs</key>
+    <string>Adresář</string>
+    <key>QSPresetDeveloperAppKit</key>
+    <string>AppKit</string>
+    <key>QSPresetDeveloperAppKitDocumentation</key>
+    <string>Dokumentace AppKit</string>
+    <key>QSPresetDeveloperAppKitHeaders</key>
+    <string>Hlavičky AppKit</string>
+    <key>QSPresetDeveloperApplications</key>
+    <string>Aplikace (Vývojové)</string>
+    <key>QSPresetDeveloperCoreFoundationHeaders</key>
+    <string>Hlavičky CoreFoundation</string>
+    <key>QSPresetDeveloperFoundation</key>
+    <string>Foundation</string>
+    <key>QSPresetDeveloperFoundationDocumentation</key>
+    <string>Dokumentace Foundation</string>
+    <key>QSPresetDeveloperFoundationHeaders</key>
+    <string>Hlavičky Foundation</string>
+    <key>QSPresetDeveloperFrameworks</key>
+    <string>Frameworks</string>
+    <key>QSPresetDeveloperOtherDocs</key>
+    <string>Joná dokumentace</string>
+    <key>QSPresetDeveloperPreferencePaneDocs</key>
+    <string>Panely předvoleb</string>
+    <key>QSPresetDeveloperPrivateFrameworks</key>
+    <string>Neveřejné Frameworks</string>
+    <key>QSPresetDeveloperPublicFrameworks</key>
+    <string>Veřejné Frameworks</string>
+    <key>QSPresetDeveloperScreenSaverDocs</key>
+    <string>Spořič obrazovky</string>
+    <key>QSPresetDeveloperWebKitDocs</key>
+    <string>WebKit</string>
+    <key>QSPresetDevices</key>
+    <string>Zařízení</string>
+    <key>QSPresetDockApplications</key>
+    <string>Aplikace Doku</string>
+    <key>QSPresetDockGroup</key>
+    <string>Dok</string>
+    <key>QSPresetDockOthers</key>
+    <string>Soubory a složky Doku</string>
+    <key>QSPresetFavorites</key>
+    <string>Oblíbené</string>
+    <key>QSPresetFinderGroup</key>
+    <string>Finder</string>
+    <key>QSPresetFinderRecentFolders</key>
+    <string>Poslední položky (Finder)</string>
+    <key>QSPresetFinderSpecificSearchPlaces</key>
+    <string>Místa hledání Finder</string>
+    <key>QSPresetFinderToolbarItems</key>
+    <string>Položky řádku nabídek Finder</string>
+    <key>QSPresetFirefoxBookmarks</key>
+    <string>Záložky Firefox</string>
+    <key>QSPresetGlobalPrefsRecentFolders</key>
+    <string>Poslední položky (dialog Otevřít/Uložit)</string>
+    <key>QSPresetHome</key>
+    <string>Domovská složka</string>
+    <key>QSPresetICabBookmarks</key>
+    <string>Záložky iCab</string>
+    <key>QSPresetInternalMessages</key>
+    <string>Vnitřní příkazy</string>
+    <key>QSPresetInternalObjects</key>
+    <string>Vnitřní objekty</string>
+    <key>QSPresetIEBookmarks</key>
+    <string>Záložky Internet Explorer</string>
+    <key>QSPresetIEGroup</key>
+    <string>Internet Explorer</string>
+    <key>QSPresetIEHistory</key>
+    <string>Historie Internet Explorer</string>
+    <key>QSPresetILifeGroup</key>
+    <string>iLife</string>
+    <key>QSPresetITunesGroup</key>
+    <string>iTunes</string>
+    <key>QSPresetInternetGroup</key>
+    <string>Internet</string>
+    <key>QSPresetKeyCaps</key>
+    <string>Key Caps</string>
+    <key>QSPresetKeychains</key>
+    <string>Klíčenky</string>
+    <key>QSPresetLibraryPreferencePanes</key>
+    <string>Systémové předvolby (všichni uživatelé)</string>
+    <key>QSPresetLibraryScripts</key>
+    <string>Skripty (všichni uživatelé)</string>
+    <key>QSPresetMainApplications</key>
+    <string>Aplikace</string>
+    <key>QSPresetMiscellaneousGroup</key>
+    <string>Různé</string>
+    <key>QSPresetModules</key>
+    <string>Zásuvné moduly</string>
+    <key>QSPresetMozillaBookmarks</key>
+    <string>Záložky Mozilla</string>
+    <key>QSPresetNNWSubscriptions</key>
+    <string>Odběry NetNewsWire</string>
+    <key>QSPresetNUDCContacts</key>
+    <string>Now Contact</string>
+    <key>QSPresetNetscapeBookmarks</key>
+    <string>Záložky Netscape</string>
+    <key>QSPresetNetworkLocations</key>
+    <string>Místa v síti</string>
+    <key>QSPresetOldCaminoBookmarks</key>
+    <string>Záložky Camino (staré)</string>
+    <key>QSPresetOmniWebBookmarks</key>
+    <string>Záložky OmniWeb</string>
+    <key>QSPresetOmniWebFavorites</key>
+    <string>Oblíbené OmniWeb</string>
+    <key>QSPresetOmniWebGroup</key>
+    <string>OmniWeb</string>
+    <key>QSPresetOmniWebHistory</key>
+    <string>Historie OmniWeb</string>
+    <key>QSPresetOmniWebServerBookmarks</key>
+    <string>Záložky OmniWeb (server)</string>
+    <key>QSPresetOmniWebShortcuts</key>
+    <string>Klávesové zkratky OmniWeb</string>
+    <key>QSPresetOperaBookmarks</key>
+    <string>Záložky Opera</string>
+    <key>QSPresetPathFinderGroup</key>
+    <string>Path Finder</string>
+    <key>QSPresetPathFinderRecentFiles</key>
+    <string>Poslední soubory Path Finder</string>
+    <key>QSPresetPathFinderRecentFolders</key>
+    <string>Poslední složky Path Finder</string>
+    <key>QSPresetPreferencePanes</key>
+    <string>Panel předvoleb</string>
+    <key>QSPresetPresetGroup</key>
+    <string>Přednastavení</string>
+    <key>QSPresetPrinters</key>
+    <string>Tiskárny</string>
+    <key>QSPresetQSCatalogEntries</key>
+    <string>Položky katalogu Quicksilver</string>
+    <key>QSPresetQSDefaultLinks</key>
+    <string>Startovací URL</string>
+    <key>QSPresetQSExtraScripts</key>
+    <string>Skripty (QS Extras)</string>
+    <key>QSPresetQSGroup</key>
+    <string>Quicksilver</string>
+    <key>QSPresetRecentApplications106</key>
+    <string>Poslední aplikace</string>
+    <key>QSPresetRecentDocuments106</key>
+    <string>Poslední dokumenty</string>
+    <key>QSPresetRecentItems</key>
+    <string>Poslední položky</string>
+    <key>QSPresetRecentSelections</key>
+    <string>Poslední výběry</string>
+    <key>QSPresetRecentServers</key>
+    <string>Poslední servery</string>
+    <key>QSPresetFavoriteServers</key>
+    <string>Oblíbené servery</string>
+    <key>QSPresetRendezvous</key>
+    <string>Servery Rendezvous</string>
+    <key>QSPresetRendezvousMachines</key>
+    <string>Quicksilver Rendezvous</string>
+    <key>QSPresetRoot</key>
+    <string>Administrátor</string>
+    <key>QSPresetRunningProcesses</key>
+    <string>Běžící aplikace a procesy</string>
+    <key>QSPresetSafariBookmarks</key>
+    <string>Záložky Safari</string>
+    <key>QSPresetSafariGroup</key>
+    <string>Safari</string>
+    <key>QSPresetSafariHistory</key>
+    <string>Historie Safari</string>
+    <key>QSPresetScriptsGroup</key>
+    <string>Skripty</string>
+    <key>QSPresetShelves</key>
+    <string>Přihrádka a Schránka</string>
+    <key>QSPresetSidebarItems</key>
+    <string>Přihrádka Finder</string>
+    <key>QSPresetSogudiShortcuts</key>
+    <string>Klávesové zkratky Sogudi</string>
+    <key>QSPresetSpeakableItems</key>
+    <string>Předčitatelné položky</string>
+    <key>QSPresetSpecial</key>
+    <string>Speciální</string>
+    <key>QSPresetSystemGroup</key>
+    <string>Systém</string>
+    <key>QSPresetSystemPreferencePanes</key>
+    <string>Předvolby systému (systémové)</string>
+    <key>QSPresetTrash</key>
+    <string>Koš</string>
+    <key>QSPresetUserApplications</key>
+    <string>Aplikace (uživatelské)</string>
+    <key>QSPresetUserPreferencePanes</key>
+    <string>Předvolby systému (uživatelské)</string>
+    <key>QSPresetUserScripts</key>
+    <string>Skripty (uživatelské)</string>
+    <key>QSPresetUserWatsonTools</key>
+    <string>Nástroje Watson (uživatelské)</string>
+    <key>QSPresetVolumes</key>
+    <string>Disky</string>
+    <key>QSPresetWatsonGroup</key>
+    <string>Watson</string>
+    <key>QSPresetWirelessNetworks</key>
+    <string>Sítě AirPort</string>
+    <key>QSPresetiPhotoAlbums</key>
+    <string>Alba iPhoto</string>
+    <key>QSPresetiTunesGroup</key>
+    <string>iTunes</string>
+    <key>QSPresetiTunesPlaylists</key>
+    <string>Hudba iTunes</string>
+    <key>QSPresetiTunesScripts</key>
+    <string>Skripty iTunes</string>
+    <key>QSPresetRemovableVolumes</key>
+    <string>Síť a přenosné disky</string>
+  </dict>
+</plist>

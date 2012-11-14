@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>AppActivateAction</key>
+    <string>Přepnout do popředí</string>
+    <key>AppHideAction</key>
+    <string>Skrýt</string>
+    <key>AppHideOthersAction</key>
+    <string>Skrýt ostatní</string>
+    <key>AppLaunchAction</key>
+    <string>Spustit</string>
+    <key>AppLaunchAgainAction</key>
+    <string>Spustit jinou kopii</string>
+    <key>AppOpenFileAction</key>
+    <string>Otevřít soubor…</string>
+    <key>AppQuitOthersAction</key>
+    <string>Ukončit ostatní</string>
+    <key>AppQuitAction</key>
+    <string>Ukončit</string>
+    <key>AppRelaunchAction</key>
+    <string>Znovu spustit</string>
+    <key>AppReopenAction</key>
+    <string>Otevřít</string>
+    <key>AppRootLaunchAction</key>
+    <string>Spustit jako Administrátor</string>
+    <key>AppShowHideAction</key>
+    <string>Přepnout aplikaci</string>
+    <key>AppleScriptOpenFilesAction</key>
+    <string>Otevřít soubor…</string>
+    <key>AppleScriptProcessTextAction</key>
+    <string>Zpracování textu…</string>
+    <key>AppleScriptRunAction</key>
+    <string>Spustit</string>
+    <key>AppleScriptRunTextAction</key>
+    <string>Spustit jako AppleScript</string>
+    <key>ContactEditAction</key>
+    <string>Úpravy</string>
+    <key>ContactEmailAction</key>
+    <string>E-mail</string>
+    <key>ContactIMAction</key>
+    <string>IM osoba</string>
+    <key>ContactSendItemEmailAction</key>
+    <string>Odeslat položku e-mailem…</string>
+    <key>ContactSendItemIMAction</key>
+    <string>IM text…</string>
+    <key>ContactSendTextEmailAction</key>
+    <string>Odeslat text…</string>
+    <key>ContactShowAction</key>
+    <string>Zobrazit</string>
+    <key>DiskEjectAction</key>
+    <string>Vysunout</string>
+    <key>DiskForceEjectAction</key>
+    <string>Vynutit vysunutí</string>
+    <key>FileCompressAction</key>
+    <string>Komprimovat</string>
+    <key>FileCopyToAction</key>
+    <string>Zkopírovat do…</string>
+    <key>FileDecompressAction</key>
+    <string>Dekomprimovat</string>
+    <key>FileDeleteAction</key>
+    <string>Odstranit (smazat)</string>
+    <key>FileGetInfoAction</key>
+    <string>Informace</string>
+    <key>FileGetPathAction</key>
+    <string>Získat cestu</string>
+    <key>FileGetPosixPathAction</key>
+    <string>Získat absolutní cestu (POSIX)</string>
+    <key>FileGetURLAction</key>
+    <string>Získat URL cestu</string>
+    <key>FileGetHFSPathAction</key>
+    <string>Získat cestu</string>
+    <key>FileMakeAliasInAction</key>
+    <string>Vytvořit zástupce…</string>
+    <key>FileMakeHardLinkInAction</key>
+    <string>Vytvořit hard link…</string>
+    <key>FileMakeLinkInAction</key>
+    <string>Vytvořit link…</string>
+    <key>FileMoveToAction</key>
+    <string>Přesunout…</string>
+    <key>FileOpenAction</key>
+    <string>Otevřít</string>
+    <key>FileOpenWithAction</key>
+    <string>Otevřít pomocí…</string>
+    <key>FileAlwaysOpenTypeWithAction</key>
+    <string>Vždy otevřít pomocí…</string>
+    <key>FileRenameAction</key>
+    <string>Přejmenovat…</string>
+    <key>FileRevealAction</key>
+    <string>Zobrazit</string>
+    <key>FileToTrashAction</key>
+    <string>Přesunout do Koše</string>
+    <key>ItemSendToContactEmailAction</key>
+    <string>E-mail pro…</string>
+    <key>ItemSendToContactIMAction</key>
+    <string>IM osobě…</string>
+    <key>PasteboardCopyAction</key>
+    <string>Zkopírovat do Schránky</string>
+    <key>PasteboardPasteAction</key>
+    <string>Vložit</string>
+    <key>PasteboardPasteActionAsPlainText</key>
+    <string>Vložit jako prostý text</string>
+    <key>ProcessKillAction</key>
+    <string>Vynutit ukončení (kill)</string>
+    <key>ProcessLowerPriorityAction</key>
+    <string>Nízká důležitost</string>
+    <key>ProcessRaisePriorityAction</key>
+    <string>Zvýšená důležitost</string>
+    <key>ProcessResumeAction</key>
+    <string>Pokračovat ve vykonávání (dokončit)</string>
+    <key>ProcessSuspendAction</key>
+    <string>Přerušit vykonávání (pozastavit)</string>
+    <key>QSObjectAssignMnemonic</key>
+    <string>Přiřadit zkratku…</string>
+    <key>QSObjectSelectAction</key>
+    <string>Vybrat v okně příkazů</string>
+    <key>QSAIMSMSAction</key>
+    <string>Odeslat SMS (AIM/iChat)</string>
+    <key>QSAirPortNetworkSelectAction</key>
+    <string>Přepnout Airport</string>
+    <key>QSCLExecuteAction</key>
+    <string>Spustit</string>
+    <key>QSCLExecuteTextAction</key>
+    <string>Spustit příkaz v Shellu</string>
+    <key>QSCLExecuteShellCommandAction</key>
+    <string>Spustit příkaz v Shellu</string>
+    <key>QSCLExecuteWithArgsAction</key>
+    <string>Spustit […]</string>
+    <key>QSCLTermExecuteTextAction</key>
+    <string>Spustit textový příkaz v Terminálu</string>
+    <key>QSCLTermExecuteShellCommandAction</key>
+    <string>Spustit textový příkaz v Terminálu</string>
+    <key>QSCLTermExecuteWithArgsAction</key>
+    <string>Spustit v Terminálu […]</string>
+    <key>QSCLTermShowDirectoryAction</key>
+    <string>Přejít do složky v Terminálu</string>
+    <key>QSCLTermShowManPageAction</key>
+    <string>Zobrazit Man stránky</string>
+    <key>QSCatalogEntryRescanAction</key>
+    <string>Znovu načíst záznam v katalogu</string>
+    <key>QSCatalogEntryShowAction</key>
+    <string>Zobrazit záznam v katalogu</string>
+    <key>QSCommandSaveAction</key>
+    <string>Uložit příkazy do souboru…</string>
+    <key>QSCommandAddTriggerAction</key>
+    <string>Přidat spouštěč</string>
+    <key>QSCommandExecuteAction</key>
+    <string>Spustit</string>
+    <key>QSCommandExecuteAfterDelayAction</key>
+    <string>Spustit po prodlevě…</string>
+    <key>QSComposeEmailItemAction</key>
+    <string>Odeslat e-mailem položku… (vytvořit)</string>
+    <key>QSCommandExecuteAtTimeAction</key>
+    <string>Spustit v čase…</string>
+    <key>QSComposeEmailItemReverseAction</key>
+    <string>Adresát… (vytvořit)</string>
+    <key>QSCreateFileAction</key>
+    <string>Vytvořit soubor […]</string>
+    <key>QSCreateFileTemplate</key>
+    <string>vytvořit nový…</string>
+    <key>QSDialNumberAction</key>
+    <string>Vytočit</string>
+    <key>QSEditAction</key>
+    <string>Úpravy</string>
+    <key>QSEmailAction</key>
+    <string>E-mail</string>
+    <key>QSEmailItemAction</key>
+    <string>Odeslat e-mailem položku… (odeslat)</string>
+    <key>QSEmailItemReverseAction</key>
+    <string>Adresát… (odeslat)</string>
+    <key>QSHFSLockAction</key>
+    <string>Zamknout</string>
+    <key>QSHFSMakeInvisibleAction</key>
+    <string>Zneviditelnit</string>
+    <key>QSHFSMakeVisibleAction</key>
+    <string>Zviditelnit</string>
+    <key>QSHFSUnlockAction</key>
+    <string>Odemknout</string>
+    <key>QSNewFolderAction</key>
+    <string>Nová složka…</string>
+    <key>QSLargeTypeAction</key>
+    <string>Velká písmena</string>
+    <key>QSLoginItemAddAction</key>
+    <string>Otevřít po přihlášení</string>
+    <key>QSLoginItemRemoveAction</key>
+    <string>Neotvírat po přihlášení</string>
+    <key>QSNUTDContactShowAction</key>
+    <string>Zobrazit vizitku</string>
+    <key>QSNetworkLocationSelectAction</key>
+    <string>Přepnout do umístění</string>
+    <key>QSObjCSendMessageAction</key>
+    <string>Spustit</string>
+    <key>QSObjectSearchChildrenAction</key>
+    <string>Hledat obsah</string>
+    <key>QSObjectShowChildMenu</key>
+    <string>Zobrazit obsah nabídky</string>
+    <key>QSObjectShowMenu</key>
+    <string>Zobrazit nabídku</string>
+    <key>QSObjectShowActionMenu</key>
+    <string>Zobrazit nabídku akcí</string>
+    <key>QSObjectShowChildrenAction</key>
+    <string>Zobrazit obsah</string>
+    <key>QSObjectShowSourceAction</key>
+    <string>Zobrazit zdroj v katalogu</string>
+    <key>QSPutOnShelfAction</key>
+    <string>Vložit do přihrádky</string>
+    <key>QSShelfShowAction</key>
+    <string>Zobrazit</string>
+    <key>QSShellScriptRunAction</key>
+    <string>Spustit […]</string>
+    <key>QSTextShowDialogAction</key>
+    <string>Zobrazit dialog</string>
+    <key>QSTextSpeakAction</key>
+    <string>Přečíst text (řeč)</string>
+    <key>QSTextAppendAction</key>
+    <string>Připojit text…</string>
+    <key>QSTextDiffAction</key>
+    <string>Rozdíly…</string>
+    <key>QSTextPrependAction</key>
+    <string>Předřadit text…</string>
+    <key>QSTextTypeAction</key>
+    <string>Zadat text</string>
+    <key>QSUserSwitchAction</key>
+    <string>Přepnout uživatele</string>
+    <key>QSiPhotoAlbumShowAction</key>
+    <string>Zobrazit album</string>
+    <key>QSiPhotoAlbumSlideShowAction</key>
+    <string>Spustit prezentaci</string>
+    <key>QSiTunesAppendItemAction</key>
+    <string>Fronta</string>
+    <key>QSiTunesPlayItemAction</key>
+    <string>Přehrát</string>
+    <key>ShellScriptRunAction</key>
+    <string>Spustit Shell skript</string>
+    <key>URLEmailAction</key>
+    <string>E-mail</string>
+    <key>URLFindWithAction</key>
+    <string>Hledat na stránce…</string>
+    <key>URLJSAction</key>
+    <string>Spustit Javascript</string>
+    <key>URLOpenAction</key>
+    <string>Otevřít URL</string>
+    <key>URLOpenActionInBackground</key>
+    <string>Otevřít URL na pozadí</string>
+    <key>URLOpenWithAction</key>
+    <string>Otevřít URL pomocí…</string>
+    <key>URLSearchAction</key>
+    <string>Hledat</string>
+    <key>URLSearchForAction</key>
+    <string>Hledat…</string>
+  </dict>
+</plist>

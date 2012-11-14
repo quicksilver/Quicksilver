@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSCommandExecuteAtTimeAction</key>
+    <string>Vykoná příkaz v čase</string>
+    <key>QSTextTypeAction</key>
+    <string>Zadá text do aplikace v popředí</string>
+    <key>QSCatalogEntryRescanAction</key>
+    <string>Znovu načte a indexuje katalog</string>
+    <key>QSTextSpeakAction</key>
+    <string>Přečte text</string>
+    <key>FileMakeHardLinkInAction</key>
+    <string>Vytvoří hard link souboru v určité složce</string>
+    <key>QSLoginItemAddAction</key>
+    <string>Přidá do položek spouštěných po přihlášení</string>
+    <key>QSObjCSendMessageAction</key>
+    <string>Odešle zprávu Objective-C</string>
+    <key>FileGetHFSPathAction</key>
+    <string>Získá cestu Mac HFS</string>
+    <key>QSObjectShowMenu</key>
+    <string>Zobrazí nabídku dostupných akcí</string>
+    <key>FileDeleteAction</key>
+    <string>Trvale smaže soubor</string>
+    <key>QSCommandAddTriggerAction</key>
+    <string>Přidá příkaz jako spouštěč</string>
+    <key>QSObjectShowChildMenu</key>
+    <string>Zobrazí obsah jako položku nabídky</string>
+    <key>QSCommandExecuteAction</key>
+    <string>Spustí příkaz Quicksilver</string>
+    <key>AppRelaunchAction</key>
+    <string>Znovu spustí aplikaci</string>
+    <key>AppShowHideAction</key>
+    <string>Přepne viditelnost aplikace</string>
+    <key>QSLargeTypeAction</key>
+    <string>Zobrazí text velkými písmeny</string>
+    <key>AppleScriptRunTextAction</key>
+    <string>Spustí text jako AppleScript</string>
+    <key>PasteboardCopyAction</key>
+    <string>Zkopíruje položku do Schránky</string>
+    <key>AppHideOthersAction</key>
+    <string>Skryje ostatní aplikace</string>
+    <key>QSTextShowDialogAction</key>
+    <string>Zobrazí text v dialogu</string>
+    <key>QSObjectShowChildrenAction</key>
+    <string>Otevře obsah položky v aplikaci Quicksilver</string>
+    <key>QSShellScriptRunAction</key>
+    <string>Spustí Shell skript</string>
+    <key>QSObjectSelectAction</key>
+    <string>Vybere položku v rozhraní Quicksilver</string>
+    <key>FileGetInfoAction</key>
+    <string>Otevře Informace o souboru</string>
+    <key>FileAlwaysOpenTypeWithAction</key>
+    <string>Nastaví otevírání určitého typ souboru v dané aplikaci</string>
+    <key>QSCommandSaveAction</key>
+    <string>Uloží příkaz Quicksilver do souboru</string>
+    <key>FileRenameAction</key>
+    <string>Přejmenuje soubor</string>
+    <key>QSObjectSearchChildrenAction</key>
+    <string>Zobrazí obsah položky v textovém režimu aplikace Quicksilver</string>
+    <key>QSObjectAssignMnemonic</key>
+    <string>Přiřadí položce vyhledávací zkratku</string>
+    <key>AppleScriptOpenFilesAction</key>
+    <string>Vykoná AppleScript se souborem</string>
+    <key>QSCatalogEntryShowAction</key>
+    <string>Zobrazí položku katalogu v předvolbách katalogu</string>
+    <key>QSObjectShowSourceAction</key>
+    <string>Zobrazí zdroj položky v předvolbách katalogu</string>
+    <key>QSCreateFileTemplate</key>
+    <string>Vytvoří nový soubor z předlohy</string>
+    <key>QSCommandExecuteAfterDelayAction</key>
+    <string>Vykoná příkaz Quicksilver po prodlevě</string>
+    <key>FileMakeAliasInAction</key>
+    <string>Vytvoří nového zástupce ve složce</string>
+    <key>QSNewFolderAction</key>
+    <string>Vytvoří novou složku s jménem</string>
+    <key>URLOpenWithAction</key>
+    <string>Otevře URL v alternativní aplikaci</string>
+    <key>FileGetURLAction</key>
+    <string>Získá cestu typu URL file:// k souboru</string>
+    <key>QSObjectShowActionMenu</key>
+    <string>Zobrazí nabídku dostupných akcí</string>
+    <key>AppQuitOthersAction</key>
+    <string>Ukončí ostatní aplikace</string>
+    <key>URLEmailAction</key>
+    <string>Vytvoří e-mail pro adresáta</string>
+    <key>AppleScriptProcessTextAction</key>
+    <string>Vykoná AppleScript s textem</string>
+    <key>FileToTrashAction</key>
+    <string>Přesune soubor do Koše</string>
+    <key>QSLoginItemRemoveAction</key>
+    <string>Ostraní z položek spouštěných po přihlášení</string>
+    <key>AppActivateAction</key>
+    <string>Přepne aplikaci do popředí</string>
+    <key>AppHideAction</key>
+    <string>Skryje aplikaci</string>
+    <key>AppLaunchAction</key>
+    <string>Spustí aplikaci</string>
+    <key>AppLaunchAgainAction</key>
+    <string>Spustí vícekrát jednu aplikaci</string>
+    <key>AppOpenFileAction</key>
+    <string>Vybere soubor pro otevření</string>
+    <key>AppQuitAction</key>
+    <string>Ukončí aplikaci</string>
+    <key>AppReopenAction</key>
+    <string>Znovu spustí aplikaci</string>
+    <key>AppRootLaunchAction</key>
+    <string>Spustí aplikaci jako Administrator neboli root</string>
+    <key>AppleScriptRunAction</key>
+    <string>Spustí AppleScript</string>
+    <key>ContactEditAction</key>
+    <string>Upraví položku</string>
+    <key>ContactEmailAction</key>
+    <string>Odešle e-mail</string>
+    <key>ContactIMAction</key>
+    <string>Odešle IM </string>
+    <key>ContactSendItemEmailAction</key>
+    <string>Odešle položku e-mailem</string>
+    <key>ContactSendItemIMAction</key>
+    <string>Odešle položku IM</string>
+    <key>ContactShowAction</key>
+    <string>Zobrazí vizitku v Adresáři</string>
+    <key>DiskEjectAction</key>
+    <string>Vysune disk</string>
+    <key>DiskForceEjectAction</key>
+    <string>Vynutí vysunutí disku</string>
+    <key>FileCompressAction</key>
+    <string>Zkomprimuje soubory</string>
+    <key>FileCopyToAction</key>
+    <string>Zkopíruje na jiné místo</string>
+    <key>FileDecompressAction</key>
+    <string>Dekomprimuje soubor</string>
+    <key>FileGetPathAction</key>
+    <string>Získá relativní cestu k ~/</string>
+    <key>FileGetPosixPathAction</key>
+    <string>Získá absolutní cestu (bez ~)</string>
+    <key>FileMakeLinkInAction</key>
+    <string>Vytvoří odkaz na jiném místě</string>
+    <key>FileMoveToAction</key>
+    <string>Přesune do jiné složky</string>
+    <key>FileOpenAction</key>
+    <string>Otevře</string>
+    <key>FileOpenWithAction</key>
+    <string>Otevře pomocí aplikace</string>
+    <key>FileRevealAction</key>
+    <string>Zobrazí položku</string>
+    <key>ItemSendToContactEmailAction</key>
+    <string>Odešle položku e-mailem</string>
+    <key>ItemSendToContactIMAction</key>
+    <string>Odešle položku IM</string>
+    <key>PasteboardPasteAction</key>
+    <string>Vloží tento objekt do aplikace v popředí</string>
+    <key>PasteboardPasteActionAsPlainText</key>
+    <string>Vložít tento objekt do aplikace v popředí jako prostý text</string>
+    <key>ProcessKillAction</key>
+    <string>Vynutí ukončení aplikace</string>
+    <key>ProcessResumeAction</key>
+    <string>Dokončí pozastavené procesy</string>
+    <key>ProcessSuspendAction</key>
+    <string>Pozastaví běžící procesy</string>
+    <key>QSCreateFileAction</key>
+    <string>Vytvoří nový soubor s textem […ve složce]</string>
+    <key>QSDialNumberAction</key>
+    <string>Vytočí číslo</string>
+    <key>QSEditAction</key>
+    <string>Upraví</string>
+    <key>QSUserSwitchAction</key>
+    <string>Přepne uživatele</string>
+    <key>QSiTunesPlaylistPlayAction</key>
+    <string>Přehraje hudbu ze seznamu skladeb iTunes</string>
+    <key>QSiTunesTrackPlayAction</key>
+    <string>Přehraje skladbu iTunes</string>
+    <key>QSShellScriptRunAction</key>
+    <string>Spustí Shell skript</string>
+    <key>ShellScriptRunAction</key>
+    <string>Spustí Shell skript</string>
+    <key>URLFindWithAction</key>
+    <string>Hledá pomocí…</string>
+    <key>URLJSAction</key>
+    <string>Spustí Javascript</string>
+    <key>URLOpenAction</key>
+    <string>Otevře URL</string>
+    <key>URLOpenActionInBackground</key>
+    <string>Otevře URL na pozadí</string>
+    <key>URLSearchAction</key>
+    <string>Hledá URL dotaz</string>
+    <key>URLSearchForAction</key>
+    <string>Hledá text v URL dotazu</string>
+  </dict>
+</plist>

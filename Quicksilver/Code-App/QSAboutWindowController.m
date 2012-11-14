@@ -22,6 +22,9 @@
 	if (!name)
 		name = @"Quicksilver";
 	NSWindow *aboutWindow = [self window];
+    [NTViewLocalizer localizeWindow:aboutWindow table:@"About" bundle:[NSBundle mainBundle]];
+
+
 	[aboutWindow setDelegate:self]; // needed, so windowWillClose: method is called
 	[(NSTextField *)[aboutWindow initialFirstResponder] setStringValue:[NSString stringWithFormat:@"%@ (%@)", name, [appBundle objectForInfoDictionaryKey:@"CFBundleVersion"]]];
 	[aboutWindow center];
