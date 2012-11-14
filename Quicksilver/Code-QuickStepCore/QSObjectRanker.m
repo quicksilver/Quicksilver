@@ -26,32 +26,35 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 @implementation QSDefaultObjectRanker
 + (void)initialize {
     NSString *className = [[NSUserDefaults standardUserDefaults] stringForKey:@"QSStringRankers"];
-    if (!className) {
-        className = @"QSDefaultStringRanker";
-    }
-    
-	if (className) {
-        QSCurrentStringRanker = NSClassFromString(className);
-        
-        if (!QSCurrentStringRanker) {
-            
-            // ok, maybe the bundle wasn't loaded right away, let's try to load it now
-            NSBundle *rankerBundle = [QSReg bundleForClassName:className];
-            if (rankerBundle && [rankerBundle load]) {
-                QSCurrentStringRanker = NSClassFromString(className);
-            }
+    [self setDefaultStringRanker:className];
+}
+
++ (BOOL)setDefaultStringRanker:(NSString *)className {
+    Class rankerClass = NSClassFromString(className);
+
+    if (!rankerClass) {
+        // ok, maybe the bundle wasn't loaded right away, let's try to load it now
+        NSBundle *rankerBundle = [QSReg bundleForClassName:className];
+        if (rankerBundle && [rankerBundle load]) {
+            rankerClass = NSClassFromString(className);
         }
     }
-    if (!QSCurrentStringRanker) {
+
+    if (!rankerClass) {
         QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:NSLocalizedString(@"Ranker Changed", nil), QSNotifierTitle, NSLocalizedString(@"Could not load preferred string ranker. Switching to default", nil), QSNotifierText, [QSResourceManager imageNamed:kQSBundleID], QSNotifierIcon, nil]);
         className = @"QSDefaultStringRanker";
-        QSCurrentStringRanker = NSClassFromString(className);
+        rankerClass = NSClassFromString(className);
+        if (!rankerClass) {
+            [NSException raise:NSInternalInconsistencyException format:@"No %@ class found !", className];
+        }
     }
-    
-    if (QSCurrentStringRanker)
+
+    if ([rankerClass instancesRespondToSelector:@selector(scoreForAbbreviation:)]) {
+        QSCurrentStringRanker = rankerClass;
         scoreForAbbrevIMP = (QSScoreForAbbrevIMP) [QSCurrentStringRanker instanceMethodForSelector:@selector(scoreForAbbreviation:)];
-    else
-        [NSException raise:NSInternalInconsistencyException format:@"No %@ class found !", className];
+        return YES;
+    }
+    return NO;
 }
 
 + (id)rankerForObject:(QSBasicObject *)object {
@@ -164,7 +167,9 @@ NSString *QSRankingAbbreviationMnemonics = @"QSRankingAbbreviationMnemonics"; //
 	return nil;
 }
 
+//- (QSRankedObject *)rankedObject:(QSBasicObject *)object forAbbreviation:(NSString*)anAbbreviation inContext:(NSString *)context withMnemonics:(NSArray *)mnemonics mnemonicsOnly:(BOOL)mnemonicsOnly {
 - (QSRankedObject *)rankedObject:(QSBasicObject *)object forAbbreviation:(NSString *)anAbbreviation options:(NSDictionary *)options {
+//    NSString *context = [options objectForKey:QSRankingContext];
     NSArray *mnemonics = [options objectForKey:QSRankingAbbreviationMnemonics];
     BOOL mnemonicsOnly = [[options objectForKey:QSRankingMnemonicsOnly] boolValue];
     BOOL usePureString = [[options objectForKey:QSRankingUsePureString] boolValue];
