@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <array>
+    <dict>
+      <key>category</key>
+      <string>Task Viewer</string>
+      <key>default</key>
+      <string>QSShowTaskViewerAutomatically</string>
+      <key>title</key>
+      <string>Show the Task Viewer automatically when tasks are created</string>
+      <key>type</key>
+      <string>checkbox</string>
+    </dict>
+    <dict>
+      <key>category</key>
+      <string>App Switching</string>
+      <key>default</key>
+      <string>Hide Other Apps When Switching</string>
+      <key>title</key>
+      <string>Při přepínámí aplikací skrýt ostatní (lze přeřaďovačem zakázat)</string>
+      <key>type</key>
+      <string>checkbox</string>
+    </dict>
+    <dict>
+      <key>category</key>
+      <string>Tasks</string>
+      <key>default</key>
+      <string>Multithreaded Execute</string>
+      <key>title</key>
+      <string>Spustit úlohy a akce na pozadí</string>
+      <key>type</key>
+      <string>checkbox</string>
+    </dict>
+    <dict>
+      <key>category</key>
+      <string>App Switching</string>
+      <key>default</key>
+      <string>QSActionAppReopenBehavior</string>
+      <key>items</key>
+      <dict>
+        <key>0</key>
+        <string>přepnout do aplikace</string>
+        <key>1</key>
+        <string>zobrazit okna v popředí</string>
+        <key>2</key>
+        <string>zobrazit všechna okna</string>
+      </dict>
+      <key>pretext</key>
+      <string>Aplikace se znovu spouští</string>
+      <key>subtext</key>
+      <string>Reopening the current application shows all windows</string>
+      <key>title</key>
+      <string>Znovu se spouští aplikace:</string>
+      <key>type</key>
+      <string>popupTag</string>
+    </dict>
+    <dict>
+      <key>category</key>
+      <string>Aktualizovat</string>
+      <key>default</key>
+      <string>QSUpdateReleaseLevel</string>
+      <key>image</key>
+      <string>Quicksilver</string>
+      <key>items</key>
+      <dict>
+        <key>0</key>
+        <string>Stabilní verze</string>
+        <key>1</key>
+        <string>Testovací verze</string>
+        <key>2</key>
+        <string>Vývojová verze</string>
+      </dict>
+      <key>requestRelaunch</key>
+      <true></true>
+      <key>title</key>
+      <string>Typ aktualizace aplikace</string>
+      <key>type</key>
+      <string>popupTag</string>
+    </dict>
+    <dict>
+      <key>category</key>
+      <string>Cmd</string>
+      <key>default</key>
+      <string>Shift Actions</string>
+      <key>title</key>
+      <string>Allow capitalized keys to select the action</string>
+      <key>type</key>
+      <string>checkbox</string>
+    </dict>
+    <dict>
+      <key>category</key>
+      <string>Cmd</string>
+      <key>default</key>
+      <string>Suppress HotKeys in Command</string>
+      <key>title</key>
+      <string>Disable Trigger HotKeys when Quicksilver is focused</string>
+      <key>type</key>
+      <string>checkbox</string>
+    </dict>
+    <dict>
+      <key>category</key>
+      <string>Cmd</string>
+      <key>default</key>
+      <string>Double Delete Clears Object</string>
+      <key>title</key>
+      <string>Dvojtým stiskem klávesy Delete se smaže aktuální objekt</string>
+      <key>type</key>
+      <string>checkbox</string>
+    </dict>
+  </array>
+</plist>

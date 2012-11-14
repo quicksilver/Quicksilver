@@ -1569,6 +1569,7 @@
 		CDFAC9121652E859006A0C5B /* zh-Hant-TW */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant-TW"; path = "zh-Hant-TW.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		CDFAC91B1652EFAF006A0C5B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/DefaultsMap.plist; sourceTree = "<group>"; };
 		CDFAC91D1652F3C1006A0C5B /* cy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cy; path = cy.lproj/About.strings; sourceTree = "<group>"; };
+		CDFAC91E1653886A006A0C5B /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = cs; path = cs.lproj/DefaultsMap.plist; sourceTree = "<group>"; };
 		D413172C15DEE5D90021479B /* LaunchAtLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchAtLoginController.h; sourceTree = "<group>"; };
 		D413172D15DEE5D90021479B /* LaunchAtLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchAtLoginController.m; sourceTree = "<group>"; };
 		D439387C15E2C4CF008F6548 /* QSICloudDocumentSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSICloudDocumentSource.h; sourceTree = "<group>"; };
@@ -5088,6 +5089,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				CDFAC91B1652EFAF006A0C5B /* en */,
+				CDFAC91E1653886A006A0C5B /* cs */,
 			);
 			name = DefaultsMap.plist;
 			sourceTree = "<group>";
