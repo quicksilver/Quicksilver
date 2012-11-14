@@ -386,6 +386,8 @@ NSSize QSMaxIconSize;
 - (void)setDetails:(NSString *)newDetails {
     if (newDetails) {
         [self setObject:newDetails forMeta:kQSObjectDetails];
+    } else {
+        [meta removeObjectForKey:kQSObjectDetails];
     }
 }
 
