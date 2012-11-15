@@ -282,6 +282,9 @@ QSExecutor *QSExec = nil;
 }
 
 - (NSArray *)rankedActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject shouldBypass:(BOOL)bypass {
+    if (!dObject) {
+        return nil;
+    }
 	NSArray *actions = nil;
 	if ([[dObject handler] respondsToSelector:@selector(actionsForDirectObject:indirectObject:)])
 		actions = (NSMutableArray *)[[dObject handler] actionsForDirectObject:dObject indirectObject:iObject];
