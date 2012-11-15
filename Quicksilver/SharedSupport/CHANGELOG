@@ -4,7 +4,7 @@
 
   * **Release Notes are shown by default** after each upgrade. This can be disabled by setting a [hidden preference][hidden]. (#1208)
   * New icons from [Dan Deming-Henes](http://strandeddesign.com) (#1129)
-  * Translations complete for several languages, and in progress for more. See the [Transifex project](https://www.transifex.com/projects/p/quicksilver/) for current status (not necessarily reflected in this release). (#1209)
+  * Translations for Czech, French, German, Spanish, Welsh, and Chinese (Taiwan). See the [Transifex project](https://www.transifex.com/projects/p/quicksilver/) for the status of these and other languages (not necessarily reflected in this release). (#1209)
   * Modernized the look of the Bezel interface (#1140)
   * Notification Center is now available as a notification handler in Mountain Lion (set as default) (#867, #1132)
   * An application's iCloud documents are shown (in addition to recent documents) when right-arrowing into the application (#1054, #1056)
@@ -12,7 +12,7 @@
   * Holding ⌘ will select the alternate action if available (#1163)
   * Alternate actions can now be seen in the Actions preferences (#1163)
   * Alternate actions added for Move To…, Copy To…, Make Link In…, Run at Time…, and Open With… (#1163)
-  * Users can control which file types get preview icons by listing UTIs in the [hidden `QSFilePreviewTypes` preference][hidden]. By default, it only lists `public.item`, which applies to all files and preserves the old default behavior. (#1149, #1180)
+  * Users can control which file types get preview icons by listing UTIs in the [hidden `QSFilePreviewTypes` preference][hidden] (#1149, #1180)
   * Text entry mode allows undo, substitutions, etc. (#337, #127, #1173)
   * The Large Type action can be used on text files (#1185)
   * Allow non-admin users to install updates (#521, #1159)
@@ -65,7 +65,7 @@
 
 ### Development ###
 
-  * Improvements to the localization process - or is it “localisation”? (#1025)
+  * Improvements to the localization process - or is it “localisation”? (#1125)
   * New dedicated type for Web Search URLs: `QSSearchURLType` (#625, #1082)
   * New method to return the "big cat" OS version (i.e. 10.x) (#1128)
   * Filter the third pane based on an action's `indirectTypes` (#1120)
