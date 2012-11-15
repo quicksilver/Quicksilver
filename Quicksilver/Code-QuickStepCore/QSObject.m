@@ -382,7 +382,7 @@ NSSize QSMaxIconSize;
 
 - (NSString *)details {
 	NSString *details = nil;
-
+    
 	// check the object handler for this type
     id handler = nil;
 	if (handler = [self handlerForSelector:@selector(detailsOfObject:)]) {
@@ -391,7 +391,7 @@ NSSize QSMaxIconSize;
     
     // check the cache
     if (!details) {
-        details = [meta objectForKey:kQSObjectDetails];
+        details = [self objectForMeta:kQSObjectDetails];
     }
     
 	if (details) return details;
@@ -495,6 +495,17 @@ NSSize QSMaxIconSize;
     } else {
         [meta removeObjectForKey:aKey];
     }
+}
+
+- (void)setObject:(id)object forCache:(id)aKey forTimeInterval:(NSTimeInterval)lifetime
+{
+    [self setObject:object forCache:aKey];
+    [self performSelector:@selector(expireCache:) withObject:aKey afterDelay:lifetime extend:YES];
+}
+
+- (void)expireCache:(NSString *)aKey
+{
+    [self setObject:nil forCache:aKey];
 }
 
 - (NSMutableDictionary *)cache {

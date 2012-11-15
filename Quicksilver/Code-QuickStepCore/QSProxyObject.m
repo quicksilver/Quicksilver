@@ -69,27 +69,17 @@
     
     //NSLog(@"Proxy: %@", proxy);
     if (proxy) {
-        [self setObject:proxy forCache:QSProxyTargetCache];
+        NSTimeInterval interval = [provider respondsToSelector:@selector(cacheTimeForProxy:)] ? [[self proxyProvider] cacheTimeForProxy:self] : 3.0f;
+        [self setObject:proxy forCache:QSProxyTargetCache forTimeInterval:interval];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectIconModified:) name:QSObjectIconModified object:proxy];
     }
-    
-    NSTimeInterval interval = 3.0f;
-    
-    if ([provider respondsToSelector:@selector(cacheTimeForProxy:)])
-        interval = [[self proxyProvider] cacheTimeForProxy:self];
-    
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)interval * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self releaseProxy];
-    });
 	return proxy;
 }
 
-
-- (void)releaseProxy {
-	//NSLog(@"release proxy");
+- (void)expireCache:(NSString *)aKey
+{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:QSObjectIconModified object:[cache objectForKey:QSProxyTargetCache]];
-	[cache removeObjectForKey:QSProxyTargetCache];
+    [super expireCache:aKey];
 }
 
 - (NSArray *)proxyTypes {

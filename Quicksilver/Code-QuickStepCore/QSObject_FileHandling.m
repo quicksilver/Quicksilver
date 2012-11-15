@@ -452,7 +452,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 					newChildren = [QSObject fileObjectsWithPathArray:[recentDocuments arrayByAddingObjectsFromArray:[iCloudDocuments objectsAtIndexes:ind]]];
 
 					for(QSObject * child in newChildren) {
-						[child setObject:bundleIdentifier forMeta:@"QSPreferredApplication"];
+						[child setObject:bundleIdentifier forCache:@"QSPreferredApplication" forTimeInterval:12.0];
 					}
 				}
 			}

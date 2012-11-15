@@ -132,6 +132,8 @@ extern NSSize QSMaxIconSize;
 - (void)setObject:(id)object forCache:(id)aKey;
 - (id)objectForMeta:(id)aKey;
 - (void)setObject:(id)object forMeta:(id)aKey;
+- (void)setObject:(id)object forCache:(id)aKey forTimeInterval:(NSTimeInterval)lifetime;
+- (void)expireCache:(NSNotification *)note;
 
 - (void)setDetails:(NSString *)newDetails;
 
