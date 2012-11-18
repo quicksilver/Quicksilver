@@ -1,12 +1,168 @@
-"Every 10 minutes" = "Every 10 minutes";
-"Manually" = "Manually";
-"Rescan" = "Rescan";
-"Show Info" = "Show Info";
-"Delete selected source" = "Delete selected source";
-"Every day" = "Every day";
+/* Extracted by stringstool (288.ibShadowedDateFormat) */
+"%H:%M:%S %m/%d/%y" = "%H:%M:%S %m/%d/%y";
+
+/* Extracted by stringstool (499.ibShadowedDisplayPattern) */
+"%{value1}@ Items" = "%{value1}@ Items";
+
+/* Extracted by stringstool (515.title) */
+"-100" = "-100";
+
+/* Extracted by stringstool (516.title) */
+"16:26:02 03/26/05" = "16:26:02 03/26/05";
+
+/* Extracted by stringstool (84.title) */
+"According to Schedule" = "According to Schedule";
+
+/* Extracted by stringstool (488.ibShadowedToolTip) */
 "Add source..." = "Add source...";
+
+/* Extracted by stringstool (527.ibShadowedLabels[2]) */
+"Attributes" = "Attributes";
+
+/* Extracted by stringstool (106.title) */
+"Automatically" = "Automatically";
+
+/* Extracted by stringstool (509.title) */
+"Availability" = "Availability";
+
+/* Extracted by stringstool (375.title) */
+"Box" = "Box";
+
+/* Extracted by stringstool (7.title) */
+"Catalog" = "Catalog";
+
+/* Extracted by stringstool (527.ibShadowedLabels[1]) */
+"Contents" = "Contents";
+
+/* Extracted by stringstool (97.label) */
+"Contents" = "Contents";
+
+/* Extracted by stringstool (521.title) */
+"Create Copy" = "Create Copy";
+
+/* Extracted by stringstool (14.ibShadowedToolTip) */
+"Delete selected source" = "Delete selected source";
+
+/* Extracted by stringstool (86.label) */
+"Entry" = "Entry";
+
+/* Extracted by stringstool (222.title) */
+"Every 10 minutes" = "Every 10 minutes";
+
+/* Extracted by stringstool (81.title) */
+"Every Application" = "Every Application";
+
+/* Extracted by stringstool (224.title) */
+"Every day" = "Every day";
+
+/* Extracted by stringstool (220.title) */
 "Every half hour" = "Every half hour";
-"Rescan source" = "Rescan source";
-"Sources" = "Sources";
+
+/* Extracted by stringstool (217.title) */
 "Every hour" = "Every hour";
+
+/* Extracted by stringstool (511.title) */
+"Include in Global Catalog" = "Include in Global Catalog";
+
+/* Extracted by stringstool (191.title) */
+"Include new items" = "Include new items";
+
+/* Extracted by stringstool (192.title) */
+"Item3" = "Item3";
+
+/* Extracted by stringstool (517.title) */
+"Items:" = "Items:";
+
+/* Extracted by stringstool (512.title) */
+"Maintain an index of contents" = "Maintain an index of contents";
+
+/* Extracted by stringstool (221.title) */
+"Manually" = "Manually";
+
+/* Extracted by stringstool (528.title) */
+"Message" = "Message";
+
+/* Extracted by stringstool (79.title) */
+"None" = "None";
+
+/* Extracted by stringstool (189.title) */
+"Omit new items" = "Omit new items";
+
+/* Extracted by stringstool (91.title) */
+"On Activation" = "On Activation";
+
+/* Extracted by stringstool (83.title) */
+"OtherViews" = "OtherViews";
+
+/* Extracted by stringstool (225.title) */
+"OtherViews" = "OtherViews";
+
+/* Extracted by stringstool (103.title) */
+"OtherViews" = "OtherViews";
+
+/* Extracted by stringstool (188.title) */
+"OtherViews" = "OtherViews";
+
+/* Extracted by stringstool (505.title) */
+"Rescan" = "Rescan";
+
+/* Extracted by stringstool (218.ibShadowedToolTip) */
 "Rescan frequency" = "Rescan frequency";
+
+/* Extracted by stringstool (9.ibShadowedToolTip) */
+"Rescan source" = "Rescan source";
+
+/* Extracted by stringstool (525.title) */
+"Reset" = "Reset";
+
+/* Extracted by stringstool (347.headerCell.title) */
+"Scanned Objects" = "Scanned Objects";
+
+/* Extracted by stringstool (518.title) */
+"Scanned:" = "Scanned:";
+
+/* Extracted by stringstool (399.headerCell.title) */
+"Sets" = "Sets";
+
+/* Extracted by stringstool (95.title) */
+"Settings" = "Settings";
+
+/* Extracted by stringstool (160.ibShadowedToolTip) */
+"Show Info" = "Show Info";
+
+/* Extracted by stringstool (529.title) */
+"Small System Font Text" = "Small System Font Text";
+
+/* Extracted by stringstool (92.label) */
+"Source Options" = "Source Options";
+
+/* Extracted by stringstool (527.ibShadowedLabels[0]) */
+"Source Options" = "Source Options";
+
+/* Extracted by stringstool (15.headerCell.title) */
+"Sources" = "Sources";
+
+/* Extracted by stringstool (90.title) */
+"Subdirectory (FS)" = "Subdirectory (FS)";
+
+/* Extracted by stringstool (522.title) */
+"This entry is a preset" = "This entry is a preset";
+
+/* Extracted by stringstool (87.title) */
+"Title" = "Title";
+
+/* Extracted by stringstool (519.title) */
+"Type:" = "Type:";
+
+/* Extracted by stringstool (506.title) */
+"X" = "X";
+
+/* Extracted by stringstool (526.title) */
+"X" = "X";
+
+/* Extracted by stringstool (345.headerCell.title) */
+"✓" = "✓";
+
+/* Extracted by stringstool (12.headerCell.title) */
+"✓" = "✓";
+

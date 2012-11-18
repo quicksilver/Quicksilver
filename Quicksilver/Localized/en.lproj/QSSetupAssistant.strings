@@ -1,0 +1,132 @@
+/* Extracted by stringstool (303.ibShadowedNoSelectionPlaceholder) */
+" " = " ";
+
+/* Extracted by stringstool (456.title) */
+"Activation" = "Activation";
+
+/* Extracted by stringstool (468.title) */
+"Cancel" = "Cancel";
+
+/* Extracted by stringstool (455.title) */
+"Catalog" = "Catalog";
+
+/* Extracted by stringstool (466.title) */
+"Continue" = "Continue";
+
+/* Extracted by stringstool (448.title) */
+"Downloading of plug-in information failed. Plug-ins can be downloaded at a later date from within Quicksilver's preferences." = "Downloading of plug-in information failed. Plug-ins can be downloaded at a later date from within Quicksilver's preferences.";
+
+/* Extracted by stringstool (463.title) */
+"Edit" = "Edit";
+
+/* Extracted by stringstool (341.title) */
+"Every 10 minutes" = "Every 10 minutes";
+
+/* Extracted by stringstool (342.title) */
+"Every day" = "Every day";
+
+/* Extracted by stringstool (345.title) */
+"Every half hour" = "Every half hour";
+
+/* Extracted by stringstool (340.title) */
+"Every hour" = "Every hour";
+
+/* Extracted by stringstool (404.label) */
+"Failed" = "Failed";
+
+/* Extracted by stringstool (56.label) */
+"Getting Started" = "Getting Started";
+
+/* Extracted by stringstool (465.title) */
+"Go Back" = "Go Back";
+
+/* Extracted by stringstool (461.title) */
+"Hot Key:" = "Hot Key:";
+
+/* Extracted by stringstool (452.title) */
+"I have read and accept the terms of this license" = "I have read and accept the terms of this license";
+
+/* Extracted by stringstool (232.label) */
+"License" = "License";
+
+/* Extracted by stringstool (453.title) */
+"License Agreement" = "License Agreement";
+
+/* Extracted by stringstool (393.label) */
+"Loading" = "Loading";
+
+/* Extracted by stringstool (447.title) */
+"Loading Plug-in Information" = "Loading Plug-in Information";
+
+/* Extracted by stringstool (343.title) */
+"Manually (Command-R)" = "Manually (Command-R)";
+
+/* Extracted by stringstool (234.label) */
+"Options" = "Options";
+
+/* Extracted by stringstool (339.title) */
+"OtherViews" = "OtherViews";
+
+/* Extracted by stringstool (254.title) */
+"Panel" = "Panel";
+
+/* Extracted by stringstool (9.label) */
+"Plug-ins" = "Plug-ins";
+
+/* Extracted by stringstool (201.headerCell.title) */
+"Plug-ins" = "Plug-ins";
+
+/* Extracted by stringstool (392.label) */
+"Plug-ins" = "Plug-ins";
+
+/* Extracted by stringstool (5.title) */
+"Quicksilver Setup" = "Quicksilver Setup";
+
+/* Extracted by stringstool (443.title) */
+"Quicksilver comes with only a few basic features. Plug-ins can be installed to allow integration with many applications and services.\n\nSelect and install the plug-ins for applications you use frequently from the list below. Plug-ins can be installed or disabled at a later date from the “Plug-ins” section in Quicksilver's preferences." = "Quicksilver comes with only a few basic features. Plug-ins can be installed to allow integration with many applications and services.\n\nSelect and install the plug-ins for applications you use frequently from the list below. Plug-ins can be installed or disabled at a later date from the “Plug-ins” section in Quicksilver's preferences.";
+
+/* Extracted by stringstool (449.title) */
+"Quicksilver is an application that lets you search and control data across your Mac.\r\rQuickly and effortlessly launch applications, play songs in iTunes, create iCal events, or email files to a friend in Address Book. And that's just the start. \rThis assistant will help you get set up, and provide you with a basic introduction to Quicksilver’s functionality." = "Quicksilver is an application that lets you search and control data across your Mac.\r\rQuickly and effortlessly launch applications, play songs in iTunes, create iCal events, or email files to a friend in Address Book. And that's just the start. \rThis assistant will help you get set up, and provide you with a basic introduction to Quicksilver’s functionality.";
+
+/* Extracted by stringstool (458.title) */
+"Quicksilver is never further away than a single Hot Key. Select your preferred HotKey below, or change it at any time in the “Command” pane in the preferences." = "Quicksilver is never further away than a single Hot Key. Select your preferred HotKey below, or change it at any time in the “Command” pane in the preferences.";
+
+/* Extracted by stringstool (442.title) */
+"Recommended Plug-ins" = "Recommended Plug-ins";
+
+/* Extracted by stringstool (460.title) */
+"Rescan Catalog:" = "Rescan Catalog:";
+
+/* Extracted by stringstool (338.ibShadowedToolTip) */
+"Rescan frequency" = "Rescan frequency";
+
+/* Extracted by stringstool (302.ibShadowedNoSelectionPlaceholder) */
+"Select a plug-in for more information" = "Select a plug-in for more information";
+
+/* Extracted by stringstool (446.title) */
+"Small System Font Text" = "Small System Font Text";
+
+/* Extracted by stringstool (467.title) */
+"Small System Font Text" = "Small System Font Text";
+
+/* Extracted by stringstool (445.title) */
+"Small System Font Text" = "Small System Font Text";
+
+/* Extracted by stringstool (236.label) */
+"Support" = "Support";
+
+/* Extracted by stringstool (457.title) */
+"The applications, files, folders and items Quicksilver can find are defined in the Catalog. You can add, remove or update items in the Catalog from the “Catalog” pane in the preferences. \nBy default, the catalog is refreshed every 10 minutes. You can  alter the frequency below." = "The applications, files, folders and items Quicksilver can find are defined in the Catalog. You can add, remove or update items in the Catalog from the “Catalog” pane in the preferences. \nBy default, the catalog is refreshed every 10 minutes. You can  alter the frequency below.";
+
+/* Extracted by stringstool (11.label) */
+"Welcome" = "Welcome";
+
+/* Extracted by stringstool (450.title) */
+"Welcome to Quicksilver" = "Welcome to Quicksilver";
+
+/* Extracted by stringstool (462.placeholderString) */
+"none" = "none";
+
+/* Extracted by stringstool (203.headerCell.title) */
+"✓" = "✓";
+

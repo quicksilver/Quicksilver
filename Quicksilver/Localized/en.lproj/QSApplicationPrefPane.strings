@@ -1,12 +1,114 @@
-"Prevent accidental quitting" = "Prevent accidental quitting";
-"Monthly" = "Monthly";
-"Check for update immediately" = "Check for update immediately";
+/* Extracted by stringstool (167.ibShadowedDateFormat) */
+"%I:%M %B %d" = "%I:%M %B %d";
+
+/* Extracted by stringstool (12.title) */
+"<< do not localize >>" = "<< do not localize >>";
+
+/* Extracted by stringstool (107.ibShadowedToolTip) */
 "Add Quicksilver to your login items" = "Add Quicksilver to your login items";
+
+/* Extracted by stringstool (339.title) */
+"BXX" = "BXX";
+
+/* Extracted by stringstool (225.title) */
+"Box" = "Box";
+
+/* Extracted by stringstool (308.title) */
+"Box" = "Box";
+
+/* Extracted by stringstool (343.alternateTitle) */
+"Cancel" = "Cancel";
+
+/* Extracted by stringstool (344.alternateTitle) */
+"Cancel" = "Cancel";
+
+/* Extracted by stringstool (342.alternateTitle) */
+"Cancel" = "Cancel";
+
+/* Extracted by stringstool (330.alternateTitle) */
+"Cancel" = "Cancel";
+
+/* Extracted by stringstool (330.title) */
+"Check Now" = "Check Now";
+
+/* Extracted by stringstool (161.ibShadowedToolTip) */
+"Check for update immediately" = "Check for update immediately";
+
+/* Extracted by stringstool (333.title) */
+"Check for updates:" = "Check for updates:";
+
+/* Extracted by stringstool (338.title) */
+"Current version:" = "Current version:";
+
+/* Extracted by stringstool (170.title) */
+"Daily" = "Daily";
+
+/* Extracted by stringstool (340.title) */
 "Download updates in the background" = "Download updates in the background";
-"Restart immediately" = "Restart immediately";
-"Warn before quitting" = "Warn before quitting";
-"Normal" = "Normal";
-"Run Setup" = "Run Setup";
+
+/* Extracted by stringstool (166.ibShadowedToolTip) */
 "Enable update checking" = "Enable update checking";
-"Now" = "Now";
+
+/* Extracted by stringstool (366.title) */
+"General" = "General";
+
+/* Extracted by stringstool (337.title) */
+"Include access to all menu items from menu bar" = "Include access to all menu items from menu bar";
+
+/* Extracted by stringstool (331.title) */
+"Last check:" = "Last check:";
+
+/* Extracted by stringstool (172.title) */
+"Monthly" = "Monthly";
+
+/* Extracted by stringstool (332.title) */
+"Never" = "Never";
+
+/* Extracted by stringstool (168.title) */
+"On Launch" = "On Launch";
+
+/* Extracted by stringstool (165.title) */
+"OtherViews" = "OtherViews";
+
+/* Extracted by stringstool (343.title) */
+"Reset Preferences" = "Reset Preferences";
+
+/* Extracted by stringstool (344.title) */
+"Run Setup" = "Run Setup";
+
+/* Extracted by stringstool (370.title) */
+"Setup" = "Setup";
+
+/* Extracted by stringstool (328.title) */
+"Show icon in dock" = "Show icon in dock";
+
+/* Extracted by stringstool (100.ibShadowedToolTip) */
+"Show icon in menu bar" = "Show icon in menu bar";
+
+/* Extracted by stringstool (324.title) */
+"Show icon in menu bar" = "Show icon in menu bar";
+
+/* Extracted by stringstool (327.title) */
+"Start at login" = "Start at login";
+
+/* Extracted by stringstool (109.ibShadowedToolTip) */
+"Toggle dock icon and menu visibility. (Requires relaunch)" = "Toggle dock icon and menu visibility. (Requires relaunch)";
+
+/* Extracted by stringstool (342.title) */
+"Uninstall Quicksilver" = "Uninstall Quicksilver";
+
+/* Extracted by stringstool (169.ibShadowedToolTip) */
+"Update frequency" = "Update frequency";
+
+/* Extracted by stringstool (368.title) */
+"Updates" = "Updates";
+
+/* Extracted by stringstool (171.title) */
+"Weekly" = "Weekly";
+
+/* Extracted by stringstool (325.title) */
 "⌽" = "⌽";
+
+/* Extracted by stringstool (336.title) */
+"⌽" = "⌽";
+

@@ -1,4 +1,120 @@
-"Vers." = "Vers.";
-"Updated" = "Updated";
-"Reload plugin list" = "Reload plugin list";
+/* Extracted by stringstool (591.title) */
+"Categories" = "Categories";
+
+/* Extracted by stringstool (144.title) */
+"Copy Installation URL" = "Copy Installation URL";
+
+/* Extracted by stringstool (98.title) */
+"Delete Selected Plugins" = "Delete Selected Plugins";
+
+/* Extracted by stringstool (371.title) */
+"Download as File..." = "Download as File...";
+
+/* Extracted by stringstool (373.title) */
+"Install Selected Plugins" = "Install Selected Plugins";
+
+/* Extracted by stringstool (332.title) */
+"Install clicked plugins without asking" = "Install clicked plugins without asking";
+
+/* Extracted by stringstool (103.title) */
+"Install plugins from web without asking" = "Install plugins from web without asking";
+
+/* Extracted by stringstool (352.title) */
+"Install prerequisites without asking" = "Install prerequisites without asking";
+
+/* Extracted by stringstool (608.title) */
+"Installed Version" = "Installed Version";
+
+/* Extracted by stringstool (524.title) */
+"Latest Version" = "Latest Version";
+
+/* Extracted by stringstool (83.title) */
+"Menu" = "Menu";
+
+/* Extracted by stringstool (549.placeholderString) */
+"N/A" = "N/A";
+
+/* Extracted by stringstool (555.ibShadowedIsNilPlaceholder) */
+"N/A" = "N/A";
+
+/* Extracted by stringstool (573.ibShadowedIsNilPlaceholder) */
+"N/A" = "N/A";
+
+/* Extracted by stringstool (544.placeholderString) */
+"N/A" = "N/A";
+
+/* Extracted by stringstool (526.placeholderString) */
+"N/A" = "N/A";
+
+/* Extracted by stringstool (530.placeholderString) */
+"N/A" = "N/A";
+
+/* Extracted by stringstool (556.ibShadowedIsNilPlaceholder) */
+"N/A" = "N/A";
+
+/* Extracted by stringstool (557.ibShadowedIsNilPlaceholder) */
+"N/A" = "N/A";
+
+/* Extracted by stringstool (609.ibShadowedIsNilPlaceholder) */
+"No Description" = "No Description";
+
+/* Extracted by stringstool (610.ibShadowedIsNilPlaceholder) */
+"None" = "None";
+
+/* Extracted by stringstool (111.title) */
+"Open Plugin Help" = "Open Plugin Help";
+
+/* Extracted by stringstool (603.title) */
+"Plug-In Categories" = "Plug-In Categories";
+
+/* Extracted by stringstool (582.title) */
+"Plug-In Description" = "Plug-In Description";
+
+/* Extracted by stringstool (499.title) */
+"Plug-in Name" = "Plug-in Name";
+
+/* Extracted by stringstool (500.title) */
+"Plug-in Status" = "Plug-in Status";
+
+/* Extracted by stringstool (281.ibShadowedToolTip) */
+"Plugin Documentation" = "Plugin Documentation";
+
+/* Extracted by stringstool (122.ibShadowedToolTip) */
+"Plugin Information" = "Plugin Information";
+
+/* Extracted by stringstool (44.headerCell.title) */
 "Plugins" = "Plugins";
+
+/* Extracted by stringstool (102.title) */
+"Refresh list of plugins" = "Refresh list of plugins";
+
+/* Extracted by stringstool (489.ibShadowedToolTip) */
+"Reload plugin list" = "Reload plugin list";
+
+/* Extracted by stringstool (100.title) */
+"Show Plugins Folder" = "Show Plugins Folder";
+
+/* Extracted by stringstool (496.title) */
+"Small System Font Text" = "Small System Font Text";
+
+/* Extracted by stringstool (589.title) */
+"Status" = "Status";
+
+/* Extracted by stringstool (297.headerCell.title) */
+"Updated" = "Updated";
+
+/* Extracted by stringstool (486.headerCell.title) */
+"Vers." = "Vers.";
+
+/* Extracted by stringstool (514.title) */
+"Window" = "Window";
+
+/* Extracted by stringstool (5.title) */
+"Window" = "Window";
+
+/* Extracted by stringstool (503.title) */
+"byline" = "byline";
+
+/* Extracted by stringstool (64.headerCell.title) */
+"✓" = "✓";
+

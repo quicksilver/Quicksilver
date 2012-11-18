@@ -1,5 +1,81 @@
-"Trigger" = "Trigger";
-"Trigger Info" = "Trigger Info";
-"Delete selected trigger" = "Delete selected trigger";
-"Command" = "Command";
+/* Extracted by stringstool (515.ibShadowedToolTip) */
 "Add trigger..." = "Add trigger...";
+
+/* Extracted by stringstool (483.headerCell.title) */
+"Command" = "Command";
+
+/* Extracted by stringstool (535.label) */
+"Commands" = "Commands";
+
+/* Extracted by stringstool (832.ibShadowedLabels[1]) */
+"Commands" = "Commands";
+
+/* Extracted by stringstool (142.ibShadowedToolTip) */
+"Delete selected trigger" = "Delete selected trigger";
+
+/* Extracted by stringstool (618.ibShadowedToolTip) */
+"Delete trigger" = "Delete trigger";
+
+/* Extracted by stringstool (640.ibShadowedToolTip) */
+"Delete trigger" = "Delete trigger";
+
+/* Extracted by stringstool (641.ibShadowedToolTip) */
+"Delete trigger" = "Delete trigger";
+
+/* Extracted by stringstool (616.ibShadowedToolTip) */
+"Delete trigger" = "Delete trigger";
+
+/* Extracted by stringstool (543.title) */
+"Disabled in selected applications:" = "Disabled in selected applications:";
+
+/* Extracted by stringstool (831.title) */
+"Edit" = "Edit";
+
+/* Extracted by stringstool (544.title) */
+"Enabled in all applications" = "Enabled in all applications";
+
+/* Extracted by stringstool (542.title) */
+"Enabled in selected applications:" = "Enabled in selected applications:";
+
+/* Extracted by stringstool (541.title) */
+"OtherViews" = "OtherViews";
+
+/* Extracted by stringstool (832.ibShadowedLabels[2]) */
+"Scope" = "Scope";
+
+/* Extracted by stringstool (531.label) */
+"Scope" = "Scope";
+
+/* Extracted by stringstool (734.headerCell.title) */
+"Sets" = "Sets";
+
+/* Extracted by stringstool (832.ibShadowedLabels[0]) */
+"Settings" = "Settings";
+
+/* Extracted by stringstool (533.label) */
+"Settings" = "Settings";
+
+/* Extracted by stringstool (768.title) */
+"Text Cell" = "Text Cell";
+
+/* Extracted by stringstool (835.title) */
+"Text Cell" = "Text Cell";
+
+/* Extracted by stringstool (486.headerCell.title) */
+"Trigger" = "Trigger";
+
+/* Extracted by stringstool (143.ibShadowedToolTip) */
+"Trigger Info" = "Trigger Info";
+
+/* Extracted by stringstool (833.title) */
+"Trigger Name" = "Trigger Name";
+
+/* Extracted by stringstool (62.title) */
+"Triggers" = "Triggers";
+
+/* Extracted by stringstool (485.headerCell.title) */
+"⌘" = "⌘";
+
+/* Extracted by stringstool (484.headerCell.title) */
+"✓" = "✓";
+

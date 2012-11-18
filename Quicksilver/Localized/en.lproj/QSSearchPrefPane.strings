@@ -1,38 +1,168 @@
-"Select Next Result" = "Select Next Result";
-"Hide if pressed when already visible" = "Hide if pressed when already visible";
-"Show children in result list" = "Show children in result list";
-"Row Height:" = "Row Height:";
-"Use a single key command to activate" = "Use a single key command to activate";
-"Wait before searching:" = "Wait before searching:";
-"Function" = "Function";
-"Hide instead of resetting search" = "Hide instead of resetting search";
-"Option" = "Option";
-"Switch to Text Mode" = "Switch to Text Mode";
-"Normal" = "Normal";
-"Show other matches" = "Show other matches";
-"Never" = "Never";
-"Delayed" = "Delayed";
-"HotKey Activation:" = "HotKey Activation:";
-"Edit" = "Edit";
-"Reset search after:" = "Reset search after:";
-"Jump to Argument Field" = "Jump to Argument Field";
-"Shift" = "Shift";
-"Immediately" = "Immediately";
+/* Extracted by stringstool (264.title) */
+"0.00s" = "0.00s";
+
+/* Extracted by stringstool (254.title) */
+"0.00s" = "0.00s";
+
+/* Extracted by stringstool (12.title) */
+"<< do not localize >>" = "<< do not localize >>";
+
+/* Extracted by stringstool (325.title) */
+"Activation" = "Activation";
+
+/* Extracted by stringstool (108.ibShadowedToolTip) */
+"Automatically put Quicksilver into text mode if no results are found in the Catalog" = "Automatically put Quicksilver into text mode if no results are found in the Catalog";
+
+/* Extracted by stringstool (185.title) */
 "Box" = "Box";
-"Modifier-only Activation:" = "Modifier-only Activation:";
-"Off" = "Off";
-"Alternate Services Menu Key:" = "Alternate Services Menu Key:";
-"Double" = "Double";
+
+/* Extracted by stringstool (367.title) */
+"Box" = "Box";
+
+/* Extracted by stringstool (169.title) */
 "Caps Lock (Double Only)" = "Caps Lock (Double Only)";
-"Delay before showing alternatives" = "Delay before showing alternatives";
-"The children of the object that is selected in the resultlist are displayed in a second list." = "The children of the object that is selected in the resultlist are displayed in a second list.";
-"Time to wait before new letters typed are considered a new search" = "Time to wait before new letters typed are considered a new search";
+
+/* Extracted by stringstool (171.title) */
 "Command" = "Command";
-"Spacebar behavior:" = "Spacebar behavior:";
-"Delay before searching to improve performance on slow machines" = "Delay before searching to improve performance on slow machines";
+
+/* Extracted by stringstool (160.title) */
 "Control" = "Control";
-"none" = "none";
-"Jump to action when getting results" = "Jump to action when getting results";
-"Single" = "Single";
-"Switch to text mode if no match is found" = "Switch to text mode if no match is found";
+
+/* Extracted by stringstool (105.ibShadowedToolTip) */
+"Delay before searching to improve performance on slow machines" = "Delay before searching to improve performance on slow machines";
+
+/* Extracted by stringstool (342.title) */
+"Delayed" = "Delayed";
+
+/* Extracted by stringstool (156.title) */
+"Double" = "Double";
+
+/* Extracted by stringstool (278.title) */
+"Edit" = "Edit";
+
+/* Extracted by stringstool (295.title) */
+"Enter the hotkey you want to use to display Quicksilver" = "Enter the hotkey you want to use to display Quicksilver";
+
+/* Extracted by stringstool (351.title) */
+"Focus action when displaying results" = "Focus action when displaying results";
+
+/* Extracted by stringstool (166.title) */
+"Function" = "Function";
+
+/* Extracted by stringstool (270.title) */
+"HotKey:" = "HotKey:";
+
+/* Extracted by stringstool (340.title) */
+"Immediately" = "Immediately";
+
+/* Extracted by stringstool (379.title) */
+"Item 1" = "Item 1";
+
+/* Extracted by stringstool (380.title) */
+"Item 2" = "Item 2";
+
+/* Extracted by stringstool (381.title) */
+"Item 3" = "Item 3";
+
+/* Extracted by stringstool (110.title) */
+"Jump to Argument Field" = "Jump to Argument Field";
+
+/* Extracted by stringstool (274.title) */
+"Modifier-only activation" = "Modifier-only activation";
+
+/* Extracted by stringstool (341.title) */
+"Never" = "Never";
+
+/* Extracted by stringstool (125.title) */
+"Normal" = "Normal";
+
+/* Extracted by stringstool (167.title) */
+"Option" = "Option";
+
+/* Extracted by stringstool (130.title) */
+"OtherViews" = "OtherViews";
+
+/* Extracted by stringstool (168.title) */
+"OtherViews" = "OtherViews";
+
+/* Extracted by stringstool (339.title) */
+"OtherViews" = "OtherViews";
+
+/* Extracted by stringstool (162.title) */
+"OtherViews" = "OtherViews";
+
+/* Extracted by stringstool (378.title) */
+"OtherViews" = "OtherViews";
+
+/* Extracted by stringstool (293.title) */
+"Quick Look" = "Quick Look";
+
+/* Extracted by stringstool (262.title) */
+"Reset search after:" = "Reset search after:";
+
+/* Extracted by stringstool (366.title) */
+"Results" = "Results";
+
+/* Extracted by stringstool (344.title) */
+"Results Row Height:" = "Results Row Height:";
+
+/* Extracted by stringstool (327.title) */
+"Search" = "Search";
+
+/* Extracted by stringstool (111.title) */
+"Select Next Result" = "Select Next Result";
+
+/* Extracted by stringstool (331.ibShadowedToolTip) */
+"Set when the results window appears for search results" = "Set when the results window appears for search results";
+
+/* Extracted by stringstool (330.ibShadowedToolTip) */
+"Sets the height of each row in the results window" = "Sets the height of each row in the results window";
+
+/* Extracted by stringstool (164.title) */
+"Shift" = "Shift";
+
+/* Extracted by stringstool (226.title) */
 "Show Item's Contents" = "Show Item's Contents";
+
+/* Extracted by stringstool (371.title) */
+"Show children in result list" = "Show children in result list";
+
+/* Extracted by stringstool (337.title) */
+"Show other results:" = "Show other results:";
+
+/* Extracted by stringstool (159.title) */
+"Single" = "Single";
+
+/* Extracted by stringstool (256.title) */
+"Spacebar behavior:" = "Spacebar behavior:";
+
+/* Extracted by stringstool (368.ibShadowedToolTip) */
+"Split the results list into two columns to display the children of results" = "Split the results list into two columns to display the children of results";
+
+/* Extracted by stringstool (128.title) */
+"Switch to Text Mode" = "Switch to Text Mode";
+
+/* Extracted by stringstool (259.title) */
+"Switch to text mode if no match is found" = "Switch to text mode if no match is found";
+
+/* Extracted by stringstool (122.ibShadowedToolTip) */
+"Time to wait before new letters typed are considered a new search" = "Time to wait before new letters typed are considered a new search";
+
+/* Extracted by stringstool (373.ibShadowedToolTip) */
+"Use a single key command to activate" = "Use a single key command to activate";
+
+/* Extracted by stringstool (227.ibShadowedToolTip) */
+"Use a single key command to activate" = "Use a single key command to activate";
+
+/* Extracted by stringstool (267.title) */
+"Wait before searching:" = "Wait before searching:";
+
+/* Extracted by stringstool (374.title) */
+"When activated, switch keyboard to" = "When activated, switch keyboard to";
+
+/* Extracted by stringstool (275.placeholderString) */
+"none" = "none";
+
+/* Extracted by stringstool (251.ibShadowedIsNilPlaceholder) */
+"none" = "none";
+
