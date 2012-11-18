@@ -1,0 +1,102 @@
+#!/usr/bin/env ruby
+# encoding: UTF-8
+
+# stringstool is a command-line tool built to help localization management by :
+#  - allowing strings file to be merged
+#  - TODO
+
+VERSION = 1.0
+
+begin
+require 'trollop'
+require 'plist'
+rescue LoadError
+  puts "Missing required gems, please run 'gem install trollop plist' first"
+end
+
+require 'tempfile' # Ruby stdlib
+
+# Helpers
+
+def extract_strings_from_ib(ib_file, output_file)
+  # Use ibtool to extract localizable strings for the IB file
+  begin
+    temp_file = Tempfile.new('stringstool-extract-')
+    begin
+      puts "Extracting strings from #{ib_file}..."
+      Kernel.system("ibtool --export-strings-file #{temp_file.path} #{ib_file}")
+      if $? != 0
+        puts "Extraction failed, error #{$?}"
+        return false
+      end
+    ensure
+      temp_file.close
+    end
+
+    # Now parse back that file line by line and extract info from it
+    puts "Reformatting..."
+    strings = []
+    File.open(temp_file.path, "r:UTF-16:UTF-8") do |file|
+      file.each_line do |line|
+        if match = line.match(/"(.*)" = "(.*)"/)
+          strings << {:data => match[2], :comment => "Extracted by stringstool (#{match[1]})" }
+        end
+      end
+    end
+
+    # Sort strings by data
+    strings.sort! {|a, b| a[:data] <=> b[:data] }
+
+    puts "Creating strings file in #{output_file}..."
+    # Now write that data with the correct format at the output path
+    output_file_name = File.basename(ib_file, File.extname(ib_file)) + ".strings"
+    output_file = File.join(output_file, output_file_name)
+
+    File.open(output_file, "w") do |file|
+      strings.each do |item|
+        file.write "/* %s */\n\"%s\" = \"%s\";\n\n" % [item[:comment], item[:data], item[:data]]
+      end
+    end
+  ensure
+    File.unlink(temp_file)
+  end
+
+  puts "Extracted strings from #{ib_file} to #{output_file}"
+  return true
+end
+
+# Main script
+
+SUB_COMMANDS = ['merge', 'extract']
+$global_opts = Trollop::options do
+  version "stringstool v#{VERSION}"
+  banner <<-END
+stringstool:
+
+  Commands:
+    extract: Extracts localizable strings from an Interface Builder file
+      merge:
+
+  Options:
+END
+
+  stop_on SUB_COMMANDS
+end
+
+cmd = ARGV.shift
+cmd_opts = case cmd
+when "merge" then
+  puts "TODO ;-)"
+when "extract" then
+  opts = Trollop::options do 
+    opt :output_directory, "Output directory", :type => :string, :required => true
+  end
+
+  ib_files = ARGV
+  ib_files.each do |file|
+    extract_strings_from_ib file, opts[:output_directory]
+  end
+  puts "Extraction complete, #{ib_files.count} files processed."
+else
+  Trollop::die "Unknown subcommand \"#{cmd}\""
+end
