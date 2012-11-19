@@ -1651,6 +1651,9 @@ NSMutableDictionary *bindingsDict = nil;
     if (!browsingHistory) {
         browsingHistory = YES;
     }
+    
+	[self setMatchedString:nil];
+
 	if (historyIndex>0) {
 		[self switchToHistoryState:--historyIndex];
 	} else {
@@ -1668,6 +1671,8 @@ NSMutableDictionary *bindingsDict = nil;
         historyIndex = 0;
         browsingHistory = YES;
     }
+    
+	[self setMatchedString:nil];
 
 	if (historyIndex+1<(NSInteger)[historyArray count]) {
 		[self switchToHistoryState:++historyIndex];
