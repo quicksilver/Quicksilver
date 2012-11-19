@@ -1,7 +1,6 @@
 body, th, td {
-  font-family: "Lucida Grande", "Gill Sans", Verdana;
-  font-size: 11px;
-  margin: 10px;
+  font-family: "Lucida Grande";
+  margin: 2em;
   padding: 0px;
 }
 a {
