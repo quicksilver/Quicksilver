@@ -11,7 +11,7 @@
 //- (int) indexOfSelectedItem;
 //@end;
 //@class QSPrefsController;
-@interface QSCatalogPrefPane : QSPreferencePane {
+@interface QSCatalogPrefPane : QSPreferencePane <NSOutlineViewDataSource, NSOutlineViewDelegate> {
 
 	IBOutlet NSTableView *catalogSetsTable;
 	//NSMutableArray *itemArray;
