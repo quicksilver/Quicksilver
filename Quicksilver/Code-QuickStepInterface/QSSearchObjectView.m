@@ -1605,7 +1605,7 @@ NSMutableDictionary *bindingsDict = nil;
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"select in history %ld %@", (long)i, [historyArray valueForKeyPath:@"selection.displayName"]);
 #endif
-	//
+	[self setMatchedString:@""];
 	if (i<(NSInteger)[(NSArray *)historyArray count])
 		[self setHistoryState:[historyArray objectAtIndex:i]];
 }
