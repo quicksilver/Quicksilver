@@ -48,7 +48,7 @@
 
 ### Changed ###
 
-  * Only show name when the label doesn't match the search at all (#1062)
+  * Only show name when the label doesn't match the search at all (#1062, #1231)
   * When showing the name, keep the label visible too. Shows as “label ⟷ name” (#1117)
   * Always show details if the interface supports them (#1148, #1151)
   * When full details can't be displayed, truncate in the middle (#525, #1151)
