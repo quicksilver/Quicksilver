@@ -56,7 +56,6 @@
 - (BOOL)canBeIndexed;
 - (NSArray *)scannedObjects;
 - (NSArray *)scanAndCache;
-- (void)scanForcedInThread:(NSNumber *)force;
 - (NSArray *)scanForced:(BOOL)force;
 - (NSMutableArray *)children;
 - (NSMutableArray *)getChildren;

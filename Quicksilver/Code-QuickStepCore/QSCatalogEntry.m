@@ -211,8 +211,12 @@ NSDictionary *enabledPresetDictionary;*/
 		[[QSLibrarian sharedInstance] setPreset:self isEnabled:enabled];
 	else
 		[info setObject:[NSNumber numberWithBool:enabled] forKey:kItemEnabled];
-	if (enabled && ![[self contents] count])
-		[NSThread detachNewThreadSelector:@selector(scanForcedInThread:) toTarget:self withObject:[NSNumber numberWithBool:NO]];
+	if (enabled && ![[self contents] count]) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self scanForced:YES];
+        });
+    }
+    [QSLib writeCatalog:self];
 }
 
 - (void)setDeepEnabled:(BOOL)enabled {
@@ -521,15 +525,6 @@ NSDictionary *enabledPresetDictionary;*/
         [nc postNotificationName:QSCatalogEntryIndexed object:self];
         [self setIsScanning:NO];
         return itemContents;
-    }
-}
-
-- (void)scanForcedInThread:(NSNumber *)force {
-
-	@autoreleasepool {
-        [[[QSLibrarian sharedInstance] scanTask] startTask:nil];
-        [self scanForced:[force boolValue]];
-        [[[QSLibrarian sharedInstance] scanTask] stopTask:nil];
     }
 }
 
