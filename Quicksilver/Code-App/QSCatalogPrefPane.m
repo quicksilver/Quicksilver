@@ -309,31 +309,6 @@ static id _sharedInstance;
 
 //Outline Methods
 
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-/*	if (tableView == itemTable);
-	else */if (tableView == itemContentsTable)
-		return [[self currentItemContents] count];
-	else
-		return 0;
-}
-
-- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger) rowIndex {
-	if ([[aTableColumn identifier] isEqualToString:kItemEnabled]) {
-		return [NSNumber numberWithBool:![[QSLibrarian sharedInstance] itemIsOmitted:[[contentsController arrangedObjects] objectAtIndex:rowIndex]]];
-	} else if ([[aTableColumn identifier] isEqualToString: kItemName]) {
-		[(QSObject *)[[contentsController arrangedObjects] objectAtIndex:rowIndex] loadIcon];
-		return [[contentsController arrangedObjects] objectAtIndex:rowIndex];
-	} else
-		return nil;
-}
-- (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(NSInteger)rowIndex { return YES; }
-- (BOOL)tableView:(NSTableView *)aTableView rowIsSeparator:(NSInteger)rowIndex { return NO; }
-
-- (void)tableView:(NSTableView *)aTableView setObjectValue:anObject forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger) rowIndex {
-	if ([[aTableColumn identifier] isEqualToString:kItemEnabled])
-		[[QSLibrarian sharedInstance] setItem:[[contentsController arrangedObjects] objectAtIndex:rowIndex] isOmitted:![anObject boolValue]];
-}
-
 #if 0
 - (void)updateCurrentItemContents {
 	return;
@@ -575,7 +550,9 @@ static id _sharedInstance;
 
 - (IBAction)rescanCurrentItem:(id)sender {
 	if (currentItem) {
-		[NSThread detachNewThreadSelector:@selector(scanForcedInThread:) toTarget:currentItem withObject:[NSNumber numberWithBool:YES]];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [currentItem scanForced:YES];
+        });
 	}
 }
 
