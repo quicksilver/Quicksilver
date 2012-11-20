@@ -97,7 +97,7 @@ typedef enum QSSearchMode {
 @property (retain) QSAction *alternateActionCounterpart;
 @property (retain) NSTextView *textModeEditor;
 
-- (void)clearSearch;
+- (void)clearSearch; // reset everything and be ready for a new search
 
 - (void)clearObjectValue;
 - (void)moveSelectionBy:(NSInteger)d;
@@ -115,14 +115,14 @@ typedef enum QSSearchMode {
 - (void)setShouldResetSearchString:(BOOL)flag;
 - (BOOL)shouldResetSearchArray;
 - (void)setShouldResetSearchArray:(BOOL)flag;
-- (NSString *)matchedString;
+- (NSString *)matchedString; // the part of the search string that matches the object
 - (void)setMatchedString:(NSString *)newMatchedString;
 
 - (IBAction)toggleResultView:sender;
 - (void)selectIndex:(NSInteger)index;
 - (void)selectObject:(QSBasicObject *)obj;
 - (void)objectIconModified:(NSNotification *)notif;
-- (void)resetString;
+- (void)resetString; // update the string on screen when the search is cleared
 - (IBAction)defineMnemonic:(id)sender;
 - (void)saveMnemonic;
 - (BOOL)mnemonicDefined;
