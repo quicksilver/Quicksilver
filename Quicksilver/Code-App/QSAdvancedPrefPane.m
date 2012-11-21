@@ -42,7 +42,12 @@
 #endif
 
 - (NSArray *)prefSets {
-	return [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"DefaultsMap" ofType:@"plist"]];
+    NSString *defaultsMapPath = [[NSBundle mainBundle] pathForResource:@"DefaultsMap" ofType:@"plist"];
+    // fall back to the English file if no localisation can be found
+    if (!defaultsMapPath) {
+        defaultsMapPath = [[NSBundle mainBundle] pathForResource:@"DefaultsMap" ofType:@"plist" inDirectory:nil forLocalization:@"en"];
+    }
+	return [NSArray arrayWithContentsOfFile:defaultsMapPath];
 }
 
 - (CGFloat) tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
