@@ -44,6 +44,7 @@
   * The Printers preset has an icon again (#1128, #1156)
   * Fixes for count badges (#1129)
   * Items are ranked correctly when no search string is provided (#1162)
+  * Fall back to US English when no localization is available for the current language (#1233, #1234)
   * Bug fixes and internal improvements (#921, #840, #1114, #1180, #1206, #1211)
 
 ### Changed ###
