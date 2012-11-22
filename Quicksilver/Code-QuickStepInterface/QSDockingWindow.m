@@ -19,17 +19,10 @@
 		[self setSticky:YES];
 		hidden = YES;
 		
-		NSMutableArray *types = [standardPasteboardTypes mutableCopy];
-		[types addObjectsFromArray:[[QSReg objectHandlers] allKeys]];
-		[self registerForDraggedTypes:types];
-		[types release];
+		[self registerForDraggedTypes:[standardPasteboardTypes arrayByAddingObjectsFromArray:[[QSReg objectHandlers] allKeys]]];
 	}
 	return self;
 }
-
-#if 0
-- (void)sendEvent:(NSEvent *)theEvent { /*NSLog(@"Event: %@", theEvent);*/ [super sendEvent:theEvent]; }
-#endif
 
 - (void)awakeFromNib {
 	[self center];
@@ -138,7 +131,7 @@
 }
 
 - (BOOL)canBecomeKeyWindow {
-	return !hidden && allowKey;
+    return YES;
 }
 
 - (BOOL)hidden {return hidden;}
