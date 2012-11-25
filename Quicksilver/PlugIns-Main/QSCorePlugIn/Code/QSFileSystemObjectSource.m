@@ -344,14 +344,6 @@
 
 	if (!parser || ![[settings objectForKey:kItemSkipItem] boolValue]) {
 		QSObject *mainObject = [QSObject fileObjectWithPath:path];
-		NSString *name = [theEntry objectForKey:kItemName];
-		if (!QSGetLocalizationStatus() && !name) {
-			NSString *theID = [theEntry objectForKey:kItemID];
-			if ([theID hasPrefix:@"QSPreset"])
-				name = [[NSBundle mainBundle] safeLocalizedStringForKey:theID value:theID table:@"QSCatalogPreset.name"];
-		}
-		if (name) [mainObject setLabel:name];
-
 		[containedItems addObject:mainObject];
 	}
 	return containedItems;
