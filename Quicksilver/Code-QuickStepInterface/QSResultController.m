@@ -162,7 +162,7 @@ NSMutableDictionary *kindDescriptions = nil;
 	[resultTable unbind:@"backgroundColor"];
 	[resultTable unbind:@"highlightColor"];
 	[resultChildTable unbind:@"backgroundColor"];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:QSObjectIconModified object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 
 	[super dealloc];
 }
