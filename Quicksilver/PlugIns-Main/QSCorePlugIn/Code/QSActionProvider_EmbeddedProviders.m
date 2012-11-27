@@ -315,7 +315,7 @@
 	} else if ([action isEqualToString:kFileMoveToAction] || [action isEqualToString:kFileCopyToAction]) {
         // We only want folders for the move to / copy to actions (can't move to anything else)
         NSMutableArray *fileObjects = [[[QSLibrarian sharedInstance] arrayForType:QSFilePathType] mutableCopy];
-        NSString *currentFolderPath = [[[[dObject splitObjects] lastObject] singleFilePath] stringByDeletingLastPathComponent];
+        NSString *currentFolderPath = [[[dObject validPaths] lastObject] stringByDeletingLastPathComponent];
 
         // if the object already exists, get that object. Otherwise create a new one
         QSObject *currentFolderObject = [QSObject fileObjectWithPath:currentFolderPath];
