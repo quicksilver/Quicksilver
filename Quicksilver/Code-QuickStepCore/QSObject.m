@@ -303,6 +303,7 @@ NSSize QSMaxIconSize;
 - (void)dealloc {
 	//NSLog(@"dealloc %x %@", self, [self name]);
 	[self unloadIcon];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 	[self unloadChildren];
 	[data release];
 	[meta release];
