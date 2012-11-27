@@ -137,6 +137,7 @@ extern NSSize QSMaxIconSize;
 
 - (NSMutableDictionary *)cache;
 - (void)setCache:(NSMutableDictionary *)aCache;
+- (BOOL)isProxyObject;
 
 @end
 

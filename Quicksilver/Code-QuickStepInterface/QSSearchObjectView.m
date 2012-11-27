@@ -1860,7 +1860,7 @@ NSMutableDictionary *bindingsDict = nil;
         object = [(QSRankedObject *)object object];
     }
     // resolve proxy objects
-    if ([object isKindOfClass:[QSProxyObject class]]) {
+    if ([object isProxyObject]) {
         object = [(QSProxyObject *)object resolvedObject];
     }
     if ([object validPaths] || [[object primaryType] isEqualToString:QSURLType]) {

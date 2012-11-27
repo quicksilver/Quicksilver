@@ -287,7 +287,7 @@ QSExecutor *QSExec = nil;
 		actions = (NSMutableArray *)[[dObject handler] actionsForDirectObject:dObject indirectObject:iObject];
     
 	BOOL bypassValidation =
-		(bypass && [dObject isKindOfClass:[QSProxyObject class]] && [(QSProxyObject *)dObject bypassValidation]);
+		(bypass && [dObject isProxyObject] && [(QSProxyObject *)dObject bypassValidation]);
 
 	if (bypassValidation) {
 		//NSLog(@"bypass? %@ %@", dObject, NSStringFromClass([dObject class]) );
@@ -393,7 +393,7 @@ QSExecutor *QSExec = nil;
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
 	QSActionProvider *actionObject = [[actionIdentifiers objectForKey:action] objectForKey:kActionClass];
 	//  NSLog(@"actionobject %@", actionObject);
-    QSObject *directObject = [[dObject primaryType] isEqualToString:QSProxyType] ? (QSObject *)[dObject resolvedObject] : dObject;
+    QSObject *directObject = [dObject isProxyObject] ? (QSObject *)[dObject resolvedObject] : dObject;
 	return [actionObject validIndirectObjectsForAction:action directObject:directObject];
 }
 

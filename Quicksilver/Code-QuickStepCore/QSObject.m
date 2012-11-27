@@ -434,7 +434,7 @@ NSSize QSMaxIconSize;
 
 - (id)_safeObjectForType:(id)aKey {
   id object = [data objectForKey:aKey];
-  if (!object && [[self primaryType] isEqualToString:QSProxyType])
+  if (!object && [self isProxyObject])
       object = [[self resolvedObject] arrayForType:aKey];
 	return object;
 #if 0
@@ -566,6 +566,11 @@ NSSize QSMaxIconSize;
 
 - (NSUInteger) primaryCount {
 	return [self count];
+}
+
+- (BOOL)isProxyObject
+{
+    return [self isKindOfClass:[QSProxyObject class]];
 }
 
 @end

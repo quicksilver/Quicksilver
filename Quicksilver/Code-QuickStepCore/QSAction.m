@@ -310,7 +310,7 @@ static BOOL gModifiersAreIgnored;
 		if (!provider) {
 			provider = [QSReg getClassInstance:class];
 		}
-		if ([[dObject primaryType] isEqualToString:QSProxyType]) {
+		if ([dObject isProxyObject]) {
 			dObject = (QSObject *)[dObject resolvedObject];
 		}
 		if ([[dict objectForKey:kActionSplitPluralArguments] boolValue] && [dObject count] > 1) {
