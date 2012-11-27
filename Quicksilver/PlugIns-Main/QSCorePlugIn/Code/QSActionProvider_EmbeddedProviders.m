@@ -317,8 +317,8 @@
         NSMutableArray *fileObjects = [[[QSLibrarian sharedInstance] arrayForType:QSFilePathType] mutableCopy];
         NSString *currentFolderPath = [[[dObject validPaths] lastObject] stringByDeletingLastPathComponent];
 
-        // if the object already exists, get that object. Otherwise create a new one
-        QSObject *currentFolderObject = [QSObject fileObjectWithPath:currentFolderPath];
+        // if the parent directory was found, put it first - otherwise, leave the pane blank
+        id currentFolderObject = currentFolderPath ? [QSObject fileObjectWithPath:currentFolderPath] : [NSNull null];
         
         NSIndexSet *folderIndexes = [fileObjects indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *thisObject, NSUInteger i, BOOL *stop) {
             return ([thisObject isFolder] && (thisObject != currentFolderObject));
