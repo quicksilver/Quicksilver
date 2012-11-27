@@ -393,7 +393,8 @@ QSExecutor *QSExec = nil;
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
 	QSActionProvider *actionObject = [[actionIdentifiers objectForKey:action] objectForKey:kActionClass];
 	//  NSLog(@"actionobject %@", actionObject);
-	return [actionObject validIndirectObjectsForAction:action directObject:dObject];
+    QSObject *directObject = [[dObject primaryType] isEqualToString:QSProxyType] ? (QSObject *)[dObject resolvedObject] : dObject;
+	return [actionObject validIndirectObjectsForAction:action directObject:directObject];
 }
 
 - (BOOL)actionIsEnabled:(QSAction*)action {
