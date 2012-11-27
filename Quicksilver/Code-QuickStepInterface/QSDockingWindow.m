@@ -131,7 +131,7 @@
 }
 
 - (BOOL)canBecomeKeyWindow {
-    return YES;
+    return !hidden && ![[(QSController *)[NSApp delegate] interfaceController] hiding];
 }
 
 - (BOOL)hidden {return hidden;}
