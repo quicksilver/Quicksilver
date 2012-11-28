@@ -50,6 +50,9 @@ static CGFloat searchSpeed = 0.0;
 
 - (id)init {
 	if (self = [super init]) {
+        // Set a BOOL to ensure nothing attempts to access the catalog until it's fully loaded
+        catalogLoaded = NO;
+        
 		NSNumber *minScore = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSMinimumScore"];
 		if (minScore) {
 			QSMinScore = [minScore doubleValue];
@@ -197,6 +200,7 @@ static CGFloat searchSpeed = 0.0;
         [[customEntry children] addObject:[QSCatalogEntry entryWithDictionary:entry]];
     }
     
+    catalogLoaded = YES;
 	[self reloadIDDictionary:nil];
 	//NSLog(@"load Catalog %p %@", catalog, [catalog getChildren]);
 
@@ -754,8 +758,8 @@ static CGFloat searchSpeed = 0.0;
 
 @implementation QSLibrarian (QSPlugInInfo)
 - (BOOL)handleInfo:(id)info ofType:(NSString *)type fromBundle:(NSBundle *)bundle {
-	[self registerPresets:info inBundle: bundle scan:[(QSApp *)NSApp completedLaunch]];
-	if ([NSApp completedLaunch]) {
+	[self registerPresets:info inBundle: bundle scan:catalogLoaded];
+	if (catalogLoaded) {
 		[self reloadIDDictionary:nil];
 		[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogStructureChanged object:nil];
 	}
