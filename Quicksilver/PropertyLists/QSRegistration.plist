@@ -275,6 +275,8 @@
 			<string>Quicksilver</string>
 			<key>name</key>
 			<string>Handlers</string>
+			<key>type</key>
+			<string>Main</string>
 		</dict>
 		<key>QSMainMenuPrefPane</key>
 		<dict>
