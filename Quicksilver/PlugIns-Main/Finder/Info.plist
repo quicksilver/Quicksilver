@@ -25,12 +25,7 @@
 	<key>QSActions</key>
 	<dict>
 		<key>FinderEmptyTrashAction</key>
-		<dict>
-			<key>actionProvider</key>
-			<string>QSFinderProxy</string>
-			<key>actionSelector</key>
-			<string>emptyTrash:</string>
-		</dict>
+		<dict/>
 		<key>FinderOpenTrashAction</key>
 		<dict>
 			<key>actionProvider</key>
