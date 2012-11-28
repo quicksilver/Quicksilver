@@ -446,17 +446,13 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 					QSCatalogEntry *theEntry = [[QSLibrarian sharedInstance] entryForID:childPreset];
 					newChildren = [theEntry contentsScanIfNeeded:YES];
 				} else {
-					NSMutableArray *childPaths = [recentDocumentsForBundle(bundleIdentifier) mutableCopy];
+					NSArray *recentDocuments = recentDocumentsForBundle(bundleIdentifier);
 					NSArray *iCloudDocuments = [QSDownloads iCloudDocumentsForBundleID:bundleIdentifier];
 					// combine recent and iCloud documents, removing duplicates
-					for (QSObject *icdoc in iCloudDocuments) {
-                        NSString *icpath = [icdoc objectForType:QSFilePathType];
-                        if (![childPaths containsObject:icpath]) {
-                            [childPaths addObject:icpath];
-                        }
-					}
-					newChildren = [QSObject fileObjectsWithPathArray:childPaths];
-                    [childPaths release];
+                    NSIndexSet *ind = [iCloudDocuments indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *icdoc, NSUInteger i, BOOL *stop) {
+                        return ![recentDocuments containsObject:[icdoc objectForType:QSFilePathType]];
+                    }];
+					newChildren = [QSObject fileObjectsWithPathArray:[recentDocuments arrayByAddingObjectsFromArray:[iCloudDocuments objectsAtIndexes:ind]]];
 
 					for(QSObject * child in newChildren) {
 						[child setObject:bundleIdentifier forMeta:@"QSPreferredApplication"];
