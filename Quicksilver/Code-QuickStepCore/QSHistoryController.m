@@ -41,12 +41,13 @@ id QSHist;
 	while ([actionHistory count] > MAXHIST)
 		[actionHistory removeLastObject];
 }
-- (void)addCommand:(id)command {
+- (void)addCommand:(QSCommand *)command {
 	if ([[[command dObject] identifier] isEqualToString:@"QSLastCommandProxy"]) {
-		[command setDirectObject:[command dObject]];
+        // If we're re-running the last command, don't change anything
+        return;
 	}
 	if (command)
-		[commandHistory insertObject:[command objectValue] atIndex:0];
+		[commandHistory insertObject:command atIndex:0];
 	while ([commandHistory count] > MAXHIST)
 		[commandHistory removeLastObject];
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryInvalidated object:@"QSPresetCommandHistory"];

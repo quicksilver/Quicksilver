@@ -24,7 +24,7 @@
 
 - (NSArray *)validIndirects;
 
-- (QSObject *)objectValue;
+- (QSObject *)objectValue __attribute__((deprecated));
 
 - (QSObject *)dObject;
 - (QSAction *)aObject;
