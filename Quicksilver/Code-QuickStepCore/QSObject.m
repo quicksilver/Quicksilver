@@ -223,15 +223,15 @@ NSSize QSMaxIconSize;
 }
 
 - (NSArray *)splitObjects {
-    
-	if ([self count] == 1) {
-		return [NSArray arrayWithObject:self];
+    QSObject *object = [self isProxyObject] ? (QSObject *)[self resolvedObject] : self;
+	if ([object count] == 1) {
+		return [NSArray arrayWithObject:object];
 	}
 	
-	NSArray *splitObjects = [self objectForCache:kQSObjectComponents];
+	NSArray *splitObjects = [object objectForCache:kQSObjectComponents];
     
     if (!splitObjects) {
-        splitObjects = [self children];
+        splitObjects = [object children];
     }
     return splitObjects;
 }
