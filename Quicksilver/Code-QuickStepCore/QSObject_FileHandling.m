@@ -797,7 +797,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			if (mdItem) {
 				newLabel = [(NSString *)MDItemCopyAttribute(mdItem, kMDItemDisplayName) autorelease];
 			}
-			if (!newLabel) {
+			if (!newLabel || ![newLabel length]) {
 				newLabel = [[NSFileManager defaultManager] displayNameAtPath:path];
 			}
 		}
@@ -805,6 +805,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		if ([newLabel isEqualToString:newName]) newLabel = nil;
 	}
 	[self setName:newName];
+
 	[self setLabel:newLabel];
 }
 
