@@ -7,7 +7,7 @@
   * Translations for Czech, French, German, Spanish, Welsh, and Chinese (Taiwan). See the [Transifex project](https://www.transifex.com/projects/p/quicksilver/) for the status of these and other languages (not necessarily reflected in this release). (#1209)
   * Modernized the look of the Bezel interface (#1140)
   * Notification Center is now available as a notification handler in Mountain Lion (set as default) (#867, #1132)
-  * An application's iCloud documents are shown (in addition to recent documents) when right-arrowing into the application (#1054, #1056)
+  * An application's iCloud documents are shown (in addition to recent documents) when right-arrowing into the application (#1054, #1056, #1244, #1249)
   * Catalog preset for iCloud documents (#1054, #1056)
   * Holding ⌘ will select the alternate action if available (#1163)
   * Alternate actions can now be seen in the Actions preferences (#1163)
