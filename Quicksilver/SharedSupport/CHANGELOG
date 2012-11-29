@@ -45,6 +45,7 @@
   * Fixes for count badges (#1129)
   * Items are ranked correctly when no search string is provided (#1162)
   * Fall back to US English when no localization is available for the current language (#1233, #1234)
+  * Removed invalid Finder actions to prevent crashes (#1242, #1252)
   * Bug fixes and internal improvements (#921, #840, #1114, #1180, #1206, #1211, #1238, #1239, #1257)
 
 ### Changed ###
