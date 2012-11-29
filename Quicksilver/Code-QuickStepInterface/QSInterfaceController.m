@@ -202,6 +202,7 @@
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSSwitchKeyboardOnActivation"] && savedKeyboard) {
         TISSelectInputSource(savedKeyboard);
         CFRelease(savedKeyboard);
+        savedKeyboard = nil;
     }
 }
 
