@@ -45,3 +45,14 @@ dd p {
 dd pre {
   margin: 1em 0px;
 }
+/* Styles specific to Release Notes */
+#qsrn body {
+  background: url('../Resources/Quicksilver.icns') no-repeat top right;
+  background-size: 256px 256px;
+  background-attachment: fixed; 
+}
+#qsrn ul {
+  background-color: rgba(242, 237, 245, 0.9);
+  border-radius: 0.5em;
+  padding: 1em 1em 1em 2em;
+}
