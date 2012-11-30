@@ -1,7 +1,12 @@
 body, th, td {
   font-family: "Lucida Grande";
-  margin: 2em;
-  padding: 0px;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+#content {
+  padding: 1em 2em;
 }
 a {
   color: blue;
@@ -46,13 +51,16 @@ dd pre {
   margin: 1em 0px;
 }
 /* Styles specific to Release Notes */
-#qsrn body {
-  background: url('../Resources/Quicksilver.icns') no-repeat top right;
-  background-size: 256px 256px;
+#qsrn #content {
+  background-color: rgba(128, 81, 149, 0.3);
+}
+#qsrn {
+  background: url('../Resources/Quicksilver.icns') no-repeat 95% 10%;
+  background-size: 512px 512px;
   background-attachment: fixed; 
 }
 #qsrn ul {
-  background-color: rgba(242, 237, 245, 0.9);
+  background-color: rgba(242, 237, 245, 0.95);
   border-radius: 0.5em;
   padding: 1em 1em 1em 2em;
 }
