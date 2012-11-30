@@ -186,7 +186,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 - (void)previewIcon:(QSObject *)object {
-	NSImage *theImage = nil;
+	__block NSImage *theImage = nil;
 	NSString *path = [[object arrayForType:QSFilePathType] lastObject];
 	NSFileManager *manager = [NSFileManager defaultManager];
 
@@ -214,8 +214,9 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
             NSArray *previewTypes = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSFilePreviewTypes"];
             for (NSString *type in previewTypes) {
                 if (UTTypeConformsTo((CFStringRef)uti, (CFStringRef)type)) {
-                    // do preview icon loading in separate thread
-                    theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSMaxIconSize asIcon:YES];
+                    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+						theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSMaxIconSize asIcon:YES];
+                    });
                     break;
                 }
             }
