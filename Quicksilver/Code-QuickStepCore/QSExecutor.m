@@ -169,16 +169,18 @@ QSExecutor *QSExec = nil;
 
 - (void)addAction:(QSAction *)action {
 	NSString *ident = [action identifier];
-	if (!ident)
+	if (!ident) {
 		return;
-	NSString *altName = [actionNames objectForKey:ident];
-	if (altName) [action setLabel:altName];
+    }
+    
 	QSAction *dupAction = [actionIdentifiers objectForKey:ident];
 	if (dupAction) {
-		[[directObjectTypes allValues] makeObjectsPerformSelector:@selector(removeObject:) withObject:dupAction];
-		[[directObjectFileTypes allValues] makeObjectsPerformSelector:@selector(removeObject:) withObject:dupAction];
+        return;
 	}
 
+    NSString *altName = [actionNames objectForKey:ident];
+	if (altName) [action setLabel:altName];
+    
 	[actionIdentifiers setObject:action forKey:ident];
 
     
