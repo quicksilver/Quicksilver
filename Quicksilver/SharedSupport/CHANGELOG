@@ -47,6 +47,7 @@
   * Fall back to US English when no localization is available for the current language (#1233, #1234)
   * Removed invalid Finder actions to prevent crashes (#1242, #1252)
   * Prevent a crash when using custom keyboard layout (#1254, #1256)
+  * Prevent actions from appearing more than once (#1259, #1260)
   * Bug fixes and internal improvements (#921, #840, #1114, #1180, #1206, #1211, #1238, #1239, #1257)
 
 ### Changed ###
