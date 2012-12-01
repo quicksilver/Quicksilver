@@ -538,7 +538,7 @@ NSDictionary *enabledPresetDictionary;*/
         }
 		return nil;
 	}
-	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:@"Checking: %@", [self name]]];
+	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:NSLocalizedString(@"Checking: %@", @"Catalog task checking (%@ => source name)"), [self name]]];
 	BOOL valid = [self indexIsValid];
 	if (valid && !force) {
 		
@@ -554,7 +554,7 @@ NSDictionary *enabledPresetDictionary;*/
 		NSLog(@"Scanning source: %@%@", [self name] , (force?@" (forced) ":@""));
 #endif
 	
-	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:@"Scanning: %@", [self name]]];
+	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:NSLocalizedString(@"Scanning: %@", @"Catalog task scanning (%@ => source name)"), [self name]]];
 	[self scanAndCache];
 	return nil;
 }
