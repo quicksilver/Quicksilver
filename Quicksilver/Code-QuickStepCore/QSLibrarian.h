@@ -41,7 +41,12 @@ extern QSLibrarian *QSLib; // Shared Instance
 
 	NSMutableArray *invalidIndexes;
 	NSInteger scannerCount;
+    
+    // Used to control catalog scans
+    dispatch_queue_t indexQueue;
 }
+
+@property (readonly) dispatch_queue_t indexQueue;
 
 + (id)sharedInstance;
 + (void)removeIndexes;
@@ -76,7 +81,7 @@ extern QSLibrarian *QSLib; // Shared Instance
 - (void)startThreadedAndForcedScan;
 - (IBAction)forceScanCatalog:(id)sender;
 - (IBAction)scanCatalog:(id)sender;
-- (void)scanCatalogWithDelay:(id)sender;
+- (void)scanCatalogWithDelay:(id)sender __attribute__((deprecated));
 - (BOOL)itemIsOmitted:(QSBasicObject *)item;
 - (void)setItem:(QSBasicObject *)item isOmitted:(BOOL)omit;
 #ifdef DEBUG
