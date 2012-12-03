@@ -574,9 +574,8 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 	*error = nil;
 	if (requirementsDict) {
-		NSArray *bundles = [requirementsDict objectForKey:@"bundles"];
 		if (![[NSUserDefaults standardUserDefaults] boolForKey:@"QSIgnorePlugInBundleRequirements"]) {
-			for (NSDictionary *bundleDict in bundles) {
+			for (NSDictionary *bundleDict in [requirementsDict objectForKey:@"bundles"]) {
 				NSString *identifier = [bundleDict objectForKey:@"id"];
 				NSString *path = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:identifier];
 				if (!path) {
