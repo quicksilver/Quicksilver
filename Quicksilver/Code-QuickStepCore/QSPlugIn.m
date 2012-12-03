@@ -577,13 +577,22 @@ NSMutableDictionary *plugInBundlePaths = nil;
 		if (![[NSUserDefaults standardUserDefaults] boolForKey:@"QSIgnorePlugInBundleRequirements"]) {
 			for (NSDictionary *bundleDict in [requirementsDict objectForKey:@"bundles"]) {
 				NSString *identifier = [bundleDict objectForKey:@"id"];
-				NSString *path = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:identifier];
+                NSString *name = [bundleDict objectForKey:@"name"];
+                NSString *path = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:identifier];
 				if (!path) {
-					NSString *name = [bundleDict objectForKey:@"name"];
-					if (error) *error = [NSString stringWithFormat:@"Requires installation of '%@'", name?name:identifier];
+					*error = [NSString stringWithFormat:@"Requires installation of %@", name?name:identifier];
 					return NO;
 				}
-#warning add support for version checking
+                NSString *requiredVersion = [bundleDict objectForKey:@"version"];
+                if (requiredVersion) {
+                    // check bundle's version
+                    NSDictionary *details = [[NSBundle bundleWithPath:path] infoDictionary];
+                    NSString *version = [details objectForKey:@"CFBundleShortVersionString"] ? [details objectForKey:@"CFBundleShortVersionString"] : [details objectForKey:@"CFBundleVersion"];
+                    if ([version isLessThan:requiredVersion]) {
+                        *error = [NSString stringWithFormat:@"Requires version %@ of %@", requiredVersion, name?name:identifier];
+                        return NO;
+                    }
+                }
 			}
 		}
 
