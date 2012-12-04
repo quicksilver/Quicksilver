@@ -78,7 +78,10 @@
     if ([provider respondsToSelector:@selector(cacheTimeForProxy:)])
         interval = [[self proxyProvider] cacheTimeForProxy:self];
     
-    [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(releaseProxy) userInfo:nil repeats:NO];
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)interval * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self releaseProxy];
+    });
 	return proxy;
 }
 
