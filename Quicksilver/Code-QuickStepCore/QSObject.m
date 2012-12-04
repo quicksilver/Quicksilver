@@ -223,7 +223,7 @@ NSSize QSMaxIconSize;
 }
 
 - (NSArray *)splitObjects {
-    QSObject *object = [self isProxyObject] ? (QSObject *)[self resolvedObject] : self;
+    QSObject *object = [self isProxyObject] ? [self resolvedObject] : self;
 	if ([object count] == 1) {
 		return [NSArray arrayWithObject:object];
 	}
@@ -933,7 +933,7 @@ containg multiple objects with the same identifier. Best efforts should be made 
 	if (namedIcon) {
     NSImage *image = nil;
 	  if ([namedIcon isEqualToString:@"ProxyIcon"]) {
-      QSObject *resolved = (QSObject *)[self resolvedObject];
+      QSObject *resolved = [self resolvedObject];
 	    [resolved loadIcon];
 	    image = [resolved icon];
 	  }

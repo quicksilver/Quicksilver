@@ -117,20 +117,20 @@
 }
 
 - (QSObject *)showChildMenu:(QSObject *)dObject {
-	[self showMenu:[(QSObject*)[dObject resolvedObject] childrenMenu] forObject:dObject];
+	[self showMenu:[[dObject resolvedObject] childrenMenu] forObject:dObject];
 	return nil;
 }
 - (QSObject *)showMenu:(QSObject *)dObject {
-	[self showMenu:[(QSObject*)[dObject resolvedObject] fullMenu] forObject:dObject];
+	[self showMenu:[[dObject resolvedObject] fullMenu] forObject:dObject];
 	return nil;
 }
 - (QSObject *)showActionMenu:(QSObject *)dObject {
-	[self showMenu:[(QSObject*)[dObject resolvedObject] actionsMenu] forObject:dObject];
+	[self showMenu:[[dObject resolvedObject] actionsMenu] forObject:dObject];
 	return nil;
 }
 
 - (QSObject *)saveObject:(QSObject *)dObject toDirectory:(QSObject *)iObject {
-	dObject = (QSObject *)[dObject resolvedObject];
+	dObject = [dObject resolvedObject];
 	id handler = [dObject handler];
 	NSData *data = nil;
 	NSString *filename = nil;

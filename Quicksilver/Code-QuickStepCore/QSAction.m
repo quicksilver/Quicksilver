@@ -311,7 +311,7 @@ static BOOL gModifiersAreIgnored;
 			provider = [QSReg getClassInstance:class];
 		}
 		if ([dObject isProxyObject]) {
-			dObject = (QSObject *)[dObject resolvedObject];
+			dObject = [dObject resolvedObject];
 		}
 		if ([[dict objectForKey:kActionSplitPluralArguments] boolValue] && [dObject count] > 1) {
 			NSArray *objects = [dObject splitObjects];

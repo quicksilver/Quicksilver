@@ -115,7 +115,7 @@
 - (QSObject *)resolvedObject {return [self proxyObject];}
 
 - (NSString *)stringValue {
-	return [(QSObject*)[self resolvedObject] stringValue];
+	return [[self resolvedObject] stringValue];
 }
 
 - (BOOL)respondsToSelector:(SEL)aSelector {
