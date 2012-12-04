@@ -141,4 +141,34 @@
 {
     [self updateIcon:[[self proxyObject] icon]];
 }
+
+- (BOOL)isProxyObject
+{
+    return YES;
+}
+
+- (id)_safeObjectForType:(id)aKey {
+    id object = [data objectForKey:aKey];
+    if (!object) {
+        object = [[self resolvedObject] _safeObjectForType:aKey];
+    }
+    return object;
+}
+
+- (BOOL)loadIcon
+{
+    NSString *namedIcon = [self objectForMeta:kQSObjectIconName];
+    if (!namedIcon || [namedIcon isEqualToString:@"ProxyIcon"]) {
+        // use the resolved object's icon instead
+        QSObject *resolved = [self resolvedObject];
+	    [resolved loadIcon];
+	    NSImage *image = [resolved icon];
+		if (image) {
+            [self setIconLoaded:YES];
+			[self setIcon:image];
+			return YES;
+		}
+    }
+    return [super loadIcon];
+}
 @end

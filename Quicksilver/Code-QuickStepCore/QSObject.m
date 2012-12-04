@@ -433,10 +433,7 @@ NSSize QSMaxIconSize;
 	//- (void)setObject:(id)object forKey:(id)aKey {[data setObject:object forKey:aKey];}
 
 - (id)_safeObjectForType:(id)aKey {
-  id object = [data objectForKey:aKey];
-  if (!object && [self isProxyObject])
-      object = [[self resolvedObject] arrayForType:aKey];
-	return object;
+  return [data objectForKey:aKey];
 #if 0
 	if (flags.multiTyped)
 		return[data objectForKey:aKey];
@@ -570,7 +567,7 @@ NSSize QSMaxIconSize;
 
 - (BOOL)isProxyObject
 {
-    return [self isKindOfClass:[QSProxyObject class]];
+    return NO;
 }
 
 - (QSObject *)resolvedObject
@@ -918,11 +915,8 @@ containg multiple objects with the same identifier. Best efforts should be made 
 @implementation QSObject (Icon)
 - (BOOL)loadIcon {
   NSString *namedIcon = [self objectForMeta:kQSObjectIconName];
-	if ([self iconLoaded]) {
-	  if (!namedIcon)
-      return NO;
-    else if (![namedIcon isEqualToString:@"ProxyIcon"])
-      return NO;
+	if ([self iconLoaded] && !namedIcon) {
+        return NO;
 	}
 	[self setIconLoaded:YES];
     
@@ -931,14 +925,7 @@ containg multiple objects with the same identifier. Best efforts should be made 
 	[iconLoadedArray addObject:self];
 
 	if (namedIcon) {
-    NSImage *image = nil;
-	  if ([namedIcon isEqualToString:@"ProxyIcon"]) {
-      QSObject *resolved = [self resolvedObject];
-	    [resolved loadIcon];
-	    image = [resolved icon];
-	  }
-    else
-      image =  [QSResourceManager imageNamed:namedIcon];
+        NSImage *image = [QSResourceManager imageNamed:namedIcon];
 		if (image) {
 			[self setIcon:image];
 			return YES;
