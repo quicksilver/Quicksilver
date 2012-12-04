@@ -345,8 +345,7 @@ NSSize QSMaxIconSize;
 }
 
 - (NSString *)displayName {
-	if (![self label]) return [self name];
-	return [self label];
+	return [self label] ? [self label] : [self name];
 }
 
 - (NSString *)toolTip {
