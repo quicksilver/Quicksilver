@@ -223,7 +223,7 @@ NSSize QSMaxIconSize;
 }
 
 - (NSArray *)splitObjects {
-    QSObject *object = [self isProxyObject] ? [self resolvedObject] : self;
+    QSObject *object = [self resolvedObject];
 	if ([object count] == 1) {
 		return [NSArray arrayWithObject:object];
 	}

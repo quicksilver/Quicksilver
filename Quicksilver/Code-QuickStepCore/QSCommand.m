@@ -475,7 +475,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 }
 
 - (NSArray *)validIndirects {
-    QSObject *directObject = [[self dObject] isProxyObject] ? [[self dObject] resolvedObject] : [self dObject];
+    QSObject *directObject = [[self dObject] resolvedObject];
 	  NSArray *indirects = [[[self aObject] provider] validIndirectObjectsForAction:[[self aObject] identifier] directObject:directObject];
 	  if ([indirects count] >1 && [[indirects objectAtIndex:1] isKindOfClass:[NSArray class]]) indirects = [indirects objectAtIndex:1];
 	  if ([indirects count] == 1 && [[indirects objectAtIndex:0] containsType:QSTextProxyType]) {
