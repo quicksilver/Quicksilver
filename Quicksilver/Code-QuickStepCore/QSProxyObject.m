@@ -112,7 +112,7 @@
 	return [[self proxyProvider] respondsToSelector:@selector(bypassValidation)] && [[self proxyProvider] bypassValidation];
 }
 
-- (QSBasicObject *)resolvedObject {return [self proxyObject];}
+- (QSObject *)resolvedObject {return [self proxyObject];}
 
 - (NSString *)stringValue {
 	return [(QSObject*)[self resolvedObject] stringValue];

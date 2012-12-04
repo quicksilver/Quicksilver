@@ -91,8 +91,6 @@
 - (BOOL)drawIconInRect:(NSRect)rect flipped:(BOOL)flipped {return NO;}
 
 - (NSString *)description {return [NSString stringWithFormat:@"%@ <%p>, %@", NSStringFromClass([self class]), self, [self identifier]];}
-
-- (QSBasicObject *)resolvedObject {return self;}
 @end
 
 @implementation QSBasicObject (QSPasteboard)

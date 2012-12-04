@@ -573,6 +573,10 @@ NSSize QSMaxIconSize;
     return [self isKindOfClass:[QSProxyObject class]];
 }
 
+- (QSObject *)resolvedObject
+{
+    return self;
+}
 @end
 
 @implementation QSObject (Hierarchy)
