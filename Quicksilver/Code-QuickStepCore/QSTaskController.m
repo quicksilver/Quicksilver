@@ -27,29 +27,29 @@ QSTaskController *QSTasks;
 }
 
 - (void)taskStarted:(QSTask *)task {
-	[self performSelectorOnMainThread:@selector(mainThreadTaskStarted:) withObject:task waitUntilDone:YES];
-}
-- (void)mainThreadTaskStarted:(QSTask *)task {
-	BOOL firstItem = ![tasks count];
-	if (![tasks containsObject:task])
-		[tasks addObject:task];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        BOOL firstItem = ![tasks count];
+        if (![tasks containsObject:task])
+            [tasks addObject:task];
+        
+        if (firstItem) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:QSTasksStartedNotification object:nil];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:QSTaskAddedNotification object:task];
 
-	if (firstItem) {
-		[[NSNotificationCenter defaultCenter] postNotificationName:QSTasksStartedNotification object:nil];
-	}
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSTaskAddedNotification object:task];
+    });
 }
 - (void)taskStopped:(QSTask *)task {
-	[self performSelectorOnMainThread:@selector(mainThreadTaskStopped:) withObject:task waitUntilDone:YES];
-}
-- (void)mainThreadTaskStopped:(QSTask *)task {
-	if (task)
-		[tasks removeObject:task];
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSTaskRemovedNotification object:nil];
-
-	if (![tasks count]) {
-		[[NSNotificationCenter defaultCenter] postNotificationName:QSTasksEndedNotification object:nil];
-	}
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (task) {
+            [tasks removeObject:task];
+            [[NSNotificationCenter defaultCenter] postNotificationName:QSTaskRemovedNotification object:nil];
+        }
+        
+        if (![tasks count]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:QSTasksEndedNotification object:nil];
+        }
+    });
 }
 
 - (NSMutableArray *)tasks {

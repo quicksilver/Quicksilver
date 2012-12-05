@@ -109,11 +109,27 @@
 		}
         i = i+1;
 	}
-	
+	[tasksView setNeedsDisplay:YES];
 	[oldTaskViews removeObjectsInArray:newTaskViews];
 	
-	[oldTaskViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-	[oldTaskViews makeObjectsPerformSelector:@selector(setTask:) withObject:nil];
+    int64_t delayInSeconds = 1.8;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    if (![newTaskViews count]) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+                    [[NSAnimationContext currentContext] setDuration:1.0];
+                    [[[oldTaskViews lastObject] animator] setAlphaValue:0.0];
+                } completionHandler:^(void){
+                    [oldTaskViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+                    [oldTaskViews makeObjectsPerformSelector:@selector(setTask:) withObject:nil];
+                }];
+            });
+        });
+    } else {
+        [oldTaskViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        [oldTaskViews makeObjectsPerformSelector:@selector(setTask:) withObject:nil];
+    }
 	[tasksView setNeedsDisplay:YES];
 	
 	[oldTaskViews release];
@@ -121,6 +137,9 @@
 	if ([[self window] isVisible] && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSResizeTaskViewerAutomatically"]) {
 		[self resizeTableToFit];
 	}
+    if (![tasks count]) {
+        [self tasksEnded:nil];
+    }
 }
 
 - (void)autoHide {
