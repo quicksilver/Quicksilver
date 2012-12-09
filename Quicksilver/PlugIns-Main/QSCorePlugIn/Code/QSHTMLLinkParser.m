@@ -96,16 +96,14 @@
 			else {
 				name = [shortcut length] ? shortcut : text;
 			}
-			NSString *label = [shortcut length] ? text : nil;
 			
 			// make sure it's an actual URL
 			urlString = [[NSURL URLWithString:[urlString URLEncoding] relativeToURL:source] absoluteString];
 			newObject = [QSObject URLObjectWithURL:urlString title:[name stringByTrimmingCharactersInSet:wncs]];
 			[newObject assignURLTypesWithURL:urlString];
 			
-			if (label) {
-				[newObject setLabel:label];
-			}
+            NSString *label = [shortcut length] ? text : nil;
+            [newObject setLabel:label];
 			// If the link is an image, set this as the icon
 			if (imageurl.length) {
 				imageurl = [[NSURL URLWithString:imageurl relativeToURL:source] absoluteString];

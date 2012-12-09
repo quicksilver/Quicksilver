@@ -345,8 +345,7 @@ NSSize QSMaxIconSize;
 }
 
 - (NSString *)displayName {
-	if (![self label]) return [self name];
-	return [self label];
+	return [self label] ? [self label] : [self name];
 }
 
 - (NSString *)toolTip {
@@ -707,6 +706,10 @@ containg multiple objects with the same identifier. Best efforts should be made 
 	name = [newName retain];
 	if (newName) {
         [meta setObject:newName forKey:kQSObjectPrimaryName];
+        if ([newName isEqualToString:[self label]]) {
+            // label is only necessary if it differs
+            [self setLabel:nil];
+        }
     }
 }
 
@@ -753,6 +756,9 @@ containg multiple objects with the same identifier. Best efforts should be made 
 
 - (void)setLabel:(NSString *)newLabel {
 	if (newLabel != label) {
+        if (![newLabel length] || [newLabel isEqualToString:[self name]]) {
+            newLabel = nil;
+        }
 		[label release];
 		label = [newLabel retain];
 		if (newLabel) {

@@ -777,33 +777,23 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	} else {
 		// generally: name = what you see in Terminal, label = what you see in Finder
 		NSString *path = [self objectForType:QSFilePathType];
-		MDItemRef mdItem = MDItemCreate(kCFAllocatorDefault, (CFStringRef)path);
-		if (mdItem) {
-			// get the actual filesystem name, in case we were passed a localized path
-			newName = [(NSString *)MDItemCopyAttribute(mdItem, kMDItemFSName) autorelease];
-		}
-		if (!newName) {
-			newName = [path lastPathComponent];
-		}
-		// check packages for a descriptive name
-		if ([self isPackage]) {
-			newLabel = [self descriptiveNameForPackage:path withKindSuffix:![self isApplication]];
-		}
+        newName = [path lastPathComponent];
+        [self setName:newName];
 		// look for a more suitable display name
-		if (!newLabel || [newLabel isEqualToString:newName]) {
-			// try getting kMDItemDisplayName first
-			// tends to work better than `displayNameAtPath:` for things like Preference Panes
-			if (mdItem) {
-				newLabel = [(NSString *)MDItemCopyAttribute(mdItem, kMDItemDisplayName) autorelease];
-			}
-			if (!newLabel) {
-				newLabel = [[NSFileManager defaultManager] displayNameAtPath:path];
-			}
-		}
-		// discard the label if it's still identical to name
-		if ([newLabel isEqualToString:newName]) newLabel = nil;
+		if ([[self fileExtension] isEqualToString:@"qsplugin"]) {
+			newLabel = [self descriptiveNameForPackage:path withKindSuffix:![self isApplication]];
+		} else if (UTTypeConformsTo((CFStringRef)[self fileUTI], (CFStringRef)@"com.apple.systempreference.prefpane")) {
+            // kMDItemDisplayName works better for Preference Panes
+            MDItemRef mdItem = MDItemCreate(kCFAllocatorDefault, (CFStringRef)path);
+            if (mdItem) {
+                newLabel = [(NSString *)MDItemCopyAttribute(mdItem, kMDItemDisplayName) autorelease];
+            }
+        }
+        // fall back to the default display name
+        if (!newLabel) {
+            newLabel = [[NSFileManager defaultManager] displayNameAtPath:path];
+        }
 	}
-	[self setName:newName];
 	[self setLabel:newLabel];
 }
 
