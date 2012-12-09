@@ -655,6 +655,7 @@
 	if (VERBOSE) NSLog(@"Encapsulating Command");
 #endif
 	QSCommand *commandObject = [self currentCommand];
+    [self clearObjectView:dSelector];
 	[self selectObject:commandObject];
 	[self actionActivate:commandObject];
 }
