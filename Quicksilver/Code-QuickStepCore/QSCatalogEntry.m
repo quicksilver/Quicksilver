@@ -62,7 +62,8 @@ NSDictionary *enabledPresetDictionary;*/
 	if (self = [super init]) {
 		info = [dict mutableCopy];
 		children = nil; contents = nil; indexDate = nil;
-
+        // create a serial dispatch queue to make scan processes serial for each catalog entry
+        scanQueue = dispatch_queue_create([[self name] UTF8String], NULL);
 		NSArray *childDicts = [dict objectForKey:kItemChildren];
 		if (childDicts) {
 			NSMutableArray *newChildren = [NSMutableArray array];

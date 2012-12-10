@@ -16,7 +16,7 @@
 
 	id parent;
 	NSMutableArray *children;
-
+    dispatch_queue_t scanQueue;
 	NSMutableDictionary *info;
 	NSMutableArray *contents;
 	NSBundle *bundle;
