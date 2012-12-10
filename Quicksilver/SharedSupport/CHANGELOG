@@ -33,7 +33,7 @@
   * Icons for proxy objects are correctly updated if the underlying object's icon changes (#1200)
   * Prevent ⇧⌘[letter] shortcuts from making the application unresponsive (#1122, #1160)
   * Latest Download proxy object is more reliable under Mountain Lion (#1102, #1109)
-  * Triggers can refer to multiple files/folders/applications (using the comma trick) (#555, #1112)
+  * Triggers can refer to multiple files/folders/applications (using the comma trick) (#555, #1112, #1271, #1272)
   * The interface will appear above full-screen applications (#740, #1138)
   * Cursor color matches text color (to improve visibility) in text entry mode (#1171, #1173)
   * Prevent a crash when resetting preferences
