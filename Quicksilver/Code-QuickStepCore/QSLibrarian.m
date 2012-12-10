@@ -28,8 +28,6 @@ static CGFloat searchSpeed = 0.0;
 
 @implementation QSLibrarian
 
-@synthesize indexQueue;
-
 + (id)sharedInstance {
 	if (!QSLib) QSLib = [[[self class] allocWithZone:[self zone]] init];
 	return QSLib;
@@ -69,8 +67,6 @@ static CGFloat searchSpeed = 0.0;
 		appSearchArrays = nil;
 		typeArrays = [[NSMutableDictionary dictionaryWithCapacity:1] retain];
 		entriesBySource = [[NSMutableDictionary alloc] initWithCapacity:1];
-        
-        indexQueue = dispatch_queue_create("QSLibrarian indexationQueue", NULL);
         
 		omittedIDs = nil;
 		entriesByID = [[NSMutableDictionary alloc] initWithCapacity:1];
@@ -226,8 +222,6 @@ static CGFloat searchSpeed = 0.0;
 	[entriesBySource release];
 	[invalidIndexes release];
 	[catalog release];
-    dispatch_release(indexQueue);
-    indexQueue = NULL;
 	[super dealloc];
 }
 
@@ -533,38 +527,30 @@ static CGFloat searchSpeed = 0.0;
 
 
 - (void)scanCatalogIgnoringIndexes:(BOOL)force {
-    dispatch_async(indexQueue, ^{
-        if (scannerCount >= 1) {
-            NSLog(@"Multiple Scans Attempted");
-#if 0
-            if (scannerCount>2) {
-                //[NSException raise:@"Multiple Scans Attempted" format:@""]
-                return;
-            }
-#endif
-            return;
+    if (scannerCount >= 1) {
+        NSLog(@"Multiple Scans Attempted");
+        return;
+    }
+    
+    @autoreleasepool {
+        [scanTask setStatus:@"Catalog Rescan"];
+        [scanTask startTask:self];
+        [scanTask setProgress:-1];
+        scannerCount++;
+        NSArray *children = [catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
+        NSUInteger i;
+        NSUInteger c = [children count];
+        for (i = 0; i<c; i++) {
+            [scanTask setProgress:(CGFloat) i/c];
+            [[children objectAtIndex:i] scanForced:force];
         }
         
-        @autoreleasepool {
-            [scanTask setStatus:@"Catalog Rescan"];
-            [scanTask startTask:self];
-            [scanTask setProgress:-1];
-            scannerCount++;
-            NSArray *children = [catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
-            NSUInteger i;
-            NSUInteger c = [children count];
-            for (i = 0; i<c; i++) {
-                [scanTask setProgress:(CGFloat) i/c];
-                [[children objectAtIndex:i] scanForced:force];
-            }
-            
-            [scanTask setProgress:1.0];
-            [scanTask stopTask:self];
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogIndexingCompleted object:nil];
-            scannerCount--;
-        }
-    });
+        [scanTask setProgress:1.0];
+        [scanTask stopTask:self];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogIndexingCompleted object:nil];
+        scannerCount--;
+    }
 }
 
 

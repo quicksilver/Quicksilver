@@ -31,6 +31,8 @@ NSDictionary *enabledPresetDictionary;*/
 
 @implementation QSCatalogEntry
 
+@synthesize isScanning;
+
 + (BOOL)accessInstanceVariablesDirectly {return YES;}
 
 + (QSCatalogEntry *)entriesWithArray:(NSArray *)array { return nil; }
@@ -62,8 +64,7 @@ NSDictionary *enabledPresetDictionary;*/
 	if (self = [super init]) {
 		info = [dict mutableCopy];
 		children = nil; contents = nil; indexDate = nil;
-        // create a serial dispatch queue to make scan processes serial for each catalog entry
-        scanQueue = dispatch_queue_create([[self name] UTF8String], NULL);
+        
 		NSArray *childDicts = [dict objectForKey:kItemChildren];
 		if (childDicts) {
 			NSMutableArray *newChildren = [NSMutableArray array];
@@ -72,6 +73,8 @@ NSDictionary *enabledPresetDictionary;*/
 			}
 			children = [newChildren retain];
 		}
+        // create a serial dispatch queue to make scan processes serial for each catalog entry
+        scanQueue = dispatch_queue_create([[dict objectForKey:kItemID] UTF8String], NULL);
 	}
 	return self;
 }
@@ -91,6 +94,8 @@ NSDictionary *enabledPresetDictionary;*/
 	[children release];
 	[info release];
 	[contents release];
+    dispatch_release(scanQueue);
+    scanQueue = NULL;
 	[super dealloc];
 }
 
@@ -213,9 +218,7 @@ NSDictionary *enabledPresetDictionary;*/
 	else
 		[info setObject:[NSNumber numberWithBool:enabled] forKey:kItemEnabled];
 	if (enabled && ![[self contents] count]) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self scanForced:YES];
-        });
+        [self scanForced:YES];
     }
     [QSLib writeCatalog:self];
 }
@@ -507,57 +510,61 @@ NSDictionary *enabledPresetDictionary;*/
 #endif
 		return nil;
 	} else {
-		[self setIsScanning:YES];
-        NSString *ID = [self identifier];
-        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-        [nc postNotificationName:QSCatalogEntryIsIndexing object:self];
-        NSArray *itemContents = [self scannedObjects];
-		if (itemContents && ID) {
-            [self setContents:itemContents];
-            QSObjectSource *source = [self source];
-            if (![source respondsToSelector:@selector(entryCanBeIndexed:)] || [source entryCanBeIndexed:[self info]]) {
-                [self saveIndex];
+        __block NSArray *itemContents = nil;
+        // Use a serial queue to do the grunt of the scan work. Ensures that no more than one thread can scan at any one time.
+        dispatch_sync(scanQueue, ^{
+            [self setIsScanning:YES];
+            [self willChangeValueForKey:@"self"];
+            NSString *ID = [self identifier];
+            NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+            [nc postNotificationName:QSCatalogEntryIsIndexing object:self];
+            itemContents = [self scannedObjects];
+            if (itemContents && ID) {
+                [self setContents:itemContents];
+                QSObjectSource *source = [self source];
+                if (![source respondsToSelector:@selector(entryCanBeIndexed:)] || [source entryCanBeIndexed:[self info]]) {
+                    [self saveIndex];
+                }
+            } else if (ID) {
+                [self setContents:nil];
             }
-        } else if (ID) {
-            [self setContents:nil];
-        }
-        [self willChangeValueForKey:@"self"];
-        [self didChangeValueForKey:@"self"];
-        [nc postNotificationName:QSCatalogEntryIndexed object:self];
-        [self setIsScanning:NO];
+            [self didChangeValueForKey:@"self"];
+            [nc postNotificationName:QSCatalogEntryIndexed object:self];
+            [self setIsScanning:NO];
+        });
         return itemContents;
     }
 }
 
-- (NSArray *)scanForced:(BOOL)force {
-	if ([self isSeparator] || ![self isEnabled]) return nil;
-	if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
+- (void)scanForced:(BOOL)force {
+    if ([self isSeparator] || ![self isEnabled]) {
+        return;
+    }
+    if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
         @autoreleasepool {
             for(QSCatalogEntry * child in children) {
                 [child scanForced:force];
             }
         }
-		return nil;
-	}
-	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:NSLocalizedString(@"Checking: %@", @"Catalog task checking (%@ => source name)"), [self name]]];
-	BOOL valid = [self indexIsValid];
-	if (valid && !force) {
-		
+        return;
+    }
+    [[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:NSLocalizedString(@"Checking: %@", @"Catalog task checking (%@ => source name)"), [self name]]];
+    BOOL valid = [self indexIsValid];
+    if (valid && !force) {
 #ifdef DEBUG
-		if (DEBUG_CATALOG) NSLog(@"\tIndex is valid for source: %@", name);
+        if (DEBUG_CATALOG) NSLog(@"\tIndex is valid for source: %@", name);
 #endif
-		
-		return [self contents];
-	}
-	
+        return;
+    }
+    
 #ifdef DEBUG
-	if (DEBUG_CATALOG)
-		NSLog(@"Scanning source: %@%@", [self name] , (force?@" (forced) ":@""));
+    if (DEBUG_CATALOG)
+        NSLog(@"Scanning source: %@%@", [self name] , (force?@" (forced) ":@""));
 #endif
-	
-	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:NSLocalizedString(@"Scanning: %@", @"Catalog task scanning (%@ => source name)"), [self name]]];
-	[self scanAndCache];
-	return nil;
+    
+    [[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:NSLocalizedString(@"Scanning: %@", @"Catalog task scanning (%@ => source name)"), [self name]]];
+    [self scanAndCache];
+    return;
 }
 
 - (NSMutableArray *)children { return children; }
@@ -623,11 +630,6 @@ NSDictionary *enabledPresetDictionary;*/
 	//	NSLog(@"date %@ ->%@", indexDate, anIndexDate);
 	[indexDate release];
 	indexDate = [anIndexDate retain];
-}
-
-- (BOOL)isScanning { return isScanning;  }
-- (void)setIsScanning:(BOOL)flag {
-	isScanning = flag;
 }
 
 @end

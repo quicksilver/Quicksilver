@@ -42,11 +42,7 @@ extern QSLibrarian *QSLib; // Shared Instance
 	NSMutableArray *invalidIndexes;
 	NSInteger scannerCount;
     
-    // Used to control catalog scans
-    dispatch_queue_t indexQueue;
 }
-
-@property (readonly) dispatch_queue_t indexQueue;
 
 + (id)sharedInstance;
 + (void)removeIndexes;
