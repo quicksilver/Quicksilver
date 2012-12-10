@@ -48,7 +48,8 @@
   * Removed invalid Finder actions to prevent crashes (#1242, #1252)
   * Prevent a crash when using custom keyboard layout (#1254, #1256)
   * Prevent actions from appearing more than once (#1259, #1260)
-  * Bug fixes and internal improvements (#921, #840, #1114, #1180, #1206, #1211, #1238, #1239, #1257)
+  * Resolve proxy objects before deciding what should appear in the third pane (#1248)
+  * Bug fixes and internal improvements (#921, #840, #1114, #1180, #1206, #1211, #1238, #1239, #1257, #1248)
 
 ### Changed ###
 
@@ -81,6 +82,10 @@
   * Improvements to the `qs-push-plugin` script (#1060, #1061)
   * New `scoredArrayForType:` method in QSLibrarian to get a list of objects sorted by rank (#1162)
   * Styles defined for definition lists in documentation (#1200)
+  * Proxy object overhaul (#1248)
+    * New `isProxyObject` method for testing `QSObject`s
+    * Proxies return a `QSObject` when resolved instead of a `QSBasicObject`
+    * All code specific to proxy objects was moved from `QSObject` to `QSProxyObject`
 
 [hidden]: http://qsapp.com/wiki/Hidden_Defaults
 
