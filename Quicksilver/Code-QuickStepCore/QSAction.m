@@ -310,9 +310,7 @@ static BOOL gModifiersAreIgnored;
 		if (!provider) {
 			provider = [QSReg getClassInstance:class];
 		}
-		if ([[dObject primaryType] isEqualToString:QSProxyType]) {
-			dObject = (QSObject *)[dObject resolvedObject];
-		}
+        dObject = [dObject resolvedObject];
 		if ([[dict objectForKey:kActionSplitPluralArguments] boolValue] && [dObject count] > 1) {
 			NSArray *objects = [dObject splitObjects];
 			id object;

@@ -350,7 +350,8 @@
     id actionProvider = [aObj provider];
     NSArray *indirects = nil;
     if (actionProvider && [actionProvider respondsToSelector:@selector(validIndirectObjectsForAction:directObject:)]) {
-        indirects = [actionProvider validIndirectObjectsForAction:[aObj identifier] directObject:[dSelector objectValue]];
+        QSObject *directObject = [[dSelector objectValue] resolvedObject];
+        indirects = [actionProvider validIndirectObjectsForAction:[aObj identifier] directObject:directObject];
     }
     // If the validIndirectObjectsForAction... method hasn't been implemented, attempt to get valid indirects from the action's 'indirectTypes'
     if(!indirects) {

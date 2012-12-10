@@ -78,7 +78,10 @@
     if ([provider respondsToSelector:@selector(cacheTimeForProxy:)])
         interval = [[self proxyProvider] cacheTimeForProxy:self];
     
-    [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(releaseProxy) userInfo:nil repeats:NO];
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)interval * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self releaseProxy];
+    });
 	return proxy;
 }
 
@@ -112,10 +115,10 @@
 	return [[self proxyProvider] respondsToSelector:@selector(bypassValidation)] && [[self proxyProvider] bypassValidation];
 }
 
-- (QSBasicObject *)resolvedObject {return [self proxyObject];}
+- (QSObject *)resolvedObject {return [self proxyObject];}
 
 - (NSString *)stringValue {
-	return [(QSObject*)[self resolvedObject] stringValue];
+	return [[self resolvedObject] stringValue];
 }
 
 - (BOOL)respondsToSelector:(SEL)aSelector {
@@ -140,5 +143,35 @@
 - (void)objectIconModified:(NSNotification *)notif
 {
     [self updateIcon:[[self proxyObject] icon]];
+}
+
+- (BOOL)isProxyObject
+{
+    return YES;
+}
+
+- (id)_safeObjectForType:(id)aKey {
+    id object = [data objectForKey:aKey];
+    if (!object) {
+        object = [[self resolvedObject] _safeObjectForType:aKey];
+    }
+    return object;
+}
+
+- (BOOL)loadIcon
+{
+    NSString *namedIcon = [self objectForMeta:kQSObjectIconName];
+    if (!namedIcon || [namedIcon isEqualToString:@"ProxyIcon"]) {
+        // use the resolved object's icon instead
+        QSObject *resolved = [self resolvedObject];
+	    [resolved loadIcon];
+	    NSImage *image = [resolved icon];
+		if (image) {
+            [self setIconLoaded:YES];
+			[self setIcon:image];
+			return YES;
+		}
+    }
+    return [super loadIcon];
 }
 @end

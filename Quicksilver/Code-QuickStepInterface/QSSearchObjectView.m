@@ -1860,9 +1860,8 @@ NSMutableDictionary *bindingsDict = nil;
         object = [(QSRankedObject *)object object];
     }
     // resolve proxy objects
-    if ([object isKindOfClass:[QSProxyObject class]]) {
-        object = [(QSProxyObject *)object resolvedObject];
-    }
+    object = [object resolvedObject];
+    
     if ([object validPaths] || [[object primaryType] isEqualToString:QSURLType]) {
         quicklookObject = [object retain];
         savedSearchMode = searchMode;

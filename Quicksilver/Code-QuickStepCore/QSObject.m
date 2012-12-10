@@ -223,15 +223,15 @@ NSSize QSMaxIconSize;
 }
 
 - (NSArray *)splitObjects {
-    
-	if ([self count] == 1) {
-		return [NSArray arrayWithObject:self];
+    QSObject *object = [self resolvedObject];
+	if ([object count] == 1) {
+		return [NSArray arrayWithObject:object];
 	}
 	
-	NSArray *splitObjects = [self objectForCache:kQSObjectComponents];
+	NSArray *splitObjects = [object objectForCache:kQSObjectComponents];
     
     if (!splitObjects) {
-        splitObjects = [self children];
+        splitObjects = [object children];
     }
     return splitObjects;
 }
@@ -433,10 +433,7 @@ NSSize QSMaxIconSize;
 	//- (void)setObject:(id)object forKey:(id)aKey {[data setObject:object forKey:aKey];}
 
 - (id)_safeObjectForType:(id)aKey {
-  id object = [data objectForKey:aKey];
-  if (!object && [[self primaryType] isEqualToString:QSProxyType])
-      object = [[self resolvedObject] arrayForType:aKey];
-	return object;
+  return [data objectForKey:aKey];
 #if 0
 	if (flags.multiTyped)
 		return[data objectForKey:aKey];
@@ -568,6 +565,15 @@ NSSize QSMaxIconSize;
 	return [self count];
 }
 
+- (BOOL)isProxyObject
+{
+    return NO;
+}
+
+- (QSObject *)resolvedObject
+{
+    return self;
+}
 @end
 
 @implementation QSObject (Hierarchy)
@@ -909,11 +915,8 @@ containg multiple objects with the same identifier. Best efforts should be made 
 @implementation QSObject (Icon)
 - (BOOL)loadIcon {
   NSString *namedIcon = [self objectForMeta:kQSObjectIconName];
-	if ([self iconLoaded]) {
-	  if (!namedIcon)
-      return NO;
-    else if (![namedIcon isEqualToString:@"ProxyIcon"])
-      return NO;
+	if ([self iconLoaded] && !namedIcon) {
+        return NO;
 	}
 	[self setIconLoaded:YES];
     
@@ -922,14 +925,7 @@ containg multiple objects with the same identifier. Best efforts should be made 
 	[iconLoadedArray addObject:self];
 
 	if (namedIcon) {
-    NSImage *image = nil;
-	  if ([namedIcon isEqualToString:@"ProxyIcon"]) {
-      QSObject *resolved = (QSObject *)[self resolvedObject];
-	    [resolved loadIcon];
-	    image = [resolved icon];
-	  }
-    else
-      image =  [QSResourceManager imageNamed:namedIcon];
+        NSImage *image = [QSResourceManager imageNamed:namedIcon];
 		if (image) {
 			[self setIcon:image];
 			return YES;
