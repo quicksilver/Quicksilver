@@ -67,7 +67,7 @@ static CGFloat searchSpeed = 0.0;
 		appSearchArrays = nil;
 		typeArrays = [[NSMutableDictionary dictionaryWithCapacity:1] retain];
 		entriesBySource = [[NSMutableDictionary alloc] initWithCapacity:1];
-
+        
 		omittedIDs = nil;
 		entriesByID = [[NSMutableDictionary alloc] initWithCapacity:1];
 		[self setShelfArrays:[NSMutableDictionary dictionaryWithCapacity:1]];
@@ -328,9 +328,11 @@ static CGFloat searchSpeed = 0.0;
 	//NSLog(@"cat %@ %@", catalog, [catalog leafEntries]);
     @synchronized(catalog) {
         for(QSCatalogEntry * entry in [catalog leafEntries]) {
-            //NSLog(@"entry %@", entry);
-            if ([entry contents] && [[entry contents] count]) {
-                [newDefaultSet addObjectsFromArray:[entry contents]];
+            NSArray *entryContents = [entry contents];
+            @synchronized(entryContents) {
+                if (entryContents && [entryContents count]) {
+                    [newDefaultSet addObjectsFromArray:entryContents];
+                }
             }
         }
     }
@@ -408,9 +410,6 @@ static CGFloat searchSpeed = 0.0;
 			indexesValid = NO;
 		}
 	}
-	// Scan immediately if any indexes were not found
-	// if (indexesValid) [NSThread detachNewThreadSelector:@selector(scanCatalogWithDelay:) toTarget:self withObject:nil];
-	// else [self startThreadedScan];
 
 #ifdef DEBUG
 	if (DEBUG_CATALOG)
@@ -420,6 +419,10 @@ static CGFloat searchSpeed = 0.0;
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryIndexed object:nil];
   if (invalidIndexes) [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scanInvalidIndexes) name:NSApplicationDidFinishLaunchingNotification object:nil];
 	return indexesValid;
+}
+
+- (void)scanCatalogWithDelay:(id)sender {
+    NSLog(@"deprecated method scanCatalogWithDelay: This method does nothing");
 }
 
 - (BOOL)scanInvalidIndexes {
@@ -524,17 +527,11 @@ static CGFloat searchSpeed = 0.0;
 
 
 - (void)scanCatalogIgnoringIndexes:(BOOL)force {
-	if (scannerCount >= 1) {
-		NSLog(@"Multiple Scans Attempted");
-#if 0
-		if (scannerCount>2) {
-			//[NSException raise:@"Multiple Scans Attempted" format:@""]
-			return;
-		}
-#endif
-		return;
-	}
-
+    if (scannerCount >= 1) {
+        NSLog(@"Multiple Scans Attempted");
+        return;
+    }
+    
     @autoreleasepool {
         [scanTask setStatus:@"Catalog Rescan"];
         [scanTask startTask:self];
@@ -558,16 +555,10 @@ static CGFloat searchSpeed = 0.0;
 
 
 - (void)startThreadedScan {
-    // use GCD to dispatch to another queue
-    dispatch_async(dispatch_get_global_queue(0,0),^{
-        [self scanCatalog:nil];
-    });
+    [self scanCatalog:nil];
 }
 - (void)startThreadedAndForcedScan {
-    // use GCD to dispatch to another queue
-    dispatch_async(dispatch_get_global_queue(0,0),^{
-        [self forceScanCatalog:nil];
-    });
+    [self forceScanCatalog:nil];
 }
 - (IBAction)forceScanCatalog:(id)sender {
 	[self scanCatalogIgnoringIndexes:YES];
@@ -576,19 +567,6 @@ static CGFloat searchSpeed = 0.0;
 - (IBAction)scanCatalog:(id)sender {
 	[self scanCatalogIgnoringIndexes:NO];
 	//NSLog(@"scanned");
-}
-- (void)scanCatalogWithDelay:(id)sender {
-    @autoreleasepool {
-        // NSLog(@"delayed load");
-        
-        [scanTask setStatus:@"Rescanning Catalog"];
-        [scanTask startTask:self];
-        [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:8.0]];
-        [NSThread setThreadPriority:0];
-        [catalog scanForced:NO];
-        // [activityController removeTask:@"Scan"];
-        [scanTask stopTask:self];
-    }
 }
 
 - (BOOL)itemIsOmitted:(QSBasicObject *)item {
