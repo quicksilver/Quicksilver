@@ -20,7 +20,7 @@
 	NSMutableDictionary *info;
 	NSMutableArray *contents;
 	NSBundle *bundle;
-	__block BOOL isScanning;
+	BOOL isScanning;
 }
 
 @property (assign, atomic) BOOL isScanning;
