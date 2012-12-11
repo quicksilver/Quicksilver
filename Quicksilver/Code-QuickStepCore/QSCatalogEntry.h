@@ -16,12 +16,14 @@
 
 	id parent;
 	NSMutableArray *children;
-
+    dispatch_queue_t scanQueue;
 	NSMutableDictionary *info;
 	NSMutableArray *contents;
 	NSBundle *bundle;
 	BOOL isScanning;
 }
+
+@property (assign, atomic) BOOL isScanning;
 
 + (QSCatalogEntry *)entryWithDictionary:(NSDictionary *)dict;
 - (NSDictionary *)dictionaryRepresentation;
@@ -56,8 +58,7 @@
 - (BOOL)canBeIndexed;
 - (NSArray *)scannedObjects;
 - (NSArray *)scanAndCache;
-- (void)scanForcedInThread:(NSNumber *)force;
-- (NSArray *)scanForced:(BOOL)force;
+- (void)scanForced:(BOOL)force;
 - (NSMutableArray *)children;
 - (NSMutableArray *)getChildren;
 - (NSArray *)contents;

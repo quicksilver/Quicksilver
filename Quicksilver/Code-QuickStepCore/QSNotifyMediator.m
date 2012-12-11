@@ -2,7 +2,9 @@
 #import "QSResourceManager.h"
 
 BOOL QSShowAppNotifWithAttributes(NSString *type, NSString *title, NSString *message) {
-    QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:type, QSNotifierType, [QSResourceManager imageNamed:kQSBundleID], QSNotifierIcon, title, QSNotifierTitle, message, QSNotifierText, nil]);}
+    QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:type, QSNotifierType, [QSResourceManager imageNamed:kQSBundleID], QSNotifierIcon, title, QSNotifierTitle, message, QSNotifierText, nil]);
+    return YES;
+}
 
 BOOL QSShowNotifierWithAttributes(NSDictionary *attributes) {
 	if ([attributes count]) {
