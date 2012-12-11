@@ -21,6 +21,7 @@
   * Clear the selected pane with ⌃U (as in most Unix shells) (#1189)
   * Descriptions added for all actions in the core application (#1124)
   * Recent Objects and Recent Commands catalog entries are updated in real-time (#1106, #1111)
+  * Improvements to catalog scanning performance and reliability (#1232)
   * Color QSObjects now support more icon sizes
 
 ### Fixed ###
@@ -36,6 +37,7 @@
   * Triggers can refer to multiple files/folders/applications (using the comma trick) (#555, #1112, #1271, #1272)
   * The interface will appear above full-screen applications (#740, #1138)
   * Cursor color matches text color (to improve visibility) in text entry mode (#1171, #1173)
+  * Enabled/disabled catalog entries are preserved across restarts (#1232)
   * Prevent a crash when resetting preferences
   * Prevent Primer from starting to look strange when typing in text entry mode
   * Make docking windows completely transparent when they're off screen (#1064)
