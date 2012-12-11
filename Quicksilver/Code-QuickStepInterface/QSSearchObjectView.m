@@ -37,7 +37,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 @implementation QSSearchObjectView
 
-@synthesize textModeEditor, alternateActionCounterpart, resultController, updatesSilently;
+@synthesize textModeEditor, alternateActionCounterpart, resultController, updatesSilently, isFocusedFromShift;
 
 + (void)initialize {
     if( bindingsDict == nil ) {
@@ -966,10 +966,6 @@ NSMutableDictionary *bindingsDict = nil;
 #pragma mark -
 #pragma mark NSResponder
 - (BOOL)acceptsFirstResponder {
-    if (self != [self directSelector] && [[self directSelector] objectValue] == nil) {
-        // Don't let the aSelctor or iSelector gain focus if the dSelector is empty
-        return NO;
-    }
     return YES;
 }
 
@@ -995,7 +991,12 @@ NSMutableDictionary *bindingsDict = nil;
 - (BOOL)resignFirstResponder {  
     
     if ([self isEqual:[self directSelector]]) {
+        if ([self objectValue] == nil) {
+            return NO;
+        }
         [self updateHistory];
+    } else if(self == [self actionSelector]) {
+        isFocusedFromShift = NO;
     }
 	[resultTimer invalidate];
 	[self hideResultView:self];
@@ -1027,8 +1028,15 @@ NSMutableDictionary *bindingsDict = nil;
             [aSelector setNeedsDisplay:YES];
 			[aSelector setAlternateActionCounterpart:theAction];
 		}
-	}
-	else if ([aSelector alternateActionCounterpart]) {
+	} else if (flags == NSShiftKeyMask || flags == (NSShiftKeyMask | NSAlphaShiftKeyMask)) {
+        if (self == [self directSelector]) {
+            [[self actionSelector] setIsFocusedFromShift:YES];
+            [[self window] makeFirstResponder:[self actionSelector]];
+        }
+    } else if (self == aSelector && isFocusedFromShift) {
+        isFocusedFromShift = NO;
+        [[self window] makeFirstResponder:[self directSelector]];
+    } else if ([aSelector alternateActionCounterpart]) {
         QSAction *theAction = [aSelector objectValue];
         NSMutableArray *currentResultArray = [aSelector resultArray];
         if ([currentResultArray containsObject:[aSelector alternateActionCounterpart]]) {
