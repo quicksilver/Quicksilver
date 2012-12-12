@@ -21,7 +21,7 @@
   * Clear the selected pane with ⌃U (as in most Unix shells) (#1189)
   * Descriptions added for all actions in the core application (#1124)
   * Recent Objects and Recent Commands catalog entries are updated in real-time (#1106, #1111)
-  * Improvements to catalog scanning performance and reliability (#1232)
+  * Improvements to catalog scanning performance and reliability (#1232, #1278)
   * Color QSObjects now support more icon sizes
 
 ### Fixed ###
