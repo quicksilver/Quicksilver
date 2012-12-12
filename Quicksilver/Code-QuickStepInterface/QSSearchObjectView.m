@@ -172,7 +172,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)saveMnemonic {
-	NSString *mnemonicKey = [self matchedString];
+	NSString *mnemonicKey = [[[self matchedString] retain] autorelease];
 	if (!mnemonicKey || [mnemonicKey isEqualToString:@""]) return;
 	QSObject *mnemonicValue = [self alternateActionCounterpart] ? [self alternateActionCounterpart] : [self objectValue];
 	if ([mnemonicValue count] > 1) {
