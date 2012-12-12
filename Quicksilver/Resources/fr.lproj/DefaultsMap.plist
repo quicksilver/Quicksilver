@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <array>
+    <dict>
+      <key>category</key>
+      <string>Affichage des tâches</string>
+      <key>default</key>
+      <string>QSShowTaskViewerAutomatically</string>
+      <key>title</key>
+      <string>Affiche la fenêtre des tâches automatiquement à leur création</string>
+      <key>type</key>
+      <string>case à cocher</string>
+    </dict>
+    <dict>
+      <key>category</key>
+      <string>bascule d’applications</string>
+      <key>default</key>
+      <string>Masquer les autres applications en basculant</string>
+      <key>title</key>
+      <string>Masque les autres applications en basculant de l’une à l’autre (bloqué par Maj.)</string>
+      <key>type</key>
+      <string>case à cocher</string>
+    </dict>
+    <dict>
+      <key>category</key>
+      <string>Tâches</string>
+      <key>default</key>
+      <string>Exécution multitâche</string>
+      <key>title</key>
+      <string>Exécuter tâches et actions en tâche de fond</string>
+      <key>type</key>
+      <string>case à cocher</string>
+    </dict>
+    <dict>
+      <key>category</key>
+      <string>Bascule entre les applications</string>
+      <key>default</key>
+      <string>QSActionAppReopenBehavior</string>
+      <key>items</key>
+      <dict>
+        <key>0</key>
+        <string>active l’application</string>
+        <key>1</key>
+        <string>affiche la fenêtre au premier plan</string>
+        <key>2</key>
+        <string>affiche toutes les fenêtres</string>
+      </dict>
+      <key>pretext</key>
+      <string>Réouvir une application</string>
+      <key>subtext</key>
+      <string>Réouvir l’application actuelle affiche toutes les fenêtres</string>
+      <key>title</key>
+      <string>Réouvir une application :</string>
+      <key>type</key>
+      <string>popupTag</string>
+    </dict>
+    <dict>
+      <key>category</key>
+      <string>Mise à jour</string>
+      <key>default</key>
+      <string>QSUpdateReleaseLevel</string>
+      <key>image</key>
+      <string>Quicksilver</string>
+      <key>items</key>
+      <dict>
+        <key>0</key>
+        <string>Distribution finale</string>
+        <key>1</key>
+        <string>Candidat à la distribution</string>
+        <key>2</key>
+        <string>Préversion pour développeurs</string>
+      </dict>
+      <key>requestRelaunch</key>
+      <true></true>
+      <key>title</key>
+      <string>Type de mise à jour de l’application</string>
+      <key>type</key>
+      <string>popupTag</string>
+    </dict>
+    <dict>
+      <key>category</key>
+      <string>Commande</string>
+      <key>default</key>
+      <string>Actions avec Majuscule</string>
+      <key>title</key>
+      <string>Sélection des actions avec les lettres en majuscule</string>
+      <key>type</key>
+      <string>case à cocher</string>
+    </dict>
+    <dict>
+      <key>category</key>
+      <string>Commande</string>
+      <key>default</key>
+      <string>Supprime les raccourcis dans la commande</string>
+      <key>title</key>
+      <string>Désactive les raccourcis lorsque QuickSilver est au premier plan</string>
+      <key>type</key>
+      <string>case à cocher</string>
+    </dict>
+    <dict>
+      <key>category</key>
+      <string>Commande</string>
+      <key>default</key>
+      <string>Double suppression pour purger l’objet</string>
+      <key>title</key>
+      <string>Appuyer sur la touche Suppr deux fois purge l’ojet sélectionné</string>
+      <key>type</key>
+      <string>case à cocher</string>
+    </dict>
+  </array>
+</plist>

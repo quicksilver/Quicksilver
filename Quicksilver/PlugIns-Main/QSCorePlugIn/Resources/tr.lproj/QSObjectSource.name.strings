@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSABMailRecentsObjectSource</key>
+    <string>Önceki Posta Alıcıları</string>
+    <key>QSAddressBookObjectSource</key>
+    <string>Adres Defteri</string>
+    <key>QSAirPortNetworkObjectSource</key>
+    <string>Airport Ağları</string>
+    <key>QSAllApplicationsObjectSource</key>
+    <string>Tüm Uygulamalar</string>
+    <key>QSCatalogEntrySource</key>
+    <string>Katalog Girileri</string>
+    <key>QSDefaultsObjectSource</key>
+    <string>Varsayılanlar Okuyucusu</string>
+    <key>QSFileSystemObjectSource</key>
+    <string>Dosya &amp; Dizin Tarayıcısı</string>
+    <key>QSGroupObjectSource</key>
+    <string>Öbek</string>
+    <key>QSMachineSource</key>
+    <string>Quicksilver Makineleri</string>
+    <key>QSNUDCSource</key>
+    <string>Şimdi Güncel ve Kişiler</string>
+    <key>QSNetworkLocationObjectSource</key>
+    <string>Ağ Konumları</string>
+    <key>QSProcessObjectSource</key>
+    <string>Çalışan İşlemler</string>
+    <key>QSVolumesObjectSource</key>
+    <string>Takılı Birimler</string>
+    <key>QSiPhotoObjectSource</key>
+    <string>iPhoto Arşivi</string>
+    <key>QSiTunesObjectSource</key>
+    <string>iTunes Müzik Arşivi</string>
+    <key>QSHistoryObjectSource</key>
+    <string>Nesne Geçmişi</string>
+    <key>QSInternalObjectSource</key>
+    <string>İçsel Nesneler</string>
+    <key>QSObjCMessageSource</key>
+    <string>Objective-C İletileri</string>
+    <key>QSProxyObjectSource</key>
+    <string>Vekil Sunucular/Proxy</string>
+  </dict>
+</plist>
