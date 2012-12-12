@@ -19,12 +19,6 @@
 
 - (id)init {
 	if ((self = [self initWithWindowNibName:@"QSTaskViewer"])) {
-		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-		[nc addObserver:self selector:@selector(taskAdded:) name:QSTaskAddedNotification object:nil];
-		[nc addObserver:self selector:@selector(tasksEnded:) name:QSTasksEndedNotification object:nil];
-		[nc addObserver:self selector:@selector(refreshAllTasks:) name:QSTaskAddedNotification object:nil];
-		[nc addObserver:self selector:@selector(refreshAllTasks:) name:QSTaskChangedNotification object:nil];
-		[nc addObserver:self selector:@selector(refreshAllTasks:) name:QSTaskRemovedNotification object:nil];
 		hideTimer = nil;
 	}
 	return self;
@@ -41,6 +35,12 @@
 	[win display];
 	//[self refreshAllTasks:nil];
 	[self resizeTableToFit];
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(taskAdded:) name:QSTaskAddedNotification object:nil];
+    [nc addObserver:self selector:@selector(tasksEnded:) name:QSTasksEndedNotification object:nil];
+    [nc addObserver:self selector:@selector(refreshAllTasks:) name:QSTaskAddedNotification object:nil];
+    [nc addObserver:self selector:@selector(refreshAllTasks:) name:QSTaskChangedNotification object:nil];
+    [nc addObserver:self selector:@selector(refreshAllTasks:) name:QSTaskRemovedNotification object:nil];
 }
 
 - (void)showWindow:(id)sender {
