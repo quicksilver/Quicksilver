@@ -16,7 +16,7 @@
       <key>category</key>
       <string>Uygulamalar Arası Gezinme</string>
       <key>default</key>
-      <string>Gezinirken Diğer Uygulamaları Gizle</string>
+      <string>Hide Other Apps When Switching</string>
       <key>title</key>
       <string>Uygulamalar arasında gezinirken diğer uygulamaları gizle (yükseltme düğmesi engeller)</string>
       <key>type</key>
@@ -26,7 +26,7 @@
       <key>category</key>
       <string>Görevler</string>
       <key>default</key>
-      <string>Çokluişlemli Çalıştır</string>
+      <string>Multithreaded Execute</string>
       <key>title</key>
       <string>Görevleri ve eylemleri ardalanda çalıştır</string>
       <key>type</key>
@@ -82,7 +82,7 @@
       <key>category</key>
       <string>Komut</string>
       <key>default</key>
-      <string>Yükseltme Düğmesi Eylemleri</string>
+      <string>Shift Actions</string>
       <key>title</key>
       <string>Büyük harflerin eylemi seçmesine izin ver</string>
       <key>type</key>
@@ -92,7 +92,7 @@
       <key>category</key>
       <string>Komut</string>
       <key>default</key>
-      <string>Komuttayken Kısayol Düğmelerini Engelle</string>
+      <string>Suppress HotKeys in Command</string>
       <key>title</key>
       <string>Quicksilver önplanda iken Kısayol Düğmesi Tetikleyicileri etkisizleştir</string>
       <key>type</key>
@@ -102,7 +102,7 @@
       <key>category</key>
       <string>Komut</string>
       <key>default</key>
-      <string>İki Kez Sil nesneyi temizler</string>
+      <string>Double Delete Clears Object</string>
       <key>title</key>
       <string>Sil düğmesine iki kez basmak etkin nesneyi temizler</string>
       <key>type</key>

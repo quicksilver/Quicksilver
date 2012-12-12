@@ -16,7 +16,7 @@
       <key>category</key>
       <string>Conmutación de aplicaciones</string>
       <key>default</key>
-      <string>Ocultar otras aplicaciones al conmutar</string>
+      <string>Hide Other Apps When Switching</string>
       <key>title</key>
       <string>Ocultar otras aplicaciones al conmutar (desactivado con shift) </string>
       <key>type</key>
@@ -26,7 +26,7 @@
       <key>category</key>
       <string>Tareas</string>
       <key>default</key>
-      <string>Ejecución multihilo</string>
+      <string>Multithreaded Execute</string>
       <key>title</key>
       <string>Ejecutar tareas y acciones de fondo</string>
       <key>type</key>
@@ -92,7 +92,7 @@
       <key>category</key>
       <string>Comando</string>
       <key>default</key>
-      <string>Eliminar atajos de teclado en el comando</string>
+      <string>Suppress HotKeys in Command</string>
       <key>title</key>
       <string>Desactivar atajos de teclado cuando Quicksilver tiene el foco</string>
       <key>type</key>
@@ -102,7 +102,7 @@
       <key>category</key>
       <string>Comando</string>
       <key>default</key>
-      <string>Borrar dos veces quita el objeto actual</string>
+      <string>Double Delete Clears Object</string>
       <key>title</key>
       <string>Pulsar la tecla borrar dos veces quita el objeto actual</string>
       <key>type</key>

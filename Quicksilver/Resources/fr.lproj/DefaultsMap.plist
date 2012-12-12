@@ -16,7 +16,7 @@
       <key>category</key>
       <string>bascule d’applications</string>
       <key>default</key>
-      <string>Masquer les autres applications en basculant</string>
+      <string>Hide Other Apps When Switching</string>
       <key>title</key>
       <string>Masque les autres applications en basculant de l’une à l’autre (bloqué par Maj.)</string>
       <key>type</key>
@@ -26,7 +26,7 @@
       <key>category</key>
       <string>Tâches</string>
       <key>default</key>
-      <string>Exécution multitâche</string>
+      <string>Multithreaded Execute</string>
       <key>title</key>
       <string>Exécuter tâches et actions en tâche de fond</string>
       <key>type</key>
@@ -82,7 +82,7 @@
       <key>category</key>
       <string>Commande</string>
       <key>default</key>
-      <string>Actions avec Majuscule</string>
+      <string>Shift Actions</string>
       <key>title</key>
       <string>Sélection des actions avec les lettres en majuscule</string>
       <key>type</key>
@@ -92,7 +92,7 @@
       <key>category</key>
       <string>Commande</string>
       <key>default</key>
-      <string>Supprime les raccourcis dans la commande</string>
+      <string>Suppress HotKeys in Command</string>
       <key>title</key>
       <string>Désactive les raccourcis lorsque QuickSilver est au premier plan</string>
       <key>type</key>
@@ -102,7 +102,7 @@
       <key>category</key>
       <string>Commande</string>
       <key>default</key>
-      <string>Double suppression pour purger l’objet</string>
+      <string>Double Delete Clears Object</string>
       <key>title</key>
       <string>Appuyer sur la touche Suppr deux fois purge l’ojet sélectionné</string>
       <key>type</key>

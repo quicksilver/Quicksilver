@@ -16,7 +16,7 @@
       <key>category</key>
       <string>Anwendung wechseln</string>
       <key>default</key>
-      <string>Andere Anwendungen beim Umschalten ausblenden</string>
+      <string>Hide Other Apps When Switching</string>
       <key>title</key>
       <string>Andere Anwendungen beim Wechseln ausblenden (durch Umschalttaste verhindern)</string>
       <key>type</key>
@@ -82,7 +82,7 @@
       <key>category</key>
       <string>Kommando</string>
       <key>default</key>
-      <string>Aktionen wechseln</string>
+      <string>Shift Actions</string>
       <key>title</key>
       <string>Allow capitalized keys to select the action</string>
       <key>type</key>
@@ -92,7 +92,7 @@
       <key>category</key>
       <string>Kommando</string>
       <key>default</key>
-      <string>HotKeys in Kommando unterdrücken</string>
+      <string>Suppress HotKeys in Command</string>
       <key>title</key>
       <string>Disable Trigger HotKeys when Quicksilver is focused</string>
       <key>type</key>
@@ -102,7 +102,7 @@
       <key>category</key>
       <string>Kommando</string>
       <key>default</key>
-      <string>Doppel-ENTF löscht Objekt</string>
+      <string>Double Delete Clears Object</string>
       <key>title</key>
       <string>Aktuelles Objekt durch doppeltes Drücken der ENTF-Taste löschen</string>
       <key>type</key>
