@@ -328,11 +328,12 @@ static CGFloat searchSpeed = 0.0;
 	//NSLog(@"cat %@ %@", catalog, [catalog leafEntries]);
     @synchronized(catalog) {
         for(QSCatalogEntry * entry in [catalog leafEntries]) {
-            NSArray *entryContents = [entry contents];
+            NSArray *entryContents = [[entry contents] copy];
             @synchronized(entryContents) {
                 if (entryContents && [entryContents count]) {
                     [newDefaultSet addObjectsFromArray:entryContents];
                 }
+                [entryContents release];
             }
         }
     }
