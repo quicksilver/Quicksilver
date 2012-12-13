@@ -778,7 +778,6 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		// generally: name = what you see in Terminal, label = what you see in Finder
 		NSString *path = [self objectForType:QSFilePathType];
         newName = [path lastPathComponent];
-        [self setName:newName];
 		// look for a more suitable display name
 		if ([[self fileExtension] isEqualToString:@"qsplugin"]) {
 			newLabel = [self descriptiveNameForPackage:path withKindSuffix:![self isApplication]];
@@ -794,6 +793,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
             newLabel = [[NSFileManager defaultManager] displayNameAtPath:path];
         }
 	}
+    [self setName:newName];
 	[self setLabel:newLabel];
 }
 
