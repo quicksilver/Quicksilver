@@ -51,6 +51,7 @@
   * Prevent a crash when using custom keyboard layout (#1254, #1256)
   * Prevent actions from appearing more than once (#1259, #1260)
   * Resolve proxy objects before deciding what should appear in the third pane (#1248)
+  * Release notes will open in the default web browser, regardless of the preferred application for HTML files (#1280, #1284)
   * Bug fixes and internal improvements (#921, #840, #1114, #1180, #1206, #1211, #1238, #1239, #1257, #1248)
 
 ### Changed ###
