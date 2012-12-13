@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSCommandExecuteAtTimeAction</key>
+    <string>Belirli zamanda işlet: %@</string>
+    <key>QSCreateFileAction</key>
+    <string>İçerisinde %@ bulunan bir dosyayı %@ dizininde oluştur</string>
+    <key>QSCommandAddTriggerAction</key>
+    <string>Tetikleyici olarak ekle: %@</string>
+    <key>QSCommandExecuteAction</key>
+    <string>İşlet: %@</string>
+    <key>AppShowHideAction</key>
+    <string>Görünülürlüğü değiştir: %@</string>
+    <key>FileAlwaysOpenTypeWithAction</key>
+    <string>%@ dosya türünü her zaman %@ ile aç</string>
+    <key>QSCommandSaveAction</key>
+    <string>Dosyaya kaydet: %@</string>
+    <key>PasteboardPasteActionAsPlainText</key>
+    <string>Düz metin olarak kaydet: %@</string>
+    <key>QSCreateFileTemplate</key>
+    <string>%@ dizininde %@ şablon dosyasını oluştur</string>
+    <key>QSCommandExecuteAfterDelayAction</key>
+    <string>Gecikmeden sonra başlat: %@</string>
+    <key>AppActivateAction</key>
+    <string>Etkinleştir: %@</string>
+    <key>AppHideAction</key>
+    <string>Gizle: %@</string>
+    <key>AppHideOthersAction</key>
+    <string>%@ diğerlerini gizle</string>
+    <key>AppLaunchAction</key>
+    <string>Başlat: %@</string>
+    <key>AppLaunchAgainAction</key>
+    <string>Başka bir oturumunu başlat: %@</string>
+    <key>AppLaunchAsRootAction</key>
+    <string>Yönetici olarak başlat: %@</string>
+    <key>AppOpenFileAction</key>
+    <string>%@ öğesini %@ ile aç</string>
+    <key>AppQuitAction</key>
+    <string>Çık: %@</string>
+    <key>AppQuitOthersAction</key>
+    <string>%@ diğerlerini çıkar</string>
+    <key>AppRelaunchAction</key>
+    <string>Yeniden başlat: %@</string>
+    <key>AppReopenAction</key>
+    <string>Başlat: %@</string>
+    <key>AppRootLaunchAction</key>
+    <string>%@ öğesini yönetici olarak başlat</string>
+    <key>AppleScriptOpenFilesAction</key>
+    <string>%@ öğesini %@ ile aç</string>
+    <key>AppleScriptProcessTextAction</key>
+    <string>%@ öğesini %@ ile işle</string>
+    <key>AppleScriptRunAction</key>
+    <string>Betiği çalıştır: %@</string>
+    <key>AppleScriptRunTextAction</key>
+    <string>Çalıştır: %@</string>
+    <key>DiskEjectAction</key>
+    <string>Çıkar: %@</string>
+    <key>DiskForceEjectAction</key>
+    <string>%@ öğesini çıkarmaya zorla</string>
+    <key>FileCompressAction</key>
+    <string>Sıkıştır: %@</string>
+    <key>FileCopyToAction</key>
+    <string>%@ öğesini %@ konumuna kopyala</string>
+    <key>FileDecompressAction</key>
+    <string>Sıkıştırmayı kaldır: %@</string>
+    <key>FileDeleteAction</key>
+    <string>Sil: %@</string>
+    <key>FileGetHFSPathAction</key>
+    <string>%@ öğesinin HFS yolunu al</string>
+    <key>FileGetInfoAction</key>
+    <string>%@ üzerine bilgi ver</string>
+    <key>FileGetPathAction</key>
+    <string>%@ öğesinin posix yolunu al</string>
+    <key>FileGetPosixPathAction</key>
+    <string>%@ öğesinin mutlak yörüngesini al</string>
+    <key>FileGetURLAction</key>
+    <string>%@ öğesinin file:// URL&apos;sini al</string>
+    <key>FileMakeAliasInAction</key>
+    <string>%@ öğesine %# içinde kısayol oluştur</string>
+    <key>FileMakeHardLinkInAction</key>
+    <string>%@ öğesine %# içinde Arma oluştur</string>
+    <key>FileMakeLinkInAction</key>
+    <string>%@ öğesine %# içinde bağ oluştur</string>
+    <key>FileMoveToAction</key>
+    <string>%@ öğesini %# konumuna taşı</string>
+    <key>FileOpenAction</key>
+    <string>Aç: %@</string>
+    <key>FileOpenWithAction</key>
+    <string>%@ öğesini %# ile aç</string>
+    <key>FileRenameAction</key>
+    <string>%@ öğesini %# olarak yeniden adlandır</string>
+    <key>FileRevealAction</key>
+    <string>Göster: %@</string>
+    <key>FileToTrashAction</key>
+    <string>Çöp kutusuna taşı: %@</string>
+    <key>ItemSendToContactEmailAction</key>
+    <string>%@ öğesini şuna gönder: %@ </string>
+    <key>ItemSendToContactIMAction</key>
+    <string>%@ öğesini şuna anlık ileti olarak gönder: %@ </string>
+    <key>PasteboardCopyAction</key>
+    <string>Panoya kopyala: %@</string>
+    <key>PasteboardPasteAction</key>
+    <string>%@ öğesini etkin uygulamayla yapıştır</string>
+    <key>ProcessKillAction</key>
+    <string>Çıkmaya zorla: %@</string>
+    <key>ProcessLowerPriorityAction</key>
+    <string>Önceliğini düşür: %@</string>
+    <key>ProcessRaisePriorityAction</key>
+    <string>Önceliğini yükselt: %@</string>
+    <key>ProcessResumeAction</key>
+    <string>Sürdür: %@</string>
+    <key>ProcessSuspendAction</key>
+    <string>Beklet: %@</string>
+    <key>QSCatalogEntryRescanAction</key>
+    <string>Yeniden tara: %@</string>
+    <key>QSCatalogEntryShowAction</key>
+    <string>Göster: %@</string>
+    <key>QSDialNumberAction</key>
+    <string>Numara çevir: %@</string>
+    <key>QSEditAction</key>
+    <string>Düzenle: %@</string>
+    <key>QSLargeTypeAction</key>
+    <string>Geniş türde göster: &quot;%@&quot;</string>
+    <key>QSLoginItemAddAction</key>
+    <string>Oturum açma öğelerine ekle: %@</string>
+    <key>QSLoginItemRemoveAction</key>
+    <string>Oturum açma öğelerinden çıkar: %@</string>
+    <key>QSNewFolderAction</key>
+    <string>%# adlı yeni bir dizini %@ içinde oluştur</string>
+    <key>QSObjCSendMessageAction</key>
+    <string>Çalıştır: %@</string>
+    <key>QSObjectAssignLabelAction</key>
+    <string>%@ öğesinin etiketini %# yap</string>
+    <key>QSObjectAssignMnemonic</key>
+    <string>%@ öğesinin anımsatıcısını %# yap</string>
+    <key>QSObjectOmitAction</key>
+    <string>Katalogdan yoksay: %@</string>
+    <key>QSObjectSearchChildrenAction</key>
+    <string>İçeriğini ara: %@</string>
+    <key>QSObjectSelectAction</key>
+    <string>Komut penceresinde seç: %@</string>
+    <key>QSObjectShowActionMenu</key>
+    <string>%@ için eylem menüsünü göster</string>
+    <key>QSObjectShowChildMenu</key>
+    <string>%@ için içerik menüsünü göster</string>
+    <key>QSObjectShowChildrenAction</key>
+    <string>%@ öğesinin içeriğini göster</string>
+    <key>QSObjectShowMenu</key>
+    <string>%@ öğesi için eylem menüsünü göster</string>
+    <key>QSObjectShowSourceAction</key>
+    <string>Katalogda kaynağını göster: %@</string>
+    <key>QSPutOnShelfAction</key>
+    <string>Rafa koy: %@</string>
+    <key>QSShelfShowAction</key>
+    <string>Göster: %@</string>
+    <key>QSShellScriptRunAction</key>
+    <string>%@ betiğini çalıştır</string>
+    <key>QSSoundPlayAction</key>
+    <string>Oynat: %@</string>
+    <key>QSTextDiffAction</key>
+    <string>%@ ile %# arasındaki farkları bul</string>
+    <key>QSTextShowDialogAction</key>
+    <string>İletişim kutusunu göster: &quot;%@&quot;</string>
+    <key>QSTextSpeakAction</key>
+    <string>Konuş: &quot;%@&quot;</string>
+    <key>QSTextTypeAction</key>
+    <string>Metin gir: &quot;%@&quot;</string>
+    <key>ShellScriptRunAction</key>
+    <string>%@ betiğini çalıştır</string>
+    <key>URLEmailAction</key>
+    <string>E-posta ile gönder: %@</string>
+    <key>URLFindWithAction</key>
+    <string>%@ öğesini %@ ile bul</string>
+    <key>URLJSAction</key>
+    <string>Çalıştır: %@</string>
+    <key>URLOpenAction</key>
+    <string>Aç: %@</string>
+    <key>URLOpenActionInBackground</key>
+    <string>Ardalanda aç: %@</string>
+    <key>URLOpenWithAction</key>
+    <string>%@ öğesini %@ ile aç</string>
+    <key>URLSearchAction</key>
+    <string>Ara: %@</string>
+    <key>URLSearchForAction</key>
+    <string>%@ öğesini %@ konumunda ara</string>
+  </dict>
+</plist>

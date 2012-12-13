@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSCommandExecuteAtTimeAction</key>
+    <string>Belirli zamanda komut işlet</string>
+    <key>QSTextTypeAction</key>
+    <string>Etkin uygulamaya metin gir</string>
+    <key>QSCatalogEntryRescanAction</key>
+    <string>Katalog girilerini yeniden tara/dizinle</string>
+    <key>QSTextSpeakAction</key>
+    <string>Voiceover ile konuşma başlat</string>
+    <key>FileMakeHardLinkInAction</key>
+    <string>Bir dizinde yeni bir kısayol oluştur</string>
+    <key>QSLoginItemAddAction</key>
+    <string>Oturum açma öğeleri dizelgesine ekle</string>
+    <key>QSObjCSendMessageAction</key>
+    <string>Objective-C iletisi çalıştır</string>
+    <key>FileGetHFSPathAction</key>
+    <string>Mac biçimli HFS Yolu al</string>
+    <key>QSObjectShowMenu</key>
+    <string>Kullanılabilir eylemlerin menüsünü göster</string>
+    <key>FileDeleteAction</key>
+    <string>Dosyayı kalıcı olarak sil</string>
+    <key>QSCommandAddTriggerAction</key>
+    <string>Komutu tetikleyici olarak ekle</string>
+    <key>QSObjectShowChildMenu</key>
+    <string>Menüdeki içeriği göster</string>
+    <key>QSCommandExecuteAction</key>
+    <string>Quicksilver komutu çalıştır</string>
+    <key>AppRelaunchAction</key>
+    <string>Uygulamayı yeniden başlat</string>
+    <key>AppShowHideAction</key>
+    <string>Uygulama görünürlüğünü değiştir</string>
+    <key>QSLargeTypeAction</key>
+    <string>Metni genişçe görüntüle</string>
+    <key>AppleScriptRunTextAction</key>
+    <string>Metni AppleScript betiği olarak çalıştır</string>
+    <key>PasteboardCopyAction</key>
+    <string>Öğeyi panoya kopyala</string>
+    <key>AppHideOthersAction</key>
+    <string>Diğer tüm uygulamaları gizle</string>
+    <key>QSTextShowDialogAction</key>
+    <string>Açılır pencerede metin görüntüle</string>
+    <key>QSObjectShowChildrenAction</key>
+    <string>Öğe içeriğini QuickSilver&apos;da aç</string>
+    <key>QSShellScriptRunAction</key>
+    <string>Kabuk betiği çalıştır</string>
+    <key>QSObjectSelectAction</key>
+    <string>Öğeyi Quicksilver arayüzünde seç</string>
+    <key>FileGetInfoAction</key>
+    <string>Dosyanın &apos;Bilgi Ver&apos; penceresini aç</string>
+    <key>FileAlwaysOpenTypeWithAction</key>
+    <string>Dosya türünü tek bir uygulamayla açılacak biçimde ayarla</string>
+    <key>QSCommandSaveAction</key>
+    <string>Quicksilver komutunu bir dosyaya kaydet</string>
+    <key>FileRenameAction</key>
+    <string>Dosyayı yeniden adlandır</string>
+    <key>QSObjectSearchChildrenAction</key>
+    <string>Öğe içeriğini Quicksilver&apos;ı süzgeç kipine geçirerek göster</string>
+    <key>QSObjectAssignMnemonic</key>
+    <string>Öğeye arama kısaltması ata</string>
+    <key>AppleScriptOpenFilesAction</key>
+    <string>AppleScript betiğini dosya ile işlet</string>
+    <key>QSCatalogEntryShowAction</key>
+    <string>Katalog tercihlerinde katalog girisini göster</string>
+    <key>QSObjectShowSourceAction</key>
+    <string>Katalog tercihlerinde öğenin kaynağını göster</string>
+    <key>QSCreateFileTemplate</key>
+    <string>Şablondan yeni bir dosya oluştur</string>
+    <key>QSCommandExecuteAfterDelayAction</key>
+    <string>Quicksilver komutunu gecikmeli olarak işlet</string>
+    <key>FileMakeAliasInAction</key>
+    <string>Klasörde yeni bir Arma yap</string>
+    <key>QSNewFolderAction</key>
+    <string>Belirli bir adla yeni bir klasör oluştur</string>
+    <key>URLOpenWithAction</key>
+    <string>URL&apos;yi başka bir uygulama ile aç</string>
+    <key>FileGetURLAction</key>
+    <string>Bir dosya için file:// türü URL al</string>
+    <key>QSObjectShowActionMenu</key>
+    <string>Kullanılabilir eylemlerin menüsünü göster</string>
+    <key>AppQuitOthersAction</key>
+    <string>Diğer tüm uygulamalardan çık</string>
+    <key>URLEmailAction</key>
+    <string>mailto: kullanarak bir e-posta oluştur</string>
+    <key>AppleScriptProcessTextAction</key>
+    <string>Metin içeren AppleScript betiğini işlet</string>
+    <key>FileToTrashAction</key>
+    <string>Dosyayı çöp kutusuna taşı</string>
+    <key>QSLoginItemRemoveAction</key>
+    <string>Oturum açma öğeleri dizelgesinden çıkar</string>
+    <key>AppActivateAction</key>
+    <string>Uygulamayı etkinleştir</string>
+    <key>AppHideAction</key>
+    <string>Uygulamayı gizle</string>
+    <key>AppLaunchAction</key>
+    <string>Uygulamayı başlat</string>
+    <key>AppLaunchAgainAction</key>
+    <string>Uygulamanın başka bir oturumunu başlat</string>
+    <key>AppOpenFileAction</key>
+    <string>Açmak için bir dosya seç </string>
+    <key>AppQuitAction</key>
+    <string>Uygulamadan çık</string>
+    <key>AppReopenAction</key>
+    <string>Uygulamayı yeniden aç</string>
+    <key>AppRootLaunchAction</key>
+    <string>Uygulamayı Yönetici olarak başlat</string>
+    <key>AppleScriptRunAction</key>
+    <string>AppleScript betiği çalıştır</string>
+    <key>ContactEditAction</key>
+    <string>Öğeyi düzenle</string>
+    <key>ContactEmailAction</key>
+    <string>E-posta gönder</string>
+    <key>ContactIMAction</key>
+    <string>Anlık ileti gönder</string>
+    <key>ContactSendItemEmailAction</key>
+    <string>Öğeyi e-posta ile gönder</string>
+    <key>ContactSendItemIMAction</key>
+    <string>Öğeyi anlık ileti ile gönder</string>
+    <key>ContactShowAction</key>
+    <string>Kişiyi Adres Defteri&apos;nde göster</string>
+    <key>DiskEjectAction</key>
+    <string>Disk çıkar</string>
+    <key>DiskForceEjectAction</key>
+    <string>Diski çıkarmaya zorla</string>
+    <key>FileCompressAction</key>
+    <string>Dosyaları sıkıştır</string>
+    <key>FileCopyToAction</key>
+    <string>Başka bir konuma kopyala</string>
+    <key>FileDecompressAction</key>
+    <string>Dosyanın sıkıştırmasını kaldır</string>
+    <key>FileGetPathAction</key>
+    <string>Yolu ~ kullanarak al</string>
+    <key>FileGetPosixPathAction</key>
+    <string>Tüm yolu al (~ olmadan)</string>
+    <key>FileMakeLinkInAction</key>
+    <string>Başka bir konumda bağ oluştur</string>
+    <key>FileMoveToAction</key>
+    <string>Başka bir klasöre taşı</string>
+    <key>FileOpenAction</key>
+    <string>Aç</string>
+    <key>FileOpenWithAction</key>
+    <string>Uygulama ile aç</string>
+    <key>FileRevealAction</key>
+    <string>Öğeyi açığa çıkar</string>
+    <key>ItemSendToContactEmailAction</key>
+    <string>Öğeyi e-posta ile gönder</string>
+    <key>ItemSendToContactIMAction</key>
+    <string>Öğeyi anlık ileti ile gönder</string>
+    <key>PasteboardPasteAction</key>
+    <string>Bu nesneyi etkin uygulamaya yapıştır</string>
+    <key>PasteboardPasteActionAsPlainText</key>
+    <string>Bu nesneyi düz metin olarak etkin uygulamaya yapıştır</string>
+    <key>ProcessKillAction</key>
+    <string>Uygulamayı çıkmaya zorla</string>
+    <key>ProcessResumeAction</key>
+    <string>Bekleyen bir işlemi sürdürür</string>
+    <key>ProcessSuspendAction</key>
+    <string>Çalışan bir işlemi bekletir</string>
+    <key>QSCreateFileAction</key>
+    <string>Metin içeren yeni dosya oluştur [... klasörde]</string>
+    <key>QSDialNumberAction</key>
+    <string>Numara çevir</string>
+    <key>QSEditAction</key>
+    <string>Düzenle</string>
+    <key>QSUserSwitchAction</key>
+    <string>Kullanıcı değiştir</string>
+    <key>QSiTunesPlaylistPlayAction</key>
+    <string>iTunes çalma listesinden müzik çalar</string>
+    <key>QSiTunesTrackPlayAction</key>
+    <string>iTunes parçası çalar</string>
+    <key>QSShellScriptRunAction</key>
+    <string>Kabuk betiği çalıştır</string>
+    <key>ShellScriptRunAction</key>
+    <string>Kabuk betiği çalıştır</string>
+    <key>URLFindWithAction</key>
+    <string>Şununla ara...</string>
+    <key>URLJSAction</key>
+    <string>JavaScript çalıştır</string>
+    <key>URLOpenAction</key>
+    <string>URL aç</string>
+    <key>URLOpenActionInBackground</key>
+    <string>Etkin uygulamadan çıkmadan URL aç</string>
+    <key>URLSearchAction</key>
+    <string>Sorgu URL&apos;si ara</string>
+    <key>URLSearchForAction</key>
+    <string>Sorgu URL&apos;sinde metin ara</string>
+  </dict>
+</plist>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>category</key>
+		<string>Task Viewer</string>
+		<key>default</key>
+		<string>QSShowTaskViewerAutomatically</string>
+		<key>title</key>
+		<string>Show the Task Viewer automatically when tasks are created</string>
+		<key>type</key>
+		<string>checkbox</string>
+	</dict>
+	<dict>
+		<key>category</key>
+		<string>App Switching</string>
+		<key>default</key>
+		<string>Hide Other Apps When Switching</string>
+		<key>title</key>
+		<string>Hide other applications when switching applications (shift prevents)</string>
+		<key>type</key>
+		<string>checkbox</string>
+	</dict>
+	<dict>
+		<key>category</key>
+		<string>Tasks</string>
+		<key>default</key>
+		<string>Multithreaded Execute</string>
+		<key>title</key>
+		<string>Run tasks and actions in the background</string>
+		<key>type</key>
+		<string>checkbox</string>
+	</dict>
+	<dict>
+		<key>category</key>
+		<string>App Switching</string>
+		<key>default</key>
+		<string>QSActionAppReopenBehavior</string>
+		<key>items</key>
+		<dict>
+			<key>0</key>
+			<string>activates the application</string>
+			<key>1</key>
+			<string>shows the front window</string>
+			<key>2</key>
+			<string>shows all windows</string>
+		</dict>
+		<key>pretext</key>
+		<string>Reopening an application</string>
+		<key>subtext</key>
+		<string>Reopening the current application shows all windows</string>
+		<key>title</key>
+		<string>Reopening an application:</string>
+		<key>type</key>
+		<string>popupTag</string>
+	</dict>
+	<dict>
+		<key>category</key>
+		<string>Update</string>
+		<key>default</key>
+		<string>QSUpdateReleaseLevel</string>
+		<key>image</key>
+		<string>Quicksilver</string>
+		<key>items</key>
+		<dict>
+			<key>0</key>
+			<string>Final Releases</string>
+			<key>1</key>
+			<string>Prerelease Candidates</string>
+			<key>2</key>
+			<string>Developer Previews</string>
+		</dict>
+		<key>requestRelaunch</key>
+		<true/>
+		<key>title</key>
+		<string>Application Update Type</string>
+		<key>type</key>
+		<string>popupTag</string>
+	</dict>
+	<dict>
+		<key>category</key>
+		<string>Command</string>
+		<key>default</key>
+		<string>Shift Actions</string>
+		<key>title</key>
+		<string>Allow capitalized keys to select the action</string>
+		<key>type</key>
+		<string>checkbox</string>
+	</dict>
+	<dict>
+		<key>category</key>
+		<string>Command</string>
+		<key>default</key>
+		<string>Suppress HotKeys in Command</string>
+		<key>title</key>
+		<string>Disable Trigger HotKeys when Quicksilver is focused</string>
+		<key>type</key>
+		<string>checkbox</string>
+	</dict>
+	<dict>
+		<key>category</key>
+		<string>Command</string>
+		<key>default</key>
+		<string>Double Delete Clears Object</string>
+		<key>title</key>
+		<string>Pressing the Delete key twice clears the current object</string>
+		<key>type</key>
+		<string>checkbox</string>
+	</dict>
+</array>
+</plist>
