@@ -40,73 +40,97 @@
 
 - (void)initializeTrigger:(NSMutableDictionary *)trigger { [trigger setObject:[NSNumber numberWithBool:YES] forKey:@"onPress"];  }
 
-- (BOOL)hotKeyReleased:(QSHotKeyEvent *)hotKey { return NO;  }
+- (BOOL)hotKeyReleased:(QSHotKeyEvent *)hotKey {
+    hotKeyPressed = NO;
+    return NO;
+}
 
 - (BOOL)hotKeyPressed:(QSHotKeyEvent *)hotKey {
-	BOOL result = NO;
-	QSTrigger *trigger = [[NSClassFromString(@"QSTriggerCenter") sharedInstance] performSelector:@selector(triggerWithID:) withObject:[hotKey identifier]];
-
-	QSWindow *window = nil;
-	if ([[trigger objectForKey:@"showWindow"] boolValue]) {
-		window = (QSWindow*)[self triggerDisplayWindowWithTrigger:trigger];
-		[window setAlphaValue:0];
-		[window reallyOrderFront:self];
-		[window performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"0.125", @"duration", @"QSGrowEffect", @"transformFn", @"show", @"type", nil]];
-	}
-
-	BOOL onPress = [[trigger objectForKey:@"onPress"] boolValue];
-	BOOL onRelease = [[trigger objectForKey:@"onRelease"] boolValue];
-	BOOL onRepeat = [[trigger objectForKey:@"onRepeat"] boolValue];
-
-	if (!(onPress || onRepeat || onRelease) )
-		onPress = YES;
-
-	NSEvent *upEvent = nil;
-
-	if ([[trigger objectForKey:@"delay"] boolValue]) {
-		NSDate *delayDate = [NSDate dateWithTimeIntervalSinceNow:[[trigger objectForKey:@"delayInterval"] doubleValue]];
-		upEvent = [self nextHotKeyUpEventUntilDate:delayDate];
-		if (upEvent) {
-			[window performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"0.125", @"duration", @"QSShrinkEffect", @"transformFn", @"hide", @"type", nil]];
-			[window reallyOrderOut:self];
-			return NO;
-		}
-	}
-
-	if (onPress)
-		[trigger execute];
-
-	if (onRepeat) {
-		CGFloat repeatInterval = [[trigger objectForKey:@"onRepeatInterval"] doubleValue];
-		NSDate *repeatDate = [NSDate dateWithTimeIntervalSinceNow:repeatInterval];
-		while (!(upEvent = [self nextHotKeyUpEventUntilDate:repeatDate]) ) {
-			repeatDate = [NSDate dateWithTimeIntervalSinceNow:repeatInterval];
-			[trigger execute];
-		}
-	} else if (onRelease) {
-		upEvent = [self nextHotKeyUpEventUntilDate:[NSDate distantFuture]];
-	}
-	if (onRelease && upEvent)
-		[trigger execute];
-	[window flare:self];
-	[window reallyOrderOut:self];
-	[window close];
+    hotKeyPressed = YES;
+    BOOL triggerExecuted = NO;
+	BOOL result;
+	NSArray *triggers = [[NSClassFromString(@"QSTriggerCenter") sharedInstance] performSelector:@selector(triggersWithIDs:) withObject:[hotKey identifiers]];
+  for (QSTrigger *trigger in triggers) {
+      if (![trigger activated]) {
+          continue;
+      }
+        result = NO;
+        QSWindow *window = nil;
+        if ([[trigger objectForKey:@"showWindow"] boolValue]) {
+            window = (QSWindow*)[self triggerDisplayWindowWithTrigger:trigger];
+            [window setAlphaValue:0];
+            [window reallyOrderFront:self];
+            [window performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"0.125", @"duration", @"QSGrowEffect", @"transformFn", @"show", @"type", nil]];
+        }
+        
+        BOOL onPress = [[trigger objectForKey:@"onPress"] boolValue];
+        BOOL onRelease = [[trigger objectForKey:@"onRelease"] boolValue];
+        BOOL onRepeat = [[trigger objectForKey:@"onRepeat"] boolValue];
+        
+        if (!(onPress || onRepeat || onRelease) )
+            onPress = YES;
+        
+        NSEvent *upEvent = nil;
+        
+        if ([[trigger objectForKey:@"delay"] boolValue]) {
+            NSDate *delayDate = [NSDate dateWithTimeIntervalSinceNow:[[trigger objectForKey:@"delayInterval"] doubleValue]];
+            upEvent = [self nextHotKeyUpEventUntilDate:delayDate];
+            if (upEvent) {
+                if (window) {
+                    [window performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"0.125", @"duration", @"QSShrinkEffect", @"transformFn", @"hide", @"type", nil]];
+                    [window reallyOrderOut:self];
+                }
+                result = YES;
+            }
+        }
+        
+        if (onPress && !result) {
+            [trigger execute];
+            triggerExecuted = YES;
+        }
+      
+        if (onRepeat) {
+            if ([trigger objectForKey:@"onRepeatInterval"] == nil) {
+                QSShowAppNotifWithAttributes(@"TriggerError", NSLocalizedString(@"Trigger Repeat Failure", @"Title of the notif when a 'repeat' trigger fails (interval not set)"), NSLocalizedString(@"Repeat interval not set", @"Message of 'trigger interval not set' error notif"));
+            } else {
+                CGFloat repeatInterval = [[trigger objectForKey:@"onRepeatInterval"] doubleValue];
+                while (hotKeyPressed) {
+                    NSDate *repeatDate = [NSDate dateWithTimeIntervalSinceNow:repeatInterval];
+                    if (upEvent = [self nextHotKeyUpEventUntilDate:repeatDate]) {
+                        break;
+                    }
+                    repeatDate = [NSDate dateWithTimeIntervalSinceNow:repeatInterval];
+                    [trigger execute];
+                    triggerExecuted = YES;
+                }
+            }
+        } else if (onRelease) {
+            upEvent = [self nextHotKeyUpEventUntilDate:[NSDate distantFuture]];
+        }
+        if (onRelease && upEvent) {
+            [trigger execute];
+            triggerExecuted = YES;
+        }
+        [window flare:self];
+        [window reallyOrderOut:self];
+        [window close];
+    }
+    if (!triggerExecuted) {
+        [hotKey typeHotkey];
+    }
 	return result;
 }
+
 - (NSEvent *)nextHotKeyUpEventUntilDate:(NSDate *)date {
 	NSEvent *event;
-	while(1) {
-		event = [NSApp nextEventMatchingMask:NSAnyEventMask untilDate:date inMode:NSDefaultRunLoopMode dequeue:YES];
-		if ([event type] == NSSystemDefined && [event subtype] == 9) // A hotkey up event
-			return event;
+    event = [NSApp nextEventMatchingMask:NSAnyEventMask untilDate:date inMode:NSDefaultRunLoopMode dequeue:YES];
+    if ([event type] == NSSystemDefined && [event subtype] == 9) // A hotkey up event
+        return event;
 #ifdef DEBUG
-		else if (event)
-			if (VERBOSE) NSLog(@"Foreign Event Ignored %@", event);
+    else if (event)
+        if (VERBOSE) NSLog(@"Foreign Event Ignored %@", event);
 #endif
-		else
-			return nil;
-	}
-	return nil;
+    return nil;
 }
 
 
