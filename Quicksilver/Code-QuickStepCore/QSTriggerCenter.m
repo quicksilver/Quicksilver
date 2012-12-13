@@ -84,6 +84,23 @@
 - (QSTrigger *)triggerWithID:(NSString *)ident {
 	return [triggersDict objectForKey:ident];
 }
+
+- (NSArray *)triggersWithIDs:(NSArray *)idents {
+    if (!idents || ![idents count]) {
+        return nil;
+    }
+    NSMutableArray *tempTriggers = [[NSMutableArray alloc] initWithCapacity:[idents count]];
+    for (NSString *ident in idents) {
+        QSTrigger *trigger = [self triggerWithID:ident];
+        if (trigger) {
+            [tempTriggers addObject:trigger];
+        }
+    }
+    NSArray *returnTriggers = [NSArray arrayWithArray:tempTriggers];
+    [tempTriggers release];
+    return returnTriggers;
+}
+
 - (NSArray *)triggersWithParentID:(NSString *)ident {
 	NSMutableArray *array = [NSMutableArray array];
 	foreachkey(key, trigger, triggersDict) {
