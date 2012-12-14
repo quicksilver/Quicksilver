@@ -172,7 +172,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)saveMnemonic {
-	NSString *mnemonicKey = [[[self matchedString] retain] autorelease];
+	NSString *mnemonicKey = [self matchedString];
 	if (!mnemonicKey || [mnemonicKey isEqualToString:@""]) return;
 	QSObject *mnemonicValue = [self alternateActionCounterpart] ? [self alternateActionCounterpart] : [self objectValue];
 	if ([mnemonicValue count] > 1) {
@@ -306,7 +306,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (NSRectEdge)preferredEdge { return preferredEdge; }
 - (void)setPreferredEdge:(NSRectEdge)newPreferredEdge { preferredEdge = newPreferredEdge; }
 
-- (NSString *)matchedString { return matchedString; }
+- (NSString *)matchedString { return [[matchedString retain] autorelease]; }
 - (void)setMatchedString:(NSString *)newMatchedString {
     if (matchedString != newMatchedString) {
         [matchedString release];
