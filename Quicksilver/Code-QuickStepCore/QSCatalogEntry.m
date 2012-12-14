@@ -443,11 +443,8 @@ NSDictionary *enabledPresetDictionary;*/
 	NSString *key = [self identifier];
 	NSString *path = [pIndexLocation stringByStandardizingPath];
    
-    // Lock the 'contents' mutablearray so that it cannot be changed whilst it's being written to file
-    @synchronized(contents) {
-        NSArray *writeArray = [contents arrayByPerformingSelector:@selector(dictionaryRepresentation)];
-        [writeArray writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
-    }
+    NSArray *writeArray = [contents arrayByPerformingSelector:@selector(dictionaryRepresentation)];
+    [writeArray writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
 }
 
 

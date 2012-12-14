@@ -326,16 +326,12 @@ static CGFloat searchSpeed = 0.0;
 - (void)reloadSets:(NSNotification *)notif {
 	NSMutableSet *newDefaultSet = [NSMutableSet setWithCapacity:1];
 	//NSLog(@"cat %@ %@", catalog, [catalog leafEntries]);
-    @synchronized(catalog) {
-        for(QSCatalogEntry * entry in [catalog leafEntries]) {
-            NSArray *entryContents = [[entry contents] copy];
-            @synchronized(entryContents) {
-                if (entryContents && [entryContents count]) {
-                    [newDefaultSet addObjectsFromArray:entryContents];
-                }
-                [entryContents release];
-            }
+    for(QSCatalogEntry * entry in [catalog leafEntries]) {
+        NSArray *entryContents = [[entry contents] copy];
+        if (entryContents && [entryContents count]) {
+            [newDefaultSet addObjectsFromArray:entryContents];
         }
+        [entryContents release];
     }
 
 	//NSLog(@"%@", newDefaultSet);
