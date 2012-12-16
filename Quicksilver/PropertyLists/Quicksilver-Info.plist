@@ -225,10 +225,14 @@
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
-				<string>Quicksilver/Get Current Selection (Internal)</string>
+				<string>Get Current Selection (Do Not Change Shortcut)</string>
 			</dict>
 			<key>NSRequiredContext</key>
 			<dict/>
+			<key>NSSendFileTypes</key>
+			<array>
+				<string>public.data</string>	
+			</array>					
 			<key>NSSendTypes</key>
 			<array>
 				<string>NSFilenamesPboardType</string>
@@ -261,46 +265,6 @@
 			<dict>
 				<key>default</key>
 				<string></string>
-			</dict>
-		</dict>
-		<dict>
-			<key>NSMenuItem</key>
-			<dict>
-				<key>default</key>
-				<string>Quicksilver/Send to Quicksilver</string>
-			</dict>
-			<key>NSUserData</key>
-			<string>Send</string>
-			<key>NSSendTypes</key>
-			<array>
-				<string>NSFilenamesPboardType</string>
-				<string>NSFileContentsPboardType</string>
-				<string>NSFontPboardType</string>
-				<string>NSColorPboardType</string>
-				<string>NSHTMLPboardType</string>
-				<string>NSPDFPboardType</string>
-				<string>NSPICTPboardType</string>
-				<string>NSPostScriptPboardType</string>
-				<string>NSRulerPboardType</string>
-				<string>NSRTFPboardType</string>
-				<string>NSRTFDPboardType</string>
-				<string>NSStringPboardType</string>
-				<string>NSTabularTextPboardType</string>
-				<string>NSTIFFPboardType</string>
-				<string>NSURLPboardType</string>
-				<string>NSVCardPboardType</string>
-				<string>NSFilesPromisePboardType</string>
-			</array>
-			<key>NSPortName</key>
-			<string>Quicksilver</string>
-			<key>NSTimeout</key>
-			<string>60000</string>
-			<key>NSMessage</key>
-			<string>performService</string>
-			<key>NSKeyEquivalent</key>
-			<dict>
-				<key>default</key>
-				<string></string>
 			</dict>
 		</dict>
 	</array>
