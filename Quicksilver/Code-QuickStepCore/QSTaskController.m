@@ -60,14 +60,14 @@ QSTaskController *QSTasks;
 
 // old support methods
 - (id)taskWithIdentifier:(NSString *)taskKey {
-	QSTask *task = [QSTask taskWithIdentifier:taskKey];
+	QSTask *task = [[[QSTask taskWithIdentifier:taskKey] retain] autorelease];
 	//	BOOL firstItem = NO;
 	//	BOOL newItem = NO;
 	[task startTask:nil];
 	return task;
 }
 - (void)updateTask:(NSString *)taskKey status:(NSString *)status progress:(CGFloat)progress {
-	QSTask *task = [self taskWithIdentifier:taskKey];
+	QSTask *task = [[[self taskWithIdentifier:taskKey] retain] autorelease];
 
 	[task setStatus:status];
 	[task setProgress:progress];
