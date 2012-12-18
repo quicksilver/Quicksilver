@@ -59,7 +59,7 @@
 	NSRunLoop *loop = [NSRunLoop currentRunLoop];
 	NSDate *date = [NSDate date];
 	while(!resultPboard && [date timeIntervalSinceNow] >-2) {
-		[loop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
+		[loop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 		//	NSLog(@"loop");
 	}
 	//	NSLog(@"got %@", resultPboard);
