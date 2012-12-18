@@ -31,7 +31,7 @@ NSDictionary *enabledPresetDictionary;*/
 
 @implementation QSCatalogEntry
 
-@synthesize isScanning;
+@synthesize isScanning, contents = contents;
 
 + (BOOL)accessInstanceVariablesDirectly {return YES;}
 
@@ -578,13 +578,6 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (NSArray *)contents { return [self contentsScanIfNeeded:NO]; }
-- (NSArray *)_contents { return contents; }
-- (void)setContents:(NSArray *)newContents {
-	if(newContents != contents){
-		[contents release];
-		contents = [newContents mutableCopy];
-	}
-}
 
 - (NSArray *)contentsScanIfNeeded:(BOOL)canScan {
 	if (![self isEnabled]) {
