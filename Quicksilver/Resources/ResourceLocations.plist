@@ -32,9 +32,15 @@
 		</dict>
 	</array>
 	<key>Computer</key>
-	<string>iMac</string>
+	<array>
+		<string>/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/iMac.icns</string>
+		<string>/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/com.apple.imac-aluminum-24.icns</string>
+	</array>
 	<key>ComputerIcon</key>
-	<string>iMac</string>
+	<array>
+		<string>/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/iMac.icns</string>
+		<string>/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/com.apple.imac-aluminum-24.icns</string>
+	</array>
 	<key>DockIcon</key>
 	<string>/System/Library/CoreServices/Dock.app/Contents/Resources/Dock.icns</string>
 	<key>DriveIcon</key>
