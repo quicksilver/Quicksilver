@@ -434,17 +434,23 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (void)saveIndex {
-	
+    dispatch_async(scanQueue, ^{
 #ifdef DEBUG
-	if (DEBUG_CATALOG) NSLog(@"saving index for %@", self);
+        if (DEBUG_CATALOG) NSLog(@"saving index for %@", self);
 #endif
-	
-	[self setIndexDate:[NSDate date]];
-	NSString *key = [self identifier];
-	NSString *path = [pIndexLocation stringByStandardizingPath];
-   
-    NSArray *writeArray = [contents arrayByPerformingSelector:@selector(dictionaryRepresentation)];
-    [writeArray writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
+        
+        [self setIndexDate:[NSDate date]];
+        NSString *key = [self identifier];
+        NSString *path = [pIndexLocation stringByStandardizingPath];
+
+        NSArray *writeArray = [contents arrayByPerformingSelector:@selector(dictionaryRepresentation)];
+        @try {
+            [writeArray writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Exception whilst saving catalog entry %@\n writeArray: %@\ncontents: %@\nException: %@",[self name],writeArray,contents,exception);
+        }
+    });
 }
 
 
