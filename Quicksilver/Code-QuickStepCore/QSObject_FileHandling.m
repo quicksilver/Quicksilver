@@ -221,14 +221,11 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
             }
         }
     }
-	// if no of the other methods worked or previews are disabled: just use icon for filetype
-	if (!theImage) {
-		theImage = [[NSWorkspace sharedWorkspace] iconForFile:path];
-	}
-
-	theImage = [self prepareImageforIcon:theImage];
-	
-	[object updateIcon:theImage];
+    if (theImage) {
+        // update the UI with the new icon
+        theImage = [self prepareImageforIcon:theImage];
+        [object updateIcon:theImage];
+    }
 }
 
 - (NSImage *)prepareImageforIcon:(NSImage *)theImage {
