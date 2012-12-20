@@ -1399,6 +1399,31 @@
 		92DC402B0E25A0C40091BD92 /* Action.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Action.png; sourceTree = "<group>"; };
 		92E946170D04CCEF0013377F /* QSModifierKeyEvents.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSModifierKeyEvents.h; sourceTree = "<group>"; };
 		92E946180D04CCEF0013377F /* QSModifierKeyEvents.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSModifierKeyEvents.m; sourceTree = "<group>"; };
+		CD17323E1683995700295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/QSActionsPrefPane.strings"; sourceTree = "<group>"; };
+		CD17323F1683995700295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/QSCatalog.strings"; sourceTree = "<group>"; };
+		CD1732401683995700295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/QSHelpersPrefPane.strings"; sourceTree = "<group>"; };
+		CD1732411683995700295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/QSPlugInsPrefPane.strings"; sourceTree = "<group>"; };
+		CD1732421683995700295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/QSTriggersPrefPane.strings"; sourceTree = "<group>"; };
+		CD1732431683995800295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/QSMainMenuPrefPane.strings"; sourceTree = "<group>"; };
+		CD1732441683995800295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		CD1732451683995800295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/Catalog.strings"; sourceTree = "<group>"; };
+		CD1732461683995800295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/Preferences.strings"; sourceTree = "<group>"; };
+		CD1732471683995800295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/About.strings"; sourceTree = "<group>"; };
+		CD1732481683995800295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/QSApplicationPrefPane.strings"; sourceTree = "<group>"; };
+		CD1732491683995800295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/QSAppearancePrefPane.strings"; sourceTree = "<group>"; };
+		CD17324A1683995800295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/QSSearchPrefPane.strings"; sourceTree = "<group>"; };
+		CD17324B1683995800295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		CD17324C1683995800295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		CD17324D1683995800295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/QSAction.name.strings"; sourceTree = "<group>"; };
+		CD17324E1683995800295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "nb-NO"; path = "nb-NO.lproj/QSAction.description.plist"; sourceTree = "<group>"; };
+		CD17324F1683995800295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "nb-NO"; path = "nb-NO.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		CD1732501683995800295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "nb-NO"; path = "nb-NO.lproj/QSAction.description.strings"; sourceTree = "<group>"; };
+		CD1732511683995800295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "nb-NO"; path = "nb-NO.lproj/QSAction.name.strings"; sourceTree = "<group>"; };
+		CD1732521683995900295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "nb-NO"; path = "nb-NO.lproj/QSCatalogPreset.name.strings"; sourceTree = "<group>"; };
+		CD1732531683995900295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "nb-NO"; path = "nb-NO.lproj/QSObjectSource.name.strings"; sourceTree = "<group>"; };
+		CD1732541683995900295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "nb-NO"; path = "nb-NO.lproj/QSParser.name.strings"; sourceTree = "<group>"; };
+		CD1732551683995900295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "nb-NO"; path = "nb-NO.lproj/QSAction.commandFormat.strings"; sourceTree = "<group>"; };
+		CD1732561683995900295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "nb-NO"; path = "nb-NO.lproj/DefaultsMap.plist"; sourceTree = "<group>"; };
 		CD2FFBCE16792D350028FA8A /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD2FFBCF16792D3B0028FA8A /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD2FFBD016792D490028FA8A /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/QSActionsPrefPane.strings; sourceTree = "<group>"; };
@@ -1406,7 +1431,6 @@
 		CD2FFBD216792D4F0028FA8A /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/QSCatalog.strings; sourceTree = "<group>"; };
 		CD2FFBD316792D4F0028FA8A /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/QSCatalog.strings; sourceTree = "<group>"; };
 		CD2FFBD416792D500028FA8A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/QSCatalog.strings; sourceTree = "<group>"; };
-		CD2FFBD516792D510028FA8A /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/QSCatalog.strings; sourceTree = "<group>"; };
 		CD2FFBD616792D510028FA8A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/QSCatalog.strings; sourceTree = "<group>"; };
 		CD2FFBD716792D520028FA8A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/QSCatalog.strings; sourceTree = "<group>"; };
 		CD2FFBD816792D520028FA8A /* cy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cy; path = cy.lproj/QSCatalog.strings; sourceTree = "<group>"; };
@@ -1415,14 +1439,12 @@
 		CD2FFBDB16792D580028FA8A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/QSActionsPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFBDC16792D580028FA8A /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/QSActionsPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFBDD16792D590028FA8A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/QSActionsPrefPane.strings; sourceTree = "<group>"; };
-		CD2FFBDE16792D5A0028FA8A /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/QSActionsPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFBDF16792D5A0028FA8A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/QSActionsPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFBE116792D5C0028FA8A /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/QSActionsPrefPane.strings"; sourceTree = "<group>"; };
 		CD2FFBE216792D630028FA8A /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/QSHelpersPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFBE316792D640028FA8A /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/QSHelpersPrefPane.strings"; sourceTree = "<group>"; };
 		CD2FFBE416792D650028FA8A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/QSHelpersPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFBE516792D660028FA8A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/QSHelpersPrefPane.strings; sourceTree = "<group>"; };
-		CD2FFBE616792D660028FA8A /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/QSHelpersPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFBE716792D670028FA8A /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/QSHelpersPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFBE816792D670028FA8A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/QSHelpersPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFBE916792D680028FA8A /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/QSHelpersPrefPane.strings; sourceTree = "<group>"; };
@@ -1430,7 +1452,6 @@
 		CD2FFBEB16792D6D0028FA8A /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/QSPlugInsPrefPane.strings"; sourceTree = "<group>"; };
 		CD2FFBEC16792D6E0028FA8A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/QSPlugInsPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFBED16792D6E0028FA8A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/QSPlugInsPrefPane.strings; sourceTree = "<group>"; };
-		CD2FFBEE16792D6F0028FA8A /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/QSPlugInsPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFBEF16792D6F0028FA8A /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/QSPlugInsPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFBF016792D700028FA8A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/QSPlugInsPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFBF116792D700028FA8A /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/QSPlugInsPrefPane.strings; sourceTree = "<group>"; };
@@ -1438,7 +1459,6 @@
 		CD2FFBF316792D760028FA8A /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/QSTriggersPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFBF416792D760028FA8A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/QSTriggersPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFBF516792D770028FA8A /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/QSTriggersPrefPane.strings; sourceTree = "<group>"; };
-		CD2FFBF616792D770028FA8A /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/QSTriggersPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFBF716792D780028FA8A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/QSTriggersPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFBF816792D780028FA8A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/QSTriggersPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFBF916792D790028FA8A /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/QSTriggersPrefPane.strings"; sourceTree = "<group>"; };
@@ -1446,22 +1466,18 @@
 		CD2FFBFB16792D810028FA8A /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/QSMainMenuPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFBFC16792D820028FA8A /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/QSMainMenuPrefPane.strings"; sourceTree = "<group>"; };
 		CD2FFBFD16792D830028FA8A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/QSMainMenuPrefPane.strings; sourceTree = "<group>"; };
-		CD2FFBFE16792D830028FA8A /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/QSMainMenuPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFBFF16792D840028FA8A /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/QSMainMenuPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFC0016792D840028FA8A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/QSMainMenuPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFC0116792D850028FA8A /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/QSMainMenuPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFC0216792D860028FA8A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/QSMainMenuPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFC0316792D8A0028FA8A /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD2FFC0416792D8B0028FA8A /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		CD2FFC0516792D8C0028FA8A /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD2FFC0616792D900028FA8A /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Catalog.strings; sourceTree = "<group>"; };
 		CD2FFC0716792D9A0028FA8A /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/About.strings; sourceTree = "<group>"; };
-		CD2FFC0816792D9B0028FA8A /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/About.strings; sourceTree = "<group>"; };
 		CD2FFC0916792DA10028FA8A /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/QSApplicationPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFC0A16792DA90028FA8A /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/QSApplicationPrefPane.strings"; sourceTree = "<group>"; };
 		CD2FFC0B16792DAA0028FA8A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/QSApplicationPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFC0C16792DAA0028FA8A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/QSApplicationPrefPane.strings; sourceTree = "<group>"; };
-		CD2FFC0D16792DAB0028FA8A /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/QSApplicationPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFC0E16792DAB0028FA8A /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/QSApplicationPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFC0F16792DAC0028FA8A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/QSApplicationPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFC1016792DAC0028FA8A /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/QSApplicationPrefPane.strings; sourceTree = "<group>"; };
@@ -1469,7 +1485,6 @@
 		CD2FFC1216792DB10028FA8A /* cy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cy; path = cy.lproj/QSAppearancePrefPane.strings; sourceTree = "<group>"; };
 		CD2FFC1316792DB20028FA8A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/QSAppearancePrefPane.strings; sourceTree = "<group>"; };
 		CD2FFC1416792DB20028FA8A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/QSAppearancePrefPane.strings; sourceTree = "<group>"; };
-		CD2FFC1516792DB30028FA8A /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/QSAppearancePrefPane.strings; sourceTree = "<group>"; };
 		CD2FFC1616792DB30028FA8A /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/QSAppearancePrefPane.strings; sourceTree = "<group>"; };
 		CD2FFC1716792DB30028FA8A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/QSAppearancePrefPane.strings; sourceTree = "<group>"; };
 		CD2FFC1816792DB40028FA8A /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/QSAppearancePrefPane.strings; sourceTree = "<group>"; };
@@ -1480,12 +1495,10 @@
 		CD2FFC1D16792DBE0028FA8A /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/QSSearchPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFC1E16792DBF0028FA8A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/QSSearchPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFC1F16792DBF0028FA8A /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/QSSearchPrefPane.strings; sourceTree = "<group>"; };
-		CD2FFC2016792DC00028FA8A /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/QSSearchPrefPane.strings; sourceTree = "<group>"; };
 		CD2FFC2116792DC40028FA8A /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		CD2FFC2216792DC50028FA8A /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD2FFC2316792DC60028FA8A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD2FFC2416792DC60028FA8A /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
-		CD2FFC2516792DC70028FA8A /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD2FFC2616792DC70028FA8A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD2FFC2716792DC80028FA8A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD2FFC2816792DCB0028FA8A /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1496,28 +1509,24 @@
 		CD2FFC2D16792DCE0028FA8A /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD2FFC2E16792DCE0028FA8A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD2FFC2F16792DCF0028FA8A /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
-		CD2FFC3016792DCF0028FA8A /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD2FFC3116792DD00028FA8A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD2FFC3216792DD00028FA8A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD2FFC3316792DD10028FA8A /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		CD2FFC3416792DD60028FA8A /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD2FFC3516792DD60028FA8A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD2FFC3616792DD70028FA8A /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
-		CD2FFC3716792DD70028FA8A /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD2FFC3816792DD80028FA8A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD2FFC3916792DD80028FA8A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD2FFC3A16792DDA0028FA8A /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD2FFC3B16792DE20028FA8A /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/QSAction.description.strings; sourceTree = "<group>"; };
 		CD2FFC3C16792DE30028FA8A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = ja; path = ja.lproj/QSAction.description.strings; sourceTree = "<group>"; };
 		CD2FFC3D16792DE40028FA8A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = sv; path = sv.lproj/QSAction.description.strings; sourceTree = "<group>"; };
-		CD2FFC3E16792DE40028FA8A /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = nb; path = nb.lproj/QSAction.description.strings; sourceTree = "<group>"; };
 		CD2FFC3F16792DE50028FA8A /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = fi; path = fi.lproj/QSAction.description.strings; sourceTree = "<group>"; };
 		CD2FFC4016792DE50028FA8A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = pl; path = pl.lproj/QSAction.description.strings; sourceTree = "<group>"; };
 		CD2FFC4116792DE60028FA8A /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = nl; path = nl.lproj/QSAction.description.strings; sourceTree = "<group>"; };
 		CD2FFC4216792DEA0028FA8A /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = nl; path = nl.lproj/QSAction.name.strings; sourceTree = "<group>"; };
 		CD2FFC4316792DEA0028FA8A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = pl; path = pl.lproj/QSAction.name.strings; sourceTree = "<group>"; };
 		CD2FFC4416792DEB0028FA8A /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = fi; path = fi.lproj/QSAction.name.strings; sourceTree = "<group>"; };
-		CD2FFC4516792DEB0028FA8A /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = nb; path = nb.lproj/QSAction.name.strings; sourceTree = "<group>"; };
 		CD2FFC4616792DEC0028FA8A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = sv; path = sv.lproj/QSAction.name.strings; sourceTree = "<group>"; };
 		CD2FFC4716792DEC0028FA8A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = ja; path = ja.lproj/QSAction.name.strings; sourceTree = "<group>"; };
 		CD2FFC4816792DED0028FA8A /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "pt-BR"; path = "pt-BR.lproj/QSAction.name.strings"; sourceTree = "<group>"; };
@@ -1526,14 +1535,12 @@
 		CD2FFC4B16792DF60028FA8A /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "pt-BR"; path = "pt-BR.lproj/QSCatalogPreset.name.strings"; sourceTree = "<group>"; };
 		CD2FFC4C16792DF70028FA8A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = ja; path = ja.lproj/QSCatalogPreset.name.strings; sourceTree = "<group>"; };
 		CD2FFC4D16792DF70028FA8A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = sv; path = sv.lproj/QSCatalogPreset.name.strings; sourceTree = "<group>"; };
-		CD2FFC4E16792DF80028FA8A /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = nb; path = nb.lproj/QSCatalogPreset.name.strings; sourceTree = "<group>"; };
 		CD2FFC4F16792DF80028FA8A /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = fi; path = fi.lproj/QSCatalogPreset.name.strings; sourceTree = "<group>"; };
 		CD2FFC5016792DF90028FA8A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = pl; path = pl.lproj/QSCatalogPreset.name.strings; sourceTree = "<group>"; };
 		CD2FFC5116792DF90028FA8A /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = nl; path = nl.lproj/QSCatalogPreset.name.strings; sourceTree = "<group>"; };
 		CD2FFC5216792DFC0028FA8A /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = nl; path = nl.lproj/QSObjectSource.name.strings; sourceTree = "<group>"; };
 		CD2FFC5316792DFC0028FA8A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = pl; path = pl.lproj/QSObjectSource.name.strings; sourceTree = "<group>"; };
 		CD2FFC5416792DFD0028FA8A /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = fi; path = fi.lproj/QSObjectSource.name.strings; sourceTree = "<group>"; };
-		CD2FFC5516792DFD0028FA8A /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = nb; path = nb.lproj/QSObjectSource.name.strings; sourceTree = "<group>"; };
 		CD2FFC5616792DFE0028FA8A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = sv; path = sv.lproj/QSObjectSource.name.strings; sourceTree = "<group>"; };
 		CD2FFC5716792DFE0028FA8A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = ja; path = ja.lproj/QSObjectSource.name.strings; sourceTree = "<group>"; };
 		CD2FFC5816792DFF0028FA8A /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "pt-BR"; path = "pt-BR.lproj/QSObjectSource.name.strings"; sourceTree = "<group>"; };
@@ -1552,7 +1559,6 @@
 		CD2FFC6516792E260028FA8A /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = nl; path = nl.lproj/DefaultsMap.plist; sourceTree = "<group>"; };
 		CD2FFC6616792E270028FA8A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = pl; path = pl.lproj/DefaultsMap.plist; sourceTree = "<group>"; };
 		CD2FFC6716792E280028FA8A /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = fi; path = fi.lproj/DefaultsMap.plist; sourceTree = "<group>"; };
-		CD2FFC6816792E280028FA8A /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = nb; path = nb.lproj/DefaultsMap.plist; sourceTree = "<group>"; };
 		CD2FFC6916792E290028FA8A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = sv; path = sv.lproj/DefaultsMap.plist; sourceTree = "<group>"; };
 		CD2FFC6A16792E2A0028FA8A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = ja; path = ja.lproj/DefaultsMap.plist; sourceTree = "<group>"; };
 		CD4FA6DF157A13D600E549BD /* QSHotKeyEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHotKeyEvent.h; sourceTree = "<group>"; };
@@ -1640,7 +1646,6 @@
 		CDFAC8B61652E53B006A0C5B /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = nl; path = nl.lproj/QSAction.commandFormat.strings; sourceTree = "<group>"; };
 		CDFAC8B71652E53B006A0C5B /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = pl; path = pl.lproj/QSAction.commandFormat.strings; sourceTree = "<group>"; };
 		CDFAC8B81652E53C006A0C5B /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = fi; path = fi.lproj/QSAction.commandFormat.strings; sourceTree = "<group>"; };
-		CDFAC8B91652E53C006A0C5B /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = nb; path = nb.lproj/QSAction.commandFormat.strings; sourceTree = "<group>"; };
 		CDFAC8BA1652E53D006A0C5B /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = sv; path = sv.lproj/QSAction.commandFormat.strings; sourceTree = "<group>"; };
 		CDFAC8BB1652E53D006A0C5B /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = ja; path = ja.lproj/QSAction.commandFormat.strings; sourceTree = "<group>"; };
 		CDFAC8BC1652E53E006A0C5B /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = et; path = et.lproj/QSAction.commandFormat.strings; sourceTree = "<group>"; };
@@ -1649,7 +1654,6 @@
 		CDFAC8BF1652E542006A0C5B /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = nl; path = nl.lproj/QSParser.name.strings; sourceTree = "<group>"; };
 		CDFAC8C01652E543006A0C5B /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = pl; path = pl.lproj/QSParser.name.strings; sourceTree = "<group>"; };
 		CDFAC8C11652E543006A0C5B /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = fi; path = fi.lproj/QSParser.name.strings; sourceTree = "<group>"; };
-		CDFAC8C21652E543006A0C5B /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = nb; path = nb.lproj/QSParser.name.strings; sourceTree = "<group>"; };
 		CDFAC8C31652E544006A0C5B /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = sv; path = sv.lproj/QSParser.name.strings; sourceTree = "<group>"; };
 		CDFAC8C41652E544006A0C5B /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = ja; path = ja.lproj/QSParser.name.strings; sourceTree = "<group>"; };
 		CDFAC8C51652E545006A0C5B /* et */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = et; path = et.lproj/QSParser.name.strings; sourceTree = "<group>"; };
@@ -3868,6 +3872,7 @@
 				"cy-GB",
 				cy,
 				tr,
+				"nb-NO",
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Quicksilver */;
 			projectDirPath = "";
@@ -4842,6 +4847,7 @@
 				423DA027132F7A65005ED70F /* fr */,
 				423DA028132F7A6B005ED70F /* en */,
 				CDFAC88B1652E221006A0C5B /* cs */,
+				CD17324D1683995800295879 /* nb-NO */,
 			);
 			name = QSAction.name.strings;
 			sourceTree = "<group>";
@@ -4863,9 +4869,9 @@
 				CD2FFC2216792DC50028FA8A /* nl */,
 				CD2FFC2316792DC60028FA8A /* pl */,
 				CD2FFC2416792DC60028FA8A /* fi */,
-				CD2FFC2516792DC70028FA8A /* nb */,
 				CD2FFC2616792DC70028FA8A /* sv */,
 				CD2FFC2716792DC80028FA8A /* ja */,
+				CD17324B1683995800295879 /* nb-NO */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -4886,10 +4892,10 @@
 				CD2FFC3416792DD60028FA8A /* nl */,
 				CD2FFC3516792DD60028FA8A /* pl */,
 				CD2FFC3616792DD70028FA8A /* fi */,
-				CD2FFC3716792DD70028FA8A /* nb */,
 				CD2FFC3816792DD80028FA8A /* sv */,
 				CD2FFC3916792DD80028FA8A /* ja */,
 				CD2FFC3A16792DDA0028FA8A /* tr */,
+				CD17324F1683995800295879 /* nb-NO */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -4911,9 +4917,9 @@
 				CD2FFBDB16792D580028FA8A /* pl */,
 				CD2FFBDC16792D580028FA8A /* fi */,
 				CD2FFBDD16792D590028FA8A /* sv */,
-				CD2FFBDE16792D5A0028FA8A /* nb */,
 				CD2FFBDF16792D5A0028FA8A /* ja */,
 				CD2FFBE116792D5C0028FA8A /* pt-BR */,
+				CD17323E1683995700295879 /* nb-NO */,
 			);
 			name = QSActionsPrefPane.strings;
 			sourceTree = "<group>";
@@ -4934,11 +4940,11 @@
 				CD2FFBD216792D4F0028FA8A /* nl */,
 				CD2FFBD316792D4F0028FA8A /* fi */,
 				CD2FFBD416792D500028FA8A /* pl */,
-				CD2FFBD516792D510028FA8A /* nb */,
 				CD2FFBD616792D510028FA8A /* sv */,
 				CD2FFBD716792D520028FA8A /* ja */,
 				CD2FFBD816792D520028FA8A /* cy */,
 				CD2FFBD916792D530028FA8A /* pt-BR */,
+				CD17323F1683995700295879 /* nb-NO */,
 			);
 			name = QSCatalog.strings;
 			sourceTree = "<group>";
@@ -4959,10 +4965,10 @@
 				CD2FFBE316792D640028FA8A /* pt-BR */,
 				CD2FFBE416792D650028FA8A /* ja */,
 				CD2FFBE516792D660028FA8A /* sv */,
-				CD2FFBE616792D660028FA8A /* nb */,
 				CD2FFBE716792D670028FA8A /* fi */,
 				CD2FFBE816792D670028FA8A /* pl */,
 				CD2FFBE916792D680028FA8A /* nl */,
+				CD1732401683995700295879 /* nb-NO */,
 			);
 			name = QSHelpersPrefPane.strings;
 			sourceTree = "<group>";
@@ -4982,11 +4988,11 @@
 				CD2FFBEB16792D6D0028FA8A /* pt-BR */,
 				CD2FFBEC16792D6E0028FA8A /* ja */,
 				CD2FFBED16792D6E0028FA8A /* sv */,
-				CD2FFBEE16792D6F0028FA8A /* nb */,
 				CD2FFBEF16792D6F0028FA8A /* fi */,
 				CD2FFBF016792D700028FA8A /* pl */,
 				CD2FFBF116792D700028FA8A /* nl */,
 				CD2FFBF216792D720028FA8A /* es */,
+				CD1732411683995700295879 /* nb-NO */,
 			);
 			name = QSPlugInsPrefPane.strings;
 			sourceTree = "<group>";
@@ -5006,11 +5012,11 @@
 				CD2FFBF316792D760028FA8A /* nl */,
 				CD2FFBF416792D760028FA8A /* pl */,
 				CD2FFBF516792D770028FA8A /* fi */,
-				CD2FFBF616792D770028FA8A /* nb */,
 				CD2FFBF716792D780028FA8A /* sv */,
 				CD2FFBF816792D780028FA8A /* ja */,
 				CD2FFBF916792D790028FA8A /* pt-BR */,
 				CD2FFBFA16792D7A0028FA8A /* tr */,
+				CD1732421683995700295879 /* nb-NO */,
 			);
 			name = QSTriggersPrefPane.strings;
 			sourceTree = "<group>";
@@ -5021,6 +5027,7 @@
 				4D62E325147694D800362E9A /* en */,
 				4D62E327147694E000362E9A /* fr */,
 				CDFAC88C1652E221006A0C5B /* cs */,
+				CD17324E1683995800295879 /* nb-NO */,
 			);
 			name = QSAction.description.plist;
 			sourceTree = "<group>";
@@ -5041,10 +5048,10 @@
 				CD2FFC2D16792DCE0028FA8A /* nl */,
 				CD2FFC2E16792DCE0028FA8A /* pl */,
 				CD2FFC2F16792DCF0028FA8A /* fi */,
-				CD2FFC3016792DCF0028FA8A /* nb */,
 				CD2FFC3116792DD00028FA8A /* sv */,
 				CD2FFC3216792DD00028FA8A /* ja */,
 				CD2FFC3316792DD10028FA8A /* pt-BR */,
+				CD17324C1683995800295879 /* nb-NO */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -5064,11 +5071,11 @@
 				CD2FFBFB16792D810028FA8A /* tr */,
 				CD2FFBFC16792D820028FA8A /* pt-BR */,
 				CD2FFBFD16792D830028FA8A /* ja */,
-				CD2FFBFE16792D830028FA8A /* nb */,
 				CD2FFBFF16792D840028FA8A /* fi */,
 				CD2FFC0016792D840028FA8A /* pl */,
 				CD2FFC0116792D850028FA8A /* nl */,
 				CD2FFC0216792D860028FA8A /* sv */,
+				CD1732431683995800295879 /* nb-NO */,
 			);
 			name = QSMainMenuPrefPane.strings;
 			sourceTree = "<group>";
@@ -5089,10 +5096,10 @@
 				CD2FFC0A16792DA90028FA8A /* pt-BR */,
 				CD2FFC0B16792DAA0028FA8A /* ja */,
 				CD2FFC0C16792DAA0028FA8A /* sv */,
-				CD2FFC0D16792DAB0028FA8A /* nb */,
 				CD2FFC0E16792DAB0028FA8A /* fi */,
 				CD2FFC0F16792DAC0028FA8A /* pl */,
 				CD2FFC1016792DAC0028FA8A /* nl */,
+				CD1732481683995800295879 /* nb-NO */,
 			);
 			name = QSApplicationPrefPane.strings;
 			sourceTree = "<group>";
@@ -5113,10 +5120,10 @@
 				CD2FFC1216792DB10028FA8A /* cy */,
 				CD2FFC1316792DB20028FA8A /* ja */,
 				CD2FFC1416792DB20028FA8A /* sv */,
-				CD2FFC1516792DB30028FA8A /* nb */,
 				CD2FFC1616792DB30028FA8A /* fi */,
 				CD2FFC1716792DB30028FA8A /* pl */,
 				CD2FFC1816792DB40028FA8A /* nl */,
+				CD1732491683995800295879 /* nb-NO */,
 			);
 			name = QSAppearancePrefPane.strings;
 			sourceTree = "<group>";
@@ -5140,7 +5147,7 @@
 				CD2FFC1D16792DBE0028FA8A /* fi */,
 				CD2FFC1E16792DBF0028FA8A /* pl */,
 				CD2FFC1F16792DBF0028FA8A /* nl */,
-				CD2FFC2016792DC00028FA8A /* nb */,
+				CD17324A1683995800295879 /* nb-NO */,
 			);
 			name = QSSearchPrefPane.strings;
 			sourceTree = "<group>";
@@ -5165,7 +5172,7 @@
 				CDFAC8A81652E487006A0C5B /* zh-Hant-TW */,
 				CD2FFC0316792D8A0028FA8A /* tr */,
 				CD2FFC0416792D8B0028FA8A /* pt-BR */,
-				CD2FFC0516792D8C0028FA8A /* nb */,
+				CD1732441683995800295879 /* nb-NO */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -5190,7 +5197,7 @@
 				CDFAC8EF1652E691006A0C5B /* et */,
 				CDFAC91D1652F3C1006A0C5B /* cy */,
 				CD2FFC0716792D9A0028FA8A /* tr */,
-				CD2FFC0816792D9B0028FA8A /* nb */,
+				CD1732471683995800295879 /* nb-NO */,
 			);
 			name = About.strings;
 			sourceTree = "<group>";
@@ -5214,6 +5221,7 @@
 				CDFAC8ED1652E681006A0C5B /* es-ES */,
 				CDFAC8EE1652E681006A0C5B /* et */,
 				CD2FFC0616792D900028FA8A /* tr */,
+				CD1732451683995800295879 /* nb-NO */,
 			);
 			name = Catalog.strings;
 			sourceTree = "<group>";
@@ -5236,6 +5244,7 @@
 				CDFAC8F01652E697006A0C5B /* et */,
 				CDFAC8F11652E697006A0C5B /* es-ES */,
 				CDFAC8F21652E697006A0C5B /* zh-Hant-TW */,
+				CD1732461683995800295879 /* nb-NO */,
 			);
 			name = Preferences.strings;
 			sourceTree = "<group>";
@@ -5256,10 +5265,10 @@
 				CD2FFC3B16792DE20028FA8A /* tr */,
 				CD2FFC3C16792DE30028FA8A /* ja */,
 				CD2FFC3D16792DE40028FA8A /* sv */,
-				CD2FFC3E16792DE40028FA8A /* nb */,
 				CD2FFC3F16792DE50028FA8A /* fi */,
 				CD2FFC4016792DE50028FA8A /* pl */,
 				CD2FFC4116792DE60028FA8A /* nl */,
+				CD1732501683995800295879 /* nb-NO */,
 			);
 			name = QSAction.description.strings;
 			sourceTree = "<group>";
@@ -5279,11 +5288,11 @@
 				CD2FFC4216792DEA0028FA8A /* nl */,
 				CD2FFC4316792DEA0028FA8A /* pl */,
 				CD2FFC4416792DEB0028FA8A /* fi */,
-				CD2FFC4516792DEB0028FA8A /* nb */,
 				CD2FFC4616792DEC0028FA8A /* sv */,
 				CD2FFC4716792DEC0028FA8A /* ja */,
 				CD2FFC4816792DED0028FA8A /* pt-BR */,
 				CD2FFC4916792DF00028FA8A /* tr */,
+				CD1732511683995800295879 /* nb-NO */,
 			);
 			name = QSAction.name.strings;
 			sourceTree = "<group>";
@@ -5304,10 +5313,10 @@
 				CD2FFC4B16792DF60028FA8A /* pt-BR */,
 				CD2FFC4C16792DF70028FA8A /* ja */,
 				CD2FFC4D16792DF70028FA8A /* sv */,
-				CD2FFC4E16792DF80028FA8A /* nb */,
 				CD2FFC4F16792DF80028FA8A /* fi */,
 				CD2FFC5016792DF90028FA8A /* pl */,
 				CD2FFC5116792DF90028FA8A /* nl */,
+				CD1732521683995900295879 /* nb-NO */,
 			);
 			name = QSCatalogPreset.name.strings;
 			sourceTree = "<group>";
@@ -5327,11 +5336,11 @@
 				CD2FFC5216792DFC0028FA8A /* nl */,
 				CD2FFC5316792DFC0028FA8A /* pl */,
 				CD2FFC5416792DFD0028FA8A /* fi */,
-				CD2FFC5516792DFD0028FA8A /* nb */,
 				CD2FFC5616792DFE0028FA8A /* sv */,
 				CD2FFC5716792DFE0028FA8A /* ja */,
 				CD2FFC5816792DFF0028FA8A /* pt-BR */,
 				CD2FFC5916792E000028FA8A /* tr */,
+				CD1732531683995900295879 /* nb-NO */,
 			);
 			name = QSObjectSource.name.strings;
 			sourceTree = "<group>";
@@ -5350,12 +5359,12 @@
 				CDFAC8BF1652E542006A0C5B /* nl */,
 				CDFAC8C01652E543006A0C5B /* pl */,
 				CDFAC8C11652E543006A0C5B /* fi */,
-				CDFAC8C21652E543006A0C5B /* nb */,
 				CDFAC8C31652E544006A0C5B /* sv */,
 				CDFAC8C41652E544006A0C5B /* ja */,
 				CDFAC8C51652E545006A0C5B /* et */,
 				CDFAC9041652E6F0006A0C5B /* pt-BR */,
 				CD2FFC5A16792E050028FA8A /* tr */,
+				CD1732541683995900295879 /* nb-NO */,
 			);
 			name = QSParser.name.strings;
 			sourceTree = "<group>";
@@ -5373,13 +5382,13 @@
 				CDFAC8B61652E53B006A0C5B /* nl */,
 				CDFAC8B71652E53B006A0C5B /* pl */,
 				CDFAC8B81652E53C006A0C5B /* fi */,
-				CDFAC8B91652E53C006A0C5B /* nb */,
 				CDFAC8BA1652E53D006A0C5B /* sv */,
 				CDFAC8BB1652E53D006A0C5B /* ja */,
 				CDFAC8BC1652E53E006A0C5B /* et */,
 				CDFAC8BD1652E53E006A0C5B /* zh-Hant-TW */,
 				CD2FFC5B16792E090028FA8A /* tr */,
 				CD2FFC5C16792E0A0028FA8A /* pt-BR */,
+				CD1732551683995900295879 /* nb-NO */,
 			);
 			name = QSAction.commandFormat.strings;
 			sourceTree = "<group>";
@@ -5400,9 +5409,9 @@
 				CD2FFC6516792E260028FA8A /* nl */,
 				CD2FFC6616792E270028FA8A /* pl */,
 				CD2FFC6716792E280028FA8A /* fi */,
-				CD2FFC6816792E280028FA8A /* nb */,
 				CD2FFC6916792E290028FA8A /* sv */,
 				CD2FFC6A16792E2A0028FA8A /* ja */,
+				CD1732561683995900295879 /* nb-NO */,
 			);
 			name = DefaultsMap.plist;
 			sourceTree = "<group>";
