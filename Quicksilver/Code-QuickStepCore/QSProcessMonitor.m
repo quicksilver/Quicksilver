@@ -373,14 +373,6 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 #pragma mark -
 #pragma mark Utilities
 
-- (void)addObserverForEvent:(NSString *)event trigger:(NSDictionary *)trigger {
-	NSLog(@"Add %@", event);
-}
-
-- (void)removeObserverForEvent:(NSString *)event trigger:(NSDictionary *)trigger {
-	NSLog(@"Remove %@", event);
-}
-
 - (NSArray *)processesWithHiddenState:(BOOL)hidden {
 	NSMutableArray *objects = [NSMutableArray arrayWithCapacity:1];
 
