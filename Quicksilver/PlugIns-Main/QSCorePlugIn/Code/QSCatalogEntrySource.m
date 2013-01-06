@@ -143,7 +143,9 @@ static NSImage *prefsCatalogImage = nil;
 	
     dispatch_sync(dispatch_get_main_queue(), ^{
         id catalogPrefsClass = NSClassFromString(@"QSCatalogPrefPane");
-        [catalogPrefsClass showEntryInCatalog:[[QSLibrarian sharedInstance] entryForID:[dObject objectForType:QSCatalogEntryPboardType]]];
+        [catalogPrefsClass showEntryInCatalog:[QSLib entryForID:[dObject objectForType:QSCatalogEntryPboardType]]];
+        [[catalogPrefsClass sharedInstance] reloadData];
+        [[catalogPrefsClass sharedInstance] selectEntry:[QSLib entryForID:[dObject objectForType:QSCatalogEntryPboardType]]];
         [[catalogPrefsClass sharedInstance] showOptionsDrawer];
     });
     return nil;
@@ -168,7 +170,9 @@ static NSImage *prefsCatalogImage = nil;
     QSCatalogEntry *childEntry = [QSCatalogEntry entryWithDictionary:childDict];
     
     [[parentEntry children] addObject:childEntry];
-    
+    [[childEntry info] setObject:[NSDictionary dictionaryWithObject:file forKey:kItemPath] forKey:kItemSettings];
+    [[childEntry info] setObject:[NSNumber numberWithDouble:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
+    [childEntry scanForced:YES];
     [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogStructureChanged object:nil];
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChanged object:childEntry];
     [dObject setObject:uniqueString forType:QSCatalogEntryPboardType];
