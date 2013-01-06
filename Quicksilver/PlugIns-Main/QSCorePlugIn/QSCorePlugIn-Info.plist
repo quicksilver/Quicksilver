@@ -1322,7 +1322,7 @@
 				<string>NSFilenamesPboardType</string>
 			</array>
 			<key>precedence</key>
-			<real>0.05</real>
+			<real>-0.05</real>
 			<key>enabled</key>
 			<string>NO</string>
 			<key>actionSelector</key>
