@@ -67,7 +67,7 @@ QSTaskController *QSTasks;
 	return task;
 }
 - (void)updateTask:(NSString *)taskKey status:(NSString *)status progress:(CGFloat)progress {
-	QSTask *task = [self taskWithIdentifier:taskKey];
+	QSTask *task = [[[self taskWithIdentifier:taskKey] retain] autorelease];
 
 	[task setStatus:status];
 	[task setProgress:progress];
