@@ -245,7 +245,8 @@
 - (void)assignURLTypesWithURL:(NSString *)urlString
 {
     [[self dataDictionary] setObject:urlString forKey:QSURLType];
-    if ([[NSURL URLWithString:[urlString URLEncoding]] scheme])
+    NSURL *url = [NSURL URLWithString:[urlString URLEncoding]];
+    if ([url scheme] && [[url scheme] rangeOfString:@"."].location == NSNotFound)
     {
         [self setObject:urlString forType:QSURLType];
     } else {

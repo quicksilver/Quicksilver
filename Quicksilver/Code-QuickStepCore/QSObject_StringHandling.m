@@ -136,7 +136,7 @@
 	// Create a URL with the string make sure to encode any |%<> chars
 	NSURL *url = [NSURL URLWithString:[urlString URLEncoding]];
 
-	if ([url scheme] && [url host] && [urlString rangeOfString:@":"].location != 1) {
+	if ([url scheme] && [urlString rangeOfString:@":"].location != 1) {
 		[self assignURLTypesWithURL:urlString];
 		return;
 	}
