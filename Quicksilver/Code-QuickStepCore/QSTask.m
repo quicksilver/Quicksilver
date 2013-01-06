@@ -37,7 +37,7 @@ static NSMutableDictionary *tasksDictionary = nil;
 	QSTask *task = [tasksDictionary objectForKey:identifier];
 	if (!task)
 		task = [[[QSTask alloc] initWithIdentifier:identifier] autorelease];
-	return task;
+	return [[task retain] autorelease];
 }
 
 + (QSTask *)findTaskWithIdentifier:(NSString *)identifier {

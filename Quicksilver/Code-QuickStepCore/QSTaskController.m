@@ -60,7 +60,7 @@ QSTaskController *QSTasks;
 
 // old support methods
 - (id)taskWithIdentifier:(NSString *)taskKey {
-	QSTask *task = [[[QSTask taskWithIdentifier:taskKey] retain] autorelease];
+	QSTask *task = [QSTask taskWithIdentifier:taskKey];
 	//	BOOL firstItem = NO;
 	//	BOOL newItem = NO;
 	[task startTask:nil];
