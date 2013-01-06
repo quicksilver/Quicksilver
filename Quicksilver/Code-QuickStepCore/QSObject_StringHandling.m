@@ -63,9 +63,6 @@
 - (id)dataForObject:(QSObject *)object pasteboardType:(NSString *)type { return [object objectForType:type];  }
 
 - (void)sniffString {
-	// array used to store list of TLDs
-	static NSArray *tldArray = nil;
-
 	NSString *stringValue = [self objectForType:QSTextType];
 
 	// A string for the calculator
@@ -124,42 +121,62 @@
 	
 	// trimWhitespace calls a CFStringTrimWhitespace to remove whitespace from start and end of string
 	stringValue = [stringValue trimWhitespace];
-	// Any whitespaces means it's still a string
-	if ([stringValue rangeOfString:@" "] .location != NSNotFound) return;
-	// replace \%s with *** for Query URLs
-	NSString *urlString = [self cleanQueryURL:stringValue];
-	// replace all \r with \n
-	if ([urlString rangeOfString:@"\n"] .location != NSNotFound || [urlString rangeOfString:@"\r"] .location != NSNotFound) {
-		urlString = [[urlString lines] componentsJoinedByString:@""];
-	}
-	
-	// Create a URL with the string make sure to encode any |%<> chars
-	NSURL *url = [NSURL URLWithString:[urlString URLEncoding]];
-
-	if ([url scheme] && [url host] && [urlString rangeOfString:@":"].location != 1) {
-		[self assignURLTypesWithURL:urlString];
-		return;
-	}
 	
 	// Email address
 	if ([stringValue hasPrefix:@"mailto:"]) {
 		[self assignURLTypesWithURL:stringValue];
 		return;
-	}	
-	
-	
-	// Text with a '.' (most likely a URL or email address)
-	if ([stringValue rangeOfString:@"."] .location != NSNotFound) {
+	}
+    // returns YES if a valid URL is assigned to the object
+    if ([self sniffURL:stringValue]) {
+        return;
+    }
+	return;
+}
+
+-(BOOL)sniffURL:(NSString*)stringValue {
+    // array used to store list of TLDs
+	static NSArray *tldArray = nil;
+    // replace \%s with *** for Query URLs
+	NSString *urlString = [self cleanQueryURL:stringValue];
+	// replace all \r with \n
+	if ([urlString rangeOfString:@"\n"] .location != NSNotFound || [urlString rangeOfString:@"\r"] .location != NSNotFound) {
+		urlString = [[urlString lines] componentsJoinedByString:@""];
+	}
+    
+    // Text with a '.' is most likely a URL or email address (or that with localhost in the name
+	if ([stringValue rangeOfString:@"."] .location != NSNotFound || [[stringValue lowercaseString] rangeOfString:@"localhost"].location != NSNotFound) {
 		// @ sign but NO /, -> email address
 		if (([stringValue rangeOfString:@"@"] .location != NSNotFound && [stringValue rangeOfString:@"/"] .location == NSNotFound)) {
 			[self assignURLTypesWithURL:[@"mailto:" stringByAppendingString:stringValue]];
-			return;
+			return NO;
 		} else {
-			// @ sign AND /, -> a URL?
-			NSString *host = [[stringValue componentsSeparatedByString:@"/"] objectAtIndex:0];
+            NSRange schemeRange = [stringValue rangeOfString:@"://"];
+            if (schemeRange.location != NSNotFound) {
+                // remove the scheme from the URL. Makes deciphering the URL easier (less colons)
+                stringValue = [stringValue substringFromIndex:schemeRange.location +schemeRange.length];
+            }
+            
+            NSArray *colonComponents = [stringValue componentsSeparatedByString:@":"];
+            // Charset containing everything but decimal digits
+            NSCharacterSet *nonNumbersSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+            
+            if ([colonComponents count] > 1) {
+                // Check the port (if it exists). URLs may contain multiple colons, so we take the first occurance of it. e.g. http://google.com:80/?q=this_is_a_:
+                NSString *port = [[[colonComponents objectAtIndex:1] componentsSeparatedByString:@"/"] objectAtIndex:0];
+                if ([port length] == 0 || [port rangeOfCharacterFromSet:nonNumbersSet].location != NSNotFound) {
+                    return NO;
+                }
+            }
+			NSString *host = [[[colonComponents objectAtIndex:0] componentsSeparatedByString:@"/"] objectAtIndex:0];
+            if ([[host lowercaseString] isEqualToString:@"localhost"]) {
+                [self assignURLTypesWithURL:urlString];
+                [self setObject:host forType:QSRemoteHostsType];
+                return YES;
+            }
 			NSArray *components = [host componentsSeparatedByString:@"."];
 			// Make sure the URL host exists, with no spaces
-			if ([host length] && [host rangeOfString:@" "] .location == NSNotFound && [components count]) {
+			if ([host length] && [host rangeOfString:@" "].location == NSNotFound && [components count]) {
 				// initialise a static array of TLDs
 				if(tldArray == nil) {
 					tldArray = [[NSArray arrayWithObjects:@"AC",@"AD",@"AE",@"AERO",@"AF",@"AG",@"AI",@"AL",@"AM",@"AN",@"AO",@"AQ",@"AR",@"ARPA",@"AS",@"ASIA",@"AT",@"AU",@"AW",@"AX",@"AZ",@"BA",@"BB",@"BD",@"BE",@"BF",@"BG",@"BH",@"BI",@"BIZ",
@@ -171,17 +188,15 @@
 								 @"RS",@"RU",@"RW",@"SA",@"SB",@"SC",@"SD",@"SE",@"SG",@"SH",@"SI",@"SJ",@"SK",@"SL",@"SM",@"SN",@"SO",@"SR",@"ST",@"SU",@"SV",@"SY",@"SZ",@"TC",@"TD",@"TEL",@"TF",@"TG",@"TH",@"TJ",@"TK",@"TL",@"TM",@"TN",@"TO",@"TP",@"TR",
 								 @"TRAVEL",@"TT",@"TV",@"TW",@"TZ",@"UA",@"UG",@"UK",@"US",@"UY",@"UZ",@"VA",@"VC",@"VE",@"VG",@"VI",@"VN",@"VU",@"WF",@"WS",@"XXX",@"YE",@"YT",@"ZA",@"ZM",@"ZW",nil] retain];
 				}
-				// check if the last component of the string is a tld 
+				// check if the last component of the string is a tld
 				if([tldArray containsObject:[[components lastObject] uppercaseString]]) {
 					[self assignURLTypesWithURL:urlString];
 					[self setObject:host forType:QSRemoteHostsType];
-					return;
+					return YES;
 				}
 				// Check if the string is an IP address (e.g. 192.168.1.1)
 				if ([components count] == 4) {
-					BOOL isValidIPAddress = TRUE;				
-					// Charset containing everything but decimal digits
-					NSCharacterSet *nonNumbersSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+					BOOL isValidIPAddress = TRUE;
 					// more efficient to enumerate backwards - last components is often empty when user types '192.168.1.'
 					for (NSString *subPart in [components reverseObjectEnumerator]) {
 						// Ensure each part (Separated by '.' is only 3 or less digits
@@ -190,18 +205,17 @@
 							break;
 						}
 					}
-					if (isValidIPAddress) {
-						[self assignURLTypesWithURL:urlString];
+                    if (isValidIPAddress) {
+                        [self assignURLTypesWithURL:urlString];
                         [self setObject:host forType:QSRemoteHostsType];
-						return;
-					}
-				}
-			}
-		}
-	}
-	return;
+                        return YES;
+                    }
+                }
+            }
+        }
+    }
+    return NO;
 }
-	
 	
 - (NSString *)stringValue {
 	if ([self containsType:QSTextType]) {
