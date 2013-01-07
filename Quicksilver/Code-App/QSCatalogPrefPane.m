@@ -513,7 +513,9 @@ static id _sharedInstance;
 
 -(void)reloadData {
     [treeController rearrangeObjects];
-    [itemTable reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [itemTable reloadData];
+    });
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView writeItems:(NSArray *)items toPasteboard:(NSPasteboard *)pboard {
