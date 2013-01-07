@@ -24,7 +24,7 @@
 	IBOutlet NSDrawer *itemContentsDrawer;
 
 	//Item
-	IBOutlet NSOutlineView *itemTable;
+	IBOutlet QSOutlineView *itemTable;
 	IBOutlet NSTableView *itemContentsTable;
 	IBOutlet NSImageView *itemIconField;
 	IBOutlet NSButton *itemAddButton;
