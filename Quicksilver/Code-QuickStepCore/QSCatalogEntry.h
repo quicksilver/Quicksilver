@@ -18,12 +18,15 @@
 	NSMutableArray *children;
     dispatch_queue_t scanQueue;
 	NSMutableDictionary *info;
-	NSMutableArray *contents;
+	NSArray *contents;
 	NSBundle *bundle;
 	BOOL isScanning;
 }
 
 @property (assign, atomic) BOOL isScanning;
+
+
+@property (retain, atomic, getter=_contents) NSArray *contents;
 
 + (QSCatalogEntry *)entryWithDictionary:(NSDictionary *)dict;
 - (NSDictionary *)dictionaryRepresentation;

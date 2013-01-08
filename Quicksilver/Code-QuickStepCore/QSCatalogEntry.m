@@ -31,7 +31,7 @@ NSDictionary *enabledPresetDictionary;*/
 
 @implementation QSCatalogEntry
 
-@synthesize isScanning;
+@synthesize isScanning, contents = contents;
 
 + (BOOL)accessInstanceVariablesDirectly {return YES;}
 
@@ -434,20 +434,23 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (void)saveIndex {
-	
+    dispatch_async(scanQueue, ^{
 #ifdef DEBUG
-	if (DEBUG_CATALOG) NSLog(@"saving index for %@", self);
+        if (DEBUG_CATALOG) NSLog(@"saving index for %@", self);
 #endif
-	
-	[self setIndexDate:[NSDate date]];
-	NSString *key = [self identifier];
-	NSString *path = [pIndexLocation stringByStandardizingPath];
-   
-    // Lock the 'contents' mutablearray so that it cannot be changed whilst it's being written to file
-    @synchronized(contents) {
+        
+        [self setIndexDate:[NSDate date]];
+        NSString *key = [self identifier];
+        NSString *path = [pIndexLocation stringByStandardizingPath];
+
         NSArray *writeArray = [contents arrayByPerformingSelector:@selector(dictionaryRepresentation)];
-        [writeArray writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
-    }
+        @try {
+            [writeArray writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Exception whilst saving catalog entry %@\n writeArray: %@\ncontents: %@\nException: %@",[self name],writeArray,contents,exception);
+        }
+    });
 }
 
 
@@ -581,13 +584,6 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (NSArray *)contents { return [self contentsScanIfNeeded:NO]; }
-- (NSArray *)_contents { return contents; }
-- (void)setContents:(NSArray *)newContents {
-	if(newContents != contents){
-		[contents release];
-		contents = [newContents mutableCopy];
-	}
-}
 
 - (NSArray *)contentsScanIfNeeded:(BOOL)canScan {
 	if (![self isEnabled]) {

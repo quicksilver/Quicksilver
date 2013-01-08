@@ -314,7 +314,7 @@
 		return [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@"untitled folder"]];
 	} else if ([action isEqualToString:kFileMoveToAction] || [action isEqualToString:kFileCopyToAction]) {
         // We only want folders for the move to / copy to actions (can't move to anything else)
-        NSMutableArray *fileObjects = [[[QSLibrarian sharedInstance] arrayForType:QSFilePathType] mutableCopy];
+        NSArray *fileObjects = [[QSLibrarian sharedInstance] arrayForType:QSFilePathType];
         NSString *currentFolderPath = [[[dObject validPaths] lastObject] stringByDeletingLastPathComponent];
 
         // if the parent directory was found, put it first - otherwise, leave the pane blank

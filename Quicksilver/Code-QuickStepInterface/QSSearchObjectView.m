@@ -306,7 +306,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (NSRectEdge)preferredEdge { return preferredEdge; }
 - (void)setPreferredEdge:(NSRectEdge)newPreferredEdge { preferredEdge = newPreferredEdge; }
 
-- (NSString *)matchedString { return matchedString; }
+- (NSString *)matchedString { return [[matchedString retain] autorelease]; }
 - (void)setMatchedString:(NSString *)newMatchedString {
     if (matchedString != newMatchedString) {
         [matchedString release];
