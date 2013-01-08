@@ -567,15 +567,19 @@ static id _sharedInstance;
 }
 
 - (void)catalogChanged:(NSNotification *)notification {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [itemTable reloadData];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [itemTable reloadData];
+        });
     });
 }
 
 - (void)catalogIndexed:(NSNotification *)notification {
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [itemContentsTable reloadData];
-        [itemTable reloadData];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [itemContentsTable reloadData];
+            [itemTable reloadData];
+        });
     });
 }
 
