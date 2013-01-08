@@ -170,7 +170,7 @@ static NSImage *prefsCatalogImage = nil;
     QSCatalogEntry *childEntry = [QSCatalogEntry entryWithDictionary:childDict];
     
     [[parentEntry children] addObject:childEntry];
-    [[childEntry info] setObject:[NSDictionary dictionaryWithObject:file forKey:kItemPath] forKey:kItemSettings];
+    [[childEntry info] setObject:[NSMutableDictionary dictionaryWithObject:file forKey:kItemPath] forKey:kItemSettings];
     [[childEntry info] setObject:[NSNumber numberWithDouble:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
     [childEntry scanForced:YES];
     [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogStructureChanged object:nil];
