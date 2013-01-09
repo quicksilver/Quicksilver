@@ -443,12 +443,12 @@ NSDictionary *enabledPresetDictionary;*/
         NSString *key = [self identifier];
         NSString *path = [pIndexLocation stringByStandardizingPath];
 
-        NSArray *writeArray = [contents arrayByPerformingSelector:@selector(dictionaryRepresentation)];
         @try {
+            NSArray *writeArray = [contents arrayByPerformingSelector:@selector(dictionaryRepresentation)];
             [writeArray writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
         }
         @catch (NSException *exception) {
-            NSLog(@"Exception whilst saving catalog entry %@\n writeArray: %@\ncontents: %@\nException: %@",[self name],writeArray,contents,exception);
+            NSLog(@"Exception whilst saving catalog entry %@\ncontents: %@\nException: %@",[self name],contents,exception);
         }
     });
 }
