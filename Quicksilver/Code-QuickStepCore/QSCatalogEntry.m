@@ -463,18 +463,28 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (BOOL)indexIsValid {
-	NSFileManager *manager = [NSFileManager defaultManager];
-	NSString *indexPath = [[[pIndexLocation stringByStandardizingPath] stringByAppendingPathComponent:[self identifier]]stringByAppendingPathExtension:@"qsindex"];
-	if (![manager fileExistsAtPath:indexPath isDirectory:nil])
-		return NO;
-	if (!indexDate)
-		[self setIndexDate:[[manager attributesOfItemAtPath:indexPath error:NULL] fileModificationDate]];
-	NSNumber *modInterval = [info objectForKey:kItemModificationDate];
-	if (modInterval) {
-		NSDate *specDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[modInterval doubleValue]];
-		if ([specDate compare:indexDate] == NSOrderedDescending) return NO; //Catalog Specification is more recent than index
-	}
-	return [[self source] indexIsValidFromDate:indexDate forEntry:info];
+    __block BOOL isValid = YES;
+    dispatch_sync(scanQueue, ^{
+        NSFileManager *manager = [NSFileManager defaultManager];
+        NSString *indexPath = [[[pIndexLocation stringByStandardizingPath] stringByAppendingPathComponent:[self identifier]]stringByAppendingPathExtension:@"qsindex"];
+        if (![manager fileExistsAtPath:indexPath isDirectory:nil])
+            isValid = NO;
+        if (isValid) {
+            if (!indexDate)
+                [self setIndexDate:[[manager attributesOfItemAtPath:indexPath error:NULL] fileModificationDate]];
+            NSNumber *modInterval = [info objectForKey:kItemModificationDate];
+            if (modInterval) {
+                NSDate *specDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[modInterval doubleValue]];
+                if ([specDate compare:indexDate] == NSOrderedDescending) {
+                    isValid = NO; //Catalog Specification is more recent than index
+                }
+            }
+        }
+        if (isValid) {
+            isValid = [[self source] indexIsValidFromDate:indexDate forEntry:info];
+        }
+    });
+	return isValid;
 }
 
 - (id)source {
