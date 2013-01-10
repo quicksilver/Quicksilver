@@ -428,7 +428,7 @@
 			<key>name</key>
 			<string>String Ranker</string>
 			<key>requiresRelaunch</key>
-			<true/>
+			<false/>
 			<key>type</key>
 			<string>mediator</string>
 		</dict>
