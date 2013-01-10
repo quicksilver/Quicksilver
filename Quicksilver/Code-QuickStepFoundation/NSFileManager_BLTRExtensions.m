@@ -239,9 +239,7 @@
 
 - (BOOL)touchPath:(NSString *)path {
 	return [self setAttributes:[NSDictionary dictionaryWithObject:[NSDate date] forKey:NSFileModificationDate] ofItemAtPath:path error:nil];
-
 }
-
 
 - (NSDate *)path:(NSString *)path wasModifiedAfter:(NSDate *)date depth:(NSInteger)depth {
 	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
@@ -250,8 +248,14 @@
 
 	if (depth) depth--;
 
-	NSDate *moddate = [[self attributesOfItemAtPath:path error:NULL] fileModificationDate];
-
+    NSError *err = nil;
+	NSDate *moddate = [[self attributesOfItemAtPath:path error:&err] fileModificationDate];
+    if (err) {
+        NSLog(@"Error: %@",err);
+    }
+    if (!moddate) {
+        return date;
+    }
 	if ([date compare:moddate] == NSOrderedAscending && [moddate timeIntervalSinceNow] <0) {
 		return moddate;
 	}
