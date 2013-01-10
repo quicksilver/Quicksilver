@@ -655,7 +655,6 @@ static CGFloat searchSpeed = 0.0;
 }
 
 - (NSMutableArray *)scoredArrayForString:(NSString *)searchString inSet:(NSArray *)set mnemonicsOnly:(BOOL)mnemonicsOnly {
-	if (!set) set = [defaultSearchSet allObjects];
 	NSMutableArray *rankObjects = [QSDefaultObjectRanker rankedObjectsForAbbreviation:searchString inSet:set inContext:searchString mnemonicsOnly:mnemonicsOnly];
 #ifdef DEBUG
 	NSDate *date = [NSDate date];
