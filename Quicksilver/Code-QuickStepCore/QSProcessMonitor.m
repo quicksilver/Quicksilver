@@ -441,7 +441,11 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 - (NSMutableDictionary *)processesDict {
 	if (!processes) {
 		processes = [[NSMutableDictionary dictionaryWithCapacity:1] retain];
-		[self reloadProcesses];
+        isReloading = YES;
+        for (id thisProcess in [NDProcess everyProcess]) {
+            [self addProcessWithPSN:[thisProcess processSerialNumber]];
+        }
+        isReloading = NO;
 	}
 	return processes;
 }
