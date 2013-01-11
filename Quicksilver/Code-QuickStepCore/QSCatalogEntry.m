@@ -540,7 +540,7 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (void)scanForced:(BOOL)force {
-    if ([self isSeparator] || ![self isEnabled]) {
+    if ([self isSeparator] || ![self isEnabled] || isScanning) {
         return;
     }
     if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
