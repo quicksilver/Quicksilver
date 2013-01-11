@@ -255,6 +255,9 @@
     if (err) {
         NSLog(@"Error: %@", err);
     }
+    if (!moddate) {
+        return date;
+    }
 
 	if ([date compare:moddate] == NSOrderedAscending && [moddate timeIntervalSinceNow] <0) {
 		return moddate;
