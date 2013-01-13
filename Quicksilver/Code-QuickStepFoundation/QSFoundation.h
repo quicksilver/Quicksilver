@@ -23,6 +23,7 @@
 #import "NTViewLocalizer.h"
 #import "NSString+NDCarbonUtilities.h"
 
+#import "QSGCD.h"
 #import "QSUTI.h"
 #import "QSTreeController.h"
 #import "QSMDPredicate.h"
