@@ -16,3 +16,12 @@ void runOnMainQueueSync(void (^block)(void))
         dispatch_sync(dispatch_get_main_queue(), block);
     }
 }
+
+void runOnQueueSync(dispatch_queue_t queue,void (^block)(void))
+{
+    if (dispatch_get_current_queue() == queue) {
+        block();
+    } else {
+        dispatch_sync(queue, block);
+    }
+}
