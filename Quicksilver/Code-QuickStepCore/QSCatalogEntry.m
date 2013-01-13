@@ -74,7 +74,7 @@ NSDictionary *enabledPresetDictionary;*/
 			children = [newChildren retain];
 		}
         // create a serial dispatch queue to make scan processes serial for each catalog entry
-        scanQueue = dispatch_queue_create([[dict objectForKey:kItemID] UTF8String], NULL);
+        scanQueue = dispatch_queue_create([[NSString stringWithFormat:@"QSCatalogEntry scanQueue: %@",[dict objectForKey:kItemID]] UTF8String], NULL);
 	}
 	return self;
 }
