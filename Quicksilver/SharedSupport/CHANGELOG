@@ -52,7 +52,8 @@
   * Prevent actions from appearing more than once (#1259, #1260)
   * Resolve proxy objects before deciding what should appear in the third pane (#1248)
   * Release notes will open in the default web browser, regardless of the preferred application for HTML files (#1280, #1284)
-  * Bug fixes and internal improvements (#921, #840, #1114, #1180, #1206, #1211, #1238, #1239, #1257, #1248, #1279)
+  * Variables for Tasks are changed on the main thread (#1319)
+  * Bug fixes and internal improvements (#921, #840, #1114, #1180, #1206, #1211, #1238, #1239, #1257, #1248, #1279, #1319)
 
 ### Changed ###
 
@@ -89,6 +90,7 @@
     * New `isProxyObject` method for testing `QSObject`s
     * Proxies return a `QSObject` when resolved instead of a `QSBasicObject`
     * All code specific to proxy objects was moved from `QSObject` to `QSProxyObject`
+  * New `QSGCD` class for easily handing blocks to a specific queue (#1319)
 
 [hidden]: http://qsapp.com/wiki/Hidden_Defaults
 
