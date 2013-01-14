@@ -74,7 +74,7 @@ NSDictionary *enabledPresetDictionary;*/
 			children = [newChildren retain];
 		}
         // create a serial dispatch queue to make scan processes serial for each catalog entry
-        scanQueue = dispatch_queue_create([[dict objectForKey:kItemID] UTF8String], NULL);
+        scanQueue = dispatch_queue_create([[NSString stringWithFormat:@"QSCatalogEntry scanQueue: %@",[dict objectForKey:kItemID]] UTF8String], NULL);
 	}
 	return self;
 }
@@ -463,18 +463,29 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (BOOL)indexIsValid {
-	NSFileManager *manager = [NSFileManager defaultManager];
-	NSString *indexPath = [[[pIndexLocation stringByStandardizingPath] stringByAppendingPathComponent:[self identifier]]stringByAppendingPathExtension:@"qsindex"];
-	if (![manager fileExistsAtPath:indexPath isDirectory:nil])
-		return NO;
-	if (!indexDate)
-		[self setIndexDate:[[manager attributesOfItemAtPath:indexPath error:NULL] fileModificationDate]];
-	NSNumber *modInterval = [info objectForKey:kItemModificationDate];
-	if (modInterval) {
-		NSDate *specDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[modInterval doubleValue]];
-		if ([specDate compare:indexDate] == NSOrderedDescending) return NO; //Catalog Specification is more recent than index
-	}
-	return [[self source] indexIsValidFromDate:indexDate forEntry:info];
+    __block BOOL isValid = YES;
+    runOnQueueSync(scanQueue,^{
+        NSFileManager *manager = [NSFileManager defaultManager];
+        NSString *indexPath = [[[pIndexLocation stringByStandardizingPath] stringByAppendingPathComponent:[self identifier]]stringByAppendingPathExtension:@"qsindex"];
+        if (![manager fileExistsAtPath:indexPath isDirectory:nil]) {
+            isValid = NO;
+        }
+        if (isValid) {
+            if (!indexDate)
+                [self setIndexDate:[[manager attributesOfItemAtPath:indexPath error:NULL] fileModificationDate]];
+            NSNumber *modInterval = [info objectForKey:kItemModificationDate];
+            if (modInterval) {
+                NSDate *specDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[modInterval doubleValue]];
+                if ([specDate compare:indexDate] == NSOrderedDescending) {
+                    isValid = NO; //Catalog Specification is more recent than index
+                }
+            }
+        }
+        if (isValid) {
+            isValid = [[self source] indexIsValidFromDate:indexDate forEntry:info];
+        }
+    });
+    return isValid;
 }
 
 - (id)source {
@@ -540,7 +551,7 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (void)scanForced:(BOOL)force {
-    if ([self isSeparator] || ![self isEnabled] || isScanning) {
+    if ([self isSeparator] || ![self isEnabled]) {
         return;
     }
     if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
