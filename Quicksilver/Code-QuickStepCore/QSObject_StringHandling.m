@@ -63,9 +63,6 @@
 - (id)dataForObject:(QSObject *)object pasteboardType:(NSString *)type { return [object objectForType:type];  }
 
 - (void)sniffString {
-	// array used to store list of TLDs
-	static NSArray *tldArray = nil;
-
 	NSString *stringValue = [self objectForType:QSTextType];
 
 	// A string for the calculator
@@ -124,64 +121,75 @@
 	
 	// trimWhitespace calls a CFStringTrimWhitespace to remove whitespace from start and end of string
 	stringValue = [stringValue trimWhitespace];
-	// Any whitespaces means it's still a string
-	if ([stringValue rangeOfString:@" "] .location != NSNotFound) return;
-	// replace \%s with *** for Query URLs
-	NSString *urlString = [self cleanQueryURL:stringValue];
-	// replace all \r with \n
-	if ([urlString rangeOfString:@"\n"] .location != NSNotFound || [urlString rangeOfString:@"\r"] .location != NSNotFound) {
-		urlString = [[urlString lines] componentsJoinedByString:@""];
-	}
-	
-	// Create a URL with the string make sure to encode any |%<> chars
-	NSURL *url = [NSURL URLWithString:[urlString URLEncoding]];
-
-	if ([url scheme] && [url host] && [urlString rangeOfString:@":"].location != 1) {
-		[self assignURLTypesWithURL:urlString];
-		return;
-	}
 	
 	// Email address
 	if ([stringValue hasPrefix:@"mailto:"]) {
 		[self assignURLTypesWithURL:stringValue];
 		return;
-	}	
-	
-	
-	// Text with a '.' (most likely a URL or email address)
-	if ([stringValue rangeOfString:@"."] .location != NSNotFound) {
+	}
+    // returns YES if a valid URL is assigned to the object
+    if ([self sniffURL:stringValue]) {
+        return;
+    }
+	return;
+}
+
+-(BOOL)sniffURL:(NSString*)stringValue {
+    // array used to store list of TLDs
+	static NSArray *tldArray = nil;
+    // replace \%s with *** for Query URLs
+	NSString *urlString = [self cleanQueryURL:stringValue];
+	// replace all \r with \n
+	if ([urlString rangeOfString:@"\n"] .location != NSNotFound || [urlString rangeOfString:@"\r"] .location != NSNotFound) {
+		urlString = [[urlString lines] componentsJoinedByString:@""];
+	}
+    
+    // Text with a '.' is most likely a URL or email address (or that with localhost in the name
+	if ([stringValue rangeOfString:@"."] .location != NSNotFound || [[stringValue lowercaseString] rangeOfString:@"localhost"].location != NSNotFound) {
 		// @ sign but NO /, -> email address
 		if (([stringValue rangeOfString:@"@"] .location != NSNotFound && [stringValue rangeOfString:@"/"] .location == NSNotFound)) {
 			[self assignURLTypesWithURL:[@"mailto:" stringByAppendingString:stringValue]];
-			return;
+			return NO;
 		} else {
-			// @ sign AND /, -> a URL?
-			NSString *host = [[stringValue componentsSeparatedByString:@"/"] objectAtIndex:0];
+            NSRange schemeRange = [stringValue rangeOfString:@"://"];
+            if (schemeRange.location != NSNotFound) {
+                // remove the scheme from the URL. Makes deciphering the URL easier (less colons)
+                stringValue = [stringValue substringFromIndex:schemeRange.location +schemeRange.length];
+            }
+            
+            NSArray *colonComponents = [stringValue componentsSeparatedByString:@":"];
+            // Charset containing everything but decimal digits
+            NSCharacterSet *nonNumbersSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+            
+            if ([colonComponents count] > 1) {
+                // Check the port (if it exists). URLs may contain multiple colons, so we take the first occurance of it. e.g. http://google.com:80/?q=this_is_a_:
+                NSString *port = [[[colonComponents objectAtIndex:1] componentsSeparatedByString:@"/"] objectAtIndex:0];
+                if ([port length] == 0 || [port rangeOfCharacterFromSet:nonNumbersSet].location != NSNotFound) {
+                    return NO;
+                }
+            }
+			NSString *host = [[[colonComponents objectAtIndex:0] componentsSeparatedByString:@"/"] objectAtIndex:0];
+            if ([[host lowercaseString] isEqualToString:@"localhost"]) {
+                [self assignURLTypesWithURL:urlString];
+                [self setObject:host forType:QSRemoteHostsType];
+                return YES;
+            }
 			NSArray *components = [host componentsSeparatedByString:@"."];
 			// Make sure the URL host exists, with no spaces
-			if ([host length] && [host rangeOfString:@" "] .location == NSNotFound && [components count]) {
+			if ([host length] && [host rangeOfString:@" "].location == NSNotFound && [components count]) {
 				// initialise a static array of TLDs
 				if(tldArray == nil) {
-					tldArray = [[NSArray arrayWithObjects:@"AC",@"AD",@"AE",@"AERO",@"AF",@"AG",@"AI",@"AL",@"AM",@"AN",@"AO",@"AQ",@"AR",@"ARPA",@"AS",@"ASIA",@"AT",@"AU",@"AW",@"AX",@"AZ",@"BA",@"BB",@"BD",@"BE",@"BF",@"BG",@"BH",@"BI",@"BIZ",
-								 @"BJ",@"BM",@"BN",@"BO",@"BR",@"BS",@"BT",@"BV",@"BW",@"BY",@"BZ",@"CA",@"CAT",@"CC",@"CD",@"CF",@"CG",@"CH",@"CI",@"CK",@"CL",@"CM",@"CN",@"CO",@"COM",@"COOP",@"CR",@"CU",@"CV",@"CX",@"CY",@"CZ",@"DE",@"DJ",@"DK",
-								 @"DM",@"DO",@"DZ",@"EC",@"EDU",@"EE",@"EG",@"ER",@"ES",@"ET",@"EU",@"FI",@"FJ",@"FK",@"FM",@"FO",@"FR",@"GA",@"GB",@"GD",@"GE",@"GF",@"GG",@"GH",@"GI",@"GL",@"GM",@"GN",@"GOV",@"GP",@"GQ",@"GR",@"GS",@"GT",@"GU",
-								 @"GW",@"GY",@"HK",@"HM",@"HN",@"HR",@"HT",@"HU",@"ID",@"IE",@"IL",@"IM",@"IN",@"INFO",@"INT",@"IO",@"IQ",@"IR",@"IS",@"IT",@"JE",@"JM",@"JO",@"JOBS",@"JP",@"KE",@"KG",@"KH",@"KI",@"KM",@"KN",@"KP",@"KR",@"KW",@"KY",
-								 @"KZ",@"LA",@"LB",@"LC",@"LI",@"LK",@"LR",@"LS",@"LT",@"LU",@"LV",@"LY",@"MA",@"MC",@"MD",@"ME",@"MG",@"MH",@"MIL",@"MK",@"ML",@"MM",@"MN",@"MO",@"MOBI",@"MP",@"MQ",@"MR",@"MS",@"MT",@"MU",@"MUSEUM",@"MV",@"MW",@"MX",
-								 @"MY",@"MZ",@"NA",@"NAME",@"NC",@"NE",@"NET",@"NF",@"NG",@"NI",@"NL",@"NO",@"NP",@"NR",@"NU",@"NZ",@"OM",@"ORG",@"PA",@"PE",@"PF",@"PG",@"PH",@"PK",@"PL",@"PM",@"PN",@"PR",@"PRO",@"PS",@"PT",@"PW",@"PY",@"QA",@"RE",@"RO",
-								 @"RS",@"RU",@"RW",@"SA",@"SB",@"SC",@"SD",@"SE",@"SG",@"SH",@"SI",@"SJ",@"SK",@"SL",@"SM",@"SN",@"SO",@"SR",@"ST",@"SU",@"SV",@"SY",@"SZ",@"TC",@"TD",@"TEL",@"TF",@"TG",@"TH",@"TJ",@"TK",@"TL",@"TM",@"TN",@"TO",@"TP",@"TR",
-								 @"TRAVEL",@"TT",@"TV",@"TW",@"TZ",@"UA",@"UG",@"UK",@"US",@"UY",@"UZ",@"VA",@"VC",@"VE",@"VG",@"VI",@"VN",@"VU",@"WF",@"WS",@"XXX",@"YE",@"YT",@"ZA",@"ZM",@"ZW",nil] retain];
+					tldArray = [[NSArray arrayWithObjects:@"AC",@"AD",@"AE",@"AERO",@"AF",@"AG",@"AI",@"AL",@"AM",@"AN",@"AO",@"AQ",@"AR",@"ARPA",@"AS",@"ASIA",@"AT",@"AU",@"AW",@"AX",@"AZ",@"BA",@"BB",@"BD",@"BE",@"BF",@"BG",@"BH",@"BI",@"BIZ",@"BJ",@"BM",@"BN",@"BO",@"BR",@"BS",@"BT",@"BV",@"BW",@"BY",@"BZ",@"CA",@"CAT",@"CC",@"CD",@"CF",@"CG",@"CH",@"CI",@"CK",@"CL",@"CM",@"CN",@"CO",@"COM",@"COOP",@"CR",@"CU",@"CV",@"CW",@"CX",@"CY",@"CZ",@"DE",@"DJ",@"DK",@"DM",@"DO",@"DZ",@"EC",@"EDU",@"EE",@"EG",@"ER",@"ES",@"ET",@"EU",@"FI",@"FJ",@"FK",@"FM",@"FO",@"FR",@"GA",@"GB",@"GD",@"GE",@"GF",@"GG",@"GH",@"GI",@"GL",@"GM",@"GN",@"GOV",@"GP",@"GQ",@"GR",@"GS",@"GT",@"GU",@"GW",@"GY",@"HK",@"HM",@"HN",@"HR",@"HT",@"HU",@"ID",@"IE",@"IL",@"IM",@"IN",@"INFO",@"INT",@"IO",@"IQ",@"IR",@"IS",@"IT",@"JE",@"JM",@"JO",@"JOBS",@"JP",@"KE",@"KG",@"KH",@"KI",@"KM",@"KN",@"KP",@"KR",@"KW",@"KY",@"KZ",@"LA",@"LB",@"LC",@"LI",@"LK",@"LR",@"LS",@"LT",@"LU",@"LV",@"LY",@"MA",@"MC",@"MD",@"ME",@"MG",@"MH",@"MIL",@"MK",@"ML",@"MM",@"MN",@"MO",@"MOBI",@"MP",@"MQ",@"MR",@"MS",@"MT",@"MU",@"MUSEUM",@"MV",@"MW",@"MX",@"MY",@"MZ",@"NA",@"NAME",@"NC",@"NE",@"NET",@"NF",@"NG",@"NI",@"NL",@"NO",@"NP",@"NR",@"NU",@"NZ",@"OM",@"ORG",@"PA",@"PE",@"PF",@"PG",@"PH",@"PK",@"PL",@"PM",@"PN",@"POST",@"PR",@"PRO",@"PS",@"PT",@"PW",@"PY",@"QA",@"RE",@"RO",@"RS",@"RU",@"RW",@"SA",@"SB",@"SC",@"SD",@"SE",@"SG",@"SH",@"SI",@"SJ",@"SK",@"SL",@"SM",@"SN",@"SO",@"SR",@"ST",@"SU",@"SV",@"SX",@"SY",@"SZ",@"TC",@"TD",@"TEL",@"TF",@"TG",@"TH",@"TJ",@"TK",@"TL",@"TM",@"TN",@"TO",@"TP",@"TR",@"TRAVEL",@"TT",@"TV",@"TW",@"TZ",@"UA",@"UG",@"UK",@"US",@"UY",@"UZ",@"VA",@"VC",@"VE",@"VG",@"VI",@"VN",@"VU",@"WF",@"WS",@"XN--0ZWM56D",@"XN--11B5BS3A9AJ6G",@"XN--3E0B707E",@"XN--45BRJ9C",@"XN--80AKHBYKNJ4F",@"XN--80AO21A",@"XN--90A3AC",@"XN--9T4B11YI5A",@"XN--CLCHC0EA0B2G2A9GCD",@"XN--DEBA0AD",@"XN--FIQS8S",@"XN--FIQZ9S",@"XN--FPCRJ9C3D",@"XN--FZC2C9E2C",@"XN--G6W251D",@"XN--GECRJ9C",@"XN--H2BRJ9C",@"XN--HGBK6AJ7F53BBA",@"XN--HLCJ6AYA9ESC7A",@"XN--J6W193G",@"XN--JXALPDLP",@"XN--KGBECHTV",@"XN--KPRW13D",@"XN--KPRY57D",@"XN--LGBBAT1AD8J",@"XN--MGB9AWBF",@"XN--MGBAAM7A8H",@"XN--MGBAYH7GPA",@"XN--MGBBH1A71E",@"XN--MGBC0A9AZCG",@"XN--MGBERP4A5D4AR",@"XN--MGBX4CD0AB",@"XN--O3CW4H",@"XN--OGBPF8FL",@"XN--P1AI",@"XN--PGBS0DH",@"XN--S9BRJ9C",@"XN--WGBH1C",@"XN--WGBL6A",@"XN--XKC2AL3HYE2A",@"XN--XKC2DL3A5EE0H",@"XN--YFRO4I67O",@"XN--YGBI2AMMX",@"XN--ZCKZAH",@"XXX",@"YE",@"YT",@"ZA",@"ZM",@"ZW",nil] retain];    
 				}
-				// check if the last component of the string is a tld 
+				// check if the last component of the string is a tld
 				if([tldArray containsObject:[[components lastObject] uppercaseString]]) {
 					[self assignURLTypesWithURL:urlString];
 					[self setObject:host forType:QSRemoteHostsType];
-					return;
+					return YES;
 				}
 				// Check if the string is an IP address (e.g. 192.168.1.1)
 				if ([components count] == 4) {
-					BOOL isValidIPAddress = TRUE;				
-					// Charset containing everything but decimal digits
-					NSCharacterSet *nonNumbersSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+					BOOL isValidIPAddress = TRUE;
 					// more efficient to enumerate backwards - last components is often empty when user types '192.168.1.'
 					for (NSString *subPart in [components reverseObjectEnumerator]) {
 						// Ensure each part (Separated by '.' is only 3 or less digits
@@ -190,18 +198,17 @@
 							break;
 						}
 					}
-					if (isValidIPAddress) {
-						[self assignURLTypesWithURL:urlString];
+                    if (isValidIPAddress) {
+                        [self assignURLTypesWithURL:urlString];
                         [self setObject:host forType:QSRemoteHostsType];
-						return;
-					}
-				}
-			}
-		}
-	}
-	return;
+                        return YES;
+                    }
+                }
+            }
+        }
+    }
+    return NO;
 }
-	
 	
 - (NSString *)stringValue {
 	if ([self containsType:QSTextType]) {
