@@ -11,12 +11,21 @@
 
 @class QSBasicObject, QSRankedObject;
 
+/* Ranking options */
+extern NSString *QSRankingMnemonicsOnly;    // BOOL
+extern NSString *QSRankingObjectsInSet;     // NSArray
+extern NSString *QSRankingContext;          // NSString, unused ?
+extern NSString *QSRankingUsePureString;    // BOOL
+
 @protocol QSObjectRanker
 - (id)initWithObject:(QSBasicObject *)object;
 //- (float)scoreForAbbreviation:(NSString*)anAbbreviation inContext:(NSString *)context;
 //- (NSIndexSet*)maskForAbbreviation:(NSString*)anAbbreviation inContext:(NSString *)context;
+- (QSRankedObject *)rankedObject:(QSBasicObject *)object forAbbreviation:(NSString*)anAbbreviation options:(NSDictionary *)options;
 - (NSString*)matchedStringForAbbreviation:(NSString*)anAbbreviation hitmask:(NSIndexSet **)hitmask inContext:(NSString *)context;
-- (QSRankedObject *)rankedObject:(QSBasicObject *)object forAbbreviation:(NSString*)anAbbreviation inContext:(NSString *)context withMnemonics:(NSArray *)mnemonics mnemonicsOnly:(BOOL)mnemonicsOnly;
+
+@optional
+- (QSRankedObject *)rankedObject:(QSBasicObject *)object forAbbreviation:(NSString*)anAbbreviation inContext:(NSString *)context withMnemonics:(NSArray *)mnemonics mnemonicsOnly:(BOOL)mnemonicsOnly DEPRECATED_ATTRIBUTE;
 @end
 
 
@@ -25,5 +34,5 @@
 	NSObject <QSStringRanker> *nameRanker;
 	NSObject <QSStringRanker> *labelRanker;
 }
-+ (NSMutableArray *)rankedObjectsForAbbreviation:(NSString*)anAbbreviation inSet:(NSArray *)set inContext:(NSString *)context mnemonicsOnly:(BOOL)mnemonicsOnly;
++ (NSMutableArray *)rankedObjectsForAbbreviation:(NSString *)anAbbreviation options:(NSDictionary *)options;
 @end

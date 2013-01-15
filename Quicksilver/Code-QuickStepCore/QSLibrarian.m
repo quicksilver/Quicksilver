@@ -656,7 +656,17 @@ static CGFloat searchSpeed = 0.0;
 
 - (NSMutableArray *)scoredArrayForString:(NSString *)searchString inSet:(NSArray *)set mnemonicsOnly:(BOOL)mnemonicsOnly {
 	if (!set) set = [defaultSearchSet allObjects];
-	NSMutableArray *rankObjects = [QSDefaultObjectRanker rankedObjectsForAbbreviation:searchString inSet:set inContext:searchString mnemonicsOnly:mnemonicsOnly];
+    if (!searchString) searchString = @"";
+
+    BOOL usePureStringRanking = [[NSUserDefaults standardUserDefaults] boolForKey:@"QSUsePureStringRanking"];
+    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
+                             searchString, QSRankingContext,
+                             set, QSRankingObjectsInSet,
+                             [NSNumber numberWithBool:mnemonicsOnly], QSRankingMnemonicsOnly,
+                             [NSNumber numberWithBool:usePureStringRanking], QSRankingUsePureString,
+                             nil];
+
+	NSMutableArray *rankObjects = [QSDefaultObjectRanker rankedObjectsForAbbreviation:searchString options:options];
 #ifdef DEBUG
 	NSDate *date = [NSDate date];
 	
