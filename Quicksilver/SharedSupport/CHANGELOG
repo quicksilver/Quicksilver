@@ -53,7 +53,7 @@
   * Resolve proxy objects before deciding what should appear in the third pane (#1248)
   * Release notes will open in the default web browser, regardless of the preferred application for HTML files (#1280, #1284)
   * Variables for Tasks are changed on the main thread (#1319)
-  * Bug fixes and internal improvements (#921, #840, #1114, #1180, #1206, #1211, #1238, #1239, #1257, #1248, #1279, #1319, #1321)
+  * Bug fixes and internal improvements (#921, #840, #1114, #1180, #1206, #1211, #1238, #1239, #1257, #1248, #1279, #1319, #1321, #1323)
 
 ### Changed ###
 
