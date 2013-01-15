@@ -434,7 +434,7 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (void)saveIndex {
-    dispatch_async(scanQueue, ^{
+    runOnQueueSync(scanQueue, ^{
 #ifdef DEBUG
         if (DEBUG_CATALOG) NSLog(@"saving index for %@", self);
 #endif
