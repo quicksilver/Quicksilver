@@ -10,7 +10,7 @@
       <key>title</key>
       <string>Affiche la fenêtre des tâches automatiquement à leur création</string>
       <key>type</key>
-      <string>case à cocher</string>
+      <string>checkbox</string>
     </dict>
     <dict>
       <key>category</key>
@@ -20,7 +20,7 @@
       <key>title</key>
       <string>Masque les autres applications en basculant de l’une à l’autre (bloqué par Maj.)</string>
       <key>type</key>
-      <string>case à cocher</string>
+      <string>checkbox</string>
     </dict>
     <dict>
       <key>category</key>
@@ -30,7 +30,7 @@
       <key>title</key>
       <string>Exécuter tâches et actions en tâche de fond</string>
       <key>type</key>
-      <string>case à cocher</string>
+      <string>checkbox</string>
     </dict>
     <dict>
       <key>category</key>
@@ -86,7 +86,7 @@
       <key>title</key>
       <string>Sélection des actions avec les lettres en majuscule</string>
       <key>type</key>
-      <string>case à cocher</string>
+      <string>checkbox</string>
     </dict>
     <dict>
       <key>category</key>
@@ -96,7 +96,7 @@
       <key>title</key>
       <string>Désactive les raccourcis lorsque QuickSilver est au premier plan</string>
       <key>type</key>
-      <string>case à cocher</string>
+      <string>checkbox</string>
     </dict>
     <dict>
       <key>category</key>
@@ -106,7 +106,7 @@
       <key>title</key>
       <string>Appuyer sur la touche Suppr deux fois purge l’ojet sélectionné</string>
       <key>type</key>
-      <string>case à cocher</string>
+      <string>checkbox</string>
     </dict>
   </array>
 </plist>
