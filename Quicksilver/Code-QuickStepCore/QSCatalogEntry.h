@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface QSCatalogEntry : NSObject {
-	NSDate *indexDate;
+	__block NSDate *indexDate;
 	BOOL isPreset;
 
 	NSString *name;
