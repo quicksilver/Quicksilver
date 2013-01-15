@@ -526,7 +526,7 @@ NSDictionary *enabledPresetDictionary;*/
 	} else {
         __block NSArray *itemContents = nil;
         // Use a serial queue to do the grunt of the scan work. Ensures that no more than one thread can scan at any one time.
-        dispatch_sync(scanQueue, ^{
+        runOnQueueSync(scanQueue, ^{
             [self setIsScanning:YES];
             [self willChangeValueForKey:@"self"];
             NSString *ID = [self identifier];
