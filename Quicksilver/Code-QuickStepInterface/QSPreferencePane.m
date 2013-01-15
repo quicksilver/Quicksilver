@@ -98,23 +98,24 @@
 }
 
 - (NSView *)loadMainView {
-
-	//[[self mainNibBundle] loadNibFile:[self mainNibName]
-//				  externalNameTable:[NSDictionary dictionaryWithObject:self forKey:@"NSOwner"]
-//							withZone:[self zone]];
-	NSNib *nib = [[NSNib alloc] initWithNibNamed:[self mainNibName] bundle:[self mainNibBundle]];
-	NSArray *objects = nil;
-	[nib instantiateNibWithOwner:self topLevelObjects:&objects];
-	//NSLog(@"objects %@", objects);
-	//NSLog(@"window %@", _window);
-	_mainView = [[_window contentView] retain];
-	if (QSGetLocalizationStatus())
-		[NTViewLocalizer localizeView:_mainView table:[self mainNibName] bundle:[self mainNibBundle]];
-	[_window release];
-	_window = nil;
-	[nib release];
-	[self mainViewDidLoad];
-	return _mainView;
+    runOnMainQueueSync(^{
+        //[[self mainNibBundle] loadNibFile:[self mainNibName]
+        //				  externalNameTable:[NSDictionary dictionaryWithObject:self forKey:@"NSOwner"]
+        //							withZone:[self zone]];
+        NSNib *nib = [[NSNib alloc] initWithNibNamed:[self mainNibName] bundle:[self mainNibBundle]];
+        NSArray *objects = nil;
+        [nib instantiateNibWithOwner:self topLevelObjects:&objects];
+        //NSLog(@"objects %@", objects);
+        //NSLog(@"window %@", _window);
+        _mainView = [[_window contentView] retain];
+        if (QSGetLocalizationStatus())
+            [NTViewLocalizer localizeView:_mainView table:[self mainNibName] bundle:[self mainNibBundle]];
+        [_window release];
+        _window = nil;
+        [nib release];
+        [self mainViewDidLoad];
+    });
+    return _mainView;
 }
 
 - (IBAction)showPaneHelp:(id)sender {
