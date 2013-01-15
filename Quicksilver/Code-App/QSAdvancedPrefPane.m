@@ -76,10 +76,10 @@
 		NSLog(@"*** Unhandled Exception:%@ with reason: %@, in %@", [e name], [e reason], NSStringFromSelector(_cmd));
 #endif
     }
-	NSCell *cell;
+	NSCell *cell = nil;
     
     if ([[aTableColumn identifier] isEqualToString:@"title"]) {
-        cell = [[[NSTextFieldCell alloc] init] autorelease];
+        cell = [[NSTextFieldCell alloc] init];
         [cell setStringValue:[thisInfo objectForKey:@"title"]];
         [cell setFont:[NSFont systemFontOfSize:11]];
         [cell setControlSize:NSSmallControlSize];
@@ -87,11 +87,11 @@
         NSString *type = [thisInfo objectForKey:@"type"];
         
         if ([type isEqualToString:@"checkbox"]) {
-            cell = [[[NSButtonCell alloc] init] autorelease];
+            cell = [[NSButtonCell alloc] init];
             [(NSButtonCell*)cell setButtonType:NSSwitchButton];
             [cell setTitle:@""];
         } else if ([type hasPrefix:@"popup"]) {
-            cell = [[[NSPopUpButtonCell alloc] init] autorelease];
+            cell = [[NSPopUpButtonCell alloc] init];
             
             [(NSPopUpButtonCell *)cell setBordered:YES];
             [(NSPopUpButtonCell *)cell removeAllItems];
@@ -105,7 +105,7 @@
             }
             
         } else if ([type isEqualToString:@"text"]) {
-            cell = [[[NSTextFieldCell alloc] init] autorelease];
+            cell = [[NSTextFieldCell alloc] init];
             [(NSTextFieldCell *)cell setPlaceholderString:@"text"];
         }
         [cell setControlSize:NSSmallControlSize];
@@ -116,7 +116,7 @@
         cell = nil;
     }
     
-    return cell;
+    return [cell autorelease];
 }
 
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {

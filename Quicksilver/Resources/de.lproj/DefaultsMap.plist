@@ -10,7 +10,7 @@
       <key>title</key>
       <string>Aufgabenbetrachter automatisch anzeigen, sobald Aufgaben erstellt wurden</string>
       <key>type</key>
-      <string>Checkbox</string>
+      <string>checkbox</string>
     </dict>
     <dict>
       <key>category</key>
@@ -20,7 +20,7 @@
       <key>title</key>
       <string>Andere Anwendungen beim Wechseln ausblenden (durch Umschalttaste verhindern)</string>
       <key>type</key>
-      <string>Checkbox</string>
+      <string>checkbox</string>
     </dict>
     <dict>
       <key>category</key>
@@ -30,7 +30,7 @@
       <key>title</key>
       <string>Aufgaben und Aktionen im Hintergrund laufen lassen</string>
       <key>type</key>
-      <string>Checkbox</string>
+      <string>checkbox</string>
     </dict>
     <dict>
       <key>category</key>
@@ -86,7 +86,7 @@
       <key>title</key>
       <string>Allow capitalized keys to select the action</string>
       <key>type</key>
-      <string>Checkbox</string>
+      <string>checkbox</string>
     </dict>
     <dict>
       <key>category</key>
@@ -96,7 +96,7 @@
       <key>title</key>
       <string>Disable Trigger HotKeys when Quicksilver is focused</string>
       <key>type</key>
-      <string>Checkbox</string>
+      <string>checkbox</string>
     </dict>
     <dict>
       <key>category</key>
@@ -106,7 +106,7 @@
       <key>title</key>
       <string>Aktuelles Objekt durch doppeltes Drücken der ENTF-Taste löschen</string>
       <key>type</key>
-      <string>Checkbox</string>
+      <string>checkbox</string>
     </dict>
   </array>
 </plist>
