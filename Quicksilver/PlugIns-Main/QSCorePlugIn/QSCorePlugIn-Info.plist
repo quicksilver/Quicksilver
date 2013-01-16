@@ -1971,6 +1971,8 @@
 			<string>QSGroupObjectSource</string>
 			<key>QSICloudDocumentSource</key>
 			<string>QSICloudDocumentSource</string>
+			<key>QSUserDefinedProxySource</key>
+			<string>QSUserDefinedProxySource</string>
 		</dict>
 		<key>QSFileActionCreators</key>
 		<dict>
