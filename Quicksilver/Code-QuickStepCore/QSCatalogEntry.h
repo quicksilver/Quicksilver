@@ -9,19 +9,24 @@
 #import <Cocoa/Cocoa.h>
 
 @interface QSCatalogEntry : NSObject {
-	NSDate *indexDate;
+	__block NSDate *indexDate;
 	BOOL isPreset;
 
 	NSString *name;
 
 	id parent;
 	NSMutableArray *children;
-
+    dispatch_queue_t scanQueue;
 	NSMutableDictionary *info;
-	NSMutableArray *contents;
+	NSArray *contents;
 	NSBundle *bundle;
 	BOOL isScanning;
 }
+
+@property (assign, atomic) BOOL isScanning;
+
+
+@property (retain, atomic, getter=_contents) NSArray *contents;
 
 + (QSCatalogEntry *)entryWithDictionary:(NSDictionary *)dict;
 - (NSDictionary *)dictionaryRepresentation;
@@ -56,8 +61,7 @@
 - (BOOL)canBeIndexed;
 - (NSArray *)scannedObjects;
 - (NSArray *)scanAndCache;
-- (void)scanForcedInThread:(NSNumber *)force;
-- (NSArray *)scanForced:(BOOL)force;
+- (void)scanForced:(BOOL)force;
 - (NSMutableArray *)children;
 - (NSMutableArray *)getChildren;
 - (NSArray *)contents;

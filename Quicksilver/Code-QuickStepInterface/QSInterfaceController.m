@@ -202,6 +202,7 @@
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSSwitchKeyboardOnActivation"] && savedKeyboard) {
         TISSelectInputSource(savedKeyboard);
         CFRelease(savedKeyboard);
+        savedKeyboard = nil;
     }
 }
 
@@ -349,7 +350,8 @@
     id actionProvider = [aObj provider];
     NSArray *indirects = nil;
     if (actionProvider && [actionProvider respondsToSelector:@selector(validIndirectObjectsForAction:directObject:)]) {
-        indirects = [actionProvider validIndirectObjectsForAction:[aObj identifier] directObject:[dSelector objectValue]];
+        QSObject *directObject = [[dSelector objectValue] resolvedObject];
+        indirects = [actionProvider validIndirectObjectsForAction:[aObj identifier] directObject:directObject];
     }
     // If the validIndirectObjectsForAction... method hasn't been implemented, attempt to get valid indirects from the action's 'indirectTypes'
     if(!indirects) {
@@ -654,6 +656,7 @@
 	if (VERBOSE) NSLog(@"Encapsulating Command");
 #endif
 	QSCommand *commandObject = [self currentCommand];
+    [self clearObjectView:dSelector];
 	[self selectObject:commandObject];
 	[self actionActivate:commandObject];
 }

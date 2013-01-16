@@ -55,7 +55,6 @@
 - (NSString *)toolTip;
 - (BOOL)drawIconInRect:(NSRect)rect flipped:(BOOL)flipped;
 - (NSString *)kind;
-- (QSBasicObject *)resolvedObject;
 - (void)becameSelected;
 @end
 

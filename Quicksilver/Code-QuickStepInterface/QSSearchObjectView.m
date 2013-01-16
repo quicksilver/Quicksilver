@@ -306,7 +306,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (NSRectEdge)preferredEdge { return preferredEdge; }
 - (void)setPreferredEdge:(NSRectEdge)newPreferredEdge { preferredEdge = newPreferredEdge; }
 
-- (NSString *)matchedString { return matchedString; }
+- (NSString *)matchedString { return [[matchedString retain] autorelease]; }
 - (void)setMatchedString:(NSString *)newMatchedString {
     if (matchedString != newMatchedString) {
         [matchedString release];
@@ -1860,9 +1860,8 @@ NSMutableDictionary *bindingsDict = nil;
         object = [(QSRankedObject *)object object];
     }
     // resolve proxy objects
-    if ([object isKindOfClass:[QSProxyObject class]]) {
-        object = [(QSProxyObject *)object resolvedObject];
-    }
+    object = [object resolvedObject];
+    
     if ([object validPaths] || [[object primaryType] isEqualToString:QSURLType]) {
         quicklookObject = [object retain];
         savedSearchMode = searchMode;

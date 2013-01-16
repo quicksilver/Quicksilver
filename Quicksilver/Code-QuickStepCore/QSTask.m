@@ -37,7 +37,7 @@ static NSMutableDictionary *tasksDictionary = nil;
 	QSTask *task = [tasksDictionary objectForKey:identifier];
 	if (!task)
 		task = [[[QSTask alloc] initWithIdentifier:identifier] autorelease];
-	return task;
+	return [[task retain] autorelease];
 }
 
 + (QSTask *)findTaskWithIdentifier:(NSString *)identifier {
@@ -181,10 +181,12 @@ static NSMutableDictionary *tasksDictionary = nil;
 }
 
 - (void)setName:(NSString *)value {
-	if (name != value) {
-		[name release];
-		name = [value copy];
-	}
+    runOnMainQueueSync(^{
+        if (name != value) {
+            [name release];
+            name = [value copy];
+        }
+    });
 }
 
 - (NSString *)status {
@@ -192,21 +194,23 @@ static NSMutableDictionary *tasksDictionary = nil;
 }
 
 - (void)setStatus:(NSString *)value {
-    @synchronized(status) {
+    runOnMainQueueSync(^{
         if (status != value) {
             [status release];
             status = [value copy];
         }
-    }
+    });
 }
 
 - (CGFloat) progress {
 	return progress;
 }
 - (void)setProgress:(CGFloat)value {
-	if (progress != value) {
-		progress = value;
-	}
+    runOnMainQueueSync(^{
+        if (progress != value) {
+            progress = value;
+        }
+    });
 }
 
 - (QSObject *)result {
@@ -224,7 +228,9 @@ static NSMutableDictionary *tasksDictionary = nil;
 }
 
 - (void)setCancelAction:(SEL)value {
-	cancelAction = value;
+    runOnMainQueueSync(^{
+        cancelAction = value;
+    });
 }
 
 - (id)cancelTarget {
@@ -260,10 +266,12 @@ static NSMutableDictionary *tasksDictionary = nil;
 }
 
 - (void)setIcon:(NSImage *)newIcon {
-	if (icon != newIcon) {
-		[icon release];
-		icon = [newIcon retain];
-	}
+    runOnMainQueueSync(^{
+        if (icon != newIcon) {
+            [icon release];
+            icon = [newIcon retain];
+        }
+    });
 }
 
 

@@ -79,7 +79,7 @@ extern QSLibrarian *QSLib; // Shared Instance
 - (void)startThreadedAndForcedScan;
 - (IBAction)forceScanCatalog:(id)sender;
 - (IBAction)scanCatalog:(id)sender;
-- (void)scanCatalogWithDelay:(id)sender;
+- (void)scanCatalogWithDelay:(id)sender __attribute__((deprecated));
 - (BOOL)itemIsOmitted:(QSBasicObject *)item;
 - (void)setItem:(QSBasicObject *)item isOmitted:(BOOL)omit;
 #ifdef DEBUG

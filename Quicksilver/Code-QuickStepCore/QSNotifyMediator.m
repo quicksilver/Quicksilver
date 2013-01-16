@@ -17,11 +17,12 @@ BOOL QSShowNotifierWithAttributes(NSDictionary *attributes) {
 - (id <QSNotifier>) preferredNotifier {
 	id <QSNotifier> mediator = [prefInstances objectForKey:kQSNotifiers];
 	if (!mediator) {
-        if ([NSApplication isMountainLion]) {
-            mediator = [self instanceForKey:[[NSUserDefaults standardUserDefaults] stringForKey:kQSNotifiers] inTable:kQSNotifiers];
-        } else {
+        NSString *userPref = [[NSUserDefaults standardUserDefaults] stringForKey:kQSNotifiers];
+        if (![NSApplication isMountainLion] && [userPref isEqualToString:@"com.apple.NotificationCenter"]) {
             // drop10.7: ugly hack - when Notification Center becomes the default, remove this
             mediator = [self instanceForKey:@"com.blacktree.Quicksilver" inTable:kQSNotifiers];
+        } else {
+            mediator = [self instanceForKey:userPref inTable:kQSNotifiers];
         }
 		if (mediator)
 			[prefInstances setObject:mediator forKey:kQSNotifiers];

@@ -31,6 +31,8 @@ NSDictionary *enabledPresetDictionary;*/
 
 @implementation QSCatalogEntry
 
+@synthesize isScanning, contents = contents;
+
 + (BOOL)accessInstanceVariablesDirectly {return YES;}
 
 + (QSCatalogEntry *)entriesWithArray:(NSArray *)array { return nil; }
@@ -62,7 +64,7 @@ NSDictionary *enabledPresetDictionary;*/
 	if (self = [super init]) {
 		info = [dict mutableCopy];
 		children = nil; contents = nil; indexDate = nil;
-
+        
 		NSArray *childDicts = [dict objectForKey:kItemChildren];
 		if (childDicts) {
 			NSMutableArray *newChildren = [NSMutableArray array];
@@ -71,6 +73,8 @@ NSDictionary *enabledPresetDictionary;*/
 			}
 			children = [newChildren retain];
 		}
+        // create a serial dispatch queue to make scan processes serial for each catalog entry
+        scanQueue = dispatch_queue_create([[NSString stringWithFormat:@"QSCatalogEntry scanQueue: %@",[dict objectForKey:kItemID]] UTF8String], NULL);
 	}
 	return self;
 }
@@ -90,6 +94,8 @@ NSDictionary *enabledPresetDictionary;*/
 	[children release];
 	[info release];
 	[contents release];
+    dispatch_release(scanQueue);
+    scanQueue = NULL;
 	[super dealloc];
 }
 
@@ -211,8 +217,10 @@ NSDictionary *enabledPresetDictionary;*/
 		[[QSLibrarian sharedInstance] setPreset:self isEnabled:enabled];
 	else
 		[info setObject:[NSNumber numberWithBool:enabled] forKey:kItemEnabled];
-	if (enabled && ![[self contents] count])
-		[NSThread detachNewThreadSelector:@selector(scanForcedInThread:) toTarget:self withObject:[NSNumber numberWithBool:NO]];
+	if (enabled && ![[self contents] count]) {
+        [self scanForced:YES];
+    }
+    [QSLib writeCatalog:self];
 }
 
 - (void)setDeepEnabled:(BOOL)enabled {
@@ -426,20 +434,23 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (void)saveIndex {
-	
+    runOnQueueSync(scanQueue, ^{
 #ifdef DEBUG
-	if (DEBUG_CATALOG) NSLog(@"saving index for %@", self);
+        if (DEBUG_CATALOG) NSLog(@"saving index for %@", self);
 #endif
-	
-	[self setIndexDate:[NSDate date]];
-	NSString *key = [self identifier];
-	NSString *path = [pIndexLocation stringByStandardizingPath];
-   
-    // Lock the 'contents' mutablearray so that it cannot be changed whilst it's being written to file
-    @synchronized(contents) {
-        NSArray *writeArray = [contents arrayByPerformingSelector:@selector(dictionaryRepresentation)];
-        [writeArray writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
-    }
+        
+        [self setIndexDate:[NSDate date]];
+        NSString *key = [self identifier];
+        NSString *path = [pIndexLocation stringByStandardizingPath];
+
+        @try {
+            NSArray *writeArray = [contents arrayByPerformingSelector:@selector(dictionaryRepresentation)];
+            [writeArray writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Exception whilst saving catalog entry %@\ncontents: %@\nException: %@",[self name],contents,exception);
+        }
+    });
 }
 
 
@@ -452,18 +463,29 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (BOOL)indexIsValid {
-	NSFileManager *manager = [NSFileManager defaultManager];
-	NSString *indexPath = [[[pIndexLocation stringByStandardizingPath] stringByAppendingPathComponent:[self identifier]]stringByAppendingPathExtension:@"qsindex"];
-	if (![manager fileExistsAtPath:indexPath isDirectory:nil])
-		return NO;
-	if (!indexDate)
-		[self setIndexDate:[[manager attributesOfItemAtPath:indexPath error:NULL] fileModificationDate]];
-	NSNumber *modInterval = [info objectForKey:kItemModificationDate];
-	if (modInterval) {
-		NSDate *specDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[modInterval doubleValue]];
-		if ([specDate compare:indexDate] == NSOrderedDescending) return NO; //Catalog Specification is more recent than index
-	}
-	return [[self source] indexIsValidFromDate:indexDate forEntry:info];
+    __block BOOL isValid = YES;
+    runOnQueueSync(scanQueue,^{
+        NSFileManager *manager = [NSFileManager defaultManager];
+        NSString *indexPath = [[[pIndexLocation stringByStandardizingPath] stringByAppendingPathComponent:[self identifier]]stringByAppendingPathExtension:@"qsindex"];
+        if (![manager fileExistsAtPath:indexPath isDirectory:nil]) {
+            isValid = NO;
+        }
+        if (isValid) {
+            if (!indexDate)
+                [self setIndexDate:[[manager attributesOfItemAtPath:indexPath error:NULL] fileModificationDate]];
+            NSNumber *modInterval = [info objectForKey:kItemModificationDate];
+            if (modInterval) {
+                NSDate *specDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[modInterval doubleValue]];
+                if ([specDate compare:indexDate] == NSOrderedDescending) {
+                    isValid = NO; //Catalog Specification is more recent than index
+                }
+            }
+        }
+        if (isValid) {
+            isValid = [[self source] indexIsValidFromDate:indexDate forEntry:info];
+        }
+    });
+    return isValid;
 }
 
 - (id)source {
@@ -502,66 +524,61 @@ NSDictionary *enabledPresetDictionary;*/
 #endif
 		return nil;
 	} else {
-		[self setIsScanning:YES];
-        NSString *ID = [self identifier];
-        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-        [nc postNotificationName:QSCatalogEntryIsIndexing object:self];
-        NSArray *itemContents = [self scannedObjects];
-		if (itemContents && ID) {
-            [self setContents:itemContents];
-            QSObjectSource *source = [self source];
-            if (![source respondsToSelector:@selector(entryCanBeIndexed:)] || [source entryCanBeIndexed:[self info]]) {
-                [self saveIndex];
+        __block NSArray *itemContents = nil;
+        // Use a serial queue to do the grunt of the scan work. Ensures that no more than one thread can scan at any one time.
+        runOnQueueSync(scanQueue, ^{
+            [self setIsScanning:YES];
+            [self willChangeValueForKey:@"self"];
+            NSString *ID = [self identifier];
+            NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+            [nc postNotificationName:QSCatalogEntryIsIndexing object:self];
+            itemContents = [self scannedObjects];
+            if (itemContents && ID) {
+                [self setContents:itemContents];
+                QSObjectSource *source = [self source];
+                if (![source respondsToSelector:@selector(entryCanBeIndexed:)] || [source entryCanBeIndexed:[self info]]) {
+                    [self saveIndex];
+                }
+            } else if (ID) {
+                [self setContents:nil];
             }
-        } else if (ID) {
-            [self setContents:nil];
-        }
-        [self willChangeValueForKey:@"self"];
-        [self didChangeValueForKey:@"self"];
-        [nc postNotificationName:QSCatalogEntryIndexed object:self];
-        [self setIsScanning:NO];
+            [self didChangeValueForKey:@"self"];
+            [nc postNotificationName:QSCatalogEntryIndexed object:self];
+            [self setIsScanning:NO];
+        });
         return itemContents;
     }
 }
 
-- (void)scanForcedInThread:(NSNumber *)force {
-
-	@autoreleasepool {
-        [[[QSLibrarian sharedInstance] scanTask] startTask:nil];
-        [self scanForced:[force boolValue]];
-        [[[QSLibrarian sharedInstance] scanTask] stopTask:nil];
+- (void)scanForced:(BOOL)force {
+    if ([self isSeparator] || ![self isEnabled]) {
+        return;
     }
-}
-
-- (NSArray *)scanForced:(BOOL)force {
-	if ([self isSeparator] || ![self isEnabled]) return nil;
-	if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
+    if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
         @autoreleasepool {
             for(QSCatalogEntry * child in children) {
                 [child scanForced:force];
             }
         }
-		return nil;
-	}
-	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:@"Checking: %@", [self name]]];
-	BOOL valid = [self indexIsValid];
-	if (valid && !force) {
-		
+        return;
+    }
+    [[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:NSLocalizedString(@"Checking: %@", @"Catalog task checking (%@ => source name)"), [self name]]];
+    BOOL valid = [self indexIsValid];
+    if (valid && !force) {
 #ifdef DEBUG
-		if (DEBUG_CATALOG) NSLog(@"\tIndex is valid for source: %@", name);
+        if (DEBUG_CATALOG) NSLog(@"\tIndex is valid for source: %@", name);
 #endif
-		
-		return [self contents];
-	}
-	
+        return;
+    }
+    
 #ifdef DEBUG
-	if (DEBUG_CATALOG)
-		NSLog(@"Scanning source: %@%@", [self name] , (force?@" (forced) ":@""));
+    if (DEBUG_CATALOG)
+        NSLog(@"Scanning source: %@%@", [self name] , (force?@" (forced) ":@""));
 #endif
-	
-	[[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:@"Scanning: %@", [self name]]];
-	[self scanAndCache];
-	return nil;
+    
+    [[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:NSLocalizedString(@"Scanning: %@", @"Catalog task scanning (%@ => source name)"), [self name]]];
+    [self scanAndCache];
+    return;
 }
 
 - (NSMutableArray *)children { return children; }
@@ -578,13 +595,6 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (NSArray *)contents { return [self contentsScanIfNeeded:NO]; }
-- (NSArray *)_contents { return contents; }
-- (void)setContents:(NSArray *)newContents {
-	if(newContents != contents){
-		[contents release];
-		contents = [newContents mutableCopy];
-	}
-}
 
 - (NSArray *)contentsScanIfNeeded:(BOOL)canScan {
 	if (![self isEnabled]) {
@@ -627,11 +637,6 @@ NSDictionary *enabledPresetDictionary;*/
 	//	NSLog(@"date %@ ->%@", indexDate, anIndexDate);
 	[indexDate release];
 	indexDate = [anIndexDate retain];
-}
-
-- (BOOL)isScanning { return isScanning;  }
-- (void)setIsScanning:(BOOL)flag {
-	isScanning = flag;
 }
 
 @end

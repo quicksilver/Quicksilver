@@ -1,3 +1,99 @@
+## Changes - ß71 (3942) ##
+
+### New ###
+
+  * **Release Notes are shown by default** after each upgrade. This can be disabled by setting a [hidden preference][hidden]. (#1208)
+  * New icons from [Dan Deming-Henes](http://strandeddesign.com) (#1129)
+  * Translations for Czech, French, German, Spanish, Welsh, and Chinese (Taiwan). See the [Transifex project](https://www.transifex.com/projects/p/quicksilver/) for the status of these and other languages (not necessarily reflected in this release). (#1209, #1282, #1301)
+  * Modernized the look of the Bezel interface (#1140)
+  * Notification Center is now available as a notification handler in Mountain Lion (set as default) (#867, #1132, #1262)
+  * An application's iCloud documents are shown (in addition to recent documents) when right-arrowing into the application (#1054, #1056, #1244, #1249)
+  * Catalog preset for iCloud documents (#1054, #1056)
+  * Holding ⌘ will select the alternate action if available (#1163)
+  * Alternate actions can now be seen in the Actions preferences (#1163)
+  * Alternate actions added for Move To…, Copy To…, Make Link In…, Run at Time…, and Open With… (#1163)
+  * Users can control which file types get preview icons by listing UTIs in the [hidden `QSFilePreviewTypes` preference][hidden] (#1149, #1180)
+  * Text entry mode allows undo, substitutions, etc. (#337, #127, #1173)
+  * The Large Type action can be used on text files (#1185)
+  * Allow non-admin users to install updates (#521, #1159)
+  * Right arrowing into URLs keeps links in order and link titles are more accurate (#1146, #1150)
+  * Enabled the "Open E-mail URL" action for e-mail addresses (#1194)
+  * Clear the selected pane with ⌃U (as in most Unix shells) (#1189)
+  * Descriptions added for all actions in the core application (#1124)
+  * Recent Objects and Recent Commands catalog entries are updated in real-time (#1106, #1111)
+  * Improvements to catalog scanning performance and reliability (#1232, #1278)
+  * Color QSObjects now support more icon sizes
+
+### Fixed ###
+
+  * Display the correct name after using the Rename… action (#1105, #1116)
+  * When changing a trigger hotkey, the old hotkey will be released by Quicksilver (#1104, #1107)
+  * Catalog settings are saved when entries are removed (#569, #1108)
+  * Item details will always be up to date (#1148, #1151)
+  * Icons in the results list are correctly updated when they finish loading (#1200)
+  * Icons for proxy objects are correctly updated if the underlying object's icon changes (#1200)
+  * Prevent ⇧⌘[letter] shortcuts from making the application unresponsive (#1122, #1160)
+  * Latest Download proxy object is more reliable under Mountain Lion (#1102, #1109)
+  * Triggers can refer to multiple files/folders/applications (using the comma trick) (#555, #1112, #1271, #1272)
+  * The interface will appear above full-screen applications (#740, #1138)
+  * Cursor color matches text color (to improve visibility) in text entry mode (#1171, #1173)
+  * Enabled/disabled catalog entries are preserved across restarts (#1232)
+  * Prevent a crash when resetting preferences
+  * Prevent Primer from starting to look strange when typing in text entry mode
+  * Make docking windows completely transparent when they're off screen (#1064)
+  * Favorite Servers, Recent Servers, and Disks presets work again (#891, #1128)
+  * Finder Toolbar Items and Finder Sidebar Items presets work again (#683, #1169)
+  * The Printers preset has an icon again (#1128, #1156)
+  * Fixes for count badges (#1129)
+  * Items are ranked correctly when no search string is provided (#1162)
+  * Fall back to US English when no localization is available for the current language (#1233, #1234)
+  * Removed invalid Finder actions to prevent crashes (#1242, #1252)
+  * Prevent a crash when using custom keyboard layout (#1254, #1256)
+  * Prevent actions from appearing more than once (#1259, #1260)
+  * Resolve proxy objects before deciding what should appear in the third pane (#1248)
+  * Release notes will open in the default web browser, regardless of the preferred application for HTML files (#1280, #1284)
+  * Variables for Tasks are changed on the main thread (#1319)
+  * Bug fixes and internal improvements (#921, #840, #1114, #1180, #1206, #1211, #1238, #1239, #1257, #1248, #1279, #1319, #1321, #1323)
+
+### Changed ###
+
+  * Only show name when the label doesn't match the search at all (#1062, #1231)
+  * When showing the name, keep the label visible too. Shows as “label ⟷ name” (#1117)
+  * Always show details if the interface supports them (#1148, #1151)
+  * When full details can't be displayed, truncate in the middle (#525, #1151)
+  * Prevent the Paste and Rename… actions from appearing when multiple items are selected (#593, #1167, #1116)
+  * Don't dismiss the interface when a docking window (Shelf/Clipboard) appears (#337, #1173)
+  * Many proxy objects simplified and converted to regular objects with children (#654, #1128)
+  * References to Sherlock removed (#1128)
+  * Removed the Finder Search Locations catalog preset (#1169)
+  * Removed the duplicate Run[…] action. It's provided by the Terminal plug-in. (#1199)
+  * The Move to Trash action won't appear for files on network volumes (#1180)
+  * Better feedback from the Move to Trash action if one or more files can't be trashed (#1180)
+  * The Open With… action now lists all applications in the catalog (#1184, #1180)
+  * User visible notifications are used in place of Console messages in many places
+
+### Development ###
+
+  * Improvements to the localization process - or is it “localisation”? (#1125)
+  * New dedicated type for Web Search URLs: `QSSearchURLType` (#625, #1082)
+  * New method to return the "big cat" OS version (i.e. 10.x) (#1128)
+  * Filter the third pane based on an action's `indirectTypes` (#1120)
+  * New methods available for QSObjects that represent files: `isPackage`, `isAlias`, `isDirectory`, `fileExtension`, and `fileUTI`. Improved `isApplication` and `isFolder`. (#1180)
+  * Overhaul the way icons are loaded in the background (using GCD) for the results list (#1142)
+  * `directFileTypes` can now be a UTI (not just an extension) (#1185)
+  * New helper method for passing input data to an NSTask (#1127)
+  * The `*` in the settings for `QSDefaultsObjectSource` can now go through dictionaries (#1169)
+  * Improvements to the `qs-push-plugin` script (#1060, #1061)
+  * New `scoredArrayForType:` method in QSLibrarian to get a list of objects sorted by rank (#1162)
+  * Styles defined for definition lists in documentation (#1200)
+  * Proxy object overhaul (#1248)
+    * New `isProxyObject` method for testing `QSObject`s
+    * Proxies return a `QSObject` when resolved instead of a `QSBasicObject`
+    * All code specific to proxy objects was moved from `QSObject` to `QSProxyObject`
+  * New `QSGCD` class for easily handing blocks to a specific queue (#1319)
+
+[hidden]: http://qsapp.com/wiki/Hidden_Defaults
+
 ## Changes - ß70 (3935) ##
 
 ### New ###
