@@ -42,7 +42,7 @@ NSMutableDictionary *kindDescriptions = nil;
 
 @implementation QSResultController
 
-@synthesize resultTable=resultTable;
+@synthesize resultTable=resultTable,currentResults,selectedItem;
 
 + (void)initialize {
     if (!kindDescriptions)
@@ -169,19 +169,6 @@ NSMutableDictionary *kindDescriptions = nil;
 
 #pragma mark -
 #pragma mark Accessors, Utilities
-- (NSArray *)currentResults { return currentResults; }
-- (void)setCurrentResults:(NSArray *)newCurrentResults {
-	[currentResults release];
-	currentResults = [newCurrentResults retain];
-}
-
-- (QSObject *)selectedItem { return selectedItem; }
-- (void)setSelectedItem:(QSObject *)newSelectedItem {
-	if (selectedItem != newSelectedItem) {
-		[selectedItem release];
-		selectedItem = [newSelectedItem retain];
-	}
-}
 
 - (void)reloadColors {
 	NSData *data = [[NSUserDefaultsController sharedUserDefaultsController] valueForKeyPath:@"values.QSAppearance3B"];

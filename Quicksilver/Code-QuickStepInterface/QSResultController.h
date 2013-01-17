@@ -51,6 +51,8 @@
 
 
 @property (retain) IBOutlet NSTableView *resultTable;
+@property (retain) NSArray *currentResults;
+@property (retain) QSObject *selectedItem;
 
 + (id)sharedInstance;
 
