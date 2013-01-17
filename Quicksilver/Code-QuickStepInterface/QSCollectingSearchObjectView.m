@@ -115,7 +115,7 @@
 	[super selectObjectValue:newObject];
 }
 - (void)setObjectValue:(QSBasicObject *)newObject {
-	if (collecting) {
+	if (!collecting) {
         [self emptyCollection:self];
     }
     // If the new object is 'nil' (i.e. the pane has been cleared) then also clear the underlying text editor (for the 1st pane only)

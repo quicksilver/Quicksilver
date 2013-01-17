@@ -666,6 +666,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     if (extension) {
         [tempDict setObject:extension forKey:@"extension"];
     }
+    [extension release];
     dict = [NSDictionary dictionaryWithDictionary:tempDict];
 	/* Release the file's extension if one was returned */
 	if (record.extension)

@@ -250,7 +250,14 @@
 
 	if (depth) depth--;
 
-	NSDate *moddate = [[self attributesOfItemAtPath:path error:NULL] fileModificationDate];
+    NSError *err = nil;
+	NSDate *moddate = [[self attributesOfItemAtPath:path error:&err] fileModificationDate];
+    if (err) {
+        NSLog(@"Error: %@", err);
+    }
+    if (!moddate) {
+        return date;
+    }
 
 	if ([date compare:moddate] == NSOrderedAscending && [moddate timeIntervalSinceNow] <0) {
 		return moddate;

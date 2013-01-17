@@ -17,6 +17,7 @@
 
 #define kQSCatalogEntryShowAction @"QSCatalogEntryShowAction"
 #define kQSCatalogEntryRescanAction @"QSCatalogEntryRescanAction"
+#define kQSCatalogAddEntryAction @"QSCatalogAddEntryAction"
 
 static BOOL firstCheck = NO;
 static NSImage *prefsCatalogImage = nil;
@@ -124,15 +125,59 @@ static NSImage *prefsCatalogImage = nil;
 	[action2 setIcon:[QSResourceManager imageNamed:@"prefsCatalog"]];
 	[action2 setProvider:self];
 	[action2 setAction:@selector(rescan:)];
-	return [NSArray arrayWithObjects:action, action2, nil];
+    QSAction *action3 = [QSAction actionWithIdentifier:kQSCatalogAddEntryAction];
+    [action3 setIcon:[QSResourceManager imageNamed:@"prefsCatalog"]];
+    [action3 setProvider:self];
+    [action3 setAction:@selector(addCatalogEntry:)];
+    return [NSArray arrayWithObjects:action, action2, action3, nil];
 }
 
 - (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
-	return [NSArray arrayWithObjects:kQSCatalogEntryShowAction, kQSCatalogEntryRescanAction, nil];
+    if ([dObject count] == 1) {
+        return [NSArray arrayWithObjects:kQSCatalogEntryShowAction, kQSCatalogEntryRescanAction, kQSCatalogAddEntryAction, nil];
+    }
+    return nil;
 }
 
 - (QSObject *)show:(QSObject *)dObject {
-    [NSClassFromString(@"QSCatalogPrefPane") performSelectorOnMainThread:@selector(showEntryInCatalog:) withObject:[[QSLibrarian sharedInstance] entryForID:[dObject objectForType:QSCatalogEntryPboardType]] waitUntilDone:NO];
+	
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        id catalogPrefsClass = NSClassFromString(@"QSCatalogPrefPane");
+        [catalogPrefsClass showEntryInCatalog:[QSLib entryForID:[dObject objectForType:QSCatalogEntryPboardType]]];
+        [[catalogPrefsClass sharedInstance] reloadData];
+        [[catalogPrefsClass sharedInstance] selectEntry:[QSLib entryForID:[dObject objectForType:QSCatalogEntryPboardType]]];
+        [[catalogPrefsClass sharedInstance] showOptionsDrawer];
+    });
+    return nil;
+}
+
+- (QSObject *)addCatalogEntry:(QSObject *)dObject {
+    QSCatalogEntry *parentEntry = [[QSLibrarian sharedInstance] catalogCustom];
+    
+    NSString *file = [[dObject objectForType:NSFilenamesPboardType] stringByStandardizingPath];
+    NSString *uniqueString = [NSString uniqueString];
+    
+    NSMutableDictionary *childDict = [NSMutableDictionary dictionary];
+    [childDict setObject:uniqueString forKey:kItemID];
+	[childDict setObject:[NSNumber numberWithBool:YES] forKey:kItemEnabled];
+
+    [childDict setObject:[file lastPathComponent] forKey:kItemName];
+	[childDict setObject:@"QSFileSystemObjectSource" forKey:kItemSource];
+
+    [childDict setObject:[dObject arrayForType:NSFilenamesPboardType] forKey:kItemPath];
+    [childDict setObject:[NSNumber numberWithFloat:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
+    
+    QSCatalogEntry *childEntry = [QSCatalogEntry entryWithDictionary:childDict];
+    
+    [[parentEntry children] addObject:childEntry];
+    [[childEntry info] setObject:[NSMutableDictionary dictionaryWithObject:file forKey:kItemPath] forKey:kItemSettings];
+    [[childEntry info] setObject:[NSNumber numberWithDouble:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
+    [childEntry scanForced:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogStructureChanged object:nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChanged object:childEntry];
+    [dObject setObject:uniqueString forType:QSCatalogEntryPboardType];
+    
+    [self show:dObject];
     return nil;
 }
 

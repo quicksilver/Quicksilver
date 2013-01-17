@@ -245,7 +245,8 @@
 - (void)assignURLTypesWithURL:(NSString *)urlString
 {
     [[self dataDictionary] setObject:urlString forKey:QSURLType];
-    if ([[NSURL URLWithString:[urlString URLEncoding]] scheme])
+    // Apple's 'URLWithString' method incorrectly deals with IP addresses, check for @"://" in the string as well
+    if ([urlString rangeOfString:@"://"].location != NSNotFound && [[NSURL URLWithString:[urlString URLEncoding]] scheme])
     {
         [self setObject:urlString forType:QSURLType];
     } else {

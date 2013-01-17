@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSPresetABMailRecents</key>
+    <string>Mail Önceki Alıcıları</string>
+    <key>QSPresetUserGroup</key>
+    <string>Kullanıcı</string>
+    <key>QSPresetDownloads</key>
+    <string>İndirmeler</string>
+    <key>QSPresetDocuments</key>
+    <string>Belgeler</string>
+    <key>QSPresetICloudDocuments</key>
+    <string>iCloud Belgeleri</string>
+    <key>QSPresetAccounts</key>
+    <string>Kullanıcı Hesapları</string>
+    <key>QSPresetProxies</key>
+    <string>Vekil Sunucu Nesneleri</string>
+    <key>QSPresetAddressBook</key>
+    <string>Adres Defteri Kişileri</string>
+    <key>QSPresetAddressBookGroup</key>
+    <string>Adres Defteri</string>
+    <key>QSPresetAddressBookScripts</key>
+    <string>Betikler (Adres Defteri)</string>
+    <key>QSPresetAllApplications</key>
+    <string>Tüm Uygulamaları Bul</string>
+    <key>QSPresetAllRecentDocuments</key>
+    <string>Tüm Son Belgeler</string>
+    <key>QSPresetApplicationSpecificGroup</key>
+    <string>Uygulama setleri</string>
+    <key>QSPresetApplications</key>
+    <string>Uygulamalar</string>
+    <key>QSPresetBrowsersGroup</key>
+    <string>Yer İmleri</string>
+    <key>QSPresetBuffers</key>
+    <string>Arabellek İçeriği</string>
+    <key>QSPresetCaminoBookmarks</key>
+    <string>Camino Yer İmleri</string>
+    <key>QSPresetClassicApplications</key>
+    <string>Uygulamalar (Mac OS 9)</string>
+    <key>QSPresetClipboardContents</key>
+    <string>Pano İçeriği</string>
+    <key>QSPresetCommandHistory</key>
+    <string>Son Komutlar</string>
+    <key>QSPresetConfiguration</key>
+    <string>Yapı Bilgileri</string>
+    <key>QSPresetContacts</key>
+    <string>Kişiler</string>
+    <key>QSPresetDVDPlayerScripts</key>
+    <string>DVD Oynatıcı Betikleri</string>
+    <key>QSPresetDesktop</key>
+    <string>Masaüstü</string>
+    <key>QSPresetDeveloper</key>
+    <string>Geliştirici</string>
+    <key>QSPresetDeveloperAddressBookDocs</key>
+    <string>AddressBook</string>
+    <key>QSPresetDeveloperAppKit</key>
+    <string>Uygulama Takımı</string>
+    <key>QSPresetDeveloperAppKitDocumentation</key>
+    <string>Uygulama Takımı Belgelemeleri</string>
+    <key>QSPresetDeveloperAppKitHeaders</key>
+    <string>Uygulama Takımı Başlıkları</string>
+    <key>QSPresetDeveloperApplications</key>
+    <string>Uygulamalar (Geliştirici)</string>
+    <key>QSPresetDeveloperCoreFoundationHeaders</key>
+    <string>CoreFoundation Başlıkları</string>
+    <key>QSPresetDeveloperFoundation</key>
+    <string>Vakıf</string>
+    <key>QSPresetDeveloperFoundationDocumentation</key>
+    <string>Vakıf Belgelemeleri</string>
+    <key>QSPresetDeveloperFoundationHeaders</key>
+    <string>Vakıf Başlıkları</string>
+    <key>QSPresetDeveloperFrameworks</key>
+    <string>Çerçeveleme</string>
+    <key>QSPresetDeveloperOtherDocs</key>
+    <string>Diğer Belgelemeler</string>
+    <key>QSPresetDeveloperPreferencePaneDocs</key>
+    <string>PreferencePanes</string>
+    <key>QSPresetDeveloperPrivateFrameworks</key>
+    <string>Gizli Çerçevelemeler</string>
+    <key>QSPresetDeveloperPublicFrameworks</key>
+    <string>Açık Çerçevelemeler</string>
+    <key>QSPresetDeveloperScreenSaverDocs</key>
+    <string>ScreenSaver</string>
+    <key>QSPresetDeveloperWebKitDocs</key>
+    <string>WebKit</string>
+    <key>QSPresetDevices</key>
+    <string>Aygıtlar</string>
+    <key>QSPresetDockApplications</key>
+    <string>Dock Uygulamaları</string>
+    <key>QSPresetDockGroup</key>
+    <string>Dock</string>
+    <key>QSPresetDockOthers</key>
+    <string>Dock Dosya ve Klasörleri</string>
+    <key>QSPresetFavorites</key>
+    <string>Gözdeler</string>
+    <key>QSPresetFinderGroup</key>
+    <string>Finder</string>
+    <key>QSPresetFinderRecentFolders</key>
+    <string>Son Klasörler (Finder)</string>
+    <key>QSPresetFinderSpecificSearchPlaces</key>
+    <string>Finder Belirli Arama Konumları</string>
+    <key>QSPresetFinderToolbarItems</key>
+    <string>Finder Araç Çubuğu Öğeleri</string>
+    <key>QSPresetFirefoxBookmarks</key>
+    <string>Firefox Yer İmleri</string>
+    <key>QSPresetGlobalPrefsRecentFolders</key>
+    <string>Son Klasörler (Aç &amp; Kaydet)</string>
+    <key>QSPresetHome</key>
+    <string>Ev</string>
+    <key>QSPresetICabBookmarks</key>
+    <string>iCab Yer İmleri</string>
+    <key>QSPresetInternalMessages</key>
+    <string>İçsel Komutlar</string>
+    <key>QSPresetInternalObjects</key>
+    <string>İçsel Nesneler</string>
+    <key>QSPresetIEBookmarks</key>
+    <string>Internet Explorer Yer İmleri</string>
+    <key>QSPresetIEGroup</key>
+    <string>Internet Explorer</string>
+    <key>QSPresetIEHistory</key>
+    <string>Internet Explorer Geçmişi</string>
+    <key>QSPresetILifeGroup</key>
+    <string>iLife</string>
+    <key>QSPresetITunesGroup</key>
+    <string>iTunes</string>
+    <key>QSPresetInternetGroup</key>
+    <string>Genel Ağ</string>
+    <key>QSPresetKeyCaps</key>
+    <string>Anahtar kepleri</string>
+    <key>QSPresetKeychains</key>
+    <string>Anahtar Zinciri </string>
+    <key>QSPresetLibraryPreferencePanes</key>
+    <string>Sistem Tercihleri (Tüm Kullanıcılar)</string>
+    <key>QSPresetLibraryScripts</key>
+    <string>Betikler (Tüm Kullanıcılar)</string>
+    <key>QSPresetMainApplications</key>
+    <string>Uygulamalar</string>
+    <key>QSPresetMiscellaneousGroup</key>
+    <string>Diğer</string>
+    <key>QSPresetModules</key>
+    <string>Eklentiler</string>
+    <key>QSPresetMozillaBookmarks</key>
+    <string>Mozilla Yer İmleri</string>
+    <key>QSPresetNNWSubscriptions</key>
+    <string>NetNewsWire Sürdürümleri</string>
+    <key>QSPresetNUDCContacts</key>
+    <string>Yeni Kişi</string>
+    <key>QSPresetNetscapeBookmarks</key>
+    <string>Netscape Yer İmleri</string>
+    <key>QSPresetNetworkLocations</key>
+    <string>Ağ Konumları</string>
+    <key>QSPresetOldCaminoBookmarks</key>
+    <string>Camino Yer İmleri (Eski)</string>
+    <key>QSPresetOmniWebBookmarks</key>
+    <string>OmniWeb Yer İmleri</string>
+    <key>QSPresetOmniWebFavorites</key>
+    <string>OmniWeb Gözdeleri</string>
+    <key>QSPresetOmniWebGroup</key>
+    <string>OmniWeb</string>
+    <key>QSPresetOmniWebHistory</key>
+    <string>OmniWeb Geçmişi</string>
+    <key>QSPresetOmniWebServerBookmarks</key>
+    <string>OmniWeb Yer İmleri (Sunucu)</string>
+    <key>QSPresetOmniWebShortcuts</key>
+    <string>OmniWeb Kısayolları</string>
+    <key>QSPresetOperaBookmarks</key>
+    <string>Opera Yer İmleri</string>
+    <key>QSPresetPathFinderGroup</key>
+    <string>Path Finder</string>
+    <key>QSPresetPathFinderRecentFiles</key>
+    <string>Path Finder Son Belgeler</string>
+    <key>QSPresetPathFinderRecentFolders</key>
+    <string>Path Finder Son Klasörler</string>
+    <key>QSPresetPreferencePanes</key>
+    <string>Tercih Panoları</string>
+    <key>QSPresetPresetGroup</key>
+    <string>Ön Ayarlar</string>
+    <key>QSPresetPrinters</key>
+    <string>Yazıcılar</string>
+    <key>QSPresetQSCatalogEntries</key>
+    <string>Quicksilver Katalog Girileri</string>
+    <key>QSPresetQSDefaultLinks</key>
+    <string>Başlatıcı URL&apos;leri</string>
+    <key>QSPresetQSExtraScripts</key>
+    <string>Betikler (QS Ek)</string>
+    <key>QSPresetQSGroup</key>
+    <string>Quicksilver</string>
+    <key>QSPresetRecentApplications106</key>
+    <string>Son Uygulamalar</string>
+    <key>QSPresetRecentDocuments106</key>
+    <string>Son Belgeler</string>
+    <key>QSPresetRecentItems</key>
+    <string>Son Öğeler</string>
+    <key>QSPresetRecentSelections</key>
+    <string>Son Seçimler</string>
+    <key>QSPresetRecentServers</key>
+    <string>Son Sunucular</string>
+    <key>QSPresetFavoriteServers</key>
+    <string>Gözde Sunucular</string>
+    <key>QSPresetRendezvous</key>
+    <string>Buluşma Sunucuları</string>
+    <key>QSPresetRendezvousMachines</key>
+    <string>Quicksilver Buluşması</string>
+    <key>QSPresetRoot</key>
+    <string>Kök</string>
+    <key>QSPresetRunningProcesses</key>
+    <string>Çalışan Uygulamalar &amp; İşlemler</string>
+    <key>QSPresetSafariBookmarks</key>
+    <string>Safari Yer İmleri</string>
+    <key>QSPresetSafariGroup</key>
+    <string>Safari</string>
+    <key>QSPresetSafariHistory</key>
+    <string>Safari Geçmişi</string>
+    <key>QSPresetScriptsGroup</key>
+    <string>Betikler</string>
+    <key>QSPresetShelves</key>
+    <string>Kabuk &amp; Pano</string>
+    <key>QSPresetSidebarItems</key>
+    <string>Finder Yan Çubuğu</string>
+    <key>QSPresetSogudiShortcuts</key>
+    <string>Sogudi Kısayolları</string>
+    <key>QSPresetSpeakableItems</key>
+    <string>Konuşulabilir Öğeler</string>
+    <key>QSPresetSpecial</key>
+    <string>Özel</string>
+    <key>QSPresetSystemGroup</key>
+    <string>Sistem</string>
+    <key>QSPresetSystemPreferencePanes</key>
+    <string>Sistem Tercihleri (Sistem)</string>
+    <key>QSPresetTrash</key>
+    <string>Çöp Kutusu</string>
+    <key>QSPresetUserApplications</key>
+    <string>Uygulamalar (Kullanıcı)</string>
+    <key>QSPresetUserPreferencePanes</key>
+    <string>Sistem Tercihleri (Kullanıcı)</string>
+    <key>QSPresetUserScripts</key>
+    <string>Betikler (Kullanıcı)</string>
+    <key>QSPresetUserWatsonTools</key>
+    <string>Watson Araçları (Kullanıcı)</string>
+    <key>QSPresetVolumes</key>
+    <string>Diskler</string>
+    <key>QSPresetWatsonGroup</key>
+    <string>Watson</string>
+    <key>QSPresetWirelessNetworks</key>
+    <string>Airport Ağları</string>
+    <key>QSPresetiPhotoAlbums</key>
+    <string>iPhoto Albümleri</string>
+    <key>QSPresetiTunesGroup</key>
+    <string>iTunes</string>
+    <key>QSPresetiTunesPlaylists</key>
+    <string>iTunes Arşivi</string>
+    <key>QSPresetiTunesScripts</key>
+    <string>iTunes Betikleri</string>
+    <key>QSPresetRemovableVolumes</key>
+    <string>Ağ ve Çıkarılabilir Diskler</string>
+  </dict>
+</plist>

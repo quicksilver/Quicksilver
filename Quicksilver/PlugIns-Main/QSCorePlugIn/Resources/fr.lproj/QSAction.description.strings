@@ -11,7 +11,7 @@
     <key>QSTextSpeakAction</key>
     <string>Lire le texte en utilisant Voiceover</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Faire un nouveau lien en dur dans le finder</string>
+    <string>Faire un nouveau lien en dur dans le Finder</string>
     <key>QSLoginItemAddAction</key>
     <string>Ajouter à la liste d&apos;ouverture automatique à l&apos;ouverture de session</string>
     <key>QSObjCSendMessageAction</key>
@@ -49,7 +49,7 @@
     <key>QSObjectSelectAction</key>
     <string>Sélectionner l&apos;élément dans l&apos;interface de Quicksilver</string>
     <key>FileGetInfoAction</key>
-    <string>Ouvrir la boîte de dialogue &apos;Lire les informations&apos; pour le fichier</string>
+    <string>Ouvrir la boîte de dialogue « Lire les informations » pour le fichier</string>
     <key>FileAlwaysOpenTypeWithAction</key>
     <string>Définir le type de fichier pour l&apos;ouvrir avec une application</string>
     <key>QSCommandSaveAction</key>

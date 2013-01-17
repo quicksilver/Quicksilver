@@ -16,7 +16,7 @@
 
 - (NSString *)detailsOfObject:(QSObject *)object {
     NSString *details = nil;
-    id provider = ( [object isKindOfClass:[QSProxyObject class]] ? [(QSProxyObject*)object proxyProvider] : nil );
+    id provider = ( [object isProxyObject] ? [(QSProxyObject*)object proxyProvider] : nil );
     if (provider && [provider respondsToSelector:@selector(detailsOfObject:)]) {
         details = [provider detailsOfObject:object];
     }
@@ -27,7 +27,7 @@
 
 - (NSString *)identifierForObject:(QSObject*)object {
     NSString *identifier = nil;
-    id provider = ( [object isKindOfClass:[QSProxyObject class]] ? [(QSProxyObject*)object proxyProvider] : nil );
+    id provider = ( [object isProxyObject] ? [(QSProxyObject*)object proxyProvider] : nil );
     if (provider && [provider respondsToSelector:@selector(identifierForObject:)]) {
         identifier = [provider identifierForObject:object];
     }
@@ -38,7 +38,7 @@
 
 - (BOOL)loadChildrenForObject:(QSObject *)object {
     BOOL loaded = NO;
-    id provider = ( [object isKindOfClass:[QSProxyObject class]] ? [(QSProxyObject*)object proxyProvider] : nil );
+    id provider = ( [object isProxyObject] ? [(QSProxyObject*)object proxyProvider] : nil );
     if (provider && [provider respondsToSelector:@selector(loadChildrenForObject:)]) {
         loaded = [provider loadChildrenForObject:object];
     }

@@ -545,7 +545,7 @@ static QSController *defaultController = nil;
 	} else {
 		QSObject *object = [[[self interfaceController] dSelector] objectValue];
 		if ([object isEqual:proxy]) return [[[self interfaceController] dSelector] previousObjectValue];
-    if ([object isKindOfClass:[QSProxyObject class]]) return nil;
+        if ([object isProxyObject]) return nil;
 		return object;
 	}
 	return nil;
@@ -771,7 +771,13 @@ static QSController *defaultController = nil;
     [fm release];
 }
 
-- (IBAction)showReleaseNotes:(id)sender { [[NSWorkspace sharedWorkspace] openFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/SharedSupport/Changes.html"]];  }
+- (IBAction)showReleaseNotes:(id)sender {
+    
+    NSURL *appURL = nil;
+    LSGetApplicationForURL((CFURLRef)[NSURL URLWithString:@"http://"], kLSRolesAll, NULL, (CFURLRef *)&appURL);
+    [[NSWorkspace sharedWorkspace] openFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/SharedSupport/Changes.html"] withApplication:[appURL path]];
+    [appURL release];
+}
 
 - (QSInterfaceController *)interfaceController { return [QSReg preferredCommandInterface];  }
 

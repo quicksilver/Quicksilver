@@ -39,13 +39,13 @@
     <key>ContactEmailAction</key>
     <string>Envoyer un mail</string>
     <key>ContactIMAction</key>
-    <string>M.I.</string>
+    <string>Contact IM</string>
     <key>ContactSendItemEmailAction</key>
-    <string>Envoyer l&apos;élément par mail</string>
+    <string>Envoyer l&apos;élément par email</string>
     <key>ContactSendItemIMAction</key>
-    <string>Envoyer l&apos;élément par chat</string>
+    <string>Envoyer l&apos;élément par IM</string>
     <key>ContactSendTextEmailAction</key>
-    <string>Envoyer le texte par mail</string>
+    <string>Envoyer le texte…</string>
     <key>ContactShowAction</key>
     <string>Afficher</string>
     <key>DiskEjectAction</key>
@@ -71,7 +71,7 @@
     <key>FileGetHFSPathAction</key>
     <string>Obtenir le chemin HFS</string>
     <key>FileMakeAliasInAction</key>
-    <string>Faire un Alias dans...</string>
+    <string>Faire un alias dans...</string>
     <key>FileMakeHardLinkInAction</key>
     <string>Faire un lien en dur dans...</string>
     <key>FileMakeLinkInAction</key>
@@ -101,7 +101,7 @@
     <key>PasteboardPasteActionAsPlainText</key>
     <string>Coller en tant que texte</string>
     <key>ProcessKillAction</key>
-    <string>Tuer</string>
+    <string>Forcer à quitter</string>
     <key>ProcessLowerPriorityAction</key>
     <string>Abaisser la priorité</string>
     <key>ProcessRaisePriorityAction</key>
@@ -117,29 +117,29 @@
     <key>QSAIMSMSAction</key>
     <string>Envoyer un SMS (AIM/iChat)</string>
     <key>QSAirPortNetworkSelectAction</key>
-    <string>Alterner Airport</string>
+    <string>Activer/désactiver Airport</string>
     <key>QSCLExecuteAction</key>
     <string>Exécuter</string>
     <key>QSCLExecuteTextAction</key>
-    <string>Exécuter la commande dans un shell</string>
+    <string>Exécuter la commande en Shell</string>
     <key>QSCLExecuteShellCommandAction</key>
-    <string>Exécuter la commande dans un shell</string>
+    <string>Exécuter la commande en Shell</string>
     <key>QSCLExecuteWithArgsAction</key>
     <string>Exécuter [...]</string>
     <key>QSCLTermExecuteTextAction</key>
     <string>Exécuter une commande dans un Terminal</string>
     <key>QSCLTermExecuteShellCommandAction</key>
-    <string>Exécuter une commande dans un Terminal</string>
+    <string>Exécuter une commande dans le Terminal</string>
     <key>QSCLTermExecuteWithArgsAction</key>
-    <string>Exécuter dans un Terminal [...]</string>
+    <string>Exécuter dans le Terminal [...]</string>
     <key>QSCLTermShowDirectoryAction</key>
-    <string>Aller au répertoire dans un Terminal</string>
+    <string>Aller au répertoire dans le Terminal</string>
     <key>QSCLTermShowManPageAction</key>
-    <string>Afficher la page de manuel</string>
+    <string>Afficher la page du manuel</string>
     <key>QSCatalogEntryRescanAction</key>
-    <string>Actualiser le Catalogue</string>
+    <string>Actualiser le catalogue</string>
     <key>QSCatalogEntryShowAction</key>
-    <string>Monter le Catalogue</string>
+    <string>Monter le catalogue</string>
     <key>QSCommandSaveAction</key>
     <string>Enregistrer la commande dans un fichier...</string>
     <key>QSCommandAddTriggerAction</key>
@@ -155,13 +155,13 @@
     <key>QSComposeEmailItemReverseAction</key>
     <string>Envoyer à... (Composer)</string>
     <key>QSCreateFileAction</key>
-    <string>Créer fichier [...]</string>
+    <string>Créer un fichier [...]</string>
     <key>QSCreateFileTemplate</key>
     <string>Faire un nouveau...</string>
     <key>QSDialNumberAction</key>
     <string>Composer</string>
     <key>QSEditAction</key>
-    <string>Edition</string>
+    <string>Édition</string>
     <key>QSEmailAction</key>
     <string>Envoyer</string>
     <key>QSEmailItemAction</key>
@@ -179,7 +179,7 @@
     <key>QSNewFolderAction</key>
     <string>Nouveau dossier...</string>
     <key>QSLargeTypeAction</key>
-    <string>Montrer en gros</string>
+    <string>Grande police</string>
     <key>QSLoginItemAddAction</key>
     <string>Ouvrir au démarrage de session</string>
     <key>QSLoginItemRemoveAction</key>
@@ -187,7 +187,7 @@
     <key>QSNUTDContactShowAction</key>
     <string>Afficher le contact</string>
     <key>QSNetworkLocationSelectAction</key>
-    <string>Utiliser cette Configuration Réseau</string>
+    <string>Utiliser cette configuration réseau</string>
     <key>QSObjCSendMessageAction</key>
     <string>Exécuter</string>
     <key>QSObjectSearchChildrenAction</key>
@@ -211,17 +211,17 @@
     <key>QSTextShowDialogAction</key>
     <string>Afficher la boîte de dialogue</string>
     <key>QSTextSpeakAction</key>
-    <string>Dire</string>
+    <string>Lire le texte (Parole)</string>
     <key>QSTextAppendAction</key>
-    <string>Ajouter le text...</string>
+    <string>Ajouter le texte…</string>
     <key>QSTextDiffAction</key>
-    <string>Différences avec...</string>
+    <string>Différences avec…</string>
     <key>QSTextPrependAction</key>
     <string>Insérer le texte...</string>
     <key>QSTextTypeAction</key>
     <string>Taper le texte</string>
     <key>QSUserSwitchAction</key>
-    <string>Commutation d&apos;utilisateur</string>
+    <string>Basculer vers l’utilisateur</string>
     <key>QSiPhotoAlbumShowAction</key>
     <string>Montrer l&apos;album</string>
     <key>QSiPhotoAlbumSlideShowAction</key>
@@ -233,9 +233,9 @@
     <key>ShellScriptRunAction</key>
     <string>Exécuter le script Shell</string>
     <key>URLEmailAction</key>
-    <string>Envoyer par mail</string>
+    <string>Envoyer par email</string>
     <key>URLFindWithAction</key>
-    <string>Retrouver avec...</string>
+    <string>Trouver sur le site…</string>
     <key>URLJSAction</key>
     <string>Exécuter Javascript</string>
     <key>URLOpenAction</key>
