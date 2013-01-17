@@ -270,8 +270,7 @@ static id _sharedInstance;
 
 	QSCatalogEntry *childEntry = [QSCatalogEntry entryWithDictionary:childDict];
 	[[parentEntry children] addObject:childEntry];
-	[treeController rearrangeObjects];
-	[itemTable reloadData];
+    [self reloadData];
 	[self selectEntry:childEntry];
 
 	if ([sourceString isEqualToString:@"QSFileSystemObjectSource"]) {
@@ -482,10 +481,18 @@ static id _sharedInstance;
 	QSCatalogEntry *newItem = [currentItem uniqueCopy];
 	[[[[QSLibrarian sharedInstance] catalogCustom] children] addObject:newItem];
 	[currentItem setEnabled:NO];
-	[itemTable reloadData];
-	[treeController rearrangeObjects];
+    [self reloadData];
 	[self selectEntry:newItem];
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogStructureChanged object:nil];
+}
+
+-(void)reloadData {
+    [treeController rearrangeObjects];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [itemTable reloadData];
+        });
+    });
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView writeItems:(NSArray *)items toPasteboard:(NSPasteboard *)pboard {

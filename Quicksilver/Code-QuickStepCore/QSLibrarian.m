@@ -355,11 +355,17 @@ static CGFloat searchSpeed = 0.0;
 }
 - (QSCatalogEntry *)firstEntryContainingObject:(QSObject *)object {
 	NSArray *entries = [catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
-	for(QSCatalogEntry * entry in entries) {
-		//NSString *ID = [entry identifier];
-		if ([[entry _contents] containsObject:object])
-			return entry;
-	}
+    NSIndexSet *matchedIndexes = [entries indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSCatalogEntry *entry, NSUInteger idx, BOOL *stop) {
+        return [[entry _contents] containsObject:object];
+    }];
+    if ([matchedIndexes count]) {
+        NSArray *matchedCatalogEntries = [entries objectsAtIndexes:matchedIndexes];
+        for (QSCatalogEntry *matchedEntry in matchedCatalogEntries) {
+            if (![[matchedEntry identifier] isEqualToString:@"QSPresetObjectHistory"] || matchedEntry == [matchedCatalogEntries lastObject]) {
+                return matchedEntry;
+            }
+        }
+    }
 	return nil;
 }
 
