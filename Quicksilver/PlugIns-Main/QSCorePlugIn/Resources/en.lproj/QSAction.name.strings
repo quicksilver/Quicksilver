@@ -136,6 +136,8 @@
 	<string>Go To Directory in Terminal</string>
 	<key>QSCLTermShowManPageAction</key>
 	<string>Show Man Page</string>
+    <key>QSCatalogAddEntryAction</key>
+    <string>Add To Catalog</string>
 	<key>QSCatalogEntryRescanAction</key>
 	<string>Rescan Catalog Entry</string>
 	<key>QSCatalogEntryShowAction</key>
