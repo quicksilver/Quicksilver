@@ -125,10 +125,6 @@
 
 #pragma mark Catalog Entry UI
 
-- (void)awakeFromNib
-{
-}
-
 - (BOOL)isVisibleSource
 {
     return YES;
