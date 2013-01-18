@@ -184,7 +184,7 @@
     NSString *localizedPlaceholder = NSLocalizedStringFromTableInBundle(@"Synonym for %@", nil, [NSBundle bundleForClass:[self class]], nil);
     NSString *synonym = [synonymName stringValue] ? [synonymName stringValue] : [NSString stringWithFormat:localizedPlaceholder, [target displayName]];
     if ((!entryName || [entryName isEqualToString:@"Synonym"]) && [synonym length]) {
-        entryName = [NSString stringWithFormat:@"%@ %C %@", synonym, 0x2192, [target displayName]];
+        entryName = [NSString stringWithFormat:@"%@ %C %@", synonym, (unsigned short)0x2192, [target displayName]];
         [[self currentEntry] setObject:entryName forKey:kItemName];
     }
     [settings setObject:synonym forKey:@"name"];
