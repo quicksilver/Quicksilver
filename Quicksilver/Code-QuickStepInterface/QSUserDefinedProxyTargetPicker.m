@@ -41,6 +41,12 @@
     return YES;
 }
 
+- (void)willHideMainWindow:(id)sender
+{
+    [dSelector clearObjectValue];
+    [super willHideMainWindow:sender];
+}
+
 - (IBAction)executeCommand:(id)sender {
     // save the target object
 //    NSLog(@"saving Target: %@", [dSelector objectValue]);
