@@ -168,7 +168,6 @@
 
 - (void)save
 {
-    QSObject *target = [[targetPickerController dSelector] objectValue];
 	// update catalog entry
     NSString *entryName = [[self currentEntry] objectForKey:kItemName];
 	NSMutableDictionary *settings = [[self currentEntry] objectForKey:kItemSettings];
@@ -176,10 +175,16 @@
 		settings = [NSMutableDictionary dictionaryWithCapacity:1];
 		[[self currentEntry] setObject:settings forKey:kItemSettings];
 	}
+    QSObject *target = [[targetPickerController dSelector] objectValue];
+    if (!target) {
+        // refer to the established target if a new one wasn't set
+        NSString *targetID = [settings objectForKey:@"target"];
+        target = [QSObject objectWithIdentifier:targetID];
+    }
     NSString *localizedPlaceholder = NSLocalizedStringFromTableInBundle(@"Synonym for %@", nil, [NSBundle bundleForClass:[self class]], nil);
     NSString *synonym = [synonymName stringValue] ? [synonymName stringValue] : [NSString stringWithFormat:localizedPlaceholder, [target displayName]];
-    if (!entryName || [entryName isEqualToString:@"Synonym"]) {
-        entryName = [NSString stringWithFormat:@"%@ > %@", synonym, [target displayName]];
+    if ((!entryName || [entryName isEqualToString:@"Synonym"]) && [synonym length]) {
+        entryName = [NSString stringWithFormat:@"%@ %C %@", synonym, 0x2192, [target displayName]];
         [[self currentEntry] setObject:entryName forKey:kItemName];
     }
     [settings setObject:synonym forKey:@"name"];
