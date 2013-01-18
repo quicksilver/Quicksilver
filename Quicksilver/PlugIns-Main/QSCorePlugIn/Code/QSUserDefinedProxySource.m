@@ -118,6 +118,7 @@
     QSObject *target = [QSObject objectWithIdentifier:targetID];
     if (target) {
         [proxy setChildren:[target children]];
+        [proxy setAltChildren:[target altChildren]];
         return YES;
     }
     return NO;
