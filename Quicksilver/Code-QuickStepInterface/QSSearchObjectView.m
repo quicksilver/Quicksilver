@@ -584,7 +584,6 @@ NSMutableDictionary *bindingsDict = nil;
     [parentStack removeAllObjects];
     [self setResultArray:[NSMutableArray arrayWithObjects:newObject, nil]];
     [super setObjectValue:newObject];
-
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
 }
 
@@ -593,7 +592,7 @@ NSMutableDictionary *bindingsDict = nil;
     browsingHistory = NO;
 	[super setObjectValue:nil];
 	selection--;
-	//	[[NSNotificationCenter defaultCenter] postNotificationNamse:@"SearchObjectChanged" object:self];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
 }
 
 - (void)clearAll {
@@ -994,7 +993,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (BOOL)resignFirstResponder {  
     
-    if ([self isEqual:[self directSelector]]) {
+    if ([self isEqual:[self directSelector]] && [self objectValue]) {
         [self updateHistory];
     }
 	[resultTimer invalidate];
@@ -1776,11 +1775,9 @@ NSMutableDictionary *bindingsDict = nil;
 			if (newSelectedObject) {
 				if ((NSInteger)[historyArray count] > historyIndex + 1) {
 					if ([[[historyArray objectAtIndex:historyIndex+1] valueForKey:@"selection"] isEqual:parent]) {
-#ifdef DEBUG
-						if (VERBOSE) NSLog(@"Parent Missing, Using History");
-#endif
-						[self goBackward:self];
-						return;
+                        
+                        newObjects = [[[[historyArray objectAtIndex:historyIndex+1] valueForKey:@"resultArray"] retain] autorelease];
+                        [historyArray removeObjectAtIndex:historyIndex+1];
 					}
 #ifdef DEBUG
 					if (VERBOSE) NSLog(@"Parent Missing, No History, %@", [[historyArray objectAtIndex:0] valueForKey:@"selection"]);
