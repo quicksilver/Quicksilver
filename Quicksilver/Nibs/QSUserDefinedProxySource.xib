@@ -327,11 +327,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">dSelector</string>
+						<string key="label">searchObjView</string>
 						<reference key="source" ref="1053915796"/>
 						<reference key="destination" ref="793139279"/>
 					</object>
-					<int key="connectionID">86</int>
+					<int key="connectionID">87</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -513,7 +513,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">86</int>
+			<int key="maxID">87</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -750,13 +750,13 @@
 					<string key="className">QSTargetPickerPanel</string>
 					<string key="superclassName">QSBorderlessWindow</string>
 					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">dSelector</string>
+						<string key="NS.key.0">searchObjView</string>
 						<string key="NS.object.0">QSSearchObjectView</string>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">dSelector</string>
+						<string key="NS.key.0">searchObjView</string>
 						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">dSelector</string>
+							<string key="name">searchObjView</string>
 							<string key="candidateClassName">QSSearchObjectView</string>
 						</object>
 					</object>

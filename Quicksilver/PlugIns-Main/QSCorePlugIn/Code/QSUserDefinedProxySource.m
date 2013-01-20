@@ -166,7 +166,7 @@
     NSDictionary *settings = [[self currentEntry] objectForKey:kItemSettings];
     NSString *targetID = [settings objectForKey:@"target"];
     QSObject *target = [QSObject objectWithIdentifier:targetID];
-    [targetPickerController setRepresentedObject:target];
+    [[targetPickerWindow searchObjView] selectObjectValue:target];
     // Get the window's rect for centering in the screen (it's stored in the .xib as centered so this always works)
     NSRect centerRect = [targetPickerWindow frame];
 
