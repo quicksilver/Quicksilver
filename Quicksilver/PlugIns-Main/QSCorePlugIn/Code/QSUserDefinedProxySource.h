@@ -14,8 +14,8 @@
     IBOutlet NSTextField *synonymName;
     IBOutlet NSImageView *targetIcon;
     IBOutlet NSTextField *targetLabel;
-    IBOutlet NSPanel *targetPickerWindow;
-    IBOutlet QSUserDefinedProxyTargetPicker *targetPickerController;
+    IBOutlet QSTargetPickerPanel *targetPickerWindow;
+    QSUserDefinedProxyTargetPicker *targetPickerController;
 }
 - (IBAction)showTargetPicker:(id)sender;
 @end

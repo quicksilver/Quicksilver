@@ -157,11 +157,11 @@
 
 - (IBAction)showTargetPicker:(id)sender
 {
+    
     if ([targetPickerWindow isVisible]) {
         // don't make the window appear again if it's already visible
         return;
     }
-    [targetPickerWindow setWindowController:targetPickerController];
     [targetPickerController setEntrySource:self];
     NSDictionary *settings = [[self currentEntry] objectForKey:kItemSettings];
     NSString *targetID = [settings objectForKey:@"target"];
