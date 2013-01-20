@@ -121,6 +121,7 @@
     NSString *postString = [NSString stringWithFormat:@"name=%@&data=%@&comments=%@",name, crashLogContent, userComments];
 
     [request setValue:kQSUserAgent forHTTPHeaderField:@"User-Agent"];
+    [request setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
     [request setValue:[NSString stringWithFormat:@"%ld", (long)[postString length]]
    forHTTPHeaderField:@"Content-length"];
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];

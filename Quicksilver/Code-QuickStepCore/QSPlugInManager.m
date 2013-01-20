@@ -179,6 +179,7 @@
 	NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:fetchURLString]
 															cachePolicy:NSURLRequestUseProtocolCachePolicy
 														timeoutInterval:5.0];
+    [theRequest setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
 	[theRequest setValue:kQSUserAgent forHTTPHeaderField:@"User-Agent"];
 
 	NSLog(@"Fetching plugin data from %@", fetchURLString);
