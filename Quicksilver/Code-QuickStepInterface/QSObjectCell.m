@@ -256,13 +256,8 @@
 		}
 	strokeColor = [[self textColor] colorWithAlphaComponent:dropTarget?0.4:0.2];
 
-
-
-
 	[fillColor setFill];
 	[strokeColor setStroke];
-
-
 
 	NSBezierPath *roundRect = [NSBezierPath bezierPath];
 	if ([self isBezeled]) {
@@ -449,13 +444,7 @@
         
 		if (!nameString) nameString = [drawObject displayName];
                 
-        BOOL validDetailsString = NO;
         BOOL rankedStringIsLabel = [nameString isEqualToString:[drawObject displayName]];
-        
-        NSString *detailsString = [drawObject details];
-        if(detailsString && [detailsString length] && ![detailsString isEqualToString:nameString]) {
-            validDetailsString = YES;
-        }
         
 		BOOL useAlternateColor = [controlView isKindOfClass:[NSTableView class]] && [(NSTableView *)controlView isRowSelected:[(NSTableView *)controlView rowAtPoint:cellFrame.origin]];
 		NSColor *mainColor = (textColor?textColor:(useAlternateColor?[NSColor alternateSelectedControlTextColor] :[NSColor controlTextColor]));
@@ -501,19 +490,22 @@
             [attributedNameString release];
         }
         
-        if (showDetails && validDetailsString) {
-            NSSize detailsSize = NSZeroSize;
-            detailsSize = [detailsString sizeWithAttributes:detailsAttributes];
-            NSSize nameSize = [nameString sizeWithAttributes:nameAttributes];
-            
-            CGFloat detailHeight = NSHeight(textDrawRect) - nameSize.height;
-            NSRange returnRange;
-            if (detailHeight<detailsSize.height && (returnRange = [detailsString rangeOfString:@"\n"]) .location != NSNotFound) {
-                detailsString = [detailsString substringToIndex:returnRange.location];
-            }
-            // Append the details string if it exists, and the UI wants it (showDetails BOOL)
-            if (detailsString != nil && detailsString.length) {
-                [titleString appendAttributedString:[[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@",detailsString] attributes:detailsAttributes] autorelease]];
+        if (showDetails) {
+            NSString *detailsString = [drawObject details];
+            if(detailsString && [detailsString length] && ![detailsString isEqualToString:nameString]) {
+                NSSize detailsSize = NSZeroSize;
+                detailsSize = [detailsString sizeWithAttributes:detailsAttributes];
+                NSSize nameSize = [nameString sizeWithAttributes:nameAttributes];
+                
+                CGFloat detailHeight = NSHeight(textDrawRect) - nameSize.height;
+                NSRange returnRange;
+                if (detailHeight<detailsSize.height && (returnRange = [detailsString rangeOfString:@"\n"]) .location != NSNotFound) {
+                    detailsString = [detailsString substringToIndex:returnRange.location];
+                }
+                // Append the details string if it exists, and the UI wants it (showDetails BOOL)
+                if (detailsString != nil && detailsString.length) {
+                    [titleString appendAttributedString:[[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@",detailsString] attributes:detailsAttributes] autorelease]];
+                }
             }
         }
         
