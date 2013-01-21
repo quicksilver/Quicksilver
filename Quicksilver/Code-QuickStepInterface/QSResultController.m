@@ -42,7 +42,7 @@ NSMutableDictionary *kindDescriptions = nil;
 
 @implementation QSResultController
 
-@synthesize resultTable=resultTable,currentResults,selectedItem;
+@synthesize resultTable=resultTable,currentResults,selectedItem,searchStringField;
 
 + (void)initialize {
     if (!kindDescriptions)

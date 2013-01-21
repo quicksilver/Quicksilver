@@ -262,7 +262,7 @@ NSMutableDictionary *bindingsDict = nil;
 	if (visibleString != newVisibleString) {
 		[visibleString release];
 		visibleString = [newVisibleString copy];
-		[resultController->searchStringField setStringValue:visibleString];
+		[resultController.searchStringField setStringValue:visibleString];
 		if ([[self controller] respondsToSelector:@selector(searchView:changedString:)])
 			[(id)[self controller] searchView:self changedString:visibleString];
 	}
@@ -802,10 +802,10 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)performSearch:(NSTimer *)timer {
 	//NSLog(@"perform search, %d", self);
 	if (validSearch) {
-		[resultController->searchStringField setTextColor:[NSColor blackColor]];
-		[resultController->searchStringField display];
+		[resultController.searchStringField setTextColor:[NSColor blackColor]];
+		[resultController.searchStringField display];
 		[self performSearchFor:partialString from:timer];
-		[resultController->searchStringField display];
+		[resultController.searchStringField display];
 	}
 	// NSLog(@"search performed");
 }
@@ -877,7 +877,7 @@ NSMutableDictionary *bindingsDict = nil;
         }
         
 		validMnemonic = NO;
-		[resultController->searchStringField setTextColor:[NSColor redColor]];
+		[resultController.searchStringField setTextColor:[NSColor redColor]];
 	}
     
 	// Extend Timers
@@ -896,8 +896,8 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)resetString {
 	// NSLog(@"resetting");
-	[resultController->searchStringField setTextColor:[[resultController->searchStringField textColor] colorWithAlphaComponent:0.5]];
-	[resultController->searchStringField display];
+	[resultController.searchStringField setTextColor:[[resultController.searchStringField textColor] colorWithAlphaComponent:0.5]];
+	[resultController.searchStringField display];
 }
 
 - (void)partialStringChanged {
@@ -913,7 +913,7 @@ NSMutableDictionary *bindingsDict = nil;
 	
 	if ([self searchMode] != SearchFilterAll) [searchTimer fire];
 	if (validSearch) {
-		[resultController->searchStringField setTextColor:[NSColor blueColor]];
+		[resultController.searchStringField setTextColor:[NSColor blueColor]];
 	}
     
 	[self setVisibleString:[partialString uppercaseString]];
