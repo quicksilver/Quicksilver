@@ -40,17 +40,19 @@
 
 - (NSArray *)prefSets {
     NSString *defaultsMapPath = [[NSBundle mainBundle] pathForResource:@"DefaultsMap" ofType:@"plist"];
-    // fall back to the English file if no localisation can be found
-    if (!defaultsMapPath) {
-        defaultsMapPath = [[NSBundle mainBundle] pathForResource:@"DefaultsMap" ofType:@"plist" inDirectory:nil forLocalization:@"en"];
-    }
 	return [NSArray arrayWithContentsOfFile:defaultsMapPath];
+}
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+    return [[self prefSets] count];
 }
 
 - (CGFloat) tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
 	NSTableColumn *column = [tableView tableColumnWithIdentifier:@"title"];
 	NSCell *cell = [column dataCell];
-	[cell setStringValue:[[[prefSetsController arrangedObjects] objectAtIndex:row] objectForKey:@"title"]];
+    NSString *titleKey = [[[[prefSetsController arrangedObjects] objectAtIndex:row] objectForKey:@"default"] stringByAppendingString:@":title"];
+    NSString *title = NSLocalizedStringFromTable(titleKey, NSStringFromClass([self class]), nil);
+	[cell setStringValue:title];
 	NSSize size = [cell cellSizeForBounds:NSMakeRect(0, 0, [column width], MAXFLOAT)];
 	return MAX(24, size.height+6);
 }
@@ -74,7 +76,9 @@
     
     if ([[aTableColumn identifier] isEqualToString:@"title"]) {
         cell = [[NSTextFieldCell alloc] init];
-        [cell setStringValue:[thisInfo objectForKey:@"title"]];
+        NSString *titleKey = [[thisInfo objectForKey:@"default"] stringByAppendingString:@":title"];
+        NSString *title = NSLocalizedStringFromTable(titleKey, NSStringFromClass([self class]), nil);
+        [cell setStringValue:title];
         [cell setFont:[NSFont systemFontOfSize:11]];
         [cell setControlSize:NSSmallControlSize];
     } else if ([[aTableColumn identifier] isEqualToString:@"value"]) {
@@ -91,9 +95,16 @@
             [(NSPopUpButtonCell *)cell removeAllItems];
             
             NSDictionary *items = [thisInfo objectForKey:@"items"];
-            NSArray *keys = [[items allKeys] sortedArrayUsingSelector:@selector(compare:)];
-            for(NSString * key in keys) {
-                id option = [items objectForKey:key];
+            NSMutableDictionary *localizedOptions = [NSMutableDictionary dictionaryWithCapacity:[items count]];
+            for (NSString *key in [items allKeys]) {
+                NSString *option = [items objectForKey:key];
+                NSString *optionKey = [[thisInfo objectForKey:@"default"] stringByAppendingFormat:@":%@", option];
+                NSString *optionName = NSLocalizedStringFromTable(optionKey, NSStringFromClass([self class]), nil);
+                [localizedOptions setObject:optionName forKey:key];
+            }
+            NSArray *allKeys = [[localizedOptions allKeys] sortedArrayUsingSelector:@selector(compare:)];
+            for (NSString *key in allKeys) {
+                NSString *option = [localizedOptions objectForKey:key];
                 id item = [[cell menu] addItemWithTitle:option action:nil keyEquivalent:@""];
                 [item setRepresentedObject:key];
             }
@@ -117,7 +128,10 @@
 	if ([[aTableColumn identifier] isEqualToString:@"value"]) {
 		id defaultKey = [[[prefSetsController arrangedObjects] objectAtIndex:rowIndex] objectForKey:@"default"];
 		return defaultKey ? [[NSUserDefaults standardUserDefaults] objectForKey:defaultKey] : nil;
-	}
+	} else if ([[aTableColumn identifier] isEqualToString:@"title"]) {
+        NSString *titleKey = [[[[prefSetsController arrangedObjects] objectAtIndex:rowIndex] objectForKey:@"default"] stringByAppendingString:@":title"];
+        return NSLocalizedStringFromTable(titleKey, NSStringFromClass([self class]), nil);
+    }
 	return nil;
 }
 - (void)tableView:(NSTableView *)aTableView setObjectValue:(id)anObject forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
