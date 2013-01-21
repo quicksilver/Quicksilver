@@ -167,14 +167,15 @@
     NSString *targetID = [settings objectForKey:@"target"];
     QSObject *target = [QSObject objectWithIdentifier:targetID];
     [[targetPickerWindow searchObjView] selectObjectValue:target];
-    // Get the window's rect for centering in the screen (it's stored in the .xib as centered so this always works)
-    NSRect centerRect = [targetPickerWindow frame];
-
+    
     // Convert the sender (NSButton)'s rect to screen co-ords
     NSRect relativeToWindow = [sender convertRect:[sender bounds] toView:nil];
-    [targetPickerWindow setFrame:[settingsView.window convertRectToScreen:relativeToWindow] display:YES];
+    // the position of the button on screen
+    NSRect targetRect = [settingsView.window convertRectToScreen:relativeToWindow];
+    // center the target picker over the target
+    NSRect pickerRect = centerRectInRect([targetPickerWindow frame], targetRect);
+    [targetPickerWindow setFrame:pickerRect display:NO];
     [targetPickerWindow makeKeyAndOrderFront:self];
-    [targetPickerWindow setFrame:centerRect display:YES animate:YES];
 }
 
 - (void)save
