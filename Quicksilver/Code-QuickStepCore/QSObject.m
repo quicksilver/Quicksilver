@@ -377,13 +377,7 @@ NSSize QSMaxIconSize;
 }
 
 - (void)setDetails:(NSString *)newDetails {
-    if (newDetails) {
-        if (newDetails != [self objectForMeta:kQSObjectDetails]) {
-            [self setObject:newDetails forMeta:kQSObjectDetails];
-        }
-    } else {
-        [meta removeObjectForKey:kQSObjectDetails];
-    }
+    [self setObject:newDetails forMeta:kQSObjectDetails];
 }
 
 - (NSString *)details {
