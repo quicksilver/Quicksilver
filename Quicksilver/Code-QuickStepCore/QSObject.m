@@ -24,8 +24,8 @@
 //static QSController *controller;
 static NSMutableDictionary *objectDictionary;
 
-static NSMutableSet *iconLoadedArray;
-static NSMutableSet *childLoadedArray;
+static NSMutableSet *iconLoadedSet;
+static NSMutableSet *childLoadedSet;
 
 //static NSMutableDictionary *mainChildrenDictionary;
 //static NSMutableDictionary *altChildrenDictionary;
@@ -49,8 +49,8 @@ NSSize QSMaxIconSize;
 	//	controller = [NSApp delegate];
 
 		objectDictionary = [[NSMutableDictionary alloc] init]; // initWithCapacity:100]; formerly for these three
-		iconLoadedArray = [[NSMutableSet alloc] init];
-		childLoadedArray = [[NSMutableSet alloc] init];
+		iconLoadedSet = [[NSMutableSet alloc] init];
+		childLoadedSet = [[NSMutableSet alloc] init];
 
 		[[NSImage imageNamed:@"Question"] createIconRepresentations];
 
@@ -98,38 +98,32 @@ NSSize QSMaxIconSize;
 #endif
  // NSString *thisKey = nil;
 
-	QSObject *thisObject;
-    NSMutableArray * tempArray = [NSMutableArray array];
-    for (thisObject in iconLoadedArray) {
-		//	NSLog(@"i%@ %f", thisObject, thisObject->lastAccess);
-        if (thisObject->lastAccess && thisObject->lastAccess < (globalLastAccess - interval) ) {
-            [tempArray addObject:thisObject];
-        }
-    }
-    for( thisObject in tempArray ) {
-        if ([thisObject unloadIcon]) {
-			
+    @synchronized(iconLoadedSet) {
+        NSSet *s = [iconLoadedSet objectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *obj, BOOL *stop) {
+            return obj->lastAccess && obj->lastAccess < (globalLastAccess - interval) && ![obj isKindOfClass:[QSAction class]];
+        }];
+        for(QSObject *thisObject in s) {
+            if ([thisObject unloadIcon]) {
+                
 #ifdef DEBUG
-            imagecount++;
+                imagecount++;
 #endif
-		}
-    }
-    
-    tempArray = [NSMutableArray array];
-    for (thisObject in childLoadedArray) {
-		//	NSLog(@"c%@ %f", thisObject, thisObject->lastAccess);
-        if (thisObject->lastAccess && thisObject->lastAccess < (globalLastAccess - interval)) {
-            [tempArray addObject:thisObject];
+            }
         }
     }
     
-    for( thisObject in tempArray ) {
-        if ([thisObject unloadChildren]) {
-			
+    @synchronized(childLoadedSet) {
+    NSSet *t = [childLoadedSet objectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *obj, BOOL *stop) {
+        return obj->lastAccess && obj->lastAccess < (globalLastAccess - interval);
+    }];
+        
+        for (QSObject *thisObject in t) {
+            if ([thisObject unloadChildren]) {
 #ifdef DEBUG
-            childcount++;
-#endif		
-		}
+                childcount++;
+#endif
+            }
+        }
     }
 
 
@@ -623,7 +617,7 @@ NSSize QSMaxIconSize;
 	[self setAltChildren:nil];
 	flags.childrenLoaded = NO;
 	[self setChildrenLoadedDate:0];
-	[childLoadedArray removeObject:self];
+	[childLoadedSet removeObject:self];
 	return YES;
 }
 
@@ -640,7 +634,7 @@ NSSize QSMaxIconSize;
 			lastAccess = [NSDate timeIntervalSinceReferenceDate];
 			globalLastAccess = lastAccess;
 
-			[childLoadedArray addObject:self];
+			[childLoadedSet addObject:self];
 		}
 	}
 
@@ -946,7 +940,7 @@ NSSize QSMaxIconSize;
     
 	lastAccess = [NSDate timeIntervalSinceReferenceDate];
 	globalLastAccess = lastAccess;
-	[iconLoadedArray addObject:self];
+	[iconLoadedSet addObject:self];
 
 	if (namedIcon) {
         NSImage *image = [QSResourceManager imageNamed:namedIcon];
@@ -986,7 +980,7 @@ NSSize QSMaxIconSize;
     
 	[self setIcon:nil];
 	[self setIconLoaded:NO];
-	[iconLoadedArray removeObject:self];
+	[iconLoadedSet removeObject:self];
 	return YES;
 }
 
