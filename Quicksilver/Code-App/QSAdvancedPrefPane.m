@@ -19,14 +19,11 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(columnResized:) name:NSTableViewColumnDidResizeNotification object:nil];
 }
 
-// !!! Andre Berg 20091017: This is needed to get rid of the bug described in "tableView:dataCellForTableColumn:row:" below
-// Also of course registering as observer and unregistering in dealloc.
 - (void)columnResized:(id)sender {
 	[prefSetsTable noteHeightOfRowsWithIndexesChanged:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [(NSArray *)[prefSetsController arrangedObjects] count] )]]; // was calling self
 }
 
 - (IBAction)setValue:(id)sender {
-	NSLog(@"setvalue %@", [sender objectValue]);
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setObject:[sender objectValue] forKey:[currentInfo objectForKey:@"default"]];
 	[defaults synchronize];
@@ -65,9 +62,6 @@
 - (NSCell *)tableView:(NSTableView *)aTableView dataCellForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
     
     id thisInfo = nil;
-    // !!! Andre Berg 20091015: there seems to be a bug where the first load of the Extras table view has an index out of bound error 
-    // which seems to be connected to QSImageAndTextCell - if then the user clicks below all entries in say the Extras preference pane, 
-    // an index out of bounds exception will be raised...
     @try {
        thisInfo = [[prefSetsController arrangedObjects] objectAtIndex:rowIndex];
     }
