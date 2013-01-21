@@ -539,25 +539,27 @@ static CGFloat searchSpeed = 0.0;
         return;
     }
     
-    @autoreleasepool {
-        [scanTask setStatus:@"Catalog Rescan"];
-        [scanTask startTask:self];
-        [scanTask setProgress:-1];
-        scannerCount++;
-        NSArray *children = [catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
-        NSUInteger i;
-        NSUInteger c = [children count];
-        for (i = 0; i<c; i++) {
-            [scanTask setProgress:(CGFloat) i/c];
-            [[children objectAtIndex:i] scanForced:force];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        @autoreleasepool {
+            [scanTask setStatus:@"Catalog Rescan"];
+            [scanTask startTask:self];
+            [scanTask setProgress:-1];
+            scannerCount++;
+            NSArray *children = [catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
+            NSUInteger i;
+            NSUInteger c = [children count];
+            for (i = 0; i<c; i++) {
+                [scanTask setProgress:(CGFloat) i/c];
+                [[children objectAtIndex:i] scanForced:force];
+            }
+
+            [scanTask setProgress:1.0];
+            [scanTask stopTask:self];
+
+            [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogIndexingCompleted object:nil];
+            scannerCount--;
         }
-        
-        [scanTask setProgress:1.0];
-        [scanTask stopTask:self];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogIndexingCompleted object:nil];
-        scannerCount--;
-    }
+    });
 }
 
 
