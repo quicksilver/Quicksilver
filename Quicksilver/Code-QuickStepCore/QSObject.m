@@ -764,7 +764,7 @@ NSSize QSMaxIconSize;
 		[label release];
 		label = [newLabel retain];
     }
-    [self setObject:newLabel forMeta:kQSObjectAlternateName];
+    [self setObject:label forMeta:kQSObjectAlternateName];
 }
 
 - (NSString *)kind {
