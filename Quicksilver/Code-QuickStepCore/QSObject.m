@@ -585,13 +585,7 @@ NSSize QSMaxIconSize;
 }
 
 - (void)setParentID:(NSString *)parentID {
-	if (parentID) {
-        if (parentID != [meta objectForKey:kQSObjectParentID]) {
-            [meta setObject:parentID forKey:kQSObjectParentID];
-        }
-    } else {
-        [meta removeObjectForKey:kQSObjectParentID];
-    }
+    [self setObject:parentID forMeta:kQSObjectParentID];
 }
 
 - (BOOL)childrenValid {
@@ -769,12 +763,8 @@ NSSize QSMaxIconSize;
         }
 		[label release];
 		label = [newLabel retain];
-		if (newLabel) {
-            [meta setObject:newLabel forKey:kQSObjectAlternateName];
-		} else {
-            [meta removeObjectForKey:kQSObjectAlternateName];
-        }
-	}
+    }
+    [self setObject:newLabel forMeta:kQSObjectAlternateName];
 }
 
 - (NSString *)kind {
@@ -805,11 +795,7 @@ NSSize QSMaxIconSize;
         [primaryType release];
         primaryType = [newPrimaryType retain];
     }
-    if (newPrimaryType) {
-        [meta setObject:newPrimaryType forKey:kQSObjectPrimaryType];
-    } else {
-        [meta removeObjectForKey:kQSObjectPrimaryType];
-    }
+    [self setObject:newPrimaryType forMeta:kQSObjectPrimaryType];
 }
 
 - (NSMutableDictionary *)dataDictionary {
