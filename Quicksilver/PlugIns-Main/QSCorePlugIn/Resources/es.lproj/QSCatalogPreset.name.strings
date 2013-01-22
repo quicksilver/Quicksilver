@@ -11,7 +11,7 @@
     <key>QSPresetDocuments</key>
     <string>Documentos</string>
     <key>QSPresetICloudDocuments</key>
-    <string>iCloud Documents</string>
+    <string>Documentos en iCloud</string>
     <key>QSPresetAccounts</key>
     <string>Cuentas de Usuario</string>
     <key>QSPresetProxies</key>
@@ -197,7 +197,7 @@
     <key>QSPresetRecentServers</key>
     <string>Servidores Recientes</string>
     <key>QSPresetFavoriteServers</key>
-    <string>Favorite Servers</string>
+    <string>Servidores favoritos</string>
     <key>QSPresetRendezvous</key>
     <string>Servidores Rendezvous</string>
     <key>QSPresetRendezvousMachines</key>
@@ -253,6 +253,6 @@
     <key>QSPresetiTunesScripts</key>
     <string>Scripts de iTunes</string>
     <key>QSPresetRemovableVolumes</key>
-    <string>Network and Removable Disks</string>
+    <string>Red y discos extraíbles</string>
   </dict>
 </plist>

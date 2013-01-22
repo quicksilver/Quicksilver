@@ -470,12 +470,13 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 }
 
 - (void)executeWithIndirect:(id)indirectObject {
-    [self setIndirectObject:(QSObject *)[indirectObject resolvedObject]];
+    [self setIndirectObject:[indirectObject resolvedObject]];
 	[self executeFromMenu:nil];
 }
 
 - (NSArray *)validIndirects {
-	  NSArray *indirects = [[[self aObject] provider] validIndirectObjectsForAction:[[self aObject] identifier] directObject:[self dObject]];
+    QSObject *directObject = [[self dObject] resolvedObject];
+	  NSArray *indirects = [[[self aObject] provider] validIndirectObjectsForAction:[[self aObject] identifier] directObject:directObject];
 	  if ([indirects count] >1 && [[indirects objectAtIndex:1] isKindOfClass:[NSArray class]]) indirects = [indirects objectAtIndex:1];
 	  if ([indirects count] == 1 && [[indirects objectAtIndex:0] containsType:QSTextProxyType]) {
 		  indirects = nil;

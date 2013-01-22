@@ -373,14 +373,6 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 #pragma mark -
 #pragma mark Utilities
 
-- (void)addObserverForEvent:(NSString *)event trigger:(NSDictionary *)trigger {
-	NSLog(@"Add %@", event);
-}
-
-- (void)removeObserverForEvent:(NSString *)event trigger:(NSDictionary *)trigger {
-	NSLog(@"Remove %@", event);
-}
-
 - (NSArray *)processesWithHiddenState:(BOOL)hidden {
 	NSMutableArray *objects = [NSMutableArray arrayWithCapacity:1];
 
@@ -441,7 +433,11 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 - (NSMutableDictionary *)processesDict {
 	if (!processes) {
 		processes = [[NSMutableDictionary dictionaryWithCapacity:1] retain];
-		[self reloadProcesses];
+        isReloading = YES;
+        for (id thisProcess in [NDProcess everyProcess]) {
+            [self addProcessWithPSN:[thisProcess processSerialNumber]];
+        }
+        isReloading = NO;
 	}
 	return processes;
 }

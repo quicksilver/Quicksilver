@@ -22,27 +22,6 @@
 	<string>17A5</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2004, Blacktree, Inc.</string>
-	<key>QSActions</key>
-	<dict>
-		<key>FinderEmptyTrashAction</key>
-		<dict>
-			<key>actionProvider</key>
-			<string>QSFinderProxy</string>
-			<key>actionSelector</key>
-			<string>emptyTrash:</string>
-			<key>enabled</key>
-			<false/>
-		</dict>
-		<key>FinderOpenTrashAction</key>
-		<dict>
-			<key>actionProvider</key>
-			<string>QSFinderProxy</string>
-			<key>actionSelector</key>
-			<string>openTrash:</string>
-			<key>enabled</key>
-			<false/>
-		</dict>
-	</dict>
 	<key>QSPlugIn</key>
 	<dict>
 		<key>author</key>

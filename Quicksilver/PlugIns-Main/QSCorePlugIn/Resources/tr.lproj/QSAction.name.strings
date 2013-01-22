@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>AppActivateAction</key>
+    <string>Etkinleştir</string>
+    <key>AppHideAction</key>
+    <string>Gizle</string>
+    <key>AppHideOthersAction</key>
+    <string>Diğerlerini gizle</string>
+    <key>AppLaunchAction</key>
+    <string>Başlat</string>
+    <key>AppLaunchAgainAction</key>
+    <string>Başka bir kopyayı başlat</string>
+    <key>AppOpenFileAction</key>
+    <string>Dosya aç...</string>
+    <key>AppQuitOthersAction</key>
+    <string>Diğerlerinden çık</string>
+    <key>AppQuitAction</key>
+    <string>Çık</string>
+    <key>AppRelaunchAction</key>
+    <string>Yeniden başlat</string>
+    <key>AppReopenAction</key>
+    <string>Aç</string>
+    <key>AppRootLaunchAction</key>
+    <string>Yönetici olarak aç</string>
+    <key>AppShowHideAction</key>
+    <string>Uygulama tetikle</string>
+    <key>AppleScriptOpenFilesAction</key>
+    <string>Dosya Aç...</string>
+    <key>AppleScriptProcessTextAction</key>
+    <string>Metin işle...</string>
+    <key>AppleScriptRunAction</key>
+    <string>Çalıştır</string>
+    <key>AppleScriptRunTextAction</key>
+    <string>Apple Script betiği olarak çalıştır</string>
+    <key>ContactEditAction</key>
+    <string>Düzenle</string>
+    <key>ContactEmailAction</key>
+    <string>E-posta</string>
+    <key>ContactIMAction</key>
+    <string>Anlık ileti kişisi</string>
+    <key>ContactSendItemEmailAction</key>
+    <string>Öğeyi e-posta ile gönder</string>
+    <key>ContactSendItemIMAction</key>
+    <string>Metni anlık ileti ile gönder</string>
+    <key>ContactSendTextEmailAction</key>
+    <string>Metin gönder</string>
+    <key>ContactShowAction</key>
+    <string>Göster</string>
+    <key>DiskEjectAction</key>
+    <string>Çıkar</string>
+    <key>DiskForceEjectAction</key>
+    <string>Zorla çıkar</string>
+    <key>FileCompressAction</key>
+    <string>Sıkıştır</string>
+    <key>FileCopyToAction</key>
+    <string>Şuraya kopyala...</string>
+    <key>FileDecompressAction</key>
+    <string>Sıkıştırmayı kaldır</string>
+    <key>FileDeleteAction</key>
+    <string>Sil (Temizle)</string>
+    <key>FileGetInfoAction</key>
+    <string>Bilgi ver</string>
+    <key>FileGetPathAction</key>
+    <string>Yol al</string>
+    <key>FileGetPosixPathAction</key>
+    <string>Mutlak (POSIX) yörüngesini al</string>
+    <key>FileGetURLAction</key>
+    <string>Dosya URL&apos;si al</string>
+    <key>FileGetHFSPathAction</key>
+    <string>Dosya konumu al</string>
+    <key>FileMakeAliasInAction</key>
+    <string>Şurada takma ad oluştur...</string>
+    <key>FileMakeHardLinkInAction</key>
+    <string>Şurada Arma oluştur</string>
+    <key>FileMakeLinkInAction</key>
+    <string>Şurada bağ oluştur...</string>
+    <key>FileMoveToAction</key>
+    <string>Şuraya taşı...</string>
+    <key>FileOpenAction</key>
+    <string>Aç</string>
+    <key>FileOpenWithAction</key>
+    <string>Şununla aç...</string>
+    <key>FileAlwaysOpenTypeWithAction</key>
+    <string>Bu dosya türünü her zaman şununla aç...</string>
+    <key>FileRenameAction</key>
+    <string>Yeniden adlandır</string>
+    <key>FileRevealAction</key>
+    <string>Göster</string>
+    <key>FileToTrashAction</key>
+    <string>Çöp kutusuna taşı</string>
+    <key>ItemSendToContactEmailAction</key>
+    <string>E-posta gönder</string>
+    <key>ItemSendToContactIMAction</key>
+    <string>Şu kişiye anlık ileti gönder</string>
+    <key>PasteboardCopyAction</key>
+    <string>Panoya kopyala</string>
+    <key>PasteboardPasteAction</key>
+    <string>Yapıştır</string>
+    <key>PasteboardPasteActionAsPlainText</key>
+    <string>Düz metin olarak yapıştır</string>
+    <key>ProcessKillAction</key>
+    <string>Çıkmaya zorla (Kes)</string>
+    <key>ProcessLowerPriorityAction</key>
+    <string>Önceliği düşür</string>
+    <key>ProcessRaisePriorityAction</key>
+    <string>Önceliği yükselt</string>
+    <key>ProcessResumeAction</key>
+    <string>İşlemi sürdür (Devam)</string>
+    <key>ProcessSuspendAction</key>
+    <string>İşlemi duraklat (Beklet)</string>
+    <key>QSObjectAssignMnemonic</key>
+    <string>Kısaltma ata...</string>
+    <key>QSObjectSelectAction</key>
+    <string>Komut penceresinde seç</string>
+    <key>QSAIMSMSAction</key>
+    <string>Kısa ileti gönder (AIM/iChat)</string>
+    <key>QSAirPortNetworkSelectAction</key>
+    <string>Airport değiştir</string>
+    <key>QSCLExecuteAction</key>
+    <string>Çalıştır</string>
+    <key>QSCLExecuteTextAction</key>
+    <string>Komutu kabukta çalıştır</string>
+    <key>QSCLExecuteShellCommandAction</key>
+    <string>Komutu kabukta çalıştır</string>
+    <key>QSCLExecuteWithArgsAction</key>
+    <string>Çalıştır [...]</string>
+    <key>QSCLTermExecuteTextAction</key>
+    <string>Terminalde metin komutu çalıştır</string>
+    <key>QSCLTermExecuteShellCommandAction</key>
+    <string>Terminalde metin komutu çalıştır</string>
+    <key>QSCLTermExecuteWithArgsAction</key>
+    <string>Terminalde [...] çalıştır</string>
+    <key>QSCLTermShowDirectoryAction</key>
+    <string>Terminalde dizine git</string>
+    <key>QSCLTermShowManPageAction</key>
+    <string>Man sayfasını göster</string>
+    <key>QSCatalogEntryRescanAction</key>
+    <string>Katalog girisini yeniden tara</string>
+    <key>QSCatalogEntryShowAction</key>
+    <string>Katalogda giriyi göster</string>
+    <key>QSCommandSaveAction</key>
+    <string>Komutu dosyaya kaydet</string>
+    <key>QSCommandAddTriggerAction</key>
+    <string>Tetikleyici ekle</string>
+    <key>QSCommandExecuteAction</key>
+    <string>Çalıştır</string>
+    <key>QSCommandExecuteAfterDelayAction</key>
+    <string>Gecikmeden sonra çalıştır...</string>
+    <key>QSComposeEmailItemAction</key>
+    <string>Öğeyi e-postala (Oluştur)</string>
+    <key>QSCommandExecuteAtTimeAction</key>
+    <string>Belirli zamanda çalıştır...</string>
+    <key>QSComposeEmailItemReverseAction</key>
+    <string>E-posta gönder (Oluştur)</string>
+    <key>QSCreateFileAction</key>
+    <string>Dosya oluştur [...]</string>
+    <key>QSCreateFileTemplate</key>
+    <string>Yeni oluştur:</string>
+    <key>QSDialNumberAction</key>
+    <string>Numara çevir</string>
+    <key>QSEditAction</key>
+    <string>Düzenle</string>
+    <key>QSEmailAction</key>
+    <string>E-postala</string>
+    <key>QSEmailItemAction</key>
+    <string>Öğeyi e-postala... (Gönder)</string>
+    <key>QSEmailItemReverseAction</key>
+    <string>Şuna e-postala... (Gönder)</string>
+    <key>QSHFSLockAction</key>
+    <string>Kilitle</string>
+    <key>QSHFSMakeInvisibleAction</key>
+    <string>Görünmez yap</string>
+    <key>QSHFSMakeVisibleAction</key>
+    <string>Görünür yap</string>
+    <key>QSHFSUnlockAction</key>
+    <string>Kilidi aç</string>
+    <key>QSNewFolderAction</key>
+    <string>Yeni dizin...</string>
+    <key>QSLargeTypeAction</key>
+    <string>Genişçe göster</string>
+    <key>QSLoginItemAddAction</key>
+    <string>Girişte aç</string>
+    <key>QSLoginItemRemoveAction</key>
+    <string>Girişte açma</string>
+    <key>QSNUTDContactShowAction</key>
+    <string>Kişiyi göster</string>
+    <key>QSNetworkLocationSelectAction</key>
+    <string>Konuma geç </string>
+    <key>QSObjCSendMessageAction</key>
+    <string>Çalıştır</string>
+    <key>QSObjectSearchChildrenAction</key>
+    <string>İçeriği ara</string>
+    <key>QSObjectShowChildMenu</key>
+    <string>İçerik menüsünü göster</string>
+    <key>QSObjectShowMenu</key>
+    <string>Menüyü göster</string>
+    <key>QSObjectShowActionMenu</key>
+    <string>Eylem menüsünü göster</string>
+    <key>QSObjectShowChildrenAction</key>
+    <string>İçeriği göster</string>
+    <key>QSObjectShowSourceAction</key>
+    <string>Katalogda kaynağı göster</string>
+    <key>QSPutOnShelfAction</key>
+    <string>Rafa koy</string>
+    <key>QSShelfShowAction</key>
+    <string>Göster</string>
+    <key>QSShellScriptRunAction</key>
+    <string>Çalıştır [...]</string>
+    <key>QSTextShowDialogAction</key>
+    <string>İletişim kutusu görüntüle</string>
+    <key>QSTextSpeakAction</key>
+    <string>Metni konuş (Söyle)</string>
+    <key>QSTextAppendAction</key>
+    <string>Metni şuna iliştir...</string>
+    <key>QSTextDiffAction</key>
+    <string>Şundan farklılıklar...</string>
+    <key>QSTextPrependAction</key>
+    <string>Metni şunun başına ekle...</string>
+    <key>QSTextTypeAction</key>
+    <string>Metin gir</string>
+    <key>QSUserSwitchAction</key>
+    <string>Kullanıcıya geç</string>
+    <key>QSiPhotoAlbumShowAction</key>
+    <string>Albüm göster</string>
+    <key>QSiPhotoAlbumSlideShowAction</key>
+    <string>Slayt gösterisi başlat</string>
+    <key>QSiTunesAppendItemAction</key>
+    <string>Sıra</string>
+    <key>QSiTunesPlayItemAction</key>
+    <string>Oynat</string>
+    <key>ShellScriptRunAction</key>
+    <string>Kabuk betiği çalıştır</string>
+    <key>URLEmailAction</key>
+    <string>E-posta URL&apos;si aç</string>
+    <key>URLFindWithAction</key>
+    <string>Sitede bul...</string>
+    <key>URLJSAction</key>
+    <string>JavaScript çalıştır</string>
+    <key>URLOpenAction</key>
+    <string>URL aç</string>
+    <key>URLOpenActionInBackground</key>
+    <string>URL&apos;yi ardalanda aç</string>
+    <key>URLOpenWithAction</key>
+    <string>URL&apos;yi şununla aç...</string>
+    <key>URLSearchAction</key>
+    <string>Ara</string>
+    <key>URLSearchForAction</key>
+    <string>Şunu ara...</string>
+  </dict>
+</plist>

@@ -1,4 +1,4 @@
-About Quicksilver ß6X on Github
+About Quicksilver ß7X on Github
 ===============================
 
 This repository contains the current source code of Quicksilver. If you're having issues with the latest Quicksilver version, feel free to log them at the [issue tracker](https://github.com/quicksilver/Quicksilver/issues). 

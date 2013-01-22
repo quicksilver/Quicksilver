@@ -272,8 +272,7 @@ static id _sharedInstance;
 
 	QSCatalogEntry *childEntry = [QSCatalogEntry entryWithDictionary:childDict];
 	[[parentEntry children] addObject:childEntry];
-	[treeController rearrangeObjects];
-	[itemTable reloadData];
+    [self reloadData];
 	[self selectEntry:childEntry];
 
 	if ([sourceString isEqualToString:@"QSFileSystemObjectSource"]) {
@@ -310,31 +309,6 @@ static id _sharedInstance;
 }
 
 //Outline Methods
-
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-/*	if (tableView == itemTable);
-	else */if (tableView == itemContentsTable)
-		return [[self currentItemContents] count];
-	else
-		return 0;
-}
-
-- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger) rowIndex {
-	if ([[aTableColumn identifier] isEqualToString:kItemEnabled]) {
-		return [NSNumber numberWithBool:![[QSLibrarian sharedInstance] itemIsOmitted:[[contentsController arrangedObjects] objectAtIndex:rowIndex]]];
-	} else if ([[aTableColumn identifier] isEqualToString: kItemName]) {
-		[(QSObject *)[[contentsController arrangedObjects] objectAtIndex:rowIndex] loadIcon];
-		return [[contentsController arrangedObjects] objectAtIndex:rowIndex];
-	} else
-		return nil;
-}
-- (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(NSInteger)rowIndex { return YES; }
-- (BOOL)tableView:(NSTableView *)aTableView rowIsSeparator:(NSInteger)rowIndex { return NO; }
-
-- (void)tableView:(NSTableView *)aTableView setObjectValue:anObject forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger) rowIndex {
-	if ([[aTableColumn identifier] isEqualToString:kItemEnabled])
-		[[QSLibrarian sharedInstance] setItem:[[contentsController arrangedObjects] objectAtIndex:rowIndex] isOmitted:![anObject boolValue]];
-}
 
 #if 0
 - (void)updateCurrentItemContents {
@@ -510,10 +484,18 @@ static id _sharedInstance;
 	QSCatalogEntry *newItem = [currentItem uniqueCopy];
 	[[[[QSLibrarian sharedInstance] catalogCustom] children] addObject:newItem];
 	[currentItem setEnabled:NO];
-	[itemTable reloadData];
-	[treeController rearrangeObjects];
+    [self reloadData];
 	[self selectEntry:newItem];
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogStructureChanged object:nil];
+}
+
+-(void)reloadData {
+    [treeController rearrangeObjects];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [itemTable reloadData];
+        });
+    });
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView writeItems:(NSArray *)items toPasteboard:(NSPasteboard *)pboard {
@@ -569,16 +551,28 @@ static id _sharedInstance;
 	}
 }
 
-- (void)catalogChanged:(NSNotification *)notification { [itemTable reloadData]; }
+- (void)catalogChanged:(NSNotification *)notification {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [itemTable reloadData];
+        });
+    });
+}
 
 - (void)catalogIndexed:(NSNotification *)notification {
-    [itemContentsTable reloadData];
-    [itemTable reloadData];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [itemContentsTable reloadData];
+            [itemTable reloadData];
+        });
+    });
 }
 
 - (IBAction)rescanCurrentItem:(id)sender {
 	if (currentItem) {
-		[NSThread detachNewThreadSelector:@selector(scanForcedInThread:) toTarget:currentItem withObject:[NSNumber numberWithBool:YES]];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [currentItem scanForced:YES];
+        });
 	}
 }
 

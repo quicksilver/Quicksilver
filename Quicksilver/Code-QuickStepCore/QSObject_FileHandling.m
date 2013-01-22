@@ -221,14 +221,11 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
             }
         }
     }
-	// if no of the other methods worked or previews are disabled: just use icon for filetype
-	if (!theImage) {
-		theImage = [[NSWorkspace sharedWorkspace] iconForFile:path];
-	}
-
-	theImage = [self prepareImageforIcon:theImage];
-	
-	[object updateIcon:theImage];
+    if (theImage) {
+        // update the UI with the new icon
+        theImage = [self prepareImageforIcon:theImage];
+        [object updateIcon:theImage];
+    }
 }
 
 - (NSImage *)prepareImageforIcon:(NSImage *)theImage {
@@ -669,6 +666,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     if (extension) {
         [tempDict setObject:extension forKey:@"extension"];
     }
+    [extension release];
     dict = [NSDictionary dictionaryWithDictionary:tempDict];
 	/* Release the file's extension if one was returned */
 	if (record.extension)

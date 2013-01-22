@@ -4,19 +4,19 @@
   <array>
     <dict>
       <key>category</key>
-      <string>Task Viewer</string>
+      <string>Prohlížeč úloh</string>
       <key>default</key>
       <string>QSShowTaskViewerAutomatically</string>
       <key>title</key>
-      <string>Show the Task Viewer automatically when tasks are created</string>
+      <string>Zobrazit prohlížeč úloh automaticky po vytvoření úlohy</string>
       <key>type</key>
       <string>checkbox</string>
     </dict>
     <dict>
       <key>category</key>
-      <string>App Switching</string>
+      <string>Přepínání aplikace</string>
       <key>default</key>
-      <string>Hide Other Apps When Switching</string>
+      <string>Skrýt ostatní při přepínání</string>
       <key>title</key>
       <string>Při přepínámí aplikací skrýt ostatní (lze přeřaďovačem zakázat)</string>
       <key>type</key>
@@ -24,9 +24,9 @@
     </dict>
     <dict>
       <key>category</key>
-      <string>Tasks</string>
+      <string>Úlohy</string>
       <key>default</key>
-      <string>Multithreaded Execute</string>
+      <string>Spustit vícevláknově</string>
       <key>title</key>
       <string>Spustit úlohy a akce na pozadí</string>
       <key>type</key>
@@ -34,7 +34,7 @@
     </dict>
     <dict>
       <key>category</key>
-      <string>App Switching</string>
+      <string>Přepínání aplikace</string>
       <key>default</key>
       <string>QSActionAppReopenBehavior</string>
       <key>items</key>
@@ -49,7 +49,7 @@
       <key>pretext</key>
       <string>Aplikace se znovu spouští</string>
       <key>subtext</key>
-      <string>Reopening the current application shows all windows</string>
+      <string>Znovuotevření aktuální aplikace zobrazí všechna okna</string>
       <key>title</key>
       <string>Znovu se spouští aplikace:</string>
       <key>type</key>
@@ -84,7 +84,7 @@
       <key>default</key>
       <string>Shift Actions</string>
       <key>title</key>
-      <string>Allow capitalized keys to select the action</string>
+      <string>Povolit kl. s velkými znaky vybrat akci</string>
       <key>type</key>
       <string>checkbox</string>
     </dict>
@@ -92,9 +92,9 @@
       <key>category</key>
       <string>Cmd</string>
       <key>default</key>
-      <string>Suppress HotKeys in Command</string>
+      <string>Potlačit v příkazech spouštění klávesu</string>
       <key>title</key>
-      <string>Disable Trigger HotKeys when Quicksilver is focused</string>
+      <string>Vypnout spouštění pomocí spouštěcí klávesy, když je Quicksilver aktivní</string>
       <key>type</key>
       <string>checkbox</string>
     </dict>
@@ -102,7 +102,7 @@
       <key>category</key>
       <string>Cmd</string>
       <key>default</key>
-      <string>Double Delete Clears Object</string>
+      <string>Dvojtým stiskem kl. Delete vymažete objekt</string>
       <key>title</key>
       <string>Dvojtým stiskem klávesy Delete se smaže aktuální objekt</string>
       <key>type</key>

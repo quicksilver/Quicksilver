@@ -11,7 +11,7 @@
 //- (int) indexOfSelectedItem;
 //@end;
 //@class QSPrefsController;
-@interface QSCatalogPrefPane : QSPreferencePane {
+@interface QSCatalogPrefPane : QSPreferencePane <NSOutlineViewDataSource, NSOutlineViewDelegate> {
 
 	IBOutlet NSTableView *catalogSetsTable;
 	//NSMutableArray *itemArray;
@@ -24,7 +24,7 @@
 	IBOutlet NSDrawer *itemContentsDrawer;
 
 	//Item
-	IBOutlet NSOutlineView *itemTable;
+	IBOutlet QSOutlineView *itemTable;
 	IBOutlet NSTableView *itemContentsTable;
 	IBOutlet NSImageView *itemIconField;
 	IBOutlet NSButton *itemAddButton;
@@ -54,6 +54,8 @@
 
 	IBOutlet NSView *sidebar;
 }
+
++ (id)sharedInstance;
 
 - (IBAction)addSource:(id)sender;
 //- (IBAction)addSourcePreset:(id)sender;
@@ -103,4 +105,6 @@
 - (void)selectEntry:(QSCatalogEntry *)entry;
 - (QSCatalogEntry *)entryForCatFile:(NSString *)path;
 - (id)preferencesSplitView;
+
+- (void)showOptionsDrawer;
 @end

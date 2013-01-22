@@ -574,17 +574,31 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 	*error = nil;
 	if (requirementsDict) {
-		NSArray *bundles = [requirementsDict objectForKey:@"bundles"];
 		if (![[NSUserDefaults standardUserDefaults] boolForKey:@"QSIgnorePlugInBundleRequirements"]) {
-			for (NSDictionary *bundleDict in bundles) {
+			for (NSDictionary *bundleDict in [requirementsDict objectForKey:@"bundles"]) {
 				NSString *identifier = [bundleDict objectForKey:@"id"];
-				NSString *path = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:identifier];
+                NSString *name = [bundleDict objectForKey:@"name"];
+                NSString *path = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:identifier];
 				if (!path) {
-					NSString *name = [bundleDict objectForKey:@"name"];
-					if (error) *error = [NSString stringWithFormat:@"Requires installation of '%@'", name?name:identifier];
+                    if (error) {
+                        NSString *localizedErrorFormat = NSLocalizedString(@"Requires installation of %@", nil);
+                        *error = [NSString stringWithFormat:localizedErrorFormat, name?name:identifier];
+                    }
 					return NO;
 				}
-#warning add support for version checking
+                NSString *requiredVersion = [bundleDict objectForKey:@"version"];
+                if (requiredVersion) {
+                    // check bundle's version
+                    NSDictionary *details = [[NSBundle bundleWithPath:path] infoDictionary];
+                    NSString *version = [details objectForKey:@"CFBundleShortVersionString"] ? [details objectForKey:@"CFBundleShortVersionString"] : [details objectForKey:@"CFBundleVersion"];
+                    if ([version isLessThan:requiredVersion]) {
+                        if (error) {
+                            NSString *localizedErrorFormat = NSLocalizedString(@"Requires version %@ of %@", nil);
+                            *error = [NSString stringWithFormat:localizedErrorFormat, requiredVersion, name?name:identifier];
+                        }
+                        return NO;
+                    }
+                }
 			}
 		}
 
@@ -602,8 +616,11 @@ NSMutableDictionary *plugInBundlePaths = nil;
 				NSLog(@"path %@ %@ %@", path, resource, pathBundle);
 
 				if (!path) {
-					NSString *name = [frameworkDict objectForKey:@"name"];
-					if (error) *error = [NSString stringWithFormat:@"Requires Framework '%@'", name?name:identifier];
+                    if (error) {
+                        NSString *name = [frameworkDict objectForKey:@"name"];
+                        NSString *localizedErrorFormat = NSLocalizedString(@"Requires Framework '%@'", nil);
+                        *error = [NSString stringWithFormat:localizedErrorFormat, name?name:identifier];
+                    }
 					return NO;
 				}
 			}
@@ -612,7 +629,10 @@ NSMutableDictionary *plugInBundlePaths = nil;
 		NSArray *paths = [requirementsDict objectForKey:@"paths"];
 		for(NSString * path in paths) {
 			if (![[NSFileManager defaultManager] fileExistsAtPath:[path stringByStandardizingPath]]) {
-				if (error) *error = [NSString stringWithFormat:@"Path not found: '%@'", path];
+				if (error) {
+                    NSString *localizedErrorFormat = NSLocalizedString(@"Path not found: %@", nil);
+                    *error = [NSString stringWithFormat:localizedErrorFormat, path];
+                }
 				return NO;
 			}
 		}
@@ -621,7 +641,10 @@ NSMutableDictionary *plugInBundlePaths = nil;
 		if (qsVersion) {
 			NSComparisonResult sorting = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"] versionCompare:qsVersion];
 			if (sorting<0) {
-				if (error) *error = [NSString stringWithFormat:@"Requires Quicksiver Build %@", qsVersion];
+				if (error) {
+                    NSString *localizedErrorFormat = NSLocalizedString(@"Requires Quicksiver Build %@", nil);
+                    *error = [NSString stringWithFormat:localizedErrorFormat, qsVersion];
+                }
 				return NO;
 			}
 		}
