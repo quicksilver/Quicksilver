@@ -138,7 +138,9 @@
 
 - (void)searchObjectChanged:(NSNotification*)notif {
 	[super searchObjectChanged:notif];
-	[self updateDetailsString];
+    if ([[notif object] isKindOfClass:[QSCollectingSearchObjectView class]]) {
+        [self updateDetailsString];
+    }
 }
 
 -(NSTimeInterval)animationResizeTime:(NSRect)newWindowFrame

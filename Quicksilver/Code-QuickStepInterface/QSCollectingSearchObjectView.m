@@ -115,6 +115,9 @@
 	[super selectObjectValue:newObject];
 }
 - (void)setObjectValue:(QSBasicObject *)newObject {
+    if (newObject == [self objectValue]) {
+        return;
+    }
 	if (!collecting) {
         [self emptyCollection:self];
     }

@@ -24,8 +24,8 @@
 //static QSController *controller;
 static NSMutableDictionary *objectDictionary;
 
-static NSMutableSet *iconLoadedArray;
-static NSMutableSet *childLoadedArray;
+static NSMutableSet *iconLoadedSet;
+static NSMutableSet *childLoadedSet;
 
 //static NSMutableDictionary *mainChildrenDictionary;
 //static NSMutableDictionary *altChildrenDictionary;
@@ -49,8 +49,8 @@ NSSize QSMaxIconSize;
 	//	controller = [NSApp delegate];
 
 		objectDictionary = [[NSMutableDictionary alloc] init]; // initWithCapacity:100]; formerly for these three
-		iconLoadedArray = [[NSMutableSet alloc] init];
-		childLoadedArray = [[NSMutableSet alloc] init];
+		iconLoadedSet = [[NSMutableSet alloc] init];
+		childLoadedSet = [[NSMutableSet alloc] init];
 
 		[[NSImage imageNamed:@"Question"] createIconRepresentations];
 
@@ -98,38 +98,32 @@ NSSize QSMaxIconSize;
 #endif
  // NSString *thisKey = nil;
 
-	QSObject *thisObject;
-    NSMutableArray * tempArray = [NSMutableArray array];
-    for (thisObject in iconLoadedArray) {
-		//	NSLog(@"i%@ %f", thisObject, thisObject->lastAccess);
-        if (thisObject->lastAccess && thisObject->lastAccess < (globalLastAccess - interval) ) {
-            [tempArray addObject:thisObject];
-        }
-    }
-    for( thisObject in tempArray ) {
-        if ([thisObject unloadIcon]) {
-			
+    @synchronized(iconLoadedSet) {
+        NSSet *s = [iconLoadedSet objectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *obj, BOOL *stop) {
+            return obj->lastAccess && obj->lastAccess < (globalLastAccess - interval) && ![obj isKindOfClass:[QSAction class]];
+        }];
+        for(QSObject *thisObject in s) {
+            if ([thisObject unloadIcon]) {
+                
 #ifdef DEBUG
-            imagecount++;
+                imagecount++;
 #endif
-		}
-    }
-    
-    tempArray = [NSMutableArray array];
-    for (thisObject in childLoadedArray) {
-		//	NSLog(@"c%@ %f", thisObject, thisObject->lastAccess);
-        if (thisObject->lastAccess && thisObject->lastAccess < (globalLastAccess - interval)) {
-            [tempArray addObject:thisObject];
+            }
         }
     }
     
-    for( thisObject in tempArray ) {
-        if ([thisObject unloadChildren]) {
-			
+    @synchronized(childLoadedSet) {
+    NSSet *t = [childLoadedSet objectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *obj, BOOL *stop) {
+        return obj->lastAccess && obj->lastAccess < (globalLastAccess - interval);
+    }];
+        
+        for (QSObject *thisObject in t) {
+            if ([thisObject unloadChildren]) {
 #ifdef DEBUG
-            childcount++;
-#endif		
-		}
+                childcount++;
+#endif
+            }
+        }
     }
 
 
@@ -165,8 +159,7 @@ NSSize QSMaxIconSize;
 - (id)init {
 	if (self = [super init]) {
 
-		data = nil;
-		[self setDataDictionary:[NSMutableDictionary dictionaryWithCapacity:0]];
+		data = [[NSMutableDictionary dictionaryWithCapacity:0] retain];
 		meta = [[NSMutableDictionary dictionaryWithCapacity:0] retain];
 		name = nil;
 		label = nil;
@@ -384,11 +377,7 @@ NSSize QSMaxIconSize;
 }
 
 - (void)setDetails:(NSString *)newDetails {
-    if (newDetails) {
-        [self setObject:newDetails forMeta:kQSObjectDetails];
-    } else {
-        [meta removeObjectForKey:kQSObjectDetails];
-    }
+    [self setObject:newDetails forMeta:kQSObjectDetails];
 }
 
 - (NSString *)details {
@@ -466,7 +455,9 @@ NSSize QSMaxIconSize;
         return;
     }
 	if (object) {
-        [data setObject:object forKey:aKey];
+        if (object != [data objectForKey:aKey]) {
+            [data setObject:object forKey:aKey];
+        }
     } else {
         [data removeObjectForKey:aKey];
     }
@@ -481,7 +472,9 @@ NSSize QSMaxIconSize;
         return;
     }
     if (object) {
-        [[self cache] setObject:object forKey:aKey];
+        if (object != [[self cache] objectForKey:aKey]) {
+            [[self cache] setObject:object forKey:aKey];
+        }
     } else {
         [[self cache] removeObjectForKey:aKey];
     }
@@ -496,7 +489,9 @@ NSSize QSMaxIconSize;
         return;
     }
     if (object) {
-        [meta setObject:object forKey:aKey];
+        if (object != [meta objectForKey:aKey]) {
+            [meta setObject:object forKey:aKey];
+        }
     } else {
         [meta removeObjectForKey:aKey];
     }
@@ -590,9 +585,7 @@ NSSize QSMaxIconSize;
 }
 
 - (void)setParentID:(NSString *)parentID {
-	if (parentID) {
-        [meta setObject:parentID forKey:kQSObjectParentID];
-    }
+    [self setObject:parentID forMeta:kQSObjectParentID];
 }
 
 - (BOOL)childrenValid {
@@ -612,7 +605,7 @@ NSSize QSMaxIconSize;
 	[self setAltChildren:nil];
 	flags.childrenLoaded = NO;
 	[self setChildrenLoadedDate:0];
-	[childLoadedArray removeObject:self];
+	[childLoadedSet removeObject:self];
 	return YES;
 }
 
@@ -629,7 +622,7 @@ NSSize QSMaxIconSize;
 			lastAccess = [NSDate timeIntervalSinceReferenceDate];
 			globalLastAccess = lastAccess;
 
-			[childLoadedArray addObject:self];
+			[childLoadedSet addObject:self];
 		}
 	}
 
@@ -671,50 +664,48 @@ NSSize QSMaxIconSize;
 	return ident;
 }
 
-/* WARNING: If you are receiving EXC_BAD_ACCESS messages here, it is due to Quicksilver's catalog
-containg multiple objects with the same identifier. Best efforts should be made to create objects with unique
- identifiers. If not possible, then efforts should be made to check if an object already exists with a specific
- identifier before creating a new one.
- Note by p_j_r 17/07/2011 */
 - (void)setIdentifier:(NSString *)newIdentifier {
-    if (identifier != nil) {
-        @synchronized(objectDictionary) {
-            [objectDictionary removeObjectForKey:identifier];
-        }
-        [meta removeObjectForKey:kQSObjectObjectID];
-        if(identifier != newIdentifier)
-            [identifier release], identifier = nil;
-    }
-    if (newIdentifier != nil) {
-        flags.noIdentifier = NO;
-        @synchronized(objectDictionary) {
+    if (identifier != nil && newIdentifier != nil) {
+        if(identifier != newIdentifier) {
             [objectDictionary setObject:self forKey:newIdentifier];
-        }
-        [meta setObject:newIdentifier forKey:kQSObjectObjectID];
-        if (identifier != newIdentifier)
+            [objectDictionary removeObjectForKey:identifier];
+            [meta setObject:newIdentifier forKey:kQSObjectObjectID];
+            [identifier release];
+            flags.noIdentifier = NO;
             identifier = [newIdentifier retain];
-    } else {
+        }
+    }
+    else if (newIdentifier == nil) {
         flags.noIdentifier = YES;
+        [meta removeObjectForKey:kQSObjectObjectID];
+        [identifier release];
+        identifier = nil;
+    } else if (identifier == nil) {
+        [objectDictionary setObject:self forKey:newIdentifier];
+        [meta setObject:newIdentifier forKey:kQSObjectObjectID];
+        identifier = [newIdentifier retain];
     }
 }
 
 - (NSString *)name {
 	if (!name) name = [[meta objectForKey:kQSObjectPrimaryName] retain];
 	return name;
-	//	return 	[meta objectForKey:kQSObjectPrimaryName];
 }
 
 - (void)setName:(NSString *)newName {
-	[name release];
-	if ([newName length] > 255) newName = [newName substringToIndex:255];
-	// ***warning  ** this should take first line only?
-
-	name = [newName retain];
-	if (newName) {
-        [meta setObject:newName forKey:kQSObjectPrimaryName];
-        if ([newName isEqualToString:[self label]]) {
-            // label is only necessary if it differs
-            [self setLabel:nil];
+    if (name != newName) {
+        if ([newName length] > 255) newName = [newName substringToIndex:255];
+        // ***warning  ** this should take first line only?
+        [name release];
+        name = [newName retain];
+        if (newName) {
+            if ([newName isEqualToString:[self label]]) {
+                // label is only necessary if it differs
+                [self setLabel:nil];
+            }
+            [meta setObject:newName forKey:kQSObjectPrimaryName];
+        } else {
+            [meta removeObjectForKey:kQSObjectPrimaryName];
         }
     }
 }
@@ -728,10 +719,12 @@ containg multiple objects with the same identifier. Best efforts should be made 
 
 - (void)setChildren:(NSArray *)newChildren {
 	if (newChildren) {
-        [[self cache] setObject:newChildren forKey:kQSObjectChildren];
+        if ([[self cache] objectForKey:kQSObjectChildren] != newChildren) {
+            [[self cache] setObject:newChildren forKey:kQSObjectChildren];
+        }
+    } else {
+        [[self cache] removeObjectForKey:kQSObjectChildren];
     }
-	//	[children release];
-	//  children = [newChildren retain];
 }
 
 - (NSArray *)altChildren {
@@ -742,10 +735,12 @@ containg multiple objects with the same identifier. Best efforts should be made 
 
 - (void)setAltChildren:(NSArray *)newAltChildren {
 	if (newAltChildren) {
-		[[self cache] setObject:newAltChildren forKey:kQSObjectAltChildren];
+        if ([[self cache] objectForKey:kQSObjectChildren] != newAltChildren) {
+            [[self cache] setObject:newAltChildren forKey:kQSObjectAltChildren];
+        }
+    } else {
+        [[self cache] removeObjectForKey:kQSObjectAltChildren];
     }
-	//	[altChildren release];
-	// altChildren = [newAltChildren retain];
 }
 
 - (NSString *)label {
@@ -767,12 +762,8 @@ containg multiple objects with the same identifier. Best efforts should be made 
         }
 		[label release];
 		label = [newLabel retain];
-		if (newLabel) {
-            [meta setObject:newLabel forKey:kQSObjectAlternateName];
-		} else {
-            [meta removeObjectForKey:kQSObjectAlternateName];
-        }
-	}
+    }
+    [self setObject:label forMeta:kQSObjectAlternateName];
 }
 
 - (NSString *)kind {
@@ -799,13 +790,11 @@ containg multiple objects with the same identifier. Best efforts should be made 
 	return primaryType;
 }
 - (void)setPrimaryType:(NSString *)newPrimaryType {
-	[primaryType release];
-	primaryType = [newPrimaryType retain];
-    if (newPrimaryType) {
-        [meta setObject:newPrimaryType forKey:kQSObjectPrimaryType];
-    } else {
-        [meta removeObjectForKey:kQSObjectPrimaryType];
+    if (primaryType != newPrimaryType) {
+        [primaryType release];
+        primaryType = [newPrimaryType retain];
     }
+    [self setObject:newPrimaryType forMeta:kQSObjectPrimaryType];
 }
 
 - (NSMutableDictionary *)dataDictionary {
@@ -813,8 +802,10 @@ containg multiple objects with the same identifier. Best efforts should be made 
 }
 
 - (void)setDataDictionary:(NSMutableDictionary *)newDataDictionary {
-	[data autorelease];
-	data = [newDataDictionary retain];
+    if (newDataDictionary != data) {
+        [data release];
+        data = [newDataDictionary retain];
+    }
 }
 
 - (BOOL)iconLoaded { return flags.iconLoaded;  }
@@ -864,7 +855,6 @@ containg multiple objects with the same identifier. Best efforts should be made 
 }
 - (id)initWithCoder:(NSCoder *)coder {
 	self = [self init];
-  // [self initWithDictionary:[coder decodeObject]];
 
 	[meta setDictionary:[coder decodeObjectForKey:@"meta"]];
 	[data setDictionary:[coder decodeObjectForKey:@"data"]];
@@ -875,21 +865,18 @@ containg multiple objects with the same identifier. Best efforts should be made 
 }
 
 - (void)extractMetadata {
-	if ([data objectForKey:kQSObjectPrimaryName])
-		[self setName:[data objectForKey:kQSObjectPrimaryName]];
-	if ([data objectForKey:kQSObjectAlternateName])
-		[self setLabel:[data objectForKey:kQSObjectAlternateName]];
-	if ([data objectForKey:kQSObjectPrimaryType])
-		[self setPrimaryType:[data objectForKey:kQSObjectPrimaryType]];
-	if ([data objectForKey:kQSObjectIcon]) {
-		id iconRef = [data objectForKey:kQSObjectIcon];
+	if ([meta objectForKey:kQSObjectIcon]) {
+		id iconRef = [meta objectForKey:kQSObjectIcon];
 		if ([iconRef isKindOfClass:[NSData class]])
 			[self setIcon:[[[NSImage alloc] initWithData:iconRef] autorelease]];
 		else if ([iconRef isKindOfClass:[NSString class]])
 			[self setIcon:[QSResourceManager imageNamed:iconRef]];
-		[self setIconLoaded:YES];
+        if (icon != nil) {
+            [self setIconLoaded:YES];
+        }
 	}
-
+    if ([meta objectForKey:kQSObjectPrimaryName])
+        [self setName:[meta objectForKey:kQSObjectPrimaryName]];
 	if ([meta objectForKey:kQSObjectObjectID])
 		identifier = [[meta objectForKey:kQSObjectObjectID] retain];
 	if ([meta objectForKey:kQSObjectPrimaryType])
@@ -928,7 +915,7 @@ containg multiple objects with the same identifier. Best efforts should be made 
     
 	lastAccess = [NSDate timeIntervalSinceReferenceDate];
 	globalLastAccess = lastAccess;
-	[iconLoadedArray addObject:self];
+	[iconLoadedSet addObject:self];
 
 	if (namedIcon) {
         NSImage *image = [QSResourceManager imageNamed:namedIcon];
@@ -968,7 +955,7 @@ containg multiple objects with the same identifier. Best efforts should be made 
     
 	[self setIcon:nil];
 	[self setIconLoaded:NO];
-	[iconLoadedArray removeObject:self];
+	[iconLoadedSet removeObject:self];
 	return YES;
 }
 
@@ -977,7 +964,6 @@ containg multiple objects with the same identifier. Best efforts should be made 
 	globalLastAccess = lastAccess;
     
 	if (icon) return icon;
-	//	if ([[self cache] objectForKey:kQSObjectIcon]) return [[self cache] objectForKey:kQSObjectIcon];
     
 	id handler = nil;
 	if (handler = [self handlerForSelector:@selector(setQuickIconForObject:)])
@@ -995,13 +981,12 @@ containg multiple objects with the same identifier. Best efforts should be made 
 		[self setIcon:[QSResourceManager imageNamed:@"GenericQuestionMarkIcon"]];
     
 	if (icon) return icon;
-	//	return [[self cache] objectForKey:kQSObjectIcon];
 	return nil;
 }
 
 - (void)setIcon:(NSImage *)newIcon {
 	if (newIcon != icon) {
-		[icon autorelease];
+		[icon release];
 		icon = [newIcon retain];
 		[icon setCacheMode:NSImageCacheNever];
 	}

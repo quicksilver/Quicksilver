@@ -262,7 +262,7 @@ NSMutableDictionary *bindingsDict = nil;
 	if (visibleString != newVisibleString) {
 		[visibleString release];
 		visibleString = [newVisibleString copy];
-		[resultController->searchStringField setStringValue:visibleString];
+		[resultController.searchStringField setStringValue:visibleString];
 		if ([[self controller] respondsToSelector:@selector(searchView:changedString:)])
 			[(id)[self controller] searchView:self changedString:visibleString];
 	}
@@ -584,7 +584,6 @@ NSMutableDictionary *bindingsDict = nil;
     [parentStack removeAllObjects];
     [self setResultArray:[NSMutableArray arrayWithObjects:newObject, nil]];
     [super setObjectValue:newObject];
-
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
 }
 
@@ -593,7 +592,7 @@ NSMutableDictionary *bindingsDict = nil;
     browsingHistory = NO;
 	[super setObjectValue:nil];
 	selection--;
-	//	[[NSNotificationCenter defaultCenter] postNotificationNamse:@"SearchObjectChanged" object:self];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
 }
 
 - (void)clearAll {
@@ -803,10 +802,10 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)performSearch:(NSTimer *)timer {
 	//NSLog(@"perform search, %d", self);
 	if (validSearch) {
-		[resultController->searchStringField setTextColor:[NSColor blackColor]];
-		[resultController->searchStringField display];
+		[resultController.searchStringField setTextColor:[NSColor blackColor]];
+		[resultController.searchStringField display];
 		[self performSearchFor:partialString from:timer];
-		[resultController->searchStringField display];
+		[resultController.searchStringField display];
 	}
 	// NSLog(@"search performed");
 }
@@ -878,7 +877,7 @@ NSMutableDictionary *bindingsDict = nil;
         }
         
 		validMnemonic = NO;
-		[resultController->searchStringField setTextColor:[NSColor redColor]];
+		[resultController.searchStringField setTextColor:[NSColor redColor]];
 	}
     
 	// Extend Timers
@@ -897,8 +896,8 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)resetString {
 	// NSLog(@"resetting");
-	[resultController->searchStringField setTextColor:[[resultController->searchStringField textColor] colorWithAlphaComponent:0.5]];
-	[resultController->searchStringField display];
+	[resultController.searchStringField setTextColor:[[resultController.searchStringField textColor] colorWithAlphaComponent:0.5]];
+	[resultController.searchStringField display];
 }
 
 - (void)partialStringChanged {
@@ -914,7 +913,7 @@ NSMutableDictionary *bindingsDict = nil;
 	
 	if ([self searchMode] != SearchFilterAll) [searchTimer fire];
 	if (validSearch) {
-		[resultController->searchStringField setTextColor:[NSColor blueColor]];
+		[resultController.searchStringField setTextColor:[NSColor blueColor]];
 	}
     
 	[self setVisibleString:[partialString uppercaseString]];
@@ -994,7 +993,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (BOOL)resignFirstResponder {  
     
-    if ([self isEqual:[self directSelector]]) {
+    if ([self isEqual:[self directSelector]] && [self objectValue]) {
         [self updateHistory];
     }
 	[resultTimer invalidate];
@@ -1776,11 +1775,9 @@ NSMutableDictionary *bindingsDict = nil;
 			if (newSelectedObject) {
 				if ((NSInteger)[historyArray count] > historyIndex + 1) {
 					if ([[[historyArray objectAtIndex:historyIndex+1] valueForKey:@"selection"] isEqual:parent]) {
-#ifdef DEBUG
-						if (VERBOSE) NSLog(@"Parent Missing, Using History");
-#endif
-						[self goBackward:self];
-						return;
+                        
+                        newObjects = [[[[historyArray objectAtIndex:historyIndex+1] valueForKey:@"resultArray"] retain] autorelease];
+                        [historyArray removeObjectAtIndex:historyIndex+1];
 					}
 #ifdef DEBUG
 					if (VERBOSE) NSLog(@"Parent Missing, No History, %@", [[historyArray objectAtIndex:0] valueForKey:@"selection"]);
