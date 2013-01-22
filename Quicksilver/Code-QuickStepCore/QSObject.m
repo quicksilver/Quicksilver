@@ -690,7 +690,6 @@ NSSize QSMaxIconSize;
 - (NSString *)name {
 	if (!name) name = [[meta objectForKey:kQSObjectPrimaryName] retain];
 	return name;
-	//	return 	[meta objectForKey:kQSObjectPrimaryName];
 }
 
 - (void)setName:(NSString *)newName {
@@ -856,7 +855,6 @@ NSSize QSMaxIconSize;
 }
 - (id)initWithCoder:(NSCoder *)coder {
 	self = [self init];
-  // [self initWithDictionary:[coder decodeObject]];
 
 	[meta setDictionary:[coder decodeObjectForKey:@"meta"]];
 	[data setDictionary:[coder decodeObjectForKey:@"data"]];
@@ -867,21 +865,18 @@ NSSize QSMaxIconSize;
 }
 
 - (void)extractMetadata {
-	if ([data objectForKey:kQSObjectPrimaryName])
-		[self setName:[data objectForKey:kQSObjectPrimaryName]];
-	if ([data objectForKey:kQSObjectAlternateName])
-		[self setLabel:[data objectForKey:kQSObjectAlternateName]];
-	if ([data objectForKey:kQSObjectPrimaryType])
-		[self setPrimaryType:[data objectForKey:kQSObjectPrimaryType]];
-	if ([data objectForKey:kQSObjectIcon]) {
-		id iconRef = [data objectForKey:kQSObjectIcon];
+	if ([meta objectForKey:kQSObjectIcon]) {
+		id iconRef = [meta objectForKey:kQSObjectIcon];
 		if ([iconRef isKindOfClass:[NSData class]])
 			[self setIcon:[[[NSImage alloc] initWithData:iconRef] autorelease]];
 		else if ([iconRef isKindOfClass:[NSString class]])
 			[self setIcon:[QSResourceManager imageNamed:iconRef]];
-		[self setIconLoaded:YES];
+        if (icon != nil) {
+            [self setIconLoaded:YES];
+        }
 	}
-
+    if ([meta objectForKey:kQSObjectPrimaryName])
+        [self setName:[meta objectForKey:kQSObjectPrimaryName]];
 	if ([meta objectForKey:kQSObjectObjectID])
 		identifier = [[meta objectForKey:kQSObjectObjectID] retain];
 	if ([meta objectForKey:kQSObjectPrimaryType])
@@ -969,7 +964,6 @@ NSSize QSMaxIconSize;
 	globalLastAccess = lastAccess;
     
 	if (icon) return icon;
-	//	if ([[self cache] objectForKey:kQSObjectIcon]) return [[self cache] objectForKey:kQSObjectIcon];
     
 	id handler = nil;
 	if (handler = [self handlerForSelector:@selector(setQuickIconForObject:)])
@@ -987,7 +981,6 @@ NSSize QSMaxIconSize;
 		[self setIcon:[QSResourceManager imageNamed:@"GenericQuestionMarkIcon"]];
     
 	if (icon) return icon;
-	//	return [[self cache] objectForKey:kQSObjectIcon];
 	return nil;
 }
 
