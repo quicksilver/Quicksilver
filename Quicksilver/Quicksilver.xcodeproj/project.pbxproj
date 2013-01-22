@@ -358,8 +358,10 @@
 		CD4FA6E2157A13DE00E549BD /* QSHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4FA6E1157A13DE00E549BD /* QSHotKeyEvent.m */; };
 		CD53FEB3151A0ACF006B734B /* PluginReporterText.html in Resources */ = {isa = PBXBuildFile; fileRef = CD53FEB2151A0ACF006B734B /* PluginReporterText.html */; };
 		CD790FA314D21C2100225950 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8D135E09187AE20062C966 /* Quartz.framework */; };
-		CDA5253716AED84400D2017F /* NSView+DisableSubviews.h in Headers */ = {isa = PBXBuildFile; fileRef = CDA5253516AED84400D2017F /* NSView+DisableSubviews.h */; };
+		CDA5253716AED84400D2017F /* NSView+DisableSubviews.h in Headers */ = {isa = PBXBuildFile; fileRef = CDA5253516AED84400D2017F /* NSView+DisableSubviews.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDA5253816AED84400D2017F /* NSView+DisableSubviews.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA5253616AED84400D2017F /* NSView+DisableSubviews.m */; };
+		CDA5253916AED88E00D2017F /* QSGCD.h in Headers */ = {isa = PBXBuildFile; fileRef = CD02BB4116A2BA5700DAFE50 /* QSGCD.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CDA5253A16AED89100D2017F /* QSGCD.m in Sources */ = {isa = PBXBuildFile; fileRef = CD02BB4216A2BA5700DAFE50 /* QSGCD.m */; };
 		CDA9D3DE1549D13B00607BE4 /* AlertCautionIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDA9D3DD1549D13B00607BE4 /* AlertCautionIcon.icns */; };
 		CDC10E721622146C005FA734 /* SUConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = CDC10E6E1622146C005FA734 /* SUConstants.h */; };
 		CDC10E731622146C005FA734 /* SUConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC10E6F1622146C005FA734 /* SUConstants.m */; };
@@ -3511,6 +3513,7 @@
 				CDC10E721622146C005FA734 /* SUConstants.h in Headers */,
 				CDC10E741622146C005FA734 /* SUPlainInstallerInternals.h in Headers */,
 				CDA5253716AED84400D2017F /* NSView+DisableSubviews.h in Headers */,
+				CDA5253916AED88E00D2017F /* QSGCD.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4639,6 +4642,7 @@
 				CDC10E731622146C005FA734 /* SUConstants.m in Sources */,
 				CDC10E751622146C005FA734 /* SUPlainInstallerInternals.m in Sources */,
 				CDA5253816AED84400D2017F /* NSView+DisableSubviews.m in Sources */,
+				CDA5253A16AED89100D2017F /* QSGCD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
