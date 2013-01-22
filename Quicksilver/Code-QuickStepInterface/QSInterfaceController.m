@@ -277,7 +277,7 @@
 		} else {
 			defaultSelection = [array objectAtIndex:0];
 		}
-	} else {
+	} else if ([control objectValue] != nil) {
 		[control clearObjectValue];
 	}
 	[control clearSearch];
@@ -327,8 +327,9 @@
 
 - (void)updateActionsNow {
     // Clear the current results in the aSelector ready for the new results
-    [aSelector setResultArray:nil];
-    [aSelector clearObjectValue];
+    if ([aSelector resultArray]) {
+        [aSelector setResultArray:nil];
+    }
 	[actionsUpdateTimer invalidate];
 
 	[aSelector setEnabled:YES];
@@ -434,17 +435,20 @@
 - (void)searchObjectChanged:(NSNotification*)notif {
 	[[self window] disableFlushWindow];
 	if ([notif object] == dSelector) {
-        [iSelector setObjectValue:nil];
-        [self updateViewLocations];
         [self updateActions];
 	} else if ([notif object] == aSelector) {
         QSAction *obj = [aSelector objectValue];
+        if (!obj) {
+            [iSelector setObjectValue:nil];
+        }
         if ([obj isKindOfClass:[QSRankedObject class]])
             obj = [(QSRankedObject*)obj object];
         if ([obj isKindOfClass:[QSAction class]]) {
             NSInteger argumentCount = [obj argumentCount];
-            if (argumentCount == 2)
+            // update indirects if the action requires it, or if the iSelector is already visible and the action has indirectOptional
+            if (argumentCount == 2 || ([[[[self window] contentView] subviews] containsObject:iSelector] && [obj indirectOptional])) {
                 [self updateIndirectObjects];
+            }
             [self updateViewLocations];
         }
     } else if ([notif object] == iSelector) {

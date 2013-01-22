@@ -156,6 +156,9 @@
 }
 
 - (BOOL)makeFirstResponder:(NSResponder *)aResponder {
+    if (aResponder == [self firstResponder]) {
+        return YES;
+    }
 	BOOL responderChanged = [super makeFirstResponder:aResponder];
 	if (responderChanged && [(NSObject *)[self delegate] respondsToSelector:@selector(firstResponderChanged:)])
 		[[self delegate] firstResponderChanged:aResponder];

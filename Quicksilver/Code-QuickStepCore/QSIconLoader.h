@@ -9,7 +9,7 @@
 #define QSIconLoaderDelegateCanceled @"QSIconLoaderDelegateCanceled"
 
 @interface QSIconLoader : NSObject {
-	NSArray *array;
+	NSArray *objectArray;
 	BOOL loaderValid;
     __block BOOL isLoading;
 

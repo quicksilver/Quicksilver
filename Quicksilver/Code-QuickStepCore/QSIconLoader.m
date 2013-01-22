@@ -9,7 +9,7 @@
 
 - (id)initWithArray:(NSArray *)newArray {
 	if (self = [super init]) {
-		array = [newArray retain];
+		objectArray = [newArray retain];
 		loaderValid = YES;
         isLoading = NO;
 	}
@@ -19,7 +19,7 @@
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[delegate release];
-	[array release];
+	[objectArray release];
 	[super dealloc];
 }
 
@@ -47,12 +47,12 @@
                     j = loadRange.length/2-j/2+j*(j%2); //Center Modulation
                 }
                 m += j;
-                if (m >= [array count]) continue;
-                thisObject = [array objectAtIndex:m];
+                if (![objectArray count] || m >= [objectArray count]) continue;
+                thisObject = [objectArray objectAtIndex:m];
                 
                 if (![thisObject isKindOfClass:[NSNull class]] && ![thisObject iconLoaded]) {
                     [thisObject loadIcon];
-                    [delegate iconLoader:self loadedIndex:m inArray:array];
+                    [delegate iconLoader:self loadedIndex:m inArray:objectArray];
                 }
                 rangeValid = NSEqualRanges(loadRange, newRange);
             }
