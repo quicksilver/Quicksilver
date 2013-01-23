@@ -18,16 +18,14 @@
     // don't observe notifications meant for the main interface
     [wc ignoreInterfaceNotifications];
     
-    
     QSObjectCell *theCell = [searchObjView cell];
-    [theCell setCellRadiusFactor:20];
+    [theCell setCellRadiusFactor:2000];
     [theCell setHighlightColor:[NSColor colorWithDeviceRed:228.0f/255.0f green:228.0f/255.0f blue:228.0f/255.0f alpha:1.0]];
     [theCell setTextColor:[NSColor blackColor]];
     [theCell setShowDetails:NO];
     [self setHasShadow:NO];
     [theCell setFont:[NSFont systemFontOfSize:16.0]];
     
-    [self setShowEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSGrowEffect", @"transformFn", @"show", @"type", [NSNumber numberWithDouble:0.2], @"duration", nil]];
     [self setHideEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSSlightShrinkEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithDouble:0.1], @"duration", nil]];
     [self setWindowProperty:[NSDictionary dictionaryWithObjectsAndKeys:@"QSVContractEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithDouble:0.2], @"duration", nil, [NSNumber numberWithDouble:0.25], @"brightnessB", @"QSStandardBrightBlending", @"brightnessFn", nil] forKey:kQSWindowCancelEffect];
     // populate and set up search
@@ -35,7 +33,6 @@
     [searchObjView setAllowText:NO];
     [searchObjView setSearchMode:SearchFilterAll];
     [searchObjView setObjectValue:[wc representedObject]];
-    
 }
 
 @end
