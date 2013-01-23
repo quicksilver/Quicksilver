@@ -351,8 +351,6 @@
 		92DC402D0E25A0C40091BD92 /* Action.png in Resources */ = {isa = PBXBuildFile; fileRef = 92DC402B0E25A0C40091BD92 /* Action.png */; };
 		92E946190D04CCEF0013377F /* QSModifierKeyEvents.h in Headers */ = {isa = PBXBuildFile; fileRef = 92E946170D04CCEF0013377F /* QSModifierKeyEvents.h */; };
 		92E9461A0D04CCEF0013377F /* QSModifierKeyEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E946180D04CCEF0013377F /* QSModifierKeyEvents.m */; };
-		CD02BB4616A2BA6000DAFE50 /* QSGCD.h in Headers */ = {isa = PBXBuildFile; fileRef = CD02BB4116A2BA5700DAFE50 /* QSGCD.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CD02BB4716A2BA6600DAFE50 /* QSGCD.m in Sources */ = {isa = PBXBuildFile; fileRef = CD02BB4216A2BA5700DAFE50 /* QSGCD.m */; };
 		CD1B17D9158A573000E4A030 /* VDKQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE1E661158A4D0900355A9F /* VDKQueue.m */; };
 		CD1B17DA158A573200E4A030 /* VDKQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = CDE1E660158A4D0900355A9F /* VDKQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD3F9D68136183250013FCB7 /* QSClangAnalyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42ADF4FD1317237900C68070 /* QSClangAnalyzer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -360,6 +358,10 @@
 		CD4FA6E2157A13DE00E549BD /* QSHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4FA6E1157A13DE00E549BD /* QSHotKeyEvent.m */; };
 		CD53FEB3151A0ACF006B734B /* PluginReporterText.html in Resources */ = {isa = PBXBuildFile; fileRef = CD53FEB2151A0ACF006B734B /* PluginReporterText.html */; };
 		CD790FA314D21C2100225950 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8D135E09187AE20062C966 /* Quartz.framework */; };
+		CDA5253716AED84400D2017F /* NSView+DisableSubviews.h in Headers */ = {isa = PBXBuildFile; fileRef = CDA5253516AED84400D2017F /* NSView+DisableSubviews.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CDA5253816AED84400D2017F /* NSView+DisableSubviews.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA5253616AED84400D2017F /* NSView+DisableSubviews.m */; };
+		CDA5253916AED88E00D2017F /* QSGCD.h in Headers */ = {isa = PBXBuildFile; fileRef = CD02BB4116A2BA5700DAFE50 /* QSGCD.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CDA5253A16AED89100D2017F /* QSGCD.m in Sources */ = {isa = PBXBuildFile; fileRef = CD02BB4216A2BA5700DAFE50 /* QSGCD.m */; };
 		CDA9D3DE1549D13B00607BE4 /* AlertCautionIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDA9D3DD1549D13B00607BE4 /* AlertCautionIcon.icns */; };
 		CDC10E721622146C005FA734 /* SUConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = CDC10E6E1622146C005FA734 /* SUConstants.h */; };
 		CDC10E731622146C005FA734 /* SUConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC10E6F1622146C005FA734 /* SUConstants.m */; };
@@ -1568,6 +1570,8 @@
 		CD4FA6DF157A13D600E549BD /* QSHotKeyEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHotKeyEvent.h; sourceTree = "<group>"; };
 		CD4FA6E1157A13DE00E549BD /* QSHotKeyEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHotKeyEvent.m; sourceTree = "<group>"; };
 		CD53FEB2151A0ACF006B734B /* PluginReporterText.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = PluginReporterText.html; sourceTree = "<group>"; };
+		CDA5253516AED84400D2017F /* NSView+DisableSubviews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSView+DisableSubviews.h"; path = "DisableSubviews/DisableSubviews/NSView+DisableSubviews.h"; sourceTree = "<group>"; };
+		CDA5253616AED84400D2017F /* NSView+DisableSubviews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSView+DisableSubviews.m"; path = "DisableSubviews/DisableSubviews/NSView+DisableSubviews.m"; sourceTree = "<group>"; };
 		CDA9D3DD1549D13B00607BE4 /* AlertCautionIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AlertCautionIcon.icns; sourceTree = "<group>"; };
 		CDC10E6E1622146C005FA734 /* SUConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUConstants.h; path = Sparkle/SUConstants.h; sourceTree = "<group>"; };
 		CDC10E6F1622146C005FA734 /* SUConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SUConstants.m; path = Sparkle/SUConstants.m; sourceTree = "<group>"; };
@@ -2533,6 +2537,15 @@
 			path = QSDroplet;
 			sourceTree = "<group>";
 		};
+		CDA5253416AED83900D2017F /* DisableSubviews */ = {
+			isa = PBXGroup;
+			children = (
+				CDA5253516AED84400D2017F /* NSView+DisableSubviews.h */,
+				CDA5253616AED84400D2017F /* NSView+DisableSubviews.m */,
+			);
+			name = DisableSubviews;
+			sourceTree = "<group>";
+		};
 		CDC10E6D16221459005FA734 /* Sparkle */ = {
 			isa = PBXGroup;
 			children = (
@@ -2709,6 +2722,7 @@
 		E103EE2406471DDE00447FE0 /* Code-External */ = {
 			isa = PBXGroup;
 			children = (
+				CDA5253416AED83900D2017F /* DisableSubviews */,
 				CDC10E6D16221459005FA734 /* Sparkle */,
 				D413172B15DEE5D90021479B /* LaunchAtLoginController */,
 				CDE1E65F158A4CFD00355A9F /* VDKQueue */,
@@ -3498,7 +3512,8 @@
 				CDE8ADBB15824E3E0099CC83 /* NDKeyboardLayout.h in Headers */,
 				CDC10E721622146C005FA734 /* SUConstants.h in Headers */,
 				CDC10E741622146C005FA734 /* SUPlainInstallerInternals.h in Headers */,
-				CD02BB4616A2BA6000DAFE50 /* QSGCD.h in Headers */,
+				CDA5253716AED84400D2017F /* NSView+DisableSubviews.h in Headers */,
+				CDA5253916AED88E00D2017F /* QSGCD.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4626,7 +4641,8 @@
 				CDE8ADBC15824E3E0099CC83 /* NDKeyboardLayout.m in Sources */,
 				CDC10E731622146C005FA734 /* SUConstants.m in Sources */,
 				CDC10E751622146C005FA734 /* SUPlainInstallerInternals.m in Sources */,
-				CD02BB4716A2BA6600DAFE50 /* QSGCD.m in Sources */,
+				CDA5253816AED84400D2017F /* NSView+DisableSubviews.m in Sources */,
+				CDA5253A16AED89100D2017F /* QSGCD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

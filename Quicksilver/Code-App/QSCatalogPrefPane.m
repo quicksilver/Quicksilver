@@ -13,6 +13,8 @@
 #import <QSFoundation/QSFoundation.h>
 #import "QSNotifications.h"
 #import "QSHandledSplitView.h"
+#import "NSView+DisableSubviews.h"
+
 #define COLUMNID_NAME		@"name"
 #define COLUMNID_ENABLED	@"enabled"
 #define COLUMNID_TYPE	 	@"TypeColumn"
@@ -359,9 +361,10 @@ static id _sharedInstance;
 				[source setSelection:currentItem];
 			if ([source respondsToSelector:@selector(populateFields)])
 				[source populateFields];
-			if (settingsView)
+			if (settingsView) {
+                [settingsView disableSubviews:![currentItem isEditable]];
 				[itemOptionsView setContentView:settingsView];
-			else {
+			} else {
 				[messageTextField setStringValue:@"No Options"];
 				[itemOptionsView setContentView:messageView];
 			}

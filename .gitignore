@@ -20,3 +20,4 @@ Quicksilver*.dmg
 *.pyc
 Quicksilver/SharedSupport/Changes*.html
 Quicksilver/Code-External/VDKQueue
+Quicksilver/Code-External/DisableSubviews
