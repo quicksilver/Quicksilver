@@ -18,14 +18,13 @@
     // don't observe notifications meant for the main interface
     [wc ignoreInterfaceNotifications];
     
-    // configure appearance
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     QSObjectCell *theCell = [searchObjView cell];
     [theCell setCellRadiusFactor:20];
-    [theCell setHighlightColor:[defaults colorForKey:@"QSAppearance1B"]];
-    [theCell setTextColor:[defaults colorForKey:@"QSAppearance1T"]];
+    [theCell setHighlightColor:[NSColor colorWithDeviceRed:228.0f/255.0f green:228.0f/255.0f blue:228.0f/255.0f alpha:1.0]];
+    [theCell setTextColor:[NSColor blackColor]];
     [theCell setShowDetails:NO];
+    [self setHasShadow:NO];
     [theCell setFont:[NSFont systemFontOfSize:16.0]];
     
     [self setShowEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSGrowEffect", @"transformFn", @"show", @"type", [NSNumber numberWithDouble:0.2], @"duration", nil]];
@@ -38,6 +37,5 @@
     [searchObjView setObjectValue:[wc representedObject]];
     
 }
-
 
 @end

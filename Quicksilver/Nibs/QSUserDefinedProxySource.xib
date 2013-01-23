@@ -217,7 +217,7 @@
 			<object class="NSWindowTemplate" id="1053915796">
 				<int key="NSWindowStyleMask">19</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{666, 536}, {384, 128}}</string>
+				<string key="NSWindowRect">{{666, 536}, {260, 48}}</string>
 				<int key="NSWTFlags">-461896704</int>
 				<string key="NSWindowTitle">Select a Target</string>
 				<string key="NSWindowClass">QSTargetPickerPanel</string>
@@ -230,20 +230,20 @@
 						<object class="NSCustomView" id="793139279">
 							<reference key="NSNextResponder" ref="158122151"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrameSize">{384, 128}</string>
+							<string key="NSFrameSize">{260, 48}</string>
 							<reference key="NSSuperview" ref="158122151"/>
 							<reference key="NSWindow"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<string key="NSClassName">QSSearchObjectView</string>
 						</object>
 					</array>
-					<string key="NSFrameSize">{384, 128}</string>
+					<string key="NSFrameSize">{260, 48}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="793139279"/>
 					<string key="NSReuseIdentifierKey">_NS:21</string>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">NO</bool>
 			</object>

@@ -172,9 +172,8 @@
     NSRect relativeToWindow = [sender convertRect:[sender bounds] toView:nil];
     // the position of the button on screen
     NSRect targetRect = [settingsView.window convertRectToScreen:relativeToWindow];
-    // center the target picker over the target
-    NSRect pickerRect = centerRectInRect([targetPickerWindow frame], targetRect);
-    [targetPickerWindow setFrame:pickerRect display:NO];
+    [targetPickerWindow setFrame:targetRect display:NO];
+    [[targetPickerWindow searchObjView] setFrame:NSMakeRect(0, 0, targetRect.size.width, targetRect.size.height)];
     [targetPickerWindow makeKeyAndOrderFront:self];
 }
 
