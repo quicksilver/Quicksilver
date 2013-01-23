@@ -52,6 +52,7 @@
 #define kActionValidatesObjects     @"validatesObjects"
 #define kActionInitialize           @"initialize"
 #define kActionEnabled              @"enabled"
+#define kActionResolvesProxy        @"resolvesProxy"
 
 // NSNumber (float) :
 #define kActionPrecedence @"precedence"

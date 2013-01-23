@@ -1444,6 +1444,8 @@
 			<string>QSObjectActions</string>
 			<key>precedence</key>
 			<integer>0</integer>
+			<key>resolvesProxy</key>
+			<false/>
 			<key>actionSelector</key>
 			<string>findObjectInCatalog:</string>
 			<key>validatesObjects</key>
@@ -1459,6 +1461,8 @@
 			</array>
 			<key>precedence</key>
 			<real>-0.2</real>
+			<key>resolvesProxy</key>
+			<false/>
 			<key>indirectTypes</key>
 			<array>
 				<string>NSStringPboardType</string>
