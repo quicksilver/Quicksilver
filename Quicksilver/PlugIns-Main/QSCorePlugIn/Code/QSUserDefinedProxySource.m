@@ -49,7 +49,7 @@
     NSDictionary *settings = [theEntry objectForKey:kItemSettings];
     NSString *targetID = [settings objectForKey:@"target"];
     NSString *name = [settings objectForKey:@"name"];
-    [proxy setIdentifier:[NSString stringWithFormat:@"QSUserDefinedProxy:%@", targetID]];
+    [proxy setIdentifier:[NSString stringWithFormat:@"QSUserDefinedProxy:%@", name]];
     [proxy setName:name];
     [proxy setObject:targetID forMeta:@"target"];
     return [NSArray arrayWithObject:proxy];
