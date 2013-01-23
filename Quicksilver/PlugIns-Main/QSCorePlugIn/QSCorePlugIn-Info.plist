@@ -811,7 +811,7 @@
 				<string>qs.command</string>
 			</array>
 			<key>actionSelector</key>
-			<string>addTrigger:</string>
+			<string>addTrigger:withType:</string>
 			<key>icon</key>
 			<string>Quicksilver</string>
 		</dict>

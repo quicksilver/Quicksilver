@@ -23,6 +23,9 @@
 
 #import "QSTriggersPrefPane.h"
 
+/* I know that sounds stupid, but if trigger themselves are one day made QSObjects then we'll be glad */
+#define QSTriggerTypeType @"QSTriggerTypeType"
+
 @interface QSObject (QSCommandCompletionProtocol)
 - (void)completeAndExecuteCommand:(QSCommand *)command;
 @end
@@ -45,9 +48,22 @@
 }
 
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
-	if ([action isEqualToString:@"QSCommandSaveAction"])
+	if ([action isEqualToString:@"QSCommandSaveAction"]) {
 		return nil;
-	else
+	} else if ([action isEqualToString:@"QSCommandAddTriggerAction"]) {
+        NSMutableArray *triggerTypesObjects = [NSMutableArray array];
+        NSDictionary *triggerManagers = [QSReg instancesForTable:@"QSTriggerManagers"];
+        for (NSString *key in triggerManagers) {
+            QSTriggerManager *manager = [triggerManagers objectForKey:key];
+            QSObject *triggerType = [QSObject makeObjectWithIdentifier:key];
+            [triggerType setPrimaryType:QSTriggerTypeType];
+            [triggerType setIcon:[manager image]];
+            [triggerType setName:[manager name]];
+            [triggerType setObject:key forType:QSTriggerTypeType];
+            [triggerTypesObjects addObject:triggerType];
+        }
+        return triggerTypesObjects;
+    } else
 		return [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@""]];
 }
 
@@ -123,11 +139,13 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	return [QSObject fileObjectWithPath:destination];
 }
 
-- (QSObject*)addTrigger:(QSObject *)dObject {
+- (QSObject*)addTrigger:(QSObject *)dObject withType:(QSObject *)type {
 	QSCommand *command = (QSCommand*)dObject;
     
+    NSString *typeString = [type objectForType:QSTriggerTypeType];
+
 	NSMutableDictionary *info = [NSMutableDictionary dictionaryWithCapacity:5];
-	[info setObject:@"QSHotKeyTrigger" forKey:@"type"];
+	[info setObject:typeString forKey:@"type"];
 	[info setObject:[NSNumber numberWithBool:YES] forKey:kItemEnabled];
     
 	if (command)

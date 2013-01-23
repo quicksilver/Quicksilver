@@ -145,7 +145,7 @@
 	<key>QSCommandSaveAction</key>
 	<string>Save Command to File...</string>
 	<key>QSCommandAddTriggerAction</key>
-	<string>Add Trigger</string>
+	<string>Add Trigger…</string>
 	<key>QSCommandExecuteAction</key>
 	<string>Run</string>
 	<key>QSCommandExecuteAfterDelayAction</key>
