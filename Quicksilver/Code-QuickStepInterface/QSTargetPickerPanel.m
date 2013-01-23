@@ -35,4 +35,9 @@
     [searchObjView setObjectValue:[wc representedObject]];
 }
 
+- (void)resignMainWindow
+{
+    [self orderOut:nil];
+}
+
 @end
