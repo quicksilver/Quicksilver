@@ -46,6 +46,12 @@
 - (BOOL)canThread;
 - (BOOL)indirectOptional;
 - (void)setIndirectOptional:(BOOL)flag;
+
+// resolveProxy is a BOOL set in an action's dict to specify whether an object should be resolved
+// before being sent to an action. Action's like 'assign abbreviation...' should not resolve the proxy
+- (BOOL)resolvesProxy;
+- (void)setResolvesProxy:(BOOL)flag;
+
 - (BOOL)displaysResult;
 - (void)setDisplaysResult:(BOOL)flag;
 

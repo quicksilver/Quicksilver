@@ -224,6 +224,17 @@ static BOOL gModifiersAreIgnored;
  	[[self actionDict] setObject:[NSNumber numberWithInteger:flag] forKey:kActionIndirectOptional];
 }
 
+- (BOOL)resolvesProxy {
+    if ([[self actionDict] objectForKey:kActionResolvesProxy] == nil) {
+        return YES;
+    }
+    return [[[self actionDict] objectForKey:kActionResolvesProxy] boolValue];
+}
+
+- (void)setResolvesProxy:(BOOL)flag {
+ 	[[self actionDict] setObject:[NSNumber numberWithInteger:flag] forKey:kActionResolvesProxy];
+}
+
 - (BOOL)displaysResult { 
    return [[[self actionDict] objectForKey:kActionDisplaysResult] boolValue]; 
 }
@@ -310,7 +321,9 @@ static BOOL gModifiersAreIgnored;
 		if (!provider) {
 			provider = [QSReg getClassInstance:class];
 		}
-        dObject = [dObject resolvedObject];
+        if ([self resolvesProxy]) {
+            dObject = [dObject resolvedObject];
+        }
 		if ([[dict objectForKey:kActionSplitPluralArguments] boolValue] && [dObject count] > 1) {
 			NSArray *objects = [dObject splitObjects];
 			id object;
