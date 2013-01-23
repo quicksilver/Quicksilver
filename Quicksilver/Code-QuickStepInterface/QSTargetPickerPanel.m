@@ -35,7 +35,7 @@
     [searchObjView setObjectValue:[wc representedObject]];
 }
 
-- (void)resignMainWindow
+- (void)resignKeyWindow
 {
     [self orderOut:nil];
 }
