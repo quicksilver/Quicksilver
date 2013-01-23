@@ -608,6 +608,7 @@
 - (void)buildTriggerSets {
 	NSMutableDictionary *registrySets = [[QSReg tableNamed:@"QSTriggerSets"] mutableCopy];
 
+    /* Capacity = size of the triggers in the registry sets + the 2 default ones */
 	NSMutableArray *sets = [[NSMutableArray alloc] initWithCapacity:[registrySets count] + 2];
 	[sets addObject:[NSDictionary dictionaryWithObjectsAndKeys:
 					 @"Custom Triggers", @"text",
