@@ -6,7 +6,7 @@
 
 @implementation QSObject (TextProxy)
 + (id)textProxyObjectWithDefaultValue:(NSString *)string {
-	QSObject *object = [self objectWithType:QSTextProxyType value:string name:@""];
+	QSObject *object = [self objectWithType:QSTextProxyType value:string name:string];
 	[object setIcon:[[NSWorkspace sharedWorkspace] iconForFileType:@"'clpt'"]];
 	return object;
 }
