@@ -189,8 +189,7 @@ extern NSSize QSMaxIconSize;
 - (void)setPrimaryType:(NSString *)newPrimaryType;
 - (NSMutableDictionary *)dataDictionary;
 - (void)setDataDictionary:(NSMutableDictionary *)newDataDictionary;
-///- (id)contents ;
-///- (void)setContents:(id)newContents ;
+
 - (BOOL)iconLoaded;
 - (void)setIconLoaded:(BOOL)flag;
 - (BOOL)retainsIcon;
@@ -200,8 +199,12 @@ extern NSSize QSMaxIconSize;
 - (BOOL)contentsLoaded;
 - (void)setContentsLoaded:(BOOL)flag;
 - (NSTimeInterval)childrenLoadedDate;
-- (void)setChildrenLoadedDate:(NSTimeInterval)newChildrenLoadedDate; //- (NSTimeInterval)lastUseDate;
-//- (void)setLastUseDate:(NSTimeInterval)newLastUseDate;
+- (void)setChildrenLoadedDate:(NSTimeInterval)newChildrenLoadedDate;
+
+
+// This private method is required for QSProxyObject.m
+- (id)_safeObjectForType:(id)aKey;
+
 @end
 
 

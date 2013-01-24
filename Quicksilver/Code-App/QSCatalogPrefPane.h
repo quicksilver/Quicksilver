@@ -95,8 +95,6 @@
 
 - (void)updateEntrySelection;
 
-- (BOOL)tableView:(NSTableView *)aTableView rowIsSeparator:(NSInteger)rowIndex;
-
 - (QSCatalogEntry *)currentItem;
 - (void)setCurrentItem:(QSCatalogEntry *)newCurrentItem;
 + (void)addEntryForCatFile:(NSString *)path;
