@@ -229,9 +229,11 @@
 }
 
 - (IBAction)triggerChanged:(id)sender {
-	[triggerSetsController rearrangeObjects];
-	[triggerArrayController rearrangeObjects];
-	[triggerTable reloadData];
+    runOnMainQueueSync(^{
+        [triggerSetsController rearrangeObjects];
+        [triggerArrayController rearrangeObjects];
+        [triggerTable reloadData];
+    });
 }
 
 - (QSTrigger *)currentTrigger {
@@ -346,8 +348,8 @@
 	[trigger initializeTrigger];
 	[[QSTriggerCenter sharedInstance] addTrigger:trigger];
 	[self selectTrigger:nil];
-
-	[triggerTable reloadData];
+    
+	[self reloadData:triggerTable];
 
 	if ([[trigger type] isEqualToString:@"QSGroupTrigger"]) {
 		NSInteger row = [triggerTable selectedRow];
@@ -458,6 +460,12 @@
 	[triggerArrayController setFilterPredicate:predicate];
 }
 
+-(void)reloadData:(NSTableView *)view {
+    runOnMainQueueSync(^{
+        [view reloadData];
+    });
+}
+
 - (NSString *)search { return search; }
 - (void)setSearch:(NSString *)newSearch {
 	if(newSearch != search){
@@ -507,7 +515,7 @@
 		if ([theSelectedTrigger usesPresetCommand])
 			return NO;
 		if ([[NSApp currentEvent] type] == NSKeyDown) {
-			[outlineView reloadData];
+			[self reloadData:outlineView];
 			[[outlineView window] makeFirstResponder:outlineView];
 			return YES;
 		}
@@ -529,7 +537,7 @@
 			return;
         NSString *type = [[typeMenu itemAtIndex:typeIndex] representedObject];
         [thisTrigger setType:type];
-        [triggerTable reloadData];
+        [self reloadData:triggerTable];
         [optionsDrawer open];
 
         [self selectTrigger:self];
@@ -596,10 +604,8 @@
 	item = [item representedObject];
     NSLog(@"drop on %@ - %@ at index %ld", item, [item identifier], (long)index);
     
-	[triggerArrayController rearrangeObjects];
-	[triggerTreeController rearrangeObjects];
-	
-	[triggerTable reloadData];
+    
+    [self triggerChanged:nil];
 	[[QSTriggerCenter sharedInstance] triggerChanged:nil];
 	
 	return YES;
