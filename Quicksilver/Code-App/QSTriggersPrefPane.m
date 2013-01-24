@@ -261,6 +261,10 @@
 
 	if ([manager respondsToSelector:@selector(setCurrentTrigger:)])
 		[manager setCurrentTrigger:thisTrigger];
+    NSInteger selectedTriggerRow = [[triggerArrayController arrangedObjects] indexOfObject:thisTrigger];
+    if (selectedTriggerRow != NSNotFound && selectedTriggerRow < [triggerTable numberOfRows]) {
+        [triggerTable selectRowIndexes:[NSIndexSet indexSetWithIndex:selectedTriggerRow] byExtendingSelection:NO];
+    }
 }
 
 - (QSTrigger *)selectedTrigger { return [[selectedTrigger retain] autorelease];  }

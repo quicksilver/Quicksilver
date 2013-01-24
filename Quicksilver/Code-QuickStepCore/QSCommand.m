@@ -174,6 +174,8 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 - (void)selectTriggerInPrefPane:(QSTrigger *)trigger {
 	[[NSClassFromString(@"QSPreferencesController") sharedInstance] showPaneWithIdentifier:@"QSTriggersPrefPane"];
 	[[NSClassFromString(@"QSTriggersPrefPane") sharedInstance] showTrigger:trigger];
+    [[NSClassFromString(@"QSTriggersPrefPane") sharedInstance] setSelectedTrigger:trigger];
+
 	[[NSClassFromString(@"QSTriggersPrefPane") sharedInstance] setTabViewIndex:0];
 	[[NSClassFromString(@"QSTriggersPrefPane") sharedInstance] showTriggerInfo:trigger];
 }
