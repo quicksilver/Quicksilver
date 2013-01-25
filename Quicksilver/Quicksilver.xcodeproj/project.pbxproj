@@ -397,6 +397,29 @@
 		D439387E15E2C4CF008F6548 /* QSICloudDocumentSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D439387D15E2C4CF008F6548 /* QSICloudDocumentSource.m */; };
 		D46A0E1D160B934300DE11D5 /* QSNotificationCenterNotifier.h in Headers */ = {isa = PBXBuildFile; fileRef = D46A0E1B160B934200DE11D5 /* QSNotificationCenterNotifier.h */; };
 		D46A0E1E160B934300DE11D5 /* QSNotificationCenterNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = D46A0E1C160B934300DE11D5 /* QSNotificationCenterNotifier.m */; };
+		D46D3C5C16B33C2800387EA9 /* AppearanceBack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C4916B33C2800387EA9 /* AppearanceBack@2x.png */; };
+		D46D3C5D16B33C2800387EA9 /* AppearanceSelection@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C4A16B33C2800387EA9 /* AppearanceSelection@2x.png */; };
+		D46D3C5E16B33C2800387EA9 /* AppearanceText@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C4B16B33C2800387EA9 /* AppearanceText@2x.png */; };
+		D46D3C5F16B33C2800387EA9 /* BackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C4C16B33C2800387EA9 /* BackArrow@2x.png */; };
+		D46D3C6016B33C2800387EA9 /* Button-Add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C4D16B33C2800387EA9 /* Button-Add@2x.png */; };
+		D46D3C6116B33C2800387EA9 /* Button-AddMenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C4E16B33C2800387EA9 /* Button-AddMenu@2x.png */; };
+		D46D3C6216B33C2800387EA9 /* Button-GearMenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C4F16B33C2800387EA9 /* Button-GearMenu@2x.png */; };
+		D46D3C6316B33C2800387EA9 /* Button-Info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C5016B33C2800387EA9 /* Button-Info@2x.png */; };
+		D46D3C6416B33C2800387EA9 /* Button-Remove@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C5116B33C2800387EA9 /* Button-Remove@2x.png */; };
+		D46D3C6516B33C2800387EA9 /* Button-Rescan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C5216B33C2800387EA9 /* Button-Rescan@2x.png */; };
+		D46D3C6616B33C2800387EA9 /* ForwardArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C5316B33C2800387EA9 /* ForwardArrow@2x.png */; };
+		D46D3C6716B33C2800387EA9 /* KeyboardTrigger@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C5416B33C2800387EA9 /* KeyboardTrigger@2x.png */; };
+		D46D3C6816B33C2800387EA9 /* Pref-PlugIns@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C5516B33C2800387EA9 /* Pref-PlugIns@2x.png */; };
+		D46D3C6916B33C2800387EA9 /* Pref-Settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C5616B33C2800387EA9 /* Pref-Settings@2x.png */; };
+		D46D3C6A16B33C2800387EA9 /* QSDroplet@2x.icns in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C5716B33C2800387EA9 /* QSDroplet@2x.icns */; };
+		D46D3C6B16B33C2800387EA9 /* Quicksilver@2x.icns in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C5816B33C2800387EA9 /* Quicksilver@2x.icns */; };
+		D46D3C6C16B33C2800387EA9 /* QuicksilverMenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C5916B33C2800387EA9 /* QuicksilverMenu@2x.png */; };
+		D46D3C6D16B33C2800387EA9 /* QuicksilverMenuLight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C5A16B33C2800387EA9 /* QuicksilverMenuLight@2x.png */; };
+		D46D3C6E16B33C2800387EA9 /* QuicksilverMenuPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C5B16B33C2800387EA9 /* QuicksilverMenuPressed@2x.png */; };
+		D46D3C7B16B33D0B00387EA9 /* countBadge1&2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C7716B33D0B00387EA9 /* countBadge1&2@2x.png */; };
+		D46D3C7C16B33D0B00387EA9 /* countBadge3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C7816B33D0B00387EA9 /* countBadge3@2x.png */; };
+		D46D3C7D16B33D0B00387EA9 /* countBadge4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C7916B33D0B00387EA9 /* countBadge4@2x.png */; };
+		D46D3C7E16B33D0B00387EA9 /* countBadge5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D46D3C7A16B33D0B00387EA9 /* countBadge5@2x.png */; };
 		D493990D1350078E00B908C6 /* QSDownloads.h in Headers */ = {isa = PBXBuildFile; fileRef = D49399091350078E00B908C6 /* QSDownloads.h */; };
 		D493990E1350078E00B908C6 /* QSDownloads.m in Sources */ = {isa = PBXBuildFile; fileRef = D493990A1350078E00B908C6 /* QSDownloads.m */; };
 		D49A8B02166EA8FC0086B5A9 /* QSUserDefinedProxySource.m in Sources */ = {isa = PBXBuildFile; fileRef = D49A8B01166EA8FC0086B5A9 /* QSUserDefinedProxySource.m */; };
@@ -1761,6 +1784,29 @@
 		D439387D15E2C4CF008F6548 /* QSICloudDocumentSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSICloudDocumentSource.m; sourceTree = "<group>"; };
 		D46A0E1B160B934200DE11D5 /* QSNotificationCenterNotifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSNotificationCenterNotifier.h; sourceTree = "<group>"; };
 		D46A0E1C160B934300DE11D5 /* QSNotificationCenterNotifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSNotificationCenterNotifier.m; sourceTree = "<group>"; };
+		D46D3C4916B33C2800387EA9 /* AppearanceBack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppearanceBack@2x.png"; sourceTree = "<group>"; };
+		D46D3C4A16B33C2800387EA9 /* AppearanceSelection@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppearanceSelection@2x.png"; sourceTree = "<group>"; };
+		D46D3C4B16B33C2800387EA9 /* AppearanceText@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppearanceText@2x.png"; sourceTree = "<group>"; };
+		D46D3C4C16B33C2800387EA9 /* BackArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackArrow@2x.png"; sourceTree = "<group>"; };
+		D46D3C4D16B33C2800387EA9 /* Button-Add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button-Add@2x.png"; sourceTree = "<group>"; };
+		D46D3C4E16B33C2800387EA9 /* Button-AddMenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button-AddMenu@2x.png"; sourceTree = "<group>"; };
+		D46D3C4F16B33C2800387EA9 /* Button-GearMenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button-GearMenu@2x.png"; sourceTree = "<group>"; };
+		D46D3C5016B33C2800387EA9 /* Button-Info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button-Info@2x.png"; sourceTree = "<group>"; };
+		D46D3C5116B33C2800387EA9 /* Button-Remove@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button-Remove@2x.png"; sourceTree = "<group>"; };
+		D46D3C5216B33C2800387EA9 /* Button-Rescan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button-Rescan@2x.png"; sourceTree = "<group>"; };
+		D46D3C5316B33C2800387EA9 /* ForwardArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ForwardArrow@2x.png"; sourceTree = "<group>"; };
+		D46D3C5416B33C2800387EA9 /* KeyboardTrigger@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "KeyboardTrigger@2x.png"; sourceTree = "<group>"; };
+		D46D3C5516B33C2800387EA9 /* Pref-PlugIns@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pref-PlugIns@2x.png"; sourceTree = "<group>"; };
+		D46D3C5616B33C2800387EA9 /* Pref-Settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pref-Settings@2x.png"; sourceTree = "<group>"; };
+		D46D3C5716B33C2800387EA9 /* QSDroplet@2x.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "QSDroplet@2x.icns"; sourceTree = "<group>"; };
+		D46D3C5816B33C2800387EA9 /* Quicksilver@2x.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = "Quicksilver@2x.icns"; sourceTree = "<group>"; };
+		D46D3C5916B33C2800387EA9 /* QuicksilverMenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QuicksilverMenu@2x.png"; sourceTree = "<group>"; };
+		D46D3C5A16B33C2800387EA9 /* QuicksilverMenuLight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QuicksilverMenuLight@2x.png"; sourceTree = "<group>"; };
+		D46D3C5B16B33C2800387EA9 /* QuicksilverMenuPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QuicksilverMenuPressed@2x.png"; sourceTree = "<group>"; };
+		D46D3C7716B33D0B00387EA9 /* countBadge1&2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countBadge1&2@2x.png"; sourceTree = "<group>"; };
+		D46D3C7816B33D0B00387EA9 /* countBadge3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countBadge3@2x.png"; sourceTree = "<group>"; };
+		D46D3C7916B33D0B00387EA9 /* countBadge4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countBadge4@2x.png"; sourceTree = "<group>"; };
+		D46D3C7A16B33D0B00387EA9 /* countBadge5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countBadge5@2x.png"; sourceTree = "<group>"; };
 		D49399091350078E00B908C6 /* QSDownloads.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDownloads.h; sourceTree = "<group>"; };
 		D493990A1350078E00B908C6 /* QSDownloads.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDownloads.m; sourceTree = "<group>"; };
 		D49A8B00166EA8FC0086B5A9 /* QSUserDefinedProxySource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSUserDefinedProxySource.h; sourceTree = "<group>"; };
@@ -2583,6 +2629,10 @@
 		CDD30972160B860C00CD34EC /* Count Badges */ = {
 			isa = PBXGroup;
 			children = (
+				D46D3C7716B33D0B00387EA9 /* countBadge1&2@2x.png */,
+				D46D3C7816B33D0B00387EA9 /* countBadge3@2x.png */,
+				D46D3C7916B33D0B00387EA9 /* countBadge4@2x.png */,
+				D46D3C7A16B33D0B00387EA9 /* countBadge5@2x.png */,
 				CDD3096A160B860A00CD34EC /* countBadge1&2.tiff */,
 				CDD3096B160B860A00CD34EC /* countBadge3.tiff */,
 				CDD3096C160B860A00CD34EC /* countBadge4.tiff */,
@@ -2688,6 +2738,25 @@
 		E103EC8506471DBF00447FE0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D46D3C4916B33C2800387EA9 /* AppearanceBack@2x.png */,
+				D46D3C4A16B33C2800387EA9 /* AppearanceSelection@2x.png */,
+				D46D3C4B16B33C2800387EA9 /* AppearanceText@2x.png */,
+				D46D3C4C16B33C2800387EA9 /* BackArrow@2x.png */,
+				D46D3C4D16B33C2800387EA9 /* Button-Add@2x.png */,
+				D46D3C4E16B33C2800387EA9 /* Button-AddMenu@2x.png */,
+				D46D3C4F16B33C2800387EA9 /* Button-GearMenu@2x.png */,
+				D46D3C5016B33C2800387EA9 /* Button-Info@2x.png */,
+				D46D3C5116B33C2800387EA9 /* Button-Remove@2x.png */,
+				D46D3C5216B33C2800387EA9 /* Button-Rescan@2x.png */,
+				D46D3C5316B33C2800387EA9 /* ForwardArrow@2x.png */,
+				D46D3C5416B33C2800387EA9 /* KeyboardTrigger@2x.png */,
+				D46D3C5516B33C2800387EA9 /* Pref-PlugIns@2x.png */,
+				D46D3C5616B33C2800387EA9 /* Pref-Settings@2x.png */,
+				D46D3C5716B33C2800387EA9 /* QSDroplet@2x.icns */,
+				D46D3C5816B33C2800387EA9 /* Quicksilver@2x.icns */,
+				D46D3C5916B33C2800387EA9 /* QuicksilverMenu@2x.png */,
+				D46D3C5A16B33C2800387EA9 /* QuicksilverMenuLight@2x.png */,
+				D46D3C5B16B33C2800387EA9 /* QuicksilverMenuPressed@2x.png */,
 				CD3646A416B682FE007439AE /* Button-docs.png */,
 				CD3646A516B682FE007439AE /* Button-docs@2x.png */,
 				CDD30972160B860C00CD34EC /* Count Badges */,
@@ -4157,6 +4226,29 @@
 				CDD3096F160B860A00CD34EC /* countBadge3.tiff in Resources */,
 				CDD30970160B860A00CD34EC /* countBadge4.tiff in Resources */,
 				CDD30971160B860A00CD34EC /* countBadge5.tiff in Resources */,
+				D46D3C5C16B33C2800387EA9 /* AppearanceBack@2x.png in Resources */,
+				D46D3C5D16B33C2800387EA9 /* AppearanceSelection@2x.png in Resources */,
+				D46D3C5E16B33C2800387EA9 /* AppearanceText@2x.png in Resources */,
+				D46D3C5F16B33C2800387EA9 /* BackArrow@2x.png in Resources */,
+				D46D3C6016B33C2800387EA9 /* Button-Add@2x.png in Resources */,
+				D46D3C6116B33C2800387EA9 /* Button-AddMenu@2x.png in Resources */,
+				D46D3C6216B33C2800387EA9 /* Button-GearMenu@2x.png in Resources */,
+				D46D3C6316B33C2800387EA9 /* Button-Info@2x.png in Resources */,
+				D46D3C6416B33C2800387EA9 /* Button-Remove@2x.png in Resources */,
+				D46D3C6516B33C2800387EA9 /* Button-Rescan@2x.png in Resources */,
+				D46D3C6616B33C2800387EA9 /* ForwardArrow@2x.png in Resources */,
+				D46D3C6716B33C2800387EA9 /* KeyboardTrigger@2x.png in Resources */,
+				D46D3C6816B33C2800387EA9 /* Pref-PlugIns@2x.png in Resources */,
+				D46D3C6916B33C2800387EA9 /* Pref-Settings@2x.png in Resources */,
+				D46D3C6A16B33C2800387EA9 /* QSDroplet@2x.icns in Resources */,
+				D46D3C6B16B33C2800387EA9 /* Quicksilver@2x.icns in Resources */,
+				D46D3C6C16B33C2800387EA9 /* QuicksilverMenu@2x.png in Resources */,
+				D46D3C6D16B33C2800387EA9 /* QuicksilverMenuLight@2x.png in Resources */,
+				D46D3C6E16B33C2800387EA9 /* QuicksilverMenuPressed@2x.png in Resources */,
+				D46D3C7B16B33D0B00387EA9 /* countBadge1&2@2x.png in Resources */,
+				D46D3C7C16B33D0B00387EA9 /* countBadge3@2x.png in Resources */,
+				D46D3C7D16B33D0B00387EA9 /* countBadge4@2x.png in Resources */,
+				D46D3C7E16B33D0B00387EA9 /* countBadge5@2x.png in Resources */,
 				4D7DF45416ADC7CA004BA4BE /* DefaultsMap.plist in Resources */,
 				4D7DF45716ADCDEF004BA4BE /* QSAdvancedPrefPane.strings in Resources */,
 			);
