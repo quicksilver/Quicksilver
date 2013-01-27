@@ -47,8 +47,8 @@
 
     // Valus for aHeight: -ive indicates shrinkage, +ive indicates expand. 0 indicates use initial height
     if (aHeight == 0) {
-        // 100 is the 'extra' height of the window
-        aHeight = [pluginsArray count]*kExpandHeight+100;
+        // 122 is the 'extra' height of the window
+        aHeight = [pluginsArray count]*kExpandHeight+122;
     } else {
         originy -= aHeight;
         aHeight = frame.size.height + aHeight;
