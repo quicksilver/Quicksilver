@@ -657,7 +657,7 @@
 	return obsoletePlugIns;
 }
 
-- (BOOL)checkForPlugInUpdates {
+- (QSPluginUpdateStatus)checkForPlugInUpdates {
 	return [self checkForPlugInUpdatesForVersion:nil];
 }
 
@@ -666,7 +666,7 @@
  * If plugin updates are available, the user is presented with a dialog,
  * then installation proceeds
  */
-- (BOOL)checkForPlugInUpdatesForVersion:(NSString *)version {
+- (QSPluginUpdateStatus)checkForPlugInUpdatesForVersion:(NSString *)version {
 	if (!plugInWebData)
 		[self loadWebPlugInInfo];
 
@@ -705,14 +705,14 @@
         NSArray *arr = [c showModal];
         [c release];
         if (!arr) {
-            return NO;
+            return QSPluginUpdateStatusUpdateCancelled;
         }
         updatingPlugIns = YES;
         [self installPlugInsForIdentifiers:arr version:version];
+        return QSPluginUpdateStatusPluginsUpdated;
         
-        return YES;
 	}
-	return NO;
+	return QSPluginUpdateStatusNoUpdates;
 }
 
 - (BOOL)updatePlugInsForNewVersion:(NSString *)version {
