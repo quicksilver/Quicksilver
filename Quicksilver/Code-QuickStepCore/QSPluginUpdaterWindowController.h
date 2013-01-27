@@ -34,9 +34,8 @@
 @interface QSPluginUpdateTableCellView : NSTableCellView {
     IBOutlet QSPluginUpdaterWindowController* wc;
     IBOutlet WebView *webView;
-    IBOutlet NSTextField *changesTitle;
-    IBOutlet NSButton *triangleDisclosure;
     IBOutlet NSTextField *pluginDetails;
+    IBOutlet NSImageView *iconView;
     BOOL _changesAreShowing;
     CGFloat webViewHeight;
 }

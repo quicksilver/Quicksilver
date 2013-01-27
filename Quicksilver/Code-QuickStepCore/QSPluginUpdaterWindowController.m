@@ -13,7 +13,7 @@
 
 
 // The height of a cell when it's closed
-#define kExpandHeight 45.0
+#define kExpandHeight 47.0
 // used to pad out the web view a little bit
 #define kPaddingFactor 1.1
 
@@ -98,7 +98,7 @@
     pluginsToInstall = [[NSMutableArray arrayWithCapacity:numberOfPluginsToInstall] retain];
     [pluginsArray enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
         if ([obj objectForKey:@"shouldInstall"] == nil || [[obj objectForKey:@"shouldInstall"] integerValue] == NSOnState) {
-            [pluginsToInstall addObject:[obj objectForKey:@"identifier"]];
+            [pluginsToInstall addObject:[(QSPlugIn *)[obj objectForKey:@"plugin"] identifier]];
         }
     }];
     [NSApp stopModal];
@@ -146,17 +146,16 @@
     if (css == nil) {
         css = [@"<style>body {margin:0px;padding:0px;font-size:11px;font-family:\"lucida grande\";}ul {-webkit-padding-start:16px;list-style-type:square;margin:0px}</style>" retain];
     }
-    NSString *name;
-    if ([options objectForKey:@"installedVersion"] && [options objectForKey:@"latestVersion"]) {
-        name = [NSString stringWithFormat:@"%@ (%@ → %@)",[options objectForKey:@"name"], [options objectForKey:@"installedVersion"],[options objectForKey:@"latestVersion"]];
-    } else {
-        name = [options objectForKey:@"name"];
+    NSString *name = [options objectForKey:@"name"];
+    QSPlugIn *thisPlugin = [options objectForKey:@"plugin"];
+    if (!name) {
+        name = [NSString stringWithFormat:@"%@ (%@ → %@)",[thisPlugin name], [thisPlugin installedVersion],[thisPlugin latestVersion]];
     }
-        
+    [iconView setImage:[thisPlugin icon]];
     self.pluginDetails.stringValue = name;
     WebFrame *wf = self.webView.mainFrame;
     
-    [wf loadHTMLString:[NSString stringWithFormat:@"%@%@",css,[options objectForKey:@"releaseNotes"]] baseURL:nil];
+    [wf loadHTMLString:[NSString stringWithFormat:@"%@%@",css,[thisPlugin releaseNotes]] baseURL:nil];
 }
 
 

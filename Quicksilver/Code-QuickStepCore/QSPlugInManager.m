@@ -688,14 +688,14 @@
 			NSString *replacementID = [obsoletePlugIns objectForKey:[thisPlugIn identifier]];
 			[updatedPlugIns addObject:replacementID];
 			QSPlugIn *replacement = [self plugInWithID:replacementID];
-			[plugins addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%@ (replaced by %@)", [thisPlugIn name], [replacement name]],@"name",[thisPlugIn version],@"version",[thisPlugIn releaseNotes],@"releaseNotes",[thisPlugIn identifier],@"identifier",nil]];
+			[plugins addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%@ (replaced by %@)", [thisPlugIn name], [replacement name]],@"name",thisPlugIn,@"plugin",nil]];
 		}
 	}
 	// compare to plugins that are availble for download
 	for (QSPlugIn *thisPlugIn in [self knownPlugInsWithWebInfo]) {
 		if ([thisPlugIn needsUpdate]) {
 			[updatedPlugIns addObject:[thisPlugIn identifier]];
-			[plugins addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:[thisPlugIn name],@"name",[thisPlugIn latestVersion],@"latestVersion",[thisPlugIn installedVersion],@"installedVersion",[thisPlugIn releaseNotes],@"releaseNotes",[thisPlugIn identifier],@"identifier",nil]];
+			[plugins addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:thisPlugIn,@"plugin",nil]];
 		}
 	}
     
