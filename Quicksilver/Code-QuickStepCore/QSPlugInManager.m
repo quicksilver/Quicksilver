@@ -20,8 +20,6 @@
 
 #import "QSURLDownloadWrapper.h"
 
-#import "NSException_TraceExtensions.h"
-
 #define pPlugInInfo QSApplicationSupportSubPath(@"PlugIns.plist", NO)
 #define MAX_CONCURRENT_DOWNLOADS 2
 

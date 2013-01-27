@@ -15,7 +15,6 @@
 #import "QSLibrarian.h"
 #import "QSNotifications.h"
 #import "NSString+NDUtilities.h"
-#import "NSException_TraceExtensions.h"
 #import "QSPreferenceKeys.h"
 
 //static
