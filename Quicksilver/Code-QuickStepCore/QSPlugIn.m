@@ -23,7 +23,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 @implementation QSPlugIn
 
-@synthesize status;
+@synthesize status, data;
 
 + (void)initialize {
 	plugInBundlePaths = [[NSMutableDictionary alloc] init];
@@ -267,6 +267,11 @@ NSMutableDictionary *plugInBundlePaths = nil;
 		version = [data objectForKey:(NSString *)kCFBundleVersionKey];
 	}
 	return version;
+}
+
+- (NSString *)releaseNotes
+{
+    return [data objectForKey:@"QSPluginChanges"];
 }
 
 - (BOOL)isSecret {
@@ -535,13 +540,6 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	[self release];
 }
 
-- (NSMutableDictionary *)data { return data;  }
-- (void)setData:(NSMutableDictionary *)newData {
-	if(newData != data){
-		[data release];
-		data = [newData retain];
-	}
-}
 
 - (NSString *)loadError { return loadError;  }
 - (void)setLoadError:(NSString *)newLoadError {
