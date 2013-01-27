@@ -680,33 +680,37 @@
 
 	[self downloadWebPlugInInfoFromDate:nil forUpdateVersion:version synchronously:YES];
 
-	NSMutableArray *names = [NSMutableArray arrayWithCapacity:1];
+    // An array of mutable dictionaries that contain information on the plugin(s) requiring an update
+	NSMutableArray *plugins = [NSMutableArray arrayWithCapacity:1];
 	// don't update obsolete plugins, but list them when alerting the user
 	for (QSPlugIn *thisPlugIn in [[self localPlugIns] allValues]) {
 		if ([thisPlugIn isObsolete]) {
 			NSString *replacementID = [obsoletePlugIns objectForKey:[thisPlugIn identifier]];
 			[updatedPlugIns addObject:replacementID];
 			QSPlugIn *replacement = [self plugInWithID:replacementID];
-			[names addObject:[NSString stringWithFormat:@"%@ (replaced by %@)", [thisPlugIn name], [replacement name]]];
+			[plugins addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%@ (replaced by %@)", [thisPlugIn name], [replacement name]],@"name",[thisPlugIn version],@"version",[thisPlugIn releaseNotes],@"releaseNotes",[thisPlugIn identifier],@"identifier",nil]];
 		}
 	}
 	// compare to plugins that are availble for download
 	for (QSPlugIn *thisPlugIn in [self knownPlugInsWithWebInfo]) {
 		if ([thisPlugIn needsUpdate]) {
 			[updatedPlugIns addObject:[thisPlugIn identifier]];
-			[names addObject:[thisPlugIn name]];
+			[plugins addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:[thisPlugIn name],@"name",[thisPlugIn latestVersion],@"latestVersion",[thisPlugIn installedVersion],@"installedVersion",[thisPlugIn releaseNotes],@"releaseNotes",[thisPlugIn identifier],@"identifier",nil]];
 		}
 	}
-	
+    
 	if ([updatedPlugIns count]) {
-		NSInteger selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"Plugin Updates are available", nil] ,
-												  @"%@", @"Install", @"Cancel", nil, [names componentsJoinedByString:@", "]);
-		if (selection == 1) {
-			updatingPlugIns = YES;
-			[self installPlugInsForIdentifiers:[updatedPlugIns allObjects] version:version];
-			return YES;
-		}
-		return NO;
+        QSPluginUpdaterWindowController *c = [[QSPluginUpdaterWindowController alloc] initWithPlugins:plugins];
+        
+        NSArray *arr = [c showModal];
+        [c release];
+        if (!arr) {
+            return NO;
+        }
+        updatingPlugIns = YES;
+        [self installPlugInsForIdentifiers:arr version:version];
+        
+        return YES;
 	}
 	return NO;
 }
