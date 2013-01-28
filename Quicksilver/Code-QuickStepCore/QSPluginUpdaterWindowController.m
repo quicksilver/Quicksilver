@@ -3,7 +3,7 @@
 //  Quicksilver
 //
 //  Created by Patrick Robertson on 26/01/2013.
-//
+//  Copyright 2013
 //
 
 #import <AppKit/AppKit.h>
@@ -16,10 +16,6 @@
 #define kExpandHeight 47.0
 // used to pad out the web view a little bit
 #define kPaddingFactor 1.1
-
-@interface QSPluginUpdaterWindowController ()
-
-@end
 
 @implementation QSPluginUpdaterWindowController
 
@@ -38,6 +34,7 @@
 }
 
 -(void)windowDidLoad {
+    // set the window height to its initial height (all changes boxes are closed)
     [self setWindowHeight:0 animate:NO];
 }
 
@@ -70,14 +67,11 @@
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     if ([[tableColumn identifier] isEqualToString:@"PluginColumn"]) {
         QSPluginUpdateTableCellView *cellView = [tableView makeViewWithIdentifier:@"PluginsView" owner:self];
+        // set up the plugin view and load the html
         [cellView setOptions:[pluginsArray objectAtIndex:row]];
-        [[cellView webView] setAlphaValue:[cellView changesAreShowing]];
-        [[cellView webView] setDrawsBackground:NO];
-        [cellView.webView setFrameLoadDelegate:cellView];
-        [[[cellView.webView mainFrame] frameView] setAllowsScrolling:NO];
         return cellView;
-
     }
+    // checkbox column. Nothing to setup
     return [tableView makeViewWithIdentifier:@"Checkbox" owner:self];
 }
 
@@ -92,10 +86,10 @@
     [NSApp stopModal];
 }
 
-
 -(IBAction)install:(id)sender {
     [self close];
     pluginsToInstall = [[NSMutableArray arrayWithCapacity:numberOfPluginsToInstall] retain];
+    // generate an array of plugin IDs to install
     [pluginsArray enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
         if ([obj objectForKey:@"shouldInstall"] == nil || [[obj objectForKey:@"shouldInstall"] integerValue] == NSOnState) {
             [pluginsToInstall addObject:[(QSPlugIn *)[obj objectForKey:@"plugin"] identifier]];
@@ -104,7 +98,9 @@
     [NSApp stopModal];
 }
 
-// We make the "group rows" have the standard height, while all other image rows have a larger height
+/* The height of the row is based on whether or not the HTML changes view is showing.
+ The value is stored in the plugins dictionary in pluginsArray (and set in -[QSPluginUpdateTableCellView updateHeight])
+ */
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
     NSNumber *height = [[pluginsArray objectAtIndex:row] objectForKey:@"cellHeight"];
     if (height == nil) {
@@ -113,11 +109,13 @@
     return [height doubleValue];
 }
 
+// Calls the NSTableView equivalent, converting a given cell view into a its row number in the table
 -(void)noteHeightOfRowChanged:(QSPluginUpdateTableCellView *)cell {
     [pluginTableView noteHeightOfRowsWithIndexesChanged:[NSIndexSet indexSetWithIndex:[pluginTableView rowForView:cell]]];
 }
 
-
+// setter for adding details to a given plugin's dict (in pluginsArray).
+// Used to set the 'cellHeight' key
 -(void)setPluginView:(QSPluginUpdateTableCellView *)view details:(id)details forKey:(NSString *)key {
     NSMutableDictionary *pluginDict = [pluginsArray objectAtIndex:[pluginTableView rowForView:view]];
     [pluginDict setObject:details forKey:key];
@@ -127,6 +125,8 @@
     NSInteger row = [pluginTableView rowForView:sender];
     [[pluginsArray objectAtIndex:row] setObject:[NSNumber numberWithInteger:[sender state]] forKey:@"shouldInstall"];
     numberOfPluginsToInstall = numberOfPluginsToInstall + ([sender state] == NSOffState ? -1 : 1);
+    
+    // disable the install button if no plugins are checked to install
     [installButton setEnabled:numberOfPluginsToInstall > 0];
 
 }
@@ -138,12 +138,15 @@
 @synthesize webView, pluginDetails;
 
 - (void)setOptions:(NSDictionary *)options {
-//    for (NSControl *v in @[changesTitle, triangleDisclosure, pluginDetails]) {
-
-//        [v setFont:[NSSystemF]
-//    }
+    
+    [webView setFrameLoadDelegate:self];
+    [[[webView mainFrame] frameView] setAllowsScrolling:NO];
+    [webView setAlphaValue:_changesAreShowing ? 0 : 1];
+    [webView setDrawsBackground:NO];
+    
     static NSString *css = nil;
     if (css == nil) {
+        // CSS for making the web view blend in. !!-Not valid HTML (no <head>,<body>)
         css = [@"<style>body {margin:0px;padding:0px;font-size:11px;font-family:\"lucida grande\";}ul {-webkit-padding-start:16px;list-style-type:square;margin:0px}</style>" retain];
     }
     NSString *name = [options objectForKey:@"name"];
@@ -158,7 +161,7 @@
     [wf loadHTMLString:[NSString stringWithFormat:@"%@%@",css,[thisPlugin releaseNotes]] baseURL:nil];
 }
 
-
+// gets the height of the HTML in the webFrame, once it has loaded, to set the required height of the cell
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)webFrame {
     //get the rect for the rendered frame
     NSRect webFrameRect = [[[webFrame frameView] documentView] frame];
@@ -174,11 +177,7 @@
     [self.webView setFrame:newWebViewRect];
     webViewHeight = NSHeight(newWebViewRect)*kPaddingFactor;
 }
- 
 
--(BOOL)changesAreShowing {
-    return _changesAreShowing;
-}
 
 -(IBAction)toggleChanges:(id)sender {
     _changesAreShowing = !_changesAreShowing;
@@ -189,12 +188,8 @@
 }
 
 -(void)updateHeight {
-    if (_changesAreShowing) {
-        [wc setPluginView:self details:[NSNumber numberWithFloat:webViewHeight + kExpandHeight] forKey:@"cellHeight"];
-    } else {
-        [wc setPluginView:self details:[NSNumber numberWithFloat:kExpandHeight] forKey:@"cellHeight"];
-
-    }
+    CGFloat height = _changesAreShowing ? webViewHeight + kExpandHeight : kExpandHeight;
+    [wc setPluginView:self details:[NSNumber numberWithFloat:height] forKey:@"cellHeight"];
     [wc noteHeightOfRowChanged:self];
     
 }

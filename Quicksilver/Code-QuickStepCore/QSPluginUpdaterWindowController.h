@@ -3,7 +3,7 @@
 //  Quicksilver
 //
 //  Created by Patrick Robertson on 26/01/2013.
-//
+//  Copyright 2013
 //
 
 #import <Cocoa/Cocoa.h>
@@ -43,7 +43,6 @@
 @property (assign) IBOutlet WebView *webView;
 @property (assign) IBOutlet NSTextField *pluginDetails;
 
--(BOOL)changesAreShowing;
 -(void)setOptions:(NSDictionary *)options;
 
 @end
