@@ -156,10 +156,12 @@
 		NSString *defaultTitle = @"Plugin Documentation";
 		if ([selection count] == 1) {
             [infoButton setEnabled:YES];
+            [docsButton setEnabled:YES];
 			[self setPlugInName:[NSString stringWithFormat:@"%@: %@", defaultTitle, [(QSPlugIn *)[selection objectAtIndex:0] name]]];
 			htmlString = [[selection objectAtIndex:0] infoHTML];
 		} else {
             [infoButton setEnabled:NO];
+            [docsButton setEnabled:NO];
 			[self setPlugInName:defaultTitle];
 			htmlString = @"";
 		}
