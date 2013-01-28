@@ -283,7 +283,7 @@
 	[control clearSearch];
 	[control setSourceArray:[[array mutableCopy] autorelease]];
 	[control setResultArray:[[array mutableCopy] autorelease]];
-    
+    [control reloadResultTable];
 	[control selectObject:defaultSelection];
 }
 
@@ -736,14 +736,13 @@
 		[[self window] makeFirstResponder:nil];
 	}
     
+    QSAction *bestAction = nil;
 	if (argumentCount != 2) {
 		QSAction *action = nil;
-		QSAction *bestAction = nil;
 		for(action in array) {
 			if ([action argumentCount] == 2) {
 				bestAction = action;
 				[aSelector selectObject:action];
-				[self updateIndirectObjects];
 				break;
 			}
 		}
@@ -752,6 +751,7 @@
 			return;
 		}
 	}
+    [self updateIndirectObjects];
 	[[self window] makeFirstResponder:iSelector];
 }
 
