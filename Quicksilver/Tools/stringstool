@@ -47,8 +47,12 @@ def extract_strings_from_ib(ib_file, output_dir)
     File.open(temp_file.path, "r:UTF-16:UTF-8") do |file|
       file.each_line do |line|
         if match = line.match(/"(.*)" = "(.*)"/)
-          next if strings.include?(match[2])
-          strings_data << {:data => match[2], :comment => "#{match[1]}" }
+          comment, data = match[1], match[2]
+
+          # Check for duplicates
+          next if strings.include?(data)
+
+          strings_data << {:data => data, :comment => comment }
           strings << match[2]
         end
       end
