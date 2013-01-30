@@ -6,7 +6,6 @@
 
 ## TODO
 # Add an ignores option
-# Make sure duplicate strings don't get added to the same .string file
 # wrap everything in a localization.sh file
 # Would it be possible to flag up 'changes' to any of the strings. E.g. say we change a string "Update Quicksilver" to "Updating Quicksilver", is there any way we can flag this, so that we can deal with all the localizations that use "Update Quicksivler" = "Diweddaru Quicksilver"; in every language (that's Welsh btw ;-) )
 
@@ -43,17 +42,21 @@ def extract_strings_from_ib(ib_file, output_dir)
 
     # Now parse back that file line by line and extract info from it
     puts "Reformatting..."
+    strings_data = []
     strings = []
     File.open(temp_file.path, "r:UTF-16:UTF-8") do |file|
       file.each_line do |line|
         if match = line.match(/"(.*)" = "(.*)"/)
-          strings << {:data => match[2], :comment => "Extracted by stringstool (#{match[1]})" }
+          next if strings.include?(match[2])
+          strings_data << {:data => match[2], :comment => "#{match[1]}" }
+          strings << match[2]
         end
       end
     end
 
     # Sort strings by data
-    strings.sort! {|a, b| a[:data] <=> b[:data] }
+    strings_data.sort! {|a, b| a[:data] <=> b[:data] }
+
     puts "Creating strings file in #{output_dir}..."
 
     # Now write that data with the correct format at the output path
@@ -61,7 +64,7 @@ def extract_strings_from_ib(ib_file, output_dir)
     output_file = File.join(output_dir, output_file_name)
 
     File.open(output_file, "w") do |file|
-      strings.each do |item|
+      strings_data.each do |item|
         file.write "/* %s */\n\"%s\" = \"%s\";\n\n" % [item[:comment], item[:data], item[:data]]
       end
     end
