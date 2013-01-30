@@ -1,0 +1,20 @@
+"QSShowTaskViewerAutomatically:title" = "Görev oluşturulduğu zaman Görev Görüntüleyiciyi özdevinimli olarak göster";
+"Hide Other Apps When Switching:title" = "Uygulamalar arasında gezinirken diğer uygulamaları gizle (yükseltme düğmesi engeller)";
+
+"Multithreaded Execute:title" = "Görevleri ve eylemleri ardalanda çalıştır";
+
+"QSActionAppReopenBehavior:title" = "Uygulama yeniden açılıyor";
+"QSActionAppReopenBehavior:activates the application" = "uygulamayı etkinleştirir";
+"QSActionAppReopenBehavior:shows the front window" = "ilk pencereyi gösterir";
+"QSActionAppReopenBehavior:shows all windows" = "bütün pencereleri gösterir";
+
+"QSUpdateReleaseLevel:title" = "Uygulama Güncelleme Türü";
+"QSUpdateReleaseLevel:Final Releases" = "Son Sürümler";
+"QSUpdateReleaseLevel:Prerelease Candidates" = "Sürüm Adayları";
+"QSUpdateReleaseLevel:Developer Previews" = "Geliştirici Sürümleri";
+
+"Shift Actions:title" = "Büyük harflerin eylemi seçmesine izin ver";
+
+"Suppress HotKeys in Command:title" = "Quicksilver önplanda iken Kısayol Düğmesi Tetikleyicileri etkisizleştir";
+
+"Double Delete Clears Object:title" = "Sil düğmesine iki kez basmak etkin nesneyi temizler";
