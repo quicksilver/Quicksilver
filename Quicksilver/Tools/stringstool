@@ -26,6 +26,9 @@ require 'tempfile' # Ruby stdlib
 def extract_strings_from_ib(ib_file, output_dir)
   # Use ibtool to extract localizable strings for the IB file
   begin
+    # Create the output directory if it doesn't exist
+    FileUtils.mkdir_p output_dir unless Dir.exists? output_dir
+
     temp_file = Tempfile.new('stringstool-extract-')
     begin
       puts "Extracting strings from #{ib_file}..."
