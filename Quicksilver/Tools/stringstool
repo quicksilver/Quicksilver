@@ -1,9 +1,14 @@
 #!/usr/bin/env ruby
 # encoding: UTF-8
 
-# stringstool is a command-line tool built to help localization management by :
+## stringstool is a command-line tool built to help localization management by :
 #  - allowing strings file to be merged
-#  - TODO
+
+## TODO
+# Add an ignores option
+# Make sure duplicate strings don't get added to the same .string file
+# wrap everything in a localization.sh file
+# Would it be possible to flag up 'changes' to any of the strings. E.g. say we change a string "Update Quicksilver" to "Updating Quicksilver", is there any way we can flag this, so that we can deal with all the localizations that use "Update Quicksivler" = "Diweddaru Quicksilver"; in every language (that's Welsh btw ;-) )
 
 VERSION = 1.0
 
