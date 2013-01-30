@@ -304,7 +304,7 @@
             // no default app, leave the 1st pane blank
             preferred = [NSNull null];
         }
-        return [[NSArray arrayWithObject:preferred] arrayByAddingObject:[fileObjects objectsAtIndexes:applicationIndexes]];
+        return [[NSArray arrayWithObject:preferred] arrayByAddingObjectsFromArray:[fileObjects objectsAtIndexes:applicationIndexes]];
 	} else if ([action isEqualToString:kFileRenameAction]) {
 		// return a text object (empty text box) to rename a file
 		NSString *path = [dObject singleFilePath];
