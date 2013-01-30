@@ -2,7 +2,8 @@
 # encoding: UTF-8
 
 ## stringstool is a command-line tool built to help localization management by :
-#  - allowing strings file to be merged
+#  - extracting strings from IB files to .strings files
+#  - allowing strings file to be merged (TODO)
 
 ## TODO
 # wrap everything in a localization.sh file
