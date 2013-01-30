@@ -64,6 +64,7 @@ def extract_strings_from_ib(ib_file, output_dir)
     output_file = File.join(output_dir, output_file_name)
 
     File.open(output_file, "w") do |file|
+      file.write "/* File extracted from #{ib_file} by stringstool */\n\n"
       strings_data.each do |item|
         file.write "/* %s */\n\"%s\" = \"%s\";\n\n" % [item[:comment], item[:data], item[:data]]
       end
