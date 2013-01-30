@@ -5,7 +5,6 @@
 #  - allowing strings file to be merged
 
 ## TODO
-# Add an ignores option
 # wrap everything in a localization.sh file
 # Would it be possible to flag up 'changes' to any of the strings. E.g. say we change a string "Update Quicksilver" to "Updating Quicksilver", is there any way we can flag this, so that we can deal with all the localizations that use "Update Quicksivler" = "Diweddaru Quicksilver"; in every language (that's Welsh btw ;-) )
 
@@ -22,8 +21,16 @@ require 'tempfile' # Ruby stdlib
 
 # Helpers
 
-def extract_strings_from_ib(ib_file, output_dir)
+def extract_strings_from_ib(ib_file, output_dir, options = {})
   # Use ibtool to extract localizable strings for the IB file
+
+  ignore_regexps = []
+  if options[:ignored_strings]
+    options[:ignored_strings].each do |string|
+      ignore_regexps << Regexp.new(string)
+    end
+  end
+
   begin
     # Create the output directory if it doesn't exist
     FileUtils.mkdir_p output_dir unless Dir.exists? output_dir
@@ -51,6 +58,13 @@ def extract_strings_from_ib(ib_file, output_dir)
 
           # Check for duplicates
           next if strings.include?(data)
+
+          # Check for ignored keys
+          ignore = false
+          ignore_regexps.each do |regexp|
+            ignore = true and break if data.match(regexp)
+          end
+          next if ignore
 
           strings_data << {:data => data, :comment => comment }
           strings << match[2]
@@ -106,11 +120,12 @@ when "merge" then
 when "extract" then
   opts = Trollop::options do
     opt :output_directory, "Output directory", :type => :string, :required => true
+    opt :ignored_strings, "Ignored strings", :type => :strings
   end
 
   ib_files = ARGV
   ib_files.each do |file|
-    extract_strings_from_ib file, opts[:output_directory]
+    extract_strings_from_ib file, opts[:output_directory], :ignored_strings => opts[:ignored_strings]
   end
   puts "Extraction complete, #{ib_files.count} files processed."
 else
