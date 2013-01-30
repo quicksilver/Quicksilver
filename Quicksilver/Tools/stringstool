@@ -23,7 +23,7 @@ require 'tempfile' # Ruby stdlib
 
 # Helpers
 
-def extract_strings_from_ib(ib_file, output_file)
+def extract_strings_from_ib(ib_file, output_dir)
   # Use ibtool to extract localizable strings for the IB file
   begin
     temp_file = Tempfile.new('stringstool-extract-')
@@ -51,11 +51,11 @@ def extract_strings_from_ib(ib_file, output_file)
 
     # Sort strings by data
     strings.sort! {|a, b| a[:data] <=> b[:data] }
+    puts "Creating strings file in #{output_dir}..."
 
-    puts "Creating strings file in #{output_file}..."
     # Now write that data with the correct format at the output path
     output_file_name = File.basename(ib_file, File.extname(ib_file)) + ".strings"
-    output_file = File.join(output_file, output_file_name)
+    output_file = File.join(output_dir, output_file_name)
 
     File.open(output_file, "w") do |file|
       strings.each do |item|
@@ -93,7 +93,7 @@ cmd_opts = case cmd
 when "merge" then
   puts "TODO ;-)"
 when "extract" then
-  opts = Trollop::options do 
+  opts = Trollop::options do
     opt :output_directory, "Output directory", :type => :string, :required => true
   end
 
