@@ -1522,7 +1522,11 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)textDidEndEditing:(NSNotification *)aNotification {
-	[self setObjectValue:[QSObject objectWithString:[[aNotification object] string]]];
+    NSString *string = [[aNotification object] string];
+    if (![string isEqualToString:@" "]) {
+        // only set the object value if it's not a 'short circuit'
+        [self setObjectValue:[QSObject objectWithString:string]];
+    }
 	[self setMatchedString:nil];
 	[[[self currentEditor] enclosingScrollView] removeFromSuperview];
     [[self cell] setImagePosition:-1];

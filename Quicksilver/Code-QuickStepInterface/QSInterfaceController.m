@@ -752,7 +752,6 @@
 			return;
 		}
 	}
-    [self updateIndirectObjects];
 	[[self window] makeFirstResponder:iSelector];
 }
 
