@@ -343,7 +343,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
         object = [QSObject fileObjectWithPath:[QSRez pathWithLocatorInformation:[cmdDict objectForKey:@"directResource"]]];
 	}
 	
-	// For cases where the command has a directID/directArchive, but it's corresponding object hasn't already been created (i.e. *not* in the catalog)
+	// For cases where the command has a directID/directArchive, but its corresponding object hasn't already been created (i.e. *not* in the catalog)
 	if (!object && directID) {
 		// sniffs the string to create a new object
 		object = [QSObject objectWithString:directID];
