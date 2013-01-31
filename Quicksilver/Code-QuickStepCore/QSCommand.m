@@ -45,10 +45,21 @@
 }
 
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
-	if ([action isEqualToString:@"QSCommandSaveAction"])
-		return nil;
-	else
+	if ([action isEqualToString:@"QSCommandSaveAction"]) {
+        // We only want folders for the save command... action
+        NSArray *fileObjects = [[QSLibrarian sharedInstance] arrayForType:QSFilePathType];
+
+        // use the home folder as default
+        QSObject * currentFolderObject = [QSObject fileObjectWithPath:[@"~" stringByExpandingTildeInPath]];
+        
+        NSIndexSet *folderIndexes = [fileObjects indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *thisObject, NSUInteger i, BOOL *stop) {
+            return ([thisObject isFolder] && (thisObject != currentFolderObject));
+        }];
+    
+    return [[NSArray arrayWithObject:currentFolderObject] arrayByAddingObjectsFromArray:[fileObjects objectsAtIndexes:folderIndexes]];
+	} else {
 		return [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@""]];
+    }
 }
 
 // CommandsAsActionsHandling

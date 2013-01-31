@@ -268,15 +268,16 @@
 - (void)updateControl:(QSSearchObjectView *)control withArray:(NSArray *)array {
 	id defaultSelection = nil;
 	if ([array count]) {
+        defaultSelection = [array objectAtIndex:0];
+        if ([defaultSelection isKindOfClass:[NSNull class]]) {
+            defaultSelection = nil;
+        }
 		if ([[array lastObject] isKindOfClass:[NSArray class]]) {
-			defaultSelection = [array objectAtIndex:0];
-			if ([defaultSelection isKindOfClass:[NSNull class]])
-				defaultSelection = nil;
 			array = [array lastObject];
-            
-		} else {
-			defaultSelection = [array objectAtIndex:0];
-		}
+		} else if (defaultSelection == nil) {
+            // first object is NULL, so make the resultsList an array excluding this first object
+            array = [array tail];
+        }
 	} else if ([control objectValue] != nil) {
 		[control clearObjectValue];
 	}
