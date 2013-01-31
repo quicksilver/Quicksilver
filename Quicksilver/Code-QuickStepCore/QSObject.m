@@ -206,6 +206,24 @@ NSSize QSMaxIconSize;
 	return [objectDictionary objectForKey:anIdentifier];
 }
 
++ (id)recreateObjectOfType:(NSString *)aType withIdentifier:(NSString *)anIdentifier
+{
+    if (!anIdentifier) {
+        return nil;
+    }
+    if ([QSObject objectWithIdentifier:anIdentifier]) {
+        return [QSObject objectWithIdentifier:anIdentifier];
+    }
+    if (!aType) {
+        return nil;
+    }
+    id handler = [[QSReg objectHandlers] objectForKey:aType];
+    if (handler && [handler respondsToSelector:@selector(recreateObjectOfType:withIdentifier:)]) {
+        return [handler recreateObjectOfType:aType withIdentifier:anIdentifier];
+    }
+    return nil;
+}
+
 + (id)objectByMergingObjects:(NSArray *)objects withObject:(QSObject *)object {
 	if ([objects containsObject:object] || !object)
 		return [self objectByMergingObjects:objects];

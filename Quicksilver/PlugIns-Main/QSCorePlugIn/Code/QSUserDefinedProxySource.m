@@ -25,6 +25,13 @@
     [super dealloc];
 }
 
+- (QSObject *)getTargetFromProxy:(QSObject *)proxy
+{
+    NSString *targetID = [proxy objectForMeta:@"target"];
+    NSString *targetType = [proxy objectForMeta:@"targetType"];
+    return [QSObject recreateObjectOfType:targetType withIdentifier:targetID];
+}
+
 #pragma mark Catalog Entry
 
 - (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry
@@ -48,10 +55,12 @@
     // assign values to the proxy object
     NSDictionary *settings = [theEntry objectForKey:kItemSettings];
     NSString *targetID = [settings objectForKey:@"target"];
+    NSString *targetType = [settings objectForKey:@"targetType"];
     NSString *name = [settings objectForKey:@"name"];
     [proxy setIdentifier:[NSString stringWithFormat:@"QSUserDefinedProxy:%@", name]];
     [proxy setName:name];
     [proxy setObject:targetID forMeta:@"target"];
+    [proxy setObject:targetType forMeta:@"targetType"];
     return [NSArray arrayWithObject:proxy];
 }
 
@@ -59,7 +68,8 @@
 {
     NSDictionary *settings = [theEntry objectForKey:kItemSettings];
     NSString *targetID = [settings objectForKey:@"target"];
-    QSObject *target = [QSObject objectWithIdentifier:targetID];
+    NSString *targetType = [settings objectForKey:@"targetType"];
+    QSObject *target = [QSObject recreateObjectOfType:targetType withIdentifier:targetID];
     if (target) {
         [target loadIcon];
         return [target icon];
@@ -72,7 +82,7 @@
 - (QSObject *)resolveProxyObject:(QSProxyObject *)proxy
 {
     NSString *targetID = [proxy objectForMeta:@"target"];
-    QSObject *target = [QSObject objectWithIdentifier:targetID];
+    QSObject *target = [self getTargetFromProxy:proxy];
     if (target) {
         return target;
     } else {
@@ -89,8 +99,7 @@
 
 - (NSArray *)typesForProxyObject:(QSProxyObject *)proxy
 {
-    NSString *targetID = [proxy objectForMeta:@"target"];
-    QSObject *target = [QSObject objectWithIdentifier:targetID];
+    QSObject *target = [self getTargetFromProxy:proxy];
     if (target) {
         return [target types];
     }
@@ -99,8 +108,7 @@
 
 - (NSString *)detailsOfObject:(QSObject *)object
 {
-    NSString *targetID = [object objectForMeta:@"target"];
-    QSObject *target = [QSObject objectWithIdentifier:targetID];
+    QSObject *target = [self getTargetFromProxy:object];
     if (target) {
         NSString *localizedDetails = NSLocalizedStringFromTableInBundle(@"Synonym for %@", nil, [NSBundle bundleForClass:[self class]], nil);
         return [NSString stringWithFormat:localizedDetails, [target displayName]];
@@ -114,8 +122,7 @@
 {
     // make this object act as much like the target as possible
     // (show the target's children instead of the target)
-    NSString *targetID = [proxy objectForMeta:@"target"];
-    QSObject *target = [QSObject objectWithIdentifier:targetID];
+    QSObject *target = [self getTargetFromProxy:proxy];
     if (target) {
         [proxy setChildren:[target children]];
         [proxy setAltChildren:[target altChildren]];

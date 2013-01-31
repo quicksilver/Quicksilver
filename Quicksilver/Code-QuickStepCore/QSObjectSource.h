@@ -26,6 +26,7 @@
 //- (NSString *)nameForEntry:(NSDictionary *)theEntry;
 - (NSArray *)objectsForEntry:(NSDictionary *)theEntry;
 - (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry;
+- (QSObject *)recreateObjectOfType:(NSString *)aType withIdentifier:(NSString *)anIdentifier;
 - (void)populateFields;
 
 - (void)updateCurrentEntryModificationDate;
