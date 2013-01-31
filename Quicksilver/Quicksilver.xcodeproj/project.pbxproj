@@ -362,6 +362,10 @@
 		CDA5253816AED84400D2017F /* NSView+DisableSubviews.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA5253616AED84400D2017F /* NSView+DisableSubviews.m */; };
 		CDA5253916AED88E00D2017F /* QSGCD.h in Headers */ = {isa = PBXBuildFile; fileRef = CD02BB4116A2BA5700DAFE50 /* QSGCD.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDA5253A16AED89100D2017F /* QSGCD.m in Sources */ = {isa = PBXBuildFile; fileRef = CD02BB4216A2BA5700DAFE50 /* QSGCD.m */; };
+		CDA524DB16AC8D8C00D2017F /* QSTargetPickerPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = CDA524D916AC8D8C00D2017F /* QSTargetPickerPanel.h */; };
+		CDA524DC16AC8D8C00D2017F /* QSTargetPickerPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA524DA16AC8D8C00D2017F /* QSTargetPickerPanel.m */; };
+		CDA524DE16AC92B300D2017F /* QSUserDefinedProxyTargetPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D4FED80E1683B82400593628 /* QSUserDefinedProxyTargetPicker.m */; };
+		CDA524DF16AC92B700D2017F /* QSUserDefinedProxyTargetPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = D4FED80D1683B82400593628 /* QSUserDefinedProxyTargetPicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDA9D3DE1549D13B00607BE4 /* AlertCautionIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDA9D3DD1549D13B00607BE4 /* AlertCautionIcon.icns */; };
 		CDC10E721622146C005FA734 /* SUConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = CDC10E6E1622146C005FA734 /* SUConstants.h */; };
 		CDC10E731622146C005FA734 /* SUConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC10E6F1622146C005FA734 /* SUConstants.m */; };
@@ -392,7 +396,9 @@
 		D46A0E1E160B934300DE11D5 /* QSNotificationCenterNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = D46A0E1C160B934300DE11D5 /* QSNotificationCenterNotifier.m */; };
 		D493990D1350078E00B908C6 /* QSDownloads.h in Headers */ = {isa = PBXBuildFile; fileRef = D49399091350078E00B908C6 /* QSDownloads.h */; };
 		D493990E1350078E00B908C6 /* QSDownloads.m in Sources */ = {isa = PBXBuildFile; fileRef = D493990A1350078E00B908C6 /* QSDownloads.m */; };
+		D49A8B02166EA8FC0086B5A9 /* QSUserDefinedProxySource.m in Sources */ = {isa = PBXBuildFile; fileRef = D49A8B01166EA8FC0086B5A9 /* QSUserDefinedProxySource.m */; };
 		D4A43887137CCF0300F15F7F /* QSURLExtractor.py in Resources */ = {isa = PBXBuildFile; fileRef = D4A4383B137CCCF500F15F7F /* QSURLExtractor.py */; };
+		D4AA5993166F9DD4006E8FD1 /* QSUserDefinedProxySource.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4AA5992166F9DD4006E8FD1 /* QSUserDefinedProxySource.xib */; };
 		D4E0060F1523951500FDF185 /* NSMetadataQuery+Synchronous.h in Headers */ = {isa = PBXBuildFile; fileRef = D4E0060D1523951500FDF185 /* NSMetadataQuery+Synchronous.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D4E006101523951500FDF185 /* NSMetadataQuery+Synchronous.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0060E1523951500FDF185 /* NSMetadataQuery+Synchronous.m */; };
 		E102347106BB6CC900143367 /* Find.icns in Resources */ = {isa = PBXBuildFile; fileRef = E102347006BB6CC900143367 /* Find.icns */; };
@@ -1572,6 +1578,8 @@
 		CD53FEB2151A0ACF006B734B /* PluginReporterText.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = PluginReporterText.html; sourceTree = "<group>"; };
 		CDA5253516AED84400D2017F /* NSView+DisableSubviews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSView+DisableSubviews.h"; path = "DisableSubviews/DisableSubviews/NSView+DisableSubviews.h"; sourceTree = "<group>"; };
 		CDA5253616AED84400D2017F /* NSView+DisableSubviews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSView+DisableSubviews.m"; path = "DisableSubviews/DisableSubviews/NSView+DisableSubviews.m"; sourceTree = "<group>"; };
+		CDA524D916AC8D8C00D2017F /* QSTargetPickerPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTargetPickerPanel.h; sourceTree = "<group>"; };
+		CDA524DA16AC8D8C00D2017F /* QSTargetPickerPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSTargetPickerPanel.m; sourceTree = "<group>"; };
 		CDA9D3DD1549D13B00607BE4 /* AlertCautionIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AlertCautionIcon.icns; sourceTree = "<group>"; };
 		CDC10E6E1622146C005FA734 /* SUConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUConstants.h; path = Sparkle/SUConstants.h; sourceTree = "<group>"; };
 		CDC10E6F1622146C005FA734 /* SUConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SUConstants.m; path = Sparkle/SUConstants.m; sourceTree = "<group>"; };
@@ -1746,10 +1754,15 @@
 		D46A0E1C160B934300DE11D5 /* QSNotificationCenterNotifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSNotificationCenterNotifier.m; sourceTree = "<group>"; };
 		D49399091350078E00B908C6 /* QSDownloads.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSDownloads.h; sourceTree = "<group>"; };
 		D493990A1350078E00B908C6 /* QSDownloads.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSDownloads.m; sourceTree = "<group>"; };
+		D49A8B00166EA8FC0086B5A9 /* QSUserDefinedProxySource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSUserDefinedProxySource.h; sourceTree = "<group>"; };
+		D49A8B01166EA8FC0086B5A9 /* QSUserDefinedProxySource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSUserDefinedProxySource.m; sourceTree = "<group>"; };
 		D4A4383B137CCCF500F15F7F /* QSURLExtractor.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = QSURLExtractor.py; sourceTree = "<group>"; };
+		D4AA5992166F9DD4006E8FD1 /* QSUserDefinedProxySource.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSUserDefinedProxySource.xib; sourceTree = "<group>"; };
 		D4DCF31F14D07F47006672AB /* ChangesBare.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = ChangesBare.html; sourceTree = "<group>"; };
 		D4E0060D1523951500FDF185 /* NSMetadataQuery+Synchronous.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMetadataQuery+Synchronous.h"; sourceTree = "<group>"; };
 		D4E0060E1523951500FDF185 /* NSMetadataQuery+Synchronous.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMetadataQuery+Synchronous.m"; sourceTree = "<group>"; };
+		D4FED80D1683B82400593628 /* QSUserDefinedProxyTargetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSUserDefinedProxyTargetPicker.h; sourceTree = "<group>"; };
+		D4FED80E1683B82400593628 /* QSUserDefinedProxyTargetPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSUserDefinedProxyTargetPicker.m; sourceTree = "<group>"; };
 		E102347006BB6CC900143367 /* Find.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Find.icns; sourceTree = "<group>"; };
 		E102F97C06625D7300843027 /* About.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = About.xib; sourceTree = "<group>"; };
 		E102F97D06625D7300843027 /* QSCatalog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSCatalog.xib; sourceTree = "<group>"; };
@@ -2614,6 +2627,7 @@
 				E102F99206625D7400843027 /* QSTriggersPrefPane.xib */,
 				E102F98C06625D7300843027 /* QuitConfirm.xib */,
 				E102F98D06625D7300843027 /* ResultWindow.xib */,
+				D4AA5992166F9DD4006E8FD1 /* QSUserDefinedProxySource.xib */,
 			);
 			path = Nibs;
 			sourceTree = "<group>";
@@ -2791,6 +2805,8 @@
 				7FF59033080439B00031368C /* QSTextParser.m */,
 				E180011507B2B48900010DB0 /* QSTextSource.h */,
 				E180011607B2B48900010DB0 /* QSTextSource.m */,
+				D49A8B00166EA8FC0086B5A9 /* QSUserDefinedProxySource.h */,
+				D49A8B01166EA8FC0086B5A9 /* QSUserDefinedProxySource.m */,
 				7F9441E50803ABB1007EDC31 /* QSVolumesObjectSource.h */,
 				7F9441E60803ABB1007EDC31 /* QSVolumesObjectSource.m */,
 				E180011707B2B48900010DB0 /* QSWebSource.h */,
@@ -3156,6 +3172,8 @@
 		E1E5FC4707B20E4C0044D6EF /* Code-QuickStepInterface */ = {
 			isa = PBXGroup;
 			children = (
+				CDA524D916AC8D8C00D2017F /* QSTargetPickerPanel.h */,
+				CDA524DA16AC8D8C00D2017F /* QSTargetPickerPanel.m */,
 				4D00307F13116376009040B7 /* QSFancyTableView.h */,
 				4D00308013116376009040B7 /* QSFancyTableView.m */,
 				4D00308113116376009040B7 /* QSOutlineView.h */,
@@ -3225,6 +3243,8 @@
 				7F9BDBD509F9C40D004F6E7A /* QSSplitHandleView.m */,
 				7FD7C95C0877C2C70022FA3B /* QSTextViewer.h */,
 				7FD7C95D0877C2C70022FA3B /* QSTextViewer.m */,
+				D4FED80D1683B82400593628 /* QSUserDefinedProxyTargetPicker.h */,
+				D4FED80E1683B82400593628 /* QSUserDefinedProxyTargetPicker.m */,
 			);
 			path = "Code-QuickStepInterface";
 			sourceTree = "<group>";
@@ -3433,6 +3453,8 @@
 				4D00308513116376009040B7 /* QSFancyTableView.h in Headers */,
 				4D00308713116376009040B7 /* QSOutlineView.h in Headers */,
 				4D00308913116376009040B7 /* QSTableView.h in Headers */,
+				CDA524DB16AC8D8C00D2017F /* QSTargetPickerPanel.h in Headers */,
+				CDA524DF16AC92B700D2017F /* QSUserDefinedProxyTargetPicker.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4172,6 +4194,7 @@
 				D4A43887137CCF0300F15F7F /* QSURLExtractor.py in Resources */,
 				CDC9C6C513DA2B6D0053B09C /* Clipboard.icns in Resources */,
 				2E3B550013B3566B00130C11 /* dragToTrash.aif in Resources */,
+				D4AA5993166F9DD4006E8FD1 /* QSUserDefinedProxySource.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4571,6 +4594,8 @@
 				4D00308613116376009040B7 /* QSFancyTableView.m in Sources */,
 				4D00308813116376009040B7 /* QSOutlineView.m in Sources */,
 				4D00308A13116376009040B7 /* QSTableView.m in Sources */,
+				CDA524DC16AC8D8C00D2017F /* QSTargetPickerPanel.m in Sources */,
+				CDA524DE16AC92B300D2017F /* QSUserDefinedProxyTargetPicker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4686,6 +4711,7 @@
 				7F9441E80803ABB1007EDC31 /* QSVolumesObjectSource.m in Sources */,
 				E180014007B2B48900010DB0 /* QSWebSource.m in Sources */,
 				D439387E15E2C4CF008F6548 /* QSICloudDocumentSource.m in Sources */,
+				D49A8B02166EA8FC0086B5A9 /* QSUserDefinedProxySource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

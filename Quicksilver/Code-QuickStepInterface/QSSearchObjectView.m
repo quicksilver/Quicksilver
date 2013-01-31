@@ -742,7 +742,10 @@ NSMutableDictionary *bindingsDict = nil;
 #endif
 
 - (void)transmogrifyWithText:(NSString *)string {
-	if (![self allowText]) return;
+	if (![self allowText]) {
+        NSBeep();
+        return;
+    }
 	if ([self currentEditor]) {
 		[[self window] makeFirstResponder: self];
 	} else {
