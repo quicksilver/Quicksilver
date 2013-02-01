@@ -45,8 +45,7 @@
 		} else {
 			NSResponder *firstResponder = [[self window] firstResponder];
 			if (firstResponder == iSelector
-				 || firstResponder == [iSelector currentEditor]
-				 || ([iSelector objectValue] != nil && ![[iSelector objectValue] objectForType:QSTextProxyType]) ) {
+				 || firstResponder == [iSelector currentEditor]) {
 				[self expandWindow:sender];
 				return;
 			}
