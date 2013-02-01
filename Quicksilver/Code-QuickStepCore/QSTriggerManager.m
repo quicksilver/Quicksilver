@@ -69,6 +69,11 @@
 	return splashWindow;
 }
 - (NSString *)name { return @""; }
+- (NSImage *)image { return nil; }
+- (void)initializeTrigger:(QSTrigger *)trigger {}
+- (BOOL)enableTrigger:(QSTrigger *)trigger { return NO; }
+- (BOOL)disableTrigger:(QSTrigger *)trigger {return NO; }
+- (NSString *)descriptionForTrigger:(QSTrigger *)thisTrigger { return nil; }
 @end
 
 @implementation QSGroupTriggerManager

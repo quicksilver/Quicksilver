@@ -27,6 +27,8 @@
 - (BOOL)hasCustomName;
 - (void)setName:(NSString *)name;
 
+- (NSString *)identifier;
+
 - (BOOL)isPreset;
 - (BOOL)enabled;
 - (void)setEnabled:(BOOL)enabled;
@@ -44,7 +46,7 @@
 - (QSTrigger *)parent;
 - (BOOL)activated;
 - (void)setActivated: (BOOL)flag;
-
+- (void)initializeTrigger;
 - (BOOL)isGroup;
 - (NSString *)triggerDescription;
 - (NSString *)triggerSet;
