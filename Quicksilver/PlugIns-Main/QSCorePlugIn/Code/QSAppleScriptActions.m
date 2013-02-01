@@ -43,7 +43,7 @@
 		[actionDict setObject:[NSArray arrayWithObject:QSTextType] forKey:kActionIndirectTypes];
 	}
     NSString *actionName = [[path lastPathComponent] stringByDeletingPathExtension];
-    QSAction *action = [QSAction actionWithDictionary:actionDict identifier:[@"[Action]:" stringByAppendingString:path]];
+    QSAction *action = [QSAction actionWithDictionary:actionDict identifier:[kAppleScriptActionIDPrefix stringByAppendingString:path]];
     [action setName:actionName];
 	[action setObject:path forMeta:kQSObjectIconName];
 	return action;
@@ -262,7 +262,40 @@
     } else if ([action isEqualToString:kAppleScriptOpenFilesAction]) {
         return [QSLib arrayForType:QSFilePathType];
     };
+    // Applescript action, so attempt to get the valid types from the file itself
+    if ([action rangeOfString:kAppleScriptActionIDPrefix].location != NSNotFound) {
+        return [self validIndirectObjectsForAppleScript:action directObject:dObject];
+    }
     return nil;
+}
+
+-(NSArray *)validIndirectObjectsForAppleScript:(NSString *)script directObject:(QSObject *)dObject {
+    id indirectTypes = nil;
+    // remove the @"[Namne]:" from the start to get the script
+    NSString *scriptPath = [script substringFromIndex:[kAppleScriptActionIDPrefix length]];
+    NSArray *handlers = [NSAppleScript validHandlersFromArray:[NSArray arrayWithObject:@"DAEDgiob"] inScriptFile:scriptPath];
+    if( handlers != nil && [handlers count] != 0 ) {
+        NSAppleEventDescriptor *event;
+        int pid = [[NSProcessInfo processInfo] processIdentifier];
+        NSAppleEventDescriptor* targetAddress = [[NSAppleEventDescriptor alloc] initWithDescriptorType:typeKernelProcessID bytes:&pid length:sizeof(pid)];
+        
+        NSDictionary *errorDict = nil;
+        NSAppleScript *script = [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:scriptPath] error:&errorDict];
+        
+		event = [[NSAppleEventDescriptor alloc] initWithEventClass:kQSScriptSuite eventID:kQSGetIndirectObjectTypesCommand targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
+        
+        NSAppleEventDescriptor *result = [script executeAppleEvent:event error:&errorDict];
+        if( result ) {
+            indirectTypes = (NSInteger)[result int32Value];
+        } else if( errorDict != nil )
+            NSLog(@"error %@", errorDict);
+        
+        [event release];
+        [targetAddress release];
+        [script release];
+        
+    }
+    return indirectTypes;
 }
 
 - (NSInteger)argumentCountForAction:(NSString *)actionId {
