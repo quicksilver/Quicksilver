@@ -257,7 +257,12 @@
 }
 
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
-	return ([action isEqualToString:kAppleScriptOpenTextAction] ? [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@""]] : nil);
+	if ([action isEqualToString:kAppleScriptOpenTextAction]) {
+        return [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@""]];
+    } else if ([action isEqualToString:kAppleScriptOpenFilesAction]) {
+        return [QSLib arrayForType:QSFilePathType];
+    };
+    return nil;
 }
 
 - (NSInteger)argumentCountForAction:(NSString *)actionId {
