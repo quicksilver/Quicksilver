@@ -15,7 +15,6 @@
 #import "QSApp.h"
 #import "QSTaskController.h"
 #import "QSObject_PropertyList.h"
-#import "NSException_TraceExtensions.h"
 #import "QSTask.h"
 #import <QSFoundation/QSFoundation.h>
 
