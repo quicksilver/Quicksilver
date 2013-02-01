@@ -23,6 +23,9 @@
 
 #import "QSTriggersPrefPane.h"
 
+/* I know that sounds stupid, but if trigger themselves are one day made QSObjects then we'll be glad */
+#define QSTriggerTypeType @"QSTriggerTypeType"
+
 @interface QSObject (QSCommandCompletionProtocol)
 - (void)completeAndExecuteCommand:(QSCommand *)command;
 @end
@@ -57,7 +60,20 @@
         }];
     
     return [[NSArray arrayWithObject:currentFolderObject] arrayByAddingObjectsFromArray:[fileObjects objectsAtIndexes:folderIndexes]];
-	} else {
+	} else if ([action isEqualToString:@"QSCommandAddTriggerAction"]) {
+        NSMutableArray *triggerTypesObjects = [NSMutableArray array];
+        NSDictionary *triggerManagers = [QSReg instancesForTable:@"QSTriggerManagers"];
+        for (NSString *key in triggerManagers) {
+            QSTriggerManager *manager = [triggerManagers objectForKey:key];
+            QSObject *triggerType = [QSObject makeObjectWithIdentifier:key];
+            [triggerType setPrimaryType:QSTriggerTypeType];
+            [triggerType setIcon:[manager image]];
+            [triggerType setName:[manager name]];
+            [triggerType setObject:key forType:QSTriggerTypeType];
+            [triggerTypesObjects addObject:triggerType];
+        }
+        return triggerTypesObjects;
+    } else {
 		return [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@""]];
     }
 }
@@ -134,14 +150,13 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	return [QSObject fileObjectWithPath:destination];
 }
 
-- (QSObject*)addTrigger:(QSObject *)dObject withInfo:(QSObject*)iObject {
-#warning TODO: iObject contains a string which allows passing missing parameters (trigger type, mainly)
-    /* More TODO: Ask the trigger's trigger manager to parse the iObject stringValue,
-     * so that trigger manager get a chance to customize their properties */
+- (QSObject*)addTrigger:(QSObject *)dObject withType:(QSObject *)type {
 	QSCommand *command = (QSCommand*)dObject;
     
+    NSString *typeString = [type objectForType:QSTriggerTypeType];
+
 	NSMutableDictionary *info = [NSMutableDictionary dictionaryWithCapacity:5];
-	[info setObject:@"QSHotKeyTrigger" forKey:@"type"];
+	[info setObject:typeString forKey:@"type"];
 	[info setObject:[NSNumber numberWithBool:YES] forKey:kItemEnabled];
     
 	if (command)
@@ -151,12 +166,16 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
     
 	QSTrigger *trigger = [QSTrigger triggerWithDictionary:info];
 	[trigger initializeTrigger];
-	[[QSTriggerCenter sharedInstance] addTrigger:trigger];
+	[(QSTriggerCenter *)[QSTriggerCenter sharedInstance] addTrigger:trigger];
+	[self performSelectorOnMainThread:@selector(selectTriggerInPrefPane:) withObject:trigger waitUntilDone:YES];
+	return nil;
+}
+
+- (void)selectTriggerInPrefPane:(QSTrigger *)trigger {
 	[[NSClassFromString(@"QSPreferencesController") sharedInstance] showPaneWithIdentifier:@"QSTriggersPrefPane"];
 	[[NSClassFromString(@"QSTriggersPrefPane") sharedInstance] showTrigger:trigger];
-    [[NSClassFromString(@"QSTriggersPrefPane") sharedInstance] setTabViewIndex:0];
-    [[NSClassFromString(@"QSTriggersPrefPane") sharedInstance] showTriggerInfo:trigger];
-    return nil;
+	[[NSClassFromString(@"QSTriggersPrefPane") sharedInstance] setTabViewIndex:0];
+	[[NSClassFromString(@"QSTriggersPrefPane") sharedInstance] showTriggerInfo:trigger];
 }
 
 - (QSObject *)executeCommand:(QSObject *)dObject afterDelay:(QSObject *)iObject {
@@ -195,9 +214,8 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
         command = [QSCommand commandWithDictionary:info];
     } else if ([info isKindOfClass:[NSString class]]) {
         command = [QSCommand commandWithIdentifier:info];
-    } else if (![info isKindOfClass:[QSCommand class]]) {
-        [self release];
-        return nil;
+    } else if ([info isKindOfClass:[QSCommand class]]) {
+		command = info;
     }
     return command;
 }
