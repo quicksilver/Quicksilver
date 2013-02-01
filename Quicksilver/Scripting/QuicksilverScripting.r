@@ -507,7 +507,7 @@ resource 'aete' (0, "Quicksilver") {
 			},
 
 			"get argument count",
-			"Get the argument count for this action. Scripts with this handler can customize their argument count. Valid values are 1, 2.",
+			"Get the argument count for this action. Scripts with this handler can customize their argument count. Valid values are: 1 = 1st pane only; 2 = 1st pane and 3rd pane; 3 = 1st pane, and 3rd pane (optional).",
 			'DAED', 'garc',
 			'long',
 			"value to return to Quicksilver",

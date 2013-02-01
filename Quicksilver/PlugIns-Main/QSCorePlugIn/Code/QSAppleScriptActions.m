@@ -36,6 +36,9 @@
     NSArray *validDirectTypes = [self validDirectTypesForScript:path];
     NSArray *validIndirectTypes = [self validIndrectTypesForScript:path];
     
+    // get the argument count of the script. 1 = dObj only. 2 = dObj + iObj. 3 = indirect Optional
+    NSInteger argumentCount = [self argumentCountForScript:path];
+    
     if ([handlers containsObject:@"aevtodoc"] || [handlers containsObject:@"DAEDopfl"]) {
         // Only set the type if the user hasn't specified any (i.e. hasn't set the 'get direct types' handler)
         if (!validDirectTypes) {
@@ -62,6 +65,12 @@
     if ([validIndirectTypes count]) {
         [actionDict setObject:validIndirectTypes forKey:kActionIndirectTypes];
     }
+    if (argumentCount == 3) {
+        // argumentCount == 3 means indirect optional
+        [actionDict setObject:[NSNumber numberWithBool:YES] forKey:kActionIndirectOptional];
+        argumentCount = 2;
+    }
+    [actionDict setObject:[NSNumber numberWithInteger:argumentCount] forKey:kActionArgumentCount];
     
     NSString *actionName = [[path lastPathComponent] stringByDeletingPathExtension];
     QSAction *action = [QSAction actionWithDictionary:actionDict identifier:[kAppleScriptActionIDPrefix stringByAppendingString:path]];
@@ -300,7 +309,7 @@
 }
 
 -(NSArray *)validIndirectObjectsForAppleScript:(NSString *)script directObject:(QSObject *)dObject {
-    NSString *scriptPath = [script substringFromIndex:[kAppleScriptActionIDPrefix length]];
+    NSString *scriptPath = [self scriptPathForID:script];
     
     id indirectTypes = [self validIndrectTypesForScript:scriptPath];
     if (indirectTypes) {
@@ -312,24 +321,42 @@
     }
     return nil;
 }
-                             
-- (NSInteger)argumentCountForAction:(NSString *)actionId {
-    NSInteger argumentCount = 1;
+
+-(NSString *)scriptPathForID:(NSString *)actionId {
     QSAction *action = [QSAction actionWithIdentifier:actionId];
 	NSString *scriptPath = [action objectForKey:kActionScript];
+        
+	if (!scriptPath) {
+		return nil;
+    }
     
-    if ([actionId isEqualToString:kAppleScriptOpenTextAction] || [actionId isEqualToString:kAppleScriptOpenFilesAction])
-        argumentCount = 2;
-    
-    // TODO: figure out why all this code is here - scriptPath always seems to be nil
-
-	if (!scriptPath)
-		return argumentCount;
-
-	if ([scriptPath hasPrefix:@"/"] || [scriptPath hasPrefix:@"~"])
+	if ([scriptPath hasPrefix:@"/"] || [scriptPath hasPrefix:@"~"]) {
 		scriptPath = [scriptPath stringByStandardizingPath];
-	else
+	} else {
 		scriptPath = [[action bundle] pathForResource:[scriptPath stringByDeletingPathExtension] ofType:[scriptPath pathExtension]];
+    }
+    return scriptPath;
+}
+
+- (NSInteger)argumentCountForAction:(NSString *)actionId {
+    
+    if ([actionId isEqualToString:kAppleScriptOpenTextAction] || [actionId isEqualToString:kAppleScriptOpenFilesAction]) {
+        return 2;
+    }
+    
+    NSString *scriptPath = [self scriptPathForID:actionId];
+    if (!scriptPath) {
+        // can't find the script so just return 1 and hope for the best
+        return 1;
+    }
+    
+    // this should never realistically be called, since the script argument count is set in scriptActionForPath: (above)
+    return [self argumentCountForScript:scriptPath] > 1 ? 2 : 1;
+}
+
+
+-(NSInteger)argumentCountForScript:(NSString *)scriptPath {
+    NSInteger argumentCount = 1;
 
     NSArray *handlers = [NSAppleScript validHandlersFromArray:[NSArray arrayWithObject:@"DAEDgarc"] inScriptFile:scriptPath];
     if( handlers != nil && [handlers count] != 0 ) {
@@ -353,14 +380,9 @@
         [script release];
         
     }
-
-#ifdef DEBUG
-	NSLog(@"argument count for %@ is %ld", actionId, (long)argumentCount);
-#endif
     
     return argumentCount;
 }
-                             
 
 // Retrieves an array of types from either the 'get direct types' or 'get indirect types' AppleScript handlers (depending on the input parameter 'handler')
 -(NSArray *)typeArrayForScript:(NSString *)scriptPath forHandler:(NSString *)handler {

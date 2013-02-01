@@ -7,7 +7,7 @@
 		<key>GetArgumentCount</key>
 		<dict>
 			<key>Description</key>
-			<string>Get the argument count for this action. Scripts with this handler can customize their argument count. Valid values are 1, 2.</string>
+			<string>Get the argument count for this action. Scripts with this handler can customize their argument count. Valid values are: 1 = 1st pane only; 2 = 1st pane and 3rd pane; 3 = 1st pane, and 3rd pane (optional).</string>
 			<key>Name</key>
 			<string>get argument count</string>
 		</dict>
