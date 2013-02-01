@@ -20,11 +20,17 @@
 # define kAppleScriptRunTextAction @"AppleScriptRunTextAction"
 
 #define kQSScriptSuite 'DAED'
+// opnt = OPeN Text
 #define kQSOpenTextScriptCommand 'opnt'
+// opfl = OPen FiLe
 #define kQSOpenFileScriptCommand 'opfl'
+// garc = Get ARgument Count
 #define kQSGetArgumentCountCommand 'garc'
+// giob = Get Indirect OBject
 #define kQSGetIndirectObjectTypesCommand 'giob'
+// gdob = Get Direct OBject
 #define kQSGetDirectObjectTypesCommand 'gdob'
+// IdOb = Indirect Object
 #define kQSIndirectParameter 'IdOb'
 
 @interface QSAppleScriptActions : QSActionProvider

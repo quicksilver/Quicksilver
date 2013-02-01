@@ -32,16 +32,28 @@
                                        [NSNumber numberWithBool:YES],      kActionDisplaysResult,
                                        nil];
     
+    // attempt to get the valid direct types from the AppleScript's 'get direct types' handler
+    NSArray *validDirectTypes = [self validDirectTypesForScript:path];
+    
     if ([handlers containsObject:@"aevtodoc"] || [handlers containsObject:@"DAEDopfl"]) {
-		[actionDict setObject:[NSArray arrayWithObject:QSFilePathType] forKey:kActionDirectTypes];
+        // Only set the type if the user hasn't specified any (i.e. hasn't set the 'get direct types' handler)
+        if (!validDirectTypes) {
+            validDirectTypes = [NSArray arrayWithObject:QSFilePathType];
+        }
 		[actionDict setObject:[handlers containsObject:@"DAEDopfl"] ? @"QSOpenFileWithEventPlaceholder" : @"QSOpenFileEventPlaceholder" forKey:kActionHandler];
         [actionDict setObject:[NSArray arrayWithObject:QSFilePathType] forKey:kActionIndirectTypes];
 	}
 	if ([handlers containsObject:@"DAEDopnt"] && ![handlers containsObject:@"DAEDopfl"]) {
-		[actionDict setObject:[NSArray arrayWithObject:QSTextType] forKey:kActionDirectTypes];
+        // Only set the type if the user hasn't specified any (i.e. hasn't set the 'get direct types' handler)
+        if (!validDirectTypes) {
+            validDirectTypes = [NSArray arrayWithObject:QSTextType];
+        }
 		[actionDict setObject:@"QSOpenTextEventPlaceholder" forKey:kActionHandler];
 		[actionDict setObject:[NSArray arrayWithObject:QSTextType] forKey:kActionIndirectTypes];
 	}
+    if ([validDirectTypes count]) {
+        [actionDict setObject:validDirectTypes forKey:kActionDirectTypes];
+    }
     NSString *actionName = [[path lastPathComponent] stringByDeletingPathExtension];
     QSAction *action = [QSAction actionWithDictionary:actionDict identifier:[kAppleScriptActionIDPrefix stringByAppendingString:path]];
     [action setName:actionName];
@@ -256,48 +268,38 @@
 	return nil;
 }
 
+
+-(NSArray *)validDirectTypesForScript:(NSString *)path {
+    return [self typeArrayForScript:path forHandler:@"DAEDgdob"];
+}
+
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
 	if ([action isEqualToString:kAppleScriptOpenTextAction]) {
         return [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@""]];
     } else if ([action isEqualToString:kAppleScriptOpenFilesAction]) {
         return [QSLib arrayForType:QSFilePathType];
     };
-    // Applescript action, so attempt to get the valid types from the file itself
     if ([action rangeOfString:kAppleScriptActionIDPrefix].location != NSNotFound) {
+        // Applescript action, so attempt to get the valid types from the file itself ('get indirect types' handler)
         return [self validIndirectObjectsForAppleScript:action directObject:dObject];
     }
     return nil;
 }
 
 -(NSArray *)validIndirectObjectsForAppleScript:(NSString *)script directObject:(QSObject *)dObject {
-    id indirectTypes = nil;
-    // remove the @"[Namne]:" from the start to get the script
     NSString *scriptPath = [script substringFromIndex:[kAppleScriptActionIDPrefix length]];
-    NSArray *handlers = [NSAppleScript validHandlersFromArray:[NSArray arrayWithObject:@"DAEDgiob"] inScriptFile:scriptPath];
-    if( handlers != nil && [handlers count] != 0 ) {
-        NSAppleEventDescriptor *event;
-        int pid = [[NSProcessInfo processInfo] processIdentifier];
-        NSAppleEventDescriptor* targetAddress = [[NSAppleEventDescriptor alloc] initWithDescriptorType:typeKernelProcessID bytes:&pid length:sizeof(pid)];
-        
-        NSDictionary *errorDict = nil;
-        NSAppleScript *script = [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:scriptPath] error:&errorDict];
-        
-		event = [[NSAppleEventDescriptor alloc] initWithEventClass:kQSScriptSuite eventID:kQSGetIndirectObjectTypesCommand targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
-        
-        NSAppleEventDescriptor *result = [script executeAppleEvent:event error:&errorDict];
-        if( result ) {
-            indirectTypes = (NSInteger)[result int32Value];
-        } else if( errorDict != nil )
-            NSLog(@"error %@", errorDict);
-        
-        [event release];
-        [targetAddress release];
-        [script release];
-        
+    
+    id indirectTypes = [self typeArrayForScript:scriptPath forHandler:@"DAEDgiob"];
+    if (indirectTypes) {
+        NSMutableArray *indirectObjects = [NSMutableArray array];
+        for (NSString *type in indirectTypes) {
+            [indirectObjects addObjectsFromArray:[QSLib arrayForType:type]];
+        }
+        return [[indirectObjects copy] autorelease];
     }
-    return indirectTypes;
+    return nil;
 }
-
+                             
 - (NSInteger)argumentCountForAction:(NSString *)actionId {
     NSInteger argumentCount = 1;
     QSAction *action = [QSAction actionWithIdentifier:actionId];
@@ -345,4 +347,33 @@
     
     return argumentCount;
 }
+                             
+
+// Retrieves an array of types from either the 'get direct types' or 'get indirect types' AppleScript handlers (depending on the input parameter 'handler')
+-(NSArray *)typeArrayForScript:(NSString *)scriptPath forHandler:(NSString *)handler {
+    id types = nil;
+    NSArray *handlers = [NSAppleScript validHandlersFromArray:[NSArray arrayWithObject:handler] inScriptFile:scriptPath];
+    if( handlers != nil && [handlers count] != 0 ) {
+        NSAppleEventDescriptor *event;
+        int pid = [[NSProcessInfo processInfo] processIdentifier];
+        NSAppleEventDescriptor* targetAddress = [[NSAppleEventDescriptor alloc] initWithDescriptorType:typeKernelProcessID bytes:&pid length:sizeof(pid)];
+        
+        NSDictionary *errorDict = nil;
+        NSAppleScript *script = [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:scriptPath] error:&errorDict];
+        
+		event = [[NSAppleEventDescriptor alloc] initWithEventClass:kQSScriptSuite eventID:[handler isEqualToString:@"DAEDgdob"] ? kQSGetDirectObjectTypesCommand : kQSGetIndirectObjectTypesCommand targetDescriptor:targetAddress returnID:kAutoGenerateReturnID transactionID:kAnyTransactionID];
+        
+        NSAppleEventDescriptor *result = [script executeAppleEvent:event error:&errorDict];
+        if( result ) {
+            // Convert the AS list type to an array
+            types = (NSArray *)[result arrayValue];
+        } else if( errorDict != nil )
+            NSLog(@"error %@", errorDict);
+        [event release];
+        [targetAddress release];
+        [script release];
+    }
+    return types;
+}
+                             
 @end
