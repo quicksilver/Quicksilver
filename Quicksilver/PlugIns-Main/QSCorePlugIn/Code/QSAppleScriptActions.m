@@ -32,8 +32,9 @@
                                        [NSNumber numberWithBool:YES],      kActionDisplaysResult,
                                        nil];
     
-    // attempt to get the valid direct types from the AppleScript's 'get direct types' handler
+    // try to get the valid direct/indirect types from the AppleScript's 'get direct/indirect types' handler to set on the actionDict
     NSArray *validDirectTypes = [self validDirectTypesForScript:path];
+    NSArray *validIndirectTypes = [self validIndrectTypesForScript:path];
     
     if ([handlers containsObject:@"aevtodoc"] || [handlers containsObject:@"DAEDopfl"]) {
         // Only set the type if the user hasn't specified any (i.e. hasn't set the 'get direct types' handler)
@@ -41,7 +42,9 @@
             validDirectTypes = [NSArray arrayWithObject:QSFilePathType];
         }
 		[actionDict setObject:[handlers containsObject:@"DAEDopfl"] ? @"QSOpenFileWithEventPlaceholder" : @"QSOpenFileEventPlaceholder" forKey:kActionHandler];
-        [actionDict setObject:[NSArray arrayWithObject:QSFilePathType] forKey:kActionIndirectTypes];
+        if (!validIndirectTypes) {
+            validIndirectTypes = [NSArray arrayWithObject:QSFilePathType];
+        }
 	}
 	if ([handlers containsObject:@"DAEDopnt"] && ![handlers containsObject:@"DAEDopfl"]) {
         // Only set the type if the user hasn't specified any (i.e. hasn't set the 'get direct types' handler)
@@ -49,11 +52,17 @@
             validDirectTypes = [NSArray arrayWithObject:QSTextType];
         }
 		[actionDict setObject:@"QSOpenTextEventPlaceholder" forKey:kActionHandler];
-		[actionDict setObject:[NSArray arrayWithObject:QSTextType] forKey:kActionIndirectTypes];
+        if (!validIndirectTypes) {
+            validIndirectTypes = [NSArray arrayWithObject:QSTextType];
+        }
 	}
     if ([validDirectTypes count]) {
         [actionDict setObject:validDirectTypes forKey:kActionDirectTypes];
     }
+    if ([validIndirectTypes count]) {
+        [actionDict setObject:validIndirectTypes forKey:kActionIndirectTypes];
+    }
+    
     NSString *actionName = [[path lastPathComponent] stringByDeletingPathExtension];
     QSAction *action = [QSAction actionWithDictionary:actionDict identifier:[kAppleScriptActionIDPrefix stringByAppendingString:path]];
     [action setName:actionName];
@@ -273,6 +282,10 @@
     return [self typeArrayForScript:path forHandler:@"DAEDgdob"];
 }
 
+-(NSArray *)validIndrectTypesForScript:(NSString *)path {
+    return [self typeArrayForScript:path forHandler:@"DAEDgiob"];
+}
+
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
 	if ([action isEqualToString:kAppleScriptOpenTextAction]) {
         return [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@""]];
@@ -289,7 +302,7 @@
 -(NSArray *)validIndirectObjectsForAppleScript:(NSString *)script directObject:(QSObject *)dObject {
     NSString *scriptPath = [script substringFromIndex:[kAppleScriptActionIDPrefix length]];
     
-    id indirectTypes = [self typeArrayForScript:scriptPath forHandler:@"DAEDgiob"];
+    id indirectTypes = [self validIndrectTypesForScript:scriptPath];
     if (indirectTypes) {
         NSMutableArray *indirectObjects = [NSMutableArray array];
         for (NSString *type in indirectTypes) {
