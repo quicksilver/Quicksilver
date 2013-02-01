@@ -473,7 +473,7 @@ resource 'aete' (0, "Quicksilver") {
 			/* Events */
 
 			"open files",
-			"Open files from Quicksilver",
+			"Open file(s) from Quicksilver",
 			'DAED', 'opfl',
 			'****',
 			"value to return to Quicksilver",
@@ -510,6 +510,28 @@ resource 'aete' (0, "Quicksilver") {
 			"Get the argument count for this action. Scripts with this handler can customize their argument count. Valid values are 1, 2.",
 			'DAED', 'garc',
 			'long',
+			"value to return to Quicksilver",
+			replyRequired, singleItem, notEnumerated, Reserved13,
+			dp_none__,
+			{
+
+			},
+
+			"get indirect types",
+			"Get the valid indirect (3rd pane) object types for this action. Scripts with this handler can customize the types of objects displayed in Quicksilver's 3rd pane by returning a list of types supported. Valid values are shown at http://qsapp.com/wiki/AppleScript_Types",
+			'DAED', 'giob',
+			'****',
+			"value to return to Quicksilver",
+			replyRequired, singleItem, notEnumerated, Reserved13,
+			dp_none__,
+			{
+
+			},
+
+			"get direct types",
+			"Get the valid direct (1st pane) object types that this action will show for (currently unused). Scripts with this handler can customize for which types of objects the action appears for, by returning a list of types supported. Valid values are shown at http://qsapp.com/wiki/AppleScript_Types",
+			'DAED', 'gdob',
+			'****',
 			"value to return to Quicksilver",
 			replyRequired, singleItem, notEnumerated, Reserved13,
 			dp_none__,

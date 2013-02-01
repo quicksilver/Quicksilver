@@ -19,6 +19,32 @@
 			<key>Type</key>
 			<string>NSNumber&lt;Int&gt;</string>
 		</dict>
+		<key>GetDirectTypes</key>
+		<dict>
+			<key>AppleEventClassCode</key>
+			<string>DAED</string>
+			<key>AppleEventCode</key>
+			<string>gdob</string>
+			<key>CommandClass</key>
+			<string>NSScriptCommand</string>
+			<key>ResultAppleEventCode</key>
+			<string>****</string>
+			<key>Type</key>
+			<string>list</string>
+		</dict>
+		<key>GetIndirectTypes</key>
+		<dict>
+			<key>AppleEventClassCode</key>
+			<string>DAED</string>
+			<key>AppleEventCode</key>
+			<string>giob</string>
+			<key>CommandClass</key>
+			<string>NSScriptCommand</string>
+			<key>ResultAppleEventCode</key>
+			<string>****</string>
+			<key>Type</key>
+			<string>list</string>
+		</dict>
 		<key>OpenFiles</key>
 		<dict>
 			<key>AppleEventClassCode</key>

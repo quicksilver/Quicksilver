@@ -11,6 +11,20 @@
 			<key>Name</key>
 			<string>get argument count</string>
 		</dict>
+		<key>GetDirectTypes</key>
+		<dict>
+			<key>Description</key>
+			<string>Get the valid direct (1st pane) object types that this action will show for (currently unused). Scripts with this handler can customize for which types of objects the action appears for, by returning a list of types supported. Valid values are shown at http://qsapp.com/wiki/AppleScript_Types</string>
+			<key>Name</key>
+			<string>get direct types</string>
+		</dict>
+		<key>GetIndirectTypes</key>
+		<dict>
+			<key>Description</key>
+			<string>Get the valid indirect (3rd pane) object types for this action. Scripts with this handler can customize the types of objects displayed in Quicksilver's 3rd pane by returning a list of types supported. Valid values are shown at http://qsapp.com/wiki/AppleScript_Types</string>
+			<key>Name</key>
+			<string>get indirect types</string>
+		</dict>
 		<key>OpenFiles</key>
 		<dict>
 			<key>Arguments</key>
@@ -24,7 +38,7 @@
 				</dict>
 			</dict>
 			<key>Description</key>
-			<string>Open files from Quicksilver</string>
+			<string>Open file(s) from Quicksilver</string>
 			<key>Name</key>
 			<string>open files</string>
 			<key>UnnamedArgument</key>
