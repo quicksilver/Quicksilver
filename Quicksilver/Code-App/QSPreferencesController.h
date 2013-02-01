@@ -4,6 +4,8 @@
 #include <PreferencePanes/PreferencePanes.h>
 #define kQSPreferencesSplitWidth @"QSPreferencesSplitWidth"
 
+@class WebView;
+
 @interface QSPreferencesController : NSWindowController
 #if (MAC_OS_X_VERSION_MAX_ALLOWED >= 1060)
 	<NSToolbarDelegate, NSWindowDelegate, NSSplitViewDelegate>
@@ -31,6 +33,9 @@
 	IBOutlet NSView *sidebarView;
 	IBOutlet NSView *settingsView;
 	IBOutlet NSBox *fillerBox;
+
+    IBOutlet NSPanel *pluginInfoPanel;
+    IBOutlet WebView *pluginHelpHTMLView;
 
 //	IBOutlet NSSegmentedControl *historyView;
 
@@ -68,4 +73,7 @@
 - (void)loadPlugInInfo:(NSNotification *)notif;
 - (void)selectSettingsPane:(id)sender;
 - (void)matchSplitView:(NSSplitView *)split;
+
+- (IBAction)showHelpForPluginPane:(id)sender;
+
 @end

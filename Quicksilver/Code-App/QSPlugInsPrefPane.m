@@ -96,23 +96,14 @@
         [aButton setKeyEquivalentModifierMask:NSCommandKeyMask];
     }
 
-    
-////	[plugInTable setTarget:self];
-	//	[plugInTable setDoubleAction:@selector(tableDoubleAction:)];
-////	[plugInTable setAction:@selector(tableAction:)];
-	//[plugInText setTextContainerInset:NSMakeSize(8, 8)];
-	//[plugInText changeDocumentBackgroundColor:[NSColor clearColor]];
 	[[plugInText preferences] setDefaultTextEncodingName:@"utf-8"];
-	//[plugInText setDrawsBackground:NO];
 	[plugInText setPolicyDelegate:self];
 	[plugInText setResourceLoadDelegate:self];
-	//[plugInTable removeColumn:[plugInTable columnWithIdentifier:@"status"]];
-	//[self tableViewSelectionDidChange:nil];
 	[[plugInText window] useOptimizedDrawing:NO];
 	[arrayController addObserver:self forKeyPath:@"selectedObjects" options:0 context:nil];
 	[setsArrayController addObserver:self forKeyPath:@"selectedObjects" options:0 context:nil];
 	[pluginSetsTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
-    //[pluginSetsTable selectRow:0 byExtendingSelection:NO];
+
 	// update the list of plugins to match the selected category
 	NSArray *selection = [setsArrayController performSelector:@selector(selectedObjects)];
 	NSDictionary *dict = [selection lastObject];

@@ -34,4 +34,6 @@
 - (void)mainViewDidLoad;
 - (void)setInfo:(NSDictionary *)info;
 - (void)didReselect;
+
+- (NSBundle *)mainNibBundle;
 @end

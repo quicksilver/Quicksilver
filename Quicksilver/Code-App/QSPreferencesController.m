@@ -26,6 +26,8 @@
 #import "NSBundle_BLTRExtensions.h"
 #include <unistd.h>
 
+#import <WebKit/WebKit.h>
+
 @interface NSWindow (NSTrackingRectsPrivate)
 - (void)_hideAllDrawers;
 @end
@@ -195,6 +197,7 @@ id QSPrefs;
 	//		NSLog(@"shouldClose");
 	[[NSUserDefaults standardUserDefaults] synchronize];
 	[(NSPreferencePane *)currentPane willUnselect];
+    [pluginInfoPanel close];
 	return YES;
 }
 
@@ -427,15 +430,21 @@ id QSPrefs;
 	[newPane willSelect];
 	[oldPane willUnselect];
 
-	[[self window] _hideAllDrawers];
 
-// Help button
-    BOOL main = [[[info objectForKey:@"type"] lowercaseString] isEqualToString:@"main"];
-    QSPlugIn *plugin = [[QSPlugInManager sharedInstance] plugInWithID:[info objectForKey:@"nibBundle"]];
-	[helpButton setHidden:main];
-    [helpButton setEnabled:[plugin hasExtendedDescription]];
-	[helpButton setTarget:newPane];
-	[helpButton setAction:@selector(showPaneHelp:)];
+    // close the plugin help panel and all drawers
+    [pluginInfoPanel close];
+    [[self window] _hideAllDrawers];
+
+
+    // Help button
+    BOOL mainOrToolbar = [[[info objectForKey:@"type"] lowercaseString] isEqualToString:@"main"] || [[[info objectForKey:@"type"] lowercaseString] isEqualToString:@"toolbar"];
+    // don't want to add the help button to a main or toolbar pref pane
+    if (!mainOrToolbar) {
+        QSPlugIn *plugin = [QSPlugIn plugInWithBundle:[(QSPreferencePane *)newPane mainNibBundle]];
+        // if plugin is nil, disable the button (casting trick)
+        [helpButton setEnabled:(BOOL)[plugin hasExtendedDescription]];
+    }
+    [helpButton setHidden:mainOrToolbar];
 
 	NSView *newView = [newPane mainView];
 
@@ -458,7 +467,7 @@ id QSPrefs;
 	BOOL dynamicSize = height >= 384;
 
 	[prefsBox setContentView:nil];
-	[self setCurrentPane:instance];
+	[self setCurrentPane:newPane];
 
 	if (settingsPrefsBox == prefsBox) {
 
@@ -510,6 +519,22 @@ id QSPrefs;
 	[loadingProgress setHidden:YES];
 	[toolbarTitleView display];
 	[loadingProgress stopAnimation:nil];
+}
+
+- (IBAction)showHelpForPluginPane:(id)sender {
+    QSPlugIn *plugin = [QSPlugIn plugInWithBundle:[currentPane mainNibBundle]];
+    if (!plugin) {
+        return;
+    }
+    NSString *htmlString = [plugin infoHTML];
+    if (!htmlString) {
+        return;
+    }
+    runOnMainQueueSync(^{
+        [[pluginHelpHTMLView mainFrame] loadHTMLString:htmlString baseURL:nil];
+    });
+    [pluginInfoPanel setTitle:[plugin name]];
+    [pluginInfoPanel makeKeyAndOrderFront:sender];
 }
 
 - (void)matchSplitView:(NSSplitView *)split {
