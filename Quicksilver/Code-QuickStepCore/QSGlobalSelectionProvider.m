@@ -168,7 +168,7 @@ NSTimeInterval failDate = 0;
 	}
 	NSDictionary *info = [[QSReg tableNamed:@"QSProxies"] objectForKey:identifier];
 	NSArray *array = [info objectForKey:kQSProxyTypes];
-	if (!info) return [NSArray arrayWithObjects:NSStringPboardType, NSFilenamesPboardType, nil];
+	if (!info) return [NSArray arrayWithObjects:NSStringPboardType, nil];
 	if (array) return array;
 	
 	id provider = [QSReg getClassInstance:[info objectForKey:kQSProxyProviderClass]];
