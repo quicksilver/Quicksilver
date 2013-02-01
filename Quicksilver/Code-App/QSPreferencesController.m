@@ -531,7 +531,8 @@ id QSPrefs;
         return;
     }
     runOnMainQueueSync(^{
-        [[pluginHelpHTMLView mainFrame] loadHTMLString:htmlString baseURL:nil];
+        // load the string relative to the resources folder (where the stylesheets are stored
+        [[pluginHelpHTMLView mainFrame] loadHTMLString:htmlString baseURL:[[NSBundle mainBundle] resourceURL]];
     });
     [pluginInfoPanel setTitle:[plugin name]];
     [pluginInfoPanel makeKeyAndOrderFront:sender];

@@ -99,6 +99,7 @@
 	[[plugInText preferences] setDefaultTextEncodingName:@"utf-8"];
 	[plugInText setPolicyDelegate:self];
 	[plugInText setResourceLoadDelegate:self];
+    
 	[[plugInText window] useOptimizedDrawing:NO];
 	[arrayController addObserver:self forKeyPath:@"selectedObjects" options:0 context:nil];
 	[setsArrayController addObserver:self forKeyPath:@"selectedObjects" options:0 context:nil];
@@ -113,7 +114,7 @@
 }
 
 - (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id)listener {
-	if ([[[request URL] scheme] isEqualToString:@"applewebdata"] || [[[request URL] scheme] isEqualToString:@"about"]) {
+	if ([[[request URL] path] containsString:[[[NSBundle mainBundle] resourceURL] path]] || [[[request URL] scheme] isEqualToString:@"about"] || [[[request URL] scheme] isEqualToString:@"resource"]) {
 		[listener use];
 	} else {
 		[[NSWorkspace sharedWorkspace] openURL:[request URL]];
@@ -142,7 +143,6 @@
 		//}
 	} else {
 		NSArray *selection = [arrayController selectedObjects];
-		BOOL isMainThread = [NSThread isMainThread];
 		NSString *htmlString;
 		NSString *defaultTitle = @"Plugin Documentation";
 		if ([selection count] == 1) {
@@ -156,16 +156,10 @@
 			[self setPlugInName:defaultTitle];
 			htmlString = @"";
 		}
-		if (isMainThread) {
-			[[plugInText mainFrame] loadHTMLString:htmlString baseURL:nil];
-		} else {
-			[self performSelectorOnMainThread:@selector(updateWithHTMLString:) withObject:htmlString waitUntilDone:NO];
-		}
+        runOnMainQueueSync(^{
+            [[plugInText mainFrame] loadHTMLString:htmlString baseURL:[[NSBundle mainBundle] resourceURL]];
+        });
 	}
-}
-
-- (void)updateWithHTMLString:(NSString*)html {
-	[[plugInText mainFrame] loadHTMLString:html baseURL:nil];
 }
 
 - (void)paneLoadedByController:(id)controller {
