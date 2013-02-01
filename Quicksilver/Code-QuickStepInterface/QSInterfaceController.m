@@ -268,22 +268,23 @@
 - (void)updateControl:(QSSearchObjectView *)control withArray:(NSArray *)array {
 	id defaultSelection = nil;
 	if ([array count]) {
+        defaultSelection = [array objectAtIndex:0];
+        if ([defaultSelection isKindOfClass:[NSNull class]]) {
+            defaultSelection = nil;
+        }
 		if ([[array lastObject] isKindOfClass:[NSArray class]]) {
-			defaultSelection = [array objectAtIndex:0];
-			if ([defaultSelection isKindOfClass:[NSNull class]])
-				defaultSelection = nil;
 			array = [array lastObject];
-            
-		} else {
-			defaultSelection = [array objectAtIndex:0];
-		}
+		} else if (defaultSelection == nil) {
+            // first object is NULL, so make the resultsList an array excluding this first object
+            array = [array tail];
+        }
 	} else if ([control objectValue] != nil) {
 		[control clearObjectValue];
 	}
 	[control clearSearch];
 	[control setSourceArray:[[array mutableCopy] autorelease]];
 	[control setResultArray:[[array mutableCopy] autorelease]];
-    
+    [control reloadResultTable];
 	[control selectObject:defaultSelection];
 }
 
@@ -330,6 +331,7 @@
     if ([aSelector resultArray]) {
         [aSelector setResultArray:nil];
     }
+    [aSelector clearObjectValue];
 	[actionsUpdateTimer invalidate];
 
 	[aSelector setEnabled:YES];
@@ -736,14 +738,13 @@
 		[[self window] makeFirstResponder:nil];
 	}
     
+    QSAction *bestAction = nil;
 	if (argumentCount != 2) {
 		QSAction *action = nil;
-		QSAction *bestAction = nil;
 		for(action in array) {
 			if ([action argumentCount] == 2) {
 				bestAction = action;
 				[aSelector selectObject:action];
-				[self updateIndirectObjects];
 				break;
 			}
 		}

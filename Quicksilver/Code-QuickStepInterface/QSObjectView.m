@@ -187,7 +187,7 @@
 
 - (id)objectValue { return [[self cell] representedObject];  }
 - (void)setObjectValue:(QSBasicObject *)newObject {
-  [self setPreviousObjectValue:[self objectValue]];
+    [self setPreviousObjectValue:[self objectValue]];
 	[newObject loadIcon];
 	[newObject becameSelected];
 	// [self setToolTip:[newObject toolTip]];

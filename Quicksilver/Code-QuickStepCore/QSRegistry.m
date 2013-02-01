@@ -9,8 +9,6 @@
 
 #import <QSFoundation/QSFoundation.h>
 
-#import "NSException_TraceExtensions.h"
-
 QSRegistry* QSReg = nil;
 
 @implementation QSRegistry
