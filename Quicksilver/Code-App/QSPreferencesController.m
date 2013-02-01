@@ -430,7 +430,10 @@ id QSPrefs;
 	[[self window] _hideAllDrawers];
 
 // Help button
-	[helpButton setEnabled:[newPane respondsToSelector:@selector(showPaneHelp:)]];
+    BOOL main = [[[info objectForKey:@"type"] lowercaseString] isEqualToString:@"main"];
+    QSPlugIn *plugin = [[QSPlugInManager sharedInstance] plugInWithID:[info objectForKey:@"nibBundle"]];
+	[helpButton setHidden:main];
+    [helpButton setEnabled:[plugin hasExtendedDescription]];
 	[helpButton setTarget:newPane];
 	[helpButton setAction:@selector(showPaneHelp:)];
 

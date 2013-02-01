@@ -13,11 +13,11 @@
    <NSWindowDelegate>
 #endif
 {
-	__block IBOutlet NSWindow *_window;
+	IBOutlet NSWindow *_window;
 	IBOutlet NSView *_initialKeyView;
 	IBOutlet NSView *_firstKeyView;
 	IBOutlet NSView *_lastKeyView;
-	__block NSView *_mainView;
+	NSView *_mainView;
 	NSBundle *_bundle;
 	NSDictionary *_info;
 }
