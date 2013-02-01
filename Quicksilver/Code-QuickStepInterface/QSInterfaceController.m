@@ -331,6 +331,7 @@
     if ([aSelector resultArray]) {
         [aSelector setResultArray:nil];
     }
+    [aSelector clearObjectValue];
 	[actionsUpdateTimer invalidate];
 
 	[aSelector setEnabled:YES];
