@@ -529,7 +529,7 @@ resource 'aete' (0, "Quicksilver") {
 			},
 
 			"get direct types",
-			"Get the valid direct (1st pane) object types that this action will show for (currently unused). Scripts with this handler can customize for which types of objects the action appears for, by returning a list of types supported. Valid values are shown at http://qsapp.com/wiki/AppleScript_Types",
+			"Get the valid direct (1st pane) object types for which this action will appear. Scripts with this handler can customize for which types of objects the action appears for, by returning a list of types supported. Valid values are shown at http://qsapp.com/wiki/AppleScript_Types",
 			'DAED', 'gdob',
 			'****',
 			"value to return to Quicksilver",

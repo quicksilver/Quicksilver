@@ -14,7 +14,7 @@
 		<key>GetDirectTypes</key>
 		<dict>
 			<key>Description</key>
-			<string>Get the valid direct (1st pane) object types that this action will show for (currently unused). Scripts with this handler can customize for which types of objects the action appears for, by returning a list of types supported. Valid values are shown at http://qsapp.com/wiki/AppleScript_Types</string>
+			<string>Get the valid direct (1st pane) object types for which this action will appear. Scripts with this handler can customize for which types of objects the action appears for, by returning a list of types supported. Valid values are shown at http://qsapp.com/wiki/AppleScript_Types</string>
 			<key>Name</key>
 			<string>get direct types</string>
 		</dict>
