@@ -25,6 +25,7 @@
     
     IBOutlet NSButton *refreshButton;
     IBOutlet NSButton *infoButton;
+    IBOutlet NSButton *docsButton;
 }
 @property (copy,readwrite,nonatomic) NSString *plugInName;
 + (void)getMorePlugIns;

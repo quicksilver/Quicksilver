@@ -353,6 +353,11 @@
 		92E9461A0D04CCEF0013377F /* QSModifierKeyEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E946180D04CCEF0013377F /* QSModifierKeyEvents.m */; };
 		CD1B17D9158A573000E4A030 /* VDKQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE1E661158A4D0900355A9F /* VDKQueue.m */; };
 		CD1B17DA158A573200E4A030 /* VDKQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = CDE1E660158A4D0900355A9F /* VDKQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD3646A616B682FE007439AE /* Button-docs.png in Resources */ = {isa = PBXBuildFile; fileRef = CD3646A416B682FE007439AE /* Button-docs.png */; };
+		CD3646A716B682FE007439AE /* Button-docs@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD3646A516B682FE007439AE /* Button-docs@2x.png */; };
+		CD39DE5F16B43FBF0087B09E /* QSPluginUpdaterWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD39DE5416B41F130087B09E /* QSPluginUpdaterWindowController.m */; };
+		CD39DE6016B43FC40087B09E /* QSPluginUpdaterWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = CD39DE5316B41F130087B09E /* QSPluginUpdaterWindowController.h */; };
+		CD39DE6216B43FDD0087B09E /* QSPluginUpdater.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD39DE5916B41F5D0087B09E /* QSPluginUpdater.xib */; };
 		CD3F9D68136183250013FCB7 /* QSClangAnalyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42ADF4FD1317237900C68070 /* QSClangAnalyzer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD4FA6E0157A13D600E549BD /* QSHotKeyEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = CD4FA6DF157A13D600E549BD /* QSHotKeyEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD4FA6E2157A13DE00E549BD /* QSHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4FA6E1157A13DE00E549BD /* QSHotKeyEvent.m */; };
@@ -1573,6 +1578,11 @@
 		CD2FFC6716792E280028FA8A /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = fi; path = fi.lproj/DefaultsMap.plist; sourceTree = "<group>"; };
 		CD2FFC6916792E290028FA8A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = sv; path = sv.lproj/DefaultsMap.plist; sourceTree = "<group>"; };
 		CD2FFC6A16792E2A0028FA8A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = ja; path = ja.lproj/DefaultsMap.plist; sourceTree = "<group>"; };
+		CD3646A416B682FE007439AE /* Button-docs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button-docs.png"; sourceTree = "<group>"; };
+		CD3646A516B682FE007439AE /* Button-docs@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button-docs@2x.png"; sourceTree = "<group>"; };
+		CD39DE5316B41F130087B09E /* QSPluginUpdaterWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPluginUpdaterWindowController.h; sourceTree = "<group>"; };
+		CD39DE5416B41F130087B09E /* QSPluginUpdaterWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPluginUpdaterWindowController.m; sourceTree = "<group>"; };
+		CD39DE5916B41F5D0087B09E /* QSPluginUpdater.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSPluginUpdater.xib; sourceTree = "<group>"; };
 		CD4FA6DF157A13D600E549BD /* QSHotKeyEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHotKeyEvent.h; sourceTree = "<group>"; };
 		CD4FA6E1157A13DE00E549BD /* QSHotKeyEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHotKeyEvent.m; sourceTree = "<group>"; };
 		CD53FEB2151A0ACF006B734B /* PluginReporterText.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = PluginReporterText.html; sourceTree = "<group>"; };
@@ -2678,6 +2688,8 @@
 		E103EC8506471DBF00447FE0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CD3646A416B682FE007439AE /* Button-docs.png */,
+				CD3646A516B682FE007439AE /* Button-docs@2x.png */,
 				CDD30972160B860C00CD34EC /* Count Badges */,
 				CDA9D3DD1549D13B00607BE4 /* AlertCautionIcon.icns */,
 				7F46BFDC0A87F37F002D31E8 /* prefsGeneral.png */,
@@ -4146,6 +4158,8 @@
 				CDD3096F160B860A00CD34EC /* countBadge3.tiff in Resources */,
 				CDD30970160B860A00CD34EC /* countBadge4.tiff in Resources */,
 				CDD30971160B860A00CD34EC /* countBadge5.tiff in Resources */,
+				CD3646A616B682FE007439AE /* Button-docs.png in Resources */,
+				CD3646A716B682FE007439AE /* Button-docs@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
