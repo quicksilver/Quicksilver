@@ -49,7 +49,5 @@
 - (NSString *)fileExtension;
 - (NSString *)fileUTI;
 - (NSString *)singleFileType;
-
-- (void)previewIcon:(id)file;
 @end
 

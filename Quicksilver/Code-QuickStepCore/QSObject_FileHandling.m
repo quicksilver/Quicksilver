@@ -132,18 +132,9 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 - (void)setQuickIconForObject:(QSObject *)object {
-    if ([object isApplication])
-        [object setIcon:[QSResourceManager imageNamed:@"GenericApplicationIcon"]];
-	else if ([object isDirectory])
-        [object setIcon:[QSResourceManager imageNamed:@"GenericFolderIcon"]];
-	else
-		[object setIcon:[QSResourceManager imageNamed:@"UnknownFSObjectIcon"]];
-}
-
-- (BOOL)loadIconForObject:(QSObject *)object {
 	NSImage *theImage = nil;
 	NSArray *theFiles = [object arrayForType:QSFilePathType];
-	if (!theFiles) return NO;
+	if (!theFiles) return;
 	if ([theFiles count] == 1) {
 		// it's a single file
 		// use basic file type icon temporarily
@@ -157,40 +148,32 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			NSString *type = [manager typeOfFile:theFile];
 			[set addObject:type?type:@"'msng'"];
 		}
-
+        
 		if ([set containsObject:@"'fold'"]) {
 			[set removeObject:@"'fold'"];
 			[set addObject:@"'fldr'"];
 		}
-
+        
 		if ([set count] == 1) {
 			theImage = [w iconForFileType:[set anyObject]];
 		} else {
 			theImage = [w iconForFiles:theFiles];
 		}
 	}
-
+    
 	// set temporary image until preview icon is generated
 	theImage = [self prepareImageforIcon:theImage];
 	[object setIcon:theImage];
-
-	// if it's a single file, try to create preview icon
-	// this has to be started after the temporary icon is set, so the preview icon
-	// wont be overwritten by the temporary icon
-	if ([theFiles count] == 1) {
-        [self previewIcon:object];
-	}
-	return YES;
 }
 
-- (void)previewIcon:(QSObject *)object {
+- (BOOL)loadIconForObject:(QSObject *)object {
 	NSImage *theImage = nil;
 	NSString *path = [[object arrayForType:QSFilePathType] lastObject];
 	NSFileManager *manager = [NSFileManager defaultManager];
-
+    
 	// the object isn't a file/doesn't exist, so return. shouldn't actually happen
 	if (![manager fileExistsAtPath:path]) {
-		return;
+		return NO;
 	}
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
@@ -223,7 +206,9 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
         // update the UI with the new icon
         theImage = [self prepareImageforIcon:theImage];
         [object setIcon:theImage];
+        return YES;
     }
+    return NO;
 }
 
 - (NSImage *)prepareImageforIcon:(NSImage *)theImage {
