@@ -992,6 +992,10 @@ NSSize QSMaxIconSize;
 
 - (void)setIcon:(NSImage *)newIcon {
 	if (newIcon != icon) {
+        if (icon) {
+            // icon is being replaced, not set - notify UI
+            [[NSNotificationCenter defaultCenter] postNotificationName:QSObjectIconModified object:self];
+        }
 		[icon release];
 		icon = [newIcon retain];
 		[icon setCacheMode:NSImageCacheNever];
@@ -1000,8 +1004,8 @@ NSSize QSMaxIconSize;
 
 - (void)updateIcon:(NSImage *)newIcon
 {
+    NSLog(@"`updateIcon` is deprecated - go back to using `setIcon`");
     [self setIcon:newIcon];
-    [[NSNotificationCenter defaultCenter] postNotificationName:QSObjectIconModified object:self];
 }
 @end
 

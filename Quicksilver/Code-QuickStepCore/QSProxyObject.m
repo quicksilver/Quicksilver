@@ -142,7 +142,7 @@
 
 - (void)objectIconModified:(NSNotification *)notif
 {
-    [self updateIcon:[[self proxyObject] icon]];
+    [self setIcon:[[self proxyObject] icon]];
 }
 
 - (BOOL)isProxyObject

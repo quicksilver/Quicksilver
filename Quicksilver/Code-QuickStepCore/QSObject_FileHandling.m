@@ -222,7 +222,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     if (theImage) {
         // update the UI with the new icon
         theImage = [self prepareImageforIcon:theImage];
-        [object updateIcon:theImage];
+        [object setIcon:theImage];
     }
 }
 
