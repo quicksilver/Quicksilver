@@ -178,9 +178,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	// this has to be started after the temporary icon is set, so the preview icon
 	// wont be overwritten by the temporary icon
 	if ([theFiles count] == 1) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            [self previewIcon:object];
-        });
+        [self previewIcon:object];
 	}
 	return YES;
 }
