@@ -443,8 +443,11 @@
         }
         
 		if (!nameString) nameString = [drawObject displayName];
-                
-        BOOL rankedStringIsLabel = [nameString isEqualToString:[drawObject displayName]];
+        BOOL rankedStringIsLabel = [nameString isEqualToString:[drawObject displayName]] || nameString == nil;
+        if (!nameString) {
+            // fall back to the identifier if no reasonable name can be found
+            nameString = [drawObject identifier];
+        }
         
 		BOOL useAlternateColor = [controlView isKindOfClass:[NSTableView class]] && [(NSTableView *)controlView isRowSelected:[(NSTableView *)controlView rowAtPoint:cellFrame.origin]];
 		NSColor *mainColor = (textColor?textColor:(useAlternateColor?[NSColor alternateSelectedControlTextColor] :[NSColor controlTextColor]));
