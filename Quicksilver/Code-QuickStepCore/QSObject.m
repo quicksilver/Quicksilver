@@ -1005,7 +1005,7 @@ NSSize QSMaxIconSize;
 
 - (void)updateIcon:(NSImage *)newIcon
 {
-    NSLog(@"`updateIcon` is deprecated - go back to using `setIcon`");
+    // deprecated - just use setIcon
     [self setIcon:newIcon];
 }
 @end
