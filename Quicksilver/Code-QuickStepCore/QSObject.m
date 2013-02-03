@@ -992,13 +992,14 @@ NSSize QSMaxIconSize;
 
 - (void)setIcon:(NSImage *)newIcon {
 	if (newIcon != icon) {
-        if (icon) {
-            // icon is being replaced, not set - notify UI
-            [[NSNotificationCenter defaultCenter] postNotificationName:QSObjectIconModified object:self];
-        }
+        BOOL iconChange = (icon != nil);
 		[icon release];
 		icon = [newIcon retain];
 		[icon setCacheMode:NSImageCacheNever];
+        if (iconChange) {
+            // icon is being replaced, not set - notify UI
+            [[NSNotificationCenter defaultCenter] postNotificationName:QSObjectIconModified object:self];
+        }
 	}
 }
 
