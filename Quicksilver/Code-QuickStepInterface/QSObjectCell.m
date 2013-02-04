@@ -448,7 +448,10 @@
             // fall back to the identifier if no reasonable name can be found
             nameString = [drawObject identifier];
         }
-        
+        if (!nameString) {
+            // Couldn't find anything sensible to use for the name, fallback to avoid a crash
+            nameString = @"Unknown";
+        }
 		BOOL useAlternateColor = [controlView isKindOfClass:[NSTableView class]] && [(NSTableView *)controlView isRowSelected:[(NSTableView *)controlView rowAtPoint:cellFrame.origin]];
 		NSColor *mainColor = (textColor?textColor:(useAlternateColor?[NSColor alternateSelectedControlTextColor] :[NSColor controlTextColor]));
 		NSColor *fadedColor = [mainColor colorWithAlphaComponent:0.80];
