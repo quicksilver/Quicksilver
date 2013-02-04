@@ -94,7 +94,11 @@ extern NSSize QSMaxIconSize;
 	QSObjectFlags			flags;
 	NSTimeInterval			lastAccess;
 }
+
+@property (assign) NSTimeInterval lastAccess;
+
 + (void)initialize;
++ (void)addInternalObjectsToObjectDictionary;
 + (void)cleanObjectDictionary;
 + (void)purgeOldImagesAndChildren;
 + (void)purgeAllImagesAndChildren;
@@ -139,6 +143,7 @@ extern NSSize QSMaxIconSize;
 - (void)setCache:(NSMutableDictionary *)aCache;
 - (BOOL)isProxyObject;
 - (QSObject *)resolvedObject;
+
 
 @end
 

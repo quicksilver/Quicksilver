@@ -37,6 +37,9 @@ BOOL QSObjectInitialized = NO;
 NSSize QSMaxIconSize;
 
 @implementation QSObject
+
+@synthesize lastAccess;
+
 + (void)initialize {
 	if (!QSObjectInitialized) {
 		QSMaxIconSize = NSMakeSize(128, 128);
@@ -64,13 +67,30 @@ NSSize QSMaxIconSize;
 	}
 }
 
++ (void)addInternalObjectsToObjectDictionary {
+    QSObjCMessageSource *messageSource = [[QSObjCMessageSource alloc] init];
+    for (QSObject *internalMessage in [messageSource objectsForEntry:nil]) {
+        [internalMessage loadIcon];
+        [internalMessage setLastAccess:0];
+        [objectDictionary setObject:internalMessage forKey:[internalMessage identifier]];
+    };
+    [messageSource release];
+    QSInternalObjectSource *internalObjectSource = [[QSInternalObjectSource alloc] init];
+    for (QSObject *internalObject in [internalObjectSource objectsForEntry:nil]) {
+        [internalObject loadIcon];
+        [internalObject setLastAccess:0];
+        [objectDictionary setObject:internalObject forKey:[internalObject identifier]];
+    };
+    [internalObjectSource release];
+}
+
 + (void)cleanObjectDictionary {
 	QSObject *thisObject;
     NSMutableArray *keysToDeleteFromObjectDict = [[NSMutableArray alloc] init];
     @synchronized(objectDictionary) {
         for (NSString *thisKey in [objectDictionary allKeys]) {
             thisObject = [objectDictionary objectForKey:thisKey];
-            if ([thisObject retainCount] < 2) {
+             if ([thisObject retainCount] < 2) {
                 [keysToDeleteFromObjectDict addObject:thisKey];
             }
             //NSLog(@"%d %@", [thisObject retainCount] , [thisObject name]);
@@ -100,7 +120,7 @@ NSSize QSMaxIconSize;
 
     @synchronized(iconLoadedSet) {
         NSSet *s = [iconLoadedSet objectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *obj, BOOL *stop) {
-            return obj->lastAccess && obj->lastAccess < (globalLastAccess - interval) && ![obj isKindOfClass:[QSAction class]];
+            return obj.lastAccess && obj.lastAccess < (globalLastAccess - interval) && ![obj isKindOfClass:[QSAction class]];
         }];
         for(QSObject *thisObject in s) {
             if ([thisObject unloadIcon]) {
@@ -114,7 +134,7 @@ NSSize QSMaxIconSize;
     
     @synchronized(childLoadedSet) {
     NSSet *t = [childLoadedSet objectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *obj, BOOL *stop) {
-        return obj->lastAccess && obj->lastAccess < (globalLastAccess - interval);
+        return obj.lastAccess && obj.lastAccess < (globalLastAccess - interval);
     }];
         
         for (QSObject *thisObject in t) {
@@ -830,11 +850,6 @@ NSSize QSMaxIconSize;
 - (NSTimeInterval) childrenLoadedDate { return [[meta objectForKey:kQSObjectChildrenLoadDate] doubleValue];  }
 - (void)setChildrenLoadedDate:(NSTimeInterval)newChildrenLoadedDate {
 	[meta setObject:[NSNumber numberWithDouble:newChildrenLoadedDate] forKey:kQSObjectChildrenLoadDate];
-}
-
-- (NSTimeInterval) lastAccess { return lastAccess;  }
-- (void)setlastAccess:(NSTimeInterval)newlastAccess {
-	lastAccess = newlastAccess;
 }
 
 @end

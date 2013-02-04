@@ -899,8 +899,9 @@ static QSController *defaultController = nil;
 	if (DEBUG_STARTUP)
 		NSLog(@"Catalog loaded");
 #endif
-
+    
 	[QSObject purgeIdentifiers];
+    [QSObject addInternalObjectsToObjectDictionary];
 
 #ifndef DEBUG
 	if (newVersion) {
