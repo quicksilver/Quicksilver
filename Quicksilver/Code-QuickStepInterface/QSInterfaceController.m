@@ -797,7 +797,7 @@
 
 - (NSProgressIndicator *)progressIndicator { return progressIndicator;  }
 
-- (NSSize) maxIconSize { return QSSize128; }
+- (NSSize) maxIconSize { return QSSize256; }
 
 - (BOOL)preview { return preview; }
 - (void)setPreview: (BOOL)flag { preview = flag; }

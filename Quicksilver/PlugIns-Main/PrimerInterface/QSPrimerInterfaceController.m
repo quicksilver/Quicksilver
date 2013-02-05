@@ -94,7 +94,7 @@
 	[super showMainWindow:(id)sender];
 }
 - (NSSize) maxIconSize {
-	return QSSize128;
+	return QSSize256;
 }
 - (NSRect) window:(NSWindow *)window willPositionSheet:(NSWindow *)sheet usingRect:(NSRect)rect {
 	//

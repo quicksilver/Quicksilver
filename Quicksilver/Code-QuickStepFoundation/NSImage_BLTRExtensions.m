@@ -113,6 +113,7 @@ static inline NSInteger get_bit(unsigned char *arr, unsigned long bit_num) {
 }
 
 - (BOOL)createIconRepresentations {
+	[self createRepresentationOfSize:QSSize256];
 	[self createRepresentationOfSize:QSSize128];
 	[self createRepresentationOfSize:QSSize32];
 	[self createRepresentationOfSize:QSSize16];

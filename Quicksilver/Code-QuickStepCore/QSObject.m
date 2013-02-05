@@ -935,9 +935,6 @@ NSSize QSMaxIconSize;
 	if ([IMAGETYPES intersectsSet:[NSSet setWithArray:[data allKeys]]]) {
 		[self setIcon:[[[NSImage alloc] initWithPasteboard:(NSPasteboard *)self] autorelease]];
 		[[self icon] createIconRepresentations];
-        
-		[[self icon] createRepresentationOfSize:QSSize128];
-        
 	}
     
 	// file type for sound clipping: clps
