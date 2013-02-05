@@ -1,0 +1,20 @@
+"QSShowTaskViewerAutomatically:title" = "Aufgabenbetrachter automatisch anzeigen, sobald Aufgaben erstellt wurden";
+"Hide Other Apps When Switching:title" = "Andere Anwendungen beim Wechseln ausblenden (durch Umschalttaste verhindern)";
+
+"Multithreaded Execute:title" = "Aufgaben und Aktionen im Hintergrund laufen lassen";
+
+"QSActionAppReopenBehavior:title" = "Anwendung erneut öffnen";
+"QSActionAppReopenBehavior:activates the application" = "Aktiviert die Anwendung";
+"QSActionAppReopenBehavior:shows the front window" = "Zeigt das Frontfenster";
+"QSActionAppReopenBehavior:shows all windows" = "Zeigt alle Fenster an";
+
+"QSUpdateReleaseLevel:title" = "Typ der Anwendungsaktualisierung";
+"QSUpdateReleaseLevel:Final Releases" = "Finale Versionen";
+"QSUpdateReleaseLevel:Prerelease Candidates" = "Prerelease-Kandidaten";
+"QSUpdateReleaseLevel:Developer Previews" = "Entwickler-Vorschauen";
+
+"Shift Actions:title" = "Allow capitalized keys to select the action";
+
+"Suppress HotKeys in Command:title" = "Disable Trigger HotKeys when Quicksilver is focused";
+
+"Double Delete Clears Object:title" = "Aktuelles Objekt durch doppeltes Drücken der ENTF-Taste löschen";
