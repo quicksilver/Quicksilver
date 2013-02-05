@@ -39,7 +39,7 @@ NSSize QSMaxIconSize;
 @implementation QSObject
 + (void)initialize {
 	if (!QSObjectInitialized) {
-		QSMaxIconSize = NSMakeSize(128, 128);
+		QSMaxIconSize = QSSize128;
 		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 		[nc addObserver:self selector:@selector(interfaceChanged) name:QSInterfaceChangedNotification object:nil];
 		[nc addObserver:self selector:@selector(purgeOldImagesAndChildren) name:QSReleaseOldCachesNotification object:nil];
@@ -54,9 +54,9 @@ NSSize QSMaxIconSize;
 
 		[[NSImage imageNamed:@"Question"] createIconRepresentations];
 
-		[[NSImage imageNamed:@"ContactAddress"] createRepresentationOfSize:NSMakeSize(16, 16)];
-		[[NSImage imageNamed:@"ContactPhone"] createRepresentationOfSize:NSMakeSize(16, 16)];
-		[[NSImage imageNamed:@"ContactEmail"] createRepresentationOfSize:NSMakeSize(16, 16)];
+		[[NSImage imageNamed:@"ContactAddress"] createRepresentationOfSize:QSSize16];
+		[[NSImage imageNamed:@"ContactPhone"] createRepresentationOfSize:QSSize16];
+		[[NSImage imageNamed:@"ContactEmail"] createRepresentationOfSize:QSSize16];
 
 		[[NSImage imageNamed:@"defaultAction"] createIconRepresentations];
 
@@ -936,7 +936,7 @@ NSSize QSMaxIconSize;
 		[self setIcon:[[[NSImage alloc] initWithPasteboard:(NSPasteboard *)self] autorelease]];
 		[[self icon] createIconRepresentations];
         
-		[[self icon] createRepresentationOfSize:NSMakeSize(128, 128)];
+		[[self icon] createRepresentationOfSize:QSSize128];
         
 	}
     

@@ -343,7 +343,7 @@
 
 	  if (isFirstResponder && [controlView isKindOfClass:[QSSearchObjectView class]]) {
 		  NSImage *find = [NSImage imageNamed:@"Find"];
-		  [find setSize:NSMakeSize(128, 128)];
+		  [find setSize:QSSize128];
 		  NSRect findImageRect = fitRectInRect(rectFromSize([find size]), cellFrame, 0);
 
 		  if (NSHeight(findImageRect) >= 64) {
@@ -588,7 +588,7 @@
 				NSArray *componentArray = [[action name] componentsSeparatedByString:@"/"];
         [action loadIcon];
 				NSImage *icon = [[[action icon] copy] autorelease];
-				[icon setSize:NSMakeSize(16, 16)];
+				[icon setSize:QSSize16];
 
 				id command = [QSCommand commandWithDirectObject:object actionObject:action indirectObject:nil];
 				// NSLog(@"%@", command);

@@ -141,7 +141,7 @@ IMPORTANT: This Apple software is supplied to you by Apple Computer, Inc. ("Appl
 		NSRect	imageFrame;
 
 		if (NSHeight(cellFrame) <= 18) {
-			theImageSize = NSMakeSize(16, 16); //NSMakeSize(NSHeight(cellFrame), NSHeight(cellFrame) );
+			theImageSize = QSSize16; //NSMakeSize(NSHeight(cellFrame), NSHeight(cellFrame) );
 		} else {
 			theImageSize = NSMakeSize(NSHeight(cellFrame), NSHeight(cellFrame) );
 		}

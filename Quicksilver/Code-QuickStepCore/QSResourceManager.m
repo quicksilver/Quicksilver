@@ -127,11 +127,11 @@ id QSRez;
 	} else {
 		[image setName:name];
 
-		if (![image representationOfSize:NSMakeSize(32, 32)]) {
-			[image createRepresentationOfSize:NSMakeSize(32, 32)];
+		if (![image representationOfSize:QSSize32]) {
+			[image createRepresentationOfSize:QSSize32];
 		}
-		if (![image representationOfSize:NSMakeSize(16, 16)]) {
-			[image createRepresentationOfSize:NSMakeSize(16, 16)];
+		if (![image representationOfSize:QSSize16]) {
+			[image createRepresentationOfSize:QSSize16];
 		}
 	}
 	return image;

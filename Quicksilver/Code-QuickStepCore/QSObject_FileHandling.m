@@ -234,8 +234,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 	// make sure image is present in the correct sizes
 	if (theImage) {
-		[theImage createRepresentationOfSize:NSMakeSize(32, 32)];
-		[theImage createRepresentationOfSize:NSMakeSize(16, 16)];
+		[theImage createRepresentationOfSize:QSSize32];
+		[theImage createRepresentationOfSize:QSSize16];
 	}
 
 	// remove all image representations that are larger then QSMaxIconSize
