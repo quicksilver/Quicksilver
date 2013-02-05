@@ -84,8 +84,8 @@
 
 	NSImage *splashImage = [attributes objectForKey:QSNotifierIcon];
 	//splashImage = nil;
-	[splashImage createRepresentationOfSize:QSSize128];
-	[splashImage setSize:QSSize128];
+	[splashImage createRepresentationOfSize:QSMaxIconSize];
+	[splashImage setSize:QSMaxIconSize];
 
 	NSString *titleString = [attributes objectForKey:QSNotifierTitle];
 	NSString *textString = [attributes objectForKey:QSNotifierText];

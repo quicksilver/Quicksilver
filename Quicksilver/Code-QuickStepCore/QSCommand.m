@@ -144,7 +144,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 		[dObject writeToFile:destination];
 		[commandObject loadIcon];
 		NSImage *image = [commandObject icon];
-		[image setSize:QSSize128];
+		[image setSize:QSMaxIconSize];
 		[[NSWorkspace sharedWorkspace] setIcon:image forFile:destination options:NSExcludeQuickDrawElementsIconCreationOption];
 	}
 	return [QSObject fileObjectWithPath:destination];
