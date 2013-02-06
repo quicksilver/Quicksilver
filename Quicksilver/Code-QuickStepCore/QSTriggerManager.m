@@ -36,8 +36,8 @@
 	NSImage *image = [[trigger command] icon];
 	NSInteger quadrant = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSNotifierDefaultQuadrant"];
 	NSImage *splashImage = image;
-	[splashImage createRepresentationOfSize:QSMaxIconSize];
-	[splashImage setSize:QSMaxIconSize];
+	[splashImage createRepresentationOfSize:QSSize128];
+	[splashImage setSize:QSSize128];
 	NSRect screenRect = [[NSScreen mainScreen] frame];
 	NSRect windowRect = NSMakeRect(0, 0, 178, 188);
 	NSWindow *splashWindow = [[NSClassFromString(@"QSWindow") alloc] initWithContentRect:windowRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
