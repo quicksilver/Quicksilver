@@ -320,8 +320,9 @@
 		if ([self isBezeled] && [self hasBadge])
 			size.width += 16;
 		// ***warning  *this should change based on the badge
-	} else
-		size.width = 128;
+	} else {
+		size.width = QSMaxIconSize.width;
+    }
 
 	return size;
 

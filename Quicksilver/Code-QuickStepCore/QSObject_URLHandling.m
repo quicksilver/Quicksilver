@@ -51,7 +51,7 @@
 	if(!image) {
         return;
     }
-    NSRect rect = NSMakeRect(0, 0, 128, 128);
+    NSRect rect = NSMakeRect(0, 0, QSMaxIconSize.width, QSMaxIconSize.height);
     [image setSize:[[image bestRepresentationForSize:rect.size] size]];
     NSSize imageSize = [image size];
     NSBitmapImageRep *bitmap = [[[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
