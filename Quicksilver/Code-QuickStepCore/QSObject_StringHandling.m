@@ -127,6 +127,11 @@
 		[self assignURLTypesWithURL:stringValue];
 		return;
 	}
+    // JavaScript
+	if ([stringValue hasPrefix:@"javascript:"]) {
+		[self assignURLTypesWithURL:stringValue];
+		return;
+	}
     // returns YES if a valid URL is assigned to the object
     if ([self sniffURL:stringValue]) {
         return;
