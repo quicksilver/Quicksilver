@@ -246,7 +246,7 @@
 {
     [[self dataDictionary] setObject:urlString forKey:QSURLType];
     // Apple's 'URLWithString' method incorrectly deals with IP addresses, check for "://" and "mailto:" in the string as well
-    if (([urlString rangeOfString:@"://"].location != NSNotFound || [urlString hasPrefix:@"mailto:"]) && [[NSURL URLWithString:[urlString URLEncoding]] scheme])
+    if (([urlString rangeOfString:@"://"].location != NSNotFound || [urlString hasPrefix:@"mailto:"] || [urlString hasPrefix:@"javascript:"]) && [[NSURL URLWithString:[urlString URLEncoding]] scheme])
     {
         [self setObject:urlString forType:QSURLType];
     } else {
