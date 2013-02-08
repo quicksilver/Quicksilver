@@ -100,6 +100,7 @@ extern NSSize QSMaxIconSize;
 + (void)purgeAllImagesAndChildren;
 + (void)purgeImagesAndChildrenOlderThan:(NSTimeInterval)interval;
 + (void)purgeIdentifiers;
++ (void)interfaceChanged;
 
 + (void)registerObject:(QSBasicObject *)object withIdentifier:(NSString *)anIdentifier;
 

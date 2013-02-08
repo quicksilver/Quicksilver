@@ -1059,7 +1059,7 @@ static QSController *defaultController = nil;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 	[self startQuicksilver:aNotification];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"QSApplicationDidFinishLaunchingNotification" object:self];
-    [[NSNotificationCenter defaultCenter] postNotificationName:QSInterfaceChangedNotification object:nil];
+    [QSObject interfaceChanged];
 	QSApplicationCompletedLaunch = YES;
 }
 
