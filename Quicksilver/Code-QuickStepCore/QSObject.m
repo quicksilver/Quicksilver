@@ -51,15 +51,6 @@ NSSize QSMaxIconSize;
 		objectDictionary = [[NSMutableDictionary alloc] init]; // initWithCapacity:100]; formerly for these three
 		iconLoadedSet = [[NSMutableSet alloc] init];
 		childLoadedSet = [[NSMutableSet alloc] init];
-
-		[[NSImage imageNamed:@"Question"] createIconRepresentations];
-
-		[[NSImage imageNamed:@"ContactAddress"] createRepresentationOfSize:QSSize16];
-		[[NSImage imageNamed:@"ContactPhone"] createRepresentationOfSize:QSSize16];
-		[[NSImage imageNamed:@"ContactEmail"] createRepresentationOfSize:QSSize16];
-
-		[[NSImage imageNamed:@"defaultAction"] createIconRepresentations];
-
 		QSObjectInitialized = YES;
 	}
 }
@@ -934,7 +925,6 @@ NSSize QSMaxIconSize;
     
 	if ([IMAGETYPES intersectsSet:[NSSet setWithArray:[data allKeys]]]) {
 		[self setIcon:[[[NSImage alloc] initWithPasteboard:(NSPasteboard *)self] autorelease]];
-		[[self icon] createIconRepresentations];
 	}
     
 	// file type for sound clipping: clps

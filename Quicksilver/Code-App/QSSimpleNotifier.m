@@ -83,8 +83,6 @@
 	QSWindow *window = (QSWindow *)[self window];
 
 	NSImage *splashImage = [attributes objectForKey:QSNotifierIcon];
-	//splashImage = nil;
-	[splashImage createRepresentationOfSize:QSMaxIconSize];
 	[splashImage setSize:QSMaxIconSize];
 
 	NSString *titleString = [attributes objectForKey:QSNotifierTitle];
