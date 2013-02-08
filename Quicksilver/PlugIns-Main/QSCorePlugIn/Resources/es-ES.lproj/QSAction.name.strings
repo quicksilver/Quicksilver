@@ -147,7 +147,7 @@
     <key>QSCommandExecuteAction</key>
     <string>Ejecutar</string>
     <key>QSCommandExecuteAfterDelayAction</key>
-    <string>Ejecutar después del Tiempo...</string>
+    <string>Ejecutar dentro de...</string>
     <key>QSComposeEmailItemAction</key>
     <string>Mandar Ítem por Email... (Componer)</string>
     <key>QSCommandExecuteAtTimeAction</key>
@@ -155,7 +155,7 @@
     <key>QSComposeEmailItemReverseAction</key>
     <string>Mandar Email A... (Componer)</string>
     <key>QSCreateFileAction</key>
-    <string>Create File [...]</string>
+    <string>Crear archivo [...]</string>
     <key>QSCreateFileTemplate</key>
     <string>Crear Nuevo...</string>
     <key>QSDialNumberAction</key>

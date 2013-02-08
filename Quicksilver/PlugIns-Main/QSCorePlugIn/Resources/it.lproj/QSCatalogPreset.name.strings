@@ -5,17 +5,17 @@
     <key>QSPresetABMailRecents</key>
     <string>Destinatari E-mail Precedenti</string>
     <key>QSPresetUserGroup</key>
-    <string>User</string>
+    <string>Utente</string>
     <key>QSPresetDownloads</key>
     <string>Downloads</string>
     <key>QSPresetDocuments</key>
-    <string>Documents</string>
+    <string>Documenti</string>
     <key>QSPresetICloudDocuments</key>
-    <string>iCloud Documents</string>
+    <string>Documenti iCloud</string>
     <key>QSPresetAccounts</key>
     <string>Account Utente</string>
     <key>QSPresetProxies</key>
-    <string>Proxy Objects</string>
+    <string>Oggetti Proxy</string>
     <key>QSPresetAddressBook</key>
     <string>Contatti Rubrica Indirizzi</string>
     <key>QSPresetAddressBookGroup</key>
@@ -41,7 +41,7 @@
     <key>QSPresetClipboardContents</key>
     <string>Contenuto Appunti</string>
     <key>QSPresetCommandHistory</key>
-    <string>Recent Commands</string>
+    <string>Comandi Recenti</string>
     <key>QSPresetConfiguration</key>
     <string>Configurazione</string>
     <key>QSPresetContacts</key>
@@ -111,9 +111,9 @@
     <key>QSPresetICabBookmarks</key>
     <string>Segnalibri iCab</string>
     <key>QSPresetInternalMessages</key>
-    <string>Internal Commands</string>
+    <string>Comandi Interni</string>
     <key>QSPresetInternalObjects</key>
-    <string>Internal Objects</string>
+    <string>Oggetti Interni</string>
     <key>QSPresetIEBookmarks</key>
     <string>Preferiti Internet Explorer</string>
     <key>QSPresetIEGroup</key>
@@ -197,7 +197,7 @@
     <key>QSPresetRecentServers</key>
     <string>Server Recenti</string>
     <key>QSPresetFavoriteServers</key>
-    <string>Favorite Servers</string>
+    <string>Server preferiti</string>
     <key>QSPresetRendezvous</key>
     <string>Server Rendezvous</string>
     <key>QSPresetRendezvousMachines</key>
@@ -253,6 +253,6 @@
     <key>QSPresetiTunesScripts</key>
     <string>Script iTunes</string>
     <key>QSPresetRemovableVolumes</key>
-    <string>Network and Removable Disks</string>
+    <string>Rete e Dischi Rimuovibili</string>
   </dict>
 </plist>

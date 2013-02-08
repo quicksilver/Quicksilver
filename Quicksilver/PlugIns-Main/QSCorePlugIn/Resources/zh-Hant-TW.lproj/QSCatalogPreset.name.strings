@@ -1,258 +1,258 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>QSPresetABMailRecents</key>
-	<string>Mail Previous Recipients</string>
-	<key>QSPresetUserGroup</key>
-	<string>User</string>
-	<key>QSPresetDownloads</key>
-	<string>Downloads</string>
-	<key>QSPresetDocuments</key>
-	<string>Documents</string>
-	<key>QSPresetICloudDocuments</key>
-	<string>iCloud Documents</string>
-	<key>QSPresetAccounts</key>
-	<string>User Accounts</string>
-	<key>QSPresetProxies</key>
-	<string>Proxy Objects</string>
-	<key>QSPresetAddressBook</key>
-	<string>Address Book Contacts</string>
-	<key>QSPresetAddressBookGroup</key>
-	<string>Address Book</string>
-	<key>QSPresetAddressBookScripts</key>
-	<string>Scripts (Address Book)</string>
-	<key>QSPresetAllApplications</key>
-	<string>Find All Applications</string>
-	<key>QSPresetAllRecentDocuments</key>
-	<string>All Recent Documents</string>
-	<key>QSPresetApplicationSpecificGroup</key>
-	<string>Application sets</string>
-	<key>QSPresetApplications</key>
-	<string>Applications</string>
-	<key>QSPresetBrowsersGroup</key>
-	<string>Bookmarks</string>
-	<key>QSPresetBuffers</key>
-	<string>Buffer Contents</string>
-	<key>QSPresetCaminoBookmarks</key>
-	<string>Camino Bookmarks</string>
-	<key>QSPresetClassicApplications</key>
-	<string>Applications (Mac OS 9)</string>
-	<key>QSPresetClipboardContents</key>
-	<string>Clipboard Contents</string>
+  <dict>
+    <key>QSPresetABMailRecents</key>
+    <string>郵寄給之前收件人</string>
+    <key>QSPresetUserGroup</key>
+    <string>使用者</string>
+    <key>QSPresetDownloads</key>
+    <string>下載</string>
+    <key>QSPresetDocuments</key>
+    <string>文件</string>
+    <key>QSPresetICloudDocuments</key>
+    <string>iCloud文件</string>
+    <key>QSPresetAccounts</key>
+    <string>使用者帳戶</string>
+    <key>QSPresetProxies</key>
+    <string>代理物件</string>
+    <key>QSPresetAddressBook</key>
+    <string>聯絡人</string>
+    <key>QSPresetAddressBookGroup</key>
+    <string>聯絡資訊</string>
+    <key>QSPresetAddressBookScripts</key>
+    <string>腳本 (聯絡資訊)</string>
+    <key>QSPresetAllApplications</key>
+    <string>找尋所有應用程式</string>
+    <key>QSPresetAllRecentDocuments</key>
+    <string>所有最近檔案</string>
+    <key>QSPresetApplicationSpecificGroup</key>
+    <string>應用程式組</string>
+    <key>QSPresetApplications</key>
+    <string>應用程式</string>
+    <key>QSPresetBrowsersGroup</key>
+    <string>書籤</string>
+    <key>QSPresetBuffers</key>
+    <string>緩衝內容</string>
+    <key>QSPresetCaminoBookmarks</key>
+    <string>Camino書籤</string>
+    <key>QSPresetClassicApplications</key>
+    <string>應用程式 (Mac OS 9)</string>
+    <key>QSPresetClipboardContents</key>
+    <string>剪貼簿內容</string>
     <key>QSPresetCommandHistory</key>
-	<string>Recent Commands</string>
-	<key>QSPresetConfiguration</key>
-	<string>Configuration</string>
-	<key>QSPresetContacts</key>
-	<string>Contacts</string>
-	<key>QSPresetDVDPlayerScripts</key>
-	<string>DVD Player Scripts</string>
-	<key>QSPresetDesktop</key>
-	<string>Desktop</string>
-	<key>QSPresetDeveloper</key>
-	<string>Developer</string>
-	<key>QSPresetDeveloperAddressBookDocs</key>
-	<string>AddressBook</string>
-	<key>QSPresetDeveloperAppKit</key>
-	<string>AppKit</string>
-	<key>QSPresetDeveloperAppKitDocumentation</key>
-	<string>AppKit Documentation</string>
-	<key>QSPresetDeveloperAppKitHeaders</key>
-	<string>AppKit Headers</string>
-	<key>QSPresetDeveloperApplications</key>
-	<string>Applications (Developer)</string>
-	<key>QSPresetDeveloperCoreFoundationHeaders</key>
-	<string>CoreFoundation Headers</string>
-	<key>QSPresetDeveloperFoundation</key>
-	<string>Foundation</string>
-	<key>QSPresetDeveloperFoundationDocumentation</key>
-	<string>Foundation Documentation</string>
-	<key>QSPresetDeveloperFoundationHeaders</key>
-	<string>Foundation Headers</string>
-	<key>QSPresetDeveloperFrameworks</key>
-	<string>Frameworks</string>
-	<key>QSPresetDeveloperOtherDocs</key>
-	<string>Other Documentation</string>
-	<key>QSPresetDeveloperPreferencePaneDocs</key>
-	<string>PreferencePanes</string>
-	<key>QSPresetDeveloperPrivateFrameworks</key>
-	<string>Private Frameworks</string>
-	<key>QSPresetDeveloperPublicFrameworks</key>
-	<string>Public Frameworks</string>
-	<key>QSPresetDeveloperScreenSaverDocs</key>
-	<string>ScreenSaver</string>
-	<key>QSPresetDeveloperWebKitDocs</key>
-	<string>WebKit</string>
-	<key>QSPresetDevices</key>
-	<string>Devices</string>
-	<key>QSPresetDockApplications</key>
-	<string>Dock Applications</string>
-	<key>QSPresetDockGroup</key>
-	<string>Dock</string>
-	<key>QSPresetDockOthers</key>
-	<string>Dock Files &amp; Folders</string>
-	<key>QSPresetFavorites</key>
-	<string>Favorites</string>
-	<key>QSPresetFinderGroup</key>
-	<string>Finder</string>
-	<key>QSPresetFinderRecentFolders</key>
-	<string>Recent Folders (Finder)</string>
-	<key>QSPresetFinderSpecificSearchPlaces</key>
-	<string>Finder Specific Search Places</string>
-	<key>QSPresetFinderToolbarItems</key>
-	<string>Finder Toolbar Items</string>
-	<key>QSPresetFirefoxBookmarks</key>
-	<string>Firefox Bookmarks</string>
-	<key>QSPresetGlobalPrefsRecentFolders</key>
-	<string>Recent Folders (Open &amp; Save)</string>
-	<key>QSPresetHome</key>
-	<string>Home</string>
-	<key>QSPresetICabBookmarks</key>
-	<string>iCab Bookmarks</string>
-	<key>QSPresetInternalMessages</key>
-	<string>Internal Commands</string>
+    <string>最近指令</string>
+    <key>QSPresetConfiguration</key>
+    <string>調控</string>
+    <key>QSPresetContacts</key>
+    <string>聯絡資訊</string>
+    <key>QSPresetDVDPlayerScripts</key>
+    <string>DVD撥放器腳本</string>
+    <key>QSPresetDesktop</key>
+    <string>桌面</string>
+    <key>QSPresetDeveloper</key>
+    <string>開發者</string>
+    <key>QSPresetDeveloperAddressBookDocs</key>
+    <string>聯絡資訊</string>
+    <key>QSPresetDeveloperAppKit</key>
+    <string>AppKit</string>
+    <key>QSPresetDeveloperAppKitDocumentation</key>
+    <string>AppKit文件</string>
+    <key>QSPresetDeveloperAppKitHeaders</key>
+    <string>AppKit標頭</string>
+    <key>QSPresetDeveloperApplications</key>
+    <string>應用程式 (開發者)</string>
+    <key>QSPresetDeveloperCoreFoundationHeaders</key>
+    <string>CoreFoundation標頭</string>
+    <key>QSPresetDeveloperFoundation</key>
+    <string>Foundation</string>
+    <key>QSPresetDeveloperFoundationDocumentation</key>
+    <string>Foundation文件</string>
+    <key>QSPresetDeveloperFoundationHeaders</key>
+    <string>Foundation標頭</string>
+    <key>QSPresetDeveloperFrameworks</key>
+    <string>框架</string>
+    <key>QSPresetDeveloperOtherDocs</key>
+    <string>其他文件</string>
+    <key>QSPresetDeveloperPreferencePaneDocs</key>
+    <string>設定面板</string>
+    <key>QSPresetDeveloperPrivateFrameworks</key>
+    <string>私有框架</string>
+    <key>QSPresetDeveloperPublicFrameworks</key>
+    <string>公開框架</string>
+    <key>QSPresetDeveloperScreenSaverDocs</key>
+    <string>螢幕保護程式</string>
+    <key>QSPresetDeveloperWebKitDocs</key>
+    <string>WebKit</string>
+    <key>QSPresetDevices</key>
+    <string>設備</string>
+    <key>QSPresetDockApplications</key>
+    <string>Dock應用程式</string>
+    <key>QSPresetDockGroup</key>
+    <string>Dock</string>
+    <key>QSPresetDockOthers</key>
+    <string>Dock檔案與資料夾</string>
+    <key>QSPresetFavorites</key>
+    <string>我的最愛</string>
+    <key>QSPresetFinderGroup</key>
+    <string>Finder</string>
+    <key>QSPresetFinderRecentFolders</key>
+    <string>最近資料夾 (Finder)</string>
+    <key>QSPresetFinderSpecificSearchPlaces</key>
+    <string>Finder專屬搜尋位置</string>
+    <key>QSPresetFinderToolbarItems</key>
+    <string>Finder工具列項目</string>
+    <key>QSPresetFirefoxBookmarks</key>
+    <string>火狐書籤</string>
+    <key>QSPresetGlobalPrefsRecentFolders</key>
+    <string>最近資料夾 (開啟與儲存)</string>
+    <key>QSPresetHome</key>
+    <string>家</string>
+    <key>QSPresetICabBookmarks</key>
+    <string>iCab書籤</string>
+    <key>QSPresetInternalMessages</key>
+    <string>內部指令</string>
     <key>QSPresetInternalObjects</key>
-    <string>Internal Objects</string>
-	<key>QSPresetIEBookmarks</key>
-	<string>Internet Explorer Bookmarks</string>
-	<key>QSPresetIEGroup</key>
-	<string>Internet Explorer</string>
-	<key>QSPresetIEHistory</key>
-	<string>Internet Explorer History</string>
-	<key>QSPresetILifeGroup</key>
-	<string>iLife</string>
-	<key>QSPresetITunesGroup</key>
-	<string>iTunes</string>
-	<key>QSPresetInternetGroup</key>
-	<string>Internet</string>
-	<key>QSPresetKeyCaps</key>
-	<string>Key Caps</string>
-	<key>QSPresetKeychains</key>
-	<string>Keychains</string>
-	<key>QSPresetLibraryPreferencePanes</key>
-	<string>System Preferences (All Users)</string>
-	<key>QSPresetLibraryScripts</key>
-	<string>Scripts (All Users)</string>
-	<key>QSPresetMainApplications</key>
-	<string>Applications</string>
-	<key>QSPresetMiscellaneousGroup</key>
-	<string>Miscellaneous</string>
-	<key>QSPresetModules</key>
-	<string>Plugins</string>
-	<key>QSPresetMozillaBookmarks</key>
-	<string>Mozilla Bookmarks</string>
-	<key>QSPresetNNWSubscriptions</key>
-	<string>NetNewsWire Subscriptions</string>
-	<key>QSPresetNUDCContacts</key>
-	<string>Now Contact</string>
-	<key>QSPresetNetscapeBookmarks</key>
-	<string>Netscape Bookmarks</string>
-	<key>QSPresetNetworkLocations</key>
-	<string>Network Locations</string>
-	<key>QSPresetOldCaminoBookmarks</key>
-	<string>Camino Bookmarks (Old)</string>
-	<key>QSPresetOmniWebBookmarks</key>
-	<string>OmniWeb Bookmarks</string>
-	<key>QSPresetOmniWebFavorites</key>
-	<string>OmniWeb Favorites</string>
-	<key>QSPresetOmniWebGroup</key>
-	<string>OmniWeb</string>
-	<key>QSPresetOmniWebHistory</key>
-	<string>OmniWeb History</string>
-	<key>QSPresetOmniWebServerBookmarks</key>
-	<string>OmniWeb Bookmarks (Server)</string>
-	<key>QSPresetOmniWebShortcuts</key>
-	<string>OmniWeb Shortcuts</string>
-	<key>QSPresetOperaBookmarks</key>
-	<string>Opera Bookmarks</string>
-	<key>QSPresetPathFinderGroup</key>
-	<string>Path Finder</string>
-	<key>QSPresetPathFinderRecentFiles</key>
-	<string>Path Finder Recent Files</string>
-	<key>QSPresetPathFinderRecentFolders</key>
-	<string>Path Finder Recent Folders</string>
-	<key>QSPresetPreferencePanes</key>
-	<string>Preference Panes</string>
-	<key>QSPresetPresetGroup</key>
-	<string>Presets</string>
-	<key>QSPresetPrinters</key>
-	<string>Printers</string>
-	<key>QSPresetQSCatalogEntries</key>
-	<string>Quicksilver Catalog Entries</string>
-	<key>QSPresetQSDefaultLinks</key>
-	<string>Starter URLs</string>
-	<key>QSPresetQSExtraScripts</key>
-	<string>Scripts (QS Extras)</string>
-	<key>QSPresetQSGroup</key>
-	<string>Quicksilver</string>
-	<key>QSPresetRecentApplications106</key>
-	<string>Recent Applications</string>
-	<key>QSPresetRecentDocuments106</key>
-	<string>Recent Documents</string>
-	<key>QSPresetRecentItems</key>
-	<string>Recent Items</string>
-	<key>QSPresetRecentSelections</key>
-	<string>Recent Selections</string>
-	<key>QSPresetRecentServers</key>
-	<string>Recent Servers</string>
-	<key>QSPresetFavoriteServers</key>
-	<string>Favorite Servers</string>
-	<key>QSPresetRendezvous</key>
-	<string>Rendezvous Servers</string>
-	<key>QSPresetRendezvousMachines</key>
-	<string>Quicksilver Rendezvous</string>
-	<key>QSPresetRoot</key>
-	<string>Root</string>
-	<key>QSPresetRunningProcesses</key>
-	<string>Running Applications &amp; Processes</string>
-	<key>QSPresetSafariBookmarks</key>
-	<string>Safari Bookmarks</string>
-	<key>QSPresetSafariGroup</key>
-	<string>Safari</string>
-	<key>QSPresetSafariHistory</key>
-	<string>Safari History</string>
-	<key>QSPresetScriptsGroup</key>
-	<string>Scripts</string>
-	<key>QSPresetShelves</key>
-	<string>Shelf &amp; Clipboard</string>
-	<key>QSPresetSidebarItems</key>
-	<string>Finder Sidebar</string>
-	<key>QSPresetSogudiShortcuts</key>
-	<string>Sogudi Shortcuts</string>
-	<key>QSPresetSpeakableItems</key>
-	<string>Speakable Items</string>
-	<key>QSPresetSpecial</key>
-	<string>Special</string>
-	<key>QSPresetSystemGroup</key>
-	<string>System</string>
-	<key>QSPresetSystemPreferencePanes</key>
-	<string>System Preferences (System)</string>
-	<key>QSPresetTrash</key>
-	<string>Trash</string>
-	<key>QSPresetUserApplications</key>
-	<string>Applications (User)</string>
-	<key>QSPresetUserPreferencePanes</key>
-	<string>System Preferences (User)</string>
-	<key>QSPresetUserScripts</key>
-	<string>Scripts (User)</string>
-	<key>QSPresetUserWatsonTools</key>
-	<string>Watson Tools (User)</string>
-	<key>QSPresetVolumes</key>
-	<string>Disks</string>
-	<key>QSPresetWatsonGroup</key>
-	<string>Watson</string>
-	<key>QSPresetWirelessNetworks</key>
-	<string>AirPort Networks</string>
-	<key>QSPresetiPhotoAlbums</key>
-	<string>iPhoto Albums</string>
-	<key>QSPresetiTunesGroup</key>
-	<string>iTunes</string>
-	<key>QSPresetiTunesPlaylists</key>
-	<string>iTunes Music</string>
-	<key>QSPresetiTunesScripts</key>
-	<string>iTunes Scripts</string>
-	<key>QSPresetRemovableVolumes</key>
-	<string>Network and Removable Disks</string>
-</dict>
+    <string>內部物件</string>
+    <key>QSPresetIEBookmarks</key>
+    <string>IE書籤</string>
+    <key>QSPresetIEGroup</key>
+    <string>IE</string>
+    <key>QSPresetIEHistory</key>
+    <string>IE歷史紀錄</string>
+    <key>QSPresetILifeGroup</key>
+    <string>iLife</string>
+    <key>QSPresetITunesGroup</key>
+    <string>iTunes</string>
+    <key>QSPresetInternetGroup</key>
+    <string>網際網路</string>
+    <key>QSPresetKeyCaps</key>
+    <string>Key Caps</string>
+    <key>QSPresetKeychains</key>
+    <string>鑰匙圈</string>
+    <key>QSPresetLibraryPreferencePanes</key>
+    <string>系統偏好設定 (所有使用者)</string>
+    <key>QSPresetLibraryScripts</key>
+    <string>腳本 (所有使用者)</string>
+    <key>QSPresetMainApplications</key>
+    <string>應用程式</string>
+    <key>QSPresetMiscellaneousGroup</key>
+    <string>其他</string>
+    <key>QSPresetModules</key>
+    <string>附加元件</string>
+    <key>QSPresetMozillaBookmarks</key>
+    <string>Mozilla書籤</string>
+    <key>QSPresetNNWSubscriptions</key>
+    <string>NetNewsWire訂閱</string>
+    <key>QSPresetNUDCContacts</key>
+    <string>目前聯絡人</string>
+    <key>QSPresetNetscapeBookmarks</key>
+    <string>Netscape書籤</string>
+    <key>QSPresetNetworkLocations</key>
+    <string>網路位置</string>
+    <key>QSPresetOldCaminoBookmarks</key>
+    <string>Camino書籤 (舊版)</string>
+    <key>QSPresetOmniWebBookmarks</key>
+    <string>OmniWeb書籤</string>
+    <key>QSPresetOmniWebFavorites</key>
+    <string>OmniWeb最愛</string>
+    <key>QSPresetOmniWebGroup</key>
+    <string>OmniWeb</string>
+    <key>QSPresetOmniWebHistory</key>
+    <string>OmniWeb歷史紀錄</string>
+    <key>QSPresetOmniWebServerBookmarks</key>
+    <string>OmniWeb書籤 (伺服器)</string>
+    <key>QSPresetOmniWebShortcuts</key>
+    <string>OmniWeb捷徑</string>
+    <key>QSPresetOperaBookmarks</key>
+    <string>Opera書籤</string>
+    <key>QSPresetPathFinderGroup</key>
+    <string>Path Finder</string>
+    <key>QSPresetPathFinderRecentFiles</key>
+    <string>Path Finder最近檔案</string>
+    <key>QSPresetPathFinderRecentFolders</key>
+    <string>Path Finder最近資料夾</string>
+    <key>QSPresetPreferencePanes</key>
+    <string>偏好設定面板</string>
+    <key>QSPresetPresetGroup</key>
+    <string>預先配置</string>
+    <key>QSPresetPrinters</key>
+    <string>印表機</string>
+    <key>QSPresetQSCatalogEntries</key>
+    <string>Quicksilver目錄條目</string>
+    <key>QSPresetQSDefaultLinks</key>
+    <string>開始網址</string>
+    <key>QSPresetQSExtraScripts</key>
+    <string>腳本 (QS 其他)</string>
+    <key>QSPresetQSGroup</key>
+    <string>Quicksilver</string>
+    <key>QSPresetRecentApplications106</key>
+    <string>最近應用程式</string>
+    <key>QSPresetRecentDocuments106</key>
+    <string>最近文件</string>
+    <key>QSPresetRecentItems</key>
+    <string>最近項目</string>
+    <key>QSPresetRecentSelections</key>
+    <string>最近選擇</string>
+    <key>QSPresetRecentServers</key>
+    <string>最近伺服器</string>
+    <key>QSPresetFavoriteServers</key>
+    <string>最愛伺服器</string>
+    <key>QSPresetRendezvous</key>
+    <string>Rendezvous伺服器</string>
+    <key>QSPresetRendezvousMachines</key>
+    <string>Quicksilver Rendezvous</string>
+    <key>QSPresetRoot</key>
+    <string>Root</string>
+    <key>QSPresetRunningProcesses</key>
+    <string>執行中程式與程序</string>
+    <key>QSPresetSafariBookmarks</key>
+    <string>Safari書籤</string>
+    <key>QSPresetSafariGroup</key>
+    <string>Safari</string>
+    <key>QSPresetSafariHistory</key>
+    <string>Safari歷史紀錄</string>
+    <key>QSPresetScriptsGroup</key>
+    <string>腳本</string>
+    <key>QSPresetShelves</key>
+    <string>滑櫃與剪貼簿</string>
+    <key>QSPresetSidebarItems</key>
+    <string>Finder側邊欄</string>
+    <key>QSPresetSogudiShortcuts</key>
+    <string>Sogudi捷徑</string>
+    <key>QSPresetSpeakableItems</key>
+    <string>可朗讀項目</string>
+    <key>QSPresetSpecial</key>
+    <string>特別</string>
+    <key>QSPresetSystemGroup</key>
+    <string>系統</string>
+    <key>QSPresetSystemPreferencePanes</key>
+    <string>系統偏好設定 (系統)</string>
+    <key>QSPresetTrash</key>
+    <string>垃圾桶</string>
+    <key>QSPresetUserApplications</key>
+    <string>應用程式 (使用者)</string>
+    <key>QSPresetUserPreferencePanes</key>
+    <string>系統偏好設定 (使用者)</string>
+    <key>QSPresetUserScripts</key>
+    <string>腳本 (使用者)</string>
+    <key>QSPresetUserWatsonTools</key>
+    <string>華生工具 (使用者)</string>
+    <key>QSPresetVolumes</key>
+    <string>磁碟</string>
+    <key>QSPresetWatsonGroup</key>
+    <string>華生</string>
+    <key>QSPresetWirelessNetworks</key>
+    <string>AirPort網路</string>
+    <key>QSPresetiPhotoAlbums</key>
+    <string>iPhoto相簿</string>
+    <key>QSPresetiTunesGroup</key>
+    <string>iTunes</string>
+    <key>QSPresetiTunesPlaylists</key>
+    <string>iTunes音樂</string>
+    <key>QSPresetiTunesScripts</key>
+    <string>iTunes腳本</string>
+    <key>QSPresetRemovableVolumes</key>
+    <string>網路與可移除磁碟</string>
+  </dict>
 </plist>
