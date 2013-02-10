@@ -1,4 +1,4 @@
-## Changes - ß72 (3943) ##
+## Changes - ß72 (3944) ##
 
 This will be the last release to support Mac OS X 10.6 and 32-bit mode.
 
@@ -9,6 +9,7 @@ This will be the last release to support Mac OS X 10.6 and 32-bit mode.
   * AppleScript Action enhancements - http://qsapp.com/wiki/AppleScript_Actions (#1023, #1048)
   * Assign an alternate name to something by creating a synonym (#1325)
   * Plugin documentation is now accessible from the plugin's preferences (#999, #1364)
+  * Plugin documentation is accessible directly from the list of plugins via a button in the bottom-right (#1364, #1384)
   * Trigger type can be specified in the third pane for the Add Trigger action (#1345)
   * Clipboard history will omit "transient" data (#1213)
   * New localizations for Korean, Catalan, Chinese (Hant, China) and Spanish (Mexico)
@@ -35,6 +36,8 @@ This will be the last release to support Mac OS X 10.6 and 32-bit mode.
   * Change "plug-in" to "plugin" in the Setup Assistant (#1357)
   * Only show catalog related actions with a single item selected (#1276)
   * Internal improvements to the Assign Abbreviation… action (#1374)
+  * Set a default string ranker to prevent meaningless notifications (#1380)
+  * Prevent a crash when changing row height immediately after choosing a new interface (#1383)
   * Internal optimizations, stability improvements, and fixes (#1335, #1346)
 
 ### Changed ###
