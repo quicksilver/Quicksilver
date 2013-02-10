@@ -398,6 +398,8 @@
 		D493990D1350078E00B908C6 /* QSDownloads.h in Headers */ = {isa = PBXBuildFile; fileRef = D49399091350078E00B908C6 /* QSDownloads.h */; };
 		D493990E1350078E00B908C6 /* QSDownloads.m in Sources */ = {isa = PBXBuildFile; fileRef = D493990A1350078E00B908C6 /* QSDownloads.m */; };
 		D49A8B02166EA8FC0086B5A9 /* QSUserDefinedProxySource.m in Sources */ = {isa = PBXBuildFile; fileRef = D49A8B01166EA8FC0086B5A9 /* QSUserDefinedProxySource.m */; };
+		D49B9D1916C80755003880DC /* Button-docs.png in Resources */ = {isa = PBXBuildFile; fileRef = CD3646A416B682FE007439AE /* Button-docs.png */; };
+		D49B9D1A16C80758003880DC /* Button-docs@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD3646A516B682FE007439AE /* Button-docs@2x.png */; };
 		D4A43887137CCF0300F15F7F /* QSURLExtractor.py in Resources */ = {isa = PBXBuildFile; fileRef = D4A4383B137CCCF500F15F7F /* QSURLExtractor.py */; };
 		D4AA5993166F9DD4006E8FD1 /* QSUserDefinedProxySource.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4AA5992166F9DD4006E8FD1 /* QSUserDefinedProxySource.xib */; };
 		D4E0060F1523951500FDF185 /* NSMetadataQuery+Synchronous.h in Headers */ = {isa = PBXBuildFile; fileRef = D4E0060D1523951500FDF185 /* NSMetadataQuery+Synchronous.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -4248,6 +4250,8 @@
 				CDD30971160B860A00CD34EC /* countBadge5.tiff in Resources */,
 				4D7DF45416ADC7CA004BA4BE /* DefaultsMap.plist in Resources */,
 				4D7DF45716ADCDEF004BA4BE /* QSAdvancedPrefPane.strings in Resources */,
+				D49B9D1916C80755003880DC /* Button-docs.png in Resources */,
+				D49B9D1A16C80758003880DC /* Button-docs@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
