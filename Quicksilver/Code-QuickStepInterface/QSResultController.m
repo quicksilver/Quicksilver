@@ -161,6 +161,7 @@ NSMutableDictionary *kindDescriptions = nil;
 	[[[resultTable tableColumnWithIdentifier:@"NameColumn"] dataCell] unbind:@"textColor"];
 	[resultTable unbind:@"backgroundColor"];
 	[resultTable unbind:@"highlightColor"];
+    [resultTable unbind:@"rowHeight"];
 	[resultChildTable unbind:@"backgroundColor"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
