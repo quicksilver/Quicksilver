@@ -231,7 +231,6 @@
 		[super orderFront:sender];
 		[super display];
 		[self showThreaded:self];
-		// [NSThread detachNewThreadSelector:@selector(showThreaded:) toTarget:self withObject:sender];
 	}
 }
 
@@ -243,7 +242,6 @@
 		[self setAlphaValue:0.0];
 		[super makeKeyAndOrderFront:sender];
 		[self showThreaded:self];
-		//	 [NSThread detachNewThreadSelector:@selector(showThreaded:) toTarget:self withObject:sender];
 	}
 }
 

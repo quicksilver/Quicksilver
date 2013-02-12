@@ -32,7 +32,6 @@
     
 	for (elapsed = 0; elapsed < 1; elapsed = (([NSDate timeIntervalSinceReferenceDate] - fadeStart) / seconds)) {
 		[self setAlphaValue:fadeIn + elapsed * distance];
-		// [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:seconds/300]];
 	}
     
 	[self setAlphaValue:fadeOut];
@@ -135,7 +134,6 @@
 
 		[self setFrame:newFrame display:YES animate:NO];
 		v = v-friction * elapsedTime;
-		//[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:.001]];
 
 	}
 	newFrame.origin.x = (NSInteger) newFrame.origin.x;

@@ -301,7 +301,9 @@
             [NSMenu popUpContextMenu:actionsMenu withEvent:[NSApp currentEvent] forView:self];
         }
 	} else if (action && [self dropMode] != QSSelectDropMode) {
-		[NSThread detachNewThreadSelector:@selector(concludeDragWithAction:) toTarget:self withObject:[QSExec actionForIdentifier:action]]; // Ankur, 21 Dec: Action retained in selector, not here
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self concludeDragWithAction:[QSExec actionForIdentifier:action]];
+        });
 	} else if (lastDragMask & NSDragOperationGeneric) {
 		id winController = [[self window] windowController];
 		if ([winController isKindOfClass:[QSInterfaceController class]] ) {
@@ -326,9 +328,7 @@
 
 - (void)concludeDragWithAction:(QSAction *)actionObject {
 	[actionObject retain];
-    @autoreleasepool {
-        [actionObject performOnDirectObject:[self draggedObject] indirectObject:[self objectValue]];
-    }
+    [actionObject performOnDirectObject:[self draggedObject] indirectObject:[self objectValue]];
 	[actionObject release];
 }
 

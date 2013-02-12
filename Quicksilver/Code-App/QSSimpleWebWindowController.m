@@ -53,17 +53,11 @@
 }
 
 - (void)loadHTMLString:(NSString *)string baseURL:(NSURL *)URL {
-//	NSLog(@"------------definition %@ %@", string, [[[self window] contentView] mainFrame]);
-	if ([NSThread isMainThread]) {
-		[[[[self window] contentView] mainFrame] loadHTMLString:string baseURL:URL];
-	} else {
-		[self performSelectorOnMainThread:@selector(loadHTMLStringOnMainThread:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:string, @"string", URL, @"base", nil] waitUntilDone:NO];
-	}
+    runOnMainQueueSync(^{
+        [[[[self window] contentView] mainFrame] loadHTMLString:string baseURL:URL];
+    });
 }
 
-- (void)loadHTMLStringOnMainThread:(NSDictionary*)parameters {
-	[[[[self window] contentView] mainFrame] loadHTMLString:[parameters objectForKey:@"string"] baseURL:[parameters objectForKey:@"base"]];
-}
 
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar {
 	return [NSArray arrayWithObjects:NSToolbarSeparatorItemIdentifier,
