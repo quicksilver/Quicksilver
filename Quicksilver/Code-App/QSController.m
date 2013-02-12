@@ -841,8 +841,9 @@ static QSController *defaultController = nil;
 		[self showSplash:nil];
         double delayInSeconds = 0.1;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self threadedHideSplash];
+        dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+            // hide the splash in a background thread
+            [self hideSplash:nil];
         });
 	}
 }
@@ -1050,12 +1051,6 @@ static QSController *defaultController = nil;
 	[activationKey setTarget:self selectorReleased:(SEL) 0 selectorPressed:@selector(activateInterface:)];
 	[activationKey setIdentifier:kActivationHotKey];
 	[activationKey setEnabled:YES];
-}
-
-- (void)threadedHideSplash {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self hideSplash:nil];
-    });
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
