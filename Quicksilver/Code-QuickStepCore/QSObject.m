@@ -666,7 +666,7 @@ NSSize QSMaxIconSize;
 
 - (void)setIdentifier:(NSString *)newIdentifier {
     if (identifier != nil && newIdentifier != nil) {
-        if(identifier != newIdentifier) {
+        if(![identifier isEqualToString:newIdentifier]) {
             [objectDictionary setObject:self forKey:newIdentifier];
             [objectDictionary removeObjectForKey:identifier];
             [meta setObject:newIdentifier forKey:kQSObjectObjectID];
@@ -693,7 +693,7 @@ NSSize QSMaxIconSize;
 }
 
 - (void)setName:(NSString *)newName {
-    if (name != newName) {
+    if (![name isEqualToString:newName]) {
         if ([newName length] > 255) newName = [newName substringToIndex:255];
         // ***warning  ** this should take first line only?
         [name release];
@@ -756,7 +756,7 @@ NSSize QSMaxIconSize;
 }
 
 - (void)setLabel:(NSString *)newLabel {
-	if (newLabel != label) {
+	if (![newLabel isEqualToString:label]) {
         if (![newLabel length] || [newLabel isEqualToString:[self name]]) {
             newLabel = nil;
         }

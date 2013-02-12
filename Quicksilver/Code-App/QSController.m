@@ -472,13 +472,11 @@ static QSController *defaultController = nil;
     }
 }
 - (void)hideSplash:sender {
-    @autoreleasepool {
-        if (splashWindow) {
-            [splashWindow setLevel:NSFloatingWindowLevel];
-            [splashWindow flare:self];
-            [splashWindow close];
-            splashWindow = nil;
-        }
+    if (splashWindow) {
+        [splashWindow setLevel:NSFloatingWindowLevel];
+        [splashWindow flare:self];
+        [splashWindow close];
+        splashWindow = nil;
     }
 }
 - (void)startDropletConnection {
@@ -611,20 +609,17 @@ static QSController *defaultController = nil;
 - (IBAction)forceRescanItems:sender { [QSLib startThreadedAndForcedScan];  }
 
 - (void)delayedStartup {
-    @autoreleasepool {
         
 #ifdef DEBUG
-        if (DEBUG_STARTUP) NSLog(@"Delayed Startup");
+    if (DEBUG_STARTUP) NSLog(@"Delayed Startup");
 #endif
-        
-        [NSThread setThreadPriority:0.0];
-        QSTask *task = [QSTask taskWithIdentifier:@"QSDelayedStartup"];
-        [task setName:@"Starting Up..."];
-        [task setStatus:@"Updating Catalog"];
-        [task startTask:self];
-        [[QSLibrarian sharedInstance] loadMissingIndexes];
-        [task stopTask:self];
-    }
+    
+    QSTask *task = [QSTask taskWithIdentifier:@"QSDelayedStartup"];
+    [task setName:@"Starting Up..."];
+    [task setStatus:@"Updating Catalog"];
+    [task startTask:self];
+    [[QSLibrarian sharedInstance] loadMissingIndexes];
+    [task stopTask:self];
 }
 
 - (void)checkForFirstRun {
@@ -844,7 +839,12 @@ static QSController *defaultController = nil;
 - (void)setupSplash {
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:kUseEffects]) {
 		[self showSplash:nil];
-		[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(threadedHideSplash) userInfo:nil repeats:NO];
+        double delayInSeconds = 0.1;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+            // hide the splash in a background thread
+            [self hideSplash:nil];
+        });
 	}
 }
 - (void)startQuicksilver:(id)sender {
@@ -1037,8 +1037,9 @@ static QSController *defaultController = nil;
 
 	if ([defaults boolForKey:@"QSEnableISync"])
 		[[QSSyncManager sharedInstance] setup];
-
-	[NSThread detachNewThreadSelector:@selector(delayedStartup) toTarget:self withObject:nil];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [self delayedStartup];
+    });
 	[self startDropletConnection];
 }
 
@@ -1050,10 +1051,6 @@ static QSController *defaultController = nil;
 	[activationKey setTarget:self selectorReleased:(SEL) 0 selectorPressed:@selector(activateInterface:)];
 	[activationKey setIdentifier:kActivationHotKey];
 	[activationKey setEnabled:YES];
-}
-
-- (void)threadedHideSplash {
-	[NSThread detachNewThreadSelector:@selector(hideSplash:) toTarget:self withObject:nil];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {

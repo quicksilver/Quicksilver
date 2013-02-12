@@ -622,10 +622,10 @@
     
     // add the object being executed to the history
     [dSelector updateHistory];
-    
-	NSInteger argumentCount = [(QSAction *)[aSelector objectValue] argumentCount];
+    QSAction *action = [aSelector objectValue];
+	NSInteger argumentCount = [action argumentCount];
 	if (argumentCount == 2) {
-		BOOL indirectIsRequired = ![[aSelector objectValue] indirectOptional];
+		BOOL indirectIsRequired = ![action indirectOptional];
 		BOOL indirectIsInvalid = ![iSelector objectValue];
 		BOOL indirectIsTextProxy = [[[iSelector objectValue] primaryType] isEqual:QSTextProxyType];
 		if (indirectIsRequired && (indirectIsInvalid || indirectIsTextProxy) ) {
@@ -633,7 +633,7 @@
 			[[self window] makeFirstResponder:iSelector];
 			return;
 		}
-		[QSExec noteIndirect:[iSelector objectValue] forAction:[aSelector objectValue]];
+		[QSExec noteIndirect:[iSelector objectValue] forAction:action];
 	}
 	if (encapsulate) {
 		[self encapsulateCommand];
@@ -642,10 +642,16 @@
 	if (!cont) {
         [self hideMainWindowFromExecution:self]; // *** this should only hide if no result comes in like 2 seconds
     }
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:kExecuteInThread] && [[aSelector objectValue] canThread])
-		[NSThread detachNewThreadSelector:@selector(executeCommandThreaded) toTarget:self withObject:nil];
-	else
-		[self executeCommandThreaded];
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:kExecuteInThread] && [action canThread]) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            [self executeCommandThreaded];
+        });
+    } else {
+        // action can only be run on main thread 
+        runOnMainQueueSync(^{
+            [self executeCommandThreaded];
+        });
+    }
 	[QSHist addCommand:[self currentCommand]];
 	[dSelector saveMnemonic];
  	[aSelector saveMnemonic];
