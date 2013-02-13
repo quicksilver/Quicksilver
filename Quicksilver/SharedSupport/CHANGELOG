@@ -1,4 +1,4 @@
-## Changes - ß72 (3944) ##
+## Changes - ß72 (3945) ##
 
 This will be the last release to support Mac OS X 10.6 and 32-bit mode.
 
@@ -38,7 +38,7 @@ This will be the last release to support Mac OS X 10.6 and 32-bit mode.
   * Internal improvements to the Assign Abbreviation… action (#1374)
   * Set a default string ranker to prevent meaningless notifications (#1380)
   * Prevent a crash when changing row height immediately after choosing a new interface (#1383)
-  * Internal optimizations, stability improvements, and fixes (#1335, #1346)
+  * Internal optimizations, stability improvements, and fixes (#1335, #1346, #1385)
 
 ### Changed ###
 
