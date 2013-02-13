@@ -72,7 +72,9 @@
             [triggerType setObject:key forType:QSTriggerTypeType];
             [triggerTypesObjects addObject:triggerType];
         }
-        return triggerTypesObjects;
+        return [triggerTypesObjects sortedArrayWithOptions:NSSortConcurrent usingComparator:^NSComparisonResult(QSObject *obj1, QSObject *obj2) {
+            return [[obj1 name] localizedCompare:[obj2 name]];
+        }];
     } else {
 		return [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@""]];
     }
