@@ -179,9 +179,7 @@ static inline NSInteger get_bit(unsigned char *arr, unsigned long bit_num) {
 }
 
 - (BOOL)shrinkToSize:(NSSize)newSize {
-	[self createRepresentationOfSize:newSize];
 	[self setSize:newSize];
-	[self removeRepresentationsLargerThanSize:newSize];
 	return YES;
 }
 
