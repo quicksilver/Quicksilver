@@ -301,7 +301,7 @@ static QSController *defaultController = nil;
 
 		if (shouldQuit) {
 			[(NSButton *)[quitWindow initialFirstResponder] setState:NSOnState];
-			[[(NSButton *)[quitWindow initialFirstResponder] alternateImage] setSize:QSMaxIconSize];
+			[[(NSButton *)[quitWindow initialFirstResponder] alternateImage] setSize:QSSize256];
 			[quitWindow display];
 			[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.333]];
 			[quitWindow orderOut:self];

@@ -209,7 +209,7 @@ NSMutableDictionary *bindingsDict = nil;
 		[super drawRect:rect];
 		rect = [self frame];
 
-		if (NSWidth(rect) > QSMaxIconSize.width && NSHeight(rect) > QSMaxIconSize.height) {
+		if (NSWidth(rect) > QSSizeMax.width && NSHeight(rect) > QSSizeMax.height) {
 			CGContextRef context = (CGContextRef) ([[NSGraphicsContext currentContext] graphicsPort]);
 			CGContextSetAlpha(context, 0.92);
 		}

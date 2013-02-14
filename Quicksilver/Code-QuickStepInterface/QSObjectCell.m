@@ -321,7 +321,7 @@
 			size.width += 16;
 		// ***warning  *this should change based on the badge
 	} else {
-		size.width = QSMaxIconSize.width;
+		size.width = 128;
     }
 
 	return size;
@@ -344,7 +344,7 @@
 
 	  if (isFirstResponder && [controlView isKindOfClass:[QSSearchObjectView class]]) {
 		  NSImage *find = [NSImage imageNamed:@"Find"];
-		  [find setSize:QSMaxIconSize];
+		  [find setSize:QSSizeMax];
 		  NSRect findImageRect = fitRectInRect(rectFromSize([find size]), cellFrame, 0);
 
 		  if (NSHeight(findImageRect) >= 64) {

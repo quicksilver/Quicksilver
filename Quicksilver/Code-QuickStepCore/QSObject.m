@@ -39,7 +39,7 @@ NSSize QSMaxIconSize;
 @implementation QSObject
 + (void)initialize {
 	if (!QSObjectInitialized) {
-		QSMaxIconSize = QSSize128;
+		QSMaxIconSize = QSSizeMax;
 		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 		[nc addObserver:self selector:@selector(interfaceChanged) name:QSInterfaceChangedNotification object:nil];
 		[nc addObserver:self selector:@selector(purgeOldImagesAndChildren) name:QSReleaseOldCachesNotification object:nil];
@@ -132,7 +132,7 @@ NSSize QSMaxIconSize;
 }
 
 + (void)interfaceChanged {
-	QSMaxIconSize = [(QSInterfaceController *)[[NSApp delegate] interfaceController] maxIconSize];
+	//QSMaxIconSize = [(QSInterfaceController *)[[NSApp delegate] interfaceController] maxIconSize];
 	[self purgeAllImagesAndChildren];
 	// if (VERBOSE) NSLog(@"newsize %f", QSMaxIconSize.width);
 }
