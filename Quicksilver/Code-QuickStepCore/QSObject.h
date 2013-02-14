@@ -79,7 +79,6 @@ typedef struct _QSObjectFlags {
 
 
 
-extern NSSize QSMaxIconSize;
 @interface QSObject : QSBasicObject <NSCopying> {
 	NSString *name;
 	NSString *label;
