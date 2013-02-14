@@ -63,6 +63,7 @@
 		[self setState:NSOffState];
 		[self setImagePosition:-1];
 		[self setRepresentedObject:nil];
+        [self setImageScaling:NSImageScaleProportionallyUpOrDown];
 		// NSLog(@"%d pos", [self imagePosition]);
 		//[self setFormatter:[[[QSObjectFormatter alloc] init] autorelease]];
 		// [self setShowsBorderOnlyWhileMouseInside:YES];
