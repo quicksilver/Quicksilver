@@ -115,7 +115,7 @@
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="450871456">
 												<int key="NSCellFlags">68157504</int>
-												<int key="NSCellFlags2">138413056</int>
+												<int key="NSCellFlags2">171967488</int>
 												<string key="NSContents">Hold ⌘Q to Quit</string>
 												<object class="NSFont" key="NSSupport">
 													<string key="NSName">LucidaGrande</string>
