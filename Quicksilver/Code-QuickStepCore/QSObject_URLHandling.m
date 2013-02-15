@@ -80,7 +80,7 @@
     rect = NSMakeRect(0, 0, imageSize.width, imageSize.height);
     [image setSize:rect.size];
     [image drawInRect:rect fromRect:rectFromSize([image size]) operation:NSCompositeSourceOver fraction:1.0];
-    NSImage *findImage = [NSImage imageNamed:@"Find"];
+    NSImage *findImage = [[NSImage imageNamed:@"Find"] copy];
     NSImage *favIcon = nil;
     if(findImage) {
         [findImage setSize:rect.size];
@@ -91,6 +91,7 @@
             [favIcon drawInRect:NSMakeRect(rect.origin.x+NSWidth(rect)*0.48, rect.origin.y+NSWidth(rect)*0.32, 30, 30) fromRect:rect operation:NSCompositeSourceOver fraction:1.0];
         }
         [findImage drawInRect:NSMakeRect(rect.origin.x+NSWidth(rect) *1/3, rect.origin.y, NSWidth(rect)*2/3, NSHeight(rect)*2/3) fromRect:rect operation:NSCompositeSourceOver fraction:1.0];
+        [findImage release];
     }
     [NSGraphicsContext restoreGraphicsState];
     webSearchImage = [[[NSImage alloc] initWithData:[bitmap TIFFRepresentation]] autorelease];
