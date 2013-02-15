@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
-		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">12C3012</string>
+		<int key="IBDocument.SystemTarget">1060</int>
+		<string key="IBDocument.SystemVersion">12C3103</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1187.34</string>
 		<string key="IBDocument.HIToolboxVersion">625.00</string>
@@ -43,8 +43,8 @@
 			<object class="NSWindowTemplate" id="670311099">
 				<int key="NSWindowStyleMask">145</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{430, 430}, {240, 180}}</string>
-				<int key="NSWTFlags">1081606144</int>
+				<string key="NSWindowRect">{{430, 430}, {240, 197}}</string>
+				<int key="NSWTFlags">1081607168</int>
 				<string key="NSWindowTitle">Quit?</string>
 				<string key="NSWindowClass">QSBorderlessWindow</string>
 				<object class="NSMutableString" key="NSViewClass">
@@ -85,6 +85,7 @@
 											<string key="NSFrame">{{31, 44}, {175, 131}}</string>
 											<reference key="NSSuperview" ref="559289365"/>
 											<reference key="NSWindow"/>
+											<reference key="NSNextKeyView" ref="765862967"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSImageCell" key="NSCell" id="927362863">
@@ -106,7 +107,7 @@
 										<object class="NSTextField" id="765862967">
 											<reference key="NSNextResponder" ref="559289365"/>
 											<int key="NSvFlags">268</int>
-											<string key="NSFrame">{{14, 13}, {208, 23}}</string>
+											<string key="NSFrame">{{16, 13}, {208, 23}}</string>
 											<reference key="NSSuperview" ref="559289365"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView"/>
@@ -145,13 +146,13 @@
 											<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 										</object>
 									</object>
-									<string key="NSFrame">{{2, 2}, {236, 176}}</string>
+									<string key="NSFrame">{{2, 2}, {236, 191}}</string>
 									<reference key="NSSuperview" ref="302557249"/>
 									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView" ref="765862967"/>
+									<reference key="NSNextKeyView" ref="649292948"/>
 								</object>
 							</object>
-							<string key="NSFrame">{{0, -1}, {240, 180}}</string>
+							<string key="NSFrame">{{0, -1}, {240, 195}}</string>
 							<reference key="NSSuperview" ref="804792092"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="559289365"/>
@@ -186,12 +187,12 @@
 							<bool key="NSTransparent">NO</bool>
 						</object>
 					</object>
-					<string key="NSFrameSize">{240, 180}</string>
+					<string key="NSFrameSize">{240, 197}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="302557249"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMinSize">{213, 129}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
@@ -262,8 +263,8 @@
 						<reference key="object" ref="302557249"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="765862967"/>
 							<reference ref="649292948"/>
+							<reference ref="765862967"/>
 						</object>
 						<reference key="parent" ref="804792092"/>
 					</object>
@@ -304,6 +305,8 @@
 					<string>-1.IBPluginDependency</string>
 					<string>-2.IBPluginDependency</string>
 					<string>-3.IBPluginDependency</string>
+					<string>23.IBNSWindowAutoPositionCentersHorizontal</string>
+					<string>23.IBNSWindowAutoPositionCentersVertical</string>
 					<string>23.IBPluginDependency</string>
 					<string>24.CustomClassName</string>
 					<string>24.IBPluginDependency</string>
@@ -318,6 +321,8 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<boolean value="YES"/>
+					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>QSBackgroundView</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -425,7 +430,7 @@
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
-			<integer value="1050" key="NS.object.0"/>
+			<real value="1060" key="NS.object.0"/>
 		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.InterfaceBuilder3</string>

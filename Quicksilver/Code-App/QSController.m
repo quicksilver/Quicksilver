@@ -278,7 +278,6 @@ static QSController *defaultController = nil;
 			quitWindow = (QSWindow *)[quitWindowController window];
 			[quitWindow setLevel:kCGPopUpMenuWindowLevel+1];
 			[quitWindow setIgnoresMouseEvents:YES];
-			[quitWindow center];
 			[quitWindow setShowEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSVExpandEffect", @"transformFn", @"show", @"type", [NSNumber numberWithDouble:0.15] , @"duration", nil]];
 			[quitWindow setHideEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSShrinkEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithDouble:0.25] , @"duration", nil]];
 		} else {
