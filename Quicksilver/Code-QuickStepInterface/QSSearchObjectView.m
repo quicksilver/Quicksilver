@@ -1407,8 +1407,17 @@ NSMutableDictionary *bindingsDict = nil;
 #pragma mark -
 #pragma mark NSResponder Key Bindings
 - (void)deleteBackward:(id)sender {
-    if(defaultBool(kDoubleDeleteClearsObject) && [self matchedString] == nil) {
-        
+    if (defaultBool(kDeleteRemovesLastCharacter) && [self partialString].length > 1) {
+        // reset the seaarch array (search the entire catalog)
+        [self setSearchArray:sourceArray];
+        validSearch = YES;
+        [[self partialString] deleteCharactersInRange:NSMakeRange(partialString.length-1, 1)];
+        [self partialStringChanged];
+        if (validMnemonic) {
+            // some objects found, change the colour of the results string
+            [resultController.searchStringField setTextColor:[NSColor blackColor]];
+        }
+    } else if(defaultBool(kDoubleDeleteClearsObject) && [self matchedString] == nil) {
         [super delete:sender];
     } else {
         [self clearSearch];
