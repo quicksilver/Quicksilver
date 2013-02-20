@@ -1054,7 +1054,18 @@ static QSController *defaultController = nil;
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+#ifdef DEBUG
+    NSDate *start;
+    if (VERBOSE) {
+        start = [NSDate date];
+    }
+#endif
 	[self startQuicksilver:aNotification];
+#ifdef DEBUG
+    if (VERBOSE) {
+        NSLog(@"-[QSController startQuicksilver:] took %lfs", -1*([start timeIntervalSinceNow]));
+    }
+#endif
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"QSApplicationDidFinishLaunchingNotification" object:self];
 	QSApplicationCompletedLaunch = YES;
 }
