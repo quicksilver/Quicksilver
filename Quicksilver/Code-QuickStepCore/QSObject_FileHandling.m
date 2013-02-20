@@ -394,8 +394,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		}
 
         if ([object isDirectory] || isDirectory) {
-            NSMutableArray *fileChildren = [NSMutableArray arrayWithCapacity:1];
-            NSMutableArray *visibleFileChildren = [NSMutableArray arrayWithCapacity:1];
+
             
             NSError *err = nil;
             // pre-fetch the required info (hidden key) for the dir contents to speed up the task
@@ -404,18 +403,22 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
                 NSLog(@"Error loading files: %@", err);
                 return NO;
             }
+            
+            NSMutableArray *fileChildren = [NSMutableArray arrayWithCapacity:1];
+            NSMutableArray *visibleFileChildren = [NSMutableArray arrayWithCapacity:1];
             for (NSURL *individualURL in dirContents) {
-                [fileChildren addObject:[individualURL path]];
+                NSString *p = [individualURL path];
+                [fileChildren addObject:p];
                 NSNumber *isHidden = 0;
                 [individualURL getResourceValue:&isHidden forKey:NSURLIsHiddenKey error:nil];
                 if (![isHidden boolValue]) {
-                    [visibleFileChildren addObject:[individualURL path]];
+                    [visibleFileChildren addObject:p];
                 }
             }
             // sort the files like Finder does. Note: Casting array to NSMutable array so don't try and alter these arrays later on
             fileChildren = (NSMutableArray *)[fileChildren sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
             visibleFileChildren = (NSMutableArray *)[visibleFileChildren sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
-
+            
             newChildren = [QSObject fileObjectsWithPathArray:visibleFileChildren];
             newAltChildren = [QSObject fileObjectsWithPathArray:fileChildren];
 
@@ -575,19 +578,23 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 + (NSArray *)fileObjectsWithPathArray:(NSArray *)pathArray {
-	NSMutableArray *fileObjectArray = [NSMutableArray arrayWithCapacity:1];
-	id object;
-	for (id loopItem in pathArray) {
-		if (object = [QSObject fileObjectWithPath:loopItem])
+	NSMutableArray *fileObjectArray = [NSMutableArray array];
+	QSObject *object = nil;
+    for (NSString* loopItem in pathArray) {
+        if (object = [QSObject fileObjectWithPath:loopItem]) {
 			[fileObjectArray addObject:object];
-	}
+        }
+    };
 	return fileObjectArray;
 }
 
-+ (NSMutableArray *)fileObjectsWithURLArray:(NSArray *)pathArray {
-	NSMutableArray *fileObjectArray = [NSMutableArray arrayWithCapacity:[pathArray count]];
-	for (id loopItem in pathArray) {
-		[fileObjectArray addObject:[QSObject fileObjectWithPath:[loopItem path]]];
++ (NSMutableArray *)fileObjectsWithURLArray:(NSArray *)URLArray {
+	NSMutableArray *fileObjectArray = [NSMutableArray array];
+    QSObject *object = nil;
+    for (NSURL* loopItem in URLArray) {
+        if (object = [QSObject fileObjectWithFileURL:loopItem]) {
+            [fileObjectArray addObject:object];
+        }
 	}
 	return fileObjectArray;
 }
