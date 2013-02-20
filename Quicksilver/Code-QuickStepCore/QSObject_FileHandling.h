@@ -34,7 +34,7 @@
 + (QSObject *)fileObjectWithFileURL:(NSURL *)fileURL;
 + (QSObject *)fileObjectWithArray:(NSArray *)paths;
 + (NSArray *)fileObjectsWithPathArray:(NSArray *)pathArray;
-+ (NSMutableArray *)fileObjectsWithURLArray:(NSArray *)pathArray;
++ (NSMutableArray *)fileObjectsWithURLArray:(NSArray *)URLArray;
 - (id)initWithArray:(NSArray *)paths;
 - (void)getNameFromFiles;
 - (NSString *)kindOfFile:(NSString *)path;
