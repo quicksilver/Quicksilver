@@ -746,11 +746,8 @@ NSSize QSMaxIconSize;
     if (label)
         return label;
     
-    label = [meta objectForKey:kQSObjectAlternateName];
-    if (label)
-        return label;
-    
-    return nil;
+    label = [[meta objectForKey:kQSObjectAlternateName] retain];
+    return label;
 }
 
 - (void)setLabel:(NSString *)newLabel {
@@ -873,14 +870,15 @@ NSSize QSMaxIconSize;
             [self setIconLoaded:YES];
         }
 	}
+    if ([meta objectForKey:kQSObjectAlternateName])
+		[self setLabel:[meta objectForKey:kQSObjectAlternateName]];
     if ([meta objectForKey:kQSObjectPrimaryName])
         [self setName:[meta objectForKey:kQSObjectPrimaryName]];
 	if ([meta objectForKey:kQSObjectObjectID])
-		identifier = [[meta objectForKey:kQSObjectObjectID] retain];
+		[self setIdentifier:[meta objectForKey:kQSObjectObjectID]];
 	if ([meta objectForKey:kQSObjectPrimaryType])
-		primaryType = [[meta objectForKey:kQSObjectPrimaryType] retain];
-	if ([meta objectForKey:kQSObjectAlternateName])
-		label = [[meta objectForKey:kQSObjectAlternateName] retain];
+		[self setPrimaryType:[meta objectForKey:kQSObjectPrimaryType]];
+
 
 	[data removeObjectForKey:QSProcessType]; // Don't carry over process info
 }
