@@ -742,11 +742,9 @@ NSSize QSMaxIconSize;
 }
 
 - (NSString *)label {
-	// if (!label) return nil; //[self name];
-    if (label)
-        return label;
-    
-    label = [[meta objectForKey:kQSObjectAlternateName] retain];
+    if (!label) {
+        [self setLabel:[meta objectForKey:kQSObjectAlternateName]];
+    }
     return label;
 }
 
