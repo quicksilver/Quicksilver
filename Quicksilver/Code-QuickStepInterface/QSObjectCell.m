@@ -485,7 +485,7 @@
 		}
         
         // Ranked string and ranked string aren't the same. Show 'nameString  ⟷ rankedString' in the UI
-        if (!rankedStringIsLabel) {
+        if (!rankedStringIsLabel && [drawObject displayName].length) {
             [titleString addAttribute:NSFontAttributeName value:detailsFont range:NSMakeRange(0,[titleString length])];
             NSMutableAttributedString *attributedNameString = [[NSMutableAttributedString alloc] initWithString:[drawObject displayName]];
             [attributedNameString setAttributes:nameAttributes range:NSMakeRange(0, [[drawObject displayName] length])];
