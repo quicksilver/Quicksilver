@@ -30,7 +30,7 @@ my $debug;
 my $help;
 my $output;
 my $err;
-my $minVolSize = 5;   # minimum size of a dmg volume in MB
+my $minVolSize = 20;   # minimum size of a dmg volume in MB
 
 # determine the build directory, compression level, the list of files to copy, and the size of the dmg volume
 # from the environment unless set from the command line
@@ -117,7 +117,7 @@ unless ($volSize && ($volSize > 0)) {
     die "Couldn't determine the required space for the dmg: $@\n" if $@;
     
     ($volSize) = ($output =~ /\s*(\d+)\s+total\s*$/si);
-    $volSize = int $volSize * 1.5 / 1024 + 1;
+    $volSize = int $volSize * 2.0 / 1024 + 1;
     $volSize = $minVolSize if $volSize < $minVolSize;
 }
 
