@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSCommandExecuteAtTimeAction</key>
+    <string>一次执行一个命令</string>
+    <key>QSTextTypeAction</key>
+    <string>Type Text into active Application</string>
+    <key>QSCatalogEntryRescanAction</key>
+    <string>Rescan &amp; Reindex Catalog Entry</string>
+    <key>QSTextSpeakAction</key>
+    <string>Speak Text using Voiceover</string>
+    <key>FileMakeHardLinkInAction</key>
+    <string>Make a new Hard Link in a Folder</string>
+    <key>QSLoginItemAddAction</key>
+    <string>Add to List of Login Items</string>
+    <key>QSObjCSendMessageAction</key>
+    <string>运行Objective-C消息</string>
+    <key>FileGetHFSPathAction</key>
+    <string>Get Mac formatted HFS Path</string>
+    <key>QSObjectShowMenu</key>
+    <string>显示可用动作菜单</string>
+    <key>FileDeleteAction</key>
+    <string>Permanently Delete File</string>
+    <key>QSCommandAddTriggerAction</key>
+    <string>Add Command as Trigger</string>
+    <key>QSObjectShowChildMenu</key>
+    <string>Show Contents in a Menu</string>
+    <key>QSCommandExecuteAction</key>
+    <string>Run a Quicksilver Command</string>
+    <key>AppRelaunchAction</key>
+    <string>Relaunch Application</string>
+    <key>AppShowHideAction</key>
+    <string>Toggile Application visibility</string>
+    <key>QSLargeTypeAction</key>
+    <string>Show Text as Large Type</string>
+    <key>AppleScriptRunTextAction</key>
+    <string>Run Text as an AppleScript</string>
+    <key>PasteboardCopyAction</key>
+    <string>Copy Item to Clipboard</string>
+    <key>AppHideOthersAction</key>
+    <string>Hide all other Applications</string>
+    <key>QSTextShowDialogAction</key>
+    <string>在弹出对话框中显示文本</string>
+    <key>QSObjectShowChildrenAction</key>
+    <string>Open Contents of Item in Quicksilver</string>
+    <key>QSShellScriptRunAction</key>
+    <string>运行Shell脚本</string>
+    <key>QSObjectSelectAction</key>
+    <string>在Quicksilver界面中选取条目</string>
+    <key>FileGetInfoAction</key>
+    <string>Open &apos;Get Info&apos; Dialog for File</string>
+    <key>FileAlwaysOpenTypeWithAction</key>
+    <string>Set File Type to always open with one Application</string>
+    <key>QSCommandSaveAction</key>
+    <string>Save Quicksilver Command to a File</string>
+    <key>FileRenameAction</key>
+    <string>Rename a File</string>
+    <key>QSObjectSearchChildrenAction</key>
+    <string>Show Item Contents putting Quicksilver into Filter Mode</string>
+    <key>QSObjectAssignMnemonic</key>
+    <string>Assign a Search Abbreviation for the Item</string>
+    <key>AppleScriptOpenFilesAction</key>
+    <string>Execute an AppleScript with File</string>
+    <key>QSCatalogEntryShowAction</key>
+    <string>Show Catalog Entry in Catalog Preferences</string>
+    <key>QSObjectShowSourceAction</key>
+    <string>Show Source of Item in Catalog Preferences</string>
+    <key>QSCreateFileTemplate</key>
+    <string>Create a New File from a Template</string>
+    <key>QSCommandExecuteAfterDelayAction</key>
+    <string>Execute Quicksilver Command after Delay</string>
+    <key>FileMakeAliasInAction</key>
+    <string>Make a new Alias in a Folder</string>
+    <key>QSNewFolderAction</key>
+    <string>Create a New Folder with a Name</string>
+    <key>URLOpenWithAction</key>
+    <string>Open URL with an alternative Application</string>
+    <key>FileGetURLAction</key>
+    <string>Get file:// type URL for File</string>
+    <key>QSObjectShowActionMenu</key>
+    <string>Show Menu of available Actions</string>
+    <key>AppQuitOthersAction</key>
+    <string>Quit all other Applications</string>
+    <key>URLEmailAction</key>
+    <string>Compose an E-mail using mailto:</string>
+    <key>AppleScriptProcessTextAction</key>
+    <string>Execute an AppleScript with Text</string>
+    <key>FileToTrashAction</key>
+    <string>Move File to the Trash Folder</string>
+    <key>QSLoginItemRemoveAction</key>
+    <string>Remove from List of Login Items</string>
+    <key>AppActivateAction</key>
+    <string>激活程序</string>
+    <key>AppHideAction</key>
+    <string>隐藏程序</string>
+    <key>AppLaunchAction</key>
+    <string>加载程序</string>
+    <key>AppLaunchAgainAction</key>
+    <string>加载程序的另一个实例</string>
+    <key>AppOpenFileAction</key>
+    <string>选择文件打开</string>
+    <key>AppQuitAction</key>
+    <string>退出程序</string>
+    <key>AppReopenAction</key>
+    <string>重启程序</string>
+    <key>AppRootLaunchAction</key>
+    <string>以root用户打开程序</string>
+    <key>AppleScriptRunAction</key>
+    <string>执行AppleScript</string>
+    <key>ContactEditAction</key>
+    <string>编辑条目</string>
+    <key>ContactEmailAction</key>
+    <string>发送邮件给联系人</string>
+    <key>ContactIMAction</key>
+    <string>发送即时消息给联系人</string>
+    <key>ContactSendItemEmailAction</key>
+    <string>发送条目给联系人</string>
+    <key>ContactSendItemIMAction</key>
+    <string>用即时消息发送条目给联系人</string>
+    <key>ContactShowAction</key>
+    <string>在地址薄中显示联系人</string>
+    <key>DiskEjectAction</key>
+    <string>弹出磁盘</string>
+    <key>DiskForceEjectAction</key>
+    <string>强制弹出磁盘</string>
+    <key>FileCompressAction</key>
+    <string>压缩文件</string>
+    <key>FileCopyToAction</key>
+    <string>拷贝到其他位置</string>
+    <key>FileDecompressAction</key>
+    <string>解压缩文件</string>
+    <key>FileGetPathAction</key>
+    <string>使用~获取路径</string>
+    <key>FileGetPosixPathAction</key>
+    <string>获取绝对路径(无~)</string>
+    <key>FileMakeLinkInAction</key>
+    <string>在其他路径生成链接</string>
+    <key>FileMoveToAction</key>
+    <string>移动到其他目录</string>
+    <key>FileOpenAction</key>
+    <string>打开</string>
+    <key>FileOpenWithAction</key>
+    <string>使用程序打开</string>
+    <key>FileRevealAction</key>
+    <string>显示条目</string>
+    <key>ItemSendToContactEmailAction</key>
+    <string>邮件条目给联系人</string>
+    <key>ItemSendToContactIMAction</key>
+    <string>IM条目给联系人</string>
+    <key>PasteboardPasteAction</key>
+    <string>粘贴对象到当前程序</string>
+    <key>PasteboardPasteActionAsPlainText</key>
+    <string>粘贴对象为普通文本到当前程序</string>
+    <key>ProcessKillAction</key>
+    <string>强制退出程序</string>
+    <key>ProcessResumeAction</key>
+    <string>恢复挂起的进程</string>
+    <key>ProcessSuspendAction</key>
+    <string>挂起运行的进程</string>
+    <key>QSCreateFileAction</key>
+    <string>Create new file with text [... in folder]</string>
+    <key>QSDialNumberAction</key>
+    <string>拨号</string>
+    <key>QSEditAction</key>
+    <string>编辑</string>
+    <key>QSUserSwitchAction</key>
+    <string>切换用户</string>
+    <key>QSiTunesPlaylistPlayAction</key>
+    <string>从iTunes播放列表播放音乐</string>
+    <key>QSiTunesTrackPlayAction</key>
+    <string>播放iTunes曲目</string>
+    <key>QSShellScriptRunAction</key>
+    <string>运行Shell脚本</string>
+    <key>ShellScriptRunAction</key>
+    <string>执行Shell脚本</string>
+    <key>URLFindWithAction</key>
+    <string>查找...</string>
+    <key>URLJSAction</key>
+    <string>执行Javascript</string>
+    <key>URLOpenAction</key>
+    <string>打开URL</string>
+    <key>URLOpenActionInBackground</key>
+    <string>打开URL但不离开当前程序</string>
+    <key>URLSearchAction</key>
+    <string>搜索查询URL</string>
+    <key>URLSearchForAction</key>
+    <string>在查询URL中搜索文本</string>
+  </dict>
+</plist>

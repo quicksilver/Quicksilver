@@ -1,0 +1,20 @@
+"QSShowTaskViewerAutomatically:title" = "Show the Task Viewer automatically when tasks are created";
+"Hide Other Apps When Switching:title" = "Hide other applications when switching applications (shift prevents)";
+
+"Multithreaded Execute:title" = "Run tasks and actions in the background";
+
+"QSActionAppReopenBehavior:title" = "Reopening the current application";
+"QSActionAppReopenBehavior:activates the application" = "activates the application";
+"QSActionAppReopenBehavior:shows the front window" = "shows the front window";
+"QSActionAppReopenBehavior:shows all windows" = "shows all windows";
+
+"QSUpdateReleaseLevel:title" = "Application Update Type";
+"QSUpdateReleaseLevel:Final Releases" = "Final Releases";
+"QSUpdateReleaseLevel:Prerelease Candidates" = "Prerelease Candidates";
+"QSUpdateReleaseLevel:Developer Previews" = "Developer Previews";
+
+"Shift Actions:title" = "Allow capitalized keys to select the action";
+
+"Suppress HotKeys in Command:title" = "Disable Trigger HotKeys when Quicksilver is focused";
+
+"Double Delete Clears Object:title" = "Pressing the Delete key twice clears the current object";
