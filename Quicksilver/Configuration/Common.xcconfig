@@ -15,11 +15,6 @@ INFOPLIST_PREPROCESS = YES
 
 FRAMEWORK_SEARCH_PATHS = /System/Library/PrivateFrameworks $(BUILT_PRODUCTS_DIR)
 
-//GCC_VERSION = com.apple.compilers.llvmgcc42
-
-// Disabled for now, plugins get angry
-//GCC_ENABLE_OBJC_GC = supported
-
 GCC_C_LANGUAGE_STANDARD = c99
 
 GCC_ENABLE_OBJC_EXCEPTIONS = YES
@@ -36,3 +31,19 @@ GCC_PREFIX_HEADER = $(QS_BUILD_ROOT)/Configuration/Quicksilver.pch
 
 GCC_WARN_ABOUT_RETURN_TYPE = YES
 GCC_WARN_UNUSED_VARIABLE = YES
+
+GCC_VERSION = com.apple.compilers.llvm.clang.1_0
+
+ALWAYS_SEARCH_USER_PATHS = NO
+
+PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES  // If you get lotsa "Duplicate interface definition" errors from "Core Support" when you are building with Clang, then edit the
+// "Core Support" target build settings and override the "PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR" setting from the
+// Build Settings dialog and set it to NO (the name of the build settings should turn bold indicating its overiding something).
+
+
+// Xcode 4.3 recommendations
+CLANG_WARN_CONSTANT_CONVERSION = YES
+CLANG_WARN_ENUM_CONVERSION = YES
+CLANG_WARN_INT_CONVERSION = YES
+CLANG_WARN__DUPLICATE_METHOD_MATCH = YES
+GCC_WARN_UNINITIALIZED_AUTOS = YES
