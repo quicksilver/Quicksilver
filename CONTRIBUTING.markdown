@@ -1,12 +1,12 @@
 # Issues
 
-If you are having a problem with Quicksilver, before creating an issue please consider checking the following places before creating a new issue:
+If you are having a problem with Quicksilver, before creating an issue please consider checking the following places:
 
 * The [Quicksilver Wiki](http://qsapp.com/wiki) (more importantly the [FAQ](http://qsapp.com/wiki/FAQ))
 * Search [previous issues](http://github.com/quicksilver/quicksilver/issues) created on the issue tracker
 * Search previous posts on the [Quicksilver Forum](https://groups.google.com/forum/?fromgroups#!forum/blacktree-quicksilver).
 
-If the issue is related to a plugin, be sure to read the plugin documentation before posting. To open a plugin's documentation, select it in the [Plugins Preferences](http://qs.qsapp.com/plugins), then select the '?' button in the bottom right hand corner (or use the ⌘⌥? shortcut).
+If the issue is related to a plugin, be sure to read the plugin documentation. Open a plugin's documentation by selecting it in the [Plugins Preferences](http://qs.qsapp.com/plugins), then clicking the '?' button in the bottom right hand corner (or use the ⌘⌥? shortcut).
 
 
 # Contributing
