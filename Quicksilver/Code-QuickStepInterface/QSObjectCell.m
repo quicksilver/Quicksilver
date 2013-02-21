@@ -443,7 +443,7 @@
         }
         
 		if (!nameString) nameString = [drawObject displayName];
-        BOOL rankedStringIsLabel = [nameString isEqualToString:[drawObject displayName]] || nameString == nil;
+        BOOL rankedStringIsName = [nameString isEqualToString:[drawObject displayName]] || nameString == nil;
         if (!nameString) {
             // fall back to the identifier if no reasonable name can be found
             nameString = [drawObject identifier];
@@ -458,11 +458,11 @@
 		NSRect textDrawRect = [self titleRectForBounds:cellFrame];
         
 		NSMutableAttributedString *titleString = [[[NSMutableAttributedString alloc] initWithString:nameString] autorelease];
-        [titleString setAttributes:rankedStringIsLabel ? nameAttributes : detailsAttributes range:NSMakeRange(0, [titleString length])];
+        [titleString setAttributes:rankedStringIsName ? nameAttributes : detailsAttributes range:NSMakeRange(0, [titleString length])];
         
         
 		if (abbreviationString && ![abbreviationString hasPrefix:@"QSActionMnemonic"]) {
-			[titleString addAttribute:NSForegroundColorAttributeName value:rankedStringIsLabel ? fadedColor : [fadedColor colorWithAlphaComponent:0.8] range:NSMakeRange(0, [titleString length])];
+			[titleString addAttribute:NSForegroundColorAttributeName value:rankedStringIsName ? fadedColor : [fadedColor colorWithAlphaComponent:0.8] range:NSMakeRange(0, [titleString length])];
             
 			// Organise displaying the text, underlining the letters typed (in the name)
 			NSUInteger i = 0;
@@ -470,8 +470,8 @@
 			NSUInteger hits[[titleString length]];
 			NSUInteger count = [hitMask getIndexes:(NSUInteger *)&hits maxCount:[titleString length] inIndexRange:nil];
 			NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        rankedStringIsLabel ? mainColor : fadedColor, NSForegroundColorAttributeName,
-                                        rankedStringIsLabel ? mainColor : fadedColor, NSUnderlineColorAttributeName,
+                                        rankedStringIsName ? mainColor : fadedColor, NSForegroundColorAttributeName,
+                                        rankedStringIsName ? mainColor : fadedColor, NSUnderlineColorAttributeName,
                                         [NSNumber numberWithInteger:2.0] , NSUnderlineStyleAttributeName,
                                         [NSNumber numberWithDouble:1.0] , NSBaselineOffsetAttributeName,
                                         nil];
@@ -484,8 +484,8 @@
 			[titleString addAttribute:NSBaselineOffsetAttributeName value:[NSNumber numberWithDouble:-1.0] range:NSMakeRange(0, [titleString length])];
 		}
         
-        // Ranked string and ranked string aren't the same. Show 'nameString  ⟷ rankedString' in the UI
-        if (!rankedStringIsLabel && [drawObject displayName].length) {
+        // Ranked string and nameString aren't the same. Show 'nameString  ⟷ rankedString' in the UI
+        if (!rankedStringIsName && [drawObject displayName].length) {
             [titleString addAttribute:NSFontAttributeName value:detailsFont range:NSMakeRange(0,[titleString length])];
             NSMutableAttributedString *attributedNameString = [[NSMutableAttributedString alloc] initWithString:[drawObject displayName]];
             [attributedNameString setAttributes:nameAttributes range:NSMakeRange(0, [[drawObject displayName] length])];
