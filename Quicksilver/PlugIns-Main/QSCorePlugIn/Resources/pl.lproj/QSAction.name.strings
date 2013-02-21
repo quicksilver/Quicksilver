@@ -3,7 +3,7 @@
 <plist version="1.0">
   <dict>
     <key>AppActivateAction</key>
-    <string>Aktywuj</string>
+    <string>Uaktywnij</string>
     <key>AppHideAction</key>
     <string>Ukryj</string>
     <key>AppHideOthersAction</key>
@@ -41,7 +41,7 @@
     <key>ContactIMAction</key>
     <string>Osoba IM</string>
     <key>ContactSendItemEmailAction</key>
-    <string>Wyślij mail z ...</string>
+    <string>Wyślij mail z...</string>
     <key>ContactSendItemIMAction</key>
     <string>Wyślij IM z tekstem...</string>
     <key>ContactSendTextEmailAction</key>
