@@ -107,11 +107,6 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 		NSString *source = @"Clipboard";
 		if (pasteboard == [NSPasteboard generalPasteboard])
 			source = [[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationBundleIdentifier"];
-		if ([source isEqualToString: @"com.microsoft.RDC"]) {
-			NSLog(@"Ignoring RDC Clipboard");
-			[self release];
-			return nil;
-		}
 
 		[self setDataDictionary:[NSMutableDictionary dictionaryWithCapacity:[[pasteboard types] count]]];
 		[self addContentsOfPasteboard:pasteboard types:types];
