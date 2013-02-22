@@ -684,6 +684,7 @@ NSSize QSMaxIconSize;
             [identifier release];
             identifier = nil;
         } else if (identifier == nil) {
+            flags.noIdentifier = NO;
             [objectDictionary setObject:self forKey:newIdentifier];
             [meta setObject:newIdentifier forKey:kQSObjectObjectID];
             identifier = [newIdentifier retain];
