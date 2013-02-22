@@ -274,6 +274,10 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 - (BOOL)isRecommended
 {
+    // don't recommend if obsolete
+    if ([self isObsolete]) {
+        return NO;
+    }
 	// explicitly recommended
 	if ([[[self info] valueForKeyPath:@"QSPlugIn.recommended"] boolValue]) {
 		return YES;

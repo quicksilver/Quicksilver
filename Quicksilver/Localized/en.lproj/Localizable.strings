@@ -47,8 +47,6 @@
 "An error has occured" = "An error has occured";
 "Quicksilver must be relaunched to regain stability." = "Quicksilver must be relaunched to regain stability.";
 
-"Running from a new location" = "Running from a new location";
-"The previous version of Quicksilver was located in \"%@\". Would you like to move this new version to that location?" = "The previous version of Quicksilver was located in \"%@\". Would you like to move this new version to that location?";
 "Move and Relaunch" = "Move and Relaunch";
 "Don't Move" = "Don't Move";
 
