@@ -354,10 +354,10 @@
 				[predicates addObject:[NSPredicate predicateWithFormat:@"isRecommended == YES"]];
 				break;
 			case 3: //All
-				[predicates addObject:[NSPredicate predicateWithFormat:@"1 == 1"]];
+				[predicates addObject:[NSPredicate predicateWithFormat:@"isObsolete == NO"]];
 				break;
 			case 4: //UnInstalled
-				[predicates addObject:[NSPredicate predicateWithFormat:@"isInstalled <= 0"]];
+				[predicates addObject:[NSPredicate predicateWithFormat:@"isInstalled <= 0 && isObsolete == NO"]];
 				break;
 			case 5: //Installed, but disabled (either by the user or some error loading)
 				[predicates addObject:[NSPredicate predicateWithFormat:@"isInstalled == 1 && isLoaded == 0"]];
