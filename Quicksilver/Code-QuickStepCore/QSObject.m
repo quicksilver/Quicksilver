@@ -936,6 +936,16 @@ NSSize QSMaxIconSize;
 		[self setIcon:[[[NSImage alloc] initWithPasteboard:(NSPasteboard *)self] autorelease]];
 	}
     
+    // try and get an image from the QSTypeDefinitions dict
+    namedIcon = [[[QSReg tableNamed:@"QSTypeDefinitions"] objectForKey:[self primaryType]] objectForKey:@"icon"];
+    if (namedIcon) {
+        NSImage *image = [QSResourceManager imageNamed:namedIcon];
+        if (image) {
+            [self setIcon:image];
+            return YES;
+        }
+    }
+    
 	// file type for sound clipping: clps
 	if (![self icon]) {
 		[self setIcon:[QSResourceManager imageNamed:@"GenericQuestionMarkIcon"]];
