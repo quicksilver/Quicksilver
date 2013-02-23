@@ -184,7 +184,6 @@ typedef enum QSSearchMode {
 
 - (void)setVisibleString:(NSString *)string;
 - (NSString *)visibleString;
-- (void)setVisibleString:(NSString *)newVisibleString;
 
 /*!
  @handleChangeSearchModeEvent

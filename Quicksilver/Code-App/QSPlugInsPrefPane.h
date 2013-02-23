@@ -55,11 +55,9 @@
 - (NSString *)category;
 - (void)setCategory:(NSString *)newCategory;
 
-- (void)reloadPlugInsList:(NSNotification *)notif;
 - (void)reloadFilters;
 - (NSArray *)selectedPlugIns;
 
-- (void)setViewMode:(NSInteger)newViewMode;
 - (void)reloadFiltersIgnoringViewMode:(BOOL)ignoreView;
 
 - (id)preferencesSplitView;
