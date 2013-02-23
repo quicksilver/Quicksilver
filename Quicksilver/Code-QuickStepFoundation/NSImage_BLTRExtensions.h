@@ -15,7 +15,7 @@
 #define QSSize48 NSMakeSize(48, 48)
 #define QSSize128 NSMakeSize(128, 128)
 #define QSSize256 NSMakeSize(256, 256)
-
+#define QSSizeMax NSMakeSize(1024, 1024)
 
 @interface NSImage (Dragging)
 

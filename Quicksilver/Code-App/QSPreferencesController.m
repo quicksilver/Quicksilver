@@ -150,7 +150,6 @@ id QSPrefs;
 		NSString *imageName = [paneInfo objectForKey:@"icon"];
 		NSImage *image = [[QSResourceManager imageNamed:imageName] copy];
 		if (image) {
-			[image createIconRepresentations];
 			[paneInfo setObject:image forKey:@"image"];
 		}
 		[image release];

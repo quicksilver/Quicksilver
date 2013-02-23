@@ -113,9 +113,10 @@ static inline NSInteger get_bit(unsigned char *arr, unsigned long bit_num) {
 }
 
 - (BOOL)createIconRepresentations {
-	[self createRepresentationOfSize:NSMakeSize(128, 128)];
-	[self createRepresentationOfSize:NSMakeSize(32, 32)];
-	[self createRepresentationOfSize:NSMakeSize(16, 16)];
+	[self createRepresentationOfSize:QSSize256];
+	[self createRepresentationOfSize:QSSize128];
+	[self createRepresentationOfSize:QSSize32];
+	[self createRepresentationOfSize:QSSize16];
 	return YES;
 }
 
@@ -178,9 +179,7 @@ static inline NSInteger get_bit(unsigned char *arr, unsigned long bit_num) {
 }
 
 - (BOOL)shrinkToSize:(NSSize)newSize {
-	[self createRepresentationOfSize:newSize];
 	[self setSize:newSize];
-	[self removeRepresentationsLargerThanSize:newSize];
 	return YES;
 }
 

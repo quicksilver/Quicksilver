@@ -70,7 +70,7 @@
 
 - (BOOL)applyIconToMenuItem:(NSMenuItem *)item {
 	NSImage *iconCopy = [[[self icon] copy] autorelease];
-	[iconCopy setSize:NSMakeSize(16, 16)];
+	[iconCopy setSize:QSSize16];
 	[item setImage:iconCopy];
 	return YES;
 }
@@ -170,7 +170,7 @@
 			NSArray *componentArray = [[action name] componentsSeparatedByString:@"/"];
 			[action loadIcon];
 			NSImage *iconCopy = [[[action icon] copy] autorelease];
-			[iconCopy setSize:NSMakeSize(16, 16)];
+			[iconCopy setSize:QSSize16];
 
 			id command = [QSCommand commandWithDirectObject:self actionObject:action indirectObject:nil];
 			if ([componentArray count] >1) {

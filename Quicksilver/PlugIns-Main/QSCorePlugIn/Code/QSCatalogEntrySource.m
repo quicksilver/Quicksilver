@@ -27,7 +27,6 @@ static NSImage *prefsCatalogImage = nil;
 + (void)initialize {
 	if (prefsCatalogImage == nil) {
 		prefsCatalogImage = [[QSResourceManager imageNamed:@"prefsCatalog"] retain];
-		[prefsCatalogImage createIconRepresentations];
 	}
 }
 
