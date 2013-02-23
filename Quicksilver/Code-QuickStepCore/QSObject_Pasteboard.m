@@ -104,9 +104,16 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 	if (self = [self init]) {
 		if (!types) types = [pasteboard types];
 
-		NSString *source = @"Clipboard";
-		if (pasteboard == [NSPasteboard generalPasteboard])
-			source = [[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationBundleIdentifier"];
+		NSString *source = nil;
+        NSString *sourceApp = nil;
+        NSRunningApplication *currApp = [[NSWorkspace sharedWorkspace] frontmostApplication];
+		if (pasteboard == [NSPasteboard generalPasteboard]) {
+			source = [currApp bundleIdentifier];
+            sourceApp = [currApp localizedName];
+        } else {
+            source =  @"Clipboard";
+            sourceApp = source;
+        }
 
 		[self setDataDictionary:[NSMutableDictionary dictionaryWithCapacity:[[pasteboard types] count]]];
 		[self addContentsOfPasteboard:pasteboard types:types];
@@ -132,9 +139,16 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 		if ([self objectForType:kQSObjectPrimaryName])
 			[self setName:[self objectForType:kQSObjectPrimaryName]];
 		else {
-			[self setName:NSLocalizedString(@"Unknown Clipboard Object", @"Name for an unknown clipboard object")];
 			[self guessName];
 		}
+        if (![self name]) {
+            if ([self details]) {
+                [self setName:[NSString stringWithFormat:NSLocalizedString(@"%@ from %@",@"Details of unknown clipboard objects. Of the form 'Data from Application'. E.g. 'TIFF Image from Microsoft Word'"),[self details],sourceApp]];
+            } else {
+                [self setName:NSLocalizedString(@"Unknown Clipboard Object", @"Name for an unknown clipboard object")];
+            }
+
+        }
 		[self loadIcon];
 	}
 	return self;
@@ -157,14 +171,22 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 		[self getNameFromFiles];
 	} else {
         // Sometimes no dataForType:NSStringPboardType exists, so fall back to using the word "text" (avoids a crash)
-        NSString *textString = [itemForKey(NSStringPboardType) stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSString *textString = itemForKey(NSStringPboardType);
+        // some objects (images from the web) don't have a text string but have a URL
         if (!textString) {
-            textString = NSLocalizedString(@"Text", @"Name of text object");
+            textString = itemForKey(NSURLPboardType);
         }
-
+        textString = [textString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
+        NSArray *keys = [NSArray arrayWithObjects:[@"'icns'" encodedPasteboardType],NSPostScriptPboardType,NSTIFFPboardType,NSColorPboardType,NSFileContentsPboardType,NSFontPboardType,NSPasteboardTypeRTF,NSHTMLPboardType,NSRulerPboardType,NSTabularTextPboardType,NSVCardPboardType,NSFilesPromisePboardType,NSPDFPboardType,nil];
+        
 		NSDictionary *namesAndKeys = [NSDictionary dictionaryWithObjectsAndKeys:
-                                      textString,                                                                           NSStringPboardType,
+                                      textString ? textString : @"",                                                                           NSStringPboardType,
                                       NSLocalizedString(@"PDF Image", @"Name of PDF image "),                               NSPDFPboardType,
+                                      NSLocalizedString(@"PNG Image", @"Name of a PNG image object"),
+                                      NSPasteboardTypePNG,
+                                      NSLocalizedString(@"RTF Text", @"NAme of a RTF text object"),
+                                      NSPasteboardTypeRTF,
                                       NSLocalizedString(@"Finder Icon", @"Name of icon file object"),                       [@"'icns'" encodedPasteboardType],
                                       NSLocalizedString(@"PostScript Image", @"Name of PostScript image object"),           NSPostScriptPboardType,
                                       NSLocalizedString(@"TIFF Image", @"Name of TIFF image object"),                       NSTIFFPboardType,
@@ -178,9 +200,12 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
                                       NSLocalizedString(@"Promised Files", @"Name of Promised files object"),               NSFilesPromisePboardType,
                                       nil];
 
-        for (NSString *key in [namesAndKeys allKeys]) {
+        for (NSString *key in keys) {
 			if (itemForKey(key) ) {
-				[self setName:[namesAndKeys objectForKey:key]];
+                [self setDetails:[namesAndKeys objectForKey:key]];
+                [self setPrimaryType:key];
+                [self setName:textString];
+                [self setIdentifier:[NSString stringWithFormat:@"%@:%@",key,[NSString uniqueString]]];
                 break;
             }
 		}
