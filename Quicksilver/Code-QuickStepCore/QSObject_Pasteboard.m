@@ -185,7 +185,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
                                       NSLocalizedString(@"PDF Image", @"Name of PDF image "),                               NSPDFPboardType,
                                       NSLocalizedString(@"PNG Image", @"Name of a PNG image object"),
                                       NSPasteboardTypePNG,
-                                      NSLocalizedString(@"RTF Text", @"NAme of a RTF text object"),
+                                      NSLocalizedString(@"RTF Text", @"Name of a RTF text object"),
                                       NSPasteboardTypeRTF,
                                       NSLocalizedString(@"Finder Icon", @"Name of icon file object"),                       [@"'icns'" encodedPasteboardType],
                                       NSLocalizedString(@"PostScript Image", @"Name of PostScript image object"),           NSPostScriptPboardType,
