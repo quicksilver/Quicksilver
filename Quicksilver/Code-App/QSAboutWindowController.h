@@ -8,10 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface QSAboutWindowController : NSWindowController 
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1060
-<NSWindowDelegate> 
-#endif
+@interface QSAboutWindowController : NSWindowController <NSWindowDelegate>
 {
 	IBOutlet id creditsView;
 	BOOL showCredits;

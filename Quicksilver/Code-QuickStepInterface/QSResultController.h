@@ -4,10 +4,7 @@
 
 @class QSObjectView, QSSearchObjectView;
 
-@interface QSResultController : NSWindowController
-#if (MAC_OS_X_VERSION_MAX_ALLOWED >= 1060)
-   <NSTableViewDataSource>
-#endif
+@interface QSResultController : NSWindowController <NSTableViewDataSource>
 {
  @public
 	IBOutlet NSTextField *	searchStringField;	// What the user types when searching (seen in the results view)

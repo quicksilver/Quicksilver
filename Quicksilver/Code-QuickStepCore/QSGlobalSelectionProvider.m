@@ -79,36 +79,27 @@
 - (void)invokeService {
     @autoreleasepool {
         pid_t pid = [[[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationProcessIdentifier"] integerValue];
-        if ([NSApplication isLion]) {
-            //AXUIElement* is unable to post keys into sandboxed app since 10.7, use Quartz Event Services instead
-            ProcessSerialNumber psn;
-            BOOL usePID = GetProcessForPID(pid, &psn) == 0;
-            CGEventSourceRef source = CGEventSourceCreate(kCGEventSourceStatePrivate);
-            CGEventRef keyDown = CGEventCreateKeyboardEvent (source, (CGKeyCode)53, true); //Escape
-            CGEventSetFlags(keyDown, kCGEventFlagMaskCommand);
-            if (usePID) {
-                CGEventPostToPSN(&psn, keyDown);
-            } else {
-                CGEventPost(kCGHIDEventTap, keyDown);
-            }
-            CGEventRef keyUp = CGEventCreateKeyboardEvent (source, (CGKeyCode)53, false); //Escape
-            CGEventSetFlags(keyUp, kCGEventFlagMaskCommand);
-            if (usePID) {
-                CGEventPostToPSN(&psn, keyUp);
-            } else {
-                CGEventPost(kCGHIDEventTap, keyUp);
-            }
-            CFRelease(keyDown);
-            CFRelease(keyUp);
-            CFRelease(source);
-        } else { // 10.6 method (apps don't lose focus when service is invoked)
-            AXUIElementRef app = AXUIElementCreateApplication (pid);
-            AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)55, true ); //Command
-            AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)53, true ); //Escape
-            AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)53, false ); //Escape
-            AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)55, true ); //Command
-            CFRelease( app );
+        //AXUIElement* is unable to post keys into sandboxed app since 10.7, use Quartz Event Services instead
+        ProcessSerialNumber psn;
+        BOOL usePID = GetProcessForPID(pid, &psn) == 0;
+        CGEventSourceRef source = CGEventSourceCreate(kCGEventSourceStatePrivate);
+        CGEventRef keyDown = CGEventCreateKeyboardEvent (source, (CGKeyCode)53, true); //Escape
+        CGEventSetFlags(keyDown, kCGEventFlagMaskCommand);
+        if (usePID) {
+            CGEventPostToPSN(&psn, keyDown);
+        } else {
+            CGEventPost(kCGHIDEventTap, keyDown);
         }
+        CGEventRef keyUp = CGEventCreateKeyboardEvent (source, (CGKeyCode)53, false); //Escape
+        CGEventSetFlags(keyUp, kCGEventFlagMaskCommand);
+        if (usePID) {
+            CGEventPostToPSN(&psn, keyUp);
+        } else {
+            CGEventPost(kCGHIDEventTap, keyUp);
+        }
+        CFRelease(keyDown);
+        CFRelease(keyUp);
+        CFRelease(source);
     }
 }
 

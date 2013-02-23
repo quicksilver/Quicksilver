@@ -3,10 +3,7 @@
 #import <AppKit/AppKit.h>
 
 @class QSTableView;
-@protocol QSTableViewDelegate 
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1060
-<NSTableViewDelegate>
-#endif
+@protocol QSTableViewDelegate <NSTableViewDelegate>
 
 @optional
 - (BOOL)tableView:(QSTableView *)aTableView shouldDrawRow:(NSInteger)rowIndex inClipRect:(NSRect)clipRect;
@@ -16,10 +13,7 @@
 - (void)drawSeparatorForRow:(NSInteger)rowIndex clipRect:(NSRect)clipRect;
 @end
 
-@protocol QSTableViewDataSource 
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1060
-<NSTableViewDataSource>
-#endif
+@protocol QSTableViewDataSource <NSTableViewDataSource>
 
 @optional
 - (void)tableView:(QSTableView *)aTableView dropEndedWithOperation:(NSDragOperation)operation;

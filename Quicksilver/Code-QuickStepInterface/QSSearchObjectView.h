@@ -18,12 +18,7 @@ typedef enum QSSearchMode {
 } QSSearchMode;
 
 @class QSResultController;
-@interface QSSearchObjectView : QSObjectView <NSTextInput
-#if (MAC_OS_X_VERSION_MAX_ALLOWED >= 1060)
-// NSTextViewDelegate for the NSTextView (the text mode view) as used in transmogrifyWithText:(NSString *)string
-	, NSTextViewDelegate
-#endif
-> 
+@interface QSSearchObjectView : QSObjectView <NSTextInput, NSTextViewDelegate> 
 {
     // the text mode text editor object
     NSTextView *textModeEditor;

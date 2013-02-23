@@ -9,10 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface QSSimpleWebWindowController : NSWindowController 
-#if (MAC_OS_X_VERSION_MAX_ALLOWED >= 1060)
-   <NSToolbarDelegate>
-#endif
+@interface QSSimpleWebWindowController : NSWindowController <NSToolbarDelegate>
 {
 
 }

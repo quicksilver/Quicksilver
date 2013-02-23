@@ -8,10 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface QSDropletApplication : NSApplication 
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1060
-   <NSApplicationDelegate>
-#endif
+@interface QSDropletApplication : NSApplication <NSApplicationDelegate>
 {}
 - (BOOL)executeCommandWithPasteboard:(NSPasteboard *)pb;
 - (void)resetTerminateDelay;
