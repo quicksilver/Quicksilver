@@ -2082,6 +2082,13 @@
 				<key>name</key>
 				<string>Text</string>
 			</dict>
+			<key>public.rtf</key>
+			<dict>
+				<key>icon</key>
+				<string>ClippingText</string>
+				<key>name</key>
+				<string>RTF Text</string>
+			</dict>
 			<key>NSFilenamesPboardType</key>
 			<dict>
 				<key>icon</key>
