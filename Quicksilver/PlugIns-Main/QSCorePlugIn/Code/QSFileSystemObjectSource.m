@@ -109,7 +109,7 @@
 	BOOL isDirectory, exists;
 	exists = [manager fileExistsAtPath:path isDirectory:&isDirectory];
 	NSImage *theImage = (exists?[workspace iconForFile:path] : [NSImage imageNamed:@"Question"]);
-	[theImage setSize:NSMakeSize(16, 16)];
+	[theImage setSize:QSSize16];
 	return theImage;
 	// [aCell setTextColor:(exists?[NSColor blackColor] :[NSColor grayColor])];
 }

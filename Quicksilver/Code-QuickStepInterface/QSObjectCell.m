@@ -63,6 +63,7 @@
 		[self setState:NSOffState];
 		[self setImagePosition:-1];
 		[self setRepresentedObject:nil];
+        [self setImageScaling:NSImageScaleProportionallyUpOrDown];
 		// NSLog(@"%d pos", [self imagePosition]);
 		//[self setFormatter:[[[QSObjectFormatter alloc] init] autorelease]];
 		// [self setShowsBorderOnlyWhileMouseInside:YES];
@@ -320,8 +321,9 @@
 		if ([self isBezeled] && [self hasBadge])
 			size.width += 16;
 		// ***warning  *this should change based on the badge
-	} else
+	} else {
 		size.width = 128;
+    }
 
 	return size;
 
@@ -343,7 +345,7 @@
 
 	  if (isFirstResponder && [controlView isKindOfClass:[QSSearchObjectView class]]) {
 		  NSImage *find = [NSImage imageNamed:@"Find"];
-		  [find setSize:NSMakeSize(128, 128)];
+		  [find setSize:QSSizeMax];
 		  NSRect findImageRect = fitRectInRect(rectFromSize([find size]), cellFrame, 0);
 
 		  if (NSHeight(findImageRect) >= 64) {
@@ -594,7 +596,7 @@
 				NSArray *componentArray = [[action name] componentsSeparatedByString:@"/"];
         [action loadIcon];
 				NSImage *icon = [[[action icon] copy] autorelease];
-				[icon setSize:NSMakeSize(16, 16)];
+				[icon setSize:QSSize16];
 
 				id command = [QSCommand commandWithDirectObject:object actionObject:action indirectObject:nil];
 				// NSLog(@"%@", command);

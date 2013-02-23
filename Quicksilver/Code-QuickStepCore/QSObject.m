@@ -39,7 +39,7 @@ NSSize QSMaxIconSize;
 @implementation QSObject
 + (void)initialize {
 	if (!QSObjectInitialized) {
-		QSMaxIconSize = NSMakeSize(128, 128);
+		QSMaxIconSize = QSSizeMax;
 		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 		[nc addObserver:self selector:@selector(interfaceChanged) name:QSInterfaceChangedNotification object:nil];
 		[nc addObserver:self selector:@selector(purgeOldImagesAndChildren) name:QSReleaseOldCachesNotification object:nil];
@@ -51,15 +51,6 @@ NSSize QSMaxIconSize;
 		objectDictionary = [[NSMutableDictionary alloc] init]; // initWithCapacity:100]; formerly for these three
 		iconLoadedSet = [[NSMutableSet alloc] init];
 		childLoadedSet = [[NSMutableSet alloc] init];
-
-		[[NSImage imageNamed:@"Question"] createIconRepresentations];
-
-		[[NSImage imageNamed:@"ContactAddress"] createRepresentationOfSize:NSMakeSize(16, 16)];
-		[[NSImage imageNamed:@"ContactPhone"] createRepresentationOfSize:NSMakeSize(16, 16)];
-		[[NSImage imageNamed:@"ContactEmail"] createRepresentationOfSize:NSMakeSize(16, 16)];
-
-		[[NSImage imageNamed:@"defaultAction"] createIconRepresentations];
-
 		QSObjectInitialized = YES;
 	}
 }
@@ -141,7 +132,7 @@ NSSize QSMaxIconSize;
 }
 
 + (void)interfaceChanged {
-	QSMaxIconSize = [(QSInterfaceController *)[[NSApp delegate] interfaceController] maxIconSize];
+	//QSMaxIconSize = [(QSInterfaceController *)[[NSApp delegate] interfaceController] maxIconSize];
 	[self purgeAllImagesAndChildren];
 	// if (VERBOSE) NSLog(@"newsize %f", QSMaxIconSize.width);
 }
@@ -937,10 +928,6 @@ NSSize QSMaxIconSize;
     
 	if ([IMAGETYPES intersectsSet:[NSSet setWithArray:[data allKeys]]]) {
 		[self setIcon:[[[NSImage alloc] initWithPasteboard:(NSPasteboard *)self] autorelease]];
-		[[self icon] createIconRepresentations];
-        
-		[[self icon] createRepresentationOfSize:NSMakeSize(128, 128)];
-        
 	}
     
 	// file type for sound clipping: clps
