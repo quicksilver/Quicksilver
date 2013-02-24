@@ -523,20 +523,17 @@
 }
 
 - (void)drawObjectImage:(QSObject *)drawObject inRect:(NSRect)drawingRect cellFrame:(NSRect)cellFrame controlView:(NSView *)controlView flipped:(BOOL)flipped opacity:(CGFloat)opacity {
-	NSImage *icon = [[[drawObject icon] retain] autorelease];
+    [drawObject retain];
+	NSImage *icon = [[drawObject icon] copy];
 	NSImage *cornerBadge = nil;
 	// NSLog(@"icon");
 	BOOL proxyDraw = [[icon name] isEqualToString:QSDirectObjectIconProxy];
 	if (proxyDraw) {
 		if ([controlView isKindOfClass:[QSSearchObjectView class]]) {
-			cornerBadge = [[[(QSSearchObjectView *)controlView directSelector] objectValue] icon];
-			icon = [QSResourceManager imageNamed:@"defaultAction"];
-		} else {
-			icon = [QSResourceManager imageNamed:@"defaultAction"];
+			cornerBadge = [[[[(QSSearchObjectView *)controlView directSelector] objectValue] icon] copy];
 		}
+        icon = [[QSResourceManager imageNamed:@"defaultAction"] copy];
 	}
-	// NSRect imageRect = rectFromSize([icon size]);
-
 
 	BOOL handlerDraw = NO;
 	if (NSWidth(drawingRect) >64)
@@ -569,6 +566,9 @@
 			}
 		}
 	}
+    [icon release];
+    [cornerBadge release];
+    [drawObject release];
 }
 
 - (NSMenu *)menu {
