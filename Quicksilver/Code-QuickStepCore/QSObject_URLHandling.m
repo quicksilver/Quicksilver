@@ -100,7 +100,7 @@
     
     [webSearchImage setName:@"Web Search Icon"];
 
-    [object updateIcon:webSearchImage];
+    [object setIcon:webSearchImage];
 }
 
 #pragma mark image handling
@@ -136,9 +136,7 @@
     
 	// For search URLs
 	if([object containsType:QSSearchURLType]) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            [self buildWebSearchIconForObject:object];
-        });
+        [self buildWebSearchIconForObject:object];
 		return YES;
 	}
 	

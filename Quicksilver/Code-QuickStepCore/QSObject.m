@@ -920,8 +920,14 @@ NSSize QSMaxIconSize;
 	}
 
 	id handler = nil;
-	if (handler = [self handlerForSelector:@selector(loadIconForObject:)])
-		return [handler loadIconForObject:self];
+	if (handler = [self handlerForSelector:@selector(loadIconForObject:)]) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            // loadIconForObject returns a BOOL, but we can't return it from here
+            // nothing ever checks the return from loadIcon anyway
+            [handler loadIconForObject:self];
+        });
+        return YES;
+    }
 
 	//// if ([primaryType hasPrefix:@"QSCsontact"])
 	//	 return NO;
@@ -976,16 +982,21 @@ NSSize QSMaxIconSize;
 
 - (void)setIcon:(NSImage *)newIcon {
 	if (newIcon != icon) {
+        BOOL iconChange = (icon != nil && newIcon != nil);
 		[icon release];
 		icon = [newIcon retain];
 		[icon setCacheMode:NSImageCacheNever];
+        if (iconChange) {
+            // icon is being replaced, not set - notify UI
+            [[NSNotificationCenter defaultCenter] postNotificationName:QSObjectIconModified object:self];
+        }
 	}
 }
 
 - (void)updateIcon:(NSImage *)newIcon
 {
+    // deprecated - just use setIcon
     [self setIcon:newIcon];
-    [[NSNotificationCenter defaultCenter] postNotificationName:QSObjectIconModified object:self];
 }
 @end
 
