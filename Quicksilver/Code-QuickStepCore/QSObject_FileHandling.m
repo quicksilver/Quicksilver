@@ -194,7 +194,6 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
             NSArray *previewTypes = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSFilePreviewTypes"];
             for (NSString *type in previewTypes) {
                 if (UTTypeConformsTo((CFStringRef)uti, (CFStringRef)type)) {
-                    // do preview icon loading in separate thread
                     theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSSizeMax asIcon:YES];
                     break;
                 }
