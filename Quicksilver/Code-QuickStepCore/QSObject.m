@@ -992,7 +992,7 @@ NSSize QSMaxIconSize;
 
 - (void)setIcon:(NSImage *)newIcon {
 	if (newIcon != icon) {
-        BOOL iconChange = (icon != nil);
+        BOOL iconChange = (icon != nil && newIcon != nil);
 		[icon release];
 		icon = [newIcon retain];
 		[icon setCacheMode:NSImageCacheNever];
