@@ -54,15 +54,6 @@ BOOL QSApplicationCompletedLaunch = NO;
 		for (i = 0; !kill(pid, 0) && i<50; i++) usleep(100000);
 	}
 	if ((self = [super init])) {
-
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        
-        // Honor dock preference (if statement true if icon is NOT set to hide)
-        if (![defaults boolForKey:kHideDockIcon]) {
-            if (![defaults objectForKey:@"QSShowMenuIcon"])
-                [defaults setInteger:0 forKey:@"QSShowMenuIcon"];
-            [self showDockIcon];
-        }
     }
 	return self;
 }
@@ -146,11 +137,6 @@ BOOL QSApplicationCompletedLaunch = NO;
 		//NSLog(@"Unable to forward");
 	}
 #endif
-}
-
-- (void)showDockIcon {
-		ProcessSerialNumber psn = { 0, kCurrentProcess } ;
-		TransformProcessType(&psn, kProcessTransformToForegroundApplication);
 }
 
 - (NSResponder *)globalKeyEquivalentTarget { return globalKeyEquivalentTarget;  }

@@ -139,6 +139,11 @@ static QSController *defaultController = nil;
 	[statusItem setHighlightMode:YES];
 }
 
+- (void)showDockIcon {
+    ProcessSerialNumber psn = { 0, kCurrentProcess } ;
+    TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+}
+
 #ifdef DEBUG
 - (void)activateDebugMenu {
 	NSMenu *debugMenu = [[[NSMenu alloc] initWithTitle:@"Debug"] autorelease];
@@ -834,6 +839,13 @@ static QSController *defaultController = nil;
 #ifdef DEBUG
 	[self registerForErrors];
 #endif
+    // Honor dock preference (if statement true if icon is NOT set to hide)
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults boolForKey:kHideDockIcon]) {
+        if (![defaults objectForKey:@"QSShowMenuIcon"])
+            [defaults setInteger:0 forKey:@"QSShowMenuIcon"];
+        [self showDockIcon];
+    }
 }
 
 - (void)setupSplash {
