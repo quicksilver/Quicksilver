@@ -140,8 +140,7 @@ static QSController *defaultController = nil;
 }
 
 - (void)showDockIcon {
-    ProcessSerialNumber psn = { 0, kCurrentProcess } ;
-    TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+    [NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
 }
 
 #ifdef DEBUG
