@@ -523,16 +523,16 @@
 }
 
 - (void)drawObjectImage:(QSObject *)drawObject inRect:(NSRect)drawingRect cellFrame:(NSRect)cellFrame controlView:(NSView *)controlView flipped:(BOOL)flipped opacity:(CGFloat)opacity {
-	NSImage *icon = [[[drawObject icon] retain] autorelease];
+    [drawObject retain];
+	NSImage *icon = [[drawObject icon] retain];
 	NSImage *cornerBadge = nil;
 	// NSLog(@"icon");
 	BOOL proxyDraw = [[icon name] isEqualToString:QSDirectObjectIconProxy];
 	if (proxyDraw) {
+        [icon release];
+        icon = [[QSResourceManager imageNamed:@"defaultAction"] retain];
 		if ([controlView isKindOfClass:[QSSearchObjectView class]]) {
-			cornerBadge = [[[(QSSearchObjectView *)controlView directSelector] objectValue] icon];
-			icon = [QSResourceManager imageNamed:@"defaultAction"];
-		} else {
-			icon = [QSResourceManager imageNamed:@"defaultAction"];
+			cornerBadge = [[[[(QSSearchObjectView *)controlView directSelector] objectValue] icon] retain];
 		}
 	}
 	// NSRect imageRect = rectFromSize([icon size]);
@@ -542,20 +542,13 @@
 	if (NSWidth(drawingRect) >64)
 		handlerDraw = [drawObject drawIconInRect:(NSRect) drawingRect flipped:flipped];
 	if (!handlerDraw) {
-		NSImageRep *bestRep = [icon bestRepresentationForSize:drawingRect.size];
-		if (bestRep) [icon setSize:[bestRep size]];
-
-		BOOL noInterpolation = (NSHeight(drawingRect) /[bestRep size] .width >= 4);
-		[[NSGraphicsContext currentContext] setImageInterpolation:noInterpolation?NSImageInterpolationNone:NSImageInterpolationHigh];
+		[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
 		BOOL faded = ![drawObject iconLoaded];
 		drawingRect = fitRectInRect(rectFromSize([icon size]), drawingRect, NO);
 		[icon drawInRect:drawingRect fromRect:rectFromSize([icon size]) operation:NSCompositeSourceOver fraction:faded?0.5:1.0 respectFlipped:flipped hints:nil];
-		if (noInterpolation) [[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
 
 		if (proxyDraw && NSWidth(drawingRect) >= 32) {
 			NSRect badgeRect = NSMakeRect(0, 0, NSWidth(drawingRect) /2, NSHeight(drawingRect)/2);
-			NSImageRep *bestBadgeRep = [cornerBadge bestRepresentationForSize:badgeRect.size];
-			[cornerBadge setSize:[bestBadgeRep size]];
 			NSPoint offset = rectOffset(badgeRect, drawingRect, 2);
 			badgeRect = NSOffsetRect(badgeRect, offset.x, offset.y);
 			[cornerBadge drawInRect:badgeRect fromRect:rectFromSize([cornerBadge size]) operation:NSCompositeSourceOver fraction:1.0 respectFlipped:flipped hints:nil];
@@ -569,6 +562,9 @@
 			}
 		}
 	}
+    [icon release];
+    [cornerBadge release];
+    [drawObject release];
 }
 
 - (NSMenu *)menu {
