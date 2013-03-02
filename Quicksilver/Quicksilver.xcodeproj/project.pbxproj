@@ -187,7 +187,6 @@
 		66448DF214F427B8000FA2E2 /* QSFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9AF07B1FCFC0044D6EF /* QSFoundation.framework */; };
 		66448E1314F42A4E000FA2E2 /* TestPathWildcards.m in Sources */ = {isa = PBXBuildFile; fileRef = 66448E1214F42A4E000FA2E2 /* TestPathWildcards.m */; };
 		666E45FF150226200034E60A /* QSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E103F1600647200700447FE0 /* QSCore.framework */; };
-		666E4624150228FF0034E60A /* CoreDummyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 666E4623150228FF0034E60A /* CoreDummyTest.m */; };
 		66D11C6B15022A82002EE6E5 /* QSEffects.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9C307B1FD100044D6EF /* QSEffects.framework */; };
 		66D11C7815022AEA002EE6E5 /* EffectsDummyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D11C7715022AEA002EE6E5 /* EffectsDummyTests.m */; };
 		66D11C9215022B4D002EE6E5 /* QSInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1B5F31206573C2900FCFBE2 /* QSInterface.framework */; };
@@ -392,6 +391,7 @@
 		CDE8ADBC15824E3E0099CC83 /* NDKeyboardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE8ADBA15824E3E0099CC83 /* NDKeyboardLayout.m */; };
 		D413172F15DEE5D90021479B /* LaunchAtLoginController.h in Headers */ = {isa = PBXBuildFile; fileRef = D413172C15DEE5D90021479B /* LaunchAtLoginController.h */; };
 		D413173015DEE5D90021479B /* LaunchAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = D413172D15DEE5D90021479B /* LaunchAtLoginController.m */; };
+		D42A065816E1381F00BFD9C8 /* TestQSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D42A065716E1381F00BFD9C8 /* TestQSObject.m */; };
 		D439387E15E2C4CF008F6548 /* QSICloudDocumentSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D439387D15E2C4CF008F6548 /* QSICloudDocumentSource.m */; };
 		D46A0E1D160B934300DE11D5 /* QSNotificationCenterNotifier.h in Headers */ = {isa = PBXBuildFile; fileRef = D46A0E1B160B934200DE11D5 /* QSNotificationCenterNotifier.h */; };
 		D46A0E1E160B934300DE11D5 /* QSNotificationCenterNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = D46A0E1C160B934300DE11D5 /* QSNotificationCenterNotifier.m */; };
@@ -1241,8 +1241,6 @@
 		66448E1214F42A4E000FA2E2 /* TestPathWildcards.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestPathWildcards.m; path = "Tests/Tests-QSFoundation/TestPathWildcards.m"; sourceTree = "<group>"; };
 		666E45EE150225EA0034E60A /* QSCoreTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QSCoreTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		666E45EF150225EA0034E60A /* QSCoreTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QSCoreTests-Info.plist"; sourceTree = "<group>"; };
-		666E4622150228FF0034E60A /* CoreDummyTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDummyTest.h; path = "Tests/Tests-QSCore/CoreDummyTest.h"; sourceTree = "<group>"; };
-		666E4623150228FF0034E60A /* CoreDummyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDummyTest.m; path = "Tests/Tests-QSCore/CoreDummyTest.m"; sourceTree = "<group>"; };
 		66D11C6415022A75002EE6E5 /* QSEffectsTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QSEffectsTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		66D11C6515022A75002EE6E5 /* QSEffectsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QSEffectsTests-Info.plist"; sourceTree = "<group>"; };
 		66D11C7615022AEA002EE6E5 /* EffectsDummyTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EffectsDummyTests.h; path = "Tests/Tests-QSEffects/EffectsDummyTests.h"; sourceTree = "<group>"; };
@@ -1870,6 +1868,8 @@
 		CDFAC91D1652F3C1006A0C5B /* cy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cy; path = cy.lproj/About.strings; sourceTree = "<group>"; };
 		D413172C15DEE5D90021479B /* LaunchAtLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchAtLoginController.h; sourceTree = "<group>"; };
 		D413172D15DEE5D90021479B /* LaunchAtLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchAtLoginController.m; sourceTree = "<group>"; };
+		D42A065616E1381F00BFD9C8 /* TestQSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestQSObject.h; path = "Tests/Tests-QSCore/TestQSObject.h"; sourceTree = "<group>"; };
+		D42A065716E1381F00BFD9C8 /* TestQSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestQSObject.m; path = "Tests/Tests-QSCore/TestQSObject.m"; sourceTree = "<group>"; };
 		D439387C15E2C4CF008F6548 /* QSICloudDocumentSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSICloudDocumentSource.h; sourceTree = "<group>"; };
 		D439387D15E2C4CF008F6548 /* QSICloudDocumentSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSICloudDocumentSource.m; sourceTree = "<group>"; };
 		D46A0E1B160B934200DE11D5 /* QSNotificationCenterNotifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSNotificationCenterNotifier.h; sourceTree = "<group>"; };
@@ -2601,8 +2601,8 @@
 		666E46011502264C0034E60A /* QSCoreTests */ = {
 			isa = PBXGroup;
 			children = (
-				666E4622150228FF0034E60A /* CoreDummyTest.h */,
-				666E4623150228FF0034E60A /* CoreDummyTest.m */,
+				D42A065616E1381F00BFD9C8 /* TestQSObject.h */,
+				D42A065716E1381F00BFD9C8 /* TestQSObject.m */,
 			);
 			name = QSCoreTests;
 			sourceTree = "<group>";
@@ -4620,7 +4620,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				666E4624150228FF0034E60A /* CoreDummyTest.m in Sources */,
+				D42A065816E1381F00BFD9C8 /* TestQSObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
