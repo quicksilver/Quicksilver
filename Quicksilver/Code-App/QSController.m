@@ -1073,6 +1073,7 @@ static QSController *defaultController = nil;
         NSLog(@"-[QSController startQuicksilver:] took %lfs", -1*([start timeIntervalSinceNow]));
     }
 #endif
+    [NSApp disableRelaunchOnLogin];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"QSApplicationDidFinishLaunchingNotification" object:self];
     [QSObject interfaceChanged];
 	QSApplicationCompletedLaunch = YES;
