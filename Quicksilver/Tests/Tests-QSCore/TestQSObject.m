@@ -39,24 +39,28 @@
 
 - (void)testStringSniffing
 {
-    NSArray *shouldBeURL = @[@"localhost", @"localhost:1024", @"qsapp.com", @"http://qsapp.com/", @"http://hostname"];
+    NSArray *shouldBeURL = @[@"localhost", @"localhost:1024", @"qsapp.com", @"http://qsapp.com/", @"http://hostname", @"http://qsapp.com:8080/path/"];
     for (NSString *url in shouldBeURL) {
         QSObject *object = [QSObject objectWithString:url];
         STAssertTrue([object containsType:QSURLType] && [[object primaryType] isEqualToString:QSURLType], @"'%@' was not recognized as a URL", url);
     }
     
-    NSArray *shouldNotBeURL = @[@"ordinary text", @"localhost:", @"http://localhost:", @"host.invalid.topleveldomain", @"http://host.invalid.topleveldomain"];
+    NSArray *shouldNotBeURL = @[@"ordinary text", @"localhost:", @"http://localhost:", @"host.invalid.topleveldomain", @"http://host.invalid.topleveldomain", @".co.uk"];
     for (NSString *text in shouldNotBeURL) {
         QSObject *object = [QSObject objectWithString:text];
         STAssertTrue([[object primaryType] isEqualToString:QSTextType], @"'%@' was not recognized as plain text", text);
     }
     
-    NSString *mailto = @"mailto:example@fake.tld";
-    QSObject *email = [QSObject objectWithString:mailto];
-    STAssertTrue([[email primaryType] isEqualToString:QSEmailAddressType], @"'%@' was not recongnized as an e-mail address", mailto);
-    mailto = @"mailto:invalid address";
-    email = [QSObject objectWithString:mailto];
-    STAssertTrue([[email primaryType] isEqualToString:QSTextType], @"'%@' should not be treated as an e-mail address", mailto);
+    NSArray *shouldBeEmail = @[@"mailto:example@fake.tld", @"example@fake.tld"];
+    for (NSString *mailto in shouldBeEmail) {
+        QSObject *email = [QSObject objectWithString:mailto];
+        STAssertTrue([[email primaryType] isEqualToString:QSEmailAddressType], @"'%@' was not recongnized as an e-mail address", mailto);
+    }
+    NSArray *shouldNotBeEmail = @[@"mailto:invalid address", @"example@fake."];
+    for (NSString *mailto in shouldNotBeEmail) {
+        QSObject *email = [QSObject objectWithString:mailto];
+        STAssertTrue([[email primaryType] isEqualToString:QSTextType], @"'%@' should not be treated as an e-mail address", mailto);
+    }
     
     NSString *calculation = @"=5*5";
     QSObject *object = [QSObject objectWithString:calculation];
