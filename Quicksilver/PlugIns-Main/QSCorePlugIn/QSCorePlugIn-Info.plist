@@ -750,16 +750,19 @@
 	<key>QSTriggerAdditions</key>
 	<array>
 		<dict>
+			<key>defaults</key>
+			<dict>
+				<key>type</key>
+				<string>QSHotKeyTrigger</string>
+				<key>enabled</key>
+				<true/>
+				<key>keyCode</key>
+				<integer>53</integer>
+				<key>modifiers</key>
+				<integer>1048840</integer>
+			</dict>
 			<key>set</key>
 			<string>Quicksilver</string>
-			<key>enabled</key>
-			<true/>
-			<key>keyCode</key>
-			<integer>53</integer>
-			<key>modifiers</key>
-			<integer>1048840</integer>
-			<key>type</key>
-			<string>QSHotKeyTrigger</string>
 			<key>command</key>
 			<string>QSGetGlobalSelectionCommand</string>
 			<key>ID</key>
