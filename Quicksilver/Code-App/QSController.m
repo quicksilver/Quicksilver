@@ -279,14 +279,13 @@ static QSController *defaultController = nil;
 			quitWindowController = [NSWindowController alloc];
 			[quitWindowController initWithWindowNibName:@"QuitConfirm" owner:quitWindowController];
 
-			quitWindow = (QSWindow *)[quitWindowController window];
+			quitWindow = (QSBorderlessWindow *)[quitWindowController window];
 			[quitWindow setLevel:kCGPopUpMenuWindowLevel+1];
 			[quitWindow setIgnoresMouseEvents:YES];
-			[quitWindow center];
 			[quitWindow setShowEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSVExpandEffect", @"transformFn", @"show", @"type", [NSNumber numberWithDouble:0.15] , @"duration", nil]];
 			[quitWindow setHideEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSShrinkEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithDouble:0.25] , @"duration", nil]];
 		} else {
-			quitWindow = (QSWindow *)[quitWindowController window];
+			quitWindow = (QSBorderlessWindow *)[quitWindowController window];
 		}
 
 		NSString *currentCharacters = [[NSApp currentEvent] charactersIgnoringModifiers];
@@ -304,9 +303,6 @@ static QSController *defaultController = nil;
 		}
 
 		if (shouldQuit) {
-			[(NSButton *)[quitWindow initialFirstResponder] setState:NSOnState];
-			[[(NSButton *)[quitWindow initialFirstResponder] alternateImage] setSize:QSSize128];
-			[quitWindow display];
 			[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.333]];
 			[quitWindow orderOut:self];
 			[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.50]];
@@ -1078,6 +1074,7 @@ static QSController *defaultController = nil;
     }
 #endif
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"QSApplicationDidFinishLaunchingNotification" object:self];
+    [QSObject interfaceChanged];
 	QSApplicationCompletedLaunch = YES;
 }
 

@@ -215,7 +215,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
             for (NSString *type in previewTypes) {
                 if (UTTypeConformsTo((CFStringRef)uti, (CFStringRef)type)) {
                     // do preview icon loading in separate thread
-                    theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSMaxIconSize asIcon:YES];
+                    theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSSizeMax asIcon:YES];
                     break;
                 }
             }
@@ -231,24 +231,6 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 - (NSImage *)prepareImageforIcon:(NSImage *)theImage {
 	// last fallback, other methods didn't work
 	if (!theImage) theImage = [QSResourceManager imageNamed:@"GenericQuestionMarkIcon"];
-
-	// make sure image is present in the correct sizes
-	if (theImage) {
-		[theImage createRepresentationOfSize:NSMakeSize(32, 32)];
-		[theImage createRepresentationOfSize:NSMakeSize(16, 16)];
-	}
-
-	// remove all image representations that are larger then QSMaxIconSize
-	// not really sure if this is needed or even makes sense
-	// but it was in here before, but only removing exactly the 
-	// 128x128 representation, if QSMaxIconSize was smaller than 128x128
-	// and there was a warning-comment: "***warning * use this better"
-	for (NSImageRep *imgRep in [theImage representations]) {
-		if ([imgRep size].width > QSMaxIconSize.width) {
-			[theImage removeRepresentation:imgRep];
-		}
-	}
-
 	return theImage;
 }
 

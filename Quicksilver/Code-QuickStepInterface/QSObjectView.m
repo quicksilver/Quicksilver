@@ -111,7 +111,7 @@
 					dragPosition.x -= 16;
 					dragPosition.y -= 16;
 					imageLocation.origin = dragPosition;
-					imageLocation.size = NSMakeSize(32, 32);
+					imageLocation.size = QSSize32;
 					[self dragPromisedFilesOfTypes:[NSArray arrayWithObject:@"silver"] fromRect:imageLocation source:self slideBack:YES event:theEvent];
 				}
 

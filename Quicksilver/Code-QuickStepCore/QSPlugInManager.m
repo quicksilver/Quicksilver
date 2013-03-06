@@ -846,7 +846,7 @@
 	NSString *title = [NSString stringWithFormat:@"%@ Installed", (name?name:@"Plugin")];
 
 	NSImage *image = [NSImage imageNamed:@"QSPlugIn"];
-	[image setSize:NSMakeSize(128, 128)];
+	[image setSize:QSSizeMax];
 
 	if (showNotifications) {
 		// see if this obsoletes an installed plugin
