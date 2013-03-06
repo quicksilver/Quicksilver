@@ -126,9 +126,16 @@
 
 - (void)testCombinedObjects
 {
-    // combine some objects
-    // do some test on the combined object (count, arrayForType)
-    // split the object and see what comes out
+    QSObject *one = [QSObject objectWithString:@"one"];
+    QSObject *two = [QSObject objectWithString:@"two"];
+    QSObject *combined = [QSObject objectByMergingObjects:@[one, two]];
+    STAssertEquals([combined count], (NSUInteger)2, nil);
+    NSSet *originals = [NSSet setWithObjects:one, two, nil];
+    NSSet *split = [NSSet setWithArray:[combined splitObjects]];
+    STAssertEqualObjects(originals, split, nil);
+    NSSet *originalStrings = [NSSet setWithObjects:@"one", @"two", nil];
+    NSSet *stringValues = [NSSet setWithArray:[combined arrayForType:QSTextType]];
+    STAssertEqualObjects(originalStrings, stringValues, nil);
 }
 
 - (void)testCacheExpiration
