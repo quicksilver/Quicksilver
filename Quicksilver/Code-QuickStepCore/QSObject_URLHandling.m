@@ -193,6 +193,11 @@
     
 	[QSTasks updateTask:@"DownloadPage" status:@"Downloading Page" progress:0];
     
+    if (![object objectForMeta:QSURLTypeParsersTableKey]) {
+        // it's possible `objectHasChildren:` was never called to populate this
+        [self objectHasChildren:object];
+    }
+    
     id <QSParser> parser = [QSReg instanceForKey:[object objectForMeta:QSURLTypeParsersTableKey] inTable:@"QSURLTypeParsers"];
     
 	NSArray *children = [parser objectsFromURL:[NSURL URLWithString:[object objectForType:QSURLType]] withSettings:nil];
