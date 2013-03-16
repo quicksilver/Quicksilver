@@ -59,7 +59,12 @@ NSSize QSMaxIconSize;
 	QSObject *thisObject;
     NSMutableArray *keysToDeleteFromObjectDict = [[NSMutableArray alloc] init];
     @synchronized(objectDictionary) {
-        for (NSString *thisKey in [objectDictionary allKeys]) {
+        NSArray *keys = [objectDictionary allKeys];
+        if (!keys) {
+            // no objects to clean
+            return;
+        }
+        for (NSString *thisKey in keys) {
             thisObject = [objectDictionary objectForKey:thisKey];
             if ([thisObject retainCount] < 2) {
                 [keysToDeleteFromObjectDict addObject:thisKey];
@@ -140,7 +145,9 @@ NSSize QSMaxIconSize;
 + (void)registerObject:(QSBasicObject *)object withIdentifier:(NSString *)anIdentifier {
     if (object && anIdentifier) {
         @synchronized(objectDictionary) {
-            [objectDictionary setObject:object forKey:anIdentifier];
+            if ([objectDictionary objectForKey:anIdentifier] != object) {
+                [objectDictionary setObject:object forKey:anIdentifier];
+            }
         }
     }
     //		NSLog(@"setobj:%@", [objectDictionary objectForKey:anIdentifier]);
