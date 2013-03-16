@@ -616,7 +616,7 @@
 }
 
 - (void)buildTriggerSets {
-	NSMutableDictionary *registrySets = [[QSReg tableNamed:@"QSTriggerSets"] mutableCopy];
+	NSMutableDictionary *registrySets = [QSReg tableNamed:@"QSTriggerSets"];
 
     /* Capacity = size of the triggers in the registry sets + the 2 default ones */
 	NSMutableArray *sets = [[NSMutableArray alloc] initWithCapacity:[registrySets count] + 2];
@@ -637,7 +637,7 @@
 					 @"All Triggers", @"text",
 					 [NSImage imageNamed:@"Pref-Triggers"], @"image",
 					 nil]];
-	[self setTriggerSets:sets];
+	[self setTriggerSets:[sets autorelease]];
 }
 
 - (NSMutableArray *)triggerSets {

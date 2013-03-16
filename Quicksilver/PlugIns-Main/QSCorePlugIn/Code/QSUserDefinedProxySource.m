@@ -180,7 +180,6 @@
 - (void)save
 {
 	// update catalog entry
-    NSString *entryName = [[self currentEntry] objectForKey:kItemName];
 	NSMutableDictionary *settings = [[self currentEntry] objectForKey:kItemSettings];
 	if (!settings) {
 		settings = [NSMutableDictionary dictionaryWithCapacity:1];

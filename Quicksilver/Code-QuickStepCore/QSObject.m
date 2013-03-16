@@ -57,13 +57,14 @@ NSSize QSMaxIconSize;
 
 + (void)cleanObjectDictionary {
 	QSObject *thisObject;
-    NSMutableArray *keysToDeleteFromObjectDict = [[NSMutableArray alloc] init];
+    NSMutableArray *keysToDeleteFromObjectDict = nil;
     @synchronized(objectDictionary) {
         NSArray *keys = [objectDictionary allKeys];
         if (!keys) {
             // no objects to clean
             return;
         }
+        keysToDeleteFromObjectDict = [[NSMutableArray alloc] init];
         for (NSString *thisKey in keys) {
             thisObject = [objectDictionary objectForKey:thisKey];
             if ([thisObject retainCount] < 2) {

@@ -533,10 +533,9 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	if ([[path pathExtension] isEqualToString:@"silver"])
 		return [QSObject objectWithDictionary:[NSDictionary dictionaryWithContentsOfFile:path]];
 
-	QSObject *newObject = [QSObject objectWithIdentifier:path];
-	if (!newObject) {
-		newObject = [[[QSObject alloc] initWithArray:[NSArray arrayWithObject:path]] autorelease];
-	}
+    // initWithArray: deals with file objects that already exist
+    QSObject *newObject = [[[QSObject alloc] initWithArray:[NSArray arrayWithObject:path]] autorelease];
+    
 	if ([clippingTypes containsObject:[[NSFileManager defaultManager] typeOfFile:path]])
 		[newObject performSelectorOnMainThread:@selector(addContentsOfClipping:) withObject:path waitUntilDone:YES];
 	return newObject;
