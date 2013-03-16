@@ -1941,10 +1941,6 @@ NSMutableDictionary *bindingsDict = nil;
 // Quick Look panel data source
 
 - (NSInteger)numberOfPreviewItemsInPreviewPanel:(QLPreviewPanel *)panel {
-    /* Put the panel just above Quicksilver's window
-    Note: 10.6 seems to revert the panel level set in beginPreviewPanelControl above.
-    This 'hack' is required for 10.6 support only (10.7+ is OK) */
-    [previewPanel setLevel:([[self window] level] + 2)];
     if (quicklookObject) {
         return [quicklookObject count];
     }

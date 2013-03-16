@@ -2007,7 +2007,7 @@
 		E18001D007B2BBB800010DB0 /* QSCatalogPrefPane.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSCatalogPrefPane.h; sourceTree = "<group>"; };
 		E18001D107B2BBB800010DB0 /* QSCatalogPrefPane.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSCatalogPrefPane.m; sourceTree = "<group>"; };
 		E18001D407B2BBB800010DB0 /* QSController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSController.h; sourceTree = "<group>"; };
-		E18001D507B2BBB800010DB0 /* QSController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSController.m; sourceTree = "<group>"; };
+		E18001D507B2BBB800010DB0 /* QSController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSController.m; sourceTree = "<group>"; };
 		E18001DA07B2BBB800010DB0 /* QSGetURLScriptCommand.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSGetURLScriptCommand.h; sourceTree = "<group>"; };
 		E18001DB07B2BBB800010DB0 /* QSGetURLScriptCommand.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSGetURLScriptCommand.m; sourceTree = "<group>"; };
 		E18001DC07B2BBB800010DB0 /* QSHelpersPrefPane.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSHelpersPrefPane.h; sourceTree = "<group>"; };
