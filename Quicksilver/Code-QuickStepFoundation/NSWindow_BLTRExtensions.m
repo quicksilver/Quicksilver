@@ -183,12 +183,7 @@
 - (void)useQuicksilverCollectionBehavior
 {
     // make windows visible in all spaces
-#if (MAC_OS_X_VERSION_MIN_REQUIRED < 1070)
-    [self setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | 256];
-#else
-#warning remove the 10.6 code above
     [self setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary];
-#endif
 }
 
 @end

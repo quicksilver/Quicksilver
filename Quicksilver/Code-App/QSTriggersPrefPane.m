@@ -275,9 +275,6 @@
 		[self selectTrigger:selectedTrigger];
 	}
 }
-- (NSArray *)applications {
-	return [[[NSWorkspace sharedWorkspace] launchedApplications] valueForKey:@"NSApplicationName"];
-}
 
 // Enabling/disabling of the 'edit' button is done programmatically within the outlineClicked: method
 - (IBAction)editCommand:(id)sender {

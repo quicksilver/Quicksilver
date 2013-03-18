@@ -6,10 +6,7 @@
 
 @class WebView;
 
-@interface QSPreferencesController : NSWindowController
-#if (MAC_OS_X_VERSION_MAX_ALLOWED >= 1060)
-	<NSToolbarDelegate, NSWindowDelegate, NSSplitViewDelegate>
-#endif
+@interface QSPreferencesController : NSWindowController <NSToolbarDelegate, NSWindowDelegate, NSSplitViewDelegate>
 {
 	IBOutlet NSTextField *descView;
 	IBOutlet NSTableView *externalPrefsTable;
