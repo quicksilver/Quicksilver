@@ -180,7 +180,6 @@
 - (void)save
 {
 	// update catalog entry
-    NSString *entryName = [[self currentEntry] objectForKey:kItemName];
 	NSMutableDictionary *settings = [[self currentEntry] objectForKey:kItemSettings];
 	if (!settings) {
 		settings = [NSMutableDictionary dictionaryWithCapacity:1];
@@ -195,7 +194,7 @@
     NSString *localizedPlaceholder = NSLocalizedStringFromTableInBundle(@"Synonym for %@", nil, [NSBundle bundleForClass:[self class]], nil);
     NSString *synonym = [synonymName stringValue] ? [synonymName stringValue] : [NSString stringWithFormat:localizedPlaceholder, [target displayName]];
     if ([synonym length] && target) {
-        entryName = [NSString stringWithFormat:@"%@ %C %@", synonym, (unsigned short)0x2192, [target displayName]];
+        NSString *entryName = [NSString stringWithFormat:@"%@ %C %@", synonym, (unsigned short)0x2192, [target displayName]];
         [[self currentEntry] setObject:entryName forKey:kItemName];
         [[self selection] setName:entryName];
     }

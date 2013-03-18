@@ -348,7 +348,11 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (NSComparisonResult) compare:(QSCatalogEntry *)other {
-	return [[self name] compare:[other name]];
+    if ([other name] != nil) {
+        return [[self name] compare:[other name]];
+    }
+    // othername is nil, so make the receiver higher in the list
+    return NSOrderedAscending;
 }
 
 - (NSString *)name {

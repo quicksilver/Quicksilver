@@ -113,6 +113,7 @@ NSString *QSRankingAbbreviationMnemonics = @"QSRankingAbbreviationMnemonics"; //
 			[rankObjects addObject:rankedObject];
 		}
 	}
+    [options release];
 	return rankObjects;
 }
 
