@@ -30,8 +30,6 @@
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[helperInfo release];
-	[super dealloc];
 }
 
 - (void)awakeFromNib {
@@ -55,7 +53,7 @@
 #endif
 
 		[menu addItemWithTitle:@"None Available" action:nil keyEquivalent:@""];
-		return [menu autorelease];
+		return menu;
 	}
 	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
 	NSString *path, *title;
@@ -96,7 +94,7 @@
 		[menu addItem:[NSMenuItem separatorItem]];
 		[menu addItemWithTitle:@"Default" action:nil keyEquivalent:@""];
 	}
-	return [menu autorelease];
+	return menu;
 }
 
 - (NSString *)mainNibName { return @"QSHelpersPrefPane"; }
@@ -165,8 +163,7 @@
 - (NSMutableArray *)helperInfo { return helperInfo;  }
 - (void)setHelperInfo:(NSMutableArray *)aHelperInfo {
 	if(aHelperInfo != helperInfo){
-		[helperInfo release];
-		helperInfo = [aHelperInfo retain];
+		helperInfo = aHelperInfo;
 	}
 }
 @end

@@ -64,13 +64,13 @@
 		NSString *path = [[request URL] resourceSpecifier];
 		path = [[NSBundle mainBundle] pathForResource:[path stringByDeletingPathExtension] ofType:[path pathExtension]];
 		if (path) {
-			request = [[request mutableCopy] autorelease];
+			request = [request mutableCopy];
 			[(NSMutableURLRequest *)request setURL:[NSURL fileURLWithPath:path]];
 		}
 	} else if ([[[request URL] scheme] isEqualToString:@"qsimage"]) {
 		NSString *path = [QSRez pathForImageNamed:[[request URL] host]];
 		if (path) {
-			request = [[request mutableCopy] autorelease];
+			request = [request mutableCopy];
 			[(NSMutableURLRequest *)request setURL:[NSURL fileURLWithPath:path]];
 		}
 	}

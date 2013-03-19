@@ -72,7 +72,7 @@
 	[textView setDrawsBackground:NO];
 	[[textView enclosingScrollView] setDrawsBackground:NO];
 
-	NSMutableParagraphStyle *style = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
+	NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
 	[style setAlignment:NSCenterTextAlignment];
 	[style setLineBreakMode:NSLineBreakByTruncatingTail];
 
@@ -92,15 +92,15 @@
 		titleString = [titleString stringByAppendingFormat:@"\r%@", textString];
 
 //	NSLog(@"attr %@", attributes);
-	NSMutableAttributedString *newAttributedString = [[[NSMutableAttributedString alloc] initWithString:titleString
+	NSMutableAttributedString *newAttributedString = [[NSMutableAttributedString alloc] initWithString:titleString
 																			attributes:
 		[NSDictionary dictionaryWithObjectsAndKeys:
 			[NSFont boldSystemFontOfSize:11] , NSFontAttributeName,
 			[textView defaultParagraphStyle] , NSParagraphStyleAttributeName,
-			nil]]autorelease];
+			nil]];
 
 	if (detailsString) {
-		[newAttributedString appendAttributedString:[[[NSAttributedString alloc] initWithString:@"\r"] autorelease]];
+		[newAttributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\r"]];
 		[newAttributedString appendAttributedString:detailsString];
 	}
 //	[newAttributedString addAttribute:NSParagraphStyleAttributeName value:[textView defaultParagraphStyle] range:NSMakeRange(0, [newAttributedString length])];
@@ -139,7 +139,6 @@
 
 	if ([window isVisible]) {
 		[curTimer invalidate];
-		[curTimer release];
 		curTimer = nil;
 
 		NSInteger transition = CGSLeft;
@@ -181,7 +180,6 @@
 
 	curTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(hideNotification:) userInfo:window repeats:NO];
 
-	[curTimer retain];
 	[[NSRunLoop currentRunLoop] addTimer:curTimer forMode:NSModalPanelRunLoopMode];
 	//		[attributes objectForKey:QSNotifierTitle] , GROWL_NOTIFICATION_TITLE,
 	//		[attributes objectForKey:QSNotifierText] , GROWL_NOTIFICATION_DESCRIPTION,
@@ -192,7 +190,6 @@
 	if (window) [self hideWindow:window early:NO];
 
 	if (timer == curTimer) {
-		[curTimer release];
 		curTimer = nil;
 	}
 }
@@ -203,7 +200,6 @@
 
 - (void)setThisTitle:(NSString *)value {
 	if (thisTitle != value) {
-		[thisTitle release];
 		thisTitle = [value copy];
 	}
 }
@@ -214,7 +210,6 @@
 
 - (void)setLastTitle:(NSString *)value {
 	if (lastTitle != value) {
-		[lastTitle release];
 		lastTitle = [value copy];
 	}
 }

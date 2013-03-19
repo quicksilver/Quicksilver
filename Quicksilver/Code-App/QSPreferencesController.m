@@ -36,7 +36,7 @@ id QSPrefs;
 @implementation QSPreferencesController
 + (id)sharedInstance {
 	if (!QSPrefs)
-		QSPrefs = [[[self class] allocWithZone:[self zone]] init];
+		QSPrefs = [[[self class] allocWithZone:nil] init];
 	return QSPrefs;
 }
 
@@ -143,7 +143,7 @@ id QSPrefs;
 	for(NSString *paneKey in plugInPanes) {
 		if ([modulesByID objectForKey:paneKey]) continue;
 		//if ([loadedPanes containsObject:paneKey]) continue;
-		NSMutableDictionary *paneInfo = [[[plugInPanes objectForKey:paneKey] mutableCopy] autorelease];
+		NSMutableDictionary *paneInfo = [[plugInPanes objectForKey:paneKey] mutableCopy];
 		if ([paneInfo isKindOfClass:[NSString class]]) {
 			//NSLog(@"Not Loading Old-Style Prefs: %@", paneInfo);
 			continue;
@@ -154,7 +154,6 @@ id QSPrefs;
 		if (image) {
 			[paneInfo setObject:image forKey:@"image"];
 		}
-		[image release];
 		if ([paneInfo objectForKey:@"name"])
 			[paneInfo setObject:[paneInfo objectForKey:@"name"] forKey:@"text"];
 		[paneInfo setObject:paneKey forKey:kItemID];
@@ -167,8 +166,7 @@ id QSPrefs;
 
 	NSSortDescriptor *nameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)];
 	NSSortDescriptor *orderDescriptor = [[NSSortDescriptor alloc] initWithKey:@"priority" ascending:NO];
-	NSMutableArray *sidebarModules = [[[[modulesByID allValues] sortedArrayUsingDescriptors:[NSArray arrayWithObjects:orderDescriptor, nameDescriptor, nil]] mutableCopy] autorelease];
-	[nameDescriptor release]; [orderDescriptor release];
+	NSMutableArray *sidebarModules = [[[modulesByID allValues] sortedArrayUsingDescriptors:[NSArray arrayWithObjects:orderDescriptor, nameDescriptor, nil]] mutableCopy];
 	[sidebarModules filterUsingPredicate:[NSPredicate predicateWithFormat:@"not type like[cd] 'toolbar'"]];
 	[sidebarModules filterUsingPredicate:[NSPredicate predicateWithFormat:@"not type like[cd] 'hidden'"]];
 	NSArray *plugInModules = [sidebarModules filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"not type like[cd] 'main'"]];
@@ -178,7 +176,6 @@ id QSPrefs;
 	[sidebarModules addObjectsFromArray:plugInModules];
 	id mSidebarModules = [sidebarModules mutableCopy];
 	[self setModules:mSidebarModules];
-	[mSidebarModules release];
 	//	int index = [[modules valueForKey:kItemID] indexOfObject:currentPaneID];
 	//	if (index != NSNotFound) [internalPrefsTable selectRow:index byExtendingSelection:NO];
 	//
@@ -259,7 +256,6 @@ id QSPrefs;
 		[toolbar setSelectedItemIdentifier:@"QSMainMenuPrefPane"];
 		[self selectPaneWithIdentifier:@"QSMainMenuPrefPane"];
 	}
-	[toolbar release];
 }
 
 - (BOOL)relaunchRequested {
@@ -350,8 +346,7 @@ id QSPrefs;
 - (NSMutableArray *)modules { return modules;  }
 - (void)setModules:(NSMutableArray *)newModules {
 	if(newModules != modules){
-		[modules release];
-		modules = [newModules retain];
+		modules = newModules;
 	}
 }
 
@@ -409,7 +404,7 @@ id QSPrefs;
 
 	id instance = [info objectForKey:@"instance"];
 	if (!instance) {
-		instance = [[[[QSReg getClass:[info objectForKey:@"class"]] alloc] init] autorelease];
+		instance = [[[QSReg getClass:[info objectForKey:@"class"]] alloc] init];
 		if (instance) {
 			if ([instance respondsToSelector:@selector(setInfo:)])
 				[instance setInfo:info];
@@ -572,8 +567,7 @@ id QSPrefs;
 - (QSPreferencePane *)currentPane { return currentPane;  }
 - (void)setCurrentPane:(QSPreferencePane *)newCurrentPane {
 	if(newCurrentPane != currentPane){
-		[currentPane release];
-		currentPane = [newCurrentPane retain];
+		currentPane = newCurrentPane;
 	}
 }
 
@@ -596,8 +590,7 @@ id QSPrefs;
 - (NSMutableDictionary *)currentPaneInfo { return currentPaneInfo;  }
 - (void)setCurrentPaneInfo:(NSMutableDictionary *)newCurrentPaneInfo {
 	if (newCurrentPaneInfo && currentPaneInfo != newCurrentPaneInfo) {
-		[currentPaneInfo release];
-		currentPaneInfo = [newCurrentPaneInfo retain];
+		currentPaneInfo = newCurrentPaneInfo;
 	}
 }
 
@@ -625,7 +618,7 @@ id QSPrefs;
 		[newItem setToolTip:@"Application and Plugin Preferences"];
 		[newItem setTarget:self];
 		[newItem setAction:@selector(selectSettingsPane:)];
-		return [newItem autorelease];
+		return newItem;
 	}
 //	if ([itemIdentifier isEqualToString:@"QSToolbarHistoryView"]) {
 //		NSToolbarItem *newItem = [[[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier] autorelease];
@@ -645,7 +638,7 @@ id QSPrefs;
 		[newItem setMaxSize:NSMakeSize(512, 48)];
 		[newItem setEnabled:YES];
 		//[toolbarTitleView setColor:[NSColor whiteColor]];
-		return [newItem autorelease];
+		return newItem;
 	}
 
 	NSDictionary *info = [modulesByID objectForKey:itemIdentifier];
@@ -660,7 +653,7 @@ id QSPrefs;
 	[newItem setToolTip:[info objectForKey:@"description"]];
 	[newItem setTarget:self];
 	[newItem setAction:@selector(selectPane:)];
-	return [newItem autorelease];
+	return newItem;
 }
 
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)toolbar {

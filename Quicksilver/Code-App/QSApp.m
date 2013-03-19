@@ -93,7 +93,7 @@ BOOL QSApplicationCompletedLaunch = NO;
 				[[NSClassFromString(@"QSMouseTriggerManager") sharedInstance] handleMouseTriggerEvent:theEvent type:nil forView:nil];
 		  break;
 	  case NSOtherMouseDown:
-			[theEvent retain];
+			theEvent;
 #ifdef DEBUG
 			if (VERBOSE)
 				NSLog(@"OtherMouse %@ %@", theEvent, [theEvent window]);
@@ -137,8 +137,7 @@ BOOL QSApplicationCompletedLaunch = NO;
 - (NSResponder *)globalKeyEquivalentTarget { return globalKeyEquivalentTarget;  }
 - (void)setGlobalKeyEquivalentTarget:(NSResponder *)value {
 	if (globalKeyEquivalentTarget != value) {
-		[globalKeyEquivalentTarget release];
-		globalKeyEquivalentTarget = [value retain];
+		globalKeyEquivalentTarget = value;
 	}
 }
 
@@ -151,7 +150,6 @@ BOOL QSApplicationCompletedLaunch = NO;
 - (void)removeEventDelegate:(id)eDelegate {
 	[eventDelegates removeObject:eDelegate];
 	if (![eventDelegates count]) {
-		[eventDelegates release];
 		eventDelegates = nil;
 	}
 }
