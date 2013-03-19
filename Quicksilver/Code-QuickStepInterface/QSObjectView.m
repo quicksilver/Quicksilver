@@ -94,7 +94,7 @@
 			if ([self objectValue]) {
 				NSRect reducedRect = [self frame];
 				//reducedRect.size.width = MIN(NSWidth([self frame]), 52+MAX([[[self objectValue] name] sizeWithAttributes:nil] .width, [[[self objectValue] details] sizeWithAttributes:detailAttributes] .width) );
-				NSImage *dragImage = [[[NSImage alloc] initWithSize:reducedRect.size] autorelease];
+				NSImage *dragImage = [[NSImage alloc] initWithSize:reducedRect.size];
 				[dragImage lockFocus];
 				[[self cell] drawInteriorWithFrame:NSMakeRect(0, 0, [dragImage size] .width, [dragImage size] .height) inView:self];
 				[dragImage unlockFocus];
@@ -180,8 +180,7 @@
 - (void)setPreviousObjectValue:(QSObject *)aValue
 {
   QSObject *oldPreviousObjectValue = previousObjectValue;
-  previousObjectValue = [aValue retain];
-  [oldPreviousObjectValue release];
+  previousObjectValue = aValue;
 }
 
 - (id)objectValue { return [[self cell] representedObject];  }
@@ -209,16 +208,14 @@
 - (QSObject *)draggedObject { return draggedObject;  }
 
 - (void)setDraggedObject:(QSObject *)newDraggedObject {
-	[draggedObject release];
-	draggedObject = [newDraggedObject retain];
+	draggedObject = newDraggedObject;
 }
 
 - (NSString *)searchString { return searchString;  }
 
 - (void)setSearchString:(NSString *)newSearchString {
 	if (newSearchString == searchString) return;
-	[searchString release];
-	searchString = [newSearchString retain];
+	searchString = newSearchString;
 	// [self setNeedsDisplay:YES];
 }
 
@@ -326,17 +323,14 @@
 }
 
 - (void)concludeDragWithAction:(QSAction *)actionObject {
-	[actionObject retain];
     [actionObject performOnDirectObject:[self draggedObject] indirectObject:[self objectValue]];
-	[actionObject release];
 }
 
 - (NSString *)dragAction { return dragAction;  }
 
 - (void)setDragAction:(NSString *)aDragAction {
 	if (dragAction != aDragAction) {
-		[dragAction release];
-		dragAction = [aDragAction retain];
+		dragAction = aDragAction;
 	}
 }
 

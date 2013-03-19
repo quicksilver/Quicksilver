@@ -428,46 +428,45 @@ static QSController *defaultController = nil;
 }
 
 - (void)showSplash:sender {
-    @autoreleasepool {
-        NSImage *splashImage = [NSImage imageNamed:@"QSLigature"];
-        {
-            splashWindow = [NSWindow windowWithImage:splashImage];
+    NSImage *splashImage = [NSImage imageNamed:@"QSLigature"];
+    {
+        splashWindow = [NSWindow windowWithImage:splashImage];
+        [splashWindow setReleasedWhenClosed:NO];
 #if 0
-            //		if ([NSApp isPrerelease]) {
-			NSRect rect = NSInsetRect(NSMakeRect(28, 108, 88, 24), 1, 1);
-			NSBezierPath *path = [NSBezierPath bezierPath];
-			[path appendBezierPathWithRoundedRectangle:rect withRadius:12];
-			[[NSColor colorWithCalibratedRed:0.0 green:0.33 blue:0.0 alpha:0.8] set];
-			[path fill];
-			[[splashWindow contentView] lockFocus];
-			NSAttributedString *string = [[[NSAttributedString alloc] initWithString:@"Unofficial" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSFont boldSystemFontOfSize:12] , NSFontAttributeName, [NSColor whiteColor] , NSForegroundColorAttributeName, nil]] autorelease];
-			[string drawWithRect:NSOffsetRect(centerRectInRect(rectFromSize([string size]), rect), 0, 4) options:NSStringDrawingOneShot];
-			[path addClip];
-			[QSGlossClipPathForRectAndStyle(rect, 4) addClip];
-			[[NSColor colorWithCalibratedWhite:1.0 alpha:0.1] set];
-			NSRectFillUsingOperation(rect, NSCompositeSourceOver);
-            
-			[[splashWindow contentView] unlockFocus];
-            //		}
+        //		if ([NSApp isPrerelease]) {
+        NSRect rect = NSInsetRect(NSMakeRect(28, 108, 88, 24), 1, 1);
+        NSBezierPath *path = [NSBezierPath bezierPath];
+        [path appendBezierPathWithRoundedRectangle:rect withRadius:12];
+        [[NSColor colorWithCalibratedRed:0.0 green:0.33 blue:0.0 alpha:0.8] set];
+        [path fill];
+        [[splashWindow contentView] lockFocus];
+        NSAttributedString *string = [[[NSAttributedString alloc] initWithString:@"Unofficial" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSFont boldSystemFontOfSize:12] , NSFontAttributeName, [NSColor whiteColor] , NSForegroundColorAttributeName, nil]] autorelease];
+        [string drawWithRect:NSOffsetRect(centerRectInRect(rectFromSize([string size]), rect), 0, 4) options:NSStringDrawingOneShot];
+        [path addClip];
+        [QSGlossClipPathForRectAndStyle(rect, 4) addClip];
+        [[NSColor colorWithCalibratedWhite:1.0 alpha:0.1] set];
+        NSRectFillUsingOperation(rect, NSCompositeSourceOver);
+        
+        [[splashWindow contentView] unlockFocus];
+        //		}
 #endif
-        }
-        
-        [splashWindow reallyCenter];
-        [splashWindow setAlphaValue:0];
-        [splashWindow setSticky:YES];
-        
-        if ([NSApp wasLaunchedAtLogin]) {
-            [splashWindow setLevel:NSNormalWindowLevel-1];
-            [splashWindow orderFront:self];
-            [splashWindow setAlphaValue:0.25 fadeTime:0.333];
-        } else {
-            [splashWindow orderFront:self];
-            QSWindowAnimation *animation = [QSWindowAnimation showHelperForWindow:splashWindow];
-            [animation setTransformFt:QSExtraExtraEffect];
-            [animation setDuration:1.0];
-            [animation setAnimationBlockingMode:NSAnimationBlocking];
-            [animation startAnimation];
-        }
+    }
+    
+    [splashWindow reallyCenter];
+    [splashWindow setAlphaValue:0];
+    [splashWindow setSticky:YES];
+    
+    if ([NSApp wasLaunchedAtLogin]) {
+        [splashWindow setLevel:NSNormalWindowLevel-1];
+        [splashWindow orderFront:self];
+        [splashWindow setAlphaValue:0.25 fadeTime:0.333];
+    } else {
+        [splashWindow orderFront:self];
+        QSWindowAnimation *animation = [QSWindowAnimation showHelperForWindow:splashWindow];
+        [animation setTransformFt:QSExtraExtraEffect];
+        [animation setDuration:1.0];
+        [animation setAnimationBlockingMode:NSAnimationBlocking];
+        [animation startAnimation];
     }
 }
 - (void)hideSplash:sender {

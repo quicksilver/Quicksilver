@@ -47,21 +47,18 @@ void QSShowLargeType(NSString *aString) {
 		[style setLineBreakMode: NSLineBreakByWordWrapping];
 
 	[formattedNumber addAttribute:NSParagraphStyleAttributeName value:style range:fullRange];
-	[style release];
 
 	NSShadow *textShadow = [[NSShadow alloc] init];
 	[textShadow setShadowOffset:NSMakeSize(5, -5)];
 	[textShadow setShadowBlurRadius:10];
 	[textShadow setShadowColor:[NSColor colorWithDeviceWhite:0 alpha:0.64]];
 	[formattedNumber addAttribute:NSShadowAttributeName value:textShadow range:fullRange];
-	[textShadow release];
 
 	NSTextView *textView = [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, displayWidth, 0)];
 	[textView setEditable:NO];
 	[textView setSelectable:NO];
 	[textView setDrawsBackground:NO];
 	[[textView textStorage] setAttributedString:formattedNumber];
-	[formattedNumber release];
 	[textView sizeToFit];
 
 	NSRect textFrame = [textView frame];
@@ -102,8 +99,6 @@ void QSShowLargeType(NSString *aString) {
 	[textView setFrame:centerRectInRect([textView frame] , [content frame])];
 	//[textView setTag:255];
 	[content addSubview:textView];
-	[textView release];
-	[content release];
 
 	[largeTypeWindow setAlphaValue:0];
 	[largeTypeWindow makeKeyAndOrderFront:nil];

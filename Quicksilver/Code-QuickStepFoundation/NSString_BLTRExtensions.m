@@ -233,7 +233,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	CFUUIDRef uuid = CFUUIDCreate(NULL);
 	CFStringRef uuidStr = CFUUIDCreateString(NULL, uuid);
 	CFRelease(uuid);
-	return [(NSString *)uuidStr autorelease];
+	return [(__bridge NSString *)uuidStr autorelease];
 }
 @end
 

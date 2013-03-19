@@ -44,7 +44,6 @@ NSMutableDictionary *bindingsDict = nil;
         NSDictionary *defaultBindings = [[NSMutableDictionary alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[QSSearchObjectView class]] pathForResource:@"DefaultBindings" ofType:@"qskeys"]];
         bindingsDict = [[NSMutableDictionary alloc] initWithDictionary:[defaultBindings objectForKey:@"QSSearchObjectView"]];
         [bindingsDict addEntriesFromDictionary:[[NSDictionary dictionaryWithContentsOfFile:pUserKeyBindingsPath] objectForKey:@"QSSearchObjectView"]];
-        [defaultBindings release];
     }
 }
 #pragma mark -
@@ -100,26 +99,22 @@ NSMutableDictionary *bindingsDict = nil;
 	[self unbind:@"highlightColor"];
     [self unbind:@"textColor"];
     [self unbind:@"backgroundColor"];
-    [self setTextModeEditor:nil];
-	[partialString release], partialString = nil;
-	[matchedString release], matchedString = nil;
-	[visibleString release], visibleString = nil;
-	[resetTimer release], resetTimer = nil;
-	[searchTimer release], searchTimer = nil;
-	[resultTimer release], resultTimer = nil;
-	[selectedObject release], selectedObject = nil;
-	[currentEditor release], currentEditor = nil;
-	[historyArray release], historyArray = nil;
-	[parentStack release], parentStack = nil;
-	[childStack release], childStack = nil;
-	[resultController release], resultController = nil;
-	[searchArray release], searchArray = nil;
-	[sourceArray release], sourceArray = nil;
-	[resultArray release], resultArray = nil;
-    [textCellFont release];
-    [textCellFontColor release];
+	partialString = nil;
+	matchedString = nil;
+	visibleString = nil;
+	resetTimer = nil;
+	searchTimer = nil;
+	resultTimer = nil;
+	selectedObject = nil;
+	currentEditor = nil;
+	historyArray = nil;
+	parentStack = nil;
+	childStack = nil;
+	resultController = nil;
+	searchArray = nil;
+	sourceArray = nil;
+	resultArray = nil;
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[super dealloc];
 }
 
 #pragma mark -
@@ -260,7 +255,6 @@ NSMutableDictionary *bindingsDict = nil;
 - (NSString *)visibleString { return visibleString; }
 - (void)setVisibleString:(NSString *)newVisibleString {
 	if (visibleString != newVisibleString) {
-		[visibleString release];
 		visibleString = [newVisibleString copy];
 		[resultController.searchStringField setStringValue:visibleString];
 		if ([[self controller] respondsToSelector:@selector(searchView:changedString:)])
@@ -270,8 +264,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (NSMutableArray *)resultArray { return resultArray;  }
 - (void)setResultArray:(NSMutableArray *)newResultArray {
-	[resultArray release];
-	resultArray = [newResultArray retain];
+	resultArray = newResultArray;
     
 	if ([[resultController window] isVisible])
 		[self reloadResultTable];
@@ -283,16 +276,14 @@ NSMutableDictionary *bindingsDict = nil;
 - (NSMutableArray *)searchArray { return searchArray;  }
 - (void)setSearchArray:(NSMutableArray *)newSearchArray {
     if (searchArray != newSearchArray) {
-        [searchArray release];
-        searchArray = [newSearchArray retain];
+        searchArray = newSearchArray;
     }
 }
 
 - (NSMutableArray *)sourceArray { return sourceArray; }
 - (void)setSourceArray:(NSMutableArray *)newSourceArray {
 	if (sourceArray != newSourceArray) {
-		[sourceArray release];
-		sourceArray = [newSourceArray retain];
+		sourceArray = newSourceArray;
 		[self setSearchArray:sourceArray];
 	}
 }
@@ -306,10 +297,9 @@ NSMutableDictionary *bindingsDict = nil;
 - (NSRectEdge)preferredEdge { return preferredEdge; }
 - (void)setPreferredEdge:(NSRectEdge)newPreferredEdge { preferredEdge = newPreferredEdge; }
 
-- (NSString *)matchedString { return [[matchedString retain] autorelease]; }
+- (NSString *)matchedString { return matchedString; }
 - (void)setMatchedString:(NSString *)newMatchedString {
     if (matchedString != newMatchedString) {
-        [matchedString release];
         matchedString = [newMatchedString copy];
         [self setNeedsDisplay:YES];
     }
@@ -318,8 +308,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (id)selectedObject { return selectedObject;  }
 - (void)setSelectedObject:(id)newSelectedObject {
     if (selectedObject != newSelectedObject) {
-        [selectedObject release];
-        selectedObject = [newSelectedObject retain];
+        selectedObject = newSelectedObject;
     }
 }
 
@@ -357,8 +346,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)setCurrentEditor:(NSText *)aCurrentEditor {
 	if (currentEditor != aCurrentEditor) {
-		[currentEditor release];
-		currentEditor = [aCurrentEditor retain];
+		currentEditor = aCurrentEditor;
 	}
 }
 
@@ -411,7 +399,7 @@ NSMutableDictionary *bindingsDict = nil;
 	NSView *content = [savePanel contentView];
 	// NSLog(@"sub %@", [content subviews]);
 	if (![content isKindOfClass:[QSBackgroundView class]]) {
-		NSView *newBackground = [[[QSBackgroundView alloc] init] autorelease];
+		NSView *newBackground = [[QSBackgroundView alloc] init];
 		[savePanel setContentView:newBackground];
 		[newBackground addSubview:content];
 	}
@@ -439,7 +427,7 @@ NSMutableDictionary *bindingsDict = nil;
 	NSView *content = [openPanel contentView];
 	// NSLog(@"sub %@", [content subviews]);
 	if (![content isKindOfClass:[QSBackgroundView class]]) {
-		NSView *newBackground = [[[QSBackgroundView alloc] init] autorelease];
+		NSView *newBackground = [[QSBackgroundView alloc] init];
 		[openPanel setContentView:newBackground];
 		[newBackground addSubview:content];
 	}
@@ -776,7 +764,7 @@ NSMutableDictionary *bindingsDict = nil;
         [[self textModeEditor] setSelectable:YES];
 
         
-		NSScrollView *scrollView = [[[NSScrollView alloc] initWithFrame:editorFrame] autorelease];
+		NSScrollView *scrollView = [[NSScrollView alloc] initWithFrame:editorFrame];
 		[scrollView setBorderType:NSNoBorder];
 		[scrollView setHasVerticalScroller:NO];
 		[scrollView setAutohidesScrollers:YES];
@@ -862,8 +850,7 @@ NSMutableDictionary *bindingsDict = nil;
 				if ([resultTimer isValid]) {
 					[resultTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:[[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay]]];
 				} else {
-					[resultTimer release];
-					resultTimer = [[NSTimer scheduledTimerWithTimeInterval:[[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay] target:self selector:@selector(showResultView:) userInfo:nil repeats:NO] retain];
+					resultTimer = [NSTimer scheduledTimerWithTimeInterval:[[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay] target:self selector:@selector(showResultView:) userInfo:nil repeats:NO];
 				}
 			}
 		}
@@ -900,13 +887,12 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)partialStringChanged {
-	[self setSearchString:[[partialString copy] autorelease]];
+	[self setSearchString:[partialString copy]];
     
 	double searchDelay = [[NSUserDefaults standardUserDefaults] floatForKey:kSearchDelay];
         
 	if (![searchTimer isValid]) {
-		[searchTimer release];
-		searchTimer = [[NSTimer scheduledTimerWithTimeInterval:searchDelay target:self selector:@selector(performSearch:) userInfo:nil repeats:NO] retain];
+		searchTimer = [NSTimer scheduledTimerWithTimeInterval:searchDelay target:self selector:@selector(performSearch:) userInfo:nil repeats:NO];
 	}
 	[searchTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:searchDelay]];
 	
@@ -922,8 +908,7 @@ NSMutableDictionary *bindingsDict = nil;
 		if ([resetTimer isValid]) {
 			[resetTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:resetDelay]];
 		} else {
-			[resetTimer release];
-			resetTimer = [[NSTimer scheduledTimerWithTimeInterval:resetDelay target:self selector:@selector(resetString) userInfo:nil repeats:NO] retain];
+			resetTimer = [NSTimer scheduledTimerWithTimeInterval:resetDelay target:self selector:@selector(resetString) userInfo:nil repeats:NO];
 		}
 	}
 }
@@ -946,8 +931,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)setTextCellFont:(NSFont *)newCellFont
 {
-    [textCellFont autorelease];
-    textCellFont = [newCellFont retain];
+    textCellFont = newCellFont;
 }
 
 - (NSColor *)textCellFontColor
@@ -957,8 +941,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)setTextCellFontColor:(NSColor *)newCellColor
 {
-    [textCellFontColor autorelease];
-    textCellFontColor = [newCellColor retain];
+    textCellFontColor = newCellColor;
 }
 
 #pragma mark -
@@ -1558,7 +1541,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (NSInteger)conversationIdentifier { return (long)self; }
 
 - (NSAttributedString *)attributedSubstringFromRange:(NSRange)theRange {
-	return [[[NSAttributedString alloc] initWithString:[partialString substringWithRange:theRange]] autorelease];
+	return [[NSAttributedString alloc] initWithString:[partialString substringWithRange:theRange]];
 }
 - (NSRange)markedRange { return NSMakeRange([partialString length] -1, 1); }
 - (NSRange)selectedRange { return NSMakeRange(NSNotFound, 0); }
@@ -1729,7 +1712,7 @@ NSMutableDictionary *bindingsDict = nil;
                     NSString *type = [[NSFileManager defaultManager] UTIOfFile:[individual singleFilePath]];
                     for (NSString *indirectType in indirectTypes) {
                         // if the file type is a folder (Always show them) or it conforms to a set indirectType
-                        if ([type isEqualToString:(NSString *)kUTTypeFolder] || UTTypeConformsTo((CFStringRef)type, (CFStringRef)indirectType)) {
+                        if ([type isEqualToString:(NSString *)kUTTypeFolder] || UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)indirectType)) {
                             return YES;
                         }
                         // for QSTypes set in the indirectType
@@ -1751,7 +1734,6 @@ NSMutableDictionary *bindingsDict = nil;
         if ([parentStack count] && !alt) {
             browsing = YES;
             parent = [parentStack lastObject];
-            [[parent retain] autorelease];  
             [parentStack removeLastObject];
         } else {
             parent = [newSelectedObject parent];
@@ -1806,8 +1788,8 @@ NSMutableDictionary *bindingsDict = nil;
         [self clearSearch];
         NSInteger defaultMode = [[NSUserDefaults standardUserDefaults] integerForKey:kBrowseMode];
         [self setSearchMode:(defaultMode ? defaultMode : SearchFilter)];
-        [self setResultArray:[[newObjects mutableCopy] autorelease]]; // !!!:nicholas:20040319
-        [self setSourceArray:[[newObjects mutableCopy] autorelease]];
+        [self setResultArray:[newObjects mutableCopy]];
+        [self setSourceArray:[newObjects mutableCopy]];
         
         if (!newSelectedObject)
             [self selectIndex:0];
@@ -1849,7 +1831,7 @@ NSMutableDictionary *bindingsDict = nil;
     object = [object resolvedObject];
     
     if ([object validPaths] || [[object primaryType] isEqualToString:QSURLType]) {
-        quicklookObject = [object retain];
+        quicklookObject = object;
         savedSearchMode = searchMode;
         return YES;
     }
@@ -1858,7 +1840,6 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)closePreviewPanel {
     [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
-    [quicklookObject release];
     quicklookObject = nil;
     searchMode = savedSearchMode;
 }
@@ -1905,7 +1886,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)beginPreviewPanelControl:(QLPreviewPanel *)panel {
     // This document is now responsible of the preview panel
     // It is allowed to set the delegate, data source and refresh panel.
-    previewPanel = [panel retain];
+    previewPanel = panel;
     [panel setDelegate:self];
     [panel setDataSource:self];
     // Put the panel just above Quicksilver's window
@@ -1916,7 +1897,6 @@ NSMutableDictionary *bindingsDict = nil;
     // This document loses its responsisibility on the preview panel
     // Until the next call to -beginPreviewPanelControl: it must not
     // change the panel's delegate, data source or refresh it.
-    [previewPanel release];
     previewPanel = nil;
 }
 

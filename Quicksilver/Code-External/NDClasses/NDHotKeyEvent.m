@@ -396,40 +396,6 @@ NDHotKeyEvent		* hotKeyEvent;
             nil];
 }
 
-/*
- * -release
- */
-- (oneway void)release
-{
-	/*
-	 *	We need to remove the hot key from the hash table before it's retain count reaches zero
-	 */
-	if( [self retainCount] == 1 )
-	{
-		NSHashTable		* theHashTable = [NDHotKeyEvent allHotKeyEvents];
-		if( theHashTable )
-		{
-			struct HotKeyMappingEntry		theDummyEntry;
-            
-			theDummyEntry.keyCode = [self keyCode];
-			theDummyEntry.modifierFlags = [self modifierFlags];
-			theDummyEntry.hotKeyEvent = nil;
-            
-			@synchronized([self class]) {;
-				switchHotKey( self, NO );
-				if( [self retainCount] == 1 )		// check again because it might have changed
-				{
-					id		theHotKeyEvent = NSHashGet( theHashTable, (void*)&theDummyEntry );
-					if( theHotKeyEvent )
-						NSHashRemove( theHashTable, theHotKeyEvent );
-				}
-			};
-		}
-	}
-    //	else
-	[super release];
-}
-
 - (void)dealloc
 {
     if(reference) {

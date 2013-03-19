@@ -143,8 +143,4 @@
 - (void)setCollectionSpace:(CGFloat)value {
 	collectionSpace = value;
 }
-- (void)dealloc {
-	[collection release];
-	[super dealloc];
-}
 @end
