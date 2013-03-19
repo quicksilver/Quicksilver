@@ -72,14 +72,13 @@
 - (void)dealloc {
 	[[NSUserDefaultsController sharedUserDefaultsController] removeObserver:self];
     [[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
-	[super dealloc];
 }
 
 - (void)setModifier:(NSInteger)modifier count:(NSInteger)count {
 	QSModifierKeyEvent *event = [QSModifierKeyEvent eventWithIdentifier:@"QSModKeyActivation"];
 	[event disable];
 	if (count) {
-		event = [[[QSModifierKeyEvent alloc] init] autorelease];
+		event = [[QSModifierKeyEvent alloc] init];
 		[event setModifierActivationMask:modifier];
 		[event setModifierActivationCount:count];
 		[event setTarget:[NSApp delegate]];
@@ -113,7 +112,7 @@
 
     for (NSString *type in [NSArray arrayWithObjects:(NSString *)kTISTypeKeyboardLayout, (NSString *)kTISTypeKeyboardInputMode, nil]) {
         NSDictionary *filter = [NSDictionary dictionaryWithObject:type forKey:(NSString *)kTISPropertyInputSourceType];
-        CFArrayRef sourceList= TISCreateInputSourceList((CFDictionaryRef)filter, false);
+        CFArrayRef sourceList= TISCreateInputSourceList((__bridge CFDictionaryRef)filter, false);
         if (!sourceList) {
             continue;
         }
@@ -121,8 +120,8 @@
 
         for (int i = 0; i < count; i++ ) {
             TISInputSourceRef source = (TISInputSourceRef)CFArrayGetValueAtIndex(sourceList, i);
-            NSString *title = (NSString *)TISGetInputSourceProperty(source, kTISPropertyLocalizedName);
-            NSString *sourceId = TISGetInputSourceProperty(source, kTISPropertyInputSourceID);
+            NSString *title = (__bridge NSString *)TISGetInputSourceProperty(source, kTISPropertyLocalizedName);
+            NSString *sourceId = (__bridge NSString *)TISGetInputSourceProperty(source, kTISPropertyInputSourceID);
             [sourceNames setObject:sourceId forKey:title];
         }
 
@@ -163,7 +162,6 @@
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[super dealloc];
 }
 
 - (void)updateInterfacePopUp {
@@ -248,14 +246,12 @@
 - (BOOL)shouldLaunchAtLogin {
 	LaunchAtLoginController *launchController = [[LaunchAtLoginController alloc] init];
 	BOOL shouldLaunch = [launchController willLaunchAtLogin:[[NSBundle mainBundle] bundleURL]];
-	[launchController release];
 	return shouldLaunch;
 }
 
 - (void)setShouldLaunchAtLogin:(BOOL)launch {
 	LaunchAtLoginController *launchController = [[LaunchAtLoginController alloc] init];
 	[launchController setLaunchAtLogin:launch forURL:[[NSBundle mainBundle] bundleURL]];
-	[launchController release];
 }
 
 - (BOOL)dockIconIsHidden {
@@ -403,7 +399,7 @@
 		}
 		default: break;
 	}
-	[self setActions:[[[newActions allObjects] mutableCopy] autorelease]];
+	[self setActions:[[newActions allObjects] mutableCopy]];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -413,15 +409,13 @@
 - (NSMutableArray *)actions { return actions;  }
 - (void)setActions:(NSMutableArray *)newActions {
 	if(newActions != actions){
-		[actions release];
-		actions = [newActions retain];
+		actions = newActions;
 	}
 }
 - (NSMutableArray *)groups { return groups; }
 - (void)setGroups:(NSMutableArray *)newGroups {
 	if(newGroups != groups){
-		[groups release];
-		groups = [newGroups retain];
+		groups = newGroups;
 	}
 }
 
@@ -448,7 +442,6 @@
 			}
 			NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
 			[array sortUsingDescriptors:[NSArray arrayWithObject:desc]];
-			[desc release];
 			[array insertObject:[NSDictionary dictionaryWithObjectsAndKeys:kQSAllActionsCategory, @"group", @"All Actions", @"name", [QSResourceManager imageNamed:@"Quicksilver"] , @"icon", nil] atIndex:0];
 			[array insertObject:[NSDictionary dictionaryWithObjectsAndKeys:@"*", @"group", @"Any Type", @"name", [QSResourceManager imageNamed:@"Quicksilver"] , @"icon", nil] atIndex:1];
 			break;
@@ -466,7 +459,6 @@
 			}
 			NSSortDescriptor *desc = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
 			[array sortUsingDescriptors:[NSArray arrayWithObject:desc]];
-			[desc release];
 			[array insertObject:[NSDictionary dictionaryWithObjectsAndKeys:kQSAllActionsCategory, @"group", @"All Plugins", @"name", [QSResourceManager imageNamed:@"Quicksilver"] , @"icon", nil] atIndex:0];
 			break;
 		}
@@ -530,10 +522,5 @@
 	[actionController setFilterPredicate:([string length])?[NSPredicate predicateWithFormat:@"name contains[cd] %@", string]:nil];
 }
 
-- (void)dealloc {
-	[actions release];
-	[groups release];
-	[super dealloc];
-}
 
 @end

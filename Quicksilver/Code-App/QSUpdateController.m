@@ -20,7 +20,7 @@
 
 + (id)sharedInstance {
 	static id _sharedInstance;
-	if (!_sharedInstance) _sharedInstance = [[[self class] allocWithZone:[self zone]] init];
+	if (!_sharedInstance) _sharedInstance = [[[self class] allocWithZone:nil] init];
 	return _sharedInstance;
 }
 
@@ -62,14 +62,12 @@
 		//nextCheck = [NSDate dateWithTimeIntervalSinceNow: 20.0];
 		if (updateTimer) {
 			[updateTimer invalidate];
-			[updateTimer release];
 		}
-		updateTimer = [[NSTimer scheduledTimerWithTimeInterval:checkInterval target:self selector:@selector(threadedCheckForUpdate:) userInfo:nil repeats:shouldRepeat] retain];
+		updateTimer = [NSTimer scheduledTimerWithTimeInterval:checkInterval target:self selector:@selector(threadedCheckForUpdate:) userInfo:nil repeats:shouldRepeat];
 		[updateTimer setFireDate:( doStartupCheck ? [NSDate dateWithTimeIntervalSinceNow:33.333f] : nextCheck )];
 #ifdef DEBUG
 		if (VERBOSE) NSLog(@"Next Version Check at : %@", [[updateTimer fireDate] description]);
 #endif
-        [nextCheck release];
 	}
 }
 
@@ -77,7 +75,7 @@
 	NSString *checkURL = [[[NSProcessInfo processInfo] environment] objectForKey:@"QSCheckUpdateURL"];
     if (!checkURL)
         checkURL = kCheckUpdateURL;
-    NSString *thisVersionString = (NSString *)CFBundleGetValueForInfoDictionaryKey(CFBundleGetMainBundle(), kCFBundleVersionKey);
+    NSString *thisVersionString = (__bridge NSString *)CFBundleGetValueForInfoDictionaryKey(CFBundleGetMainBundle(), kCFBundleVersionKey);
     
     NSString *versionType = nil;
     switch ([[NSUserDefaults standardUserDefaults] integerForKey:@"QSUpdateReleaseLevel"]) {
@@ -119,7 +117,7 @@ typedef enum {
     NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:[self buildUpdateCheckURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0];
 
     NSData *data = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:nil error:nil];
-    checkVersionString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+    checkVersionString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 
     [defaults setObject:[NSDate date] forKey:kLastUpdateCheck];
     if (![checkVersionString length] || [checkVersionString length] > 10) {
@@ -132,7 +130,7 @@ typedef enum {
     /* We have to get the current available version, because it will get displayed to the user,
      * so force happens only if there's a valid response from the server
      */
-    newVersion = [checkVersionString retain];
+    newVersion = checkVersionString;
 #ifdef DEBUG
     if (VERBOSE)
         NSLog(@"Installed Version: %@, Available Version: %@, Valid: %@, Force update: %@", thisVersionString, checkVersionString, (newVersionAvailable ? @"YES" : @"NO"), (force ? @"YES" : @"NO"));
@@ -254,7 +252,7 @@ typedef enum {
 	// and start loading the data
 	appDownload = [[QSURLDownload alloc] initWithRequest:theRequest delegate:(id)self];
 	if (appDownload) {
-		updateTask = [[QSTask taskWithIdentifier:@"QSAppUpdateInstalling"] retain];
+		updateTask = [QSTask taskWithIdentifier:@"QSAppUpdateInstalling"];
 		[updateTask setName:@"Downloading Update"];
 		[updateTask setProgress:-1];
 
@@ -285,11 +283,10 @@ typedef enum {
 	NSLog(@"Download Failed: %@", error);
 	//	[[QSTaskController sharedInstance] removeTask:@"QSAppUpdateInstalling"];
 	[updateTask stopTask:nil];
-	[updateTask release];
 	updateTask = nil;
 	NSRunInformationalAlertPanel(@"Download Failed", @"An error occured while updating: %@", @"OK", nil, nil, [error localizedDescription] );
     [appDownload cancel];
-	[appDownload release], appDownload = nil;
+	appDownload = nil;
 }
 
 - (void)downloadDidFinish:(QSURLDownload *)download {
@@ -325,9 +322,8 @@ typedef enum {
 - (void)cancelUpdate:(QSTask *)task {
 	shouldCancel = YES;
 	[appDownload cancel];
-    [appDownload release], appDownload = nil;
+    appDownload = nil;
 	[updateTask stopTask:nil];
-	[updateTask release];
 	updateTask = nil;
 }
 
@@ -363,8 +359,8 @@ typedef enum {
     }
 
 	[updateTask stopTask:nil];
-	[updateTask release], updateTask = nil;
-    [appDownload release], appDownload = nil;
+	updateTask = nil;
+    appDownload = nil;
 }
 
 - (BOOL)installAppFromDiskImage:(NSString *)path {
@@ -457,7 +453,7 @@ typedef enum {
 - (NSArray *)extractFilesFromQSPkg:(NSString *)path toPath:(NSString *)tempDirectory {
 	if (!path) return nil;
 	NSFileManager *manager = [NSFileManager defaultManager];
-	NSTask *task = [[[NSTask alloc] init] autorelease];
+	NSTask *task = [[NSTask alloc] init];
 	[task setLaunchPath:@"/usr/bin/ditto"];
 
 	[task setArguments:[NSArray arrayWithObjects:@"-x", @"-rsrc", path, tempDirectory, nil]];
