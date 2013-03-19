@@ -89,6 +89,9 @@ double doubleTapTimerWindow = 0.3;
 NSUInteger previousModifier = 0;
 
 @implementation QSModifierKeyEvent
+
+@synthesize target;
+
 + (void)enableModifierEvents {modifierEventsEnabled = YES;}
 + (void)disableModifierEvents {modifierEventsEnabled = NO;}
 
@@ -268,7 +271,7 @@ NSUInteger previousModifier = 0;
 
 
 - (void)sendAction {
-	[target performSelector:action];
+    [self.target performSelector:self.action withObject:nil];
 }
 
 - (BOOL)checkForModifierTap {

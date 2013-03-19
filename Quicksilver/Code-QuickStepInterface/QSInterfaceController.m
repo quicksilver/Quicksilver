@@ -65,7 +65,6 @@
 - (id)initWithWindow:(NSWindow *)window {
     self = [super initWithWindow:window];
 	if (!self) {
-        [super release];
         return nil;
     }
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -85,15 +84,12 @@
 		[actionsUpdateTimer invalidate];
 	if([hideTimer isValid])
 		[hideTimer invalidate];
-	[actionsUpdateTimer release];
-	[hideTimer release];
 	//[progressIndicator release];
 	//[iSelector release];
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc removeObserver:progressIndicator];
 	[nc removeObserver:self];
 	
-	[super dealloc];
 }
 
 - (void)windowDidLoad {
@@ -108,7 +104,6 @@
 	[aSelector setSearchMode:SearchFilter];
 	[aSelector setAllowNonActions:NO];
 
-	[iSelector retain];
 	[self hideIndirectSelector:nil];
 
 	[[self window] setHidesOnDeactivate:NO];
@@ -173,7 +168,7 @@
         savedKeyboard = TISCopyCurrentKeyboardLayoutInputSource();
         NSString *forcedKeyboardId = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSForcedKeyboardIDOnActivation"];
         NSDictionary *filter = [NSDictionary dictionaryWithObject:forcedKeyboardId forKey:(NSString *)kTISPropertyInputSourceID];
-        CFArrayRef keyboards = TISCreateInputSourceList((CFDictionaryRef)filter, false);
+        CFArrayRef keyboards = TISCreateInputSourceList((__bridge CFDictionaryRef)filter, false);
         if (keyboards) {
             TISInputSourceRef selected = (TISInputSourceRef)CFArrayGetValueAtIndex(keyboards, 0);
             TISSelectInputSource(selected);
@@ -282,8 +277,8 @@
 		[control clearObjectValue];
 	}
 	[control clearSearch];
-	[control setSourceArray:[[array mutableCopy] autorelease]];
-	[control setResultArray:[[array mutableCopy] autorelease]];
+	[control setSourceArray:[array mutableCopy]];
+	[control setResultArray:[array mutableCopy]];
     [control reloadResultTable];
 	[control selectObject:defaultSelection];
 }
@@ -300,8 +295,7 @@
 		//	NSLog(@"action %@", [actionsUpdateTimer fireDate]);
 	} else {
 		[actionsUpdateTimer invalidate];
-		[actionsUpdateTimer release];
-		actionsUpdateTimer = [[NSTimer scheduledTimerWithTimeInterval:0.10 target:self selector:@selector(updateActionsNow) userInfo:nil repeats:NO] retain];
+		actionsUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:0.10 target:self selector:@selector(updateActionsNow) userInfo:nil repeats:NO];
 	}
 }
 
@@ -359,14 +353,13 @@
     // If the validIndirectObjectsForAction... method hasn't been implemented, attempt to get valid indirects from the action's 'indirectTypes'
     if(!indirects) {
         if ([aObj indirectTypes]) {
-            __block NSMutableArray *indirectsForAllTypes = [[NSMutableArray alloc] initWithCapacity:0];
+            __weak NSMutableArray *indirectsForAllTypes = [[NSMutableArray alloc] initWithCapacity:0];
             [[aObj indirectTypes] enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSString *eachType, NSUInteger idx, BOOL *stop) {
                 [indirectsForAllTypes addObjectsFromArray:[QSLib arrayForType:eachType]];
             }];
             if ([indirectsForAllTypes count]) {
-                indirects = [[indirectsForAllTypes copy] autorelease];
+                indirects = [indirectsForAllTypes copy];
             }
-            [indirectsForAllTypes release];
         }
     }
 	[self updateControl:iSelector withArray:indirects];
@@ -385,7 +378,6 @@
 	QSObject *entry;
 	entry = [[QSObject alloc] initWithPasteboard:pboard];
 	[dSelector setObjectValue:entry];
-	[entry release];
 	[self activate:self];
 }
 
@@ -546,8 +538,7 @@
 		if ([hideTimer isValid]) {
 			[hideTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 		} else {
-			[hideTimer release];
-			hideTimer = [[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerHide:) userInfo:nil repeats:YES] retain];
+			hideTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerHide:) userInfo:nil repeats:YES];
 			[hideTimer fire];
 		}
 	} else if (![NSApp keyWindow]) {
@@ -576,7 +567,7 @@
 #ifdef DEBUG
         NSDate *startDate = [NSDate date];
 #endif
-        QSAction *action = [[aSelector objectValue] retain];
+        QSAction *action = [aSelector objectValue];
         QSObject *dObject = [dSelector objectValue];
         QSObject *iObject = [iSelector objectValue];
         if( [dObject isKindOfClass:[QSRankedObject class]] )
@@ -588,7 +579,6 @@
 #ifdef DEBUG
         if (VERBOSE) NSLog(@"Command executed (%ldms) ", (long)(-[startDate timeIntervalSinceNow] *1000));
 #endif
-        [action release];
     }
 }
 

@@ -185,17 +185,13 @@ typedef enum {
 }
 
 - (BOOL)threadedCheckForUpdates:(BOOL)force {
-    @autoreleasepool {
-        BOOL res = [self checkForUpdatesInBackground:NO force:force];
-        return res;
-    }
+    BOOL res = [self checkForUpdatesInBackground:NO force:force];
+    return res;
 }
 
 - (BOOL)threadedCheckForUpdatesInBackground:(BOOL)force {
-    @autoreleasepool {
-        BOOL res = [self checkForUpdatesInBackground:YES force:force];
-        return res;
-    }
+    BOOL res = [self checkForUpdatesInBackground:YES force:force];
+    return res;
 }
 
 - (IBAction)checkForUpdate:(id)sender {

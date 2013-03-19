@@ -47,10 +47,10 @@
 }
 
 
-@property (retain) IBOutlet NSTableView *resultTable;
-@property (retain) NSArray *currentResults;
-@property (retain) QSObject *selectedItem;
-@property (retain) NSTextField *searchStringField;
+@property (strong) IBOutlet NSTableView *resultTable;
+@property (strong) NSArray *currentResults;
+@property (strong) QSObject *selectedItem;
+@property (strong) NSTextField *searchStringField;
 
 + (id)sharedInstance;
 

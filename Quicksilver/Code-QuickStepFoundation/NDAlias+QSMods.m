@@ -12,6 +12,6 @@
 - (NSString *)quickPath {
 	CFStringRef pathString = nil;
 	FSCopyAliasInfo(aliasHandle, NULL, NULL, &pathString, NULL, NULL);
-	return [(NSString *)pathString autorelease];
+	return [(__bridge NSString *)pathString autorelease];
 }
 @end

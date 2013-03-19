@@ -11,7 +11,7 @@
 
 NSString *QSUTIOfURL(NSURL *fileURL) {
     LSItemInfoRecord infoRec;
-	LSCopyItemInfoForURL((CFURLRef)fileURL, kLSRequestTypeCreator|kLSRequestBasicFlagsOnly, &infoRec);
+	LSCopyItemInfoForURL((__bridge CFURLRef)fileURL, kLSRequestTypeCreator|kLSRequestBasicFlagsOnly, &infoRec);
 	return QSUTIWithLSInfoRec([fileURL path], &infoRec);
 }
 
@@ -34,7 +34,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 	if (infoRec->flags & kLSItemInfoIsVolume)
 		return (NSString *)kUTTypeVolume;
 
-	NSString *extensionUTI = [(NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (CFStringRef)extension, NULL) autorelease];
+	NSString *extensionUTI = [(NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)extension, NULL) autorelease];
 	if (extensionUTI && ![extensionUTI hasPrefix:@"dyn"])
 		return extensionUTI;
 
@@ -42,7 +42,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 	if (![hfsType length] && isDirectory)
 		return (NSString *)kUTTypeFolder;
 
-	NSString *hfsUTI = [(NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassOSType, (CFStringRef)hfsType, NULL) autorelease];
+	NSString *hfsUTI = [(__bridge NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassOSType, (__bridge CFStringRef)hfsType, NULL) autorelease];
 	if (![hfsUTI hasPrefix:@"dyn"])
 		return hfsUTI;
 
@@ -72,10 +72,10 @@ NSString *QSUTIForExtensionOrType(NSString *extension, OSType filetype) {
 	NSString *itemUTI = nil;
 //	NSLog(@"type %@ %@", extension, NSFileTypeForHFSTypeCode(filetype));
 	if (extension != nil) {
-		itemUTI = (NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (CFStringRef)extension, NULL);
+		itemUTI = (__bridge NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)extension, NULL);
 	} else {
 		CFStringRef fileTypeUTI = UTCreateStringForOSType(filetype);
-		itemUTI = (NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassOSType, fileTypeUTI, NULL);
+		itemUTI = (__bridge NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassOSType, fileTypeUTI, NULL);
 		CFRelease(fileTypeUTI);
 	}
 	return [itemUTI autorelease];

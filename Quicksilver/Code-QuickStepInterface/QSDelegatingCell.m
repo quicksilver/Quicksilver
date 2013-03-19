@@ -30,27 +30,20 @@
 	[super drawWithFrame:cellFrame inView:controlView];
 }
 
-- (void)dealloc {
-	[delegate release];
-	[userInfo release];
-	[super dealloc];
-}
 
 - (void)setTransparent:(BOOL)flag {}
 
 - (NSObject *)delegate { return delegate; }
 - (void)setDelegate:(NSObject *)newDelegate {
 	if (delegate != newDelegate) {
-		[delegate release];
-		delegate = [newDelegate retain];
+		delegate = newDelegate;
 	}
 }
 
 - (id)userInfo { return userInfo;  }
 - (void)setUserInfo:(id)newUserInfo {
 	if (userInfo != newUserInfo) {
-		[userInfo release];
-		userInfo = [newUserInfo retain];
+		userInfo = newUserInfo;
 	}
 }
 @end
