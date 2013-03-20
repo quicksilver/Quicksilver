@@ -1,0 +1,63 @@
+// Typical strings
+"OK" = "OK";
+"Cancel" = "Cancel";
+"Quit" = "Quit";
+"Relaunch" = "Relaunch";
+"Ignore" = "Ignore";
+
+// Preference Strings
+"QSPlugInsPrefPane" = "Plugins";
+"QSUpdatePrefPane" = "Update";
+"QSHelpersPrefPane" = "Helpers";
+"QSTriggerEditor" = "Triggers";
+"QSApplicationPrefPane" = "Application";
+"QSCatalogController" = "Catalog";
+"QSSilverNotifier" = "Quicksilver (Built-in)";
+"QSNotificationCenterNotifier" = "Notification Center";
+"QSDefaultStringRanker" = "Default (Built-in)";
+
+// QSController.m Alerts
+"requires" = "requires";
+"Recent versions of Quicksilver require Mac OS 10.6 Snow Leopard. Older 10.5, 10.4 and 10.3 compatible versions are available from the http://qsapp.com." = "Recent versions of Quicksilver require Mac OS 10.6 Snow Leopard. Older 10.5, 10.4 and 10.3 compatible versions are available from the http://qsapp.com.";
+
+"Quicksilver Crashed" = "Quicksilver Crashed";
+
+"Quicksilver crashed when loading the %@ plugin.\nDo you wish to delete this plugin and continue launching Quicksilver?" = "Quicksilver crashed when loading the %@ plugin.\nDo you wish to delete this plugin and continue launching Quicksilver?";
+
+"Sorry. Quicksilver crashed on last use.\nDeleting caches may help solve the problem.\nOtherwise you can try to launch Quicksilver again, or quit and read the FAQ." = "Sorry. Quicksilver crashed on last use.\nDeleting caches may help solve the problem.\nOtherwise you can try to launch Quicksilver again, or quit and read the FAQ.";
+"Do Nothing" = "Do Nothing";
+"Read FAQ" = "Read FAQ";
+"Clear Caches" = "Clear Caches";
+
+"Running from a new location" = "Running from a new location";
+"The previous version of Quicksilver was located in \"%@\". Would you like to move this new version to that location?" = "The previous version of Quicksilver was located in \"%@\". Would you like to move this new version to that location?";
+
+"This is an old version of Quicksilver" = "This is an old version of Quicksilver";
+"You have previously used a newer version. Perhaps you have duplicate copies?" = "You have previously used a newer version. Perhaps you have duplicate copies?";
+"Reveal this copy" = "Reveal this copy";
+
+"Would you like to install Quicksilver?" = "Would you like to install Quicksilver?";
+"Quicksilver was launched from a download location.\rWould you like to copy Quicksilver to your applications folder?" = "Quicksilver was launched from a download location.\rWould you like to copy Quicksilver to your applications folder?";
+"Install in \"Applications\"" = "Install in \"Applications\"";
+"Choose Location..." = "Choose Location...";
+
+"Install Here" = "Install Here";
+"Install Quicksilver" = "Install Quicksilver";
+
+"An error has occured" = "An error has occured";
+"Quicksilver must be relaunched to regain stability." = "Quicksilver must be relaunched to regain stability.";
+
+"Running from a new location" = "Running from a new location";
+"The previous version of Quicksilver was located in \"%@\". Would you like to move this new version to that location?" = "The previous version of Quicksilver was located in \"%@\". Would you like to move this new version to that location?";
+"Move and Relaunch" = "Move and Relaunch";
+"Don't Move" = "Don't Move";
+
+"Quicksilver has been updated" = "Quicksilver has been updated";
+"You are using a new version of Quicksilver. Would you like to see the Release Notes?" = "You are using a new version of Quicksilver. Would you like to see the Release Notes?";
+"Show Release Notes" = "Show Release Notes";
+
+"Quicksilver is now 64-bit" = "Quicksilver is now 64-bit";
+"64-bit details" = "Some older plugins will not load. A list of disabled plugins is available in the Preferences.\n\nIf you absolutely can't live without an older plugin, Quicksilver can be run in 32-bit mode. (32-bit support will be dropped in a future release.)";
+"Network and Removable Disks" = "Network and Removable Disks";
+
+"Type to search" = "Type to search";

@@ -123,7 +123,7 @@ static id _sharedInstance;
 		[item setTarget:self];
 		[item setAction:@selector(addSource:)];
 		icon = [[source iconForEntry:nil] copy];
-		[icon setSize:NSMakeSize(16, 16)];
+		[icon setSize:QSSize16];
 		[item setImage:icon];
 		[icon release];
 		 if ([theID isEqualToString:@"QSFileSystemObjectSource"]) {

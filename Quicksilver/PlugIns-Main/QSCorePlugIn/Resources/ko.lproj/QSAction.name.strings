@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>AppActivateAction</key>
+    <string>활성</string>
+    <key>AppHideAction</key>
+    <string>숨기기</string>
+    <key>AppHideOthersAction</key>
+    <string>기타 숨기기</string>
+    <key>AppLaunchAction</key>
+    <string>실행</string>
+    <key>AppLaunchAgainAction</key>
+    <string>사본으로 실행</string>
+    <key>AppOpenFileAction</key>
+    <string>파일 열기...</string>
+    <key>AppQuitOthersAction</key>
+    <string>기타 종료</string>
+    <key>AppQuitAction</key>
+    <string>종료</string>
+    <key>AppRelaunchAction</key>
+    <string>재실행</string>
+    <key>AppReopenAction</key>
+    <string>열기</string>
+    <key>AppRootLaunchAction</key>
+    <string>관리자 권한으로 실행</string>
+    <key>AppShowHideAction</key>
+    <string>응용프로그램 토글</string>
+    <key>AppleScriptOpenFilesAction</key>
+    <string>파일 열기...</string>
+    <key>AppleScriptProcessTextAction</key>
+    <string>텍스트 처리...</string>
+    <key>AppleScriptRunAction</key>
+    <string>실행</string>
+    <key>AppleScriptRunTextAction</key>
+    <string>AppleScript로 실행</string>
+    <key>ContactEditAction</key>
+    <string>편집</string>
+    <key>ContactEmailAction</key>
+    <string>이메일</string>
+    <key>ContactIMAction</key>
+    <string>메신저 대화상대</string>
+    <key>ContactSendItemEmailAction</key>
+    <string>항목 이메일...</string>
+    <key>ContactSendItemIMAction</key>
+    <string>메신저로 문자 보내기...</string>
+    <key>ContactSendTextEmailAction</key>
+    <string>텍스트 보내기...</string>
+    <key>ContactShowAction</key>
+    <string>보이기</string>
+    <key>DiskEjectAction</key>
+    <string>추출</string>
+    <key>DiskForceEjectAction</key>
+    <string>강제 추출</string>
+    <key>FileCompressAction</key>
+    <string>압축</string>
+    <key>FileCopyToAction</key>
+    <string>다음으로 복사...</string>
+    <key>FileDecompressAction</key>
+    <string>압축 해제</string>
+    <key>FileDeleteAction</key>
+    <string>삭제 (지우기)</string>
+    <key>FileGetInfoAction</key>
+    <string>정보 가져오기</string>
+    <key>FileGetPathAction</key>
+    <string>경로 가져오기</string>
+    <key>FileGetPosixPathAction</key>
+    <string>절대 경로 (POSIX) 가져오기</string>
+    <key>FileGetURLAction</key>
+    <string>파일 URL 가져오기</string>
+    <key>FileGetHFSPathAction</key>
+    <string>파일 위치 가져오기</string>
+    <key>FileMakeAliasInAction</key>
+    <string>다음에 가상본 만들기...</string>
+    <key>FileMakeHardLinkInAction</key>
+    <string>다음에 하드 링크 만들기...</string>
+    <key>FileMakeLinkInAction</key>
+    <string>다음에 링크 만들기...</string>
+    <key>FileMoveToAction</key>
+    <string>다음으로 옮기기...</string>
+    <key>FileOpenAction</key>
+    <string>열기</string>
+    <key>FileOpenWithAction</key>
+    <string>다음으로 열기...</string>
+    <key>FileAlwaysOpenTypeWithAction</key>
+    <string>항상 다음으로 열기...</string>
+    <key>FileRenameAction</key>
+    <string>이름 바꾸기...</string>
+    <key>FileRevealAction</key>
+    <string>보이기</string>
+    <key>FileToTrashAction</key>
+    <string>휴지통으로 이동</string>
+    <key>ItemSendToContactEmailAction</key>
+    <string>이메일로...</string>
+    <key>ItemSendToContactIMAction</key>
+    <string>메신저의 다음 대화상대로...</string>
+    <key>PasteboardCopyAction</key>
+    <string>클립보드에 복사하기</string>
+    <key>PasteboardPasteAction</key>
+    <string>붙여넣기</string>
+    <key>PasteboardPasteActionAsPlainText</key>
+    <string>일반 글자로 붙여넣기</string>
+    <key>ProcessKillAction</key>
+    <string>강제 종료 (끄기)</string>
+    <key>ProcessLowerPriorityAction</key>
+    <string>우선순위 낮음</string>
+    <key>ProcessRaisePriorityAction</key>
+    <string>우선순위 높이기</string>
+    <key>ProcessResumeAction</key>
+    <string>실행 재개 (복귀)</string>
+    <key>ProcessSuspendAction</key>
+    <string>실행 중지 (대기)</string>
+    <key>QSObjectAssignMnemonic</key>
+    <string>줄임말 정하기</string>
+    <key>QSObjectSelectAction</key>
+    <string>명령창에서 선택</string>
+    <key>QSAIMSMSAction</key>
+    <string>문자메시지(AIM/iChat) 보내기</string>
+    <key>QSAirPortNetworkSelectAction</key>
+    <string>Airport 전환</string>
+    <key>QSCLExecuteAction</key>
+    <string>실행</string>
+    <key>QSCLExecuteTextAction</key>
+    <string>명령 쉘에서 실행</string>
+    <key>QSCLExecuteShellCommandAction</key>
+    <string>명령 쉘에서 실행</string>
+    <key>QSCLExecuteWithArgsAction</key>
+    <string>실행 [...]</string>
+    <key>QSCLTermExecuteTextAction</key>
+    <string>터미널에서 텍스트 명령 실행</string>
+    <key>QSCLTermExecuteShellCommandAction</key>
+    <string>터미널에서 텍스트 명령 실행</string>
+    <key>QSCLTermExecuteWithArgsAction</key>
+    <string>터미널에서 실행[...]</string>
+    <key>QSCLTermShowDirectoryAction</key>
+    <string>터미널에서 경로로 이동</string>
+    <key>QSCLTermShowManPageAction</key>
+    <string>매뉴얼 화면 보여주기</string>
+    <key>QSCatalogEntryRescanAction</key>
+    <string>전체 보관함 다시 살피기</string>
+    <key>QSCatalogEntryShowAction</key>
+    <string>보관함에서 항목 보기</string>
+    <key>QSCommandSaveAction</key>
+    <string>명령을 파일로 저장...</string>
+    <key>QSCommandAddTriggerAction</key>
+    <string>단축 기능 추가</string>
+    <key>QSCommandExecuteAction</key>
+    <string>실행</string>
+    <key>QSCommandExecuteAfterDelayAction</key>
+    <string>일정 시간 기다린 후 실행...</string>
+    <key>QSComposeEmailItemAction</key>
+    <string>항목 이메일... (작성)</string>
+    <key>QSCommandExecuteAtTimeAction</key>
+    <string>특정 시간에 실행...</string>
+    <key>QSComposeEmailItemReverseAction</key>
+    <string>이메일로... (작성)</string>
+    <key>QSCreateFileAction</key>
+    <string>파일 만들기 [...]</string>
+    <key>QSCreateFileTemplate</key>
+    <string>새로 만들기...</string>
+    <key>QSDialNumberAction</key>
+    <string>전화</string>
+    <key>QSEditAction</key>
+    <string>편집</string>
+    <key>QSEmailAction</key>
+    <string>이메일</string>
+    <key>QSEmailItemAction</key>
+    <string>항목 이메일... (보내기)</string>
+    <key>QSEmailItemReverseAction</key>
+    <string>이메일로... (보내기)</string>
+    <key>QSHFSLockAction</key>
+    <string>잠금</string>
+    <key>QSHFSMakeInvisibleAction</key>
+    <string>보이지 않게 만들기</string>
+    <key>QSHFSMakeVisibleAction</key>
+    <string>보이게 만들기</string>
+    <key>QSHFSUnlockAction</key>
+    <string>잠금 해제</string>
+    <key>QSNewFolderAction</key>
+    <string>새 폴더...</string>
+    <key>QSLargeTypeAction</key>
+    <string>큰 글자</string>
+    <key>QSLoginItemAddAction</key>
+    <string>로그인 시 열기</string>
+    <key>QSLoginItemRemoveAction</key>
+    <string>로그인 시 열지 않기</string>
+    <key>QSNUTDContactShowAction</key>
+    <string>연락처 보기</string>
+    <key>QSNetworkLocationSelectAction</key>
+    <string>위치로 전환</string>
+    <key>QSObjCSendMessageAction</key>
+    <string>실행</string>
+    <key>QSObjectSearchChildrenAction</key>
+    <string>내용 찾기</string>
+    <key>QSObjectShowChildMenu</key>
+    <string>내용 메뉴 보이기</string>
+    <key>QSObjectShowMenu</key>
+    <string>메뉴 보이기</string>
+    <key>QSObjectShowActionMenu</key>
+    <string>동작 메뉴 보이기</string>
+    <key>QSObjectShowChildrenAction</key>
+    <string>내용 보이기</string>
+    <key>QSObjectShowSourceAction</key>
+    <string>보관함에서 출처 보기</string>
+    <key>QSPutOnShelfAction</key>
+    <string>선반위에 두기</string>
+    <key>QSShelfShowAction</key>
+    <string>보이기</string>
+    <key>QSShellScriptRunAction</key>
+    <string>실행 [...]</string>
+    <key>QSTextShowDialogAction</key>
+    <string>대화 보이기</string>
+    <key>QSTextSpeakAction</key>
+    <string>글자 읽기 (말하기)</string>
+    <key>QSTextAppendAction</key>
+    <string>텍스트를 뒤에 붙이기...</string>
+    <key>QSTextDiffAction</key>
+    <string>다음과의 차이...</string>
+    <key>QSTextPrependAction</key>
+    <string>텍스트를 앞에 붙이기...</string>
+    <key>QSTextTypeAction</key>
+    <string>텍스트 입력</string>
+    <key>QSUserSwitchAction</key>
+    <string>사용자 전환하기</string>
+    <key>QSiPhotoAlbumShowAction</key>
+    <string>앨범 보이기</string>
+    <key>QSiPhotoAlbumSlideShowAction</key>
+    <string>슬라이드 쇼 재생</string>
+    <key>QSiTunesAppendItemAction</key>
+    <string>대기열</string>
+    <key>QSiTunesPlayItemAction</key>
+    <string>재생</string>
+    <key>ShellScriptRunAction</key>
+    <string>명령 쉘 스크립트 실행</string>
+    <key>URLEmailAction</key>
+    <string>이메일 URL 열기</string>
+    <key>URLFindWithAction</key>
+    <string>사이트에서 찾기...</string>
+    <key>URLJSAction</key>
+    <string>Javascript 실행</string>
+    <key>URLOpenAction</key>
+    <string>URL 열기</string>
+    <key>URLOpenActionInBackground</key>
+    <string>배경으로 URL 열기</string>
+    <key>URLOpenWithAction</key>
+    <string>다음으로 URL 열기...</string>
+    <key>URLSearchAction</key>
+    <string>찾기</string>
+    <key>URLSearchForAction</key>
+    <string>다음 내용 찾기...</string>
+  </dict>
+</plist>

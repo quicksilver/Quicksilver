@@ -64,6 +64,7 @@
 - (void)executeCommandAtPath:(NSString *)path;
 
 - (NSString *)crashReportPath;
+- (void)showDockIcon;
 
 @end
 

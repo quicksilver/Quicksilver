@@ -20,8 +20,6 @@
 
 #import "QSURLDownloadWrapper.h"
 
-#import "NSException_TraceExtensions.h"
-
 #define pPlugInInfo QSApplicationSupportSubPath(@"PlugIns.plist", NO)
 #define MAX_CONCURRENT_DOWNLOADS 2
 
@@ -852,7 +850,7 @@
 	NSString *title = [NSString stringWithFormat:@"%@ Installed", (name?name:@"Plugin")];
 
 	NSImage *image = [NSImage imageNamed:@"QSPlugIn"];
-	[image setSize:NSMakeSize(128, 128)];
+	[image setSize:QSSizeMax];
 
 	if (showNotifications) {
 		// see if this obsoletes an installed plugin

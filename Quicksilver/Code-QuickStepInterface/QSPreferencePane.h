@@ -8,16 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface QSPreferencePane : NSObject
-#if (MAC_OS_X_VERSION_MAX_ALLOWED >= 1060)
-   <NSWindowDelegate>
-#endif
+@interface QSPreferencePane : NSObject <NSWindowDelegate>
 {
-	__block IBOutlet NSWindow *_window;
+	IBOutlet NSWindow *_window;
 	IBOutlet NSView *_initialKeyView;
 	IBOutlet NSView *_firstKeyView;
 	IBOutlet NSView *_lastKeyView;
-	__block NSView *_mainView;
+	NSView *_mainView;
 	NSBundle *_bundle;
 	NSDictionary *_info;
 }
@@ -34,4 +31,6 @@
 - (void)mainViewDidLoad;
 - (void)setInfo:(NSDictionary *)info;
 - (void)didReselect;
+
+- (NSBundle *)mainNibBundle;
 @end

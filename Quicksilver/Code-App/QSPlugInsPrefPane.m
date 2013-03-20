@@ -96,23 +96,15 @@
         [aButton setKeyEquivalentModifierMask:NSCommandKeyMask];
     }
 
-    
-////	[plugInTable setTarget:self];
-	//	[plugInTable setDoubleAction:@selector(tableDoubleAction:)];
-////	[plugInTable setAction:@selector(tableAction:)];
-	//[plugInText setTextContainerInset:NSMakeSize(8, 8)];
-	//[plugInText changeDocumentBackgroundColor:[NSColor clearColor]];
 	[[plugInText preferences] setDefaultTextEncodingName:@"utf-8"];
-	//[plugInText setDrawsBackground:NO];
 	[plugInText setPolicyDelegate:self];
 	[plugInText setResourceLoadDelegate:self];
-	//[plugInTable removeColumn:[plugInTable columnWithIdentifier:@"status"]];
-	//[self tableViewSelectionDidChange:nil];
+    
 	[[plugInText window] useOptimizedDrawing:NO];
 	[arrayController addObserver:self forKeyPath:@"selectedObjects" options:0 context:nil];
 	[setsArrayController addObserver:self forKeyPath:@"selectedObjects" options:0 context:nil];
 	[pluginSetsTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
-    //[pluginSetsTable selectRow:0 byExtendingSelection:NO];
+
 	// update the list of plugins to match the selected category
 	NSArray *selection = [setsArrayController performSelector:@selector(selectedObjects)];
 	NSDictionary *dict = [selection lastObject];
@@ -122,7 +114,7 @@
 }
 
 - (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id)listener {
-	if ([[[request URL] scheme] isEqualToString:@"applewebdata"] || [[[request URL] scheme] isEqualToString:@"about"]) {
+	if ([[[request URL] path] containsString:[[[NSBundle mainBundle] resourceURL] path]] || [[[request URL] scheme] isEqualToString:@"about"] || [[[request URL] scheme] isEqualToString:@"resource"]) {
 		[listener use];
 	} else {
 		[[NSWorkspace sharedWorkspace] openURL:[request URL]];
@@ -151,28 +143,23 @@
 		//}
 	} else {
 		NSArray *selection = [arrayController selectedObjects];
-		BOOL isMainThread = [NSThread isMainThread];
 		NSString *htmlString;
 		NSString *defaultTitle = @"Plugin Documentation";
 		if ([selection count] == 1) {
             [infoButton setEnabled:YES];
+            [docsButton setEnabled:YES];
 			[self setPlugInName:[NSString stringWithFormat:@"%@: %@", defaultTitle, [(QSPlugIn *)[selection objectAtIndex:0] name]]];
 			htmlString = [[selection objectAtIndex:0] infoHTML];
 		} else {
             [infoButton setEnabled:NO];
+            [docsButton setEnabled:NO];
 			[self setPlugInName:defaultTitle];
 			htmlString = @"";
 		}
-		if (isMainThread) {
-			[[plugInText mainFrame] loadHTMLString:htmlString baseURL:nil];
-		} else {
-			[self performSelectorOnMainThread:@selector(updateWithHTMLString:) withObject:htmlString waitUntilDone:NO];
-		}
+        runOnMainQueueSync(^{
+            [[plugInText mainFrame] loadHTMLString:htmlString baseURL:[[NSBundle mainBundle] resourceURL]];
+        });
 	}
-}
-
-- (void)updateWithHTMLString:(NSString*)html {
-	[[plugInText mainFrame] loadHTMLString:html baseURL:nil];
 }
 
 - (void)paneLoadedByController:(id)controller {
@@ -367,10 +354,10 @@
 				[predicates addObject:[NSPredicate predicateWithFormat:@"isRecommended == YES"]];
 				break;
 			case 3: //All
-				[predicates addObject:[NSPredicate predicateWithFormat:@"1 == 1"]];
+				[predicates addObject:[NSPredicate predicateWithFormat:@"isObsolete == NO"]];
 				break;
 			case 4: //UnInstalled
-				[predicates addObject:[NSPredicate predicateWithFormat:@"isInstalled <= 0"]];
+				[predicates addObject:[NSPredicate predicateWithFormat:@"isInstalled <= 0 && isObsolete == NO"]];
 				break;
 			case 5: //Installed, but disabled (either by the user or some error loading)
 				[predicates addObject:[NSPredicate predicateWithFormat:@"isInstalled == 1 && isLoaded == 0"]];

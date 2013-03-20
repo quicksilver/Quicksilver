@@ -1,90 +1,188 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>AppActivateAction</key>
-	<string>Attiva %@</string>
-	<key>AppHideAction</key>
-	<string>Nascondi %@</string>
-	<key>AppLaunchAction</key>
-	<string>Avvia %@</string>
-	<key>AppLaunchAgainAction</key>
-	<string>Avvia un'altra copia di %@</string>
-	<key>AppOpenFileAction</key>
-	<string>Apri %@ con %@</string>
-	<key>AppQuitAction</key>
-	<string>Esci da %@</string>
-	<key>AppReopenAction</key>
-	<string>Riapri %@</string>
-	<key>AppRootLaunchAction</key>
-	<string>Avvia %@ come Root</string>
-	<key>AppleScriptRunAction</key>
-	<string>Esegui Script: %@</string>
-	<key>ContactEditAction</key>
-	<string>Modifica %@</string>
-	<key>ContactEmailAction</key>
-	<string>Email %@</string>
-	<key>ContactIMAction</key>
-	<string>Invia IM a %@</string>
-	<key>ContactSendItemEmailAction</key>
-	<string>Invia %@ via E-mail a %@</string>
-	<key>ContactSendItemIMAction</key>
-	<string>Invia %@ via IM a %@</string>
-	<key>ContactShowAction</key>
-	<string>Mostra %@ in Rubrica Indirizzi</string>
-	<key>DiskEjectAction</key>
-	<string>Espelli %@</string>
-	<key>DiskForceEjectAction</key>
-	<string>Espulsione Forzata di %@</string>
-	<key>FileCompressAction</key>
-	<string>Comprimi %@</string>
-	<key>FileCopyToAction</key>
-	<string>Copia %@ su %@</string>
-	<key>FileDecompressAction</key>
-	<string>Decomprimi %@</string>
-	<key>FileMakeLinkInAction</key>
-	<string>Crea collegamento a %@ in %@</string>
-	<key>FileMoveToAction</key>
-	<string>Sposta %@ in un altro %@</string>
-	<key>FileOpenAction</key>
-	<string>Apri %@</string>
-	<key>FileOpenWithAction</key>
-	<string>Apri %@ con %@</string>
-	<key>FileRevealAction</key>
-	<string>Mostra %@</string>
-	<key>ItemSendToContactEmailAction</key>
-	<string>Invia %@ via E-mail ad un %@</string>
-	<key>ItemSendToContactIMAction</key>
-	<string>Invia %@ via IM ad un %@</string>
-	<key>PasteboardPasteAction</key>
-	<string>Incolla %@ con l'applicazione corrente</string>
-	<key>ProcessKillAction</key>
-	<string>Uscita Forzata da %@</string>
-	<key>ProcessResumeAction</key>
-	<string>Riprendi %@</string>
-	<key>ProcessSuspendAction</key>
-	<string>Sospendi %@</string>
-	<key>QSDialNumberAction</key>
-	<string>Componi %@</string>
-	<key>QSEditAction</key>
-	<string>Modifica %@</string>
-	<key>QSUserSwitchAction</key>
-	<string>Passa a %@</string>
-	<key>QSiTunesPlaylistPlayAction</key>
-	<string>Riproduci musica da %@</string>
-	<key>QSiTunesTrackPlayAction</key>
-	<string>Riproduci %@</string>
-	<key>ShellScriptRunAction</key>
-	<string>Esegui script: %@</string>
-	<key>URLFindWithAction</key>
-	<string>Cerca %@ Con %@</string>
-	<key>URLJSAction</key>
-	<string>Esegui %@</string>
-	<key>URLOpenAction</key>
-	<string>Apri %@</string>
-	<key>URLSearchAction</key>
-	<string>Cerca %@</string>
-	<key>URLSearchForAction</key>
-	<string>Cerca %@ su %@</string>
-</dict>
+  <dict>
+    <key>QSCommandExecuteAtTimeAction</key>
+    <string>Esegui %@ dopo Ritardo</string>
+    <key>QSCreateFileAction</key>
+    <string>Crea un nuovo File contenente %@ nella cartella %@</string>
+    <key>QSCommandAddTriggerAction</key>
+    <string>Aggiungi %@ come Trigger</string>
+    <key>QSCommandExecuteAction</key>
+    <string>Esegui %@</string>
+    <key>AppShowHideAction</key>
+    <string>Alterna Visibilità di %@</string>
+    <key>FileAlwaysOpenTypeWithAction</key>
+    <string>Apri sempre Tipo di File %@ con %@</string>
+    <key>QSCommandSaveAction</key>
+    <string>Salva %@ sul File</string>
+    <key>PasteboardPasteActionAsPlainText</key>
+    <string>Incolla %@ come Testo Semplice</string>
+    <key>QSCreateFileTemplate</key>
+    <string>Crea nella cartella %@ un nuovo File Modello %@</string>
+    <key>QSCommandExecuteAfterDelayAction</key>
+    <string>Esegui %@ dopo Ritardo</string>
+    <key>AppActivateAction</key>
+    <string>Attiva %@</string>
+    <key>AppHideAction</key>
+    <string>Nascondi %@</string>
+    <key>AppHideOthersAction</key>
+    <string>%@ nascondi altri</string>
+    <key>AppLaunchAction</key>
+    <string>Avvia %@</string>
+    <key>AppLaunchAgainAction</key>
+    <string>Avvia un&apos;altra copia di %@</string>
+    <key>AppLaunchAsRootAction</key>
+    <string>Esegui %@ come root</string>
+    <key>AppOpenFileAction</key>
+    <string>Apri %@ con %@</string>
+    <key>AppQuitAction</key>
+    <string>Esci da %@</string>
+    <key>AppQuitOthersAction</key>
+    <string>%@ chiudi altri</string>
+    <key>AppRelaunchAction</key>
+    <string>Riavvia %@</string>
+    <key>AppReopenAction</key>
+    <string>Riapri %@</string>
+    <key>AppRootLaunchAction</key>
+    <string>Avvia %@ come Root</string>
+    <key>AppleScriptOpenFilesAction</key>
+    <string>Apri %@ con %@</string>
+    <key>AppleScriptProcessTextAction</key>
+    <string>Processa %@ con %@</string>
+    <key>AppleScriptRunAction</key>
+    <string>Esegui Script: %@</string>
+    <key>AppleScriptRunTextAction</key>
+    <string>Esegui &apos;%@&apos;</string>
+    <key>DiskEjectAction</key>
+    <string>Espelli %@</string>
+    <key>DiskForceEjectAction</key>
+    <string>Espulsione Forzata di %@</string>
+    <key>FileCompressAction</key>
+    <string>Comprimi %@</string>
+    <key>FileCopyToAction</key>
+    <string>Copia %@ su %@</string>
+    <key>FileDecompressAction</key>
+    <string>Decomprimi %@</string>
+    <key>FileDeleteAction</key>
+    <string>Elimina %@</string>
+    <key>FileGetHFSPathAction</key>
+    <string>Ottieni il percorso HFS di %@</string>
+    <key>FileGetInfoAction</key>
+    <string>Ottieni informazioni su %@</string>
+    <key>FileGetPathAction</key>
+    <string>Ottieni il percorso POSIX di %@</string>
+    <key>FileGetPosixPathAction</key>
+    <string>Ottieni il percorso assoluto di %@</string>
+    <key>FileGetURLAction</key>
+    <string>Ottieni file:// URL di %@</string>
+    <key>FileMakeAliasInAction</key>
+    <string>Crea alias di %@ in %#</string>
+    <key>FileMakeHardLinkInAction</key>
+    <string>Crea collegamento di %@ in %#</string>
+    <key>FileMakeLinkInAction</key>
+    <string>Crea collegamento a %@ in %@</string>
+    <key>FileMoveToAction</key>
+    <string>Sposta %@ in un altro %@</string>
+    <key>FileOpenAction</key>
+    <string>Apri %@</string>
+    <key>FileOpenWithAction</key>
+    <string>Apri %@ con %@</string>
+    <key>FileRenameAction</key>
+    <string>Rinomina %@ in %#</string>
+    <key>FileRevealAction</key>
+    <string>Mostra %@</string>
+    <key>FileToTrashAction</key>
+    <string>Spota %@ nel Cestino</string>
+    <key>ItemSendToContactEmailAction</key>
+    <string>Invia %@ via E-mail ad un %@</string>
+    <key>ItemSendToContactIMAction</key>
+    <string>Invia %@ via IM ad un %@</string>
+    <key>PasteboardCopyAction</key>
+    <string>Copia %@ negli appunti</string>
+    <key>PasteboardPasteAction</key>
+    <string>Incolla %@ con l&apos;applicazione corrente</string>
+    <key>ProcessKillAction</key>
+    <string>Uscita Forzata da %@</string>
+    <key>ProcessLowerPriorityAction</key>
+    <string>Abbassa priorità di %@</string>
+    <key>ProcessRaisePriorityAction</key>
+    <string>Alza priorità di %@</string>
+    <key>ProcessResumeAction</key>
+    <string>Riprendi %@</string>
+    <key>ProcessSuspendAction</key>
+    <string>Sospendi %@</string>
+    <key>QSCatalogEntryRescanAction</key>
+    <string>Aggiorna %@</string>
+    <key>QSCatalogEntryShowAction</key>
+    <string>Mostra %@</string>
+    <key>QSDialNumberAction</key>
+    <string>Componi %@</string>
+    <key>QSEditAction</key>
+    <string>Modifica %@</string>
+    <key>QSLargeTypeAction</key>
+    <string>Mostra &quot;%@&quot; in caratteri grandi</string>
+    <key>QSLoginItemAddAction</key>
+    <string>Aggiungi %@ agli elementi di login</string>
+    <key>QSLoginItemRemoveAction</key>
+    <string>Rimuovi %@ dagli elementi di login</string>
+    <key>QSNewFolderAction</key>
+    <string>Crea nuova cartella in %@ di nome %#</string>
+    <key>QSObjCSendMessageAction</key>
+    <string>Esegui %@</string>
+    <key>QSObjectAssignLabelAction</key>
+    <string>Imposta etichetta di %@ a %#</string>
+    <key>QSObjectAssignMnemonic</key>
+    <string>Imposta etichetta di %@ a %#</string>
+    <key>QSObjectOmitAction</key>
+    <string>Ometti %@ dal catalogo</string>
+    <key>QSObjectSearchChildrenAction</key>
+    <string>Cerca contenuti di %@</string>
+    <key>QSObjectSelectAction</key>
+    <string>Seleziona %@ nella finestra dei comandi</string>
+    <key>QSObjectShowActionMenu</key>
+    <string>Mostra il menu azioni per %@</string>
+    <key>QSObjectShowChildMenu</key>
+    <string>Mostra il contenuto del menu %@</string>
+    <key>QSObjectShowChildrenAction</key>
+    <string>Mostra il contenuto di %@</string>
+    <key>QSObjectShowMenu</key>
+    <string>Mostra il menu azioni per %@</string>
+    <key>QSObjectShowSourceAction</key>
+    <string>Mostra l&apos;origine di %@ nel catalogo</string>
+    <key>QSPutOnShelfAction</key>
+    <string>Metti %@ nella Shelf</string>
+    <key>QSShelfShowAction</key>
+    <string>Mostra %@</string>
+    <key>QSShellScriptRunAction</key>
+    <string>Esegui script: %@</string>
+    <key>QSSoundPlayAction</key>
+    <string>Riproduci %@</string>
+    <key>QSTextDiffAction</key>
+    <string>Differenza tra %@ e %#</string>
+    <key>QSTextShowDialogAction</key>
+    <string>Mostra dialogo: &quot;%@&quot;</string>
+    <key>QSTextSpeakAction</key>
+    <string>Dì &quot;%@&quot;</string>
+    <key>QSTextTypeAction</key>
+    <string>Digita &quot;%@&quot;</string>
+    <key>ShellScriptRunAction</key>
+    <string>Esegui script: %@</string>
+    <key>URLEmailAction</key>
+    <string>Invia per E-Mail %@</string>
+    <key>URLFindWithAction</key>
+    <string>Cerca %@ Con %@</string>
+    <key>URLJSAction</key>
+    <string>Esegui %@</string>
+    <key>URLOpenAction</key>
+    <string>Apri %@</string>
+    <key>URLOpenActionInBackground</key>
+    <string>Apri %@ in Sottofondo</string>
+    <key>URLOpenWithAction</key>
+    <string>Apri %@ con %@</string>
+    <key>URLSearchAction</key>
+    <string>Cerca %@</string>
+    <key>URLSearchForAction</key>
+    <string>Cerca %@ su %@</string>
+  </dict>
 </plist>

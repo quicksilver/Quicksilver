@@ -25,6 +25,7 @@
     
     IBOutlet NSButton *refreshButton;
     IBOutlet NSButton *infoButton;
+    IBOutlet NSButton *docsButton;
 }
 @property (copy,readwrite,nonatomic) NSString *plugInName;
 + (void)getMorePlugIns;
@@ -54,11 +55,9 @@
 - (NSString *)category;
 - (void)setCategory:(NSString *)newCategory;
 
-- (void)reloadPlugInsList:(NSNotification *)notif;
 - (void)reloadFilters;
 - (NSArray *)selectedPlugIns;
 
-- (void)setViewMode:(NSInteger)newViewMode;
 - (void)reloadFiltersIgnoringViewMode:(BOOL)ignoreView;
 
 - (id)preferencesSplitView;

@@ -231,7 +231,6 @@
 		[super orderFront:sender];
 		[super display];
 		[self showThreaded:self];
-		// [NSThread detachNewThreadSelector:@selector(showThreaded:) toTarget:self withObject:sender];
 	}
 }
 
@@ -243,7 +242,6 @@
 		[self setAlphaValue:0.0];
 		[super makeKeyAndOrderFront:sender];
 		[self showThreaded:self];
-		//	 [NSThread detachNewThreadSelector:@selector(showThreaded:) toTarget:self withObject:sender];
 	}
 }
 
@@ -466,11 +464,7 @@
 }
 
 - (void)setDelegate:(id <QSWindowDelegate>)delegate {
-    [super setDelegate:
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1060
-    (id <NSWindowDelegate>)
-#endif
-    delegate];
+    [super setDelegate:(id <NSWindowDelegate>)delegate];
 }
 
 @end

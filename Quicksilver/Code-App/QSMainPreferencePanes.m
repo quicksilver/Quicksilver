@@ -276,7 +276,7 @@
 }
 
 - (void)deleteSupportFiles {
-    // !!! Andre Berg 20091013: updated to new 10.5/10.6 API with regards to removeFileAtPath:handler: and the new removeItemAtPath:error:
+
 	NSFileManager *fm = [NSFileManager defaultManager];
     NSError * err = nil;
 	[fm removeItemAtPath:QSApplicationSupportSubPath(@"Actions.plist", NO) error:&err];

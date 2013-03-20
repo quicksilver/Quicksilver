@@ -39,6 +39,7 @@
 - (BOOL)isPreset;
 - (BOOL)isSeparator;
 - (BOOL)isGroup;
+- (BOOL)isEditable;
 - (NSInteger) state;
 - (NSInteger) hasEnabledChildren;
 - (BOOL)isEnabled;
@@ -75,8 +76,6 @@
 
 - (NSDate *)indexDate;
 - (void)setIndexDate:(NSDate *)anIndexDate;
-- (NSArray *)_contents;
-- (NSMutableDictionary *)info;
 - (BOOL)isScanning;
 - (void)setIsScanning:(BOOL)flag;
 //- (NSString *)countString;

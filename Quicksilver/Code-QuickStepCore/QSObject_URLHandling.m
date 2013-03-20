@@ -51,7 +51,7 @@
 	if(!image) {
         return;
     }
-    NSRect rect = NSMakeRect(0, 0, 128, 128);
+    NSRect rect = NSMakeRect(0, 0, QSMaxIconSize.width, QSMaxIconSize.height);
     [image setSize:[[image bestRepresentationForSize:rect.size] size]];
     NSSize imageSize = [image size];
     NSBitmapImageRep *bitmap = [[[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
@@ -80,7 +80,7 @@
     rect = NSMakeRect(0, 0, imageSize.width, imageSize.height);
     [image setSize:rect.size];
     [image drawInRect:rect fromRect:rectFromSize([image size]) operation:NSCompositeSourceOver fraction:1.0];
-    NSImage *findImage = [NSImage imageNamed:@"Find"];
+    NSImage *findImage = [[NSImage imageNamed:@"Find"] copy];
     NSImage *favIcon = nil;
     if(findImage) {
         [findImage setSize:rect.size];
@@ -91,6 +91,7 @@
             [favIcon drawInRect:NSMakeRect(rect.origin.x+NSWidth(rect)*0.48, rect.origin.y+NSWidth(rect)*0.32, 30, 30) fromRect:rect operation:NSCompositeSourceOver fraction:1.0];
         }
         [findImage drawInRect:NSMakeRect(rect.origin.x+NSWidth(rect) *1/3, rect.origin.y, NSWidth(rect)*2/3, NSHeight(rect)*2/3) fromRect:rect operation:NSCompositeSourceOver fraction:1.0];
+        [findImage release];
     }
     [NSGraphicsContext restoreGraphicsState];
     webSearchImage = [[[NSImage alloc] initWithData:[bitmap TIFFRepresentation]] autorelease];
@@ -99,7 +100,7 @@
     
     [webSearchImage setName:@"Web Search Icon"];
 
-    [object updateIcon:webSearchImage];
+    [object setIcon:webSearchImage];
 }
 
 #pragma mark image handling
@@ -135,9 +136,7 @@
     
 	// For search URLs
 	if([object containsType:QSSearchURLType]) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            [self buildWebSearchIconForObject:object];
-        });
+        [self buildWebSearchIconForObject:object];
 		return YES;
 	}
 	
@@ -194,6 +193,11 @@
     
 	[QSTasks updateTask:@"DownloadPage" status:@"Downloading Page" progress:0];
     
+    if (![object objectForMeta:QSURLTypeParsersTableKey]) {
+        // it's possible `objectHasChildren:` was never called to populate this
+        [self objectHasChildren:object];
+    }
+    
     id <QSParser> parser = [QSReg instanceForKey:[object objectForMeta:QSURLTypeParsersTableKey] inTable:@"QSURLTypeParsers"];
     
 	NSArray *children = [parser objectsFromURL:[NSURL URLWithString:[object objectForType:QSURLType]] withSettings:nil];
@@ -246,7 +250,7 @@
 {
     [[self dataDictionary] setObject:urlString forKey:QSURLType];
     // Apple's 'URLWithString' method incorrectly deals with IP addresses, check for "://" and "mailto:" in the string as well
-    if (([urlString rangeOfString:@"://"].location != NSNotFound || [urlString hasPrefix:@"mailto:"]) && [[NSURL URLWithString:[urlString URLEncoding]] scheme])
+    if (([urlString rangeOfString:@"://"].location != NSNotFound || [urlString hasPrefix:@"mailto:"] || [urlString hasPrefix:@"javascript:"]) && [[NSURL URLWithString:[urlString URLEncoding]] scheme])
     {
         [self setObject:urlString forType:QSURLType];
     } else {

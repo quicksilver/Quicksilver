@@ -209,7 +209,7 @@ NSMutableDictionary *bindingsDict = nil;
 		[super drawRect:rect];
 		rect = [self frame];
 
-		if (NSWidth(rect) >128 && NSHeight(rect)>128) {
+		if (NSWidth(rect) > QSSizeMax.width && NSHeight(rect) > QSSizeMax.height) {
 			CGContextRef context = (CGContextRef) ([[NSGraphicsContext currentContext] graphicsPort]);
 			CGContextSetAlpha(context, 0.92);
 		}
@@ -742,7 +742,10 @@ NSMutableDictionary *bindingsDict = nil;
 #endif
 
 - (void)transmogrifyWithText:(NSString *)string {
-	if (![self allowText]) return;
+	if (![self allowText]) {
+        NSBeep();
+        return;
+    }
 	if ([self currentEditor]) {
 		[[self window] makeFirstResponder: self];
 	} else {
@@ -1522,7 +1525,11 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)textDidEndEditing:(NSNotification *)aNotification {
-	[self setObjectValue:[QSObject objectWithString:[[aNotification object] string]]];
+    NSString *string = [[aNotification object] string];
+    if (![string isEqualToString:@" "]) {
+        // only set the object value if it's not a 'short circuit'
+        [self setObjectValue:[QSObject objectWithString:string]];
+    }
 	[self setMatchedString:nil];
 	[[[self currentEditor] enclosingScrollView] removeFromSuperview];
     [[self cell] setImagePosition:-1];
@@ -1934,10 +1941,6 @@ NSMutableDictionary *bindingsDict = nil;
 // Quick Look panel data source
 
 - (NSInteger)numberOfPreviewItemsInPreviewPanel:(QLPreviewPanel *)panel {
-    /* Put the panel just above Quicksilver's window
-    Note: 10.6 seems to revert the panel level set in beginPreviewPanelControl above.
-    This 'hack' is required for 10.6 support only (10.7+ is OK) */
-    [previewPanel setLevel:([[self window] level] + 2)];
     if (quicklookObject) {
         return [quicklookObject count];
     }

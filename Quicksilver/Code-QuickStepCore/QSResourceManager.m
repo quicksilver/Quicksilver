@@ -126,13 +126,6 @@ id QSRez;
 		[resourceDict setObject:[NSNull null] forKey:name];
 	} else {
 		[image setName:name];
-
-		if (![image representationOfSize:NSMakeSize(32, 32)]) {
-			[image createRepresentationOfSize:NSMakeSize(32, 32)];
-		}
-		if (![image representationOfSize:NSMakeSize(16, 16)]) {
-			[image createRepresentationOfSize:NSMakeSize(16, 16)];
-		}
 	}
 	return image;
 }

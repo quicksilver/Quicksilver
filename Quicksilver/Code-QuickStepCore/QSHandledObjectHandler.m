@@ -30,8 +30,6 @@
                                  [NSDictionary dictionaryWithObjectsAndKeys:
                                   [info objectForKey:@"name"], kQSObjectPrimaryName,
                                   [info objectForKey:@"icon"], kQSObjectIcon,
-                                  nil], kData,
-                                 [NSDictionary dictionaryWithObjectsAndKeys:
                                   key, kQSObjectObjectID,
                                   QSHandledType, kQSObjectPrimaryType,
                                   nil], kMeta,

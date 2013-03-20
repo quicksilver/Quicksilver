@@ -1,3 +1,67 @@
+## Changes - ß72 (3947) ##
+
+This will be the last release to support Mac OS X 10.6 and 32-bit mode.
+
+### New ###
+
+  * Assign the same trigger to different actions in different applications (#1201)
+  * Add files and folders to the catalog using the Add To Catalog action (#1276)
+  * AppleScript Action enhancements - http://qsapp.com/wiki/AppleScript_Actions (#1023, #1048)
+  * Assign an alternate name to something by creating a synonym (#1325)
+  * Plugin documentation is now accessible from the plugin's preferences (#999, #1364)
+  * Plugin documentation is accessible directly from the list of plugins via a button in the bottom-right (#1364, #1384)
+  * Trigger type can be specified in the third pane for the Add Trigger action (#1345)
+  * Clipboard history will omit "transient" data (#1213)
+  * New localizations for Korean, Catalan, Chinese (Hant, China) and Spanish (Mexico)
+
+### Fixed ###
+
+  * Names and labels for files should be determined faster and more accurately (#1263, #1288)
+  * Catalog entry names won't override file names (#730, #1240)
+  * Docking window controls behave correctly (#1247)
+  * Recent Commands and the Last Command proxy are working (#722, #1207)
+  * Fixed the missing default application for the Open With… action (#1360, #1361)
+  * The Find With action (for web searches) works with Current Selection (#1311)
+  * Fixed the Add Trigger action (#515, #1345, #1390)
+  * Prevent changes to the catalog before it finishes loading (#1216)
+  * Fixed the "Delay" settings for triggers (#583, #914, #1201)
+  * Fixed the generic "Computer" icon (#1298)
+  * Avoid redrawing icons for files unnecessarily (#1297)
+  * Prevent catalog entries from disappearing in the preferences (#893, #1313)
+  * Prevent lock ups when scanning the catalog on startup (#1339)
+  * Correctly switch to text mode in the third pane when spacebar behavior is "Jump to Argument Field" (#1357)
+  * Text items in the third pane no longer show up as empty with details underneath (#1346)
+  * The count at the bottom of the results list is updated correctly (#1346)
+  * Only show folders when saving a command to a file (#1357)
+  * Change "plug-in" to "plugin" in the Setup Assistant (#1357)
+  * Only show catalog related actions with a single item selected (#1276)
+  * Internal improvements to the Assign Abbreviation… action (#1374)
+  * Set a default string ranker to prevent meaningless notifications (#1380)
+  * Prevent a crash when changing row height immediately after choosing a new interface (#1383)
+  * Fixed an exception when right-arrowing into applications with iCloud documents (#1396, #1398)
+  * Internal optimizations, stability improvements, and fixes (#1335, #1346, #1385, #1390, #1401, #1371, #1403)
+
+### Changed ###
+
+  * Simplify Services and set the "Command Window with Selection" trigger to use ⌘⎋ by default (#409, #1295)
+  * The Current Selection proxy object appears quicker (#1295)
+  * Better auto-detection of URLs in text entry mode (#1312, #1346, #1376)
+  * If files are omitted from the catalog, they will still be available when browsing the filesystem (#1195, #1322)
+  * Handlers preferences are grouped with other preferences for the core application (#1182, #1253)
+  * Disable settings for predefined catalog entries (#1341)
+  * Improved localization for Advanced Preferences (#1338)
+  * Release Notes have some style (#1228)
+  * Updated localizations
+
+### Development ###
+
+  * Developers don't need to understand and track the relationship between name and label (#1263)
+  * Passing options to string rankers is more efficient (#1212)
+  * Support bundle version requirements for plug-ins (#1261)
+  * Allow actions to specify whether they want to see proxy objects, or only the resolved object (#1342, #1343)
+  * Removed some unused code related to Event Triggers (#1300)
+  * Better logging of exceptions in Debug mode (#1201, 1357)
+
 ## Changes - ß71 (3942) ##
 
 ### New ###

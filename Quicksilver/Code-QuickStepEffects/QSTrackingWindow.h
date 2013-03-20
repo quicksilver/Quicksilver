@@ -13,10 +13,7 @@
 - (void)mouseExited:(NSEvent *)theEvent;
 @end
 
-@interface QSTrackingWindow : NSWindow
-#if (MAC_OS_X_VERSION_MAX_ALLOWED >= 1060)
-<NSWindowDelegate>
-#endif
+@interface QSTrackingWindow : NSWindow <NSWindowDelegate>
 {
 	NSTrackingRectTag trackingRect;
 }

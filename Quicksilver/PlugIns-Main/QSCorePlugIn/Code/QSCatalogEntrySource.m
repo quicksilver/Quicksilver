@@ -27,7 +27,6 @@ static NSImage *prefsCatalogImage = nil;
 + (void)initialize {
 	if (prefsCatalogImage == nil) {
 		prefsCatalogImage = [[QSResourceManager imageNamed:@"prefsCatalog"] retain];
-		[prefsCatalogImage createIconRepresentations];
 	}
 }
 
@@ -141,7 +140,7 @@ static NSImage *prefsCatalogImage = nil;
 
 - (QSObject *)show:(QSObject *)dObject {
 	
-    dispatch_sync(dispatch_get_main_queue(), ^{
+    runOnMainQueueSync(^{
         id catalogPrefsClass = NSClassFromString(@"QSCatalogPrefPane");
         [catalogPrefsClass showEntryInCatalog:[QSLib entryForID:[dObject objectForType:QSCatalogEntryPboardType]]];
         [[catalogPrefsClass sharedInstance] reloadData];

@@ -15,7 +15,6 @@
 #import "QSLibrarian.h"
 #import "QSNotifications.h"
 #import "NSString+NDUtilities.h"
-#import "NSException_TraceExtensions.h"
 #import "QSPreferenceKeys.h"
 
 //static
@@ -280,6 +279,10 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 - (BOOL)isRecommended
 {
+    // don't recommend if obsolete
+    if ([self isObsolete]) {
+        return NO;
+    }
 	// explicitly recommended
 	if ([[[self info] valueForKeyPath:@"QSPlugIn.recommended"] boolValue]) {
 		return YES;
@@ -347,7 +350,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	NSString *text = [plist valueForKeyPath:@"QSPlugIn.extendedDescription"];
 	if (![text length]) text = [plist valueForKeyPath:@"QSPlugIn.description"];
 	if (![text length]) text = @"<span style='color: #CCC'>No documentation available</span>";
-	return [NSString stringWithFormat:@"<html><link rel=\"stylesheet\" href=\"resource:QSStyle.css\"><body><div id=\"content\">%@</div></body></html>", text];
+	return [NSString stringWithFormat:@"<html><link rel=\"stylesheet\" href=\"QSStyle.css\"><body><div id=\"content\">%@</div></body></html>", text];
 }
 
 - (BOOL)hasExtendedDescription

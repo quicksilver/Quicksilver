@@ -40,7 +40,6 @@ NSRect QSBlendRects(NSRect start, NSRect end, CGFloat b) {
 	while(([NSDate timeIntervalSinceReferenceDate] -_startTime) <_totalTime) {
 		[self _doAnimation];
 		usleep(100);
-		// [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0/30]];
 	}
 	[self _doAnimation];
 }

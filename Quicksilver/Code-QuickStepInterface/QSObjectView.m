@@ -111,7 +111,7 @@
 					dragPosition.x -= 16;
 					dragPosition.y -= 16;
 					imageLocation.origin = dragPosition;
-					imageLocation.size = NSMakeSize(32, 32);
+					imageLocation.size = QSSize32;
 					[self dragPromisedFilesOfTypes:[NSArray arrayWithObject:@"silver"] fromRect:imageLocation source:self slideBack:YES event:theEvent];
 				}
 
@@ -187,7 +187,7 @@
 
 - (id)objectValue { return [[self cell] representedObject];  }
 - (void)setObjectValue:(QSBasicObject *)newObject {
-  [self setPreviousObjectValue:[self objectValue]];
+    [self setPreviousObjectValue:[self objectValue]];
 	[newObject loadIcon];
 	[newObject becameSelected];
 	// [self setToolTip:[newObject toolTip]];
@@ -301,7 +301,9 @@
             [NSMenu popUpContextMenu:actionsMenu withEvent:[NSApp currentEvent] forView:self];
         }
 	} else if (action && [self dropMode] != QSSelectDropMode) {
-		[NSThread detachNewThreadSelector:@selector(concludeDragWithAction:) toTarget:self withObject:[QSExec actionForIdentifier:action]]; // Ankur, 21 Dec: Action retained in selector, not here
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self concludeDragWithAction:[QSExec actionForIdentifier:action]];
+        });
 	} else if (lastDragMask & NSDragOperationGeneric) {
 		id winController = [[self window] windowController];
 		if ([winController isKindOfClass:[QSInterfaceController class]] ) {
@@ -326,9 +328,7 @@
 
 - (void)concludeDragWithAction:(QSAction *)actionObject {
 	[actionObject retain];
-    @autoreleasepool {
-        [actionObject performOnDirectObject:[self draggedObject] indirectObject:[self objectValue]];
-    }
+    [actionObject performOnDirectObject:[self draggedObject] indirectObject:[self objectValue]];
 	[actionObject release];
 }
 

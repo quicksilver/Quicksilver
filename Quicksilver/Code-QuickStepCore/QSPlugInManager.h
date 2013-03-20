@@ -95,7 +95,6 @@ typedef enum {
 - (void)setLocalPlugIns:(NSMutableDictionary *)newLocalPlugIns;
 - (NSMutableDictionary *)knownPlugIns;
 - (void)setKnownPlugIns:(NSMutableDictionary *)newKnownPlugIns;
-- (NSMutableDictionary *)loadedPlugIns;
 - (void)setLoadedPlugIns:(NSMutableDictionary *)newLoadedPlugIns;
 - (NSMutableDictionary *)obsoletePlugIns;
 - (NSString *)installStatus;

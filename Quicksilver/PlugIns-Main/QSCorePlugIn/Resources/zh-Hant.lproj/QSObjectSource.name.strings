@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSABMailRecentsObjectSource</key>
+    <string>郵寄之前收件人</string>
+    <key>QSAddressBookObjectSource</key>
+    <string>聯絡資訊</string>
+    <key>QSAirPortNetworkObjectSource</key>
+    <string>AirPort網路</string>
+    <key>QSAllApplicationsObjectSource</key>
+    <string>所有應用程式</string>
+    <key>QSCatalogEntrySource</key>
+    <string>目錄條目</string>
+    <key>QSDefaultsObjectSource</key>
+    <string>預設閱讀器</string>
+    <key>QSFileSystemObjectSource</key>
+    <string>檔案與資料夾掃描器</string>
+    <key>QSGroupObjectSource</key>
+    <string>群組</string>
+    <key>QSMachineSource</key>
+    <string>Quicksilver機器</string>
+    <key>QSNUDCSource</key>
+    <string>目前最新消息與聯絡人</string>
+    <key>QSNetworkLocationObjectSource</key>
+    <string>網路位置</string>
+    <key>QSProcessObjectSource</key>
+    <string>執行中程序</string>
+    <key>QSVolumesObjectSource</key>
+    <string>掛載磁區</string>
+    <key>QSiPhotoObjectSource</key>
+    <string>iPhoto資料庫</string>
+    <key>QSiTunesObjectSource</key>
+    <string>iTunes音樂資料庫</string>
+    <key>QSHistoryObjectSource</key>
+    <string>物件歷史</string>
+    <key>QSInternalObjectSource</key>
+    <string>內部物件</string>
+    <key>QSObjCMessageSource</key>
+    <string>Objective-C訊息</string>
+    <key>QSProxyObjectSource</key>
+    <string>代理伺服器</string>
+  </dict>
+</plist>

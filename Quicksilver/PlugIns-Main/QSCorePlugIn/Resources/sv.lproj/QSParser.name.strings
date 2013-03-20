@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>QSCaminoBookmarksParser</key>
-	<string>Camino Bookmarks</string>
-	<key>QSDirectoryParser</key>
-	<string>Folder Contents</string>
-	<key>QSHTMLLinkParser</key>
-	<string>HTML Links</string>
-	<key>QSTextLineParser</key>
-	<string>Text Lines</string>
-	<key>QSOldCaminoBookmarksParser</key>
-	<string>Camino Bookmarks (Old)</string>
-	<key>QSOmniWebShortcutsParser</key>
-	<string>OmniWeb Shortcuts</string>
-	<key>QSOperaBookmarksParser</key>
-	<string>Opera Bookmarks</string>
-	<key>QSPresetOmniWebHistoryParser</key>
-	<string>OmniWeb History</string>
-	<key>QSSafariBookmarksParser</key>
-	<string>Safari Bookmarks</string>
-	<key>QSSafariHistoryParser</key>
-	<string>Safari History</string>
-	<key>QSSogudiLinkParser</key>
-	<string>Sogudi Shortcuts</string>
-</dict>
+  <dict>
+    <key>QSCaminoBookmarksParser</key>
+    <string>Caminos bokmärken</string>
+    <key>QSDirectoryParser</key>
+    <string>Mappinnehåll</string>
+    <key>QSHTMLLinkParser</key>
+    <string>HTML-länkar</string>
+    <key>QSTextLineParser</key>
+    <string>Textrader</string>
+    <key>QSOldCaminoBookmarksParser</key>
+    <string>Caminos bokmärken (gamla)</string>
+    <key>QSOmniWebShortcutsParser</key>
+    <string>OmniWebs genvägar</string>
+    <key>QSOperaBookmarksParser</key>
+    <string>Operas bokmärken</string>
+    <key>QSPresetOmniWebHistoryParser</key>
+    <string>OmniWebs historik</string>
+    <key>QSSafariBookmarksParser</key>
+    <string>Safaris bokmärken</string>
+    <key>QSSafariHistoryParser</key>
+    <string>Safaris historik</string>
+    <key>QSSogudiLinkParser</key>
+    <string>Sogudis genvägar</string>
+  </dict>
 </plist>

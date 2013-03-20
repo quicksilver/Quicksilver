@@ -89,7 +89,7 @@
 			}
 			[item setImage:image];
 		}
-		[[item image] setSize:NSMakeSize(16, 16)];
+		[[item image] setSize:QSSize16];
 		[item setRepresentedObject:key];
 	}
 	if (includeDefault) {

@@ -16,6 +16,7 @@ extern NSString *QSRankingMnemonicsOnly;    // BOOL
 extern NSString *QSRankingObjectsInSet;     // NSArray
 extern NSString *QSRankingContext;          // NSString, unused ?
 extern NSString *QSRankingUsePureString;    // BOOL
+extern NSString *QSRankingIncludeOmitted;   // BOOL. Specifies whether the ranker should include omitted catalog items or not
 
 @protocol QSObjectRanker
 - (id)initWithObject:(QSBasicObject *)object;

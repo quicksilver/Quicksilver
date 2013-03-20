@@ -197,7 +197,7 @@
 
 @implementation NSAppleScript (FilePeeking)
 + (NSArray *)validHandlersFromArray:(NSArray *)array inScriptFile:(NSString *)path {
-	NSData *scriptData = [NSData dataWithContentsOfMappedFile:path];
+	NSData *scriptData = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:path] options:NSDataReadingMappedAlways error:nil];
 	if (![scriptData length]) {
 		NDResourceFork *resource = [NDResourceFork resourceForkForReadingAtPath:path];
 		scriptData = [resource dataForType:'scpt' Id:128];

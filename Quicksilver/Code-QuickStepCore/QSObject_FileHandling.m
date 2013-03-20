@@ -119,8 +119,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		NSString *path = [theFiles lastObject];
 		if ([path hasPrefix:NSTemporaryDirectory()]) {
 			return [@"(Quicksilver) " stringByAppendingPathComponent:[path lastPathComponent]];
-		} else if ([path hasPrefix:pICloudDocumentsPrefix]) {
-			// when 10.6 is dropped, test ([[NSFileManager defaultManager] isUbiquitousItemAtURL:[NSURL fileURLWithPath:path]]) instead
+		} else if ([[NSFileManager defaultManager] isUbiquitousItemAtURL:[NSURL fileURLWithPath:path]]) {
 			return @"iCloud";
 		} else {
 			return [path stringByAbbreviatingWithTildeInPath];
@@ -132,18 +131,9 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 - (void)setQuickIconForObject:(QSObject *)object {
-    if ([object isApplication])
-        [object setIcon:[QSResourceManager imageNamed:@"GenericApplicationIcon"]];
-	else if ([object isDirectory])
-        [object setIcon:[QSResourceManager imageNamed:@"GenericFolderIcon"]];
-	else
-		[object setIcon:[QSResourceManager imageNamed:@"UnknownFSObjectIcon"]];
-}
-
-- (BOOL)loadIconForObject:(QSObject *)object {
 	NSImage *theImage = nil;
 	NSArray *theFiles = [object arrayForType:QSFilePathType];
-	if (!theFiles) return NO;
+	if (!theFiles) return;
 	if ([theFiles count] == 1) {
 		// it's a single file
 		// use basic file type icon temporarily
@@ -157,42 +147,32 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			NSString *type = [manager typeOfFile:theFile];
 			[set addObject:type?type:@"'msng'"];
 		}
-
+        
 		if ([set containsObject:@"'fold'"]) {
 			[set removeObject:@"'fold'"];
 			[set addObject:@"'fldr'"];
 		}
-
+        
 		if ([set count] == 1) {
 			theImage = [w iconForFileType:[set anyObject]];
 		} else {
 			theImage = [w iconForFiles:theFiles];
 		}
 	}
-
+    
 	// set temporary image until preview icon is generated
 	theImage = [self prepareImageforIcon:theImage];
 	[object setIcon:theImage];
-
-	// if it's a single file, try to create preview icon
-	// this has to be started after the temporary icon is set, so the preview icon
-	// wont be overwritten by the temporary icon
-	if ([theFiles count] == 1) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            [self previewIcon:object];
-        });
-	}
-	return YES;
 }
 
-- (void)previewIcon:(QSObject *)object {
+- (BOOL)loadIconForObject:(QSObject *)object {
 	NSImage *theImage = nil;
 	NSString *path = [[object arrayForType:QSFilePathType] lastObject];
 	NSFileManager *manager = [NSFileManager defaultManager];
-
+    
 	// the object isn't a file/doesn't exist, so return. shouldn't actually happen
 	if (![manager fileExistsAtPath:path]) {
-		return;
+		return NO;
 	}
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
@@ -215,7 +195,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
             for (NSString *type in previewTypes) {
                 if (UTTypeConformsTo((CFStringRef)uti, (CFStringRef)type)) {
                     // do preview icon loading in separate thread
-                    theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSMaxIconSize asIcon:YES];
+                    theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSSizeMax asIcon:YES];
                     break;
                 }
             }
@@ -224,31 +204,15 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     if (theImage) {
         // update the UI with the new icon
         theImage = [self prepareImageforIcon:theImage];
-        [object updateIcon:theImage];
+        [object setIcon:theImage];
+        return YES;
     }
+    return NO;
 }
 
 - (NSImage *)prepareImageforIcon:(NSImage *)theImage {
 	// last fallback, other methods didn't work
 	if (!theImage) theImage = [QSResourceManager imageNamed:@"GenericQuestionMarkIcon"];
-
-	// make sure image is present in the correct sizes
-	if (theImage) {
-		[theImage createRepresentationOfSize:NSMakeSize(32, 32)];
-		[theImage createRepresentationOfSize:NSMakeSize(16, 16)];
-	}
-
-	// remove all image representations that are larger then QSMaxIconSize
-	// not really sure if this is needed or even makes sense
-	// but it was in here before, but only removing exactly the 
-	// 128x128 representation, if QSMaxIconSize was smaller than 128x128
-	// and there was a warning-comment: "***warning * use this better"
-	for (NSImageRep *imgRep in [theImage representations]) {
-		if ([imgRep size].width > QSMaxIconSize.width) {
-			[theImage removeRepresentation:imgRep];
-		}
-	}
-
 	return theImage;
 }
 
@@ -394,8 +358,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		}
 
         if ([object isDirectory] || isDirectory) {
-            NSMutableArray *fileChildren = [NSMutableArray arrayWithCapacity:1];
-            NSMutableArray *visibleFileChildren = [NSMutableArray arrayWithCapacity:1];
+
             
             NSError *err = nil;
             // pre-fetch the required info (hidden key) for the dir contents to speed up the task
@@ -404,18 +367,22 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
                 NSLog(@"Error loading files: %@", err);
                 return NO;
             }
+            
+            NSMutableArray *fileChildren = [NSMutableArray arrayWithCapacity:1];
+            NSMutableArray *visibleFileChildren = [NSMutableArray arrayWithCapacity:1];
             for (NSURL *individualURL in dirContents) {
-                [fileChildren addObject:[individualURL path]];
+                NSString *p = [individualURL path];
+                [fileChildren addObject:p];
                 NSNumber *isHidden = 0;
                 [individualURL getResourceValue:&isHidden forKey:NSURLIsHiddenKey error:nil];
                 if (![isHidden boolValue]) {
-                    [visibleFileChildren addObject:[individualURL path]];
+                    [visibleFileChildren addObject:p];
                 }
             }
             // sort the files like Finder does. Note: Casting array to NSMutable array so don't try and alter these arrays later on
             fileChildren = (NSMutableArray *)[fileChildren sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
             visibleFileChildren = (NSMutableArray *)[visibleFileChildren sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
-
+            
             newChildren = [QSObject fileObjectsWithPathArray:visibleFileChildren];
             newAltChildren = [QSObject fileObjectsWithPathArray:fileChildren];
 
@@ -449,7 +416,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
                     NSIndexSet *ind = [iCloudDocuments indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *icdoc, NSUInteger i, BOOL *stop) {
                         return ![recentDocuments containsObject:[icdoc objectForType:QSFilePathType]];
                     }];
-					newChildren = [QSObject fileObjectsWithPathArray:[recentDocuments arrayByAddingObjectsFromArray:[iCloudDocuments objectsAtIndexes:ind]]];
+                    newChildren = [[QSObject fileObjectsWithPathArray:recentDocuments] arrayByAddingObjectsFromArray:[iCloudDocuments objectsAtIndexes:ind]];
 
 					for(QSObject * child in newChildren) {
 						[child setObject:bundleIdentifier forMeta:@"QSPreferredApplication"];
@@ -575,19 +542,23 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 + (NSArray *)fileObjectsWithPathArray:(NSArray *)pathArray {
-	NSMutableArray *fileObjectArray = [NSMutableArray arrayWithCapacity:1];
-	id object;
-	for (id loopItem in pathArray) {
-		if (object = [QSObject fileObjectWithPath:loopItem])
+	NSMutableArray *fileObjectArray = [NSMutableArray array];
+	QSObject *object = nil;
+    for (NSString* loopItem in pathArray) {
+        if (object = [QSObject fileObjectWithPath:loopItem]) {
 			[fileObjectArray addObject:object];
-	}
+        }
+    };
 	return fileObjectArray;
 }
 
-+ (NSMutableArray *)fileObjectsWithURLArray:(NSArray *)pathArray {
-	NSMutableArray *fileObjectArray = [NSMutableArray arrayWithCapacity:[pathArray count]];
-	for (id loopItem in pathArray) {
-		[fileObjectArray addObject:[QSObject fileObjectWithPath:[loopItem path]]];
++ (NSMutableArray *)fileObjectsWithURLArray:(NSArray *)URLArray {
+	NSMutableArray *fileObjectArray = [NSMutableArray array];
+    QSObject *object = nil;
+    for (NSURL* loopItem in URLArray) {
+        if (object = [QSObject fileObjectWithFileURL:loopItem]) {
+            [fileObjectArray addObject:object];
+        }
 	}
 	return fileObjectArray;
 }

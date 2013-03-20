@@ -139,6 +139,10 @@ static QSController *defaultController = nil;
 	[statusItem setHighlightMode:YES];
 }
 
+- (void)showDockIcon {
+    [NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
+}
+
 #ifdef DEBUG
 - (void)activateDebugMenu {
 	NSMenu *debugMenu = [[[NSMenu alloc] initWithTitle:@"Debug"] autorelease];
@@ -275,14 +279,13 @@ static QSController *defaultController = nil;
 			quitWindowController = [NSWindowController alloc];
 			[quitWindowController initWithWindowNibName:@"QuitConfirm" owner:quitWindowController];
 
-			quitWindow = (QSWindow *)[quitWindowController window];
+			quitWindow = (QSBorderlessWindow *)[quitWindowController window];
 			[quitWindow setLevel:kCGPopUpMenuWindowLevel+1];
 			[quitWindow setIgnoresMouseEvents:YES];
-			[quitWindow center];
 			[quitWindow setShowEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSVExpandEffect", @"transformFn", @"show", @"type", [NSNumber numberWithDouble:0.15] , @"duration", nil]];
 			[quitWindow setHideEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSShrinkEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithDouble:0.25] , @"duration", nil]];
 		} else {
-			quitWindow = (QSWindow *)[quitWindowController window];
+			quitWindow = (QSBorderlessWindow *)[quitWindowController window];
 		}
 
 		NSString *currentCharacters = [[NSApp currentEvent] charactersIgnoringModifiers];
@@ -300,9 +303,6 @@ static QSController *defaultController = nil;
 		}
 
 		if (shouldQuit) {
-			[(NSButton *)[quitWindow initialFirstResponder] setState:NSOnState];
-			[[(NSButton *)[quitWindow initialFirstResponder] alternateImage] setSize:QSSize128];
-			[quitWindow display];
 			[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.333]];
 			[quitWindow orderOut:self];
 			[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.50]];
@@ -472,13 +472,11 @@ static QSController *defaultController = nil;
     }
 }
 - (void)hideSplash:sender {
-    @autoreleasepool {
-        if (splashWindow) {
-            [splashWindow setLevel:NSFloatingWindowLevel];
-            [splashWindow flare:self];
-            [splashWindow close];
-            splashWindow = nil;
-        }
+    if (splashWindow) {
+        [splashWindow setLevel:NSFloatingWindowLevel];
+        [splashWindow flare:self];
+        [splashWindow close];
+        splashWindow = nil;
     }
 }
 - (void)startDropletConnection {
@@ -611,20 +609,17 @@ static QSController *defaultController = nil;
 - (IBAction)forceRescanItems:sender { [QSLib startThreadedAndForcedScan];  }
 
 - (void)delayedStartup {
-    @autoreleasepool {
         
 #ifdef DEBUG
-        if (DEBUG_STARTUP) NSLog(@"Delayed Startup");
+    if (DEBUG_STARTUP) NSLog(@"Delayed Startup");
 #endif
-        
-        [NSThread setThreadPriority:0.0];
-        QSTask *task = [QSTask taskWithIdentifier:@"QSDelayedStartup"];
-        [task setName:@"Starting Up..."];
-        [task setStatus:@"Updating Catalog"];
-        [task startTask:self];
-        [[QSLibrarian sharedInstance] loadMissingIndexes];
-        [task stopTask:self];
-    }
+    
+    QSTask *task = [QSTask taskWithIdentifier:@"QSDelayedStartup"];
+    [task setName:@"Starting Up..."];
+    [task setStatus:@"Updating Catalog"];
+    [task startTask:self];
+    [[QSLibrarian sharedInstance] loadMissingIndexes];
+    [task stopTask:self];
 }
 
 - (void)checkForFirstRun {
@@ -826,9 +821,9 @@ static QSController *defaultController = nil;
 
 - (void)applicationWillFinishLaunching:(NSNotification *)aNotification {
 
-	if (![NSApplication isSnowLeopard]) {
+	if (![NSApplication isLion]) {
 		NSBundle *appBundle = [NSBundle mainBundle];
-		NSRunAlertPanel([NSString stringWithFormat:@"%@ %@ Mac OS X 10.6+",[appBundle objectForInfoDictionaryKey:@"CFBundleName"],NSLocalizedString(@"requires",nil)] , NSLocalizedString(@"Recent versions of Quicksilver require Mac OS 10.6 Snow Leopard. Older 10.5, 10.4 and 10.3 compatible versions are available from the http://qsapp.com.", nil), NSLocalizedString(@"OK",nil), nil, nil, [appBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]);
+		NSRunAlertPanel([NSString stringWithFormat:@"%@ %@ Mac OS X 10.7+",[appBundle objectForInfoDictionaryKey:@"CFBundleName"],NSLocalizedString(@"requires",nil)] ,[NSString stringWithFormat:NSLocalizedString(@"Recent versions of Quicksilver require Mac OS %@. Older %@ compatible versions are available from the http://qsapp.com/download.php", nil),@"10.7 Lion",@"10.3–10.6"], NSLocalizedString(@"OK",nil), nil, nil, [appBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]);
 		// Quit - we don't want to be running :)
 		[NSApp terminate:nil];
 	}
@@ -839,12 +834,24 @@ static QSController *defaultController = nil;
 #ifdef DEBUG
 	[self registerForErrors];
 #endif
+    // Honor dock preference (if statement true if icon is NOT set to hide)
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults boolForKey:kHideDockIcon]) {
+        if (![defaults objectForKey:@"QSShowMenuIcon"])
+            [defaults setInteger:0 forKey:@"QSShowMenuIcon"];
+        [self showDockIcon];
+    }
 }
 
 - (void)setupSplash {
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:kUseEffects]) {
 		[self showSplash:nil];
-		[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(threadedHideSplash) userInfo:nil repeats:NO];
+        double delayInSeconds = 0.1;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+            // hide the splash in a background thread
+            [self hideSplash:nil];
+        });
 	}
 }
 - (void)startQuicksilver:(id)sender {
@@ -1037,8 +1044,9 @@ static QSController *defaultController = nil;
 
 	if ([defaults boolForKey:@"QSEnableISync"])
 		[[QSSyncManager sharedInstance] setup];
-
-	[NSThread detachNewThreadSelector:@selector(delayedStartup) toTarget:self withObject:nil];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [self delayedStartup];
+    });
 	[self startDropletConnection];
 }
 
@@ -1052,13 +1060,22 @@ static QSController *defaultController = nil;
 	[activationKey setEnabled:YES];
 }
 
-- (void)threadedHideSplash {
-	[NSThread detachNewThreadSelector:@selector(hideSplash:) toTarget:self withObject:nil];
-}
-
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+#ifdef DEBUG
+    NSDate *start;
+    if (VERBOSE) {
+        start = [NSDate date];
+    }
+#endif
 	[self startQuicksilver:aNotification];
+#ifdef DEBUG
+    if (VERBOSE) {
+        NSLog(@"-[QSController startQuicksilver:] took %lfs", -1*([start timeIntervalSinceNow]));
+    }
+#endif
+    [NSApp disableRelaunchOnLogin];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"QSApplicationDidFinishLaunchingNotification" object:self];
+    [QSObject interfaceChanged];
 	QSApplicationCompletedLaunch = YES;
 }
 

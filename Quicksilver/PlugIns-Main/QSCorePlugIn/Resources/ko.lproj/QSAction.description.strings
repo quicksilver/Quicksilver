@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSCommandExecuteAtTimeAction</key>
+    <string>특정 시간에 명령을 수행합니다.</string>
+    <key>QSTextTypeAction</key>
+    <string>활성화 된 응용 프로그램에 글자를 입력합니다.</string>
+    <key>QSCatalogEntryRescanAction</key>
+    <string>보관함 항목을 새로 읽어 오고, 정리합니다.</string>
+    <key>QSTextSpeakAction</key>
+    <string>Voiceover 를 이용하여 글자를 읽습니다.</string>
+    <key>FileMakeHardLinkInAction</key>
+    <string>폴더에 새롭게 하드 링크를 만듭니다.</string>
+    <key>QSLoginItemAddAction</key>
+    <string>로그인 항목 목록에 추가합니다.</string>
+    <key>QSObjCSendMessageAction</key>
+    <string>Objective-C 메시지를 실행합니다.</string>
+    <key>FileGetHFSPathAction</key>
+    <string>Mac 형식로 된 HFS 경로를 가져옵니다.</string>
+    <key>QSObjectShowMenu</key>
+    <string>사용 가능한 동작 메뉴를 보여줍니다.</string>
+    <key>FileDeleteAction</key>
+    <string>파일을 영구적으로 삭제합니다.</string>
+    <key>QSCommandAddTriggerAction</key>
+    <string>입력한 명령을 단축 명령에 추가합니다.</string>
+    <key>QSObjectShowChildMenu</key>
+    <string>메뉴에서 내용을 보여줍니다.</string>
+    <key>QSCommandExecuteAction</key>
+    <string>Quicksilver 명령을 실행합니다.</string>
+    <key>AppRelaunchAction</key>
+    <string>응용 프로그램을 다시 실행합니다.</string>
+    <key>AppShowHideAction</key>
+    <string>응용 프로그램의 숨김 여부를 변경합니다.</string>
+    <key>QSLargeTypeAction</key>
+    <string>큰 글자로 화면에 보여줍니다.</string>
+    <key>AppleScriptRunTextAction</key>
+    <string>입력한 내용을 AppleScript 로 실행합니다.</string>
+    <key>PasteboardCopyAction</key>
+    <string>내용을 클립보드로 복사합니다.</string>
+    <key>AppHideOthersAction</key>
+    <string>다른 응용프로그램들을 모두 숨깁니다.</string>
+    <key>QSTextShowDialogAction</key>
+    <string>팝업 창에서 글자를 보여줍니다.</string>
+    <key>QSObjectShowChildrenAction</key>
+    <string>Quicksilver 안에서 해당하는 항목들을 보여줍니다.</string>
+    <key>QSShellScriptRunAction</key>
+    <string>명령 쉘 스크립트를 실행합니다.</string>
+    <key>QSObjectSelectAction</key>
+    <string>Quicksilver 인터페이스에서 해당 항목을 선택합니다.</string>
+    <key>FileGetInfoAction</key>
+    <string>해당 파일의 &apos;정보 가져오기&apos; 창을 엽니다.</string>
+    <key>FileAlwaysOpenTypeWithAction</key>
+    <string>해당 파일 형식을 다음 응용 프로그램으로 항상 열게 설정합니다.</string>
+    <key>QSCommandSaveAction</key>
+    <string>Quicksilver 명령을 파일로 저장합니다.</string>
+    <key>FileRenameAction</key>
+    <string>파일의 이름을 변경합니다.</string>
+    <key>QSObjectSearchChildrenAction</key>
+    <string>항목 내용이 Quicksilver를 필터 모드로 넣는것을 보여줍니다.</string>
+    <key>QSObjectAssignMnemonic</key>
+    <string>해당 항목의 검색 줄임말로 정합니다.</string>
+    <key>AppleScriptOpenFilesAction</key>
+    <string>파일로 AppleScript 를 실행합니다.</string>
+    <key>QSCatalogEntryShowAction</key>
+    <string>보관함 환경설정에서 보관함 내용을 보여줍니다.</string>
+    <key>QSObjectShowSourceAction</key>
+    <string>보관함 환경설정에서 해당 항목의 출처를 보여줍니다.</string>
+    <key>QSCreateFileTemplate</key>
+    <string>새 파일을 템플릿으로부터 만듭니다.</string>
+    <key>QSCommandExecuteAfterDelayAction</key>
+    <string>일정 시간을 기다린 다음 해당 Quicksilver 명령을 실행합니다.</string>
+    <key>FileMakeAliasInAction</key>
+    <string>폴더 내에 새로운 가상본을 만듭니다.</string>
+    <key>QSNewFolderAction</key>
+    <string>해당 폴더 아래에 새 폴더를 만듭니다.</string>
+    <key>URLOpenWithAction</key>
+    <string>다른 응용 프로그램을 이용하여 해당 URL 을 엽니다.</string>
+    <key>FileGetURLAction</key>
+    <string>파일의 경로를 file:// 모양으로 가져옵니다.</string>
+    <key>QSObjectShowActionMenu</key>
+    <string>사용 가능한 동작 메뉴를 보여줍니다.</string>
+    <key>AppQuitOthersAction</key>
+    <string>다른 응용프로그램을 모두 종료합니다.</string>
+    <key>URLEmailAction</key>
+    <string>이메일을 mailto: 를 이용하여 작성합니다.</string>
+    <key>AppleScriptProcessTextAction</key>
+    <string>텍스트를 이용하여 AppleScript 를 실행합니다.</string>
+    <key>FileToTrashAction</key>
+    <string>파일을 휴지통에 넣습니다.</string>
+    <key>QSLoginItemRemoveAction</key>
+    <string>로그인 항목 목록에서 제외합니다.</string>
+    <key>AppActivateAction</key>
+    <string>응용 프로그램을 활성화시킵니다.</string>
+    <key>AppHideAction</key>
+    <string>응용 프로그램을 숨깁니다.</string>
+    <key>AppLaunchAction</key>
+    <string>응용 프로그램을 실행합니다.</string>
+    <key>AppLaunchAgainAction</key>
+    <string>응용 프로그램을 중복해서 실행합니다.</string>
+    <key>AppOpenFileAction</key>
+    <string>열 파일을 선택합니다.</string>
+    <key>AppQuitAction</key>
+    <string>응용 프로그램을 종료합니다.</string>
+    <key>AppReopenAction</key>
+    <string>응용 프로그램을 다시 엽니다.</string>
+    <key>AppRootLaunchAction</key>
+    <string>관리자 권한으로 응용 프로그램을 실행합니다.</string>
+    <key>AppleScriptRunAction</key>
+    <string>AppleScript 를 실행합니다.</string>
+    <key>ContactEditAction</key>
+    <string>항목을 편집합니다.</string>
+    <key>ContactEmailAction</key>
+    <string>연락처를 이메일로 보냅니다.</string>
+    <key>ContactIMAction</key>
+    <string>메신저를 이용해 연락처로 메시지를 보냅니다.</string>
+    <key>ContactSendItemEmailAction</key>
+    <string>항목을 해당 연락처에게 이메일로 보냅니다.</string>
+    <key>ContactSendItemIMAction</key>
+    <string>항목을 해당 연락처에게 메신저로 보냅니다.</string>
+    <key>ContactShowAction</key>
+    <string>주소록에서 해당 연락처를 봅니다.</string>
+    <key>DiskEjectAction</key>
+    <string>디스크를 꺼냅니다.</string>
+    <key>DiskForceEjectAction</key>
+    <string>강제로 디스크를 꺼냅니다.</string>
+    <key>FileCompressAction</key>
+    <string>파일을 압축합니다.</string>
+    <key>FileCopyToAction</key>
+    <string>다른 위치로 복사합니다.</string>
+    <key>FileDecompressAction</key>
+    <string>압축을 풉니다.</string>
+    <key>FileGetPathAction</key>
+    <string>경로를 ~ 기호를 이용해 가져옵니다.</string>
+    <key>FileGetPosixPathAction</key>
+    <string>절대 경로 가져옵니다. (절대 경로는 홈 경로를 나타내는 ~ 기호를 사용하지 않음)</string>
+    <key>FileMakeLinkInAction</key>
+    <string>다른 위치에 링크를 만듭니다.</string>
+    <key>FileMoveToAction</key>
+    <string>다른 폴더로 이동합니다.</string>
+    <key>FileOpenAction</key>
+    <string>선택한 항목을 엽니다.</string>
+    <key>FileOpenWithAction</key>
+    <string>응용 프로그램으로 엽니다.</string>
+    <key>FileRevealAction</key>
+    <string>항목을 보입니다.</string>
+    <key>ItemSendToContactEmailAction</key>
+    <string>항목을 해당 연락처에게 이메일로 보냅니다.</string>
+    <key>ItemSendToContactIMAction</key>
+    <string>항목을 해당 연락처에게 메신저로 보냅니다.</string>
+    <key>PasteboardPasteAction</key>
+    <string>현재 응용 프로그램에 이 객체를 붙여넣습니다.</string>
+    <key>PasteboardPasteActionAsPlainText</key>
+    <string>현재 응용 프로그램에 현재 객체를 일반 텍스트로 붙여넣습니다.</string>
+    <key>ProcessKillAction</key>
+    <string>응용 프로그램을 강제로 종료합니다.</string>
+    <key>ProcessResumeAction</key>
+    <string>일시 중지된 프로세스를 계속 진행시킵니다.</string>
+    <key>ProcessSuspendAction</key>
+    <string>실행중인 프로세스를 일시적으로 정지시킵니다.</string>
+    <key>QSCreateFileAction</key>
+    <string>입력한 문자를 새 파일의 내용으로 선택할 폴더 내에 저장합니다.</string>
+    <key>QSDialNumberAction</key>
+    <string>해당 번호로 전화를 겁니다.</string>
+    <key>QSEditAction</key>
+    <string>편집합니다.</string>
+    <key>QSUserSwitchAction</key>
+    <string>사용자를 전환합니다.</string>
+    <key>QSiTunesPlaylistPlayAction</key>
+    <string>iTunes 재생 목록에서 음악 재생</string>
+    <key>QSiTunesTrackPlayAction</key>
+    <string>iTunes 트랙을 재생합니다.</string>
+    <key>QSShellScriptRunAction</key>
+    <string>명령 쉘 스크립트를 실행합니다.</string>
+    <key>ShellScriptRunAction</key>
+    <string>명령 쉘 스크립트 실행합니다.</string>
+    <key>URLFindWithAction</key>
+    <string>다음을 이용하여 찾습니다...</string>
+    <key>URLJSAction</key>
+    <string>Javascript 를 실행합니다.</string>
+    <key>URLOpenAction</key>
+    <string>URL 을 엽니다.</string>
+    <key>URLOpenActionInBackground</key>
+    <string>현재 응용 프로그램을 그대로 둔 채로 URL 을 엽니다.</string>
+    <key>URLSearchAction</key>
+    <string>쿼리 URL 을 검색합니다.</string>
+    <key>URLSearchForAction</key>
+    <string>쿼리 URL에서 글자를 검색합니다.</string>
+  </dict>
+</plist>

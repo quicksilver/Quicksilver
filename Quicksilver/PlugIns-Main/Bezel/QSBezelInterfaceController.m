@@ -82,7 +82,7 @@
 
 
 - (NSSize) maxIconSize {
-	return NSMakeSize(128, 128);
+	return QSSize256;
 }
 
 - (void)showMainWindow:(id)sender {

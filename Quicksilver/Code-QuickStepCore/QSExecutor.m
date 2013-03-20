@@ -28,7 +28,6 @@
 #import "QSRegistry.h"
 
 #import "QSNullObject.h"
-#import "NSException_TraceExtensions.h"
 
 //#define compGT(a, b) (a < b)
 

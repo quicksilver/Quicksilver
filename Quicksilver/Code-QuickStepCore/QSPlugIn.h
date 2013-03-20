@@ -85,7 +85,6 @@
 - (NSArray *)dependencies;
 - (NSSet *)obsoletes;
 - (void)downloadFailed;
-+ (id)plugInWithBundle:(NSBundle *)aBundle;
 - (NSString *)infoHTML;
 - (BOOL)hasExtendedDescription;
 - (NSString *)shortName;

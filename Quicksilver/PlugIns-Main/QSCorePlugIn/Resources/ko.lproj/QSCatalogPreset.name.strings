@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSPresetABMailRecents</key>
+    <string>이전 수취인에게 편지 쓰기</string>
+    <key>QSPresetUserGroup</key>
+    <string>사용자</string>
+    <key>QSPresetDownloads</key>
+    <string>다운로드</string>
+    <key>QSPresetDocuments</key>
+    <string>문서</string>
+    <key>QSPresetICloudDocuments</key>
+    <string>iCloud 문서</string>
+    <key>QSPresetAccounts</key>
+    <string>사용자 계정</string>
+    <key>QSPresetProxies</key>
+    <string>프록시 객체</string>
+    <key>QSPresetAddressBook</key>
+    <string>주소록 연락처</string>
+    <key>QSPresetAddressBookGroup</key>
+    <string>주소록</string>
+    <key>QSPresetAddressBookScripts</key>
+    <string>스크립트 (주소록)</string>
+    <key>QSPresetAllApplications</key>
+    <string>모든 응용프로그램 찾기</string>
+    <key>QSPresetAllRecentDocuments</key>
+    <string>모든 최근 문서</string>
+    <key>QSPresetApplicationSpecificGroup</key>
+    <string>응용 프로그램 모음</string>
+    <key>QSPresetApplications</key>
+    <string>응용 프로그램</string>
+    <key>QSPresetBrowsersGroup</key>
+    <string>책갈피</string>
+    <key>QSPresetBuffers</key>
+    <string>버퍼 내용</string>
+    <key>QSPresetCaminoBookmarks</key>
+    <string>Camino 책갈피</string>
+    <key>QSPresetClassicApplications</key>
+    <string>응용 프로그램 (Mac OS 9)</string>
+    <key>QSPresetClipboardContents</key>
+    <string>클립보드 내용</string>
+    <key>QSPresetCommandHistory</key>
+    <string>최근 명령</string>
+    <key>QSPresetConfiguration</key>
+    <string>설정</string>
+    <key>QSPresetContacts</key>
+    <string>연락처</string>
+    <key>QSPresetDVDPlayerScripts</key>
+    <string>DVD 플레이어 스크립트</string>
+    <key>QSPresetDesktop</key>
+    <string>바탕화면</string>
+    <key>QSPresetDeveloper</key>
+    <string>개발자</string>
+    <key>QSPresetDeveloperAddressBookDocs</key>
+    <string>주소록</string>
+    <key>QSPresetDeveloperAppKit</key>
+    <string>AppKit</string>
+    <key>QSPresetDeveloperAppKitDocumentation</key>
+    <string>AppKit 문서</string>
+    <key>QSPresetDeveloperAppKitHeaders</key>
+    <string>AppKit 헤더</string>
+    <key>QSPresetDeveloperApplications</key>
+    <string>응용 프로그램 (개발자)</string>
+    <key>QSPresetDeveloperCoreFoundationHeaders</key>
+    <string>CoreFoundation 헤더</string>
+    <key>QSPresetDeveloperFoundation</key>
+    <string>Foundation</string>
+    <key>QSPresetDeveloperFoundationDocumentation</key>
+    <string>Foundation 문서</string>
+    <key>QSPresetDeveloperFoundationHeaders</key>
+    <string>Foundation 헤더</string>
+    <key>QSPresetDeveloperFrameworks</key>
+    <string>프레임워크</string>
+    <key>QSPresetDeveloperOtherDocs</key>
+    <string>다른 문서</string>
+    <key>QSPresetDeveloperPreferencePaneDocs</key>
+    <string>환경설정 패널</string>
+    <key>QSPresetDeveloperPrivateFrameworks</key>
+    <string>비공개 프레임워크</string>
+    <key>QSPresetDeveloperPublicFrameworks</key>
+    <string>공개 프레임워크</string>
+    <key>QSPresetDeveloperScreenSaverDocs</key>
+    <string>화면 보호기</string>
+    <key>QSPresetDeveloperWebKitDocs</key>
+    <string>WebKit</string>
+    <key>QSPresetDevices</key>
+    <string>장비</string>
+    <key>QSPresetDockApplications</key>
+    <string>Dock 응용 프로그램</string>
+    <key>QSPresetDockGroup</key>
+    <string>Dock</string>
+    <key>QSPresetDockOthers</key>
+    <string>Dock 파일 &amp; 폴더</string>
+    <key>QSPresetFavorites</key>
+    <string>즐겨찾기</string>
+    <key>QSPresetFinderGroup</key>
+    <string>Finder</string>
+    <key>QSPresetFinderRecentFolders</key>
+    <string>최근 폴더 (Finder)</string>
+    <key>QSPresetFinderSpecificSearchPlaces</key>
+    <string>Finder 한정 검색 구역</string>
+    <key>QSPresetFinderToolbarItems</key>
+    <string>Finder 도구 상자 항목</string>
+    <key>QSPresetFirefoxBookmarks</key>
+    <string>Firefox 책갈피</string>
+    <key>QSPresetGlobalPrefsRecentFolders</key>
+    <string>최근 폴더 (열기 &amp; 저장)</string>
+    <key>QSPresetHome</key>
+    <string>홈</string>
+    <key>QSPresetICabBookmarks</key>
+    <string>iCab 책갈피</string>
+    <key>QSPresetInternalMessages</key>
+    <string>내부 명령</string>
+    <key>QSPresetInternalObjects</key>
+    <string>내부 객체</string>
+    <key>QSPresetIEBookmarks</key>
+    <string>Internet Explorer 책갈피</string>
+    <key>QSPresetIEGroup</key>
+    <string>Internet Explorer</string>
+    <key>QSPresetIEHistory</key>
+    <string>Internet Explorer 방문 기록</string>
+    <key>QSPresetILifeGroup</key>
+    <string>iLife</string>
+    <key>QSPresetITunesGroup</key>
+    <string>iTunes</string>
+    <key>QSPresetInternetGroup</key>
+    <string>인터넷</string>
+    <key>QSPresetKeyCaps</key>
+    <string>Key Caps</string>
+    <key>QSPresetKeychains</key>
+    <string>키체인</string>
+    <key>QSPresetLibraryPreferencePanes</key>
+    <string>시스템 환경설정 (모든 사용자)</string>
+    <key>QSPresetLibraryScripts</key>
+    <string>스크립트 (모든 사용자)</string>
+    <key>QSPresetMainApplications</key>
+    <string>응용 프로그램</string>
+    <key>QSPresetMiscellaneousGroup</key>
+    <string>기타</string>
+    <key>QSPresetModules</key>
+    <string>추가 기능</string>
+    <key>QSPresetMozillaBookmarks</key>
+    <string>Mozilla 책갈피</string>
+    <key>QSPresetNNWSubscriptions</key>
+    <string>NetNewsWire 구독</string>
+    <key>QSPresetNUDCContacts</key>
+    <string>지금 연락</string>
+    <key>QSPresetNetscapeBookmarks</key>
+    <string>Netscape 책갈피</string>
+    <key>QSPresetNetworkLocations</key>
+    <string>네트워크 위치</string>
+    <key>QSPresetOldCaminoBookmarks</key>
+    <string>Camino 책갈피 (구형)</string>
+    <key>QSPresetOmniWebBookmarks</key>
+    <string>OmniWeb 책갈피</string>
+    <key>QSPresetOmniWebFavorites</key>
+    <string>OmniWeb 즐겨찾기</string>
+    <key>QSPresetOmniWebGroup</key>
+    <string>OmniWeb</string>
+    <key>QSPresetOmniWebHistory</key>
+    <string>OmniWeb 방문 기록</string>
+    <key>QSPresetOmniWebServerBookmarks</key>
+    <string> OmniWeb 책갈피 (서버)</string>
+    <key>QSPresetOmniWebShortcuts</key>
+    <string>OmniWeb 단축키</string>
+    <key>QSPresetOperaBookmarks</key>
+    <string>Opera 책갈피</string>
+    <key>QSPresetPathFinderGroup</key>
+    <string>Path Finder</string>
+    <key>QSPresetPathFinderRecentFiles</key>
+    <string>
+Path Finder 최근 파일</string>
+    <key>QSPresetPathFinderRecentFolders</key>
+    <string>Path Finder 최근 폴더</string>
+    <key>QSPresetPreferencePanes</key>
+    <string>환경 설정 패널</string>
+    <key>QSPresetPresetGroup</key>
+    <string>미리 설정</string>
+    <key>QSPresetPrinters</key>
+    <string>프린터</string>
+    <key>QSPresetQSCatalogEntries</key>
+    <string>Quicksilver 보관함 항목</string>
+    <key>QSPresetQSDefaultLinks</key>
+    <string>Starter URL</string>
+    <key>QSPresetQSExtraScripts</key>
+    <string>스크립트 (QS 기타)</string>
+    <key>QSPresetQSGroup</key>
+    <string>Quicksilver</string>
+    <key>QSPresetRecentApplications106</key>
+    <string>최근 응용 프로그램</string>
+    <key>QSPresetRecentDocuments106</key>
+    <string>최근 문서</string>
+    <key>QSPresetRecentItems</key>
+    <string>최근 항목</string>
+    <key>QSPresetRecentSelections</key>
+    <string>최근 선택</string>
+    <key>QSPresetRecentServers</key>
+    <string>최근 서버</string>
+    <key>QSPresetFavoriteServers</key>
+    <string>즐겨찾는 서버</string>
+    <key>QSPresetRendezvous</key>
+    <string>랑데부 서버</string>
+    <key>QSPresetRendezvousMachines</key>
+    <string>Quicksilver 랑데부</string>
+    <key>QSPresetRoot</key>
+    <string>루트</string>
+    <key>QSPresetRunningProcesses</key>
+    <string>실행중인 응용 프로그램 &amp; 프로세스</string>
+    <key>QSPresetSafariBookmarks</key>
+    <string>Safari 책갈피</string>
+    <key>QSPresetSafariGroup</key>
+    <string>Safari</string>
+    <key>QSPresetSafariHistory</key>
+    <string>Safari History</string>
+    <key>QSPresetScriptsGroup</key>
+    <string>Scripts</string>
+    <key>QSPresetShelves</key>
+    <string>선반 &amp; 클립보드</string>
+    <key>QSPresetSidebarItems</key>
+    <string>Finder 사이드바</string>
+    <key>QSPresetSogudiShortcuts</key>
+    <string>Sogudi 단축키</string>
+    <key>QSPresetSpeakableItems</key>
+    <string>말하기 명령</string>
+    <key>QSPresetSpecial</key>
+    <string>특별</string>
+    <key>QSPresetSystemGroup</key>
+    <string>시스템</string>
+    <key>QSPresetSystemPreferencePanes</key>
+    <string>시스템 환경설정 (시스템)</string>
+    <key>QSPresetTrash</key>
+    <string>휴지통</string>
+    <key>QSPresetUserApplications</key>
+    <string>응용 프로그램 (사용자)</string>
+    <key>QSPresetUserPreferencePanes</key>
+    <string>시스템 환경설정 (사용자)</string>
+    <key>QSPresetUserScripts</key>
+    <string>스크립트 (사용자)</string>
+    <key>QSPresetUserWatsonTools</key>
+    <string>Watson  Tools (사용자)</string>
+    <key>QSPresetVolumes</key>
+    <string>디스크</string>
+    <key>QSPresetWatsonGroup</key>
+    <string>Watson</string>
+    <key>QSPresetWirelessNetworks</key>
+    <string>무선 네트워크</string>
+    <key>QSPresetiPhotoAlbums</key>
+    <string>iPhoto 앨범</string>
+    <key>QSPresetiTunesGroup</key>
+    <string>iTunes</string>
+    <key>QSPresetiTunesPlaylists</key>
+    <string>iTunes 음악</string>
+    <key>QSPresetiTunesScripts</key>
+    <string>iTunes 스크립트</string>
+    <key>QSPresetRemovableVolumes</key>
+    <string>네트워크 및 이동식 디스크</string>
+  </dict>
+</plist>
