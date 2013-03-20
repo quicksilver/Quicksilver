@@ -32,7 +32,7 @@ static QSController *defaultController = nil;
 - (void)awakeFromNib { if (!defaultController) defaultController = self;  }
 + (id)sharedInstance {
 	if (!defaultController)
-		defaultController = [[[self class] allocWithZone:nil] init];
+		defaultController = [[[self class] alloc] init];
 	return defaultController;
 }
 

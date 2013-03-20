@@ -34,13 +34,12 @@
 + (QSTriggersPrefPane *)sharedInstance {
 	static QSTriggersPrefPane *_sharedInstance = nil;
 	if (!_sharedInstance) {
-		_sharedInstance = [[super allocWithZone:nil] init];
+		_sharedInstance = [[super alloc] init];
 	}
 	return _sharedInstance;
 }
 
-+ (id)allocWithZone:(NSZone *)zone
-{
++ (id)alloc {
     return [self sharedInstance];
 }
 

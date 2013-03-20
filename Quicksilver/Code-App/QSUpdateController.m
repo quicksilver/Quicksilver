@@ -18,7 +18,7 @@
 
 + (id)sharedInstance {
 	static id _sharedInstance;
-	if (!_sharedInstance) _sharedInstance = [[[self class] allocWithZone:nil] init];
+	if (!_sharedInstance) _sharedInstance = [[[self class] alloc] init];
 	return _sharedInstance;
 }
 

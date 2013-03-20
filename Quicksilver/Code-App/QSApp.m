@@ -93,7 +93,6 @@ BOOL QSApplicationCompletedLaunch = NO;
 				[[NSClassFromString(@"QSMouseTriggerManager") sharedInstance] handleMouseTriggerEvent:theEvent type:nil forView:nil];
 		  break;
 	  case NSOtherMouseDown:
-			theEvent;
 #ifdef DEBUG
 			if (VERBOSE)
 				NSLog(@"OtherMouse %@ %@", theEvent, [theEvent window]);
