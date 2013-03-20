@@ -36,7 +36,7 @@ id QSPrefs;
 @implementation QSPreferencesController
 + (id)sharedInstance {
 	if (!QSPrefs)
-		QSPrefs = [[[self class] allocWithZone:nil] init];
+		QSPrefs = [[[self class] alloc] init];
 	return QSPrefs;
 }
 

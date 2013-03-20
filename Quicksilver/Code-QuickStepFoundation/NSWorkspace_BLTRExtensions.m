@@ -328,7 +328,7 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 	ProcessSerialNumber psn;
 	if (!GetProcessForPID(pid, &psn) ) {
 		NSString *name = nil;
-		if (!CopyProcessName(&psn, (__bridge CFStringRef *)&name))
+		if (!CopyProcessName(&psn, (CFStringRef *)&name))
 			return [name autorelease];
 	}
 	return nil;
