@@ -36,12 +36,14 @@
     IBOutlet WebView *webView;
     IBOutlet NSTextField *pluginDetails;
     IBOutlet NSImageView *iconView;
+    IBOutlet NSTextField *installedDetails;
     BOOL _changesAreShowing;
     CGFloat webViewHeight;
 }
 
 @property (assign) IBOutlet WebView *webView;
 @property (assign) IBOutlet NSTextField *pluginDetails;
+@property (assign) IBOutlet NSTextField *installedDetails;
 
 -(void)setOptions:(NSDictionary *)options;
 

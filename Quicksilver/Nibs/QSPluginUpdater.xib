@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">12C3012</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2844</string>
-		<string key="IBDocument.AppKitVersion">1187.34</string>
-		<string key="IBDocument.HIToolboxVersion">625.00</string>
+		<string key="IBDocument.SystemVersion">12D78</string>
+		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
+		<string key="IBDocument.AppKitVersion">1187.37</string>
+		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<dictionary class="NSMutableDictionary" key="IBDocument.PluginVersions">
-			<string key="com.apple.InterfaceBuilder.CocoaPlugin">2844</string>
-			<string key="com.apple.WebKitIBPlugin">1810</string>
+			<string key="com.apple.InterfaceBuilder.CocoaPlugin">3084</string>
+			<string key="com.apple.WebKitIBPlugin">2053</string>
 		</dictionary>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSButton</string>
@@ -115,7 +115,7 @@
 											<string key="NSFrameSize">{417, 48}</string>
 											<reference key="NSSuperview" ref="592176990"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="596544223"/>
+											<reference key="NSNextKeyView" ref="485320743"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<bool key="NSEnabled">YES</bool>
 											<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -274,7 +274,7 @@
 							<string key="NSFrame">{{31, 43}, {419, 50}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="592176990"/>
+							<reference key="NSNextKeyView" ref="596544223"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSsFlags">133634</int>
 							<reference key="NSVScroller" ref="596544223"/>
@@ -514,7 +514,7 @@
 										<string>NeXT Encapsulated PostScript v1.2 pasteboard type</string>
 										<string>NeXT TIFF v4.0 pasteboard type</string>
 									</set>
-									<string key="NSFrame">{{353, 8}, {32, 32}}</string>
+									<string key="NSFrame">{{353, 10}, {32, 32}}</string>
 									<reference key="NSSuperview" ref="280614869"/>
 									<reference key="NSNextKeyView" ref="888928596"/>
 									<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -620,12 +620,38 @@
 									<bool key="UseBackForwardList">NO</bool>
 									<bool key="AllowsUndo">YES</bool>
 								</object>
+								<object class="NSTextField" id="835741714">
+									<reference key="NSNextResponder" ref="280614869"/>
+									<int key="NSvFlags">268</int>
+									<string key="NSFrame">{{256, 23}, {92, 17}}</string>
+									<reference key="NSSuperview" ref="280614869"/>
+									<reference key="NSNextKeyView" ref="32956958"/>
+									<string key="NSReuseIdentifierKey">_NS:1535</string>
+									<bool key="NSEnabled">YES</bool>
+									<object class="NSTextFieldCell" key="NSCell" id="895537337">
+										<int key="NSCellFlags">68157504</int>
+										<int key="NSCellFlags2">71308288</int>
+										<string key="NSContents">Installed</string>
+										<reference key="NSSupport" ref="26"/>
+										<string key="NSCellIdentifier">_NS:1535</string>
+										<reference key="NSControlView" ref="835741714"/>
+										<bool key="NSDrawsBackground">YES</bool>
+										<reference key="NSBackgroundColor" ref="151121015"/>
+										<object class="NSColor" key="NSTextColor" id="861698607">
+											<int key="NSColorSpace">6</int>
+											<string key="NSCatalogName">System</string>
+											<string key="NSColorName">textColor</string>
+											<reference key="NSColor" ref="619813766"/>
+										</object>
+									</object>
+									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+								</object>
 								<object class="NSTextField" id="405192201">
 									<reference key="NSNextResponder" ref="280614869"/>
 									<int key="NSvFlags">268</int>
-									<string key="NSFrame">{{10, 23}, {368, 17}}</string>
+									<string key="NSFrame">{{10, 23}, {244, 17}}</string>
 									<reference key="NSSuperview" ref="280614869"/>
-									<reference key="NSNextKeyView" ref="32956958"/>
+									<reference key="NSNextKeyView" ref="835741714"/>
 									<string key="NSReuseIdentifierKey">_NS:1535</string>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSTextFieldCell" key="NSCell" id="337589186">
@@ -637,12 +663,7 @@
 										<reference key="NSControlView" ref="405192201"/>
 										<bool key="NSDrawsBackground">YES</bool>
 										<reference key="NSBackgroundColor" ref="151121015"/>
-										<object class="NSColor" key="NSTextColor">
-											<int key="NSColorSpace">6</int>
-											<string key="NSCatalogName">System</string>
-											<string key="NSColorName">textColor</string>
-											<reference key="NSColor" ref="619813766"/>
-										</object>
+										<reference key="NSTextColor" ref="861698607"/>
 									</object>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								</object>
@@ -686,6 +707,14 @@
 						<reference key="destination" ref="386015842"/>
 					</object>
 					<int key="connectionID">94</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">installedDetails</string>
+						<reference key="source" ref="280614869"/>
+						<reference key="destination" ref="835741714"/>
+					</object>
+					<int key="connectionID">99</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -852,6 +881,7 @@
 							<reference ref="888928596"/>
 							<reference ref="405192201"/>
 							<reference ref="386015842"/>
+							<reference ref="835741714"/>
 						</array>
 						<reference key="parent" ref="1052327674"/>
 						<string key="objectName">PluginsView</string>
@@ -931,6 +961,19 @@
 						<reference key="object" ref="503598460"/>
 						<reference key="parent" ref="93425533"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">97</int>
+						<reference key="object" ref="835741714"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="895537337"/>
+						</array>
+						<reference key="parent" ref="280614869"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">98</int>
+						<reference key="object" ref="895537337"/>
+						<reference key="parent" ref="835741714"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -981,12 +1024,14 @@
 				<string key="92.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="95.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="96.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="97.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="98.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">96</int>
+			<int key="maxID">99</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1011,19 +1056,9 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">QSPluginUpdateTableCellView</string>
 					<string key="superclassName">NSTableCellView</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">toggleChanges:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">toggleChanges:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">toggleChanges:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="iconView">NSImageView</string>
+						<string key="installedDetails">NSTextField</string>
 						<string key="pluginDetails">NSTextField</string>
 						<string key="wc">QSPluginUpdaterWindowController</string>
 						<string key="webView">WebView</string>
@@ -1032,6 +1067,10 @@
 						<object class="IBToOneOutletInfo" key="iconView">
 							<string key="name">iconView</string>
 							<string key="candidateClassName">NSImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="installedDetails">
+							<string key="name">installedDetails</string>
+							<string key="candidateClassName">NSTextField</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="pluginDetails">
 							<string key="name">pluginDetails</string>
@@ -1054,25 +1093,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">QSPluginUpdaterWindowController</string>
 					<string key="superclassName">NSWindowController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="cancel:">id</string>
-						<string key="install:">id</string>
-						<string key="toggleInstallPlugin:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="cancel:">
-							<string key="name">cancel:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="install:">
-							<string key="name">install:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleInstallPlugin:">
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">toggleInstallPlugin:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">toggleInstallPlugin:</string>
+						<object class="IBActionInfo" key="NS.object.0">
 							<string key="name">toggleInstallPlugin:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-					</dictionary>
+					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="installButton">NSButton</string>
 						<string key="pluginTableView">NSTableView</string>
@@ -1104,7 +1135,7 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="NSSwitch">{15, 15}</string>
-			<string key="QSPlugIn">{128, 128}</string>
+			<string key="QSPlugIn">{256, 256}</string>
 		</dictionary>
 	</data>
 </archive>

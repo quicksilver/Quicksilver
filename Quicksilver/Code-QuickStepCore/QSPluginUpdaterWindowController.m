@@ -135,7 +135,7 @@
 
 @implementation QSPluginUpdateTableCellView
 
-@synthesize webView, pluginDetails;
+@synthesize webView, pluginDetails, installedDetails;
 
 - (void)setOptions:(NSDictionary *)options {
     
@@ -152,8 +152,9 @@
     NSString *name = [options objectForKey:@"name"];
     QSPlugIn *thisPlugin = [options objectForKey:@"plugin"];
     if (!name) {
-        name = [NSString stringWithFormat:@"%@ (%@ → %@)",[thisPlugin name], [thisPlugin installedVersion],[thisPlugin latestVersion]];
+        name = [NSString stringWithFormat:@"%@ %@",[thisPlugin name],[thisPlugin latestVersion]];
     }
+    self.installedDetails.stringValue = [NSString stringWithFormat:NSLocalizedString(@"(Installed: %@)", @"details of the installed plugin version (that is being updated"), [thisPlugin installedVersion]];
     [iconView setImage:[thisPlugin icon]];
     self.pluginDetails.stringValue = name;
     WebFrame *wf = self.webView.mainFrame;
