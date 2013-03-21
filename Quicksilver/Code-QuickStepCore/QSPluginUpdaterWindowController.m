@@ -36,6 +36,7 @@
 -(void)windowDidLoad {
     // set the window height to its initial height (all changes boxes are closed)
     [self setWindowHeight:0 animate:NO];
+    [installButton setTitle:NSLocalizedString(@"Install Selected", @"Title of the button used for installing the selected plugins in the plugin updater")];
 }
 
 -(void)setWindowHeight:(CGFloat)aHeight animate:(BOOL)animate {
@@ -88,13 +89,15 @@
 
 -(IBAction)install:(id)sender {
     [self close];
-    pluginsToInstall = [[NSMutableArray arrayWithCapacity:numberOfPluginsToInstall] retain];
-    // generate an array of plugin IDs to install
-    [pluginsArray enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
-        if ([obj objectForKey:@"shouldInstall"] == nil || [[obj objectForKey:@"shouldInstall"] integerValue] == NSOnState) {
-            [pluginsToInstall addObject:[(QSPlugIn *)[obj objectForKey:@"plugin"] identifier]];
-        }
-    }];
+    if (numberOfPluginsToInstall > 0) {
+        pluginsToInstall = [[NSMutableArray arrayWithCapacity:numberOfPluginsToInstall] retain];
+        // generate an array of plugin IDs to install
+        [pluginsArray enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
+            if ([obj objectForKey:@"shouldInstall"] == nil || [[obj objectForKey:@"shouldInstall"] integerValue] == NSOnState) {
+                [pluginsToInstall addObject:[(QSPlugIn *)[obj objectForKey:@"plugin"] identifier]];
+            }
+        }];
+    }
     [NSApp stopModal];
 }
 
@@ -127,8 +130,11 @@
     numberOfPluginsToInstall = numberOfPluginsToInstall + ([sender state] == NSOffState ? -1 : 1);
     
     // disable the install button if no plugins are checked to install
-    [installButton setEnabled:numberOfPluginsToInstall > 0];
-
+    if (numberOfPluginsToInstall == 0) {
+        [installButton setTitle:NSLocalizedString(@"Skip Updates", @"Title of the button for 'skipping' plugin updates")];
+    } else {
+        [installButton setTitle:NSLocalizedString(@"Install Selected", @"Title of the button used for installing the selected plugins in the plugin updater")];
+    }
 }
 
 @end
