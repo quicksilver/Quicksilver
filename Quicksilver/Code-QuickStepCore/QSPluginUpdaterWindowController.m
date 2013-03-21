@@ -42,10 +42,10 @@
     NSRect frame = [[self window] frame];
     CGFloat originy = frame.origin.y;
 
-    // Valus for aHeight: -ive indicates shrinkage, +ive indicates expand. 0 indicates use initial height
+    // Values for aHeight: -ive indicates shrinkage, +ive indicates expand. 0 indicates use initial height
     if (aHeight == 0) {
-        // 122 is the 'extra' height of the window
-        aHeight = [pluginsArray count]*kExpandHeight+122;
+        // 121 is the 'extra' height of the window
+        aHeight = [pluginsArray count]*kExpandHeight+121;
     } else {
         originy -= aHeight;
         aHeight = frame.size.height + aHeight;
@@ -139,6 +139,7 @@
 
 - (void)setOptions:(NSDictionary *)options {
     
+    _changesAreShowing = NO;
     [webView setFrameLoadDelegate:self];
     [[[webView mainFrame] frameView] setAllowsScrolling:NO];
     [webView setAlphaValue:_changesAreShowing ? 0 : 1];
@@ -182,9 +183,9 @@
 
 -(IBAction)toggleChanges:(id)sender {
     _changesAreShowing = !_changesAreShowing;
+    [wc setWindowHeight:ceil(webViewHeight)*(_changesAreShowing ? 1 : -1) animate:YES];
     [self.webView setAlphaValue:1.0];
     [[self.webView animator] setAlphaValue:_changesAreShowing ? 1 : 0];
-    [wc setWindowHeight:webViewHeight*(_changesAreShowing ? 1 : -1) animate:YES];
     [self updateHeight];
 }
 
