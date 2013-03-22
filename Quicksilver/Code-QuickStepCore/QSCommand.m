@@ -187,7 +187,6 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 - (QSObject *)executeCommand:(QSObject *)dObject afterDelay:(QSObject *)iObject {
 	NSTimer *timer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:QSTimeIntervalForString([iObject stringValue])] interval:0 target:self selector:@selector(runCommand:) userInfo:dObject repeats:NO];
 	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
-    [timer release];
 	return nil;
 }
 
@@ -196,7 +195,6 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	if (!date) { NSBeep(); return nil; }
 	NSTimer *timer = [[NSTimer alloc] initWithFireDate:date interval:0 target:self selector:@selector(runCommand:) userInfo:dObject repeats:NO];
 	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
-    [timer release];
 	return nil;
 }
 
@@ -210,7 +208,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 @implementation QSCommand
 + (QSCommand *)commandWithDirectObject:(QSObject *)dObject actionObject:(QSAction *)aObject indirectObject:(QSObject *)iObject {
 	if (dObject && aObject)
-		return [[[self alloc] initWithDirectObject:dObject actionObject:aObject indirectObject:iObject] autorelease];
+		return [[self alloc] initWithDirectObject:dObject actionObject:aObject indirectObject:iObject];
 	return nil;
 }
 
@@ -239,7 +237,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 + (QSCommand *)commandWithDictionary:(NSDictionary *)dict {
     QSCommand *cmd = [[self alloc] init];
     [cmd setObject:dict forType:QSCommandType];
-    return [cmd autorelease];
+    return cmd;
 }
 
 + (QSCommand *)commandWithFile:(NSString *)path {
@@ -274,8 +272,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 
 - (void)setDirectObject:(QSObject*)newObject {
     if (newObject != nil && dObject != newObject) {
-        [dObject release];
-        dObject = [newObject retain];
+        dObject = newObject;
         
         id rep = [dObject identifier];
         if(rep != nil)
@@ -291,8 +288,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 
 - (void)setActionObject:(QSAction*)newObject {
     if (newObject != nil && aObject != newObject) {
-        [aObject release];
-        aObject = [newObject retain];
+        aObject = newObject;
     
         id rep = [aObject identifier];
         if(rep != nil)
@@ -307,8 +303,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 
 - (void)setIndirectObject:(QSObject*)newObject {
     if (newObject != nil && iObject != newObject) {
-        [iObject release];
-        iObject = [newObject retain];
+        iObject = newObject;
     
         id rep = [iObject identifier];
         if(rep != nil)

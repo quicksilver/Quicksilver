@@ -67,9 +67,10 @@ NSSize QSMaxIconSize;
         keysToDeleteFromObjectDict = [[NSMutableArray alloc] init];
         for (NSString *thisKey in keys) {
             thisObject = [objectDictionary objectForKey:thisKey];
+            /*
             if ([thisObject retainCount] < 2) {
                 [keysToDeleteFromObjectDict addObject:thisKey];
-            }
+            } */
             //NSLog(@"%d %@", [thisObject retainCount] , [thisObject name]);
         }
         [objectDictionary removeObjectsForKeys:keysToDeleteFromObjectDict];
@@ -81,7 +82,6 @@ NSSize QSMaxIconSize;
 	if (DEBUG_MEMORY && count)
 		NSLog(@"Released %lu objects", (unsigned long)count);
 #endif
-    [keysToDeleteFromObjectDict release];
 }
 
 + (void)purgeOldImagesAndChildren {[self purgeImagesAndChildrenOlderThan:1.0];}
@@ -157,8 +157,8 @@ NSSize QSMaxIconSize;
 - (id)init {
 	if (self = [super init]) {
 
-		data = [[NSMutableDictionary dictionaryWithCapacity:0] retain];
-		meta = [[NSMutableDictionary dictionaryWithCapacity:0] retain];
+		data = [NSMutableDictionary dictionaryWithCapacity:0];
+		meta = [NSMutableDictionary dictionaryWithCapacity:0];
 		name = nil;
 		label = nil;
 		icon = nil;
@@ -184,7 +184,7 @@ NSSize QSMaxIconSize;
 }
 
 + (id)objectWithName:(NSString *)aName {
-	QSObject *newObject = [[[self alloc] init] autorelease];
+	QSObject *newObject = [[self alloc] init];
 	[newObject setName:aName];
 	return newObject;
 }
@@ -193,7 +193,7 @@ NSSize QSMaxIconSize;
 	id object = [self objectWithIdentifier:anIdentifier];
 
 	if (!object) {
-		object = [[[self alloc] init] autorelease];
+		object = [[self alloc] init];
 		[object setIdentifier:anIdentifier];
 	}
 	return object;
@@ -208,7 +208,7 @@ NSSize QSMaxIconSize;
 	if ([objects containsObject:object] || !object)
 		return [self objectByMergingObjects:objects];
 
-	NSMutableArray *array = [[objects mutableCopy] autorelease];
+	NSMutableArray *array = [objects mutableCopy];
 	[array addObject:object];
 	return [self objectByMergingObjects:array];
 }
@@ -263,7 +263,6 @@ NSSize QSMaxIconSize;
 	}
 	// get the number of objects added to combinedData, then release setOfObjects
 	NSInteger objectCount = [setOfObjects count];
-	[setOfObjects release];
 	
 	// If there's still only 1 object (case: if the comma trick is used on the same object multiple times)
 	if (objectCount == 1) {
@@ -279,7 +278,7 @@ NSSize QSMaxIconSize;
     [combinedData removeObjectsForKeys:typesToRemove];
 	
 	// Create the 'combined' object
-	QSObject *object = [[[QSObject alloc] init] autorelease];
+	QSObject *object = [[QSObject alloc] init];
 	[object setDataDictionary:combinedData];
     [object setObject:objects forCache:kQSObjectComponents];
 	if ([combinedData objectForKey:QSFilePathType])
@@ -296,18 +295,17 @@ NSSize QSMaxIconSize;
 	[self unloadIcon];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 	[self unloadChildren];
-	[data release]; data = nil;
-	[meta release]; meta = nil;
-	[cache release]; cache = nil;
+	 data = nil;
+	 meta = nil;
+	 cache = nil;
 
-	[name release]; name = nil;
-	[label release]; label = nil;
-	[identifier release]; identifier = nil;
-	[icon release]; icon = nil;
-	[primaryType release]; primaryType = nil;
-	[primaryObject release]; primaryObject = nil;
+	 name = nil;
+	 label = nil;
+	 identifier = nil;
+	 icon = nil;
+	 primaryType = nil;
+	 primaryObject = nil;
 
-	[super dealloc];
 }
 
 // !!! Andre Berg 20091008: adding a gdbDataFormatter method which can be easily used 
@@ -332,7 +330,43 @@ NSSize QSMaxIconSize;
 #ifdef DEBUG
 	NSLog(@"copied!");
 #endif
-	return NSCopyObject(self, 0, zone);
+    QSObject *copy = [[[self class] allocWithZone:zone] init];
+    
+    copy.name = [name copy];
+    copy.label = [label copy];
+    copy.identifier = [identifier copy];
+    copy.icon = [icon copy];
+    copy.primaryType = [primaryType copy];
+    copy.primaryObject = [primaryObject copy];
+    
+    copy.meta = [meta mutableCopy];
+    copy.data = [data mutableCopy];
+    copy.cache = [cache mutableCopy];
+    
+    copy.flags = flags;
+    copy.lastAccess = lastAccess;
+    
+    return copy;
+}
+
+- (void)setPrimaryObject:(id)obj {
+    primaryObject = obj;
+}
+
+- (void)setMeta:(NSMutableDictionary *)obj {
+    meta = obj;
+}
+
+- (void)setData:(NSMutableDictionary *)obj {
+    data = obj;
+}
+
+- (void)setFlags:(QSObjectFlags)fl {
+    flags = fl;
+}
+
+- (void)setLastAccess:(NSTimeInterval)lastAcc {
+    lastAccess = lastAcc;
 }
 
 - (NSString *)displayName {
@@ -507,8 +541,7 @@ NSSize QSMaxIconSize;
 }
 - (void)setCache:(NSMutableDictionary *)aCache {
 	if (cache != aCache) {
-		[cache release];
-		cache = [aCache retain];
+		cache = aCache;
 	}
 }
 
@@ -532,7 +565,7 @@ NSSize QSMaxIconSize;
 }
 
 - (NSArray *)types {
-	NSMutableArray *array = [[[data allKeys] mutableCopy] autorelease];
+	NSMutableArray *array = [[data allKeys] mutableCopy];
 
 	return array;
 }
@@ -654,7 +687,7 @@ NSSize QSMaxIconSize;
             [self setIdentifier:ident];
         }
         
-        return [[identifier retain] autorelease];
+        return identifier;
     }
 }
 
@@ -665,28 +698,26 @@ NSSize QSMaxIconSize;
                 [objectDictionary setObject:self forKey:newIdentifier];
                 [objectDictionary removeObjectForKey:identifier];
                 [meta setObject:newIdentifier forKey:kQSObjectObjectID];
-                [identifier release];
                 flags.noIdentifier = NO;
-                identifier = [newIdentifier retain];
+                identifier = newIdentifier;
             }
         }
         else if (newIdentifier == nil) {
             flags.noIdentifier = YES;
             [meta removeObjectForKey:kQSObjectObjectID];
-            [identifier release];
             identifier = nil;
         } else if (identifier == nil) {
             flags.noIdentifier = NO;
             [objectDictionary setObject:self forKey:newIdentifier];
             [meta setObject:newIdentifier forKey:kQSObjectObjectID];
-            identifier = [newIdentifier retain];
+            identifier = newIdentifier;
         }
     }
 }
 
 - (NSString *)name {
 	if (!name) {
-        name = [[meta objectForKey:kQSObjectPrimaryName] retain];
+        name = [meta objectForKey:kQSObjectPrimaryName];
     }
 	return name;
 }
@@ -695,8 +726,7 @@ NSSize QSMaxIconSize;
     if (![name isEqualToString:newName]) {
         if ([newName length] > 255) newName = [newName substringToIndex:255];
         // ***warning  ** this should take first line only?
-        [name release];
-        name = [newName retain];
+        name = newName;
         if (newName) {
             if ([newName isEqualToString:[self label]]) {
                 // label is only necessary if it differs
@@ -758,7 +788,7 @@ NSSize QSMaxIconSize;
     if (!label) {
         [self setLabel:[meta objectForKey:kQSObjectAlternateName]];
     }
-    return [[label retain] autorelease];
+    return label;
 }
 
 - (void)setLabel:(NSString *)newLabel {
@@ -766,8 +796,7 @@ NSSize QSMaxIconSize;
         if (![newLabel length] || [newLabel isEqualToString:[self name]]) {
             newLabel = nil;
         }
-		[label release];
-		label = [newLabel retain];
+		label = newLabel;
     }
     [self setObject:label forMeta:kQSObjectAlternateName];
 }
@@ -792,13 +821,12 @@ NSSize QSMaxIconSize;
     if (!primaryType)
         primaryType = [meta objectForKey:kQSObjectPrimaryType];
 	if (!primaryType)
-		primaryType = [[self guessPrimaryType] retain];
+		primaryType = [self guessPrimaryType];
 	return primaryType;
 }
 - (void)setPrimaryType:(NSString *)newPrimaryType {
     if (primaryType != newPrimaryType) {
-        [primaryType release];
-        primaryType = [newPrimaryType retain];
+        primaryType = newPrimaryType;
     }
     [self setObject:newPrimaryType forMeta:kQSObjectPrimaryType];
 }
@@ -809,8 +837,7 @@ NSSize QSMaxIconSize;
 
 - (void)setDataDictionary:(NSMutableDictionary *)newDataDictionary {
     if (newDataDictionary != data) {
-        [data release];
-        data = [newDataDictionary retain];
+        data = newDataDictionary;
     }
 }
 
@@ -852,7 +879,7 @@ NSSize QSMaxIconSize;
 
 @implementation QSObject (Archiving)
 + (id)objectFromFile:(NSString *)path {
-	return [[[self alloc] initFromFile:path] autorelease];
+	return [[self alloc] initFromFile:path];
 }
 - (id)initFromFile:(NSString *)path {
 	if (self = [self init]) {
@@ -871,7 +898,7 @@ NSSize QSMaxIconSize;
 	[data setDictionary:[coder decodeObjectForKey:@"data"]];
 	[self extractMetadata];
 	id dup = [self findDuplicateOrRegisterID];
-	if (dup) return [dup retain];
+	if (dup) return dup;
 	return self;
 }
 
@@ -879,7 +906,7 @@ NSSize QSMaxIconSize;
 	if ([meta objectForKey:kQSObjectIcon]) {
 		id iconRef = [meta objectForKey:kQSObjectIcon];
 		if ([iconRef isKindOfClass:[NSData class]])
-			[self setIcon:[[[NSImage alloc] initWithData:iconRef] autorelease]];
+			[self setIcon:[[NSImage alloc] initWithData:iconRef]];
 		else if ([iconRef isKindOfClass:[NSString class]])
 			[self setIcon:[QSResourceManager imageNamed:iconRef]];
         if (icon != nil) {
@@ -907,7 +934,6 @@ NSSize QSMaxIconSize;
 - (id)findDuplicateOrRegisterID {
 	id dup = [QSObject objectWithIdentifier:[self identifier]];
 	if (dup) {
-		[self release];
 		return dup;
 	}
 	if ([self identifier])
@@ -950,7 +976,7 @@ NSSize QSMaxIconSize;
 	//	 return NO;
     
 	if ([IMAGETYPES intersectsSet:[NSSet setWithArray:[data allKeys]]]) {
-		[self setIcon:[[[NSImage alloc] initWithPasteboard:(NSPasteboard *)self] autorelease]];
+		[self setIcon:[[NSImage alloc] initWithPasteboard:(NSPasteboard *)self]];
 	}
     
 	if (![self icon]) {
@@ -1006,8 +1032,7 @@ NSSize QSMaxIconSize;
 - (void)setIcon:(NSImage *)newIcon {
 	if (newIcon != icon) {
         BOOL iconChange = (icon != nil && newIcon != nil);
-		[icon release];
-		icon = [newIcon retain];
+		icon = newIcon;
 		[icon setCacheMode:NSImageCacheNever];
         if (iconChange) {
             // icon is being replaced, not set - notify UI

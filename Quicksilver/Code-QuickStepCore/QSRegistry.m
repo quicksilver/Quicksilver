@@ -24,7 +24,7 @@ QSRegistry* QSReg = nil;
 }
 
 + (id)sharedInstance {
-	if (!QSReg) QSReg = [[[self class] allocWithZone:[self zone]] init];
+	if (!QSReg) QSReg = [[[self class] allocWithZone:nil] init];
 	return QSReg;
 }
 
@@ -161,7 +161,7 @@ QSRegistry* QSReg = nil;
         instance = [providerClass sharedInstance];
     else {
         @try {
-            instance = [[[providerClass alloc] init] autorelease];
+            instance = [[providerClass alloc] init];
         }
         @catch (NSException *exception) {
 #ifdef DEBUG

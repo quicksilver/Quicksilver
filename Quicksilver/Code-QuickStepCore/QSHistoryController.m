@@ -16,7 +16,7 @@ id QSHist;
 @implementation QSHistoryController
 
 + (id)sharedInstance {
-	if (!QSHist) QSHist = [[[self class] allocWithZone:[self zone]] init];
+	if (!QSHist) QSHist = [[[self class] allocWithZone:nil] init];
 	return QSHist;
 }
 

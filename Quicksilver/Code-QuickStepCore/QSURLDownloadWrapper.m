@@ -13,7 +13,7 @@
 	NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];
     [theRequest setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
 	[theRequest setValue:kQSUserAgent forHTTPHeaderField:@"User-Agent"];
-    return [[[self alloc] initWithRequest:theRequest delegate:aDelegate] autorelease];
+    return [[self alloc] initWithRequest:theRequest delegate:aDelegate];
 }
 
 - (id)initWithRequest:(NSURLRequest*)aRequest delegate:(id)aDelegate {
@@ -22,7 +22,6 @@
     
     self = [super init];
     if(!self) {
-        [super release];
         return nil;
     }
     request = [aRequest copy];
@@ -32,10 +31,6 @@
 
 - (void)dealloc {
     [self cancel];
-    [request release];
-    [userInfo release];
-	[destination release];
-	[super dealloc];
 }
 
 - (void)start {
@@ -45,7 +40,6 @@
 
 - (void)cancel {
     [download cancel];
-    [download release];
     download = nil;
 }
 
@@ -80,8 +74,7 @@
 
 - (void)setUserInfo:(id)value {
 	if (userInfo != value) {
-		[userInfo release];
-		userInfo = [value retain];
+		userInfo = value;
 	}
 }
 
@@ -147,7 +140,7 @@
 }
 
 - (void)download:(NSURLDownload *)download didCreateDestination:(NSString *)path {
-    destination = [path retain]; 
+    destination = path; 
 }
 
 - (void)downloadDidFinish:(QSURLDownload *)download {

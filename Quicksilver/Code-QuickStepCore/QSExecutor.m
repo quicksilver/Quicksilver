@@ -45,7 +45,7 @@ QSExecutor *QSExec = nil;
 
 @implementation QSExecutor
 + (id)sharedInstance {
-	if (!QSExec) QSExec = [[[self class] allocWithZone:[self zone]] init];
+	if (!QSExec) QSExec = [[[self class] allocWithZone:nil] init];
 	return QSExec;
 }
 
@@ -89,20 +89,6 @@ QSExecutor *QSExec = nil;
 	return self;
 }
 
-- (void)dealloc {
-	// [self writeCatalog:self];
-	[actionIdentifiers release];
-	[directObjectTypes release];
-	[directObjectFileTypes release];
-	[actionSources release];
-	[actionRanking release];
-	[actionPrecedence release];
-	[actionActivation release];
-	[actionMenuActivation release];
-	[actionIndirects release];
-	[actionNames release];	
-	[super dealloc];
-}
 
 - (void)loadFileActions {
 	NSString *rootPath = QSApplicationSupportSubPath(@"Actions/", NO);
@@ -115,12 +101,12 @@ QSExecutor *QSExec = nil;
 - (NSArray *)actionsForFileTypes:(NSArray *)types {
 	NSMutableSet *set = [NSMutableSet set];
 	for (NSString *type in types) {
-        CFStringRef UTIDescription =  UTTypeCopyDescription((CFStringRef)type);
+        CFStringRef UTIDescription =  UTTypeCopyDescription((__bridge CFStringRef)type);
         if (UTIDescription) {
             CFRelease(UTIDescription);
             UTIDescription = nil;
             for (NSString *conformedType in [directObjectFileTypes allKeys]) {
-                if (UTTypeConformsTo((CFStringRef)type, (CFStringRef)conformedType)) {
+                if (UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)conformedType)) {
                     [set addObjectsFromArray:[directObjectFileTypes objectForKey:conformedType]];
                 }
             }
@@ -295,7 +281,7 @@ QSExecutor *QSExec = nil;
 
 	if (bypassValidation) {
 		//NSLog(@"bypass? %@ %@", dObject, NSStringFromClass([dObject class]) );
-		actions = [[[actionIdentifiers allValues] mutableCopy] autorelease];
+		actions = [[actionIdentifiers allValues] mutableCopy];
 	}
 	if (!actions)
 		actions = [self validActionsForDirectObject:dObject indirectObject:iObject];
@@ -311,7 +297,6 @@ QSExecutor *QSExec = nil;
 #if 1
 	NSSortDescriptor *rankDescriptor = [[NSSortDescriptor alloc] initWithKey:@"rank" ascending:YES];
 	actions = [actions sortedArrayUsingDescriptors:[NSArray arrayWithObject:rankDescriptor]];
-	[rankDescriptor release];
 #else
 	actions = [[QSLibrarian sharedInstance] scoredArrayForString:[NSString stringWithFormat:@"QSActionMnemonic:%@", [dObject primaryType]] inSet:actions mnemonicsOnly:YES];
 #endif
@@ -391,7 +376,7 @@ QSExecutor *QSExec = nil;
 		NSLog(@"unable to find actions for %@", actionIdentifiers);
 		NSLog(@"types %@ %@", [NSSet setWithArray:[dObject types]], fileUTIAndType);
 	}
-	return [[validActions mutableCopy] autorelease];
+	return [validActions mutableCopy];
 }
 
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
@@ -479,7 +464,6 @@ QSExecutor *QSExec = nil;
 							 actionNames, @"actionNames",
 							 nil];
 	[tmpDict writeToFile:pQSActionsLocation atomically:YES];
-	[tmpDict release];
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"Wrote Actions Info");
 #endif

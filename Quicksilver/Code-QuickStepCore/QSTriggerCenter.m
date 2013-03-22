@@ -23,7 +23,7 @@
 + (id)sharedInstance {
 	static QSTriggerCenter *_sharedInstance = nil;
 	if (!_sharedInstance) {
-		_sharedInstance = [[[self class] allocWithZone:[self zone]] init];
+		_sharedInstance = [[[self class] allocWithZone:nil] init];
 	}
 	return _sharedInstance;
 }
@@ -62,9 +62,9 @@
 	[nc removeObserver:self name:QSActiveApplicationChanged object:nil];
 	[nc removeObserver:self name:@"InterfaceActivated" object:nil];
 	[nc removeObserver:self name:@"InterfaceDeactivated" object:nil];
-	[triggers release], triggers = nil;
-	[triggersDict release], triggersDict = nil,
-	[super dealloc];
+	triggers = nil;
+	triggersDict, triggersDict = nil,
+	self;
 }
 
 - (void)loadTriggers {
@@ -123,7 +123,6 @@
         }
     }
     NSArray *returnTriggers = [NSArray arrayWithArray:tempTriggers];
-    [tempTriggers release];
     return returnTriggers;
 }
 
@@ -222,15 +221,11 @@
                                                     errorDescription:&errorStr];
     if(data == nil || errorStr) {
         NSLog(@"Failed converting triggers: %@", errorStr);
-		[triggerDict release];
-		[cleanedTriggerArray release];
         return;
     }
     
 	if (![data writeToFile:[pTriggerSettings stringByStandardizingPath] options:0 error:&error]) {
         NSLog(@"Failed writing triggers : %@", error );
-		[triggerDict release];
-		[cleanedTriggerArray release];
         return;
     }
 	
@@ -239,8 +234,6 @@
 #endif
 	
 	// manual memory management (better for ARC)
-	[triggerDict release];
-	[cleanedTriggerArray release];
 }
 
 - (NSMutableDictionary *)triggersDict {
@@ -248,8 +241,7 @@
 }
 
 - (void)setTriggersDict:(NSMutableDictionary *)newTriggersDict {
-	[triggersDict release];
-	triggersDict = [newTriggersDict retain];
+	triggersDict = newTriggersDict;
 }
 
 - (NSArray *)triggers { return [triggersDict allValues]; }
@@ -262,17 +254,17 @@
 @implementation QSTriggerCenter (QSPlugInInfo)
 - (BOOL)handleInfo:(id)info ofType:(NSString *)type fromBundle:(NSBundle *)bundle {
 	id matchEntry = nil;
-	for(NSDictionary * value in info) {
+	for(__strong NSDictionary * value in info) {
 		NSString *iden = [value objectForKey:kItemID];
 		//NSLog(@"info %@ %@", iden, value);
 		if (matchEntry = [triggersDict objectForKey:iden]) {
 			[[matchEntry info] addEntriesFromDictionary:value];
 			[[matchEntry info] removeObjectForKey:@"defaults"];
 		} else if (iden) {
-			NSMutableDictionary *defaults = [[[value objectForKey:@"defaults"] mutableCopy] autorelease];
+			NSMutableDictionary *defaults = [[value objectForKey:@"defaults"] mutableCopy];
 			if (defaults) {
 				[defaults removeObjectsForKeys:[value allKeys]];
-				value = [[value mutableCopy] autorelease];
+				value = [value mutableCopy];
 				[(NSMutableDictionary *)value addEntriesFromDictionary:defaults];
 			}
 			//NSLog(@"create %@, %@", value, [QSTrigger triggerWithInfo:value]);

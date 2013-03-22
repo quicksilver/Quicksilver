@@ -31,7 +31,7 @@
 - (id)init {
 	if (self = [super init]) {
 		processScanDate = [NSDate timeIntervalSinceReferenceDate];
-		processes = [[NSMutableArray arrayWithCapacity:1] retain];
+		processes = [NSMutableArray arrayWithCapacity:1];
 
 		[[QSProcessMonitor sharedInstance] addObserver:self forKeyPath:@"allProcesses" options:NSKeyValueObservingOptionNew context:QSProcessSourceObservationContext];
 		[[NSUserDefaultsController sharedUserDefaultsController] addObserver:self forKeyPath:@"values." kQSShowBackgroundProcesses options:NSKeyValueObservingOptionNew context:QSProcessSourceObservationContext];

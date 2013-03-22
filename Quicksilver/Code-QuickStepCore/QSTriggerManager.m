@@ -25,8 +25,7 @@
 }
 - (void)setCurrentTrigger:(QSTrigger *)value {
 	if (currentTrigger != value) {
-		[currentTrigger autorelease];
-		currentTrigger = [value retain];
+		currentTrigger = value;
 	}
 }
 - (QSTrigger *)settingsSelection {return currentTrigger;}
@@ -48,7 +47,7 @@
 	[splashWindow setBackgroundColor: [NSColor clearColor]];
 	[splashWindow setOpaque:NO];
 	[splashWindow setLevel:NSFloatingWindowLevel];
-	[splashWindow setContentView:[[[NSClassFromString(@"QSBezelBackgroundView") alloc] init] autorelease]];
+	[splashWindow setContentView:[[NSClassFromString(@"QSBezelBackgroundView") alloc] init]];
 	[(QSBezelBackgroundView *)[splashWindow contentView] setRadius:16.0];
 	[(QSBezelBackgroundView *)[splashWindow contentView] setGlassStyle:QSGlossUpArc];
 	[(QSBezelBackgroundView *)[splashWindow contentView] bindColors];
@@ -57,7 +56,7 @@
 	[splashWindow setHidesOnDeactivate:NO];
 	[splashWindow setSticky:YES];
 	[splashWindow setReleasedWhenClosed:YES];
-	NSImageView *imageView = [[[NSImageView alloc] initWithFrame:NSMakeRect(24, 42, 128, 128)] autorelease];
+	NSImageView *imageView = [[NSImageView alloc] initWithFrame:NSMakeRect(24, 42, 128, 128)];
 	[imageView setImage:splashImage];
 	[imageView setImageFrameStyle:NSImageFrameNone];
 	[imageView setImageScaling:NSScaleNone];

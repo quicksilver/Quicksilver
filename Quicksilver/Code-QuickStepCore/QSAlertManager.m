@@ -16,7 +16,6 @@ NSInteger QSRunSheet(id panel, NSWindow *attachToWin, NSString *title, NSString 
 	[panel orderOut:nil];
 	NSReleaseAlertPanel(panel);
 	NSInteger result = [obj returnCode];
-	[obj release];
 	return result;
 }
 
