@@ -148,7 +148,7 @@
     _changesAreShowing = NO;
     [webView setFrameLoadDelegate:self];
     [[[webView mainFrame] frameView] setAllowsScrolling:NO];
-    [webView setAlphaValue:_changesAreShowing ? 0 : 1];
+    [webView setAlphaValue:_changesAreShowing ? 1 : 0];
     [webView setDrawsBackground:NO];
     
     static NSString *css = nil;
