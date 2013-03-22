@@ -37,9 +37,7 @@
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"Get Selection: %@ %C", userData, [userData characterAtIndex:0]);
 #endif
-	if(resultPboard)
-		[resultPboard release]; 
-	resultPboard = [pboard retain];
+	resultPboard = pboard;
 }
 
 #ifdef DEBUG
@@ -52,7 +50,7 @@
 
 - (NSPasteboard *)getSelectionFromFrontApp {
 	//NSLog(@"GET SEL");
-	id oldServicesProvider = [[NSApp servicesProvider] retain];
+	id oldServicesProvider = [NSApp servicesProvider];
 	[NSApp setServicesProvider:self];
 	[NSThread detachNewThreadSelector:@selector(invokeService)
 							 toTarget:self withObject:nil];
@@ -64,17 +62,11 @@
 	}
 	//	NSLog(@"got %@", resultPboard);
 	[NSApp setServicesProvider:oldServicesProvider];
-	[oldServicesProvider release];
-	id result = [resultPboard autorelease];
+	id result = resultPboard;
 	resultPboard = nil;
 	return result;
 }
 
-- (void)dealloc {
-	//	NSLog(@"release");
-	[resultPboard release];
-	[super dealloc];
-}
 
 - (void)invokeService {
     @autoreleasepool {
@@ -120,7 +112,7 @@ NSTimeInterval failDate = 0;
 		//	NSLog(@"Using provider %@ for %@", provider, identifier);
 		return [provider resolveProxyObject:nil];
 	} else {
-		QSTemporaryServiceProvider *sp = [[[QSTemporaryServiceProvider alloc] init] autorelease];
+		QSTemporaryServiceProvider *sp = [[QSTemporaryServiceProvider alloc] init];
 		NSPasteboard *pb = nil;
 		
 		if ([NSDate timeIntervalSinceReferenceDate] -failDate > 3.0)

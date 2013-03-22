@@ -99,21 +99,6 @@ NSMutableDictionary *bindingsDict = nil;
 	[self unbind:@"highlightColor"];
     [self unbind:@"textColor"];
     [self unbind:@"backgroundColor"];
-	partialString = nil;
-	matchedString = nil;
-	visibleString = nil;
-	resetTimer = nil;
-	searchTimer = nil;
-	resultTimer = nil;
-	selectedObject = nil;
-	currentEditor = nil;
-	historyArray = nil;
-	parentStack = nil;
-	childStack = nil;
-	resultController = nil;
-	searchArray = nil;
-	sourceArray = nil;
-	resultArray = nil;
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

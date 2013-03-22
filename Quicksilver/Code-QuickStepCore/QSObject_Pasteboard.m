@@ -63,7 +63,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 			NSLog(@"Ignored old object: %@", objectIdentifier);
 #endif
 	}
-	return [[[QSObject alloc] initWithPasteboard:pasteboard] autorelease];
+	return [[QSObject alloc] initWithPasteboard:pasteboard];
 }
 
 - (id)initWithPasteboard:(NSPasteboard *)pasteboard {
@@ -109,7 +109,6 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 			source = [[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationBundleIdentifier"];
 		if ([source isEqualToString: @"com.microsoft.RDC"]) {
 			NSLog(@"Ignoring RDC Clipboard");
-			[self release];
 			return nil;
 		}
 
@@ -123,7 +122,6 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 		if (value = [self objectForType:NSRTFPboardType]) {
 			value = [[NSAttributedString alloc] initWithRTF:value documentAttributes:nil];
 			[self setObject:[value string] forType:QSTextType];
-            [value release];
 		}
 		if ([self objectForType:QSTextType])
 			[self sniffString];
@@ -145,7 +143,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 	return self;
 }
 + (id)objectWithClipping:(NSString *)clippingFile {
-	return [[[QSObject alloc] initWithClipping:clippingFile] autorelease];
+	return [[QSObject alloc] initWithClipping:clippingFile];
 }
 - (id)initWithClipping:(NSString *)clippingFile {
 	NSPasteboard *pasteboard = [NSPasteboard pasteboardByFilteringClipping:clippingFile];
@@ -204,14 +202,14 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 - (BOOL)putOnPasteboard:(NSPasteboard *)pboard declareTypes:(NSArray *)types includeDataForTypes:(NSArray *)includeTypes {
 	if (!types) {
 		// get the different pboard types from the object's data dictionary -- they're all stored here
-		types = [[[[self dataDictionary] allKeys] mutableCopy] autorelease];
+		types = [[[self dataDictionary] allKeys] mutableCopy];
 		if ([types containsObject:QSProxyType])
 			[(NSMutableArray *)types addObjectsFromArray:[[[self resolvedObject] dataDictionary] allKeys]];
 	}
 	else {
 		NSMutableSet *typeSet = [NSMutableSet setWithArray:types];
 		[typeSet intersectSet:[NSSet setWithArray:[[self dataDictionary] allKeys]]];
-		types = [[[typeSet allObjects] mutableCopy] autorelease];
+		types = [[typeSet allObjects] mutableCopy];
 	}
 	// If there are no types for the object, we need to set one (using stringValue)
 	if (![types count]) {

@@ -4,12 +4,12 @@
 @implementation QSIconLoader
 
 + (id)loaderWithArray:(NSArray *)newArray {
-	return [[[self alloc] initWithArray:newArray] autorelease];
+	return [[self alloc] initWithArray:newArray];
 }
 
 - (id)initWithArray:(NSArray *)newArray {
 	if (self = [super init]) {
-		objectArray = [newArray retain];
+		objectArray = newArray;
 		loaderValid = YES;
         isLoading = NO;
 	}
@@ -18,9 +18,6 @@
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[delegate release];
-	[objectArray release];
-	[super dealloc];
 }
 
 - (void)invalidate {
@@ -74,8 +71,7 @@
 		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 		if (delegate)
 			[nc removeObserver:self];
-		[delegate release];
-		delegate = [aDelegate retain];
+		delegate = aDelegate;
 		if (aDelegate)
 			[nc addObserver:self selector:@selector(cancelLoading:) name:QSIconLoaderDelegateCanceled object:aDelegate];
 	}

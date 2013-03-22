@@ -33,13 +33,13 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	}
 
 	// make sure latest changes are available
-	CFPreferencesSynchronize((CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"],
+	CFPreferencesSynchronize((__bridge CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"],
 							 kCFPreferencesCurrentUser,
 							 kCFPreferencesAnyHost);
-	NSDictionary *recentDocuments106 = [(NSDictionary *)CFPreferencesCopyValue((CFStringRef) @"RecentDocuments",
-																		  (CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"],
+	NSDictionary *recentDocuments106 = (NSDictionary *)CFBridgingRelease(CFPreferencesCopyValue((CFStringRef) @"RecentDocuments",
+																		  (__bridge CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"],
 																		  kCFPreferencesCurrentUser,
-																		  kCFPreferencesAnyHost) autorelease];
+																		  kCFPreferencesAnyHost));
 	NSArray *recentDocuments = [recentDocuments106 objectForKey:@"CustomListItems"];
 
 	NSMutableArray *documentsArray = [NSMutableArray arrayWithCapacity:0];
@@ -181,7 +181,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
         // try customized methods (from plug-ins) to generate a preview
         NSArray *specialTypes = [[QSReg tableNamed:@"QSFSFileTypePreviewers"] allKeys];
         for (NSString *type in specialTypes) {
-            if (UTTypeConformsTo((CFStringRef)uti, (CFStringRef)type)) {
+            if (UTTypeConformsTo((__bridge CFStringRef)uti, (__bridge CFStringRef)type)) {
                 id provider = [QSReg instanceForKey:type inTable:@"QSFSFileTypePreviewers"];
                 if (provider) {
                     //NSLog(@"provider %@", [QSReg tableNamed:@"QSFSFileTypePreviewers"]);
@@ -193,7 +193,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
         if (!theImage) {
             NSArray *previewTypes = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSFilePreviewTypes"];
             for (NSString *type in previewTypes) {
-                if (UTTypeConformsTo((CFStringRef)uti, (CFStringRef)type)) {
+                if (UTTypeConformsTo((__bridge CFStringRef)uti, (__bridge CFStringRef)type)) {
                     // do preview icon loading in separate thread
                     theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSSizeMax asIcon:YES];
                     break;
@@ -237,13 +237,12 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
             }
             // Does the app have valid recent documents
             if (bundleIdentifier) {
-                NSDictionary *recentDocuments = (NSDictionary *)CFPreferencesCopyValue((CFStringRef) @"RecentDocuments",
-                                                                                       (CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"],
+                NSDictionary *recentDocuments = (NSDictionary *)CFBridgingRelease(CFPreferencesCopyValue((CFStringRef) @"RecentDocuments",
+                                                                                       (__bridge CFStringRef) [bundleIdentifier stringByAppendingString:@".LSSharedFileList"],
                                                                                        kCFPreferencesCurrentUser,
-                                                                                       kCFPreferencesAnyHost);
+                                                                                       kCFPreferencesAnyHost));
                 if (recentDocuments) {
                     NSArray *recentDocumentsArray = [recentDocuments objectForKey:@"CustomListItems"];
-                    [recentDocuments release];
                     if (recentDocumentsArray && [recentDocumentsArray count]) {
                         return YES;
                     }
@@ -458,7 +457,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
         if([appActions count]) {
             for(NSString *actionID in appActions) {
 				NSDictionary *actionDict = [appActions objectForKey:actionID];
-                actionDict = [[actionDict copy] autorelease];
+                actionDict = [actionDict copy];
                 [actions addObject:[QSAction actionWithDictionary:actionDict identifier:actionID]];
             }
         }
@@ -517,7 +516,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 	QSObject *newObject = [QSObject objectWithIdentifier:path];
 	if (!newObject) {
-		newObject = [[[QSObject alloc] initWithArray:[NSArray arrayWithObject:path]] autorelease];
+		newObject = [[QSObject alloc] initWithArray:[NSArray arrayWithObject:path]];
 	}
 	if ([clippingTypes containsObject:[[NSFileManager defaultManager] typeOfFile:path]])
 		[newObject performSelectorOnMainThread:@selector(addContentsOfClipping:) withObject:path waitUntilDone:YES];
@@ -532,7 +531,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	QSObject *newObject = [QSObject objectByMergingObjects:[self fileObjectsWithPathArray:paths]];
 	if (!newObject) {
 		if ([paths count] > 1)
-			newObject = [[[QSObject alloc] initWithArray:paths] autorelease];
+			newObject = [[QSObject alloc] initWithArray:paths];
 		else if ([paths count] == 0)
 			return nil;
 		else
@@ -569,7 +568,6 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	// return an already-created object if it exists
 	QSObject *existingObject = [QSObject objectWithIdentifier:thisIdentifier];
 	if (existingObject) {
-		[existingObject retain];
 		return existingObject;
 	}
 
@@ -609,14 +607,14 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 	/* Try to get information for this file */
     LSItemInfoRecord record;
-    OSStatus status = LSCopyItemInfoForURL((CFURLRef)[NSURL fileURLWithPath:path], kLSRequestAllInfo, &record);
+    OSStatus status = LSCopyItemInfoForURL((__bridge CFURLRef)[NSURL fileURLWithPath:path], kLSRequestAllInfo, &record);
     if (status) {
         NSLog(@"LSCopyItemInfoForURL error: %ld", (long)status);
         return nil;
     }
 
-	NSString *uti = QSUTIForExtensionOrType((NSString *)record.extension, record.filetype);
-    NSString *extension = [(NSString *)record.extension copy];
+	NSString *uti = QSUTIForExtensionOrType((__bridge NSString *)record.extension, record.filetype);
+    NSString *extension = [(__bridge NSString *)record.extension copy];
     
     /* local or network volume? does it support Trash? */
     struct statfs sfsb;
@@ -637,7 +635,6 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     if (extension) {
         [tempDict setObject:extension forKey:@"extension"];
     }
-    [extension release];
     dict = [NSDictionary dictionaryWithDictionary:tempDict];
 	/* Release the file's extension if one was returned */
 	if (record.extension)
@@ -716,20 +713,18 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     }
     
 	if (includeKind) {
-		NSString *kind = nil;
-		LSCopyKindStringForURL((CFURLRef)fileURL, (CFStringRef *)&kind);
-		[kind autorelease];
-	
+		CFStringRef kind = NULL;
+		LSCopyKindStringForURL((__bridge CFURLRef)fileURL, &kind);
 #ifdef DEBUG
       if (DEBUG_LOCALIZATION) NSLog(@"kind: %@", kind);
 #endif
-		
-        if ([kind length]) {
-			bundleName = [NSString stringWithFormat:@"%@ %@", bundleName, kind];
+		NSString *stringKind = (__bridge NSString *)kind;
+        if ([stringKind length]) {
+			bundleName = [NSString stringWithFormat:@"%@ %@", bundleName, stringKind];
         }
     }
         
-    bundleName = [[bundleName retain] autorelease];
+    bundleName = bundleName;
     
 	return bundleName;
 }
@@ -750,11 +745,11 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		// look for a more suitable display name
 		if ([[self fileExtension] isEqualToString:@"qsplugin"]) {
 			newLabel = [self descriptiveNameForPackage:path withKindSuffix:![self isApplication]];
-		} else if (UTTypeConformsTo((CFStringRef)[self fileUTI], (CFStringRef)@"com.apple.systempreference.prefpane")) {
+		} else if (UTTypeConformsTo((__bridge CFStringRef)[self fileUTI], (CFStringRef)@"com.apple.systempreference.prefpane")) {
             // kMDItemDisplayName works better for Preference Panes
-            MDItemRef mdItem = MDItemCreate(kCFAllocatorDefault, (CFStringRef)path);
+            MDItemRef mdItem = MDItemCreate(kCFAllocatorDefault, (__bridge CFStringRef)path);
             if (mdItem) {
-                newLabel = [(NSString *)MDItemCopyAttribute(mdItem, kMDItemDisplayName) autorelease];
+                newLabel = (NSString *)CFBridgingRelease(MDItemCopyAttribute(mdItem, kMDItemDisplayName));
             }
         }
         // fall back to the default display name
@@ -819,8 +814,9 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 - (NSString *)kindOfFile:(NSString *)path {
-	NSString *kind;
-	return (!path || LSCopyKindStringForURL((CFURLRef) [NSURL fileURLWithPath:path], (CFStringRef *)&kind)) ? nil : [kind autorelease];
+    CFStringRef kind = NULL;
+    BOOL theVal = (!path || LSCopyKindStringForURL((__bridge CFURLRef) [NSURL fileURLWithPath:path], &kind));
+	return theVal ? nil : (__bridge NSString *)kind;
 }
 
 @end

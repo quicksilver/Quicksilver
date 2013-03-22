@@ -19,11 +19,10 @@
 	}
     
     if ([self isEqualToString:string]) {
-        [string release];
         return self;
     }
     else {
-        return [string autorelease];
+        return string;
     }
 }
 @end
