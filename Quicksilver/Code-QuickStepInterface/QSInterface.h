@@ -41,4 +41,4 @@
 #import "QSTableView.h"
 #import "QSTextViewer.h"
 #import "QSTargetPickerPanel.h"
-#import "QSUserDefinedProxyTargetPicker.H"
+#import "QSUserDefinedProxyTargetPicker.h"
