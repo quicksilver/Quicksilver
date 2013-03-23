@@ -48,7 +48,6 @@
 	if (![mediators count]) {
 		
 #ifndef DEBUG
-            [menu release];
             return nil;
 #endif
 
