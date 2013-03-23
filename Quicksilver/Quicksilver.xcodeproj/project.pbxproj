@@ -362,7 +362,7 @@
 		CD4FA6E0157A13D600E549BD /* QSHotKeyEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = CD4FA6DF157A13D600E549BD /* QSHotKeyEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD4FA6E2157A13DE00E549BD /* QSHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4FA6E1157A13DE00E549BD /* QSHotKeyEvent.m */; };
 		CD53FEB3151A0ACF006B734B /* PluginReporterText.html in Resources */ = {isa = PBXBuildFile; fileRef = CD53FEB2151A0ACF006B734B /* PluginReporterText.html */; };
-		CD65B12916FA1BD000932A9C /* QSPluginUpdaterWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = CD65B12716FA1BD000932A9C /* QSPluginUpdaterWindowController.h */; };
+		CD65B12916FA1BD000932A9C /* QSPluginUpdaterWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = CD65B12716FA1BD000932A9C /* QSPluginUpdaterWindowController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD65B12A16FA1BD000932A9C /* QSPluginUpdaterWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD65B12816FA1BD000932A9C /* QSPluginUpdaterWindowController.m */; };
 		CD65B12C16FA1BE400932A9C /* QSPluginUpdater.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD65B12B16FA1BE400932A9C /* QSPluginUpdater.xib */; };
 		CD790FA314D21C2100225950 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8D135E09187AE20062C966 /* Quartz.framework */; };
