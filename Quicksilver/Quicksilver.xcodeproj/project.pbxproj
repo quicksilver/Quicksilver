@@ -6188,7 +6188,6 @@
 				INFOPLIST_FILE = "PropertyLists/QSCore-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = QSCore;
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -6202,7 +6201,6 @@
 				INFOPLIST_FILE = "PropertyLists/QSCore-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = QSCore;
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -6240,7 +6238,6 @@
 				INFOPLIST_FILE = "PropertyLists/QSInterface-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = QSInterface;
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -6254,7 +6251,6 @@
 				INFOPLIST_FILE = "PropertyLists/QSInterface-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = QSInterface;
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
