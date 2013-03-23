@@ -179,7 +179,6 @@
 
 - (void)setPreviousObjectValue:(QSObject *)aValue
 {
-  QSObject *oldPreviousObjectValue = previousObjectValue;
   previousObjectValue = aValue;
 }
 

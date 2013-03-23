@@ -99,7 +99,7 @@
         //							withZone:[self zone]];
         NSNib *nib = [[NSNib alloc] initWithNibNamed:[self mainNibName] bundle:[self mainNibBundle]];
         NSArray *objects = nil;
-        [nib instantiateNibWithOwner:self topLevelObjects:&objects];
+        [nib instantiateWithOwner:self topLevelObjects:&objects];
         //NSLog(@"objects %@", objects);
         //NSLog(@"window %@", _window);
         _mainView = [_window contentView];
