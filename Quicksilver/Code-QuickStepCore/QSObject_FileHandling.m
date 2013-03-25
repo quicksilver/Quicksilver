@@ -614,7 +614,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
         return nil;
     }
 
-	NSString *uti = QSUTIForExtensionOrType((NSString *)record.extension, record.filetype);
+	NSString *uti = QSUTIWithLSInfoRec(path, &record);
     NSString *extension = [(NSString *)record.extension copy];
     
     /* local or network volume? does it support Trash? */

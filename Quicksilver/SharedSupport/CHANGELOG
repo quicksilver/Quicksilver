@@ -1,9 +1,12 @@
-## Changes - ß72 (3947) ##
+## Changes - 1.0.0 (4000) ##
 
 This will be the last release to support Mac OS X 10.6 and 32-bit mode.
 
 ### New ###
 
+  * Preliminary support for retina displays (#1044, #1378)
+    * Many internal images have been upscaled
+    * Icons and images are no longer downscaled in the interface
   * Assign the same trigger to different actions in different applications (#1201)
   * Add files and folders to the catalog using the Add To Catalog action (#1276)
   * AppleScript Action enhancements - http://qsapp.com/wiki/AppleScript_Actions (#1023, #1048)
@@ -39,11 +42,13 @@ This will be the last release to support Mac OS X 10.6 and 32-bit mode.
   * Set a default string ranker to prevent meaningless notifications (#1380)
   * Prevent a crash when changing row height immediately after choosing a new interface (#1383)
   * Fixed an exception when right-arrowing into applications with iCloud documents (#1396, #1398)
-  * Internal optimizations, stability improvements, and fixes (#1335, #1346, #1385, #1390, #1401, #1371, #1403)
+  * Changed the process for displaying the Dock icon (#1152, #1414)
+  * More reliable file type detection (#1427, #1428, #1430)
+  * Internal optimizations, stability improvements, and fixes (#1335, #1346, #1385, #1390, #1401, #1371, #1403, #1388, #1410)
 
 ### Changed ###
 
-  * Simplify Services and set the "Command Window with Selection" trigger to use ⌘⎋ by default (#409, #1295)
+  * Simplify Services and set the "Command Window with Selection" trigger to use ⌘⎋ by default (#409, #1295, #1416, #1418)
   * The Current Selection proxy object appears quicker (#1295)
   * Better auto-detection of URLs in text entry mode (#1312, #1346, #1376)
   * If files are omitted from the catalog, they will still be available when browsing the filesystem (#1195, #1322)
