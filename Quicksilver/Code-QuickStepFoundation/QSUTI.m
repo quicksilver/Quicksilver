@@ -68,9 +68,11 @@ NSString *QSUTIForAnyTypeString(NSString *type) {
 	return itemUTI;
 }
 
+
+// WARNING: This does not necessarily return the correct UTI. QSUTIWithLSInfoRec() is more reliable
 NSString *QSUTIForExtensionOrType(NSString *extension, OSType filetype) {
 	NSString *itemUTI = nil;
-//	NSLog(@"type %@ %@", extension, NSFileTypeForHFSTypeCode(filetype));
+
 	if (extension != nil) {
 		itemUTI = (NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (CFStringRef)extension, NULL);
 	} else {

@@ -514,10 +514,9 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	if ([[path pathExtension] isEqualToString:@"silver"])
 		return [QSObject objectWithDictionary:[NSDictionary dictionaryWithContentsOfFile:path]];
 
-	QSObject *newObject = [QSObject objectWithIdentifier:path];
-	if (!newObject) {
-		newObject = [[QSObject alloc] initWithArray:[NSArray arrayWithObject:path]];
-	}
+    // initWithArray: deals with file objects that already exist
+    QSObject *newObject = [[QSObject alloc] initWithArray:[NSArray arrayWithObject:path]];
+    
 	if ([clippingTypes containsObject:[[NSFileManager defaultManager] typeOfFile:path]])
 		[newObject performSelectorOnMainThread:@selector(addContentsOfClipping:) withObject:path waitUntilDone:YES];
 	return newObject;
@@ -613,7 +612,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
         return nil;
     }
 
-	NSString *uti = QSUTIForExtensionOrType((__bridge NSString *)record.extension, record.filetype);
+	NSString *uti = QSUTIWithLSInfoRec(path, &record);
     NSString *extension = [(__bridge NSString *)record.extension copy];
     
     /* local or network volume? does it support Trash? */

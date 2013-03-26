@@ -131,11 +131,6 @@ BOOL QSApplicationCompletedLaunch = NO;
 		theEvent = [NSEvent mouseEventWithType:[theEvent type] location:[clickWindow convertScreenToBase:[theEvent locationInWindow]] modifierFlags:[theEvent modifierFlags] timestamp:[theEvent timestamp] windowNumber:[clickWindow windowNumber] context:[theEvent context] eventNumber:[theEvent eventNumber] clickCount:[theEvent clickCount] pressure:[theEvent pressure]];
 		[self sendEvent:theEvent];
 	}
-#if 0
-	else {
-		//NSLog(@"Unable to forward");
-	}
-#endif
 }
 
 - (NSResponder *)globalKeyEquivalentTarget { return globalKeyEquivalentTarget;  }

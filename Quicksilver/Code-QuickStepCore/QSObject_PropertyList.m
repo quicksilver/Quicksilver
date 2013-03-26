@@ -19,7 +19,7 @@
     if(obj)
         obj = [[NSClassFromString(obj) alloc] initWithDictionary:dictionary];
     
-    if(!obj)
+    if(obj == nil)
         obj = [[self alloc] initWithDictionary:dictionary];
 
 #ifdef DEBUG
