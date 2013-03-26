@@ -154,7 +154,7 @@ void QSShowLargeType(NSString *aString) {
 }
 @end
 
-#pragma mark QSVainishingWindow
+#pragma mark QSLargeTypeView
 
 @implementation QSLargeTypeView
 
