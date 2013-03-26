@@ -13,6 +13,10 @@
 
 #define EDGEINSET 16
 
+static NSMutableArray *_largeTypeWindows;
+
+#pragma mark QSLargeTypeDisplay
+
 void QSShowLargeType(NSString *aString) {
 	NSRect screenRect = [[NSScreen mainScreen] frame];
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -80,14 +84,20 @@ void QSShowLargeType(NSString *aString) {
 	NSRect windowRect = centerRectInRect(textFrame, screenRect);
 	windowRect = NSInsetRect(windowRect, -EDGEINSET, -EDGEINSET);
 	windowRect = NSIntegralRect(windowRect);
-	NSWindow *largeTypeWindow = [[QSVanishingWindow alloc] initWithContentRect:windowRect styleMask:NSBorderlessWindowMask | NSNonactivatingPanelMask backing:NSBackingStoreBuffered defer:NO];
+    
+    if (!_largeTypeWindows) {
+        _largeTypeWindows = [[NSMutableArray alloc] init];
+    }
+    
+	QSVanishingWindow *largeTypeWindow = [[QSVanishingWindow alloc] initWithContentRect:windowRect styleMask:NSBorderlessWindowMask | NSNonactivatingPanelMask backing:NSBackingStoreBuffered defer:NO];
+    [_largeTypeWindows addObject:largeTypeWindow];
 	[largeTypeWindow setIgnoresMouseEvents:YES];
 	[largeTypeWindow setFrame:centerRectInRect(windowRect, screenRect) display:YES];
 	[largeTypeWindow setBackgroundColor: [NSColor clearColor]];
 	[largeTypeWindow setOpaque:NO];
 	[largeTypeWindow setLevel:NSFloatingWindowLevel];
 	[largeTypeWindow setHidesOnDeactivate:NO];
-	//[largeTypeWindow setDelegate:self];
+    [largeTypeWindow setReleasedWhenClosed:NO];
 	//	[largeTypeWindow setNextResponder:self];
 
 	QSBezelBackgroundView *content = [[NSClassFromString(@"QSBezelBackgroundView") alloc] initWithFrame:NSZeroRect];
@@ -108,7 +118,7 @@ void QSShowLargeType(NSString *aString) {
     /* Released when closed */
 }
 
-
+#pragma mark QSVainishingWindow
 
 @implementation QSVanishingWindow
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
@@ -136,9 +146,15 @@ void QSShowLargeType(NSString *aString) {
 	if ([self isVisible]) {
 		[self setAlphaValue:0 fadeTime:0.333];
 		[self close];
+        [_largeTypeWindows removeObject:self];
+        if ([_largeTypeWindows count] == 0) {
+            _largeTypeWindows = nil;
+        }
 	}
 }
 @end
+
+#pragma mark QSVainishingWindow
 
 @implementation QSLargeTypeView
 
@@ -163,6 +179,8 @@ void QSShowLargeType(NSString *aString) {
 	[super drawRect:rect];
 }
 @end
+
+#pragma mark QSLargeTypeScriptCommand
 
 @interface QSLargeTypeScriptCommand : NSScriptCommand
 @end
