@@ -191,6 +191,9 @@ NSSize QSMaxIconSize;
 }
 
 + (id)makeObjectWithIdentifier:(NSString *)anIdentifier {
+    if (!anIdentifier) {
+        return nil;
+    }
 	id object = [self objectWithIdentifier:anIdentifier];
 
 	if (!object) {
@@ -677,12 +680,12 @@ NSSize QSMaxIconSize;
                 identifier = [newIdentifier retain];
             }
         }
-        else if (newIdentifier == nil) {
+        else if (newIdentifier == nil && identifier != nil) {
             flags.noIdentifier = YES;
             [meta removeObjectForKey:kQSObjectObjectID];
             [identifier release];
             identifier = nil;
-        } else if (identifier == nil) {
+        } else if (identifier == nil && newIdentifier != nil) {
             flags.noIdentifier = NO;
             [objectDictionary setObject:self forKey:newIdentifier];
             [meta setObject:newIdentifier forKey:kQSObjectObjectID];
