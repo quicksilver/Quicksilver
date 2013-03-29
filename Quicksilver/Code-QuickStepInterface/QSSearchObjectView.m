@@ -2004,23 +2004,13 @@ NSMutableDictionary *bindingsDict = nil;
     // get the location of the icon in the interface. This is a tricky process since all interfaces are different.
     // Basic method: get the 1st pane/3rd pane rect, from within this rect, get the image rect where the image is placed
     // then get the image size, and offset the based on the image size (typically smaller than the image rect, but not always the case - Primer)
-    NSRect rect = [self frame];
-    NSRect windowFrame = [[self window] frame];
-    rect = [[self cell] imageRectForBounds:rect];
-    NSSize iconSize = [[(QSObject *)item icon] size];
-    BOOL imageIsWider = (iconSize.width > rect.size.width);
-    BOOL imageIsHigher = (iconSize.height > rect.size.height);
-    rect.origin.x = windowFrame.origin.x + rect.origin.x;
-    if (!imageIsWider) {
-        rect.origin.x += (rect.size.width - iconSize.width)/2;
-    }
-    if (!imageIsHigher) {
-        rect.origin.y += (rect.size.height - iconSize.height)/2;
-    }
-    rect.origin.y = windowFrame.origin.y + rect.origin.y;
-    rect.size.width = !imageIsWider ? iconSize.width : rect.size.width;
-    rect.size.height = !imageIsHigher ? iconSize.height : rect.size.height;
-    return rect;
+    NSRect rect = [self bounds];
+    rect = [[self cell] drawingRectForBounds:rect];
+	rect = NSIntegralRect(fitRectInRect(NSMakeRect(0, 0, 1, 1), [[self cell] imageRectForBounds:rect] , NO) );
+    rect.origin.y += self.frame.origin.y;
+    rect.origin.x += self.frame.origin.x;
+    return [[self window] convertRectToScreen:rect];
+;
 }
 
 @end
