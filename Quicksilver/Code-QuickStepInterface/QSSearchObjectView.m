@@ -470,54 +470,51 @@ NSMutableDictionary *bindingsDict = nil;
 	if ([[self window] firstResponder] != self) return;
 	if ([[resultController window] isVisible]) return; //[resultController->resultTable reloadData];
     
-	[[resultController window] setLevel:[[self window] level] +1];
-	[[resultController window] setFrameUsingName:@"results" force:YES];
-	//  if (fALPHA) [resultController setSplitLocation];
-    
-	NSRect windowRect = [[resultController window] frame];
+	NSRect resultWindowRect = [[resultController window] frame];
 	NSRect screenRect = [[[resultController window] screen] frame];
+    NSRect sovRect = [[self window] convertRectToScreen:[self frame]];
+    NSRect interfaceRect = [[self window] frame];
+
 	if (preferredEdge == NSMaxXEdge) {
-        
-		NSPoint resultPoint = [self convertPoint:NSZeroPoint toView:nil];
-        
-		resultPoint = [[self window] convertBaseToScreen:resultPoint];
-        
-		if (resultPoint.x+NSWidth([self frame]) +NSWidth(windowRect)<NSMaxX(screenRect)) {
+		if (interfaceRect.origin.x + NSWidth(interfaceRect) + NSWidth(resultWindowRect) <NSMaxX(screenRect)) {
+            // results view on the RHS of the interface
 			if (hFlip) {
+                [[resultController searchStringField] setAlignment:NSLeftTextAlignment];
+
 				[[[resultController window] contentView] flipSubviewsOnAxis:NO];
 				hFlip = NO;
 			}
-            
-			resultPoint.x += NSWidth([self frame]);
-			resultPoint.y += NSHeight([self frame]) +1;
+            resultWindowRect.origin.x = interfaceRect.origin.x + interfaceRect.size.width + 1;
 		} else {
+            // results view on the LHS of the interface
 			if (!hFlip) {
+                [[resultController searchStringField] setAlignment:NSRightTextAlignment];
 				[[[resultController window] contentView] flipSubviewsOnAxis:NO];
 				hFlip = YES;
 			}
-			resultPoint.x -= NSWidth(windowRect);
-			resultPoint.y += NSHeight([self frame]) +1;
+            resultWindowRect.origin.x = interfaceRect.origin.x - resultWindowRect.size.width -1;
 		}
-        
-		[[resultController window] setFrameTopLeftPoint:resultPoint];
+        resultWindowRect.origin.y = sovRect.origin.y + sovRect.size.height;
+
+		[[resultController window] setFrameTopLeftPoint:resultWindowRect.origin];
         
 	} else {
 		NSPoint resultPoint = [[self window] convertBaseToScreen:[self frame] .origin];
 		//resultPoint.x;
-		CGFloat extraHeight = windowRect.size.height-(resultPoint.y-screenRect.origin.y);
+		CGFloat extraHeight = resultWindowRect.size.height-(resultPoint.y-screenRect.origin.y);
         
 		//resultPoint.y += 2;
-		windowRect.origin.x = resultPoint.x;
+		resultWindowRect.origin.x = resultPoint.x;
 		if (extraHeight>0) {
-			windowRect.origin.y = screenRect.origin.y;
-			windowRect.size.height -= extraHeight;
+			resultWindowRect.origin.y = screenRect.origin.y;
+			resultWindowRect.size.height -= extraHeight;
 		} else {
 			//		NSLog(@"pad %f", resultsPadding);
-			windowRect.origin.y = resultPoint.y-windowRect.size.height-resultsPadding;
+			resultWindowRect.origin.y = resultPoint.y-resultWindowRect.size.height-resultsPadding;
 		}
         
-		windowRect = NSIntersectionRect(windowRect, screenRect);
-		[[resultController window] setFrame:windowRect display:NO];
+		resultWindowRect = NSIntersectionRect(resultWindowRect, screenRect);
+		[[resultController window] setFrame:resultWindowRect display:NO];
 	}
 	[self updateResultView:sender];
     
