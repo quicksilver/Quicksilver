@@ -12,8 +12,7 @@
 - (QSTask *)task { return task;  }
 - (void)setTask:(QSTask *)newTask {
 	if (task != newTask) {
-		[task release];
-		task = [newTask retain];
+		task = newTask;
 	}
 }
 
@@ -23,8 +22,6 @@
 
 - (void)dealloc {
 	[progress unbind:@"isIndeterminate"];
-	[task release];
-	[super dealloc];
 }
 
 @end

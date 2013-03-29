@@ -7,14 +7,15 @@
 //
 
 #import <QSInterface/QSInterface.h>
-@class QSUserDefinedProxySource;
+
+#import "QSUserDefinedProxySource.h"
 
 @interface QSUserDefinedProxyTargetPicker : QSInterfaceController
 {
-    QSObject *representedObject;
-    QSUserDefinedProxySource *entrySource;
+    __weak QSObject *representedObject;
+    __weak QSUserDefinedProxySource *entrySource;
 }
-@property (assign) QSObject *representedObject;
-@property (assign) QSUserDefinedProxySource *entrySource;
+@property (weak) QSObject *representedObject;
+@property (weak) QSUserDefinedProxySource *entrySource;
 
 @end

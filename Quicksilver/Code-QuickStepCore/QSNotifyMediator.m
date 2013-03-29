@@ -42,7 +42,7 @@ BOOL QSShowNotifierWithAttributes(NSDictionary *attributes) {
 	if ([imageStuff isKindOfClass:[NSString class]])
 		image = [QSResourceManager imageNamed:imageStuff];
 	else if ([imageStuff isKindOfClass:[NSData class]])
-		image = [[[NSImage alloc] initWithData:imageStuff] autorelease];
+		image = [[NSImage alloc] initWithData:imageStuff];
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObject:title forKey:QSNotifierTitle];
 	if (image) [dict setObject:image forKey:QSNotifierIcon];
 	if (text) [dict setObject:text forKey:QSNotifierText];

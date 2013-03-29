@@ -24,8 +24,6 @@
 
 - (void)dealloc {
 	[self unbind:@"backgroundColor"];
-	[backgroundColor release];
-	[super dealloc];
 }
 
 - (void)awakeFromNib {
@@ -76,8 +74,7 @@
 - (NSColor *)backgroundColor { return backgroundColor;  }
 - (void)setBackgroundColor:(NSColor *)aBackgroundColor {
 	if (backgroundColor != aBackgroundColor) {
-		[backgroundColor release];
-		backgroundColor = [aBackgroundColor retain];
+		backgroundColor = aBackgroundColor;
 		[self setNeedsDisplay:YES];
 	}
 }

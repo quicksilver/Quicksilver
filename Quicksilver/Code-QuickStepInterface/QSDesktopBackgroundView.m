@@ -56,7 +56,7 @@
 - (void)updateWithDictionary:(NSDictionary *)backgroundDict{
     NSArray *colorArray = [backgroundDict objectForKey:@"BackgroundColor"];
 //	[SLog(@"back %@",[backgroundDict objectForKey:@"ImageFilePath"]);
-    [self setBackgroundImage:[[[NSImage allocWithZone:[self zone]] initWithContentsOfFile: [backgroundDict objectForKey:@"ImageFilePath"]] autorelease]];
+    [self setBackgroundImage:[[NSImage allocWithZone:nil] initWithContentsOfFile: [backgroundDict objectForKey:@"ImageFilePath"]]];
     [self setBackgroundColor:[NSColor colorWithCalibratedRed:[[colorArray objectAtIndex:0] doubleValue] green:[[colorArray objectAtIndex:1] doubleValue] blue:[[colorArray objectAtIndex:2] doubleValue] alpha:1]];
     [self setBackgroundType:[[backgroundDict objectForKey:@"PlacementKeyTag"] integerValue]];
     [self setNeedsDisplay:YES];
@@ -65,7 +65,7 @@
 
 
 - (void)updateDisplay{
-    NSDictionary *backgroundsDict = [(NSDictionary *) CFPreferencesCopyValue((CFStringRef) @"Background", (CFStringRef) @"com.apple.desktop", kCFPreferencesCurrentUser, kCFPreferencesAnyHost) autorelease];
+    NSDictionary *backgroundsDict = (NSDictionary *) CFBridgingRelease(CFPreferencesCopyValue((CFStringRef) @"Background", (CFStringRef) @"com.apple.desktop", kCFPreferencesCurrentUser, kCFPreferencesAnyHost));
 	
 	
 	NSString *key=@"default";
@@ -92,19 +92,17 @@
 
 
 
-- (NSImage *)backgroundImage { return [[backgroundImage retain] autorelease]; }
+- (NSImage *)backgroundImage { return backgroundImage; }
 
 - (void)setBackgroundImage:(NSImage *)newBackgroundImage {
-    [backgroundImage release];
-    backgroundImage = [newBackgroundImage retain];
+    backgroundImage = newBackgroundImage;
 }
 
 
-- (NSColor *)backgroundColor { return [[backgroundColor retain] autorelease]; }
+- (NSColor *)backgroundColor { return backgroundColor; }
 
 - (void)setBackgroundColor:(NSColor *)newBackgroundColor {
-    [backgroundColor release];
-    backgroundColor = [newBackgroundColor retain];
+    backgroundColor = newBackgroundColor;
 }
 
 

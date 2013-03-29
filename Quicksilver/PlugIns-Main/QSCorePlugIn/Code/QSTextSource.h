@@ -2,7 +2,11 @@
 
 #import "QSActionProvider.h"
 
-@interface QSTextActions : QSActionProvider
+@interface QSTextActions : QSActionProvider {
+}
+
+@property (strong, nonatomic) NSWindow *currentLargeTypeWindow;
+
 - (void)typeString:(NSString *)string;
 - (void)typeString2:(NSString *)string;
 

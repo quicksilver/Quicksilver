@@ -15,7 +15,6 @@
 - (NSColor *)highlightColor { return highlightColor;  }
 - (void)setHighlightColor:(NSColor *)aHighlightColor {
 	if (highlightColor != aHighlightColor) {
-		[highlightColor release];
 		highlightColor = [aHighlightColor copy];
 		[self setNeedsDisplay:YES];
 	}

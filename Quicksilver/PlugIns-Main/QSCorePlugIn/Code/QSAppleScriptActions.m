@@ -237,6 +237,9 @@
 		NSArray *files = [dObject validPaths];
         if (files == nil) {
             QSShowAppNotifWithAttributes(@"QSAppleScriptAction", NSLocalizedString(@"Error loading AppleScript action", @"Title of the error message when an applescript action could not be loaded"), [NSString stringWithFormat:NSLocalizedString(@"The %@ handler takes only files as an input", @"error message whena n applescript action could not be loaded"),[handler isEqualToString:@"QSOpenFileEventPlaceholder"] ? @"open" : @"open files"]);
+            [event release];
+            [targetAddress release];
+            [script release];
             return nil;
         }
 		[event setParamDescriptor:[NSAppleEventDescriptor aliasListDescriptorWithArray:files] forKeyword:keyDirectObject];

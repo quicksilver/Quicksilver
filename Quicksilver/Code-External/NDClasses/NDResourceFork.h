@@ -225,14 +225,6 @@
 - (BOOL)removeType:(ResType)type Id:(ResID)ID;
 
 /*!
-	@method everyResourceType
-	@abstract Gets every resource type available in the receivers resource file.
-	@discussion <tt>everyResourceType</tt> returns an <tt>NSArray</tt> of <tt>NSNumber</tt>s each containing a <tt>unsigned long</tt>  or <tt>ResType</tt>s.
-	@result A <tt>NSArray</tt> of <tt>NSNumber</tt>s containing <tt>ResType</tt>s.
-  */
-- (NSArray *)everyResourceType;
-
-/*!
 	@method nameOfResourceType:Id:
 	@abstract Gets a resource's resource name.
 	@discussion Returns a resources name as an <tt>NSString</tt>.

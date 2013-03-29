@@ -17,7 +17,7 @@
     NSString *crashReportPath;
 }
 
-@property (retain) NSString* crashReportPath;
+@property (strong) NSString* crashReportPath;
 
 + (id)sharedInstance;
 - (IBAction)runSetupAssistant:(id)sender;

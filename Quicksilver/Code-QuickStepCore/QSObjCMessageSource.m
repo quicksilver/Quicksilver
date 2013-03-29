@@ -96,7 +96,7 @@
 
 @implementation QSObject (ObjCMessaging)
 + (QSObject *)messageObjectWithInfo:(NSDictionary *)dictionary identifier:(NSString *)identifier {
-	NSMutableDictionary *mDict = [[dictionary mutableCopy] autorelease];
+	NSMutableDictionary *mDict = [dictionary mutableCopy];
     
     //if (VERBOSE) NSLog(@"Old style message object used:%@", [dictionary objectForKey:@"name"]);
     

@@ -13,7 +13,6 @@
 @implementation QSDefaultStringRanker
 - (id)initWithString:(NSString *)string {
 	if (!string) {
-		[self release];
 		return nil;
     }
     self = [super init];
@@ -24,9 +23,7 @@
 }
 
 - (void)dealloc {
-	[normString release];
 	normString = nil;
-	[super dealloc];
 }
 
 - (NSString *)description {
@@ -36,18 +33,17 @@
 - (NSString*)rankedString { return normString; }
 - (void)setRankedString:(NSString*)aString {
     if (aString != normString) {
-        [normString release];
-        normString = [[aString purifiedString] retain];
+        normString = [aString purifiedString];
     }
 }
 
 - (CGFloat)scoreForAbbreviation:(NSString*)anAbbreviation {
-	return QSScoreForAbbreviation((CFStringRef) normString, (CFStringRef)anAbbreviation, nil);
+	return QSScoreForAbbreviation((__bridge CFStringRef) normString, (__bridge CFStringRef)anAbbreviation, nil);
 }
 
 - (NSIndexSet*)maskForAbbreviation:(NSString*)anAbbreviation {
 	NSMutableIndexSet *mask = [NSMutableIndexSet indexSet];
-	QSScoreForAbbreviation((CFStringRef) normString, (CFStringRef)anAbbreviation, mask);
+	QSScoreForAbbreviation((__bridge CFStringRef) normString, (__bridge CFStringRef)anAbbreviation, mask);
 	return mask;
 }
 @end

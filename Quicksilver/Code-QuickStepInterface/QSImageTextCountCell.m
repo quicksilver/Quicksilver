@@ -32,15 +32,10 @@
 - (NSString *)count { return count;  }
 - (void)setCount: (NSString *)newCount {
 	if (count != newCount) {
-		[count release];
 		count = [newCount copy];
 	}
 }
 
-- (void)dealloc {
-	[count release];
-	[super dealloc];
-}
 
 
 - (CGFloat) countWidthForFrame/*:(NSRect)frame*/ {

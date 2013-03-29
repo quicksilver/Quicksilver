@@ -25,7 +25,6 @@
 - (void)awakeFromNib {
 	QSHotKeyCell *aCell = [[QSHotKeyCell alloc] init];
 	[self setCell:aCell];
-	[aCell release];
 }
 - (void)textDidEndEditing:(NSNotification*)aNotification { NSLog(@"notif %@", aNotification);  }
 - (void)setStringValue:(NSString *)string {
@@ -38,7 +37,7 @@
 + (id)sharedInstance {
 	static NSWindowController *_sharedInstance = nil;
 	if (!_sharedInstance)
-		_sharedInstance = [[[self class] allocWithZone:[self zone]] init];
+		_sharedInstance = [[[self class] allocWithZone:nil] init];
 	return _sharedInstance;
 }
 - (void)_disableHotKeyOperationMode {
@@ -76,11 +75,6 @@
 - (void)clear:(id)sender {}
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[mVirtualKey release];
-	[oldWindowDelegate release];
-	[cancelButton release];
-	[defaultString release];
-	[super dealloc];
 }
 - (BOOL)shouldSendEvent:(NSEvent *)event {
 	if ([event type] == NSKeyDown) {
@@ -113,7 +107,6 @@
 }
 
 - (BOOL)resignFirstResponder {
-	[defaultString release];
 	defaultString = nil;
 	[(QSApp *)[NSApplication sharedApplication] removeEventDelegate:self];
 	[self _restoreHotKeyOperationMode];
@@ -142,7 +135,6 @@
 		validCombo = YES;
 		NSString *string = [[NSString alloc] initWithData:[NSPropertyListSerialization dataFromPropertyList:dict format:NSPropertyListXMLFormat_v1_0 errorDescription:nil] encoding:NSUTF8StringEncoding];
 		[self setString:string];
-		[string release];
 	} else if ([theEvent keyCode] == 53) {
 		[self setString:@"Old"];
 	} else if ([theEvent keyCode] == 48) {
@@ -151,7 +143,6 @@
 		validCombo = YES;
 		NSString *string = [[NSString alloc] initWithData:[NSPropertyListSerialization dataFromPropertyList:[NSDictionary dictionary] format:NSPropertyListXMLFormat_v1_0 errorDescription:nil] encoding:NSUTF8StringEncoding];
 		[self setString:string];
-		[string release];
 	} else {
 		NSBeep();
 	}
@@ -205,8 +196,7 @@
 - (NSDictionary *)hotKey { return hotKey;  }
 - (void)setHotKey:(NSDictionary *)newHotKey {
 	if (hotKey != newHotKey) {
-		[hotKey release];
-		hotKey = [newHotKey retain];
+		hotKey = newHotKey;
 		NSDictionary *binding = [self infoForBinding:@"hotKey"];
 		if (binding)
 			[[binding objectForKey:NSObservedObjectKey] setValue:hotKey forKeyPath:[binding objectForKey:NSObservedKeyPathKey]];
@@ -301,16 +291,11 @@
 		}
 	}
 	[timer invalidate];
-	[timer release];
 	CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyEnable);
 	[self updateStringForHotKey];
 	[self setBackgroundColor:[NSColor textBackgroundColor]];
 	[setButton setState:NSOffState];
 }
 
-- (void)dealloc {
-	[hotKey release];
-	[super dealloc];
-}
 
 @end

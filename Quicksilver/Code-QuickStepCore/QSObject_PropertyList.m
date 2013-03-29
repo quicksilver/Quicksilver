@@ -19,7 +19,7 @@
     if(obj)
         obj = [[NSClassFromString(obj) alloc] initWithDictionary:dictionary];
     
-    if(!obj)
+    if(obj == nil)
         obj = [[self alloc] initWithDictionary:dictionary];
 
 #ifdef DEBUG
@@ -27,11 +27,11 @@
         NSLog(@"%@ %@ failed creating object with dict %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), dictionary);
 #endif
     
-    return [obj autorelease];
+    return obj;
 }
 
 + (id)objectWithString:(NSString *)string name:(NSString *)aName type:(NSString *)aType {
-	return [[[QSObject alloc] initWithString:string name:aName type:aType] autorelease];
+	return [[QSObject alloc] initWithString:string name:aName type:aType];
 }
 
 - (id)initWithString:(NSString *)string name:(NSString *)aName type:(NSString *)aType {
@@ -45,7 +45,7 @@
 }
 
 + (id)objectWithType:(NSString *)type value:(id)value name:(NSString *)newName {
-	return[[(QSObject *)[QSObject alloc] initWithType:(NSString *)type value:(id)value name:(NSString *)newName] autorelease];
+	return[(QSObject *)[QSObject alloc] initWithType:(NSString *)type value:(id)value name:(NSString *)newName];
 }
 - (id)initWithType:(NSString *)type value:(id)value name:(NSString *)newName {
 	if (self = [self init]) {
@@ -94,7 +94,7 @@
         
         // ***warning  * should this update the name for files?
         id dup = [self findDuplicateOrRegisterID];
-        if (dup) return [dup retain];
+        if (dup) return dup;
         if ([self containsType:QSFilePathType])
             [self changeFilesToPaths];
     }
@@ -104,8 +104,8 @@
 - (NSDictionary *)dictionaryRepresentation {
     // copies of data and meta are made to avoid them being mutated down the line
     return [NSDictionary dictionaryWithObjectsAndKeys:
-            [[data copy] autorelease], kData,
-            [[meta copy] autorelease], kMeta,
+            [data copy], kData,
+            [meta copy], kMeta,
             NSStringFromClass([self class]), kQSObjectClass,
             nil];
 }

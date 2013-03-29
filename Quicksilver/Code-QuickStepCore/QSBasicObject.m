@@ -17,10 +17,6 @@
 	return self;
 }
 
-- (void)dealloc {
-	[ranker release];
-	[super dealloc];
-}
 
 #pragma mark QSObject Protocol
 - (NSString *)identifier {return nil;}
@@ -33,8 +29,7 @@
 - (BOOL)iconLoaded {return YES;}
 - (void)setBundle:(NSBundle *)aBundle {
     if(aBundle != nil && aBundle != bundle) {
-        [bundle release];
-        bundle = [aBundle retain];
+        bundle = aBundle;
     }
 }
 - (NSBundle *)bundle {
@@ -116,7 +111,6 @@
 }
 
 - (void)updateMnemonics {
-	[ranker release];
     ranker = nil;
 	[self ranker];
 }

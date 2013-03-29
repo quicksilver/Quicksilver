@@ -6,7 +6,7 @@
 @implementation QSFileConflictPanel
 
 + (QSFileConflictPanel *)conflictPanel {
-	return (QSFileConflictPanel *)[[[[NSWindowController alloc] initWithWindowNibName:@"QSFileConflictPanel"] autorelease] window];
+	return (QSFileConflictPanel *)[[[NSWindowController alloc] initWithWindowNibName:@"QSFileConflictPanel"] window];
 }
 
 - (void)awakeFromNib {
@@ -16,7 +16,6 @@
 	[imageAndTextCell setWraps:NO];
 	[smartReplaceButton setHidden:0];
 	[[[nameTable tableColumns] objectAtIndex:0] setDataCell:imageAndTextCell];
-	[imageAndTextCell release];
 }
 
 - (QSFileConflictResolutionMethod)runModal {
@@ -66,14 +65,9 @@
 
 - (NSArray *)conflictNames { return conflictNames;  }
 - (void)setConflictNames:(NSArray *)newConflictNames {
-	[conflictNames release];
-	conflictNames = [newConflictNames retain];
+	conflictNames = newConflictNames;
 	[nameTable reloadData];
 }
 
-- (void)dealloc {
-	[conflictNames release];
-	[super dealloc];
-}
 
 @end
