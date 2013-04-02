@@ -1827,7 +1827,7 @@ NSMutableDictionary *bindingsDict = nil;
         [self saveMnemonic];
         [self clearSearch];
         NSInteger defaultMode = [[NSUserDefaults standardUserDefaults] integerForKey:kBrowseMode];
-        [self setSearchMode:(defaultMode ? defaultMode  : SearchSnap)];
+        [self setSearchMode:(defaultMode ? defaultMode : SearchFilter)];
         [self setResultArray:[[newObjects mutableCopy] autorelease]]; // !!!:nicholas:20040319
         [self setSourceArray:[[newObjects mutableCopy] autorelease]];
         
