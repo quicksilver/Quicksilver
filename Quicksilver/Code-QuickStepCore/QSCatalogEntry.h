@@ -66,6 +66,7 @@
 - (NSMutableArray *)children;
 - (NSMutableArray *)getChildren;
 - (NSArray *)contents;
+- (void)completeScanWithContents:(NSArray *)newContents;
 - (NSArray *)contentsScanIfNeeded:(BOOL)canScan;
 - (NSIndexPath *)catalogIndexPath;
 - (NSMutableDictionary *)info;
