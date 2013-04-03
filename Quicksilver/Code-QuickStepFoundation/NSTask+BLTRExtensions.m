@@ -25,7 +25,7 @@
         [task setStandardInput:inputPipe];
         [inputHandle writeData:inputData];
     }
-	return [task autorelease];
+	return task;
 }
 
 - (NSData *)launchAndReturnOutput {

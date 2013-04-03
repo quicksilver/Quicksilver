@@ -56,7 +56,7 @@ static NSData * NDDataForAliasHandle (AliasHandle anAliasHandle)
  */
 + (id)aliasWithURL:(NSURL *)aURL
 {
-	return [[[self alloc] initWithURL:aURL] autorelease];
+	return [[self alloc] initWithURL:aURL];
 }
 
 /*
@@ -64,7 +64,7 @@ static NSData * NDDataForAliasHandle (AliasHandle anAliasHandle)
  */
 + (id)aliasWithURL:(NSURL *)aURL fromURL:(NSURL *)aFromURL
 {
-	return [[[self alloc] initWithURL:aURL fromURL:aFromURL] autorelease];
+	return [[self alloc] initWithURL:aURL fromURL:aFromURL];
 }
 
 /*
@@ -72,7 +72,7 @@ static NSData * NDDataForAliasHandle (AliasHandle anAliasHandle)
  */
 + (id)aliasWithPath:(NSString *)aPath
 {
-	return [[[self alloc] initWithPath:aPath] autorelease];
+	return [[self alloc] initWithPath:aPath];
 }
 
 /*
@@ -80,7 +80,7 @@ static NSData * NDDataForAliasHandle (AliasHandle anAliasHandle)
  */
 + (id)aliasWithPath:(NSString *)aPath fromPath:(NSString *)aFromPath
 {
-	return [[[self alloc] initWithPath:aPath fromPath:aFromPath] autorelease];
+	return [[self alloc] initWithPath:aPath fromPath:aFromPath];
 }
 
 /*
@@ -88,7 +88,7 @@ static NSData * NDDataForAliasHandle (AliasHandle anAliasHandle)
  */
 + (id)aliasWithData:(NSData *)aData
 {
-	return [[[self alloc] initWithData:aData] autorelease];
+	return [[self alloc] initWithData:aData];
 }
 
 /*
@@ -96,7 +96,7 @@ static NSData * NDDataForAliasHandle (AliasHandle anAliasHandle)
  */
 + (id)aliasWithFSRef:(FSRef *)aFSRef
 {
-	return [[[self alloc] initWithFSRef:aFSRef] autorelease];
+	return [[self alloc] initWithFSRef:aFSRef];
 }
 
 /*
@@ -113,7 +113,7 @@ static NSData * NDDataForAliasHandle (AliasHandle anAliasHandle)
 - (id)initWithPath:(NSString *)aPath fromPath:(NSString *)aFromPath
 {
 #if (MAC_OS_X_VERSION_MIN_REQUIRED >= 1050)
-	NSFileManager * fileManager = [[[NSFileManager alloc] init] autorelease];
+	NSFileManager * fileManager = [[NSFileManager alloc] init];
 #else
 	NSFileManager * fileManager = [NSFileManager defaultManager];
 #endif
@@ -128,7 +128,6 @@ static NSData * NDDataForAliasHandle (AliasHandle anAliasHandle)
 			}
 			else
 			{
-				[super dealloc];
 				self = nil;
 			}
 		}
@@ -139,7 +138,6 @@ static NSData * NDDataForAliasHandle (AliasHandle anAliasHandle)
 	}
 	else
 	{
-		[super dealloc];
 		self = nil;
 	}
 	
@@ -174,7 +172,6 @@ static NSData * NDDataForAliasHandle (AliasHandle anAliasHandle)
 		}
 		else
 		{
-			[super dealloc];
 			self = nil;
 		}
 	}
@@ -209,7 +206,6 @@ static NSData * NDDataForAliasHandle (AliasHandle anAliasHandle)
 		}
 		else
 		{
-			[super dealloc];
 			self = nil;
 		}
 
@@ -241,7 +237,6 @@ static NSData * NDDataForAliasHandle (AliasHandle anAliasHandle)
 	}
 	else
 	{
-		[super dealloc];
 		self = nil;
 	}
 
@@ -267,22 +262,11 @@ static NSData * NDDataForAliasHandle (AliasHandle anAliasHandle)
 		DisposeHandle( (Handle)aliasHandle );
 		aliasHandle = NULL;
 	}
-	[super dealloc];
 }
 
 /*
 	finalize
  */
-- (void)finalize
-{
-	/* Important: finalize methods must be threadsafe!  DisposeHandle() is threadsafe since 10.3. */
-	if ( aliasHandle )
-	{
-		DisposeHandle( (Handle)aliasHandle );
-		aliasHandle = NULL;
-	}
-	[super finalize];
-}
 
 /*
 	-setAllowUserInteraction:
@@ -415,7 +399,7 @@ static NSData * NDDataForAliasHandle (AliasHandle anAliasHandle)
 	BOOL		theSuccess = NO;
 	
 #if (MAC_OS_X_VERSION_MIN_REQUIRED >= 1050)
-	NSFileManager * fileManager = [[[NSFileManager alloc] init] autorelease];
+	NSFileManager * fileManager = [[NSFileManager alloc] init];
 #else
 	NSFileManager * fileManager = [NSFileManager defaultManager];
 #endif
@@ -469,7 +453,7 @@ static NSData * NDDataForAliasHandle (AliasHandle anAliasHandle)
 - (NSString *)displayName
 {
 #if (MAC_OS_X_VERSION_MIN_REQUIRED >= 1050)
-	NSFileManager * fileManager = [[[NSFileManager alloc] init] autorelease];
+	NSFileManager * fileManager = [[NSFileManager alloc] init];
 #else
 	NSFileManager * fileManager = [NSFileManager defaultManager];
 #endif
@@ -486,7 +470,7 @@ static NSData * NDDataForAliasHandle (AliasHandle anAliasHandle)
 	(void)FSCopyAliasInfo (aliasHandle, NULL, NULL, &path, NULL, NULL);
 
 	/* To support GC and non-GC, we need this contortion. */
-	return [NSMakeCollectable(path) autorelease];
+	return (__bridge_transfer NSString *)path;
 }
 
 /*
@@ -503,7 +487,7 @@ static NSData * NDDataForAliasHandle (AliasHandle anAliasHandle)
 	}
 
 	/* To support GC and non-GC, we need this contortion. */
-	return [NSMakeCollectable(path) autorelease];
+	return (__bridge_transfer NSString *)path;
 }
 
 /*
@@ -520,7 +504,7 @@ static NSData * NDDataForAliasHandle (AliasHandle anAliasHandle)
 	}
 
 	/* To support GC and non-GC, we need this contortion. */
-	return [NSMakeCollectable(path) autorelease];
+	return (__bridge_transfer NSString *)path;
 }
 
 /*

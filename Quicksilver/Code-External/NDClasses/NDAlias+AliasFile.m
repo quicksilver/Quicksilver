@@ -39,12 +39,12 @@ OSType aliasOSTypeFor( NSURL * aURL );
 
 + (id)aliasWithContentsOfFile:(NSString *)aPath
 {
-	return [[[self alloc] initWithContentsOfFile:aPath] autorelease];
+	return [[self alloc] initWithContentsOfFile:aPath];
 }
 
 + (id)aliasWithContentsOfURL:(NSURL *)aURL
 {
-	return [[[self alloc] initWithContentsOfURL:aURL] autorelease];
+	return [[self alloc] initWithContentsOfURL:aURL];
 }
 
 - (id)initWithContentsOfFile:(NSString *)aPath
@@ -55,7 +55,6 @@ OSType aliasOSTypeFor( NSURL * aURL );
 	self = [self initWithData:[theResourceFork dataForType:formAlias Id:aliasRecordId]];
 
 	[theResourceFork closeFile];
-	[theResourceFork release];
 
 	return self;
 }
@@ -68,7 +67,6 @@ OSType aliasOSTypeFor( NSURL * aURL );
 	self = [self initWithData:[theResourceFork dataForType:formAlias Id:aliasRecordId]];
 
 	[theResourceFork closeFile];
-	[theResourceFork release];
 
 	return self;
 }
@@ -138,7 +136,6 @@ OSType aliasOSTypeFor( NSURL * aURL );
 	}
 
 	[theResourceFork closeFile];
-	[theResourceFork release];
 	return theSuccess;
 }
 
@@ -151,7 +148,7 @@ OSType aliasOSTypeFor( NSURL * aURL )
 	* alias files to documents take on the targets type and creator
 	* alias files to others take on special types and finder creator
 	*/
-	if( LSCopyItemInfoForURL( (CFURLRef)aURL, kLSRequestBasicFlagsOnly, &theItemInfo) == noErr)
+	if( LSCopyItemInfoForURL( (__bridge CFURLRef)aURL, kLSRequestBasicFlagsOnly, &theItemInfo) == noErr)
 	{
 		if( (theItemInfo.flags & kLSItemInfoIsApplication) && (theItemInfo.flags & kLSItemInfoIsPackage) )	// package app
 		{

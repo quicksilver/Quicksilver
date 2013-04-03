@@ -10,15 +10,15 @@
 
 @implementation NSSortDescriptor (QSConvenience)
 + (id)descriptorWithKey:(NSString *)key ascending:(BOOL)ascending {
-	return[[[NSSortDescriptor alloc] initWithKey:key ascending:ascending] autorelease];
+	return[[NSSortDescriptor alloc] initWithKey:key ascending:ascending];
 }
 + (id)descriptorWithKey:(NSString *)key ascending:(BOOL)ascending selector:(SEL)selector {
-	return[[[NSSortDescriptor alloc] initWithKey:key ascending:ascending selector:(SEL) selector] autorelease];
+	return[[NSSortDescriptor alloc] initWithKey:key ascending:ascending selector:(SEL) selector];
 }
 + (NSArray *)descriptorArrayWithKey:(NSString *)key ascending:(BOOL)ascending {
-	return [NSArray arrayWithObject:[[[NSSortDescriptor alloc] initWithKey:key ascending:ascending] autorelease]];
+	return [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:key ascending:ascending]];
 }
 + (NSArray *)descriptorArrayWithKey:(NSString *)key ascending:(BOOL)ascending selector:(SEL)selector {
-	return [NSArray arrayWithObject:[[[NSSortDescriptor alloc] initWithKey:key ascending:ascending selector:(SEL) selector] autorelease]];
+	return [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:key ascending:ascending selector:(SEL) selector]];
 }
 @end

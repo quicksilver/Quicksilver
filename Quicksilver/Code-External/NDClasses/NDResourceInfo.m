@@ -81,7 +81,7 @@ extern NSData * dataFromResourceHandle( Handle aResourceHandle );
 
 		if( theResHandle && noErr == ResError() )
 		{
-			resourceData = [dataFromResourceHandle( theResHandle ) retain];
+			resourceData = dataFromResourceHandle( theResHandle );
 		}
 		else
 			NSLog( @"Could not get data for resource");
@@ -110,7 +110,7 @@ extern NSData * dataFromResourceHandle( Handle aResourceHandle );
  */
 + (id)resourceInfoWithType:(ResType)aType index:(SInt16)aIndex
 {
-	return [[[self alloc] initWithType:aType index:aIndex] autorelease];
+	return [[self alloc] initWithType:aType index:aIndex];
 }
 
 /*
@@ -130,7 +130,6 @@ extern NSData * dataFromResourceHandle( Handle aResourceHandle );
 {
 	type = aType;
 	resourceIndex = aIndex;
-	[resourceData release];
 	resourceData = nil;
 }
 
@@ -139,8 +138,6 @@ extern NSData * dataFromResourceHandle( Handle aResourceHandle );
  */
 - (void)dealloc
 {
-	[resourceData release];
-	[super dealloc];
 }
 
 /*
@@ -207,7 +204,7 @@ extern NSData * dataFromResourceHandle( Handle aResourceHandle );
  */
 + (id)resourceEnumeratorForType:(ResType)aType
 {
-	return [[[self alloc] initForType:aType] autorelease];
+	return [[self alloc] initForType:aType];
 }
 
 /*

@@ -51,7 +51,7 @@ struct HotKeyMappingEntry
 {
 unsigned short		keyCode;
 NSUInteger		modifierFlags;
-NDHotKeyEvent		* hotKeyEvent;
+__unsafe_unretained NDHotKeyEvent		* hotKeyEvent;
 };
 
 /*
@@ -71,7 +71,7 @@ NDHotKeyEvent		* hotKeyEvent;
 		@synchronized([self class]) {;
 			if( theHotKeyEvents != nil && isInstalled == NO )
 			{
-				if( InstallEventHandler( GetEventDispatcherTarget(), NewEventHandlerUPP((EventHandlerProcPtr)eventHandlerCallback), 2, theTypeSpec, theHotKeyEvents, nil ) == noErr )
+				if( InstallEventHandler( GetEventDispatcherTarget(), NewEventHandlerUPP((EventHandlerProcPtr)eventHandlerCallback), 2, theTypeSpec, (__bridge void *)(theHotKeyEvents), nil ) == noErr )
 				{
 					isInstalled = YES;
 				}
@@ -181,8 +181,6 @@ NDHotKeyEvent		* hotKeyEvent;
         
 		@synchronized([self class]) {;
 			theFoundEntry = NSHashGet( theHashTable, (void*)&theDummyEntry);
-			if( theFoundEntry != NULL )
-				[[theFoundEntry->hotKeyEvent retain] autorelease];
 		};
 	}
     
@@ -218,12 +216,12 @@ NDHotKeyEvent		* hotKeyEvent;
  */
 + (id)hotKeyWithKeyCode:(unsigned short)aKeyCode character:(unichar)aChar modifierFlags:(NSUInteger)aModifierFlags target:(id)aTarget selector:(SEL)aSelector
 {
-	return [[[self alloc] initWithKeyCode:aKeyCode character:aChar modifierFlags:aModifierFlags target:aTarget selector:aSelector] autorelease];
+	return [[self alloc] initWithKeyCode:aKeyCode character:aChar modifierFlags:aModifierFlags target:aTarget selector:aSelector];
 }
 
 + (id)hotKeyWithWithPropertyList:(id)aPropertyList
 {
-	return [[[self alloc] initWithPropertyList:aPropertyList] autorelease];
+	return [[self alloc] initWithPropertyList:aPropertyList];
 }
 
 + (NSString *)description
@@ -244,7 +242,6 @@ NDHotKeyEvent		* hotKeyEvent;
  */
 - (id)init
 {
-	[self release];
 	NSAssert( NO, @"You can not initialize a Hot Key with the init method" );
 	return nil;
 }
@@ -290,13 +287,11 @@ NDHotKeyEvent		* hotKeyEvent;
         
 		if( ![self addHotKey] )
 		{
-			[self release];
 			self = nil;
 		}
 	}
 	else
 	{
-		[self release];
 		self = nil;
 	}
     
@@ -328,7 +323,6 @@ NDHotKeyEvent		* hotKeyEvent;
         
 		if( ![self addHotKey] )
 		{
-			[self release];
 			self = nil;
 		}
 	}
@@ -378,7 +372,6 @@ NDHotKeyEvent		* hotKeyEvent;
 	}
 	else
 	{
-		[self release];
 		self = nil;
 	}
     
@@ -396,48 +389,31 @@ NDHotKeyEvent		* hotKeyEvent;
             nil];
 }
 
-/*
- * -release
- */
-- (oneway void)release
-{
-	/*
-	 *	We need to remove the hot key from the hash table before it's retain count reaches zero
-	 */
-	if( [self retainCount] == 1 )
-	{
-		NSHashTable		* theHashTable = [NDHotKeyEvent allHotKeyEvents];
-		if( theHashTable )
-		{
-			struct HotKeyMappingEntry		theDummyEntry;
-            
-			theDummyEntry.keyCode = [self keyCode];
-			theDummyEntry.modifierFlags = [self modifierFlags];
-			theDummyEntry.hotKeyEvent = nil;
-            
-			@synchronized([self class]) {;
-				switchHotKey( self, NO );
-				if( [self retainCount] == 1 )		// check again because it might have changed
-				{
-					id		theHotKeyEvent = NSHashGet( theHashTable, (void*)&theDummyEntry );
-					if( theHotKeyEvent )
-						NSHashRemove( theHashTable, theHotKeyEvent );
-				}
-			};
-		}
-	}
-    //	else
-	[super release];
-}
-
 - (void)dealloc
 {
+    NSHashTable	* theHashTable = [NDHotKeyEvent allHotKeyEvents];
+    if( theHashTable )
+    {
+        struct HotKeyMappingEntry theDummyEntry;
+        
+        theDummyEntry.keyCode = [self keyCode];
+        theDummyEntry.modifierFlags = [self modifierFlags];
+        theDummyEntry.hotKeyEvent = nil;
+        
+        @synchronized([self class]) {
+            switchHotKey( self, NO );
+            id theHotKeyEvent = (__bridge id)NSHashGet( theHashTable, (void*)&theDummyEntry );
+            if( theHotKeyEvent ) {
+                NSHashRemove( theHashTable, (__bridge void *)theHotKeyEvent );
+            }
+        };
+    }
+    
     if(reference) {
         OSStatus err = UnregisterEventHotKey( reference );
         if( err != noErr )	// in lock from release
             NSLog( @"Failed to unregister hot key %@ with error %ld", self, (long)err );
     }
-	[super dealloc];
 }
 
 /*
@@ -820,9 +796,9 @@ NSString * describeHashFunction( NSHashTable * aTable, const void * aHotKeyEntry
 		theDummyEntry.hotKeyEvent = nil;
         
 		@synchronized([self class]) {;
-			theHotKeyEvent = NSHashGet( theHashTable, (void*)&theDummyEntry);
+			theHotKeyEvent = (__bridge id)(NSHashGet( theHashTable, (void*)&theDummyEntry));
 			if( theHotKeyEvent )
-				NSHashRemove( theHashTable, theHotKeyEvent );
+				NSHashRemove( theHashTable, (__bridge const void *)(theHotKeyEvent) );
 		};
 	}
 }

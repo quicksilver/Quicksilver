@@ -331,24 +331,22 @@ NSUInteger NDCarbonModifierFlagsForCocoaModifierFlags( NSUInteger aModifierFlags
 
 - (id)init
 {
-	[self release];
-	return [[NDKeyboardLayout keyboardLayout] retain];
+	return [NDKeyboardLayout keyboardLayout];
 }
 
 - (id)initWithLanguage:(NSString *)aLangauge
 {
-	return [self initWithInputSource:TISCopyInputSourceForLanguage((CFStringRef)aLangauge)];
+	return [self initWithInputSource:TISCopyInputSourceForLanguage((__bridge CFStringRef)aLangauge)];
 }
 
 - (id)initWithInputSource:(TISInputSourceRef)aSource
 {
 	if( (self = [super init]) != nil )
 	{
-		if( aSource != NULL && (keyboardLayoutData = (CFDataRef)CFMakeCollectable(TISGetInputSourceProperty(aSource, kTISPropertyUnicodeKeyLayoutData))) != nil )
+		if( aSource != NULL && (keyboardLayoutData = (CFDataRef)TISGetInputSourceProperty(aSource, kTISPropertyUnicodeKeyLayoutData)) != nil )
 			CFRetain( keyboardLayoutData );
 		else
 		{
-			[self release];
 			self = nil;
 		}
 	}
@@ -361,7 +359,6 @@ NSUInteger NDCarbonModifierFlagsForCocoaModifierFlags( NSUInteger aModifierFlags
 		free( (void*)mappings );
 	if( keyboardLayoutData != NULL )
 		CFRelease( keyboardLayoutData );
-	[super dealloc];
 }
 
 - (NSString*)stringForCharacter:(unichar)aCharacter modifierFlags:(UInt32)aModifierFlags

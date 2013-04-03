@@ -14,18 +14,17 @@
 	return query;	
 }
 + (id)predicateWithString:(NSString *)aQuery{
-	QSMDQueryPredicate *predicate=[[[self alloc]init]autorelease];
+	QSMDQueryPredicate *predicate=[[self alloc]init];
 	[predicate setQuery:aQuery];
 	return predicate;
 }
 - (NSString *)predicateFormat{
 	return query;
 }
-- (NSString *)query { return [[query retain] autorelease]; }
+- (NSString *)query { return query; }
 - (void)setQuery:(NSString *)aQuery
 {
     if (query != aQuery) {
-        [query release];
         query = [aQuery copy];
     }
 }

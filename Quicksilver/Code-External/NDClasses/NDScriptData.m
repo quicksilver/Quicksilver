@@ -100,7 +100,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 		theInstance = [self newWithScriptID:theScriptID componentInstance:aComponentInstance];
 	}
 	
-	return [theInstance autorelease];
+	return theInstance;
 }
 
 /*
@@ -131,7 +131,6 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 	}
 	else
 	{
-		[self release];
 		self = nil;
 	}
 
@@ -191,7 +190,6 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 	}
 	else
 	{
-		[self release];
 		self = nil;
 	}
 		
@@ -232,7 +230,6 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 	}
 	else
 	{
-		[self release];
 		self = nil;
 	}
 	return self;
@@ -247,7 +244,6 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 	{
 		scriptID = kOSANullScript;
 		componentInstance = aComponentInstance ? aComponentInstance : [NDComponentInstance sharedComponentInstance];
-		[componentInstance retain];
 	}
 	return self;
 }
@@ -260,8 +256,6 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 {
 	if( scriptID != kOSANullScript )
 		NDLogOSAError( OSADispose( [self instanceRecord], scriptID ));
-	[componentInstance release];
-	[super dealloc];
 }
 
 #else
@@ -423,7 +417,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
  */
 - (id)copyWithZone:(NSZone *)aZone
 {
-	return [self retain];
+	return self;
 }
 
 /*
@@ -507,7 +501,6 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 - (void)dealloc
 {
 	[self setResultScriptDataID:kOSANullScript];	
-	[super dealloc];
 }
 
 #else
@@ -622,10 +615,9 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 {
 	if( (self = [self initWithComponentInstance:[aParentScriptData componentInstance]]) != nil )
 	{
-		parentScriptData = [aParentScriptData retain];
+		parentScriptData = aParentScriptData;
 		if( !NDLogOSAError( OSAMakeContext( [self instanceRecord], aName ? [[NSAppleEventDescriptor descriptorWithString:aName] aeDesc] : NULL, parentScriptData ? [parentScriptData scriptID] : kOSANullScript, &scriptID )))
 		{
-			[self release];
 			self = nil;
 		}
 	}
@@ -661,11 +653,6 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 /*
 	- dealloc
  */
-- (void)dealloc
-{
-	[parentScriptData release];
-	[super dealloc];
-}
 #endif
 
 /*
@@ -683,7 +670,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 {
 	if( parentScriptData == nil )
 	{
-		parentScriptData = [[self scriptDataForPropertyCode:pASParent] retain];
+		parentScriptData = [self scriptDataForPropertyCode:pASParent];
 	}
 	return parentScriptData;
 }
@@ -697,8 +684,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 	if( aParentData != parentScriptData )
 	{
 		theResult = [self setPropertyCode:pASParent toScriptData:aParentData];
-		[parentScriptData release];
-		parentScriptData = [aParentData retain];
+		parentScriptData = aParentData;
 	}
 	return theResult;
 }
@@ -747,7 +733,6 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 			theNeedToRelease = YES;
 		}
 		theResult = NDLogOSAError( OSAExecute( [self instanceRecord], [aScriptHandler scriptID], [self scriptID], [self executionModeFlags], &theResultScriptID ));
-		if( theNeedToRelease ) [aScriptHandler release];
 	}
 	else
 		theResult = NDLogOSAError( OSAExecute( [self instanceRecord], [self scriptID], kOSANullScript, [self executionModeFlags], &theResultScriptID ));
@@ -815,7 +800,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 
 	if( OSAGetHandlerNames( [self instanceRecord], kOSAModeNull, [self scriptID], &theEventIdentifierList ) == noErr )
 	{
-		theArray = [[[[NSAppleEventDescriptor  alloc] initWithAEDescNoCopy:&theEventIdentifierList] autorelease] arrayValue];
+		theArray = [[[NSAppleEventDescriptor  alloc] initWithAEDescNoCopy:&theEventIdentifierList] arrayValue];
 	}
 	return theArray;
 }
@@ -869,7 +854,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 {
 	OSAID		theResultScriptID = kOSANullScript;
 	return NDLogOSAError( OSAGetHandler( [self instanceRecord], kOSAModeNull, [self scriptID], [[NSAppleEventDescriptor descriptorWithString:aName] aeDesc], &theResultScriptID ))
-		? (NDScriptHandler *)[[NDScriptData newWithScriptID:theResultScriptID componentInstance:[self componentInstance]] autorelease]
+		? (NDScriptHandler *)[NDScriptData newWithScriptID:theResultScriptID componentInstance:[self componentInstance]]
 		: nil;
 }
 
@@ -880,7 +865,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 {
 	OSAID		theResultScriptID = kOSANullScript;
 	return NDLogOSAError( OSAGetHandler( [self instanceRecord], kOSAModeNull, [self scriptID], [[NSAppleEventDescriptor descriptorWithEventClass:anEventClass eventID:anEventID] aeDesc], &theResultScriptID ))
-		? (NDScriptHandler *)[[NDScriptData newWithScriptID:theResultScriptID componentInstance:[self componentInstance]] autorelease]
+		? (NDScriptHandler *)[NDScriptData newWithScriptID:theResultScriptID componentInstance:[self componentInstance]]
 		: nil;
 }
 
@@ -902,7 +887,6 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 		}
 			
 		theResult = NDLogOSAError( OSASetHandler( [self instanceRecord], kOSAModeNull, [self scriptID], [[NSAppleEventDescriptor descriptorWithString:aName] aeDesc], [aScriptHandler scriptID] ));
-		if( theNeedToRelease ) [aScriptHandler release];
 	}
 	
 	return theResult;
@@ -935,7 +919,6 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 		}
 		
 		theResult = NDLogOSAError( OSASetHandler( [self instanceRecord], kOSAModeDontDefine, [self scriptID], [[NSAppleEventDescriptor descriptorWithString:aName] aeDesc], [aScriptHandler scriptID] ));
-		if( theNeedToRelease ) [aScriptHandler release];
 	}
 	return theResult;
 }
@@ -959,7 +942,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 
 	if( NDLogOSAError( OSAGetPropertyNames ( [self instanceRecord], kOSAModeNull, [self scriptID], &thePropertyNamesList ) ) )
 	{
-		theArray = [[[[NSAppleEventDescriptor  alloc] initWithAEDescNoCopy:&thePropertyNamesList] autorelease] arrayValue];
+		theArray = [[[NSAppleEventDescriptor  alloc] initWithAEDescNoCopy:&thePropertyNamesList] arrayValue];
 	}
 	return theArray;
 }
@@ -1023,7 +1006,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 {
 	OSAID					theResultID = kOSANullScript;
 	return NDLogOSAError( OSAGetProperty( [self instanceRecord], kOSAModeNull, [self scriptID], [[NSAppleEventDescriptor descriptorWithString:aName] aeDesc], &theResultID ))
-		? [[NDScriptData newWithScriptID:theResultID componentInstance:[self componentInstance]] autorelease]
+		? [NDScriptData newWithScriptID:theResultID componentInstance:[self componentInstance]]
 		: nil;
 }
 
@@ -1049,7 +1032,6 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 		AEDisposeDesc( &thePropDesc );
 	}
 	
-	if( theNeedToRelease ) [aScriptData release];
 	
 	return theResult;
 }
@@ -1071,7 +1053,6 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 	
 	theResult = NDLogOSAError( OSASetProperty ( [self instanceRecord],  kOSAModeNull, [self scriptID], [[NSAppleEventDescriptor descriptorWithString:aVariableName] aeDesc], [aScriptData scriptID] ) );
 
-	if( theNeedToRelease ) [aScriptData release];
 	
 	return theResult;
 }
@@ -1125,7 +1106,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
  */
 + (id)scriptDataWithSource:(NSString *)aString
 {
-	return [[[self alloc] initWithSource:aString] autorelease];
+	return [[self alloc] initWithSource:aString];
 }
 
 /*
@@ -1133,7 +1114,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
  */
 + (id)scriptDataWithSource:(NSString *)aString componentInstance:(NDComponentInstance *)aComponentInstance
 {
-	return [[[self alloc] initWithSource:aString componentInstance:aComponentInstance] autorelease];
+	return [[self alloc] initWithSource:aString componentInstance:aComponentInstance];
 }
 
 /*
@@ -1141,7 +1122,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
  */
 + (id)scriptDataWithData:(NSData *)aData
 {
-	return [[[self alloc] initWithData:aData] autorelease];
+	return [[self alloc] initWithData:aData];
 }
 
 /*
@@ -1149,7 +1130,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
  */
 + (id)scriptDataWithData:(NSData *)aData componentInstance:(NDComponentInstance *)aComponentInstance
 {
-	return [[[self alloc] initWithData:aData componentInstance:aComponentInstance] autorelease];
+	return [[self alloc] initWithData:aData componentInstance:aComponentInstance];
 }
 
 /*
@@ -1179,7 +1160,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
  */
 + (id)scriptDataWithContentsOfURL:(NSURL *)anURL
 {
-	return [[[self alloc] initWithContentsOfURL:anURL] autorelease];
+	return [[self alloc] initWithContentsOfURL:anURL];
 }
 
 /*
@@ -1201,7 +1182,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
  */
 + (id)scriptDataWithObject:(id)anObject componentInstance:(NDComponentInstance *)aComponentInstance
 {
-	return [[[self alloc] initWithObject:anObject componentInstance:aComponentInstance] autorelease];
+	return [[self alloc] initWithObject:anObject componentInstance:aComponentInstance];
 }
 
 /*
@@ -1209,7 +1190,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
  */
 + (id)scriptDataWithObject:(id)anObject
 {
-	return [[[self alloc] initWithObject:anObject componentInstance:nil] autorelease];
+	return [[self alloc] initWithObject:anObject componentInstance:nil];
 }
 
 /*
@@ -1293,7 +1274,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
  */
 + (id)scriptDataWithSource:(NSString *)aString
 {
-	return [[[self alloc] initWithSource:aString componentInstance:nil] autorelease];
+	return [[self alloc] initWithSource:aString componentInstance:nil];
 }
 
 /*
@@ -1301,7 +1282,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
  */
 + (id)scriptDataWithSource:(NSString *)aString componentInstance:(NDComponentInstance *)aComponentInstance
 {
-	return [[[self alloc] initWithSource:aString componentInstance:aComponentInstance] autorelease];
+	return [[self alloc] initWithSource:aString componentInstance:aComponentInstance];
 }
 
 /*
@@ -1372,7 +1353,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
  */
 + (id)scriptData
 {
-	return [[[self alloc] initWithParentScriptData:nil name:nil] autorelease];
+	return [[self alloc] initWithParentScriptData:nil name:nil];
 }
 
 /*
@@ -1380,7 +1361,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
  */
 + (id)scriptDataWithName:(NSString *)aName
 {
-	return [[[self alloc] initWithParentScriptData:nil name:aName] autorelease];
+	return [[self alloc] initWithParentScriptData:nil name:aName];
 }
 
 /*
@@ -1396,7 +1377,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
  */
 + (id)scriptDataWithParentScriptData:(NDScriptData *)aParentScriptData name:(NSString *)aName
 {
-	return [[[self alloc] initWithParentScriptData:aParentScriptData name:aName] autorelease];
+	return [[self alloc] initWithParentScriptData:aParentScriptData name:aName];
 }
 
 /*
@@ -1404,7 +1385,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
  */
 + (id)scriptDataWithParentScriptData:(NDScriptData *)aParentScriptData
 {
-	return [[[self alloc] initWithParentScriptData:aParentScriptData name:nil] autorelease];
+	return [[self alloc] initWithParentScriptData:aParentScriptData name:nil];
 }
 
 /*
@@ -1412,7 +1393,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
  */
 + (id)scriptDataWithSource:(NSString *)aSource parentScriptData:(NDScriptData *)aParentData
 {
-	return [[[self alloc] initWithSource:aSource parentScriptData:aParentData] autorelease];
+	return [[self alloc] initWithSource:aSource parentScriptData:aParentData];
 }
 
 /*
@@ -1491,7 +1472,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 	NSAppleEventDescriptor	* theDescriptor;
 	va_list	theArgList;
 	va_start( theArgList, aKeyWord );
-	theDescriptor = [[[NSAppleEventDescriptor alloc] initWithSubroutineName:aName labelsAndArguments:aKeyWord arguments:theArgList] autorelease];
+	theDescriptor = [[NSAppleEventDescriptor alloc] initWithSubroutineName:aName labelsAndArguments:aKeyWord arguments:theArgList];
 	va_end( theArgList );
 
 	return [self executeEvent:theDescriptor];
@@ -1708,7 +1689,7 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
  */
 + (id)scriptDataWithScriptID:(OSAID)aScriptID componentInstance:(NDComponentInstance *)aComponentInstance
 {
-	return [[self newWithScriptID:aScriptID componentInstance:aComponentInstance] autorelease];
+	return [self newWithScriptID:aScriptID componentInstance:aComponentInstance];
 }
 
 /*
@@ -1723,7 +1704,6 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 	}
 	else
 	{
-		[self release];
 		self = nil;
 	}
 	
@@ -1770,7 +1750,6 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 	 */
 	if( resultScriptData != nil )
 	{
-		[resultScriptData release];
 		resultScriptData = nil;
 	}
 	else if( resultScriptID != kOSANullScript )

@@ -33,12 +33,12 @@
 
 + (id)stringWithNonLossyASCIIString:(const char *)anASCIIString
 {
-	return [[[self alloc] initWithData:[NSData dataWithBytesNoCopy:(void *)anASCIIString length:strlen(anASCIIString) freeWhenDone:NO] encoding:NSNonLossyASCIIStringEncoding] autorelease];
+	return [[self alloc] initWithData:[NSData dataWithBytesNoCopy:(void *)anASCIIString length:strlen(anASCIIString) freeWhenDone:NO] encoding:NSNonLossyASCIIStringEncoding];
 }
 
 + (id)stringWithFormat:(NSString *)aFormat arguments:(va_list)anArgList
 {
-	return [[[self alloc] initWithFormat:aFormat arguments:anArgList] autorelease];
+	return [[self alloc] initWithFormat:aFormat arguments:anArgList];
 }
 
 - (id)initWithNonLossyASCIIString:(const char *)anASCIIString

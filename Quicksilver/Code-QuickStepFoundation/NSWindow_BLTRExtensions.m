@@ -57,7 +57,7 @@
 	[[window contentView] unlockFocus];
 	[window setAutodisplay:NO];
 	[window setReleasedWhenClosed:YES];
-	return [window autorelease];
+	return window;
 }
 @end
 
