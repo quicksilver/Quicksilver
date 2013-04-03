@@ -12,7 +12,7 @@
 
 - (id)imageNamed:(NSString *)name {
 	NSString *compositeName = [NSString stringWithFormat:@"%@:%@", [self bundleIdentifier], name];
-	NSImage *image = [NSImage imageNamed:compositeName];
+	__autoreleasing NSImage *image = [NSImage imageNamed:compositeName];
 	if (!image) { 
         image = [[NSImage alloc] initWithContentsOfFile:[self pathForImageResource:name]];
         [image setName:compositeName];

@@ -117,7 +117,10 @@ id QSRez;
 	if(!image) {
 		SEL selector = NSSelectorFromString([NSString stringWithFormat:@"%@Image", name]);
 		if ([self respondsToSelector:selector]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 			image = [self performSelector:selector];
+#pragma clang diagnostic pop
 		}
 	}
 
