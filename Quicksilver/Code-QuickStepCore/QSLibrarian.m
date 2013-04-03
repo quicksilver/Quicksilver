@@ -515,9 +515,7 @@ static CGFloat searchSpeed = 0.0;
 	for (entry in entries) {
 		if (![entry canBeIndexed] || ![entry _contents]) {
 				//NSLog(@"Missing: %@", [entry name]);
-			[entry scanAndCache];
-		} else {
-			//	NSLog(@"monster %d", [[catalogArrays objectForKey:[entry objectForKey:kItemID]]count]);
+			[entry loadIndex];
 		}
 	}
 }
