@@ -890,8 +890,10 @@ NSSize QSMaxIconSize;
 		[self setLabel:[meta objectForKey:kQSObjectAlternateName]];
     if ([meta objectForKey:kQSObjectPrimaryName])
         [self setName:[meta objectForKey:kQSObjectPrimaryName]];
-	if ([meta objectForKey:kQSObjectObjectID])
-		[self setIdentifier:[meta objectForKey:kQSObjectObjectID]];
+	if ([meta objectForKey:kQSObjectObjectID]) {
+        flags.noIdentifier = NO;
+		identifier = [[meta objectForKey:kQSObjectObjectID] retain];
+    }
 	if ([meta objectForKey:kQSObjectPrimaryType])
 		[self setPrimaryType:[meta objectForKey:kQSObjectPrimaryType]];
 
