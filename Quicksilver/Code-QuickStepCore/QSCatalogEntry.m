@@ -429,7 +429,6 @@ NSDictionary *enabledPresetDictionary;*/
         if ([dictionaryArray count]) {
             [self setContents:dictionaryArray];
             [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryIndexed object:self];
-            [[QSLibrarian sharedInstance] recalculateTypeArraysForItem:self];
         }
 	}
 	return YES;
