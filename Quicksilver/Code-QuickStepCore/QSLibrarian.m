@@ -331,7 +331,7 @@ static CGFloat searchSpeed = 0.0;
 	NSMutableSet *newDefaultSet = [NSMutableSet setWithCapacity:1];
 	//NSLog(@"cat %@ %@", catalog, [catalog leafEntries]);
     for(QSCatalogEntry * entry in [catalog leafEntries]) {
-        NSArray *entryContents = [[entry contents] copy];
+        NSArray *entryContents = [[entry _contents] copy];
         if ([entryContents count]) {
             [newDefaultSet addObjectsFromArray:entryContents];
         }
