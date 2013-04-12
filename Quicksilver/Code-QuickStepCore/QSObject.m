@@ -453,12 +453,14 @@ NSSize QSMaxIconSize;
     if (!aKey) {
         return;
     }
-	if (object) {
-        if (object != [data objectForKey:aKey]) {
-            [data setObject:object forKey:aKey];
+    @synchronized(data) {
+        if (object) {
+            if (object != [data objectForKey:aKey]) {
+                [data setObject:object forKey:aKey];
+            }
+        } else {
+            [data removeObjectForKey:aKey];
         }
-    } else {
-        [data removeObjectForKey:aKey];
     }
 }
 
@@ -470,12 +472,14 @@ NSSize QSMaxIconSize;
     if (!aKey) {
         return;
     }
-    if (object) {
-        if (object != [[self cache] objectForKey:aKey]) {
-            [[self cache] setObject:object forKey:aKey];
+    @synchronized([self cache]) {
+        if (object) {
+            if (object != [[self cache] objectForKey:aKey]) {
+                [[self cache] setObject:object forKey:aKey];
+            }
+        } else {
+            [[self cache] removeObjectForKey:aKey];
         }
-    } else {
-        [[self cache] removeObjectForKey:aKey];
     }
 }
 
