@@ -812,6 +812,11 @@ NSSize QSMaxIconSize;
 - (BOOL)iconLoaded { return flags.iconLoaded;  }
 - (void)setIconLoaded:(BOOL)flag {
 	flags.iconLoaded = flag;
+    if (flag) {
+        [iconLoadedSet addObject:self];
+    } else {
+        [iconLoadedSet removeObject:self];
+    }
 }
 
 - (BOOL)retainsIcon { return flags.retainsIcon;  } ;
@@ -917,7 +922,6 @@ NSSize QSMaxIconSize;
     
 	lastAccess = [NSDate timeIntervalSinceReferenceDate];
 	globalLastAccess = lastAccess;
-	[iconLoadedSet addObject:self];
 
 	if (namedIcon) {
         NSImage *image = [QSResourceManager imageNamed:namedIcon];
@@ -959,7 +963,6 @@ NSSize QSMaxIconSize;
     
 	[self setIcon:nil];
 	[self setIconLoaded:NO];
-	[iconLoadedSet removeObject:self];
 	return YES;
 }
 
