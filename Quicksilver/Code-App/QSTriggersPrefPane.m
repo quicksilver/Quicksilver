@@ -261,7 +261,7 @@
 
 	if ([manager respondsToSelector:@selector(setCurrentTrigger:)])
 		[manager setCurrentTrigger:thisTrigger];
-    NSInteger selectedTriggerRow = [[triggerArrayController arrangedObjects] indexOfObject:thisTrigger];
+    NSInteger selectedTriggerRow = [triggerTable selectedRow];
     if (selectedTriggerRow != NSNotFound && selectedTriggerRow < [triggerTable numberOfRows]) {
         [triggerTable selectRowIndexes:[NSIndexSet indexSetWithIndex:selectedTriggerRow] byExtendingSelection:NO];
     }
@@ -348,6 +348,7 @@
     [info release];
 	[trigger initializeTrigger];
 	[[QSTriggerCenter sharedInstance] addTrigger:trigger];
+    [triggerTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
 	[self selectTrigger:nil];
     
 	[self reloadData:triggerTable];

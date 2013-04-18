@@ -7,7 +7,7 @@
 @interface QSTriggersArrayController : NSArrayController
 @end
 
-@interface QSTriggersPrefPane : QSPreferencePane {
+@interface QSTriggersPrefPane : QSPreferencePane <NSOutlineViewDelegate, NSOutlineViewDataSource> {
 	IBOutlet NSButton *addButton;
 	IBOutlet NSDrawer *optionsDrawer;
 	IBOutlet NSView *sidebar;
