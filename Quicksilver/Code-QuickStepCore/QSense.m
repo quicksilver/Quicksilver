@@ -89,7 +89,7 @@ CGFloat QSScoreForAbbreviationWithRanges(CFStringRef str, CFStringRef abbr, id m
 							score -= SKIPPED_SCORE;
 					}
 				} else {
-					score -= matchedRange.location-strRange.location;
+					score -= (matchedRange.location-strRange.location)/2;
 				}
 			}
 			score += remainingScore*remainingStrRange.length;
