@@ -226,10 +226,8 @@ NSString *QSRankingAbbreviationMnemonics = @"QSRankingAbbreviationMnemonics"; //
 			if (mnemonicsOnly)
 				newScore += [object rankModification];
 #endif
-		}
 
-		// get number of times this abbrev. has been used (if it matches)
-        if (newScore) {
+		// get number of times this abbrev. has been used (only check if the abbrev. matches the object - i.e. newScore > 0)
             NSUInteger useCount = 0;
             if ([anAbbreviation length] && newScore) {
                 useCount = [[usageMnemonics objectForKey:anAbbreviation] integerValue];
