@@ -1531,6 +1531,22 @@
 					<int key="connectionID">387</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">sortDescriptors: sortDescriptors</string>
+						<reference key="source" ref="130729679"/>
+						<reference key="destination" ref="666861013"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="130729679"/>
+							<reference key="NSDestination" ref="666861013"/>
+							<string key="NSLabel">sortDescriptors: sortDescriptors</string>
+							<string key="NSBinding">sortDescriptors</string>
+							<string key="NSKeyPath">sortDescriptors</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">868</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">delegate</string>
 						<reference key="source" ref="172148930"/>
@@ -2710,7 +2726,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">865</int>
+			<int key="maxID">868</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2893,6 +2909,7 @@
 						<string key="removeTrigger:">id</string>
 						<string key="selectTrigger:">id</string>
 						<string key="showTriggerInfo:">id</string>
+						<string key="triggerChanged:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="addTrigger:">
@@ -2921,6 +2938,10 @@
 						</object>
 						<object class="IBActionInfo" key="showTriggerInfo:">
 							<string key="name">showTriggerInfo:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="triggerChanged:">
+							<string key="name">triggerChanged:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>

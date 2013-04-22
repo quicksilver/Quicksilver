@@ -348,7 +348,7 @@
     [info release];
 	[trigger initializeTrigger];
 	[[QSTriggerCenter sharedInstance] addTrigger:trigger];
-    [triggerTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
+    [triggerTable selectRowIndexes:[NSIndexSet indexSetWithIndex:[[triggerArrayController arrangedObjects] indexOfObject:trigger]] byExtendingSelection:NO];
 	[self selectTrigger:nil];
     
 	[self reloadData:triggerTable];
