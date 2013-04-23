@@ -112,7 +112,7 @@
 											<reference key="NSNextResponder" ref="592176990"/>
 											<int key="NSvFlags">292</int>
 											<array class="NSMutableArray" key="NSSubviews"/>
-											<string key="NSFrameSize">{417, 48}</string>
+											<string key="NSFrameSize">{417, 58}</string>
 											<reference key="NSSuperview" ref="592176990"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="485320743"/>
@@ -220,7 +220,7 @@
 													<bytes key="NSWhite">MC41AA</bytes>
 												</object>
 											</object>
-											<double key="NSRowHeight">45</double>
+											<double key="NSRowHeight">55</double>
 											<int key="NSTvFlags">843055104</int>
 											<reference key="NSDelegate"/>
 											<reference key="NSDataSource"/>
@@ -234,14 +234,14 @@
 											<int key="NSTableViewGroupRowStyle">1</int>
 										</object>
 									</array>
-									<string key="NSFrame">{{1, 1}, {417, 48}}</string>
+									<string key="NSFrame">{{1, 1}, {417, 58}}</string>
 									<reference key="NSSuperview" ref="753824006"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="726149009"/>
 									<string key="NSReuseIdentifierKey">_NS:11</string>
 									<reference key="NSDocView" ref="726149009"/>
 									<reference key="NSBGColor" ref="194560098"/>
-									<int key="NScvFlags">6</int>
+									<int key="NScvFlags">2</int>
 								</object>
 								<object class="NSScroller" id="596544223">
 									<reference key="NSNextResponder" ref="753824006"/>
@@ -271,16 +271,16 @@
 									<double key="NSPercent">0.99581589958159</double>
 								</object>
 							</array>
-							<string key="NSFrame">{{31, 43}, {419, 50}}</string>
+							<string key="NSFrame">{{31, 38}, {419, 60}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="596544223"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
-							<int key="NSsFlags">133634</int>
+							<int key="NSsFlags">149506</int>
 							<reference key="NSVScroller" ref="596544223"/>
 							<reference key="NSHScroller" ref="570088525"/>
 							<reference key="NSContentView" ref="592176990"/>
-							<bytes key="NSScrollAmts">QSAAAEEgAABCPAAAQjwAAA</bytes>
+							<bytes key="NSScrollAmts">QSAAAEEgAABCZAAAQmQAAA</bytes>
 							<double key="NSMinMagnification">0.25</double>
 							<double key="NSMaxMagnification">4</double>
 							<double key="NSMagnification">1</double>
@@ -463,7 +463,7 @@
 						<object class="NSTextField" key="destination" id="220685599">
 							<reference key="NSNextResponder" ref="280614869"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{30, 3}, {59, 17}}</string>
+							<string key="NSFrame">{{30, 8}, {59, 17}}</string>
 							<reference key="NSSuperview" ref="280614869"/>
 							<reference key="NSNextKeyView" ref="386015842"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
@@ -541,7 +541,7 @@
 										<string>NeXT Encapsulated PostScript v1.2 pasteboard type</string>
 										<string>NeXT TIFF v4.0 pasteboard type</string>
 									</set>
-									<string key="NSFrame">{{353, 10}, {32, 32}}</string>
+									<string key="NSFrame">{{353, 20}, {32, 32}}</string>
 									<reference key="NSSuperview" ref="280614869"/>
 									<reference key="NSNextKeyView" ref="888928596"/>
 									<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -561,7 +561,7 @@
 								<object class="NSButton" id="32956958">
 									<reference key="NSNextResponder" ref="280614869"/>
 									<int key="NSvFlags">268</int>
-									<string key="NSFrame">{{13, 7}, {13, 13}}</string>
+									<string key="NSFrame">{{13, 12}, {13, 13}}</string>
 									<reference key="NSSuperview" ref="280614869"/>
 									<reference key="NSNextKeyView" ref="220685599"/>
 									<string key="NSReuseIdentifierKey">_NS:1622</string>
@@ -603,7 +603,7 @@
 										<string>public.url</string>
 										<string>public.url-name</string>
 									</set>
-									<string key="NSFrame">{{16, -4}, {350, 5}}</string>
+									<string key="NSFrame">{{16, 1}, {350, 5}}</string>
 									<reference key="NSSuperview" ref="280614869"/>
 									<reference key="NSNextKeyView"/>
 									<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -623,7 +623,7 @@
 								<object class="NSTextField" id="835741714">
 									<reference key="NSNextResponder" ref="280614869"/>
 									<int key="NSvFlags">268</int>
-									<string key="NSFrame">{{256, 23}, {92, 17}}</string>
+									<string key="NSFrame">{{253, 33}, {95, 17}}</string>
 									<reference key="NSSuperview" ref="280614869"/>
 									<reference key="NSNextKeyView" ref="32956958"/>
 									<string key="NSReuseIdentifierKey">_NS:1535</string>
@@ -649,14 +649,14 @@
 								<object class="NSTextField" id="405192201">
 									<reference key="NSNextResponder" ref="280614869"/>
 									<int key="NSvFlags">268</int>
-									<string key="NSFrame">{{10, 23}, {244, 17}}</string>
+									<string key="NSFrame">{{10, 22}, {241, 28}}</string>
 									<reference key="NSSuperview" ref="280614869"/>
 									<reference key="NSNextKeyView" ref="835741714"/>
 									<string key="NSReuseIdentifierKey">_NS:1535</string>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSTextFieldCell" key="NSCell" id="337589186">
-										<int key="NSCellFlags">68157504</int>
-										<int key="NSCellFlags2">272634880</int>
+										<int key="NSCellFlags">67108864</int>
+										<int key="NSCellFlags2">272633856</int>
 										<string key="NSContents">Plugin Name</string>
 										<reference key="NSSupport" ref="26"/>
 										<string key="NSCellIdentifier">_NS:1535</string>
@@ -668,8 +668,8 @@
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								</object>
 							</array>
-							<string key="NSFrame">{{24, 1}, {391, 45}}</string>
-							<reference key="NSNextKeyView"/>
+							<string key="NSFrame">{{24, 1}, {391, 55}}</string>
+							<reference key="NSNextKeyView" ref="405192201"/>
 							<string key="NSClassName">QSPluginUpdateTableCellView</string>
 						</object>
 						<reference key="destination" ref="405192201"/>

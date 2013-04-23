@@ -13,7 +13,7 @@
 
 
 // The height of a cell when it's closed
-#define kExpandHeight 47.0
+#define kExpandHeight 52.0
 // used to pad out the web view a little bit
 #define kPaddingFactor 1.1
 
@@ -46,7 +46,7 @@
     // Values for aHeight: -ive indicates shrinkage, +ive indicates expand. 0 indicates use initial height
     if (aHeight == 0) {
         // 121 is the 'extra' height of the window
-        aHeight = [pluginsArray count]*kExpandHeight+121;
+        aHeight = [pluginsArray count]*kExpandHeight+111;
     } else {
         originy -= aHeight;
         aHeight = frame.size.height + aHeight;
@@ -107,7 +107,7 @@
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
     NSNumber *height = [[pluginsArray objectAtIndex:row] objectForKey:@"cellHeight"];
     if (height == nil) {
-        return 45;
+        return 50;
     }
     return [height doubleValue];
 }
@@ -148,7 +148,7 @@
 
     _changesAreShowing = NO;
     [webView setHidden:!_changesAreShowing];
-
+    [webView setAlphaValue:_changesAreShowing ? 1 : 0];
     if ([thisPlugin isObsolete]) {
         [changesTitle setHidden:YES];
         [toggleChangesButton setHidden:YES];
@@ -196,7 +196,7 @@
 -(IBAction)toggleChanges:(id)sender {
     _changesAreShowing = !_changesAreShowing;
     [wc setWindowHeight:ceil(webViewHeight)*(_changesAreShowing ? 1 : -1) animate:YES];
-    [self.webView setAlphaValue:1.0];
+    [[self.webView animator] setHidden:!_changesAreShowing];
     [[self.webView animator] setAlphaValue:_changesAreShowing ? 1 : 0];
     [self updateHeight];
 }
