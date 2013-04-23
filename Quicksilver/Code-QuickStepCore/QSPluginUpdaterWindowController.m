@@ -144,29 +144,35 @@
 @synthesize webView, pluginDetails, installedDetails;
 
 - (void)setOptions:(NSDictionary *)options {
-    
+    QSPlugIn *thisPlugin = [options objectForKey:@"plugin"];
+
     _changesAreShowing = NO;
-    [webView setFrameLoadDelegate:self];
-    [[[webView mainFrame] frameView] setAllowsScrolling:NO];
-    [webView setAlphaValue:_changesAreShowing ? 1 : 0];
-    [webView setDrawsBackground:NO];
-    
-    static NSString *css = nil;
-    if (css == nil) {
-        // CSS for making the web view blend in. !!-Not valid HTML (no <head>,<body>)
-        css = [@"<style>body {margin:0px;padding:0px;font-size:11px;font-family:\"lucida grande\";}ul {-webkit-padding-start:16px;list-style-type:square;margin:0px}</style>" retain];
+    [webView setHidden:!_changesAreShowing];
+
+    if ([thisPlugin isObsolete]) {
+        [changesTitle setHidden:YES];
+        [toggleChangesButton setHidden:YES];
+    } else {
+        [webView setFrameLoadDelegate:self];
+        [[[webView mainFrame] frameView] setAllowsScrolling:NO];
+        [webView setDrawsBackground:NO];
+        
+        static NSString *css = nil;
+        if (css == nil) {
+            // CSS for making the web view blend in. !!-Not valid HTML (no <head>,<body>)
+            css = [@"<style>body {margin:0px;padding:0px;font-size:11px;font-family:\"lucida grande\";}ul {-webkit-padding-start:16px;list-style-type:square;margin:0px}</style>" retain];
+        }
+        WebFrame *wf = self.webView.mainFrame;
+        [wf loadHTMLString:[NSString stringWithFormat:@"%@%@",css,[thisPlugin releaseNotes]] baseURL:nil];
     }
     NSString *name = [options objectForKey:@"name"];
-    QSPlugIn *thisPlugin = [options objectForKey:@"plugin"];
     if (!name) {
         name = [NSString stringWithFormat:@"%@ %@",[thisPlugin name],[thisPlugin latestVersion]];
     }
     self.installedDetails.stringValue = [NSString stringWithFormat:NSLocalizedString(@"(Installed: %@)", @"details of the installed plugin version (that is being updated"), [thisPlugin installedVersion]];
     [iconView setImage:[thisPlugin icon]];
     self.pluginDetails.stringValue = name;
-    WebFrame *wf = self.webView.mainFrame;
     
-    [wf loadHTMLString:[NSString stringWithFormat:@"%@%@",css,[thisPlugin releaseNotes]] baseURL:nil];
 }
 
 // gets the height of the HTML in the webFrame, once it has loaded, to set the required height of the cell

@@ -33,6 +33,8 @@
 
 @interface QSPluginUpdateTableCellView : NSTableCellView {
     IBOutlet QSPluginUpdaterWindowController* wc;
+    IBOutlet NSButton *toggleChangesButton;
+    IBOutlet NSTextField *changesTitle;
     IBOutlet WebView *webView;
     IBOutlet NSTextField *pluginDetails;
     IBOutlet NSImageView *iconView;

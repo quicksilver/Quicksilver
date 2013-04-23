@@ -458,11 +458,38 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">installButton</string>
+						<string key="label">changesTitle</string>
 						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="32859566"/>
+						<object class="NSTextField" key="destination" id="220685599">
+							<reference key="NSNextResponder" ref="280614869"/>
+							<int key="NSvFlags">268</int>
+							<string key="NSFrame">{{30, 3}, {59, 17}}</string>
+							<reference key="NSSuperview" ref="280614869"/>
+							<reference key="NSNextKeyView" ref="386015842"/>
+							<string key="NSReuseIdentifierKey">_NS:1535</string>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSTextFieldCell" key="NSCell" id="307321366">
+								<int key="NSCellFlags">68157504</int>
+								<int key="NSCellFlags2">272630784</int>
+								<string key="NSContents">Changes</string>
+								<reference key="NSSupport" ref="26"/>
+								<string key="NSCellIdentifier">_NS:1535</string>
+								<reference key="NSControlView" ref="220685599"/>
+								<object class="NSColor" key="NSBackgroundColor">
+									<int key="NSColorSpace">6</int>
+									<string key="NSCatalogName">System</string>
+									<string key="NSColorName">controlDarkShadowColor</string>
+									<reference key="NSColor" ref="619813766"/>
+								</object>
+								<object class="NSColor" key="NSTextColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MCAwIDAAA</bytes>
+								</object>
+							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+						</object>
 					</object>
-					<int key="connectionID">90</int>
+					<int key="connectionID">101</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -555,34 +582,7 @@
 									</object>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								</object>
-								<object class="NSTextField" id="220685599">
-									<reference key="NSNextResponder" ref="280614869"/>
-									<int key="NSvFlags">268</int>
-									<string key="NSFrame">{{30, 3}, {59, 17}}</string>
-									<reference key="NSSuperview" ref="280614869"/>
-									<reference key="NSNextKeyView" ref="386015842"/>
-									<string key="NSReuseIdentifierKey">_NS:1535</string>
-									<bool key="NSEnabled">YES</bool>
-									<object class="NSTextFieldCell" key="NSCell" id="307321366">
-										<int key="NSCellFlags">68157504</int>
-										<int key="NSCellFlags2">272630784</int>
-										<string key="NSContents">Changes</string>
-										<reference key="NSSupport" ref="26"/>
-										<string key="NSCellIdentifier">_NS:1535</string>
-										<reference key="NSControlView" ref="220685599"/>
-										<object class="NSColor" key="NSBackgroundColor">
-											<int key="NSColorSpace">6</int>
-											<string key="NSCatalogName">System</string>
-											<string key="NSColorName">controlDarkShadowColor</string>
-											<reference key="NSColor" ref="619813766"/>
-										</object>
-										<object class="NSColor" key="NSTextColor">
-											<int key="NSColorSpace">1</int>
-											<bytes key="NSRGB">MCAwIDAAA</bytes>
-										</object>
-									</object>
-									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
-								</object>
+								<reference ref="220685599"/>
 								<object class="WebView" id="888928596">
 									<reference key="NSNextResponder" ref="280614869"/>
 									<int key="NSvFlags">268</int>
@@ -669,7 +669,7 @@
 								</object>
 							</array>
 							<string key="NSFrame">{{24, 1}, {391, 45}}</string>
-							<reference key="NSNextKeyView" ref="405192201"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSClassName">QSPluginUpdateTableCellView</string>
 						</object>
 						<reference key="destination" ref="405192201"/>
@@ -715,6 +715,22 @@
 						<reference key="destination" ref="835741714"/>
 					</object>
 					<int key="connectionID">99</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">toggleChangesButton</string>
+						<reference key="source" ref="280614869"/>
+						<reference key="destination" ref="32956958"/>
+					</object>
+					<int key="connectionID">103</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">changesTitle</string>
+						<reference key="source" ref="280614869"/>
+						<reference key="destination" ref="220685599"/>
+					</object>
+					<int key="connectionID">104</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -926,11 +942,6 @@
 						<reference key="parent" ref="220685599"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">68</int>
-						<reference key="object" ref="888928596"/>
-						<reference key="parent" ref="280614869"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">82</int>
 						<reference key="object" ref="937431471"/>
 						<reference key="parent" ref="0"/>
@@ -973,6 +984,11 @@
 						<int key="objectID">98</int>
 						<reference key="object" ref="895537337"/>
 						<reference key="parent" ref="835741714"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">68</int>
+						<reference key="object" ref="888928596"/>
+						<reference key="parent" ref="280614869"/>
 					</object>
 				</array>
 			</object>
@@ -1031,7 +1047,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">99</int>
+			<int key="maxID">104</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1057,13 +1073,19 @@
 					<string key="className">QSPluginUpdateTableCellView</string>
 					<string key="superclassName">NSTableCellView</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="changesTitle">NSTextField</string>
 						<string key="iconView">NSImageView</string>
 						<string key="installedDetails">NSTextField</string>
 						<string key="pluginDetails">NSTextField</string>
+						<string key="toggleChangesButton">NSButton</string>
 						<string key="wc">QSPluginUpdaterWindowController</string>
 						<string key="webView">WebView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="changesTitle">
+							<string key="name">changesTitle</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="iconView">
 							<string key="name">iconView</string>
 							<string key="candidateClassName">NSImageView</string>
@@ -1075,6 +1097,10 @@
 						<object class="IBToOneOutletInfo" key="pluginDetails">
 							<string key="name">pluginDetails</string>
 							<string key="candidateClassName">NSTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="toggleChangesButton">
+							<string key="name">toggleChangesButton</string>
+							<string key="candidateClassName">NSButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="wc">
 							<string key="name">wc</string>
