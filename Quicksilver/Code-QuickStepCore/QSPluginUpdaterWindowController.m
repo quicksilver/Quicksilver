@@ -94,7 +94,17 @@
         // generate an array of plugin IDs to install
         [pluginsArray enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
             if ([obj objectForKey:@"shouldInstall"] == nil || [[obj objectForKey:@"shouldInstall"] integerValue] == NSOnState) {
-                [pluginsToInstall addObject:[(QSPlugIn *)[obj objectForKey:@"plugin"] identifier]];
+                QSPlugIn *outdatedPlugin = [obj objectForKey:@"plugin"];
+                NSString *pluginToUpdate = nil;
+                if ([outdatedPlugin isObsolete]) {
+                    QSPlugInManager *pm = [QSPlugInManager sharedInstance];
+                    pluginToUpdate = [[pm obsoletePlugIns] objectForKey:[outdatedPlugin identifier]];
+                } else {
+                    pluginToUpdate = [outdatedPlugin identifier];
+                }
+                if (pluginToUpdate != nil) {
+                    [pluginsToInstall addObject:pluginToUpdate];
+                }
             }
         }];
     }
