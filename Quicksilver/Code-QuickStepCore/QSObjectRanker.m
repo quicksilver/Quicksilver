@@ -214,46 +214,42 @@ NSString *QSRankingAbbreviationMnemonics = @"QSRankingAbbreviationMnemonics"; //
 
 	//	NSLog(@"newscore %f %@", newScore, rankedObject);
 
-	if (!usePureString || mnemonicsOnly) {
+	if ((!usePureString || mnemonicsOnly) && newScore) {
 		//NSLog(@"mnem");
-		if (newScore) { // Add modifiers
-			if (mnemonics)
-				newOrder = [mnemonics indexOfObject:[object identifier]];
-//			if ( != NSNotFound)
-//				modifier += 10.0f;
-//			newScore += modifier;
+        if (mnemonics)
+            newOrder = [mnemonics indexOfObject:[object identifier]];
+        //			if ( != NSNotFound)
+        //				modifier += 10.0f;
+        //			newScore += modifier;
 #if 0
-			if (mnemonicsOnly)
-				newScore += [object rankModification];
+        if (mnemonicsOnly)
+            newScore += [object rankModification];
 #endif
-
+        
 		// get number of times this abbrev. has been used (only check if the abbrev. matches the object - i.e. newScore > 0)
-            NSUInteger useCount = 0;
-            if ([anAbbreviation length] && newScore) {
-                useCount = [[usageMnemonics objectForKey:anAbbreviation] integerValue];
-            } else {
-                // for an empty string, consider the total use count
-                for (id key in usageMnemonics) {
-                    useCount += [[usageMnemonics objectForKey:key] integerValue];
-                }
+        NSUInteger useCount = 0;
+        if ([anAbbreviation length]) {
+            useCount = [[usageMnemonics objectForKey:anAbbreviation] integerValue];
+        } else {
+            // for an empty string, consider the total use count
+            for (id key in usageMnemonics) {
+                useCount += [[usageMnemonics objectForKey:key] integerValue];
             }
-            if (useCount) {
-                newScore += 1.0 - 1.0 / (useCount + 1.0);
-            } else if (newScore && [anAbbreviation length]) {
-                // otherwise add points for similar starting abbreviations
-                for (id key in usageMnemonics) {
-                    if (prefixCompare(key, anAbbreviation) == NSOrderedSame) {
-                        newScore += (1-1/([[usageMnemonics objectForKey:key] doubleValue]) )/4;
-                    }
-                }
-            }
-            // set newscore
-            newScore += sqrt([object retainCount]) /100; // If an object appears many times, increase score, this may be bad
-
-            //*** in the future, increase for recent document, increase for partial match, increase for higher source index
         }
-
-
+        if (useCount) {
+            newScore += 1.0 - 1.0 / (useCount + 1.0);
+        } else if ([anAbbreviation length]) {
+            // otherwise add points for similar starting abbreviations
+            for (id key in usageMnemonics) {
+                if (prefixCompare(key, anAbbreviation) == NSOrderedSame) {
+                    newScore += (1-1/([[usageMnemonics objectForKey:key] doubleValue]) )/4;
+                }
+            }
+        }
+        // set newscore
+        newScore += sqrt([object retainCount]) /100; // If an object appears many times, increase score, this may be bad
+        
+        //*** in the future, increase for recent document, increase for partial match, increase for higher source index
 	}
 
 	// Create the ranked object
