@@ -355,10 +355,16 @@
 		92E9461A0D04CCEF0013377F /* QSModifierKeyEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E946180D04CCEF0013377F /* QSModifierKeyEvents.m */; };
 		CD1B17D9158A573000E4A030 /* VDKQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE1E661158A4D0900355A9F /* VDKQueue.m */; };
 		CD1B17DA158A573200E4A030 /* VDKQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = CDE1E660158A4D0900355A9F /* VDKQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD39DE5F16B43FBF0087B09E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		CD39DE6016B43FC40087B09E /* (null) in Headers */ = {isa = PBXBuildFile; };
+		CD39DE6216B43FDD0087B09E /* (null) in Resources */ = {isa = PBXBuildFile; };
 		CD3F9D68136183250013FCB7 /* QSClangAnalyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42ADF4FD1317237900C68070 /* QSClangAnalyzer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD4FA6E0157A13D600E549BD /* QSHotKeyEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = CD4FA6DF157A13D600E549BD /* QSHotKeyEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD4FA6E2157A13DE00E549BD /* QSHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4FA6E1157A13DE00E549BD /* QSHotKeyEvent.m */; };
 		CD53FEB3151A0ACF006B734B /* PluginReporterText.html in Resources */ = {isa = PBXBuildFile; fileRef = CD53FEB2151A0ACF006B734B /* PluginReporterText.html */; };
+		CD65B12916FA1BD000932A9C /* QSPluginUpdaterWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = CD65B12716FA1BD000932A9C /* QSPluginUpdaterWindowController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD65B12A16FA1BD000932A9C /* QSPluginUpdaterWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD65B12816FA1BD000932A9C /* QSPluginUpdaterWindowController.m */; };
+		CD65B12C16FA1BE400932A9C /* QSPluginUpdater.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD65B12B16FA1BE400932A9C /* QSPluginUpdater.xib */; };
 		CD790FA314D21C2100225950 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8D135E09187AE20062C966 /* Quartz.framework */; };
 		CDA524DB16AC8D8C00D2017F /* QSTargetPickerPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = CDA524D916AC8D8C00D2017F /* QSTargetPickerPanel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDA524DC16AC8D8C00D2017F /* QSTargetPickerPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA524DA16AC8D8C00D2017F /* QSTargetPickerPanel.m */; };
@@ -1648,6 +1654,9 @@
 		CD4FA6DF157A13D600E549BD /* QSHotKeyEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHotKeyEvent.h; sourceTree = "<group>"; };
 		CD4FA6E1157A13DE00E549BD /* QSHotKeyEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHotKeyEvent.m; sourceTree = "<group>"; };
 		CD53FEB2151A0ACF006B734B /* PluginReporterText.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = PluginReporterText.html; sourceTree = "<group>"; };
+		CD65B12716FA1BD000932A9C /* QSPluginUpdaterWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPluginUpdaterWindowController.h; sourceTree = "<group>"; };
+		CD65B12816FA1BD000932A9C /* QSPluginUpdaterWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPluginUpdaterWindowController.m; sourceTree = "<group>"; };
+		CD65B12B16FA1BE400932A9C /* QSPluginUpdater.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSPluginUpdater.xib; sourceTree = "<group>"; };
 		CDA524D916AC8D8C00D2017F /* QSTargetPickerPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTargetPickerPanel.h; sourceTree = "<group>"; };
 		CDA524DA16AC8D8C00D2017F /* QSTargetPickerPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSTargetPickerPanel.m; sourceTree = "<group>"; };
 		CDA5253516AED84400D2017F /* NSView+DisableSubviews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSView+DisableSubviews.h"; path = "DisableSubviews/DisableSubviews/NSView+DisableSubviews.h"; sourceTree = "<group>"; };
@@ -2768,6 +2777,7 @@
 				E1EF4203070FDF7700D6DA03 /* QSHelpersPrefPane.xib */,
 				7F4E4B4C0A3CDA7A0070336A /* QSMainMenuPrefPane.xib */,
 				E1737B8A06AF48520082F948 /* QSPlugInsPrefPane.xib */,
+				CD65B12B16FA1BE400932A9C /* QSPluginUpdater.xib */,
 				E1264FAC072FE76C00206035 /* QSPreferences.xib */,
 				7FE8940D085D021B0016C421 /* QSProcessObjectSource.xib */,
 				E14B86910738158D003C1AED /* QSSearchPrefPane.xib */,
@@ -3302,6 +3312,8 @@
 				7F0AB6CB07C4045700DF7D52 /* QSPlugIn.m */,
 				7F0AB6CC07C4045700DF7D52 /* QSPlugInManager.h */,
 				7F0AB6CD07C4045700DF7D52 /* QSPlugInManager.m */,
+				CD65B12716FA1BD000932A9C /* QSPluginUpdaterWindowController.h */,
+				CD65B12816FA1BD000932A9C /* QSPluginUpdaterWindowController.m */,
 				4DD89F210EBDDBA9005A15AE /* QSPreferenceKeys.h */,
 				E1E5FBB107B20DD20044D6EF /* QSProcessMonitor.h */,
 				E1E5FBB207B20DD20044D6EF /* QSProcessMonitor.m */,
@@ -3584,6 +3596,8 @@
 				D493990D1350078E00B908C6 /* QSDownloads.h in Headers */,
 				CD1B17DA158A573200E4A030 /* VDKQueue.h in Headers */,
 				D413172F15DEE5D90021479B /* LaunchAtLoginController.h in Headers */,
+				CD39DE6016B43FC40087B09E /* (null) in Headers */,
+				CD65B12916FA1BD000932A9C /* QSPluginUpdaterWindowController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4358,6 +4372,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD39DE6216B43FDD0087B09E /* (null) in Resources */,
+				CD65B12C16FA1BE400932A9C /* QSPluginUpdater.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4759,6 +4775,8 @@
 				D493990E1350078E00B908C6 /* QSDownloads.m in Sources */,
 				CD1B17D9158A573000E4A030 /* VDKQueue.m in Sources */,
 				D413173015DEE5D90021479B /* LaunchAtLoginController.m in Sources */,
+				CD39DE5F16B43FBF0087B09E /* (null) in Sources */,
+				CD65B12A16FA1BD000932A9C /* QSPluginUpdaterWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5897,6 +5915,7 @@
 		};
 		666E45F0150225EA0034E60A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
@@ -5924,6 +5943,7 @@
 		};
 		666E45F1150225EA0034E60A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
@@ -5951,6 +5971,7 @@
 		};
 		66D11C6615022A76002EE6E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
@@ -5978,6 +5999,7 @@
 		};
 		66D11C6715022A76002EE6E5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
@@ -6005,6 +6027,7 @@
 		};
 		66D11C8D15022B08002EE6E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
@@ -6032,6 +6055,7 @@
 		};
 		66D11C8E15022B08002EE6E5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
@@ -6059,6 +6083,7 @@
 		};
 		66D11CB615022C83002EE6E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
@@ -6086,6 +6111,7 @@
 		};
 		66D11CB715022C83002EE6E5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
@@ -6113,6 +6139,7 @@
 		};
 		66D11CE215022DCF002EE6E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -6123,6 +6150,7 @@
 		};
 		66D11CE315022DCF002EE6E5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -6134,6 +6162,7 @@
 		};
 		7F6B3E46085CE68E000735A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = Preflight;
 			};
@@ -6141,6 +6170,7 @@
 		};
 		7F6B3E47085CE68E000735A8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = Preflight;
 			};
@@ -6182,6 +6212,7 @@
 		};
 		7F6B3E50085CE68E000735A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -6194,6 +6225,7 @@
 		};
 		7F6B3E51085CE68E000735A8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -6206,6 +6238,7 @@
 		};
 		7F6B3E55085CE68E000735A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -6218,6 +6251,7 @@
 		};
 		7F6B3E56085CE68E000735A8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -6230,6 +6264,7 @@
 		};
 		7F6B3E5A085CE68E000735A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -6242,6 +6277,7 @@
 		};
 		7F6B3E5B085CE68E000735A8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -6254,6 +6290,7 @@
 		};
 		7F6B3E5F085CE68E000735A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = QSScriptingDictionary;
 			};
@@ -6261,6 +6298,7 @@
 		};
 		7F6B3E60085CE68E000735A8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
 				PRODUCT_NAME = QSScriptingDictionary;
 			};
@@ -6336,6 +6374,7 @@
 		};
 		7F9703D409AFEE8B00E9EA77 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "QSDroplet/QSDroplet-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -6346,6 +6385,7 @@
 		};
 		7F9703D509AFEE8B00E9EA77 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = "QSDroplet/QSDroplet-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
