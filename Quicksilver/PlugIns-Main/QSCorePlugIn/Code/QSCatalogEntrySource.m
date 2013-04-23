@@ -65,18 +65,20 @@ static NSImage *prefsCatalogImage = nil;
 	NSString *theID;
 	for(thisEntry in catalogObjects) {
 		name = [thisEntry name];
-		theID = [thisEntry identifier];
+		theID = [[thisEntry identifier] copy];
 		if (!theID || [theID isEqualToString:@"QSSeparator"])
 			continue;
 		if ([name isEqualToString:@"QSCATALOGROOT"])
 			name = @"Quicksilver Catalog";
 		else
 			name = [NSString stringWithFormat:@"%@ (Catalog) ", name];
-		newObject = [QSObject objectWithName:name];
+		newObject = [[QSObject objectWithName:name] retain];
 		[newObject setObject:theID forType:QSCatalogEntryPboardType];
 		[newObject setPrimaryType:QSCatalogEntryPboardType];
 		[newObject setIdentifier:theID];
 		[objects addObject:newObject];
+        [newObject release];
+        [theID release];
 	}
 	return objects;
 }
