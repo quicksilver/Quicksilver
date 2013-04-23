@@ -213,7 +213,8 @@ NSString *QSRankingAbbreviationMnemonics = @"QSRankingAbbreviationMnemonics"; //
 	}
 
 	//	NSLog(@"newscore %f %@", newScore, rankedObject);
-
+    
+    // This MUST evaluate to TRUE if anAbbreviation (the typed text) is nil/an empty string
 	if ((!usePureString || mnemonicsOnly) && newScore) {
 		//NSLog(@"mnem");
         if (mnemonics)
