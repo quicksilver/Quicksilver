@@ -8,6 +8,8 @@
 
 #import "QSGCD.h"
 
+const char* kQueueCatalogEntry = "QueueCatalogEntry";
+
 void runOnMainQueueSync(void (^block)(void))
 {
     if ([NSThread isMainThread]) {
