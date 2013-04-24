@@ -426,7 +426,9 @@ NSDictionary *enabledPresetDictionary;*/
             NSLog(@"Error loading index of %@: %@", [self name] , e);
             return NO;
         }
-        [self setContents:dictionaryArray];
+        if ([dictionaryArray count]) {
+            [self setContents:dictionaryArray];
+        }
 	}
 	return YES;
 }
