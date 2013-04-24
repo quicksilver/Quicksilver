@@ -1019,9 +1019,6 @@ static QSController *defaultController = nil;
 	if ([defaults boolForKey:kAutomaticTaskViewer])
 		[QSTaskViewer sharedInstance];
 
-	if ( ! (runningSetupAssistant || newVersion) )
-		[self rescanItems:self];
-
 #ifndef DEBUG
 	if (newVersion)
 		[[QSUpdateController sharedInstance] forceStartupCheck];

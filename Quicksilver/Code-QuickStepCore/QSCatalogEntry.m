@@ -426,10 +426,7 @@ NSDictionary *enabledPresetDictionary;*/
             NSLog(@"Error loading index of %@: %@", [self name] , e);
             return NO;
         }
-        if ([dictionaryArray count]) {
-            [self setContents:dictionaryArray];
-            [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryIndexed object:self];
-        }
+        [self setContents:dictionaryArray];
 	}
 	return YES;
 }
