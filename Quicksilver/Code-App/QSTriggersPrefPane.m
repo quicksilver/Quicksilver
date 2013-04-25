@@ -261,7 +261,7 @@
 
 	if ([manager respondsToSelector:@selector(setCurrentTrigger:)])
 		[manager setCurrentTrigger:thisTrigger];
-    NSInteger selectedTriggerRow = [[triggerArrayController arrangedObjects] indexOfObject:thisTrigger];
+    NSInteger selectedTriggerRow = [triggerTable selectedRow];
     if (selectedTriggerRow != NSNotFound && selectedTriggerRow < [triggerTable numberOfRows]) {
         [triggerTable selectRowIndexes:[NSIndexSet indexSetWithIndex:selectedTriggerRow] byExtendingSelection:NO];
     }
@@ -305,8 +305,8 @@
         [trigger setCommand:command];
 		[[QSTriggerCenter sharedInstance] triggerChanged:trigger];
 	}
-	[trigger release];
-	[sheet orderOut:self];
+    [trigger release];
+    [sheet orderOut:self];
 }
 
 - (void)addSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
@@ -320,6 +320,8 @@
 		[[QSTriggerCenter sharedInstance] removeTrigger:trigger];
 //		[self updateTriggerArray];
 	}
+    // select the trigger (its position has changed since adding the trigger)
+    [triggerTable selectRowIndexes:[NSIndexSet indexSetWithIndex:[[triggerArrayController arrangedObjects] indexOfObject:trigger]] byExtendingSelection:NO];
     [trigger release];
 	[sheet orderOut:self];
 }
@@ -348,6 +350,7 @@
     [info release];
 	[trigger initializeTrigger];
 	[[QSTriggerCenter sharedInstance] addTrigger:trigger];
+    [triggerTable selectRowIndexes:[NSIndexSet indexSetWithIndex:[[triggerArrayController arrangedObjects] indexOfObject:trigger]] byExtendingSelection:NO];
 	[self selectTrigger:nil];
     
 	[self reloadData:triggerTable];
