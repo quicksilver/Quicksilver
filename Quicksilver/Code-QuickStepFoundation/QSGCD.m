@@ -8,6 +8,8 @@
 
 #import "QSGCD.h"
 
+const char* kQueueCatalogEntry = "QueueCatalogEntry";
+
 void runOnMainQueueSync(void (^block)(void))
 {
     if ([NSThread isMainThread]) {
@@ -19,7 +21,7 @@ void runOnMainQueueSync(void (^block)(void))
 
 void runOnQueueSync(dispatch_queue_t queue,void (^block)(void))
 {
-    if (dispatch_get_current_queue() == queue) {
+    if (dispatch_get_specific(kQueueCatalogEntry) == dispatch_queue_get_specific(queue, kQueueCatalogEntry)) {
         block();
     } else {
         dispatch_sync(queue, block);
