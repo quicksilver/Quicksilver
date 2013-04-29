@@ -472,9 +472,9 @@
 	// We want to stop getting updates at that point, so we compare to the resultArray instead.
 	if ([[dSelector resultArray] isEqual:[[notif userInfo] objectForKey:kQSResultArrayKey]]) {
 		//NSLog(@"arraychanged");
-		if ([[dSelector->resultController window] isVisible]) {
+		if ([[dSelector.resultController window] isVisible]) {
 			[dSelector reloadResultTable];
-			[dSelector->resultController updateSelectionInfo];
+			[dSelector.resultController updateSelectionInfo];
 		}
 		if (![[dSelector resultArray] containsObject:[dSelector selectedObject]]) {
 			if ([[dSelector resultArray] count]) {

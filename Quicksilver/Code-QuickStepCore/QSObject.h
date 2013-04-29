@@ -93,7 +93,11 @@ typedef struct _QSObjectFlags {
 	QSObjectFlags			flags;
 	NSTimeInterval			lastAccess;
 }
+
+@property (assign) NSTimeInterval lastAccess;
+
 + (void)initialize;
++ (void)addInternalObjectsToObjectDictionary;
 + (void)cleanObjectDictionary;
 + (void)purgeOldImagesAndChildren;
 + (void)purgeAllImagesAndChildren;
@@ -139,6 +143,7 @@ typedef struct _QSObjectFlags {
 - (void)setCache:(NSMutableDictionary *)aCache;
 - (BOOL)isProxyObject;
 - (QSObject *)resolvedObject;
+
 
 @end
 
