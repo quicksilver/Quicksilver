@@ -4,14 +4,13 @@
 
 @class QSObjectView, QSSearchObjectView;
 
-@interface QSResultController : NSWindowController <NSTableViewDataSource>
+@interface QSResultController : NSWindowController <NSTableViewDataSource, NSWindowDelegate>
 {
  @public
 	IBOutlet NSTextField *	searchStringField;	// What the user types when searching (seen in the results view)
 	IBOutlet NSTextField * searchModeField;	// Seen in the result view. Either: @"Filter Catalog", @"Filter Results" or @"Snap to Best"
-	IBOutlet NSView *	selectionView;
+	IBOutlet NSTextField *	selectionView;
 	IBOutlet NSSplitView *	splitView;
-
 	IBOutlet NSTableView *	resultTable;
 	IBOutlet NSTableView *	resultChildTable;
 	QSIconLoader *resultIconLoader;
@@ -29,10 +28,12 @@
 	QSObject *selectedItem;
 	BOOL browsing;
 	BOOL needsReload;
+    BOOL shouldSaveWindowSize;
 	NSRange loadingRange;
 	NSArray *currentResults;
 	QSSearchObjectView *focus;
 	NSInteger scrollViewTrackingRect;
+    NSUInteger windowHeight;
 
 //	NSArray **sourceArrayPointer;
 	NSTimer *iconTimer;
