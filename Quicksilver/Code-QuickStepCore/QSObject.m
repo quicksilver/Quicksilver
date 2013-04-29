@@ -154,7 +154,6 @@ NSSize QSMaxIconSize;
     //		NSLog(@"setobj:%@", [objectDictionary objectForKey:anIdentifier]);
 }
 
-
 - (id)init {
 	if (self = [super init]) {
 
