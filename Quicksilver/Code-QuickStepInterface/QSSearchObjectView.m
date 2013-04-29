@@ -1733,6 +1733,8 @@ NSMutableDictionary *bindingsDict = nil;
                         includeObject = NO;
                         // check the UTI for files
                         if ([individual singleFilePath]) {
+                            // resolve alias objects
+                            individual = [individual resolvedAliasObject];
                             NSString *type = [[NSFileManager defaultManager] UTIOfFile:[individual singleFilePath]];
                             // if the file type is a folder (Always show them) or it conforms to a set indirectType
                             if ([type isEqualToString:(NSString *)kUTTypeFolder] || UTTypeConformsTo((CFStringRef)type, (CFStringRef)indirectType)) {
