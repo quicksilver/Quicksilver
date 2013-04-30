@@ -56,7 +56,8 @@
         QSObject * currentFolderObject = [QSObject fileObjectWithPath:[@"~" stringByExpandingTildeInPath]];
         
         NSIndexSet *folderIndexes = [fileObjects indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *thisObject, NSUInteger i, BOOL *stop) {
-            return ([thisObject isFolder] && (thisObject != currentFolderObject));
+            QSObject *resolved = [thisObject resolvedAliasObject];
+            return ([resolved isFolder] && (thisObject != currentFolderObject));
         }];
     
     return [[NSArray arrayWithObject:currentFolderObject] arrayByAddingObjectsFromArray:[fileObjects objectsAtIndexes:folderIndexes]];
