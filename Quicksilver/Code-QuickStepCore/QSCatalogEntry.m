@@ -528,17 +528,10 @@ NSDictionary *enabledPresetDictionary;*/
 #endif
 		return;
 	} else {
-        __block NSArray *itemContents = nil;
-        // Use a serial queue to do the grunt of the scan work. Ensures that no more than one thread can scan at any one time.
-        runOnQueueSync(scanQueue, ^{
-            [self setIsScanning:YES];
-            NSString *ID = [self identifier];
-            NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-            [nc postNotificationName:QSCatalogEntryIsIndexing object:self];
-            id source = [self source];
-            if ([source respondsToSelector:@selector(loadObjectsForEntry:)]) {
-                // initiate scanning for this entry
-                // objects won't be available immediately
+        id source = [self source];
+        if ([source respondsToSelector:@selector(loadObjectsForEntry:)]) {
+            // asynchronous source - objects won't be available immediately
+            dispatch_async(dispatch_get_main_queue(), ^{
                 @try {
                     BOOL scanStarted = [source loadObjectsForEntry:self];
                     if (!scanStarted) {
@@ -552,8 +545,15 @@ NSDictionary *enabledPresetDictionary;*/
                     // clean up and finish the scanning process
                     [self completeScanWithContents:nil];
                 }
-            } else {
-                // legacy object source
+            });
+        } else {
+            __block NSArray *itemContents = nil;
+            // Use a serial queue to do the grunt of the scan work. Ensures that no more than one thread can scan at any one time.
+            runOnQueueSync(scanQueue, ^{
+                [self setIsScanning:YES];
+                NSString *ID = [self identifier];
+                NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+                [nc postNotificationName:QSCatalogEntryIsIndexing object:self];
                 // objects come back immediately and are the app's responsibility
                 itemContents = [self scannedObjects];
                 if (itemContents && ID) {
@@ -563,8 +563,8 @@ NSDictionary *enabledPresetDictionary;*/
                     // contents were empty
                     [self completeScanWithContents:nil];
                 }
-            }
-        });
+            });
+        }
     }
 }
 
@@ -616,11 +616,13 @@ NSDictionary *enabledPresetDictionary;*/
 
 - (void)completeScanWithContents:(NSArray *)newContents
 {
-    [self willChangeValueForKey:@"self"];
-    [self setContents:newContents];
-    [self setIsScanning:NO];
-    [self didChangeValueForKey:@"self"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryIndexed object:self];
+    runOnQueueSync(scanQueue, ^{
+        [self willChangeValueForKey:@"self"];
+        [self setContents:newContents];
+        [self setIsScanning:NO];
+        [self didChangeValueForKey:@"self"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryIndexed object:self];
+    });
     [self saveIndex];
 }
 
