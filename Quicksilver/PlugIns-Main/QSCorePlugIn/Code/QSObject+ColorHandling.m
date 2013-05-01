@@ -28,6 +28,7 @@
 	[roundRect fill];
 	[image unlockFocus];
 	[object setIcon:image];
+    [object setRetainsIcon:YES];
 	[image release];
 	return YES;
 }

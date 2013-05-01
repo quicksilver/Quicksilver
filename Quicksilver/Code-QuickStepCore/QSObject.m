@@ -97,7 +97,7 @@ NSSize QSMaxIconSize;
 
     @synchronized(iconLoadedSet) {
         NSSet *s = [iconLoadedSet objectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *obj, BOOL *stop) {
-            return obj->lastAccess && obj->lastAccess < (globalLastAccess - interval) && ![obj isKindOfClass:[QSAction class]];
+            return obj->lastAccess && obj->lastAccess < (globalLastAccess - interval);
         }];
         for(QSObject *thisObject in s) {
             if ([thisObject unloadIcon]) {
