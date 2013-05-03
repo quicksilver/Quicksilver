@@ -137,7 +137,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	if ([theFiles count] == 1) {
 		// it's a single file
 		// use basic file type icon temporarily
-		theImage = [[NSWorkspace sharedWorkspace] iconForFile:[theFiles lastObject]];
+        NSString *extension = [object fileExtension];
+		theImage = [[NSWorkspace sharedWorkspace] iconForFileType:extension];
 	} else {
 		// it's a combined object, containing multiple files
 		NSMutableSet *set = [NSMutableSet set];
@@ -199,6 +200,11 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
                 }
             }
         }
+    }
+    if (!theImage) {
+        // previews are disabled or couldn't be loaded
+        // use the file's actual icon
+        theImage = [[NSWorkspace sharedWorkspace] iconForFiles:[object arrayForType:QSFilePathType]];
     }
     if (theImage) {
         // update the UI with the new icon
