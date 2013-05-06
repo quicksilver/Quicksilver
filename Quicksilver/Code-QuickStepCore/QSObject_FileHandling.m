@@ -137,8 +137,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	if ([theFiles count] == 1) {
 		// it's a single file
 		// use basic file type icon temporarily
-        NSString *extension = [object fileExtension];
-		theImage = [[NSWorkspace sharedWorkspace] iconForFileType:extension];
+        NSString *type = [object isFolder] ? @"'fold'" : [object fileExtension];
+        theImage = [[NSWorkspace sharedWorkspace] iconForFileType:type];
 	} else {
 		// it's a combined object, containing multiple files
 		NSMutableSet *set = [NSMutableSet set];
