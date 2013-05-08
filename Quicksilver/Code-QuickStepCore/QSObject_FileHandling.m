@@ -205,6 +205,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
         theImage = [self prepareImageforIcon:theImage];
         [object setIcon:theImage];
         return YES;
+    } else {
+        [object setRetainsIcon:YES];
     }
     return NO;
 }

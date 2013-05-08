@@ -411,6 +411,7 @@ static BOOL gModifiersAreIgnored;
     }
 	if (icon) {
 		[object setIcon:icon];
+        [object setRetainsIcon:YES];
 		return YES;
 	} else
 		return NO;
