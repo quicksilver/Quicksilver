@@ -426,7 +426,6 @@ static CGFloat searchSpeed = 0.0;
 	if (DEBUG_CATALOG)
 		NSLog(@"Indexes loaded (%fms) ", (-[date timeIntervalSinceNow] *1000));
 #endif
-    [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryIndexed object:nil];
 	
   if (invalidIndexes) [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scanInvalidIndexes) name:NSApplicationDidFinishLaunchingNotification object:nil];
 	return indexesValid;
