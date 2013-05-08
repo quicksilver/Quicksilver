@@ -96,7 +96,7 @@ typedef enum QSSearchMode {
 
 - (void)clearObjectValue;
 - (void)moveSelectionBy:(NSInteger)d;
-- (void)selectObjectValue:( QSObject *)newObject ;
+- (void)selectObjectValue:(id)newObject ;
 - (void)pageScroll:(NSInteger)direction;
 
 - (NSMutableArray *)sourceArray;
