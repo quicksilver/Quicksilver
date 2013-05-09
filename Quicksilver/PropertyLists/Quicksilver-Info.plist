@@ -2,8 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>QSReleaseStatus</key>
-	<integer>0</integer>
+	<key>LSUIElement</key>
+	<true/>
 	<key>CFBundleName</key>
 	<string>${PRODUCT_NAME}</string>
 	<key>NSHumanReadableCopyright</key>
@@ -18,6 +18,8 @@
 	<string>QSApp</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
+	<key>CFBundleShortVersionString</key>
+	<string>${QS_INFO_VERSION}</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -127,8 +129,6 @@
 	<string>APPL</string>
 	<key>CFBundleIconFile</key>
 	<string>Quicksilver</string>
-	<key>CFBundleShortVersionString</key>
-	<string>${QS_INFO_VERSION}</string>
 	<key>CFBundleHelpBookName</key>
 	<string>Quicksilver Help</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -229,34 +229,18 @@
 			</dict>
 			<key>NSRequiredContext</key>
 			<dict/>
-			<key>NSSendFileTypes</key>
-			<array>
-				<string>public.data</string>	
-			</array>					
 			<key>NSSendTypes</key>
 			<array>
-				<string>NSFilenamesPboardType</string>
-				<string>NSFileContentsPboardType</string>
-				<string>NSFontPboardType</string>
-				<string>NSColorPboardType</string>
-				<string>NSHTMLPboardType</string>
-				<string>NSPDFPboardType</string>
-				<string>NSPICTPboardType</string>
-				<string>NSPostScriptPboardType</string>
-				<string>NSRulerPboardType</string>
-				<string>NSRTFPboardType</string>
-				<string>NSRTFDPboardType</string>
-				<string>NSStringPboardType</string>
-				<string>NSTabularTextPboardType</string>
-				<string>NSTIFFPboardType</string>
-				<string>NSURLPboardType</string>
-				<string>NSVCardPboardType</string>
-				<string>NSFilesPromisePboardType</string>
+				<string>public.item</string>
 			</array>
 			<key>NSPortName</key>
 			<string>Quicksilver</string>
 			<key>NSTimeout</key>
 			<string>10000</string>
+			<key>NSSendFileTypes</key>
+			<array>
+				<string>public.data</string>
+			</array>
 			<key>NSUserData</key>
 			<string>GetSelection</string>
 			<key>NSMessage</key>
@@ -268,7 +252,7 @@
 			</dict>
 		</dict>
 	</array>
-	<key>LSUIElement</key>
-	<true/>
+	<key>QSReleaseStatus</key>
+	<integer>0</integer>
 </dict>
 </plist>

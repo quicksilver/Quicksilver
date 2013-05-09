@@ -4,7 +4,12 @@
 
 @interface QSAction : QSObject {
 	NSInteger rank;
+    NSArray *directTypes;
+    NSArray *indirectTypes;
 }
+
+@property NSMutableArray *directTypes;
+@property NSMutableArray *indirectTypes;
 #if 0
 + (void)setModifiersAreIgnored:(BOOL)flag;
 + (BOOL)modifiersAreIgnored;

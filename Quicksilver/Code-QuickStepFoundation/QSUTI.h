@@ -13,3 +13,5 @@ NSString *QSUTIOfURL(NSURL *url);
 NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec);
 NSString *QSUTIForAnyTypeString(NSString *type);
 NSString *QSUTIForExtensionOrType(NSString *extension, OSType filetype);
+NSString *QSUTIForPBoardType(NSString *uti);
+NSString *QSUTIForPBoardTypeConformingTo(NSString *uti, NSString *conformingTag);

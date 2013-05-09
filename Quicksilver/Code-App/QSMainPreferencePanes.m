@@ -390,7 +390,7 @@
 		case 0: {
 			for(id category in categories) {
 				NSString *type = [category objectForKey:@"group"];
-				[newActions addObjectsFromArray: ([type isEqual:kQSAllActionsCategory])?[QSExec actions]:[QSExec actionsArrayForType:type] ];
+				[newActions addObjectsFromArray: ([type isEqual:kQSAllActionsCategory])?[QSExec actions]:[[QSExec actionsArrayForType:type] allObjects]];
 			}
 			break;
 		}

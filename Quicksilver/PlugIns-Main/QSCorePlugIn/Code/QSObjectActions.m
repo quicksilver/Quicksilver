@@ -192,7 +192,7 @@
 		return nil;
 	} else {
 	QSObject *textObject = [QSObject textProxyObjectWithDefaultValue:@""];
-	return [NSArray arrayWithObject:textObject]; //[[QSLibrarian sharedInstance]arrayForType:NSFilenamesPboardType];
+	return [NSArray arrayWithObject:textObject];
 	}
 }
 

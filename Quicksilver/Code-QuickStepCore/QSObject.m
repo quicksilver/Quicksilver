@@ -351,7 +351,12 @@ NSSize QSMaxIconSize;
 }
 
 - (id)handlerForType:(NSString *)type selector:(SEL)selector {
-	id handler = [[QSReg objectHandlers] objectForKey:type];
+    id handler = nil;
+    for (NSString *aKey in [[QSReg objectHandlers] allKeys]) {
+        if (UTTypeConformsTo((CFStringRef)type, (CFStringRef)aKey)) {
+            handler = [[QSReg objectHandlers] objectForKey:aKey];
+        }
+    }
 //    if(DEBUG && VERBOSE && handler == nil)
 //        NSLog(@"No handler for type %@", type);
     
@@ -419,7 +424,12 @@ NSSize QSMaxIconSize;
 	//- (void)setObject:(id)object forKey:(id)aKey {[data setObject:object forKey:aKey];}
 
 - (id)_safeObjectForType:(id)aKey {
-  return [data objectForKey:aKey];
+    for (NSString *key in [data allKeys]) {
+        if (UTTypeConformsTo((CFStringRef)key, (CFStringRef)aKey)) {
+            return [data objectForKey:key];
+        }
+    }
+    return nil;
 #if 0
 	if (flags.multiTyped)
 		return[data objectForKey:aKey];

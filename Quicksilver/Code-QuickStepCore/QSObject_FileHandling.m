@@ -137,7 +137,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	if ([theFiles count] == 1) {
 		// it's a single file
 		// use basic file type icon temporarily
-		theImage = [[NSWorkspace sharedWorkspace] iconForFile:[theFiles lastObject]];
+		theImage = [[NSWorkspace sharedWorkspace] iconForFileType:[object singleFileType]];
 	} else {
 		// it's a combined object, containing multiple files
 		NSMutableSet *set = [NSMutableSet set];
@@ -575,8 +575,11 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	if (self = [self init]) {
 		if ([paths count] == 1) {
 			NSString *path = [paths lastObject];
-			[[self dataDictionary] setObject:path forKey:QSFilePathType];
+            [[self dataDictionary] setObject:path forKey:QSFilePathType];
 			NSString *uti = [self fileUTI];
+            [[self dataDictionary] setObject:path forKey:uti];
+            [[self dataDictionary] removeObjectForKey:QSFilePathType];
+            [self setPrimaryType:uti];
 			id handler = [QSReg instanceForKey:uti inTable:@"QSFileObjectCreationHandlers"];
 			if (handler) {
 				if ([handler respondsToSelector:@selector(createFileObject:ofType:)])
@@ -588,9 +591,9 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			}
 		} else {
 			[[self dataDictionary] setObject:paths forKey:QSFilePathType];
+            [self setPrimaryType:QSFilePathType];
 		}
-		[QSObject registerObject:self withIdentifier:thisIdentifier];
-		[self setPrimaryType:QSFilePathType];
+		[self setIdentifier:thisIdentifier];
 		[self getNameFromFiles];
 	}
 	return self;
