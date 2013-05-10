@@ -607,7 +607,17 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     NSString *path = [self validSingleFilePath];
     if (!path)
         return nil;
-
+    
+    NSError *err = nil;
+    NSDictionary *res = [[NSURL fileURLWithPath:path] resourceValuesForKeys:@[NSURLVolumeURLKey,NSURLTypeIdentifierKey] error:&err];
+    if (err) {
+        NSLog(@"Error getting resource values for %@.\n%@",path,err);
+    }
+    NSNumber *isLocal;
+    [[res objectForKey:NSURLVolumeURLKey] getResourceValue:&isLocal forKey:NSURLVolumeIsLocalKey error:&err];
+    if (err) {
+        NSLog(@"Error getting is local key for %@.\n%@",[res objectForKey:NSURLVolumeURLKey],err);
+    }
 	/* Try to get information for this file */
     LSItemInfoRecord record;
     OSStatus status = LSCopyItemInfoForURL((CFURLRef)[NSURL fileURLWithPath:path], kLSRequestAllInfo, &record);
@@ -616,21 +626,15 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
         return nil;
     }
 
-	NSString *uti = QSUTIWithLSInfoRec(path, &record);
+	NSString *uti = [res objectForKey:NSURLTypeIdentifierKey];
     NSString *extension = [(NSString *)record.extension copy];
-    
-    /* local or network volume? does it support Trash? */
-    struct statfs sfsb;
-    statfs([path UTF8String], &sfsb);
-    NSString *device = [NSString stringWithCString:sfsb.f_mntfromname encoding:NSUTF8StringEncoding];
-    BOOL isLocal = [device hasPrefix:@"/dev/"];
     
 	/* Now build a dictionary with that record */
 	NSMutableDictionary *tempDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
 			[NSNumber numberWithUnsignedLong:record.flags], @"flags",
 			[NSValue valueWithOSType:record.filetype],     @"filetype",
 			[NSValue valueWithOSType:record.creator],      @"creator",
-            [NSNumber numberWithBool:isLocal],             @"localVolume",
+            [NSNumber numberWithBool:[isLocal boolValue]],             @"localVolume",
 			nil];
     if (uti) {
         [tempDict setObject:uti forKey:@"uti"];
