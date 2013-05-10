@@ -101,5 +101,5 @@ NSString *QSUTIForPBoardTypeConformingTo(NSString *pboardType, NSString *conform
         // NSURLPboardType maps to dyn.agu8yc6durvwwaznwmuuha2pxsvw0e55bsmwca7d3sbwu since it is an *array* of URLs. We 'trick' QS into mapping it to public.url
         return (NSString *)kUTTypeURL;
     }
-    return (NSString*) UTTypeCreatePreferredIdentifierForTag(kUTTagClassNSPboardType,(CFStringRef)pboardType,(CFStringRef)conformingTag);
+    return [(NSString*) UTTypeCreatePreferredIdentifierForTag(kUTTagClassNSPboardType,(CFStringRef)pboardType,(CFStringRef)conformingTag) autorelease];
 }
