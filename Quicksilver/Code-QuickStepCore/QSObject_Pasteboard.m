@@ -88,21 +88,10 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 			[typeArray addObject:[thisType decodedPasteboardType]];
 		}
 	}
-	// NSLog(@"data:%@", [self dataDictionary]);
-	/*
-	 if (![[data allKeys] containsObject:NSURLPboardType]) {
-		 NSURL *getURL = [[NSURL URLFromPasteboard:pasteboard] absoluteString];
-		 if (getURL) {
-			 [data setObject:getURL forType:NSURLPboardType];
-			 NSLog(@"addingURL");
-		 }
-	 }
-	 */
 }
 
 - (id)initWithPasteboard:(NSPasteboard *)pasteboard types:(NSArray *)types {
 	if (self = [self init]) {
-		if (!types) types = [pasteboard types];
 
 		NSString *source = nil;
         NSString *sourceApp = nil;
@@ -142,11 +131,12 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 			[self guessName];
 		}
         if (![self name]) {
-            if ([self details]) {
-                [self setName:[NSString stringWithFormat:NSLocalizedString(@"%@ from %@",@"Details of unknown clipboard objects. Of the form 'Data from Application'. E.g. 'TIFF Image from Microsoft Word'"),[self details],sourceApp]];
+            if ([self objectForType:QSTextType]) {
+                [self setName:[self objectForType:QSTextType]];
             } else {
                 [self setName:NSLocalizedString(@"Unknown Clipboard Object", @"Name for an unknown clipboard object")];
             }
+            [self setDetails:[NSString stringWithFormat:NSLocalizedString(@"Unknown type from %@",@"Details of unknown clipboard objects. Of the form 'Unknown type from Application'. E.g. 'Unknown type from Microsoft Word'"),sourceApp]];
 
         }
 		[self loadIcon];
@@ -170,7 +160,6 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 		[self setPrimaryType:NSFilenamesPboardType];
 		[self getNameFromFiles];
 	} else {
-        // Sometimes no dataForType:NSStringPboardType exists, so fall back to using the word "text" (avoids a crash)
         NSString *textString = itemForKey(NSStringPboardType);
         // some objects (images from the web) don't have a text string but have a URL
         if (!textString) {
@@ -178,10 +167,15 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
         }
         textString = [textString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
-        NSArray *keys = [NSArray arrayWithObjects:[@"'icns'" encodedPasteboardType],NSPostScriptPboardType,NSTIFFPboardType,NSColorPboardType,NSFileContentsPboardType,NSFontPboardType,NSPasteboardTypeRTF,NSHTMLPboardType,NSRulerPboardType,NSTabularTextPboardType,NSVCardPboardType,NSFilesPromisePboardType,NSPDFPboardType,nil];
-        
-		NSDictionary *namesAndKeys = [NSDictionary dictionaryWithObjectsAndKeys:
-                                      textString ? textString : @"",                                                                           NSStringPboardType,
+		static NSDictionary *namesAndKeys = nil;
+        static NSArray *keys = nil;
+        if (!keys) {
+            // Use an array for the keys since the order is important
+            keys = [[NSArray arrayWithObjects:[@"'icns'" encodedPasteboardType],NSPostScriptPboardType,NSTIFFPboardType,NSColorPboardType,NSFileContentsPboardType,NSFontPboardType,NSPasteboardTypeRTF,NSHTMLPboardType,NSRulerPboardType,NSTabularTextPboardType,NSVCardPboardType,NSFilesPromisePboardType,NSPDFPboardType,QSTextType,nil] retain];
+
+        }
+        if (!namesAndKeys) {
+            namesAndKeys = [[NSDictionary dictionaryWithObjectsAndKeys:
                                       NSLocalizedString(@"PDF Image", @"Name of PDF image "),                               NSPDFPboardType,
                                       NSLocalizedString(@"PNG Image", @"Name of a PNG image object"),
                                       NSPasteboardTypePNG,
@@ -198,11 +192,16 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
                                       NSLocalizedString(@"Tabular Text", @"Name of Tabular text object"),                   NSTabularTextPboardType,
                                       NSLocalizedString(@"VCard Data", @"Name of VCard data object"),                       NSVCardPboardType,
                                       NSLocalizedString(@"Promised Files", @"Name of Promised files object"),               NSFilesPromisePboardType,
-                                      nil];
+                                      nil] retain];
+        }
 
         for (NSString *key in keys) {
 			if (itemForKey(key) ) {
-                [self setDetails:[namesAndKeys objectForKey:key]];
+                if ([key isEqualToString:QSTextType]) {
+                    [self setDetails:nil];
+                } else {
+                    [self setDetails:[namesAndKeys objectForKey:key]];
+                }
                 [self setPrimaryType:key];
                 [self setName:textString];
                 [self setIdentifier:[NSString stringWithFormat:@"%@:%@",key,[NSString uniqueString]]];
