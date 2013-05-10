@@ -151,7 +151,7 @@ typedef struct _QSObjectFlags {
 @end
 
 @interface QSObject (Hierarchy)
-- (QSBasicObject *) parent;
+- (QSObject *) parent;
 - (void)setParentID:(NSString *)parentID;
 - (BOOL)childrenValid;
 - (BOOL)unloadChildren;
@@ -179,6 +179,7 @@ typedef struct _QSObjectFlags {
 - (void)setIdentifier:(NSString *)newIdentifier;
 - (NSString *)name;
 - (void)setName:(NSString *)newName;
+- (QSObject *)parent;
 - (NSArray *)children;
 - (void)setChildren:(NSArray *)newChildren;
 - (NSArray *)altChildren;
