@@ -951,7 +951,6 @@ NSSize QSMaxIconSize;
 		[self setIcon:[[[NSImage alloc] initWithPasteboard:(NSPasteboard *)self] autorelease]];
 	}
     
-	// file type for sound clipping: clps
 	if (![self icon]) {
 		[self setIcon:[QSResourceManager imageNamed:@"GenericQuestionMarkIcon"]];
 		return NO;
@@ -987,8 +986,16 @@ NSSize QSMaxIconSize;
 		[self setIcon:[NSImage imageNamed:@"FadedDefaultBookmarkIcon"]];
 	}
     
-	else
+    if (!icon) {
+        // try and get an image from the QSTypeDefinitions dict
+        NSString *namedIcon = [[[QSReg tableNamed:@"QSTypeDefinitions"] objectForKey:[self primaryType]] objectForKey:@"icon"];
+        if (namedIcon) {
+            [self setIcon:[QSResourceManager imageNamed:namedIcon]];
+        }
+    }
+	if (!icon) {
 		[self setIcon:[QSResourceManager imageNamed:@"GenericQuestionMarkIcon"]];
+    }
     
 	if (icon) return icon;
 	return nil;

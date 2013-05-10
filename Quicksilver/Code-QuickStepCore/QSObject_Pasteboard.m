@@ -88,30 +88,21 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 			[typeArray addObject:[thisType decodedPasteboardType]];
 		}
 	}
-	// NSLog(@"data:%@", [self dataDictionary]);
-	/*
-	 if (![[data allKeys] containsObject:NSURLPboardType]) {
-		 NSURL *getURL = [[NSURL URLFromPasteboard:pasteboard] absoluteString];
-		 if (getURL) {
-			 [data setObject:getURL forType:NSURLPboardType];
-			 NSLog(@"addingURL");
-		 }
-	 }
-	 */
 }
 
 - (id)initWithPasteboard:(NSPasteboard *)pasteboard types:(NSArray *)types {
 	if (self = [self init]) {
-		if (!types) types = [pasteboard types];
 
-		NSString *source = @"Clipboard";
-		if (pasteboard == [NSPasteboard generalPasteboard])
-			source = [[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationBundleIdentifier"];
-		if ([source isEqualToString: @"com.microsoft.RDC"]) {
-			NSLog(@"Ignoring RDC Clipboard");
-			[self release];
-			return nil;
-		}
+		NSString *source = nil;
+        NSString *sourceApp = nil;
+        NSRunningApplication *currApp = [[NSWorkspace sharedWorkspace] frontmostApplication];
+		if (pasteboard == [NSPasteboard generalPasteboard]) {
+			source = [currApp bundleIdentifier];
+            sourceApp = [currApp localizedName];
+        } else {
+            source =  @"Clipboard";
+            sourceApp = source;
+        }
 
 		[self setDataDictionary:[NSMutableDictionary dictionaryWithCapacity:[[pasteboard types] count]]];
 		[self addContentsOfPasteboard:pasteboard types:types];
@@ -137,9 +128,17 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 		if ([self objectForType:kQSObjectPrimaryName])
 			[self setName:[self objectForType:kQSObjectPrimaryName]];
 		else {
-			[self setName:NSLocalizedString(@"Unknown Clipboard Object", @"Name for an unknown clipboard object")];
 			[self guessName];
 		}
+        if (![self name]) {
+            if ([self objectForType:QSTextType]) {
+                [self setName:[self objectForType:QSTextType]];
+            } else {
+                [self setName:NSLocalizedString(@"Unknown Clipboard Object", @"Name for an unknown clipboard object")];
+            }
+            [self setDetails:[NSString stringWithFormat:NSLocalizedString(@"Unknown type from %@",@"Details of unknown clipboard objects. Of the form 'Unknown type from Application'. E.g. 'Unknown type from Microsoft Word'"),sourceApp]];
+
+        }
 		[self loadIcon];
 	}
 	return self;
@@ -161,15 +160,27 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 		[self setPrimaryType:NSFilenamesPboardType];
 		[self getNameFromFiles];
 	} else {
-        // Sometimes no dataForType:NSStringPboardType exists, so fall back to using the word "text" (avoids a crash)
-        NSString *textString = [itemForKey(NSStringPboardType) stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSString *textString = itemForKey(NSStringPboardType);
+        // some objects (images from the web) don't have a text string but have a URL
         if (!textString) {
-            textString = NSLocalizedString(@"Text", @"Name of text object");
+            textString = itemForKey(NSURLPboardType);
         }
+        textString = [textString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
+		static NSDictionary *namesAndKeys = nil;
+        static NSArray *keys = nil;
+        if (!keys) {
+            // Use an array for the keys since the order is important
+            keys = [[NSArray arrayWithObjects:[@"'icns'" encodedPasteboardType],NSPostScriptPboardType,NSTIFFPboardType,NSColorPboardType,NSFileContentsPboardType,NSFontPboardType,NSPasteboardTypeRTF,NSHTMLPboardType,NSRulerPboardType,NSTabularTextPboardType,NSVCardPboardType,NSFilesPromisePboardType,NSPDFPboardType,QSTextType,nil] retain];
 
-		NSDictionary *namesAndKeys = [NSDictionary dictionaryWithObjectsAndKeys:
-                                      textString,                                                                           NSStringPboardType,
+        }
+        if (!namesAndKeys) {
+            namesAndKeys = [[NSDictionary dictionaryWithObjectsAndKeys:
                                       NSLocalizedString(@"PDF Image", @"Name of PDF image "),                               NSPDFPboardType,
+                                      NSLocalizedString(@"PNG Image", @"Name of a PNG image object"),
+                                      NSPasteboardTypePNG,
+                                      NSLocalizedString(@"RTF Text", @"Name of a RTF text object"),
+                                      NSPasteboardTypeRTF,
                                       NSLocalizedString(@"Finder Icon", @"Name of icon file object"),                       [@"'icns'" encodedPasteboardType],
                                       NSLocalizedString(@"PostScript Image", @"Name of PostScript image object"),           NSPostScriptPboardType,
                                       NSLocalizedString(@"TIFF Image", @"Name of TIFF image object"),                       NSTIFFPboardType,
@@ -181,11 +192,19 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
                                       NSLocalizedString(@"Tabular Text", @"Name of Tabular text object"),                   NSTabularTextPboardType,
                                       NSLocalizedString(@"VCard Data", @"Name of VCard data object"),                       NSVCardPboardType,
                                       NSLocalizedString(@"Promised Files", @"Name of Promised files object"),               NSFilesPromisePboardType,
-                                      nil];
+                                      nil] retain];
+        }
 
-        for (NSString *key in [namesAndKeys allKeys]) {
+        for (NSString *key in keys) {
 			if (itemForKey(key) ) {
-				[self setName:[namesAndKeys objectForKey:key]];
+                if ([key isEqualToString:QSTextType]) {
+                    [self setDetails:nil];
+                } else {
+                    [self setDetails:[namesAndKeys objectForKey:key]];
+                }
+                [self setPrimaryType:key];
+                [self setName:textString];
+                [self setIdentifier:[NSString stringWithFormat:@"%@:%@",key,[NSString uniqueString]]];
                 break;
             }
 		}
