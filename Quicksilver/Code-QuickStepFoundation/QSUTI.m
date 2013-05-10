@@ -34,7 +34,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 	if (infoRec->flags & kLSItemInfoIsVolume)
 		return (NSString *)kUTTypeVolume;
 
-	NSString *extensionUTI = [(NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (CFStringRef)extension, NULL) autorelease];
+	NSString *extensionUTI = [(NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (CFStringRef)extension, kUTTypeItem) autorelease];
 	if (extensionUTI && ![extensionUTI hasPrefix:@"dyn"])
 		return extensionUTI;
 
@@ -42,7 +42,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 	if (![hfsType length] && isDirectory)
 		return (NSString *)kUTTypeFolder;
 
-	NSString *hfsUTI = [(NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassOSType, (CFStringRef)hfsType, NULL) autorelease];
+	NSString *hfsUTI = [(NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassOSType, (CFStringRef)hfsType, kUTTypeItem) autorelease];
 	if (![hfsUTI hasPrefix:@"dyn"])
 		return hfsUTI;
 
@@ -88,3 +88,18 @@ NSString *QSUTIForInfoRec(NSString *extension, OSType filetype) {
 	return QSUTIForExtensionOrType(extension, filetype);
 }
 
+NSString *QSUTIForPBoardType(NSString *pboardType) {
+    return QSUTIForPBoardTypeConformingTo(pboardType, nil);
+}
+
+NSString *QSUTIForPBoardTypeConformingTo(NSString *pboardType, NSString *conformingTag) {
+    if ([pboardType rangeOfString:@"."].location != NSNotFound || [pboardType rangeOfString:@"*"].location != NSNotFound) {
+        // Assumes any string with a dot format is already a UTI, and we ignore wildcards *
+        return pboardType;
+    }
+    if ([pboardType isEqualToString:NSURLPboardType]) {
+        // NSURLPboardType maps to dyn.agu8yc6durvwwaznwmuuha2pxsvw0e55bsmwca7d3sbwu since it is an *array* of URLs. We 'trick' QS into mapping it to public.url
+        return (NSString *)kUTTypeURL;
+    }
+    return [(NSString*) UTTypeCreatePreferredIdentifierForTag(kUTTagClassNSPboardType,(CFStringRef)pboardType,(CFStringRef)conformingTag) autorelease];
+}

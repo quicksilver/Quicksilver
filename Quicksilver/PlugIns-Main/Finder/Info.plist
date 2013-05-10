@@ -133,7 +133,7 @@
 				<string>QSFinderProxy</string>
 				<key>types</key>
 				<array>
-					<string>NSFilenamesPboardType</string>
+					<string>public.item</string>
 				</array>
 			</dict>
 		</dict>

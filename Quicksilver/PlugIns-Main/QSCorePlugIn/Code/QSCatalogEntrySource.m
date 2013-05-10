@@ -156,7 +156,7 @@ static NSImage *prefsCatalogImage = nil;
 - (QSObject *)addCatalogEntry:(QSObject *)dObject {
     QSCatalogEntry *parentEntry = [[QSLibrarian sharedInstance] catalogCustom];
     
-    NSString *file = [[dObject objectForType:NSFilenamesPboardType] stringByStandardizingPath];
+    NSString *file = [[dObject objectForType:QSFilePathType] stringByStandardizingPath];
     NSString *uniqueString = [NSString uniqueString];
     
     NSMutableDictionary *childDict = [NSMutableDictionary dictionary];
@@ -166,7 +166,7 @@ static NSImage *prefsCatalogImage = nil;
     [childDict setObject:[file lastPathComponent] forKey:kItemName];
 	[childDict setObject:@"QSFileSystemObjectSource" forKey:kItemSource];
 
-    [childDict setObject:[dObject arrayForType:NSFilenamesPboardType] forKey:kItemPath];
+    [childDict setObject:[dObject arrayForType:QSFilePathType] forKey:kItemPath];
     [childDict setObject:[NSNumber numberWithFloat:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
     
     QSCatalogEntry *childEntry = [QSCatalogEntry entryWithDictionary:childDict];

@@ -41,7 +41,7 @@ extern QSExecutor *QSExec; // Shared Instance
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject;
 - (QSObject *)performAction:(NSString *)action directObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
 
-- (NSMutableArray *)actionsArrayForType:(NSString *)type;
+- (NSMutableSet *)actionsArrayForType:(NSString *)type;
 - (NSMutableArray *)getArrayForSource:(NSString *)sourceid;
 - (NSMutableArray *)makeArrayForSource:(NSString *)sourceid;
 

@@ -2,11 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>ABPeopleUIDsPboardType</key>
+	<key>public.contact</key>
 	<string>Contacts</string>
-	<key>Apple URL pasteboard type</key>
+	<key>public.url</key>
 	<string>URL</string>
-	<key>NSFilenamesPboardType</key>
+	<key>public.item</key>
 	<string>Files &amp; Folders</string>
 	<key>QSCatalogEntryPboardType</key>
 	<string>Catalog Entry</string>

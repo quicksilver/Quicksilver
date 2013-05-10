@@ -112,52 +112,38 @@ QSExecutor *QSExec = nil;
 	}
 }
 
-- (NSArray *)actionsForFileTypes:(NSArray *)types {
+- (NSArray *)actionsForTypes:(NSArray *)types {
 	NSMutableSet *set = [NSMutableSet set];
-	for (NSString *type in types) {
-        CFStringRef UTIDescription =  UTTypeCopyDescription((CFStringRef)type);
-        if (UTIDescription) {
-            CFRelease(UTIDescription);
-            UTIDescription = nil;
-            for (NSString *conformedType in [directObjectFileTypes allKeys]) {
-                if (UTTypeConformsTo((CFStringRef)type, (CFStringRef)conformedType)) {
-                    [set addObjectsFromArray:[directObjectFileTypes objectForKey:conformedType]];
-                }
-            }
-        } else {
-            [set addObjectsFromArray:[directObjectFileTypes objectForKey:type]];
-        }
-	}
-	[set addObjectsFromArray:[directObjectFileTypes objectForKey:@"*"]];
+    NSArray *keys = [directObjectTypes allKeys];
+    NSIndexSet *ind = [keys indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(NSString* actionType, NSUInteger idx, BOOL *stop) {
+        return [[types indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(NSString *dObjectType, NSUInteger idx, BOOL *stop) {
+            return UTTypeConformsTo((CFStringRef)dObjectType, (CFStringRef)actionType) && (![actionType isEqualToString:(NSString *)kUTTypeItem] || [dObjectType isEqualToString:(NSString*)kUTTypeItem]);
+        }] count];
+    }];
+    for (NSString *key in [keys objectsAtIndexes:ind]) {
+        [set unionSet:[directObjectTypes objectForKey:key]];
+    }
+	[set unionSet:[directObjectTypes objectForKey:@"*"]];
 	return [set allObjects];
 }
 
-- (NSArray *)actionsForTypes:(NSArray *)types fileTypes:(NSArray *)fileTypes {
-	NSMutableSet *set = [NSMutableSet set];
-	for (NSString *type in types) {
-		if ([type isEqualToString:QSFilePathType]) {
-			[set addObjectsFromArray:[self actionsForFileTypes:fileTypes]];
-		} else {
-			[set addObjectsFromArray:[directObjectTypes objectForKey:type]];
-		}
-	}
-	[set addObjectsFromArray:[directObjectTypes objectForKey:@"*"]];
-	return [set allObjects];
+- (NSMutableSet *)actionsArrayForType:(NSString *)type {
+    return [self actionsArrayForType:type store:NO];
 }
 
-
-- (NSMutableArray *)actionsArrayForType:(NSString *)type {
-	NSMutableArray *array = [directObjectTypes objectForKey:type];
-	if (!array)
-		[directObjectTypes setObject:(array = [NSMutableArray array]) forKey:type];
-	return array;
-}
-
-- (NSMutableArray *)actionsArrayForFileType:(NSString *)type {
-	NSMutableArray *array = [directObjectFileTypes objectForKey:type];
-	if (!array)
-		[directObjectFileTypes setObject:(array = [NSMutableArray array]) forKey:type];
-	return array;
+- (NSMutableSet *)actionsArrayForType:(NSString *)type store:(BOOL)store {
+    NSMutableSet *set = [NSMutableSet set];
+    NSArray *keys = [directObjectTypes allKeys];
+    NSIndexSet *ind = [keys indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(NSString* actionType, NSUInteger idx, BOOL *stop) {
+        return !store ? UTTypeConformsTo((CFStringRef)actionType, (CFStringRef)type) :UTTypeConformsTo((CFStringRef)type, (CFStringRef)actionType);
+    }];
+    for (NSString *key in [keys objectsAtIndexes:ind]) {
+        [set unionSet:[directObjectTypes objectForKey:key]];
+    }
+    if (store) {
+        [directObjectTypes setObject:set forKey:type];
+    }
+    return set;
 }
 
 - (void)addActions:(NSArray *)actions {
@@ -219,20 +205,13 @@ QSExecutor *QSExec = nil;
 	} else {
 		[action _setRank:index];
 	}
-	NSDictionary *actionDict = [action objectForType:QSActionType];
-	NSArray *directTypes = [actionDict objectForKey:kActionDirectTypes];
-	if (![directTypes count]) directTypes = [NSArray arrayWithObject:@"*"];
-	for (NSString *type in directTypes) {
-        [[self actionsArrayForType:type] addObject:action];
+	NSArray *directTypes = [action directTypes];
+	if (![directTypes count]) {
+        directTypes = [NSArray arrayWithObject:@"*"];
     }
-    
-	if ([directTypes containsObject:QSFilePathType]) {
-		directTypes = [actionDict objectForKey:kActionDirectFileTypes];
-		if (![directTypes count]) directTypes = [NSArray arrayWithObject:@"*"];
-		for (NSString *type in directTypes) {
-			[[self actionsArrayForFileType:type] addObject:action];
-		}
-	}
+	for (NSString *type in directTypes) {
+        [[self actionsArrayForType:type store:YES] addObject:action];
+    }
     if ([action bundle] && [[action bundle] bundleIdentifier]) {
         [[self makeArrayForSource:[[action bundle] bundleIdentifier]] addObject:action];	
     }
@@ -349,16 +328,11 @@ QSExecutor *QSExec = nil;
 
     NSMutableArray *validActions = [NSMutableArray arrayWithCapacity:1];
 	id aObject = nil;
-	NSArray *fileUTIAndType = nil;
-    // get the file type and UTI to check against an action's 'directFileTypes' array
-    if ([dObject singleFilePath]) {
-        fileUTIAndType = [NSArray arrayWithObjects:[dObject singleFileType],[[NSFileManager defaultManager] UTIOfFile:[dObject singleFilePath]],nil];
-    }
 
 	NSMutableDictionary *validatedActionsBySource = [NSMutableDictionary dictionary];
 	NSArray *validSourceActions;
 
-	NSArray *newActions = [self actionsForTypes:[dObject types] fileTypes:fileUTIAndType];
+	NSArray *newActions = [self actionsForTypes:[dObject types]];
 	BOOL isValid;
     
     for (QSAction *thisAction in newActions) {
@@ -389,7 +363,7 @@ QSExecutor *QSExec = nil;
 	// NSLog(@"Actions for %@:%@", [dObject name] , validActions);
 	if (![validActions count]) {
 		NSLog(@"unable to find actions for %@", actionIdentifiers);
-		NSLog(@"types %@ %@", [NSSet setWithArray:[dObject types]], fileUTIAndType);
+		NSLog(@"types %@", [dObject types]);
 	}
 	return [[validActions mutableCopy] autorelease];
 }

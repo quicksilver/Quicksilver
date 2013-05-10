@@ -60,9 +60,17 @@ static BOOL gModifiersAreIgnored;
     return obj;
 }
 
+-(void)dealloc {
+    [directTypes release];
+    [indirectTypes release];
+    [super dealloc];
+}
+
 - (id)init {
 	if (self = [super init]) {
 		rank = 999999;
+        directTypes = nil;
+        indirectTypes = nil;
 	}
 	return self;
 }
@@ -255,27 +263,59 @@ static BOOL gModifiersAreIgnored;
 }
 
 - (NSArray*)directTypes {
-    return [[self actionDict] objectForKey:kActionDirectTypes];
+    if (!directTypes) {
+        NSMutableSet *s = [self typesForKey:kActionDirectTypes];
+        [self setDirectTypes:[s allObjects]];
+    }
+    return directTypes;
 }
 
 - (void)setDirectTypes:(NSArray*)types {
-    [[self actionDict] setObject:types forKey:kActionDirectTypes];
+    if (types != directTypes) {
+        [directTypes release];
+        directTypes = [types retain];
+    }
+    [[self actionDict] setObject:directTypes forKey:kActionDirectTypes];
 }
 
 - (NSArray*)directFileTypes {
-    return [[self actionDict] objectForKey:kActionDirectFileTypes];
+    NSLog(@"Direct file types key is deprecated, use directTypes instead");
+    return [self directTypes];
 }
 
 - (void)setDirectFileTypes:(NSArray *)types {
-    [[self actionDict] setObject:types forKey:kActionDirectFileTypes];
+    NSLog(@"Direct file types key is deprecated, use UTIs in the 'directTypes' key directly");
+    [self setDirectTypes:types];
 }
 
 - (NSArray*)indirectTypes {
-    return [[self actionDict] objectForKey:kActionIndirectTypes];
-}
+    if (!indirectTypes) {
+        NSMutableSet *s = [self typesForKey:kActionIndirectTypes];
+        [self setIndirectTypes:[s allObjects]];
+    }
+    return directTypes;}
 
 - (void)setIndirectTypes:(NSArray*)types {
-    [[self actionDict] setObject:types forKey:kActionIndirectTypes];
+    if (types != indirectTypes) {
+        [indirectTypes release];
+        indirectTypes = [types retain];
+    }
+    [[self actionDict] setObject:directTypes forKey:kActionIndirectTypes];
+}
+
+- (NSMutableSet *)typesForKey:(NSString *)key {
+    NSMutableSet *s = [[NSMutableSet alloc] init];
+    
+    for (NSString *type in [[self actionDict] objectForKey:key]) {
+        if ([key isEqual:kActionDirectTypes] && [type isEqualToString:NSFilenamesPboardType]) {
+            for (NSString *fileType in [[self actionDict] objectForKey:kActionDirectFileTypes]) {
+                [s addObject:QSUTIForPBoardTypeConformingTo(fileType, @"public.item")];
+            }
+            continue;
+        }
+        [s addObject:QSUTIForPBoardType(type)];
+    }
+    return [s autorelease];
 }
 
 - (NSArray*)resultTypes {
