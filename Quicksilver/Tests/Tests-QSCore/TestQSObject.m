@@ -124,6 +124,15 @@
     STAssertEqualObjects([object label], @"Safari", nil);
 }
 
+- (void)testFileType
+{
+    NSString *path = @"/usr/bin/2to3";
+    QSObject *object = [QSObject fileObjectWithPath:path];
+    NSString *type = [object fileUTI];
+    NSLog(@"type: %@", type);
+    STAssertEqualObjects(type, @"public.python-script", nil);
+}
+
 - (void)testCombinedObjects
 {
     QSObject *one = [QSObject objectWithString:@"one"];
