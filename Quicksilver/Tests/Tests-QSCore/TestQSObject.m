@@ -129,8 +129,9 @@
     NSString *path = @"/usr/bin/2to3";
     QSObject *object = [QSObject fileObjectWithPath:path];
     NSString *type = [object fileUTI];
-    NSLog(@"type: %@", type);
     STAssertEqualObjects(type, @"public.python-script", nil);
+    QSObject *ls = [QSObject fileObjectWithPath:@"/bin/ls"];
+    STAssertTrue(UTTypeConformsTo((CFStringRef)[ls fileUTI], (CFStringRef)@"public.executable"), @"/bin/ls does not conform to public.executable");
 }
 
 - (void)testCombinedObjects
