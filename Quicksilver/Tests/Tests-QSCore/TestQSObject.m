@@ -58,7 +58,7 @@
         STAssertTrue([object containsType:QSURLType] && [[object primaryType] isEqualToString:QSURLType], @"'%@' was not recognized as a URL", url);
     }
     
-    NSArray *shouldNotBeURL = @[@"ordinary text", @"localhost:", @"http://localhost:", @"host.invalid.topleveldomain", @"http://host.invalid.topleveldomain", @".co.uk"];
+    NSArray *shouldNotBeURL = @[@"ordinary text", @"localhost:", @"http://localhost:", @"host.invalid.topleveldomain", @"http://host.invalid.topleveldomain", @".co.uk", @"abcdefg\nhttp://qsapp.com/"];
     for (NSString *text in shouldNotBeURL) {
         QSObject *object = [QSObject objectWithString:text];
         STAssertTrue([[object primaryType] isEqualToString:QSTextType], @"'%@' was not recognized as plain text", text);
