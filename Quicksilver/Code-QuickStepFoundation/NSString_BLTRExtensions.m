@@ -341,6 +341,26 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	return array;
 }
 
+- (NSArray *) componentsSeparatedByLineSeparators
+{
+	NSMutableArray *result	= [NSMutableArray array];
+	NSRange range = NSMakeRange(0,0);
+	NSUInteger start, end, contentsEnd = 0;
+    
+	while (contentsEnd < [self length])
+	{
+		[self getLineStart:&start end:&end contentsEnd:&contentsEnd forRange:range];
+        NSString *line = [self substringWithRange:NSMakeRange(start,contentsEnd-start)];
+        if ([line length]) {
+            // only add the line if it's got any content on it
+            [result addObject:[self substringWithRange:NSMakeRange(start,contentsEnd-start)]];
+        }
+		range.location = end;
+		range.length = 0;
+	}
+	return result;
+}
+
 - (NSString *)subStringByResolvingWildcardsInPath {
 	NSRange index = [self rangeOfString:@"*"];
 	NSString *resolved;
