@@ -74,6 +74,18 @@
 
 @end
 
+@implementation NSArray (Enumeration)
+
+- (NSArray *)arrayByEnumeratingArrayUsingBock:(id (^)(id obj))block {
+    NSMutableArray *arr = [NSMutableArray arrayWithCapacity:[self count]];
+    for (id obj in self) {
+        [arr addObject:block(obj)];
+    }
+    return [NSArray arrayWithArray:arr];
+}
+
+@end
+
 @implementation NSObject (BLTRArrayPerform)
 
 + (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(id)array returnValues:(BOOL)flag {
