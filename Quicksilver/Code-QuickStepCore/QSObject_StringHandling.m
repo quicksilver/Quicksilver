@@ -34,17 +34,35 @@
 	NSString *name = [[[object stringValue] lines] objectAtIndex:0];
 	return [name stringByAppendingPathExtension:@"txt"];
 }
-- (BOOL)objectHasChildren:(QSObject *)object { return NO;  }
+- (BOOL)objectHasChildren:(QSObject *)object {
+    NSString *str = [object objectForType:QSTextType];
+    return [[str componentsSeparatedByLineSeparators] count] > 1;
+}
+
+- (BOOL)loadChildrenForObject:(QSObject *)object {
+    NSArray *lines = [[object objectForType:QSTextType] componentsSeparatedByLineSeparators];
+    [object setChildren:[lines arrayByEnumeratingArrayUsingBock:^id(NSString *str) {
+        QSObject *obj = [QSObject objectWithString:str];
+        [obj setParentID:[object identifier]];
+        return obj;
+    }]];
+    return YES;
+}
+
 - (void)setQuickIconForObject:(QSObject *)object { [object setIcon:[[NSWorkspace sharedWorkspace] iconForFileType:@"'clpt'"]];  }
 - (BOOL)loadIconForObject:(QSObject *)object { return NO;  }
-- (NSString *)identifierForObject:(QSObject *)object { return nil;  }
-- (BOOL)loadChildrenForObject:(QSObject *)object { return NO;  }
-- (NSString *)detailsOfObject:(QSObject *)object { return nil;  }
+- (NSString *)identifierForObject:(QSObject *)object { return [NSString stringWithFormat:@"QSStringObject:%@",[object objectForType:QSTextType]];
+}
+
+ - (NSString *)detailsOfObject:(QSObject *)object { return nil;  }
 @end
 
 @implementation QSObject (StringHandling)
 
-+ (id)objectWithString:(NSString *)string { return [[(QSObject *)[QSObject alloc] initWithString:string] autorelease];  }
++ (id)objectWithString:(NSString *)string {
+    return [[(QSObject *)[QSObject alloc] initWithString:string] autorelease];
+}
+
 - (id)initWithString:(NSString *)string {
     if (![string length]) {
 		[self release];
@@ -60,7 +78,9 @@
 	return self;
 }
 
-- (id)dataForObject:(QSObject *)object pasteboardType:(NSString *)type { return [object objectForType:type];  }
+- (id)dataForObject:(QSObject *)object pasteboardType:(NSString *)type {
+    return [object objectForType:type];
+}
 
 - (void)sniffString {
 	NSString *stringValue = [self objectForType:QSTextType];
