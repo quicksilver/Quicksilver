@@ -436,10 +436,8 @@ NSSize QSMaxIconSize;
 	NSArray *object = (NSArray *)[self _safeObjectForType:aKey];
 	if ([object isKindOfClass:[NSArray class]]) {
 		if ([object count] == 1) return [object lastObject];
-	} else {
-		return object;
 	}
-	return nil;
+    return object;
 }
 - (NSArray *)arrayForType:(id)aKey {
 	id object = [self _safeObjectForType:aKey];

@@ -69,7 +69,7 @@
         QSObject *email = [QSObject objectWithString:mailto];
         STAssertTrue([[email primaryType] isEqualToString:QSEmailAddressType], @"'%@' was not recongnized as an e-mail address", mailto);
     }
-    NSArray *shouldNotBeEmail = @[@"mailto:invalid address", @"example@fake."];
+    NSArray *shouldNotBeEmail = @[@"mailto:invalid address", @"example@fake.", @"invalid email@validdomain.com", @"mailto:@domain.com", @"mailto:helpme@.com"];
     for (NSString *mailto in shouldNotBeEmail) {
         QSObject *email = [QSObject objectWithString:mailto];
         STAssertTrue([[email primaryType] isEqualToString:QSTextType], @"'%@' should not be treated as an e-mail address", mailto);
@@ -85,6 +85,7 @@
     NSDictionary *objectsAndTypes = @{
         @"QSUnitTestStringType": @"string",
         @"QSUnitTestDictionaryType": @{@"key": @"value"},
+        @"QSUnitTestArraySingleValueType" : @[@"alone"],
         @"QSUnitTestArrayType": @[@"one", @"two", @"three"],
         @"QSUnitTestExoticType": [NSImage imageNamed:NSImageNameUser]
     };
@@ -93,7 +94,11 @@
         id originalObject = [objectsAndTypes objectForKey:type];
         [object setObject:originalObject forType:type];
         id storedObject = [object objectForType:type];
-        STAssertEqualObjects(storedObject, originalObject, @"Stored object doesn't match original object. Class: '%@'", [originalObject class]);
+        if ([originalObject isKindOfClass:[NSArray class]] && [originalObject count] == 1) {
+            STAssertEqualObjects([originalObject lastObject], storedObject, @"Stored arrays with a single object should return the single object as opposed to the array. (p_j_r doesn't know why");
+        } else {
+            STAssertEqualObjects(storedObject, originalObject, @"Stored object doesn't match original object. Class: '%@'", [originalObject class]);
+        }
     }
 }
 

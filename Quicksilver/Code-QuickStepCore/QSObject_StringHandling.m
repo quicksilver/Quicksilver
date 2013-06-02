@@ -122,11 +122,7 @@
 	// trimWhitespace calls a CFStringTrimWhitespace to remove whitespace from start and end of string
 	stringValue = [stringValue trimWhitespace];
 	
-	// Email address
-	if ([stringValue hasPrefix:@"mailto:"]) {
-		[self assignURLTypesWithURL:stringValue];
-		return;
-	}
+
     // JavaScript
 	if ([stringValue hasPrefix:@"javascript:"]) {
 		[self assignURLTypesWithURL:stringValue];
@@ -146,9 +142,33 @@
 	NSString *urlString = [self cleanQueryURL:stringValue];
     
     // @ sign but NO /, -> email address
-    if (([stringValue rangeOfString:@"@"] .location != NSNotFound && [stringValue rangeOfString:@"/"] .location == NSNotFound)) {
+    if (([stringValue rangeOfString:@"@"] .location != NSNotFound && [stringValue rangeOfString:@"/"].location == NSNotFound)) {
+        // no spaces are allowed anywhere in email addresses
+        if ([stringValue rangeOfCharacterFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].location != NSNotFound) {
+            return NO;
+        }
+        NSArray *components = [stringValue componentsSeparatedByString:@"@"];
+        if ([components count] > 2 || ![[components objectAtIndex:0] length] || ![[components lastObject] length]) {
+            // only one @ symbol allowed in email addresses, and both parts must have a length
+            return NO;
+        }
+        NSArray *hostParts = [[components lastObject] componentsSeparatedByString:@"."];
+        NSIndexSet *emptyHostParts = [hostParts indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(NSString *part, NSUInteger idx, BOOL *stop) {
+            return [part length] == 0;
+        }];
+        if ([emptyHostParts count]) {
+            return NO;
+        }
+        NSString *preAtString = [components objectAtIndex:0];
+        if ([stringValue hasPrefix:@"mailto:"]) {
+            stringValue = [stringValue substringFromIndex:@"mailto:".length];
+            preAtString = [[components objectAtIndex:0] substringFromIndex:@"mailto:".length];
+        }
+        if (![preAtString length]) {
+            return NO;
+        }
         [self assignURLTypesWithURL:[@"mailto:" stringByAppendingString:stringValue]];
-        return NO;
+        return YES;
     } else {
         NSRange schemeRange = [stringValue rangeOfString:@"://"];
         NSString *scheme = nil;
