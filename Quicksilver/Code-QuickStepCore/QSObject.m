@@ -499,8 +499,10 @@ NSSize QSMaxIconSize;
 
 - (void)setObject:(id)object forCache:(id)aKey forTimeInterval:(NSTimeInterval)lifetime
 {
-    [self setObject:object forCache:aKey];
-    [self performSelector:@selector(expireCache:) withObject:aKey afterDelay:lifetime extend:YES];
+    runOnMainQueueSync(^{
+        [self setObject:object forCache:aKey];
+        [self performSelector:@selector(expireCache:) withObject:aKey afterDelay:lifetime extend:YES];
+    });
 }
 
 - (void)expireCache:(NSString *)aKey
