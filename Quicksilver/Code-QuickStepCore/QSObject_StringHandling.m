@@ -196,7 +196,7 @@
         NSString *host = [[[colonComponents objectAtIndex:0] componentsSeparatedByString:@"/"] objectAtIndex:0];
 
         NSArray *components = [host componentsSeparatedByString:@"."];
-        if (![host length] || [host rangeOfCharacterFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].location != NSNotFound || ![[components objectAtIndex:0] length]) {
+        if ([host rangeOfCharacterFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].location != NSNotFound || ![[components objectAtIndex:0] length]) {
             // Valid hosts must have no spaces, and must not be empty
             return NO;
         }
@@ -205,6 +205,9 @@
             [self assignURLTypesWithURL:urlString];
             [self setObject:host forType:QSRemoteHostsType];
             return YES;
+        }
+        if ([components count] == 1) {
+            return NO;
         }
         // initialise a static array of TLDs
         if(tldArray == nil) {
