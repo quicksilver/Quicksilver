@@ -141,7 +141,7 @@
 		[(QSSimpleWebWindowController *)cont openURL:[urlArray lastObject]];
 		[[cont window] makeKeyAndOrderFront:nil];
 	} else {*/
-		[[NSWorkspace sharedWorkspace] openURLs:urlArray withAppBundleIdentifier:[dObject objectForMeta:@"QSPreferredApplication"] options:0 additionalEventParamDescriptor:nil launchIdentifiers:nil];
+		[[NSWorkspace sharedWorkspace] openURLs:urlArray withAppBundleIdentifier:[dObject objectForCache:@"QSPreferredApplication"] options:0 additionalEventParamDescriptor:nil launchIdentifiers:nil];
 //	}
 	return nil;
 }
@@ -171,7 +171,7 @@
 	 [(QSSimpleWebWindowController *)cont openURL:[urlArray lastObject]];
 	 [[cont window] makeKeyAndOrderFront:nil];
 	 } else {*/
-	[[NSWorkspace sharedWorkspace] openURLs:urlArray withAppBundleIdentifier:[dObject objectForMeta:@"QSPreferredApplication"] options:NSWorkspaceLaunchWithoutActivation additionalEventParamDescriptor:nil launchIdentifiers:nil];
+	[[NSWorkspace sharedWorkspace] openURLs:urlArray withAppBundleIdentifier:[dObject objectForCache:@"QSPreferredApplication"] options:NSWorkspaceLaunchWithoutActivation additionalEventParamDescriptor:nil launchIdentifiers:nil];
 	//	}
 	return nil;
 }
@@ -375,13 +375,11 @@
             if (aliasFile && [manager fileExistsAtPath:aliasFile])
                 thisPath = aliasFile;
         }
-        NSString *fileHandler = [thisFile objectForMeta:@"QSPreferredApplication"];
+        NSString *fileHandler = [thisFile objectForCache:@"QSPreferredApplication"];
         if (fileHandler) {
 #ifdef DEBUG
             if (VERBOSE) NSLog(@"Using %@", fileHandler);
 #endif
-            // don't open with this app on subsequent calls
-            [thisFile setObject:nil forMeta:@"QSPreferredApplication"];
             [ws openFile:thisPath withApplication:[ws absolutePathForAppBundleWithIdentifier:fileHandler]];
         } else if (![mQSFSBrowser openFile:thisPath]) {  // try the File System Browser handler
             // fallback to the workspace manager
