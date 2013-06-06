@@ -144,12 +144,21 @@
 }
 
 - (BOOL)execute {
-    if(!activated)
+    if(!activated) {
         return NO;
-	[[self command] executeIgnoringModifiers];
-	if ([info objectForKey:@"oneshot"]) {
-		[self setEnabled:NO];
-	}
+    }
+    void (^block)(void) =  ^{
+        [[self command] executeIgnoringModifiers];
+        if ([info objectForKey:@"oneshot"]) {
+            [self setEnabled:NO];
+        }
+    };
+    if (defaultBool(kExecuteInThread)) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), block);
+    } else {
+        block();
+    }
+
 	return YES;
 }
 
