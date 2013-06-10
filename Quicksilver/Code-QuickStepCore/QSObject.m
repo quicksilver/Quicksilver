@@ -437,9 +437,11 @@ NSSize QSMaxIconSize;
 	if ([object isKindOfClass:[NSArray class]]) {
 		if ([object count] == 1) return [object lastObject];
 	} else {
-		return object;
-	}
-	return nil;
+        return object;
+    }
+    // if the object for type: aKey is an array, we return 'nil' (not the actual array)
+    // For those cases we use arrayForType
+    return nil;
 }
 - (NSArray *)arrayForType:(id)aKey {
 	id object = [self _safeObjectForType:aKey];

@@ -1808,6 +1808,8 @@
 			<integer>1</integer>
 			<key>validatesObjects</key>
 			<true/>
+            <key>alternateAction</key>
+            <string>FileOpenAction</string>
 			<key>actionClass</key>
 			<string>QSAppleScriptActions</string>
 			<key>directTypes</key>
