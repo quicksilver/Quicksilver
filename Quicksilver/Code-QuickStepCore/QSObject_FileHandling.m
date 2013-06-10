@@ -670,6 +670,18 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	return [self checkInfoRecordFlags:kLSItemInfoIsContainer];
 }
 
+- (QSObject *)resolvedAliasObject {
+    QSObject *resolved = self;
+    if ([self isAlias]) {
+        NSFileManager *manager = [NSFileManager defaultManager];
+        NSString *path = [manager resolveAliasAtPath:[self singleFilePath]];
+        if ([manager fileExistsAtPath:path]) {
+            resolved = [QSObject fileObjectWithPath:path];
+        }
+    }
+    return resolved;
+}
+
 - (BOOL)isFolder {
     return ([self isDirectory] && ![self isPackage]);
 }
