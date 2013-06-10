@@ -87,15 +87,20 @@
         @"QSUnitTestDictionaryType": @{@"key": @"value"},
         @"QSUnitTestArraySingleValueType" : @[@"alone"],
         @"QSUnitTestArrayType": @[@"one", @"two", @"three"],
-        @"QSUnitTestExoticType": [NSImage imageNamed:NSImageNameUser]
+        @"QSUnitTestExoticType": [NSImage imageNamed:NSImageNameUser],
+        @"QSUnitTestEmptyArrayType" : @[]
     };
     QSObject *object = [QSObject makeObjectWithIdentifier:@"QSUnitTest:objectType"];
     for (NSString *type in [objectsAndTypes allKeys]) {
         id originalObject = [objectsAndTypes objectForKey:type];
         [object setObject:originalObject forType:type];
         id storedObject = [object objectForType:type];
-        if ([originalObject isKindOfClass:[NSArray class]] && [originalObject count] == 1) {
-            STAssertEqualObjects([originalObject lastObject], storedObject, @"Stored arrays with a single object should return the single object as opposed to the array. (p_j_r doesn't know why");
+        if ([originalObject isKindOfClass:[NSArray class]]) {
+            if ([originalObject count] == 1) {
+                STAssertEqualObjects([originalObject lastObject], storedObject, @"Stored arrays with a single object should return the single object as opposed to the array. arrayForType: is used when an array is required");
+            } else if ([originalObject count] > 1 || [originalObject count] == 0) {
+                STAssertEqualObjects(nil, storedObject, @"objectForType: should return nil when attempting to retrieve an array or empty array. arrayForType: should be used to retrieve the array instead");
+            }
         } else {
             STAssertEqualObjects(storedObject, originalObject, @"Stored object doesn't match original object. Class: '%@'", [originalObject class]);
         }
