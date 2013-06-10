@@ -555,7 +555,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 #pragma mark -
 #pragma mark Object Value
-- (void)selectObjectValue:(QSObject *)newObject {
+- (void)selectObjectValue:(id)newObject {
     QSObject *currentObject = [self objectValue];
     
     // resolve the current and new objects in order to compare them
@@ -580,8 +580,7 @@ NSMutableDictionary *bindingsDict = nil;
     [self clearSearch];
     [parentStack removeAllObjects];
     [self setResultArray:[NSMutableArray arrayWithObjects:newObject, nil]];
-    [super setObjectValue:newObject];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
+    [self selectObjectValue:newObject];
 }
 
 - (void)clearObjectValue {
