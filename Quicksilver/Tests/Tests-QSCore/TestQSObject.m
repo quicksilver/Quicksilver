@@ -52,7 +52,7 @@
 
 - (void)testStringSniffing
 {
-    NSArray *shouldBeURL = @[@"localhost", @"localhost:1024", @"qsapp.com", @"http://qsapp.com/", @"http://hostname", @"http://qsapp.com:8080/path/"];
+    NSArray *shouldBeURL = @[@"localhost", @"localhost:1024", @"qsapp.com", @"http://qsapp.com/", @"http://hostname", @"http://qsapp.com:8080/path/", @"http://hostname.local/"];
     for (NSString *url in shouldBeURL) {
         QSObject *object = [QSObject objectWithString:url];
         STAssertTrue([object containsType:QSURLType] && [[object primaryType] isEqualToString:QSURLType], @"'%@' was not recognized as a URL", url);
