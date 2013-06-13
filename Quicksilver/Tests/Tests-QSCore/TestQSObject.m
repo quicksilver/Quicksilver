@@ -58,7 +58,7 @@
         STAssertTrue([object containsType:QSURLType] && [[object primaryType] isEqualToString:QSURLType], @"'%@' was not recognized as a URL", url);
     }
     
-    NSArray *shouldNotBeURL = @[@"ordinary text", @"localhost:", @"http://localhost:", @"host.invalid.topleveldomain", @"http://host.invalid.topleveldomain", @".co.uk", @"abcdefg\nhttp://qsapp.com/"];
+    NSArray *shouldNotBeURL = @[@"com", @".com", @"ordinary text", @"localhost:", @"http://localhost:", @"host.invalid.topleveldomain", @"http://host.invalid.topleveldomain", @".co.uk", @"abcdefg\nhttp://qsapp.com/"];
     for (NSString *text in shouldNotBeURL) {
         QSObject *object = [QSObject objectWithString:text];
         STAssertTrue([[object primaryType] isEqualToString:QSTextType], @"'%@' was not recognized as plain text", text);
@@ -69,7 +69,7 @@
         QSObject *email = [QSObject objectWithString:mailto];
         STAssertTrue([[email primaryType] isEqualToString:QSEmailAddressType], @"'%@' was not recongnized as an e-mail address", mailto);
     }
-    NSArray *shouldNotBeEmail = @[@"mailto:invalid address", @"example@fake."];
+    NSArray *shouldNotBeEmail = @[@"mailto:invalid address", @"example@fake.", @"invalid email@validdomain.com", @"mailto:@domain.com", @"mailto:helpme@.com"];
     for (NSString *mailto in shouldNotBeEmail) {
         QSObject *email = [QSObject objectWithString:mailto];
         STAssertTrue([[email primaryType] isEqualToString:QSTextType], @"'%@' should not be treated as an e-mail address", mailto);
@@ -85,15 +85,25 @@
     NSDictionary *objectsAndTypes = @{
         @"QSUnitTestStringType": @"string",
         @"QSUnitTestDictionaryType": @{@"key": @"value"},
+        @"QSUnitTestArraySingleValueType" : @[@"alone"],
         @"QSUnitTestArrayType": @[@"one", @"two", @"three"],
-        @"QSUnitTestExoticType": [NSImage imageNamed:NSImageNameUser]
+        @"QSUnitTestExoticType": [NSImage imageNamed:NSImageNameUser],
+        @"QSUnitTestEmptyArrayType" : @[]
     };
     QSObject *object = [QSObject makeObjectWithIdentifier:@"QSUnitTest:objectType"];
     for (NSString *type in [objectsAndTypes allKeys]) {
         id originalObject = [objectsAndTypes objectForKey:type];
         [object setObject:originalObject forType:type];
         id storedObject = [object objectForType:type];
-        STAssertEqualObjects(storedObject, originalObject, @"Stored object doesn't match original object. Class: '%@'", [originalObject class]);
+        if ([originalObject isKindOfClass:[NSArray class]]) {
+            if ([originalObject count] == 1) {
+                STAssertEqualObjects([originalObject lastObject], storedObject, @"Stored arrays with a single object should return the single object as opposed to the array. arrayForType: is used when an array is required");
+            } else if ([originalObject count] > 1 || [originalObject count] == 0) {
+                STAssertEqualObjects(nil, storedObject, @"objectForType: should return nil when attempting to retrieve an array or empty array. arrayForType: should be used to retrieve the array instead");
+            }
+        } else {
+            STAssertEqualObjects(storedObject, originalObject, @"Stored object doesn't match original object. Class: '%@'", [originalObject class]);
+        }
     }
 }
 
