@@ -51,7 +51,7 @@
 
 - (void)setQuickIconForObject:(QSObject *)object { [object setIcon:[[NSWorkspace sharedWorkspace] iconForFileType:@"'clpt'"]];  }
 - (BOOL)loadIconForObject:(QSObject *)object { return NO;  }
-- (NSString *)identifierForObject:(QSObject *)object { return [NSString stringWithFormat:@"QSStringObject:%@",[object objectForType:QSTextType]];
+- (NSString *)identifierForObject:(QSObject *)object { return [NSString stringWithFormat:@"%@-:-%@",QSTextType,[object objectForType:QSTextType]];
 }
 
  - (NSString *)detailsOfObject:(QSObject *)object { return nil;  }
@@ -59,7 +59,12 @@
 
 @implementation QSObject (StringHandling)
 
+    
 + (id)objectWithString:(NSString *)string {
+    NSString *stringIDPrefix = [NSString stringWithFormat:@"%@-:-",QSTextType];
+    if ([string hasPrefix:stringIDPrefix]) {
+        string = [string substringFromIndex:[stringIDPrefix length]];
+    }
     return [[(QSObject *)[QSObject alloc] initWithString:string] autorelease];
 }
 
