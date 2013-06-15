@@ -1712,7 +1712,6 @@ NSMutableDictionary *bindingsDict = nil;
 	QSBasicObject * parent = nil;
 	NSArray *siblings;
 
-    //  NSLog(@"child %d %d", [[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask, [[NSApp currentEvent] modifierFlags]);
     if (direction>0 && [newSelectedObject hasChildren] || alt) {
         //Should show childrenLevel
         newObjects = (alt?[newSelectedObject altChildren] :[newSelectedObject children]);

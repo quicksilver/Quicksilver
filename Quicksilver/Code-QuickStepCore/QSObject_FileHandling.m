@@ -234,6 +234,11 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			if (handlerName) {
                 return YES;
             }
+            // does the app have a QSBundleChildPresets? - define an existing preset to be the children of a given app
+            handlerName = [[QSReg tableNamed:@"QSBundleChildPresets"] objectForKey:bundleIdentifier];
+            if (handlerName) {
+                return YES;
+            }
             // Does the app have valid recent documents
             if (bundleIdentifier) {
                 NSDictionary *recentDocuments = (NSDictionary *)CFPreferencesCopyValue((CFStringRef) @"RecentDocuments",
