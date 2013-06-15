@@ -283,67 +283,77 @@ static CGFloat searchSpeed = 0.0;
 }
 
 - (void)reloadSource:(NSNotification *)notif {
-	  NSArray *entries = [entriesBySource objectForKey:[notif object]];
-	[scanTask setStatus:[NSString stringWithFormat:@"Reloading Index for %@", [entries lastObject]]];
-	[scanTask startTask:self];
-
-	for (id loopItem in entries) {
-		[loopItem scanForced:NO];
-	}
-	[scanTask stopTask:self];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        NSArray *entries = [entriesBySource objectForKey:[notif object]];
+        [scanTask setStatus:[NSString stringWithFormat:@"Reloading Index for %@", [entries lastObject]]];
+        [scanTask startTask:self];
+        
+        for (id loopItem in entries) {
+            [loopItem scanForced:NO];
+        }
+        [scanTask stopTask:self];
+     });
 }
 
 - (void)reloadEntrySources:(NSNotification *)notif {
-	NSArray *entries = [catalog leafEntries];
-	[entriesBySource removeAllObjects];
-
-	for (QSCatalogEntry *thisEntry in entries) {
-		NSString *source = [[thisEntry info] objectForKey:kItemSource];
-
-		NSMutableArray *sourceArray = [entriesBySource objectForKey:source];
-		if (!sourceArray) {
-			sourceArray = [NSMutableArray arrayWithCapacity:1];
-			if (source) [entriesBySource setObject:sourceArray forKey:source];
-		}
-
-		[sourceArray addObject:thisEntry];
-	}
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        NSArray *entries = [catalog leafEntries];
+        [entriesBySource removeAllObjects];
+        
+        for (QSCatalogEntry *thisEntry in entries) {
+            NSString *source = [[thisEntry info] objectForKey:kItemSource];
+            
+            NSMutableArray *sourceArray = [entriesBySource objectForKey:source];
+            if (!sourceArray) {
+                sourceArray = [NSMutableArray arrayWithCapacity:1];
+                if (source) [entriesBySource setObject:sourceArray forKey:source];
+            }
+            
+            [sourceArray addObject:thisEntry];
+        }
+    });
 }
 
-- (void)reloadEntry:(NSNotification *)notif
-{
-	QSCatalogEntry *entry = [self entryForID:[notif object]];
-	if (entry) {
-		[entry scanForced:NO];
-	}
+- (void)reloadEntry:(NSNotification *)notif {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        QSCatalogEntry *entry = [self entryForID:[notif object]];
+        if (entry) {
+            [entry scanForced:NO];
+        }
+    });
 }
 
 - (void)reloadIDDictionary:(NSNotification *)notif {
-	NSArray *entries = [catalog deepChildrenWithGroups:YES leaves:YES disabled:YES];
-	[entriesByID removeAllObjects];
-	for (QSCatalogEntry *thisEntry in entries) {
-		[entriesByID setObject:thisEntry forKey:[thisEntry identifier]];
-	}
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        NSArray *entries = [catalog deepChildrenWithGroups:YES leaves:YES disabled:YES];
+        [entriesByID removeAllObjects];
+        for (QSCatalogEntry *thisEntry in entries) {
+            [entriesByID setObject:thisEntry forKey:[thisEntry identifier]];
+        }
+    });
 }
 
 
 - (void)reloadSets:(NSNotification *)notif {
-	NSMutableSet *newDefaultSet = [NSMutableSet setWithCapacity:1];
-	//NSLog(@"cat %@ %@", catalog, [catalog leafEntries]);
-    for(QSCatalogEntry * entry in [catalog leafEntries]) {
-        NSArray *entryContents = [[entry contents] copy];
-        if ([entryContents count]) {
-            [newDefaultSet addObjectsFromArray:entryContents];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        NSMutableSet *newDefaultSet = [NSMutableSet setWithCapacity:1];
+        //NSLog(@"cat %@ %@", catalog, [catalog leafEntries]);
+        for(QSCatalogEntry * entry in [catalog leafEntries]) {
+            NSArray *entryContents = [[entry contents] copy];
+            if ([entryContents count]) {
+                [newDefaultSet addObjectsFromArray:entryContents];
+            }
+            [entryContents release];
         }
-        [entryContents release];
-    }
-
-	//NSLog(@"%@", newDefaultSet);
-    [self setDefaultSearchSet:newDefaultSet];
-	//NSLog(@"Total %4d items in search set", [newDefaultSet count]);
-	//	NSLog(@"Rebuilt Default Set in %f seconds", -[date timeIntervalSinceNow]);
-	if ([notif object])
-		[self recalculateTypeArraysForItem:[notif object]];
+        
+        //NSLog(@"%@", newDefaultSet);
+        [self setDefaultSearchSet:newDefaultSet];
+        //NSLog(@"Total %4d items in search set", [newDefaultSet count]);
+        //	NSLog(@"Rebuilt Default Set in %f seconds", -[date timeIntervalSinceNow]);
+        if ([notif object]) {
+            [self recalculateTypeArraysForItem:[notif object]];
+        }
+    });
 }
 
 
@@ -353,6 +363,7 @@ static CGFloat searchSpeed = 0.0;
 	//	NSLog(@"cant find entry %@", theID);
 	return entry;
 }
+
 - (QSCatalogEntry *)firstEntryContainingObject:(QSObject *)object {
 	NSArray *entries = [catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
     NSIndexSet *matchedIndexes = [entries indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSCatalogEntry *entry, NSUInteger idx, BOOL *stop) {
