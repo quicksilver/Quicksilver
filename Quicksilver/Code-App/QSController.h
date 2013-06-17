@@ -24,6 +24,7 @@
 - (NSProgressIndicator *)progressIndicator;
 - (IBAction)showPreferences:(id)sender;
 - (IBAction)showGuide:(id)sender;
+- (IBAction)showPlugins:(id)sender;
 - (IBAction)showSettings:(id)sender;
 - (IBAction)showCatalog:(id)sender;
 - (IBAction)showTriggers:(id)sender;
