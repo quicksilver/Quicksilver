@@ -17,8 +17,7 @@ if not os.path.exists(info_plist):
 
 info = plistlib.readPlist(info_plist)
 
-## set the minimum required version of QS for 64-bit only plug-ins
-## (starting with QS build 4001)
+## set the minimum required version of QS when backward compatibility breaks
 min_build = int(os.environ['QS_BACKWARDS_COMPATIBILITY_BREAK'], 16)
 qs_build = int(os.environ['QS_BUNDLE_VERSION'], 16)
 if qs_build >= min_build:
