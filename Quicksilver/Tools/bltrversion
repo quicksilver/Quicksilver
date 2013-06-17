@@ -19,7 +19,7 @@ info = plistlib.readPlist(info_plist)
 
 ## set the minimum required version of QS for 64-bit only plug-ins
 ## (starting with QS build 4001)
-min_build = 16385
+min_build = int(os.environ['QS_BACKWARDS_COMPATIBILITY_BREAK'], 16)
 qs_build = int(os.environ['QS_BUNDLE_VERSION'], 16)
 if qs_build >= min_build:
     min_build_string = hex(min_build)[2:]
