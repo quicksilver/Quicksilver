@@ -39,7 +39,33 @@
 			<key>icon</key>
 			<string>Quicksilver</string>
 			<key>name</key>
-			<string>QS Catalog</string>
+			<string>Show Catalog Preferences</string>
+			<key>runInMainThread</key>
+			<true/>
+		</dict>
+		<key>QSPluginsShowMessage</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSController</string>
+			<key>actionSelector</key>
+			<string>showPlugins:</string>
+			<key>icon</key>
+			<string>Quicksilver</string>
+			<key>name</key>
+			<string>Show Plugins Preferences</string>
+			<key>runInMainThread</key>
+			<true/>
+		</dict>
+		<key>QSGuideShowMessage</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSController</string>
+			<key>actionSelector</key>
+			<string>showGuide:</string>
+			<key>icon</key>
+			<string>Quicksilver</string>
+			<key>name</key>
+			<string>Show Guide</string>
 			<key>runInMainThread</key>
 			<true/>
 		</dict>
@@ -52,7 +78,7 @@
 			<key>icon</key>
 			<string>Quicksilver</string>
 			<key>name</key>
-			<string>QS Check for Update</string>
+			<string>Check for Quicksilver Update</string>
 			<key>runInMainThread</key>
 			<true/>
 		</dict>
@@ -76,7 +102,7 @@
 			<key>icon</key>
 			<string>Quicksilver</string>
 			<key>name</key>
-			<string>QS Command Window</string>
+			<string>Show Command Window</string>
 			<key>runInMainThread</key>
 			<true/>
 		</dict>
@@ -96,15 +122,13 @@
 		<key>QSPreferencesShowMessage</key>
 		<dict>
 			<key>actionClass</key>
-			<string>QSPreferencesController</string>
+			<string>QSController</string>
 			<key>actionSelector</key>
-			<string>showPrefs</string>
-			<key>classMethod</key>
-			<true/>
+			<string>showSettings:</string>
 			<key>icon</key>
 			<string>Quicksilver</string>
 			<key>name</key>
-			<string>QS Preferences</string>
+			<string>Show Preferences</string>
 		</dict>
 		<key>QSRescanCatalogMessage</key>
 		<dict>
@@ -126,7 +150,7 @@
 			<key>icon</key>
 			<string>Quicksilver</string>
 			<key>name</key>
-			<string>QS Triggers</string>
+			<string>Show Triggers Preferences</string>
 			<key>runInMainThread</key>
 			<true/>
 		</dict>
