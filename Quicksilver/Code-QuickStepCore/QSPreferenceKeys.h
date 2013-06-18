@@ -20,7 +20,7 @@ Following lines are no longer used in this project.
 #define kLastUsedVersion @"Last Used Version"
 #define kLastUsedLocation @"Last Used Location"
 
-#define kDoubleDeleteClearsObject @"Double Delete Clears Object"
+#define kDeleteRemovesLastCharacter @"deleteRemovesLastCharacter"
 #define kBrowseMode @"Browse Mode"
 #define kResultWindowBehavior @"Result Window Behavior"
 #define kSuppressHotKeysInCommand @"Suppress HotKeys in Command"

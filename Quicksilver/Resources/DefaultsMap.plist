@@ -98,15 +98,5 @@
 		<key>type</key>
 		<string>checkbox</string>
 	</dict>
-	<dict>
-		<key>category</key>
-		<string>Command</string>
-		<key>default</key>
-		<string>Double Delete Clears Object</string>
-		<key>title</key>
-		<string>Pressing the Delete key twice clears the current object</string>
-		<key>type</key>
-		<string>checkbox</string>
-	</dict>
 </array>
 </plist>

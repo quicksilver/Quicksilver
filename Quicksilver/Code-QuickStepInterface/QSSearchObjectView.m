@@ -1407,8 +1407,17 @@ NSMutableDictionary *bindingsDict = nil;
 #pragma mark -
 #pragma mark NSResponder Key Bindings
 - (void)deleteBackward:(id)sender {
-    if(defaultBool(kDoubleDeleteClearsObject) && [self matchedString] == nil) {
-        
+    if (defaultBool(kDeleteRemovesLastCharacter) && [self partialString].length > 1) {
+        // reset the seaarch array (search the entire catalog)
+        [self setSearchArray:sourceArray];
+        validSearch = YES;
+        [[self partialString] deleteCharactersInRange:NSMakeRange(partialString.length-1, 1)];
+        [self partialStringChanged];
+        if (validMnemonic) {
+            // some objects found, change the colour of the results string
+            [resultController.searchStringField setTextColor:[NSColor blackColor]];
+        }
+    } else if([self matchedString] == nil) {
         [super delete:sender];
     } else {
         [self clearSearch];
@@ -1722,31 +1731,23 @@ NSMutableDictionary *bindingsDict = nil;
             // If the user is holding alt, don't filter
             if (self == [self indirectSelector] && [[[self actionSelector] objectValue] indirectTypes]) {
                 NSArray *indirectTypes = [[[self actionSelector] objectValue] indirectTypes];
-                NSMutableArray *filteredObjects = [NSMutableArray arrayWithCapacity:1];
-                BOOL includeObject;
-                for (NSString *indirectType in indirectTypes) {
-                    for (QSObject *individual in newObjects) {
-                        includeObject = NO;
-                        // check the UTI for files
-                        if ([individual singleFilePath]) {
-                            // resolve alias objects
-                            individual = [individual resolvedAliasObject];
-                            NSString *type = [[NSFileManager defaultManager] UTIOfFile:[individual singleFilePath]];
-                            // if the file type is a folder (Always show them) or it conforms to a set indirectType
-                            if ([type isEqualToString:(NSString *)kUTTypeFolder] || UTTypeConformsTo((CFStringRef)type, (CFStringRef)indirectType)) {
-                                includeObject = YES;
-                            }
-                        }
-                        // for QSTypes set in the indirectType
-                        if (!includeObject && [[individual types] containsObject:indirectType]) {
-                            includeObject = YES;
-                        }
-                        if (includeObject && ![filteredObjects containsObject:individual]) {
-                            [filteredObjects addObject:individual];
+                NSIndexSet *filteredIndexes = [newObjects indexesOfObjectsPassingTest:^BOOL(QSObject *individual, NSUInteger idx, BOOL *stop) {
+                    // check the UTI for files
+                    if (![individual singleFilePath]) {
+                        return NO;
+                    }
+                        // resolve alias objects
+                    individual = [individual resolvedAliasObject];
+                    NSString *type = [[NSFileManager defaultManager] UTIOfFile:[individual singleFilePath]];
+                    for (NSString *indirectType in indirectTypes) {
+                        // if the file type is a folder (Always show them) or it conforms to a set indirectType
+                        if ([type isEqualToString:(NSString *)kUTTypeFolder] || UTTypeConformsTo((CFStringRef)type, (CFStringRef)indirectType)) {
+                            return YES;
                         }
                     }
-                }
-                newObjects = (NSArray *)filteredObjects;
+                    return NO;
+                }];
+                newObjects = [newObjects objectsAtIndexes:filteredIndexes];
             }
         }
         if ([newObjects count]) {
