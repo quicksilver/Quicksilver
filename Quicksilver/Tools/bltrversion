@@ -24,7 +24,7 @@ if qs_build >= min_build:
     min_build_string = hex(min_build)[2:]
     if 'QSRequirements' in info:
         ## see if the current required version is higher than the min
-        current_required = int(info['QSRequirements'].get('version', '4000'), 16)
+        current_required = int(info['QSRequirements'].get('version', '0'), 16)
         if current_required < min_build:
             info['QSRequirements']['version'] = min_build_string
     else:
