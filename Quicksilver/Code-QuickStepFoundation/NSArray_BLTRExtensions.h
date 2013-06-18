@@ -26,6 +26,12 @@
 - (id)objectWithValue:(id)value forKey:(NSString *)key;
 @end
 
+@interface NSArray (Enumeration)
+
+- (NSArray *)arrayByEnumeratingArrayUsingBock:(id (^)(id obj))block;
+
+@end
+
 
 @interface NSMutableArray (Moving)
 - (void)moveIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex;

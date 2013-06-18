@@ -1704,20 +1704,17 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)browse:(NSInteger)direction {
-	NSArray *newObjects = nil;
 	QSBasicObject * newSelectedObject = [super objectValue];
+    BOOL alt = ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) > 0;
+
+    NSArray *newObjects = nil;
 	QSBasicObject * parent = nil;
 	NSArray *siblings;
-	//if (self == [self actionSelector]) {
-	//}
 
-	BOOL alt = ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) > 0;
-
-	//  NSLog(@"child %d %d", [[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask, [[NSApp currentEvent] modifierFlags]);
-	if (direction>0) {
-		//Should show childrenLevel
-		newObjects = (alt?[newSelectedObject altChildren] :[newSelectedObject children]);
-		if ([newObjects count] && !alt) {
+    if (direction>0 && [newSelectedObject hasChildren] || alt) {
+        //Should show childrenLevel
+        newObjects = (alt?[newSelectedObject altChildren] :[newSelectedObject children]);
+        if ([newObjects count] && !alt) {
             // filter the results to only contain types as defined in the indirectTypes .plist array.
             // If the user is holding alt, don't filter
             if (self == [self indirectSelector] && [[[self actionSelector] objectValue] indirectTypes]) {
@@ -1753,71 +1750,71 @@ NSMutableDictionary *bindingsDict = nil;
             [parentStack addObject:newSelectedObject];
         }
         newSelectedObject = nil;
-    } else {
-		parent = [newSelectedObject parent];
-
-
-		if (parent && [[NSApp currentEvent] modifierFlags] & NSControlKeyMask) {
-			[parentStack removeAllObjects];
-		} else if ([parentStack count]) {
-			browsing = YES;
-
-			parent = [parentStack lastObject];
-			// ***warning  * this should check for a valid parent
-			[[parent retain] autorelease];
-			[parentStack removeLastObject];
-
-		}
-
-		if (!browsing && [self searchMode] == SearchFilterAll && [[resultController window] isVisible]) {
-			//Maintain selection, but show siblings
-			siblings = (alt?[parent altChildren] :[parent children]);
-			newObjects = siblings;
-
-		} else {
-			//Should show parent's level
-			newSelectedObject = parent;
-			if (newSelectedObject) {
-				if ((NSInteger)[historyArray count] > historyIndex + 1) {
-					if ([[[historyArray objectAtIndex:historyIndex+1] valueForKey:@"selection"] isEqual:parent]) {
+    } else if (direction < 0 ) {
+        parent = [newSelectedObject parent];
+        
+        
+        if (parent && [[NSApp currentEvent] modifierFlags] & NSControlKeyMask) {
+            [parentStack removeAllObjects];
+        } else if ([parentStack count]) {
+            browsing = YES;
+            
+            parent = [parentStack lastObject];
+            // ***warning  * this should check for a valid parent
+            [[parent retain] autorelease];
+            [parentStack removeLastObject];
+            
+        }
+        
+        if (!browsing && [self searchMode] == SearchFilterAll && [[resultController window] isVisible]) {
+            //Maintain selection, but show siblings
+            siblings = (alt?[parent altChildren] :[parent children]);
+            newObjects = siblings;
+            
+        } else {
+            //Should show parent's level
+            newSelectedObject = parent;
+            if (newSelectedObject) {
+                if ((NSInteger)[historyArray count] > historyIndex + 1) {
+                    if ([[[historyArray objectAtIndex:historyIndex+1] valueForKey:@"selection"] isEqual:parent]) {
                         
                         newObjects = [[[[historyArray objectAtIndex:historyIndex+1] valueForKey:@"resultArray"] retain] autorelease];
                         [historyArray removeObjectAtIndex:historyIndex+1];
-					}
+                    }
 #ifdef DEBUG
-					if (VERBOSE) NSLog(@"Parent Missing, No History, %@", [[historyArray objectAtIndex:0] valueForKey:@"selection"]);
+                    if (VERBOSE) NSLog(@"Parent Missing, No History, %@", [[historyArray objectAtIndex:0] valueForKey:@"selection"]);
 #endif
-				}
-
-				if (!newObjects)
-					newObjects = (alt ? [newSelectedObject altSiblings] : [newSelectedObject siblings]);
-				if (![newObjects containsObject:newSelectedObject])
-					newObjects = [newSelectedObject altSiblings];
-
-				if (!newObjects && [parentStack count]) {
-					parent = [parentStack lastObject];
-					newObjects = [parent children];
-				}
-
-				if (!newObjects && [historyArray count]) {
-					//
-					if ([[[historyArray objectAtIndex:0] valueForKey:@"selection"] isEqual:parent]) {
+                }
+                
+                if (!newObjects)
+                    newObjects = (alt ? [newSelectedObject altSiblings] : [newSelectedObject siblings]);
+                if (![newObjects containsObject:newSelectedObject])
+                    newObjects = [newSelectedObject altSiblings];
+                
+                if (!newObjects && [parentStack count]) {
+                    parent = [parentStack lastObject];
+                    newObjects = [parent children];
+                }
+                
+                if (!newObjects && [historyArray count]) {
+                    //
+                    if ([[[historyArray objectAtIndex:0] valueForKey:@"selection"] isEqual:parent]) {
 #ifdef DEBUG
-						if (VERBOSE) NSLog(@"Parent Missing, Using History");
+                        if (VERBOSE) NSLog(@"Parent Missing, Using History");
 #endif
-
-						[self goBackward:self];
-						return;
-					}
+                        
+                        [self goBackward:self];
+                        return;
+                    }
 #ifdef DEBUG
-					if (VERBOSE) NSLog(@"Parent Missing, No History");
+                    if (VERBOSE) NSLog(@"Parent Missing, No History");
 #endif
-
-				}
-			}
-		}
+                    
+                }
+            }
+        }
     }
-
+    
     if ([newObjects count]) {
         browsing = YES;
         
@@ -1837,7 +1834,11 @@ NSMutableDictionary *bindingsDict = nil;
         [self setVisibleString:@"Browsing"];
         
         [self showResultView:self];
-    } else if (![[NSApp currentEvent] isARepeat]) {
+        return;
+        
+    }
+    
+    if (![[NSApp currentEvent] isARepeat]) {
         
         [self showResultView:self];
         if ([[resultController window] isVisible])
@@ -1852,7 +1853,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 #pragma mark Quicklook support
 
-@implementation QSSearchObjectView (Quicklook) 
+@implementation QSSearchObjectView (Quicklook)
 
 
 - (BOOL)canQuicklookCurrentObject {
