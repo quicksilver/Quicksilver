@@ -1417,7 +1417,7 @@ NSMutableDictionary *bindingsDict = nil;
             // some objects found, change the colour of the results string
             [resultController.searchStringField setTextColor:[NSColor blackColor]];
         }
-    } else if(defaultBool(kDoubleDeleteClearsObject) && [self matchedString] == nil) {
+    } else if([self matchedString] == nil) {
         [super delete:sender];
     } else {
         [self clearSearch];

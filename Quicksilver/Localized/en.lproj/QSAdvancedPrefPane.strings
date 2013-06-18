@@ -16,5 +16,3 @@
 "Shift Actions:title" = "Allow capitalized keys to select the action";
 
 "Suppress HotKeys in Command:title" = "Disable Trigger HotKeys when Quicksilver is focused";
-
-"Double Delete Clears Object:title" = "Pressing the Delete key twice clears the current object";
