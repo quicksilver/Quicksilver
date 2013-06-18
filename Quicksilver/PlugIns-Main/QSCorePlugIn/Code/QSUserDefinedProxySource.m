@@ -67,6 +67,11 @@
     return [QSResourceManager imageNamed:@"Object"];
 }
 
+- (BOOL)entryCanBeIndexed:(NSDictionary *)theEntry
+{
+    return NO;
+}
+
 #pragma mark Proxy Object
 
 - (QSObject *)resolveProxyObject:(QSProxyObject *)proxy
