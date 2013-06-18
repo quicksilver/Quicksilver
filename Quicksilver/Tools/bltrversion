@@ -17,6 +17,20 @@ if not os.path.exists(info_plist):
 
 info = plistlib.readPlist(info_plist)
 
+## set the minimum required version of QS when backward compatibility breaks
+min_build = int(os.environ['QS_BACKWARDS_COMPATIBILITY_BREAK'], 16)
+qs_build = int(os.environ['QS_BUNDLE_VERSION'], 16)
+if qs_build >= min_build:
+    min_build_string = hex(min_build)[2:]
+    if 'QSRequirements' in info:
+        ## see if the current required version is higher than the min
+        current_required = int(info['QSRequirements'].get('version', '0'), 16)
+        if current_required < min_build:
+            info['QSRequirements']['version'] = min_build_string
+    else:
+        ## no current requirement - set the minimum
+        info['QSRequirements'] = {'version': min_build_string}
+
 ## increment version
 version_hex = info['CFBundleVersion']
 version_int = int(version_hex, 16)
