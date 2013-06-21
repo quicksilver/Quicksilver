@@ -109,10 +109,10 @@
 - (void)updateKeyboardPopUp {
     [keyboardPopUp removeAllItems];
 
-    NSMutableDictionary *sourceNames = [NSMutableDictionary dictionaryWithCapacity:5];
+    NSMutableDictionary *sourceNames = [NSMutableDictionary dictionary];
 
-    for (NSString *type in [NSArray arrayWithObjects:(NSString *)kTISTypeKeyboardLayout, (NSString *)kTISTypeKeyboardInputMode, nil]) {
-        NSDictionary *filter = [NSDictionary dictionaryWithObject:type forKey:(NSString *)kTISPropertyInputSourceType];
+    for (NSString *type in @[(NSString *)kTISTypeKeyboardLayout, (NSString *)kTISTypeKeyboardInputMode]) {
+        NSDictionary *filter = @{(NSString *)kTISPropertyInputSourceType : type};
         CFArrayRef sourceList= TISCreateInputSourceList((CFDictionaryRef)filter, false);
         if (!sourceList) {
             continue;

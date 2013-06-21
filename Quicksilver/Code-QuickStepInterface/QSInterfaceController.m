@@ -168,21 +168,6 @@
 		CGSConnection conn = _CGSDefaultConnection();
 		CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyDisable);
 	}
-    
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSSwitchKeyboardOnActivation"]) {
-        savedKeyboard = TISCopyCurrentKeyboardLayoutInputSource();
-        NSString *forcedKeyboardId = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSForcedKeyboardIDOnActivation"];
-        NSDictionary *filter = [NSDictionary dictionaryWithObject:forcedKeyboardId forKey:(NSString *)kTISPropertyInputSourceID];
-        CFArrayRef keyboards = TISCreateInputSourceList((CFDictionaryRef)filter, false);
-        if (keyboards) {
-            TISInputSourceRef selected = (TISInputSourceRef)CFArrayGetValueAtIndex(keyboards, 0);
-            TISSelectInputSource(selected);
-            CFRelease(keyboards);
-        } else {
-            // If previously selected keyboard is no longer available, turn off automatic switch
-            [[NSUserDefaults standardUserDefaults] setBool:false forKey:@"QSSwitchKeyboardOnActivation"];
-        }
-    }
 }
 
 - (void)willHideMainWindow:(id)sender {
@@ -198,16 +183,18 @@
     if([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
         [(QSSearchObjectView *)[[QLPreviewPanel sharedPreviewPanel] delegate] closePreviewPanel];
     }
-    
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSSwitchKeyboardOnActivation"] && savedKeyboard) {
-        TISSelectInputSource(savedKeyboard);
-        CFRelease(savedKeyboard);
-        savedKeyboard = nil;
-    }
 }
 
 - (void)hideMainWindowWithEffect:(id)effect {
 	[self willHideMainWindow:nil];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSSwitchKeyboardOnActivation"] && savedKeyboard) {
+        OSStatus status = TISSelectInputSource(savedKeyboard);
+        if (status == paramErr) {
+            NSLog(@"Error switching back to keyboard layout %@", savedKeyboard);
+        }
+        CFRelease(savedKeyboard);
+        savedKeyboard = nil;
+    }
 	[self setHiding:YES];
 	if (effect && [[NSUserDefaults standardUserDefaults] boolForKey:kUseEffects])
 		[(QSWindow *)[self window] hideWithEffect:effect];
@@ -221,7 +208,6 @@
     }
 	[self setHiding:NO];
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSReleaseOldCachesNotification object:self];
-    
 }
 
 - (void)hideMainWindow:(id)sender {
@@ -680,6 +666,27 @@
 - (IBAction)showInterface:(id)sender {
 	 
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"InterfaceActivated" object:self];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSSwitchKeyboardOnActivation"]) {
+        savedKeyboard = TISCopyCurrentKeyboardInputSource();
+        NSString *forcedKeyboardId = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSForcedKeyboardIDOnActivation"];
+        NSDictionary *filter = [NSDictionary dictionaryWithObject:forcedKeyboardId forKey:(NSString *)kTISPropertyInputSourceID];
+        NSArray *keyboards = (NSArray *)TISCreateInputSourceList((CFDictionaryRef)filter, false);
+        OSStatus err = noErr;
+        TISInputSourceRef selected = NULL;
+        if ([keyboards count]) {
+            TISInputSourceRef selected = (TISInputSourceRef)[keyboards lastObject];
+            TISSelectInputSource(selected);
+        }
+        if (![keyboards count] || err == paramErr)
+        {
+            if (err == paramErr) {
+                NSLog(@"Error setting keyboard layout to %@, disabling switching pref", selected);
+            }
+            // If previously selected keyboard is no longer available, turn off automatic switch
+            [[NSUserDefaults standardUserDefaults] setBool:false forKey:@"QSSwitchKeyboardOnActivation"];
+        }
+        [keyboards release];
+    }
 	[self showMainWindow:self];
 }
 
