@@ -28,6 +28,7 @@
 #define kActionHandler              @"actionHandler"
 #define kActionEventClass           @"actionEventClass"
 #define kActionEventID              @"actionEventID"
+#define kActionArgument             @"argument"
 
 #define kActionArgumentCount        @"argumentCount" // Number, if undefined, calculates from selector
 
