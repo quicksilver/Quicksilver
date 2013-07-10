@@ -73,11 +73,28 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 @implementation QSFileSystemObjectHandler
 
 - (QSObject *)parentOfObject:(QSObject *)object {
-	QSObject * parent = nil;
-	if ([object singleFilePath]) {
-		if ([[object singleFilePath] isEqualToString:@"/"]) parent = [QSProxyObject proxyWithIdentifier:@"QSComputerProxy"];
-		else parent = [QSObject fileObjectWithPath:[[object singleFilePath] stringByDeletingLastPathComponent]];
-	}
+    QSObject *parent = nil;
+    NSArray *paths = [object arrayForType:QSFilePathType];
+    if ([paths count]) {
+        // use the 1st file's parent as the 'default' parent
+        NSString *path = [paths objectAtIndex:0];
+        if ([path isEqualToString:@"/"]) {
+            parent = [QSProxyObject proxyWithIdentifier:@"QSComputerProxy"];
+        }
+        else {
+            NSURL *parentURL = nil;
+            NSError *err = nil;
+            [[NSURL fileURLWithPath:path] getResourceValue:&parentURL forKey:NSURLParentDirectoryURLKey error:&err];
+            NSString *parentString;
+            if (err) {
+                NSLog(@"Error getting parent of file object %@\n%@",object,err);
+                parentString = [path stringByDeletingLastPathComponent];
+            } else {
+                parentString = [parentURL path];
+            }
+            parent = [QSObject fileObjectWithPath:parentString];
+        }
+    }
 	return parent;
 }
 
