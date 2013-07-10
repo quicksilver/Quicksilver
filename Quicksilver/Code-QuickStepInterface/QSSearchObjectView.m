@@ -1707,7 +1707,6 @@ NSMutableDictionary *bindingsDict = nil;
     NSArray *newObjects = nil;
 	QSObject * newSelectedObject = [super objectValue];
     QSObject * parent = nil;
-	NSArray *siblings;
 
     BOOL alt = ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) > 0;
 
