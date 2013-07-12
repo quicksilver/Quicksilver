@@ -576,18 +576,6 @@ NSSize QSMaxIconSize;
 
 @implementation QSObject (Hierarchy)
 
-- (QSBasicObject * ) parent {
-	QSBasicObject * parent = nil;
-
-	id handler = nil;
-	if (handler = [self handlerForSelector:@selector(parentOfObject:)])
-		parent = [handler parentOfObject:self];
-
-	if (!parent)
-		parent = [objectDictionary objectForKey:[meta objectForKey:kQSObjectParentID]];
-	return parent;
-}
-
 - (void)setParentID:(NSString *)parentID {
     [self setObject:parentID forMeta:kQSObjectParentID];
 }
@@ -719,6 +707,18 @@ NSSize QSMaxIconSize;
             [meta removeObjectForKey:kQSObjectPrimaryName];
         }
     }
+}
+
+- (QSObject *)parent {
+    QSObject * parent = nil;
+    
+	id handler = nil;
+	if (handler = [self handlerForSelector:@selector(parentOfObject:)])
+		parent = [handler parentOfObject:self];
+    
+	if (!parent)
+		parent = [objectDictionary objectForKey:[meta objectForKey:kQSObjectParentID]];
+	return parent;
 }
 
 - (NSArray *)children {

@@ -26,8 +26,8 @@
 @end
 
 @protocol QSObjectHierarchy
-- (QSBasicObject *)parent;
 - (BOOL)hasChildren;
+- (id <QSObjectHierarchy>)parent;
 - (NSArray *)children;
 - (NSArray *)altChildren;
 - (NSArray *)siblings;
