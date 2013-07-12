@@ -1704,14 +1704,14 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)browse:(NSInteger)direction {
-	QSBasicObject * newSelectedObject = [super objectValue];
+    NSArray *newObjects = nil;
+	QSObject * newSelectedObject = [super objectValue];
+    QSObject * parent = nil;
+
     BOOL alt = ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) > 0;
 
-    NSArray *newObjects = nil;
-	QSBasicObject * parent = nil;
-	NSArray *siblings;
 
-    if (direction>0 && [newSelectedObject hasChildren] || alt) {
+    if (direction>0 && ([newSelectedObject hasChildren] || alt)) {
         //Should show childrenLevel
         newObjects = (alt?[newSelectedObject altChildren] :[newSelectedObject children]);
         if ([newObjects count] && !alt) {
@@ -1719,7 +1719,7 @@ NSMutableDictionary *bindingsDict = nil;
             // If the user is holding alt, don't filter
             if (self == [self indirectSelector] && [[[self actionSelector] objectValue] indirectTypes]) {
                 NSArray *indirectTypes = [[[self actionSelector] objectValue] indirectTypes];
-                NSMutableArray *filteredObjects = [NSMutableArray arrayWithCapacity:1];
+                NSMutableOrderedSet *filteredObjects = [NSMutableOrderedSet orderedSet];
                 BOOL includeObject;
                 for (NSString *indirectType in indirectTypes) {
                     for (QSObject *individual in newObjects) {
@@ -1738,12 +1738,12 @@ NSMutableDictionary *bindingsDict = nil;
                         if (!includeObject && [[individual types] containsObject:indirectType]) {
                             includeObject = YES;
                         }
-                        if (includeObject && ![filteredObjects containsObject:individual]) {
+                        if (includeObject) {
                             [filteredObjects addObject:individual];
                         }
                     }
                 }
-                newObjects = (NSArray *)filteredObjects;
+                newObjects = [filteredObjects array];
             }
         }
         if ([newObjects count]) {
@@ -1751,66 +1751,52 @@ NSMutableDictionary *bindingsDict = nil;
         }
         newSelectedObject = nil;
     } else if (direction < 0 ) {
-        parent = [newSelectedObject parent];
-        
-        
-        if (parent && [[NSApp currentEvent] modifierFlags] & NSControlKeyMask) {
-            [parentStack removeAllObjects];
-        } else if ([parentStack count]) {
+        if ([parentStack count] && !alt) {
             browsing = YES;
-            
             parent = [parentStack lastObject];
-            // ***warning  * this should check for a valid parent
-            [[parent retain] autorelease];
+            [[parent retain] autorelease];  
             [parentStack removeLastObject];
-            
+        } else {
+            parent = [newSelectedObject parent];
         }
         
-        if (!browsing && [self searchMode] == SearchFilterAll && [[resultController window] isVisible]) {
-            //Maintain selection, but show siblings
-            siblings = (alt?[parent altChildren] :[parent children]);
-            newObjects = siblings;
+        newSelectedObject = parent;
+        
+        // should show parent's level
+        newSelectedObject = parent;
+        if (newSelectedObject) {
+            if ((NSInteger)[historyArray count] > historyIndex + 1) {
+                if ([[[historyArray objectAtIndex:historyIndex+1] valueForKey:@"selection"] isEqual:parent]) {
+                    [historyArray removeObjectAtIndex:historyIndex+1];
+                }
+#ifdef DEBUG
+                if (VERBOSE) NSLog(@"Parent Missing, No History, %@", [[historyArray objectAtIndex:0] valueForKey:@"selection"]);
+#endif
+            }
             
-        } else {
-            //Should show parent's level
-            newSelectedObject = parent;
-            if (newSelectedObject) {
-                if ((NSInteger)[historyArray count] > historyIndex + 1) {
-                    if ([[[historyArray objectAtIndex:historyIndex+1] valueForKey:@"selection"] isEqual:parent]) {
-                        
-                        newObjects = [[[[historyArray objectAtIndex:historyIndex+1] valueForKey:@"resultArray"] retain] autorelease];
-                        [historyArray removeObjectAtIndex:historyIndex+1];
-                    }
+            if (!newObjects)
+                newObjects = (alt ? [newSelectedObject altSiblings] : [newSelectedObject siblings]);
+            if (![newObjects containsObject:newSelectedObject])
+                newObjects = [newSelectedObject altSiblings];
+            
+            if (!newObjects && [parentStack count]) {
+                parent = [parentStack lastObject];
+                newObjects = [parent children];
+            }
+            
+            if (!newObjects && [historyArray count]) {
+                if ([[[historyArray objectAtIndex:0] valueForKey:@"selection"] isEqual:parent]) {
 #ifdef DEBUG
-                    if (VERBOSE) NSLog(@"Parent Missing, No History, %@", [[historyArray objectAtIndex:0] valueForKey:@"selection"]);
-#endif
-                }
-                
-                if (!newObjects)
-                    newObjects = (alt ? [newSelectedObject altSiblings] : [newSelectedObject siblings]);
-                if (![newObjects containsObject:newSelectedObject])
-                    newObjects = [newSelectedObject altSiblings];
-                
-                if (!newObjects && [parentStack count]) {
-                    parent = [parentStack lastObject];
-                    newObjects = [parent children];
-                }
-                
-                if (!newObjects && [historyArray count]) {
-                    //
-                    if ([[[historyArray objectAtIndex:0] valueForKey:@"selection"] isEqual:parent]) {
-#ifdef DEBUG
-                        if (VERBOSE) NSLog(@"Parent Missing, Using History");
-#endif
-                        
-                        [self goBackward:self];
-                        return;
-                    }
-#ifdef DEBUG
-                    if (VERBOSE) NSLog(@"Parent Missing, No History");
+                    if (VERBOSE) NSLog(@"Parent Missing, Using History");
 #endif
                     
+                    [self goBackward:self];
+                    return;
                 }
+#ifdef DEBUG
+                if (VERBOSE) NSLog(@"Parent Missing, No History");
+#endif
+                
             }
         }
     }
