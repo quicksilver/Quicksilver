@@ -433,6 +433,16 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	return [self execute];
 }
 
+- (BOOL)isEqual:(id)anObject {
+    if (![anObject isKindOfClass:[QSCommand class]]) {
+        return NO;
+    }
+    if ([anObject dObject] == [self dObject] && [anObject aObject] == [self aObject] && [anObject iObject] == [self iObject]) {
+        return YES;
+    }
+    return NO;
+}
+
 - (QSObject *)execute {
 	QSAction *actionObject = [self aObject];
 	QSObject *directObject = [self dObject];
