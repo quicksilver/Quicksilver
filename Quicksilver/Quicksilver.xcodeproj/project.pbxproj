@@ -465,7 +465,6 @@
 		E103F5110647238E00447FE0 /* ActionsPrecedence.plist in Resources */ = {isa = PBXBuildFile; fileRef = E103EC5106471DBE00447FE0 /* ActionsPrecedence.plist */; };
 		E103F5A20647698200447FE0 /* QSCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E103F1600647200700447FE0 /* QSCore.framework */; };
 		E103F5AA064769A300447FE0 /* QSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E103F1600647200700447FE0 /* QSCore.framework */; };
-		E1075DB10783CE27004053AF /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1075DB00783CE27004053AF /* IOKit.framework */; };
 		E1087B42069BD5D300971A69 /* ContactAddress.icns in Resources */ = {isa = PBXBuildFile; fileRef = E1087B3F069BD5D300971A69 /* ContactAddress.icns */; };
 		E1087B43069BD5D300971A69 /* ContactEmail.icns in Resources */ = {isa = PBXBuildFile; fileRef = E1087B40069BD5D300971A69 /* ContactEmail.icns */; };
 		E1087B44069BD5D300971A69 /* ContactPhone.icns in Resources */ = {isa = PBXBuildFile; fileRef = E1087B41069BD5D300971A69 /* ContactPhone.icns */; };
@@ -532,7 +531,6 @@
 		E18986C00657DDCE001286AA /* QSPlugIn.icns in Resources */ = {isa = PBXBuildFile; fileRef = E18986BF0657DDCE001286AA /* QSPlugIn.icns */; };
 		E18F8D2A072DBB1C00057774 /* PlugInVersionRequirements.plist in Resources */ = {isa = PBXBuildFile; fileRef = E18F8D29072DBB1C00057774 /* PlugInVersionRequirements.plist */; };
 		E1A2B21406F954F80084C47B /* wildcard.* in Resources */ = {isa = PBXBuildFile; fileRef = E1A2B21306F954F80084C47B /* wildcard.* */; };
-		E1AE913407A0815F00F75980 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1075DB00783CE27004053AF /* IOKit.framework */; };
 		E1B2890306E3DAFA00CACB9E /* AppearanceText.png in Resources */ = {isa = PBXBuildFile; fileRef = E1B2890006E3DAFA00CACB9E /* AppearanceText.png */; };
 		E1B2890406E3DAFA00CACB9E /* AppearanceSelection.png in Resources */ = {isa = PBXBuildFile; fileRef = E1B2890106E3DAFA00CACB9E /* AppearanceSelection.png */; };
 		E1B2890506E3DAFA00CACB9E /* AppearanceBack.png in Resources */ = {isa = PBXBuildFile; fileRef = E1B2890206E3DAFA00CACB9E /* AppearanceBack.png */; };
@@ -2319,7 +2317,6 @@
 				E178F647065CF846004655DA /* SystemConfiguration.framework in Frameworks */,
 				E178F649065CF849004655DA /* Carbon.framework in Frameworks */,
 				E133F20406ADCE7000D27A4E /* ExceptionHandling.framework in Frameworks */,
-				E1AE913407A0815F00F75980 /* IOKit.framework in Frameworks */,
 				7F8C65C1081172E30051113C /* WebKit.framework in Frameworks */,
 				7F8D135F09187AE20062C966 /* Quartz.framework in Frameworks */,
 				7F84021209691035006E6F0E /* SyncServices.framework in Frameworks */,
@@ -2334,7 +2331,6 @@
 				E103F3340647211700447FE0 /* Cocoa.framework in Frameworks */,
 				E1DEF88E066BCDBE00D943CB /* Carbon.framework in Frameworks */,
 				E133F1FC06ADCDF800D27A4E /* ExceptionHandling.framework in Frameworks */,
-				E1075DB10783CE27004053AF /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
