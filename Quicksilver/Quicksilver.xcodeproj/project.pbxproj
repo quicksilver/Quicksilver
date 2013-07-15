@@ -228,7 +228,6 @@
 		7F60F12907FA134600922645 /* QSMainPreferencePanes.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F60F12707FA134600922645 /* QSMainPreferencePanes.m */; };
 		7F60F13307FA13B900922645 /* QSPreferencePane.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F60F13107FA13B900922645 /* QSPreferencePane.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F60F13407FA13B900922645 /* QSPreferencePane.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F60F13207FA13B900922645 /* QSPreferencePane.m */; };
-		7F686D91080C151100449DEF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F686D90080C151100449DEF /* QuartzCore.framework */; };
 		7F686DDE080C1CD900449DEF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F686D90080C151100449DEF /* QuartzCore.framework */; };
 		7F6F524908906AA7009007DF /* QSHotKeyEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F6F524708906AA7009007DF /* QSHotKeyEditor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F6F524A08906AA7009007DF /* QSHotKeyEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6F524808906AA7009007DF /* QSHotKeyEditor.m */; };
@@ -387,7 +386,6 @@
 		CDD3096F160B860A00CD34EC /* countBadge3.tiff in Resources */ = {isa = PBXBuildFile; fileRef = CDD3096B160B860A00CD34EC /* countBadge3.tiff */; };
 		CDD30970160B860A00CD34EC /* countBadge4.tiff in Resources */ = {isa = PBXBuildFile; fileRef = CDD3096C160B860A00CD34EC /* countBadge4.tiff */; };
 		CDD30971160B860A00CD34EC /* countBadge5.tiff in Resources */ = {isa = PBXBuildFile; fileRef = CDD3096D160B860A00CD34EC /* countBadge5.tiff */; };
-		CDD36AF414CD50CC00F5CEC4 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8D135E09187AE20062C966 /* Quartz.framework */; };
 		CDD36AF514CD50CD00F5CEC4 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8D135E09187AE20062C966 /* Quartz.framework */; };
 		CDDB44E41518C53300800B66 /* QSCrashReporter.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDDB44E31518C53300800B66 /* QSCrashReporter.xib */; };
 		CDDB44E71518C78F00800B66 /* QSCrashReporterWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = CDDB44E51518C78F00800B66 /* QSCrashReporterWindowController.h */; };
@@ -2328,7 +2326,6 @@
 				E178F649065CF849004655DA /* Carbon.framework in Frameworks */,
 				E133F20406ADCE7000D27A4E /* ExceptionHandling.framework in Frameworks */,
 				E1AE913407A0815F00F75980 /* IOKit.framework in Frameworks */,
-				7F686D91080C151100449DEF /* QuartzCore.framework in Frameworks */,
 				7F8C65C1081172E30051113C /* WebKit.framework in Frameworks */,
 				7F9BAA590886DA54003CB3A1 /* SecurityFoundation.framework in Frameworks */,
 				7F8D135F09187AE20062C966 /* Quartz.framework in Frameworks */,
@@ -2347,7 +2344,6 @@
 				E133F1FC06ADCDF800D27A4E /* ExceptionHandling.framework in Frameworks */,
 				E1075DB10783CE27004053AF /* IOKit.framework in Frameworks */,
 				7F9BAAAE0886E5EB003CB3A1 /* SecurityFoundation.framework in Frameworks */,
-				CDD36AF414CD50CC00F5CEC4 /* Quartz.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
