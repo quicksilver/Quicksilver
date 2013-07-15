@@ -1,6 +1,5 @@
 #import "QSPrimerInterfaceController.h"
 
-#import <Carbon/Carbon.h>
 #import <QSFoundation/QSFoundation.h>
 #import <QSFoundation/NSWindow_BLTRExtensions.h>
 #import <QSEffects/QSWindow.h>

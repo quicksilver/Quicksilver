@@ -1,4 +1,3 @@
-#import <Carbon/Carbon.h>
 #import "NSEvent+BLTRExtensions.h"
 
 @implementation NSEvent (BLTRExtensions)

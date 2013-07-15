@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <Carbon/Carbon.h>
 
 @interface NSScreen (BLTRExtensions)
 + (NSScreen *)screenWithNumber:(NSInteger)number;

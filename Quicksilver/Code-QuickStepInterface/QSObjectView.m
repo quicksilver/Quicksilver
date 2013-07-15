@@ -21,7 +21,6 @@
 //#import "NSString_CompletionExtensions.h"
 
 #import <ApplicationServices/ApplicationServices.h>
-#import <Carbon/Carbon.h>
 
 @implementation QSObjectView
 

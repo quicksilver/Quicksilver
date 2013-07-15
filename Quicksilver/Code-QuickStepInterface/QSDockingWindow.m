@@ -1,5 +1,4 @@
 #import "QSDockingWindow.h"
-#import <Carbon/Carbon.h>
 #import "QSRegistry.h"
 #import "QSController.h"
 
