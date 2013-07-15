@@ -471,7 +471,6 @@
 		E103F5A20647698200447FE0 /* QSCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E103F1600647200700447FE0 /* QSCore.framework */; };
 		E103F5AA064769A300447FE0 /* QSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E103F1600647200700447FE0 /* QSCore.framework */; };
 		E1075DB10783CE27004053AF /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1075DB00783CE27004053AF /* IOKit.framework */; };
-		E1087ABA069BABB700971A69 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E103F3DB0647213D00447FE0 /* AddressBook.framework */; };
 		E1087B42069BD5D300971A69 /* ContactAddress.icns in Resources */ = {isa = PBXBuildFile; fileRef = E1087B3F069BD5D300971A69 /* ContactAddress.icns */; };
 		E1087B43069BD5D300971A69 /* ContactEmail.icns in Resources */ = {isa = PBXBuildFile; fileRef = E1087B40069BD5D300971A69 /* ContactEmail.icns */; };
 		E1087B44069BD5D300971A69 /* ContactPhone.icns in Resources */ = {isa = PBXBuildFile; fileRef = E1087B41069BD5D300971A69 /* ContactPhone.icns */; };
@@ -2345,7 +2344,6 @@
 				E103F3340647211700447FE0 /* Cocoa.framework in Frameworks */,
 				E1BF1F540657FD500074A05A /* Security.framework in Frameworks */,
 				E1DEF88E066BCDBE00D943CB /* Carbon.framework in Frameworks */,
-				E1087ABA069BABB700971A69 /* AddressBook.framework in Frameworks */,
 				E133F1FC06ADCDF800D27A4E /* ExceptionHandling.framework in Frameworks */,
 				E1075DB10783CE27004053AF /* IOKit.framework in Frameworks */,
 				7F9BAAAE0886E5EB003CB3A1 /* SecurityFoundation.framework in Frameworks */,
