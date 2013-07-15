@@ -471,7 +471,6 @@
 		E131F4F107B43BF400D0E4AC /* QSDockingWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = E131F4EF07B43BF400D0E4AC /* QSDockingWindow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E131F4F207B43BF400D0E4AC /* QSDockingWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E131F4F007B43BF400D0E4AC /* QSDockingWindow.m */; };
 		E131FA4C07B44C0900D0E4AC /* QSEffects.h in Headers */ = {isa = PBXBuildFile; fileRef = E131FA4B07B44C0900D0E4AC /* QSEffects.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E133F1FC06ADCDF800D27A4E /* ExceptionHandling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E133F1FB06ADCDF800D27A4E /* ExceptionHandling.framework */; };
 		E133F20406ADCE7000D27A4E /* ExceptionHandling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E133F1FB06ADCDF800D27A4E /* ExceptionHandling.framework */; };
 		E1388482073AAE8A0080A9E1 /* Triggers.icns in Resources */ = {isa = PBXBuildFile; fileRef = E1388481073AAE8A0080A9E1 /* Triggers.icns */; };
 		E14B86920738158D003C1AED /* QSAppearancePrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = E14B868E0738158D003C1AED /* QSAppearancePrefPane.xib */; };
@@ -2322,7 +2321,6 @@
 				E1E8909007B29C8000478A69 /* QSFoundation.framework in Frameworks */,
 				E103F3340647211700447FE0 /* Cocoa.framework in Frameworks */,
 				E1DEF88E066BCDBE00D943CB /* Carbon.framework in Frameworks */,
-				E133F1FC06ADCDF800D27A4E /* ExceptionHandling.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
