@@ -240,9 +240,6 @@
 		7F7AB61B07F0761400ACBA8A /* QSCollectingSearchObjectView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F7AB61907F0761400ACBA8A /* QSCollectingSearchObjectView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F7AB61C07F0761400ACBA8A /* QSCollectingSearchObjectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7AB61A07F0761400ACBA8A /* QSCollectingSearchObjectView.m */; };
 		7F8401D109690F00006E6F0E /* ClientDescription.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F8401D009690F00006E6F0E /* ClientDescription.plist */; };
-		7F84021209691035006E6F0E /* SyncServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F84020609691035006E6F0E /* SyncServices.framework */; };
-		7F84023009691459006E6F0E /* QSSyncManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F84022E09691459006E6F0E /* QSSyncManager.h */; };
-		7F84023109691459006E6F0E /* QSSyncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F84022F09691459006E6F0E /* QSSyncManager.m */; };
 		7F8403BE096A05E4006E6F0E /* GettingStarted.html in Resources */ = {isa = PBXBuildFile; fileRef = 7F8403BD096A05E4006E6F0E /* GettingStarted.html */; };
 		7F840FEB096C3356006E6F0E /* QSAction.description.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F840FC8096C3356006E6F0E /* QSAction.description.strings */; };
 		7F840FEC096C3356006E6F0E /* QSAction.name.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F840FCA096C3356006E6F0E /* QSAction.name.strings */; };
@@ -1308,8 +1305,6 @@
 		7F7AB61A07F0761400ACBA8A /* QSCollectingSearchObjectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSCollectingSearchObjectView.m; sourceTree = "<group>"; };
 		7F8401D009690F00006E6F0E /* ClientDescription.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ClientDescription.plist; sourceTree = "<group>"; };
 		7F84020609691035006E6F0E /* SyncServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SyncServices.framework; path = /System/Library/Frameworks/SyncServices.framework; sourceTree = "<absolute>"; };
-		7F84022E09691459006E6F0E /* QSSyncManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSyncManager.h; sourceTree = "<group>"; };
-		7F84022F09691459006E6F0E /* QSSyncManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSyncManager.m; sourceTree = "<group>"; };
 		7F8403BD096A05E4006E6F0E /* GettingStarted.html */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; path = GettingStarted.html; sourceTree = "<group>"; };
 		7F840FC9096C3356006E6F0E /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = de; path = de.lproj/QSAction.description.strings; sourceTree = "<group>"; };
 		7F840FCB096C3356006E6F0E /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = de; path = de.lproj/QSAction.name.strings; sourceTree = "<group>"; };
@@ -2319,7 +2314,6 @@
 				E133F20406ADCE7000D27A4E /* ExceptionHandling.framework in Frameworks */,
 				7F8C65C1081172E30051113C /* WebKit.framework in Frameworks */,
 				7F8D135F09187AE20062C966 /* Quartz.framework in Frameworks */,
-				7F84021209691035006E6F0E /* SyncServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3014,8 +3008,6 @@
 				7FFA83FC08124B5600A858CD /* QSSimpleNotifier.m */,
 				7F73BD44084794CB00D01BDB /* QSSimpleWebWindowController.h */,
 				7F73BD45084794CB00D01BDB /* QSSimpleWebWindowController.m */,
-				7F84022E09691459006E6F0E /* QSSyncManager.h */,
-				7F84022F09691459006E6F0E /* QSSyncManager.m */,
 				7FFF2D7809383B8C008572B2 /* QSTaskView.h */,
 				7FFF2D7909383B8C008572B2 /* QSTaskView.m */,
 				E180020807B2BBB900010DB0 /* QSTaskViewer.h */,
@@ -3489,7 +3481,6 @@
 				7FFA83FD08124B5600A858CD /* QSSimpleNotifier.h in Headers */,
 				7F73BD46084794CB00D01BDB /* QSSimpleWebWindowController.h in Headers */,
 				7FFF2D7A09383B8C008572B2 /* QSTaskView.h in Headers */,
-				7F84023009691459006E6F0E /* QSSyncManager.h in Headers */,
 				7F0843CE098ACB2F00F136CC /* QSLog.h in Headers */,
 				7FE2EE8B09FF0BD50046DBBF /* QSTitleToolbarItem.h in Headers */,
 				7FDBC5010A02D93400E496FF /* QSAdvancedPrefPane.h in Headers */,
@@ -4676,7 +4667,6 @@
 				7FFA83FE08124B5600A858CD /* QSSimpleNotifier.m in Sources */,
 				7F73BD47084794CB00D01BDB /* QSSimpleWebWindowController.m in Sources */,
 				7FFF2D7B09383B8C008572B2 /* QSTaskView.m in Sources */,
-				7F84023109691459006E6F0E /* QSSyncManager.m in Sources */,
 				7F0843CF098ACB2F00F136CC /* QSLog.m in Sources */,
 				7F9703E309AFEFCB00E9EA77 /* QSDropletApplication.m in Sources */,
 				7FE2EE8C09FF0BD50046DBBF /* QSTitleToolbarItem.m in Sources */,
