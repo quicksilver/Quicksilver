@@ -535,7 +535,6 @@
 		E180026907B2BBB900010DB0 /* QSUpdateController.h in Headers */ = {isa = PBXBuildFile; fileRef = E180021407B2BBB900010DB0 /* QSUpdateController.h */; };
 		E180026A07B2BBB900010DB0 /* QSUpdateController.m in Sources */ = {isa = PBXBuildFile; fileRef = E180021507B2BBB900010DB0 /* QSUpdateController.m */; };
 		E18002D307B2F0B800010DB0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E18001C507B2BBB800010DB0 /* main.m */; };
-		E188856706A4884F00B75D22 /* System Events.scpt in Resources */ = {isa = PBXBuildFile; fileRef = E188856606A4884F00B75D22 /* System Events.scpt */; };
 		E18986C00657DDCE001286AA /* QSPlugIn.icns in Resources */ = {isa = PBXBuildFile; fileRef = E18986BF0657DDCE001286AA /* QSPlugIn.icns */; };
 		E18F8D2A072DBB1C00057774 /* PlugInVersionRequirements.plist in Resources */ = {isa = PBXBuildFile; fileRef = E18F8D29072DBB1C00057774 /* PlugInVersionRequirements.plist */; };
 		E1A2B21406F954F80084C47B /* wildcard.* in Resources */ = {isa = PBXBuildFile; fileRef = E1A2B21306F954F80084C47B /* wildcard.* */; };
@@ -2032,7 +2031,6 @@
 		E180021307B2BBB900010DB0 /* QSTriggersPrefPane.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSTriggersPrefPane.m; sourceTree = "<group>"; };
 		E180021407B2BBB900010DB0 /* QSUpdateController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSUpdateController.h; sourceTree = "<group>"; };
 		E180021507B2BBB900010DB0 /* QSUpdateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSUpdateController.m; sourceTree = "<group>"; };
-		E188856606A4884F00B75D22 /* System Events.scpt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.scpt; path = "System Events.scpt"; sourceTree = "<group>"; };
 		E18986BF0657DDCE001286AA /* QSPlugIn.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = QSPlugIn.icns; sourceTree = "<group>"; };
 		E18F8D29072DBB1C00057774 /* PlugInVersionRequirements.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = PlugInVersionRequirements.plist; sourceTree = "<group>"; };
 		E1A2B21306F954F80084C47B /* wildcard.* */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = "wildcard.*"; sourceTree = "<group>"; };
@@ -2823,7 +2821,6 @@
 				E129F348071DD65A001E1D5A /* License.rtf */,
 				E1186AD506A6D6F700F3EA8E /* QSKindDescriptions.plist */,
 				7F73BC65084787A500D01BDB /* QSStyle.css */,
-				E188856606A4884F00B75D22 /* System Events.scpt */,
 				E103EC5106471DBE00447FE0 /* ActionsPrecedence.plist */,
 				E103EC5606471DBE00447FE0 /* DefaultMnemonics.plist */,
 				E18F8D29072DBB1C00057774 /* PlugInVersionRequirements.plist */,
@@ -4318,7 +4315,6 @@
 				E102F9D306625D7400843027 /* QSTriggersPrefPane.xib in Resources */,
 				E102F9CD06625D7400843027 /* QuitConfirm.xib in Resources */,
 				E102F9CE06625D7400843027 /* ResultWindow.xib in Resources */,
-				E188856706A4884F00B75D22 /* System Events.scpt in Resources */,
 				6535A91A1086EF4D009D5C90 /* Localizable.strings in Resources */,
 				6535A98C1086F627009D5C90 /* Catalog.strings in Resources */,
 				6535A98E1086F627009D5C90 /* Preferences.strings in Resources */,
