@@ -52,7 +52,7 @@
 - (QSObject *)typeObject:(QSObject *)dObject {
 	// NSLog( AsciiToKeyCode(&ttable, "m") {
 	// short AsciiToKeyCode(Ascii2KeyCodeTable *ttable, short asciiCode) {
-	[self typeString2:[dObject objectForType:QSTextType]];
+	[self typeString:[dObject objectForType:QSTextType]];
 	return nil;
 }
 
@@ -66,12 +66,4 @@
 	CFRelease(keyEvent);
 }
 
-- (void)typeString2:(NSString *)string {
-	string = [string stringByReplacing:@"\n" with:@"\r"];
-	NSAppleScript *sysEventsScript = [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"System Events" ofType:@"scpt"]] error:nil];
-	NSDictionary *errorDict = nil;
-	[sysEventsScript executeSubroutine:@"type_text" arguments:string error:&errorDict];
-	if (errorDict) NSLog(@"Execute Error: %@", errorDict);
-    [sysEventsScript release];
-}
 @end
