@@ -1713,37 +1713,34 @@ NSMutableDictionary *bindingsDict = nil;
 
     if (direction>0 && ([newSelectedObject hasChildren] || alt)) {
         //Should show childrenLevel
-        newObjects = (alt?[newSelectedObject altChildren] :[newSelectedObject children]);
+        newObjects = (alt ? [newSelectedObject altChildren] : [newSelectedObject children]);
         if ([newObjects count] && !alt) {
             // filter the results to only contain types as defined in the indirectTypes .plist array.
             // If the user is holding alt, don't filter
             if (self == [self indirectSelector] && [[[self actionSelector] objectValue] indirectTypes]) {
                 NSArray *indirectTypes = [[[self actionSelector] objectValue] indirectTypes];
-                NSMutableOrderedSet *filteredObjects = [NSMutableOrderedSet orderedSet];
-                BOOL includeObject;
-                for (NSString *indirectType in indirectTypes) {
-                    for (QSObject *individual in newObjects) {
-                        includeObject = NO;
-                        // check the UTI for files
-                        if ([individual singleFilePath]) {
-                            // resolve alias objects
-                            individual = [individual resolvedAliasObject];
-                            NSString *type = [[NSFileManager defaultManager] UTIOfFile:[individual singleFilePath]];
-                            // if the file type is a folder (Always show them) or it conforms to a set indirectType
-                            if ([type isEqualToString:(NSString *)kUTTypeFolder] || UTTypeConformsTo((CFStringRef)type, (CFStringRef)indirectType)) {
-                                includeObject = YES;
-                            }
+                NSIndexSet *filteredIndexes = [newObjects indexesOfObjectsPassingTest:^BOOL(QSObject *individual, NSUInteger idx, BOOL *stop) {
+                    // check the UTI for files
+                    if (![individual singleFilePath]) {
+                        return NO;
+                    }
+                    // resolve alias objects
+                    individual = [individual resolvedAliasObject];
+                    NSString *type = [[NSFileManager defaultManager] UTIOfFile:[individual singleFilePath]];
+                    for (NSString *indirectType in indirectTypes) {
+                        // if the file type is a folder (Always show them) or it conforms to a set indirectType
+                        if ([type isEqualToString:(NSString *)kUTTypeFolder] || UTTypeConformsTo((CFStringRef)type, (CFStringRef)indirectType)) {
+                            return YES;
                         }
                         // for QSTypes set in the indirectType
-                        if (!includeObject && [[individual types] containsObject:indirectType]) {
-                            includeObject = YES;
-                        }
-                        if (includeObject) {
-                            [filteredObjects addObject:individual];
+                        if ([[individual types] containsObject:indirectType]) {
+                            return YES;
                         }
                     }
-                }
-                newObjects = [filteredObjects array];
+
+                    return NO;
+                }];
+                newObjects = [newObjects objectsAtIndexes:filteredIndexes];
             }
         }
         if ([newObjects count]) {
