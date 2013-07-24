@@ -694,7 +694,6 @@
         QSPluginUpdaterWindowController *c = [[QSPluginUpdaterWindowController alloc] initWithPlugins:plugins];
         
         NSArray *arr = [c showModal];
-        [c release];
         if (!arr) {
             return QSPluginUpdateStatusUpdateCancelled;
         }

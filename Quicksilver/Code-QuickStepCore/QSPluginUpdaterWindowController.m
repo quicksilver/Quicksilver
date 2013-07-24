@@ -25,7 +25,7 @@
 {
     self = [super initWithWindowNibName:@"QSPluginUpdater"];
     if (self) {
-        pluginsArray = [newPluginsArray retain];
+        pluginsArray = newPluginsArray;
         // all plugins are checked to install by default
         numberOfPluginsToInstall = [pluginsArray count];
         pluginsToInstall = nil;
@@ -56,9 +56,8 @@
 }
 
 - (void)dealloc {
-    [pluginsArray release]; pluginsArray = nil;
-    [pluginsToInstall release]; pluginsToInstall = nil;
-    [super dealloc];
+    pluginsArray = nil;
+    pluginsToInstall = nil;
 }
 
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
@@ -79,7 +78,7 @@
 - (NSArray *)showModal {
     [NSApp runModalForWindow:[self window]];
     // return an immutable representation
-    return [[pluginsToInstall copy] autorelease];
+    return [pluginsToInstall copy];
 }
 
 -(IBAction)cancel:(id)sender {
@@ -90,7 +89,7 @@
 -(IBAction)install:(id)sender {
     [self close];
     if (numberOfPluginsToInstall > 0) {
-        pluginsToInstall = [[NSMutableArray arrayWithCapacity:numberOfPluginsToInstall] retain];
+        pluginsToInstall = [NSMutableArray arrayWithCapacity:numberOfPluginsToInstall];
         // generate an array of plugin IDs to install
         [pluginsArray enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
             if ([obj objectForKey:@"shouldInstall"] == nil || [[obj objectForKey:@"shouldInstall"] integerValue] == NSOnState) {
@@ -170,7 +169,7 @@
         static NSString *css = nil;
         if (css == nil) {
             // CSS for making the web view blend in. !!-Not valid HTML (no <head>,<body>)
-            css = [@"<style>body {margin:0px;padding:0px;font-size:11px;font-family:\"lucida grande\";}ul {-webkit-padding-start:16px;list-style-type:square;margin:0px}</style>" retain];
+            css = @"<style>body {margin:0px;padding:0px;font-size:11px;font-family:\"lucida grande\";}ul {-webkit-padding-start:16px;list-style-type:square;margin:0px}</style>";
         }
         WebFrame *wf = self.webView.mainFrame;
         [wf loadHTMLString:[NSString stringWithFormat:@"%@%@",css,[thisPlugin releaseNotes]] baseURL:nil];

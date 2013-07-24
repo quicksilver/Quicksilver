@@ -519,7 +519,7 @@ NSSize QSMaxIconSize;
 }
 
 - (id)objectForMeta:(id)aKey {
-    return [[[meta objectForKey:aKey] retain] autorelease];
+    return [meta objectForKey:aKey];
 }
 
 - (void)setObject:(id)object forMeta:(id)aKey {
