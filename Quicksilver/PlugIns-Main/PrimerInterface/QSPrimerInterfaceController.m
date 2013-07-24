@@ -1,16 +1,5 @@
 #import "QSPrimerInterfaceController.h"
 
-#import <Carbon/Carbon.h>
-#import <QSFoundation/QSFoundation.h>
-#import <QSFoundation/NSWindow_BLTRExtensions.h>
-#import <QSEffects/QSWindow.h>
-#import <QSEffects/QSFadingView.h>
-#import <QSInterface/QSSearchObjectView.h>
-
-#import <IOKit/IOCFBundle.h>
-#import <ApplicationServices/ApplicationServices.h>
-
-
 #define DIFF 84
 
 @implementation QSPrimerInterfaceController

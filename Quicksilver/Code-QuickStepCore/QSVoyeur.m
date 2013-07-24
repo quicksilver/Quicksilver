@@ -1,4 +1,3 @@
-#include <Carbon/Carbon.h>
 #include <Cocoa/Cocoa.h>
 
 #import "QSVoyeur.h"

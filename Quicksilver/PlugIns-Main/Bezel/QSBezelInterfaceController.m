@@ -1,9 +1,4 @@
 #import "QSBezelInterfaceController.h"
-#import <QSInterface/QSBezelBackgroundView.h>
-#import <QSInterface/QSSearchObjectView.h>
-#import <QSInterface/QSInterface.h>
-#import <QSInterface/QSObjectCell.h>
-#import <QSEffects/QSWindow.h>
 
 @implementation QSBezelInterfaceController
 
