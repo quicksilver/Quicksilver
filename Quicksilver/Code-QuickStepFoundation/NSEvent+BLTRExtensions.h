@@ -7,9 +7,6 @@
  *
  */
 
-#include <Carbon/Carbon.h>
-
-
 #define NSProcessNotificationEvent 21
 
 #define NSFrontProcessSwitched 2

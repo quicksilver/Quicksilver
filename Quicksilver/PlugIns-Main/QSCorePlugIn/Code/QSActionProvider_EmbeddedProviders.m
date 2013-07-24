@@ -5,7 +5,6 @@
 #import "QSObject_FileHandling.h"
 
 #import "NDAlias+AliasFile.h"
-#import <Carbon/Carbon.h>
 
 #import "QSController.h"
 #import "QSRegistry.h"
@@ -26,7 +25,6 @@
 #import "QSResourceManager.h"
 
 #import "NSObject+ReaperExtensions.h"
-#import <Carbon/Carbon.h>
 
 #import "QSTextProxy.h"
 

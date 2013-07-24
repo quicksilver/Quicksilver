@@ -7,8 +7,6 @@
  *
  */
 
-#include <Carbon/Carbon.h>
-
 BOOL QSGetLocalizationStatus();
 
 extern NSMutableDictionary *localizationBundles;

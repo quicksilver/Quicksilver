@@ -14,7 +14,6 @@
 #import "QSInterfaceController.h"
 #import "QSBackgroundView.h"
 #import "QSController.h"
-#import <Carbon/Carbon.h>
 #import "QSImageAndTextCell.h"
 #import "QSResourceManager.h"
 #import "QSHandledSplitView.h"

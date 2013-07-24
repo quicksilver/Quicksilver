@@ -10,7 +10,6 @@
 #import "NSApplication_BLTRExtensions.h"
 #include <signal.h>
 #include <unistd.h>
-#import "Carbon/Carbon.h"
 
 bool _LSCopyAllApplicationURLs(NSArray **array);
 

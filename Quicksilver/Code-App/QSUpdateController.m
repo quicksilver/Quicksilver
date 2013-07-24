@@ -10,8 +10,6 @@
 //	update task is now cancelled on "connection error".
 //	networkIsReachable returning YES. commented out.
 
-#import <SystemConfiguration/SystemConfiguration.h>
-
 #import "Quicksilver.h"
 
 #import "QSUpdateController.h"

@@ -1,6 +1,5 @@
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
-#import <Carbon/Carbon.h>
 
 /* Deprecated. Use [NSApp completedLaunch] */
 extern BOOL QSApplicationCompletedLaunch;
