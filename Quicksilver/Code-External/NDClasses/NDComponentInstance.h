@@ -58,7 +58,7 @@ extern const NSString	* NDAppleScriptOffendingObject,
 	ComponentInstance							instanceRecord;
 	struct
 	{
-		id<NDScriptDataSendEvent>					target;
+		__unsafe_unretained id<NDScriptDataSendEvent>					target;
 		BOOL										currentProcessOnly;
 	}											sendAppleEvent;
 	id<NDScriptDataActive>						activeTarget;

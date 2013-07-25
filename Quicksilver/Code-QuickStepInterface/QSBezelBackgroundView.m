@@ -5,8 +5,6 @@
 
 - (void)dealloc {
 	[self unbind:@"isGlass"];
-	[color release];
-	[super dealloc];
 }
 
 - (void)bindColors {
@@ -64,8 +62,7 @@
 - (NSColor *)color { return color;  }
 
 - (void)setColor:(NSColor *)newColor {
-	[color release];
-	color = [[newColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace] retain];
+	color = [newColor colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
 	[self setNeedsDisplay:YES];
 }
 

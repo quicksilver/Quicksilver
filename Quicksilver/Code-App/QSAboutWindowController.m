@@ -60,7 +60,6 @@
 		[content setClearsBackground:YES];
 //		[content startRendering]; // moved to showWindow: method
 		[content setMaxRenderingFrameRate:10];
-		[content release];
 		[window display];
 		[aboutWindow addChildWindow:window ordered:NSWindowAbove];
 		[imageView removeFromSuperview];

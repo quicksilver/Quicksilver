@@ -24,7 +24,7 @@
 + (id)sharedInstance {
 	static id _sharedInstance;
 	if (!_sharedInstance)
-		_sharedInstance = [[[self class] allocWithZone:[self zone]] init];
+		_sharedInstance = [[[self class] alloc] init];
 	return _sharedInstance;
 }
 
@@ -65,19 +65,13 @@
 - (NSArray *)recommendedPlugIns { return recommendedPlugIns;  }
 - (void)setRecommendedPlugIns:(NSArray *)newRecommendedPlugIns {
 	if (recommendedPlugIns != newRecommendedPlugIns) {
-		[recommendedPlugIns release];
-		recommendedPlugIns = [newRecommendedPlugIns retain];
+		recommendedPlugIns = newRecommendedPlugIns;
 	}
 }
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[identifiers release];
-	[plugInsToInstall release];
-	[installedPlugIns release];
-	[recommendedPlugIns release];
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[super dealloc];
 }
 
 - (void)windowDidLoad {
@@ -262,7 +256,7 @@
 	[installTextField setHidden:NO];
 
 	[installTextField setStringValue:@"Downloading plugins"];
-	NSMutableArray *array = [[[plugInsToInstall allKeysForObject:[NSNumber numberWithBool:YES]] mutableCopy] autorelease];
+	NSMutableArray *array = [[plugInsToInstall allKeysForObject:[NSNumber numberWithBool:YES]] mutableCopy];
 
 	[array removeObjectsInArray:[installedPlugIns allKeys]];
 	NSArray *plugInsToAdd = [identifiers objectsForKeys:array notFoundMarker:@""];

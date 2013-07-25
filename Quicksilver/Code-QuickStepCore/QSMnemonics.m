@@ -4,7 +4,7 @@
 + (id)sharedInstance {
 	static QSMnemonics *_sharedInstance = nil;
 	if (!_sharedInstance) {
-		_sharedInstance = [[[self class] allocWithZone:[self zone]] init];
+		_sharedInstance = [[[self class] allocWithZone:nil] init];
 	}
 	return _sharedInstance;
 }
@@ -12,7 +12,7 @@
 - (id)init {
 	if (!(self = [super init]) ) return nil;
 	writeTimer = nil;
-	recentMnemonics = [[NSMutableDictionary dictionary] retain];
+	recentMnemonics = [NSMutableDictionary dictionary];
 	mnemonics = [[NSMutableDictionary alloc] initWithContentsOfFile:[pMnemonicStorage stringByStandardizingPath]];
 	[mnemonics removeObjectsForKeys:[NSArray arrayWithObjects:@"defined", nil]];
 
@@ -111,9 +111,7 @@
 - (void)setWriteTimer {
 	if ([writeTimer isValid])
 		[writeTimer invalidate];
-	[writeTimer release];
 	writeTimer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(writeItems:) userInfo:nil repeats:NO];
-	[writeTimer retain];
 }
 - (void)addObjectMnemonic:(NSString *)mnem forID:(NSString *)key {
 	if (!mnem) mnem = @"";
