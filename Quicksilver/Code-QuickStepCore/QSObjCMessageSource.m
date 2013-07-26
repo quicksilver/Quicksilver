@@ -90,7 +90,7 @@
     id result;
     id argument = nil;
     if (argument = messageInfo[kActionArgument]) {
-        [target performSelector:selector withObject:argument];
+        result = [target performSelector:selector withObject:argument];
     } else {
         result = [target performSelector:selector];
     }
