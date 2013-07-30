@@ -26,7 +26,7 @@ This release requires 10.7+ and is 64-bit.
   * Improved recognition of URLs and e-mail addresses (#1462, #1509, #1512, #1508, #1514)
   * Fix the appearance of some hi-res images (#1518)
   * Prevent duplicates in Recent Commands/command history (#1532)
-  * Internal improvements and bug fixes (#1468, #1475, #1479, #1505)
+  * Internal improvements and bug fixes (#1468, #1475, #1479, #1505, #1542)
 
 ### Changed ###
 
