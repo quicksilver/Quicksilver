@@ -747,15 +747,15 @@ NSMutableDictionary *bindingsDict = nil;
 	} else {
 		if (string) {
 			[[self textModeEditor] setString:string];
-			[[self textModeEditor] setSelectedRange:NSMakeRange([[[self textModeEditor] string] length] , 0)];
+			[[self textModeEditor] setSelectedRange:NSMakeRange([string length], 0)];
 		} else if ([partialString length] && ([resetTimer isValid] || ![[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay]) ) {
-			[[self textModeEditor] setString:[partialString stringByAppendingString:[[NSApp currentEvent] charactersIgnoringModifiers]]];
-			[[self textModeEditor] setSelectedRange:NSMakeRange([[[self textModeEditor] string] length] , 0)];
+			[[self textModeEditor] setString:partialString];
+			[[self textModeEditor] setSelectedRange:NSMakeRange([partialString length], 0)];
 		} else {
 			NSString *stringValue = [[self objectValue] stringValue];
 			if (stringValue) { 
                 [[self textModeEditor] setString:stringValue];
-                [[self textModeEditor] setSelectedRange:NSMakeRange(0, [[[self textModeEditor] string] length])];
+                [[self textModeEditor] setSelectedRange:NSMakeRange(0, [stringValue length])];
             }
 		}
 		// Set the underlying object of the pane to be a text object
