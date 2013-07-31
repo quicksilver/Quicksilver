@@ -750,11 +750,11 @@ NSMutableDictionary *bindingsDict = nil;
 			[[self textModeEditor] setSelectedRange:NSMakeRange([string length], 0)];
 		} else if ([partialString length] && ([resetTimer isValid] || ![[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay]) ) {
             NSString *text;
-            @try {
-                // getting characters raises an exception if this wasn't a key event
+            NSUInteger currentEventMask = NSEventMaskFromType([[NSApp currentEvent] type]);
+            // getting characters raises an exception if this wasn't a key event
+            if (currentEventMask & (NSKeyUpMask | NSKeyDownMask)) {
                 text = [partialString stringByAppendingString:[[NSApp currentEvent] charactersIgnoringModifiers]];
-            }
-            @catch (NSException *exception) {
+            } else {
                 text = partialString;
             }
 			[[self textModeEditor] setString:text];
