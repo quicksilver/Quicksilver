@@ -749,8 +749,16 @@ NSMutableDictionary *bindingsDict = nil;
 			[[self textModeEditor] setString:string];
 			[[self textModeEditor] setSelectedRange:NSMakeRange([string length], 0)];
 		} else if ([partialString length] && ([resetTimer isValid] || ![[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay]) ) {
-			[[self textModeEditor] setString:partialString];
-			[[self textModeEditor] setSelectedRange:NSMakeRange([partialString length], 0)];
+            NSString *text;
+            @try {
+                // getting characters raises an exception if this wasn't a key event
+                text = [partialString stringByAppendingString:[[NSApp currentEvent] charactersIgnoringModifiers]];
+            }
+            @catch (NSException *exception) {
+                text = partialString;
+            }
+			[[self textModeEditor] setString:text];
+			[[self textModeEditor] setSelectedRange:NSMakeRange([text length], 0)];
 		} else {
 			NSString *stringValue = [[self objectValue] stringValue];
 			if (stringValue) { 
