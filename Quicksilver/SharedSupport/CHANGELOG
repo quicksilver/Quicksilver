@@ -12,7 +12,6 @@ This release requires 10.7+ and is 64-bit.
 ### Fixed ###
 
   * Fix a problem with missing metadata on URLs (#1422)
-  * Crashes and hangs (#1425)
   * Prevent the third pane from constantly opening and closing while typing (#1467, #1468)
   * Fix searching for items with long names (#1042, #1475)
   * Select the correct trigger when navigating the list with arrow keys (#1473, #1475)
@@ -26,6 +25,7 @@ This release requires 10.7+ and is 64-bit.
   * Improved recognition of URLs and e-mail addresses (#1462, #1509, #1512, #1508, #1514)
   * Fix the appearance of some hi-res images (#1518)
   * Prevent duplicates in Recent Commands/command history (#1532)
+  * Crashes and hangs (#1425, #1544, #1545)
   * Internal improvements and bug fixes (#1468, #1475, #1479, #1505, #1542)
   * Creating an alias in the same folder as the original won't overwrite it (#1547, #1549)
   * Creating a symbolic link in the same foilder as the original results in a relative link (#1549)
