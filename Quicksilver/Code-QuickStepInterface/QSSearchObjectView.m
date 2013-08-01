@@ -752,7 +752,7 @@ NSMutableDictionary *bindingsDict = nil;
             NSString *text;
             NSUInteger currentEventMask = NSEventMaskFromType([[NSApp currentEvent] type]);
             // getting characters raises an exception if this wasn't a key event
-            if (currentEventMask & (NSKeyUpMask | NSKeyDownMask)) {
+            if (currentEventMask & (NSKeyUpMask | NSKeyDownMask | NSFlagsChangedMask)) {
                 text = [partialString stringByAppendingString:[[NSApp currentEvent] charactersIgnoringModifiers]];
             } else {
                 text = partialString;
