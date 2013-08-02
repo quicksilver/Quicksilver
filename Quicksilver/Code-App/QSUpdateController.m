@@ -115,6 +115,7 @@ typedef enum {
 	NSString *checkVersionString = nil;
 
     NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:[self buildUpdateCheckURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.0];
+    [theRequest setValue:kQSUserAgent forHTTPHeaderField:@"User-Agent"];
 
     NSData *data = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:nil error:nil];
     checkVersionString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
