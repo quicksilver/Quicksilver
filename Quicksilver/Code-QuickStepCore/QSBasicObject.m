@@ -39,7 +39,7 @@
 }
 
 #pragma mark QSObjectHierarchy Protocol
-- (QSBasicObject *)parent { return nil; }
+- (id <QSObjectHierarchy>)parent { return nil; }
 - (BOOL)hasChildren { return NO; }
 - (NSArray *)children { return nil; }
 - (NSArray *)altChildren { return nil; }

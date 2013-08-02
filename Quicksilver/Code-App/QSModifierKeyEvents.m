@@ -9,7 +9,6 @@
 #import "QSModifierKeyEvents.h"
 #import "QSController.h"
 #import "QSHotKeyEvent.h"
-#import <Carbon/Carbon.h>
 #import <unistd.h>
 
 #define NSNumlockKeyCode 10

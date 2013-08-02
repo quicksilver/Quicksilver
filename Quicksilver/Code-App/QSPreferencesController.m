@@ -108,9 +108,11 @@ id QSPrefs;
 }
 
 - (QSPreferencePane *)showPaneWithIdentifier:(NSString *)identifier {
-	[NSApp activateIgnoringOtherApps:YES];
-	[self showWindow:nil];
-	[self selectPaneWithIdentifier:identifier];
+    runOnMainQueueSync(^{
+        [NSApp activateIgnoringOtherApps:YES];
+        [self showWindow:nil];
+        [self selectPaneWithIdentifier:identifier];
+    });
 //	int index = [[modules valueForKey:kItemID] indexOfObject:identifier];
 //	if (index == NSNotFound) {
 //		NSLog(@"%@ not found", identifier);

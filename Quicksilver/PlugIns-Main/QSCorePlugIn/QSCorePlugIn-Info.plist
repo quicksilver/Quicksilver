@@ -1808,6 +1808,8 @@
 			<integer>1</integer>
 			<key>validatesObjects</key>
 			<true/>
+            <key>alternateAction</key>
+            <string>FileOpenAction</string>
 			<key>actionClass</key>
 			<string>QSAppleScriptActions</string>
 			<key>directTypes</key>
@@ -2081,6 +2083,13 @@
 				<string>ClippingText</string>
 				<key>name</key>
 				<string>Text</string>
+			</dict>
+			<key>public.rtf</key>
+			<dict>
+				<key>icon</key>
+				<string>ClippingText</string>
+				<key>name</key>
+				<string>RTF Text</string>
 			</dict>
 			<key>NSFilenamesPboardType</key>
 			<dict>

@@ -5,7 +5,6 @@
 #import "QSObject_FileHandling.h"
 
 #import "NDAlias+AliasFile.h"
-#import <Carbon/Carbon.h>
 
 #import "QSController.h"
 #import "QSRegistry.h"
@@ -26,7 +25,6 @@
 #import "QSResourceManager.h"
 
 #import "NSObject+ReaperExtensions.h"
-#import <Carbon/Carbon.h>
 
 #import "QSTextProxy.h"
 
@@ -298,7 +296,8 @@
 
         
         NSIndexSet *applicationIndexes = [fileObjects indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *thisObject, NSUInteger i, BOOL *stop) {
-            return ([thisObject isApplication] && thisObject != preferred);
+            QSObject *resolved = [thisObject resolvedAliasObject];
+            return ([resolved isApplication] && thisObject != preferred);
         }];
         if (!preferred) {
             // no default app, leave the 1st pane blank
@@ -321,7 +320,8 @@
         id currentFolderObject = currentFolderPath ? [QSObject fileObjectWithPath:currentFolderPath] : [NSNull null];
         
         NSIndexSet *folderIndexes = [fileObjects indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *thisObject, NSUInteger i, BOOL *stop) {
-            return ([thisObject isFolder] && (thisObject != currentFolderObject));
+            QSObject *resolved = [thisObject resolvedAliasObject];
+            return ([resolved isFolder] && (thisObject != currentFolderObject));
         }];
         
         return [[NSArray arrayWithObject:currentFolderObject] arrayByAddingObjectsFromArray:[fileObjects objectsAtIndexes:folderIndexes]];
@@ -345,7 +345,7 @@
       [newActions addObject:kFileAlwaysOpenWithAction];
         // can all files be trashed?
         for (QSObject *file in [dObject splitObjects]) {
-            if (![file isOnLocalVolume]) {
+            if (![[file resolvedAliasObject] isOnLocalVolume]) {
                 [newActions removeObject:kFileToTrashAction];
                 break;
             }

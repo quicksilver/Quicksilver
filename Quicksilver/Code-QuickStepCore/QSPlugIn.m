@@ -22,7 +22,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 @implementation QSPlugIn
 
-@synthesize status;
+@synthesize status, data;
 
 + (void)initialize {
 	plugInBundlePaths = [[NSMutableDictionary alloc] init];
@@ -260,6 +260,11 @@ NSMutableDictionary *plugInBundlePaths = nil;
 		version = [data objectForKey:(NSString *)kCFBundleVersionKey];
 	}
 	return version;
+}
+
+- (NSString *)releaseNotes
+{
+    return [data objectForKey:@"QSPluginChanges"];
 }
 
 - (BOOL)isSecret {
@@ -521,13 +526,6 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	if (bundle) {
 		[plugInBundlePaths objectForKey:[bundle bundlePath]]; // old plugin needs to be retained, because it will be released once it's replaced in plugInBundlePaths-list
 		[plugInBundlePaths setObject:self forKey:[bundle bundlePath]];
-	}
-}
-
-- (NSMutableDictionary *)data { return data;  }
-- (void)setData:(NSMutableDictionary *)newData {
-	if(newData != data){
-		data = newData;
 	}
 }
 

@@ -1,5 +1,4 @@
 #import "QSAboutWindowController.h"
-#import <Carbon/Carbon.h>
 #import <Quartz/Quartz.h>
 #import <WebKit/WebKit.h>
 //#import "QSResourceManager.h"

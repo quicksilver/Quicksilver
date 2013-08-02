@@ -368,10 +368,11 @@
 
 - (void)updateViewLocations {
     QSAction *obj = [aSelector objectValue];
-	if (obj && ([obj respondsToSelector:@selector(argumentCount)]) && ([obj argumentCount] == 2))
+	if (obj && ([obj respondsToSelector:@selector(argumentCount)]) && ([obj argumentCount] == 2)) {
 		[self showIndirectSelector:nil];
-	else
+    } else if ([aSelector objectValue] != nil) {
 		[self hideIndirectSelector:nil];
+    }
 }
 
 - (void)performService:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {

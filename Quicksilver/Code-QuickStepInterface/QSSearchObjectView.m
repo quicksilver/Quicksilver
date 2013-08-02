@@ -443,54 +443,51 @@ NSMutableDictionary *bindingsDict = nil;
 	if ([[self window] firstResponder] != self) return;
 	if ([[resultController window] isVisible]) return; //[resultController->resultTable reloadData];
     
-	[[resultController window] setLevel:[[self window] level] +1];
-	[[resultController window] setFrameUsingName:@"results" force:YES];
-	//  if (fALPHA) [resultController setSplitLocation];
-    
-	NSRect windowRect = [[resultController window] frame];
+	NSRect resultWindowRect = [[resultController window] frame];
 	NSRect screenRect = [[[resultController window] screen] frame];
+    NSRect sovRect = [[self window] convertRectToScreen:[self frame]];
+    NSRect interfaceRect = [[self window] frame];
+
 	if (preferredEdge == NSMaxXEdge) {
-        
-		NSPoint resultPoint = [self convertPoint:NSZeroPoint toView:nil];
-        
-		resultPoint = [[self window] convertBaseToScreen:resultPoint];
-        
-		if (resultPoint.x+NSWidth([self frame]) +NSWidth(windowRect)<NSMaxX(screenRect)) {
+		if (interfaceRect.origin.x + NSWidth(interfaceRect) + NSWidth(resultWindowRect) <NSMaxX(screenRect)) {
+            // results view on the RHS of the interface
 			if (hFlip) {
+                [[resultController searchStringField] setAlignment:NSLeftTextAlignment];
+
 				[[[resultController window] contentView] flipSubviewsOnAxis:NO];
 				hFlip = NO;
 			}
-            
-			resultPoint.x += NSWidth([self frame]);
-			resultPoint.y += NSHeight([self frame]) +1;
+            resultWindowRect.origin.x = interfaceRect.origin.x + interfaceRect.size.width + 1;
 		} else {
+            // results view on the LHS of the interface
 			if (!hFlip) {
+                [[resultController searchStringField] setAlignment:NSRightTextAlignment];
 				[[[resultController window] contentView] flipSubviewsOnAxis:NO];
 				hFlip = YES;
 			}
-			resultPoint.x -= NSWidth(windowRect);
-			resultPoint.y += NSHeight([self frame]) +1;
+            resultWindowRect.origin.x = interfaceRect.origin.x - resultWindowRect.size.width -1;
 		}
-        
-		[[resultController window] setFrameTopLeftPoint:resultPoint];
+        resultWindowRect.origin.y = sovRect.origin.y + sovRect.size.height;
+
+		[[resultController window] setFrameTopLeftPoint:resultWindowRect.origin];
         
 	} else {
 		NSPoint resultPoint = [[self window] convertBaseToScreen:[self frame] .origin];
 		//resultPoint.x;
-		CGFloat extraHeight = windowRect.size.height-(resultPoint.y-screenRect.origin.y);
+		CGFloat extraHeight = resultWindowRect.size.height-(resultPoint.y-screenRect.origin.y);
         
 		//resultPoint.y += 2;
-		windowRect.origin.x = resultPoint.x;
+		resultWindowRect.origin.x = resultPoint.x;
 		if (extraHeight>0) {
-			windowRect.origin.y = screenRect.origin.y;
-			windowRect.size.height -= extraHeight;
+			resultWindowRect.origin.y = screenRect.origin.y;
+			resultWindowRect.size.height -= extraHeight;
 		} else {
 			//		NSLog(@"pad %f", resultsPadding);
-			windowRect.origin.y = resultPoint.y-windowRect.size.height-resultsPadding;
+			resultWindowRect.origin.y = resultPoint.y-resultWindowRect.size.height-resultsPadding;
 		}
         
-		windowRect = NSIntersectionRect(windowRect, screenRect);
-		[[resultController window] setFrame:windowRect display:NO];
+		resultWindowRect = NSIntersectionRect(resultWindowRect, screenRect);
+		[[resultController window] setFrame:resultWindowRect display:NO];
 	}
 	[self updateResultView:sender];
     
@@ -531,7 +528,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 #pragma mark -
 #pragma mark Object Value
-- (void)selectObjectValue:(QSObject *)newObject {
+- (void)selectObjectValue:(id)newObject {
     QSObject *currentObject = [self objectValue];
     
     // resolve the current and new objects in order to compare them
@@ -556,8 +553,7 @@ NSMutableDictionary *bindingsDict = nil;
     [self clearSearch];
     [parentStack removeAllObjects];
     [self setResultArray:[NSMutableArray arrayWithObjects:newObject, nil]];
-    [super setObjectValue:newObject];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
+    [self selectObjectValue:newObject];
 }
 
 - (void)clearObjectValue {
@@ -1676,117 +1672,99 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)browse:(NSInteger)direction {
-	NSArray *newObjects = nil;
-	QSBasicObject * newSelectedObject = [super objectValue];
-	QSBasicObject * parent = nil;
-	NSArray *siblings;
-	//if (self == [self actionSelector]) {
-	//}
+    NSArray *newObjects = nil;
+	QSObject * newSelectedObject = [super objectValue];
+    QSObject * parent = nil;
 
-	BOOL alt = ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) > 0;
+    BOOL alt = ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) > 0;
 
-	//  NSLog(@"child %d %d", [[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask, [[NSApp currentEvent] modifierFlags]);
-	if (direction>0) {
-		//Should show childrenLevel
-		newObjects = (alt?[newSelectedObject altChildren] :[newSelectedObject children]);
-		if ([newObjects count] && !alt) {
+
+    if (direction>0 && ([newSelectedObject hasChildren] || alt)) {
+        //Should show childrenLevel
+        newObjects = (alt ? [newSelectedObject altChildren] : [newSelectedObject children]);
+        if ([newObjects count] && !alt) {
             // filter the results to only contain types as defined in the indirectTypes .plist array.
             // If the user is holding alt, don't filter
             if (self == [self indirectSelector] && [[[self actionSelector] objectValue] indirectTypes]) {
                 NSArray *indirectTypes = [[[self actionSelector] objectValue] indirectTypes];
-                NSMutableArray *filteredObjects = [NSMutableArray arrayWithCapacity:1];
-                BOOL includeObject;
-                for (NSString *indirectType in indirectTypes) {
-                    for (QSObject *individual in newObjects) {
-                        includeObject = NO;
-                        // check the UTI for files
-                        if ([individual singleFilePath]) {
-                            NSString *type = [[NSFileManager defaultManager] UTIOfFile:[individual singleFilePath]];
-                            // if the file type is a folder (Always show them) or it conforms to a set indirectType
-                            if ([type isEqualToString:(__bridge NSString *)kUTTypeFolder] || UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)indirectType)) {
-                                includeObject = YES;
-                            }
+                NSIndexSet *filteredIndexes = [newObjects indexesOfObjectsPassingTest:^BOOL(QSObject *individual, NSUInteger idx, BOOL *stop) {
+                    // check the UTI for files
+                    if (![individual singleFilePath]) {
+                        return NO;
+                    }
+                    // resolve alias objects
+                    individual = [individual resolvedAliasObject];
+                    NSString *type = [[NSFileManager defaultManager] UTIOfFile:[individual singleFilePath]];
+                    for (NSString *indirectType in indirectTypes) {
+                        // if the file type is a folder (Always show them) or it conforms to a set indirectType
+                        if ([type isEqualToString:(NSString *)kUTTypeFolder] || UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)indirectType)) {
+                            return YES;
                         }
                         // for QSTypes set in the indirectType
-                        if (!includeObject && [[individual types] containsObject:indirectType]) {
-                            includeObject = YES;
-                        }
-                        if (includeObject && ![filteredObjects containsObject:individual]) {
-                            [filteredObjects addObject:individual];
+                        if ([[individual types] containsObject:indirectType]) {
+                            return YES;
                         }
                     }
-                }
-                newObjects = (NSArray *)filteredObjects;
+
+                    return NO;
+                }];
+                newObjects = [newObjects objectsAtIndexes:filteredIndexes];
             }
         }
         if ([newObjects count]) {
             [parentStack addObject:newSelectedObject];
         }
         newSelectedObject = nil;
-    } else {
-		parent = [newSelectedObject parent];
-
-
-		if (parent && [[NSApp currentEvent] modifierFlags] & NSControlKeyMask) {
-			[parentStack removeAllObjects];
-		} else if ([parentStack count]) {
-			browsing = YES;
-
-			parent = [parentStack lastObject];
-			// ***warning  * this should check for a valid parent
-			[parentStack removeLastObject];
-
-		}
-
-		if (!browsing && [self searchMode] == SearchFilterAll && [[resultController window] isVisible]) {
-			//Maintain selection, but show siblings
-			siblings = (alt?[parent altChildren] :[parent children]);
-			newObjects = siblings;
-
-		} else {
-			//Should show parent's level
-			newSelectedObject = parent;
-			if (newSelectedObject) {
-				if ((NSInteger)[historyArray count] > historyIndex + 1) {
-					if ([[[historyArray objectAtIndex:historyIndex+1] valueForKey:@"selection"] isEqual:parent]) {
-                        
-                        newObjects = [[historyArray objectAtIndex:historyIndex+1] valueForKey:@"resultArray"];
-                        [historyArray removeObjectAtIndex:historyIndex+1];
-					}
+    } else if (direction < 0 ) {
+        if ([parentStack count] && !alt) {
+            browsing = YES;
+            parent = [parentStack lastObject];
+            [parentStack removeLastObject];
+        } else {
+            parent = [newSelectedObject parent];
+        }
+        
+        newSelectedObject = parent;
+        
+        // should show parent's level
+        newSelectedObject = parent;
+        if (newSelectedObject) {
+            if ((NSInteger)[historyArray count] > historyIndex + 1) {
+                if ([[[historyArray objectAtIndex:historyIndex+1] valueForKey:@"selection"] isEqual:parent]) {
+                    [historyArray removeObjectAtIndex:historyIndex+1];
+                }
 #ifdef DEBUG
-					if (VERBOSE) NSLog(@"Parent Missing, No History, %@", [[historyArray objectAtIndex:0] valueForKey:@"selection"]);
+                if (VERBOSE) NSLog(@"Parent Missing, No History, %@", [[historyArray objectAtIndex:0] valueForKey:@"selection"]);
 #endif
-				}
-
-				if (!newObjects)
-					newObjects = (alt ? [newSelectedObject altSiblings] : [newSelectedObject siblings]);
-				if (![newObjects containsObject:newSelectedObject])
-					newObjects = [newSelectedObject altSiblings];
-
-				if (!newObjects && [parentStack count]) {
-					parent = [parentStack lastObject];
-					newObjects = [parent children];
-				}
-
-				if (!newObjects && [historyArray count]) {
-					//
-					if ([[[historyArray objectAtIndex:0] valueForKey:@"selection"] isEqual:parent]) {
+            }
+            
+            if (!newObjects)
+                newObjects = (alt ? [newSelectedObject altSiblings] : [newSelectedObject siblings]);
+            if (![newObjects containsObject:newSelectedObject])
+                newObjects = [newSelectedObject altSiblings];
+            
+            if (!newObjects && [parentStack count]) {
+                parent = [parentStack lastObject];
+                newObjects = [parent children];
+            }
+            
+            if (!newObjects && [historyArray count]) {
+                if ([[[historyArray objectAtIndex:0] valueForKey:@"selection"] isEqual:parent]) {
 #ifdef DEBUG
-						if (VERBOSE) NSLog(@"Parent Missing, Using History");
+                    if (VERBOSE) NSLog(@"Parent Missing, Using History");
 #endif
-
-						[self goBackward:self];
-						return;
-					}
+                    
+                    [self goBackward:self];
+                    return;
+                }
 #ifdef DEBUG
-					if (VERBOSE) NSLog(@"Parent Missing, No History");
+                if (VERBOSE) NSLog(@"Parent Missing, No History");
 #endif
-
-				}
-			}
-		}
+                
+            }
+        }
     }
-
+    
     if ([newObjects count]) {
         browsing = YES;
         
@@ -1794,8 +1772,8 @@ NSMutableDictionary *bindingsDict = nil;
         [self saveMnemonic];
         [self clearSearch];
         NSInteger defaultMode = [[NSUserDefaults standardUserDefaults] integerForKey:kBrowseMode];
-        [self setSearchMode:(defaultMode ? defaultMode  : SearchSnap)];
-        [self setResultArray:[newObjects mutableCopy]]; // !!!:nicholas:20040319
+        [self setSearchMode:(defaultMode ? defaultMode : SearchFilter)];
+        [self setResultArray:[newObjects mutableCopy]];
         [self setSourceArray:[newObjects mutableCopy]];
         
         if (!newSelectedObject)
@@ -1806,7 +1784,11 @@ NSMutableDictionary *bindingsDict = nil;
         [self setVisibleString:@"Browsing"];
         
         [self showResultView:self];
-    } else if (![[NSApp currentEvent] isARepeat]) {
+        return;
+        
+    }
+    
+    if (![[NSApp currentEvent] isARepeat]) {
         
         [self showResultView:self];
         if ([[resultController window] isVisible])
@@ -1821,7 +1803,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 #pragma mark Quicklook support
 
-@implementation QSSearchObjectView (Quicklook) 
+@implementation QSSearchObjectView (Quicklook)
 
 
 - (BOOL)canQuicklookCurrentObject {
@@ -1969,23 +1951,13 @@ NSMutableDictionary *bindingsDict = nil;
     // get the location of the icon in the interface. This is a tricky process since all interfaces are different.
     // Basic method: get the 1st pane/3rd pane rect, from within this rect, get the image rect where the image is placed
     // then get the image size, and offset the based on the image size (typically smaller than the image rect, but not always the case - Primer)
-    NSRect rect = [self frame];
-    NSRect windowFrame = [[self window] frame];
-    rect = [[self cell] imageRectForBounds:rect];
-    NSSize iconSize = [[(QSObject *)item icon] size];
-    BOOL imageIsWider = (iconSize.width > rect.size.width);
-    BOOL imageIsHigher = (iconSize.height > rect.size.height);
-    rect.origin.x = windowFrame.origin.x + rect.origin.x;
-    if (!imageIsWider) {
-        rect.origin.x += (rect.size.width - iconSize.width)/2;
-    }
-    if (!imageIsHigher) {
-        rect.origin.y += (rect.size.height - iconSize.height)/2;
-    }
-    rect.origin.y = windowFrame.origin.y + rect.origin.y;
-    rect.size.width = !imageIsWider ? iconSize.width : rect.size.width;
-    rect.size.height = !imageIsHigher ? iconSize.height : rect.size.height;
-    return rect;
+    NSRect rect = [self bounds];
+    rect = [[self cell] drawingRectForBounds:rect];
+	rect = NSIntegralRect(fitRectInRect(NSMakeRect(0, 0, 1, 1), [[self cell] imageRectForBounds:rect] , NO) );
+    rect.origin.y += self.frame.origin.y;
+    rect.origin.x += self.frame.origin.x;
+    return [[self window] convertRectToScreen:rect];
+;
 }
 
 @end

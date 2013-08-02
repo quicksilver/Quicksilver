@@ -97,7 +97,7 @@ NSSize QSMaxIconSize;
 
     @synchronized(iconLoadedSet) {
         NSSet *s = [iconLoadedSet objectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *obj, BOOL *stop) {
-            return obj->lastAccess && obj->lastAccess < (globalLastAccess - interval) && ![obj isKindOfClass:[QSAction class]];
+            return obj->lastAccess && obj->lastAccess < (globalLastAccess - interval);
         }];
         for(QSObject *thisObject in s) {
             if ([thisObject unloadIcon]) {
@@ -153,7 +153,6 @@ NSSize QSMaxIconSize;
     }
     //		NSLog(@"setobj:%@", [objectDictionary objectForKey:anIdentifier]);
 }
-
 
 - (id)init {
 	if (self = [super init]) {
@@ -472,9 +471,11 @@ NSSize QSMaxIconSize;
 	if ([object isKindOfClass:[NSArray class]]) {
 		if ([object count] == 1) return [object lastObject];
 	} else {
-		return object;
-	}
-	return nil;
+        return object;
+    }
+    // if the object for type: aKey is an array, we return 'nil' (not the actual array)
+    // For those cases we use arrayForType
+    return nil;
 }
 - (NSArray *)arrayForType:(id)aKey {
 	id object = [self _safeObjectForType:aKey];
@@ -487,12 +488,14 @@ NSSize QSMaxIconSize;
     if (!aKey) {
         return;
     }
-	if (object) {
-        if (object != [data objectForKey:aKey]) {
-            [data setObject:object forKey:aKey];
+    @synchronized(data) {
+        if (object) {
+            if (object != [data objectForKey:aKey]) {
+                [data setObject:object forKey:aKey];
+            }
+        } else {
+            [data removeObjectForKey:aKey];
         }
-    } else {
-        [data removeObjectForKey:aKey];
     }
 }
 
@@ -504,12 +507,14 @@ NSSize QSMaxIconSize;
     if (!aKey) {
         return;
     }
-    if (object) {
-        if (object != [[self cache] objectForKey:aKey]) {
-            [[self cache] setObject:object forKey:aKey];
+    @synchronized([self cache]) {
+        if (object) {
+            if (object != [[self cache] objectForKey:aKey]) {
+                [[self cache] setObject:object forKey:aKey];
+            }
+        } else {
+            [[self cache] removeObjectForKey:aKey];
         }
-    } else {
-        [[self cache] removeObjectForKey:aKey];
     }
 }
 
@@ -603,18 +608,6 @@ NSSize QSMaxIconSize;
 @end
 
 @implementation QSObject (Hierarchy)
-
-- (QSBasicObject * ) parent {
-	QSBasicObject * parent = nil;
-
-	id handler = nil;
-	if (handler = [self handlerForSelector:@selector(parentOfObject:)])
-		parent = [handler parentOfObject:self];
-
-	if (!parent)
-		parent = [objectDictionary objectForKey:[meta objectForKey:kQSObjectParentID]];
-	return parent;
-}
 
 - (void)setParentID:(NSString *)parentID {
     [self setObject:parentID forMeta:kQSObjectParentID];
@@ -746,6 +739,18 @@ NSSize QSMaxIconSize;
     }
 }
 
+- (QSObject *)parent {
+    QSObject * parent = nil;
+    
+	id handler = nil;
+	if (handler = [self handlerForSelector:@selector(parentOfObject:)])
+		parent = [handler parentOfObject:self];
+    
+	if (!parent)
+		parent = [objectDictionary objectForKey:[meta objectForKey:kQSObjectParentID]];
+	return parent;
+}
+
 - (NSArray *)children {
 	if (!flags.childrenLoaded || ![self childrenValid])
 		[self loadChildren];
@@ -839,6 +844,11 @@ NSSize QSMaxIconSize;
 - (BOOL)iconLoaded { return flags.iconLoaded;  }
 - (void)setIconLoaded:(BOOL)flag {
 	flags.iconLoaded = flag;
+    if (flag) {
+        [iconLoadedSet addObject:self];
+    } else {
+        [iconLoadedSet removeObject:self];
+    }
 }
 
 - (BOOL)retainsIcon { return flags.retainsIcon;  } ;
@@ -943,7 +953,6 @@ NSSize QSMaxIconSize;
     
 	lastAccess = [NSDate timeIntervalSinceReferenceDate];
 	globalLastAccess = lastAccess;
-	[iconLoadedSet addObject:self];
 
 	if (namedIcon) {
         NSImage *image = [QSResourceManager imageNamed:namedIcon];
@@ -970,7 +979,6 @@ NSSize QSMaxIconSize;
 		[self setIcon:[[NSImage alloc] initWithPasteboard:(NSPasteboard *)self]];
 	}
     
-	// file type for sound clipping: clps
 	if (![self icon]) {
 		[self setIcon:[QSResourceManager imageNamed:@"GenericQuestionMarkIcon"]];
 		return NO;
@@ -985,7 +993,6 @@ NSSize QSMaxIconSize;
     
 	[self setIcon:nil];
 	[self setIconLoaded:NO];
-	[iconLoadedSet removeObject:self];
 	return YES;
 }
 
@@ -1007,8 +1014,16 @@ NSSize QSMaxIconSize;
 		[self setIcon:[NSImage imageNamed:@"FadedDefaultBookmarkIcon"]];
 	}
     
-	else
+    if (!icon) {
+        // try and get an image from the QSTypeDefinitions dict
+        NSString *namedIcon = [[[QSReg tableNamed:@"QSTypeDefinitions"] objectForKey:[self primaryType]] objectForKey:@"icon"];
+        if (namedIcon) {
+            [self setIcon:[QSResourceManager imageNamed:namedIcon]];
+        }
+    }
+	if (!icon) {
 		[self setIcon:[QSResourceManager imageNamed:@"GenericQuestionMarkIcon"]];
+    }
     
 	if (icon) return icon;
 	return nil;

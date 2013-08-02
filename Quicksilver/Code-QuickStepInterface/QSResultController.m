@@ -96,8 +96,8 @@ NSMutableDictionary *kindDescriptions = nil;
 - (void)windowDidLoad {
 	[(QSWindow *)[self window] setHideOffset:NSMakePoint(32, 0)];
 	[(QSWindow *)[self window] setShowOffset:NSMakePoint(16, 0)];
+    windowHeight = [[self window] frame].size.height;
 	[self setupResultTable];
-	// [[[self window] contentView] flipSubviewsOnAxis:1];
 
 	[splitView setAutosaveName:@"QSResultWindowSplitView"];
     
@@ -148,7 +148,6 @@ NSMutableDictionary *kindDescriptions = nil;
                                                            forKey:@"NSValueTransformerName"]];
 	}
 	[self reloadColors];
-	[[self window] setLevel:NSFloatingWindowLevel+1];
 
 	//[[resultTable enclosingScrollView] setHasVerticalScroller:NO];
 }
@@ -310,22 +309,24 @@ NSMutableDictionary *kindDescriptions = nil;
 
 - (void)objectIconModified:(NSNotification *)notif
 {
-    // if results are showing, check for icons that need updating
-    if ([[self window] isVisible]) {
-        QSObject *object = [notif object];
-        // if updated object is is in the results, update it in the list
-        NSUInteger ind = [currentResults indexOfObject:object];
-        if (ind != NSNotFound) {
-            [resultTable setNeedsDisplayInRect:[resultTable rectOfRow:ind]];
-        }
-        // if updated object is is in the child results, update it in the list
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
-            ind = [[[self selectedItem] children] indexOfObject:object];
+    runOnMainQueueSync(^{
+        // if results are showing, check for icons that need updating
+        if ([[self window] isVisible]) {
+            QSObject *object = [notif object];
+            // if updated object is is in the results, update it in the list
+            NSUInteger ind = [currentResults indexOfObject:object];
             if (ind != NSNotFound) {
-                [resultChildTable setNeedsDisplayInRect:[resultChildTable rectOfRow:ind]];
+                [resultTable setNeedsDisplayInRect:[resultTable rectOfRow:ind]];
+            }
+            // if updated object is is in the child results, update it in the list
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
+                ind = [[[self selectedItem] children] indexOfObject:object];
+                if (ind != NSNotFound) {
+                    [resultChildTable setNeedsDisplayInRect:[resultChildTable rectOfRow:ind]];
+                }
             }
         }
-    }
+    });
 }
 
 #pragma mark -
@@ -358,7 +359,17 @@ NSMutableDictionary *kindDescriptions = nil;
     [self updateStatusString];
     
 	[resultTable reloadData];
-    
+    NSRect windowFrame = [[self window] frame];
+    NSUInteger resultCount = [currentResults count];
+    NSUInteger verticalSpacing = [resultTable intercellSpacing].height;
+    NSUInteger newWindowHeight =  (([resultTable rowHeight] + verticalSpacing) * resultCount) + 31;
+    windowFrame.size.height =  newWindowHeight > windowHeight || [currentResults count] == 0 ? windowHeight : newWindowHeight;
+    if (windowFrame.size.height != [[self window] frame].size.height) {
+        windowFrame.origin.y = windowFrame.origin.y - (windowFrame.size.height - [[self window] frame].size.height);
+    }
+    shouldSaveWindowSize = NO;
+    [[self window] setFrame:windowFrame display:YES animate:YES];
+    shouldSaveWindowSize = YES;
 	//visibleRange = [resultTable rowsInRect:[resultTable visibleRect]];
 	//	NSLog(@"arraychanged %d", [[self currentResults] count]);
 	//[self threadedIconLoad];
@@ -447,14 +458,18 @@ NSMutableDictionary *kindDescriptions = nil;
 #pragma mark NSWindow Delegate
 // called twice when a user resized the results window
 - (void)windowDidResize:(NSNotification *)aNotification {
+    if (!shouldSaveWindowSize) {
+        return;
+    }
     [[self resultIconLoader] loadIconsInRange:[resultTable rowsInRect:[resultTable visibleRect]]];
 	if (!NSEqualRects(NSZeroRect, [resultChildTable visibleRect]) && [self numberOfRowsInTableView:resultChildTable])
 		[[self resultChildIconLoader] loadIconsInRange:[resultChildTable rowsInRect:[resultChildTable visibleRect]]];
 
 	[self updateScrollViewTrackingRect];
-
-	// saves size for result window when it is resized
-	[[self window] saveFrameUsingName:@"QSResultWindow"];
+    
+    // saves size for result window when it is resized
+    [[self window] saveFrameUsingName:@"QSResultWindow"];
+    windowHeight = [self window].frame.size.height;
 }
 
 #pragma mark -

@@ -30,7 +30,6 @@
 #import "QSLibrarian.h"
 #import "QSTableView.h"
 
-#import <Carbon/Carbon.h>
 #define QSTableRowsType @"QSTableRowsType"
 
 #import "NSSortDescriptor+BLTRExtensions.h"

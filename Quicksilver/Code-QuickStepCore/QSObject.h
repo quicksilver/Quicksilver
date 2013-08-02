@@ -1,10 +1,6 @@
 #import <Foundation/Foundation.h>
-#import <AddressBook/AddressBook.h>
 
 #import <QSCore/QSBasicObject.h>
-
-// Quartz framework provides the QLPreviewPanel public API
-#import <Quartz/Quartz.h> 
 
 @class QSObject, QSBasicObject;
 
@@ -151,7 +147,7 @@ typedef struct _QSObjectFlags {
 @end
 
 @interface QSObject (Hierarchy)
-- (QSBasicObject *) parent;
+- (QSObject *) parent;
 - (void)setParentID:(NSString *)parentID;
 - (BOOL)childrenValid;
 - (BOOL)unloadChildren;
@@ -179,6 +175,7 @@ typedef struct _QSObjectFlags {
 - (void)setIdentifier:(NSString *)newIdentifier;
 - (NSString *)name;
 - (void)setName:(NSString *)newName;
+- (QSObject *)parent;
 - (NSArray *)children;
 - (void)setChildren:(NSArray *)newChildren;
 - (NSArray *)altChildren;
@@ -207,9 +204,6 @@ typedef struct _QSObjectFlags {
 
 @end
 
-
-@interface QSObject (Quicklook) <QLPreviewItem>
-@end
 
 //
 //AEDescriptorValue:

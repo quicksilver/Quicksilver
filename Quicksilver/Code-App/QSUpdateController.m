@@ -10,8 +10,6 @@
 //	update task is now cancelled on "connection error".
 //	networkIsReachable returning YES. commented out.
 
-#import <SystemConfiguration/SystemConfiguration.h>
-
 #import "Quicksilver.h"
 
 #import "QSUpdateController.h"
@@ -168,14 +166,18 @@ typedef enum {
             return YES;
         break;
         case kQSUpdateCheckNoUpdate:
-            updated = [[QSPlugInManager sharedInstance] checkForPlugInUpdates];
-            if (!updated) {
+        {
+            QSPluginUpdateStatus updateStatus;
+            updateStatus = [[QSPlugInManager sharedInstance] checkForPlugInUpdates];
+            if (updateStatus == QSPluginUpdateStatusNoUpdates) {
+                updated = NO;
                 NSLog(@"Quicksilver is up to date.");
                 if (!quiet)
                     NSRunInformationalAlertPanel(@"You're up-to-date!", [NSString stringWithFormat:@"You already have the latest version of Quicksilver (%@) and all installed plugins", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]] , @"OK", nil, nil);
             }
             return updated;
         break;
+        }
         default:
         case kQSUpdateCheckSkip:
         break;

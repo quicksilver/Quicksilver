@@ -13,6 +13,12 @@
 #define QSPlugInInfoLoadedNotification @"QSPlugInInfoLoaded"
 #define QSPlugInInfoFailedNotification @"QSPlugInInfoFailed"
 
+typedef enum {
+    QSPluginUpdateStatusNoUpdates = 0,
+    QSPluginUpdateStatusUpdateCancelled,
+    QSPluginUpdateStatusPluginsUpdated,
+} QSPluginUpdateStatus;
+
 @class QSPlugIn;
 @interface QSPlugInManager : NSObject <QSURLDownloadDelegate> {
 	BOOL startupLoadComplete;
@@ -82,8 +88,8 @@
 - (BOOL)installPlugInsForIdentifiers:(NSArray *)bundleIDs;
 - (BOOL)installPlugInsForIdentifiers:(NSArray *)bundleIDs version:(NSString *)version;
 - (void)loadNewWebData:(NSData *)data;
-- (BOOL)checkForPlugInUpdates;
-- (BOOL)checkForPlugInUpdatesForVersion:(NSString *)version;
+- (QSPluginUpdateStatus)checkForPlugInUpdates;
+- (QSPluginUpdateStatus)checkForPlugInUpdatesForVersion:(NSString *)version;
 
 - (NSMutableDictionary *)localPlugIns;
 - (void)setLocalPlugIns:(NSMutableDictionary *)newLocalPlugIns;

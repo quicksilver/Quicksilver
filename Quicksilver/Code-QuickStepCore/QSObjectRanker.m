@@ -82,37 +82,37 @@ NSString *QSRankingAbbreviationMnemonics = @"QSRankingAbbreviationMnemonics"; //
 
     BOOL includeOmitted = [[options objectForKey:QSRankingIncludeOmitted] boolValue];
 	QSBasicObject *thisObject;
-
-	QSScoreForObjectIMP scoreForObjectIMP =
-    (QSScoreForObjectIMP) [self instanceMethodForSelector:@selector(rankedObject:forAbbreviation:options:)];
-
-	for (thisObject in objectsInSet) {
-        if (!includeOmitted && [[QSLibrarian sharedInstance] itemIsOmitted:thisObject]) continue;
-		id ranker = [thisObject ranker];
-
-        QSRankedObject *rankedObject;
-        if ([ranker isKindOfClass:[QSDefaultObjectRanker class]]) {
-            rankedObject = (*scoreForObjectIMP) (ranker, @selector(rankedObject:forAbbreviation:options:),
-                                                 thisObject, anAbbreviation, options);
-        } else if ([ranker respondsToSelector:@selector(rankedObject:forAbbreviation:options:)]) {
-            rankedObject = [ranker rankedObject:thisObject
-                                forAbbreviation:anAbbreviation
-                                        options:options];
-        } else {
-            /* Old non-option compat call */
-            BOOL mnemonicsOnly = [[options objectForKey:QSRankingObjectsInSet] boolValue];
-            NSString *context = [options objectForKey:QSRankingContext];
-            rankedObject = [ranker rankedObject:thisObject
-                                forAbbreviation:anAbbreviation
-                                      inContext:context
-                                  withMnemonics:abbreviationMnemonics
-                                  mnemonicsOnly:mnemonicsOnly];
+    QSScoreForObjectIMP scoreForObjectIMP =
+        (QSScoreForObjectIMP) [self instanceMethodForSelector:@selector(rankedObject:forAbbreviation:options:)];
+    @autoreleasepool {
+        for (thisObject in objectsInSet) {
+            if (!includeOmitted && [[QSLibrarian sharedInstance] itemIsOmitted:thisObject]) continue;
+            id ranker = [thisObject ranker];
+            
+            QSRankedObject *rankedObject;
+            if ([ranker isKindOfClass:[QSDefaultObjectRanker class]]) {
+                rankedObject = (*scoreForObjectIMP) (ranker, @selector(rankedObject:forAbbreviation:options:),
+                                                     thisObject, anAbbreviation, options);
+            } else if ([ranker respondsToSelector:@selector(rankedObject:forAbbreviation:options:)]) {
+                rankedObject = [ranker rankedObject:thisObject
+                                    forAbbreviation:anAbbreviation
+                                            options:options];
+            } else {
+                /* Old non-option compat call */
+                BOOL mnemonicsOnly = [[options objectForKey:QSRankingObjectsInSet] boolValue];
+                NSString *context = [options objectForKey:QSRankingContext];
+                rankedObject = [ranker rankedObject:thisObject
+                                    forAbbreviation:anAbbreviation
+                                          inContext:context
+                                      withMnemonics:abbreviationMnemonics
+                                      mnemonicsOnly:mnemonicsOnly];
+            }
+            
+            if (rankedObject) {
+                [rankObjects addObject:rankedObject];
+            }
         }
-
-		if (rankedObject) {
-			[rankObjects addObject:rankedObject];
-		}
-	}
+    }
 	return rankObjects;
 }
 
@@ -165,6 +165,12 @@ NSString *QSRankingAbbreviationMnemonics = @"QSRankingAbbreviationMnemonics"; //
 
 //- (QSRankedObject *)rankedObject:(QSBasicObject *)object forAbbreviation:(NSString*)anAbbreviation inContext:(NSString *)context withMnemonics:(NSArray *)mnemonics mnemonicsOnly:(BOOL)mnemonicsOnly {
 - (QSRankedObject *)rankedObject:(QSBasicObject *)object forAbbreviation:(NSString *)anAbbreviation options:(NSDictionary *)options {
+    
+    if (!nameRanker) {
+		//NSLog(@"No Name!");
+		return nil;
+	}
+    
 //    NSString *context = [options objectForKey:QSRankingContext];
     NSArray *mnemonics = [options objectForKey:QSRankingAbbreviationMnemonics];
     BOOL mnemonicsOnly = [[options objectForKey:QSRankingMnemonicsOnly] boolValue];
@@ -174,11 +180,10 @@ NSString *QSRankingAbbreviationMnemonics = @"QSRankingAbbreviationMnemonics"; //
 		rankedObject = (QSRankedObject *)object;
 		object = [rankedObject object];
 	}
-	//	BOOL mnemonicsOnly = NO;
+
 	NSString *matchedString = nil;
 	if (![anAbbreviation length]) {
 		anAbbreviation = @"";
-		//	mnemonicsOnly = YES;
 	}
 	CGFloat newScore = 1.0;
 	//float modifier = 0.0;
@@ -186,10 +191,6 @@ NSString *QSRankingAbbreviationMnemonics = @"QSRankingAbbreviationMnemonics"; //
 	//	QSRankInfo *info = object->rankData;
 	//	if (!info) info = [object getRankData];
 
-	if (!nameRanker) {
-		//NSLog(@"No Name!");
-		return nil;
-	}
 	if (anAbbreviation && !mnemonicsOnly) { // get base score for both name and label
 										  //newScore = [nameRanker scoreForAbbreviation:anAbbreviation]; //QSScoreForAbbreviation((CFStringRef) info->name, (CFStringRef)searchString, nil);
 		newScore = (*scoreForAbbrevIMP) (nameRanker, @selector(scoreForAbbreviation:), anAbbreviation);
@@ -207,51 +208,45 @@ NSString *QSRankingAbbreviationMnemonics = @"QSRankingAbbreviationMnemonics"; //
 	}
 
 	//	NSLog(@"newscore %f %@", newScore, rankedObject);
-
-	if (!usePureString || mnemonicsOnly) {
+    
+    // This MUST evaluate to TRUE if anAbbreviation (the typed text) is nil/an empty string
+	if ((!usePureString || mnemonicsOnly) && newScore) {
 		//NSLog(@"mnem");
-		if (newScore) { // Add modifiers
-			if (mnemonics)
-				newOrder = [mnemonics indexOfObject:[object identifier]];
-//			if ( != NSNotFound)
-//				modifier += 10.0f;
-//			newScore += modifier;
+        if (mnemonics)
+            newOrder = [mnemonics indexOfObject:[object identifier]];
+        //			if ( != NSNotFound)
+        //				modifier += 10.0f;
+        //			newScore += modifier;
 #if 0
-			if (mnemonicsOnly)
-				newScore += [object rankModification];
+        if (mnemonicsOnly)
+            newScore += [object rankModification];
 #endif
-		}
-
-		// get number of times this abbrev. has been used
-		NSUInteger useCount = 0;
-		if ([anAbbreviation length]) {
-			useCount = [[usageMnemonics objectForKey:anAbbreviation] integerValue];
+        
+		// get number of times this abbrev. has been used (only check if the abbrev. matches the object - i.e. newScore > 0)
+        NSUInteger useCount = 0;
+        if ([anAbbreviation length]) {
+            useCount = [[usageMnemonics objectForKey:anAbbreviation] integerValue];
         } else {
             // for an empty string, consider the total use count
             for (id key in usageMnemonics) {
                 useCount += [[usageMnemonics objectForKey:key] integerValue];
             }
         }
-
-		if (useCount) {
-			newScore += 1.0 - 1.0 / (useCount + 1.0);
-		} else if (newScore && [anAbbreviation length]) {
-			// otherwise add points for similar starting abbreviations
-			for (id key in usageMnemonics) {
-				if (prefixCompare(key, anAbbreviation) == NSOrderedSame) {
-					newScore += (1-1/([[usageMnemonics objectForKey:key] doubleValue]) )/4;
-				}
-			}
-
-		}
-
-		//if (newScore) newScore += sqrt([object retainCount]) /100; // If an object appears many times, increase score, this may be bad
-
-		//*** in the future, increase for recent document, increase for partial match, increase for higher source index
-
+        if (useCount) {
+            newScore += 1.0 - 1.0 / (useCount + 1.0);
+        } else if ([anAbbreviation length]) {
+            // otherwise add points for similar starting abbreviations
+            for (id key in usageMnemonics) {
+                if (prefixCompare(key, anAbbreviation) == NSOrderedSame) {
+                    newScore += (1-1/([[usageMnemonics objectForKey:key] doubleValue]) )/4;
+                }
+            }
+        }
+        // set newscore
+        //newScore += sqrt([object retainCount]) /100; // If an object appears many times, increase score, this may be bad
+        
+        //*** in the future, increase for recent document, increase for partial match, increase for higher source index
 	}
-
-	//if (!newOrder) NSLog(@"object %@", object);
 
 	// Create the ranked object
 	if (rankedObject) {

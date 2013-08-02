@@ -394,7 +394,7 @@
 	
 	if(!nameFont)
 	{
-		[self setNameFont:[NSFont fontWithName:[[self font] fontName] size:MIN([[self font] pointSize] , NSHeight(cellFrame) *1.125*2/3) -1]];
+		[self setNameFont:[NSFont fontWithName:[[self font] fontName] size:MIN([[self font] pointSize], NSHeight(cellFrame) *1.125*2/3)]];
 	}
 	if(!detailsFont)
 	{

@@ -44,6 +44,7 @@
     id dObject = [(QSCommand*)object dObject];
 	[dObject loadIcon];
 	[object setIcon:[dObject icon]];
+    [object setRetainsIcon:YES];
 	return YES;
 }
 
@@ -56,7 +57,8 @@
         QSObject * currentFolderObject = [QSObject fileObjectWithPath:[@"~" stringByExpandingTildeInPath]];
         
         NSIndexSet *folderIndexes = [fileObjects indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *thisObject, NSUInteger i, BOOL *stop) {
-            return ([thisObject isFolder] && (thisObject != currentFolderObject));
+            QSObject *resolved = [thisObject resolvedAliasObject];
+            return ([resolved isFolder] && (thisObject != currentFolderObject));
         }];
     
     return [[NSArray arrayWithObject:currentFolderObject] arrayByAddingObjectsFromArray:[fileObjects objectsAtIndexes:folderIndexes]];
@@ -424,6 +426,16 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	return result;
 #endif
 	return [self execute];
+}
+
+- (BOOL)isEqual:(id)anObject {
+    if (![anObject isKindOfClass:[QSCommand class]]) {
+        return NO;
+    }
+    if ([anObject dObject] == [self dObject] && [anObject aObject] == [self aObject] && [anObject iObject] == [self iObject]) {
+        return YES;
+    }
+    return NO;
 }
 
 - (QSObject *)execute {

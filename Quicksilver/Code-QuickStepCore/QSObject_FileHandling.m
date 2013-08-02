@@ -73,11 +73,28 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 @implementation QSFileSystemObjectHandler
 
 - (QSObject *)parentOfObject:(QSObject *)object {
-	QSObject * parent = nil;
-	if ([object singleFilePath]) {
-		if ([[object singleFilePath] isEqualToString:@"/"]) parent = [QSProxyObject proxyWithIdentifier:@"QSComputerProxy"];
-		else parent = [QSObject fileObjectWithPath:[[object singleFilePath] stringByDeletingLastPathComponent]];
-	}
+    QSObject *parent = nil;
+    NSArray *paths = [object arrayForType:QSFilePathType];
+    if ([paths count]) {
+        // use the 1st file's parent as the 'default' parent
+        NSString *path = [paths objectAtIndex:0];
+        if ([path isEqualToString:@"/"]) {
+            parent = [QSProxyObject proxyWithIdentifier:@"QSComputerProxy"];
+        }
+        else {
+            NSURL *parentURL = nil;
+            NSError *err = nil;
+            [[NSURL fileURLWithPath:path] getResourceValue:&parentURL forKey:NSURLParentDirectoryURLKey error:&err];
+            NSString *parentString;
+            if (err) {
+                NSLog(@"Error getting parent of file object %@\n%@",object,err);
+                parentString = [path stringByDeletingLastPathComponent];
+            } else {
+                parentString = [parentURL path];
+            }
+            parent = [QSObject fileObjectWithPath:parentString];
+        }
+    }
 	return parent;
 }
 
@@ -137,7 +154,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	if ([theFiles count] == 1) {
 		// it's a single file
 		// use basic file type icon temporarily
-		theImage = [[NSWorkspace sharedWorkspace] iconForFile:[theFiles lastObject]];
+        NSString *type = [object isFolder] ? @"'fold'" : [object fileExtension];
+        theImage = [[NSWorkspace sharedWorkspace] iconForFileType:type];
 	} else {
 		// it's a combined object, containing multiple files
 		NSMutableSet *set = [NSMutableSet set];
@@ -194,18 +212,24 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
             NSArray *previewTypes = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSFilePreviewTypes"];
             for (NSString *type in previewTypes) {
                 if (UTTypeConformsTo((__bridge CFStringRef)uti, (__bridge CFStringRef)type)) {
-                    // do preview icon loading in separate thread
                     theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSSizeMax asIcon:YES];
                     break;
                 }
             }
         }
     }
+    if (!theImage) {
+        // previews are disabled or couldn't be loaded
+        // use the file's actual icon
+        theImage = [[NSWorkspace sharedWorkspace] iconForFiles:[object arrayForType:QSFilePathType]];
+    }
     if (theImage) {
         // update the UI with the new icon
         theImage = [self prepareImageforIcon:theImage];
         [object setIcon:theImage];
         return YES;
+    } else {
+        [object setRetainsIcon:YES];
     }
     return NO;
 }
@@ -233,6 +257,11 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
             // Does the app have an external handler? (e.g. a plugin)
 			NSString *handlerName = [[QSReg tableNamed:@"QSBundleChildHandlers"] objectForKey:bundleIdentifier];
 			if (handlerName) {
+                return YES;
+            }
+            // does the app have a QSBundleChildPresets? - define an existing preset to be the children of a given app
+            handlerName = [[QSReg tableNamed:@"QSBundleChildPresets"] objectForKey:bundleIdentifier];
+            if (handlerName) {
                 return YES;
             }
             // Does the app have valid recent documents
@@ -660,6 +689,18 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	return [self checkInfoRecordFlags:kLSItemInfoIsContainer];
 }
 
+- (QSObject *)resolvedAliasObject {
+    QSObject *resolved = self;
+    if ([self isAlias]) {
+        NSFileManager *manager = [NSFileManager defaultManager];
+        NSString *path = [manager resolveAliasAtPath:[self singleFilePath]];
+        if ([manager fileExistsAtPath:path]) {
+            resolved = [QSObject fileObjectWithPath:path];
+        }
+    }
+    return resolved;
+}
+
 - (BOOL)isFolder {
     return ([self isDirectory] && ![self isPackage]);
 }
@@ -722,8 +763,6 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 			bundleName = [NSString stringWithFormat:@"%@ %@", bundleName, stringKind];
         }
     }
-        
-    bundleName = bundleName;
     
 	return bundleName;
 }
