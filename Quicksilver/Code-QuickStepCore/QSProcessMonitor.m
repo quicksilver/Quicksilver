@@ -194,9 +194,10 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 }
 
 - (QSObject *)imbuedFileProcessForDict:(NSDictionary *)dict {
-	NSString *bundlePath = [[dict objectForKey:@"NSApplicationPath"] stringByDeletingLastPathComponent];
+    NSString *appPath = [dict objectForKey:@"NSApplicationPath"];
+	NSString *bundlePath = [appPath stringByDeletingLastPathComponent];
 	QSObject *newObject = nil;
-	if ([[bundlePath lastPathComponent] isEqualToString:@"MacOS"] || [[bundlePath lastPathComponent] isEqualToString:@"MacOSClassic"]) {
+	if ([[bundlePath lastPathComponent] isEqualToString:@"MacOS"]) {
 		bundlePath = [bundlePath stringByDeletingLastPathComponent];
 		// ***warning  * check that this is the executable specified by the info.plist
 		if ([[bundlePath lastPathComponent] isEqualToString:@"Contents"]) {
@@ -206,8 +207,14 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 		}
 	}
 
-	if (!newObject)
-		newObject = [QSObject fileObjectWithPath:[dict objectForKey:@"NSApplicationPath"]];
+	if (!newObject) {
+        if (appPath) {
+            newObject = [QSObject fileObjectWithPath:[dict objectForKey:@"NSApplicationPath"]];
+        } else {
+            // the process isn't an app
+            newObject = [QSObject fileObjectWithPath:[dict objectForKey:@"CFBundleExecutable"]];
+        }
+    }
 
 	[newObject setObject:dict forType:QSProcessType];
 	return newObject;
