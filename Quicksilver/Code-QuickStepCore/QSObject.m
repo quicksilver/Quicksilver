@@ -174,10 +174,12 @@ NSSize QSMaxIconSize;
     anObject = [anObject object];
   }
 	if (self == anObject) return YES;
-	if (![[self identifier] isEqualToString:[anObject identifier]]) return NO;
+	if (![[self _identifier] isEqualToString:[anObject _identifier]]) {
+        return NO;
+    }
 	if ([self primaryObject])
 		return [[self primaryObject] isEqual:[anObject primaryObject]];
-	for(NSString *key in data) {
+	for (NSString *key in data) {
 		if (![[data objectForKey:key] isEqual:[anObject objectForType:key]]) return NO;
 	}
 	return YES;
@@ -648,6 +650,10 @@ NSSize QSMaxIconSize;
 //Standard Accessors
 
 @implementation QSObject (Accessors)
+
+- (NSString *)_identifier {
+    return identifier;
+}
 
 - (NSString *)identifier {
     @synchronized(self) {

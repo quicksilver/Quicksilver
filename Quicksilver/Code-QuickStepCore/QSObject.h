@@ -173,6 +173,8 @@ typedef struct _QSObjectFlags {
 
 //Standard Accessors
 @interface QSObject (Accessors)
+
+- (NSString *)_identifier;
 - (NSString *)identifier;
 - (void)setIdentifier:(NSString *)newIdentifier;
 - (NSString *)name;
