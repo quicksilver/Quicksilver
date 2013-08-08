@@ -29,9 +29,12 @@ This release requires 10.7+ and is 64-bit.
   * Internal improvements and bug fixes (#1468, #1475, #1479, #1505, #1542)
   * Creating an alias in the same folder as the original won't overwrite it (#1547, #1549)
   * Creating a symbolic link in the same foilder as the original results in a relative link (#1549)
+  * Further attempts to prevent two Dock icons (#1152, #1408)
 
 ### Changed ###
 
+  * Quicksilver will not run in 32-bit mode (#1408)
+  * Quicksilver will not run on Mac OS X 10.6 or older (#1408)
   * Set the default browse mode to "Filter Results" (#1456)
   * Improved appearance for the results list (#1446)
   * Improve left-arrow behavior (#1286, #1493):
