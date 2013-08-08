@@ -50,6 +50,7 @@ This release requires 10.7+ and is 64-bit.
     * QS Command Window → Show Command Window
     * QS Check for Update → Check for Quicksilver Update
   * Aliases and symlinks will be resolved when scanning directories (#1507, #1516)
+  * Use Quicksilver's user-agent string when checking for application updates (#1551)
 
 ### Development ###
 
