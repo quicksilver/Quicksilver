@@ -30,6 +30,7 @@ This release requires 10.7+ and is 64-bit.
   * Creating an alias in the same folder as the original won't overwrite it (#1547, #1549)
   * Creating a symbolic link in the same foilder as the original results in a relative link (#1549)
   * Further attempts to prevent two Dock icons (#1152, #1408)
+  * Fix a cosmetic issue when the Actions preferences are resized (#1560, #1561)
 
 ### Changed ###
 
@@ -120,7 +121,6 @@ This will be the last release to support Mac OS X 10.6 and 32-bit mode.
   * Fixed an exception when right-arrowing into applications with iCloud documents (#1396, #1398)
   * Changed the process for displaying the Dock icon (#1152, #1414)
   * More reliable file type detection (#1427, #1428, #1430)
-  * Fix a cosmetic issue when the Actions preferences are resized (#1560, #1561)
   * Internal optimizations, stability improvements, and fixes (#1335, #1346, #1385, #1390, #1401, #1371, #1403, #1388, #1410)
 
 ### Changed ###
