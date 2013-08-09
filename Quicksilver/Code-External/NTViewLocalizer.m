@@ -21,21 +21,28 @@
 
 - (id)initWithTable:(NSString*)table bundle:(NSBundle*)bundle {
 	if(self = [super init]){
-		_table = table;
-		_bundle = bundle;
+		_table = [table retain];
+		_bundle = [bundle retain];
 	}
 	return self;
 }
 
+- (void)dealloc {
+	[_table release];
+	[_bundle release];
+	[super dealloc];
+}
 
 + (void)localizeWindow:(NSWindow*)window table:(NSString*)table bundle:(NSBundle*)bundle {
 	NTViewLocalizer* localizer = [[NTViewLocalizer alloc] initWithTable:table bundle:bundle];
 	[localizer localizeWindow:window];
+	[localizer release];
 }
 
 + (void)localizeView:(NSView*)view table:(NSString*)table bundle:(NSBundle*)bundle {
 	NTViewLocalizer* localizer = [[NTViewLocalizer alloc] initWithTable:table bundle:bundle];
 	[localizer localizeView:view];
+	[localizer release];
 }
 
 @end

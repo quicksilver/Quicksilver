@@ -51,7 +51,7 @@ BOOL operateOnResourceUsingFunction( ResFileRefNum afileRef, ResType aType, NSSt
  */
 + (id)resourceForkForReadingAtURL:(NSURL *)aURL
 {
-	return [[self alloc] initForReadingAtURL:aURL];
+	return [[[self alloc] initForReadingAtURL:aURL] autorelease];
 }
 
 /*
@@ -59,7 +59,7 @@ BOOL operateOnResourceUsingFunction( ResFileRefNum afileRef, ResType aType, NSSt
  */
 + (id)resourceForkForWritingAtURL:(NSURL *)aURL
 {
-	return [[self alloc] initForWritingAtURL:aURL];
+	return [[[self alloc] initForWritingAtURL:aURL] autorelease];
 }
 
 /*
@@ -67,7 +67,7 @@ BOOL operateOnResourceUsingFunction( ResFileRefNum afileRef, ResType aType, NSSt
  */
 + (id)resourceForkForReadingAtPath:(NSString *)aPath
 {
-	return [[self alloc] initForReadingAtPath:aPath];
+	return [[[self alloc] initForReadingAtPath:aPath] autorelease];
 }
 
 /*
@@ -75,7 +75,7 @@ BOOL operateOnResourceUsingFunction( ResFileRefNum afileRef, ResType aType, NSSt
  */
 + (id)resourceForkForWritingAtPath:(NSString *)aPath
 {
-	return [[self alloc] initForWritingAtPath:aPath];
+	return [[[self alloc] initForWritingAtPath:aPath] autorelease];
 }
 
 /*
@@ -157,6 +157,7 @@ BOOL operateOnResourceUsingFunction( ResFileRefNum afileRef, ResType aType, NSSt
 
 	if( noErr != theError && theError != dupFNErr )
 	{
+		[self release];
 		self = nil;
 	}
 
@@ -172,6 +173,7 @@ BOOL operateOnResourceUsingFunction( ResFileRefNum afileRef, ResType aType, NSSt
 		return [self initForPermission:fsRdPerm atURL:[NSURL fileURLWithPath:aPath]];
 	else
 	{
+		[self release];
 		return nil;
 	}
 }
@@ -205,6 +207,7 @@ BOOL operateOnResourceUsingFunction( ResFileRefNum afileRef, ResType aType, NSSt
 {
 	if( fileReference > 0 )
 		[self closeFile];
+	[super dealloc];
 }
 
 #else
@@ -270,7 +273,7 @@ static BOOL getDataFunction( Handle aResHandle, ResType aType, NSString * aName,
 	(void)aType;
 	(void)aName;
 	(void)anId;
-	NSData	* __strong* theData = (NSData* __strong *)aContext;
+	NSData	** theData = (NSData**)aContext;
 	*theData = dataFromResourceHandle( aResHandle );
 	return *theData != nil;
 }
@@ -322,7 +325,7 @@ static BOOL getNameFunction( Handle aResHandle, ResType aType, NSString * aName,
 {
 	(void)aName;
 	Str255		thePName;
-	NSString * __strong* theString = (NSString * __strong*)aContext;
+	NSString		** theString = (NSString **)aContext;
 
 	if( aResHandle )
 	{
@@ -483,7 +486,7 @@ static BOOL setAttributesFunction( Handle aResHandle, ResType aType, NSString * 
  */
 + (id)resourceTypeEnumerator
 {
-	return [[self alloc] init];
+	return [[[self alloc] init] autorelease];
 }
 
 /*
@@ -541,6 +544,7 @@ static BOOL setAttributesFunction( Handle aResHandle, ResType aType, NSString * 
 	NDResourceFork		* theResourceFork = [[NDResourceFork alloc] initForReadingAtURL:aURL];
 	NSData				* theData = [theResourceFork dataForType:aType Id:anID];
 	[theResourceFork closeFile];
+	[theResourceFork release];
 	return theData;
 }
 
@@ -552,6 +556,7 @@ static BOOL setAttributesFunction( Handle aResHandle, ResType aType, NSString * 
 	NDResourceFork		* theResourceFork = [[NDResourceFork alloc] initForReadingAtURL:aURL];
 	NSData				* theData = [theResourceFork dataForType:aType named:aName];
 	[theResourceFork closeFile];
+	[theResourceFork release];
 	return theData;
 }
 
@@ -563,6 +568,7 @@ static BOOL setAttributesFunction( Handle aResHandle, ResType aType, NSString * 
 	NDResourceFork		* theResourceFork = [[NDResourceFork alloc] initForReadingAtPath:aPath];
 	NSData				* theData = [theResourceFork dataForType:aType Id:anID];
 	[theResourceFork closeFile];
+	[theResourceFork release];
 	return theData;
 }
 
@@ -574,6 +580,7 @@ static BOOL setAttributesFunction( Handle aResHandle, ResType aType, NSString * 
 	NDResourceFork		* theResourceFork = [[NDResourceFork alloc] initForReadingAtPath:aPath];
 	NSData				* theData = [theResourceFork dataForType:aType named:aName];
 	[theResourceFork closeFile];
+	[theResourceFork release];
 	return theData;
 }
 
@@ -588,6 +595,7 @@ static BOOL setAttributesFunction( Handle aResHandle, ResType aType, NSString * 
 	{
 		theResult = [theResourceFork addData:self type:aType Id:anId name:aName];
 		[theResourceFork closeFile];
+		[theResourceFork release];
 	}
 	return theResult;
 }
@@ -603,6 +611,7 @@ static BOOL setAttributesFunction( Handle aResHandle, ResType aType, NSString * 
 	{
 		theResult = [theResourceFork addData:self type:aType Id:anId name:aName];
 		[theResourceFork closeFile];
+		[theResourceFork release];
 	}
 	return theResult;
 }

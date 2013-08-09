@@ -21,9 +21,9 @@
     NSDictionary *dict = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:icon] 
                                                      forKey:(NSString *)kQLThumbnailOptionIconModeKey];
     CGImageRef ref = QLThumbnailImageCreate(kCFAllocatorDefault, 
-                                            (__bridge CFURLRef)fileURL, 
+                                            (CFURLRef)fileURL, 
                                             CGSizeMake(size.width, size.height),
-                                            (__bridge CFDictionaryRef)dict);
+                                            (CFDictionaryRef)dict);
     
     if (ref != NULL) {
         // Take advantage of NSBitmapImageRep's -initWithCGImage: initializer, new in Leopard,
@@ -35,9 +35,10 @@
         if (bitmapImageRep) {
             newImage = [[NSImage alloc] initWithSize:[bitmapImageRep size]];
             [newImage addRepresentation:bitmapImageRep];
+            [bitmapImageRep release];
             
             if (newImage) {
-                return newImage;
+                return [newImage autorelease];
             }
         }
     } else {

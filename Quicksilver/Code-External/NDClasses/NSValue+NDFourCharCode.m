@@ -40,7 +40,7 @@
  */
 + (NSValue *)valueWithFourCharCode:(FourCharCode)aFourCharCode
 {
-	return [[NDFourCharCodeValue alloc] initWithFourCharCode:aFourCharCode];
+	return [[[NDFourCharCodeValue alloc] initWithFourCharCode:aFourCharCode] autorelease];
 }
 
 /*
@@ -48,7 +48,7 @@
  */
 + (NSValue *)valueWithAEKeyword:(AEKeyword)anAEKeyword
 {
-	return [[NDFourCharCodeValue alloc] initWithFourCharCode:anAEKeyword];
+	return [[[NDFourCharCodeValue alloc] initWithFourCharCode:anAEKeyword] autorelease];
 }
 
 /*
@@ -56,7 +56,7 @@
  */
 + (NSValue *)valueWithOSType:(OSType)anOSType
 {
-	return [[NDFourCharCodeValue alloc] initWithFourCharCode:anOSType];
+	return [[[NDFourCharCodeValue alloc] initWithFourCharCode:anOSType] autorelease];
 }
 
 /*
@@ -139,6 +139,7 @@
 	}
 	else
 	{
+		[self release];
 		self = nil;
 	}
 	return self;
@@ -260,7 +261,7 @@
  */
 - (id)copyWithZone:(NSZone *)aZone
 {
-	return (aZone == nil) ? self : [[NDFourCharCodeValue allocWithZone:aZone] initWithFourCharCode:fourCharCode];
+	return (aZone == [self zone]) ? [self retain] : [[NDFourCharCodeValue allocWithZone:aZone] initWithFourCharCode:fourCharCode];
 }
 
 @end

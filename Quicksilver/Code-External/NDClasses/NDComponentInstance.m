@@ -64,6 +64,7 @@ static NDComponentInstance		* sharedComponentInstance = nil;
  */
 + (void)closeSharedComponentInstance
 {
+	[sharedComponentInstance release];
 	sharedComponentInstance = nil;
 }
 
@@ -97,7 +98,7 @@ static NDComponentInstance		* sharedComponentInstance = nil;
  */
 + (id)componentInstance
 {
-	return [[self alloc] init];
+	return [[[self alloc] init] autorelease];
 }
 
 /*
@@ -105,7 +106,7 @@ static NDComponentInstance		* sharedComponentInstance = nil;
  */
 + (id)componentInstanceWithComponent:(Component)aComponent
 {
-	return [[self alloc] initWithComponent:aComponent];
+	return [[[self alloc] initWithComponent:aComponent] autorelease];
 }
 
 /*
@@ -127,12 +128,14 @@ static NDComponentInstance		* sharedComponentInstance = nil;
 		{
 			if( (instanceRecord = OpenDefaultComponent( kOSAComponentType, kAppleScriptSubtype )) == NULL )
 			{
+				[self release];
 				self = nil;
 				NSLog(@"Could not open connection with default AppleScript component");
 			}
 		}
 		else if( (instanceRecord = OpenComponent( aComponent )) == NULL )
 		{
+			[self release];
 			self = nil;
 			NSLog(@"Could not open connection with component");
 		}
@@ -156,6 +159,7 @@ static NDComponentInstance		* sharedComponentInstance = nil;
 		CloseComponent( instanceRecord );			// this core dump with Garbage Collection
 		instanceRecord = NULL;
 	}
+	[super dealloc];
 }
 #else
 
@@ -259,16 +263,18 @@ static NDComponentInstance		* sharedComponentInstance = nil;
 				else	// get the original component instance
 				{
 					NSLog( @"The send procedure for the component instance for this NDComponentInstance is already set." );
-					defaultSendProcPtr = ((__bridge NDComponentInstance*)theDefaultSendProcRefCon)->defaultSendProcPtr;
-					defaultSendProcRefCon = ((__bridge NDComponentInstance*)theDefaultSendProcRefCon)->defaultSendProcRefCon;
+					defaultSendProcPtr = ((NDComponentInstance*)theDefaultSendProcRefCon)->defaultSendProcPtr;
+					defaultSendProcRefCon = ((NDComponentInstance*)theDefaultSendProcRefCon)->defaultSendProcRefCon;
 				}
-				NSAssert( OSASetSendProc( theComponent, NDComponentAppleEventSendProc, (__bridge SRefCon)self ) == noErr, @"Could not set send procedure" );
+				NSAssert( OSASetSendProc( theComponent, NDComponentAppleEventSendProc, (SRefCon)self ) == noErr, @"Could not set send procedure" );
 			}
 
-			sendAppleEvent.target = aTarget;
+			[sendAppleEvent.target release];
+			sendAppleEvent.target = [aTarget retain];
 		}
 		else
 		{
+			[sendAppleEvent.target release];
 			sendAppleEvent.target = nil;
 
 			NSAssert( OSASetSendProc( [self instanceRecord], defaultSendProcPtr, defaultSendProcRefCon ) == noErr, @"Could not restore default send procedure");
@@ -313,13 +319,15 @@ static NDComponentInstance		* sharedComponentInstance = nil;
 				ComponentInstance		theComponent = [self instanceRecord];
 
 				NSAssert( OSAGetActiveProc(theComponent, &defaultActiveProcPtr, &defaultActiveProcRefCon ) == noErr, @"Could not get default AppleScript active procedure");
-				NSAssert( OSASetActiveProc( theComponent, AppleScriptActiveProc , (__bridge SRefCon)self ) == noErr, @"Could not set AppleScript active procedure.");
+				NSAssert( OSASetActiveProc( theComponent, AppleScriptActiveProc , (SRefCon)self ) == noErr, @"Could not set AppleScript active procedure.");
 			}
 
-			activeTarget = aTarget;
+			[activeTarget release];
+			activeTarget = [aTarget retain];
 		}
 		else if( defaultActiveProcPtr == NULL )
 		{
+			[activeTarget release];
 			activeTarget = nil;
 			NSAssert( OSASetActiveProc( [self instanceRecord], defaultActiveProcPtr, defaultActiveProcRefCon ) == noErr, @"Could not set default active procedure.");
 			defaultActiveProcPtr = NULL;
@@ -369,8 +377,9 @@ static NDComponentInstance		* sharedComponentInstance = nil;
 		if( defaultResumeProcPtr == NULL )
 			NDLogOSAError( OSAGetResumeDispatchProc ( [self instanceRecord], &defaultResumeProcPtr, &defaultResumeProcRefCon ) );
 
-		NDLogOSAError( OSASetResumeDispatchProc( [self instanceRecord], AppleEventResumeHandler, (__bridge SRefCon)self ) );
-		appleEventResumeHandler = aHandler;
+		NDLogOSAError( OSASetResumeDispatchProc( [self instanceRecord], AppleEventResumeHandler, (SRefCon)self ) );
+		[appleEventResumeHandler release];
+		appleEventResumeHandler = [aHandler retain];
 	}
 }
 
@@ -429,7 +438,7 @@ static NDComponentInstance		* sharedComponentInstance = nil;
 	unsigned int			theIndex;
 	NSMutableDictionary	* theDictionary = [NSMutableDictionary dictionaryWithCapacity:7];
 
-	struct { __unsafe_unretained const NSString * key; const DescType desiredType; const OSType selector; }
+	struct { const NSString * key; const DescType desiredType; const OSType selector; }
 			theResults[] = {
 			{ NSAppleScriptErrorMessage, typeText, kOSAErrorMessage },
 			{ NSAppleScriptErrorNumber, typeSInt32, kOSAErrorNumber },
@@ -496,7 +505,7 @@ static NDComponentInstance		* sharedComponentInstance = nil;
  */
 - (id)copyWithZone:(NSZone *)aZone
 {
-	return self;
+	return [self retain];
 }
 
 /*
@@ -512,7 +521,7 @@ static NDComponentInstance		* sharedComponentInstance = nil;
  */
 OSErr NDComponentAppleEventSendProc( const AppleEvent *anAppleEvent, AppleEvent *aReply, AESendMode aSendMode, AESendPriority aSendPriority, SInt32 aTimeOutInTicks, AEIdleUPP anIdleProc, AEFilterUPP aFilterProc, SRefCon aSelf )
 {
-	NDComponentInstance			* self = (__bridge id)aSelf;
+	NDComponentInstance			* self = (id)aSelf;
 	OSErr						theError = errOSASystemError;
 	id							theSendTarget = [self appleEventSendTarget];
 	BOOL						theCurrentProcessOnly = [self appleEventSendCurrentProcessOnly];
@@ -538,6 +547,7 @@ OSErr NDComponentAppleEventSendProc( const AppleEvent *anAppleEvent, AppleEvent 
 	else
 		NSLog( @"Failed to send" );
 	
+	[theAppleEventDescriptor release];
 
 	return theError;
 }
@@ -547,7 +557,7 @@ OSErr NDComponentAppleEventSendProc( const AppleEvent *anAppleEvent, AppleEvent 
  */
 static OSErr AppleScriptActiveProc( SRefCon aSelf )
 {
-	NDComponentInstance	* self = (__bridge id)aSelf;
+	NDComponentInstance	* self = (id)aSelf;
 	id							theActiveTarget = [self activeTarget];
 	OSErr						theError = errOSASystemError;
 
@@ -589,7 +599,7 @@ static OSErr AppleEventSpecialHandler(const AppleEvent * anAppleEvent, AppleEven
 
 static OSErr AppleEventResumeHandler(const AppleEvent * anAppleEvent, AppleEvent * aReply, SRefCon aSelf )
 {
-	NDComponentInstance			* self = (__bridge id)aSelf;
+	NDComponentInstance			* self = (id)aSelf;
 	OSErr								theError = errAEEventNotHandled;
 	id									theResumeHandler = [self appleEventResumeHandler];
 	NSAppleEventDescriptor		* theResult = nil;	

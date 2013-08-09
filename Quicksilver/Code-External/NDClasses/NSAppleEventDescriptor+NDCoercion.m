@@ -45,7 +45,7 @@ static NSScriptObjectSpecifier * objectSpecifierForAppleEventDescriptor( NSApple
  */
 + (NSAppleEventDescriptor *)descriptorWithAEDescNoCopy:(const AEDesc *)aDesc
 {
-	return [[self alloc] initWithAEDescNoCopy:aDesc];
+	return [[[self alloc] initWithAEDescNoCopy:aDesc] autorelease];
 }
 
 /*
@@ -53,7 +53,7 @@ static NSScriptObjectSpecifier * objectSpecifierForAppleEventDescriptor( NSApple
  */
 + (NSAppleEventDescriptor *)descriptorWithAEDesc:(const AEDesc *)anAEDesc
 {
-	return [[self alloc] initWithAEDesc:anAEDesc];
+	return [[[self alloc] initWithAEDesc:anAEDesc] autorelease];
 }
 
 /*
@@ -1204,7 +1204,7 @@ static NSScriptObjectSpecifier * objectSpecifierForAppleEventDescriptor( NSApple
  */
 + (NSAppleEventDescriptor *)descriptorWithSubroutineName:(NSString *)aRoutineName argumentsListDescriptor:(NSAppleEventDescriptor *)aParam
 {
-	return [[NSAppleEventDescriptor alloc] initWithSubroutineName:aRoutineName argumentsListDescriptor:aParam];
+	return [[[NSAppleEventDescriptor alloc] initWithSubroutineName:aRoutineName argumentsListDescriptor:aParam] autorelease];
 }
 
 /*
@@ -1212,7 +1212,7 @@ static NSScriptObjectSpecifier * objectSpecifierForAppleEventDescriptor( NSApple
  */
 + (NSAppleEventDescriptor *)descriptorWithSubroutineName:(NSString *)aRoutineName argumentsArray:(NSArray *)aParamArray
 {
-	return [[NSAppleEventDescriptor alloc] initWithSubroutineName:aRoutineName argumentsListDescriptor:aParamArray ? [NSAppleEventDescriptor descriptorWithArray:aParamArray] : nil];
+	return [[[NSAppleEventDescriptor alloc] initWithSubroutineName:aRoutineName argumentsListDescriptor:aParamArray ? [NSAppleEventDescriptor descriptorWithArray:aParamArray] : nil] autorelease];
 }
 
 /*
@@ -1220,7 +1220,7 @@ static NSScriptObjectSpecifier * objectSpecifierForAppleEventDescriptor( NSApple
  */
 + (NSAppleEventDescriptor *)descriptorWithSubroutineName:(NSString *)aRoutineName labels:(AEKeyword*)aLabels argumentObjects:(id *)anObjects count:(unsigned int)aCount
 {
-	return [[self alloc] initWithSubroutineName:aRoutineName labels:aLabels arguments:anObjects count:aCount];
+	return [[[self alloc] initWithSubroutineName:aRoutineName labels:aLabels arguments:anObjects count:aCount] autorelease];
 }
 
 /*
@@ -1228,7 +1228,7 @@ static NSScriptObjectSpecifier * objectSpecifierForAppleEventDescriptor( NSApple
  */
 + (NSAppleEventDescriptor *)descriptorWithSubroutineName:(NSString *)aRoutineName labels:(AEKeyword*)aLabels argumentDescriptors:(NSAppleEventDescriptor **)aParam count:(unsigned int)aCount
 {
-	return [[self alloc] initWithSubroutineName:aRoutineName labels:aLabels argumentDescriptors:aParam count:aCount];
+	return [[[self alloc] initWithSubroutineName:aRoutineName labels:aLabels argumentDescriptors:aParam count:aCount] autorelease];
 }
 
 /*
@@ -1239,7 +1239,7 @@ static NSScriptObjectSpecifier * objectSpecifierForAppleEventDescriptor( NSApple
 	NSAppleEventDescriptor	* theDescriptor;
 	va_list	theArgList;
 	va_start( theArgList, aKeyWord );
-	theDescriptor = [[self alloc] initWithSubroutineName:aRoutineName labelsAndArguments:aKeyWord arguments:theArgList];
+	theDescriptor = [[[self alloc] initWithSubroutineName:aRoutineName labelsAndArguments:aKeyWord arguments:theArgList] autorelease];
 	va_end( theArgList );
 	return theDescriptor;
 }
@@ -1631,7 +1631,7 @@ static NSScriptObjectSpecifier * objectSpecifierForAppleEventDescriptor( NSApple
 		
 		NSScriptClassDescription	* theClassDesc = theContainerSpec ? [theContainerSpec keyClassDescription] : [[NSScriptSuiteRegistry sharedScriptSuiteRegistry] classDescriptionWithAppleEventCode:cApplication];
 		long int		theIndex = [[aDescriptor descriptorForKeyword:keyAEKeyData] longValue]-1;
-		theResultSpecifier = [[NSIndexSpecifier allocWithZone:nil] initWithContainerClassDescription:theClassDesc containerSpecifier:theContainerSpec key:[theClassDesc keyWithAppleEventCode:theTypeDesc] index:theIndex];
+		theResultSpecifier = [[[NSIndexSpecifier allocWithZone:[theContainerSpec zone]] initWithContainerClassDescription:theClassDesc containerSpecifier:theContainerSpec key:[theClassDesc keyWithAppleEventCode:theTypeDesc] index:theIndex] autorelease];
 
 			return theResultSpecifier;
 	}
@@ -1643,7 +1643,7 @@ static NSScriptObjectSpecifier * objectSpecifierForAppleEventDescriptor( NSApple
 		
 		NSScriptClassDescription	* theClassDesc = theContainerSpec ? [theContainerSpec containerClassDescription] : [[NSScriptSuiteRegistry sharedScriptSuiteRegistry] classDescriptionWithAppleEventCode:cApplication];
 		DescType		theKeyDesc = [[aDescriptor descriptorForKeyword:keyAEKeyData] fourCharCodeValue];
-		theResultSpecifier = [[NSPropertySpecifier allocWithZone:nil] initWithContainerClassDescription:theClassDesc containerSpecifier:theContainerSpec key:[theClassDesc keyWithAppleEventCode:theKeyDesc]];
+		theResultSpecifier = [[[NSPropertySpecifier allocWithZone:[theContainerSpec zone]] initWithContainerClassDescription:theClassDesc containerSpecifier:theContainerSpec key:[theClassDesc keyWithAppleEventCode:theKeyDesc]] autorelease];
 		return theResultSpecifier;
 	}
 	/* objectSpecifierForNameAppleEventDescriptor */
@@ -1654,7 +1654,7 @@ static NSScriptObjectSpecifier * objectSpecifierForAppleEventDescriptor( NSApple
 		DescType		theTypeDesc = [[aDescriptor descriptorForKeyword:keyAEDesiredClass] fourCharCodeValue];
 		NSScriptClassDescription	* theClassDesc = [[NSScriptSuiteRegistry sharedScriptSuiteRegistry] classDescriptionWithAppleEventCode:theTypeDesc];
 		NSString							* theName = [[aDescriptor descriptorForKeyword:keyAEKeyData] stringValue];
-		theResultSpecifier = [[NSNameSpecifier allocWithZone:nil] initWithContainerClassDescription:theClassDesc containerSpecifier:theContainerSpec key:[theClassDesc keyWithAppleEventCode:theTypeDesc] name:theName];
+		theResultSpecifier = [[[NSNameSpecifier allocWithZone:[theContainerSpec zone]] initWithContainerClassDescription:theClassDesc containerSpecifier:theContainerSpec key:[theClassDesc keyWithAppleEventCode:theTypeDesc] name:theName] autorelease];
 		
 		return theResultSpecifier;
 	}
@@ -1671,7 +1671,7 @@ static NSScriptObjectSpecifier * objectSpecifierForAppleEventDescriptor( NSApple
 
 NDUntestedMethod();
 
-		theResultSpecifier = [[NSRelativeSpecifier allocWithZone:nil] initWithContainerClassDescription:theClassDesc containerSpecifier:theContainerSpec key:[theClassDesc keyWithAppleEventCode:theTypeDesc] relativePosition:theRelativePos == kAEPrevious ? NSRelativeBefore : NSRelativeAfter baseSpecifier:theContainerSpec];
+		theResultSpecifier = [[[NSRelativeSpecifier allocWithZone:[theContainerSpec zone]] initWithContainerClassDescription:theClassDesc containerSpecifier:theContainerSpec key:[theClassDesc keyWithAppleEventCode:theTypeDesc] relativePosition:theRelativePos == kAEPrevious ? NSRelativeBefore : NSRelativeAfter baseSpecifier:theContainerSpec] autorelease];
 		
 		return theResultSpecifier;
 	}

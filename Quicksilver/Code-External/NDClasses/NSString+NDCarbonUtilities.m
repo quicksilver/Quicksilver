@@ -41,7 +41,7 @@
 	CFURLRef theURL = CFURLCreateFromFSRef( kCFAllocatorDefault, aFSRef );
 	if ( theURL )
 	{
-		thePath = [(__bridge NSURL *)theURL path];
+		thePath = [(NSURL *)theURL path];
 		CFRelease ( theURL );
 	}
 	return thePath;
@@ -78,7 +78,7 @@
 	CFStringRef theString = CFURLCopyFileSystemPath((CFURLRef)[NSURL fileURLWithPath:self], kCFURLHFSPathStyle);
 
 	/* To support GC and non-GC, we need this contortion. */
-	return (__bridge_transfer NSString *)theString;
+	return [NSMakeCollectable(theString) autorelease];
 }
 
 /*
@@ -90,7 +90,7 @@
 	CFURLRef	theURL = CFURLCreateWithFileSystemPath( kCFAllocatorDefault, (CFStringRef)self, kCFURLHFSPathStyle, [self hasSuffix:@":"] );
 	if ( theURL )
 	{
-		thePath = [(__bridge NSURL*)theURL path];
+		thePath = [(NSURL*)theURL path];
 		CFRelease( theURL );
 	}
 	
@@ -125,7 +125,7 @@
 	CFStringRef	theString = CFStringCreateWithPascalString( kCFAllocatorDefault, aPStr, kCFStringEncodingMacRomanLatin1 );
 
 	/* To support GC and non-GC, we need this contortion. */
-	return (__bridge_transfer NSString *)theString;
+	return [NSMakeCollectable(theString) autorelease];
 }
 
 /*
@@ -156,7 +156,7 @@
  */
 - (NSString *)trimWhitespace
 {
-	NSMutableString		* theString = [self mutableCopy];
+	NSMutableString		* theString = [[self mutableCopy] autorelease];
 	CFStringTrimWhitespace( (CFMutableStringRef)theString );
 
 	return theString;
