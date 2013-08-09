@@ -21,7 +21,7 @@ This release requires 10.7+ and is 64-bit.
   * Respect the "Run tasks and actions in the background" setting when running triggers (#1477, #1501)
   * Avoid delays when external drives are connected (#1431, #1490)
   * Always load "slower" icons in the background (#1369, #1438)
-  * Faster loading of initial file icons (#1490)
+  * Faster loading of initial file icons (#1490, #1552, #1554)
   * Improved recognition of URLs and e-mail addresses (#1462, #1509, #1512, #1508, #1514)
   * Fix the appearance of some hi-res images (#1518)
   * Prevent duplicates in Recent Commands/command history (#1532)
