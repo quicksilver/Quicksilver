@@ -12,9 +12,9 @@
 
 - (id)imageNamed:(NSString *)name {
 	NSString *compositeName = [NSString stringWithFormat:@"%@:%@", [self bundleIdentifier], name];
-	NSImage *image = [NSImage imageNamed:compositeName];
+	__autoreleasing NSImage *image = [NSImage imageNamed:compositeName];
 	if (!image) { 
-        image = [[[NSImage alloc] initWithContentsOfFile:[self pathForImageResource:name]] autorelease];
+        image = [[NSImage alloc] initWithContentsOfFile:[self pathForImageResource:name]];
         [image setName:compositeName];
     }
 	return image;
@@ -152,7 +152,7 @@ NSMutableDictionary *scriptsDictionary = nil;
 	NSAppleScript *script = [[NSBundle scriptsDictionary] objectForKey:compositeName];
 	if (!script) {
 		NSString *path = [self pathForResource:name ofType:@"scpt"];
-		if (path) script = [[[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:nil] autorelease];
+		if (path) script = [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:nil];
 		[[NSBundle scriptsDictionary] setObject:script forKey:compositeName];
 	}
 	return script;

@@ -63,7 +63,7 @@ static inline NSInteger get_bit(unsigned char *arr, unsigned long bit_num) {
         [fadedImage unlockFocus];
 		NSRectFillUsingOperation(rectFromSize([rep size]), NSCompositeDestinationIn);
 	}
-	return [fadedImage autorelease];
+	return fadedImage;
 }
 
 @end
@@ -76,7 +76,7 @@ static inline NSInteger get_bit(unsigned char *arr, unsigned long bit_num) {
 	NSImageRep *rep = [NSCIImageRep imageRepWithCIImage:ciimage];
 	NSImage *image = [[NSImage alloc] initWithSize:[rep size]];
 	[image addRepresentation:rep];
-	return [image autorelease];
+	return image;
 }
 
 - (NSImage *)imageByAdjustingHue:(CGFloat)hue {
@@ -143,7 +143,7 @@ static inline NSInteger get_bit(unsigned char *arr, unsigned long bit_num) {
 
 		CGImageRef smallImage = CGBitmapContextCreateImage(smallContext);
 		if (smallImage) {
-			NSBitmapImageRep *cgRep = [[[NSBitmapImageRep alloc] initWithCGImage:smallImage] autorelease];
+			NSBitmapImageRep *cgRep = [[NSBitmapImageRep alloc] initWithCGImage:smallImage];
 			[self addRepresentation:cgRep];      
 		}
 		CGImageRelease(smallImage);
@@ -160,8 +160,7 @@ static inline NSInteger get_bit(unsigned char *arr, unsigned long bit_num) {
 	[bestRep drawInRect:drawRect];
 	NSBitmapImageRep* iconRep = [[NSBitmapImageRep alloc] initWithFocusedViewRect:NSMakeRect(0, 0, newSize.width, newSize.height)];
 	[scaledImage unlockFocus];
-	[scaledImage release];
-	[self addRepresentation:[iconRep autorelease]];
+	[self addRepresentation:iconRep];
 	return YES;
 }
 
@@ -175,7 +174,7 @@ static inline NSInteger get_bit(unsigned char *arr, unsigned long bit_num) {
 - (NSImage *)duplicateOfSize:(NSSize)newSize {
 	NSImage *dup = [self copy];
 	[dup shrinkToSize:newSize];
-	return [dup autorelease];
+	return dup;
 }
 
 - (BOOL)shrinkToSize:(NSSize)newSize {
@@ -192,7 +191,6 @@ static inline NSInteger get_bit(unsigned char *arr, unsigned long bit_num) {
     NSRect rect;
 	if (![bitmap hasAlpha]) {
         rect = NSMakeRect(0, 0, [bitmap size] .height, [bitmap size] .width);
-        [bitmap release];
         return rect;
     }
 
@@ -218,7 +216,6 @@ static inline NSInteger get_bit(unsigned char *arr, unsigned long bit_num) {
 		}
 	}
     rect = NSMakeRect(minX, [bitmap pixelsHigh] -maxY-1, maxX-minX+1, maxY-minY+1);
-    [bitmap release];
     return  rect;
 }
 
@@ -232,8 +229,7 @@ static inline NSInteger get_bit(unsigned char *arr, unsigned long bit_num) {
 	}
 	[tempImage unlockFocus];
 	NSImage *newImage = [[NSImage alloc] initWithData:[tempImage TIFFRepresentation]]; //*** UGH! why do I have to do this to commit the changes?;
-	[tempImage release];
-	return [newImage autorelease];
+	return newImage;
 }
 @end
 
