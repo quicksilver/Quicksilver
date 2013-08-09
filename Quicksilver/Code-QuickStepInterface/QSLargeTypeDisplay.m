@@ -141,15 +141,18 @@ void QSShowLargeType(NSString *aString) {
 	[self close];
 }
 
+- (void)dealloc {
+    [_largeTypeWindows removeObject:self];
+    if ([_largeTypeWindows count] == 0) {
+        _largeTypeWindows = nil;
+    }
+}
+
 - (void)resignKeyWindow {
 	[super resignKeyWindow];
 	if ([self isVisible]) {
 		[self setAlphaValue:0 fadeTime:0.333];
 		[self close];
-        [_largeTypeWindows removeObject:self];
-        if ([_largeTypeWindows count] == 0) {
-            _largeTypeWindows = nil;
-        }
 	}
 }
 @end

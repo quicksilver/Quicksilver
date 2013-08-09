@@ -61,7 +61,6 @@
                 }
             }
             [task setEnvironment:taskEnvironment] ;
-            [taskEnvironment release];
             [task launch];
             [task waitUntilExit];
         }

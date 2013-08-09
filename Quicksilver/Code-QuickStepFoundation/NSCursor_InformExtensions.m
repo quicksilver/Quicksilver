@@ -37,7 +37,6 @@
 	[string drawInRect:textRect withAttributes:informAttributes];
 	[cImg unlockFocus];
 	NSCursor *result = [[NSCursor alloc] initWithImage:cImg hotSpot:NSZeroPoint];
-	[cImg release];
-	return [result autorelease];
+	return result;
 }
 @end

@@ -15,10 +15,9 @@
 	return pid;
 }
 - (NSString *)identifier {
-	NSDictionary *dict = (NSDictionary *)ProcessInformationCopyDictionary(&processSerialNumber, kProcessDictionaryIncludeAllInformationMask);
-	id ident = [[dict objectForKey:@"CFBundleIdentifier"] retain];
-	[dict release];
-	return [ident autorelease];
+	NSDictionary *dict = (NSDictionary *)CFBridgingRelease(ProcessInformationCopyDictionary(&processSerialNumber, kProcessDictionaryIncludeAllInformationMask));
+	id ident = [dict objectForKey:@"CFBundleIdentifier"];
+	return ident;
 }
 - (NSDictionary *)processInfo {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
@@ -33,16 +32,14 @@
 - (BOOL)isVisible { return IsProcessVisible(&processSerialNumber); }
 
 - (BOOL)isBackground {
-	NSDictionary *dict = (NSDictionary *)ProcessInformationCopyDictionary(&processSerialNumber, kProcessDictionaryIncludeAllInformationMask);
+	NSDictionary *dict = (NSDictionary *)CFBridgingRelease(ProcessInformationCopyDictionary(&processSerialNumber, kProcessDictionaryIncludeAllInformationMask));
 	BOOL background = [[dict objectForKey:@"LSUIElement"] boolValue] || [[dict objectForKey:@"LSBackgroundOnly"] boolValue];
-	[dict release];
 	return background;
 }
 
 - (BOOL)isCarbon {
-	NSDictionary *dict = (NSDictionary *)ProcessInformationCopyDictionary(&processSerialNumber, kProcessDictionaryIncludeAllInformationMask);
+	NSDictionary *dict = (NSDictionary *)CFBridgingRelease(ProcessInformationCopyDictionary(&processSerialNumber, kProcessDictionaryIncludeAllInformationMask));
 	BOOL carbon = [[dict objectForKey:@"RequiresCarbon"] boolValue];
-	[dict release];
 	return carbon;
 }
 @end

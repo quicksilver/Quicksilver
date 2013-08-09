@@ -315,7 +315,10 @@
 //		[self updateTriggerArray];
 	}
     // select the trigger (its position has changed since adding the trigger)
-    [triggerTable selectRowIndexes:[NSIndexSet indexSetWithIndex:[[triggerArrayController arrangedObjects] indexOfObject:trigger]] byExtendingSelection:NO];
+    NSUInteger selectTriggerIndex = [[triggerArrayController arrangedObjects] indexOfObject:trigger];
+    if (selectTriggerIndex != NSNotFound) {
+        [triggerTable selectRowIndexes:[NSIndexSet indexSetWithIndex:selectTriggerIndex] byExtendingSelection:NO];
+    }
 	[sheet orderOut:self];
 }
 

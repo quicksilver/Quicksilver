@@ -50,7 +50,7 @@ NSString *QSPasswordForHostUserType(NSString *host, NSString *user, SecProtocolT
 	err = SecKeychainFindInternetPassword(NULL, [host length], [host UTF8String], 0, NULL, [user length], [user UTF8String], 0, NULL, 0, type, 0, &length, (void**)&buffer, NULL);
 	if (err == noErr) {
 		SecKeychainItemFreeContent(NULL, (void *)buffer);
-		return [[[NSString alloc] initWithCString:buffer encoding:NSUTF8StringEncoding] autorelease];
+		return [[NSString alloc] initWithCString:buffer encoding:NSUTF8StringEncoding];
 	}
 	return nil;
 }
