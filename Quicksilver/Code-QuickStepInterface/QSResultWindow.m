@@ -21,7 +21,7 @@
 }
 
 - (NSTimeInterval)animationResizeTime:(NSRect)newFrame {
-	return .1;
+	return .06;
 }
 
 - (BOOL)acceptsFirstResponder {return NO;}
