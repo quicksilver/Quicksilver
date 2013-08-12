@@ -38,7 +38,7 @@ This release requires 10.7+ and is 64-bit.
   * Quicksilver will not run in 32-bit mode (#1408)
   * Quicksilver will not run on Mac OS X 10.6 or older (#1408)
   * Set the default browse mode to "Filter Results" (#1456)
-  * Improved appearance for the results list (#1446)
+  * Improved appearance for the results list (#1446, #1565)
   * Improve left-arrow behavior (#1286, #1493):
     * ⌥← will show hidden files in the parent folder
     * ⌥← will always show the parent folder for a file, even if the file was reached in some other way (like arrowing into an application)
