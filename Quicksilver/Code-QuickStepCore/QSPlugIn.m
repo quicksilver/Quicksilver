@@ -707,10 +707,10 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 - (BOOL)_registerPlugIn {
     if (![self isSupported]) {
-        NSString *unsupportedFolder = @"PlugIns (32-bit)";
+        NSString *unsupportedFolder = @"PlugIns (disabled)";
         NSString *pluginFileName = [[self path] lastPathComponent];
         NSString *destination = [QSApplicationSupportSubPath(unsupportedFolder, YES) stringByAppendingPathComponent:pluginFileName];
-        NSLog(@"Moving %@ to %@", [self name], unsupportedFolder);
+        NSLog(@"Moving unsupported plug-in '%@' to %@", [self name], unsupportedFolder);
         NSFileManager *fm = [NSFileManager defaultManager];
         [fm moveItemAtPath:[self path] toPath:destination error:nil];
         //[NSException raise:@"QSWrongPluginArchitecture" format:@"Current architecture unsupported"];
