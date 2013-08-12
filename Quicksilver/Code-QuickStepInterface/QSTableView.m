@@ -51,9 +51,7 @@
 }
 - (void)drawRow:(NSInteger)rowIndex clipRect:(NSRect)clipRect {
 	// drawingRow = rowIndex;
-    if (![[self window] isVisible]) {
-        return;
-    }
+
 	if ([[self delegate] respondsToSelector:@selector(tableView:rowIsSeparator:)]
 		 && [[self delegate] tableView:self rowIsSeparator:rowIndex]) {
 
