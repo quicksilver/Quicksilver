@@ -127,11 +127,13 @@
 	if (array) {
 		if ([[NSWorkspace sharedWorkspace] applicationIsFrontmost:[array lastObject]]) {
 		//	NSLog(@"showing");
-            [[NSWorkspace sharedWorkspace] performSelector:@selector(hideApplication:) onObjectsInArray:array
-                                              returnValues:NO];
+            [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                [[NSWorkspace sharedWorkspace] hideApplication:obj];
+            }];
 		} else {
-            [[NSWorkspace sharedWorkspace] performSelector:@selector(activateApplication:) onObjectsInArray:array
-                                              returnValues:NO];		
+            [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                [[NSWorkspace sharedWorkspace] activateApplication:obj];
+            }];
 		}
 	} else {
 		array = [dObject validPaths];
