@@ -128,8 +128,10 @@
 	}
 
 	[menuItems sortUsingDescriptors:[NSSortDescriptor descriptorArrayWithKey:@"title" ascending:YES]];
-
-	[typeMenu performSelector:@selector(addItem:) onObjectsInArray:menuItems returnValues:NO];
+    
+    [menuItems enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [typeMenu addItem:obj];
+    }];
 
 	// Make a copy for for the add button menu, and add the Group type there
 	NSMenu *addMenu = [typeMenu copy];

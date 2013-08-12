@@ -92,7 +92,12 @@ QSExecutor *QSExec = nil;
 
 - (void)loadFileActions {
 	NSString *rootPath = QSApplicationSupportSubPath(@"Actions/", NO);
-	NSArray *files = [rootPath performSelector:@selector(stringByAppendingPathComponent:) onObjectsInArray:[[NSFileManager defaultManager] contentsOfDirectoryAtPath:rootPath error:nil]];
+    
+    NSMutableArray *files = [[NSMutableArray alloc] init];
+    [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:rootPath error:nil] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [files addObject:[rootPath stringByAppendingPathComponent:obj]];
+    }];
+    
 	for(id <QSFileActionProvider> creator in [[QSReg instancesForTable:@"QSFileActionCreators"] allValues]) {
 		[self addActions:[creator fileActionsFromPaths:files]];
 	}

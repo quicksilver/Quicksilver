@@ -445,9 +445,16 @@
 	[[QSPlugIn plugInWithBundle:[NSBundle mainBundle]]registerPlugIn];
 
 	// Get all locally installed plugins
-	NSMutableArray *newLocalPlugIns = [NSBundle performSelector:@selector(bundleWithPath:) onObjectsInArray:[self allBundles]];
-    [newLocalPlugIns removeObject:[NSNull null]];
-	newLocalPlugIns = [QSPlugIn performSelector:@selector(plugInWithBundle:) onObjectsInArray:newLocalPlugIns];
+	NSMutableArray *newLocalPlugInBundles = [[NSMutableArray alloc] init];
+    [[self allBundles] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [newLocalPlugInBundles addObject:[NSBundle bundleWithPath:obj]];
+    }];
+    
+    [newLocalPlugInBundles removeObject:[NSNull null]];
+    NSMutableArray *newLocalPlugIns = [[NSMutableArray alloc] init];
+    [newLocalPlugInBundles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [newLocalPlugIns addObject:[QSPlugIn plugInWithBundle:obj]];
+    }];
 	[newLocalPlugIns removeObject:[NSNull null]];
 
 	NSMutableDictionary	*plugInsToLoadByID = [NSMutableDictionary dictionary];

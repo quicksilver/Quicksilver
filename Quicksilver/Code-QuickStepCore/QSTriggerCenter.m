@@ -68,14 +68,18 @@
 }
 
 - (void)loadTriggers {
-	NSDictionary *triggerStorage = [NSDictionary dictionaryWithContentsOfFile: [pTriggerSettings stringByStandardizingPath]];
+	NSDictionary *triggerStorageDict = [NSDictionary dictionaryWithContentsOfFile: [pTriggerSettings stringByStandardizingPath]];
 
-	triggerStorage = [triggerStorage objectForKey:@"triggers"];
+	NSArray *triggerStorage = [triggerStorageDict objectForKey:@"triggers"];
 	if ([triggerStorage count] != 0) {
 		NSArray *ids = [triggerStorage valueForKey:kItemID];
-		[triggers addObjectsFromArray:[QSTrigger performSelector:@selector(triggerWithInfo:)
-							 onObjectsInArray:triggerStorage
-								 returnValues:YES]];
+        
+        NSMutableArray *triggersWithInfo = [[NSMutableArray alloc] init];
+        [triggerStorage enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [triggersWithInfo addObject:[QSTrigger triggerWithInfo:obj]];
+        }];
+        
+		[triggers addObjectsFromArray:triggersWithInfo];
 		triggersDict = [[NSMutableDictionary alloc] initWithObjects:triggers forKeys:ids];
 	}
 }

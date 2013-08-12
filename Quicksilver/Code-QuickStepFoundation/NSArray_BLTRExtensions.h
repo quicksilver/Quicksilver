@@ -8,13 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSObject (BLTRArrayPerform)
-+ (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(id)array returnValues:(BOOL)flag;
-- (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(id)array returnValues:(BOOL)flag;
-- (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(id)array;
-
-@end
-
 @interface NSArray (Transformation)
 
 - (NSString *)componentsJoinedByStrings:(NSArray *)strings;

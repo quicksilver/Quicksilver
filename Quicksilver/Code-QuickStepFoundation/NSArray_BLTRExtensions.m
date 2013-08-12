@@ -86,46 +86,6 @@
 
 @end
 
-@implementation NSObject (BLTRArrayPerform)
-
-+ (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(id)array returnValues:(BOOL)flag {
-	NSMutableArray *resultArray = nil;
-    id result;
-    @synchronized(array) {
-        if (flag)
-            resultArray = [NSMutableArray arrayWithCapacity:[(NSArray *)array count]];
-
-        for (id obj in array) {
-            result = [self performSelector:aSelector withObject:obj];
-            if (flag)
-                [resultArray addObject:(result?result:[NSNull null])];
-        }
-    }
-	return resultArray;
-}
-
-- (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(id)array returnValues:(BOOL)flag {
-	NSMutableArray *resultArray = nil;
-    id result;
-    
-    @synchronized(array) {
-        if (flag)
-            resultArray = [NSMutableArray arrayWithCapacity:[(NSArray *)array count]];
-
-        for (id obj in array) {
-            result = [self performSelector:aSelector withObject:obj];
-            if (flag) [resultArray addObject:(result?result:[NSNull null])];
-        }
-    }
-	return resultArray;
-}
-
-- (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(id)array {
-	return [self performSelector:(SEL) aSelector onObjectsInArray:(id)array returnValues:YES];
-}
-
-@end
-
 @implementation NSMutableArray (Reverse)
 
 - (void)reverse {

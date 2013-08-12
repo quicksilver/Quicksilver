@@ -16,6 +16,9 @@
 	NSMutableArray *children;
     BOOL activated;
 }
+
++ (id)triggerWithInfo:(NSDictionary *)dict;
+
 + (id)triggerWithDictionary:(NSDictionary *)info;
 - (id)initWithDictionary:(NSDictionary *)dict;
 
