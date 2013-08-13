@@ -57,13 +57,16 @@
 }
 
 - (void)typeString:(NSString *)string {
-    NSUInteger length = [string length];
-    UniChar s[length];
-    [string getCharacters:s range:NSMakeRange(0, length)];
-	CGEventRef keyEvent = CGEventCreateKeyboardEvent(NULL, 0, true);
-    CGEventKeyboardSetUnicodeString(keyEvent, (UniCharCount)length, s);
-    CGEventPost(kCGSessionEventTap, keyEvent);
-	CFRelease(keyEvent);
+    UniChar buffer;
+    CGEventRef keyEvent = CGEventCreateKeyboardEvent(NULL, 0, true);
+    CFRelease(keyEvent);
+    for (NSUInteger i = 0; i < [string length]; i++) {
+        buffer = [string characterAtIndex:i];
+        keyEvent = CGEventCreateKeyboardEvent(NULL, 1, true);
+        CGEventKeyboardSetUnicodeString(keyEvent, 1, &buffer);
+        CGEventPost(kCGHIDEventTap, keyEvent);
+        CFRelease(keyEvent);
+    }
 }
 
 @end
