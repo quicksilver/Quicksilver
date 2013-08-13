@@ -41,7 +41,7 @@ extern QSLibrarian *QSLib; // Shared Instance
 
 	NSMutableArray *invalidIndexes;
 	NSInteger scannerCount;
-    
+    dispatch_queue_t reloadQueue;
     @private
     BOOL catalogLoaded;
 }

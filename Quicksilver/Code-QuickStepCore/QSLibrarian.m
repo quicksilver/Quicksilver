@@ -70,7 +70,7 @@ static CGFloat searchSpeed = 0.0;
 		appSearchArrays = nil;
 		typeArrays = [[NSMutableDictionary dictionaryWithCapacity:1] retain];
 		entriesBySource = [[NSMutableDictionary alloc] initWithCapacity:1];
-        
+        reloadQueue = dispatch_queue_create("QSLibrarian reload queue", DISPATCH_QUEUE_SERIAL);
 		omittedIDs = nil;
 		entriesByID = [[NSMutableDictionary alloc] initWithCapacity:1];
 		[self setShelfArrays:[NSMutableDictionary dictionaryWithCapacity:1]];
@@ -226,6 +226,7 @@ static CGFloat searchSpeed = 0.0;
 	[entriesBySource release];
 	[invalidIndexes release];
 	[catalog release];
+    dispatch_release(reloadQueue);
 	[super dealloc];
 }
 
@@ -328,22 +329,25 @@ static CGFloat searchSpeed = 0.0;
 
 
 - (void)reloadSets:(NSNotification *)notif {
-	NSMutableSet *newDefaultSet = [NSMutableSet setWithCapacity:1];
-	//NSLog(@"cat %@ %@", catalog, [catalog leafEntries]);
-    for(QSCatalogEntry * entry in [catalog leafEntries]) {
-        NSArray *entryContents = [[entry contents] copy];
-        if ([entryContents count]) {
-            [newDefaultSet addObjectsFromArray:entryContents];
+    // ensure that the default search set is updated synchronously. We don't want 10 different threads setting 'defaultSearchSet' at the same time
+    runOnQueueSync(reloadQueue, ^{
+        NSMutableSet *newDefaultSet = [NSMutableSet setWithCapacity:1];
+        //NSLog(@"cat %@ %@", catalog, [catalog leafEntries]);
+        for(QSCatalogEntry * entry in [catalog leafEntries]) {
+            NSArray *entryContents = [[entry _contents] copy];
+            if ([entryContents count]) {
+                [newDefaultSet addObjectsFromArray:entryContents];
+            }
+            [entryContents release];
         }
-        [entryContents release];
-    }
-
-	//NSLog(@"%@", newDefaultSet);
-    [self setDefaultSearchSet:newDefaultSet];
-	//NSLog(@"Total %4d items in search set", [newDefaultSet count]);
-	//	NSLog(@"Rebuilt Default Set in %f seconds", -[date timeIntervalSinceNow]);
-	if ([notif object])
-		[self recalculateTypeArraysForItem:[notif object]];
+        
+        //NSLog(@"%@", newDefaultSet);
+        [self setDefaultSearchSet:newDefaultSet];
+        //NSLog(@"Total %4d items in search set", [newDefaultSet count]);
+        //	NSLog(@"Rebuilt Default Set in %f seconds", -[date timeIntervalSinceNow]);
+        if ([notif object])
+            [self recalculateTypeArraysForItem:[notif object]];
+    });
 }
 
 
@@ -423,7 +427,6 @@ static CGFloat searchSpeed = 0.0;
 		NSLog(@"Indexes loaded (%fms) ", (-[date timeIntervalSinceNow] *1000));
 #endif
 	
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryIndexed object:nil];
   if (invalidIndexes) [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(scanInvalidIndexes) name:NSApplicationDidFinishLaunchingNotification object:nil];
 	return indexesValid;
 }
@@ -513,11 +516,9 @@ static CGFloat searchSpeed = 0.0;
 	NSArray *entries = [catalog leafEntries];
 	id entry;
 	for (entry in entries) {
-		if (![entry canBeIndexed] || ![entry _contents]) {
-				//NSLog(@"Missing: %@", [entry name]);
+		if (![entry canBeIndexed] || ![[entry _contents] count]) {
+				//NSLog(@   "Missing: %@", [entry name]);
 			[entry scanAndCache];
-		} else {
-			//	NSLog(@"monster %d", [[catalogArrays objectForKey:[entry objectForKey:kItemID]]count]);
 		}
 	}
 }

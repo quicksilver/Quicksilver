@@ -425,19 +425,21 @@ NSDictionary *enabledPresetDictionary;*/
         }
         @catch (NSException *e) {
             NSLog(@"Error loading index of %@: %@", [self name] , e);
-        }
-        
-        if (!dictionaryArray)        
             return NO;
-
-        [self setContents:dictionaryArray];
-        [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryIndexed object:self];
-        [[QSLibrarian sharedInstance] recalculateTypeArraysForItem:self];
+        }
+        if ([dictionaryArray count]) {
+            [self setContents:dictionaryArray];
+            [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryIndexed object:self];
+        }
 	}
 	return YES;
 }
 
 - (void)saveIndex {
+    id source = [self source];
+    if (![contents count] || ([source respondsToSelector:@selector(entryCanBeIndexed:)] && ![source entryCanBeIndexed:[self info]])) {
+        return;
+    }
     runOnQueueSync(scanQueue, ^{
 #ifdef DEBUG
         if (DEBUG_CATALOG) NSLog(@"saving index for %@", self);
@@ -505,7 +507,7 @@ NSDictionary *enabledPresetDictionary;*/
     NSArray *itemContents = nil;
     @autoreleasepool {
         @try {
-            QSObjectSource *source = [self source];
+            id source = [self source];
             itemContents = [[source objectsForEntry:info] retain];
         }
         @catch (NSException *exception) {
@@ -517,40 +519,54 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (BOOL)canBeIndexed {
-	QSObjectSource *source = [self source];
+	id source = [self source];
 	return ![source respondsToSelector:@selector(entryCanBeIndexed:)] || [source entryCanBeIndexed:[self info]];
 }
 
-- (NSArray *)scanAndCache {
+- (void)scanAndCache {
     if (isScanning) {
 #ifdef DEBUG
 		if (VERBOSE) NSLog(@"%@ is already being scanned", [self name]);
 #endif
-		return nil;
+		return;
 	} else {
-        __block NSArray *itemContents = nil;
-        // Use a serial queue to do the grunt of the scan work. Ensures that no more than one thread can scan at any one time.
-        runOnQueueSync(scanQueue, ^{
-            [self setIsScanning:YES];
-            [self willChangeValueForKey:@"self"];
-            NSString *ID = [self identifier];
-            NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-            [nc postNotificationName:QSCatalogEntryIsIndexing object:self];
-            itemContents = [self scannedObjects];
-            if (itemContents && ID) {
-                [self setContents:itemContents];
-                QSObjectSource *source = [self source];
-                if (![source respondsToSelector:@selector(entryCanBeIndexed:)] || [source entryCanBeIndexed:[self info]]) {
-                    [self saveIndex];
+        id source = [self source];
+        if ([source respondsToSelector:@selector(loadObjectsForEntry:)]) {
+            // asynchronous source - objects won't be available immediately
+            dispatch_async(dispatch_get_main_queue(), ^{
+                @try {
+                    BOOL scanStarted = [source loadObjectsForEntry:self];
+                    if (!scanStarted) {
+                        // clean up and finish the scanning process
+                        [self completeScanWithContents:nil];
+                    }
                 }
-            } else if (ID) {
-                [self setContents:nil];
-            }
-            [self didChangeValueForKey:@"self"];
-            [nc postNotificationName:QSCatalogEntryIndexed object:self];
-            [self setIsScanning:NO];
-        });
-        return itemContents;
+                @catch (NSException *exception) {
+                    NSLog(@"An error ocurred while scanning \"%@\": %@", [self name], exception);
+                    [exception printStackTrace];
+                    // clean up and finish the scanning process
+                    [self completeScanWithContents:nil];
+                }
+            });
+        } else {
+            __block NSArray *itemContents = nil;
+            // Use a serial queue to do the grunt of the scan work. Ensures that no more than one thread can scan at any one time.
+            runOnQueueSync(scanQueue, ^{
+                [self setIsScanning:YES];
+                NSString *ID = [self identifier];
+                NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+                [nc postNotificationName:QSCatalogEntryIsIndexing object:self];
+                // objects come back immediately and are the app's responsibility
+                itemContents = [self scannedObjects];
+                if (itemContents && ID) {
+                    // contents were returned
+                    [self completeScanWithContents:itemContents];
+                } else if (ID) {
+                    // contents were empty
+                    [self completeScanWithContents:nil];
+                }
+            });
+        }
     }
 }
 
@@ -600,6 +616,18 @@ NSDictionary *enabledPresetDictionary;*/
 
 - (NSArray *)contents { return [self contentsScanIfNeeded:NO]; }
 
+- (void)completeScanWithContents:(NSArray *)newContents
+{
+    runOnQueueSync(scanQueue, ^{
+        [self willChangeValueForKey:@"self"];
+        [self setContents:newContents];
+        [self setIsScanning:NO];
+        [self didChangeValueForKey:@"self"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryIndexed object:self];
+    });
+    [self saveIndex];
+}
+
 - (NSArray *)contentsScanIfNeeded:(BOOL)canScan {
 	if (![self isEnabled]) {
 		return nil;
@@ -611,11 +639,12 @@ NSDictionary *enabledPresetDictionary;*/
 			[childObjects addObjectsFromArray:[child contentsScanIfNeeded:(BOOL)canScan]];
 		}
 		return [childObjects allObjects];
-
 	} else {
-
-		if (!contents && canScan)
-			return [self scanAndCache];
+		if (!contents && canScan) {
+			[self scanAndCache];
+            /* for object sources using loadObjectsForEntry,
+             contents might not be available immediately */
+        }
 		return contents;
 	}
 }

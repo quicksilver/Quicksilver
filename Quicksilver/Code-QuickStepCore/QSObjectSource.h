@@ -4,6 +4,7 @@
 @interface NSObject (QSObjectSourceInformal)
 - (NSImage *)iconForEntry:(NSDictionary *)theEntry;
 //- (NSString *)nameForEntry:(NSDictionary *)theEntry;
+- (BOOL)loadObjectsForEntry:(QSCatalogEntry *)theEntry;
 - (NSArray *)objectsForEntry:(NSDictionary *)theEntry;
 - (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry;
 - (void)populateFields;

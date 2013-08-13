@@ -61,13 +61,13 @@
 - (id)source;
 - (BOOL)canBeIndexed;
 - (NSArray *)scannedObjects;
-- (NSArray *)scanAndCache;
+- (void)scanAndCache;
 - (void)scanForced:(BOOL)force;
 - (NSMutableArray *)children;
 - (NSMutableArray *)getChildren;
 - (NSArray *)contents;
+- (void)completeScanWithContents:(NSArray *)newContents;
 - (NSArray *)contentsScanIfNeeded:(BOOL)canScan;
-- (void)setContents:(NSArray *)newContents;
 - (NSIndexPath *)catalogIndexPath;
 - (NSMutableDictionary *)info;
 - (QSCatalogEntry *)uniqueCopy;
