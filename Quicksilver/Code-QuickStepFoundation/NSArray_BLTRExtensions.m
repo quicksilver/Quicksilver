@@ -74,6 +74,56 @@
 
 @end
 
+@implementation NSArray (BLTRExtensions)
+
++ (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(id)array returnValues:(BOOL)flag {
+	NSMutableArray *resultArray = nil;
+    __block id result;
+    
+    @synchronized(array) {
+        if (flag)
+            resultArray = [NSMutableArray arrayWithCapacity:[(NSArray *)array count]];
+        
+        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if (flag) {
+                result = [self performSelector:aSelector withObject:obj];
+                [resultArray addObject:(result?result:[NSNull null])];
+            } else {
+                [self performSelector:aSelector withObject:obj];
+            }
+        }];
+    }
+    
+	return resultArray;
+}
+
+- (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(id)array returnValues:(BOOL)flag {
+	NSMutableArray *resultArray = nil;
+    __block id result;
+    
+    @synchronized(array) {
+        if (flag)
+            resultArray = [NSMutableArray arrayWithCapacity:[(NSArray *)array count]];
+    
+        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if (flag) {
+                result = [self performSelector:aSelector withObject:obj];
+                [resultArray addObject:(result?result:[NSNull null])];
+            } else {
+                [self performSelector:aSelector withObject:obj];
+            }
+        }];
+    }
+    
+	return resultArray;
+}
+
+- (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(id)array {
+	return [self performSelector:(SEL)aSelector onObjectsInArray:(id)array returnValues:YES];
+}
+
+@end
+
 @implementation NSArray (Enumeration)
 
 - (NSArray *)arrayByEnumeratingArrayUsingBock:(id (^)(id obj))block {
