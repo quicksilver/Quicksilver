@@ -28,7 +28,7 @@ This release requires 10.7+ and is 64-bit.
   * Crashes and hangs (#1425, #1544, #1545)
   * Internal improvements and bug fixes (#1468, #1475, #1479, #1505, #1542)
   * Creating an alias in the same folder as the original won't overwrite it (#1547, #1549)
-  * Creating a symbolic link in the same foilder as the original results in a relative link (#1549)
+  * Creating a symbolic link in the same folder as the original results in a relative link (#1549)
   * Further attempts to prevent two Dock icons (#1152, #1408)
   * Fix a cosmetic issue when the Actions preferences are resized (#1560, #1561)
   * Entering text in text-entry mode won't replace previously entered text (#1424, #1504, #1525, #1564)
