@@ -32,6 +32,7 @@ This release requires 10.7+ and is 64-bit.
   * Further attempts to prevent two Dock icons (#1152, #1408)
   * Fix a cosmetic issue when the Actions preferences are resized (#1560, #1561)
   * Entering text in text-entry mode won't replace previously entered text (#1424, #1504, #1525, #1564)
+  * Prevent duplicate files in the catalog (#1566)
 
 ### Changed ###
 
