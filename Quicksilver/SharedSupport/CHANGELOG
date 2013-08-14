@@ -4,7 +4,7 @@ This release requires 10.7+ and is 64-bit.
 
 ### New ###
 
-  * New improved plug-in updater (#1354)
+  * New improved plugin updater (#1354)
   * Better support for retina displays (#1044, #1378)
   * New Internal Commands for "Show Guide" and "Show Plugins Preferences" (#1448, #1449)
   * Individual lines from multi-line text can be accessed with → or / (#1505)
@@ -46,7 +46,7 @@ This release requires 10.7+ and is 64-bit.
     * ← will now show the parent folder when multiple files are selected
   * Select a new trigger after the command is defined (#1475)
   * Improve ⌘V for non-latin keyboards (#1529)
-  * Let the Clipboard plug-in handle ignoring data from certain applications (#1406)
+  * Let the Clipboard plugin handle ignoring data from certain applications (#1406)
   * Show symbolic links to folders in the third pane for Move To… and Copy To… (#1484, #1485)
   * With an AppleScript file in the first pane, Open is now an alternate for Run (#1508)
   * Renamed internal commands (#1449):
@@ -63,7 +63,7 @@ This release requires 10.7+ and is 64-bit.
   * Better logging of bundle load errors (#1436)
   * Add required headers to a framework (#1436)
   * Setting an icon in `QSTypeDefinitions` will give an object an icon (#1406)
-  * A build that breaks backward compatibility can be defined so newly built plug-ins are automatically set to require it (#1520)
+  * A build that breaks backward compatibility can be defined so newly built plugins are automatically set to require it (#1520)
   * New convenience method to run code on all objects in an array (#1505)
 
           - (NSArray *)arrayByEnumeratingArrayUsingBock:(id (^)(id obj))block;
