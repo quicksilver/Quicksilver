@@ -78,7 +78,7 @@
 
 @end
 
-@implementation NSArray (BLTRExtensions)
+@implementation NSObject (BLTRArrayPerform)
 
 + (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(id)array returnValues:(BOOL)flag {
 	NSMutableArray *resultArray = nil;
