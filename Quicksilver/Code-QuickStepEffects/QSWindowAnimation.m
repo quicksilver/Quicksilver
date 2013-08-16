@@ -42,21 +42,18 @@
 	if(DEBUG_MEMORY) NSLog(@"qswindowanimation dealloc");
 #endif
 	
-	[_window release];
-	[animType release];
-	[super dealloc];
 }
 
 - (void)setAttributes:(NSDictionary *)attr {
 	id value;
 	if (value = [attr objectForKey:kQSGSTransformF])
-		transformFt = CFBundleGetFunctionPointerForName (CFBundleGetBundleWithIdentifier(kQSEffectsID), (CFStringRef) value);
+		transformFt = CFBundleGetFunctionPointerForName (CFBundleGetBundleWithIdentifier(kQSEffectsID), (__bridge CFStringRef) value);
 	if (value = [attr objectForKey:kQSGSBrightF])
-		brightFt = CFBundleGetFunctionPointerForName (CFBundleGetBundleWithIdentifier(kQSEffectsID), (CFStringRef) value);
+		brightFt = CFBundleGetFunctionPointerForName (CFBundleGetBundleWithIdentifier(kQSEffectsID), (__bridge CFStringRef) value);
 	if (value = [attr objectForKey:kQSGSWarpF])
-		warpFt = CFBundleGetFunctionPointerForName (CFBundleGetBundleWithIdentifier(kQSEffectsID), (CFStringRef) value);
+		warpFt = CFBundleGetFunctionPointerForName (CFBundleGetBundleWithIdentifier(kQSEffectsID), (__bridge CFStringRef) value);
 	if (value = [attr objectForKey:kQSGSAlphaF])
-		alphaFt = CFBundleGetFunctionPointerForName (CFBundleGetBundleWithIdentifier(kQSEffectsID), (CFStringRef) value);
+		alphaFt = CFBundleGetFunctionPointerForName (CFBundleGetBundleWithIdentifier(kQSEffectsID), (__bridge CFStringRef) value);
 	if (value = [attr objectForKey:kQSGSDuration])
 		[self setDuration:[value doubleValue]];
 	if (value = [attr objectForKey:kQSGSType]) {
@@ -142,8 +139,7 @@
 - (NSWindow *)window { return _window;  }
 - (void)setWindow:(NSWindow *)aWindow {
 	if(_window != aWindow){
-		[_window release];
-		_window = [aWindow retain];
+		_window = aWindow;
 		wid = [aWindow windowNumber];
 	}
 }
@@ -151,8 +147,7 @@
 - (NSString *)type { return animType;  }
 - (void)setType:(NSString *)aType {
 	if(aType != animType){
-		[animType release];
-		animType = [aType retain];
+		animType = aType;
 	}
 }
 
@@ -190,21 +185,21 @@
 @implementation QSWindowAnimation (DefaultEffects)
 
 + (QSWindowAnimation *)effectWithWindow:(NSWindow *)window attributes:(NSDictionary *)attr {
-	QSWindowAnimation *helper = [[[QSWindowAnimation alloc] initWithWindow:window] autorelease];
+	QSWindowAnimation *helper = [[QSWindowAnimation alloc] initWithWindow:window];
 	[helper setAttributes:attr];
 	return helper;
 }
 
 
 + (QSWindowAnimation *)showHelperForWindow:(NSWindow *)window {
-	QSWindowAnimation *helper = [[[QSWindowAnimation alloc] initWithWindow:window] autorelease];
+	QSWindowAnimation *helper = [[QSWindowAnimation alloc] initWithWindow:window];
 	helper->_alphaA = 0.0;
 	helper->_alphaB = 1.0;
 	return helper;
 }
 
 + (QSWindowAnimation *)hideHelperForWindow:(NSWindow *)window {
-	QSWindowAnimation *helper = [[[QSWindowAnimation alloc] initWithWindow:window] autorelease];
+	QSWindowAnimation *helper = [[QSWindowAnimation alloc] initWithWindow:window];
 	helper->_alphaA = 1.0;
 	helper->_alphaB = 0.0;
 	return helper;
