@@ -74,6 +74,7 @@ This release requires 10.7+ and is 64-bit.
 
   * `loadChildrenForObject:` now only works if `objectHasChildren:` returns YES (#1505)
   * String objects now get assigned an identifier (#1505)
+    * This corrupted stored commands, so it was reverted (#1553, #1569)
   * Allow arguments to be passed for Objective-C messages (#1530)
   * Removed references to unused frameworks (#1535)
 
