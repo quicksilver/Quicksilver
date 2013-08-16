@@ -1,4 +1,4 @@
-## Changes - 1.0.1 (4002) ##
+## Changes - 1.1.0 (4003) ##
 
 This release requires 10.7+ and is 64-bit.
 
@@ -57,6 +57,7 @@ This release requires 10.7+ and is 64-bit.
     * QS Check for Update → Check for Quicksilver Update
   * Aliases and symlinks will be resolved when scanning directories (#1507, #1516)
   * Use Quicksilver's user-agent string when checking for application updates (#1551)
+  * 32-bit-only and PowerPC-only plugins will be moved to a "disabled" folder (#1562)
 
 ### Development ###
 
