@@ -656,11 +656,6 @@ static QSController *defaultController = nil;
 			
             // Not localizing this, as it's pretty much obsolete
 			[[NSWorkspace sharedWorkspace] setComment:@"Quicksilver" forFile:[[NSBundle mainBundle] bundlePath]];
-			if (lastVersion < [@"2000" hexIntValue]) {
-				NSFileManager *fm = [NSFileManager defaultManager];
-				[fm moveItemAtPath:QSApplicationSupportSubPath(@"PlugIns", NO) toPath:QSApplicationSupportSubPath(@"PlugIns (B40 Incompatible) ", NO) error:nil];
-				[fm moveItemAtPath:@"/Library/Application Support/Quicksilver/PlugIns" toPath:@"/Library/Application Support/Quicksilver/PlugIns (B40 Incompatible) " error:nil];
-			}
 				newVersion = YES;
 			break;
         }
