@@ -8,6 +8,7 @@ This release requires 10.7+ and is 64-bit.
   * Better support for retina displays (#1044, #1378)
   * New Internal Commands for "Show Guide" and "Show Plugins Preferences" (#1448, #1449)
   * Individual lines from multi-line text can be accessed with → or / (#1505)
+  * Translations for Russian, Thai, and Indonesian as well as updates for many others (#1577)
 
 ### Fixed ###
 
