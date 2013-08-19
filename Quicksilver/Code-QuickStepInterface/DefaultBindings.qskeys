@@ -4,14 +4,13 @@
 <dict>
 	<key>QSSearchObjectView</key>
 	<dict>
-		<key> </key>
+		<key>⎵</key>
 		<string>insertSpace:</string>
 		<key>"</key>
 		<string>conditionalTransmogrify:</string>
-		<key>⇧
-</key>
+		<key>⇧↩</key>
 		<string>executeCommandAndContinue:</string>
-		<key>⇧ </key>
+		<key>⇧⎵</key>
 		<string>insertSpace:</string>
 		<key>⇧/</key>
 		<string>moveLeft:</string>
@@ -47,8 +46,7 @@
 		<string>goBackwardInCollection:</string>
 		<key>⌘G</key>
 		<string>grabSelection:</string>
-		<key>⌃
-</key>
+		<key>⌃↩</key>
 		<string>encapsulateCommand:</string>
 		<key>⌃⌘[</key>
 		<string>showHistoryObjects</string>
@@ -66,10 +64,10 @@
 		<string>dropSelection:</string>
 		<key>⌥⌘V</key>
 		<string>dropClipboard:</string>
-        <key>⌘Y</key>
-        <string>togglePreviewPanel:</string>
-        <key>⌥⌘Y</key>
-        <string>togglePreviewPanelFullScreen:</string>
+		<key>⌘Y</key>
+		<string>togglePreviewPanel:</string>
+		<key>⌥⌘Y</key>
+		<string>togglePreviewPanelFullScreen:</string>
 	</dict>
 </dict>
 </plist>
