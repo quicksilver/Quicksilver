@@ -63,9 +63,9 @@
     <key>AppleScriptOpenFilesAction</key>
     <string>Wykonaj skrypt AppleScipt za pomocą pliku</string>
     <key>QSCatalogEntryShowAction</key>
-    <string>Show Catalog Entry in Catalog Preferences</string>
+    <string>Pokaż wpis w preferencjach katalogu</string>
     <key>QSObjectShowSourceAction</key>
-    <string>Show Source of Item in Catalog Preferences</string>
+    <string>Pokaż źródło obiektu w preferencjach katalogowych</string>
     <key>QSCreateFileTemplate</key>
     <string>Utwórz nowy plik z szablonu</string>
     <key>QSCommandExecuteAfterDelayAction</key>
@@ -77,7 +77,7 @@
     <key>URLOpenWithAction</key>
     <string>Otwórz URL za pomocą alternatywnej aplikacji</string>
     <key>FileGetURLAction</key>
-    <string>Get file:// type URL for File</string>
+    <string>Wyświetl adres URL file:// pliku</string>
     <key>QSObjectShowActionMenu</key>
     <string>Pokaż menu dostępnych czynności</string>
     <key>AppQuitOthersAction</key>

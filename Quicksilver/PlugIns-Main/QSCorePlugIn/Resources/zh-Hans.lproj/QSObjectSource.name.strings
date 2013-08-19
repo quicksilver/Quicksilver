@@ -1,46 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>QSABMailRecentsObjectSource</key>
-	<string>Mail Previous Recipients</string>
-	<key>QSAddressBookObjectSource</key>
-	<string>Address Book</string>
-	<key>QSAirPortNetworkObjectSource</key>
-	<string>AirPort Networks</string>
-	<key>QSAllApplicationsObjectSource</key>
-	<string>All Applications</string>
-	<key>QSCatalogEntrySource</key>
-	<string>Catalog Entries</string>
-	<key>QSDefaultsObjectSource</key>
-	<string>Defaults Reader</string>
-	<key>QSFileSystemObjectSource</key>
-	<string>File &amp; Folder Scanner</string>
-	<key>QSGroupObjectSource</key>
-	<string>Group</string>
-	<key>QSMachineSource</key>
-	<string>Quicksilver Machines</string>
-	<key>QSNUDCSource</key>
-	<string>Now Up-To-Date and Contact</string>
-	<key>QSNetworkLocationObjectSource</key>
-	<string>Network Locations</string>
-	<key>QSProcessObjectSource</key>
-	<string>Running Processes</string>
-	<key>QSVolumesObjectSource</key>
-	<string>Mounted Volumes</string>
-	<key>QSiPhotoObjectSource</key>
-	<string>iPhoto Library</string>
-	<key>QSiTunesObjectSource</key>
-	<string>iTunes Music Library</string>
-	<key>QSHistoryObjectSource</key>
-	<string>Object History</string>
-	<key>QSInternalObjectSource</key>
-	<string>Internal Objects</string>
-	<key>QSObjCMessageSource</key>
-	<string>Objective-C Messages</string>
-	<key>QSProxyObjectSource</key>
-	<string>Proxies</string>
-	<key>QSUserDefinedProxySource</key>
-	<string>Synonym</string>
-</dict>
+  <dict>
+    <key>QSABMailRecentsObjectSource</key>
+    <string>发送给此前的收件人</string>
+    <key>QSAddressBookObjectSource</key>
+    <string>地址簿</string>
+    <key>QSAirPortNetworkObjectSource</key>
+    <string>AirPort网络</string>
+    <key>QSAllApplicationsObjectSource</key>
+    <string>所有程序</string>
+    <key>QSCatalogEntrySource</key>
+    <string>目录条目</string>
+    <key>QSDefaultsObjectSource</key>
+    <string>默认阅读器</string>
+    <key>QSFileSystemObjectSource</key>
+    <string>文件与文件夹扫描器</string>
+    <key>QSGroupObjectSource</key>
+    <string>组</string>
+    <key>QSMachineSource</key>
+    <string>Quicksilver机器</string>
+    <key>QSNUDCSource</key>
+    <string>现在实时更新与联系人</string>
+    <key>QSNetworkLocationObjectSource</key>
+    <string>网络位置</string>
+    <key>QSProcessObjectSource</key>
+    <string>运行中的进程</string>
+    <key>QSVolumesObjectSource</key>
+    <string>挂载的卷</string>
+    <key>QSiPhotoObjectSource</key>
+    <string>iPhoto库</string>
+    <key>QSiTunesObjectSource</key>
+    <string>iTunes音乐库</string>
+    <key>QSHistoryObjectSource</key>
+    <string>对象历史</string>
+    <key>QSInternalObjectSource</key>
+    <string>内部对象</string>
+    <key>QSObjCMessageSource</key>
+    <string>Objective-C消息</string>
+    <key>QSProxyObjectSource</key>
+    <string>代理</string>
+  </dict>
 </plist>

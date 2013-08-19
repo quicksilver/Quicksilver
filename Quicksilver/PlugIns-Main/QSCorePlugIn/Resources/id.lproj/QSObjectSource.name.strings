@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSABMailRecentsObjectSource</key>
+    <string>Kirim Surel Penerima-penerima Sebelumnya</string>
+    <key>QSAddressBookObjectSource</key>
+    <string>Buku Alamat</string>
+    <key>QSAirPortNetworkObjectSource</key>
+    <string>Jaringan AirPort</string>
+    <key>QSAllApplicationsObjectSource</key>
+    <string>Semua Aplikasi</string>
+    <key>QSCatalogEntrySource</key>
+    <string>Entri-entri Katalog</string>
+    <key>QSDefaultsObjectSource</key>
+    <string>Pembaca Standar</string>
+    <key>QSFileSystemObjectSource</key>
+    <string>Pemindai Berkas dan Folder</string>
+    <key>QSGroupObjectSource</key>
+    <string>Grup</string>
+    <key>QSMachineSource</key>
+    <string>Mesin-mesin Quicksilver</string>
+    <key>QSNUDCSource</key>
+    <string>Sekarang Mutakhir dan Kontak</string>
+    <key>QSNetworkLocationObjectSource</key>
+    <string>Lokasi-lokasi Jaringan</string>
+    <key>QSProcessObjectSource</key>
+    <string>Proses-proses Berjalan</string>
+    <key>QSVolumesObjectSource</key>
+    <string>Volume Terpasang</string>
+    <key>QSiPhotoObjectSource</key>
+    <string>Pustaka iPhoto</string>
+    <key>QSiTunesObjectSource</key>
+    <string>Pustaka Musik iTunes</string>
+    <key>QSHistoryObjectSource</key>
+    <string>Riwayat Obyek</string>
+    <key>QSInternalObjectSource</key>
+    <string>Obyek Dalam</string>
+    <key>QSObjCMessageSource</key>
+    <string>Pesan-pesan Objective-C</string>
+    <key>QSProxyObjectSource</key>
+    <string>Proksi</string>
+  </dict>
+</plist>

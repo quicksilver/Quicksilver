@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSCaminoBookmarksParser</key>
+    <string>Penanda Camino</string>
+    <key>QSDirectoryParser</key>
+    <string>Isi Folder</string>
+    <key>QSHTMLLinkParser</key>
+    <string>Tautan HTML</string>
+    <key>QSTextLineParser</key>
+    <string>Baris-baris Teks</string>
+    <key>QSOldCaminoBookmarksParser</key>
+    <string>Penanda Camino (Terdahulu)</string>
+    <key>QSOmniWebShortcutsParser</key>
+    <string>Jalan pintas OmniWeb</string>
+    <key>QSOperaBookmarksParser</key>
+    <string>Penanda Opera</string>
+    <key>QSPresetOmniWebHistoryParser</key>
+    <string>Riwayat OmniWeb</string>
+    <key>QSSafariBookmarksParser</key>
+    <string>Penanda Safari</string>
+    <key>QSSafariHistoryParser</key>
+    <string>Riwayat Safari</string>
+    <key>QSSogudiLinkParser</key>
+    <string>Jalan pintas Sogudi</string>
+  </dict>
+</plist>

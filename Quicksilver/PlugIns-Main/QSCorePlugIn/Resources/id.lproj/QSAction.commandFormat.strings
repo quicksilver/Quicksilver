@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSCommandExecuteAtTimeAction</key>
+    <string>Jalankan %@ pada Waktu</string>
+    <key>QSCreateFileAction</key>
+    <string>Buat berkas baru berisi %@ di Folder %@</string>
+    <key>QSCommandAddTriggerAction</key>
+    <string>Tambahkan %@ sebagai Pemicu</string>
+    <key>QSCommandExecuteAction</key>
+    <string>Jalankan %@</string>
+    <key>AppShowHideAction</key>
+    <string>Alih visibilitas dari %@</string>
+    <key>FileAlwaysOpenTypeWithAction</key>
+    <string>Selalu Buka tipe berkas %@ Dengan %@</string>
+    <key>QSCommandSaveAction</key>
+    <string>Simpan %@ ke Berkas</string>
+    <key>PasteboardPasteActionAsPlainText</key>
+    <string>Tempel %@ sebagai Teks Datar</string>
+    <key>QSCreateFileTemplate</key>
+    <string>Di Folder %@ Buat sebuah Berkas Template %@</string>
+    <key>QSCommandExecuteAfterDelayAction</key>
+    <string>Jalankan %@ setelah Jeda</string>
+    <key>AppActivateAction</key>
+    <string>Aktifkan %@</string>
+    <key>AppHideAction</key>
+    <string>Sembunyikan %@</string>
+    <key>AppHideOthersAction</key>
+    <string>%@ sembunyikan yang lain</string>
+    <key>AppLaunchAction</key>
+    <string>Jalankan %@</string>
+    <key>AppLaunchAgainAction</key>
+    <string>Jalankan instansiasi lain dari %@</string>
+    <key>AppLaunchAsRootAction</key>
+    <string>Jalankan %@ sebagai root</string>
+    <key>AppOpenFileAction</key>
+    <string>Buka %@ dengan %@</string>
+    <key>AppQuitAction</key>
+    <string>Hentikan %@</string>
+    <key>AppQuitOthersAction</key>
+    <string>%@ hentikan yang lain</string>
+    <key>AppRelaunchAction</key>
+    <string>Jalankan ulang %@</string>
+    <key>AppReopenAction</key>
+    <string>Jalankan %@</string>
+    <key>AppRootLaunchAction</key>
+    <string>Jalankan %@ sebagai Root</string>
+    <key>AppleScriptOpenFilesAction</key>
+    <string>Buka %@ dengan %@</string>
+    <key>AppleScriptProcessTextAction</key>
+    <string>Olah %@ dengan %@</string>
+    <key>AppleScriptRunAction</key>
+    <string>Jalankan Skrip: %@</string>
+    <key>AppleScriptRunTextAction</key>
+    <string>Jalankan &apos;%@&apos;</string>
+    <key>DiskEjectAction</key>
+    <string>Lepaskan %@</string>
+    <key>DiskForceEjectAction</key>
+    <string>Paksa %@ keluar</string>
+    <key>FileCompressAction</key>
+    <string>Kompresi %@</string>
+    <key>FileCopyToAction</key>
+    <string>Salin %@ ke %@</string>
+    <key>FileDecompressAction</key>
+    <string>Dekompresi %@</string>
+    <key>FileDeleteAction</key>
+    <string>Hapus %@</string>
+    <key>FileGetHFSPathAction</key>
+    <string>Dapatkan alamat HFS dari %@</string>
+    <key>FileGetInfoAction</key>
+    <string>Dapatkan info dari %@</string>
+    <key>FileGetPathAction</key>
+    <string>Dapatkan alamat posix dari %@</string>
+    <key>FileGetPosixPathAction</key>
+    <string>Dapatkan alamat mutlak dari %@</string>
+    <key>FileGetURLAction</key>
+    <string>Dapatkan alamat URL file:// dari %@</string>
+    <key>FileMakeAliasInAction</key>
+    <string>Buat alias dari %@ di %#</string>
+    <key>FileMakeHardLinkInAction</key>
+    <string>Buat tautan keras untuk %@ di %# </string>
+    <key>FileMakeLinkInAction</key>
+    <string>Buat tautan untuk %@ di %#</string>
+    <key>FileMoveToAction</key>
+    <string>Pindahkan %@ ke %#</string>
+    <key>FileOpenAction</key>
+    <string>Buka %@</string>
+    <key>FileOpenWithAction</key>
+    <string>Buka %@ dengan %#</string>
+    <key>FileRenameAction</key>
+    <string>Ubah nama %@ menjadi %#</string>
+    <key>FileRevealAction</key>
+    <string>Tampilkan %@</string>
+    <key>FileToTrashAction</key>
+    <string>Pindahkan %@ ke Keranjang sampah</string>
+    <key>ItemSendToContactEmailAction</key>
+    <string>Kirim %@ melalui Surel ke %@</string>
+    <key>ItemSendToContactIMAction</key>
+    <string>Kirim %@ melalui pesan pribadi ke %@</string>
+    <key>PasteboardCopyAction</key>
+    <string>Salin %@ ke clipboard</string>
+    <key>PasteboardPasteAction</key>
+    <string>Tempelken %@ pada aplikasi terpilih</string>
+    <key>ProcessKillAction</key>
+    <string>Paksa %@ berhenti</string>
+    <key>ProcessLowerPriorityAction</key>
+    <string>Turunkan prioritas dari %@</string>
+    <key>ProcessRaisePriorityAction</key>
+    <string>Tingkatkan prioritas dari %@</string>
+    <key>ProcessResumeAction</key>
+    <string>Lanjutkan %@</string>
+    <key>ProcessSuspendAction</key>
+    <string>Tunda %@</string>
+    <key>QSCatalogEntryRescanAction</key>
+    <string>Pindai ulang %@</string>
+    <key>QSCatalogEntryShowAction</key>
+    <string>Tampilkan %@</string>
+    <key>QSDialNumberAction</key>
+    <string>Tekan angka %@</string>
+    <key>QSEditAction</key>
+    <string>Ubah %@</string>
+    <key>QSLargeTypeAction</key>
+    <string>Tampilkan &quot;%@&quot; dalam ukuran besar</string>
+    <key>QSLoginItemAddAction</key>
+    <string>Tambahkan %@ di butir-butir login</string>
+    <key>QSLoginItemRemoveAction</key>
+    <string>Buang %@ dari butir-butir login</string>
+    <key>QSNewFolderAction</key>
+    <string>Buat folder baru di %@ bernama %#</string>
+    <key>QSObjCSendMessageAction</key>
+    <string>Jalankan %@</string>
+    <key>QSObjectAssignLabelAction</key>
+    <string>Pasang label dari %@ dengan %#</string>
+    <key>QSObjectAssignMnemonic</key>
+    <string>Pasang mnemonic dari %@ dengan %#</string>
+    <key>QSObjectOmitAction</key>
+    <string>Abaikan %@ dari katalog</string>
+    <key>QSObjectSearchChildrenAction</key>
+    <string>Cari Isi dari %@</string>
+    <key>QSObjectSelectAction</key>
+    <string>Pilih %@ di jendela perintah</string>
+    <key>QSObjectShowActionMenu</key>
+    <string>Tampilkan menu tindakan untuk %@</string>
+    <key>QSObjectShowChildMenu</key>
+    <string>Tampilkan menu isi dari %@</string>
+    <key>QSObjectShowChildrenAction</key>
+    <string>Tampilkan isi dari %@</string>
+    <key>QSObjectShowMenu</key>
+    <string>Tampilkan menu isi dari %@</string>
+    <key>QSObjectShowSourceAction</key>
+    <string>Tampilkan sumber dari %@ di katalog</string>
+    <key>QSPutOnShelfAction</key>
+    <string>Letakkan %@ di Rak</string>
+    <key>QSShelfShowAction</key>
+    <string>Tampilkan %@</string>
+    <key>QSShellScriptRunAction</key>
+    <string>Jalankan skrip: %@</string>
+    <key>QSSoundPlayAction</key>
+    <string>Mainkan %@</string>
+    <key>QSTextDiffAction</key>
+    <string>Tampilkan Diff dari %@ dan %#</string>
+    <key>QSTextShowDialogAction</key>
+    <string>Tampilkan kotak dialog: &quot;%@&quot;</string>
+    <key>QSTextSpeakAction</key>
+    <string>Ucapkan &quot;%@&quot;</string>
+    <key>QSTextTypeAction</key>
+    <string>Ketikkan &quot;%@&quot;</string>
+    <key>ShellScriptRunAction</key>
+    <string>Jalankan skrip: %@</string>
+    <key>URLEmailAction</key>
+    <string>Kirim Surel %@</string>
+    <key>URLFindWithAction</key>
+    <string>Cari %@ Dengan %@</string>
+    <key>URLJSAction</key>
+    <string>Jalankan %@</string>
+    <key>URLOpenAction</key>
+    <string>Buka %@</string>
+    <key>URLOpenActionInBackground</key>
+    <string>Buka %@ di Belakang</string>
+    <key>URLOpenWithAction</key>
+    <string>Buka %@ dengan %@</string>
+    <key>URLSearchAction</key>
+    <string>Cari %@</string>
+    <key>URLSearchForAction</key>
+    <string>Cari %@ di %@</string>
+  </dict>
+</plist>

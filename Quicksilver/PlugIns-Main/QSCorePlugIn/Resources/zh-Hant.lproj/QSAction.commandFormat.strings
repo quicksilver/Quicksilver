@@ -3,15 +3,15 @@
 <plist version="1.0">
   <dict>
     <key>QSCommandExecuteAtTimeAction</key>
-    <string>執行 %@ 於時間</string>
+    <string>於特定時刻執行 %@</string>
     <key>QSCreateFileAction</key>
-    <string>創造包含 %@ 的新檔案於 %@ 資料夾中</string>
+    <string>於 %@ 資料夾中創建包含 %@ 的新檔案</string>
     <key>QSCommandAddTriggerAction</key>
     <string>新增 %@ 為觸發器</string>
     <key>QSCommandExecuteAction</key>
     <string>執行 %@</string>
     <key>AppShowHideAction</key>
-    <string>切換 %@ 的可視性</string>
+    <string>切換 %@ 的可見屬性</string>
     <key>FileAlwaysOpenTypeWithAction</key>
     <string>總是以 %@ 開啟 %@ 的檔案格式</string>
     <key>QSCommandSaveAction</key>
@@ -31,7 +31,7 @@
     <key>AppLaunchAction</key>
     <string>啟動 %@</string>
     <key>AppLaunchAgainAction</key>
-    <string>啟動 %@  的另一個實體</string>
+    <string>啟動 %@ 的另一個實體</string>
     <key>AppLaunchAsRootAction</key>
     <string>以 root 身分執行 %@</string>
     <key>AppOpenFileAction</key>
@@ -45,7 +45,7 @@
     <key>AppReopenAction</key>
     <string>啟動 %@</string>
     <key>AppRootLaunchAction</key>
-    <string>以 root 身分執行 %@</string>
+    <string>以 Root 身分執行 %@</string>
     <key>AppleScriptOpenFilesAction</key>
     <string>以 %@ 開啟 %@</string>
     <key>AppleScriptProcessTextAction</key>
@@ -79,7 +79,7 @@
     <key>FileMakeAliasInAction</key>
     <string>製作 %@ 的替身於 %#</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>製作 %@ 的硬連結於 %#</string>
+    <string>製作 %@ 的永久連結於 %#</string>
     <key>FileMakeLinkInAction</key>
     <string>製作 %@ 的連結於 %#</string>
     <key>FileMoveToAction</key>
@@ -99,9 +99,9 @@
     <key>ItemSendToContactIMAction</key>
     <string>以即時訊息傳送 %@ 至 %@</string>
     <key>PasteboardCopyAction</key>
-    <string>複製 %@ 至剪貼版</string>
+    <string>複製 %@ 至剪貼板</string>
     <key>PasteboardPasteAction</key>
-    <string>在目前程式中貼上 %@</string>
+    <string>在目前的應用程式中貼上 %@</string>
     <key>ProcessKillAction</key>
     <string>強制 %@ 結束</string>
     <key>ProcessLowerPriorityAction</key>
@@ -109,7 +109,7 @@
     <key>ProcessRaisePriorityAction</key>
     <string>提高 %@ 的優先權</string>
     <key>ProcessResumeAction</key>
-    <string>繼續 %@</string>
+    <string>恢復 %@</string>
     <key>ProcessSuspendAction</key>
     <string>暫停 %@</string>
     <key>QSCatalogEntryRescanAction</key>
@@ -117,29 +117,29 @@
     <key>QSCatalogEntryShowAction</key>
     <string>顯示 %@</string>
     <key>QSDialNumberAction</key>
-    <string>撥打 %@</string>
+    <string>撥號 %@</string>
     <key>QSEditAction</key>
     <string>編輯 %@</string>
     <key>QSLargeTypeAction</key>
-    <string>放大顯示 &quot;%@&quot;</string>
+    <string>以大型字體顯示 &quot;%@&quot;</string>
     <key>QSLoginItemAddAction</key>
-    <string>在登入項目新增 %@ </string>
+    <string>新增 %@ 至登入啟動項目</string>
     <key>QSLoginItemRemoveAction</key>
-    <string>自登入項目移除 %@</string>
+    <string>從登入啟動項目中移除 %@</string>
     <key>QSNewFolderAction</key>
-    <string>在 %@ 中新增資料夾 %#</string>
+    <string>在 %@ 中製作新資料夾 %#</string>
     <key>QSObjCSendMessageAction</key>
     <string>執行 %@</string>
     <key>QSObjectAssignLabelAction</key>
-    <string>設定 %@ 標籤為 %#</string>
+    <string>將 %@ 的標籤設為 %#</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>設定 %@ 快捷為 %#</string>
+    <string>將 %@ 的助記符設為 %#</string>
     <key>QSObjectOmitAction</key>
-    <string>在目錄中忽略 %@</string>
+    <string>從目錄中忽略 %@</string>
     <key>QSObjectSearchChildrenAction</key>
     <string>搜尋 %@ 的內容</string>
     <key>QSObjectSelectAction</key>
-    <string>在指令視窗中選擇 %@</string>
+    <string>在指令視窗中選取 %@</string>
     <key>QSObjectShowActionMenu</key>
     <string>顯示 %@ 的動作選單</string>
     <key>QSObjectShowChildMenu</key>
@@ -151,27 +151,27 @@
     <key>QSObjectShowSourceAction</key>
     <string>在目錄中顯示 %@ 的來源</string>
     <key>QSPutOnShelfAction</key>
-    <string>在滑櫃中放入 %@</string>
+    <string>將 %@ 放置於架子</string>
     <key>QSShelfShowAction</key>
     <string>顯示 %@</string>
     <key>QSShellScriptRunAction</key>
-    <string>執行腳本: %@</string>
+    <string>執行 Script：%@</string>
     <key>QSSoundPlayAction</key>
     <string>播放 %@</string>
     <key>QSTextDiffAction</key>
-    <string>比較 %@ 和 %# 的差異</string>
+    <string>區別 %@ 與 %#</string>
     <key>QSTextShowDialogAction</key>
-    <string>顯示對話: &quot;%@&quot;</string>
+    <string>顯示對話：&quot;%@&quot;</string>
     <key>QSTextSpeakAction</key>
-    <string>說&quot;%@&quot;</string>
+    <string>說 &quot;%@&quot;</string>
     <key>QSTextTypeAction</key>
-    <string>顯示&quot;%@&quot;</string>
+    <string>鍵入 &quot;%@&quot;</string>
     <key>ShellScriptRunAction</key>
-    <string>執行腳本: %@</string>
+    <string>執行 script：%@</string>
     <key>URLEmailAction</key>
-    <string>電郵 %@</string>
+    <string>電子郵件寄送 %@</string>
     <key>URLFindWithAction</key>
-    <string>找 %@ 於 %@</string>
+    <string>以 %@ 找 %@</string>
     <key>URLJSAction</key>
     <string>執行 %@</string>
     <key>URLOpenAction</key>
@@ -179,10 +179,10 @@
     <key>URLOpenActionInBackground</key>
     <string>於背景開啟 %@</string>
     <key>URLOpenWithAction</key>
-    <string>開啟 %@ 在 %@</string>
+    <string>以 %@ 開啟 %@</string>
     <key>URLSearchAction</key>
     <string>搜尋 %@</string>
     <key>URLSearchForAction</key>
-    <string>搜尋 %@ 於 %@</string>
+    <string>於 %@ 搜尋 %@</string>
   </dict>
 </plist>
