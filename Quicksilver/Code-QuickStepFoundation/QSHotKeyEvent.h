@@ -13,12 +13,12 @@
 @interface QSHotKeyEvent : NDHotKeyEvent {
 	NSString *identifier;
 }
++ (instancetype)hotKeyWithIdentifier:(NSString *)identifier;
++ (instancetype)hotKeyWithDictionary:(NSDictionary *)dict;
 - (NSString *)identifier;
 - (NSArray *)identifiers;
 - (void)setIdentifier:(NSString *)anIdentifier;
 - (void)typeHotkey;
-+ (QSHotKeyEvent *)hotKeyWithIdentifier:(NSString *)identifier;
-+ (QSHotKeyEvent *)hotKeyWithDictionary:(NSDictionary *)dict;
 @end
 
 @interface NDHotKeyEvent (QSMods)

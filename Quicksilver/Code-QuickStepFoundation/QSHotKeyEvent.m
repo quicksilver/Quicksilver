@@ -54,10 +54,11 @@ static NSMutableDictionary *hotKeyDictionary;
     CFRelease(source);
 }
 
-+ (QSHotKeyEvent *)hotKeyWithIdentifier:(NSString *)anIdentifier {
++ (instancetype)hotKeyWithIdentifier:(NSString *)anIdentifier {
 	return [hotKeyDictionary objectForKey:anIdentifier];
 }
-+ (QSHotKeyEvent *)hotKeyWithDictionary:(NSDictionary *)dict {
+
++ (instancetype)hotKeyWithDictionary:(NSDictionary *)dict {
 	if (![dict objectForKey:@"keyCode"] || ![dict objectForKey:@"modifiers"]) {
         return nil;
     }
@@ -72,11 +73,11 @@ static NSMutableDictionary *hotKeyDictionary;
 
 @implementation NDHotKeyEvent (QSMods)
 
-+ (id)getHotKeyForKeyCode:(UInt16)aKeyCode character:(unichar)aChar carbonModifierFlags:(NSUInteger)aModifierFlags {
++ (instancetype)getHotKeyForKeyCode:(UInt16)aKeyCode character:(unichar)aChar carbonModifierFlags:(NSUInteger)aModifierFlags {
     return [self getHotKeyForKeyCode:aKeyCode modifierFlags:NDCocoaModifierFlagsForCarbonModifierFlags(aModifierFlags)];
 }
 
-+ (id)getHotKeyForKeyCode:(UInt16)aKeyCode character:(unichar)aChar safeModifierFlags:(NSUInteger)aModifierFlags {
++ (instancetype)getHotKeyForKeyCode:(UInt16)aKeyCode character:(unichar)aChar safeModifierFlags:(NSUInteger)aModifierFlags {
 	if (aModifierFlags< (1 << (rightControlKeyBit+1) )) //Carbon Modifiers
 		return [self getHotKeyForKeyCode:aKeyCode character:aChar carbonModifierFlags:aModifierFlags];
 	else
