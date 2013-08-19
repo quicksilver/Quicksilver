@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSPresetABMailRecents</key>
+    <string>Написать прошлым получателям</string>
+    <key>QSPresetUserGroup</key>
+    <string>Пользователь</string>
+    <key>QSPresetDownloads</key>
+    <string>Загрузки</string>
+    <key>QSPresetDocuments</key>
+    <string>Документы</string>
+    <key>QSPresetICloudDocuments</key>
+    <string>Документы iCloud</string>
+    <key>QSPresetAccounts</key>
+    <string>Учетные записи пользователей</string>
+    <key>QSPresetProxies</key>
+    <string>Проксирующие объекты</string>
+    <key>QSPresetAddressBook</key>
+    <string>Контакты из адресной книги</string>
+    <key>QSPresetAddressBookGroup</key>
+    <string>Адресная книга</string>
+    <key>QSPresetAddressBookScripts</key>
+    <string>Сценарии адресной книги</string>
+    <key>QSPresetAllApplications</key>
+    <string>Найти все приложения</string>
+    <key>QSPresetAllRecentDocuments</key>
+    <string>Все последние документы</string>
+    <key>QSPresetApplicationSpecificGroup</key>
+    <string>Наборы приложений</string>
+    <key>QSPresetApplications</key>
+    <string>Программы</string>
+    <key>QSPresetBrowsersGroup</key>
+    <string>Закладки</string>
+    <key>QSPresetBuffers</key>
+    <string>Содержимое буфера</string>
+    <key>QSPresetCaminoBookmarks</key>
+    <string>Закладки Camino</string>
+    <key>QSPresetClassicApplications</key>
+    <string>Программы Mac OS 9</string>
+    <key>QSPresetClipboardContents</key>
+    <string>Содержимое буфера обмена</string>
+    <key>QSPresetCommandHistory</key>
+    <string>Последние команды</string>
+    <key>QSPresetConfiguration</key>
+    <string>Конфигурация</string>
+    <key>QSPresetContacts</key>
+    <string>Контакты</string>
+    <key>QSPresetDVDPlayerScripts</key>
+    <string>Сценарии проигрывателя DVD</string>
+    <key>QSPresetDesktop</key>
+    <string>Рабочий стол</string>
+    <key>QSPresetDeveloper</key>
+    <string>Разработчик</string>
+    <key>QSPresetDeveloperAddressBookDocs</key>
+    <string>AddressBook</string>
+    <key>QSPresetDeveloperAppKit</key>
+    <string>AppKit</string>
+    <key>QSPresetDeveloperAppKitDocumentation</key>
+    <string>Документация AppKit</string>
+    <key>QSPresetDeveloperAppKitHeaders</key>
+    <string>Заголовки AppKit</string>
+    <key>QSPresetDeveloperApplications</key>
+    <string>Приложения разработчика</string>
+    <key>QSPresetDeveloperCoreFoundationHeaders</key>
+    <string>Заголовки CoreFoundation</string>
+    <key>QSPresetDeveloperFoundation</key>
+    <string>Foundation</string>
+    <key>QSPresetDeveloperFoundationDocumentation</key>
+    <string>Документация Foundation</string>
+    <key>QSPresetDeveloperFoundationHeaders</key>
+    <string>Заголовки Foundation</string>
+    <key>QSPresetDeveloperFrameworks</key>
+    <string>Фреймворки</string>
+    <key>QSPresetDeveloperOtherDocs</key>
+    <string>Другая документация</string>
+    <key>QSPresetDeveloperPreferencePaneDocs</key>
+    <string>Панели настроек</string>
+    <key>QSPresetDeveloperPrivateFrameworks</key>
+    <string>Частные фреймворки</string>
+    <key>QSPresetDeveloperPublicFrameworks</key>
+    <string>Доступные фреймворки</string>
+    <key>QSPresetDeveloperScreenSaverDocs</key>
+    <string>ScreenSaver</string>
+    <key>QSPresetDeveloperWebKitDocs</key>
+    <string>WebKit</string>
+    <key>QSPresetDevices</key>
+    <string>Устройства</string>
+    <key>QSPresetDockApplications</key>
+    <string>Приложения в доке</string>
+    <key>QSPresetDockGroup</key>
+    <string>Док</string>
+    <key>QSPresetDockOthers</key>
+    <string>Файлы и папки в доке</string>
+    <key>QSPresetFavorites</key>
+    <string>Избранное</string>
+    <key>QSPresetFinderGroup</key>
+    <string>Finder</string>
+    <key>QSPresetFinderRecentFolders</key>
+    <string>Последние папки (Finder)</string>
+    <key>QSPresetFinderSpecificSearchPlaces</key>
+    <string>Места поиска Finder</string>
+    <key>QSPresetFinderToolbarItems</key>
+    <string>Элементы тулбара Finder</string>
+    <key>QSPresetFirefoxBookmarks</key>
+    <string>Закладки Firefox</string>
+    <key>QSPresetGlobalPrefsRecentFolders</key>
+    <string>Последние папки (открыть/сохранить)</string>
+    <key>QSPresetHome</key>
+    <string>Домашний</string>
+    <key>QSPresetICabBookmarks</key>
+    <string>Закладки iCab</string>
+    <key>QSPresetInternalMessages</key>
+    <string>Внутренние команды</string>
+    <key>QSPresetInternalObjects</key>
+    <string>Внутренние объекты</string>
+    <key>QSPresetIEBookmarks</key>
+    <string>Закладки Internet Explorer</string>
+    <key>QSPresetIEGroup</key>
+    <string>Internet Explorer</string>
+    <key>QSPresetIEHistory</key>
+    <string>История Internet Explorer</string>
+    <key>QSPresetILifeGroup</key>
+    <string>iLife</string>
+    <key>QSPresetITunesGroup</key>
+    <string>iTunes</string>
+    <key>QSPresetInternetGroup</key>
+    <string>Интернет</string>
+    <key>QSPresetKeyCaps</key>
+    <string>Экранная клавиатура</string>
+    <key>QSPresetKeychains</key>
+    <string>Связки ключей</string>
+    <key>QSPresetLibraryPreferencePanes</key>
+    <string>Системные настройки (всех пользователей)</string>
+    <key>QSPresetLibraryScripts</key>
+    <string>Сценарии (всех пользователей)</string>
+    <key>QSPresetMainApplications</key>
+    <string>Приложения</string>
+    <key>QSPresetMiscellaneousGroup</key>
+    <string>Разное</string>
+    <key>QSPresetModules</key>
+    <string>Плагины</string>
+    <key>QSPresetMozillaBookmarks</key>
+    <string>Закладки Mozilla</string>
+    <key>QSPresetNNWSubscriptions</key>
+    <string>Подписки NetNewsWire</string>
+    <key>QSPresetNUDCContacts</key>
+    <string>Текущий Контакт</string>
+    <key>QSPresetNetscapeBookmarks</key>
+    <string>Закладки Netscape</string>
+    <key>QSPresetNetworkLocations</key>
+    <string>Сетевые размещения</string>
+    <key>QSPresetOldCaminoBookmarks</key>
+    <string>Закладки Camino (старые)</string>
+    <key>QSPresetOmniWebBookmarks</key>
+    <string>Закладки Omniweb</string>
+    <key>QSPresetOmniWebFavorites</key>
+    <string>Избранное Omniweb</string>
+    <key>QSPresetOmniWebGroup</key>
+    <string>OmniWeb</string>
+    <key>QSPresetOmniWebHistory</key>
+    <string>История OmniWeb</string>
+    <key>QSPresetOmniWebServerBookmarks</key>
+    <string>Закладки Camino (сервер)</string>
+    <key>QSPresetOmniWebShortcuts</key>
+    <string>Ссылки Omniweb</string>
+    <key>QSPresetOperaBookmarks</key>
+    <string>Закладки Opera</string>
+    <key>QSPresetPathFinderGroup</key>
+    <string>Path Finder</string>
+    <key>QSPresetPathFinderRecentFiles</key>
+    <string>Последние файлы Path Finder</string>
+    <key>QSPresetPathFinderRecentFolders</key>
+    <string>Последние папки Path Finder</string>
+    <key>QSPresetPreferencePanes</key>
+    <string>Панели настроек</string>
+    <key>QSPresetPresetGroup</key>
+    <string>Пресеты</string>
+    <key>QSPresetPrinters</key>
+    <string>Принтеры</string>
+    <key>QSPresetQSCatalogEntries</key>
+    <string>Элементы каталога </string>
+    <key>QSPresetQSDefaultLinks</key>
+    <string>Стартовые адреса</string>
+    <key>QSPresetQSExtraScripts</key>
+    <string>Сценарии (Дополнения QS)</string>
+    <key>QSPresetQSGroup</key>
+    <string>Quicksilver</string>
+    <key>QSPresetRecentApplications106</key>
+    <string>Последние программы</string>
+    <key>QSPresetRecentDocuments106</key>
+    <string>Последние документы</string>
+    <key>QSPresetRecentItems</key>
+    <string>Последние элементы</string>
+    <key>QSPresetRecentSelections</key>
+    <string>Последние выбранные</string>
+    <key>QSPresetRecentServers</key>
+    <string>Последние сервера</string>
+    <key>QSPresetFavoriteServers</key>
+    <string>Избранные серверы</string>
+    <key>QSPresetRendezvous</key>
+    <string>Сервера Bonjour</string>
+    <key>QSPresetRendezvousMachines</key>
+    <string>Quicksilver Bonjour</string>
+    <key>QSPresetRoot</key>
+    <string>Рут</string>
+    <key>QSPresetRunningProcesses</key>
+    <string>Запущенные программы и процессы</string>
+    <key>QSPresetSafariBookmarks</key>
+    <string>Закладки Safari</string>
+    <key>QSPresetSafariGroup</key>
+    <string>Safari</string>
+    <key>QSPresetSafariHistory</key>
+    <string>История Safari</string>
+    <key>QSPresetScriptsGroup</key>
+    <string>Сценарии</string>
+    <key>QSPresetShelves</key>
+    <string>Полка и буфер обмена</string>
+    <key>QSPresetSidebarItems</key>
+    <string>Боковая панель Finder</string>
+    <key>QSPresetSogudiShortcuts</key>
+    <string>Ярлыки Sogudi</string>
+    <key>QSPresetSpeakableItems</key>
+    <string>Произносимые элементы</string>
+    <key>QSPresetSpecial</key>
+    <string>Специальные</string>
+    <key>QSPresetSystemGroup</key>
+    <string>Система</string>
+    <key>QSPresetSystemPreferencePanes</key>
+    <string>Системные Настройки (система)</string>
+    <key>QSPresetTrash</key>
+    <string>Корзина</string>
+    <key>QSPresetUserApplications</key>
+    <string>Приложения пользователя</string>
+    <key>QSPresetUserPreferencePanes</key>
+    <string>Системные настройки пользователя</string>
+    <key>QSPresetUserScripts</key>
+    <string>Сценарии пользователя</string>
+    <key>QSPresetUserWatsonTools</key>
+    <string>Инструменты Watson (пользователь)</string>
+    <key>QSPresetVolumes</key>
+    <string>Диски</string>
+    <key>QSPresetWatsonGroup</key>
+    <string>Watson</string>
+    <key>QSPresetWirelessNetworks</key>
+    <string>Сети Wi-Fi</string>
+    <key>QSPresetiPhotoAlbums</key>
+    <string>Фотоальбомы</string>
+    <key>QSPresetiTunesGroup</key>
+    <string>iTunes</string>
+    <key>QSPresetiTunesPlaylists</key>
+    <string>Музыка iTunes</string>
+    <key>QSPresetiTunesScripts</key>
+    <string>Сценарии iTunes</string>
+    <key>QSPresetRemovableVolumes</key>
+    <string>Сеть и съемные диски</string>
+  </dict>
+</plist>

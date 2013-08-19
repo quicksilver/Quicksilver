@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSABMailRecentsObjectSource</key>
+    <string>Прошлые получатели Mail</string>
+    <key>QSAddressBookObjectSource</key>
+    <string>Адресная книга</string>
+    <key>QSAirPortNetworkObjectSource</key>
+    <string>Сети Wi-Fi</string>
+    <key>QSAllApplicationsObjectSource</key>
+    <string>Все приложения</string>
+    <key>QSCatalogEntrySource</key>
+    <string>Элементы каталога </string>
+    <key>QSDefaultsObjectSource</key>
+    <string>Считыватель настроек</string>
+    <key>QSFileSystemObjectSource</key>
+    <string>Сканер файлов и папок</string>
+    <key>QSGroupObjectSource</key>
+    <string>Группа</string>
+    <key>QSMachineSource</key>
+    <string>Машины </string>
+    <key>QSNUDCSource</key>
+    <string>Текущий Up-To-Date и Контакт</string>
+    <key>QSNetworkLocationObjectSource</key>
+    <string>Сетевые размещения</string>
+    <key>QSProcessObjectSource</key>
+    <string>Запущенные процессы</string>
+    <key>QSVolumesObjectSource</key>
+    <string>Подключенные тома</string>
+    <key>QSiPhotoObjectSource</key>
+    <string>Библиотека iPhoto</string>
+    <key>QSiTunesObjectSource</key>
+    <string>Музыка iTunes</string>
+    <key>QSHistoryObjectSource</key>
+    <string>История объектов</string>
+    <key>QSInternalObjectSource</key>
+    <string>Внутренние объекты</string>
+    <key>QSObjCMessageSource</key>
+    <string>Сообщения Objective-C</string>
+    <key>QSProxyObjectSource</key>
+    <string>Прокси</string>
+  </dict>
+</plist>

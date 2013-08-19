@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSPresetABMailRecents</key>
+    <string>Kirim Surel Penerima-penerima Sebelumnya</string>
+    <key>QSPresetUserGroup</key>
+    <string>Pengguna</string>
+    <key>QSPresetDownloads</key>
+    <string>Unduhan</string>
+    <key>QSPresetDocuments</key>
+    <string>Dokumen</string>
+    <key>QSPresetICloudDocuments</key>
+    <string>Dokumen iCloud</string>
+    <key>QSPresetAccounts</key>
+    <string>Akun Pengguna</string>
+    <key>QSPresetProxies</key>
+    <string>Obyek Proksi</string>
+    <key>QSPresetAddressBook</key>
+    <string>Kontak-kontak Buku Alamat</string>
+    <key>QSPresetAddressBookGroup</key>
+    <string>Buku Alamat</string>
+    <key>QSPresetAddressBookScripts</key>
+    <string>Skrip (Buku Alamat)</string>
+    <key>QSPresetAllApplications</key>
+    <string>Temukan Semua Aplikasi</string>
+    <key>QSPresetAllRecentDocuments</key>
+    <string>Semua Dokumen Terakhir</string>
+    <key>QSPresetApplicationSpecificGroup</key>
+    <string>Set Aplikasi</string>
+    <key>QSPresetApplications</key>
+    <string>Aplikasi</string>
+    <key>QSPresetBrowsersGroup</key>
+    <string>Penanda</string>
+    <key>QSPresetBuffers</key>
+    <string>Isi Penyangga</string>
+    <key>QSPresetCaminoBookmarks</key>
+    <string>Penanda Camino</string>
+    <key>QSPresetClassicApplications</key>
+    <string>Aplikasi (Mac OS 9)</string>
+    <key>QSPresetClipboardContents</key>
+    <string>Isi dari Clipboard</string>
+    <key>QSPresetCommandHistory</key>
+    <string>Perintah Terakhir</string>
+    <key>QSPresetConfiguration</key>
+    <string>Pengaturan</string>
+    <key>QSPresetContacts</key>
+    <string>Kontak</string>
+    <key>QSPresetDVDPlayerScripts</key>
+    <string>Skrip DVD Player</string>
+    <key>QSPresetDesktop</key>
+    <string>Desktop</string>
+    <key>QSPresetDeveloper</key>
+    <string>Pengembang</string>
+    <key>QSPresetDeveloperAddressBookDocs</key>
+    <string>AddressBook</string>
+    <key>QSPresetDeveloperAppKit</key>
+    <string>AppKit</string>
+    <key>QSPresetDeveloperAppKitDocumentation</key>
+    <string>Dokumentasi AppKit</string>
+    <key>QSPresetDeveloperAppKitHeaders</key>
+    <string>Appkit Headers</string>
+    <key>QSPresetDeveloperApplications</key>
+    <string>Aplikasi (Pengembang)</string>
+    <key>QSPresetDeveloperCoreFoundationHeaders</key>
+    <string>CoreFoundation Headers</string>
+    <key>QSPresetDeveloperFoundation</key>
+    <string>Foundation</string>
+    <key>QSPresetDeveloperFoundationDocumentation</key>
+    <string>Dokumentasi Foundation</string>
+    <key>QSPresetDeveloperFoundationHeaders</key>
+    <string>Foundation Headers</string>
+    <key>QSPresetDeveloperFrameworks</key>
+    <string>Frameworks</string>
+    <key>QSPresetDeveloperOtherDocs</key>
+    <string>Dokumentasi Lain</string>
+    <key>QSPresetDeveloperPreferencePaneDocs</key>
+    <string>PreferencePanes</string>
+    <key>QSPresetDeveloperPrivateFrameworks</key>
+    <string>Private Frameworks</string>
+    <key>QSPresetDeveloperPublicFrameworks</key>
+    <string>Public Frameworks</string>
+    <key>QSPresetDeveloperScreenSaverDocs</key>
+    <string>ScreenSaver</string>
+    <key>QSPresetDeveloperWebKitDocs</key>
+    <string>WebKit</string>
+    <key>QSPresetDevices</key>
+    <string>Alat-alat</string>
+    <key>QSPresetDockApplications</key>
+    <string>Letakkan Aplikasi di Dock</string>
+    <key>QSPresetDockGroup</key>
+    <string>Dock</string>
+    <key>QSPresetDockOthers</key>
+    <string>Letakkan Berkas dan Folder di Dock</string>
+    <key>QSPresetFavorites</key>
+    <string>Kegemaran</string>
+    <key>QSPresetFinderGroup</key>
+    <string>Finder</string>
+    <key>QSPresetFinderRecentFolders</key>
+    <string>Folder Terakhir (Finder)</string>
+    <key>QSPresetFinderSpecificSearchPlaces</key>
+    <string>Tempat Pencarian Khusus Finder</string>
+    <key>QSPresetFinderToolbarItems</key>
+    <string>Butir Toolbar Finder</string>
+    <key>QSPresetFirefoxBookmarks</key>
+    <string>Penanda Firefox</string>
+    <key>QSPresetGlobalPrefsRecentFolders</key>
+    <string>Folder Terakhir (Buka dan Simpan)</string>
+    <key>QSPresetHome</key>
+    <string>Beranda</string>
+    <key>QSPresetICabBookmarks</key>
+    <string>Penanda iCab</string>
+    <key>QSPresetInternalMessages</key>
+    <string>Perintah Dalam</string>
+    <key>QSPresetInternalObjects</key>
+    <string>Obyek Dalam</string>
+    <key>QSPresetIEBookmarks</key>
+    <string>Penanda Internet Explorer</string>
+    <key>QSPresetIEGroup</key>
+    <string>Internet Explorer</string>
+    <key>QSPresetIEHistory</key>
+    <string>Riwayat Internet Explorer</string>
+    <key>QSPresetILifeGroup</key>
+    <string>iLife</string>
+    <key>QSPresetITunesGroup</key>
+    <string>iTunes</string>
+    <key>QSPresetInternetGroup</key>
+    <string>Internet</string>
+    <key>QSPresetKeyCaps</key>
+    <string>Key Caps</string>
+    <key>QSPresetKeychains</key>
+    <string>Keychains</string>
+    <key>QSPresetLibraryPreferencePanes</key>
+    <string>Pengaturan Sistem (Semua Pengguna)</string>
+    <key>QSPresetLibraryScripts</key>
+    <string>Skrip (Semua Pengguna)</string>
+    <key>QSPresetMainApplications</key>
+    <string>Aplikasi</string>
+    <key>QSPresetMiscellaneousGroup</key>
+    <string>Lain-Lain</string>
+    <key>QSPresetModules</key>
+    <string>Pengaya</string>
+    <key>QSPresetMozillaBookmarks</key>
+    <string>Penanda Mozilla</string>
+    <key>QSPresetNNWSubscriptions</key>
+    <string>Langganan NetNewsWire</string>
+    <key>QSPresetNUDCContacts</key>
+    <string>Kontak Sekarang</string>
+    <key>QSPresetNetscapeBookmarks</key>
+    <string>Penanda Netscape</string>
+    <key>QSPresetNetworkLocations</key>
+    <string>Lokasi Jaringan</string>
+    <key>QSPresetOldCaminoBookmarks</key>
+    <string>Penanda Camino (Terdahulu)</string>
+    <key>QSPresetOmniWebBookmarks</key>
+    <string>Penanda OmniWeb</string>
+    <key>QSPresetOmniWebFavorites</key>
+    <string>Kegemaran OmniWeb</string>
+    <key>QSPresetOmniWebGroup</key>
+    <string>OmniWeb</string>
+    <key>QSPresetOmniWebHistory</key>
+    <string>Riwayat OmniWeb</string>
+    <key>QSPresetOmniWebServerBookmarks</key>
+    <string>Penanda OmniWeb (Server)</string>
+    <key>QSPresetOmniWebShortcuts</key>
+    <string>Jalan pintas OmniWeb</string>
+    <key>QSPresetOperaBookmarks</key>
+    <string>Penanda Opera</string>
+    <key>QSPresetPathFinderGroup</key>
+    <string>Lokasi Finder</string>
+    <key>QSPresetPathFinderRecentFiles</key>
+    <string>Lokasi Finder Berkas Terakhir</string>
+    <key>QSPresetPathFinderRecentFolders</key>
+    <string>Lokasi Finder Folder Terakhir</string>
+    <key>QSPresetPreferencePanes</key>
+    <string>Kotak Pengaturan</string>
+    <key>QSPresetPresetGroup</key>
+    <string>Pengaturan Tersedia</string>
+    <key>QSPresetPrinters</key>
+    <string>Mesin Pencetak</string>
+    <key>QSPresetQSCatalogEntries</key>
+    <string>Entri-entri Katalog Quicksilver</string>
+    <key>QSPresetQSDefaultLinks</key>
+    <string>URLs Pemulai</string>
+    <key>QSPresetQSExtraScripts</key>
+    <string>Skrip (QS Extras)</string>
+    <key>QSPresetQSGroup</key>
+    <string>Quicksilver</string>
+    <key>QSPresetRecentApplications106</key>
+    <string>Aplikasi Terakhir</string>
+    <key>QSPresetRecentDocuments106</key>
+    <string>Dokumen Terakhir</string>
+    <key>QSPresetRecentItems</key>
+    <string>Butir Terakhir</string>
+    <key>QSPresetRecentSelections</key>
+    <string>Pilihan Terakhir</string>
+    <key>QSPresetRecentServers</key>
+    <string>Server-server Terakhir</string>
+    <key>QSPresetFavoriteServers</key>
+    <string>Server-server Kegemaran</string>
+    <key>QSPresetRendezvous</key>
+    <string>Server-server Rendezvous</string>
+    <key>QSPresetRendezvousMachines</key>
+    <string>Quicksilver Rendezvous</string>
+    <key>QSPresetRoot</key>
+    <string>Root</string>
+    <key>QSPresetRunningProcesses</key>
+    <string>Aplikasi dan Proses Berjalan</string>
+    <key>QSPresetSafariBookmarks</key>
+    <string>Penanda Safari</string>
+    <key>QSPresetSafariGroup</key>
+    <string>Safari</string>
+    <key>QSPresetSafariHistory</key>
+    <string>Riwayat Safari</string>
+    <key>QSPresetScriptsGroup</key>
+    <string>Skrip</string>
+    <key>QSPresetShelves</key>
+    <string>Rak dan Clipboard</string>
+    <key>QSPresetSidebarItems</key>
+    <string>Sidebar Finder</string>
+    <key>QSPresetSogudiShortcuts</key>
+    <string>Jalan pintas Sogudi</string>
+    <key>QSPresetSpeakableItems</key>
+    <string>Butir Yang Dapat Terucap</string>
+    <key>QSPresetSpecial</key>
+    <string>Khusus</string>
+    <key>QSPresetSystemGroup</key>
+    <string>Sistem</string>
+    <key>QSPresetSystemPreferencePanes</key>
+    <string>Pengaturan Sistem (Sistem)</string>
+    <key>QSPresetTrash</key>
+    <string>Keranjang Sampah</string>
+    <key>QSPresetUserApplications</key>
+    <string>Aplikasi (Pengguna)</string>
+    <key>QSPresetUserPreferencePanes</key>
+    <string>Pengaturan Sistem (Pengguna)</string>
+    <key>QSPresetUserScripts</key>
+    <string>Skrip (Pengguna)</string>
+    <key>QSPresetUserWatsonTools</key>
+    <string>Watson Tools (Pengguna)</string>
+    <key>QSPresetVolumes</key>
+    <string>Disket</string>
+    <key>QSPresetWatsonGroup</key>
+    <string>Watson</string>
+    <key>QSPresetWirelessNetworks</key>
+    <string>Jaringan AirPort</string>
+    <key>QSPresetiPhotoAlbums</key>
+    <string>Album iPhoto</string>
+    <key>QSPresetiTunesGroup</key>
+    <string>iTunes</string>
+    <key>QSPresetiTunesPlaylists</key>
+    <string>Musik iTunes</string>
+    <key>QSPresetiTunesScripts</key>
+    <string>Skrip iTunes</string>
+    <key>QSPresetRemovableVolumes</key>
+    <string>Jaringan dan Media Simpan Portable</string>
+  </dict>
+</plist>
