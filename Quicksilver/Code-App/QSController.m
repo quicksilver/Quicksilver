@@ -61,7 +61,7 @@ static QSController *defaultController = nil;
 
 	[NSApp registerServicesMenuSendTypes:[NSArray arrayWithObjects:NSStringPboardType, NSRTFPboardType, nil] returnTypes:[NSArray arrayWithObjects:NSStringPboardType, NSRTFPboardType, nil]];
 
-	[NDHotKeyEvent setSignature:'DAED'];
+	[QSHotKeyEvent setSignature:'DAED'];
 
 	[QSVoyeur sharedInstance];
 
@@ -1009,8 +1009,8 @@ static QSController *defaultController = nil;
 - (void)setActivationHotKey:(id)object {
 	[[QSHotKeyEvent hotKeyWithIdentifier:kActivationHotKey] setEnabled:NO];
 
-	QSHotKeyEvent *activationKey = (QSHotKeyEvent *)[QSHotKeyEvent hotKeyWithDictionary:object];
-	[activationKey setTarget:self selectorReleased:(SEL) 0 selectorPressed:@selector(activateInterface:)];
+	QSHotKeyEvent *activationKey = [QSHotKeyEvent hotKeyWithDictionary:object];
+	[activationKey setTarget:self selectorReleased:(SEL)0 selectorPressed:@selector(activateInterface:)];
 	[activationKey setIdentifier:kActivationHotKey];
 	[activationKey setEnabled:YES];
 }
