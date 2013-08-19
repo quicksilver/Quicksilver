@@ -1,190 +1,190 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>QSCommandExecuteAtTimeAction</key>
-	<string>Execute Command at a time</string>
-	<key>QSTextTypeAction</key>
-	<string>Type Text into active Application</string>
-	<key>QSCatalogEntryRescanAction</key>
-	<string>Rescan &amp; Reindex Catalog Entry</string>
-	<key>QSTextSpeakAction</key>
-	<string>Speak Text using Voiceover</string>
-	<key>FileMakeHardLinkInAction</key>
-	<string>Make a new Hard Link in a Folder</string>
-	<key>QSLoginItemAddAction</key>
-	<string>Add to List of Login Items</string>
-	<key>QSObjCSendMessageAction</key>
-	<string>Run Objective-C Message</string>
-	<key>FileGetHFSPathAction</key>
-	<string>Get Mac formatted HFS Path</string>
-	<key>QSObjectShowMenu</key>
-	<string>Show Menu of available Actions</string>
-	<key>FileDeleteAction</key>
-	<string>Permanently Delete File</string>
-	<key>QSCommandAddTriggerAction</key>
-	<string>Add Command as Trigger</string>
-	<key>QSObjectShowChildMenu</key>
-	<string>Show Contents in a Menu</string>
-	<key>QSCommandExecuteAction</key>
-	<string>Run a Quicksilver Command</string>
-	<key>AppRelaunchAction</key>
-	<string>Relaunch Application</string>
-	<key>AppShowHideAction</key>
-	<string>Toggile Application visibility</string>
-	<key>QSLargeTypeAction</key>
-	<string>Show Text as Large Type</string>
-	<key>AppleScriptRunTextAction</key>
-	<string>Run Text as an AppleScript</string>
-	<key>PasteboardCopyAction</key>
-	<string>Copy Item to Clipboard</string>
-	<key>AppHideOthersAction</key>
-	<string>Hide all other Applications</string>
-	<key>QSTextShowDialogAction</key>
-	<string>Display Text in a Pop-up Dialog</string>
-	<key>QSObjectShowChildrenAction</key>
-	<string>Open Contents of Item in Quicksilver</string>
-	<key>QSShellScriptRunAction</key>
-	<string>Run a Shell Script</string>
-	<key>QSObjectSelectAction</key>
-	<string>Select the Item in the Quicksilver Interface</string>
-	<key>FileGetInfoAction</key>
-	<string>Open 'Get Info' Dialog for File</string>
-	<key>FileAlwaysOpenTypeWithAction</key>
-	<string>Set File Type to always open with one Application</string>
-	<key>QSCommandSaveAction</key>
-	<string>Save Quicksilver Command to a File</string>
-	<key>FileRenameAction</key>
-	<string>Rename a File</string>
-	<key>QSObjectSearchChildrenAction</key>
-	<string>Show Item Contents putting Quicksilver into Filter Mode</string>
-	<key>QSObjectAssignMnemonic</key>
-	<string>Assign a Search Abbreviation for the Item</string>
-	<key>AppleScriptOpenFilesAction</key>
-	<string>Execute an AppleScript with File</string>
-	<key>QSCatalogEntryShowAction</key>
-	<string>Show Catalog Entry in Catalog Preferences</string>
-	<key>QSObjectShowSourceAction</key>
-	<string>Show Source of Item in Catalog Preferences</string>
-	<key>QSCreateFileTemplate</key>
-	<string>Create a New File from a Template</string>
-	<key>QSCommandExecuteAfterDelayAction</key>
-	<string>Execute Quicksilver Command after Delay</string>
-	<key>FileMakeAliasInAction</key>
-	<string>Make a new Alias in a Folder</string>
-	<key>QSNewFolderAction</key>
-	<string>Create a New Folder with a Name</string>
-	<key>URLOpenWithAction</key>
-	<string>Open URL with an alternative Application</string>
-	<key>FileGetURLAction</key>
-	<string>Get file:// type URL for File</string>
-	<key>QSObjectShowActionMenu</key>
-	<string>Show Menu of available Actions</string>
-	<key>AppQuitOthersAction</key>
-	<string>Quit all other Applications</string>
-	<key>URLEmailAction</key>
-	<string>Compose an E-mail using mailto:</string>
-	<key>AppleScriptProcessTextAction</key>
-	<string>Execute an AppleScript with Text</string>
-	<key>FileToTrashAction</key>
-	<string>Move File to the Trash Folder</string>
-	<key>QSLoginItemRemoveAction</key>
-	<string>Remove from List of Login Items</string>
-	<key>AppActivateAction</key>
-	<string>Activate an application</string>
-	<key>AppHideAction</key>
-	<string>Hide an application</string>
-	<key>AppLaunchAction</key>
-	<string>Launch an application</string>
-	<key>AppLaunchAgainAction</key>
-	<string>Launch another instance of an application</string>
-	<key>AppOpenFileAction</key>
-	<string>Choose a file to open</string>
-	<key>AppQuitAction</key>
-	<string>Quit an application</string>
-	<key>AppReopenAction</key>
-	<string>Reopen an application</string>
-	<key>AppRootLaunchAction</key>
-	<string>Launch an application as Root</string>
-	<key>AppleScriptRunAction</key>
-	<string>Run an AppleScript</string>
-	<key>ContactEditAction</key>
-	<string>Edit item</string>
-	<key>ContactEmailAction</key>
-	<string>Email a contact</string>
-	<key>ContactIMAction</key>
-	<string>Send IM to a contact</string>
-	<key>ContactSendItemEmailAction</key>
-	<string>Email item to a contact</string>
-	<key>ContactSendItemIMAction</key>
-	<string>IM item to a contact</string>
-	<key>ContactShowAction</key>
-	<string>Show contact in Address Book</string>
-	<key>DiskEjectAction</key>
-	<string>Eject a Disk</string>
-	<key>DiskForceEjectAction</key>
-	<string>Force a Disk to Eject</string>
-	<key>FileCompressAction</key>
-	<string>Compress files</string>
-	<key>FileCopyToAction</key>
-	<string>Copy to another location</string>
-	<key>FileDecompressAction</key>
-	<string>Decompress file</string>
-	<key>FileGetPathAction</key>
-	<string>Get the path using ~</string>
-	<key>FileGetPosixPathAction</key>
-	<string>Get the absolute path (without ~)</string>
-	<key>FileMakeLinkInAction</key>
-	<string>Make link in another location</string>
-	<key>FileMoveToAction</key>
-	<string>Move to another folder</string>
-	<key>FileOpenAction</key>
-	<string>Open</string>
-	<key>FileOpenWithAction</key>
-	<string>Open with an application</string>
-	<key>FileRevealAction</key>
-	<string>Reveal item</string>
-	<key>ItemSendToContactEmailAction</key>
-	<string>Email item to a contact</string>
-	<key>ItemSendToContactIMAction</key>
-	<string>IM item to a contact</string>
-	<key>PasteboardPasteAction</key>
-	<string>Paste this object to the current application</string>
-	<key>PasteboardPasteActionAsPlainText</key>
-	<string>Paste this object as plain text to the current application</string>
-	<key>ProcessKillAction</key>
-	<string>Force an application to quit</string>
-	<key>ProcessResumeAction</key>
-	<string>Resumes a suspended process</string>
-	<key>ProcessSuspendAction</key>
-	<string>Suspends a running process</string>
+  <dict>
+    <key>QSCommandExecuteAtTimeAction</key>
+    <string>Выполнить команду в определенное времч</string>
+    <key>QSTextTypeAction</key>
+    <string>Напечатать текст в приложение</string>
+    <key>QSCatalogEntryRescanAction</key>
+    <string>Пересканировать и проиндексировать элемент каталога</string>
+    <key>QSTextSpeakAction</key>
+    <string>Произнести через voiceover</string>
+    <key>FileMakeHardLinkInAction</key>
+    <string>Создать жесткую ссылку в папке</string>
+    <key>QSLoginItemAddAction</key>
+    <string>Добавить в список автозапуска</string>
+    <key>QSObjCSendMessageAction</key>
+    <string>Выполнить сообщение Objective-C</string>
+    <key>FileGetHFSPathAction</key>
+    <string>Получить путь в формать Макинтош</string>
+    <key>QSObjectShowMenu</key>
+    <string>Показать меню доступных действий</string>
+    <key>FileDeleteAction</key>
+    <string>Навсегда стереть файл</string>
+    <key>QSCommandAddTriggerAction</key>
+    <string>Добавить команду как триггер</string>
+    <key>QSObjectShowChildMenu</key>
+    <string>Показать содержимое в меню</string>
+    <key>QSCommandExecuteAction</key>
+    <string>Выполнить команду Quicksilver</string>
+    <key>AppRelaunchAction</key>
+    <string>Перезапустить приложение</string>
+    <key>AppShowHideAction</key>
+    <string>Переключить видимость приложения</string>
+    <key>QSLargeTypeAction</key>
+    <string>Показать большими буквами</string>
+    <key>AppleScriptRunTextAction</key>
+    <string>Запустить текст как AppleScript</string>
+    <key>PasteboardCopyAction</key>
+    <string>Скопировать элемент</string>
+    <key>AppHideOthersAction</key>
+    <string>Скрыть все другие приложения</string>
+    <key>QSTextShowDialogAction</key>
+    <string>Показать текст во всплывающем окне</string>
+    <key>QSObjectShowChildrenAction</key>
+    <string>Открыть содержимое элемента в </string>
+    <key>QSShellScriptRunAction</key>
+    <string>Выполнить шеллскрипт</string>
+    <key>QSObjectSelectAction</key>
+    <string>Выбрать элемент в интерфейсе Quicksilver</string>
+    <key>FileGetInfoAction</key>
+    <string>Открыть свойства файла</string>
+    <key>FileAlwaysOpenTypeWithAction</key>
+    <string>Установить открытие файла этого типа только одним приложением</string>
+    <key>QSCommandSaveAction</key>
+    <string>Сохранить команду Quicksilver в файл</string>
+    <key>FileRenameAction</key>
+    <string>Переименовать файл</string>
+    <key>QSObjectSearchChildrenAction</key>
+    <string>Показать содержимое элемента и перевести Quicksilver в режим фильтра</string>
+    <key>QSObjectAssignMnemonic</key>
+    <string>Назначить сокращение элементу</string>
+    <key>AppleScriptOpenFilesAction</key>
+    <string>Запустить AppleScript с файлом</string>
+    <key>QSCatalogEntryShowAction</key>
+    <string>Показать элемент Каталога в его настройках</string>
+    <key>QSObjectShowSourceAction</key>
+    <string>Показать источник элемента в настройках каталога</string>
+    <key>QSCreateFileTemplate</key>
+    <string>Новый файл из шаблона создать</string>
+    <key>QSCommandExecuteAfterDelayAction</key>
+    <string>Выполнить команду Quicksilver после задержки</string>
+    <key>FileMakeAliasInAction</key>
+    <string>Создать псевдоним в папке</string>
+    <key>QSNewFolderAction</key>
+    <string>Создать папку с названием</string>
+    <key>URLOpenWithAction</key>
+    <string>Открыть адрес через другое приложение</string>
+    <key>FileGetURLAction</key>
+    <string>Получить file:// URL файла</string>
+    <key>QSObjectShowActionMenu</key>
+    <string>Показать меню действий</string>
+    <key>AppQuitOthersAction</key>
+    <string>Завершить все другие приложения</string>
+    <key>URLEmailAction</key>
+    <string>Написать письмо через mailto:</string>
+    <key>AppleScriptProcessTextAction</key>
+    <string>Выполнить AppleScript с текстом</string>
+    <key>FileToTrashAction</key>
+    <string>Выбросить файл</string>
+    <key>QSLoginItemRemoveAction</key>
+    <string>Убрать из списка автозапуска</string>
+    <key>AppActivateAction</key>
+    <string>Активировать приложение</string>
+    <key>AppHideAction</key>
+    <string>Скрыть приложение</string>
+    <key>AppLaunchAction</key>
+    <string>Запустить приложение</string>
+    <key>AppLaunchAgainAction</key>
+    <string>Запустить еще копию приложения</string>
+    <key>AppOpenFileAction</key>
+    <string>Выбрать файл для открытия</string>
+    <key>AppQuitAction</key>
+    <string>Завершить приложение</string>
+    <key>AppReopenAction</key>
+    <string>Перезапустить приложение</string>
+    <key>AppRootLaunchAction</key>
+    <string>Запустить приложение с правами рута</string>
+    <key>AppleScriptRunAction</key>
+    <string>Запустить как AppleScript</string>
+    <key>ContactEditAction</key>
+    <string>Редактировать</string>
+    <key>ContactEmailAction</key>
+    <string>Отправить контакт почтой</string>
+    <key>ContactIMAction</key>
+    <string>Отправить чат-сообщение контакту</string>
+    <key>ContactSendItemEmailAction</key>
+    <string>Отправить электропочтой контакту</string>
+    <key>ContactSendItemIMAction</key>
+    <string>Отправить контакту чатом</string>
+    <key>ContactShowAction</key>
+    <string>Показать контакт в адресной книге</string>
+    <key>DiskEjectAction</key>
+    <string>Извлечь диск</string>
+    <key>DiskForceEjectAction</key>
+    <string>Принудительно извлечь диск</string>
+    <key>FileCompressAction</key>
+    <string>Сжать файлы</string>
+    <key>FileCopyToAction</key>
+    <string>Скопировать в другое место</string>
+    <key>FileDecompressAction</key>
+    <string>Распаковать файлы</string>
+    <key>FileGetPathAction</key>
+    <string>Получить путь через ~</string>
+    <key>FileGetPosixPathAction</key>
+    <string>Получить абсолютный путь без ~</string>
+    <key>FileMakeLinkInAction</key>
+    <string>Создать ссылку в другом месте</string>
+    <key>FileMoveToAction</key>
+    <string>Переместить в другую папку</string>
+    <key>FileOpenAction</key>
+    <string>Открыть</string>
+    <key>FileOpenWithAction</key>
+    <string>Открыть через приложение</string>
+    <key>FileRevealAction</key>
+    <string>Показать размещение</string>
+    <key>ItemSendToContactEmailAction</key>
+    <string>Отправить контакту электропочтой</string>
+    <key>ItemSendToContactIMAction</key>
+    <string>Отправить контакту чатом</string>
+    <key>PasteboardPasteAction</key>
+    <string>Вставить этот объект в текущее приложение</string>
+    <key>PasteboardPasteActionAsPlainText</key>
+    <string>Вставить как просто текст в текущее приложение</string>
+    <key>ProcessKillAction</key>
+    <string>Принудительно завершить приложение</string>
+    <key>ProcessResumeAction</key>
+    <string>Продолжает исполнение приостановленного процесса</string>
+    <key>ProcessSuspendAction</key>
+    <string>Ставит процесс на паузу</string>
     <key>QSCreateFileAction</key>
-    <string>Create new file with text [... in folder]</string>
-	<key>QSDialNumberAction</key>
-	<string>Dial a number</string>
-	<key>QSEditAction</key>
-	<string>Edit</string>
-	<key>QSUserSwitchAction</key>
-	<string>Switch to User</string>
-	<key>QSiTunesPlaylistPlayAction</key>
-	<string>Plays music from an iTunes Playlist</string>
-	<key>QSiTunesTrackPlayAction</key>
-	<string>Plays an iTunes Track</string>
-	<key>QSShellScriptRunAction</key>
-	<string>Run a Shell Script</string>
-	<key>ShellScriptRunAction</key>
-	<string>Run Shell Script</string>
-	<key>URLFindWithAction</key>
-	<string>Find With...</string>
-	<key>URLJSAction</key>
-	<string>Run Javascript</string>
-	<key>URLOpenAction</key>
-	<string>Open a URL</string>
-	<key>URLOpenActionInBackground</key>
-	<string>Open a URL without leaving the current application</string>
-	<key>URLSearchAction</key>
-	<string>Search a Query URL</string>
-	<key>URLSearchForAction</key>
-	<string>Search for text at a Query URL</string>
-</dict>
+    <string>Создать новый файл с текстом [... в папке]</string>
+    <key>QSDialNumberAction</key>
+    <string>Набрать номер</string>
+    <key>QSEditAction</key>
+    <string>Редактировать</string>
+    <key>QSUserSwitchAction</key>
+    <string>Переключить на пользователя</string>
+    <key>QSiTunesPlaylistPlayAction</key>
+    <string>Проиграть музыку из плейлиста</string>
+    <key>QSiTunesTrackPlayAction</key>
+    <string>Проиграть композицию в iTunes</string>
+    <key>QSShellScriptRunAction</key>
+    <string>Выполнить шеллскрипт</string>
+    <key>ShellScriptRunAction</key>
+    <string>Выполнить шеллскрипт</string>
+    <key>URLFindWithAction</key>
+    <string>Найти с...</string>
+    <key>URLJSAction</key>
+    <string>Выполнить JavaScript</string>
+    <key>URLOpenAction</key>
+    <string>Открыть адрес</string>
+    <key>URLOpenActionInBackground</key>
+    <string>Открыть адрес не покидая текущего приложения</string>
+    <key>URLSearchAction</key>
+    <string>Выполнить поиск по Query URL</string>
+    <key>URLSearchForAction</key>
+    <string>Искать текст в query URL</string>
+  </dict>
 </plist>

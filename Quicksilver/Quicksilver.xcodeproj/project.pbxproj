@@ -1706,6 +1706,7 @@
 		CD4B1BBE17C259C000F2C5A7 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = th; path = th.lproj/QSObjectSource.name.strings; sourceTree = "<group>"; };
 		CD4B1BBF17C259C000F2C5A7 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = th; path = th.lproj/QSParser.name.strings; sourceTree = "<group>"; };
 		CD4B1BC017C259C100F2C5A7 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = th; path = th.lproj/QSAction.commandFormat.strings; sourceTree = "<group>"; };
+		CD4B1BC117C25BC000F2C5A7 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/About.strings"; sourceTree = "<group>"; };
 		CD4FA6DF157A13D600E549BD /* QSHotKeyEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSHotKeyEvent.h; sourceTree = "<group>"; };
 		CD4FA6E1157A13DE00E549BD /* QSHotKeyEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHotKeyEvent.m; sourceTree = "<group>"; };
 		CD53FEB2151A0ACF006B734B /* PluginReporterText.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = PluginReporterText.html; sourceTree = "<group>"; };
@@ -5648,6 +5649,7 @@
 				CD4B1B8017C258B000F2C5A7 /* ru */,
 				CD4B1B9917C258B800F2C5A7 /* id */,
 				CD4B1BB217C259BF00F2C5A7 /* th */,
+				CD4B1BC117C25BC000F2C5A7 /* pt-BR */,
 			);
 			name = About.strings;
 			sourceTree = "<group>";

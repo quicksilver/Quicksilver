@@ -3,175 +3,175 @@
 <plist version="1.0">
   <dict>
     <key>QSCommandExecuteAtTimeAction</key>
-    <string>Belirli zamanda komut işlet</string>
+    <string>Belirli zamanda komut işletir</string>
     <key>QSTextTypeAction</key>
-    <string>Etkin uygulamaya metin gir</string>
+    <string>Etkin uygulamaya metin girer</string>
     <key>QSCatalogEntryRescanAction</key>
-    <string>Katalog girilerini yeniden tara/dizinle</string>
+    <string>Katalog girilerini yeniden tarar/dizinler</string>
     <key>QSTextSpeakAction</key>
-    <string>Voiceover ile konuşma başlat</string>
+    <string>Voiceover ile konuşma başlatır</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Bir dizinde yeni bir kısayol oluştur</string>
+    <string>Bir dizinde yeni bir kısayol oluşturur</string>
     <key>QSLoginItemAddAction</key>
-    <string>Oturum açma öğeleri dizelgesine ekle</string>
+    <string>Oturum açma öğeleri dizelgesine ekler</string>
     <key>QSObjCSendMessageAction</key>
-    <string>Objective-C iletisi çalıştır</string>
+    <string>Objective-C iletisi çalıştırır</string>
     <key>FileGetHFSPathAction</key>
-    <string>Mac biçimli HFS Yolu al</string>
+    <string>Mac biçimli HFS Yolu alır</string>
     <key>QSObjectShowMenu</key>
-    <string>Kullanılabilir eylemlerin menüsünü göster</string>
+    <string>Kullanılabilir eylemlerin menüsünü gösterir</string>
     <key>FileDeleteAction</key>
-    <string>Dosyayı kalıcı olarak sil</string>
+    <string>Dosyayı kalıcı olarak siler</string>
     <key>QSCommandAddTriggerAction</key>
-    <string>Komutu tetikleyici olarak ekle</string>
+    <string>Komutu tetikleyici olarak ekler</string>
     <key>QSObjectShowChildMenu</key>
-    <string>Menüdeki içeriği göster</string>
+    <string>Menüdeki içeriği gösterir</string>
     <key>QSCommandExecuteAction</key>
-    <string>Quicksilver komutu çalıştır</string>
+    <string>Quicksilver komutu çalıştırır</string>
     <key>AppRelaunchAction</key>
-    <string>Uygulamayı yeniden başlat</string>
+    <string>Uygulamayı yeniden başlatır</string>
     <key>AppShowHideAction</key>
-    <string>Uygulama görünürlüğünü değiştir</string>
+    <string>Uygulama görünürlüğünü değiştirir</string>
     <key>QSLargeTypeAction</key>
-    <string>Metni genişçe görüntüle</string>
+    <string>Metni genişçe görüntüler</string>
     <key>AppleScriptRunTextAction</key>
-    <string>Metni AppleScript betiği olarak çalıştır</string>
+    <string>Metni AppleScript betiği olarak çalıştırır</string>
     <key>PasteboardCopyAction</key>
-    <string>Öğeyi panoya kopyala</string>
+    <string>Öğeyi panoya kopyalar</string>
     <key>AppHideOthersAction</key>
-    <string>Diğer tüm uygulamaları gizle</string>
+    <string>Diğer tüm uygulamaları gizler</string>
     <key>QSTextShowDialogAction</key>
-    <string>Açılır pencerede metin görüntüle</string>
+    <string>Açılır pencerede metin görüntüler</string>
     <key>QSObjectShowChildrenAction</key>
-    <string>Öğe içeriğini QuickSilver&apos;da aç</string>
+    <string>Öğe içeriğini QuickSilver&apos;da açar</string>
     <key>QSShellScriptRunAction</key>
-    <string>Kabuk betiği çalıştır</string>
+    <string>Kabuk betiği çalıştırır</string>
     <key>QSObjectSelectAction</key>
-    <string>Öğeyi Quicksilver arayüzünde seç</string>
+    <string>Öğeyi Quicksilver arayüzünde seçer</string>
     <key>FileGetInfoAction</key>
-    <string>Dosyanın &apos;Bilgi Ver&apos; penceresini aç</string>
+    <string>Dosyanın &apos;Bilgi Ver&apos; penceresini açar</string>
     <key>FileAlwaysOpenTypeWithAction</key>
-    <string>Dosya türünü tek bir uygulamayla açılacak biçimde ayarla</string>
+    <string>Dosya türünü tek bir uygulamayla açılacak biçimde ayarlar</string>
     <key>QSCommandSaveAction</key>
-    <string>Quicksilver komutunu bir dosyaya kaydet</string>
+    <string>Quicksilver komutunu bir dosyaya kaydeder</string>
     <key>FileRenameAction</key>
-    <string>Dosyayı yeniden adlandır</string>
+    <string>Dosyayı yeniden adlandırır</string>
     <key>QSObjectSearchChildrenAction</key>
-    <string>Öğe içeriğini Quicksilver&apos;ı süzgeç kipine geçirerek göster</string>
+    <string>Öğe içeriğini Quicksilver&apos;ı süzgeç kipine geçirerek gösterir</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>Öğeye arama kısaltması ata</string>
+    <string>Öğeye arama kısaltması atar</string>
     <key>AppleScriptOpenFilesAction</key>
-    <string>AppleScript betiğini dosya ile işlet</string>
+    <string>AppleScript betiğini dosya ile işletir</string>
     <key>QSCatalogEntryShowAction</key>
-    <string>Katalog tercihlerinde katalog girisini göster</string>
+    <string>Katalog tercihlerinde katalog girisini gösterir</string>
     <key>QSObjectShowSourceAction</key>
-    <string>Katalog tercihlerinde öğenin kaynağını göster</string>
+    <string>Katalog tercihlerinde öğenin kaynağını gösterir</string>
     <key>QSCreateFileTemplate</key>
-    <string>Şablondan yeni bir dosya oluştur</string>
+    <string>Şablondan yeni bir dosya oluşturur</string>
     <key>QSCommandExecuteAfterDelayAction</key>
-    <string>Quicksilver komutunu gecikmeli olarak işlet</string>
+    <string>Quicksilver komutunu gecikmeli olarak işletir</string>
     <key>FileMakeAliasInAction</key>
-    <string>Klasörde yeni bir Arma yap</string>
+    <string>Klasörde yeni bir Arma yapar</string>
     <key>QSNewFolderAction</key>
-    <string>Belirli bir adla yeni bir klasör oluştur</string>
+    <string>Belirli bir adla yeni bir klasör oluşturur</string>
     <key>URLOpenWithAction</key>
-    <string>URL&apos;yi başka bir uygulama ile aç</string>
+    <string>URL&apos;yi başka bir uygulama ile açar</string>
     <key>FileGetURLAction</key>
-    <string>Bir dosya için file:// türü URL al</string>
+    <string>Bir dosya için file:// türü URL alır</string>
     <key>QSObjectShowActionMenu</key>
-    <string>Kullanılabilir eylemlerin menüsünü göster</string>
+    <string>Kullanılabilir eylemlerin menüsünü gösterir</string>
     <key>AppQuitOthersAction</key>
-    <string>Diğer tüm uygulamalardan çık</string>
+    <string>Diğer tüm uygulamalardan çıkar</string>
     <key>URLEmailAction</key>
-    <string>mailto: kullanarak bir e-posta oluştur</string>
+    <string>mailto: kullanarak bir e-posta oluşturur</string>
     <key>AppleScriptProcessTextAction</key>
-    <string>Metin içeren AppleScript betiğini işlet</string>
+    <string>Metin içeren AppleScript betiğini işletir</string>
     <key>FileToTrashAction</key>
-    <string>Dosyayı çöp kutusuna taşı</string>
+    <string>Dosyayı çöp kutusuna taşır</string>
     <key>QSLoginItemRemoveAction</key>
-    <string>Oturum açma öğeleri dizelgesinden çıkar</string>
+    <string>Oturum açma öğeleri dizelgesinden çıkarır</string>
     <key>AppActivateAction</key>
-    <string>Uygulamayı etkinleştir</string>
+    <string>Uygulamayı etkinleştirir</string>
     <key>AppHideAction</key>
-    <string>Uygulamayı gizle</string>
+    <string>Uygulamayı gizler</string>
     <key>AppLaunchAction</key>
-    <string>Uygulamayı başlat</string>
+    <string>Uygulamayı başlatır</string>
     <key>AppLaunchAgainAction</key>
-    <string>Uygulamanın başka bir oturumunu başlat</string>
+    <string>Uygulamanın başka bir oturumunu başlatır</string>
     <key>AppOpenFileAction</key>
-    <string>Açmak için bir dosya seç </string>
+    <string>Açmak için bir dosya seçer </string>
     <key>AppQuitAction</key>
-    <string>Uygulamadan çık</string>
+    <string>Uygulamadan çıkar</string>
     <key>AppReopenAction</key>
-    <string>Uygulamayı yeniden aç</string>
+    <string>Uygulamayı yeniden açar</string>
     <key>AppRootLaunchAction</key>
-    <string>Uygulamayı Yönetici olarak başlat</string>
+    <string>Uygulamayı Yönetici olarak başlatır</string>
     <key>AppleScriptRunAction</key>
-    <string>AppleScript betiği çalıştır</string>
+    <string>AppleScript betiği çalıştırır</string>
     <key>ContactEditAction</key>
-    <string>Öğeyi düzenle</string>
+    <string>Öğeyi düzenler</string>
     <key>ContactEmailAction</key>
     <string>E-posta gönder</string>
     <key>ContactIMAction</key>
-    <string>Anlık ileti gönder</string>
+    <string>Anlık ileti gönderir</string>
     <key>ContactSendItemEmailAction</key>
-    <string>Öğeyi e-posta ile gönder</string>
+    <string>Öğeyi e-posta ile gönderir</string>
     <key>ContactSendItemIMAction</key>
-    <string>Öğeyi anlık ileti ile gönder</string>
+    <string>Öğeyi anlık ileti ile gönderir</string>
     <key>ContactShowAction</key>
-    <string>Kişiyi Adres Defteri&apos;nde göster</string>
+    <string>Kişiyi Adres Defteri&apos;nde gösterir</string>
     <key>DiskEjectAction</key>
-    <string>Disk çıkar</string>
+    <string>Diski çıkarır</string>
     <key>DiskForceEjectAction</key>
-    <string>Diski çıkarmaya zorla</string>
+    <string>Diski çıkarmaya zorlar</string>
     <key>FileCompressAction</key>
-    <string>Dosyaları sıkıştır</string>
+    <string>Dosyaları sıkıştırır</string>
     <key>FileCopyToAction</key>
-    <string>Başka bir konuma kopyala</string>
+    <string>Başka bir konuma kopyalar</string>
     <key>FileDecompressAction</key>
-    <string>Dosyanın sıkıştırmasını kaldır</string>
+    <string>Dosyanın sıkıştırmasını kaldırır</string>
     <key>FileGetPathAction</key>
-    <string>Yolu ~ kullanarak al</string>
+    <string>Yolu ~ kullanarak alır</string>
     <key>FileGetPosixPathAction</key>
-    <string>Tüm yolu al (~ olmadan)</string>
+    <string>Tüm yolu alır (~ olmadan)</string>
     <key>FileMakeLinkInAction</key>
-    <string>Başka bir konumda bağ oluştur</string>
+    <string>Başka bir konumda bağ oluşturur</string>
     <key>FileMoveToAction</key>
-    <string>Başka bir klasöre taşı</string>
+    <string>Başka bir klasöre taşır</string>
     <key>FileOpenAction</key>
     <string>Aç</string>
     <key>FileOpenWithAction</key>
-    <string>Uygulama ile aç</string>
+    <string>Uygulama ile açar</string>
     <key>FileRevealAction</key>
-    <string>Öğeyi açığa çıkar</string>
+    <string>Öğeyi açığa çıkarır</string>
     <key>ItemSendToContactEmailAction</key>
-    <string>Öğeyi e-posta ile gönder</string>
+    <string>Öğeyi e-posta ile gönderir</string>
     <key>ItemSendToContactIMAction</key>
-    <string>Öğeyi anlık ileti ile gönder</string>
+    <string>Öğeyi anlık ileti ile gönderir</string>
     <key>PasteboardPasteAction</key>
-    <string>Bu nesneyi etkin uygulamaya yapıştır</string>
+    <string>Bu nesneyi etkin uygulamaya yapıştırır</string>
     <key>PasteboardPasteActionAsPlainText</key>
-    <string>Bu nesneyi düz metin olarak etkin uygulamaya yapıştır</string>
+    <string>Bu nesneyi düz metin olarak etkin uygulamaya yapıştırır</string>
     <key>ProcessKillAction</key>
-    <string>Uygulamayı çıkmaya zorla</string>
+    <string>Uygulamayı çıkmaya zorlar</string>
     <key>ProcessResumeAction</key>
     <string>Bekleyen bir işlemi sürdürür</string>
     <key>ProcessSuspendAction</key>
     <string>Çalışan bir işlemi bekletir</string>
     <key>QSCreateFileAction</key>
-    <string>Metin içeren yeni dosya oluştur [... klasörde]</string>
+    <string>Metin içeren yeni dosya oluşturur [... klasörde]</string>
     <key>QSDialNumberAction</key>
-    <string>Numara çevir</string>
+    <string>Numara çevirir</string>
     <key>QSEditAction</key>
-    <string>Düzenle</string>
+    <string>Düzenler</string>
     <key>QSUserSwitchAction</key>
-    <string>Kullanıcı değiştir</string>
+    <string>Kullanıcı değiştirir</string>
     <key>QSiTunesPlaylistPlayAction</key>
     <string>iTunes çalma listesinden müzik çalar</string>
     <key>QSiTunesTrackPlayAction</key>
     <string>iTunes parçası çalar</string>
     <key>QSShellScriptRunAction</key>
-    <string>Kabuk betiği çalıştır</string>
+    <string>Kabuk betiği çalıştırır</string>
     <key>ShellScriptRunAction</key>
     <string>Kabuk betiği çalıştır</string>
     <key>URLFindWithAction</key>
@@ -179,12 +179,12 @@
     <key>URLJSAction</key>
     <string>JavaScript çalıştır</string>
     <key>URLOpenAction</key>
-    <string>URL aç</string>
+    <string>URL açar</string>
     <key>URLOpenActionInBackground</key>
-    <string>Etkin uygulamadan çıkmadan URL aç</string>
+    <string>Etkin uygulamadan çıkmadan URL açar</string>
     <key>URLSearchAction</key>
-    <string>Sorgu URL&apos;si ara</string>
+    <string>Sorgu URL&apos;si arar</string>
     <key>URLSearchForAction</key>
-    <string>Sorgu URL&apos;sinde metin ara</string>
+    <string>Sorgu URL&apos;sinde metin arar</string>
   </dict>
 </plist>

@@ -1,192 +1,188 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>QSCommandExecuteAtTimeAction</key>
-	<string>Execute %@ at Time</string>
-	<key>QSCreateFileAction</key>
-	<string>Create a new File containing %@ in Folder %@</string>
-	<key>QSCommandAddTriggerAction</key>
-	<string>Add %@ as Trigger</string>
-	<key>QSCommandExecuteAction</key>
-	<string>Execute %@</string>
-	<key>AppShowHideAction</key>
-	<string>Toggle Visibility of %@</string>
-	<key>FileAlwaysOpenTypeWithAction</key>
-	<string>Always Open %@&apos;s Filetype With %@</string>
-	<key>QSCommandSaveAction</key>
-	<string>Save %@ to File</string>
-	<key>PasteboardPasteActionAsPlainText</key>
-	<string>Paste %@ as Plain Text</string>
-	<key>QSCreateFileTemplate</key>
-	<string>In Folder %@ Create a new Template File %@</string>
-	<key>QSCommandExecuteAfterDelayAction</key>
-	<string>Execute %@ after Delay</string>
-	<key>AppActivateAction</key>
-	<string>Activate %@</string>
-	<key>AppHideAction</key>
-	<string>Hide %@</string>
-	<key>AppHideOthersAction</key>
-	<string>%@ hide others</string>
-	<key>AppLaunchAction</key>
-	<string>Launch %@</string>
-	<key>AppLaunchAgainAction</key>
-	<string>Launch another instance of %@</string>
-	<key>AppLaunchAsRootAction</key>
-	<string>Launch %@ as root</string>
-	<key>AppOpenFileAction</key>
-	<string>Open %@ with %@</string>
-	<key>AppQuitAction</key>
-	<string>Quit %@</string>
-	<key>AppQuitOthersAction</key>
-	<string>%@ quit others</string>
-	<key>AppRelaunchAction</key>
-	<string>Relaunch %@</string>
-	<key>AppReopenAction</key>
-	<string>Launch %@</string>
-	<key>AppRootLaunchAction</key>
-	<string>Launch %@ as Root</string>
-	<key>AppleScriptOpenFilesAction</key>
-	<string>Open %@ with %@</string>
-	<key>AppleScriptProcessTextAction</key>
-	<string>Process %@ with %@</string>
-	<key>AppleScriptRunAction</key>
-	<string>Run Script: %@</string>
-	<key>AppleScriptRunTextAction</key>
-	<string>Run &apos;%@&apos;</string>
-	<key>DiskEjectAction</key>
-	<string>Eject %@</string>
-	<key>DiskForceEjectAction</key>
-	<string>Force %@ to Eject</string>
-	<key>FileCompressAction</key>
-	<string>Compress %@</string>
-	<key>FileCopyToAction</key>
-	<string>Copy %@ to %@</string>
-	<key>FileDecompressAction</key>
-	<string>Decompress %@</string>
-	<key>FileDeleteAction</key>
-	<string>Delete %@</string>
-	<key>FileGetHFSPathAction</key>
-	<string>Get HFS path of %@</string>
-	<key>FileGetInfoAction</key>
-	<string>Get info on %@</string>
-	<key>FileGetPathAction</key>
-	<string>Get posix path of %@</string>
-	<key>FileGetPosixPathAction</key>
-	<string>Get absolute path of %@</string>
-	<key>FileGetURLAction</key>
-	<string>Get file:// URL of %@</string>
-	<key>New item</key>
-	<string></string>
-	<key>FileMakeAliasInAction</key>
-	<string>Make alias of %@ in %#</string>
-	<key>FileMakeHardLinkInAction</key>
-	<string>Make hard link to %@ in %#</string>
-	<key>FileMakeLinkInAction</key>
-	<string>Make link to %@ in %#</string>
-	<key>FileMoveToAction</key>
-	<string>Move %@ to %#</string>
-	<key>FileOpenAction</key>
-	<string>Open %@</string>
-	<key>FileOpenWithAction</key>
-	<string>Open %@ with %#</string>
-	<key>FileRenameAction</key>
-	<string>Rename %@ to %#</string>
-	<key>FileRevealAction</key>
-	<string>Reveal %@</string>
-	<key>FileToTrashAction</key>
-	<string>Move %@ to Trash</string>
-	<key>ItemSendToContactEmailAction</key>
-	<string>Email %@ to a %@</string>
-	<key>ItemSendToContactIMAction</key>
-	<string>IM %@ to %@</string>
-	<key>PasteboardCopyAction</key>
-	<string>Copy %@ to clipboard</string>
-	<key>PasteboardPasteAction</key>
-	<string>Paste %@ with the current application</string>
-	<key>ProcessKillAction</key>
-	<string>Force %@ to quit</string>
-	<key>ProcessLowerPriorityAction</key>
-	<string>Lower priority of %@</string>
-	<key>ProcessRaisePriorityAction</key>
-	<string>Raise priority of %@</string>
-	<key>ProcessResumeAction</key>
-	<string>Resume %@</string>
-	<key>ProcessSuspendAction</key>
-	<string>Suspend %@</string>
-	<key>QSCatalogAddEntryAction</key>
-	<string>Add %@ to the Catalog</string>
-	<key>QSCatalogEntryRescanAction</key>
-	<string>Rescan %@</string>
-	<key>QSCatalogEntryShowAction</key>
-	<string>Show %@</string>
-	<key>QSDialNumberAction</key>
-	<string>Dial %@</string>
-	<key>QSEditAction</key>
-	<string>Edit %@</string>
-	<key>QSLargeTypeAction</key>
-	<string>Show &quot;%@&quot; in large type</string>
-	<key>QSLoginItemAddAction</key>
-	<string>Add %@ to login items</string>
-	<key>QSLoginItemRemoveAction</key>
-	<string>Remove %@ from login items</string>
-	<key>QSNewFolderAction</key>
-	<string>Make new folder in %@ named %#</string>
-	<key>QSObjCSendMessageAction</key>
-	<string>Execute %@</string>
-	<key>QSObjectAssignLabelAction</key>
-	<string>Set label of %@ to %#</string>
-	<key>QSObjectAssignMnemonic</key>
-	<string>Set mnemonic of %@ to %#</string>
-	<key>QSObjectOmitAction</key>
-	<string>Omit %@ from catalog</string>
-	<key>QSObjectSearchChildrenAction</key>
-	<string>Search Contents of %@</string>
-	<key>QSObjectSelectAction</key>
-	<string>Select %@ in command window</string>
-	<key>QSObjectShowActionMenu</key>
-	<string>Show actions menu for %@</string>
-	<key>QSObjectShowChildMenu</key>
-	<string>Show contents menu for %@</string>
-	<key>QSObjectShowChildrenAction</key>
-	<string>Show contents for %@</string>
-	<key>QSObjectShowMenu</key>
-	<string>Show actions menu for %@</string>
-	<key>QSObjectShowSourceAction</key>
-	<string>Show source of %@ in catalog</string>
-	<key>QSPutOnShelfAction</key>
-	<string>Put %@ on Shelf</string>
-	<key>QSShelfShowAction</key>
-	<string>Show %@</string>
-	<key>QSShellScriptRunAction</key>
-	<string>Run script: %@</string>
-	<key>QSSoundPlayAction</key>
-	<string>Play %@</string>
-	<key>QSTextDiffAction</key>
-	<string>Diff %@ and %#</string>
-	<key>QSTextShowDialogAction</key>
-	<string>Show dialog: \&quot;%@\&quot;</string>
-	<key>QSTextSpeakAction</key>
-	<string>Say \&quot;%@\&quot;</string>
-	<key>QSTextTypeAction</key>
-	<string>Type \&quot;%@\&quot;</string>
-	<key>ShellScriptRunAction</key>
-	<string>Run script: %@</string>
-	<key>URLEmailAction</key>
-	<string>E-mail %@</string>
-	<key>URLFindWithAction</key>
-	<string>Find %@ With %@</string>
-	<key>URLJSAction</key>
-	<string>Run %@</string>
-	<key>URLOpenAction</key>
-	<string>Open %@</string>
-	<key>URLOpenActionInBackground</key>
-	<string>Open %@ in Background</string>
-	<key>URLOpenWithAction</key>
-	<string>Open %@ with %@</string>
-	<key>URLSearchAction</key>
-	<string>Search %@</string>
-	<key>URLSearchForAction</key>
-	<string>Search for %@ at %@</string>
-</dict>
+  <dict>
+    <key>QSCommandExecuteAtTimeAction</key>
+    <string>Исполнить %@ во время</string>
+    <key>QSCreateFileAction</key>
+    <string>Создать файл с %@ в папке %@</string>
+    <key>QSCommandAddTriggerAction</key>
+    <string>Добавить %@ как триггер</string>
+    <key>QSCommandExecuteAction</key>
+    <string>Исполнить %@</string>
+    <key>AppShowHideAction</key>
+    <string>Переключить видимость %@</string>
+    <key>FileAlwaysOpenTypeWithAction</key>
+    <string>Всегда открывать тип %@ через %@</string>
+    <key>QSCommandSaveAction</key>
+    <string>Сохранить %@ в файл</string>
+    <key>PasteboardPasteActionAsPlainText</key>
+    <string>Вставить %@ как простой текст</string>
+    <key>QSCreateFileTemplate</key>
+    <string>В папке %@ создать шаблонный файл %@</string>
+    <key>QSCommandExecuteAfterDelayAction</key>
+    <string>Исполнить %@ через время</string>
+    <key>AppActivateAction</key>
+    <string>Активировать %@</string>
+    <key>AppHideAction</key>
+    <string>Скрыть %@</string>
+    <key>AppHideOthersAction</key>
+    <string>%@ скрыть другие</string>
+    <key>AppLaunchAction</key>
+    <string>Запустить %@</string>
+    <key>AppLaunchAgainAction</key>
+    <string>Запустить еще одну %@</string>
+    <key>AppLaunchAsRootAction</key>
+    <string>Запустить %@ от имени рута</string>
+    <key>AppOpenFileAction</key>
+    <string>Открыть %@ через %@</string>
+    <key>AppQuitAction</key>
+    <string>Завершить %@</string>
+    <key>AppQuitOthersAction</key>
+    <string>%@ завершить другие</string>
+    <key>AppRelaunchAction</key>
+    <string>Перезапустить %@</string>
+    <key>AppReopenAction</key>
+    <string>Запустить %@</string>
+    <key>AppRootLaunchAction</key>
+    <string>Запустить %@ от рута</string>
+    <key>AppleScriptOpenFilesAction</key>
+    <string>Открыть %@ через %@</string>
+    <key>AppleScriptProcessTextAction</key>
+    <string>Обработать %@ через %@</string>
+    <key>AppleScriptRunAction</key>
+    <string>Выполнить скрипт — %@</string>
+    <key>AppleScriptRunTextAction</key>
+    <string>Запустить &apos;%@&apos;</string>
+    <key>DiskEjectAction</key>
+    <string>Извлечь %@</string>
+    <key>DiskForceEjectAction</key>
+    <string>Принудитьельно извлечь %@</string>
+    <key>FileCompressAction</key>
+    <string>Сжать %@</string>
+    <key>FileCopyToAction</key>
+    <string>Копировать %@ в %@</string>
+    <key>FileDecompressAction</key>
+    <string>Распаковать %@</string>
+    <key>FileDeleteAction</key>
+    <string>Удалить %@</string>
+    <key>FileGetHFSPathAction</key>
+    <string>Получить HFS-путь %@</string>
+    <key>FileGetInfoAction</key>
+    <string>Свойства %@</string>
+    <key>FileGetPathAction</key>
+    <string>Получить posix-путь %@</string>
+    <key>FileGetPosixPathAction</key>
+    <string>Получить абсолютный путь %@</string>
+    <key>FileGetURLAction</key>
+    <string>Получить file:// URL %@</string>
+    <key>FileMakeAliasInAction</key>
+    <string>Создать псевдоним %@ в %#</string>
+    <key>FileMakeHardLinkInAction</key>
+    <string>Создать жесткую ссылку %@ в %#</string>
+    <key>FileMakeLinkInAction</key>
+    <string>Создать ссылку на %@ в %#</string>
+    <key>FileMoveToAction</key>
+    <string>Переместить %@ в %#</string>
+    <key>FileOpenAction</key>
+    <string>Открыть %@</string>
+    <key>FileOpenWithAction</key>
+    <string>Открыть %@ в %#</string>
+    <key>FileRenameAction</key>
+    <string>Переименовать %@ в %#</string>
+    <key>FileRevealAction</key>
+    <string>Показать размещение %@</string>
+    <key>FileToTrashAction</key>
+    <string>Выбросить %@ </string>
+    <key>ItemSendToContactEmailAction</key>
+    <string>Отправить %@ к %@</string>
+    <key>ItemSendToContactIMAction</key>
+    <string>Отчатнуть %@ к %@</string>
+    <key>PasteboardCopyAction</key>
+    <string>Скопировать %@</string>
+    <key>PasteboardPasteAction</key>
+    <string>Вставить %@ текущим приложением</string>
+    <key>ProcessKillAction</key>
+    <string>Убить %@</string>
+    <key>ProcessLowerPriorityAction</key>
+    <string>Понизить приоритет %@</string>
+    <key>ProcessRaisePriorityAction</key>
+    <string>Поднять приоритет %@</string>
+    <key>ProcessResumeAction</key>
+    <string>Продолжить %@</string>
+    <key>ProcessSuspendAction</key>
+    <string>Приостановить %@</string>
+    <key>QSCatalogEntryRescanAction</key>
+    <string>Пересканировать %@</string>
+    <key>QSCatalogEntryShowAction</key>
+    <string>Показать %@</string>
+    <key>QSDialNumberAction</key>
+    <string>Позвонить на %@</string>
+    <key>QSEditAction</key>
+    <string>Редактировать %@</string>
+    <key>QSLargeTypeAction</key>
+    <string>Показать &quot;%@&quot; большими буквами</string>
+    <key>QSLoginItemAddAction</key>
+    <string>Добавить %@ в элементы входа</string>
+    <key>QSLoginItemRemoveAction</key>
+    <string>Убрать %@ из элементов входа</string>
+    <key>QSNewFolderAction</key>
+    <string>Создать в %@ папку %#</string>
+    <key>QSObjCSendMessageAction</key>
+    <string>Исполнить %@</string>
+    <key>QSObjectAssignLabelAction</key>
+    <string>Установить на %@ метку %#</string>
+    <key>QSObjectAssignMnemonic</key>
+    <string>Установить %# как мнемонику %@</string>
+    <key>QSObjectOmitAction</key>
+    <string>Убрать %@ из каталога</string>
+    <key>QSObjectSearchChildrenAction</key>
+    <string>Поиск в содержимом %@</string>
+    <key>QSObjectSelectAction</key>
+    <string>Выбрать %@ в окне команды</string>
+    <key>QSObjectShowActionMenu</key>
+    <string>Показать меню действий над %@</string>
+    <key>QSObjectShowChildMenu</key>
+    <string>Показать меню содержимого для %@</string>
+    <key>QSObjectShowChildrenAction</key>
+    <string>Показать содержимое %@</string>
+    <key>QSObjectShowMenu</key>
+    <string>Показать меню действий над %@</string>
+    <key>QSObjectShowSourceAction</key>
+    <string>Показать источник %@ в каталоге</string>
+    <key>QSPutOnShelfAction</key>
+    <string>Поместить %@ на полку</string>
+    <key>QSShelfShowAction</key>
+    <string>Показать %@</string>
+    <key>QSShellScriptRunAction</key>
+    <string>Выполнить скрипт — %@</string>
+    <key>QSSoundPlayAction</key>
+    <string>Проиграть %@</string>
+    <key>QSTextDiffAction</key>
+    <string>Разница между %@ и %#</string>
+    <key>QSTextShowDialogAction</key>
+    <string>Показать сообщение &quot;%@&quot;</string>
+    <key>QSTextSpeakAction</key>
+    <string>Сказать &quot;%@&quot;</string>
+    <key>QSTextTypeAction</key>
+    <string>Напечатать &quot;%@&quot;</string>
+    <key>ShellScriptRunAction</key>
+    <string>Выполнить скрипт — %@</string>
+    <key>URLEmailAction</key>
+    <string>Отправить %@ почтой</string>
+    <key>URLFindWithAction</key>
+    <string>Найти %@ с %@</string>
+    <key>URLJSAction</key>
+    <string>Запустить %@</string>
+    <key>URLOpenAction</key>
+    <string>Открыть %@</string>
+    <key>URLOpenActionInBackground</key>
+    <string>Открыть %@ в фоне</string>
+    <key>URLOpenWithAction</key>
+    <string>Открыть %@ через %@</string>
+    <key>URLSearchAction</key>
+    <string>Искать в %@</string>
+    <key>URLSearchForAction</key>
+    <string>Искать %@ в %@</string>
+  </dict>
 </plist>
