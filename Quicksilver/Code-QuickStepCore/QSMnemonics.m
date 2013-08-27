@@ -113,12 +113,26 @@
 		[writeTimer invalidate];
 	writeTimer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(writeItems:) userInfo:nil repeats:NO];
 }
-- (void)addObjectMnemonic:(NSString *)mnem forID:(NSString *)key {
+
+- (BOOL)addObjectMnemonic:(NSString *)mnem forObject:(QSObject *)object {
+    
+    if (!object || ![object identifier] || [[object identifier] isEqualToString:@""]) {
+        return NO;
+    }
+    
+    NSArray *matchedObjects = [QSLib scoredArrayForString:mnem];
+    if (![matchedObjects containsObject:object]) {
+        // the mnemonic doesn't match the object, so don't add it
+        // WARNING: we could set up a synonym?
+        return NO;
+    }
+    
+    NSString *key = [object identifier];
 	if (!mnem) mnem = @"";
     
     mnem = [mnem lowercaseString];
-    
-	if (!key || [key isEqualToString:@""]) return;
+
+    [QSLib scoredArrayForString:mnem];
 	NSMutableDictionary *objectEntry;
 	if (!(objectEntry = [objectMnemonics objectForKey:key]) ) {
 		objectEntry = [NSMutableDictionary dictionaryWithCapacity:1];

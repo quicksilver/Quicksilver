@@ -68,8 +68,8 @@
 }
 
 - (QSObject *)setObjectMnemonic:(QSObject *)dObject string:(QSObject *)iObject {
-	[[QSMnemonics sharedInstance] addObjectMnemonic:[iObject stringValue] forID:[dObject identifier]];
-    [[QSMnemonics sharedInstance] addAbbrevMnemonic:[iObject stringValue] forID:[dObject identifier] relativeToID:nil immediately:NO];
+	[[QSMnemonics sharedInstance] addObjectMnemonic:[iObject stringValue] forObject:dObject];
+    [[QSMnemonics sharedInstance] addAbbrevMnemonic:[iObject stringValue] forID:dObject relativeToID:nil immediately:NO];
 	[dObject updateMnemonics];
 	return nil;
 }

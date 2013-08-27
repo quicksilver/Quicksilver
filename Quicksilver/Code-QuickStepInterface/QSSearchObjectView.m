@@ -159,7 +159,7 @@ NSMutableDictionary *bindingsDict = nil;
 		mnemonicValue = [[[self objectValue] splitObjects] lastObject];
 	}
 
-	[[QSMnemonics sharedInstance] addObjectMnemonic:mnemonicKey forID:[mnemonicValue identifier]];
+	[[QSMnemonics sharedInstance] addObjectMnemonic:mnemonicKey forObject:mnemonicValue];
 	if (![self sourceArray]) { // don't add abbreviation if in a subsearch
 		[[QSMnemonics sharedInstance] addAbbrevMnemonic:mnemonicKey forID:[mnemonicValue identifier] relativeToID:nil immediately:NO];
 	}
