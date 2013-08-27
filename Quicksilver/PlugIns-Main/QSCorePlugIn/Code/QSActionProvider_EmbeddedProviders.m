@@ -553,7 +553,7 @@
 		newName = nil;
 
 	// ***warning   * check the filesystem
-	if (![[newName pathExtension] length] && [[path pathExtension] length])
+	if (![[newName pathExtension] length] && [[path pathExtension] length] && ![dObject isDirectory])
 		newName = [newName stringByAppendingPathExtension:[path pathExtension]];
 	if (!newName) {
 		NSBeep();
