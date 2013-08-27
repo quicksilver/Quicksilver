@@ -22,7 +22,7 @@
 
 
 + (NSFocusRingType) defaultFocusRingType {
-	return NSFocusRingTypeExterior;
+	return NSFocusRingTypeNone;
 }
 - (NSTextView *)fieldEditorForView:(NSView *)aControlView
 {
