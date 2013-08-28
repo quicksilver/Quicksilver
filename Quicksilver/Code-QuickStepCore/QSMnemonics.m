@@ -51,21 +51,31 @@
 	[self writeItems:self];
 }
 
-- (void)addAbbrevMnemonic:(NSString *)mnem forID:(NSString *)key {
-	[self addAbbrevMnemonic:mnem forID:key relativeToID:nil immediately:NO];
+- (BOOL)addAbbrevMnemonic:(NSString *)mnem forObject:(QSObject *)object {
+	return [self addAbbrevMnemonic:mnem forObject:object relativeToID:nil immediately:NO];
 }
 
-- (void)addAbbrevMnemonic:(NSString *)mnem forID:(NSString *)key immediately:(BOOL)immediately {
-	[self addAbbrevMnemonic:mnem forID:key relativeToID:nil immediately:immediately];
+- (BOOL)addAbbrevMnemonic:(NSString *)mnem forObject:(QSObject *)object immediately:(BOOL)immediately {
+	return [self addAbbrevMnemonic:mnem forObject:object relativeToID:nil immediately:immediately];
 }
 
-- (void)addAbbrevMnemonic:(NSString *)mnem forID:(NSString *)key relativeToID:(NSString *)above immediately:(BOOL)immediately {
+- (BOOL)addAbbrevMnemonic:(NSString *)mnem forObject:(QSObject *)object relativeToID:(NSString *)above immediately:(BOOL)immediately {
+
+    if (!object || !mnem) {
+        return NO;
+    }
+    NSString *key = [object identifier];
+    if (!key.length) {
+        return NO;
+    }
+    
+    if (![[QSLib scoredArrayForString:mnem] containsObject:object]) {
+        return NO;
+    }
     
     // Abbreviations are case insensitive
     mnem = [mnem lowercaseString];
     
-	if (!key) return;
-    if (!mnem) return;
 
 	NSMutableArray *objectEntry;
 	if (!(objectEntry = [abbrevMnemonics objectForKey:mnem]) ) {

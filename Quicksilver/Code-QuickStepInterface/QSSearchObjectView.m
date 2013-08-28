@@ -120,7 +120,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (IBAction)defineMnemonic:(id)sender {
 	if ([self matchedString])
-		[[QSMnemonics sharedInstance] addAbbrevMnemonic:[self matchedString] forID:[[self objectValue] identifier]];
+		[[QSMnemonics sharedInstance] addAbbrevMnemonic:[self matchedString] forObject:[self objectValue]];
 	[self rescoreSelectedItem];
 }
 
@@ -161,7 +161,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 	[[QSMnemonics sharedInstance] addObjectMnemonic:mnemonicKey forObject:mnemonicValue];
 	if (![self sourceArray]) { // don't add abbreviation if in a subsearch
-		[[QSMnemonics sharedInstance] addAbbrevMnemonic:mnemonicKey forID:[mnemonicValue identifier] relativeToID:nil immediately:NO];
+		[[QSMnemonics sharedInstance] addAbbrevMnemonic:mnemonicKey forObject:mnemonicValue relativeToID:nil immediately:NO];
 	}
 
 	[mnemonicValue updateMnemonics];
