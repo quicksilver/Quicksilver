@@ -29,7 +29,7 @@ static CGFloat searchSpeed = 0.0;
 @implementation QSLibrarian
 
 + (id)sharedInstance {
-	if (!QSLib) QSLib = [[[self class] allocWithZone:[self zone]] init];
+	if (!QSLib) QSLib = [[[self class] allocWithZone:nil] init];
 	return QSLib;
 }
 
@@ -62,13 +62,13 @@ static CGFloat searchSpeed = 0.0;
 		enabledPresetsDictionary = [[NSMutableDictionary alloc] init];
         defaultSearchSet = [[NSMutableSet alloc] init];
         
-		scanTask = [[QSTask taskWithIdentifier:@"QSLibrarianScanTask"] retain];
+		scanTask = [QSTask taskWithIdentifier:@"QSLibrarianScanTask"];
 		[scanTask setName:@"Updating Catalog"];
 		[scanTask setIcon:[NSImage imageNamed:@"Catalog.icns"]];
 
 		//Initialize Variables
 		appSearchArrays = nil;
-		typeArrays = [[NSMutableDictionary dictionaryWithCapacity:1] retain];
+		typeArrays = [NSMutableDictionary dictionaryWithCapacity:1];
 		entriesBySource = [[NSMutableDictionary alloc] initWithCapacity:1];
         
 		omittedIDs = nil;
@@ -167,7 +167,7 @@ static CGFloat searchSpeed = 0.0;
 		}
 		children = [parent getChildren];
 		[children addObject:entry];
-		[children sortUsingFunction:presetSort context:self];
+		[children sortUsingFunction:presetSort context:(__bridge void *)(self)];
 		if (scan) [entry scanForced:YES];
 	}
 	//[catalogChildren replaceObjectsInRange:NSMakeRange(0, 0) withObjectsFromArray:newPresets];
@@ -194,7 +194,7 @@ static CGFloat searchSpeed = 0.0;
 	NSMutableDictionary *catalogStorage = [NSMutableDictionary dictionaryWithContentsOfFile:[pCatalogSettings stringByStandardizingPath]];
 
 	[enabledPresetsDictionary addEntriesFromDictionary:[catalogStorage objectForKey:@"enabledPresets"]];
-	omittedIDs = [[NSMutableSet setWithArray:[catalogStorage objectForKey:@"omittedItems"]] retain];
+	omittedIDs = [NSMutableSet setWithArray:[catalogStorage objectForKey:@"omittedItems"]];
 
     for(NSDictionary * entry in [catalogStorage objectForKey:@"customEntries"]) {
         [[customEntry children] addObject:[QSCatalogEntry entryWithDictionary:entry]];
@@ -209,24 +209,6 @@ static CGFloat searchSpeed = 0.0;
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[self writeCatalog:self];
-	[enabledPresetsDictionary release];
-	[defaultSearchSet release];
-	[omittedIDs release];
-	[scanTask release];
-	[activityController release];
-	[catalogArrays release];
-	[typeArrays release];
-	[defaultSearchArrays release];
-	[appSearchArrays release];
-	[shelfArrays release];
-	[actionObjects release];
-	[actionIdentifiers release];
-	[objectSources release];
-	[entriesByID release];
-	[entriesBySource release];
-	[invalidIndexes release];
-	[catalog release];
-	[super dealloc];
 }
 
 
@@ -335,7 +317,6 @@ static CGFloat searchSpeed = 0.0;
         if ([entryContents count]) {
             [newDefaultSet addObjectsFromArray:entryContents];
         }
-        [entryContents release];
     }
 
 	//NSLog(@"%@", newDefaultSet);
@@ -386,7 +367,6 @@ static CGFloat searchSpeed = 0.0;
                                                            errorDescription:&errorString];
         if (dictionaryArray == nil) {
             NSLog(@"Error reading shelf file %@: %@", thisShelf, errorString);
-            [errorString release];
             continue;
         }
 
@@ -438,7 +418,6 @@ static CGFloat searchSpeed = 0.0;
 		NSLog(@"Forcing %@ to scan", entry);
 		[entry scanForced:NO];
 	}
-	[invalidIndexes release];
 	invalidIndexes = nil;
 	return YES;
 }
@@ -582,7 +561,7 @@ static CGFloat searchSpeed = 0.0;
 	return [omittedIDs containsObject:[item identifier]];
 }
 - (void)setItem:(QSBasicObject *)item isOmitted:(BOOL)omit {
-	if (!omittedIDs && omit) omittedIDs = [[NSMutableSet set] retain];
+	if (!omittedIDs && omit) omittedIDs = [NSMutableSet set];
 	if (omit) [omittedIDs addObject:[item identifier]];
 	else [omittedIDs removeObject:[item identifier]];
 	[self writeCatalog:self];
@@ -693,8 +672,7 @@ static CGFloat searchSpeed = 0.0;
 }
 
 - (void)setCatalog:(QSCatalogEntry *)newCatalog {
-	[catalog release];
-	catalog = [newCatalog retain];
+	catalog = newCatalog;
 }
 
 - (NSMutableSet *)defaultSearchSet { return defaultSearchSet;  }
@@ -704,41 +682,36 @@ static CGFloat searchSpeed = 0.0;
     // avoid multiple threads from trying to release defaultSearchSet all at the same time
     @synchronized(defaultSearchSet) {
         if(newDefaultSearchSet != defaultSearchSet){
-            [defaultSearchSet release];
-            defaultSearchSet = [newDefaultSearchSet retain];
+            defaultSearchSet = newDefaultSearchSet;
         }
     }
 }
 
 
-- (NSMutableDictionary *)appSearchArrays { return [[appSearchArrays retain] autorelease];  }
+- (NSMutableDictionary *)appSearchArrays { return appSearchArrays;  }
 
 - (void)setAppSearchArrays:(NSMutableDictionary *)newAppSearchArrays {
-	[appSearchArrays release];
-	appSearchArrays = [newAppSearchArrays retain];
+	appSearchArrays = newAppSearchArrays;
 }
 
 
-- (NSMutableDictionary *)catalogArrays { return [[catalogArrays retain] autorelease];  }
+- (NSMutableDictionary *)catalogArrays { return catalogArrays;  }
 
 - (void)setCatalogArrays:(NSMutableDictionary *)newCatalogArrays {
-	[catalogArrays release];
-	catalogArrays = [newCatalogArrays retain];
+	catalogArrays = newCatalogArrays;
 }
 
 
-- (NSMutableDictionary *)typeArrays { return [[typeArrays retain] autorelease];  }
+- (NSMutableDictionary *)typeArrays { return typeArrays;  }
 
 - (void)setTypeArrays:(NSMutableDictionary *)newTypeArrays {
-	[typeArrays release];
-	typeArrays = [newTypeArrays retain];
+	typeArrays = newTypeArrays;
 }
 
-- (NSMutableDictionary *)shelfArrays { return [[shelfArrays retain] autorelease];  }
+- (NSMutableDictionary *)shelfArrays { return shelfArrays;  }
 
 - (void)setShelfArrays:(NSMutableDictionary *)newShelfArrays {
-	[shelfArrays release];
-	shelfArrays = [newShelfArrays retain];
+	shelfArrays = newShelfArrays;
 }
 
 
@@ -748,8 +721,7 @@ static CGFloat searchSpeed = 0.0;
 
 - (void)setScanTask:(QSTask *)value {
 	if (scanTask != value) {
-		[scanTask release];
-		scanTask = [value retain];
+		scanTask = value;
 	}
 }
 

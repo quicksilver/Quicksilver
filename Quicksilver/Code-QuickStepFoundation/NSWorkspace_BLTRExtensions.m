@@ -23,13 +23,11 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 			NSAppleEventDescriptor *aeDesc;
 
 			CFURLRef fileURL = CFURLCreateWithFileSystemPath(NULL, (CFStringRef)path, kCFURLPOSIXPathStyle, NO);
-			hfsPath = (NSString *)CFURLCopyFileSystemPath(fileURL, kCFURLHFSPathStyle);
+			hfsPath = (NSString *)CFBridgingRelease(CFURLCopyFileSystemPath(fileURL, kCFURLHFSPathStyle));
 			CFRelease(fileURL);
 
 			script = [[NSAppleScript alloc] initWithSource:[NSString stringWithFormat:@"tell application \"Finder\" to comment of item \"%@\"", hfsPath]];
-			[hfsPath release];
 			aeDesc = [script executeAndReturnError:nil];
-			[script release];
 			return [aeDesc stringValue];
 		} else {
 			NSBeep();
@@ -48,14 +46,12 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 		NSAppleScript *script;
 
 		CFURLRef fileURL = CFURLCreateWithFileSystemPath(NULL, (CFStringRef) path, kCFURLPOSIXPathStyle, NO);
-		hfsPath = (NSString *)CFURLCopyFileSystemPath(fileURL, kCFURLHFSPathStyle);
+		hfsPath = (NSString *)CFBridgingRelease(CFURLCopyFileSystemPath(fileURL, kCFURLHFSPathStyle));
 		CFRelease(fileURL);
 
 		scriptText = [NSString stringWithFormat:@"tell application \"Finder\" to set comment of item \"%@\" to \"%@\"", hfsPath, comment];
-        [hfsPath release];
 		script = [[NSAppleScript alloc] initWithSource:scriptText];
 		result = ([[script executeAndReturnError:nil] stringValue] != nil);
-		[script release];
 	} else {
 		NSBeep();
 	}
@@ -69,7 +65,6 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 	for (id loopItem in appURLs) {
 		[apps addObject:[loopItem path]];
 	}
-	[appURLs release];
 	return apps;
 }
 
@@ -182,14 +177,13 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 
 	while(GetNextProcess ( &thisPSN ) == noErr) {
 		BOOL getout;
-		NSDictionary *dict = (NSDictionary *)ProcessInformationCopyDictionary(&thisPSN, kProcessDictionaryIncludeAllInformationMask);
+		NSDictionary *dict = (NSDictionary *)CFBridgingRelease(ProcessInformationCopyDictionary(&thisPSN, kProcessDictionaryIncludeAllInformationMask));
 		getout = [[dict objectForKey:@"LSUIElement"] boolValue] || [[dict objectForKey:@"LSBackgroundOnly"] boolValue];
-		[dict release];
 		if (getout) continue;
-		NSString *name;
-		CopyProcessName(&thisPSN, (CFStringRef *)&name);
+		CFStringRef nameRef = nil;
+		CopyProcessName(&thisPSN, &nameRef);
+        NSString *name = (__bridge NSString *)nameRef;
 		getout = [name isEqualToString:@"Finder"];
-		[name release];
 		if (getout) continue;
 
 		SameProcess(&thisPSN, &myPSN, &show);
@@ -273,7 +267,7 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 - (void)launchACopyOfApplication:(NSDictionary *)theApp {
 	OSStatus err;
 	LSLaunchURLSpec spec;
-	spec.appURL = (CFURLRef) [NSURL fileURLWithPath:[theApp objectForKey:@"NSApplicationPath"]];
+	spec.appURL = (__bridge CFURLRef) [NSURL fileURLWithPath:[theApp objectForKey:@"NSApplicationPath"]];
 	spec.itemURLs = NULL;
 	spec.passThruParams  = NULL;
 	spec.launchFlags	 = kLSLaunchNewInstance;
@@ -285,7 +279,7 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 - (BOOL)openFileInBackground:(NSString *)fullPath {
 	struct LSLaunchURLSpec launchSpec = {
 		.appURL = NULL,
-		.itemURLs = (CFArrayRef) [NSArray arrayWithObject:[NSURL fileURLWithPath:fullPath]],
+		.itemURLs = (__bridge CFArrayRef) [NSArray arrayWithObject:[NSURL fileURLWithPath:fullPath]],
 		.passThruParams = NULL,
 		.launchFlags = kLSLaunchAsync | kLSLaunchDontSwitch | kLSLaunchNoParams,
 		.asyncRefCon = NULL,
@@ -326,9 +320,11 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 - (NSString *)nameForPID:(NSInteger)pid {
 	ProcessSerialNumber psn;
 	if (!GetProcessForPID(pid, &psn) ) {
-		NSString *name = nil;
-		if (!CopyProcessName(&psn, (CFStringRef *)&name))
-			return [name autorelease];
+		CFStringRef nameRef = nil;
+		if (!CopyProcessName(&psn, &nameRef)) {
+            NSString *name = (__bridge NSString *)nameRef;
+			return name;
+        }
 	}
 	return nil;
 }

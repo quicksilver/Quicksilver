@@ -11,11 +11,10 @@
 @implementation QSTreeController
 - (void)setContent:(id)content {
 	if (![content isEqual:[self content]]) {
-		NSArray *paths = [[self selectionIndexPaths] retain];
+		NSArray *paths = [self selectionIndexPaths];
 		[super setContent:nil];
 		[super setContent:content];
 		[self setSelectionIndexPaths:paths];
-		[paths release];
 	}
 }
 @end

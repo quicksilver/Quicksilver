@@ -16,7 +16,7 @@
 
 - (BOOL)isVisible:(NSString *)path {
 	LSItemInfoRecord infoRec;
-	OSStatus status = LSCopyItemInfoForURL((CFURLRef)[NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);
+	OSStatus status = LSCopyItemInfoForURL((__bridge CFURLRef)[NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);
 /*	BOOL result = ! ( (infoRec.flags & kLSItemInfoIsInvisible) || ([[path stringByDeletingLastPathComponent] isEqualToString:@"/"] && [HIDDENROOT containsObject:[path lastPathComponent]]) || (status && [[path lastPathComponent] hasPrefix:@"."]) );
 	return result;*/
 	return ! ( (infoRec.flags & kLSItemInfoIsInvisible) || (status && [[path lastPathComponent] hasPrefix:@"."]) );
@@ -101,7 +101,7 @@
 		return nil;
 
 	LSItemInfoRecord infoRec;
-	OSStatus status = LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path], kLSRequestTypeCreator|kLSRequestBasicFlagsOnly, &infoRec);
+	OSStatus status = LSCopyItemInfoForURL((__bridge CFURLRef) [NSURL fileURLWithPath:path], kLSRequestTypeCreator|kLSRequestBasicFlagsOnly, &infoRec);
 	if (status)
 		return @"";
 
@@ -156,7 +156,7 @@
 		if (![self fileExistsAtPath:path])
 			continue;
 		LSItemInfoRecord infoRec;
-		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);
+		LSCopyItemInfoForURL((__bridge CFURLRef) [NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);
 		if (infoRec.flags & kLSItemInfoIsAliasFile)
 			path = [[self resolveAliasAtPath:path] stringByResolvingSymlinksInPath];
 	}
@@ -184,9 +184,8 @@
     if (FSResolveAliasFileWithMountFlags(&aliasRef, true, &targetIsFolder, &wasAliased, (!usingUI ? kResolveAliasFileNoUI : 0)))
         return nil;
 
-	if (url = (NSURL *)CFURLCreateFromFSRef(kCFAllocatorDefault, &aliasRef)) {
+	if (url = (NSURL *)CFBridgingRelease(CFURLCreateFromFSRef(kCFAllocatorDefault, &aliasRef))) {
 		outString = [url path];
-		CFRelease(url);
 		return outString;
 	}
 	return nil;
@@ -209,17 +208,17 @@
 	NSString *type;
 	LSItemInfoRecord infoRec;
 //	OSStatus status;
-	for (NSString *file in [manager contentsOfDirectoryAtPath:path error:nil]) {
+	for (__strong NSString *file in [manager contentsOfDirectoryAtPath:path error:nil]) {
 		file = [path stringByAppendingPathComponent:file];
 		type = [self typeOfFile:file];
 
-		/*status = */LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:file], kLSRequestBasicFlagsOnly, &infoRec);
+		/*status = */LSCopyItemInfoForURL((__bridge CFURLRef) [NSURL fileURLWithPath:file], kLSRequestBasicFlagsOnly, &infoRec);
 
 		if (infoRec.flags & kLSItemInfoIsAliasFile) {
 			NSString *aliasFile = [self resolveAliasAtPath:file];
 			if (aliasFile && [manager fileExistsAtPath:aliasFile]) {
 				file = aliasFile;
-				LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:file] , kLSRequestBasicFlagsOnly, &infoRec);
+				LSCopyItemInfoForURL((__bridge CFURLRef) [NSURL fileURLWithPath:file] , kLSRequestBasicFlagsOnly, &infoRec);
 			}
 		}
 		if (![manager fileExistsAtPath:file isDirectory:&isDirectory])
@@ -262,16 +261,14 @@
 		return moddate;
 	}
 	if (isDirectory) {
-		for (NSString *file in [self contentsOfDirectoryAtPath:path error:nil]) {
+		for (__strong NSString *file in [self contentsOfDirectoryAtPath:path error:nil]) {
 			file = [path stringByAppendingPathComponent:file];
 			if (![self fileExistsAtPath:file isDirectory:&isDirectory]) continue;
 
 			if (depth && isDirectory && ![workspace isFilePackageAtPath:file]) {
                 @autoreleasepool {
                     moddate = [self path:file wasModifiedAfter:date depth:depth--];
-                    [moddate retain];
                 }
-				[moddate autorelease];
 				if (moddate)
 					return moddate;
 			}
@@ -292,7 +289,7 @@
 	if ([moddate timeIntervalSinceNow] >0)
 		moddate = [NSDate distantPast];
 	if (isDirectory) {
-		for (NSString *file in [self contentsOfDirectoryAtPath:path error:nil]) {
+		for (__strong NSString *file in [self contentsOfDirectoryAtPath:path error:nil]) {
 			file = [path stringByAppendingPathComponent:file];
 			if (![self fileExistsAtPath:file isDirectory:&isDirectory]) continue;
 

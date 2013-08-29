@@ -48,15 +48,13 @@
 - (QSCatalogEntry *)selection { return selection;  }
 - (void)setSelection:(QSCatalogEntry *)newSelection {
 	if(newSelection != selection){
-		[selection release];
-		selection = [newSelection retain];
+		selection = newSelection;
 	}
 }
 
 - (NSView *)settingsView { return settingsView;  }
 - (void)setSettingsView:(NSView *)newSettingsView {
-	[settingsView release];
-	settingsView = [newSettingsView retain];
+	settingsView = newSettingsView;
 }
 
 @end

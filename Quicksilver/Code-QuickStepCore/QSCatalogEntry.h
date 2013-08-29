@@ -26,7 +26,7 @@
 @property (assign, atomic) BOOL isScanning;
 
 
-@property (retain, atomic, getter=_contents) NSArray *contents;
+@property (strong, atomic, getter=_contents) NSArray *contents;
 
 + (QSCatalogEntry *)entryWithDictionary:(NSDictionary *)dict;
 - (NSDictionary *)dictionaryRepresentation;

@@ -89,7 +89,6 @@ void QSDrawGlossyRect(NSRect rect, BOOL topOnly, BOOL lightSides, BOOL flipped) 
 		NSCell *newCell = [[QSGlossyBarButtonCell alloc] initTextCell:[self title]];
 		[(NSButtonCell*)newCell takeAttributesOfCell:(NSButtonCell*)oldCell];
 		[self setCell:newCell];
-		[newCell release];
 	}
 	return self;
 }
@@ -109,7 +108,6 @@ void QSDrawGlossyRect(NSRect rect, BOOL topOnly, BOOL lightSides, BOOL flipped) 
 		NSCell *newCell = [[QSGlossyBarButtonCell alloc] initTextCell:[self title]];
 		[(NSButtonCell*)newCell takeAttributesOfCell:(NSButtonCell*)oldCell];
 		[self setCell:newCell];
-		[newCell release];
 	}
 	return self;
 }

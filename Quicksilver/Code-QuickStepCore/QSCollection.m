@@ -15,11 +15,6 @@
 	}
 	return self;
 }
-- (void)dealloc {
-//	[objectValue release];
-	[array release];
-	[super dealloc];
-}
 
 //Methods for array passing
 

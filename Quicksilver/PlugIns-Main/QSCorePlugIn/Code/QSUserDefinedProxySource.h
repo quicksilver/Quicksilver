@@ -7,7 +7,8 @@
 //
 
 #import <QSCore/QSCore.h>
-#import "QSUserDefinedProxyTargetPicker.h"
+
+@class QSUserDefinedProxyTargetPicker;
 
 @interface QSUserDefinedProxySource : QSObjectSource
 {
@@ -18,4 +19,5 @@
     QSUserDefinedProxyTargetPicker *targetPickerController;
 }
 - (IBAction)showTargetPicker:(id)sender;
+- (void)save;
 @end

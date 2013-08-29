@@ -18,6 +18,9 @@
 	NSBundle *_bundle;
 	NSDictionary *_info;
 }
+
+@property (nonatomic, strong) NSDictionary *info;
+
 - (id)initWithInfo:(NSDictionary *)info;
 - (void)requestRelaunch;
 - (IBAction)showPaneHelp:(id)sender;

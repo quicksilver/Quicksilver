@@ -20,7 +20,6 @@
 	NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
 	NSDictionary *safariPrefs = [defaults persistentDomainForName:@"com.apple.Safari"];
 	downloads = [[safariPrefs objectForKey:@"DownloadsPath"] stringByStandardizingPath];
-	[defaults release];
     
     if (downloads) {
 		downloads = [downloads stringByResolvingSymlinksInPath];

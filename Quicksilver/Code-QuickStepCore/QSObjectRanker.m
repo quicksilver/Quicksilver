@@ -58,7 +58,7 @@ QSScoreForAbbrevIMP scoreForAbbrevIMP;
 }
 
 + (id)rankerForObject:(QSBasicObject *)object {
-	return [[[self alloc] initWithObject:object] autorelease];
+	return [[self alloc] initWithObject:object];
 }
 
 NSString *QSRankingMnemonicsOnly = @"QSRankingMnemonicsOnly";   // BOOL
@@ -113,7 +113,6 @@ NSString *QSRankingAbbreviationMnemonics = @"QSRankingAbbreviationMnemonics"; //
             }
         }
     }
-    [options release];
 	return rankObjects;
 }
 
@@ -136,19 +135,15 @@ NSString *QSRankingAbbreviationMnemonics = @"QSRankingAbbreviationMnemonics"; //
 			nameRanker = [[QSCurrentStringRanker alloc] initWithString:[object name]];
 		if ([object label] && ![[object label] isEqualToString:[object name]])
 			labelRanker = [[QSCurrentStringRanker alloc] initWithString:[object label]];
-		usageMnemonics = [[[QSMnemonics sharedInstance] objectMnemonicsForID:[object identifier]] retain];
+		usageMnemonics = [[QSMnemonics sharedInstance] objectMnemonicsForID:[object identifier]];
 	}
 	return self;
 }
 
 - (void)dealloc {
-	[usageMnemonics release];
 	usageMnemonics = nil;
-	[nameRanker release];
 	nameRanker = nil;
-	[labelRanker release];
 	labelRanker = nil;
-	[super dealloc];
 }
 
 - (NSString*)description {
@@ -248,7 +243,7 @@ NSString *QSRankingAbbreviationMnemonics = @"QSRankingAbbreviationMnemonics"; //
             }
         }
         // set newscore
-        newScore += sqrt([object retainCount]) /100; // If an object appears many times, increase score, this may be bad
+        //newScore += sqrt([object retainCount]) /100; // If an object appears many times, increase score, this may be bad
         
         //*** in the future, increase for recent document, increase for partial match, increase for higher source index
 	}
@@ -264,7 +259,7 @@ NSString *QSRankingAbbreviationMnemonics = @"QSRankingAbbreviationMnemonics"; //
 			[rankedObject setRankedString:matchedString];
 			return rankedObject;
 		} else {
-			return [[[QSRankedObject alloc] initWithObject:object matchString:matchedString order:newOrder score:newScore] autorelease];
+			return [[QSRankedObject alloc] initWithObject:object matchString:matchedString order:newOrder score:newScore];
 		}
 	}
 	return nil;

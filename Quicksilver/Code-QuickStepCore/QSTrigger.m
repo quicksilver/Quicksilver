@@ -33,7 +33,7 @@
 }
 
 + (id)triggerWithDictionary:(NSDictionary *)dict {
-	return [[[self alloc] initWithDictionary:dict] autorelease];
+	return [[self alloc] initWithDictionary:dict];
 }
 
 - (id)initWithInfo:(NSDictionary *)dict {
@@ -61,10 +61,6 @@
 #ifdef DEBUG
 	NSLog(@"dealloc %@", self);
 #endif
-    [command release];
-	[info release];
-	[children release];
-	[super dealloc];
 }
 
 - (NSString *)identifier {
@@ -164,8 +160,7 @@
 
 - (void)setCommand:(QSCommand*)newCommand {
     if (newCommand != command) {
-        [command release];
-        command = [newCommand retain];
+        command = newCommand;
     }
 }
 
@@ -175,7 +170,7 @@
     
 	id archivedCommand = [info objectForKey:@"command"];
     if (archivedCommand)
-        command = [[QSCommand commandWithInfo:archivedCommand] retain];
+        command = [QSCommand commandWithInfo:archivedCommand];
 	return command;
 }
 
@@ -211,7 +206,7 @@
         [dict setObject:rep forKey:@"command"];
     else
         [dict removeObjectForKey:@"command"];
-	return [dict autorelease];
+	return dict;
 }
 
 - (NSString *)triggerDescription {

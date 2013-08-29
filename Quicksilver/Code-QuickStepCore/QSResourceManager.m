@@ -18,7 +18,7 @@ id QSRez;
 }
 
 + (id)sharedInstance {
-	if (!QSRez) QSRez = [[[self class] allocWithZone:[self zone]] init];
+	if (!QSRez) QSRez = [[[self class] allocWithZone:nil] init];
 	return QSRez;
 }
 + (NSImage *)imageNamed:(NSString *)name {
@@ -30,16 +30,15 @@ id QSRez;
 }
 - (id)init {
 	if (self = [super init]) {
-		resourceDict = [[NSMutableDictionary dictionaryWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"ResourceLocations" ofType:@"plist"]]retain];
+		resourceDict = [NSMutableDictionary dictionaryWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"ResourceLocations" ofType:@"plist"]];
 
 		resourceOverrideList = nil;
 
 		NSFileManager *fm = [NSFileManager defaultManager];
 		resourceOverrideFolder = QSApplicationSupportSubPath(@"Resources", NO);
 		if ([fm fileExistsAtPath:resourceOverrideFolder]) {
-			[resourceOverrideFolder retain];
 			NSArray *contents = [[fm contentsOfDirectoryAtPath:resourceOverrideFolder error:nil] pathsMatchingExtensions:[NSImage imageFileTypes]];
-			resourceOverrideList = [[NSDictionary dictionaryWithObjects:contents forKeys:[contents valueForKey:@"stringByDeletingPathExtension"]]retain];
+			resourceOverrideList = [NSDictionary dictionaryWithObjects:contents forKeys:[contents valueForKey:@"stringByDeletingPathExtension"]];
 		} else {
 			resourceOverrideFolder = nil;
 		}
@@ -51,7 +50,7 @@ id QSRez;
 - (NSImage *)sysIconNamed:(NSString *)name {
 	NSString *path = [[NSBundle bundleWithPath:gSysIconBundle] pathForResource:name ofType:@"icns"];
 	if (!path) return nil;
-	return [[[NSImage alloc] initByReferencingFile:path] autorelease];
+	return [[NSImage alloc] initByReferencingFile:path];
 }
 - (NSString *)resourceNamed:(NSString *)name inBundle:(NSBundle *)bundle {
 	return nil;
@@ -66,7 +65,7 @@ id QSRez;
 	if (!image && resourceOverrideList) {
 		NSString *file = [resourceOverrideList objectForKey:name];
 		if (file)
-			image = [[[NSImage alloc] initByReferencingFile:[resourceOverrideFolder stringByAppendingPathComponent:file]]autorelease];
+			image = [[NSImage alloc] initByReferencingFile:[resourceOverrideFolder stringByAppendingPathComponent:file]];
 		[image setName:name];
 
 	}
@@ -85,7 +84,7 @@ id QSRez;
 	if (!image && resourceOverrideList) {
 		NSString *file = [resourceOverrideList objectForKey:name];
 		if (file) {
-			image = [[[NSImage alloc] initByReferencingFile:[resourceOverrideFolder stringByAppendingPathComponent:file]] autorelease];
+			image = [[NSImage alloc] initByReferencingFile:[resourceOverrideFolder stringByAppendingPathComponent:file]];
 		}
 		[image setName:name];
 	}
@@ -101,7 +100,7 @@ id QSRez;
 	} else if (!image && ([name hasPrefix:@"/"] || [name hasPrefix:@"~"])) { // !!! Andre Berg 20091007: Try iconForFile first if name looks like ordinary path
 		NSString *path = [name stringByStandardizingPath];
 		if ([[NSImage imageUnfilteredFileTypes] containsObject:[path pathExtension]]) {
-			image = [[[NSImage alloc] initByReferencingFile:path] autorelease];
+			image = [[NSImage alloc] initByReferencingFile:path];
 		} else {
 			image = [[NSWorkspace sharedWorkspace] iconForFile:path];
 		}
@@ -118,7 +117,10 @@ id QSRez;
 	if(!image) {
 		SEL selector = NSSelectorFromString([NSString stringWithFormat:@"%@Image", name]);
 		if ([self respondsToSelector:selector]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 			image = [self performSelector:selector];
+#pragma clang diagnostic pop
 		}
 	}
 
@@ -190,7 +192,7 @@ id QSRez;
 			if (image) break;
 		}
 	} else {
-		image = [[[NSImage alloc] initWithContentsOfFile:[self pathWithLocatorInformation:locator]] autorelease];
+		image = [[NSImage alloc] initWithContentsOfFile:[self pathWithLocatorInformation:locator]];
 	}
 
 	if (!image && [locator isKindOfClass:[NSDictionary class]]) {

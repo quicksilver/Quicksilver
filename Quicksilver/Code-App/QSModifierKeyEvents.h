@@ -19,13 +19,15 @@ NSUInteger lastModifiers;
 	NSUInteger modifierActivationMask;
 	NSInteger modifierActivationCount;
 	NSString *identifier;
-	id target;
 	SEL action;
 
 
 	@private
 		NSInteger keyCode;
 }
+
+@property (nonatomic, retain) id target;
+
 + (BOOL)checkForModifierEvent:(NSEvent *)theEvent;
 + (QSModifierKeyEvent *)eventWithIdentifier:(NSString *)identifier;
 

@@ -26,7 +26,6 @@
 	[window setMovableByWindowBackground:NO];
 	WebView *wv = [[WebView alloc] initWithFrame:windowRect frameName:nil groupName:nil];
 	[window setContentView:wv];
-	[wv release];
 
 	//NSLog(@"loaded %@", window);
 
@@ -42,9 +41,7 @@
 		//[toolbar setDisplayMode:NSToolbarDisplayModeIconOnly];
 		[toolbar setSizeMode:NSToolbarSizeModeSmall];
 		[window setToolbar:toolbar];
-		[toolbar release];
 	}
-    [window release];
 	return self;
 }
 
@@ -87,7 +84,6 @@
 		[item setMaxSize:NSMakeSize(9999, 32)];
 		[textField setTarget:[[self window] contentView]];
 		[textField setAction:@selector(takeStringURLFrom:)];
-        [textField release];
 	} else if ( [itemIdentifier isEqualToString:@"Backward"] ) {
 		[item setLabel:@"Back"];
 		[item setPaletteLabel:[item label]];
@@ -116,10 +112,9 @@
 		// Configuration code for "SearchItem"
 	}
 
-	return [item autorelease];
+	return item;
 }
 - (BOOL)windowShouldClose:(id)sender {
-	[self autorelease];
 	return YES;
 }
 @end

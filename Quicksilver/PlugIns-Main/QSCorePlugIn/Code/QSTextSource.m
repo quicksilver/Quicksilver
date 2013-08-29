@@ -20,6 +20,8 @@
 
 @implementation QSTextActions
 
+@synthesize currentLargeTypeWindow;
+
 - (QSObject *)showLargeType:(QSObject *)dObject {
     NSString *display = nil;
     if ([dObject singleFilePath]) {

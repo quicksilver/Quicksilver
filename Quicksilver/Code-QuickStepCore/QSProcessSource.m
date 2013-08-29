@@ -31,7 +31,7 @@
 - (id)init {
 	if (self = [super init]) {
 		processScanDate = [NSDate timeIntervalSinceReferenceDate];
-		processes = [[NSMutableArray arrayWithCapacity:1] retain];
+		processes = [NSMutableArray arrayWithCapacity:1];
 
 		[[QSProcessMonitor sharedInstance] addObserver:self forKeyPath:@"allProcesses" options:NSKeyValueObservingOptionNew context:QSProcessSourceObservationContext];
 		[[NSUserDefaultsController sharedUserDefaultsController] addObserver:self forKeyPath:@"values." kQSShowBackgroundProcesses options:NSKeyValueObservingOptionNew context:QSProcessSourceObservationContext];
@@ -71,7 +71,9 @@
 
 - (QSObject *)activateApplication:(QSObject *)dObject {
 	NSArray *array = [dObject arrayForType:QSProcessType];
-	[[NSWorkspace sharedWorkspace] performSelector:@selector(activateApplication:) onObjectsInArray:array];
+    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [[NSWorkspace sharedWorkspace] activateApplication:obj];
+    }];
 	return nil;
 }
 
@@ -127,22 +129,28 @@
 	if (array) {
 		if ([[NSWorkspace sharedWorkspace] applicationIsFrontmost:[array lastObject]]) {
 		//	NSLog(@"showing");
-            [[NSWorkspace sharedWorkspace] performSelector:@selector(hideApplication:) onObjectsInArray:array
-                                              returnValues:NO];
+            [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                [[NSWorkspace sharedWorkspace] hideApplication:obj];
+            }];
 		} else {
-            [[NSWorkspace sharedWorkspace] performSelector:@selector(activateApplication:) onObjectsInArray:array
-                                              returnValues:NO];		
+            [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                [[NSWorkspace sharedWorkspace] activateApplication:obj];
+            }];
 		}
 	} else {
 		array = [dObject validPaths];
-		[[NSWorkspace sharedWorkspace] performSelector:@selector(openFile:) onObjectsInArray:array returnValues:NO];
+        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [[NSWorkspace sharedWorkspace] openFile:obj];
+        }];
 	}
 	return nil;
 }
 
 - (QSObject *)hideApplication:(QSObject *)dObject {
 	NSArray *array = [dObject arrayForType:QSProcessType];
-	[[NSWorkspace sharedWorkspace] performSelector:@selector(hideApplication:) onObjectsInArray:array returnValues:NO];
+    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [[NSWorkspace sharedWorkspace] hideApplication:obj];
+    }];
 	return nil;
 }
 
@@ -158,13 +166,17 @@
 }
 - (QSObject *)quitApplication:(QSObject *)dObject {
 	NSArray *array = [dObject arrayForType:QSProcessType];
-	[[NSWorkspace sharedWorkspace] performSelector:@selector(quitApplication:) onObjectsInArray:array returnValues:NO];
+    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [[NSWorkspace sharedWorkspace] quitApplication:obj];
+    }];
 	return nil;
 }
 
 - (QSObject *)relaunchApplication:(QSObject *)dObject {
 	NSArray *array = [dObject arrayForType:QSProcessType];
-	[[NSWorkspace sharedWorkspace] performSelector:@selector(relaunchApplication:) onObjectsInArray:array returnValues:NO];
+    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [[NSWorkspace sharedWorkspace] performSelector:@selector(relaunchApplication) withObject:obj];
+    }];
 	return nil;
 }
 

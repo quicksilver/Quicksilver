@@ -18,9 +18,11 @@
 	}
 }
 - (void)insertObjectsFromArray:(NSArray *)array atIndex:(NSUInteger)index {
-	id object;
-	for(object in array)
-		[self insertObject:object atIndex:index];
+    __block NSUInteger internalIndex = index;
+    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+       [self insertObject:obj atIndex:internalIndex];
+        internalIndex++;
+    }];
 }
 
 @end
@@ -39,49 +41,39 @@
 
 - (NSMutableArray *)arrayByPerformingSelector:(SEL)aSelector {
     NSMutableArray *resultArray = nil;
-	id result;
+	__block id result;
     @synchronized(self) {
         resultArray = [NSMutableArray arrayWithCapacity:[self count]];
-        for (id anObject in self)
-        {
-            result = [anObject performSelector:aSelector];
+        [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            result = [obj performSelector:aSelector];
             [resultArray addObject:(result?result:[NSNull null])];
-        }
+        }];
     }
 	return resultArray;
 }
 
 - (NSMutableArray *)arrayByPerformingSelector:(SEL)aSelector withObject:(id)object {
     NSMutableArray *resultArray = nil;
-    id result;
+    __block id result;
     @synchronized(self) {
         resultArray = [NSMutableArray arrayWithCapacity:[self count]];
-        for (id obj in self) {
+        [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             result = [obj performSelector:aSelector withObject:object];
             [resultArray addObject:(result?result:[NSNull null])];
-        }
+        }];
     }
 	return resultArray;
 }
 
 - (id)objectWithValue:(id)value forKey:(NSString *)key {
-	for(id object in self) {
-		if ([[object valueForKey:key] isEqual:value])
-			return object;
-	}
-	return nil;
-}
-
-@end
-
-@implementation NSArray (Enumeration)
-
-- (NSArray *)arrayByEnumeratingArrayUsingBock:(id (^)(id obj))block {
-    NSMutableArray *arr = [NSMutableArray arrayWithCapacity:[self count]];
-    for (id obj in self) {
-        [arr addObject:block(obj)];
-    }
-    return [NSArray arrayWithArray:arr];
+    __block id returnVal = nil;
+    [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([[obj valueForKey:key] isEqual:value]) {
+            returnVal = obj;
+            *stop = YES;
+        }
+    }];
+    return returnVal;
 }
 
 @end
@@ -90,38 +82,60 @@
 
 + (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(id)array returnValues:(BOOL)flag {
 	NSMutableArray *resultArray = nil;
-    id result;
+    __block id result;
+    
     @synchronized(array) {
         if (flag)
             resultArray = [NSMutableArray arrayWithCapacity:[(NSArray *)array count]];
-
-        for (id obj in array) {
-            result = [self performSelector:aSelector withObject:obj];
-            if (flag)
+        
+        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if (flag) {
+                result = [self performSelector:aSelector withObject:obj];
                 [resultArray addObject:(result?result:[NSNull null])];
-        }
+            } else {
+                [self performSelector:aSelector withObject:obj];
+            }
+        }];
     }
+    
 	return resultArray;
 }
 
 - (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(id)array returnValues:(BOOL)flag {
 	NSMutableArray *resultArray = nil;
-    id result;
+    __block id result;
     
     @synchronized(array) {
         if (flag)
             resultArray = [NSMutableArray arrayWithCapacity:[(NSArray *)array count]];
-
-        for (id obj in array) {
-            result = [self performSelector:aSelector withObject:obj];
-            if (flag) [resultArray addObject:(result?result:[NSNull null])];
-        }
+    
+        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if (flag) {
+                result = [self performSelector:aSelector withObject:obj];
+                [resultArray addObject:(result?result:[NSNull null])];
+            } else {
+                [self performSelector:aSelector withObject:obj];
+            }
+        }];
     }
+    
 	return resultArray;
 }
 
 - (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(id)array {
-	return [self performSelector:(SEL) aSelector onObjectsInArray:(id)array returnValues:YES];
+	return [self performSelector:(SEL)aSelector onObjectsInArray:(id)array returnValues:YES];
+}
+
+@end
+
+@implementation NSArray (Enumeration)
+
+- (NSArray *)arrayByEnumeratingArrayUsingBock:(id (^)(id obj))block {
+    NSMutableArray *arr = [NSMutableArray arrayWithCapacity:[self count]];
+    [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [arr addObject:block(obj)];
+    }];
+    return [NSArray arrayWithArray:arr];
 }
 
 @end

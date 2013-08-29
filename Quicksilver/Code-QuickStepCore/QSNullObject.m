@@ -13,7 +13,7 @@
 
 @implementation QSBasicObject (NullObject)
 +(QSBasicObject *)nullObject {
-	return [[[QSNullObject alloc] init] autorelease];
+	return [[QSNullObject alloc] init];
 }
 
 @end

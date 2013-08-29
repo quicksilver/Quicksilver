@@ -34,14 +34,13 @@
 + (QSTriggersPrefPane *)sharedInstance {
 	static QSTriggersPrefPane *_sharedInstance = nil;
 	if (!_sharedInstance) {
-		_sharedInstance = [[super allocWithZone:[self zone]] init];
+		_sharedInstance = [[super alloc] init];
 	}
 	return _sharedInstance;
 }
 
-+ (id)allocWithZone:(NSZone *)zone
-{
-    return [[self sharedInstance] retain];
++ (id)alloc {
+    return [self sharedInstance];
 }
 
 - (NSView *)loadMainView {
@@ -108,7 +107,6 @@
 - (void)setCurrentSetIsEnabled:(BOOL)flag {}
 
 - (void)populateTypeMenu {
-	[typeMenu autorelease];
 	typeMenu = [[NSMenu alloc] initWithTitle:@"Types"];
 
 	NSMutableArray *menuItems = [NSMutableArray array];
@@ -117,9 +115,9 @@
 	NSDictionary *managers = [[QSTriggerCenter sharedInstance] triggerManagers];
 	for (NSString *key in managers) {
 		QSTriggerManager *manager = [managers objectForKey:key];
-		NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:[manager name]
+		NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:[manager name]
 													   action:NULL
-												keyEquivalent:@""] autorelease];
+												keyEquivalent:@""];
 
 		[item setRepresentedObject:key];
 		[item setImage:[manager image]];
@@ -130,8 +128,10 @@
 	}
 
 	[menuItems sortUsingDescriptors:[NSSortDescriptor descriptorArrayWithKey:@"title" ascending:YES]];
-
-	[typeMenu performSelector:@selector(addItem:) onObjectsInArray:menuItems returnValues:NO];
+    
+    [menuItems enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [typeMenu addItem:obj];
+    }];
 
 	// Make a copy for for the add button menu, and add the Group type there
 	NSMenu *addMenu = [typeMenu copy];
@@ -147,7 +147,6 @@
 	}
 
 	[addButton setMenu:addMenu];
-    [addMenu release];
 }
 
 - (id)preferencesSplitView { return [sidebar superview];  }
@@ -194,9 +193,9 @@
                             forKeyPath:@"selection.info.applicationScope"
                                options:0
                                context:nil];
-	NSSortDescriptor *aSortDesc = [[[NSSortDescriptor alloc] initWithKey:@"name"
+	NSSortDescriptor *aSortDesc = [[NSSortDescriptor alloc] initWithKey:@"name"
 															   ascending:YES
-																selector:@selector(caseInsensitiveCompare:)] autorelease];
+																selector:@selector(caseInsensitiveCompare:)];
 	[triggerArrayController setSortDescriptors:[NSArray arrayWithObject:aSortDesc]];
 	[triggerArrayController rearrangeObjects];
 	[self reloadFilters];
@@ -254,7 +253,7 @@
 		settingsView = [manager settingsView];
 
 	if (!settingsView)
-		settingsView = [[[NSView alloc] init] autorelease];
+		settingsView = [[NSView alloc] init];
 
 	[settingsItem setView:settingsView];
 
@@ -266,11 +265,10 @@
     }
 }
 
-- (QSTrigger *)selectedTrigger { return [[selectedTrigger retain] autorelease];  }
+- (QSTrigger *)selectedTrigger { return selectedTrigger;  }
 - (void)setSelectedTrigger:(QSTrigger *)newSelectedTrigger {
 	if (selectedTrigger != newSelectedTrigger) {
-		[selectedTrigger release];
-		selectedTrigger = [newSelectedTrigger retain];
+		selectedTrigger = newSelectedTrigger;
 		[self selectTrigger:selectedTrigger];
 	}
 }
@@ -293,24 +291,23 @@
 - (BOOL)editTriggerCommand:(QSTrigger *)trigger callback:(SEL)aSelector {
 	//[[optionsDrawer contentView] window] //
 	[commandEditor setCommand:[trigger command]];
-	[NSApp beginSheet:[commandEditor window] modalForWindow:[[self mainView] window] modalDelegate:self didEndSelector:aSelector contextInfo:[trigger retain]];
+	[NSApp beginSheet:[commandEditor window] modalForWindow:[[self mainView] window] modalDelegate:self didEndSelector:aSelector contextInfo:CFBridgingRetain(trigger)];
 	return YES;
 }
 
 - (void)editSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
 	QSCommand *command = [commandEditor representedCommand];
-	QSTrigger *trigger = (QSTrigger *)contextInfo;
+	QSTrigger *trigger = (__bridge QSTrigger *)contextInfo;
 	if (command) {
         [trigger setCommand:command];
 		[[QSTriggerCenter sharedInstance] triggerChanged:trigger];
 	}
-    [trigger release];
-    [sheet orderOut:self];
+	[sheet orderOut:self];
 }
 
 - (void)addSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
 	QSCommand *command = [commandEditor representedCommand];
-	QSTrigger *trigger = (QSTrigger*)contextInfo;
+	QSTrigger *trigger = (__bridge QSTrigger*)contextInfo;
 	if (command) {
 		//		if (VERBOSE) NSLog(@"command %@", command);
 		[trigger setCommand:command];
@@ -320,8 +317,10 @@
 //		[self updateTriggerArray];
 	}
     // select the trigger (its position has changed since adding the trigger)
-    [triggerTable selectRowIndexes:[NSIndexSet indexSetWithIndex:[[triggerArrayController arrangedObjects] indexOfObject:trigger]] byExtendingSelection:NO];
-    [trigger release];
+    NSUInteger selectTriggerIndex = [[triggerArrayController arrangedObjects] indexOfObject:trigger];
+    if (selectTriggerIndex != NSNotFound) {
+        [triggerTable selectRowIndexes:[NSIndexSet indexSetWithIndex:selectTriggerIndex] byExtendingSelection:NO];
+    }
 	[sheet orderOut:self];
 }
 
@@ -346,7 +345,6 @@
 	[info setObject:[NSString uniqueString] forKey:kItemID];
 
 	QSTrigger *trigger = [QSTrigger triggerWithDictionary:info];
-    [info release];
 	[trigger initializeTrigger];
 	[[QSTriggerCenter sharedInstance] addTrigger:trigger];
     [triggerTable selectRowIndexes:[NSIndexSet indexSetWithIndex:[[triggerArrayController arrangedObjects] indexOfObject:trigger]] byExtendingSelection:NO];
@@ -394,15 +392,13 @@
 - (NSSortDescriptor *)sort { return sort; }
 
 - (void)setSort:(NSSortDescriptor *)newSort {
-	[sort release];
-	sort = [newSort retain];
+	sort = newSort;
 }
 
 - (NSArray *)triggerArray { return triggerArray; }
 
 - (void)setTriggerArray:(NSMutableArray *)newTriggerArray {
-	[triggerArray release];
-	triggerArray = [newTriggerArray retain];
+	triggerArray = newTriggerArray;
 }
 
 - (IBAction)removeTrigger:(id)sender {
@@ -418,7 +414,6 @@
 - (NSString *)currentSet { return currentSet;  }
 - (void)setCurrentSet:(NSString *)value {
 	if (currentSet != value) {
-		[currentSet release];
 		currentSet = [value copy];
 		[self reloadFilters];
 	}
@@ -472,8 +467,7 @@
 - (NSString *)search { return search; }
 - (void)setSearch:(NSString *)newSearch {
 	if(newSearch != search){
-		[search release];
-		search = [newSearch retain];
+		search = newSearch;
 		[self reloadFilters];
 	}
 }
@@ -490,7 +484,7 @@
 	if ([[aTableColumn identifier] isEqualToString: @"type"]) {
 		if ([aCell isMemberOfClass:[NSPopUpButtonCell class]]) {
 			NSString *type = [thisTrigger valueForKey:@"type"];
-			[aCell setMenu:[[typeMenu copy] autorelease]];
+			[aCell setMenu:[typeMenu copy]];
 			[(NSPopUpButtonCell*)aCell selectItemAtIndex:[(NSPopUpButtonCell*)aCell indexOfItemWithRepresentedObject:type]];
 
 			[aCell setEnabled:!isGroup && ([typeMenu numberOfItems] >1 || ![type length])];
@@ -636,17 +630,16 @@
 					 @"All Triggers", @"text",
 					 [NSImage imageNamed:@"Pref-Triggers"], @"image",
 					 nil]];
-	[self setTriggerSets:[sets autorelease]];
+	[self setTriggerSets:sets];
 }
 
 - (NSMutableArray *)triggerSets {
-	return [[triggerSets retain] autorelease];
+	return triggerSets;
 }
 
 - (void)setTriggerSets:(NSMutableArray *)newTriggerSets {
 	if (triggerSets != newTriggerSets) {
-		[triggerSets release];
-		triggerSets = [newTriggerSets retain];
+		triggerSets = newTriggerSets;
 	}
 }
 

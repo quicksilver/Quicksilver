@@ -13,7 +13,7 @@
 
 + (QSTaskViewer *)sharedInstance {
 	static QSTaskViewer * _sharedInstance;
-	if (!_sharedInstance) _sharedInstance = [[[self class] allocWithZone:[self zone]] init];
+	if (!_sharedInstance) _sharedInstance = [[[self class] alloc] init];
 	return _sharedInstance;
 }
 
@@ -116,7 +116,6 @@
 	[oldTaskViews makeObjectsPerformSelector:@selector(setTask:) withObject:nil];
 	[tasksView setNeedsDisplay:YES];
 	
-	[oldTaskViews release];
 	
 	if ([[self window] isVisible] && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSResizeTaskViewerAutomatically"]) {
 		[self resizeTableToFit];
@@ -151,11 +150,7 @@
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
-	[hideTimer release];
-	[updateTimer release];
-	[tasks release];
 	
-	[super dealloc];
 }
 
 @end
