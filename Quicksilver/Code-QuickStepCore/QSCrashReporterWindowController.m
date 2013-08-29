@@ -132,7 +132,6 @@
     if ([deletePluginCheckbox integerValue]) {
         [self deletePlugin];
     }
-    [request release];
     [self close];
 }
 

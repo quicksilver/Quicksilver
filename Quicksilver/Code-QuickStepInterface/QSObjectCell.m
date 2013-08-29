@@ -33,12 +33,6 @@
   }
   return fieldEditor;
 }
-- (void)dealloc{
-	[fieldEditor release];
-	//[nameFont release];
-	//[detailsFont release];
-	[super dealloc];
-}
 - (id)initTextCell:(NSString *)aString {
 
 	if (self = [super initTextCell:aString]) {
@@ -385,7 +379,7 @@
 
 - (void)buildStylesForFrame:(NSRect)cellFrame inView:(NSView *)controlView {
 
-	NSMutableParagraphStyle *style = [[[NSMutableParagraphStyle alloc] init] autorelease];
+	NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
 	[style setLineBreakMode:NSLineBreakByTruncatingMiddle];
 	[style setFirstLineHeadIndent:1.0];
 	[style setHeadIndent:1.0];
@@ -407,20 +401,17 @@
 		[self setDetailsFont:[NSFont fontWithName:[[self font] fontName] size:[[self font] pointSize] *5/6]];
 	}
 	
-	[nameAttributes release];
 	nameAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:
 		nameFont, NSFontAttributeName,
 		mainColor, NSForegroundColorAttributeName,
 		style, NSParagraphStyleAttributeName,
 		nil];
 
-	[detailsAttributes release];
 	detailsAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:
 		detailsFont, NSFontAttributeName,
 		fadedColor, NSForegroundColorAttributeName,
 		style, NSParagraphStyleAttributeName,
 		nil];
-    [rankedNameAttributes release];
     rankedNameAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:
                          detailsFont, NSFontAttributeName,
                          [fadedColor colorWithAlphaComponent:0.8], NSForegroundColorAttributeName,
@@ -459,7 +450,7 @@
 		NSColor *fadedColor = [mainColor colorWithAlphaComponent:0.80];
 		NSRect textDrawRect = [self titleRectForBounds:cellFrame];
         
-		NSMutableAttributedString *titleString = [[[NSMutableAttributedString alloc] initWithString:nameString] autorelease];
+		NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:nameString];
         [titleString setAttributes:rankedStringIsName ? nameAttributes : detailsAttributes range:NSMakeRange(0, [titleString length])];
         
         
@@ -492,10 +483,9 @@
             NSMutableAttributedString *attributedNameString = [[NSMutableAttributedString alloc] initWithString:[drawObject displayName]];
             [attributedNameString setAttributes:nameAttributes range:NSMakeRange(0, [[drawObject displayName] length])];
             
-            [attributedNameString appendAttributedString:[[[NSAttributedString alloc] initWithString:@" ⟷ " attributes:rankedNameAttributes] autorelease]];
+            [attributedNameString appendAttributedString:[[NSAttributedString alloc] initWithString:@" ⟷ " attributes:rankedNameAttributes]];
             // the replaceCharacters... method inserts the new string into the receiver at the start of the work (range.location and range.length are 0)
             [titleString replaceCharactersInRange:NSMakeRange(0,0) withAttributedString:attributedNameString];
-            [attributedNameString release];
         }
         
         if (showDetails) {
@@ -512,7 +502,7 @@
                 }
                 // Append the details string if it exists, and the UI wants it (showDetails BOOL)
                 if (detailsString != nil && detailsString.length) {
-                    [titleString appendAttributedString:[[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@",detailsString] attributes:detailsAttributes] autorelease]];
+                    [titleString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@",detailsString] attributes:detailsAttributes]];
                 }
             }
         }
@@ -525,16 +515,14 @@
 }
 
 - (void)drawObjectImage:(QSObject *)drawObject inRect:(NSRect)drawingRect cellFrame:(NSRect)cellFrame controlView:(NSView *)controlView flipped:(BOOL)flipped opacity:(CGFloat)opacity {
-    [drawObject retain];
-	NSImage *icon = [[drawObject icon] retain];
+	NSImage *icon = [drawObject icon];
 	NSImage *cornerBadge = nil;
 	// NSLog(@"icon");
 	BOOL proxyDraw = [[icon name] isEqualToString:QSDirectObjectIconProxy];
 	if (proxyDraw) {
-        [icon release];
-        icon = [[QSResourceManager imageNamed:@"defaultAction"] retain];
+        icon = [QSResourceManager imageNamed:@"defaultAction"];
 		if ([controlView isKindOfClass:[QSSearchObjectView class]]) {
-			cornerBadge = [[[[(QSSearchObjectView *)controlView directSelector] objectValue] icon] retain];
+			cornerBadge = [[[(QSSearchObjectView *)controlView directSelector] objectValue] icon];
 		}
 	}
 	// NSRect imageRect = rectFromSize([icon size]);
@@ -564,9 +552,6 @@
 			}
 		}
 	}
-    [icon release];
-    [cornerBadge release];
-    [drawObject release];
 }
 
 - (NSMenu *)menu {
@@ -576,7 +561,7 @@
 
 - (NSMenu *)menuForObject:(id)object {
   if (!object) return nil;
-	NSMenu *menu = [[[NSMenu alloc] initWithTitle:@"ContextMenu"] autorelease];
+	NSMenu *menu = [[NSMenu alloc] initWithTitle:@"ContextMenu"];
 
 	NSArray *actions = [QSExec validActionsForDirectObject:object indirectObject:nil];
 	NSArray *nameSortedActions = [actions sortedArrayUsingDescriptors:[NSSortDescriptor descriptorArrayWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)]];
@@ -585,13 +570,13 @@
   NSDictionary *attrs = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:11],NSFontAttributeName,nil];
   
 	if ([nameSortedActions count]) {
-		NSMenu *actionsMenu = [[[NSMenu alloc] initWithTitle:@"Actions"] autorelease];
+		NSMenu *actionsMenu = [[NSMenu alloc] initWithTitle:@"Actions"];
 
 		for (QSAction *action in nameSortedActions) {
 			if (action) {
 				NSArray *componentArray = [[action name] componentsSeparatedByString:@"/"];
         [action loadIcon];
-				NSImage *icon = [[[action icon] copy] autorelease];
+				NSImage *icon = [[action icon] copy];
 				[icon setSize:QSSize16];
 
 				id command = [QSCommand commandWithDirectObject:object actionObject:action indirectObject:nil];
@@ -599,17 +584,17 @@
 				if ([componentArray count] >1) {
 					NSMenuItem *groupMenu = [menu itemWithTitle:[componentArray objectAtIndex:0]];
 					if (!groupMenu) {
-						groupMenu = [[[NSMenuItem alloc] initWithTitle:[componentArray objectAtIndex:0] action:nil keyEquivalent:@""] autorelease];
-						[groupMenu setAttributedTitle:[[[NSAttributedString alloc] initWithString:[groupMenu title] attributes:attrs] autorelease]];
+						groupMenu = [[NSMenuItem alloc] initWithTitle:[componentArray objectAtIndex:0] action:nil keyEquivalent:@""];
+						[groupMenu setAttributedTitle:[[NSAttributedString alloc] initWithString:[groupMenu title] attributes:attrs]];
 						if (icon) [groupMenu setImage:icon];
-						[groupMenu setSubmenu:[[[NSMenu alloc] initWithTitle:[componentArray objectAtIndex:0]] autorelease]];
+						[groupMenu setSubmenu:[[NSMenu alloc] initWithTitle:[componentArray objectAtIndex:0]]];
 						[actionsMenu addItem:groupMenu];
 					}
 					item = (NSMenuItem *)[[groupMenu submenu] addItemWithTitle:[componentArray objectAtIndex:1] action:@selector(execute) keyEquivalent:@""];
-					[item setAttributedTitle:[[[NSAttributedString alloc] initWithString:[item title] attributes:attrs] autorelease]];
+					[item setAttributedTitle:[[NSAttributedString alloc] initWithString:[item title] attributes:attrs]];
 				} else
 					item = (NSMenuItem *)[actionsMenu addItemWithTitle:[action name] action:@selector(execute) keyEquivalent:@""];
-					[item setAttributedTitle:[[[NSAttributedString alloc] initWithString:[item title] attributes:attrs] autorelease]];
+					[item setAttributedTitle:[[NSAttributedString alloc] initWithString:[item title] attributes:attrs]];
 				[item setTarget:command];
 				[item setRepresentedObject:command];
 
@@ -617,18 +602,18 @@
 
 			}
 		}
-		item = [[[NSMenuItem alloc] initWithTitle:@"Actions" action:nil keyEquivalent:@""] autorelease];
+		item = [[NSMenuItem alloc] initWithTitle:@"Actions" action:nil keyEquivalent:@""];
 		[item setSubmenu: actionsMenu];
-    [item setAttributedTitle:[[[NSAttributedString alloc] initWithString:[item title] attributes:attrs] autorelease]];
+    [item setAttributedTitle:[[NSAttributedString alloc] initWithString:[item title] attributes:attrs]];
 		[menu addItem:item];
 		[menu addItem:[NSMenuItem separatorItem]];
 	}
-	item = [[[NSMenuItem alloc] initWithTitle:@"Copy" action:@selector(copy:) keyEquivalent:@""] autorelease];
-  [item setAttributedTitle:[[[NSAttributedString alloc] initWithString:[item title] attributes:attrs] autorelease]];
+	item = [[NSMenuItem alloc] initWithTitle:@"Copy" action:@selector(copy:) keyEquivalent:@""];
+  [item setAttributedTitle:[[NSAttributedString alloc] initWithString:[item title] attributes:attrs]];
   [menu addItem:item];
-  item = [[[NSMenuItem alloc] initWithTitle:@"Remove" action:@selector(delete:) keyEquivalent:@""] autorelease];
+  item = [[NSMenuItem alloc] initWithTitle:@"Remove" action:@selector(delete:) keyEquivalent:@""];
   [item setTarget:[self controlView]];
-  [item setAttributedTitle:[[[NSAttributedString alloc] initWithString:[item title] attributes:attrs] autorelease]];
+  [item setAttributedTitle:[[NSAttributedString alloc] initWithString:[item title] attributes:attrs]];
   [menu addItem:item];
 	return menu;
 }
@@ -671,8 +656,7 @@
 }
 
 - (void)setNameFont:(NSFont *)newNameFont {
-    [nameFont autorelease];
-    nameFont = [newNameFont retain];
+    nameFont = newNameFont;
     [[self controlView] setNeedsDisplay:YES];
 }
 
@@ -681,8 +665,7 @@
 }
 
 - (void)setDetailsFont:(NSFont *)newDetailsFont {
-    [detailsFont autorelease];
-    detailsFont = [newDetailsFont retain];
+    detailsFont = newDetailsFont;
     [[self controlView] setNeedsDisplay:YES];
 }
 
@@ -701,8 +684,7 @@
 - (NSColor *)textColor { return textColor;  }
 
 - (void)setTextColor:(NSColor *)newTextColor {
-    [textColor release];
-    textColor = [newTextColor retain];
+    textColor = newTextColor;
     [[self controlView] setNeedsDisplay:YES];
 }
 
@@ -710,8 +692,7 @@
 
 - (void)setHighlightColor:(NSColor *)aHighlightColor {
 	if (highlightColor != aHighlightColor) {
-		[highlightColor release];
-		highlightColor = [aHighlightColor retain];
+		highlightColor = aHighlightColor;
 		[[self controlView] setNeedsDisplay:YES];
 	}
 }

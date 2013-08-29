@@ -11,13 +11,13 @@
 
 NSString *QSUTIOfURL(NSURL *fileURL) {
     LSItemInfoRecord infoRec;
-	LSCopyItemInfoForURL((CFURLRef)fileURL, kLSRequestTypeCreator|kLSRequestBasicFlagsOnly, &infoRec);
+	LSCopyItemInfoForURL((__bridge CFURLRef)fileURL, kLSRequestTypeCreator|kLSRequestBasicFlagsOnly, &infoRec);
 	return QSUTIWithLSInfoRec([fileURL path], &infoRec);
 }
 
 NSString *QSUTIOfFile(NSString *path) {
     LSItemInfoRecord infoRec;
-	LSCopyItemInfoForURL((CFURLRef)[NSURL fileURLWithPath:path], kLSRequestTypeCreator|kLSRequestBasicFlagsOnly, &infoRec);
+	LSCopyItemInfoForURL((__bridge CFURLRef)[NSURL fileURLWithPath:path], kLSRequestTypeCreator|kLSRequestBasicFlagsOnly, &infoRec);
 	return QSUTIWithLSInfoRec(path, &infoRec);
 }
 
@@ -34,15 +34,15 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 	if (infoRec->flags & kLSItemInfoIsVolume)
 		return (NSString *)kUTTypeVolume;
 
-	NSString *extensionUTI = [(NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (CFStringRef)extension, NULL) autorelease];
+	NSString *extensionUTI = (NSString *)CFBridgingRelease(UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)extension, NULL));
 	if (extensionUTI && ![extensionUTI hasPrefix:@"dyn"])
 		return extensionUTI;
 
-	NSString *hfsType = [(NSString *)UTCreateStringForOSType(infoRec->filetype) autorelease];
+	NSString *hfsType = (NSString *)CFBridgingRelease(UTCreateStringForOSType(infoRec->filetype));
 	if (![hfsType length] && isDirectory)
 		return (NSString *)kUTTypeFolder;
 
-	NSString *hfsUTI = [(NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassOSType, (CFStringRef)hfsType, NULL) autorelease];
+	NSString *hfsUTI = (NSString *)CFBridgingRelease(UTTypeCreatePreferredIdentifierForTag(kUTTagClassOSType, (__bridge CFStringRef)hfsType, NULL));
 	if (![hfsUTI hasPrefix:@"dyn"])
 		return hfsUTI;
 
@@ -74,13 +74,13 @@ NSString *QSUTIForExtensionOrType(NSString *extension, OSType filetype) {
 	NSString *itemUTI = nil;
 
 	if (extension != nil) {
-		itemUTI = (NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (CFStringRef)extension, NULL);
+		itemUTI = (NSString *)CFBridgingRelease(UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)extension, NULL));
 	} else {
 		CFStringRef fileTypeUTI = UTCreateStringForOSType(filetype);
-		itemUTI = (NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassOSType, fileTypeUTI, NULL);
+		itemUTI = (NSString *)CFBridgingRelease(UTTypeCreatePreferredIdentifierForTag(kUTTagClassOSType, fileTypeUTI, NULL));
 		CFRelease(fileTypeUTI);
 	}
-	return [itemUTI autorelease];
+	return itemUTI;
 }
 
 /* Deprecated */

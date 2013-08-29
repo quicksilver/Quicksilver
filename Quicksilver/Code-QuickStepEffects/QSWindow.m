@@ -124,6 +124,8 @@
 
 @end
 
+static NSMutableArray *_retainedQSWindows;
+
 @implementation QSWindow
 
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
@@ -134,6 +136,10 @@
         [self useQuicksilverCollectionBehavior];
 		[self setShowOffset:NSMakePoint(0, 50)];
 		[self setHideOffset:NSMakePoint(0, -50)];
+        if (!_retainedQSWindows) {
+            _retainedQSWindows = [[NSMutableArray alloc] init];
+        }
+        [_retainedQSWindows addObject:self];
 		trueRect = contentRect;
 	}
 	return self;
@@ -144,11 +150,10 @@
 #ifdef DEBUG
 	if(DEBUG_MEMORY) NSLog(@"QSWindow dealloc");
 #endif
-	
-	[helper release];
-	[properties release];
-	[eventDelegates release];
-	[super dealloc];
+    [_retainedQSWindows removeObject:self];
+    if ([_retainedQSWindows count] == 0) {
+        _retainedQSWindows = nil;
+    }
 }
 
 - (NSRect)constrainFrameRect:(NSRect)frameRect toScreen:(NSScreen *)aScreen {
@@ -389,15 +394,13 @@
 	if (!helper){
 		id h = [[QSMoveHelper alloc] init];
 		[self setHelper:h];
-		[h release];
 	}
 	return helper;
 }
 
 - (void)setHelper:(QSMoveHelper *)aHelper {
 	if (helper != aHelper) {
-		[helper release];
-		helper = [aHelper retain];
+		helper = aHelper;
 	}
 }
 
@@ -405,7 +408,6 @@
 	if (!properties) {
 		properties = [[NSMutableDictionary alloc] init];
 	} else if (![properties isKindOfClass:[NSMutableDictionary class]]) {
-		[properties autorelease];
 		properties = [properties mutableCopy];
 	}
 	return properties;
@@ -440,8 +442,7 @@
 
 - (void)setProperties:(NSMutableDictionary *)newProperties {
 	if(newProperties != properties){
-		[properties release];
-		properties = [newProperties retain];
+		properties = newProperties;
 	}
 }
 
@@ -454,7 +455,6 @@
 - (void)removeEventDelegate:(id)eDelegate {
 	[eventDelegates removeObject:eDelegate];
 	if (![eventDelegates count]) {
-		[eventDelegates release];
 		eventDelegates = nil;
 	}
 }

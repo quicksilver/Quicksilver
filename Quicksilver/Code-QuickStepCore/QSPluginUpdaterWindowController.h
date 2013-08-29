@@ -35,10 +35,7 @@
     IBOutlet QSPluginUpdaterWindowController* wc;
     IBOutlet NSButton *toggleChangesButton;
     IBOutlet NSTextField *changesTitle;
-    IBOutlet WebView *webView;
-    IBOutlet NSTextField *pluginDetails;
     IBOutlet NSImageView *iconView;
-    IBOutlet NSTextField *installedDetails;
     BOOL _changesAreShowing;
     CGFloat webViewHeight;
 }

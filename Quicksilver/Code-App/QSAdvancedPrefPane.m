@@ -121,7 +121,7 @@
         cell = nil;
     }
     
-    return [cell autorelease];
+    return cell;
 }
 
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
@@ -246,15 +246,12 @@
 - (NSMutableDictionary *)currentInfo { return currentInfo;  }
 - (void)setCurrentInfo:(NSMutableDictionary *)newCurrentInfo {
 	if (currentInfo != newCurrentInfo) {
-		[currentInfo release];
-		currentInfo = [newCurrentInfo retain];
+		currentInfo = newCurrentInfo;
 	}
 }
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSTableViewColumnDidResizeNotification object:nil];
-	[currentInfo release];
-	[super dealloc];
 }
 
 @end

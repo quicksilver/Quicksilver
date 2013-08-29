@@ -52,7 +52,7 @@ NSMutableDictionary *kindDescriptions = nil;
 
 + (id)sharedInstance {
 	static id _sharedInstance;
-	if (!_sharedInstance) _sharedInstance = [[[self class] allocWithZone:[self zone]] init];
+	if (!_sharedInstance) _sharedInstance = [[[self class] allocWithZone:nil] init];
 	return _sharedInstance;
 }
 
@@ -103,7 +103,6 @@ NSMutableDictionary *kindDescriptions = nil;
     
 	if (![[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
 		NSView *tableView = [resultTable enclosingScrollView];
-		[[tableView retain] autorelease];
 		[tableView removeFromSuperview];
 		[tableView setFrame:[splitView frame]];
 		[tableView setAutoresizingMask:[splitView autoresizingMask]];
@@ -164,7 +163,6 @@ NSMutableDictionary *kindDescriptions = nil;
 	[resultChildTable unbind:@"backgroundColor"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-	[super dealloc];
 }
 
 #pragma mark -
@@ -283,15 +281,14 @@ NSMutableDictionary *kindDescriptions = nil;
 		[self setResultIconLoader:[QSIconLoader loaderWithArray:[self currentResults]]];
 		[resultIconLoader setDelegate:self];
 	}
-	return [[resultIconLoader retain] autorelease];
+	return resultIconLoader;
 }
 
 - (void)setResultIconLoader:(QSIconLoader *)aResultIconLoader {
 	//NSLog(@"setloader %@", aResultIconLoader);
 	if (resultIconLoader != aResultIconLoader) {
 		[resultIconLoader invalidate];
-		[resultIconLoader release];
-		resultIconLoader = [aResultIconLoader retain];
+		resultIconLoader = aResultIconLoader;
 	}
 }
 
@@ -300,14 +297,13 @@ NSMutableDictionary *kindDescriptions = nil;
         [self setResultChildIconLoader:[QSIconLoader loaderWithArray:[selectedItem children]]];
         [resultChildIconLoader setDelegate:self];
     }
-    return [[resultChildIconLoader retain] autorelease];
+    return resultChildIconLoader;
 }
 
 - (void)setResultChildIconLoader:(QSIconLoader *)aResultChildIconLoader {
 	if (resultChildIconLoader != aResultChildIconLoader) {
 		[resultChildIconLoader invalidate];
-		[resultChildIconLoader release];
-		resultChildIconLoader = [aResultChildIconLoader retain];
+		resultChildIconLoader = aResultChildIconLoader;
 	}
 }
 
@@ -397,8 +393,7 @@ NSMutableDictionary *kindDescriptions = nil;
 			} else {
 				// ***warning  * this should be triggered by the keyUp
                 if (![NSApp nextEventMatchingMask:NSKeyUpMask untilDate:[NSDate dateWithTimeIntervalSinceNow:0.333] inMode:NSDefaultRunLoopMode dequeue:NO]) {
-                    [childrenLoadTimer release];
-                    childrenLoadTimer = [[NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(loadChildren) userInfo:nil repeats:NO] retain];
+                    childrenLoadTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(loadChildren) userInfo:nil repeats:NO];
                 }
 			}
 		} else {
@@ -554,7 +549,7 @@ NSMutableDictionary *kindDescriptions = nil;
 	//  [imageAndTextCell setWraps:NO];
 	//[imageAndTextCell setScrollable:YES];
 
-	QSObjectCell *objectCell = [[[QSObjectCell alloc] init] autorelease];
+	QSObjectCell *objectCell = [[QSObjectCell alloc] init];
 	tableColumn = [resultTable tableColumnWithIdentifier: COLUMNID_NAME];
     if ([resultTable rowHeight] < 34.0) {
         [objectCell setShowDetails:NO];
@@ -566,7 +561,7 @@ NSMutableDictionary *kindDescriptions = nil;
 
 	tableColumn = [resultTable tableColumnWithIdentifier: COLUMNID_RANK];
 
-	NSCell *rankCell = [[[QSRankCell alloc] init] autorelease];
+	NSCell *rankCell = [[QSRankCell alloc] init];
 	[tableColumn setDataCell:rankCell];
 
 	//[searchModePopUp setEnabled:fALPHA];

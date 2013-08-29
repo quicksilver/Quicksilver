@@ -9,9 +9,9 @@
 #import <Cocoa/Cocoa.h>
 
 @interface QSTargetPickerPanel : QSBorderlessWindow {
-    IBOutlet QSSearchObjectView *searchObjView;
+    IBOutlet QSSearchObjectView *__weak searchObjView;
 }
 
 
-@property (readonly) QSSearchObjectView *searchObjView;
+@property (weak, readonly) QSSearchObjectView *searchObjView;
 @end

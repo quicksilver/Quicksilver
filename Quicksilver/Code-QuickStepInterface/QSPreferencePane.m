@@ -48,10 +48,13 @@
 //@end
 
 @implementation QSPreferencePane
+
+@synthesize info = _info;
+
 - (id)initWithInfo:(NSDictionary *)info {
 	self = [self init];
 	if (self) {
-		_info = [info retain];
+		_info = info;
 	}
 	return self;
 }
@@ -61,16 +64,8 @@
 
 - (void)setInfo:(NSDictionary *)info {
 	if (_info != info) {
-		[info autorelease];
-		_info = [info retain];
+		_info = info;
 	}
-}
-- (void)dealloc {
-	[_info release];
-//	_info = nil;
-	[_mainView release];
-//	_mainView = nil;
-	[super dealloc];
 }
 
 //- (id)icon {return [self paneIcon];}
@@ -104,15 +99,13 @@
         //							withZone:[self zone]];
         NSNib *nib = [[NSNib alloc] initWithNibNamed:[self mainNibName] bundle:[self mainNibBundle]];
         NSArray *objects = nil;
-        [nib instantiateNibWithOwner:self topLevelObjects:&objects];
+        [nib instantiateWithOwner:self topLevelObjects:&objects];
         //NSLog(@"objects %@", objects);
         //NSLog(@"window %@", _window);
-        _mainView = [[_window contentView] retain];
+        _mainView = [_window contentView];
         if (QSGetLocalizationStatus())
             [NTViewLocalizer localizeView:_mainView table:[self mainNibName] bundle:[self mainNibBundle]];
-        [_window release];
         _window = nil;
-        [nib release];
         [self mainViewDidLoad];
     });
     return _mainView;

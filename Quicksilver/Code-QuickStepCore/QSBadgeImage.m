@@ -33,7 +33,7 @@
 	QSCountBadgeImage *image = [[self alloc] init];
 	[image setCount:num];
 	[image addRepresentations:[badgeImage representations]];
-	return [image autorelease];
+	return image;
 }
 
 - (void)drawBadgeForIconRect:(NSRect)rect {

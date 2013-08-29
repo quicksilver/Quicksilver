@@ -28,9 +28,9 @@
 }
 
 - (NSInteger)screenNumber {
-	NSUInteger screenNumber;
-	object_getInstanceVariable(self, "_screenNumber", (void*)&screenNumber);
-	return screenNumber;//[[[self deviceDescription]objectForKey:@"NSScreenNumber"]intValue]; 
+    NSDictionary* screenDictionary = [self deviceDescription];
+    NSNumber* screenID = [screenDictionary objectForKey:@"NSScreenNumber"];
+    return [screenID integerValue];
 } 
 
 - (BOOL)usesOpenGLAcceleration {
@@ -44,18 +44,13 @@
 	displayPort = CGDisplayIOServicePort([self screenNumber]);
 	if ( displayPort == MACH_PORT_NULL )
 		return NULL; /* No physical device to get a name from */
-	NSDictionary *dict = (NSDictionary *)IODisplayCreateInfoDictionary(displayPort, kIODisplayOnlyPreferredName);
+	NSDictionary *dict = (NSDictionary *)CFBridgingRelease(IODisplayCreateInfoDictionary(displayPort, kIODisplayOnlyPreferredName));
 
     NSDictionary *localizedNames = [dict objectForKey:[NSString stringWithUTF8String:kDisplayProductName]];
     
 	if ([localizedNames count] > 0) {
         localName = [localizedNames objectForKey:[[localizedNames allKeys] objectAtIndex:0]];
     }
-    if (localName) {
-        [[localName retain] autorelease];
-    }
-
-    [dict release];
     
 	if (!localName) {
 		uint32_t model = CGDisplayModelNumber((CGDirectDisplayID) [self screenNumber]);

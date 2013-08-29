@@ -11,17 +11,17 @@
 
 @implementation QSCGSTransition
 + (id)transitionWithType:(CGSTransitionType)type option:(CGSTransitionOption)option duration:(CGFloat)duration {
-	return [[[self alloc] initWithType:(CGSTransitionType) type option:(CGSTransitionOption)option] autorelease];
+	return [[self alloc] initWithType:(CGSTransitionType) type option:(CGSTransitionOption)option];
 }
 + (id)transitionWithWindow:(NSWindow *)window type:(CGSTransitionType)type option:(CGSTransitionOption)option duration:(CGFloat)duration {
 	id transition = [[self alloc] initWithType:(CGSTransitionType)type option:(CGSTransitionOption)option];
 	[transition attachToWindow:window];
-	return [transition autorelease];
+	return transition;
 }
 + (id)transitionWithWindow:(NSWindow *)window type:(CGSTransitionType)type option:(CGSTransitionOption)option {
 	id transition = [[self alloc] initWithType:(CGSTransitionType) type option:(CGSTransitionOption)option];
 	[transition attachToWindow:window];
-	return [transition autorelease];
+	return transition;
 }
 
 - (id)initWithType:(CGSTransitionType) type option:(CGSTransitionOption)option {
@@ -38,7 +38,6 @@
 - (void)dealloc {
 	if (handle)
 		CGSReleaseTransition(_CGSDefaultConnection(), handle);
-	[super dealloc];
 }
 - (void)attachToWindow:(NSWindow *)window {
 	CGSConnection cgs = _CGSDefaultConnection();
@@ -48,12 +47,10 @@
 - (void)finishTransition {
 	CGSReleaseTransition(_CGSDefaultConnection(), handle);
 	handle = 0;
-	[self release];
 }
 - (void)runTransition:(CGFloat)duration {
 	if (!handle) return;
 	CGSInvokeTransition(_CGSDefaultConnection(), handle, duration);
-	[self retain];
 	usleep((useconds_t) (duration*1000000));
 	[self finishTransition];
 }

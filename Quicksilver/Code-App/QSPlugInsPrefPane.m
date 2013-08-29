@@ -87,7 +87,6 @@
 
 	NSSortDescriptor* aSortDesc = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)];
 	[arrayController setSortDescriptors:[NSArray arrayWithObject: aSortDesc]];
-	[aSortDesc release];
 	[arrayController rearrangeObjects];
 
     [infoButton setKeyEquivalent:@"i"];
@@ -125,7 +124,7 @@
 - (NSURLRequest *)webView:(WebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource {
 	if ([[[request URL] scheme] isEqualToString:@"resource"]) {
 		NSString *path = [[request URL] resourceSpecifier];
-		request = [[request mutableCopy] autorelease];
+		request = [request mutableCopy];
 		[(NSMutableURLRequest *)request setURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:[path stringByDeletingPathExtension] ofType:[path pathExtension]]]];
 	}
 	return request;
@@ -291,7 +290,6 @@
 - (void)setPlugins:(NSArray *)newPlugins {
 	if(newPlugins != plugins) {
         [self willChangeValueForKey:@"plugins"];
-		[plugins release];
 		plugins = [newPlugins mutableCopy];
         [self didChangeValueForKey:@"plugins"];
 	}
@@ -300,8 +298,7 @@
 - (NSString *)search { return search;  }
 - (void)setSearch:(NSString *)newSearch {
 	if(newSearch != search){
-		[search release];
-		search = [newSearch retain];
+		search = newSearch;
 		[self reloadFilters];
 	}
 }
@@ -311,8 +308,7 @@
 	if(newCategory != category){
 		if ([newCategory isEqual:@"All Categories"])
 			newCategory = nil;
-		[category release];
-		category = [newCategory retain];
+		category = newCategory;
 		[self reloadFilters];
 	}
 }

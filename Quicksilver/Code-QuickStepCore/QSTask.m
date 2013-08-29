@@ -36,8 +36,8 @@ static NSMutableDictionary *tasksDictionary = nil;
 + (QSTask *)taskWithIdentifier:(NSString *)identifier {
 	QSTask *task = [tasksDictionary objectForKey:identifier];
 	if (!task)
-		task = [[[QSTask alloc] initWithIdentifier:identifier] autorelease];
-	return [[task retain] autorelease];
+		task = [[QSTask alloc] initWithIdentifier:identifier];
+	return task;
 }
 
 + (QSTask *)findTaskWithIdentifier:(NSString *)identifier {
@@ -68,7 +68,7 @@ static NSMutableDictionary *tasksDictionary = nil;
 	return icon;
 }
 - (NSString *)description {
-	return [NSString stringWithFormat:@"[%@:%@:%@ %lu] ", identifier, name, status, (unsigned long)[self retainCount]];
+	return [NSString stringWithFormat:@"[%@:%@:%@] ", identifier, name, status];
 }
 - (id)init {
 	return [self initWithIdentifier:nil];
@@ -86,14 +86,13 @@ static NSMutableDictionary *tasksDictionary = nil;
     // So the logging statements do not make much sense really if we get "(null)" for all parameters
     // I will disable them for now since they don't provide useful info
     
-    [identifier release], identifier = nil;
+    identifier = nil;
 
 	[self setName:nil];
 	[self setStatus:nil];
 	[self setResult:nil];
 	[self setCancelTarget:nil];
 	[self setSubtasks:nil];
-	[super dealloc];
 }
 
 - (void)cancel:(id)sender {
@@ -122,7 +121,7 @@ static NSMutableDictionary *tasksDictionary = nil;
 	if (running) {
 		
 #ifdef DEBUG
-		if (VERBOSE) NSLog(@"End Task: %@ %lu", [self identifier], (unsigned long)[self retainCount]);
+		if (VERBOSE) NSLog(@"End Task: %@", [self identifier]);
 #endif
 		
 		running = NO;
@@ -161,7 +160,6 @@ static NSMutableDictionary *tasksDictionary = nil;
 - (void)setIdentifier:(NSString *)value {
 	if (identifier != value) {
 		NSString *oldIdentifier = [identifier copy];
-		[identifier release];
 		identifier = [value copy];
 		if (tasksDictionary) {
 			if (value) {
@@ -171,7 +169,6 @@ static NSMutableDictionary *tasksDictionary = nil;
 				[tasksDictionary removeObjectForKey:oldIdentifier];
 			} 
 		}
-		[oldIdentifier release];
 	}
 }
 
@@ -183,7 +180,6 @@ static NSMutableDictionary *tasksDictionary = nil;
 - (void)setName:(NSString *)value {
     runOnMainQueueSync(^{
         if (name != value) {
-            [name release];
             name = [value copy];
         }
     });
@@ -196,7 +192,6 @@ static NSMutableDictionary *tasksDictionary = nil;
 - (void)setStatus:(NSString *)value {
     runOnMainQueueSync(^{
         if (status != value) {
-            [status release];
             status = [value copy];
         }
     });
@@ -218,7 +213,6 @@ static NSMutableDictionary *tasksDictionary = nil;
 }
 - (void)setResult:(QSObject *)value {
 	if (result != value) {
-		[result release];
 		result = [value copy];
 	}
 }
@@ -238,8 +232,7 @@ static NSMutableDictionary *tasksDictionary = nil;
 }
 - (void)setCancelTarget:(id)value {
 	if (cancelTarget != value) {
-		[cancelTarget release];
-		cancelTarget = [value retain];
+		cancelTarget = value;
 	}
 }
 
@@ -260,7 +253,6 @@ static NSMutableDictionary *tasksDictionary = nil;
 
 - (void)setSubtasks:(NSArray *)value {
 	if (subtasks != value) {
-		[subtasks release];
 		subtasks = [value copy];
 	}
 }
@@ -268,8 +260,7 @@ static NSMutableDictionary *tasksDictionary = nil;
 - (void)setIcon:(NSImage *)newIcon {
     runOnMainQueueSync(^{
         if (icon != newIcon) {
-            [icon release];
-            icon = [newIcon retain];
+            icon = newIcon;
         }
     });
 }
@@ -278,8 +269,7 @@ static NSMutableDictionary *tasksDictionary = nil;
 - (id)delegate { return delegate;  }
 - (void)setDelegate:(id)newDelegate {
 	if (delegate != newDelegate) {
-		[delegate release];
-		delegate = [newDelegate retain];
+		delegate = newDelegate;
 	}
 }
 

@@ -19,7 +19,7 @@
 
 @implementation QSProxyObject
 + (id)proxyWithDictionary:(NSDictionary*)dictionary {
-    return [[[self alloc] initWithDictionary:dictionary] autorelease];
+    return [[self alloc] initWithDictionary:dictionary];
 }
 
 + (id)proxyWithIdentifier:(NSString*)identifier {

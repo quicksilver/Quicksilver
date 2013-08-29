@@ -46,10 +46,10 @@
         [NSException raise:NSInvalidArgumentException
                     format:@"object can't be nil"];
 	if (self = [super init]) {
-		object = [newObject retain];
+		object = newObject;
 		order = newOrder;
 		score = newScore;
-		rankedString = [matchString retain];
+		rankedString = matchString;
 
 	}
 	return self;
@@ -69,11 +69,6 @@
 	[coder encodeDouble:score forKey:@"score"];
 }
 
-- (void)dealloc {
-	[object release];
-	[rankedString release];
-	[super dealloc];
-}
 
 - (NSString *)description {return [NSString stringWithFormat:@"[%@ %f] ", object, score];}
 
@@ -118,16 +113,14 @@
 - (id)object { return object; }
 - (void)setObject:(id)newObject {
     if( newObject != object ) {
-        [object release];
-        object = [newObject retain];
+        object = newObject;
     }
 }
 
 - (NSString *)rankedString { return rankedString;  }
 - (void)setRankedString:(NSString *)newRankedString {
     if( newRankedString != rankedString ) {
-        [rankedString release];
-        rankedString = [newRankedString retain];
+        rankedString = newRankedString;
     }
 }
 
@@ -148,7 +141,7 @@
 }*/
 
 - (NSMenu *)rankMenuWithTarget:(NSView *)target {
-	NSMenu *menu = [[[NSMenu alloc] initWithTitle:@"RankMenu"] autorelease];
+	NSMenu *menu = [[NSMenu alloc] initWithTitle:@"RankMenu"];
 
 	NSMenuItem *item;
 

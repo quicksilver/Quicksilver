@@ -19,14 +19,13 @@ NSString *QSApplicationPathForURL(NSString *urlString) {
 }
 #endif
 
-NSString *QSApplicationIdentifierForURL(NSString *urlString) {
-	NSURL *appURL = nil;
-//	OSStatus err;
-	/*err = */LSGetApplicationForURL((CFURLRef) [NSURL URLWithString: urlString] , kLSRolesAll, NULL, (CFURLRef *)&appURL);
+NSString *QSApplicationIdentifierForURL(NSString *urlString) {	
+    CFURLRef appURLRef = nil;
+	LSGetApplicationForURL((__bridge CFURLRef) [NSURL URLWithString: urlString] , kLSRolesAll, NULL, &appURLRef);
+    NSURL *appURL = (__bridge NSURL *)appURLRef;
 	NSString *path = [appURL path];
-	[appURL release];
 	if (!path)
 		return nil;
-	NSDictionary *infoDict = [(NSDictionary *)CFBundleCopyInfoDictionaryForURL((CFURLRef)[NSURL fileURLWithPath:path]) autorelease];
+	NSDictionary *infoDict = (NSDictionary *)CFBridgingRelease(CFBundleCopyInfoDictionaryForURL((__bridge CFURLRef)[NSURL fileURLWithPath:path]));
 	return [infoDict objectForKey:(NSString *)kCFBundleIdentifierKey];
 }

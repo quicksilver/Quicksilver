@@ -23,7 +23,6 @@
 	[message setInformativeText:details];
 	
 	[[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:message];
-	[message release];
 #endif
 }
 

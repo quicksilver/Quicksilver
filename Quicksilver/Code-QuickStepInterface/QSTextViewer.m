@@ -12,14 +12,14 @@
 QSTextViewer * QSShowTextViewerWithString(NSString *string) {
 	QSTextViewer *tv = [[QSTextViewer alloc] initWithWindow:nil];
 	[tv setString:string];
-	return [tv autorelease];
+	return tv;
 }
 
 QSTextViewer * QSShowTextViewerWithFile(NSString *path) {
 	NSString *string = [NSString stringWithContentsOfFile:path usedEncoding:nil error:nil];
 	QSTextViewer *tv = [[QSTextViewer alloc] initWithWindow:nil];
 	[tv setString:string];
-	return [tv autorelease];
+	return tv;
 }
 
 @implementation QSTextViewer
@@ -68,7 +68,6 @@ QSTextViewer * QSShowTextViewerWithFile(NSString *path) {
 	[[theTextView textContainer] setContainerSize:NSMakeSize(CGFLOAT_MAX, CGFLOAT_MIN)];
 	[[theTextView textContainer] setWidthTracksTextView:YES];
 
-	[scrollview release]; [theTextView release];
 	//NSLog(@"loaded %@", window);
 
 	self = [super initWithWindow:window];
@@ -85,7 +84,6 @@ QSTextViewer * QSShowTextViewerWithFile(NSString *path) {
 //		[window setToolbar:[toolbar autorelease]];
 
 	}
-    [window release];
 	return self;
 }
 
@@ -101,7 +99,6 @@ QSTextViewer * QSShowTextViewerWithFile(NSString *path) {
 	//textView = nil;
 	[[self window] setDelegate:nil];
 	[self setWindow:nil];
-	[self release];
 	return YES;
 }
 @end
