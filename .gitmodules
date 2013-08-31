@@ -1,6 +1,6 @@
 [submodule "Quicksilver/Code-External/VDKQueue"]
 	path = Quicksilver/Code-External/VDKQueue
-	url = git://github.com/bdkjones/VDKQueue.git
+	url = git://github.com/quicksilver/VDKQueue.git
 [submodule "Quicksilver/Code-External/DisableSubviews"]
 	path = Quicksilver/Code-External/DisableSubviews
 	url = git://github.com/ardalahmet/DisableSubviews.git
