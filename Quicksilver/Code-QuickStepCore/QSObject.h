@@ -178,7 +178,6 @@ typedef struct _QSObjectFlags {
 - (void)setIdentifier:(NSString *)newIdentifier;
 - (NSString *)name;
 - (void)setName:(NSString *)newName;
-- (QSObject *)parent;
 - (NSArray *)children;
 - (void)setChildren:(NSArray *)newChildren;
 - (NSArray *)altChildren;
