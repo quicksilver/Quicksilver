@@ -13,7 +13,6 @@
 #define DAYS 86400.0f
 #define MINUTES 60.0f
 #define HOURS 3600.0f
-#define mSHARED_INSTANCE_CLASS_METHOD + (id)sharedInstance {static id _sharedInstance; if (!_sharedInstance) _sharedInstance = [[[self class] alloc] init]; return _sharedInstance;}
 #define QSLog(s, ...) \
 [MLog logFile:__FILE__ lineNumber:__LINE__ \
 	   format:(s), ##__VA_ARGS__]
