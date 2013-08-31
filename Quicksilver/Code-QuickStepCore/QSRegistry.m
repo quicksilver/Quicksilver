@@ -175,10 +175,14 @@ QSRegistry* QSReg = nil;
 
 - (NSMutableDictionary *)identifierBundles { return identifierBundles;  }
 
-+ (void)setObject:(id)object forKey:(NSString *)inTable:(NSString *)table {[[self sharedInstance] setObject:(id)object forKey:(NSString *)inTable:(NSString *)table];} ;
++ (void)setObject:(id)object forKey:(NSString *)key inTable:(NSString *)table {
+    [[self sharedInstance] setObject:object forKey:key inTable:table];
+}
+
 - (void)setObject:(id)object forKey:(NSString *)key inTable:(NSString *)table {
 	[[self tableNamed:table] setObject:object forKey:key];
 }
+
 - (id)valueForKey:(NSString *)key inTable:(NSString *)table {
 	if (key == nil) return nil;
 	return [[self tableNamed:table] objectForKey:key];
