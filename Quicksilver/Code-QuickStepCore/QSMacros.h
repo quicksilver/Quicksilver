@@ -1,6 +1,5 @@
 #import <AvailabilityMacros.h>
 
-#define ESS(x) (x == 1?@"":@"s")
 //#if MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_5
 //    #define foreach(x, y) id x; NSEnumerator *rwEnum = [y objectEnumerator]; while(x = [rwEnum nextObject])
 //#else
