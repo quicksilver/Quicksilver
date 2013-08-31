@@ -136,6 +136,9 @@ typedef struct _QSObjectFlags {
 - (BOOL)isProxyObject;
 - (QSObject *)resolvedObject;
 
+// This private method is required for QSProxyObject.m
+- (id)_safeObjectForType:(id)aKey;
+
 @end
 
 @interface QSObject (Icon)
@@ -197,10 +200,6 @@ typedef struct _QSObjectFlags {
 - (void)setContentsLoaded:(BOOL)flag;
 - (NSTimeInterval)childrenLoadedDate;
 - (void)setChildrenLoadedDate:(NSTimeInterval)newChildrenLoadedDate;
-
-
-// This private method is required for QSProxyObject.m
-- (id)_safeObjectForType:(id)aKey;
 
 @end
 
