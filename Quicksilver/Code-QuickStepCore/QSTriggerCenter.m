@@ -63,8 +63,7 @@
 	[nc removeObserver:self name:@"InterfaceActivated" object:nil];
 	[nc removeObserver:self name:@"InterfaceDeactivated" object:nil];
 	triggers = nil;
-	triggersDict, triggersDict = nil,
-	self;
+	triggersDict = nil;
 }
 
 - (void)loadTriggers {
