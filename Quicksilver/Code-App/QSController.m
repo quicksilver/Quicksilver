@@ -275,8 +275,7 @@ static QSController *defaultController = nil;
 
 		QSWindow *quitWindow = nil;
 		if (!quitWindowController) {
-			quitWindowController = [NSWindowController alloc];
-			[quitWindowController initWithWindowNibName:@"QuitConfirm" owner:quitWindowController];
+			quitWindowController = [[NSWindowController alloc] initWithWindowNibName:@"QuitConfirm" owner:quitWindowController];
 
 			quitWindow = (QSBorderlessWindow *)[quitWindowController window];
 			[quitWindow setLevel:kCGPopUpMenuWindowLevel+1];
