@@ -123,7 +123,7 @@
 }
 
 - (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(id)array {
-	return [self performSelector:(SEL)aSelector onObjectsInArray:(id)array returnValues:YES];
+	return [self performSelector:aSelector onObjectsInArray:array returnValues:YES];
 }
 
 @end
