@@ -561,17 +561,42 @@
 	}
 	newName = [newName stringByReplacing:@"/" with:@":"];
 
-	NSString *destinationFile = [container stringByAppendingPathComponent:newName];
+    NSError *err = nil;
 
-	if ([[NSFileManager defaultManager] moveItemAtPath:path toPath:destinationFile error:nil]) {
+	NSString *destinationFile = [container stringByAppendingPathComponent:newName];
+    NSFileManager *fm = [[NSFileManager alloc] init];
+    NSString *tmpFile = nil;
+    // Check for case changing of files/folders
+    if ([[destinationFile lowercaseString] isEqualToString:[path lowercaseString]] && ![destinationFile isEqualToString:path]) {
+        // case is different
+        tmpFile = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString uniqueString]];
+        [fm moveItemAtPath:path toPath:tmpFile error:&err];
+        if (!err) {
+            //the temp move was successful, set the new source path to the temp file
+            path = tmpFile;
+        }
+
+    }
+	if ([fm moveItemAtPath:path toPath:destinationFile error:&err]) {
 		[[NSWorkspace sharedWorkspace] noteFileSystemChanged:container];
 		QSObject *renamed = [QSObject fileObjectWithPath:destinationFile];
 		return renamed;
 	} else {
+        if (tmpFile) {
+            // move the temp file back to the source path (and reset paths)
+            path = [dObject singleFileType];
+            NSError *tmpFileErr = nil;
+            [fm moveItemAtPath:tmpFile toPath:path error:&tmpFileErr];
+            if (tmpFile) {
+                // something seriously went wrong, can't move the temp file back to it's original location. Hopefully this should never happen
+                NSLog(@"Unable to recover renamed file %@, it was moved to %@ but is unrecoverable.\nError:%@", path, tmpFile, tmpFileErr);
+            }
+        }
 		NSString *localizedErrorFormat = NSLocalizedStringFromTableInBundle(@"Error renaming File: %@ to %@", nil, [NSBundle bundleForClass:[self class]], nil);
         NSString *localizedTitle = NSLocalizedStringFromTableInBundle(@"Quicksilver File Rename", nil, [NSBundle bundleForClass:[self class]], nil);
 		NSString *errorMessage = [NSString stringWithFormat:localizedErrorFormat, path, destinationFile];
 		QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:@"QSRenameFileFailed", QSNotifierType, [QSResourceManager imageNamed:@"AlertStopIcon"], QSNotifierIcon, localizedTitle, QSNotifierTitle, errorMessage, QSNotifierText, nil]);
+        NSLog(@"%@\nError:%@", errorMessage, err);
 	}
 	return nil;
 }
