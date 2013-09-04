@@ -348,6 +348,8 @@
 		CD39DE5F16B43FBF0087B09E /* (null) in Sources */ = {isa = PBXBuildFile; };
 		CD39DE6016B43FC40087B09E /* (null) in Headers */ = {isa = PBXBuildFile; };
 		CD39DE6216B43FDD0087B09E /* (null) in Resources */ = {isa = PBXBuildFile; };
+		CD3AEA9917D7F0030011F2E3 /* QSIntValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = CD3AEA9617D7ED9B0011F2E3 /* QSIntValueTransformer.m */; };
+		CD3AEA9A17D7F0300011F2E3 /* QSIntValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = CD3AEA9517D7ED9B0011F2E3 /* QSIntValueTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD3F9D68136183250013FCB7 /* QSClangAnalyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42ADF4FD1317237900C68070 /* QSClangAnalyzer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD4FA6E0157A13D600E549BD /* QSHotKeyEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = CD4FA6DF157A13D600E549BD /* QSHotKeyEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD4FA6E2157A13DE00E549BD /* QSHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4FA6E1157A13DE00E549BD /* QSHotKeyEvent.m */; };
@@ -3105,6 +3107,8 @@
 		E1E5FA6C07B204BE0044D6EF /* Code-QuickStepFoundation */ = {
 			isa = PBXGroup;
 			children = (
+				CD3AEA9517D7ED9B0011F2E3 /* QSIntValueTransformer.h */,
+				CD3AEA9617D7ED9B0011F2E3 /* QSIntValueTransformer.m */,
 				CDE6C623157E39AE006E66BD /* QSFoundation.h */,
 				CD4FA6DF157A13D600E549BD /* QSHotKeyEvent.h */,
 				CD4FA6E1157A13DE00E549BD /* QSHotKeyEvent.m */,
@@ -3710,6 +3714,7 @@
 				CDC10E741622146C005FA734 /* SUPlainInstallerInternals.h in Headers */,
 				CDA5253716AED84400D2017F /* NSView+DisableSubviews.h in Headers */,
 				CDA5253916AED88E00D2017F /* QSGCD.h in Headers */,
+				CD3AEA9A17D7F0300011F2E3 /* QSIntValueTransformer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4877,6 +4882,7 @@
 				CDC10E751622146C005FA734 /* SUPlainInstallerInternals.m in Sources */,
 				CDA5253816AED84400D2017F /* NSView+DisableSubviews.m in Sources */,
 				CDA5253A16AED89100D2017F /* QSGCD.m in Sources */,
+				CD3AEA9917D7F0030011F2E3 /* QSIntValueTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
