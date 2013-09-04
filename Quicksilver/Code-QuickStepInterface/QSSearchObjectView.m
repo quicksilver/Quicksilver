@@ -108,7 +108,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (IBAction)defineMnemonicImmediately:(id)sender {
 	if ([self matchedString])
-		[[QSMnemonics sharedInstance] addAbbrevMnemonic:[self matchedString] forID:[[self objectValue] identifier] immediately:YES];
+		[[QSMnemonics sharedInstance] addAbbrevMnemonic:[self matchedString] forObject:[self objectValue] immediately:YES];
 	[self rescoreSelectedItem];
 }
 
