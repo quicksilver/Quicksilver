@@ -12,7 +12,7 @@ extern NSInteger NSAllModifierKeysMask;
 
 NSUInteger lastModifiers;
 @interface NSApplication (QSModifierKeyEvents)
-- (BOOL)checkForModifierEvent:(NSEvent *)theEvent;
+- (void)checkForModifierEvent:(NSEvent *)theEvent;
 @end
 
 @interface QSModifierKeyEvent : NSObject {
@@ -24,17 +24,18 @@ NSUInteger lastModifiers;
 
 	@private
 		NSInteger keyCode;
+    
 }
 
-@property (nonatomic, retain) id target;
+@property __block NSInteger timesKeysPressed;
 
-+ (BOOL)checkForModifierEvent:(NSEvent *)theEvent;
++ (void)checkForModifierEvent:(NSEvent *)theEvent;
 + (QSModifierKeyEvent *)eventWithIdentifier:(NSString *)identifier;
 
 - (void)enable;
 - (void)disable;
-+(BOOL)alphaShiftReleased:(NSTimeInterval)eventTime;
-- (BOOL)checkForModifierTap;
++ (BOOL)alphaShiftReleased:(NSTimeInterval)eventTime;
+- (void)checkForModifierTap:(BOOL)modsAdded;
 //+(BOOL)modifierToggled:(unsigned int)modifierKeysMask eventTime:(NSTimeInterval)eventTime ;
 +(BOOL)modifierToggled:(NSTimeInterval)eventTime ;
 - (NSUInteger) modifierActivationMask;
