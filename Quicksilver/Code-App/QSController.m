@@ -12,6 +12,9 @@
 #import "QSCrashReporterWindowController.h"
 #import "QSDownloads.h"
 
+
+#import "QSIntValueTransformer.h"
+
 #define DEVEXPIRE 180.0f
 #define DEPEXPIRE 365.24219878f
 
