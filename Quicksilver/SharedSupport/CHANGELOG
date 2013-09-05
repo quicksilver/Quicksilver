@@ -37,6 +37,7 @@ With the release of Quicksilver v1.1.0 we will be celebrating a t-shirt competit
   * Further attempts to prevent two Dock icons (#1152, #1408)
   * Fix a cosmetic issue when the Actions preferences are resized (#1560, #1561)
   * Entering text in text-entry mode won't replace previously entered text (#1424, #1504, #1525, #1564)
+  * For triggers that expect text in the third pane, make sure the inerface starts in text-entry mode (#1587, #1553)
   * Prevent duplicate files in the catalog (#1566)
 
 ### Changed ###
