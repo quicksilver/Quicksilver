@@ -605,6 +605,8 @@
 		[aSelector setObjectValue:[array objectAtIndex:1]];
 		if ([array count] > 2) {
 			[iSelector setObjectValue:[array objectAtIndex:2]];
+		} else {
+			[self updateIndirectObjects];
 		}
 		[[self window] makeFirstResponder:iSelector];
 	}
