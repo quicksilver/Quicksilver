@@ -69,7 +69,7 @@
 
 - (QSObject *)setObjectMnemonic:(QSObject *)dObject string:(QSObject *)iObject {
 	if (![[QSMnemonics sharedInstance] addObjectMnemonic:[iObject stringValue] forObject:dObject] || ![[QSMnemonics sharedInstance] addAbbrevMnemonic:[iObject stringValue] forObject:dObject relativeToID:nil immediately:NO]) {
-        QSShowAppNotifWithAttributes(@"ActionFailed", NSLocalizedString(@"Unable to assign abbreviation", nil), [NSString stringWithFormat:NSLocalizedString(@"Unable to assign abbreviation %@ to object %@", nil),  [iObject stringValue], [dObject name]]);
+        QSShowAppNotifWithAttributes(@"ActionFailed", NSLocalizedStringFromTableInBundle(@"Unable to assign abbreviation", nil, [NSBundle bundleForClass:[self class]], nil), [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Unable to assign abbreviation '%@' to object %@. Perhaps you want to create a synonym?", nil, [NSBundle bundleForClass:[self class]], nil),  [iObject stringValue], [dObject name]]);
     } else {
         [dObject updateMnemonics];
     }

@@ -60,18 +60,16 @@
 }
 
 - (BOOL)addAbbrevMnemonic:(NSString *)mnem forObject:(QSObject *)object relativeToID:(NSString *)above immediately:(BOOL)immediately {
-
-    if (!object || !mnem) {
+    
+    if (![self checkForValidObject:object withMnemonic:mnem]) {
         return NO;
     }
+    
     NSString *key = [object identifier];
     if (!key.length) {
         return NO;
     }
     
-    if (![[QSLib scoredArrayForString:mnem] containsObject:object]) {
-        return NO;
-    }
     
     // Abbreviations are case insensitive
     mnem = [mnem lowercaseString];
@@ -109,6 +107,7 @@
 	[recentMnemonics setObject:key forKey:mnem];
 
 	[self writeItems:self];
+    return YES;
 }
 
 - (void)removeObjectMnemonic:(NSString *)mnem forID:(NSString *)key {
@@ -124,16 +123,22 @@
 	writeTimer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(writeItems:) userInfo:nil repeats:NO];
 }
 
-- (BOOL)addObjectMnemonic:(NSString *)mnem forObject:(QSObject *)object {
-    
+- (BOOL)checkForValidObject:(QSObject *)object withMnemonic:(NSString *)mnem {
     if (!object || ![object identifier] || [[object identifier] isEqualToString:@""]) {
         return NO;
     }
     
-    NSArray *matchedObjects = [QSLib scoredArrayForString:mnem];
-    if (![matchedObjects containsObject:object]) {
+    if (![QSDefaultObjectRanker rankedObjectsForAbbreviation:mnem options:@{QSRankingObjectsInSet : @[object], QSRankingIncludeOmitted : [NSNumber numberWithBool:YES]}].count) {
         // the mnemonic doesn't match the object, so don't add it
         // WARNING: we could set up a synonym?
+        return NO;
+    }
+    return YES;
+}
+
+- (BOOL)addObjectMnemonic:(NSString *)mnem forObject:(QSObject *)object {
+    
+    if (![self checkForValidObject:object withMnemonic:mnem]) {
         return NO;
     }
     
@@ -151,6 +156,7 @@
 	[objectEntry setObject:[NSNumber numberWithInteger:([[objectEntry objectForKey:mnem] integerValue]) +1] forKey:mnem];
 	// [self writeItems:self];
 	[self setWriteTimer];
+    return YES;
 }
 
 - (void)writeItems:(id)sender {
