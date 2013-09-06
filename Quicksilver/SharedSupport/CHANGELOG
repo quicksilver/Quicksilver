@@ -64,6 +64,7 @@ With the release of Quicksilver v1.1.0 we will be celebrating a t-shirt competit
   * Aliases and symlinks will be resolved when scanning directories (#1507, #1516)
   * Use Quicksilver's user-agent string when checking for application updates (#1551)
   * 32-bit-only and PowerPC-only plugins will be moved to a "disabled" folder (#1562)
+  * Show a clear error to users who run 1.1.0 on 10.6 or older (#1574)
 
 ### Development ###
 
