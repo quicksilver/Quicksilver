@@ -182,4 +182,8 @@
 + (BOOL)isMountainLion {
 	return ([self macOSXSystemVersion] >= 0x1080);
 }
+
++ (BOOL)isMavericks {
+	return ([self macOSXSystemVersion] >= 0x1090);
+}
 @end
