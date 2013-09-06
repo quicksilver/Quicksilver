@@ -154,8 +154,12 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	if ([theFiles count] == 1) {
 		// it's a single file
 		// use basic file type icon temporarily
-        NSString *type = [object isFolder] ? @"'fold'" : [object fileExtension];
-        theImage = [[NSWorkspace sharedWorkspace] iconForFileType:type];
+        if ([object isApplication]) {
+            theImage = [QSResourceManager imageNamed:@"GenericApplicationIcon"];
+        } else {
+            NSString *type = [object isFolder] ? @"'fold'" : [object fileExtension];
+            theImage = [[NSWorkspace sharedWorkspace] iconForFileType:type];
+        }
 	} else {
 		// it's a combined object, containing multiple files
 		NSMutableSet *set = [NSMutableSet set];
@@ -185,6 +189,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 - (BOOL)loadIconForObject:(QSObject *)object {
 	NSImage *theImage = nil;
+    NSImage *previewImage = nil;
 	NSString *path = [[object arrayForType:QSFilePathType] lastObject];
 	NSFileManager *manager = [NSFileManager defaultManager];
     
@@ -192,6 +197,12 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	if (![manager fileExistsAtPath:path]) {
 		return NO;
 	}
+    
+    // try to use the file's actual icon immediately
+    theImage = [[NSWorkspace sharedWorkspace] iconForFiles:[object arrayForType:QSFilePathType]];
+    if (theImage) {
+        [object setIcon:theImage];
+    }
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSLoadImagePreviews"]) {
         // try to create a preview icon
@@ -203,25 +214,23 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
                 id provider = [QSReg instanceForKey:type inTable:@"QSFSFileTypePreviewers"];
                 if (provider) {
                     //NSLog(@"provider %@", [QSReg tableNamed:@"QSFSFileTypePreviewers"]);
-                    theImage = [provider iconForFile:path ofType:type];
+                    previewImage = [provider iconForFile:path ofType:type];
                     break;
                 }
             }
         }
-        if (!theImage) {
+        if (!previewImage) {
             NSArray *previewTypes = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSFilePreviewTypes"];
             for (NSString *type in previewTypes) {
                 if (UTTypeConformsTo((__bridge CFStringRef)uti, (__bridge CFStringRef)type)) {
-                    theImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSSizeMax asIcon:YES];
+                    previewImage = [NSImage imageWithPreviewOfFileAtPath:path ofSize:QSSizeMax asIcon:YES];
                     break;
                 }
             }
         }
-    }
-    if (!theImage) {
-        // previews are disabled or couldn't be loaded
-        // use the file's actual icon
-        theImage = [[NSWorkspace sharedWorkspace] iconForFiles:[object arrayForType:QSFilePathType]];
+        if (previewImage) {
+            theImage = previewImage;
+        }
     }
     if (theImage) {
         // update the UI with the new icon

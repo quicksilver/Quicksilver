@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>AppActivateAction</key>
+    <string>Aktifkan</string>
+    <key>AppHideAction</key>
+    <string>Sembunyikan</string>
+    <key>AppHideOthersAction</key>
+    <string>Sembunyikan Yang Lain</string>
+    <key>AppLaunchAction</key>
+    <string>Jalankan</string>
+    <key>AppLaunchAgainAction</key>
+    <string>Jalankan Salinan Yang Lain</string>
+    <key>AppOpenFileAction</key>
+    <string>Buka Berkas...</string>
+    <key>AppQuitOthersAction</key>
+    <string>Hentikan Yang Lain</string>
+    <key>AppQuitAction</key>
+    <string>Hentikan</string>
+    <key>AppRelaunchAction</key>
+    <string>Jalankan Ulang</string>
+    <key>AppReopenAction</key>
+    <string>Buka</string>
+    <key>AppRootLaunchAction</key>
+    <string>Jalankan sebagai Root</string>
+    <key>AppShowHideAction</key>
+    <string>Beralih Aplikasi</string>
+    <key>AppleScriptOpenFilesAction</key>
+    <string>Buka berkas...</string>
+    <key>AppleScriptProcessTextAction</key>
+    <string>Olah Teks...</string>
+    <key>AppleScriptRunAction</key>
+    <string>Jalankan</string>
+    <key>AppleScriptRunTextAction</key>
+    <string>Jalankan sebagai AppleScript</string>
+    <key>ContactEditAction</key>
+    <string>Ubah</string>
+    <key>ContactEmailAction</key>
+    <string>Kirim Surel</string>
+    <key>ContactIMAction</key>
+    <string>Kirim Pesan Internet Kepada Seseorang</string>
+    <key>ContactSendItemEmailAction</key>
+    <string>Butir Surel...</string>
+    <key>ContactSendItemIMAction</key>
+    <string>Teks Pesan Iternet...</string>
+    <key>ContactSendTextEmailAction</key>
+    <string>Kirim Teks...</string>
+    <key>ContactShowAction</key>
+    <string>Munculkan</string>
+    <key>DiskEjectAction</key>
+    <string>Keluarkan</string>
+    <key>DiskForceEjectAction</key>
+    <string>Paksa Keluar</string>
+    <key>FileCompressAction</key>
+    <string>Padatkan (kompresi)</string>
+    <key>FileCopyToAction</key>
+    <string>Salin Ke...</string>
+    <key>FileDecompressAction</key>
+    <string>dekompresi</string>
+    <key>FileDeleteAction</key>
+    <string>Hapus</string>
+    <key>FileGetInfoAction</key>
+    <string>Dapatkan Informasi</string>
+    <key>FileGetPathAction</key>
+    <string>Dapatkan Lokasi Berkas Relatif</string>
+    <key>FileGetPosixPathAction</key>
+    <string>Dapatkan Lokasi Berkas Mutlak (POSIX)</string>
+    <key>FileGetURLAction</key>
+    <string>Dapatkan URL Berkas</string>
+    <key>FileGetHFSPathAction</key>
+    <string>Dapatkan Lokasi Berkas</string>
+    <key>FileMakeAliasInAction</key>
+    <string>Buat Alias Di...</string>
+    <key>FileMakeHardLinkInAction</key>
+    <string>Buat Tautan Keras Di...</string>
+    <key>FileMakeLinkInAction</key>
+    <string>Buat Tautan Di...</string>
+    <key>FileMoveToAction</key>
+    <string>Pindahkan ke...</string>
+    <key>FileOpenAction</key>
+    <string>Buka</string>
+    <key>FileOpenWithAction</key>
+    <string>Buka Dengan...</string>
+    <key>FileAlwaysOpenTypeWithAction</key>
+    <string>Selalu Buka Tipe Dengan...</string>
+    <key>FileRenameAction</key>
+    <string>Ubah Nama...</string>
+    <key>FileRevealAction</key>
+    <string>Tampilkan</string>
+    <key>FileToTrashAction</key>
+    <string>Pindahkan ke Keranjang sampah</string>
+    <key>ItemSendToContactEmailAction</key>
+    <string>Kirim Surel Ke...</string>
+    <key>ItemSendToContactIMAction</key>
+    <string>Kirim Pesan Internet Kepada Seseorang...</string>
+    <key>PasteboardCopyAction</key>
+    <string>Salin ke Clipboard</string>
+    <key>PasteboardPasteAction</key>
+    <string>Tempel</string>
+    <key>PasteboardPasteActionAsPlainText</key>
+    <string>Tempel sebagai Teks Datar</string>
+    <key>ProcessKillAction</key>
+    <string>Paksa Berhenti (Matikan)</string>
+    <key>ProcessLowerPriorityAction</key>
+    <string>Turunkan Prioritas</string>
+    <key>ProcessRaisePriorityAction</key>
+    <string>Naikkan Prioritas</string>
+    <key>ProcessResumeAction</key>
+    <string>Lanjutkan Eksekusi (Resume)</string>
+    <key>ProcessSuspendAction</key>
+    <string>Hentikan Sementara Eksekusi (Suspend)</string>
+    <key>QSObjectAssignMnemonic</key>
+    <string>Sematkan Singkatan</string>
+    <key>QSObjectSelectAction</key>
+    <string>Pilih di Jendela Perintah</string>
+    <key>QSAIMSMSAction</key>
+    <string>Kirim SMS (AIM/iChat)</string>
+    <key>QSAirPortNetworkSelectAction</key>
+    <string>Ganti Airport</string>
+    <key>QSCLExecuteAction</key>
+    <string>Jalankan</string>
+    <key>QSCLExecuteTextAction</key>
+    <string>Jalankan Perintah di Shell</string>
+    <key>QSCLExecuteShellCommandAction</key>
+    <string>Jalankan Perintah di Shell</string>
+    <key>QSCLExecuteWithArgsAction</key>
+    <string>Jalankan [...]</string>
+    <key>QSCLTermExecuteTextAction</key>
+    <string>Jalankan sebuah Perintah Teks di Terminal</string>
+    <key>QSCLTermExecuteShellCommandAction</key>
+    <string>Jalankan sebuah Perintah Teks di Terminal</string>
+    <key>QSCLTermExecuteWithArgsAction</key>
+    <string>Jalankan di Terminal [...]</string>
+    <key>QSCLTermShowDirectoryAction</key>
+    <string>Pergi ke Direktori di Terminal</string>
+    <key>QSCLTermShowManPageAction</key>
+    <string>Tampilkan Halaman Manual</string>
+    <key>QSCatalogEntryRescanAction</key>
+    <string>Pindah Ulang Entri Katalog</string>
+    <key>QSCatalogEntryShowAction</key>
+    <string>Tampilkan Entri di Katalog</string>
+    <key>QSCommandSaveAction</key>
+    <string>Simpan Perintah ke Berkas...</string>
+    <key>QSCommandAddTriggerAction</key>
+    <string>Tambahkan Pemicu</string>
+    <key>QSCommandExecuteAction</key>
+    <string>Jalankan</string>
+    <key>QSCommandExecuteAfterDelayAction</key>
+    <string>Jalankan setelah Jeda...</string>
+    <key>QSComposeEmailItemAction</key>
+    <string>Kirimkan butir melalui  Surel... (Susun Surel)</string>
+    <key>QSCommandExecuteAtTimeAction</key>
+    <string>Jalankan pada Waktu...</string>
+    <key>QSComposeEmailItemReverseAction</key>
+    <string>Kirimkan Surel kepada... (Susun Surel)</string>
+    <key>QSCreateFileAction</key>
+    <string>Buat  Berkas [...]</string>
+    <key>QSCreateFileTemplate</key>
+    <string>Buat Baru...</string>
+    <key>QSDialNumberAction</key>
+    <string>Ketik Angka</string>
+    <key>QSEditAction</key>
+    <string>Ubah</string>
+    <key>QSEmailAction</key>
+    <string>Surel</string>
+    <key>QSEmailItemAction</key>
+    <string>Kirimkan butir melalui  Surel... (Kirim)</string>
+    <key>QSEmailItemReverseAction</key>
+    <string>Kirimkan Surel kepada... (Kirim)</string>
+    <key>QSHFSLockAction</key>
+    <string>Kunci</string>
+    <key>QSHFSMakeInvisibleAction</key>
+    <string>Buat jadi tak terlihat</string>
+    <key>QSHFSMakeVisibleAction</key>
+    <string>Buat jadi terlihat</string>
+    <key>QSHFSUnlockAction</key>
+    <string>Buka kunci</string>
+    <key>QSNewFolderAction</key>
+    <string>Folder Baru...</string>
+    <key>QSLargeTypeAction</key>
+    <string>Ukuran Besar</string>
+    <key>QSLoginItemAddAction</key>
+    <string>Buka saat Login</string>
+    <key>QSLoginItemRemoveAction</key>
+    <string>Jangan Buka saat Login</string>
+    <key>QSNUTDContactShowAction</key>
+    <string>Tampilkan kontak</string>
+    <key>QSNetworkLocationSelectAction</key>
+    <string>Ganti ke Lokasi</string>
+    <key>QSObjCSendMessageAction</key>
+    <string>Jalankan</string>
+    <key>QSObjectSearchChildrenAction</key>
+    <string>Cari Isi</string>
+    <key>QSObjectShowChildMenu</key>
+    <string>Tampilkan Menu Isi</string>
+    <key>QSObjectShowMenu</key>
+    <string>Tampilkan Menu</string>
+    <key>QSObjectShowActionMenu</key>
+    <string>Tampilkan Menu Tindakan</string>
+    <key>QSObjectShowChildrenAction</key>
+    <string>Tampilkan Isi</string>
+    <key>QSObjectShowSourceAction</key>
+    <string>Tampilkan Sumber di Katalog</string>
+    <key>QSPutOnShelfAction</key>
+    <string>Tempatkan di Rak</string>
+    <key>QSShelfShowAction</key>
+    <string>Tampilkan</string>
+    <key>QSShellScriptRunAction</key>
+    <string>Jalankan [...]</string>
+    <key>QSTextShowDialogAction</key>
+    <string>Tampilkan Kotak Dialog</string>
+    <key>QSTextSpeakAction</key>
+    <string>Ucapkan teks (Katakan)</string>
+    <key>QSTextAppendAction</key>
+    <string>Tambahkan Text ke...</string>
+    <key>QSTextDiffAction</key>
+    <string>Perbedaan-perbedaan Dari...</string>
+    <key>QSTextPrependAction</key>
+    <string>Sisipkan Text ke...</string>
+    <key>QSTextTypeAction</key>
+    <string>Ketikkan Teks</string>
+    <key>QSUserSwitchAction</key>
+    <string>Ganti ke Pengguna</string>
+    <key>QSiPhotoAlbumShowAction</key>
+    <string>Tampilkan Album</string>
+    <key>QSiPhotoAlbumSlideShowAction</key>
+    <string>Mainkan Slide Show</string>
+    <key>QSiTunesAppendItemAction</key>
+    <string>Antrikan</string>
+    <key>QSiTunesPlayItemAction</key>
+    <string>Mainkan</string>
+    <key>ShellScriptRunAction</key>
+    <string>Jalankan Skrip Shell</string>
+    <key>URLEmailAction</key>
+    <string>Buka Alamat Surel</string>
+    <key>URLFindWithAction</key>
+    <string>Cari di Situs...</string>
+    <key>URLJSAction</key>
+    <string>Jalankan Javascript</string>
+    <key>URLOpenAction</key>
+    <string>Buka Alamat URL</string>
+    <key>URLOpenActionInBackground</key>
+    <string>Buka Alamat URL di Belakang..</string>
+    <key>URLOpenWithAction</key>
+    <string>Buka Alamat URL Dengan...</string>
+    <key>URLSearchAction</key>
+    <string>Cari</string>
+    <key>URLSearchForAction</key>
+    <string>Mencari...</string>
+  </dict>
+</plist>

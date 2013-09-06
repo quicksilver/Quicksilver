@@ -75,7 +75,7 @@
     <key>FileGetPosixPathAction</key>
     <string>Uzyskaj pełną ścieżkę %@</string>
     <key>FileGetURLAction</key>
-    <string>Get file:// URL of %@</string>
+    <string>Wyświetl adres URL file:// pliku %@</string>
     <key>FileMakeAliasInAction</key>
     <string>Utwórz skrót %@ w %#</string>
     <key>FileMakeHardLinkInAction</key>
@@ -159,7 +159,7 @@
     <key>QSSoundPlayAction</key>
     <string>Odtwórz %@</string>
     <key>QSTextDiffAction</key>
-    <string>Diff %@ and %#</string>
+    <string>Różnice między %@ i %#</string>
     <key>QSTextShowDialogAction</key>
     <string>Pokaż dialog: &quot;%@&quot;</string>
     <key>QSTextSpeakAction</key>

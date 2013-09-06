@@ -27,7 +27,7 @@
     <key>AppHideAction</key>
     <string>%@ verstecken</string>
     <key>AppHideOthersAction</key>
-    <string> </string>
+    <string>%@ versteckt andere</string>
     <key>AppLaunchAction</key>
     <string>%@ ausführen</string>
     <key>AppLaunchAgainAction</key>

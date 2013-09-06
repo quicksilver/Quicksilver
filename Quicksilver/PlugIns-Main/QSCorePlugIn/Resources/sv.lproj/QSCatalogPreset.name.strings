@@ -103,7 +103,7 @@
     <key>QSPresetFinderToolbarItems</key>
     <string>Finders verktygsfält</string>
     <key>QSPresetFirefoxBookmarks</key>
-    <string>Finderbokmärken</string>
+    <string>Firefox-bokmärken</string>
     <key>QSPresetGlobalPrefsRecentFolders</key>
     <string>Senaste mappar (öppna och spara)</string>
     <key>QSPresetHome</key>

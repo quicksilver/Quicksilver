@@ -135,6 +135,8 @@ typedef struct _QSObjectFlags {
 - (void)setCache:(NSMutableDictionary *)aCache;
 - (BOOL)isProxyObject;
 - (QSObject *)resolvedObject;
+// This private method is required for QSProxyObject.m
+- (id)_safeObjectForType:(id)aKey;
 
 @end
 
@@ -173,9 +175,9 @@ typedef struct _QSObjectFlags {
 @interface QSObject (Accessors)
 - (NSString *)identifier;
 - (void)setIdentifier:(NSString *)newIdentifier;
+- (void)setIdentifier:(NSString *)newIdentifier addToObjectDictionary:(BOOL)add;
 - (NSString *)name;
 - (void)setName:(NSString *)newName;
-- (QSObject *)parent;
 - (NSArray *)children;
 - (void)setChildren:(NSArray *)newChildren;
 - (NSArray *)altChildren;
@@ -197,10 +199,6 @@ typedef struct _QSObjectFlags {
 - (void)setContentsLoaded:(BOOL)flag;
 - (NSTimeInterval)childrenLoadedDate;
 - (void)setChildrenLoadedDate:(NSTimeInterval)newChildrenLoadedDate;
-
-
-// This private method is required for QSProxyObject.m
-- (id)_safeObjectForType:(id)aKey;
 
 @end
 

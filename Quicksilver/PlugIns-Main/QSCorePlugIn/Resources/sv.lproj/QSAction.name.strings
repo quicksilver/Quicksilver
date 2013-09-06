@@ -105,7 +105,7 @@
     <key>ProcessLowerPriorityAction</key>
     <string>Sänk prioritet</string>
     <key>ProcessRaisePriorityAction</key>
-    <string>Öka prioritet</string>
+    <string>Höj prioritet</string>
     <key>ProcessResumeAction</key>
     <string>Fortsätt utförande (återuppta)</string>
     <key>ProcessSuspendAction</key>
@@ -157,11 +157,11 @@
     <key>QSCreateFileAction</key>
     <string>Skapa fil [...]</string>
     <key>QSCreateFileTemplate</key>
-    <string>Skapa ny...</string>
+    <string>Skapa ny...∂</string>
     <key>QSDialNumberAction</key>
     <string>Ring</string>
     <key>QSEditAction</key>
-    <string>Redigera</string>
+    <string>Redigera∂</string>
     <key>QSEmailAction</key>
     <string>E-post</string>
     <key>QSEmailItemAction</key>
