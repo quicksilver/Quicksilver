@@ -42,6 +42,13 @@ static QSController *defaultController = nil;
 	if (DEBUG_STARTUP) NSLog(@"Controller Initialize");
 #endif
 	
+    if (![NSApplication isLion]) {
+		NSBundle *appBundle = [NSBundle mainBundle];
+		NSRunAlertPanel([NSString stringWithFormat:@"%@ %@ Mac OS X 10.7+",[appBundle objectForInfoDictionaryKey:@"CFBundleName"],NSLocalizedString(@"requires",nil)] ,[NSString stringWithFormat:NSLocalizedString(@"Recent versions of Quicksilver require Mac OS %@. Older %@ compatible versions are available from the http://qsapp.com/download.php", nil),@"10.7 Lion",@"10.3–10.6"], NSLocalizedString(@"OK",nil), nil, nil, [appBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]);
+		// Quit - we don't want to be running :)
+		[NSApp terminate:nil];
+	}
+    
 	static BOOL initialized = NO;
 	if (initialized) return;
 	initialized = YES;
@@ -816,13 +823,6 @@ static QSController *defaultController = nil;
 }
 
 - (void)applicationWillFinishLaunching:(NSNotification *)aNotification {
-
-	if (![NSApplication isLion]) {
-		NSBundle *appBundle = [NSBundle mainBundle];
-		NSRunAlertPanel([NSString stringWithFormat:@"%@ %@ Mac OS X 10.7+",[appBundle objectForInfoDictionaryKey:@"CFBundleName"],NSLocalizedString(@"requires",nil)] ,[NSString stringWithFormat:NSLocalizedString(@"Recent versions of Quicksilver require Mac OS %@. Older %@ compatible versions are available from the http://qsapp.com/download.php", nil),@"10.7 Lion",@"10.3–10.6"], NSLocalizedString(@"OK",nil), nil, nil, [appBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]);
-		// Quit - we don't want to be running :)
-		[NSApp terminate:nil];
-	}
 	
 	[self startMenuExtraConnection];
 
