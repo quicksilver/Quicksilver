@@ -740,7 +740,7 @@ NSMutableDictionary *bindingsDict = nil;
             }
 		}
 		// Set the underlying object of the pane to be a text object
-		[self setObjectValue:[QSObject objectWithString:[[[[self textModeEditor] string] copy] autorelease]]];
+		[self setObjectValue:[QSObject objectWithString:[[[self textModeEditor] string] copy]]];
 		
 		NSRect titleFrame = [self frame];
 		NSRect editorFrame = NSInsetRect(titleFrame, NSHeight(titleFrame) /16, NSHeight(titleFrame)/16);
@@ -1497,7 +1497,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)textDidEndEditing:(NSNotification *)aNotification {
-    NSString *string = [[[[aNotification object] string] copy] autorelease];
+    NSString *string = [[[aNotification object] string] copy];
     if (![string isEqualToString:@" "]) {
         // only set the object value if it's not a 'short circuit'
         [self setObjectValue:[QSObject objectWithString:string]];
