@@ -44,6 +44,9 @@ static QSController *defaultController = nil;
 #ifdef DEBUG
 	if (DEBUG_STARTUP) NSLog(@"Controller Initialize");
 #endif
+    //    A value transformer for checking if a given value is '2'. Used in the QSSearchPrefPane (Caps lock menu item)
+    QSIntValueTransformer *intValueIsTwo = [[QSIntValueTransformer alloc] initWithInteger:2];
+    [NSValueTransformer setValueTransformer:intValueIsTwo forName:@"IntegerValueIsTwo"];
 	
     if (![NSApplication isLion]) {
 		NSBundle *appBundle = [NSBundle mainBundle];
