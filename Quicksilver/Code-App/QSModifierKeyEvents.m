@@ -27,12 +27,6 @@ NSMutableDictionary *modifierKeyEvents = nil;
 NSUInteger lastModifiers;
 BOOL modifierEventsEnabled = YES;
 
-
-// additional infomation needed for double tap events
-NSTimeInterval lastEventTime = 0;
-double doubleTapTimerWindow = 0.3;
-NSUInteger previousModifier = 0;
-
 @implementation QSModifierKeyEvent
 
 @synthesize timesKeysPressed, target, action, identifier, modifierActivationCount;
@@ -62,61 +56,15 @@ NSUInteger previousModifier = 0;
 
 	lastModifiers = mods;
 
-    NSTimeInterval eventTime = [NSDate timeIntervalSinceReferenceDate];
-
     // Get the mod key.
     NSUInteger puremod = mods & NSAllModifierKeysMask;
     if (!puremod)
         puremod = NSAlphaShiftKeyMask;
 
     QSModifierKeyEvent *match = [modifierKeyEvents objectForKey:[NSNumber numberWithUnsignedShort:[theEvent keyCode]]];
-
-    // handle double taps
-    if ([match modifierActivationCount] == 2) {
-
-        if (mods == NSAlphaShiftKeyMask && (previousModifier == NSAlphaShiftKeyMask ||
-                                            previousModifier == 0) ) {
-            // Handle caps lock key presses
-            if([self alphaShiftReleased:eventTime]) {
-                [match sendAction];
-                lastEventTime = 0;
-                previousModifier = 0;
-            } else {
-                lastEventTime = eventTime;
-                previousModifier = 0;
-            }
-            return;
-        } else {
-            lastEventTime = eventTime;
-            previousModifier = lastModifiers;
-            if (modsAdded && (mods != previousModifier || ![self modifierToggled:eventTime])) {
-                // Handle other modifier key presses
-                return;
-            }
-        }
-    }
-
-    previousModifier = lastModifiers;
-    lastEventTime = eventTime;
-    // Ignore caps lock key if QS modifier action is set to single tap
-    if(modsAdded && [match modifierActivationCount] == 1 && mods == NSAlphaShiftKeyMask)
-        return;
+    
 
     [match checkForModifierTap:modsAdded];
-}
-
-// returns true if double tap of caps key occurred within time window
-+ (BOOL)alphaShiftReleased:(NSTimeInterval)eventTime {
-    if(lastEventTime + 0.5 > eventTime)
-        return YES;
-    return NO;
-}
-
-// returns true if double tap occurred within time window
-+ (BOOL)modifierToggled:(NSTimeInterval)eventTime {
-    if(lastEventTime + doubleTapTimerWindow > eventTime)
-        return YES;
-    return NO;
 }
 
 + (void)regisiterForGlobalModifiers {
@@ -216,13 +164,20 @@ NSUInteger previousModifier = 0;
 
 - (void)sendAction {
     SuppressPerformSelectorLeakWarning(
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(resetTimesKeysPressed:) object:nil];
+        [self resetTimesKeysPressed:nil];
         [self.target performSelector:self.action withObject:nil];
+                                       
     );
 }
 
 - (void)checkForModifierTap:(BOOL)modsAdded {
 
-    if (!modsAdded) {
+    if (!modsAdded || (keyCode == NSAlphaShiftCode && self.timesKeysPressed == 1)) {
+        if (keyCode == NSAlphaShiftCode) {
+            // keyUp events aren't sent for the caps lock key, so we have to check it here and manually increase the key pressed count
+            self.timesKeysPressed += 1;
+        }
         NSTimeInterval timeDiff = [firstModifierPressedTime timeIntervalSinceNow];
         NSTimeInterval newTimeSinceLastKeyDown = CGEventSourceSecondsSinceLastEventType (
                                                                  kCGEventSourceStateHIDSystemState,
@@ -232,8 +187,6 @@ NSUInteger previousModifier = 0;
         NSTimeInterval keyPressDif = timeSinceLastKeyDown - newTimeSinceLastKeyDown;
         if (fabs(timeDiff - keyPressDif) < 0.001 && self.timesKeysPressed == self.modifierActivationCount) {
             [self sendAction];
-            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(resetTimesKeysPressed:) object:nil];
-            [self resetTimesKeysPressed:nil];
         }
     } else {
         firstModifierPressedTime = [NSDate date];
@@ -241,7 +194,7 @@ NSUInteger previousModifier = 0;
                                                                kCGEventSourceStateHIDSystemState,
                                                                kCGEventKeyDown
                                                                );
-        double window = 0.25;
+        double window = 0.3;
         self.timesKeysPressed += 1;
         [self performSelector:@selector(resetTimesKeysPressed:) withObject:nil afterDelay:window extend:YES];
         

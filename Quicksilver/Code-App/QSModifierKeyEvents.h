@@ -38,10 +38,9 @@ NSUInteger lastModifiers;
 
 - (void)enable;
 - (void)disable;
-+ (BOOL)alphaShiftReleased:(NSTimeInterval)eventTime;
+
 - (void)checkForModifierTap:(BOOL)modsAdded;
 
-+ (BOOL)modifierToggled:(NSTimeInterval)eventTime;
 - (NSUInteger) modifierActivationMask;
 - (void)setModifierActivationMask:(NSUInteger)newModifierActivationMask;
 - (void)sendAction;
