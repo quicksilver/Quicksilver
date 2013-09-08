@@ -58,6 +58,16 @@
         STAssertTrue([object containsType:QSURLType] && [[object primaryType] isEqualToString:QSURLType], @"'%@' was not recognized as a URL", url);
     }
     
+    NSArray *shouldBeSearchURL = @[
+        @"http://maps.google.com/maps?q=***",
+        @"http://en.wikipedia.org/wiki/Special:Search?search=***",
+        @"http://images.google.com/images?btnG=Search+Images&q=***"
+    ];
+    for (NSString *url in shouldBeSearchURL) {
+        QSObject *object = [QSObject objectWithString:url];
+        STAssertTrue([object containsType:QSSearchURLType] && [[object primaryType] isEqualToString:QSSearchURLType], @"'%@' was not recognized as a Search URL", url);
+    }
+    
     NSArray *shouldNotBeURL = @[@"com", @".com", @"ordinary text", @"localhost:", @"http://localhost:", @"host.invalid.topleveldomain", @"http://host.invalid.topleveldomain", @".co.uk", @"abcdefg\nhttp://qsapp.com/"];
     for (NSString *text in shouldNotBeURL) {
         QSObject *object = [QSObject objectWithString:text];
