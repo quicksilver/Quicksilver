@@ -107,9 +107,6 @@ BOOL QSApplicationCompletedLaunch = NO;
 				[[interfaceWindow firstResponder] scrollWheel:theEvent];
 		}
 			break;
-	  case NSFlagsChanged:
-			[QSModifierKeyEvent checkForModifierEvent:theEvent];
-			break;
 	}
     if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
         if ([theEvent type] == NSKeyDown) {

@@ -75,7 +75,6 @@
 
 - (void)setModifier:(NSInteger)modifier count:(NSInteger)count {
 	QSModifierKeyEvent *event = [QSModifierKeyEvent eventWithIdentifier:@"QSModKeyActivation"];
-	[event disable];
 	if (count) {
 		event = [[QSModifierKeyEvent alloc] init];
 		[event setModifierActivationMask:modifier];
@@ -84,7 +83,9 @@
 		[event setIdentifier:@"QSModKeyActivation"];
 		[event setAction:@selector(activateInterface:)];
 		[event enable];
-	}
+	} else {
+        [event disable];
+    }
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
