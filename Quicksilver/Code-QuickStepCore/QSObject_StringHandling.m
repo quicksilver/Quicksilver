@@ -199,18 +199,22 @@
             stringValue = [stringValue substringFromIndex:schemeRange.location +schemeRange.length];
         }
         
-        NSArray *colonComponents = [stringValue componentsSeparatedByString:@":"];
+        NSArray *colonComponents = [[[stringValue componentsSeparatedByString:@"/"] objectAtIndex:0] componentsSeparatedByString:@":"];
         // Charset containing everything but decimal digits
         NSCharacterSet *nonNumbersSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
         
-        if ([colonComponents count] > 1) {
+        if ([colonComponents count] > 2) {
+            // only host:port should be valid
+            return NO;
+        }
+        if ([colonComponents count] == 2) {
             // Check the port (if it exists). URLs may contain multiple colons, so we take the first occurance of it. e.g. http://google.com:80/?q=this_is_a_:
-            NSString *port = [[[colonComponents objectAtIndex:1] componentsSeparatedByString:@"/"] objectAtIndex:0];
+            NSString *port = [colonComponents objectAtIndex:1];
             if ([port length] == 0 || [port rangeOfCharacterFromSet:nonNumbersSet].location != NSNotFound) {
                 return NO;
             }
         }
-        NSString *host = [[[colonComponents objectAtIndex:0] componentsSeparatedByString:@"/"] objectAtIndex:0];
+        NSString *host = [colonComponents objectAtIndex:0];
 
         NSArray *components = [host componentsSeparatedByString:@"."];
         if ([host rangeOfCharacterFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].location != NSNotFound || ![[components objectAtIndex:0] length]) {
