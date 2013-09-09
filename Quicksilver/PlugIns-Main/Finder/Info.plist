@@ -56,8 +56,6 @@
 				<string>QSFileTag</string>
 				<string>NSStringPboardType</string>
 			</array>
-			<key>name</key>
-			<string>Add Tags…</string>
 		</dict>
 		<key>ClearFileTags</key>
 		<dict>
@@ -73,8 +71,6 @@
 			</array>
 			<key>icon</key>
 			<string>TagIcon</string>
-			<key>name</key>
-			<string>Clear Tags</string>
 		</dict>
 		<key>RemoveFileTags</key>
 		<dict>
@@ -96,8 +92,6 @@
 			<array>
 				<string>QSFileTag</string>
 			</array>
-			<key>name</key>
-			<string>Remove Tags…</string>
 		</dict>
 		<key>SetFileTags</key>
 		<dict>
@@ -120,8 +114,6 @@
 				<string>QSFileTag</string>
 				<string>NSStringPboardType</string>
 			</array>
-			<key>name</key>
-			<string>Set Tags…</string>
 		</dict>
 		<key>ShowFileTags</key>
 		<dict>
@@ -137,8 +129,6 @@
 			</array>
 			<key>icon</key>
 			<string>TagIcon</string>
-			<key>name</key>
-			<string>Show Tags</string>
 		</dict>
 	</dict>
 	<key>QSPresetAdditions</key>

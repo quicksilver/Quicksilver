@@ -2,9 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>FinderOpenTrashAction</key>
-	<string>Opens the trash</string>
-	<key>FinderEmptyTrashAction</key>
-	<string>Empties the trash</string>
+	<key>AddFileTags</key>
+	<string>Add tag(s) to file(s)</string>
+	<key>ClearFileTags</key>
+	<string>Remove all tags from file(s)</string>
+	<key>RemoveFileTags</key>
+	<string>Remove specific tags from file(s)</string>
+	<key>SetFileTags</key>
+	<string>Set tag(s) on file(s), replacing existing tags</string>
+	<key>ShowFileTags</key>
+	<string>Show tags assigned to the selected file</string>
 </dict>
 </plist>
