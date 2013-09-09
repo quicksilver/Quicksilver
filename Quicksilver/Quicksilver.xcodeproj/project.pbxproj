@@ -390,6 +390,13 @@
 		CDE8ADBC15824E3E0099CC83 /* NDKeyboardLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE8ADBA15824E3E0099CC83 /* NDKeyboardLayout.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D413172F15DEE5D90021479B /* LaunchAtLoginController.h in Headers */ = {isa = PBXBuildFile; fileRef = D413172C15DEE5D90021479B /* LaunchAtLoginController.h */; };
 		D413173015DEE5D90021479B /* LaunchAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = D413172D15DEE5D90021479B /* LaunchAtLoginController.m */; };
+		D424712E17DE1819005F4FE9 /* Tag.png in Resources */ = {isa = PBXBuildFile; fileRef = D424712D17DE1819005F4FE9 /* Tag.png */; };
+		D424714117DE4CE6005F4FE9 /* QSTaggedFilesSource.xib in Resources */ = {isa = PBXBuildFile; fileRef = D424714017DE4CE6005F4FE9 /* QSTaggedFilesSource.xib */; };
+		D424714C17DE4D0F005F4FE9 /* FileTaggingHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = D424714317DE4D0F005F4FE9 /* FileTaggingHandler.m */; };
+		D424714D17DE4D0F005F4FE9 /* QSFinderAction.m in Sources */ = {isa = PBXBuildFile; fileRef = D424714517DE4D0F005F4FE9 /* QSFinderAction.m */; };
+		D424714E17DE4D0F005F4FE9 /* QSFinderSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D424714717DE4D0F005F4FE9 /* QSFinderSource.m */; };
+		D424714F17DE4D0F005F4FE9 /* QSObject+FileTags.m in Sources */ = {isa = PBXBuildFile; fileRef = D424714917DE4D0F005F4FE9 /* QSObject+FileTags.m */; };
+		D424715017DE4D0F005F4FE9 /* QSTaggedFilesSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D424714B17DE4D0F005F4FE9 /* QSTaggedFilesSource.m */; };
 		D42A065816E1381F00BFD9C8 /* TestQSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D42A065716E1381F00BFD9C8 /* TestQSObject.m */; };
 		D439387E15E2C4CF008F6548 /* QSICloudDocumentSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D439387D15E2C4CF008F6548 /* QSICloudDocumentSource.m */; };
 		D46A0E1D160B934300DE11D5 /* QSNotificationCenterNotifier.h in Headers */ = {isa = PBXBuildFile; fileRef = D46A0E1B160B934200DE11D5 /* QSNotificationCenterNotifier.h */; };
@@ -1935,6 +1942,18 @@
 		CDFAC91D1652F3C1006A0C5B /* cy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cy; path = cy.lproj/About.strings; sourceTree = "<group>"; };
 		D413172C15DEE5D90021479B /* LaunchAtLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchAtLoginController.h; sourceTree = "<group>"; };
 		D413172D15DEE5D90021479B /* LaunchAtLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchAtLoginController.m; sourceTree = "<group>"; };
+		D424712D17DE1819005F4FE9 /* Tag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tag.png; sourceTree = "<group>"; };
+		D424714017DE4CE6005F4FE9 /* QSTaggedFilesSource.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSTaggedFilesSource.xib; sourceTree = "<group>"; };
+		D424714217DE4D0F005F4FE9 /* FileTaggingHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileTaggingHandler.h; sourceTree = "<group>"; };
+		D424714317DE4D0F005F4FE9 /* FileTaggingHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileTaggingHandler.m; sourceTree = "<group>"; };
+		D424714417DE4D0F005F4FE9 /* QSFinderAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSFinderAction.h; sourceTree = "<group>"; };
+		D424714517DE4D0F005F4FE9 /* QSFinderAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSFinderAction.m; sourceTree = "<group>"; };
+		D424714617DE4D0F005F4FE9 /* QSFinderSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSFinderSource.h; sourceTree = "<group>"; };
+		D424714717DE4D0F005F4FE9 /* QSFinderSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSFinderSource.m; sourceTree = "<group>"; };
+		D424714817DE4D0F005F4FE9 /* QSObject+FileTags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QSObject+FileTags.h"; sourceTree = "<group>"; };
+		D424714917DE4D0F005F4FE9 /* QSObject+FileTags.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "QSObject+FileTags.m"; sourceTree = "<group>"; };
+		D424714A17DE4D0F005F4FE9 /* QSTaggedFilesSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTaggedFilesSource.h; sourceTree = "<group>"; };
+		D424714B17DE4D0F005F4FE9 /* QSTaggedFilesSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSTaggedFilesSource.m; sourceTree = "<group>"; };
 		D42A065616E1381F00BFD9C8 /* TestQSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestQSObject.h; path = "Tests/Tests-QSCore/TestQSObject.h"; sourceTree = "<group>"; };
 		D42A065716E1381F00BFD9C8 /* TestQSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestQSObject.m; path = "Tests/Tests-QSCore/TestQSObject.m"; sourceTree = "<group>"; };
 		D439387C15E2C4CF008F6548 /* QSICloudDocumentSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSICloudDocumentSource.h; sourceTree = "<group>"; };
@@ -2551,6 +2570,17 @@
 		4D002CA91311460B009040B7 /* Finder */ = {
 			isa = PBXGroup;
 			children = (
+				D424714217DE4D0F005F4FE9 /* FileTaggingHandler.h */,
+				D424714317DE4D0F005F4FE9 /* FileTaggingHandler.m */,
+				D424714417DE4D0F005F4FE9 /* QSFinderAction.h */,
+				D424714517DE4D0F005F4FE9 /* QSFinderAction.m */,
+				D424714617DE4D0F005F4FE9 /* QSFinderSource.h */,
+				D424714717DE4D0F005F4FE9 /* QSFinderSource.m */,
+				D424714817DE4D0F005F4FE9 /* QSObject+FileTags.h */,
+				D424714917DE4D0F005F4FE9 /* QSObject+FileTags.m */,
+				D424714A17DE4D0F005F4FE9 /* QSTaggedFilesSource.h */,
+				D424714B17DE4D0F005F4FE9 /* QSTaggedFilesSource.m */,
+				D424712C17DE1819005F4FE9 /* Resources */,
 				4D62E3281476A6BF00362E9A /* Localizable.strings */,
 				4D002CC01311460B009040B7 /* Finder */,
 				4D002CC31311460B009040B7 /* Finder.original.scpt */,
@@ -2799,6 +2829,15 @@
 				D413172D15DEE5D90021479B /* LaunchAtLoginController.m */,
 			);
 			path = LaunchAtLoginController;
+			sourceTree = "<group>";
+		};
+		D424712C17DE1819005F4FE9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D424714017DE4CE6005F4FE9 /* QSTaggedFilesSource.xib */,
+				D424712D17DE1819005F4FE9 /* Tag.png */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		E102F97B06625D7300843027 /* Nibs */ = {
@@ -4196,7 +4235,9 @@
 			files = (
 				4D002E1213114B17009040B7 /* Finder.scpt in Resources */,
 				4D62E324147694D800362E9A /* QSAction.description.plist in Resources */,
+				D424714117DE4CE6005F4FE9 /* QSTaggedFilesSource.xib in Resources */,
 				CDD30969160AEB0800CD34EC /* QSAction.name.strings in Resources */,
+				D424712E17DE1819005F4FE9 /* Tag.png in Resources */,
 				4D62E32A1476A6BF00362E9A /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4646,7 +4687,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D424714E17DE4D0F005F4FE9 /* QSFinderSource.m in Sources */,
+				D424714D17DE4D0F005F4FE9 /* QSFinderAction.m in Sources */,
+				D424715017DE4D0F005F4FE9 /* QSTaggedFilesSource.m in Sources */,
+				D424714C17DE4D0F005F4FE9 /* FileTaggingHandler.m in Sources */,
 				4D002D831311490E009040B7 /* QSFinderProxy.m in Sources */,
+				D424714F17DE4D0F005F4FE9 /* QSObject+FileTags.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -35,6 +35,114 @@
 		<key>requiresFeature</key>
 		<string>0</string>
 	</dict>
+	<key>QSActions</key>
+	<dict>
+		<key>AddFileTags</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSFinderAction</string>
+			<key>actionSelector</key>
+			<string>addToFiles:tagList:</string>
+			<key>description</key>
+			<string>Add Tags…</string>
+			<key>directTypes</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+			</array>
+			<key>icon</key>
+			<string>TagIcon</string>
+			<key>indirectOptional</key>
+			<false/>
+			<key>indirectTypes</key>
+			<array>
+				<string>QSFileTag</string>
+				<string>NSStringPboardType</string>
+			</array>
+			<key>name</key>
+			<string>Add Tags…</string>
+		</dict>
+		<key>ClearFileTags</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSFinderAction</string>
+			<key>actionSelector</key>
+			<string>clearTagsFromFiles:</string>
+			<key>description</key>
+			<string>Clear Tags</string>
+			<key>directTypes</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+			</array>
+			<key>icon</key>
+			<string>TagIcon</string>
+			<key>name</key>
+			<string>Clear Tags</string>
+		</dict>
+		<key>RemoveFileTags</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSFinderAction</string>
+			<key>actionSelector</key>
+			<string>removeFromFiles:tags:</string>
+			<key>description</key>
+			<string>Remove Tags…</string>
+			<key>directTypes</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+			</array>
+			<key>icon</key>
+			<string>TagIcon</string>
+			<key>indirectOptional</key>
+			<false/>
+			<key>indirectTypes</key>
+			<array>
+				<string>QSFileTag</string>
+			</array>
+			<key>name</key>
+			<string>Remove Tags…</string>
+		</dict>
+		<key>SetFileTags</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSFinderAction</string>
+			<key>actionSelector</key>
+			<string>setToFiles:tagList:</string>
+			<key>description</key>
+			<string>Set Tags…</string>
+			<key>directTypes</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+			</array>
+			<key>icon</key>
+			<string>TagIcon</string>
+			<key>indirectOptional</key>
+			<false/>
+			<key>indirectTypes</key>
+			<array>
+				<string>QSFileTag</string>
+				<string>NSStringPboardType</string>
+			</array>
+			<key>name</key>
+			<string>Set Tags…</string>
+		</dict>
+		<key>ShowFileTags</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSFinderAction</string>
+			<key>actionSelector</key>
+			<string>showTagsForFiles:</string>
+			<key>description</key>
+			<string>Show Tags</string>
+			<key>directTypes</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+			</array>
+			<key>icon</key>
+			<string>TagIcon</string>
+			<key>name</key>
+			<string>Show Tags</string>
+		</dict>
+	</dict>
 	<key>QSPresetAdditions</key>
 	<array>
 		<dict>
@@ -88,6 +196,18 @@
 					<key>source</key>
 					<string>QSDefaultsObjectSource</string>
 				</dict>
+				<dict>
+					<key>ID</key>
+					<string>QSPresetFileTags</string>
+					<key>enabled</key>
+					<true/>
+					<key>icon</key>
+					<string>TagIcon</string>
+					<key>name</key>
+					<string>File Tags</string>
+					<key>source</key>
+					<string>QSFileTagsSource</string>
+				</dict>
 			</array>
 			<key>icon</key>
 			<string>FinderIcon</string>
@@ -137,6 +257,43 @@
 				</array>
 			</dict>
 		</dict>
+		<key>QSObjectSources</key>
+		<dict>
+			<key>Tagged Files</key>
+			<string>QSTaggedFilesSource</string>
+			<key>QSFileTagsSource</key>
+			<string>QSFinderSource</string>
+		</dict>
+		<key>QSObjectHandlers</key>
+		<dict>
+			<key>QSFileTag</key>
+			<string>QSFinderSource</string>
+		</dict>
+		<key>QSTriggerEvents</key>
+		<dict>
+			<key>QSFileTagged</key>
+			<dict>
+				<key>icon</key>
+				<string>TagIcon</string>
+				<key>name</key>
+				<string>File Tagged</string>
+				<key>provider</key>
+				<string>QSFinderAction</string>
+				<key>type</key>
+				<string>Finder</string>
+			</dict>
+			<key>QSFileTagsCleared</key>
+			<dict>
+				<key>icon</key>
+				<string>TagIcon</string>
+				<key>name</key>
+				<string>File Tags Cleared</string>
+				<key>provider</key>
+				<string>QSFinderAction</string>
+				<key>type</key>
+				<string>Finder</string>
+			</dict>
+		</dict>
 	</dict>
 	<key>QSResourceAdditions</key>
 	<dict>
@@ -153,6 +310,13 @@
 			<string>com.apple.dock</string>
 			<key>resource</key>
 			<string>trashfull.png</string>
+		</dict>
+		<key>TagIcon</key>
+		<dict>
+			<key>bundle</key>
+			<string>com.blacktree.Quicksilver.QSFinderPlugIn</string>
+			<key>resource</key>
+			<string>Tag.png</string>
 		</dict>
 	</dict>
 </dict>
