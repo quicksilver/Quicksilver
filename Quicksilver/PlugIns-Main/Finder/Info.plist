@@ -25,15 +25,13 @@
 	<key>QSPlugIn</key>
 	<dict>
 		<key>author</key>
-		<string>Blacktree, Inc.</string>
+		<string>Blacktree, Jordan Kay, Rob McBroom</string>
 		<key>description</key>
-		<string>Alows the Finder to respond to Open/Reveal/Selection actions.</string>
+		<string>Support for some of Finder&apos;s built-in capabilities</string>
 		<key>hidden</key>
 		<true/>
 		<key>icon</key>
 		<string>com.apple.finder</string>
-		<key>requiresFeature</key>
-		<string>0</string>
 	</dict>
 	<key>QSActions</key>
 	<dict>
