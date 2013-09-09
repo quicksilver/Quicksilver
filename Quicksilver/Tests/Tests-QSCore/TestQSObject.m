@@ -61,6 +61,7 @@
     NSArray *shouldBeSearchURL = @[
         @"http://maps.google.com/maps?q=***",
         @"http://en.wikipedia.org/wiki/Special:Search?search=***",
+        @"http://en.wikipedia.org:80/wiki/Special:Search?search=***",
         @"http://images.google.com/images?btnG=Search+Images&q=***"
     ];
     for (NSString *url in shouldBeSearchURL) {
@@ -68,7 +69,7 @@
         STAssertTrue([object containsType:QSSearchURLType] && [[object primaryType] isEqualToString:QSSearchURLType], @"'%@' was not recognized as a Search URL", url);
     }
     
-    NSArray *shouldNotBeURL = @[@"com", @".com", @"ordinary text", @"localhost:", @"http://localhost:", @"host.invalid.topleveldomain", @"http://host.invalid.topleveldomain", @".co.uk", @"abcdefg\nhttp://qsapp.com/"];
+    NSArray *shouldNotBeURL = @[@"com", @".com", @"ordinary text", @"localhost:", @"http://localhost:", @"host.invalid.topleveldomain", @"http://host.invalid.topleveldomain", @".co.uk", @"abcdefg\nhttp://qsapp.com/", @"http://qsapp.com:string:123", @"http://qsapp.com:2:colons"];
     for (NSString *text in shouldNotBeURL) {
         QSObject *object = [QSObject objectWithString:text];
         STAssertTrue([[object primaryType] isEqualToString:QSTextType], @"'%@' was not recognized as plain text", text);
