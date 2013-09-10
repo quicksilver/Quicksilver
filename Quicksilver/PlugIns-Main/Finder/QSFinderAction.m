@@ -81,8 +81,10 @@
     for(QSObject *file in [files splitObjects]) {
         [OMHandler setTags:tagNames forFile:[file objectForType:NSFilenamesPboardType]];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSFileTagged" userInfo:@{@"object": files}];
-    [self addCatalogTags:tagsToSet];
+    if (tagList) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSFileTagged" userInfo:@{@"object": files}];
+        [self addCatalogTags:tagsToSet];
+    }
     return nil;
 }
 
