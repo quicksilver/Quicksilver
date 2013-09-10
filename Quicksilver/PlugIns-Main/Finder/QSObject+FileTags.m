@@ -16,8 +16,10 @@
     QSObject *tag = [self objectWithIdentifier:tagID];
     if (!tag) {
         // create a new tag object from scratch
-        tag = [self objectWithName:tagName];
-        [tag setIdentifier:tagID];
+        NSString *name = [NSString stringWithFormat:@"%@ (File Tag)", tagName];
+        tag = [self makeObjectWithIdentifier:tagID];
+        [tag setName:name];
+        [tag setLabel:tagName];
         [tag setObject:tagName forType:kQSFileTag];
         [tag setPrimaryType:kQSFileTag];
     }
