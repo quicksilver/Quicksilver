@@ -359,17 +359,19 @@ NSMutableDictionary *kindDescriptions = nil;
     [self updateStatusString];
     
 	[resultTable reloadData];
-    NSRect windowFrame = [[self window] frame];
-    NSUInteger resultCount = [currentResults count];
-    NSUInteger verticalSpacing = [resultTable intercellSpacing].height;
-    NSUInteger newWindowHeight =  (([resultTable rowHeight] + verticalSpacing) * resultCount) + 31;
-    windowFrame.size.height =  newWindowHeight > windowHeight || [currentResults count] == 0 ? windowHeight : newWindowHeight;
-    if (windowFrame.size.height != [[self window] frame].size.height) {
-        windowFrame.origin.y = windowFrame.origin.y - (windowFrame.size.height - [[self window] frame].size.height);
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:kUseEffects] boolValue]) {
+        NSRect windowFrame = [[self window] frame];
+        NSUInteger resultCount = [currentResults count];
+        NSUInteger verticalSpacing = [resultTable intercellSpacing].height;
+        NSUInteger newWindowHeight =  (([resultTable rowHeight] + verticalSpacing) * resultCount) + 31;
+        windowFrame.size.height =  newWindowHeight > windowHeight || [currentResults count] == 0 ? windowHeight : newWindowHeight;
+        if (windowFrame.size.height != [[self window] frame].size.height) {
+            windowFrame.origin.y = windowFrame.origin.y - (windowFrame.size.height - [[self window] frame].size.height);
+        }
+        shouldSaveWindowSize = NO;
+        [[self window] setFrame:windowFrame display:YES animate:YES];
+        shouldSaveWindowSize = YES;
     }
-    shouldSaveWindowSize = NO;
-    [[self window] setFrame:windowFrame display:YES animate:YES];
-    shouldSaveWindowSize = YES;
 	//visibleRange = [resultTable rowsInRect:[resultTable visibleRect]];
 	//	NSLog(@"arraychanged %d", [[self currentResults] count]);
 	//[self threadedIconLoad];

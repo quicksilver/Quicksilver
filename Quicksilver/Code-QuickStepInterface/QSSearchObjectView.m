@@ -720,19 +720,27 @@ NSMutableDictionary *bindingsDict = nil;
 	} else {
 		if (string) {
 			[[self textModeEditor] setString:string];
-			[[self textModeEditor] setSelectedRange:NSMakeRange([[[self textModeEditor] string] length] , 0)];
+			[[self textModeEditor] setSelectedRange:NSMakeRange([string length], 0)];
 		} else if ([partialString length] && ([resetTimer isValid] || ![[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay]) ) {
-			[[self textModeEditor] setString:[partialString stringByAppendingString:[[NSApp currentEvent] charactersIgnoringModifiers]]];
-			[[self textModeEditor] setSelectedRange:NSMakeRange([[[self textModeEditor] string] length] , 0)];
+            NSString *text;
+            NSUInteger currentEventMask = NSEventMaskFromType([[NSApp currentEvent] type]);
+            // getting characters raises an exception if this wasn't a key event
+            if (currentEventMask & (NSKeyUpMask | NSKeyDownMask | NSFlagsChangedMask)) {
+                text = [partialString stringByAppendingString:[[NSApp currentEvent] charactersIgnoringModifiers]];
+            } else {
+                text = partialString;
+            }
+			[[self textModeEditor] setString:text];
+			[[self textModeEditor] setSelectedRange:NSMakeRange([text length], 0)];
 		} else {
 			NSString *stringValue = [[self objectValue] stringValue];
 			if (stringValue) { 
                 [[self textModeEditor] setString:stringValue];
-                [[self textModeEditor] setSelectedRange:NSMakeRange(0, [[[self textModeEditor] string] length])];
+                [[self textModeEditor] setSelectedRange:NSMakeRange(0, [stringValue length])];
             }
 		}
 		// Set the underlying object of the pane to be a text object
-		[self setObjectValue:[QSObject objectWithString:[[self textModeEditor] string]]];
+		[self setObjectValue:[QSObject objectWithString:[[[self textModeEditor] string] copy]]];
 		
 		NSRect titleFrame = [self frame];
 		NSRect editorFrame = NSInsetRect(titleFrame, NSHeight(titleFrame) /16, NSHeight(titleFrame)/16);
@@ -1489,7 +1497,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)textDidEndEditing:(NSNotification *)aNotification {
-    NSString *string = [[aNotification object] string];
+    NSString *string = [[[aNotification object] string] copy];
     if (![string isEqualToString:@" "]) {
         // only set the object value if it's not a 'short circuit'
         [self setObjectValue:[QSObject objectWithString:string]];

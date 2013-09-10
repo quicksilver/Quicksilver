@@ -158,11 +158,13 @@
 }
 
 - (void)showMainWindow:(id)sender {
-	[[self window] makeKeyAndOrderFront:sender];
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:kSuppressHotKeysInCommand]) {
-		CGSConnection conn = _CGSDefaultConnection();
-		CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyDisable);
-	}
+    runOnMainQueueSync(^{
+        [[self window] makeKeyAndOrderFront:sender];
+    });
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kSuppressHotKeysInCommand]) {
+        CGSConnection conn = _CGSDefaultConnection();
+        CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyDisable);
+    }
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSSwitchKeyboardOnActivation"]) {
         savedKeyboard = TISCopyCurrentKeyboardLayoutInputSource();
@@ -595,6 +597,8 @@
 		[aSelector setObjectValue:[array objectAtIndex:1]];
 		if ([array count] > 2) {
 			[iSelector setObjectValue:[array objectAtIndex:2]];
+		} else {
+			[self updateIndirectObjects];
 		}
 		[[self window] makeFirstResponder:iSelector];
 	}

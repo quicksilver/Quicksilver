@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>AppActivateAction</key>
+    <string>Активировать</string>
+    <key>AppHideAction</key>
+    <string>Скрыть</string>
+    <key>AppHideOthersAction</key>
+    <string>Скрыть другие</string>
+    <key>AppLaunchAction</key>
+    <string>Запустить</string>
+    <key>AppLaunchAgainAction</key>
+    <string>Запустить еще одну</string>
+    <key>AppOpenFileAction</key>
+    <string>Открыть файл...</string>
+    <key>AppQuitOthersAction</key>
+    <string>Завершить все, кроме этой</string>
+    <key>AppQuitAction</key>
+    <string>Завершить</string>
+    <key>AppRelaunchAction</key>
+    <string>Перезапустить</string>
+    <key>AppReopenAction</key>
+    <string>Открыть</string>
+    <key>AppRootLaunchAction</key>
+    <string>Запустить с правами рута</string>
+    <key>AppShowHideAction</key>
+    <string>Переключить приложение</string>
+    <key>AppleScriptOpenFilesAction</key>
+    <string>Открыть файл...</string>
+    <key>AppleScriptProcessTextAction</key>
+    <string>Обработать текст...</string>
+    <key>AppleScriptRunAction</key>
+    <string>Запустить</string>
+    <key>AppleScriptRunTextAction</key>
+    <string>Запустить как AppleScript</string>
+    <key>ContactEditAction</key>
+    <string>Редактировать</string>
+    <key>ContactEmailAction</key>
+    <string>Отправить по почте</string>
+    <key>ContactIMAction</key>
+    <string>Войти в чат</string>
+    <key>ContactSendItemEmailAction</key>
+    <string>Отправить элемент по почте...</string>
+    <key>ContactSendItemIMAction</key>
+    <string>Отправить текст чатом...</string>
+    <key>ContactSendTextEmailAction</key>
+    <string>Отправить текст...</string>
+    <key>ContactShowAction</key>
+    <string>Показать</string>
+    <key>DiskEjectAction</key>
+    <string>Извлечь</string>
+    <key>DiskForceEjectAction</key>
+    <string>Принудительно извлечь</string>
+    <key>FileCompressAction</key>
+    <string>Сжать</string>
+    <key>FileCopyToAction</key>
+    <string>Скопировать в...</string>
+    <key>FileDecompressAction</key>
+    <string>Распаковать</string>
+    <key>FileDeleteAction</key>
+    <string>Стереть</string>
+    <key>FileGetInfoAction</key>
+    <string>Свойства</string>
+    <key>FileGetPathAction</key>
+    <string>Получить путь</string>
+    <key>FileGetPosixPathAction</key>
+    <string>Получить абсолютный (POSIX) путь</string>
+    <key>FileGetURLAction</key>
+    <string>Получить URL файла</string>
+    <key>FileGetHFSPathAction</key>
+    <string>Получить размещение файла</string>
+    <key>FileMakeAliasInAction</key>
+    <string>Создать псевдоним в...</string>
+    <key>FileMakeHardLinkInAction</key>
+    <string>Создать жесткую ссылку в...</string>
+    <key>FileMakeLinkInAction</key>
+    <string>Создать ссылку в...</string>
+    <key>FileMoveToAction</key>
+    <string>Переместить в...</string>
+    <key>FileOpenAction</key>
+    <string>Открыть</string>
+    <key>FileOpenWithAction</key>
+    <string>Открыть с помощью...</string>
+    <key>FileAlwaysOpenTypeWithAction</key>
+    <string>Всегда открывать файлы этого типа с помощью...</string>
+    <key>FileRenameAction</key>
+    <string>Переименовать</string>
+    <key>FileRevealAction</key>
+    <string>Показать размещение</string>
+    <key>FileToTrashAction</key>
+    <string>Выбросить</string>
+    <key>ItemSendToContactEmailAction</key>
+    <string>Отправить электропочтой к...</string>
+    <key>ItemSendToContactIMAction</key>
+    <string>Отправить чатом к...</string>
+    <key>PasteboardCopyAction</key>
+    <string>Скопировать</string>
+    <key>PasteboardPasteAction</key>
+    <string>Вставить</string>
+    <key>PasteboardPasteActionAsPlainText</key>
+    <string>Вставить как просто текст</string>
+    <key>ProcessKillAction</key>
+    <string>Убить</string>
+    <key>ProcessLowerPriorityAction</key>
+    <string>Понизить приоритет</string>
+    <key>ProcessRaisePriorityAction</key>
+    <string>Поднять приоритет</string>
+    <key>ProcessResumeAction</key>
+    <string>Продолжить выполнение</string>
+    <key>ProcessSuspendAction</key>
+    <string>Приостановить выполнение</string>
+    <key>QSObjectAssignMnemonic</key>
+    <string>Назначить сокращение</string>
+    <key>QSObjectSelectAction</key>
+    <string>Выбрать в окне команд</string>
+    <key>QSAIMSMSAction</key>
+    <string>Отправить SMS</string>
+    <key>QSAirPortNetworkSelectAction</key>
+    <string>Переключить Wi-Fi</string>
+    <key>QSCLExecuteAction</key>
+    <string>Выполнить</string>
+    <key>QSCLExecuteTextAction</key>
+    <string>Выполнить команду в терминале</string>
+    <key>QSCLExecuteShellCommandAction</key>
+    <string>Выполнить команду в терминале</string>
+    <key>QSCLExecuteWithArgsAction</key>
+    <string>Выполнить [...]</string>
+    <key>QSCLTermExecuteTextAction</key>
+    <string>Выполнить текстовую команду в терминале</string>
+    <key>QSCLTermExecuteShellCommandAction</key>
+    <string>Выполнить текстовую команду в терминале</string>
+    <key>QSCLTermExecuteWithArgsAction</key>
+    <string>Выполнить в терминале [...]</string>
+    <key>QSCLTermShowDirectoryAction</key>
+    <string>Перейти к папке в терминале</string>
+    <key>QSCLTermShowManPageAction</key>
+    <string>Показать страницу справки MAN</string>
+    <key>QSCatalogEntryRescanAction</key>
+    <string>Пересканировать элемент каталога</string>
+    <key>QSCatalogEntryShowAction</key>
+    <string>Показать элемент в каталоге</string>
+    <key>QSCommandSaveAction</key>
+    <string>Сохранить команду в файл...</string>
+    <key>QSCommandAddTriggerAction</key>
+    <string>Добавить триггер</string>
+    <key>QSCommandExecuteAction</key>
+    <string>Выполнить</string>
+    <key>QSCommandExecuteAfterDelayAction</key>
+    <string>Выполнить через...</string>
+    <key>QSComposeEmailItemAction</key>
+    <string>Отправить электропочту (С письмом)</string>
+    <key>QSCommandExecuteAtTimeAction</key>
+    <string>Выполнить во время...</string>
+    <key>QSComposeEmailItemReverseAction</key>
+    <string>Отправить электропочтой (С письмом)</string>
+    <key>QSCreateFileAction</key>
+    <string>Создать файл [...]</string>
+    <key>QSCreateFileTemplate</key>
+    <string>Создать новый...</string>
+    <key>QSDialNumberAction</key>
+    <string>Позвонить</string>
+    <key>QSEditAction</key>
+    <string>Редактировать</string>
+    <key>QSEmailAction</key>
+    <string>Отправить по почте</string>
+    <key>QSEmailItemAction</key>
+    <string>Отправить электропочту (без письма)</string>
+    <key>QSEmailItemReverseAction</key>
+    <string>Отправить электропочтой (без письма)</string>
+    <key>QSHFSLockAction</key>
+    <string>Заблокировать</string>
+    <key>QSHFSMakeInvisibleAction</key>
+    <string>Сделать невидимым</string>
+    <key>QSHFSMakeVisibleAction</key>
+    <string>Сделать видимым</string>
+    <key>QSHFSUnlockAction</key>
+    <string>Разблокировать</string>
+    <key>QSNewFolderAction</key>
+    <string>Новая папка</string>
+    <key>QSLargeTypeAction</key>
+    <string>Большими буквами на экран</string>
+    <key>QSLoginItemAddAction</key>
+    <string>Открывать при входе в систему</string>
+    <key>QSLoginItemRemoveAction</key>
+    <string>Не открывать при входе в систему</string>
+    <key>QSNUTDContactShowAction</key>
+    <string>Показать контакт</string>
+    <key>QSNetworkLocationSelectAction</key>
+    <string>Переключиться на размещение</string>
+    <key>QSObjCSendMessageAction</key>
+    <string>Выполнить</string>
+    <key>QSObjectSearchChildrenAction</key>
+    <string>Поиск в содержимом</string>
+    <key>QSObjectShowChildMenu</key>
+    <string>Показать меню содержимого</string>
+    <key>QSObjectShowMenu</key>
+    <string>Показать меню</string>
+    <key>QSObjectShowActionMenu</key>
+    <string>Показать меню действий</string>
+    <key>QSObjectShowChildrenAction</key>
+    <string>Показать содержимое</string>
+    <key>QSObjectShowSourceAction</key>
+    <string>Показать источник в каталоге</string>
+    <key>QSPutOnShelfAction</key>
+    <string>Поставить на полку</string>
+    <key>QSShelfShowAction</key>
+    <string>Показать</string>
+    <key>QSShellScriptRunAction</key>
+    <string>Выполнить [...]</string>
+    <key>QSTextShowDialogAction</key>
+    <string>Показать диалоговое окно</string>
+    <key>QSTextSpeakAction</key>
+    <string>Сказать</string>
+    <key>QSTextAppendAction</key>
+    <string>Дописать текст в...</string>
+    <key>QSTextDiffAction</key>
+    <string>Отличия от...</string>
+    <key>QSTextPrependAction</key>
+    <string>Приписать к началу текст к...</string>
+    <key>QSTextTypeAction</key>
+    <string>Напечатать текст</string>
+    <key>QSUserSwitchAction</key>
+    <string>Переключить на пользователя</string>
+    <key>QSiPhotoAlbumShowAction</key>
+    <string>Показать альбом</string>
+    <key>QSiPhotoAlbumSlideShowAction</key>
+    <string>Показать слайд-шоу</string>
+    <key>QSiTunesAppendItemAction</key>
+    <string>В очередь</string>
+    <key>QSiTunesPlayItemAction</key>
+    <string>Проиграть</string>
+    <key>ShellScriptRunAction</key>
+    <string>Выполнить шеллскрипт</string>
+    <key>URLEmailAction</key>
+    <string>Открыть почтовый URL</string>
+    <key>URLFindWithAction</key>
+    <string>Найти на сайте...</string>
+    <key>URLJSAction</key>
+    <string>Выполнить JavaScript</string>
+    <key>URLOpenAction</key>
+    <string>Открыть адрес</string>
+    <key>URLOpenActionInBackground</key>
+    <string>Открыть адрес в фоне</string>
+    <key>URLOpenWithAction</key>
+    <string>Открыть адрес через...</string>
+    <key>URLSearchAction</key>
+    <string>Найти</string>
+    <key>URLSearchForAction</key>
+    <string>Искать...</string>
+  </dict>
+</plist>

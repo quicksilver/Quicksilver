@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSCommandExecuteAtTimeAction</key>
+    <string>Jalankan Perintah pada satu waktu</string>
+    <key>QSTextTypeAction</key>
+    <string>Ketikkan Teks pada Aplikasi aktif</string>
+    <key>QSCatalogEntryRescanAction</key>
+    <string>Pindah ulang dan Indeks ulang Entri Katalog</string>
+    <key>QSTextSpeakAction</key>
+    <string>Ucapkan Teks menggunakan Voiceover</string>
+    <key>FileMakeHardLinkInAction</key>
+    <string>Buat sebuah Tautan Keras baru di dalam Folder</string>
+    <key>QSLoginItemAddAction</key>
+    <string>Tambahkan ke dalam Daftar dari Butir-butir Login</string>
+    <key>QSObjCSendMessageAction</key>
+    <string>Jalankan Pesan Objective-C</string>
+    <key>FileGetHFSPathAction</key>
+    <string>Dapatkan alamat HFS dalam format Mac</string>
+    <key>QSObjectShowMenu</key>
+    <string>Tampilkan Menu dari Tindakan-tindakan yang tersedia</string>
+    <key>FileDeleteAction</key>
+    <string>Hapus Berkas secara Permanen</string>
+    <key>QSCommandAddTriggerAction</key>
+    <string>Tambahkan Perintah sebagai Pemicu</string>
+    <key>QSObjectShowChildMenu</key>
+    <string>Tampilkan Isi di dalam sebuah Menu</string>
+    <key>QSCommandExecuteAction</key>
+    <string>Jalankan sebuah perintah Quicksilver</string>
+    <key>AppRelaunchAction</key>
+    <string>Jalankan ulang Aplikasi</string>
+    <key>AppShowHideAction</key>
+    <string>Ubah visibilitas Aplikasi</string>
+    <key>QSLargeTypeAction</key>
+    <string>Tampilkan Teks sebagai Ukuran Besar</string>
+    <key>AppleScriptRunTextAction</key>
+    <string>Jalankan Teks sebagai AppleScript</string>
+    <key>PasteboardCopyAction</key>
+    <string>Salin Buitr ke Clipboard</string>
+    <key>AppHideOthersAction</key>
+    <string>Sembunyikan semua Aplikasi lain</string>
+    <key>QSTextShowDialogAction</key>
+    <string>Tampilkan Teks di Jendela Dialog Pop-up</string>
+    <key>QSObjectShowChildrenAction</key>
+    <string>Buka Isi dari Butir di Quicksilver</string>
+    <key>QSShellScriptRunAction</key>
+    <string>Jalankan sebuah Skrip Shell</string>
+    <key>QSObjectSelectAction</key>
+    <string>Pilih butir di tampilan Quicksilver</string>
+    <key>FileGetInfoAction</key>
+    <string>Buka Kotak Dialog &apos;Dapatkan Info&quot; untuk Berkas</string>
+    <key>FileAlwaysOpenTypeWithAction</key>
+    <string>pasang Tipe File untuk selalu dibuka dengan satu Aplikasi</string>
+    <key>QSCommandSaveAction</key>
+    <string>Simpan Perintah Quicksilver ke dalam sebuah Berkas</string>
+    <key>FileRenameAction</key>
+    <string>Ubah nama sebuah Berkas</string>
+    <key>QSObjectSearchChildrenAction</key>
+    <string>Tampilkan Isi Butir, menempatkan Quicksilver menjadi Mode Filter</string>
+    <key>QSObjectAssignMnemonic</key>
+    <string>Tentukan sebuah Singkatan Pencarian untuk sebuah Butir</string>
+    <key>AppleScriptOpenFilesAction</key>
+    <string>Jalankan sebuah AppleScript dengan Berkas</string>
+    <key>QSCatalogEntryShowAction</key>
+    <string>Tampilkan Entri Katalog di Pengaturan Katalog</string>
+    <key>QSObjectShowSourceAction</key>
+    <string>Tampilkan Sumber dari Butir di Pengaturan Katalog</string>
+    <key>QSCreateFileTemplate</key>
+    <string>Buat sebuah Berkas Baru dari Template</string>
+    <key>QSCommandExecuteAfterDelayAction</key>
+    <string>Jalankan Perintah Quicksilver setelah Jeda</string>
+    <key>FileMakeAliasInAction</key>
+    <string>Buat sebuah Alias baru di dalam Folder</string>
+    <key>QSNewFolderAction</key>
+    <string>Buat sebuah Folder Baru dengan sebuah Nama</string>
+    <key>URLOpenWithAction</key>
+    <string>Buka alamat URL dengan sebuah Aplikasi alternatif</string>
+    <key>FileGetURLAction</key>
+    <string>Dapatkan tipe alamat URL file:// untuk Berkas</string>
+    <key>QSObjectShowActionMenu</key>
+    <string>Tampilkan Menu dari Tindakan-tindakan yang tersedia</string>
+    <key>AppQuitOthersAction</key>
+    <string>Hentikan semua Aplikasi lain</string>
+    <key>URLEmailAction</key>
+    <string>Susun sebuah Surel menggunakan mailto:</string>
+    <key>AppleScriptProcessTextAction</key>
+    <string>Jalankan sebuah AppleScript dengan Teks</string>
+    <key>FileToTrashAction</key>
+    <string>Pindahkan Berkas ke Folder Keranjang Sampah</string>
+    <key>QSLoginItemRemoveAction</key>
+    <string>Buang dari Daftar Butir-butir Login</string>
+    <key>AppActivateAction</key>
+    <string>Aktifkan sebuah aplikasi</string>
+    <key>AppHideAction</key>
+    <string>Sembunyikan sebuah aplikasi</string>
+    <key>AppLaunchAction</key>
+    <string>Jalankan sebuah aplikasi</string>
+    <key>AppLaunchAgainAction</key>
+    <string>Jalankan instansiasi lain dari sebuah aplikasi</string>
+    <key>AppOpenFileAction</key>
+    <string>Pilih sebuah berkas untuk dibuka</string>
+    <key>AppQuitAction</key>
+    <string>Hentikan sebuah aplikasi</string>
+    <key>AppReopenAction</key>
+    <string>Buka ulang sebuah aplikasi</string>
+    <key>AppRootLaunchAction</key>
+    <string>jalankan sebuah aplikasi sebagai Root</string>
+    <key>AppleScriptRunAction</key>
+    <string>Jalankan sebuah AppleScript</string>
+    <key>ContactEditAction</key>
+    <string>Ubah butir</string>
+    <key>ContactEmailAction</key>
+    <string>Kirim Surel ke kontak</string>
+    <key>ContactIMAction</key>
+    <string>Kirim Pesan Internet ke kontak</string>
+    <key>ContactSendItemEmailAction</key>
+    <string>Kirim butir Surel ke kontak</string>
+    <key>ContactSendItemIMAction</key>
+    <string>Kirim butir melalui Pesan Internet ke kontak</string>
+    <key>ContactShowAction</key>
+    <string>Tampilkan kontak di Buku Alamat</string>
+    <key>DiskEjectAction</key>
+    <string>Lepaskan sebuah Disk</string>
+    <key>DiskForceEjectAction</key>
+    <string>Paksa sebuah Disk untuk lepas</string>
+    <key>FileCompressAction</key>
+    <string>Kompresi berkas-berkas</string>
+    <key>FileCopyToAction</key>
+    <string>Salin ke lokasi lain</string>
+    <key>FileDecompressAction</key>
+    <string>Dekompresi berkas</string>
+    <key>FileGetPathAction</key>
+    <string>Dapatkan alamat menggunakan ~</string>
+    <key>FileGetPosixPathAction</key>
+    <string>Dapatkan alamat mutlak (tanpa ~)</string>
+    <key>FileMakeLinkInAction</key>
+    <string>Buat tautan di lokasi lain</string>
+    <key>FileMoveToAction</key>
+    <string>Pindah ke folder lain</string>
+    <key>FileOpenAction</key>
+    <string>Buka</string>
+    <key>FileOpenWithAction</key>
+    <string>Buka dengan sebuah aplikasi</string>
+    <key>FileRevealAction</key>
+    <string>Tampilkan butir</string>
+    <key>ItemSendToContactEmailAction</key>
+    <string>Kirim butir melalui Surel ke kontak</string>
+    <key>ItemSendToContactIMAction</key>
+    <string>Kirim butir melalui Pesan Internet ke kontak</string>
+    <key>PasteboardPasteAction</key>
+    <string>Tempelkan obyek ini ke aplikasi terpilih</string>
+    <key>PasteboardPasteActionAsPlainText</key>
+    <string>Tempelkan obyek ini sebagai teks datar kepada aplikasi terpilih</string>
+    <key>ProcessKillAction</key>
+    <string>Paksa sebuah aplikasi untuk berhenti</string>
+    <key>ProcessResumeAction</key>
+    <string>Lanjutkan sebuah proses yang tertunda</string>
+    <key>ProcessSuspendAction</key>
+    <string>Tunda sebuah proses yang sedang berjalan</string>
+    <key>QSCreateFileAction</key>
+    <string>Buat berkas baru dengan teks [... di folder]</string>
+    <key>QSDialNumberAction</key>
+    <string>Tekan sebuah angka</string>
+    <key>QSEditAction</key>
+    <string>Ubah</string>
+    <key>QSUserSwitchAction</key>
+    <string>Pindah ke Pengguna</string>
+    <key>QSiTunesPlaylistPlayAction</key>
+    <string>Mainkan musik dari Playlist iTunes</string>
+    <key>QSiTunesTrackPlayAction</key>
+    <string>Mainkan sebuah track iTunes</string>
+    <key>QSShellScriptRunAction</key>
+    <string>Jalankan sebuah Skrip Shell</string>
+    <key>ShellScriptRunAction</key>
+    <string>Jalankan Skrip Shell</string>
+    <key>URLFindWithAction</key>
+    <string>Cari Dengan...</string>
+    <key>URLJSAction</key>
+    <string>Jalankan Javascript</string>
+    <key>URLOpenAction</key>
+    <string>Buka sebuah alamat URL</string>
+    <key>URLOpenActionInBackground</key>
+    <string>Buka sebuah alamat URL tanpa meninggalkan aplikasi terpilih</string>
+    <key>URLSearchAction</key>
+    <string>Cari sebuah alamat URL Query</string>
+    <key>URLSearchForAction</key>
+    <string>Cari teks pada sebuah alamat URL Query</string>
+  </dict>
+</plist>

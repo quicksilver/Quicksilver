@@ -25,7 +25,7 @@
     <key>AppRootLaunchAction</key>
     <string>以root身份加载</string>
     <key>AppShowHideAction</key>
-    <string>Toggle应用</string>
+    <string>切换应用</string>
     <key>AppleScriptOpenFilesAction</key>
     <string>打开文件...</string>
     <key>AppleScriptProcessTextAction</key>
@@ -151,13 +151,13 @@
     <key>QSComposeEmailItemAction</key>
     <string>Email条目...(压缩)</string>
     <key>QSCommandExecuteAtTimeAction</key>
-    <string>运行时刻...</string>
+    <string>运行时间...</string>
     <key>QSComposeEmailItemReverseAction</key>
     <string>Email个人...(压缩)</string>
     <key>QSCreateFileAction</key>
     <string>创建文件[...]</string>
     <key>QSCreateFileTemplate</key>
-    <string>Make New...</string>
+    <string>更新...</string>
     <key>QSDialNumberAction</key>
     <string>拨号</string>
     <key>QSEditAction</key>
@@ -179,7 +179,7 @@
     <key>QSNewFolderAction</key>
     <string>新文件夹...</string>
     <key>QSLargeTypeAction</key>
-    <string>Large Type</string>
+    <string>大类型</string>
     <key>QSLoginItemAddAction</key>
     <string>登录时打开</string>
     <key>QSLoginItemRemoveAction</key>
