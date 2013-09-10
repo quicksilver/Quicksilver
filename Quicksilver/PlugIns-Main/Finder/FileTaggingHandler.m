@@ -10,7 +10,7 @@
 
 NSString *const kFileTaggingNameKey = @"name";
 NSString *const kFileTaggingKeyword = @"kMDItemUserTags";
-NSString *const kFileTaggingXAttrKeyword = @"com.apple.metadata:kMDItemUserTags";
+NSString *const kFileTaggingXAttrKeyword = @"com.apple.metadata:_kMDItemUserTags";
 
 @implementation FileTaggingHandler
 
