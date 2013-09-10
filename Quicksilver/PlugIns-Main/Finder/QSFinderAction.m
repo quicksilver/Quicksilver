@@ -77,9 +77,9 @@
 {
     QSObject *tagsToSet = [self tagObjectFromMixedObject:tagList];
     NSArray *tagNames = [tagsToSet arrayForType:kQSFileTag];
-    FileTaggingHandler *OMHandler = [FileTaggingHandler sharedHandler];
+    FileTaggingHandler *tagHandler = [FileTaggingHandler sharedHandler];
     for(QSObject *file in [files splitObjects]) {
-        [OMHandler setTags:tagNames forFile:[file objectForType:NSFilenamesPboardType]];
+        [tagHandler setTags:tagNames forFile:[file objectForType:NSFilenamesPboardType]];
     }
     if (tagList) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSFileTagged" userInfo:@{@"object": files}];
