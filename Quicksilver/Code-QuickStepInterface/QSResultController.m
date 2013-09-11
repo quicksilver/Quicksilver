@@ -309,7 +309,7 @@ NSMutableDictionary *kindDescriptions = nil;
 
 - (void)objectIconModified:(NSNotification *)notif
 {
-    runOnMainQueueSync(^{
+    QSGCDMainSync(^{
         // if results are showing, check for icons that need updating
         if ([[self window] isVisible]) {
             QSObject *object = [notif object];

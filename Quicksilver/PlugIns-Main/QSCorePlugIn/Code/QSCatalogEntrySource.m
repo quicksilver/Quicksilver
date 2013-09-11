@@ -143,7 +143,7 @@ static NSImage *prefsCatalogImage = nil;
 
 - (QSObject *)show:(QSObject *)dObject {
 	
-    runOnMainQueueSync(^{
+    QSGCDMainSync(^{
         id catalogPrefsClass = NSClassFromString(@"QSCatalogPrefPane");
         [catalogPrefsClass showEntryInCatalog:[QSLib entryForID:[dObject objectForType:QSCatalogEntryPboardType]]];
         [[catalogPrefsClass sharedInstance] reloadData];

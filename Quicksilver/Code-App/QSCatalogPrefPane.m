@@ -484,7 +484,7 @@ static id _sharedInstance;
 
 -(void)reloadData {
     [treeController rearrangeObjects];
-    runOnMainQueueSync(^{
+    QSGCDMainSync(^{
         [itemTable reloadData];
     });
 }
@@ -543,13 +543,13 @@ static id _sharedInstance;
 }
 
 - (void)catalogChanged:(NSNotification *)notification {
-    runOnMainQueueSync(^{
+    QSGCDMainSync(^{
         [itemTable reloadData];
     });
 }
 
 - (void)catalogIndexed:(NSNotification *)notification {
-    runOnMainQueueSync(^{
+    QSGCDMainSync(^{
         [itemContentsTable reloadData];
         [itemTable reloadData];
     });
@@ -557,7 +557,7 @@ static id _sharedInstance;
 
 - (IBAction)rescanCurrentItem:(id)sender {
 	if (currentItem) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        QSGCDAsync(^{
             [currentItem scanForced:YES];
         });
 	}

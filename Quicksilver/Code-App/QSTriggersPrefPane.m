@@ -227,9 +227,9 @@
 }
 
 - (IBAction)triggerChanged:(id)sender {
-    runOnMainQueueSync(^{
-        [triggerSetsController rearrangeObjects];
-        [triggerArrayController rearrangeObjects];
+    [triggerSetsController rearrangeObjects];
+    [triggerArrayController rearrangeObjects];
+    QSGCDMainSync(^{
         [triggerTable reloadData];
     });
 }
@@ -459,7 +459,7 @@
 }
 
 -(void)reloadData:(NSTableView *)view {
-    runOnMainQueueSync(^{
+    QSGCDMainSync(^{
         [view reloadData];
     });
 }

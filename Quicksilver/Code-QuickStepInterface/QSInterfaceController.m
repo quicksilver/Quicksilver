@@ -158,7 +158,7 @@
 }
 
 - (void)showMainWindow:(id)sender {
-    runOnMainQueueSync(^{
+    QSGCDMainSync(^{
         [[self window] makeKeyAndOrderFront:sender];
     });
     if ([[NSUserDefaults standardUserDefaults] boolForKey:kSuppressHotKeysInCommand]) {
@@ -643,7 +643,7 @@
         });
     } else {
         // action can only be run on main thread 
-        runOnMainQueueSync(^{
+        QSGCDMainSync(^{
             [self executeCommandThreaded];
         });
     }
