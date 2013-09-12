@@ -1,78 +1,20 @@
-/* Extracted by stringstool (12.title) */
-"<< do not localize >>" = "<< do not localize >>";
-
-/* Extracted by stringstool (107.ibShadowedToolTip) */
-"Background" = "Background";
-
-/* Extracted by stringstool (196.title) */
-"Bezels are glass" = "Bezels are glass";
-
-/* Extracted by stringstool (197.title) */
-"Bezels have shadows" = "Bezels have shadows";
-
-/* Extracted by stringstool (204.title) */
-"Bezels:" = "Bezels:";
-
-/* Extracted by stringstool (112.title) */
 "Box" = "Box";
-
-/* Extracted by stringstool (188.ibShadowedToolTip) */
-"Click to customise the interface" = "Click to customise the interface";
-
-/* Extracted by stringstool (216.title) */
-"Colors" = "Colors";
-
-/* Extracted by stringstool (209.title) */
-"Customize" = "Customize";
-
-/* Extracted by stringstool (205.title) */
+"Command Interface:" = "Command Interface:";
 "Defaults" = "Defaults";
-
-/* Extracted by stringstool (98.ibShadowedToolTip) */
-"Enable eye-candy" = "Enable eye-candy";
-
-/* Extracted by stringstool (201.title) */
-"Headers:" = "Headers:";
-
-/* Extracted by stringstool (212.title) */
-"Interface" = "Interface";
-
-/* Extracted by stringstool (105.ibShadowedToolTip) */
-"Interface type" = "Interface type";
-
-/* Extracted by stringstool (202.title) */
-"Lists:" = "Lists:";
-
-/* Extracted by stringstool (214.title) */
-"Make the interface pop in and out" = "Make the interface pop in and out";
-
-/* Extracted by stringstool (102.title) */
-"Menu Bar" = "Menu Bar";
-
-/* Extracted by stringstool (104.title) */
-"OtherViews" = "OtherViews";
-
-/* Extracted by stringstool (210.title) */
-"Preview" = "Preview";
-
-/* Extracted by stringstool (190.ibShadowedToolTip) */
-"Preview the colour changes in the interface" = "Preview the colour changes in the interface";
-
-/* Extracted by stringstool (195.title) */
-"Select Interface:" = "Select Interface:";
-
-/* Extracted by stringstool (119.ibShadowedToolTip) */
-"Selection & Accents" = "Selection & Accents";
-
-/* Extracted by stringstool (194.title) */
+"Load Icons for all results" = "Load Icons for all results";
+"Bezels have shadows" = "Bezels have shadows";
+"Customize" = "Customize";
 "Superfluous visual effects" = "Superfluous visual effects";
-
-/* Extracted by stringstool (113.ibShadowedToolTip) */
+"Bezels:" = "Bezels:";
+"Enable eye-candy" = "Enable eye-candy";
+"Load Previews" = "Load Previews";
+"Headers:" = "Headers:";
+"Selection & Accents" = "Selection & Accents";
+"Bezels are glass" = "Bezels are glass";
+"Background" = "Background";
+"Menu Bar" = "Menu Bar";
+"Preview" = "Preview";
 "Text" = "Text";
-
-/* Extracted by stringstool (218.title) */
-"Use the palette below to alter the colors of the interface" = "Use the palette below to alter the colors of the interface";
-
-/* Extracted by stringstool (115.title) */
+"Lists:" = "Lists:";
 "Window" = "Window";
-
+"Interface type" = "Interface type";
