@@ -1,4 +1,3 @@
-#include <Carbon/Carbon.h>
 #include <Cocoa/Cocoa.h>
 
 #import "QSVoyeur.h"
@@ -10,7 +9,7 @@ id QSVoy;
 + (id)sharedInstance {
 	@synchronized(self) {
 		if (!QSVoy)
-			QSVoy = [[[self class] allocWithZone:[self zone]] init];
+			QSVoy = [[[self class] allocWithZone:nil] init];
 	}
 	return QSVoy;
 }

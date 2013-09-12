@@ -4,39 +4,30 @@
 
 @class QSCommandBuilder, QSTrigger;
 
-@interface NSObject (QSTriggerManager)
-- (NSString *)descriptionForTrigger:(QSTrigger *)thisTrigger;
-- (NSView *)settingsView;
-- (void)setSettingsSelection:(QSTrigger *)aSettingsSelection;
-- (void)initializeTrigger:(QSTrigger *)trigger;
-- (void)enableTrigger:(QSTrigger *)trigger;
-- (void)disableTrigger:(QSTrigger *)trigger;
-
-- (void)trigger:(QSTrigger *)trigger setTriggerDescription:(NSString *)string;
-@end
-
 @interface QSTriggersArrayController : NSArrayController
 @end
 
-@interface QSTriggersPrefPane : QSPreferencePane {
+@interface QSTriggersPrefPane : QSPreferencePane <NSOutlineViewDelegate, NSOutlineViewDataSource> {
 	IBOutlet NSButton *addButton;
-	IBOutlet NSDrawer * optionsDrawer;
+	IBOutlet NSDrawer *optionsDrawer;
 	IBOutlet NSView *sidebar;
 
     IBOutlet NSButton *infoButton;
-	IBOutlet id hotKeyOptions;
 	IBOutlet NSButton *removeButton;
 	IBOutlet NSOutlineView * triggerTable;
 
 	IBOutlet NSTableView * triggerSetsTable;
 	
 	// 'edit' button in the drawer's 'command' tab 
-	IBOutlet NSButton * editButton;
+	IBOutlet NSButton *editButton;
 	
-	IBOutlet NSController *triggerSetsController;
+	IBOutlet NSArrayController *triggerSetsController;
 
 	IBOutlet NSArrayController *triggerArrayController;
 	IBOutlet NSTreeController *triggerTreeController;
+
+	IBOutlet NSTabView *drawerTabView;
+	IBOutlet NSTabViewItem *settingsItem;
 
 	NSMutableArray *triggerArray;
     NSMenu *typeMenu;
@@ -48,17 +39,13 @@
 	NSString *search;
 	NSString *currentSet;
 
-	IBOutlet NSTabView *drawerTabView;
-	IBOutlet NSTabViewItem *settingsItem;
-
 	QSTrigger *selectedTrigger;
 	NSSplitView *splitView;
-	NSInteger selectedRow;
 }
++ (QSTriggersPrefPane *)sharedInstance;
+
 - (NSString *)currentSet;
 - (void)setCurrentSet:(NSString *)value;
-//- (NSArray *)selectionIndexPaths;
-//- (void)setSelectionIndexPaths:(NSArray *)newSelectionIndexPaths;
 
 - (QSTrigger *)selectedTrigger;
 - (void)setSelectedTrigger:(QSTrigger *)newSelectedTrigger;
@@ -66,14 +53,11 @@
 - (NSMutableArray *)triggerSets;
 - (void)setTriggerSets:(NSMutableArray *)newTriggerSets;
 
-+ (QSTriggersPrefPane *)sharedInstance;
-- (void)updateTriggerArray;
 - (NSArray *)triggerArray;
 - (void)setTriggerArray:(NSMutableArray *)newTriggerArray;
+
 - (NSSortDescriptor *)sort;
 - (void)setSort:(NSSortDescriptor *)newSort;
-
-	//- (void)populateInfoFields;
 
 - (IBAction)addTrigger:(id)sender;
 - (IBAction)removeTrigger:(id)sender;

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>AppActivateAction</key>
+    <string>Activar</string>
+    <key>AppHideAction</key>
+    <string>Ocultar</string>
+    <key>AppHideOthersAction</key>
+    <string>Ocultar altres</string>
+    <key>AppLaunchAction</key>
+    <string>Inicia</string>
+    <key>AppLaunchAgainAction</key>
+    <string>Inicia un altre copia</string>
+    <key>AppOpenFileAction</key>
+    <string>Obrir l&apos;arxiu...</string>
+    <key>AppQuitOthersAction</key>
+    <string>Finalitzar els altres</string>
+    <key>AppQuitAction</key>
+    <string>Sortir</string>
+    <key>AppRelaunchAction</key>
+    <string>Reiniciar</string>
+    <key>AppReopenAction</key>
+    <string>Obrir</string>
+    <key>AppRootLaunchAction</key>
+    <string>Executar com a usuari arrel</string>
+    <key>AppShowHideAction</key>
+    <string>Canviar d&apos;aplicacio</string>
+    <key>AppleScriptOpenFilesAction</key>
+    <string>Obrir arxiu...</string>
+    <key>AppleScriptProcessTextAction</key>
+    <string>Processar text...</string>
+    <key>AppleScriptRunAction</key>
+    <string>Executar</string>
+    <key>AppleScriptRunTextAction</key>
+    <string>Executar com a AppleScript</string>
+    <key>ContactEditAction</key>
+    <string>Editar</string>
+    <key>ContactEmailAction</key>
+    <string>Enviar correu electrònic</string>
+    <key>ContactIMAction</key>
+    <string>Enviar MI a la Persona</string>
+    <key>ContactSendItemEmailAction</key>
+    <string>Enviar l&apos;element... per correu electrònic</string>
+    <key>ContactSendItemIMAction</key>
+    <string>MI text...</string>
+    <key>ContactSendTextEmailAction</key>
+    <string>Enviar text...</string>
+    <key>ContactShowAction</key>
+    <string>Mostrar</string>
+    <key>DiskEjectAction</key>
+    <string>Expulsar</string>
+    <key>DiskForceEjectAction</key>
+    <string>Forçar l&apos;expulsió</string>
+    <key>FileCompressAction</key>
+    <string>Comprimir</string>
+    <key>FileCopyToAction</key>
+    <string>Copiar a...</string>
+    <key>FileDecompressAction</key>
+    <string>Descomprimir</string>
+    <key>FileDeleteAction</key>
+    <string>Esborrar (eliminar)</string>
+    <key>FileGetInfoAction</key>
+    <string>Obtenir informació</string>
+    <key>FileGetPathAction</key>
+    <string>Obtenir ruta d&apos;accés</string>
+    <key>FileGetPosixPathAction</key>
+    <string>Obtenir la ruta d&apos;accés (POSIX) absoluta</string>
+    <key>FileGetURLAction</key>
+    <string>Obtenir URL del fitxer</string>
+    <key>FileGetHFSPathAction</key>
+    <string>Obtenir ubicació del fitxer</string>
+    <key>FileMakeAliasInAction</key>
+    <string>Crear un àlies a...</string>
+    <key>FileMakeHardLinkInAction</key>
+    <string>Crear un &apos;Hard Link&apos; a...</string>
+    <key>FileMakeLinkInAction</key>
+    <string>Crear un vincle a...</string>
+    <key>FileMoveToAction</key>
+    <string>Moure a...</string>
+    <key>FileOpenAction</key>
+    <string>Obrir</string>
+    <key>FileOpenWithAction</key>
+    <string>Obrir amb...</string>
+    <key>FileAlwaysOpenTypeWithAction</key>
+    <string>Sempre obrir tipus amb...</string>
+    <key>FileRenameAction</key>
+    <string>Canviar el nom a...</string>
+    <key>FileRevealAction</key>
+    <string>Mostrar on es</string>
+    <key>FileToTrashAction</key>
+    <string>Moure a la paperera</string>
+    <key>ItemSendToContactEmailAction</key>
+    <string>Enviar correu elctrònic a...</string>
+    <key>ItemSendToContactIMAction</key>
+    <string>MI a la persona...</string>
+    <key>PasteboardCopyAction</key>
+    <string>Copiar al portapapers</string>
+    <key>PasteboardPasteAction</key>
+    <string>Enganxar</string>
+    <key>PasteboardPasteActionAsPlainText</key>
+    <string>Enganxar com a text planer</string>
+    <key>ProcessKillAction</key>
+    <string>Forçar sortida (matar procés)</string>
+    <key>ProcessLowerPriorityAction</key>
+    <string>Disminuir prioritat</string>
+    <key>ProcessRaisePriorityAction</key>
+    <string>Incrementar prioritat</string>
+    <key>ProcessResumeAction</key>
+    <string>Continuar l&apos;execució (rependre)</string>
+    <key>ProcessSuspendAction</key>
+    <string>Pausar l&apos;execució (suspendre)</string>
+    <key>QSObjectAssignMnemonic</key>
+    <string>Assignar abreviatura….</string>
+    <key>QSObjectSelectAction</key>
+    <string>Seleccionar en la finestra de comandaments</string>
+    <key>QSAIMSMSAction</key>
+    <string>Enviar SMS (AIM/iChat)</string>
+    <key>QSAirPortNetworkSelectAction</key>
+    <string>Commutar Airport</string>
+    <key>QSCLExecuteAction</key>
+    <string>Executar</string>
+    <key>QSCLExecuteTextAction</key>
+    <string>Executar comandament en la línia de comandaments</string>
+    <key>QSCLExecuteShellCommandAction</key>
+    <string>Executar comandament en la línia de comandaments</string>
+    <key>QSCLExecuteWithArgsAction</key>
+    <string>Executar [...]</string>
+    <key>QSCLTermExecuteTextAction</key>
+    <string>Executar un comandament de text en el Terminal</string>
+    <key>QSCLTermExecuteShellCommandAction</key>
+    <string>Executar un comandament de text en el Terminal</string>
+    <key>QSCLTermExecuteWithArgsAction</key>
+    <string>Executar en el Terminal [...]</string>
+    <key>QSCLTermShowDirectoryAction</key>
+    <string>Vés al directori en el Terminal</string>
+    <key>QSCLTermShowManPageAction</key>
+    <string>Mostrar la pàgina del Man(ual)</string>
+    <key>QSCatalogEntryRescanAction</key>
+    <string>Tornar a reexaminar l&apos;entrada del catàleg</string>
+    <key>QSCatalogEntryShowAction</key>
+    <string>Mostrar l&apos;entrada en el catàleg</string>
+    <key>QSCommandSaveAction</key>
+    <string>Desar comandament en un fitxer…</string>
+    <key>QSCommandAddTriggerAction</key>
+    <string>Afegir disparador</string>
+    <key>QSCommandExecuteAction</key>
+    <string>Executar</string>
+    <key>QSCommandExecuteAfterDelayAction</key>
+    <string>Executar després de la pausa...</string>
+    <key>QSComposeEmailItemAction</key>
+    <string>Enviar per correu electrònic l&apos;element… (Redactar)</string>
+    <key>QSCommandExecuteAtTimeAction</key>
+    <string>Executar a l&apos;hora...</string>
+    <key>QSComposeEmailItemReverseAction</key>
+    <string>Enviar correu electrònic a… (Redactar)</string>
+    <key>QSCreateFileAction</key>
+    <string>Crear arxiu […]</string>
+    <key>QSCreateFileTemplate</key>
+    <string>Crear nou...</string>
+    <key>QSDialNumberAction</key>
+    <string>Marcar</string>
+    <key>QSEditAction</key>
+    <string>Editar</string>
+    <key>QSEmailAction</key>
+    <string>Enviar correu electrònic</string>
+    <key>QSEmailItemAction</key>
+    <string>Enviar l&apos;element... per correu electrònic (send)</string>
+    <key>QSEmailItemReverseAction</key>
+    <string>Enviar correu electrònic a... (send)</string>
+    <key>QSHFSLockAction</key>
+    <string>Bloquejar</string>
+    <key>QSHFSMakeInvisibleAction</key>
+    <string>Fer invisible</string>
+    <key>QSHFSMakeVisibleAction</key>
+    <string>Fer visible</string>
+    <key>QSHFSUnlockAction</key>
+    <string>Desbloquejar</string>
+    <key>QSNewFolderAction</key>
+    <string>Nova carpeta...</string>
+    <key>QSLargeTypeAction</key>
+    <string>Tipografia ampliada</string>
+    <key>QSLoginItemAddAction</key>
+    <string>Obrir a l&apos;inici de sessió</string>
+    <key>QSLoginItemRemoveAction</key>
+    <string>No obrir a l&apos;inici de sessió</string>
+    <key>QSNUTDContactShowAction</key>
+    <string>Mostrar contacte</string>
+    <key>QSNetworkLocationSelectAction</key>
+    <string>Canvia a l&apos;ubicació</string>
+    <key>QSObjCSendMessageAction</key>
+    <string>Executar</string>
+    <key>QSObjectSearchChildrenAction</key>
+    <string>Cercar continguts</string>
+    <key>QSObjectShowChildMenu</key>
+    <string>Mostrar el menú de continguts</string>
+    <key>QSObjectShowMenu</key>
+    <string>Mostrar el menú</string>
+    <key>QSObjectShowActionMenu</key>
+    <string>Mostrar el menú d&apos;accions</string>
+    <key>QSObjectShowChildrenAction</key>
+    <string>Mostrar continguts</string>
+    <key>QSObjectShowSourceAction</key>
+    <string>Mostra l&apos;origen en el Catàleg</string>
+    <key>QSPutOnShelfAction</key>
+    <string>Possar a la Prestatgeria</string>
+    <key>QSShelfShowAction</key>
+    <string>Mostrar</string>
+    <key>QSShellScriptRunAction</key>
+    <string>Executar [...]</string>
+    <key>QSTextShowDialogAction</key>
+    <string>Mostrar quadre de diàleg</string>
+    <key>QSTextSpeakAction</key>
+    <string>Reproduir text (Pronuncia)</string>
+    <key>QSTextAppendAction</key>
+    <string>Afegir text a...</string>
+    <key>QSTextDiffAction</key>
+    <string>Diferències respecte...</string>
+    <key>QSTextPrependAction</key>
+    <string>Anteposar text a...</string>
+    <key>QSTextTypeAction</key>
+    <string>Teclejar text</string>
+    <key>QSUserSwitchAction</key>
+    <string>Canviar d&apos;usuari</string>
+    <key>QSiPhotoAlbumShowAction</key>
+    <string>Mostrar àlbum</string>
+    <key>QSiPhotoAlbumSlideShowAction</key>
+    <string>Reprodueix presentació</string>
+    <key>QSiTunesAppendItemAction</key>
+    <string>Enviar a la cua</string>
+    <key>QSiTunesPlayItemAction</key>
+    <string>Reproduir</string>
+    <key>ShellScriptRunAction</key>
+    <string>Executar script de línia de comandaments</string>
+    <key>URLEmailAction</key>
+    <string>Obrir URL de correu electrònic</string>
+    <key>URLFindWithAction</key>
+    <string>Cercar en lloc web...</string>
+    <key>URLJSAction</key>
+    <string>Executar Javascript</string>
+    <key>URLOpenAction</key>
+    <string>Obrir URL</string>
+    <key>URLOpenActionInBackground</key>
+    <string>Obrir URL en segon pla</string>
+    <key>URLOpenWithAction</key>
+    <string>Obrir URL amb...</string>
+    <key>URLSearchAction</key>
+    <string>Cercar</string>
+    <key>URLSearchForAction</key>
+    <string>Cercar per...</string>
+  </dict>
+</plist>

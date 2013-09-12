@@ -15,7 +15,6 @@
 #import "QSApp.h"
 #import "QSTaskController.h"
 #import "QSObject_PropertyList.h"
-#import "NSException_TraceExtensions.h"
 #import "QSTask.h"
 #import <QSFoundation/QSFoundation.h>
 
@@ -53,7 +52,7 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 + (QSCatalogEntry *)entryWithDictionary:(NSDictionary *)dict {
-	return [[[QSCatalogEntry alloc] initWithDictionary:dict] autorelease];
+	return [[QSCatalogEntry alloc] initWithDictionary:dict];
 }
 
 - (NSString *)description {
@@ -71,10 +70,11 @@ NSDictionary *enabledPresetDictionary;*/
 			for(NSDictionary * child in childDicts) {
 				[newChildren addObject:[QSCatalogEntry entryWithDictionary:child]];
 			}
-			children = [newChildren retain];
+			children = newChildren;
 		}
         // create a serial dispatch queue to make scan processes serial for each catalog entry
         scanQueue = dispatch_queue_create([[NSString stringWithFormat:@"QSCatalogEntry scanQueue: %@",[dict objectForKey:kItemID]] UTF8String], NULL);
+        dispatch_queue_set_specific(scanQueue, kQueueCatalogEntry, (__bridge void *)self, NULL);
 	}
 	return self;
 }
@@ -89,14 +89,8 @@ NSDictionary *enabledPresetDictionary;*/
 	id theSource = [self source];
 	if ([theSource respondsToSelector:@selector(disableEntry:)])
 		[theSource disableEntry:self];
-	[indexDate release];
-	[bundle release];
-	[children release];
-	[info release];
-	[contents release];
     dispatch_release(scanQueue);
     scanQueue = NULL;
-	[super dealloc];
 }
 
 - (NSDictionary *)dictionaryRepresentation {
@@ -249,7 +243,6 @@ NSDictionary *enabledPresetDictionary;*/
 				[children removeObject:child];
 		}
 	}
-	[children2 release];
 }
 
 - (NSArray *)leafIDs {
@@ -349,7 +342,11 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (NSComparisonResult) compare:(QSCatalogEntry *)other {
-	return [[self name] compare:[other name]];
+    if ([other name] != nil) {
+        return [[self name] compare:[other name]];
+    }
+    // othername is nil, so make the receiver higher in the list
+    return NSOrderedAscending;
 }
 
 - (NSString *)name {
@@ -502,14 +499,14 @@ NSDictionary *enabledPresetDictionary;*/
     @autoreleasepool {
         @try {
             QSObjectSource *source = [self source];
-            itemContents = [[source objectsForEntry:info] retain];
+            itemContents = [source objectsForEntry:info];
         }
         @catch (NSException *exception) {
             NSLog(@"An error ocurred while scanning \"%@\": %@", [self name], exception);
             [exception printStackTrace];
         }
     }
-    return [itemContents autorelease];
+    return itemContents;
 }
 
 - (BOOL)canBeIndexed {
@@ -589,7 +586,6 @@ NSDictionary *enabledPresetDictionary;*/
 }
 - (void)setChildren:(NSArray *)newChildren {
 	if(newChildren != children){
-		[children release];
 		children = [newChildren mutableCopy];
 	}
 }
@@ -618,7 +614,7 @@ NSDictionary *enabledPresetDictionary;*/
 
 
 - (QSCatalogEntry *)uniqueCopy {
-	NSMutableDictionary *newDictionary = [[info mutableCopy] autorelease];
+	NSMutableDictionary *newDictionary = [info mutableCopy];
 	if ([self isPreset]) {
 		[newDictionary setObject:[NSNumber numberWithBool:[self isEnabled]] forKey:kItemEnabled];
 		[newDictionary setObject:[self name] forKey:kItemName];
@@ -629,14 +625,13 @@ NSDictionary *enabledPresetDictionary;*/
 	if ([self children])
 		[newEntry setChildren:[[self children] valueForKey:@"uniqueCopy"]];
 
-	return [newEntry autorelease];
+	return newEntry;
 }
 
 - (NSDate *)indexDate { return indexDate;  }
 - (void)setIndexDate:(NSDate *)anIndexDate {
 	//	NSLog(@"date %@ ->%@", indexDate, anIndexDate);
-	[indexDate release];
-	indexDate = [anIndexDate retain];
+	indexDate = anIndexDate;
 }
 
 @end

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSCommandExecuteAtTimeAction</key>
+    <string>在特定时间执行 %@</string>
+    <key>QSCreateFileAction</key>
+    <string>在目录 %@ 下创建包含 %@ 的新文件</string>
+    <key>QSCommandAddTriggerAction</key>
+    <string>将 %@ 添加为触发器</string>
+    <key>QSCommandExecuteAction</key>
+    <string>执行 %@</string>
+    <key>AppShowHideAction</key>
+    <string>切换 %@ 的可见性</string>
+    <key>FileAlwaysOpenTypeWithAction</key>
+    <string>总是以 %@ 打开 %@ 文件类型</string>
+    <key>QSCommandSaveAction</key>
+    <string>将 %@ 保存到文件</string>
+    <key>PasteboardPasteActionAsPlainText</key>
+    <string>粘贴 %@ 为无格式文本</string>
+    <key>QSCreateFileTemplate</key>
+    <string>在 %@ 目录下创建新模板文件 %@</string>
+    <key>QSCommandExecuteAfterDelayAction</key>
+    <string>延迟执行 %@</string>
+    <key>AppActivateAction</key>
+    <string>激活 %@</string>
+    <key>AppHideAction</key>
+    <string>隐藏 %@</string>
+    <key>AppHideOthersAction</key>
+    <string>%@ 隐藏其他</string>
+    <key>AppLaunchAction</key>
+    <string>启动 %@</string>
+    <key>AppLaunchAgainAction</key>
+    <string>启动 %@ 的其他实例</string>
+    <key>AppLaunchAsRootAction</key>
+    <string>以 root 启动 %@</string>
+    <key>AppOpenFileAction</key>
+    <string>用 %@ 打开 %@</string>
+    <key>AppQuitAction</key>
+    <string>退出 %@</string>
+    <key>AppQuitOthersAction</key>
+    <string>退出其他 %@</string>
+    <key>AppRelaunchAction</key>
+    <string>重新加载 %@</string>
+    <key>AppReopenAction</key>
+    <string>加载 %@</string>
+    <key>AppRootLaunchAction</key>
+    <string>以 root 身份加载 %@</string>
+    <key>AppleScriptOpenFilesAction</key>
+    <string>用 %@ 打开 %@</string>
+    <key>AppleScriptProcessTextAction</key>
+    <string>用 %@ 处理 %@</string>
+    <key>AppleScriptRunAction</key>
+    <string>运行脚本：%@</string>
+    <key>AppleScriptRunTextAction</key>
+    <string>运行 &apos;%@&apos;</string>
+    <key>DiskEjectAction</key>
+    <string>弹出 %@</string>
+    <key>DiskForceEjectAction</key>
+    <string>强制弹出 %@</string>
+    <key>FileCompressAction</key>
+    <string>压缩 %@</string>
+    <key>FileCopyToAction</key>
+    <string>将 %@ 拷贝到 %@</string>
+    <key>FileDecompressAction</key>
+    <string>解压缩 %@</string>
+    <key>FileDeleteAction</key>
+    <string>删除 %@</string>
+    <key>FileGetHFSPathAction</key>
+    <string>获取 HFS 的 %@ 路径</string>
+    <key>FileGetInfoAction</key>
+    <string>由 %@ 获取信息</string>
+    <key>FileGetPathAction</key>
+    <string>获取 %@ 的posix路径</string>
+    <key>FileGetPosixPathAction</key>
+    <string>获取 %@ 的绝对路径</string>
+    <key>FileGetURLAction</key>
+    <string>获取 %@ 的 file:// 地址</string>
+    <key>FileMakeAliasInAction</key>
+    <string>在 %# 创建 %@ 的别名</string>
+    <key>FileMakeHardLinkInAction</key>
+    <string>在 %# 创建 %@ 的硬链接</string>
+    <key>FileMakeLinkInAction</key>
+    <string>在 %# 创建 %@ 的链接</string>
+    <key>FileMoveToAction</key>
+    <string>将 %@ 移动到 %#</string>
+    <key>FileOpenAction</key>
+    <string>以 %@ 打开</string>
+    <key>FileOpenWithAction</key>
+    <string>用 %# 打开 %@</string>
+    <key>FileRenameAction</key>
+    <string>将 %@ 重命名为 %#</string>
+    <key>FileRevealAction</key>
+    <string>显示 %@</string>
+    <key>FileToTrashAction</key>
+    <string>移动 %@ 到废纸篓</string>
+    <key>ItemSendToContactEmailAction</key>
+    <string>邮件发送 %@ 给 %@</string>
+    <key>ItemSendToContactIMAction</key>
+    <string>即时消息 %@ 给 %@</string>
+    <key>PasteboardCopyAction</key>
+    <string>拷贝 %@ 到剪切板</string>
+    <key>PasteboardPasteAction</key>
+    <string>粘贴 %@ 到当前应用程序</string>
+    <key>ProcessKillAction</key>
+    <string>强制退出 %@</string>
+    <key>ProcessLowerPriorityAction</key>
+    <string>降低 %@ 的优先级</string>
+    <key>ProcessRaisePriorityAction</key>
+    <string>提升 %@ 的优先级</string>
+    <key>ProcessResumeAction</key>
+    <string>恢复 %@</string>
+    <key>ProcessSuspendAction</key>
+    <string>挂起 %@</string>
+    <key>QSCatalogEntryRescanAction</key>
+    <string>重新扫描 %@</string>
+    <key>QSCatalogEntryShowAction</key>
+    <string>显示 %@</string>
+    <key>QSDialNumberAction</key>
+    <string>拨号 %@</string>
+    <key>QSEditAction</key>
+    <string>编辑 %@</string>
+    <key>QSLargeTypeAction</key>
+    <string>在大类中显示 &quot;%@&quot;</string>
+    <key>QSLoginItemAddAction</key>
+    <string>将 %@ 添加到启动项</string>
+    <key>QSLoginItemRemoveAction</key>
+    <string>从启动项中删除 %@</string>
+    <key>QSNewFolderAction</key>
+    <string>以 %# 为名在 %@ 创建新目录</string>
+    <key>QSObjCSendMessageAction</key>
+    <string>执行 %@</string>
+    <key>QSObjectAssignLabelAction</key>
+    <string>将 %@ 标签设置为 %#</string>
+    <key>QSObjectAssignMnemonic</key>
+    <string>设置 %@ 的助记符为 %#</string>
+    <key>QSObjectOmitAction</key>
+    <string>从类别中省略 %@</string>
+    <key>QSObjectSearchChildrenAction</key>
+    <string>搜索 %@ 内容</string>
+    <key>QSObjectSelectAction</key>
+    <string>在命令窗口中选中 %@</string>
+    <key>QSObjectShowActionMenu</key>
+    <string>显示 %@ 动作菜单</string>
+    <key>QSObjectShowChildMenu</key>
+    <string>显示 %@ 内容菜单</string>
+    <key>QSObjectShowChildrenAction</key>
+    <string>显示 %@ 内容</string>
+    <key>QSObjectShowMenu</key>
+    <string>显示 %@ 动作菜单</string>
+    <key>QSObjectShowSourceAction</key>
+    <string>在类别中显示 %@ 来源</string>
+    <key>QSPutOnShelfAction</key>
+    <string>将 %@ 放入架子</string>
+    <key>QSShelfShowAction</key>
+    <string>显示 %@</string>
+    <key>QSShellScriptRunAction</key>
+    <string>运行脚本：%@</string>
+    <key>QSSoundPlayAction</key>
+    <string>播放 %@</string>
+    <key>QSTextDiffAction</key>
+    <string>比较 %@ 和 %#</string>
+    <key>QSTextShowDialogAction</key>
+    <string>显示对话框：&quot;%@&quot;</string>
+    <key>QSTextSpeakAction</key>
+    <string>说出 &quot;%@&quot;</string>
+    <key>QSTextTypeAction</key>
+    <string>键入 &quot;%@&quot;</string>
+    <key>ShellScriptRunAction</key>
+    <string>运行脚本：%@</string>
+    <key>URLEmailAction</key>
+    <string>发送电子邮件 %@</string>
+    <key>URLFindWithAction</key>
+    <string>以 %@ 查找 %@</string>
+    <key>URLJSAction</key>
+    <string>运行 %@</string>
+    <key>URLOpenAction</key>
+    <string>打开 %@</string>
+    <key>URLOpenActionInBackground</key>
+    <string>后台打开 %@</string>
+    <key>URLOpenWithAction</key>
+    <string>用 %@ 打开 %@</string>
+    <key>URLSearchAction</key>
+    <string>搜索 %@</string>
+    <key>URLSearchForAction</key>
+    <string>在 %@ 搜索 %@</string>
+  </dict>
+</plist>

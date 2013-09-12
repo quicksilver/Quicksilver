@@ -1,7 +1,6 @@
 /* QSController */
 
 #import <Cocoa/Cocoa.h>
-#import <Carbon/Carbon.h>
 
 @class QSSearchObjectView;
 @class QSActionMatrix;
@@ -60,6 +59,7 @@
 - (void)hideMainWindowFromExecution:(id)sender;
 - (void)hideMainWindowFromCancel:(id)sender;
 - (void)hideMainWindowFromFade:(id)sender;
+- (void)willHideMainWindow:(id)sender;
 
 - (void)showIndirectSelector:(id)sender;
 - (void)hideIndirectSelector:(id)sender;

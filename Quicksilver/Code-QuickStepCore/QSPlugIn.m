@@ -15,7 +15,6 @@
 #import "QSLibrarian.h"
 #import "QSNotifications.h"
 #import "NSString+NDUtilities.h"
-#import "NSException_TraceExtensions.h"
 #import "QSPreferenceKeys.h"
 
 //static
@@ -23,7 +22,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 @implementation QSPlugIn
 
-@synthesize status;
+@synthesize status, data;
 
 + (void)initialize {
 	plugInBundlePaths = [[NSMutableDictionary alloc] init];
@@ -42,8 +41,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 - (id)initWithBundle:(NSBundle *)aBundle {
 	id dup = [plugInBundlePaths valueForKey:[aBundle bundlePath]];
 	if (dup) {
-		[self release];
-		return [dup retain];
+		return dup;
 	}
 	if (self = [super init]) {
 		[self setBundle:aBundle];
@@ -62,11 +60,11 @@ NSMutableDictionary *plugInBundlePaths = nil;
 }
 
 + (id)plugInWithBundle:(NSBundle *)aBundle {
-	return [[[QSPlugIn alloc] initWithBundle:aBundle] autorelease];
+	return [[QSPlugIn alloc] initWithBundle:aBundle];
 }
 
 + (id)plugInWithWebInfo:(NSDictionary *)webInfo {
-	return [[[QSPlugIn alloc] initWithWebInfo:webInfo] autorelease];
+	return [[QSPlugIn alloc] initWithWebInfo:webInfo];
 }
 /**
  Without loading the bundle, read bundle ID and version string
@@ -75,23 +73,18 @@ NSMutableDictionary *plugInBundlePaths = nil;
  @result     An auto-released string with the bundle ID (eg: "com.blacktree.Quicksilver.QSEmailSupport")
  */
 + (NSString *)bundleIDForPluginAt:(NSString*)path andVersion:(NSString**)version {
-  CFBundleRef bundle = CFBundleCreate(NULL, (CFURLRef)[NSURL fileURLWithPath:path]);
+  CFBundleRef bundle = CFBundleCreate(NULL, (__bridge CFURLRef)[NSURL fileURLWithPath:path]);
   if (!bundle) return nil;
   if (version) {
-		*version = (NSString*)CFBundleGetValueForInfoDictionaryKey(bundle, kCFBundleVersionKey);
-    [[*version retain] autorelease];
+		*version = (__bridge NSString*)CFBundleGetValueForInfoDictionaryKey(bundle, kCFBundleVersionKey);
   }
-  NSString *bundleIdent = (NSString *)CFBundleGetIdentifier(bundle);
-  [[bundleIdent retain] autorelease];
+  NSString *bundleIdent = (__bridge NSString *)CFBundleGetIdentifier(bundle);
   CFRelease(bundle);
   return bundleIdent;
 }
 
 - (void)dealloc {
 	[self setBundle:nil];
-	[bundle release];
-	[data release];
-	[super dealloc];
 }
 - (void)downloadFailed {
 	installing = NO;
@@ -161,7 +154,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	static NSNumber *myArch = nil;
 	if (myArch == nil) {
 		NSRunningApplication *Quicksilver = [NSRunningApplication currentApplication];
-		myArch = [[NSNumber numberWithInteger:[Quicksilver executableArchitecture]] retain];
+		myArch = [NSNumber numberWithInteger:[Quicksilver executableArchitecture]];
 	}
 	return (![bundle executableArchitectures] || [[bundle executableArchitectures] containsObject:myArch]);
 }
@@ -269,12 +262,21 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	return version;
 }
 
+- (NSString *)releaseNotes
+{
+    return [data objectForKey:@"QSPluginChanges"];
+}
+
 - (BOOL)isSecret {
 	return [[[self info] valueForKeyPath:@"QSPlugIn.secret"] boolValue];
 }
 
 - (BOOL)isRecommended
 {
+    // don't recommend if obsolete
+    if ([self isObsolete]) {
+        return NO;
+    }
 	// explicitly recommended
 	if ([[[self info] valueForKeyPath:@"QSPlugIn.recommended"] boolValue]) {
 		return YES;
@@ -342,7 +344,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	NSString *text = [plist valueForKeyPath:@"QSPlugIn.extendedDescription"];
 	if (![text length]) text = [plist valueForKeyPath:@"QSPlugIn.description"];
 	if (![text length]) text = @"<span style='color: #CCC'>No documentation available</span>";
-	return [NSString stringWithFormat:@"<html><link rel=\"stylesheet\" href=\"resource:QSStyle.css\"><body><div id=\"content\">%@</div></body></html>", text];
+	return [NSString stringWithFormat:@"<html><link rel=\"stylesheet\" href=\"QSStyle.css\"><body><div id=\"content\">%@</div></body></html>", text];
 }
 
 - (BOOL)hasExtendedDescription
@@ -373,7 +375,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 	//	NSLog(@"plist %@", text); re
 	text = [NSString stringWithFormat:@"<font face=\"Lucida Grande\">%@</font>", text];
-	NSMutableAttributedString *info = [[[NSMutableAttributedString alloc] initWithHTML:[text dataUsingEncoding:NSUTF8StringEncoding] documentAttributes:nil] autorelease];
+	NSMutableAttributedString *info = [[NSMutableAttributedString alloc] initWithHTML:[text dataUsingEncoding:NSUTF8StringEncoding] documentAttributes:nil];
 
 	//	NSLog(@"plist %@", info);
 	//	[info addAttributes:attributes range:NSMakeRange(0, [info length])];
@@ -401,16 +403,14 @@ NSMutableDictionary *plugInBundlePaths = nil;
 			icon = [QSResourceManager imageNamed:@"QSPlugIn"];
 		}
 		[icon setSize:QSSize32];
-		[icon retain];
 	}
 	return icon;
 }
 
 - (NSImage *)smallIcon {
 	if (!smallIcon) {
-		smallIcon = [[[self icon] copy] autorelease];
+		smallIcon = [[self icon] copy];
 		[smallIcon shrinkToSize:QSSize16];
-		[smallIcon retain];
 	}
 	return smallIcon;
 }
@@ -466,7 +466,6 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 		[[NSUserDefaults standardUserDefaults] setObject:[disabledPlugInsSet allObjects] forKey:@"QSDisabledPlugIns"];
         
-        [disabledPlugInsSet release];
 
 		if (flag) {
 			[[QSPlugInManager sharedInstance] liveLoadPlugIn:self];
@@ -518,35 +517,21 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	if ([newBundle isKindOfClass:[QSPlugIn class]]) {
 		NSBeep();
 	}
-	[icon release];icon = nil;
-	[smallIcon release];smallIcon = nil;
-	[self retain];
+	icon = nil;
+	smallIcon = nil;
 	if (bundle) {
-		[self retain];
 		[plugInBundlePaths removeObjectForKey:[bundle bundlePath]];
-		[bundle autorelease];
 	}
-	bundle = [newBundle retain];
+	bundle = newBundle;
 	if (bundle) {
-		[[[plugInBundlePaths objectForKey:[bundle bundlePath]] retain] autorelease]; // old plugin needs to be retained, because it will be released once it's replaced in plugInBundlePaths-list
+		[plugInBundlePaths objectForKey:[bundle bundlePath]]; // old plugin needs to be retained, because it will be released once it's replaced in plugInBundlePaths-list
 		[plugInBundlePaths setObject:self forKey:[bundle bundlePath]];
-		[self release];
-	}
-	[self release];
-}
-
-- (NSMutableDictionary *)data { return data;  }
-- (void)setData:(NSMutableDictionary *)newData {
-	if(newData != data){
-		[data release];
-		data = [newData retain];
 	}
 }
 
 - (NSString *)loadError { return loadError;  }
 - (void)setLoadError:(NSString *)newLoadError {
-	[loadError autorelease];
-	loadError = [newLoadError retain];
+	loadError = newLoadError;
 	[self setStatus:[NSString stringWithFormat:@"Error (%@) ", loadError]];
 }
 
@@ -706,7 +691,14 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 - (BOOL)_registerPlugIn {
     if (![self isSupported]) {
-        [NSException raise:@"QSWrongPluginArchitecture" format:@"Current architecture unsupported"];
+        NSString *unsupportedFolder = @"PlugIns (disabled)";
+        NSString *pluginFileName = [[self path] lastPathComponent];
+        NSString *destination = [QSApplicationSupportSubPath(unsupportedFolder, YES) stringByAppendingPathComponent:pluginFileName];
+        NSLog(@"Moving unsupported plugin '%@' to %@. Quicksilver only supports 64-bit plugins. i386 and PPC plugins are being disabled to avoid repeated warnings.", [self name], unsupportedFolder);
+        NSFileManager *fm = [NSFileManager defaultManager];
+        [fm moveItemAtPath:[self path] toPath:destination error:nil];
+        //[NSException raise:@"QSWrongPluginArchitecture" format:@"Current architecture unsupported"];
+        return NO;
     }
     
 	if (!bundle) return NO;

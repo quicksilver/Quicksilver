@@ -24,7 +24,7 @@ static BOOL gModifiersAreIgnored;
 #endif
 
 + (id)actionWithDictionary:(NSDictionary *)dict {
-    return [[[self alloc] initWithDictionary:dict] autorelease];
+    return [[self alloc] initWithDictionary:dict];
 }
 
 + (id)actionWithDictionary:(NSDictionary *)dict identifier:(NSString *)ident {
@@ -44,7 +44,7 @@ static BOOL gModifiersAreIgnored;
 }
 
 + (id)actionWithIdentifier:(NSString *)newIdentifier {
-	return [[[QSExec actionForIdentifier:newIdentifier] retain] autorelease];
+	return [QSExec actionForIdentifier:newIdentifier];
 }
 
 + (id) actionWithIdentifier:(NSString *)newIdentifier bundle:(NSBundle *)newBundle {
@@ -52,7 +52,7 @@ static BOOL gModifiersAreIgnored;
 
     // !!! Andre Berg 20091111: Incorporating patch Issue126-Fix.diff of pkohut
     if (!obj) {
-        obj = [[[self alloc] initWithIdentifier:newIdentifier bundle:newBundle] autorelease];
+        obj = [[self alloc] initWithIdentifier:newIdentifier bundle:newBundle];
     } else {
         [obj setBundle:newBundle];
     }
@@ -73,13 +73,11 @@ static BOOL gModifiersAreIgnored;
     id obj = [self initWithDictionary:rep];
     [obj setBundle:aBundle];
     
-    [rep release];
     return obj;
 }
 
 - (id)initWithDictionary:(NSDictionary *)dict {
 	if (!dict) {
-		[self release];
 		return nil;
 	}
 	if (self = [self init]) {
@@ -310,7 +308,7 @@ static BOOL gModifiersAreIgnored;
 	item = (NSMenuItem *)[menu addItemWithTitle:@"Edit Actions..." action:@selector(editActions:) keyEquivalent:@""];
 	[item setTarget:self];
 #endif
-	return [menu autorelease];
+	return menu;
 }
 
 - (QSObject *)performOnDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
@@ -411,6 +409,7 @@ static BOOL gModifiersAreIgnored;
     }
 	if (icon) {
 		[object setIcon:icon];
+        [object setRetainsIcon:YES];
 		return YES;
 	} else
 		return NO;

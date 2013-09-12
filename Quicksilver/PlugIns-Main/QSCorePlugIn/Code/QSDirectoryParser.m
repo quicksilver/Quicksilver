@@ -60,10 +60,10 @@
     NSNumber *URLIsPackage;
     
 	for (NSURL *theURL in enumerator) {
+        file = [theURL path];
 		aliasSource = nil; aliasFile = nil;
         [theURL getResourceValue:&URLIsSymbolicLink forKey:NSURLIsSymbolicLinkKey error:nil];
 		if ([URLIsSymbolicLink boolValue]) {
-            file = [theURL path];
             /* If this is an alias, try to resolve it to get the remaining checks right */
             NSString *targetFile = [manager resolveAliasAtPath:file];
             if (targetFile) {
@@ -76,7 +76,7 @@
             [theURL getResourceValue:&URLIsDirectory forKey:NSURLIsDirectoryKey error:nil];
             isDirectory = [URLIsDirectory boolValue];
         }
-        type = [manager UTIOfURL:theURL];
+        type = [manager UTIOfFile:file];
         // if we are an alias or the file has no reason to be included
         BOOL include = NO;
         if (![types count]) {

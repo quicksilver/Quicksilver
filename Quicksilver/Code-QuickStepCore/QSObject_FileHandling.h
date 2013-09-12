@@ -34,12 +34,13 @@
 + (QSObject *)fileObjectWithFileURL:(NSURL *)fileURL;
 + (QSObject *)fileObjectWithArray:(NSArray *)paths;
 + (NSArray *)fileObjectsWithPathArray:(NSArray *)pathArray;
-+ (NSMutableArray *)fileObjectsWithURLArray:(NSArray *)pathArray;
++ (NSMutableArray *)fileObjectsWithURLArray:(NSArray *)URLArray;
 - (id)initWithArray:(NSArray *)paths;
 - (void)getNameFromFiles;
 - (NSString *)kindOfFile:(NSString *)path;
 - (NSString *)filesContainer;
 - (NSString *)filesType;
+- (QSObject *)resolvedAliasObject;
 - (BOOL)isApplication;
 - (BOOL)isDirectory; // YES for all directories
 - (BOOL)isFolder;    // YES for directories that aren't packages
@@ -49,7 +50,5 @@
 - (NSString *)fileExtension;
 - (NSString *)fileUTI;
 - (NSString *)singleFileType;
-
-- (void)previewIcon:(id)file;
 @end
 

@@ -9,7 +9,7 @@ QSTaskController *QSTasks;
 
 @implementation QSTaskController
 + (QSTaskController * ) sharedInstance {
-	if (!QSTasks) QSTasks = [[[self class] allocWithZone:[self zone]] init];
+	if (!QSTasks) QSTasks = [[[self class] allocWithZone:nil] init];
 	return QSTasks;
 }
 + (void)showViewer { [(QSTaskViewer *)[NSClassFromString(@"QSTaskViewer") sharedInstance] showWindow:self];  }
@@ -67,7 +67,7 @@ QSTaskController *QSTasks;
 	return task;
 }
 - (void)updateTask:(NSString *)taskKey status:(NSString *)status progress:(CGFloat)progress {
-	QSTask *task = [[[self taskWithIdentifier:taskKey] retain] autorelease];
+	QSTask *task = [self taskWithIdentifier:taskKey];
 
 	[task setStatus:status];
 	[task setProgress:progress];

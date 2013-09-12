@@ -16,7 +16,7 @@ NSRect QSBlendRects(NSRect start, NSRect end, CGFloat b) {
 }
 
 + (id)helper {
-	return [[[self alloc] init] autorelease];
+	return [[self alloc] init];
 }
 
 - (id)init {
@@ -28,19 +28,16 @@ NSRect QSBlendRects(NSRect start, NSRect end, CGFloat b) {
 
 - (void)dealloc {
 	[_timer invalidate];
-	[_timer release];
-	[super dealloc];
 }
 
 - (void)_startAnimation {
-	_timer = [[NSTimer scheduledTimerWithTimeInterval:1.0/30.0 target:self selector:@selector(_doAnimation) userInfo:nil repeats:YES] retain];
+	_timer = [NSTimer scheduledTimerWithTimeInterval:1.0/30.0 target:self selector:@selector(_doAnimation) userInfo:nil repeats:YES];
 }
 
 - (void)_threadAnimation {
 	while(([NSDate timeIntervalSinceReferenceDate] -_startTime) <_totalTime) {
 		[self _doAnimation];
 		usleep(100);
-		// [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0/30]];
 	}
 	[self _doAnimation];
 }
@@ -64,15 +61,13 @@ NSRect QSBlendRects(NSRect start, NSRect end, CGFloat b) {
 
 - (void)_stopAnimation {
 	[_timer invalidate];
-	[_timer release];
 	_timer = nil;
 }
 
 - (id)target { return target;  }
 - (void)setTarget:(id)aTarget {
 	if (target != aTarget) {
-		[target release];
-		target = [aTarget retain];
+		target = aTarget;
 	}
 }
 
@@ -105,7 +100,6 @@ NSRect QSBlendRects(NSRect start, NSRect end, CGFloat b) {
 		[_window setAlphaValue:_endAlpha];
 		[_window setFrame:_endFrame display:YES];
 		[self _stopAnimation];
-		[_window release];
 		[[self target] performSelector:[self action]];
 	} else {
 		[_window setFrame:QSBlendRects(_startFrame, _endFrame, _percent) display:NO];
@@ -123,7 +117,7 @@ NSRect QSBlendRects(NSRect start, NSRect end, CGFloat b) {
 	_startAlpha = [window alphaValue];
 	_endAlpha = alpha;
 
-	_window = [window retain];
+	_window = window;
 	[self _threadAnimation];
 
 }

@@ -17,8 +17,6 @@
 	print = [[NSString alloc] initWithFormat:format arguments:ap];
 	va_end(ap);
 	NSLog(@"%s:%ld %@", [[file lastPathComponent] UTF8String], (long)lineNumber, print);
-	[print release];
-	[file release];
 }
 @end
 

@@ -4,17 +4,13 @@
 
 @class QSObjectView, QSSearchObjectView;
 
-@interface QSResultController : NSWindowController
-#if (MAC_OS_X_VERSION_MAX_ALLOWED >= 1060)
-   <NSTableViewDataSource>
-#endif
+@interface QSResultController : NSWindowController <NSTableViewDataSource, NSWindowDelegate>
 {
  @public
 	IBOutlet NSTextField *	searchStringField;	// What the user types when searching (seen in the results view)
 	IBOutlet NSTextField * searchModeField;	// Seen in the result view. Either: @"Filter Catalog", @"Filter Results" or @"Snap to Best"
-	IBOutlet NSView *	selectionView;
+	IBOutlet NSTextField *	selectionView;
 	IBOutlet NSSplitView *	splitView;
-
 	IBOutlet NSTableView *	resultTable;
 	IBOutlet NSTableView *	resultChildTable;
 	QSIconLoader *resultIconLoader;
@@ -32,10 +28,12 @@
 	QSObject *selectedItem;
 	BOOL browsing;
 	BOOL needsReload;
+    BOOL shouldSaveWindowSize;
 	NSRange loadingRange;
 	NSArray *currentResults;
 	QSSearchObjectView *focus;
 	NSInteger scrollViewTrackingRect;
+    NSUInteger windowHeight;
 
 //	NSArray **sourceArrayPointer;
 	NSTimer *iconTimer;
@@ -50,10 +48,10 @@
 }
 
 
-@property (retain) IBOutlet NSTableView *resultTable;
-@property (retain) NSArray *currentResults;
-@property (retain) QSObject *selectedItem;
-@property (retain) NSTextField *searchStringField;
+@property (strong) IBOutlet NSTableView *resultTable;
+@property (strong) NSArray *currentResults;
+@property (strong) QSObject *selectedItem;
+@property (strong) NSTextField *searchStringField;
 
 + (id)sharedInstance;
 

@@ -22,7 +22,7 @@
 
 
 + (NSFocusRingType) defaultFocusRingType {
-	return NSFocusRingTypeExterior;
+	return NSFocusRingTypeNone;
 }
 - (NSTextView *)fieldEditorForView:(NSView *)aControlView
 {
@@ -32,12 +32,6 @@
     [fieldEditor setRichText:NO];
   }
   return fieldEditor;
-}
-- (void)dealloc{
-	[fieldEditor release];
-	//[nameFont release];
-	//[detailsFont release];
-	[super dealloc];
 }
 - (id)initTextCell:(NSString *)aString {
 
@@ -63,6 +57,7 @@
 		[self setState:NSOffState];
 		[self setImagePosition:-1];
 		[self setRepresentedObject:nil];
+        [self setImageScaling:NSImageScaleProportionallyUpOrDown];
 		// NSLog(@"%d pos", [self imagePosition]);
 		//[self setFormatter:[[[QSObjectFormatter alloc] init] autorelease]];
 		// [self setShowsBorderOnlyWhileMouseInside:YES];
@@ -320,8 +315,9 @@
 		if ([self isBezeled] && [self hasBadge])
 			size.width += 16;
 		// ***warning  *this should change based on the badge
-	} else
+	} else {
 		size.width = 128;
+    }
 
 	return size;
 
@@ -343,7 +339,7 @@
 
 	  if (isFirstResponder && [controlView isKindOfClass:[QSSearchObjectView class]]) {
 		  NSImage *find = [NSImage imageNamed:@"Find"];
-		  [find setSize:NSMakeSize(128, 128)];
+		  [find setSize:QSSizeMax];
 		  NSRect findImageRect = fitRectInRect(rectFromSize([find size]), cellFrame, 0);
 
 		  if (NSHeight(findImageRect) >= 64) {
@@ -383,7 +379,7 @@
 
 - (void)buildStylesForFrame:(NSRect)cellFrame inView:(NSView *)controlView {
 
-	NSMutableParagraphStyle *style = [[[NSMutableParagraphStyle alloc] init] autorelease];
+	NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
 	[style setLineBreakMode:NSLineBreakByTruncatingMiddle];
 	[style setFirstLineHeadIndent:1.0];
 	[style setHeadIndent:1.0];
@@ -398,27 +394,24 @@
 	
 	if(!nameFont)
 	{
-		[self setNameFont:[NSFont fontWithName:[[self font] fontName] size:MIN([[self font] pointSize] , NSHeight(cellFrame) *1.125*2/3) -1]];
+		[self setNameFont:[NSFont fontWithName:[[self font] fontName] size:MIN([[self font] pointSize], NSHeight(cellFrame) *1.125*2/3)]];
 	}
 	if(!detailsFont)
 	{
 		[self setDetailsFont:[NSFont fontWithName:[[self font] fontName] size:[[self font] pointSize] *5/6]];
 	}
 	
-	[nameAttributes release];
 	nameAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:
 		nameFont, NSFontAttributeName,
 		mainColor, NSForegroundColorAttributeName,
 		style, NSParagraphStyleAttributeName,
 		nil];
 
-	[detailsAttributes release];
 	detailsAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:
 		detailsFont, NSFontAttributeName,
 		fadedColor, NSForegroundColorAttributeName,
 		style, NSParagraphStyleAttributeName,
 		nil];
-    [rankedNameAttributes release];
     rankedNameAttributes = [[NSDictionary alloc] initWithObjectsAndKeys:
                          detailsFont, NSFontAttributeName,
                          [fadedColor colorWithAlphaComponent:0.8], NSForegroundColorAttributeName,
@@ -443,20 +436,26 @@
         }
         
 		if (!nameString) nameString = [drawObject displayName];
-                
-        BOOL rankedStringIsLabel = [nameString isEqualToString:[drawObject displayName]];
-        
+        BOOL rankedStringIsName = [nameString isEqualToString:[drawObject displayName]] || nameString == nil;
+        if (!nameString) {
+            // fall back to the identifier if no reasonable name can be found
+            nameString = [drawObject identifier];
+        }
+        if (!nameString) {
+            // Couldn't find anything sensible to use for the name, fallback to avoid a crash
+            nameString = @"Unknown";
+        }
 		BOOL useAlternateColor = [controlView isKindOfClass:[NSTableView class]] && [(NSTableView *)controlView isRowSelected:[(NSTableView *)controlView rowAtPoint:cellFrame.origin]];
 		NSColor *mainColor = (textColor?textColor:(useAlternateColor?[NSColor alternateSelectedControlTextColor] :[NSColor controlTextColor]));
 		NSColor *fadedColor = [mainColor colorWithAlphaComponent:0.80];
 		NSRect textDrawRect = [self titleRectForBounds:cellFrame];
         
-		NSMutableAttributedString *titleString = [[[NSMutableAttributedString alloc] initWithString:nameString] autorelease];
-        [titleString setAttributes:rankedStringIsLabel ? nameAttributes : detailsAttributes range:NSMakeRange(0, [titleString length])];
+		NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:nameString];
+        [titleString setAttributes:rankedStringIsName ? nameAttributes : detailsAttributes range:NSMakeRange(0, [titleString length])];
         
         
 		if (abbreviationString && ![abbreviationString hasPrefix:@"QSActionMnemonic"]) {
-			[titleString addAttribute:NSForegroundColorAttributeName value:rankedStringIsLabel ? fadedColor : [fadedColor colorWithAlphaComponent:0.8] range:NSMakeRange(0, [titleString length])];
+			[titleString addAttribute:NSForegroundColorAttributeName value:rankedStringIsName ? fadedColor : [fadedColor colorWithAlphaComponent:0.8] range:NSMakeRange(0, [titleString length])];
             
 			// Organise displaying the text, underlining the letters typed (in the name)
 			NSUInteger i = 0;
@@ -464,8 +463,8 @@
 			NSUInteger hits[[titleString length]];
 			NSUInteger count = [hitMask getIndexes:(NSUInteger *)&hits maxCount:[titleString length] inIndexRange:nil];
 			NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        rankedStringIsLabel ? mainColor : fadedColor, NSForegroundColorAttributeName,
-                                        rankedStringIsLabel ? mainColor : fadedColor, NSUnderlineColorAttributeName,
+                                        rankedStringIsName ? mainColor : fadedColor, NSForegroundColorAttributeName,
+                                        rankedStringIsName ? mainColor : fadedColor, NSUnderlineColorAttributeName,
                                         [NSNumber numberWithInteger:2.0] , NSUnderlineStyleAttributeName,
                                         [NSNumber numberWithDouble:1.0] , NSBaselineOffsetAttributeName,
                                         nil];
@@ -478,16 +477,15 @@
 			[titleString addAttribute:NSBaselineOffsetAttributeName value:[NSNumber numberWithDouble:-1.0] range:NSMakeRange(0, [titleString length])];
 		}
         
-        // Ranked string and ranked string aren't the same. Show 'nameString  ⟷ rankedString' in the UI
-        if (!rankedStringIsLabel) {
+        // Ranked string and nameString aren't the same. Show 'nameString  ⟷ rankedString' in the UI
+        if (!rankedStringIsName && [drawObject displayName].length) {
             [titleString addAttribute:NSFontAttributeName value:detailsFont range:NSMakeRange(0,[titleString length])];
             NSMutableAttributedString *attributedNameString = [[NSMutableAttributedString alloc] initWithString:[drawObject displayName]];
             [attributedNameString setAttributes:nameAttributes range:NSMakeRange(0, [[drawObject displayName] length])];
             
-            [attributedNameString appendAttributedString:[[[NSAttributedString alloc] initWithString:@" ⟷ " attributes:rankedNameAttributes] autorelease]];
+            [attributedNameString appendAttributedString:[[NSAttributedString alloc] initWithString:@" ⟷ " attributes:rankedNameAttributes]];
             // the replaceCharacters... method inserts the new string into the receiver at the start of the work (range.location and range.length are 0)
             [titleString replaceCharactersInRange:NSMakeRange(0,0) withAttributedString:attributedNameString];
-            [attributedNameString release];
         }
         
         if (showDetails) {
@@ -504,7 +502,7 @@
                 }
                 // Append the details string if it exists, and the UI wants it (showDetails BOOL)
                 if (detailsString != nil && detailsString.length) {
-                    [titleString appendAttributedString:[[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@",detailsString] attributes:detailsAttributes] autorelease]];
+                    [titleString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@",detailsString] attributes:detailsAttributes]];
                 }
             }
         }
@@ -517,16 +515,14 @@
 }
 
 - (void)drawObjectImage:(QSObject *)drawObject inRect:(NSRect)drawingRect cellFrame:(NSRect)cellFrame controlView:(NSView *)controlView flipped:(BOOL)flipped opacity:(CGFloat)opacity {
-	NSImage *icon = [[[drawObject icon] retain] autorelease];
+	NSImage *icon = [drawObject icon];
 	NSImage *cornerBadge = nil;
 	// NSLog(@"icon");
 	BOOL proxyDraw = [[icon name] isEqualToString:QSDirectObjectIconProxy];
 	if (proxyDraw) {
+        icon = [QSResourceManager imageNamed:@"defaultAction"];
 		if ([controlView isKindOfClass:[QSSearchObjectView class]]) {
 			cornerBadge = [[[(QSSearchObjectView *)controlView directSelector] objectValue] icon];
-			icon = [QSResourceManager imageNamed:@"defaultAction"];
-		} else {
-			icon = [QSResourceManager imageNamed:@"defaultAction"];
 		}
 	}
 	// NSRect imageRect = rectFromSize([icon size]);
@@ -536,20 +532,13 @@
 	if (NSWidth(drawingRect) >64)
 		handlerDraw = [drawObject drawIconInRect:(NSRect) drawingRect flipped:flipped];
 	if (!handlerDraw) {
-		NSImageRep *bestRep = [icon bestRepresentationForSize:drawingRect.size];
-		if (bestRep) [icon setSize:[bestRep size]];
-
-		BOOL noInterpolation = (NSHeight(drawingRect) /[bestRep size] .width >= 4);
-		[[NSGraphicsContext currentContext] setImageInterpolation:noInterpolation?NSImageInterpolationNone:NSImageInterpolationHigh];
+		[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
 		BOOL faded = ![drawObject iconLoaded];
 		drawingRect = fitRectInRect(rectFromSize([icon size]), drawingRect, NO);
 		[icon drawInRect:drawingRect fromRect:rectFromSize([icon size]) operation:NSCompositeSourceOver fraction:faded?0.5:1.0 respectFlipped:flipped hints:nil];
-		if (noInterpolation) [[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
 
 		if (proxyDraw && NSWidth(drawingRect) >= 32) {
 			NSRect badgeRect = NSMakeRect(0, 0, NSWidth(drawingRect) /2, NSHeight(drawingRect)/2);
-			NSImageRep *bestBadgeRep = [cornerBadge bestRepresentationForSize:badgeRect.size];
-			[cornerBadge setSize:[bestBadgeRep size]];
 			NSPoint offset = rectOffset(badgeRect, drawingRect, 2);
 			badgeRect = NSOffsetRect(badgeRect, offset.x, offset.y);
 			[cornerBadge drawInRect:badgeRect fromRect:rectFromSize([cornerBadge size]) operation:NSCompositeSourceOver fraction:1.0 respectFlipped:flipped hints:nil];
@@ -572,7 +561,7 @@
 
 - (NSMenu *)menuForObject:(id)object {
   if (!object) return nil;
-	NSMenu *menu = [[[NSMenu alloc] initWithTitle:@"ContextMenu"] autorelease];
+	NSMenu *menu = [[NSMenu alloc] initWithTitle:@"ContextMenu"];
 
 	NSArray *actions = [QSExec validActionsForDirectObject:object indirectObject:nil];
 	NSArray *nameSortedActions = [actions sortedArrayUsingDescriptors:[NSSortDescriptor descriptorArrayWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)]];
@@ -581,31 +570,31 @@
   NSDictionary *attrs = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:11],NSFontAttributeName,nil];
   
 	if ([nameSortedActions count]) {
-		NSMenu *actionsMenu = [[[NSMenu alloc] initWithTitle:@"Actions"] autorelease];
+		NSMenu *actionsMenu = [[NSMenu alloc] initWithTitle:@"Actions"];
 
 		for (QSAction *action in nameSortedActions) {
 			if (action) {
 				NSArray *componentArray = [[action name] componentsSeparatedByString:@"/"];
         [action loadIcon];
-				NSImage *icon = [[[action icon] copy] autorelease];
-				[icon setSize:NSMakeSize(16, 16)];
+				NSImage *icon = [[action icon] copy];
+				[icon setSize:QSSize16];
 
 				id command = [QSCommand commandWithDirectObject:object actionObject:action indirectObject:nil];
 				// NSLog(@"%@", command);
 				if ([componentArray count] >1) {
 					NSMenuItem *groupMenu = [menu itemWithTitle:[componentArray objectAtIndex:0]];
 					if (!groupMenu) {
-						groupMenu = [[[NSMenuItem alloc] initWithTitle:[componentArray objectAtIndex:0] action:nil keyEquivalent:@""] autorelease];
-						[groupMenu setAttributedTitle:[[[NSAttributedString alloc] initWithString:[groupMenu title] attributes:attrs] autorelease]];
+						groupMenu = [[NSMenuItem alloc] initWithTitle:[componentArray objectAtIndex:0] action:nil keyEquivalent:@""];
+						[groupMenu setAttributedTitle:[[NSAttributedString alloc] initWithString:[groupMenu title] attributes:attrs]];
 						if (icon) [groupMenu setImage:icon];
-						[groupMenu setSubmenu:[[[NSMenu alloc] initWithTitle:[componentArray objectAtIndex:0]] autorelease]];
+						[groupMenu setSubmenu:[[NSMenu alloc] initWithTitle:[componentArray objectAtIndex:0]]];
 						[actionsMenu addItem:groupMenu];
 					}
 					item = (NSMenuItem *)[[groupMenu submenu] addItemWithTitle:[componentArray objectAtIndex:1] action:@selector(execute) keyEquivalent:@""];
-					[item setAttributedTitle:[[[NSAttributedString alloc] initWithString:[item title] attributes:attrs] autorelease]];
+					[item setAttributedTitle:[[NSAttributedString alloc] initWithString:[item title] attributes:attrs]];
 				} else
 					item = (NSMenuItem *)[actionsMenu addItemWithTitle:[action name] action:@selector(execute) keyEquivalent:@""];
-					[item setAttributedTitle:[[[NSAttributedString alloc] initWithString:[item title] attributes:attrs] autorelease]];
+					[item setAttributedTitle:[[NSAttributedString alloc] initWithString:[item title] attributes:attrs]];
 				[item setTarget:command];
 				[item setRepresentedObject:command];
 
@@ -613,18 +602,18 @@
 
 			}
 		}
-		item = [[[NSMenuItem alloc] initWithTitle:@"Actions" action:nil keyEquivalent:@""] autorelease];
+		item = [[NSMenuItem alloc] initWithTitle:@"Actions" action:nil keyEquivalent:@""];
 		[item setSubmenu: actionsMenu];
-    [item setAttributedTitle:[[[NSAttributedString alloc] initWithString:[item title] attributes:attrs] autorelease]];
+    [item setAttributedTitle:[[NSAttributedString alloc] initWithString:[item title] attributes:attrs]];
 		[menu addItem:item];
 		[menu addItem:[NSMenuItem separatorItem]];
 	}
-	item = [[[NSMenuItem alloc] initWithTitle:@"Copy" action:@selector(copy:) keyEquivalent:@""] autorelease];
-  [item setAttributedTitle:[[[NSAttributedString alloc] initWithString:[item title] attributes:attrs] autorelease]];
+	item = [[NSMenuItem alloc] initWithTitle:@"Copy" action:@selector(copy:) keyEquivalent:@""];
+  [item setAttributedTitle:[[NSAttributedString alloc] initWithString:[item title] attributes:attrs]];
   [menu addItem:item];
-  item = [[[NSMenuItem alloc] initWithTitle:@"Remove" action:@selector(delete:) keyEquivalent:@""] autorelease];
+  item = [[NSMenuItem alloc] initWithTitle:@"Remove" action:@selector(delete:) keyEquivalent:@""];
   [item setTarget:[self controlView]];
-  [item setAttributedTitle:[[[NSAttributedString alloc] initWithString:[item title] attributes:attrs] autorelease]];
+  [item setAttributedTitle:[[NSAttributedString alloc] initWithString:[item title] attributes:attrs]];
   [menu addItem:item];
 	return menu;
 }
@@ -667,8 +656,7 @@
 }
 
 - (void)setNameFont:(NSFont *)newNameFont {
-    [nameFont autorelease];
-    nameFont = [newNameFont retain];
+    nameFont = newNameFont;
     [[self controlView] setNeedsDisplay:YES];
 }
 
@@ -677,8 +665,7 @@
 }
 
 - (void)setDetailsFont:(NSFont *)newDetailsFont {
-    [detailsFont autorelease];
-    detailsFont = [newDetailsFont retain];
+    detailsFont = newDetailsFont;
     [[self controlView] setNeedsDisplay:YES];
 }
 
@@ -697,8 +684,7 @@
 - (NSColor *)textColor { return textColor;  }
 
 - (void)setTextColor:(NSColor *)newTextColor {
-    [textColor release];
-    textColor = [newTextColor retain];
+    textColor = newTextColor;
     [[self controlView] setNeedsDisplay:YES];
 }
 
@@ -706,8 +692,7 @@
 
 - (void)setHighlightColor:(NSColor *)aHighlightColor {
 	if (highlightColor != aHighlightColor) {
-		[highlightColor release];
-		highlightColor = [aHighlightColor retain];
+		highlightColor = aHighlightColor;
 		[[self controlView] setNeedsDisplay:YES];
 	}
 }

@@ -10,6 +10,7 @@
 	}
 	return self;
 }
+
 - (void)bindColors {
 	if (self == [[self window] contentView] && !NSEqualRects([[[self window] contentView] frame] , [[[[self window] contentView] superview] frame])) {
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSEnableThemeSupport"]) {
@@ -24,28 +25,11 @@
 
 - (void)dealloc {
 	[self unbind:@"backgroundColor"];
-	[backgroundColor release];
-	[super dealloc];
 }
 
 - (void)awakeFromNib {
 	[self bindColors];
 	depth = 1.0;
-}
-
-- (void)_drawRect:(NSRect)rect withGradientFrom:(NSColor*)colorStart to:(NSColor*)colorEnd start:(NSRectEdge)edge {
-	NSRect remainingRect;
-	NSInteger i;
-	NSInteger index = (edge == NSMinXEdge || edge == NSMaxXEdge) ? rect.size.width : rect.size.height;
-	remainingRect = rect;
-	NSColor *colors[index];
-	NSRect rects[index];
-	for ( i = 0; i < index; i++ ) {
-		CGFloat fraction = sqrt((CGFloat) i/(CGFloat)index);
-		NSDivideRect ( remainingRect, &rects[i] , &remainingRect, 1.0, edge);
-		colors[i] = [colorStart blendedColorWithFraction:fraction ofColor:colorEnd];
-	}
-	NSRectFillListWithColors(&rects[0] , &colors[0] , index);
 }
 
 - (void)viewDidMoveToWindow {
@@ -76,8 +60,7 @@
 - (NSColor *)backgroundColor { return backgroundColor;  }
 - (void)setBackgroundColor:(NSColor *)aBackgroundColor {
 	if (backgroundColor != aBackgroundColor) {
-		[backgroundColor release];
-		backgroundColor = [aBackgroundColor retain];
+		backgroundColor = aBackgroundColor;
 		[self setNeedsDisplay:YES];
 	}
 }

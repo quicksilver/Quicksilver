@@ -19,7 +19,7 @@
 
 @implementation QSProxyObject
 + (id)proxyWithDictionary:(NSDictionary*)dictionary {
-    return [[[self alloc] initWithDictionary:dictionary] autorelease];
+    return [[self alloc] initWithDictionary:dictionary];
 }
 
 + (id)proxyWithIdentifier:(NSString*)identifier {
@@ -142,7 +142,7 @@
 
 - (void)objectIconModified:(NSNotification *)notif
 {
-    [self updateIcon:[[self proxyObject] icon]];
+    [self setIcon:[[self proxyObject] icon]];
 }
 
 - (BOOL)isProxyObject
@@ -164,13 +164,10 @@
     if (!namedIcon || [namedIcon isEqualToString:@"ProxyIcon"]) {
         // use the resolved object's icon instead
         QSObject *resolved = [self resolvedObject];
+        [self setIcon:[resolved icon]];
+        [self setIconLoaded:YES];
 	    [resolved loadIcon];
-	    NSImage *image = [resolved icon];
-		if (image) {
-            [self setIconLoaded:YES];
-			[self setIcon:image];
-			return YES;
-		}
+        return YES;
     }
     return [super loadIcon];
 }

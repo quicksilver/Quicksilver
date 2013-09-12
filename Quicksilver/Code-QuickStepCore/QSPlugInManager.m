@@ -20,15 +20,13 @@
 
 #import "QSURLDownloadWrapper.h"
 
-#import "NSException_TraceExtensions.h"
-
 #define pPlugInInfo QSApplicationSupportSubPath(@"PlugIns.plist", NO)
 #define MAX_CONCURRENT_DOWNLOADS 2
 
 @implementation QSPlugInManager
 + (id)sharedInstance {
 	static id _sharedInstance;
-	if (!_sharedInstance) _sharedInstance = [[[self class] allocWithZone:[self zone]] init];
+	if (!_sharedInstance) _sharedInstance = [[[self class] allocWithZone:nil] init];
 	return _sharedInstance;
 }
 - (id)init {
@@ -127,7 +125,7 @@
 	NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:pPlugInInfo];
 	if (dict) {
 		plugInWebData = [[dict objectForKey:@"webData"] mutableCopy];
-		plugInWebDownloadDate = [[dict objectForKey:@"webDownloadDate"] retain];
+		plugInWebDownloadDate = [dict objectForKey:@"webDownloadDate"];
 	}
 	if (!plugInWebData)
 		plugInWebData = [[NSMutableDictionary alloc] init];
@@ -195,7 +193,7 @@
             return;
         }
         //   data must be retained here because it is needed for the callbacks
-        receivedData = [[NSMutableData data] retain];
+        receivedData = [NSMutableData data];
 		
 		// theConnection is released in connectionDidFinishLoading or connection:didFailWithError (p_j_r thinks...)
 		NSURLConnection *theConnection = [[NSURLConnection alloc] initWithRequest:theRequest
@@ -205,7 +203,7 @@
 			[QSTasks updateTask:@"Retrieving Plugins..." status:@"Updating Plugin Info" progress:0.0];
 		} else {
 			NSLog(@"Problem downloading plugin data. Perhaps an invalid URL");
-            [receivedData release], receivedData = nil;
+            receivedData = nil;
         }
 	}
 }
@@ -250,8 +248,6 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
 	[QSTasks updateTask:@"Retrieving Plugins..." status:@"Updating Plugin Info" progress:1.0];
-    [connection release];
-    [receivedData release];
 	receivedData = nil;
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSPlugInInfoFailedNotification object:self userInfo:nil];
@@ -283,7 +279,7 @@
 
 		[self loadPlugInInfo:[prop objectForKey:@"plugins"]];
 
-		plugInWebDownloadDate = [[NSDate date] retain];
+		plugInWebDownloadDate = [NSDate date];
 		[self writeInfo];
 
 		[self willChangeValueForKey:@"knownPlugInsWithWebInfo"];
@@ -296,8 +292,6 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
 	[QSTasks updateTask:@"Retrieving Plugins..." status:@"Updating Plugin Info" progress:1.0];
 	[self loadNewWebData:receivedData];
-	[connection release];
-	[receivedData release];
 	receivedData = nil;
 }
 
@@ -451,9 +445,16 @@
 	[[QSPlugIn plugInWithBundle:[NSBundle mainBundle]]registerPlugIn];
 
 	// Get all locally installed plugins
-	NSMutableArray *newLocalPlugIns = [NSBundle performSelector:@selector(bundleWithPath:) onObjectsInArray:[self allBundles]];
-    [newLocalPlugIns removeObject:[NSNull null]];
-	newLocalPlugIns = [QSPlugIn performSelector:@selector(plugInWithBundle:) onObjectsInArray:newLocalPlugIns];
+	NSMutableArray *newLocalPlugInBundles = [[NSMutableArray alloc] init];
+    [[self allBundles] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [newLocalPlugInBundles addObject:[NSBundle bundleWithPath:obj]];
+    }];
+    
+    [newLocalPlugInBundles removeObject:[NSNull null]];
+    NSMutableArray *newLocalPlugIns = [[NSMutableArray alloc] init];
+    [newLocalPlugInBundles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [newLocalPlugIns addObject:[QSPlugIn plugInWithBundle:obj]];
+    }];
 	[newLocalPlugIns removeObject:[NSNull null]];
 
 	NSMutableDictionary	*plugInsToLoadByID = [NSMutableDictionary dictionary];
@@ -632,24 +633,21 @@
 	return localPlugIns;
 }
 - (void)setLocalPlugIns:(NSMutableDictionary *)newLocalPlugIns {
-	[localPlugIns release];
-	localPlugIns = [newLocalPlugIns retain];
+	localPlugIns = newLocalPlugIns;
 }
 
 - (NSMutableDictionary *)knownPlugIns {
 	return knownPlugIns;
 }
 - (void)setKnownPlugIns:(NSMutableDictionary *)newKnownPlugIns {
-	[knownPlugIns release];
-	knownPlugIns = [newKnownPlugIns retain];
+	knownPlugIns = newKnownPlugIns;
 }
 
 - (NSMutableDictionary *)loadedPlugIns {
 	return loadedPlugIns;
 }
 - (void)setLoadedPlugIns:(NSMutableDictionary *)newLoadedPlugIns {
-	[loadedPlugIns release];
-	loadedPlugIns = [newLoadedPlugIns retain];
+	loadedPlugIns = newLoadedPlugIns;
 }
 
 - (NSMutableDictionary *)obsoletePlugIns
@@ -657,7 +655,7 @@
 	return obsoletePlugIns;
 }
 
-- (BOOL)checkForPlugInUpdates {
+- (QSPluginUpdateStatus)checkForPlugInUpdates {
 	return [self checkForPlugInUpdatesForVersion:nil];
 }
 
@@ -666,7 +664,7 @@
  * If plugin updates are available, the user is presented with a dialog,
  * then installation proceeds
  */
-- (BOOL)checkForPlugInUpdatesForVersion:(NSString *)version {
+- (QSPluginUpdateStatus)checkForPlugInUpdatesForVersion:(NSString *)version {
 	if (!plugInWebData)
 		[self loadWebPlugInInfo];
 
@@ -680,35 +678,38 @@
 
 	[self downloadWebPlugInInfoFromDate:nil forUpdateVersion:version synchronously:YES];
 
-	NSMutableArray *names = [NSMutableArray arrayWithCapacity:1];
+    // An array of mutable dictionaries that contain information on the plugin(s) requiring an update
+	NSMutableArray *plugins = [NSMutableArray arrayWithCapacity:1];
 	// don't update obsolete plugins, but list them when alerting the user
 	for (QSPlugIn *thisPlugIn in [[self localPlugIns] allValues]) {
 		if ([thisPlugIn isObsolete]) {
 			NSString *replacementID = [obsoletePlugIns objectForKey:[thisPlugIn identifier]];
 			[updatedPlugIns addObject:replacementID];
 			QSPlugIn *replacement = [self plugInWithID:replacementID];
-			[names addObject:[NSString stringWithFormat:@"%@ (replaced by %@)", [thisPlugIn name], [replacement name]]];
+			[plugins addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%@ (replaced by %@)", [thisPlugIn name], [replacement name]],@"name",thisPlugIn,@"plugin",nil]];
 		}
 	}
 	// compare to plugins that are availble for download
 	for (QSPlugIn *thisPlugIn in [self knownPlugInsWithWebInfo]) {
 		if ([thisPlugIn needsUpdate]) {
 			[updatedPlugIns addObject:[thisPlugIn identifier]];
-			[names addObject:[thisPlugIn name]];
+			[plugins addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:thisPlugIn,@"plugin",nil]];
 		}
 	}
-	
+    
 	if ([updatedPlugIns count]) {
-		NSInteger selection = NSRunInformationalAlertPanel([NSString stringWithFormat:@"Plugin Updates are available", nil] ,
-												  @"%@", @"Install", @"Cancel", nil, [names componentsJoinedByString:@", "]);
-		if (selection == 1) {
-			updatingPlugIns = YES;
-			[self installPlugInsForIdentifiers:[updatedPlugIns allObjects] version:version];
-			return YES;
-		}
-		return NO;
+        QSPluginUpdaterWindowController *c = [[QSPluginUpdaterWindowController alloc] initWithPlugins:plugins];
+        
+        NSArray *arr = [c showModal];
+        if (!arr) {
+            return QSPluginUpdateStatusUpdateCancelled;
+        }
+        updatingPlugIns = YES;
+        [self installPlugInsForIdentifiers:arr version:version];
+        return QSPluginUpdateStatusPluginsUpdated;
+        
 	}
-	return NO;
+	return QSPluginUpdateStatusNoUpdates;
 }
 
 - (BOOL)updatePlugInsForNewVersion:(NSString *)version {
@@ -719,7 +720,7 @@
 - (NSArray *)extractFilesFromQSPkg:(NSString *)path toPath:(NSString *)tempDirectory {
 	if (!path) return nil;
 	NSFileManager *manager = [NSFileManager defaultManager];
-	NSTask *task = [[[NSTask alloc] init] autorelease];
+	NSTask *task = [[NSTask alloc] init];
 	[task setLaunchPath:@"/usr/bin/ditto"];
 
 	[task setArguments:[NSArray arrayWithObjects:@"-x", @"-rsrc", path, tempDirectory, nil]];
@@ -758,7 +759,6 @@
 #endif
 	// remove the temporary file
 	[fm removeItemAtPath:tempDirectory error:nil];
-	[fm release];
 	return installedPlugIns;
 
 }
@@ -848,7 +848,7 @@
 	NSString *title = [NSString stringWithFormat:@"%@ Installed", (name?name:@"Plugin")];
 
 	NSImage *image = [NSImage imageNamed:@"QSPlugIn"];
-	[image setSize:NSMakeSize(128, 128)];
+	[image setSize:QSSizeMax];
 
 	if (showNotifications) {
 		// see if this obsoletes an installed plugin
@@ -1060,8 +1060,7 @@
 }
 - (void)setInstallStatus:(NSString *)newInstallStatus {
 	if (installStatus != newInstallStatus) {
-		[installStatus release];
-		installStatus = [newInstallStatus retain];
+		installStatus = newInstallStatus;
 	}
 }
 

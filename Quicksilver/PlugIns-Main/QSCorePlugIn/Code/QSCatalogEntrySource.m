@@ -27,7 +27,6 @@ static NSImage *prefsCatalogImage = nil;
 + (void)initialize {
 	if (prefsCatalogImage == nil) {
 		prefsCatalogImage = [[QSResourceManager imageNamed:@"prefsCatalog"] retain];
-		[prefsCatalogImage createIconRepresentations];
 	}
 }
 
@@ -66,18 +65,20 @@ static NSImage *prefsCatalogImage = nil;
 	NSString *theID;
 	for(thisEntry in catalogObjects) {
 		name = [thisEntry name];
-		theID = [thisEntry identifier];
+		theID = [[thisEntry identifier] copy];
 		if (!theID || [theID isEqualToString:@"QSSeparator"])
 			continue;
 		if ([name isEqualToString:@"QSCATALOGROOT"])
 			name = @"Quicksilver Catalog";
 		else
 			name = [NSString stringWithFormat:@"%@ (Catalog) ", name];
-		newObject = [QSObject objectWithName:name];
+		newObject = [[QSObject objectWithName:name] retain];
 		[newObject setObject:theID forType:QSCatalogEntryPboardType];
 		[newObject setPrimaryType:QSCatalogEntryPboardType];
 		[newObject setIdentifier:theID];
 		[objects addObject:newObject];
+        [newObject release];
+        [theID release];
 	}
 	return objects;
 }
@@ -86,6 +87,7 @@ static NSImage *prefsCatalogImage = nil;
 
 - (BOOL)loadIconForObject:(QSObject *)object {
 	[object setIcon:[[[QSLibrarian sharedInstance] entryForID:[object objectForType:QSCatalogEntryPboardType]] icon]];
+    [object setRetainsIcon:YES];
 	return YES;
 }
 
@@ -141,7 +143,7 @@ static NSImage *prefsCatalogImage = nil;
 
 - (QSObject *)show:(QSObject *)dObject {
 	
-    dispatch_sync(dispatch_get_main_queue(), ^{
+    runOnMainQueueSync(^{
         id catalogPrefsClass = NSClassFromString(@"QSCatalogPrefPane");
         [catalogPrefsClass showEntryInCatalog:[QSLib entryForID:[dObject objectForType:QSCatalogEntryPboardType]]];
         [[catalogPrefsClass sharedInstance] reloadData];

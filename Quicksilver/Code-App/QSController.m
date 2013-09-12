@@ -29,10 +29,10 @@ static QSController *defaultController = nil;
 
 @synthesize crashReportPath;
 
-- (void)awakeFromNib { if (!defaultController) defaultController = [self retain];  }
+- (void)awakeFromNib { if (!defaultController) defaultController = self;  }
 + (id)sharedInstance {
 	if (!defaultController)
-		defaultController = [[[self class] allocWithZone:[self zone]] init];
+		defaultController = [[[self class] alloc] init];
 	return defaultController;
 }
 
@@ -42,6 +42,13 @@ static QSController *defaultController = nil;
 	if (DEBUG_STARTUP) NSLog(@"Controller Initialize");
 #endif
 	
+    if (![NSApplication isLion]) {
+		NSBundle *appBundle = [NSBundle mainBundle];
+		NSRunAlertPanel([NSString stringWithFormat:@"%@ %@ Mac OS X 10.7+",[appBundle objectForInfoDictionaryKey:@"CFBundleName"],NSLocalizedString(@"requires",nil)] ,[NSString stringWithFormat:NSLocalizedString(@"Recent versions of Quicksilver require Mac OS %@. Older %@ compatible versions are available from the http://qsapp.com/download.php", nil),@"10.7 Lion",@"10.3–10.6"], NSLocalizedString(@"OK",nil), nil, nil, [appBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]);
+		// Quit - we don't want to be running :)
+		[NSApp terminate:nil];
+	}
+    
 	static BOOL initialized = NO;
 	if (initialized) return;
 	initialized = YES;
@@ -102,17 +109,17 @@ static QSController *defaultController = nil;
 - (id)init {
 	if (self = [super init]) {
 		/* Modifying this is not recommended. Consider adding your stuff in -applicationWill/DidFinishLaunching: */
-		QSApplicationSupportPath = [[[[NSUserDefaults standardUserDefaults] stringForKey:@"QSApplicationSupportPath"] stringByStandardizingPath] retain];
+		QSApplicationSupportPath = [[[NSUserDefaults standardUserDefaults] stringForKey:@"QSApplicationSupportPath"] stringByStandardizingPath];
 
 		if (![QSApplicationSupportPath length])
-			QSApplicationSupportPath = [[self applicationSupportFolder] retain];
+			QSApplicationSupportPath = [self applicationSupportFolder];
 	}
 	return self;
 }
 
 - (void)startMenuExtraConnection {
 	if (controllerConnection) return;
-	controllerConnection = [[NSConnection serviceConnectionWithName:@"QuicksilverControllerConnection" rootObject:self] retain];
+	controllerConnection = [NSConnection serviceConnectionWithName:@"QuicksilverControllerConnection" rootObject:self];
 }
 
 - (void)handleAppleEvent:(NSAppleEventDescriptor *)event withReplyEvent: (NSAppleEventDescriptor *)replyEvent {
@@ -125,23 +132,25 @@ static QSController *defaultController = nil;
 - (void)setShowMenuIcon:(NSNumber *)mode {    
 	if (statusItem) {
 		[[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
-		[statusItem release];
 		statusItem = nil;
 	}
     if (![mode boolValue]) {
         return;
     }
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:29.0f];
-	[statusItem retain];
 	[statusItem setImage:[NSImage imageNamed:@"QuicksilverMenu"]];
 	[statusItem setAlternateImage:[NSImage imageNamed:@"QuicksilverMenuPressed"]];
 	[statusItem setMenu:[self statusMenuWithQuit]];
 	[statusItem setHighlightMode:YES];
 }
 
+- (void)showDockIcon {
+    [NSApp setActivationPolicy:NSApplicationActivationPolicyRegular];
+}
+
 #ifdef DEBUG
 - (void)activateDebugMenu {
-	NSMenu *debugMenu = [[[NSMenu alloc] initWithTitle:@"Debug"] autorelease];
+	NSMenu *debugMenu = [[NSMenu alloc] initWithTitle:@"Debug"];
 
 	NSMenuItem *theItem;
 
@@ -192,7 +201,7 @@ static QSController *defaultController = nil;
 
 // Method to crash QS - can call from the debug menu
 - (void)crashQS {
-	NSLog((id)1);
+	//NSLog((id)1);
 }
 
 #endif
@@ -238,6 +247,7 @@ static QSController *defaultController = nil;
 - (IBAction)showGuide:(id)sender { [QSPreferencesController showPaneWithIdentifier:@"QSMainMenuPrefPane"];  }
 - (IBAction)showSettings:(id)sender { [QSPreferencesController showPaneWithIdentifier:@"QSSettingsPanePlaceholder"];  }
 - (IBAction)showCatalog:(id)sender { [QSPreferencesController showPaneWithIdentifier:@"QSCatalogPrefPane"];  }
+- (IBAction)showPlugins:(id)sender { [QSPreferencesController showPaneWithIdentifier:@"QSPlugInsPrefPane"];  }
 - (IBAction)showTriggers:(id)sender { [QSPreferencesController showPaneWithIdentifier:@"QSTriggersPrefPane"];  }
 - (IBAction)showHelp:(id)sender { [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kHelpURL]];  }
 - (IBAction)getMorePlugIns:(id)sender { [QSPlugInsPrefPane getMorePlugIns];  }
@@ -275,14 +285,13 @@ static QSController *defaultController = nil;
 			quitWindowController = [NSWindowController alloc];
 			[quitWindowController initWithWindowNibName:@"QuitConfirm" owner:quitWindowController];
 
-			quitWindow = (QSWindow *)[quitWindowController window];
+			quitWindow = (QSBorderlessWindow *)[quitWindowController window];
 			[quitWindow setLevel:kCGPopUpMenuWindowLevel+1];
 			[quitWindow setIgnoresMouseEvents:YES];
-			[quitWindow center];
 			[quitWindow setShowEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSVExpandEffect", @"transformFn", @"show", @"type", [NSNumber numberWithDouble:0.15] , @"duration", nil]];
 			[quitWindow setHideEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSShrinkEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithDouble:0.25] , @"duration", nil]];
 		} else {
-			quitWindow = (QSWindow *)[quitWindowController window];
+			quitWindow = (QSBorderlessWindow *)[quitWindowController window];
 		}
 
 		NSString *currentCharacters = [[NSApp currentEvent] charactersIgnoringModifiers];
@@ -300,9 +309,6 @@ static QSController *defaultController = nil;
 		}
 
 		if (shouldQuit) {
-			[(NSButton *)[quitWindow initialFirstResponder] setState:NSOnState];
-			[[(NSButton *)[quitWindow initialFirstResponder] alternateImage] setSize:QSSize128];
-			[quitWindow display];
 			[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.333]];
 			[quitWindow orderOut:self];
 			[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.50]];
@@ -367,13 +373,13 @@ static QSController *defaultController = nil;
 	if ([defaults boolForKey:@"QSUseFullMenuStatusItem"])
 		return [NSApp mainMenu];
 
-	NSMenu *newMenu = [[statusMenu copy] autorelease];
+	NSMenu *newMenu = [statusMenu copy];
 
 	NSMenuItem *modulesItem = [[NSApp mainMenu] itemWithTag:128];
-	[newMenu addItem:[[modulesItem copy] autorelease]];
+	[newMenu addItem:[modulesItem copy]];
 
 	[newMenu addItem:[NSMenuItem separatorItem]];
-	NSMenuItem *quitItem = [[[NSMenuItem alloc] initWithTitle:@"Quit Quicksilver" action:@selector(terminate:) keyEquivalent:@""] autorelease];
+	NSMenuItem *quitItem = [[NSMenuItem alloc] initWithTitle:@"Quit Quicksilver" action:@selector(terminate:) keyEquivalent:@""];
 	[quitItem setTarget:NSApp];
 	[newMenu addItem:quitItem];
 
@@ -429,61 +435,58 @@ static QSController *defaultController = nil;
 }
 
 - (void)showSplash:sender {
-    @autoreleasepool {
-        NSImage *splashImage = [NSImage imageNamed:@"QSLigature"];
-        {
-            splashWindow = [[NSWindow windowWithImage:splashImage] retain];
+    NSImage *splashImage = [NSImage imageNamed:@"QSLigature"];
+    {
+        splashWindow = [NSWindow windowWithImage:splashImage];
+        [splashWindow setReleasedWhenClosed:NO];
 #if 0
-            //		if ([NSApp isPrerelease]) {
-			NSRect rect = NSInsetRect(NSMakeRect(28, 108, 88, 24), 1, 1);
-			NSBezierPath *path = [NSBezierPath bezierPath];
-			[path appendBezierPathWithRoundedRectangle:rect withRadius:12];
-			[[NSColor colorWithCalibratedRed:0.0 green:0.33 blue:0.0 alpha:0.8] set];
-			[path fill];
-			[[splashWindow contentView] lockFocus];
-			NSAttributedString *string = [[[NSAttributedString alloc] initWithString:@"Unofficial" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSFont boldSystemFontOfSize:12] , NSFontAttributeName, [NSColor whiteColor] , NSForegroundColorAttributeName, nil]] autorelease];
-			[string drawWithRect:NSOffsetRect(centerRectInRect(rectFromSize([string size]), rect), 0, 4) options:NSStringDrawingOneShot];
-			[path addClip];
-			[QSGlossClipPathForRectAndStyle(rect, 4) addClip];
-			[[NSColor colorWithCalibratedWhite:1.0 alpha:0.1] set];
-			NSRectFillUsingOperation(rect, NSCompositeSourceOver);
-            
-			[[splashWindow contentView] unlockFocus];
-            //		}
+        //		if ([NSApp isPrerelease]) {
+        NSRect rect = NSInsetRect(NSMakeRect(28, 108, 88, 24), 1, 1);
+        NSBezierPath *path = [NSBezierPath bezierPath];
+        [path appendBezierPathWithRoundedRectangle:rect withRadius:12];
+        [[NSColor colorWithCalibratedRed:0.0 green:0.33 blue:0.0 alpha:0.8] set];
+        [path fill];
+        [[splashWindow contentView] lockFocus];
+        NSAttributedString *string = [[[NSAttributedString alloc] initWithString:@"Unofficial" attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSFont boldSystemFontOfSize:12] , NSFontAttributeName, [NSColor whiteColor] , NSForegroundColorAttributeName, nil]] autorelease];
+        [string drawWithRect:NSOffsetRect(centerRectInRect(rectFromSize([string size]), rect), 0, 4) options:NSStringDrawingOneShot];
+        [path addClip];
+        [QSGlossClipPathForRectAndStyle(rect, 4) addClip];
+        [[NSColor colorWithCalibratedWhite:1.0 alpha:0.1] set];
+        NSRectFillUsingOperation(rect, NSCompositeSourceOver);
+        
+        [[splashWindow contentView] unlockFocus];
+        //		}
 #endif
-        }
-        
-        [splashWindow reallyCenter];
-        [splashWindow setAlphaValue:0];
-        [splashWindow setSticky:YES];
-        
-        if ([NSApp wasLaunchedAtLogin]) {
-            [splashWindow setLevel:NSNormalWindowLevel-1];
-            [splashWindow orderFront:self];
-            [splashWindow setAlphaValue:0.25 fadeTime:0.333];
-        } else {
-            [splashWindow orderFront:self];
-            QSWindowAnimation *animation = [QSWindowAnimation showHelperForWindow:splashWindow];
-            [animation setTransformFt:QSExtraExtraEffect];
-            [animation setDuration:1.0];
-            [animation setAnimationBlockingMode:NSAnimationBlocking];
-            [animation startAnimation];
-        }
+    }
+    
+    [splashWindow reallyCenter];
+    [splashWindow setAlphaValue:0];
+    [splashWindow setSticky:YES];
+    
+    if ([NSApp wasLaunchedAtLogin]) {
+        [splashWindow setLevel:NSNormalWindowLevel-1];
+        [splashWindow orderFront:self];
+        [splashWindow setAlphaValue:0.25 fadeTime:0.333];
+    } else {
+        [splashWindow orderFront:self];
+        QSWindowAnimation *animation = [QSWindowAnimation showHelperForWindow:splashWindow];
+        [animation setTransformFt:QSExtraExtraEffect];
+        [animation setDuration:1.0];
+        [animation setAnimationBlockingMode:NSAnimationBlocking];
+        [animation startAnimation];
     }
 }
 - (void)hideSplash:sender {
-    @autoreleasepool {
-        if (splashWindow) {
-            [splashWindow setLevel:NSFloatingWindowLevel];
-            [splashWindow flare:self];
-            [splashWindow close];
-            splashWindow = nil;
-        }
+    if (splashWindow) {
+        [splashWindow setLevel:NSFloatingWindowLevel];
+        [splashWindow flare:self];
+        [splashWindow close];
+        splashWindow = nil;
     }
 }
 - (void)startDropletConnection {
 	if (dropletConnection) return;
-	dropletConnection = [[NSConnection serviceConnectionWithName:@"Quicksilver Droplet" rootObject:self] retain];
+	dropletConnection = [NSConnection serviceConnectionWithName:@"Quicksilver Droplet" rootObject:self];
 }
 
 - (void)handlePasteboardDrop:(NSPasteboard *)pb commandPath:(NSString *)path {
@@ -499,17 +502,17 @@ static QSController *defaultController = nil;
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"Perform Service: %@ %C", userData, [userData characterAtIndex:0]);
 #endif
-	[self receiveObject:[[[QSObject alloc] initWithPasteboard:pboard] autorelease]];
+	[self receiveObject:[[QSObject alloc] initWithPasteboard:pboard]];
 }
 - (void)getSelection:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"GetSel Service: %@ %C", userData, [userData characterAtIndex:0]);
 #endif
-	[self receiveObject:[[[QSObject alloc] initWithPasteboard:pboard] autorelease]];
+	[self receiveObject:[[QSObject alloc] initWithPasteboard:pboard]];
 }
 
 - (BOOL)readSelectionFromPasteboard:(NSPasteboard *)pboard {
-	[self receiveObject:[[[QSObject alloc] initWithPasteboard:pboard] autorelease]];
+	[self receiveObject:[[QSObject alloc] initWithPasteboard:pboard]];
 	return YES;
 }
 
@@ -522,22 +525,10 @@ static QSController *defaultController = nil;
 - (NSObject *)dropletProxy { return dropletProxy;  }
 - (void)setDropletProxy:(NSObject *)newDropletProxy {
 	if (dropletProxy != newDropletProxy) {
-		[dropletProxy release];
-		dropletProxy = [newDropletProxy retain];
+		dropletProxy = newDropletProxy;
 	}
 }
 
-- (void)dealloc {
-	[interfaceController release];
-	[aboutWindowController release];
-	[quitWindowController release];
-	[splashWindow release];
-	[statusItem release];
-	[controllerConnection release];
-	[dropletConnection release];
-	[dropletProxy release];
-	[super dealloc];
-}
 
 - (id)resolveProxyObject:(id)proxy {
 	if ([[proxy identifier] isEqualToString:@"QSDropletItemProxy"]) {
@@ -611,20 +602,17 @@ static QSController *defaultController = nil;
 - (IBAction)forceRescanItems:sender { [QSLib startThreadedAndForcedScan];  }
 
 - (void)delayedStartup {
-    @autoreleasepool {
         
 #ifdef DEBUG
-        if (DEBUG_STARTUP) NSLog(@"Delayed Startup");
+    if (DEBUG_STARTUP) NSLog(@"Delayed Startup");
 #endif
-        
-        [NSThread setThreadPriority:0.0];
-        QSTask *task = [QSTask taskWithIdentifier:@"QSDelayedStartup"];
-        [task setName:@"Starting Up..."];
-        [task setStatus:@"Updating Catalog"];
-        [task startTask:self];
-        [[QSLibrarian sharedInstance] loadMissingIndexes];
-        [task stopTask:self];
-    }
+    
+    QSTask *task = [QSTask taskWithIdentifier:@"QSDelayedStartup"];
+    [task setName:@"Starting Up..."];
+    [task setStatus:@"Updating Catalog"];
+    [task startTask:self];
+    [[QSLibrarian sharedInstance] loadMissingIndexes];
+    [task stopTask:self];
 }
 
 - (void)checkForFirstRun {
@@ -660,11 +648,6 @@ static QSController *defaultController = nil;
 			
             // Not localizing this, as it's pretty much obsolete
 			[[NSWorkspace sharedWorkspace] setComment:@"Quicksilver" forFile:[[NSBundle mainBundle] bundlePath]];
-			if (lastVersion < [@"2000" hexIntValue]) {
-				NSFileManager *fm = [NSFileManager defaultManager];
-				[fm moveItemAtPath:QSApplicationSupportSubPath(@"PlugIns", NO) toPath:QSApplicationSupportSubPath(@"PlugIns (B40 Incompatible) ", NO) error:nil];
-				[fm moveItemAtPath:@"/Library/Application Support/Quicksilver/PlugIns" toPath:@"/Library/Application Support/Quicksilver/PlugIns (B40 Incompatible) " error:nil];
-			}
 				newVersion = YES;
 			break;
         }
@@ -736,7 +719,6 @@ static QSController *defaultController = nil;
             [self setCrashReportPath:individualFile];
         }
     }
-    [mostRecentCrashDate retain];
 
     // path to the most recent crash report (used by the crash reporter for sending the file to the server)
     [self setCrashReportPath:[pCrashReporterFolder stringByAppendingPathComponent:crashReportPath]];
@@ -758,25 +740,21 @@ static QSController *defaultController = nil;
         QSCrashController = [[QSCrashReporterWindowController alloc] initWithWindowNibName:@"QSCrashReporter"];
         // Open the crash reporter window
         [NSApp runModalForWindow:[QSCrashController window]];
-        [QSCrashController release];
     }
-    [crashReportPath release];
-    [mostRecentCrashDate release];
 
     // synchronise prefs and QuicksilverState file
     [fm removeItemAtPath:pStateLocation error:nil];
     [defaults setObject:mostRecentCrashDate forKey:kLastKnownCrashDate];
     [defaults synchronize];
 
-    [fm release];
 }
 
 - (IBAction)showReleaseNotes:(id)sender {
     
     NSURL *appURL = nil;
-    LSGetApplicationForURL((CFURLRef)[NSURL URLWithString:@"http://"], kLSRolesAll, NULL, (CFURLRef *)&appURL);
+    CFURLRef *appURLRefPointer = (void *)&appURL;
+    LSGetApplicationForURL((__bridge CFURLRef)[NSURL URLWithString:@"http://"], kLSRolesAll, NULL, appURLRefPointer);
     [[NSWorkspace sharedWorkspace] openFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/SharedSupport/Changes.html"] withApplication:[appURL path]];
-    [appURL release];
 }
 
 - (QSInterfaceController *)interfaceController { return [QSReg preferredCommandInterface];  }
@@ -785,8 +763,7 @@ static QSController *defaultController = nil;
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	if (interfaceController)
 		[nc postNotificationName:QSReleaseAllCachesNotification object:self];
-	[interfaceController release];
-	interfaceController = [newInterfaceController retain];
+	interfaceController = newInterfaceController;
 	[nc postNotificationName:QSInterfaceChangedNotification object:self];
 }
 
@@ -825,13 +802,6 @@ static QSController *defaultController = nil;
 }
 
 - (void)applicationWillFinishLaunching:(NSNotification *)aNotification {
-
-	if (![NSApplication isSnowLeopard]) {
-		NSBundle *appBundle = [NSBundle mainBundle];
-		NSRunAlertPanel([NSString stringWithFormat:@"%@ %@ Mac OS X 10.6+",[appBundle objectForInfoDictionaryKey:@"CFBundleName"],NSLocalizedString(@"requires",nil)] , NSLocalizedString(@"Recent versions of Quicksilver require Mac OS 10.6 Snow Leopard. Older 10.5, 10.4 and 10.3 compatible versions are available from the http://qsapp.com.", nil), NSLocalizedString(@"OK",nil), nil, nil, [appBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]);
-		// Quit - we don't want to be running :)
-		[NSApp terminate:nil];
-	}
 	
 	[self startMenuExtraConnection];
 
@@ -839,12 +809,24 @@ static QSController *defaultController = nil;
 #ifdef DEBUG
 	[self registerForErrors];
 #endif
+    // Honor dock preference (if statement true if icon is NOT set to hide)
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults boolForKey:kHideDockIcon]) {
+        if (![defaults objectForKey:@"QSShowMenuIcon"])
+            [defaults setInteger:0 forKey:@"QSShowMenuIcon"];
+        [self showDockIcon];
+    }
 }
 
 - (void)setupSplash {
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:kUseEffects]) {
 		[self showSplash:nil];
-		[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(threadedHideSplash) userInfo:nil repeats:NO];
+        double delayInSeconds = 0.1;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+            // hide the splash in a background thread
+            [self hideSplash:nil];
+        });
 	}
 }
 - (void)startQuicksilver:(id)sender {
@@ -929,7 +911,7 @@ static QSController *defaultController = nil;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
 	if ([defaults integerForKey:@"QSModifierActivationCount"] >0) {
-		QSModifierKeyEvent *modActivation = [[[QSModifierKeyEvent alloc] init] autorelease];
+		QSModifierKeyEvent *modActivation = [[QSModifierKeyEvent alloc] init];
 		[modActivation setModifierActivationMask: [defaults integerForKey:@"QSModifierActivationKey"]];
 		[modActivation setModifierActivationCount:[defaults integerForKey:@"QSModifierActivationCount"]];
 		[modActivation setTarget:self];
@@ -1035,10 +1017,9 @@ static QSController *defaultController = nil;
 
 	[nc postNotificationName:@"QSEventNotification" object:@"QSQuicksilverLaunchedEvent" userInfo:nil];
 
-	if ([defaults boolForKey:@"QSEnableISync"])
-		[[QSSyncManager sharedInstance] setup];
-
-	[NSThread detachNewThreadSelector:@selector(delayedStartup) toTarget:self withObject:nil];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [self delayedStartup];
+    });
 	[self startDropletConnection];
 }
 
@@ -1052,13 +1033,22 @@ static QSController *defaultController = nil;
 	[activationKey setEnabled:YES];
 }
 
-- (void)threadedHideSplash {
-	[NSThread detachNewThreadSelector:@selector(hideSplash:) toTarget:self withObject:nil];
-}
-
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+#ifdef DEBUG
+    NSDate *start;
+    if (VERBOSE) {
+        start = [NSDate date];
+    }
+#endif
 	[self startQuicksilver:aNotification];
+#ifdef DEBUG
+    if (VERBOSE) {
+        NSLog(@"-[QSController startQuicksilver:] took %lfs", -1*([start timeIntervalSinceNow]));
+    }
+#endif
+    [NSApp disableRelaunchOnLogin];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"QSApplicationDidFinishLaunchingNotification" object:self];
+    [QSObject interfaceChanged];
 	QSApplicationCompletedLaunch = YES;
 }
 

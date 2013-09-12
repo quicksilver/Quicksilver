@@ -1,10 +1,6 @@
 #import <Foundation/Foundation.h>
-#import <AddressBook/AddressBook.h>
 
 #import <QSCore/QSBasicObject.h>
-
-// Quartz framework provides the QLPreviewPanel public API
-#import <Quartz/Quartz.h> 
 
 @class QSObject, QSBasicObject;
 
@@ -79,7 +75,6 @@ typedef struct _QSObjectFlags {
 
 
 
-extern NSSize QSMaxIconSize;
 @interface QSObject : QSBasicObject <NSCopying> {
 	NSString *name;
 	NSString *label;
@@ -100,6 +95,7 @@ extern NSSize QSMaxIconSize;
 + (void)purgeAllImagesAndChildren;
 + (void)purgeImagesAndChildrenOlderThan:(NSTimeInterval)interval;
 + (void)purgeIdentifiers;
++ (void)interfaceChanged;
 
 + (void)registerObject:(QSBasicObject *)object withIdentifier:(NSString *)anIdentifier;
 
@@ -139,6 +135,8 @@ extern NSSize QSMaxIconSize;
 - (void)setCache:(NSMutableDictionary *)aCache;
 - (BOOL)isProxyObject;
 - (QSObject *)resolvedObject;
+// This private method is required for QSProxyObject.m
+- (id)_safeObjectForType:(id)aKey;
 
 @end
 
@@ -151,7 +149,7 @@ extern NSSize QSMaxIconSize;
 @end
 
 @interface QSObject (Hierarchy)
-- (QSBasicObject *) parent;
+- (QSObject *) parent;
 - (void)setParentID:(NSString *)parentID;
 - (BOOL)childrenValid;
 - (BOOL)unloadChildren;
@@ -177,6 +175,7 @@ extern NSSize QSMaxIconSize;
 @interface QSObject (Accessors)
 - (NSString *)identifier;
 - (void)setIdentifier:(NSString *)newIdentifier;
+- (void)setIdentifier:(NSString *)newIdentifier addToObjectDictionary:(BOOL)add;
 - (NSString *)name;
 - (void)setName:(NSString *)newName;
 - (NSArray *)children;
@@ -201,15 +200,8 @@ extern NSSize QSMaxIconSize;
 - (NSTimeInterval)childrenLoadedDate;
 - (void)setChildrenLoadedDate:(NSTimeInterval)newChildrenLoadedDate;
 
-
-// This private method is required for QSProxyObject.m
-- (id)_safeObjectForType:(id)aKey;
-
 @end
 
-
-@interface QSObject (Quicklook) <QLPreviewItem>
-@end
 
 //
 //AEDescriptorValue:

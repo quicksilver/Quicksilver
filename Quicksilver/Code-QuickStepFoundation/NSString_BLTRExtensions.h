@@ -54,7 +54,6 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString);
 - (NSString *)encodedHexString;
 - (NSUInteger) hexIntValue;
 - (NSComparisonResult) versionCompare:(NSString *)other;
-- (NSString *)encodedPasteboardType;
 @end
 
 
@@ -81,5 +80,6 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString);
 - (NSString *)stringByResolvingWildcardsInPath;
 - (NSString *)firstUnusedFilePath;
 - (NSArray *)componentsSeparatedByStrings:(NSArray *)strings;
+- (NSArray *)componentsSeparatedByLineSeparators;
 + (NSData *)dataForObject:(id)object forType:(NSString *)type;
 @end

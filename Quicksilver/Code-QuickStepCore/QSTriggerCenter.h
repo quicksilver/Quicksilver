@@ -7,16 +7,10 @@
 @class QSCommand;
 @class QSTrigger;
 
-@interface NSObject (QSTriggerManagerInformal)
-- (void)initializeTrigger;
-@end
-
 @interface QSTriggerCenter : NSObject {
 	NSMutableArray *triggers;
 	NSMutableDictionary *triggersDict;
 	NSMutableDictionary *commands;
-
-
 }
 + (id)sharedInstance;
 - (id)init;
@@ -39,8 +33,6 @@
 - (NSMutableDictionary *)triggersDict;
 - (void)setTriggersDict:(NSMutableDictionary *)newTriggersDict;
 - (NSMutableArray *)triggers;
-//+ (NSString *)nameForTrigger:(QSTrigger *)trigger;
-//- (void)setName:(NSString *)name forTrigger:(QSTrigger *)trigger;
-
 - (NSArray *)triggersWithParentID:(NSString *)ident;
+- (NSDictionary *)triggerManagers;
 @end

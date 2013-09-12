@@ -750,16 +750,19 @@
 	<key>QSTriggerAdditions</key>
 	<array>
 		<dict>
+			<key>defaults</key>
+			<dict>
+				<key>type</key>
+				<string>QSHotKeyTrigger</string>
+				<key>enabled</key>
+				<true/>
+				<key>keyCode</key>
+				<integer>53</integer>
+				<key>modifiers</key>
+				<integer>1048840</integer>
+			</dict>
 			<key>set</key>
 			<string>Quicksilver</string>
-			<key>enabled</key>
-			<true/>
-			<key>keyCode</key>
-			<integer>53</integer>
-			<key>modifiers</key>
-			<integer>1048840</integer>
-			<key>type</key>
-			<string>QSHotKeyTrigger</string>
 			<key>command</key>
 			<string>QSGetGlobalSelectionCommand</string>
 			<key>ID</key>
@@ -817,7 +820,7 @@
 				<string>qs.command</string>
 			</array>
 			<key>actionSelector</key>
-			<string>addTrigger:withInfo:</string>
+			<string>addTrigger:withType:</string>
 			<key>icon</key>
 			<string>Quicksilver</string>
 		</dict>
@@ -1805,6 +1808,8 @@
 			<integer>1</integer>
 			<key>validatesObjects</key>
 			<true/>
+            <key>alternateAction</key>
+            <string>FileOpenAction</string>
 			<key>actionClass</key>
 			<string>QSAppleScriptActions</string>
 			<key>directTypes</key>
@@ -1971,6 +1976,8 @@
 			<string>QSGroupObjectSource</string>
 			<key>QSICloudDocumentSource</key>
 			<string>QSICloudDocumentSource</string>
+			<key>QSUserDefinedProxySource</key>
+			<string>QSUserDefinedProxySource</string>
 		</dict>
 		<key>QSFileActionCreators</key>
 		<dict>
@@ -2076,6 +2083,13 @@
 				<string>ClippingText</string>
 				<key>name</key>
 				<string>Text</string>
+			</dict>
+			<key>public.rtf</key>
+			<dict>
+				<key>icon</key>
+				<string>ClippingText</string>
+				<key>name</key>
+				<string>RTF Text</string>
 			</dict>
 			<key>NSFilenamesPboardType</key>
 			<dict>

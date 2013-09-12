@@ -1,6 +1,5 @@
 #import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
-#import <Carbon/Carbon.h>
 
 /* Deprecated. Use [NSApp completedLaunch] */
 extern BOOL QSApplicationCompletedLaunch;
@@ -12,7 +11,6 @@ extern BOOL QSApplicationCompletedLaunch;
 	NSMutableArray *eventDelegates;
 }
 
-- (void)showDockIcon;
 - (void)forwardWindowlessRightClick:(NSEvent *)theEvent;
 - (BOOL)completedLaunch;
 - (BOOL)isPrerelease;

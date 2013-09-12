@@ -37,9 +37,7 @@
 #ifdef DEBUG
 	if (VERBOSE) NSLog(@"Get Selection: %@ %C", userData, [userData characterAtIndex:0]);
 #endif
-	if(resultPboard)
-		[resultPboard release]; 
-	resultPboard = [pboard retain];
+	resultPboard = pboard;
 }
 
 #ifdef DEBUG
@@ -52,7 +50,7 @@
 
 - (NSPasteboard *)getSelectionFromFrontApp {
 	//NSLog(@"GET SEL");
-	id oldServicesProvider = [[NSApp servicesProvider] retain];
+	id oldServicesProvider = [NSApp servicesProvider];
 	[NSApp setServicesProvider:self];
 	[NSThread detachNewThreadSelector:@selector(invokeService)
 							 toTarget:self withObject:nil];
@@ -64,51 +62,36 @@
 	}
 	//	NSLog(@"got %@", resultPboard);
 	[NSApp setServicesProvider:oldServicesProvider];
-	[oldServicesProvider release];
-	id result = [resultPboard autorelease];
+	id result = resultPboard;
 	resultPboard = nil;
 	return result;
 }
 
-- (void)dealloc {
-	//	NSLog(@"release");
-	[resultPboard release];
-	[super dealloc];
-}
 
 - (void)invokeService {
     @autoreleasepool {
         pid_t pid = [[[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationProcessIdentifier"] integerValue];
-        if ([NSApplication isLion]) {
-            //AXUIElement* is unable to post keys into sandboxed app since 10.7, use Quartz Event Services instead
-            ProcessSerialNumber psn;
-            BOOL usePID = GetProcessForPID(pid, &psn) == 0;
-            CGEventSourceRef source = CGEventSourceCreate(kCGEventSourceStatePrivate);
-            CGEventRef keyDown = CGEventCreateKeyboardEvent (source, (CGKeyCode)53, true); //Escape
-            CGEventSetFlags(keyDown, kCGEventFlagMaskCommand);
-            if (usePID) {
-                CGEventPostToPSN(&psn, keyDown);
-            } else {
-                CGEventPost(kCGHIDEventTap, keyDown);
-            }
-            CGEventRef keyUp = CGEventCreateKeyboardEvent (source, (CGKeyCode)53, false); //Escape
-            CGEventSetFlags(keyUp, kCGEventFlagMaskCommand);
-            if (usePID) {
-                CGEventPostToPSN(&psn, keyUp);
-            } else {
-                CGEventPost(kCGHIDEventTap, keyUp);
-            }
-            CFRelease(keyDown);
-            CFRelease(keyUp);
-            CFRelease(source);
-        } else { // 10.6 method (apps don't lose focus when service is invoked)
-            AXUIElementRef app = AXUIElementCreateApplication (pid);
-            AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)55, true ); //Command
-            AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)53, true ); //Escape
-            AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)53, false ); //Escape
-            AXUIElementPostKeyboardEvent (app, (CGCharCode) 0, (CGKeyCode)55, true ); //Command
-            CFRelease( app );
+        //AXUIElement* is unable to post keys into sandboxed app since 10.7, use Quartz Event Services instead
+        ProcessSerialNumber psn;
+        BOOL usePID = GetProcessForPID(pid, &psn) == 0;
+        CGEventSourceRef source = CGEventSourceCreate(kCGEventSourceStatePrivate);
+        CGEventRef keyDown = CGEventCreateKeyboardEvent (source, (CGKeyCode)53, true); //Escape
+        CGEventSetFlags(keyDown, kCGEventFlagMaskCommand);
+        if (usePID) {
+            CGEventPostToPSN(&psn, keyDown);
+        } else {
+            CGEventPost(kCGHIDEventTap, keyDown);
         }
+        CGEventRef keyUp = CGEventCreateKeyboardEvent (source, (CGKeyCode)53, false); //Escape
+        CGEventSetFlags(keyUp, kCGEventFlagMaskCommand);
+        if (usePID) {
+            CGEventPostToPSN(&psn, keyUp);
+        } else {
+            CGEventPost(kCGHIDEventTap, keyUp);
+        }
+        CFRelease(keyDown);
+        CFRelease(keyUp);
+        CFRelease(source);
     }
 }
 
@@ -129,7 +112,7 @@ NSTimeInterval failDate = 0;
 		//	NSLog(@"Using provider %@ for %@", provider, identifier);
 		return [provider resolveProxyObject:nil];
 	} else {
-		QSTemporaryServiceProvider *sp = [[[QSTemporaryServiceProvider alloc] init] autorelease];
+		QSTemporaryServiceProvider *sp = [[QSTemporaryServiceProvider alloc] init];
 		NSPasteboard *pb = nil;
 		
 		if ([NSDate timeIntervalSinceReferenceDate] -failDate > 3.0)
@@ -168,7 +151,7 @@ NSTimeInterval failDate = 0;
 	}
 	NSDictionary *info = [[QSReg tableNamed:@"QSProxies"] objectForKey:identifier];
 	NSArray *array = [info objectForKey:kQSProxyTypes];
-	if (!info) return [NSArray arrayWithObjects:NSStringPboardType, NSFilenamesPboardType, nil];
+	if (!info) return [NSArray arrayWithObjects:NSStringPboardType, nil];
 	if (array) return array;
 	
 	id provider = [QSReg getClassInstance:[info objectForKey:kQSProxyProviderClass]];

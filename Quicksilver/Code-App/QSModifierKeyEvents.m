@@ -9,7 +9,6 @@
 #import "QSModifierKeyEvents.h"
 #import "QSController.h"
 #import "QSHotKeyEvent.h"
-#import <Carbon/Carbon.h>
 #import <unistd.h>
 
 #define NSNumlockKeyCode 10
@@ -89,6 +88,9 @@ double doubleTapTimerWindow = 0.3;
 NSUInteger previousModifier = 0;
 
 @implementation QSModifierKeyEvent
+
+@synthesize target;
+
 + (void)enableModifierEvents {modifierEventsEnabled = YES;}
 + (void)disableModifierEvents {modifierEventsEnabled = NO;}
 
@@ -210,7 +212,7 @@ NSUInteger previousModifier = 0;
 }
 
 - (void)disable {
-	[[[[QSModifierKeyEvent modifierKeyEvents] objectForKey:[NSNumber numberWithUnsignedInteger:modifierActivationMask]] retain] autorelease];
+	[[QSModifierKeyEvent modifierKeyEvents] objectForKey:[NSNumber numberWithUnsignedInteger:modifierActivationMask]];
 	[[QSModifierKeyEvent modifierKeyEvents] removeObjectForKey:[NSNumber numberWithUnsignedInteger:modifierActivationMask]];
 }
 
@@ -268,7 +270,7 @@ NSUInteger previousModifier = 0;
 
 
 - (void)sendAction {
-	[target performSelector:action];
+    [self.target performSelector:self.action withObject:nil];
 }
 
 - (BOOL)checkForModifierTap {
@@ -327,8 +329,7 @@ NSUInteger previousModifier = 0;
 - (id)target { return target; }
 - (void)setTarget:(id)newTarget {
 	if (target != newTarget) {
-		[target release];
-		target = [newTarget retain];
+		target = newTarget;
 	}
 }
 
@@ -340,8 +341,7 @@ NSUInteger previousModifier = 0;
 - (NSString *)identifier { return identifier; }
 - (void)setIdentifier:(NSString *)newIdentifier {
 	if (identifier != newIdentifier) {
-		[identifier release];
-		identifier = [newIdentifier retain];
+		identifier = newIdentifier;
 	}
 }
 

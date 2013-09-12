@@ -11,7 +11,7 @@
 @implementation NSValue (ProcessSerialNumberExtension)
 
 + (id)valueWithProcessSerialNumber:(ProcessSerialNumber)psn {
-	return [[[self alloc] initWithProcessSerialNumber:psn] autorelease];
+	return [[self alloc] initWithProcessSerialNumber:psn];
 }
 
 - (id)initWithProcessSerialNumber:(ProcessSerialNumber)psn {
@@ -57,8 +57,8 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
                                sizeof(psn), NULL,
                                &psn);
     if( result == noErr ) {
-        NSDictionary *dict = [(QSProcessMonitor*)userData infoForPSN:psn];
-        [[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorFrontApplicationSwitched object:userData userInfo:dict];
+        NSDictionary *dict = [(__bridge QSProcessMonitor*)userData infoForPSN:psn];
+        [[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorFrontApplicationSwitched object:(__bridge id)userData userInfo:dict];
     } else {
         NSLog(@"Unable to get event parameter kEventParamProcessID");
     }
@@ -75,8 +75,8 @@ OSStatus appLaunched(EventHandlerCallRef nextHandler, EventRef theEvent, void *u
                                &psn);
 
     if( result == noErr ) {
-        NSDictionary *dict = [(QSProcessMonitor*)userData infoForPSN:psn];
-        [[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorApplicationLaunched object:userData userInfo:dict];
+        NSDictionary *dict = [(__bridge QSProcessMonitor*)userData infoForPSN:psn];
+        [[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorApplicationLaunched object:(__bridge id)(userData) userInfo:dict];
     } else {
         NSLog(@"Unable to get event parameter kEventParamProcessID");
     }
@@ -93,8 +93,8 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
                                &psn);
 
     if( result == noErr ) {
-        NSDictionary *dict = [(QSProcessMonitor*)userData infoForPSN:psn];
-        [[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorApplicationTerminated object:userData userInfo:dict];
+        NSDictionary *dict = [(__bridge QSProcessMonitor*)userData infoForPSN:psn];
+        [[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorApplicationTerminated object:(__bridge id)(userData) userInfo:dict];
     } else {
         NSLog(@"Unable to get event parameter kEventParamProcessID");
     }
@@ -105,7 +105,7 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 
 + (id)sharedInstance {
 	static id _sharedInstance;
-	if (!_sharedInstance) _sharedInstance = [[self allocWithZone:[self zone]] init];
+	if (!_sharedInstance) _sharedInstance = [[self allocWithZone:nil] init];
 	return _sharedInstance;
 }
 
@@ -133,9 +133,8 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 		if (noErr == (GetProcessInformation(&serialNumber, &procInfo) )) {
 			if ('\0' == procName[1])
 				procName[1] = '0';
-            NSString *processName = (NSString*)CFStringCreateWithPascalString(NULL, procInfo.processName, kCFStringEncodingUTF8);
+            NSString *processName = (NSString*)CFBridgingRelease(CFStringCreateWithPascalString(NULL, procInfo.processName, kCFStringEncodingUTF8));
 			[resultsArray addObject:processName];
-            [processName release];
 		}
 	}
 	return resultsArray;
@@ -155,21 +154,21 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 		eventType.eventClass = kEventClassApplication;
 		eventType.eventKind = kEventAppFrontSwitched;
 		handlerFunction = NewEventHandlerUPP(appChanged);
-		err = InstallApplicationEventHandler(handlerFunction, 1, &eventType, self, &changeHandler);
+		err = InstallApplicationEventHandler(handlerFunction, 1, &eventType, (__bridge void *) self, &changeHandler);
 		if (err)
 			NSLog(@"QSProcessMonitor Change registration err %ld", (long)err);
 
 		eventType.eventClass = kEventClassApplication;
 		eventType.eventKind = kEventAppLaunched;
 		handlerFunction = NewEventHandlerUPP(appLaunched);
-		err = InstallApplicationEventHandler(handlerFunction, 1, &eventType, self, &launchHandler);
+		err = InstallApplicationEventHandler(handlerFunction, 1, &eventType, (__bridge void *) self, &launchHandler);
 		if (err)
 			NSLog(@"QSProcessMonitor Launch registration err %ld", (long)err);
 
 		eventType.eventClass = kEventClassApplication;
 		eventType.eventKind = kEventAppTerminated;
 		handlerFunction = NewEventHandlerUPP(appTerminated);
-		err = InstallApplicationEventHandler(handlerFunction, 1, &eventType, self, &terminateHandler);
+		err = InstallApplicationEventHandler(handlerFunction, 1, &eventType, (__bridge void *) self, &terminateHandler);
 		if (err)
 			NSLog(@"QSProcessMonitor Terminate registration err %ld", (long)err);
     }
@@ -187,16 +186,16 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
     err = RemoveEventHandler(terminateHandler);
     if(err)
         NSLog(@"error %ld removing terminate handler", (long)err);
-	[currentApplication release], currentApplication = nil;
-	[previousApplication release], previousApplication = nil;
-	[processes release], processes = nil;
-	[super dealloc];
+	currentApplication = nil;
+	previousApplication = nil;
+	processes = nil;
 }
 
 - (QSObject *)imbuedFileProcessForDict:(NSDictionary *)dict {
-	NSString *bundlePath = [[dict objectForKey:@"NSApplicationPath"] stringByDeletingLastPathComponent];
+    NSString *appPath = [dict objectForKey:@"NSApplicationPath"];
+	NSString *bundlePath = [appPath stringByDeletingLastPathComponent];
 	QSObject *newObject = nil;
-	if ([[bundlePath lastPathComponent] isEqualToString:@"MacOS"] || [[bundlePath lastPathComponent] isEqualToString:@"MacOSClassic"]) {
+	if ([[bundlePath lastPathComponent] isEqualToString:@"MacOS"]) {
 		bundlePath = [bundlePath stringByDeletingLastPathComponent];
 		// ***warning  * check that this is the executable specified by the info.plist
 		if ([[bundlePath lastPathComponent] isEqualToString:@"Contents"]) {
@@ -206,8 +205,14 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 		}
 	}
 
-	if (!newObject)
-		newObject = [QSObject fileObjectWithPath:[dict objectForKey:@"NSApplicationPath"]];
+	if (!newObject) {
+        if (appPath) {
+            newObject = [QSObject fileObjectWithPath:[dict objectForKey:@"NSApplicationPath"]];
+        } else {
+            // the process isn't an app
+            newObject = [QSObject fileObjectWithPath:[dict objectForKey:@"CFBundleExecutable"]];
+        }
+    }
 
 	[newObject setObject:dict forType:QSProcessType];
 	return newObject;
@@ -241,8 +246,8 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
     NSDictionary *dict = [[[self processesDict] objectForKey:psnNumber] objectForType:QSProcessType];
 
 	if (!dict) {
-		dict = (NSDictionary *)ProcessInformationCopyDictionary(&processSerialNumber, kProcessDictionaryIncludeAllInformationMask);
-		dict = [[[dict autorelease] mutableCopy] autorelease];
+		dict = (NSDictionary *)CFBridgingRelease(ProcessInformationCopyDictionary(&processSerialNumber, kProcessDictionaryIncludeAllInformationMask));
+		dict = [dict mutableCopy];
 
 		[dict setValue:[dict objectForKey:@"CFBundleName"]
 				forKey:@"NSApplicationName"];
@@ -432,7 +437,7 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 
 - (NSMutableDictionary *)processesDict {
 	if (!processes) {
-		processes = [[NSMutableDictionary dictionaryWithCapacity:1] retain];
+		processes = [NSMutableDictionary dictionaryWithCapacity:1];
         isReloading = YES;
         for (id thisProcess in [NDProcess everyProcess]) {
             [self addProcessWithPSN:[thisProcess processSerialNumber]];
@@ -468,7 +473,6 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 
 - (void)setCurrentApplication:(NSDictionary *)newCurrentApplication {
 	if (currentApplication != newCurrentApplication) {
-		[currentApplication release];
 		currentApplication = [newCurrentApplication copy];
 	}
 }
@@ -479,7 +483,6 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 
 - (void)setPreviousApplication:(NSDictionary *)newPreviousApplication {
 	if (previousApplication != newPreviousApplication) {
-		[previousApplication release];
 		previousApplication = [newPreviousApplication copy];
 	}
 }

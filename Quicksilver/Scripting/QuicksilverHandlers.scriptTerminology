@@ -7,9 +7,45 @@
 		<key>GetArgumentCount</key>
 		<dict>
 			<key>Description</key>
-			<string>Get the argument count for this action. Scripts with this handler can customize their argument count. Valid values are 1, 2.</string>
+			<string>Get the argument count for this action. Scripts with this handler can customize their argument count. Valid values are: 1 = 1st pane only; 2 = 1st pane and 3rd pane; 3 = 1st pane, and 3rd pane (optional).</string>
 			<key>Name</key>
 			<string>get argument count</string>
+		</dict>
+		<key>GetDirectTypes</key>
+		<dict>
+			<key>Description</key>
+			<string>Get the valid direct (1st pane) object types for which this action will appear. Scripts with this handler can customize for which types of objects the action appears for, by returning a list of types supported. Valid values are shown at http://qsapp.com/wiki/AppleScript_Types</string>
+			<key>Name</key>
+			<string>get direct types</string>
+		</dict>
+		<key>GetIndirectTypes</key>
+		<dict>
+			<key>Description</key>
+			<string>Get the valid indirect (3rd pane) object types for this action. Scripts with this handler can customize the types of objects displayed in Quicksilver's 3rd pane by returning a list of types supported. Valid values are shown at http://qsapp.com/wiki/AppleScript_Types</string>
+			<key>Name</key>
+			<string>get indirect types</string>
+		</dict>
+		<key>OpenFiles</key>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>with</key>
+				<dict>
+					<key>Description</key>
+					<string>indirect object</string>
+					<key>Name</key>
+					<string>with</string>
+				</dict>
+			</dict>
+			<key>Description</key>
+			<string>Open file(s) from Quicksilver</string>
+			<key>Name</key>
+			<string>open files</string>
+			<key>UnnamedArgument</key>
+			<dict>
+				<key>Description</key>
+				<string>File to open</string>
+			</dict>
 		</dict>
 		<key>ProcessText</key>
 		<dict>

@@ -54,15 +54,6 @@ BOOL QSApplicationCompletedLaunch = NO;
 		for (i = 0; !kill(pid, 0) && i<50; i++) usleep(100000);
 	}
 	if ((self = [super init])) {
-
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        
-        // Honor dock preference (if statement true if icon is NOT set to hide)
-        if (![defaults boolForKey:kHideDockIcon]) {
-            if (![defaults objectForKey:@"QSShowMenuIcon"])
-                [defaults setInteger:0 forKey:@"QSShowMenuIcon"];
-            [self showDockIcon];
-        }
     }
 	return self;
 }
@@ -102,7 +93,6 @@ BOOL QSApplicationCompletedLaunch = NO;
 				[[NSClassFromString(@"QSMouseTriggerManager") sharedInstance] handleMouseTriggerEvent:theEvent type:nil forView:nil];
 		  break;
 	  case NSOtherMouseDown:
-			[theEvent retain];
 #ifdef DEBUG
 			if (VERBOSE)
 				NSLog(@"OtherMouse %@ %@", theEvent, [theEvent window]);
@@ -141,23 +131,12 @@ BOOL QSApplicationCompletedLaunch = NO;
 		theEvent = [NSEvent mouseEventWithType:[theEvent type] location:[clickWindow convertScreenToBase:[theEvent locationInWindow]] modifierFlags:[theEvent modifierFlags] timestamp:[theEvent timestamp] windowNumber:[clickWindow windowNumber] context:[theEvent context] eventNumber:[theEvent eventNumber] clickCount:[theEvent clickCount] pressure:[theEvent pressure]];
 		[self sendEvent:theEvent];
 	}
-#if 0
-	else {
-		//NSLog(@"Unable to forward");
-	}
-#endif
-}
-
-- (void)showDockIcon {
-		ProcessSerialNumber psn = { 0, kCurrentProcess } ;
-		TransformProcessType(&psn, kProcessTransformToForegroundApplication);
 }
 
 - (NSResponder *)globalKeyEquivalentTarget { return globalKeyEquivalentTarget;  }
 - (void)setGlobalKeyEquivalentTarget:(NSResponder *)value {
 	if (globalKeyEquivalentTarget != value) {
-		[globalKeyEquivalentTarget release];
-		globalKeyEquivalentTarget = [value retain];
+		globalKeyEquivalentTarget = value;
 	}
 }
 
@@ -170,7 +149,6 @@ BOOL QSApplicationCompletedLaunch = NO;
 - (void)removeEventDelegate:(id)eDelegate {
 	[eventDelegates removeObject:eDelegate];
 	if (![eventDelegates count]) {
-		[eventDelegates release];
 		eventDelegates = nil;
 	}
 }

@@ -26,7 +26,7 @@
 @property (assign, atomic) BOOL isScanning;
 
 
-@property (retain, atomic, getter=_contents) NSArray *contents;
+@property (strong, atomic, getter=_contents) NSArray *contents;
 
 + (QSCatalogEntry *)entryWithDictionary:(NSDictionary *)dict;
 - (NSDictionary *)dictionaryRepresentation;
@@ -39,6 +39,7 @@
 - (BOOL)isPreset;
 - (BOOL)isSeparator;
 - (BOOL)isGroup;
+- (BOOL)isEditable;
 - (NSInteger) state;
 - (NSInteger) hasEnabledChildren;
 - (BOOL)isEnabled;
@@ -75,8 +76,6 @@
 
 - (NSDate *)indexDate;
 - (void)setIndexDate:(NSDate *)anIndexDate;
-- (NSArray *)_contents;
-- (NSMutableDictionary *)info;
 - (BOOL)isScanning;
 - (void)setIsScanning:(BOOL)flag;
 //- (NSString *)countString;

@@ -1,7 +1,7 @@
 #pragma mark User Agent
 
 #define kQSUserAgent [NSString stringWithFormat:@"Quicksilver/%@ OSX/%@ (%@)",\
-					 (NSString *)CFBundleGetValueForInfoDictionaryKey(CFBundleGetMainBundle(), kCFBundleVersionKey),\
+					 (__bridge NSString *)CFBundleGetValueForInfoDictionaryKey(CFBundleGetMainBundle(), kCFBundleVersionKey),\
 					 [NSApplication macOSXFullVersion], @"x86"]
 
 #pragma mark Search URLs
@@ -28,6 +28,7 @@
 #define kActionHandler              @"actionHandler"
 #define kActionEventClass           @"actionEventClass"
 #define kActionEventID              @"actionEventID"
+#define kActionArgument             @"argument"
 
 #define kActionArgumentCount        @"argumentCount" // Number, if undefined, calculates from selector
 

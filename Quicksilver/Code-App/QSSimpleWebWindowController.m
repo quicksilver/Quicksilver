@@ -26,7 +26,6 @@
 	[window setMovableByWindowBackground:NO];
 	WebView *wv = [[WebView alloc] initWithFrame:windowRect frameName:nil groupName:nil];
 	[window setContentView:wv];
-	[wv release];
 
 	//NSLog(@"loaded %@", window);
 
@@ -42,9 +41,7 @@
 		//[toolbar setDisplayMode:NSToolbarDisplayModeIconOnly];
 		[toolbar setSizeMode:NSToolbarSizeModeSmall];
 		[window setToolbar:toolbar];
-		[toolbar release];
 	}
-    [window release];
 	return self;
 }
 
@@ -53,17 +50,11 @@
 }
 
 - (void)loadHTMLString:(NSString *)string baseURL:(NSURL *)URL {
-//	NSLog(@"------------definition %@ %@", string, [[[self window] contentView] mainFrame]);
-	if ([NSThread isMainThread]) {
-		[[[[self window] contentView] mainFrame] loadHTMLString:string baseURL:URL];
-	} else {
-		[self performSelectorOnMainThread:@selector(loadHTMLStringOnMainThread:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:string, @"string", URL, @"base", nil] waitUntilDone:NO];
-	}
+    runOnMainQueueSync(^{
+        [[[[self window] contentView] mainFrame] loadHTMLString:string baseURL:URL];
+    });
 }
 
-- (void)loadHTMLStringOnMainThread:(NSDictionary*)parameters {
-	[[[[self window] contentView] mainFrame] loadHTMLString:[parameters objectForKey:@"string"] baseURL:[parameters objectForKey:@"base"]];
-}
 
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar {
 	return [NSArray arrayWithObjects:NSToolbarSeparatorItemIdentifier,
@@ -93,7 +84,6 @@
 		[item setMaxSize:NSMakeSize(9999, 32)];
 		[textField setTarget:[[self window] contentView]];
 		[textField setAction:@selector(takeStringURLFrom:)];
-        [textField release];
 	} else if ( [itemIdentifier isEqualToString:@"Backward"] ) {
 		[item setLabel:@"Back"];
 		[item setPaletteLabel:[item label]];
@@ -122,10 +112,9 @@
 		// Configuration code for "SearchItem"
 	}
 
-	return [item autorelease];
+	return item;
 }
 - (BOOL)windowShouldClose:(id)sender {
-	[self autorelease];
 	return YES;
 }
 @end

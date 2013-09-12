@@ -1,3 +1,160 @@
+## Changes - 1.1.0 (4004) ##
+
+This release requires 10.7+ and is 64-bit.
+
+### T-SHIRT COMPETITION ###
+
+With the release of Quicksilver v1.1.0 we will be celebrating a t-shirt competition. See the [blog post](http://qsapp.com/t-shirt-competition), and get designing!
+
+### New ###
+
+  * New improved plugin updater (#1354)
+  * Better support for retina displays (#1044, #1378)
+  * New Internal Commands for "Show Guide" and "Show Plugins Preferences" (#1448, #1449)
+  * Individual lines from multi-line text can be accessed with → or / (#1505)
+  * Translations for Russian, Thai, and Indonesian as well as updates for many others (#1577)
+
+### Fixed ###
+
+  * Fix a problem with missing metadata on URLs (#1422)
+  * Prevent the third pane from constantly opening and closing while typing (#1467, #1468)
+  * Fix searching for items with long names (#1042, #1475)
+  * Select the correct trigger when navigating the list with arrow keys (#1473, #1475)
+  * Allow the column that shows the type of trigger to be wide enough to show all the text (#1474, #1475)
+  * Don't constantly load and unload icons that never change (#1488)
+  * Better management and display of clipboard history items (#4, #1406)
+  * Respect the "Run tasks and actions in the background" setting when running triggers (#1477, #1501)
+  * Avoid delays when external drives are connected (#1431, #1490)
+  * Always load "slower" icons in the background (#1369, #1438)
+  * Faster loading of initial file icons (#1490, #1552, #1554)
+  * Improved recognition of URLs and e-mail addresses (#1462, #1509, #1512, #1508, #1514)
+  * Fix the appearance of some hi-res images (#1518)
+  * Prevent duplicates in Recent Commands/command history (#1532)
+  * Crashes and hangs (#1425, #1544, #1545)
+  * Internal improvements and bug fixes (#1468, #1475, #1479, #1505, #1542)
+  * Creating an alias in the same folder as the original won't overwrite it (#1547, #1549)
+  * Creating a symbolic link in the same folder as the original results in a relative link (#1549)
+  * Further attempts to prevent two Dock icons (#1152, #1408)
+  * Fix a cosmetic issue when the Actions preferences are resized (#1560, #1561)
+  * Entering text in text-entry mode won't replace previously entered text (#1424, #1504, #1525, #1564)
+  * For triggers that expect text in the third pane, make sure the inerface starts in text-entry mode (#1587, #1553)
+  * Prevent duplicate files in the catalog (#1566)
+
+### Changed ###
+
+  * Quicksilver will not run in 32-bit mode (#1408)
+  * Quicksilver will not run on Mac OS X 10.6 or older (#1408)
+  * Set the default browse mode to "Filter Results" (#1456)
+  * Improved appearance for the results list (#1446, #1565)
+  * Improve left-arrow behavior (#1286, #1493):
+    * ⌥← will show hidden files in the parent folder
+    * ⌥← will always show the parent folder for a file, even if the file was reached in some other way (like arrowing into an application)
+    * ← will now show the parent folder when multiple files are selected
+  * Select a new trigger after the command is defined (#1475)
+  * Improve ⌘V for non-latin keyboards (#1529)
+  * Let the Clipboard plugin handle ignoring data from certain applications (#1406)
+  * Show symbolic links to folders in the third pane for Move To… and Copy To… (#1484, #1485)
+  * With an AppleScript file in the first pane, Open is now an alternate for Run (#1508)
+  * Renamed internal commands (#1449):
+    * QS Preferences → Show Preferences
+    * QS Catalog → Show Catalog Preferences
+    * QS Triggers → Show Triggers Preferences
+    * QS Command Window → Show Command Window
+    * QS Check for Update → Check for Quicksilver Update
+  * Aliases and symlinks will be resolved when scanning directories (#1507, #1516)
+  * Use Quicksilver's user-agent string when checking for application updates (#1551)
+  * 32-bit-only and PowerPC-only plugins will be moved to a "disabled" folder (#1562)
+  * Show a clear error to users who run 1.1.0 on 10.6 or older (#1574)
+
+### Development ###
+
+  * Better logging of bundle load errors (#1436)
+  * Add required headers to a framework (#1436)
+  * Setting an icon in `QSTypeDefinitions` will give an object an icon (#1406)
+  * A build that breaks backward compatibility can be defined so newly built plugins are automatically set to require it (#1520)
+  * New convenience method to run code on all objects in an array (#1505)
+
+          - (NSArray *)arrayByEnumeratingArrayUsingBock:(id (^)(id obj))block;
+
+  * New convenience method for splitting strings by line more reliably than `- [NSArray lines]` (#1505)
+
+          - (NSArray *)componentsSeparatedByLineSeparators;
+
+  * `loadChildrenForObject:` now only works if `objectHasChildren:` returns YES (#1505)
+  * String objects now get assigned an identifier (#1505)
+    * This corrupted stored commands, so it was reverted (#1553, #1569)
+  * Allow arguments to be passed for Objective-C messages (#1530)
+  * Removed references to unused frameworks (#1535)
+
+## Changes - 1.0.0 (4000) ##
+
+This will be the last release to support Mac OS X 10.6 and 32-bit mode.
+
+### New ###
+
+  * Preliminary support for retina displays (#1044, #1378)
+    * Many internal images have been upscaled
+    * Icons and images are no longer downscaled in the interface
+  * Assign the same trigger to different actions in different applications (#1201)
+  * Add files and folders to the catalog using the Add To Catalog action (#1276)
+  * AppleScript Action enhancements - http://qsapp.com/wiki/AppleScript_Actions (#1023, #1048)
+  * Assign an alternate name to something by creating a synonym (#1325)
+  * Plugin documentation is now accessible from the plugin's preferences (#999, #1364)
+  * Plugin documentation is accessible directly from the list of plugins via a button in the bottom-right (#1364, #1384)
+  * Trigger type can be specified in the third pane for the Add Trigger action (#1345)
+  * Clipboard history will omit "transient" data (#1213)
+  * New localizations for Korean, Catalan, Chinese (Hant, China) and Spanish (Mexico)
+
+### Fixed ###
+
+  * Names and labels for files should be determined faster and more accurately (#1263, #1288)
+  * Catalog entry names won't override file names (#730, #1240)
+  * Docking window controls behave correctly (#1247)
+  * Recent Commands and the Last Command proxy are working (#722, #1207)
+  * Fixed the missing default application for the Open With… action (#1360, #1361)
+  * The Find With action (for web searches) works with Current Selection (#1311)
+  * Fixed the Add Trigger action (#515, #1345, #1390)
+  * Prevent changes to the catalog before it finishes loading (#1216)
+  * Fixed the "Delay" settings for triggers (#583, #914, #1201)
+  * Fixed the generic "Computer" icon (#1298)
+  * Avoid redrawing icons for files unnecessarily (#1297)
+  * Prevent catalog entries from disappearing in the preferences (#893, #1313)
+  * Prevent lock ups when scanning the catalog on startup (#1339)
+  * Correctly switch to text mode in the third pane when spacebar behavior is "Jump to Argument Field" (#1357)
+  * Text items in the third pane no longer show up as empty with details underneath (#1346)
+  * The count at the bottom of the results list is updated correctly (#1346)
+  * Only show folders when saving a command to a file (#1357)
+  * Change "plug-in" to "plugin" in the Setup Assistant (#1357)
+  * Only show catalog related actions with a single item selected (#1276)
+  * Internal improvements to the Assign Abbreviation… action (#1374)
+  * Set a default string ranker to prevent meaningless notifications (#1380)
+  * Prevent a crash when changing row height immediately after choosing a new interface (#1383)
+  * Fixed an exception when right-arrowing into applications with iCloud documents (#1396, #1398)
+  * Changed the process for displaying the Dock icon (#1152, #1414)
+  * More reliable file type detection (#1427, #1428, #1430)
+  * Internal optimizations, stability improvements, and fixes (#1335, #1346, #1385, #1390, #1401, #1371, #1403, #1388, #1410)
+
+### Changed ###
+
+  * Simplify Services and set the "Command Window with Selection" trigger to use ⌘⎋ by default (#409, #1295, #1416, #1418)
+  * The Current Selection proxy object appears quicker (#1295)
+  * Better auto-detection of URLs in text entry mode (#1312, #1346, #1376)
+  * If files are omitted from the catalog, they will still be available when browsing the filesystem (#1195, #1322)
+  * Handlers preferences are grouped with other preferences for the core application (#1182, #1253)
+  * Disable settings for predefined catalog entries (#1341)
+  * Improved localization for Advanced Preferences (#1338)
+  * Release Notes have some style (#1228)
+  * Updated localizations
+
+### Development ###
+
+  * Developers don't need to understand and track the relationship between name and label (#1263)
+  * Passing options to string rankers is more efficient (#1212)
+  * Support bundle version requirements for plug-ins (#1261)
+  * Allow actions to specify whether they want to see proxy objects, or only the resolved object (#1342, #1343)
+  * Removed some unused code related to Event Triggers (#1300)
+  * Better logging of exceptions in Debug mode (#1201, 1357)
+
 ## Changes - ß71 (3942) ##
 
 ### New ###

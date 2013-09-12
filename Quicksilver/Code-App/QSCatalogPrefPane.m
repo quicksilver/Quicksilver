@@ -46,7 +46,7 @@
 static id _sharedInstance;
 
 + (id)sharedInstance {
-	if (!_sharedInstance) _sharedInstance = [[[self class] allocWithZone:[self zone]] init];
+	if (!_sharedInstance) _sharedInstance = [[[self class] alloc] init];
 	return _sharedInstance;
 }
 
@@ -54,7 +54,7 @@ static id _sharedInstance;
 
 - (id)init {
 	self = [super initWithBundle:[NSBundle bundleForClass:[self class]]];
-	if (!_sharedInstance) _sharedInstance = [self retain];
+	if (!_sharedInstance) _sharedInstance = self;
 	if (self) {
 		[self setCurrentItem:nil];
 		currentItemContents = nil;
@@ -100,7 +100,6 @@ static id _sharedInstance;
 	NSImage *icon;
 	NSMenu *itemAddButtonMenu = [[NSMenu alloc] initWithTitle:@"Sources"];
 	[itemAddButton setMenu:itemAddButtonMenu];
-	[itemAddButtonMenu release];
 
     [itemAddButton setKeyEquivalent:@"+"];
     [itemRemoveButton setKeyEquivalent:@"-"];
@@ -123,19 +122,16 @@ static id _sharedInstance;
 		[item setTarget:self];
 		[item setAction:@selector(addSource:)];
 		icon = [[source iconForEntry:nil] copy];
-		[icon setSize:NSMakeSize(16, 16)];
+		[icon setSize:QSSize16];
 		[item setImage:icon];
-		[icon release];
 		 if ([theID isEqualToString:@"QSFileSystemObjectSource"]) {
 			[[itemAddButton menu] insertItem:item atIndex:0];
 			[[itemAddButton menu] insertItem:[NSMenuItem separatorItem] atIndex:1];
 		} else {
 			[[itemAddButton menu] addItem:item];
 		}
-		[item release];
 	}
 
-	[sources release];
 
 	[itemTable setAutoresizesOutlineColumn:NO];
 	[itemTable setAllowsMultipleSelection:NO];
@@ -163,7 +159,6 @@ static id _sharedInstance;
 	[buttonCell setAllowsMixedState:YES];
 	[[itemTable tableColumnWithIdentifier:kItemEnabled] setDataCell:buttonCell];
 	[[itemTable tableColumnWithIdentifier:@"searched"] setDataCell:buttonCell];
-	[buttonCell release];
 
 	[itemContentsTable setTarget:self];
 	[itemContentsTable setDoubleAction:@selector(selectContentsItem:)];
@@ -174,7 +169,6 @@ static id _sharedInstance;
 	[[[itemContentsTable tableColumnWithIdentifier:kItemName] dataCell] setFont:[NSFont systemFontOfSize:11]];
 	[[[itemContentsTable tableColumnWithIdentifier:kItemPath] dataCell] setFont:[NSFont labelFontOfSize:9]];
 	[[[itemContentsTable tableColumnWithIdentifier:kItemPath] dataCell] setWraps:NO];
-	[objectCell release];
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(catalogChanged:) name:QSCatalogEntryChanged object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(catalogIndexed:) name:QSCatalogEntryIndexed object:nil];
@@ -304,7 +298,6 @@ static id _sharedInstance;
 		NSMutableDictionary *item = [currentItem mutableCopy];
 		[item removeObjectForKey:kItemID];
 		[[NSArray arrayWithObject:item] writeToURL:[savePanel URL] atomically:NO];
-		[item release];
 	}
 }
 
@@ -586,25 +579,17 @@ static id _sharedInstance;
 
 - (NSArray *)currentItemContents { return currentItemContents;  }
 - (void)setCurrentItemContents:(NSArray *)newCurrentItemContents {
-	[currentItemContents release];
-	currentItemContents = [newCurrentItemContents retain];
+	currentItemContents = newCurrentItemContents;
 }
 
 - (QSCatalogEntry *)currentItem { return currentItem;  }
 
 - (void)setCurrentItem:(QSCatalogEntry *)newCurrentItem {
-	[currentItem release];
-	currentItem = [newCurrentItem retain];
+	currentItem = newCurrentItem;
 }
 
 - (void)dealloc {
-	[currentItem release];
-	[currentItemSettings release];
-	[currentItemContents release];
-	[draggedEntries release];
-	[draggedIndexPaths release];
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[super dealloc];
 }
 
 @end

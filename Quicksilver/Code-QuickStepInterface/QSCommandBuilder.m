@@ -59,15 +59,10 @@
 - (QSCommand *)representedCommand { return representedCommand; }
 - (void)setRepresentedCommand:(QSCommand *)aRepresentedCommand {
 	if (representedCommand != aRepresentedCommand) {
-		[representedCommand release];
-		representedCommand = [aRepresentedCommand retain];
+		representedCommand = aRepresentedCommand;
 	}
 }
 
 - (void)windowDidResignKey:(NSNotification *)aNotification {}
 
-- (void)dealloc {
-	[representedCommand release];
-	[super dealloc];
-}
 @end

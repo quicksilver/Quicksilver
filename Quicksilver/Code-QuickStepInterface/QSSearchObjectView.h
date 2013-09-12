@@ -18,12 +18,7 @@ typedef enum QSSearchMode {
 } QSSearchMode;
 
 @class QSResultController;
-@interface QSSearchObjectView : QSObjectView <NSTextInput
-#if (MAC_OS_X_VERSION_MAX_ALLOWED >= 1060)
-// NSTextViewDelegate for the NSTextView (the text mode view) as used in transmogrifyWithText:(NSString *)string
-	, NSTextViewDelegate
-#endif
-> 
+@interface QSSearchObjectView : QSObjectView <NSTextInput, NSTextViewDelegate> 
 {
     // the text mode text editor object
     NSTextView *textModeEditor;
@@ -93,15 +88,15 @@ typedef enum QSSearchMode {
 }
 
 @property (assign) BOOL updatesSilently;
-@property (retain) QSResultController *resultController;
-@property (retain) QSAction *alternateActionCounterpart;
-@property (retain) NSTextView *textModeEditor;
+@property (strong) QSResultController *resultController;
+@property (strong) QSAction *alternateActionCounterpart;
+@property (strong) NSTextView *textModeEditor;
 
 - (void)clearSearch; // reset everything and be ready for a new search
 
 - (void)clearObjectValue;
 - (void)moveSelectionBy:(NSInteger)d;
-- (void)selectObjectValue:( QSObject *)newObject ;
+- (void)selectObjectValue:(id)newObject ;
 - (void)pageScroll:(NSInteger)direction;
 
 - (NSMutableArray *)sourceArray;
@@ -189,7 +184,6 @@ typedef enum QSSearchMode {
 
 - (void)setVisibleString:(NSString *)string;
 - (NSString *)visibleString;
-- (void)setVisibleString:(NSString *)newVisibleString;
 
 /*!
  @handleChangeSearchModeEvent

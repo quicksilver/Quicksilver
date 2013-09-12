@@ -21,7 +21,6 @@
 //#import "NSString_CompletionExtensions.h"
 
 #import <ApplicationServices/ApplicationServices.h>
-#import <Carbon/Carbon.h>
 
 @implementation QSObjectView
 
@@ -95,7 +94,7 @@
 			if ([self objectValue]) {
 				NSRect reducedRect = [self frame];
 				//reducedRect.size.width = MIN(NSWidth([self frame]), 52+MAX([[[self objectValue] name] sizeWithAttributes:nil] .width, [[[self objectValue] details] sizeWithAttributes:detailAttributes] .width) );
-				NSImage *dragImage = [[[NSImage alloc] initWithSize:reducedRect.size] autorelease];
+				NSImage *dragImage = [[NSImage alloc] initWithSize:reducedRect.size];
 				[dragImage lockFocus];
 				[[self cell] drawInteriorWithFrame:NSMakeRect(0, 0, [dragImage size] .width, [dragImage size] .height) inView:self];
 				[dragImage unlockFocus];
@@ -111,7 +110,7 @@
 					dragPosition.x -= 16;
 					dragPosition.y -= 16;
 					imageLocation.origin = dragPosition;
-					imageLocation.size = NSMakeSize(32, 32);
+					imageLocation.size = QSSize32;
 					[self dragPromisedFilesOfTypes:[NSArray arrayWithObject:@"silver"] fromRect:imageLocation source:self slideBack:YES event:theEvent];
 				}
 
@@ -180,14 +179,12 @@
 
 - (void)setPreviousObjectValue:(QSObject *)aValue
 {
-  QSObject *oldPreviousObjectValue = previousObjectValue;
-  previousObjectValue = [aValue retain];
-  [oldPreviousObjectValue release];
+  previousObjectValue = aValue;
 }
 
 - (id)objectValue { return [[self cell] representedObject];  }
 - (void)setObjectValue:(QSBasicObject *)newObject {
-  [self setPreviousObjectValue:[self objectValue]];
+    [self setPreviousObjectValue:[self objectValue]];
 	[newObject loadIcon];
 	[newObject becameSelected];
 	// [self setToolTip:[newObject toolTip]];
@@ -210,16 +207,14 @@
 - (QSObject *)draggedObject { return draggedObject;  }
 
 - (void)setDraggedObject:(QSObject *)newDraggedObject {
-	[draggedObject release];
-	draggedObject = [newDraggedObject retain];
+	draggedObject = newDraggedObject;
 }
 
 - (NSString *)searchString { return searchString;  }
 
 - (void)setSearchString:(NSString *)newSearchString {
 	if (newSearchString == searchString) return;
-	[searchString release];
-	searchString = [newSearchString retain];
+	searchString = newSearchString;
 	// [self setNeedsDisplay:YES];
 }
 
@@ -301,7 +296,9 @@
             [NSMenu popUpContextMenu:actionsMenu withEvent:[NSApp currentEvent] forView:self];
         }
 	} else if (action && [self dropMode] != QSSelectDropMode) {
-		[NSThread detachNewThreadSelector:@selector(concludeDragWithAction:) toTarget:self withObject:[QSExec actionForIdentifier:action]]; // Ankur, 21 Dec: Action retained in selector, not here
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self concludeDragWithAction:[QSExec actionForIdentifier:action]];
+        });
 	} else if (lastDragMask & NSDragOperationGeneric) {
 		id winController = [[self window] windowController];
 		if ([winController isKindOfClass:[QSInterfaceController class]] ) {
@@ -325,19 +322,14 @@
 }
 
 - (void)concludeDragWithAction:(QSAction *)actionObject {
-	[actionObject retain];
-    @autoreleasepool {
-        [actionObject performOnDirectObject:[self draggedObject] indirectObject:[self objectValue]];
-    }
-	[actionObject release];
+    [actionObject performOnDirectObject:[self draggedObject] indirectObject:[self objectValue]];
 }
 
 - (NSString *)dragAction { return dragAction;  }
 
 - (void)setDragAction:(NSString *)aDragAction {
 	if (dragAction != aDragAction) {
-		[dragAction release];
-		dragAction = [aDragAction retain];
+		dragAction = aDragAction;
 	}
 }
 

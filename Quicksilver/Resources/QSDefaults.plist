@@ -77,5 +77,9 @@
 	<array>
 		<string>public.item</string>
 	</array>
+	<key>QSStringRankers</key>
+	<string>QSDefaultStringRanker</string>
+	<key>Browse Mode</key>
+	<integer>2</integer>
 </dict>
 </plist>

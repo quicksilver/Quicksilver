@@ -16,6 +16,9 @@
 	NSMutableArray *children;
     BOOL activated;
 }
+
++ (id)triggerWithInfo:(NSDictionary *)dict;
+
 + (id)triggerWithDictionary:(NSDictionary *)info;
 - (id)initWithDictionary:(NSDictionary *)dict;
 
@@ -26,6 +29,8 @@
 - (NSString *)name;
 - (BOOL)hasCustomName;
 - (void)setName:(NSString *)name;
+
+- (NSString *)identifier;
 
 - (BOOL)isPreset;
 - (BOOL)enabled;
@@ -44,7 +49,7 @@
 - (QSTrigger *)parent;
 - (BOOL)activated;
 - (void)setActivated: (BOOL)flag;
-
+- (void)initializeTrigger;
 - (BOOL)isGroup;
 - (NSString *)triggerDescription;
 - (NSString *)triggerSet;

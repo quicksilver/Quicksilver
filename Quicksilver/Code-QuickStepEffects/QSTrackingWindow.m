@@ -11,7 +11,7 @@
 
 @implementation QSTrackingWindow
 + (QSTrackingWindow *)trackingWindow {
-	QSTrackingWindow* window = [[[QSTrackingWindow alloc] initWithContentRect:NSZeroRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreRetained defer:YES] autorelease];
+	QSTrackingWindow* window = [[QSTrackingWindow alloc] initWithContentRect:NSZeroRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreRetained defer:YES];
 	[window setBackgroundColor: [[NSColor redColor] colorWithAlphaComponent:0.5]];
 	[window setOpaque:NO];
 	[window setIgnoresMouseEvents:YES];
@@ -19,7 +19,7 @@
 	[window setLevel:kCGPopUpMenuWindowLevel-1];
 	[window setSticky:YES];
 	[window setDelegate:[window contentView]];
-	NSMutableArray *types = [[standardPasteboardTypes mutableCopy] autorelease];
+	NSMutableArray *types = [standardPasteboardTypes mutableCopy];
  // [types addObjectsFromArray:[[QSReg objectHandlers] allKeys]];
 	[window registerForDraggedTypes:types];
 	return window;
@@ -38,7 +38,7 @@
 	
 	//logRect([self frame]);
 	if (trackingRect) [[self contentView] removeTrackingRect:trackingRect];
-	trackingRect = [[self contentView] addTrackingRect:NSMakeRect(0, 0, NSWidth([self frame]), NSHeight([self frame]) ) owner:self userData:self assumeInside:NO];
+	trackingRect = [[self contentView] addTrackingRect:NSMakeRect(0, 0, NSWidth([self frame]), NSHeight([self frame]) ) owner:self userData:(__bridge void *)(self) assumeInside:NO];
 }
 
 - (void)setFrame:(NSRect)frameRect display:(BOOL)flag {
@@ -82,11 +82,7 @@
 }
 
 - (void)setDelegate:(id <QSTrackingWindowDelegate>)delegate {
-    [super setDelegate:
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1060
-    (id <NSWindowDelegate>)
-#endif
-    delegate];
+    [super setDelegate:(id <NSWindowDelegate>)delegate];
 }
 
 @end

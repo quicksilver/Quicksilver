@@ -30,6 +30,9 @@
 	NSString *status;
 
 }
+
+@property (retain, nonatomic) NSMutableDictionary *data;
+
 + (id)plugInWithBundle:(NSBundle *)aBundle;
 + (id)plugInWithWebInfo:(NSDictionary *)webInfo;
 + (NSString *)bundleIDForPluginAt:(NSString*)path andVersion:(NSString**)version;
@@ -45,6 +48,7 @@
 - (NSString *)buildVersion;
 - (NSString *)installedVersion;
 - (NSString *)latestVersion;
+- (NSString *)releaseNotes;
 
 - (BOOL)isRecommended;
 - (NSArray *)categories;
@@ -81,7 +85,6 @@
 - (NSArray *)dependencies;
 - (NSSet *)obsoletes;
 - (void)downloadFailed;
-+ (id)plugInWithBundle:(NSBundle *)aBundle;
 - (NSString *)infoHTML;
 - (BOOL)hasExtendedDescription;
 - (NSString *)shortName;

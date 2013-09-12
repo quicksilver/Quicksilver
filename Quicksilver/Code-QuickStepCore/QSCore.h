@@ -53,6 +53,7 @@
 #import "QSPaths.h"
 #import "QSPlugIn.h"
 #import "QSPlugInManager.h"
+#import "QSPluginUpdaterWindowController.h"
 #import "QSPreferenceKeys.h"
 #import "QSProcessMonitor.h"
 #import "QSProcessSource.h"

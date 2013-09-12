@@ -137,9 +137,6 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 		index = NSMaxRange(lineRange);
 	}
 
-	[container release];
-	[layoutManager release];
-	[textStorage release];
 
 	return size;
 }
@@ -161,7 +158,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	}
 	
 	// escape embedded %-signs that don't appear to actually be escape sequences, and pre-decode the result to avoid double-encoding
-	string = [(NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) string, NULL, NULL, encoding) autorelease];
+	string = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) string, NULL, NULL, encoding));
 	// decode the first occurence of '#' since it's valid
 	NSRange poundSymbolRange = [string rangeOfString:@"%23"];
 	if (poundSymbolRange.location != NSNotFound)
@@ -170,8 +167,8 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 }
 
 - (NSString *)URLEncodeValue {
-    NSString *result = (NSString *) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self, NULL, CFSTR("?=&+"), kCFStringEncodingUTF8);
-    return [result autorelease];
+    NSString *result = (NSString *) CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self, NULL, CFSTR("?=&+"), kCFStringEncodingUTF8));
+    return result;
 }
 
 - (NSString *)URLDecoding {
@@ -223,7 +220,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 
 	if ([truncString length])
 		[truncString insertString:ellipsisString atIndex:([truncString length]+1) / 2];
-	return [truncString autorelease];
+	return truncString;
 }
 
 @end
@@ -233,7 +230,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	CFUUIDRef uuid = CFUUIDCreate(NULL);
 	CFStringRef uuidStr = CFUUIDCreateString(NULL, uuid);
 	CFRelease(uuid);
-	return [(NSString *)uuidStr autorelease];
+	return (__bridge NSString *)uuidStr;
 }
 @end
 
@@ -310,11 +307,11 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 //	float xScale = NSWidth(rect) / baseSize.width, yScale = NSHeight(rect) / ([font ascender] - [font descender]);
 	CGFloat newFontSize = 12*MIN(NSWidth(rect) / baseSize.width, NSHeight(rect) / ([font ascender] - [font descender]));
 	[newAttributes setObject:[NSFont fontWithName:[font fontName] size:newFontSize] forKey:NSFontAttributeName];
-	return [newAttributes autorelease];
+	return newAttributes;
 }
 
 - (NSDictionary *)attributesToFitRect:(NSRect) rect withAttributes:(NSDictionary *)attributes {
-	NSMutableDictionary *newAttributes = [[attributes mutableCopy] autorelease];
+	NSMutableDictionary *newAttributes = [attributes mutableCopy];
 	if (!newAttributes) newAttributes = [NSMutableDictionary dictionaryWithCapacity:1];
 	NSFont *font = [newAttributes objectForKey:NSFontAttributeName];
 	CGFloat fontSize = [font pointSize];
@@ -339,6 +336,26 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 	if([strings count]>1)	
 		array = [array arrayByPerformingSelector:@selector(componentsSeparatedByStrings:) withObject:[strings tail]];
 	return array;
+}
+
+- (NSArray *) componentsSeparatedByLineSeparators
+{
+	NSMutableArray *result	= [NSMutableArray array];
+	NSRange range = NSMakeRange(0,0);
+	NSUInteger start, end, contentsEnd = 0;
+    
+	while (contentsEnd < [self length])
+	{
+		[self getLineStart:&start end:&end contentsEnd:&contentsEnd forRange:range];
+        NSString *line = [self substringWithRange:NSMakeRange(start,contentsEnd-start)];
+        if ([line length]) {
+            // only add the line if it's got any content on it
+            [result addObject:[self substringWithRange:NSMakeRange(start,contentsEnd-start)]];
+        }
+		range.location = end;
+		range.length = 0;
+	}
+	return result;
 }
 
 - (NSString *)subStringByResolvingWildcardsInPath {
@@ -401,7 +418,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 																	forKey:NSLinkAttributeName];
 	
 	// create the attributed string
-	NSAttributedString *attString = [[[NSAttributedString alloc] initWithString:titleString attributes:attStringAttributes] autorelease];
+	NSAttributedString *attString = [[NSAttributedString alloc] initWithString:titleString attributes:attStringAttributes];
 	
 	// For HTML pasteboard types, create a HTML data object
 	if([type isEqualToString:NSHTMLPboardType]) {

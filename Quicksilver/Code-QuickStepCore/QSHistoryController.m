@@ -16,7 +16,7 @@ id QSHist;
 @implementation QSHistoryController
 
 + (id)sharedInstance {
-	if (!QSHist) QSHist = [[[self class] allocWithZone:[self zone]] init];
+	if (!QSHist) QSHist = [[[self class] allocWithZone:nil] init];
 	return QSHist;
 }
 
@@ -42,15 +42,26 @@ id QSHist;
 		[actionHistory removeLastObject];
 }
 - (void)addCommand:(QSCommand *)command {
-	if ([[[command dObject] identifier] isEqualToString:@"QSLastCommandProxy"]) {
+	if ([[[command dObject] identifier] isEqualToString:@"QSLastCommandProxy"] || !command) {
         // If we're re-running the last command, don't change anything
         return;
 	}
-	if (command)
-		[commandHistory insertObject:command atIndex:0];
-	while ([commandHistory count] > MAXHIST)
-		[commandHistory removeLastObject];
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryInvalidated object:@"QSPresetCommandHistory"];
+    
+    NSUInteger existingCommandIndex = [commandHistory indexOfObject:command];
+    if (existingCommandIndex != NSNotFound) {
+        if (existingCommandIndex == 0) {
+            // command is already the first item in the history, no need to remove and re-add it
+            return;
+        }
+        [commandHistory removeObjectAtIndex:existingCommandIndex];
+    }
+    [commandHistory insertObject:command atIndex:0];
+    if (existingCommandIndex == NSNotFound) {
+        while ([commandHistory count] > MAXHIST) {
+            [commandHistory removeLastObject];
+        }
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryInvalidated object:@"QSPresetCommandHistory"];
 }
 
 - (void)addObject:(id)object {

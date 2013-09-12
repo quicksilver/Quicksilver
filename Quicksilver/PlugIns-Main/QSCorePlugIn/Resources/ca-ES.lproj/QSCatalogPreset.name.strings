@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSPresetABMailRecents</key>
+    <string>Enviar correu electrònic a destinataris anteriors</string>
+    <key>QSPresetUserGroup</key>
+    <string>Usuari</string>
+    <key>QSPresetDownloads</key>
+    <string>Descarregues</string>
+    <key>QSPresetDocuments</key>
+    <string>Documents</string>
+    <key>QSPresetICloudDocuments</key>
+    <string>Documents iCloud</string>
+    <key>QSPresetAccounts</key>
+    <string>Comptes d&apos;usuari</string>
+    <key>QSPresetProxies</key>
+    <string>Objectes proxy</string>
+    <key>QSPresetAddressBook</key>
+    <string>Agenda de contactes</string>
+    <key>QSPresetAddressBookGroup</key>
+    <string>Agenda</string>
+    <key>QSPresetAddressBookScripts</key>
+    <string>Scripts (Agenda)</string>
+    <key>QSPresetAllApplications</key>
+    <string>Troba totes les aplicacions</string>
+    <key>QSPresetAllRecentDocuments</key>
+    <string>Tots els documents recents</string>
+    <key>QSPresetApplicationSpecificGroup</key>
+    <string>Grups d&apos;aplicacions</string>
+    <key>QSPresetApplications</key>
+    <string>Aplicacions</string>
+    <key>QSPresetBrowsersGroup</key>
+    <string>Marcadors</string>
+    <key>QSPresetBuffers</key>
+    <string>Contingut de la memoria intermitja o &apos;buffer&apos;</string>
+    <key>QSPresetCaminoBookmarks</key>
+    <string>Marcadors del Camino</string>
+    <key>QSPresetClassicApplications</key>
+    <string>Aplicacions (Mac OS 9)</string>
+    <key>QSPresetClipboardContents</key>
+    <string>Contingut del portapapers</string>
+    <key>QSPresetCommandHistory</key>
+    <string>Comandaments recents</string>
+    <key>QSPresetConfiguration</key>
+    <string>Configuració</string>
+    <key>QSPresetContacts</key>
+    <string>Contactes</string>
+    <key>QSPresetDVDPlayerScripts</key>
+    <string>Scripts del reproductor de DVDs</string>
+    <key>QSPresetDesktop</key>
+    <string>Escriptori</string>
+    <key>QSPresetDeveloper</key>
+    <string>Desenvolupador</string>
+    <key>QSPresetDeveloperAddressBookDocs</key>
+    <string>Agenda</string>
+    <key>QSPresetDeveloperAppKit</key>
+    <string>AppKit</string>
+    <key>QSPresetDeveloperAppKitDocumentation</key>
+    <string>Documentació d&apos;AppKit</string>
+    <key>QSPresetDeveloperAppKitHeaders</key>
+    <string>Arxius de capçalera d&apos;AppKit</string>
+    <key>QSPresetDeveloperApplications</key>
+    <string>Aplicacions (desenvolupador)</string>
+    <key>QSPresetDeveloperCoreFoundationHeaders</key>
+    <string>Arxius de capçalera de CoreFoundation</string>
+    <key>QSPresetDeveloperFoundation</key>
+    <string>Foundation</string>
+    <key>QSPresetDeveloperFoundationDocumentation</key>
+    <string>Documentació de Foundation</string>
+    <key>QSPresetDeveloperFoundationHeaders</key>
+    <string>Arxius de capçalera de Foundation</string>
+    <key>QSPresetDeveloperFrameworks</key>
+    <string>Frameworks</string>
+    <key>QSPresetDeveloperOtherDocs</key>
+    <string>Altre documentació</string>
+    <key>QSPresetDeveloperPreferencePaneDocs</key>
+    <string>PreferencePanes</string>
+    <key>QSPresetDeveloperPrivateFrameworks</key>
+    <string>Frameworks privats</string>
+    <key>QSPresetDeveloperPublicFrameworks</key>
+    <string>Frameworks públics</string>
+    <key>QSPresetDeveloperScreenSaverDocs</key>
+    <string>Salvapantalles</string>
+    <key>QSPresetDeveloperWebKitDocs</key>
+    <string>WebKit</string>
+    <key>QSPresetDevices</key>
+    <string>Dispositius</string>
+    <key>QSPresetDockApplications</key>
+    <string>Aplicacions del Dock</string>
+    <key>QSPresetDockGroup</key>
+    <string>Dock</string>
+    <key>QSPresetDockOthers</key>
+    <string>Arxius i carpetes del Dock</string>
+    <key>QSPresetFavorites</key>
+    <string>Favorits</string>
+    <key>QSPresetFinderGroup</key>
+    <string>Finder</string>
+    <key>QSPresetFinderRecentFolders</key>
+    <string>Carpetes recents (Finder)</string>
+    <key>QSPresetFinderSpecificSearchPlaces</key>
+    <string>Llocs de recerca específica del Finder</string>
+    <key>QSPresetFinderToolbarItems</key>
+    <string>Elements de la barra d&apos;eines del Finder</string>
+    <key>QSPresetFirefoxBookmarks</key>
+    <string>Marcadors del Firefox</string>
+    <key>QSPresetGlobalPrefsRecentFolders</key>
+    <string>Carpetes recents (Obrir i Desar)</string>
+    <key>QSPresetHome</key>
+    <string>Carpeta d&apos;usuari</string>
+    <key>QSPresetICabBookmarks</key>
+    <string>Marcadors iCab</string>
+    <key>QSPresetInternalMessages</key>
+    <string>Comandaments interns</string>
+    <key>QSPresetInternalObjects</key>
+    <string>Objectes interns</string>
+    <key>QSPresetIEBookmarks</key>
+    <string>Marcadors de l&apos;Internet Explorer</string>
+    <key>QSPresetIEGroup</key>
+    <string>Internet Explorer</string>
+    <key>QSPresetIEHistory</key>
+    <string>Historial de l&apos;Internet Explorer</string>
+    <key>QSPresetILifeGroup</key>
+    <string>iLife</string>
+    <key>QSPresetITunesGroup</key>
+    <string>iTunes</string>
+    <key>QSPresetInternetGroup</key>
+    <string>Internet</string>
+    <key>QSPresetKeyCaps</key>
+    <string>Key Caps</string>
+    <key>QSPresetKeychains</key>
+    <string>Clauer d&apos;accés</string>
+    <key>QSPresetLibraryPreferencePanes</key>
+    <string>Preferències del sistema (tots els usuaris)</string>
+    <key>QSPresetLibraryScripts</key>
+    <string>Scripts (tots els usuaris)</string>
+    <key>QSPresetMainApplications</key>
+    <string>Aplicacions</string>
+    <key>QSPresetMiscellaneousGroup</key>
+    <string>Miscel·lània</string>
+    <key>QSPresetModules</key>
+    <string>Plugins</string>
+    <key>QSPresetMozillaBookmarks</key>
+    <string>Marcadors Mozilla</string>
+    <key>QSPresetNNWSubscriptions</key>
+    <string>Subscripcions NetNewsWire</string>
+    <key>QSPresetNUDCContacts</key>
+    <string>Contactes actuals</string>
+    <key>QSPresetNetscapeBookmarks</key>
+    <string>Marcadors Netscape</string>
+    <key>QSPresetNetworkLocations</key>
+    <string>Ubicacions de Xarxa</string>
+    <key>QSPresetOldCaminoBookmarks</key>
+    <string>Marcadors Camino (vell)</string>
+    <key>QSPresetOmniWebBookmarks</key>
+    <string>Marcadors de l&apos;Omniweb</string>
+    <key>QSPresetOmniWebFavorites</key>
+    <string>Favorits de l&apos;OmniWeb</string>
+    <key>QSPresetOmniWebGroup</key>
+    <string>OmniWeb</string>
+    <key>QSPresetOmniWebHistory</key>
+    <string>Historial de l&apos;OmniWeb</string>
+    <key>QSPresetOmniWebServerBookmarks</key>
+    <string>Marcadors de l&apos;OmniWeb (servidor)</string>
+    <key>QSPresetOmniWebShortcuts</key>
+    <string>Dreceres de teclat de l&apos;OmniWeb</string>
+    <key>QSPresetOperaBookmarks</key>
+    <string>Marcadors Opera</string>
+    <key>QSPresetPathFinderGroup</key>
+    <string>Path Finder</string>
+    <key>QSPresetPathFinderRecentFiles</key>
+    <string>Arxius recents del Path Finder</string>
+    <key>QSPresetPathFinderRecentFolders</key>
+    <string>Carpetes recents del Path Finder</string>
+    <key>QSPresetPreferencePanes</key>
+    <string>Panells de preferències</string>
+    <key>QSPresetPresetGroup</key>
+    <string>Preajustaments</string>
+    <key>QSPresetPrinters</key>
+    <string>Impresores</string>
+    <key>QSPresetQSCatalogEntries</key>
+    <string>Entrades de catàleg del Quicksilver</string>
+    <key>QSPresetQSDefaultLinks</key>
+    <string>URLs d&apos;inici</string>
+    <key>QSPresetQSExtraScripts</key>
+    <string>Scripts (Extres QS)</string>
+    <key>QSPresetQSGroup</key>
+    <string>Quicksilver</string>
+    <key>QSPresetRecentApplications106</key>
+    <string>Aplicacions Recents</string>
+    <key>QSPresetRecentDocuments106</key>
+    <string>Documents recents</string>
+    <key>QSPresetRecentItems</key>
+    <string>Elements recents</string>
+    <key>QSPresetRecentSelections</key>
+    <string>Seleccions recents</string>
+    <key>QSPresetRecentServers</key>
+    <string>Servidors recents</string>
+    <key>QSPresetFavoriteServers</key>
+    <string>Servidors favorits</string>
+    <key>QSPresetRendezvous</key>
+    <string>Servidors Rendezvous</string>
+    <key>QSPresetRendezvousMachines</key>
+    <string>Rendezvous Quicksilver</string>
+    <key>QSPresetRoot</key>
+    <string>Arrel</string>
+    <key>QSPresetRunningProcesses</key>
+    <string>Processos i aplicacions en execució</string>
+    <key>QSPresetSafariBookmarks</key>
+    <string>Marcadors Safari</string>
+    <key>QSPresetSafariGroup</key>
+    <string>Safari</string>
+    <key>QSPresetSafariHistory</key>
+    <string>Historial Safari</string>
+    <key>QSPresetScriptsGroup</key>
+    <string>Scripts</string>
+    <key>QSPresetShelves</key>
+    <string>Prestatgeria i portapapers</string>
+    <key>QSPresetSidebarItems</key>
+    <string>Barra lateral del Finder</string>
+    <key>QSPresetSogudiShortcuts</key>
+    <string>Dreceres de teclat de Sogudi</string>
+    <key>QSPresetSpeakableItems</key>
+    <string>Elements pronunciables</string>
+    <key>QSPresetSpecial</key>
+    <string>Especial</string>
+    <key>QSPresetSystemGroup</key>
+    <string>Sistema</string>
+    <key>QSPresetSystemPreferencePanes</key>
+    <string>Preferències del sistema (sistema)</string>
+    <key>QSPresetTrash</key>
+    <string>Paperera</string>
+    <key>QSPresetUserApplications</key>
+    <string>Aplicacions (usuari)</string>
+    <key>QSPresetUserPreferencePanes</key>
+    <string>Preferències del sistema (usuari)</string>
+    <key>QSPresetUserScripts</key>
+    <string>Scripts (usuari)</string>
+    <key>QSPresetUserWatsonTools</key>
+    <string>Eines del Watson (usuari)</string>
+    <key>QSPresetVolumes</key>
+    <string>Discs</string>
+    <key>QSPresetWatsonGroup</key>
+    <string>Watson</string>
+    <key>QSPresetWirelessNetworks</key>
+    <string>Xarxes AirPort</string>
+    <key>QSPresetiPhotoAlbums</key>
+    <string>Albums iPhoto</string>
+    <key>QSPresetiTunesGroup</key>
+    <string>iTunes</string>
+    <key>QSPresetiTunesPlaylists</key>
+    <string>Música iTunes</string>
+    <key>QSPresetiTunesScripts</key>
+    <string>Scripts iTunes</string>
+    <key>QSPresetRemovableVolumes</key>
+    <string>Xarxes i discs extraibles</string>
+  </dict>
+</plist>

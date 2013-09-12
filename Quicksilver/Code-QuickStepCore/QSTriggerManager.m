@@ -25,19 +25,16 @@
 }
 - (void)setCurrentTrigger:(QSTrigger *)value {
 	if (currentTrigger != value) {
-		[currentTrigger autorelease];
-		currentTrigger = [value retain];
+		currentTrigger = value;
 	}
 }
 - (QSTrigger *)settingsSelection {return currentTrigger;}
 - (void)populateInfoFields {};
 
 - (NSWindow *)triggerDisplayWindowWithTrigger:(QSTrigger *)trigger {
-	NSImage *image = [[trigger command] icon];
+	NSImage *splashImage = [[trigger command] icon];
 	NSInteger quadrant = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSNotifierDefaultQuadrant"];
-	NSImage *splashImage = image;
-	[splashImage createRepresentationOfSize:NSMakeSize(128, 128)];
-	[splashImage setSize:NSMakeSize(128, 128)];
+	[splashImage setSize:QSSize128];
 	NSRect screenRect = [[NSScreen mainScreen] frame];
 	NSRect windowRect = NSMakeRect(0, 0, 178, 188);
 	NSWindow *splashWindow = [[NSClassFromString(@"QSWindow") alloc] initWithContentRect:windowRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
@@ -49,7 +46,7 @@
 	[splashWindow setBackgroundColor: [NSColor clearColor]];
 	[splashWindow setOpaque:NO];
 	[splashWindow setLevel:NSFloatingWindowLevel];
-	[splashWindow setContentView:[[[NSClassFromString(@"QSBezelBackgroundView") alloc] init] autorelease]];
+	[splashWindow setContentView:[[NSClassFromString(@"QSBezelBackgroundView") alloc] init]];
 	[(QSBezelBackgroundView *)[splashWindow contentView] setRadius:16.0];
 	[(QSBezelBackgroundView *)[splashWindow contentView] setGlassStyle:QSGlossUpArc];
 	[(QSBezelBackgroundView *)[splashWindow contentView] bindColors];
@@ -57,8 +54,8 @@
 	[(QSWindow*)splashWindow setShowOffset:NSMakePoint(0, -NSHeight(screenRect)/8)];
 	[splashWindow setHidesOnDeactivate:NO];
 	[splashWindow setSticky:YES];
-	[splashWindow setReleasedWhenClosed:YES];
-	NSImageView *imageView = [[[NSImageView alloc] initWithFrame:NSMakeRect(24, 42, 128, 128)] autorelease];
+	[splashWindow setReleasedWhenClosed:NO];
+	NSImageView *imageView = [[NSImageView alloc] initWithFrame:NSMakeRect(24, 42, 128, 128)];
 	[imageView setImage:splashImage];
 	[imageView setImageFrameStyle:NSImageFrameNone];
 	[imageView setImageScaling:NSScaleNone];
@@ -69,6 +66,11 @@
 	return splashWindow;
 }
 - (NSString *)name { return @""; }
+- (NSImage *)image { return nil; }
+- (void)initializeTrigger:(QSTrigger *)trigger {}
+- (BOOL)enableTrigger:(QSTrigger *)trigger { return NO; }
+- (BOOL)disableTrigger:(QSTrigger *)trigger {return NO; }
+- (NSString *)descriptionForTrigger:(QSTrigger *)thisTrigger { return nil; }
 @end
 
 @implementation QSGroupTriggerManager

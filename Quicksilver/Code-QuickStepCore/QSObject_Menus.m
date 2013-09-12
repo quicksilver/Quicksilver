@@ -69,8 +69,8 @@
 }
 
 - (BOOL)applyIconToMenuItem:(NSMenuItem *)item {
-	NSImage *iconCopy = [[[self icon] copy] autorelease];
-	[iconCopy setSize:NSMakeSize(16, 16)];
+	NSImage *iconCopy = [[self icon] copy];
+	[iconCopy setSize:QSSize16];
 	[item setImage:iconCopy];
 	return YES;
 }
@@ -85,7 +85,7 @@
 
 	if (0) {
 		NSDictionary *attrs = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:12] , NSFontAttributeName, nil];
-		NSAttributedString *attrTitle = [[[NSAttributedString alloc] initWithString:[self name] attributes:attrs] autorelease];
+		NSAttributedString *attrTitle = [[NSAttributedString alloc] initWithString:[self name] attributes:attrs];
 		[item setAttributedTitle:attrTitle];
 	}
 	if (includeChildren) {
@@ -114,7 +114,7 @@
 
 }
 - (NSMenuItem *)menuItemWithChildren:(BOOL)includeChildren {
-	NSMenuItem *item = [[[NSMenuItem alloc] initWithTitle:[self name] action:nil keyEquivalent:@""] autorelease];
+	NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:[self name] action:nil keyEquivalent:@""];
 	[self configureMenuItem:item includeChildren:(BOOL)includeChildren];
 	return item;
 }
@@ -127,13 +127,13 @@
 
 - (NSMenu *)actionsMenu {
 	//QSObject *object = self;
-	NSMenu *menu = [[[NSMenu alloc] initWithTitle:kQSObjectActionsMenu] autorelease];
+	NSMenu *menu = [[NSMenu alloc] initWithTitle:kQSObjectActionsMenu];
 	[menu setDelegate:self];
 	return menu;
 }
 
 - (NSMenu *)fullMenu {
-	NSMenu *menu = [[[NSMenu alloc] initWithTitle:kQSObjectFullMenu] autorelease];
+	NSMenu *menu = [[NSMenu alloc] initWithTitle:kQSObjectFullMenu];
 	[menu setDelegate:self];
 
 	return menu;
@@ -141,7 +141,7 @@
 
 - (NSMenu *)childrenMenu {
 	if (![self hasChildren]) return nil;
-	NSMenu *menu = [[[NSMenu alloc] initWithTitle:kQSObjectChildrenMenu] autorelease];
+	NSMenu *menu = [[NSMenu alloc] initWithTitle:kQSObjectChildrenMenu];
 	[menu setDelegate:self];
 
 	return menu;
@@ -169,31 +169,27 @@
 		if (action) {
 			NSArray *componentArray = [[action name] componentsSeparatedByString:@"/"];
 			[action loadIcon];
-			NSImage *iconCopy = [[[action icon] copy] autorelease];
-			[iconCopy setSize:NSMakeSize(16, 16)];
+			NSImage *iconCopy = [[action icon] copy];
+			[iconCopy setSize:QSSize16];
 
 			id command = [QSCommand commandWithDirectObject:self actionObject:action indirectObject:nil];
 			if ([componentArray count] >1) {
 				NSMenuItem *groupMenu = [menu itemWithTitle:[componentArray objectAtIndex:0]];
 				if (!groupMenu) {
-					groupMenu = [[[NSMenuItem alloc] initWithTitle:[componentArray objectAtIndex:0] action:nil keyEquivalent:@""] autorelease];
+					groupMenu = [[NSMenuItem alloc] initWithTitle:[componentArray objectAtIndex:0] action:nil keyEquivalent:@""];
 					if (iconCopy) [groupMenu setImage:iconCopy];
-					[groupMenu setSubmenu: [[[NSMenu alloc] initWithTitle:[componentArray objectAtIndex:0]]autorelease]];
+					[groupMenu setSubmenu: [[NSMenu alloc] initWithTitle:[componentArray objectAtIndex:0]]];
 					[menu addItem:groupMenu];
 				}
 				item = (NSMenuItem *)[[groupMenu submenu] addItemWithTitle:[componentArray objectAtIndex:1] action:@selector(executeFromMenu:) keyEquivalent:@""];
 			} else {
 				item = (NSMenuItem *)[menu addItemWithTitle:[action name] action:@selector(executeFromMenu:) keyEquivalent:@""];
 				if ([action argumentCount] >1) {
-					NSMenu *sub = [[[NSMenu alloc] initWithTitle:[action name]]autorelease];
+					NSMenu *sub = [[NSMenu alloc] initWithTitle:[action name]];
 					[sub setDelegate:command];
-					[[command retain] autorelease]; // so it doesn't get released too early when menu deconstructed
 					[item setSubmenu:sub];
-
 				}
-
 			}
-
 			[item setTarget:command];
 			[item setRepresentedObject:command];
 			if (iconCopy) [item setImage:iconCopy];

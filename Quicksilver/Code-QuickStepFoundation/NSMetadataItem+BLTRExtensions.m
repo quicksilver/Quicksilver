@@ -11,5 +11,5 @@
 @implementation NSMetadataItem (BLTRExtensions)
 - (NSImage *)icon { return [[NSWorkspace sharedWorkspace] iconForFile:[self valueForKey:(id)kMDItemPath]]; }
 - (NSString *)displayName { return [self valueForAttribute:(NSString *)kMDItemDisplayName]; }
-+ (NSMetadataItem *)itemWithPath:(NSString *)path { return [[[self alloc] _init:MDItemCreate(NULL, (CFStringRef) path)] autorelease]; }
++ (NSMetadataItem *)itemWithPath:(NSString *)path { return [[self alloc] _init:MDItemCreate(NULL, (__bridge CFStringRef) path)]; }
 @end

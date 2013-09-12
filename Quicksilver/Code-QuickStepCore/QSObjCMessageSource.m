@@ -86,8 +86,14 @@
 		NSLog(@"%@ does not respond to %@", target, selectorString);
 		return nil;
 	}
-
-	id result = [target performSelector:selector];
+    
+    id result;
+    id argument = nil;
+    if (argument = messageInfo[kActionArgument]) {
+        result = [target performSelector:selector withObject:argument];
+    } else {
+        result = [target performSelector:selector];
+    }
 	if (returnsObject && [result isKindOfClass:[QSBasicObject class]]) return result;
 	return nil;
 }
@@ -96,7 +102,7 @@
 
 @implementation QSObject (ObjCMessaging)
 + (QSObject *)messageObjectWithInfo:(NSDictionary *)dictionary identifier:(NSString *)identifier {
-	NSMutableDictionary *mDict = [[dictionary mutableCopy] autorelease];
+	NSMutableDictionary *mDict = [dictionary mutableCopy];
     
     //if (VERBOSE) NSLog(@"Old style message object used:%@", [dictionary objectForKey:@"name"]);
     

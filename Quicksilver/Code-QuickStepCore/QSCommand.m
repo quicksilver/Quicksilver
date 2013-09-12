@@ -23,6 +23,9 @@
 
 #import "QSTriggersPrefPane.h"
 
+/* I know that sounds stupid, but if trigger themselves are one day made QSObjects then we'll be glad */
+#define QSTriggerTypeType @"QSTriggerTypeType"
+
 @interface QSObject (QSCommandCompletionProtocol)
 - (void)completeAndExecuteCommand:(QSCommand *)command;
 @end
@@ -41,14 +44,42 @@
     id dObject = [(QSCommand*)object dObject];
 	[dObject loadIcon];
 	[object setIcon:[dObject icon]];
+    [object setRetainsIcon:YES];
 	return YES;
 }
 
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
-	if ([action isEqualToString:@"QSCommandSaveAction"])
-		return nil;
-	else
+	if ([action isEqualToString:@"QSCommandSaveAction"]) {
+        // We only want folders for the save command... action
+        NSArray *fileObjects = [[QSLibrarian sharedInstance] arrayForType:QSFilePathType];
+
+        // use the home folder as default
+        QSObject * currentFolderObject = [QSObject fileObjectWithPath:[@"~" stringByExpandingTildeInPath]];
+        
+        NSIndexSet *folderIndexes = [fileObjects indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *thisObject, NSUInteger i, BOOL *stop) {
+            QSObject *resolved = [thisObject resolvedAliasObject];
+            return ([resolved isFolder] && (thisObject != currentFolderObject));
+        }];
+    
+    return [[NSArray arrayWithObject:currentFolderObject] arrayByAddingObjectsFromArray:[fileObjects objectsAtIndexes:folderIndexes]];
+	} else if ([action isEqualToString:@"QSCommandAddTriggerAction"]) {
+        NSMutableArray *triggerTypesObjects = [NSMutableArray array];
+        NSDictionary *triggerManagers = [QSReg instancesForTable:@"QSTriggerManagers"];
+        for (NSString *key in triggerManagers) {
+            QSTriggerManager *manager = [triggerManagers objectForKey:key];
+            QSObject *triggerType = [QSObject makeObjectWithIdentifier:key];
+            [triggerType setPrimaryType:QSTriggerTypeType];
+            [triggerType setIcon:[manager image]];
+            [triggerType setName:[manager name]];
+            [triggerType setObject:key forType:QSTriggerTypeType];
+            [triggerTypesObjects addObject:triggerType];
+        }
+        return [triggerTypesObjects sortedArrayWithOptions:NSSortConcurrent usingComparator:^NSComparisonResult(QSObject *obj1, QSObject *obj2) {
+            return [[obj1 name] localizedCompare:[obj2 name]];
+        }];
+    } else {
 		return [NSArray arrayWithObject:[QSObject textProxyObjectWithDefaultValue:@""]];
+    }
 }
 
 // CommandsAsActionsHandling
@@ -117,20 +148,19 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 		[dObject writeToFile:destination];
 		[commandObject loadIcon];
 		NSImage *image = [commandObject icon];
-		[image setSize:QSSize128];
+		[image setSize:QSSizeMax];
 		[[NSWorkspace sharedWorkspace] setIcon:image forFile:destination options:NSExcludeQuickDrawElementsIconCreationOption];
 	}
 	return [QSObject fileObjectWithPath:destination];
 }
 
-- (QSObject*)addTrigger:(QSObject *)dObject withInfo:(QSObject*)iObject {
-#warning TODO: iObject contains a string which allows passing missing parameters (trigger type, mainly)
-    /* More TODO: Ask the trigger's trigger manager to parse the iObject stringValue,
-     * so that trigger manager get a chance to customize their properties */
+- (QSObject*)addTrigger:(QSObject *)dObject withType:(QSObject *)type {
 	QSCommand *command = (QSCommand*)dObject;
     
+    NSString *typeString = [type objectForType:QSTriggerTypeType];
+
 	NSMutableDictionary *info = [NSMutableDictionary dictionaryWithCapacity:5];
-	[info setObject:@"QSHotKeyTrigger" forKey:@"type"];
+	[info setObject:typeString forKey:@"type"];
 	[info setObject:[NSNumber numberWithBool:YES] forKey:kItemEnabled];
     
 	if (command)
@@ -140,18 +170,23 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
     
 	QSTrigger *trigger = [QSTrigger triggerWithDictionary:info];
 	[trigger initializeTrigger];
-	[[QSTriggerCenter sharedInstance] addTrigger:trigger];
+	[(QSTriggerCenter *)[QSTriggerCenter sharedInstance] addTrigger:trigger];
+	[self performSelectorOnMainThread:@selector(selectTriggerInPrefPane:) withObject:trigger waitUntilDone:YES];
+	return nil;
+}
+
+- (void)selectTriggerInPrefPane:(QSTrigger *)trigger {
 	[[NSClassFromString(@"QSPreferencesController") sharedInstance] showPaneWithIdentifier:@"QSTriggersPrefPane"];
 	[[NSClassFromString(@"QSTriggersPrefPane") sharedInstance] showTrigger:trigger];
-    [[NSClassFromString(@"QSTriggersPrefPane") sharedInstance] setTabViewIndex:0];
-    [[NSClassFromString(@"QSTriggersPrefPane") sharedInstance] showTriggerInfo:trigger];
-    return nil;
+    [[NSClassFromString(@"QSTriggersPrefPane") sharedInstance] setSelectedTrigger:trigger];
+
+	[[NSClassFromString(@"QSTriggersPrefPane") sharedInstance] setTabViewIndex:0];
+	[[NSClassFromString(@"QSTriggersPrefPane") sharedInstance] showTriggerInfo:trigger];
 }
 
 - (QSObject *)executeCommand:(QSObject *)dObject afterDelay:(QSObject *)iObject {
 	NSTimer *timer = [[NSTimer alloc] initWithFireDate:[NSDate dateWithTimeIntervalSinceNow:QSTimeIntervalForString([iObject stringValue])] interval:0 target:self selector:@selector(runCommand:) userInfo:dObject repeats:NO];
 	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
-    [timer release];
 	return nil;
 }
 
@@ -160,7 +195,6 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	if (!date) { NSBeep(); return nil; }
 	NSTimer *timer = [[NSTimer alloc] initWithFireDate:date interval:0 target:self selector:@selector(runCommand:) userInfo:dObject repeats:NO];
 	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
-    [timer release];
 	return nil;
 }
 
@@ -174,7 +208,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 @implementation QSCommand
 + (QSCommand *)commandWithDirectObject:(QSObject *)dObject actionObject:(QSAction *)aObject indirectObject:(QSObject *)iObject {
 	if (dObject && aObject)
-		return [[[self alloc] initWithDirectObject:dObject actionObject:aObject indirectObject:iObject] autorelease];
+		return [[self alloc] initWithDirectObject:dObject actionObject:aObject indirectObject:iObject];
 	return nil;
 }
 
@@ -184,9 +218,8 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
         command = [QSCommand commandWithDictionary:info];
     } else if ([info isKindOfClass:[NSString class]]) {
         command = [QSCommand commandWithIdentifier:info];
-    } else if (![info isKindOfClass:[QSCommand class]]) {
-        [self release];
-        return nil;
+    } else if ([info isKindOfClass:[QSCommand class]]) {
+		command = info;
     }
     return command;
 }
@@ -204,7 +237,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 + (QSCommand *)commandWithDictionary:(NSDictionary *)dict {
     QSCommand *cmd = [[self alloc] init];
     [cmd setObject:dict forType:QSCommandType];
-    return [cmd autorelease];
+    return cmd;
 }
 
 + (QSCommand *)commandWithFile:(NSString *)path {
@@ -239,8 +272,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 
 - (void)setDirectObject:(QSObject*)newObject {
     if (newObject != nil && dObject != newObject) {
-        [dObject release];
-        dObject = [newObject retain];
+        dObject = newObject;
         
         id rep = [dObject identifier];
         if(rep != nil)
@@ -256,8 +288,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 
 - (void)setActionObject:(QSAction*)newObject {
     if (newObject != nil && aObject != newObject) {
-        [aObject release];
-        aObject = [newObject retain];
+        aObject = newObject;
     
         id rep = [aObject identifier];
         if(rep != nil)
@@ -272,8 +303,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 
 - (void)setIndirectObject:(QSObject*)newObject {
     if (newObject != nil && iObject != newObject) {
-        [iObject release];
-        iObject = [newObject retain];
+        iObject = newObject;
     
         id rep = [iObject identifier];
         if(rep != nil)
@@ -332,7 +362,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
         object = [QSObject fileObjectWithPath:[QSRez pathWithLocatorInformation:[cmdDict objectForKey:@"directResource"]]];
 	}
 	
-	// For cases where the command has a directID/directArchive, but it's corresponding object hasn't already been created (i.e. *not* in the catalog)
+	// For cases where the command has a directID/directArchive, but its corresponding object hasn't already been created (i.e. *not* in the catalog)
 	if (!object && directID) {
 		// sniffs the string to create a new object
 		object = [QSObject objectWithString:directID];
@@ -396,6 +426,16 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	return result;
 #endif
 	return [self execute];
+}
+
+- (BOOL)isEqual:(id)anObject {
+    if (![anObject isKindOfClass:[QSCommand class]]) {
+        return NO;
+    }
+    if ([anObject dObject] == [self dObject] && [anObject aObject] == [self aObject] && [anObject iObject] == [self iObject]) {
+        return YES;
+    }
+    return NO;
 }
 
 - (QSObject *)execute {

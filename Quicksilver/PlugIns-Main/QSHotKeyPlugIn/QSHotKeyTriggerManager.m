@@ -99,7 +99,6 @@
                     if (upEvent = [self nextHotKeyUpEventUntilDate:repeatDate]) {
                         break;
                     }
-                    repeatDate = [NSDate dateWithTimeIntervalSinceNow:repeatInterval];
                     [trigger execute];
                     triggerExecuted = YES;
                 }

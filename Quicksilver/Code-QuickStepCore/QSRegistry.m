@@ -9,8 +9,6 @@
 
 #import <QSFoundation/QSFoundation.h>
 
-#import "NSException_TraceExtensions.h"
-
 QSRegistry* QSReg = nil;
 
 @implementation QSRegistry
@@ -26,7 +24,7 @@ QSRegistry* QSReg = nil;
 }
 
 + (id)sharedInstance {
-	if (!QSReg) QSReg = [[[self class] allocWithZone:[self zone]] init];
+	if (!QSReg) QSReg = [[[self class] allocWithZone:nil] init];
 	return QSReg;
 }
 
@@ -112,10 +110,11 @@ QSRegistry* QSReg = nil;
 - (Class) getClass:(NSString*)className {
 	Class providerClass = NSClassFromString(className);
 	if (!providerClass) {
-		NSBundle *bundle = [classBundles objectForKey:className];
+		NSBundle *bundle = [self bundleForClassName:className];
 		if (bundle) {
-			if( ![bundle load] ) {
-                NSLog(@"Failed loading bundle for class %@", className);
+            NSError *err = nil;
+			if( ![bundle loadAndReturnError:&err] ) {
+                NSLog(@"Failed loading bundle for class %@\nError: %@", className, err ? err : nil);
                 return nil;
             }
 			providerClass = NSClassFromString(className);
@@ -144,7 +143,7 @@ QSRegistry* QSReg = nil;
 	Class providerClass = NSClassFromString(className);
 	if (!providerClass) {
         NSBundle * bundle = [classBundles objectForKey:className];
-        if (bundle) {
+        if (bundle && [bundle isKindOfClass:[NSBundle class]]) {
             NSError *err = nil;
             if (![bundle loadAndReturnError:&err]) {
                 NSLog(@"Failed loading bundle %@ error: %@", bundle, err);
@@ -162,7 +161,7 @@ QSRegistry* QSReg = nil;
         instance = [providerClass sharedInstance];
     else {
         @try {
-            instance = [[[providerClass alloc] init] autorelease];
+            instance = [[providerClass alloc] init];
         }
         @catch (NSException *exception) {
 #ifdef DEBUG
@@ -176,7 +175,10 @@ QSRegistry* QSReg = nil;
 
 - (NSMutableDictionary *)identifierBundles { return identifierBundles;  }
 
-+ (void)setObject:(id)object forKey:(NSString *)inTable:(NSString *)table {[[self sharedInstance] setObject:(id)object forKey:(NSString *)inTable:(NSString *)table];} ;
++ (void)setObject:(id)object forKey:(NSString *)key inTable:(NSString *)table {
+    [[self sharedInstance] setObject:object forKey:key inTable:table];
+}
+
 - (void)setObject:(id)object forKey:(NSString *)key inTable:(NSString *)table {
 	[[self tableNamed:table] setObject:object forKey:key];
 }

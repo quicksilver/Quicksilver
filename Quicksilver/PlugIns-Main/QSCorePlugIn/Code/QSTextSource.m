@@ -20,6 +20,8 @@
 
 @implementation QSTextActions
 
+@synthesize currentLargeTypeWindow;
+
 - (QSObject *)showLargeType:(QSObject *)dObject {
     NSString *display = nil;
     if ([dObject singleFilePath]) {
@@ -52,26 +54,21 @@
 - (QSObject *)typeObject:(QSObject *)dObject {
 	// NSLog( AsciiToKeyCode(&ttable, "m") {
 	// short AsciiToKeyCode(Ascii2KeyCodeTable *ttable, short asciiCode) {
-	[self typeString2:[dObject objectForType:QSTextType]];
+	[self typeString:[dObject objectForType:QSTextType]];
 	return nil;
 }
 
 - (void)typeString:(NSString *)string {
-    NSUInteger length = [string length];
-    UniChar s[length];
-    [string getCharacters:s range:NSMakeRange(0, length)];
-	CGEventRef keyEvent = CGEventCreateKeyboardEvent(NULL, 0, true);
-    CGEventKeyboardSetUnicodeString(keyEvent, (UniCharCount)length, s);
-    CGEventPost(kCGSessionEventTap, keyEvent);
-	CFRelease(keyEvent);
+    UniChar buffer;
+    CGEventRef keyEvent = CGEventCreateKeyboardEvent(NULL, 0, true);
+    CFRelease(keyEvent);
+    for (NSUInteger i = 0; i < [string length]; i++) {
+        buffer = [string characterAtIndex:i];
+        keyEvent = CGEventCreateKeyboardEvent(NULL, 1, true);
+        CGEventKeyboardSetUnicodeString(keyEvent, 1, &buffer);
+        CGEventPost(kCGHIDEventTap, keyEvent);
+        CFRelease(keyEvent);
+    }
 }
 
-- (void)typeString2:(NSString *)string {
-	string = [string stringByReplacing:@"\n" with:@"\r"];
-	NSAppleScript *sysEventsScript = [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"System Events" ofType:@"scpt"]] error:nil];
-	NSDictionary *errorDict = nil;
-	[sysEventsScript executeSubroutine:@"type_text" arguments:string error:&errorDict];
-	if (errorDict) NSLog(@"Execute Error: %@", errorDict);
-    [sysEventsScript release];
-}
 @end

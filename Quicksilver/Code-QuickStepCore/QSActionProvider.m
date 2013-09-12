@@ -7,10 +7,9 @@
 	if (![NSImage imageNamed:QSDirectObjectIconProxy]){
 		NSImage *theImg = (NSImage *)[[NSImage imageNamed:@"defaultAction"] copy];
 		[theImg setName:QSDirectObjectIconProxy];
-		[theImg release];
 	}
 }
-+ (id)provider { return [[[[self class] alloc] init] autorelease];  }
++ (id)provider { return [[[self class] alloc] init];  }
 - (NSArray *)types { return nil;  }
 - (NSArray *)fileTypes { return nil;}
 - (QSAction *)initializeAction:(QSAction *)action { return action;  }

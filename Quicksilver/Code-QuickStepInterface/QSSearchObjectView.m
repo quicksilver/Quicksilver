@@ -44,7 +44,6 @@ NSMutableDictionary *bindingsDict = nil;
         NSDictionary *defaultBindings = [[NSMutableDictionary alloc] initWithContentsOfFile:[[NSBundle bundleForClass:[QSSearchObjectView class]] pathForResource:@"DefaultBindings" ofType:@"qskeys"]];
         bindingsDict = [[NSMutableDictionary alloc] initWithDictionary:[defaultBindings objectForKey:@"QSSearchObjectView"]];
         [bindingsDict addEntriesFromDictionary:[[NSDictionary dictionaryWithContentsOfFile:pUserKeyBindingsPath] objectForKey:@"QSSearchObjectView"]];
-        [defaultBindings release];
     }
 }
 #pragma mark -
@@ -100,26 +99,7 @@ NSMutableDictionary *bindingsDict = nil;
 	[self unbind:@"highlightColor"];
     [self unbind:@"textColor"];
     [self unbind:@"backgroundColor"];
-    [self setTextModeEditor:nil];
-	[partialString release], partialString = nil;
-	[matchedString release], matchedString = nil;
-	[visibleString release], visibleString = nil;
-	[resetTimer release], resetTimer = nil;
-	[searchTimer release], searchTimer = nil;
-	[resultTimer release], resultTimer = nil;
-	[selectedObject release], selectedObject = nil;
-	[currentEditor release], currentEditor = nil;
-	[historyArray release], historyArray = nil;
-	[parentStack release], parentStack = nil;
-	[childStack release], childStack = nil;
-	[resultController release], resultController = nil;
-	[searchArray release], searchArray = nil;
-	[sourceArray release], sourceArray = nil;
-	[resultArray release], resultArray = nil;
-    [textCellFont release];
-    [textCellFontColor release];
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[super dealloc];
 }
 
 #pragma mark -
@@ -209,7 +189,7 @@ NSMutableDictionary *bindingsDict = nil;
 		[super drawRect:rect];
 		rect = [self frame];
 
-		if (NSWidth(rect) >128 && NSHeight(rect)>128) {
+		if (NSWidth(rect) > QSSizeMax.width && NSHeight(rect) > QSSizeMax.height) {
 			CGContextRef context = (CGContextRef) ([[NSGraphicsContext currentContext] graphicsPort]);
 			CGContextSetAlpha(context, 0.92);
 		}
@@ -260,7 +240,6 @@ NSMutableDictionary *bindingsDict = nil;
 - (NSString *)visibleString { return visibleString; }
 - (void)setVisibleString:(NSString *)newVisibleString {
 	if (visibleString != newVisibleString) {
-		[visibleString release];
 		visibleString = [newVisibleString copy];
 		[resultController.searchStringField setStringValue:visibleString];
 		if ([[self controller] respondsToSelector:@selector(searchView:changedString:)])
@@ -270,8 +249,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (NSMutableArray *)resultArray { return resultArray;  }
 - (void)setResultArray:(NSMutableArray *)newResultArray {
-	[resultArray release];
-	resultArray = [newResultArray retain];
+	resultArray = newResultArray;
     
 	if ([[resultController window] isVisible])
 		[self reloadResultTable];
@@ -283,16 +261,14 @@ NSMutableDictionary *bindingsDict = nil;
 - (NSMutableArray *)searchArray { return searchArray;  }
 - (void)setSearchArray:(NSMutableArray *)newSearchArray {
     if (searchArray != newSearchArray) {
-        [searchArray release];
-        searchArray = [newSearchArray retain];
+        searchArray = newSearchArray;
     }
 }
 
 - (NSMutableArray *)sourceArray { return sourceArray; }
 - (void)setSourceArray:(NSMutableArray *)newSourceArray {
 	if (sourceArray != newSourceArray) {
-		[sourceArray release];
-		sourceArray = [newSourceArray retain];
+		sourceArray = newSourceArray;
 		[self setSearchArray:sourceArray];
 	}
 }
@@ -306,10 +282,9 @@ NSMutableDictionary *bindingsDict = nil;
 - (NSRectEdge)preferredEdge { return preferredEdge; }
 - (void)setPreferredEdge:(NSRectEdge)newPreferredEdge { preferredEdge = newPreferredEdge; }
 
-- (NSString *)matchedString { return [[matchedString retain] autorelease]; }
+- (NSString *)matchedString { return matchedString; }
 - (void)setMatchedString:(NSString *)newMatchedString {
     if (matchedString != newMatchedString) {
-        [matchedString release];
         matchedString = [newMatchedString copy];
         [self setNeedsDisplay:YES];
     }
@@ -318,8 +293,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (id)selectedObject { return selectedObject;  }
 - (void)setSelectedObject:(id)newSelectedObject {
     if (selectedObject != newSelectedObject) {
-        [selectedObject release];
-        selectedObject = [newSelectedObject retain];
+        selectedObject = newSelectedObject;
     }
 }
 
@@ -357,8 +331,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)setCurrentEditor:(NSText *)aCurrentEditor {
 	if (currentEditor != aCurrentEditor) {
-		[currentEditor release];
-		currentEditor = [aCurrentEditor retain];
+		currentEditor = aCurrentEditor;
 	}
 }
 
@@ -411,7 +384,7 @@ NSMutableDictionary *bindingsDict = nil;
 	NSView *content = [savePanel contentView];
 	// NSLog(@"sub %@", [content subviews]);
 	if (![content isKindOfClass:[QSBackgroundView class]]) {
-		NSView *newBackground = [[[QSBackgroundView alloc] init] autorelease];
+		NSView *newBackground = [[QSBackgroundView alloc] init];
 		[savePanel setContentView:newBackground];
 		[newBackground addSubview:content];
 	}
@@ -439,7 +412,7 @@ NSMutableDictionary *bindingsDict = nil;
 	NSView *content = [openPanel contentView];
 	// NSLog(@"sub %@", [content subviews]);
 	if (![content isKindOfClass:[QSBackgroundView class]]) {
-		NSView *newBackground = [[[QSBackgroundView alloc] init] autorelease];
+		NSView *newBackground = [[QSBackgroundView alloc] init];
 		[openPanel setContentView:newBackground];
 		[newBackground addSubview:content];
 	}
@@ -470,54 +443,51 @@ NSMutableDictionary *bindingsDict = nil;
 	if ([[self window] firstResponder] != self) return;
 	if ([[resultController window] isVisible]) return; //[resultController->resultTable reloadData];
     
-	[[resultController window] setLevel:[[self window] level] +1];
-	[[resultController window] setFrameUsingName:@"results" force:YES];
-	//  if (fALPHA) [resultController setSplitLocation];
-    
-	NSRect windowRect = [[resultController window] frame];
+	NSRect resultWindowRect = [[resultController window] frame];
 	NSRect screenRect = [[[resultController window] screen] frame];
+    NSRect sovRect = [[self window] convertRectToScreen:[self frame]];
+    NSRect interfaceRect = [[self window] frame];
+
 	if (preferredEdge == NSMaxXEdge) {
-        
-		NSPoint resultPoint = [self convertPoint:NSZeroPoint toView:nil];
-        
-		resultPoint = [[self window] convertBaseToScreen:resultPoint];
-        
-		if (resultPoint.x+NSWidth([self frame]) +NSWidth(windowRect)<NSMaxX(screenRect)) {
+		if (interfaceRect.origin.x + NSWidth(interfaceRect) + NSWidth(resultWindowRect) <NSMaxX(screenRect)) {
+            // results view on the RHS of the interface
 			if (hFlip) {
+                [[resultController searchStringField] setAlignment:NSLeftTextAlignment];
+
 				[[[resultController window] contentView] flipSubviewsOnAxis:NO];
 				hFlip = NO;
 			}
-            
-			resultPoint.x += NSWidth([self frame]);
-			resultPoint.y += NSHeight([self frame]) +1;
+            resultWindowRect.origin.x = interfaceRect.origin.x + interfaceRect.size.width + 1;
 		} else {
+            // results view on the LHS of the interface
 			if (!hFlip) {
+                [[resultController searchStringField] setAlignment:NSRightTextAlignment];
 				[[[resultController window] contentView] flipSubviewsOnAxis:NO];
 				hFlip = YES;
 			}
-			resultPoint.x -= NSWidth(windowRect);
-			resultPoint.y += NSHeight([self frame]) +1;
+            resultWindowRect.origin.x = interfaceRect.origin.x - resultWindowRect.size.width -1;
 		}
-        
-		[[resultController window] setFrameTopLeftPoint:resultPoint];
+        resultWindowRect.origin.y = sovRect.origin.y + sovRect.size.height;
+
+		[[resultController window] setFrameTopLeftPoint:resultWindowRect.origin];
         
 	} else {
 		NSPoint resultPoint = [[self window] convertBaseToScreen:[self frame] .origin];
 		//resultPoint.x;
-		CGFloat extraHeight = windowRect.size.height-(resultPoint.y-screenRect.origin.y);
+		CGFloat extraHeight = resultWindowRect.size.height-(resultPoint.y-screenRect.origin.y);
         
 		//resultPoint.y += 2;
-		windowRect.origin.x = resultPoint.x;
+		resultWindowRect.origin.x = resultPoint.x;
 		if (extraHeight>0) {
-			windowRect.origin.y = screenRect.origin.y;
-			windowRect.size.height -= extraHeight;
+			resultWindowRect.origin.y = screenRect.origin.y;
+			resultWindowRect.size.height -= extraHeight;
 		} else {
 			//		NSLog(@"pad %f", resultsPadding);
-			windowRect.origin.y = resultPoint.y-windowRect.size.height-resultsPadding;
+			resultWindowRect.origin.y = resultPoint.y-resultWindowRect.size.height-resultsPadding;
 		}
         
-		windowRect = NSIntersectionRect(windowRect, screenRect);
-		[[resultController window] setFrame:windowRect display:NO];
+		resultWindowRect = NSIntersectionRect(resultWindowRect, screenRect);
+		[[resultController window] setFrame:resultWindowRect display:NO];
 	}
 	[self updateResultView:sender];
     
@@ -558,7 +528,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 #pragma mark -
 #pragma mark Object Value
-- (void)selectObjectValue:(QSObject *)newObject {
+- (void)selectObjectValue:(id)newObject {
     QSObject *currentObject = [self objectValue];
     
     // resolve the current and new objects in order to compare them
@@ -583,8 +553,7 @@ NSMutableDictionary *bindingsDict = nil;
     [self clearSearch];
     [parentStack removeAllObjects];
     [self setResultArray:[NSMutableArray arrayWithObjects:newObject, nil]];
-    [super setObjectValue:newObject];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchObjectChanged" object:self];
+    [self selectObjectValue:newObject];
 }
 
 - (void)clearObjectValue {
@@ -742,25 +711,36 @@ NSMutableDictionary *bindingsDict = nil;
 #endif
 
 - (void)transmogrifyWithText:(NSString *)string {
-	if (![self allowText]) return;
+	if (![self allowText]) {
+        NSBeep();
+        return;
+    }
 	if ([self currentEditor]) {
 		[[self window] makeFirstResponder: self];
 	} else {
 		if (string) {
 			[[self textModeEditor] setString:string];
-			[[self textModeEditor] setSelectedRange:NSMakeRange([[[self textModeEditor] string] length] , 0)];
+			[[self textModeEditor] setSelectedRange:NSMakeRange([string length], 0)];
 		} else if ([partialString length] && ([resetTimer isValid] || ![[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay]) ) {
-			[[self textModeEditor] setString:[partialString stringByAppendingString:[[NSApp currentEvent] charactersIgnoringModifiers]]];
-			[[self textModeEditor] setSelectedRange:NSMakeRange([[[self textModeEditor] string] length] , 0)];
+            NSString *text;
+            NSUInteger currentEventMask = NSEventMaskFromType([[NSApp currentEvent] type]);
+            // getting characters raises an exception if this wasn't a key event
+            if (currentEventMask & (NSKeyUpMask | NSKeyDownMask | NSFlagsChangedMask)) {
+                text = [partialString stringByAppendingString:[[NSApp currentEvent] charactersIgnoringModifiers]];
+            } else {
+                text = partialString;
+            }
+			[[self textModeEditor] setString:text];
+			[[self textModeEditor] setSelectedRange:NSMakeRange([text length], 0)];
 		} else {
 			NSString *stringValue = [[self objectValue] stringValue];
 			if (stringValue) { 
                 [[self textModeEditor] setString:stringValue];
-                [[self textModeEditor] setSelectedRange:NSMakeRange(0, [[[self textModeEditor] string] length])];
+                [[self textModeEditor] setSelectedRange:NSMakeRange(0, [stringValue length])];
             }
 		}
 		// Set the underlying object of the pane to be a text object
-		[self setObjectValue:[QSObject objectWithString:[[self textModeEditor] string]]];
+		[self setObjectValue:[QSObject objectWithString:[[[self textModeEditor] string] copy]]];
 		
 		NSRect titleFrame = [self frame];
 		NSRect editorFrame = NSInsetRect(titleFrame, NSHeight(titleFrame) /16, NSHeight(titleFrame)/16);
@@ -777,7 +757,7 @@ NSMutableDictionary *bindingsDict = nil;
         [[self textModeEditor] setSelectable:YES];
 
         
-		NSScrollView *scrollView = [[[NSScrollView alloc] initWithFrame:editorFrame] autorelease];
+		NSScrollView *scrollView = [[NSScrollView alloc] initWithFrame:editorFrame];
 		[scrollView setBorderType:NSNoBorder];
 		[scrollView setHasVerticalScroller:NO];
 		[scrollView setAutohidesScrollers:YES];
@@ -863,8 +843,7 @@ NSMutableDictionary *bindingsDict = nil;
 				if ([resultTimer isValid]) {
 					[resultTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:[[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay]]];
 				} else {
-					[resultTimer release];
-					resultTimer = [[NSTimer scheduledTimerWithTimeInterval:[[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay] target:self selector:@selector(showResultView:) userInfo:nil repeats:NO] retain];
+					resultTimer = [NSTimer scheduledTimerWithTimeInterval:[[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay] target:self selector:@selector(showResultView:) userInfo:nil repeats:NO];
 				}
 			}
 		}
@@ -901,13 +880,12 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)partialStringChanged {
-	[self setSearchString:[[partialString copy] autorelease]];
+	[self setSearchString:[partialString copy]];
     
 	double searchDelay = [[NSUserDefaults standardUserDefaults] floatForKey:kSearchDelay];
         
 	if (![searchTimer isValid]) {
-		[searchTimer release];
-		searchTimer = [[NSTimer scheduledTimerWithTimeInterval:searchDelay target:self selector:@selector(performSearch:) userInfo:nil repeats:NO] retain];
+		searchTimer = [NSTimer scheduledTimerWithTimeInterval:searchDelay target:self selector:@selector(performSearch:) userInfo:nil repeats:NO];
 	}
 	[searchTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:searchDelay]];
 	
@@ -923,8 +901,7 @@ NSMutableDictionary *bindingsDict = nil;
 		if ([resetTimer isValid]) {
 			[resetTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:resetDelay]];
 		} else {
-			[resetTimer release];
-			resetTimer = [[NSTimer scheduledTimerWithTimeInterval:resetDelay target:self selector:@selector(resetString) userInfo:nil repeats:NO] retain];
+			resetTimer = [NSTimer scheduledTimerWithTimeInterval:resetDelay target:self selector:@selector(resetString) userInfo:nil repeats:NO];
 		}
 	}
 }
@@ -947,8 +924,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)setTextCellFont:(NSFont *)newCellFont
 {
-    [textCellFont autorelease];
-    textCellFont = [newCellFont retain];
+    textCellFont = newCellFont;
 }
 
 - (NSColor *)textCellFontColor
@@ -958,8 +934,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)setTextCellFontColor:(NSColor *)newCellColor
 {
-    [textCellFontColor autorelease];
-    textCellFontColor = [newCellColor retain];
+    textCellFontColor = newCellColor;
 }
 
 #pragma mark -
@@ -1522,7 +1497,11 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)textDidEndEditing:(NSNotification *)aNotification {
-	[self setObjectValue:[QSObject objectWithString:[[aNotification object] string]]];
+    NSString *string = [[[aNotification object] string] copy];
+    if (![string isEqualToString:@" "]) {
+        // only set the object value if it's not a 'short circuit'
+        [self setObjectValue:[QSObject objectWithString:string]];
+    }
 	[self setMatchedString:nil];
 	[[[self currentEditor] enclosingScrollView] removeFromSuperview];
     [[self cell] setImagePosition:-1];
@@ -1555,7 +1534,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (NSInteger)conversationIdentifier { return (long)self; }
 
 - (NSAttributedString *)attributedSubstringFromRange:(NSRange)theRange {
-	return [[[NSAttributedString alloc] initWithString:[partialString substringWithRange:theRange]] autorelease];
+	return [[NSAttributedString alloc] initWithString:[partialString substringWithRange:theRange]];
 }
 - (NSRange)markedRange { return NSMakeRange([partialString length] -1, 1); }
 - (NSRange)selectedRange { return NSMakeRange(NSNotFound, 0); }
@@ -1701,118 +1680,99 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)browse:(NSInteger)direction {
-	NSArray *newObjects = nil;
-	QSBasicObject * newSelectedObject = [super objectValue];
-	QSBasicObject * parent = nil;
-	NSArray *siblings;
-	//if (self == [self actionSelector]) {
-	//}
+    NSArray *newObjects = nil;
+	QSObject * newSelectedObject = [super objectValue];
+    QSObject * parent = nil;
 
-	BOOL alt = ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) > 0;
+    BOOL alt = ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) > 0;
 
-	//  NSLog(@"child %d %d", [[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask, [[NSApp currentEvent] modifierFlags]);
-	if (direction>0) {
-		//Should show childrenLevel
-		newObjects = (alt?[newSelectedObject altChildren] :[newSelectedObject children]);
-		if ([newObjects count] && !alt) {
+
+    if (direction>0 && ([newSelectedObject hasChildren] || alt)) {
+        //Should show childrenLevel
+        newObjects = (alt ? [newSelectedObject altChildren] : [newSelectedObject children]);
+        if ([newObjects count] && !alt) {
             // filter the results to only contain types as defined in the indirectTypes .plist array.
             // If the user is holding alt, don't filter
             if (self == [self indirectSelector] && [[[self actionSelector] objectValue] indirectTypes]) {
                 NSArray *indirectTypes = [[[self actionSelector] objectValue] indirectTypes];
-                NSMutableArray *filteredObjects = [NSMutableArray arrayWithCapacity:1];
-                BOOL includeObject;
-                for (NSString *indirectType in indirectTypes) {
-                    for (QSObject *individual in newObjects) {
-                        includeObject = NO;
-                        // check the UTI for files
-                        if ([individual singleFilePath]) {
-                            NSString *type = [[NSFileManager defaultManager] UTIOfFile:[individual singleFilePath]];
-                            // if the file type is a folder (Always show them) or it conforms to a set indirectType
-                            if ([type isEqualToString:(NSString *)kUTTypeFolder] || UTTypeConformsTo((CFStringRef)type, (CFStringRef)indirectType)) {
-                                includeObject = YES;
-                            }
+                NSIndexSet *filteredIndexes = [newObjects indexesOfObjectsPassingTest:^BOOL(QSObject *individual, NSUInteger idx, BOOL *stop) {
+                    // check the UTI for files
+                    if (![individual singleFilePath]) {
+                        return NO;
+                    }
+                    // resolve alias objects
+                    individual = [individual resolvedAliasObject];
+                    NSString *type = [[NSFileManager defaultManager] UTIOfFile:[individual singleFilePath]];
+                    for (NSString *indirectType in indirectTypes) {
+                        // if the file type is a folder (Always show them) or it conforms to a set indirectType
+                        if ([type isEqualToString:(NSString *)kUTTypeFolder] || UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)indirectType)) {
+                            return YES;
                         }
                         // for QSTypes set in the indirectType
-                        if (!includeObject && [[individual types] containsObject:indirectType]) {
-                            includeObject = YES;
-                        }
-                        if (includeObject && ![filteredObjects containsObject:individual]) {
-                            [filteredObjects addObject:individual];
+                        if ([[individual types] containsObject:indirectType]) {
+                            return YES;
                         }
                     }
-                }
-                newObjects = (NSArray *)filteredObjects;
+
+                    return NO;
+                }];
+                newObjects = [newObjects objectsAtIndexes:filteredIndexes];
             }
         }
         if ([newObjects count]) {
             [parentStack addObject:newSelectedObject];
         }
         newSelectedObject = nil;
-    } else {
-		parent = [newSelectedObject parent];
-
-
-		if (parent && [[NSApp currentEvent] modifierFlags] & NSControlKeyMask) {
-			[parentStack removeAllObjects];
-		} else if ([parentStack count]) {
-			browsing = YES;
-
-			parent = [parentStack lastObject];
-			// ***warning  * this should check for a valid parent
-			[[parent retain] autorelease];
-			[parentStack removeLastObject];
-
-		}
-
-		if (!browsing && [self searchMode] == SearchFilterAll && [[resultController window] isVisible]) {
-			//Maintain selection, but show siblings
-			siblings = (alt?[parent altChildren] :[parent children]);
-			newObjects = siblings;
-
-		} else {
-			//Should show parent's level
-			newSelectedObject = parent;
-			if (newSelectedObject) {
-				if ((NSInteger)[historyArray count] > historyIndex + 1) {
-					if ([[[historyArray objectAtIndex:historyIndex+1] valueForKey:@"selection"] isEqual:parent]) {
-                        
-                        newObjects = [[[[historyArray objectAtIndex:historyIndex+1] valueForKey:@"resultArray"] retain] autorelease];
-                        [historyArray removeObjectAtIndex:historyIndex+1];
-					}
+    } else if (direction < 0 ) {
+        if ([parentStack count] && !alt) {
+            browsing = YES;
+            parent = [parentStack lastObject];
+            [parentStack removeLastObject];
+        } else {
+            parent = [newSelectedObject parent];
+        }
+        
+        newSelectedObject = parent;
+        
+        // should show parent's level
+        newSelectedObject = parent;
+        if (newSelectedObject) {
+            if ((NSInteger)[historyArray count] > historyIndex + 1) {
+                if ([[[historyArray objectAtIndex:historyIndex+1] valueForKey:@"selection"] isEqual:parent]) {
+                    [historyArray removeObjectAtIndex:historyIndex+1];
+                }
 #ifdef DEBUG
-					if (VERBOSE) NSLog(@"Parent Missing, No History, %@", [[historyArray objectAtIndex:0] valueForKey:@"selection"]);
+                if (VERBOSE) NSLog(@"Parent Missing, No History, %@", [[historyArray objectAtIndex:0] valueForKey:@"selection"]);
 #endif
-				}
-
-				if (!newObjects)
-					newObjects = (alt ? [newSelectedObject altSiblings] : [newSelectedObject siblings]);
-				if (![newObjects containsObject:newSelectedObject])
-					newObjects = [newSelectedObject altSiblings];
-
-				if (!newObjects && [parentStack count]) {
-					parent = [parentStack lastObject];
-					newObjects = [parent children];
-				}
-
-				if (!newObjects && [historyArray count]) {
-					//
-					if ([[[historyArray objectAtIndex:0] valueForKey:@"selection"] isEqual:parent]) {
+            }
+            
+            if (!newObjects)
+                newObjects = (alt ? [newSelectedObject altSiblings] : [newSelectedObject siblings]);
+            if (![newObjects containsObject:newSelectedObject])
+                newObjects = [newSelectedObject altSiblings];
+            
+            if (!newObjects && [parentStack count]) {
+                parent = [parentStack lastObject];
+                newObjects = [parent children];
+            }
+            
+            if (!newObjects && [historyArray count]) {
+                if ([[[historyArray objectAtIndex:0] valueForKey:@"selection"] isEqual:parent]) {
 #ifdef DEBUG
-						if (VERBOSE) NSLog(@"Parent Missing, Using History");
+                    if (VERBOSE) NSLog(@"Parent Missing, Using History");
 #endif
-
-						[self goBackward:self];
-						return;
-					}
+                    
+                    [self goBackward:self];
+                    return;
+                }
 #ifdef DEBUG
-					if (VERBOSE) NSLog(@"Parent Missing, No History");
+                if (VERBOSE) NSLog(@"Parent Missing, No History");
 #endif
-
-				}
-			}
-		}
+                
+            }
+        }
     }
-
+    
     if ([newObjects count]) {
         browsing = YES;
         
@@ -1820,9 +1780,9 @@ NSMutableDictionary *bindingsDict = nil;
         [self saveMnemonic];
         [self clearSearch];
         NSInteger defaultMode = [[NSUserDefaults standardUserDefaults] integerForKey:kBrowseMode];
-        [self setSearchMode:(defaultMode ? defaultMode  : SearchSnap)];
-        [self setResultArray:[[newObjects mutableCopy] autorelease]]; // !!!:nicholas:20040319
-        [self setSourceArray:[[newObjects mutableCopy] autorelease]];
+        [self setSearchMode:(defaultMode ? defaultMode : SearchFilter)];
+        [self setResultArray:[newObjects mutableCopy]];
+        [self setSourceArray:[newObjects mutableCopy]];
         
         if (!newSelectedObject)
             [self selectIndex:0];
@@ -1832,7 +1792,11 @@ NSMutableDictionary *bindingsDict = nil;
         [self setVisibleString:@"Browsing"];
         
         [self showResultView:self];
-    } else if (![[NSApp currentEvent] isARepeat]) {
+        return;
+        
+    }
+    
+    if (![[NSApp currentEvent] isARepeat]) {
         
         [self showResultView:self];
         if ([[resultController window] isVisible])
@@ -1847,7 +1811,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 #pragma mark Quicklook support
 
-@implementation QSSearchObjectView (Quicklook) 
+@implementation QSSearchObjectView (Quicklook)
 
 
 - (BOOL)canQuicklookCurrentObject {
@@ -1860,7 +1824,7 @@ NSMutableDictionary *bindingsDict = nil;
     object = [object resolvedObject];
     
     if ([object validPaths] || [[object primaryType] isEqualToString:QSURLType]) {
-        quicklookObject = [object retain];
+        quicklookObject = object;
         savedSearchMode = searchMode;
         return YES;
     }
@@ -1869,7 +1833,6 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)closePreviewPanel {
     [[QLPreviewPanel sharedPreviewPanel] orderOut:nil];
-    [quicklookObject release];
     quicklookObject = nil;
     searchMode = savedSearchMode;
 }
@@ -1916,7 +1879,7 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)beginPreviewPanelControl:(QLPreviewPanel *)panel {
     // This document is now responsible of the preview panel
     // It is allowed to set the delegate, data source and refresh panel.
-    previewPanel = [panel retain];
+    previewPanel = panel;
     [panel setDelegate:self];
     [panel setDataSource:self];
     // Put the panel just above Quicksilver's window
@@ -1927,17 +1890,12 @@ NSMutableDictionary *bindingsDict = nil;
     // This document loses its responsisibility on the preview panel
     // Until the next call to -beginPreviewPanelControl: it must not
     // change the panel's delegate, data source or refresh it.
-    [previewPanel release];
     previewPanel = nil;
 }
 
 // Quick Look panel data source
 
 - (NSInteger)numberOfPreviewItemsInPreviewPanel:(QLPreviewPanel *)panel {
-    /* Put the panel just above Quicksilver's window
-    Note: 10.6 seems to revert the panel level set in beginPreviewPanelControl above.
-    This 'hack' is required for 10.6 support only (10.7+ is OK) */
-    [previewPanel setLevel:([[self window] level] + 2)];
     if (quicklookObject) {
         return [quicklookObject count];
     }
@@ -2001,23 +1959,13 @@ NSMutableDictionary *bindingsDict = nil;
     // get the location of the icon in the interface. This is a tricky process since all interfaces are different.
     // Basic method: get the 1st pane/3rd pane rect, from within this rect, get the image rect where the image is placed
     // then get the image size, and offset the based on the image size (typically smaller than the image rect, but not always the case - Primer)
-    NSRect rect = [self frame];
-    NSRect windowFrame = [[self window] frame];
-    rect = [[self cell] imageRectForBounds:rect];
-    NSSize iconSize = [[(QSObject *)item icon] size];
-    BOOL imageIsWider = (iconSize.width > rect.size.width);
-    BOOL imageIsHigher = (iconSize.height > rect.size.height);
-    rect.origin.x = windowFrame.origin.x + rect.origin.x;
-    if (!imageIsWider) {
-        rect.origin.x += (rect.size.width - iconSize.width)/2;
-    }
-    if (!imageIsHigher) {
-        rect.origin.y += (rect.size.height - iconSize.height)/2;
-    }
-    rect.origin.y = windowFrame.origin.y + rect.origin.y;
-    rect.size.width = !imageIsWider ? iconSize.width : rect.size.width;
-    rect.size.height = !imageIsHigher ? iconSize.height : rect.size.height;
-    return rect;
+    NSRect rect = [self bounds];
+    rect = [[self cell] drawingRectForBounds:rect];
+	rect = NSIntegralRect(fitRectInRect(NSMakeRect(0, 0, 1, 1), [[self cell] imageRectForBounds:rect] , NO) );
+    rect.origin.y += self.frame.origin.y;
+    rect.origin.x += self.frame.origin.x;
+    return [[self window] convertRectToScreen:rect];
+;
 }
 
 @end

@@ -42,7 +42,7 @@
 	if (err)
 		return nil;
 	else
-		return [(NSDictionary*)ProcessInformationCopyDictionary (&currPSN, kProcessDictionaryIncludeAllInformationMask) autorelease];
+		return (NSDictionary*)CFBridgingRelease(ProcessInformationCopyDictionary (&currPSN, kProcessDictionaryIncludeAllInformationMask));
 }
 - (NSDictionary *)parentProcessInformation {
 	// Get the PSN of the app that *launched* us. Its not really the parent app, in the unix sense.
@@ -50,7 +50,7 @@
 	ProcessSerialNumber parentPSN = {(temp >> 32) & 0x00000000FFFFFFFFLL, (temp >> 0) & 0x00000000FFFFFFFFLL};
 
 	// Get info on the launching process
-	return [(NSDictionary*)ProcessInformationCopyDictionary(&parentPSN, kProcessDictionaryIncludeAllInformationMask) autorelease];
+	return (NSDictionary*)CFBridgingRelease(ProcessInformationCopyDictionary(&parentPSN, kProcessDictionaryIncludeAllInformationMask));
 }
 @end
 
@@ -181,5 +181,9 @@
 
 + (BOOL)isMountainLion {
 	return ([self macOSXSystemVersion] >= 0x1080);
+}
+
++ (BOOL)isMavericks {
+	return ([self macOSXSystemVersion] >= 0x1090);
 }
 @end

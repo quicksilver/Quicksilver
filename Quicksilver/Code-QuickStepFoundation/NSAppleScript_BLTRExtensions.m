@@ -35,10 +35,10 @@
 
 @implementation NSAppleScript (Constructors)
 + (NSAppleScript *)scriptWithContentsOfFile:(NSString *)path {
-	return [[[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:nil] autorelease];
+	return [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:nil];
 }
 + (NSAppleScript *)scriptWithContentsOfResource:(NSString *)path inBundle:(NSBundle *)bundle {
-	return [[[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:[bundle pathForResource:[path stringByDeletingPathExtension] ofType:[path pathExtension]]] error:nil] autorelease];
+	return [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:[bundle pathForResource:[path stringByDeletingPathExtension] ofType:[path pathExtension]]] error:nil];
 }
 @end
 
@@ -64,8 +64,6 @@
 	[event setParamDescriptor:subroutineDescriptor forKeyword:keyASSubroutineName];
 	if (arguments) [event setParamDescriptor:arguments forKeyword:keyDirectObject];
 	NSAppleEventDescriptor *desc = [self executeAppleEvent:event error:errorInfo];
-    [event release];
-    [targetAddress release];
     return desc;
 }
 
@@ -197,7 +195,7 @@
 
 @implementation NSAppleScript (FilePeeking)
 + (NSArray *)validHandlersFromArray:(NSArray *)array inScriptFile:(NSString *)path {
-	NSData *scriptData = [NSData dataWithContentsOfMappedFile:path];
+	NSData *scriptData = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:path] options:NSDataReadingMappedAlways error:nil];
 	if (![scriptData length]) {
 		NDResourceFork *resource = [NDResourceFork resourceForkForReadingAtPath:path];
 		scriptData = [resource dataForType:'scpt' Id:128];

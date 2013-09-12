@@ -48,10 +48,6 @@ IMPORTANT: This Apple software is supplied to you by Apple Computer, Inc. ("Appl
 
 @implementation QSImageAndTextCell
 
-- (void)dealloc {
-	[image release];
-	[super dealloc];
-}
 
 - (id)copyWithZone:(NSZone *)zone {
 	QSImageAndTextCell *cell = (QSImageAndTextCell *)[super copyWithZone:zone];
@@ -62,8 +58,7 @@ IMPORTANT: This Apple software is supplied to you by Apple Computer, Inc. ("Appl
 
 - (void)setImage:(NSImage *)anImage {
 	if (anImage != image) {
-		[image release];
-		image = [anImage retain];
+		image = anImage;
 	}
 }
 
@@ -141,7 +136,7 @@ IMPORTANT: This Apple software is supplied to you by Apple Computer, Inc. ("Appl
 		NSRect	imageFrame;
 
 		if (NSHeight(cellFrame) <= 18) {
-			theImageSize = NSMakeSize(16, 16); //NSMakeSize(NSHeight(cellFrame), NSHeight(cellFrame) );
+			theImageSize = QSSize16; //NSMakeSize(NSHeight(cellFrame), NSHeight(cellFrame) );
 		} else {
 			theImageSize = NSMakeSize(NSHeight(cellFrame), NSHeight(cellFrame) );
 		}

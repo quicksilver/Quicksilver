@@ -472,6 +472,23 @@ resource 'aete' (0, "Quicksilver") {
 		{
 			/* Events */
 
+			"open files",
+			"Open file(s) from Quicksilver",
+			'DAED', 'opfl',
+			'****',
+			"value to return to Quicksilver",
+			replyRequired, singleItem, notEnumerated, Reserved13,
+			'****',
+			"File to open",
+			directParamRequired,
+			singleItem, notEnumerated, Reserved13,
+			{
+				"with", 'IdOb', '****',
+				"indirect object",
+				optional,
+				singleItem, notEnumerated, Reserved13
+			},
+
 			"process text",
 			"Process some text. Scripts with this handler gain a 'Process Text' action",
 			'DAED', 'opnt',
@@ -490,9 +507,31 @@ resource 'aete' (0, "Quicksilver") {
 			},
 
 			"get argument count",
-			"Get the argument count for this action. Scripts with this handler can customize their argument count. Valid values are 1, 2.",
+			"Get the argument count for this action. Scripts with this handler can customize their argument count. Valid values are: 1 = 1st pane only; 2 = 1st pane and 3rd pane; 3 = 1st pane, and 3rd pane (optional).",
 			'DAED', 'garc',
 			'long',
+			"value to return to Quicksilver",
+			replyRequired, singleItem, notEnumerated, Reserved13,
+			dp_none__,
+			{
+
+			},
+
+			"get indirect types",
+			"Get the valid indirect (3rd pane) object types for this action. Scripts with this handler can customize the types of objects displayed in Quicksilver's 3rd pane by returning a list of types supported. Valid values are shown at http://qsapp.com/wiki/AppleScript_Types",
+			'DAED', 'giob',
+			'****',
+			"value to return to Quicksilver",
+			replyRequired, singleItem, notEnumerated, Reserved13,
+			dp_none__,
+			{
+
+			},
+
+			"get direct types",
+			"Get the valid direct (1st pane) object types for which this action will appear. Scripts with this handler can customize for which types of objects the action appears for, by returning a list of types supported. Valid values are shown at http://qsapp.com/wiki/AppleScript_Types",
+			'DAED', 'gdob',
+			'****',
 			"value to return to Quicksilver",
 			replyRequired, singleItem, notEnumerated, Reserved13,
 			dp_none__,

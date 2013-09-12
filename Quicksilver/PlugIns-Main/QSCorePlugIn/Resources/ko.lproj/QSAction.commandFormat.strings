@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSCommandExecuteAtTimeAction</key>
+    <string>특정 시간에 %@ 실행</string>
+    <key>QSCreateFileAction</key>
+    <string>%@ 내용을 포함하는 파일을 %@ 폴더 안에 만들기</string>
+    <key>QSCommandAddTriggerAction</key>
+    <string>단축기능으로 %@ 추가</string>
+    <key>QSCommandExecuteAction</key>
+    <string>%@ 실행</string>
+    <key>AppShowHideAction</key>
+    <string>%@ 의 보이는 상태 전환</string>
+    <key>FileAlwaysOpenTypeWithAction</key>
+    <string>%@ 파일 종류는 %@ 으로(로) 항상 열기</string>
+    <key>QSCommandSaveAction</key>
+    <string>파일로 %@ 저장</string>
+    <key>PasteboardPasteActionAsPlainText</key>
+    <string>일반 글자로 %@ 붙여넣기</string>
+    <key>QSCreateFileTemplate</key>
+    <string>%@ 폴더 안에 %@ 형식 파일 새로 만들기</string>
+    <key>QSCommandExecuteAfterDelayAction</key>
+    <string>일정 시간 기다린 후 %@ 실행</string>
+    <key>AppActivateAction</key>
+    <string>%@ 활성</string>
+    <key>AppHideAction</key>
+    <string>%@ 숨기기</string>
+    <key>AppHideOthersAction</key>
+    <string>%@ 외 기타 가리기</string>
+    <key>AppLaunchAction</key>
+    <string>%@ 실행</string>
+    <key>AppLaunchAgainAction</key>
+    <string>중복해서 %@ 실행</string>
+    <key>AppLaunchAsRootAction</key>
+    <string>관리자 권한으로 %@ 실행</string>
+    <key>AppOpenFileAction</key>
+    <string>%@ 으로(로) %@ 열기</string>
+    <key>AppQuitAction</key>
+    <string>%@ 종료</string>
+    <key>AppQuitOthersAction</key>
+    <string>%@ 외 기타 종료</string>
+    <key>AppRelaunchAction</key>
+    <string>%@ 재실행</string>
+    <key>AppReopenAction</key>
+    <string>실행 %@</string>
+    <key>AppRootLaunchAction</key>
+    <string>관리자 권한으로 %@ 실행</string>
+    <key>AppleScriptOpenFilesAction</key>
+    <string>%@ 으로(로) %@ 열기</string>
+    <key>AppleScriptProcessTextAction</key>
+    <string>%@ 으로(로) %@ 처리</string>
+    <key>AppleScriptRunAction</key>
+    <string>스크립트 실행: %@</string>
+    <key>AppleScriptRunTextAction</key>
+    <string>&apos;%@&apos; 실행</string>
+    <key>DiskEjectAction</key>
+    <string>%@ 추출</string>
+    <key>DiskForceEjectAction</key>
+    <string>강제로 %@ 추출</string>
+    <key>FileCompressAction</key>
+    <string>%@ 압축</string>
+    <key>FileCopyToAction</key>
+    <string>%@ 에서 %@ 으로(로) 복사</string>
+    <key>FileDecompressAction</key>
+    <string>%@ 압축 해제</string>
+    <key>FileDeleteAction</key>
+    <string>%@ 삭제</string>
+    <key>FileGetHFSPathAction</key>
+    <string>%@ 에 대한 HFS 경로 가져오기</string>
+    <key>FileGetInfoAction</key>
+    <string>@% 정보 가져오기</string>
+    <key>FileGetPathAction</key>
+    <string>%@ 에 대한 POSIX 경로 가져오기</string>
+    <key>FileGetPosixPathAction</key>
+    <string>%@ 에 대한 절대 경로 가져오기</string>
+    <key>FileGetURLAction</key>
+    <string>%@ 에 대한 file:// URL 가져오기</string>
+    <key>FileMakeAliasInAction</key>
+    <string>%@ 의 가상본을 %# 에 만들기</string>
+    <key>FileMakeHardLinkInAction</key>
+    <string>%@ 의 하드 링크를 %# 에 만들기</string>
+    <key>FileMakeLinkInAction</key>
+    <string>%@ 의 링크를 %# 에 만들기</string>
+    <key>FileMoveToAction</key>
+    <string>%@ 을(를) %# 으로(로) 옮기기</string>
+    <key>FileOpenAction</key>
+    <string>%@ 열기</string>
+    <key>FileOpenWithAction</key>
+    <string>%@ 을(를) %# 으로(로) 열기</string>
+    <key>FileRenameAction</key>
+    <string>%@ 의 이름을 %# 으로(로) 바꾸기</string>
+    <key>FileRevealAction</key>
+    <string>%@ 보이기</string>
+    <key>FileToTrashAction</key>
+    <string>%@ 을(를) 휴지통으로 이동</string>
+    <key>ItemSendToContactEmailAction</key>
+    <string>%@ 을(를) %@ 에게 이메일 보내기</string>
+    <key>ItemSendToContactIMAction</key>
+    <string>메신저로 %@ 을(를) %@ 에게 보내기</string>
+    <key>PasteboardCopyAction</key>
+    <string>클립보드에 %@ 복사하기</string>
+    <key>PasteboardPasteAction</key>
+    <string>현재 응용 프로그램에 %@ 붙여넣기</string>
+    <key>ProcessKillAction</key>
+    <string>강제로 %@ 종료</string>
+    <key>ProcessLowerPriorityAction</key>
+    <string>%@ 우선순위 낮추기</string>
+    <key>ProcessRaisePriorityAction</key>
+    <string>%@ 우선순위 높이기</string>
+    <key>ProcessResumeAction</key>
+    <string>%@ 재개</string>
+    <key>ProcessSuspendAction</key>
+    <string>%@ 일시 정지</string>
+    <key>QSCatalogEntryRescanAction</key>
+    <string>%@ 다시 읽기</string>
+    <key>QSCatalogEntryShowAction</key>
+    <string>%@ 보이기</string>
+    <key>QSDialNumberAction</key>
+    <string>%@ 전화</string>
+    <key>QSEditAction</key>
+    <string>%@ 편집</string>
+    <key>QSLargeTypeAction</key>
+    <string>큰 글자로 &quot;%@&quot; 보이기</string>
+    <key>QSLoginItemAddAction</key>
+    <string>로그인 항목에 %@ 추가하기</string>
+    <key>QSLoginItemRemoveAction</key>
+    <string>로그인 항목에서 %@ 없에기</string>
+    <key>QSNewFolderAction</key>
+    <string>%# 이름으로 %@ 안에 새 폴더 만들기</string>
+    <key>QSObjCSendMessageAction</key>
+    <string>%@ 실행</string>
+    <key>QSObjectAssignLabelAction</key>
+    <string>%@ 에 %# 꼬리표 달기</string>
+    <key>QSObjectAssignMnemonic</key>
+    <string>%@ 의 줄임말로 %# 설정</string>
+    <key>QSObjectOmitAction</key>
+    <string>보관함에서 %@ 생략</string>
+    <key>QSObjectSearchChildrenAction</key>
+    <string>%@ 의 내용 찾기</string>
+    <key>QSObjectSelectAction</key>
+    <string>명령창에서 %@ 선택</string>
+    <key>QSObjectShowActionMenu</key>
+    <string>%@ 에 대한 동작 메뉴 보이기</string>
+    <key>QSObjectShowChildMenu</key>
+    <string>%@ 에 대한 내용 메뉴 보이기</string>
+    <key>QSObjectShowChildrenAction</key>
+    <string>%@ 에 대한 내용 보이기</string>
+    <key>QSObjectShowMenu</key>
+    <string>%@ 에 대한 동작 메뉴 보이기</string>
+    <key>QSObjectShowSourceAction</key>
+    <string>%@ 에 대한 출처를 보관함에서 보기</string>
+    <key>QSPutOnShelfAction</key>
+    <string>선반위에 %@ 두기</string>
+    <key>QSShelfShowAction</key>
+    <string>%@ 보이기</string>
+    <key>QSShellScriptRunAction</key>
+    <string>스크립트 실행: %@</string>
+    <key>QSSoundPlayAction</key>
+    <string>%@ 재생</string>
+    <key>QSTextDiffAction</key>
+    <string>%@ 와(과) %# 의 차이점 찾기</string>
+    <key>QSTextShowDialogAction</key>
+    <string>대화창 보이기: &quot;%@&quot;</string>
+    <key>QSTextSpeakAction</key>
+    <string>&quot;%@&quot; 말하기</string>
+    <key>QSTextTypeAction</key>
+    <string>&quot;%@&quot; 입력</string>
+    <key>ShellScriptRunAction</key>
+    <string>스크립트 실행: %@</string>
+    <key>URLEmailAction</key>
+    <string>%@ 이메일</string>
+    <key>URLFindWithAction</key>
+    <string>%@ 을(를) %@ 으로(로) 찾기</string>
+    <key>URLJSAction</key>
+    <string>%@ 실행</string>
+    <key>URLOpenAction</key>
+    <string>%@ 열기</string>
+    <key>URLOpenActionInBackground</key>
+    <string>배경으로 %@ 열기</string>
+    <key>URLOpenWithAction</key>
+    <string>%@ 으로(로) %@ 열기</string>
+    <key>URLSearchAction</key>
+    <string>%@ 찾기</string>
+    <key>URLSearchForAction</key>
+    <string>%@ 의 내용을 %@ 에서 찾기</string>
+  </dict>
+</plist>

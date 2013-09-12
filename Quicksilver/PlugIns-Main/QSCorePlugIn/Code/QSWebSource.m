@@ -16,9 +16,7 @@
 @implementation QSWebSource
 
 - (NSImage *)iconForEntry:(NSDictionary *)entry {
-	NSImage *image = [NSImage imageNamed:@"DefaultBookmarkIcon"];
-	[image createIconRepresentations];
-	return image;
+	return [NSImage imageNamed:@"DefaultBookmarkIcon"];
 }
 
 - (NSArray *)objectsForEntry:(NSDictionary *)theEntry {

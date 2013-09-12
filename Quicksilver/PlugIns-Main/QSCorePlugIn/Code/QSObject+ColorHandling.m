@@ -20,14 +20,15 @@
 - (void)setQuickIconForObject:(QSObject *)object { [object setIcon:[[NSWorkspace sharedWorkspace] iconForFileType:@"'clpt'"]];  }
 - (BOOL)loadIconForObject:(QSObject *)object {
 
-	NSImage *image = [[NSImage alloc] initWithSize:QSMaxIconSize];
+	NSImage *image = [[NSImage alloc] initWithSize:QSSize256];
 	NSBezierPath *roundRect = [NSBezierPath bezierPath];
-	[roundRect appendBezierPathWithRoundedRectangle:NSMakeRect(0, 0, QSMaxIconSize.width, QSMaxIconSize.height) withRadius:16];
+	[roundRect appendBezierPathWithRoundedRectangle:NSMakeRect(0, 0, 256, 256) withRadius:16];
 	[image lockFocus];
 	[[object colorValue] set];
 	[roundRect fill];
 	[image unlockFocus];
 	[object setIcon:image];
+    [object setRetainsIcon:YES];
 	[image release];
 	return YES;
 }

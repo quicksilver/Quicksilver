@@ -40,3 +40,5 @@
 #import "QSSplitHandleView.h"
 #import "QSTableView.h"
 #import "QSTextViewer.h"
+#import "QSTargetPickerPanel.h"
+#import "QSUserDefinedProxyTargetPicker.h"

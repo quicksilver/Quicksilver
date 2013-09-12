@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSCaminoBookmarksParser</key>
+    <string>Marcadors Camino</string>
+    <key>QSDirectoryParser</key>
+    <string>Contingut de la carpeta</string>
+    <key>QSHTMLLinkParser</key>
+    <string>Vincles HTML</string>
+    <key>QSTextLineParser</key>
+    <string>Línies de text</string>
+    <key>QSOldCaminoBookmarksParser</key>
+    <string>Marcadors Camino (Vell)</string>
+    <key>QSOmniWebShortcutsParser</key>
+    <string>Dreceres de teclat OmniWeb</string>
+    <key>QSOperaBookmarksParser</key>
+    <string>Marcadors Opera</string>
+    <key>QSPresetOmniWebHistoryParser</key>
+    <string>Historial OmniWeb</string>
+    <key>QSSafariBookmarksParser</key>
+    <string>Marcadors Safari</string>
+    <key>QSSafariHistoryParser</key>
+    <string>Historial Safari</string>
+    <key>QSSogudiLinkParser</key>
+    <string>Dreceres de teclat Sogudi</string>
+  </dict>
+</plist>

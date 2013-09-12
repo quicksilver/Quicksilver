@@ -32,7 +32,6 @@
     
 	for (elapsed = 0; elapsed < 1; elapsed = (([NSDate timeIntervalSinceReferenceDate] - fadeStart) / seconds)) {
 		[self setAlphaValue:fadeIn + elapsed * distance];
-		// [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:seconds/300]];
 	}
     
 	[self setAlphaValue:fadeOut];
@@ -58,7 +57,7 @@
 	[[window contentView] unlockFocus];
 	[window setAutodisplay:NO];
 	[window setReleasedWhenClosed:YES];
-	return [window autorelease];
+	return window;
 }
 @end
 
@@ -135,7 +134,6 @@
 
 		[self setFrame:newFrame display:YES animate:NO];
 		v = v-friction * elapsedTime;
-		//[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:.001]];
 
 	}
 	newFrame.origin.x = (NSInteger) newFrame.origin.x;
@@ -185,12 +183,7 @@
 - (void)useQuicksilverCollectionBehavior
 {
     // make windows visible in all spaces
-#if (MAC_OS_X_VERSION_MIN_REQUIRED < 1070)
-    [self setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | 256];
-#else
-#warning remove the 10.6 code above
     [self setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary];
-#endif
 }
 
 @end

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>QSABMailRecentsObjectSource</key>
+    <string>이전 받는사람 메일 보내기</string>
+    <key>QSAddressBookObjectSource</key>
+    <string>주소록</string>
+    <key>QSAirPortNetworkObjectSource</key>
+    <string>Wi-Fi 네트워크</string>
+    <key>QSAllApplicationsObjectSource</key>
+    <string>모든 응용프로그램</string>
+    <key>QSCatalogEntrySource</key>
+    <string>보관함 항목</string>
+    <key>QSDefaultsObjectSource</key>
+    <string>기본 읽기 프로그램</string>
+    <key>QSFileSystemObjectSource</key>
+    <string>파일 &amp; 폴더 스캐너</string>
+    <key>QSGroupObjectSource</key>
+    <string>그룹</string>
+    <key>QSMachineSource</key>
+    <string>Quicksilver 기기</string>
+    <key>QSNUDCSource</key>
+    <string>지금 업데이트 후 연락</string>
+    <key>QSNetworkLocationObjectSource</key>
+    <string>네트워크 위치</string>
+    <key>QSProcessObjectSource</key>
+    <string>실행중인 프로세스</string>
+    <key>QSVolumesObjectSource</key>
+    <string>마운트 된 볼륨</string>
+    <key>QSiPhotoObjectSource</key>
+    <string>iPhoto 보관함</string>
+    <key>QSiTunesObjectSource</key>
+    <string>iTunes 음악 보관함</string>
+    <key>QSHistoryObjectSource</key>
+    <string>객체 목록</string>
+    <key>QSInternalObjectSource</key>
+    <string>내부 객체</string>
+    <key>QSObjCMessageSource</key>
+    <string>Objective-C 메시지</string>
+    <key>QSProxyObjectSource</key>
+    <string>프록시</string>
+  </dict>
+</plist>

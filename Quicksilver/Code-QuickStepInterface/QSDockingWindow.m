@@ -1,5 +1,4 @@
 #import "QSDockingWindow.h"
-#import <Carbon/Carbon.h>
 #import "QSRegistry.h"
 #import "QSController.h"
 
@@ -42,9 +41,6 @@
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
-	[autosaveName release];
-	[hideTimer release];
-	[super dealloc];
 }
 
 
@@ -65,8 +61,7 @@
 	if ([hideTimer isValid]) {
 		[hideTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:0.75]];
 	} else {
-		[hideTimer release];
-		hideTimer = [[NSTimer scheduledTimerWithTimeInterval:0.333 target:self selector:@selector(timerHide:) userInfo:nil repeats:YES] retain];
+		hideTimer = [NSTimer scheduledTimerWithTimeInterval:0.333 target:self selector:@selector(timerHide:) userInfo:nil repeats:YES];
 		[hideTimer fire];
 	}
 	[super draggingExited:theEvent];
@@ -274,8 +269,7 @@
 - (NSString *)autosaveName { return autosaveName;  }
 
 - (void)setAutosaveName:(NSString *)newAutosaveName {
-	[autosaveName release];
-	autosaveName = [newAutosaveName retain];
+	autosaveName = newAutosaveName;
 	[self setFrameUsingName:autosaveName force:YES];
 	[self updateTrackingRect:self];
 }
