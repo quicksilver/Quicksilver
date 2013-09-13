@@ -98,15 +98,22 @@ end
 
 # Main script
 
-SUB_COMMANDS = ['merge', 'extract']
+SUB_COMMANDS = ['extract-interface-builder']
 $global_opts = Trollop::options do
   version "stringstool v#{VERSION}"
+
+  opt :output_directory, "Output directory", :type => :string, :required => true
+
   banner <<-END
 stringstool:
 
+  Global options:
+    --output-directory, -o: A path to a directory where the extracted files will be generated.
+
   Commands:
-    extract: Extracts localizable strings from an Interface Builder file
-      merge:
+    extract-interface-builder
+      Extracts localizable strings from an Interface Builder file
+        --ignored-strings, -i : A comma-separated list of regular expressions which will be ignored.
 
   Options:
 END
@@ -116,17 +123,14 @@ end
 
 cmd = ARGV.shift
 cmd_opts = case cmd
-when "merge" then
-  puts "TODO ;-)"
-when "extract" then
+when "extract-interface-builder" then
   opts = Trollop::options do
-    opt :output_directory, "Output directory", :type => :string, :required => true
     opt :ignored_strings, "Ignored strings", :type => :strings
   end
 
   ib_files = ARGV
   ib_files.each do |file|
-    extract_strings_from_ib file, opts[:output_directory], :ignored_strings => opts[:ignored_strings]
+    extract_strings_from_ib file, $global_opts[:output_directory], :ignored_strings => opts[:ignored_strings]
   end
   puts "Extraction complete, #{ib_files.count} files processed."
 else
