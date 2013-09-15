@@ -31,6 +31,7 @@
 #include <unistd.h>
 #import "QSOutlineView.h"
 #import "QSTableView.h"
+#import "QSCatalogEntry_Private.h"
 
 @interface QSObject (NSTreeNodePrivate)
 //- (NSIndexPath *)indexPath;
