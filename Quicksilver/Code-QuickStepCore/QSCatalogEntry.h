@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class QSObjectSource;
+
 @interface QSCatalogEntry : NSObject
 
 @property (readonly, getter=isScanning) BOOL scanning;
@@ -23,6 +25,7 @@
 @property (copy) NSString *name;
 @property (readonly, retain) NSImage *icon;
 @property (readonly, copy) NSString *identifier;
+@property (readonly, retain) QSObjectSource *source;
 
 @property (readonly, retain) NSArray *contents;
 
@@ -49,7 +52,6 @@
 - (void)saveIndex;
 - (BOOL)indexIsValid;
 - (BOOL)isCatalog;
-- (id)source;
 - (NSArray *)scannedObjects;
 - (NSArray *)scanAndCache;
 - (void)scanForced:(BOOL)force;
