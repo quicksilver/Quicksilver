@@ -128,6 +128,7 @@
 		4D66BC5E1487027E00351C42 /* NSURL+NDCarbonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BBF21486FFF000351C42 /* NSURL+NDCarbonUtilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4D6A663410AB2A2F00898CA4 /* QSTreeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 92D9C9680D134BDD00D91825 /* QSTreeController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D7B9FA117F2040300A91F64 /* QSMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F1F0EBDDBA9005A15AE /* QSMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D6D369F17E61F93007017A6 /* QSCatalogEntry_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D6D369E17E61F93007017A6 /* QSCatalogEntry_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4D7DF45416ADC7CA004BA4BE /* DefaultsMap.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D7DF45316ADC7CA004BA4BE /* DefaultsMap.plist */; };
 		4D7DF45716ADCDEF004BA4BE /* QSAdvancedPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D7DF45516ADCDEF004BA4BE /* QSAdvancedPrefPane.strings */; };
 		4D89177514758620009C1C14 /* QSMainMenuPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D89177714758620009C1C14 /* QSMainMenuPrefPane.strings */; };
@@ -1132,6 +1133,7 @@
 		4D66BC3A1487024500351C42 /* NDScriptData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NDScriptData.m; sourceTree = "<group>"; };
 		4D66BC3B1487024500351C42 /* NSString+NDUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NDUtilities.h"; sourceTree = "<group>"; };
 		4D66BC3C1487024500351C42 /* NSString+NDUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NDUtilities.m"; sourceTree = "<group>"; };
+		4D6D369E17E61F93007017A6 /* QSCatalogEntry_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCatalogEntry_Private.h; sourceTree = "<group>"; };
 		4D7DF45316ADC7CA004BA4BE /* DefaultsMap.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultsMap.plist; sourceTree = "<group>"; };
 		4D7DF45616ADCDEF004BA4BE /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/QSAdvancedPrefPane.strings; sourceTree = "<group>"; };
 		4D7DF45816ADD014004BA4BE /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSAdvancedPrefPane.strings; sourceTree = "<group>"; };
@@ -3254,6 +3256,7 @@
 				4DD2CF350E7B345500BA1128 /* QSBasicObject.m */,
 				7FB8D6FA07B98B1300062022 /* QSCatalogEntry.h */,
 				7FB8D6FB07B98B1300062022 /* QSCatalogEntry.m */,
+				4D6D369E17E61F93007017A6 /* QSCatalogEntry_Private.h */,
 				42ADF4FD1317237900C68070 /* QSClangAnalyzer.h */,
 				E1E5FB6F07B20DD10044D6EF /* QSCollection.h */,
 				E1E5FB7007B20DD10044D6EF /* QSCollection.m */,
@@ -3614,6 +3617,7 @@
 				D413172F15DEE5D90021479B /* LaunchAtLoginController.h in Headers */,
 				CD39DE6016B43FC40087B09E /* (null) in Headers */,
 				CD65B12916FA1BD000932A9C /* QSPluginUpdaterWindowController.h in Headers */,
+				4D6D369F17E61F93007017A6 /* QSCatalogEntry_Private.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -61,7 +61,6 @@
 - (void)scanForced:(BOOL)force;
 - (NSArray *)contentsScanIfNeeded:(BOOL)canScan;
 - (NSIndexPath *)catalogIndexPath;
-- (NSMutableDictionary *)info;
 
 - (NSUInteger)count;
 - (NSIndexPath *)catalogSetIndexPath;
