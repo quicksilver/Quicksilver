@@ -8,20 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface QSCatalogEntry : NSObject {
-	__block NSDate *indexDate;
-	BOOL isPreset;
-
-	NSString *name;
-
-	id parent;
-	NSMutableArray *children;
-    dispatch_queue_t scanQueue;
-	NSMutableDictionary *info;
-	NSArray *contents;
-	NSBundle *bundle;
-	BOOL isScanning;
-}
+@interface QSCatalogEntry : NSObject
 
 @property (assign, atomic) BOOL isScanning;
 
