@@ -26,6 +26,7 @@
 @property (readonly, retain) NSImage *icon;
 @property (readonly, copy) NSString *identifier;
 @property (readonly, retain) QSObjectSource *source;
+@property (retain) NSDate *indexDate;
 
 @property (readonly, retain) NSArray *contents;
 
@@ -62,8 +63,6 @@
 - (NSMutableDictionary *)info;
 - (NSString *)indexLocation;
 
-- (NSDate *)indexDate;
-- (void)setIndexDate:(NSDate *)anIndexDate;
 
 - (NSUInteger)count;
 - (NSIndexPath *)catalogSetIndexPath;
