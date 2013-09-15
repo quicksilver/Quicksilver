@@ -26,9 +26,8 @@
 #define kUseNSArchiveForIndexes NO;
 
 @interface QSCatalogEntry () {
+    NSString *_name;
 	__block NSDate *indexDate;
-
-	NSString *name;
 
 	id parent;
 	NSMutableArray *children;
@@ -70,7 +69,7 @@
 }
 
 - (NSString *)description {
-	return [NSString stringWithFormat:@"[%@] ", [self name]];
+	return [NSString stringWithFormat:@"[%@] ", self.name];
 }
 
 - (QSCatalogEntry *)initWithDictionary:(NSDictionary *)dict {
@@ -379,37 +378,42 @@
 }
 
 - (NSComparisonResult) compare:(QSCatalogEntry *)other {
-    if ([other name] != nil) {
-        return [[self name] compare:[other name]];
+    if (other.name != nil) {
+        return [self.name compare:other.name];
     }
     // othername is nil, so make the receiver higher in the list
     return NSOrderedAscending;
 }
 
 - (NSString *)name {
-	NSString *ID = [self identifier];
-	if (self.isSeparator) return @"";
-	if (!name)
-		name = [info objectForKey:kItemName];
-	if (!name) {
-		name = [bundle?bundle:[NSBundle mainBundle] safeLocalizedStringForKey:ID value:ID table:@"QSCatalogPreset.name"];
-		if (name) [self setValue:name forKey:@"name"];
-	}
-	return name;
+    @synchronized (self) {
+        NSString *ID = [self identifier];
+        if (self.isSeparator) return @"";
+        if (!_name)
+            _name = [info objectForKey:kItemName];
+        if (!_name) {
+            _name = [bundle ? bundle : [NSBundle mainBundle] safeLocalizedStringForKey:ID value:ID table:@"QSCatalogPreset.name"];
+            if (_name)
+                [self setValue:_name forKey:@"name"];
+        }
+        return _name;
+    }
 }
 
 - (void)setName:(NSString *)newName {
-	[info setObject:newName forKey:kItemName];
-	name = newName;
+    @synchronized (self) {
+        [info setObject:newName forKey:kItemName];
+        _name = newName;
+    }
 }
 
 - (id)imageAndText { return self; }
 
-- (void)setImageAndText:(id)object { [self setName:object]; }
+- (void)setImageAndText:(id)object { self.name = object; }
 
 - (NSImage *)image { return [self icon]; }
 
-- (NSString *)text { return [self name]; }
+- (NSString *)text { return self.name; }
 
 - (NSImage *)icon {
 	NSImage *image;
@@ -453,7 +457,7 @@
 			dictionaryArray = [QSObject objectsWithDictionaryArray:[NSArray arrayWithContentsOfFile:path]];
         }
         @catch (NSException *e) {
-            NSLog(@"Error loading index of %@: %@", [self name] , e);
+            NSLog(@"Error loading index of %@: %@", self.name , e);
         }
         
         if (!dictionaryArray)        
@@ -481,7 +485,7 @@
             [writeArray writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
         }
         @catch (NSException *exception) {
-            NSLog(@"Exception whilst saving catalog entry %@\ncontents: %@\nException: %@",[self name],contents,exception);
+            NSLog(@"Exception whilst saving catalog entry %@\ncontents: %@\nException: %@", self.name, contents, exception);
         }
     });
 }
@@ -538,7 +542,7 @@
             itemContents = [source objectsForEntry:info];
         }
         @catch (NSException *exception) {
-            NSLog(@"An error ocurred while scanning \"%@\": %@", [self name], exception);
+            NSLog(@"An error ocurred while scanning \"%@\": %@", self.name, exception);
             [exception printStackTrace];
         }
     }
@@ -553,7 +557,7 @@
 - (NSArray *)scanAndCache {
     if (self.isScanning) {
 #ifdef DEBUG
-		if (VERBOSE) NSLog(@"%@ is already being scanned", [self name]);
+		if (VERBOSE) NSLog(@"%@ is already being scanned", self.name);
 #endif
 		return nil;
 	} else {
@@ -594,21 +598,21 @@
         }
         return;
     }
-    [[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:NSLocalizedString(@"Checking: %@", @"Catalog task checking (%@ => source name)"), [self name]]];
+    [[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:NSLocalizedString(@"Checking: %@", @"Catalog task checking (%@ => source name)"), self.name]];
     BOOL valid = [self indexIsValid];
     if (valid && !force) {
 #ifdef DEBUG
-        if (DEBUG_CATALOG) NSLog(@"\tIndex is valid for source: %@", name);
+        if (DEBUG_CATALOG) NSLog(@"\tIndex is valid for source: %@", self.name);
 #endif
         return;
     }
     
 #ifdef DEBUG
     if (DEBUG_CATALOG)
-        NSLog(@"Scanning source: %@%@", [self name] , (force?@" (forced) ":@""));
+        NSLog(@"Scanning source: %@%@", self.name , (force?@" (forced) ":@""));
 #endif
     
-    [[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:NSLocalizedString(@"Scanning: %@", @"Catalog task scanning (%@ => source name)"), [self name]]];
+    [[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:NSLocalizedString(@"Scanning: %@", @"Catalog task scanning (%@ => source name)"), self.name]];
     [self scanAndCache];
     return;
 }
@@ -657,7 +661,7 @@
 	NSMutableDictionary *newDictionary = [info mutableCopy];
 	if (self.isPreset) {
 		[newDictionary setObject:@(self.isEnabled) forKey:kItemEnabled];
-		[newDictionary setObject:[self name] forKey:kItemName];
+		[newDictionary setObject:self.name forKey:kItemName];
 	}
 	[newDictionary setObject:[NSString uniqueString] forKey:kItemID];
 
