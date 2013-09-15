@@ -18,11 +18,6 @@
 #import "QSTask.h"
 #import <QSFoundation/QSFoundation.h>
 
-@interface NSObject (QSCatalogSourceInformal)
-- (void)enableEntry:(QSCatalogEntry *)entry;
-- (void)disableEntry:(QSCatalogEntry *)entry;
-@end
-
 #define kUseNSArchiveForIndexes NO;
 
 @interface QSCatalogEntry () {

@@ -13,6 +13,10 @@
 - (void)setSettingsView:(NSView *)newSettingsView;
 - (BOOL)isVisibleSource;
 - (BOOL)entryCanBeIndexed:(NSDictionary *)theEntry;
+
+- (void)enableEntry:(QSCatalogEntry *)entry;
+- (void)disableEntry:(QSCatalogEntry *)entry;
+
 - (BOOL)usesGlobalSettings;
 @end
 
