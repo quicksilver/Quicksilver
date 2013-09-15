@@ -27,7 +27,6 @@
 
 @interface QSCatalogEntry () {
 	__block NSDate *indexDate;
-	BOOL isPreset;
 
 	NSString *name;
 
@@ -166,14 +165,20 @@
 }
 
 - (BOOL)deletable {
-	if ([self isPreset])
-		return NO;
+	if (self.isPreset) return NO;
+
 	return ![[info objectForKey:@"permanent"] boolValue];
 }
 
 - (BOOL)isEditable {
 	id source = [self source];
-	return ([source respondsToSelector:@selector(usesGlobalSettings)] && [source performSelector:@selector(usesGlobalSettings)]) ? YES : ![self isPreset];
+
+    if ([source respondsToSelector:@selector(usesGlobalSettings)]
+        && [source performSelector:@selector(usesGlobalSettings)]) {
+        return YES;
+    }
+
+    return !self.isPreset;
 }
 
 - (NSString *)type {
@@ -217,7 +222,7 @@
 }
 
 - (BOOL)isEnabled {
-	if ([self isPreset]) {
+	if (self.isPreset) {
 		NSNumber *value;
 		if (value = [[QSLibrarian sharedInstance] presetIsEnabled:self])
 			return [value boolValue];
@@ -232,7 +237,7 @@
 
 - (void)setEnabled:(BOOL)enabled {
 	NSString *theID = [info objectForKey:kItemID];
-	if ([theID hasPrefix:@"QSPreset"])
+	if (self.isPreset)
 		[[QSLibrarian sharedInstance] setPreset:self isEnabled:enabled];
 	else
 		[info setObject:[NSNumber numberWithBool:enabled] forKey:kItemEnabled];
@@ -647,7 +652,7 @@
 
 - (QSCatalogEntry *)uniqueCopy {
 	NSMutableDictionary *newDictionary = [info mutableCopy];
-	if ([self isPreset]) {
+	if (self.isPreset) {
 		[newDictionary setObject:[NSNumber numberWithBool:[self isEnabled]] forKey:kItemEnabled];
 		[newDictionary setObject:[self name] forKey:kItemName];
 	}

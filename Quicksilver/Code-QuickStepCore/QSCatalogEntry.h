@@ -12,6 +12,7 @@
 
 @property (readonly, getter=isScanning) BOOL scanning;
 @property (readonly, getter=isSuppressed) BOOL suppressed;
+@property (readonly, getter=isPreset) BOOL preset;
 
 
 @property (strong, atomic, getter=_contents) NSArray *contents;
@@ -22,7 +23,6 @@
 - (QSCatalogEntry *)initWithDictionary:(NSDictionary *)dict;
 - (QSCatalogEntry *)childWithID:(NSString *)theID;
 - (QSCatalogEntry *)childWithPath:(NSString *)path;
-- (BOOL)isPreset;
 - (BOOL)isSeparator;
 - (BOOL)isGroup;
 - (BOOL)isEditable;
