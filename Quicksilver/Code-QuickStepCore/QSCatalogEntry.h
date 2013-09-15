@@ -14,6 +14,7 @@
 @property (readonly, getter=isSuppressed) BOOL suppressed;
 @property (readonly, getter=isPreset) BOOL preset;
 @property (readonly, getter=isSeparator) BOOL separator;
+@property (readonly, getter=isGroup) BOOL group;
 
 
 @property (strong, atomic, getter=_contents) NSArray *contents;
@@ -24,7 +25,6 @@
 - (QSCatalogEntry *)initWithDictionary:(NSDictionary *)dict;
 - (QSCatalogEntry *)childWithID:(NSString *)theID;
 - (QSCatalogEntry *)childWithPath:(NSString *)path;
-- (BOOL)isGroup;
 - (BOOL)isEditable;
 - (BOOL)isEnabled;
 - (void)setEnabled:(BOOL)enabled;

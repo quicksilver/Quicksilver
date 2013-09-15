@@ -196,11 +196,12 @@
 - (BOOL)isPreset { return [[self identifier] hasPrefix:@"QSPreset"]; }
 - (BOOL)isSeparator { return [[self identifier] hasPrefix:@"QSSeparator"]; }
 - (BOOL)isGroup { return [[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]; }
-- (BOOL)isLeaf { return ![self isGroup]; }
+- (BOOL)isLeaf { return !self.isGroup; }
+
 - (NSInteger)state {
 	BOOL enabled = [self isEnabled];
 	if (!enabled) return 0;
-	if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
+	if (self.isGroup) {
 		for(QSCatalogEntry * child in [self deepChildrenWithGroups:NO leaves:YES disabled:YES]) {
 			if (![child isEnabled]) return -1*enabled;
 		}
@@ -209,7 +210,7 @@
 }
 
 - (NSInteger)hasEnabledChildren {
-	if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
+	if (self.isGroup) {
 		BOOL hasEnabledChildren = NO;
 		for (id loopItem in children)
 			hasEnabledChildren |= [loopItem isEnabled];
@@ -250,7 +251,7 @@
 
 - (void)setDeepEnabled:(BOOL)enabled {
 	[self setEnabled:enabled];
-	if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
+	if (self.isGroup) {
 		NSArray *deepChildren = [self deepChildrenWithGroups:YES leaves:YES disabled:YES];
 		for(QSCatalogEntry * child in deepChildren)
 			[child setEnabled:enabled];
@@ -268,7 +269,7 @@
 #endif
 			
 			[children removeObject:child];
-		} else if ([child isGroup]) {
+		} else if (child.isGroup) {
 			[child pruneInvalidChildren];
 			if (![(NSArray *)[child children] count]) // Remove empty groups
 				[children removeObject:child];
@@ -279,7 +280,7 @@
 - (NSArray *)leafIDs {
 	if (![self isEnabled]) {
 		return nil;
-	} else if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
+	} else if (self.isGroup) {
 		NSMutableArray *childObjects = [NSMutableArray arrayWithCapacity:1];
 		for(QSCatalogEntry * child in children) {
 			[childObjects addObjectsFromArray:[child leafIDs]];
@@ -301,7 +302,7 @@
 - (NSArray *)deepChildrenWithGroups:(BOOL)groups leaves:(BOOL)leaves disabled:(BOOL)disabled {
 	if (!(disabled || [self isEnabled]))
 		return nil;
-	if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
+	if (self.isGroup) {
 		NSMutableArray *childObjects = [NSMutableArray arrayWithCapacity:1];
 		if (groups)
 			[childObjects addObject:self];
@@ -581,7 +582,7 @@
     if (self.isSeparator || ![self isEnabled]) {
         return;
     }
-    if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
+    if (self.isGroup) {
         @autoreleasepool {
             for(QSCatalogEntry * child in children) {
                 [child scanForced:force];
@@ -626,7 +627,7 @@
 	if (![self isEnabled]) {
 		return nil;
 	}
-	if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
+	if (self.isGroup) {
 		NSMutableSet *childObjects = [NSMutableSet setWithCapacity:1];
 
 		for(QSCatalogEntry * child in children) {
