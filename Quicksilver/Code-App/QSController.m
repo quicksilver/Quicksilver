@@ -1112,6 +1112,7 @@ void QSSignalHandler(int i) {
 }
 
 - (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldLogException:(NSException *)exception mask:(NSUInteger)aMask {
+    NSLog(@"Exception raised: %@", exception);
 	[exception printStackTrace];
 	return NO;
 } // mask is NSLog<exception type>Mask, exception's userInfo has stack trace for key NSStackTraceKey
