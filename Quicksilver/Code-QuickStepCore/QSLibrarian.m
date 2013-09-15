@@ -11,6 +11,9 @@
 #import "QSTask.h"
 
 #import "QSTaskController.h"
+#import "QSCatalogEntry.h"
+#import "QSCatalogEntry_Private.h"
+
 //#define compGT(a, b) (a < b)
 
 CGFloat QSMinScore = 0.333333;
@@ -274,7 +277,7 @@ static CGFloat searchSpeed = 0.0;
 	[entriesBySource removeAllObjects];
 
 	for (QSCatalogEntry *thisEntry in entries) {
-		NSString *source = [[thisEntry info] objectForKey:kItemSource];
+		NSString *source = [thisEntry.info objectForKey:kItemSource];
 
 		NSMutableArray *sourceArray = [entriesBySource objectForKey:source];
 		if (!sourceArray) {
