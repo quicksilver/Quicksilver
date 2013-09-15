@@ -25,8 +25,21 @@
 
 #define kUseNSArchiveForIndexes NO;
 
-/*NSDictionary *entriesByID;
-NSDictionary *enabledPresetDictionary;*/
+@interface QSCatalogEntry () {
+	__block NSDate *indexDate;
+	BOOL isPreset;
+
+	NSString *name;
+
+	id parent;
+	NSMutableArray *children;
+    dispatch_queue_t scanQueue;
+	NSMutableDictionary *info;
+	NSArray *contents;
+	NSBundle *bundle;
+}
+
+@end
 
 @implementation QSCatalogEntry
 
