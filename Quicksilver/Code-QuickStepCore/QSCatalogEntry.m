@@ -24,6 +24,7 @@
 @interface QSCatalogEntry () {
     NSString *_name;
     NSArray *_contents;
+    NSImage *_icon;
     QSObjectSource *_source;
 
 	id parent;
@@ -422,14 +423,35 @@
 - (NSString *)text { return self.name; }
 
 - (NSImage *)icon {
-	NSImage *image = [QSResourceManager imageNamed:self.info[kItemIcon]];
-	if (!image)
-        image = image = [self.source iconForEntry:self.info];
+    @synchronized (self) {
+        _icon = [QSResourceManager imageNamed:self.info[kItemIcon]];
+        if (!_icon)
+            _icon = [self.source iconForEntry:self.info];
 
-    if (!image)
-        image = [QSResourceManager imageNamed:@"Catalog"];
+        if (!_icon)
+            _icon = [QSResourceManager imageNamed:@"Catalog"];
 
-	return image;
+#warning tiennou: must check that this actually works
+        NSData *iconData = self.info[@"iconData"];
+        if (!_icon && iconData) {
+            _icon = [[NSImage alloc] initWithData:iconData];
+        }
+
+        return _icon;
+    }
+}
+
+- (void)setIcon:(NSImage *)icon {
+    @synchronized (self) {
+        if (icon) {
+            if (_icon.name) {
+                self.info[kItemIcon] = icon.name;
+            } else {
+                self.info[@"iconData"] = [icon TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:0];
+            }
+        }
+        _icon = icon;
+    }
 }
 
 - (NSString *)getCount {

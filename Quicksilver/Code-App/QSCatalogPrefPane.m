@@ -539,8 +539,7 @@ static id _sharedInstance;
 
 - (IBAction)setValueForSenderForCatalogEntry:(id)sender {
 	if (sender == itemIconField) {
-		NSData *imageData = [[sender image] TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:0];
-		[[currentItem info] setObject:imageData forKey:kItemIcon];
+        currentItem.icon = [sender image];
 		[itemTable reloadData];
 	}
 }

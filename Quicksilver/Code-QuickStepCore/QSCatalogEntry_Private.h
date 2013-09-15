@@ -23,7 +23,8 @@
  * - kItemEnabled      - a BOOL representing the enabled state of the receiver
  * - kItemID           - the identifier for the receiver (will be assigned an UUID if missing)
  * - kItemName         - the name of the receiver (deprecated because it prevents localization)
- * - kItemIcon         - the name of the icon to use for the receiver
+ * - kItemIcon         - the name of the icon to use
+ * - @"iconData"       - data for the icon to use
  * - kItemModificationDate - The last modification date of the receiver, as a time interval
  * - kItemSettings     - a dictionary containing source-specific keys
  *   - kItemPath       - a path to a required "file-system object"

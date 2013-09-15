@@ -23,7 +23,7 @@
 @property (getter=isEnabled) BOOL enabled;
 
 @property (copy) NSString *name;
-@property (readonly, retain) NSImage *icon;
+@property (retain) NSImage *icon;
 @property (readonly, copy) NSString *identifier;
 @property (readonly, retain) QSObjectSource *source;
 @property (retain) NSDate *indexDate;
