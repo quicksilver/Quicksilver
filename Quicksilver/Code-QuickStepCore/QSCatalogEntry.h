@@ -25,16 +25,20 @@
 
 @property (readonly, retain) NSArray *contents;
 
-+ (QSCatalogEntry *)entryWithDictionary:(NSDictionary *)dict;
++ (instancetype)entryWithDictionary:(NSDictionary *)dict;
 - (NSDictionary *)dictionaryRepresentation;
 
-- (QSCatalogEntry *)initWithDictionary:(NSDictionary *)dict;
-- (QSCatalogEntry *)childWithID:(NSString *)theID;
-- (QSCatalogEntry *)childWithPath:(NSString *)path;
+- (instancetype)initWithDictionary:(NSDictionary *)dict;
+- (instancetype)childWithID:(NSString *)theID;
+- (instancetype)childWithPath:(NSString *)path;
+
+- (instancetype)uniqueCopy;
+
 - (NSInteger)state;
 - (NSInteger)hasEnabledChildren;
 - (void)setDeepEnabled:(BOOL)enabled;
 - (void)pruneInvalidChildren;
+
 - (NSArray *)leafIDs;
 - (NSArray *)leafEntries;
 - (NSArray *)deepChildrenWithGroups:(BOOL)groups leaves:(BOOL)leaves disabled:(BOOL)disabled;
@@ -56,7 +60,6 @@
 - (NSArray *)contentsScanIfNeeded:(BOOL)canScan;
 - (NSIndexPath *)catalogIndexPath;
 - (NSMutableDictionary *)info;
-- (QSCatalogEntry *)uniqueCopy;
 - (NSString *)indexLocation;
 
 - (NSDate *)indexDate;
