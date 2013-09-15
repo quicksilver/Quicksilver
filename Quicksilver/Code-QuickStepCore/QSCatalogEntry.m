@@ -6,7 +6,9 @@
 // Copyright 2005 Blacktree. All rights reserved.
 //
 
+#import <QSFoundation/QSFoundation.h>
 #import "QSCatalogEntry.h"
+#import "QSCatalogEntry_Private.h"
 #import "QSRegistry.h"
 #import "QSLibrarian.h"
 #import "QSResourceManager.h"
@@ -16,7 +18,6 @@
 #import "QSTaskController.h"
 #import "QSObject_PropertyList.h"
 #import "QSTask.h"
-#import <QSFoundation/QSFoundation.h>
 
 #define kUseNSArchiveForIndexes NO;
 
@@ -28,7 +29,6 @@
 	id parent;
 	NSMutableArray *_children;
     dispatch_queue_t scanQueue;
-	NSMutableDictionary *info;
 	NSBundle *bundle;
 }
 
@@ -78,7 +78,7 @@
     parent = nil;
     _children = [NSMutableArray array];
     _contents = nil;
-    info = nil;
+    _info = [NSMutableDictionary dictionary];
 
     return self;
 }
@@ -87,9 +87,12 @@
     self = [self init];
 	if (!self) return nil;
 
-    info = [dict mutableCopy];
+    _info = [dict mutableCopy];
+    NSDictionary *settings = _info[kItemSettings];
+    if (settings)
+        _info[kItemSettings] = settings.mutableCopy;
 
-    NSArray *childDicts = [dict objectForKey:kItemChildren];
+    NSArray *childDicts = dict[kItemChildren];
     if (childDicts) {
         NSMutableArray *newChildren = [NSMutableArray arrayWithCapacity:childDicts.count];
         for (NSDictionary *child in childDicts) {
@@ -119,9 +122,10 @@
 }
 
 - (NSDictionary *)dictionaryRepresentation {
+    NSMutableDictionary *dict = self.info.mutableCopy;
 	if (self.children)
-		[info setObject:[self.children valueForKey:@"dictionaryRepresentation"] forKey:kItemChildren];
-	return info;
+		dict[kItemChildren] = [self.children valueForKey:@"dictionaryRepresentation"];
+	return dict;
 }
 
 - (QSCatalogEntry *)childWithID:(NSString *)theID {
@@ -143,18 +147,15 @@
 }
 
 - (BOOL)isSuppressed {
-#ifdef DEBUG
-	return NO;
-#endif
-	NSString *path = [info objectForKey:@"requiresPath"];
+	NSString *path = self.info[@"requiresPath"];
 	if (path && ![[NSFileManager defaultManager] fileExistsAtPath:[path stringByResolvingWildcardsInPath]])
 		return YES;
-	if ([[info objectForKey:@"requiresSettingsPath"] boolValue]) {
-		path = [[info objectForKey:@"settings"] objectForKey:kItemPath];
+	if ([self.info[@"requiresSettingsPath"] boolValue]) {
+		path = self.info[kItemSettings][kItemPath];
 		if (path && ![[NSFileManager defaultManager] fileExistsAtPath:[path stringByResolvingWildcardsInPath]])
 			return YES;
 	}
-	NSString *requiredBundle = [info objectForKey:@"requiresBundle"];
+	NSString *requiredBundle = self.info[@"requiresBundle"];
 	if (requiredBundle && ![[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:requiredBundle])
 		return YES;
 	return NO;
@@ -179,7 +180,7 @@
 - (BOOL)deletable {
 	if (self.isPreset) return NO;
 
-	return ![[info objectForKey:@"permanent"] boolValue];
+	return ![self.info[@"permanent"] boolValue];
 }
 
 - (BOOL)isEditable {
@@ -203,7 +204,7 @@
 - (BOOL)isCatalog { return self == [[QSLibrarian sharedInstance] catalog]; }
 - (BOOL)isPreset { return [self.identifier hasPrefix:@"QSPreset"]; }
 - (BOOL)isSeparator { return [self.identifier hasPrefix:@"QSSeparator"]; }
-- (BOOL)isGroup { return [[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]; }
+- (BOOL)isGroup { return [self.info[kItemSource] isEqualToString:@"QSGroupObjectSource"]; }
 - (BOOL)isLeaf { return !self.isGroup; }
 
 - (NSInteger)state {
@@ -233,12 +234,12 @@
 
 - (BOOL)isEnabled {
 	if (!self.isPreset)
-		return [[info objectForKey:kItemEnabled] boolValue];
+		return [self.info[kItemEnabled] boolValue];
 
     NSNumber *value;
     if (value = [[QSLibrarian sharedInstance] presetIsEnabled:self])
         return [value boolValue];
-    else if (value = [info objectForKey:kItemEnabled])
+    else if (value = self.info[kItemEnabled])
         return [value boolValue];
 
 #warning this is just a little silly...
@@ -249,7 +250,7 @@
 	if (self.isPreset)
 		[[QSLibrarian sharedInstance] setPreset:self isEnabled:enabled];
 	else
-		[info setObject:@(enabled) forKey:kItemEnabled];
+		self.info[kItemEnabled] = @(enabled);
 	if (enabled && ![[self contents] count]) {
         [self scanForced:YES];
     }
@@ -305,10 +306,6 @@
 	return [self deepChildrenWithGroups:NO leaves:YES disabled:NO];
 }
 
-- (NSMutableDictionary *)info {
-	return info;
-}
-
 - (NSArray *)deepChildrenWithGroups:(BOOL)groups leaves:(BOOL)leaves disabled:(BOOL)disabled {
 	if (!(disabled || self.isEnabled)) return nil;
 
@@ -331,12 +328,12 @@
 }
 
 - (NSString *)identifier {
-	NSString *ID = [info objectForKey:kItemID];
-	if (!ID && [info isKindOfClass:[NSMutableDictionary class]]) {
-		[(NSMutableDictionary *)info setObject:[NSString uniqueString] forKey:kItemID];
-		return [info objectForKey:kItemID];
-	} else
-		return ID;
+	NSString *ID = self.info[kItemID];
+	if (!ID) {
+        ID = [NSString uniqueString];
+		self.info[kItemID] = ID;
+	}
+    return ID;
 }
 
 - (NSIndexPath *)catalogIndexPath {
@@ -398,13 +395,12 @@
 - (NSString *)name {
     @synchronized (self) {
         if (self.isSeparator) return @"";
+#warning this is tampering with localization
         if (!_name)
-            _name = [info objectForKey:kItemName];
+            _name = self.info[kItemName];
         if (!_name) {
             NSString *ID = self.identifier;
             _name = [bundle ? bundle : [NSBundle mainBundle] safeLocalizedStringForKey:ID value:ID table:@"QSCatalogPreset.name"];
-            if (_name)
-                [self setValue:_name forKey:@"name"];
         }
         return _name;
     }
@@ -412,7 +408,7 @@
 
 - (void)setName:(NSString *)newName {
     @synchronized (self) {
-        [info setObject:newName forKey:kItemName];
+        self.info[kItemName] = newName;
         _name = newName;
     }
 }
@@ -426,9 +422,9 @@
 - (NSString *)text { return self.name; }
 
 - (NSImage *)icon {
-	NSImage *image = [QSResourceManager imageNamed:[info objectForKey:kItemIcon]];
+	NSImage *image = [QSResourceManager imageNamed:self.info[kItemIcon]];
 	if (!image)
-        image = image = [self.source iconForEntry:info];
+        image = image = [self.source iconForEntry:self.info];
 
     if (!image)
         image = [QSResourceManager imageNamed:@"Catalog"];
@@ -519,7 +515,7 @@
         if (isValid) {
             if (!self.indexDate)
                 self.indexDate = [[manager attributesOfItemAtPath:indexPath error:NULL] fileModificationDate];
-            NSNumber *modInterval = [info objectForKey:kItemModificationDate];
+            NSNumber *modInterval = self.info[kItemModificationDate];
             if (modInterval) {
                 NSDate *specDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[modInterval doubleValue]];
                 if ([specDate compare:self.indexDate] == NSOrderedDescending) {
@@ -528,7 +524,7 @@
             }
         }
         if (isValid) {
-            isValid = [self.source indexIsValidFromDate:self.indexDate forEntry:info];
+            isValid = [self.source indexIsValidFromDate:self.indexDate forEntry:self.info];
         }
     });
     return isValid;
@@ -536,10 +532,10 @@
 
 - (QSObjectSource *)source {
     if (!_source) {
-        _source = [QSReg sourceNamed:[info objectForKey:kItemSource]];
+        _source = [QSReg sourceNamed:self.info[kItemSource]];
 #ifdef DEBUG
         if (!_source && VERBOSE)
-            NSLog(@"Source not found: %@ for Entry: %@", [info objectForKey:kItemSource], self.identifier);
+            NSLog(@"Source not found: %@ for Entry: %@", self.info[kItemSource], self.identifier);
 #endif
     }
 	return _source;
@@ -549,7 +545,7 @@
     NSArray *itemContents = nil;
     @autoreleasepool {
         @try {
-            itemContents = [self.source objectsForEntry:info];
+            itemContents = [self.source objectsForEntry:self.info];
         }
         @catch (NSException *exception) {
             NSLog(@"An error ocurred while scanning \"%@\": %@", self.name, exception);
@@ -563,7 +559,7 @@
     if (![self.source respondsToSelector:@selector(entryCanBeIndexed:)])
         return YES;
 
-	return [self.source entryCanBeIndexed:[self info]];
+	return [self.source entryCanBeIndexed:self.info];
 }
 
 - (NSArray *)scanAndCache {
@@ -669,12 +665,13 @@
 }
 
 - (QSCatalogEntry *)uniqueCopy {
-	NSMutableDictionary *newDictionary = [info mutableCopy];
+	NSMutableDictionary *newDictionary = [self.info mutableCopy];
 	if (self.isPreset) {
-		[newDictionary setObject:@(self.isEnabled) forKey:kItemEnabled];
-		[newDictionary setObject:self.name forKey:kItemName];
+		newDictionary[kItemEnabled] = @(self.isEnabled);
+#warning this is tampering with localization
+		newDictionary[kItemName] = self.name;
 	}
-	[newDictionary setObject:[NSString uniqueString] forKey:kItemID];
+	newDictionary[kItemID] = [NSString uniqueString];
 
 	QSCatalogEntry *newEntry = [[QSCatalogEntry alloc] initWithDictionary:newDictionary];
 	if (self.children)
