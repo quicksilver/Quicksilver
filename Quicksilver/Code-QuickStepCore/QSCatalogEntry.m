@@ -39,11 +39,13 @@
 	NSBundle *bundle;
 }
 
+@property (getter=isScanning) BOOL scanning;
+
 @end
 
 @implementation QSCatalogEntry
 
-@synthesize isScanning, contents = contents;
+@synthesize contents = contents;
 
 + (BOOL)accessInstanceVariablesDirectly {return YES;}
 
@@ -538,7 +540,7 @@
 }
 
 - (NSArray *)scanAndCache {
-    if (isScanning) {
+    if (self.isScanning) {
 #ifdef DEBUG
 		if (VERBOSE) NSLog(@"%@ is already being scanned", [self name]);
 #endif
@@ -547,7 +549,7 @@
         __block NSArray *itemContents = nil;
         // Use a serial queue to do the grunt of the scan work. Ensures that no more than one thread can scan at any one time.
         QSGCDQueueSync(scanQueue, ^{
-            [self setIsScanning:YES];
+            self.scanning = YES;
             [self willChangeValueForKey:@"self"];
             NSString *ID = [self identifier];
             NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -564,7 +566,7 @@
             }
             [self didChangeValueForKey:@"self"];
             [nc postNotificationName:QSCatalogEntryIndexed object:self];
-            [self setIsScanning:NO];
+            self.scanning = NO;
         });
         return itemContents;
     }

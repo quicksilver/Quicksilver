@@ -10,7 +10,7 @@
 
 @interface QSCatalogEntry : NSObject
 
-@property (assign, atomic) BOOL isScanning;
+@property (readonly, getter=isScanning) BOOL scanning;
 
 
 @property (strong, atomic, getter=_contents) NSArray *contents;
@@ -65,8 +65,6 @@
 
 - (NSDate *)indexDate;
 - (void)setIndexDate:(NSDate *)anIndexDate;
-- (BOOL)isScanning;
-- (void)setIsScanning:(BOOL)flag;
 //- (NSString *)countString;
 
 - (NSUInteger) count;
