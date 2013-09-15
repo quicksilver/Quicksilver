@@ -21,7 +21,8 @@
 
 @property (copy) NSString *name;
 @property (readonly, retain) NSImage *icon;
-@property (strong, atomic, getter=_contents) NSArray *contents;
+
+@property (readonly, retain) NSArray *contents;
 
 + (QSCatalogEntry *)entryWithDictionary:(NSDictionary *)dict;
 - (NSDictionary *)dictionaryRepresentation;
@@ -52,10 +53,7 @@
 - (void)scanForced:(BOOL)force;
 - (NSMutableArray *)children;
 - (NSMutableArray *)getChildren;
-- (NSArray *)contents;
 - (NSArray *)contentsScanIfNeeded:(BOOL)canScan;
-- (void)setContents:(NSArray *)newContents;
-- (NSArray *)enabledContents;
 - (NSIndexPath *)catalogIndexPath;
 - (NSMutableDictionary *)info;
 - (QSCatalogEntry *)uniqueCopy;
