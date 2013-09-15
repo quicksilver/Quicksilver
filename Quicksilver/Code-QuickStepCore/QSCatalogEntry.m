@@ -27,23 +27,23 @@
 
 @interface QSCatalogEntry () {
     NSString *_name;
+    NSArray *_contents;
+
 	__block NSDate *indexDate;
 
 	id parent;
 	NSMutableArray *children;
     dispatch_queue_t scanQueue;
 	NSMutableDictionary *info;
-	NSArray *contents;
 	NSBundle *bundle;
 }
 
 @property (getter=isScanning) BOOL scanning;
+@property (retain) NSArray *contents;
 
 @end
 
 @implementation QSCatalogEntry
-
-@synthesize contents = contents;
 
 + (BOOL)accessInstanceVariablesDirectly {return YES;}
 
@@ -52,7 +52,7 @@
 // KVO
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
     NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
-    
+
     if ([key isEqualToString:@"deepObjectCount"]) {
         NSSet *affectingKeys = [NSSet setWithObjects:@"contents", @"enabled",nil];
         keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKeys];
@@ -72,23 +72,38 @@
 	return [NSString stringWithFormat:@"[%@] ", self.name];
 }
 
+- (instancetype)init {
+    self = [super init];
+    if (!self) return nil;
+
+    _name = nil;
+    indexDate = nil;
+    parent = nil;
+    children = nil;
+    _contents = nil;
+    info = nil;
+
+    return self;
+}
+
 - (QSCatalogEntry *)initWithDictionary:(NSDictionary *)dict {
-	if (self = [super init]) {
-		info = [dict mutableCopy];
-		children = nil; contents = nil; indexDate = nil;
-        
-		NSArray *childDicts = [dict objectForKey:kItemChildren];
-		if (childDicts) {
-			NSMutableArray *newChildren = [NSMutableArray array];
-			for(NSDictionary * child in childDicts) {
-				[newChildren addObject:[QSCatalogEntry entryWithDictionary:child]];
-			}
-			children = newChildren;
-		}
-        // create a serial dispatch queue to make scan processes serial for each catalog entry
-        scanQueue = dispatch_queue_create([[NSString stringWithFormat:@"QSCatalogEntry scanQueue: %@",[dict objectForKey:kItemID]] UTF8String], NULL);
-        dispatch_queue_set_specific(scanQueue, kQueueCatalogEntry, (__bridge void *)self, NULL);
-	}
+    self = [self init];
+	if (!self) return nil;
+
+    info = [dict mutableCopy];
+
+    NSArray *childDicts = [dict objectForKey:kItemChildren];
+    if (childDicts) {
+        NSMutableArray *newChildren = [NSMutableArray array];
+        for(NSDictionary *child in childDicts) {
+            [newChildren addObject:[QSCatalogEntry entryWithDictionary:child]];
+        }
+        children = newChildren;
+    }
+    // create a serial dispatch queue to make scan processes serial for each catalog entry
+    scanQueue = dispatch_queue_create([[NSString stringWithFormat:@"QSCatalogEntry scanQueue: %@",[dict objectForKey:kItemID]] UTF8String], NULL);
+    dispatch_queue_set_specific(scanQueue, kQueueCatalogEntry, (__bridge void *)self, NULL);
+
 	return self;
 }
 
@@ -263,11 +278,11 @@
 	for (QSCatalogEntry *child in children2) {
 		if (child.isSeparator) break; //Stop when at end of presets
 		if (![[NSUserDefaults standardUserDefaults] boolForKey:@"Show All Catalog Entries"] && child.isSuppressed) {
-			
+
 #ifdef DEBUG
 			if (DEBUG_CATALOG) NSLog(@"Suppressing Preset:%@", [child identifier]);
 #endif
-			
+
 			[children removeObject:child];
 		} else if (child.isGroup) {
 			[child pruneInvalidChildren];
@@ -459,8 +474,8 @@
         @catch (NSException *e) {
             NSLog(@"Error loading index of %@: %@", self.name , e);
         }
-        
-        if (!dictionaryArray)        
+
+        if (!dictionaryArray)
             return NO;
 
         [self setContents:dictionaryArray];
@@ -475,17 +490,17 @@
 #ifdef DEBUG
         if (DEBUG_CATALOG) NSLog(@"saving index for %@", self);
 #endif
-        
+
         [self setIndexDate:[NSDate date]];
         NSString *key = [self identifier];
         NSString *path = [pIndexLocation stringByStandardizingPath];
 
         @try {
-            NSArray *writeArray = [contents arrayByPerformingSelector:@selector(dictionaryRepresentation)];
+            NSArray *writeArray = [self.contents arrayByPerformingSelector:@selector(dictionaryRepresentation)];
             [writeArray writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
         }
         @catch (NSException *exception) {
-            NSLog(@"Exception whilst saving catalog entry %@\ncontents: %@\nException: %@", self.name, contents, exception);
+            NSLog(@"Exception whilst saving catalog entry %@\ncontents: %@\nException: %@", self.name, self.contents, exception);
         }
     });
 }
@@ -571,13 +586,13 @@
             [nc postNotificationName:QSCatalogEntryIsIndexing object:self];
             itemContents = [self scannedObjects];
             if (itemContents && ID) {
-                [self setContents:itemContents];
+                self.contents = itemContents;
                 QSObjectSource *source = [self source];
                 if (![source respondsToSelector:@selector(entryCanBeIndexed:)] || [source entryCanBeIndexed:[self info]]) {
                     [self saveIndex];
                 }
             } else if (ID) {
-                [self setContents:nil];
+                self.contents = nil;
             }
             [self didChangeValueForKey:@"self"];
             [nc postNotificationName:QSCatalogEntryIndexed object:self];
@@ -606,12 +621,12 @@
 #endif
         return;
     }
-    
+
 #ifdef DEBUG
     if (DEBUG_CATALOG)
         NSLog(@"Scanning source: %@%@", self.name , (force?@" (forced) ":@""));
 #endif
-    
+
     [[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:NSLocalizedString(@"Scanning: %@", @"Catalog task scanning (%@ => source name)"), self.name]];
     [self scanAndCache];
     return;
@@ -623,30 +638,43 @@
 		children = [[NSMutableArray alloc] init];
 	return children;
 }
+
 - (void)setChildren:(NSArray *)newChildren {
 	if(newChildren != children){
 		children = [newChildren mutableCopy];
 	}
 }
 
-- (NSArray *)contents { return [self contentsScanIfNeeded:NO]; }
+- (NSArray *)contents {
+    @synchronized (self) {
+        return [self contentsScanIfNeeded:NO];
+    }
+}
+
+- (void)setContents:(NSArray *)newContents {
+    @synchronized (self) {
+        _contents = [newContents copy];
+    }
+}
 
 - (NSArray *)contentsScanIfNeeded:(BOOL)canScan {
-	if (!self.isEnabled) return nil;
+    @synchronized (self) {
+        if (!self.isEnabled) return nil;
 
-	if (self.isGroup) {
-		NSMutableSet *childObjects = [NSMutableSet setWithCapacity:1];
+        if (self.isGroup) {
+            NSMutableSet *childObjects = [NSMutableSet setWithCapacity:1];
 
-		for(QSCatalogEntry *child in children) {
-			[childObjects addObjectsFromArray:[child contentsScanIfNeeded:canScan]];
-		}
-		return [childObjects allObjects];
-	}
+            for (QSCatalogEntry *child in children) {
+                [childObjects addObjectsFromArray:[child contentsScanIfNeeded:canScan]];
+            }
+            return [childObjects allObjects];
+        }
 
-    if (!contents && canScan)
-        return [self scanAndCache];
+        if (!_contents && canScan)
+            return [self scanAndCache];
 
-    return contents;
+        return _contents;
+    }
 }
 
 - (NSArray *)enabledContents
