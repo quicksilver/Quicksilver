@@ -16,6 +16,7 @@
 @property (readonly, getter=isSeparator) BOOL separator;
 @property (readonly, getter=isGroup) BOOL group;
 @property (readonly, getter=isEditable) BOOL editable;
+@property (readonly, getter=canBeIndexed) BOOL indexable;
 
 @property (getter=isEnabled) BOOL enabled;
 
@@ -47,7 +48,6 @@
 
 - (BOOL)isCatalog;
 - (id)source;
-- (BOOL)canBeIndexed;
 - (NSArray *)scannedObjects;
 - (NSArray *)scanAndCache;
 - (void)scanForced:(BOOL)force;
