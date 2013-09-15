@@ -11,6 +11,7 @@
 @interface QSCatalogEntry : NSObject
 
 @property (readonly, getter=isScanning) BOOL scanning;
+@property (readonly, getter=isSuppressed) BOOL suppressed;
 
 
 @property (strong, atomic, getter=_contents) NSArray *contents;
@@ -21,7 +22,6 @@
 - (QSCatalogEntry *)initWithDictionary:(NSDictionary *)dict;
 - (QSCatalogEntry *)childWithID:(NSString *)theID;
 - (QSCatalogEntry *)childWithPath:(NSString *)path;
-- (BOOL)isSuppressed;
 - (BOOL)isPreset;
 - (BOOL)isSeparator;
 - (BOOL)isGroup;

@@ -253,9 +253,9 @@
 
 - (void)pruneInvalidChildren {
 	NSMutableArray *children2 = [children copy];
-	for(QSCatalogEntry * child in children2) {
+	for (QSCatalogEntry *child in children2) {
 		if ([child isSeparator]) break; //Stop when at end of presets
-		if (![[NSUserDefaults standardUserDefaults] boolForKey:@"Show All Catalog Entries"] && [child isSuppressed]) {
+		if (![[NSUserDefaults standardUserDefaults] boolForKey:@"Show All Catalog Entries"] && child.isSuppressed) {
 			
 #ifdef DEBUG
 			if (DEBUG_CATALOG) NSLog(@"Suppressing Preset:%@", [child identifier]);
