@@ -138,22 +138,17 @@ static CGFloat searchSpeed = 0.0;
 
 
 - (void)registerPresets:(NSArray *)newPresets inBundle:(NSBundle *)bundle scan:(BOOL)scan {
-
-	//NSLog(@"prestes %@", newPresets);
-	NSMutableDictionary *dict;
-	QSCatalogEntry *entry, *parent;
-	NSString *path;
-	NSMutableArray *children;
-	for(dict in newPresets) {
-		parent = nil;
-		entry = [QSCatalogEntry entryWithDictionary:dict];
-		path = [dict objectForKey:@"catalogPath"];
-		[dict setObject:bundle forKey:@"bundle"];
+	for (NSMutableDictionary *dict in newPresets) {
+        // Set `bundle` before the entry gets created
+		dict[@"bundle"] = bundle;
+		QSCatalogEntry *entry = [QSCatalogEntry entryWithDictionary:dict];
+		NSString *path = [dict objectForKey:@"catalogPath"];
 
 		NSArray *grandchildren = [entry deepChildrenWithGroups:YES leaves:YES disabled:YES];
 
 		[grandchildren setValue:bundle forKey:@"bundle"];
 
+        QSCatalogEntry *parent = nil;
 		if ([path isEqualToString:@"/"])
 			parent = catalog;
 		else if (path)
@@ -164,9 +159,10 @@ static CGFloat searchSpeed = 0.0;
 			parent = [catalog childWithPath:@"QSPresetModules"];
 			//		NSLog(@"register failed %@ %@ %@", parent, path, [entry identifier]);
 		}
-		children = [parent getChildren];
-		[children addObject:entry];
-		[children sortUsingFunction:presetSort context:(__bridge void *)(self)];
+//		children = [parent getChildren];
+		[parent.children addObject:entry];
+#warning oh yeah, while we're at it, sort on each loop !
+		[parent.children sortUsingFunction:presetSort context:(__bridge void *)(self)];
 		if (scan) [entry scanForced:YES];
 	}
 	//[catalogChildren replaceObjectsInRange:NSMakeRange(0, 0) withObjectsFromArray:newPresets];
@@ -175,7 +171,6 @@ static CGFloat searchSpeed = 0.0;
 - (void)initCatalog {}
 
 - (void)loadCatalogInfo {
-	NSMutableArray *catalogChildren = [catalog getChildren];
 	//	NSLog(@"load Catalog %p %@", catalog, [catalog getChildren]);
 	//[catalogChildren addObject:[QSCatalogEntry entryWithDictionary:[NSDictionary dictionaryWithObjectsAndKeys:@"QSSeparator", kItemID, nil]]];
 
@@ -188,7 +183,7 @@ static CGFloat searchSpeed = 0.0;
                                                                        [NSNumber numberWithBool:YES] , @"permanent",
                                                                        [NSNumber numberWithBool:YES] , kItemEnabled, nil]];
     
-	[catalogChildren addObject:customEntry];
+	[catalog.children addObject:customEntry];
     
 	NSMutableDictionary *catalogStorage = [NSMutableDictionary dictionaryWithContentsOfFile:[pCatalogSettings stringByStandardizingPath]];
 

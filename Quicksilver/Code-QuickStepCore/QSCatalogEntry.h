@@ -29,6 +29,7 @@
 @property (retain) NSDate *indexDate;
 
 @property (readonly, retain) NSArray *contents;
+@property (readonly, retain) NSMutableArray *children;
 
 + (instancetype)entryWithDictionary:(NSDictionary *)dict;
 - (NSDictionary *)dictionaryRepresentation;
@@ -58,8 +59,6 @@
 - (NSArray *)scannedObjects;
 - (NSArray *)scanAndCache;
 - (void)scanForced:(BOOL)force;
-- (NSMutableArray *)children;
-- (NSMutableArray *)getChildren;
 - (NSArray *)contentsScanIfNeeded:(BOOL)canScan;
 - (NSIndexPath *)catalogIndexPath;
 - (NSMutableDictionary *)info;

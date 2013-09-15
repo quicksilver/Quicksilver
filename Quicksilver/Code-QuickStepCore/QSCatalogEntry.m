@@ -26,7 +26,7 @@
     QSObjectSource *_source;
 
 	id parent;
-	NSMutableArray *children;
+	NSMutableArray *_children;
     dispatch_queue_t scanQueue;
 	NSMutableDictionary *info;
 	NSBundle *bundle;
@@ -34,6 +34,7 @@
 
 @property (getter=isScanning) BOOL scanning;
 @property (retain) NSArray *contents;
+@property (retain) NSMutableArray *children;
 
 - (NSString *)indexLocation;
 
@@ -75,7 +76,7 @@
     _name = nil;
     _indexDate = nil;
     parent = nil;
-    children = nil;
+    _children = [NSMutableArray array];
     _contents = nil;
     info = nil;
 
@@ -90,12 +91,13 @@
 
     NSArray *childDicts = [dict objectForKey:kItemChildren];
     if (childDicts) {
-        NSMutableArray *newChildren = [NSMutableArray array];
-        for(NSDictionary *child in childDicts) {
+        NSMutableArray *newChildren = [NSMutableArray arrayWithCapacity:childDicts.count];
+        for (NSDictionary *child in childDicts) {
             [newChildren addObject:[QSCatalogEntry entryWithDictionary:child]];
         }
-        children = newChildren;
+        self.children = newChildren;
     }
+
     // create a serial dispatch queue to make scan processes serial for each catalog entry
     scanQueue = dispatch_queue_create([[NSString stringWithFormat:@"QSCatalogEntry scanQueue: %@",[dict objectForKey:kItemID]] UTF8String], NULL);
     dispatch_queue_set_specific(scanQueue, kQueueCatalogEntry, (__bridge void *)self, NULL);
@@ -116,13 +118,13 @@
 }
 
 - (NSDictionary *)dictionaryRepresentation {
-	if (children)
-		[info setObject:[children valueForKey:@"dictionaryRepresentation"] forKey:kItemChildren];
+	if (self.children)
+		[info setObject:[self.children valueForKey:@"dictionaryRepresentation"] forKey:kItemChildren];
 	return info;
 }
 
 - (QSCatalogEntry *)childWithID:(NSString *)theID {
-	for (QSCatalogEntry *child in children) {
+	for (QSCatalogEntry *child in self.children) {
 		if ([child.identifier isEqualToString:theID])
 			return child;
 	}
@@ -207,7 +209,7 @@
 	BOOL enabled = self.isEnabled;
 	if (!enabled) return 0;
 	if (self.isGroup) {
-		for(QSCatalogEntry *child in [self deepChildrenWithGroups:NO leaves:YES disabled:YES]) {
+		for (QSCatalogEntry *child in [self deepChildrenWithGroups:NO leaves:YES disabled:YES]) {
 			if (!child.isEnabled) return -1*enabled;
 		}
 	}
@@ -217,7 +219,7 @@
 - (NSInteger)hasEnabledChildren {
 	if (self.isGroup) {
 		BOOL hasEnabledChildren = NO;
-		for (QSCatalogEntry *child in children)
+		for (QSCatalogEntry *child in self.children)
 			hasEnabledChildren |= child.isEnabled;
 		return hasEnabledChildren;
 	} else
@@ -258,26 +260,33 @@
 	self.enabled = YES;
 	if (self.isGroup) {
 		NSArray *deepChildren = [self deepChildrenWithGroups:YES leaves:YES disabled:YES];
-		for(QSCatalogEntry *child in deepChildren)
+		for (QSCatalogEntry *child in deepChildren)
 			child.enabled = enabled;
 	}
 }
 
 - (void)pruneInvalidChildren {
-	NSMutableArray *children2 = [children copy];
-	for (QSCatalogEntry *child in children2) {
+    // Make a copy because we're gonna change our children in the loop below
+	NSMutableArray *originalChildren = self.children.copy;
+#warning There ought to be a better looping method
+    // Right now this makes a copy, loops, and lookup/remove the object in the original...
+	for (QSCatalogEntry *child in originalChildren) {
+#warning What does "end of presets" means ?
+        // Let me guess, we're depending on the order in which the presets appear in the file...
+
 		if (child.isSeparator) break; //Stop when at end of presets
+
 		if (![[NSUserDefaults standardUserDefaults] boolForKey:@"Show All Catalog Entries"] && child.isSuppressed) {
 
 #ifdef DEBUG
 			if (DEBUG_CATALOG) NSLog(@"Suppressing Preset:%@", child.identifier);
 #endif
 
-			[children removeObject:child];
+			[self.children removeObject:child];
 		} else if (child.isGroup) {
 			[child pruneInvalidChildren];
-			if (![(NSArray *)[child children] count]) // Remove empty groups
-				[children removeObject:child];
+			if (!child.children.count == 0) // Remove empty groups
+				[self.children removeObject:child];
 		}
 	}
 }
@@ -287,7 +296,7 @@
 
 	if (self.isGroup) {
 		NSMutableArray *childObjects = [NSMutableArray arrayWithCapacity:1];
-		for(QSCatalogEntry *child in children) {
+		for(QSCatalogEntry *child in self.children) {
 			[childObjects addObjectsFromArray:[child leafIDs]];
 		}
 		return childObjects;
@@ -312,7 +321,7 @@
 		if (groups)
 			[childObjects addObject:self];
 
-		for (QSCatalogEntry *child in children) {
+		for (QSCatalogEntry *child in self.children) {
 			[childObjects addObjectsFromArray:[child deepChildrenWithGroups:groups leaves:leaves disabled:disabled]];
 		}
 		return childObjects;
@@ -598,7 +607,7 @@
 
     if (self.isGroup) {
         @autoreleasepool {
-            for(QSCatalogEntry * child in children) {
+            for(QSCatalogEntry *child in self.children) {
                 [child scanForced:force];
             }
         }
@@ -623,19 +632,6 @@
     return;
 }
 
-- (NSMutableArray *)children { return children; }
-- (NSMutableArray *)getChildren {
-	if (!children)
-		children = [[NSMutableArray alloc] init];
-	return children;
-}
-
-- (void)setChildren:(NSArray *)newChildren {
-	if(newChildren != children){
-		children = [newChildren mutableCopy];
-	}
-}
-
 - (NSArray *)contents {
     @synchronized (self) {
         return [self contentsScanIfNeeded:NO];
@@ -655,7 +651,7 @@
         if (self.isGroup) {
             NSMutableSet *childObjects = [NSMutableSet setWithCapacity:1];
 
-            for (QSCatalogEntry *child in children) {
+            for (QSCatalogEntry *child in self.children) {
                 [childObjects addObjectsFromArray:[child contentsScanIfNeeded:canScan]];
             }
             return [childObjects allObjects];
@@ -685,8 +681,8 @@
 	[newDictionary setObject:[NSString uniqueString] forKey:kItemID];
 
 	QSCatalogEntry *newEntry = [[QSCatalogEntry alloc] initWithDictionary:newDictionary];
-	if ([self children])
-		[newEntry setChildren:[[self children] valueForKey:@"uniqueCopy"]];
+	if (self.children)
+		newEntry.children = [self.children valueForKey:@"uniqueCopy"];
 
 	return newEntry;
 }
