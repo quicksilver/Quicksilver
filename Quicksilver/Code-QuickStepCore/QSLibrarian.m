@@ -508,8 +508,7 @@ static CGFloat searchSpeed = 0.0;
 - (void)loadMissingIndexes {
 	NSArray *entries = [catalog leafEntries];
 	for (QSCatalogEntry *entry in entries) {
-		if (![entry canBeIndexed] || !entry.contents) {
-				//NSLog(@"Missing: %@", [entry name]);
+		if (!entry.canBeIndexed || !entry.contents) {
 			[entry scanAndCache];
 		} else {
 			//	NSLog(@"monster %d", [[catalogArrays objectForKey:[entry objectForKey:kItemID]]count]);

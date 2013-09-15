@@ -566,7 +566,11 @@
 
 - (BOOL)canBeIndexed {
 	QSObjectSource *source = [self source];
-	return ![source respondsToSelector:@selector(entryCanBeIndexed:)] || [source entryCanBeIndexed:[self info]];
+
+    if (![source respondsToSelector:@selector(entryCanBeIndexed:)])
+        return YES;
+
+	return [source entryCanBeIndexed:[self info]];
 }
 
 - (NSArray *)scanAndCache {
@@ -587,8 +591,7 @@
             itemContents = [self scannedObjects];
             if (itemContents && ID) {
                 self.contents = itemContents;
-                QSObjectSource *source = [self source];
-                if (![source respondsToSelector:@selector(entryCanBeIndexed:)] || [source entryCanBeIndexed:[self info]]) {
+                if (self.canBeIndexed) {
                     [self saveIndex];
                 }
             } else if (ID) {
