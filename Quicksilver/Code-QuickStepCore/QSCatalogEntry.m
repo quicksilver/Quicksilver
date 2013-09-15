@@ -28,6 +28,7 @@
 @interface QSCatalogEntry () {
     NSString *_name;
     NSArray *_contents;
+    QSObjectSource *_source;
 
 	__block NSDate *indexDate;
 
@@ -107,17 +108,16 @@
 	return self;
 }
 
+#warning doesn't look used, and doesn't *actually* update enabled...
 - (void)enable {
-	id theSource = [self source];
-	if ([theSource respondsToSelector:@selector(enableEntry:)])
-		[theSource enableEntry:self];
+	if ([self.source respondsToSelector:@selector(enableEntry:)])
+		[self.source enableEntry:self];
 }
 
 - (void)dealloc {
-	id theSource = [self source];
-	if ([theSource respondsToSelector:@selector(disableEntry:)])
-		[theSource disableEntry:self];
-    scanQueue = NULL;
+	if ([self.source respondsToSelector:@selector(disableEntry:)])
+		[self.source disableEntry:self];
+    }
 }
 
 - (NSDictionary *)dictionaryRepresentation {
@@ -185,10 +185,8 @@
 }
 
 - (BOOL)isEditable {
-	id source = [self source];
-
-    if ([source respondsToSelector:@selector(usesGlobalSettings)]
-        && [source performSelector:@selector(usesGlobalSettings)]) {
+    if ([self.source respondsToSelector:@selector(usesGlobalSettings)]
+        && [self.source performSelector:@selector(usesGlobalSettings)]) {
         return YES;
     }
 
@@ -196,9 +194,8 @@
 }
 
 - (NSString *)type {
-	id source = [self source];
-	NSString *theID = NSStringFromClass([source class]);
-	NSString *title = [[NSBundle bundleForClass:[source class]] safeLocalizedStringForKey:theID value:theID table:@"QSObjectSource.name"];
+	NSString *theID = NSStringFromClass([self.source class]);
+	NSString *title = [[NSBundle bundleForClass:[self.source class]] safeLocalizedStringForKey:theID value:theID table:@"QSObjectSource.name"];
 	if ([title isEqualToString:theID])
 		return [[NSBundle mainBundle] safeLocalizedStringForKey:theID value:theID table:@"QSObjectSource.name"];
 	else
@@ -429,12 +426,13 @@
 - (NSString *)text { return self.name; }
 
 - (NSImage *)icon {
-	NSImage *image;
-	if(!(image = [QSResourceManager imageNamed:[info objectForKey:kItemIcon]])){
-		if(!(image = [[QSReg sourceNamed:[info objectForKey:kItemSource]] iconForEntry:info])){
-			image = [QSResourceManager imageNamed:@"Catalog"];
-		}
-	}
+	NSImage *image = [QSResourceManager imageNamed:[info objectForKey:kItemIcon]];
+	if (!image)
+        image = image = [self.source iconForEntry:info];
+
+    if (!image)
+        image = [QSResourceManager imageNamed:@"Catalog"];
+
 	return image;
 }
 
@@ -530,27 +528,28 @@
             }
         }
         if (isValid) {
-            isValid = [[self source] indexIsValidFromDate:indexDate forEntry:info];
+            isValid = [self.source indexIsValidFromDate:indexDate forEntry:info];
         }
     });
     return isValid;
 }
 
-- (id)source {
-	id source = [QSReg sourceNamed:[info objectForKey:kItemSource]];
+- (QSObjectSource *)source {
+    if (!_source) {
+        _source = [QSReg sourceNamed:[info objectForKey:kItemSource]];
 #ifdef DEBUG
-	if (!source && VERBOSE)
-		NSLog(@"Source not found: %@ for Entry: %@", [info objectForKey:kItemSource] , self.identifier);
+        if (!_source && VERBOSE)
+            NSLog(@"Source not found: %@ for Entry: %@", [info objectForKey:kItemSource], self.identifier);
 #endif
-	return source;
+    }
+	return _source;
 }
 
 - (NSArray *)scannedObjects {
     NSArray *itemContents = nil;
     @autoreleasepool {
         @try {
-            QSObjectSource *source = [self source];
-            itemContents = [source objectsForEntry:info];
+            itemContents = [self.source objectsForEntry:info];
         }
         @catch (NSException *exception) {
             NSLog(@"An error ocurred while scanning \"%@\": %@", self.name, exception);
@@ -561,12 +560,10 @@
 }
 
 - (BOOL)canBeIndexed {
-	QSObjectSource *source = [self source];
-
-    if (![source respondsToSelector:@selector(entryCanBeIndexed:)])
+    if (![self.source respondsToSelector:@selector(entryCanBeIndexed:)])
         return YES;
 
-	return [source entryCanBeIndexed:[self info]];
+	return [self.source entryCanBeIndexed:[self info]];
 }
 
 - (NSArray *)scanAndCache {
