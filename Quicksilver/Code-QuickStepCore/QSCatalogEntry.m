@@ -259,7 +259,7 @@
 - (void)pruneInvalidChildren {
 	NSMutableArray *children2 = [children copy];
 	for (QSCatalogEntry *child in children2) {
-		if ([child isSeparator]) break; //Stop when at end of presets
+		if (child.isSeparator) break; //Stop when at end of presets
 		if (![[NSUserDefaults standardUserDefaults] boolForKey:@"Show All Catalog Entries"] && child.isSuppressed) {
 			
 #ifdef DEBUG
@@ -381,8 +381,7 @@
 
 - (NSString *)name {
 	NSString *ID = [self identifier];
-	if ([ID isEqualToString:@"QSSeparator"])
-		return @"";
+	if (self.isSeparator) return @"";
 	if (!name)
 		name = [info objectForKey:kItemName];
 	if (!name) {
@@ -578,7 +577,7 @@
 }
 
 - (void)scanForced:(BOOL)force {
-    if ([self isSeparator] || ![self isEnabled]) {
+    if (self.isSeparator || ![self isEnabled]) {
         return;
     }
     if ([[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]) {
