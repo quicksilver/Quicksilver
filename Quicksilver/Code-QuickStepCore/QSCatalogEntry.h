@@ -19,7 +19,6 @@
 - (NSDictionary *)dictionaryRepresentation;
 
 - (QSCatalogEntry *)initWithDictionary:(NSDictionary *)dict;
-- (void)dealloc;
 - (QSCatalogEntry *)childWithID:(NSString *)theID;
 - (QSCatalogEntry *)childWithPath:(NSString *)path;
 - (BOOL)isSuppressed;
