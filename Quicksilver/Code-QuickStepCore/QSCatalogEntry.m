@@ -410,7 +410,7 @@
 
 - (void)setImageAndText:(id)object { self.name = object; }
 
-- (NSImage *)image { return [self icon]; }
+- (NSImage *)image { return self.icon; }
 
 - (NSString *)text { return self.name; }
 

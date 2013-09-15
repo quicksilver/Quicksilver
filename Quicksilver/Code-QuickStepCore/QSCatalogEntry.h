@@ -20,6 +20,7 @@
 @property (getter=isEnabled) BOOL enabled;
 
 @property (copy) NSString *name;
+@property (readonly, retain) NSImage *icon;
 @property (strong, atomic, getter=_contents) NSArray *contents;
 
 + (QSCatalogEntry *)entryWithDictionary:(NSDictionary *)dict;
@@ -37,7 +38,6 @@
 - (NSArray *)deepChildrenWithGroups:(BOOL)groups leaves:(BOOL)leaves disabled:(BOOL)disabled;
 - (NSString *)identifier;
 - (NSArray *)ancestors;
-- (NSImage *)icon;
 - (NSUInteger) deepObjectCount;
 - (BOOL)loadIndex;
 - (void)saveIndex;
