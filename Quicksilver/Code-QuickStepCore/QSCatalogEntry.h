@@ -31,6 +31,8 @@
 @property (readonly, retain) NSArray *contents;
 @property (readonly, retain) NSMutableArray *children;
 
+@property (readonly, retain) NSMutableDictionary *sourceSettings;
+
 + (instancetype)entryWithDictionary:(NSDictionary *)dict;
 - (NSDictionary *)dictionaryRepresentation;
 

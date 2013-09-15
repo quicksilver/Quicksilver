@@ -24,8 +24,8 @@
 - (BOOL)usesGlobalSettings { return NO; }
 
 - (void)enableEntry:(QSCatalogEntry *)entry {
-	NSMutableDictionary *settings = [[entry info] objectForKey:kItemSettings];
-	if ([[settings objectForKey:@"watchTarget"] boolValue]) {
+	NSDictionary *settings = entry.sourceSettings;
+	if ([settings[@"watchTarget"] boolValue]) {
 		NSString *path = [self prefFileForBundle:[settings objectForKey:kDefaultsObjectSourceBundleID]];
         // See VDKQueue.h for more information on queues
 		[[QSVoyeur sharedInstance] addPath:path notifyingAbout:NOTE_DELETE | NOTE_WRITE];

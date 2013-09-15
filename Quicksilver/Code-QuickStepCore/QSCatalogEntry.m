@@ -702,4 +702,8 @@
 	return newEntry;
 }
 
+- (NSMutableDictionary *)sourceSettings {
+    return self.info[kItemSettings];
+}
+
 @end
