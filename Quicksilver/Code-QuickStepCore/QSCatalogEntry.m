@@ -164,6 +164,7 @@
 	return [[[NSFileManager defaultManager] attributesOfItemAtPath:[self indexLocation] error:nil] objectForKey:NSFileModificationDate];
 }
 
+#warning should rename...
 - (BOOL)deletable {
 	if (self.isPreset) return NO;
 
@@ -198,11 +199,11 @@
 - (BOOL)isLeaf { return !self.isGroup; }
 
 - (NSInteger)state {
-	BOOL enabled = [self isEnabled];
+	BOOL enabled = self.isEnabled;
 	if (!enabled) return 0;
 	if (self.isGroup) {
-		for(QSCatalogEntry * child in [self deepChildrenWithGroups:NO leaves:YES disabled:YES]) {
-			if (![child isEnabled]) return -1*enabled;
+		for(QSCatalogEntry *child in [self deepChildrenWithGroups:NO leaves:YES disabled:YES]) {
+			if (!child.isEnabled) return -1*enabled;
 		}
 	}
 	return enabled;
@@ -211,49 +212,49 @@
 - (NSInteger)hasEnabledChildren {
 	if (self.isGroup) {
 		BOOL hasEnabledChildren = NO;
-		for (id loopItem in children)
-			hasEnabledChildren |= [loopItem isEnabled];
+		for (QSCatalogEntry *child in children)
+			hasEnabledChildren |= child.isEnabled;
 		return hasEnabledChildren;
 	} else
 		return YES;
 }
 
 - (BOOL)shouldIndex {
-	return [self isEnabled];
+	return self.isEnabled;
 }
 
 - (BOOL)isEnabled {
-	if (self.isPreset) {
-		NSNumber *value;
-		if (value = [[QSLibrarian sharedInstance] presetIsEnabled:self])
-			return [value boolValue];
-		else if (value = [info objectForKey:kItemEnabled])
-			return [value boolValue];
-		// ***warning  * this is just a little silly...
-		return YES;
-	} else {
+	if (!self.isPreset)
 		return [[info objectForKey:kItemEnabled] boolValue];
-	}
+
+    NSNumber *value;
+    if (value = [[QSLibrarian sharedInstance] presetIsEnabled:self])
+        return [value boolValue];
+    else if (value = [info objectForKey:kItemEnabled])
+        return [value boolValue];
+
+#warning this is just a little silly...
+    return YES;
 }
 
 - (void)setEnabled:(BOOL)enabled {
-	NSString *theID = [info objectForKey:kItemID];
 	if (self.isPreset)
 		[[QSLibrarian sharedInstance] setPreset:self isEnabled:enabled];
 	else
-		[info setObject:[NSNumber numberWithBool:enabled] forKey:kItemEnabled];
+		[info setObject:@(enabled) forKey:kItemEnabled];
 	if (enabled && ![[self contents] count]) {
         [self scanForced:YES];
     }
+
     [QSLib writeCatalog:self];
 }
 
 - (void)setDeepEnabled:(BOOL)enabled {
-	[self setEnabled:enabled];
+	self.enabled = YES;
 	if (self.isGroup) {
 		NSArray *deepChildren = [self deepChildrenWithGroups:YES leaves:YES disabled:YES];
-		for(QSCatalogEntry * child in deepChildren)
-			[child setEnabled:enabled];
+		for(QSCatalogEntry *child in deepChildren)
+			child.enabled = enabled;
 	}
 }
 
@@ -277,17 +278,17 @@
 }
 
 - (NSArray *)leafIDs {
-	if (![self isEnabled]) {
-		return nil;
-	} else if (self.isGroup) {
+	if (!self.isEnabled) return nil;
+
+	if (self.isGroup) {
 		NSMutableArray *childObjects = [NSMutableArray arrayWithCapacity:1];
-		for(QSCatalogEntry * child in children) {
+		for(QSCatalogEntry *child in children) {
 			[childObjects addObjectsFromArray:[child leafIDs]];
 		}
 		return childObjects;
-	} else {
-		return [NSArray arrayWithObject:[self identifier]];
-	}
+    }
+
+    return [NSArray arrayWithObject:[self identifier]];
 }
 
 - (NSArray *)leafEntries {
@@ -299,19 +300,23 @@
 }
 
 - (NSArray *)deepChildrenWithGroups:(BOOL)groups leaves:(BOOL)leaves disabled:(BOOL)disabled {
-	if (!(disabled || [self isEnabled]))
-		return nil;
+	if (!(disabled || self.isEnabled)) return nil;
+
 	if (self.isGroup) {
 		NSMutableArray *childObjects = [NSMutableArray arrayWithCapacity:1];
 		if (groups)
 			[childObjects addObject:self];
-		for(QSCatalogEntry * child in children) {
+
+		for (QSCatalogEntry *child in children) {
 			[childObjects addObjectsFromArray:[child deepChildrenWithGroups:groups leaves:leaves disabled:disabled]];
 		}
 		return childObjects;
-	} else if (leaves) {
+	}
+
+    if (leaves) {
 		return [NSArray arrayWithObject:self];
 	}
+
 	return nil;
 }
 
@@ -440,7 +445,7 @@
 }
 
 - (BOOL)loadIndex {
-	if ([self isEnabled]) {
+	if (self.isEnabled) {
 		NSString *path = [self indexLocation];
 		NSMutableArray *dictionaryArray = nil;
 		@try {
@@ -578,9 +583,8 @@
 }
 
 - (void)scanForced:(BOOL)force {
-    if (self.isSeparator || ![self isEnabled]) {
-        return;
-    }
+    if (self.isSeparator || !self.isEnabled) return;
+
     if (self.isGroup) {
         @autoreleasepool {
             for(QSCatalogEntry * child in children) {
@@ -623,23 +627,21 @@
 - (NSArray *)contents { return [self contentsScanIfNeeded:NO]; }
 
 - (NSArray *)contentsScanIfNeeded:(BOOL)canScan {
-	if (![self isEnabled]) {
-		return nil;
-	}
+	if (!self.isEnabled) return nil;
+
 	if (self.isGroup) {
 		NSMutableSet *childObjects = [NSMutableSet setWithCapacity:1];
 
-		for(QSCatalogEntry * child in children) {
-			[childObjects addObjectsFromArray:[child contentsScanIfNeeded:(BOOL)canScan]];
+		for(QSCatalogEntry *child in children) {
+			[childObjects addObjectsFromArray:[child contentsScanIfNeeded:canScan]];
 		}
 		return [childObjects allObjects];
-
-	} else {
-
-		if (!contents && canScan)
-			return [self scanAndCache];
-		return contents;
 	}
+
+    if (!contents && canScan)
+        return [self scanAndCache];
+
+    return contents;
 }
 
 - (NSArray *)enabledContents
@@ -653,7 +655,7 @@
 - (QSCatalogEntry *)uniqueCopy {
 	NSMutableDictionary *newDictionary = [info mutableCopy];
 	if (self.isPreset) {
-		[newDictionary setObject:[NSNumber numberWithBool:[self isEnabled]] forKey:kItemEnabled];
+		[newDictionary setObject:@(self.isEnabled) forKey:kItemEnabled];
 		[newDictionary setObject:[self name] forKey:kItemName];
 	}
 	[newDictionary setObject:[NSString uniqueString] forKey:kItemID];
