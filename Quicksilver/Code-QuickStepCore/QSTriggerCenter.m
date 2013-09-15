@@ -254,24 +254,31 @@
 
 @implementation QSTriggerCenter (QSPlugInInfo)
 - (BOOL)handleInfo:(id)info ofType:(NSString *)type fromBundle:(NSBundle *)bundle {
-	id matchEntry = nil;
-	for(__strong NSDictionary * value in info) {
-		NSString *iden = [value objectForKey:kItemID];
-		//NSLog(@"info %@ %@", iden, value);
-		if (matchEntry = [triggersDict objectForKey:iden]) {
-			[[matchEntry info] addEntriesFromDictionary:value];
+	for (NSDictionary *triggerDict in info) {
+		NSString *iden = triggerDict[kItemID];
+        QSTrigger *matchEntry = self.triggersDict[iden];
+		if (matchEntry) {
+            /* We found that trigger.
+             * Update the trigger's info dictionary with the new values
+             * and remove its defaults.
+             */
+			[[matchEntry info] addEntriesFromDictionary:triggerDict];
 			[[matchEntry info] removeObjectForKey:@"defaults"];
 		} else if (iden) {
-			NSMutableDictionary *defaults = [[value objectForKey:@"defaults"] mutableCopy];
+            /* No trigger known with that ID.
+             * Make ourselves a copy, take the values under @"default" specified
+             * in triggerDict, remove those values from the final dict, and add
+             * them back at the root of the new trigger dict.
+             */
+#warning should the @"defaults" key be removed like the above did ?
+            NSMutableDictionary *newTriggerDict = [triggerDict mutableCopy];
+			NSMutableDictionary *defaults = newTriggerDict[@"defaults"];
 			if (defaults) {
-				[defaults removeObjectsForKeys:[value allKeys]];
-				value = [value mutableCopy];
-				[(NSMutableDictionary *)value addEntriesFromDictionary:defaults];
+				[defaults removeObjectsForKeys:[newTriggerDict allKeys]];
+				[newTriggerDict addEntriesFromDictionary:defaults];
 			}
-			//NSLog(@"create %@, %@", value, [QSTrigger triggerWithInfo:value]);
-			[triggersDict setObject:[QSTrigger triggerWithDictionary:value] forKey:iden];
+			[triggersDict setObject:[QSTrigger triggerWithDictionary:newTriggerDict] forKey:iden];
 		}
-		//NSLog(@"info %@ %@ %@", info, matchEntry, triggersDict);
 	}
 	return YES;
 }
