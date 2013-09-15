@@ -22,6 +22,7 @@
 
 @property (copy) NSString *name;
 @property (readonly, retain) NSImage *icon;
+@property (readonly, copy) NSString *identifier;
 
 @property (readonly, retain) NSArray *contents;
 
@@ -42,7 +43,6 @@
 - (NSArray *)leafIDs;
 - (NSArray *)leafEntries;
 - (NSArray *)deepChildrenWithGroups:(BOOL)groups leaves:(BOOL)leaves disabled:(BOOL)disabled;
-- (NSString *)identifier;
 - (NSArray *)ancestors;
 - (NSUInteger) deepObjectCount;
 - (BOOL)loadIndex;

@@ -127,9 +127,8 @@
 }
 
 - (QSCatalogEntry *)childWithID:(NSString *)theID {
-	QSCatalogEntry *child;
-	for(child in children) {
-		if ([[child identifier] isEqualToString:theID])
+	for (QSCatalogEntry *child in children) {
+		if ([child.identifier isEqualToString:theID])
 			return child;
 	}
 	return nil;
@@ -207,8 +206,8 @@
 }
 
 - (BOOL)isCatalog { return self == [[QSLibrarian sharedInstance] catalog]; }
-- (BOOL)isPreset { return [[self identifier] hasPrefix:@"QSPreset"]; }
-- (BOOL)isSeparator { return [[self identifier] hasPrefix:@"QSSeparator"]; }
+- (BOOL)isPreset { return [self.identifier hasPrefix:@"QSPreset"]; }
+- (BOOL)isSeparator { return [self.identifier hasPrefix:@"QSSeparator"]; }
 - (BOOL)isGroup { return [[info objectForKey:kItemSource] isEqualToString:@"QSGroupObjectSource"]; }
 - (BOOL)isLeaf { return !self.isGroup; }
 
@@ -279,7 +278,7 @@
 		if (![[NSUserDefaults standardUserDefaults] boolForKey:@"Show All Catalog Entries"] && child.isSuppressed) {
 
 #ifdef DEBUG
-			if (DEBUG_CATALOG) NSLog(@"Suppressing Preset:%@", [child identifier]);
+			if (DEBUG_CATALOG) NSLog(@"Suppressing Preset:%@", child.identifier);
 #endif
 
 			[children removeObject:child];
@@ -302,7 +301,7 @@
 		return childObjects;
     }
 
-    return [NSArray arrayWithObject:[self identifier]];
+    return [NSArray arrayWithObject:self.identifier];
 }
 
 - (NSArray *)leafEntries {
@@ -401,11 +400,11 @@
 
 - (NSString *)name {
     @synchronized (self) {
-        NSString *ID = [self identifier];
         if (self.isSeparator) return @"";
         if (!_name)
             _name = [info objectForKey:kItemName];
         if (!_name) {
+            NSString *ID = self.identifier;
             _name = [bundle ? bundle : [NSBundle mainBundle] safeLocalizedStringForKey:ID value:ID table:@"QSCatalogPreset.name"];
             if (_name)
                 [self setValue:_name forKey:@"name"];
@@ -460,15 +459,15 @@
 }
 
 - (NSString *)indexLocation {
-	return [[[pIndexLocation stringByStandardizingPath] stringByAppendingPathComponent:[self identifier]] stringByAppendingPathExtension:@"qsindex"];
+	return [[[pIndexLocation stringByStandardizingPath] stringByAppendingPathComponent:self.identifier] stringByAppendingPathExtension:@"qsindex"];
 }
 
 - (BOOL)loadIndex {
 	if (self.isEnabled) {
-		NSString *path = [self indexLocation];
+		NSString *indexPath = self.indexLocation;
 		NSMutableArray *dictionaryArray = nil;
 		@try {
-			dictionaryArray = [QSObject objectsWithDictionaryArray:[NSArray arrayWithContentsOfFile:path]];
+			dictionaryArray = [QSObject objectsWithDictionaryArray:[NSMutableArray arrayWithContentsOfFile:indexPath]];
         }
         @catch (NSException *e) {
             NSLog(@"Error loading index of %@: %@", self.name , e);
@@ -491,12 +490,10 @@
 #endif
 
         [self setIndexDate:[NSDate date]];
-        NSString *key = [self identifier];
-        NSString *path = [pIndexLocation stringByStandardizingPath];
 
         @try {
             NSArray *writeArray = [self.contents arrayByPerformingSelector:@selector(dictionaryRepresentation)];
-            [writeArray writeToFile:[[path stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"qsindex"] atomically:YES];
+            [writeArray writeToFile:self.indexLocation atomically:YES];
         }
         @catch (NSException *exception) {
             NSLog(@"Exception whilst saving catalog entry %@\ncontents: %@\nException: %@", self.name, self.contents, exception);
@@ -517,8 +514,8 @@
     __block BOOL isValid = YES;
     QSGCDQueueSync(scanQueue,^{
         NSFileManager *manager = [NSFileManager defaultManager];
-        NSString *indexPath = [[[pIndexLocation stringByStandardizingPath] stringByAppendingPathComponent:[self identifier]]stringByAppendingPathExtension:@"qsindex"];
-        if (![manager fileExistsAtPath:indexPath isDirectory:nil]) {
+        NSString *indexPath = self.indexLocation;
+        if (![manager fileExistsAtPath:self.indexLocation isDirectory:nil]) {
             isValid = NO;
         }
         if (isValid) {
@@ -543,7 +540,7 @@
 	id source = [QSReg sourceNamed:[info objectForKey:kItemSource]];
 #ifdef DEBUG
 	if (!source && VERBOSE)
-		NSLog(@"Source not found: %@ for Entry: %@", [info objectForKey:kItemSource] , [self identifier]);
+		NSLog(@"Source not found: %@ for Entry: %@", [info objectForKey:kItemSource] , self.identifier);
 #endif
 	return source;
 }
@@ -584,7 +581,7 @@
         QSGCDQueueSync(scanQueue, ^{
             self.scanning = YES;
             [self willChangeValueForKey:@"self"];
-            NSString *ID = [self identifier];
+            NSString *ID = self.identifier;
             NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
             [nc postNotificationName:QSCatalogEntryIsIndexing object:self];
             itemContents = [self scannedObjects];
