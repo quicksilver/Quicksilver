@@ -35,6 +35,8 @@
 @property (getter=isScanning) BOOL scanning;
 @property (retain) NSArray *contents;
 
+- (NSString *)indexLocation;
+
 @end
 
 @implementation QSCatalogEntry

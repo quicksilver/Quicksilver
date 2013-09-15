@@ -63,8 +63,6 @@
 - (NSArray *)contentsScanIfNeeded:(BOOL)canScan;
 - (NSIndexPath *)catalogIndexPath;
 - (NSMutableDictionary *)info;
-- (NSString *)indexLocation;
-
 
 - (NSUInteger)count;
 - (NSIndexPath *)catalogSetIndexPath;
