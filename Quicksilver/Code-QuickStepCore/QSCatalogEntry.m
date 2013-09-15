@@ -25,8 +25,6 @@
     NSArray *_contents;
     QSObjectSource *_source;
 
-	__block NSDate *indexDate;
-
 	id parent;
 	NSMutableArray *children;
     dispatch_queue_t scanQueue;
@@ -73,7 +71,7 @@
     if (!self) return nil;
 
     _name = nil;
-    indexDate = nil;
+    _indexDate = nil;
     parent = nil;
     children = nil;
     _contents = nil;
@@ -482,7 +480,7 @@
         if (DEBUG_CATALOG) NSLog(@"saving index for %@", self);
 #endif
 
-        [self setIndexDate:[NSDate date]];
+        self.indexDate = [NSDate date];
 
         @try {
             NSArray *writeArray = [self.contents arrayByPerformingSelector:@selector(dictionaryRepresentation)];
@@ -512,18 +510,18 @@
             isValid = NO;
         }
         if (isValid) {
-            if (!indexDate)
-                [self setIndexDate:[[manager attributesOfItemAtPath:indexPath error:NULL] fileModificationDate]];
+            if (!self.indexDate)
+                self.indexDate = [[manager attributesOfItemAtPath:indexPath error:NULL] fileModificationDate];
             NSNumber *modInterval = [info objectForKey:kItemModificationDate];
             if (modInterval) {
                 NSDate *specDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[modInterval doubleValue]];
-                if ([specDate compare:indexDate] == NSOrderedDescending) {
+                if ([specDate compare:self.indexDate] == NSOrderedDescending) {
                     isValid = NO; //Catalog Specification is more recent than index
                 }
             }
         }
         if (isValid) {
-            isValid = [self.source indexIsValidFromDate:indexDate forEntry:info];
+            isValid = [self.source indexIsValidFromDate:self.indexDate forEntry:info];
         }
     });
     return isValid;
@@ -689,12 +687,6 @@
 		[newEntry setChildren:[[self children] valueForKey:@"uniqueCopy"]];
 
 	return newEntry;
-}
-
-- (NSDate *)indexDate { return indexDate;  }
-- (void)setIndexDate:(NSDate *)anIndexDate {
-	//	NSLog(@"date %@ ->%@", indexDate, anIndexDate);
-	indexDate = anIndexDate;
 }
 
 @end
