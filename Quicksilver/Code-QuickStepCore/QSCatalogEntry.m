@@ -266,29 +266,24 @@
 }
 
 - (void)pruneInvalidChildren {
-    // Make a copy because we're gonna change our children in the loop below
-	NSMutableArray *originalChildren = self.children.copy;
-#warning There ought to be a better looping method
-    // Right now this makes a copy, loops, and lookup/remove the object in the original...
-	for (QSCatalogEntry *child in originalChildren) {
-#warning What does "end of presets" means ?
-        // Let me guess, we're depending on the order in which the presets appear in the file...
+    /* Do a "manual" reverse enumeration because we'd be mutating-while-enumerating
+     * and we don't want our index to move around. */
+    for (NSInteger i = self.children.count - 1; i >= 0; --i) {
+        QSCatalogEntry *child = self.children[i];
+        if (!child.isPreset) continue; // Prune presets only
 
-		if (child.isSeparator) break; //Stop when at end of presets
-
-		if (![[NSUserDefaults standardUserDefaults] boolForKey:@"Show All Catalog Entries"] && child.isSuppressed) {
-
+        if (child.isSuppressed && ![[NSUserDefaults standardUserDefaults] boolForKey:@"Show All Catalog Entries"]) {
 #ifdef DEBUG
 			if (DEBUG_CATALOG) NSLog(@"Suppressing Preset:%@", child.identifier);
 #endif
-
-			[self.children removeObject:child];
-		} else if (child.isGroup) {
-			[child pruneInvalidChildren];
-			if (!child.children.count == 0) // Remove empty groups
-				[self.children removeObject:child];
-		}
-	}
+            [self.children removeObjectAtIndex:i];
+        } else if (child.isGroup) {
+            // Prune subgroup and remove it if empty
+            [child pruneInvalidChildren];
+            if (child.children.count == 0)
+                [self.children removeObjectAtIndex:i];
+        }
+    }
 }
 
 - (NSArray *)leafIDs {
