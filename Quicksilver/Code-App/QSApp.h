@@ -18,4 +18,6 @@ extern BOOL QSApplicationCompletedLaunch;
 - (void)setGlobalKeyEquivalentTarget:(NSResponder *)value;
 - (void)addEventDelegate:(id)eDelegate;
 - (void)removeEventDelegate:(id)eDelegate;
+
+- (void)qs_beginSheet:(NSWindow *)sheet modalForWindow:(NSWindow *)docWindow completionHandler:(void (^)(NSInteger result))completionHandler;
 @end

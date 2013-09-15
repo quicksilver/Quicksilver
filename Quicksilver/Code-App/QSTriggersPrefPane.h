@@ -75,7 +75,6 @@
 - (void)reloadFilters;
 
 - (void)showTrigger:(QSTrigger *)trigger;
-- (BOOL)editTriggerCommand:(QSTrigger *)trigger callback:(SEL)aSelector;
 - (void)showTriggerGroupWithIdentifier:(NSString *)groupID;
 
 - (id)preferencesSplitView;

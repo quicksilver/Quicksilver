@@ -135,6 +135,7 @@ typedef struct _QSObjectFlags {
 - (void)setCache:(NSMutableDictionary *)aCache;
 - (BOOL)isProxyObject;
 - (QSObject *)resolvedObject;
+
 // This private method is required for QSProxyObject.m
 - (id)_safeObjectForType:(id)aKey;
 

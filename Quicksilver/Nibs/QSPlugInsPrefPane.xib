@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1070</int>
-		<string key="IBDocument.SystemVersion">12C3012</string>
+		<string key="IBDocument.SystemVersion">12E55</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.34</string>
-		<string key="IBDocument.HIToolboxVersion">625.00</string>
+		<string key="IBDocument.AppKitVersion">1187.39</string>
+		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<dictionary class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="com.apple.InterfaceBuilder.CocoaPlugin">3084</string>
 			<string key="com.apple.WebKitIBPlugin">2053</string>
@@ -353,7 +353,7 @@
 																<integer value="1040" key="formatterBehavior"/>
 																<integer value="0" key="timeStyle"/>
 															</dictionary>
-															<string key="NS.format">dd/MM/yyyy</string>
+															<string key="NS.format">dd/MM/yy</string>
 															<bool key="NS.natural">NO</bool>
 														</object>
 														<reference key="NSControlView" ref="49071574"/>
@@ -1282,7 +1282,7 @@
 			<object class="NSWindowTemplate" id="752278448">
 				<int key="NSWindowStyleMask">27</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{206, 525}, {600, 400}}</string>
+				<string key="NSWindowRect">{{304, 238}, {600, 400}}</string>
 				<int key="NSWTFlags">-461896704</int>
 				<string key="NSWindowTitle">Window</string>
 				<string key="NSWindowClass">NSPanel</string>
@@ -1314,6 +1314,7 @@
 							</set>
 							<string key="NSFrameSize">{600, 400}</string>
 							<reference key="NSSuperview" ref="768367607"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:51</string>
 							<string key="FrameName"/>
@@ -1332,6 +1333,7 @@
 					</array>
 					<string key="NSFrameSize">{600, 400}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="367425696"/>
 					<string key="NSReuseIdentifierKey">_NS:207</string>
 				</object>
@@ -1346,7 +1348,7 @@
 					<integer value="1040" key="formatterBehavior"/>
 					<integer value="0" key="timeStyle"/>
 				</dictionary>
-				<string key="NS.format">dd/MM/yyyy</string>
+				<string key="NS.format">dd/MM/yy</string>
 				<bool key="NS.natural">NO</bool>
 			</object>
 		</array>
@@ -3090,7 +3092,301 @@
 			<nil key="sourceID"/>
 			<int key="maxID">632</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">NSApplication</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">relaunch:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">relaunch:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">relaunch:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/NSApplication.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">QSFancyOutlineView</string>
+					<string key="superclassName">QSOutlineView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/QSFancyOutlineView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">QSGlossyBarButton</string>
+					<string key="superclassName">NSButton</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/QSGlossyBarButton.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">QSGlossyBarMenuButton</string>
+					<string key="superclassName">QSMenuButton</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/QSGlossyBarMenuButton.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">QSGlossyBarView</string>
+					<string key="superclassName">NSView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/QSGlossyBarView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">QSHandledSplitView</string>
+					<string key="superclassName">NSSplitView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/QSHandledSplitView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">QSImageAndTextCell</string>
+					<string key="superclassName">NSTextFieldCell</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/QSImageAndTextCell.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">QSMenuButton</string>
+					<string key="superclassName">NSButton</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/QSMenuButton.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">QSOutlineView</string>
+					<string key="superclassName">NSOutlineView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/QSOutlineView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">QSPlugInsPrefPane</string>
+					<string key="superclassName">QSPreferencePane</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="copyInstallURL:">id</string>
+						<string key="deleteSelection:">id</string>
+						<string key="downloadInBrowser:">id</string>
+						<string key="getInfo:">id</string>
+						<string key="installSelectedPlugIns:">id</string>
+						<string key="reloadPlugIns:">id</string>
+						<string key="showHelp:">id</string>
+						<string key="showPlugInsFolder:">id</string>
+						<string key="updatePlugIns:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="copyInstallURL:">
+							<string key="name">copyInstallURL:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="deleteSelection:">
+							<string key="name">deleteSelection:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="downloadInBrowser:">
+							<string key="name">downloadInBrowser:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="getInfo:">
+							<string key="name">getInfo:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="installSelectedPlugIns:">
+							<string key="name">installSelectedPlugIns:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="reloadPlugIns:">
+							<string key="name">reloadPlugIns:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showHelp:">
+							<string key="name">showHelp:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showPlugInsFolder:">
+							<string key="name">showPlugInsFolder:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="updatePlugIns:">
+							<string key="name">updatePlugIns:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="arrayController">NSArrayController</string>
+						<string key="docsButton">NSButton</string>
+						<string key="infoButton">NSButton</string>
+						<string key="infoDrawer">NSDrawer</string>
+						<string key="plugInTable">NSTableView</string>
+						<string key="plugInText">id</string>
+						<string key="pluginInfoPanel">NSPanel</string>
+						<string key="pluginSetsTable">NSTableView</string>
+						<string key="refreshButton">NSButton</string>
+						<string key="setsArrayController">NSController</string>
+						<string key="sidebar">NSView</string>
+						<string key="statusField">NSTextField</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="arrayController">
+							<string key="name">arrayController</string>
+							<string key="candidateClassName">NSArrayController</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="docsButton">
+							<string key="name">docsButton</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="infoButton">
+							<string key="name">infoButton</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="infoDrawer">
+							<string key="name">infoDrawer</string>
+							<string key="candidateClassName">NSDrawer</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="plugInTable">
+							<string key="name">plugInTable</string>
+							<string key="candidateClassName">NSTableView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="plugInText">
+							<string key="name">plugInText</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="pluginInfoPanel">
+							<string key="name">pluginInfoPanel</string>
+							<string key="candidateClassName">NSPanel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="pluginSetsTable">
+							<string key="name">pluginSetsTable</string>
+							<string key="candidateClassName">NSTableView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="refreshButton">
+							<string key="name">refreshButton</string>
+							<string key="candidateClassName">NSButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="setsArrayController">
+							<string key="name">setsArrayController</string>
+							<string key="candidateClassName">NSController</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="sidebar">
+							<string key="name">sidebar</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="statusField">
+							<string key="name">statusField</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/QSPlugInsPrefPane.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">QSPreferencePane</string>
+					<string key="superclassName">NSObject</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">showPaneHelp:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">showPaneHelp:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">showPaneHelp:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="_firstKeyView">NSView</string>
+						<string key="_initialKeyView">NSView</string>
+						<string key="_lastKeyView">NSView</string>
+						<string key="_window">NSWindow</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="_firstKeyView">
+							<string key="name">_firstKeyView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_initialKeyView">
+							<string key="name">_initialKeyView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_lastKeyView">
+							<string key="name">_lastKeyView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="_window">
+							<string key="name">_window</string>
+							<string key="candidateClassName">NSWindow</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/QSPreferencePane.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">QSSplitHandleView</string>
+					<string key="superclassName">NSView</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">splitView</string>
+						<string key="NS.object.0">QSHandledSplitView</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">splitView</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">splitView</string>
+							<string key="candidateClassName">QSHandledSplitView</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/QSSplitHandleView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">QSTableView</string>
+					<string key="superclassName">NSTableView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/QSTableView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">WebView</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">reloadFromOrigin:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">reloadFromOrigin:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">reloadFromOrigin:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/WebView.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
@@ -3111,7 +3407,7 @@
 			<string key="Button-docs">{12, 12}</string>
 			<string key="NSMenuCheckmark">{11, 11}</string>
 			<string key="NSMenuMixedState">{10, 3}</string>
-			<string key="QSPlugIn">{128, 128}</string>
+			<string key="QSPlugIn">{256, 256}</string>
 		</dictionary>
 	</data>
 </archive>
