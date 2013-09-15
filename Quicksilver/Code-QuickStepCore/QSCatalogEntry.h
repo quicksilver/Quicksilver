@@ -26,10 +26,10 @@
 - (BOOL)isSeparator;
 - (BOOL)isGroup;
 - (BOOL)isEditable;
-- (NSInteger) state;
-- (NSInteger) hasEnabledChildren;
 - (BOOL)isEnabled;
 - (void)setEnabled:(BOOL)enabled;
+- (NSInteger)state;
+- (NSInteger)hasEnabledChildren;
 - (void)setDeepEnabled:(BOOL)enabled;
 - (void)pruneInvalidChildren;
 - (NSArray *)leafIDs;
@@ -65,8 +65,7 @@
 
 - (NSDate *)indexDate;
 - (void)setIndexDate:(NSDate *)anIndexDate;
-//- (NSString *)countString;
 
-- (NSUInteger) count;
+- (NSUInteger)count;
 - (NSIndexPath *)catalogSetIndexPath;
 @end
