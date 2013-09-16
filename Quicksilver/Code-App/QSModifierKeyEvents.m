@@ -270,7 +270,10 @@ NSUInteger previousModifier = 0;
 
 
 - (void)sendAction {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     [self.target performSelector:self.action withObject:nil];
+#pragma clang diagnostic pop
 }
 
 - (BOOL)checkForModifierTap {

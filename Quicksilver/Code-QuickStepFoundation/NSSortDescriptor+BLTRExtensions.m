@@ -13,12 +13,12 @@
 	return[[NSSortDescriptor alloc] initWithKey:key ascending:ascending];
 }
 + (id)descriptorWithKey:(NSString *)key ascending:(BOOL)ascending selector:(SEL)selector {
-	return[[NSSortDescriptor alloc] initWithKey:key ascending:ascending selector:(SEL) selector];
+	return[[NSSortDescriptor alloc] initWithKey:key ascending:ascending selector:selector];
 }
 + (NSArray *)descriptorArrayWithKey:(NSString *)key ascending:(BOOL)ascending {
 	return [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:key ascending:ascending]];
 }
 + (NSArray *)descriptorArrayWithKey:(NSString *)key ascending:(BOOL)ascending selector:(SEL)selector {
-	return [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:key ascending:ascending selector:(SEL) selector]];
+	return [NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:key ascending:ascending selector:selector]];
 }
 @end

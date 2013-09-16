@@ -98,7 +98,10 @@ static NSMutableDictionary *tasksDictionary = nil;
 - (void)cancel:(id)sender {
 	if (cancelTarget) {
 		NSLog(@"Cancel Task: %@", self);
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 		[cancelTarget performSelector:cancelAction withObject:sender];
+#pragma clang diagnostic pop
 	}
 }
 

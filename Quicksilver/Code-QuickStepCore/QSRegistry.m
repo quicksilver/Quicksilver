@@ -182,6 +182,7 @@ QSRegistry* QSReg = nil;
 - (void)setObject:(id)object forKey:(NSString *)key inTable:(NSString *)table {
 	[[self tableNamed:table] setObject:object forKey:key];
 }
+
 - (id)valueForKey:(NSString *)key inTable:(NSString *)table {
 	if (key == nil) return nil;
 	return [[self tableNamed:table] objectForKey:key];
@@ -430,7 +431,12 @@ QSRegistry* QSReg = nil;
 @end
 
 @implementation NSObject (InstancePerform)
-+ (id)performSelectorWithInstance:(SEL)selector {return [[QSReg getClassInstance:NSStringFromClass([self class])] performSelector:selector];}
++ (id)performSelectorWithInstance:(SEL)selector {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    return [[QSReg getClassInstance:NSStringFromClass([self class])] performSelector:selector];
+#pragma clang diagnostic pop
+}
 @end
 
 @implementation QSRegistry (Mediators)
@@ -440,7 +446,10 @@ QSRegistry* QSReg = nil;
 	NSBundle *bundle = [NSBundle bundleWithIdentifier:[header objectForKey:@"bundle"]];
 	if (bundle && ![bundle isLoaded]) [bundle load];
 	SEL sel = NSSelectorFromString(selector);
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 	return (sel) ? [self performSelector:sel withObject:name] : nil;
+#pragma clang diagnostic pop
 }
 - (id)getMediatorID:(NSString *)name {
 	NSDictionary *header = [[self tableNamed:@"QSRegistryHeaders"] objectForKey:name];
@@ -448,5 +457,9 @@ QSRegistry* QSReg = nil;
 	NSBundle *bundle = [NSBundle bundleWithIdentifier:[header objectForKey:@"bundle"]];
 	if (bundle && ![bundle isLoaded]) [bundle load];
 	SEL sel = NSSelectorFromString(selector);
-    return (sel && [name respondsToSelector:@selector(sel)]) ? [self performSelector:sel withObject:name] : nil;}
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    return (sel && [name respondsToSelector:@selector(sel)]) ? [self performSelector:sel withObject:name] : nil;
+#pragma clang diagnostic pop
+}
 @end

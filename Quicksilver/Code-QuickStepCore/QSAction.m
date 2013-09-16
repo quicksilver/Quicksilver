@@ -333,7 +333,9 @@ static BOOL gModifiersAreIgnored;
         
 		BOOL reverseArgs = [[dict objectForKey:kActionReverseArguments] boolValue];
 		SEL selector = NSSelectorFromString([dict objectForKey:kActionSelector]);
-        
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 		if (!selector)
 			return [provider performAction:(QSAction *)self directObject:dObject indirectObject:iObject];
 		else if ([self argumentCount] == 2)
@@ -342,6 +344,7 @@ static BOOL gModifiersAreIgnored;
 			return [provider performSelector:selector withObject:dObject];
 		else
 			return [provider performSelector:selector];
+#pragma clang diagnostic pop
 	}
 	return nil;
 }
