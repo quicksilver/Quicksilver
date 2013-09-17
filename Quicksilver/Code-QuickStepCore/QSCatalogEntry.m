@@ -357,12 +357,14 @@
 }
 
 - (NSString *)identifier {
-	NSString *ID = self.info[kItemID];
-	if (!ID) {
-        ID = [NSString uniqueString];
-		self.info[kItemID] = ID;
-	}
-    return ID;
+    @synchronized (self) {
+        NSString *ID = self.info[kItemID];
+        if (!ID) {
+            ID = [NSString uniqueString];
+            self.info[kItemID] = ID;
+        }
+        return ID;
+    }
 }
 
 - (NSIndexPath *)catalogIndexPath {
@@ -589,14 +591,17 @@
 }
 
 - (QSObjectSource *)source {
-    if (!_source) {
-        _source = [QSReg sourceNamed:self.info[kItemSource]];
+    @synchronized (self) {
+        if (!_source) {
+            _source = [QSReg sourceNamed:self.info[kItemSource]];
 #ifdef DEBUG
-        if (!_source && VERBOSE)
-            NSLog(@"Source not found: %@ for Entry: %@", self.info[kItemSource], self.identifier);
+            if (!_source && VERBOSE)
+                NSLog(@"Source not found: %@ for Entry: %@", self.info[kItemSource], self.identifier);
 #endif
+        }
+        return _source;
+
     }
-	return _source;
 }
 
 - (NSArray *)scannedObjects {
