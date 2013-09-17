@@ -72,7 +72,9 @@
 
 - (instancetype)init {
     self = [super init];
-    if (!self) return nil;
+    if (!self) {
+        return nil;
+    }
 
     _name = nil;
     _indexDate = nil;
@@ -86,7 +88,9 @@
 
 - (QSCatalogEntry *)initWithDictionary:(NSDictionary *)dict {
     self = [self init];
-	if (!self) return nil;
+	if (!self) {
+        return nil;
+    }
 
     _info = [dict mutableCopy];
     NSDictionary *settings = _info[kItemSettings];
@@ -111,37 +115,44 @@
 
 #warning doesn't look used, and doesn't *actually* update enabled...
 - (void)enable {
-	if ([self.source respondsToSelector:@selector(enableEntry:)])
+	if ([self.source respondsToSelector:@selector(enableEntry:)]) {
 		[self.source enableEntry:self];
+    }
 }
 
 - (void)dealloc {
-	if ([self.source respondsToSelector:@selector(disableEntry:)])
+	if ([self.source respondsToSelector:@selector(disableEntry:)]) {
 		[self.source disableEntry:self];
+    }
+
     dispatch_release(scanQueue);
     scanQueue = NULL;
 }
 
 - (NSDictionary *)dictionaryRepresentation {
     NSMutableDictionary *dict = self.info.mutableCopy;
-	if (self.children)
+	if (self.children) {
 		dict[kItemChildren] = [self.children valueForKey:@"dictionaryRepresentation"];
+    }
 	return dict;
 }
 
 - (QSCatalogEntry *)childWithID:(NSString *)theID {
 	for (QSCatalogEntry *child in self.children) {
-		if ([child.identifier isEqualToString:theID])
+		if ([child.identifier isEqualToString:theID]) {
 			return child;
+        }
 	}
 	return nil;
 }
 
 - (QSCatalogEntry *)childWithPath:(NSString *)path {
-	if (![path length])
+	if (path.length == 0) {
 		return self;
+    }
+
 	QSCatalogEntry *object = self;
-	for(NSString *s in [path pathComponents]) {
+	for (NSString *s in path.pathComponents) {
 		object = [object childWithID:s];
 	}
 	return object;
@@ -149,37 +160,43 @@
 
 - (BOOL)isSuppressed {
 	NSString *path = self.info[@"requiresPath"];
-	if (path && ![[NSFileManager defaultManager] fileExistsAtPath:[path stringByResolvingWildcardsInPath]])
+	if (path && ![NSFileManager.defaultManager fileExistsAtPath:path.stringByResolvingWildcardsInPath]) {
 		return YES;
+    }
 	if ([self.info[@"requiresSettingsPath"] boolValue]) {
 		path = self.info[kItemSettings][kItemPath];
-		if (path && ![[NSFileManager defaultManager] fileExistsAtPath:[path stringByResolvingWildcardsInPath]])
+		if (path && ![NSFileManager.defaultManager fileExistsAtPath:path.stringByResolvingWildcardsInPath]) {
 			return YES;
+        }
 	}
 	NSString *requiredBundle = self.info[@"requiresBundle"];
-	if (requiredBundle && ![[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:requiredBundle])
+	if (requiredBundle && ![NSWorkspace.sharedWorkspace absolutePathForAppBundleWithIdentifier:requiredBundle]) {
 		return YES;
+    }
 	return NO;
 }
 
 - (NSDate *)lastScanDate {
-    if ([[self type] isEqualToString:@"Group"]) {
-        // It's a group entry. Loop through the child catalog entries to find the one with the latest scan date
-        NSDate *latestScan = nil;
-        for (QSCatalogEntry *child in [self children]) {
-            NSDate *childScanDate = [child lastScanDate];
-            if (childScanDate && (childScanDate > latestScan || latestScan == nil)) {
-                latestScan = childScanDate;
-            }
-        }
-        return latestScan;
-    }
-	return [[[NSFileManager defaultManager] attributesOfItemAtPath:[self indexLocation] error:nil] objectForKey:NSFileModificationDate];
+	/* tiennou: The one with the latest scan date ? Really ? */
+	if ([[self type] isEqualToString:@"Group"]) {
+		// It's a group entry. Loop through the child catalog entries to find the one with the latest scan date
+		NSDate *latestScan = nil;
+		for (QSCatalogEntry *child in [self children]) {
+			NSDate *childScanDate = [child lastScanDate];
+			if (childScanDate && (childScanDate > latestScan || latestScan == nil)) {
+				latestScan = childScanDate;
+			}
+		}
+		return latestScan;
+	}
+	return [[NSFileManager.defaultManager attributesOfItemAtPath:self.indexLocation error:NULL] objectForKey:NSFileModificationDate];
 }
 
 #warning should rename...
 - (BOOL)deletable {
-	if (self.isPreset) return NO;
+	if (self.isPreset) {
+        return NO;
+    }
 
 	return ![self.info[@"permanent"] boolValue];
 }
@@ -196,10 +213,11 @@
 - (NSString *)type {
 	NSString *theID = NSStringFromClass([self.source class]);
 	NSString *title = [[NSBundle bundleForClass:[self.source class]] safeLocalizedStringForKey:theID value:theID table:@"QSObjectSource.name"];
-	if ([title isEqualToString:theID])
+	if ([title isEqualToString:theID]) {
 		return [[NSBundle mainBundle] safeLocalizedStringForKey:theID value:theID table:@"QSObjectSource.name"];
-	else
+	} else {
 		return title;
+    }
 }
 
 - (BOOL)isCatalog { return self == [[QSLibrarian sharedInstance] catalog]; }
@@ -213,7 +231,9 @@
 	if (!enabled) return 0;
 	if (self.isGroup) {
 		for (QSCatalogEntry *child in [self deepChildrenWithGroups:NO leaves:YES disabled:YES]) {
-			if (!child.isEnabled) return -1*enabled;
+			if (!child.isEnabled) {
+                return -1*enabled;
+            }
 		}
 	}
 	return enabled;
@@ -225,8 +245,9 @@
 		for (QSCatalogEntry *child in self.children)
 			hasEnabledChildren |= child.isEnabled;
 		return hasEnabledChildren;
-	} else
-		return YES;
+	}
+
+    return YES;
 }
 
 - (BOOL)shouldIndex {
@@ -263,8 +284,9 @@
 	self.enabled = enabled;
 	if (self.isGroup) {
 		NSArray *deepChildren = [self deepChildrenWithGroups:YES leaves:YES disabled:YES];
-		for (QSCatalogEntry *child in deepChildren)
+		for (QSCatalogEntry *child in deepChildren) {
 			child.enabled = enabled;
+        }
 	}
 }
 
@@ -303,7 +325,7 @@
 		return childObjects;
     }
 
-    return [NSArray arrayWithObject:self.identifier];
+    return @[self.identifier];
 }
 
 - (NSArray *)leafEntries {
@@ -311,7 +333,9 @@
 }
 
 - (NSArray *)deepChildrenWithGroups:(BOOL)groups leaves:(BOOL)leaves disabled:(BOOL)disabled {
-	if (!(disabled || self.isEnabled)) return nil;
+	if (!(disabled || self.isEnabled)) {
+        return nil;
+    }
 
 	if (self.isGroup) {
 		NSMutableArray *childObjects = [NSMutableArray arrayWithCapacity:1];
@@ -325,7 +349,7 @@
 	}
 
     if (leaves) {
-		return [NSArray arrayWithObject:self];
+		return @[self];
 	}
 
 	return nil;
@@ -365,21 +389,22 @@
 }
 
 - (NSArray *)ancestors {
-	id catalog = [[QSLibrarian sharedInstance] catalog];
+	QSCatalogEntry *catalog = [QSLibrarian.sharedInstance catalog];
 	NSArray *groups = [catalog deepChildrenWithGroups:YES leaves:NO disabled:YES];
 	NSMutableArray *entryChain = [NSMutableArray arrayWithCapacity:0];
-	id thisItem = self;
+	QSCatalogEntry *thisItem = self;
+	QSCatalogEntry *theGroup = nil;
 	NSUInteger i;
+
 	[entryChain addObject:self];
-	id theGroup = nil;
-	while(thisItem != catalog) {
-		for (i = 0; i < [groups count]; i++) {
-			theGroup = [groups objectAtIndex:i];
-			if ([[theGroup children] containsObject:thisItem]) {
+	while (thisItem != catalog) {
+		for (i = 0; i < groups.count; i++) {
+			theGroup = groups[i];
+			if ([theGroup.children containsObject:thisItem]) {
 				[entryChain insertObject:theGroup atIndex:0];
 				thisItem = theGroup;
 				break;
-			} else if (i == [groups count] - 1) {
+			} else if (i == groups.count - 1) {
 				NSLog(@"couldn't find parent of %@", thisItem);
 				return nil;
 			}
@@ -392,16 +417,19 @@
     if (other.name != nil) {
         return [self.name compare:other.name];
     }
-    // othername is nil, so make the receiver higher in the list
+    // other.name is nil, so make the receiver higher in the list
     return NSOrderedAscending;
 }
 
 - (NSString *)name {
     @synchronized (self) {
-        if (self.isSeparator) return @"";
+        if (self.isSeparator) {
+            return @"";
+        }
 #warning this is tampering with localization
-        if (!_name)
+        if (!_name) {
             _name = self.info[kItemName];
+        }
         if (!_name) {
             NSString *ID = self.identifier;
             _name = [bundle ? bundle : [NSBundle mainBundle] safeLocalizedStringForKey:ID value:ID table:@"QSCatalogPreset.name"];
@@ -466,14 +494,18 @@
 }
 
 - (NSUInteger)count {
-	return [self deepObjectCount];
+	return self.deepObjectCount;
 }
 
 - (NSUInteger)deepObjectCount {
 	NSArray *leaves = [self deepChildrenWithGroups:NO leaves:YES disabled:NO];
 	NSUInteger i, count = 0;
-	for (i = 0; i < [leaves count]; i++)
-		count += [(NSArray *)[[leaves objectAtIndex:i] enabledContents] count];
+
+	for (i = 0; i < leaves.count; i++) {
+		QSCatalogEntry *leaf = leaves[i];
+		count += leaf.enabledContents.count;
+	}
+
 	return count;
 }
 
@@ -483,21 +515,21 @@
 
 - (BOOL)loadIndex {
 	if (self.isEnabled) {
-		NSString *indexPath = self.indexLocation;
 		NSMutableArray *dictionaryArray = nil;
 		@try {
-			dictionaryArray = [QSObject objectsWithDictionaryArray:[NSMutableArray arrayWithContentsOfFile:indexPath]];
+			dictionaryArray = [QSObject objectsWithDictionaryArray:@[self.indexLocation]];
         }
         @catch (NSException *e) {
             NSLog(@"Error loading index of %@: %@", self.name , e);
         }
 
-        if (!dictionaryArray)
+        if (!dictionaryArray) {
             return NO;
+        }
 
         [self setContents:dictionaryArray];
-        [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryIndexed object:self];
-        [[QSLibrarian sharedInstance] recalculateTypeArraysForItem:self];
+        [NSNotificationCenter.defaultCenter postNotificationName:QSCatalogEntryIndexed object:self];
+        [QSLibrarian.sharedInstance recalculateTypeArraysForItem:self];
 	}
 	return YES;
 }
@@ -532,14 +564,14 @@
 - (BOOL)indexIsValid {
     __block BOOL isValid = YES;
     QSGCDQueueSync(scanQueue,^{
-        NSFileManager *manager = [NSFileManager defaultManager];
-        NSString *indexPath = self.indexLocation;
-        if (![manager fileExistsAtPath:self.indexLocation isDirectory:nil]) {
+        NSFileManager *manager = NSFileManager.defaultManager;
+        NSString *indexLocation = self.indexLocation;
+        if (![manager fileExistsAtPath:indexLocation isDirectory:nil]) {
             isValid = NO;
         }
         if (isValid) {
             if (!self.indexDate)
-                self.indexDate = [[manager attributesOfItemAtPath:indexPath error:NULL] fileModificationDate];
+                self.indexDate = [[manager attributesOfItemAtPath:indexLocation error:NULL] fileModificationDate];
             NSNumber *modInterval = self.info[kItemModificationDate];
             if (modInterval) {
                 NSDate *specDate = [NSDate dateWithTimeIntervalSinceReferenceDate:[modInterval doubleValue]];
@@ -620,7 +652,9 @@
 }
 
 - (void)scanForced:(BOOL)force {
-    if (self.isSeparator || !self.isEnabled) return;
+    if (self.isSeparator || !self.isEnabled) {
+        return;
+    }
 
     if (self.isGroup) {
         @autoreleasepool {
