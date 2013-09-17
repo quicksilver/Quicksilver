@@ -255,29 +255,32 @@
 }
 
 - (BOOL)isEnabled {
-	if (!self.isPreset)
-		return [self.info[kItemEnabled] boolValue];
+    @synchronized (self) {
+        /* Check our enabled state, defaulting to YES if not defined yet. */
+        if (self.isPreset) {
+            NSNumber *value = [[QSLibrarian sharedInstance] presetIsEnabled:self];
+            return (value != nil ? value.boolValue : YES);
+        }
 
-    NSNumber *value;
-    if (value = [[QSLibrarian sharedInstance] presetIsEnabled:self])
-        return [value boolValue];
-    else if (value = self.info[kItemEnabled])
-        return [value boolValue];
-
-#warning this is just a little silly...
-    return YES;
+        NSNumber *value = self.info[kItemEnabled];
+        return (value != nil ? value.boolValue : YES);
+    }
 }
 
 - (void)setEnabled:(BOOL)enabled {
-	if (self.isPreset)
-		[[QSLibrarian sharedInstance] setPreset:self isEnabled:enabled];
-	else
-		self.info[kItemEnabled] = @(enabled);
-	if (enabled && ![[self contents] count]) {
-        [self scanForced:YES];
-    }
+    @synchronized (self) {
+        if (self.isPreset) {
+            [[QSLibrarian sharedInstance] setPreset:self isEnabled:enabled];
+            return;
+        }
 
-    [QSLib writeCatalog:self];
+        self.info[kItemEnabled] = @(enabled);
+        if (enabled && self.contents.count == 0) {
+            [self scanForced:YES];
+        }
+
+        [QSLib writeCatalog:self];
+    }
 }
 
 - (void)setDeepEnabled:(BOOL)enabled {
