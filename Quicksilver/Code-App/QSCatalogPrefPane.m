@@ -484,7 +484,7 @@ static id _sharedInstance;
 
 -(void)reloadData {
     [treeController rearrangeObjects];
-    QSGCDMainSync(^{
+    QSGCDMainAsync(^{
         [itemTable reloadData];
     });
 }
@@ -543,13 +543,13 @@ static id _sharedInstance;
 }
 
 - (void)catalogChanged:(NSNotification *)notification {
-    QSGCDMainSync(^{
+    QSGCDMainAsync(^{
         [itemTable reloadData];
     });
 }
 
 - (void)catalogIndexed:(NSNotification *)notification {
-    QSGCDMainSync(^{
+    QSGCDMainAsync(^{
         [itemContentsTable reloadData];
         [itemTable reloadData];
     });
