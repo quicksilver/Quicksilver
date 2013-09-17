@@ -512,7 +512,7 @@
 	if (self.isEnabled) {
 		NSMutableArray *dictionaryArray = nil;
 		@try {
-			dictionaryArray = [QSObject objectsWithDictionaryArray:@[self.indexLocation]];
+			dictionaryArray = [QSObject objectsWithDictionaryArray:[NSMutableArray arrayWithContentsOfFile:self.indexLocation]];
         }
         @catch (NSException *e) {
             NSLog(@"Error loading index of %@: %@", self.name , e);
