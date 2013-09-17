@@ -259,7 +259,7 @@
 }
 
 - (void)setDeepEnabled:(BOOL)enabled {
-	self.enabled = YES;
+	self.enabled = enabled;
 	if (self.isGroup) {
 		NSArray *deepChildren = [self deepChildrenWithGroups:YES leaves:YES disabled:YES];
 		for (QSCatalogEntry *child in deepChildren)
