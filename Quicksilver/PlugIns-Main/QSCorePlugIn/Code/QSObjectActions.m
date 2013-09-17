@@ -190,6 +190,10 @@
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
 	if ([action isEqualToString:@"QSCreateFileAction"]) {
 		return nil;
+	} else if ([action isEqualToString:@"QSObjectAssignMnemonic"]) {
+        NSString *suggestion = [[[[NSApp delegate] interfaceController] dSelector] matchedString];
+        QSObject *textObject = [QSObject textProxyObjectWithDefaultValue:suggestion];
+        return [NSArray arrayWithObject:textObject];
 	} else {
 	QSObject *textObject = [QSObject textProxyObjectWithDefaultValue:@""];
 	return [NSArray arrayWithObject:textObject]; //[[QSLibrarian sharedInstance]arrayForType:NSFilenamesPboardType];
