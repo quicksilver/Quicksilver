@@ -129,6 +129,7 @@
 		4D6A663410AB2A2F00898CA4 /* QSTreeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 92D9C9680D134BDD00D91825 /* QSTreeController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D6D369F17E61F93007017A6 /* QSCatalogEntry_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D6D369E17E61F93007017A6 /* QSCatalogEntry_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4D7B9FA117F2040300A91F64 /* QSMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F1F0EBDDBA9005A15AE /* QSMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D7CDDB217E9154E00E54AB9 /* QSTaskController_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D7CDDB117E9154E00E54AB9 /* QSTaskController_Private.h */; };
 		4D7DF45416ADC7CA004BA4BE /* DefaultsMap.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D7DF45316ADC7CA004BA4BE /* DefaultsMap.plist */; };
 		4D7DF45716ADCDEF004BA4BE /* QSAdvancedPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D7DF45516ADCDEF004BA4BE /* QSAdvancedPrefPane.strings */; };
 		4D89177514758620009C1C14 /* QSMainMenuPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D89177714758620009C1C14 /* QSMainMenuPrefPane.strings */; };
@@ -1136,6 +1137,7 @@
 		4D66BC3B1487024500351C42 /* NSString+NDUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NDUtilities.h"; sourceTree = "<group>"; };
 		4D66BC3C1487024500351C42 /* NSString+NDUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NDUtilities.m"; sourceTree = "<group>"; };
 		4D6D369E17E61F93007017A6 /* QSCatalogEntry_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSCatalogEntry_Private.h; sourceTree = "<group>"; usesTabs = 1; };
+		4D7CDDB117E9154E00E54AB9 /* QSTaskController_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTaskController_Private.h; sourceTree = "<group>"; };
 		4D7DF45316ADC7CA004BA4BE /* DefaultsMap.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultsMap.plist; sourceTree = "<group>"; };
 		4D7DF45616ADCDEF004BA4BE /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/QSAdvancedPrefPane.strings; sourceTree = "<group>"; };
 		4D7DF45816ADD014004BA4BE /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/QSAdvancedPrefPane.strings; sourceTree = "<group>"; };
@@ -3389,6 +3391,7 @@
 				7FD5470E0872DB8600661F70 /* QSTask.h */,
 				7FD5470F0872DB8600661F70 /* QSTask.m */,
 				E1E5FBC507B20DD20044D6EF /* QSTaskController.h */,
+				4D7CDDB117E9154E00E54AB9 /* QSTaskController_Private.h */,
 				E1E5FBC607B20DD20044D6EF /* QSTaskController.m */,
 				E1E5FBC707B20DD20044D6EF /* QSTextProxy.h */,
 				E1E5FBC807B20DD20044D6EF /* QSTextProxy.m */,
@@ -3652,6 +3655,7 @@
 				CD39DE6016B43FC40087B09E /* (null) in Headers */,
 				CD65B12916FA1BD000932A9C /* QSPluginUpdaterWindowController.h in Headers */,
 				4D6D369F17E61F93007017A6 /* QSCatalogEntry_Private.h in Headers */,
+				4D7CDDB217E9154E00E54AB9 /* QSTaskController_Private.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,19 +16,16 @@ extern NSString *const kTaskCancelAction;
 
 @class QSTask;
 @class QSTaskController;
+
 extern QSTaskController *QSTasks; // Shared Instance
 
 @interface QSTaskController : NSObject
 
-@property (retain) NSMutableArray *tasks;
-@property (assign) dispatch_queue_t taskQueue;
+@property (readonly, copy) NSArray *tasks;
 
-+ (QSTaskController *)sharedInstance;
-+ (void)hideViewer;
-+ (void)showViewer;
-- (void)updateTask:(NSString *)taskKey status:(NSString *)status progress:(CGFloat)progress;
-- (void)removeTask:(NSString *)string;
-- (void)taskStarted:(QSTask *)task;
-- (void)taskStopped:(QSTask *)task;
++ (instancetype)sharedInstance;
+- (QSTask *)taskWithIdentifier:(NSString *)identifier;
+- (void)updateTask:(NSString *)identifier status:(NSString *)status progress:(CGFloat)progress;
+- (void)removeTask:(NSString *)identifier;
 
 @end

@@ -614,11 +614,11 @@ static QSController *defaultController = nil;
 #endif
     
     QSTask *task = [QSTask taskWithIdentifier:@"QSDelayedStartup"];
-    [task setName:@"Starting Up..."];
-    [task setStatus:@"Updating Catalog"];
-    [task startTask:self];
+    task.name = NSLocalizedString(@"Starting Up...", @"Delayed startup task name");
+    task.status = NSLocalizedString(@"Updating Catalog", @"Delayed startup task status");
+    [task start];
     [[QSLibrarian sharedInstance] loadMissingIndexes];
-    [task stopTask:self];
+    [task stop];
 }
 
 - (void)checkForFirstRun {

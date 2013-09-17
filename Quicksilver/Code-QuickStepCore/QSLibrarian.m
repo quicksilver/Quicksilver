@@ -262,14 +262,14 @@ static CGFloat searchSpeed = 0.0;
 }
 
 - (void)reloadSource:(NSNotification *)notif {
-	  NSArray *entries = [entriesBySource objectForKey:[notif object]];
+	NSArray *entries = [entriesBySource objectForKey:[notif object]];
 	[scanTask setStatus:[NSString stringWithFormat:@"Reloading Index for %@", [entries lastObject]]];
-	[scanTask startTask:self];
+	[scanTask start];
 
 	for (id loopItem in entries) {
-		[loopItem scanForced:YES];
+		[loopItem scanForced:NO];
 	}
-	[scanTask stopTask:self];
+	[scanTask stop];
 }
 
 - (void)reloadEntrySources:(NSNotification *)notif {
@@ -542,23 +542,24 @@ static CGFloat searchSpeed = 0.0;
         NSLog(@"Multiple Scans Attempted");
         return;
     }
-    
+
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         @autoreleasepool {
-            [scanTask setStatus:@"Catalog Rescan"];
-            [scanTask startTask:self];
-            [scanTask setProgress:-1];
+            scanTask.status = NSLocalizedString(@"Catalog Rescan", @"Catalog rescan task status");
+            scanTask.progress = -1;
+            [scanTask start];
+
             scannerCount++;
             NSArray *children = [catalog deepChildrenWithGroups:NO leaves:YES disabled:NO];
             NSUInteger i;
             NSUInteger c = [children count];
             for (i = 0; i<c; i++) {
-                [scanTask setProgress:(CGFloat) i/c];
+                scanTask.progress = (CGFloat)i / c;
                 [[children objectAtIndex:i] scanForced:force];
             }
 
-            [scanTask setProgress:1.0];
-            [scanTask stopTask:self];
+            scanTask.progress = 1.0;
+            [scanTask stop];
 
             [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogIndexingCompleted object:nil];
             scannerCount--;

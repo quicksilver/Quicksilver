@@ -72,3 +72,6 @@ Following lines are no longer used in this project.
 #define kQSPluginCausedCrashAtLaunch @"QSFaultyPluginName"
 // Path of faulty plugin (for deletion purposes)
 #define kQSFaultyPluginPath @"QSFaultyPluginPath"
+
+// A boolean indicating whether the task viewer pops up automatically
+#define kQSShowTaskViewerAutomatically @"QSShowTaskViewerAutomatically"

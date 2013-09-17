@@ -7,274 +7,120 @@
 
 #import "QSTask.h"
 #import "QSTaskController.h"
-#import "QSTaskView.h"
+#import "QSTaskController_Private.h"
 
-@interface QSTask (PRIVATE)
+@interface QSTask ()
 
--(id)initWithIdentifier:(NSString *)newIdentifier;
+@property (getter=isRunning) BOOL running;
+@property (copy) NSMutableArray *subtasks;
+@property (weak) QSTask *parentTask;
 
 @end
 
-static NSMutableDictionary *tasksDictionary = nil;
-
 @implementation QSTask
-
-+ (void) load {
-	tasksDictionary = [[NSMutableDictionary alloc] init];
-}
 
 // KVO
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
-    NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
+	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
-    if ([key isEqualToString:@"indeterminateProgress"] || [key isEqualToString:@"animateProgress"]) {
-        keyPaths = [keyPaths setByAddingObject:@"progress"];
-    }
-    return keyPaths;
+	if ([key isEqualToString:@"indeterminateProgress"] || [key isEqualToString:@"animateProgress"]) {
+		keyPaths = [keyPaths setByAddingObject:@"progress"];
+	}
+	return keyPaths;
 }
 
 + (QSTask *)taskWithIdentifier:(NSString *)identifier {
-	QSTask *task = [tasksDictionary objectForKey:identifier];
+	NSAssert(identifier != nil, @"Task identifier shouldn't be nil");
+
+	QSTask *task = [QSTaskController.sharedInstance taskWithIdentifier:identifier];
 	if (!task)
-		task = [[QSTask alloc] initWithIdentifier:identifier];
+		task = [[self alloc] initWithIdentifier:identifier];
 	return task;
 }
 
-+ (QSTask *)findTaskWithIdentifier:(NSString *)identifier {
-	QSTask *task = [tasksDictionary objectForKey:identifier];
-	return task;
-}
-//- (NSScriptObjectSpecifier *)objectSpecifier
-// {
-////	NSIndexSpecifier *specifier = [[NSIndexSpecifier alloc]
-////	 initWithContainerClassDescription:
-////		(NSScriptClassDescription *)[myContainer classDescription]
-////					 containerSpecifier: [myContainer objectSpecifier]
-////									key: @"foobazi"];
-////	[specifier setIndex: [myContainer indexOfObjectInFoobazi: self]];
-////	return [specifier autorelease];
-//	NSLog(@"specifier");
-//	return nil;
-//}
-
-- (NSString *)nameAndStatus {
-	//NSLog(@"stat %@", [self name]);
-	return [self name];
-}
-- (NSImage *)icon {
-	if (!icon && delegate && [delegate respondsToSelector:@selector(iconForTask:)])
-		[self setIcon:[delegate iconForTask:self]];
-	if (!icon) return [QSResourceManager imageNamed:@"NSApplicationIcon"];
-	return icon;
-}
-- (NSString *)description {
-	return [NSString stringWithFormat:@"[%@:%@:%@] ", identifier, name, status];
-}
 - (id)init {
-	return [self initWithIdentifier:nil];
+	return [self initWithIdentifier:NSString.uniqueString];
 }
-- (id)initWithIdentifier:(NSString *)newIdentifier {
-	self = [super initWithNibName:@"QSTaskEntry" bundle:[NSBundle mainBundle]];
-	if (self == nil) return nil;
 
-    [self setIdentifier:newIdentifier];
+- (id)initWithIdentifier:(NSString *)identifier {
+	NSAssert(identifier != nil, @"Task identifier shouldn't be nil");
+
+	self = [super init];
+	if (self == nil) {
+		return nil;
+	}
+
+	_subtasks = [NSMutableArray array];
+	_identifier = identifier.copy;
 
 	return self;
 }
 
-- (void)dealloc {
-    // !!! Andre Berg 20091007: doesn't seem that there are many QSTasks with a name or status. 
-    // So the logging statements do not make much sense really if we get "(null)" for all parameters
-    // I will disable them for now since they don't provide useful info
-    
-    identifier = nil;
-
-	[self setName:nil];
-	[self setStatus:nil];
-	[self setResult:nil];
-	[self setCancelTarget:nil];
-	[self setSubtasks:nil];
+- (NSString *)description {
+	return [NSString stringWithFormat:@"[%@:%@:%@] ", self.identifier, self.name, self.status];
 }
 
-- (void)cancel:(id)sender {
-	if (cancelTarget) {
-		NSLog(@"Cancel Task: %@", self);
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-		[cancelTarget performSelector:cancelAction withObject:sender];
-#pragma clang diagnostic pop
-	}
-}
+- (void)start {
+	@synchronized (self) {
+		NSAssert(self.isRunning != YES, @"Asked to start started task: %@", self);
 
-- (BOOL)isRunning {
-	return running;
-}
-- (void)startTask:(id)sender {
-	
 #ifdef DEBUG
-    if (VERBOSE) NSLog(@"Start Task: %@", self);
+		if (VERBOSE) NSLog(@"Start Task: %@", self);
 #endif
-	
-	if (!running) {
-		running = YES;
+
+		self.running = YES;
 		[QSTasks taskStarted:self];
-		//[QSTasks performSelectorOnMainThread:@selector(taskStarted:) withObject:self waitUntilDone:NO];
 	}
 }
-- (void)stopTask:(id)sender {
-	if (running) {
-		
+
+- (void)stop {
+	@synchronized (self) {
+		NSAssert(self.isRunning != NO, @"Asked to stop stopped task %@", self);
+
 #ifdef DEBUG
-		if (VERBOSE) NSLog(@"End Task: %@", [self identifier]);
+		if (VERBOSE) NSLog(@"Stop Task: %@", self);
 #endif
-		
-		running = NO;
+
+		self.running = NO;
 		[QSTasks taskStopped:self];
 	}
-	if (identifier != nil) {
-		[tasksDictionary removeObjectForKey:identifier];
+}
+
+- (void)cancel {
+	@synchronized (self) {
+		NSAssert(self.isRunning == NO, @"Asked to cancel stopped task %@", self);
+
+#ifdef DEBUG
+		if (VERBOSE) NSLog(@"Cancel Task: %@", self);
+#endif
+
+		if (self.cancelBlock) {
+			self.cancelBlock();
+		}
+		[self stop];
 	}
 }
 
+- (void)addSubtask:(QSTask *)task {
+	NSAssert(task != nil, @"Sub task shouldn't be nil");
+	@synchronized (self) {
+		[self.subtasks addObject:task];
+		task.parentTask = self;
+	}
+}
 
 // Bindings
 
 - (BOOL)animateProgress {
-	return progress<0;
+	return self.progress < 0;
 }
 
 - (BOOL)indeterminateProgress {
-	return progress<0;
+	return self.progress < 0;
 }
+
 - (BOOL)canBeCancelled {
-	return cancelAction != nil;
-}
-
-
-
-#pragma mark -
-#pragma mark Accessors
-// Accessors
-
-
-
-- (NSString *)identifier {
-	return identifier;
-}
-- (void)setIdentifier:(NSString *)value {
-	if (identifier != value) {
-		NSString *oldIdentifier = [identifier copy];
-		identifier = [value copy];
-		if (tasksDictionary) {
-			if (value) {
-				[tasksDictionary setObject:self forKey:value];
-			}
-			if (oldIdentifier) {
-				[tasksDictionary removeObjectForKey:oldIdentifier];
-			} 
-		}
-	}
-}
-
-- (NSString *)name {
-	if (!name) return [self identifier];
-	return name;
-}
-
-- (void)setName:(NSString *)value {
-    QSGCDMainSync(^{
-        if (name != value) {
-            name = [value copy];
-        }
-    });
-}
-
-- (NSString *)status {
-	return status;
-}
-
-- (void)setStatus:(NSString *)value {
-    QSGCDMainSync(^{
-        if (status != value) {
-            status = [value copy];
-        }
-    });
-}
-
-- (CGFloat) progress {
-	return progress;
-}
-- (void)setProgress:(CGFloat)value {
-    QSGCDMainSync(^{
-        if (progress != value) {
-            progress = value;
-        }
-    });
-}
-
-- (QSObject *)result {
-	return result;
-}
-- (void)setResult:(QSObject *)value {
-	if (result != value) {
-		result = [value copy];
-	}
-}
-
-- (SEL) cancelAction {
-	return cancelAction;
-}
-
-- (void)setCancelAction:(SEL)value {
-    QSGCDMainSync(^{
-        cancelAction = value;
-    });
-}
-
-- (id)cancelTarget {
-	return cancelTarget;
-}
-- (void)setCancelTarget:(id)value {
-	if (cancelTarget != value) {
-		cancelTarget = value;
-	}
-}
-
-- (BOOL)showProgress {
-	return showProgress;
-}
-
-- (void)setShowProgress:(BOOL)value {
-	if (showProgress != value) {
-		showProgress = value;
-	}
-}
-
-- (NSArray *)subtasks {
-	return nil;
-	return subtasks;
-}
-
-- (void)setSubtasks:(NSArray *)value {
-	if (subtasks != value) {
-		subtasks = [value copy];
-	}
-}
-
-- (void)setIcon:(NSImage *)newIcon {
-    QSGCDMainSync(^{
-        if (icon != newIcon) {
-            icon = newIcon;
-        }
-    });
-}
-
-
-- (id)delegate { return delegate;  }
-- (void)setDelegate:(id)newDelegate {
-	if (delegate != newDelegate) {
-		delegate = newDelegate;
-	}
+	return self.cancelBlock != nil;
 }
 
 @end
