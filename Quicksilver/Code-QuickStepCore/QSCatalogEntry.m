@@ -371,27 +371,19 @@
 }
 
 - (NSIndexPath *)catalogIndexPath {
-	NSArray *anc = [self ancestors];
+	NSArray *anc = self.ancestors;
 	NSUInteger i;
 	NSUInteger index;
 	NSIndexPath *p = nil;
-	for (i = 0; i < ([anc count] - 1); i++) {
-		index = [[[anc objectAtIndex:i] children] indexOfObject:[anc objectAtIndex:i+1]];
+	for (i = 0; i < (anc.count - 1); i++) {
+		index = [[anc[i] children] indexOfObject:anc[i + 1]];
 		p = (p) ? [p indexPathByAddingIndex:index] : [NSIndexPath indexPathWithIndex:index];
 	}
 	return p;
 }
 
 - (NSIndexPath *)catalogSetIndexPath {
-	NSArray *anc = [self ancestors];
-	NSUInteger i;
-	NSUInteger index;
-	NSIndexPath *p = nil;
-	for (i = 1; i < ([anc count] - 1); i++) {
-		index = [[[anc objectAtIndex:i] children] indexOfObject:[anc objectAtIndex:i+1]];
-		p = (p) ? [p indexPathByAddingIndex:index] : [NSIndexPath indexPathWithIndex:index];
-	}
-	return p;
+    return self.catalogIndexPath;
 }
 
 - (NSArray *)ancestors {
