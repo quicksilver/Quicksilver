@@ -296,23 +296,24 @@
 - (void)pruneInvalidChildren {
     /* Do a "manual" reverse enumeration because we'd be mutating-while-enumerating
      * and we don't want our index to move around. */
-    for (NSInteger i = self.children.count - 1; i >= 0; --i) {
-        QSCatalogEntry *child = self.children[i];
-        if (!child.isPreset) continue; // Prune presets only
+    NSIndexSet *prunedChildren = [self.children indexesOfObjectsPassingTest:^BOOL(QSCatalogEntry *child, NSUInteger idx, BOOL *stop) {
+        if (!child.isPreset) {
+            /* Prune presets only */
+            return NO;
+        }
 
-        if (child.isSuppressed && ![[NSUserDefaults standardUserDefaults] boolForKey:@"Show All Catalog Entries"]) {
+        if (child.isSuppressed && ![NSUserDefaults.standardUserDefaults boolForKey:@"Show All Catalog Entries"]) {
 #ifdef DEBUG
 			if (DEBUG_CATALOG) NSLog(@"Suppressing Preset:%@", child.identifier);
 #endif
-            [self.children removeObjectAtIndex:i];
+            return TRUE;
         } else if (child.isGroup) {
-            // Prune subgroup and remove it if empty
             [child pruneInvalidChildren];
-            if (child.children.count == 0) {
-                [self.children removeObjectAtIndex:i];
-            }
+            return child.children.count == 0;
         }
-    }
+        return NO;
+    }];
+    [self.children removeObjectsAtIndexes:prunedChildren];
 }
 
 - (NSArray *)leafIDs {
