@@ -60,6 +60,7 @@
     
     NSArray *shouldBeSearchURL = @[
         @"http://maps.google.com/maps?q=***",
+        @"http://google.com:80/?searching=***",
         @"http://en.wikipedia.org/wiki/Special:Search?search=***",
         @"http://en.wikipedia.org:80/wiki/Special:Search?search=***",
         @"http://images.google.com/images?btnG=Search+Images&q=***"
