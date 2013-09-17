@@ -175,7 +175,7 @@
 - (QSObject *)relaunchApplication:(QSObject *)dObject {
 	NSArray *array = [dObject arrayForType:QSProcessType];
     [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [[NSWorkspace sharedWorkspace] performSelector:@selector(relaunchApplication) withObject:obj];
+        [[NSWorkspace sharedWorkspace] performSelector:@selector(relaunchApplication:) withObject:obj];
     }];
 	return nil;
 }
