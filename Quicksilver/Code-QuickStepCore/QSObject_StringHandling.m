@@ -187,6 +187,7 @@
         [self assignURLTypesWithURL:[@"mailto:" stringByAppendingString:stringValue]];
         return YES;
     } else {
+        // FQDN and URL checks
         NSRange schemeRange = [stringValue rangeOfString:@"://"];
         NSString *scheme = nil;
         if (schemeRange.location != NSNotFound) {
@@ -197,6 +198,23 @@
             }
             // remove the scheme from the URL. Makes deciphering the URL easier (less colons)
             stringValue = [stringValue substringFromIndex:schemeRange.location +schemeRange.length];
+        }
+        
+        // allow "qsapp/" to turn into "http://www.qsapp.com/" as in Safari's address bar
+        if ([stringValue hasSuffix:@"/"]) {
+            NSString *withoutSlash = [stringValue substringToIndex:[stringValue length] - 1];
+            if (![withoutSlash hasPrefix:@"-"] && ![withoutSlash hasSuffix:@"-"]) {
+                // can't begin or end with '-', but can contain it
+                NSString *dehyphenated = [withoutSlash stringByReplacingOccurrencesOfString:@"-" withString:@""];
+                if ([dehyphenated containsOnlyCharactersFromSet:[NSCharacterSet alphanumericCharacterSet]]) {
+                    // valid domain name
+                    NSString *urlTemplate = NSLocalizedString(@"http://www.%@.com/", @"Typical URL for this locale");
+                    NSString *urlValue = [NSString stringWithFormat:urlTemplate, withoutSlash];
+                    [self assignURLTypesWithURL:urlValue];
+                    // preserve the original text
+                    [self setObject:stringValue forType:QSTextType];
+                }
+            }
         }
         
         NSArray *colonComponents = [[[stringValue componentsSeparatedByString:@"/"] objectAtIndex:0] componentsSeparatedByString:@":"];

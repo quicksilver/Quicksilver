@@ -59,7 +59,9 @@
         @"http://qsapp.com/",
         @"http://hostname",
         @"http://qsapp.com:8080/path/",
-        @"http://hostname.local/"
+        @"http://hostname.local/",
+        @"qsapp/",
+        @"qs-app/"
     ];
     for (NSString *url in shouldBeURL) {
         QSObject *object = [QSObject objectWithString:url];
@@ -89,7 +91,13 @@
         @".co.uk",
         @"abcdefg\nhttp://qsapp.com/",
         @"http://qsapp.com:string:123",
-        @"http://qsapp.com:2:colons"
+        @"http://qsapp.com:2:colons",
+        @"/qsapp/",
+        @"qsapp//",
+        @"qs.app/",
+        @"qs.app/",
+        @"qsapp-/",
+        @"qsapp:80/"
     ];
     for (NSString *text in shouldNotBeURL) {
         QSObject *object = [QSObject objectWithString:text];
