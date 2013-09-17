@@ -283,14 +283,17 @@
         } else if (child.isGroup) {
             // Prune subgroup and remove it if empty
             [child pruneInvalidChildren];
-            if (child.children.count == 0)
+            if (child.children.count == 0) {
                 [self.children removeObjectAtIndex:i];
+            }
         }
     }
 }
 
 - (NSArray *)leafIDs {
-	if (!self.isEnabled) return nil;
+	if (!self.isEnabled) {
+        return nil;
+    }
 
 	if (self.isGroup) {
 		NSMutableArray *childObjects = [NSMutableArray arrayWithCapacity:1];
