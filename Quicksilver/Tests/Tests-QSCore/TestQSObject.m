@@ -52,7 +52,15 @@
 
 - (void)testStringSniffing
 {
-    NSArray *shouldBeURL = @[@"localhost", @"localhost:1024", @"qsapp.com", @"http://qsapp.com/", @"http://hostname", @"http://qsapp.com:8080/path/", @"http://hostname.local/"];
+    NSArray *shouldBeURL = @[
+        @"localhost",
+        @"localhost:1024",
+        @"qsapp.com",
+        @"http://qsapp.com/",
+        @"http://hostname",
+        @"http://qsapp.com:8080/path/",
+        @"http://hostname.local/"
+    ];
     for (NSString *url in shouldBeURL) {
         QSObject *object = [QSObject objectWithString:url];
         STAssertTrue([object containsType:QSURLType] && [[object primaryType] isEqualToString:QSURLType], @"'%@' was not recognized as a URL", url);
@@ -70,7 +78,19 @@
         STAssertTrue([object containsType:QSSearchURLType] && [[object primaryType] isEqualToString:QSSearchURLType], @"'%@' was not recognized as a Search URL", url);
     }
     
-    NSArray *shouldNotBeURL = @[@"com", @".com", @"ordinary text", @"localhost:", @"http://localhost:", @"host.invalid.topleveldomain", @"http://host.invalid.topleveldomain", @".co.uk", @"abcdefg\nhttp://qsapp.com/", @"http://qsapp.com:string:123", @"http://qsapp.com:2:colons"];
+    NSArray *shouldNotBeURL = @[
+        @"com",
+        @".com",
+        @"ordinary text",
+        @"localhost:",
+        @"http://localhost:",
+        @"host.invalid.topleveldomain",
+        @"http://host.invalid.topleveldomain",
+        @".co.uk",
+        @"abcdefg\nhttp://qsapp.com/",
+        @"http://qsapp.com:string:123",
+        @"http://qsapp.com:2:colons"
+    ];
     for (NSString *text in shouldNotBeURL) {
         QSObject *object = [QSObject objectWithString:text];
         STAssertTrue([[object primaryType] isEqualToString:QSTextType], @"'%@' was not recognized as plain text", text);
