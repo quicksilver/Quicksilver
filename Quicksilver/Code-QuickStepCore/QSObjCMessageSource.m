@@ -89,11 +89,14 @@
     
     id result;
     id argument = nil;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     if (argument = messageInfo[kActionArgument]) {
         result = [target performSelector:selector withObject:argument];
     } else {
         result = [target performSelector:selector];
     }
+#pragma clang diagnostic pop
 	if (returnsObject && [result isKindOfClass:[QSBasicObject class]]) return result;
 	return nil;
 }

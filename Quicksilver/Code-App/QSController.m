@@ -282,8 +282,7 @@ static QSController *defaultController = nil;
 
 		QSWindow *quitWindow = nil;
 		if (!quitWindowController) {
-			quitWindowController = [NSWindowController alloc];
-			[quitWindowController initWithWindowNibName:@"QuitConfirm" owner:quitWindowController];
+			quitWindowController = [[NSWindowController alloc] initWithWindowNibName:@"QuitConfirm"];
 
 			quitWindow = (QSBorderlessWindow *)[quitWindowController window];
 			[quitWindow setLevel:kCGPopUpMenuWindowLevel+1];
@@ -1113,6 +1112,7 @@ void QSSignalHandler(int i) {
 }
 
 - (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldLogException:(NSException *)exception mask:(NSUInteger)aMask {
+    NSLog(@"Exception raised: %@", exception);
 	[exception printStackTrace];
 	return NO;
 } // mask is NSLog<exception type>Mask, exception's userInfo has stack trace for key NSStackTraceKey
