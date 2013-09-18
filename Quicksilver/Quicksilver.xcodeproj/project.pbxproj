@@ -6167,6 +6167,7 @@
 				);
 				PRODUCT_NAME = QSFoundation;
 				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -6186,6 +6187,7 @@
 				);
 				PRODUCT_NAME = QSFoundation;
 				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -6200,6 +6202,7 @@
 				INFOPLIST_FILE = "PropertyLists/QSCore-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = QSCore;
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -6214,6 +6217,7 @@
 				INFOPLIST_FILE = "PropertyLists/QSCore-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = QSCore;
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -6229,6 +6233,7 @@
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = QSEffects;
 				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -6244,6 +6249,7 @@
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = QSEffects;
 				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -6258,6 +6264,7 @@
 				INFOPLIST_FILE = "PropertyLists/QSInterface-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = QSInterface;
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -6272,6 +6279,7 @@
 				INFOPLIST_FILE = "PropertyLists/QSInterface-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = QSInterface;
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
