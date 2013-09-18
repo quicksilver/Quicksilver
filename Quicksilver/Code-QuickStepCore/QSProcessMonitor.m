@@ -58,7 +58,9 @@ OSStatus appChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *us
                                &psn);
     if( result == noErr ) {
         NSDictionary *dict = [(__bridge QSProcessMonitor*)userData infoForPSN:psn];
-        [[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorFrontApplicationSwitched object:(__bridge id)userData userInfo:dict];
+        QSGCDMainAsync(^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorFrontApplicationSwitched object:(__bridge id)userData userInfo:dict];
+        });
     } else {
         NSLog(@"Unable to get event parameter kEventParamProcessID");
     }
@@ -76,7 +78,9 @@ OSStatus appLaunched(EventHandlerCallRef nextHandler, EventRef theEvent, void *u
 
     if( result == noErr ) {
         NSDictionary *dict = [(__bridge QSProcessMonitor*)userData infoForPSN:psn];
-        [[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorApplicationLaunched object:(__bridge id)(userData) userInfo:dict];
+        QSGCDMainAsync(^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorApplicationLaunched object:(__bridge id)(userData) userInfo:dict];
+        });
     } else {
         NSLog(@"Unable to get event parameter kEventParamProcessID");
     }
