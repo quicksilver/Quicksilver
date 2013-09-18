@@ -15,7 +15,7 @@
 @property (strong) IBOutlet QSTask *task;
 @property (strong) IBOutlet NSProgressIndicator *progressIndicator;
 
-- (instancetype)initWithTask:(QSTask *)task;
++ (instancetype)controllerWithTask:(QSTask *)task;
 
 - (IBAction)cancel:(id)sender;
 

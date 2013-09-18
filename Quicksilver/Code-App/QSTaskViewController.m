@@ -10,6 +10,11 @@
 
 @implementation QSTaskViewController
 
+
++ (instancetype)controllerWithTask:(QSTask *)task {
+    return [[self alloc] initWithTask:task];
+}
+
 - (instancetype)initWithTask:(QSTask *)task {
     NSParameterAssert(task != nil);
 
