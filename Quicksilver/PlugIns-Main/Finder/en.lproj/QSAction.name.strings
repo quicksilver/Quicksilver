@@ -2,9 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>FinderOpenTrashAction</key>
-    <string>Open</string>
-    <key>FinderEmptyTrashAction</key>
-    <string>Empty</string>
+    <key>AddFileTags</key>
+    <string>Add Tags…</string>
+    <key>ClearFileTags</key>
+    <string>Clear Tags</string>
+    <key>RemoveFileTags</key>
+    <string>Remove Tags…</string>
+    <key>SetFileTags</key>
+    <string>Set Tags…</string>
+    <key>ShowFileTags</key>
+    <string>Show Tags</string>
 </dict>
 </plist>
