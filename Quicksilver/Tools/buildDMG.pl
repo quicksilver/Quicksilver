@@ -102,7 +102,7 @@ unless ($ENV{SETTINGS_FILE}) {
     $volName = $dmgName unless $volName;
 }
 
-# if ProjectBuilder asks us to "clean" we remove the dmg. if we determined the name ourself, we cannot determine 
+# if ProjectBuilder asks us to "clean" we remove the dmg. if we determined the name ourself, we cannot determine
 # it now since PB has already deleted the settings file :-(. So we delete all dmgs in the build directory
 if ($ENV{ACTION} && $ENV{ACTION} =~ /clean/i) {
     $dmgName = '*' unless $dmgName;
@@ -115,7 +115,7 @@ if ($ENV{ACTION} && $ENV{ACTION} =~ /clean/i) {
 unless ($volSize && ($volSize > 0)) {
     eval { $output = `du -csk $files`};
     die "Couldn't determine the required space for the dmg: $@\n" if $@;
-    
+
     ($volSize) = ($output =~ /\s*(\d+)\s+total\s*$/si);
     $volSize = int $volSize * 1.5 / 1024 + 1;
     $volSize = $minVolSize if $volSize < $minVolSize;
@@ -162,7 +162,7 @@ print "Copying files to $dest...\n";
 print "> cp -R $files \"$dest\"\n" if $debug;
 $output = `cp -R $files \"$dest\"`;
 
-die "FATAL: Error while copying files (Error: $err)\n" if $?;
+die "FATAL: Error while copying files (Error: $output)\n" if $?;
 
 # set custom volume icon
 if ($volIcon) {
@@ -199,11 +199,11 @@ if ($compressionLevel) {
     print "Compressing $dmgName...\n";
     print "> mv -f \"$buildDir/$dmgName\" \"$buildDir/$tmpDmgName\"\n" if $debug;
     $output = `mv -f "$buildDir/$dmgName" "$buildDir/$tmpDmgName"`;
-    
+
     print "> hdiutil convert \"$buildDir/$tmpDmgName\" -format UDZO -imagekey zlib-level=$compressionLevel -o \"$buildDir/$dmgName\"\n" if $debug;
     $output = `hdiutil convert "$buildDir/$tmpDmgName" -format UDZO -imagekey zlib-level=$compressionLevel -o "$buildDir/$dmgName"`;
     die "Error: Couldn't compress the dmg $dmgName: $?\n" if $?;
-    
+
     unlink "$buildDir/$tmpDmgName";
 }
 
@@ -213,7 +213,7 @@ if ($slaRsrcFile) {
     print "> hdiutil unflatten \"$buildDir/$dmgName\"\n" if $debug;
     $output = `hdiutil unflatten \"$buildDir/$dmgName"`;
     die "Couldn't unflatten dmg (Error:$?)\n" if $?;
-    
+
     unless ($?) {
         if (-e "/Applications/Xcode.app/Contents/Developer/Headers/FlatCarbon") {
             ## Xcode 4.3
@@ -221,11 +221,11 @@ if ($slaRsrcFile) {
         } else {
             $FlatCarbon = "/Developer/Headers/FlatCarbon";
         }
-        
+
         print "> Rez $FlatCarbon/*.r \"$slaRsrcFile\" -a -o \"$buildDir/$dmgName\"\n" if $debug;
         $output = `Rez $FlatCarbon/*.r "$slaRsrcFile" -a -o "$buildDir/$dmgName"`;
         print STDERR "Couldn't add SLA (Error: $?)\n" if $?;
-        
+
         print "> hdiutil flatten \"$buildDir/$dmgName\"\n" if $debug;
         $output = `hdiutil flatten "$buildDir/$dmgName"`;
         die "Couldn't flatten dmg (Error: $?)\n" if $?;
@@ -248,17 +248,17 @@ exit 0;
 sub readSettings {
     return undef unless $ENV{SETTINGS_FILE};
     return undef if ($ENV{ACTION} =~ /clean/i) && !(-s $ENV{SETTINGS_FILE});
-    
+
     my $settings;
     my $oldSep = $/;
     undef $/;
-    
+
     open FH, "<$ENV{SETTINGS_FILE}" or die "Couldn't read file $ENV{SETTINGS_FILE}\n";
     $settings = <FH>;
     close FH;
-    
+
     $/ = $oldSep;
-    
+
     return $settings;
 }
 
@@ -269,12 +269,12 @@ B<buildDMG> - build a DMG from the commandline or from inside ProjectBuilder
 
 =head1 SYNOPSIS
 
-buildDMG.pl [-help] [-version] [-debug] [-buildDir dir] [-compressionLevel n] [-deleteHeaders] [-dmgName name] [-slaRsrcFile file] [-volName name] 
+buildDMG.pl [-help] [-version] [-debug] [-buildDir dir] [-compressionLevel n] [-deleteHeaders] [-dmgName name] [-slaRsrcFile file] [-volName name]
 [-volSize n] files...
 
 =head1 DESCRIPTION
 
-buildDMG can be used to create a dmg either from command line or within ProjectBuilder. The special support for ProjectBuilder consist 
+buildDMG can be used to create a dmg either from command line or within ProjectBuilder. The special support for ProjectBuilder consist
 of evaluating environment variables and creating volume and dmg names from the project's settings file.
 
 The following options are available (and override the mentioned environment variables):
@@ -283,13 +283,13 @@ The following options are available (and override the mentioned environment vari
 
 =item B<-buildDir> I<directory>
 
-specifies the I<directory> in which the dmg should be created. If this option is not specified the value of the environment variable 
-B<BUILT_PRODUCTS_DIR> (which is automatically provided by ProjectBuilder). If no value is provided the default will be the current 
+specifies the I<directory> in which the dmg should be created. If this option is not specified the value of the environment variable
+B<BUILT_PRODUCTS_DIR> (which is automatically provided by ProjectBuilder). If no value is provided the default will be the current
 directory
 
 =item B<-compressionLevel> I<n>
 
-specifies the compression level for zlib compression. Legal values for I<n> are 1-9 with 1 being fastet, 9 best compression. 0 turns 
+specifies the compression level for zlib compression. Legal values for I<n> are 1-9 with 1 being fastet, 9 best compression. 0 turns
 compression off. The corresponding environment variable is B<DMG_COMPRESSIONLEVEL>. The default is 0 (no compression)
 
 =item B<-debug>
@@ -298,13 +298,13 @@ enables output of debug information
 
 =item B<-[no]deleteHeaders>
 
-specifies whether all the folders "Headers" and "PrivateHeaders" on the dmg should be deleted or not. The environment variable is 
+specifies whether all the folders "Headers" and "PrivateHeaders" on the dmg should be deleted or not. The environment variable is
 B<DMG_DELETEHEADERS>, the default is not to delete
 
 =item B<-dmgName> I<name>
 
-specifies the I<name> of the dmg to produce (without extension). The corresponding environment variable is B<DMG_NAME>. If neither 
-the option, nor the environment variable contains a I<name>, nor a settings file is specified (see environment variable 
+specifies the I<name> of the dmg to produce (without extension). The corresponding environment variable is B<DMG_NAME>. If neither
+the option, nor the environment variable contains a I<name>, nor a settings file is specified (see environment variable
 B<SETTINGS_FILE> in the Project Builder Support section below) the name of the first file will be used
 
 =item B<-help>
@@ -313,13 +313,13 @@ displays this documentation
 
 =item B<-[no]internetEnabled>
 
-specifies whether the dmg should be enabled for internet access or not (default). Seems this works only works with compressed dmgs, 
+specifies whether the dmg should be enabled for internet access or not (default). Seems this works only works with compressed dmgs,
 but since that is a "feature" of B<hdiutil> this is not enforced by buildDMG
 
 =item B<-slaRsrcFile> I<file>
 
-specifies the .r I<file> containing the source of the resources for the software license agreement to display when the dmg is mounted. 
-The corresponding environment variable is B<DMG_SLA_RSRCFILE>. The source will be compiled with the Rez command and the result 
+specifies the .r I<file> containing the source of the resources for the software license agreement to display when the dmg is mounted.
+The corresponding environment variable is B<DMG_SLA_RSRCFILE>. The source will be compiled with the Rez command and the result
 attached to the dmg
 
 =item B<-version>
@@ -328,13 +328,13 @@ displays the version number
 
 =item B<-volName> I<name>
 
-specifies the I<name> of the volume inside the dmg. The corresponding environment variable is B<DMG_VOLNAME>. If neither the option, 
+specifies the I<name> of the volume inside the dmg. The corresponding environment variable is B<DMG_VOLNAME>. If neither the option,
 nor the environment variable contains a I<name>, nor a settings file is specified (see environment variable B<SETTINGS_FILE> in the
 Project Builder Support section below) the name of the first file will be used
 
 =item B<-volSize> I<n>
 
-specifies the size of the volume to create in megabytes. The environment variable is B<DMG_VOLSIZE>. If no value or 0 is specified 
+specifies the size of the volume to create in megabytes. The environment variable is B<DMG_VOLSIZE>. If no value or 0 is specified
 B<buildDmg> will try to determine the size by looking at the files to copy
 
 =item B<-volIcon> I<file>
@@ -344,19 +344,19 @@ icon will be used.
 
 =back
 
-The B<files> specified as parameters AND the files specified in the environment variable B<DMG_FILESLIST> are copied onto the dmg 
+The B<files> specified as parameters AND the files specified in the environment variable B<DMG_FILESLIST> are copied onto the dmg
 (before the headers are deleted), starting with the files from the command line
 
 =head1 PROJECT BUILDER SUPPORT
 
-Due to the possibility to use environment variables instead of the above mentioned command line options you can use this script from 
+Due to the possibility to use environment variables instead of the above mentioned command line options you can use this script from
 a "Legacy Makefile" target. Therefore you have to set the build tool to "/usr/bin/perl", the arguments to "<pathToScript>/buildDMG.pl",
-and check the "Pass build settings in environment" checkbox. You then can control everything with the build settings. If you make this 
+and check the "Pass build settings in environment" checkbox. You then can control everything with the build settings. If you make this
 target depending on your "application target" you can build you app and put it in a dmg with a single click
 
-The B<SETTINGS_FILE> environment variable is only used if the dmg or volume name is not specified. If B<SETTINGS_FILE> is set it 
-should point to the "Info.plist" of the project to copy onto the dmg. buildDMG is then able to automatically generate the dmg and 
-volume name from the B<CFBundleName> and B<CFBundleVersion> entries. For the dmg name some characters which may be problematic 
+The B<SETTINGS_FILE> environment variable is only used if the dmg or volume name is not specified. If B<SETTINGS_FILE> is set it
+should point to the "Info.plist" of the project to copy onto the dmg. buildDMG is then able to automatically generate the dmg and
+volume name from the B<CFBundleName> and B<CFBundleVersion> entries. For the dmg name some characters which may be problematic
 are then replaced by an underscore ('_')
 
 When cleaning the target there is a problem with Project Builder cleaning the dependent target first, so chances are good that the file
@@ -368,11 +368,11 @@ C</usr/bin/perl buildDMG.pl>
 
 This is the way buildDMG can be called when all required environment variables are set (e.g. from ProjectBuilder)
 
-C<./buildDMG.pl -dmgName Name -buildDir build -volSize 10 -volName Volume -compressionLevel 9 -slaRsrcFile SLA.r Example.app 
+C<./buildDMG.pl -dmgName Name -buildDir build -volSize 10 -volName Volume -compressionLevel 9 -slaRsrcFile SLA.r Example.app
 -deleteHeaders>
 
-This creates a dmg called "Name.dmg" in the directory "build". It contains a 10 MB volume named "Volume" and is compressed with the 
-highest compression level. The source for the SLA is obtained from the file SLA.r and the file (or file tree) "Example.app" is copied 
+This creates a dmg called "Name.dmg" in the directory "build". It contains a 10 MB volume named "Volume" and is compressed with the
+highest compression level. The source for the SLA is obtained from the file SLA.r and the file (or file tree) "Example.app" is copied
 onto the dmg, with header directories removed (after copying!)
 
 =head1 AUTHOR
