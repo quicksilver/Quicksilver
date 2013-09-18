@@ -196,7 +196,7 @@
                 string = @"1 action";
                 break;
             default:
-                string = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"%@ actions", nil, selfBundle, @""), count];
+                string = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"%lu actions", nil, selfBundle, @""), count];
                 break;
         }
     } else {
@@ -208,7 +208,7 @@
                 string = @"1 item";
                 break;
             default:
-                string = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"%@ items", nil, selfBundle, @""), count];
+                string = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"%lu items", nil, selfBundle, @""), count];
                 break;
         }
     }
