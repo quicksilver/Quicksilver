@@ -11,9 +11,13 @@
 
 @implementation QSTaskViewer
 
+static QSTaskViewer * _sharedInstance;
+
 + (QSTaskViewer *)sharedInstance {
-	static QSTaskViewer * _sharedInstance;
-	if (!_sharedInstance) _sharedInstance = [[[self class] alloc] init];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _sharedInstance = [[[self class] alloc] init];
+    });
 	return _sharedInstance;
 }
 
@@ -44,39 +48,40 @@
 }
 
 - (void)showWindow:(id)sender {
-	[self window];
-	[(QSDockingWindow *)[self window] show:sender];
-	[super showWindow:sender];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [(QSDockingWindow *)[self window] show:sender];
+        [super showWindow:sender];
+    });
 }
 
 - (void)hideWindow:(id)sender {
-	[[self window] close];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[self window] close];
+    });
 }
 
 - (void)setHideTimer {
 	[self performSelector:@selector(autoHide) withObject:nil afterDelay:HIDE_TIME extend:YES];
 }
 
-- (id)taskController {return QSTasks;}
+- (QSTaskController *)taskController {return QSTasks;}
 
 - (void)taskAdded:(NSNotification *)notif {
 	[self showIfNeeded:notif];
 }
 
 - (void)tasksEnded:(NSNotification *)notif {
-	[NSObject cancelPreviousPerformRequestsWithTarget:self];
-	if (autoShow) {
-		[self performSelectorOnMainThread:@selector(setHideTimer) withObject:nil waitUntilDone:YES];
-	}
+    [self setHideTimer];
 }
 
 - (void)showIfNeeded:(NSNotification *)notif {
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSShowTaskViewerAutomatically"]) {
-		[NSObject cancelPreviousPerformRequestsWithTarget:self]; // selector:@selector(autoHide) object:nil];
-		if (![[self window] isVisible] || [(QSDockingWindow *)[self window] hidden]) {
-			autoShow = YES;
-			[(QSDockingWindow *)[self window] showKeyless:self];
-		}
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (![[self window] isVisible] || [(QSDockingWindow *)[self window] hidden]) {
+                autoShow = YES;
+                [(QSDockingWindow *)[self window] showKeyless:self];
+            }
+        });
 	}
 }
 
@@ -90,33 +95,34 @@
 	NSMutableArray *oldTaskViews = [[tasksView subviews] mutableCopy];
 	NSArray *oldTasks = [oldTaskViews valueForKey:@"task"];
 	NSMutableArray *newTaskViews = [NSMutableArray array];
-	NSUInteger i = 0;
-	for (QSTask *task in [self tasks]) {
-		NSInteger index = [oldTasks indexOfObject:task];
-		NSView *view = nil;
-		if (index != NSNotFound) {
-			view = [oldTaskViews objectAtIndex:index];
-		}
-		if (!view) view = [self taskViewForTask:task];
-		if (view) {
-			NSRect frame = [view frame];
-			frame.origin = NSMakePoint(0, NSHeight([tasksView frame]) -NSHeight([view frame])*(i+1));
-			frame.size.width = NSWidth([[tasksView enclosingScrollView] frame]);
-			[view setFrame:frame];
-            [view setNeedsDisplay:YES];
-			[tasksView addSubview:view];
-			[newTaskViews addObject:view];
-		}
-        i = i+1;
-	}
+    dispatch_barrier_async(self.taskController.taskQueue, ^{
+        NSUInteger i = 0;
+        for (QSTask *task in [self tasks]) {
+            NSInteger index = [oldTasks indexOfObject:task];
+            NSView *view = nil;
+            if (index != NSNotFound) {
+                view = [oldTaskViews objectAtIndex:index];
+            }
+            if (!view) view = [self taskViewForTask:task];
+            if (view) {
+                NSRect frame = [view frame];
+                frame.origin = NSMakePoint(0, NSHeight([tasksView frame]) -NSHeight([view frame]) * (i + 1));
+                frame.size.width = NSWidth([[tasksView enclosingScrollView] frame]);
+                [view setFrame:frame];
+                [view setNeedsDisplay:YES];
+                [tasksView addSubview:view];
+                [newTaskViews addObject:view];
+            }
+            i++;
+        }
+    });
 	
 	[oldTaskViews removeObjectsInArray:newTaskViews];
 	
 	[oldTaskViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 	[oldTaskViews makeObjectsPerformSelector:@selector(setTask:) withObject:nil];
 	[tasksView setNeedsDisplay:YES];
-	
-	
+
 	if ([[self window] isVisible] && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSResizeTaskViewerAutomatically"]) {
 		[self resizeTableToFit];
 	}
@@ -140,17 +146,13 @@
 }
 
 - (NSMutableArray *)tasks {
-	if (!tasks)
-		tasks = [[QSTaskController sharedInstance] tasks];
-	return tasks;
+    return [[QSTaskController sharedInstance] tasks];
 }
 
 - (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(NSInteger)rowIndex { return NO; }
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	
-	
 }
 
 @end
