@@ -94,7 +94,9 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 
     if( result == noErr ) {
         NSDictionary *dict = [(__bridge QSProcessMonitor*)userData infoForPSN:psn];
-        [[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorApplicationTerminated object:(__bridge id)(userData) userInfo:dict];
+        QSGCDMainAsync(^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:QSProcessMonitorApplicationTerminated object:(__bridge id)(userData) userInfo:dict];
+        });
     } else {
         NSLog(@"Unable to get event parameter kEventParamProcessID");
     }
