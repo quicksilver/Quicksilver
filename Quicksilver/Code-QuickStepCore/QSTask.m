@@ -62,7 +62,12 @@
 
 - (void)start {
 	@synchronized (self) {
-		NSAssert(self.isRunning != YES, @"Asked to start started task: %@", self);
+		if (self.isRunning) {
+#ifdef DEBUG
+			if (VERBOSE) NSLog(@"Task already started, ignoring: %@", self);
+#endif
+			return;
+		}
 
 #ifdef DEBUG
 		if (VERBOSE) NSLog(@"Start Task: %@", self);
@@ -75,7 +80,12 @@
 
 - (void)stop {
 	@synchronized (self) {
-		NSAssert(self.isRunning != NO, @"Asked to stop stopped task %@", self);
+		if (self.isRunning == NO) {
+#ifdef DEBUG
+			if (VERBOSE) NSLog(@"Task already stopped, ignoring: %@", self);
+#endif
+			return;
+		}
 
 #ifdef DEBUG
 		if (VERBOSE) NSLog(@"Stop Task: %@", self);
