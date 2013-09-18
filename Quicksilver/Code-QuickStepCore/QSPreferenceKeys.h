@@ -75,3 +75,6 @@ Following lines are no longer used in this project.
 
 // A boolean indicating whether the task viewer pops up automatically
 #define kQSShowTaskViewerAutomatically @"QSShowTaskViewerAutomatically"
+
+// A boolean indicating whether the task viewer resizes automatically
+#define kQSResizeTaskViewerAutomatically @"QSResizeTaskViewerAutomatically"
