@@ -51,7 +51,7 @@ QSTaskController *QSTasks;
         self.tasksDictionary[task.identifier] = task;
 
         if (self.tasksDictionary.count == 1) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:QSTasksStartedNotification object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:QSTasksStartedNotification object:task];
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:QSTaskAddedNotification object:task];
     }
@@ -63,8 +63,8 @@ QSTaskController *QSTasks;
     @synchronized (self) {
         [[NSNotificationCenter defaultCenter] postNotificationName:QSTaskRemovedNotification object:task];
 
-        if (self.tasksDictionary.count == 0) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:QSTasksEndedNotification object:nil];
+        if (self.tasksDictionary.count == 1) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:QSTasksEndedNotification object:task];
         }
 
         [self.tasksDictionary removeObjectForKey:task.identifier];
