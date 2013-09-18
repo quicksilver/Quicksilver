@@ -19,7 +19,7 @@
 extern QSTaskController *QSTasks; // Shared Instance
 
 @interface QSTaskController : NSObject {
-	NSMutableArray *tasks;
+	__block NSMutableArray *tasks;
 }
 + (QSTaskController * ) sharedInstance;
 + (void)hideViewer;
