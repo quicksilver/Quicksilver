@@ -9,7 +9,8 @@
 #import "NSObject+ReaperExtensions.h"
 #import <QSFoundation/QSFoundation.h>
 
-#define HIDE_TIME 0.2
+#define HIDE_DELAY 0.2
+#define SHOW_DELAY 0.1
 
 @interface QSTaskViewer ()
 
@@ -18,7 +19,7 @@
 
 @property (copy) NSMutableDictionary *taskControllers;
 
-@property BOOL autoShow;
+@property BOOL wasAutomaticallyShown;
 @property (retain) NSTimer *hideTimer;
 @property (retain) NSTimer *updateTimer;
 
@@ -53,7 +54,7 @@ static QSTaskViewer * _sharedInstance;
 
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 
-    [nc addObserver:self selector:@selector(taskAdded:) name:QSTaskAddedNotification object:nil];
+    [nc addObserver:self selector:@selector(tasksStarted:) name:QSTasksStartedNotification object:nil];
     [nc addObserver:self selector:@selector(tasksEnded:) name:QSTasksEndedNotification object:nil];
     [nc addObserver:self selector:@selector(addTask:) name:QSTaskAddedNotification object:nil];
     [nc addObserver:self selector:@selector(updateTask:) name:QSTaskChangedNotification object:nil];
@@ -80,6 +81,7 @@ static QSTaskViewer * _sharedInstance;
 
 - (void)showWindow:(id)sender {
     QSGCDMainAsync(^{
+        self.wasAutomaticallyShown = NO;
         [(QSDockingWindow *)[self window] show:sender];
         [super showWindow:sender];
     });
@@ -87,29 +89,44 @@ static QSTaskViewer * _sharedInstance;
 
 - (void)hideWindow:(id)sender {
     QSGCDMainAsync(^{
+        self.wasAutomaticallyShown = NO;
         [self.window close];
     });
 }
 
-- (void)setHideTimer {
-	[self performSelector:@selector(autoHide) withObject:nil afterDelay:HIDE_TIME extend:YES];
-}
-
-- (QSTaskController *)taskController {return QSTasks; }
-
-- (void)taskAdded:(NSNotification *)notif {
+- (void)tasksStarted:(NSNotification *)notif {
 	[self showIfNeeded:notif];
 }
 
 - (void)tasksEnded:(NSNotification *)notif {
-    [self setHideTimer];
+    double delayInSeconds = HIDE_DELAY;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self autoHide];
+    });
+}
+
+- (void)autoHide {
+    if (!self.wasAutomaticallyShown) {
+        return;
+    }
+	[(QSDockingWindow *)[self window] hideOrOrderOut:self];
+	self.wasAutomaticallyShown = NO;
 }
 
 - (void)showIfNeeded:(NSNotification *)notif {
+    QSTask *task = notif.object;
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:kQSShowTaskViewerAutomatically]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
+        double delayInSeconds = SHOW_DELAY;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            NSLog(@"Will show for task %@: running: %@", task, (task.isRunning ? @"YES" : @"NO"));
+            if (!task.isRunning) {
+                return;
+            }
+
             if (![[self window] isVisible] || [(QSDockingWindow *)[self window] hidden]) {
-                self.autoShow = YES;
+                self.wasAutomaticallyShown = YES;
                 [(QSDockingWindow *)[self window] showKeyless:self];
             }
         });
@@ -143,43 +160,41 @@ static QSTaskViewer * _sharedInstance;
 }
 
 - (void)updateTaskView {
-    NSUInteger i = 0;
-    for (NSString *taskID in self.taskControllers) {
-        QSTaskViewController *controller = self.taskControllers[taskID];
-        NSRect frame = controller.view.frame;
-        frame.origin = NSMakePoint(0, NSHeight(self.tasksView.frame) - NSHeight(frame) * (i + 1));
-        frame.size.width = NSWidth(self.tasksView.enclosingScrollView.frame);
-        controller.view.frame = frame;
-        controller.view.needsDisplay = YES;
-        if (![self.tasksView.subviews containsObject:controller.view]) {
-            [self.tasksView addSubview:controller.view];
+    QSGCDMainAsync(^{
+//        NSLog(@"%s called on thread %@", __FUNCTION__, [NSThread currentThread]);
+        NSUInteger i = 0;
+        for (NSString *taskID in self.taskControllers) {
+            QSTaskViewController *controller = self.taskControllers[taskID];
+            NSRect frame = controller.view.frame;
+            frame.origin = NSMakePoint(0, NSHeight(self.tasksView.frame) - NSHeight(frame) * (i + 1));
+            frame.size.width = NSWidth(self.tasksView.enclosingScrollView.frame);
+            controller.view.frame = frame;
+            controller.view.needsDisplay = YES;
+            if (![self.tasksView.subviews containsObject:controller.view]) {
+                [self.tasksView addSubview:controller.view];
+            }
+            i++;
         }
-        i++;
-    }
 
-    NSUInteger taskCount = self.taskControllers.count;
-    if (taskCount == 0) {
-        self.taskCountField.hidden = YES;
-    } else {
-        self.taskCountField.hidden = NO;
-        NSString *cellString = nil;
-        if (taskCount == 1) {
-            cellString = [NSString stringWithFormat:NSLocalizedString(@"%d task", @"Task viewer task count (singular)"), taskCount];
+        NSUInteger taskCount = self.taskControllers.count;
+        if (taskCount == 0) {
+            self.taskCountField.hidden = YES;
         } else {
-            cellString = [NSString stringWithFormat:NSLocalizedString(@"%d tasks", @"Task viewer task count (plural)"), taskCount];
+            self.taskCountField.hidden = NO;
+            NSString *cellString = nil;
+            if (taskCount == 1) {
+                cellString = [NSString stringWithFormat:NSLocalizedString(@"%d task", @"Task viewer task count (singular)"), taskCount];
+            } else {
+                cellString = [NSString stringWithFormat:NSLocalizedString(@"%d tasks", @"Task viewer task count (plural)"), taskCount];
+            }
+            self.taskCountField.stringValue = cellString;
         }
-        self.taskCountField.stringValue = cellString;
-    }
-    self.taskCountField.needsDisplay = YES;
+        self.taskCountField.needsDisplay = YES;
 
-	if (self.window.isVisible && [[NSUserDefaults standardUserDefaults] boolForKey:kQSResizeTaskViewerAutomatically]) {
-		[self resizeTableToFit];
-	}
-}
-
-- (void)autoHide {
-	[(QSDockingWindow *)[self window] hideOrOrderOut:self];
-	self.autoShow = NO;
+        if (self.window.isVisible && [[NSUserDefaults standardUserDefaults] boolForKey:kQSResizeTaskViewerAutomatically]) {
+            [self resizeTableToFit];
+        }
+    });
 }
 
 - (void)resizeTableToFit {
