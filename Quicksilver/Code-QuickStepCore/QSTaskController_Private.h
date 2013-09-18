@@ -12,7 +12,6 @@
 @interface QSTaskController ()
 
 @property (copy) NSMutableDictionary *tasksDictionary;
-@property (assign) dispatch_queue_t taskQueue;
 
 - (void)taskStarted:(QSTask *)task;
 - (void)taskStopped:(QSTask *)task;

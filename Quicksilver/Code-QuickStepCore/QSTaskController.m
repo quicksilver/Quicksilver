@@ -34,7 +34,6 @@ QSTaskController *QSTasks;
 	if (self == nil) return nil;
 
     _tasksDictionary = [[NSMutableDictionary alloc] initWithCapacity:5];
-    _taskQueue = dispatch_queue_create("QSTaskController", DISPATCH_QUEUE_CONCURRENT);
 
 	return self;
 }
@@ -48,28 +47,28 @@ QSTaskController *QSTasks;
 - (void)taskStarted:(QSTask *)task {
     NSAssert(task != nil, @"Task shouldn't be nil");
 
-    QSGCDQueueAsync(self.taskQueue, ^{
+    @synchronized (self) {
         self.tasksDictionary[task.identifier] = task;
 
         if (self.tasksDictionary.count == 1) {
             [[NSNotificationCenter defaultCenter] postNotificationName:QSTasksStartedNotification object:nil];
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:QSTaskAddedNotification object:task];
-    });
+    }
 }
 
 - (void)taskStopped:(QSTask *)task {
     NSAssert(task != nil, @"Task shouldn't be nil");
 
-    QSGCDQueueAsync(self.taskQueue, ^{
-        [self.tasksDictionary removeObjectForKey:task.identifier];
-
-        [[NSNotificationCenter defaultCenter] postNotificationName:QSTaskRemovedNotification object:nil];
+    @synchronized (self) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:QSTaskRemovedNotification object:task];
 
         if (self.tasksDictionary.count == 0) {
             [[NSNotificationCenter defaultCenter] postNotificationName:QSTasksEndedNotification object:nil];
         }
-    });
+
+        [self.tasksDictionary removeObjectForKey:task.identifier];
+    }
 }
 
 - (void)updateTask:(NSString *)identifier status:(NSString *)status progress:(CGFloat)progress {
