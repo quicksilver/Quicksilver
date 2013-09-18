@@ -120,7 +120,7 @@
 			<object class="NSWindowTemplate" id="570080095">
 				<int key="NSWindowStyleMask">151</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{491, 520}, {258, 198}}</string>
+				<string key="NSWindowRect">{{467, 366}, {258, 198}}</string>
 				<int key="NSWTFlags">-260571136</int>
 				<string key="NSWindowTitle">Tasks</string>
 				<string key="NSWindowClass">QSDockingWindow</string>
@@ -159,7 +159,7 @@
 							<string key="NSFrame">{{52, 181}, {68, 13}}</string>
 							<reference key="NSSuperview" ref="216208698"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="968237805"/>
+							<reference key="NSNextKeyView" ref="1024627865"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="689548875">
 								<int key="NSCellFlags">-2079326144</int>
@@ -203,7 +203,7 @@
 							<string key="NSFrame">{{230, 178}, {29, 22}}</string>
 							<reference key="NSSuperview" ref="216208698"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="1024627865"/>
+							<reference key="NSNextKeyView" ref="827611543"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="220517905">
 								<int key="NSCellFlags">67108864</int>
@@ -272,7 +272,7 @@
 											<string key="NSFrameSize">{273, 164}</string>
 											<reference key="NSSuperview" ref="120967033"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="827611543"/>
+											<reference key="NSNextKeyView" ref="968237805"/>
 											<string key="NSClassName">NSView</string>
 											<string key="NSExtension">NSResponder</string>
 										</object>
