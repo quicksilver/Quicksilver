@@ -2,7 +2,7 @@
 #import "QSPreferenceKeys.h"
 #import "QSTaskViewer.h"
 #import "QSDockingWindow.h"
-#import "QSTaskView.h"
+#import "QSTaskViewController.h"
 #import "QSTaskController.h"
 #import "QSTaskController_Private.h"
 
@@ -11,16 +11,19 @@
 
 #define HIDE_TIME 0.2
 
-@interface QSTaskViewer () {
-	IBOutlet NSView *tasksView;
-	IBOutlet NSArrayController *controller;
-}
+@interface QSTaskViewer ()
+
+@property (strong) IBOutlet NSView *tasksView;
+@property (strong) IBOutlet NSArrayController *controller;
+@property (copy) NSMutableArray *tasksControllers;
 
 @property BOOL autoShow;
 @property (retain) NSTimer *hideTimer;
 @property (retain) NSTimer *updateTimer;
 
 @end
+
+
 @implementation QSTaskViewer
 
 static QSTaskViewer * _sharedInstance;
@@ -39,16 +42,22 @@ static QSTaskViewer * _sharedInstance;
 }
 
 - (id)init {
-	if ((self = [self initWithWindowNibName:@"QSTaskViewer"])) {
+    self = [self initWithWindowNibName:@"QSTaskViewer"];
+    
+	if (self == nil) {
+        return nil;
+    }
 
-		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    _tasksControllers = [NSMutableArray array];
 
-		[nc addObserver:self selector:@selector(taskAdded:) name:QSTaskAddedNotification object:nil];
-		[nc addObserver:self selector:@selector(tasksEnded:) name:QSTasksEndedNotification object:nil];
-		[nc addObserver:self selector:@selector(refreshAllTasks:) name:QSTaskAddedNotification object:nil];
-		[nc addObserver:self selector:@selector(refreshAllTasks:) name:QSTaskChangedNotification object:nil];
-		[nc addObserver:self selector:@selector(refreshAllTasks:) name:QSTaskRemovedNotification object:nil];
-	}
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+
+    [nc addObserver:self selector:@selector(taskAdded:) name:QSTaskAddedNotification object:nil];
+    [nc addObserver:self selector:@selector(tasksEnded:) name:QSTasksEndedNotification object:nil];
+    [nc addObserver:self selector:@selector(refreshAllTasks:) name:QSTaskAddedNotification object:nil];
+    [nc addObserver:self selector:@selector(refreshAllTasks:) name:QSTaskChangedNotification object:nil];
+    [nc addObserver:self selector:@selector(refreshAllTasks:) name:QSTaskRemovedNotification object:nil];
+
 	return self;
 }
 
@@ -106,56 +115,43 @@ static QSTaskViewer * _sharedInstance;
 	}
 }
 
-- (QSTaskView *)taskViewForTask:(QSTask *)task {
-    static NSNib *taskNib = nil;
-    if (!taskNib) {
-        taskNib = [[NSNib alloc] initWithNibNamed:@"QSTaskEntry" bundle:[NSBundle bundleForClass:[self class]]];
-    }
-
-    NSArray *topObjects = nil;
-    BOOL success = [taskNib instantiateWithOwner:task topLevelObjects:&topObjects];
-    NSAssert(success, @"Failed to load NIB file \"QSTaskEntry\"");
-
-    for (id obj in topObjects) {
-        if ([obj isKindOfClass:[QSTaskView class]])
-            return obj;
-    }
-    return nil;
-}
-
 - (void)refreshAllTasks:(NSNotification *)notif {
-	[controller rearrangeObjects];
+	[self.controller rearrangeObjects];
 
-	NSMutableArray *oldTaskViews = [[tasksView subviews] mutableCopy];
-	NSArray *oldTasks = [oldTaskViews valueForKey:@"task"];
-	NSMutableArray *newTaskViews = [NSMutableArray array];
+	NSMutableArray *oldTaskControllers = [self.tasksControllers mutableCopy];
+	NSArray *oldTasks = [oldTaskControllers valueForKey:@"task"];
+	NSMutableArray *newTaskControllers = [NSMutableArray array];
     dispatch_barrier_async(self.taskController.taskQueue, ^{
         NSUInteger i = 0;
         for (QSTask *task in self.tasks) {
             NSInteger index = [oldTasks indexOfObject:task];
-            NSView *view = nil;
+            QSTaskViewController *viewController = nil;
             if (index != NSNotFound) {
-                view = [oldTaskViews objectAtIndex:index];
+                viewController = [oldTaskControllers objectAtIndex:index];
             }
-            if (!view) view = [self taskViewForTask:task];
-            if (view) {
-                NSRect frame = [view frame];
-                frame.origin = NSMakePoint(0, NSHeight([tasksView frame]) -NSHeight([view frame]) * (i + 1));
-                frame.size.width = NSWidth([[tasksView enclosingScrollView] frame]);
-                [view setFrame:frame];
-                [view setNeedsDisplay:YES];
-                [tasksView addSubview:view];
-                [newTaskViews addObject:view];
+
+            if (!viewController) {
+                viewController = [[QSTaskViewController alloc] initWithTask:task];
+            }
+
+            if (viewController) {
+                NSRect frame = viewController.view.frame;
+                frame.origin = NSMakePoint(0, NSHeight(self.tasksView.frame) - NSHeight(frame) * (i + 1));
+                frame.size.width = NSWidth(self.tasksView.enclosingScrollView.frame);
+                [viewController.view setFrame:frame];
+                [viewController.view setNeedsDisplay:YES];
+                [self.tasksView addSubview:viewController.view];
+                [newTaskControllers addObject:viewController];
             }
             i++;
         }
     });
 
-	[oldTaskViews removeObjectsInArray:newTaskViews];
+	[oldTaskControllers removeObjectsInArray:newTaskControllers];
 
-	[oldTaskViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-	[oldTaskViews makeObjectsPerformSelector:@selector(setTask:) withObject:nil];
-	[tasksView setNeedsDisplay:YES];
+	[[oldTaskControllers valueForKey:@"view"] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+	[oldTaskControllers makeObjectsPerformSelector:@selector(setTask:) withObject:nil];
+	[self.tasksView setNeedsDisplay:YES];
 
 	if ([[self window] isVisible] && [[NSUserDefaults standardUserDefaults] boolForKey:@"QSResizeTaskViewerAutomatically"]) {
 		[self resizeTableToFit];
@@ -168,15 +164,16 @@ static QSTaskViewer * _sharedInstance;
 }
 
 - (void)resizeTableToFit {
-	NSRect tableRect = [[tasksView enclosingScrollView] frame];
-	NSRect windowRect = [[tasksView window] frame];
+	NSRect tableRect = self.tasksView.enclosingScrollView.frame;
+	NSRect windowRect = self.window.frame;
 //	BOOL atBottom = NSMinY(windowRect) <= NSMinY([[[self window] screen] frame]);
-	CGFloat newHeight = -1+MAX([(NSArray *)[controller arrangedObjects] count] , 1) *55;
+    NSUInteger taskCount = [(NSArray *)self.controller.arrangedObjects count];
+	CGFloat newHeight = -1 + MAX(taskCount, 1) * 55;
 	CGFloat heightChange = newHeight-NSHeight(tableRect);
 	windowRect.size.height += heightChange;
 //	if (!atBottom)
 		windowRect.origin.y -= heightChange;
-	[[tasksView window] setFrame:constrainRectToRect(windowRect, [[[self window] screen] frame]) display:YES animate:YES];
+	[self.window setFrame:constrainRectToRect(windowRect, self.window.screen.frame) display:YES animate:YES];
 }
 
 - (NSArray *)tasks {

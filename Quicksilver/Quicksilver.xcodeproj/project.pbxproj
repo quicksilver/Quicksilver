@@ -313,8 +313,8 @@
 		7FF8BB3907B816A20088CEEF /* NSTask+BLTRExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF8BB3707B816A20088CEEF /* NSTask+BLTRExtensions.m */; };
 		7FFA83FD08124B5600A858CD /* QSSimpleNotifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FFA83FB08124B5600A858CD /* QSSimpleNotifier.h */; };
 		7FFA83FE08124B5600A858CD /* QSSimpleNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFA83FC08124B5600A858CD /* QSSimpleNotifier.m */; };
-		7FFF2D7A09383B8C008572B2 /* QSTaskView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FFF2D7809383B8C008572B2 /* QSTaskView.h */; };
-		7FFF2D7B09383B8C008572B2 /* QSTaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFF2D7909383B8C008572B2 /* QSTaskView.m */; };
+		7FFF2D7A09383B8C008572B2 /* QSTaskViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FFF2D7809383B8C008572B2 /* QSTaskViewController.h */; };
+		7FFF2D7B09383B8C008572B2 /* QSTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFF2D7909383B8C008572B2 /* QSTaskViewController.m */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		929052FA0D0FEAD600579DAE /* QSMiscFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 929052F80D0FEAD600579DAE /* QSMiscFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		929052FB0D0FEAD600579DAE /* QSMiscFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 929052F90D0FEAD600579DAE /* QSMiscFunctions.m */; };
@@ -445,7 +445,7 @@
 		E102F9CB06625D7400843027 /* QSFileSystemObjectSource.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98A06625D7300843027 /* QSFileSystemObjectSource.xib */; };
 		E102F9CD06625D7400843027 /* QuitConfirm.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98C06625D7300843027 /* QuitConfirm.xib */; };
 		E102F9CE06625D7400843027 /* ResultWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F98D06625D7300843027 /* ResultWindow.xib */; };
-		E102F9D106625D7400843027 /* QSTaskEntry.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F99006625D7400843027 /* QSTaskEntry.xib */; };
+		E102F9D106625D7400843027 /* QSTaskView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F99006625D7400843027 /* QSTaskView.xib */; };
 		E102F9D306625D7400843027 /* QSTriggersPrefPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F99206625D7400843027 /* QSTriggersPrefPane.xib */; };
 		E103ECF606471DBF00447FE0 /* DefaultMnemonics.plist in Resources */ = {isa = PBXBuildFile; fileRef = E103EC5606471DBE00447FE0 /* DefaultMnemonics.plist */; };
 		E103ED1A06471DBF00447FE0 /* FileTypeGroups.plist in Resources */ = {isa = PBXBuildFile; fileRef = E103EC8406471DBF00447FE0 /* FileTypeGroups.plist */; };
@@ -1382,8 +1382,8 @@
 		7FF8BB3707B816A20088CEEF /* NSTask+BLTRExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTask+BLTRExtensions.m"; sourceTree = "<group>"; usesTabs = 1; };
 		7FFA83FB08124B5600A858CD /* QSSimpleNotifier.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSSimpleNotifier.h; sourceTree = "<group>"; usesTabs = 1; };
 		7FFA83FC08124B5600A858CD /* QSSimpleNotifier.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSSimpleNotifier.m; sourceTree = "<group>"; usesTabs = 1; };
-		7FFF2D7809383B8C008572B2 /* QSTaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTaskView.h; sourceTree = "<group>"; usesTabs = 1; };
-		7FFF2D7909383B8C008572B2 /* QSTaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSTaskView.m; sourceTree = "<group>"; usesTabs = 1; };
+		7FFF2D7809383B8C008572B2 /* QSTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTaskViewController.h; sourceTree = "<group>"; usesTabs = 1; };
+		7FFF2D7909383B8C008572B2 /* QSTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSTaskViewController.m; sourceTree = "<group>"; usesTabs = 1; };
 		8D1107320486CEB800E47090 /* Quicksilver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quicksilver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		929052F80D0FEAD600579DAE /* QSMiscFunctions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = QSMiscFunctions.h; sourceTree = "<group>"; usesTabs = 1; };
 		929052F90D0FEAD600579DAE /* QSMiscFunctions.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = QSMiscFunctions.m; sourceTree = "<group>"; usesTabs = 1; };
@@ -1978,7 +1978,7 @@
 		E102F98A06625D7300843027 /* QSFileSystemObjectSource.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSFileSystemObjectSource.xib; sourceTree = "<group>"; };
 		E102F98C06625D7300843027 /* QuitConfirm.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuitConfirm.xib; sourceTree = "<group>"; };
 		E102F98D06625D7300843027 /* ResultWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultWindow.xib; sourceTree = "<group>"; };
-		E102F99006625D7400843027 /* QSTaskEntry.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSTaskEntry.xib; sourceTree = "<group>"; };
+		E102F99006625D7400843027 /* QSTaskView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSTaskView.xib; sourceTree = "<group>"; };
 		E102F99106625D7400843027 /* QSTaskViewer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSTaskViewer.xib; sourceTree = "<group>"; };
 		E102F99206625D7400843027 /* QSTriggersPrefPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSTriggersPrefPane.xib; sourceTree = "<group>"; };
 		E103EB8806471D5900447FE0 /* QSCore-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "QSCore-Info.plist"; sourceTree = "<group>"; };
@@ -2849,7 +2849,7 @@
 				E14B86910738158D003C1AED /* QSSearchPrefPane.xib */,
 				7F4E725409682F4200FBA4F7 /* QSSetupAssistant.xib */,
 				7F15A5F908F996D70058D25E /* QSSimpleNotifier.xib */,
-				E102F99006625D7400843027 /* QSTaskEntry.xib */,
+				E102F99006625D7400843027 /* QSTaskView.xib */,
 				E102F99106625D7400843027 /* QSTaskViewer.xib */,
 				E102F99206625D7400843027 /* QSTriggersPrefPane.xib */,
 				E102F98C06625D7300843027 /* QuitConfirm.xib */,
@@ -3103,8 +3103,8 @@
 				7FFA83FC08124B5600A858CD /* QSSimpleNotifier.m */,
 				7F73BD44084794CB00D01BDB /* QSSimpleWebWindowController.h */,
 				7F73BD45084794CB00D01BDB /* QSSimpleWebWindowController.m */,
-				7FFF2D7809383B8C008572B2 /* QSTaskView.h */,
-				7FFF2D7909383B8C008572B2 /* QSTaskView.m */,
+				7FFF2D7809383B8C008572B2 /* QSTaskViewController.h */,
+				7FFF2D7909383B8C008572B2 /* QSTaskViewController.m */,
 				E180020807B2BBB900010DB0 /* QSTaskViewer.h */,
 				E180020907B2BBB900010DB0 /* QSTaskViewer.m */,
 				7FE2EE8909FF0BD50046DBBF /* QSTitleToolbarItem.h */,
@@ -3568,7 +3568,7 @@
 				7F8C658308116FD10051113C /* QSAboutWindowController.h in Headers */,
 				7FFA83FD08124B5600A858CD /* QSSimpleNotifier.h in Headers */,
 				7F73BD46084794CB00D01BDB /* QSSimpleWebWindowController.h in Headers */,
-				7FFF2D7A09383B8C008572B2 /* QSTaskView.h in Headers */,
+				7FFF2D7A09383B8C008572B2 /* QSTaskViewController.h in Headers */,
 				7F0843CE098ACB2F00F136CC /* QSLog.h in Headers */,
 				7FE2EE8B09FF0BD50046DBBF /* QSTitleToolbarItem.h in Headers */,
 				7FDBC5010A02D93400E496FF /* QSAdvancedPrefPane.h in Headers */,
@@ -4353,7 +4353,7 @@
 				E14B86950738158D003C1AED /* QSSearchPrefPane.xib in Resources */,
 				7F4E725909682F4200FBA4F7 /* QSSetupAssistant.xib in Resources */,
 				7F15A5FA08F996D70058D25E /* QSSimpleNotifier.xib in Resources */,
-				E102F9D106625D7400843027 /* QSTaskEntry.xib in Resources */,
+				E102F9D106625D7400843027 /* QSTaskView.xib in Resources */,
 				7FF63D5207CC01E000A5EE4A /* QSTaskViewer.xib in Resources */,
 				E102F9D306625D7400843027 /* QSTriggersPrefPane.xib in Resources */,
 				E102F9CD06625D7400843027 /* QuitConfirm.xib in Resources */,
@@ -4673,7 +4673,7 @@
 				7F8C658408116FD10051113C /* QSAboutWindowController.m in Sources */,
 				7FFA83FE08124B5600A858CD /* QSSimpleNotifier.m in Sources */,
 				7F73BD47084794CB00D01BDB /* QSSimpleWebWindowController.m in Sources */,
-				7FFF2D7B09383B8C008572B2 /* QSTaskView.m in Sources */,
+				7FFF2D7B09383B8C008572B2 /* QSTaskViewController.m in Sources */,
 				7F0843CF098ACB2F00F136CC /* QSLog.m in Sources */,
 				7F9703E309AFEFCB00E9EA77 /* QSDropletApplication.m in Sources */,
 				7FE2EE8C09FF0BD50046DBBF /* QSTitleToolbarItem.m in Sources */,

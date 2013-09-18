@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1070</int>
-		<string key="IBDocument.SystemVersion">12E55</string>
-		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.39</string>
-		<string key="IBDocument.HIToolboxVersion">626.00</string>
+		<string key="IBDocument.SystemVersion">14D136</string>
+		<string key="IBDocument.InterfaceBuilderVersion">7706</string>
+		<string key="IBDocument.AppKitVersion">1347.57</string>
+		<string key="IBDocument.HIToolboxVersion">758.70</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">3084</string>
+			<string key="NS.object.0">7706</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSBox</string>
@@ -31,7 +31,7 @@
 		</object>
 		<array class="NSMutableArray" key="IBDocument.RootObjects" id="2695517">
 			<object class="NSCustomObject" id="57935378">
-				<string key="NSClassName">QSTask</string>
+				<string key="NSClassName">QSTaskViewController</string>
 			</object>
 			<object class="NSCustomObject" id="878990378">
 				<string key="NSClassName">FirstResponder</string>
@@ -40,7 +40,7 @@
 				<string key="NSClassName">NSApplication</string>
 			</object>
 			<object class="NSCustomView" id="362983574">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">266</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSButton" id="955894480">
@@ -48,7 +48,6 @@
 						<int key="NSvFlags">257</int>
 						<string key="NSFrame">{{216, 11}, {32, 31}}</string>
 						<reference key="NSSuperview" ref="362983574"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="487279297"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="990906380">
@@ -56,7 +55,7 @@
 							<int key="NSCellFlags2">134479872</int>
 							<string key="NSContents">×</string>
 							<object class="NSFont" key="NSSupport" id="26">
-								<string key="NSName">LucidaGrande</string>
+								<bool key="IBIsSystemFont">YES</bool>
 								<double key="NSSize">11</double>
 								<int key="NSfFlags">3100</int>
 							</object>
@@ -77,7 +76,6 @@
 						<int key="NSvFlags">1282</int>
 						<string key="NSFrame">{{50, 21}, {163, 12}}</string>
 						<reference key="NSSuperview" ref="362983574"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="401152879"/>
 						<int key="NSpiFlags">16652</int>
 						<double key="NSMaxValue">1</double>
@@ -95,7 +93,6 @@
 						</set>
 						<string key="NSFrame">{{9, 13}, {32, 32}}</string>
 						<reference key="NSSuperview" ref="362983574"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="389098472"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSImageCell" key="NSCell" id="303689466">
@@ -118,7 +115,6 @@
 						<int key="NSvFlags">258</int>
 						<string key="NSFrame">{{48, 36}, {156, 14}}</string>
 						<reference key="NSSuperview" ref="362983574"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="510947297"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="71648241">
@@ -142,21 +138,20 @@
 							</object>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
 					</object>
 					<object class="NSBox" id="487279297">
 						<reference key="NSNextResponder" ref="362983574"/>
 						<int key="NSvFlags">258</int>
 						<string key="NSFrame">{{0, -2}, {250, 5}}</string>
 						<reference key="NSSuperview" ref="362983574"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSOffsets">{0, 0}</string>
 						<object class="NSTextFieldCell" key="NSTitleCell">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">0</int>
 							<string key="NSContents">Box</string>
 							<object class="NSFont" key="NSSupport">
-								<string key="NSName">LucidaGrande</string>
+								<bool key="IBIsSystemFont">YES</bool>
 								<double key="NSSize">13</double>
 								<int key="NSfFlags">1044</int>
 							</object>
@@ -170,8 +165,13 @@
 								</object>
 							</object>
 							<object class="NSColor" key="NSTextColor">
-								<int key="NSColorSpace">3</int>
-								<bytes key="NSWhite">MCAwLjgwMDAwMDAxMTkAA</bytes>
+								<int key="NSColorSpace">6</int>
+								<string key="NSCatalogName">System</string>
+								<string key="NSColorName">labelColor</string>
+								<object class="NSColor" key="NSColor" id="998907256">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MAA</bytes>
+								</object>
 							</object>
 						</object>
 						<int key="NSBorderType">3</int>
@@ -184,7 +184,6 @@
 						<int key="NSvFlags">258</int>
 						<string key="NSFrame">{{48, 7}, {167, 11}}</string>
 						<reference key="NSSuperview" ref="362983574"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="955894480"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="629263460">
@@ -192,7 +191,7 @@
 							<int key="NSCellFlags2">272629760</int>
 							<string key="NSContents">Mini System Font Text</string>
 							<object class="NSFont" key="NSSupport">
-								<string key="NSName">LucidaGrande</string>
+								<bool key="IBIsSystemFont">YES</bool>
 								<double key="NSSize">9</double>
 								<int key="NSfFlags">3614</int>
 							</object>
@@ -206,33 +205,21 @@
 								<int key="NSColorSpace">6</int>
 								<string key="NSCatalogName">System</string>
 								<string key="NSColorName">controlTextColor</string>
-								<object class="NSColor" key="NSColor">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MAA</bytes>
-								</object>
+								<reference key="NSColor" ref="998907256"/>
 							</object>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
 					</object>
 				</array>
 				<string key="NSFrameSize">{250, 55}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="1014567612"/>
-				<string key="NSClassName">QSTaskView</string>
+				<string key="NSClassName">NSView</string>
 				<string key="NSExtension">NSView</string>
 			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
-			<array class="NSMutableArray" key="connectionRecords">
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">cancel:</string>
-						<reference key="source" ref="57935378"/>
-						<reference key="destination" ref="955894480"/>
-					</object>
-					<int key="connectionID">97</int>
-				</object>
+			<array key="connectionRecords">
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">view</string>
@@ -243,31 +230,31 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">progress</string>
-						<reference key="source" ref="362983574"/>
+						<string key="label">progressIndicator</string>
+						<reference key="source" ref="57935378"/>
 						<reference key="destination" ref="510947297"/>
 					</object>
-					<int key="connectionID">104</int>
+					<int key="connectionID">115</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">task</string>
-						<reference key="source" ref="362983574"/>
-						<reference key="destination" ref="57935378"/>
+					<object class="IBActionConnection" key="connection">
+						<string key="label">cancel:</string>
+						<reference key="source" ref="57935378"/>
+						<reference key="destination" ref="955894480"/>
 					</object>
-					<int key="connectionID">113</int>
+					<int key="connectionID">124</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">hidden: canBeCancelled</string>
+						<string key="label">hidden: task.canBeCancelled</string>
 						<reference key="source" ref="955894480"/>
 						<reference key="destination" ref="57935378"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="955894480"/>
 							<reference key="NSDestination" ref="57935378"/>
-							<string key="NSLabel">hidden: canBeCancelled</string>
+							<string key="NSLabel">hidden: task.canBeCancelled</string>
 							<string key="NSBinding">hidden</string>
-							<string key="NSKeyPath">canBeCancelled</string>
+							<string key="NSKeyPath">task.canBeCancelled</string>
 							<object class="NSDictionary" key="NSOptions">
 								<string key="NS.key.0">NSValueTransformerName</string>
 								<string key="NS.object.0">NSNegateBoolean</string>
@@ -275,104 +262,104 @@
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">103</int>
+					<int key="connectionID">123</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: progress</string>
+						<string key="label">animate: task.animateProgress</string>
 						<reference key="source" ref="510947297"/>
 						<reference key="destination" ref="57935378"/>
-						<object class="NSNibBindingConnector" key="connector">
+						<object class="NSNibBindingConnector" key="connector" id="695896609">
 							<reference key="NSSource" ref="510947297"/>
 							<reference key="NSDestination" ref="57935378"/>
-							<string key="NSLabel">value: progress</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">progress</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">89</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">animate: animateProgress</string>
-						<reference key="source" ref="510947297"/>
-						<reference key="destination" ref="57935378"/>
-						<object class="NSNibBindingConnector" key="connector" id="1069240276">
-							<reference key="NSSource" ref="510947297"/>
-							<reference key="NSDestination" ref="57935378"/>
-							<string key="NSLabel">animate: animateProgress</string>
+							<string key="NSLabel">animate: task.animateProgress</string>
 							<string key="NSBinding">animate</string>
-							<string key="NSKeyPath">animateProgress</string>
+							<string key="NSKeyPath">task.animateProgress</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">93</int>
+					<int key="connectionID">120</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">isIndeterminate: indeterminateProgress</string>
+						<string key="label">value: task.progress</string>
 						<reference key="source" ref="510947297"/>
 						<reference key="destination" ref="57935378"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="510947297"/>
 							<reference key="NSDestination" ref="57935378"/>
-							<string key="NSLabel">isIndeterminate: indeterminateProgress</string>
-							<string key="NSBinding">isIndeterminate</string>
-							<string key="NSKeyPath">indeterminateProgress</string>
-							<reference key="NSPreviousConnector" ref="1069240276"/>
+							<string key="NSLabel">value: task.progress</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">task.progress</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">95</int>
+					<int key="connectionID">122</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: icon</string>
+						<string key="label">isIndeterminate: task.indeterminateProgress</string>
+						<reference key="source" ref="510947297"/>
+						<reference key="destination" ref="57935378"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="510947297"/>
+							<reference key="NSDestination" ref="57935378"/>
+							<string key="NSLabel">isIndeterminate: task.indeterminateProgress</string>
+							<string key="NSBinding">isIndeterminate</string>
+							<string key="NSKeyPath">task.indeterminateProgress</string>
+							<reference key="NSPreviousConnector" ref="695896609"/>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">125</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: task.icon</string>
 						<reference key="source" ref="1014567612"/>
 						<reference key="destination" ref="57935378"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="1014567612"/>
 							<reference key="NSDestination" ref="57935378"/>
-							<string key="NSLabel">value: icon</string>
+							<string key="NSLabel">value: task.icon</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">icon</string>
+							<string key="NSKeyPath">task.icon</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">87</int>
+					<int key="connectionID">118</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: name</string>
+						<string key="label">value: task.name</string>
 						<reference key="source" ref="389098472"/>
 						<reference key="destination" ref="57935378"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="389098472"/>
 							<reference key="NSDestination" ref="57935378"/>
-							<string key="NSLabel">value: name</string>
+							<string key="NSLabel">value: task.name</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">name</string>
+							<string key="NSKeyPath">task.name</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">88</int>
+					<int key="connectionID">117</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: status</string>
+						<string key="label">value: task.status</string>
 						<reference key="source" ref="401152879"/>
 						<reference key="destination" ref="57935378"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="401152879"/>
 							<reference key="NSDestination" ref="57935378"/>
-							<string key="NSLabel">value: status</string>
+							<string key="NSLabel">value: task.status</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">status</string>
+							<string key="NSKeyPath">task.status</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">106</int>
+					<int key="connectionID">116</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -500,80 +487,19 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">113</int>
+			<int key="maxID">125</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">NSApplication</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">relaunch:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">relaunch:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">relaunch:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/NSApplication.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">QSTask</string>
-					<string key="superclassName">NSObject</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">cancel:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">cancel:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">cancel:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/QSTask.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">QSTaskView</string>
-					<string key="superclassName">NSView</string>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="progress">NSProgressIndicator</string>
-						<string key="task">QSTask</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="progress">
-							<string key="name">progress</string>
-							<string key="candidateClassName">NSProgressIndicator</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="task">
-							<string key="name">task</string>
-							<string key="candidateClassName">QSTask</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/QSTaskView.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
+		<bool key="IBDocument.previouslyAttemptedUpgradeToXcode5">NO</bool>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
 			<real value="1070" key="NS.object.0"/>
 		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.InterfaceBuilder3</string>
-			<real value="4500" key="NS.object.0"/>
+			<integer value="4600" key="NS.object.0"/>
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
