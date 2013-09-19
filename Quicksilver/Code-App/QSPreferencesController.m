@@ -108,7 +108,7 @@ id QSPrefs;
 }
 
 - (QSPreferencePane *)showPaneWithIdentifier:(NSString *)identifier {
-    runOnMainQueueSync(^{
+    QSGCDMainSync(^{
         [NSApp activateIgnoringOtherApps:YES];
         [self showWindow:nil];
         [self selectPaneWithIdentifier:identifier];
@@ -526,7 +526,7 @@ id QSPrefs;
     if (!htmlString) {
         return;
     }
-    runOnMainQueueSync(^{
+    QSGCDMainSync(^{
         // load the string relative to the resources folder (where the stylesheets are stored
         [[pluginHelpHTMLView mainFrame] loadHTMLString:htmlString baseURL:[[NSBundle mainBundle] resourceURL]];
     });
