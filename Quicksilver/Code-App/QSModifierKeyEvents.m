@@ -101,7 +101,7 @@ BOOL modifierEventsEnabled = YES;
 }
 
 - (void)disable {
-	[[[[QSModifierKeyEvent modifierKeyEvents] objectForKey:[NSNumber numberWithUnsignedInteger:keyCode]] retain] autorelease];
+	[[QSModifierKeyEvent modifierKeyEvents] objectForKey:[NSNumber numberWithUnsignedInteger:keyCode]];
 	[[QSModifierKeyEvent modifierKeyEvents] removeObjectForKey:[NSNumber numberWithUnsignedInteger:keyCode]];
 }
 

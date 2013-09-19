@@ -42,6 +42,11 @@ BOOL QSApplicationCompletedLaunch = NO;
         if (DEBUG_STARTUP) NSLog(@"App Initialize");
 #endif
 		
+        //    A value transformer for checking if a given value is '1'. Used in the QSSearchPrefPane (Caps lock menu item)
+        QSIntValueTransformer *intValueIsTwo = [[QSIntValueTransformer alloc] initWithInteger:2];
+        [NSValueTransformer setValueTransformer:intValueIsTwo forName:@"IntegerValueIsTwo"];
+
+        
         [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/QSDefaults.plist"]]];
         done = YES;
     }
