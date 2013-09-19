@@ -27,7 +27,6 @@
     NSImage *_icon;
     QSObjectSource *_source;
 
-	id parent;
 	NSMutableArray *_children;
     dispatch_queue_t scanQueue;
 	NSBundle *bundle;
@@ -78,7 +77,6 @@
 
     _name = nil;
     _indexDate = nil;
-    parent = nil;
     _children = [NSMutableArray array];
     _contents = nil;
     _info = [NSMutableDictionary dictionary];
