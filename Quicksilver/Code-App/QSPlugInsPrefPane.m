@@ -155,7 +155,7 @@
 			[self setPlugInName:defaultTitle];
 			htmlString = @"";
 		}
-        runOnMainQueueSync(^{
+        QSGCDMainSync(^{
             [[plugInText mainFrame] loadHTMLString:htmlString baseURL:[[NSBundle mainBundle] resourceURL]];
         });
 	}
