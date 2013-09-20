@@ -98,7 +98,10 @@ static NSMutableDictionary *tasksDictionary = nil;
 - (void)cancel:(id)sender {
 	if (cancelTarget) {
 		NSLog(@"Cancel Task: %@", self);
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 		[cancelTarget performSelector:cancelAction withObject:sender];
+#pragma clang diagnostic pop
 	}
 }
 
@@ -178,7 +181,7 @@ static NSMutableDictionary *tasksDictionary = nil;
 }
 
 - (void)setName:(NSString *)value {
-    runOnMainQueueSync(^{
+    QSGCDMainSync(^{
         if (name != value) {
             name = [value copy];
         }
@@ -190,7 +193,7 @@ static NSMutableDictionary *tasksDictionary = nil;
 }
 
 - (void)setStatus:(NSString *)value {
-    runOnMainQueueSync(^{
+    QSGCDMainSync(^{
         if (status != value) {
             status = [value copy];
         }
@@ -201,7 +204,7 @@ static NSMutableDictionary *tasksDictionary = nil;
 	return progress;
 }
 - (void)setProgress:(CGFloat)value {
-    runOnMainQueueSync(^{
+    QSGCDMainSync(^{
         if (progress != value) {
             progress = value;
         }
@@ -222,7 +225,7 @@ static NSMutableDictionary *tasksDictionary = nil;
 }
 
 - (void)setCancelAction:(SEL)value {
-    runOnMainQueueSync(^{
+    QSGCDMainSync(^{
         cancelAction = value;
     });
 }
@@ -258,7 +261,7 @@ static NSMutableDictionary *tasksDictionary = nil;
 }
 
 - (void)setIcon:(NSImage *)newIcon {
-    runOnMainQueueSync(^{
+    QSGCDMainSync(^{
         if (icon != newIcon) {
             icon = newIcon;
         }

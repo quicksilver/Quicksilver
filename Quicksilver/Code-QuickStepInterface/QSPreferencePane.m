@@ -93,19 +93,18 @@
 }
 
 - (NSView *)loadMainView {
-    runOnMainQueueSync(^{
-        //[[self mainNibBundle] loadNibFile:[self mainNibName]
-        //				  externalNameTable:[NSDictionary dictionaryWithObject:self forKey:@"NSOwner"]
-        //							withZone:[self zone]];
+    QSGCDMainSync(^{
         NSNib *nib = [[NSNib alloc] initWithNibNamed:[self mainNibName] bundle:[self mainNibBundle]];
         NSArray *objects = nil;
+
         [nib instantiateWithOwner:self topLevelObjects:&objects];
-        //NSLog(@"objects %@", objects);
-        //NSLog(@"window %@", _window);
+
         _mainView = [_window contentView];
         if (QSGetLocalizationStatus())
             [NTViewLocalizer localizeView:_mainView table:[self mainNibName] bundle:[self mainNibBundle]];
+
         _window = nil;
+
         [self mainViewDidLoad];
     });
     return _mainView;

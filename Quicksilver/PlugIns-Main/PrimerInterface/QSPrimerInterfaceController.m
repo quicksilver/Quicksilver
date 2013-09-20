@@ -184,8 +184,35 @@
 - (void)searchView:(QSSearchObjectView *)view changedResults:(NSArray *)array {
 	//	NSLog(@"string %@ %@", string, view);
 	NSInteger count = [array count];
-	NSString *string = [NSString stringWithFormat:@"%@ %@%@", count ? [[NSNumber numberWithInteger:count] description] : [@"No" description], view == aSelector?@"action":@"item", ESS(count)];
-	//if (!count) string = @"No items";
+    NSBundle *selfBundle = [NSBundle bundleForClass:[self class]];
+
+    NSString *string = nil;
+    if (view == aSelector) {
+        switch (count) {
+            case 0:
+                string = @"No actions";
+                break;
+            case 1:
+                string = @"1 action";
+                break;
+            default:
+                string = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"%lu actions", nil, selfBundle, @""), count];
+                break;
+        }
+    } else {
+        switch (count) {
+            case 0:
+                string = @"No items";
+                break;
+            case 1:
+                string = @"1 item";
+                break;
+            default:
+                string = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"%lu items", nil, selfBundle, @""), count];
+                break;
+        }
+    }
+
 	if (string) {
 		if (view == dSelector)
 			[dSearchCount setStringValue:string];

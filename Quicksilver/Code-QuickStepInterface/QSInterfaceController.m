@@ -158,28 +158,30 @@
 }
 
 - (void)showMainWindow:(id)sender {
-    runOnMainQueueSync(^{
+    QSGCDMainAsync(^{
         [[self window] makeKeyAndOrderFront:sender];
+        QSGCDQueueAsync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:kSuppressHotKeysInCommand]) {
+                CGSConnection conn = _CGSDefaultConnection();
+                CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyDisable);
+            }
+
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSSwitchKeyboardOnActivation"]) {
+                savedKeyboard = TISCopyCurrentKeyboardLayoutInputSource();
+                NSString *forcedKeyboardId = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSForcedKeyboardIDOnActivation"];
+                NSDictionary *filter = [NSDictionary dictionaryWithObject:forcedKeyboardId forKey:(NSString *)kTISPropertyInputSourceID];
+                CFArrayRef keyboards = TISCreateInputSourceList((__bridge CFDictionaryRef)filter, false);
+                if (keyboards) {
+                    TISInputSourceRef selected = (TISInputSourceRef)CFArrayGetValueAtIndex(keyboards, 0);
+                    TISSelectInputSource(selected);
+                    CFRelease(keyboards);
+                } else {
+                    // If previously selected keyboard is no longer available, turn off automatic switch
+                    [[NSUserDefaults standardUserDefaults] setBool:false forKey:@"QSSwitchKeyboardOnActivation"];
+                }
+            }
+        });
     });
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:kSuppressHotKeysInCommand]) {
-        CGSConnection conn = _CGSDefaultConnection();
-        CGSSetGlobalHotKeyOperatingMode(conn, CGSGlobalHotKeyDisable);
-    }
-    
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSSwitchKeyboardOnActivation"]) {
-        savedKeyboard = TISCopyCurrentKeyboardLayoutInputSource();
-        NSString *forcedKeyboardId = [[NSUserDefaults standardUserDefaults] objectForKey:@"QSForcedKeyboardIDOnActivation"];
-        NSDictionary *filter = [NSDictionary dictionaryWithObject:forcedKeyboardId forKey:(NSString *)kTISPropertyInputSourceID];
-        CFArrayRef keyboards = TISCreateInputSourceList((__bridge CFDictionaryRef)filter, false);
-        if (keyboards) {
-            TISInputSourceRef selected = (TISInputSourceRef)CFArrayGetValueAtIndex(keyboards, 0);
-            TISSelectInputSource(selected);
-            CFRelease(keyboards);
-        } else {
-            // If previously selected keyboard is no longer available, turn off automatic switch
-            [[NSUserDefaults standardUserDefaults] setBool:false forKey:@"QSSwitchKeyboardOnActivation"];
-        }
-    }
 }
 
 - (void)willHideMainWindow:(id)sender {
@@ -355,7 +357,7 @@
     // If the validIndirectObjectsForAction... method hasn't been implemented, attempt to get valid indirects from the action's 'indirectTypes'
     if(!indirects) {
         if ([aObj indirectTypes]) {
-            __weak NSMutableArray *indirectsForAllTypes = [[NSMutableArray alloc] initWithCapacity:0];
+            NSMutableArray *indirectsForAllTypes = [[NSMutableArray alloc] initWithCapacity:0];
             [[aObj indirectTypes] enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSString *eachType, NSUInteger idx, BOOL *stop) {
                 [indirectsForAllTypes addObjectsFromArray:[QSLib arrayForType:eachType]];
             }];
@@ -638,12 +640,12 @@
         [self hideMainWindowFromExecution:self]; // *** this should only hide if no result comes in like 2 seconds
     }
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:kExecuteInThread] && [action canThread]) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        QSGCDAsync(^{
             [self executeCommandThreaded];
         });
     } else {
         // action can only be run on main thread 
-        runOnMainQueueSync(^{
+        QSGCDMainSync(^{
             [self executeCommandThreaded];
         });
     }
