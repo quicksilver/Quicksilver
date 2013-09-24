@@ -128,6 +128,7 @@
 		4D66BC5E1487027E00351C42 /* NSURL+NDCarbonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D66BBF21486FFF000351C42 /* NSURL+NDCarbonUtilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4D6A663410AB2A2F00898CA4 /* QSTreeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 92D9C9680D134BDD00D91825 /* QSTreeController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D6D369F17E61F93007017A6 /* QSCatalogEntry_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D6D369E17E61F93007017A6 /* QSCatalogEntry_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4D7B9FA117F2040300A91F64 /* QSMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F1F0EBDDBA9005A15AE /* QSMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D7DF45416ADC7CA004BA4BE /* DefaultsMap.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D7DF45316ADC7CA004BA4BE /* DefaultsMap.plist */; };
 		4D7DF45716ADCDEF004BA4BE /* QSAdvancedPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D7DF45516ADCDEF004BA4BE /* QSAdvancedPrefPane.strings */; };
 		4D89177514758620009C1C14 /* QSMainMenuPrefPane.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D89177714758620009C1C14 /* QSMainMenuPrefPane.strings */; };
@@ -152,7 +153,6 @@
 		4DD89F240EBDDBA9005A15AE /* QSDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F1B0EBDDBA9005A15AE /* QSDebug.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD89F250EBDDBA9005A15AE /* QSDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F1C0EBDDBA9005A15AE /* QSDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD89F270EBDDBA9005A15AE /* QSKeys.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F1E0EBDDBA9005A15AE /* QSKeys.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4DD89F280EBDDBA9005A15AE /* QSMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F1F0EBDDBA9005A15AE /* QSMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD89F290EBDDBA9005A15AE /* QSNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F200EBDDBA9005A15AE /* QSNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD89F2A0EBDDBA9005A15AE /* QSPreferenceKeys.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F210EBDDBA9005A15AE /* QSPreferenceKeys.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DD89F2B0EBDDBA9005A15AE /* QSTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DD89F220EBDDBA9005A15AE /* QSTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3156,6 +3156,21 @@
 				CD4FA6E1157A13DE00E549BD /* QSHotKeyEvent.m */,
 				CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */,
 				CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */,
+				92D9C9680D134BDD00D91825 /* QSTreeController.h */,
+				92D9C9690D134BDD00D91825 /* QSTreeController.m */,
+				7F0843CC098ACB2F00F136CC /* QSLog.h */,
+				7F0843CD098ACB2F00F136CC /* QSLog.m */,
+				7F93148B07E8B626009B3C06 /* NSIndexSet+Extensions.h */,
+				7F943F6308033961007EDC31 /* QSUTI.h */,
+				7F943F6408033961007EDC31 /* QSUTI.m */,
+				4DD89F1F0EBDDBA9005A15AE /* QSMacros.h */,
+				7FDF342307F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.h */,
+				7FDF342407F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.m */,
+				7F93148C07E8B627009B3C06 /* NSIndexSet+Extensions.m */,
+				7FDF341607F7D59E00594789 /* NSDictionary+BLTRExtensions.h */,
+				7FDF341707F7D59E00594789 /* NSDictionary+BLTRExtensions.m */,
+				7FF8BB3607B816A20088CEEF /* NSTask+BLTRExtensions.h */,
+				7FF8BB3707B816A20088CEEF /* NSTask+BLTRExtensions.m */,
 				E1E5FA6E07B204BE0044D6EF /* NDAlias+QSMods.h */,
 				E1E5FA6F07B204BE0044D6EF /* NDAlias+QSMods.m */,
 				E1E5FA7007B204BE0044D6EF /* NDProcess+QSMods.h */,
@@ -3289,7 +3304,6 @@
 				E1E5FB8607B20DD10044D6EF /* QSLibrarian.m */,
 				E1E5FB8707B20DD10044D6EF /* QSLocalization.h */,
 				E1E5FB8807B20DD10044D6EF /* QSLocalization.m */,
-				4DD89F1F0EBDDBA9005A15AE /* QSMacros.h */,
 				929052F80D0FEAD600579DAE /* QSMiscFunctions.h */,
 				929052F90D0FEAD600579DAE /* QSMiscFunctions.m */,
 				E1E5FB8D07B20DD20044D6EF /* QSMnemonics.h */,
@@ -3572,7 +3586,6 @@
 				4DD89F270EBDDBA9005A15AE /* QSKeys.h in Headers */,
 				E1E5FBF207B20DD20044D6EF /* QSLibrarian.h in Headers */,
 				E1E5FBF407B20DD20044D6EF /* QSLocalization.h in Headers */,
-				4DD89F280EBDDBA9005A15AE /* QSMacros.h in Headers */,
 				929052FA0D0FEAD600579DAE /* QSMiscFunctions.h in Headers */,
 				E1E5FBFA07B20DD20044D6EF /* QSMnemonics.h in Headers */,
 				4DD89F290EBDDBA9005A15AE /* QSNotifications.h in Headers */,
@@ -3710,6 +3723,7 @@
 				CD14B79018D06604000FE86A /* QSThreadSafeMutableDictionary.h in Headers */,
 				2E34EDAA134C9F25005E66A1 /* QSLog.h in Headers */,
 				7FF447EA080479E200316DB6 /* QSLSTools.h in Headers */,
+				4D7B9FA117F2040300A91F64 /* QSMacros.h in Headers */,
 				CDCC201010A4C14B009C4EED /* QSMDPredicate.h in Headers */,
 				7F943F6508033961007EDC31 /* QSUTI.h in Headers */,
 				4D6A663410AB2A2F00898CA4 /* QSTreeController.h in Headers */,
