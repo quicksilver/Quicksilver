@@ -23,6 +23,7 @@
 #import "NTViewLocalizer.h"
 #import "NSString+NDCarbonUtilities.h"
 
+#import "QSMacros.h"
 #import "QSGCD.h"
 #import "QSThreadSafeMutableDictionary.h"
 #import "QSUTI.h"
