@@ -147,7 +147,6 @@
     
     mnem = [mnem lowercaseString];
 
-    [QSLib scoredArrayForString:mnem];
 	NSMutableDictionary *objectEntry;
 	if (!(objectEntry = [objectMnemonics objectForKey:key]) ) {
 		objectEntry = [NSMutableDictionary dictionaryWithCapacity:1];
