@@ -108,7 +108,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (IBAction)defineMnemonicImmediately:(id)sender {
 	if ([self matchedString])
-		[[QSMnemonics sharedInstance] addAbbrevMnemonic:[self matchedString] forID:[[self objectValue] identifier] immediately:YES];
+		[[QSMnemonics sharedInstance] addAbbrevMnemonic:[self matchedString] forObject:[self objectValue] immediately:YES];
 	[self rescoreSelectedItem];
 }
 
@@ -120,7 +120,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (IBAction)defineMnemonic:(id)sender {
 	if ([self matchedString])
-		[[QSMnemonics sharedInstance] addAbbrevMnemonic:[self matchedString] forID:[[self objectValue] identifier]];
+		[[QSMnemonics sharedInstance] addAbbrevMnemonic:[self matchedString] forObject:[self objectValue]];
 	[self rescoreSelectedItem];
 }
 
@@ -159,9 +159,9 @@ NSMutableDictionary *bindingsDict = nil;
 		mnemonicValue = [[[self objectValue] splitObjects] lastObject];
 	}
 
-	[[QSMnemonics sharedInstance] addObjectMnemonic:mnemonicKey forID:[mnemonicValue identifier]];
+	[[QSMnemonics sharedInstance] addObjectMnemonic:mnemonicKey forObject:mnemonicValue];
 	if (![self sourceArray]) { // don't add abbreviation if in a subsearch
-		[[QSMnemonics sharedInstance] addAbbrevMnemonic:mnemonicKey forID:[mnemonicValue identifier] relativeToID:nil immediately:NO];
+		[[QSMnemonics sharedInstance] addAbbrevMnemonic:mnemonicKey forObject:mnemonicValue relativeToID:nil immediately:NO];
 	}
 
 	[mnemonicValue updateMnemonics];
@@ -1128,11 +1128,23 @@ NSMutableDictionary *bindingsDict = nil;
 	} else {
 		[resultTimer invalidate];
 	}
-	[[self window] makeFirstResponder:[self actionSelector]];
+    
+    [[self actionSelector] setShouldResetSearchString:NO];
+    [[self window] makeFirstResponder:[self actionSelector]];
 	// ***warning  * toggle first responder on key up
     
 	[[self controller] fireActionUpdateTimer];
-	[[self actionSelector] keyDown:theEvent];
+    NSString *text = [theEvent charactersIgnoringModifiers];
+    if ([text isEqualToString:@" "]) {
+        NSInteger behavior = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSSearchSpaceBarBehavior"];
+        // only attempting to insert a space into the aSelector makes sense when using shifted keys.
+        // If anything but this is set as the default, then beep and say that the event *was* handled succesfully (eventhough it failed)
+        if (behavior != 1) {
+            NSBeep();
+            return YES;
+        }
+    }
+    [[self actionSelector] insertText:text];
 	return YES;
 }
 
@@ -1334,7 +1346,7 @@ NSMutableDictionary *bindingsDict = nil;
 		case 4: //Switch to text
 			[self transmogrify:sender];
 			break;
-		case 5: //Select next result
+		case 5: //Show child contents/
 			if ([[NSApp currentEvent] modifierFlags] & NSShiftKeyMask)
 				[self moveLeft:sender];
 			else
@@ -1511,6 +1523,9 @@ NSMutableDictionary *bindingsDict = nil;
 #pragma mark -
 #pragma mark NSTextInput Protocol
 - (void)insertText:(id)aString {
+    [self insertText:aString replacementRange:NSMakeRange(0,0)];
+}
+- (void)insertText:(id)aString replacementRange:(NSRange)replacementRange {
 	if (![partialString length]) {
 		[self updateHistory];
 		[self setSearchArray:sourceArray];

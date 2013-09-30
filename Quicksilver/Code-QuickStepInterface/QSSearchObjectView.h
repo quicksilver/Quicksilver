@@ -18,7 +18,7 @@ typedef enum QSSearchMode {
 } QSSearchMode;
 
 @class QSResultController;
-@interface QSSearchObjectView : QSObjectView <NSTextInput, NSTextViewDelegate> 
+@interface QSSearchObjectView : QSObjectView <NSTextInputClient, NSTextViewDelegate>
 {
     // the text mode text editor object
     NSTextView *textModeEditor;
