@@ -1731,9 +1731,7 @@ NSMutableDictionary *bindingsDict = nil;
         } else {
             parent = [newSelectedObject parent];
         }
-        
-        newSelectedObject = parent;
-        
+                
         // should show parent's level
         newSelectedObject = parent;
         if (newSelectedObject) {
