@@ -4,7 +4,6 @@
 
 #import "QSPreferenceKeys.h"
 #import "QSExecutor.h"
-#import "QSObjectRanker.h"
 #import "QSObject.h"
 #import "QSObject_PropertyList.h"
 
