@@ -1,4 +1,12 @@
+## Changes - 1.1.2 (4406) ##
+
+### Changed ###
+
+  * Correctly handle clipboard contents from 1Password 4 (#1632)
+
 ## Changes - 1.1.1 (4005) ##
+
+### Fixed ###
 
   * Remove the focus ring that appears in the main interface under 10.9 (#1579)
 
