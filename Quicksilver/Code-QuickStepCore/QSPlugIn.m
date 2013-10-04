@@ -633,6 +633,27 @@ NSMutableDictionary *plugInBundlePaths = nil;
 				return NO;
 			}
 		}
+        NSString *osRequired = [requirementsDict objectForKey:@"osRequired"];
+        if (osRequired) {
+            if ([[NSApplication macOSXFullVersion] compare:osRequired] == NSOrderedAscending) {
+                if (error) {
+                    NSString *localizedErrorFormat = NSLocalizedString(@"Requires Mac OS X %@ or later", nil);
+                    *error = [NSString stringWithFormat:localizedErrorFormat, osRequired];
+                }
+                return NO;
+            }
+        }
+        NSString *osUnsupported = [requirementsDict objectForKey:@"osUnsupported"];
+        if (osUnsupported) {
+            NSComparisonResult versionComparison = [[NSApplication macOSXFullVersion] compare:osUnsupported];
+            if (versionComparison == NSOrderedSame || versionComparison == NSOrderedDescending) {
+                if (error) {
+                    NSString *localizedErrorFormat = NSLocalizedString(@"Unsupported on Mac OS X %@ or later", nil);
+                    *error = [NSString stringWithFormat:localizedErrorFormat, osUnsupported];
+                }
+                return NO;
+            }
+        }
 	}
 	return YES;
 }
