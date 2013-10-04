@@ -97,7 +97,7 @@
         NSNib *nib = [[NSNib alloc] initWithNibNamed:[self mainNibName] bundle:[self mainNibBundle]];
         NSArray *objects = nil;
 
-        [nib instantiateWithOwner:self topLevelObjects:&objects];
+        [nib instantiateNibWithOwner:self topLevelObjects:&objects];
 
         _mainView = [_window contentView];
         if (QSGetLocalizationStatus())
