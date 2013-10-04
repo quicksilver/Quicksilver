@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		663E23DC153B176E00EB3CEE /* Upload Documentation */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 663E23DF153B178D00EB3CEE /* Build configuration list for PBXAggregateTarget "Upload Documentation" */;
+			buildPhases = (
+				663E2410153B268B00EB3CEE /* Prepare */,
+				663E2430153B2E1100EB3CEE /* Run Doxygen */,
+				663E23DB153B176E00EB3CEE /* Push Changes */,
+			);
+			dependencies = (
+			);
+			name = "Upload Documentation";
+			productName = "Upload Documentation";
+		};
 		66D11CE115022DCF002EE6E5 /* Run All Tests */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 66D11CF015022DF5002EE6E5 /* Build configuration list for PBXAggregateTarget "Run All Tests" */;
@@ -21,6 +34,18 @@
 			);
 			name = "Run All Tests";
 			productName = "Run All Tests";
+		};
+		66F10894153AE5480060E071 /* Build Documentation */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 66F10899153AE5510060E071 /* Build configuration list for PBXAggregateTarget "Build Documentation" */;
+			buildPhases = (
+				66F10893153AE5480060E071 /* Run Doxygen */,
+				663E23AD153B131C00EB3CEE /* Build and install Docset */,
+			);
+			dependencies = (
+			);
+			name = "Build Documentation";
+			productName = "Build Documentation";
 		};
 		7F039992080EE210001A9FA3 /* Quicksilver Distribution */ = {
 			isa = PBXAggregateTarget;
@@ -4135,6 +4160,8 @@
 				66D11C8A15022B08002EE6E5 /* QSInterfaceTests */,
 				66D11CB315022C82002EE6E5 /* QuicksilverTests */,
 				66D11CE115022DCF002EE6E5 /* Run All Tests */,
+				66F10894153AE5480060E071 /* Build Documentation */,
+				663E23DC153B176E00EB3CEE /* Upload Documentation */,
 			);
 		};
 /* End PBXProject section */
@@ -4419,6 +4446,62 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		663E23AD153B131C00EB3CEE /* Build and install Docset */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Build and install Docset";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "OUTPUT_PATH=\"$TARGET_BUILD_DIR/Docs\"\n\n#  make will invoke docsetutil. Take a look at the Makefile to see how this is done.\n\nmake -C \"$OUTPUT_PATH/Reference\" install\n\n#  Construct a temporary applescript file to tell Xcode to load a docset.\n\nrm -f \"$TEMP_DIR/loadDocSet.scpt\"\n\necho \"tell application \\\"Xcode\\\"\" >> \"$TEMP_DIR/loadDocSet.scpt\"\necho \"load documentation set with path \\\"/Users/$USER/Library/Developer/Shared/Documentation/DocSets/$COMPANY_RDOMAIN_PREFIX.$PRODUCT_NAME.docset\\\"\" >> \"$TEMP_DIR/loadDocSet.scpt\"\necho \"end tell\" >> \"$TEMP_DIR/loadDocSet.scpt\"\n\n#  Run the load-docset applescript command.\nosascript \"$TEMP_DIR/loadDocSet.scpt\"\n\nexit 0\n";
+		};
+		663E23DB153B176E00EB3CEE /* Push Changes */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Push Changes";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here\ncd $SOURCE_ROOT/../\nCURRENT_HEAD=`git rev-parse HEAD`\nCURRENT_BRANCH=`git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \\(.*\\)/\\1/'`\n\nif [ $CURRENT_BRANCH != master ] ; then\n\techo \"You can only push documentation of the master branch\"\n\texit 1\nfi\n\ncd $TARGET_BUILD_DIR/Docs/\ngit commit -am \"Updated reference up to commit $CURRENT_HEAD\"\n\ngit push origin gh-pages\n\nexit 0";
+		};
+		663E2410153B268B00EB3CEE /* Prepare */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Prepare;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "rm -rf $TARGET_BUILD_DIR/Docs/\ncp -vR $SOURCE_ROOT/../ $TARGET_BUILD_DIR/Docs/\ncd $TARGET_BUILD_DIR/Docs/\ngit co .\ngit co gh-pages\ngit clean -d -x -f";
+		};
+		663E2430153B2E1100EB3CEE /* Run Doxygen */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Doxygen";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SOURCE_ROOT/Tools/doxygen_build.sh\n\nexit 0";
+		};
 		66448D9414F42790000FA2E2 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4497,6 +4580,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		66F10893153AE5480060E071 /* Run Doxygen */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Doxygen";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SOURCE_ROOT/Tools/doxygen_build.sh BUILD_DOCSET\n\nexit 0";
 		};
 		7F0399E8080EE58D001A9FA3 /* Remove PlugIns */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -5870,6 +5967,27 @@
 			};
 			name = Release;
 		};
+		663E23DD153B176F00EB3CEE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Upload Documentation";
+			};
+			name = Debug;
+		};
+		663E23DE153B176F00EB3CEE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Upload Documentation";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		66448D9814F42791000FA2E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
@@ -6148,6 +6266,29 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				PRODUCT_NAME = "Run All Tests";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		66F10895153AE5480060E071 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMPANY_RDOMAIN_PREFIX = com.qsapp;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = Quicksilver;
+			};
+			name = Debug;
+		};
+		66F10896153AE5480060E071 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMPANY_RDOMAIN_PREFIX = com.qsapp;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = Quicksilver;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -6441,6 +6582,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
+		663E23DF153B178D00EB3CEE /* Build configuration list for PBXAggregateTarget "Upload Documentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				663E23DD153B176F00EB3CEE /* Debug */,
+				663E23DE153B176F00EB3CEE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		66448D9A14F42791000FA2E2 /* Build configuration list for PBXNativeTarget "QSFoundationTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -6491,6 +6641,15 @@
 			buildConfigurations = (
 				66D11CE215022DCF002EE6E5 /* Debug */,
 				66D11CE315022DCF002EE6E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		66F10899153AE5510060E071 /* Build configuration list for PBXAggregateTarget "Build Documentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				66F10895153AE5480060E071 /* Debug */,
+				66F10896153AE5480060E071 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
