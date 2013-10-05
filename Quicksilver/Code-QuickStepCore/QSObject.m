@@ -22,7 +22,7 @@
 #import "NSString_Purification.h"
 
 //static QSController *controller;
-static NSMutableDictionary *objectDictionary;
+static NSMapTable *objectDictionary;
 
 static NSMutableSet *iconLoadedSet;
 static NSMutableSet *childLoadedSet;
@@ -43,45 +43,15 @@ NSSize QSMaxIconSize;
 		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 		[nc addObserver:self selector:@selector(interfaceChanged) name:QSInterfaceChangedNotification object:nil];
 		[nc addObserver:self selector:@selector(purgeOldImagesAndChildren) name:QSReleaseOldCachesNotification object:nil];
-		[nc addObserver:self selector:@selector(cleanObjectDictionary) name:QSReleaseOldCachesNotification object:nil];
 		[nc addObserver:self selector:@selector(purgeAllImagesAndChildren) name:QSReleaseAllCachesNotification object:nil];
 
 	//	controller = [NSApp delegate];
 
-		objectDictionary = [[NSMutableDictionary alloc] init]; // initWithCapacity:100]; formerly for these three
+		objectDictionary = [NSMapTable mapTableWithKeyOptions:NSMapTableWeakMemory valueOptions:NSMapTableWeakMemory]; // initWithCapacity:100]; formerly for these three
 		iconLoadedSet = [[NSMutableSet alloc] init];
 		childLoadedSet = [[NSMutableSet alloc] init];
 		QSObjectInitialized = YES;
 	}
-}
-
-+ (void)cleanObjectDictionary {
-	QSObject *thisObject;
-    NSMutableArray *keysToDeleteFromObjectDict = nil;
-    @synchronized(objectDictionary) {
-        NSArray *keys = [objectDictionary allKeys];
-        if (!keys) {
-            // no objects to clean
-            return;
-        }
-        keysToDeleteFromObjectDict = [[NSMutableArray alloc] init];
-        for (NSString *thisKey in keys) {
-            thisObject = [objectDictionary objectForKey:thisKey];
-            /*
-            if ([thisObject retainCount] < 2) {
-                [keysToDeleteFromObjectDict addObject:thisKey];
-            } */
-            //NSLog(@"%d %@", [thisObject retainCount] , [thisObject name]);
-        }
-        [objectDictionary removeObjectsForKeys:keysToDeleteFromObjectDict];
-    }
-	
-#ifdef DEBUG
-	NSUInteger count = 0;
-    count = [keysToDeleteFromObjectDict count];
-	if (DEBUG_MEMORY && count)
-		NSLog(@"Released %lu objects", (unsigned long)count);
-#endif
 }
 
 + (void)purgeOldImagesAndChildren {[self purgeImagesAndChildrenOlderThan:1.0];}

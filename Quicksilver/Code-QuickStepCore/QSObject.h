@@ -90,7 +90,6 @@ typedef struct _QSObjectFlags {
 	NSTimeInterval			lastAccess;
 }
 + (void)initialize;
-+ (void)cleanObjectDictionary;
 + (void)purgeOldImagesAndChildren;
 + (void)purgeAllImagesAndChildren;
 + (void)purgeImagesAndChildrenOlderThan:(NSTimeInterval)interval;
