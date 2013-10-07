@@ -68,14 +68,10 @@ const short	kScriptResourceID = 128;
 - (ComponentInstance)instanceRecord;
 @end
 
-
-static unsigned long int numberOfTimesModified( OSAID aScriptID, ComponentInstance aComponentInstance );
 static BOOL isTypeCompiledScript( OSAID aScriptID, ComponentInstance aComponentInstance );
-static BOOL isTypeScriptValue( OSAID aScriptID, ComponentInstance aComponentInstance );
 static BOOL isTypeScriptContext( OSAID aScriptID, ComponentInstance aComponentInstance );
 static DescType bestType( OSAID aScriptID, ComponentInstance aComponentInstance );
 static BOOL canGetSource( OSAID aScriptID, ComponentInstance aComponentInstance );
-static BOOL hasOpenHandler( OSAID aScriptID, ComponentInstance aComponentInstance );
 static OSAID compileString(NSString * aString, long int aModeFlags, OSAID aScriptID, NDComponentInstance * aComp );
 static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptID, NDComponentInstance * aComp );
 
@@ -371,15 +367,6 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 {
 	long int		theResult;
 	return NDLogOSAError( OSAGetScriptInfo( [self instanceRecord], [self scriptID], kOSAScriptIsTypeScriptContext, &theResult)) && theResult != 0;
-}
-
-/*
-	- hasOpenHandler
- */
-- (BOOL)hasOpenHandler
-{
-	long int		theResult;
-	return NDLogOSAError( OSAGetScriptInfo( [self instanceRecord], [self scriptID], kASHasOpenHandler, &theResult)) && theResult != 0;
 }
 
 /*
@@ -1827,16 +1814,6 @@ static OSAID loadScriptData( NSData * aData, long int aModeFlags, OSAID aScriptI
 
 @end
 
-
-/*
- * kOSAScriptIsModified
- */
-static unsigned long int numberOfTimesModified( OSAID aScriptID, ComponentInstance aComponentInstance )
-{
-	long int		theResult;
-	return NDLogOSAError( OSAGetScriptInfo( aComponentInstance, aScriptID, kOSAScriptIsModified, &theResult)) ? theResult : 0;
-}
-
 /*
  * kOSAScriptIsTypeCompiledScript
  */
@@ -1844,15 +1821,6 @@ static BOOL isTypeCompiledScript( OSAID aScriptID, ComponentInstance aComponentI
 {
 	long int		theResult;
 	return NDLogOSAError( OSAGetScriptInfo( aComponentInstance, aScriptID, kOSAScriptIsTypeCompiledScript, &theResult)) && theResult != 0;
-}
-
-/*
- * kOSAScriptIsTypeScriptValue
- */
-static BOOL isTypeScriptValue( OSAID aScriptID, ComponentInstance aComponentInstance )
-{
-	long int		theResult;
-	return NDLogOSAError( OSAGetScriptInfo( aComponentInstance, aScriptID, kOSAScriptIsTypeScriptValue, &theResult)) && theResult != 0;
 }
 
 /*
@@ -1882,15 +1850,6 @@ static BOOL canGetSource( OSAID aScriptID, ComponentInstance aComponentInstance 
 {
 	long int		theResult;
 	return NDLogOSAError( OSAGetScriptInfo( aComponentInstance, aScriptID, kOSACanGetSource, &theResult)) && theResult != 0;
-}
-
-/*
- * kASHasOpenHandler
- */
-static BOOL hasOpenHandler( OSAID aScriptID, ComponentInstance aComponentInstance )
-{
-	long int		theResult;
-	return NDLogOSAError( OSAGetScriptInfo( aComponentInstance, aScriptID, kASHasOpenHandler, &theResult)) && theResult != 0;
 }
 
 /*

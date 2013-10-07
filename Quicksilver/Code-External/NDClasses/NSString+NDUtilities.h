@@ -162,25 +162,6 @@
 - (unsigned int)indexOfCharacter:(unichar)character;
 
 /*!
-	@method containsCharacter:
-	@abstract Test if a string contains a character.
-	@discussion Returns <tt>YES</tt> if the receiver contains the character <tt><i>character</i></tt>, otherwise returns <tt>NO</tt>.
-	@param character The character to look for.
-	@result Returns <tt>YES</tt> if the receiver contains the character.
- */
-- (BOOL)containsCharacter:(unichar)character;
-
-/*!
-	@method containsCharacter:range:
-	@abstract Test if a string contains a character.
-	@discussion Returns <tt>YES</tt> if the receiver contains the character <tt><i>character</i></tt> within the range <tt><i>range</i></tt>, otherwise returns <tt>NO</tt>.
-	@param character The character to look for.
-	@param range The range to limit the search to.
-	@result Returns <tt>YES</tt> if the receiver contains the character.
- */
-- (BOOL)containsCharacter:(unichar)character range:(NSRange)range;
-
-/*!
 	@method containsAnyCharacterFromSet:
 	@abstract Test if a string contains a character from a set.
 	@discussion Returns <tt>YES</tt> if the receiver contains any character within <tt><i>set</i></tt>, otherwise returns <tt>NO</tt>.
