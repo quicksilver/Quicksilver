@@ -30,7 +30,8 @@
 #define NSLocalizedStringWithDefaultValue(key, tbl, bundle, val, comment) \
 [bundle safeLocalizedStringForKey:(key) value:(val) table:(tbl)]
 
-
+#define NSLocalizedStringForThisBundle(key, comment) \
+[[NSBundle bundleForClass:[self class]] safeLocalizedStringForKey:(key) value:(key) table:(nil)]
 
 @interface NSBundle (BLTRExtensions)
 - (id)imageNamed:(NSString *)name;
