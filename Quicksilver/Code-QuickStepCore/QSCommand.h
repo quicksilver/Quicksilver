@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 #import <QSCore/QSObject.h>
-
+#import <QSCore/QSProxyObject.h>
 @class QSAction;
 
 @interface QSCommandObjectHandler : NSObject

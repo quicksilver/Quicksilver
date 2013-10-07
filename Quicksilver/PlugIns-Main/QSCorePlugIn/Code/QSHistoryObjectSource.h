@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface QSHistoryObjectSource : NSObject {
+@interface QSHistoryObjectSource : NSObject <QSProxyObjectProvider> {
 
 }
 

@@ -8,7 +8,7 @@
 #define kFinderOpenTrashAction @"FinderOpenTrashAction"
 #define kFinderEmptyTrashAction @"FinderEmptyTrashAction"
 
-@interface QSFinderProxy : NSObject <QSFSBrowserMediator> {
+@interface QSFinderProxy : NSObject <QSFSBrowserMediator, QSProxyObjectProvider> {
 NSAppleScript *finderScript;
 }
 + (id)sharedInstance;
