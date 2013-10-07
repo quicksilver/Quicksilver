@@ -1,3 +1,20 @@
+## Changes - 1.1.2 (4006) ##
+
+### Changed ###
+
+  * Correctly handle clipboard contents from 1Password 4 (#1632)
+
+## Changes - 1.1.1 (4005) ##
+
+### Fixed ###
+
+  * Remove the focus ring that appears in the main interface under 10.9 (#1579)
+
+### Development ###
+
+  * Add a method to test for Mavericks (#1591)
+  * Allow plug-ins to define which OS version is required and which is unsupported (#1629)
+
 ## Changes - 1.1.0 (4004) ##
 
 This release requires 10.7+ and is 64-bit.
