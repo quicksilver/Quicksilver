@@ -19,7 +19,7 @@
 
 @implementation QSPluginUpdaterWindowController
 
-@synthesize pluginTableView, pluginsArray;
+@synthesize pluginTableView, pluginsArray, numberOfPluginsToInstall = _numberOfPluginsToInstall ;
 
 - (id)initWithPlugins:(NSArray *)newPluginsArray
 {
@@ -27,7 +27,7 @@
     if (self) {
         pluginsArray = newPluginsArray;
         // all plugins are checked to install by default
-        numberOfPluginsToInstall = [pluginsArray count];
+        _numberOfPluginsToInstall = [pluginsArray count];
         pluginsToInstall = nil;
     }
     return self;
@@ -60,6 +60,16 @@
     pluginsToInstall = nil;
 }
 
+- (void)setNumberOfPluginsToInstall:(NSUInteger)numberOfPluginsToInstall {
+    [self willChangeValueForKey:@"numberOfPluginsToInstall"];
+    _numberOfPluginsToInstall = numberOfPluginsToInstall;
+    [self didChangeValueForKey:@"numberOfPluginsToInstall"];
+}
+
+- (NSUInteger)numberOfPluginsToInstall {
+    return _numberOfPluginsToInstall;
+}
+
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     return [pluginsArray count];
 }
@@ -88,8 +98,8 @@
 
 -(IBAction)install:(id)sender {
     [self close];
-    if (numberOfPluginsToInstall > 0) {
-        pluginsToInstall = [NSMutableArray arrayWithCapacity:numberOfPluginsToInstall];
+    if (self.numberOfPluginsToInstall > 0) {
+        pluginsToInstall = [NSMutableArray arrayWithCapacity:self.numberOfPluginsToInstall];
         // generate an array of plugin IDs to install
         [pluginsArray enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
             if ([obj objectForKey:@"shouldInstall"] == nil || [[obj objectForKey:@"shouldInstall"] integerValue] == NSOnState) {
@@ -136,10 +146,10 @@
 -(IBAction)toggleInstallPlugin:(NSButton *)sender {
     NSInteger row = [pluginTableView rowForView:sender];
     [[pluginsArray objectAtIndex:row] setObject:[NSNumber numberWithInteger:[sender state]] forKey:@"shouldInstall"];
-    numberOfPluginsToInstall = numberOfPluginsToInstall + ([sender state] == NSOffState ? -1 : 1);
+    [self setNumberOfPluginsToInstall:self.numberOfPluginsToInstall + ([sender state] == NSOffState ? -1 : 1)];
     
     // disable the install button if no plugins are checked to install
-    if (numberOfPluginsToInstall == 0) {
+    if (self.numberOfPluginsToInstall == 0) {
         [installButton setTitle:NSLocalizedString(@"Skip Updates", @"Title of the button for 'skipping' plugin updates")];
     } else {
         [installButton setTitle:NSLocalizedString(@"Install Selected", @"Title of the button used for installing the selected plugins in the plugin updater")];
