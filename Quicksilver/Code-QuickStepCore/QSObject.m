@@ -1,35 +1,11 @@
 #import "QSObject.h"
-#import "QSObject_Pasteboard.h"
-#import "QSObject_FileHandling.h"
-
-#import "QSObject_PropertyList.h"
 #import "QSLibrarian.h"
-#import "QSController.h"
-
-#import "QSStringRanker.h"
-#import "QSNotifications.h"
-//#import "QSFaviconManager.h"
-#import "QSResourceManager.h"
-#import "QSTypes.h"
-#import "QSRegistry.h"
-#import "QSInterfaceController.h"
 #import "QSDebug.h"
 
-#import "QSPreferenceKeys.h"
-
-#import "QSMnemonics.h"
-
-#import "NSString_Purification.h"
-
-//static QSController *controller;
 static NSMutableDictionary *objectDictionary;
 
 static NSMutableSet *iconLoadedSet;
 static NSMutableSet *childLoadedSet;
-
-//static NSMutableDictionary *mainChildrenDictionary;
-//static NSMutableDictionary *altChildrenDictionary;
-
 static NSTimeInterval globalLastAccess;
 
 BOOL QSObjectInitialized = NO;
