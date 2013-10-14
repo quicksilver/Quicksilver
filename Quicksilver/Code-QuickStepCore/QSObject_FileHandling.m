@@ -626,7 +626,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		} else {
 			[[self dataDictionary] setObject:paths forKey:QSFilePathType];
 		}
-		[QSObject registerObject:self withIdentifier:thisIdentifier];
+		[self setIdentifier:thisIdentifier];
 		[self setPrimaryType:QSFilePathType];
 		[self getNameFromFiles];
 	}
