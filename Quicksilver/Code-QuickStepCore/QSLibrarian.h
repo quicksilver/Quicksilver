@@ -46,6 +46,8 @@ extern QSLibrarian *QSLib; // Shared Instance
     BOOL catalogLoaded;
 }
 
+@property NSMutableDictionary *objectDictionary;
+
 + (id)sharedInstance;
 + (void)removeIndexes;
 
@@ -68,6 +70,9 @@ extern QSLibrarian *QSLib; // Shared Instance
 - (BOOL)loadCatalogArrays;
 //- (BOOL)loadIndexesForEntries:(NSArray *)theEntries;
 - (void)recalculateTypeArraysForItem:(QSCatalogEntry *)entry;
+- (QSObject *)objectWithIdentifier:(NSString *)ident;
+- (void)setIdentifier:(NSString *)ident forObject:(QSObject *)obj;
+- (void)removeObjectWithIdentifier:(NSString *)ident;
 - (NSArray *)arrayForType:(NSString *)string;
 - (NSArray *)scoredArrayForType:(NSString *)string;
 - (NSDictionary *)typeArraysFromArray:(NSArray *)array;

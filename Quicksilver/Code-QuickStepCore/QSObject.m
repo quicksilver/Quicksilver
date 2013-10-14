@@ -2,8 +2,6 @@
 #import "QSLibrarian.h"
 #import "QSDebug.h"
 
-static NSMutableDictionary *objectDictionary;
-
 static NSMutableSet *iconLoadedSet;
 static NSMutableSet *childLoadedSet;
 static NSTimeInterval globalLastAccess;
@@ -19,45 +17,14 @@ NSSize QSMaxIconSize;
 		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 		[nc addObserver:self selector:@selector(interfaceChanged) name:QSInterfaceChangedNotification object:nil];
 		[nc addObserver:self selector:@selector(purgeOldImagesAndChildren) name:QSReleaseOldCachesNotification object:nil];
-		[nc addObserver:self selector:@selector(cleanObjectDictionary) name:QSReleaseOldCachesNotification object:nil];
 		[nc addObserver:self selector:@selector(purgeAllImagesAndChildren) name:QSReleaseAllCachesNotification object:nil];
 
 	//	controller = [NSApp delegate];
 
-		objectDictionary = [[NSMutableDictionary alloc] init]; // initWithCapacity:100]; formerly for these three
 		iconLoadedSet = [[NSMutableSet alloc] init];
 		childLoadedSet = [[NSMutableSet alloc] init];
 		QSObjectInitialized = YES;
 	}
-}
-
-+ (void)cleanObjectDictionary {
-	QSObject *thisObject;
-    NSMutableArray *keysToDeleteFromObjectDict = nil;
-    @synchronized(objectDictionary) {
-        NSArray *keys = [objectDictionary allKeys];
-        if (!keys) {
-            // no objects to clean
-            return;
-        }
-        keysToDeleteFromObjectDict = [[NSMutableArray alloc] init];
-        for (NSString *thisKey in keys) {
-            thisObject = [objectDictionary objectForKey:thisKey];
-            /*
-            if ([thisObject retainCount] < 2) {
-                [keysToDeleteFromObjectDict addObject:thisKey];
-            } */
-            //NSLog(@"%d %@", [thisObject retainCount] , [thisObject name]);
-        }
-        [objectDictionary removeObjectsForKeys:keysToDeleteFromObjectDict];
-    }
-	
-#ifdef DEBUG
-	NSUInteger count = 0;
-    count = [keysToDeleteFromObjectDict count];
-	if (DEBUG_MEMORY && count)
-		NSLog(@"Released %lu objects", (unsigned long)count);
-#endif
 }
 
 + (void)purgeOldImagesAndChildren {[self purgeImagesAndChildrenOlderThan:1.0];}
@@ -107,27 +74,10 @@ NSSize QSMaxIconSize;
 
 }
 
-+ (void)purgeIdentifiers {
-    @synchronized(objectDictionary) {
-        [objectDictionary removeAllObjects];
-    }
-}
-
 + (void)interfaceChanged {
 	//QSMaxIconSize = [(QSInterfaceController *)[[NSApp delegate] interfaceController] maxIconSize];
 	[self purgeAllImagesAndChildren];
 	// if (VERBOSE) NSLog(@"newsize %f", QSMaxIconSize.width);
-}
-
-+ (void)registerObject:(QSBasicObject *)object withIdentifier:(NSString *)anIdentifier {
-    if (object && anIdentifier) {
-        @synchronized(objectDictionary) {
-            if ([objectDictionary objectForKey:anIdentifier] != object) {
-                [objectDictionary setObject:object forKey:anIdentifier];
-            }
-        }
-    }
-    //		NSLog(@"setobj:%@", [objectDictionary objectForKey:anIdentifier]);
 }
 
 - (id)init {
@@ -166,18 +116,13 @@ NSSize QSMaxIconSize;
 }
 
 + (id)makeObjectWithIdentifier:(NSString *)anIdentifier {
-	id object = [self objectWithIdentifier:anIdentifier];
-
-	if (!object) {
-		object = [[self alloc] init];
-		[object setIdentifier:anIdentifier];
-	}
-	return object;
+    QSObject *object = [[QSObject alloc] init];
+    [object setIdentifier:anIdentifier];
+    return object;
 }
 
 + (id)objectWithIdentifier:(NSString *)anIdentifier {
-//	NSLog(@"gotobj:%@ %@ %d", [objectDictionary objectForKey:anIdentifier] , anIdentifier, [objectDictionary count]);
-	return [objectDictionary objectForKey:anIdentifier];
+	return [QSLib objectWithIdentifier:anIdentifier];
 }
 
 + (id)objectByMergingObjects:(NSArray *)objects withObject:(QSObject *)object {
@@ -593,7 +538,7 @@ NSSize QSMaxIconSize;
 		parent = [handler parentOfObject:self];
 
 	if (!parent)
-		parent = [objectDictionary objectForKey:[meta objectForKey:kQSObjectParentID]];
+		parent = [QSLib objectWithIdentifier:[meta objectForKey:kQSObjectParentID]];
 	return parent;
 }
 
@@ -689,8 +634,8 @@ NSSize QSMaxIconSize;
     @synchronized(self) {
         if (identifier != nil && newIdentifier != nil) {
             if(![identifier isEqualToString:newIdentifier]) {
-                [objectDictionary setObject:self forKey:newIdentifier];
-                [objectDictionary removeObjectForKey:identifier];
+                [QSLib removeObjectWithIdentifier:identifier];
+                [QSLib setIdentifier:newIdentifier forObject:self];
                 [meta setObject:newIdentifier forKey:kQSObjectObjectID];
                 flags.noIdentifier = NO;
                 identifier = newIdentifier;
@@ -699,11 +644,12 @@ NSSize QSMaxIconSize;
         else if (newIdentifier == nil) {
             flags.noIdentifier = YES;
             [meta removeObjectForKey:kQSObjectObjectID];
+            [QSLib removeObjectWithIdentifier:identifier];
             identifier = nil;
         } else if (identifier == nil) {
             flags.noIdentifier = NO;
             if (add) {
-                [objectDictionary setObject:self forKey:newIdentifier];
+                [QSLib setIdentifier:newIdentifier forObject:self];
             }
             [meta setObject:newIdentifier forKey:kQSObjectObjectID];
             identifier = newIdentifier;
@@ -917,12 +863,13 @@ NSSize QSMaxIconSize;
 }
 
 - (id)findDuplicateOrRegisterID {
-	id dup = [QSObject objectWithIdentifier:[self identifier]];
+	id dup = [QSLib objectWithIdentifier:[self identifier]];
 	if (dup) {
 		return dup;
 	}
-	if ([self identifier])
-		[QSObject registerObject:self withIdentifier:[self identifier]];
+	if ([self identifier] && [QSLib objectWithIdentifier:[self identifier]] != self) {
+		[QSLib setIdentifier:[self identifier] forObject:self];
+    }
 	return nil;
 }
 

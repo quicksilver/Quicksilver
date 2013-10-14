@@ -59,7 +59,7 @@ static CGFloat searchSpeed = 0.0;
 		}
 		[QSLibrarian createDirectories];
 		enabledPresetsDictionary = [[NSMutableDictionary alloc] init];
-        defaultSearchSet = [[NSMutableSet alloc] init];
+        _objectDictionary = [[NSMutableDictionary alloc] init];
         
 		scanTask = [QSTask taskWithIdentifier:@"QSLibrarianScanTask"];
 		[scanTask setName:@"Updating Catalog"];
@@ -309,23 +309,23 @@ static CGFloat searchSpeed = 0.0;
 
 
 - (void)reloadSets:(NSNotification *)notif {
-	NSMutableSet *newDefaultSet = [NSMutableSet setWithCapacity:1];
+    [self.objectDictionary removeAllObjects];
 	//NSLog(@"cat %@ %@", catalog, [catalog leafEntries]);
     for(QSCatalogEntry * entry in [catalog leafEntries]) {
         NSArray *entryContents = [[entry contents] copy];
-        if ([entryContents count]) {
-            [newDefaultSet addObjectsFromArray:entryContents];
+        for (QSObject *obj in entryContents) {
+            if ([obj identifier]) {
+                [self.objectDictionary setObject:obj forKey:[obj identifier]];
+            } else {
+                NSString *ident = [NSString stringWithFormat:@"QSID:%@:%@", [entry identifier], [obj displayName]];
+                [obj setIdentifier:ident];
+            }
         }
     }
-
-	//NSLog(@"%@", newDefaultSet);
-    [self setDefaultSearchSet:newDefaultSet];
-	//NSLog(@"Total %4d items in search set", [newDefaultSet count]);
-	//	NSLog(@"Rebuilt Default Set in %f seconds", -[date timeIntervalSinceNow]);
-	if ([notif object])
+	if ([notif object]) {
 		[self recalculateTypeArraysForItem:[notif object]];
+    }
 }
-
 
 - (QSCatalogEntry *)entryForID:(NSString *)theID {
 	QSCatalogEntry *entry = [entriesByID objectForKey:theID];
@@ -452,6 +452,28 @@ static CGFloat searchSpeed = 0.0;
 
 }
 
+- (QSObject *)objectWithIdentifier:(NSString *)ident
+{
+    return [self.objectDictionary objectForKey:ident];
+}
+
+- (void)setIdentifier:(NSString *)ident forObject:(QSObject *)obj
+{
+    if (ident) {
+        @synchronized (self.objectDictionary) {
+            [self.objectDictionary setObject:obj forKey:ident];
+        }
+    }
+}
+
+- (void)removeObjectWithIdentifier:(NSString *)ident
+{
+    if (ident) {
+        @synchronized (self.objectDictionary) {
+            [self.objectDictionary removeObjectForKey:ident];
+        }
+    }
+}
 
 - (NSArray *)arrayForType:(NSString *)string {
 	NSMutableSet *typeSet = [NSMutableSet setWithCapacity:1];
@@ -568,7 +590,7 @@ static CGFloat searchSpeed = 0.0;
 
 #ifdef DEBUG
 - (CGFloat) estimatedTimeForSearchInSet:(NSArray *)set {
-	CGFloat estimate = (set ? [set count] : [defaultSearchSet count]) * searchSpeed;
+	CGFloat estimate = (set ? [set count] : [self.objectDictionary count]) * searchSpeed;
 	if (VERBOSE)
         NSLog(@"Estimate: %fms avg: %ldµs", estimate * 1000, (long)(searchSpeed * 1000000));
 	return MIN(estimate, 0.5);
@@ -618,7 +640,7 @@ static CGFloat searchSpeed = 0.0;
 - (NSMutableArray *)scoredArrayForString:(NSString *)searchString inSet:(NSArray *)set mnemonicsOnly:(BOOL)mnemonicsOnly {
     BOOL includeOmitted = NO;
     if (!set) {
-        set = [defaultSearchSet allObjects];
+        set = [self.objectDictionary allValues];
     } else {
         includeOmitted = YES;
     }

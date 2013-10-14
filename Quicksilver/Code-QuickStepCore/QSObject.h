@@ -90,17 +90,13 @@ typedef struct _QSObjectFlags {
 	NSTimeInterval			lastAccess;
 }
 + (void)initialize;
-+ (void)cleanObjectDictionary;
 + (void)purgeOldImagesAndChildren;
 + (void)purgeAllImagesAndChildren;
 + (void)purgeImagesAndChildrenOlderThan:(NSTimeInterval)interval;
-+ (void)purgeIdentifiers;
 + (void)interfaceChanged;
 
-+ (void)registerObject:(QSBasicObject *)object withIdentifier:(NSString *)anIdentifier;
-
 + (id)objectWithName:(NSString *)aName;
-+ (id)objectWithIdentifier:(NSString *)anIdentifier;
++ (id)objectWithIdentifier:(NSString *)anIdentifier __attribute__((deprecated));
 + (id)makeObjectWithIdentifier:(NSString *)anIdentifier;
 + (id)objectByMergingObjects:(NSArray *)objects;
 + (id)objectByMergingObjects:(NSArray *)objects withObject:(QSObject *)object;
