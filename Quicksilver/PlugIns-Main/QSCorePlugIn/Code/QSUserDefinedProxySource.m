@@ -59,7 +59,7 @@
 {
     NSDictionary *settings = [theEntry objectForKey:kItemSettings];
     NSString *targetID = [settings objectForKey:@"target"];
-    QSObject *target = [QSObject objectWithIdentifier:targetID];
+    QSObject *target = [QSLib objectWithIdentifier:targetID];
     if (target) {
         [target loadIcon];
         return [target icon];
@@ -72,7 +72,7 @@
 - (QSObject *)resolveProxyObject:(QSProxyObject *)proxy
 {
     NSString *targetID = [proxy objectForMeta:@"target"];
-    QSObject *target = [QSObject objectWithIdentifier:targetID];
+    QSObject *target = [QSLib objectWithIdentifier:targetID];
     if (target) {
         return target;
     } else {
@@ -90,7 +90,7 @@
 - (NSArray *)typesForProxyObject:(QSProxyObject *)proxy
 {
     NSString *targetID = [proxy objectForMeta:@"target"];
-    QSObject *target = [QSObject objectWithIdentifier:targetID];
+    QSObject *target = [QSLib objectWithIdentifier:targetID];
     if (target) {
         return [target types];
     }
@@ -100,7 +100,7 @@
 - (NSString *)detailsOfObject:(QSObject *)object
 {
     NSString *targetID = [object objectForMeta:@"target"];
-    QSObject *target = [QSObject objectWithIdentifier:targetID];
+    QSObject *target = [QSLib objectWithIdentifier:targetID];
     if (target) {
         NSString *localizedDetails = NSLocalizedStringFromTableInBundle(@"Synonym for %@", nil, [NSBundle bundleForClass:[self class]], nil);
         return [NSString stringWithFormat:localizedDetails, [target displayName]];
@@ -115,7 +115,7 @@
     // make this object act as much like the target as possible
     // (show the target's children instead of the target)
     NSString *targetID = [proxy objectForMeta:@"target"];
-    QSObject *target = [QSObject objectWithIdentifier:targetID];
+    QSObject *target = [QSLib objectWithIdentifier:targetID];
     if (target) {
         [proxy setChildren:[target children]];
         [proxy setAltChildren:[target altChildren]];
@@ -145,7 +145,7 @@
     NSString *name = [settings objectForKey:@"name"];
     [synonymName setStringValue:name?name:@""];
     NSString *targetID = [settings objectForKey:@"target"];
-    QSObject *target = [QSObject objectWithIdentifier:targetID];
+    QSObject *target = [QSLib objectWithIdentifier:targetID];
     if (target) {
         [targetIcon setImage:[target icon]];
         [targetLabel setStringValue:[target displayName]];
@@ -165,7 +165,7 @@
     [targetPickerController setEntrySource:self];
     NSDictionary *settings = [[self currentEntry] objectForKey:kItemSettings];
     NSString *targetID = [settings objectForKey:@"target"];
-    QSObject *target = [QSObject objectWithIdentifier:targetID];
+    QSObject *target = [QSLib objectWithIdentifier:targetID];
     [[targetPickerWindow searchObjView] selectObjectValue:target];
     
     // Convert the sender (NSButton)'s rect to screen co-ords
@@ -189,7 +189,7 @@
     if (!target) {
         // refer to the established target if a new one wasn't set
         NSString *targetID = [settings objectForKey:@"target"];
-        target = [QSObject objectWithIdentifier:targetID];
+        target = [QSLib objectWithIdentifier:targetID];
     }
     NSString *localizedPlaceholder = NSLocalizedStringFromTableInBundle(@"Synonym for %@", nil, [NSBundle bundleForClass:[self class]], nil);
     NSString *synonym = [synonymName stringValue] ? [synonymName stringValue] : [NSString stringWithFormat:localizedPlaceholder, [target displayName]];

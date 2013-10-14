@@ -351,7 +351,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	NSString *directID = [cmdDict objectForKey:@"directID"];
 
 	if (directID) {
-        object = [QSObject objectWithIdentifier:directID];
+        object = [QSLib objectWithIdentifier:directID];
 	}
 	
 	if (!object) {
@@ -391,7 +391,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	NSString *indirectID = [cmdDict objectForKey:@"indirectID"];
 	
     if (indirectID) {
-        object = [QSObject objectWithIdentifier:indirectID];
+        object = [QSLib objectWithIdentifier:indirectID];
 	}
 	
 	if (!object) {

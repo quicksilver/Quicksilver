@@ -23,7 +23,7 @@
 }
 
 + (id)proxyWithIdentifier:(NSString*)identifier {
-    id obj = [QSObject objectWithIdentifier:identifier];
+    id obj = [QSLib objectWithIdentifier:identifier];
     if (!obj) {
         id rep = [[QSReg tableNamed:@"QSProxies"] objectForKey:identifier];
         if (rep)

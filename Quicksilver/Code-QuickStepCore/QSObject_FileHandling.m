@@ -603,7 +603,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 	NSString *thisIdentifier = identifierForPaths(paths);
 
 	// return an already-created object if it exists
-	QSObject *existingObject = [QSObject objectWithIdentifier:thisIdentifier];
+	QSObject *existingObject = [QSLib objectWithIdentifier:thisIdentifier];
 	if (existingObject) {
 		return existingObject;
 	}

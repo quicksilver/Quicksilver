@@ -49,7 +49,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 		return nil;
 
 	if ([[pasteboard types] containsObject:QSPasteboardObjectIdentifier])
-		theObject = [QSObject objectWithIdentifier:[pasteboard stringForType:QSPasteboardObjectIdentifier]];
+		theObject = [QSLib objectWithIdentifier:[pasteboard stringForType:QSPasteboardObjectIdentifier]];
 
 	if (!theObject && [[pasteboard types] containsObject:QSPasteboardObjectAddress]) {
 		NSArray *objectIdentifier = [[pasteboard stringForType:QSPasteboardObjectAddress] componentsSeparatedByString:@":"];
