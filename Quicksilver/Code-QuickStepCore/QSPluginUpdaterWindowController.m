@@ -15,7 +15,7 @@
 // The height of a cell when it's closed
 #define kExpandHeight 52.0
 // used to pad out the web view a little bit
-#define kPaddingFactor 1.1
+#define kPaddingHeight 15
 
 @implementation QSPluginUpdaterWindowController
 
@@ -188,26 +188,25 @@
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)webFrame {
     //get the rect for the rendered frame
     NSRect webFrameRect = [[[webFrame frameView] documentView] frame];
-    //get the rect of the current webview
-    NSRect webViewRect = [self.webView frame];
-    
-    //calculate the new frame
-    NSRect newWebViewRect = NSMakeRect(webViewRect.origin.x,
-                                       webViewRect.origin.y - NSHeight(webFrameRect),
-                                       NSWidth(webViewRect),
-                                       NSHeight(webFrameRect)*kPaddingFactor);
-    //set the frame
-    [self.webView setFrame:newWebViewRect];
-    webViewHeight = NSHeight(newWebViewRect)*kPaddingFactor;
+    webViewHeight = NSHeight(webFrameRect)+kPaddingHeight;
 }
 
 
 -(IBAction)toggleChanges:(id)sender {
     _changesAreShowing = !_changesAreShowing;
-    [wc setWindowHeight:ceil(webViewHeight)*(_changesAreShowing ? 1 : -1) animate:YES];
-    [[self.webView animator] setHidden:!_changesAreShowing];
-    [[self.webView animator] setAlphaValue:_changesAreShowing ? 1 : 0];
-    [self updateHeight];
+    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+        [wc setWindowHeight:ceil(webViewHeight)*(_changesAreShowing ? 1 : -1) animate:YES];
+        [[self.webView animator] setHidden:!_changesAreShowing];
+        [[self.webView animator] setAlphaValue:_changesAreShowing ? 1 : 0];
+        if (_changesAreShowing) {
+            [self updateHeight];
+        }
+    } completionHandler:^{
+        if (!_changesAreShowing) {
+            [self updateHeight];
+        }
+    }];
+
 }
 
 -(void)updateHeight {
