@@ -163,7 +163,7 @@
 }
 
 - (id)windowWillReturnFieldEditor:(NSWindow *)sender toObject:(id)anObject {
-	if (anObject == hotKeyField || ![anObject isDescendantOf:settingsView]) {
+	if (anObject == hotKeyField) {
 		id instance = [QSHotKeyFieldEditor sharedInstance];
 		[instance setDelegate:anObject];
 		return instance;
