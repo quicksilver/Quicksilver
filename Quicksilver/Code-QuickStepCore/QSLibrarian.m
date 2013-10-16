@@ -309,13 +309,15 @@ static CGFloat searchSpeed = 0.0;
 
 
 - (void)reloadSets:(NSNotification *)notif {
-    [self.objectDictionary removeAllObjects];
+    @synchronized (self.objectDictionary) {
+        [self.objectDictionary removeAllObjects];
+    }
 	//NSLog(@"cat %@ %@", catalog, [catalog leafEntries]);
     for(QSCatalogEntry * entry in [catalog leafEntries]) {
         NSArray *entryContents = [[entry contents] copy];
         for (QSObject *obj in entryContents) {
             if ([obj identifier]) {
-                [self.objectDictionary setObject:obj forKey:[obj identifier]];
+                [self setIdentifier:[obj identifier] forObject:obj];
             } else {
                 NSString *ident = [NSString stringWithFormat:@"QSID:%@:%@", [entry identifier], [obj displayName]];
                 [obj setIdentifier:ident];
