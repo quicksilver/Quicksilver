@@ -159,8 +159,8 @@ my ($dest) = ($output =~ /Apple_HFS\s+(.+?)\s*$/im);
 
 # copy the files onto the dmg
 print "Copying files to $dest...\n";
-print "> CpMac -r $files \"$dest\"\n" if $debug;
-$output = `CpMac -r $files \"$dest\"`;
+print "> cp -R $files \"$dest\"\n" if $debug;
+$output = `cp -R $files \"$dest\"`;
 
 die "FATAL: Error while copying files (Error: $err)\n" if $?;
 
