@@ -2,14 +2,14 @@
 #
 my $versionStr = '$Id: buildDMG.pl,v 1.9 2004/03/29 21:20:32 westheide Exp $';
 #
-#  Created by Jšrg Westheide on Fri Feb 13 2003.
-#  Copyright (c) 2003, 2004 Jšrg Westheide. All rights reserved.
+#  Created by JÃ¶rg Westheide on Fri Feb 13 2003.
+#  Copyright (c) 2003, 2004 JÃ¶rg Westheide. All rights reserved.
 #
 #  Permission to use, copy, modify and distribute this software and its documentation
 #  is hereby granted, provided that both the copyright notice and this permission
 #  notice appear in all copies of the software, derivative works or modified versions,
 #  and any portions thereof, and that both notices appear in supporting documentation,
-#  and that credit is given to Jšrg Westheide in all documents and publicity
+#  and that credit is given to JÃ¶rg Westheide in all documents and publicity
 #  pertaining to direct or indirect use of this code or its derivatives.
 #
 #  THIS IS EXPERIMENTAL SOFTWARE AND IT IS KNOWN TO HAVE BUGS, SOME OF WHICH MAY HAVE
