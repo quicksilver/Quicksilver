@@ -1,0 +1,39 @@
+#!/bin/zsh
+
+## Quicksilver Release build
+
+cd "$( dirname $0 )/.."
+SOURCE_ROOT="$( pwd )"
+BUILT_PRODUCTS_DIR=/private/tmp/QS/build/Release
+
+## Clean and Build
+## (This could be done with a single command, but if `clean` fails, the
+## exit status won't be 0. It usually fails because something didn't exist
+## in the first place. We don't care.)
+xcodebuild -configuration Release -scheme 'Quicksilver Distribution' clean
+xcodebuild -configuration Release -scheme 'Quicksilver Distribution' build
+
+if [[ $? == 0 ]]; then
+  ## Build succeeded
+  cd $BUILT_PRODUCTS_DIR
+
+  ## Set the correct plist permissions
+  chmod 644 Quicksilver.app/Contents/Info.plist
+
+  ## Sign for Gatekeeper
+  codesign -s "Developer ID Application" --deep Quicksilver.app
+
+  ## Package it in a disk image
+  $SOURCE_ROOT/Tools/buildDMG.pl -dmgName Quicksilver -volName Quicksilver -volIcon $SOURCE_ROOT/Resources/Images/QuicksilverDMG.icns -compressionLevel 9 -debug Quicksilver.app
+  QS_INFO_VERSION=$( grep QS_INFO_VERSION $SOURCE_ROOT/Configuration/Developer.xcconfig | cut -d = -f 2 | tr -d ' ' )
+  mv Quicksilver.dmg "Quicksilver $QS_INFO_VERSION.dmg"
+
+  ## Easy access to plist
+  cp Quicksilver.app/Contents/Info.plist $BUILT_PRODUCTS_DIR
+
+  ## Show the folder
+  open $BUILT_PRODUCTS_DIR
+
+  ## Verify app signing
+  spctl -av Quicksilver.app
+fi
