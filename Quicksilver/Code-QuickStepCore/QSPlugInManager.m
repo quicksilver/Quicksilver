@@ -700,7 +700,10 @@
 	if ([updatedPlugIns count]) {
         QSPluginUpdaterWindowController *c = [[QSPluginUpdaterWindowController alloc] initWithPlugins:plugins];
         
-        NSArray *arr = [c showModal];
+        __block NSArray *arr;
+        QSGCDMainSync(^{
+            arr = [c showModal];
+        });
         if (!arr) {
             return QSPluginUpdateStatusUpdateCancelled;
         }
