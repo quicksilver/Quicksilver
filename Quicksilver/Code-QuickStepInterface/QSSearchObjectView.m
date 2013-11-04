@@ -471,7 +471,7 @@ NSMutableDictionary *bindingsDict = nil;
 	if ([[resultController window] isVisible]) return; //[resultController->resultTable reloadData];
     
 	NSRect resultWindowRect = [[resultController window] frame];
-	NSRect screenRect = [[[resultController window] screen] frame];
+	NSRect screenRect = [[[self window] screen] frame];
     NSRect sovRect = [[self window] convertRectToScreen:[self frame]];
     NSRect interfaceRect = [[self window] frame];
 
