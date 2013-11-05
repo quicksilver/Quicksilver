@@ -1,4 +1,10 @@
-## Changes - 1.1.2 (4406) ##
+## Changes - 1.1.3 (4007) ##
+
+### Fixed ###
+
+  * Fix a bug that prevents the results list from appearing on a second display (#1304, #1667)
+
+## Changes - 1.1.2 (4006) ##
 
 ### Changed ###
 
