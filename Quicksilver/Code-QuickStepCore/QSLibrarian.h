@@ -46,7 +46,7 @@ extern QSLibrarian *QSLib; // Shared Instance
     BOOL catalogLoaded;
 }
 
-@property NSMutableDictionary *objectDictionary;
+@property (retain) NSMutableDictionary *objectDictionary;
 
 + (id)sharedInstance;
 + (void)removeIndexes;
