@@ -829,7 +829,7 @@ NSSize QSMaxIconSize;
 	[meta setDictionary:[coder decodeObjectForKey:@"meta"]];
 	[data setDictionary:[coder decodeObjectForKey:@"data"]];
 	[self extractMetadata];
-	id dup = [self findDuplicateOrRegisterID];
+	id dup = [QSLib objectWithIdentifier:[self identifier]];
 	if (dup) return dup;
 	return self;
 }
@@ -862,17 +862,6 @@ NSSize QSMaxIconSize;
 - (void)encodeWithCoder:(NSCoder *)coder {
 	[coder encodeObject:meta forKey:@"meta"];
 	[coder encodeObject:data forKey:@"data"];
-}
-
-- (id)findDuplicateOrRegisterID {
-	id dup = [QSLib objectWithIdentifier:[self identifier]];
-	if (dup) {
-		return dup;
-	}
-	if ([self identifier] && [QSLib objectWithIdentifier:[self identifier]] != self) {
-		[QSLib setIdentifier:[self identifier] forObject:self];
-    }
-	return nil;
 }
 
 @end

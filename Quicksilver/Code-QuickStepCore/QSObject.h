@@ -160,9 +160,6 @@ typedef struct _QSObjectFlags {
 - (id)initFromFile:(NSString *)path;
 - (void)writeToFile:(NSString *)path;
 - (void)extractMetadata;
-
-- (id)findDuplicateOrRegisterID;
-
 @end
 
 

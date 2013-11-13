@@ -93,7 +93,7 @@
         [self extractMetadata];
         
         // ***warning  * should this update the name for files?
-        id dup = [self findDuplicateOrRegisterID];
+        id dup = [QSLib objectWithIdentifier:[self identifier]];
         if (dup) return dup;
         if ([self containsType:QSFilePathType])
             [self changeFilesToPaths];
