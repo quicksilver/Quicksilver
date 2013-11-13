@@ -11,6 +11,9 @@ BOOL QSObjectInitialized = NO;
 NSSize QSMaxIconSize;
 
 @implementation QSObject
+
+@synthesize parent;
+
 + (void)initialize {
 	if (!QSObjectInitialized) {
 		QSMaxIconSize = QSSizeMax;
@@ -529,21 +532,20 @@ NSSize QSMaxIconSize;
 @end
 
 @implementation QSObject (Hierarchy)
-
 - (QSObject *)parent {
-    QSObject * parent = nil;
-
-	id handler = nil;
-	if (handler = [self handlerForSelector:@selector(parentOfObject:)])
-		parent = [handler parentOfObject:self];
-
-	if (!parent)
-		parent = [QSLib objectWithIdentifier:[meta objectForKey:kQSObjectParentID]];
-	return parent;
+    id handler;
+    QSObject *myParent;
+    if (handler = [self handlerForSelector:@selector(parentOfObject:)]) {
+        myParent = [handler parentOfObject:self];
+    }
+    return myParent ? myParent : parent;
 }
 
 - (void)setParentID:(NSString *)parentID {
-    [self setObject:parentID forMeta:kQSObjectParentID];
+    QSObject *myParent = [QSLib objectWithIdentifier:parentID];
+    if (myParent) {
+        [self setParent:myParent];
+    }
 }
 
 - (BOOL)childrenValid {
