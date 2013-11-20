@@ -11,8 +11,6 @@
 #include <signal.h>
 #include <unistd.h>
 
-bool _LSCopyAllApplicationURLs(NSArray **array);
-
 @implementation NSWorkspace (Misc)
 
 - (NSString *)commentForFile:(NSString *)path {
