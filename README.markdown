@@ -29,19 +29,20 @@ This is easily done by backing up the following 2 folders and preference file:
 Now if anything happens you can always restore the exact state Quicksilver was in before your were trying out this version. 
 
 
-Notes Specific to Lion and Snow Leopard
----------------------------------------
+Multiple copies of Quicksilver.app on your Mac
+-------------------------------------------------
 
-The Services System in OS X will not register properly when the pasteboard server (`/System/Library/CoreServices/pbs`) sees multiple Quicksilver.app packages each with their very own Info.plist file defining the same services.
+Having multiple copies of Quicksilver.app on the system can cause issues with the Services System in OS X and AppleScript.
 
-In order to ensure that the Service System works correctly, zip any old Quicksilver.app packages you want to keep, so you only have one Quicksilver.app file on your filesystem.
-Also do not forget to empty your trash after you deleted the older Quicksilver.app packages.
+Specifically, Services will not register properly when the pasteboard server (`/System/Library/CoreServices/pbs`) sees multiple Quicksilver.app packages each with their own Info.plist file defining the same services. AppleScript will also get confused with more than one Quicksilver.app on your Mac.
+
+In order to ensure that the Services System and AppleScript work correctly, zip any old Quicksilver.app packages you want to keep, so you only have one Quicksilver.app file on your filesystem. Also do not forget to empty your trash after you deleted the older Quicksilver.app packages.
 
 
 Development
 -----------
 
-You should be able to build Quicksilver after following the instructions as seen in the Quicksilver Wiki on [Building Quicksilver](http://qsapp.com/wiki/Building_Quicksilver). Be aware that the build system **will overwrite** the Quicksilver located in your /Applications folder.
+You should be able to build Quicksilver after following the instructions as seen in the Quicksilver Wiki on [Building Quicksilver](http://qsapp.com/wiki/Building_Quicksilver).
 
 
 Legal Stuff 
