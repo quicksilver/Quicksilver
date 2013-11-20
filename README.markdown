@@ -1,19 +1,17 @@
-About Quicksilver ß7X on Github
+About Quicksilver on Github
 ===============================
 
 This repository contains the current source code of Quicksilver. If you're having issues with the latest Quicksilver version, feel free to log them at the [issue tracker](https://github.com/quicksilver/Quicksilver/issues). 
 
 This master branch contains the source for the currently released Quicksilver.
-The alcor branch contains the code for the "next-gen" Quicksilver. Right now it features an updated plugin system, and Catalyst, which aims to provide triggers as a preference pane, and that's it. It is usable, but all plugins are incompatible without some extra work. There are currently no plans to ever release this version.
 
-If you want more info about [Quicksilver](http://qsapp.com) you can read the [about page](http://qsapp.com/about.php) or view it on [Wikipedia](http://en.wikipedia.org/wiki/Quicksilver_%28software%29 "Quicksilver Wikipedia article").
-For help and support, visit the [Quicksilver Support Group](http://groups.google.com/group/blacktree-quicksilver "Quicksilver Google Group"). Developers can find help in the [Developer Support Group](https://groups.google.com/forum/?hl=en_US&fromgroups#!forum/quicksilver---development)
+If you want more info about [Quicksilver](http://qsapp.com) you can read the [about page](http://qsapp.com/about.php) or view it on [Wikipedia](http://en.wikipedia.org/wiki/Quicksilver_%28software%29 "Quicksilver Wikipedia article"). For help and support, visit the [Quicksilver Support Group](http://groups.google.com/group/blacktree-quicksilver "Quicksilver Google Group"). Developers can find help in the [Developer Support Group](https://groups.google.com/forum/?hl=en_US&fromgroups#!forum/quicksilver---development)
 
 
 Where to download Quicksilver?
 ------------------------------
 
-Visit [QSApp.com](http://qsapp.com/download.php), and download the right version for your operating system.
+Visit [QSApp.com](http://qsapp.com/download.php), and download the right version for your operating system. The minimum runtime requirement for the current version of Quicksilver is Mac OS X 10.7 ("Lion").
 
 
 Before Trying the Source Code
@@ -28,17 +26,10 @@ This is easily done by backing up the following 2 folders and preference file:
 `/Users/<user>/Library/Caches/Quicksilver`  
 `/Users/<user>/Library/Preferences/com.blacktree.Quicksilver.plist`  
 
-Now if anything happens you can always restore the exact state Quicksilver was in before
-your were trying out this version. 
+Now if anything happens you can always restore the exact state Quicksilver was in before your were trying out this version. 
 
 
-Notice on version compatibility
--------------------------------
-
-
-    Minimum runtime requirement for this version is Mac OS X 10.6 ("Snow Leopard"). 
-
-Notes Specific to Snow Leopard and Lion
+Notes Specific to Lion and Snow Leopard
 ---------------------------------------
 
 The Services System in OS X will not register properly when the pasteboard server (`/System/Library/CoreServices/pbs`) sees multiple Quicksilver.app packages each with their very own Info.plist file defining the same services.
