@@ -401,7 +401,7 @@ NSDictionary *enabledPresetDictionary;*/
 	NSArray *leaves = [self deepChildrenWithGroups:NO leaves:YES disabled:NO];
 	NSUInteger i, count = 0;
 	for (i = 0; i < [leaves count]; i++)
-		count += [(NSArray *)[[leaves objectAtIndex:i] contents] count];
+		count += [(NSArray *)[[leaves objectAtIndex:i] enabledContents] count];
 	return count;
 }
 

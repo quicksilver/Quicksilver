@@ -110,9 +110,9 @@ static NSImage *prefsCatalogImage = nil;
 	QSCatalogEntry *theEntry = [[QSLibrarian sharedInstance] entryForID:[object objectForType:QSCatalogEntryPboardType]];
 
 	if ([theEntry isGroup])
-		return [self objectsFromCatalogEntries:[theEntry contents]];
+		return [self objectsFromCatalogEntries:[theEntry enabledContents]];
 	else
-		return [theEntry contentsScanIfNeeded:YES];
+		return [theEntry enabledContents];
 }
 
 // Action Provider Methods

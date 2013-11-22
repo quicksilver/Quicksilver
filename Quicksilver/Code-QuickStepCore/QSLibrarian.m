@@ -435,7 +435,7 @@ static CGFloat searchSpeed = 0.0;
 	//NSDate *date = [NSDate date];
 
 	NSString *currentItemID = [entry identifier];
-	NSDictionary *typeDictionary = [self typeArraysFromArray:[entry contents]];
+	NSDictionary *typeDictionary = [self typeArraysFromArray:[entry enabledContents]];
 
 	//NSLog(@"%@", [typeDictionary allKeys]);
 	NSArray *typeKeys = [typeDictionary allKeys];
