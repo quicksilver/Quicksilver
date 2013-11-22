@@ -612,6 +612,13 @@ NSDictionary *enabledPresetDictionary;*/
 	}
 }
 
+- (NSArray *)enabledContents
+{
+    NSIndexSet *enabled = [[self contents] indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *obj, NSUInteger idx, BOOL *stop) {
+        return ![QSLib itemIsOmitted:obj];
+    }];
+    return [[self contents] objectsAtIndexes:enabled];
+}
 
 - (QSCatalogEntry *)uniqueCopy {
 	NSMutableDictionary *newDictionary = [info mutableCopy];
