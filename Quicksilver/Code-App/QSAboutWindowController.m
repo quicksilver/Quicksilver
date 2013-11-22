@@ -15,7 +15,9 @@
 }
 
 - (void)awakeFromNib {
+#ifdef DEBUG
 	NSLog(@"awake");
+#endif
 	NSBundle *appBundle = [NSBundle mainBundle];
 	NSString *name = [appBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
 	if (!name)
