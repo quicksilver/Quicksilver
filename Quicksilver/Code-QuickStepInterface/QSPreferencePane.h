@@ -14,6 +14,7 @@
 	IBOutlet NSView *_initialKeyView;
 	IBOutlet NSView *_firstKeyView;
 	IBOutlet NSView *_lastKeyView;
+	NSArray *_topLevelObjects;
 	NSView *_mainView;
 	NSBundle *_bundle;
 	NSDictionary *_info;

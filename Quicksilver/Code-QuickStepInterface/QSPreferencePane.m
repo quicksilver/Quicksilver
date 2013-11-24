@@ -99,6 +99,8 @@
 
         [nib instantiateNibWithOwner:self topLevelObjects:&objects];
 
+        _topLevelObjects = objects;
+
         _mainView = [_window contentView];
         if (QSGetLocalizationStatus())
             [NTViewLocalizer localizeView:_mainView table:[self mainNibName] bundle:[self mainNibBundle]];
