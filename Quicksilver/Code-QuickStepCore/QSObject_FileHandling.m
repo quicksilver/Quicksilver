@@ -797,6 +797,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
             MDItemRef mdItem = MDItemCreate(kCFAllocatorDefault, (__bridge CFStringRef)path);
             if (mdItem) {
                 newLabel = (NSString *)CFBridgingRelease(MDItemCopyAttribute(mdItem, kMDItemDisplayName));
+                CFRelease(mdItem);
             }
         }
         // fall back to the default display name
