@@ -11,6 +11,8 @@
 #include <signal.h>
 #include <unistd.h>
 
+OSStatus _LSCopyAllApplicationURLs(CFArrayRef *array);
+
 @implementation NSWorkspace (Misc)
 
 - (NSString *)commentForFile:(NSString *)path {
@@ -57,12 +59,16 @@
 }
 
 - (NSArray *)allApplications {
-	NSArray *appURLs = nil;
+    CFArrayRef appURLs = NULL;
 	_LSCopyAllApplicationURLs(&appURLs);
-	NSMutableArray *apps = [NSMutableArray arrayWithCapacity:[appURLs count]];
-	for (id loopItem in appURLs) {
-		[apps addObject:[loopItem path]];
-	}
+	NSMutableArray *apps = nil;
+    if (appURLs != NULL) {
+        apps = [NSMutableArray arrayWithCapacity:[(__bridge NSArray *)appURLs count]];
+        for (id loopItem in (__bridge NSArray *)appURLs) {
+            [apps addObject:[loopItem path]];
+        }
+        CFRelease(appURLs);
+    }
 	return apps;
 }
 
