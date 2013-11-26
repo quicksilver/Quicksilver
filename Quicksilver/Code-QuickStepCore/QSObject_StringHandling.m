@@ -43,7 +43,7 @@
     NSArray *lines = [[object objectForType:QSTextType] componentsSeparatedByLineSeparators];
     [object setChildren:[lines arrayByEnumeratingArrayUsingBock:^id(NSString *str) {
         QSObject *obj = [QSObject objectWithString:str];
-        [obj setParent:object];
+        [obj setParentID:[object identifier]];
         return obj;
     }]];
     return YES;

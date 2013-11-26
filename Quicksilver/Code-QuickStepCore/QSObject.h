@@ -42,6 +42,7 @@ extern NSSize QSMaxIconSize;
 #define kQSObjectDefaultAction    @"QSObjectDefaultAction"
 
 #define kQSObjectObjectID         @"QSObjectObjectID"
+#define kQSObjectParentID         @"QSObjectParentID"
 #define kQSObjectDetails          @"QSObjectDetails"
 #define kQSObjectKind             @"QSObjectKind"
 #define kQSObjectSource           @"QSObjectSource"
@@ -88,7 +89,6 @@ typedef struct _QSObjectFlags {
 	QSObjectFlags			flags;
 	NSTimeInterval			lastAccess;
 }
-@property (weak) QSObject *parent;
 + (void)initialize;
 + (void)purgeOldImagesAndChildren;
 + (void)purgeAllImagesAndChildren;
@@ -146,7 +146,8 @@ typedef struct _QSObjectFlags {
 @end
 
 @interface QSObject (Hierarchy)
-- (void)setParentID:(NSString *)parentID __attribute__((deprecated)); // use setParent: instead
+- (QSObject *) parent;
+- (void)setParentID:(NSString *)parentID;
 - (BOOL)childrenValid;
 - (BOOL)unloadChildren;
 - (void)loadChildren;
