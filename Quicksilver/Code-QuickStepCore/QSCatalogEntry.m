@@ -234,7 +234,7 @@
 	return enabled;
 }
 
-- (NSInteger)hasEnabledChildren {
+- (BOOL)hasEnabledChildren {
 	if (self.isGroup) {
 		BOOL hasEnabledChildren = NO;
 		for (QSCatalogEntry *child in self.children)
@@ -313,12 +313,12 @@
 
 - (NSArray *)leafIDs {
 	if (!self.isEnabled) {
-        return nil;
+        return @[];
     }
 
 	if (self.isGroup) {
 		NSMutableArray *childObjects = [NSMutableArray arrayWithCapacity:1];
-		for(QSCatalogEntry *child in self.children) {
+		for (QSCatalogEntry *child in self.children) {
 			[childObjects addObjectsFromArray:[child leafIDs]];
 		}
 		return childObjects;
@@ -332,8 +332,8 @@
 }
 
 - (NSArray *)deepChildrenWithGroups:(BOOL)groups leaves:(BOOL)leaves disabled:(BOOL)disabled {
-	if (!(disabled || self.isEnabled)) {
-        return nil;
+	if (!self.isEnabled && !disabled) {
+        return @[];
     }
 
 	if (self.isGroup) {
@@ -347,11 +347,11 @@
 		return childObjects;
 	}
 
-    if (leaves) {
-		return @[self];
+    if (!leaves) {
+        return @[];
 	}
 
-	return nil;
+    return @[self];
 }
 
 - (NSString *)identifier {

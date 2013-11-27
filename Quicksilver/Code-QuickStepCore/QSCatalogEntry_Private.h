@@ -13,7 +13,9 @@
  * The receiver's private info dictionary
  *
  * This is considered private API (some other parts of QS access it directly).
+ *
  * It contains the following keys:
+ *
  * - kItemChildren - an array of QSCatalogEntry in dictionary format.
  * - @"requiresPath" - a path to a required "file-system object"
  * - @"requiresSettingsPath" - a BOOL indicating if the kItemPath in kItemSettings is required
