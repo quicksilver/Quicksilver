@@ -14,6 +14,7 @@
 				4DD757151647D2AF0095F55B /* ShellScript */,
 			);
 			dependencies = (
+				4DAF38491846972B00461CBF /* PBXTargetDependency */,
 			);
 			name = "Build Documentation";
 			productName = "Build Documentation";
@@ -830,6 +831,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8D1107260486CEB800E47090;
 			remoteInfo = Quicksilver;
+		};
+		4DAF38481846972B00461CBF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7F039992080EE210001A9FA3;
+			remoteInfo = "Quicksilver Distribution";
 		};
 		66448D9B14F42796000FA2E2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -5016,6 +5024,11 @@
 			isa = PBXTargetDependency;
 			target = 8D1107260486CEB800E47090 /* Quicksilver */;
 			targetProxy = 4DAAEB9E0E0BBF720088C72D /* PBXContainerItemProxy */;
+		};
+		4DAF38491846972B00461CBF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7F039992080EE210001A9FA3 /* Quicksilver Distribution */;
+			targetProxy = 4DAF38481846972B00461CBF /* PBXContainerItemProxy */;
 		};
 		66448D9C14F42796000FA2E2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
