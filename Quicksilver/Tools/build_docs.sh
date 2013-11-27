@@ -30,10 +30,14 @@ COMPANY_ID="com.qsapp"
 
 APPLEDOC_ARGUMENTS=" --exit-threshold 2 \
  --no-warn-undocumented-object \
- --no-warn-undocumented-member \
- --keep-undocumented-members \
+ --warn-undocumented-member \
+ --warn-empty-description \
+ --warn-unknown-directive \
+ --warn-invalid-crossref \
+ --warn-missing-arg \
  --keep-undocumented-objects \
- --print-settings \
+ --print-information-block-titles \
+ --use-code-order \
  --project-name $PROJECT_NAME \
  --project-company $PROJECT_NAME \
  --company-id $COMPANY_ID \
