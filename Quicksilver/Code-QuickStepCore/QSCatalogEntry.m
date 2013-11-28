@@ -664,7 +664,6 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
         }
         return;
     }
-    [[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:NSLocalizedString(@"Checking: %@", @"Catalog task checking (%@ => source name)"), self.name]];
     BOOL valid = [self indexIsValid];
     if (valid && !force) {
 #ifdef DEBUG
@@ -678,9 +677,7 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
         NSLog(@"Scanning source: %@%@", self.name , (force?@" (forced) ":@""));
 #endif
 
-    [[[QSLibrarian sharedInstance] scanTask] setStatus:[NSString stringWithFormat:NSLocalizedString(@"Scanning: %@", @"Catalog task scanning (%@ => source name)"), self.name]];
     [self scanAndCache];
-    return;
 }
 
 - (NSArray *)contents {
