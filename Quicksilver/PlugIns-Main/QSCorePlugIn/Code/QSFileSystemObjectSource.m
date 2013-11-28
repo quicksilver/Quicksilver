@@ -271,7 +271,7 @@
     [[self selection] scanAndCache];
 	[self populateFields];
     
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChanged object:[self currentEntry]];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChangedNotification object:[self currentEntry]];
 }
 
 - (BOOL)textShouldEndEditing:(NSText *)aTextObject { return YES;  }
@@ -375,7 +375,7 @@
 	[self setValueForSender:itemLocationField];
 	[[self selection] setName:[[openPanel URL] lastPathComponent]];
 	[currentEntry setObject:[NSNumber numberWithDouble:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChanged object:[self currentEntry]];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChangedNotification object:[self currentEntry]];
 	return YES;
 }
 

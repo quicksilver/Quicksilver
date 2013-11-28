@@ -21,6 +21,11 @@
 
 #define kUseNSArchiveForIndexes NO;
 
+NSString *const QSCatalogEntryChangedNotification = @"QSCatalogEntryChanged";
+NSString *const QSCatalogEntryIsIndexingNotification = @"QSCatalogEntryIsIndexing";
+NSString *const QSCatalogEntryIndexedNotification = @"QSCatalogEntryIndexed";
+NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalidated";
+
 @interface QSCatalogEntry () {
     NSString *_name;
     NSArray *_contents;
@@ -521,7 +526,7 @@
         }
 
         [self setContents:dictionaryArray];
-        [NSNotificationCenter.defaultCenter postNotificationName:QSCatalogEntryIndexed object:self];
+        [NSNotificationCenter.defaultCenter postNotificationName:QSCatalogEntryIndexedNotification object:self];
         [QSLibrarian.sharedInstance recalculateTypeArraysForItem:self];
 	}
 	return YES;
@@ -629,7 +634,7 @@
             [self willChangeValueForKey:@"self"];
             NSString *ID = self.identifier;
             NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-            [nc postNotificationName:QSCatalogEntryIsIndexing object:self];
+            [nc postNotificationName:QSCatalogEntryIsIndexingNotification object:self];
             itemContents = [self scannedObjects];
             if (itemContents && ID) {
                 self.contents = itemContents;
@@ -640,7 +645,7 @@
                 self.contents = nil;
             }
             [self didChangeValueForKey:@"self"];
-            [nc postNotificationName:QSCatalogEntryIndexed object:self];
+            [nc postNotificationName:QSCatalogEntryIndexedNotification object:self];
             self.scanning = NO;
         });
         return itemContents;
