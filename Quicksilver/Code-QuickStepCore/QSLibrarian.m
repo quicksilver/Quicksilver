@@ -104,6 +104,9 @@ static CGFloat searchSpeed = 0.0;
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSets:) name:QSCatalogEntryIndexedNotification object:nil];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSource:) name:QSCatalogSourceInvalidated object:nil];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadEntry:) name:QSCatalogEntryInvalidatedNotification object:nil];
+
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateScanTask:) name:QSCatalogEntryIsIndexingNotification object:nil];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateScanTask:) name:QSCatalogEntryIndexedNotification object:nil];
 #if 0
 		//Create proxy Images
 		[(NSImage *)[[NSImage alloc] initWithSize:NSZeroSize] setName:@"QSDirectProxyImage"];
@@ -322,6 +325,18 @@ static CGFloat searchSpeed = 0.0;
     }
 	if ([notif object]) {
 		[self recalculateTypeArraysForItem:[notif object]];
+    }
+}
+
+- (void)updateScanTask:(NSNotification *)notif {
+    QSCatalogEntry *entry = [notif object];
+    if (!entry) {
+        return;
+    }
+    if ([notif.name isEqualToString:QSCatalogEntryIsIndexingNotification]) {
+        [[self scanTask] setStatus:[NSString stringWithFormat:NSLocalizedString(@"Checking: %@", @"Catalog task checking (%@ => source name)"), entry.name]];
+    } else if ([notif.name isEqualToString:QSCatalogEntryIndexedNotification]) {
+        [[self scanTask] setStatus:[NSString stringWithFormat:NSLocalizedString(@"Scanning: %@", @"Catalog task scanning (%@ => source name)"), entry.name]];
     }
 }
 
