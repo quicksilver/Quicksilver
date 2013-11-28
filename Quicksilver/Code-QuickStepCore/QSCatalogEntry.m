@@ -564,7 +564,8 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 
 - (BOOL)indexIsValid {
     __block BOOL isValid = YES;
-    QSGCDQueueSync(scanQueue,^{
+    QSGCDQueueSync(scanQueue, ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryIsIndexingNotification object:self];
         NSFileManager *manager = NSFileManager.defaultManager;
         NSString *indexLocation = self.indexLocation;
         if (![manager fileExistsAtPath:indexLocation isDirectory:nil]) {
@@ -636,8 +637,6 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
             self.scanning = YES;
             [self willChangeValueForKey:@"self"];
             NSString *ID = self.identifier;
-            NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-            [nc postNotificationName:QSCatalogEntryIsIndexingNotification object:self];
             itemContents = [self scannedObjects];
             if (itemContents && ID) {
                 self.contents = itemContents;
@@ -648,7 +647,7 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
                 self.contents = nil;
             }
             [self didChangeValueForKey:@"self"];
-            [nc postNotificationName:QSCatalogEntryIndexedNotification object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryIndexedNotification object:self];
             self.scanning = NO;
         });
         return itemContents;
