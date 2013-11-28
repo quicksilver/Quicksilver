@@ -767,7 +767,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 #ifdef DEBUG
       if (DEBUG_LOCALIZATION) NSLog(@"kind: %@", kind);
 #endif
-		NSString *stringKind = (__bridge NSString *)kind;
+		NSString *stringKind = (__bridge_transfer NSString *)kind;
         if ([stringKind length]) {
 			bundleName = [NSString stringWithFormat:@"%@ %@", bundleName, stringKind];
         }
