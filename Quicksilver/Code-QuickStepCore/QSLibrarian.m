@@ -118,6 +118,7 @@ static CGFloat searchSpeed = 0.0;
 
 	return self;
 }
+
 - (void)enableEntries {
 	[[catalog leafEntries] makeObjectsPerformSelector:@selector(enable)];
 }
@@ -426,8 +427,7 @@ static CGFloat searchSpeed = 0.0;
 }
 
 - (BOOL)scanInvalidIndexes {
-	for(QSCatalogEntry * entry in invalidIndexes) {
-
+	for(QSCatalogEntry *entry in invalidIndexes) {
 		NSLog(@"Forcing %@ to scan", entry);
 		[entry scanForced:NO];
 	}
