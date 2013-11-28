@@ -432,14 +432,14 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
             NSString *ID = self.identifier;
             _name = [bundle ? bundle : [NSBundle mainBundle] safeLocalizedStringForKey:ID value:ID table:@"QSCatalogPreset.name"];
         }
-        return _name;
+        return [_name copy];
     }
 }
 
 - (void)setName:(NSString *)newName {
     @synchronized (self) {
-        self.info[kItemName] = newName;
-        _name = newName;
+        _name = [newName copy];
+        self.info[kItemName] = _name;
     }
 }
 
