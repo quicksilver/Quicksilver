@@ -10,12 +10,12 @@
 @end
 
 // These tags are set within Interface Builder, and are used to define the current search mode
-typedef enum QSSearchMode {
+typedef NS_ENUM(NSUInteger, QSSearchMode) {
 	SearchFilterAll = 1, // Filter Catalog
 	SearchFilter = 2, // Filter Results
 	SearchSnap = 3, // Snap to Best
 	SearchShuffle = 4, // Not Sure (not used?)
-} QSSearchMode;
+};
 
 @class QSResultController;
 @interface QSSearchObjectView : QSObjectView <NSTextInputClient, NSTextViewDelegate>

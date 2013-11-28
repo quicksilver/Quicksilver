@@ -131,7 +131,7 @@
 /*
 	- getPascalString:length:
  */
-- (BOOL)getPascalString:(StringPtr)aBuffer length:(short)aLength
+- (BOOL)getPascalString:(StringPtr)aBuffer length:(CFIndex)aLength
 {
 	return CFStringGetPascalString( (CFStringRef)self, aBuffer, aLength, kCFStringEncodingMacRomanLatin1) != 0;
 }

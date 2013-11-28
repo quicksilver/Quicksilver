@@ -29,9 +29,9 @@
  */
 
 // Internal CoreGraphics typedefs
-typedef int		CGSConnection;
-typedef int		CGSWindow;
-typedef int		CGSValue;
+typedef NSInteger CGSConnection;
+typedef NSInteger CGSWindow;
+typedef NSInteger CGSValue;
 
 //// CONSTANTS ////
 

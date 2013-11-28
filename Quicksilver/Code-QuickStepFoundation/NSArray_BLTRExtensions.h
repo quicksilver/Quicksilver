@@ -29,7 +29,7 @@
 
 @interface NSArray (Enumeration)
 
-- (NSArray *)arrayByEnumeratingArrayUsingBock:(id (^)(id obj))block;
+- (NSArray *)arrayByEnumeratingArrayUsingBlock:(id (^)(id obj))block;
 
 @end
 

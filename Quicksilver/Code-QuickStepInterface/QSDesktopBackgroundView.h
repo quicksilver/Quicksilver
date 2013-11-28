@@ -8,12 +8,12 @@
 
 #import <AppKit/AppKit.h>
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, QSBackgroundType) {
     QSDesktopBackgroundCrop         = 1,
     QSDesktopBackgroundFillScreen   = 2,
     QSDesktopBackgroundCentered     = 3,
     QSDesktopBackgroundTiled        = 4,
-} QSBackgroundType;
+};
 
 
 @interface QSDesktopBackgroundView : NSView {

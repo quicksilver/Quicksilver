@@ -142,7 +142,7 @@
 
 @implementation NSArray (Enumeration)
 
-- (NSArray *)arrayByEnumeratingArrayUsingBock:(id (^)(id obj))block {
+- (NSArray *)arrayByEnumeratingArrayUsingBlock:(id (^)(id obj))block {
     NSMutableArray *arr = [NSMutableArray arrayWithCapacity:[self count]];
     [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [arr addObject:block(obj)];

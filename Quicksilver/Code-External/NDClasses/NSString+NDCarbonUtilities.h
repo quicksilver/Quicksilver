@@ -107,7 +107,7 @@
 	@param length The maximum length the string can be. Pascal string can be no longer than <tt>255</tt> bytes long, <tt>256</tt> if you include the first length byte.
 	@result Returns <tt>YES</tt> if the method was successful, if <tt>NO</tt> is returns then <tt>buffer</tt> contains garbage.
  */
-- (BOOL)getPascalString:(StringPtr)buffer length:(short)length;
+- (BOOL)getPascalString:(StringPtr)buffer length:(CFIndex)length;
 
 /*!
 	@method pascalString

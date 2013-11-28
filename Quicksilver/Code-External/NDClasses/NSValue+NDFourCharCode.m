@@ -95,13 +95,13 @@
 	FourCharCode		theValue = 0;
 	const char			* theObjCType = [self objCType];
 	if( sizeof(FourCharCode) <= sizeof(unsigned long) && strcmp(theObjCType, @encode(unsigned long)) == 0 )
-		theValue = [(id)self unsignedLongValue];
+		theValue = [self unsignedIntValue];
 	else if( sizeof(FourCharCode) <= sizeof(long) && strcmp(theObjCType, @encode(long)) == 0 )
-		theValue = [(id)self longValue];
+		theValue = [self intValue];
 	else if( sizeof(FourCharCode) <= sizeof(unsigned int) && strcmp(theObjCType, @encode(unsigned int)) == 0 )
-		theValue = [(id)self unsignedIntValue];
+		theValue = [self unsignedIntValue];
 	else if( sizeof(FourCharCode) <= sizeof(unsigned int) && strcmp(theObjCType, @encode(int)) == 0 )
-		theValue = [(id)self intValue];
+		theValue = [self intValue];
 	
 	return theValue;
 }

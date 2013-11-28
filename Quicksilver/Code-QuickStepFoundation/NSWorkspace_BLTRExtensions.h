@@ -27,8 +27,8 @@
 - (void)activateApplication:(NSDictionary *)theApp;
 - (void)reopenApplication:(NSDictionary *)theApp;
 - (void)quitApplication:(NSDictionary *)theApp;
-- (NSString *)nameForPID:(NSInteger)pid;
-- (NSString *)pathForPID:(NSInteger)pid;
+- (NSString *)nameForPID:(pid_t)pid;
+- (NSString *)pathForPID:(pid_t)pid;
 - (void)quitPSN:(ProcessSerialNumber)psn;
 - (void)quitOtherApplications:(NSArray *)theApps;
 - (NSDictionary *)dictForApplicationIdentifier:(NSString *)ident;

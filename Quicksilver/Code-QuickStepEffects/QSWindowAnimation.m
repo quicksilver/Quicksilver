@@ -102,7 +102,7 @@
 //		}
 	}
 	if (warpFt) {
-		NSInteger w, h;
+		uint32_t w, h;
 		CGPointWarp *mesh = (*warpFt)(self, _percent, &w, &h);
         CGSSetWindowWarp(cgs, wid, w, h, mesh);
 		free(mesh);
