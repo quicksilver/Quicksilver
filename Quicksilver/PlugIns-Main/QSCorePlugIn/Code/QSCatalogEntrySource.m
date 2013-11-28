@@ -175,7 +175,7 @@ static NSImage *prefsCatalogImage = nil;
 
     [childEntry scanForced:YES];
     [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogStructureChanged object:nil];
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChanged object:childEntry];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChangedNotification object:childEntry];
     [dObject setObject:uniqueString forType:QSCatalogEntryPboardType];
     
     [self show:dObject];

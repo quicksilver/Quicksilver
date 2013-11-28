@@ -10,6 +10,12 @@
 
 @class QSObjectSource;
 
+
+extern NSString *const QSCatalogEntryChangedNotification;
+extern NSString *const QSCatalogEntryIsIndexingNotification;
+extern NSString *const QSCatalogEntryIndexedNotification;
+extern NSString *const QSCatalogEntryInvalidatedNotification;
+
 /**
  * QSCatalogEntry represent an entry in Quicksilver's catalog.
  *
