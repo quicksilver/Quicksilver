@@ -86,7 +86,7 @@ extern NSString *const QSCatalogEntryInvalidatedNotification;
  * Create a new instance of the receiver from a dictionary.
  *
  * @param dict A serialized entry as a dictionary.
- * 
+ *
  * @see -[QSCatalogEntry initWithDictionary:].
  */
 + (instancetype)entryWithDictionary:(NSDictionary *)dict;
@@ -114,7 +114,7 @@ extern NSString *const QSCatalogEntryInvalidatedNotification;
 
 /**
  * Get the receiver's children with the given identifier.
- * 
+ *
  * @param theID The identifier to lookup.
  *
  * @return An instance of QSCatalogEntry, or nil if there was no children with
@@ -226,10 +226,10 @@ extern NSString *const QSCatalogEntryInvalidatedNotification;
 
 /**
  * Get the objects scanned by the receiver's object source.
- * 
+ *
  * @warning This bypasses the index and the receiver's object cache. You should
  * rarely need to call that method.
- * 
+ *
  * @return An array of all object that the receiver's object source generated.
  */
 - (NSArray *)scannedObjects;
