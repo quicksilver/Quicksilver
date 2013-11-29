@@ -15,11 +15,11 @@
     IBOutlet NSTableView *pluginTableView;
     IBOutlet NSButton *installButton;
     NSArray *pluginsArray;
-    NSUInteger numberOfPluginsToInstall;
     NSMutableArray *pluginsToInstall;
 }
 @property (readonly) NSArray *pluginsArray;
 @property (readonly) NSTableView *pluginTableView;
+@property NSUInteger numberOfPluginsToInstall;
 
 -(void)setPluginView:(QSPluginUpdateTableCellView*)view details:(id)details forKey:(id<NSCopying>)key;
 -(id)initWithPlugins:(NSArray *)plugins;

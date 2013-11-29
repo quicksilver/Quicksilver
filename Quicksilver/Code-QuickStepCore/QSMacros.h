@@ -16,3 +16,11 @@
 #define QSLog(s, ...) \
 [MLog logFile:__FILE__ lineNumber:__LINE__ \
 	   format:(s), ##__VA_ARGS__]
+
+#define SuppressPerformSelectorLeakWarning(Code) \
+do { \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"") \
+Code; \
+_Pragma("clang diagnostic pop") \
+} while (0)

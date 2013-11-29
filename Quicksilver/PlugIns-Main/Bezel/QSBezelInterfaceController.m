@@ -38,7 +38,6 @@
 	for(QSSearchObjectView *theControl in theControls) {
 		QSObjectCell *theCell = [theControl cell];
 		[theCell setAlignment:NSCenterTextAlignment];
-		[theControl setPreferredEdge:NSMinYEdge];
 		[theControl setResultsPadding:NSMinY([dSelector frame])];
 		[theControl setPreferredEdge:NSMinYEdge];
 		[(QSWindow *)[(theControl)->resultController window] setHideOffset:NSMakePoint(0, NSMinY([iSelector frame]))];

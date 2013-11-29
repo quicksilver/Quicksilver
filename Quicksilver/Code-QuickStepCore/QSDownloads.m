@@ -61,7 +61,7 @@
 
 	NSNumber *isDir;
 	NSNumber *isPackage;
-	NSSet *ignoredExtensions = [NSSet setWithObjects:@"download", @"part", @"dtapart", @"crdownload", nil];
+	NSSet *ignoredExtensions = [NSSet setWithObjects:@"download", @"part", @"dtapart", @"crdownload", @"opdownload", nil];
 	for (NSURL *downloadedFile in contents) {
 		err = nil;
 		NSString *fileExtension = [downloadedFile pathExtension];

@@ -51,21 +51,29 @@
 	[self writeItems:self];
 }
 
-- (void)addAbbrevMnemonic:(NSString *)mnem forID:(NSString *)key {
-	[self addAbbrevMnemonic:mnem forID:key relativeToID:nil immediately:NO];
+- (BOOL)addAbbrevMnemonic:(NSString *)mnem forObject:(QSObject *)object {
+	return [self addAbbrevMnemonic:mnem forObject:object relativeToID:nil immediately:NO];
 }
 
-- (void)addAbbrevMnemonic:(NSString *)mnem forID:(NSString *)key immediately:(BOOL)immediately {
-	[self addAbbrevMnemonic:mnem forID:key relativeToID:nil immediately:immediately];
+- (BOOL)addAbbrevMnemonic:(NSString *)mnem forObject:(QSObject *)object immediately:(BOOL)immediately {
+	return [self addAbbrevMnemonic:mnem forObject:object relativeToID:nil immediately:immediately];
 }
 
-- (void)addAbbrevMnemonic:(NSString *)mnem forID:(NSString *)key relativeToID:(NSString *)above immediately:(BOOL)immediately {
+- (BOOL)addAbbrevMnemonic:(NSString *)mnem forObject:(QSObject *)object relativeToID:(NSString *)above immediately:(BOOL)immediately {
+    
+    if (![self checkForValidObject:object withMnemonic:mnem]) {
+        return NO;
+    }
+    
+    NSString *key = [object identifier];
+    if (!key.length) {
+        return NO;
+    }
+    
     
     // Abbreviations are case insensitive
     mnem = [mnem lowercaseString];
     
-	if (!key) return;
-    if (!mnem) return;
 
 	NSMutableArray *objectEntry;
 	if (!(objectEntry = [abbrevMnemonics objectForKey:mnem]) ) {
@@ -99,6 +107,7 @@
 	[recentMnemonics setObject:key forKey:mnem];
 
 	[self writeItems:self];
+    return YES;
 }
 
 - (void)removeObjectMnemonic:(NSString *)mnem forID:(NSString *)key {
@@ -113,12 +122,31 @@
 		[writeTimer invalidate];
 	writeTimer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(writeItems:) userInfo:nil repeats:NO];
 }
-- (void)addObjectMnemonic:(NSString *)mnem forID:(NSString *)key {
+
+- (BOOL)checkForValidObject:(QSObject *)object withMnemonic:(NSString *)mnem {
+    if (!object || ![object identifier] || [[object identifier] isEqualToString:@""]) {
+        return NO;
+    }
+    
+    if (![QSDefaultObjectRanker rankedObjectsForAbbreviation:mnem options:@{QSRankingObjectsInSet : @[object], QSRankingIncludeOmitted : [NSNumber numberWithBool:YES]}].count) {
+        // the mnemonic doesn't match the object, so don't add it
+        // WARNING: we could set up a synonym?
+        return NO;
+    }
+    return YES;
+}
+
+- (BOOL)addObjectMnemonic:(NSString *)mnem forObject:(QSObject *)object {
+    
+    if (![self checkForValidObject:object withMnemonic:mnem]) {
+        return NO;
+    }
+    
+    NSString *key = [object identifier];
 	if (!mnem) mnem = @"";
     
     mnem = [mnem lowercaseString];
-    
-	if (!key || [key isEqualToString:@""]) return;
+
 	NSMutableDictionary *objectEntry;
 	if (!(objectEntry = [objectMnemonics objectForKey:key]) ) {
 		objectEntry = [NSMutableDictionary dictionaryWithCapacity:1];
@@ -127,6 +155,7 @@
 	[objectEntry setObject:[NSNumber numberWithInteger:([[objectEntry objectForKey:mnem] integerValue]) +1] forKey:mnem];
 	// [self writeItems:self];
 	[self setWriteTimer];
+    return YES;
 }
 
 - (void)writeItems:(id)sender {

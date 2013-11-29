@@ -1,19 +1,17 @@
-About Quicksilver ß7X on Github
+About Quicksilver on Github
 ===============================
 
 This repository contains the current source code of Quicksilver. If you're having issues with the latest Quicksilver version, feel free to log them at the [issue tracker](https://github.com/quicksilver/Quicksilver/issues). 
 
 This master branch contains the source for the currently released Quicksilver.
-The alcor branch contains the code for the "next-gen" Quicksilver. Right now it features an updated plugin system, and Catalyst, which aims to provide triggers as a preference pane, and that's it. It is usable, but all plugins are incompatible without some extra work. There are currently no plans to ever release this version.
 
-If you want more info about [Quicksilver](http://qsapp.com) you can read the [about page](http://qsapp.com/about.php) or view it on [Wikipedia](http://en.wikipedia.org/wiki/Quicksilver_%28software%29 "Quicksilver Wikipedia article").
-For help and support, visit the [Quicksilver Support Group](http://groups.google.com/group/blacktree-quicksilver "Quicksilver Google Group"). Developers can find help in the [Developer Support Group](https://groups.google.com/forum/?hl=en_US&fromgroups#!forum/quicksilver---development)
+If you want more info about [Quicksilver](http://qsapp.com) you can read the [about page](http://qsapp.com/about.php) or view it on [Wikipedia](http://en.wikipedia.org/wiki/Quicksilver_%28software%29 "Quicksilver Wikipedia article"). For help and support, visit the [Quicksilver Support Group](http://groups.google.com/group/blacktree-quicksilver "Quicksilver Google Group"). Developers can find help in the [Developer Support Group](https://groups.google.com/forum/?hl=en_US&fromgroups#!forum/quicksilver---development)
 
 
 Where to download Quicksilver?
 ------------------------------
 
-Visit [QSApp.com](http://qsapp.com/download.php), and download the right version for your operating system.
+Visit [QSApp.com](http://qsapp.com/download.php), and download the right version for your operating system. The minimum runtime requirement for the current version of Quicksilver is Mac OS X 10.7 ("Lion").
 
 
 Before Trying the Source Code
@@ -28,29 +26,23 @@ This is easily done by backing up the following 2 folders and preference file:
 `/Users/<user>/Library/Caches/Quicksilver`  
 `/Users/<user>/Library/Preferences/com.blacktree.Quicksilver.plist`  
 
-Now if anything happens you can always restore the exact state Quicksilver was in before
-your were trying out this version. 
+Now if anything happens you can always restore the exact state Quicksilver was in before your were trying out this version. 
 
 
-Notice on version compatibility
--------------------------------
+Multiple copies of Quicksilver.app on your Mac
+-------------------------------------------------
 
+Having multiple copies of Quicksilver.app on the system can cause issues with the Services System in OS X and AppleScript.
 
-    Minimum runtime requirement for this version is Mac OS X 10.6 ("Snow Leopard"). 
+Specifically, Services will not register properly when the pasteboard server (`/System/Library/CoreServices/pbs`) sees multiple Quicksilver.app packages each with their own Info.plist file defining the same services. AppleScript will also get confused with more than one Quicksilver.app on your Mac.
 
-Notes Specific to Snow Leopard and Lion
----------------------------------------
-
-The Services System in OS X will not register properly when the pasteboard server (`/System/Library/CoreServices/pbs`) sees multiple Quicksilver.app packages each with their very own Info.plist file defining the same services.
-
-In order to ensure that the Service System works correctly, zip any old Quicksilver.app packages you want to keep, so you only have one Quicksilver.app file on your filesystem.
-Also do not forget to empty your trash after you deleted the older Quicksilver.app packages.
+In order to ensure that the Services System and AppleScript work correctly, zip any old Quicksilver.app packages you want to keep, so you only have one Quicksilver.app file on your filesystem. Also do not forget to empty your trash after you deleted the older Quicksilver.app packages.
 
 
 Development
 -----------
 
-You should be able to build Quicksilver after following the instructions as seen in the Quicksilver Wiki on [Building Quicksilver](http://qsapp.com/wiki/Building_Quicksilver). Be aware that the build system **will overwrite** the Quicksilver located in your /Applications folder.
+You should be able to build Quicksilver after following the instructions as seen in the Quicksilver Wiki on [Building Quicksilver](http://qsapp.com/wiki/Building_Quicksilver).
 
 
 Legal Stuff 

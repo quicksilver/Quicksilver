@@ -75,7 +75,7 @@
     }
     
     [NSGraphicsContext saveGraphicsState];
-    [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithBitmapImageRep:bitmap]];
+    [NSGraphicsContext setCurrentContext:graphicsContext];
     rect = NSMakeRect(0, 0, imageSize.width, imageSize.height);
     [image setSize:rect.size];
     [image drawInRect:rect fromRect:rectFromSize([image size]) operation:NSCompositeSourceOver fraction:1.0];
