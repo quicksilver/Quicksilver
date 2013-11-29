@@ -431,7 +431,7 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (void)saveIndex {
-    runOnQueueSync(scanQueue, ^{
+    QSGCDQueueSync(scanQueue, ^{
 #ifdef DEBUG
         if (DEBUG_CATALOG) NSLog(@"saving index for %@", self);
 #endif
@@ -461,7 +461,7 @@ NSDictionary *enabledPresetDictionary;*/
 
 - (BOOL)indexIsValid {
     __block BOOL isValid = YES;
-    runOnQueueSync(scanQueue,^{
+    QSGCDQueueSync(scanQueue,^{
         NSFileManager *manager = [NSFileManager defaultManager];
         NSString *indexPath = [[[pIndexLocation stringByStandardizingPath] stringByAppendingPathComponent:[self identifier]]stringByAppendingPathExtension:@"qsindex"];
         if (![manager fileExistsAtPath:indexPath isDirectory:nil]) {
@@ -523,7 +523,7 @@ NSDictionary *enabledPresetDictionary;*/
 	} else {
         __block NSArray *itemContents = nil;
         // Use a serial queue to do the grunt of the scan work. Ensures that no more than one thread can scan at any one time.
-        runOnQueueSync(scanQueue, ^{
+        QSGCDQueueSync(scanQueue, ^{
             [self setIsScanning:YES];
             [self willChangeValueForKey:@"self"];
             NSString *ID = [self identifier];

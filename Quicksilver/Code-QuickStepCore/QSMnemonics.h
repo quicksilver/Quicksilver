@@ -17,12 +17,12 @@
 
 - (NSArray *)abbrevMnemonicsForString:(NSString *)key;
 - (void)removeAbbrevMnemonic:(NSString *)mnem forID:(NSString *)key;
-- (void)addAbbrevMnemonic:(NSString *)mnem forID:(NSString *)key;
+- (BOOL)addAbbrevMnemonic:(NSString *)mnem forObject:(QSObject *)object;
 //- (void)addAbbrevMnemonic:(NSString *)mnem forID:(NSString *)key relativeToID:(NSString *)above;
-- (void)addAbbrevMnemonic:(NSString *)mnem forID:(NSString *)key immediately:(BOOL)immediately;
-- (void)addAbbrevMnemonic:(NSString *)mnem forID:(NSString *)key relativeToID:(NSString *)above immediately:(BOOL)immediately;
+- (BOOL)addAbbrevMnemonic:(NSString *)mnem forObject:(QSObject *)object immediately:(BOOL)immediately;
+- (BOOL)addAbbrevMnemonic:(NSString *)mnem forObject:(QSObject *)object relativeToID:(NSString *)above immediately:(BOOL)immediately;
 - (void)removeObjectMnemonic:(NSString *)mnem forID:(NSString *)key;
-- (void)addObjectMnemonic:(NSString *)mnem forID:(NSString *)key;
+- (BOOL)addObjectMnemonic:(NSString *)mnem forObject:(QSObject *)object;
 
 - (void)writeItems:(id)sender;
 

@@ -12,6 +12,9 @@
 #import "QSCrashReporterWindowController.h"
 #import "QSDownloads.h"
 
+
+#import "QSIntValueTransformer.h"
+
 #define DEVEXPIRE 180.0f
 #define DEPEXPIRE 365.24219878f
 
@@ -41,6 +44,9 @@ static QSController *defaultController = nil;
 #ifdef DEBUG
 	if (DEBUG_STARTUP) NSLog(@"Controller Initialize");
 #endif
+    //    A value transformer for checking if a given value is '2'. Used in the QSSearchPrefPane (Caps lock menu item)
+    QSIntValueTransformer *intValueIsTwo = [[QSIntValueTransformer alloc] initWithInteger:2];
+    [NSValueTransformer setValueTransformer:intValueIsTwo forName:@"IntegerValueIsTwo"];
 	
     if (![NSApplication isLion]) {
 		NSBundle *appBundle = [NSBundle mainBundle];
@@ -282,8 +288,7 @@ static QSController *defaultController = nil;
 
 		QSWindow *quitWindow = nil;
 		if (!quitWindowController) {
-			quitWindowController = [NSWindowController alloc];
-			[quitWindowController initWithWindowNibName:@"QuitConfirm" owner:quitWindowController];
+			quitWindowController = [[NSWindowController alloc] initWithWindowNibName:@"QuitConfirm"];
 
 			quitWindow = (QSBorderlessWindow *)[quitWindowController window];
 			[quitWindow setLevel:kCGPopUpMenuWindowLevel+1];
@@ -1113,6 +1118,7 @@ void QSSignalHandler(int i) {
 }
 
 - (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldLogException:(NSException *)exception mask:(NSUInteger)aMask {
+    NSLog(@"Exception raised: %@", exception);
 	[exception printStackTrace];
 	return NO;
 } // mask is NSLog<exception type>Mask, exception's userInfo has stack trace for key NSStackTraceKey

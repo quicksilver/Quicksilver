@@ -9,6 +9,8 @@
 #import "QSProcessMonitor.h"
 #import "NSEvent+BLTRExtensions.h"
 
+typedef void (^QSModalSessionBlock)(NSInteger result);
+
 BOOL QSApplicationCompletedLaunch = NO;
 
 @interface NSObject (QSAppDelegateProtocols)
@@ -40,6 +42,11 @@ BOOL QSApplicationCompletedLaunch = NO;
         if (DEBUG_STARTUP) NSLog(@"App Initialize");
 #endif
 		
+        //    A value transformer for checking if a given value is '1'. Used in the QSSearchPrefPane (Caps lock menu item)
+        QSIntValueTransformer *intValueIsTwo = [[QSIntValueTransformer alloc] initWithInteger:2];
+        [NSValueTransformer setValueTransformer:intValueIsTwo forName:@"IntegerValueIsTwo"];
+
+        
         [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/QSDefaults.plist"]]];
         done = YES;
     }
@@ -105,9 +112,6 @@ BOOL QSApplicationCompletedLaunch = NO;
 				[[interfaceWindow firstResponder] scrollWheel:theEvent];
 		}
 			break;
-	  case NSFlagsChanged:
-			[QSModifierKeyEvent checkForModifierEvent:theEvent];
-			break;
 	}
     if ([QLPreviewPanel sharedPreviewPanelExists] && [[QLPreviewPanel sharedPreviewPanel] isVisible]) {
         if ([theEvent type] == NSKeyDown) {
@@ -156,6 +160,15 @@ BOOL QSApplicationCompletedLaunch = NO;
 - (BOOL)isPrerelease {
 	NSInteger releaseLevel = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"QSReleaseStatus"] integerValue];
 	return releaseLevel > 0;
+}
+
+- (void)qs_sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    QSModalSessionBlock completionHandler = (__bridge_transfer QSModalSessionBlock)contextInfo;
+    completionHandler(returnCode);
+}
+
+- (void)qs_beginSheet:(NSWindow *)sheet modalForWindow:(NSWindow *)docWindow completionHandler:(QSModalSessionBlock)completionHandler {
+    [self beginSheet:sheet modalForWindow:docWindow modalDelegate:self didEndSelector:@selector(qs_sheetDidEnd:returnCode:contextInfo:) contextInfo:(__bridge_retained void *)([completionHandler copy])];
 }
 
 @end

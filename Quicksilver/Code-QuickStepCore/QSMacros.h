@@ -1,6 +1,5 @@
 #import <AvailabilityMacros.h>
 
-#define ESS(x) (x == 1?@"":@"s")
 //#if MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_5
 //    #define foreach(x, y) id x; NSEnumerator *rwEnum = [y objectEnumerator]; while(x = [rwEnum nextObject])
 //#else
@@ -14,7 +13,14 @@
 #define DAYS 86400.0f
 #define MINUTES 60.0f
 #define HOURS 3600.0f
-#define mSHARED_INSTANCE_CLASS_METHOD + (id)sharedInstance {static id _sharedInstance; if (!_sharedInstance) _sharedInstance = [[[self class] alloc] init]; return _sharedInstance;}
 #define QSLog(s, ...) \
 [MLog logFile:__FILE__ lineNumber:__LINE__ \
 	   format:(s), ##__VA_ARGS__]
+
+#define SuppressPerformSelectorLeakWarning(Code) \
+do { \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"") \
+Code; \
+_Pragma("clang diagnostic pop") \
+} while (0)

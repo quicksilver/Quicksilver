@@ -45,7 +45,10 @@
     @synchronized(self) {
         resultArray = [NSMutableArray arrayWithCapacity:[self count]];
         [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             result = [obj performSelector:aSelector];
+#pragma clang diagnostic pop
             [resultArray addObject:(result?result:[NSNull null])];
         }];
     }
@@ -58,7 +61,10 @@
     @synchronized(self) {
         resultArray = [NSMutableArray arrayWithCapacity:[self count]];
         [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             result = [obj performSelector:aSelector withObject:object];
+#pragma clang diagnostic pop
             [resultArray addObject:(result?result:[NSNull null])];
         }];
     }
@@ -83,7 +89,9 @@
 + (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(id)array returnValues:(BOOL)flag {
 	NSMutableArray *resultArray = nil;
     __block id result;
-    
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     @synchronized(array) {
         if (flag)
             resultArray = [NSMutableArray arrayWithCapacity:[(NSArray *)array count]];
@@ -97,14 +105,17 @@
             }
         }];
     }
-    
+#pragma clang diagnostic pop
+
 	return resultArray;
 }
 
 - (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(id)array returnValues:(BOOL)flag {
 	NSMutableArray *resultArray = nil;
     __block id result;
-    
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     @synchronized(array) {
         if (flag)
             resultArray = [NSMutableArray arrayWithCapacity:[(NSArray *)array count]];
@@ -118,12 +129,13 @@
             }
         }];
     }
-    
+#pragma clang diagnostic pop
+
 	return resultArray;
 }
 
 - (NSMutableArray *)performSelector:(SEL)aSelector onObjectsInArray:(id)array {
-	return [self performSelector:(SEL)aSelector onObjectsInArray:(id)array returnValues:YES];
+	return [self performSelector:aSelector onObjectsInArray:array returnValues:YES];
 }
 
 @end

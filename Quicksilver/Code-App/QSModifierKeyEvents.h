@@ -12,40 +12,36 @@ extern NSInteger NSAllModifierKeysMask;
 
 NSUInteger lastModifiers;
 @interface NSApplication (QSModifierKeyEvents)
-- (BOOL)checkForModifierEvent:(NSEvent *)theEvent;
+- (void)checkForModifierEvent:(NSEvent *)theEvent;
 @end
 
 @interface QSModifierKeyEvent : NSObject {
-	NSUInteger modifierActivationMask;
-	NSInteger modifierActivationCount;
+    NSUInteger _modifierActivationMask;
 	NSString *identifier;
 	SEL action;
 
-
 	@private
 		NSInteger keyCode;
+        NSTimeInterval timeSinceLastKeyDown;
+        NSDate *firstModifierPressedTime;
+    
 }
 
+@property __block NSInteger timesKeysPressed;
 @property (nonatomic, retain) id target;
+@property SEL action;
+@property NSString *identifier;
+@property NSInteger modifierActivationCount;
 
-+ (BOOL)checkForModifierEvent:(NSEvent *)theEvent;
++ (void)checkForModifierEvent:(NSEvent *)theEvent;
 + (QSModifierKeyEvent *)eventWithIdentifier:(NSString *)identifier;
 
 - (void)enable;
 - (void)disable;
-+(BOOL)alphaShiftReleased:(NSTimeInterval)eventTime;
-- (BOOL)checkForModifierTap;
-//+(BOOL)modifierToggled:(unsigned int)modifierKeysMask eventTime:(NSTimeInterval)eventTime ;
-+(BOOL)modifierToggled:(NSTimeInterval)eventTime ;
+
+- (void)checkForModifierTap:(BOOL)modsAdded;
+
 - (NSUInteger) modifierActivationMask;
 - (void)setModifierActivationMask:(NSUInteger)newModifierActivationMask;
-- (NSInteger) modifierActivationCount;
-- (void)setModifierActivationCount:(NSInteger)newModifierActivationCount;
-- (id)target;
-- (void)setTarget:(id)newTarget;
-- (SEL) action;
-- (void)setAction:(SEL)newAction;
-- (NSString *)identifier;
-- (void)setIdentifier:(NSString *)newIdentifier;
 - (void)sendAction;
 @end

@@ -28,20 +28,6 @@ require 'plist'
 
 # FUNCTIONS
 
-#  Check to make sure the file contains a 32/64 bit binary. If not, die
-def checkIsUniversalBinary(plist, file)
-  # Make sure the file is a 32/64 bit binary
-  bin_file = plist['CFBundleName']
-  bin_path = File.join(file, "Contents","MacOS",bin_file)
-  # Some plugins don't contain binaries
-  if not File.exists?(bin_path)
-    return
-  end
-  arch_details = %x(file "#{bin_path}")
-  if not (arch_details.include? "Mach-O 64-bit bundle x86_64" and arch_details.include? "Mach-O bundle i386")
-      Trollop::die "#{file} does not contain a 32/64 bit binary. Aborting"
-    end
-end
 
 # MAIN SCRIPT
 
@@ -128,7 +114,6 @@ files.each do |file|
       plist = Plist::parse_xml(info_path)
       
       # Make sure the file is a 32/64 bit binary
-      checkIsUniversalBinary(plist, file)
       
       image_file = if image_path = plist['QSPlugIn']['icon']
         path = Dir.glob(File.join(file, "Contents", "Resources", image_path + ".[jpg|png]"))

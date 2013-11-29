@@ -53,7 +53,10 @@ NSRect QSBlendRects(NSRect start, NSRect end, CGFloat b) {
 	if (_percent == 1.0f) {
 		[self _stopAnimation];
 		[self _finishAnimation];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 		[[self target] performSelector:[self action]];
+#pragma clang diagnostic pop
 	} else {
 		usleep(10000);
 	}
@@ -100,7 +103,10 @@ NSRect QSBlendRects(NSRect start, NSRect end, CGFloat b) {
 		[_window setAlphaValue:_endAlpha];
 		[_window setFrame:_endFrame display:YES];
 		[self _stopAnimation];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 		[[self target] performSelector:[self action]];
+#pragma clang diagnostic pop
 	} else {
 		[_window setFrame:QSBlendRects(_startFrame, _endFrame, _percent) display:NO];
 		[_window setAlphaValue: _startAlpha+_percent*(_endAlpha-_startAlpha)];

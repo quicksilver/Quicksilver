@@ -152,9 +152,13 @@ NSMutableDictionary *scriptsDictionary = nil;
 	NSAppleScript *script = [[NSBundle scriptsDictionary] objectForKey:compositeName];
 	if (!script) {
 		NSString *path = [self pathForResource:name ofType:@"scpt"];
-		if (path) script = [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:nil];
-		[[NSBundle scriptsDictionary] setObject:script forKey:compositeName];
+		if (path) {
+            script = [[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:nil];
+        }
 	}
+    if (script) {
+        [[NSBundle scriptsDictionary] setObject:script forKey:compositeName];
+    }
 	return script;
 }
 
