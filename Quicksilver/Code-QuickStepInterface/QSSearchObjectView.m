@@ -108,7 +108,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (IBAction)defineMnemonicImmediately:(id)sender {
 	if ([self matchedString])
-		[[QSMnemonics sharedInstance] addAbbrevMnemonic:[self matchedString] forID:[[self objectValue] identifier] immediately:YES];
+		[[QSMnemonics sharedInstance] addAbbrevMnemonic:[self matchedString] forObject:[self objectValue] immediately:YES];
 	[self rescoreSelectedItem];
 }
 
@@ -120,7 +120,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (IBAction)defineMnemonic:(id)sender {
 	if ([self matchedString])
-		[[QSMnemonics sharedInstance] addAbbrevMnemonic:[self matchedString] forID:[[self objectValue] identifier]];
+		[[QSMnemonics sharedInstance] addAbbrevMnemonic:[self matchedString] forObject:[self objectValue]];
 	[self rescoreSelectedItem];
 }
 
@@ -159,9 +159,9 @@ NSMutableDictionary *bindingsDict = nil;
 		mnemonicValue = [[[self objectValue] splitObjects] lastObject];
 	}
 
-	[[QSMnemonics sharedInstance] addObjectMnemonic:mnemonicKey forID:[mnemonicValue identifier]];
+	[[QSMnemonics sharedInstance] addObjectMnemonic:mnemonicKey forObject:mnemonicValue];
 	if (![self sourceArray]) { // don't add abbreviation if in a subsearch
-		[[QSMnemonics sharedInstance] addAbbrevMnemonic:mnemonicKey forID:[mnemonicValue identifier] relativeToID:nil immediately:NO];
+		[[QSMnemonics sharedInstance] addAbbrevMnemonic:mnemonicKey forObject:mnemonicValue relativeToID:nil immediately:NO];
 	}
 
 	[mnemonicValue updateMnemonics];
@@ -444,7 +444,7 @@ NSMutableDictionary *bindingsDict = nil;
 	if ([[resultController window] isVisible]) return; //[resultController->resultTable reloadData];
     
 	NSRect resultWindowRect = [[resultController window] frame];
-	NSRect screenRect = [[[resultController window] screen] frame];
+	NSRect screenRect = [[[self window] screen] frame];
     NSRect sovRect = [[self window] convertRectToScreen:[self frame]];
     NSRect interfaceRect = [[self window] frame];
 
@@ -720,19 +720,27 @@ NSMutableDictionary *bindingsDict = nil;
 	} else {
 		if (string) {
 			[[self textModeEditor] setString:string];
-			[[self textModeEditor] setSelectedRange:NSMakeRange([[[self textModeEditor] string] length] , 0)];
+			[[self textModeEditor] setSelectedRange:NSMakeRange([string length], 0)];
 		} else if ([partialString length] && ([resetTimer isValid] || ![[NSUserDefaults standardUserDefaults] floatForKey:kResetDelay]) ) {
-			[[self textModeEditor] setString:[partialString stringByAppendingString:[[NSApp currentEvent] charactersIgnoringModifiers]]];
-			[[self textModeEditor] setSelectedRange:NSMakeRange([[[self textModeEditor] string] length] , 0)];
+            NSString *text;
+            NSUInteger currentEventMask = NSEventMaskFromType([[NSApp currentEvent] type]);
+            // getting characters raises an exception if this wasn't a key event
+            if (currentEventMask & (NSKeyUpMask | NSKeyDownMask | NSFlagsChangedMask)) {
+                text = [partialString stringByAppendingString:[[NSApp currentEvent] charactersIgnoringModifiers]];
+            } else {
+                text = partialString;
+            }
+			[[self textModeEditor] setString:text];
+			[[self textModeEditor] setSelectedRange:NSMakeRange([text length], 0)];
 		} else {
 			NSString *stringValue = [[self objectValue] stringValue];
 			if (stringValue) { 
                 [[self textModeEditor] setString:stringValue];
-                [[self textModeEditor] setSelectedRange:NSMakeRange(0, [[[self textModeEditor] string] length])];
+                [[self textModeEditor] setSelectedRange:NSMakeRange(0, [stringValue length])];
             }
 		}
 		// Set the underlying object of the pane to be a text object
-		[self setObjectValue:[QSObject objectWithString:[[self textModeEditor] string]]];
+		[self setObjectValue:[QSObject objectWithString:[[[self textModeEditor] string] copy]]];
 		
 		NSRect titleFrame = [self frame];
 		NSRect editorFrame = NSInsetRect(titleFrame, NSHeight(titleFrame) /16, NSHeight(titleFrame)/16);
@@ -1120,11 +1128,23 @@ NSMutableDictionary *bindingsDict = nil;
 	} else {
 		[resultTimer invalidate];
 	}
-	[[self window] makeFirstResponder:[self actionSelector]];
+    
+    [[self actionSelector] setShouldResetSearchString:NO];
+    [[self window] makeFirstResponder:[self actionSelector]];
 	// ***warning  * toggle first responder on key up
     
 	[[self controller] fireActionUpdateTimer];
-	[[self actionSelector] keyDown:theEvent];
+    NSString *text = [theEvent charactersIgnoringModifiers];
+    if ([text isEqualToString:@" "]) {
+        NSInteger behavior = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSSearchSpaceBarBehavior"];
+        // only attempting to insert a space into the aSelector makes sense when using shifted keys.
+        // If anything but this is set as the default, then beep and say that the event *was* handled succesfully (eventhough it failed)
+        if (behavior != 1) {
+            NSBeep();
+            return YES;
+        }
+    }
+    [[self actionSelector] insertText:text];
 	return YES;
 }
 
@@ -1326,7 +1346,7 @@ NSMutableDictionary *bindingsDict = nil;
 		case 4: //Switch to text
 			[self transmogrify:sender];
 			break;
-		case 5: //Select next result
+		case 5: //Show child contents/
 			if ([[NSApp currentEvent] modifierFlags] & NSShiftKeyMask)
 				[self moveLeft:sender];
 			else
@@ -1489,7 +1509,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)textDidEndEditing:(NSNotification *)aNotification {
-    NSString *string = [[aNotification object] string];
+    NSString *string = [[[aNotification object] string] copy];
     if (![string isEqualToString:@" "]) {
         // only set the object value if it's not a 'short circuit'
         [self setObjectValue:[QSObject objectWithString:string]];
@@ -1503,6 +1523,9 @@ NSMutableDictionary *bindingsDict = nil;
 #pragma mark -
 #pragma mark NSTextInput Protocol
 - (void)insertText:(id)aString {
+    [self insertText:aString replacementRange:NSMakeRange(0,0)];
+}
+- (void)insertText:(id)aString replacementRange:(NSRange)replacementRange {
 	if (![partialString length]) {
 		[self updateHistory];
 		[self setSearchArray:sourceArray];
@@ -1723,9 +1746,7 @@ NSMutableDictionary *bindingsDict = nil;
         } else {
             parent = [newSelectedObject parent];
         }
-        
-        newSelectedObject = parent;
-        
+                
         // should show parent's level
         newSelectedObject = parent;
         if (newSelectedObject) {

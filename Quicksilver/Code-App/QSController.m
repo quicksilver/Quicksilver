@@ -12,6 +12,9 @@
 #import "QSCrashReporterWindowController.h"
 #import "QSDownloads.h"
 
+
+#import "QSIntValueTransformer.h"
+
 #define DEVEXPIRE 180.0f
 #define DEPEXPIRE 365.24219878f
 
@@ -41,7 +44,17 @@ static QSController *defaultController = nil;
 #ifdef DEBUG
 	if (DEBUG_STARTUP) NSLog(@"Controller Initialize");
 #endif
+    //    A value transformer for checking if a given value is '2'. Used in the QSSearchPrefPane (Caps lock menu item)
+    QSIntValueTransformer *intValueIsTwo = [[QSIntValueTransformer alloc] initWithInteger:2];
+    [NSValueTransformer setValueTransformer:intValueIsTwo forName:@"IntegerValueIsTwo"];
 	
+    if (![NSApplication isLion]) {
+		NSBundle *appBundle = [NSBundle mainBundle];
+		NSRunAlertPanel([NSString stringWithFormat:@"%@ %@ Mac OS X 10.7+",[appBundle objectForInfoDictionaryKey:@"CFBundleName"],NSLocalizedString(@"requires",nil)] ,[NSString stringWithFormat:NSLocalizedString(@"Recent versions of Quicksilver require Mac OS %@. Older %@ compatible versions are available from the http://qsapp.com/download.php", nil),@"10.7 Lion",@"10.3–10.6"], NSLocalizedString(@"OK",nil), nil, nil, [appBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]);
+		// Quit - we don't want to be running :)
+		[NSApp terminate:nil];
+	}
+    
 	static BOOL initialized = NO;
 	if (initialized) return;
 	initialized = YES;
@@ -275,7 +288,7 @@ static QSController *defaultController = nil;
 
 		QSWindow *quitWindow = nil;
 		if (!quitWindowController) {
-			quitWindowController = [[NSWindowController alloc] initWithWindowNibName:@"QuitConfirm" owner:quitWindowController];
+			quitWindowController = [[NSWindowController alloc] initWithWindowNibName:@"QuitConfirm"];
 
 			quitWindow = (QSBorderlessWindow *)[quitWindowController window];
 			[quitWindow setLevel:kCGPopUpMenuWindowLevel+1];
@@ -640,11 +653,6 @@ static QSController *defaultController = nil;
 			
             // Not localizing this, as it's pretty much obsolete
 			[[NSWorkspace sharedWorkspace] setComment:@"Quicksilver" forFile:[[NSBundle mainBundle] bundlePath]];
-			if (lastVersion < [@"2000" hexIntValue]) {
-				NSFileManager *fm = [NSFileManager defaultManager];
-				[fm moveItemAtPath:QSApplicationSupportSubPath(@"PlugIns", NO) toPath:QSApplicationSupportSubPath(@"PlugIns (B40 Incompatible) ", NO) error:nil];
-				[fm moveItemAtPath:@"/Library/Application Support/Quicksilver/PlugIns" toPath:@"/Library/Application Support/Quicksilver/PlugIns (B40 Incompatible) " error:nil];
-			}
 				newVersion = YES;
 			break;
         }
@@ -799,13 +807,6 @@ static QSController *defaultController = nil;
 }
 
 - (void)applicationWillFinishLaunching:(NSNotification *)aNotification {
-
-	if (![NSApplication isLion]) {
-		NSBundle *appBundle = [NSBundle mainBundle];
-		NSRunAlertPanel([NSString stringWithFormat:@"%@ %@ Mac OS X 10.7+",[appBundle objectForInfoDictionaryKey:@"CFBundleName"],NSLocalizedString(@"requires",nil)] ,[NSString stringWithFormat:NSLocalizedString(@"Recent versions of Quicksilver require Mac OS %@. Older %@ compatible versions are available from the http://qsapp.com/download.php", nil),@"10.7 Lion",@"10.3–10.6"], NSLocalizedString(@"OK",nil), nil, nil, [appBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"]);
-		// Quit - we don't want to be running :)
-		[NSApp terminate:nil];
-	}
 	
 	[self startMenuExtraConnection];
 
@@ -1117,6 +1118,7 @@ void QSSignalHandler(int i) {
 }
 
 - (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldLogException:(NSException *)exception mask:(NSUInteger)aMask {
+    NSLog(@"Exception raised: %@", exception);
 	[exception printStackTrace];
 	return NO;
 } // mask is NSLog<exception type>Mask, exception's userInfo has stack trace for key NSStackTraceKey

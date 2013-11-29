@@ -264,11 +264,13 @@ NSMutableDictionary *kindDescriptions = nil;
 #pragma mark Icon Loading
 
 - (void)iconLoader:(QSIconLoader *)loader loadedIndex:(NSInteger)m inArray:(NSArray *)array {
-	if (loader == resultIconLoader) {
-        [resultTable setNeedsDisplayInRect:[resultTable rectOfRow:m]];
-	} else if (loader == resultChildIconLoader) {
-        [resultChildTable setNeedsDisplayInRect:[resultChildTable rectOfRow:m]];
-	}
+    QSGCDMainAsync(^{
+        if (loader == resultIconLoader) {
+            [resultTable setNeedsDisplayInRect:[resultTable rectOfRow:m]];
+        } else if (loader == resultChildIconLoader) {
+            [resultChildTable setNeedsDisplayInRect:[resultChildTable rectOfRow:m]];
+        }
+    });
 }
 
 - (BOOL)iconsAreLoading {
@@ -309,7 +311,7 @@ NSMutableDictionary *kindDescriptions = nil;
 
 - (void)objectIconModified:(NSNotification *)notif
 {
-    runOnMainQueueSync(^{
+    QSGCDMainAsync(^{
         // if results are showing, check for icons that need updating
         if ([[self window] isVisible]) {
             QSObject *object = [notif object];
@@ -359,17 +361,19 @@ NSMutableDictionary *kindDescriptions = nil;
     [self updateStatusString];
     
 	[resultTable reloadData];
-    NSRect windowFrame = [[self window] frame];
-    NSUInteger resultCount = [currentResults count];
-    NSUInteger verticalSpacing = [resultTable intercellSpacing].height;
-    NSUInteger newWindowHeight =  (([resultTable rowHeight] + verticalSpacing) * resultCount) + 31;
-    windowFrame.size.height =  newWindowHeight > windowHeight || [currentResults count] == 0 ? windowHeight : newWindowHeight;
-    if (windowFrame.size.height != [[self window] frame].size.height) {
-        windowFrame.origin.y = windowFrame.origin.y - (windowFrame.size.height - [[self window] frame].size.height);
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:kUseEffects] boolValue]) {
+        NSRect windowFrame = [[self window] frame];
+        NSUInteger resultCount = [currentResults count];
+        NSUInteger verticalSpacing = [resultTable intercellSpacing].height;
+        NSUInteger newWindowHeight =  (([resultTable rowHeight] + verticalSpacing) * resultCount) + 31;
+        windowFrame.size.height =  newWindowHeight > windowHeight || [currentResults count] == 0 ? windowHeight : newWindowHeight;
+        if (windowFrame.size.height != [[self window] frame].size.height) {
+            windowFrame.origin.y = windowFrame.origin.y - (windowFrame.size.height - [[self window] frame].size.height);
+        }
+        shouldSaveWindowSize = NO;
+        [[self window] setFrame:windowFrame display:YES animate:YES];
+        shouldSaveWindowSize = YES;
     }
-    shouldSaveWindowSize = NO;
-    [[self window] setFrame:windowFrame display:YES animate:YES];
-    shouldSaveWindowSize = YES;
 	//visibleRange = [resultTable rowsInRect:[resultTable visibleRect]];
 	//	NSLog(@"arraychanged %d", [[self currentResults] count]);
 	//[self threadedIconLoad];

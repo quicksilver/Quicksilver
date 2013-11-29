@@ -34,4 +34,5 @@
 - (NSString *)commentForFile:(NSString *)path;
 - (BOOL)setComment:(NSString*)comment forFile:(NSString *)path;
 - (BOOL)openFileInBackground:(NSString *)fullPath;
+- (void)relaunchApplication:(NSDictionary *)theApp;
 @end

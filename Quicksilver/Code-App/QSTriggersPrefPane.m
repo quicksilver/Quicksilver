@@ -24,6 +24,8 @@
 #import "QSTableView.h"
 #import "QSOutlineView.h"
 
+#import "QSApp.h"
+
 @implementation QSTriggersArrayController
 - (void)prepareContent {}
 @end
@@ -227,9 +229,9 @@
 }
 
 - (IBAction)triggerChanged:(id)sender {
-    runOnMainQueueSync(^{
-        [triggerSetsController rearrangeObjects];
-        [triggerArrayController rearrangeObjects];
+    [triggerSetsController rearrangeObjects];
+    [triggerArrayController rearrangeObjects];
+    QSGCDMainSync(^{
         [triggerTable reloadData];
     });
 }
@@ -276,12 +278,13 @@
 // Enabling/disabling of the 'edit' button is done programmatically within the outlineClicked: method
 - (IBAction)editCommand:(id)sender {
     [commandEditor setCommand:[selectedTrigger command]];
-    [NSApp beginSheetModalForWindow:[commandEditor window] completionHandler:^(NSInteger result) {
+    [NSApp qs_beginSheet:commandEditor.window modalForWindow:self.mainView.window completionHandler:^(NSInteger result) {
         QSCommand *command = [commandEditor representedCommand];
         if (command) {
             [selectedTrigger setCommand:command];
             [[QSTriggerCenter sharedInstance] triggerChanged:selectedTrigger];
         }
+        [commandEditor.window orderOut:self];
     }];
 }
 
@@ -331,20 +334,22 @@
 							 row:row withEvent:[NSApp currentEvent] select:YES];
 	} else if (!mOptionKeyIsDown) {
         [commandEditor setCommand:[selectedTrigger command]];
-        [NSApp beginSheetModalForWindow:[commandEditor window] completionHandler:^(NSInteger result) {
+        [NSApp qs_beginSheet:commandEditor.window modalForWindow:self.mainView.window completionHandler:^(NSInteger result) {
             QSCommand *command = [commandEditor representedCommand];
             if (command) {
-                [selectedTrigger setCommand:command];
-                [[QSTriggerCenter sharedInstance] triggerChanged:selectedTrigger];
+                [trigger setCommand:command];
+                [[QSTriggerCenter sharedInstance] triggerChanged:trigger];
             } else {
-                [[QSTriggerCenter sharedInstance] removeTrigger:selectedTrigger];
+                [[QSTriggerCenter sharedInstance] removeTrigger:trigger];
                 //		[self updateTriggerArray];
             }
             // select the trigger (its position has changed since adding the trigger)
-            NSUInteger selectTriggerIndex = [[triggerArrayController arrangedObjects] indexOfObject:selectedTrigger];
-            if (selectTriggerIndex != NSNotFound) {
+            NSUInteger selectTriggerIndex = [[triggerArrayController arrangedObjects] indexOfObject:trigger];
+            if (selectTriggerIndex != NSNotFound && (NSInteger)selectTriggerIndex < [triggerTable numberOfRows]) {
                 [triggerTable selectRowIndexes:[NSIndexSet indexSetWithIndex:selectTriggerIndex] byExtendingSelection:NO];
+                [triggerTable scrollRowToVisible:selectTriggerIndex];
             }
+            [commandEditor.window orderOut:self];
         }];
 	}
 }
@@ -353,12 +358,13 @@
 	if ([triggerTable selectedRow] >= 0) {
         QSTrigger *editedTrigger = [triggerArray objectAtIndex:[triggerTable selectedRow]];
         [commandEditor setCommand:[editedTrigger command]];
-        [NSApp beginSheetModalForWindow:[commandEditor window] completionHandler:^(NSInteger result) {
+        [NSApp qs_beginSheet:commandEditor.window modalForWindow:self.mainView.window completionHandler:^(NSInteger result) {
             QSCommand *command = [commandEditor representedCommand];
             if (command) {
                 [editedTrigger setCommand:command];
                 [[QSTriggerCenter sharedInstance] triggerChanged:editedTrigger];
             }
+            [commandEditor.window orderOut:self];
         }];
 	}
 }
@@ -376,7 +382,7 @@
 			//if (VERBOSE) NSLog(@"No Editor");
 		}
 	} else if ([anObject isDescendantOf:[optionsDrawer contentView]]) {
-		id manager = [[self currentTrigger] manager];
+		id manager = [[self selectedTrigger] manager];
 		if ([manager respondsToSelector:@selector(windowWillReturnFieldEditor:toObject:)])
 			return [manager windowWillReturnFieldEditor:sender toObject:anObject];
 	}
@@ -453,7 +459,7 @@
 }
 
 -(void)reloadData:(NSTableView *)view {
-    runOnMainQueueSync(^{
+    QSGCDMainSync(^{
         [view reloadData];
     });
 }
@@ -512,12 +518,13 @@
 		}
 		if ([[theSelectedTrigger type] isEqualToString:@"QSGroupTrigger"]) return YES;
         [commandEditor setCommand:[theSelectedTrigger command]];
-        [NSApp beginSheetModalForWindow:[commandEditor window] completionHandler:^(NSInteger result) {
+        [NSApp qs_beginSheet:commandEditor.window modalForWindow:self.mainView.window completionHandler:^(NSInteger result) {
             QSCommand *command = [commandEditor representedCommand];
             if (command) {
                 [theSelectedTrigger setCommand:command];
                 [[QSTriggerCenter sharedInstance] triggerChanged:theSelectedTrigger];
             }
+            [commandEditor.window orderOut:self];
         }];
 
 		return NO;

@@ -11,6 +11,7 @@
 #import "QSHotKeyEvent.h"
 #import <unistd.h>
 
+
 #define NSNumlockKeyCode 10
 #define NSCommandKeyCode 55
 #define NSShiftKeyCode 56
@@ -21,85 +22,22 @@
 
 NSInteger NSAllModifierKeysMask = NSShiftKeyMask | NSControlKeyMask | NSAlternateKeyMask | NSCommandKeyMask | NSFunctionKeyMask;
 
-void logKeyMap(char *keyMap) {
-	NSMutableString *string = [NSMutableString string];
-	NSInteger i;
-	for (i = 0; i<16; i++) {
-		[string appendFormat:@" %02hhX", keyMap[i]];
-    }
-
-	NSLog(@"KeyMap %@", string);
-
-}
-
-void KeyMapAddKeyCode(char *keymap, NSInteger keyCode) {
-	NSInteger i = keyCode / 8;
-	NSInteger j = keyCode % 8;
-	keymap[i] = keymap[i] | 1 << j;
-}
-
-void KeyMapInvert(char *keymap) {
-	NSInteger i;
-	for (i = 0; i<16; i++)
-		keymap[i] = ~keymap[i];
-}
-void KeyMapInit(char *keymap) {
-    NSInteger i;
-	for (i = 0; i<16; i++) keymap[i] = 0;
-}
-
-BOOL KeyMapAND(char *keymap, char *keymap2) {
-	NSInteger i;
-	for (i = 0; i<16; i++)
-		if (keymap[i] & keymap2[i]) return YES;
-	return NO;
-}
-
-
-OSStatus keyPressed(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData) {
-    OSStatus err;
-	UInt32 modifiers;
-    err = GetEventParameter( theEvent, kEventParamKeyModifiers, typeUInt32, 0, sizeof(modifiers), 0, &modifiers );
-    if( err != 0 ) {
-        NSLog( @"Failed getting event modifiers param! %ld\n", (long)err );
-    }
-    
-    /* TODO: Use the new 10.5-only call ? */
-    //    NSEvent *event = [NSEvent eventWithEventRef:theEvent];
-    NSEvent *event = [NSEvent keyEventWithType:NSFlagsChanged location:NSZeroPoint
-                                 modifierFlags:carbonModifierFlagsToCocoaModifierFlags(modifiers)
-                                     timestamp:GetEventTime( theEvent )
-                                  windowNumber:0 context:nil
-                                    characters:nil charactersIgnoringModifiers:nil
-                                     isARepeat:NO keyCode:0];
-    
-    [NSApp sendEvent:event];
-	return CallNextEventHandler(nextHandler, theEvent);
-}
 
 NSMutableDictionary *modifierKeyEvents = nil;
 NSUInteger lastModifiers;
 BOOL modifierEventsEnabled = YES;
 
-// !!!:paulkohut:20100316
-// additional infomation needed for double tap events
-NSTimeInterval lastEventTime = 0;
-double doubleTapTimerWindow = 0.3;
-NSUInteger previousModifier = 0;
-
 @implementation QSModifierKeyEvent
 
-@synthesize target;
+@synthesize timesKeysPressed, target, action, identifier, modifierActivationCount;
 
 + (void)enableModifierEvents {modifierEventsEnabled = YES;}
 + (void)disableModifierEvents {modifierEventsEnabled = NO;}
 
-// !!!:paulkohut:20100318
-// Revised handler for modifier keys and caps lock key, single and double
-// tap supported.
-+ (BOOL)checkForModifierEvent:(NSEvent *)theEvent {
-	if (!modifierEventsEnabled) return NO;
-	if (!modifierKeyEvents) return NO;
+
++ (void)checkForModifierEvent:(NSEvent *)theEvent {
+	if (!modifierEventsEnabled) return;
+	if (!modifierKeyEvents) return;
 
 	NSUInteger mods = [theEvent modifierFlags];
 
@@ -110,85 +48,36 @@ NSUInteger previousModifier = 0;
     // To determine if the caps lock key is the only key press check if mods is
     // in one of the 3 states below.  NSMouseEnteredMask is set if QS has current
     // focus.
-    //BOOL capsKeyPressed = NO;
     if(!modsKeyPressed && (mods == 0 || mods & (NSAlphaShiftKeyMask | NSMouseEnteredMask)) ) {
         mods = NSAlphaShiftKeyMask;
-        //capsKeyPressed = YES;
     }
 
-	BOOL modsAdded = mods >= lastModifiers;
+    BOOL modsAdded = mods >= lastModifiers;
+
 	lastModifiers = mods;
-
-    if(!modsAdded) // && capsKeyPressed)
-        return NO;
-
-    NSTimeInterval eventTime = [NSDate timeIntervalSinceReferenceDate];
 
     // Get the mod key.
     NSUInteger puremod = mods & NSAllModifierKeysMask;
     if (!puremod)
         puremod = NSAlphaShiftKeyMask;
 
-    QSModifierKeyEvent *match = [modifierKeyEvents objectForKey:[NSNumber numberWithUnsignedInteger:puremod]];
+    QSModifierKeyEvent *match = [modifierKeyEvents objectForKey:[NSNumber numberWithUnsignedShort:[theEvent keyCode]]];
+    
 
-    // handle double taps
-    if ([match modifierActivationCount] == 2) {
-        //        NSLog(@"MOD = %d      PRE = %d      ModsAdded = %d    CapsKey = %d    ModsKey = %d", mods, previousModifier, modsAdded, capsKeyPressed, modsKeyPressed);
-
-        if (mods == NSAlphaShiftKeyMask && (previousModifier == NSAlphaShiftKeyMask ||
-                                            previousModifier == 0) ) {
-            // Handle caps lock key presses
-            if([self alphaShiftReleased:eventTime]) {
-                [match sendAction];
-                lastEventTime = 0;
-                previousModifier = 0;
-                return YES;
-            } else {
-                lastEventTime = eventTime;
-                previousModifier = 0;
-                return NO;
-            }
-        } else if (mods != previousModifier || ![self modifierToggled:eventTime]) {
-            // Handle other modifier key presses
-            lastEventTime = eventTime;
-            previousModifier = lastModifiers;
-            return NO;
-        }
-    }
-
-    //    NSLog(@"MOD = %d      PRE = %d      ModsAdded = %d    CapsKey = %d    ModsKey = %d", mods, previousModifier, modsAdded, capsKeyPressed, modsKeyPressed);
-
-    previousModifier = lastModifiers;
-    lastEventTime = eventTime;
-
-    // Ignore caps lock key if QS modifier action is set to single tap
-    if([match modifierActivationCount] == 1 && mods == NSAlphaShiftKeyMask)
-        return NO;
-
-    return [match checkForModifierTap];
-}
-
-// returns true if double tap of caps key occurred within time window
-+ (BOOL)alphaShiftReleased:(NSTimeInterval)eventTime {
-    if(lastEventTime + 0.5 > eventTime)
-        return YES;
-    return NO;
-}
-
-// returns true if double tap occurred within time window
-+ (BOOL)modifierToggled:(NSTimeInterval)eventTime {
-    if(lastEventTime + doubleTapTimerWindow > eventTime)
-        return YES;
-    return NO;
+    [match checkForModifierTap:modsAdded];
 }
 
 + (void)regisiterForGlobalModifiers {
-	EventTypeSpec eventType;
-	eventType.eventClass = kEventClassKeyboard;
-	eventType.eventKind = kEventRawKeyModifiersChanged;
-	EventHandlerUPP handlerFunction = NewEventHandlerUPP(keyPressed);
-	OSStatus err = InstallEventHandler(GetEventMonitorTarget(), handlerFunction, 1, &eventType, NULL, NULL);
-	if (err) NSLog(@"gmod registration err %ld", (long)err);
+    // global monitor for when QS isn't active
+    [NSEvent addGlobalMonitorForEventsMatchingMask:NSFlagsChangedMask handler:^(NSEvent *theEvent) {
+        [self checkForModifierEvent:theEvent];
+    }];
+    // local monitor for flags changed events when QS is active
+    [NSEvent addLocalMonitorForEventsMatchingMask:NSFlagsChangedMask handler:^NSEvent *(NSEvent *theEvent) {
+        [self checkForModifierEvent:theEvent];
+        // return the event as is, incase anywhere else wants to use it (e.g. QSSearchObjectView.m:flagsChanged - to show alternate actions)
+        return theEvent;
+    }];
 }
 
 + (void)initialize {
@@ -208,12 +97,12 @@ NSUInteger previousModifier = 0;
 }
 
 - (void)enable {
-	[[QSModifierKeyEvent modifierKeyEvents] setObject:self forKey:[NSNumber numberWithUnsignedInteger:modifierActivationMask]];
+	[[QSModifierKeyEvent modifierKeyEvents] setObject:self forKey:[NSNumber numberWithUnsignedInteger:keyCode]];
 }
 
 - (void)disable {
-	[[QSModifierKeyEvent modifierKeyEvents] objectForKey:[NSNumber numberWithUnsignedInteger:modifierActivationMask]];
-	[[QSModifierKeyEvent modifierKeyEvents] removeObjectForKey:[NSNumber numberWithUnsignedInteger:modifierActivationMask]];
+	[[QSModifierKeyEvent modifierKeyEvents] objectForKey:[NSNumber numberWithUnsignedInteger:keyCode]];
+	[[QSModifierKeyEvent modifierKeyEvents] removeObjectForKey:[NSNumber numberWithUnsignedInteger:keyCode]];
 }
 
 
@@ -233,11 +122,14 @@ NSUInteger previousModifier = 0;
 //	return self;
 //}
 
+- (NSUInteger)modifierActivationMask {
+    return _modifierActivationMask;
+}
 
 - (void)setModifierActivationMask:(NSUInteger)value {
-	modifierActivationMask = 1 << value;
+	_modifierActivationMask = 1 << value;
 
-	switch (modifierActivationMask) {
+	switch (self.modifierActivationMask) {
 		case NSCommandKeyMask:
 			keyCode = NSCommandKeyCode;
 			break;
@@ -259,6 +151,7 @@ NSUInteger previousModifier = 0;
 		default:
 			keyCode = 0;
 	}
+    self.timesKeysPressed = 0;
 	//	KeyMapInit((char *)&modRequireMap);
 	//	KeyMapAddKeyCode((char *)&modRequireMap, keyCode);
 	//
@@ -270,82 +163,46 @@ NSUInteger previousModifier = 0;
 
 
 - (void)sendAction {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    [self.target performSelector:self.action withObject:nil];
-#pragma clang diagnostic pop
+    SuppressPerformSelectorLeakWarning(
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(resetTimesKeysPressed:) object:nil];
+        [self resetTimesKeysPressed:nil];
+        [self.target performSelector:self.action withObject:nil];
+                                       
+    );
 }
 
-- (BOOL)checkForModifierTap {
+- (void)checkForModifierTap:(BOOL)modsAdded {
 
-	usleep(10000);
-	char keyMap[16];
-	//NSLog(@"check");
-	//logKeyMap((char *)&modRequireMap);
-	//logKeyMap((char *)&modExcludeMap);
-
-	char modRequireMap[16];
-	char modExcludeMap[16];
-
-	KeyMapInit((char *)&modRequireMap);
-	KeyMapAddKeyCode((char *)&modRequireMap, keyCode);
-
-	KeyMapInit((char *)&modExcludeMap);
-	KeyMapAddKeyCode((char *)&modExcludeMap, keyCode);
-	if (keyCode != NSAlphaShiftCode) KeyMapAddKeyCode((char *)&modExcludeMap, NSAlphaShiftCode);
-	KeyMapInvert((char *)&modExcludeMap);
-
-
-	GetKeys((void *)keyMap);
-	//logKeyMap((char *)&keyMap);
-
-	if (!KeyMapAND((char *)&keyMap, (char *)&modRequireMap) || KeyMapAND((char *)&keyMap, (char *)&modExcludeMap))
-        return NO;
-
-	NSTimeInterval startDate = [NSDate timeIntervalSinceReferenceDate];
-	NSTimeInterval window = [self modifierActivationCount] == 2 ? doubleTapTimerWindow : 0.15;
-
-	while(([NSDate timeIntervalSinceReferenceDate] -startDate) <window) {
-		GetKeys((void *)keyMap);
-        //	logKeyMap((char *)&keyMap);
-
-		if (KeyMapAND((char *)&keyMap, (char *)&modExcludeMap))
-            break; //Other keys pressed
-
-		if (!KeyMapAND((char *)&keyMap, (char *)&modRequireMap)) { // Modifier released
-			[self sendAction];
-			return YES;
-		}
-		usleep(10000);
-	}
-
-	return NO;
+    if (!modsAdded || (keyCode == NSAlphaShiftCode && self.timesKeysPressed == 1)) {
+        if (keyCode == NSAlphaShiftCode) {
+            // keyUp events aren't sent for the caps lock key, so we have to check it here and manually increase the key pressed count
+            self.timesKeysPressed += 1;
+        }
+        NSTimeInterval timeDiff = [firstModifierPressedTime timeIntervalSinceNow];
+        NSTimeInterval newTimeSinceLastKeyDown = CGEventSourceSecondsSinceLastEventType (
+                                                                 kCGEventSourceStateHIDSystemState,
+                                                                 kCGEventKeyDown
+                                                                 );
+        
+        NSTimeInterval keyPressDif = timeSinceLastKeyDown - newTimeSinceLastKeyDown;
+        if (fabs(timeDiff - keyPressDif) < 0.001 && self.timesKeysPressed == self.modifierActivationCount) {
+            [self sendAction];
+        }
+    } else {
+        firstModifierPressedTime = [NSDate date];
+        timeSinceLastKeyDown = CGEventSourceSecondsSinceLastEventType (
+                                                               kCGEventSourceStateHIDSystemState,
+                                                               kCGEventKeyDown
+                                                               );
+        double window = 0.3;
+        self.timesKeysPressed += 1;
+        [self performSelector:@selector(resetTimesKeysPressed:) withObject:nil afterDelay:window extend:YES];
+        
+    }
 }
 
-- (NSUInteger)modifierActivationMask { return modifierActivationMask; }
-
-- (NSInteger)modifierActivationCount { return modifierActivationCount; }
-- (void)setModifierActivationCount:(NSInteger)newModifierActivationCount {
-	modifierActivationCount = newModifierActivationCount;
-}
-
-- (id)target { return target; }
-- (void)setTarget:(id)newTarget {
-	if (target != newTarget) {
-		target = newTarget;
-	}
-}
-
-- (SEL) action { return action; }
-- (void)setAction:(SEL)newAction {
-	action = newAction;
-}
-
-- (NSString *)identifier { return identifier; }
-- (void)setIdentifier:(NSString *)newIdentifier {
-	if (identifier != newIdentifier) {
-		identifier = newIdentifier;
-	}
+-(void)resetTimesKeysPressed:(id)sender {
+    self.timesKeysPressed = 0;
 }
 
 @end

@@ -63,6 +63,7 @@
 #import "NSAppleEventDescriptor_QSMods.h"
 #import "NDProcess+QSMods.h"
 #import "NDAlias+QSMods.h"
+#import "QSIntValueTransformer.h"
 
 
 

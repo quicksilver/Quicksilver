@@ -68,9 +68,11 @@
 }
 
 - (QSObject *)setObjectMnemonic:(QSObject *)dObject string:(QSObject *)iObject {
-	[[QSMnemonics sharedInstance] addObjectMnemonic:[iObject stringValue] forID:[dObject identifier]];
-    [[QSMnemonics sharedInstance] addAbbrevMnemonic:[iObject stringValue] forID:[dObject identifier] relativeToID:nil immediately:NO];
-	[dObject updateMnemonics];
+	if (![[QSMnemonics sharedInstance] addObjectMnemonic:[iObject stringValue] forObject:dObject] || ![[QSMnemonics sharedInstance] addAbbrevMnemonic:[iObject stringValue] forObject:dObject relativeToID:nil immediately:NO]) {
+        QSShowAppNotifWithAttributes(@"ActionFailed", NSLocalizedStringFromTableInBundle(@"Unable to assign abbreviation", nil, [NSBundle bundleForClass:[self class]], nil), [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Unable to assign abbreviation '%@' to object %@. Perhaps you want to create a synonym?", nil, [NSBundle bundleForClass:[self class]], nil),  [iObject stringValue], [dObject name]]);
+    } else {
+        [dObject updateMnemonics];
+    }
 	return nil;
 }
 
@@ -190,6 +192,10 @@
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
 	if ([action isEqualToString:@"QSCreateFileAction"]) {
 		return nil;
+	} else if ([action isEqualToString:@"QSObjectAssignMnemonic"]) {
+        NSString *suggestion = [[[[NSApp delegate] interfaceController] dSelector] matchedString];
+        QSObject *textObject = [QSObject textProxyObjectWithDefaultValue:suggestion];
+        return [NSArray arrayWithObject:textObject];
 	} else {
 	QSObject *textObject = [QSObject textProxyObjectWithDefaultValue:@""];
 	return [NSArray arrayWithObject:textObject]; //[[QSLibrarian sharedInstance]arrayForType:NSFilenamesPboardType];

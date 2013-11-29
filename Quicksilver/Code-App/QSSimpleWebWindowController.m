@@ -50,7 +50,7 @@
 }
 
 - (void)loadHTMLString:(NSString *)string baseURL:(NSURL *)URL {
-    runOnMainQueueSync(^{
+    QSGCDMainSync(^{
         [[[[self window] contentView] mainFrame] loadHTMLString:string baseURL:URL];
     });
 }

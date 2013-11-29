@@ -1,7 +1,7 @@
 #import "QSResultWindow.h"
 @implementation QSResultWindow
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
-	NSWindow* result = [super initWithContentRect:contentRect styleMask:aStyle | NSResizableWindowMask backing:bufferingType defer:YES];
+	self = [super initWithContentRect:contentRect styleMask:aStyle | NSResizableWindowMask backing:bufferingType defer:YES];
     [self setOpaque:![[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsUseAlpha"]];
     
     [self setShowEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSSlightGrowEffect", @"transformFn", @"show", @"type", [NSNumber numberWithDouble:0.05] , @"duration", nil]];
@@ -17,11 +17,11 @@
     [self setBackgroundColor:[NSColor clearColor]];
 	[self setMovableByWindowBackground:NO];
     [self setShowsResizeIndicator:YES];
-    return (QSResultWindow *)result;
+    return self;
 }
 
 - (NSTimeInterval)animationResizeTime:(NSRect)newFrame {
-	return .1;
+	return .06;
 }
 
 - (BOOL)acceptsFirstResponder {return NO;}

@@ -139,6 +139,8 @@
 	<true/>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
+    <key>NSSupportsAutomaticGraphicsSwitching</key>
+    <true/>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

@@ -703,7 +703,13 @@ NSSize QSMaxIconSize;
     }
 }
 
-- (void)setIdentifier:(NSString *)newIdentifier {
+- (void)setIdentifier:(NSString *)newIdentifier
+{
+    [self setIdentifier:newIdentifier addToObjectDictionary:YES];
+}
+
+- (void)setIdentifier:(NSString *)newIdentifier addToObjectDictionary:(BOOL)add
+{
     @synchronized(self) {
         if (identifier != nil && newIdentifier != nil) {
             if(![identifier isEqualToString:newIdentifier]) {
@@ -720,7 +726,9 @@ NSSize QSMaxIconSize;
             identifier = nil;
         } else if (identifier == nil) {
             flags.noIdentifier = NO;
-            [objectDictionary setObject:self forKey:newIdentifier];
+            if (add) {
+                [objectDictionary setObject:self forKey:newIdentifier];
+            }
             [meta setObject:newIdentifier forKey:kQSObjectObjectID];
             identifier = newIdentifier;
         }
@@ -917,8 +925,9 @@ NSSize QSMaxIconSize;
 		[self setLabel:[meta objectForKey:kQSObjectAlternateName]];
     if ([meta objectForKey:kQSObjectPrimaryName])
         [self setName:[meta objectForKey:kQSObjectPrimaryName]];
-	if ([meta objectForKey:kQSObjectObjectID])
-		[self setIdentifier:[meta objectForKey:kQSObjectObjectID]];
+	if ([meta objectForKey:kQSObjectObjectID]) {
+        [self setIdentifier:[meta objectForKey:kQSObjectObjectID] addToObjectDictionary:NO];
+    }
 	if ([meta objectForKey:kQSObjectPrimaryType])
 		[self setPrimaryType:[meta objectForKey:kQSObjectPrimaryType]];
 

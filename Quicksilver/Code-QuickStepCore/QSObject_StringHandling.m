@@ -51,8 +51,6 @@
 
 - (void)setQuickIconForObject:(QSObject *)object { [object setIcon:[[NSWorkspace sharedWorkspace] iconForFileType:@"'clpt'"]];  }
 - (BOOL)loadIconForObject:(QSObject *)object { return NO;  }
-- (NSString *)identifierForObject:(QSObject *)object { return [NSString stringWithFormat:@"%@-:-%@",QSTextType,[object objectForType:QSTextType]];
-}
 
  - (NSString *)detailsOfObject:(QSObject *)object { return nil;  }
 @end
@@ -60,10 +58,6 @@
 @implementation QSObject (StringHandling)
 
 + (id)objectWithString:(NSString *)string {
-    NSString *stringIDPrefix = [NSString stringWithFormat:@"%@-:-",QSTextType];
-    if ([string hasPrefix:stringIDPrefix]) {
-        string = [string substringFromIndex:[stringIDPrefix length]];
-    }
     return [(QSObject *)[QSObject alloc] initWithString:string];
 }
 
@@ -193,6 +187,7 @@
         [self assignURLTypesWithURL:[@"mailto:" stringByAppendingString:stringValue]];
         return YES;
     } else {
+        // FQDN and URL checks
         NSRange schemeRange = [stringValue rangeOfString:@"://"];
         NSString *scheme = nil;
         if (schemeRange.location != NSNotFound) {
@@ -205,18 +200,39 @@
             stringValue = [stringValue substringFromIndex:schemeRange.location +schemeRange.length];
         }
         
-        NSArray *colonComponents = [stringValue componentsSeparatedByString:@":"];
+        // allow "qsapp/" to turn into "http://www.qsapp.com/" as in Safari's address bar
+        if ([stringValue hasSuffix:@"/"]) {
+            NSString *withoutSlash = [stringValue substringToIndex:[stringValue length] - 1];
+            if (![withoutSlash hasPrefix:@"-"] && ![withoutSlash hasSuffix:@"-"]) {
+                // can't begin or end with '-', but can contain it
+                NSString *dehyphenated = [withoutSlash stringByReplacingOccurrencesOfString:@"-" withString:@""];
+                if ([dehyphenated containsOnlyCharactersFromSet:[NSCharacterSet alphanumericCharacterSet]]) {
+                    // valid domain name
+                    NSString *urlTemplate = NSLocalizedString(@"http://www.%@.com/", @"Typical URL for this locale");
+                    NSString *urlValue = [NSString stringWithFormat:urlTemplate, withoutSlash];
+                    [self assignURLTypesWithURL:urlValue];
+                    // preserve the original text
+                    [self setObject:stringValue forType:QSTextType];
+                }
+            }
+        }
+        
+        NSArray *colonComponents = [[[stringValue componentsSeparatedByString:@"/"] objectAtIndex:0] componentsSeparatedByString:@":"];
         // Charset containing everything but decimal digits
         NSCharacterSet *nonNumbersSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
         
-        if ([colonComponents count] > 1) {
+        if ([colonComponents count] > 2) {
+            // only host:port should be valid
+            return NO;
+        }
+        if ([colonComponents count] == 2) {
             // Check the port (if it exists). URLs may contain multiple colons, so we take the first occurance of it. e.g. http://google.com:80/?q=this_is_a_:
-            NSString *port = [[[colonComponents objectAtIndex:1] componentsSeparatedByString:@"/"] objectAtIndex:0];
+            NSString *port = [colonComponents objectAtIndex:1];
             if ([port length] == 0 || [port rangeOfCharacterFromSet:nonNumbersSet].location != NSNotFound) {
                 return NO;
             }
         }
-        NSString *host = [[[colonComponents objectAtIndex:0] componentsSeparatedByString:@"/"] objectAtIndex:0];
+        NSString *host = [colonComponents objectAtIndex:0];
 
         NSArray *components = [host componentsSeparatedByString:@"."];
         if ([host rangeOfCharacterFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].location != NSNotFound || ![[components objectAtIndex:0] length]) {

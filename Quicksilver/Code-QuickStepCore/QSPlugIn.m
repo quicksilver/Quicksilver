@@ -633,6 +633,27 @@ NSMutableDictionary *plugInBundlePaths = nil;
 				return NO;
 			}
 		}
+        NSString *osRequired = [requirementsDict objectForKey:@"osRequired"];
+        if (osRequired) {
+            if ([[NSApplication macOSXFullVersion] compare:osRequired] == NSOrderedAscending) {
+                if (error) {
+                    NSString *localizedErrorFormat = NSLocalizedString(@"Requires Mac OS X %@ or later", nil);
+                    *error = [NSString stringWithFormat:localizedErrorFormat, osRequired];
+                }
+                return NO;
+            }
+        }
+        NSString *osUnsupported = [requirementsDict objectForKey:@"osUnsupported"];
+        if (osUnsupported) {
+            NSComparisonResult versionComparison = [[NSApplication macOSXFullVersion] compare:osUnsupported];
+            if (versionComparison == NSOrderedSame || versionComparison == NSOrderedDescending) {
+                if (error) {
+                    NSString *localizedErrorFormat = NSLocalizedString(@"Unsupported on Mac OS X %@ or later", nil);
+                    *error = [NSString stringWithFormat:localizedErrorFormat, osUnsupported];
+                }
+                return NO;
+            }
+        }
 	}
 	return YES;
 }
@@ -691,7 +712,14 @@ NSMutableDictionary *plugInBundlePaths = nil;
 
 - (BOOL)_registerPlugIn {
     if (![self isSupported]) {
-        [NSException raise:@"QSWrongPluginArchitecture" format:@"Current architecture unsupported"];
+        NSString *unsupportedFolder = @"PlugIns (disabled)";
+        NSString *pluginFileName = [[self path] lastPathComponent];
+        NSString *destination = [QSApplicationSupportSubPath(unsupportedFolder, YES) stringByAppendingPathComponent:pluginFileName];
+        NSLog(@"Moving unsupported plugin '%@' to %@. Quicksilver only supports 64-bit plugins. i386 and PPC plugins are being disabled to avoid repeated warnings.", [self name], unsupportedFolder);
+        NSFileManager *fm = [NSFileManager defaultManager];
+        [fm moveItemAtPath:[self path] toPath:destination error:nil];
+        //[NSException raise:@"QSWrongPluginArchitecture" format:@"Current architecture unsupported"];
+        return NO;
     }
     
 	if (!bundle) return NO;
