@@ -5,4 +5,5 @@
 + (instancetype)sharedInstance;
 - (void)hideWindow:(id)sender;
 - (void)showWindow:(id)sender;
+- (void)toggleWindow:(id)sender;
 @end

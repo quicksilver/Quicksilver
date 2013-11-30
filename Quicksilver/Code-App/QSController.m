@@ -326,7 +326,7 @@ static QSController *defaultController = nil;
 
 - (IBAction)showTaskViewer:(id)sender {
 	[NSApp activateIgnoringOtherApps:YES];
-	[[QSTaskViewer sharedInstance] showWindow:self];
+    [[QSTaskViewer sharedInstance] toggleWindow:self];
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem*)anItem {

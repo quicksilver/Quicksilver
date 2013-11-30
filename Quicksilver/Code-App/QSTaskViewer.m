@@ -98,6 +98,14 @@ static QSTaskViewer * _sharedInstance;
     });
 }
 
+- (void)toggleWindow:(id)sender {
+    if (![[self window] isVisible] || [[self window] hidden]) {
+        [self showWindow:self];
+    } else {
+        [self hideWindow:self];
+    }
+}
+
 - (void)tasksStarted:(NSNotification *)notif {
 	[self showIfNeeded:notif];
 }
