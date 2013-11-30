@@ -127,7 +127,9 @@ static QSTaskViewer * _sharedInstance;
         double delayInSeconds = SHOW_DELAY;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+#ifdef DEBUG
             NSLog(@"Will show for task %@: running: %@", task, (task.isRunning ? @"YES" : @"NO"));
+#endif
             if (!task.isRunning) {
                 return;
             }
