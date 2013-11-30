@@ -54,6 +54,8 @@ static QSTaskViewer * _sharedInstance;
         return nil;
     }
 
+    [self setWindowFrameAutosaveName:@"QSTaskViewerWindow"];
+
     _taskControllers = [NSMutableDictionary dictionary];
 
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -78,7 +80,6 @@ static QSTaskViewer * _sharedInstance;
 	[win setLevel:NSFloatingWindowLevel];
 	[win setBackgroundColor:[NSColor whiteColor]];
 	[win setOpaque:YES];
-	[win setFrameAutosaveName:@"QSTaskViewerWindow"]; // should use the real methods to do this
 	[win display];
 	[self resizeTableToFit];
 }
