@@ -111,7 +111,10 @@ static QSTaskViewer * _sharedInstance;
 }
 
 - (void)autoHide {
-    if (!self.wasAutomaticallyShown) {
+    // Don't hide ourselves if we were shown automatically, or if there are
+    // still tasks running. No need to reschedule because the last task to end
+    // will hide us.
+    if (!self.wasAutomaticallyShown || self.taskControllers.count != 0) {
         return;
     }
 	[(QSDockingWindow *)[self window] hideOrOrderOut:self];
