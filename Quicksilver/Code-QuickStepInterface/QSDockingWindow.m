@@ -200,9 +200,9 @@
 	}
 }
 
-// prevent docked windows from closing when Esc key is pressed
 - (void)keyDown:(NSEvent *)theEvent {
-	if ([theEvent keyCode] == 53) {
+    // close docked windows when Esc key is pressed
+	if ([theEvent keyCode] == kVK_Escape) {
 		[self hideOrOrderOut:nil];
 	} else {
 		[super keyDown:theEvent];
