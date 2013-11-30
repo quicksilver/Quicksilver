@@ -12,6 +12,10 @@
 #define HIDE_DELAY 0.2
 #define SHOW_DELAY 0.1
 
+@interface QSTaskViewer (QSRedeclarations)
+- (QSDockingWindow *)window;
+@end
+
 @interface QSTaskViewer ()
 
 @property (strong) IBOutlet NSView *tasksView;
@@ -68,7 +72,7 @@ static QSTaskViewer * _sharedInstance;
 }
 
 - (void)windowDidLoad {
-	id win = [self window];
+	QSDockingWindow *win = [self window];
 	[win addInternalWidgetsForStyleMask:NSUtilityWindowMask];
 	[win setHidesOnDeactivate:NO];
 	[win setLevel:NSFloatingWindowLevel];
