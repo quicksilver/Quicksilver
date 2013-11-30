@@ -94,7 +94,7 @@ static QSTaskViewer * _sharedInstance;
 - (void)hideWindow:(id)sender {
     QSGCDMainAsync(^{
         self.wasAutomaticallyShown = NO;
-        [self.window close];
+        [self.window hideOrOrderOut:sender];
     });
 }
 
