@@ -61,15 +61,7 @@ OSStatus _LSCopyAllApplicationURLs(CFArrayRef *array);
 - (NSArray *)allApplications {
     CFArrayRef appURLs = NULL;
 	_LSCopyAllApplicationURLs(&appURLs);
-	NSMutableArray *apps = nil;
-    if (appURLs != NULL) {
-        apps = [NSMutableArray arrayWithCapacity:[(__bridge NSArray *)appURLs count]];
-        for (id loopItem in (__bridge NSArray *)appURLs) {
-            [apps addObject:[loopItem path]];
-        }
-        CFRelease(appURLs);
-    }
-	return apps;
+    return (__bridge_transfer NSArray *)appURLs;
 }
 
 - (NSInteger) pidForApplication:(NSDictionary *)theApp {
