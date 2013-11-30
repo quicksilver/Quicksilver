@@ -162,6 +162,8 @@ static QSTaskViewer * _sharedInstance;
 - (void)updateTaskView {
     QSGCDMainAsync(^{
 //        NSLog(@"%s called on thread %@", __FUNCTION__, [NSThread currentThread]);
+        // Make sure our window is loaded, we need it for the calculations below.
+        [self window];
         NSUInteger i = 0;
         for (NSString *taskID in self.taskControllers) {
             QSTaskViewController *controller = self.taskControllers[taskID];
