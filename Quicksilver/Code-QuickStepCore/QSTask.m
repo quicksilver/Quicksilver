@@ -30,7 +30,7 @@
 }
 
 + (QSTask *)taskWithIdentifier:(NSString *)identifier {
-	NSAssert(identifier != nil, @"Task identifier shouldn't be nil");
+	NSParameterAssert(identifier != nil);
 
 	QSTask *task = [QSTaskController.sharedInstance taskWithIdentifier:identifier];
 	if (!task)
@@ -43,7 +43,7 @@
 }
 
 - (id)initWithIdentifier:(NSString *)identifier {
-	NSAssert(identifier != nil, @"Task identifier shouldn't be nil");
+	NSParameterAssert(identifier != nil);
 
 	self = [super init];
 	if (self == nil) {
