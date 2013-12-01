@@ -102,7 +102,6 @@
 
 - (void)selectEntry:(QSCatalogEntry *)entry;
 - (QSCatalogEntry *)entryForCatFile:(NSString *)path;
-- (id)preferencesSplitView;
 
 - (void)showOptionsDrawer;
 @end

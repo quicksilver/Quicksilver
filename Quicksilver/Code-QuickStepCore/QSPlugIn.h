@@ -91,6 +91,8 @@
 - (void)setEnabled:(BOOL)flag;
 - (NSString *)text;
 - (NSImage *)image;
+
+- (void)clearWebData;
 @property (copy,readwrite,nonatomic) NSString *status;
 @end
 

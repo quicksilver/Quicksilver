@@ -119,15 +119,18 @@ typedef NS_ENUM(NSUInteger, QSSearchMode) {
 - (void)objectIconModified:(NSNotification *)notif;
 - (void)resetString; // update the string on screen when the search is cleared
 - (IBAction)defineMnemonic:(id)sender;
+- (IBAction)defineMnemonicImmediately:(id)sender;
 - (void)saveMnemonic;
 - (BOOL)mnemonicDefined;
 - (BOOL)impliedMnemonicDefined;
 - (IBAction)removeImpliedMnemonic:(id)sender;
-
 - (IBAction)removeMnemonic:(id)sender;
+
+- (IBAction)promoteAction:(id)sender;
+
 - (void)rescoreSelectedItem;
 
-- (IBAction)showResultView:sender;
+- (IBAction)showResultView:(id)sender;
 
 - (void)dropObject:(QSBasicObject *)newSelection;
 

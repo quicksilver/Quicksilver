@@ -36,4 +36,5 @@
 - (void)didReselect;
 
 - (NSBundle *)mainNibBundle;
+- (id)preferencesSplitView;
 @end

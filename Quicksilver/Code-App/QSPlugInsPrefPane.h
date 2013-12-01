@@ -60,5 +60,4 @@
 
 - (void)reloadFiltersIgnoringViewMode:(BOOL)ignoreView;
 
-- (id)preferencesSplitView;
 @end

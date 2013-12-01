@@ -26,6 +26,10 @@ extern NSSize QSMaxIconSize;
 - (NSString *)actionForDragMask:(NSDragOperation)operation ontoObject:(QSObject *)dObject withObject:(QSBasicObject *)iObject;
 
 //- (NSArray *)actionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject;
+
+- (NSAppleEventDescriptor *)AEDescriptorForObject:(QSObject *)object;
+
+- (QSObject *)initFileObject:(QSObject *)object ofType:(NSString *)type __attribute__((deprecated)) NS_RETURNS_NOT_RETAINED;
 @end
 
 

@@ -134,4 +134,8 @@
 - (void)requestRelaunch {
 	[NSApp requestRelaunch:nil];
 }
+
+- (id)preferencesSplitView {
+    return nil;
+}
 @end

@@ -55,4 +55,5 @@
 - (NSString *)triggerSet;
 - (NSMutableDictionary *)info;
 - (BOOL)execute;
+- (void)rescope:(NSString *)ident;
 @end

@@ -22,6 +22,8 @@
 - (QSObject *)execute;
 - (QSObject *)executeIgnoringModifiers;
 
+- (void)executeFromMenu:(id)sender;
+
 - (NSArray *)validIndirects;
 
 - (QSObject *)objectValue __attribute__((deprecated));

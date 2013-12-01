@@ -62,4 +62,8 @@
  */
 - (NSString *)safeLocalizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName;
 
+#if DEBUG
++ (NSMutableDictionary *)missingLocalizedValuesForAllBundles;
+#endif
+
 @end

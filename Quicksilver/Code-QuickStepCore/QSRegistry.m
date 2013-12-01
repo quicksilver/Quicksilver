@@ -49,6 +49,11 @@ QSRegistry* QSReg = nil;
 	}
 	return self;
 }
+
+- (void)bundleDidLoad:(NSNotification *)aNotif {
+	NSLog(@"Loaded Bundle: %@ Classes: %@", [[[aNotif object] bundlePath] lastPathComponent] , [[[aNotif userInfo] objectForKey:@"NSLoadedClasses"] componentsJoinedByString:@", "]);
+}
+
 /*
  - (BOOL)registerModule: {
 	 if (self = [super init]) {
@@ -267,10 +272,6 @@ QSRegistry* QSReg = nil;
 
 @implementation QSRegistry (PlugIns)
 
-- (void)bundleDidLoad:(NSNotification *)aNotif {
-	NSLog(@"Loaded Bundle: %@ Classes: %@", [[[aNotif object] bundlePath] lastPathComponent] , [[[aNotif userInfo] objectForKey:@"NSLoadedClasses"] componentsJoinedByString:@", "]);
-}
-
 - (BOOL)handleRegistration:(NSBundle *)bundle {
 	NSDictionary *registration = [bundle dictionaryForFileOrPlistKey:@"QSRegistration"];
 	if (!registration) return NO;
@@ -459,7 +460,7 @@ QSRegistry* QSReg = nil;
 	SEL sel = NSSelectorFromString(selector);
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    return (sel && [name respondsToSelector:@selector(sel)]) ? [self performSelector:sel withObject:name] : nil;
+    return (sel && [name respondsToSelector:sel]) ? [self performSelector:sel withObject:name] : nil;
 #pragma clang diagnostic pop
 }
 @end
