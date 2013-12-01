@@ -1542,19 +1542,33 @@ NSMutableDictionary *bindingsDict = nil;
 	[super doCommandBySelector:aSelector];
 }
 
-- (void)setMarkedText:(id)aString selectedRange:(NSRange)selRange {}
+- (void)setMarkedText:(id)aString selectedRange:(NSRange)selRange {
+    [self setMarkedText:aString selectedRange:selRange replacementRange:NSMakeRange(0, 0)];
+}
+
+- (void)setMarkedText:(id)aString selectedRange:(NSRange)selectedRange replacementRange:(NSRange)replacementRange {}
 
 - (void)unmarkText {}
 - (BOOL)hasMarkedText { return NO; }
 - (NSInteger)conversationIdentifier { return (long)self; }
 
 - (NSAttributedString *)attributedSubstringFromRange:(NSRange)theRange {
-	return [[NSAttributedString alloc] initWithString:[partialString substringWithRange:theRange]];
+	return [self attributedSubstringForProposedRange:theRange actualRange:NULL];
 }
+
+- (NSAttributedString *)attributedSubstringForProposedRange:(NSRange)aRange actualRange:(NSRangePointer)actualRange {
+    return nil;
+}
+
 - (NSRange)markedRange { return NSMakeRange([partialString length] -1, 1); }
 - (NSRange)selectedRange { return NSMakeRange(NSNotFound, 0); }
 
-- (NSRect)firstRectForCharacterRange:(NSRange)theRange { return NSZeroRect; }
+- (NSRect)firstRectForCharacterRange:(NSRange)theRange {
+    return [self firstRectForCharacterRange:theRange actualRange:NULL];
+}
+
+- (NSRect)firstRectForCharacterRange:(NSRange)aRange actualRange:(NSRangePointer)actualRange { return NSZeroRect; }
+
 - (NSUInteger)characterIndexForPoint:(NSPoint)thePoint { return 0; }
 
 - (NSArray *)validAttributesForMarkedText {
