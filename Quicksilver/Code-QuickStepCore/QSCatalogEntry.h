@@ -68,6 +68,7 @@
 - (NSArray *)contents;
 - (NSArray *)contentsScanIfNeeded:(BOOL)canScan;
 - (void)setContents:(NSArray *)newContents;
+- (NSArray *)enabledContents;
 - (NSIndexPath *)catalogIndexPath;
 - (NSMutableDictionary *)info;
 - (QSCatalogEntry *)uniqueCopy;
