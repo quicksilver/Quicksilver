@@ -104,6 +104,10 @@ QSExecutor *QSExec = nil;
 }
 
 - (NSArray *)actionsForFileTypes:(NSArray *)types {
+    if (!types) {
+        return nil;
+    }
+    
 	NSMutableSet *set = [NSMutableSet set];
 	for (NSString *type in types) {
         CFStringRef UTIDescription =  UTTypeCopyDescription((__bridge CFStringRef)type);
