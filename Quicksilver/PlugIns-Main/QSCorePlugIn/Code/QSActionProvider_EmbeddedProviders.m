@@ -705,16 +705,17 @@
         
         if (!resultPaths) {
             //		if (DEBUG) NSLog(@"Using NSFileManager");
+            NSError *err;
             NSMutableArray *newPaths = [NSMutableArray arrayWithCapacity:[filePaths count]];
             for(NSString *thisFile in filePaths) {
                 NSString *destinationFile = [destination stringByAppendingPathComponent:[thisFile lastPathComponent]];
-                if (copy && [[NSFileManager defaultManager] copyItemAtPath:thisFile toPath:destinationFile error:nil]) {
+                if (copy && [[NSFileManager defaultManager] copyItemAtPath:thisFile toPath:destinationFile error:&err]) {
                     [newPaths addObject:destinationFile];
-                } else if (!copy && [[NSFileManager defaultManager] moveItemAtPath:thisFile toPath:destinationFile error:nil]) {
+                } else if (!copy && [[NSFileManager defaultManager] moveItemAtPath:thisFile toPath:destinationFile error:&err]) {
                     [[NSWorkspace sharedWorkspace] noteFileSystemChanged:[thisFile stringByDeletingLastPathComponent]];
                     [newPaths addObject:destinationFile];
                 } else {
-                    [[NSAlert alertWithMessageText:@"Move Error" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Error Moving File: %@ to %@", thisFile, destination] runModal];
+                    [[NSAlert alertWithMessageText:@"Move Error" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:@"Error Moving File: %@ to %@\n\n%@", thisFile, destination, [err localizedDescription]] runModal];
                 }
             }
             [[NSWorkspace sharedWorkspace] noteFileSystemChanged:destination];

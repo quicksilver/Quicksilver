@@ -264,11 +264,13 @@ NSMutableDictionary *kindDescriptions = nil;
 #pragma mark Icon Loading
 
 - (void)iconLoader:(QSIconLoader *)loader loadedIndex:(NSInteger)m inArray:(NSArray *)array {
-	if (loader == resultIconLoader) {
-        [resultTable setNeedsDisplayInRect:[resultTable rectOfRow:m]];
-	} else if (loader == resultChildIconLoader) {
-        [resultChildTable setNeedsDisplayInRect:[resultChildTable rectOfRow:m]];
-	}
+    QSGCDMainAsync(^{
+        if (loader == resultIconLoader) {
+            [resultTable setNeedsDisplayInRect:[resultTable rectOfRow:m]];
+        } else if (loader == resultChildIconLoader) {
+            [resultChildTable setNeedsDisplayInRect:[resultChildTable rectOfRow:m]];
+        }
+    });
 }
 
 - (BOOL)iconsAreLoading {

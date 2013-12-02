@@ -337,16 +337,17 @@
         [NSApp qs_beginSheet:commandEditor.window modalForWindow:self.mainView.window completionHandler:^(NSInteger result) {
             QSCommand *command = [commandEditor representedCommand];
             if (command) {
-                [selectedTrigger setCommand:command];
-                [[QSTriggerCenter sharedInstance] triggerChanged:selectedTrigger];
+                [trigger setCommand:command];
+                [[QSTriggerCenter sharedInstance] triggerChanged:trigger];
             } else {
-                [[QSTriggerCenter sharedInstance] removeTrigger:selectedTrigger];
+                [[QSTriggerCenter sharedInstance] removeTrigger:trigger];
                 //		[self updateTriggerArray];
             }
             // select the trigger (its position has changed since adding the trigger)
-            NSUInteger selectTriggerIndex = [[triggerArrayController arrangedObjects] indexOfObject:selectedTrigger];
-            if (selectTriggerIndex != NSNotFound) {
+            NSUInteger selectTriggerIndex = [[triggerArrayController arrangedObjects] indexOfObject:trigger];
+            if (selectTriggerIndex != NSNotFound && (NSInteger)selectTriggerIndex < [triggerTable numberOfRows]) {
                 [triggerTable selectRowIndexes:[NSIndexSet indexSetWithIndex:selectTriggerIndex] byExtendingSelection:NO];
+                [triggerTable scrollRowToVisible:selectTriggerIndex];
             }
             [commandEditor.window orderOut:self];
         }];
@@ -381,7 +382,7 @@
 			//if (VERBOSE) NSLog(@"No Editor");
 		}
 	} else if ([anObject isDescendantOf:[optionsDrawer contentView]]) {
-		id manager = [[self currentTrigger] manager];
+		id manager = [[self selectedTrigger] manager];
 		if ([manager respondsToSelector:@selector(windowWillReturnFieldEditor:toObject:)])
 			return [manager windowWillReturnFieldEditor:sender toObject:anObject];
 	}
