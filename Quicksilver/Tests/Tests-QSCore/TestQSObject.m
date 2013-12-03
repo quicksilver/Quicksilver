@@ -176,12 +176,11 @@
 
 - (void)testFileType
 {
-    NSString *path = @"/usr/bin/2to3";
-    QSObject *object = [QSObject fileObjectWithPath:path];
+    QSObject *object = [QSObject fileObjectWithPath:@"/usr/bin/smtpd.py"];
     NSString *type = [object fileUTI];
     STAssertEqualObjects(type, @"public.python-script", nil);
-    QSObject *ls = [QSObject fileObjectWithPath:@"/bin/ls"];
-    STAssertTrue(UTTypeConformsTo((CFStringRef)[ls fileUTI], (CFStringRef)@"public.executable"), @"/bin/ls does not conform to public.executable");
+    object = [QSObject fileObjectWithPath:@"/usr/bin/2to3"];
+    STAssertTrue(UTTypeConformsTo((CFStringRef)[object fileUTI], (CFStringRef)@"public.executable"), @"/usr/bin/2to3 does not conform to public.executable");
 }
 
 - (void)testCombinedObjects
