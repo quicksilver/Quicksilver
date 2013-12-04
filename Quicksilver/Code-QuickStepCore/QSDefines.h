@@ -1,8 +1,12 @@
 #pragma mark User Agent
 
-#define kQSUserAgent [NSString stringWithFormat:@"Quicksilver/%@ OSX/%@ (%@)",\
+#define kQSUserAgent [NSString stringWithFormat:@"Quicksilver/%@ (Macintosh; Intel Mac OS X %@; %@) (like Safari)",\
 					 (__bridge NSString *)CFBundleGetValueForInfoDictionaryKey(CFBundleGetMainBundle(), kCFBundleVersionKey),\
-					 [NSApplication macOSXFullVersion], @"x86"]
+					 [[NSApplication macOSXFullVersion] stringByReplacingOccurrencesOfString:@"." withString:@"_"],\
+                     kLocale]
+
+#define kLocale [NSString stringWithFormat:@"%@-%@", [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0],\
+                [[[NSLocale currentLocale] objectForKey:NSLocaleCountryCode] lowercaseString]]
 
 #pragma mark Search URLs
 
