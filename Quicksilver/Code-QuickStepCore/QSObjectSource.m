@@ -23,6 +23,7 @@
 - (NSImage *)iconForEntry:(NSDictionary *)theEntry {return nil;}
 - (NSString *)nameForEntry:(NSDictionary *)theEntry {return nil;}
 - (NSArray *)objectsForEntry:(NSDictionary *)theEntry {return nil;}
+- (QSObject *)recreateObjectOfType:(NSString *)aType withIdentifier:(NSString *)anIdentifier {return nil;}
 - (void)invalidateSelf {
 	//  NSLog(@"invalidated %@", self);
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogSourceInvalidated object:NSStringFromClass([self class])];

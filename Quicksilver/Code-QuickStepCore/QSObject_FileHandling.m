@@ -505,6 +505,11 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     return nil;
 }
 
+- (QSObject *)recreateObjectOfType:(NSString *)aType withIdentifier:(NSString *)anIdentifier
+{
+    return [QSObject fileObjectWithPath:anIdentifier];
+}
+
 @end
 
 @implementation QSBasicObject (FileHandling)

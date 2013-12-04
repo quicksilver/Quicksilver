@@ -275,9 +275,10 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
         dObject = newObject;
         
         id rep = [dObject identifier];
-        if(rep != nil)
+        if(rep != nil) {
             [[self commandDict] setObject:rep forKey:@"directID"];
-        else {
+            [[self commandDict] setObject:[dObject primaryType] forKey:@"directType"];
+        } else {
             rep = [dObject dictionaryRepresentation];
             if(rep)
                 [[self commandDict] setObject:rep forKey:@"directArchive"];
@@ -306,9 +307,10 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
         iObject = newObject;
     
         id rep = [iObject identifier];
-        if(rep != nil)
+        if(rep != nil) {
             [[self commandDict] setObject:rep forKey:@"indirectID"];
-        else {
+            [[self commandDict] setObject:[iObject primaryType] forKey:@"indirectType"];
+        } else {
             rep = [iObject dictionaryRepresentation];
             if(rep)
                 [[self commandDict] setObject:rep forKey:@"indirectArchive"];
@@ -351,7 +353,8 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	NSString *directID = [cmdDict objectForKey:@"directID"];
 
 	if (directID) {
-        object = [QSObject objectWithIdentifier:directID];
+        NSString *directType = [cmdDict objectForKey:@"directType"];
+        object = [QSObject recreateObjectOfType:directType withIdentifier:directID];
 	}
 	
 	if (!object) {
@@ -391,7 +394,8 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	NSString *indirectID = [cmdDict objectForKey:@"indirectID"];
 	
     if (indirectID) {
-        object = [QSObject objectWithIdentifier:indirectID];
+        NSString *indirectType = [cmdDict objectForKey:@"indirectType"];
+        object = [QSObject recreateObjectOfType:indirectType withIdentifier:indirectID];
 	}
 	
 	if (!object) {

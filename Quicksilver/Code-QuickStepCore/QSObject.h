@@ -101,6 +101,7 @@ typedef struct _QSObjectFlags {
 
 + (id)objectWithName:(NSString *)aName;
 + (id)objectWithIdentifier:(NSString *)anIdentifier;
++ (id)recreateObjectOfType:(NSString *)aType withIdentifier:(NSString *)anIdentifier;
 + (id)makeObjectWithIdentifier:(NSString *)anIdentifier;
 + (id)objectByMergingObjects:(NSArray *)objects;
 + (id)objectByMergingObjects:(NSArray *)objects withObject:(QSObject *)object;
