@@ -675,10 +675,12 @@
 }
 
 - (BOOL)tokenField:(NSTokenField *)tokenField hasMenuForRepresentedObject:(id)representedObject {
-	return YES;
+    // Show a menu if the display string is different from the bundle ID
+    return [self tokenField:tokenField displayStringForRepresentedObject:representedObject] != nil;
 }
 
 - (NSMenu *)tokenField:(NSTokenField *)tokenField menuForRepresentedObject:(id)representedObject {
+
     NSMenu *menu = [[NSMenu alloc] initWithTitle:representedObject];
     NSMenuItem *menuItem = [NSMenuItem new];
     menuItem.title = representedObject;
