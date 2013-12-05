@@ -653,13 +653,13 @@
 
 - (NSString *)tokenField:(NSTokenField *)tokenField editingStringForRepresentedObject:(id)representedObject {
 	NSString *path = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:representedObject];
-	return [[path lastPathComponent] stringByDeletingPathExtension];
+	return [[NSBundle bundleWithPath:path] objectForInfoDictionaryKey:@"CFBundleName"];
 }
 
 // The method called when the token field (e.g. the 'scope' field completes/creates a new token
 - (NSString *)tokenField:(NSTokenField *)tokenField displayStringForRepresentedObject:(id)representedObject {
 	NSString *path = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:representedObject];
-	return [[path lastPathComponent] stringByDeletingPathExtension];
+	return [[NSBundle bundleWithPath:path] objectForInfoDictionaryKey:@"CFBundleName"];
 }
 
 // The method called to find a representation for the entered string in the token field
@@ -675,7 +675,16 @@
 }
 
 - (BOOL)tokenField:(NSTokenField *)tokenField hasMenuForRepresentedObject:(id)representedObject {
-	return NO;
+	return YES;
 }
+
+- (NSMenu *)tokenField:(NSTokenField *)tokenField menuForRepresentedObject:(id)representedObject {
+    NSMenu *menu = [[NSMenu alloc] initWithTitle:representedObject];
+    NSMenuItem *menuItem = [NSMenuItem new];
+    menuItem.title = representedObject;
+    [menu addItem:menuItem];
+    return menu;
+}
+
 
 @end
