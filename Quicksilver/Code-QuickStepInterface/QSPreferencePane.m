@@ -98,6 +98,10 @@
         NSArray *objects = nil;
 
         [nib instantiateNibWithOwner:self topLevelObjects:&objects];
+        
+        for (id obj in objects) {
+            CFRelease((__bridge CFTypeRef)(obj));
+        }
 
         _mainView = [_window contentView];
         if (QSGetLocalizationStatus())

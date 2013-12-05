@@ -10,7 +10,8 @@
 
 #define QSAppIsRunning(x) [[NSWorkspace sharedWorkspace] applicationIsRunning:x]
 @interface NSWorkspace (Misc)
-- (NSArray *)allApplications;
+- (NSArray *)allApplicationsURLs;
+- (NSArray *)allApplications __attribute__((deprecated));
 - (NSInteger) pidForApplication:(NSDictionary *)theApp;
 - (BOOL)applicationIsRunning:(NSString *)pathOrID;
 - (NSDictionary *)dictForApplicationName:(NSString *)path;

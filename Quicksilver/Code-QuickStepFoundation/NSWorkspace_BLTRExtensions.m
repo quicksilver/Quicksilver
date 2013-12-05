@@ -11,7 +11,7 @@
 #include <signal.h>
 #include <unistd.h>
 
-bool _LSCopyAllApplicationURLs(NSArray **array);
+OSStatus _LSCopyAllApplicationURLs(CFArrayRef *array);
 
 @implementation NSWorkspace (Misc)
 
@@ -58,14 +58,19 @@ bool _LSCopyAllApplicationURLs(NSArray **array);
 	return result;
 }
 
-- (NSArray *)allApplications {
-	NSArray *appURLs = nil;
+- (NSArray *)allApplicationsURLs {
+    CFArrayRef appURLs = NULL;
 	_LSCopyAllApplicationURLs(&appURLs);
-	NSMutableArray *apps = [NSMutableArray arrayWithCapacity:[appURLs count]];
-	for (id loopItem in appURLs) {
-		[apps addObject:[loopItem path]];
-	}
-	return apps;
+    return (__bridge_transfer NSArray *)appURLs;
+}
+
+- (NSArray *)allApplications {
+    NSArray *appURLs = self.allApplicationsURLs;
+    NSMutableArray *appPaths = [NSMutableArray arrayWithCapacity:appURLs.count];
+    for (NSURL *appURL in appURLs) {
+        [appPaths addObject:appURL.path];
+    }
+    return [appPaths copy];
 }
 
 - (NSInteger) pidForApplication:(NSDictionary *)theApp {

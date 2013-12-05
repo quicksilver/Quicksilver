@@ -767,7 +767,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 #ifdef DEBUG
       if (DEBUG_LOCALIZATION) NSLog(@"kind: %@", kind);
 #endif
-		NSString *stringKind = (__bridge NSString *)kind;
+		NSString *stringKind = (__bridge_transfer NSString *)kind;
         if ([stringKind length]) {
 			bundleName = [NSString stringWithFormat:@"%@ %@", bundleName, stringKind];
         }
@@ -797,6 +797,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
             MDItemRef mdItem = MDItemCreate(kCFAllocatorDefault, (__bridge CFStringRef)path);
             if (mdItem) {
                 newLabel = (NSString *)CFBridgingRelease(MDItemCopyAttribute(mdItem, kMDItemDisplayName));
+                CFRelease(mdItem);
             }
         }
         // fall back to the default display name
