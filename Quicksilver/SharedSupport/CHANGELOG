@@ -1,3 +1,56 @@
+## Changes - 1.2.0 (4008) ##
+
+
+
+### New ###
+
+  * Text ending with `/` will be recognized as a URL. Entering `qsapp/` will be expanded to `http://www.qsapp.com/`. This emulates the behavior of Safari 6's address bar. (#1594)
+  * Modifier-only activation is more reliable and now works in password fields and Terminal with "Secure Keyboard Entry" enabled (#1586)
+  * Show more detail when moving or copying files fails (#1668)
+  * Ignore incomplete downloads from Opera (`.opdownload`) when identifying the Latest Download (#1676)
+
+### Fixed ###
+
+  * Fix the Type Text action when typing non-ASCII characters (#1536)
+  * Fix a crash with the Relaunch action (#1604, #1605)
+  * Better recognition of URLs containing a colon (#1594)
+  * Text proxies are created with a safe default value (#1624)
+  * Renaming no longer fails on folders with '.' in their name (#1586)
+  * Renaming no longer fails when only capitalization is changed (#1586)
+  * Fix "Allow capitalized keys to select the action" behavior under 10.8 (#1030, #1586)
+  * Fix a bug that prevented preferences from opening on 10.7 (#1628, #1630)
+  * Fix a crash in the Primer Interface (#1608)
+  * Make sure new triggers are selected after creation (#1637)
+  * Ensure that the correct default interface is used on a new installation (#1639)
+  * Load icons on the main thread to silence a warning on 10.9 (#1655, #1656)
+  * Fixed some visual problems with the plugin updater (#1642, #1647)
+  * Fixed some bugs that prevented changing trigger settings (#1650)
+  * Prevent a crash related to the plugin updater (#1664)
+  * Prevent user-disabled items from appearing in the interface (#1685, #1688)
+  * Internal Improvements (#1583, #1584, #1585, #1586, #1665, #1625, #1648)
+
+### Changed ###
+
+  * The third pane for Assign Abbreviation… defaults to the matched string (#1548)
+  * A friendly error is shown when assigning an abbreviation fails (#1586)
+  * Running Applications & Processes now includes those that aren't part of application bundles (#1559)
+  * MacOS (Classic) applications are no longer indexed (#1559)
+  * Cleaned up AppleScript support to eliminate a repeated log message (#1617)
+  * Use integrated graphics hardware whenever possible (#1645, #1646)
+  * Improve the format of the User-Agent String (#1699)
+
+### Development ###
+
+  * Convert to Automatic Reference Counting (#1433, #1539, #1541, #1627, #1683)
+  * Add a script called `stringstool` to assist with localization (#1222)
+  * The functions in QSGCD have been renamed (#1598):
+    * `runOnMainQueueSync` → `QSGCDMainSync`
+    * `runOnQueueSync` → `QSGCDQueueSync`
+  * Remove the architecture checks from `qs-push-plugin` (#1620)
+  * Add shared schemes to the project (#1693)
+  * Track an updated version of VDKQueue (#1697)
+  * Fix the unit test related to file types (#1698)
+
 ## Changes - 1.1.3 (4007) ##
 
 ### Fixed ###
