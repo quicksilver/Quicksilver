@@ -177,9 +177,6 @@ static QSController *defaultController = nil;
 	theItem = [debugMenu addItemWithTitle:@"Purge Image and Child Caches..." action:@selector(purgeAllImagesAndChildren) keyEquivalent:@""];
 	[theItem setTarget:[QSObject class]];
 
-	theItem = [debugMenu addItemWithTitle:@"Purge Identifiers..." action:@selector(purgeIdentifiers) keyEquivalent:@""];
-	[theItem setTarget:[QSObject class]];
-
 	theItem = [debugMenu addItemWithTitle:@"Raise Exception..." action:@selector(raiseException) keyEquivalent:@""];
 	[theItem setTarget:self];
 
@@ -886,8 +883,6 @@ static QSController *defaultController = nil;
 	if (DEBUG_STARTUP)
 		NSLog(@"Catalog loaded");
 #endif
-
-	[QSObject purgeIdentifiers];
 
 #ifndef DEBUG
 	if (newVersion) {
