@@ -118,8 +118,11 @@
 - (BOOL)usesGlobalSettings {return NO;}
 
 - (NSString *)tokenField:(NSTokenField *)tokenField editingStringForRepresentedObject:(id)representedObject {
-    NSString * type = (NSString *)UTTypeCopyPreferredTagWithClass((CFStringRef)representedObject, kUTTagClassFilenameExtension);
-	return [type autorelease];
+    NSString * type = [(NSString *)UTTypeCopyPreferredTagWithClass((CFStringRef)representedObject, kUTTagClassFilenameExtension) autorelease];
+    if (!type) {
+        return representedObject;
+    }
+	return type;
 }
 
 - (NSString *)UTIForString:(NSString *)editingString {
@@ -175,13 +178,11 @@
 }
 
 - (NSString *)tokenField:(NSTokenField *)tokenField displayStringForRepresentedObject:(id)representedObject {
-	NSString *description = (__bridge_transfer NSString *)UTTypeCopyDescription((__bridge CFStringRef)representedObject);
+    
+	NSString *description = (NSString *)UTTypeCopyDescription((CFStringRef)representedObject);
 	if (!description) {
         NSString *fileExtension = [(NSString *)UTTypeCopyPreferredTagWithClass((CFStringRef)representedObject, kUTTagClassFilenameExtension) autorelease];
-        if (!fileExtension) {
-            return representedObject;
-        }
-        return [NSString stringWithFormat:@".%@", fileExtension];
+        return [NSString stringWithFormat:@".%@", fileExtension ? fileExtension : representedObject];
 	}
 	return description;
 }
