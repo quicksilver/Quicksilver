@@ -54,7 +54,7 @@
 @implementation URLActions
 
 - (id)resolveProxyObject:(id)proxy {
-    QSObject *fileObject = [self defaultBrowserForURL:[self URLForString:nil]];
+    QSObject *fileObject = [self defaultBrowserQSObjectForURL:[self URLForString:nil]];
     if (!fileObject) {
         QSShowAppNotifWithAttributes(@"QSURLProxy", NSLocalizedStringForThisBundle(@"Resolving Proxy failed", @"Error title shown when no a proxy object cannot be resolved"), NSLocalizedStringForThisBundle(@"Unable to find default browser", @"Error message for when the default browser proxy cannot be found"));
     }
@@ -95,7 +95,7 @@
     return url;
 }
 
-- (QSObject *)defaultBrowserForURL:(NSURL *)url {
+- (QSObject *)defaultBrowserQSObjectForURL:(NSURL *)url {
     
     // Get the default app for the url
     NSURL *appURL = nil;
@@ -110,18 +110,17 @@
 	// 'Open URL with...' action
 	if ([action isEqualToString:@"URLOpenWithAction"]) {
 
-		NSMutableSet *set = [NSMutableSet set];
         
         // Get the default app to set it 1st in the returned list
         NSURL *url = [self URLForString:[[dObject arrayForType:QSURLType] objectAtIndex:0]];
-		id preferred = [self defaultBrowserForURL:url];
+		id preferred = [self defaultBrowserQSObjectForURL:url];
         
 		if (!preferred) {
 			preferred = [NSNull null];
 		}
 				
-		[set addObjectsFromArray:[(NSArray *)LSCopyApplicationURLsForURL((CFURLRef)url, kLSRolesAll) autorelease]];
-		NSMutableArray *validIndirects = [[QSLibrarian sharedInstance] scoredArrayForString:nil inSet:[QSObject fileObjectsWithURLArray:[set allObjects]]];
+		NSArray *allApps = [QSObject fileObjectsWithURLArray:[(NSArray *)LSCopyApplicationURLsForURL((CFURLRef)url, kLSRolesAll) autorelease]];
+		NSMutableArray *validIndirects = [[QSLibrarian sharedInstance] scoredArrayForString:nil inSet:allApps];
 		
 		return [NSArray arrayWithObjects:preferred, validIndirects, nil];
 	}
