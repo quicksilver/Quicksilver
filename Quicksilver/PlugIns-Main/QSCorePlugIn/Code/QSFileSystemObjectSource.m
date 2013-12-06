@@ -127,21 +127,32 @@
         // editing string is already a UTI
         return editingString;
     }
-    
-    if ([editingString hasPrefix:@"."]) {
-        editingString = [editingString substringFromIndex:1];
-    }
+
+    NSString *type = nil;
     // Try to get the UTI from the extension/string
-	NSString *type = QSUTIForExtensionOrType(editingString, 0);
-	if (!type) {
-		if ([editingString hasPrefix:@"'"]) {
-			return editingString;
+    if ([editingString hasPrefix:@"'"]) {
+        // 'xxxx' strings are OS types
+        NSString *OSTypeAsString = [editingString stringByReplacingOccurrencesOfString:@"'" withString:@""];
+        type = [(NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassOSType, (CFStringRef)OSTypeAsString, NULL) autorelease];
+        if ([type hasPrefix:@"dyn"]) {
+            // some OS types are all uppercase (e.g. 'APPL' == application, 'fold' == folder), some are all lower. Be forgiving to the user
+            for (NSString *caseChangedOSType in @[[OSTypeAsString uppercaseString], [OSTypeAsString lowercaseString]]) {
+                NSString *testType = [(NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassOSType, (CFStringRef)caseChangedOSType, NULL) autorelease];
+                if (![testType hasPrefix:@"dyn"]) {
+                    type = testType;
+                    break;
+                }
+            }
         }
-        // if the user has entered 'folder' (to exclude a folder)
-        if ([[editingString lowercaseString] isEqualToString:@"folder"]) {
-            return (NSString *)kUTTypeFolder;
+    } else if ([[editingString lowercaseString] isEqualToString:@"folder"]) {
+        // if the user has entered 'folder' (to exclude a folder), return its UTI
+        type = (NSString *)kUTTypeFolder;
+    } else {
+        if ([editingString hasPrefix:@"."]) {
+            editingString = [editingString substringFromIndex:1];
         }
-	}
+        type = QSUTIForExtensionOrType(editingString, 0);
+    }
 	return type;
 }
 
@@ -151,7 +162,7 @@
 }
 
 - (BOOL)tokenField:(NSTokenField *)tokenField hasMenuForRepresentedObject:(id)representedObject {
-    return UTTypeConformsTo((CFStringRef)representedObject, (CFStringRef)@"public.data");
+    return UTTypeConformsTo((CFStringRef)representedObject, (CFStringRef)@"public.item");
 }
 
 - (NSMenu *)tokenField:(NSTokenField *)tokenField menuForRepresentedObject:(id)representedObject {
