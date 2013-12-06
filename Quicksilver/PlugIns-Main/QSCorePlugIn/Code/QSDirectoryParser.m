@@ -83,14 +83,14 @@
             include = YES;
         } else {
             for(NSString * requiredType in types) {
-                if (UTTypeConformsTo((CFStringRef)type, (CFStringRef)requiredType)) {
+                if (UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)requiredType)) {
                     include = YES;
                     break;
                 }
             }
         }
         for (NSString *excludedType in excludedTypes) {
-            if (UTTypeConformsTo((CFStringRef)type, (CFStringRef)excludedType)) {
+            if (UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)excludedType)) {
                 include = NO;
             }
         }

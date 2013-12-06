@@ -77,9 +77,8 @@
 	id thisObject = nil;
 	thisObject = [[NSDictionary dictionaryWithContentsOfFile:[self prefFileForBundle:applicationID]]objectForKey:[keyList objectAtIndex:0]];
 	if (!thisObject) {
-		CFPreferencesAppSynchronize ((CFStringRef) applicationID);
-		thisObject = (NSArray *)CFPreferencesCopyAppValue((CFStringRef) [keyList objectAtIndex:0] , (CFStringRef) applicationID);
-		[thisObject autorelease];
+		CFPreferencesAppSynchronize ((__bridge CFStringRef) applicationID);
+		thisObject = (__bridge_transfer NSArray *)CFPreferencesCopyAppValue((__bridge CFStringRef) [keyList objectAtIndex:0] , (__bridge CFStringRef) applicationID);
 	}
 	[self addObjectsForKeyList:keyList keyNumber:1 ofType:[[settings objectForKey:kDefaultsObjectSourceType] integerValue] inObject:thisObject toArray:array];
 	return array;

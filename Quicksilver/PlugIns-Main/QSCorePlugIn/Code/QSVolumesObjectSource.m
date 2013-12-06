@@ -28,7 +28,6 @@
 #endif
 	
 	[[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self];
-	[super dealloc];
 }
 
 
@@ -77,7 +76,6 @@
 	NSMutableArray *volumePaths = [[volumes arrayByPerformingSelector:@selector(path)] mutableCopy];
 	[volumePaths removeObject:@"/"];
 	[object setChildren:[QSObject fileObjectsWithPathArray:volumePaths]];
-	[volumePaths release];
 	return YES;
 }
 

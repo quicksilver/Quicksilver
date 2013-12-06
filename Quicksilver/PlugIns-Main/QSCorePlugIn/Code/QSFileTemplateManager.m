@@ -43,7 +43,7 @@
 	NSFileManager *fm = [NSFileManager defaultManager];
 	NSString *path = QSApplicationSupportSubPath(@"Templates", NO);
     NSArray * fmContents = [fm contentsOfDirectoryAtPath:path error:nil];
-	for(NSString * subpath in fmContents) {
+	for(__strong NSString * subpath in fmContents) {
 		if ([subpath hasPrefix:@"."]) continue;
 		subpath = [path stringByAppendingPathComponent:subpath];
 		[array addObject:[self templateFromFile:subpath]];
@@ -54,10 +54,10 @@
 	QSObject *fileObject = [QSObject fileObjectWithPath:path];
 	[fileObject setLabel:[[path lastPathComponent] stringByDeletingPathExtension]];
 
-	NSString *kind;
-	LSCopyKindStringForURL((CFURLRef) [NSURL fileURLWithPath:path] , (CFStringRef *)&kind);
-    [fileObject setDetails:kind];
-    [kind release];
+    CFStringRef kind = NULL;
+	LSCopyKindStringForURL((__bridge CFURLRef) [NSURL fileURLWithPath:path] , &kind);
+    [fileObject setDetails:(__bridge NSString *)kind];
+    CFRelease(kind);
 	return fileObject;
 }
 @end

@@ -71,7 +71,6 @@
 			[(QSObjectCell *)theCell setHighlightColor:nil];
 		}
 	}
-	[super dealloc];
 }
 
 
