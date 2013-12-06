@@ -27,7 +27,7 @@
 	NSMutableArray *types = [NSMutableArray array];
 	for (NSString *type in [settings objectForKey:kItemFolderTypes]) {
         NSString *realType = QSUTIForAnyTypeString(type);
-        if (!realType) {
+        if (!realType && !QSIsUTI(type)) {
             realType = QSUTIForExtensionOrType(type,0);
         }
         [types addObject:(realType ? realType : type)];
