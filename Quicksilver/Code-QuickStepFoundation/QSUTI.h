@@ -7,7 +7,7 @@
  *
  */
 
-
+BOOL QSIsUTI(NSString *utiString);
 NSString *QSUTIOfFile(NSString *path);
 NSString *QSUTIOfURL(NSURL *url);
 NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec);

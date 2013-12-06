@@ -126,11 +126,11 @@
 }
 
 - (NSString *)UTIForString:(NSString *)editingString {
-    if (UTTypeConformsTo((CFStringRef)editingString, (CFStringRef)@"public.data")) {
+    if (QSIsUTI(editingString)) {
         // editing string is already a UTI
         return editingString;
     }
-
+    
     NSString *type = nil;
     // Try to get the UTI from the extension/string
     if ([editingString hasPrefix:@"'"]) {
@@ -182,6 +182,9 @@
 	NSString *description = (NSString *)UTTypeCopyDescription((CFStringRef)representedObject);
 	if (!description) {
         NSString *fileExtension = [(NSString *)UTTypeCopyPreferredTagWithClass((CFStringRef)representedObject, kUTTagClassFilenameExtension) autorelease];
+        if (!fileExtension && QSIsUTI(representedObject)) {
+            return representedObject;
+        }
         return [NSString stringWithFormat:@".%@", fileExtension ? fileExtension : representedObject];
 	}
 	return description;

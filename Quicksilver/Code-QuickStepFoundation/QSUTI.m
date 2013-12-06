@@ -9,6 +9,10 @@
 
 #include "QSUTI.h"
 
+BOOL QSIsUTI(NSString *UTIString) {
+    return UTTypeConformsTo((__bridge CFStringRef)UTIString, (__bridge CFStringRef)@"public.item") || ([UTIString rangeOfString:@"."].location != NSNotFound && [UTIString rangeOfString:@"."].location != 0);
+}
+
 NSString *QSUTIOfURL(NSURL *fileURL) {
     LSItemInfoRecord infoRec;
 	LSCopyItemInfoForURL((__bridge CFURLRef)fileURL, kLSRequestTypeCreator|kLSRequestBasicFlagsOnly, &infoRec);
