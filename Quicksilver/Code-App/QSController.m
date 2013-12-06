@@ -618,7 +618,12 @@ static QSController *defaultController = nil;
 }
 
 - (void)checkForFirstRun {
+
+#ifdef DEBUG
+    QSApplicationLaunchStatusFlags status = QSApplicationNormalLaunch;
+#else
 	QSApplicationLaunchStatusFlags status = [NSApp checkLaunchStatus];
+#endif
 
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
@@ -697,7 +702,9 @@ static QSController *defaultController = nil;
 	}
 	if (![defaults boolForKey:kSetupAssistantCompleted] || lastVersion <= [@"3694" hexIntValue] || ![defaults boolForKey:@"QSAgreementAccepted"])
 		runningSetupAssistant = YES;
+#ifndef DEBUG
 	[NSApp updateLaunchStatusInfo];
+#endif
 }
 
 - (void)checkForCrash {
