@@ -27,12 +27,18 @@
 	NSMutableArray *types = [NSMutableArray array];
 	for (NSString *type in [settings objectForKey:kItemFolderTypes]) {
         NSString *realType = QSUTIForAnyTypeString(type);
+        if (!realType) {
+            realType = QSUTIForExtensionOrType(type,0);
+        }
         [types addObject:(realType ? realType : type)];
 	}
     
     NSMutableArray *excludedTypes = [NSMutableArray array];
     for (NSString *excludedType in [settings objectForKey:kItemExcludeFiletypes]) {
         NSString *realType = QSUTIForAnyTypeString(excludedType);
+        if (!realType) {
+            realType = QSUTIForExtensionOrType(excludedType, 0);
+        }
         [excludedTypes addObject:(realType ? realType : excludedType)];
     }
 	return [[NSSet setWithArray:[self objectsFromPath:path depth:depthValue types:types excludeTypes:excludedTypes descend:descendIntoBundles]] allObjects];

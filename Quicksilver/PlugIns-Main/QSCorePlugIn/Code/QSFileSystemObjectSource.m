@@ -118,74 +118,59 @@
 - (BOOL)usesGlobalSettings {return NO;}
 
 - (NSString *)tokenField:(NSTokenField *)tokenField editingStringForRepresentedObject:(id)representedObject {
-	return representedObject;
+    NSString * type = (NSString *)UTTypeCopyPreferredTagWithClass((CFStringRef)representedObject, kUTTagClassFilenameExtension);
+	return [type autorelease];
 }
-- (id)tokenField:(NSTokenField *)tokenField representedObjectForEditingString:(NSString *)editingString {
-    // show types such as .jpg as JPEG Image
+
+- (NSString *)UTIForString:(NSString *)editingString {
+    if (UTTypeConformsTo((CFStringRef)editingString, (CFStringRef)@"public.data")) {
+        // editing string is already a UTI
+        return editingString;
+    }
+    
     if ([editingString hasPrefix:@"."]) {
         editingString = [editingString substringFromIndex:1];
     }
-    // Try and work out the type of file to display a nice name in the token field
-	NSString *type = QSUTIForAnyTypeString(editingString);
+    // Try to get the UTI from the extension/string
+	NSString *type = QSUTIForExtensionOrType(editingString, 0);
 	if (!type) {
 		if ([editingString hasPrefix:@"'"]) {
 			return editingString;
-        } 
+        }
         // if the user has entered 'folder' (to exclude a folder)
         if ([[editingString lowercaseString] isEqualToString:@"folder"]) {
             return (NSString *)kUTTypeFolder;
         }
-        type = editingString;
 	}
 	return type;
 }
 
-- (BOOL)tokenField:(NSTokenField *)tokenField hasMenuForRepresentedObject:(id)representedObject {
-	if ([representedObject hasPrefix:@"'"])
-		return NO;
-	return YES;
+// The represented object should always be a UTI
+- (id)tokenField:(NSTokenField *)tokenField representedObjectForEditingString:(NSString *)editingString {
+    return [self UTIForString:editingString];
 }
-#if 0
+
+- (BOOL)tokenField:(NSTokenField *)tokenField hasMenuForRepresentedObject:(id)representedObject {
+    return UTTypeConformsTo((CFStringRef)representedObject, (CFStringRef)@"public.data");
+}
+
 - (NSMenu *)tokenField:(NSTokenField *)tokenField menuForRepresentedObject:(id)representedObject {
 	NSMenu *menu = [[NSMenu alloc] initWithTitle:@""];
-	NSString *desc;
-	desc = (NSString *)UTTypeCopyDeclaration((CFStringRef)representedObject);
-	NSArray *conforms = [desc objectForKey:(NSString *)kUTTypeConformsToKey];
-	[desc release];
-	if (conforms) {
-		if (![conforms isKindOfClass:[NSArray class]]) conforms = [NSArray arrayWithObject:conforms];
-		for(NSString * type in conforms){
-			desc = (NSString *)UTTypeCopyDescription((CFStringRef)type);
-			[menu addItemWithTitle:desc action:nil keyEquivalent:@""];
-			[desc release];
-		}
-	}
+    NSMenuItem *menuItem = [NSMenuItem new];
+    [menuItem setTitle:representedObject];
+    [menu addItem:menuItem];
+    [menuItem release];
 	return [menu autorelease];
 }
-#else
-- (NSMenu *)tokenField:(NSTokenField *)tokenField menuForRepresentedObject:(id)representedObject {
-	NSMenu *menu = [[NSMenu alloc] initWithTitle:@""];
-    NSDictionary *dict = (__bridge_transfer NSDictionary *)UTTypeCopyDeclaration((__bridge CFStringRef)representedObject);
-	NSArray *conforms = [dict objectForKey:(NSString *)kUTTypeConformsToKey];
-	if (conforms) {
-		if (![conforms isKindOfClass:[NSArray class]]) conforms = [NSArray arrayWithObject:conforms];
-		for(NSString * type in conforms) {
-            NSString *title = (__bridge_transfer NSString *)UTTypeCopyDescription((__bridge CFStringRef)type);
-			[menu addItemWithTitle:title action:nil keyEquivalent:@""];
-        }
-	}
-	return menu;
-}
-#endif
 
 - (NSString *)tokenField:(NSTokenField *)tokenField displayStringForRepresentedObject:(id)representedObject {
 	NSString *description = (__bridge_transfer NSString *)UTTypeCopyDescription((__bridge CFStringRef)representedObject);
 	if (!description) {
-		if ([representedObject hasPrefix:@"'"])
-			return [@"Type: " stringByAppendingString:representedObject];
-		else if ([representedObject rangeOfString:@"."].location == NSNotFound)
-			return [@"." stringByAppendingString:representedObject];
-		description = representedObject;
+        NSString *fileExtension = [(NSString *)UTTypeCopyPreferredTagWithClass((CFStringRef)representedObject, kUTTagClassFilenameExtension) autorelease];
+        if (!fileExtension) {
+            return representedObject;
+        }
+        return [NSString stringWithFormat:@".%@", fileExtension];
 	}
 	return description;
 }
