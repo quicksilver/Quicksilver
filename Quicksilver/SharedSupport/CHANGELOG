@@ -1,7 +1,5 @@
 ## Changes - 1.2.0 (4008) ##
 
-
-
 ### New ###
 
   * Text ending with `/` will be recognized as a URL. Entering `qsapp/` will be expanded to `http://www.qsapp.com/`. This emulates the behavior of Safari 6's address bar. (#1594)
@@ -38,6 +36,7 @@
   * Cleaned up AppleScript support to eliminate a repeated log message (#1617)
   * Use integrated graphics hardware whenever possible (#1645, #1646)
   * Improve the format of the User-Agent String (#1699)
+  * Applications added to trigger scopes are displayed more clearly (#1531, #1705)
 
 ### Development ###
 
