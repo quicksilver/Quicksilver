@@ -127,9 +127,9 @@
 
 // On app change, checks all triggers to see if they should be enabled/disabled based on scope in prefs
 - (void)rescope:(NSString *)ident {
-	// If the trigger's disabled there's no point rescoping **fix p_j_r 24/04/2011
+	// If the trigger's disabled there's no point rescoping
 	if([info objectForKey:@"enabled"] && ![[info objectForKey:@"enabled"] boolValue]) return;
-	// Scoped is 0 for unscoped triggers, -1 for 'disabled in xxx' and +1 for 'enabled in xxx'
+	// Scoped is 0 for unscoped triggers, -1 for 'disabled in application xxx' and +1 for 'enabled in application xxx'
 	NSInteger scoped = [[info objectForKey:@"applicationScopeType"] integerValue];
 	if (!scoped) return;
 	NSArray *apps = [info objectForKey:@"applicationScope"];
@@ -229,13 +229,6 @@
     activated = [self enabled];
 }
 
-// Fix issue 57, http://github.com/tiennou/blacktree-alchemy/issues/#issue/57
-//     issue 61, http://github.com/tiennou/blacktree-alchemy/issuesearch?state=open&q=trigger#issue/61
-// Added variable activated to QSTrigger object to handle trigger "scope".
-// Prior to fix QSTrigger's enabled flag was being dual purposed, one as a
-// the primary trigger enabler and the other as an application scope trigger
-// enabler, and caused issue 57.
-// Giving each state its own flag eliminates the problem completely.
 - (BOOL)activated {
 	return activated;
 }
