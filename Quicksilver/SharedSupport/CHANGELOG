@@ -49,6 +49,7 @@
   * Add shared schemes to the project (#1693)
   * Track an updated version of VDKQueue (#1697)
   * Fix the unit test related to file types (#1698)
+  * Reduce the number of pop-up notices when using the Debug configuration (#1709)
 
 ## Changes - 1.1.3 (4007) ##
 
