@@ -116,7 +116,6 @@
 - (QSApplicationLaunchStatusFlags)checkLaunchStatus {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *lastLocation = [defaults objectForKey:kLastUsedLocation];
-
 	NSString *lastVersionString = [defaults objectForKey:kLastUsedVersion];
 	NSString *thisVersionString = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
 
