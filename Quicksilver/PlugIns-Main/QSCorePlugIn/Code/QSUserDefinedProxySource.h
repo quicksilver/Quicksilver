@@ -10,7 +10,7 @@
 
 @class QSUserDefinedProxyTargetPicker;
 
-@interface QSUserDefinedProxySource : QSObjectSource
+@interface QSUserDefinedProxySource : QSObjectSource <QSProxyObjectProvider>
 {
     IBOutlet NSTextField *synonymName;
     IBOutlet NSImageView *targetIcon;

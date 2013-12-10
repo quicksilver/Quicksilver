@@ -387,7 +387,7 @@
 			<string>QSProcessMonitor</string>
 			<key>types</key>
 			<array>
-				<string>NSFilenamesPboardType</string>
+				<string>com.apple.application</string>
 				<string>qs.process</string>
 			</array>
 		</dict>
@@ -425,7 +425,7 @@
 			<string>QSProcessMonitor</string>
 			<key>types</key>
 			<array>
-				<string>NSFilenamesPboardType</string>
+				<string>com.apple.application</string>
 				<string>qs.process</string>
 			</array>
 		</dict>
@@ -440,6 +440,20 @@
 			<key>types</key>
 			<array>
 				<string>NSFilenamesPboardType</string>
+			</array>
+		</dict>
+		<key>QSDefaultBrowserProxy</key>
+		<dict>
+			<key>icon</key>
+			<string>ProxyIcon</string>
+			<key>name</key>
+			<string>Default Browser</string>
+			<key>providerClass</key>
+			<string>URLActions</string>
+			<key>types</key>
+			<array>
+				<string>qs.process</string>
+				<string>com.apple.application</string>
 			</array>
 		</dict>
 	</dict>

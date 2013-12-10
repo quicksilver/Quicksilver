@@ -5,7 +5,7 @@
 - (void)handlePasteboardDrop:(NSPasteboard *)pb commandPath:(NSString *)path;
 @end
 
-@interface QSController : NSWindowController <QSDropletHandling> {
+@interface QSController : NSWindowController <QSDropletHandling, QSProxyObjectProvider> {
 	QSInterfaceController *interfaceController;
 	NSWindowController *aboutWindowController, *quitWindowController;
 	NSWindow *splashWindow;

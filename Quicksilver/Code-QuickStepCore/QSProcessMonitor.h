@@ -6,7 +6,7 @@
 
 @class QSObject;
 
-@interface QSProcessMonitor : NSObject {
+@interface QSProcessMonitor : NSObject <QSProxyObjectProvider> {
 	NSMutableDictionary *processes;
 	NSDictionary *currentApplication;
 	NSDictionary *previousApplication;

@@ -10,9 +10,8 @@
 
 #import "QSObject.h"
 
-@interface QSDownloads : NSObject {
+@interface QSDownloads : NSObject <QSProxyObjectProvider> {
 }
 + (NSURL *)downloadsLocation;
-- (id)resolveProxyObject:(id)proxy;
 + (NSArray *)iCloudDocumentsForBundleID:(NSString *)bundleIdentifier;
 @end

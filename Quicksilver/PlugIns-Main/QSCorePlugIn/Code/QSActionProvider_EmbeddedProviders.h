@@ -30,7 +30,7 @@
 @end
 @interface FSDiskActions : QSActionProvider
 @end
-@interface URLActions : QSActionProvider {
+@interface URLActions : QSActionProvider <QSProxyObjectProvider> {
 }
 - (void)performJavaScript:(NSString *)jScript;
 @end

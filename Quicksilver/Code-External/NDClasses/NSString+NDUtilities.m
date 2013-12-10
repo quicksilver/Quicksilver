@@ -137,22 +137,6 @@
 }
 
 /*
-	-containsCharacter:
- */
-- (BOOL)containsCharacter:(unichar)aCharacter
-{
-	return [self indexOfCharacter:aCharacter] != NSNotFound;
-}
-
-/*
-	-containsCharacter:range:
- */
-- (BOOL)containsCharacter:(unichar)aCharacter range:(NSRange)aRange
-{
-	return [self indexOfCharacter:aCharacter range:aRange] != NSNotFound;
-}
-
-/*
 	-containsAnyCharacterFromSet:
  */
 - (BOOL)containsAnyCharacterFromSet:(NSCharacterSet *)aSet

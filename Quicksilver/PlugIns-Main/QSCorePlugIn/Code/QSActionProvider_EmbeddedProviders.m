@@ -53,6 +53,14 @@
 
 @implementation URLActions
 
+- (id)resolveProxyObject:(id)proxy {
+    QSObject *fileObject = [self defaultBrowserQSObjectForURL:[self URLForString:nil]];
+    if (!fileObject) {
+        QSShowAppNotifWithAttributes(@"QSURLProxy", NSLocalizedStringForThisBundle(@"Resolving Proxy failed", @"Error title shown when no a proxy object cannot be resolved"), NSLocalizedStringForThisBundle(@"Unable to find default browser", @"Error message for when the default browser proxy cannot be found"));
+    }
+    return fileObject;
+}
+
 - (NSString *)defaultWebClient {
 	NSURL *appURL = nil;
 	OSStatus err = LSGetApplicationForURL((CFURLRef) [NSURL URLWithString: @"http:"], kLSRolesAll, NULL, (CFURLRef *)&appURL);
@@ -76,34 +84,43 @@
 	return [NSArray arrayWithObjects:kURLOpenAction, kURLOpenWithAction, kURLOpenActionInBackground, nil];
 }
 
+- (NSURL *)URLForString:(NSString *)urlString {
+    
+    NSURL *url = [NSURL URLWithString:urlString];
+
+    // No URL given (current web page proxy), use default http://
+    if(!url) {
+        url = [NSURL URLWithString:@"http://"];
+    }
+    return url;
+}
+
+- (QSObject *)defaultBrowserQSObjectForURL:(NSURL *)url {
+    
+    // Get the default app for the url
+    NSURL *appURL = nil;
+    LSGetApplicationForURL((CFURLRef)url, kLSRolesAll, NULL, (CFURLRef *)&appURL);
+    
+    return [QSObject fileObjectWithPath:[appURL path]];
+}
+
 // Method to only show apps in the 3rd pane for the 'Open with...' action
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject{
 
-	// only for 'Open URL with...' action
+	// 'Open URL with...' action
 	if ([action isEqualToString:@"URLOpenWithAction"]) {
 
-		NSMutableSet *set = [NSMutableSet set];
-		
-		// Base the list of apps on the URL in dObject (1st object if multiple are selected)
-		NSURL *url = [NSURL URLWithString:[[dObject arrayForType:QSURLType] objectAtIndex:0]];
-		
-		// If for some reason no URLs given (current web page proxy)
-		if(!url) {
-			url = [NSURL URLWithString:@"http://"];
-		}
-		
-		// Get the default app for the url
-		NSURL *appURL = nil;
-		LSGetApplicationForURL((CFURLRef)url, kLSRolesAll, NULL, (CFURLRef *)&appURL);
-		
-		// Set the default app to be 1st in the returned list
-		id preferred = [QSObject fileObjectWithPath:[appURL path]];
+        
+        // Get the default app to set it 1st in the returned list
+        NSURL *url = [self URLForString:[[dObject arrayForType:QSURLType] objectAtIndex:0]];
+		id preferred = [self defaultBrowserQSObjectForURL:url];
+        
 		if (!preferred) {
 			preferred = [NSNull null];
 		}
 				
-		[set addObjectsFromArray:[(NSArray *)LSCopyApplicationURLsForURL((CFURLRef)url, kLSRolesAll) autorelease]];
-		NSMutableArray *validIndirects = [[QSLibrarian sharedInstance] scoredArrayForString:nil inSet:[QSObject fileObjectsWithURLArray:[set allObjects]]];
+		NSArray *allApps = [QSObject fileObjectsWithURLArray:[(NSArray *)LSCopyApplicationURLsForURL((CFURLRef)url, kLSRolesAll) autorelease]];
+		NSMutableArray *validIndirects = [[QSLibrarian sharedInstance] scoredArrayForString:nil inSet:allApps];
 		
 		return [NSArray arrayWithObjects:preferred, validIndirects, nil];
 	}

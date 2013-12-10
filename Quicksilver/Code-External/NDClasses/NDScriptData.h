@@ -219,13 +219,6 @@ extern const short		kScriptResourceID;
 - (BOOL)hasScriptContext;
 
 /*!
-	@method hasOpenHandler
-	@abstract Test script data for a open handler.
-	@discussion <tt>hasOpenHandler</tt> is used to query the reciever as to whether it contains a handler for the <tt>kAEOpenDocuments</tt> event.
-	@result Returns <tt>YES</tt> if the reciever is a compilied script with an open handler; otherwise, it returns <tt>NO</tt>.
- */
-- (BOOL)hasOpenHandler;
-/*!
 	@method writeToFile:atomically:
 	@abstract Write script data to a file.
 	@discussion Writes the script data in the receiver to the file specified by <tt><i>path</i></tt>. If <tt><i>atomically</i></tt> is <tt>YES</tt>, the script data is written to a backup file, and then, assuming no errors occur, the backup file is renamed to the specified filename. Otherwise, the script data is written directly to the specified file.

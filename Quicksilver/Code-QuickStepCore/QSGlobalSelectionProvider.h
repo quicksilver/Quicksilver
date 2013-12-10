@@ -7,13 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "QSObject.h"
 @protocol QSGlobalSelectionProvider
 - (QSObject *)currentSelectionForApplication:(NSString *)bundleID;
 
 @end
 
-@interface QSGlobalSelectionProvider : NSObject {
+@interface QSGlobalSelectionProvider : NSObject <QSProxyObjectProvider> {
 	NSTimeInterval failDate;
 }
 
