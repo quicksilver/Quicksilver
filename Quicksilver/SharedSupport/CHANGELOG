@@ -11,6 +11,7 @@
 ### Fixed ###
 
   * Fix the Type Text action when typing non-ASCII characters (#1536)
+  * Fix for accented characters on non-US keyboards (#1696)
   * Fix a crash with the Relaunch action (#1604, #1605)
   * Better recognition of URLs containing a colon (#1594)
   * Text proxies are created with a safe default value (#1624)
