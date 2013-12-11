@@ -603,6 +603,7 @@ static QSController *defaultController = nil;
 	NSString *currentApp = [[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationName"];
 	if (![currentApp isEqualToString:@"Quicksilver"])
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"WindowsShouldHide" object:self];
+    [QSModifierKeyEvent resetModifierState];
 }
 
 - (IBAction)rescanItems:sender { [QSLib startThreadedScan];  }
