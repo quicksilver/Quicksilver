@@ -600,9 +600,6 @@ static QSController *defaultController = nil;
 }
 
 - (void)appChanged:(NSNotification *)aNotification {
-	NSString *currentApp = [[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationName"];
-	if (![currentApp isEqualToString:@"Quicksilver"])
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"WindowsShouldHide" object:self];
     [QSModifierKeyEvent resetModifierState];
 }
 
