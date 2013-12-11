@@ -52,8 +52,8 @@
   * Track an updated version of VDKQueue (#1697)
   * Fix the unit test related to file types (#1698)
   * Reduce the number of pop-up notices when using the Debug configuration (#1709)
-  * You can now specify UTIs for files in `directTypes` for an action (#1638)
-  * New function to get a localized string from the current bundle (#1638)
+  * You can now specify `directTypes` for an action using UTIs (deprecating `directFileTypes` and the need to first specify `NSFilenamsPboardType`) (#1638)
+  * New macro to get a localized string from the current bundle `NSLocalizedStringForThisBundle` - useful for plugin localisation (#1638)
 
 ## Changes - 1.1.3 (4007) ##
 
