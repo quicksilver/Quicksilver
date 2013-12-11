@@ -10,12 +10,12 @@
 @end
 
 // These tags are set within Interface Builder, and are used to define the current search mode
-typedef enum QSSearchMode {
+typedef NS_ENUM(NSUInteger, QSSearchMode) {
 	SearchFilterAll = 1, // Filter Catalog
 	SearchFilter = 2, // Filter Results
 	SearchSnap = 3, // Snap to Best
 	SearchShuffle = 4, // Not Sure (not used?)
-} QSSearchMode;
+};
 
 @class QSResultController;
 @interface QSSearchObjectView : QSObjectView <NSTextInputClient, NSTextViewDelegate>
@@ -119,15 +119,18 @@ typedef enum QSSearchMode {
 - (void)objectIconModified:(NSNotification *)notif;
 - (void)resetString; // update the string on screen when the search is cleared
 - (IBAction)defineMnemonic:(id)sender;
+- (IBAction)defineMnemonicImmediately:(id)sender;
 - (void)saveMnemonic;
 - (BOOL)mnemonicDefined;
 - (BOOL)impliedMnemonicDefined;
 - (IBAction)removeImpliedMnemonic:(id)sender;
-
 - (IBAction)removeMnemonic:(id)sender;
+
+- (IBAction)promoteAction:(id)sender;
+
 - (void)rescoreSelectedItem;
 
-- (IBAction)showResultView:sender;
+- (IBAction)showResultView:(id)sender;
 
 - (void)dropObject:(QSBasicObject *)newSelection;
 

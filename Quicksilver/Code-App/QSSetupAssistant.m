@@ -170,7 +170,7 @@
 		[self finish:sender];
 		return;
 	}
-	NSInteger transitions[5] = {CGSUp, CGSLeft, CGSLeft, CGSLeft, CGSUp} ;
+	CGSTransitionOption transitions[5] = {CGSUp, CGSLeft, CGSLeft, CGSLeft, CGSUp} ;
 	QSCGSTransition *transition = [QSCGSTransition transitionWithWindow:[self window] type:CGSCube option:transitions[ [setupTabView indexOfTabViewItem:[setupTabView selectedTabViewItem]]] ];
 	[self deselectedItem:[setupTabView selectedTabViewItem]];
 	[setupTabView selectNextTabViewItem:self];
@@ -220,7 +220,7 @@
 }
 
 - (IBAction)prevSection:(id)sender {
-	NSInteger transitions[6] = {CGSUp, CGSDown, CGSRight, CGSRight, CGSRight, CGSDown} ;
+	CGSTransitionOption transitions[6] = {CGSUp, CGSDown, CGSRight, CGSRight, CGSRight, CGSDown} ;
 	QSCGSTransition *transition = [QSCGSTransition transitionWithWindow:[self window] type:CGSCube option:transitions[ [setupTabView indexOfTabViewItem:[setupTabView selectedTabViewItem]]] ];
 	[self deselectedItem:[setupTabView selectedTabViewItem]];
 	[setupTabView selectPreviousTabViewItem:self];

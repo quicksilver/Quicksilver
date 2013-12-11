@@ -141,7 +141,7 @@
 		[curTimer invalidate];
 		curTimer = nil;
 
-		NSInteger transition = CGSLeft;
+		CGSTransitionOption transition = CGSLeft;
 
 		if (direction == -1)
 			transition = CGSRight;

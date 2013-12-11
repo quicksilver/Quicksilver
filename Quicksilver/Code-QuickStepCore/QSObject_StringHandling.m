@@ -41,7 +41,7 @@
 
 - (BOOL)loadChildrenForObject:(QSObject *)object {
     NSArray *lines = [[object objectForType:QSTextType] componentsSeparatedByLineSeparators];
-    [object setChildren:[lines arrayByEnumeratingArrayUsingBock:^id(NSString *str) {
+    [object setChildren:[lines arrayByEnumeratingArrayUsingBlock:^id(NSString *str) {
         QSObject *obj = [QSObject objectWithString:str];
         [obj setParentID:[object identifier]];
         return obj;
@@ -110,7 +110,7 @@
 			NSArray *extComp = [[path pathExtension] componentsSeparatedByString:@":"];
 			if ([extComp count] == 2) {
 				line = [[extComp lastObject] integerValue];
-				files = [NSArray arrayWithObject:[path substringToIndex:[path length] -1-[[extComp lastObject] length]]];
+				files = [NSMutableArray arrayWithObject:[path substringToIndex:[path length] -1-[[extComp lastObject] length]]];
 				//NSLog(@"files %@", files);
 			}
 		}

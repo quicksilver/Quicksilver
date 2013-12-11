@@ -40,8 +40,8 @@ NSString *QSProcessMonitorApplicationTerminated = @"QSProcessMonitorApplicationT
 
 OSStatus GetPSNForAppInfo(ProcessSerialNumber *psn, NSDictionary *theApp) {
 	if (!theApp) return 1;
-	psn->highLongOfPSN = [[theApp objectForKey:@"NSApplicationProcessSerialNumberHigh"] longValue];
-	psn->lowLongOfPSN = [[theApp objectForKey:@"NSApplicationProcessSerialNumberLow"] longValue];
+	psn->highLongOfPSN = [[theApp objectForKey:@"NSApplicationProcessSerialNumberHigh"] intValue];
+	psn->lowLongOfPSN = [[theApp objectForKey:@"NSApplicationProcessSerialNumberLow"] intValue];
 	return noErr;
 }
 
@@ -322,8 +322,8 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 
 - (BOOL)handleProcessEvent:(NSEvent *)theEvent {
 	ProcessSerialNumber psn;
-	psn.highLongOfPSN = [theEvent data1];
-	psn.lowLongOfPSN = [theEvent data2];
+	psn.highLongOfPSN = (UInt32)[theEvent data1];
+	psn.lowLongOfPSN = (UInt32)[theEvent data2];
 
 	NSDictionary *processInfo;
 

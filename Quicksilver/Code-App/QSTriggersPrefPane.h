@@ -77,5 +77,4 @@
 - (void)showTrigger:(QSTrigger *)trigger;
 - (void)showTriggerGroupWithIdentifier:(NSString *)groupID;
 
-- (id)preferencesSplitView;
 @end

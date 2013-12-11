@@ -402,7 +402,7 @@ static NDComponentInstance		* sharedComponentInstance = nil;
 	NSParameterAssert( defaultSendProcPtr != NULL );
 	
 //	if( NDLogOSAError( defaultSendProcPtr( [anAppleEventDescriptor aeDesc], &theReplyDesc, aSendMode, aSendPriority, aTimeOutInTicks, anIdleProc, aFilterProc, defaultSendProcRefCon ) ) )
-	NDLogOSAError( defaultSendProcPtr( [anAppleEventDescriptor aeDesc], &theReplyDesc, aSendMode, aSendPriority, aTimeOutInTicks, anIdleProc, aFilterProc, defaultSendProcRefCon ) );
+	NDLogOSAError( defaultSendProcPtr( [anAppleEventDescriptor aeDesc], &theReplyDesc, aSendMode, aSendPriority, (SInt32)aTimeOutInTicks, anIdleProc, aFilterProc, defaultSendProcRefCon ) );
 	{
 		theReplyAppleEventDescriptor = [NSAppleEventDescriptor descriptorWithAEDescNoCopy:&theReplyDesc];
 	}

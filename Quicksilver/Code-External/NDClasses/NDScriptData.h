@@ -326,7 +326,7 @@ extern const short		kScriptResourceID;
 {
 @protected
 	NDScriptData		* parentScriptData;
-	long int				executionModeFlags;
+	SInt32				  executionModeFlags;
 }
 
 /*!
@@ -467,7 +467,7 @@ extern const short		kScriptResourceID;
 	 </dl>
 	@result The execution mode flags.
 */
-- (long int)executionModeFlags;
+- (SInt32)executionModeFlags;
 
 /*!
 	@method setExecutionModeFlags:mask:
@@ -490,7 +490,7 @@ extern const short		kScriptResourceID;
 	@param flags The execution mode flags or'ed together
 	@param mask A mask of the execution mode flags to change.
 */
-- (void)setExecutionModeFlags:(long int)flags mask:(long int)mask;
+- (void)setExecutionModeFlags:(SInt32)flags mask:(long int)mask;
 
 /*!
 	@method setExecutionModeFlags:
@@ -512,7 +512,7 @@ extern const short		kScriptResourceID;
 	 </dl>
 	@param flags The execution mode flags or'ed together
 */
-- (void)setExecutionModeFlags:(long int)flags;
+- (void)setExecutionModeFlags:(SInt32)flags;
 
 /*!
 	@method appleEventTarget
@@ -1028,7 +1028,7 @@ extern const short		kScriptResourceID;
 	@param parentData <#disc#>
 	@result A initialized <tt>NDScriptContext</tt>, or <tt>nil</tt> of initialization fails.
  */
-- (id)initWithSource:(NSString *)source modeFlags:(long)modeFlags parentScriptData:(NDScriptData *)parentData;
+- (id)initWithSource:(NSString *)source modeFlags:(SInt32)modeFlags parentScriptData:(NDScriptData *)parentData;
 
 /*!
 	@method initWithSource:parentScriptData:

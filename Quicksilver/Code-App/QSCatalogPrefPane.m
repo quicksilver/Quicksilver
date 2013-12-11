@@ -142,8 +142,6 @@ static id _sharedInstance;
 
 //	[itemTable reloadData];
 	[itemTable setVerticalMotionCanBeginDrag:TRUE];
-	[itemTable setAction:@selector(tableViewAction:)];
-	[itemTable setDoubleAction:@selector(tableViewDoubleAction:)];
 	[itemTable setRowHeight:17];
 
 	[itemTable registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, QSCodedCatalogEntryPasteboardType, nil]];

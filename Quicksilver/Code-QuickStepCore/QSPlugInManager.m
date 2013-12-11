@@ -68,7 +68,7 @@
 }
 
 - (QSPlugIn *)plugInBundleWasInstalled:(NSBundle *)bundle {
-#warning should check if this plugin is already installed?
+    // FIXME tiennou should check if this plugin is already installed?
 	QSPlugIn *plugin = [self plugInWithBundle:bundle];
 	[localPlugIns setObject:plugin forKey:[plugin identifier]];
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSPlugInInstalledNotification object:plugin];
@@ -585,7 +585,7 @@
 	QSPlugIn *dupPlugIn = nil;
 	//NSString *error;
 
-#warning should detect installation of a disabled plugin
+    // FIXME tiennou should detect installation of a disabled plugin
 	if (/*dupPlugIn = */[loadedPlugIns objectForKey:ident]) { // check if the bundle is already loaded. if so need to restart.
         //NSLog(@"Bundle already loaded: %@", dupPlugIn);
 		return NO;
@@ -1027,7 +1027,7 @@
 		[self plugInWasInstalled:plugInPath];
     } else {
         NSLog(@"Failed installing plugin at path %@ from url %@", path, [download URL]);
-#warning tiennou: Report ! ATM the checkbox will just blink...
+        // FIXME tiennou Report ! ATM the checkbox will just blink...
         [[self plugInWithID:[download userInfo]] downloadFailed];
     }
     [download cancel];

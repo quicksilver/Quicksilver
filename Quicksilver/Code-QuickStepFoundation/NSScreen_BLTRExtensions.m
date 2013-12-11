@@ -34,14 +34,14 @@
 } 
 
 - (BOOL)usesOpenGLAcceleration {
-	return (BOOL)CGDisplayUsesOpenGLAcceleration([self screenNumber]);
+	return (BOOL)CGDisplayUsesOpenGLAcceleration((uint32_t)[self screenNumber]);
 }
 
 - (NSString *)deviceName {
     io_connect_t displayPort;
     NSString *localName = nil;
     
-	displayPort = CGDisplayIOServicePort([self screenNumber]);
+	displayPort = CGDisplayIOServicePort((uint32_t)[self screenNumber]);
 	if ( displayPort == MACH_PORT_NULL )
 		return NULL; /* No physical device to get a name from */
 	NSDictionary *dict = (NSDictionary *)CFBridgingRelease(IODisplayCreateInfoDictionary(displayPort, kIODisplayOnlyPreferredName));

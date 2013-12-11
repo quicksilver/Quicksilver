@@ -155,6 +155,10 @@ static QSController *defaultController = nil;
 }
 
 #ifdef DEBUG
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+
 - (void)activateDebugMenu {
 	NSMenu *debugMenu = [[NSMenu alloc] initWithTitle:@"Debug"];
 
@@ -191,8 +195,9 @@ static QSController *defaultController = nil;
 
 	NSMenuItem *debugMenuItem = [[NSApp mainMenu] addItemWithTitle:@"Debug" action:nil keyEquivalent:@""];
 	[debugMenuItem setSubmenu:debugMenu];
-
 }
+
+#pragma clang diagnostic pop
 
 - (void)raiseException {
 	[NSException raise:@"Test Exception" format:@"This is a test. It is only a test. In the event of a real exception, it would have been followed by some witty commentary."];

@@ -20,4 +20,5 @@ extern NSString *QSPasteboardObjectAddress;
 - (void)pasteboard:(NSPasteboard *)sender provideDataForType:(NSString *)type;
 - (void)pasteboardChangedOwner:(NSPasteboard *)sender;
 - (NSData *)dataForType:(NSString *)dataType;
+- (void)addContentsOfClipping:(NSString *)path;
 @end

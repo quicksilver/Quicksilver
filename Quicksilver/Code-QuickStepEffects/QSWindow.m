@@ -3,6 +3,13 @@
 #import "QSWindowAnimation.h"
 #import "QSPreferenceKeys.h"
 
+@interface NSWindow (QSAppKitPrivate)
+
+- (void)_hideAllDrawers;
+- (void)_unhideAllDrawers;
+
+@end
+
 @implementation NSWindow (Effects)
 
 - (void)pulse:(id)sender {

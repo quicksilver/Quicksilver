@@ -20,7 +20,7 @@
  */
 - (BOOL)addString:(NSString *)aString type:(ResType)aType Id:(short)anID name:(NSString *)aName
 {
-	unsigned int		theLength;
+	CFIndex               theLength;
 	NSMutableData		* theData;
 
 	theLength = [aString length];
@@ -39,7 +39,7 @@
  */
 - (BOOL)addString:(NSString *)aString type:(ResType)aType name:(NSString *)aName
 {
-	unsigned int		theLength;
+	CFIndex               theLength;
 	NSMutableData		* theData;
 
 	theLength = [aString length];

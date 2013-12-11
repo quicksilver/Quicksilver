@@ -70,7 +70,7 @@
 
 - (void)invokeService {
     @autoreleasepool {
-        pid_t pid = [[[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationProcessIdentifier"] integerValue];
+        pid_t pid = [[[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationProcessIdentifier"] intValue];
         //AXUIElement* is unable to post keys into sandboxed app since 10.7, use Quartz Event Services instead
         ProcessSerialNumber psn;
         BOOL usePID = GetProcessForPID(pid, &psn) == 0;

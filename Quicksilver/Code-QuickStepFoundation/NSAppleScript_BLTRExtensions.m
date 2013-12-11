@@ -140,7 +140,7 @@
 	} else if ([object isKindOfClass:[NSString class]]) {
 		return [NSAppleEventDescriptor descriptorWithString:object];
 	} else if ([object isKindOfClass:[NSNumber class]]) {
-		return [NSAppleEventDescriptor descriptorWithInt32:[object integerValue]];
+		return [NSAppleEventDescriptor descriptorWithInt32:[object intValue]];
 	} else if ([object isKindOfClass:[NSAppleEventDescriptor class]]) {
 		return object;
 	} else if ([object isKindOfClass:[NSNull class]]) {
