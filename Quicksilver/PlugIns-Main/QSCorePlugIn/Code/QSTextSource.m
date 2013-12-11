@@ -26,7 +26,7 @@
     NSString *display = nil;
     if ([dObject singleFilePath]) {
         NSError *err = nil;
-        display = [[[NSString alloc] initWithContentsOfFile:[dObject singleFilePath] usedEncoding:nil error:&err] autorelease];
+        display = [[NSString alloc] initWithContentsOfFile:[dObject singleFilePath] usedEncoding:nil error:&err];
         if (err) {
             NSLog(@"Error: %@",[err description]);
         }
@@ -47,7 +47,7 @@
 	NSString *string = [dObject stringValue];
 	string = [string stringByReplacing:@"\"" with:@"\\\""];
 	string = [NSString stringWithFormat:@"say \"%@\"", string];
-	[[[[NSAppleScript alloc] initWithSource:string] autorelease] executeAndReturnError:nil];
+	[[[NSAppleScript alloc] initWithSource:string] executeAndReturnError:nil];
 	return nil;
 }
 

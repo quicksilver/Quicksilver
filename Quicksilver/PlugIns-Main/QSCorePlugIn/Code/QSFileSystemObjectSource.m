@@ -69,7 +69,7 @@
 		item = (NSMenuItem *)[_parserMenu addItemWithTitle:title action:nil keyEquivalent:@""];
 		[item setRepresentedObject:key];
 	}
-	return [_parserMenu autorelease];
+	return _parserMenu;
 }
 
 #if 0
@@ -164,19 +164,22 @@
 }
 #else
 - (NSMenu *)tokenField:(NSTokenField *)tokenField menuForRepresentedObject:(id)representedObject {
-	NSMenu *menu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
-	NSArray *conforms = [[(NSDictionary *)UTTypeCopyDeclaration((CFStringRef)representedObject) autorelease] objectForKey:(NSString *)kUTTypeConformsToKey];
+	NSMenu *menu = [[NSMenu alloc] initWithTitle:@""];
+    NSDictionary *dict = (__bridge_transfer NSDictionary *)UTTypeCopyDeclaration((__bridge CFStringRef)representedObject);
+	NSArray *conforms = [dict objectForKey:(NSString *)kUTTypeConformsToKey];
 	if (conforms) {
 		if (![conforms isKindOfClass:[NSArray class]]) conforms = [NSArray arrayWithObject:conforms];
-		for(NSString * type in conforms)
-			[menu addItemWithTitle:[(NSString *)UTTypeCopyDescription((CFStringRef)type) autorelease] action:nil keyEquivalent:@""];
+		for(NSString * type in conforms) {
+            NSString *title = (__bridge_transfer NSString *)UTTypeCopyDescription((__bridge CFStringRef)type);
+			[menu addItemWithTitle:title action:nil keyEquivalent:@""];
+        }
 	}
 	return menu;
 }
 #endif
 
 - (NSString *)tokenField:(NSTokenField *)tokenField displayStringForRepresentedObject:(id)representedObject {
-	NSString *description = (NSString *)UTTypeCopyDescription((CFStringRef)representedObject);
+	NSString *description = (__bridge_transfer NSString *)UTTypeCopyDescription((__bridge CFStringRef)representedObject);
 	if (!description) {
 		if ([representedObject hasPrefix:@"'"])
 			return [@"Type: " stringByAppendingString:representedObject];
@@ -184,7 +187,7 @@
 			return [@"." stringByAppendingString:representedObject];
 		description = representedObject;
 	}
-	return [description autorelease];
+	return description;
 }
 
 - (NSView *)settingsView {

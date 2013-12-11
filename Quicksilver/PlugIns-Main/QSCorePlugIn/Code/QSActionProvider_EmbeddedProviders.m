@@ -62,12 +62,12 @@
 }
 
 - (NSString *)defaultWebClient {
-	NSURL *appURL = nil;
-	OSStatus err = LSGetApplicationForURL((CFURLRef) [NSURL URLWithString: @"http:"], kLSRolesAll, NULL, (CFURLRef *)&appURL);
+    CFURLRef urlRef = NULL;
+	OSStatus err = LSGetApplicationForURL((__bridge CFURLRef) [NSURL URLWithString: @"http:"], kLSRolesAll, NULL, &urlRef);
 	if (err != noErr)
 		NSLog(@"error %ld", (long)err);
-    NSString *clientPath = [appURL path];
-    [appURL release];
+    NSString *clientPath = [((__bridge NSURL *)urlRef) path];
+    CFRelease(urlRef);
 	return clientPath;
 }
 
@@ -98,18 +98,19 @@
 - (QSObject *)defaultBrowserQSObjectForURL:(NSURL *)url {
     
     // Get the default app for the url
-    NSURL *appURL = nil;
-    LSGetApplicationForURL((CFURLRef)url, kLSRolesAll, NULL, (CFURLRef *)&appURL);
+    CFURLRef urlRef = NULL;
+    LSGetApplicationForURL((__bridge CFURLRef)url, kLSRolesAll, NULL, &urlRef);
+    NSURL *appURL = (__bridge NSURL *)urlRef;
+    CFRelease(urlRef);
     
     return [QSObject fileObjectWithPath:[appURL path]];
 }
 
 // Method to only show apps in the 3rd pane for the 'Open with...' action
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject{
-
+    
 	// 'Open URL with...' action
 	if ([action isEqualToString:@"URLOpenWithAction"]) {
-
         
         // Get the default app to set it 1st in the returned list
         NSURL *url = [self URLForString:[[dObject arrayForType:QSURLType] objectAtIndex:0]];
@@ -118,8 +119,8 @@
 		if (!preferred) {
 			preferred = [NSNull null];
 		}
-				
-		NSArray *allApps = [QSObject fileObjectsWithURLArray:[(NSArray *)LSCopyApplicationURLsForURL((CFURLRef)url, kLSRolesAll) autorelease]];
+        
+		NSArray *allApps = [QSObject fileObjectsWithURLArray:(__bridge_transfer NSArray *)LSCopyApplicationURLsForURL((__bridge CFURLRef)url, kLSRolesAll)];
 		NSMutableArray *validIndirects = [[QSLibrarian sharedInstance] scoredArrayForString:nil inSet:allApps];
 		
 		return [NSArray arrayWithObjects:preferred, validIndirects, nil];
@@ -127,7 +128,6 @@
 	
 	return nil;
 }
-
 
 - (QSObject *)doURLOpenAction:(QSObject *)dObject {
 	NSMutableArray *urlArray = [NSMutableArray array];
@@ -276,7 +276,6 @@
             NSDictionary *errorDict = nil;
             NSAppleScript *script = [[NSAppleScript alloc] initWithSource:[NSString stringWithFormat:@"tell application \"Finder\" to eject disk \"%@\"", [[NSFileManager defaultManager] displayNameAtPath:mountedVolume]]];
             [script executeAndReturnError:&errorDict];
-            [script release];
             if (errorDict) {
 				NSBeep();
 				NSLog(@"Error: %@",errorDict);
@@ -302,14 +301,13 @@
 		// comma trick - get a list of apps based on the 1st selected file
 		fileURL = [NSURL  fileURLWithPath:[[dObject validPaths] objectAtIndex:0]];
 
-		NSURL *appURL = nil;
-
-		if (fileURL) LSGetApplicationForURL((CFURLRef) fileURL, kLSRolesAll, NULL, (CFURLRef *)&appURL);
+        CFURLRef urlRef = NULL;
+		if (fileURL) LSGetApplicationForURL((__bridge CFURLRef) fileURL, kLSRolesAll, NULL, &urlRef);
 
         NSArray *fileObjects = [QSLib arrayForType:QSFilePathType];
         
-		id preferred = [QSObject fileObjectWithPath:[appURL path]];
-        [appURL release];
+		id preferred = [QSObject fileObjectWithPath:[(__bridge NSURL *)urlRef path]];
+        CFRelease(urlRef);
 
         
         NSIndexSet *applicationIndexes = [fileObjects indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *thisObject, NSUInteger i, BOOL *stop) {
@@ -413,7 +411,7 @@
 	[[dObject singleFilePath] getFSRef:&ref];
 	CFStringRef type;
 	LSCopyItemAttribute(&ref, kLSRolesNone, kLSItemContentType, (CFTypeRef *)&type);
-	LSSetDefaultRoleHandlerForContentType(type, kLSRolesAll, (CFStringRef) [[NSBundle bundleWithPath:[iObject singleFilePath]] bundleIdentifier]);
+	LSSetDefaultRoleHandlerForContentType(type, kLSRolesAll, (__bridge CFStringRef) [[NSBundle bundleWithPath:[iObject singleFilePath]] bundleIdentifier]);
 	CFRelease(type);
 	return nil;
 }
@@ -484,7 +482,7 @@
 													   &isSet);
 		if (val == 1 || !isSet) {
 			// play trash sound
-			CFURLRef soundURL = (CFURLRef)[NSURL fileURLWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"dragToTrash" ofType:@"aif"]];
+			CFURLRef soundURL = (__bridge CFURLRef)[NSURL fileURLWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"dragToTrash" ofType:@"aif"]];
 			SystemSoundID soundId;
 			AudioServicesCreateSystemSoundID(soundURL, &soundId);
 			AudioServicesPlaySystemSound(soundId);
@@ -520,7 +518,7 @@
                                                       &isSet);
         if (val == 1 || !isSet) {
             // play trash sound
-            CFURLRef soundURL = (CFURLRef)[NSURL fileURLWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"dragToTrash" ofType:@"aif"]];
+            CFURLRef soundURL = (__bridge CFURLRef)[NSURL fileURLWithPath:[[NSBundle bundleForClass:[self class]] pathForResource:@"dragToTrash" ofType:@"aif"]];
             SystemSoundID soundId;
             AudioServicesCreateSystemSoundID(soundURL, &soundId);
             AudioServicesPlaySystemSound(soundId);
@@ -533,7 +531,6 @@
 		NSString *errorMessage = [NSString stringWithFormat:localizedErrorFormat, [[failed allObjects] componentsJoinedByString:@", "]];
 		QSShowNotifierWithAttributes([NSDictionary dictionaryWithObjectsAndKeys:@"QSTrashFileFailed", QSNotifierType, [QSResourceManager imageNamed:@"AlertCautionIcon"], QSNotifierIcon, localizedTitle, QSNotifierTitle, errorMessage, QSNotifierText, nil]);
     }
-    [failed release];
 
 	// return folder that contained the last file that was deleted
     if (lastDeletedFile) {
@@ -547,7 +544,6 @@
 	for (NSString * path in [dObject arrayForType:QSFilePathType]) {
 		[launch setLaunchAtLogin:YES forURL:[NSURL fileURLWithPath:path]];
 	}
-	[launch release];
 	return nil;
 }
 
@@ -556,7 +552,6 @@
 	for (NSString *path in [dObject arrayForType:QSFilePathType]) {
 		[launch setLaunchAtLogin:NO forURL:[NSURL fileURLWithPath:path]];
 	}
-	[launch release];
 	return nil;
 }
 
@@ -672,7 +667,7 @@
 				break;
 			}
 			case QSDontReplaceFilesResolution:
-				otherFiles = [[filePaths mutableCopy] autorelease];
+				otherFiles = [filePaths mutableCopy];
 				[otherFiles removeObjectsInArray:[conflicts allKeys]];
 #ifdef DEBUG
 				NSLog(@"Only moving %@", otherFiles);
@@ -744,7 +739,7 @@
 - (QSObject *)makeLinkTo:(QSObject *)dObject inFolder:(QSObject *)iObject {
 	NSString *destination = [iObject singleFilePath];
     NSString *linkPath;
-	for(NSString *thisFile in [dObject arrayForType:QSFilePathType]) {
+	for(__strong NSString *thisFile in [dObject arrayForType:QSFilePathType]) {
         linkPath = [destination stringByAppendingPathComponent:[thisFile lastPathComponent]];
         if ([linkPath isEqualToString:thisFile]) {
             // change the name if the link will be in the same directory

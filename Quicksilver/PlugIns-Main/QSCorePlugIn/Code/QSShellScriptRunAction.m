@@ -42,10 +42,9 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
         if ([string containsString:@"#!"]) {
             executable = YES;
         }
-        [string release];
 	} else if (!allowApps) {
 		LSItemInfoRecord infoRec;
-		LSCopyItemInfoForURL((CFURLRef) [NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);
+		LSCopyItemInfoForURL((__bridge CFURLRef) [NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);
 		if (infoRec.flags & kLSItemInfoIsApplication) // Ignore applications
 			return NO;
 	}
@@ -58,7 +57,7 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
 	NSString *script = [NSString stringWithContentsOfFile:path usedEncoding:nil error:nil];
 
 	NSMutableDictionary *scriptDict = [NSMutableDictionary dictionary];
-	for(NSString * component in [script componentsSeparatedByString: @"%%%"]) {
+	for(__strong NSString * component in [script componentsSeparatedByString: @"%%%"]) {
 		if (![component hasPrefix:@" {"]) continue;
 		if (![component hasSuffix:@"} "]) continue;
 		component = [component substringWithRange:NSMakeRange(1, [(NSString *)component length] - 2)];
@@ -147,7 +146,7 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
 	if ([arguments count])
       [taskArgs addObjectsFromArray:arguments];
     
-    NSTask *task = [[[NSTask alloc] init] autorelease];
+    NSTask *task = [[NSTask alloc] init];
     [task setLaunchPath:taskPath];
     [task setArguments:taskArgs];
     [task setStandardOutput:[NSPipe pipe]];
@@ -155,7 +154,7 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
     @try {
         [task launch];
         [task waitUntilExit];
-        taskOutput = [[[NSString alloc] initWithData:[[[task standardOutput] fileHandleForReading] readDataToEndOfFile] encoding:NSUTF8StringEncoding] autorelease];
+        taskOutput = [[NSString alloc] initWithData:[[[task standardOutput] fileHandleForReading] readDataToEndOfFile] encoding:NSUTF8StringEncoding];
     }
     @catch (NSException *e) {
         NSLog(@"Task raised exception %@", e);

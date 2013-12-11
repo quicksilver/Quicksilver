@@ -5785,8 +5785,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/Bezel/Info.plist";
 				PRODUCT_NAME = "Bezel Interface";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -5794,8 +5796,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/Bezel/Info.plist";
 				PRODUCT_NAME = "Bezel Interface";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -5803,8 +5807,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/Finder/Info.plist";
 				PRODUCT_NAME = "Finder Module";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -5812,8 +5818,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/Finder/Info.plist";
 				PRODUCT_NAME = "Finder Module";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -5821,8 +5829,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/PrimerInterface/Info.plist";
 				PRODUCT_NAME = "Primer Interface";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -5830,8 +5840,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/PrimerInterface/Info.plist";
 				PRODUCT_NAME = "Primer Interface";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -5839,8 +5851,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/QSHotKeyPlugIn/Info.plist";
 				PRODUCT_NAME = "HotKey Triggers";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -5848,8 +5862,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/QSHotKeyPlugIn/Info.plist";
 				PRODUCT_NAME = "HotKey Triggers";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -6295,8 +6311,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
 				PRODUCT_NAME = "Core Support";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -6304,8 +6322,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD110E0BB27B009902EF /* QSPlugIn.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
 				PRODUCT_NAME = "Core Support";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};

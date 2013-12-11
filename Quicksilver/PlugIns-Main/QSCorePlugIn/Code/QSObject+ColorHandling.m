@@ -29,7 +29,6 @@
 	[image unlockFocus];
 	[object setIcon:image];
     [object setRetainsIcon:YES];
-	[image release];
 	return YES;
 }
 - (NSString *)identifierForObject:(QSObject *)object {return nil;}

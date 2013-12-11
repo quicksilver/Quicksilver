@@ -22,7 +22,6 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSControlTextDidEndEditingNotification object:synonymName];
-    [super dealloc];
 }
 
 #pragma mark Catalog Entry

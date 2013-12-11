@@ -83,7 +83,7 @@
 	NSArray *paths = [scripts pathsMatchingExtensions:[NSArray arrayWithObjects:@"scpt", @"app", nil]];
     NSMutableArray *array = [NSMutableArray array]; 
 	for (NSString *path in paths) {
-		if (UTTypeConformsTo((CFStringRef)QSUTIOfFile(path), (CFStringRef)QSUTIForAnyTypeString(@"scpt"))) {
+		if (UTTypeConformsTo((__bridge CFStringRef)QSUTIOfFile(path), (__bridge CFStringRef)QSUTIForAnyTypeString(@"scpt"))) {
 			[array addObject:[self scriptActionForPath:path]];
 		}
 	}
@@ -98,7 +98,6 @@
 	components = [components mutableCopy];
 	[(NSMutableArray *)components replaceObjectAtIndex:2 withObject:[NSString stringWithFormat:@"\"%@\"", [components objectAtIndex:2]]];
 	NSString *result = [components componentsJoinedByString:@" "];
-	[components release];
 	return result;
 }
 
@@ -111,7 +110,6 @@
 		if (returnObj)
 			returnObj = [QSObject objectWithString:returnObj];
 	}
-	[script release];
 	return returnObj;
 }
 
@@ -149,7 +147,6 @@
 
 	if (errorDict) {
 		NSLog(@"Load Script: %@", [errorDict objectForKey:@"NSAppleScriptErrorMessage"]);
-        [script release];
 		return nil;
 	}
 
@@ -173,15 +170,12 @@
 			[event setParamDescriptor:[NSAppleEventDescriptor descriptorWithString:[iObject stringValue]] forKeyword:keyDirectObject];
 			[event setDescriptor:[NSAppleEventDescriptor descriptorWithString:@""] forKeyword:kQSIndirectParameter];
 		}
-		[targetAddress release];
 		returnDesc = [script executeAppleEvent:event error:&errorInfo];
-		[event release];
 		//NSLog(@"%@", errorInfo);
 	}
 	if (errorDict) NSLog(@"Run Script: %@", [errorDict objectForKey:@"NSAppleScriptErrorMessage"]);
 	[script storeInFile:@"scriptPath"];
 	[[QSTaskController sharedInstance] removeTask:@"Run AppleScript"];
-	[script release];
 	return iObject?[QSObject objectWithAEDescriptor:returnDesc]:nil;
 }
 
@@ -237,9 +231,6 @@
 		NSArray *files = [dObject validPaths];
         if (files == nil) {
             QSShowAppNotifWithAttributes(@"QSAppleScriptAction", NSLocalizedString(@"Error loading AppleScript action", @"Title of the error message when an applescript action could not be loaded"), [NSString stringWithFormat:NSLocalizedString(@"The %@ handler takes only files as an input", @"error message whena n applescript action could not be loaded"),[handler isEqualToString:@"QSOpenFileEventPlaceholder"] ? @"open" : @"open files"]);
-            [event release];
-            [targetAddress release];
-            [script release];
             return nil;
         }
 		[event setParamDescriptor:[NSAppleEventDescriptor aliasListDescriptorWithArray:files] forKeyword:keyDirectObject];
@@ -268,9 +259,6 @@
 	}
 
 	id result = [self objectForDescriptor:[script executeAppleEvent:event error:&errorDict]];
-    [event release];
-	[targetAddress release];
-	[script release];
 	if (errorDict) NSLog(@"Perform AppleScript Action Error: %@", [errorDict descriptionInStringsFileFormat]);
 	return result;
 }
@@ -324,7 +312,7 @@
         for (NSString *type in indirectTypes) {
             [indirectObjects addObjectsFromArray:[QSLib arrayForType:type]];
         }
-        return [[indirectObjects copy] autorelease];
+        return [indirectObjects copy];
     }
     return nil;
 }
@@ -382,9 +370,6 @@
         } else if( errorDict != nil )
             NSLog(@"error %@", errorDict);
         
-        [event release];
-        [targetAddress release];
-        [script release];
         
     }
     
@@ -411,9 +396,6 @@
             types = (NSArray *)[result arrayValue];
         } else if( errorDict != nil )
             NSLog(@"error %@", errorDict);
-        [event release];
-        [targetAddress release];
-        [script release];
     }
     return types;
 }

@@ -26,7 +26,7 @@ static NSImage *prefsCatalogImage = nil;
 
 + (void)initialize {
 	if (prefsCatalogImage == nil) {
-		prefsCatalogImage = [[QSResourceManager imageNamed:@"prefsCatalog"] retain];
+		prefsCatalogImage = [QSResourceManager imageNamed:@"prefsCatalog"];
 	}
 }
 
@@ -72,13 +72,11 @@ static NSImage *prefsCatalogImage = nil;
 			name = @"Quicksilver Catalog";
 		else
 			name = [NSString stringWithFormat:@"%@ (Catalog) ", name];
-		newObject = [[QSObject objectWithName:name] retain];
+		newObject = [QSObject objectWithName:name];
 		[newObject setObject:theID forType:QSCatalogEntryPboardType];
 		[newObject setPrimaryType:QSCatalogEntryPboardType];
 		[newObject setIdentifier:theID];
 		[objects addObject:newObject];
-        [newObject release];
-        [theID release];
 	}
 	return objects;
 }
@@ -190,7 +188,6 @@ static NSImage *prefsCatalogImage = nil;
 
 - (void) dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[super dealloc];
 }
 
 

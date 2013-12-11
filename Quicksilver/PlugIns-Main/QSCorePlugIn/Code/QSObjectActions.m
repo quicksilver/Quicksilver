@@ -160,7 +160,6 @@
         } else {
             savePath = nil;
         }
-        [fm release];
 	}
     
     // If there is no iObject or the iObject path doesn't exist, ask the user for a path

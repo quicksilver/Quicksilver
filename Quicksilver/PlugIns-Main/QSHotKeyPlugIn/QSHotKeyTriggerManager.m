@@ -206,7 +206,7 @@
 - (NSDictionary *)hotKey {
 	NSMutableDictionary *dict = [[[[self currentTrigger] info] dictionaryWithValuesForKeys:[NSArray arrayWithObjects:@"modifiers", @"keyCode", @"characters", nil]] mutableCopy];
 	[dict removeObjectsForKeys:[dict allKeysForObject:[NSNull null]]];
-	return [dict autorelease];
+	return dict;
 }
 
 - (void)trigger:(QSTrigger *)trigger setTriggerDescription:(NSString *)description {

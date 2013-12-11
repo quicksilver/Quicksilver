@@ -8,13 +8,12 @@
 @implementation QSFinderProxy
 + (id)sharedInstance {
 	static id _sharedInstance;
-	if (!_sharedInstance) _sharedInstance = [[[self class] allocWithZone:[self zone]] init];
+	if (!_sharedInstance) _sharedInstance = [[[self class] allocWithZone:nil] init];
 	return _sharedInstance;
 }
 
 - (void)dealloc {
 	[self setFinderScript:nil];
-	[super dealloc];
 }
 
 - (NSImage *)icon {
@@ -167,8 +166,7 @@ target:
 
 - (void)setFinderScript:(NSAppleScript *)aFinderScript {
 	if (finderScript != aFinderScript) {
-		[finderScript release];
-		finderScript = [aFinderScript retain];
+		finderScript = aFinderScript;
 	}
 }
 
