@@ -73,7 +73,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectIconModified:) name:QSObjectIconModified object:proxy];
     }
     
-    NSTimeInterval interval = 3.0f;
+    NSTimeInterval interval = 0.5f;
     
     if ([provider respondsToSelector:@selector(cacheTimeForProxy:)])
         interval = [[self proxyProvider] cacheTimeForProxy:self];
