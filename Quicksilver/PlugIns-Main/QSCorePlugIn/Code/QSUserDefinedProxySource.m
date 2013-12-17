@@ -38,6 +38,11 @@
     }
 }
 
+- (BOOL)entryCanBeIndexed:(NSDictionary *)theEntry
+{
+    return NO;
+}
+
 - (NSArray *)objectsForEntry:(NSDictionary *)theEntry
 {
     // create a proxy object with this class as its provider
