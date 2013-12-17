@@ -35,6 +35,7 @@ NSUInteger lastModifiers;
 
 + (void)checkForModifierEvent:(NSEvent *)theEvent;
 + (QSModifierKeyEvent *)eventWithIdentifier:(NSString *)identifier;
++ (void)resetModifierState;
 
 - (void)enable;
 - (void)disable;

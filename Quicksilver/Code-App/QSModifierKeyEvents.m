@@ -205,4 +205,8 @@ BOOL modifierEventsEnabled = YES;
     self.timesKeysPressed = 0;
 }
 
++ (void)resetModifierState
+{
+    lastModifiers = 0;
+}
 @end
