@@ -52,7 +52,7 @@ BOOL modifierEventsEnabled = YES;
         mods = NSAlphaShiftKeyMask;
     }
 
-    QSModifierKeyEvent *match = [modifierKeyEvents objectForKey:mods ? [NSNumber numberWithUnsignedInteger:mods] : [NSNumber numberWithUnsignedInteger:lastModifiers]];
+    QSModifierKeyEvent *match = [modifierKeyEvents objectForKey:(mods ? [NSNumber numberWithUnsignedInteger:mods] : [NSNumber numberWithUnsignedInteger:lastModifiers])];
     
     BOOL modsAdded = mods >= lastModifiers;
     
