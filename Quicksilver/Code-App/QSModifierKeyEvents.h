@@ -21,9 +21,8 @@ NSUInteger lastModifiers;
 	SEL action;
 
 	@private
-		NSInteger keyCode;
-        NSTimeInterval timeSinceLastKeyDown;
-        NSDate *firstModifierPressedTime;
+    NSTimeInterval timeSinceLastKeyDown;
+    NSDate *firstModifierPressedTime;
     
 }
 
