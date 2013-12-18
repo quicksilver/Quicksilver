@@ -91,7 +91,8 @@
     id argument = nil;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    if (argument = messageInfo[kActionArgument]) {
+    // NSMethodSignature numberOfArguments is always +2 from the number of 'visible' arguments. So numberOfArguments == 3 means 1 visible arg.
+    if ((argument = messageInfo[kActionArgument]) || [[target methodSignatureForSelector:selector] numberOfArguments] == 3) {
         result = [target performSelector:selector withObject:argument];
     } else {
         result = [target performSelector:selector];
