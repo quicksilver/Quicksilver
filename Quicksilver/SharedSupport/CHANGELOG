@@ -4,7 +4,7 @@
 
   * Added a "Default Browser" proxy object (#1638)
   * Text ending with `/` will be recognized as a URL. Entering `qsapp/` will be expanded to `http://www.qsapp.com/`. This emulates the behavior of Safari 6's address bar. (#1594)
-  * Modifier-only activation is more reliable and now works in password fields and Terminal with "Secure Keyboard Entry" enabled (#1586, #1713, #1715)
+  * Modifier-only activation is more reliable and now works in password fields and Terminal with "Secure Keyboard Entry" enabled (#1586, #1713, #1715, #1712, #1723)
   * Show more detail when moving or copying files fails (#1668)
   * Ignore incomplete downloads from Opera (`.opdownload`) when identifying the Latest Download (#1676)
 
