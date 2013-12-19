@@ -39,7 +39,7 @@ BOOL modifierEventsEnabled = YES;
 	if (!modifierEventsEnabled) return;
 	if (!modifierKeyEvents) return;
 
-	NSUInteger mods = [theEvent modifierFlags];
+	NSUInteger mods = [theEvent modifierFlags] & NSDeviceIndependentModifierFlagsMask;
 
     BOOL modsKeyPressed = NO;
     if((mods & NSAllModifierKeysMask))
@@ -48,22 +48,15 @@ BOOL modifierEventsEnabled = YES;
     // To determine if the caps lock key is the only key press check if mods is
     // in one of the 3 states below.  NSMouseEnteredMask is set if QS has current
     // focus.
-    if(!modsKeyPressed && (mods == 0 || mods & (NSAlphaShiftKeyMask | NSMouseEnteredMask)) ) {
+    if(!modsKeyPressed && (mods & (NSAlphaShiftKeyMask | NSMouseEnteredMask)) ) {
         mods = NSAlphaShiftKeyMask;
     }
 
-    BOOL modsAdded = mods >= lastModifiers;
-
-	lastModifiers = mods;
-
-    // Get the mod key.
-    NSUInteger puremod = mods & NSAllModifierKeysMask;
-    if (!puremod)
-        puremod = NSAlphaShiftKeyMask;
-
-    QSModifierKeyEvent *match = [modifierKeyEvents objectForKey:[NSNumber numberWithUnsignedShort:[theEvent keyCode]]];
+    QSModifierKeyEvent *match = [modifierKeyEvents objectForKey:(mods ? @(mods) : @(lastModifiers))];
     
-
+    BOOL modsAdded = mods >= lastModifiers;
+    
+	lastModifiers = mods;
     [match checkForModifierTap:modsAdded];
 }
 
@@ -97,12 +90,12 @@ BOOL modifierEventsEnabled = YES;
 }
 
 - (void)enable {
-	[[QSModifierKeyEvent modifierKeyEvents] setObject:self forKey:[NSNumber numberWithUnsignedInteger:keyCode]];
+	[[QSModifierKeyEvent modifierKeyEvents] setObject:self forKey:@(self.modifierActivationMask)];
 }
 
 - (void)disable {
-	[[QSModifierKeyEvent modifierKeyEvents] objectForKey:[NSNumber numberWithUnsignedInteger:keyCode]];
-	[[QSModifierKeyEvent modifierKeyEvents] removeObjectForKey:[NSNumber numberWithUnsignedInteger:keyCode]];
+	[[QSModifierKeyEvent modifierKeyEvents] objectForKey:@(self.modifierActivationMask)];
+	[[QSModifierKeyEvent modifierKeyEvents] removeObjectForKey:@(self.modifierActivationMask)];
 }
 
 
@@ -129,28 +122,6 @@ BOOL modifierEventsEnabled = YES;
 - (void)setModifierActivationMask:(NSUInteger)value {
 	_modifierActivationMask = 1 << value;
 
-	switch (self.modifierActivationMask) {
-		case NSCommandKeyMask:
-			keyCode = NSCommandKeyCode;
-			break;
-		case NSAlternateKeyMask:
-			keyCode = NSAlternateKeyCode;
-			break;
-		case NSControlKeyMask:
-			keyCode = NSControlKeyCode;
-			break;
-		case NSShiftKeyMask:
-			keyCode = NSShiftKeyCode;
-			break;
-		case NSFunctionKeyMask:
-			keyCode = NSFunctionKeyCode;
-			break;
-		case NSAlphaShiftKeyMask:
-			keyCode = NSAlphaShiftCode;
-			break;
-		default:
-			keyCode = 0;
-	}
     self.timesKeysPressed = 0;
 	//	KeyMapInit((char *)&modRequireMap);
 	//	KeyMapAddKeyCode((char *)&modRequireMap, keyCode);
@@ -173,8 +144,8 @@ BOOL modifierEventsEnabled = YES;
 
 - (void)checkForModifierTap:(BOOL)modsAdded {
 
-    if (!modsAdded || (keyCode == NSAlphaShiftCode && self.timesKeysPressed == 1)) {
-        if (keyCode == NSAlphaShiftCode) {
+    if (!modsAdded || (self.modifierActivationMask == NSAlphaShiftKeyMask && self.timesKeysPressed == 1)) {
+        if (self.modifierActivationMask == NSAlphaShiftKeyMask) {
             // keyUp events aren't sent for the caps lock key, so we have to check it here and manually increase the key pressed count
             self.timesKeysPressed += 1;
         }

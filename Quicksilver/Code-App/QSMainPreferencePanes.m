@@ -55,11 +55,7 @@
 @implementation QSSearchPrefPane
 
 - (void)awakeFromNib {
-#if 0
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NDHotKeyEvent *activationKey = [NDHotKeyEvent getHotKeyForKeyCode:[[defaults objectForKey:kHotKeyCode] unsignedShortValue] character:0 modifierFlags:[[defaults objectForKey:kHotKeyModifiers] unsignedIntegerValue]];
-	[hotKeyButton setTitle:[activationKey stringValue]];
-#endif
+
 	NSUserDefaultsController *defaultsController = [NSUserDefaultsController sharedUserDefaultsController];
 	[defaultsController addObserver:self forKeyPath:@"values.QSModifierActivationCount" options:0 context:nil];
 	[defaultsController addObserver:self forKeyPath:@"values.QSModifierActivationKey" options:0 context:nil];
