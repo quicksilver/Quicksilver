@@ -52,12 +52,12 @@ BOOL modifierEventsEnabled = YES;
         mods = NSAlphaShiftKeyMask;
     }
 
-    QSModifierKeyEvent *match = [modifierKeyEvents objectForKey:(mods ? [NSNumber numberWithUnsignedInteger:mods] : [NSNumber numberWithUnsignedInteger:lastModifiers])];
+    QSModifierKeyEvent *match = [modifierKeyEvents objectForKey:(mods ? @(mods) : @(lastModifiers))];
     
     BOOL modsAdded = mods >= lastModifiers;
     
 	lastModifiers = mods;
-    [match checkForModifier:modsAdded];
+    [match checkForModifierTap:modsAdded];
 }
 
 + (void)regisiterForGlobalModifiers {
@@ -90,12 +90,12 @@ BOOL modifierEventsEnabled = YES;
 }
 
 - (void)enable {
-	[[QSModifierKeyEvent modifierKeyEvents] setObject:self forKey:[NSNumber numberWithUnsignedInteger:self.modifierActivationMask]];
+	[[QSModifierKeyEvent modifierKeyEvents] setObject:self forKey:@(self.modifierActivationMask)];
 }
 
 - (void)disable {
-	[[QSModifierKeyEvent modifierKeyEvents] objectForKey:[NSNumber numberWithUnsignedInteger:self.modifierActivationMask]];
-	[[QSModifierKeyEvent modifierKeyEvents] removeObjectForKey:[NSNumber numberWithUnsignedInteger:self.modifierActivationMask]];
+	[[QSModifierKeyEvent modifierKeyEvents] objectForKey:@(self.modifierActivationMask)];
+	[[QSModifierKeyEvent modifierKeyEvents] removeObjectForKey:@(self.modifierActivationMask)];
 }
 
 
