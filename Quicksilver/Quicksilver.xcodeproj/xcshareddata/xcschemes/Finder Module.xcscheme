@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4D002D60131148C2009040B7"
-               BuildableName = "Finder Module.qsplugin"
-               BlueprintName = "Finder Module"
+               BuildableName = "Finder Plugin.qsplugin"
+               BlueprintName = "Finder Plugin"
                ReferencedContainer = "container:Quicksilver.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

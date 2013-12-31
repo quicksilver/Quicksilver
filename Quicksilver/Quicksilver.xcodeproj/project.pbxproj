@@ -1071,7 +1071,7 @@
 		4D002CF413114628009040B7 /* QSHotKeyTriggerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSHotKeyTriggerManager.m; sourceTree = "<group>"; };
 		4D002D021311465B009040B7 /* Bezel Interface.qsplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bezel Interface.qsplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D002D52131147FF009040B7 /* Quicksilver.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quicksilver.pch; sourceTree = "<group>"; };
-		4D002D61131148C2009040B7 /* Finder Module.qsplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Finder Module.qsplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D002D61131148C2009040B7 /* Finder Plugin.qsplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Finder Plugin.qsplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D002D88131149A3009040B7 /* Primer Interface.qsplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Primer Interface.qsplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D002DAD13114A2E009040B7 /* HotKey Triggers.qsplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HotKey Triggers.qsplugin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D00307513116304009040B7 /* Quicksilver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quicksilver.h; sourceTree = "<group>"; };
@@ -2444,7 +2444,7 @@
 				7F0BD5DD07B52EA8003F3DC3 /* Core Support.qsplugin */,
 				7F9703D009AFEE8700E9EA77 /* QSDroplet.app */,
 				4D002D021311465B009040B7 /* Bezel Interface.qsplugin */,
-				4D002D61131148C2009040B7 /* Finder Module.qsplugin */,
+				4D002D61131148C2009040B7 /* Finder Plugin.qsplugin */,
 				4D002D88131149A3009040B7 /* Primer Interface.qsplugin */,
 				4D002DAD13114A2E009040B7 /* HotKey Triggers.qsplugin */,
 				66448D9614F42790000FA2E2 /* QSFoundationTests.octest */,
@@ -3759,9 +3759,9 @@
 			productReference = 4D002D021311465B009040B7 /* Bezel Interface.qsplugin */;
 			productType = "com.apple.product-type.bundle";
 		};
-		4D002D60131148C2009040B7 /* Finder Module */ = {
+		4D002D60131148C2009040B7 /* Finder Plugin */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4D002D65131148C3009040B7 /* Build configuration list for PBXNativeTarget "Finder Module" */;
+			buildConfigurationList = 4D002D65131148C3009040B7 /* Build configuration list for PBXNativeTarget "Finder Plugin" */;
 			buildPhases = (
 				4D002D5D131148C2009040B7 /* Resources */,
 				4D002D5E131148C2009040B7 /* Sources */,
@@ -3772,9 +3772,9 @@
 			dependencies = (
 				4D002DA113114A10009040B7 /* PBXTargetDependency */,
 			);
-			name = "Finder Module";
+			name = "Finder Plugin";
 			productName = "Finder Module";
-			productReference = 4D002D61131148C2009040B7 /* Finder Module.qsplugin */;
+			productReference = 4D002D61131148C2009040B7 /* Finder Plugin.qsplugin */;
 			productType = "com.apple.product-type.bundle";
 		};
 		4D002D87131149A3009040B7 /* Primer Interface */ = {
@@ -4122,7 +4122,7 @@
 				E1B5F2AB06573C2900FCFBE2 /* QuickStep Interface */,
 				E1E5F9C707B1FEC50044D6EF /* Core Support */,
 				4D002D011311465B009040B7 /* Bezel Interface */,
-				4D002D60131148C2009040B7 /* Finder Module */,
+				4D002D60131148C2009040B7 /* Finder Plugin */,
 				4D002D87131149A3009040B7 /* Primer Interface */,
 				4D002DAC13114A2E009040B7 /* HotKey Triggers */,
 				7F0399E9080EE58D001A9FA3 /* Preflight */,
@@ -4954,7 +4954,7 @@
 		};
 		4D002DBE13114A7C009040B7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4D002D60131148C2009040B7 /* Finder Module */;
+			target = 4D002D60131148C2009040B7 /* Finder Plugin */;
 			targetProxy = 4D002DBD13114A7C009040B7 /* PBXContainerItemProxy */;
 		};
 		4D002DC013114A7C009040B7 /* PBXTargetDependency */ = {
@@ -5787,7 +5787,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/Bezel/Info.plist";
-				PRODUCT_NAME = "Bezel Interface";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -5798,7 +5797,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/Bezel/Info.plist";
-				PRODUCT_NAME = "Bezel Interface";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -5809,7 +5807,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/Finder/Info.plist";
-				PRODUCT_NAME = "Finder Module";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -5820,7 +5817,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/Finder/Info.plist";
-				PRODUCT_NAME = "Finder Module";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -5831,7 +5827,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/PrimerInterface/Info.plist";
-				PRODUCT_NAME = "Primer Interface";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -5842,7 +5837,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/PrimerInterface/Info.plist";
-				PRODUCT_NAME = "Primer Interface";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -5853,7 +5847,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/QSHotKeyPlugIn/Info.plist";
-				PRODUCT_NAME = "HotKey Triggers";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -5864,7 +5857,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/QSHotKeyPlugIn/Info.plist";
-				PRODUCT_NAME = "HotKey Triggers";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -5890,7 +5882,7 @@
 					"-framework",
 					SenTestingKit,
 				);
-				PRODUCT_NAME = QSFoundationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -5915,7 +5907,7 @@
 					"-framework",
 					SenTestingKit,
 				);
-				PRODUCT_NAME = QSFoundationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 				ZERO_LINK = NO;
 			};
@@ -5942,7 +5934,7 @@
 					"-framework",
 					SenTestingKit,
 				);
-				PRODUCT_NAME = QSCoreTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -5967,7 +5959,7 @@
 					"-framework",
 					SenTestingKit,
 				);
-				PRODUCT_NAME = QSCoreTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 				ZERO_LINK = NO;
 			};
@@ -5994,7 +5986,7 @@
 					"-framework",
 					SenTestingKit,
 				);
-				PRODUCT_NAME = QSEffectsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -6019,7 +6011,7 @@
 					"-framework",
 					SenTestingKit,
 				);
-				PRODUCT_NAME = QSEffectsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 				ZERO_LINK = NO;
 			};
@@ -6046,7 +6038,7 @@
 					"-framework",
 					SenTestingKit,
 				);
-				PRODUCT_NAME = QSInterfaceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -6071,7 +6063,7 @@
 					"-framework",
 					SenTestingKit,
 				);
-				PRODUCT_NAME = QSInterfaceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 				ZERO_LINK = NO;
 			};
@@ -6098,7 +6090,7 @@
 					"-framework",
 					SenTestingKit,
 				);
-				PRODUCT_NAME = QuicksilverTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -6123,7 +6115,7 @@
 					"-framework",
 					SenTestingKit,
 				);
-				PRODUCT_NAME = QuicksilverTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 				ZERO_LINK = NO;
 			};
@@ -6136,7 +6128,7 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = "Run All Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
@@ -6146,7 +6138,7 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				PRODUCT_NAME = "Run All Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -6155,7 +6147,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = Preflight;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
@@ -6163,7 +6155,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = Preflight;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -6295,7 +6287,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = QSScriptingDictionary;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
@@ -6303,7 +6295,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
-				PRODUCT_NAME = QSScriptingDictionary;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -6313,7 +6305,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
-				PRODUCT_NAME = "Core Support";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -6324,7 +6315,6 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PlugIns-Main/QSCorePlugIn/QSCorePlugIn-Info.plist";
-				PRODUCT_NAME = "Core Support";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -6335,7 +6325,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
-				PRODUCT_NAME = Quicksilver;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
@@ -6347,7 +6337,7 @@
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				INFOPLIST_FILE = "PropertyLists/Quicksilver-Info.plist";
-				PRODUCT_NAME = Quicksilver;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
@@ -6389,7 +6379,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = "QSDroplet/QSDroplet-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				PRODUCT_NAME = QSDroplet;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -6400,7 +6390,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = "QSDroplet/QSDroplet-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				PRODUCT_NAME = QSDroplet;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -6417,7 +6407,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		4D002D65131148C3009040B7 /* Build configuration list for PBXNativeTarget "Finder Module" */ = {
+		4D002D65131148C3009040B7 /* Build configuration list for PBXNativeTarget "Finder Plugin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4D002D63131148C3009040B7 /* Debug */,
