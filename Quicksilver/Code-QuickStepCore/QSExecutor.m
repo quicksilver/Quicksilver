@@ -1,4 +1,4 @@
-#import "QSKeys.h"
+ #import "QSKeys.h"
 #import "QSExecutor.h"
 #import "QSLibrarian.h"
 #import "QSObject.h"
@@ -129,9 +129,16 @@ QSExecutor *QSExec = nil;
 
 - (NSArray *)actionsForTypes:(NSArray *)types fileTypes:(NSArray *)fileTypes {
 	NSMutableSet *set = [NSMutableSet set];
-	for (NSString *type in types) {
+	for (NSString __strong *type in types) {
 		if (![type isEqualToString:QSFilePathType]) {
-			[set addObjectsFromArray:[directObjectTypes objectForKey:type]];
+            if ([type isEqualToString:NSStringPboardType] || [type isEqualToString:NSPasteboardTypeString]) {
+                type = (NSString *)kUTTypeUTF8PlainText;
+            }
+            [directObjectTypes enumerateKeysAndObjectsUsingBlock:^(NSString *actionUTI, NSMutableArray *actions, BOOL *stop) {
+                if (UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)actionUTI)) {
+                    [set addObjectsFromArray:actions];
+                }
+            }];
 		}
 	}
     [set addObjectsFromArray:[self actionsForFileTypes:fileTypes]];
@@ -213,17 +220,17 @@ QSExecutor *QSExec = nil;
 	} else {
 		[action _setRank:index];
 	}
-	NSDictionary *actionDict = [action objectForType:QSActionType];
-	NSArray *directTypes = [actionDict objectForKey:kActionDirectTypes];
+	NSArray *directTypes = [action directTypes];
 	if (![directTypes count]) directTypes = [NSArray arrayWithObject:@"*"];
-	for (NSString *type in directTypes) {
+	for (NSString __strong *type in directTypes) {
+        if ([type isEqualToString:NSStringPboardType] || [type isEqualToString:NSPasteboardTypeString]) {
+            type = (NSString *)kUTTypeUTF8PlainText;
+        }
         [[self actionsArrayForType:type] addObject:action];
     }
     
-	if ([directTypes containsObject:QSFilePathType]) {
-		directTypes = [actionDict objectForKey:kActionDirectFileTypes];
-		if (![directTypes count]) directTypes = [NSArray arrayWithObject:@"*"];
-		for (NSString *type in directTypes) {
+	if ([action directFileTypes]) {
+		for (NSString *type in [action directFileTypes]) {
 			[[self actionsArrayForFileType:type] addObject:action];
 		}
 	}
