@@ -136,7 +136,7 @@ QSExecutor *QSExec = nil;
                 type = (NSString *)kUTTypeUTF8PlainText;
             }
             [directObjectTypes enumerateKeysAndObjectsUsingBlock:^(NSString *actionUTI, NSMutableArray *actions, BOOL *stop) {
-                if (UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)actionUTI)) {
+                if ([actionUTI isEqualToString:type] || UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)actionUTI)) {
                     [set addObjectsFromArray:actions];
                 }
             }];
@@ -224,6 +224,10 @@ QSExecutor *QSExec = nil;
 	NSArray *directTypes = [action directTypes];
 	if (![directTypes count]) directTypes = [NSArray arrayWithObject:@"*"];
 	for (NSString __strong *type in directTypes) {
+        // Don't add actions directly under the 'QSFilePathType' pseudonym (use the UTIs from the directFileTypes array)
+        if ([type isEqualToString:QSFilePathType]) {
+            continue;
+        }
         // The directObjectTypes dict uses UTIs as keys, not Pboard types (mainly - only string types are explicitly converted)
         if ([type isEqualToString:NSStringPboardType] || [type isEqualToString:NSPasteboardTypeString]) {
             type = (NSString *)kUTTypeUTF8PlainText;
@@ -231,8 +235,10 @@ QSExecutor *QSExec = nil;
         [[self actionsArrayForType:type] addObject:action];
     }
     
-	if ([action directFileTypes]) {
-		for (NSString *type in [action directFileTypes]) {
+	if ([directTypes containsObject:QSFilePathType]) {
+        directTypes = [action directFileTypes];
+        if (![directTypes count]) directTypes = [NSArray arrayWithObject:@"*"];
+		for (NSString *type in directTypes) {
 			[[self actionsArrayForFileType:type] addObject:action];
 		}
 	}
