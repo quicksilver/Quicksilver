@@ -42,7 +42,7 @@
 
 ### Development ###
 
-  * Convert to Automatic Reference Counting (#1433, #1539, #1541, #1627, #1683, #1710)
+  * Convert to Automatic Reference Counting (#1433, #1539, #1541, #1627, #1683, #1710, #1739)
   * Add a script called `stringstool` to assist with localization (#1222)
   * The functions in QSGCD have been renamed (#1598):
     * `runOnMainQueueSync` → `QSGCDMainSync`
