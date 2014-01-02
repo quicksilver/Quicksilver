@@ -97,7 +97,7 @@ void QSShowLargeType(NSString *aString) {
 	[largeTypeWindow setOpaque:NO];
 	[largeTypeWindow setLevel:NSFloatingWindowLevel];
 	[largeTypeWindow setHidesOnDeactivate:NO];
-    [largeTypeWindow setReleasedWhenClosed:NO];
+    [largeTypeWindow setReleasedWhenClosed:YES];
 	//	[largeTypeWindow setNextResponder:self];
 
 	QSBezelBackgroundView *content = [[NSClassFromString(@"QSBezelBackgroundView") alloc] initWithFrame:NSZeroRect];

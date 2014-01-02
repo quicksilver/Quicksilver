@@ -131,8 +131,6 @@
 
 @end
 
-static NSMutableArray *_retainedQSWindows;
-
 @implementation QSWindow
 
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
@@ -143,24 +141,9 @@ static NSMutableArray *_retainedQSWindows;
         [self useQuicksilverCollectionBehavior];
 		[self setShowOffset:NSMakePoint(0, 50)];
 		[self setHideOffset:NSMakePoint(0, -50)];
-        if (!_retainedQSWindows) {
-            _retainedQSWindows = [[NSMutableArray alloc] init];
-        }
-        [_retainedQSWindows addObject:self];
 		trueRect = contentRect;
 	}
 	return self;
-}
-
-- (void)dealloc {
-	
-#ifdef DEBUG
-	if(DEBUG_MEMORY) NSLog(@"QSWindow dealloc");
-#endif
-    [_retainedQSWindows removeObject:self];
-    if ([_retainedQSWindows count] == 0) {
-        _retainedQSWindows = nil;
-    }
 }
 
 - (NSRect)constrainFrameRect:(NSRect)frameRect toScreen:(NSScreen *)aScreen {
