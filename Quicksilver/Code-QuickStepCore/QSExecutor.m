@@ -131,6 +131,7 @@ QSExecutor *QSExec = nil;
 	NSMutableSet *set = [NSMutableSet set];
 	for (NSString __strong *type in types) {
 		if (![type isEqualToString:QSFilePathType]) {
+            // QS (mainly) uses UTIs for action checking. Convert any Pboard types to their UTIs
             if ([type isEqualToString:NSStringPboardType] || [type isEqualToString:NSPasteboardTypeString]) {
                 type = (NSString *)kUTTypeUTF8PlainText;
             }
@@ -223,6 +224,7 @@ QSExecutor *QSExec = nil;
 	NSArray *directTypes = [action directTypes];
 	if (![directTypes count]) directTypes = [NSArray arrayWithObject:@"*"];
 	for (NSString __strong *type in directTypes) {
+        // The directObjectTypes dict uses UTIs as keys, not Pboard types (mainly - only string types are explicitly converted)
         if ([type isEqualToString:NSStringPboardType] || [type isEqualToString:NSPasteboardTypeString]) {
             type = (NSString *)kUTTypeUTF8PlainText;
         }
