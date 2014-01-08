@@ -13,7 +13,6 @@ NSAppleScript *finderScript;
 }
 + (id)sharedInstance;
 
-- (BOOL)revealFile:(NSString *)file;
 - (NSArray *)selection;
 - (NSArray *)copyFiles:(NSArray *)files toFolder:(NSString *)destination NS_RETURNS_NOT_RETAINED;
 - (NSArray *)moveFiles:(NSArray *)files toFolder:(NSString *)destination;

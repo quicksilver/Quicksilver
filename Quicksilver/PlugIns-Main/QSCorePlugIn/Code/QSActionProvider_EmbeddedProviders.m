@@ -445,8 +445,13 @@
 
 - (QSObject *)revealFile:(QSObject *)dObject {
 	// ***warning   * should resolve aliases
-	for(NSString *thisFile in [dObject validPaths])
-		[mQSFSBrowser revealFile:thisFile];
+    if ([mQSFSBrowser respondsToSelector:@selector(revealFiles:)]) {
+        [mQSFSBrowser revealFiles:[dObject validPaths]];
+    } else {
+        for(NSString *thisFile in [dObject validPaths]) {
+            [mQSFSBrowser revealFile:thisFile];
+        }
+    }
 	return nil;
 }
 

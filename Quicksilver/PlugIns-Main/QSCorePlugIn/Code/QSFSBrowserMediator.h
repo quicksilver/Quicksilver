@@ -5,9 +5,10 @@
 #define kQSFSBrowserMediators @"QSFSBrowserMediators"
 #define mQSFSBrowser (id <QSFSBrowserMediator>) [QSReg getMediator:kQSFSBrowserMediators]
 
-@protocol QSFSBrowserMediator
+@protocol QSFSBrowserMediator <NSObject>
 - (NSImage *)icon;
-- (void)revealFile:(NSString *)path;
+- (BOOL)revealFile:(NSString *)path;
+- (BOOL)revealFiles:(NSArray *)paths;
 - (NSArray *)selection;
 - (NSArray *)getInfoForFiles:(NSArray *)files;
 - (NSArray *)copyFiles:(NSArray *)files toFolder:(NSString *)destination NS_RETURNS_NOT_RETAINED;
