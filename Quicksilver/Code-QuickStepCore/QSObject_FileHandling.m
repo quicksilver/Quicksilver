@@ -136,11 +136,16 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		NSString *path = [theFiles lastObject];
 		if ([path hasPrefix:NSTemporaryDirectory()]) {
 			return [@"(Quicksilver) " stringByAppendingPathComponent:[path lastPathComponent]];
-		} else if ([[NSFileManager defaultManager] isUbiquitousItemAtURL:[NSURL fileURLWithPath:path]]) {
-			return @"iCloud";
 		} else {
-			return [path stringByAbbreviatingWithTildeInPath];
-		}
+            NSURL *fileURL = [NSURL fileURLWithPath:path];
+            NSNumber *isUbiquitousItem = nil;
+            [fileURL getResourceValue:&isUbiquitousItem forKey:NSURLIsUbiquitousItemKey error:nil];
+            if ([isUbiquitousItem boolValue]) {
+			return @"iCloud";
+            } else {
+                return [path stringByAbbreviatingWithTildeInPath];
+            }
+        }
 	} else if ([theFiles count] > 1) {
 		return [[theFiles arrayByPerformingSelector:@selector(lastPathComponent)] componentsJoinedByString:@", "];
 	}
