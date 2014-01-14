@@ -203,7 +203,6 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
                 }
                 [self setPrimaryType:key];
                 [self setName:textString];
-                [self setIdentifier:[NSString stringWithFormat:@"%@:%@",key,[NSString uniqueString]]];
                 break;
             }
 		}
