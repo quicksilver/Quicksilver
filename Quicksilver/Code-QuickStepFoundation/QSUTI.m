@@ -18,10 +18,19 @@
  */
 BOOL QSIsUTI(NSString *UTIString) {
     if (UTTypeConformsTo((__bridge CFStringRef)UTIString, kUTTypeItem)) {
+        // UTIString conforms to public.item - it must be a UTI
         return YES;
     }
+    CFDictionaryRef dict = UTTypeCopyDeclaration((__bridge CFStringRef)UTIString);
+    if (dict != NULL) {
+        // UTIString has a declaration dictionary - it must be a UTI
+        CFRelease(dict);
+        return YES;
+    }
+    
     NSUInteger dotLocation = [UTIString rangeOfString:@"."].location;
     if (dotLocation > 0 && dotLocation < [UTIString length] -1) {
+        // UTIString contains a . somewhere in the middle. Since UTIs use reverse DNS we can guess it is a UTI
         return YES;
     }
     return NO;
