@@ -237,8 +237,32 @@ QSExecutor *QSExec = nil;
     
 	if ([directTypes containsObject:QSFilePathType]) {
         directTypes = [action directFileTypes];
-        if (![directTypes count]) directTypes = [NSArray arrayWithObject:@"*"];
-		for (NSString *type in directTypes) {
+        if (![directTypes count]) {
+            directTypes = [NSArray arrayWithObject:@"*"];
+        }
+		for (NSString *__strong type in directTypes) {
+            if (![type isEqualToString:@"*"]) {
+                if ([type hasPrefix:@"'"] && [type hasSuffix:@"'"]) {
+                    if ([type length] <= 2) {
+                        // type is 1 or 2 apostrophe, useless
+                        continue;
+                    }
+                    type = [type substringWithRange:NSMakeRange(1, [type length]-2)];
+                }
+                BOOL validUTI = NO;
+                for (NSString * UTTagClass in @[(__bridge NSString *)kUTTagClassOSType, (__bridge NSString*)kUTTagClassFilenameExtension, (__bridge NSString*)kUTTagClassMIMEType, (__bridge NSString *)kUTTagClassNSPboardType]) {
+                    NSString *utiFromOtherType = (__bridge_transfer NSString *)(UTTypeCreatePreferredIdentifierForTag((__bridge CFStringRef)UTTagClass, (__bridge CFStringRef)(type), NULL));
+                    if (![utiFromOtherType hasPrefix:@"dyn."]) {
+                        // we can assume that this is the correct UTI converted from 'UTTagClass'
+                        type = utiFromOtherType;
+                        validUTI = YES;
+                        break;
+                    }
+                }
+                if (!validUTI) {
+                    NSLog(@"Error converting %@ to a UTI (from action %@ - provided by %@)", type, action, NSStringFromClass([[action provider] class]));
+                }
+            }
 			[[self actionsArrayForFileType:type] addObject:action];
 		}
 	}
@@ -357,16 +381,31 @@ QSExecutor *QSExec = nil;
 
     NSMutableArray *validActions = [NSMutableArray arrayWithCapacity:1];
 	id aObject = nil;
-	NSArray *fileUTIAndType = nil;
-    // get the file type and UTI to check against an action's 'directFileTypes' array
-    if ([dObject singleFilePath]) {
-        fileUTIAndType = [NSArray arrayWithObjects:[dObject singleFileType],[[NSFileManager defaultManager] UTIOfFile:[dObject singleFilePath]],nil];
+    NSString *UTI = nil;
+    // get the file type and UTI to check against an action's 'directFileTypes' array if the object(s) is/are all files
+    if ([dObject validPaths]) {
+        for (NSString *path in [dObject validPaths]) {
+            NSString *tempUTI = QSUTIOfFile(path);
+            if (UTI == nil) {
+                UTI = tempUTI;
+                continue;
+            }
+            if (UTTypeConformsTo((__bridge CFStringRef)tempUTI, (__bridge CFStringRef)UTI)) {
+                continue;
+            }
+            if (UTTypeConformsTo((__bridge CFStringRef)UTI, (__bridge CFStringRef)tempUTI)) {
+                UTI = tempUTI;
+                continue;
+            }
+            UTI = (__bridge NSString*)kUTTypeData;
+            break;
+        }
     }
 
 	NSMutableDictionary *validatedActionsBySource = [NSMutableDictionary dictionary];
 	NSArray *validSourceActions;
 
-	NSArray *newActions = [self actionsForTypes:[dObject types] fileTypes:fileUTIAndType];
+	NSArray *newActions = [self actionsForTypes:[dObject types] fileTypes:UTI ? @[UTI] : nil];
 	BOOL isValid;
     
     for (QSAction *thisAction in newActions) {
@@ -397,7 +436,7 @@ QSExecutor *QSExec = nil;
 	// NSLog(@"Actions for %@:%@", [dObject name] , validActions);
 	if (![validActions count]) {
 		NSLog(@"unable to find actions for %@", actionIdentifiers);
-		NSLog(@"types %@ %@", [NSSet setWithArray:[dObject types]], fileUTIAndType);
+//		NSLog(@"types %@ %@", [NSSet setWithArray:[dObject types]], fileUTIAndType);
 	}
 	return [validActions mutableCopy];
 }
