@@ -27,6 +27,7 @@
   * Fixed some bugs that prevented changing trigger settings (#1650)
   * Prevent a crash related to the plugin updater (#1664)
   * Prevent user-disabled items from appearing in the interface (#1685, #1688)
+  * Prevent corruption of pasted strings in triggers (#1597, #1730)
   * Internal Improvements (#1583, #1584, #1585, #1586, #1665, #1625, #1648, #1638, #1695, #1714)
 
 ### Changed ###
