@@ -9,8 +9,22 @@
 
 #include "QSUTI.h"
 
+/**
+ *  Determines if a given string is an existing UTI or not
+ *
+ *  @param UTIString a string to test whether or not it is a UTI (as defined by Apple's launch service database)
+ *
+ *  @return Boolean value specifying if UTIString is a valid UTI
+ */
 BOOL QSIsUTI(NSString *UTIString) {
-    return UTTypeConformsTo((__bridge CFStringRef)UTIString, (__bridge CFStringRef)@"public.item") || ([UTIString rangeOfString:@"."].location != NSNotFound && [UTIString rangeOfString:@"."].location != 0);
+    if (UTTypeConformsTo((__bridge CFStringRef)UTIString, kUTTypeItem)) {
+        return YES;
+    }
+    NSUInteger dotLocation = [UTIString rangeOfString:@"."].location;
+    if (dotLocation > 0 && dotLocation < [UTIString length] -1) {
+        return YES;
+    }
+    return NO;
 }
 
 /**
