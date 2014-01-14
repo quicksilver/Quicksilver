@@ -260,7 +260,7 @@ QSExecutor *QSExec = nil;
                     }
                 }
                 if (!validUTI) {
-                    NSLog(@"Error converting %@ to a UTI (from action %@ - provided by %@)", type, action, NSStringFromClass([[action provider] class]));
+//                    NSLog(@"Error converting %@ to a UTI (from action %@ - provided by %@)", type, action, NSStringFromClass([[action provider] class]));
                 }
             }
 			[[self actionsArrayForFileType:type] addObject:action];
@@ -436,14 +436,14 @@ QSExecutor *QSExec = nil;
 	// NSLog(@"Actions for %@:%@", [dObject name] , validActions);
 	if (![validActions count]) {
 		NSLog(@"unable to find actions for %@", actionIdentifiers);
-//		NSLog(@"types %@ %@", [NSSet setWithArray:[dObject types]], fileUTIAndType);
+		NSLog(@"types %@ %@", [NSSet setWithArray:[dObject types]], UTI);
 	}
 	return [validActions mutableCopy];
 }
 
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
 	QSActionProvider *actionObject = [[actionIdentifiers objectForKey:action] objectForKey:kActionClass];
-	//  NSLog(@"actionobject %@", actionObject);
+
     QSObject *directObject = [dObject resolvedObject];
 	return [actionObject validIndirectObjectsForAction:action directObject:directObject];
 }
