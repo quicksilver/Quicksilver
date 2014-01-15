@@ -76,7 +76,11 @@
             [theURL getResourceValue:&URLIsDirectory forKey:NSURLIsDirectoryKey error:nil];
             isDirectory = [URLIsDirectory boolValue];
         }
-        type = [manager UTIOfFile:file];
+        type = QSUTIForAnyTypeString([file pathExtension]);
+        if (!type) {
+            // no UTI - include/exclude by extension
+            type = [file pathExtension];
+        }
         // if we are an alias or the file has no reason to be included
         BOOL include = NO;
         if (![types count]) {
