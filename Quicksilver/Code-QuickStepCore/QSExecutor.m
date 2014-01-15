@@ -136,7 +136,8 @@ QSExecutor *QSExec = nil;
                 type = (NSString *)kUTTypeUTF8PlainText;
             }
             [directObjectTypes enumerateKeysAndObjectsUsingBlock:^(NSString *actionUTI, NSMutableArray *actions, BOOL *stop) {
-                if ([actionUTI isEqualToString:type] || UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)actionUTI)) {
+                // Note: UTTypeConformsTo() first does a direct string comparison, then checks UTI conformance
+                if (UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)actionUTI)) {
                     [set addObjectsFromArray:actions];
                 }
             }];
