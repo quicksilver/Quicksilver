@@ -179,7 +179,8 @@
 - (NSString *)tokenField:(NSTokenField *)tokenField displayStringForRepresentedObject:(id)representedObject {
     
 	NSString *description = (__bridge_transfer NSString *)UTTypeCopyDescription((__bridge CFStringRef)representedObject);
-	if (!description) {
+	if (!description || [description isEqualToString:@"content"]) {
+        // show the file extension if there's no description, or if is the unhelpful 'content' string
         NSString *fileExtension = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)representedObject, kUTTagClassFilenameExtension);
         if (!fileExtension && QSIsUTI(representedObject)) {
             return representedObject;
