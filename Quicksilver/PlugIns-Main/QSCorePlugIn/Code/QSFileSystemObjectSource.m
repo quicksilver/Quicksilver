@@ -118,7 +118,7 @@
 - (BOOL)usesGlobalSettings {return NO;}
 
 - (NSString *)tokenField:(NSTokenField *)tokenField editingStringForRepresentedObject:(id)representedObject {
-    NSString * type = [(NSString *)UTTypeCopyPreferredTagWithClass((CFStringRef)representedObject, kUTTagClassFilenameExtension) autorelease];
+    NSString * type = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)representedObject, kUTTagClassFilenameExtension);
     if (!type) {
         return representedObject;
     }
@@ -136,11 +136,11 @@
     if ([editingString hasPrefix:@"'"]) {
         // 'xxxx' strings are OS types
         NSString *OSTypeAsString = [editingString stringByReplacingOccurrencesOfString:@"'" withString:@""];
-        type = [(NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassOSType, (CFStringRef)OSTypeAsString, NULL) autorelease];
+        type = (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassOSType, (__bridge CFStringRef)OSTypeAsString, NULL);
         if ([type hasPrefix:@"dyn"]) {
             // some OS types are all uppercase (e.g. 'APPL' == application, 'fold' == folder), some are all lower. Be forgiving to the user
             for (NSString *caseChangedOSType in @[[OSTypeAsString uppercaseString], [OSTypeAsString lowercaseString]]) {
-                NSString *testType = [(NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassOSType, (CFStringRef)caseChangedOSType, NULL) autorelease];
+                NSString *testType = (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassOSType, (__bridge CFStringRef)caseChangedOSType, NULL);
                 if (![testType hasPrefix:@"dyn"]) {
                     type = testType;
                     break;
@@ -165,7 +165,7 @@
 }
 
 - (BOOL)tokenField:(NSTokenField *)tokenField hasMenuForRepresentedObject:(id)representedObject {
-    return UTTypeConformsTo((CFStringRef)representedObject, (CFStringRef)@"public.item");
+    return UTTypeConformsTo((__bridge CFStringRef)representedObject, (__bridge CFStringRef)@"public.item");
 }
 
 - (NSMenu *)tokenField:(NSTokenField *)tokenField menuForRepresentedObject:(id)representedObject {
@@ -173,15 +173,14 @@
     NSMenuItem *menuItem = [NSMenuItem new];
     [menuItem setTitle:representedObject];
     [menu addItem:menuItem];
-    [menuItem release];
-	return [menu autorelease];
+	return menu;
 }
 
 - (NSString *)tokenField:(NSTokenField *)tokenField displayStringForRepresentedObject:(id)representedObject {
     
-	NSString *description = (NSString *)UTTypeCopyDescription((CFStringRef)representedObject);
+	NSString *description = (__bridge_transfer NSString *)UTTypeCopyDescription((__bridge CFStringRef)representedObject);
 	if (!description) {
-        NSString *fileExtension = [(NSString *)UTTypeCopyPreferredTagWithClass((CFStringRef)representedObject, kUTTagClassFilenameExtension) autorelease];
+        NSString *fileExtension = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)representedObject, kUTTagClassFilenameExtension);
         if (!fileExtension && QSIsUTI(representedObject)) {
             return representedObject;
         }
