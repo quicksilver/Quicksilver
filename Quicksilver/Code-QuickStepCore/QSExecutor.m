@@ -243,13 +243,12 @@ QSExecutor *QSExec = nil;
         }
 		for (NSString *__strong type in directTypes) {
             if (![type isEqualToString:@"*"]) {
-                if ([type hasPrefix:@"'"] && [type hasSuffix:@"'"]) {
-                    if ([type length] <= 2) {
-                        // type is 1 or 2 apostrophe, useless
-                        continue;
-                    }
-                    type = [type substringWithRange:NSMakeRange(1, [type length]-2)];
+                type = [type stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"'"]];
+                if (!type || [type length] == 0) {
+                    // type was just apostrophes, useless
+                    continue;
                 }
+                
                 BOOL validUTI = NO;
                 for (NSString * UTTagClass in @[(__bridge NSString *)kUTTagClassOSType, (__bridge NSString*)kUTTagClassFilenameExtension, (__bridge NSString*)kUTTagClassMIMEType, (__bridge NSString *)kUTTagClassNSPboardType]) {
                     NSString *utiFromOtherType = (__bridge_transfer NSString *)(UTTypeCreatePreferredIdentifierForTag((__bridge CFStringRef)UTTagClass, (__bridge CFStringRef)(type), NULL));
