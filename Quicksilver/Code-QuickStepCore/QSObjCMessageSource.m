@@ -79,7 +79,7 @@
 	else
 		target = [QSReg getClassInstance:targetClass];
 
-	BOOL returnsObject = NO;
+
 
 	if (![target respondsToSelector:selector]) {
 		NSBeep();
@@ -87,17 +87,24 @@
 		return nil;
 	}
     
-    id result;
+    // returnsObject and result are never used (never implemented?). See result = comment below
+    //	BOOL returnsObject = NO;
+    //  id result;
+    
     id argument = nil;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    if (argument = messageInfo[kActionArgument]) {
-        result = [target performSelector:selector withObject:argument];
+    // NSMethodSignature numberOfArguments is always +2 from the number of 'visible' arguments. So numberOfArguments == 3 means 1 visible arg.
+    if ((argument = messageInfo[kActionArgument]) || [[target methodSignatureForSelector:selector] numberOfArguments] == 3) {
+        /* Results should never be directly taken from performSelector (according to the docs). Instead NSInvocation should be used. Since the result is never used (returnsObject is always NO) then we don't need it here */
+//        result =
+        [target performSelector:selector withObject:argument];
     } else {
-        result = [target performSelector:selector];
+//        result =
+        [target performSelector:selector];
     }
 #pragma clang diagnostic pop
-	if (returnsObject && [result isKindOfClass:[QSBasicObject class]]) return result;
+	/* if (returnsObject && [result isKindOfClass:[QSBasicObject class]]) return result; */
 	return nil;
 }
 
