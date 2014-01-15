@@ -90,10 +90,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 	if (infoRec->flags & kLSItemInfoIsVolume)
 		return (NSString *)kUTTypeVolume;
 
-	NSString *extensionUTI = (NSString *)CFBridgingRelease(UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)extension, NULL));
-	if (extensionUTI && ![extensionUTI hasPrefix:@"dyn"])
-		return extensionUTI;
-
+    // the order with which we try to resolve the UTI is important. First we use the OSType, *then* the file extension. This is wise since it's possible to give (possible misleading) extensions to folders - like myfolder.js (it is of type public.folder, not com.netscape.javascript-source)
 	NSString *hfsType = (NSString *)CFBridgingRelease(UTCreateStringForOSType(infoRec->filetype));
 	if (![hfsType length] && isDirectory)
 		return (NSString *)kUTTypeFolder;
@@ -101,6 +98,10 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 	NSString *hfsUTI = (NSString *)CFBridgingRelease(UTTypeCreatePreferredIdentifierForTag(kUTTagClassOSType, (__bridge CFStringRef)hfsType, NULL));
 	if (![hfsUTI hasPrefix:@"dyn"])
 		return hfsUTI;
+    
+    NSString *extensionUTI = (NSString *)CFBridgingRelease(UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)extension, NULL));
+	if (extensionUTI && ![extensionUTI hasPrefix:@"dyn"])
+		return extensionUTI;
 
 	if ([[NSFileManager defaultManager] isExecutableFileAtPath:path])
 		return @"public.executable";
