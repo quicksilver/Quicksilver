@@ -160,5 +160,14 @@ NSTimeInterval failDate = 0;
 	id provider = [QSReg getClassInstance:[info objectForKey:kQSProxyProviderClass]];
 	return [provider typesForProxyObject:self];
 }
-@end
 
+- (NSTimeInterval)cacheTimeForProxy:(id)proxy
+{
+    NSDictionary *info = [QSGlobalSelectionProvider passthroughProxyInfo];
+    if (info) {
+        id provider = [QSReg getClassInstance:[info objectForKey:kQSProxyProviderClass]];
+        return [provider cacheTimeForProxy:proxy];
+    }
+    return kQSDefaultProxyCacheTime;
+}
+@end
