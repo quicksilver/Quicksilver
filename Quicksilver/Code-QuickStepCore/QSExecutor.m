@@ -382,19 +382,19 @@ QSExecutor *QSExec = nil;
     NSMutableArray *validActions = [NSMutableArray arrayWithCapacity:1];
 	id aObject = nil;
     NSString *UTI = nil;
-    // get the file type and UTI to check against an action's 'directFileTypes' array if the object(s) is/are all files
+    // try and get a common UTI for all object(s) if they are all files objects
+    // p_j_r note: This method should be moved to a QSUTIManager singleton class I hope to implement at some time, with improved checking (working all the way up the type tree, not just one level)
     if ([dObject validPaths]) {
-        for (NSString *path in [dObject validPaths]) {
-            NSString *tempUTI = QSUTIOfFile(path);
+        for (QSObject *fileObject in [dObject splitObjects]) {
             if (UTI == nil) {
-                UTI = tempUTI;
+                UTI = [fileObject fileUTI];
                 continue;
             }
-            if (UTTypeConformsTo((__bridge CFStringRef)tempUTI, (__bridge CFStringRef)UTI)) {
+            if (UTTypeConformsTo((__bridge CFStringRef)[fileObject fileUTI], (__bridge CFStringRef)UTI)) {
                 continue;
             }
-            if (UTTypeConformsTo((__bridge CFStringRef)UTI, (__bridge CFStringRef)tempUTI)) {
-                UTI = tempUTI;
+            if (UTTypeConformsTo((__bridge CFStringRef)UTI, (__bridge CFStringRef)[fileObject fileUTI])) {
+                UTI = [fileObject fileUTI];
                 continue;
             }
             UTI = (__bridge NSString*)kUTTypeData;
