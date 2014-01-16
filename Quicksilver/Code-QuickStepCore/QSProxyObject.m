@@ -15,8 +15,6 @@
 
 #pragma mark Proxy Cache Time
 
-#define kQSDefaultProxyCacheTime 2.0f
-
 @interface QSProxyObject ()
 - (NSMutableDictionary*)proxyDict;
 @end
