@@ -102,10 +102,19 @@
 
 NSTimeInterval failDate = 0;
 
++ (id)passthroughProxyInfo {
+    // check to see if a plug-in is providing special behavior for the current application
+    NSDictionary *appDictionary = [[NSWorkspace sharedWorkspace] activeApplication];
+    NSString *identifier = [appDictionary objectForKey:@"NSApplicationBundleIdentifier"];
+    if ([identifier isEqualToString:kQSBundleID]) {
+        appDictionary = [[QSProcessMonitor sharedInstance] previousApplication];
+        identifier = [appDictionary objectForKey:@"NSApplicationBundleIdentifier"];
+    }
+    return [[QSReg tableNamed:@"QSProxies"] objectForKey:identifier];
+}
+
 + (id)currentSelection {
-  NSString *identifier = [[[NSWorkspace sharedWorkspace] activeApplication] objectForKey:@"NSApplicationBundleIdentifier"];
-  if ([identifier isEqualToString:kQSBundleID]) return nil;
-	NSDictionary *info = [[QSReg tableNamed:@"QSProxies"] objectForKey:identifier];
+    NSDictionary *info = [QSGlobalSelectionProvider passthroughProxyInfo];
 	if (info) {
 		id provider = [QSReg getClassInstance:[info objectForKey:kQSProxyProviderClass]];
 		//if (VERBOSE)
@@ -143,13 +152,7 @@ NSTimeInterval failDate = 0;
 }
 
 - (NSArray *)typesForProxyObject:(id)proxy {
-	NSDictionary *appDictionary = [[NSWorkspace sharedWorkspace] activeApplication];
-	NSString *identifier = [appDictionary objectForKey:@"NSApplicationBundleIdentifier"];
-	if ([identifier isEqualToString:kQSBundleID]) {
-	  appDictionary = [[QSProcessMonitor sharedInstance] previousApplication];
-	  identifier = [appDictionary objectForKey:@"NSApplicationBundleIdentifier"];
-	}
-	NSDictionary *info = [[QSReg tableNamed:@"QSProxies"] objectForKey:identifier];
+	NSDictionary *info = [QSGlobalSelectionProvider passthroughProxyInfo];
 	NSArray *array = [info objectForKey:kQSProxyTypes];
 	if (!info) return [NSArray arrayWithObjects:NSStringPboardType, nil];
 	if (array) return array;
