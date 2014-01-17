@@ -135,7 +135,8 @@
     // Try to get the UTI from the extension/string
     if ([editingString hasPrefix:@"'"]) {
         // 'xxxx' strings are OS types
-        NSString *OSTypeAsString = [editingString stringByReplacingOccurrencesOfString:@"'" withString:@""];
+        // p_j_r WARNING When a UTI manager is created, the trimming business should be dealt with there
+        NSString *OSTypeAsString = [editingString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"'"]];
         type = (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassOSType, (__bridge CFStringRef)OSTypeAsString, NULL);
         if ([type hasPrefix:@"dyn"]) {
             // some OS types are all uppercase (e.g. 'APPL' == application, 'fold' == folder), some are all lower. Be forgiving to the user
