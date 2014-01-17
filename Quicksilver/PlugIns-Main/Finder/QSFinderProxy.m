@@ -20,15 +20,23 @@
 	return [[NSWorkspace sharedWorkspace] iconForFile:@"/System/Library/CoreServices/Finder.app"];
 }
 
+- (BOOL)revealFiles:(NSArray *)files {
+    NSMutableArray *URLs = [NSMutableArray array];
+    [files enumerateObjectsUsingBlock:^(NSString *path, NSUInteger idx, BOOL *stop) {
+        [URLs addObject:[NSURL fileURLWithPath:path]];
+    }];
+    [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:URLs];
+    return YES;
+}
+
 - (BOOL)revealFile:(NSString *)file {
 	//  NSDictionary *errorDict = nil;
 	//  NSArray *arguments = [NSArray arrayWithObject:[NSArray arrayWithObject:file]];
 	//  NSAppleEventDescriptor *desc = [[self finderScript] executeSubroutine:@"reveal" arguments:[NSAppleEventDescriptor descriptorWithObject:arguments] error:&errorDict];
 	//  if (errorDict) {
 	//	  NSLog(@"Execute Error: %@", errorDict);
-	[[NSWorkspace sharedWorkspace] selectFile:file inFileViewerRootedAtPath:@""];
+	return [[NSWorkspace sharedWorkspace] selectFile:file inFileViewerRootedAtPath:@""];
 	//  }
-	return YES;
 }
 
 - (NSArray *)selection {
