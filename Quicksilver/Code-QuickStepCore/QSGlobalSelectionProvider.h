@@ -12,9 +12,8 @@
 
 @end
 
-@interface QSGlobalSelectionProvider : NSObject <QSProxyObjectProvider> {
-	NSTimeInterval failDate;
-}
+@interface QSGlobalSelectionProvider : NSObject <QSProxyObjectProvider>
 
 +(id)currentSelection;
+
 @end

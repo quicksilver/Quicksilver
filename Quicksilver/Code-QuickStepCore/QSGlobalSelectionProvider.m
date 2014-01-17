@@ -100,7 +100,7 @@
 @implementation QSGlobalSelectionProvider
 //static QSObject *dropletSelection;
 
-NSTimeInterval failDate = 0;
+static NSTimeInterval failDate = 0;
 
 + (id)passthroughProxyInfo {
     // check to see if a plug-in is providing special behavior for the current application
@@ -124,7 +124,7 @@ NSTimeInterval failDate = 0;
 		QSTemporaryServiceProvider *sp = [[QSTemporaryServiceProvider alloc] init];
 		NSPasteboard *pb = nil;
 		
-		if ([NSDate timeIntervalSinceReferenceDate] -failDate > 3.0)
+		if ([NSDate timeIntervalSinceReferenceDate] -failDate > kQSDefaultProxyCacheTime)
 			pb = [sp getSelectionFromFrontApp];
 		
 		if (!pb) {
