@@ -118,74 +118,75 @@
 - (BOOL)usesGlobalSettings {return NO;}
 
 - (NSString *)tokenField:(NSTokenField *)tokenField editingStringForRepresentedObject:(id)representedObject {
-	return representedObject;
-}
-- (id)tokenField:(NSTokenField *)tokenField representedObjectForEditingString:(NSString *)editingString {
-    // show types such as .jpg as JPEG Image
-    if ([editingString hasPrefix:@"."]) {
-        editingString = [editingString substringFromIndex:1];
+    NSString * type = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)representedObject, kUTTagClassFilenameExtension);
+    if (!type) {
+        return representedObject;
     }
-    // Try and work out the type of file to display a nice name in the token field
-	NSString *type = QSUTIForAnyTypeString(editingString);
-	if (!type) {
-		if ([editingString hasPrefix:@"'"]) {
-			return editingString;
-        } 
-        // if the user has entered 'folder' (to exclude a folder)
-        if ([[editingString lowercaseString] isEqualToString:@"folder"]) {
-            return (NSString *)kUTTypeFolder;
-        }
-        type = editingString;
-	}
 	return type;
 }
 
-- (BOOL)tokenField:(NSTokenField *)tokenField hasMenuForRepresentedObject:(id)representedObject {
-	if ([representedObject hasPrefix:@"'"])
-		return NO;
-	return YES;
-}
-#if 0
-- (NSMenu *)tokenField:(NSTokenField *)tokenField menuForRepresentedObject:(id)representedObject {
-	NSMenu *menu = [[NSMenu alloc] initWithTitle:@""];
-	NSString *desc;
-	desc = (NSString *)UTTypeCopyDeclaration((CFStringRef)representedObject);
-	NSArray *conforms = [desc objectForKey:(NSString *)kUTTypeConformsToKey];
-	[desc release];
-	if (conforms) {
-		if (![conforms isKindOfClass:[NSArray class]]) conforms = [NSArray arrayWithObject:conforms];
-		for(NSString * type in conforms){
-			desc = (NSString *)UTTypeCopyDescription((CFStringRef)type);
-			[menu addItemWithTitle:desc action:nil keyEquivalent:@""];
-			[desc release];
-		}
-	}
-	return [menu autorelease];
-}
-#else
-- (NSMenu *)tokenField:(NSTokenField *)tokenField menuForRepresentedObject:(id)representedObject {
-	NSMenu *menu = [[NSMenu alloc] initWithTitle:@""];
-    NSDictionary *dict = (__bridge_transfer NSDictionary *)UTTypeCopyDeclaration((__bridge CFStringRef)representedObject);
-	NSArray *conforms = [dict objectForKey:(NSString *)kUTTypeConformsToKey];
-	if (conforms) {
-		if (![conforms isKindOfClass:[NSArray class]]) conforms = [NSArray arrayWithObject:conforms];
-		for(NSString * type in conforms) {
-            NSString *title = (__bridge_transfer NSString *)UTTypeCopyDescription((__bridge CFStringRef)type);
-			[menu addItemWithTitle:title action:nil keyEquivalent:@""];
+- (NSString *)UTIForString:(NSString *)editingString {
+    if (QSIsUTI(editingString)) {
+        // editing string is already a UTI
+        return editingString;
+    }
+    
+    NSString *type = nil;
+    // Try to get the UTI from the extension/string
+    if ([editingString hasPrefix:@"'"]) {
+        // 'xxxx' strings are OS types
+        // p_j_r WARNING When a UTI manager is created, the trimming business should be dealt with there
+        NSString *OSTypeAsString = [editingString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"'"]];
+        type = (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassOSType, (__bridge CFStringRef)OSTypeAsString, NULL);
+        if ([type hasPrefix:@"dyn"]) {
+            // some OS types are all uppercase (e.g. 'APPL' == application, 'fold' == folder), some are all lower. Be forgiving to the user
+            for (NSString *caseChangedOSType in @[[OSTypeAsString uppercaseString], [OSTypeAsString lowercaseString]]) {
+                NSString *testType = (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassOSType, (__bridge CFStringRef)caseChangedOSType, NULL);
+                if (![testType hasPrefix:@"dyn"]) {
+                    type = testType;
+                    break;
+                }
+            }
         }
-	}
+    } else if ([[editingString lowercaseString] isEqualToString:@"folder"]) {
+        // if the user has entered 'folder' (to exclude a folder), return its UTI
+        type = (NSString *)kUTTypeFolder;
+    } else {
+        if ([editingString hasPrefix:@"."]) {
+            editingString = [editingString substringFromIndex:1];
+        }
+        type = QSUTIForExtensionOrType(editingString, 0);
+    }
+	return type;
+}
+
+// The represented object should always be a UTI
+- (id)tokenField:(NSTokenField *)tokenField representedObjectForEditingString:(NSString *)editingString {
+    return [self UTIForString:editingString];
+}
+
+- (BOOL)tokenField:(NSTokenField *)tokenField hasMenuForRepresentedObject:(id)representedObject {
+    return UTTypeConformsTo((__bridge CFStringRef)representedObject, (__bridge CFStringRef)@"public.item");
+}
+
+- (NSMenu *)tokenField:(NSTokenField *)tokenField menuForRepresentedObject:(id)representedObject {
+	NSMenu *menu = [[NSMenu alloc] initWithTitle:@""];
+    NSMenuItem *menuItem = [NSMenuItem new];
+    [menuItem setTitle:representedObject];
+    [menu addItem:menuItem];
 	return menu;
 }
-#endif
 
 - (NSString *)tokenField:(NSTokenField *)tokenField displayStringForRepresentedObject:(id)representedObject {
+    
 	NSString *description = (__bridge_transfer NSString *)UTTypeCopyDescription((__bridge CFStringRef)representedObject);
-	if (!description) {
-		if ([representedObject hasPrefix:@"'"])
-			return [@"Type: " stringByAppendingString:representedObject];
-		else if ([representedObject rangeOfString:@"."].location == NSNotFound)
-			return [@"." stringByAppendingString:representedObject];
-		description = representedObject;
+	if (!description || [description isEqualToString:@"content"]) {
+        // show the file extension if there's no description, or if is the unhelpful 'content' string
+        NSString *fileExtension = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)representedObject, kUTTagClassFilenameExtension);
+        if (!fileExtension && QSIsUTI(representedObject)) {
+            return representedObject;
+        }
+        return [NSString stringWithFormat:@".%@", fileExtension ? fileExtension : representedObject];
 	}
 	return description;
 }

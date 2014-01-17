@@ -7,7 +7,8 @@
  *
  */
 
-
+BOOL QSIsUTI(NSString *utiString);
+BOOL QSTypeConformsTo(NSString *inUTI, NSString *inConformsToUTI);
 NSString *QSUTIOfFile(NSString *path);
 NSString *QSUTIOfURL(NSURL *url);
 NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec);

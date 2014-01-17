@@ -27,12 +27,18 @@
 	NSMutableArray *types = [NSMutableArray array];
 	for (NSString *type in [settings objectForKey:kItemFolderTypes]) {
         NSString *realType = QSUTIForAnyTypeString(type);
+        if (!realType && !QSIsUTI(type)) {
+            realType = QSUTIForExtensionOrType(type,0);
+        }
         [types addObject:(realType ? realType : type)];
 	}
     
     NSMutableArray *excludedTypes = [NSMutableArray array];
     for (NSString *excludedType in [settings objectForKey:kItemExcludeFiletypes]) {
         NSString *realType = QSUTIForAnyTypeString(excludedType);
+        if (!realType && !QSIsUTI(excludedType)) {
+            realType = QSUTIForExtensionOrType(excludedType, 0);
+        }
         [excludedTypes addObject:(realType ? realType : excludedType)];
     }
 	return [[NSSet setWithArray:[self objectsFromPath:path depth:depthValue types:types excludeTypes:excludedTypes descend:descendIntoBundles]] allObjects];
@@ -83,14 +89,14 @@
             include = YES;
         } else {
             for(NSString * requiredType in types) {
-                if (UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)requiredType)) {
+                if (QSTypeConformsTo(type, requiredType)) {
                     include = YES;
                     break;
                 }
             }
         }
         for (NSString *excludedType in excludedTypes) {
-            if (UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)excludedType)) {
+            if (QSTypeConformsTo(type, excludedType)) {
                 include = NO;
             }
         }
