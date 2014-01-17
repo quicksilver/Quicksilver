@@ -101,8 +101,10 @@
 //static QSObject *dropletSelection;
 
 static NSTimeInterval failDate = 0;
+static NSDictionary *currentAppSelectionProxyInfo = nil;
+static id currentAppSelectionProxyProvider = nil;
 
-+ (id)passthroughProxyInfo {
++ (id)currentSelection {
     // check to see if a plug-in is providing special behavior for the current application
     NSDictionary *appDictionary = [[NSWorkspace sharedWorkspace] activeApplication];
     NSString *identifier = [appDictionary objectForKey:@"NSApplicationBundleIdentifier"];
@@ -110,17 +112,15 @@ static NSTimeInterval failDate = 0;
         appDictionary = [[QSProcessMonitor sharedInstance] previousApplication];
         identifier = [appDictionary objectForKey:@"NSApplicationBundleIdentifier"];
     }
-    return [[QSReg tableNamed:@"QSProxies"] objectForKey:identifier];
-}
-
-+ (id)currentSelection {
-    NSDictionary *info = [QSGlobalSelectionProvider passthroughProxyInfo];
-	if (info) {
-		id provider = [QSReg getClassInstance:[info objectForKey:kQSProxyProviderClass]];
+    currentAppSelectionProxyInfo = [[QSReg tableNamed:@"QSProxies"] objectForKey:identifier];
+	if (currentAppSelectionProxyInfo) {
+		currentAppSelectionProxyProvider = [QSReg getClassInstance:[currentAppSelectionProxyInfo objectForKey:kQSProxyProviderClass]];
 		//if (VERBOSE)
 		//	NSLog(@"Using provider %@ for %@", provider, identifier);
-		return [provider resolveProxyObject:nil];
+		return [currentAppSelectionProxyProvider resolveProxyObject:nil];
 	} else {
+        currentAppSelectionProxyInfo = nil;
+        currentAppSelectionProxyProvider = nil;
 		QSTemporaryServiceProvider *sp = [[QSTemporaryServiceProvider alloc] init];
 		NSPasteboard *pb = nil;
 		
@@ -152,21 +152,22 @@ static NSTimeInterval failDate = 0;
 }
 
 - (NSArray *)typesForProxyObject:(id)proxy {
-	NSDictionary *info = [QSGlobalSelectionProvider passthroughProxyInfo];
-	NSArray *array = [info objectForKey:kQSProxyTypes];
-	if (!info) return [NSArray arrayWithObjects:NSStringPboardType, nil];
-	if (array) return array;
-	
-	id provider = [QSReg getClassInstance:[info objectForKey:kQSProxyProviderClass]];
-	return [provider typesForProxyObject:self];
+    if ([currentAppSelectionProxyProvider respondsToSelector:@selector(typesForProxyObject:)]) {
+        return [currentAppSelectionProxyProvider typesForProxyObject:self];
+    }
+    
+    NSArray *array = [currentAppSelectionProxyInfo objectForKey:kQSProxyTypes];
+    if (array) {
+        return array;
+    }
+    
+    return @[QSTextType];
 }
 
 - (NSTimeInterval)cacheTimeForProxy:(id)proxy
 {
-    NSDictionary *info = [QSGlobalSelectionProvider passthroughProxyInfo];
-    if (info) {
-        id provider = [QSReg getClassInstance:[info objectForKey:kQSProxyProviderClass]];
-        return [provider cacheTimeForProxy:proxy];
+    if ([currentAppSelectionProxyProvider respondsToSelector:@selector(cacheTimeForProxy:)]) {
+        return [currentAppSelectionProxyProvider cacheTimeForProxy:proxy];
     }
     return kQSDefaultProxyCacheTime;
 }
