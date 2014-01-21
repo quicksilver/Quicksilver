@@ -92,7 +92,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 
     // the order with which we try to resolve the UTI is important. First we use the OSType, *then* the file extension. This is wise since it's possible to give (possible misleading) extensions to folders - like myfolder.js (it is of type public.folder, not com.netscape.javascript-source)
 	NSString *hfsType = (NSString *)CFBridgingRelease(UTCreateStringForOSType(infoRec->filetype));
-	if (![hfsType length] && isDirectory)
+	if (![hfsType length] && isDirectory && !(infoRec->flags & kLSItemInfoIsPackage))
 		return (NSString *)kUTTypeFolder;
 
 	NSString *hfsUTI = (NSString *)CFBridgingRelease(UTTypeCreatePreferredIdentifierForTag(kUTTagClassOSType, (__bridge CFStringRef)hfsType, NULL));
