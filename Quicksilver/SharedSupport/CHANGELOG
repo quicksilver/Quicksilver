@@ -32,7 +32,7 @@
   * Prevent corruption of pasted strings in triggers (#1597, #1730)
   * Fix a crash when running some Internal Commands (#1724)
   * Including/excluding files using unregistered extensions now works (#1469, #1708)
-  * Folders that that appear to have file extensions are correctly identified as folders when excluding/excluding (#1742, #1708)
+  * Folders that that appear to have file extensions are correctly identified as folders when excluding/excluding (#1742, #1708, #1753)
   * Correctly identify documents in iCloud (#1745)
   * Internal Improvements (#1583, #1584, #1585, #1586, #1665, #1625, #1648, #1638, #1695, #1714)
 
