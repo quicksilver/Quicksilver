@@ -312,8 +312,8 @@ OSStatus appTerminated(EventHandlerCallRef nextHandler, EventRef theEvent, void 
 		if (!isReloading) {
 			[self didChangeValueForKey:[thisProcess isBackground] ? @"backgroundProcesses" : @"visibleProcesses"];
 			[self didChangeValueForKey:@"allProcesses"];
+			[[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSApplicationLaunchEvent" userInfo:[NSDictionary dictionaryWithObject:procObject forKey:@"object"]];
 		}
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"QSEventNotification" object:@"QSApplicationLaunchEvent" userInfo:[NSDictionary dictionaryWithObject:procObject forKey:@"object"]];
 	}
 }
 
