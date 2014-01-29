@@ -8,7 +8,7 @@
 
 #import "QSTypes.h"
 
-NSString *QSFilePathType = @"NSFilenamesPboardType";
+NSString *QSFilePathType = @"public.item";
 NSString *QSTextType = @"NSStringPboardType";
 NSString *QSAliasDataType = @"public.data.alias";
 NSString *QSAliasFilePathType = @"public.alias";
