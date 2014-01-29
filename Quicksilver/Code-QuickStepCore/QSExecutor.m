@@ -149,7 +149,11 @@ QSExecutor *QSExec = nil;
 }
 
 
-- (NSMutableArray *)actionsArrayForType:(NSString *)type {g
+- (NSMutableArray *)actionsArrayForType:(NSString *)type {
+    NSString *UTIType = QSUTIForAnyTypeString(type);
+    if (UTIType) {
+        type = UTIType;
+    }
 	NSMutableArray *array = [directObjectTypes objectForKey:type];
 	if (!array)
 		[directObjectTypes setObject:(array = [NSMutableArray array]) forKey:type];
@@ -157,6 +161,10 @@ QSExecutor *QSExec = nil;
 }
 
 - (NSMutableArray *)actionsArrayForFileType:(NSString *)type {
+    NSString *UTIType = QSUTIForAnyTypeString(type);
+    if (UTIType) {
+        type = UTIType;
+    }
 	NSMutableArray *array = [directObjectFileTypes objectForKey:type];
 	if (!array)
 		[directObjectFileTypes setObject:(array = [NSMutableArray array]) forKey:type];
@@ -226,11 +234,9 @@ QSExecutor *QSExec = nil;
 	if (![directTypes count]) directTypes = [NSArray arrayWithObject:@"*"];
 	for (NSString __strong *type in directTypes) {
         // The directObjectTypes dict uses UTIs as keys, not Pboard types (mainly - only string types are explicitly converted)
-        if ([type isEqualToString:NSFilenamesPboardType]) {
-            type = (NSString *)kUTTypeData;
-        }
-        if ([type isEqualToString:NSStringPboardType] || [type isEqualToString:NSPasteboardTypeString]) {
-            type = (NSString *)kUTTypeUTF8PlainText;
+        NSString *utiType = QSUTIForAnyTypeString(type);
+        if (utiType) {
+            type = utiType;
         }
         [[self actionsArrayForType:type] addObject:action];
     }
@@ -242,23 +248,11 @@ QSExecutor *QSExec = nil;
         }
 		for (NSString *__strong type in directTypes) {
             if (![type isEqualToString:@"*"]) {
-                type = [type stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"'"]];
-                if (!type || [type length] == 0) {
-                    // type was just apostrophes, useless
-                    continue;
-                }
+                NSString *UTItype = QSUTIForAnyTypeString(type);
                 
-                BOOL validUTI = NO;
-                for (NSString * UTTagClass in @[(__bridge NSString *)kUTTagClassOSType, (__bridge NSString*)kUTTagClassFilenameExtension, (__bridge NSString*)kUTTagClassMIMEType, (__bridge NSString *)kUTTagClassNSPboardType]) {
-                    NSString *utiFromOtherType = (__bridge_transfer NSString *)(UTTypeCreatePreferredIdentifierForTag((__bridge CFStringRef)UTTagClass, (__bridge CFStringRef)(type), NULL));
-                    if (![utiFromOtherType hasPrefix:@"dyn."]) {
-                        // we can assume that this is the correct UTI converted from 'UTTagClass'
-                        type = utiFromOtherType;
-                        validUTI = YES;
-                        break;
-                    }
-                }
-                if (!validUTI) {
+                if (UTItype) {
+                    type = UTItype;
+                } else {
 //                    NSLog(@"Error converting %@ to a UTI (from action %@ - provided by %@)", type, action, NSStringFromClass([[action provider] class]));
                 }
             }
