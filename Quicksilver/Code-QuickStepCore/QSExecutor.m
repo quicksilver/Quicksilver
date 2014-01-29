@@ -233,7 +233,7 @@ QSExecutor *QSExec = nil;
 	NSArray *directTypes = [action directTypes];
 	if (![directTypes count]) directTypes = [NSArray arrayWithObject:@"*"];
 	for (NSString __strong *type in directTypes) {
-        // The directObjectTypes dict uses UTIs as keys, not Pboard types (mainly - only string types are explicitly converted)
+        // The directObjectTypes dict uses UTIs as keys, not Pboard types. We convert any old types to UTIs (if possible) before storing them in the dict
         NSString *utiType = QSUTIForAnyTypeString(type);
         if (utiType) {
             type = utiType;
@@ -375,7 +375,7 @@ QSExecutor *QSExec = nil;
     NSMutableArray *validActions = [NSMutableArray arrayWithCapacity:1];
 	id aObject = nil;
     NSString *UTI = nil;
-    // try and get a common UTI for all object(s) if they are all files objects
+    // try and find a common UTI for all object(s). E.g. the common UTI for a PNG and JPG is "public.image" ("public.png" and "public.jpeg" conform to "public.image")
     // p_j_r note: This method should be moved to a QSUTIManager singleton class I hope to implement at some time, with improved checking (working all the way up the type tree, not just one level)
     if ([dObject validPaths]) {
         for (QSObject *fileObject in [dObject splitObjects]) {
