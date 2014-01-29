@@ -110,6 +110,11 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 }
 
 NSString *QSUTIForAnyTypeString(NSString *type) {
+    if (QSIsUTI(type)) {
+        NSLog(@"%@", type);
+        return type;
+    }
+    
     NSString *uti = nil;
     type = [type stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"'."]];
     for (NSString * UTTagClass in @[(__bridge NSString *)kUTTagClassOSType, (__bridge NSString*)kUTTagClassFilenameExtension, (__bridge NSString*)kUTTagClassMIMEType, (__bridge NSString *)kUTTagClassNSPboardType]) {

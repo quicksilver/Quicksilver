@@ -253,7 +253,9 @@ QSExecutor *QSExec = nil;
                 if (UTItype) {
                     type = UTItype;
                 } else {
-//                    NSLog(@"Error converting %@ to a UTI (from action %@ - provided by %@)", type, action, NSStringFromClass([[action provider] class]));
+                    if(!QSIsUTI(type)) {
+                        NSLog(@"Error converting %@ to a UTI (from action %@ - provided by %@)", type, action, NSStringFromClass([[action provider] class]));
+                    }
                 }
             }
 			[[self actionsArrayForFileType:type] addObject:action];
