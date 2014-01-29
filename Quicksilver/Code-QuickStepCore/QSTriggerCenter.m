@@ -73,7 +73,7 @@
 	if ([triggerStorage count] != 0) {
 		NSArray *ids = [triggerStorage valueForKey:kItemID];
         
-        NSMutableArray *triggersWithInfo = [[NSMutableArray alloc] init];
+        NSMutableArray *triggersWithInfo = [[NSMutableArray alloc] initWithCapacity:[ids count]];
         [triggerStorage enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             [triggersWithInfo addObject:[QSTrigger triggerWithInfo:obj]];
         }];
