@@ -125,10 +125,10 @@ NSString *QSUTIForAnyTypeString(NSString *type) {
         }
     }
     if ([type isEqualToString:NSPasteboardTypeString]) {
-        return (NSString *)kUTTypeUTF8PlainText;
+        return (__bridge NSString *)kUTTypeUTF8PlainText; // QSTextType;
     }
     if ([type isEqualToString:NSFilenamesPboardType]) {
-        return (NSString *)kUTTypeItem;
+        return (__bridge NSString *)kUTTypeData; // QSFilePathType
     }
     return uti;
 }
