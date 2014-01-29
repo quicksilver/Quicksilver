@@ -280,9 +280,18 @@
 }
 
 - (NSString *)stringValue {
-	if ([self containsType:QSTextType]) {
-		return [self objectForType:QSTextType];
-	}
+    id stringValue = [self objectForType:QSTextType];
+    if ([stringValue isKindOfClass:[NSData class]]) {
+        stringValue = [[NSString alloc] initWithData:stringValue encoding:NSUTF8StringEncoding];
+    }
+    if (!stringValue) {
+        // Backwards compatibility
+        stringValue = [self objectForType:NSStringPboardType];
+    }
+    if (stringValue) {
+        return stringValue;
+    }
+    
 	if ([self containsType:QSURLType]) {
 		return [self objectForType:QSURLType];
 	}

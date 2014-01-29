@@ -11,7 +11,7 @@ NSString *QSPasteboardObjectAddress = @"QSObjectAddress";
 id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	if ([PLISTTYPES containsObject:type])
 		return [pasteboard propertyListForType:type];
-	else if ([NSStringPboardType isEqualToString:type] || [type hasPrefix:@"QSObject"])
+	else if ([NSStringPboardType isEqualToString:type] || UTTypeConformsTo((__bridge CFStringRef)type, kUTTypeText) || [type hasPrefix:@"QSObject"])
 		return [pasteboard stringForType:type];
 	else if ([NSURLPboardType isEqualToString:type])
 		return [[NSURL URLFromPasteboard:pasteboard] absoluteString];
@@ -81,10 +81,11 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 	for(NSString *thisType in (types?types:[pasteboard types])) {
 		if ([[pasteboard types] containsObject:thisType] && ![QSPasteboardIgnoredTypes containsObject:thisType]) {
 			id theObject = objectForPasteboardType(pasteboard, thisType);
-			if (theObject && thisType)
+			if (theObject && thisType) {
 				[self setObject:theObject forType:thisType];
-			else
+            } else {
 				NSLog(@"bad data for %@", thisType);
+            }
 			[typeArray addObject:[thisType decodedPasteboardType]];
 		}
 	}

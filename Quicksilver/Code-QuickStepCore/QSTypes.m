@@ -9,7 +9,7 @@
 #import "QSTypes.h"
 
 NSString *QSFilePathType = @"public.item";
-NSString *QSTextType = @"NSStringPboardType";
+NSString *QSTextType = @"public.utf8-plain-text";
 NSString *QSAliasDataType = @"public.data.alias";
 NSString *QSAliasFilePathType = @"public.alias";
 NSString *QSURLType = @"Apple URL pasteboard type";

@@ -111,7 +111,6 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 
 NSString *QSUTIForAnyTypeString(NSString *type) {
     if (QSIsUTI(type)) {
-        NSLog(@"%@", type);
         return type;
     }
     
