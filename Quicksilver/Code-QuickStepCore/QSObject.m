@@ -306,11 +306,20 @@ NSSize QSMaxIconSize;
 }
 
 - (id)handlerForType:(NSString *)type selector:(SEL)selector {
-	id handler = [[QSReg objectHandlers] objectForKey:type];
+	id __block handler = [[QSReg objectHandlers] objectForKey:type];
+    if (!handler) {
+        [[QSReg objectHandlers] enumerateKeysAndObjectsUsingBlock:^(NSString *handlerType, id anyHandler, BOOL *stop) {
+            if (UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)handlerType) ||
+                (UTTypeConformsTo((__bridge CFStringRef)handlerType, kUTTypeText) && UTTypeConformsTo((__bridge CFStringRef)type, kUTTypeText))) {
+                handler = anyHandler;
+                *stop = YES;
+            }
+        }];
+    }
 //    if(DEBUG && VERBOSE && handler == nil)
 //        NSLog(@"No handler for type %@", type);
     
-    return (selector == NULL ? handler : ( [handler respondsToSelector:selector] ? handler : nil ) );
+    return (selector == NULL ? handler : ([handler respondsToSelector:selector] ? handler : nil ));
 }
 
 - (id)handlerForSelector:(SEL)selector {
@@ -388,10 +397,13 @@ NSSize QSMaxIconSize;
 	//	if ([aKey isEqualToString:NSFilenamesPboardType]) return [self arrayForType:QSFilePathType];
 	//	if ([aKey isEqualToString:NSStringPboardType]) return [self objectForType:QSTextType];
 	//	if ([aKey isEqualToString:NSURLPboardType]) return [self objectForType:QSURLType];
-	NSArray *object = (NSArray *)[self _safeObjectForType:aKey];
+	id object = [self _safeObjectForType:aKey];
 	if ([object isKindOfClass:[NSArray class]]) {
-		if ([object count] == 1) return [object lastObject];
+		if ([(NSArray *) object count] == 1) return [object lastObject];
 	} else {
+        if ([aKey isEqualToString:QSTextType] && [object isKindOfClass:[NSData class]]) {
+            object = [[NSString alloc] initWithData:object encoding:NSUTF8StringEncoding];
+        }
         return object;
     }
     // if the object for type: aKey is an array, we return 'nil' (not the actual array)

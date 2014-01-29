@@ -30,17 +30,18 @@
 @implementation QSStringObjectHandler
 
 - (NSData *)fileRepresentationForObject:(QSObject *)object { return [[object stringValue] dataUsingEncoding:NSUTF8StringEncoding];  }
+
 - (NSString *)filenameForObject:(QSObject *)object {
 	NSString *name = [[[object stringValue] lines] objectAtIndex:0];
 	return [name stringByAppendingPathExtension:@"txt"];
 }
 - (BOOL)objectHasChildren:(QSObject *)object {
-    NSString *str = [object objectForType:QSTextType];
+    NSString *str = [object stringValue];
     return [[str componentsSeparatedByLineSeparators] count] > 1;
 }
 
 - (BOOL)loadChildrenForObject:(QSObject *)object {
-    NSArray *lines = [[object objectForType:QSTextType] componentsSeparatedByLineSeparators];
+    NSArray *lines = [[object stringValue] componentsSeparatedByLineSeparators];
     [object setChildren:[lines arrayByEnumeratingArrayUsingBlock:^id(NSString *str) {
         QSObject *obj = [QSObject objectWithString:str];
         [obj setParentID:[object identifier]];
