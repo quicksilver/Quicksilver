@@ -288,14 +288,14 @@
         // Backwards compatibility
         stringValue = [self objectForType:NSStringPboardType];
     }
-    if (stringValue) {
-        return stringValue;
+    if (!stringValue && [self containsType:QSURLType]) {
+        stringValue = [self objectForType:QSURLType];
     }
-    
-	if ([self containsType:QSURLType]) {
-		return [self objectForType:QSURLType];
-	}
-	return [self displayName];
+    if (!stringValue) {
+        stringValue = [self displayName];
+    }
+    NSAssert([stringValue isKindOfClass:[NSString class]], @"Object %@ does not have a valid string value (%@)", self, stringValue);
+    return stringValue;
 }
 
 @end
