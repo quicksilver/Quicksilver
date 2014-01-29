@@ -277,10 +277,23 @@ QSRegistry* QSReg = nil;
 	if (!registration) return NO;
 	//if (![registration isKindOfClass:[NSDictionary class]]) [NSException exceptionWithName:@"Invalid registration" reason: @"Registration is not a dictionary" userInfo:nil];
 	//	[bundle load];
-	for (NSString *table in registration) {
-		NSDictionary *providers = [registration objectForKey:table];
-		if (![providers isKindOfClass:[NSDictionary class]]) [NSException raise:@"Invalid registration" format:@"%@ invalid", table];
-		[[self tableNamed:table] addEntriesFromDictionary:providers];
+    NSArray *providersUsingUTIs = @[kQSObjectHandlers, kQSActionProviders, @"QSFileCompressors", @"QSBundleChildHandlers", @"QSTypeDefinitions"];
+    [registration enumerateKeysAndObjectsUsingBlock:^(NSString *table, NSDictionary *providers, BOOL *stop) {
+        if (![providers isKindOfClass:[NSDictionary class]]) {
+            [NSException raise:@"Invalid registration" format:@"%@ invalid", table];
+        }
+        
+        if ([providersUsingUTIs containsObject:table]) {
+            // The standard is now for registry tables to use UTIs. However, we cannot be sure that all existing plugins have been updated to use UTIs. Here, we convert any non-UTIs to UTI strings for all tables that use UTIs (those listed in 'providersUsingUTIs')
+            NSMutableDictionary *providersMut = [NSMutableDictionary new];
+            
+            [providers enumerateKeysAndObjectsUsingBlock:^(NSString *providerString, NSString *providerClass, BOOL *stop) {
+                NSString *UTIprovider = QSUTIForAnyTypeString(providerString);
+                [providersMut setObject:providerClass  forKey:(UTIprovider ? UTIprovider : providerString)];
+            }];
+            providers = [providersMut copy];
+        }
+        [[self tableNamed:table] addEntriesFromDictionary:providers];
 		NSMutableDictionary *retainedInstances = [tableInstances objectForKey:table];
 		for(NSString *provider in providers) {
 			id entry = [providers objectForKey:provider];
@@ -295,7 +308,7 @@ QSRegistry* QSReg = nil;
 					[[self retainedTableNamed:table] setObject:instance forKey:provider];
 			}
 		}
-	}
+    }];
 	return YES;
 }
 
