@@ -132,9 +132,11 @@ QSExecutor *QSExec = nil;
 	for (NSString __strong *type in types) {
 		if (![type isEqualToString:QSFilePathType]) {
             // QS (mainly) uses UTIs for action checking. Convert any Pboard types to their UTIs
-            if ([type isEqualToString:NSStringPboardType] || [type isEqualToString:NSPasteboardTypeString]) {
-                type = (NSString *)kUTTypeUTF8PlainText;
+            NSString *UTIType = QSUTIForAnyTypeString(type);
+            if (UTIType) {
+                type = UTIType;
             }
+            
             [directObjectTypes enumerateKeysAndObjectsUsingBlock:^(NSString *actionUTI, NSMutableArray *actions, BOOL *stop) {
                 // Note: UTTypeConformsTo() first does a direct string comparison, then checks UTI conformance
                 if (UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)actionUTI)) {
@@ -231,13 +233,11 @@ QSExecutor *QSExec = nil;
 		[action _setRank:index];
 	}
 	NSArray *directTypes = [action directTypes];
-	if (![directTypes count]) directTypes = [NSArray arrayWithObject:@"*"];
+	if (![directTypes count]) {
+        directTypes = [NSArray arrayWithObject:@"*"];
+    }
+    
 	for (NSString __strong *type in directTypes) {
-        // The directObjectTypes dict uses UTIs as keys, not Pboard types. We convert any old types to UTIs (if possible) before storing them in the dict
-        NSString *utiType = QSUTIForAnyTypeString(type);
-        if (utiType) {
-            type = utiType;
-        }
         [[self actionsArrayForType:type] addObject:action];
     }
     
@@ -247,19 +247,8 @@ QSExecutor *QSExec = nil;
             directTypes = [NSArray arrayWithObject:@"*"];
         }
 		for (NSString *__strong type in directTypes) {
-            if (![type isEqualToString:@"*"]) {
-                NSString *UTItype = QSUTIForAnyTypeString(type);
-                
-                if (UTItype) {
-                    type = UTItype;
-                } else {
-                    if(!QSIsUTI(type)) {
-                        NSLog(@"Error converting %@ to a UTI (from action %@ - provided by %@)", type, action, NSStringFromClass([[action provider] class]));
-                    }
-                }
-            }
-			[[self actionsArrayForFileType:type] addObject:action];
-		}
+            [[self actionsArrayForFileType:type] addObject:action];
+        }
 	}
     if ([action bundle] && [[action bundle] bundleIdentifier]) {
         [[self makeArrayForSource:[[action bundle] bundleIdentifier]] addObject:action];	
