@@ -110,19 +110,23 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 }
 
 NSString *QSUTIForAnyTypeString(NSString *type) {
-	NSString *itemUTI = NULL;
-
-	OSType filetype = 0;
-	NSString *extension = nil;
-
-	if ([type hasPrefix:@"'"] && [type length] == 6)
-		filetype = NSHFSTypeCodeFromFileType(type);
-	else
-		extension = type;
-	itemUTI = QSUTIForExtensionOrType(extension, filetype);
-	if ([itemUTI hasPrefix:@"dyn"])
-		itemUTI = nil;
-	return itemUTI;
+    NSString *uti = nil;
+    type = [type stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"'."]];
+    for (NSString * UTTagClass in @[(__bridge NSString *)kUTTagClassOSType, (__bridge NSString*)kUTTagClassFilenameExtension, (__bridge NSString*)kUTTagClassMIMEType, (__bridge NSString *)kUTTagClassNSPboardType]) {
+        NSString *utiFromOtherType = (__bridge_transfer NSString *)(UTTypeCreatePreferredIdentifierForTag((__bridge CFStringRef)UTTagClass, (__bridge CFStringRef)(type), NULL));
+        if (![utiFromOtherType hasPrefix:@"dyn."]) {
+            // we can assume that this is the correct UTI converted from 'UTTagClass'
+            uti = utiFromOtherType;
+            break;
+        }
+    }
+    if ([type isEqualToString:NSPasteboardTypeString]) {
+        return (NSString *)kUTTypeUTF8PlainText;
+    }
+    if ([type isEqualToString:NSFilenamesPboardType]) {
+        return (NSString *)kUTTypeItem;
+    }
+    return uti;
 }
 
 
