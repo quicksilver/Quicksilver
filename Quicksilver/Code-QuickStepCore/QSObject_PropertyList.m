@@ -89,14 +89,22 @@
  	if (self = [self init]) {
         [data setDictionary:dataDict];
         [meta setDictionary:metaDict];
-        
+        for (NSMutableDictionary *dict in @[data, meta]) {
+            [dict enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
+                NSString *UTIString = QSUTIForAnyTypeString(key);
+                if (UTIString && ![key isEqualToString:UTIString]) {
+                    [dict setObject:obj forKey:UTIString];
+                }
+            }];
+        }
         [self extractMetadata];
         
         // ***warning  * should this update the name for files?
         id dup = [QSLib objectWithIdentifier:[self identifier]];
         if (dup) return dup;
-        if ([self containsType:QSFilePathType])
+        if ([self containsType:QSFilePathType] || [self containsType:NSFilenamesPboardType]) {
             [self changeFilesToPaths];
+        }
     }
     return self;
 }
