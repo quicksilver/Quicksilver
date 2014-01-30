@@ -239,18 +239,19 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 	
 	// define the types to be included on the pasteboard
 	if (!includeTypes) {
-		if ([types containsObject:NSFilenamesPboardType])
+		if ([types containsObject:NSFilenamesPboardType] || [types containsObject:QSFilePathType]) {
 			includeTypes = [NSArray arrayWithObject:NSFilenamesPboardType];
 		//			[pboard declareTypes:includeTypes owner:self];
-		else if ([types containsObject:NSURLPboardType])
+        } else if ([types containsObject:NSURLPboardType]) {
 			// for urls, define plain text, rtf and html
 			includeTypes = [NSArray arrayWithObjects:NSURLPboardType,NSHTMLPboardType,NSRTFPboardType,NSStringPboardType,nil];
-		else if ([types containsObject:NSColorPboardType])
+		} else if ([types containsObject:NSColorPboardType]) {
 			includeTypes = [NSArray arrayWithObject:NSColorPboardType];
+        }
 	}
 	// last case: no other useful types: return a basic string
 	if (!includeTypes) {
-		includeTypes = [NSArray arrayWithObject:NSStringPboardType];
+		includeTypes = @[NSStringPboardType, QSTextType];
 	}
 
 	[pboard declareTypes:types owner:self];
