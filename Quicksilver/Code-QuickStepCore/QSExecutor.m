@@ -134,6 +134,10 @@ QSExecutor *QSExec = nil;
             // QS (mainly) uses UTIs for action checking. Convert any Pboard types to their UTIs
             NSString *UTIType = QSUTIForAnyTypeString(type);
             if (UTIType) {
+                if ([types containsObject:UTIType]) {
+                    // the UTI is already included in the types list, don't include again
+                    continue;
+                }
                 type = UTIType;
             }
             
