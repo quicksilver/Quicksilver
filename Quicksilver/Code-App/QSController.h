@@ -12,7 +12,7 @@
 	NSStatusItem *statusItem;
 	IBOutlet NSMenu *statusMenu;
 	NSConnection *controllerConnection, *dropletConnection;
-	BOOL newVersion, runningSetupAssistant;
+	BOOL versionChanged, runningSetupAssistant;
 	NSObject *dropletProxy;
     NSString *crashReportPath;
 }

@@ -658,7 +658,7 @@ static QSController *defaultController = nil;
 			
             // Not localizing this, as it's pretty much obsolete
 			[[NSWorkspace sharedWorkspace] setComment:@"Quicksilver" forFile:[[NSBundle mainBundle] bundlePath]];
-				newVersion = YES;
+            versionChanged = YES;
 			break;
         }
 		case QSApplicationDowngradedLaunch: {
@@ -669,7 +669,8 @@ static QSController *defaultController = nil;
 			if (selection == 1)
 				[[NSWorkspace sharedWorkspace] selectFile:[[NSBundle mainBundle] bundlePath] inFileViewerRootedAtPath:@""];
 #endif
-				break;
+            versionChanged = YES;
+            break;
         }
 		case QSApplicationFirstLaunch: {
 			NSString *containerPath = [[bundlePath stringByDeletingLastPathComponent] stringByStandardizingPath];
@@ -895,7 +896,7 @@ static QSController *defaultController = nil;
 #endif
 
 #ifndef DEBUG
-	if (newVersion) {
+	if (versionChanged) {
 		if (!runningSetupAssistant) {
 			NSLog(@"New Version: Purging all Identifiers and Forcing Rescan");
 			[QSLibrarian removeIndexes];
@@ -1004,11 +1005,11 @@ static QSController *defaultController = nil;
 	if ([defaults boolForKey:kAutomaticTaskViewer])
 		[QSTaskViewer sharedInstance];
 
-	if ( ! (runningSetupAssistant || newVersion) )
+	if ( ! (runningSetupAssistant || versionChanged) )
 		[self rescanItems:self];
 
 #ifndef DEBUG
-	if (newVersion)
+	if (versionChanged)
 		[[QSUpdateController sharedInstance] forceStartupCheck];
 #endif
 
