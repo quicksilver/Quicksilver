@@ -133,7 +133,7 @@ QSExecutor *QSExec = nil;
 		if (![type isEqualToString:QSFilePathType]) {
             // QS (mainly) uses UTIs for action checking. Convert any Pboard types to their UTIs
             NSString *UTIType = QSUTIForAnyTypeString(type);
-            if (UTIType) {
+            if (UTIType != type) {
                 if ([types containsObject:UTIType]) {
                     // the UTI is already included in the types list, don't include again
                     continue;
@@ -143,7 +143,8 @@ QSExecutor *QSExec = nil;
             
             [directObjectTypes enumerateKeysAndObjectsUsingBlock:^(NSString *actionUTI, NSMutableArray *actions, BOOL *stop) {
                 // Note: UTTypeConformsTo() first does a direct string comparison, then checks UTI conformance
-                if (UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)actionUTI)) {
+                // Many types conform to public.data (what we use as file types) so don't include them here.
+                if (UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)actionUTI) && ![actionUTI isEqualToString:QSFilePathType]) {
                     [set addObjectsFromArray:actions];
                 }
             }];
