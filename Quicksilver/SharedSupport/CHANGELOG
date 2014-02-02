@@ -48,6 +48,7 @@
   * Improve the format of the User-Agent String (#1699)
   * Applications added to trigger scopes are displayed more clearly (#1531, #1705)
   * Types specified in the include/exclude options are displayed more clearly (#1708)
+  * The catalog items cached to disk will be recreated on application downgrades as well as upgrades (#1762)
 
 ### Development ###
 
