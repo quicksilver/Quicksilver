@@ -68,6 +68,7 @@
   * New `QSUTI` functions (#1708):
     * `QSIsUTI()` determines if a given string is an existing UTI or not
     * `QSTypeConformsTo()` is an improved wrapper around `UTTypeConformsTo()` that is more reliable when dealing with unregistered types
+  * It is no longer necessary to hard-code the "Product Name" in plug-ins. Just "delete" the bold setting and it should automatically take on the Target's name. Make sure the "Executable file" in `Info.plist` matches, or set its value to "${EXECUTABLE_NAME}". (#1738)
 
 ## Changes - 1.1.3 (4007) ##
 
