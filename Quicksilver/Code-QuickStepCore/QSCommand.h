@@ -6,7 +6,7 @@
 @interface QSCommandObjectHandler : NSObject
 @end
 
-@interface QSCommand : QSObject {
+@interface QSCommand : QSObject <NSCoding> {
     QSObject *dObject;
     QSAction *aObject;
     QSObject *iObject;

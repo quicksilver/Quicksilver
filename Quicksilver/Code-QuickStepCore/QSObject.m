@@ -95,6 +95,23 @@ NSSize QSMaxIconSize;
 	return self;
 }
 
+#pragma mark NSCoding
+
+- (id)initWithCoder:(NSCoder *)coder {
+    if (self = [super init]) {
+        identifier = [coder decodeObjectForKey:kItemID];
+        data = [coder decodeObjectForKey:kData];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeObject:data forKey:kData];
+    [coder encodeObject:identifier forKey:kItemID];
+}
+
+#pragma mark Instance methods
+
 - (BOOL)isEqual:(id)anObject {
   if (self != anObject && [anObject isKindOfClass:[QSRankedObject class]]) {
     anObject = [anObject object];

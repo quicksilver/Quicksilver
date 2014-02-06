@@ -67,20 +67,26 @@
 }
 
 - (void)loadTriggers {
-	NSDictionary *triggerStorageDict = [NSDictionary dictionaryWithContentsOfFile: [pTriggerSettings stringByStandardizingPath]];
-
-	NSArray *triggerStorage = [triggerStorageDict objectForKey:@"triggers"];
-	if ([triggerStorage count] != 0) {
-		NSArray *ids = [triggerStorage valueForKey:kItemID];
+    @try {
+        triggersDict = [NSKeyedUnarchiver unarchiveObjectWithFile:pTriggerSettings];
+    }
+    @catch (NSException *exception) {
+        // Old method
+        NSDictionary *triggerStorageDict = [NSDictionary dictionaryWithContentsOfFile: [pTriggerSettings stringByStandardizingPath]];
         
-        NSMutableArray *triggersWithInfo = [[NSMutableArray alloc] init];
-        [triggerStorage enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            [triggersWithInfo addObject:[QSTrigger triggerWithInfo:obj]];
-        }];
-        
-		[triggers addObjectsFromArray:triggersWithInfo];
-		triggersDict = [[NSMutableDictionary alloc] initWithObjects:triggers forKeys:ids];
-	}
+        NSArray *triggerStorage = [triggerStorageDict objectForKey:@"triggers"];
+        if ([triggerStorage count] != 0) {
+            NSArray *ids = [triggerStorage valueForKey:kItemID];
+            
+            NSMutableArray *triggersWithInfo = [[NSMutableArray alloc] init];
+            [triggerStorage enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                [triggersWithInfo addObject:[QSTrigger triggerWithInfo:obj]];
+            }];
+            
+            [triggers addObjectsFromArray:triggersWithInfo];
+            triggersDict = [[NSMutableDictionary alloc] initWithObjects:triggers forKeys:ids];
+        }
+    }
 }
 
 // Method to set the scope when the QS UI is activated
@@ -185,58 +191,7 @@
 #ifdef DEBUG
 	NSLog(@"writing triggers");
 #endif
-	NSMutableArray *cleanedTriggerArray = [[NSMutableArray alloc] initWithCapacity:[triggersDict count]];
-	for(QSTrigger *thisTrigger in [triggersDict allValues]) {
-        NSDictionary * rep = [thisTrigger dictionaryRepresentation];
-#ifdef DEBUG
-            NSArray *plistTypes = [NSArray arrayWithObjects:[NSNumber numberWithUnsignedInt:NSPropertyListXMLFormat_v1_0],
-                                                            [NSNumber numberWithUnsignedInt:NSPropertyListBinaryFormat_v1_0],
-/*                                                          [NSNumber numberWithUnsignedInt:NSPropertyListOpenStepFormat],
- * Because it fails most writing */
-                                                            nil];
-            NSUInteger failCount = 0;
-            for(NSNumber *num in plistTypes ) {
-                int plistType = [num unsignedIntValue];
-                BOOL valid = [NSPropertyListSerialization propertyList:rep isValidForFormat:plistType];
-                if(!valid) {
-                    NSLog(@"trigger representation %@ for format %@ : (%@)", ( valid ? @"valid" : @"invalid" ),
-                          (plistType == NSPropertyListXMLFormat_v1_0 ? @"XML" :
-                           (plistType == NSPropertyListBinaryFormat_v1_0 ? @"Binary" :
-                            (plistType == NSPropertyListOpenStepFormat ? @"OpenStep" :
-                             @"Unknown" ))),
-                          rep);
-                    failCount++;
-                }
-//            NSLog(@"types: %d, failed: %d", [plistTypes count], failCount);
-                if(failCount == [plistTypes count]) {
-                    NSLog(@"Utterly failed to output %@", rep);
-                }
-            }
-#endif
-		[cleanedTriggerArray addObject:rep];
-	}
-	
-    NSString *errorStr;
-    NSError *error;
-    NSDictionary * triggerDict = [[NSDictionary alloc] initWithObjectsAndKeys:cleanedTriggerArray, @"triggers", nil];
-    NSData *data = [NSPropertyListSerialization dataFromPropertyList:triggerDict
-                                                              format:NSPropertyListXMLFormat_v1_0
-                                                    errorDescription:&errorStr];
-    if(data == nil || errorStr) {
-        NSLog(@"Failed converting triggers: %@", errorStr);
-        return;
-    }
-    
-	if (![data writeToFile:[pTriggerSettings stringByStandardizingPath] options:0 error:&error]) {
-        NSLog(@"Failed writing triggers : %@", error );
-        return;
-    }
-	
-#ifdef DEBUG
-    NSLog(@"Wrote %ld triggers", (long)[cleanedTriggerArray count]);
-#endif
-	
-	// manual memory management (better for ARC)
+    [NSKeyedArchiver archiveRootObject:[self triggersDict] toFile:pTriggerSettings];
 }
 
 - (NSMutableDictionary *)triggersDict {

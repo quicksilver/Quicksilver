@@ -85,7 +85,7 @@
 // CommandsAsActionsHandling
 - (QSObject *)performAction:(QSAction *)action directObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
 	NSDictionary *dict=[action objectForType:QSActionType];
-	QSCommand *command=[QSCommand commandWithInfo:[dict objectForKey:@"command"]];
+	QSCommand *command=[QSCommand commandWithInfo:[dict objectForKey:kCommand]];
 	return [command execute];
 }
 
@@ -164,7 +164,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	[info setObject:[NSNumber numberWithBool:YES] forKey:kItemEnabled];
     
 	if (command)
-		[info setObject:command forKey:@"command"];
+		[info setObject:command forKey:kCommand];
     
 	[info setObject:[NSString uniqueString] forKey:kItemID];
     
@@ -228,7 +228,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
     NSDictionary *commandInfo = [QSReg valueForKey:identifier inTable:@"QSCommands"];
     QSCommand *cmd = nil;
     if (commandInfo) {
-        cmd = [QSCommand commandWithDictionary:[commandInfo objectForKey:@"command"]];
+        cmd = [QSCommand commandWithDictionary:[commandInfo objectForKey:kCommand]];
         [cmd setIdentifier:identifier];
     }
     return cmd;
@@ -241,7 +241,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 }
 
 + (QSCommand *)commandWithFile:(NSString *)path {
-	return [self objectWithDictionary:[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:@"command"]];
+	return [self objectWithDictionary:[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:kCommand]];
 }
 
 - (QSCommand *)initWithDirectObject:(QSObject *)directObject actionObject:(QSAction *)actionObject indirectObject:(QSObject *)indirectObject {
@@ -260,6 +260,28 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	return self;
 }
 
+#pragma mark NSCoding
+
+#define kDirectObject @"directObject"
+#define kActionObject @"actionObject"
+#define kIndirectObject @"indirectObject"
+
+- (id)initWithCoder:(NSCoder *)coder {
+    if (self = [super initWithCoder:coder]) {
+        dObject = [coder decodeObjectForKey:kDirectObject];
+        aObject = [coder decodeObjectForKey:kActionObject];
+        iObject = [coder decodeObjectForKey:kIndirectObject];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [super encodeWithCoder:coder];
+    [coder encodeObject:dObject forKey:kDirectObject];
+    [coder encodeObject:aObject forKey:kActionObject];
+    [coder encodeObject:iObject forKey:kIndirectObject];
+}
+
 - (NSMutableDictionary*)commandDict {
     NSMutableDictionary *dict = [self objectForType:QSCommandType];
     if(!dict) [self setObject:(dict = [NSMutableDictionary dictionary]) forType:QSCommandType];
@@ -267,7 +289,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 }
 
 - (void)writeToFile:(NSString *)path {
-	[[NSDictionary dictionaryWithObject:[self dictionaryRepresentation] forKey:@"command"] writeToFile:path atomically:NO];
+	[[NSDictionary dictionaryWithObject:[self dictionaryRepresentation] forKey:kCommand] writeToFile:path atomically:NO];
 }
 
 - (void)setDirectObject:(QSObject*)newObject {
