@@ -158,7 +158,7 @@ QSExecutor *QSExec = nil;
 
 - (NSMutableArray *)actionsArrayForType:(NSString *)type {
     NSString *UTIType = QSUTIForAnyTypeString(type);
-    if (UTIType) {
+    if (UTIType != type) {
         type = UTIType;
     }
 	NSMutableArray *array = [directObjectTypes objectForKey:type];
@@ -169,7 +169,7 @@ QSExecutor *QSExec = nil;
 
 - (NSMutableArray *)actionsArrayForFileType:(NSString *)type {
     NSString *UTIType = QSUTIForAnyTypeString(type);
-    if (UTIType) {
+    if (UTIType != type) {
         type = UTIType;
     }
 	NSMutableArray *array = [directObjectFileTypes objectForKey:type];

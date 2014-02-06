@@ -764,8 +764,7 @@ NSSize QSMaxIconSize;
         primaryType = [meta objectForKey:kQSObjectPrimaryType];
 	if (!primaryType)
 		primaryType = [self guessPrimaryType];
-    NSString *UTIPrimaryType = QSUTIForAnyTypeString(primaryType);
-	return (UTIPrimaryType ? UTIPrimaryType : primaryType);
+    return QSUTIForAnyTypeString(primaryType);
 }
 - (void)setPrimaryType:(NSString *)newPrimaryType {
     if (primaryType != newPrimaryType) {

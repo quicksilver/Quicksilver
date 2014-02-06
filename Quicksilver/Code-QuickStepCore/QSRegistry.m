@@ -288,8 +288,7 @@ QSRegistry* QSReg = nil;
             NSMutableDictionary *providersMut = [NSMutableDictionary new];
             
             [providers enumerateKeysAndObjectsUsingBlock:^(NSString *providerString, NSString *providerClass, BOOL *stop) {
-                NSString *UTIprovider = QSUTIForAnyTypeString(providerString);
-                [providersMut setObject:providerClass  forKey:(UTIprovider ? UTIprovider : providerString)];
+                [providersMut setObject:providerClass  forKey:QSUTIForAnyTypeString(providerString)];
             }];
             providers = [providersMut copy];
         }
