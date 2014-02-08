@@ -236,6 +236,13 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
             }
         }
         if (previewImage) {
+            if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeAliasFile)) {
+                [previewImage lockFocus];
+                NSImage *aliasImage = [QSResourceManager imageNamed:@"AliasBadgeIcon"];
+                aliasImage = [aliasImage duplicateOfSize:QSSizeMax];
+                [aliasImage drawAtPoint:NSMakePoint(0, 0) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+                [previewImage unlockFocus];
+            }
             theImage = previewImage;
         }
     }
