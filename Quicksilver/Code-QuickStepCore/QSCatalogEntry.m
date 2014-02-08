@@ -137,6 +137,17 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (NSDate *)lastScanDate {
+    if ([[self type] isEqualToString:@"Group"]) {
+        // It's a group entry. Loop through the child catalog entries to find the one with the latest scan date
+        NSDate *latestScan = nil;
+        for (QSCatalogEntry *child in [self children]) {
+            NSDate *childScanDate = [child lastScanDate];
+            if (childScanDate && (childScanDate > latestScan || latestScan == nil)) {
+                latestScan = childScanDate;
+            }
+        }
+        return latestScan;
+    }
 	return [[[NSFileManager defaultManager] attributesOfItemAtPath:[self indexLocation] error:nil] objectForKey:NSFileModificationDate];
 }
 
