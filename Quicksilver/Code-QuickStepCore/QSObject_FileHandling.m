@@ -165,8 +165,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
         if ([object isApplication]) {
             theImage = [QSResourceManager imageNamed:@"GenericApplicationIcon"];
         } else {
-            NSString *type = [object isFolder] ? @"'fold'" : [object fileExtension];
-            theImage = [[NSWorkspace sharedWorkspace] iconForFileType:type];
+            theImage = [[NSWorkspace sharedWorkspace] iconForFileType:[object fileUTI]];
         }
 	} else {
 		// it's a combined object, containing multiple files
