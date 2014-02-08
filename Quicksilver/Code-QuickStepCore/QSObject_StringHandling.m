@@ -30,17 +30,18 @@
 @implementation QSStringObjectHandler
 
 - (NSData *)fileRepresentationForObject:(QSObject *)object { return [[object stringValue] dataUsingEncoding:NSUTF8StringEncoding];  }
+
 - (NSString *)filenameForObject:(QSObject *)object {
 	NSString *name = [[[object stringValue] lines] objectAtIndex:0];
 	return [name stringByAppendingPathExtension:@"txt"];
 }
 - (BOOL)objectHasChildren:(QSObject *)object {
-    NSString *str = [object objectForType:QSTextType];
+    NSString *str = [object stringValue];
     return [[str componentsSeparatedByLineSeparators] count] > 1;
 }
 
 - (BOOL)loadChildrenForObject:(QSObject *)object {
-    NSArray *lines = [[object objectForType:QSTextType] componentsSeparatedByLineSeparators];
+    NSArray *lines = [[object stringValue] componentsSeparatedByLineSeparators];
     [object setChildren:[lines arrayByEnumeratingArrayUsingBlock:^id(NSString *str) {
         QSObject *obj = [QSObject objectWithString:str];
         [obj setParentID:[object identifier]];
@@ -280,13 +281,22 @@
 }
 
 - (NSString *)stringValue {
-	if ([self containsType:QSTextType]) {
-		return [self objectForType:QSTextType];
-	}
-	if ([self containsType:QSURLType]) {
-		return [self objectForType:QSURLType];
-	}
-	return [self displayName];
+    id stringValue = [self objectForType:QSTextType];
+    if ([stringValue isKindOfClass:[NSData class]]) {
+        stringValue = [[NSString alloc] initWithData:stringValue encoding:NSUTF8StringEncoding];
+    }
+    if (!stringValue) {
+        // Backwards compatibility
+        stringValue = [self objectForType:NSStringPboardType];
+    }
+    if (!stringValue && [self containsType:QSURLType]) {
+        stringValue = [self objectForType:QSURLType];
+    }
+    if (!stringValue) {
+        stringValue = [self displayName];
+    }
+    NSAssert([stringValue isKindOfClass:[NSString class]], @"Object %@ does not have a valid string value (%@)", self, stringValue);
+    return stringValue;
 }
 
 @end

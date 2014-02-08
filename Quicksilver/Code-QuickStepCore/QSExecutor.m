@@ -129,9 +129,25 @@ QSExecutor *QSExec = nil;
 
 - (NSArray *)actionsForTypes:(NSArray *)types fileTypes:(NSArray *)fileTypes {
 	NSMutableSet *set = [NSMutableSet set];
-	for (NSString *type in types) {
+	for (NSString __strong *type in types) {
 		if (![type isEqualToString:QSFilePathType]) {
-			[set addObjectsFromArray:[directObjectTypes objectForKey:type]];
+            // QS (mainly) uses UTIs for action checking. Convert any Pboard types to their UTIs
+            NSString *UTIType = QSUTIForAnyTypeString(type);
+            if (UTIType != type) {
+                if ([types containsObject:UTIType]) {
+                    // the UTI is already included in the types list, don't include again
+                    continue;
+                }
+                type = UTIType;
+            }
+            
+            [directObjectTypes enumerateKeysAndObjectsUsingBlock:^(NSString *actionUTI, NSMutableArray *actions, BOOL *stop) {
+                // Note: UTTypeConformsTo() first does a direct string comparison, then checks UTI conformance
+                // Many types conform to public.data (what we use as file types) so don't include them here.
+                if (UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)actionUTI) && ![actionUTI isEqualToString:QSFilePathType]) {
+                    [set addObjectsFromArray:actions];
+                }
+            }];
 		}
 	}
     [set addObjectsFromArray:[self actionsForFileTypes:fileTypes]];
@@ -141,6 +157,7 @@ QSExecutor *QSExec = nil;
 
 
 - (NSMutableArray *)actionsArrayForType:(NSString *)type {
+    type = QSUTIForAnyTypeString(type);
 	NSMutableArray *array = [directObjectTypes objectForKey:type];
 	if (!array)
 		[directObjectTypes setObject:(array = [NSMutableArray array]) forKey:type];
@@ -148,6 +165,7 @@ QSExecutor *QSExec = nil;
 }
 
 - (NSMutableArray *)actionsArrayForFileType:(NSString *)type {
+    type = QSUTIForAnyTypeString(type);
 	NSMutableArray *array = [directObjectFileTypes objectForKey:type];
 	if (!array)
 		[directObjectFileTypes setObject:(array = [NSMutableArray array]) forKey:type];
@@ -213,19 +231,23 @@ QSExecutor *QSExec = nil;
 	} else {
 		[action _setRank:index];
 	}
-	NSDictionary *actionDict = [action objectForType:QSActionType];
-	NSArray *directTypes = [actionDict objectForKey:kActionDirectTypes];
-	if (![directTypes count]) directTypes = [NSArray arrayWithObject:@"*"];
-	for (NSString *type in directTypes) {
+	NSArray *directTypes = [action directTypes];
+	if (![directTypes count]) {
+        directTypes = [NSArray arrayWithObject:@"*"];
+    }
+    
+	for (NSString __strong *type in directTypes) {
         [[self actionsArrayForType:type] addObject:action];
     }
     
 	if ([directTypes containsObject:QSFilePathType]) {
-		directTypes = [actionDict objectForKey:kActionDirectFileTypes];
-		if (![directTypes count]) directTypes = [NSArray arrayWithObject:@"*"];
-		for (NSString *type in directTypes) {
-			[[self actionsArrayForFileType:type] addObject:action];
-		}
+        directTypes = [action directFileTypes];
+        if (![directTypes count]) {
+            directTypes = [NSArray arrayWithObject:@"*"];
+        }
+		for (NSString *__strong type in directTypes) {
+            [[self actionsArrayForFileType:type] addObject:action];
+        }
 	}
     if ([action bundle] && [[action bundle] bundleIdentifier]) {
         [[self makeArrayForSource:[[action bundle] bundleIdentifier]] addObject:action];	
@@ -342,16 +364,31 @@ QSExecutor *QSExec = nil;
 
     NSMutableArray *validActions = [NSMutableArray arrayWithCapacity:1];
 	id aObject = nil;
-	NSArray *fileUTIAndType = nil;
-    // get the file type and UTI to check against an action's 'directFileTypes' array
-    if ([dObject singleFilePath]) {
-        fileUTIAndType = [NSArray arrayWithObjects:[dObject singleFileType],[[NSFileManager defaultManager] UTIOfFile:[dObject singleFilePath]],nil];
+    NSString *UTI = nil;
+    // try and find a common UTI for all object(s). E.g. the common UTI for a PNG and JPG is "public.image" ("public.png" and "public.jpeg" conform to "public.image")
+    // p_j_r note: This method should be moved to a QSUTIManager singleton class I hope to implement at some time, with improved checking (working all the way up the type tree, not just one level)
+    if ([dObject validPaths]) {
+        for (QSObject *fileObject in [dObject splitObjects]) {
+            if (UTI == nil) {
+                UTI = [fileObject fileUTI];
+                continue;
+            }
+            if (UTTypeConformsTo((__bridge CFStringRef)[fileObject fileUTI], (__bridge CFStringRef)UTI)) {
+                continue;
+            }
+            if (UTTypeConformsTo((__bridge CFStringRef)UTI, (__bridge CFStringRef)[fileObject fileUTI])) {
+                UTI = [fileObject fileUTI];
+                continue;
+            }
+            UTI = (__bridge NSString*)kUTTypeData;
+            break;
+        }
     }
 
 	NSMutableDictionary *validatedActionsBySource = [NSMutableDictionary dictionary];
 	NSArray *validSourceActions;
 
-	NSArray *newActions = [self actionsForTypes:[dObject types] fileTypes:fileUTIAndType];
+	NSArray *newActions = [self actionsForTypes:[dObject types] fileTypes:UTI ? @[UTI] : nil];
 	BOOL isValid;
     
     for (QSAction *thisAction in newActions) {
@@ -382,14 +419,14 @@ QSExecutor *QSExec = nil;
 	// NSLog(@"Actions for %@:%@", [dObject name] , validActions);
 	if (![validActions count]) {
 		NSLog(@"unable to find actions for %@", actionIdentifiers);
-		NSLog(@"types %@ %@", [NSSet setWithArray:[dObject types]], fileUTIAndType);
+		NSLog(@"types %@ %@", [NSSet setWithArray:[dObject types]], UTI);
 	}
 	return [validActions mutableCopy];
 }
 
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject {
 	QSActionProvider *actionObject = [[actionIdentifiers objectForKey:action] objectForKey:kActionClass];
-	//  NSLog(@"actionobject %@", actionObject);
+
     QSObject *directObject = [dObject resolvedObject];
 	return [actionObject validIndirectObjectsForAction:action directObject:directObject];
 }

@@ -831,12 +831,12 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 - (NSString *)filesType {
-	BOOL appsOnly = YES;
+    BOOL appsOnly = YES;
 	BOOL foldersOnly = YES;
 	BOOL filesOnly = YES;
 	NSString *kind = nil;
 	NSArray *paths = [self arrayForType:QSFilePathType];
-
+    
 	for (id loopItem in paths) {
 		NSString *thisPath = [loopItem stringByStandardizingPath];
 		NSString *type = [[NSFileManager defaultManager] typeOfFile:thisPath];
@@ -850,14 +850,16 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		} else {
 			appsOnly = NO;
 			foldersOnly = NO;
-//			if (!kind) {
+            //			if (!kind) {
 			kind = [self kindOfFile:thisPath];
-//			} else if (![kind isEqualToString:[self kindOfFile:thisPath]]) {
-//				kind = @"";
-//			}
+            //			} else if (![kind isEqualToString:[self kindOfFile:thisPath]]) {
+            //				kind = @"";
+            //			}
 		}
 	}
-	if (appsOnly) return @"Applications";
+	if (appsOnly) {
+        return @"Applications";
+    }
 	if (foldersOnly) return @"Folders";
 	if (filesOnly) {
 		if ([kind length]) return [NSString stringWithFormat:@"[%@] ", kind];

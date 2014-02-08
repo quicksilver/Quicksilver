@@ -253,7 +253,9 @@ static BOOL gModifiersAreIgnored;
 }
 
 - (NSArray*)directTypes {
-    return [[self actionDict] objectForKey:kActionDirectTypes];
+    return [[[self actionDict] objectForKey:kActionDirectTypes] arrayByEnumeratingArrayUsingBlock:^NSString *(NSString *type) {
+        return QSUTIForAnyTypeString(type);
+    }];
 }
 
 - (void)setDirectTypes:(NSArray*)types {
@@ -261,7 +263,9 @@ static BOOL gModifiersAreIgnored;
 }
 
 - (NSArray*)directFileTypes {
-    return [[self actionDict] objectForKey:kActionDirectFileTypes];
+    return [[[self actionDict] objectForKey:kActionDirectFileTypes] arrayByEnumeratingArrayUsingBlock:^NSString *(NSString *type) {
+        return QSUTIForAnyTypeString(type);
+    }];
 }
 
 - (void)setDirectFileTypes:(NSArray *)types {
@@ -269,7 +273,9 @@ static BOOL gModifiersAreIgnored;
 }
 
 - (NSArray*)indirectTypes {
-    return [[self actionDict] objectForKey:kActionIndirectTypes];
+    return [[[self actionDict] objectForKey:kActionIndirectTypes] arrayByEnumeratingArrayUsingBlock:^NSString *(NSString *type) {
+        return QSUTIForAnyTypeString(type);
+    }];
 }
 
 - (void)setIndirectTypes:(NSArray*)types {

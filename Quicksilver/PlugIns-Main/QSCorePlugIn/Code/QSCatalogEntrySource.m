@@ -154,7 +154,7 @@ static NSImage *prefsCatalogImage = nil;
 - (QSObject *)addCatalogEntry:(QSObject *)dObject {
     QSCatalogEntry *parentEntry = [[QSLibrarian sharedInstance] catalogCustom];
     
-    NSString *file = [[dObject objectForType:NSFilenamesPboardType] stringByStandardizingPath];
+    NSString *file = [[dObject objectForType:QSFilePathType] stringByStandardizingPath];
     NSString *uniqueString = [NSString uniqueString];
     
     NSMutableDictionary *childDict = [NSMutableDictionary dictionary];
