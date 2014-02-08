@@ -257,11 +257,8 @@
 }
 
 - (void)clearObjectView:(QSSearchObjectView *)view {
-	[view setResultArray:nil];
-	[view setSourceArray:nil];
-	[view setMatchedString:nil];
-	[view setSearchString:nil];
-	[view clearObjectValue];
+    [view clearAll];
+    [view clearSearch];
 }
 
 - (void)updateControl:(QSSearchObjectView *)control withArray:(NSArray *)array {
