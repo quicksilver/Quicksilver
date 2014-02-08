@@ -137,7 +137,7 @@ NSDictionary *enabledPresetDictionary;*/
 }
 
 - (NSDate *)lastScanDate {
-    if (![self canBeIndexed]) {
+    if ([[self type] isEqualToString:@"Group"]) {
         // It's a group entry. Loop through the child catalog entries to find the one with the latest scan date
         NSDate *latestScan = nil;
         for (QSCatalogEntry *child in [self children]) {
