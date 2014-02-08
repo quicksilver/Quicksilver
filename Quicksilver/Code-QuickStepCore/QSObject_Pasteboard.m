@@ -9,17 +9,20 @@ NSString *QSPasteboardObjectAddress = @"QSObjectAddress";
 #define QSPasteboardIgnoredTypes [NSArray arrayWithObjects:QSPasteboardObjectAddress, @"CorePasteboardFlavorType 0x4D555246", @"CorePasteboardFlavorType 0x54455854", nil]
 
 id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
-	if ([PLISTTYPES containsObject:type])
+	if ([PLISTTYPES containsObject:type]) {
 		return [pasteboard propertyListForType:type];
-	else if ([NSStringPboardType isEqualToString:type] || UTTypeConformsTo((__bridge CFStringRef)type, kUTTypeText) || [type hasPrefix:@"QSObject"])
+	} else if ([NSStringPboardType isEqualToString:type] || UTTypeConformsTo((__bridge CFStringRef)type, kUTTypeText) || [type hasPrefix:@"QSObject"]) {
 		return [pasteboard stringForType:type];
-	else if ([NSURLPboardType isEqualToString:type])
+	}else if ([NSURLPboardType isEqualToString:type]) {
 		return [[NSURL URLFromPasteboard:pasteboard] absoluteString];
-	else if ([NSColorPboardType isEqualToString:type])
+    } else if ([(__bridge NSString *)kUTTypeFileURL isEqualToString:type]) {
+        return [NSURL URLFromPasteboard:pasteboard];
+    } else if ([NSColorPboardType isEqualToString:type]) {
 		return [NSKeyedArchiver archivedDataWithRootObject:[NSColor colorFromPasteboard:pasteboard]];
-	else if ([NSFileContentsPboardType isEqualToString:type]);
-	else
+	} else if ([NSFileContentsPboardType isEqualToString:type]);
+	else {
 		return [pasteboard dataForType:type];
+    }
 	return nil;
 }
 
@@ -116,6 +119,9 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 			value = [[NSAttributedString alloc] initWithRTF:value documentAttributes:nil];
 			[self setObject:[value string] forType:QSTextType];
 		}
+        if ([self objectForType:(__bridge NSString *)kUTTypeFileURL]) {
+            [self setObject:[(NSURL *)[self objectForType:(__bridge NSString *)kUTTypeFileURL] path] forType:QSFilePathType];
+        }
 		if ([self objectForType:QSTextType])
 			[self sniffString];
 		NSString *clippingPath = [self singleFilePath];
