@@ -6,6 +6,8 @@
 NSString *QSPasteboardObjectIdentifier = @"QSObjectID";
 NSString *QSPasteboardObjectAddress = @"QSObjectAddress";
 
+static QSObject *copiedQSObject;
+
 #define QSPasteboardIgnoredTypes [NSArray arrayWithObjects:QSPasteboardObjectAddress, @"CorePasteboardFlavorType 0x4D555246", @"CorePasteboardFlavorType 0x54455854", nil]
 
 id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
@@ -55,17 +57,12 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 		theObject = [QSLib objectWithIdentifier:[pasteboard stringForType:QSPasteboardObjectIdentifier]];
 
 	if (!theObject && [[pasteboard types] containsObject:QSPasteboardObjectAddress]) {
-		NSArray *objectIdentifier = [[pasteboard stringForType:QSPasteboardObjectAddress] componentsSeparatedByString:@":"];
-		if ([[objectIdentifier objectAtIndex:0] intValue] == [[NSProcessInfo processInfo] processIdentifier]) {
-            QSObject *anObject = nil;
-            sscanf([[objectIdentifier lastObject] cStringUsingEncoding:NSUTF8StringEncoding], "%p", &anObject);
-            return anObject;
-        }
-#ifdef DEBUG
-		else if (VERBOSE)
-			NSLog(@"Ignored old object: %@", objectIdentifier);
-#endif
+        theObject = copiedQSObject;
 	}
+    
+    if (theObject) {
+        return theObject;
+    }
 	return [[QSObject alloc] initWithPasteboard:pasteboard];
 }
 
@@ -293,6 +290,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 	}
 	
 	[pboard addTypes:[NSArray arrayWithObject:QSPasteboardObjectAddress] owner:self];
+    copiedQSObject = self;
 	//  NSLog(@"types %@", [pboard types]);
 	return YES;
 }
@@ -300,7 +298,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 - (void)pasteboard:(NSPasteboard *)sender provideDataForType:(NSString *)type {
 	//if (VERBOSE) NSLog(@"Provide: %@", [type decodedPasteboardType]);
 	if ([type isEqualToString:QSPasteboardObjectAddress]) {
-		writeObjectToPasteboard(sender, type, [NSString stringWithFormat:@"%d:%p", [[NSProcessInfo processInfo] processIdentifier] , self]);	
+		writeObjectToPasteboard(sender, type, [NSString stringWithFormat:@"copied object at %p", self]);
     } else {
 		id theData = nil;
 		id handler = [self handlerForType:type selector:@selector(dataForObject:pasteboardType:)];
