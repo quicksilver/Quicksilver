@@ -836,7 +836,7 @@ static QSController *defaultController = nil;
 		[self showSplash:nil];
         double delayInSeconds = 0.1;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        dispatch_after(popTime, dispatch_get_current_queue(), ^(void) {
             // hide the splash in a background thread
             [self hideSplash:nil];
         });

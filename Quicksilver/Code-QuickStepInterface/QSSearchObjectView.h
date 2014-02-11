@@ -94,6 +94,8 @@ typedef NS_ENUM(NSUInteger, QSSearchMode) {
 
 - (void)clearSearch; // reset everything and be ready for a new search
 
+- (void)clearAll;
+
 - (void)clearObjectValue;
 - (void)moveSelectionBy:(NSInteger)d;
 - (void)selectObjectValue:(id)newObject ;

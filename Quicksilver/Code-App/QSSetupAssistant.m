@@ -10,7 +10,6 @@
 #import "QSWindow.h"
 #import "QSPlugInManager.h"
 #import <WebKit/WebKit.h>
-#import "QSCGSTransition.h"
 
 #import "NSSortDescriptor+BLTRExtensions.h"
 
@@ -170,13 +169,10 @@
 		[self finish:sender];
 		return;
 	}
-	CGSTransitionOption transitions[5] = {CGSUp, CGSLeft, CGSLeft, CGSLeft, CGSUp} ;
-	QSCGSTransition *transition = [QSCGSTransition transitionWithWindow:[self window] type:CGSCube option:transitions[ [setupTabView indexOfTabViewItem:[setupTabView selectedTabViewItem]]] ];
 	[self deselectedItem:[setupTabView selectedTabViewItem]];
 	[setupTabView selectNextTabViewItem:self];
 	[self selectedItem:[setupTabView selectedTabViewItem]];
 	[[self window] display];
-	[transition runTransition:0.5];
 }
 
 - (void)selectedItem:(NSTabViewItem *)item {
@@ -220,13 +216,10 @@
 }
 
 - (IBAction)prevSection:(id)sender {
-	CGSTransitionOption transitions[6] = {CGSUp, CGSDown, CGSRight, CGSRight, CGSRight, CGSDown} ;
-	QSCGSTransition *transition = [QSCGSTransition transitionWithWindow:[self window] type:CGSCube option:transitions[ [setupTabView indexOfTabViewItem:[setupTabView selectedTabViewItem]]] ];
 	[self deselectedItem:[setupTabView selectedTabViewItem]];
 	[setupTabView selectPreviousTabViewItem:self];
 	[self selectedItem:[setupTabView selectedTabViewItem]];
 	[[self window] display];
-	[transition runTransition:0.5];
 }
 
 - (void)installStatusChanged:(NSNotification *)notif {
