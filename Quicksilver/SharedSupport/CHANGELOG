@@ -35,10 +35,15 @@
   * Folders that that appear to have file extensions are correctly identified as folders when excluding/excluding (#1742, #1708, #1753)
   * Correctly identify documents in iCloud (#1745)
   * Don't advertise application launches when scanning processes (#1756, #1758)
-  * Internal Improvements (#1583, #1584, #1585, #1586, #1665, #1625, #1648, #1638, #1695, #1714, #1763)
+  * Clear the search string when clearing the first pane (#1760, #1772)
+  * Prevent crashes when using the Setup Assistant (#1731, #1772)
+  * More reliable matching of actions with items in the first pane under 10.9 (#1740)
+  * File actions appear when multiple files are selected (#1747, #1755, #1740)
+  * Internal Improvements (#1583, #1584, #1585, #1586, #1665, #1625, #1648, #1638, #1695, #1714, #1763, #1765, #1740, #1771)
 
 ### Changed ###
 
+  * The way files are represented has changed. Check any triggers, Shelf, items, etc. that have references to files (#1740)
   * The third pane for Assign Abbreviation… defaults to the matched string (#1548)
   * A friendly error is shown when assigning an abbreviation fails (#1586)
   * Running Applications & Processes now includes those that aren't part of application bundles (#1559)
@@ -49,9 +54,13 @@
   * Applications added to trigger scopes are displayed more clearly (#1531, #1705)
   * Types specified in the include/exclude options are displayed more clearly (#1708)
   * The catalog items cached to disk will be recreated on application downgrades as well as upgrades (#1762)
+  * The "Scanned" date for groups in the catalog will be taken from the group member with the most recent date (#1765)
 
 ### Development ###
 
+  * **Changes to fundamental types.** Make sure you use the constants instead of hard-coding the values. Property lists (where the values must be hard-coded) are backward-compatible, but should eventually be updated. (#1740)
+    * `QSFilePathType` changed from "NSFilenamesPboardType" to "public.data"
+    * `QSTextType` changed from "NSStringPboardType" to "public.utf8-plain-text"
   * Convert to Automatic Reference Counting (#1433, #1539, #1541, #1627, #1683, #1710, #1739)
   * Add a script called `stringstool` to assist with localization (#1222)
   * The functions in QSGCD have been renamed (#1598):
@@ -68,6 +77,7 @@
   * New `QSUTI` functions (#1708):
     * `QSIsUTI()` determines if a given string is an existing UTI or not
     * `QSTypeConformsTo()` is an improved wrapper around `UTTypeConformsTo()` that is more reliable when dealing with unregistered types
+  * `QSUTIForAnyTypeString()` can now accept a file extension, type code, or UTI (#1740)
   * It is no longer necessary to hard-code the "Product Name" in plug-ins. Just "delete" the bold setting and it should automatically take on the Target's name. Make sure the "Executable file" in `Info.plist` matches, or set its value to "${EXECUTABLE_NAME}". (#1738)
 
 ## Changes - 1.1.3 (4007) ##
