@@ -299,16 +299,20 @@
 	if ([action isEqualToString:kFileOpenWithAction]) {
 		NSURL *fileURL = nil;
 		// comma trick - get a list of apps based on the 1st selected file
-		fileURL = [NSURL  fileURLWithPath:[[dObject validPaths] objectAtIndex:0]];
+		fileURL = [NSURL fileURLWithPath:[[dObject validPaths] objectAtIndex:0]];
 
-        CFURLRef urlRef = NULL;
-		if (fileURL) LSGetApplicationForURL((__bridge CFURLRef) fileURL, kLSRolesAll, NULL, &urlRef);
+        NSURL *preferredAppURL = nil;
+        if (fileURL) {
+            CFURLRef urlRef = NULL;
+            LSGetApplicationForURL((__bridge CFURLRef) fileURL, kLSRolesAll, NULL, &urlRef);
+            if (urlRef) {
+                preferredAppURL = (__bridge_transfer NSURL*)urlRef;
+            }
+        }
 
         NSArray *fileObjects = [QSLib arrayForType:QSFilePathType];
         
-		id preferred = [QSObject fileObjectWithPath:[(__bridge NSURL *)urlRef path]];
-        CFRelease(urlRef);
-
+		id preferred = [QSObject fileObjectWithPath:[preferredAppURL path]];
         
         NSIndexSet *applicationIndexes = [fileObjects indexesOfObjectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *thisObject, NSUInteger i, BOOL *stop) {
             QSObject *resolved = [thisObject resolvedAliasObject];
