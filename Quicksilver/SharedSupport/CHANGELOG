@@ -39,7 +39,7 @@
   * Prevent crashes when using the Setup Assistant (#1731, #1772)
   * More reliable matching of actions with items in the first pane under 10.9 (#1740)
   * File actions appear when multiple files are selected (#1747, #1755, #1740)
-  * Internal Improvements (#1583, #1584, #1585, #1586, #1665, #1625, #1648, #1638, #1695, #1714, #1763, #1765, #1740, #1771)
+  * Internal Improvements (#1583, #1584, #1585, #1586, #1665, #1625, #1648, #1638, #1695, #1714, #1763, #1765, #1740, #1771, #1775)
 
 ### Changed ###
 
