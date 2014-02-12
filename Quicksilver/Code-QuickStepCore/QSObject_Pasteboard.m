@@ -284,7 +284,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 	}
 	if ([self identifier]) {
 		[pboard addTypes:[NSArray arrayWithObject:QSPasteboardObjectIdentifier] owner:self];
-		writeObjectToPasteboard(pboard, QSPasteboardObjectIdentifier, [self stringValue]);
+		writeObjectToPasteboard(pboard, QSPasteboardObjectIdentifier, [self identifier]);
 	}
 	
 	[pboard addTypes:[NSArray arrayWithObject:QSPasteboardObjectAddress] owner:self];
