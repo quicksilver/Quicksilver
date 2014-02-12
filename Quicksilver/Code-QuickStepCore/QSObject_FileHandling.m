@@ -686,6 +686,22 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 - (BOOL)isWriteable {
     return [[[self infoRecord] objectForKey:NSURLIsWritableKey] boolValue];
 }
+
+- (BOOL)isExecutable {
+    if ([[[self infoRecord] objectForKey:NSURLIsExecutableKey] boolValue]) {
+        return YES;
+    }
+    NSFileHandle * fileHandle = [NSFileHandle fileHandleForReadingAtPath:[self singleFilePath]];
+    // Read in the first 5 bytes of the file to see if it contains #! (5 bytes, because some files contain byte order marks (3 bytes)
+    NSData * buffer = [fileHandle readDataOfLength:5];
+    NSString *string = [[NSString alloc] initWithData:buffer encoding:NSUTF8StringEncoding];
+    if ([string containsString:@"#!"]) {
+        return YES;
+    }
+    return NO;
+}
+
+
 - (BOOL)isApplication {
 	return UTTypeConformsTo((__bridge CFStringRef)[self fileUTI], kUTTypeApplication) ;
 }
