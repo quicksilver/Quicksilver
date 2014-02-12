@@ -875,8 +875,10 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)resetString {
 	// NSLog(@"resetting");
-	[resultController.searchStringField setTextColor:[[resultController.searchStringField textColor] colorWithAlphaComponent:0.5]];
-	[resultController.searchStringField display];
+    QSGCDMainSync(^{
+        [resultController.searchStringField setTextColor:[[resultController.searchStringField textColor] colorWithAlphaComponent:0.5]];
+        [resultController.searchStringField display];
+    });
 }
 
 - (void)partialStringChanged {
