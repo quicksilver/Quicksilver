@@ -47,6 +47,7 @@ extern QSLibrarian *QSLib; // Shared Instance
 }
 
 @property (retain) NSMutableDictionary *objectDictionary;
+@property (retain) QSObject *pasteboardObject;
 
 + (id)sharedInstance;
 + (void)removeIndexes;

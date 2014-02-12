@@ -6,8 +6,6 @@
 NSString *QSPasteboardObjectIdentifier = @"QSObjectID";
 NSString *QSPasteboardObjectAddress = @"QSObjectAddress";
 
-static QSObject *copiedQSObject;
-
 #define QSPasteboardIgnoredTypes [NSArray arrayWithObjects:QSPasteboardObjectAddress, @"CorePasteboardFlavorType 0x4D555246", @"CorePasteboardFlavorType 0x54455854", nil]
 
 id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
@@ -57,7 +55,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 		theObject = [QSLib objectWithIdentifier:[pasteboard stringForType:QSPasteboardObjectIdentifier]];
 
 	if (!theObject && [[pasteboard types] containsObject:QSPasteboardObjectAddress]) {
-        theObject = copiedQSObject;
+        theObject = QSLib.pasteboardObject;
 	}
     
     if (theObject) {
@@ -290,7 +288,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 	}
 	
 	[pboard addTypes:[NSArray arrayWithObject:QSPasteboardObjectAddress] owner:self];
-    copiedQSObject = self;
+    QSLib.pasteboardObject = self;
 	//  NSLog(@"types %@", [pboard types]);
 	return YES;
 }
