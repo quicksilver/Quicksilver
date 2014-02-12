@@ -657,60 +657,41 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     if (!path)
         return nil;
 
-	/* Try to get information for this file */
-    LSItemInfoRecord record;
-    OSStatus status = LSCopyItemInfoForURL((__bridge CFURLRef)[NSURL fileURLWithPath:path], kLSRequestAllInfo, &record);
-    if (status) {
-        NSLog(@"LSCopyItemInfoForURL error: %ld", (long)status);
+    NSURL *fileURL = [NSURL fileURLWithPath:path];
+    NSError *err = nil;
+    dict = [fileURL resourceValuesForKeys:@[NSURLTypeIdentifierKey, NSURLIsDirectoryKey, NSURLIsAliasFileKey, NSURLIsPackageKey, NSURLLocalizedLabelKey, NSURLLocalizedNameKey, NSURLLabelColorKey, NSURLVolumeURLKey, NSURLIsWritableKey] error:&err];
+    if (err) {
+        NSLog(@"Unable to retrieve file information for %@. Error: %@", path, err);
         return nil;
     }
-
-	NSString *uti = QSUTIWithLSInfoRec(path, &record);
-    NSString *extension = [(__bridge NSString *)record.extension copy];
-    
-    /* local or network volume? does it support Trash? */
-    struct statfs sfsb;
-    statfs([path UTF8String], &sfsb);
-    NSString *device = [NSString stringWithCString:sfsb.f_mntfromname encoding:NSUTF8StringEncoding];
-    BOOL isLocal = [device hasPrefix:@"/dev/"];
-    
-	/* Now build a dictionary with that record */
-	NSMutableDictionary *tempDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-			[NSNumber numberWithUnsignedLong:record.flags], @"flags",
-			[NSValue valueWithOSType:record.filetype],     @"filetype",
-			[NSValue valueWithOSType:record.creator],      @"creator",
-            [NSNumber numberWithBool:isLocal],             @"localVolume",
-			nil];
-    if (uti) {
-        [tempDict setObject:uti forKey:@"uti"];
+    NSMutableDictionary *mutableDict = [dict mutableCopy];
+    NSURL *volumeURL = [dict objectForKey:NSURLVolumeURLKey];
+    NSNumber *isLocal;
+    [volumeURL getResourceValue:&isLocal forKey:NSURLVolumeIsLocalKey error:&err];
+    if (err) {
+        NSLog(@"Unable to retrieve information on the file's volume: %@", err);
+    } else {
+        [mutableDict setObject:isLocal forKey:NSURLVolumeIsLocalKey];
     }
-    if (extension) {
-        [tempDict setObject:extension forKey:@"extension"];
-    }
-    dict = [NSDictionary dictionaryWithDictionary:tempDict];
-	/* Release the file's extension if one was returned */
-	if (record.extension)
-		CFRelease(record.extension);
-
-    [self setObject:dict forCache:@"QSItemInfoRecord"];
+    [mutableDict removeObjectForKey:NSURLVolumeURLKey];
+    [mutableDict setObject:[fileURL pathExtension] forKey:@"extension"];
+    [self setObject:[mutableDict copy] forCache:@"QSItemInfoRecord"];
     return dict;
 }
 
-- (BOOL)checkInfoRecordFlags:(LSItemInfoFlags)infoFlags {
-	NSDictionary *infoRec = [self infoRecord];
-	NSNumber *fileFlags = [infoRec objectForKey:@"flags"];
-	if (!fileFlags)
-		return NO;
-	unsigned int numFlags = [fileFlags unsignedIntValue];
-	return numFlags & infoFlags;
+- (NSColor *)labelColor {
+    return [[self infoRecord] objectForKey:NSURLLabelColorKey];
 }
 
+- (BOOL)isWriteable {
+    return [[[self infoRecord] objectForKey:NSURLIsWritableKey] boolValue];
+}
 - (BOOL)isApplication {
-	return [self checkInfoRecordFlags:kLSItemInfoIsApplication];
+	return UTTypeConformsTo((__bridge CFStringRef)[self fileUTI], kUTTypeApplication) ;
 }
 
 - (BOOL)isDirectory {
-	return [self checkInfoRecordFlags:kLSItemInfoIsContainer];
+	return [[[self infoRecord] objectForKey:NSURLIsDirectoryKey] boolValue];
 }
 
 - (QSObject *)resolvedAliasObject {
@@ -730,16 +711,15 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 - (BOOL)isPackage {
-	return [self checkInfoRecordFlags:kLSItemInfoIsPackage];
+	return [[[self infoRecord] objectForKey:NSURLIsPackageKey] boolValue];
 }
 
 - (BOOL)isAlias {
-	return [self checkInfoRecordFlags:kLSItemInfoIsAliasFile];
+	return [[[self infoRecord] objectForKey:NSURLIsAliasFileKey] boolValue];
 }
 
 - (BOOL)isOnLocalVolume {
-	NSDictionary *infoRec = [self infoRecord];
-    return [[infoRec objectForKey:@"localVolume"] boolValue];
+    return [[[self infoRecord] objectForKey:NSURLVolumeIsLocalKey] boolValue];
 }
 
 - (NSString *)fileExtension {
@@ -748,8 +728,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 - (NSString *)fileUTI {
-    NSDictionary *infoRec = [self infoRecord];
-    return [infoRec objectForKey:@"uti"];
+    return [[self infoRecord] objectForKey:NSURLTypeIdentifierKey];
 }
 
 - (NSString *)bundleNameFromInfoDict:(NSDictionary *)infoDict {
@@ -802,23 +781,8 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		newName = [NSString stringWithFormat:@"%ld %@ %@ \"%@\"", (long)[paths count] , type, onDesktop?@"on":@"in", [container lastPathComponent]];
 	} else {
 		// generally: name = what you see in Terminal, label = what you see in Finder
-		NSString *path = [self objectForType:QSFilePathType];
-        newName = [path lastPathComponent];
-		// look for a more suitable display name
-		if ([[self fileExtension] isEqualToString:@"qsplugin"]) {
-			newLabel = [self descriptiveNameForPackage:path withKindSuffix:![self isApplication]];
-		} else if (UTTypeConformsTo((__bridge CFStringRef)[self fileUTI], (CFStringRef)@"com.apple.systempreference.prefpane")) {
-            // kMDItemDisplayName works better for Preference Panes
-            MDItemRef mdItem = MDItemCreate(kCFAllocatorDefault, (__bridge CFStringRef)path);
-            if (mdItem) {
-                newLabel = (NSString *)CFBridgingRelease(MDItemCopyAttribute(mdItem, kMDItemDisplayName));
-                CFRelease(mdItem);
-            }
-        }
-        // fall back to the default display name
-        if (!newLabel) {
-            newLabel = [[NSFileManager defaultManager] displayNameAtPath:path];
-        }
+        newName = [[self infoRecord] objectForKey:NSURLLocalizedNameKey];
+        newLabel = [[self infoRecord] objectForKey:NSURLLocalizedLabelKey];
 	}
     [self setName:newName];
 	[self setLabel:newLabel];
