@@ -141,14 +141,15 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
             NSNumber *isUbiquitousItem = nil;
             [fileURL getResourceValue:&isUbiquitousItem forKey:NSURLIsUbiquitousItemKey error:nil];
             if ([isUbiquitousItem boolValue]) {
-			return @"iCloud";
-		} else {
-            NSString *pathDetails = [path stringByAbbreviatingWithTildeInPath];
-            if (UTTypeConformsTo((__bridge CFStringRef)[object fileUTI], kUTTypeAliasFile)) {
-                pathDetails = [pathDetails stringByAppendingFormat:@" (%@)", NSLocalizedString(@"alias", @"Extra details shown for alias files, in the UI")];
+                return @"iCloud";
+            } else {
+                NSString *pathDetails = [path stringByAbbreviatingWithTildeInPath];
+                if (UTTypeConformsTo((__bridge CFStringRef)[object fileUTI], kUTTypeAliasFile)) {
+                    pathDetails = [pathDetails stringByAppendingFormat:@" (%@)", NSLocalizedString(@"alias", @"Extra details shown for alias files, in the UI")];
+                }
+                return pathDetails;
             }
-            return pathDetails;
-		}
+        }
 	} else if ([theFiles count] > 1) {
 		return [[theFiles arrayByPerformingSelector:@selector(lastPathComponent)] componentsJoinedByString:@", "];
 	}
