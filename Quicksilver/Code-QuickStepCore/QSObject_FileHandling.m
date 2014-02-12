@@ -797,8 +797,11 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		newName = [NSString stringWithFormat:@"%ld %@ %@ \"%@\"", (long)[paths count] , type, onDesktop?@"on":@"in", [container lastPathComponent]];
 	} else {
 		// generally: name = what you see in Terminal, label = what you see in Finder
-        newName = [[self infoRecord] objectForKey:NSURLLocalizedNameKey];
-        newLabel = [[self infoRecord] objectForKey:NSURLLocalizedLabelKey];
+        newName = [[self infoRecord] objectForKey:NSURLLocalizedLabelKey];
+        newLabel = [[self infoRecord] objectForKey:NSURLLocalizedNameKey];
+        if (!newName) {
+            newName = [[self singleFilePath] lastPathComponent];
+        }
 	}
     [self setName:newName];
 	[self setLabel:newLabel];

@@ -14,29 +14,6 @@
 
 @implementation NSFileManager (Carbon)
 
-- (BOOL)isVisible:(NSString *)path {
-	LSItemInfoRecord infoRec;
-	OSStatus status = LSCopyItemInfoForURL((__bridge CFURLRef)[NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);
-/*	BOOL result = ! ( (infoRec.flags & kLSItemInfoIsInvisible) || ([[path stringByDeletingLastPathComponent] isEqualToString:@"/"] && [HIDDENROOT containsObject:[path lastPathComponent]]) || (status && [[path lastPathComponent] hasPrefix:@"."]) );
-	return result;*/
-	return ! ( (infoRec.flags & kLSItemInfoIsInvisible) || (status && [[path lastPathComponent] hasPrefix:@"."]) );
-}
-
-#if 0
-- (BOOL)isHiddenFile:(NSString *)path {
- 	NSRange slashRange = [path rangeOfString:@"/" options:nil range:NSMakeRange(1, [path length]-1)];
-	return ( ( (slashRange.location == NSNotFound || NSMaxRange(slashRange) == [path length]) && ([[[NSString stringWithContentsOfFile:@"/.hidden"] componentsSeparatedByString:@"\n"] containsObject:[path lastPathComponent]]) ) || [[path lastPathComponent] hasPrefix:@"."] );
-}
-#endif
-
-#if 0
-- (NSString *)humanReadableFiletype:(NSString *)path {
-	NSString *res;
-	LSCopyKindStringForURL((CFURLRef) [NSURL fileURLWithPath:path] , (CFStringRef *)&res );
-	return [res autorelease];
-}
-#endif
-
 - (BOOL)movePathToTrash:(NSString *)filepath {
     NSWorkspace *ws = [NSWorkspace sharedWorkspace];
     BOOL result = [ws performFileOperation:NSWorkspaceRecycleOperation
@@ -49,39 +26,6 @@
     }
     return result;
 }
-
-#if 0
-- (BOOL)movePathToTrashUsingFinder:(NSString *)filepath {
-	AppleEvent		event, reply;
-	OSErr			err;
-	OSType			adrFinder = 'MACS';
-	FSRef			fileRef;
-	AliasHandle		fileAlias = NULL;
-
-	err = FSPathMakeRef((const UInt8 *)[filepath fileSystemRepresentation] , &fileRef,
-						NULL);
-	if (err != noErr) return NO;
-
-	err = FSNewAliasMinimal(&fileRef, &fileAlias);
-	if (err != noErr) return NO;
-
-	err = AEBuildAppleEvent('core', 'delo', typeApplSignature,
-							&adrFinder, sizeof(adrFinder),
-							kAutoGenerateReturnID, kAnyTransactionID, &event, NULL,
-							"'----':alis(@@) ", fileAlias);
-	if (err != noErr) return NO;
-
-	err = AESend(&event, &reply, kAEWaitReply, kAENormalPriority,
-				 kAEDefaultTimeout, NULL, NULL);
-	AEDisposeDesc(&event);
-	AEDisposeDesc(&reply);
-
-	if (fileAlias)
-		DisposeHandle((Handle) fileAlias);
-
-	return YES;
-}
-#endif
 
 @end
 
@@ -172,23 +116,19 @@
 }
 
 - (NSString *)resolveAliasAtPath:(NSString *)aliasFullPath usingUI:(BOOL)usingUI {
-	NSString *outString = nil;
-	NSURL *url = [NSURL fileURLWithPath:aliasFullPath];
-	FSRef aliasRef;
-	Boolean targetIsFolder;
-	Boolean wasAliased;
-
-	if (!CFURLGetFSRef((CFURLRef)url, &aliasRef))
-		return nil;
-
-    if (FSResolveAliasFileWithMountFlags(&aliasRef, true, &targetIsFolder, &wasAliased, (!usingUI ? kResolveAliasFileNoUI : 0)))
+    NSURL *aliasFullURL = [NSURL fileURLWithPath:aliasFullPath];
+    NSError *err = nil;
+    NSData *bookmarkData = [NSURL bookmarkDataWithContentsOfURL:aliasFullURL error:&err];
+    if (err) {
+        NSLog(@"Unable to resolve alias %@", aliasFullPath);
         return nil;
-
-	if (url = (NSURL *)CFBridgingRelease(CFURLCreateFromFSRef(kCFAllocatorDefault, &aliasRef))) {
-		outString = [url path];
-		return outString;
-	}
-	return nil;
+    }
+    NSURL *resolvedURL = [NSURL URLByResolvingBookmarkData:bookmarkData options:NSURLBookmarkResolutionWithoutMounting | (usingUI ? 0 : NSURLBookmarkResolutionWithoutUI) relativeToURL:nil bookmarkDataIsStale:nil error:&err];
+    if (err) {
+        NSLog(@"Unable to resolve alias %@", aliasFullPath);
+        return nil;
+    }
+    return [resolvedURL path];
 }
 
 - (NSArray *)itemsForPath:(NSString *)path depth:(NSInteger)depth types:(NSArray *)types {
@@ -206,32 +146,36 @@
 		return array;
 
 	NSString *type;
-	LSItemInfoRecord infoRec;
-//	OSStatus status;
 	for (__strong NSString *file in [manager contentsOfDirectoryAtPath:path error:nil]) {
 		file = [path stringByAppendingPathComponent:file];
-		type = [self typeOfFile:file];
+        NSURL *fileURL = [NSURL fileURLWithPath:file];
+        NSError *err = nil;
+        NSDictionary *fileProperties = [fileURL resourceValuesForKeys:@[NSURLIsDirectoryKey, NSURLTypeIdentifierKey, NSURLIsAliasFileKey, NSURLIsHiddenKey, NSURLIsPackageKey] error:&err];
+        if (err) {
+            NSLog(@"Unable to obtain file information for %@", file);
+            continue;
+        }
 
-		/*status = */LSCopyItemInfoForURL((__bridge CFURLRef) [NSURL fileURLWithPath:file], kLSRequestBasicFlagsOnly, &infoRec);
-
-		if (infoRec.flags & kLSItemInfoIsAliasFile) {
+		if ([[fileProperties objectForKey:NSURLIsAliasFileKey] boolValue]) {
 			NSString *aliasFile = [self resolveAliasAtPath:file];
 			if (aliasFile && [manager fileExistsAtPath:aliasFile]) {
 				file = aliasFile;
-				LSCopyItemInfoForURL((__bridge CFURLRef) [NSURL fileURLWithPath:file] , kLSRequestBasicFlagsOnly, &infoRec);
+                fileURL = [NSURL fileURLWithPath:file];
+                fileProperties = [fileURL resourceValuesForKeys:@[NSURLIsDirectoryKey, NSURLTypeIdentifierKey, NSURLIsAliasFileKey, NSURLIsHiddenKey, NSURLIsPackageKey] error:&err];
+
 			}
 		}
-		if (![manager fileExistsAtPath:file isDirectory:&isDirectory])
-			continue;
-		if ([manager isVisible:file]) {
+        type = [fileProperties objectForKey:NSURLTypeIdentifierKey];
+
+		if (![[fileProperties objectForKey:NSURLIsHiddenKey] boolValue]) {
 			if ((!types) || [types containsObject:type]) {
 				[array addObject:file];
 			}
 		}
-		if (depth && isDirectory && !(infoRec.flags & kLSItemInfoIsPackage) )
+		if (depth && [[fileProperties objectForKey:NSURLIsDirectoryKey] boolValue] && !([[fileProperties objectForKey:NSURLIsPackageKey] boolValue]) )
 			[array addObjectsFromArray:[self itemsForPath:file depth:depth types:types]];
 	}
-	// NSLog(@"%@", array);
+
 	return array;
 }
 

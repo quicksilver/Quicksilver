@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface NSFileManager (Carbon)
-- (BOOL)isVisible:(NSString *)chem;
 - (BOOL)movePathToTrash:(NSString *)filepath;
 
 @end
