@@ -9,6 +9,7 @@
 #import "NSFileManager_BLTRExtensions.h"
 
 #import "NSString_BLTRExtensions.h"
+#import "SUPlainInstallerInternals.h"
 
 #define HIDDENROOT [NSArray arrayWithObjects:@"automount", @"bin", @"cores", @"dev", @"etc", @"mach", @"mach.sym", @"mach_kernel", @"private", @"sbin", @"sbin", @"tmp", @"usr", @"var", nil]
 
@@ -22,7 +23,15 @@
                                      files:[NSArray arrayWithObject:[filepath lastPathComponent]]
                                        tag:nil];
     if (!result) {
-        NSLog(@"Failed to move file %@ to Trash", filepath);
+        BOOL didFindTrash;
+        NSString *trashPath = [SUPlainInstaller _temporaryCopyNameForPath:filepath didFindTrash:&didFindTrash];
+        if (didFindTrash) {
+			NSError	 *err = nil;
+            result = [SUPlainInstaller _movePathWithForcedAuthentication:filepath toPath:trashPath error:&err];
+            if (!result) {
+				NSLog(@"Couldn't move %@ to the trash (%@). %@", filepath, trashPath, err);
+            }
+		}
     }
     return result;
 }
