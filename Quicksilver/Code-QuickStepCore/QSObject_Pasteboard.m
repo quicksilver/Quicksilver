@@ -162,11 +162,11 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 }
 
 - (void)guessName {
-	if (itemForKey(NSFilenamesPboardType) ) {
-		[self setPrimaryType:NSFilenamesPboardType];
+	if (itemForKey(QSFilePathType) ) {
+		[self setPrimaryType:QSFilePathType];
 		[self getNameFromFiles];
 	} else {
-        NSString *textString = itemForKey(NSStringPboardType);
+        NSString *textString = itemForKey(QSTextType);
         // some objects (images from the web) don't have a text string but have a URL
         if (!textString) {
             textString = itemForKey(NSURLPboardType);
@@ -240,7 +240,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 	// If there are no types for the object, we need to set one (using stringValue)
 	if (![types count]) {
 		[(NSMutableArray *)types addObject:NSStringPboardType];
-		[[self dataDictionary] setObject:[self stringValue] forKey:NSStringPboardType];
+		[[self dataDictionary] setObject:[self stringValue] forKey:QSTextType];
 	}
 	
 	// define the types to be included on the pasteboard
