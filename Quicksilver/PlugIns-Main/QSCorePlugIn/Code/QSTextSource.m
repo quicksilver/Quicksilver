@@ -54,7 +54,7 @@
 - (QSObject *)typeObject:(QSObject *)dObject {
 	// NSLog( AsciiToKeyCode(&ttable, "m") {
 	// short AsciiToKeyCode(Ascii2KeyCodeTable *ttable, short asciiCode) {
-	[self typeString:[dObject objectForType:QSTextType]];
+	[self typeString:[dObject stringValue]];
 	return nil;
 }
 
