@@ -98,7 +98,7 @@
 
 - (void)cancel {
 	@synchronized (self) {
-		NSAssert(self.isRunning == NO, @"Asked to cancel stopped task %@", self);
+		NSAssert(self.isRunning == YES, @"Asked to cancel stopped task %@", self);
 
 #ifdef DEBUG
 		if (VERBOSE) NSLog(@"Cancel Task: %@", self);
