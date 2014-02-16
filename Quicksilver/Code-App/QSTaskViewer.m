@@ -112,9 +112,7 @@ static QSTaskViewer * _sharedInstance;
 }
 
 - (void)tasksEnded:(NSNotification *)notif {
-    double delayInSeconds = HIDE_DELAY;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    QSGCDMainDelayed(HIDE_DELAY, ^{
         [self autoHide];
     });
 }
@@ -133,9 +131,7 @@ static QSTaskViewer * _sharedInstance;
 - (void)showIfNeeded:(NSNotification *)notif {
     QSTask *task = notif.object;
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:kQSShowTaskViewerAutomatically]) {
-        double delayInSeconds = SHOW_DELAY;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        QSGCDMainDelayed(SHOW_DELAY, ^{
 #ifdef DEBUG
             NSLog(@"Will show for task %@: running: %@", task, (task.isRunning ? @"YES" : @"NO"));
 #endif
