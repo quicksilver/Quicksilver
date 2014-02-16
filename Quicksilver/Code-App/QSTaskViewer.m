@@ -9,8 +9,8 @@
 #import "NSObject+ReaperExtensions.h"
 #import <QSFoundation/QSFoundation.h>
 
-#define HIDE_DELAY 0.2
-#define SHOW_DELAY 0.1
+#define HIDE_DELAY 1.0
+#define SHOW_DELAY 0.05
 
 @interface QSTaskViewer (QSRedeclarations)
 - (QSDockingWindow *)window;
