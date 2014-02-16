@@ -150,7 +150,7 @@ static QSTaskViewer * _sharedInstance;
 - (void)addTask:(NSNotification *)notif {
     QSTask *task = notif.object;
 
-    QSTaskViewController *taskController = [QSTaskViewController controllerWithTask:notif.object];
+    QSTaskViewController *taskController = [QSTaskViewController controllerWithTask:task];
 
     self.taskControllers[task.identifier] = taskController;
 
