@@ -152,7 +152,9 @@ static QSTaskViewer * _sharedInstance;
 
     QSTaskViewController *taskController = [QSTaskViewController controllerWithTask:task];
 
-    self.taskControllers[task.identifier] = taskController;
+    QSGCDMainAsync(^{
+        self.taskControllers[task.identifier] = taskController;
+    });
 
     [self updateTaskView];
 }
@@ -162,9 +164,10 @@ static QSTaskViewer * _sharedInstance;
 
     QSTaskViewController *removedController = self.taskControllers[task.identifier];
 
-    [self.taskControllers removeObjectForKey:task.identifier];
-
-    [removedController.view removeFromSuperview];
+    QSGCDMainAsync(^{
+        [self.taskControllers removeObjectForKey:task.identifier];
+        [removedController.view removeFromSuperview];
+    });
 
     [self updateTaskView];
 }
