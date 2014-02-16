@@ -83,6 +83,8 @@ QSTaskController *QSTasks;
 }
 
 - (void)removeTask:(NSString *)identifier {
+    NSAssert(identifier != nil, @"Task identifier shouldn't be nil");
+
     QSTask *task = self.tasksDictionary[identifier];
     [task stop];
 }

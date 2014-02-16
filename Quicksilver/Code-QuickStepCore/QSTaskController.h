@@ -25,7 +25,19 @@ extern QSTaskController *QSTasks; // Shared Instance
 
 + (instancetype)sharedInstance;
 - (QSTask *)taskWithIdentifier:(NSString *)identifier;
-- (void)updateTask:(NSString *)identifier status:(NSString *)status progress:(CGFloat)progress;
-- (void)removeTask:(NSString *)identifier;
+
+/**
+ * Update the task with identifier status and progress.
+ *
+ * Deprecated because you should just update the tasks' status and progress directly.
+ */
+- (void)updateTask:(NSString *)identifier status:(NSString *)status progress:(CGFloat)progress  __attribute__((deprecated));
+
+/**
+ * Stops a running task.
+ *
+ * Deprecated because you should just have to call -stop on your task.
+ */
+- (void)removeTask:(NSString *)identifier __attribute__((deprecated));
 
 @end
