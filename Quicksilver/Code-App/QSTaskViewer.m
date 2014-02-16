@@ -132,9 +132,7 @@ static QSTaskViewer * _sharedInstance;
     QSTask *task = notif.object;
 	if ([[NSUserDefaults standardUserDefaults] boolForKey:kQSShowTaskViewerAutomatically]) {
         QSGCDMainDelayed(SHOW_DELAY, ^{
-#ifdef DEBUG
-            NSLog(@"Will show for task %@: running: %@", task, (task.isRunning ? @"YES" : @"NO"));
-#endif
+//            NSLog(@"Will show for task %@: running: %@", task, (task.isRunning ? @"YES" : @"NO"));
             if (!task.isRunning) {
                 return;
             }
@@ -149,6 +147,7 @@ static QSTaskViewer * _sharedInstance;
 
 - (void)addTask:(NSNotification *)notif {
     QSTask *task = notif.object;
+//    NSLog(@"Adding task: %@", task);
 
     QSTaskViewController *taskController = [QSTaskViewController controllerWithTask:task];
 
@@ -161,6 +160,7 @@ static QSTaskViewer * _sharedInstance;
 
 - (void)removeTask:(NSNotification *)notif {
     QSTask *task = notif.object;
+//    NSLog(@"Removing task: %@", task);
 
     QSTaskViewController *removedController = self.taskControllers[task.identifier];
 
@@ -178,7 +178,6 @@ static QSTaskViewer * _sharedInstance;
 
 - (void)updateTaskView {
     QSGCDMainAsync(^{
-//        NSLog(@"%s called on thread %@", __FUNCTION__, [NSThread currentThread]);
         // Make sure our window is loaded, we need it for the calculations below.
         [self window];
         NSUInteger i = 0;
