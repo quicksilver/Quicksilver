@@ -271,8 +271,7 @@
 // endless recursive calls and blowing out the stack.
 - (void)setEnabledDoNotNotify:(BOOL)enabled {
 	[info setObject:[NSNumber numberWithBool:enabled] forKey:@"enabled"];
-    enabled ? [[self manager] enableTrigger:self] : [[self manager] disableTrigger:self];
-    activated = enabled;
+    activated = enabled ? [[self manager] enableTrigger:self] : [[self manager] disableTrigger:self];
 }
 
 - (id)objectForKey:(NSString *)key {
