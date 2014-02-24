@@ -225,8 +225,10 @@
 }
 
 - (void)reactivate {
-    [self setEnabled:[self enabled]];
     activated = [self enabled];
+    if (activated) {
+        [[self manager] enableTrigger:self];
+    }
 }
 
 - (BOOL)activated {
