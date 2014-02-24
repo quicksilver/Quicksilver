@@ -550,6 +550,11 @@
         id manager = [thisTrigger manager];
         if ([manager respondsToSelector:@selector(trigger:setTriggerDescription:)])
             [manager trigger:[self currentTrigger] setTriggerDescription:anObject];
+    } else if ([[aTableColumn identifier] isEqualToString:@"enabled"]) {
+        // skip the call to triggerChanged:
+        // it's already called by setEnabled:
+        // calling it a second time has unwanted side-effects
+        return;
     }
 	
     @try {
