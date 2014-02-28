@@ -26,25 +26,9 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	return nil;
 }
 
-// writes the selected data to the general pasteboard
-bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) {
-	if ([NSURLPboardType isEqualToString:type]) {
-		[pasteboard addTypes:[NSArray arrayWithObjects:NSURLPboardType, NSStringPboardType, nil] owner:nil];
-		[pasteboard setString:([data hasPrefix:@"mailto:"]) ?[data substringFromIndex:7] :data forType:NSStringPboardType];
-		[pasteboard setString:[data URLDecoding] forType:NSURLPboardType];
-	} else if ([PLISTTYPES containsObject:type] || [data isKindOfClass:[NSDictionary class]] || [data isKindOfClass:[NSArray class]])
-		[pasteboard setPropertyList:data forType:type];
-	else if ([data isKindOfClass:[NSString class]])
-		[pasteboard setString:data forType:type];
-	else if ([NSColorPboardType isEqualToString:type])
-		[data writeToPasteboard:pasteboard];
-	else if ([NSFileContentsPboardType isEqualToString:type]);
-	else
-		[pasteboard setData:data forType:type];
-	return YES;
-}
-
 @implementation QSObject (Pasteboard)
+
+
 + (id)objectWithPasteboard:(NSPasteboard *)pasteboard {
 	id theObject = nil;
 
@@ -62,6 +46,28 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
         return theObject;
     }
 	return [[QSObject alloc] initWithPasteboard:pasteboard];
+}
+
+- (void)writeToPasteboard:(NSPasteboard *)pasteboard data:(id)pbData forType:(NSString *)type {
+	if ([NSURLPboardType isEqualToString:type]) {
+		[pasteboard addTypes:[NSArray arrayWithObjects:NSURLPboardType, NSStringPboardType, nil] owner:nil];
+		[pasteboard setString:([pbData hasPrefix:@"mailto:"]) ?[pbData substringFromIndex:7] :pbData forType:NSStringPboardType];
+		[pasteboard setString:[pbData URLDecoding] forType:NSURLPboardType];
+	} else if ([PLISTTYPES containsObject:type] || [pbData isKindOfClass:[NSDictionary class]] || [pbData isKindOfClass:[NSArray class]]) {
+        if (![pbData isKindOfClass:[NSArray class]]) {
+            pbData = @[pbData];
+        }
+		[pasteboard setPropertyList:pbData forType:type];
+	} else if ([pbData isKindOfClass:[NSString class]]) {
+		[pasteboard setString:pbData forType:type];
+	} else if ([NSColorPboardType isEqualToString:type]) {
+		[pbData writeToPasteboard:pasteboard];
+	} else if ([NSFileContentsPboardType isEqualToString:type]) {
+        
+    } else {
+		[pasteboard setData:pbData forType:type];
+    }
+
 }
 
 - (id)initWithPasteboard:(NSPasteboard *)pasteboard {
@@ -220,28 +226,32 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 }
 
 // Declares the types that should be put on the pasteboard
-- (BOOL)putOnPasteboard:(NSPasteboard *)pboard declareTypes:(NSArray *)types includeDataForTypes:(NSArray *)includeTypes {
-	if (!types) {
+- (BOOL)putOnPasteboard:(NSPasteboard *)pboard declareTypes:(NSArray *)pbTypes includeDataForTypes:(NSArray *)includeTypes {
+    NSMutableArray *types = nil;
+	if (!pbTypes) {
 		// get the different pboard types from the object's data dictionary -- they're all stored here
 		types = [[[self dataDictionary] allKeys] mutableCopy];
 		if ([types containsObject:QSProxyType])
 			[(NSMutableArray *)types addObjectsFromArray:[[[self resolvedObject] dataDictionary] allKeys]];
 	}
 	else {
-		NSMutableSet *typeSet = [NSMutableSet setWithArray:types];
+		NSMutableSet *typeSet = [NSMutableSet setWithArray:pbTypes];
 		[typeSet intersectSet:[NSSet setWithArray:[[self dataDictionary] allKeys]]];
 		types = [[typeSet allObjects] mutableCopy];
 	}
 	// If there are no types for the object, we need to set one (using stringValue)
 	if (![types count]) {
-		[(NSMutableArray *)types addObject:NSStringPboardType];
+		[types addObject:NSStringPboardType];
 		[[self dataDictionary] setObject:[self stringValue] forKey:NSStringPboardType];
 	}
 	
 	// define the types to be included on the pasteboard
 	if (!includeTypes) {
 		if ([types containsObject:NSFilenamesPboardType] || [types containsObject:QSFilePathType]) {
+            // Backwards incompatibility with the old way of writing to the pasteboard (NSFilenamesPboardType) which doens't play nicely with UTIs (public.data)
 			includeTypes = [NSArray arrayWithObject:NSFilenamesPboardType];
+            [types addObject:NSFilenamesPboardType];
+            [data setObject:[self arrayForType:QSFilePathType] forKey:NSFilenamesPboardType];
 		//			[pboard declareTypes:includeTypes owner:self];
         } else if ([types containsObject:NSURLPboardType]) {
 			// for urls, define plain text, rtf and html
@@ -267,7 +277,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 	// For URLs, create the RTF and HTML data to be stored in the clipboard
 	if ([types containsObject:NSURLPboardType]) {
 		// add the RTF and HTML types to the list of types
-		types = [types arrayByAddingObjectsFromArray:[NSArray arrayWithObjects:NSHTMLPboardType,NSRTFPboardType,nil]];
+		[types addObjectsFromArray:@[NSHTMLPboardType,NSRTFPboardType]];
 		// Create the HTML and RTF data
 		NSData *htmlData = [NSString dataForObject:self forType:NSHTMLPboardType];
 		NSData *rtfData = [NSString dataForObject:self forType:NSRTFPboardType];
@@ -284,7 +294,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 	}
 	if ([self identifier]) {
 		[pboard addTypes:[NSArray arrayWithObject:QSPasteboardObjectIdentifier] owner:self];
-		writeObjectToPasteboard(pboard, QSPasteboardObjectIdentifier, [self identifier]);
+        [self writeToPasteboard:pboard data:[self identifier] forType:QSPasteboardObjectIdentifier];
 	}
 	
 	[pboard addTypes:[NSArray arrayWithObject:QSPasteboardObjectAddress] owner:self];
@@ -296,7 +306,7 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 - (void)pasteboard:(NSPasteboard *)sender provideDataForType:(NSString *)type {
 	//if (VERBOSE) NSLog(@"Provide: %@", [type decodedPasteboardType]);
 	if ([type isEqualToString:QSPasteboardObjectAddress]) {
-		writeObjectToPasteboard(sender, type, [NSString stringWithFormat:@"copied object at %p", self]);
+        [self writeToPasteboard:sender data:[NSString stringWithFormat:@"copied object at %p", self] forType:type];
     } else {
 		id theData = nil;
 		id handler = [self handlerForType:type selector:@selector(dataForObject:pasteboardType:)];
@@ -304,13 +314,10 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 			theData = [handler dataForObject:self pasteboardType:type];
 		if (!theData)
 			theData = [self objectForType:type];
-		if (theData) writeObjectToPasteboard(sender, type, theData);
+		if (theData) {
+            [self writeToPasteboard:sender data:theData forType:type];
+        }
 	}
-}
-
-- (void)pasteboardChangedOwner:(NSPasteboard *)sender {
-	//if (sender == [NSPasteboard generalPasteboard] && VERBOSE)
-	//  NSLog(@"%@ Lost the Pasteboard: %@", self, sender);
 }
 
 - (NSData *)dataForType:(NSString *)dataType {
