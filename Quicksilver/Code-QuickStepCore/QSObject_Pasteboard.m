@@ -226,6 +226,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 }
 
 // Declares the types that should be put on the pasteboard
+// NOTE: This method will become obsolete once we move to the new 10.6+ style pasteboard reading/writing. Do NOT spend a long time tweaking it ;-) (@pjrobertson)
 - (BOOL)putOnPasteboard:(NSPasteboard *)pboard declareTypes:(NSArray *)pbTypes includeDataForTypes:(NSArray *)includeTypes {
     NSMutableArray *types = nil;
 	if (!pbTypes) {
@@ -242,7 +243,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	// If there are no types for the object, we need to set one (using stringValue)
 	if (![types count]) {
 		[types addObject:NSStringPboardType];
-		[[self dataDictionary] setObject:[self stringValue] forKey:NSStringPboardType];
+		[self setObject:[self stringValue] forType:NSStringPboardType];
 	}
 	
 	// define the types to be included on the pasteboard
@@ -251,7 +252,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
             // Backwards incompatibility with the old way of writing to the pasteboard (NSFilenamesPboardType) which doens't play nicely with UTIs (public.data)
 			includeTypes = [NSArray arrayWithObject:NSFilenamesPboardType];
             [types addObject:NSFilenamesPboardType];
-            [data setObject:[self arrayForType:QSFilePathType] forKey:NSFilenamesPboardType];
+            [self setObject:[self arrayForType:QSFilePathType] forType:NSFilenamesPboardType];
 		//			[pboard declareTypes:includeTypes owner:self];
         } else if ([types containsObject:NSURLPboardType]) {
 			// for urls, define plain text, rtf and html
@@ -282,8 +283,8 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 		NSData *htmlData = [NSString dataForObject:self forType:NSHTMLPboardType];
 		NSData *rtfData = [NSString dataForObject:self forType:NSRTFPboardType];
 		// Add the HTML and RTF data to the object's data dictionary
-		[[self dataDictionary] setObject:htmlData forKey:NSHTMLPboardType];	
-		[[self dataDictionary] setObject:rtfData forKey:NSRTFPboardType];
+		[self setObject:htmlData forType:NSHTMLPboardType];
+		[self setObject:rtfData forType:NSRTFPboardType];
 	}
 	
 	for (NSString *thisType in includeTypes) {
