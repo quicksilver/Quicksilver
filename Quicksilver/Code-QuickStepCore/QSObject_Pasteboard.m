@@ -47,46 +47,30 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 @implementation QSObject (Pasteboard)
 
 - (id)pasteboardPropertyListForType:(NSString *)type {
-    id obj = [self objectForType:type];
-    if ([obj respondsToSelector:@selector(pasteboardPropertyListForType:)]) {
-        obj = [obj pasteboardPropertyListForType:type];
+    if ([type isEqualToString:QSFilePathType]) {
+        return [[NSURL fileURLWithPath:[self objectForType:QSFilePathType]] pasteboardPropertyListForType:QSFilePathType];
     }
-    return obj;
-}
-
-- (NSArray *)writableTypesForPasteboard:(NSPasteboard *)pasteboard {
-    NSMutableArray *types = [NSMutableArray new];
-    // get the different pboard types from the object's data dictionary -- they're all stored here
-    if ([self identifier]) {
-		[types addObject:QSPasteboardObjectIdentifier];;
-	}
-	
-	[types addObject:QSPasteboardObjectAddress];
     
-    types = [[[self dataDictionary] allKeys] mutableCopy];
-    if ([types containsObject:QSProxyType])
-        [types addObjectsFromArray:[[[self resolvedObject] dataDictionary] allKeys]];
-	
-	// If there are no types for the object, we need to set one (using stringValue)
-	if (![types count]) {
-		[types addObject:NSPasteboardTypeString];
-		[[self dataDictionary] setObject:[self stringValue] forKey:QSTextType];
-	}
-    if ([types containsObject:NSFilenamesPboardType]) {
-        [types removeObject:NSFilenamesPboardType];
-    }
-    id typeData;
-    for (NSString *type in types) {
-        typeData = [[self dataDictionary] objectForKey:type];
-        if ([typeData respondsToSelector:@selector(writableTypesForPasteboard:)]) {
-            [types addObjectsFromArray:[typeData writableTypesForPasteboard:pasteboard]];
+    if (type isEqualToString:QSPasteboardObjectAddress) {
+        if (QSLib.pasteboardI) {
+            <#statements#>
         }
     }
-    return types;
+    id obj = [self objectForType:type];
+    if ([obj respondsToSelector:@selector(pasteboardPropertyListForType:)]) {
+        return [obj pasteboardPropertyListForType:type];
+    }
+    return nil;
 }
 
-- (id)pasteboardPropertyListForType:(NSString *)type {
-    
+
+- (NSArray *)writableTypesForPasteboard:(NSPasteboard *)pasteboard {
+    NSString *type = [self primaryType];
+    if (!QSIsUTI(type)) {
+        NSLog(@"Object %@ does not have a primary type which is a UTI (primary type is %@). This is a fatal flaw as of QS v2.0", self, type);
+        return nil;
+    }
+    return @[type, QSPasteboardObjectAddress, QSPasteboardObjectIdentifier];
 }
 
 
