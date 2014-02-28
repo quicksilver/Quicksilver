@@ -39,7 +39,7 @@
 		[self setName:aName];
 		[self setPrimaryType:aType];
 		[data setObject:string forKey:aType];
-		[data setObject:string forKey:NSStringPboardType];
+		[data setObject:string forKey:QSTextType];
 	}
 	return self;
 }

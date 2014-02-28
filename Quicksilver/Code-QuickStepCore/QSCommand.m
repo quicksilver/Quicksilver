@@ -559,7 +559,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
     QSObject *indirectObject = [self iObject];
     NSString *format = [actionObject commandFormat];
 	if (format)
-        return [NSString stringWithFormat:format, [directObject name], (indirectObject ? [indirectObject name] : @"<?>")];
+        return [NSString stringWithFormat:format, [directObject displayName], (indirectObject ? [indirectObject displayName] : @"<?>")];
 	else
 		return [NSString stringWithFormat:@"[Action Missing: %@] ", [[self commandDict] objectForKey:@"actionID"]];
 }

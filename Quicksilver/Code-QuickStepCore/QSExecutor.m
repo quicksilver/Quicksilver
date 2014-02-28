@@ -418,7 +418,7 @@ QSExecutor *QSExec = nil;
 
 	// NSLog(@"Actions for %@:%@", [dObject name] , validActions);
 	if (![validActions count]) {
-		NSLog(@"unable to find actions for %@", actionIdentifiers);
+		NSLog(@"unable to find actions for %@", [dObject displayName]);
 		NSLog(@"types %@ %@", [NSSet setWithArray:[dObject types]], UTI);
 	}
 	return [validActions mutableCopy];

@@ -163,11 +163,11 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 }
 
 - (void)guessName {
-	if (itemForKey(NSFilenamesPboardType) ) {
-		[self setPrimaryType:NSFilenamesPboardType];
+	if (itemForKey(QSFilePathType) ) {
+		[self setPrimaryType:QSFilePathType];
 		[self getNameFromFiles];
 	} else {
-        NSString *textString = itemForKey(NSStringPboardType);
+        NSString *textString = itemForKey(QSTextType);
         // some objects (images from the web) don't have a text string but have a URL
         if (!textString) {
             textString = itemForKey(NSURLPboardType);
