@@ -3,6 +3,7 @@
 
 extern NSString *QSFilePathType; 		//NSString
 extern NSString *QSTextType; 			//NSString
+extern NSString *QSRTFTextType;                   //NSString
 extern NSString *QSAliasDataType; 		//NSData
 extern NSString *QSAliasFilePathType; 	//NSString
 extern NSString *QSURLType; 				//NSString

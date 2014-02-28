@@ -10,6 +10,7 @@
 
 NSString *QSFilePathType = @"public.data";
 NSString *QSTextType = @"public.utf8-plain-text";
+NSString *QSRTFTextType = @"public.rtf";
 NSString *QSAliasDataType = @"public.data.alias";
 NSString *QSAliasFilePathType = @"public.alias";
 NSString *QSURLType = @"public.url";

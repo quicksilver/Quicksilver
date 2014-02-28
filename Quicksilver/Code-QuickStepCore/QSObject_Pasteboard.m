@@ -31,7 +31,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 @implementation QSObject (Pasteboard)
 
 + (NSArray *)readableTypesForPasteboard:(NSPasteboard *)pasteboard {
-    return @[QSPasteboardObjectAddress, QSPasteboardObjectIdentifier, (__bridge NSString*)kUTTypeFileURL, (__bridge NSString *)kUTTypeURL, (__bridge NSString *)kUTTypeContact, QSTextType, QSFilePathType, (__bridge NSString *)kUTTypeItem];
+    return @[QSPasteboardObjectAddress, QSPasteboardObjectIdentifier, (__bridge NSString*)kUTTypeFileURL, (__bridge NSString *)kUTTypeURL, (__bridge NSString *)kUTTypeContact, QSRTFTextType, QSTextType, QSFilePathType, (__bridge NSString *)kUTTypeItem];
 }
 
 - (id)initWithPasteboardPropertyList:(id)propertyList ofType:(NSString *)type {
@@ -39,13 +39,25 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
     if ([type isEqualToString:QSPasteboardObjectAddress]) {
         self = QSLib.pasteboardObject;
     }
+    
+    if (!self && [type isEqualToString:QSRTFTextType]) {
+        NSAttributedString *str = [[NSAttributedString alloc] initWithRTF:propertyList documentAttributes:nil];
+        self = [QSObject objectWithString:[str string]];
+        [self setPrimaryType:QSRTFTextType];
+        [self setObject:str forType:QSRTFTextType];
+    }
+    
+    // All the following methods take strings, and not data, so we must convert any pasteboard data to strings before using
+    if ([propertyList isKindOfClass:[NSData class]]) {
+        propertyList = [[NSString alloc] initWithData:propertyList encoding:NSUTF8StringEncoding];
+    }
     if (!self && [type isEqualToString:QSPasteboardObjectIdentifier]) {
         self = [QSLib objectWithIdentifier:propertyList];
     }
+    if (!self && [type isEqualToString:QSURLType]) {
+        self = [QSObject URLObjectWithURL:propertyList title:nil];
+    }
     if (!self && [type isEqualToString:(__bridge NSString *)kUTTypeFileURL]) {
-        if ([propertyList isKindOfClass:[NSData class]]) {
-            propertyList = [[NSString alloc] initWithData:propertyList encoding:NSUTF8StringEncoding];
-        }
         self = [QSObject fileObjectWithFileURL:[[NSURL alloc] initWithPasteboardPropertyList:propertyList ofType:type]];
     }
     if (!self && [type isEqualToString:QSTextType]) {
@@ -56,9 +68,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 
 - (id)pasteboardPropertyListForType:(NSString *)type {
     if ([type isEqualToString:QSPasteboardObjectAddress]) {
-        if (QSLib.pasteboardObject) {
-            [NSString stringWithFormat:@"Copied Quicksilver object in memory: %p", self];
-        }
+        return [NSString stringWithFormat:@"Copied Quicksilver object in memory: %p", self];
     }
     if ([type isEqualToString:QSPasteboardObjectIdentifier]) {
         return [self identifier];
@@ -228,7 +238,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
         static NSArray *keys = nil;
         if (!keys) {
             // Use an array for the keys since the order is important
-            keys = [NSArray arrayWithObjects:[@"'icns'" encodedPasteboardType],NSPostScriptPboardType,NSTIFFPboardType,NSColorPboardType,NSFileContentsPboardType,NSFontPboardType,NSPasteboardTypeRTF,NSHTMLPboardType,NSRulerPboardType,NSTabularTextPboardType,NSVCardPboardType,NSFilesPromisePboardType,NSPDFPboardType,QSTextType,nil];
+            keys = [NSArray arrayWithObjects:[@"'icns'" encodedPasteboardType], NSPostScriptPboardType, NSTIFFPboardType,NSColorPboardType, NSFileContentsPboardType, NSFontPboardType, NSPasteboardTypeRTF, NSHTMLPboardType,NSRulerPboardType, NSTabularTextPboardType, NSVCardPboardType, NSFilesPromisePboardType,NSPDFPboardType,QSTextType,nil];
 
         }
         if (!namesAndKeys) {
