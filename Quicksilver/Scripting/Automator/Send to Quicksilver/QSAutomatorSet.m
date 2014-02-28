@@ -21,8 +21,10 @@
 
 - (id)runWithInput:(id)input fromAction:(AMAction *)anAction error:(NSDictionary **)errorInfo
 {
-	NSBundle *bundle = [anAction respondsToSelector:@selector(bundle)] ?[anAction bundle] :nil;
-//	NSLog(@"Bundle %@", bundle);
+	NSBundle *bundle = nil;
+    if ([anAction respondsToSelector:@selector(bundle)]) {
+        bundle = [(AMBundleAction *)anAction bundle];
+    }
 
 	NSArray *types = [[anAction providesDictionary] objectForKey:@"Types"];
 
