@@ -120,7 +120,10 @@
             // by using this fall through pattern, we will remain compatible if the context get more precise in the future.
         case NSDraggingContextWithinApplication:
         default:
-            return NO;
+            if (self == [[self controller] aSelector]) {
+                return NO;
+            }
+            return YES;
             break;
     }
 }
@@ -226,10 +229,12 @@
 	[self setDragAction:nil];
 	lastDragMask = NSDragOperationNone;
 
-	if ([[sender draggingSource] isKindOfClass:[self class]])
+	if ([[sender draggingSource] isKindOfClass:[self class]]) {
 		[self setDraggedObject:[[sender draggingSource] objectValue]];
-	else
-		[self setDraggedObject:[QSObject objectWithPasteboard:[sender draggingPasteboard]]];
+	} else {
+        NSArray *objects = [[sender draggingPasteboard] readObjectsForClasses:@[[QSObject class]] options:nil];
+		[self setDraggedObject:[QSObject objectByMergingObjects:objects]];
+    }
 	return [self draggingUpdated:sender];
 }
 
