@@ -435,8 +435,9 @@
 		if (ranker && abbreviationString) {
 			nameString = [ranker matchedStringForAbbreviation:abbreviationString hitmask:&hitMask inContext:nil];
         }
-        
-		if (!nameString) nameString = [drawObject displayName];
+		if (!nameString) {
+            nameString = [drawObject displayName];
+        }
         BOOL rankedStringIsName = [nameString isEqualToString:[drawObject displayName]] || nameString == nil;
         if (!nameString) {
             // fall back to the identifier if no reasonable name can be found
@@ -453,6 +454,17 @@
         
 		NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:nameString];
         [titleString setAttributes:rankedStringIsName ? nameAttributes : detailsAttributes range:NSMakeRange(0, [titleString length])];
+        if ([[drawObject primaryType] isEqualToString:QSRTFTextType]) {
+            id primaryObject = [drawObject primaryObject];
+            if ([primaryObject isKindOfClass:[NSData class]]) {
+                primaryObject = [[NSAttributedString alloc] initWithRTF:primaryObject documentAttributes:nil];
+            }
+            if ([primaryObject isKindOfClass:[NSAttributedString class]]) {
+                [primaryObject enumerateAttributesInRange:NSMakeRange(0, [titleString length]) options:0 usingBlock:^(NSDictionary *attrs, NSRange range, BOOL *stop) {
+                    [titleString setAttributes:attrs range:range];
+                }];
+            }
+        }
         
         
 		if (abbreviationString && ![abbreviationString hasPrefix:@"QSActionMnemonic"]) {
