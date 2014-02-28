@@ -3,8 +3,8 @@
 #import "QSObject_FileHandling.h"
 #import "QSObject_StringHandling.h"
 
-NSString *QSPasteboardObjectIdentifier = @"QSObjectID";
-NSString *QSPasteboardObjectAddress = @"QSObjectAddress";
+NSString *QSPasteboardObjectIdentifier = @"com.qsapp.quicksilver.qsobject-id";
+NSString *QSPasteboardObjectAddress = @"com.qsapp.quicksilver.qsobject-address";
 
 #define QSPasteboardIgnoredTypes [NSArray arrayWithObjects:QSPasteboardObjectAddress, @"CorePasteboardFlavorType 0x4D555246", @"CorePasteboardFlavorType 0x54455854", nil]
 
@@ -45,6 +45,51 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 }
 
 @implementation QSObject (Pasteboard)
+
+- (id)pasteboardPropertyListForType:(NSString *)type {
+    id obj = [self objectForType:type];
+    if ([obj respondsToSelector:@selector(pasteboardPropertyListForType:)]) {
+        obj = [obj pasteboardPropertyListForType:type];
+    }
+    return obj;
+}
+
+- (NSArray *)writableTypesForPasteboard:(NSPasteboard *)pasteboard {
+    NSMutableArray *types = [NSMutableArray new];
+    // get the different pboard types from the object's data dictionary -- they're all stored here
+    if ([self identifier]) {
+		[types addObject:QSPasteboardObjectIdentifier];;
+	}
+	
+	[types addObject:QSPasteboardObjectAddress];
+    
+    types = [[[self dataDictionary] allKeys] mutableCopy];
+    if ([types containsObject:QSProxyType])
+        [types addObjectsFromArray:[[[self resolvedObject] dataDictionary] allKeys]];
+	
+	// If there are no types for the object, we need to set one (using stringValue)
+	if (![types count]) {
+		[types addObject:NSPasteboardTypeString];
+		[[self dataDictionary] setObject:[self stringValue] forKey:QSTextType];
+	}
+    if ([types containsObject:NSFilenamesPboardType]) {
+        [types removeObject:NSFilenamesPboardType];
+    }
+    id typeData;
+    for (NSString *type in types) {
+        typeData = [[self dataDictionary] objectForKey:type];
+        if ([typeData respondsToSelector:@selector(writableTypesForPasteboard:)]) {
+            [types addObjectsFromArray:[typeData writableTypesForPasteboard:pasteboard]];
+        }
+    }
+    return types;
+}
+
+- (id)pasteboardPropertyListForType:(NSString *)type {
+    
+}
+
+
 + (id)objectWithPasteboard:(NSPasteboard *)pasteboard {
 	id theObject = nil;
 
@@ -247,6 +292,9 @@ bool writeObjectToPasteboard(NSPasteboard *pasteboard, NSString *type, id data) 
 	if (!includeTypes) {
 		if ([types containsObject:NSFilenamesPboardType] || [types containsObject:QSFilePathType]) {
 			includeTypes = [NSArray arrayWithObject:NSFilenamesPboardType];
+            if (![data objectForKey:NSFilenamesPboardType]) {
+                [data setObject:[self arrayForType:QSFilePathType] forKey:NSFilenamesPboardType];
+            }
 		//			[pboard declareTypes:includeTypes owner:self];
         } else if ([types containsObject:NSURLPboardType]) {
 			// for urls, define plain text, rtf and html

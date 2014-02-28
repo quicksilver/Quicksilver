@@ -35,24 +35,8 @@
 	return nil;
 }
 
-- (void)viewDidMoveToWindow {
-//	NSMutableParagraphStyle *truncatedStyle = [[[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
-//	[truncatedStyle setLineBreakMode:NSLineBreakByTruncatingMiddle];
-
-	//detailAttributes = [[NSDictionary dictionaryWithObjectsAndKeys:
-//		[NSFont systemFontOfSize:10] , NSFontAttributeName,
-//		[NSColor grayColor] , NSForegroundColorAttributeName,
-//		truncatedStyle, NSParagraphStyleAttributeName,
-//		nil] retain];
-	//NSLog(@"move");
-//	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setNeedsDisplay:) name:NSSystemColorsDidChangeNotification object:nil];
-
-}
-
 - (void)awakeFromNib {
-////	[self viewDidMoveToWindow];
 	[self registerForDraggedTypes:[NSArray arrayWithObjects:NSURLPboardType, NSColorPboardType, NSFileContentsPboardType, NSFilenamesPboardType, NSFontPboardType, NSHTMLPboardType, NSPDFPboardType, NSPostScriptPboardType, NSRulerPboardType, NSRTFPboardType, NSRTFDPboardType, NSStringPboardType, NSTabularTextPboardType, NSTIFFPboardType, NSURLPboardType, NSVCardPboardType, NSFilesPromisePboardType, nil]];
-	// [self setToolTip:@"No Selection"];
 	draggedObject = nil;
 	[self setDropMode:QSFullDropMode];
 }
@@ -79,54 +63,68 @@
 
 - (void)setImage:(NSImage *)image {}
 
-- (void)mouseDown:(NSEvent *)theEvent {
-	//BOOL isInside = YES;
-	//NSPoint mouseLoc;
-
-	theEvent = [[self window] nextEventMatchingMask: NSLeftMouseUpMask | NSLeftMouseDraggedMask];
-	//mouseLoc = [self convertPoint:[theEvent locationInWindow] fromView:nil];
-	//isInside = [self mouse:mouseLoc inRect:[self bounds]];
-
-	switch ([theEvent type]) {
-		case NSLeftMouseDragged:
-			performingDrag = YES;
-			// [super mouseDragged:theEvent];
-			if ([self objectValue]) {
-				NSRect reducedRect = [self frame];
-				//reducedRect.size.width = MIN(NSWidth([self frame]), 52+MAX([[[self objectValue] name] sizeWithAttributes:nil] .width, [[[self objectValue] details] sizeWithAttributes:detailAttributes] .width) );
-				NSImage *dragImage = [[NSImage alloc] initWithSize:reducedRect.size];
-				[dragImage lockFocus];
-				[[self cell] drawInteriorWithFrame:NSMakeRect(0, 0, [dragImage size] .width, [dragImage size] .height) inView:self];
-				[dragImage unlockFocus];
-//				NSSize dragOffset = NSMakeSize(0.0, 0.0); // Just use NSZeroSize: Ankur, 21 Dec
-				if (!([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) ) {
-					NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSDragPboard];
-					[[self objectValue] putOnPasteboard:pboard includeDataForTypes:nil];
-					[self dragImage:[dragImage imageWithAlphaComponent:0.5] at:NSZeroPoint offset:NSZeroSize event:theEvent pasteboard:pboard source:self slideBack:!([[NSApp currentEvent] modifierFlags] & NSCommandKeyMask)];
-				} else {
-					NSPoint dragPosition;
-					NSRect imageLocation;
-					dragPosition = [self convertPoint:[theEvent locationInWindow] fromView:nil];
-					dragPosition.x -= 16;
-					dragPosition.y -= 16;
-					imageLocation.origin = dragPosition;
-					imageLocation.size = QSSize32;
-					[self dragPromisedFilesOfTypes:[NSArray arrayWithObject:@"silver"] fromRect:imageLocation source:self slideBack:YES event:theEvent];
-				}
-
-			}
-		break;
-		case NSLeftMouseUp:
-			[self mouseClicked:theEvent];
-		break;
-		default:
-		break;
-	}
-
-	return;
+- (void)mouseClicked:(NSEvent *)theEvent {
+    
 }
 
-- (void)mouseClicked:(NSEvent *)theEvent {}
+- (void)mouseDown:(NSEvent *)theEvent {
+    // must be overridden, otherwise the mouseDragged: method is never called
+}
+
+- (void)mouseDragged:(NSEvent *)theEvent {
+    
+	switch ([theEvent type]) {
+		case NSLeftMouseDragged: {
+            QSObject *objectValue = [self objectValue];
+			if (objectValue) {
+                NSDraggingItem *dragItem = [[NSDraggingItem alloc] initWithPasteboardWriter:objectValue];
+                NSRect bounds = self.bounds;
+                dragItem.draggingFrame = bounds;
+                draggingFrame = CGRectNull;
+                [self setupDraggingImage:dragItem];
+
+                NSDraggingSession *draggingSession = [self beginDraggingSessionWithItems:[NSArray arrayWithObject:dragItem] event:theEvent source:self];
+                //causes the dragging item to slide back to the source if the drag fails.
+                draggingSession.animatesToStartingPositionsOnCancelOrFail = YES;
+                
+                draggingSession.draggingFormation = NSDraggingFormationNone;
+                dragIsInView = YES;
+            }
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+-(void)setupDraggingImage:(NSDraggingItem*)dragItem {
+    __weak QSObjectView *weakSelf = self;
+    dragItem.imageComponentsProvider = ^{
+        NSDraggingImageComponent *imageComponent = [NSDraggingImageComponent draggingImageComponentWithKey:NSDraggingImageComponentIconKey];
+        NSRect imageRect = [(QSObjectCell *)weakSelf.cell imageRectForBounds:weakSelf.bounds];
+        imageComponent.frame = imageRect;
+        NSImage *img = [weakSelf.cell image];
+        [img setSize:imageRect .size];
+        imageComponent.contents = img;
+        return @[imageComponent];
+    };
+}
+
+
+- (NSDragOperation)draggingSession:(NSDraggingSession *)session sourceOperationMaskForDraggingContext:(NSDraggingContext)context {
+    // This demo does not allow dragging from this view to the Finder or other application
+    switch (context) {
+        case NSDraggingContextOutsideApplication:
+            return YES;
+            
+            // by using this fall through pattern, we will remain compatible if the context get more precise in the future.
+        case NSDraggingContextWithinApplication:
+        default:
+            return NO;
+            break;
+    }
+}
+
 
 - (BOOL)needsPanelToBecomeKey {
 	return YES;
@@ -218,22 +216,11 @@
 	// [self setNeedsDisplay:YES];
 }
 
-- (NSUInteger) draggingSourceOperationMaskForLocal:(BOOL)isLocal {
-	if (isLocal) return NSDragOperationMove;
-	else return ([[NSApp currentEvent] modifierFlags] & NSCommandKeyMask) ? NSDragOperationNone : NSDragOperationEvery;
-}
-
-- (void)draggedImage:(NSImage *)anImage endedAt:(NSPoint)aPoint operation:(NSDragOperation)operation {
-	performingDrag = NO;
-//	NSLog(@"ended at %f %f %d", aPoint.x, aPoint.y, operation);
-	//	if (operation == NSDragOperationNone) NSShowAnimationEffect(NSAnimationEffectDisappearingItemDefault, aPoint, NSZeroSize, nil, nil, nil);
-	//	if (operation == NSDragOperationMove) [self removeFromSuperview];
-}
 
 //Dragging
 
 - (NSDragOperation) draggingEntered:(id <NSDraggingInfo>)sender {
-	if (![self acceptsDrags] || performingDrag || ([self objectValue] && ![[self objectValue] respondsToSelector: @selector(actionForDragOperation:withObject:)]))
+	if (![self acceptsDrags] || ([self objectValue] && ![[self objectValue] respondsToSelector: @selector(actionForDragOperation:withObject:)]))
 		return NSDragOperationNone;
 
 	[self setDragAction:nil];

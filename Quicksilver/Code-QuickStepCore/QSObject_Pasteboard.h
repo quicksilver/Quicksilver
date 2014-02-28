@@ -7,7 +7,7 @@
 extern NSString *QSPasteboardObjectIdentifier;
 extern NSString *QSPasteboardObjectAddress;
 
-@interface QSObject (Pasteboard)
+@interface QSObject (Pasteboard) <NSPasteboardWriting>
 + (id)objectWithPasteboard:(NSPasteboard *)pasteboard;
 - (id)initWithPasteboard:(NSPasteboard *)pasteboard;
 - (void)addContentsOfPasteboard:(NSPasteboard *)pasteboard types:(NSArray *)types;

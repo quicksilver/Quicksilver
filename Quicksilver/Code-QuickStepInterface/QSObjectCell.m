@@ -171,6 +171,7 @@
 	if ([self isBezeled] && NSHeight(theRect) <= 20) {
 		theRect.origin.y += 1 + ((NSHeight(theRect)-16) / 2);
 		theRect.size.height = 15;
+        theRect.size.width = 15;
 
 	}
 	if (!NSEqualSizes(iconSize, NSZeroSize) ) {
