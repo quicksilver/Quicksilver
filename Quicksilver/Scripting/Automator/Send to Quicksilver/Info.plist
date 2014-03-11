@@ -11,6 +11,8 @@
 		<key>Types</key>
 		<array>
 			<string>com.apple.cocoa.path</string>
+			<string>com.apple.cocoa.url</string>
+			<string>com.apple.cocoa.string</string>
 		</array>
 	</dict>
 	<key>AMApplication</key>

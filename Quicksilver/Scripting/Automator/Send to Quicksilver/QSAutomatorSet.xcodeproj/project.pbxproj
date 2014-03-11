@@ -202,10 +202,8 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				INFOPLIST_FILE = Info.plist;
 				OTHER_OSAFLAGS = "-x -t 0 -c 0";
-				PREBINDING = NO;
 				PRODUCT_NAME = "Send to Quicksilver";
 				WRAPPER_EXTENSION = action;
-				ZERO_LINK = YES;
 			};
 			name = Debug;
 		};
@@ -215,10 +213,8 @@
 			buildSettings = {
 				INFOPLIST_FILE = Info.plist;
 				OTHER_OSAFLAGS = "-x -t 0 -c 0";
-				PREBINDING = NO;
 				PRODUCT_NAME = "Send to Quicksilver";
 				WRAPPER_EXTENSION = action;
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};

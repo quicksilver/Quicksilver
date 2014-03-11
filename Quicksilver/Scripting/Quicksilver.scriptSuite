@@ -12,7 +12,7 @@
 			<string>capp</string>
 			<key>Attributes</key>
 			<dict>
-				<key>AESelection</key>
+				<key>QSSelection</key>
 				<dict>
 					<key>AppleEventCode</key>
 					<string>sele</string>
