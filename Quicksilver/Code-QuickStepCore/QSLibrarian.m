@@ -59,7 +59,7 @@ static CGFloat searchSpeed = 0.0;
 		}
 		[QSLibrarian createDirectories];
 		enabledPresetsDictionary = [[NSMutableDictionary alloc] init];
-        _objectDictionary = [[NSMutableDictionary alloc] init];
+        _objectDictionary = [[QSThreadSafeMutableDictionary alloc] init];
         
 		scanTask = [QSTask taskWithIdentifier:@"QSLibrarianScanTask"];
 		[scanTask setName:@"Updating Catalog"];

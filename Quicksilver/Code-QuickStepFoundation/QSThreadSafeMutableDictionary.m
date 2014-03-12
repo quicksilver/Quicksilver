@@ -128,7 +128,9 @@ OSSpinLockUnlock(&_lock);
 }
 
 - (void)performLockedWithDictionary:(void (^)(NSDictionary *dictionary))block {
-    if (block) LOCKED(block(_dictionary));
+    if (block) {
+        LOCKED(block(_dictionary));
+    }
 }
 
 - (BOOL)isEqual:(id)object {
