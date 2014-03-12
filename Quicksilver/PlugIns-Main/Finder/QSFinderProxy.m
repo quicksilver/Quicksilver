@@ -157,6 +157,11 @@ target:
  }
  */
 
+
+- (NSTimeInterval)cacheTimeForProxy:(id)proxy {
+    return 0.5f;
+}
+
 - (BOOL)loadChildrenForObject:(QSObject *)object {
 	NSArray *newChildren = [QSObject fileObjectsWithPathArray:[self selection]];
 	[object setChildren:newChildren];

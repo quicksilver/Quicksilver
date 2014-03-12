@@ -13,6 +13,8 @@
 #import "QSNotifications.h"
 #import "QSObject_StringHandling.h"
 
+#pragma mark Proxy Cache Time
+
 @interface QSProxyObject ()
 - (NSMutableDictionary*)proxyDict;
 @end
@@ -73,7 +75,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectIconModified:) name:QSObjectIconModified object:proxy];
     }
     
-    NSTimeInterval interval = 3.0f;
+    NSTimeInterval interval = kQSDefaultProxyCacheTime;
     
     if ([provider respondsToSelector:@selector(cacheTimeForProxy:)])
         interval = [[self proxyProvider] cacheTimeForProxy:self];

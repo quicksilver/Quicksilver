@@ -623,7 +623,7 @@ NSMutableDictionary *bindingsDict = nil;
 #pragma mark -
 #pragma mark Utilities
 - (id)externalSelection {
-		return [QSGlobalSelectionProvider currentSelection];
+		return [[QSGlobalSelectionProvider sharedInstance] currentSelection];
 }
 
 - (void)dropObject:(QSBasicObject *)newSelection {
