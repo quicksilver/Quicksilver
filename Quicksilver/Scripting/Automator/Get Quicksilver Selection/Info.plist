@@ -51,13 +51,13 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>1.2</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>© 2005 Blacktree, Inc.</string>
+	<string>© 2014 QSApp.com</string>
 	<key>NSPrincipalClass</key>
 	<string>QSAutomatorGet</string>
 </dict>

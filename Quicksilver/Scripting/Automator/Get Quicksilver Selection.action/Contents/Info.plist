@@ -31,15 +31,13 @@
 		<string>List</string>
 		<key>Types</key>
 		<array>
-			<string>com.apple.applescript.object</string>
-			<string>com.apple.applescript.text-object
-
-</string>
-			<string>com.apple.applescript.data-object</string>
+			<string>com.apple.cocoa.path</string>
+			<string>com.apple.cocoa.url</string>
+			<string>com.apple.cocoa.string</string>
 		</array>
 	</dict>
 	<key>BuildMachineOSBuild</key>
-	<string>13B42</string>
+	<string>13C64</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
@@ -55,11 +53,11 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>1.2</string>
 	<key>DTCompiler</key>
 	<string>com.apple.compilers.llvm.clang.1_0</string>
 	<key>DTPlatformBuild</key>
@@ -75,7 +73,7 @@
 	<key>DTXcodeBuild</key>
 	<string>5A3005</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>© 2005 Blacktree, Inc.</string>
+	<string>© 2014 QSApp.com</string>
 	<key>NSPrincipalClass</key>
 	<string>QSAutomatorGet</string>
 </dict>
