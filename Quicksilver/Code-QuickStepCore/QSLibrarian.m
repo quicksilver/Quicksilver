@@ -309,9 +309,7 @@ static CGFloat searchSpeed = 0.0;
 
 
 - (void)reloadSets:(NSNotification *)notif {
-    @synchronized (self.objectDictionary) {
-        [self.objectDictionary removeAllObjects];
-    }
+    [self.objectDictionary removeAllObjects];
 	//NSLog(@"cat %@ %@", catalog, [catalog leafEntries]);
     for(QSCatalogEntry * entry in [catalog leafEntries]) {
         NSArray *entryContents = [[entry contents] copy];
@@ -462,18 +460,14 @@ static CGFloat searchSpeed = 0.0;
 - (void)setIdentifier:(NSString *)ident forObject:(QSObject *)obj
 {
     if (ident) {
-        @synchronized (self.objectDictionary) {
-            [self.objectDictionary setObject:obj forKey:ident];
-        }
+        [self.objectDictionary setObject:obj forKey:ident];
     }
 }
 
 - (void)removeObjectWithIdentifier:(NSString *)ident
 {
     if (ident) {
-        @synchronized (self.objectDictionary) {
-            [self.objectDictionary removeObjectForKey:ident];
-        }
+        [self.objectDictionary removeObjectForKey:ident];
     }
 }
 
@@ -709,7 +703,6 @@ static CGFloat searchSpeed = 0.0;
         }
     }
 }
-
 
 - (NSMutableDictionary *)appSearchArrays { return appSearchArrays;  }
 
