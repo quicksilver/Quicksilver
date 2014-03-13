@@ -8,7 +8,7 @@
 		<dict>
 			<key>Attributes</key>
 			<dict>
-				<key>AESelection</key>
+				<key>QSSelection</key>
 				<dict>
 					<key>Description</key>
 					<string>current selection</string>

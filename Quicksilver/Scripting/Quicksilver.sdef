@@ -11,7 +11,7 @@
 		<class name="application" code="capp">
 			<cocoa class="NSApplication"/>
 			<property name="selection" code="sele" description="current selection" type="any" access="rw">
-				<cocoa key="AESelection"/>
+				<cocoa key="QSSelection"/>
 			</property>
 		</class>
 		<!-- 					<class name="task" code="qtsk" description="quicksilver task" plural="tasks" inherits="item"> -->

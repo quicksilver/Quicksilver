@@ -10,8 +10,8 @@
 
 
 @protocol QSController
-- (void)setAESelection:(NSAppleEventDescriptor *)desc types:(NSArray *)types;
-- (NSAppleEventDescriptor *)AESelection;
+- (void)setQSSelection:(id)sel;
+- (id)QSSelection;
 @end
 
 @interface AMAction (Private)
@@ -21,21 +21,17 @@
 
 - (id)runWithInput:(id)input fromAction:(AMAction *)anAction error:(NSDictionary **)errorInfo
 {
-	NSBundle *bundle = [anAction respondsToSelector:@selector(bundle)] ?[anAction bundle] :nil;
-//	NSLog(@"Bundle %@", bundle);
-
-	NSArray *types = [[anAction providesDictionary] objectForKey:@"Types"];
-
-//	if ([[types objectAtIndex:0] isEqualToString:@"*"])
-//		NSDictionary *param = [anAction parameters];
-//		param objectForKey @"fromApplication"
+	NSBundle *bundle = nil;
+    if ([anAction respondsToSelector:@selector(bundle)]) {
+        bundle = [(AMBundleAction *)anAction bundle];
+    }
 
 	// Add your code here, returning the data to be passed to the next action.
 	NSConnection *connection = [NSConnection connectionWithRegisteredName:@"QuicksilverControllerConnection" host:nil];
 	id proxy = [connection rootProxy];
 	if (proxy) {
 		[proxy setProtocolForProxy:@protocol(QSController)];
-		[proxy setAESelection:input types:types];
+		[proxy setQSSelection:input];
 	} else {
 		NSLog(@"Unable to connect to Quicksilver");
 	}

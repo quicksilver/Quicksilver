@@ -9,8 +9,8 @@
 #import "QSAutomatorGet.h"
 
 @protocol QSController
-- (void)setAESelection:(NSAppleEventDescriptor *)desc;
-- (NSAppleEventDescriptor *)AESelection;
+- (void)setQSSelection:(id)sel;
+- (id)QSSelection;
 @end
 
 
@@ -24,7 +24,7 @@
 	if (proxy) {
 		[proxy setProtocolForProxy:@protocol(QSController)];
 
-		id selection = [proxy AESelection];
+		id selection = [proxy QSSelection];
 		NSLog(@"recieved selection %@", selection);
 		return selection;
 	} else {
