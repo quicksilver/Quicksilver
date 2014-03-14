@@ -42,6 +42,7 @@
 -(void)setWindowHeight:(CGFloat)aHeight animate:(BOOL)animate {
     NSRect frame = [[self window] frame];
     CGFloat originy = frame.origin.y;
+    NSRect screenRect = [[[self window] screen] frame];
 
     // Values for aHeight: -ive indicates shrinkage, +ive indicates expand. 0 indicates use initial height
     if (aHeight == 0) {
@@ -51,8 +52,9 @@
         originy -= aHeight;
         aHeight = frame.size.height + aHeight;
     }
+    NSRect newWindowRect = NSMakeRect(frame.origin.x, originy, frame.size.width,aHeight);
 
-    [[self window] setFrame:NSMakeRect(frame.origin.x, originy, frame.size.width,aHeight) display:YES animate:animate];
+    [[self window] setFrame:NSIntersectionRect(newWindowRect, screenRect) display:YES animate:animate];
 }
 
 - (void)dealloc {
