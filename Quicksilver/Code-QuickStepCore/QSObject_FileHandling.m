@@ -725,6 +725,10 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     if ([[[self infoRecord] objectForKey:NSURLIsExecutableKey] boolValue]) {
         return YES;
     }
+    CFStringRef uti = (__bridge CFStringRef)[self fileUTI];
+    if (UTTypeConformsTo(uti, CFSTR("public.script")) || UTTypeConformsTo(uti, CFSTR("public.executable"))) {
+        return YES;
+    }
     NSFileHandle * fileHandle = [NSFileHandle fileHandleForReadingAtPath:[self singleFilePath]];
     // Read in the first 5 bytes of the file to see if it contains #! (5 bytes, because some files contain byte order marks (3 bytes)
     NSData * buffer = [fileHandle readDataOfLength:5];
