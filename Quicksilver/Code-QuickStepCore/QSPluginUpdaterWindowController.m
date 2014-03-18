@@ -46,7 +46,7 @@
 
     // Values for aHeight: -ive indicates shrinkage, +ive indicates expand. 0 indicates use initial height
     if (aHeight == 0) {
-        // 121 is the 'extra' height of the window
+        // 111 is the 'extra' height of the window
         aHeight = [pluginsArray count]*kExpandHeight+111;
     } else {
         originy -= aHeight;
