@@ -60,8 +60,12 @@
 	for (NSURL *theURL in enumerator) {
         file = [theURL path];
 		aliasSource = nil; aliasFile = nil;
-        [theURL getResourceValue:&URLIsSymbolicLink forKey:NSURLIsSymbolicLinkKey error:nil];
-		if ([URLIsSymbolicLink boolValue]) {
+        NSError *err;
+        NSDictionary *resources = [theURL resourceValuesForKeys:@[NSURLIsSymbolicLinkKey, NSURLIsDirectoryKey, NSURLTypeIdentifierKey, NSURLIsPackageKey] error:&err];
+        if (err) {
+            NSLog(@"Unable to retrieve info for file %@.\n%@", file, err);
+        }
+		if ([resources[URLIsSymbolicLink] boolValue]) {
             /* If this is an alias, try to resolve it to get the remaining checks right */
             NSString *targetFile = [manager resolveAliasAtPath:file];
             if (targetFile) {
@@ -71,10 +75,9 @@
                 [manager fileExistsAtPath:file isDirectory:&isDirectory];
 			}
 		} else {
-            [theURL getResourceValue:&URLIsDirectory forKey:NSURLIsDirectoryKey error:nil];
-            isDirectory = [URLIsDirectory boolValue];
+            isDirectory = [resources[URLIsDirectory] boolValue];
         }
-        type = [manager UTIOfFile:file];
+        type = resources[NSURLTypeIdentifierKey];
         // if we are an alias or the file has no reason to be included
         BOOL include = NO;
         if (![types count]) {
@@ -101,8 +104,7 @@
         }
         
         BOOL shouldDescend = YES;
-        [theURL getResourceValue:&URLIsPackage forKey:NSURLIsPackageKey error:nil];
-        if ([URLIsPackage boolValue] && !descendIntoBundles)
+        if ([resources[URLIsPackage] boolValue] && !descendIntoBundles)
             shouldDescend = NO;
         
         if (depth && isDirectory && shouldDescend) {
