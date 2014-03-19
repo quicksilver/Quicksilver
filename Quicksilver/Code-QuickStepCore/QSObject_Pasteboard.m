@@ -109,7 +109,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
             sourceApp = source;
         }
 
-		[self setDataDictionary:[NSMutableDictionary dictionaryWithCapacity:[[pasteboard types] count]]];
+		[self setDataDictionary:[QSThreadSafeMutableDictionary dictionaryWithCapacity:[[pasteboard types] count]]];
 		[self addContentsOfPasteboard:pasteboard types:types];
 
 		[self setObject:source forMeta:kQSObjectSource];
