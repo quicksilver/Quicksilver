@@ -662,7 +662,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     NSURL *fileURL = [NSURL fileURLWithPath:[path stringByResolvingSymlinksInPath]];
 
     NSError *err = nil;
-    dict = [fileURL resourceValuesForKeys:@[NSURLTypeIdentifierKey, NSURLIsDirectoryKey, NSURLIsAliasFileKey, NSURLIsPackageKey, NSURLLocalizedLabelKey, NSURLLocalizedNameKey, NSURLVolumeURLKey] error:&err];
+    dict = [fileURL resourceValuesForKeys:@[NSURLTypeIdentifierKey, NSURLIsDirectoryKey, NSURLIsAliasFileKey, NSURLIsPackageKey, NSURLLocalizedLabelKey, NSURLLocalizedNameKey, NSURLVolumeURLKey, NSURLIsExecutableKey, NSURLIsWritableKey, NSURLLabelColorKey] error:&err];
     NSMutableDictionary *mutableDict = [dict mutableCopy];
 
     if (err) {
@@ -721,14 +721,22 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 }
 
 - (BOOL)isExecutable {
-    if ([[[self infoRecord] objectForKey:NSURLIsExecutableKey] boolValue]) {
-        return YES;
-    }
+    return [[[self infoRecord] objectForKey:NSURLIsExecutableKey] boolValue];
+}
+
+- (BOOL)canBeExecutedByScript {
     CFStringRef uti = (__bridge CFStringRef)[self fileUTI];
     if (UTTypeConformsTo(uti, CFSTR("public.script")) || UTTypeConformsTo(uti, CFSTR("public.executable"))) {
         return YES;
     }
-    NSFileHandle * fileHandle = [NSFileHandle fileHandleForReadingAtPath:[self singleFilePath]];
+    NSError *err;
+    NSURL *url = [NSURL fileURLWithPath:[self singleFilePath]];
+    NSString *resourceType;
+    [url getResourceValue:&resourceType forKey:NSURLFileResourceTypeKey error:nil];
+    if (!resourceType || [resourceType isEqualToString:NSURLFileResourceTypeNamedPipe] || [resourceType isEqualToString:NSURLFileResourceTypeSocket]) {
+        return NO;
+    }
+    NSFileHandle * fileHandle = [NSFileHandle fileHandleForReadingFromURL:[NSURL fileURLWithPath:[self singleFilePath]] error:&err];
     // Read in the first 5 bytes of the file to see if it contains #! (5 bytes, because some files contain byte order marks (3 bytes)
     NSData * buffer = [fileHandle readDataOfLength:5];
     NSString *string = [[NSString alloc] initWithData:buffer encoding:NSUTF8StringEncoding];

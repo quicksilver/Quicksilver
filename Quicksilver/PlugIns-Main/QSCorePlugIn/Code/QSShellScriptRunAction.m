@@ -30,9 +30,9 @@ NSArray *QSGetShebangArgsForScript(NSString *path) {
 }
 
 BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
-    NSLog(@"QSPathCanBeExecuted is deprecated. Use -[QSObject isExecutable] instead. For the `allowApps` arg, use -[QSObject isApplication]");
+    NSLog(@"QSPathCanBeExecuted is deprecated. Use -[QSObject canBeExecutedByScript] instead. For the `allowApps` arg, use -[QSObject isApplication]");
     QSObject *obj = [QSObject fileObjectWithPath:path];
-    return [obj isExecutable] && (allowApps || ![obj isApplication]);
+    return [obj canBeExecutedByScript] && (allowApps || ![obj isApplication]);
 }
 
 @implementation QSShellScriptRunAction
@@ -117,7 +117,7 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
 }
 
 - (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
-	if ([dObject isExecutable] && ![dObject isApplication])
+	if ([dObject canBeExecutedByScript] && ![dObject isApplication])
 		return [NSArray arrayWithObject:kQSShellScriptRunAction];
 	return nil;
 }
