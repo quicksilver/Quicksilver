@@ -680,7 +680,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
         NSString *device = [NSString stringWithCString:sfsb.f_mntfromname encoding:NSUTF8StringEncoding];
         BOOL isLocal = [device hasPrefix:@"/dev/"];
         unsigned long fflags = record.flags;
-        NSMutableDictionary *mutableDict = [NSMutableDictionary dictionaryWithObjects:@[
+        mutableDict = [NSMutableDictionary dictionaryWithObjects:@[
                                                         [NSNumber numberWithBool:isLocal],
                                                         [NSNumber numberWithBool:(BOOL)(fflags & kLSItemInfoIsContainer)],
                                                         [NSNumber numberWithBool:(BOOL)(fflags & kLSItemInfoIsPackage)],
