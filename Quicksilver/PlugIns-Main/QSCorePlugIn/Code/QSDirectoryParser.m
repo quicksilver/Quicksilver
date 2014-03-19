@@ -63,7 +63,8 @@
         NSError *err;
         NSDictionary *resources = [theURL resourceValuesForKeys:@[NSURLIsSymbolicLinkKey, NSURLIsDirectoryKey, NSURLTypeIdentifierKey, NSURLIsPackageKey] error:&err];
         if (err) {
-            NSLog(@"Unable to retrieve info for file %@.\n%@", file, err);
+            // Do nothing. Still add the file to the catalog, just we will know little about it.
+            // Typically, this error will only occur for sockets or fifos (since they're not actually files)
         }
 		if ([resources[URLIsSymbolicLink] boolValue]) {
             /* If this is an alias, try to resolve it to get the remaining checks right */
