@@ -291,8 +291,8 @@
 }
 - (NSDictionary *)typeImageDictionary {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-		NSFilenamesPboardType, [NSImage imageNamed:@"fileType"] ,
-		NSStringPboardType, [NSImage imageNamed:@"textType"] ,
+		QSFilePathType, [NSImage imageNamed:@"fileType"] ,
+		QSTextType, [NSImage imageNamed:@"textType"] ,
 		NSURLPboardType, [NSImage imageNamed:@"webType"] ,
 		NSRTFDPboardType, [NSImage imageNamed:@"stylizedTextType"] ,
 		nil];

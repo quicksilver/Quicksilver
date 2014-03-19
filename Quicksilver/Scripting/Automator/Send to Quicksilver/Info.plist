@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>AMAccepts</key>
@@ -11,6 +11,8 @@
 		<key>Types</key>
 		<array>
 			<string>com.apple.cocoa.path</string>
+			<string>com.apple.cocoa.url</string>
+			<string>com.apple.cocoa.string</string>
 		</array>
 	</dict>
 	<key>AMApplication</key>
@@ -28,7 +30,7 @@
 	<key>AMDescription</key>
 	<dict>
 		<key>AMDSummary</key>
-		<string>Sends items to Quicksilver's command window</string>
+		<string>Sends items to Quicksilver&apos;s command window</string>
 	</dict>
 	<key>AMIconName</key>
 	<string>Action</string>
@@ -53,13 +55,13 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>1.2</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright 2005 Blacktree, Inc.</string>
+	<string>© 2014 QSApp.com</string>
 	<key>NSPrincipalClass</key>
 	<string>QSAutomatorSet</string>
 </dict>

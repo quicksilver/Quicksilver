@@ -17,6 +17,7 @@
 #define QSProxyType @"qs.proxy"
 
 #define QSProxyTargetCache @"proxyTarget"
+#define kQSDefaultProxyCacheTime 2.0f
 
 @protocol QSProxyObjectProvider
 - (id)resolveProxyObject:(id)proxy;

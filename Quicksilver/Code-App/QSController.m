@@ -550,36 +550,42 @@ static QSController *defaultController = nil;
 }
 
 - (BOOL)application:(NSApplication *)sender delegateHandlesKey:(NSString *)key {
-	if ([key isEqual:@"AESelection"])
+	if ([key isEqual:@"QSSelection"])
 		return YES;
 	return NO;
 }
 
-- (id)selection { return [NSAppleEventDescriptor descriptorWithString:@"string"];  }
-
-- (void)setAESelection:(NSAppleEventDescriptor *)desc {
+- (void)setQSSelection:(id)sel {
 	QSObject *object = nil;
-	if ([desc isKindOfClass:[NSString class]])
-		object = [QSObject objectWithString:(NSString *)desc];
-	else if ([desc isKindOfClass:[NSArray class]])
-		object = [QSObject fileObjectWithArray:(NSArray *)desc];
-	else {
-#ifdef DEBUG
-		NSLog(@"descriptor %@ %@", NSStringFromClass([desc class]), desc);
-#endif
-		object = [QSObject objectWithAEDescriptor:desc];
+	if ([sel isKindOfClass:[NSString class]]) {
+		object = [QSObject objectWithString:(NSString *)sel];
+	} else if ([sel isKindOfClass:[NSArray class]]) {
+        NSArray *objs = [(NSArray *)sel arrayByEnumeratingArrayUsingBlock:^id(id obj) {
+            if ([obj isKindOfClass:[NSString class]]) {
+                return [QSObject objectWithString:obj];
+            }
+            return nil;
+        }];
+		object = [QSObject objectByMergingObjects:objs];
+    } else {
+		object = [QSObject objectWithAEDescriptor:sel];
 	}
-	NSLog(@"object %@", object);
 	[self receiveObject:object];
 }
 
-- (NSAppleEventDescriptor *)AESelection {
+- (id)QSSelection {
 	QSObject *selection = (QSObject*)[[self interfaceController] selection];
 	NSLog(@"object %@", selection);
-	id desc = [selection AEDescriptor];
-	if (!desc)
-		desc = [NSAppleEventDescriptor descriptorWithString:[selection stringValue]];
-	return desc;
+    if ([[selection primaryType] isEqualToString:QSFilePathType]) {
+        NSArray *paths = [selection validPaths];
+        if (paths) {
+            return ([paths count] == 1 ? [paths lastObject] : paths);
+        }
+    }
+    if ([[selection primaryType] isEqualToString:QSURLType]) {
+        return [NSURL performSelector:@selector(URLWithString:) onObjectsInArray:[[selection splitObjects] valueForKey:@"primaryObject"] returnValues:YES];
+    }
+    return [selection stringValue];
 }
 
 //Notifications

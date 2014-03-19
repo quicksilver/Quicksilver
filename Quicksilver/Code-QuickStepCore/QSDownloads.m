@@ -12,6 +12,28 @@
 
 @implementation QSDownloads
 
+#pragma mark Class Methods
+
++ (NSArray *)iCloudDocumentsForBundleID:(NSString *)bundleIdentifier
+{
+	if (!bundleIdentifier) {
+		return nil;
+	}
+	NSString *bundleFolderName = [bundleIdentifier stringByReplacingOccurrencesOfString:@"." withString:@"~"];
+	NSString *documentsPath = [[pICloudDocumentsPrefix stringByAppendingPathComponent:bundleFolderName] stringByAppendingPathComponent:@"Documents"];
+	if ([[NSFileManager defaultManager] fileExistsAtPath:documentsPath]) {
+		// return a list of documents' paths
+		NSDictionary *settings = [NSDictionary dictionaryWithObjectsAndKeys:
+								  [NSNumber numberWithInteger:2], kItemFolderDepth, // iCloud only allows one level of nesting
+								  [NSNumber numberWithBool:YES], kItemSkipItem,     // don't include the parent folder
+								  [NSArray arrayWithObject:@"public.folder"], kItemExcludeFiletypes, // ignore folders
+								  nil];
+		id dirParser = [QSReg getClassInstance:@"QSDirectoryParser"];
+		return [dirParser objectsFromPath:documentsPath withSettings:settings];
+	}
+	return nil;
+}
+
 + (NSURL *)downloadsLocation
 {
 	NSFileManager *manager = [NSFileManager defaultManager];
@@ -33,6 +55,8 @@
 	}
 	return nil;
 }
+
+#pragma mark Proxy Methods
 
 - (id)resolveProxyObject:(id)proxy {
 	NSURL *downloadsURL = [QSDownloads downloadsLocation];
@@ -107,24 +131,8 @@
     }
 }
 
-+ (NSArray *)iCloudDocumentsForBundleID:(NSString *)bundleIdentifier
-{
-	if (!bundleIdentifier) {
-		return nil;
-	}
-	NSString *bundleFolderName = [bundleIdentifier stringByReplacingOccurrencesOfString:@"." withString:@"~"];
-	NSString *documentsPath = [[pICloudDocumentsPrefix stringByAppendingPathComponent:bundleFolderName] stringByAppendingPathComponent:@"Documents"];
-	if ([[NSFileManager defaultManager] fileExistsAtPath:documentsPath]) {
-		// return a list of documents' paths
-		NSDictionary *settings = [NSDictionary dictionaryWithObjectsAndKeys:
-								  [NSNumber numberWithInteger:2], kItemFolderDepth, // iCloud only allows one level of nesting
-								  [NSNumber numberWithBool:YES], kItemSkipItem,     // don't include the parent folder
-								  [NSArray arrayWithObject:@"public.folder"], kItemExcludeFiletypes, // ignore folders
-								  nil];
-		id dirParser = [QSReg getClassInstance:@"QSDirectoryParser"];
-		return [dirParser objectsFromPath:documentsPath withSettings:settings];
-	}
-	return nil;
+- (NSTimeInterval)cacheTimeForProxy:(id)proxy {
+    return 0.5f;
 }
 
 @end
