@@ -666,8 +666,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     NSMutableDictionary *mutableDict = [dict mutableCopy];
 
     if (err) {
-        
-        // we use the old (lsiteminforecord) method for getting the keys
+        // The file is either a socket or fifo. Not much information is available on these files
         LSItemInfoRecord record;
         OSStatus status = LSCopyItemInfoForURL((__bridge CFURLRef)[NSURL fileURLWithPath:path], kLSRequestAllInfo, &record);
         if (status) {

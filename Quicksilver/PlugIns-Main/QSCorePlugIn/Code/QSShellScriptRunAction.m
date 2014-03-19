@@ -30,7 +30,7 @@ NSArray *QSGetShebangArgsForScript(NSString *path) {
 }
 
 BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
-    NSLog(@"QSPathCanBeExecuted is deprecated. Is -[QSObject isExecutable] instead. For the `allowApps` arg, use -[QSObject isApplication]");
+    NSLog(@"QSPathCanBeExecuted is deprecated. Use -[QSObject isExecutable] instead. For the `allowApps` arg, use -[QSObject isApplication]");
     QSObject *obj = [QSObject fileObjectWithPath:path];
     return [obj isExecutable] && (allowApps || ![obj isApplication]);
 }
