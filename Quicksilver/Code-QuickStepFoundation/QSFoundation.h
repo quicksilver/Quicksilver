@@ -24,6 +24,7 @@
 #import "NSString+NDCarbonUtilities.h"
 
 #import "QSGCD.h"
+#import "QSThreadSafeMutableDictionary.h"
 #import "QSUTI.h"
 #import "QSTreeController.h"
 #import "QSMDPredicate.h"
