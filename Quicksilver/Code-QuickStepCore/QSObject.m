@@ -38,17 +38,18 @@ NSSize QSMaxIconSize;
 #endif
  // NSString *thisKey = nil;
 
+    NSSet *s = nil;
     @synchronized(iconLoadedSet) {
-        NSSet *s = [iconLoadedSet objectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *obj, BOOL *stop) {
+        s = [iconLoadedSet objectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *obj, BOOL *stop) {
             return obj->lastAccess && obj->lastAccess < (globalLastAccess - interval);
         }];
-        for(QSObject *thisObject in s) {
-            if ([thisObject unloadIcon]) {
-                
+    }
+    for(QSObject *thisObject in s) {
+        if ([thisObject unloadIcon]) {
+            
 #ifdef DEBUG
-                imagecount++;
+            imagecount++;
 #endif
-            }
         }
     }
     
@@ -782,10 +783,12 @@ NSSize QSMaxIconSize;
 - (BOOL)iconLoaded { return flags.iconLoaded;  }
 - (void)setIconLoaded:(BOOL)flag {
 	flags.iconLoaded = flag;
-    if (flag) {
-        [iconLoadedSet addObject:self];
-    } else {
-        [iconLoadedSet removeObject:self];
+    @synchronized(iconLoadedSet) {
+        if (flag) {
+            [iconLoadedSet addObject:self];
+        } else {
+            [iconLoadedSet removeObject:self];
+        }
     }
 }
 
