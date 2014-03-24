@@ -1331,6 +1331,8 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)insertSpace:(id)sender {
 	NSInteger behavior = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSSearchSpaceBarBehavior"];
+    QSBasicObject * newSelectedObject = [super objectValue];
+
 	switch(behavior) {
 		case 1: //Normal
 			[self insertText:@" "];
@@ -1356,6 +1358,37 @@ NSMutableDictionary *bindingsDict = nil;
         case 6: // Show Quicklook window
             [self togglePreviewPanel:nil];
 			break;
+        case 7: // Context Specific behavior based on object
+
+            // Show child contents but only if object isn't a URL
+            if ([newSelectedObject hasChildren] && ![newSelectedObject containsType:QSURLType])
+            {
+                if ([[NSApp currentEvent] modifierFlags] & NSShiftKeyMask)
+                {
+                    [self moveLeft:sender];
+                }
+                else
+                {
+                    [self moveRight:sender];
+                }
+            }
+            // Show Quicklook window
+            else if ([self canQuicklookCurrentObject])
+            {
+                [self togglePreviewPanel:nil];
+            }
+            // Jump to Indirect if search url
+            else if ([newSelectedObject containsType:QSSearchURLType])
+            {
+                [self shortCircuit:sender];
+            }
+            // Switch to text
+            else
+            {
+                [self transmogrify:sender];
+            }
+
+            break;
 	}
 }
 
