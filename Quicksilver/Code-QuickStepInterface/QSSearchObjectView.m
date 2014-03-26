@@ -1331,7 +1331,7 @@ NSMutableDictionary *bindingsDict = nil;
 
 - (void)insertSpace:(id)sender {
 	NSInteger behavior = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSSearchSpaceBarBehavior"];
-    QSBasicObject * newSelectedObject = [super objectValue];
+    QSObject * newSelectedObject = [super objectValue];
 
 	switch(behavior) {
 		case 1: //Normal
@@ -1358,19 +1358,22 @@ NSMutableDictionary *bindingsDict = nil;
         case 6: // Show Quicklook window
             [self togglePreviewPanel:nil];
 			break;
-        case 7: // Context Specific behavior based on object
+        case 7: // Smart Context Specific behavior based on object
 
-            // Show child contents but only if object isn't a URL
-            if ([newSelectedObject hasChildren] && ![newSelectedObject containsType:QSURLType])
+            // trigger first action that involves third pane and go there
+            if (self == [self actionSelector])
             {
-                if ([[NSApp currentEvent] modifierFlags] & NSShiftKeyMask)
-                {
-                    [self moveLeft:sender];
-                }
-                else
-                {
-                    [self moveRight:sender];
-                }
+                [self shortCircuit:sender];
+            }
+            // go to parent if one exists
+            else if ([[NSApp currentEvent] modifierFlags] & NSShiftKeyMask)
+            {
+                [self moveLeft:sender];
+            }
+            // Show child contents but only if object isn't a URL or text file
+            else if ([newSelectedObject hasChildren] && ![newSelectedObject containsType:QSURLType] && !QSTypeConformsTo([newSelectedObject fileUTI], @"public.plain-text"))
+            {
+                [self moveRight:sender];
             }
             // Show Quicklook window
             else if ([self canQuicklookCurrentObject])

@@ -154,8 +154,8 @@
                             <font key="font" size="12" name="Helvetica"/>
                         </sliderCell>
                         <connections>
-                            <binding destination="187" name="enabled" keyPath="values.Reset Delay" id="192"/>
                             <binding destination="187" name="value" keyPath="values.Reset Delay" id="191"/>
+                            <binding destination="187" name="enabled" keyPath="values.Reset Delay" id="192"/>
                         </connections>
                     </slider>
                     <textField verticalHuggingPriority="750" id="123">
@@ -170,7 +170,7 @@
                     <popUpButton verticalHuggingPriority="750" id="129">
                         <rect key="frame" x="184" y="225" width="178" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="push" title="Context Specific" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" tag="7" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="cwM-th-yen" id="269">
+                        <popUpButtonCell key="cell" type="push" title="Smart Spacebar" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" tag="7" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="cwM-th-yen" id="269">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                             <menu key="menu" title="OtherViews" id="130">
@@ -193,9 +193,7 @@
                                     <menuItem title="Quick Look" tag="6" id="293">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
-                                    <menuItem title="Context Specific" state="on" tag="7" id="cwM-th-yen">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                    </menuItem>
+                                    <menuItem title="Smart Spacebar" state="on" tag="7" keyEquivalent="s" id="cwM-th-yen"/>
                                 </items>
                             </menu>
                         </popUpButtonCell>
@@ -444,8 +442,8 @@
                             </menu>
                         </popUpButtonCell>
                         <connections>
-                            <binding destination="187" name="enabled" keyPath="values.QSSwitchKeyboardOnActivation" id="387"/>
                             <binding destination="187" name="selectedObject" keyPath="values.QSForcedKeyboardIDOnActivation" id="384"/>
+                            <binding destination="187" name="enabled" keyPath="values.QSSwitchKeyboardOnActivation" id="387"/>
                         </connections>
                     </popUpButton>
                 </subviews>
