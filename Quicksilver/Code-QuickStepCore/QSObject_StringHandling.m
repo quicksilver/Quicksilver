@@ -119,6 +119,8 @@
 			if (line >= 0) {
 				[self setObject:[NSDictionary dictionaryWithObjectsAndKeys:[files lastObject] , @"path", [NSNumber numberWithInteger:line] , @"line", nil] forType:@"QSLineReferenceType"];
 			}
+            // wipe existing types and set this up as a file
+            [self setDataDictionary:[[NSMutableDictionary alloc] init]];
 			[self setObject:files forType:QSFilePathType];
 			[self setPrimaryType:QSFilePathType];
 			// set an appropriate name based on the files
@@ -130,6 +132,8 @@
 	if ([stringValue hasPrefix:@"file://"]) {
 		NSURL *fileURL = [NSURL URLWithString:stringValue];
 		if ([[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]]) {
+            // wipe existing types and set this up as a file
+            [self setDataDictionary:[[NSMutableDictionary alloc] init]];
 			[self setObject:[fileURL path] forType:QSFilePathType];
 			[self setPrimaryType:QSFilePathType];
 			[self getNameFromFiles];
