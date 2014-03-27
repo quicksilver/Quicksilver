@@ -24,7 +24,7 @@
 
 - (QSObject *)showLargeType:(QSObject *)dObject {
     NSString *display = nil;
-    if ([dObject singleFilePath]) {
+    if ([dObject singleFilePath] && QSTypeConformsTo([dObject fileUTI], @"public.plain-text")) {
         NSError *err = nil;
         display = [[NSString alloc] initWithContentsOfFile:[dObject singleFilePath] usedEncoding:nil error:&err];
         if (err) {
