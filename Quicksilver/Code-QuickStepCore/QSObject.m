@@ -275,12 +275,12 @@ NSSize QSMaxIconSize;
     primaryObject = obj;
 }
 
-- (void)setMeta:(QSThreadSafeMutableDictionary *)obj {
-    meta = obj;
+- (void)setMeta:(NSMutableDictionary *)obj {
+    meta = [QSThreadSafeMutableDictionary dictionaryWithDictionary:obj];
 }
 
-- (void)setData:(QSThreadSafeMutableDictionary *)obj {
-    data = obj;
+- (void)setData:(NSMutableDictionary *)obj {
+    data = [QSThreadSafeMutableDictionary dictionaryWithDictionary:obj];
 }
 
 - (void)setFlags:(QSObjectFlags)fl {
@@ -469,9 +469,9 @@ NSSize QSMaxIconSize;
 	if (!cache) [self setCache:[QSThreadSafeMutableDictionary dictionaryWithCapacity:1]];
 	return cache;
 }
-- (void)setCache:(QSThreadSafeMutableDictionary *)aCache {
+- (void)setCache:(NSMutableDictionary *)aCache {
 	if (cache != aCache) {
-		cache = aCache;
+		cache = [QSThreadSafeMutableDictionary dictionaryWithDictionary:aCache];
 	}
 }
 
@@ -774,9 +774,9 @@ NSSize QSMaxIconSize;
 	return data;
 }
 
-- (void)setDataDictionary:(QSThreadSafeMutableDictionary *)newDataDictionary {
+- (void)setDataDictionary:(NSMutableDictionary *)newDataDictionary {
     if (newDataDictionary != data) {
-        data = newDataDictionary;
+        data = [QSThreadSafeMutableDictionary dictionaryWithDictionary:newDataDictionary];
     }
 }
 
