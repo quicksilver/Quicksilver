@@ -93,11 +93,17 @@
 		</command>
         <command name="get indirect types" code="DAEDgiob" description="Get the valid indirect (3rd pane) object types for this action. Scripts with this handler can customize the types of objects displayed in Quicksilver's 3rd pane by returning a list of types supported. Valid values are shown at http://qsapp.com/wiki/AppleScript_Types">
 			<cocoa class="NSScriptCommand"/>
-			<result description="value to return to Quicksilver" type="list"/>
+			<result description="value to return to Quicksilver">
+                <type type="text"/>
+                <type type="text" list="yes"/>
+            </result>
 		</command>
         <command name="get direct types" code="DAEDgdob" description="Get the valid direct (1st pane) object types for which this action will appear. Scripts with this handler can customize for which types of objects the action appears for, by returning a list of types supported. Valid values are shown at http://qsapp.com/wiki/AppleScript_Types">
 			<cocoa class="NSScriptCommand"/>
-			<result description="value to return to Quicksilver" type="list"/>
+			<result description="value to return to Quicksilver">
+                <type type="text"/>
+                <type type="text" list="yes"/>
+            </result>
 		</command>
 	</suite>
 </dictionary>
