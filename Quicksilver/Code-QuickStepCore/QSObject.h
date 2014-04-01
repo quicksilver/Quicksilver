@@ -87,12 +87,15 @@ typedef struct _QSObjectFlags {
 	NSString *primaryType;
 	id primaryObject;
 
-	NSMutableDictionary *	meta; 		//Name, Label, Type, Identifier, Source, embedded details
-	NSMutableDictionary *	data; 		//Data or typed dictionary (multiTyped Object)
+    NSMutableDictionary *	data; 		//Data or typed dictionary (multiTyped Object)
 	NSMutableDictionary *	cache; 		//Icons, children, alias data,
 	QSObjectFlags			flags;
 	NSTimeInterval			lastAccess;
 }
+
+@property (strong, atomic) NSMutableDictionary *meta; //Name, Label, Type, Identifier, Source, embedded details
+
+
 + (void)initialize;
 + (void)purgeOldImagesAndChildren;
 + (void)purgeAllImagesAndChildren;

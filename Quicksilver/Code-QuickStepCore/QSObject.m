@@ -11,6 +11,9 @@ BOOL QSObjectInitialized = NO;
 NSSize QSMaxIconSize;
 
 @implementation QSObject
+
+@synthesize meta = meta;
+
 + (void)initialize {
 	if (!QSObjectInitialized) {
 		QSMaxIconSize = QSSizeMax;

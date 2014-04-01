@@ -282,9 +282,7 @@
 
 - (NSString *)stringValue {
     id stringValue = [self objectForType:QSTextType];
-    if ([stringValue isKindOfClass:[NSData class]]) {
-        stringValue = [[NSString alloc] initWithData:stringValue encoding:NSUTF8StringEncoding];
-    }
+
     if (!stringValue) {
         // Backwards compatibility
         stringValue = [self objectForType:NSStringPboardType];
@@ -294,6 +292,9 @@
     }
     if (!stringValue) {
         stringValue = [self displayName];
+    }
+    if ([stringValue isKindOfClass:[NSData class]]) {
+        stringValue = [[NSString alloc] initWithData:stringValue encoding:NSUTF8StringEncoding];
     }
     NSAssert([stringValue isKindOfClass:[NSString class]], @"Object %@ does not have a valid string value (%@)", self, stringValue);
     return stringValue;

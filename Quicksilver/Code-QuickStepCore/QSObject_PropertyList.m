@@ -88,8 +88,8 @@
     
  	if (self = [self init]) {
         [data setDictionary:dataDict];
-        [meta setDictionary:metaDict];
-        for (NSMutableDictionary *dict in @[data, meta]) {
+        [self.meta setDictionary:metaDict];
+        for (NSMutableDictionary *dict in @[data, self.meta]) {
             [dict enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
                 NSString *UTIString = QSUTIForAnyTypeString(key);
                 if (UTIString && ![key isEqualToString:UTIString]) {
@@ -113,7 +113,7 @@
     // copies of data and meta are made to avoid them being mutated down the line
     return [NSDictionary dictionaryWithObjectsAndKeys:
             [data copy], kData,
-            [meta copy], kMeta,
+            [self.meta copy], kMeta,
             NSStringFromClass([self class]), kQSObjectClass,
             nil];
 }

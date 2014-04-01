@@ -73,18 +73,26 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
     if ([type isEqualToString:QSPasteboardObjectIdentifier]) {
         return [self identifier];
     }
-    if ([type isEqualToString:(__bridge NSString *)kUTTypeFileURL] && [self objectForType:QSFilePathType]) {
-        return [[NSURL fileURLWithPath:[self objectForType:QSFilePathType]] pasteboardPropertyListForType:type];
-    }
+
     id obj = [self objectForType:type];
+    if ([type isEqualToString:(__bridge NSString *)kUTTypeURL]) {
+        obj = [NSURL URLWithString:obj];
+    } else if (obj && [type isEqualToString:(__bridge NSString *)kUTTypeFileURL]) {
+        obj = [NSURL fileURLWithPath:obj];
+    }
     if ([obj respondsToSelector:@selector(pasteboardPropertyListForType:)]) {
         return [obj pasteboardPropertyListForType:type];
     }
     return nil;
 }
 
-
+#define kQSPasteboardTypes @"pasteboardTypes"
 - (NSArray *)writableTypesForPasteboard:(NSPasteboard *)pasteboard {
+    if ([self objectForMeta:kQSPasteboardTypes]) {
+        NSArray *types = [self objectForMeta:kQSPasteboardTypes];
+        [self.meta removeObjectForKey:kQSPasteboardTypes];
+        return types;
+    }
     NSString *type = [self primaryType];
     if (!QSIsUTI(type)) {
         NSLog(@"Object %@ does not have a primary type which is a UTI (primary type is %@). This is a fatal flaw as of QS v2.0", self, type);
@@ -103,6 +111,8 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 
 - (void)writeToPasteboard:(NSPasteboard *)pasteboard data:(id)pbData forType:(NSString *)type {
 	if ([NSURLPboardType isEqualToString:type]) {
+//        OLD METHOD
+
 		[pasteboard addTypes:[NSArray arrayWithObjects:NSURLPboardType, NSStringPboardType, nil] owner:nil];
 		[pasteboard setString:([pbData hasPrefix:@"mailto:"]) ?[pbData substringFromIndex:7] :pbData forType:NSStringPboardType];
 		[pasteboard setString:[pbData URLDecoding] forType:NSURLPboardType];
@@ -275,89 +285,19 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 }
 
 - (BOOL)putOnPasteboardAsPlainTextOnly:(NSPasteboard *)pboard {
-	NSArray *types = [NSArray arrayWithObject:NSStringPboardType];
-	[pboard declareTypes:types owner:nil];
-	NSString *string = [self stringValue];
-	[pboard setString:string forType:NSStringPboardType];
-	return YES;
+    return [self putOnPasteboard:pboard includeDataForTypes:@[QSTextType]];
 }
 
 // Declares the types that should be put on the pasteboard
 - (BOOL)putOnPasteboard:(NSPasteboard *)pboard declareTypes:(NSArray *)pbTypes includeDataForTypes:(NSArray *)includeTypes {
-    NSMutableArray *types = nil;
-	if (!pbTypes) {
-		// get the different pboard types from the object's data dictionary -- they're all stored here
-		types = [[[self dataDictionary] allKeys] mutableCopy];
-		if ([types containsObject:QSProxyType])
-			[(NSMutableArray *)types addObjectsFromArray:[[[self resolvedObject] dataDictionary] allKeys]];
-	}
-	else {
-		NSMutableSet *typeSet = [NSMutableSet setWithArray:pbTypes];
-		[typeSet intersectSet:[NSSet setWithArray:[[self dataDictionary] allKeys]]];
-		types = [[typeSet allObjects] mutableCopy];
-	}
-	// If there are no types for the object, we need to set one (using stringValue)
-	if (![types count]) {
-		[types addObject:NSStringPboardType];
-		[[self dataDictionary] setObject:[self stringValue] forKey:NSStringPboardType];
-	}
-	
-	// define the types to be included on the pasteboard
-	if (!includeTypes) {
-		if ([types containsObject:NSFilenamesPboardType] || [types containsObject:QSFilePathType]) {
-            // Backwards incompatibility with the old way of writing to the pasteboard (NSFilenamesPboardType) which doens't play nicely with UTIs (public.data)
-			includeTypes = [NSArray arrayWithObject:NSFilenamesPboardType];
-            [types addObject:NSFilenamesPboardType];
-            [data setObject:[self arrayForType:QSFilePathType] forKey:NSFilenamesPboardType];
-		//			[pboard declareTypes:includeTypes owner:self];
-        } else if ([types containsObject:NSURLPboardType]) {
-			// for urls, define plain text, rtf and html
-			includeTypes = [NSArray arrayWithObjects:NSURLPboardType,NSHTMLPboardType,NSRTFPboardType,NSStringPboardType,nil];
-		} else if ([types containsObject:NSColorPboardType]) {
-			includeTypes = [NSArray arrayWithObject:NSColorPboardType];
-        }
-	}
-	// last case: no other useful types: return a basic string
-	if (!includeTypes) {
-		includeTypes = @[NSStringPboardType, QSTextType];
-	}
-
-	[pboard declareTypes:types owner:self];
-	/*
-	 // ***warning  ** Should add additional information for file items	 if ([paths count] == 1) {
-	 [[self data] setObject:[[NSURL fileURLWithPath:[paths lastObject]]absoluteString] forKey:NSURLPboardType];
-	 [[self data] setObject:[paths lastObject] forKey:NSStringPboardType];
-	 }
-	 */
-	//  NSLog(@"declareTypes: %@", [types componentsJoinedByString:@", "]);
-	
-	// For URLs, create the RTF and HTML data to be stored in the clipboard
-	if ([types containsObject:NSURLPboardType]) {
-		// add the RTF and HTML types to the list of types
-		[types addObjectsFromArray:@[NSHTMLPboardType,NSRTFPboardType]];
-		// Create the HTML and RTF data
-		NSData *htmlData = [NSString dataForObject:self forType:NSHTMLPboardType];
-		NSData *rtfData = [NSString dataForObject:self forType:NSRTFPboardType];
-		// Add the HTML and RTF data to the object's data dictionary
-		[[self dataDictionary] setObject:htmlData forKey:NSHTMLPboardType];	
-		[[self dataDictionary] setObject:rtfData forKey:NSRTFPboardType];
-	}
-	
-	for (NSString *thisType in includeTypes) {
-		if ([types containsObject:thisType]) {
-			// NSLog(@"includedata, %@", thisType);
-			[self pasteboard:pboard provideDataForType:thisType];
-		}
-	}
-	if ([self identifier]) {
-		[pboard addTypes:[NSArray arrayWithObject:QSPasteboardObjectIdentifier] owner:self];
-        [self writeToPasteboard:pboard data:[self identifier] forType:QSPasteboardObjectIdentifier];
-	}
-	
-	[pboard addTypes:[NSArray arrayWithObject:QSPasteboardObjectAddress] owner:self];
-    QSLib.pasteboardObject = self;
-	//  NSLog(@"types %@", [pboard types]);
-	return YES;
+    if (includeTypes) {
+        includeTypes = [includeTypes arrayByEnumeratingArrayUsingBlock:^NSString *(NSString *s) {
+            return QSUTIForAnyTypeString(s);
+        }];
+        [self setObject:includeTypes forMeta:kQSPasteboardTypes];
+    }
+    [pboard clearContents];
+    return [pboard writeObjects:@[self]];
 }
 
 - (void)pasteboard:(NSPasteboard *)sender provideDataForType:(NSString *)type {
