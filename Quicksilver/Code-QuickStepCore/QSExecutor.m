@@ -380,7 +380,7 @@ QSExecutor *QSExec = nil;
                 UTI = [fileObject fileUTI];
                 continue;
             }
-            UTI = (__bridge NSString*)kUTTypeData;
+            UTI = (__bridge NSString*)kUTTypeFileURL;
             break;
         }
     }
