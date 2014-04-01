@@ -73,11 +73,8 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
     if ([type isEqualToString:QSPasteboardObjectIdentifier]) {
         return [self identifier];
     }
-    if (![[data allKeys] containsObject:type]) {
-        // it's some kind of 'other' pasteboard type, we pass it on to the real owner
-        if ([type isEqualToString:(__bridge NSString *)kUTTypeFileURL] && [self objectForType:QSFilePathType]) {
-            return [[NSURL fileURLWithPath:[self objectForType:QSFilePathType]] pasteboardPropertyListForType:type];
-        }
+    if ([type isEqualToString:(__bridge NSString *)kUTTypeFileURL] && [self objectForType:QSFilePathType]) {
+        return [[NSURL fileURLWithPath:[self objectForType:QSFilePathType]] pasteboardPropertyListForType:type];
     }
     id obj = [self objectForType:type];
     if ([obj respondsToSelector:@selector(pasteboardPropertyListForType:)]) {
@@ -94,7 +91,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
         return nil;
     }
     if ([type isEqualToString:QSFilePathType]) {
-        return @[QSPasteboardObjectAddress, (__bridge NSString *)kUTTypeFileURL, QSPasteboardObjectAddress];
+        return @[QSPasteboardObjectAddress, QSFilePathType, QSTextType, QSPasteboardObjectAddress];
     }
     return @[QSPasteboardObjectAddress, QSPasteboardObjectIdentifier, type];
 }
