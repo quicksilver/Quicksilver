@@ -1328,9 +1328,12 @@ NSMutableDictionary *bindingsDict = nil;
 	[resultTimer invalidate];
 }
 
-- (void)insertSpace:(id)sender {
+- (void)insertSpace:(id)sender
+{
 	NSInteger behavior = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSSearchSpaceBarBehavior"];
+
     QSObject * newSelectedObject = [super objectValue];
+    QSAction *action = [[self actionSelector] objectValue];
 
 	switch(behavior) {
 		case 1: //Normal
@@ -1357,9 +1360,10 @@ NSMutableDictionary *bindingsDict = nil;
         case 6: // Show Quicklook window
             [self togglePreviewPanel:nil];
 			break;
+
         case 7: // Smart Context Specific behavior based on object
 
-            // trigger first action that involves third pane and go there
+            // if we are in the second pane, trigger first action that involves third pane and go there
             if (self == [self actionSelector])
             {
                 [self shortCircuit:sender];
@@ -1374,15 +1378,18 @@ NSMutableDictionary *bindingsDict = nil;
             {
                 [self moveRight:sender];
             }
+            // If we aren't in the third pane then jump to Indirect if action requires more then one argument (ie. search URL)
+            else if (self != [self indirectSelector] &&
+                    (action &&
+                    [action respondsToSelector:@selector(argumentCount)] &&
+                    [action argumentCount] == 2))
+            {
+                [self shortCircuit:sender];
+            }
             // Show Quicklook window
             else if ([self canQuicklookCurrentObject])
             {
                 [self togglePreviewPanel:nil];
-            }
-            // Jump to Indirect if search url
-            else if ([newSelectedObject containsType:QSSearchURLType])
-            {
-                [self shortCircuit:sender];
             }
             // Switch to text
             else
