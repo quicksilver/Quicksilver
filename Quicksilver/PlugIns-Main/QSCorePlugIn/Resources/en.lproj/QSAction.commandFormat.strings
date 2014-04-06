@@ -154,6 +154,8 @@
 	<string>Show actions menu for %@</string>
 	<key>QSObjectShowSourceAction</key>
 	<string>Show source of %@ in catalog</string>
+	<key>QSPerformActionAction</key>
+	<string>Perform action &quot;%@&quot; on %@</string>
 	<key>QSPutOnShelfAction</key>
 	<string>Put %@ on Shelf</string>
 	<key>QSShelfShowAction</key>

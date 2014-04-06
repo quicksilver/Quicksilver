@@ -632,6 +632,16 @@
 					<key>feature</key>
 					<integer>1</integer>
 				</dict>
+				<dict>
+					<key>source</key>
+					<string>QSActionsObjectSource</string>
+					<key>enabled</key>
+					<false/>
+					<key>icon</key>
+					<string>defaultAction</string>
+					<key>ID</key>
+					<string>QSPresetSimpleActions</string>
+				</dict>
 			</array>
 			<key>catalogPath</key>
 			<string>/</string>
@@ -1941,6 +1951,27 @@
 			<key>icon</key>
 			<string>GenericApplicationIcon</string>
 		</dict>
+		<key>QSPerformActionAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSActionActions</string>
+			<key>actionSelector</key>
+			<string>performAction:withObject:</string>
+			<key>validatesObjects</key>
+			<true/>
+			<key>displaysResult</key>
+			<true/>
+			<key>indirectOptional</key>
+			<false/>
+			<key>enabled</key>
+			<true/>
+			<key>directTypes</key>
+			<array>
+				<string>qs.action</string>
+			</array>
+			<key>precedence</key>
+			<real>0.5</real>
+		</dict>
 	</dict>
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
@@ -1978,6 +2009,8 @@
 			<string>QSICloudDocumentSource</string>
 			<key>QSUserDefinedProxySource</key>
 			<string>QSUserDefinedProxySource</string>
+			<key>QSActionsObjectSource</key>
+			<string>QSActionsObjectSource</string>
 		</dict>
 		<key>QSFileActionCreators</key>
 		<dict>
@@ -2097,6 +2130,13 @@
 				<string>GenericDocumentIcon</string>
 				<key>name</key>
 				<string>Files &amp; Folders</string>
+			</dict>
+			<key>qs.action</key>
+			<dict>
+				<key>icon</key>
+				<string>defaultAction</string>
+				<key>name</key>
+				<string>Actions</string>
 			</dict>
 		</dict>
 		<key>QSBundleChildPresets</key>

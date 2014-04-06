@@ -254,5 +254,7 @@
 	<string>iTunes Scripts</string>
 	<key>QSPresetRemovableVolumes</key>
 	<string>Network and Removable Disks</string>
+	<key>QSPresetSimpleActions</key>
+	<string>Single-Argument Actions</string>
 </dict>
 </plist>

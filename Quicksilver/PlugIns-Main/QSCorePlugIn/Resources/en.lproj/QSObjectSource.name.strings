@@ -42,5 +42,7 @@
 	<string>Proxies</string>
 	<key>QSUserDefinedProxySource</key>
 	<string>Synonym</string>
+	<key>QSActionsObjectSource</key>
+	<string>Single-Argument Actions</string>
 </dict>
 </plist>
