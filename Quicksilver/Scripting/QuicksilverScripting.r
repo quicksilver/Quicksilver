@@ -14,6 +14,27 @@ resource 'aete' (0, "Quicksilver") {
 	english,
 	roman,
 	{
+		"Type Names Suite",
+		"Hidden terms",
+		kASTypeNamesSuite,
+		1,
+		1,
+		{
+			/* Events */
+
+		},
+		{
+			/* Classes */
+
+			"list of text or text", '****', "", { }, { }
+		},
+		{
+			/* Comparisons */
+		},
+		{
+			/* Enumerations */
+		},
+
 		"Standard Suite",
 		"Common classes and commands for most applications.",
 		'????',
@@ -522,7 +543,7 @@ resource 'aete' (0, "Quicksilver") {
 			'DAED', 'giob',
 			'****',
 			"value to return to Quicksilver",
-			replyRequired, singleItem, notEnumerated, Reserved13,
+			replyRequired, listOfItems, notEnumerated, Reserved13,
 			dp_none__,
 			{
 
@@ -533,7 +554,7 @@ resource 'aete' (0, "Quicksilver") {
 			'DAED', 'gdob',
 			'****',
 			"value to return to Quicksilver",
-			replyRequired, singleItem, notEnumerated, Reserved13,
+			replyRequired, listOfItems, notEnumerated, Reserved13,
 			dp_none__,
 			{
 

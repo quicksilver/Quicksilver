@@ -28,9 +28,9 @@
 			<key>CommandClass</key>
 			<string>NSScriptCommand</string>
 			<key>ResultAppleEventCode</key>
-			<string>****</string>
-			<key>Type</key>
 			<string>list</string>
+			<key>Type</key>
+			<string>NSArray</string>
 		</dict>
 		<key>GetIndirectTypes</key>
 		<dict>
@@ -41,9 +41,9 @@
 			<key>CommandClass</key>
 			<string>NSScriptCommand</string>
 			<key>ResultAppleEventCode</key>
-			<string>****</string>
-			<key>Type</key>
 			<string>list</string>
+			<key>Type</key>
+			<string>NSArray</string>
 		</dict>
 		<key>OpenFiles</key>
 		<dict>
