@@ -560,8 +560,10 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     // initWithArray: deals with file objects that already exist
     QSObject *newObject = [[QSObject alloc] initWithArray:[NSArray arrayWithObject:path]];
     
+    /* Reading clipping files (resource forks) is currently buggy (11/04/2014, pjr)
 	if ([clippingTypes containsObject:[[NSFileManager defaultManager] typeOfFile:path]])
 		[newObject performSelectorOnMainThread:@selector(addContentsOfClipping:) withObject:path waitUntilDone:YES];
+     */ 
 	return newObject;
 }
 

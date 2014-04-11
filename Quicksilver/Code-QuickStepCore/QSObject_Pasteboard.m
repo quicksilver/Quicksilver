@@ -8,26 +8,6 @@ NSString *QSPasteboardObjectAddress = @"com.qsapp.quicksilver.qsobject-address";
 
 #define QSPasteboardIgnoredTypes [NSArray arrayWithObjects:QSPasteboardObjectAddress, @"CorePasteboardFlavorType 0x4D555246", @"CorePasteboardFlavorType 0x54455854", nil]
 
-id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
-	if ([PLISTTYPES containsObject:type]) {
-		return [pasteboard propertyListForType:type];
-	} else if ([type isEqualToString:(__bridge NSString *)kUTTypeUTF16PlainText]) {
-//        return [[NSString alloc] initWithData:[pasteboard dataForType:type] encoding:NSUTF16StringEncoding];
-    } else if ([NSStringPboardType isEqualToString:type] || [type isEqualToString:(__bridge NSString*)kUTTypeUTF8PlainText] || [type hasPrefix:@"QSObject"]) {
-		return [pasteboard stringForType:type];
-	} else if ([NSURLPboardType isEqualToString:type]) {
-		return [[NSURL URLFromPasteboard:pasteboard] absoluteString];
-    } else if ([(__bridge NSString *)kUTTypeFileURL isEqualToString:type]) {
-        return [NSURL URLFromPasteboard:pasteboard];
-    } else if ([NSColorPboardType isEqualToString:type]) {
-		return [NSKeyedArchiver archivedDataWithRootObject:[NSColor colorFromPasteboard:pasteboard]];
-	} else if ([NSFileContentsPboardType isEqualToString:type]) {
-        
-    }
-    
-    return [pasteboard dataForType:type];
-}
-
 @implementation QSObject (Pasteboard)
 
 + (NSArray *)readableTypesForPasteboard:(NSPasteboard *)pasteboard {
@@ -45,6 +25,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
         self = [QSObject objectWithString:[str string]];
         [self setPrimaryType:QSRTFTextType];
         [self setObject:str forType:QSRTFTextType];
+        return self;
     }
     
     // All the following methods take strings, and not data, so we must convert any pasteboard data to strings before using
@@ -134,9 +115,10 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 }
 
 - (id)initWithPasteboard:(NSPasteboard *)pasteboard {
-	return [self initWithPasteboard:pasteboard types:nil];
+	return [QSObject objectByMergingObjects:[pasteboard readObjectsForClasses:@[[QSObject class]] options:nil]];
 }
 
+/* DOES NOT WORK - currently, reading a clipping resource fork is buggy
 - (void)addContentsOfClipping:(NSString *)path { // Not thread safe?
 	NSPasteboard *pasteboard = [NSPasteboard pasteboardByFilteringClipping:path];
 	[self addContentsOfPasteboard:pasteboard types:nil];
@@ -144,7 +126,6 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 }
 
 - (void)addContentsOfPasteboard:(NSPasteboard *)pasteboard types:(NSArray *)types {
-	NSMutableArray *typeArray = [NSMutableArray arrayWithCapacity:1];
 	for(NSString *thisType in (types?types:[pasteboard types])) {
 		if ([[pasteboard types] containsObject:thisType] && ![QSPasteboardIgnoredTypes containsObject:thisType]) {
 			id theObject = objectForPasteboardType(pasteboard, thisType);
@@ -153,11 +134,16 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
             } else {
 				NSLog(@"bad data for %@", thisType);
             }
-			[typeArray addObject:[thisType decodedPasteboardType]];
+            
 		}
 	}
 }
+*/
+ 
 
+/* OBSOLETE - now using the 10.6+ NSPasteboard Reading/Writing protocols.
+ This code has been left in for reference (to understand how pasteboard objects were previously made,
+ and to keep a note of any 'extra' things that must be performed during creation (e.g. `guessName`)
 - (id)initWithPasteboard:(NSPasteboard *)pasteboard types:(NSArray *)types {
 	if (self = [self init]) {
 
@@ -217,6 +203,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	}
 	return self;
 }
+ */
 + (id)objectWithClipping:(NSString *)clippingFile {
 	return [[QSObject alloc] initWithClipping:clippingFile];
 }
