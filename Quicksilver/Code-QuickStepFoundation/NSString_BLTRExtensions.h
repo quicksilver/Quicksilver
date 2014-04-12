@@ -59,7 +59,7 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString);
 
 @interface NSString (Replacement)
 - (NSArray *)lines;
-- (NSString *)stringByReplacing:(NSString *)search with:(NSString *)replacement;
+- (NSString *)stringByReplacing:(NSString *)search with:(NSString *)replacement __attribute__((deprecated));
 
 @end
 
