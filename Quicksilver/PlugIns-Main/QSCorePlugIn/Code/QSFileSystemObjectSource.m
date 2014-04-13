@@ -394,6 +394,7 @@
 	NSMutableDictionary *settings = [theEntry objectForKey:kItemSettings];
 
     if ([[settings objectForKey:@"watchTarget"] boolValue]) {
+        // no need to scan - this entry is updated automatically
         return YES;
     }
 	NSString *itemPath = [self fullPathForSettings:settings];
