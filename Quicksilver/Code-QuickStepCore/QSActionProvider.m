@@ -14,7 +14,12 @@
 - (NSArray *)fileTypes { return nil;}
 - (QSAction *)initializeAction:(QSAction *)action { return action;  }
 - (NSInteger)argumentCountForAction:(NSString *)action {
-    return [[[[QSAction actionWithIdentifier:action] objectForKey:kActionSelector] componentsSeparatedByString:@":"] count] - 1;
+    NSString *selectorName = [[QSAction actionWithIdentifier:action] objectForKey:kActionSelector];
+    if (selectorName) {
+        return [[selectorName componentsSeparatedByString:@":"] count] - 1;
+    }
+    // -[QSAction actionWithIdentifier:] can't look up actions that only exist as part of a command in the first pane
+    return 0;
 }
 
 - (NSString *)titleForAction:(NSString *)action {
