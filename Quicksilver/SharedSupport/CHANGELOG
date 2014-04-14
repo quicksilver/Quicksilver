@@ -42,11 +42,13 @@
   * Prevent a crash when accessing items recently copied to the clipboard (#1716, #1774)
   * Restore the ability to drag and drop objects from the Quicksilver interface (#1780, #1774)
   * Make the Type Text action work with more items (#1779)
-  * Make sure actions are assigned correctly when an application claims support for files that literally have and extension of `*` (#1777, #1779)
+  * Make sure actions are assigned correctly when an application claims support for files that literally have and extension of `*` (#1777, #1779, #1807)
   * The Finder Selection proxy will now correctly refer to symbolic links instead of the links targets (#1729, #1748)
   * Improved efficiency and reliability for the Current Selection proxy object (#1748)
   * The Automator actions (Get Quicksilver Selection and Send to Quicksilver) are updated and working (#915, #1786)
   * Prevent the plugin updater from going off screen (#1769, #1797)
+  * Update AppleScript definitions to eliminate a warning (#1810)
+  * Fixes for the number of items an action should support (#1815)
   * Internal Improvements (#1583, #1584, #1585, #1586, #1665, #1625, #1648, #1638, #1695, #1714, #1763, #1765, #1740, #1771, #1775, #1794)
 
 ### Changed ###
@@ -67,6 +69,7 @@
   * The Finder Selection proxy object will only be cached for 0.5 seconds (#1748)
   * The Latest Download proxy object will only be cached for 0.5 seconds (#1748)
   * Default cache time for proxy objects reduced from 3 seconds to 2 (#1748)
+  * Avoid manual rescans of folders that are kept up-to-date automatically (#1806)
 
 ### Development ###
 
