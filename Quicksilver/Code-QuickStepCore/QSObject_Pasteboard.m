@@ -53,7 +53,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 		[pasteboard addTypes:[NSArray arrayWithObjects:NSURLPboardType, NSStringPboardType, nil] owner:nil];
 		[pasteboard setString:([pbData hasPrefix:@"mailto:"]) ?[pbData substringFromIndex:7] :pbData forType:NSStringPboardType];
 		[pasteboard setString:[pbData URLDecoding] forType:NSURLPboardType];
-    } else if ([type isEqualToString:@"public.file-url"]) {
+    } else if ([type isEqualToString:@"public.file-url"] && [pbData isKindOfClass:[NSArray class]]) {
         [pasteboard setString:pbData[0] forType:type];
 	} else if ([PLISTTYPES containsObject:type] || [pbData isKindOfClass:[NSDictionary class]] || [pbData isKindOfClass:[NSArray class]]) {
         if (![pbData isKindOfClass:[NSArray class]]) {
