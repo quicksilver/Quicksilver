@@ -160,8 +160,8 @@
 - (NSArray *)namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination {
 	NSLog(@"write to %@", [dropDestination path]);
 	NSString *name = [[(QSObject *)[self objectValue] name] stringByAppendingPathExtension:@"silver"];
-	name = [name stringByReplacing:@"/" with:@"_"];
-	name = [name stringByReplacing:@":" with:@"_"];
+	name = [name stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+	name = [name stringByReplacingOccurrencesOfString:@":" withString:@"_"];
 	NSString *file = [[dropDestination path] stringByAppendingPathComponent:name];
 	[(QSObject *)[self objectValue] writeToFile:file];
 	return [NSArray arrayWithObject:name];

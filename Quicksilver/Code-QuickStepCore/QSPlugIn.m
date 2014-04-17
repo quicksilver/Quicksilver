@@ -197,7 +197,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 - (void)showHelp {
 	NSString *urlString = [NSString stringWithFormat:kHelpSearchURL, [self helpPage]];
 	NSLog(@"%@", urlString);
-	if (urlString) 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[urlString stringByReplacing:@" " with:@"+"]]];
+	if (urlString) 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[urlString stringByReplacingOccurrencesOfString:@" " withString:@"+"]]];
 }
 
 - (NSDate *)createdDate {

@@ -81,7 +81,7 @@ NSString *QSPasswordForHostUserType(NSString *host, NSString *user, SecProtocolT
 	if ([[self password] isEqualToString:KEYCHAIN_PASS]) {
 		NSString *pass = [self keychainPassword];
 		if (pass)
-			return [NSURL URLWithString:[[self absoluteString] stringByReplacing:KEYCHAIN_PASS with:pass]];
+			return [NSURL URLWithString:[[self absoluteString] stringByReplacingOccurrencesOfString:KEYCHAIN_PASS withString:pass]];
 	}
 	return self;
 }

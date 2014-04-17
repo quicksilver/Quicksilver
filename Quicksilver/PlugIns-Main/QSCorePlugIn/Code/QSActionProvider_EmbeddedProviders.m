@@ -580,7 +580,7 @@
 		NSBeep();
 		return nil;
 	}
-	newName = [newName stringByReplacing:@"/" with:@":"];
+	newName = [newName stringByReplacingOccurrencesOfString:@"/" withString:@":"];
 
     NSError *err = nil;
 

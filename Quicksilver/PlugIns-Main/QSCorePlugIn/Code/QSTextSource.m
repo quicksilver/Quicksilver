@@ -45,7 +45,7 @@
 
 - (QSObject *)speakText:(QSObject *)dObject {
 	NSString *string = [dObject stringValue];
-	string = [string stringByReplacing:@"\"" with:@"\\\""];
+	string = [string stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
 	string = [NSString stringWithFormat:@"say \"%@\"", string];
 	[[[NSAppleScript alloc] initWithSource:string] executeAndReturnError:nil];
 	return nil;
