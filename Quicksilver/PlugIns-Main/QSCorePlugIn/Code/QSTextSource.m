@@ -60,11 +60,13 @@
 
 - (void)typeString:(NSString *)string {
     UniChar buffer;
+    CGKeyCode keyCode;
     CGEventRef keyEvent = CGEventCreateKeyboardEvent(NULL, 0, true);
     CFRelease(keyEvent);
     for (NSUInteger i = 0; i < [string length]; i++) {
         buffer = [string characterAtIndex:i];
-        keyEvent = CGEventCreateKeyboardEvent(NULL, 1, true);
+        keyCode = [[NDKeyboardLayout keyboardLayout] keyCodeForCharacter:buffer];
+        keyEvent = CGEventCreateKeyboardEvent(NULL, keyCode, true);
         CGEventKeyboardSetUnicodeString(keyEvent, 1, &buffer);
         CGEventPost(kCGHIDEventTap, keyEvent);
         CFRelease(keyEvent);
