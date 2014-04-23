@@ -346,11 +346,6 @@
 		CD14B79118D06609000FE86A /* QSThreadSafeMutableDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = CD14B78D18D065F5000FE86A /* QSThreadSafeMutableDictionary.m */; };
 		CD1B17D9158A573000E4A030 /* VDKQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE1E661158A4D0900355A9F /* VDKQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CD1B17DA158A573200E4A030 /* VDKQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = CDE1E660158A4D0900355A9F /* VDKQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CD39DE5F16B43FBF0087B09E /* (null) in Sources */ = {isa = PBXBuildFile; };
-		CD39DE6016B43FC40087B09E /* (null) in Headers */ = {isa = PBXBuildFile; };
-		CD39DE6216B43FDD0087B09E /* (null) in Resources */ = {isa = PBXBuildFile; };
-		CD3AEA9917D7F0030011F2E3 /* (null) in Sources */ = {isa = PBXBuildFile; };
-		CD3AEA9A17D7F0300011F2E3 /* (null) in Headers */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (Public, ); }; };
 		CD3F9D68136183250013FCB7 /* QSClangAnalyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42ADF4FD1317237900C68070 /* QSClangAnalyzer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD4FA6E0157A13D600E549BD /* QSHotKeyEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = CD4FA6DF157A13D600E549BD /* QSHotKeyEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD4FA6E2157A13DE00E549BD /* QSHotKeyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4FA6E1157A13DE00E549BD /* QSHotKeyEvent.m */; };
@@ -3596,7 +3591,6 @@
 				D493990D1350078E00B908C6 /* QSDownloads.h in Headers */,
 				CD1B17DA158A573200E4A030 /* VDKQueue.h in Headers */,
 				D413172F15DEE5D90021479B /* LaunchAtLoginController.h in Headers */,
-				CD39DE6016B43FC40087B09E /* (null) in Headers */,
 				CD65B12916FA1BD000932A9C /* QSPluginUpdaterWindowController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3724,7 +3718,6 @@
 				CDC10E741622146C005FA734 /* SUPlainInstallerInternals.h in Headers */,
 				CDA5253716AED84400D2017F /* NSView+DisableSubviews.h in Headers */,
 				CDA5253916AED88E00D2017F /* QSGCD.h in Headers */,
-				CD3AEA9A17D7F0300011F2E3 /* (null) in Headers */,
 				CDD6F3FA17EB4DED00ACE129 /* QSIntValueTransformer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4375,7 +4368,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD39DE6216B43FDD0087B09E /* (null) in Resources */,
 				CD65B12C16FA1BE400932A9C /* QSPluginUpdater.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4761,7 +4753,6 @@
 				D493990E1350078E00B908C6 /* QSDownloads.m in Sources */,
 				CD1B17D9158A573000E4A030 /* VDKQueue.m in Sources */,
 				D413173015DEE5D90021479B /* LaunchAtLoginController.m in Sources */,
-				CD39DE5F16B43FBF0087B09E /* (null) in Sources */,
 				CD65B12A16FA1BD000932A9C /* QSPluginUpdaterWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4878,7 +4869,6 @@
 				CDC10E751622146C005FA734 /* SUPlainInstallerInternals.m in Sources */,
 				CDA5253816AED84400D2017F /* NSView+DisableSubviews.m in Sources */,
 				CDA5253A16AED89100D2017F /* QSGCD.m in Sources */,
-				CD3AEA9917D7F0030011F2E3 /* (null) in Sources */,
 				CDD6F3FB17EB4DED00ACE129 /* QSIntValueTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
