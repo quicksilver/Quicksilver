@@ -1378,7 +1378,6 @@ NSMutableDictionary *bindingsDict = nil;
             else if ([newSelectedObject hasChildren] &&
                     ![[newSelectedObject primaryType] isEqualToString:QSURLType] &&
                     ![[newSelectedObject primaryType] isEqualToString:QSSearchURLType] &&
-//                    ![newSelectedObject containsType:QSURLType] &&
                     !QSTypeConformsTo([newSelectedObject fileUTI], (__bridge NSString *)kUTTypePlainText))
             {
                 [self moveRight:sender];
