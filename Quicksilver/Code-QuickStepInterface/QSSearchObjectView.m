@@ -1332,7 +1332,7 @@ NSMutableDictionary *bindingsDict = nil;
 {
 	NSInteger behavior = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSSearchSpaceBarBehavior"];
 
-    QSObject * newSelectedObject = [super objectValue];
+    QSObject * newSelectedObject = [[super objectValue] resolvedObject];
     QSAction *action = [[self actionSelector] objectValue];
 
 	switch(behavior) {
@@ -1374,7 +1374,11 @@ NSMutableDictionary *bindingsDict = nil;
                 [self moveLeft:sender];
             }
             // Show child contents but only if object isn't a URL or text file
-            else if ([newSelectedObject hasChildren] && ![newSelectedObject containsType:QSURLType] && !QSTypeConformsTo([newSelectedObject fileUTI], @"public.plain-text"))
+            else if ([newSelectedObject hasChildren] &&
+                    ![[newSelectedObject primaryType] isEqualToString:QSURLType] &&
+                    ![[newSelectedObject primaryType] isEqualToString:QSSearchURLType] &&
+//                    ![newSelectedObject containsType:QSURLType] &&
+                    !QSTypeConformsTo([newSelectedObject fileUTI], (__bridge NSString *)kUTTypePlainText))
             {
                 [self moveRight:sender];
             }
