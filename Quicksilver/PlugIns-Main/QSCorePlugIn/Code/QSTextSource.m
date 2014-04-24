@@ -66,7 +66,13 @@
     for (NSUInteger i = 0; i < [string length]; i++) {
         buffer = [string characterAtIndex:i];
         keyCode = [[NDKeyboardLayout keyboardLayout] keyCodeForCharacter:buffer];
+        // key down event
         keyEvent = CGEventCreateKeyboardEvent(NULL, keyCode, true);
+        CGEventKeyboardSetUnicodeString(keyEvent, 1, &buffer);
+        CGEventPost(kCGHIDEventTap, keyEvent);
+        CFRelease(keyEvent);
+        // key up event
+        keyEvent = CGEventCreateKeyboardEvent(NULL, keyCode, false);
         CGEventKeyboardSetUnicodeString(keyEvent, 1, &buffer);
         CGEventPost(kCGHIDEventTap, keyEvent);
         CFRelease(keyEvent);
