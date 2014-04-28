@@ -69,12 +69,16 @@
         keyEvent = CGEventCreateKeyboardEvent(NULL, keyCode, true);
         CGEventKeyboardSetUnicodeString(keyEvent, 1, &buffer);
         CGEventPost(kCGHIDEventTap, keyEvent);
-        CFRelease(keyEvent);
+        if (keyEvent) {
+            CFRelease(keyEvent);
+        }
         // key up event
         keyEvent = CGEventCreateKeyboardEvent(NULL, keyCode, false);
         CGEventKeyboardSetUnicodeString(keyEvent, 1, &buffer);
         CGEventPost(kCGHIDEventTap, keyEvent);
-        CFRelease(keyEvent);
+        if (keyEvent) {
+            CFRelease(keyEvent);
+        }
     }
 }
 
