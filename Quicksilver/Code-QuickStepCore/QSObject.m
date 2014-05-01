@@ -38,17 +38,18 @@ NSSize QSMaxIconSize;
 #endif
  // NSString *thisKey = nil;
 
+    NSSet *s = nil;
     @synchronized(iconLoadedSet) {
-        NSSet *s = [iconLoadedSet objectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *obj, BOOL *stop) {
+        s = [iconLoadedSet objectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *obj, BOOL *stop) {
             return obj->lastAccess && obj->lastAccess < (globalLastAccess - interval);
         }];
-        for(QSObject *thisObject in s) {
-            if ([thisObject unloadIcon]) {
-                
+    }
+    for(QSObject *thisObject in s) {
+        if ([thisObject unloadIcon]) {
+            
 #ifdef DEBUG
-                imagecount++;
+            imagecount++;
 #endif
-            }
         }
     }
     
@@ -83,8 +84,8 @@ NSSize QSMaxIconSize;
 - (id)init {
 	if (self = [super init]) {
 
-		data = [NSMutableDictionary dictionaryWithCapacity:0];
-		meta = [NSMutableDictionary dictionaryWithCapacity:0];
+		data = [QSThreadSafeMutableDictionary dictionaryWithCapacity:0];
+		meta = [QSThreadSafeMutableDictionary dictionaryWithCapacity:0];
 		name = nil;
 		label = nil;
 		icon = nil;
@@ -157,7 +158,7 @@ NSSize QSMaxIconSize;
 	NSMutableSet *typesSet = nil;
 	
 	// Dict to store each object's data
-	NSMutableDictionary *combinedData = [NSMutableDictionary dictionary];
+	QSThreadSafeMutableDictionary *combinedData = [QSThreadSafeMutableDictionary dictionary];
 	NSString *type;
 	NSMutableArray *array;
 	// Set used to keep track of the objects already added
@@ -275,11 +276,11 @@ NSSize QSMaxIconSize;
 }
 
 - (void)setMeta:(NSMutableDictionary *)obj {
-    meta = obj;
+    meta = [QSThreadSafeMutableDictionary dictionaryWithDictionary:obj];
 }
 
 - (void)setData:(NSMutableDictionary *)obj {
-    data = obj;
+    data = [QSThreadSafeMutableDictionary dictionaryWithDictionary:obj];
 }
 
 - (void)setFlags:(QSObjectFlags)fl {
@@ -421,14 +422,12 @@ NSSize QSMaxIconSize;
     if (!aKey) {
         return;
     }
-    @synchronized(data) {
-        if (object) {
-            if (object != [data objectForKey:aKey]) {
-                [data setObject:object forKey:aKey];
-            }
-        } else {
-            [data removeObjectForKey:aKey];
+    if (object) {
+        if (object != [data objectForKey:aKey]) {
+            [data setObject:object forKey:aKey];
         }
+    } else {
+        [data removeObjectForKey:aKey];
     }
 }
 
@@ -440,14 +439,12 @@ NSSize QSMaxIconSize;
     if (!aKey) {
         return;
     }
-    @synchronized([self cache]) {
-        if (object) {
-            if (object != [[self cache] objectForKey:aKey]) {
-                [[self cache] setObject:object forKey:aKey];
-            }
-        } else {
-            [[self cache] removeObjectForKey:aKey];
+    if (object) {
+        if (object != [[self cache] objectForKey:aKey]) {
+            [[self cache] setObject:object forKey:aKey];
         }
+    } else {
+        [[self cache] removeObjectForKey:aKey];
     }
 }
 
@@ -468,13 +465,13 @@ NSSize QSMaxIconSize;
     }
 }
 
-- (NSMutableDictionary *)cache {
-	if (!cache) [self setCache:[NSMutableDictionary dictionaryWithCapacity:1]];
+- (QSThreadSafeMutableDictionary *)cache {
+	if (!cache) [self setCache:[QSThreadSafeMutableDictionary dictionaryWithCapacity:1]];
 	return cache;
 }
 - (void)setCache:(NSMutableDictionary *)aCache {
 	if (cache != aCache) {
-		cache = aCache;
+		cache = [QSThreadSafeMutableDictionary dictionaryWithDictionary:aCache];
 	}
 }
 
@@ -773,23 +770,25 @@ NSSize QSMaxIconSize;
     [self setObject:newPrimaryType forMeta:kQSObjectPrimaryType];
 }
 
-- (NSMutableDictionary *)dataDictionary {
+- (QSThreadSafeMutableDictionary *)dataDictionary {
 	return data;
 }
 
 - (void)setDataDictionary:(NSMutableDictionary *)newDataDictionary {
     if (newDataDictionary != data) {
-        data = newDataDictionary;
+        data = [QSThreadSafeMutableDictionary dictionaryWithDictionary:newDataDictionary];
     }
 }
 
 - (BOOL)iconLoaded { return flags.iconLoaded;  }
 - (void)setIconLoaded:(BOOL)flag {
 	flags.iconLoaded = flag;
-    if (flag) {
-        [iconLoadedSet addObject:self];
-    } else {
-        [iconLoadedSet removeObject:self];
+    @synchronized(iconLoadedSet) {
+        if (flag) {
+            [iconLoadedSet addObject:self];
+        } else {
+            [iconLoadedSet removeObject:self];
+        }
     }
 }
 
