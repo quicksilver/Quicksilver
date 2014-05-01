@@ -62,14 +62,25 @@
 
 - (void)typeString:(NSString *)string {
     UniChar buffer;
-    CGEventRef keyEvent = CGEventCreateKeyboardEvent(NULL, 0, true);
-    CFRelease(keyEvent);
+    CGKeyCode keyCode;
+    CGEventRef keyEvent;
     for (NSUInteger i = 0; i < [string length]; i++) {
         buffer = [string characterAtIndex:i];
-        keyEvent = CGEventCreateKeyboardEvent(NULL, 1, true);
+        keyCode = [[NDKeyboardLayout keyboardLayout] keyCodeForCharacter:buffer];
+        // key down event
+        keyEvent = CGEventCreateKeyboardEvent(NULL, keyCode, true);
         CGEventKeyboardSetUnicodeString(keyEvent, 1, &buffer);
         CGEventPost(kCGHIDEventTap, keyEvent);
-        CFRelease(keyEvent);
+        if (keyEvent) {
+            CFRelease(keyEvent);
+        }
+        // key up event
+        keyEvent = CGEventCreateKeyboardEvent(NULL, keyCode, false);
+        CGEventKeyboardSetUnicodeString(keyEvent, 1, &buffer);
+        CGEventPost(kCGHIDEventTap, keyEvent);
+        if (keyEvent) {
+            CFRelease(keyEvent);
+        }
     }
 }
 
