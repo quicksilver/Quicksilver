@@ -623,12 +623,26 @@ NSMutableDictionary *plugInBundlePaths = nil;
 		}
 
 		NSString *qsVersion = [requirementsDict objectForKey:@"version"];
+        if (!qsVersion) {
+            qsVersion = [requirementsDict objectForKey:@"minHostVersion"];
+        }
 		if (qsVersion) {
 			NSComparisonResult sorting = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"] versionCompare:qsVersion];
 			if (sorting<0) {
 				if (error) {
                     NSString *localizedErrorFormat = NSLocalizedString(@"Requires Quicksiver Build %@", nil);
                     *error = [NSString stringWithFormat:localizedErrorFormat, qsVersion];
+                }
+				return NO;
+			}
+		}
+		NSString *qsMaxVersion = [requirementsDict objectForKey:@"maxHostVersion"];
+		if (qsMaxVersion) {
+			NSComparisonResult sorting = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"] versionCompare:qsMaxVersion];
+			if (sorting>0) {
+				if (error) {
+                    NSString *localizedErrorFormat = NSLocalizedString(@"Requires Quicksiver Build %@ or lower", nil);
+                    *error = [NSString stringWithFormat:localizedErrorFormat, qsMaxVersion];
                 }
 				return NO;
 			}
