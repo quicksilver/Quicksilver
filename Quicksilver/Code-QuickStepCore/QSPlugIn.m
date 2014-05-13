@@ -560,9 +560,9 @@ NSMutableDictionary *plugInBundlePaths = nil;
 	*error = nil;
 	if (requirementsDict) {
 		if (![[NSUserDefaults standardUserDefaults] boolForKey:@"QSIgnorePlugInBundleRequirements"]) {
-			for (NSDictionary *bundleDict in [requirementsDict objectForKey:@"bundles"]) {
-				NSString *identifier = [bundleDict objectForKey:@"id"];
-                NSString *name = [bundleDict objectForKey:@"name"];
+			for (NSDictionary *bundleDict in requirementsDict[kPluginRequirementsBundles]) {
+				NSString *identifier = bundleDict[kPluginRequirementsBundleId];
+                NSString *name = bundleDict[kPluginRequirementsBundleName];
                 NSString *path = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:identifier];
 				if (!path) {
                     if (error) {
@@ -571,7 +571,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
                     }
 					return NO;
 				}
-                NSString *requiredVersion = [bundleDict objectForKey:@"version"];
+                NSString *requiredVersion = bundleDict[kPluginRequirementsBundleVersion];
                 if (requiredVersion) {
                     // check bundle's version
                     NSDictionary *details = [[NSBundle bundleWithPath:path] infoDictionary];
@@ -587,31 +587,32 @@ NSMutableDictionary *plugInBundlePaths = nil;
 			}
 		}
 
-		 {
-			NSArray *frameworks = [requirementsDict objectForKey:@"frameworks"];
-			for(NSDictionary * frameworkDict in frameworks) {
-				NSString *identifier = [frameworkDict objectForKey:@"id"];
-				NSString *resource = [frameworkDict objectForKey:@"resource"];
-				NSString *path = [[QSResourceManager sharedInstance] pathWithLocatorInformation:resource];
-				//path = @"/Volumes/Lore/Applications/Colloquy.app/Contents/Frameworks/AGRegex.framework";
-				NSBundle *pathBundle = [NSBundle bundleWithPath:path];
-				[pathBundle load];
-				//CFBundleRef b = CFBundleCreate(NULL, [NSURL fileURLWithPath:path]);
-				//int err = CFBundleLoadExecutable(b);
-				NSLog(@"path %@ %@ %@", path, resource, pathBundle);
+        NSArray *frameworks = requirementsDict[kPluginRequirementsFrameworks];
+        for(NSDictionary * frameworkDict in frameworks) {
+            NSString *identifier = frameworkDict[kPluginRequirementsFrameworkId];
+            NSString *resource = frameworkDict[kPluginRequirementsFrameworkResource];
+            NSString *name = frameworkDict[kPluginRequirementsFrameworkName];
+            NSString *path = [[QSResourceManager sharedInstance] pathWithLocatorInformation:resource];
+            NSBundle *pathBundle = [NSBundle bundleWithPath:path];
+            // try and load the framework
+            [pathBundle load];
+            
+            if (!path) {
+                if (error) {
+                    NSString *localizedErrorFormat = NSLocalizedString(@"Requires Framework '%@'", nil);
+                    *error = [NSString stringWithFormat:localizedErrorFormat, name?name:identifier];
+                }
+                return NO;
+            } else if (![pathBundle isLoaded]) {
+                if (error) {
+                    NSString *localizedErrorFormat = NSLocalizedString(@"Framework '%@' could not be loaded", nil);
+                    *error = [NSString stringWithFormat:localizedErrorFormat, name?name:identifier];
+                }
+                return NO;
+            }
+        }
 
-				if (!path) {
-                    if (error) {
-                        NSString *name = [frameworkDict objectForKey:@"name"];
-                        NSString *localizedErrorFormat = NSLocalizedString(@"Requires Framework '%@'", nil);
-                        *error = [NSString stringWithFormat:localizedErrorFormat, name?name:identifier];
-                    }
-					return NO;
-				}
-			}
-		}
-
-		NSArray *paths = [requirementsDict objectForKey:@"paths"];
+		NSArray *paths = requirementsDict[kPluginRequirementsPaths];
 		for(NSString * path in paths) {
 			if (![[NSFileManager defaultManager] fileExistsAtPath:[path stringByStandardizingPath]]) {
 				if (error) {
@@ -622,7 +623,10 @@ NSMutableDictionary *plugInBundlePaths = nil;
 			}
 		}
 
-		NSString *qsVersion = [requirementsDict objectForKey:@"version"];
+		NSString *qsVersion = requirementsDict[kPluginRequirementsMinHostVersion];
+        if (!qsVersion) {
+            qsVersion = requirementsDict[kPluginRequirementsMinHostVersion__deprecated];
+        }
 		if (qsVersion) {
 			NSComparisonResult sorting = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"] versionCompare:qsVersion];
 			if (sorting<0) {
@@ -633,7 +637,18 @@ NSMutableDictionary *plugInBundlePaths = nil;
 				return NO;
 			}
 		}
-        NSString *osRequired = [requirementsDict objectForKey:@"osRequired"];
+		NSString *qsMaxVersion = requirementsDict[kPluginRequirementsMaxHostVersion];
+		if (qsMaxVersion) {
+			NSComparisonResult sorting = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"] versionCompare:qsMaxVersion];
+			if (sorting>0) {
+				if (error) {
+                    NSString *localizedErrorFormat = NSLocalizedString(@"Requires Quicksiver Build %@ or lower", nil);
+                    *error = [NSString stringWithFormat:localizedErrorFormat, qsMaxVersion];
+                }
+				return NO;
+			}
+		}
+        NSString *osRequired = requirementsDict[kPluginRequirementsOSRequiredVersion];
         if (osRequired) {
             if ([[NSApplication macOSXFullVersion] compare:osRequired] == NSOrderedAscending) {
                 if (error) {
@@ -643,7 +658,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
                 return NO;
             }
         }
-        NSString *osUnsupported = [requirementsDict objectForKey:@"osUnsupported"];
+        NSString *osUnsupported = requirementsDict[kPluginRequirementsOSUnsupportedVersion];
         if (osUnsupported) {
             NSComparisonResult versionComparison = [[NSApplication macOSXFullVersion] compare:osUnsupported];
             if (versionComparison == NSOrderedSame || versionComparison == NSOrderedDescending) {
