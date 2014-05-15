@@ -41,7 +41,7 @@
 }
 - (void)attachToWindow:(NSWindow *)window {
 	CGSConnection cgs = _CGSDefaultConnection();
-	spec.wid = [window windowNumber];
+	spec.wid = (int)[(NSWindow *)window windowNumber];
 	CGSNewTransition(cgs, &spec, &handle);
 }
 - (void)finishTransition {
