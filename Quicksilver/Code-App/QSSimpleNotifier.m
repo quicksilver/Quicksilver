@@ -52,7 +52,7 @@
 
 - (void)loadWindow {
 	[super loadWindow];
-	NSWindow *window = [super window];
+	NSWindow *window = [self window];
 	NSRect screenRect = [[NSScreen mainScreen] frame];
 	NSRect windowRect = [[super window] frame];
 	[window setIgnoresMouseEvents:YES];
@@ -132,34 +132,13 @@
 
 	NSInteger direction = 1;
 
-	if ([titleString isEqualToString:lastTitle])
-		direction = -1;
-	if ([titleString isEqualToString:thisTitle])
-		direction = 0;
-
 	if ([window isVisible]) {
+        [[self window] display];
+        
+		[textView display]; // Not always showing correctly....
+        
 		[curTimer invalidate];
 		curTimer = nil;
-
-		CGSTransitionOption transition = CGSLeft;
-
-		if (direction == -1)
-			transition = CGSRight;
-		if (direction == 0)
-			transition = CGSDown;
-
-		//		[window displayWithTransition:CGSCube option:CGSLeft duration:0.33f];
-		QSCGSTransition *t = [QSCGSTransition transitionWithWindow:window
-															type:CGSCube option:transition duration:0.5f];
-
-		[[self window] display];
-
-		[textView display]; // Not always showing correctly....
-		[t runTransition:0.5];
-
-		//[(QSWindow *)window performEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"0.25", @"duration", @"QSBingeEffect", @"transformFn", @"visible", @"type", nil]];
-
-		//[[QSWindowAnimation helper] flipShow:window];
 	} else {
 		[[window contentView] display];
 
