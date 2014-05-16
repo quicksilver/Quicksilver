@@ -789,10 +789,12 @@ NSSize QSMaxIconSize;
 - (BOOL)iconLoaded { return flags.iconLoaded;  }
 - (void)setIconLoaded:(BOOL)flag {
 	flags.iconLoaded = flag;
-    if (flag) {
-        [iconLoadedSet addObject:self];
-    } else {
-        [iconLoadedSet removeObject:self];
+    @synchronized(iconLoadedSet) {
+        if (flag) {
+            [iconLoadedSet addObject:self];
+        } else {
+            [iconLoadedSet removeObject:self];
+        }
     }
 }
 
