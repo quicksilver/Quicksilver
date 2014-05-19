@@ -805,7 +805,8 @@
 }
 
 - (QSObject *)getFileURLs:(QSObject *)dObject {
-	return [QSObject objectWithString:[[NSURL performSelector:@selector(fileURLWithPath:) onObjectsInArray:[dObject arrayForType:QSFilePathType] returnValues:YES] componentsJoinedByString:@"\n"]];
+	NSString *fileURLs = [[NSURL performSelector:@selector(fileURLWithPath:) onObjectsInArray:[dObject arrayForType:QSFilePathType] returnValues:YES] componentsJoinedByString:@"\n"];
+    return [QSObject objectWithType:QSTextType value:fileURLs name:fileURLs];
 }
 - (QSObject *)getFileLocations:(QSObject *)dObject {
 	return [QSObject objectWithString:[[[dObject arrayForType:QSFilePathType] arrayByPerformingSelector:@selector(fileSystemPathHFSStyle)] componentsJoinedByString:@"\n"]];
