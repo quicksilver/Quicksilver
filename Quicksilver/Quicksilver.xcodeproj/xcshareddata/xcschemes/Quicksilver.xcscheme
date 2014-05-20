@@ -38,6 +38,26 @@
                ReferencedContainer = "container:Quicksilver.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CD61BBB7192B18FA00040609"
+               BuildableName = "Quicksilver Tests.xctest"
+               BlueprintName = "Quicksilver Tests"
+               ReferencedContainer = "container:Quicksilver.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CD61BBD0192B1A3B00040609"
+               BuildableName = "asdf.xctest"
+               BlueprintName = "asdf"
+               ReferencedContainer = "container:Quicksilver.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
