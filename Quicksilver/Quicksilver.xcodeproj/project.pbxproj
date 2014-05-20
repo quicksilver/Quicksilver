@@ -345,6 +345,7 @@
 		CD14B79118D06609000FE86A /* QSThreadSafeMutableDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = CD14B78D18D065F5000FE86A /* QSThreadSafeMutableDictionary.m */; };
 		CD1B17D9158A573000E4A030 /* VDKQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE1E661158A4D0900355A9F /* VDKQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CD1B17DA158A573200E4A030 /* VDKQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = CDE1E660158A4D0900355A9F /* VDKQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD34CCDF192BA28400AC63A6 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97324FDCFA39411CA2CEA /* AppKit.framework */; };
 		CD39DE5F16B43FBF0087B09E /* (null) in Sources */ = {isa = PBXBuildFile; };
 		CD39DE6016B43FC40087B09E /* (null) in Headers */ = {isa = PBXBuildFile; };
 		CD39DE6216B43FDD0087B09E /* (null) in Resources */ = {isa = PBXBuildFile; };
@@ -2384,6 +2385,7 @@
 				CD61BBC9192B199C00040609 /* QSCore.framework in Frameworks */,
 				CD61BBCB192B199F00040609 /* QSFoundation.framework in Frameworks */,
 				CD61BBCC192B19A100040609 /* QSEffects.framework in Frameworks */,
+				CD34CCDF192BA28400AC63A6 /* AppKit.framework in Frameworks */,
 				CD61BBCA192B199E00040609 /* QSInterface.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
