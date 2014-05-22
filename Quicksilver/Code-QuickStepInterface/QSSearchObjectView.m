@@ -565,7 +565,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)clearAll {
-	[super setObjectValue:nil];
+    [self clearObjectValue];
 	[self clearHistory];
 	[self setSourceArray:nil];
 	[self setSearchArray:nil];

@@ -257,7 +257,7 @@
 }
 
 - (void)clearObjectView:(QSSearchObjectView *)view {
-    [view clearAll];
+    [view clearObjectValue];
     [view clearSearch];
 }
 

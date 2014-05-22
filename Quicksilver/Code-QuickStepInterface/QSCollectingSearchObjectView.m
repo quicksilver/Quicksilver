@@ -12,7 +12,7 @@
 @implementation QSCollectingSearchObjectView
 - (void)awakeFromNib {
 	[super awakeFromNib];
-	collection = (NSMutableArray *)[[QSCollection alloc] init];
+	collection = [NSMutableArray new];
 	collecting = NO;
 	collectionEdge = NSMinYEdge;
 	collectionSpace = 16.0;
@@ -91,7 +91,7 @@
 }
 - (id)objectValue {
 	if ([collection count])
-		return [QSObject objectByMergingObjects:(NSArray *)collection withObject:[super objectValue]];
+		return [QSObject objectByMergingObjects:[NSArray arrayWithArray:collection] withObject:[super objectValue]];
 	else
 		return [super objectValue];
 }

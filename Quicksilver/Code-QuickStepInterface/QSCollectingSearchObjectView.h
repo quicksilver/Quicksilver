@@ -29,4 +29,8 @@
 - (void)setCollectionSpace:(CGFloat)value;
 
 
+- (IBAction)collect:(id)sender;
+- (IBAction)uncollect:(id)sender;
+- (IBAction)uncollectLast:(id)sender;
+
 @end

@@ -331,7 +331,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
     }
 	
 	if (!action) {
-		NSLog(@"Warning: no action object for Command %@\nCommand Dictionary: %@", self, cmdDict);
+		NSLog(@"Warning: no action object for Command %@\nCommand Dictionary: %@", [self identifier], cmdDict);
 	}
 	else {
 		[self setActionObject:action];
@@ -372,7 +372,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 	// For cases where we really can't determine the object
 	if (!object) {
 #ifdef DEBUG
-		NSLog(@"Warning: no direct object for Command %@\nCommand Dictionary: %@", self, cmdDict);
+		NSLog(@"Warning: no direct object for Command %@\nCommand Dictionary: %@", [self identifier], cmdDict);
 #endif
 	}
 	else {
