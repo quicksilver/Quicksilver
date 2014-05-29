@@ -37,19 +37,6 @@
     STAssertTrue([object containsType:QSSearchURLType] && [[object primaryType] isEqualToString:QSSearchURLType], @"URL '%@' was not recognized as a web search", searchURL);
 }
 
-- (void)testFileObject
-{
-    NSString *path = @"/Applications/TextEdit.app";
-    QSObject *object = [QSObject fileObjectWithPath:path];
-    STAssertEqualObjects([object objectForType:QSFilePathType], path, nil);
-    STAssertEqualObjects([object singleFilePath], path, nil);
-    STAssertTrue([object isApplication], @"%@ should be seen as an application.", [object displayName]);
-    STAssertTrue([object isDirectory], @"%@ should be seen as a directory.", [object displayName]);
-    STAssertFalse([object isFolder], @"%@ should not be seen as a folder.", [object displayName]);
-    STAssertEqualObjects([object fileExtension], @"app", nil);
-    STAssertEqualObjects([object fileUTI], @"com.apple.application-bundle", nil);
-}
-
 - (void)testStringSniffing
 {
     NSArray *shouldBeURL = @[
@@ -161,27 +148,6 @@
     STAssertEqualObjects([object displayName], label, nil);
 }
 
-- (void)testFileNaming
-{
-    NSString *path = @"/bin/ls";
-    QSObject *object = [QSObject fileObjectWithPath:path];
-    STAssertEqualObjects([object name], @"ls", nil);
-    STAssertNil([object label], nil);
-    // label is localized, so this test might only work for a specific locale
-    path = @"/Applications/Safari.app";
-    object = [QSObject fileObjectWithPath:path];
-    STAssertEqualObjects([object name], @"Safari.app", nil);
-    STAssertEqualObjects([object label], @"Safari", nil);
-}
-
-- (void)testFileType
-{
-    QSObject *object = [QSObject fileObjectWithPath:@"/usr/bin/smtpd.py"];
-    NSString *type = [object fileUTI];
-    STAssertEqualObjects(type, @"public.python-script", nil);
-    object = [QSObject fileObjectWithPath:@"/usr/bin/2to3"];
-    STAssertTrue(UTTypeConformsTo((CFStringRef)[object fileUTI], (CFStringRef)@"public.executable"), @"/usr/bin/2to3 does not conform to public.executable");
-}
 
 - (void)testCombinedObjects
 {
