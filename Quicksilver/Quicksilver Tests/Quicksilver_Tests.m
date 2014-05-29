@@ -22,13 +22,8 @@
 
 - (void)setUp
 {
-    finishedLaunching = NO;
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
-}
-
-- (void)didFinishLaunching:(NSNotification *)notif {
-    finishedLaunching = YES;
 }
 
 - (void)tearDown
@@ -46,7 +41,6 @@
     sleep(5);
     
     QSInterfaceController *i = [[NSApp delegate] interfaceController];
-    [i showMainWindow:self];
     // Assumes the current interface can collect
     QSCollectingSearchObjectView *dSelector = (QSCollectingSearchObjectView *)[i dSelector];
     
@@ -77,7 +71,6 @@
  */
 - (void)testClearingSearchStringOnTrigger {
     QSInterfaceController *i = [[NSApp delegate] interfaceController];
-    [i showMainWindow:self];
     NSEvent *typeAEvent = [NSEvent keyEventWithType:10 location:NSMakePoint(0, 0) modifierFlags:256 timestamp:15127.081604936 windowNumber:[[i window] windowNumber] context:nil characters:@"a" charactersIgnoringModifiers:@"a" isARepeat:NO keyCode:0];
     // Simulate typing 'a' into the dSelector
     [[i dSelector] keyDown:typeAEvent];
