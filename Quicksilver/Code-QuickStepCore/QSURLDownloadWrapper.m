@@ -10,7 +10,7 @@
 
 @implementation QSURLDownload
 + (id)downloadWithURL:(NSURL*)url delegate:(id)aDelegate {
-	NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];
+	NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0];
     [theRequest setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
 	[theRequest setValue:kQSUserAgent forHTTPHeaderField:@"User-Agent"];
     return [[self alloc] initWithRequest:theRequest delegate:aDelegate];
