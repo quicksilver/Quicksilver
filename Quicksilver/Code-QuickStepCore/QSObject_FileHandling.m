@@ -854,10 +854,6 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
                 CFRelease(mdItem);
             }
         }
-        // fall back to the default display name
-        if (!newLabel || [newLabel isEqualToString:newName]) {
-            newLabel = [[NSFileManager defaultManager] displayNameAtPath:path];
-        }
 	}
     [self setName:newName];
 	[self setLabel:newLabel];
