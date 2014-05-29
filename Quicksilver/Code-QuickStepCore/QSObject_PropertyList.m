@@ -21,7 +21,7 @@
     
     if(obj == nil)
         obj = [[self alloc] initWithDictionary:dictionary];
-
+    
 #ifdef DEBUG
     if (!obj && DEBUG_UNPACKING)
         NSLog(@"%@ %@ failed creating object with dict %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), dictionary);
@@ -75,7 +75,7 @@
 }
 
 - (id)initWithDictionary:(NSDictionary *)dictionary {
-	
+    
 #ifdef DEBUG
     if (DEBUG_UNPACKING && VERBOSE)
         NSLog(@"%@ %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
@@ -89,13 +89,19 @@
  	if (self = [self init]) {
         [data setDictionary:dataDict];
         [meta setDictionary:metaDict];
+        // Backwards compatibility: make sure all dict keys are UTIs (where applicable)
         for (NSMutableDictionary *dict in @[data, meta]) {
-            [dict enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
-                NSString *UTIString = QSUTIForAnyTypeString(key);
-                if (UTIString && ![key isEqualToString:UTIString]) {
-                    [dict setObject:obj forKey:UTIString];
-                }
-            }];
+            // Create a temp dict to add any new UTI key/value pairs to. We can't add them directly to data/meta in the enumerate block (cannot mutate whilst enumerating)
+            NSMutableDictionary *tempDict = [NSMutableDictionary dictionary];
+            @synchronized(dict) {
+                [dict enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
+                    NSString *UTIString = QSUTIForAnyTypeString(key);
+                    if (UTIString && ![key isEqualToString:UTIString]) {
+                        [tempDict setObject:obj forKey:UTIString];
+                    }
+                }];
+                [dict addEntriesFromDictionary:tempDict];
+            }
         }
         [self extractMetadata];
         
