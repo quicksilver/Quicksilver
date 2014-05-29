@@ -225,8 +225,7 @@
 	//NSLog(@"query %@", query);
 	if ([query rangeOfString:@"\%s"] .location != NSNotFound) {
 		//NSLog(@"%@ > %@", query, [query stringByReplacing:@"\%s" with:QUERY_KEY]);
-		return [query stringByReplacing:@"\%s" with:QUERY_KEY];
-        
+		return [query stringByReplacingOccurrencesOfString:@"\%s" withString:QUERY_KEY];
 	}
 	return query;
 }

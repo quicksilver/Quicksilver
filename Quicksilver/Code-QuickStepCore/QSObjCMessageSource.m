@@ -60,8 +60,12 @@
 }
 // Object Handler Methods
 
-- (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {	//
-	return [NSArray arrayWithObject:kQSObjCSendMessageAction];
+- (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject
+{
+    if ([[dObject primaryType] isEqualToString:QSActionType] && [(QSAction *)dObject argumentCount] == 0) {
+        return @[kQSObjCSendMessageAction];
+    }
+    return nil;
 }
 
 - (QSObject *)sendMessage:(QSObject *)dObject {

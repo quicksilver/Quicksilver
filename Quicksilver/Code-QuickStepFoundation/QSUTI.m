@@ -110,7 +110,7 @@ NSString *QSUTIWithLSInfoRec(NSString *path, LSItemInfoRecord *infoRec) {
 }
 
 NSString *QSUTIForAnyTypeString(NSString *type) {
-    if ([type isEqualToString:@"*"] || QSIsUTI(type)) {
+    if (!type || [type isEqualToString:@"*"] || QSIsUTI(type)) {
         return type;
     }
     

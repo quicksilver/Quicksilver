@@ -53,6 +53,8 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 		[pasteboard addTypes:[NSArray arrayWithObjects:NSURLPboardType, NSStringPboardType, nil] owner:nil];
 		[pasteboard setString:([pbData hasPrefix:@"mailto:"]) ?[pbData substringFromIndex:7] :pbData forType:NSStringPboardType];
 		[pasteboard setString:[pbData URLDecoding] forType:NSURLPboardType];
+    } else if ([type isEqualToString:@"public.file-url"] && [pbData isKindOfClass:[NSArray class]]) {
+        [pasteboard setString:pbData[0] forType:type];
 	} else if ([PLISTTYPES containsObject:type] || [pbData isKindOfClass:[NSDictionary class]] || [pbData isKindOfClass:[NSArray class]]) {
         if (![pbData isKindOfClass:[NSArray class]]) {
             pbData = @[pbData];
@@ -261,6 +263,15 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 			includeTypes = [NSArray arrayWithObject:NSColorPboardType];
         }
 	}
+    if ([self validPaths]) {
+        // this is a file - add file URL data
+        includeTypes = @[@"public.file-url"];
+        [types addObjectsFromArray:includeTypes];
+        NSArray *fileURLs = [[self validPaths] arrayByEnumeratingArrayUsingBlock:^NSString *(NSString *path) {
+            return [[NSURL fileURLWithPath:path] absoluteString];
+        }];
+        [self setObject:fileURLs forType:@"public.file-url"];
+    }
 	// last case: no other useful types: return a basic string
 	if (!includeTypes) {
 		includeTypes = @[NSStringPboardType, QSTextType];

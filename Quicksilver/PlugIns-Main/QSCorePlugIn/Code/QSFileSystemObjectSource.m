@@ -393,6 +393,10 @@
 - (BOOL)indexIsValidFromDate:(NSDate *)indexDate forEntry:(NSDictionary *)theEntry {
 	NSMutableDictionary *settings = [theEntry objectForKey:kItemSettings];
 
+    if ([[settings objectForKey:@"watchTarget"] boolValue]) {
+        // no need to scan - this entry is updated automatically
+        return YES;
+    }
 	NSString *itemPath = [self fullPathForSettings:settings];
 	if (!itemPath) return YES;
 

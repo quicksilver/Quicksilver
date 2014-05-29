@@ -24,7 +24,7 @@
 
 - (QSObject *)showLargeType:(QSObject *)dObject {
     NSString *display = nil;
-    if ([dObject singleFilePath]) {
+    if ([dObject singleFilePath] && QSTypeConformsTo([dObject fileUTI], (__bridge NSString *)kUTTypePlainText)) {
         NSError *err = nil;
         display = [[NSString alloc] initWithContentsOfFile:[dObject singleFilePath] usedEncoding:nil error:&err];
         if (err) {
@@ -45,7 +45,7 @@
 
 - (QSObject *)speakText:(QSObject *)dObject {
 	NSString *string = [dObject stringValue];
-	string = [string stringByReplacing:@"\"" with:@"\\\""];
+	string = [string stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
 	string = [NSString stringWithFormat:@"say \"%@\"", string];
 	[[[NSAppleScript alloc] initWithSource:string] executeAndReturnError:nil];
 	return nil;
@@ -54,20 +54,33 @@
 - (QSObject *)typeObject:(QSObject *)dObject {
 	// NSLog( AsciiToKeyCode(&ttable, "m") {
 	// short AsciiToKeyCode(Ascii2KeyCodeTable *ttable, short asciiCode) {
-	[self typeString:[dObject stringValue]];
+    for (QSObject *obj in dObject.splitObjects) {
+        [self typeString:[obj stringValue]];
+    }
 	return nil;
 }
 
 - (void)typeString:(NSString *)string {
     UniChar buffer;
-    CGEventRef keyEvent = CGEventCreateKeyboardEvent(NULL, 0, true);
-    CFRelease(keyEvent);
+    CGKeyCode keyCode;
+    CGEventRef keyEvent;
     for (NSUInteger i = 0; i < [string length]; i++) {
         buffer = [string characterAtIndex:i];
-        keyEvent = CGEventCreateKeyboardEvent(NULL, 1, true);
+        keyCode = [[NDKeyboardLayout keyboardLayout] keyCodeForCharacter:buffer];
+        // key down event
+        keyEvent = CGEventCreateKeyboardEvent(NULL, keyCode, true);
         CGEventKeyboardSetUnicodeString(keyEvent, 1, &buffer);
         CGEventPost(kCGHIDEventTap, keyEvent);
-        CFRelease(keyEvent);
+        if (keyEvent) {
+            CFRelease(keyEvent);
+        }
+        // key up event
+        keyEvent = CGEventCreateKeyboardEvent(NULL, keyCode, false);
+        CGEventKeyboardSetUnicodeString(keyEvent, 1, &buffer);
+        CGEventPost(kCGHIDEventTap, keyEvent);
+        if (keyEvent) {
+            CFRelease(keyEvent);
+        }
     }
 }
 

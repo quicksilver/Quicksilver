@@ -97,6 +97,14 @@
 
 @end
 
+@interface QSGlobalSelectionProvider ()
+
+@property (assign) NSTimeInterval failDate;
+@property (retain) NSDictionary *currentAppSelectionProxyInfo;
+@property (retain) id currentAppSelectionProxyProvider;
+
+@end
+
 @implementation QSGlobalSelectionProvider
 
 - (id)init

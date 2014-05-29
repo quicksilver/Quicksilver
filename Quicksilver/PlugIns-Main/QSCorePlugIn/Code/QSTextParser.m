@@ -21,8 +21,7 @@
 - (NSArray *)linesFromString:(NSString *)string atPath:(NSString *)path lineType:(NSString *)lineType {
 	NSMutableArray *array = [NSMutableArray arrayWithCapacity:1];
 	QSObject *newObject;
-	string = [string stringByReplacing:@"\n" with:@"\r"];
-	NSArray *lines = [string componentsSeparatedByString:@"\r"];
+	NSArray *lines = [string lines];
     NSInteger i = 0;
 	for (id line in lines) {
 		if (lineType)

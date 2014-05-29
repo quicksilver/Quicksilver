@@ -14,12 +14,12 @@
 
 @interface QSGlobalSelectionProvider : NSObject <QSProxyObjectProvider>
 
-@property NSTimeInterval failDate;
-@property NSDictionary *currentAppSelectionProxyInfo;
-@property id currentAppSelectionProxyProvider;
+@property (readonly,assign) NSTimeInterval failDate;
+@property (readonly,retain) NSDictionary *currentAppSelectionProxyInfo;
+@property (readonly,retain) id currentAppSelectionProxyProvider;
 
 + (instancetype)sharedInstance;
 - (id)currentSelection;
-+(id)currentSelection;
++ (id)currentSelection;
 
 @end

@@ -565,7 +565,7 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)clearAll {
-	[super setObjectValue:nil];
+    [self clearObjectValue];
 	[self clearHistory];
 	[self setSourceArray:nil];
 	[self setSearchArray:nil];
@@ -874,7 +874,6 @@ NSMutableDictionary *bindingsDict = nil;
 }
 
 - (void)resetString {
-	// NSLog(@"resetting");
     QSGCDMainSync(^{
         [resultController.searchStringField setTextColor:[[resultController.searchStringField textColor] colorWithAlphaComponent:0.5]];
         [resultController.searchStringField display];

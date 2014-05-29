@@ -383,7 +383,8 @@ NSSize QSMaxIconSize;
 	//- (void)setObject:(id)object forKey:(id)aKey {[data setObject:object forKey:aKey];}
 
 - (id)_safeObjectForType:(id)aKey {
-  return [data objectForKey:aKey];
+    aKey = QSUTIForAnyTypeString(aKey);
+    return [data objectForKey:aKey];
 #if 0
 	if (flags.multiTyped)
 		return[data objectForKey:aKey];
@@ -394,6 +395,7 @@ NSSize QSMaxIconSize;
 }
 
 - (id)objectForType:(id)aKey {
+    aKey = QSUTIForAnyTypeString(aKey);
 	//	if ([aKey isEqualToString:NSFilenamesPboardType]) return [self arrayForType:QSFilePathType];
 	//	if ([aKey isEqualToString:NSStringPboardType]) return [self objectForType:QSTextType];
 	//	if ([aKey isEqualToString:NSURLPboardType]) return [self objectForType:QSURLType];
@@ -421,6 +423,7 @@ NSSize QSMaxIconSize;
     if (!aKey) {
         return;
     }
+    aKey = QSUTIForAnyTypeString(aKey);
     @synchronized(data) {
         if (object) {
             if (object != [data objectForKey:aKey]) {
@@ -786,10 +789,12 @@ NSSize QSMaxIconSize;
 - (BOOL)iconLoaded { return flags.iconLoaded;  }
 - (void)setIconLoaded:(BOOL)flag {
 	flags.iconLoaded = flag;
-    if (flag) {
-        [iconLoadedSet addObject:self];
-    } else {
-        [iconLoadedSet removeObject:self];
+    @synchronized(iconLoadedSet) {
+        if (flag) {
+            [iconLoadedSet addObject:self];
+        } else {
+            [iconLoadedSet removeObject:self];
+        }
     }
 }
 
