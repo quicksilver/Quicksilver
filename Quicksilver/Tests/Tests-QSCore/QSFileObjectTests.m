@@ -40,6 +40,12 @@
     object = [QSObject fileObjectWithPath:path];
     STAssertEqualObjects([object name], @"Safari.app", nil);
     STAssertEqualObjects([object label], @"Safari", nil);
+    
+    path = @"/System/Library/PreferencePanes/Accounts.prefPane";
+    object = [QSObject fileObjectWithPath:path];
+    STAssertEqualObjects(@"Accounts.prefPane", [object name], @"The name for pref pane objects should be the same as the filename");
+    STAssertEqualObjects(@"Users & Groups", [object label], @"The label for pref pane objects should be 'nice' (not the filename)");
+
 }
 
 - (void)testFileUTI
