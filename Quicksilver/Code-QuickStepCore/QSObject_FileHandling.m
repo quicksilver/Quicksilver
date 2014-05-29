@@ -660,8 +660,9 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
     }
     
     NSURL *fileURL = [NSURL fileURLWithPath:[path stringByResolvingSymlinksInPath]];
-
     NSError *err = nil;
+    
+    // Note: NSURLLocalizedLabelKey gives a localized string of the Finder label (tag in 10.9+). E.g. Red / Rouge
     dict = [fileURL resourceValuesForKeys:@[NSURLTypeIdentifierKey, NSURLIsDirectoryKey, NSURLIsAliasFileKey, NSURLIsPackageKey, NSURLLocalizedLabelKey, NSURLLocalizedNameKey, NSURLVolumeURLKey, NSURLIsExecutableKey, NSURLIsWritableKey, NSURLLabelColorKey] error:&err];
     NSMutableDictionary *mutableDict = [dict mutableCopy];
 
@@ -842,10 +843,20 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 		newName = [NSString stringWithFormat:@"%ld %@ %@ \"%@\"", (long)[paths count] , type, onDesktop?@"on":@"in", [container lastPathComponent]];
 	} else {
 		// generally: name = what you see in Terminal, label = what you see in Finder
-        newName = [[self infoRecord] objectForKey:NSURLLocalizedLabelKey];
         newLabel = [[self infoRecord] objectForKey:NSURLLocalizedNameKey];
-        if (!newName) {
-            newName = [[self singleFilePath] lastPathComponent];
+        NSString *path = [self singleFilePath];
+        newName = [path lastPathComponent];
+        if (UTTypeConformsTo((__bridge CFStringRef)[self fileUTI], (CFStringRef)@"com.apple.systempreference.prefpane")) {
+            // kMDItemDisplayName works better for Preference Panes
+            MDItemRef mdItem = MDItemCreate(kCFAllocatorDefault, (__bridge CFStringRef)path);
+            if (mdItem) {
+                newLabel = (NSString *)CFBridgingRelease(MDItemCopyAttribute(mdItem, kMDItemDisplayName));
+                CFRelease(mdItem);
+            }
+        }
+        // fall back to the default display name
+        if (!newLabel || [newLabel isEqualToString:newName]) {
+            newLabel = [[NSFileManager defaultManager] displayNameAtPath:path];
         }
 	}
     [self setName:newName];
