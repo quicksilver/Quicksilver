@@ -10,6 +10,9 @@
   * Include and exclude files using [UTIs](https://en.wikipedia.org/wiki/Uniform_Type_Identifier) (#1708)
   * The Reveal action can be used with multiple files (#1745)
   * The Type Text action can be used with multiple text items (#1828)
+  * Append “(alias)” to the details of file aliases (#1770)
+  * Append “(symlink)” to the details of symbolic links (#1770)
+  * Allow moving restricted files to the Trash (#28, #1770)
 
 ### Fixed ###
 
@@ -27,6 +30,8 @@
   * Ensure that the correct default interface is used on a new installation (#1639)
   * Load icons on the main thread to silence a warning on 10.9 (#1655, #1656)
   * Update views on the main thread (#1832)
+  * Update results list on the main thread (#1770)
+  * Run the Update Manager on a background thread (#1847)
   * Fixed some visual problems with the plugin updater (#1642, #1647)
   * Fixed some bugs that prevented changing trigger settings (#1650)
   * Prevent a crash related to the plugin updater (#1664)
@@ -54,7 +59,12 @@
   * Fix service actions that work with files (#1805, #1822)
   * Small tweaks to text file handling and the Large Type action (#1804, #1808)
   * Partially fix the Type Text action in applications like XQuartz and MS Remote Desktop (#1792, #1827)
-  * Internal Improvements (#1583, #1584, #1585, #1586, #1665, #1625, #1648, #1638, #1695, #1714, #1763, #1765, #1740, #1771, #1775, #1794, #1828)
+  * Fix the Get File URL action (#1844, #1845)
+  * Clear the first pane when an action returns results (#1846, #1847)
+  * Clear the first pane when a trigger creates a new search (#1846, #1847)
+  * Fix a bug that erased history when a pane was cleared (#1847)
+  * Prevent a crash when opening Trigger preferences (#1843, #1854)
+  * Internal Improvements (#1583, #1584, #1585, #1586, #1665, #1625, #1648, #1638, #1695, #1714, #1763, #1765, #1740, #1771, #1775, #1794, #1828, #1839, #1770)
 
 ### Changed ###
 
@@ -75,6 +85,10 @@
   * The Latest Download proxy object will only be cached for 0.5 seconds (#1748)
   * Default cache time for proxy objects reduced from 3 seconds to 2 (#1748)
   * Avoid manual rescans of folders that are kept up-to-date automatically (#1806)
+  * Increase the timeout for plugin downloads to 30 seconds (#1856)
+  * Use the CDN directly for plugin downloading/checking (#1857)
+  * Use UTI instead of extension to get generic file icons (#1770)
+  * Get more file information using `NSURL` instead of `LSInfoRecord` (#1770)
 
 ### Development ###
 
@@ -102,6 +116,9 @@
   * New `QSThreadSafeMutableDictionary` class (#1794)
   * Deprecated the `replaceString:with:` method (#1821)
   * Allow plugins to define both minimum (`minHostVersion`) and maximum (`maxHostVersion`) supported build number for Quicksilver (#1835)
+  * New `isExecutable` method for file QSObjects (#1770)
+  * New `canBeExecutedByScript` method for file QSObjects (#1770)
+  * Add more file UTI unit tests (#1853)
 
 ## Changes - 1.1.3 (4007) ##
 
