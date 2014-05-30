@@ -30,25 +30,9 @@ NSArray *QSGetShebangArgsForScript(NSString *path) {
 }
 
 BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
-	BOOL isDirectory;
-	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory] || isDirectory)
-		return NO;
-	BOOL executable = [[NSFileManager defaultManager] isExecutableFileAtPath:path];
-	if (!executable) {
-        NSFileHandle * fileHandle = [NSFileHandle fileHandleForReadingAtPath:path];
-        // Read in the first 5 bytes of the file to see if it contains #! (5 bytes, because some files contain byte order marks (3 bytes)
-        NSData * buffer = [fileHandle readDataOfLength:5];
-        NSString *string = [[NSString alloc] initWithData:buffer encoding:NSUTF8StringEncoding];
-        if ([string containsString:@"#!"]) {
-            executable = YES;
-        }
-	} else if (!allowApps) {
-		LSItemInfoRecord infoRec;
-		LSCopyItemInfoForURL((__bridge CFURLRef) [NSURL fileURLWithPath:path], kLSRequestBasicFlagsOnly, &infoRec);
-		if (infoRec.flags & kLSItemInfoIsApplication) // Ignore applications
-			return NO;
-	}
-	return executable;
+    NSLog(@"QSPathCanBeExecuted is deprecated. Use -[QSObject canBeExecutedByScript] instead. For the `allowApps` arg, use -[QSObject isApplication]");
+    QSObject *obj = [QSObject fileObjectWithPath:path];
+    return [obj canBeExecutedByScript] && (allowApps || ![obj isApplication]);
 }
 
 @implementation QSShellScriptRunAction
@@ -133,7 +117,7 @@ BOOL QSPathCanBeExecuted(NSString *path, BOOL allowApps) {
 }
 
 - (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject {
-	if (QSPathCanBeExecuted([dObject singleFilePath], NO))
+	if ([dObject canBeExecutedByScript] && ![dObject isApplication])
 		return [NSArray arrayWithObject:kQSShellScriptRunAction];
 	return nil;
 }

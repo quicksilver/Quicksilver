@@ -42,6 +42,8 @@
 - (NSString *)filesType;
 - (QSObject *)resolvedAliasObject;
 - (BOOL)isApplication;
+- (BOOL)isExecutable;
+- (BOOL)canBeExecutedByScript;
 - (BOOL)isDirectory; // YES for all directories
 - (BOOL)isFolder;    // YES for directories that aren't packages
 - (BOOL)isPackage;

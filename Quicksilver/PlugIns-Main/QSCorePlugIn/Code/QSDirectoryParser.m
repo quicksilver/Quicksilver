@@ -53,15 +53,17 @@
 	NSMutableArray *array = [NSMutableArray array];
 	NDAlias *aliasSource;
 	QSObject *obj;
-    NSNumber *URLIsSymbolicLink;
-    NSNumber *URLIsDirectory;
-    NSNumber *URLIsPackage;
     
 	for (NSURL *theURL in enumerator) {
         file = [theURL path];
 		aliasSource = nil; aliasFile = nil;
-        [theURL getResourceValue:&URLIsSymbolicLink forKey:NSURLIsSymbolicLinkKey error:nil];
-		if ([URLIsSymbolicLink boolValue]) {
+        NSError *err;
+        NSDictionary *resources = [theURL resourceValuesForKeys:@[NSURLIsSymbolicLinkKey, NSURLIsDirectoryKey, NSURLTypeIdentifierKey, NSURLIsPackageKey] error:&err];
+        if (err) {
+            // Do nothing. Still add the file to the catalog, just we will know little about it.
+            // Typically, this error will only occur for sockets or fifos (since they're not actually files)
+        }
+		if ([resources[NSURLIsSymbolicLinkKey] boolValue]) {
             /* If this is an alias, try to resolve it to get the remaining checks right */
             NSString *targetFile = [manager resolveAliasAtPath:file];
             if (targetFile) {
@@ -71,10 +73,9 @@
                 [manager fileExistsAtPath:file isDirectory:&isDirectory];
 			}
 		} else {
-            [theURL getResourceValue:&URLIsDirectory forKey:NSURLIsDirectoryKey error:nil];
-            isDirectory = [URLIsDirectory boolValue];
+            isDirectory = [resources[NSURLIsDirectoryKey] boolValue];
         }
-        type = [manager UTIOfFile:file];
+        type = resources[NSURLTypeIdentifierKey];
         // if we are an alias or the file has no reason to be included
         BOOL include = NO;
         if (![types count]) {
@@ -101,8 +102,7 @@
         }
         
         BOOL shouldDescend = YES;
-        [theURL getResourceValue:&URLIsPackage forKey:NSURLIsPackageKey error:nil];
-        if ([URLIsPackage boolValue] && !descendIntoBundles)
+        if ([resources[NSURLIsPackageKey] boolValue] && !descendIntoBundles)
             shouldDescend = NO;
         
         if (depth && isDirectory && shouldDescend) {

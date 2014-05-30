@@ -15,6 +15,9 @@
 + (void)_movePathToTrash:(NSString *)path;
 + (BOOL)_removeFileAtPath:(NSString *)path error: (NSError**)error;
 + (BOOL)_removeFileAtPathWithForcedAuthentication:(NSString *)src error:(NSError **)error;
++ (NSString *)_temporaryCopyNameForPath:(NSString *)path didFindTrash: (BOOL*)outDidFindTrash;
++ (BOOL)_movePathWithForcedAuthentication:(NSString *)src toPath:(NSString *)dst error:(NSError **)error;
+
 @end
 
 #endif

@@ -1377,7 +1377,6 @@ NSMutableDictionary *bindingsDict = nil;
 	if (!allowNonActions) return;
 	QSObject *newSelection = [self externalSelection];
     
-	//NSLog(@"type: %@", [[NSFileManager defaultManager] UTIOfFile:[newSelection singleFilePath]]);
 	[self setObjectValue:newSelection];
 }
 
@@ -1732,7 +1731,7 @@ NSMutableDictionary *bindingsDict = nil;
                     }
                     // resolve alias objects
                     individual = [individual resolvedAliasObject];
-                    NSString *type = [[NSFileManager defaultManager] UTIOfFile:[individual singleFilePath]];
+                    NSString *type = [individual fileUTI];
                     for (NSString *indirectType in indirectTypes) {
                         // if the file type is a folder (Always show them) or it conforms to a set indirectType
                         if ([type isEqualToString:(NSString *)kUTTypeFolder] || UTTypeConformsTo((__bridge CFStringRef)type, (__bridge CFStringRef)indirectType)) {
