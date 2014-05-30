@@ -53,9 +53,6 @@
 	NSMutableArray *array = [NSMutableArray array];
 	NDAlias *aliasSource;
 	QSObject *obj;
-    NSNumber *URLIsSymbolicLink;
-    NSNumber *URLIsDirectory;
-    NSNumber *URLIsPackage;
     
 	for (NSURL *theURL in enumerator) {
         file = [theURL path];
@@ -66,7 +63,7 @@
             // Do nothing. Still add the file to the catalog, just we will know little about it.
             // Typically, this error will only occur for sockets or fifos (since they're not actually files)
         }
-		if ([resources[URLIsSymbolicLink] boolValue]) {
+		if ([resources[NSURLIsSymbolicLinkKey] boolValue]) {
             /* If this is an alias, try to resolve it to get the remaining checks right */
             NSString *targetFile = [manager resolveAliasAtPath:file];
             if (targetFile) {
@@ -76,7 +73,7 @@
                 [manager fileExistsAtPath:file isDirectory:&isDirectory];
 			}
 		} else {
-            isDirectory = [resources[URLIsDirectory] boolValue];
+            isDirectory = [resources[NSURLIsDirectoryKey] boolValue];
         }
         type = resources[NSURLTypeIdentifierKey];
         // if we are an alias or the file has no reason to be included
@@ -105,7 +102,7 @@
         }
         
         BOOL shouldDescend = YES;
-        if ([resources[URLIsPackage] boolValue] && !descendIntoBundles)
+        if ([resources[NSURLIsPackageKey] boolValue] && !descendIntoBundles)
             shouldDescend = NO;
         
         if (depth && isDirectory && shouldDescend) {
