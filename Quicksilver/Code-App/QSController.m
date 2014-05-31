@@ -927,38 +927,6 @@ static QSController *defaultController = nil;
 	// Setup Activation Hotkey
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-	if ([defaults integerForKey:@"QSModifierActivationCount"] >0) {
-		QSModifierKeyEvent *modActivation = [[QSModifierKeyEvent alloc] init];
-		[modActivation setModifierActivationMask: [defaults integerForKey:@"QSModifierActivationKey"]];
-		[modActivation setModifierActivationCount:[defaults integerForKey:@"QSModifierActivationCount"]];
-		[modActivation setTarget:self];
-		[modActivation setIdentifier:@"QSModKeyActivation"];
-		[modActivation setAction:@selector(activateInterface:)];
-		[modActivation enable];
-	}
-
-	id oldModifiers = [defaults objectForKey:kHotKeyModifiers];
-	id oldKeyCode = [defaults objectForKey:kHotKeyCode];
-
-	//Update hotkey prefs
-
-	if (oldModifiers && oldKeyCode) {
-		NSInteger modifiers = [oldModifiers unsignedIntegerValue];
-		if (modifiers < (1 << (rightControlKeyBit+1) )) {
-			NSLog(@"updating hotkey %ld", (long)modifiers);
-			[defaults setValue:[NSNumber numberWithInteger:carbonModifierFlagsToCocoaModifierFlags(modifiers)] forKey:kHotKeyModifiers];
-			[defaults synchronize];
-		}
-
-		NSLog(@"Updating Activation Key");
-		[defaults removeObjectForKey:kHotKeyModifiers];
-		[defaults removeObjectForKey:kHotKeyCode];
-		[defaults setObject:[NSDictionary dictionaryWithObjectsAndKeys:oldModifiers, @"modifiers", oldKeyCode, @"keyCode", nil] forKey:@"QSActivationHotKey"];
-		[defaults synchronize];
-	}
-
-	[self bind:@"activationHotKey" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSActivationHotKey" options:nil];
-
 	quitWindowController = nil;
 
 	NSInteger rescanInterval = [defaults integerForKey:@"QSCatalogRescanFrequency"];
@@ -1066,6 +1034,42 @@ static QSController *defaultController = nil;
     [NSApp disableRelaunchOnLogin];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"QSApplicationDidFinishLaunchingNotification" object:self];
     [QSObject interfaceChanged];
+    
+    // Setup Activation Hotkey
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+	if ([defaults integerForKey:@"QSModifierActivationCount"] >0) {
+		QSModifierKeyEvent *modActivation = [[QSModifierKeyEvent alloc] init];
+		[modActivation setModifierActivationMask: [defaults integerForKey:@"QSModifierActivationKey"]];
+		[modActivation setModifierActivationCount:[defaults integerForKey:@"QSModifierActivationCount"]];
+		[modActivation setTarget:self];
+		[modActivation setIdentifier:@"QSModKeyActivation"];
+		[modActivation setAction:@selector(activateInterface:)];
+		[modActivation enable];
+	}
+    
+	id oldModifiers = [defaults objectForKey:kHotKeyModifiers];
+	id oldKeyCode = [defaults objectForKey:kHotKeyCode];
+    
+	//Update hotkey prefs
+    
+	if (oldModifiers && oldKeyCode) {
+		NSInteger modifiers = [oldModifiers unsignedIntegerValue];
+		if (modifiers < (1 << (rightControlKeyBit+1) )) {
+			NSLog(@"updating hotkey %ld", (long)modifiers);
+			[defaults setValue:[NSNumber numberWithInteger:carbonModifierFlagsToCocoaModifierFlags(modifiers)] forKey:kHotKeyModifiers];
+			[defaults synchronize];
+		}
+        
+		NSLog(@"Updating Activation Key");
+		[defaults removeObjectForKey:kHotKeyModifiers];
+		[defaults removeObjectForKey:kHotKeyCode];
+		[defaults setObject:[NSDictionary dictionaryWithObjectsAndKeys:oldModifiers, @"modifiers", oldKeyCode, @"keyCode", nil] forKey:@"QSActivationHotKey"];
+		[defaults synchronize];
+	}
+    
+	[self bind:@"activationHotKey" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSActivationHotKey" options:nil];
+    
 	QSApplicationCompletedLaunch = YES;
 }
 
