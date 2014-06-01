@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment version="1070" defaultVersion="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="QSTriggersPrefPane">
@@ -25,7 +25,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application"/>
-        <window title="Triggers" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" wantsToBeColor="NO" visibleAtLaunch="NO" animationBehavior="default" id="62" userLabel="Triggers" customClass="QSWindow">
+        <window title="Triggers" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="default" id="62" userLabel="Triggers" customClass="QSWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="161" y="212" width="384" height="424"/>
@@ -50,7 +50,7 @@
                                     <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
                                     <color key="gridColor" red="0.94525545840000003" green="1" blue="0.94933468099999996" alpha="1" colorSpace="deviceRGB"/>
                                     <tableColumns>
-                                        <tableColumn identifier="enabled" width="16.40576171875" minWidth="16.40576171875" maxWidth="16" id="484">
+                                        <tableColumn identifier="enabled" width="16" minWidth="16.40576171875" maxWidth="16" id="484">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="✓">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -93,13 +93,13 @@
                                             </popUpButtonCell>
                                             <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                             <connections>
-                                                <binding destination="-2" name="content" keyPath="typeMenuItems" id="496"/>
                                                 <binding destination="490" name="enabled" keyPath="arrangedObjects.isGroup" id="865">
                                                     <dictionary key="options">
                                                         <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                     </dictionary>
                                                 </binding>
                                                 <binding destination="490" name="selectedObject" keyPath="arrangedObjects.type" previousBinding="496" id="497"/>
+                                                <binding destination="-2" name="content" keyPath="typeMenuItems" id="496"/>
                                             </connections>
                                         </tableColumn>
                                         <tableColumn identifier="trigger" width="54" minWidth="54" maxWidth="128" id="486" customClass="QSDelegatingTableColumn">
@@ -228,8 +228,8 @@
                 <string>self</string>
             </declaredKeys>
             <connections>
-                <binding destination="-2" name="contentArray" keyPath="triggerArray" id="387"/>
                 <binding destination="490" name="sortDescriptors" keyPath="sortDescriptors" id="868"/>
+                <binding destination="-2" name="contentArray" keyPath="triggerArray" id="387"/>
             </connections>
         </arrayController>
         <treeController objectClassName="QSTrigger" childrenKeyPath="children" leafKeyPath="isLeaf" selectsInsertedObjects="NO" id="490" userLabel="TriggerTreeController" customClass="QSTreeController">
@@ -457,12 +457,12 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                         <connections>
+                                            <binding destination="490" name="value" keyPath="selection.info.applicationScope" id="779"/>
                                             <binding destination="490" name="hidden" keyPath="selection.info.applicationScopeType" id="782">
                                                 <dictionary key="options">
                                                     <string key="NSValueTransformerName">NSNegateBoolean</string>
                                                 </dictionary>
                                             </binding>
-                                            <binding destination="490" name="value" keyPath="selection.info.applicationScope" id="779"/>
                                             <outlet property="delegate" destination="-2" id="777"/>
                                         </connections>
                                     </textField>
@@ -512,7 +512,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" id="2q3-MA-dsf">
                         <rect key="frame" x="0.0" y="0.0" width="128" height="233"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="32" id="731" customClass="QSFancyTableView">
                                 <rect key="frame" x="0.0" y="0.0" width="128" height="233"/>
@@ -538,6 +538,10 @@
                                         </connections>
                                     </tableColumn>
                                 </tableColumns>
+                                <connections>
+                                    <binding destination="737" name="content" keyPath="arrangedObjects" id="Jde-Cf-kgt"/>
+                                    <binding destination="737" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="Jde-Cf-kgt" id="x3i-Bz-0m7"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="0.90588235859999999" green="0.92941176889999999" blue="0.97254902119999997" alpha="1" colorSpace="deviceRGB"/>

@@ -300,8 +300,10 @@
 
 
 - (IBAction)addTrigger:(id)sender {
-	if (!mOptionKeyIsDown)
+	if (!mOptionKeyIsDown) {
 		[self setCurrentSet:@"Custom Triggers"];
+        [triggerSetsController setSelectionIndex:[[[self triggerSets] valueForKey:@"text"] indexOfObject:@"Custom Triggers"]];
+    }
 
 	NSMutableDictionary *info;
 	if (mOptionKeyIsDown) {
@@ -343,11 +345,13 @@
                 [[QSTriggerCenter sharedInstance] removeTrigger:trigger];
                 //		[self updateTriggerArray];
             }
-            // select the trigger (its position has changed since adding the trigger)
-            NSUInteger selectTriggerIndex = [[triggerArrayController arrangedObjects] indexOfObject:trigger];
-            if (selectTriggerIndex != NSNotFound && (NSInteger)selectTriggerIndex < [triggerTable numberOfRows]) {
-                [triggerTable selectRowIndexes:[NSIndexSet indexSetWithIndex:selectTriggerIndex] byExtendingSelection:NO];
-                [triggerTable scrollRowToVisible:selectTriggerIndex];
+            if (command) {
+                // select the trigger (its position has changed since adding the trigger)
+                NSUInteger selectTriggerIndex = [[triggerArrayController arrangedObjects] indexOfObject:trigger];
+                if (selectTriggerIndex != NSNotFound && (NSInteger)selectTriggerIndex < [triggerTable numberOfRows]) {
+                    [triggerTable selectRowIndexes:[NSIndexSet indexSetWithIndex:selectTriggerIndex] byExtendingSelection:NO];
+                    [triggerTable scrollRowToVisible:selectTriggerIndex];
+                }
             }
             [commandEditor.window orderOut:self];
         }];
@@ -454,7 +458,6 @@
 		else
 			predicate = searchPredicate;
 	}
-
 	[triggerArrayController setFilterPredicate:predicate];
 }
 
