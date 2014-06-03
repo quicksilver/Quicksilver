@@ -393,7 +393,7 @@ NSMutableDictionary *bindingsDict = nil;
 	[savePanel setCanCreateDirectories:YES];
 	NSString *oldFile = [[self objectValue] singleFilePath];
   
-	id QSIC = [[NSApp delegate] interfaceController];
+	id QSIC = [(QSController *)[NSApp delegate] interfaceController];
 	[QSIC setHiding:YES];
     [savePanel setDirectoryURL:[NSURL fileURLWithPath:oldFile]];
 	[savePanel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result)
@@ -418,7 +418,7 @@ NSMutableDictionary *bindingsDict = nil;
 	}
 	NSString *oldFile = [[self objectValue] singleFilePath];
     
-	id QSIC = [[NSApp delegate] interfaceController];
+	id QSIC = [(QSController *)[NSApp delegate] interfaceController];
 	[QSIC setHiding:YES];
     [openPanel setDirectoryURL:[NSURL fileURLWithPath:oldFile]];
 	[openPanel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result)
