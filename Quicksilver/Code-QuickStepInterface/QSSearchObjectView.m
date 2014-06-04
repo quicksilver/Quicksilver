@@ -1329,8 +1329,13 @@ NSMutableDictionary *bindingsDict = nil;
 	[resultTimer invalidate];
 }
 
-- (void)insertSpace:(id)sender {
+- (void)insertSpace:(id)sender
+{
 	NSInteger behavior = [[NSUserDefaults standardUserDefaults] integerForKey:@"QSSearchSpaceBarBehavior"];
+
+    QSObject * newSelectedObject = [[super objectValue] resolvedObject];
+    QSAction *action = [[self actionSelector] objectValue];
+
 	switch(behavior) {
 		case 1: //Normal
 			[self insertText:@" "];
@@ -1356,6 +1361,47 @@ NSMutableDictionary *bindingsDict = nil;
         case 6: // Show Quicklook window
             [self togglePreviewPanel:nil];
 			break;
+
+        case 7: // Smart Context Specific behavior based on object
+
+            // if we are in the second pane, trigger first action that involves third pane and go there
+            if (self == [self actionSelector])
+            {
+                [self shortCircuit:sender];
+            }
+            // go to parent if one exists
+            else if ([[NSApp currentEvent] modifierFlags] & NSShiftKeyMask)
+            {
+                [self moveLeft:sender];
+            }
+            // Show child contents but only if object isn't a URL or text file
+            else if ([newSelectedObject hasChildren] &&
+                    ![[newSelectedObject primaryType] isEqualToString:QSURLType] &&
+                    ![[newSelectedObject primaryType] isEqualToString:QSSearchURLType] &&
+                    !QSTypeConformsTo([newSelectedObject fileUTI], (__bridge NSString *)kUTTypePlainText))
+            {
+                [self moveRight:sender];
+            }
+            // If we aren't in the third pane then jump to Indirect if action requires more then one argument (ie. search URL)
+            else if (self != [self indirectSelector] &&
+                    (action &&
+                    [action respondsToSelector:@selector(argumentCount)] &&
+                    [action argumentCount] == 2))
+            {
+                [self shortCircuit:sender];
+            }
+            // Show Quicklook window
+            else if ([self canQuicklookCurrentObject])
+            {
+                [self togglePreviewPanel:nil];
+            }
+            // Switch to text
+            else
+            {
+                [self transmogrify:sender];
+            }
+
+            break;
 	}
 }
 

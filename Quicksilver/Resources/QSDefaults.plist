@@ -58,7 +58,7 @@
 	<key>QSResultViewRowHeight</key>
 	<string>34</string>
 	<key>QSSearchSpaceBarBehavior</key>
-	<integer>1</integer>
+	<integer>7</integer>
 	<key>QSUpdateReleaseLevel</key>
 	<integer>0</integer>
 	<key>Reset Delay</key>
