@@ -120,18 +120,18 @@ NSMutableDictionary *kindDescriptions = nil;
 	[[[resultTable tableColumnWithIdentifier:@"NameColumn"] dataCell] bind:@"textColor"
                                                                   toObject:sucd
                                                                withKeyPath:@"values.QSAppearance3T"
-                                                                   options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:@"NSValueTransformerName"]];
+                                                                   options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:NSValueTransformerNameBindingOption]];
     
 	[resultTable bind:@"backgroundColor"
 			 toObject:sucd
           withKeyPath:@"values.QSAppearance3B"
               options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName
-                                                  forKey:@"NSValueTransformerName"]];
+                                                  forKey:NSValueTransformerNameBindingOption]];
 	[resultTable bind:@"highlightColor"
 			 toObject:sucd
 		 withKeyPath:@"values.QSAppearance3A"
 			 options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName
-												 forKey:@"NSValueTransformerName"]];
+												 forKey:NSValueTransformerNameBindingOption]];
     [resultTable addObserver:self
            forKeyPath:@"rowHeight"
               options:NSKeyValueObservingOptionNew
@@ -140,12 +140,12 @@ NSMutableDictionary *kindDescriptions = nil;
 		[[[resultChildTable tableColumnWithIdentifier:@"NameColumn"] dataCell] bind:@"textColor"
                                                                            toObject:sucd
 																		withKeyPath:@"values.QSAppearance3T"
-																			options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:@"NSValueTransformerName"]];
+																			options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:NSValueTransformerNameBindingOption]];
 		[resultChildTable bind:@"backgroundColor"
                       toObject:sucd
                    withKeyPath:@"values.QSAppearance3B"
                        options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName
-                                                           forKey:@"NSValueTransformerName"]];
+                                                           forKey:NSValueTransformerNameBindingOption]];
 	}
 	[self reloadColors];
 
