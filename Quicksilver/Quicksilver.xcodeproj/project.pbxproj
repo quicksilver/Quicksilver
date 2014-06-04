@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		4DD757111647D2A90095F55B /* Build Documentation */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 4DD757141647D2A90095F55B /* Build configuration list for PBXAggregateTarget "Build Documentation" */;
+			buildPhases = (
+				4DD757151647D2AF0095F55B /* ShellScript */,
+			);
+			dependencies = (
+				4DAF38491846972B00461CBF /* PBXTargetDependency */,
+			);
+			name = "Build Documentation";
+			productName = "Build Documentation";
+		};
 		66D11CE115022DCF002EE6E5 /* Run All Tests */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 66D11CF015022DF5002EE6E5 /* Build configuration list for PBXAggregateTarget "Run All Tests" */;
@@ -833,6 +845,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8D1107260486CEB800E47090;
 			remoteInfo = Quicksilver;
+		};
+		4DAF38481846972B00461CBF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7F039992080EE210001A9FA3;
+			remoteInfo = "Quicksilver Distribution";
 		};
 		66448D9B14F42796000FA2E2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -4215,6 +4234,7 @@
 				66D11C8A15022B08002EE6E5 /* QSInterfaceTests */,
 				CD61BBB7192B18FA00040609 /* Quicksilver Tests */,
 				66D11CE115022DCF002EE6E5 /* Run All Tests */,
+				4DD757111647D2A90095F55B /* Build Documentation */,
 			);
 		};
 /* End PBXProject section */
@@ -4501,6 +4521,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4DD757151647D2AF0095F55B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SRCROOT/Tools/build_docs.sh -d";
+		};
 		66448D9414F42790000FA2E2 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -5058,6 +5091,11 @@
 			isa = PBXTargetDependency;
 			target = 8D1107260486CEB800E47090 /* Quicksilver */;
 			targetProxy = 4DAAEB9E0E0BBF720088C72D /* PBXContainerItemProxy */;
+		};
+		4DAF38491846972B00461CBF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7F039992080EE210001A9FA3 /* Quicksilver Distribution */;
+			targetProxy = 4DAF38481846972B00461CBF /* PBXContainerItemProxy */;
 		};
 		66448D9C14F42796000FA2E2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5961,6 +5999,20 @@
 			};
 			name = Release;
 		};
+		4DD757121647D2A90095F55B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4DD757131647D2A90095F55B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		66448D9814F42791000FA2E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
@@ -6563,6 +6615,15 @@
 			buildConfigurations = (
 				4D002DAF13114A2E009040B7 /* Debug */,
 				4D002DB013114A2E009040B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		4DD757141647D2A90095F55B /* Build configuration list for PBXAggregateTarget "Build Documentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4DD757121647D2A90095F55B /* Debug */,
+				4DD757131647D2A90095F55B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
