@@ -10,7 +10,7 @@
 
 @interface QSAboutWindowController : NSWindowController <NSWindowDelegate>
 {
-	IBOutlet id creditsView;
+	IBOutlet WebView *creditsView;
 	BOOL showCredits;
 	IBOutlet NSImageView *imageView;
 }

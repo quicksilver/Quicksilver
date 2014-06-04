@@ -7,7 +7,7 @@
 	IBOutlet NSTableView *pluginSetsTable;
 	IBOutlet NSTableView *plugInTable;
 	NSString *plugInName;
-	IBOutlet id plugInText;
+	IBOutlet WebView *plugInText;
 	IBOutlet NSTextField *statusField;
 	IBOutlet NSDrawer *infoDrawer;
 	IBOutlet NSArrayController *arrayController;

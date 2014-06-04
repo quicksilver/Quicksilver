@@ -902,10 +902,11 @@ NSSize QSMaxIconSize;
 
 	id handler = nil;
 	if (handler = [self handlerForSelector:@selector(loadIconForObject:)]) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        QSObject __weak *weakSelf = self;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             // loadIconForObject returns a BOOL, but we can't return it from here
             // nothing ever checks the return from loadIcon anyway
-            [handler loadIconForObject:self];
+            [handler loadIconForObject:weakSelf];
         });
         return YES;
     }

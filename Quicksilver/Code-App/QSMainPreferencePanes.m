@@ -65,7 +65,8 @@
 }
 
 - (void)dealloc {
-	[[NSUserDefaultsController sharedUserDefaultsController] removeObserver:self];
+	[[NSUserDefaultsController sharedUserDefaultsController] removeObserver:self forKeyPath:@"values.QSModifierActivationCount"];
+    [[NSUserDefaultsController sharedUserDefaultsController] removeObserver:self forKeyPath:@"values.QSModifierActivationKey"];
     [[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -341,7 +342,7 @@
 }
 
 - (IBAction)runSetup:(id)sender {
-	[[NSApp delegate] runSetupAssistant:nil];
+	[(QSController *)[NSApp delegate] runSetupAssistant:nil];
 }
 - (IBAction)uninstallQS:(id)sender {
 	if (!NSRunAlertPanel(@"Uninstall Quicksilver", @"Would you like to delete Quicksilver, all its preferences, and application support files? This operation cannot be undone.", @"Cancel", @"Uninstall", nil) ) {

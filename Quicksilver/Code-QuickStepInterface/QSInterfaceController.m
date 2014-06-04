@@ -769,7 +769,7 @@
 }
 
 - (IBAction)showAbout:(id)sender {
-	[[NSApp delegate] showAbout:sender];
+	[(QSController *)[NSApp delegate] showAbout:sender];
 }
 
 #pragma mark -

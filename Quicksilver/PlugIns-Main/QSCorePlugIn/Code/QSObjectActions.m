@@ -192,7 +192,7 @@
 	if ([action isEqualToString:@"QSCreateFileAction"]) {
 		return nil;
 	} else if ([action isEqualToString:@"QSObjectAssignMnemonic"]) {
-        NSString *suggestion = [[[[NSApp delegate] interfaceController] dSelector] matchedString];
+        NSString *suggestion = [[[(QSController *)[NSApp delegate] interfaceController] dSelector] matchedString];
         QSObject *textObject = [QSObject textProxyObjectWithDefaultValue:suggestion];
         return [NSArray arrayWithObject:textObject];
 	} else {

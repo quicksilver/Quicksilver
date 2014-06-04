@@ -468,7 +468,7 @@
 	NSArray *selection = [[dObject arrayForType:QSFilePathType] valueForKey:@"lastPathComponent"];
 
 	// ***warning   * activate before showing
-	id QSIC = [[NSApp delegate] interfaceController];
+	id QSIC = [(QSController *)[NSApp delegate] interfaceController];
 	[QSIC showMainWindow:nil];
 	[QSIC setHiding:YES];
 
@@ -654,7 +654,7 @@
 		NSLog(@"Conflicts: %@", conflicts);
 		id panel = [QSFileConflictPanel conflictPanel];
 		[panel setConflictNames:[conflicts allValues]];
-		id QSIC = [[NSApp delegate] interfaceController];
+		id QSIC = [(QSController *)[NSApp delegate] interfaceController];
 		[QSIC showMainWindow:nil];
 		[QSIC setHiding:YES];
 		QSFileConflictResolutionMethod copyMethod = [panel runModalAsSheetOnWindow:[QSIC window]];
