@@ -138,12 +138,14 @@
 
 
 - (BOOL)enableTrigger:(QSTrigger *)trigger {
-	NSDictionary *entry = (NSDictionary*)[trigger info];
-	if ([entry objectForKey:@"keyCode"]) {
-		QSHotKeyEvent *activationKey = [QSHotKeyEvent getHotKeyForKeyCode:[[entry objectForKey:@"keyCode"] unsignedShortValue] character:([[entry objectForKey:@"characters"] length]) ? [[entry objectForKey:@"characters"] characterAtIndex:0] :0 safeModifierFlags:[[entry objectForKey:@"modifiers"] integerValue]];
+	if ([trigger objectForKey:@"keyCode"]) {
+        unichar chr = ([[trigger objectForKey:@"characters"] length] ? [[trigger objectForKey:@"characters"] characterAtIndex:0] : 0);
+		QSHotKeyEvent *activationKey = [QSHotKeyEvent getHotKeyForKeyCode:[[trigger objectForKey:@"keyCode"] unsignedShortValue]
+                                                                character:chr
+                                                        safeModifierFlags:[[trigger objectForKey:@"modifiers"] integerValue]];
 
 		[activationKey setTarget:self selectorReleased:@selector(hotKeyReleased:) selectorPressed:@selector(hotKeyPressed:)];
-		[activationKey setIdentifier:[entry objectForKey:kItemID]];
+		[activationKey setIdentifier:[trigger identifier]];
 		[activationKey setEnabled:YES];
 		return YES;
 	} else
@@ -155,9 +157,13 @@
 	return YES;
 }
 
-- (NSString *)descriptionForTrigger:(NSDictionary *)thisTrigger {
-	if ([thisTrigger objectForKey:@"keyCode"] && [thisTrigger objectForKey:@"modifiers"])
-		return [[QSHotKeyEvent getHotKeyForKeyCode:[[thisTrigger objectForKey:@"keyCode"] unsignedShortValue] character:0 safeModifierFlags:[[thisTrigger objectForKey:@"modifiers"] unsignedIntegerValue]] stringValue];
+- (NSString *)descriptionForTrigger:(QSTrigger *)trigger {
+	if ([trigger objectForKey:@"keyCode"] && [trigger objectForKey:@"modifiers"]) {
+        unichar chr = ([[trigger objectForKey:@"characters"] length] ? [[trigger objectForKey:@"characters"] characterAtIndex:0] : 0);
+		return [[QSHotKeyEvent getHotKeyForKeyCode:[[trigger objectForKey:@"keyCode"] unsignedShortValue]
+                                         character:chr
+                                 safeModifierFlags:[[trigger objectForKey:@"modifiers"] unsignedIntegerValue]] stringValue];
+    }
 	else
 		return @"None";
 }
