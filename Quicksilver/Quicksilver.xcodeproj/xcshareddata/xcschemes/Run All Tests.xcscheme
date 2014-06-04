@@ -28,6 +28,56 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "666E45ED150225EA0034E60A"
+               BuildableName = "QSCoreTests.octest"
+               BlueprintName = "QSCoreTests"
+               ReferencedContainer = "container:Quicksilver.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "66D11C6315022A75002EE6E5"
+               BuildableName = "QSEffectsTests.octest"
+               BlueprintName = "QSEffectsTests"
+               ReferencedContainer = "container:Quicksilver.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "66448D9514F42790000FA2E2"
+               BuildableName = "QSFoundationTests.octest"
+               BlueprintName = "QSFoundationTests"
+               ReferencedContainer = "container:Quicksilver.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "66D11C8A15022B08002EE6E5"
+               BuildableName = "QSInterfaceTests.octest"
+               BlueprintName = "QSInterfaceTests"
+               ReferencedContainer = "container:Quicksilver.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CD61BBB7192B18FA00040609"
+               BuildableName = "Quicksilver Tests.xctest"
+               BlueprintName = "Quicksilver Tests"
+               ReferencedContainer = "container:Quicksilver.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
