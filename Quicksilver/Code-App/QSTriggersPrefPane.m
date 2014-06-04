@@ -195,10 +195,14 @@
                             forKeyPath:@"selection.info.applicationScope"
                                options:0
                                context:nil];
-	NSSortDescriptor *aSortDesc = [[NSSortDescriptor alloc] initWithKey:@"name"
-															   ascending:YES
-																selector:@selector(caseInsensitiveCompare:)];
-	[triggerArrayController setSortDescriptors:[NSArray arrayWithObject:aSortDesc]];
+    [triggerTreeController bind:@"sortDescriptors" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.triggersSortDEscriptors" options:@{NSValueTransformerNameBindingOption : NSUnarchiveFromDataTransformerName}];
+    
+    if (![triggerTreeController sortDescriptors].count) {
+        NSSortDescriptor *aSortDesc = [[NSSortDescriptor alloc] initWithKey:@"name"
+                                                                  ascending:YES
+                                                                   selector:@selector(caseInsensitiveCompare:)];
+        [triggerArrayController setSortDescriptors:[NSArray arrayWithObject:aSortDesc]];
+    }
 	[triggerArrayController rearrangeObjects];
 	[self reloadFilters];
 
