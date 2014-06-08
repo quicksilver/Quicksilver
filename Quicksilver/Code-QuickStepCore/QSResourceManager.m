@@ -79,9 +79,15 @@ QSResourceManager * QSRez;
 
 - (NSImage *)imageNamed:(NSString *)name inBundle:(NSBundle *)bundle {
     @synchronized(self) {
-        if (!name) { return nil; }
+        if (!name) {
+            return nil;
+        }
         
         NSImage *image = [NSImage imageNamed:name];
+        if (image) {
+            return image;
+        }
+        
         if (!image && resourceOverrideList) {
             NSString *file = [resourceOverrideList objectForKey:name];
             if (file) {

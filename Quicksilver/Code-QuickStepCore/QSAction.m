@@ -401,7 +401,7 @@ static BOOL gModifiersAreIgnored;
 		return [[(QSAction *)object actionDict] objectForKey:@"description"];
 }
 
-- (void)setQuickIconForObject:(QSObject *)object { [object setIcon:[NSImage imageNamed:@"defaultAction"]]; }
+- (void)setQuickIconForObject:(QSObject *)object { [object setIcon:[QSResourceManager imageNamed:@"defaultAction"]]; }
 
 - (BOOL)drawIconForObject:(QSObject *)object inRect:(NSRect)rect flipped:(BOOL)flipped { return NO; }
 

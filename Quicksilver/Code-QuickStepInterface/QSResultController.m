@@ -644,7 +644,7 @@ NSMutableDictionary *kindDescriptions = nil;
 		}
 		if ([[tableColumn identifier] isEqualToString: COLUMNID_HASCHILDREN]) {
 
-			return([thisObject hasChildren] ? [NSImage imageNamed:@"ChildArrow"] :nil);
+			return([thisObject hasChildren] ? [QSResourceManager imageNamed:@"ChildArrow"] :nil);
 		}
 
 	}

@@ -47,7 +47,7 @@
 - (void)buildWebSearchIconForObject:(QSObject *)object {
     
 	NSImage *webSearchImage = nil;
-	NSImage *image = [NSImage imageNamed:@"DefaultBookmarkIcon"];
+	NSImage *image = [QSResourceManager imageNamed:@"DefaultBookmarkIcon"];
 	if(!image) {
         return;
     }
@@ -79,7 +79,7 @@
     rect = NSMakeRect(0, 0, imageSize.width, imageSize.height);
     [image setSize:rect.size];
     [image drawInRect:rect fromRect:rectFromSize([image size]) operation:NSCompositeSourceOver fraction:1.0];
-    NSImage *findImage = [[NSImage imageNamed:@"Find"] copy];
+    NSImage *findImage = [[QSResourceManager imageNamed:@"Find"] copy];
     NSImage *favIcon = nil;
     if(findImage) {
         [findImage setSize:rect.size];
@@ -106,11 +106,11 @@
 
 - (void)setQuickIconForObject:(QSObject *)object {
 	if ([[object types] containsObject:QSEmailAddressType])
-		[object setIcon:[NSImage imageNamed:@"ContactEmail"]];
+		[object setIcon:[QSResourceManager imageNamed:@"ContactEmail"]];
 	else if ([[object objectForType:QSURLType] hasPrefix:@"ftp:"])
 		[object setIcon:[QSResourceManager imageNamed:@"InternetLocationFTP"]];
 	else
-		[object setIcon:[NSImage imageNamed:@"DefaultBookmarkIcon"]];
+		[object setIcon:[QSResourceManager imageNamed:@"DefaultBookmarkIcon"]];
 }
 
 /*!

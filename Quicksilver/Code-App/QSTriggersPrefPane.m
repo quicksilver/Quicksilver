@@ -626,7 +626,7 @@
 	NSMutableArray *sets = [[NSMutableArray alloc] initWithCapacity:[registrySets count] + 2];
 	[sets addObject:[NSDictionary dictionaryWithObjectsAndKeys:
 					 @"Custom Triggers", @"text",
-					 [NSImage imageNamed:@"Triggers"], @"image",
+					 [QSResourceManager imageNamed:@"Triggers"], @"image",
 					 nil]];
 
 	for (NSString *key in registrySets) {
@@ -639,7 +639,7 @@
 	}
 	[sets addObject:[NSDictionary dictionaryWithObjectsAndKeys:
 					 @"All Triggers", @"text",
-					 [NSImage imageNamed:@"Pref-Triggers"], @"image",
+					 [QSResourceManager imageNamed:@"Pref-Triggers"], @"image",
 					 nil]];
 	[self setTriggerSets:sets];
 }

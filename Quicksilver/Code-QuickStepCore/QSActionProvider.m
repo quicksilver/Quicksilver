@@ -4,8 +4,8 @@
 
 @implementation QSActionProvider
 + (void)initialize {
-	if (![NSImage imageNamed:QSDirectObjectIconProxy]){
-		NSImage *theImg = (NSImage *)[[NSImage imageNamed:@"defaultAction"] copy];
+	if (![QSResourceManager imageNamed:QSDirectObjectIconProxy]){
+		NSImage *theImg = [[QSResourceManager imageNamed:@"defaultAction"] copy];
 		[theImg setName:QSDirectObjectIconProxy];
 	}
 }
@@ -26,7 +26,7 @@
 	NSString *title = [[NSBundle bundleForClass:[self class]] safeLocalizedStringForKey:action value:action table:@"QSAction.name"];
 	return title ? title : action;
 }
-- (NSImage *)iconForAction:(NSString *)action { return [NSImage imageNamed:@"Arrow"];  }
+- (NSImage *)iconForAction:(NSString *)action { return [QSResourceManager imageNamed:@"Arrow"];  }
 - (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject { return nil;  }
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject { return nil;  }
 - (QSObject *)performAction:(QSAction *)action directObject:(QSBasicObject *)dObject indirectObject:(QSBasicObject *)iObject { return nil;  }

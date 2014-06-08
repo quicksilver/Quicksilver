@@ -850,7 +850,7 @@
 	}
 	NSString *title = [NSString stringWithFormat:@"%@ Installed", (name?name:@"Plugin")];
 
-	NSImage *image = [NSImage imageNamed:@"QSPlugIn"];
+	NSImage *image = [QSResourceManager imageNamed:@"QSPlugIn"];
 	[image setSize:QSSizeMax];
 
 	if (showNotifications) {

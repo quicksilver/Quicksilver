@@ -64,7 +64,7 @@ static NSMutableDictionary *tasksDictionary = nil;
 - (NSImage *)icon {
 	if (!icon && delegate && [delegate respondsToSelector:@selector(iconForTask:)])
 		[self setIcon:[delegate iconForTask:self]];
-	if (!icon) return [NSImage imageNamed:@"NSApplicationIcon"];
+	if (!icon) return [QSResourceManager imageNamed:@"NSApplicationIcon"];
 	return icon;
 }
 - (NSString *)description {

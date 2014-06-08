@@ -945,12 +945,12 @@ NSSize QSMaxIconSize;
 	if (handler = [self handlerForSelector:@selector(setQuickIconForObject:)])
 		[handler setQuickIconForObject:self];
     
-	else if ([[self primaryType] isEqualToString:QSContactPhoneType]) [self setIcon: [NSImage imageNamed:@"ContactPhone"]];
-	else if ([[self primaryType] isEqualToString:QSContactAddressType]) [self setIcon: [NSImage imageNamed:@"ContactAddress"]];
-    else if ([[self primaryType] isEqualToString:QSEmailAddressType]) [self setIcon: [NSImage imageNamed:@"ContactEmail"]];
+	else if ([[self primaryType] isEqualToString:QSContactPhoneType]) [self setIcon: [QSResourceManager imageNamed:@"ContactPhone"]];
+	else if ([[self primaryType] isEqualToString:QSContactAddressType]) [self setIcon: [QSResourceManager imageNamed:@"ContactAddress"]];
+    else if ([[self primaryType] isEqualToString:QSEmailAddressType]) [self setIcon: [QSResourceManager imageNamed:@"ContactEmail"]];
     
 	else if ([[self types] containsObject:@"BookmarkDictionaryListPboardType"]) {
-		[self setIcon:[NSImage imageNamed:@"FadedDefaultBookmarkIcon"]];
+		[self setIcon:[QSResourceManager imageNamed:@"FadedDefaultBookmarkIcon"]];
 	}
     
     if (!icon) {

@@ -317,13 +317,13 @@
 
 - (NSMutableArray *)plugInSets {
 	NSMutableArray *setDicts = [NSMutableArray array];
-	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:2] , @"viewMode", @"Recommended", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
-	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:1] , @"viewMode", @"Installed", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
-	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:5] , @"viewMode", @"Disabled", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
-	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:4] , @"viewMode", @"Not Installed", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
+	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:2] , @"viewMode", @"Recommended", @"text", [QSResourceManager imageNamed:@"QSPlugIn"] , @"image", nil]];
+	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:1] , @"viewMode", @"Installed", @"text", [QSResourceManager imageNamed:@"QSPlugIn"] , @"image", nil]];
+	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:5] , @"viewMode", @"Disabled", @"text", [QSResourceManager imageNamed:@"QSPlugIn"] , @"image", nil]];
+	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:4] , @"viewMode", @"Not Installed", @"text", [QSResourceManager imageNamed:@"QSPlugIn"] , @"image", nil]];
 	NSArray *categories = [NSArray arrayWithObjects:@"Applications", @"Calendar", @"Contacts", @"Development", @"Files", @"Images", @"Interfaces", @"Mail & Chat", @"Miscellaneous", @"Music", @"Quicksilver", @"Search", @"System", @"Text", @"Web", nil];
 	NSMutableArray *categoryDicts = [NSMutableArray array];
-	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:3] , @"viewMode", categoryDicts, @"children", @"All Plugins", @"text", [NSImage imageNamed:@"QSPlugIn"] , @"image", nil]];
+	[setDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:3] , @"viewMode", categoryDicts, @"children", @"All Plugins", @"text", [QSResourceManager imageNamed:@"QSPlugIn"] , @"image", nil]];
 
 	for(NSString * categoryName in categories)
 		[categoryDicts addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:3] , @"viewMode", categoryName, @"category", categoryName, @"text", @"category", @"type", nil]];

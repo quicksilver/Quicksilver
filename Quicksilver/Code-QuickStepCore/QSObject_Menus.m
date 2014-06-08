@@ -226,7 +226,7 @@
     
     if (actionsItem) {
       NSMenuItem *item = (NSMenuItem *)[menu addItemWithTitle:@"Actions" action:(SEL)0 keyEquivalent:@""];
-      [item setImage:[[NSImage imageNamed:@"defaultAction"] duplicateOfSize:QSSize16]];
+      [item setImage:[[QSResourceManager imageNamed:@"defaultAction"] duplicateOfSize:QSSize16]];
       [item setSubmenu:[self actionsMenu]];
       [menu addItem:[NSMenuItem separatorItem]];
     }

@@ -64,7 +64,7 @@
 - (NSUInteger)primaryCount {return 0;}
 
 - (NSImage *)icon {
-	return [NSImage imageNamed:@"Object"];
+	return [QSResourceManager imageNamed:@"Object"];
 }
 - (NSComparisonResult)compare:(id)other {
 	return [[self name] compare:[(QSObject *)other name]];
