@@ -36,12 +36,8 @@
 - (id)initTextCell:(NSString *)aString {
 
 	if (self = [super initTextCell:aString]) {
-		[self setTitle:@"Test"];
-
-		// [self _setNeedsHighlightedTextHint:YES];
-		[self setImage:[QSResourceManager imageNamed:@"Arrow"]];
+		
 		[self setImagePosition:NSImageLeft];
-		//NSLog(@"init cell");
 		[self setShowsFirstResponder:YES];
 		[self setFont:[NSFont systemFontOfSize:12.0]];
 		[self setNameFont:nil];
@@ -304,7 +300,10 @@
 }
 
 - (NSImage *)image {
-	return [[self representedObject] icon];
+    if ([[self representedObject] respondsToSelector:@selector(icon)]) {
+        return [[self representedObject] icon];
+    }
+	return nil;
 }
 
 - (NSSize) iconSize { return iconSize;  }

@@ -26,7 +26,7 @@
 	NSString *title = [[NSBundle bundleForClass:[self class]] safeLocalizedStringForKey:action value:action table:@"QSAction.name"];
 	return title ? title : action;
 }
-- (NSImage *)iconForAction:(NSString *)action { return [QSResourceManager imageNamed:@"Arrow"];  }
+- (NSImage *)iconForAction:(NSString *)action { return [QSResourceManager imageNamed:@"defaultAction"];  }
 - (NSArray *)validActionsForDirectObject:(QSObject *)dObject indirectObject:(QSObject *)iObject { return nil;  }
 - (NSArray *)validIndirectObjectsForAction:(NSString *)action directObject:(QSObject *)dObject { return nil;  }
 - (QSObject *)performAction:(QSAction *)action directObject:(QSBasicObject *)dObject indirectObject:(QSBasicObject *)iObject { return nil;  }
