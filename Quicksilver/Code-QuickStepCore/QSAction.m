@@ -406,7 +406,7 @@ static BOOL gModifiersAreIgnored;
 - (BOOL)drawIconForObject:(QSObject *)object inRect:(NSRect)rect flipped:(BOOL)flipped { return NO; }
 
 - (BOOL)loadIconForObject:(QSObject *)object {
-	NSImage *icon = [QSRez imageWithExactName:[object identifier]];
+	NSImage *icon = [[QSResourceManager sharedInstance] imageWithExactName:[object identifier]];
 	NSString *name = [[object objectForType:QSActionType] objectForKey:kActionIcon];
 	if (!icon && name)
 		icon = [QSResourceManager imageNamed:name inBundle:[object bundle]];

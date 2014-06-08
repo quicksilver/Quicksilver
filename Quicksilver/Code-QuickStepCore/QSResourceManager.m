@@ -2,25 +2,20 @@
 #import "QSRegistry.h"
 #import "QSLocalization.h"
 
-NSString *gSysIconBundle = nil;
-id QSRez;
+#define gSysIconBundle @"/System/Library/CoreServices/CoreTypes.bundle"
+
+QSResourceManager * QSRez;
 
 @implementation QSResourceManager
 
-+ (void)initialize {
-	//SInt32 version;
-	//Gestalt (gestaltSystemVersion, &version);
-	//if (version < 0x1040)
-	//	gSysIconBundle = @"/System/Library/CoreServices/SystemIcons.bundle";
-	//else
-	gSysIconBundle = @"/System/Library/CoreServices/CoreTypes.bundle";
-	//	NSLog(@"Using %@", gSysIconBundle);
++ (id)sharedInstance {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        QSRez = [[self alloc] init];
+    });
+    return QSRez;
 }
 
-+ (id)sharedInstance {
-	if (!QSRez) QSRez = [[[self class] allocWithZone:nil] init];
-	return QSRez;
-}
 + (NSImage *)imageNamed:(NSString *)name {
 	return [[self sharedInstance] imageNamed:name];
 }
@@ -28,6 +23,7 @@ id QSRez;
 + (NSImage *)imageNamed:(NSString *)name inBundle:(NSBundle *)bundle {
 	return [[self sharedInstance] imageNamed:name inBundle:bundle];
 }
+
 - (id)init {
 	if (self = [super init]) {
 		resourceDict = [NSMutableDictionary dictionaryWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"ResourceLocations" ofType:@"plist"]];
@@ -52,91 +48,91 @@ id QSRez;
 	if (!path) return nil;
 	return [[NSImage alloc] initByReferencingFile:path];
 }
-- (NSString *)resourceNamed:(NSString *)name inBundle:(NSBundle *)bundle {
-	return nil;
-}
+
 - (NSString *)pathForImageNamed:(NSString *)name {
 	id locator = [resourceDict objectForKey:name];
 	return [self pathWithLocatorInformation:locator];
 }
 
 - (NSImage *)imageWithExactName:(NSString *)name {
-	NSImage *image = [NSImage imageNamed:name];
-	if (!image && resourceOverrideList) {
-		NSString *file = [resourceOverrideList objectForKey:name];
-		if (file)
-			image = [[NSImage alloc] initByReferencingFile:[resourceOverrideFolder stringByAppendingPathComponent:file]];
-		[image setName:name];
-
-	}
-
-	id locator = [resourceDict objectForKey:name];
-	if ([locator isKindOfClass:[NSNull class]]) return nil;
-	if (locator)
-		image = [self imageWithLocatorInformation:locator];
-	return image;
-}
-
-- (NSImage *)imageNamed:(NSString *)name inBundle:(NSBundle *)bundle {
-	if (!name) { return nil; }
-
-	NSImage *image = [NSImage imageNamed:name];
-	if (!image && resourceOverrideList) {
-		NSString *file = [resourceOverrideList objectForKey:name];
-		if (file) {
-			image = [[NSImage alloc] initByReferencingFile:[resourceOverrideFolder stringByAppendingPathComponent:file]];
-		}
-		[image setName:name];
-	}
-
-	if (!image && bundle) { image = [bundle imageNamed:name]; }
-
-	if (image) { return image; }
-
-	id locator = [resourceDict objectForKey:name];
-	if ([locator isKindOfClass:[NSNull class]]) { return nil; }
-	if (locator) {
-		image = [self imageWithLocatorInformation:locator];
-	} else if (!image && ([name hasPrefix:@"/"] || [name hasPrefix:@"~"])) { // !!! Andre Berg 20091007: Try iconForFile first if name looks like ordinary path
-		NSString *path = [name stringByStandardizingPath];
-		if ([[NSImage imageUnfilteredFileTypes] containsObject:[path pathExtension]]) {
-			image = [[NSImage alloc] initByReferencingFile:path];
-		} else {
-			image = [[NSWorkspace sharedWorkspace] iconForFile:path];
-		}
-    } else {// Try the systemicons bundle
-		image = [self sysIconNamed:name];
-		if (!image) { // Try by bundle id
-			image = [self imageWithLocatorInformation:[NSDictionary dictionaryWithObjectsAndKeys:name, @"bundle", nil]];
-		}
-	}
-	if (!image && [locator isKindOfClass:[NSString class]]) {
-		image = [self imageNamed:locator];
-	}
-
-	if(!image) {
-		SEL selector = NSSelectorFromString([NSString stringWithFormat:@"%@Image", name]);
-		if ([self respondsToSelector:selector]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-			image = [self performSelector:selector];
-#pragma clang diagnostic pop
-		}
-	}
-
-	if (!image) {
-		[resourceDict setObject:[NSNull null] forKey:name];
-	} else {
-		[image setName:name];
-	}
-	return image;
+    @synchronized(self) {
+        NSImage *image = [NSImage imageNamed:name];
+        if (!image && resourceOverrideList) {
+            NSString *file = [resourceOverrideList objectForKey:name];
+            if (file)
+                image = [[NSImage alloc] initByReferencingFile:[resourceOverrideFolder stringByAppendingPathComponent:file]];
+            [image setName:name];
+            
+        }
+        
+        id locator = [resourceDict objectForKey:name];
+        if ([locator isKindOfClass:[NSNull class]]) return nil;
+        if (locator)
+            image = [self imageWithLocatorInformation:locator];
+        return image;
+    }
 }
 
 - (NSImage *)imageNamed:(NSString *)name {
 	return [self imageNamed:name inBundle:nil];
 }
 
+- (NSImage *)imageNamed:(NSString *)name inBundle:(NSBundle *)bundle {
+    @synchronized(self) {
+        if (!name) { return nil; }
+        
+        NSImage *image = [NSImage imageNamed:name];
+        if (!image && resourceOverrideList) {
+            NSString *file = [resourceOverrideList objectForKey:name];
+            if (file) {
+                image = [[NSImage alloc] initByReferencingFile:[resourceOverrideFolder stringByAppendingPathComponent:file]];
+            }
+            [image setName:name];
+        }
+        
+        if (!image && bundle) { image = [bundle imageNamed:name]; }
+        
+        if (image) { return image; }
+        
+        id locator = [resourceDict objectForKey:name];
+        if ([locator isKindOfClass:[NSNull class]]) { return nil; }
+        if (locator) {
+            image = [self imageWithLocatorInformation:locator];
+        } else if (!image && ([name hasPrefix:@"/"] || [name hasPrefix:@"~"])) { // !!! Andre Berg 20091007: Try iconForFile first if name looks like ordinary path
+            NSString *path = [name stringByStandardizingPath];
+            if ([[NSImage imageUnfilteredFileTypes] containsObject:[path pathExtension]]) {
+                image = [[NSImage alloc] initByReferencingFile:path];
+            } else {
+                image = [[NSWorkspace sharedWorkspace] iconForFile:path];
+            }
+        } else {// Try the systemicons bundle
+            image = [self sysIconNamed:name];
+            if (!image) { // Try by bundle id
+                image = [self imageWithLocatorInformation:[NSDictionary dictionaryWithObjectsAndKeys:name, @"bundle", nil]];
+            }
+        }
+        if (!image && [locator isKindOfClass:[NSString class]]) {
+            image = [self imageNamed:locator];
+        }
+        
+        if(!image) {
+            SEL selector = NSSelectorFromString([NSString stringWithFormat:@"%@Image", name]);
+            if ([self respondsToSelector:selector]) {
+                image = ((NSImage* (*)(id, SEL))[self methodForSelector:selector])(self, selector);
+            }
+        }
+        
+        if (!image) {
+            [resourceDict setObject:[NSNull null] forKey:name];
+        } else {
+            [image setName:name];
+        }
+        return image;
+    }
+}
+
 - (NSString *)pathWithLocatorInformation:(id)locator {
+    @synchronized(self) {
 	NSString *path = nil;
 	if ([locator isKindOfClass:[NSString class]]) {
 		if (![locator length]) return nil;
@@ -180,7 +176,7 @@ id QSRez;
 
 	}
 	return path;
-
+    }
 }
 
 - (NSImage *)imageWithLocatorInformation:(id)locator {

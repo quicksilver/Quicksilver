@@ -359,7 +359,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
     }
 
     if (!object) {
-        object = [QSObject fileObjectWithPath:[QSRez pathWithLocatorInformation:[cmdDict objectForKey:@"directResource"]]];
+        object = [QSObject fileObjectWithPath:[[QSResourceManager sharedInstance] pathWithLocatorInformation:[cmdDict objectForKey:@"directResource"]]];
 	}
 	
 	// For cases where the command has a directID/directArchive, but its corresponding object hasn't already been created (i.e. *not* in the catalog)
@@ -399,7 +399,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
     }
 		
 	if (!object) {
-		object = [QSObject fileObjectWithPath:[QSRez pathWithLocatorInformation:[cmdDict objectForKey:@"indirectResource"]]];
+		object = [QSObject fileObjectWithPath:[[QSResourceManager sharedInstance] pathWithLocatorInformation:[cmdDict objectForKey:@"indirectResource"]]];
 	}
 	
 	// For cases where the object doesn't exist (not in the catalog)
