@@ -225,8 +225,10 @@
 }
 
 - (void)reactivate {
-    [self setEnabled:[self enabled]];
     activated = [self enabled];
+    if (activated) {
+        [[self manager] enableTrigger:self];
+    }
 }
 
 - (BOOL)activated {
@@ -262,7 +264,6 @@
 
 - (void)setEnabled:(BOOL)enabled {
 	[info setObject:[NSNumber numberWithBool:enabled] forKey:@"enabled"];
-    enabled ? [[self manager] enableTrigger:self] : [[self manager] disableTrigger:self];
 	[[QSTriggerCenter sharedInstance] triggerChanged:self];
 }
 
@@ -272,8 +273,7 @@
 // endless recursive calls and blowing out the stack.
 - (void)setEnabledDoNotNotify:(BOOL)enabled {
 	[info setObject:[NSNumber numberWithBool:enabled] forKey:@"enabled"];
-    enabled ? [[self manager] enableTrigger:self] : [[self manager] disableTrigger:self];
-    activated = enabled;
+    activated = enabled ? [[self manager] enableTrigger:self] : [[self manager] disableTrigger:self];
 }
 
 - (id)objectForKey:(NSString *)key {
