@@ -103,9 +103,10 @@
 		case NSImageOverlaps:
 			return theRect;
 		case NSImageLeft:
-			theRect.origin.x += NSHeight(theRect) * 18/16;
+
+			theRect.origin.x += NSHeight(theRect) * 18/16 + 4;
 			// theRect.origin.y++;
-			theRect.size.width -= theRect.size.height* 18/16;
+			theRect.size.width -= theRect.size.height* 18/16 + 4;
 			theRect = NSInsetRect(theRect, NSHeight(theRect) /16, 0);
 			break;
 		case NSImageRight:

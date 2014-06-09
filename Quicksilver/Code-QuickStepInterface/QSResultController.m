@@ -36,10 +36,6 @@
 
 NSMutableDictionary *kindDescriptions = nil;
 
-@interface QSResultController ()
-- (void)reloadColors;
-@end
-
 @implementation QSResultController
 
 @synthesize resultTable=resultTable,currentResults,selectedItem,searchStringField;
@@ -58,9 +54,7 @@ NSMutableDictionary *kindDescriptions = nil;
 
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"values.QSAppearance3B"]) {
-        [self reloadColors];
-    } else if ([keyPath isEqualToString:@"rowHeight"]) {
+    if ([keyPath isEqualToString:@"rowHeight"]) {
         if ([change objectForKey:NSKeyValueChangeNewKey]) {
             [(QSObjectCell *)[[resultTable tableColumnWithIdentifier: COLUMNID_NAME] dataCell] setShowDetails:([[change objectForKey:NSKeyValueChangeNewKey] doubleValue] >= 34.0)];
         }
@@ -116,7 +110,7 @@ NSMutableDictionary *kindDescriptions = nil;
            forKeyPath:@"values.QSAppearance3B"
               options:0
               context:nil];
-    
+    [[self window] bind:@"backgroundColor" toObject:sucd withKeyPath:@"values.QSAppearance2B" options:@{NSValueTransformerNameBindingOption : NSUnarchiveFromDataTransformerName}];
 	[[[resultTable tableColumnWithIdentifier:@"NameColumn"] dataCell] bind:@"textColor"
                                                                   toObject:sucd
                                                                withKeyPath:@"values.QSAppearance3T"
@@ -147,7 +141,6 @@ NSMutableDictionary *kindDescriptions = nil;
                        options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName
                                                            forKey:@"NSValueTransformerName"]];
 	}
-	[self reloadColors];
 
 	//[[resultTable enclosingScrollView] setHasVerticalScroller:NO];
 }
@@ -168,11 +161,6 @@ NSMutableDictionary *kindDescriptions = nil;
 #pragma mark -
 #pragma mark Accessors, Utilities
 
-- (void)reloadColors {
-	NSData *data = [[NSUserDefaultsController sharedUserDefaultsController] valueForKeyPath:@"values.QSAppearance3B"];
-	NSColor *color = [NSUnarchiver unarchiveObjectWithData:data];
-	[[self window] setOpaque:[color alphaComponent] == 1.0f];
-}
 
 - (void)updateScrollViewTrackingRect {
 	NSView *view = [[self window] contentView];
@@ -356,30 +344,36 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 - (void)arrayChanged:(NSNotification*)notif {
-    QSGCDMainAsync(^{
+    QSGCDMainSync(^{
         [self setResultIconLoader:nil];
         [self setCurrentResults:[focus resultArray]];
         [self updateStatusString];
         
         [resultTable reloadData];
-        if ([[[NSUserDefaults standardUserDefaults] objectForKey:kUseEffects] boolValue]) {
-            NSRect windowFrame = [[self window] frame];
-            NSUInteger resultCount = [currentResults count];
-            NSUInteger verticalSpacing = [resultTable intercellSpacing].height;
-            NSUInteger newWindowHeight =  (([resultTable rowHeight] + verticalSpacing) * resultCount) + 31;
-            windowFrame.size.height =  newWindowHeight > windowHeight || [currentResults count] == 0 ? windowHeight : newWindowHeight;
-            if (windowFrame.size.height != [[self window] frame].size.height) {
-                windowFrame.origin.y = windowFrame.origin.y - (windowFrame.size.height - [[self window] frame].size.height);
-            }
+        if ([[[NSUserDefaults standardUserDefaults] objectForKey:kUseEffects] boolValue] && [QSInterfaceController firstResponder] == focus) {
+            NSRect windowFrame = [self windowFrame];
             shouldSaveWindowSize = NO;
             [[self window] setFrame:windowFrame display:YES animate:YES];
             shouldSaveWindowSize = YES;
         }
+        
         //visibleRange = [resultTable rowsInRect:[resultTable visibleRect]];
         //	NSLog(@"arraychanged %d", [[self currentResults] count]);
         //[self threadedIconLoad];
         [[self resultIconLoader] loadIconsInRange:[resultTable rowsInRect:[resultTable visibleRect]]];
     });
+}
+
+- (NSRect)windowFrame {
+    NSRect windowFrame = [[self window] frame];
+    NSUInteger resultCount = [currentResults count];
+    NSUInteger verticalSpacing = [resultTable intercellSpacing].height;
+    NSUInteger newWindowHeight =  (([resultTable rowHeight] + verticalSpacing) * resultCount) + 31;
+    windowFrame.size.height =  newWindowHeight > windowHeight || [currentResults count] == 0 ? windowHeight : newWindowHeight;
+    if (windowFrame.size.height != [[self window] frame].size.height) {
+        windowFrame.origin.y = windowFrame.origin.y - (windowFrame.size.height - [[self window] frame].size.height);
+    }
+    return windowFrame;
 }
 
 - (void)updateSelectionInfo {
@@ -462,6 +456,7 @@ NSMutableDictionary *kindDescriptions = nil;
 
 #pragma mark -
 #pragma mark NSWindow Delegate
+
 // called twice when a user resized the results window
 - (void)windowDidResize:(NSNotification *)aNotification {
     if (!shouldSaveWindowSize) {

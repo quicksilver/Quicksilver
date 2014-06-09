@@ -4,8 +4,8 @@
 	self = [super initWithContentRect:contentRect styleMask:aStyle | NSResizableWindowMask backing:bufferingType defer:YES];
     [self setOpaque:![[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsUseAlpha"]];
     
-    [self setShowEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSSlightGrowEffect", @"transformFn", @"show", @"type", [NSNumber numberWithDouble:0.05] , @"duration", nil]];
-	[self setHideEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSSlightShrinkEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithDouble:0.05] , @"duration", nil]];
+    [self setShowEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSSlightGrowEffect", @"transformFn", @"show", @"type", [NSNumber numberWithDouble:0.01] , @"duration", nil]];
+	[self setHideEffect:[NSDictionary dictionaryWithObjectsAndKeys:@"QSSlightShrinkEffect", @"transformFn", @"hide", @"type", [NSNumber numberWithDouble:0.01] , @"duration", nil]];
 
     if([self setFrameUsingName:@"results"])
         [[self class] removeFrameUsingName:@"results"];
@@ -16,7 +16,6 @@
 	[self setFrameUsingName:@"QSResultWindow" force:YES];
     [self setBackgroundColor:[NSColor clearColor]];
 	[self setMovableByWindowBackground:NO];
-    [self setShowsResizeIndicator:YES];
     return self;
 }
 

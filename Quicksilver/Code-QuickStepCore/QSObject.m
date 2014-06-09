@@ -371,6 +371,8 @@ NSSize QSMaxIconSize;
 	}
     if (details != nil) {
         [self setObject:details forMeta:kQSObjectDetails];
+    } else if ([self stringValue]) {
+        details = [self stringValue];
     } else if ([itemForKey([self primaryType]) isKindOfClass:[NSString class]]) {
         details = itemForKey([self primaryType]);
     }
