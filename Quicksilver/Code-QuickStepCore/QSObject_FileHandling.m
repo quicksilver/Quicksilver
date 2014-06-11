@@ -346,7 +346,7 @@ NSArray *recentDocumentsForBundle(NSString *bundleIdentifier) {
 
 - (NSDragOperation)operationForDrag:(id <NSDraggingInfo>)sender ontoObject:(QSObject *)dObject withObject:(QSBasicObject *)iObject {
 	if (![iObject arrayForType:QSFilePathType])
-		return 0;
+		return NSDragOperationNone;
 	if ([dObject fileCount] > 1)
 		return NSDragOperationGeneric;
 	NSDragOperation sourceDragMask = [sender draggingSourceOperationMask];
