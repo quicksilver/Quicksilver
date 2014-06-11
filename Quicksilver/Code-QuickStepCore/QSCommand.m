@@ -37,7 +37,7 @@
 @implementation QSCommandObjectHandler
 
 - (void)setQuickIconForObject:(QSObject *)object {
-	[object setIcon:[NSImage imageNamed:@"defaultAction"]];
+	[object setIcon:[QSResourceManager imageNamed:@"defaultAction"]];
 }
 
 - (BOOL)loadIconForObject:(QSObject *)object {
@@ -359,7 +359,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
     }
 
     if (!object) {
-        object = [QSObject fileObjectWithPath:[QSRez pathWithLocatorInformation:[cmdDict objectForKey:@"directResource"]]];
+        object = [QSObject fileObjectWithPath:[[QSResourceManager sharedInstance] pathWithLocatorInformation:[cmdDict objectForKey:@"directResource"]]];
 	}
 	
 	// For cases where the command has a directID/directArchive, but its corresponding object hasn't already been created (i.e. *not* in the catalog)
@@ -399,7 +399,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
     }
 		
 	if (!object) {
-		object = [QSObject fileObjectWithPath:[QSRez pathWithLocatorInformation:[cmdDict objectForKey:@"indirectResource"]]];
+		object = [QSObject fileObjectWithPath:[[QSResourceManager sharedInstance] pathWithLocatorInformation:[cmdDict objectForKey:@"indirectResource"]]];
 	}
 	
 	// For cases where the object doesn't exist (not in the catalog)
@@ -540,7 +540,7 @@ NSTimeInterval QSTimeIntervalForString(NSString *intervalString) {
 		  }
 	  } else {
 		  item = [menu addItemWithTitle:@"Choose..." action:@selector(executeFromMenu:) keyEquivalent:@""];
-		  [item setImage:[[NSImage imageNamed:@"Quicksilver"] duplicateOfSize:QSSize16]];
+		  [item setImage:[[QSResourceManager imageNamed:@"Quicksilver"] duplicateOfSize:QSSize16]];
 		  [item setTarget:self];
 	  }
 	  [menu setDelegate:nil];

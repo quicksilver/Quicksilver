@@ -36,7 +36,7 @@
 	return settingsView;
 }
 
-- (NSImage *)image { return [NSImage imageNamed:@"KeyboardTrigger"];  }
+- (NSImage *)image { return [QSResourceManager imageNamed:@"KeyboardTrigger"];  }
 
 - (void)initializeTrigger:(NSMutableDictionary *)trigger { [trigger setObject:[NSNumber numberWithBool:YES] forKey:@"onPress"];  }
 

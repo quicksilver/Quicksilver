@@ -69,7 +69,7 @@
 			[(NSMutableURLRequest *)request setURL:[NSURL fileURLWithPath:path]];
 		}
 	} else if ([[[request URL] scheme] isEqualToString:@"qsimage"]) {
-		NSString *path = [QSRez pathForImageNamed:[[request URL] host]];
+		NSString *path = [[QSResourceManager sharedInstance] pathForImageNamed:[[request URL] host]];
 		if (path) {
 			request = [request mutableCopy];
 			[(NSMutableURLRequest *)request setURL:[NSURL fileURLWithPath:path]];

@@ -108,7 +108,7 @@
 	NSString *path = [self fullPathForSettings:settings];
 	BOOL isDirectory, exists;
 	exists = [manager fileExistsAtPath:path isDirectory:&isDirectory];
-	NSImage *theImage = (exists?[workspace iconForFile:path] : [NSImage imageNamed:@"Question"]);
+	NSImage *theImage = (exists?[workspace iconForFile:path] : [QSResourceManager imageNamed:@"Question"]);
 	[theImage setSize:QSSize16];
 	return theImage;
 	// [aCell setTextColor:(exists?[NSColor blackColor] :[NSColor grayColor])];

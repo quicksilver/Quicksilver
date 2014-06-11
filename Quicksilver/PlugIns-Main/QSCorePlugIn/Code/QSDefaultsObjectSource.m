@@ -48,7 +48,7 @@
 	if (bundlePath)
 		icon = [workspace iconForFile:bundlePath];
 	if (icon) return icon;
-	return [NSImage imageNamed:@"DocPrefs"];
+	return [QSResourceManager imageNamed:@"DocPrefs"];
 }
 
 - (NSString *)prefFileForBundle:(NSString *)bundleID {
