@@ -55,7 +55,9 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 		[pasteboard setString:[pbData URLDecoding] forType:NSURLPboardType];
     } else if ([type isEqualToString:@"public.file-url"] && [pbData isKindOfClass:[NSArray class]]) {
         [pasteboard setString:pbData[0] forType:type];
-	} else if ([PLISTTYPES containsObject:type] || [pbData isKindOfClass:[NSDictionary class]] || [pbData isKindOfClass:[NSArray class]]) {
+	} else if ([type isEqualToString:(__bridge NSString *)kUTTypeData]){
+        [pasteboard setData:[NSPropertyListSerialization dataWithPropertyList:pbData format:NSPropertyListBinaryFormat_v1_0 options:0 error:nil] forType:NSFilenamesPboardType];
+    } else if ([PLISTTYPES containsObject:type] || [pbData isKindOfClass:[NSDictionary class]] || [pbData isKindOfClass:[NSArray class]]) {
         if (![pbData isKindOfClass:[NSArray class]]) {
             pbData = @[pbData];
         }
@@ -110,8 +112,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
             source =  @"Clipboard";
             sourceApp = source;
         }
-
-		[self setDataDictionary:[NSMutableDictionary dictionaryWithCapacity:[[pasteboard types] count]]];
+        [data removeAllObjects];
 		[self addContentsOfPasteboard:pasteboard types:types];
 
 		[self setObject:source forMeta:kQSObjectSource];
@@ -122,9 +123,6 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 			value = [[NSAttributedString alloc] initWithRTF:value documentAttributes:nil];
 			[self setObject:[value string] forType:QSTextType];
 		}
-        if ([self objectForType:(__bridge NSString *)kUTTypeFileURL]) {
-            [self setObject:[(NSURL *)[self objectForType:(__bridge NSString *)kUTTypeFileURL] path] forType:QSFilePathType];
-        }
 		if ([self objectForType:QSTextType])
 			[self sniffString];
 		NSString *clippingPath = [self singleFilePath];
@@ -252,9 +250,8 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	if (!includeTypes) {
 		if ([types containsObject:NSFilenamesPboardType] || [types containsObject:QSFilePathType]) {
             // Backwards incompatibility with the old way of writing to the pasteboard (NSFilenamesPboardType) which doens't play nicely with UTIs (public.data)
-			includeTypes = [NSArray arrayWithObject:NSFilenamesPboardType];
-            [types addObject:NSFilenamesPboardType];
-            [self setObject:[self arrayForType:QSFilePathType] forType:NSFilenamesPboardType];
+			includeTypes = @[(__bridge NSString *)kUTTypeData];
+            [types addObject:(__bridge NSString *)kUTTypeData];
 		//			[pboard declareTypes:includeTypes owner:self];
         } else if ([types containsObject:NSURLPboardType]) {
 			// for urls, define plain text, rtf and html
@@ -265,7 +262,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	}
     if ([self validPaths]) {
         // this is a file - add file URL data
-        includeTypes = @[@"public.file-url"];
+        includeTypes = [includeTypes arrayByAddingObject:(__bridge NSString*)kUTTypeFileURL];
         [types addObjectsFromArray:includeTypes];
         NSArray *fileURLs = [[self validPaths] arrayByEnumeratingArrayUsingBlock:^NSString *(NSString *path) {
             return [[NSURL fileURLWithPath:path] absoluteString];
