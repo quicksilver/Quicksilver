@@ -36,7 +36,9 @@
 - (id)initTextCell:(NSString *)aString {
 
 	if (self = [super initTextCell:aString]) {
-		
+        [self setTitle:@""];
+        [self setTransparent:YES];
+        
 		[self setImagePosition:NSImageLeft];
 		[self setShowsFirstResponder:YES];
 		[self setFont:[NSFont systemFontOfSize:12.0]];
@@ -364,7 +366,7 @@
 
 - (void)drawInteriorWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
 	QSObject *drawObject = [self representedObject];
-
+    
 	[self buildStylesForFrame:cellFrame inView:controlView];
 
 	if ([drawObject isKindOfClass:[QSNullObject class]]) return;
