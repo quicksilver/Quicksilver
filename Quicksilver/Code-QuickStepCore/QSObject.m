@@ -904,10 +904,11 @@ NSSize QSMaxIconSize;
 
 	id handler = nil;
 	if (handler = [self handlerForSelector:@selector(loadIconForObject:)]) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        QSObject __weak *weakSelf = self;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             // loadIconForObject returns a BOOL, but we can't return it from here
             // nothing ever checks the return from loadIcon anyway
-            [handler loadIconForObject:self];
+            [handler loadIconForObject:weakSelf];
         });
         return YES;
     }
@@ -946,12 +947,12 @@ NSSize QSMaxIconSize;
 	if (handler = [self handlerForSelector:@selector(setQuickIconForObject:)])
 		[handler setQuickIconForObject:self];
     
-	else if ([[self primaryType] isEqualToString:QSContactPhoneType]) [self setIcon: [NSImage imageNamed:@"ContactPhone"]];
-	else if ([[self primaryType] isEqualToString:QSContactAddressType]) [self setIcon: [NSImage imageNamed:@"ContactAddress"]];
-    else if ([[self primaryType] isEqualToString:QSEmailAddressType]) [self setIcon: [NSImage imageNamed:@"ContactEmail"]];
+	else if ([[self primaryType] isEqualToString:QSContactPhoneType]) [self setIcon: [QSResourceManager imageNamed:@"ContactPhone"]];
+	else if ([[self primaryType] isEqualToString:QSContactAddressType]) [self setIcon: [QSResourceManager imageNamed:@"ContactAddress"]];
+    else if ([[self primaryType] isEqualToString:QSEmailAddressType]) [self setIcon: [QSResourceManager imageNamed:@"ContactEmail"]];
     
 	else if ([[self types] containsObject:@"BookmarkDictionaryListPboardType"]) {
-		[self setIcon:[NSImage imageNamed:@"FadedDefaultBookmarkIcon"]];
+		[self setIcon:[QSResourceManager imageNamed:@"FadedDefaultBookmarkIcon"]];
 	}
     
     if (!icon) {

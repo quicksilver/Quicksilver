@@ -401,12 +401,12 @@ static BOOL gModifiersAreIgnored;
 		return [[(QSAction *)object actionDict] objectForKey:@"description"];
 }
 
-- (void)setQuickIconForObject:(QSObject *)object { [object setIcon:[NSImage imageNamed:@"defaultAction"]]; }
+- (void)setQuickIconForObject:(QSObject *)object { [object setIcon:[QSResourceManager imageNamed:@"defaultAction"]]; }
 
 - (BOOL)drawIconForObject:(QSObject *)object inRect:(NSRect)rect flipped:(BOOL)flipped { return NO; }
 
 - (BOOL)loadIconForObject:(QSObject *)object {
-	NSImage *icon = [QSRez imageWithExactName:[object identifier]];
+	NSImage *icon = [[QSResourceManager sharedInstance] imageWithExactName:[object identifier]];
 	NSString *name = [[object objectForType:QSActionType] objectForKey:kActionIcon];
 	if (!icon && name)
 		icon = [QSResourceManager imageNamed:name inBundle:[object bundle]];

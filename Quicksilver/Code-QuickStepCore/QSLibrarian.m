@@ -63,7 +63,7 @@ static CGFloat searchSpeed = 0.0;
         
 		scanTask = [QSTask taskWithIdentifier:@"QSLibrarianScanTask"];
 		[scanTask setName:@"Updating Catalog"];
-		[scanTask setIcon:[NSImage imageNamed:@"Catalog.icns"]];
+		[scanTask setIcon:[QSResourceManager imageNamed:@"Catalog.icns"]];
 
 		//Initialize Variables
 		appSearchArrays = nil;

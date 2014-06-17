@@ -36,12 +36,8 @@
 - (id)initTextCell:(NSString *)aString {
 
 	if (self = [super initTextCell:aString]) {
-		[self setTitle:@"Test"];
-
-		// [self _setNeedsHighlightedTextHint:YES];
-		[self setImage:[NSImage imageNamed:@"Arrow"]];
+		
 		[self setImagePosition:NSImageLeft];
-		//NSLog(@"init cell");
 		[self setShowsFirstResponder:YES];
 		[self setFont:[NSFont systemFontOfSize:12.0]];
 		[self setNameFont:nil];
@@ -291,15 +287,24 @@
 	return typeImageArray;
 }
 - (NSDictionary *)typeImageDictionary {
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-		QSFilePathType, [NSImage imageNamed:@"fileType"] ,
-		QSTextType, [NSImage imageNamed:@"textType"] ,
-		NSURLPboardType, [NSImage imageNamed:@"webType"] ,
-		NSRTFDPboardType, [NSImage imageNamed:@"stylizedTextType"] ,
-		nil];
+    static __strong NSDictionary *d;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        d = [NSDictionary dictionaryWithObjectsAndKeys:
+             QSFilePathType, [QSResourceManager imageNamed:@"fileType"] ,
+             QSTextType, [QSResourceManager imageNamed:@"textType"] ,
+             NSURLPboardType, [QSResourceManager imageNamed:@"webType"] ,
+             NSRTFDPboardType, [QSResourceManager imageNamed:@"stylizedTextType"] ,
+             nil];
+    });
+    return d;
 }
+
 - (NSImage *)image {
-	return [[self representedObject] icon];
+    if ([[self representedObject] respondsToSelector:@selector(icon)]) {
+        return [[self representedObject] icon];
+    }
+	return nil;
 }
 
 - (NSSize) iconSize { return iconSize;  }
@@ -339,7 +344,7 @@
 	  BOOL isFirstResponder = [[controlView window] firstResponder] == controlView && ![controlView isKindOfClass:[NSTableView class]];
 
 	  if (isFirstResponder && [controlView isKindOfClass:[QSSearchObjectView class]]) {
-		  NSImage *find = [NSImage imageNamed:@"Find"];
+		  NSImage *find = [QSResourceManager imageNamed:@"Find"];
 		  [find setSize:QSSizeMax];
 		  NSRect findImageRect = fitRectInRect(rectFromSize([find size]), cellFrame, 0);
 

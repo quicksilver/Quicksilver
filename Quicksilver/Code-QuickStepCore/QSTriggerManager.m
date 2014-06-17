@@ -78,7 +78,7 @@
 	if (![trigger objectForKey:@"name"])
 		[trigger setObject:@"untitled" forKey:@"name"];
 }
-- (NSImage *)image { return [[NSImage imageNamed:@"CatalogGroup"] duplicateOfSize:QSSize16];  }
+- (NSImage *)image { return [[QSResourceManager imageNamed:@"CatalogGroup"] duplicateOfSize:QSSize16];  }
 - (NSString *)name { return @"Group";  }
 - (BOOL)enableTrigger:(QSTrigger *)trigger { return YES;  }
 

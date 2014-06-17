@@ -8,6 +8,7 @@
 
 #import "QSMainMenuPrefPane.h"
 #import "QSResourceManager.h"
+#import "QSController.h"
 
 @interface WebView (Private)
 - (void)setDrawsBackground:(BOOL)flag;
@@ -50,7 +51,7 @@
 		external = YES;
 	}
 	if ([[url scheme] hasPrefix:@"qs"]) {
-		[[NSApp delegate] openURL:url];
+		[(QSController *)[NSApp delegate] openURL:url];
 	} else if (external) {
 		[[NSWorkspace sharedWorkspace] openURL:url];
 		[listener ignore];
@@ -68,7 +69,7 @@
 			[(NSMutableURLRequest *)request setURL:[NSURL fileURLWithPath:path]];
 		}
 	} else if ([[[request URL] scheme] isEqualToString:@"qsimage"]) {
-		NSString *path = [QSRez pathForImageNamed:[[request URL] host]];
+		NSString *path = [[QSResourceManager sharedInstance] pathForImageNamed:[[request URL] host]];
 		if (path) {
 			request = [request mutableCopy];
 			[(NSMutableURLRequest *)request setURL:[NSURL fileURLWithPath:path]];

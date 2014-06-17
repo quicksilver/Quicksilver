@@ -195,10 +195,14 @@
                             forKeyPath:@"selection.info.applicationScope"
                                options:0
                                context:nil];
-	NSSortDescriptor *aSortDesc = [[NSSortDescriptor alloc] initWithKey:@"name"
-															   ascending:YES
-																selector:@selector(caseInsensitiveCompare:)];
-	[triggerArrayController setSortDescriptors:[NSArray arrayWithObject:aSortDesc]];
+    [triggerTreeController bind:@"sortDescriptors" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.triggersSortDescriptors" options:@{NSValueTransformerNameBindingOption : NSUnarchiveFromDataTransformerName}];
+    
+    if (![triggerTreeController sortDescriptors].count) {
+        NSSortDescriptor *aSortDesc = [[NSSortDescriptor alloc] initWithKey:@"name"
+                                                                  ascending:YES
+                                                                   selector:@selector(caseInsensitiveCompare:)];
+        [triggerArrayController setSortDescriptors:[NSArray arrayWithObject:aSortDesc]];
+    }
 	[triggerArrayController rearrangeObjects];
 	[self reloadFilters];
 
@@ -553,6 +557,11 @@
         id manager = [thisTrigger manager];
         if ([manager respondsToSelector:@selector(trigger:setTriggerDescription:)])
             [manager trigger:[self currentTrigger] setTriggerDescription:anObject];
+    } else if ([[aTableColumn identifier] isEqualToString:@"enabled"]) {
+        // skip the call to triggerChanged:
+        // it's already called by setEnabled:
+        // calling it a second time has unwanted side-effects
+        return;
     }
 	
     @try {
@@ -626,7 +635,7 @@
 	NSMutableArray *sets = [[NSMutableArray alloc] initWithCapacity:[registrySets count] + 2];
 	[sets addObject:[NSDictionary dictionaryWithObjectsAndKeys:
 					 @"Custom Triggers", @"text",
-					 [NSImage imageNamed:@"Triggers"], @"image",
+					 [QSResourceManager imageNamed:@"Triggers"], @"image",
 					 nil]];
 
 	for (NSString *key in registrySets) {
@@ -639,7 +648,7 @@
 	}
 	[sets addObject:[NSDictionary dictionaryWithObjectsAndKeys:
 					 @"All Triggers", @"text",
-					 [NSImage imageNamed:@"Pref-Triggers"], @"image",
+					 [QSResourceManager imageNamed:@"Pref-Triggers"], @"image",
 					 nil]];
 	[self setTriggerSets:sets];
 }

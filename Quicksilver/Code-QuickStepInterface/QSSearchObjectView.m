@@ -73,8 +73,8 @@ NSMutableDictionary *bindingsDict = nil;
     
     [self setTextModeEditor:(NSTextView *)[[self window] fieldEditor:YES forObject:self]];
     
-    [[self textModeEditor] bind:@"textColor" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSAppearance3T" options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:@"NSValueTransformerName"]];
-    [[self textModeEditor] bind:@"insertionPointColor" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSAppearance3T" options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:@"NSValueTransformerName"]];
+    [[self textModeEditor] bind:@"textColor" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSAppearance3T" options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:NSValueTransformerNameBindingOption]];
+    [[self textModeEditor] bind:@"insertionPointColor" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSAppearance3T" options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:NSValueTransformerNameBindingOption]];
     [[self textModeEditor] setAllowsUndo:YES];
     
     [[self textModeEditor] setAutomaticTextReplacementEnabled:YES];
@@ -92,6 +92,7 @@ NSMutableDictionary *bindingsDict = nil;
 	[resultController window];
 	[self setVisibleString:@""];
 
+	[[self cell] bind:@"highlightColor" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSAppearance2A" options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:NSValueTransformerNameBindingOption]];
 }
 
 - (void)dealloc {
@@ -392,7 +393,7 @@ NSMutableDictionary *bindingsDict = nil;
 	[savePanel setCanCreateDirectories:YES];
 	NSString *oldFile = [[self objectValue] singleFilePath];
   
-	id QSIC = [[NSApp delegate] interfaceController];
+	id QSIC = [(QSController *)[NSApp delegate] interfaceController];
 	[QSIC setHiding:YES];
     [savePanel setDirectoryURL:[NSURL fileURLWithPath:oldFile]];
 	[savePanel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result)
@@ -417,7 +418,7 @@ NSMutableDictionary *bindingsDict = nil;
 	}
 	NSString *oldFile = [[self objectValue] singleFilePath];
     
-	id QSIC = [[NSApp delegate] interfaceController];
+	id QSIC = [(QSController *)[NSApp delegate] interfaceController];
 	[QSIC setHiding:YES];
     [openPanel setDirectoryURL:[NSURL fileURLWithPath:oldFile]];
 	[openPanel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result)
