@@ -43,9 +43,11 @@
 	if (isLocal) return NSDragOperationEvery;
 	else return NSDragOperationEvery;
 }
+
 - (BOOL)isOpaque {
 	return opaque;
 }
+
 - (void)setOpaque:(BOOL)flag {
 	opaque = flag;
 }
@@ -74,10 +76,10 @@
 	return self;
 }
 - (void)awakeFromNib {
-
 	opaque = YES;
 	drawsBackground = YES;
 }
+
 - (void)drawBackgroundInClipRect:(NSRect)clipRect {
 	if (drawsBackground) {
 		if ([self backgroundColor]) {

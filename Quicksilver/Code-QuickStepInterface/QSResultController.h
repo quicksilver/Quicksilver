@@ -2,7 +2,7 @@
 
 #import <AppKit/AppKit.h>
 
-@class QSObjectView, QSSearchObjectView;
+@class QSObjectView, QSSearchObjectView, QSTableView;
 
 @interface QSResultController : NSWindowController <NSTableViewDataSource, NSWindowDelegate>
 {
@@ -11,8 +11,8 @@
 	IBOutlet NSTextField * searchModeField;	// Seen in the result view. Either: @"Filter Catalog", @"Filter Results" or @"Snap to Best"
 	IBOutlet NSTextField *	selectionView;
 	IBOutlet NSSplitView *	splitView;
-	IBOutlet NSTableView *	resultTable;
-	IBOutlet NSTableView *	resultChildTable;
+	IBOutlet QSTableView *	resultTable;
+	IBOutlet QSTableView *	resultChildTable;
 	QSIconLoader *resultIconLoader;
 	QSIconLoader *resultChildIconLoader;
 	IBOutlet NSTextField *	resultCountField;
@@ -48,7 +48,7 @@
 }
 
 
-@property (strong) IBOutlet NSTableView *resultTable;
+@property (strong) IBOutlet QSTableView *resultTable;
 @property (strong) NSArray *currentResults;
 @property (strong) QSObject *selectedItem;
 @property (strong) NSTextField *searchStringField;

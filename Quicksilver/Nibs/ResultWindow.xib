@@ -55,18 +55,18 @@
                         </textFieldCell>
                     </textField>
                     <splitView horizontalCompressionResistancePriority="250" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="71">
-                        <rect key="frame" x="-1" y="15" width="324" height="168"/>
+                        <rect key="frame" x="-1" y="14" width="324" height="169"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="15" horizontalPageScroll="10" verticalLineScroll="15" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="59">
-                                <rect key="frame" x="0.0" y="0.0" width="157" height="168"/>
+                                <rect key="frame" x="0.0" y="0.0" width="157" height="169"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <clipView key="contentView" horizontalHuggingPriority="100" drawsBackground="NO" copiesOnScroll="NO" id="9Ay-Fd-WxY">
-                                    <rect key="frame" x="1" y="1" width="155" height="166"/>
+                                    <rect key="frame" x="1" y="1" width="155" height="167"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="12" id="58" customClass="QSTableView">
-                                            <rect key="frame" x="0.0" y="0.0" width="155" height="166"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="155" height="167"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="3"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
@@ -125,18 +125,17 @@
                                 </scroller>
                             </scrollView>
                             <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="21" horizontalPageScroll="10" verticalLineScroll="21" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="69">
-                                <rect key="frame" x="166" y="0.0" width="158" height="168"/>
+                                <rect key="frame" x="166" y="0.0" width="158" height="169"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" horizontalHuggingPriority="100" drawsBackground="NO" copiesOnScroll="NO" id="tHA-Dz-WTb">
-                                    <rect key="frame" x="1" y="1" width="156" height="166"/>
+                                    <rect key="frame" x="1" y="1" width="156" height="167"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="18" id="68" customClass="QSTableView">
-                                            <rect key="frame" x="0.0" y="0.0" width="156" height="166"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="156" height="167"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="3"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <color key="gridColor" white="0.94758063999999997" alpha="1" colorSpace="calibratedWhite"/>
                                             <tableColumns>
                                                 <tableColumn identifier="NameColumn" editable="NO" width="153" minWidth="8" maxWidth="1000" id="67">
@@ -148,7 +147,7 @@
                                                     <textFieldCell key="dataCell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" alignment="left" id="287">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 </tableColumn>
@@ -234,7 +233,7 @@
                     <constraint firstItem="248" firstAttribute="leading" secondItem="307" secondAttribute="trailing" constant="2" id="TGM-ni-NYW"/>
                     <constraint firstItem="71" firstAttribute="leading" secondItem="16" secondAttribute="leading" constant="-1" id="Ujl-OO-kDP"/>
                     <constraint firstItem="248" firstAttribute="top" secondItem="16" secondAttribute="top" constant="-3" id="ZlX-He-rPU"/>
-                    <constraint firstItem="130" firstAttribute="top" secondItem="71" secondAttribute="bottom" constant="1" id="aIK-cu-Uvv"/>
+                    <constraint firstItem="130" firstAttribute="top" secondItem="71" secondAttribute="bottom" id="aIK-cu-Uvv"/>
                     <constraint firstAttribute="trailing" secondItem="71" secondAttribute="trailing" constant="-1" id="aR8-kg-nQw"/>
                     <constraint firstItem="43" firstAttribute="leading" secondItem="16" secondAttribute="leading" constant="6" id="bnt-e2-8Yb"/>
                     <constraint firstAttribute="bottom" secondItem="130" secondAttribute="bottom" constant="1" id="fs0-wX-nYn"/>

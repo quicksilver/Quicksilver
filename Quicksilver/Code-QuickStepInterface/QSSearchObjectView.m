@@ -92,7 +92,6 @@ NSMutableDictionary *bindingsDict = nil;
 	[resultController window];
 	[self setVisibleString:@""];
 
-	[[self cell] bind:@"highlightColor" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSAppearance2A" options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:@"NSValueTransformerName"]];
 }
 
 - (void)dealloc {

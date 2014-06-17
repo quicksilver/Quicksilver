@@ -15,6 +15,7 @@
 	// using manual loading and saving (in QSResultController windowDidResize:) instead
 	[self setFrameUsingName:@"QSResultWindow" force:YES];
     [self setBackgroundColor:[NSColor clearColor]];
+    [self setOpaque:NO];
 	[self setMovableByWindowBackground:NO];
     return self;
 }

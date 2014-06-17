@@ -111,49 +111,43 @@ NSMutableDictionary *kindDescriptions = nil;
               options:0
               context:nil];
     [[self window] bind:@"backgroundColor" toObject:sucd withKeyPath:@"values.QSAppearance2B" options:@{NSValueTransformerNameBindingOption : NSUnarchiveFromDataTransformerName}];
-	[[[resultTable tableColumnWithIdentifier:@"NameColumn"] dataCell] bind:@"textColor"
-                                                                  toObject:sucd
-                                                               withKeyPath:@"values.QSAppearance3T"
-                                                                   options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:@"NSValueTransformerName"]];
     
-	[resultTable bind:@"backgroundColor"
-			 toObject:sucd
-          withKeyPath:@"values.QSAppearance3B"
-              options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName
-                                                  forKey:@"NSValueTransformerName"]];
-	[resultTable bind:@"highlightColor"
-			 toObject:sucd
-		 withKeyPath:@"values.QSAppearance3A"
-			 options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName
-												 forKey:@"NSValueTransformerName"]];
-    [resultTable addObserver:self
-           forKeyPath:@"rowHeight"
-              options:NSKeyValueObservingOptionNew
-              context:nil];
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
-		[[[resultChildTable tableColumnWithIdentifier:@"NameColumn"] dataCell] bind:@"textColor"
-                                                                           toObject:sucd
-																		withKeyPath:@"values.QSAppearance3T"
-																			options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:@"NSValueTransformerName"]];
-		[resultChildTable bind:@"backgroundColor"
-                      toObject:sucd
-                   withKeyPath:@"values.QSAppearance3B"
-                       options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName
-                                                           forKey:@"NSValueTransformerName"]];
-	}
-
-	//[[resultTable enclosingScrollView] setHasVerticalScroller:NO];
+    for (NSView *view in @[searchModeField, searchStringField, selectionView]) {
+        [view bind:@"textColor" toObject:sucd withKeyPath:@"values.QSAppearance2T" options:@{NSValueTransformerNameBindingOption : NSUnarchiveFromDataTransformerName}];
+    }
+    
+    
+    for (QSTableView *t in @[resultTable, resultChildTable]) {
+        [@{
+           @"backgroundColor" : @"values.QSAppearance3B",
+           @"highlightColor" : @"values.QSAppearance3A",
+           } enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+               [t bind:key toObject:sucd withKeyPath:obj options:@{NSValueTransformerNameBindingOption : NSUnarchiveFromDataTransformerName}];
+           }];
+        
+        [[[t tableColumnWithIdentifier:@"NameColumn"] dataCell] bind:@"textColor"
+                                                            toObject:sucd
+                                                         withKeyPath:@"values.QSAppearance3T"
+                                                             options:@{NSValueTransformerNameBindingOption : NSUnarchiveFromDataTransformerName}];
+        [t addObserver:self
+            forKeyPath:@"rowHeight"
+               options:NSKeyValueObservingOptionNew
+               context:nil];
+        
+        [t setOpaque:NO];
+    }
 }
 
 - (void)dealloc {
 	NSUserDefaultsController *sucd = [NSUserDefaultsController sharedUserDefaultsController];
 	[sucd removeObserver:self forKeyPath:@"values.QSAppearance3B"];
-
-	[[[resultTable tableColumnWithIdentifier:@"NameColumn"] dataCell] unbind:@"textColor"];
-	[resultTable unbind:@"backgroundColor"];
-	[resultTable unbind:@"highlightColor"];
-    [resultTable unbind:@"rowHeight"];
-	[resultChildTable unbind:@"backgroundColor"];
+    
+    for (QSTableView *t in @[resultTable, resultChildTable]) {
+        [[[t tableColumnWithIdentifier:@"NameColumn"] dataCell] unbind:@"textColor"];
+        [t unbind:@"backgroundColor"];
+        [t unbind:@"highlightColor"];
+        [t removeObserver:self forKeyPath:@"rowHeight"];
+    }
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
 }
