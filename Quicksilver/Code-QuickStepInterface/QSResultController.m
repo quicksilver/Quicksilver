@@ -344,12 +344,6 @@ NSMutableDictionary *kindDescriptions = nil;
         [self updateStatusString];
         
         [resultTable reloadData];
-        if ([[[NSUserDefaults standardUserDefaults] objectForKey:kUseEffects] boolValue] && [QSInterfaceController firstResponder] == focus) {
-            NSRect windowFrame = [self windowFrame];
-            shouldSaveWindowSize = NO;
-            [[self window] setFrame:windowFrame display:YES animate:YES];
-            shouldSaveWindowSize = YES;
-        }
         
         //visibleRange = [resultTable rowsInRect:[resultTable visibleRect]];
         //	NSLog(@"arraychanged %d", [[self currentResults] count]);
@@ -363,6 +357,11 @@ NSMutableDictionary *kindDescriptions = nil;
     NSUInteger resultCount = [currentResults count];
     NSUInteger verticalSpacing = [resultTable intercellSpacing].height;
     NSUInteger newWindowHeight =  (([resultTable rowHeight] + verticalSpacing) * resultCount) + 31;
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
+        // Be sure to chose the taller of the two: results list or results child list
+        NSUInteger childResultHeight = (([resultChildTable rowHeight] + [resultChildTable intercellSpacing].height) * [resultChildTable numberOfRows]) + 31;
+        newWindowHeight = MAX(newWindowHeight, childResultHeight);
+    }
     windowFrame.size.height =  newWindowHeight > windowHeight || [currentResults count] == 0 ? windowHeight : newWindowHeight;
     if (windowFrame.size.height != [[self window] frame].size.height) {
         windowFrame.origin.y = windowFrame.origin.y - (windowFrame.size.height - [[self window] frame].size.height);
@@ -395,6 +394,14 @@ NSMutableDictionary *kindDescriptions = nil;
 		}
 	}
 
+    
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:kUseEffects] boolValue] && [QSInterfaceController firstResponder] == focus) {
+        NSRect windowFrame = [self windowFrame];
+        shouldSaveWindowSize = NO;
+        [[self window] setFrame:windowFrame display:YES animate:YES];
+        shouldSaveWindowSize = YES;
+    }
+    
     /* Restart the icon loading for the children view */
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
         [self setResultChildIconLoader:nil];

@@ -98,10 +98,6 @@
 - (void)bump:(NSInteger)i;
 
 - (void)updateSelectionInfo;
-- (QSObject *)selectedItem;
-- (void)setSelectedItem:(QSObject *)newSelectedItem;
-- (NSArray *)currentResults;
-- (void)setCurrentResults:(NSArray *)newCurrentResults;
 
 - (QSIconLoader *)resultIconLoader;
 - (void)setResultIconLoader:(QSIconLoader *)aResultIconLoader;
