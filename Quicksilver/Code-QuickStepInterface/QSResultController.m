@@ -116,8 +116,7 @@ NSMutableDictionary *kindDescriptions = nil;
         [view bind:@"textColor" toObject:sucd withKeyPath:@"values.QSAppearance2T" options:@{NSValueTransformerNameBindingOption : NSUnarchiveFromDataTransformerName}];
     }
     
-    
-    for (QSTableView *t in @[resultTable, resultChildTable]) {
+    void (^b)(QSTableView *) = ^(QSTableView * t){
         [@{
            @"backgroundColor" : @"values.QSAppearance3B",
            @"highlightColor" : @"values.QSAppearance3A",
@@ -135,7 +134,10 @@ NSMutableDictionary *kindDescriptions = nil;
                context:nil];
         
         [t setOpaque:NO];
-    }
+    };
+    b(resultTable);
+    b(resultChildTable);
+
 }
 
 - (void)dealloc {
