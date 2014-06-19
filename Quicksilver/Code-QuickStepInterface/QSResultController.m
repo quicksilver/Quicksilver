@@ -36,10 +36,6 @@
 
 NSMutableDictionary *kindDescriptions = nil;
 
-@interface QSResultController ()
-- (void)reloadColors;
-@end
-
 @implementation QSResultController
 
 @synthesize resultTable=resultTable,currentResults,selectedItem,searchStringField;
@@ -58,9 +54,7 @@ NSMutableDictionary *kindDescriptions = nil;
 
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"values.QSAppearance3B"]) {
-        [self reloadColors];
-    } else if ([keyPath isEqualToString:@"rowHeight"]) {
+    if ([keyPath isEqualToString:@"rowHeight"]) {
         if ([change objectForKey:NSKeyValueChangeNewKey]) {
             [(QSObjectCell *)[[resultTable tableColumnWithIdentifier: COLUMNID_NAME] dataCell] setShowDetails:([[change objectForKey:NSKeyValueChangeNewKey] doubleValue] >= 34.0)];
         }
@@ -116,51 +110,46 @@ NSMutableDictionary *kindDescriptions = nil;
            forKeyPath:@"values.QSAppearance3B"
               options:0
               context:nil];
+    [[self window] bind:@"backgroundColor" toObject:sucd withKeyPath:@"values.QSAppearance2B" options:@{NSValueTransformerNameBindingOption : NSUnarchiveFromDataTransformerName}];
     
-	[[[resultTable tableColumnWithIdentifier:@"NameColumn"] dataCell] bind:@"textColor"
-                                                                  toObject:sucd
-                                                               withKeyPath:@"values.QSAppearance3T"
-                                                                   options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:NSValueTransformerNameBindingOption]];
+    for (NSView *view in @[searchModeField, searchStringField, selectionView]) {
+        [view bind:@"textColor" toObject:sucd withKeyPath:@"values.QSAppearance2T" options:@{NSValueTransformerNameBindingOption : NSUnarchiveFromDataTransformerName}];
+    }
     
-	[resultTable bind:@"backgroundColor"
-			 toObject:sucd
-          withKeyPath:@"values.QSAppearance3B"
-              options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName
-                                                  forKey:NSValueTransformerNameBindingOption]];
-	[resultTable bind:@"highlightColor"
-			 toObject:sucd
-		 withKeyPath:@"values.QSAppearance3A"
-			 options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName
-												 forKey:NSValueTransformerNameBindingOption]];
-    [resultTable addObserver:self
-           forKeyPath:@"rowHeight"
-              options:NSKeyValueObservingOptionNew
-              context:nil];
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
-		[[[resultChildTable tableColumnWithIdentifier:@"NameColumn"] dataCell] bind:@"textColor"
-                                                                           toObject:sucd
-																		withKeyPath:@"values.QSAppearance3T"
-																			options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:NSValueTransformerNameBindingOption]];
-		[resultChildTable bind:@"backgroundColor"
-                      toObject:sucd
-                   withKeyPath:@"values.QSAppearance3B"
-                       options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName
-                                                           forKey:NSValueTransformerNameBindingOption]];
-	}
-	[self reloadColors];
+    void (^b)(QSTableView *) = ^(QSTableView * t){
+        [@{
+           @"backgroundColor" : @"values.QSAppearance3B",
+           @"highlightColor" : @"values.QSAppearance3A",
+           } enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+               [t bind:key toObject:sucd withKeyPath:obj options:@{NSValueTransformerNameBindingOption : NSUnarchiveFromDataTransformerName}];
+           }];
+        
+        [[[t tableColumnWithIdentifier:@"NameColumn"] dataCell] bind:@"textColor"
+                                                            toObject:sucd
+                                                         withKeyPath:@"values.QSAppearance3T"
+                                                             options:@{NSValueTransformerNameBindingOption : NSUnarchiveFromDataTransformerName}];
+        [t addObserver:self
+            forKeyPath:@"rowHeight"
+               options:NSKeyValueObservingOptionNew
+               context:nil];
+        
+        [t setOpaque:NO];
+    };
+    b(resultTable);
+    b(resultChildTable);
 
-	//[[resultTable enclosingScrollView] setHasVerticalScroller:NO];
 }
 
 - (void)dealloc {
 	NSUserDefaultsController *sucd = [NSUserDefaultsController sharedUserDefaultsController];
 	[sucd removeObserver:self forKeyPath:@"values.QSAppearance3B"];
-
-	[[[resultTable tableColumnWithIdentifier:@"NameColumn"] dataCell] unbind:@"textColor"];
-	[resultTable unbind:@"backgroundColor"];
-	[resultTable unbind:@"highlightColor"];
-    [resultTable unbind:@"rowHeight"];
-	[resultChildTable unbind:@"backgroundColor"];
+    
+    for (QSTableView *t in @[resultTable, resultChildTable]) {
+        [[[t tableColumnWithIdentifier:@"NameColumn"] dataCell] unbind:@"textColor"];
+        [t unbind:@"backgroundColor"];
+        [t unbind:@"highlightColor"];
+        [t removeObserver:self forKeyPath:@"rowHeight"];
+    }
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
 }
@@ -168,11 +157,6 @@ NSMutableDictionary *kindDescriptions = nil;
 #pragma mark -
 #pragma mark Accessors, Utilities
 
-- (void)reloadColors {
-	NSData *data = [[NSUserDefaultsController sharedUserDefaultsController] valueForKeyPath:@"values.QSAppearance3B"];
-	NSColor *color = [NSUnarchiver unarchiveObjectWithData:data];
-	[[self window] setOpaque:[color alphaComponent] == 1.0f];
-}
 
 - (void)updateScrollViewTrackingRect {
 	NSView *view = [[self window] contentView];
@@ -356,30 +340,35 @@ NSMutableDictionary *kindDescriptions = nil;
 }
 
 - (void)arrayChanged:(NSNotification*)notif {
-    QSGCDMainAsync(^{
+    QSGCDMainSync(^{
         [self setResultIconLoader:nil];
         [self setCurrentResults:[focus resultArray]];
         [self updateStatusString];
         
         [resultTable reloadData];
-        if ([[[NSUserDefaults standardUserDefaults] objectForKey:kUseEffects] boolValue]) {
-            NSRect windowFrame = [[self window] frame];
-            NSUInteger resultCount = [currentResults count];
-            NSUInteger verticalSpacing = [resultTable intercellSpacing].height;
-            NSUInteger newWindowHeight =  (([resultTable rowHeight] + verticalSpacing) * resultCount) + 31;
-            windowFrame.size.height =  newWindowHeight > windowHeight || [currentResults count] == 0 ? windowHeight : newWindowHeight;
-            if (windowFrame.size.height != [[self window] frame].size.height) {
-                windowFrame.origin.y = windowFrame.origin.y - (windowFrame.size.height - [[self window] frame].size.height);
-            }
-            shouldSaveWindowSize = NO;
-            [[self window] setFrame:windowFrame display:YES animate:YES];
-            shouldSaveWindowSize = YES;
-        }
+        
         //visibleRange = [resultTable rowsInRect:[resultTable visibleRect]];
         //	NSLog(@"arraychanged %d", [[self currentResults] count]);
         //[self threadedIconLoad];
         [[self resultIconLoader] loadIconsInRange:[resultTable rowsInRect:[resultTable visibleRect]]];
     });
+}
+
+- (NSRect)windowFrame {
+    NSRect windowFrame = [[self window] frame];
+    NSUInteger resultCount = [currentResults count];
+    NSUInteger verticalSpacing = [resultTable intercellSpacing].height;
+    NSUInteger newWindowHeight =  (([resultTable rowHeight] + verticalSpacing) * resultCount) + 31;
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
+        // Be sure to chose the taller of the two: results list or results child list
+        NSUInteger childResultHeight = (([resultChildTable rowHeight] + [resultChildTable intercellSpacing].height) * [resultChildTable numberOfRows]) + 31;
+        newWindowHeight = MAX(newWindowHeight, childResultHeight);
+    }
+    windowFrame.size.height =  newWindowHeight > windowHeight || [currentResults count] == 0 ? windowHeight : newWindowHeight;
+    if (windowFrame.size.height != [[self window] frame].size.height) {
+        windowFrame.origin.y = windowFrame.origin.y - (windowFrame.size.height - [[self window] frame].size.height);
+    }
+    return windowFrame;
 }
 
 - (void)updateSelectionInfo {
@@ -407,6 +396,14 @@ NSMutableDictionary *kindDescriptions = nil;
 		}
 	}
 
+    
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:kUseEffects] boolValue] && [QSInterfaceController firstResponder] == focus) {
+        NSRect windowFrame = [self windowFrame];
+        shouldSaveWindowSize = NO;
+        [[self window] setFrame:windowFrame display:YES animate:YES];
+        shouldSaveWindowSize = YES;
+    }
+    
     /* Restart the icon loading for the children view */
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"QSResultsShowChildren"]) {
         [self setResultChildIconLoader:nil];
@@ -462,6 +459,7 @@ NSMutableDictionary *kindDescriptions = nil;
 
 #pragma mark -
 #pragma mark NSWindow Delegate
+
 // called twice when a user resized the results window
 - (void)windowDidResize:(NSNotification *)aNotification {
     if (!shouldSaveWindowSize) {

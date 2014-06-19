@@ -19,30 +19,29 @@
 	//NSLog(@"score %f %d", score, order);
 
 	NSBezierPath *roundRect = [NSBezierPath bezierPath];
-	[roundRect appendBezierPathWithRoundedRectangle:cellFrame withRadius:NSHeight(cellFrame) /2];
+	[roundRect appendBezierPathWithRoundedRectangle:cellFrame withRadius:MIN(NSHeight(cellFrame), NSWidth(cellFrame))/2];
 
 	CGFloat size = MIN(NSHeight(cellFrame), NSWidth(cellFrame) );
-	NSRect drawRect = centerRectInRect(NSMakeRect(0, 0, size*1/3, size*1/3), cellFrame);
+	NSRect drawRect = centerRectInRect(NSMakeRect(0, 0, size/2, size/2), cellFrame);
 	NSBezierPath *path = [NSBezierPath bezierPathWithOvalInRect:drawRect];
-	[[[NSColor whiteColor] colorWithAlphaComponent:0.667] set];
+	[[NSColor whiteColor] set];
 
 	[[NSBezierPath bezierPathWithOvalInRect:NSInsetRect(drawRect, -1, -1)] fill];
 
-	if (order != NSNotFound) { // defined mnemonic
-		[path setLineWidth:3];
-		if (order == 0) {
-			[[[NSColor blackColor] colorWithAlphaComponent:0.667] set];
+	if (self.order != NSNotFound) { // defined mnemonic
+		[path setLineWidth:2];
+		if (self.order == 0) {
+			[[[NSColor blackColor] colorWithAlphaComponent:0.8] set];
 
-			NSRect dotRect = centerRectInRect(NSMakeRect(0, 0, size/6, size/6), cellFrame);
+			NSRect dotRect = centerRectInRect(NSMakeRect(0, 0, size/4, size/4), cellFrame);
 
 			[[NSBezierPath bezierPathWithOvalInRect:dotRect] fill];
 		}
-		[[[NSColor alternateSelectedControlColor] colorWithAlphaComponent:pow(MIN(score/3, 1) *0.75, 2.0)] set];
+		[[[NSColor alternateSelectedControlColor] colorWithAlphaComponent:pow(MIN(self.score/3, 1), 2.0)] set];
 	} else {
-		[[[NSColor blackColor] colorWithAlphaComponent:pow(MIN(score/3, 1), 2.0)] set];
+		[[[NSColor blackColor] colorWithAlphaComponent:MAX(pow(MIN(self.score/3, 1), 2.0), 0.08)] set];
 
 	}
-
 
 	[path fill];
 	[path stroke];
@@ -51,15 +50,4 @@
 	//  NSLog(@"val %@", [self objectValue]);
 }
 
-
-
-- (CGFloat) score { return score;  }
-- (void)setScore:(CGFloat)newScore {
-	score = newScore;
-}
-
-- (NSInteger) order { return order;  }
-- (void)setOrder:(NSInteger)newOrder {
-	order = newOrder;
-}
 @end

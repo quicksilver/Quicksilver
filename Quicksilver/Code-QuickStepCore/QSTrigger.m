@@ -76,7 +76,7 @@
 		return [[self manager] image];
 	} else {
 		[[self command] loadIcon];
-		NSImage *icon = [[self command] icon];
+		NSImage *icon = [[[self command] icon] copy];
 		[icon setFlipped:NO];
 		[icon setSize:QSSize16];
 		return icon;

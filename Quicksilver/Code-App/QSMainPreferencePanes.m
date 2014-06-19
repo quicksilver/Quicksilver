@@ -140,6 +140,24 @@
 @end
 
 @implementation QSAppearancePrefPane
+
+/* The colour picker in the Appearance preference pane is mapped as follows:
+ 
+ 1B  1A  1T
+ 
+ 2B  2A  2T
+ 
+ 3B  3A  3T
+ 
+ 'B' stands for 'Background'
+ 'A' stands for 'Accents and Highlights'
+ 'T' stands for 'Text'
+ '1' refers to the main window
+ '2' refers to the results window header/footer
+ '3' refers to the results window background
+ 
+ */
+ 
 - (IBAction)customize:(id)sender {
 	[[QSReg preferredCommandInterface] performSelector:@selector(customize:) withObject:sender];
 }

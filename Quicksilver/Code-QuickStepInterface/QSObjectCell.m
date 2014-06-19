@@ -36,7 +36,9 @@
 - (id)initTextCell:(NSString *)aString {
 
 	if (self = [super initTextCell:aString]) {
-		
+        [self setTitle:@""];
+        [self setTransparent:YES];
+        
 		[self setImagePosition:NSImageLeft];
 		[self setShowsFirstResponder:YES];
 		[self setFont:[NSFont systemFontOfSize:12.0]];
@@ -99,9 +101,10 @@
 		case NSImageOverlaps:
 			return theRect;
 		case NSImageLeft:
-			theRect.origin.x += NSHeight(theRect) * 18/16;
+
+			theRect.origin.x += NSHeight(theRect) * 18/16 + 4;
 			// theRect.origin.y++;
-			theRect.size.width -= theRect.size.height* 18/16;
+			theRect.size.width -= theRect.size.height* 18/16 + 4;
 			theRect = NSInsetRect(theRect, NSHeight(theRect) /16, 0);
 			break;
 		case NSImageRight:
@@ -363,7 +366,7 @@
 
 - (void)drawInteriorWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
 	QSObject *drawObject = [self representedObject];
-
+    
 	[self buildStylesForFrame:cellFrame inView:controlView];
 
 	if ([drawObject isKindOfClass:[QSNullObject class]]) return;
