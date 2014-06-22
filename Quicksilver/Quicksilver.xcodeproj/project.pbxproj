@@ -345,6 +345,12 @@
 		CD14B79118D06609000FE86A /* QSThreadSafeMutableDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = CD14B78D18D065F5000FE86A /* QSThreadSafeMutableDictionary.m */; };
 		CD1B17D9158A573000E4A030 /* VDKQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE1E661158A4D0900355A9F /* VDKQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CD1B17DA158A573200E4A030 /* VDKQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = CDE1E660158A4D0900355A9F /* VDKQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD29AEAC195663770052C893 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD61BBB9192B18FA00040609 /* XCTest.framework */; };
+		CD29AEB2195663770052C893 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CD29AEB0195663770052C893 /* InfoPlist.strings */; };
+		CD29AEB4195663770052C893 /* Core_Support_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = CD29AEB3195663770052C893 /* Core_Support_Tests.m */; };
+		CD29AEBC195664110052C893 /* QSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E103F1600647200700447FE0 /* QSCore.framework */; };
+		CD29AEBD195664110052C893 /* QSFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E5F9AF07B1FCFC0044D6EF /* QSFoundation.framework */; };
+		CD29AEBF195665450052C893 /* QSDirectoryParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF5901F0804398F0031368C /* QSDirectoryParser.m */; };
 		CD34CCDF192BA28400AC63A6 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97324FDCFA39411CA2CEA /* AppKit.framework */; };
 		CD39DE5F16B43FBF0087B09E /* (null) in Sources */ = {isa = PBXBuildFile; };
 		CD39DE6016B43FC40087B09E /* (null) in Headers */ = {isa = PBXBuildFile; };
@@ -925,6 +931,13 @@
 			remoteGlobalIDString = E1E5F9B107B1FD100044D6EF;
 			remoteInfo = "QuickStep Effects";
 		};
+		CD29AEB6195663770052C893 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E1E5F9C707B1FEC50044D6EF;
+			remoteInfo = "Core Support";
+		};
 		CD34CCD7192B97BB00AC63A6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -1469,6 +1482,11 @@
 		CD1732531683995900295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "nb-NO"; path = "nb-NO.lproj/QSObjectSource.name.strings"; sourceTree = "<group>"; };
 		CD1732541683995900295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "nb-NO"; path = "nb-NO.lproj/QSParser.name.strings"; sourceTree = "<group>"; };
 		CD1732551683995900295879 /* nb-NO */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "nb-NO"; path = "nb-NO.lproj/QSAction.commandFormat.strings"; sourceTree = "<group>"; };
+		CD29AEAB195663770052C893 /* Core Support Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Core Support Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD29AEAF195663770052C893 /* Core Support Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Core Support Tests-Info.plist"; sourceTree = "<group>"; };
+		CD29AEB1195663770052C893 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CD29AEB3195663770052C893 /* Core_Support_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Core_Support_Tests.m; sourceTree = "<group>"; };
+		CD29AEB5195663770052C893 /* Core Support Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Core Support Tests-Prefix.pch"; sourceTree = "<group>"; };
 		CD2FFBCE16792D350028FA8A /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD2FFBCF16792D3B0028FA8A /* tr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD2FFBD016792D490028FA8A /* tr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/QSActionsPrefPane.strings; sourceTree = "<group>"; };
@@ -2381,6 +2399,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CD29AEA8195663770052C893 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD29AEBC195664110052C893 /* QSCore.framework in Frameworks */,
+				CD29AEBD195664110052C893 /* QSFoundation.framework in Frameworks */,
+				CD29AEAC195663770052C893 /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CD61BBB5192B18FA00040609 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -2502,6 +2530,7 @@
 				66D11C6415022A75002EE6E5 /* QSEffectsTests.octest */,
 				66D11C8B15022B08002EE6E5 /* QSInterfaceTests.octest */,
 				CD61BBB8192B18FA00040609 /* Quicksilver Tests.xctest */,
+				CD29AEAB195663770052C893 /* Core Support Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2639,6 +2668,7 @@
 		66448E0714F428DA000FA2E2 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				CD29AEAD195663770052C893 /* Core Support Tests */,
 				CD61BBBB192B18FA00040609 /* Quicksilver Tests */,
 				666E46011502264C0034E60A /* QSCoreTests */,
 				666E4603150226670034E60A /* QSEffectsTests */,
@@ -2745,6 +2775,25 @@
 				7F9703E109AFEFB100E9EA77 /* QSDropletApplication.m */,
 			);
 			path = QSDroplet;
+			sourceTree = "<group>";
+		};
+		CD29AEAD195663770052C893 /* Core Support Tests */ = {
+			isa = PBXGroup;
+			children = (
+				CD29AEB3195663770052C893 /* Core_Support_Tests.m */,
+				CD29AEAE195663770052C893 /* Supporting Files */,
+			);
+			path = "Core Support Tests";
+			sourceTree = "<group>";
+		};
+		CD29AEAE195663770052C893 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CD29AEAF195663770052C893 /* Core Support Tests-Info.plist */,
+				CD29AEB0195663770052C893 /* InfoPlist.strings */,
+				CD29AEB5195663770052C893 /* Core Support Tests-Prefix.pch */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		CD61BBBB192B18FA00040609 /* Quicksilver Tests */ = {
@@ -4010,6 +4059,24 @@
 			productReference = 8D1107320486CEB800E47090 /* Quicksilver.app */;
 			productType = "com.apple.product-type.application";
 		};
+		CD29AEAA195663770052C893 /* Core Support Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD29AEBA195663770052C893 /* Build configuration list for PBXNativeTarget "Core Support Tests" */;
+			buildPhases = (
+				CD29AEA7195663770052C893 /* Sources */,
+				CD29AEA8195663770052C893 /* Frameworks */,
+				CD29AEA9195663770052C893 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CD29AEB7195663770052C893 /* PBXTargetDependency */,
+			);
+			name = "Core Support Tests";
+			productName = "Core Support Tests";
+			productReference = CD29AEAB195663770052C893 /* Core Support Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		CD61BBB7192B18FA00040609 /* Quicksilver Tests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CD61BBC6192B18FA00040609 /* Build configuration list for PBXNativeTarget "Quicksilver Tests" */;
@@ -4137,6 +4204,9 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 0460;
 				TargetAttributes = {
+					CD29AEAA195663770052C893 = {
+						TestTargetID = E1E5F9C707B1FEC50044D6EF;
+					};
 					CD61BBB7192B18FA00040609 = {
 						TestTargetID = 8D1107260486CEB800E47090;
 					};
@@ -4215,6 +4285,7 @@
 				66D11C8A15022B08002EE6E5 /* QSInterfaceTests */,
 				CD61BBB7192B18FA00040609 /* Quicksilver Tests */,
 				66D11CE115022DCF002EE6E5 /* Run All Tests */,
+				CD29AEAA195663770052C893 /* Core Support Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -4436,6 +4507,14 @@
 				4D7DF45716ADCDEF004BA4BE /* QSAdvancedPrefPane.strings in Resources */,
 				D49B9D1916C80755003880DC /* Button-docs.png in Resources */,
 				D49B9D1A16C80758003880DC /* Button-docs@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD29AEA9195663770052C893 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD29AEB2195663770052C893 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4749,6 +4828,15 @@
 				92E9461A0D04CCEF0013377F /* QSModifierKeyEvents.m in Sources */,
 				CDDB44E81518C78F00800B66 /* QSCrashReporterWindowController.m in Sources */,
 				D46A0E1E160B934300DE11D5 /* QSNotificationCenterNotifier.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD29AEA7195663770052C893 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD29AEB4195663770052C893 /* Core_Support_Tests.m in Sources */,
+				CD29AEBF195665450052C893 /* QSDirectoryParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5123,6 +5211,11 @@
 			isa = PBXTargetDependency;
 			target = E1E5F9B107B1FD100044D6EF /* QuickStep Effects */;
 			targetProxy = 7FAF850E092EC7C700DD5295 /* PBXContainerItemProxy */;
+		};
+		CD29AEB7195663770052C893 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E1E5F9C707B1FEC50044D6EF /* Core Support */;
+			targetProxy = CD29AEB6195663770052C893 /* PBXContainerItemProxy */;
 		};
 		CD34CCD8192B97BB00AC63A6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5870,6 +5963,14 @@
 			name = QSAction.commandFormat.strings;
 			sourceTree = "<group>";
 		};
+		CD29AEB0195663770052C893 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD29AEB1195663770052C893 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		CD61BBBE192B18FA00040609 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -6443,6 +6544,94 @@
 			};
 			name = Release;
 		};
+		CD29AEB8195663770052C893 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Core Support Tests/Core Support Tests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Core Support Tests/Core Support Tests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		CD29AEB9195663770052C893 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Core Support Tests/Core Support Tests-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Core Support Tests/Core Support Tests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
 		CD61BBC7192B18FA00040609 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -6710,6 +6899,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
+		};
+		CD29AEBA195663770052C893 /* Build configuration list for PBXNativeTarget "Core Support Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD29AEB8195663770052C893 /* Debug */,
+				CD29AEB9195663770052C893 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		CD61BBC6192B18FA00040609 /* Build configuration list for PBXNativeTarget "Quicksilver Tests" */ = {
 			isa = XCConfigurationList;
