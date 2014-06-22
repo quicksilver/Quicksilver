@@ -314,7 +314,12 @@ static id _sharedInstance;
 #endif
 
 - (IBAction)selectContentsItem:(id)sender {
-	[QSCon receiveObject:[[contentsController arrangedObjects] objectAtIndex:[itemContentsTable clickedRow]]];
+    if ([itemContentsTable clickedRow] == -1) {
+        return;
+    }
+    if ([itemContentsTable clickedRow] < (NSInteger)[(NSArray *)[contentsController arrangedObjects] count]) {
+        [QSCon receiveObject:[[contentsController arrangedObjects] objectAtIndex:[itemContentsTable clickedRow]]];
+    }
 }
 
 - (BOOL)selectedCatalogEntryIsEditable {
