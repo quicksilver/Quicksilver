@@ -17,6 +17,7 @@
 				66D11CE715022DD7002EE6E5 /* PBXTargetDependency */,
 				66D11CE915022DD7002EE6E5 /* PBXTargetDependency */,
 				66D11CEB15022DD7002EE6E5 /* PBXTargetDependency */,
+				CD29AEC1195668200052C893 /* PBXTargetDependency */,
 				CD61BBE2192B1A8C00040609 /* PBXTargetDependency */,
 			);
 			name = "Run All Tests";
@@ -937,6 +938,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = E1E5F9C707B1FEC50044D6EF;
 			remoteInfo = "Core Support";
+		};
+		CD29AEC0195668200052C893 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CD29AEAA195663770052C893;
+			remoteInfo = "Core Support Tests";
 		};
 		CD34CCD7192B97BB00AC63A6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -5216,6 +5224,11 @@
 			isa = PBXTargetDependency;
 			target = E1E5F9C707B1FEC50044D6EF /* Core Support */;
 			targetProxy = CD29AEB6195663770052C893 /* PBXContainerItemProxy */;
+		};
+		CD29AEC1195668200052C893 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CD29AEAA195663770052C893 /* Core Support Tests */;
+			targetProxy = CD29AEC0195668200052C893 /* PBXContainerItemProxy */;
 		};
 		CD34CCD8192B97BB00AC63A6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
