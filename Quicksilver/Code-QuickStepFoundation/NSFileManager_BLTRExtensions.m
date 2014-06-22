@@ -125,23 +125,29 @@
 }
 
 - (NSString *)resolveAliasAtPath:(NSString *)aliasFullPath usingUI:(BOOL)usingUI {
-	NSString *outString = nil;
 	NSURL *url = [NSURL fileURLWithPath:aliasFullPath];
-	FSRef aliasRef;
-	Boolean targetIsFolder;
-	Boolean wasAliased;
-    
-	if (!CFURLGetFSRef((CFURLRef)url, &aliasRef))
-		return nil;
-    
-    if (FSResolveAliasFileWithMountFlags(&aliasRef, true, &targetIsFolder, &wasAliased, (!usingUI ? kResolveAliasFileNoUI : 0)))
+    url = [url URLByResolvingSymlinksInPath];
+    if (![url isEqual:[NSURL fileURLWithPath:aliasFullPath]]) {
+        return [url path];
+    }
+    NSError *err;
+    NSData *bookmarkData = [NSURL bookmarkDataWithContentsOfURL:url error:&err];
+    if (err) {
+        NSLog(@"Error resolving alias for file %@", aliasFullPath);
         return nil;
-    url = (__bridge_transfer NSURL *)CFURLCreateFromFSRef(kCFAllocatorDefault, &aliasRef);
-	if (url) {
-		outString = [url path];
-		return outString;
-	}
-	return nil;
+    }
+    NSUInteger options = 0;
+    if (!usingUI) {
+        options |= NSURLBookmarkResolutionWithoutUI;
+    };
+    url = [NSURL URLByResolvingBookmarkData:bookmarkData options:options relativeToURL:nil bookmarkDataIsStale:nil error:&err];
+    
+    if (err) {
+        NSLog(@"Error resolving alias for file %@", aliasFullPath);
+        return nil;
+    }
+    return [url path];
+    
 }
 
 - (NSArray *)itemsForPath:(NSString *)path depth:(NSInteger)depth types:(NSArray *)types {
