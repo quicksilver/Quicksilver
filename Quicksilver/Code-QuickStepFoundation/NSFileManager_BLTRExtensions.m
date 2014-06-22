@@ -126,10 +126,14 @@
 
 - (NSString *)resolveAliasAtPath:(NSString *)aliasFullPath usingUI:(BOOL)usingUI {
 	NSURL *url = [NSURL fileURLWithPath:aliasFullPath];
-    url = [url URLByResolvingSymlinksInPath];
-    if (![url isEqual:[NSURL fileURLWithPath:aliasFullPath]]) {
-        return [url path];
+    
+    // if the file is a symlink, resolivng is easy
+    NSURL *symlinkURL = [url URLByResolvingSymlinksInPath];
+    if (![symlinkURL isEqual:url]) {
+        return [symlinkURL path];
     }
+    
+    // File is a Finder alias file, resolve bookmark data first
     NSError *err;
     NSData *bookmarkData = [NSURL bookmarkDataWithContentsOfURL:url error:&err];
     if (err) {
