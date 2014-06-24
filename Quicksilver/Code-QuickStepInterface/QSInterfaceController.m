@@ -56,7 +56,7 @@
 + (NSString *)name { return @"DefaultInterface"; }
 
 + (NSResponder *)firstResponder {
-    return [[(QSController *)[[NSApp delegate] interfaceController] window] firstResponder];
+    return [[[(QSController *)[NSApp delegate] interfaceController] window] firstResponder];
 }
 
 - (id)init {
