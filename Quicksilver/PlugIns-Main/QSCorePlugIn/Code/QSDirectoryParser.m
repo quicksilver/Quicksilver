@@ -55,15 +55,16 @@
 	QSObject *obj;
     
 	for (NSURL *theURL in enumerator) {
+        type = nil;
         file = [theURL path];
 		aliasSource = nil; aliasFile = nil;
         NSError *err;
-        NSDictionary *resources = [theURL resourceValuesForKeys:@[NSURLIsSymbolicLinkKey, NSURLIsDirectoryKey, NSURLTypeIdentifierKey, NSURLIsPackageKey] error:&err];
+        NSDictionary *resources = [theURL resourceValuesForKeys:@[NSURLIsSymbolicLinkKey, NSURLIsAliasFileKey, NSURLIsDirectoryKey, NSURLTypeIdentifierKey, NSURLIsPackageKey] error:&err];
         if (err) {
             // Do nothing. Still add the file to the catalog, just we will know little about it.
             // Typically, this error will only occur for sockets or fifos (since they're not actually files)
         }
-		if ([resources[NSURLIsSymbolicLinkKey] boolValue]) {
+		if ([resources[NSURLIsSymbolicLinkKey] boolValue] || [resources[NSURLIsAliasFileKey] boolValue]) {
             /* If this is an alias, try to resolve it to get the remaining checks right */
             NSString *targetFile = [manager resolveAliasAtPath:file];
             if (targetFile) {
@@ -71,11 +72,15 @@
                 aliasFile = file;
                 file = targetFile;
                 [manager fileExistsAtPath:file isDirectory:&isDirectory];
-			}
+                [[NSURL fileURLWithPath:file] getResourceValue:&type forKey:NSURLTypeIdentifierKey error:nil
+                ];
+            }
 		} else {
             isDirectory = [resources[NSURLIsDirectoryKey] boolValue];
         }
-        type = resources[NSURLTypeIdentifierKey];
+        if (!type) {
+            type = resources[NSURLTypeIdentifierKey];
+        }
         // if we are an alias or the file has no reason to be included
         BOOL include = NO;
         if (![types count]) {

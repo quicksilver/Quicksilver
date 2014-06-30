@@ -10,6 +10,7 @@
 #import "QSTypes.h"
 #import "QSObject.h"
 #import "QSObject_FileHandling.h"
+#import "QSDirectoryParser.h"
 
 @interface QSFileObjectTests : SenTestCase
 
