@@ -139,9 +139,7 @@
 }
 
 - (BOOL)executeTrigger:(QSTrigger *)trigger {
-	/* tiennou: This short-circuits QSTrigger -execute */
-	[[trigger command] executeIgnoringModifiers];
-	return YES;
+    return [trigger execute];
 }
 
 - (void)addTrigger:(QSTrigger *)trigger {
