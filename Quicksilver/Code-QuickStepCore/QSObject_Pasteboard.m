@@ -296,7 +296,7 @@ id objectForPasteboardType(NSPasteboard *pasteboard, NSString *type) {
 	}
 	
 	for (NSString *thisType in includeTypes) {
-		if ([types containsObject:thisType]) {
+		if ([types containsObject:QSUTIForAnyTypeString(thisType)]) {
 			// NSLog(@"includedata, %@", thisType);
 			[self pasteboard:pboard provideDataForType:thisType];
 		}
