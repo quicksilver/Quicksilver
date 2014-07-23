@@ -143,8 +143,22 @@
     if(!activated) {
         return NO;
     }
+    QSCommand *cmd = [self command];
+    // if a trigger loaded before the catalog, an identifier will appear as plain text
+    if ([[[cmd dObject] primaryType] isEqualToString:QSTextType]) {
+        NSString *ident = [[cmd dObject] stringValue];
+        QSObject *realObject = [[QSLibrarian sharedInstance] objectWithIdentifier:ident];
+        // update the trigger with the real object
+        [cmd setDirectObject:realObject];
+    }
+    if ([[[cmd iObject] primaryType] isEqualToString:QSTextType]) {
+        NSString *ident = [[cmd iObject] stringValue];
+        QSObject *realObject = [[QSLibrarian sharedInstance] objectWithIdentifier:ident];
+        // update the trigger with the real object
+        [cmd setIndirectObject:realObject];
+    }
     void (^block)(void) =  ^{
-        [[self command] executeIgnoringModifiers];
+        [cmd executeIgnoringModifiers];
         if ([info objectForKey:@"oneshot"]) {
             [self setEnabled:NO];
         }
