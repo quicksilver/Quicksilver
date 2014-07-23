@@ -4,3 +4,6 @@
 [submodule "Quicksilver/Code-External/DisableSubviews"]
 	path = Quicksilver/Code-External/DisableSubviews
 	url = git://github.com/ardalahmet/DisableSubviews.git
+[submodule "Quicksilver/Code-External/LaunchAtLoginController"]
+	path = Quicksilver/Code-External/LaunchAtLoginController
+	url = https://github.com/quicksilver/LaunchAtLoginController.git
