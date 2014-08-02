@@ -445,6 +445,7 @@
 		D4AA5993166F9DD4006E8FD1 /* QSUserDefinedProxySource.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4AA5992166F9DD4006E8FD1 /* QSUserDefinedProxySource.xib */; };
 		D4E0060F1523951500FDF185 /* NSMetadataQuery+Synchronous.h in Headers */ = {isa = PBXBuildFile; fileRef = D4E0060D1523951500FDF185 /* NSMetadataQuery+Synchronous.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D4E006101523951500FDF185 /* NSMetadataQuery+Synchronous.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0060E1523951500FDF185 /* NSMetadataQuery+Synchronous.m */; };
+		D4FF7AC418EDECCD00D5A1FF /* QSActionsObjectSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D4FF7AC318EDECCD00D5A1FF /* QSActionsObjectSource.m */; };
 		E102347106BB6CC900143367 /* Find.icns in Resources */ = {isa = PBXBuildFile; fileRef = E102347006BB6CC900143367 /* Find.icns */; };
 		E102F9BD06625D7400843027 /* About.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F97C06625D7300843027 /* About.xib */; };
 		E102F9BE06625D7400843027 /* QSCatalog.xib in Resources */ = {isa = PBXBuildFile; fileRef = E102F97D06625D7300843027 /* QSCatalog.xib */; };
@@ -2001,6 +2002,8 @@
 		D4E0060E1523951500FDF185 /* NSMetadataQuery+Synchronous.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMetadataQuery+Synchronous.m"; sourceTree = "<group>"; };
 		D4FED80D1683B82400593628 /* QSUserDefinedProxyTargetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSUserDefinedProxyTargetPicker.h; sourceTree = "<group>"; };
 		D4FED80E1683B82400593628 /* QSUserDefinedProxyTargetPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSUserDefinedProxyTargetPicker.m; sourceTree = "<group>"; };
+		D4FF7AC218EDECCD00D5A1FF /* QSActionsObjectSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSActionsObjectSource.h; sourceTree = "<group>"; };
+		D4FF7AC318EDECCD00D5A1FF /* QSActionsObjectSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSActionsObjectSource.m; sourceTree = "<group>"; };
 		E102347006BB6CC900143367 /* Find.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Find.icns; sourceTree = "<group>"; };
 		E102F97C06625D7300843027 /* About.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = About.xib; sourceTree = "<group>"; };
 		E102F97D06625D7300843027 /* QSCatalog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QSCatalog.xib; sourceTree = "<group>"; };
@@ -3071,6 +3074,8 @@
 		E18000F107B2B48800010DB0 /* Code */ = {
 			isa = PBXGroup;
 			children = (
+				D4FF7AC218EDECCD00D5A1FF /* QSActionsObjectSource.h */,
+				D4FF7AC318EDECCD00D5A1FF /* QSActionsObjectSource.m */,
 				E18000F307B2B48800010DB0 /* QSActionProvider_EmbeddedProviders.h */,
 				E18000F407B2B48800010DB0 /* QSActionProvider_EmbeddedProviders.m */,
 				7F9442980803B48A007EDC31 /* QSAllApplicationsObjectSource.h */,
@@ -5065,6 +5070,7 @@
 				E180011C07B2B48900010DB0 /* QSActionProvider_EmbeddedProviders.m in Sources */,
 				7F9442990803B48A007EDC31 /* QSAllApplicationsObjectSource.m in Sources */,
 				E180011E07B2B48900010DB0 /* QSAppleScriptActions.m in Sources */,
+				D4FF7AC418EDECCD00D5A1FF /* QSActionsObjectSource.m in Sources */,
 				E180012007B2B48900010DB0 /* QSCatalogEntrySource.m in Sources */,
 				E180012607B2B48900010DB0 /* QSConsoleNotifier.m in Sources */,
 				E180012807B2B48900010DB0 /* QSDefaultsObjectSource.m in Sources */,

@@ -186,5 +186,7 @@
 	<string>Search a Query URL</string>
 	<key>URLSearchForAction</key>
 	<string>Search for text at a Query URL</string>
+	<key>QSPerformActionAction</key>
+	<string>Perform this action on an item</string>
 </dict>
 </plist>

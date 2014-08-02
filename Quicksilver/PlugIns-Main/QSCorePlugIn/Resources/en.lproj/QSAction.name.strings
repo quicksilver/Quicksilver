@@ -250,5 +250,7 @@
 	<string>Search</string>
 	<key>URLSearchForAction</key>
 	<string>Search For...</string>
+    <key>QSPerformActionAction</key>
+    <string>Perform Action On...</string>
 </dict>
 </plist>
