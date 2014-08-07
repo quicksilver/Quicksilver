@@ -373,6 +373,7 @@
 		CD65B12A16FA1BD000932A9C /* QSPluginUpdaterWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD65B12816FA1BD000932A9C /* QSPluginUpdaterWindowController.m */; };
 		CD65B12C16FA1BE400932A9C /* QSPluginUpdater.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD65B12B16FA1BE400932A9C /* QSPluginUpdater.xib */; };
 		CD790FA314D21C2100225950 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8D135E09187AE20062C966 /* Quartz.framework */; };
+		CD988B751993558800938302 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CD988B731993558800938302 /* Localizable.strings */; };
 		CD9BEDB11936CCAB003D4B7E /* Fast Logout.sh in Resources */ = {isa = PBXBuildFile; fileRef = CD9BEDB01936CCAB003D4B7E /* Fast Logout.sh */; };
 		CD9BEDB31936CCB9003D4B7E /* QSFileObjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CD9BEDB21936CCB9003D4B7E /* QSFileObjectTests.m */; };
 		CDA524DB16AC8D8C00D2017F /* QSTargetPickerPanel.h in Headers */ = {isa = PBXBuildFile; fileRef = CDA524D916AC8D8C00D2017F /* QSTargetPickerPanel.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1746,6 +1747,7 @@
 		CD65B12716FA1BD000932A9C /* QSPluginUpdaterWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPluginUpdaterWindowController.h; sourceTree = "<group>"; };
 		CD65B12816FA1BD000932A9C /* QSPluginUpdaterWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPluginUpdaterWindowController.m; sourceTree = "<group>"; };
 		CD65B12B16FA1BE400932A9C /* QSPluginUpdater.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSPluginUpdater.xib; sourceTree = "<group>"; };
+		CD988B741993558800938302 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CD9BEDB01936CCAB003D4B7E /* Fast Logout.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "Fast Logout.sh"; sourceTree = "<group>"; };
 		CD9BEDB21936CCB9003D4B7E /* QSFileObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSFileObjectTests.m; sourceTree = "<group>"; };
 		CDA524D916AC8D8C00D2017F /* QSTargetPickerPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTargetPickerPanel.h; sourceTree = "<group>"; };
@@ -2633,6 +2635,7 @@
 		4D002CEF13114628009040B7 /* QSHotKeyPlugIn */ = {
 			isa = PBXGroup;
 			children = (
+				CD988B721993558800938302 /* Resources */,
 				4D002CF013114628009040B7 /* Info.plist */,
 				4D002CF113114628009040B7 /* Keyboard.tiff */,
 				4D002CF213114628009040B7 /* QSHotKeyTrigger.xib */,
@@ -2819,6 +2822,14 @@
 				CD61BBBE192B18FA00040609 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CD988B721993558800938302 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CD988B731993558800938302 /* Localizable.strings */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		CD9BEDAB1936CC3D003D4B7E /* Resources */ = {
@@ -3246,20 +3257,6 @@
 				CD4FA6E1157A13DE00E549BD /* QSHotKeyEvent.m */,
 				CDCC200E10A4C14B009C4EED /* QSMDPredicate.h */,
 				CDCC200F10A4C14B009C4EED /* QSMDPredicate.m */,
-				92D9C9680D134BDD00D91825 /* QSTreeController.h */,
-				92D9C9690D134BDD00D91825 /* QSTreeController.m */,
-				7F0843CC098ACB2F00F136CC /* QSLog.h */,
-				7F0843CD098ACB2F00F136CC /* QSLog.m */,
-				7F93148B07E8B626009B3C06 /* NSIndexSet+Extensions.h */,
-				7F943F6308033961007EDC31 /* QSUTI.h */,
-				7F943F6408033961007EDC31 /* QSUTI.m */,
-				7FDF342307F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.h */,
-				7FDF342407F7D60A00594789 /* NSSortDescriptor+BLTRExtensions.m */,
-				7F93148C07E8B627009B3C06 /* NSIndexSet+Extensions.m */,
-				7FDF341607F7D59E00594789 /* NSDictionary+BLTRExtensions.h */,
-				7FDF341707F7D59E00594789 /* NSDictionary+BLTRExtensions.m */,
-				7FF8BB3607B816A20088CEEF /* NSTask+BLTRExtensions.h */,
-				7FF8BB3707B816A20088CEEF /* NSTask+BLTRExtensions.m */,
 				E1E5FA6E07B204BE0044D6EF /* NDAlias+QSMods.h */,
 				E1E5FA6F07B204BE0044D6EF /* NDAlias+QSMods.m */,
 				E1E5FA7007B204BE0044D6EF /* NDProcess+QSMods.h */,
@@ -3960,7 +3957,7 @@
 			name = QSFoundationTests;
 			productName = FoundationTests;
 			productReference = 66448D9614F42790000FA2E2 /* QSFoundationTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 		666E45ED150225EA0034E60A /* QSCoreTests */ = {
 			isa = PBXNativeTarget;
@@ -3979,7 +3976,7 @@
 			name = QSCoreTests;
 			productName = QSCoreTests;
 			productReference = 666E45EE150225EA0034E60A /* QSCoreTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 		66D11C6315022A75002EE6E5 /* QSEffectsTests */ = {
 			isa = PBXNativeTarget;
@@ -3998,7 +3995,7 @@
 			name = QSEffectsTests;
 			productName = QSEffectsTests;
 			productReference = 66D11C6415022A75002EE6E5 /* QSEffectsTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 		66D11C8A15022B08002EE6E5 /* QSInterfaceTests */ = {
 			isa = PBXNativeTarget;
@@ -4017,7 +4014,7 @@
 			name = QSInterfaceTests;
 			productName = QSInterfaceTests;
 			productReference = 66D11C8B15022B08002EE6E5 /* QSInterfaceTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 		7F9703CF09AFEE8700E9EA77 /* QSDroplet */ = {
 			isa = PBXNativeTarget;
@@ -4333,6 +4330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D002DB413114A5F009040B7 /* Keyboard.tiff in Resources */,
+				CD988B751993558800938302 /* Localizable.strings in Resources */,
 				4D002DB513114A5F009040B7 /* QSHotKeyTrigger.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5992,6 +5990,14 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
+		CD988B731993558800938302 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD988B741993558800938302 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -6920,6 +6926,7 @@
 				CD29AEB9195663770052C893 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
 		};
 		CD61BBC6192B18FA00040609 /* Build configuration list for PBXNativeTarget "Quicksilver Tests" */ = {
 			isa = XCConfigurationList;
