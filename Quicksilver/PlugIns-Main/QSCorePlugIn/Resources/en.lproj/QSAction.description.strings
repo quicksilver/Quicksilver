@@ -170,8 +170,6 @@
 	<string>Plays music from an iTunes Playlist</string>
 	<key>QSiTunesTrackPlayAction</key>
 	<string>Plays an iTunes Track</string>
-	<key>QSShellScriptRunAction</key>
-	<string>Run a Shell Script</string>
 	<key>ShellScriptRunAction</key>
 	<string>Run Shell Script</string>
 	<key>URLFindWithAction</key>
