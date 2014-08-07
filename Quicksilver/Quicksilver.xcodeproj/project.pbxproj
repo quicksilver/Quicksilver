@@ -1748,6 +1748,8 @@
 		CD65B12816FA1BD000932A9C /* QSPluginUpdaterWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPluginUpdaterWindowController.m; sourceTree = "<group>"; };
 		CD65B12B16FA1BE400932A9C /* QSPluginUpdater.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSPluginUpdater.xib; sourceTree = "<group>"; };
 		CD988B741993558800938302 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CD988B7619935C1900938302 /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/QSAdvancedPrefPane.strings"; sourceTree = "<group>"; };
+		CD988B7719935C3600938302 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/QSAdvancedPrefPane.strings; sourceTree = "<group>"; };
 		CD9BEDB01936CCAB003D4B7E /* Fast Logout.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "Fast Logout.sh"; sourceTree = "<group>"; };
 		CD9BEDB21936CCB9003D4B7E /* QSFileObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSFileObjectTests.m; sourceTree = "<group>"; };
 		CDA524D916AC8D8C00D2017F /* QSTargetPickerPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSTargetPickerPanel.h; sourceTree = "<group>"; };
@@ -5595,6 +5597,8 @@
 				CD4B1B7617C258AF00F2C5A7 /* ru */,
 				CD4B1B8F17C258B600F2C5A7 /* id */,
 				CD4B1BA817C259BE00F2C5A7 /* th */,
+				CD988B7619935C1900938302 /* es-ES */,
+				CD988B7719935C3600938302 /* sv */,
 			);
 			name = QSAdvancedPrefPane.strings;
 			sourceTree = "<group>";
