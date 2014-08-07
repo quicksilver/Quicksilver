@@ -13,6 +13,7 @@
   * Append “(alias)” to the details of file aliases (#1770)
   * Append “(symlink)” to the details of symbolic links (#1770)
   * Allow moving restricted files to the Trash (#28, #1770)
+  * Includes the latest translations from [Transifex project](https://www.transifex.com/projects/p/quicksilver/) (#1900)
 
 ### Fixed ###
 
