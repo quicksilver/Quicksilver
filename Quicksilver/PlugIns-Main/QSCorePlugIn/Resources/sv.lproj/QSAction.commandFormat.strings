@@ -77,19 +77,19 @@
     <key>FileGetURLAction</key>
     <string>Hämta file://-URL för %@</string>
     <key>FileMakeAliasInAction</key>
-    <string>Skapa alias av %@ i %#</string>
+    <string>Skapa alias av %@ i %@</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Skapa hård länk till %@ i %#</string>
+    <string>Skapa hård länk till %@ i %@</string>
     <key>FileMakeLinkInAction</key>
-    <string>Skapa länk till %@ i %#</string>
+    <string>Skapa länk till %@ i %@</string>
     <key>FileMoveToAction</key>
-    <string>Flytta %@ till %#</string>
+    <string>Flytta %@ till %@</string>
     <key>FileOpenAction</key>
     <string>Öppna %@</string>
     <key>FileOpenWithAction</key>
-    <string>Öppna %@ med %#</string>
+    <string>Öppna %@ med %@</string>
     <key>FileRenameAction</key>
-    <string>Byt namn från %@ till %#</string>
+    <string>Byt namn från %@ till %@</string>
     <key>FileRevealAction</key>
     <string>Avslöja %@</string>
     <key>FileToTrashAction</key>
@@ -131,9 +131,9 @@
     <key>QSObjCSendMessageAction</key>
     <string>Utför %@</string>
     <key>QSObjectAssignLabelAction</key>
-    <string>Sätt etikett för %@ till %#</string>
+    <string>Sätt etikett för %@ till %@</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>Sätt påminnelse för %@ till %#</string>
+    <string>Sätt påminnelse för %@ till %@</string>
     <key>QSObjectOmitAction</key>
     <string>Utelämna %@ från katalog</string>
     <key>QSObjectSearchChildrenAction</key>
@@ -159,7 +159,7 @@
     <key>QSSoundPlayAction</key>
     <string>Spela %@</string>
     <key>QSTextDiffAction</key>
-    <string>Differentiera %@ och %#</string>
+    <string>Differentiera %@ och %@</string>
     <key>QSTextShowDialogAction</key>
     <string>Visa dialog: &quot;%@&quot;</string>
     <key>QSTextSpeakAction</key>

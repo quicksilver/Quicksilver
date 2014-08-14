@@ -77,19 +77,19 @@
     <key>FileGetURLAction</key>
     <string>Получить file:// URL %@</string>
     <key>FileMakeAliasInAction</key>
-    <string>Создать псевдоним %@ в %#</string>
+    <string>Создать псевдоним %@ в %@</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Создать жесткую ссылку %@ в %#</string>
+    <string>Создать жесткую ссылку %@ в %@</string>
     <key>FileMakeLinkInAction</key>
-    <string>Создать ссылку на %@ в %#</string>
+    <string>Создать ссылку на %@ в %@</string>
     <key>FileMoveToAction</key>
-    <string>Переместить %@ в %#</string>
+    <string>Переместить %@ в %@</string>
     <key>FileOpenAction</key>
     <string>Открыть %@</string>
     <key>FileOpenWithAction</key>
-    <string>Открыть %@ в %#</string>
+    <string>Открыть %@ в %@</string>
     <key>FileRenameAction</key>
-    <string>Переименовать %@ в %#</string>
+    <string>Переименовать %@ в %@</string>
     <key>FileRevealAction</key>
     <string>Показать размещение %@</string>
     <key>FileToTrashAction</key>
@@ -127,13 +127,13 @@
     <key>QSLoginItemRemoveAction</key>
     <string>Убрать %@ из элементов входа</string>
     <key>QSNewFolderAction</key>
-    <string>Создать в %@ папку %#</string>
+    <string>Создать в %@ папку %@</string>
     <key>QSObjCSendMessageAction</key>
     <string>Исполнить %@</string>
     <key>QSObjectAssignLabelAction</key>
-    <string>Установить на %@ метку %#</string>
+    <string>Установить на %@ метку %@</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>Установить %# как мнемонику %@</string>
+    <string>Установить %@ как мнемонику %@</string>
     <key>QSObjectOmitAction</key>
     <string>Убрать %@ из каталога</string>
     <key>QSObjectSearchChildrenAction</key>
@@ -159,7 +159,7 @@
     <key>QSSoundPlayAction</key>
     <string>Проиграть %@</string>
     <key>QSTextDiffAction</key>
-    <string>Разница между %@ и %#</string>
+    <string>Разница между %@ и %@</string>
     <key>QSTextShowDialogAction</key>
     <string>Показать сообщение &quot;%@&quot;</string>
     <key>QSTextSpeakAction</key>

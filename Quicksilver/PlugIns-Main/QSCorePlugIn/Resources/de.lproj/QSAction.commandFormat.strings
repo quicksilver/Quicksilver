@@ -77,19 +77,19 @@
     <key>FileGetURLAction</key>
     <string>Zeige file://-URL von %@</string>
     <key>FileMakeAliasInAction</key>
-    <string>Erzeuge Alias von %@ in %#</string>
+    <string>Erzeuge Alias von %@ in %@</string>
     <key>FileMakeHardLinkInAction</key>
-    <string>Erzeuge Hardlink von %@ in %#</string>
+    <string>Erzeuge Hardlink von %@ in %@</string>
     <key>FileMakeLinkInAction</key>
-    <string>Erzeuge Link von %@ in %#</string>
+    <string>Erzeuge Link von %@ in %@</string>
     <key>FileMoveToAction</key>
-    <string>%@ nach %# verschieben</string>
+    <string>%@ nach %@ verschieben</string>
     <key>FileOpenAction</key>
     <string>%@ öffnen</string>
     <key>FileOpenWithAction</key>
-    <string>Öffne %@ mit %#</string>
+    <string>Öffne %@ mit %@</string>
     <key>FileRenameAction</key>
-    <string>%@ in %# umbenennen</string>
+    <string>%@ in %@ umbenennen</string>
     <key>FileRevealAction</key>
     <string>Zeige %@ im Finder</string>
     <key>FileToTrashAction</key>
@@ -127,13 +127,13 @@
     <key>QSLoginItemRemoveAction</key>
     <string>%@ aus Anmeldeobjekten entfernen</string>
     <key>QSNewFolderAction</key>
-    <string>Erzeuge neuen Ordner %# in %@</string>
+    <string>Erzeuge neuen Ordner %@ in %@</string>
     <key>QSObjCSendMessageAction</key>
     <string>Ausführen von %@</string>
     <key>QSObjectAssignLabelAction</key>
-    <string>Setze Etikett von %@ zu %#</string>
+    <string>Setze Etikett von %@ zu %@</string>
     <key>QSObjectAssignMnemonic</key>
-    <string>Ändert die Merkhilfe von %@ zu %#</string>
+    <string>Ändert die Merkhilfe von %@ zu %@</string>
     <key>QSObjectOmitAction</key>
     <string>%@ aus Katalog entfernen</string>
     <key>QSObjectSearchChildrenAction</key>
@@ -159,7 +159,7 @@
     <key>QSSoundPlayAction</key>
     <string>Spiele %@</string>
     <key>QSTextDiffAction</key>
-    <string>Diff von %@ und %#</string>
+    <string>Diff von %@ und %@</string>
     <key>QSTextShowDialogAction</key>
     <string>Zeige Dialog: &quot;%@&quot;</string>
     <key>QSTextSpeakAction</key>
