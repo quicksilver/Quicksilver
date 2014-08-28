@@ -1193,7 +1193,7 @@
 				<string>Apple URL pasteboard type</string>
 			</array>
 			<key>precedence</key>
-			<integer>3</integer>
+			<integer>2</integer>
 			<key>actionSelector</key>
 			<string>doURLOpenAction:</string>
 		</dict>
@@ -1299,7 +1299,7 @@
 				<string>NSFilenamesPboardType</string>
 			</array>
 			<key>precedence</key>
-			<real>1</real>
+			<real>2.5</real>
 			<key>validatesObjects</key>
 			<true/>
 			<key>actionSelector</key>
