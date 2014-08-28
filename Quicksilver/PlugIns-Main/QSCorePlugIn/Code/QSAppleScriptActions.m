@@ -28,7 +28,7 @@
 	NSMutableDictionary *actionDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                        NSStringFromClass([self class]),    kActionClass,
                                        self,    kActionProvider,
-                                       path,    kActionScript,
+                                    path,    kActionScript,
                                        [NSNumber numberWithBool:YES],      kActionDisplaysResult,
                                        nil];
     
@@ -393,7 +393,9 @@
         NSAppleEventDescriptor *result = [script executeAppleEvent:event error:&errorDict];
         if( result ) {
             // Convert the AS list type to an array
-            types = (NSArray *)[result arrayValue];
+            types = [(NSArray *)[result arrayValue] arrayByEnumeratingArrayUsingBlock:^id(NSString *obj) {
+                return QSUTIForAnyTypeString(obj);
+            }];
         } else if( errorDict != nil )
             NSLog(@"error %@", errorDict);
     }
