@@ -248,9 +248,6 @@ NSSize QSMaxIconSize;
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-#ifdef DEBUG
-	NSLog(@"copied!");
-#endif
     QSObject *copy = [[[self class] allocWithZone:zone] init];
     
     copy.name = [name copy];
