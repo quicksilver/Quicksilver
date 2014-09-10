@@ -205,17 +205,20 @@
 
 
 - (NSDate *)path:(NSString *)path wasModifiedAfter:(NSDate *)date depth:(NSInteger)depth {
-	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
-	BOOL isDirectory;
-	if (![self fileExistsAtPath:path isDirectory:&isDirectory]) return nil;
-
-	if (depth) depth--;
+    NSURL *pathURL = [NSURL fileURLWithPath:path];
+    if (!pathURL) {
+        return nil;
+    }
+    if (depth) depth--;
 
     NSError *err = nil;
-	NSDate *moddate = [[self attributesOfItemAtPath:path error:&err] fileModificationDate];
+    NSDictionary *attributes = [pathURL resourceValuesForKeys:@[NSURLIsDirectoryKey, NSURLContentModificationDateKey] error:nil];
     if (err) {
         NSLog(@"Error: %@", err);
     }
+
+	NSDate *moddate = attributes[NSURLContentModificationDateKey];
+
     if (!moddate) {
         return date;
     }
@@ -223,14 +226,15 @@
 	if ([date compare:moddate] == NSOrderedAscending && [moddate timeIntervalSinceNow] <0) {
 		return moddate;
 	}
-	if (isDirectory) {
-		for (__strong NSString *file in [self contentsOfDirectoryAtPath:path error:nil]) {
-			file = [path stringByAppendingPathComponent:file];
-			if (![self fileExistsAtPath:file isDirectory:&isDirectory]) continue;
-
-			if (depth && isDirectory && ![workspace isFilePackageAtPath:file]) {
+	if (attributes[NSURLIsDirectoryKey]) {
+		for (__strong NSURL *url in [self contentsOfDirectoryAtURL:pathURL includingPropertiesForKeys:@[NSURLIsDirectoryKey, NSURLIsPackageKey] options:0 error:nil]) {
+            NSNumber *isDirectory;
+            NSNumber *isPackage;
+            [url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:nil];
+            [url getResourceValue:&isPackage forKey:NSURLIsPackageKey error:nil];
+			if (depth && isDirectory && !isPackage) {
                 @autoreleasepool {
-                    moddate = [self path:file wasModifiedAfter:date depth:depth--];
+                    moddate = [self path:[url path] wasModifiedAfter:date depth:depth--];
                 }
 				if (moddate)
 					return moddate;
