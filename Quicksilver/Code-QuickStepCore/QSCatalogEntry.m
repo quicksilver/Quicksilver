@@ -425,7 +425,7 @@ NSDictionary *enabledPresetDictionary;*/
 		NSString *path = [self indexLocation];
 		NSMutableArray *dictionaryArray = nil;
 		@try {
-			dictionaryArray = [QSObject objectsWithDictionaryArray:[NSMutableArray arrayWithContentsOfFile:path]];
+			dictionaryArray = [QSObject objectsWithDictionaryArray:[NSArray arrayWithContentsOfFile:path]];
         }
         @catch (NSException *e) {
             NSLog(@"Error loading index of %@: %@", [self name] , e);
