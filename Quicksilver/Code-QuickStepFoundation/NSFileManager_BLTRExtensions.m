@@ -128,7 +128,7 @@
 	NSURL *url = [NSURL fileURLWithPath:aliasFullPath];
     
     // First resolve any symlinks
-    NSURL *resolvedURL = [url URLByResolvingSymlinksInPath];
+    NSURL *resolvedURL = [url URLByReallyResolvingSymlinksInPath];
     
     // File is a Finder alias file, resolve bookmark data first
     NSError *err;
