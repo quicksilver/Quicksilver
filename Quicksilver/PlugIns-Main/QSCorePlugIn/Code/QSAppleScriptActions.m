@@ -187,8 +187,6 @@
         }
         NSString *s = [object componentsJoinedByString:@"\n"];
         return [QSObject objectWithString:s];
-	} else if ([object isKindOfClass:[NSURL class]]) {
-		return [QSObject fileObjectWithPath:[(NSURL *)object path]];
 	} else if ([object isKindOfClass:[NSString class]]) {
 		return [QSObject objectWithString:(NSString *)object];
 	} else {
