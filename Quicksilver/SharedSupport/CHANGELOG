@@ -79,7 +79,9 @@
   * AppleScripts that specify direct and indirect types now accept UTIs (#1916, #1917)
   * Open URL is no longer the default for files that are dragged or pasted into the interface (#1824)
   * Fix a crash with the Open at Login actions (#1893, #1894)
-  * Internal Improvements (#1583, #1584, #1585, #1586, #1665, #1625, #1648, #1638, #1695, #1714, #1763, #1765, #1740, #1771, #1775, #1794, #1828, #1839, #1770, #1784)
+  * Fix a crash when determining default web browser (#1922)
+  * Allow right-arrowing into `/var`, `/tmp`, and `/etc` (#1922)
+  * Internal Improvements (#1583, #1584, #1585, #1586, #1665, #1625, #1648, #1638, #1695, #1714, #1763, #1765, #1740, #1771, #1775, #1794, #1828, #1839, #1770, #1784, #1922)
 
 ### Changed ###
 
