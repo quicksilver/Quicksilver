@@ -100,8 +100,7 @@
     // Get the default app for the url
     CFURLRef urlRef = NULL;
     LSGetApplicationForURL((__bridge CFURLRef)url, kLSRolesAll, NULL, &urlRef);
-    NSURL *appURL = (__bridge NSURL *)urlRef;
-    CFRelease(urlRef);
+    NSURL *appURL = (__bridge_transfer NSURL *)urlRef;
     
     return [QSObject fileObjectWithPath:[appURL path]];
 }

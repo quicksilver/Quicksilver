@@ -86,4 +86,17 @@ NSString *QSPasswordForHostUserType(NSString *host, NSString *user, SecProtocolT
 	return self;
 }
 
+- (NSURL *)URLByReallyResolvingSymlinksInPath {
+    NSURL *url = [self URLByResolvingSymlinksInPath];
+    NSArray *parts = [url pathComponents];
+    if ([parts[0] isEqualToString:@"/"] && [@[@"tmp", @"var", @"etc"] indexOfObject:parts[1]] != NSNotFound) {
+        NSRange range;
+        range.location = 1;
+        range.length = [parts count] - 1;
+        
+        return [NSURL fileURLWithPathComponents:[@[@"/", @"private"] arrayByAddingObjectsFromArray:[parts subarrayWithRange:range]]];
+    }
+    return url;
+}
+
 @end
