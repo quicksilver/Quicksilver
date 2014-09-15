@@ -183,7 +183,7 @@
 	id object = [desc objectValue];
 	if ([object isKindOfClass:[NSArray class]] && [(NSArray *)object count]) {
         if ([[NSFileManager defaultManager] filesExistAtPaths:object]) {
-            return [QSObject fileObjectWithArray:[object valueForKey:@"path"]];
+            return [QSObject fileObjectWithArray:object];
         }
         NSString *s = [object componentsJoinedByString:@"\n"];
         return [QSObject objectWithString:s];
