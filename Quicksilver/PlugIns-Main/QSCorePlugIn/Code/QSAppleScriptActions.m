@@ -180,15 +180,18 @@
 }
 
 - (QSObject *)objectForDescriptor:(NSAppleEventDescriptor *)desc {
-	QSObject *object = [desc objectValue];
-	if ([object isKindOfClass:[NSArray class]] && [object count])
-		return [QSObject fileObjectWithArray:[object valueForKey:@"path"]];
-	else if ([object isKindOfClass:[NSURL class]])
-		return [QSObject fileObjectWithPath:[(NSURL *)object path]];
-	else if ([object isKindOfClass:[NSString class]])
+	id object = [desc objectValue];
+	if ([object isKindOfClass:[NSArray class]] && [(NSArray *)object count]) {
+        if ([[NSFileManager defaultManager] filesExistAtPaths:object]) {
+            return [QSObject fileObjectWithArray:object];
+        }
+        NSString *s = [object componentsJoinedByString:@"\n"];
+        return [QSObject objectWithString:s];
+	} else if ([object isKindOfClass:[NSString class]]) {
 		return [QSObject objectWithString:(NSString *)object];
-	else
+	} else {
 		return nil;
+    }
 }
 
 -(NSAppleEventDescriptor *)eventDescriptorForObject:(QSObject *)object {
