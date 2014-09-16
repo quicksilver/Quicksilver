@@ -14,12 +14,6 @@ source_file = Quicksilver/Localized/en.lproj/QSAdvancedPrefPane.strings
 source_lang = en_US
 type = STRINGS
 
-[quicksilver.Quicksilver-Preferences]
-file_filter = Quicksilver/Localized/<lang>.lproj/Preferences.strings
-source_file = Quicksilver/Localized/en.lproj/Preferences.strings
-source_lang = en_US
-type = STRINGS
-
 [quicksilver.Plugin-Core-QSActionCommandFormat]
 file_filter = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/<lang>.lproj/QSAction.commandFormat.strings
 source_file = Quicksilver/PlugIns-Main/QSCorePlugIn/Resources/en.lproj/QSAction.commandFormat.strings
