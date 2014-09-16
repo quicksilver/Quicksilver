@@ -31,7 +31,7 @@
 	<key>AppRelaunchAction</key>
 	<string>Relaunch Application</string>
 	<key>AppShowHideAction</key>
-	<string>Toggile Application visibility</string>
+	<string>Toggle Application visibility</string>
 	<key>QSLargeTypeAction</key>
 	<string>Show Text as Large Type</string>
 	<key>AppleScriptRunTextAction</key>
