@@ -71,7 +71,6 @@
 		[self setName:string];
 		[self setPrimaryType:QSTextType];
 		[self sniffString];
-		[self loadIcon];
 	}
 	return self;
 }
