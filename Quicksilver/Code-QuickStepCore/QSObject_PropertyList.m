@@ -85,33 +85,37 @@
     NSDictionary *metaDict = [dictionary objectForKey:kMeta];
     if (!dataDict && !metaDict)
         return nil;
-    
- 	if (self = [self init]) {
-        [data setDictionary:dataDict];
-        [meta setDictionary:metaDict];
-        // Backwards compatibility: make sure all dict keys are UTIs (where applicable)
-        for (NSMutableDictionary *dict in @[data, meta]) {
-            // Create a temp dict to add any new UTI key/value pairs to. We can't add them directly to data/meta in the enumerate block (cannot mutate whilst enumerating)
-            NSMutableDictionary *tempDict = [NSMutableDictionary dictionary];
-            @synchronized(dict) {
-                [dict enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
-                    NSString *UTIString = QSUTIForAnyTypeString(key);
-                    if (UTIString && ![key isEqualToString:UTIString]) {
-                        [tempDict setObject:obj forKey:UTIString];
-                    }
-                }];
-                [dict addEntriesFromDictionary:tempDict];
+
+    self = [self init];
+    if (!self) return nil;
+
+    [data setDictionary:dataDict];
+    [meta setDictionary:metaDict];
+
+    [self extractMetadata];
+
+    // Check immediately if we already have loaded that object
+    // ***warning  * should this update the name for files?
+    id dup = [QSLib objectWithIdentifier:self.identifier];
+    if (dup) return dup;
+
+    // Backwards compatibility: make sure all dict keys are UTIs (where applicable)
+    for (NSMutableDictionary *dict in @[data, meta]) {
+        // Create a temp dict to add any new UTI key/value pairs to. We can't add them directly to data/meta in the enumerate block (cannot mutate whilst enumerating)
+        NSMutableDictionary *tempDict = [NSMutableDictionary dictionary];
+        [dict enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
+            NSString *UTIString = QSUTIForAnyTypeString(key);
+            if (UTIString && ![key isEqualToString:UTIString]) {
+                [tempDict setObject:obj forKey:UTIString];
             }
-        }
-        [self extractMetadata];
-        
-        // ***warning  * should this update the name for files?
-        id dup = [QSLib objectWithIdentifier:[self identifier]];
-        if (dup) return dup;
-        if ([self containsType:QSFilePathType] || [self containsType:NSFilenamesPboardType]) {
-            [self changeFilesToPaths];
-        }
+        }];
+        [dict addEntriesFromDictionary:tempDict];
     }
+
+    if ([self containsType:QSFilePathType] || [self containsType:NSFilenamesPboardType]) {
+        [self changeFilesToPaths];
+    }
+
     return self;
 }
 
