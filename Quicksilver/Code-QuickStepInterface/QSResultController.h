@@ -10,7 +10,6 @@
 	IBOutlet NSTextField *	searchStringField;	// What the user types when searching (seen in the results view)
 	IBOutlet NSTextField * searchModeField;	// Seen in the result view. Either: @"Filter Catalog", @"Filter Results" or @"Snap to Best"
 	IBOutlet NSTextField *	selectionView;
-	IBOutlet NSSplitView *	splitView;
 	IBOutlet QSTableView *	resultTable;
 	IBOutlet QSTableView *	resultChildTable;
 	QSIconLoader *resultIconLoader;
