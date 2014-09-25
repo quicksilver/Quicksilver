@@ -577,10 +577,10 @@ NSMutableDictionary *bindingsDict = nil;
 - (void)selectIndex:(NSInteger)index {
 	// NSLog(@"selectindex %d %d", self, index);
     
-	if (index<0)
-		selection = 0;
+	if (index < 0)
+		selection = [resultArray count] - 1;
 	else if (index >= (NSInteger)[resultArray count])
-		selection = [resultArray count] -1;
+		selection = 0;
 	else
 		selection = index;
     
