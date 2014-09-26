@@ -73,6 +73,7 @@
   * Make `QSResourceManager` thread safe to avoid a number of crashes (#1861, #1871)
   * Fix for dragging multiple files from Quicksilver (#1866, #1874)
   * Fix for translucency in the results list under OS X 10.9 (#1838, #1877)
+  * Revert some changes to the results list (#1930)
   * Bug fixes for sorting catalog entries (#1882)
   * Add symbolic links to applications to the catalog (#1507, #1882)
   * Don't add `http://` to auto-detected hostnames when pasting or dragging (#1887, #1892)
