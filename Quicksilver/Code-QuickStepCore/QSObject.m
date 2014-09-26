@@ -32,25 +32,20 @@ NSSize QSMaxIconSize;
 
 + (void)purgeImagesAndChildrenOlderThan:(NSTimeInterval)interval {
     NSTimeInterval tempLastAccess = 0;
-    NSSet *tempIconSet = nil;
-    NSSet *tempChildSet = nil;
+    NSSet *tempSet = nil;
 
-    // Make copies of the sets so we can purge them without bothering about threading
+    // Make a combined copy of the sets so we can purge them without bothering about threading
     // We're synchronizing on the class instance, since those are class-ivars
     @synchronized (self) {
         tempLastAccess = globalLastAccess;
-        tempIconSet = [iconLoadedSet copy];
-        tempChildSet = [childLoadedSet copy];
+        tempSet = [iconLoadedSet setByAddingObjectsFromSet:childLoadedSet];
     }
 
-    [tempIconSet enumerateObjectsWithOptions:0 usingBlock:^(QSObject *obj, BOOL *stop) {
-        if (obj->lastAccess && obj->lastAccess < (tempLastAccess - interval))
+    [tempSet enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(QSObject *obj, BOOL *stop) {
+        if (obj->lastAccess && obj->lastAccess < (tempLastAccess - interval)) {
             [obj unloadIcon];
-    }];
-
-    [tempChildSet enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(QSObject *obj, BOOL *stop) {
-        if (obj->lastAccess && obj->lastAccess < (tempLastAccess - interval))
             [obj unloadChildren];
+        }
     }];
 }
 
