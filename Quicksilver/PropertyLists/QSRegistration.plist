@@ -266,7 +266,7 @@
 			<key>description</key>
 			<string>Launch, visibility, and update settings </string>
 			<key>icon</key>
-			<string>ToolbarAppsFolderIcon</string>
+			<string>SidebarApplicationsFolder</string>
 			<key>name</key>
 			<string>Application</string>
 			<key>priority</key>
