@@ -142,6 +142,8 @@
   * New `canBeExecutedByScript` method for file QSObjects (#1770)
   * Add more file UTI unit tests (#1853)
   * Changes for compatibility with Xcode 6 (#1864)
+  * Removed `PkgInfo` files to allow code signing under Xcode 6 (#1931)
+  * Rebuild and signed Automator actions using Xcode 6
 
 ## Changes - 1.1.3 (4007) ##
 
