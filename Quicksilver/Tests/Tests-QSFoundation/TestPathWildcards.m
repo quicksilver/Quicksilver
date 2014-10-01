@@ -6,11 +6,10 @@
 //  Copyright 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
-
+#import <XCTest/XCTest.h>
 #import "NSString_BLTRExtensions.h"
 
-@interface TestPathWildcards : SenTestCase {
+@interface TestPathWildcards : XCTestCase {
 	NSString *basePath;
 }
 @end
@@ -26,7 +25,7 @@
 	NSString *resolvedPath = [unresolvedPath stringByResolvingWildcardsInPath];
 	NSString *correctPath = [basePath stringByAppendingPathComponent:@"PathWildcardsData/testFolder1/testSubFolder1/testFile1.txt"];
 	
-	STAssertTrue([resolvedPath isEqualToString:correctPath], @"Path not resolved correctly. Got %@ instead of %@", resolvedPath, correctPath);
+	XCTAssertTrue([resolvedPath isEqualToString:correctPath], @"Path not resolved correctly. Got %@ instead of %@", resolvedPath, correctPath);
 }
 
 -(void) testTwoNonambiguousWildcards{
@@ -35,7 +34,7 @@
 	NSString *resolvedPath = [unresolvedPath stringByResolvingWildcardsInPath];
 	NSString *correctPath = [basePath stringByAppendingPathComponent:@"PathWildcardsData/testFolder1/testSubFolder1/testFile2.txt"];
 	
-	STAssertTrue([resolvedPath isEqualToString:correctPath], @"Path not resolved correctly. Got %@ instead of %@", resolvedPath, correctPath);
+	XCTAssertTrue([resolvedPath isEqualToString:correctPath], @"Path not resolved correctly. Got %@ instead of %@", resolvedPath, correctPath);
 }
 
 -(void) testOneAmbiguousWildcard{
@@ -44,7 +43,7 @@
 	NSString *resolvedPath = [unresolvedPath stringByResolvingWildcardsInPath];
 	NSString *correctPath = [basePath stringByAppendingPathComponent:@"PathWildcardsData/testFolder1/testSubFolder1/testFile1.txt"];
 	
-	STAssertTrue([resolvedPath isEqualToString:correctPath], @"Path not resolved correctly. Got %@ instead of %@", resolvedPath, correctPath);
+	XCTAssertTrue([resolvedPath isEqualToString:correctPath], @"Path not resolved correctly. Got %@ instead of %@", resolvedPath, correctPath);
 }
 
 -(void) testNoWildcard{
@@ -52,7 +51,7 @@
 	NSString *resolvedPath = [unresolvedPath stringByResolvingWildcardsInPath];
 	NSString *correctPath = [basePath stringByAppendingPathComponent:@"PathWildcardsData"];
 	
-	STAssertTrue([resolvedPath isEqualToString:correctPath], @"Path not resolved correctly. Got %@ instead of %@", resolvedPath, correctPath);
+	XCTAssertTrue([resolvedPath isEqualToString:correctPath], @"Path not resolved correctly. Got %@ instead of %@", resolvedPath, correctPath);
 }
 
 -(void) testStandardizingAndNoWildcard{
@@ -60,7 +59,7 @@
 	NSString *resolvedPath = [unresolvedPath stringByResolvingWildcardsInPath];
 	NSString *correctPath = [@"~/Library" stringByStandardizingPath];
 	
-	STAssertTrue([resolvedPath isEqualToString:correctPath], @"Path not resolved correctly. Got %@ instead of %@", resolvedPath, correctPath);
+	XCTAssertTrue([resolvedPath isEqualToString:correctPath], @"Path not resolved correctly. Got %@ instead of %@", resolvedPath, correctPath);
 }
 
 -(void) testResolvedPathNotFound {
@@ -69,7 +68,7 @@
 	NSString *resolvedPath = [unresolvedPath stringByResolvingWildcardsInPath];
 	NSString *correctPath = unresolvedPath;
 
-	STAssertTrue([resolvedPath isEqualToString:correctPath], @"Path not resolved correctly. Got %@ instead of %@", resolvedPath, correctPath);
+	XCTAssertTrue([resolvedPath isEqualToString:correctPath], @"Path not resolved correctly. Got %@ instead of %@", resolvedPath, correctPath);
 }
 
 

@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "66448D9514F42790000FA2E2"
-               BuildableName = "QSFoundationTests.octest"
+               BuildableName = "QSFoundationTests.xctest"
                BlueprintName = "QSFoundationTests"
                ReferencedContainer = "container:Quicksilver.xcodeproj">
             </BuildableReference>
@@ -49,6 +49,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "E1E5F97107B1FCFC0044D6EF"
+            BuildableName = "QSFoundation.framework"
+            BlueprintName = "QuickStep Foundation"
+            ReferencedContainer = "container:Quicksilver.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

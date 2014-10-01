@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "666E45ED150225EA0034E60A"
-               BuildableName = "QSCoreTests.octest"
+               BuildableName = "QSCoreTests.xctest"
                BlueprintName = "QSCoreTests"
                ReferencedContainer = "container:Quicksilver.xcodeproj">
             </BuildableReference>
@@ -53,7 +53,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "66448D9514F42790000FA2E2"
-               BuildableName = "QSFoundationTests.octest"
+               BuildableName = "QSFoundationTests.xctest"
                BlueprintName = "QSFoundationTests"
                ReferencedContainer = "container:Quicksilver.xcodeproj">
             </BuildableReference>
