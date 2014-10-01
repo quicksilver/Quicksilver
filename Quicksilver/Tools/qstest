@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+xcodebuild test -scheme "QuickStep Core"
+xcodebuild test -scheme "QuickStep Foundation"
+xcodebuild test -scheme "Core Support"
+xcodebuild test -scheme "Quicksilver"
