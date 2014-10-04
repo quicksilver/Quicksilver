@@ -650,7 +650,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
 		}
         NSString *osRequired = requirementsDict[kPluginRequirementsOSRequiredVersion];
         if (osRequired) {
-            if ([[NSApplication macOSXFullVersion] compare:osRequired] == NSOrderedAscending) {
+            if ([[NSApplication macOSXFullVersion] dottedVersionCompare:osRequired] == NSOrderedAscending) {
                 if (error) {
                     NSString *localizedErrorFormat = NSLocalizedString(@"Requires Mac OS X %@ or later", nil);
                     *error = [NSString stringWithFormat:localizedErrorFormat, osRequired];
@@ -660,7 +660,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
         }
         NSString *osUnsupported = requirementsDict[kPluginRequirementsOSUnsupportedVersion];
         if (osUnsupported) {
-            NSComparisonResult versionComparison = [[NSApplication macOSXFullVersion] compare:osUnsupported];
+            NSComparisonResult versionComparison = [[NSApplication macOSXFullVersion] dottedVersionCompare:osUnsupported];
             if (versionComparison == NSOrderedSame || versionComparison == NSOrderedDescending) {
                 if (error) {
                     NSString *localizedErrorFormat = NSLocalizedString(@"Unsupported on Mac OS X %@ or later", nil);
