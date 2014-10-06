@@ -144,8 +144,9 @@ static QSController *defaultController = nil;
         return;
     }
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:29.0f];
-	[statusItem setImage:[NSImage imageNamed:@"QuicksilverMenu"]];
-	[statusItem setAlternateImage:[NSImage imageNamed:@"QuicksilverMenuPressed"]];
+    NSImage *statusImage = [NSImage imageNamed:@"QuicksilverMenu"];
+    [statusImage setTemplate:YES];
+	[statusItem setImage:statusImage];
 	[statusItem setMenu:[self statusMenuWithQuit]];
 	[statusItem setHighlightMode:YES];
 }
