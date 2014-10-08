@@ -14,6 +14,7 @@
   * Append “(symlink)” to the details of symbolic links (#1770)
   * Allow moving restricted files to the Trash (#28, #1770)
   * The results list will wrap when scrolling (#1928)
+  * The status bar icon supports Yosemite's dark theme (#1940)
   * Includes the latest translations from [Transifex project](https://www.transifex.com/projects/p/quicksilver/) (#1900)
 
 ### Fixed ###
