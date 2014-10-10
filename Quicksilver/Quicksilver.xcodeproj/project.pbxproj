@@ -425,6 +425,10 @@
 		D49B9D1A16C80758003880DC /* Button-docs@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD3646A516B682FE007439AE /* Button-docs@2x.png */; };
 		D4A43887137CCF0300F15F7F /* QSURLExtractor.py in Resources */ = {isa = PBXBuildFile; fileRef = D4A4383B137CCCF500F15F7F /* QSURLExtractor.py */; };
 		D4AA5993166F9DD4006E8FD1 /* QSUserDefinedProxySource.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4AA5992166F9DD4006E8FD1 /* QSUserDefinedProxySource.xib */; };
+		D4BDCC1B19E7F78F0080710C /* SUStandardVersionComparator.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDCC1919E7F78F0080710C /* SUStandardVersionComparator.m */; };
+		D4BDCC1C19E7F78F0080710C /* SUStandardVersionComparator.h in Headers */ = {isa = PBXBuildFile; fileRef = D4BDCC1A19E7F78F0080710C /* SUStandardVersionComparator.h */; };
+		D4BDCC1F19E7F8F50080710C /* SUExport.h in Headers */ = {isa = PBXBuildFile; fileRef = D4BDCC1D19E7F8F50080710C /* SUExport.h */; };
+		D4BDCC2019E7F8F50080710C /* SUVersionComparisonProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = D4BDCC1E19E7F8F50080710C /* SUVersionComparisonProtocol.h */; };
 		D4E0060F1523951500FDF185 /* NSMetadataQuery+Synchronous.h in Headers */ = {isa = PBXBuildFile; fileRef = D4E0060D1523951500FDF185 /* NSMetadataQuery+Synchronous.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D4E006101523951500FDF185 /* NSMetadataQuery+Synchronous.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E0060E1523951500FDF185 /* NSMetadataQuery+Synchronous.m */; };
 		E102347106BB6CC900143367 /* Find.icns in Resources */ = {isa = PBXBuildFile; fileRef = E102347006BB6CC900143367 /* Find.icns */; };
@@ -1920,6 +1924,10 @@
 		D49A8B01166EA8FC0086B5A9 /* QSUserDefinedProxySource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSUserDefinedProxySource.m; sourceTree = "<group>"; };
 		D4A4383B137CCCF500F15F7F /* QSURLExtractor.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = QSURLExtractor.py; sourceTree = "<group>"; };
 		D4AA5992166F9DD4006E8FD1 /* QSUserDefinedProxySource.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSUserDefinedProxySource.xib; sourceTree = "<group>"; };
+		D4BDCC1919E7F78F0080710C /* SUStandardVersionComparator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SUStandardVersionComparator.m; path = Sparkle/SUStandardVersionComparator.m; sourceTree = "<group>"; };
+		D4BDCC1A19E7F78F0080710C /* SUStandardVersionComparator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUStandardVersionComparator.h; path = Sparkle/SUStandardVersionComparator.h; sourceTree = "<group>"; };
+		D4BDCC1D19E7F8F50080710C /* SUExport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUExport.h; path = Sparkle/SUExport.h; sourceTree = "<group>"; };
+		D4BDCC1E19E7F8F50080710C /* SUVersionComparisonProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUVersionComparisonProtocol.h; path = Sparkle/SUVersionComparisonProtocol.h; sourceTree = "<group>"; };
 		D4DCF31F14D07F47006672AB /* ChangesBare.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = ChangesBare.html; sourceTree = "<group>"; };
 		D4E0060D1523951500FDF185 /* NSMetadataQuery+Synchronous.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMetadataQuery+Synchronous.h"; sourceTree = "<group>"; };
 		D4E0060E1523951500FDF185 /* NSMetadataQuery+Synchronous.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMetadataQuery+Synchronous.m"; sourceTree = "<group>"; };
@@ -2739,8 +2747,12 @@
 			children = (
 				CDC10E6E1622146C005FA734 /* SUConstants.h */,
 				CDC10E6F1622146C005FA734 /* SUConstants.m */,
+				D4BDCC1D19E7F8F50080710C /* SUExport.h */,
 				CDC10E701622146C005FA734 /* SUPlainInstallerInternals.h */,
 				CDC10E711622146C005FA734 /* SUPlainInstallerInternals.m */,
+				D4BDCC1A19E7F78F0080710C /* SUStandardVersionComparator.h */,
+				D4BDCC1919E7F78F0080710C /* SUStandardVersionComparator.m */,
+				D4BDCC1E19E7F8F50080710C /* SUVersionComparisonProtocol.h */,
 			);
 			name = Sparkle;
 			sourceTree = "<group>";
@@ -3700,6 +3712,7 @@
 				D4E0060F1523951500FDF185 /* NSMetadataQuery+Synchronous.h in Headers */,
 				4D66BBDA1486FCF400351C42 /* CPSPrivate.h in Headers */,
 				4D66BC5A1487027E00351C42 /* NDProcess.h in Headers */,
+				D4BDCC2019E7F8F50080710C /* SUVersionComparisonProtocol.h in Headers */,
 				4D66BC5C1487027E00351C42 /* NDSDKCompatibility.h in Headers */,
 				4D66BC5D1487027E00351C42 /* NSURL+NDCarbonUtilities.h in Headers */,
 				4D66BBFB1487018700351C42 /* NDHotKeyEvent.h in Headers */,
@@ -3714,6 +3727,8 @@
 				4D66BC25148701EA00351C42 /* NSPathControl+NDAlias.h in Headers */,
 				4D66BC27148701EA00351C42 /* NSSavePanel+NDAlias.h in Headers */,
 				4D66BC29148701EA00351C42 /* NSString+NDCarbonUtilities.h in Headers */,
+				D4BDCC1F19E7F8F50080710C /* SUExport.h in Headers */,
+				D4BDCC1C19E7F78F0080710C /* SUStandardVersionComparator.h in Headers */,
 				4D66BC2F1487021500351C42 /* NDResourceFork+PascalStrings.h in Headers */,
 				4D66BC311487021500351C42 /* NDResourceInfo.h in Headers */,
 				4D66BC3E1487024500351C42 /* IntegerMath.h in Headers */,
@@ -4765,6 +4780,7 @@
 				E1E5FAAB07B204BF0044D6EF /* NSAppleScript_BLTRExtensions.m in Sources */,
 				E1E5FAAD07B204BF0044D6EF /* NSApplication_BLTRExtensions.m in Sources */,
 				E1E5FAAF07B204BF0044D6EF /* NSArray_BLTRExtensions.m in Sources */,
+				D4BDCC1B19E7F78F0080710C /* SUStandardVersionComparator.m in Sources */,
 				E1E5FAB107B204BF0044D6EF /* NSBezierPath_BLTRExtensions.m in Sources */,
 				E1E5FAB307B204BF0044D6EF /* NSBundle_BLTRExtensions.m in Sources */,
 				E1E5FAB507B204BF0044D6EF /* NSColor_QSModifications.m in Sources */,
