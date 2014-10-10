@@ -57,10 +57,6 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString);
 @end
 
 
-@interface NSString (Versions)
-- (NSComparisonResult)dottedVersionCompare:(NSString *)other;
-@end
-
 @interface NSString (Replacement)
 - (NSArray *)lines;
 - (NSString *)stringByReplacing:(NSString *)search with:(NSString *)replacement __attribute__((deprecated));

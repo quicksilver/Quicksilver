@@ -279,41 +279,6 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 
 @end
 
-@implementation NSString (Versions)
-
-- (NSComparisonResult)dottedVersionCompare:(NSString *)other
-{
-    NSArray *myParts = [self componentsSeparatedByString:@"."];
-    myParts = [myParts arrayByEnumeratingArrayUsingBlock:^NSNumber *(NSString *obj) {
-        return [NSNumber numberWithInteger:[obj integerValue]];
-    }];
-    if ([myParts count] < 2) {
-        myParts = [myParts arrayByAddingObject:[NSNumber numberWithInteger:0]];
-        if ([myParts count] < 3) {
-            myParts = [myParts arrayByAddingObject:[NSNumber numberWithInteger:0]];
-        }
-    }
-    NSArray *otherParts = [other componentsSeparatedByString:@"."];
-    otherParts = [otherParts arrayByEnumeratingArrayUsingBlock:^NSNumber *(NSString *obj) {
-        return [NSNumber numberWithInteger:[obj integerValue]];
-    }];
-    if ([otherParts count] < 2) {
-        otherParts = [otherParts arrayByAddingObject:[NSNumber numberWithInteger:0]];
-        if ([otherParts count] < 3) {
-            otherParts = [otherParts arrayByAddingObject:[NSNumber numberWithInteger:0]];
-        }
-    }
-    for (NSUInteger i = 0; i < 3; i++) {
-        if ([myParts[i] isEqualToNumber:otherParts[i]]) {
-            continue;
-        }
-        return [myParts[i] compare:otherParts[i]];
-    }
-    return NSOrderedSame;
-}
-
-@end
-
 @implementation NSString (Replacement)
 - (NSArray *)lines {
 	NSMutableString *mut = [NSMutableString stringWithString:self];
