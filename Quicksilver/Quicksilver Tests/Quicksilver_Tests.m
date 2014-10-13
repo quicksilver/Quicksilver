@@ -12,6 +12,7 @@
 #import "QSObject.h"
 #import "QSObject_FileHandling.h"
 #import "QSCollectingSearchObjectView.h"
+#import "QSSetupAssistant.h"
 
 @interface Quicksilver_Tests : XCTestCase {
     BOOL finishedLaunching;
@@ -23,7 +24,8 @@
 - (void)setUp
 {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    // Make sure the setup assistant is closed before continuing
+    [[QSSetupAssistant sharedInstance] finish:nil];
 }
 
 - (void)tearDown
