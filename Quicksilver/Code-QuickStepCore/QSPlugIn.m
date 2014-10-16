@@ -16,6 +16,7 @@
 #import "QSNotifications.h"
 #import "NSString+NDUtilities.h"
 #import "QSPreferenceKeys.h"
+#import "SUStandardVersionComparator.h"
 
 //static
 NSMutableDictionary *plugInBundlePaths = nil;
@@ -648,9 +649,10 @@ NSMutableDictionary *plugInBundlePaths = nil;
 				return NO;
 			}
 		}
+        SUStandardVersionComparator *comparator = [SUStandardVersionComparator defaultComparator];
         NSString *osRequired = requirementsDict[kPluginRequirementsOSRequiredVersion];
         if (osRequired) {
-            if ([[NSApplication macOSXFullVersion] compare:osRequired] == NSOrderedAscending) {
+            if ([comparator compareVersion:[NSApplication macOSXFullVersion] toVersion:osRequired] == NSOrderedAscending) {
                 if (error) {
                     NSString *localizedErrorFormat = NSLocalizedString(@"Requires Mac OS X %@ or later", nil);
                     *error = [NSString stringWithFormat:localizedErrorFormat, osRequired];
@@ -660,7 +662,7 @@ NSMutableDictionary *plugInBundlePaths = nil;
         }
         NSString *osUnsupported = requirementsDict[kPluginRequirementsOSUnsupportedVersion];
         if (osUnsupported) {
-            NSComparisonResult versionComparison = [[NSApplication macOSXFullVersion] compare:osUnsupported];
+            NSComparisonResult versionComparison = [comparator compareVersion:[NSApplication macOSXFullVersion] toVersion:osUnsupported];
             if (versionComparison == NSOrderedSame || versionComparison == NSOrderedDescending) {
                 if (error) {
                     NSString *localizedErrorFormat = NSLocalizedString(@"Unsupported on Mac OS X %@ or later", nil);

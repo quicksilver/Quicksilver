@@ -145,44 +145,60 @@
 
 @implementation NSApplication (VersionCheck)
 + (NSString *)macOSXFullVersion {
-	SInt32 versionMajor, versionMinor, versionBugfix;
-	Gestalt (gestaltSystemVersionMajor, &versionMajor);
-	Gestalt (gestaltSystemVersionMinor, &versionMinor);
-	Gestalt (gestaltSystemVersionBugFix, &versionBugfix);
-	
-	return [NSString stringWithFormat:@"%i.%i.%i",(int)versionMajor,(int)versionMinor,(int)versionBugfix];
+	return [NSString stringWithFormat:@"%i.%i.%i",(int)[self macOSXMajorVersion],(int)[self macOSXMinorVersion],(int)[self macOSXBugfixVersion]];
 }
 
-+ (NSString *)macOSXReleaseVersion {
-	SInt32 versionMajor, versionMinor;
-	Gestalt (gestaltSystemVersionMajor, &versionMajor);
-	Gestalt (gestaltSystemVersionMinor, &versionMinor);
-	
-	return [NSString stringWithFormat:@"%i.%i", (int)versionMajor, (int)versionMinor];
++ (SInt32)macOSXMajorVersion {
+    SInt32 versionMajor;
+    Gestalt (gestaltSystemVersionMajor, &versionMajor);
+    return versionMajor;
+}
+
++ (SInt32)macOSXMinorVersion {
+    SInt32 versionMinor;
+    Gestalt (gestaltSystemVersionMinor, &versionMinor);
+    return versionMinor;
+}
+
++ (SInt32)macOSXBugfixVersion {
+    SInt32 versionBugfix;
+    Gestalt (gestaltSystemVersionBugFix, &versionBugfix);
+    return versionBugfix;
 }
 
 + (SInt32)macOSXSystemVersion {
-	SInt32 version;
-	Gestalt (gestaltSystemVersion, &version);
-	return version;
+    SInt32 version;
+    Gestalt (gestaltSystemVersion, &version);
+    return version;
 }
+
++ (NSString *)macOSXReleaseVersion {
+    return [NSString stringWithFormat:@"%i.%i", (int)[self macOSXMajorVersion], (int)[self macOSXMinorVersion]];
+}
+
+
 + (BOOL)isLeopard {
-	return ([self macOSXSystemVersion] >= 0x1050);
+	return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 5);
 }
 
 + (BOOL)isSnowLeopard {
-	return ([self macOSXSystemVersion] >= 0x1060);
+    return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 6);
 }
 
 + (BOOL)isLion {
-	return ([self macOSXSystemVersion] >= 0x1070);
+    return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 7);
 }
 
 + (BOOL)isMountainLion {
-	return ([self macOSXSystemVersion] >= 0x1080);
+    return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 8);
 }
 
 + (BOOL)isMavericks {
-	return ([self macOSXSystemVersion] >= 0x1090);
+    return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 9);
 }
+
++ (BOOL)isYosemite {
+    return ([NSApplication macOSXMajorVersion] >= 10 && [NSApplication macOSXMinorVersion] >= 10);
+}
+
 @end
