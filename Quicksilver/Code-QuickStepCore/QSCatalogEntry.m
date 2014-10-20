@@ -89,7 +89,6 @@ NSDictionary *enabledPresetDictionary;*/
 	id theSource = [self source];
 	if ([theSource respondsToSelector:@selector(disableEntry:)])
 		[theSource disableEntry:self];
-    dispatch_release(scanQueue);
     scanQueue = NULL;
 }
 
