@@ -31,47 +31,22 @@ NSSize QSMaxIconSize;
 + (void)purgeAllImagesAndChildren {[self purgeImagesAndChildrenOlderThan:0.0];}
 
 + (void)purgeImagesAndChildrenOlderThan:(NSTimeInterval)interval {
+    NSTimeInterval tempLastAccess = 0;
+    NSSet *tempSet = nil;
 
-#ifdef DEBUG
-	NSUInteger imagecount = 0;
-	NSUInteger childcount = 0;
-#endif
- // NSString *thisKey = nil;
-
-    @synchronized(iconLoadedSet) {
-        NSSet *s = [iconLoadedSet objectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *obj, BOOL *stop) {
-            return obj->lastAccess && obj->lastAccess < (globalLastAccess - interval);
-        }];
-        for(QSObject *thisObject in s) {
-            if ([thisObject unloadIcon]) {
-                
-#ifdef DEBUG
-                imagecount++;
-#endif
-            }
-        }
+    // Make a combined copy of the sets so we can purge them without bothering about threading
+    // We're synchronizing on the class instance, since those are class-ivars
+    @synchronized (self) {
+        tempLastAccess = globalLastAccess;
+        tempSet = [iconLoadedSet setByAddingObjectsFromSet:childLoadedSet];
     }
-    
-    @synchronized(childLoadedSet) {
-    NSSet *t = [childLoadedSet objectsWithOptions:NSEnumerationConcurrent passingTest:^BOOL(QSObject *obj, BOOL *stop) {
-        return obj->lastAccess && obj->lastAccess < (globalLastAccess - interval);
+
+    [tempSet enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(QSObject *obj, BOOL *stop) {
+        if (obj->lastAccess && obj->lastAccess < (tempLastAccess - interval)) {
+            [obj unloadIcon];
+            [obj unloadChildren];
+        }
     }];
-        
-        for (QSObject *thisObject in t) {
-            if ([thisObject unloadChildren]) {
-#ifdef DEBUG
-                childcount++;
-#endif
-            }
-        }
-    }
-
-
-#ifdef DEBUG
-	if (DEBUG_MEMORY && (imagecount || childcount) )
-		NSLog(@"Released %lu images and %lu children (items before %f) ", (unsigned long)imagecount, (unsigned long)childcount, interval);
-#endif
-
 }
 
 + (void)interfaceChanged {
@@ -213,7 +188,8 @@ NSSize QSMaxIconSize;
 
 - (void)dealloc {
 	//NSLog(@"dealloc %x %@", self, [self name]);
-	[self unloadIcon];
+    if ([self iconLoaded])
+        [self unloadIcon];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 	[self unloadChildren];
 	 data = nil;
@@ -577,31 +553,29 @@ NSSize QSMaxIconSize;
 	[self setAltChildren:nil];
 	flags.childrenLoaded = NO;
 	[self setChildrenLoadedDate:0];
-	[childLoadedSet removeObject:self];
+    @synchronized ([self class]) {
+        [childLoadedSet removeObject:self];
+    }
 	return YES;
 }
 
 - (void)loadChildren {
-	id handler = nil;
-	if (handler = [self handlerForSelector:@selector(loadChildrenForObject:)]) {
+	id handler = [self handlerForSelector:@selector(loadChildrenForObject:)];
+	if (handler && [handler loadChildrenForObject:self]) {
+        flags.childrenLoaded = YES;
+        NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
+        self.childrenLoadedDate = now;
+        self.lastAccess = now;
 
-	//	NSLog(@"load %x", self);
+        @synchronized ([self class]) {
+            globalLastAccess = now;
+            [childLoadedSet addObject:self];
+        }
+    }
 
-		if ([handler loadChildrenForObject:self]) {
-	//		NSLog(@"xload %@", self);
-			flags.childrenLoaded = YES;
-			[self setChildrenLoadedDate:[NSDate timeIntervalSinceReferenceDate]];
-			lastAccess = [NSDate timeIntervalSinceReferenceDate];
-			globalLastAccess = lastAccess;
-
-			[childLoadedSet addObject:self];
-		}
-	}
-
-		NSArray *components = [self objectForCache:kQSObjectComponents];
-		if (components)
-			[self setChildren:components];
-
+    NSArray *components = [self objectForCache:kQSObjectComponents];
+    if (components)
+        [self setChildren:components];
 }
 
 - (BOOL)hasChildren {
@@ -788,7 +762,7 @@ NSSize QSMaxIconSize;
 - (BOOL)iconLoaded { return flags.iconLoaded;  }
 - (void)setIconLoaded:(BOOL)flag {
 	flags.iconLoaded = flag;
-    @synchronized(iconLoadedSet) {
+    @synchronized([self class]) {
         if (flag) {
             [iconLoadedSet addObject:self];
         } else {
@@ -797,7 +771,7 @@ NSSize QSMaxIconSize;
     }
 }
 
-- (BOOL)retainsIcon { return flags.retainsIcon;  } ;
+- (BOOL)retainsIcon { return flags.retainsIcon;  }
 - (void)setRetainsIcon:(BOOL)flag {
 	flags.retainsIcon = (flag>0);
 }
@@ -887,9 +861,11 @@ NSSize QSMaxIconSize;
         return NO;
 	}
 	[self setIconLoaded:YES];
-    
-	lastAccess = [NSDate timeIntervalSinceReferenceDate];
-	globalLastAccess = lastAccess;
+    NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
+	self.lastAccess = now;
+    @synchronized ([self class]) {
+        globalLastAccess = now;
+    }
 
 	if (namedIcon) {
         NSImage *image = [QSResourceManager imageNamed:namedIcon];
@@ -935,8 +911,11 @@ NSSize QSMaxIconSize;
 }
 
 - (NSImage *)icon {
-	lastAccess = [NSDate timeIntervalSinceReferenceDate];
-	globalLastAccess = lastAccess;
+    NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
+	self.lastAccess = now;
+    @synchronized ([self class]) {
+        globalLastAccess = now;
+    }
     
 	if (icon) return icon;
     
