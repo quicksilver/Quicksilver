@@ -43,14 +43,16 @@ NSSize QSMaxIconSize;
         tempChildSet = [childLoadedSet copy];
     }
 
-    [tempIconSet enumerateObjectsWithOptions:0 usingBlock:^(QSObject *obj, BOOL *stop) {
-        if (obj->lastAccess && obj->lastAccess < (tempLastAccess - interval))
+    [tempIconSet enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(QSObject *obj, BOOL *stop) {
+        if (obj->lastAccess && obj->lastAccess < (tempLastAccess - interval)) {
             [obj unloadIcon];
+        }
     }];
 
     [tempChildSet enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(QSObject *obj, BOOL *stop) {
-        if (obj->lastAccess && obj->lastAccess < (tempLastAccess - interval))
+        if (obj->lastAccess && obj->lastAccess < (tempLastAccess - interval)) {
             [obj unloadChildren];
+        }
     }];
 }
 
