@@ -207,6 +207,11 @@ extern NSString *const QSCatalogEntryInvalidatedNotification;
 
 - (NSIndexPath *)catalogSetIndexPath;
 
+/**
+ * Get only the non-ommited objects from that entry and its children
+ */
+- (NSArray *)enabledContents;
+
 ////////////////////////////////////////////////////////////////////////////////
 /// @name Indexing
 ////////////////////////////////////////////////////////////////////////////////
