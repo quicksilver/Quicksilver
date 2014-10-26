@@ -643,8 +643,8 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
                 self.contents = nil;
             }
             [self didChangeValueForKey:@"self"];
-            [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryIndexedNotification object:self];
             self.scanning = NO;
+            [[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryIndexedNotification object:self];
         });
         return itemContents;
     }
