@@ -229,8 +229,8 @@ extern int CGSIntegerValue(CGSValue intVal);
 typedef struct CGPointWarp CGPointWarp;
 
 struct CGPointWarp {
-	CGPoint local;
-	CGPoint global;
+	float local;
+	float global;
 };
 
 extern CGError CGSSetWindowWarp(const CGSConnection cid, const CGSWindow wid, uint32_t w, uint32_t h, CGPointWarp *mesh);
