@@ -297,7 +297,7 @@ static CGFloat searchSpeed = 0.0;
 {
 	QSCatalogEntry *entry = [self entryForID:[notif object]];
 	if (entry) {
-		[entry scanForced:NO];
+		[entry scanForced:YES];
 	}
 }
 
