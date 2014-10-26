@@ -195,8 +195,7 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 	return [[NSFileManager.defaultManager attributesOfItemAtPath:self.indexLocation error:NULL] objectForKey:NSFileModificationDate];
 }
 
-#warning should rename...
-- (BOOL)deletable {
+- (BOOL)canBeDeleted {
 	if (self.isPreset) {
         return NO;
     }
@@ -742,5 +741,9 @@ NSString *const QSCatalogEntryInvalidatedNotification = @"QSCatalogEntryInvalida
 - (NSMutableDictionary *)sourceSettings {
     return self.info[kItemSettings];
 }
+
+
+// Backward-compatibility
+- (BOOL)deletable QS_DEPRECATED { return self.canBeDeleted; }
 
 @end
