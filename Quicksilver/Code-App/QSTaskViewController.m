@@ -10,7 +10,6 @@
 
 @implementation QSTaskViewController
 
-
 + (instancetype)controllerWithTask:(QSTask *)task {
     return [[self alloc] initWithTask:task];
 }
@@ -29,11 +28,11 @@
 }
 
 - (void)awakeFromNib {
-	[self.progressIndicator setUsesThreadedAnimation:YES];
+    [self.progressIndicator setUsesThreadedAnimation:YES];
 }
 
 - (void)dealloc {
-	[self.progressIndicator unbind:@"isIndeterminate"];
+    [self.progressIndicator unbind:@"isIndeterminate"];
 }
 
 - (IBAction)cancel:(id)sender {

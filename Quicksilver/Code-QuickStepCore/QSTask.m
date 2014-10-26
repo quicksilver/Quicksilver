@@ -21,116 +21,116 @@
 
 // KVO
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
-	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
+    NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
-	if ([key isEqualToString:@"indeterminateProgress"] || [key isEqualToString:@"animateProgress"]) {
-		keyPaths = [keyPaths setByAddingObject:@"progress"];
-	}
-	return keyPaths;
+    if ([key isEqualToString:@"indeterminateProgress"] || [key isEqualToString:@"animateProgress"]) {
+        keyPaths = [keyPaths setByAddingObject:@"progress"];
+    }
+    return keyPaths;
 }
 
 + (QSTask *)taskWithIdentifier:(NSString *)identifier {
-	NSParameterAssert(identifier != nil);
+    NSParameterAssert(identifier != nil);
 
-	QSTask *task = [QSTaskController.sharedInstance taskWithIdentifier:identifier];
-	if (!task)
-		task = [[self alloc] initWithIdentifier:identifier];
-	return task;
+    QSTask *task = [QSTaskController.sharedInstance taskWithIdentifier:identifier];
+    if (!task)
+        task = [[self alloc] initWithIdentifier:identifier];
+    return task;
 }
 
 - (id)init {
-	return [self initWithIdentifier:NSString.uniqueString];
+    return [self initWithIdentifier:NSString.uniqueString];
 }
 
 - (id)initWithIdentifier:(NSString *)identifier {
-	NSParameterAssert(identifier != nil);
+    NSParameterAssert(identifier != nil);
 
-	self = [super init];
-	if (self == nil) {
-		return nil;
-	}
+    self = [super init];
+    if (self == nil) {
+        return nil;
+    }
 
-	_subtasks = [NSMutableArray array];
-	_identifier = identifier.copy;
+    _subtasks = [NSMutableArray array];
+    _identifier = identifier.copy;
 
-	return self;
+    return self;
 }
 
 - (NSString *)description {
-	return [NSString stringWithFormat:@"[%@:%@:%@] ", self.identifier, self.name, self.status];
+    return [NSString stringWithFormat:@"[%@:%@:%@] ", self.identifier, self.name, self.status];
 }
 
 - (void)start {
-	@synchronized (self) {
-		if (self.isRunning) {
+    @synchronized (self) {
+        if (self.isRunning) {
 #ifdef DEBUG
-			if (VERBOSE) NSLog(@"Task already started, ignoring: %@", self);
+            if (VERBOSE) NSLog(@"Task already started, ignoring: %@", self);
 #endif
-			return;
-		}
+            return;
+        }
 
 #ifdef DEBUG
-		if (VERBOSE) NSLog(@"Start Task: %@", self);
+        if (VERBOSE) NSLog(@"Start Task: %@", self);
 #endif
 
-		self.running = YES;
-		[QSTasks taskStarted:self];
-	}
+        self.running = YES;
+        [QSTasks taskStarted:self];
+    }
 }
 
 - (void)stop {
-	@synchronized (self) {
-		if (self.isRunning == NO) {
+    @synchronized (self) {
+        if (self.isRunning == NO) {
 #ifdef DEBUG
-			if (VERBOSE) NSLog(@"Task already stopped, ignoring: %@", self);
+            if (VERBOSE) NSLog(@"Task already stopped, ignoring: %@", self);
 #endif
-			return;
-		}
+            return;
+        }
 
 #ifdef DEBUG
-		if (VERBOSE) NSLog(@"Stop Task: %@", self);
+        if (VERBOSE) NSLog(@"Stop Task: %@", self);
 #endif
 
-		self.running = NO;
-		[QSTasks taskStopped:self];
-	}
+        self.running = NO;
+        [QSTasks taskStopped:self];
+    }
 }
 
 - (void)cancel {
-	@synchronized (self) {
-		NSAssert(self.isRunning == YES, @"Asked to cancel stopped task %@", self);
+    @synchronized (self) {
+        NSAssert(self.isRunning == YES, @"Asked to cancel stopped task %@", self);
 
 #ifdef DEBUG
-		if (VERBOSE) NSLog(@"Cancel Task: %@", self);
+        if (VERBOSE) NSLog(@"Cancel Task: %@", self);
 #endif
 
-		if (self.cancelBlock) {
-			self.cancelBlock();
-		}
-		[self stop];
-	}
+        if (self.cancelBlock) {
+            self.cancelBlock();
+        }
+        [self stop];
+    }
 }
 
 - (void)addSubtask:(QSTask *)task {
-	NSAssert(task != nil, @"Sub task shouldn't be nil");
-	@synchronized (self) {
-		[self.subtasks addObject:task];
-		task.parentTask = self;
-	}
+    NSAssert(task != nil, @"Sub task shouldn't be nil");
+    @synchronized (self) {
+        [self.subtasks addObject:task];
+        task.parentTask = self;
+    }
 }
 
 // Bindings
 
 - (BOOL)animateProgress {
-	return self.progress < 0;
+    return self.progress < 0;
 }
 
 - (BOOL)indeterminateProgress {
-	return self.progress < 0;
+    return self.progress < 0;
 }
 
 - (BOOL)canBeCancelled {
-	return self.cancelBlock != nil;
+    return self.cancelBlock != nil;
 }
 
 @end

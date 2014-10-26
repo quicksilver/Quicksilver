@@ -50,7 +50,7 @@ static QSTaskViewer * _sharedInstance;
 - (id)init {
     self = [self initWithWindowNibName:@"QSTaskViewer"];
 
-	if (self == nil) {
+    if (self == nil) {
         return nil;
     }
 
@@ -70,18 +70,18 @@ static QSTaskViewer * _sharedInstance;
 }
 
 - (void)dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)windowDidLoad {
-	QSDockingWindow *win = [self window];
-	[win addInternalWidgetsForStyleMask:NSUtilityWindowMask];
-	[win setHidesOnDeactivate:NO];
-	[win setLevel:NSFloatingWindowLevel];
-	[win setBackgroundColor:[NSColor whiteColor]];
-	[win setOpaque:YES];
-	[win display];
-	[self resizeTableToFit];
+    QSDockingWindow *win = [self window];
+    [win addInternalWidgetsForStyleMask:NSUtilityWindowMask];
+    [win setHidesOnDeactivate:NO];
+    [win setLevel:NSFloatingWindowLevel];
+    [win setBackgroundColor:[NSColor whiteColor]];
+    [win setOpaque:YES];
+    [win display];
+    [self resizeTableToFit];
 }
 
 - (void)showWindow:(id)sender {
@@ -108,7 +108,7 @@ static QSTaskViewer * _sharedInstance;
 }
 
 - (void)tasksStarted:(NSNotification *)notif {
-	[self showIfNeeded:notif];
+    [self showIfNeeded:notif];
 }
 
 - (void)tasksEnded:(NSNotification *)notif {
@@ -124,13 +124,13 @@ static QSTaskViewer * _sharedInstance;
     if (!self.wasAutomaticallyShown || self.taskControllers.count != 0) {
         return;
     }
-	[(QSDockingWindow *)[self window] hideOrOrderOut:self];
-	self.wasAutomaticallyShown = NO;
+    [(QSDockingWindow *)[self window] hideOrOrderOut:self];
+    self.wasAutomaticallyShown = NO;
 }
 
 - (void)showIfNeeded:(NSNotification *)notif {
     QSTask *task = notif.object;
-	if ([[NSUserDefaults standardUserDefaults] boolForKey:kQSShowTaskViewerAutomatically]) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kQSShowTaskViewerAutomatically]) {
         QSGCDMainDelayed(SHOW_DELAY, ^{
 //            NSLog(@"Will show for task %@: running: %@", task, (task.isRunning ? @"YES" : @"NO"));
             if (!task.isRunning) {
@@ -142,7 +142,7 @@ static QSTaskViewer * _sharedInstance;
                 [(QSDockingWindow *)[self window] showKeyless:self];
             }
         });
-	}
+    }
 }
 
 - (void)addTask:(NSNotification *)notif {
@@ -216,19 +216,18 @@ static QSTaskViewer * _sharedInstance;
 }
 
 - (void)resizeTableToFit {
-	NSRect tableRect = self.tasksView.enclosingScrollView.frame;
-	NSRect windowRect = self.window.frame;
-//	BOOL atBottom = NSMinY(windowRect) <= NSMinY([[[self window] screen] frame]);
+    NSRect tableRect = self.tasksView.enclosingScrollView.frame;
+    NSRect windowRect = self.window.frame;
+    // BOOL atBottom = NSMinY(windowRect) <= NSMinY([[[self window] screen] frame]);
     NSUInteger taskCount = self.taskControllers.count;
-	CGFloat newHeight = -1 + MAX(taskCount, 1) * 55;
-	CGFloat heightChange = newHeight-NSHeight(tableRect);
-	windowRect.size.height += heightChange;
-//	if (!atBottom)
-		windowRect.origin.y -= heightChange;
-	[self.window setFrame:constrainRectToRect(windowRect, self.window.screen.frame) display:YES animate:YES];
+    CGFloat newHeight = -1 + MAX(taskCount, 1) * 55;
+    CGFloat heightChange = newHeight-NSHeight(tableRect);
+    windowRect.size.height += heightChange;
+    // if (!atBottom)
+    windowRect.origin.y -= heightChange;
+    [self.window setFrame:constrainRectToRect(windowRect, self.window.screen.frame) display:YES animate:YES];
 }
 
 - (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(NSInteger)rowIndex { return NO; }
-
 
 @end

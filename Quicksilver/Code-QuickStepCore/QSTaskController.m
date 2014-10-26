@@ -26,16 +26,16 @@ QSTaskController *QSTasks;
     dispatch_once(&onceToken, ^{
         QSTasks = [[[self class] allocWithZone:nil] init];
     });
-	return QSTasks;
+    return QSTasks;
 }
 
 - (id)init {
     self = [super init];
-	if (self == nil) return nil;
+    if (self == nil) return nil;
 
     _tasksDictionary = [[NSMutableDictionary alloc] initWithCapacity:5];
 
-	return self;
+    return self;
 }
 
 - (QSTask *)taskWithIdentifier:(NSString *)identifier {
@@ -74,12 +74,12 @@ QSTaskController *QSTasks;
 - (void)updateTask:(NSString *)identifier status:(NSString *)status progress:(CGFloat)progress {
     NSAssert(identifier != nil, @"Task identifier shouldn't be nil");
 
-	QSTask *task = [QSTask taskWithIdentifier:identifier];
+    QSTask *task = [QSTask taskWithIdentifier:identifier];
 
-	task.status = status;
-	task.progress = progress;
+    task.status = status;
+    task.progress = progress;
 
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSTaskChangedNotification object:task];
+    [[NSNotificationCenter defaultCenter] postNotificationName:QSTaskChangedNotification object:task];
 }
 
 - (void)removeTask:(NSString *)identifier {
