@@ -75,9 +75,10 @@ static NSMutableDictionary *tasksDictionary = nil;
 }
 - (id)initWithIdentifier:(NSString *)newIdentifier {
 	self = [super initWithNibName:@"QSTaskEntry" bundle:[NSBundle mainBundle]];
-	if (self != nil) {
-		[self setIdentifier:newIdentifier];
-	}
+	if (self == nil) return nil;
+
+    [self setIdentifier:newIdentifier];
+
 	return self;
 }
 

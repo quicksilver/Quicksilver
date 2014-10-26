@@ -31,6 +31,7 @@
 #include <unistd.h>
 #import "QSOutlineView.h"
 #import "QSTableView.h"
+#import "QSCatalogEntry_Private.h"
 
 @interface QSObject (NSTreeNodePrivate)
 //- (NSIndexPath *)indexPath;
@@ -168,8 +169,8 @@ static id _sharedInstance;
 	[[[itemContentsTable tableColumnWithIdentifier:kItemPath] dataCell] setFont:[NSFont labelFontOfSize:9]];
 	[[[itemContentsTable tableColumnWithIdentifier:kItemPath] dataCell] setWraps:NO];
 
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(catalogChanged:) name:QSCatalogEntryChanged object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(catalogIndexed:) name:QSCatalogEntryIndexed object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(catalogChanged:) name:QSCatalogEntryChangedNotification object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(catalogIndexed:) name:QSCatalogEntryIndexedNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateEntrySelection) name:NSOutlineViewSelectionDidChangeNotification object:nil];
 
 	[itemTable reloadData];
@@ -283,7 +284,7 @@ static id _sharedInstance;
 		[self showOptionsDrawer];
 
 	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogStructureChanged object:nil];
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChanged object:childEntry];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChangedNotification object:childEntry];
 }
 
 - (IBAction)saveItem:(id)sender {
@@ -539,8 +540,7 @@ static id _sharedInstance;
 
 - (IBAction)setValueForSenderForCatalogEntry:(id)sender {
 	if (sender == itemIconField) {
-		NSData *imageData = [[sender image] TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:0];
-		[[currentItem info] setObject:imageData forKey:kItemIcon];
+        currentItem.icon = [sender image];
 		[itemTable reloadData];
 	}
 }
@@ -574,7 +574,7 @@ static id _sharedInstance;
 }
 
 - (IBAction)applySettings:(id)sender {
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChanged object:nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChangedNotification object:nil];
 	[(QSController *)[NSApp delegate] rescanItems:sender];
 }
 

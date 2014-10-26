@@ -271,7 +271,7 @@
     [[self selection] scanAndCache];
 	[self populateFields];
     
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChanged object:[self currentEntry]];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChangedNotification object:[self currentEntry]];
 }
 
 - (BOOL)textShouldEndEditing:(NSText *)aTextObject { return YES;  }
@@ -297,17 +297,17 @@
 }
 
 - (void)enableEntry:(QSCatalogEntry *)entry {
-	NSMutableDictionary *settings = [[entry info] objectForKey:kItemSettings];
+	NSMutableDictionary *settings = entry.sourceSettings;
 	NSString *path = [self fullPathForSettings:settings];
 	NSNotificationCenter *wsNotif = [[NSWorkspace sharedWorkspace] notificationCenter];
-	if ([[settings objectForKey:@"watchTarget"] boolValue]) {
+	if ([settings[@"watchTarget"] boolValue]) {
 		[[QSVoyeur sharedInstance] addPath:path notifyingAbout:NOTE_DELETE | NOTE_WRITE];
 #ifdef DEBUG
 		if (VERBOSE) NSLog(@"Watching Path %@", path);
 #endif
 		[wsNotif addObserver:entry selector:@selector(invalidateIndex:) name:nil object:path];
 	}
-	NSArray *paths = [settings objectForKey:@"watchPaths"];
+	NSArray *paths = settings[@"watchPaths"];
 	for (NSString * p in paths) {
 		[[QSVoyeur sharedInstance] addPath:p];
 #ifdef DEBIG
@@ -318,9 +318,9 @@
 }
 
 - (void)disableEntry:(QSCatalogEntry *)entry {
-	NSMutableDictionary *settings = [[entry info] objectForKey:kItemSettings];
+	NSMutableDictionary *settings = entry.sourceSettings;
 	NSString *path = [self fullPathForSettings:settings];
-	if ([[settings objectForKey:@"watchTarget"] boolValue]) {
+	if ([settings[@"watchTarget"] boolValue]) {
 		[[QSVoyeur sharedInstance] removePath:path];
 		[[NSNotificationCenter defaultCenter] removeObserver:entry];
 	}
@@ -375,7 +375,7 @@
 	[self setValueForSender:itemLocationField];
 	[[self selection] setName:[[openPanel URL] lastPathComponent]];
 	[currentEntry setObject:[NSNumber numberWithDouble:[NSDate timeIntervalSinceReferenceDate]] forKey:kItemModificationDate];
-	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChanged object:[self currentEntry]];
+	[[NSNotificationCenter defaultCenter] postNotificationName:QSCatalogEntryChangedNotification object:[self currentEntry]];
 	return YES;
 }
 

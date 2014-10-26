@@ -26,7 +26,7 @@
 		NSArray *contents = [(QSHTMLLinkParser *)[QSReg getClassInstance:@"QSHTMLLinkParser"] objectsFromURL:[NSURL URLWithString:location] withSettings:settings];
         if (!contents) {
             // return the original contents of the catalog entry if there was a problem getting data from the internet
-            return [[QSLib entryForID:[theEntry objectForKey:kItemID]] _contents];
+            return [QSLib entryForID:[theEntry objectForKey:kItemID]].contents;
         } else {
             return contents;    
         }
