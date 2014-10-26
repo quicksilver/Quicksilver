@@ -101,7 +101,8 @@ typedef enum {
 	CGSWarpFade,	// Warp old and fade out revealing new.
 	CGSSwap,		// Swap desktops over graphically.
 	CGSCube,		// The well-known cube effect.
-	CGSWarpSwitch   // Warp old, switch and un-warp.
+	CGSWarpSwitch,	// Warp old, switch and un-warp.
+	CGSFlip,
 } CGSTransitionType;
 
 typedef enum {
@@ -221,3 +222,25 @@ extern OSStatus CGSConnectionGetPID(const CGSConnection cid, pid_t *pid, const C
 extern CGSValue CGSCreateCStringNoCopy(const char *str);
 extern char* CGSCStringValue(CGSValue string);
 extern int CGSIntegerValue(CGSValue intVal);
+
+//#define CGSTransparentBackgroundMask (1 << 7)
+
+// Window wrapping
+typedef struct CGPointWarp CGPointWarp;
+
+struct CGPointWarp {
+	CGPoint local;
+	CGPoint global;
+};
+
+extern CGError CGSSetWindowWarp(const CGSConnection cid, const CGSWindow wid, uint32_t w, uint32_t h, CGPointWarp *mesh);
+extern OSStatus CGSSetWindowListBrightness(const CGSConnection cid, CGSWindow *wids, float *brightness, int count);
+
+// Global Hotkeys
+typedef enum {
+	CGSGlobalHotKeyEnable = 0,
+	CGSGlobalHotKeyDisable = 1,
+} CGSGlobalHotKeyOperatingMode;
+
+extern CGError CGSGetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlobalHotKeyOperatingMode *mode);
+extern CGError CGSSetGlobalHotKeyOperatingMode(CGSConnection connection, CGSGlobalHotKeyOperatingMode mode);
