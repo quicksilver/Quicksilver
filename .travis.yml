@@ -1,3 +1,2 @@
 language: objective-c
-xcode_project: Quicksilver/Quicksilver.xcodeproj # path to your xcodeproj folder
-xcode_scheme: "Quicksilver Distribution"
+script: xctool -project Quicksilver/Quicksilver.xcodeproj -scheme "Quicksilver Distribution" test
