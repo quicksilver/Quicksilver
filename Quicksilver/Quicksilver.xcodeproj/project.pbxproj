@@ -1672,8 +1672,8 @@
 		CD65B12B16FA1BE400932A9C /* QSPluginUpdater.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSPluginUpdater.xib; sourceTree = "<group>"; };
 		CD661C5319DBD2F3000F3695 /* TestNSApplicationMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestNSApplicationMethods.m; path = "Tests/Tests-QSFoundation/TestNSApplicationMethods.m"; sourceTree = "<group>"; };
 		CD661C5519DBD341000F3695 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		CD988B741993558800938302 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		CD988B7619935C1900938302 /* es-ES */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/QSAdvancedPrefPane.strings"; sourceTree = "<group>"; };
+		CD988B741993558800938302 /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CD988B7619935C1900938302 /* es-ES */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = "es-ES"; path = "es-ES.lproj/QSAdvancedPrefPane.strings"; sourceTree = "<group>"; };
 		CD988B7719935C3600938302 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/QSAdvancedPrefPane.strings; sourceTree = "<group>"; };
 		CD9BEDB01936CCAB003D4B7E /* Fast Logout.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "Fast Logout.sh"; sourceTree = "<group>"; };
 		CD9BEDB21936CCB9003D4B7E /* QSFileObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSFileObjectTests.m; sourceTree = "<group>"; };
@@ -4069,7 +4069,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0600;
 				TargetAttributes = {
 					CD29AEAA195663770052C893 = {
 						TestTargetID = E1E5F9C707B1FEC50044D6EF;
@@ -6147,6 +6147,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD0D0E0BB27B009902EF /* Debug.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
 		};
@@ -6154,6 +6157,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4DC3DD130E0BB27B009902EF /* Release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 			};
 			name = Release;
 		};
