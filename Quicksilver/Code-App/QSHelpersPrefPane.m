@@ -58,10 +58,6 @@
 	NSString *path, *title;
 	NSMenuItem *item = nil;
 	for(NSString *key in mediators) {
-		// drop10.7: ugly hack - when Notification Center becomes the default, remove this check
-		if ([key isEqualToString:@"com.apple.NotificationCenter"] && ![NSApplication isMountainLion]) {
-			continue;
-		}
 		path = [workspace absolutePathForAppBundleWithIdentifier:key];
 		NSString *class = [mediators objectForKey:key];
 		NSBundle *bundle = [QSReg bundleForClassName:class];
