@@ -45,7 +45,7 @@
  @result YES if window is hidden into the screen edge, otherwise NO
 */
 - (BOOL)isDocked;
-- (BOOL)canFade;
+- (BOOL)canFade QS_DEPRECATED_MSG("Use -isDockedInstead");
 
 - (NSString *)autosaveName;
 - (void)setAutosaveName:(NSString *)newAutosaveName;

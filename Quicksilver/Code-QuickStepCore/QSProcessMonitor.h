@@ -23,8 +23,8 @@
 - (NSArray *)backgroundProcesses; /* QSObjects */
 
 /* Deprecated, equivalent to the above without KVO */
-- (NSArray *)getAllProcesses;
-- (NSArray *)getVisibleProcesses;
+- (NSArray *)getAllProcesses QS_DEPRECATED_MSG("Use -allProcesses");
+- (NSArray *)getVisibleProcesses QS_DEPRECATED_MSG("Use -visibleProcesses");
 
 - (QSObject *)imbuedFileProcessForDict:(NSDictionary *)dict;
 - (QSObject *)processObjectWithPSN:(ProcessSerialNumber)psn;
