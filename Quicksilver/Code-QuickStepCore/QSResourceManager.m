@@ -1,6 +1,7 @@
 #import "QSResourceManager.h"
 #import "QSRegistry.h"
 #import "QSLocalization.h"
+#import "QSGCD.h"
 
 #define gSysIconBundle @"/System/Library/CoreServices/CoreTypes.bundle"
 
@@ -26,7 +27,9 @@ QSResourceManager * QSRez;
 
 - (id)init {
 	if (self = [super init]) {
-		resourceDict = [NSMutableDictionary dictionaryWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"ResourceLocations" ofType:@"plist"]];
+		NSMutableDictionary *locations = [NSMutableDictionary dictionaryWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"ResourceLocations" ofType:@"plist"]];
+        resourceDict = [[QSThreadSafeMutableDictionary alloc] init];
+        [resourceDict setDictionary:locations];
 
 		resourceOverrideList = nil;
 
@@ -38,13 +41,16 @@ QSResourceManager * QSRez;
 		} else {
 			resourceOverrideFolder = nil;
 		}
-
+        resourceQueue = dispatch_queue_create("QSResourceManagerQueue", DISPATCH_QUEUE_SERIAL);
 	}
 	return self;
 }
 
 - (NSImage *)sysIconNamed:(NSString *)name {
-	NSString *path = [[NSBundle bundleWithPath:gSysIconBundle] pathForResource:name ofType:@"icns"];
+    __block NSString *path;
+    QSGCDQueueSync(resourceQueue, ^{
+        path = [[NSBundle bundleWithPath:gSysIconBundle] pathForResource:name ofType:@"icns"];
+    });
 	if (!path) return nil;
 	return [[NSImage alloc] initByReferencingFile:path];
 }
@@ -55,22 +61,20 @@ QSResourceManager * QSRez;
 }
 
 - (NSImage *)imageWithExactName:(NSString *)name {
-    @synchronized(self) {
-        NSImage *image = [NSImage imageNamed:name];
-        if (!image && resourceOverrideList) {
-            NSString *file = [resourceOverrideList objectForKey:name];
-            if (file)
-                image = [[NSImage alloc] initByReferencingFile:[resourceOverrideFolder stringByAppendingPathComponent:file]];
-            [image setName:name];
-            
-        }
+    NSImage *image = [NSImage imageNamed:name];
+    if (!image && resourceOverrideList) {
+        NSString *file = [resourceOverrideList objectForKey:name];
+        if (file)
+            image = [[NSImage alloc] initByReferencingFile:[resourceOverrideFolder stringByAppendingPathComponent:file]];
+        [image setName:name];
         
-        id locator = [resourceDict objectForKey:name];
-        if ([locator isKindOfClass:[NSNull class]]) return nil;
-        if (locator)
-            image = [self imageWithLocatorInformation:locator];
-        return image;
     }
+    
+    id locator = [resourceDict objectForKey:name];
+    if ([locator isKindOfClass:[NSNull class]]) return nil;
+    if (locator)
+        image = [self imageWithLocatorInformation:locator];
+    return image;
 }
 
 - (NSImage *)imageNamed:(NSString *)name {
@@ -78,68 +82,67 @@ QSResourceManager * QSRez;
 }
 
 - (NSImage *)imageNamed:(NSString *)name inBundle:(NSBundle *)bundle {
-    @synchronized(self) {
-        if (!name) {
-            return nil;
-        }
-        
-        NSImage *image = [NSImage imageNamed:name];
-        if (image) {
-            return image;
-        }
-        
-        if (!image && resourceOverrideList) {
-            NSString *file = [resourceOverrideList objectForKey:name];
-            if (file) {
-                image = [[NSImage alloc] initByReferencingFile:[resourceOverrideFolder stringByAppendingPathComponent:file]];
-            }
-            [image setName:name];
-        }
-        
-        if (!image && bundle) { image = [bundle imageNamed:name]; }
-        
-        if (image) { return image; }
-        
-        id locator = [resourceDict objectForKey:name];
-        if ([locator isKindOfClass:[NSNull class]]) { return nil; }
-        if (locator) {
-            image = [self imageWithLocatorInformation:locator];
-        } else if (!image && ([name hasPrefix:@"/"] || [name hasPrefix:@"~"])) { // !!! Andre Berg 20091007: Try iconForFile first if name looks like ordinary path
-            NSString *path = [name stringByStandardizingPath];
-            if ([[NSImage imageUnfilteredFileTypes] containsObject:[path pathExtension]]) {
-                image = [[NSImage alloc] initByReferencingFile:path];
-            } else {
-                image = [[NSWorkspace sharedWorkspace] iconForFile:path];
-            }
-        } else {// Try the systemicons bundle
-            image = [self sysIconNamed:name];
-            if (!image) { // Try by bundle id
-                image = [self imageWithLocatorInformation:[NSDictionary dictionaryWithObjectsAndKeys:name, @"bundle", nil]];
-            }
-        }
-        if (!image && [locator isKindOfClass:[NSString class]]) {
-            image = [self imageNamed:locator];
-        }
-        
-        if(!image) {
-            SEL selector = NSSelectorFromString([NSString stringWithFormat:@"%@Image", name]);
-            if ([self respondsToSelector:selector]) {
-                image = ((NSImage* (*)(id, SEL))[self methodForSelector:selector])(self, selector);
-            }
-        }
-        
-        if (!image) {
-            [resourceDict setObject:[NSNull null] forKey:name];
-        } else {
-            [image setName:name];
-        }
+    if (!name) {
+        return nil;
+    }
+    
+    __block NSImage *image = [NSImage imageNamed:name];
+    if (image) {
         return image;
     }
+    
+    if (!image && resourceOverrideList) {
+        NSString *file = [resourceOverrideList objectForKey:name];
+        if (file) {
+            image = [[NSImage alloc] initByReferencingFile:[resourceOverrideFolder stringByAppendingPathComponent:file]];
+        }
+        [image setName:name];
+    }
+    
+    QSGCDQueueSync(resourceQueue, ^{
+        if (!image && bundle) { image = [bundle imageNamed:name]; }
+    });
+    
+    if (image) { return image; }
+    
+    id locator = [resourceDict objectForKey:name];
+    if ([locator isKindOfClass:[NSNull class]]) { return nil; }
+    if (locator) {
+        image = [self imageWithLocatorInformation:locator];
+    } else if (!image && ([name hasPrefix:@"/"] || [name hasPrefix:@"~"])) { // !!! Andre Berg 20091007: Try iconForFile first if name looks like ordinary path
+        NSString *path = [name stringByStandardizingPath];
+        if ([[NSImage imageUnfilteredFileTypes] containsObject:[path pathExtension]]) {
+            image = [[NSImage alloc] initByReferencingFile:path];
+        } else {
+            image = [[NSWorkspace sharedWorkspace] iconForFile:path];
+        }
+    } else {// Try the systemicons bundle
+        image = [self sysIconNamed:name];
+        if (!image) { // Try by bundle id
+            image = [self imageWithLocatorInformation:[NSDictionary dictionaryWithObjectsAndKeys:name, @"bundle", nil]];
+        }
+    }
+    if (!image && [locator isKindOfClass:[NSString class]]) {
+        image = [self imageNamed:locator];
+    }
+    
+    if(!image) {
+        SEL selector = NSSelectorFromString([NSString stringWithFormat:@"%@Image", name]);
+        if ([self respondsToSelector:selector]) {
+            image = ((NSImage* (*)(id, SEL))[self methodForSelector:selector])(self, selector);
+        }
+    }
+    
+    if (!image) {
+        [resourceDict setObject:[NSNull null] forKey:name];
+    } else {
+        [image setName:name];
+    }
+    return image;
 }
 
 - (NSString *)pathWithLocatorInformation:(id)locator {
-    @synchronized(self) {
-	NSString *path = nil;
+	__block NSString *path = nil;
 	if ([locator isKindOfClass:[NSString class]]) {
 		if (![locator length]) return nil;
 		if ([locator hasPrefix:@"["]) {
@@ -159,34 +162,34 @@ QSResourceManager * QSRez;
 			if (path) break;
 		}
 	} else if ([locator isKindOfClass:[NSDictionary class]]) {
-		NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
-		NSString *bundleID = [locator objectForKey:@"bundle"];
-		NSBundle *bundle = [QSReg bundleWithIdentifier:bundleID];
-		if (!bundle)
-			bundle = [NSBundle bundleWithPath:[workspace absolutePathForAppBundleWithIdentifier:bundleID]];
-
-		NSString *resourceName = [locator objectForKey:@"resource"];
-		// NSString *type = [locator objectForKey:@"type"];
-		NSString *subPath = [locator objectForKey:@"path"];
-
-		NSString *basePath = [bundle bundlePath];
-		// NSString *basePath = [workspace absolutePathForAppBundleWithIdentifier:bundle];
-		// NSLog(@"loc %@ %@", locator, path);
-
-		if (resourceName) {
-			path = [bundle pathForResource:[resourceName stringByDeletingPathExtension]
-								 ofType:[resourceName pathExtension]];
-		} else if (subPath) {
-			path = [basePath stringByAppendingPathComponent:subPath]; ;
-		}
-
+        QSGCDQueueSync(resourceQueue, ^{
+            NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+            NSString *bundleID = [locator objectForKey:@"bundle"];
+            NSBundle *bundle = [QSReg bundleWithIdentifier:bundleID];
+            if (!bundle)
+                bundle = [NSBundle bundleWithPath:[workspace absolutePathForAppBundleWithIdentifier:bundleID]];
+            
+            NSString *resourceName = [locator objectForKey:@"resource"];
+            // NSString *type = [locator objectForKey:@"type"];
+            NSString *subPath = [locator objectForKey:@"path"];
+            
+            NSString *basePath = [bundle bundlePath];
+            // NSString *basePath = [workspace absolutePathForAppBundleWithIdentifier:bundle];
+            // NSLog(@"loc %@ %@", locator, path);
+            
+            if (resourceName) {
+                path = [bundle pathForResource:[resourceName stringByDeletingPathExtension]
+                                        ofType:[resourceName pathExtension]];
+            } else if (subPath) {
+                path = [basePath stringByAppendingPathComponent:subPath]; ;
+            }
+        });
 	}
 	return path;
-    }
 }
 
 - (NSImage *)imageWithLocatorInformation:(id)locator {
-	NSImage *image = nil;
+	__block NSImage *image = nil;
 	if ([locator isKindOfClass:[NSArray class]]) {
 		NSUInteger i;
 		for (i = 0; i<[(NSArray *)locator count]; i++) {
@@ -198,28 +201,29 @@ QSResourceManager * QSRez;
 	}
 
 	if (!image && [locator isKindOfClass:[NSDictionary class]]) {
-		NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
-		NSString *bundleID = [locator objectForKey:@"bundle"];
-		NSBundle *bundle = [QSReg bundleWithIdentifier:bundleID];
-
-		if (!bundle) {
-			bundle = [NSBundle bundleWithPath:[workspace absolutePathForAppBundleWithIdentifier:bundleID]];
-		}
-        if(bundle != nil) {
-            image = [workspace iconForFile:[bundle bundlePath]];
-        } else {
-			// try and find an icon for the file type
-			if ([locator objectForKey:@"type"]) {
-            image = [workspace iconForFileType:[locator objectForKey:@"type"]];
-			}
-        }
-		
+        QSGCDQueueSync(resourceQueue, ^{
+            NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+            NSString *bundleID = [locator objectForKey:@"bundle"];
+            NSBundle *bundle = [QSReg bundleWithIdentifier:bundleID];
+            
+            if (!bundle) {
+                bundle = [NSBundle bundleWithPath:[workspace absolutePathForAppBundleWithIdentifier:bundleID]];
+            }
+            if(bundle != nil) {
+                image = [workspace iconForFile:[bundle bundlePath]];
+            } else {
+                // try and find an icon for the file type
+                if ([locator objectForKey:@"type"]) {
+                    image = [workspace iconForFileType:[locator objectForKey:@"type"]];
+                }
+            }
+            
 #ifdef DEBUG
-        if(!image) {
-            NSLog(@"Unable to locate bundle with identifier %@, using locator %@", bundleID, locator);
-		}
+            if(!image) {
+                NSLog(@"Unable to locate bundle with identifier %@, using locator %@", bundleID, locator);
+            }
 #endif
-		
+        });
 	}
 	return image;
 }
@@ -235,9 +239,11 @@ QSResourceManager * QSRez;
 	if ([type isEqualToString:@"QSResourceAdditions"]) {
 		[self addResourcesFromDictionary:info]; // inBundle:bundle];
     } else {
-			if (QSGetLocalizationStatus())
-				[NSBundle registerLocalizationBundle:bundle forLanguage:info];
-		}
+        if (QSGetLocalizationStatus())
+            QSGCDQueueSync(resourceQueue, ^{
+                [NSBundle registerLocalizationBundle:bundle forLanguage:info];
+            });
+        }
 	return YES;
 }
 @end
