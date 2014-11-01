@@ -1,3 +1,17 @@
+## Changes - 1.2.1 (4010) ##
+
+### Fixed ###
+
+  * Double modifier activation is reset when keys are pressed between modifiers (#1950, #1969)
+
+### Changed ###
+
+  * Quicksilver now requires OS X 10.8 or later (#1965)
+
+### Development ###
+
+  * New `QS_DEPRECATED` and `QS_DEPRECATED_MSG` macros (#1966)
+
 ## Changes - 1.2.0 (400F) ##
 
 ### New ###
