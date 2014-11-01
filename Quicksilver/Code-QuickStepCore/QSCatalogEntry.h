@@ -57,6 +57,8 @@
 - (BOOL)loadIndex;
 - (void)saveIndex;
 - (BOOL)indexIsValid;
+- (void)invalidateIndex:(NSNotification *)notif;
+
 - (BOOL)isCatalog;
 - (id)source;
 - (BOOL)canBeIndexed;
