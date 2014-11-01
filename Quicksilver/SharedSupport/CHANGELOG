@@ -3,6 +3,7 @@
 ### Fixed ###
 
   * Double modifier activation is reset when keys are pressed between modifiers (#1950, #1969)
+  * Building with a deployment target > 10.7 now works (#1953, #1955)
 
 ### Changed ###
 
