@@ -9,7 +9,7 @@ QSResourceManager * QSRez;
 
 @implementation QSResourceManager
 
-+ (id)sharedInstance {
++ (instancetype)sharedInstance {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         QSRez = [[self alloc] init];
