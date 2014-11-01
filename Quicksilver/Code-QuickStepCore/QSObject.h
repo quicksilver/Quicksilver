@@ -29,7 +29,7 @@ extern NSSize QSMaxIconSize;
 
 - (NSAppleEventDescriptor *)AEDescriptorForObject:(QSObject *)object;
 
-- (QSObject *)initFileObject:(QSObject *)object ofType:(NSString *)type __attribute__((deprecated)) NS_RETURNS_NOT_RETAINED;
+- (QSObject *)initFileObject:(QSObject *)object ofType:(NSString *)type QS_DEPRECATED NS_RETURNS_NOT_RETAINED;
 @end
 
 
@@ -100,7 +100,7 @@ typedef struct _QSObjectFlags {
 + (void)interfaceChanged;
 
 + (id)objectWithName:(NSString *)aName;
-+ (id)objectWithIdentifier:(NSString *)anIdentifier __attribute__((deprecated));
++ (id)objectWithIdentifier:(NSString *)anIdentifier QS_DEPRECATED;
 + (id)makeObjectWithIdentifier:(NSString *)anIdentifier;
 + (id)objectByMergingObjects:(NSArray *)objects;
 + (id)objectByMergingObjects:(NSArray *)objects withObject:(QSObject *)object;
@@ -146,7 +146,7 @@ typedef struct _QSObjectFlags {
 - (BOOL)unloadIcon;
 - (NSImage *)icon;
 - (void)setIcon:(NSImage *)newIcon;
-- (void)updateIcon:(NSImage *)newIcon;
+- (void)updateIcon:(NSImage *)newIcon QS_DEPRECATED_MSG("Use -setIcon:");
 @end
 
 @interface QSObject (Hierarchy)

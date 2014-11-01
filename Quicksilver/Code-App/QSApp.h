@@ -2,7 +2,7 @@
 #import <Cocoa/Cocoa.h>
 
 /* Deprecated. Use [NSApp completedLaunch] */
-extern BOOL QSApplicationCompletedLaunch;
+extern BOOL QSApplicationCompletedLaunch QS_DEPRECATED_MSG("Use [NSApp completedLaunch]");
 
 @interface QSApp : NSApplication {
 	BOOL shouldRelaunch;

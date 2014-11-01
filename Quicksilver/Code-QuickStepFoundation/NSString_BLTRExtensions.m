@@ -251,8 +251,6 @@ NSComparisonResult prefixCompare(NSString *aString, NSString *bString) {
 		[[NSScanner scannerWithString:[self substringWithRange:NSMakeRange(i*2, 2)]] scanHexInt:&x];
 		s[i] = (char)x;
 	}
-    // !!! Andre Berg 20091007: remove deprecated method
-	//return [NSString stringWithCString:s length:4];
     return [NSString stringWithCString:s encoding:NSUTF8StringEncoding];
 }
 

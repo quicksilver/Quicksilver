@@ -53,7 +53,7 @@ inline void QSGCDAsync(void (^block)(void))
 
 // Remove those when the plugins are call-free
 // Don't forget to remove definitions in .m file
-void runOnMainQueueSync(void (^block)(void)) __attribute__((deprecated));
-void runOnQueueSync(dispatch_queue_t queue, void (^block)(void)) __attribute__((deprecated));
+void runOnMainQueueSync(void (^block)(void)) QS_DEPRECATED_MSG("Use QSGCDMainSync");
+void runOnQueueSync(dispatch_queue_t queue, void (^block)(void)) QS_DEPRECATED_MSG("Use QSGCDQueueSync");
 
 #endif // __QSGCD__
