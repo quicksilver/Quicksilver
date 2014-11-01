@@ -54,6 +54,13 @@ BOOL modifierEventsEnabled = YES;
 
     QSModifierKeyEvent *match = [modifierKeyEvents objectForKey:(mods ? @(mods) : @(lastModifiers))];
     
+    [modifierKeyEvents enumerateKeysAndObjectsUsingBlock:^(id key, QSModifierKeyEvent *ev, BOOL *stop) {
+        if (match != ev) {
+            // reset the modifier state for any non-matching modifier key events (Issue #1950)
+            [ev resetTimesKeysPressed:self];
+        }
+    }];
+    
     BOOL modsAdded = mods >= lastModifiers;
     
 	lastModifiers = mods;
