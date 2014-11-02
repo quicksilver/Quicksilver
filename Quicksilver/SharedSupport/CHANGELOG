@@ -12,6 +12,7 @@
 ### Development ###
 
   * New `QS_DEPRECATED` and `QS_DEPRECATED_MSG` macros (#1966)
+  * Wrap the branch name in quotes when determining version (#1973, #1974)
 
 ## Changes - 1.2.0 (400F) ##
 
