@@ -58,10 +58,7 @@ void QSShowLargeType(NSString *aString) {
 	[textShadow setShadowColor:[NSColor colorWithDeviceWhite:0 alpha:0.64]];
 	[formattedNumber addAttribute:NSShadowAttributeName value:textShadow range:fullRange];
 
-	NSTextView *textView = [[NSTextView alloc] initWithFrame:NSMakeRect(0, 0, displayWidth, 0)];
-	[textView setEditable:NO];
-	[textView setSelectable:NO];
-	[textView setDrawsBackground:NO];
+	QSLargeTypeView *textView = [[QSLargeTypeView alloc] initWithFrame:NSMakeRect(0, 0, displayWidth, 0)];
 	[[textView textStorage] setAttributedString:formattedNumber];
 	[textView sizeToFit];
 
@@ -91,26 +88,16 @@ void QSShowLargeType(NSString *aString) {
     
 	QSVanishingWindow *largeTypeWindow = [[QSVanishingWindow alloc] initWithContentRect:windowRect styleMask:NSBorderlessWindowMask | NSNonactivatingPanelMask backing:NSBackingStoreBuffered defer:NO];
     [_largeTypeWindows addObject:largeTypeWindow];
-	[largeTypeWindow setIgnoresMouseEvents:YES];
 	[largeTypeWindow setFrame:centerRectInRect(windowRect, screenRect) display:YES];
-	[largeTypeWindow setBackgroundColor: [NSColor clearColor]];
-	[largeTypeWindow setOpaque:NO];
-	[largeTypeWindow setLevel:NSFloatingWindowLevel];
-	[largeTypeWindow setHidesOnDeactivate:NO];
-    [largeTypeWindow setReleasedWhenClosed:YES];
-	//	[largeTypeWindow setNextResponder:self];
 
 	QSBezelBackgroundView *content = [[NSClassFromString(@"QSBezelBackgroundView") alloc] initWithFrame:NSZeroRect];
 	[content setRadius:32];
 	[content setColor:backColor];
 	[content setGlassStyle:QSGlossControl];
-	[largeTypeWindow setHasShadow:YES];
 	[largeTypeWindow setContentView:content];
 	[textView setFrame:centerRectInRect([textView frame] , [content frame])];
-	//[textView setTag:255];
 	[content addSubview:textView];
 
-	[largeTypeWindow setAlphaValue:0];
 	[largeTypeWindow makeKeyAndOrderFront:nil];
 	[largeTypeWindow setInitialFirstResponder:textView];
 	[largeTypeWindow setAlphaValue:1 fadeTime:0.333];
@@ -124,6 +111,13 @@ void QSShowLargeType(NSString *aString) {
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
 	if (self = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag]) {
 		[self setReleasedWhenClosed:YES];
+        [self setBackgroundColor: [NSColor clearColor]];
+        [self setOpaque:NO];
+        [self setLevel:NSFloatingWindowLevel];
+        [self setHidesOnDeactivate:NO];
+        [self setHasShadow:YES];
+        [self setAlphaValue:0];
+
 	}
 	return self;
 }
@@ -155,32 +149,26 @@ void QSShowLargeType(NSString *aString) {
 		[self close];
 	}
 }
+
 @end
 
 #pragma mark QSLargeTypeView
 
 @implementation QSLargeTypeView
 
-- (id)initWithFrame:(NSRect)frame {
-	self = [super initWithFrame:frame];
-#if 0
-	if (self) {		// Initialization code here.
-	}
-#endif
-	return self;
+- (instancetype)init {
+    if (self = [super init]) {
+        [self setEditable:NO];
+        [self setSelectable:NO];
+        [self setDrawsBackground:NO];
+    }
+    return self;
 }
 
 - (BOOL)isOpaque {
 	return NO;
 }
 
-- (void)drawRect:(NSRect)rect {
-	NSBezierPath *roundRect = [NSBezierPath bezierPath];
-	[roundRect appendBezierPathWithRoundedRectangle:rect withRadius:NSHeight(rect) /8];
-	[[NSColor colorWithDeviceWhite:0 alpha:0.64] set];
-	[roundRect fill];
-	[super drawRect:rect];
-}
 @end
 
 #pragma mark QSLargeTypeScriptCommand
