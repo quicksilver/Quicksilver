@@ -37,7 +37,7 @@ NSSize QSMaxIconSize;
 
     // Make copies of the sets so we can purge them without bothering about threading
     // We're synchronizing on the class instance, since those are class-ivars
-    @synchronized (self) {
+    @synchronized ([self class]) {
         tempLastAccess = globalLastAccess;
         tempIconSet = [iconLoadedSet copy];
         tempChildSet = [childLoadedSet copy];
