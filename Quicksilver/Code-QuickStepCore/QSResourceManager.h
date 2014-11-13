@@ -1,18 +1,15 @@
-
-
-
-
 #import <Foundation/Foundation.h>
 
 extern id QSRez;
 
 @interface QSResourceManager : NSObject {
-	NSMutableDictionary *resourceDict;
+	QSThreadSafeMutableDictionary *resourceDict;
 	NSString *resourceOverrideFolder;
 	NSDictionary *resourceOverrideList;
+    dispatch_queue_t resourceQueue;
 }
 
-+ (id)sharedInstance;
++ (instancetype)sharedInstance;
 + (NSImage *)imageNamed:(NSString *)name;
 + (NSImage *)imageNamed:(NSString *)name inBundle:(NSBundle *)bundle;
 - (NSImage *)imageNamed:(NSString *)name;
