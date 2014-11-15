@@ -37,7 +37,7 @@ NSSize QSMaxIconSize;
 
     // Make copies of the sets so we can purge them without bothering about threading
     // We're synchronizing on the class instance, since those are class-ivars
-    @synchronized (self) {
+    @synchronized ([QSObject class]) {
         tempLastAccess = globalLastAccess;
         tempIconSet = [iconLoadedSet copy];
         tempChildSet = [childLoadedSet copy];
@@ -560,7 +560,7 @@ NSSize QSMaxIconSize;
 	[self setAltChildren:nil];
 	flags.childrenLoaded = NO;
 	[self setChildrenLoadedDate:0];
-    @synchronized ([self class]) {
+    @synchronized ([QSObject class]) {
         [childLoadedSet removeObject:self];
     }
 	return YES;
@@ -574,7 +574,7 @@ NSSize QSMaxIconSize;
         self.childrenLoadedDate = now;
         self.lastAccess = now;
 
-        @synchronized ([self class]) {
+        @synchronized ([QSObject class]) {
             globalLastAccess = now;
             [childLoadedSet addObject:self];
         }
@@ -769,7 +769,7 @@ NSSize QSMaxIconSize;
 - (BOOL)iconLoaded { return flags.iconLoaded;  }
 - (void)setIconLoaded:(BOOL)flag {
 	flags.iconLoaded = flag;
-    @synchronized([self class]) {
+    @synchronized([QSObject class]) {
         if (flag) {
             [iconLoadedSet addObject:self];
         } else {
@@ -870,7 +870,7 @@ NSSize QSMaxIconSize;
 	[self setIconLoaded:YES];
     NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
 	self.lastAccess = now;
-    @synchronized ([self class]) {
+    @synchronized ([QSObject class]) {
         globalLastAccess = now;
     }
 
@@ -920,7 +920,7 @@ NSSize QSMaxIconSize;
 - (NSImage *)icon {
     NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
 	self.lastAccess = now;
-    @synchronized ([self class]) {
+    @synchronized ([QSObject class]) {
         globalLastAccess = now;
     }
     
