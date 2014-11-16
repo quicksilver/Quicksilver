@@ -5,6 +5,7 @@
   * Double modifier activation is reset when keys are pressed between modifiers (#1950, #1969)
   * Building with a deployment target > 10.7 now works (#1953, #1955)
   * Prevent a hang when loading icons (#1957, #1970)
+  * Prevent getting into a state where actions don't do anything (#1984)
 
 ### Changed ###
 
