@@ -7,6 +7,7 @@ extern id QSRez;
 	NSString *resourceOverrideFolder;
 	NSDictionary *resourceOverrideList;
     dispatch_queue_t resourceQueue;
+    NSMutableSet *slashNames;
 }
 
 + (instancetype)sharedInstance;
