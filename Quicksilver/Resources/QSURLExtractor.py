@@ -28,7 +28,7 @@ if __name__ == '__main__':
     soup = BeautifulSoup(page)
     for link in soup.findAll('a', href=True):
         # skip useless links
-        if link['href'] == '' or link['href'].startswith('#'):
+        if link['href'] == '' or link['href'] == '#':
             continue
         # initialize the link
         thisLink = {
