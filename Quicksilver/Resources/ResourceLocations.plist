@@ -160,6 +160,8 @@
 	</array>
 	<key>RemovableVolumeIcon</key>
 	<string>/System/Library/Extensions/IOStorageFamily.kext/Contents/Resources/Removable.icns</string>
+    <key>InternalVolmeIcon</key>
+    <string>/System/Library/Extensions/IOStorageFamily.kext/Contents/Resources/Internal.icns</string>
 	<key>com.apple.NotificationCenter</key>
 	<string>/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/Notifications.icns</string>
 </dict>

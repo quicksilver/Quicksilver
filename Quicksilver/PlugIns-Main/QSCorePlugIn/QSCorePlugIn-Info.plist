@@ -236,7 +236,7 @@
 							<key>ID</key>
 							<string>QSPresetVolumes</string>
 							<key>icon</key>
-							<string>/</string>
+							<string>InternalVolmeIcon</string>
 						</dict>
 						<dict>
 							<key>source</key>

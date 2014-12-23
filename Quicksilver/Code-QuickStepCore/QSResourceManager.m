@@ -42,6 +42,7 @@ QSResourceManager * QSRez;
 			resourceOverrideFolder = nil;
 		}
         resourceQueue = dispatch_queue_create("QSResourceManagerQueue", DISPATCH_QUEUE_SERIAL);
+        slashNames = [NSMutableSet set];
 	}
 	return self;
 }
@@ -60,7 +61,21 @@ QSResourceManager * QSRez;
 	return [self pathWithLocatorInformation:locator];
 }
 
+- (NSString *)safeImageName:(NSString *)rawName
+{
+    // strings with a slash lead to a crash - issue #2002
+    if ([rawName containsString:@"/"]) {
+        if (![slashNames containsObject:rawName]) {
+            NSLog(@"sanitizing image name: %@", rawName);
+            [slashNames addObject:rawName];
+        }
+        return [rawName stringByReplacingOccurrencesOfString:@"/" withString:@""];
+    }
+    return rawName;
+}
+
 - (NSImage *)imageWithExactName:(NSString *)name {
+    name = [self safeImageName:name];
     NSImage *image = [NSImage imageNamed:name];
     if (!image && resourceOverrideList) {
         NSString *file = [resourceOverrideList objectForKey:name];
@@ -86,6 +101,7 @@ QSResourceManager * QSRez;
         return nil;
     }
     
+    name = [self safeImageName:name];
     __block NSImage *image = [NSImage imageNamed:name];
     if (image) {
         return image;
