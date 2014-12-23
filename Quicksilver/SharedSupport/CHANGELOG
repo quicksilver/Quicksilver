@@ -1,3 +1,9 @@
+## Changes - 1.2.2 (4011) ##
+
+### Fixed ###
+
+  * Avoid a crash in Yosemite when loading certain icons (#2002, #2003)
+
 ## Changes - 1.2.1 (4010) ##
 
 ### Fixed ###
