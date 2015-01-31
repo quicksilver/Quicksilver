@@ -18,17 +18,11 @@
 
 @implementation Quicksilver_Tests
 
-- (BOOL)CIBuild {
-    return [[[[NSProcessInfo processInfo] environment] objectForKey:@"TRAVIS_TEST"] boolValue];
-}
 /**
  *  This is a test for bug #670, #203
  */
 - (void)testClearingFirstPane
 {
-    if ([self CIBuild]) {
-        return;
-    }
     
     QSInterfaceController *i = [(QSController *)[NSApp delegate] interfaceController];
     // Assumes the current interface can collect
@@ -60,10 +54,6 @@
  *  This is a test for bug #1760
  */
 - (void)testClearingSearchStringOnTrigger {
-    
-    if ([self CIBuild]) {
-        return;
-    }
 
     QSInterfaceController *i = [(QSController *)[NSApp delegate] interfaceController];
     NSEvent *typeAEvent = [NSEvent keyEventWithType:10 location:NSMakePoint(0, 0) modifierFlags:256 timestamp:15127.081604936 windowNumber:[[i window] windowNumber] context:nil characters:@"a" charactersIgnoringModifiers:@"a" isARepeat:NO keyCode:0];
