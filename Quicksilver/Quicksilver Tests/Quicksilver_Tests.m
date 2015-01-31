@@ -13,34 +13,24 @@
 #import "QSObject_FileHandling.h"
 #import "QSCollectingSearchObjectView.h"
 
-@interface Quicksilver_Tests : XCTestCase {
-    BOOL finishedLaunching;
-}
+@interface Quicksilver_Tests : XCTestCase
 @end
 
 @implementation Quicksilver_Tests
 
-- (void)setUp
-{
-    [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+- (BOOL)CIBuild {
+    return [[[[NSProcessInfo processInfo] environment] objectForKey:@"TRAVIS_TEST"] boolValue];
 }
-
-- (void)tearDown
-{
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
-}
-
 /**
  *  This is a test for bug #670, #203
  */
 - (void)testClearingFirstPane
 {
-    // It seems QS hasn't finished launching at this point. Sleep for 5 secs to make sure everything is 'set up' properly (crude)
-    sleep(5);
+    if ([self CIBuild]) {
+        return;
+    }
     
-    QSInterfaceController *i = [[NSApp delegate] interfaceController];
+    QSInterfaceController *i = [(QSController *)[NSApp delegate] interfaceController];
     // Assumes the current interface can collect
     QSCollectingSearchObjectView *dSelector = (QSCollectingSearchObjectView *)[i dSelector];
     
@@ -70,7 +60,12 @@
  *  This is a test for bug #1760
  */
 - (void)testClearingSearchStringOnTrigger {
-    QSInterfaceController *i = [[NSApp delegate] interfaceController];
+    
+    if ([self CIBuild]) {
+        return;
+    }
+
+    QSInterfaceController *i = [(QSController *)[NSApp delegate] interfaceController];
     NSEvent *typeAEvent = [NSEvent keyEventWithType:10 location:NSMakePoint(0, 0) modifierFlags:256 timestamp:15127.081604936 windowNumber:[[i window] windowNumber] context:nil characters:@"a" charactersIgnoringModifiers:@"a" isARepeat:NO keyCode:0];
     // Simulate typing 'a' into the dSelector
     [[i dSelector] keyDown:typeAEvent];
