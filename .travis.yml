@@ -1,2 +1,4 @@
 language: objective-c
 script: ./.travis_test.sh
+notifications:
+  email: false
