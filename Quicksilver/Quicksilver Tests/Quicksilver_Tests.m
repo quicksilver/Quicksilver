@@ -37,8 +37,6 @@
  */
 - (void)testClearingFirstPane
 {
-    // It seems QS hasn't finished launching at this point. Sleep for 5 secs to make sure everything is 'set up' properly (crude)
-    sleep(5);
     
     QSInterfaceController *i = [[NSApp delegate] interfaceController];
     // Assumes the current interface can collect
