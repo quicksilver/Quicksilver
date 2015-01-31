@@ -64,7 +64,7 @@ QSResourceManager * QSRez;
 - (NSString *)safeImageName:(NSString *)rawName
 {
     // strings with a slash lead to a crash - issue #2002
-    if ([rawName containsString:@"/"]) {
+    if ([rawName length] <= 10 && [rawName containsString:@"/"]) {
         if (![slashNames containsObject:rawName]) {
             NSLog(@"sanitizing image name: %@", rawName);
             [slashNames addObject:rawName];
