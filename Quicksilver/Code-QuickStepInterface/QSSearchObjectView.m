@@ -76,8 +76,19 @@ NSMutableDictionary *bindingsDict = nil;
     [[self textModeEditor] bind:@"textColor" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSAppearance3T" options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:NSValueTransformerNameBindingOption]];
     [[self textModeEditor] bind:@"insertionPointColor" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.QSAppearance3T" options:[NSDictionary dictionaryWithObject:NSUnarchiveFromDataTransformerName forKey:NSValueTransformerNameBindingOption]];
     [[self textModeEditor] setAllowsUndo:YES];
-    
     [[self textModeEditor] setAutomaticTextReplacementEnabled:YES];
+    [[self textModeEditor] setMaxSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+    [[self textModeEditor] setFocusRingType:NSFocusRingTypeNone];
+    [[self textModeEditor] setDelegate: self];
+    [[self textModeEditor] setHorizontallyResizable: YES];
+    [[self textModeEditor] setVerticallyResizable: YES];
+    [[self textModeEditor] setDrawsBackground: YES];
+    [[self textModeEditor] setBackgroundColor:[NSColor clearColor]];
+    [[self textModeEditor] setWantsLayer:YES];
+    [[self textModeEditor] setEditable:YES];
+    [[self textModeEditor] setSelectable:YES];
+    [[self textModeEditor] setFieldEditor:YES];
+    [[self textModeEditor] setFont:textCellFont];
     
 	searchMode = SearchFilter;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideResultView:) name:@"NSWindowDidResignKeyNotification" object:[self window]];
@@ -745,29 +756,15 @@ NSMutableDictionary *bindingsDict = nil;
 		NSRect titleFrame = [self frame];
 		NSRect editorFrame = NSInsetRect(titleFrame, NSHeight(titleFrame) /16, NSHeight(titleFrame)/16);
 		editorFrame.origin = NSMakePoint(NSHeight(titleFrame) /16, NSHeight(titleFrame)/16);
-    
-        [[self textModeEditor] setMaxSize:NSMakeSize(FLT_MAX, FLT_MAX)];
-        [[self textModeEditor] setFocusRingType:NSFocusRingTypeNone];        
-        [[self textModeEditor] setDelegate: self];
-        [[self textModeEditor] setAllowsUndo:YES];
-        [[self textModeEditor] setHorizontallyResizable: YES];
-        [[self textModeEditor] setVerticallyResizable: YES];
-        [[self textModeEditor] setDrawsBackground: NO];
-        [[self textModeEditor] setEditable:YES];
-        [[self textModeEditor] setSelectable:YES];
 
-        
-		NSScrollView *scrollView = [[NSScrollView alloc] initWithFrame:editorFrame];
-		[scrollView setBorderType:NSNoBorder];
-		[scrollView setHasVerticalScroller:NO];
-		[scrollView setAutohidesScrollers:YES];
-		[scrollView setDrawsBackground:NO];
+        NSScrollView *scrollView = [[NSScrollView alloc] initWithFrame:editorFrame];
+        [scrollView setBorderType:NSNoBorder];
+        [scrollView setHasVerticalScroller:NO];
+        [scrollView setHasHorizontalScroller:NO];
+        [scrollView setAutohidesScrollers:YES];
         
         NSSize contentSize = [scrollView contentSize];
-        [[self textModeEditor] setMinSize:NSMakeSize(0, contentSize.height)];        
-        [[self textModeEditor] setFont:textCellFont];
-        
-		[[self textModeEditor] setFieldEditor:YES];
+        [[self textModeEditor] setMinSize:NSMakeSize(0, contentSize.height)];
         
         [scrollView setDocumentView:[self textModeEditor]];
 		[self addSubview:scrollView];
