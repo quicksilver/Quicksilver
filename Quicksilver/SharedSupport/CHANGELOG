@@ -4,6 +4,10 @@
 
   * Menu bar icon tweaked to be more consistent with Yosemite (#2017)
 
+### Fixed ###
+
+  * Update grabicon.com API for web search favorite icons (#2024)
+
 ## Changes - 1.2.2 (4011) ##
 
 ### Fixed ###
