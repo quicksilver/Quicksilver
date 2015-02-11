@@ -39,7 +39,7 @@
         faviconScheme = @"http";
     }
     
-	NSString *favIconString = [NSString stringWithFormat:@"http://g.etfv.co/%@://%@?defaulticon=none&extension=.ico", faviconScheme, [favIconURL host]];
+	NSString *favIconString = [NSString stringWithFormat:@"http://grabicon.com/icon?domain=%@://%@&origin=quicksilverosx", faviconScheme, [favIconURL host]];
 	NSImage *favicon = [[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:favIconString]];
 	return favicon;
 }
