@@ -8,6 +8,10 @@
 
   * Update grabicon.com API for web search favorite icons (#2024)
 
+### Changed ###
+
+  * Remove the work-around from #2003, as it's no longer needed (#2026)
+
 ## Changes - 1.2.2 (4011) ##
 
 ### Fixed ###
